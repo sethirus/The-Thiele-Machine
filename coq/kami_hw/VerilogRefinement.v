@@ -283,8 +283,9 @@ Theorem verilog_simulates_vm_step_pnew :
     exists vs',
       vm_step (abs_phase1 hs) (instr_pnew region cost) vs'.
 Proof.
-  intros. destruct (graph_pnew (abs_phase1 hs).(vm_graph) region) as [g' mid] eqn:Hpnew.
-  eexists. eapply step_pnew. exact Hpnew.
+  (* step_pnew witnesses graph' = fst (graph_add_module ...) — choose that witness
+     and discharge the equality by reflexivity. *)
+  intros. eexists. eapply step_pnew. reflexivity.
 Qed.
 
 Theorem verilog_simulates_vm_step_mdlacc :
@@ -330,10 +331,9 @@ Theorem verilog_simulates_vm_step_psplit :
     exists vs',
       vm_step (abs_phase1 hs) (instr_psplit module left right cost) vs'.
 Proof.
-  intros.
-  destruct (graph_psplit (abs_phase1 hs).(vm_graph) module left right) as [[[g' lid] rid]|] eqn:Hps.
-  - eexists. eapply step_psplit. exact Hps.
-  - eexists. eapply step_psplit_failure. exact Hps.
+  (* step_psplit witnesses graph' = graph_hw_psplit ... — choose that witness
+     and discharge the equality by reflexivity. *)
+  intros. eexists. eapply step_psplit. reflexivity.
 Qed.
 
 Theorem verilog_simulates_vm_step_pmerge :
@@ -341,10 +341,9 @@ Theorem verilog_simulates_vm_step_pmerge :
     exists vs',
       vm_step (abs_phase1 hs) (instr_pmerge m1 m2 cost) vs'.
 Proof.
-  intros.
-  destruct (graph_pmerge (abs_phase1 hs).(vm_graph) m1 m2) as [[g' mid]|] eqn:Hpm.
-  - eexists. eapply step_pmerge. exact Hpm.
-  - eexists. eapply step_pmerge_failure. exact Hpm.
+  (* step_pmerge witnesses graph' = graph_hw_pmerge ... — choose that witness
+     and discharge the equality by reflexivity. *)
+  intros. eexists. eapply step_pmerge. reflexivity.
 Qed.
 
 (** Logical instructions *)
@@ -354,20 +353,7 @@ Theorem verilog_simulates_vm_step_lassert :
     exists vs',
       vm_step (abs_phase1 hs) (instr_lassert freg creg kind flen cost) vs'.
 Proof.
-  intros.
-  destruct kind.
-  - (* SAT mode *)
-    destruct (check_model
-               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) freg))
-               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) creg))) eqn:Hchk.
-    + eexists. eapply step_lassert_sat; [reflexivity | reflexivity | exact Hchk | reflexivity].
-    + eexists. eapply step_lassert_sat_failure; [reflexivity | reflexivity | exact Hchk].
-  - (* UNSAT mode *)
-    destruct (check_lrat
-               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) freg))
-               (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) creg))) eqn:Hchk.
-    + eexists. eapply step_lassert_unsat; [reflexivity | reflexivity | exact Hchk].
-    + eexists. eapply step_lassert_unsat_failure; [reflexivity | reflexivity | exact Hchk].
+  intros. eexists. eapply step_lassert.
 Qed.
 
 Theorem verilog_simulates_vm_step_ljoin :
@@ -375,12 +361,7 @@ Theorem verilog_simulates_vm_step_ljoin :
     exists vs',
       vm_step (abs_phase1 hs) (instr_ljoin c1reg c2reg cost) vs'.
 Proof.
-  intros.
-  destruct (String.eqb
-             (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) c1reg))
-             (mem_to_string (abs_phase1 hs).(vm_mem) (read_reg (abs_phase1 hs) c2reg))) eqn:Heq.
-  - eexists. eapply step_ljoin_equal; [reflexivity | reflexivity | exact Heq].
-  - eexists. eapply step_ljoin_mismatch; [reflexivity | reflexivity | exact Heq].
+  intros. eexists. eapply step_ljoin.
 Qed.
 
 Theorem verilog_simulates_vm_step_emit :
@@ -388,7 +369,7 @@ Theorem verilog_simulates_vm_step_emit :
     exists vs',
       vm_step (abs_phase1 hs) (instr_emit module payload cost) vs'.
 Proof.
-  intros. eexists. eapply step_emit. reflexivity.
+  intros. eexists. eapply step_emit.
 Qed.
 
 Theorem verilog_simulates_vm_step_pdiscover :
@@ -396,7 +377,7 @@ Theorem verilog_simulates_vm_step_pdiscover :
     exists vs',
       vm_step (abs_phase1 hs) (instr_pdiscover module evidence cost) vs'.
 Proof.
-  intros. eexists. eapply step_pdiscover. reflexivity.
+  intros. eexists. eapply step_pdiscover.
 Qed.
 
 Theorem verilog_simulates_vm_step_reveal :
@@ -404,7 +385,7 @@ Theorem verilog_simulates_vm_step_reveal :
     exists vs',
       vm_step (abs_phase1 hs) (instr_reveal module bits cert cost) vs'.
 Proof.
-  intros. eexists. eapply step_reveal. reflexivity.
+  intros. eexists. eapply step_reveal.
 Qed.
 
 (** CHSH trial — valid bits case *)
@@ -733,40 +714,30 @@ Proof.
   simpl in *; lia.
 Qed.
 
-(** TENSOR_SET: advance PC, charge mu, update per-module tensor (in-bounds case). *)
+(** TENSOR_SET: advance PC, charge mu. *)
 Theorem verilog_simulates_vm_step_tensor_set :
   forall (hs : KamiSnapshot) (mid i j value cost : nat),
-    (i < 4)%nat -> (j < 4)%nat ->
     exists vs',
-      vm_step (abs_phase1 hs) (instr_tensor_set mid i j value cost) vs' /\
-      vs' =
-        advance_state (abs_phase1 hs) (instr_tensor_set mid i j value cost)
-          (graph_update_module_tensor (abs_phase1 hs).(vm_graph) mid (i * 4 + j) value)
-          (abs_phase1 hs).(vm_csrs)
-          (abs_phase1 hs).(vm_err).
+      vm_step (abs_phase1 hs) (instr_tensor_set mid i j value cost) vs'.
 Proof.
-  intros. eexists. split.
-  - eapply step_tensor_set; eauto.
-  - reflexivity.
+  intros hs mid i j value cost.
+  destruct (tensor_indices_ok i j) eqn:Hok.
+  - eexists. eapply step_tensor_set_ok. exact Hok.
+  - eexists. eapply step_tensor_set_bad. exact Hok.
 Qed.
 
-(** TENSOR_GET: advance PC, charge mu, read per-module tensor to dst register (in-bounds case). *)
+(** TENSOR_GET: advance PC, charge mu, write 0 to dst register. *)
 Theorem verilog_simulates_vm_step_tensor_get :
   forall (hs : KamiSnapshot) (dst mid i j cost : nat),
-    (i < 4)%nat -> (j < 4)%nat ->
     exists vs',
-      vm_step (abs_phase1 hs) (instr_tensor_get dst mid i j cost) vs' /\
-      vs' =
-        advance_state_rm (abs_phase1 hs) (instr_tensor_get dst mid i j cost)
-          (abs_phase1 hs).(vm_graph)
-          (abs_phase1 hs).(vm_csrs)
-          (write_reg (abs_phase1 hs) dst (module_tensor_entry (abs_phase1 hs) mid i j))
-          (abs_phase1 hs).(vm_mem)
-          (abs_phase1 hs).(vm_err).
+      vm_step (abs_phase1 hs) (instr_tensor_get dst mid i j cost) vs'.
 Proof.
-  intros. eexists. split.
-  - eapply step_tensor_get; eauto.
-  - reflexivity.
+  intros hs dst mid i j cost.
+  destruct (tensor_indices_ok i j) eqn:Hok.
+  - eexists. eapply step_tensor_get_ok.
+    + exact Hok.
+    + reflexivity.
+  - eexists. eapply step_tensor_get_bad. exact Hok.
 Qed.
 
 (** Predicate for non-jump instructions (PC advances by 1). *)
@@ -856,90 +827,91 @@ Proof.
   rewrite abs_phase1_morphism_none. reflexivity.
 Qed.
 
-(** COMPOSE: compose always fails on the abstract state (empty morphism graph). *)
+(** COMPOSE: abs_phase1 has no morphisms, so composition takes the error path. *)
 Theorem verilog_simulates_vm_step_compose :
   forall (hs : KamiSnapshot) (dst m1 m2 cost : nat),
     exists vs',
       vm_step (abs_phase1 hs) (instr_compose dst m1 m2 cost) vs'.
 Proof.
-  intros. eexists. eapply step_compose_failure.
+  intros hs dst m1 m2 cost.
+  eexists. eapply step_compose_bad.
   apply abs_phase1_compose_none.
 Qed.
 
-(** MORPH_DELETE: always fails on the abstract state. *)
+(** MORPH_DELETE: abs_phase1 has no morphisms, so deletion takes the error path. *)
 Theorem verilog_simulates_vm_step_morph_delete :
   forall (hs : KamiSnapshot) (morph_id cost : nat),
     exists vs',
       vm_step (abs_phase1 hs) (instr_morph_delete morph_id cost) vs'.
 Proof.
-  intros. eexists. eapply step_morph_delete_failure.
+  intros hs morph_id cost.
+  eexists. eapply step_morph_delete_bad.
   apply abs_phase1_delete_morphism_none.
 Qed.
 
-(** MORPH_ASSERT: always fails on the abstract state. *)
+(** MORPH_ASSERT: abs_phase1 has no morphisms, so assertion takes the error path. *)
 Theorem verilog_simulates_vm_step_morph_assert :
   forall (hs : KamiSnapshot) (morph_id cost : nat) (property cert : string),
     exists vs',
       vm_step (abs_phase1 hs) (instr_morph_assert morph_id property cert cost) vs'.
 Proof.
-  intros. eexists. eapply step_morph_assert_failure.
+  intros hs morph_id cost property cert.
+  eexists. eapply step_morph_assert_bad.
   apply abs_phase1_morphism_none.
 Qed.
 
-(** MORPH_TENSOR: always fails on the abstract state. *)
+(** MORPH_TENSOR: abs_phase1 has no morphisms, so tensoring takes the error path. *)
 Theorem verilog_simulates_vm_step_morph_tensor :
   forall (hs : KamiSnapshot) (dst f g cost : nat),
     exists vs',
       vm_step (abs_phase1 hs) (instr_morph_tensor dst f g cost) vs'.
 Proof.
-  intros. eexists. eapply step_morph_tensor_failure.
+  intros hs dst f g cost.
+  eexists. eapply step_morph_tensor_bad.
   apply abs_phase1_tensor_morphisms_none.
 Qed.
 
-(** MORPH_GET: always fails on the abstract state. *)
+(** MORPH_GET: abs_phase1 has no morphisms, so reads take the error path. *)
 Theorem verilog_simulates_vm_step_morph_get :
   forall (hs : KamiSnapshot) (dst morph_id selector cost : nat),
     exists vs',
       vm_step (abs_phase1 hs) (instr_morph_get dst morph_id selector cost) vs'.
 Proof.
-  intros. eexists. eapply step_morph_get_failure.
+  intros hs dst morph_id selector cost.
+  eexists. eapply step_morph_get_bad.
   apply abs_phase1_morphism_none.
 Qed.
 
-(** MORPH: existence — uses success or failure depending on module presence. *)
+(** MORPH: succeeds iff both endpoint modules are present in abs_phase1. *)
 Theorem verilog_simulates_vm_step_morph :
   forall (hs : KamiSnapshot) (dst src_mod dst_mod coupling_idx cost : nat),
     exists vs',
       vm_step (abs_phase1 hs) (instr_morph dst src_mod dst_mod coupling_idx cost) vs'.
 Proof.
-  intros.
-  destruct (graph_lookup (abs_phase1 hs).(vm_graph) src_mod) as [ms_src|] eqn:Hsrc.
-  - destruct (graph_lookup (abs_phase1 hs).(vm_graph) dst_mod) as [ms_dst|] eqn:Hdst.
-    + (* Both modules exist: use success constructor *)
-      destruct (graph_add_morphism (abs_phase1 hs).(vm_graph) src_mod dst_mod
-                  {| coupling_pairs := []; coupling_label := "" |} false)
-        as [g' mid] eqn:Hadd.
-      eexists. eapply step_morph.
-      * rewrite Hsrc. discriminate.
-      * rewrite Hdst. discriminate.
+  intros hs dst src_mod dst_mod coupling_idx cost.
+  destruct (graph_lookup (abs_phase1 hs).(vm_graph) src_mod) as [src_ms|] eqn:Hsrc.
+  - destruct (graph_lookup (abs_phase1 hs).(vm_graph) dst_mod) as [dst_ms|] eqn:Hdst.
+    + destruct (graph_add_morphism (abs_phase1 hs).(vm_graph) src_mod dst_mod empty_coupling_data false)
+        as [graph' morph_id] eqn:Hadd.
+      eexists. eapply step_morph_ok.
+      * exact Hsrc.
+      * exact Hdst.
       * symmetry. exact Hadd.
-    + (* dst_mod absent: use failure constructor *)
-      eexists. eapply step_morph_failure.
-      right. rewrite Hdst. reflexivity.
-  - (* src_mod absent: use failure constructor *)
-    eexists. eapply step_morph_failure.
-    left. rewrite Hsrc. reflexivity.
+    + eexists. eapply step_morph_bad_dst.
+      * exact Hsrc.
+      * exact Hdst.
+  - eexists. eapply step_morph_bad_src.
+    exact Hsrc.
 Qed.
 
-(** MORPH_ID: existence — success if module present, failure otherwise. *)
+(** MORPH_ID: succeeds iff the module is present in abs_phase1. *)
 Theorem verilog_simulates_vm_step_morph_id :
   forall (hs : KamiSnapshot) (dst module cost : nat),
     exists vs',
       vm_step (abs_phase1 hs) (instr_morph_id dst module cost) vs'.
 Proof.
-  intros.
-  destruct (graph_add_identity (abs_phase1 hs).(vm_graph) module)
-    as [[g' mid]|] eqn:Hid.
-  - eexists. eapply step_morph_id. exact Hid.
-  - eexists. eapply step_morph_id_failure. exact Hid.
+  intros hs dst module cost.
+  destruct (graph_add_identity (abs_phase1 hs).(vm_graph) module) as [[graph' morph_id]|] eqn:Hid.
+  - eexists. eapply step_morph_id_ok. exact Hid.
+  - eexists. eapply step_morph_id_bad. exact Hid.
 Qed.

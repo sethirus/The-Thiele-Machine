@@ -33,8 +33,10 @@
     ZERO AXIOMS. ZERO ADMITS.
 *)
 
-From Coq Require Import Reals Lra.
+From Coq Require Import Reals Lra Lia List.
+Import ListNotations.
 From Kernel Require Import VMState.
+From Kernel Require Import VMStep.
 From Kernel Require Import MuCostModel.
 From Kernel Require Import LocalMorphismSemantics.
 From Kernel Require Import EntanglementEntropy.
@@ -133,6 +135,126 @@ Definition landauer_entropy_identification
     entropy_per_bit support_pre support_post =
   k_B * ln 2 *
   ClausiusFromEntropyArea.vm_mu_delta s_pre s_post.
+
+(** [mu_bit_calibration]: the irreducible machine-native calibration.
+
+    This isolates the empirical content of the entropy identification:
+    the support-level entropy change in bits equals the VM μ-cost delta. *)
+Definition mu_bit_calibration
+    (support_pre support_post : LocalMorphismSemantics.joint_support)
+    (s_pre s_post : VMState) : Prop :=
+  (INR (entanglement_entropy_vn_bits support_post) -
+   INR (entanglement_entropy_vn_bits support_pre))%R =
+  ClausiusFromEntropyArea.vm_mu_delta s_pre s_post.
+
+Theorem landauer_identification_from_bit_calibration :
+  forall (k_B : R)
+         (support_pre support_post : LocalMorphismSemantics.joint_support)
+         (s_pre s_post : VMState),
+    (0 < k_B)%R ->
+    mu_bit_calibration support_pre support_post s_pre s_post ->
+    landauer_entropy_identification
+      k_B (k_B * ln 2) support_pre support_post s_pre s_post.
+Proof.
+  intros k_B support_pre support_post s_pre s_post _ Hbit.
+  unfold landauer_entropy_identification.
+  split.
+  - reflexivity.
+  - assert (Hdelta :
+        ClausiusFromEntropyArea.entropy_increment_delta
+          (k_B * ln 2) support_pre support_post =
+        ((k_B * ln 2) *
+         (INR (entanglement_entropy_vn_bits support_post) -
+          INR (entanglement_entropy_vn_bits support_pre)))%R).
+    {
+      unfold ClausiusFromEntropyArea.entropy_increment_delta,
+             ClausiusFromEntropyArea.entropy_increment.
+      ring.
+    }
+    rewrite Hdelta.
+    unfold mu_bit_calibration in Hbit.
+    rewrite Hbit.
+    ring.
+Qed.
+
+Definition psplit_entropy_event
+    (left right : list nat) : LocalMorphismSemantics.joint_support :=
+  LocalMorphismSemantics.cartesian_pairs
+    (normalize_region left) (normalize_region right).
+
+Definition psplit_cost_matches_entropy
+    (left right : list nat) (cost : nat) : Prop :=
+  cost = entanglement_entropy_vn_bits (psplit_entropy_event left right).
+
+Lemma entanglement_entropy_vn_bits_nil :
+  entanglement_entropy_vn_bits [] = 0%nat.
+Proof.
+  unfold entanglement_entropy_vn_bits,
+         reduced_state_support,
+         partial_trace_right_support.
+  simpl.
+  apply Nat.log2_up_nonpos.
+  lia.
+Qed.
+
+Lemma vm_mu_delta_of_psplit_step :
+  forall s s' module left right cost,
+    vm_step s (instr_psplit module left right cost) s' ->
+    ClausiusFromEntropyArea.vm_mu_delta s s' = INR cost.
+Proof.
+  intros s s' module left right cost Hstep.
+  inversion Hstep; subst.
+  unfold ClausiusFromEntropyArea.vm_mu_delta,
+         advance_state,
+         apply_cost.
+  simpl.
+  rewrite plus_INR.
+  lra.
+Qed.
+
+Theorem psplit_step_mu_bit_calibration :
+  forall s s' module left right cost,
+    vm_step s (instr_psplit module left right cost) s' ->
+    psplit_cost_matches_entropy left right cost ->
+    mu_bit_calibration [] (psplit_entropy_event left right) s s'.
+Proof.
+  intros s s' module left right cost Hstep Hcost.
+  unfold mu_bit_calibration, psplit_cost_matches_entropy.
+  rewrite entanglement_entropy_vn_bits_nil.
+  rewrite vm_mu_delta_of_psplit_step
+    with (module := module) (left := left) (right := right) (cost := cost);
+    try exact Hstep.
+  unfold psplit_entropy_event.
+  rewrite <- Hcost.
+  simpl.
+  lra.
+Qed.
+
+Theorem psplit_step_realizes_transition_entropy_event :
+  forall s s' module left right cost,
+    vm_step s (instr_psplit module left right cost) s' ->
+    psplit_cost_matches_entropy left right cost ->
+    exists P : LocalMorphismSemantics.SplitMorphism,
+      LocalMorphismSemantics.split_left P = normalize_region left /\
+      LocalMorphismSemantics.split_right P = normalize_region right /\
+      In [] (LocalMorphismSemantics.morphism_support_semantics P) /\
+      In (psplit_entropy_event left right)
+         (LocalMorphismSemantics.morphism_support_semantics P) /\
+      mu_bit_calibration [] (psplit_entropy_event left right) s s'.
+Proof.
+  intros s s' module left right cost Hstep Hcost.
+  exists (LocalMorphismSemantics.psplit_transition_morphism left right).
+  simpl.
+  split.
+  - reflexivity.
+  - split.
+    + reflexivity.
+    + split.
+      * left. reflexivity.
+      * split.
+        -- right. left. reflexivity.
+        -- eapply psplit_step_mu_bit_calibration; eauto.
+Qed.
 
 (** =========================================================================
     SECTION 3: THE DERIVATION — LANDAUER HYPOTHESES → CALIBRATION
@@ -239,6 +361,30 @@ Proof.
   - exact Hentropy.
 Qed.
 
+Theorem mu_landauer_unruh_calibrated_from_constant_and_bit_calibration :
+  forall (hbar c_light k_B : R)
+         (s_pre s_post : VMState)
+         (P : LocalMorphismSemantics.SplitMorphism)
+         (support_pre support_post : LocalMorphismSemantics.joint_support),
+    (0 < c_light)%R ->
+    (0 < k_B)%R ->
+    landauer_unruh_constant_calibration hbar c_light ->
+    mu_bit_calibration support_pre support_post s_pre s_post ->
+    RaychaudhuriFluxBridge.null_energy_flux_delta
+      RaychaudhuriFluxBridge.calibrated_null_congruence s_pre s_post P =
+    (ClausiusFromEntropyArea.unruh_temperature hbar c_light k_B P *
+     ClausiusFromEntropyArea.entropy_increment_delta
+       (k_B * ln 2) support_pre support_post)%R.
+Proof.
+  intros hbar c_light k_B s_pre s_post P support_pre support_post
+         Hc Hk Hconst Hbit.
+  apply (mu_landauer_unruh_calibrated_from_constant_calibration
+           hbar c_light k_B (k_B * ln 2)
+           s_pre s_post P support_pre support_post);
+    try assumption.
+  apply landauer_identification_from_bit_calibration; assumption.
+Qed.
+
 (** =========================================================================
     SECTION 4: WHAT THE BEKENSTEIN ARGUMENT ESTABLISHES
     ========================================================================= *)
@@ -263,4 +409,75 @@ Definition bekenstein_rindler_ratio_justified := bekenstein_rindler_energy_per_b
 (** Summary: after the constants calibration is made explicit, the remaining
     semantic input is the ledger-to-support entropy identification. *)
 Definition bekenstein_calibration_open_obligation :=
-  landauer_entropy_identification.
+  mu_bit_calibration.
+
+(** =========================================================================
+    SECTION 5: PNEW ENTROPY CALIBRATION
+    Generalizes beyond PSPLIT to the module-creation instruction family.
+
+    PHYSICAL INTERPRETATION: Creating a new module with n distinct region
+    elements requires log₂(n) bits of information to specify the allocation.
+    The entropy event is the self-support of the normalized region.
+    ========================================================================= *)
+
+(** The entropy event for PNEW: each region element paired with itself,
+    forming a diagonal joint_support.  The reduced-state support equals
+    the normalized region, so the entropy is log₂(|region|) bits. *)
+Definition pnew_entropy_event
+    (region : list nat) : LocalMorphismSemantics.joint_support :=
+  map (fun x => (x, x)) (normalize_region region).
+
+(** Cost-entropy matching for PNEW. *)
+Definition pnew_cost_matches_entropy
+    (region : list nat) (cost : nat) : Prop :=
+  cost = entanglement_entropy_vn_bits (pnew_entropy_event region).
+
+(** μ-delta for a PNEW step equals the declared cost. *)
+Lemma vm_mu_delta_of_pnew_step :
+  forall s s' region cost,
+    vm_step s (instr_pnew region cost) s' ->
+    ClausiusFromEntropyArea.vm_mu_delta s s' = INR cost.
+Proof.
+  intros s s' region cost Hstep.
+  inversion Hstep; subst.
+  unfold ClausiusFromEntropyArea.vm_mu_delta,
+         advance_state,
+         apply_cost.
+  simpl.
+  rewrite plus_INR.
+  lra.
+Qed.
+
+(** The reduced-state support of the PNEW diagonal event equals the
+    normalized region (since nodup is idempotent on normalize_region). *)
+Lemma pnew_reduced_support_eq :
+  forall region,
+    reduced_state_support (pnew_entropy_event region) =
+    normalize_region region.
+Proof.
+  intro region.
+  unfold pnew_entropy_event, reduced_state_support,
+         partial_trace_right_support.
+  rewrite map_map. simpl.
+  rewrite map_id.
+  apply normalize_region_idempotent.
+Qed.
+
+(** PNEW satisfies mu_bit_calibration when the cost matches the
+    entropy of the new module's region. *)
+Theorem pnew_step_mu_bit_calibration :
+  forall s s' region cost,
+    vm_step s (instr_pnew region cost) s' ->
+    pnew_cost_matches_entropy region cost ->
+    mu_bit_calibration [] (pnew_entropy_event region) s s'.
+Proof.
+  intros s s' region cost Hstep Hcost.
+  unfold mu_bit_calibration, pnew_cost_matches_entropy.
+  rewrite entanglement_entropy_vn_bits_nil.
+  rewrite vm_mu_delta_of_pnew_step
+    with (region := region) (cost := cost);
+    try exact Hstep.
+  rewrite <- Hcost.
+  simpl.
+  lra.
+Qed.

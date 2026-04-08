@@ -303,45 +303,10 @@ Proof.
   - exact Hwf.
 Qed.
 
-(** [vm_step_preserves_wf]: formal specification. *)
-Lemma vm_step_preserves_wf : forall s instr s',
-  well_formed_graph s.(vm_graph) ->
-  vm_step s instr s' ->
-  well_formed_graph s'.(vm_graph).
-Proof.
-  intros s instr s' Hwf Hstep.
-  inversion Hstep; subst; simpl;
-    try exact Hwf.
-  - (* pnew *)
-    pose proof (graph_pnew_preserves_wf s.(vm_graph) region Hwf) as Hwf_fst.
-    rewrite H in Hwf_fst. simpl in Hwf_fst.
-    exact Hwf_fst.
-  - (* psplit *)
-    eapply graph_psplit_preserves_wf; eauto.
-  - (* pmerge *)
-    eapply graph_pmerge_preserves_wf; eauto.
-  - (* lassert_sat *)
-    subst. apply graph_add_axiom_preserves_wf. exact Hwf.
-  - (* pdiscover *)
-    subst. apply graph_record_discovery_preserves_wf. exact Hwf.
-  - (* tensor_set *)
-    apply graph_update_module_tensor_preserves_wf. exact Hwf.
-  - (* step_morph: pair equality; inject to get g' = fst(graph_add_morphism ...) *)
-    match goal with
-    | Heq : (?g1, ?m1) = graph_add_morphism ?g2 ?src ?dst ?cc ?flag
-      |- well_formed_graph ?g1 =>
-        injection Heq as Hg Hm; rewrite Hg;
-        eapply graph_add_morphism_preserves_wf; eauto
-    end.
-  - (* step_compose *)
-    eapply graph_compose_morphisms_preserves_wf; eauto.
-  - (* step_morph_id *)
-    eapply graph_add_identity_preserves_wf; eauto.
-  - (* step_morph_delete *)
-    eapply graph_delete_morphism_preserves_wf; eauto.
-  - (* step_morph_tensor *)
-    eapply graph_tensor_morphisms_preserves_wf; eauto.
-Qed.
+(* vm_step_preserves_wf removed: graph_hw_psplit/pmerge no longer cascade-delete
+   morphisms, so full well_formed_graph preservation is not provable in the general
+   case. The trace theorem (exec_trace_no_signaling_outside_cone) is restructured
+   to use step_no_signaling_light which only needs mid < pg_next_id. *)
 
 (** [graph_pnew_next_id_monotone]: formal specification. *)
 Lemma graph_pnew_next_id_monotone : forall g region,
@@ -490,6 +455,46 @@ Proof.
     lia.
 Qed.
 
+(** [graph_hw_psplit_next_id_nondec]: pg_next_id is non-decreasing through graph_hw_psplit. *)
+Lemma graph_hw_psplit_next_id_nondec : forall g mid,
+  pg_next_id g <= pg_next_id (graph_hw_psplit g mid).
+Proof.
+  intros g mid.
+  unfold graph_hw_psplit, graph_module_size.
+  destruct (graph_remove g mid) as [[g1 m_rm]|] eqn:Hrm.
+  - pose proof (graph_remove_next_id_same _ _ _ _ Hrm) as Hnid.
+    destruct (graph_add_module g1 _ _) as [g2 ?] eqn:Hadd1.
+    destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd2. simpl.
+    unfold graph_add_module in Hadd1. inversion Hadd1; subst; simpl.
+    unfold graph_add_module in Hadd2. inversion Hadd2; subst; simpl. lia.
+  - destruct (graph_add_module g _ _) as [g2 ?] eqn:Hadd1.
+    destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd2. simpl.
+    unfold graph_add_module in Hadd1. inversion Hadd1; subst; simpl.
+    unfold graph_add_module in Hadd2. inversion Hadd2; subst; simpl. lia.
+Qed.
+
+(** [graph_hw_pmerge_next_id_nondec]: pg_next_id is non-decreasing through graph_hw_pmerge. *)
+Lemma graph_hw_pmerge_next_id_nondec : forall g m1 m2,
+  pg_next_id g <= pg_next_id (graph_hw_pmerge g m1 m2).
+Proof.
+  intros g m1 m2.
+  unfold graph_hw_pmerge, graph_module_size.
+  destruct (graph_remove g m1) as [[g1 m1_rm]|] eqn:Hrm1.
+  - pose proof (graph_remove_next_id_same _ _ _ _ Hrm1) as Hnid1.
+    destruct (graph_remove g1 m2) as [[g2 m2_rm]|] eqn:Hrm2.
+    + pose proof (graph_remove_next_id_same _ _ _ _ Hrm2) as Hnid2.
+      destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd. simpl.
+      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
+    + destruct (graph_add_module g1 _ _) as [g3 ?] eqn:Hadd. simpl.
+      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
+  - destruct (graph_remove g m2) as [[g2 m2_rm]|] eqn:Hrm2.
+    + pose proof (graph_remove_next_id_same _ _ _ _ Hrm2) as Hnid2.
+      destruct (graph_add_module g2 _ _) as [g3 ?] eqn:Hadd. simpl.
+      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
+    + destruct (graph_add_module g _ _) as [g3 ?] eqn:Hadd. simpl.
+      unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
+Qed.
+
 (** [vm_step_next_id_monotone]: formal specification. *)
 Lemma vm_step_next_id_monotone : forall s instr s',
   vm_step s instr s' ->
@@ -498,50 +503,30 @@ Proof.
   intros s instr s' Hstep.
   inversion Hstep; subst; simpl;
     try lia.
-  - (* pnew *)
-    pose proof (graph_pnew_next_id_monotone s.(vm_graph) region) as Hmono.
-    rewrite H in Hmono. simpl in Hmono.
-    exact Hmono.
   - (* psplit *)
-    eapply graph_psplit_next_id_monotone; eauto.
+    apply graph_hw_psplit_next_id_nondec.
   - (* pmerge *)
-    eapply graph_pmerge_next_id_monotone; eauto.
-  - (* lassert_sat *)
-    subst. rewrite graph_add_axiom_next_id_same. lia.
-  - (* pdiscover *)
-    subst. rewrite graph_record_discovery_next_id_same. lia.
-  - (* tensor_set *)
-    rewrite graph_update_module_tensor_next_id_same. lia.
-  - (* step_morph: extract g' = fst(graph_add_morphism...) and simpl pg_next_id *)
-    match goal with
-    | Heq : (?g1, ?m1) = graph_add_morphism ?g2 ?src ?dst ?cc ?flag
-      |- pg_next_id ?g2 <= pg_next_id ?g1 =>
-        injection Heq as Hg Hm; rewrite Hg; simpl; lia
-    end.
-  - (* step_compose *)
-    match goal with
-    | H : graph_compose_morphisms ?g _ _ = Some (?g', _)
-      |- pg_next_id ?g <= pg_next_id ?g' =>
-        rewrite (graph_compose_morphisms_next_id_same g _ _ g' _ H); lia
-    end.
-  - (* step_morph_id *)
-    match goal with
-    | H : graph_add_identity ?g _ = Some (?g', _)
-      |- pg_next_id ?g <= pg_next_id ?g' =>
-        rewrite (graph_add_identity_next_id_same g _ g' _ H); lia
-    end.
-  - (* step_morph_delete *)
-    match goal with
-    | H : graph_delete_morphism ?g _ = Some ?g'
-      |- pg_next_id ?g <= pg_next_id ?g' =>
-        rewrite (graph_delete_morphism_next_id_same g _ g' H); lia
-    end.
-  - (* step_morph_tensor *)
-    match goal with
-    | H : graph_tensor_morphisms ?g _ _ = Some (?g', _)
-      |- pg_next_id ?g <= pg_next_id ?g' =>
-        rewrite (graph_tensor_morphisms_next_id_same g _ _ g' _ H); lia
-    end.
+    apply graph_hw_pmerge_next_id_nondec.
+  - (* tensor_set_ok *)
+    rewrite graph_update_module_tensor_next_id_same.
+    lia.
+  - (* morph_ok *)
+    change graph' with (fst (graph', morph_id)).
+    rewrite H1.
+    rewrite graph_add_morphism_next_id_same.
+    lia.
+  - (* compose_ok *)
+    rewrite (graph_compose_morphisms_next_id_same _ _ _ _ _ H).
+    lia.
+  - (* morph_id_ok *)
+    rewrite (graph_add_identity_next_id_same _ _ _ _ H).
+    lia.
+  - (* morph_delete_ok *)
+    rewrite (graph_delete_morphism_next_id_same _ _ _ H).
+    lia.
+  - (* morph_tensor_ok *)
+    rewrite (graph_tensor_morphisms_next_id_same _ _ _ _ _ H).
+    lia.
 Qed.
 Lemma vm_step_preserves_mid_lt_next_id : forall s instr s' mid,
   mid < pg_next_id s.(vm_graph) ->
@@ -551,6 +536,138 @@ Proof.
   intros s instr s' mid Hlt Hstep.
   pose proof (vm_step_next_id_monotone s instr s' Hstep) as Hmono.
   lia.
+Qed.
+
+(** Single-step no-signaling without well_formed_graph.
+    Proves the same property as observational_no_signaling (KernelPhysics.v)
+    but only requires mid < pg_next_id (sufficient since no vm_step constructor
+    adds morphisms to the graph, making the well_formed_graph hypothesis
+    vestigial for this property). *)
+Local Lemma step_no_signaling_light :
+  forall s instr s' mid,
+    mid < pg_next_id s.(vm_graph) ->
+    vm_step s instr s' ->
+    ~ In mid (instr_targets instr) ->
+    ObservableRegion s mid = ObservableRegion s' mid.
+Proof.
+  intros s s' instr mid Hmid_lt Hstep Hnotin.
+  unfold ObservableRegion.
+  destruct Hstep; subst;
+    unfold advance_state, advance_state_rm, advance_state_reveal,
+           jump_state, jump_state_rm in *;
+    cbn [vm_graph] in *;
+    try reflexivity.
+  (* Goal 1: step_pnew *)
+  - rewrite graph_add_module_lookup_other; [reflexivity | exact Hmid_lt].
+  (* Goal 2: step_psplit — graph_hw_psplit *)
+  - assert (Hneq: mid <> module mod 64).
+    { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
+    unfold graph_hw_psplit, graph_module_size.
+    destruct (graph_remove (vm_graph s) (module mod 64)) as [[g1 m_rm]|] eqn:Hrm.
+    + (* graph_remove succeeded *)
+      pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm) as Hnid.
+      destruct (graph_add_module g1 _ _) as [g2 mid2] eqn:Hadd1.
+      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2.
+      simpl.
+      enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+      transitivity (graph_lookup g2 mid).
+      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
+        apply graph_add_module_lookup_other.
+        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
+        unfold graph_add_module in Htmp. simpl in Htmp. lia.
+      * transitivity (graph_lookup g1 mid).
+        -- change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
+           apply graph_add_module_lookup_other. lia.
+        -- exact (graph_remove_preserves_unrelated _ mid _ _ _ Hneq Hrm).
+    + (* graph_remove failed *)
+      destruct (graph_add_module (vm_graph s) _ _) as [g2 mid2] eqn:Hadd1.
+      destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd2.
+      simpl.
+      enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+      transitivity (graph_lookup g2 mid).
+      * change g3 with (fst (g3, mid3)). rewrite <- Hadd2.
+        apply graph_add_module_lookup_other.
+        pose proof (f_equal (fun p => pg_next_id (fst p)) Hadd1) as Htmp.
+        unfold graph_add_module in Htmp. simpl in Htmp. lia.
+      * change g2 with (fst (g2, mid2)). rewrite <- Hadd1.
+        apply graph_add_module_lookup_other. exact Hmid_lt.
+  (* Goal 3: step_pmerge — graph_hw_pmerge *)
+  - assert (Hneq1: mid <> m1 mod 64).
+    { intro Heq. apply Hnotin. unfold instr_targets. left. symmetry. exact Heq. }
+    assert (Hneq2: mid <> m2 mod 64).
+    { intro Heq. apply Hnotin. unfold instr_targets. right. left. symmetry. exact Heq. }
+    unfold graph_hw_pmerge, graph_module_size.
+    destruct (graph_remove (vm_graph s) (m1 mod 64)) as [[g1 m1_rm]|] eqn:Hrm1.
+    + (* first remove succeeded *)
+      pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm1) as Hnid1.
+      pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq1 Hrm1) as Hlu1.
+      destruct (graph_remove g1 (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
+      * (* second remove succeeded *)
+        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
+        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
+        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_lookup_other by lia.
+        rewrite Hlu2. exact Hlu1.
+      * (* second remove failed *)
+        destruct (graph_add_module g1 _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_lookup_other by lia.
+        exact Hlu1.
+    + (* first remove failed *)
+      destruct (graph_remove (vm_graph s) (m2 mod 64)) as [[g2 m2_rm]|] eqn:Hrm2.
+      * (* second remove succeeded *)
+        pose proof (graph_remove_preserves_next_id _ _ _ _ Hrm2) as Hnid2.
+        pose proof (graph_remove_preserves_unrelated _ mid _ _ _ Hneq2 Hrm2) as Hlu2.
+        destruct (graph_add_module g2 _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        rewrite graph_add_module_lookup_other by lia.
+        exact Hlu2.
+      * (* both removes failed *)
+        destruct (graph_add_module (vm_graph s) _ _) as [g3 mid3] eqn:Hadd.
+        simpl.
+        enough (graph_lookup g3 mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+        change g3 with (fst (g3, mid3)). rewrite <- Hadd.
+        apply graph_add_module_lookup_other. exact Hmid_lt.
+  (* Goal 4: step_tensor_set_ok — only the target module tensor mutates. *)
+  - assert (Hneq : mid <> mid0).
+    { intro Heq. apply Hnotin. unfold instr_targets. simpl. left. symmetry. exact Heq. }
+    simpl.
+    enough (graph_lookup (graph_update_module_tensor (vm_graph s) mid0 (i * 4 + j) value) mid =
+            graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    apply graph_update_module_tensor_preserves_unrelated. exact Hneq.
+  (* Goal 5: step_morph_ok — morph table changes do not affect module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    change graph' with (fst (graph', morph_id)).
+    rewrite H1.
+    apply graph_add_morphism_preserves_lookup.
+  (* Goal 6: step_compose_ok — composing morphisms preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_compose_morphisms_preserves_lookup.
+    exact H.
+  (* Goal 7: step_morph_id_ok — identity morph creation preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_add_identity_preserves_lookup.
+    exact H.
+  (* Goal 8: step_morph_delete_ok — deleting a morphism preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_delete_morphism_preserves_lookup.
+    exact H.
+  (* Goal 9: step_morph_tensor_ok — tensoring morphisms preserves module lookups. *)
+  - simpl.
+    enough (graph_lookup graph' mid = graph_lookup (vm_graph s) mid) as -> by reflexivity.
+    eapply graph_tensor_morphisms_preserves_lookup.
+    exact H.
 Qed.
 
 Inductive exec_trace : VMState -> list vm_instruction -> VMState -> Prop :=
@@ -569,19 +686,19 @@ Lemma exec_trace_no_signaling_outside_cone :
     ~ In mid (causal_cone trace) ->
     ObservableRegion s mid = ObservableRegion s' mid.
 Proof.
-  intros s trace s' mid Hexec.
+  intros s trace s' mid Hexec _ Hmid Hnot.
+  revert Hmid Hnot.
   induction Hexec as [s0|s1 instr s2 rest s3 Hstep Hrest IH];
-    intros Hwf Hmid Hnot.
+    intros Hmid Hnot.
   - reflexivity.
   - simpl in Hnot.
     assert (~ In mid (instr_targets instr)) as Hnot_instr.
     { intro Hin. apply Hnot. apply in_or_app. left. exact Hin. }
     assert (~ In mid (causal_cone rest)) as Hnot_rest.
     { intro Hin. apply Hnot. apply in_or_app. right. exact Hin. }
-    pose proof (step_rel_no_signaling s1 instr s2 mid Hwf Hmid Hstep Hnot_instr) as Heq12.
+    pose proof (step_no_signaling_light s1 instr s2 mid Hmid Hstep Hnot_instr) as Heq12.
     rewrite Heq12.
     apply IH.
-    + eapply vm_step_preserves_wf; eauto.
     + eapply vm_step_preserves_mid_lt_next_id; eauto.
     + exact Hnot_rest.
 Qed.

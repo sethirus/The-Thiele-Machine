@@ -2,7 +2,7 @@
 Python interface to the Thiele VM.
 
 This is a thin wrapper around thielecpu/vm.py (the Coq-extracted Python VM).
-All 38 opcodes are handled by the formally-derived VM from coq/Extraction.v.
+All 47 opcodes are handled by the formally-derived VM from coq/Extraction.v.
 
 Backend priority:
   1. Coq-extracted OCaml binary (extracted_vm_runner) - when available
@@ -387,10 +387,60 @@ def _decode_formula_len(s: str) -> int:
             result += 1; i += 1
     return result
 
+def _decode_formula_str(s: str) -> str:
+    """Decode underscore-encoded formula/cert string back to plain text."""
+    result = []
+    i = 0
+    while i < len(s):
+        if i + 1 < len(s) and s[i] == '_' and s[i+1] == '_':
+            result.append('\n'); i += 2
+        elif s[i] == '_':
+            result.append(' '); i += 1
+        else:
+            result.append(s[i]); i += 1
+    return ''.join(result)
+
+
+def _parse_dimacs_binary(formula_encoded: str):
+    """Parse encoded DIMACS formula into (hw_flen, nvars, nclauses, lit_words)."""
+    dimacs = _decode_formula_str(formula_encoded)
+    nvars, nclauses, lit_words = 0, 0, []
+    for raw_line in dimacs.split('\n'):
+        line = raw_line.strip()
+        if not line or line.startswith('c'):
+            continue
+        if line.startswith('p'):
+            toks = line.split()
+            if len(toks) >= 4:
+                try: nvars, nclauses = int(toks[2]), int(toks[3])
+                except ValueError: pass
+        else:
+            for tok in line.split():
+                try: lit = int(tok)
+                except ValueError: continue
+                if lit == 0: lit_words.append(0)
+                elif lit > 0: lit_words.append(lit)
+                else: lit_words.append(4294967296 + lit)
+    return len(lit_words), nvars, nclauses, lit_words
+
+
+def _parse_sat_cert_binary(cert_encoded: str, nvars: int):
+    """Parse encoded SAT assignment into cert_words[0..nvars]."""
+    text = _decode_formula_str(cert_encoded)
+    cert_words = [0] * (nvars + 1)
+    for tok in text.split():
+        if tok in ('v', 's', 'SATISFIABLE', 'UNSATISFIABLE'): continue
+        try: lit = int(tok)
+        except ValueError: continue
+        if lit == 0: break
+        v = abs(lit)
+        if 1 <= v <= nvars: cert_words[v] = 1 if lit > 0 else 0
+    return cert_words
 
 # Reserved addresses/registers for on-chip LASSERT memory layout
-_LASSERT_FORMULA_ADDR = 0xE000
-_LASSERT_CERT_ADDR    = 0xF000
+# Low addresses avoid OCaml stack overflow (nth/firstn are O(n) recursive).
+_LASSERT_FORMULA_ADDR = 0x10   # 16
+_LASSERT_CERT_ADDR    = 0x60   # 96
 _LASSERT_FREG         = 28
 _LASSERT_CREG         = 29
 
@@ -434,10 +484,21 @@ def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
                         formula, cert_data, kind = toks[2] if len(toks) > 2 else "", "", 1
                         cost = int(toks[-1])
                     flen = _decode_formula_len(formula)
-                    f.write(f"INIT_MEM_STR {_LASSERT_FORMULA_ADDR} {formula}\n")
-                    f.write(f"INIT_REG {_LASSERT_FREG} {_LASSERT_FORMULA_ADDR}\n")
-                    f.write(f"INIT_MEM_STR {_LASSERT_CERT_ADDR} {cert_data}\n")
-                    f.write(f"INIT_REG {_LASSERT_CREG} {_LASSERT_CERT_ADDR}\n")
+                    hw_flen, nvars, nclauses, lit_words = _parse_dimacs_binary(formula)
+                    fbase = _LASSERT_FORMULA_ADDR
+                    cbase = _LASSERT_CERT_ADDR
+                    f.write(f"INIT_MEM {fbase} {hw_flen}\n")
+                    f.write(f"INIT_MEM {fbase + 1} {nvars}\n")
+                    f.write(f"INIT_MEM {fbase + 2} {nclauses}\n")
+                    for i, w in enumerate(lit_words):
+                        f.write(f"INIT_MEM {fbase + 3 + i} {w}\n")
+                    if kind == 1:
+                        cert_words = _parse_sat_cert_binary(cert_data, nvars)
+                        for i, w in enumerate(cert_words):
+                            if w != 0:
+                                f.write(f"INIT_MEM {cbase + i} {w}\n")
+                    f.write(f"INIT_REG {_LASSERT_FREG} {fbase}\n")
+                    f.write(f"INIT_REG {_LASSERT_CREG} {cbase}\n")
                     f.write(f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}\n")
                     continue
             if op == "LJOIN" and len(toks) >= 4:

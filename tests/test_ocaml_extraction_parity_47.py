@@ -105,18 +105,25 @@ class TestPartitionOpcodesParity:
         assert_mu_at_least(r, 9, "PMERGE")
 
     def test_lassert_charges_cost(self):
-        # On-chip model: formula/cert written to reserved VM memory via INIT_MEM_STR.
-        # Formula "p_cnf_1_1__1_0" decodes to "p cnf 1 1\n1 0" (14 chars, flen=4).
-        # cost=1 → mu = flen*8 + S(cost) = 4*8 + 2 = 34.
+        # On-chip model: formula/cert written to reserved VM memory via INIT_MEM.
+        # Formula "p cnf 1 1\n1 0" in binary: hw_flen=2, nvars=1, nclauses=1, lits=[1,0].
+        # Addresses must be low to avoid OCaml stack overflow in linked-list nth.
+        # fbase=0x10 (16), cbase=0x60 (96).
+        # flen=13 (decoded string length, the cost metric convention).
+        # cost=1 → mu = flen*8 + S(cost) = 13*8 + 2 = 106.
         r = run([
-            "INIT_MEM_STR 57344 p_cnf_1_1__1_0",  # formula at 0xE000
-            "INIT_REG 28 57344",
-            "INIT_MEM_STR 61440 v_1_0",             # SAT cert at 0xF000
-            "INIT_REG 29 61440",
-            "LASSERT 28 29 1 4 1",                  # freg=28 creg=29 kind=1(SAT) flen=4 cost=1
+            "INIT_MEM 16 2",    # mem[fbase+0] = hw_flen=2
+            "INIT_MEM 17 1",    # mem[fbase+1] = nvars=1
+            "INIT_MEM 18 1",    # mem[fbase+2] = nclauses=1
+            "INIT_MEM 19 1",    # mem[fbase+3] = literal +1
+            "INIT_MEM 20 0",    # mem[fbase+4] = clause terminator
+            "INIT_MEM 97 1",    # mem[cbase+1] = var1=true (cbase=96, cert_words[1]=1)
+            "INIT_REG 28 16",   # freg=28 → fbase=16
+            "INIT_REG 29 96",   # creg=29 → cbase=96
+            "LASSERT 28 29 1 13 1",  # freg=28 creg=29 kind=1(SAT) flen=13 cost=1
             "HALT 0",
         ])
-        assert_mu_at_least(r, 34, "LASSERT")
+        assert_mu_at_least(r, 106, "LASSERT")  # 13*8 + 2 = 106
 
     def test_ljoin_charges_cost(self):
         r = run(["LJOIN 0 1 4", "HALT 0"])
@@ -404,8 +411,8 @@ class TestMorphismOpcodesParity:
         assert_mu_exact(r, 2, "MORPH_ID")
 
     def test_morph_delete_charges_cost(self):
-        # Create morphism 0 via MORPH_ID, then delete it
-        r = run(["PNEW {0,256} 1", "MORPH_ID 0 1 1", "MORPH_DELETE 0 3", "HALT 0"])
+        # Create morphism 1 via MORPH_ID (morph IDs start from 1 per pg_next_morph_id=1), then delete it
+        r = run(["PNEW {0,256} 1", "MORPH_ID 0 1 1", "MORPH_DELETE 1 3", "HALT 0"])
         assert_no_err(r, "MORPH_DELETE")
         assert_mu_exact(r, 5, "MORPH_DELETE")
 
@@ -419,8 +426,9 @@ class TestMorphismOpcodesParity:
         assert_mu_at_least(r, 4, "MORPH")
 
     def test_compose_charges_cost(self):
+        # Morph IDs start from 1; first MORPH_ID creates morph-1, second creates morph-2
         r = run(["PNEW {0,256} 1", "MORPH_ID 0 1 1", "MORPH_ID 1 1 1",
-                 "COMPOSE 2 0 1 3", "HALT 0"])
+                 "COMPOSE 2 1 2 3", "HALT 0"])
         assert_no_err(r, "COMPOSE")
         assert_mu_exact(r, 6, "COMPOSE")
 

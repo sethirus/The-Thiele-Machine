@@ -32,9 +32,9 @@
 
     THE NAMED HYPOTHESIS:
     [lorentzian_coupling_positive]: κ > 0 (the GR coupling has the correct
-    positive sign). This is the remaining named hypothesis at the Raychaudhuri
-    level. It is NOT derivable from the Euclidean CurvedTensorPipeline
-    without choosing a signature convention.
+    positive sign). This is the generic interface hypothesis at the
+    Raychaudhuri level. It is NOT derivable from the Euclidean
+    CurvedTensorPipeline without choosing a signature convention.
 
     WHAT IS FULLY PROVEN:
     1. G_{00} = -R_{00}^Euc for 4D isotropic metrics (algebraic identity)
@@ -358,19 +358,22 @@ Proof.
 Qed.
 
 (** =========================================================================
-    SECTION 5: SUMMARY — OPEN OBLIGATIONS AND PROVEN CHAIN
+    SECTION 5: SUMMARY — GENERIC INTERFACE OBLIGATION AND PROVEN CHAIN
     ========================================================================= *)
 
 (** What is PROVEN (zero admits, zero axioms):
     1. discrete_null_expansion_rate is well-defined from CurvedTensorPipeline
     2. isotropic_einstein_ricci_relation: G_{00} = -R_{00} (4D isotropic)
     3. positive_mass_implies_lorentzian_ricci_positive: given κ > 0
+       (or discharged from a mass gradient by LorentzianTensorPipeline.v)
     4. positive_mass_implies_focusing: given κ > 0
     5. focusing_implies_clausius_witnesses: focusing → ∃(dQ, dS, T) with T > 0
 
-    ONE NAMED HYPOTHESIS: lorentzian_coupling_positive (κ > 0).
+    GENERIC INTERFACE HYPOTHESIS: lorentzian_coupling_positive (κ > 0).
 
-    This hypothesis is the ONLY barrier between the discrete CurvedTensorPipeline
-    (Euclidean) and the Raychaudhuri focusing result (Lorentzian). A Lorentzian
-    extension of the pipeline would close this gap without any assumption. *)
+    This file keeps the Lorentzian interface explicit. The specialized
+    2-vertex isotropic mass-gradient case is discharged in
+    LorentzianTensorPipeline.v via
+    [lorentzian_coupling_positive_from_mass_gradient]. The remaining work is
+    to generalize that discharge beyond the current mass-gradient setting. *)
 Definition raychaudhuri_open_obligation := lorentzian_coupling_positive.

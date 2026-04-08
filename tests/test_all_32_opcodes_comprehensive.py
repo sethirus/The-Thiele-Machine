@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Comprehensive test of all 40 Thiele CPU opcodes.
+"""Comprehensive test of all Thiele CPU opcodes via RTL cosim.
 
 Each test provides the necessary init preamble for the RTL:
 - INIT_LOGIC_ACC: unlocks high-value ops (CHSH_TRIAL, REVEAL, PDISCOVER)
@@ -43,7 +43,7 @@ def run_opcode_test(name: str, program: str, checks: dict[str, Callable[[dict], 
     )
     return result
 
-# Test suite for all 40 opcodes
+# Legacy comprehensive RTL smoke suite for the 40 pre-morphism execution cases
 tests = []
 
 # 1. PNEW
@@ -67,11 +67,13 @@ tests.append(("PMERGE", "PMERGE 0 0 9\nHALT", {
     "halts": lambda r: r["status"] == 2,
 }))
 
-# 4. LASSERT
+# 4. LASSERT — UNSAT path (op_a[5]=0 → kind=UNSAT → immediate trap with ERR_LOGIC).
+#    The RTL uses bit 5 of op_a as the SAT/UNSAT kind flag.
+#    Here op_a=0, so kind=0 (UNSAT), which traps immediately and charges S(cost).
 tests.append(("LASSERT", "LASSERT 0 0 3\nHALT", {
     "charges_mu": lambda r: r["mu"] == 4,  # S(3)=4: cert-setters charge cost+1
-    "advances_pc": lambda r: r["pc"] == 1,
-    "halts": lambda r: r["status"] == 2,
+    "traps_with_err": lambda r: r["status"] == 3,  # err trap, not halted
+    "sets_err_logic": lambda r: r["error_code"] == 0xC43471A1,
 }))
 
 # 5. LJOIN

@@ -168,7 +168,7 @@ Proof. intros. unfold advance_state_reveal. reflexivity. Qed.
     SECTION 3: THE SINGLE-STEP CERT_ADDR LEMMA
     =========================================================================
     After vm_apply, cert_addr is either preserved or set to the value
-    from cert_addr_value_of. This proof covers all 40 instructions.
+    from cert_addr_value_of. This proof covers all 47 instructions.
     ========================================================================= *)
 
 Lemma vm_apply_cert_addr_cases :
@@ -190,9 +190,11 @@ Proof.
   try (left; destruct (graph_pmerge _ _ _) as [[g' mid]|];
        [rewrite advance_state_cert_addr
        |rewrite advance_state_cert_addr; rewrite csr_set_err_cert_addr]; reflexivity);
-  (* lassert: cert_addr NOT set in new ISA; all branches use only csr_set_err/csr_set_status *)
+  (* lassert: cert_addr NOT set in new ISA; all branches use only csr_set_err/csr_set_status.
+     vm_apply has 3-level nesting: kind → check_model/check_lrat → Nat.leb (flen honesty). *)
   try (left; cbv zeta;
        destruct cert_kind; [destruct (check_model _ _) | destruct (check_lrat _ _)];
+       try match goal with |- context[Nat.leb ?a ?b] => destruct (Nat.leb a b) end;
        rewrite advance_state_cert_addr;
        try rewrite csr_set_err_cert_addr;
        try rewrite csr_set_status_cert_addr;
@@ -224,8 +226,8 @@ Proof.
   try (left; rewrite jump_state_cert_addr; reflexivity);
   (* jump_state_rm: call, ret *)
   try (left; cbv zeta; rewrite jump_state_rm_cert_addr; reflexivity);
-  (* tensor_set / tensor_get: destruct if andb (Nat.ltb i 4) (Nat.ltb j 4) *)
-  try (left; destruct (andb _ _);
+  (* tensor_set / tensor_get: destruct the tensor index validity check *)
+  try (left; destruct (tensor_indices_ok _ _);
        cbv zeta;
        first [rewrite advance_state_rm_cert_addr; reflexivity
              |rewrite advance_state_cert_addr; reflexivity

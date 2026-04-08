@@ -101,25 +101,21 @@ Proof.
   try (unfold advance_state_rm; simpl; reflexivity);
   try (unfold advance_state; simpl; reflexivity);
   try (unfold jump_state; simpl; reflexivity);
-  try (unfold jump_state_rm; simpl; reflexivity).
+  try (unfold jump_state_rm; simpl; reflexivity);
+  (* tensor_get: if tensor_indices_ok, both branches preserve graph *)
+  try (destruct (tensor_indices_ok _ _);
+       [unfold advance_state_rm; simpl; reflexivity
+       | unfold advance_state; simpl; reflexivity]);
+  (* morph_get: match graph_lookup_morphism, both branches preserve graph *)
+  try (destruct (graph_lookup_morphism _ _);
+       [unfold advance_state_rm; simpl; reflexivity
+       | unfold advance_state; simpl; reflexivity]).
   - (* jnez: two branches; use match goal to find the destruct target *)
     match goal with
     | |- context [Nat.eqb (read_reg ?st ?rs) 0] =>
         destruct (Nat.eqb (read_reg st rs) 0)
     end;
     [unfold advance_state | unfold jump_state]; simpl; reflexivity.
-  - (* tensor_get: two branches, both pass s.(vm_graph) *)
-    match goal with
-    | |- context [Nat.ltb ?a 4 && Nat.ltb ?b 4] =>
-        destruct (Nat.ltb a 4 && Nat.ltb b 4)
-    end;
-    [unfold advance_state_rm | unfold advance_state]; simpl; reflexivity.
-  - (* morph_get: two branches, both pass s.(vm_graph) *)
-    match goal with
-    | |- context [graph_lookup_morphism ?g ?mid] =>
-        destruct (graph_lookup_morphism g mid) as [ms|]
-    end;
-    [unfold advance_state_rm | unfold advance_state]; simpl; reflexivity.
 Qed.
 
 (** classical_opcode_preserves_cert_addr: classical opcodes preserve csr_cert_addr.
@@ -157,25 +153,19 @@ Proof.
   try (unfold advance_state_rm; simpl; reflexivity);
   try (unfold advance_state; simpl; reflexivity);
   try (unfold jump_state; simpl; reflexivity);
-  try (unfold jump_state_rm; simpl; reflexivity).
+  try (unfold jump_state_rm; simpl; reflexivity);
+  try (destruct (tensor_indices_ok _ _);
+       [unfold advance_state_rm; simpl; reflexivity
+       | unfold advance_state; simpl; reflexivity]);
+  try (destruct (graph_lookup_morphism _ _);
+       [unfold advance_state_rm; simpl; reflexivity
+       | unfold advance_state; simpl; reflexivity]).
   - (* jnez *)
     match goal with
     | |- context [Nat.eqb (read_reg ?st ?rs) 0] =>
         destruct (Nat.eqb (read_reg st rs) 0)
     end;
     [unfold advance_state | unfold jump_state]; simpl; reflexivity.
-  - (* tensor_get *)
-    match goal with
-    | |- context [Nat.ltb ?a 4 && Nat.ltb ?b 4] =>
-        destruct (Nat.ltb a 4 && Nat.ltb b 4)
-    end;
-    [unfold advance_state_rm | unfold advance_state]; simpl; reflexivity.
-  - (* morph_get *)
-    match goal with
-    | |- context [graph_lookup_morphism ?g ?mid] =>
-        destruct (graph_lookup_morphism g mid) as [ms|]
-    end;
-    [unfold advance_state_rm | unfold advance_state]; simpl; reflexivity.
 Qed.
 
 (** =========================================================================

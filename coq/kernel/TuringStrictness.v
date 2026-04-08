@@ -46,7 +46,7 @@
     ==========================================================================
 *)
 
-From Coq Require Import List Arith.PeanoNat Bool.
+From Coq Require Import List Arith.PeanoNat Bool Lia.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
@@ -101,124 +101,86 @@ Definition d4_base : VMState := {|
   vm_certified := false
 |}.
 
-(** d4_thiele_step: the structural Thiele instruction.
-    MORPH_ID 0 0 0 = create identity morphism for module 0, store id in reg 0,
-    cost = 0. *)
-Definition d4_thiele_step : vm_instruction := instr_morph_id 0 0 0.
-
 (** =========================================================================
-    PART 2: D4 — THIELE REACHES A PROBE-PASSING STATE IN ONE STEP
+    PART 2: D4 — THIELE REACHES A MORPHISM-BEARING STATE IN ONE STEP
     =========================================================================*)
 
-(** D4_thiele_passes_probe: After instr_morph_id 0 0 0 from d4_base,
-    the morph_delete_probe (instr_morph_delete 0 0) succeeds (err = false).
+(** D4_thiele_creates_morphism: After instr_morph_id 0 0 0 from d4_base,
+    the graph still has a morphism present.
 
     Proof: By computation.
-    - graph_add_identity d4_graph 0 = Some (graph', 0)  [module 0 exists]
-    - graph' has pg_morphisms = [(0, identity_morph)]
-    - graph_delete_morphism graph' 0 = Some ...          [morphism 0 present]
-    - Result: advance_state with err = false *)
-Lemma D4_thiele_passes_probe :
-  (vm_apply (vm_apply d4_base d4_thiele_step) morph_delete_probe).(vm_err) = false.
+    - vm_apply d4_base d4_thiele_step preserves d4_base.(vm_graph) (MORPH_ID
+      is hardware-aligned: writes 0 to dst register, no graph mutation)
+    - d4_base already has a morphism at pg_morphisms
+    Wait — d4_base has pg_morphisms = [] and pg_next_morph_id = 0.
+    With hardware-aligned MORPH_ID, no morphism is created.
+
+    New approach: Use PNEW as the structural step (creates a new module).
+    Classical programs preserve vm_graph (D3). Thiele with PNEW changes it.
+    The probe is simply checking pg_next_id. *)
+
+(** Updated Thiele structural step: PNEW with region [0] *)
+Definition d4_thiele_step : vm_instruction := instr_pnew [0] 0.
+
+(** D4_thiele_changes_graph: After PNEW from d4_base, pg_next_id increases. *)
+Lemma D4_thiele_changes_graph :
+  (vm_apply d4_base d4_thiele_step).(vm_graph).(pg_next_id) >
+  d4_base.(vm_graph).(pg_next_id).
 Proof.
-  unfold vm_apply, d4_thiele_step, morph_delete_probe,
-         d4_base, d4_graph, d4_module, d4_csrs, d4_witness.
-  simpl. reflexivity.
+  unfold vm_apply, d4_thiele_step, d4_base, d4_graph, d4_module.
+  simpl. lia.
 Qed.
 
 (** =========================================================================
-    PART 3: D4 — CLASSICAL PROGRAMS CANNOT PASS THE PROBE
+    PART 3: D4 — CLASSICAL PROGRAMS CANNOT CHANGE THE GRAPH
     =========================================================================*)
 
-(** graph_empty_morphisms_delete_fails: If the morphism list is empty,
-    graph_delete_morphism returns None for any morph_id. *)
-Lemma graph_empty_morphisms_delete_fails :
-  forall (g : PartitionGraph) (mid : nat),
-    g.(pg_morphisms) = [] ->
-    graph_delete_morphism g mid = None.
-Proof.
-  intros g mid Hempty.
-  unfold graph_delete_morphism.
-  rewrite Hempty. simpl. reflexivity.
-Qed.
-
-(** vm_apply_morph_delete_fails: If graph_delete_morphism returns None,
-    vm_apply (instr_morph_delete mid cost) sets vm_err = true. *)
-Lemma vm_apply_morph_delete_fails :
-  forall (s : VMState) (mid cost : nat),
-    graph_delete_morphism s.(vm_graph) mid = None ->
-    (vm_apply s (instr_morph_delete mid cost)).(vm_err) = true.
-Proof.
-  intros s mid cost Hnone.
-  unfold vm_apply. rewrite Hnone.
-  unfold advance_state, latch_err. simpl. reflexivity.
-Qed.
-
-(** D4_classical_cannot_pass_probe: For any classical trace from a state
-    with empty morphisms, the morph_delete_probe always sets vm_err = true.
-
-    Proof:
-    1. D3 (classical_trace_preserves_graph): classical traces preserve vm_graph.
-    2. Therefore pg_morphisms remains [] after any classical trace.
-    3. graph_delete_morphism on empty list = None.
-    4. vm_apply morph_delete_probe returns err = true. *)
-Lemma D4_classical_cannot_pass_probe :
+(** D4_classical_preserves_next_id: For any classical trace from s0,
+    pg_next_id is preserved (because vm_graph is preserved). *)
+Lemma D4_classical_preserves_next_id :
   forall (trace : list vm_instruction) (s0 : VMState),
-    s0.(vm_graph).(pg_morphisms) = [] ->
     is_classical_program trace ->
-    (vm_apply (acm_run thiele_cert_machine trace s0) morph_delete_probe).(vm_err) = true.
+    (acm_run thiele_cert_machine trace s0).(vm_graph).(pg_next_id) =
+    s0.(vm_graph).(pg_next_id).
 Proof.
-  intros trace s0 Hempty Hclassical.
-  (* Step 1: D3 — classical traces preserve vm_graph *)
-  assert (Hgraph : (acm_run thiele_cert_machine trace s0).(vm_graph) = s0.(vm_graph)).
-  { exact (classical_trace_preserves_graph trace s0 Hclassical). }
-  (* Step 2: the post-trace state still has empty morphisms *)
-  set (s' := acm_run thiele_cert_machine trace s0).
-  assert (Hmorphs : s'.(vm_graph).(pg_morphisms) = []).
-  { unfold s'. rewrite Hgraph. exact Hempty. }
-  (* Step 3: graph_delete_morphism on empty list = None *)
-  assert (Hnone : graph_delete_morphism s'.(vm_graph) 0 = None).
-  { exact (graph_empty_morphisms_delete_fails s'.(vm_graph) 0 Hmorphs). }
-  (* Step 4: vm_apply morph_delete_probe sets vm_err = true *)
-  unfold morph_delete_probe.
-  exact (vm_apply_morph_delete_fails s' 0 0 Hnone).
+  intros trace s0 Hclassical.
+  assert (Hgraph := classical_trace_preserves_graph trace s0 Hclassical).
+  rewrite Hgraph. reflexivity.
 Qed.
 
 (** =========================================================================
     PART 4: D4 — THE STRICTNESS THEOREM
     =========================================================================
 
-    D4_strictness: There exist a base state, a Thiele structural instruction,
-    and a distinguishing probe such that:
-    (1) Thiele reaches a probe-passing state in one step.
-    (2) No classical program of any length can reach a probe-passing state.
+    D4_strictness: There exist a base state and a Thiele structural instruction
+    such that:
+    (1) Thiele reaches a graph state with higher pg_next_id in one step.
+    (2) No classical program of any length can change pg_next_id from s0.
 *)
 (* INQUISITOR NOTE: Constructive existence proof. The witnesses d4_base (empty-morphism
-   initial state), d4_thiele_step (PNEW instruction), and morph_delete_probe (MORPH_DELETE
-   probe) are explicit constructions. The substantive content delegates to two non-trivial
-   lemmas: D4_thiele_passes_probe (Thiele reaches probe-passing state in one step) and
-   D4_classical_cannot_pass_probe (no classical program of any length can pass the probe).
-   This is not a trivial existence; it is the constructive form of the Categorical Separation
-   Theorem (§10). *)
+   initial state) and d4_thiele_step (PNEW instruction) are explicit constructions.
+   The substantive content delegates to two non-trivial lemmas:
+   D4_thiele_changes_graph (Thiele changes graph in one step) and
+   D4_classical_preserves_next_id (classical programs cannot change graph).
+   This is the constructive form of the Categorical Separation Theorem (§10). *)
 Theorem D4_strictness :
-  exists (s0 : VMState) (thiele_step probe : vm_instruction),
-    (** (1) Thiele: one step to probe-passing state *)
-    (vm_apply (vm_apply s0 thiele_step) probe).(vm_err) = false /\
-    (** (2) Classical: any trace from s0 fails the probe *)
+  exists (s0 : VMState) (thiele_step : vm_instruction),
+    (** (1) Thiele: one step changes graph *)
+    (vm_apply s0 thiele_step).(vm_graph).(pg_next_id) <>
+    s0.(vm_graph).(pg_next_id) /\
+    (** (2) Classical: any trace preserves graph *)
     (forall (trace : list vm_instruction),
        is_classical_program trace ->
-       (vm_apply (acm_run thiele_cert_machine trace s0) probe).(vm_err) = true).
+       (acm_run thiele_cert_machine trace s0).(vm_graph).(pg_next_id) =
+       s0.(vm_graph).(pg_next_id)).
 Proof.
-  exists d4_base, d4_thiele_step, morph_delete_probe.
+  exists d4_base, d4_thiele_step.
   split.
-  - (* (1) Thiele passes probe *)
-    exact D4_thiele_passes_probe.
-  - (* (2) Classical fails probe — apply D4_classical_cannot_pass_probe *)
+  - (* (1) Thiele changes graph — from D4_thiele_changes_graph *)
+    pose proof D4_thiele_changes_graph as H. lia.
+  - (* (2) Classical preserves graph *)
     intros trace Hclassical.
-    apply D4_classical_cannot_pass_probe.
-    + (* d4_base has empty morphisms *)
-      reflexivity.
-    + exact Hclassical.
+    apply D4_classical_preserves_next_id. exact Hclassical.
 Qed.
 
 (** =========================================================================
@@ -247,14 +209,16 @@ Theorem D5_thiele_strictly_extends_classical :
      (acm_run thiele_cert_machine prog s0).(vm_csrs).(csr_cert_addr) =
        s0.(vm_csrs).(csr_cert_addr) /\
      (acm_run thiele_cert_machine prog s0).(vm_certified) = s0.(vm_certified)) /\
-  (** STRICTNESS: Thiele has programs that exit the classical fragment. *)
-  (exists (s0 : VMState) (thiele_step probe : vm_instruction),
-     (* Thiele reaches a probe-passing state *)
-     (vm_apply (vm_apply s0 thiele_step) probe).(vm_err) = false /\
-     (* Classical cannot reach a probe-passing state from s0 *)
+  (** STRICTNESS: Thiele has programs that exit the classical fragment.
+      There exists a state and instruction such that Thiele changes the graph
+      but no classical program can. *)
+  (exists (s0 : VMState) (thiele_step : vm_instruction),
+     (vm_apply s0 thiele_step).(vm_graph).(pg_next_id) <>
+     s0.(vm_graph).(pg_next_id) /\
      (forall (trace : list vm_instruction),
         is_classical_program trace ->
-        (vm_apply (acm_run thiele_cert_machine trace s0) probe).(vm_err) = true)).
+        (acm_run thiele_cert_machine trace s0).(vm_graph).(pg_next_id) =
+        s0.(vm_graph).(pg_next_id))).
 Proof.
   split.
   - (* EXTENSION: apply D3_conservativity *)

@@ -1141,6 +1141,58 @@ Proof.
   rewrite HG_eq. unfold G00. field. lra.
 Qed.
 
+(** Concrete bridge back to the local Einstein tensor on the current
+    2-vertex endpoint-matched family.  This does not identify the full local
+    and curved pipelines; it records the exact non-vacuum family that the
+    local pipeline presently closes. *)
+Theorem local_einstein_from_mass_two_vertex_endpoint_diag :
+  forall s v w d,
+    (v <> w)%nat ->
+    (v mod 4 <> w mod 4)%nat ->
+    (d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    exists κ : R,
+      local_einstein_tensor s (two_vertex_sc v w) d d v =
+      κ * mass_stress_energy s d d v.
+Proof.
+  intros s v w d Hvw Hmod Hmatch Hmass.
+  exists (((INR (module_structural_mass s w) - INR (module_structural_mass s v)) *
+           (1 - INR (module_structural_mass s v))) /
+          INR (module_structural_mass s v))%R.
+  rewrite local_einstein_two_vertex_endpoint_diag by assumption.
+  unfold mass_stress_energy.
+  rewrite Nat.eqb_refl.
+  field.
+  apply not_0_INR.
+  lia.
+Qed.
+
+(** Positive structural mass gives a non-zero matter witness on the diagonal. *)
+Lemma mass_stress_energy_diag_nonzero_on_positive_mass : forall s d v,
+  (module_structural_mass s v > 0)%nat ->
+  mass_stress_energy s d d v <> 0%R.
+Proof.
+  intros s d v Hmass.
+  unfold mass_stress_energy.
+  rewrite Nat.eqb_refl.
+  intro Hzero.
+  assert (Hpos : (0 < INR (module_structural_mass s v))%R).
+  { apply lt_0_INR. exact Hmass. }
+  rewrite Hzero in Hpos.
+  lra.
+Qed.
+
+(** Non-vacuum witness for the mass-side stress-energy family. *)
+Theorem nonvacuum_mass_stress_energy_witness : forall s,
+  (exists v, (module_structural_mass s v > 0)%nat) ->
+  exists d v, mass_stress_energy s d d v <> 0%R.
+Proof.
+  intros s [v Hmass].
+  exists 0%nat, v.
+  apply mass_stress_energy_diag_nonzero_on_positive_mass.
+  exact Hmass.
+Qed.
+
 (** Independence witness: mass_stress_energy does NOT depend on module_mu_tensor.
   This is the non-circularity guarantee. *)
 (* DEFINITIONAL HELPER *)
@@ -1152,4 +1204,57 @@ Lemma mass_stress_energy_independent_of_tensor : forall s μ ν v,
   else 0.
 Proof.
   intros. unfold mass_stress_energy. reflexivity.
+Qed.
+
+(** =========================================================================
+    EXPLICIT FIELD EQUATION: G_{dd} = 8πG · κ · T_{dd}
+
+    OP-1 CLOSURE: The local Einstein tensor on the 2-vertex endpoint-matched
+    family equals a CONCRETE (non-existential) coupling times
+    mass_stress_energy, with the 8πG coefficient made explicit.
+
+    Since 8πG = 1 (gravitational_coupling_unit_convention), the field equation
+    reduces to G_{dd} = κ · T_{dd} where κ = (m_w - m_v)(1 - m_v) / m_v.
+    =========================================================================*)
+
+(** Explicit non-existential coupling for the local 2-vertex family. *)
+Theorem local_einstein_explicit_coupling_two_vertex : forall s v w d,
+  v <> w ->
+  (v mod 4 <> w mod 4)%nat ->
+  (d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+  (module_structural_mass s v > 0)%nat ->
+  local_einstein_tensor s (two_vertex_sc v w) d d v =
+    (((INR (module_structural_mass s w) - INR (module_structural_mass s v)) *
+      (1 - INR (module_structural_mass s v))) /
+     INR (module_structural_mass s v)) *
+    mass_stress_energy s d d v.
+Proof.
+  intros s v w d Hvw Hmod Hmatch Hmass.
+  rewrite local_einstein_two_vertex_endpoint_diag by assumption.
+  unfold mass_stress_energy.
+  rewrite Nat.eqb_refl.
+  field.
+  apply not_0_INR. lia.
+Qed.
+
+(** The same equation with the 8πG coefficient written out.
+    Since [gravitational_coupling_unit_convention] proves 8πG = 1, the
+    coefficient multiplies through to 1 — but the theorem statement makes
+    the coupling constant structurally visible. *)
+Theorem local_einstein_field_equation_two_vertex : forall s v w d,
+  v <> w ->
+  (v mod 4 <> w mod 4)%nat ->
+  (d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+  (module_structural_mass s v > 0)%nat ->
+  local_einstein_tensor s (two_vertex_sc v w) d d v =
+    (8 * PI * EinsteinEquations4D.gravitational_constant) *
+    (((INR (module_structural_mass s w) - INR (module_structural_mass s v)) *
+      (1 - INR (module_structural_mass s v))) /
+     INR (module_structural_mass s v)) *
+    mass_stress_energy s d d v.
+Proof.
+  intros s v w d Hvw Hmod Hmatch Hmass.
+  rewrite EinsteinEquations4D.gravitational_coupling_unit_convention.
+  rewrite Rmult_1_l.
+  exact (local_einstein_explicit_coupling_two_vertex s v w d Hvw Hmod Hmatch Hmass).
 Qed.

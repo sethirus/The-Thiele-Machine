@@ -43,6 +43,10 @@ def _run_cosim(program: str) -> Dict[str, Any]:
     return result
 
 
+def _ascii_checksum(text: str) -> int:
+    return sum(ord(ch) for ch in text) & 0xFFFFFFFF
+
+
 def _run_accel_partition(operations: List[Dict]) -> List[Dict]:
     """Run partition_core standalone accelerator simulation."""
     from thielecpu.hardware.accel_cosim import run_partition_core
@@ -211,6 +215,90 @@ HALT
 """)
         assert state["mu"] >= 3
 
+    def test_reveal_ext_uses_upper_lane_tensor_index(self):
+        """REVEAL_EXT consumes ext0 as the tensor index."""
+        state = _run_cosim("""\
+INIT_LOGIC_ACC -889263410
+REVEAL_EXT 6 0 3
+HALT
+""")
+        assert state["mu_tensor_0"] == 0
+        assert state["mu_tensor_1"] == 3
+        assert state["mu"] >= 4
+
+
+class TestMorphInlineExt:
+    """ISA-v2 morph inline transport exercises real hardware morph state."""
+
+    def test_morph_ext_creates_real_morphism(self):
+        state = _run_cosim("""\
+PNEW {1} 1
+PNEW {2} 1
+MORPH_EXT 10 1 2 0 2
+MORPH_GET_EXT 11 1 0 0
+MORPH_GET_EXT 12 1 1 0
+HALT
+""")
+        assert not state["err"], f"Unexpected morph-ext error: {state['error_code']}"
+        assert state["regs"][10] == 1, f"expected new morph id 1, got {state['regs'][10]}"
+        assert state["regs"][11] == 1, f"expected source module 1, got {state['regs'][11]}"
+        assert state["regs"][12] == 2, f"expected target module 2, got {state['regs'][12]}"
+
+    def test_compose_ext_builds_new_endpoint_pair(self):
+        state = _run_cosim("""\
+PNEW {1} 1
+PNEW {2} 1
+PNEW {3} 1
+MORPH_EXT 10 1 2 0 1
+MORPH_EXT 11 2 3 0 1
+COMPOSE_EXT 12 1 2 1
+MORPH_GET_EXT 13 3 0 0
+MORPH_GET_EXT 14 3 1 0
+HALT
+""")
+        assert not state["err"], f"Unexpected compose-ext error: {state['error_code']}"
+        assert state["regs"][12] == 3, f"expected composed morph id 3, got {state['regs'][12]}"
+        assert state["regs"][13] == 1, f"expected composed source 1, got {state['regs'][13]}"
+        assert state["regs"][14] == 3, f"expected composed target 3, got {state['regs'][14]}"
+
+    def test_morph_delete_ext_invalidates_lookup(self):
+        state = _run_cosim("""\
+PNEW {1} 1
+PNEW {2} 1
+MORPH_EXT 10 1 2 0 1
+MORPH_DELETE_EXT 1 0
+MORPH_GET_EXT 11 1 0 0
+HALT
+""")
+        assert state["err"], "expected MORPH_GET_EXT after delete to trap"
+        assert state["error_code"] == 0xBADC0003, f"expected ERR_MORPH_NOT_FOUND, got {state['error_code']:#x}"
+
+    def test_morph_assert_ext_sets_cert_addr_from_inline_checksum(self):
+        checksum = _ascii_checksum("lawful")
+        state = _run_cosim(f"""\
+PNEW {{1}} 1
+PNEW {{2}} 1
+MORPH_EXT 10 1 2 0 1
+MORPH_ASSERT_EXT 1 lawful 3
+HALT
+""")
+        assert not state["err"], f"Unexpected morph-assert-ext error: {state['error_code']}"
+        assert state["cert_addr"] == checksum, (
+            f"expected cert_addr checksum {checksum}, got {state['cert_addr']}"
+        )
+        assert state["mu"] == 7, f"expected μ=7 after PNEW/PNEW/MORPH_EXT/MORPH_ASSERT_EXT, got {state['mu']}"
+
+    def test_morph_assert_ext_faults_when_morphism_is_missing(self):
+        state = _run_cosim("""\
+PNEW {1} 1
+PNEW {2} 1
+MORPH_ASSERT_EXT 1 ghost 2
+HALT
+""")
+        assert state["err"], "expected MORPH_ASSERT_EXT on missing morphism to trap"
+        assert state["error_code"] == 0xBADC0003, f"expected ERR_MORPH_NOT_FOUND, got {state['error_code']:#x}"
+        assert state["cert_addr"] == 0, f"expected cert_addr to remain zero on trap, got {state['cert_addr']}"
+
 
 # ═══════════════════════════════════════════════════════════════════════
 # 5. Opcode encoding round-trip
@@ -219,32 +307,79 @@ class TestOpcodeEncoding:
     """Verify program_to_hex produces correct instruction words."""
 
     def test_halt_encoding(self):
-        """HALT encodes to 0xFF000000."""
+        """HALT encodes as an ISA-v2 word with legacy HALT in the low lane."""
         from thielecpu.hardware.cosim import program_to_hex
         instr, _, _ = program_to_hex("HALT")
-        assert instr[0] == "FF000000"
+        assert instr[0] == "020000000000000000000000FF000000"
 
     def test_pnew_encoding(self):
-        """PNEW {1,2,3} 5 encodes operand_a=1, operand_b=3, cost=5."""
+        """PNEW {1,2,3} 5 preserves the legacy fields in the low lane."""
         from thielecpu.hardware.cosim import program_to_hex
         instr, _, _ = program_to_hex("PNEW {1,2,3} 5")
+        assert len(instr[0]) == 32
         word = int(instr[0], 16)
-        opcode = (word >> 24) & 0xFF
-        op_a = (word >> 16) & 0xFF
-        op_b = (word >> 8) & 0xFF
-        cost = word & 0xFF
+        legacy = word & 0xFFFFFFFF
+        opcode = (legacy >> 24) & 0xFF
+        op_a = (legacy >> 16) & 0xFF
+        op_b = (legacy >> 8) & 0xFF
+        cost = legacy & 0xFF
         assert opcode == 0x00  # PNEW
         assert op_a == 1       # first element
         assert op_b == 3       # region size
         assert cost == 5
 
     def test_xor_load_encoding(self):
-        """XOR_LOAD 2 5 0 encodes correctly."""
+        """XOR_LOAD preserves its legacy opcode in the low lane."""
         from thielecpu.hardware.cosim import program_to_hex
         instr, _, _ = program_to_hex("XOR_LOAD 2 5 0")
+        assert len(instr[0]) == 32
         word = int(instr[0], 16)
-        opcode = (word >> 24) & 0xFF
+        opcode = ((word & 0xFFFFFFFF) >> 24) & 0xFF
         assert opcode == 0x0A  # XOR_LOAD
+
+    def test_reveal_ext_encoding(self):
+        """REVEAL_EXT carries its tensor index in ext0 with FMT_TENSOR_EXT."""
+        from thielecpu.hardware.cosim import program_to_hex
+        instr, _, _ = program_to_hex("REVEAL_EXT 6 0 3")
+        assert len(instr[0]) == 32
+        word = int(instr[0], 16)
+        assert (word >> 112) & 0xFF == 0x02
+        assert (word >> 32) & 0xF == 6
+        legacy = word & 0xFFFFFFFF
+        assert (legacy >> 24) & 0xFF == 0x0F
+        assert (legacy >> 16) & 0xFF == 0
+        assert (legacy >> 8) & 0xFF == 0
+        assert legacy & 0xFF == 3
+
+    def test_morph_ext_encoding(self):
+        """MORPH_EXT carries its missing endpoint payload in FMT_MORPH_INLINE."""
+        from thielecpu.hardware.cosim import program_to_hex
+        instr, _, _ = program_to_hex("MORPH_EXT 7 1 2 5 3")
+        word = int(instr[0], 16)
+        assert (word >> 112) & 0xFF == 0x03
+        assert (word >> 96) & 0xFF == 0x04
+        assert (word >> 32) & 0x3F == 2
+        assert (word >> 38) & 0x3F == 5
+        legacy = word & 0xFFFFFFFF
+        assert (legacy >> 24) & 0xFF == 0x27
+        assert (legacy >> 16) & 0xFF == 7
+        assert (legacy >> 8) & 0xFF == 1
+        assert legacy & 0xFF == 3
+
+    def test_morph_assert_ext_encoding(self):
+        """MORPH_ASSERT_EXT uses FMT_CERT_INLINE with the inline checksum in ext0."""
+        from thielecpu.hardware.cosim import program_to_hex
+        checksum = _ascii_checksum("lawful")
+        instr, _, _ = program_to_hex("MORPH_ASSERT_EXT 9 lawful 4")
+        word = int(instr[0], 16)
+        assert (word >> 112) & 0xFF == 0x05
+        assert (word >> 96) & 0xFF == 0x04
+        assert (word >> 32) & 0xFFFFFFFF == checksum
+        legacy = word & 0xFFFFFFFF
+        assert (legacy >> 24) & 0xFF == 0x2B
+        assert (legacy >> 16) & 0xFF == 9
+        assert (legacy >> 8) & 0xFF == 0
+        assert legacy & 0xFF == 4
 
     def test_all_opcodes_have_entries(self):
         """All 47 opcodes in cosim.OPCODES match isa.py."""
@@ -259,11 +394,13 @@ class TestOpcodeEncoding:
 
         # x=1,y=0 -> operand_a=0b10=2 ; a=0,b=1 -> operand_b=0b01=1
         instr, _, _ = program_to_hex("CHSH_TRIAL 1 0 0 1 6")
+        assert len(instr[0]) == 32
         word = int(instr[0], 16)
-        opcode = (word >> 24) & 0xFF
-        op_a = (word >> 16) & 0xFF
-        op_b = (word >> 8) & 0xFF
-        cost = word & 0xFF
+        legacy = word & 0xFFFFFFFF
+        opcode = (legacy >> 24) & 0xFF
+        op_a = (legacy >> 16) & 0xFF
+        op_b = (legacy >> 8) & 0xFF
+        cost = legacy & 0xFF
 
         assert opcode == 0x09
         assert op_a == 2
@@ -275,11 +412,13 @@ class TestOpcodeEncoding:
         from thielecpu.hardware.cosim import program_to_hex
 
         instr, _, _ = program_to_hex("CHSH_TRIAL 2 1 6")
+        assert len(instr[0]) == 32
         word = int(instr[0], 16)
-        opcode = (word >> 24) & 0xFF
-        op_a = (word >> 16) & 0xFF
-        op_b = (word >> 8) & 0xFF
-        cost = word & 0xFF
+        legacy = word & 0xFFFFFFFF
+        opcode = (legacy >> 24) & 0xFF
+        op_a = (legacy >> 16) & 0xFF
+        op_b = (legacy >> 8) & 0xFF
+        cost = legacy & 0xFF
 
         assert opcode == 0x09
         assert op_a == 2

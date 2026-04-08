@@ -309,9 +309,25 @@ class moduleState:
 
 
 @dataclass
+class CouplingData:
+    coupling_pairs: List[Tuple[int, int]] = field(default_factory=list)
+    coupling_label: str = ""
+
+
+@dataclass
+class MorphismState:
+    morph_source: int = 0
+    morph_target: int = 0
+    morph_coupling: CouplingData = field(default_factory=CouplingData)
+    morph_is_identity: bool = False
+
+
+@dataclass
 class partitionGraph:
     pg_next_id: int = 1
     pg_modules: List[Tuple[int, moduleState]] = field(default_factory=list)
+    pg_next_morph_id: int = 1
+    pg_morphisms: List[Tuple[int, MorphismState]] = field(default_factory=list)
 
 
 @dataclass
@@ -356,6 +372,18 @@ class VMState:
                 "axiom_strings": ms.module_axioms,
                 "mu_tensor": list(ms.module_mu_tensor),
             })
+        morphs = []
+        for morph_id, ms in self.vm_graph.pg_morphisms:
+            morphs.append({
+                "id": morph_id,
+                "source": ms.morph_source,
+                "target": ms.morph_target,
+                "is_identity": ms.morph_is_identity,
+                "coupling": {
+                    "label": ms.morph_coupling.coupling_label,
+                    "pairs": [[a, b] for (a, b) in ms.morph_coupling.coupling_pairs],
+                },
+            })
         return {
             "pc": self.vm_pc,
             "mu": self.vm_mu,
@@ -377,6 +405,8 @@ class VMState:
             "graph": {
                 "next_id": self.vm_graph.pg_next_id,
                 "modules": mods,
+                "next_morph_id": self.vm_graph.pg_next_morph_id,
+                "morphisms": morphs,
             },
         }
 
@@ -399,6 +429,23 @@ class VMState:
                 module_mu_tensor=list(m.get("mu_tensor", [0] * TENSOR_SIZE)),
             )
             mods.append((int(m["id"]), ms))
+        morphs = []
+        for m in graph.get("morphisms", []):
+            coupling = m.get("coupling", {})
+            pairs = []
+            for p in coupling.get("pairs", []):
+                if isinstance(p, (list, tuple)) and len(p) >= 2:
+                    pairs.append((int(p[0]), int(p[1])))
+            ms = MorphismState(
+                morph_source=int(m.get("source", 0)),
+                morph_target=int(m.get("target", 0)),
+                morph_coupling=CouplingData(
+                    coupling_pairs=pairs,
+                    coupling_label=str(coupling.get("label", "")),
+                ),
+                morph_is_identity=bool(m.get("is_identity", False)),
+            )
+            morphs.append((int(m["id"]), ms))
         return cls(
             vm_pc=int(d.get("pc", 0)),
             vm_mu=int(d.get("mu", 0)),
@@ -414,6 +461,8 @@ class VMState:
             vm_graph=partitionGraph(
                 pg_next_id=int(graph.get("next_id", 1)),
                 pg_modules=mods,
+                pg_next_morph_id=int(graph.get("next_morph_id", 1)),
+                pg_morphisms=morphs,
             ),
             vm_mu_tensor=list(d.get("mu_tensor", [0] * TENSOR_SIZE)),
             vm_logic_acc=int(d.get("logic_acc", 0)),
@@ -466,14 +515,17 @@ def generate_instr_dict_to_text() -> str:
         "_STR_FIELDS: frozenset = frozenset({'payload', 'label'})",
         "",
         "# On-chip LASSERT: formula/cert written to reserved memory; freg/creg point there.",
-        "_LASSERT_FORMULA_ADDR: int = 0xE000",
-        "_LASSERT_CERT_ADDR:    int = 0xF000",
+        "# Addresses must be LOW (< ~1000) to avoid stack overflow in the OCaml extracted",
+        "# code: nth/firstn/list_set_mod are O(n) recursive; high addresses (0xE000=57344)",
+        "# exceed OCaml's default stack depth.",
+        "_LASSERT_FORMULA_ADDR: int = 0x10   # 16 — formula binary starts here",
+        "_LASSERT_CERT_ADDR:    int = 0x60   # 96 — cert binary starts here (64-word gap)",
         "_LASSERT_FREG:         int = 28",
         "_LASSERT_CREG:         int = 29",
         "",
         "# On-chip LJOIN: cert1/cert2 written to reserved memory when provided as strings.",
-        "_LJOIN_CERT1_ADDR: int = 0xC000",
-        "_LJOIN_CERT2_ADDR: int = 0xD000",
+        "_LJOIN_CERT1_ADDR: int = 0xA0   # 160",
+        "_LJOIN_CERT2_ADDR: int = 0xD0   # 208",
         "_LJOIN_C1REG:      int = 26",
         "_LJOIN_C2REG:      int = 27",
         "",
@@ -489,6 +541,46 @@ def generate_instr_dict_to_text() -> str:
         "        else:",
         "            result.append(s[i]); i += 1",
         '    return "".join(result)',
+        "",
+        "def _parse_dimacs_binary(formula_encoded: str):",
+        '    """Parse encoded DIMACS formula into (hw_flen, nvars, nclauses, lit_words).',
+        "    Memory layout: mem[fbase+0]=hw_flen, mem[fbase+1]=nvars, mem[fbase+2]=nclauses,",
+        "    mem[fbase+3..] = lit_words (clause literals 0-terminated, negatives as 2^32+lit).",
+        '    """',
+        "    dimacs = _decode_formula(formula_encoded)",
+        "    nvars, nclauses, lit_words = 0, 0, []",
+        '    for raw_line in dimacs.split("\\n"):',
+        "        line = raw_line.strip()",
+        '        if not line or line.startswith("c"):',
+        "            continue",
+        '        if line.startswith("p"):',
+        "            toks = line.split()",
+        "            if len(toks) >= 4:",
+        "                try: nvars, nclauses = int(toks[2]), int(toks[3])",
+        "                except ValueError: pass",
+        "        else:",
+        "            for tok in line.split():",
+        "                try: lit = int(tok)",
+        "                except ValueError: continue",
+        "                if lit == 0: lit_words.append(0)",
+        "                elif lit > 0: lit_words.append(lit)",
+        "                else: lit_words.append(4294967296 + lit)",
+        "    return len(lit_words), nvars, nclauses, lit_words",
+        "",
+        "def _parse_sat_cert_binary(cert_encoded: str, nvars: int):",
+        '    """Parse encoded SAT assignment into cert_words[0..nvars].',
+        "    cert_words[0]=0 (guard), cert_words[k]=1 if var k is True, 0 otherwise.",
+        '    """',
+        "    text = _decode_formula(cert_encoded)",
+        "    cert_words = [0] * (nvars + 1)",
+        "    for tok in text.split():",
+        '        if tok in ("v", "s", "SATISFIABLE", "UNSATISFIABLE"): continue',
+        "        try: lit = int(tok)",
+        "        except ValueError: continue",
+        "        if lit == 0: break",
+        "        v = abs(lit)",
+        "        if 1 <= v <= nvars: cert_words[v] = 1 if lit > 0 else 0",
+        "    return cert_words",
         "",
         "def _fmt_list(val: Any) -> str:",
         '    """Format a list field as {v1,v2,...} for OCaml runner."""',
@@ -541,13 +633,24 @@ def generate_instr_dict_to_text() -> str:
     lines.append('            cert_data = str(raw_cert or "")')
     lines.append('        kind = 0 if cert_type == "unsat" else 1')
     lines.append('        flen = len(_decode_formula(formula))')
-    lines.append('        parts = [')
-    lines.append('            f"INIT_MEM_STR {_LASSERT_FORMULA_ADDR} {formula}",')
-    lines.append('            f"INIT_REG {_LASSERT_FREG} {_LASSERT_FORMULA_ADDR}",')
-    lines.append('            f"INIT_MEM_STR {_LASSERT_CERT_ADDR} {cert_data}",')
-    lines.append('            f"INIT_REG {_LASSERT_CREG} {_LASSERT_CERT_ADDR}",')
-    lines.append('            f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}",')
-    lines.append('        ]')
+    lines.append('        # Parse formula/cert into binary word format for check_model_binary_fn.')
+    lines.append('        hw_flen, nvars, nclauses, lit_words = _parse_dimacs_binary(formula)')
+    lines.append('        fbase = _LASSERT_FORMULA_ADDR')
+    lines.append('        cbase = _LASSERT_CERT_ADDR')
+    lines.append('        parts: List[str] = []')
+    lines.append('        parts.append(f"INIT_MEM {fbase} {hw_flen}")')
+    lines.append('        parts.append(f"INIT_MEM {fbase + 1} {nvars}")')
+    lines.append('        parts.append(f"INIT_MEM {fbase + 2} {nclauses}")')
+    lines.append('        for i, w in enumerate(lit_words):')
+    lines.append('            parts.append(f"INIT_MEM {fbase + 3 + i} {w}")')
+    lines.append('        if kind == 1:')
+    lines.append('            cert_words = _parse_sat_cert_binary(cert_data, nvars)')
+    lines.append('            for i, w in enumerate(cert_words):')
+    lines.append('                if w != 0:')
+    lines.append('                    parts.append(f"INIT_MEM {cbase + i} {w}")')
+    lines.append('        parts.append(f"INIT_REG {_LASSERT_FREG} {fbase}")')
+    lines.append('        parts.append(f"INIT_REG {_LASSERT_CREG} {cbase}")')
+    lines.append('        parts.append(f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}")')
     lines.append('        return "\\n".join(parts)')
 
     # Special case for LJOIN: if cert1/cert2 string fields are provided, write them

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-layer bisimulation tests for all 40 opcodes.
+"""Cross-layer bisimulation tests for all 47 opcodes.
 
 Verifies that the Python VM (backed by OCaml runner) and RTL co-simulation
 produce identical observable results for every opcode in the ISA. This is the
@@ -907,8 +907,8 @@ class TestForgeFreshness:
         finally:
             os.unlink(tmp_path)
 
-    def test_isomorphism_map_has_40_opcodes(self):
-        """build/isomorphism_map.json lists all 40 opcodes."""
+    def test_isomorphism_map_has_47_opcodes(self):
+        """build/isomorphism_map.json lists all 47 opcodes."""
         map_path = os.path.join(
             os.path.dirname(__file__), "..", "build", "isomorphism_map.json"
         )
@@ -918,8 +918,8 @@ class TestForgeFreshness:
         with open(map_path) as f:
             data = json.load(f)
         opcodes = data.get("opcodes", {})
-        assert len(opcodes) == 40, (
-            f"Expected 40 opcodes, got {len(opcodes)}: {sorted(opcodes.keys())}"
+        assert len(opcodes) == 47, (
+            f"Expected 47 opcodes, got {len(opcodes)}: {sorted(opcodes.keys())}"
         )
 
 
@@ -954,8 +954,8 @@ class TestMorphOpcodes:
         ])
         assert not state.err, f"MORPH should not error, got err={state.err}"
         assert state.mu == 4, f"PNEW(1)+PNEW(1)+MORPH(2)=4, got {state.mu}"
-        # First morphism is assigned id=0; stored in r10
-        assert state.regs[10] == 0, f"first morph_id should be 0, got {state.regs[10]}"
+        # First morphism is assigned id=1; stored in r10
+        assert state.regs[10] == 1, f"first morph_id should be 1, got {state.regs[10]}"
 
     def test_morph_sequential_ids(self):
         """Each MORPH call increments the morphism id counter."""
@@ -963,13 +963,13 @@ class TestMorphOpcodes:
             "PNEW {1} 1",
             "PNEW {2} 1",
             "PNEW {3} 1",
-            "MORPH 10 1 2 0 1",   # morph_id=0 → r10
-            "MORPH 11 2 3 0 1",   # morph_id=1 → r11
+            "MORPH 10 1 2 0 1",   # morph_id=1 → r10
+            "MORPH 11 2 3 0 1",   # morph_id=2 → r11
             "HALT 0",
         ])
         assert not state.err
-        assert state.regs[10] == 0, f"first morph_id=0, got {state.regs[10]}"
-        assert state.regs[11] == 1, f"second morph_id=1, got {state.regs[11]}"
+        assert state.regs[10] == 1, f"first morph_id=1, got {state.regs[10]}"
+        assert state.regs[11] == 2, f"second morph_id=2, got {state.regs[11]}"
 
     # --- COMPOSE ---
 
@@ -983,19 +983,19 @@ class TestMorphOpcodes:
             "PNEW {1} 1",
             "PNEW {2} 1",
             "PNEW {3} 1",
-            "MORPH 10 1 2 0 2",    # f: A→B, morph_id=0 → r10
-            "MORPH 11 2 3 0 2",    # g: B→C, morph_id=1 → r11
-            "COMPOSE 12 0 1 1",    # g∘f: A→C, morph_id=2 → r12
-            "MORPH_GET 0 2 0 0",   # r0 = source of morph 2 (= module A = 1)
-            "MORPH_GET 1 2 1 0",   # r1 = target of morph 2 (= module C = 3)
+            "MORPH 10 1 2 0 2",    # f: A→B, morph_id=1 → r10
+            "MORPH 11 2 3 0 2",    # g: B→C, morph_id=2 → r11
+            "COMPOSE 12 1 2 1",    # g∘f: A→C, morph_id=3 → r12
+            "MORPH_GET 0 3 0 0",   # r0 = source of morph 3 (= module A = 1)
+            "MORPH_GET 1 3 1 0",   # r1 = target of morph 3 (= module C = 3)
             "HALT 0",
         ])
         assert not state.err, f"compose chain should not error, got err={state.err}"
         assert state.mu == 8,   f"1+1+1+2+2+1=8, got {state.mu}"
         assert state.regs[0]  == 1, f"source of g∘f should be module 1 (A), got {state.regs[0]}"
         assert state.regs[1]  == 3, f"target of g∘f should be module 3 (C), got {state.regs[1]}"
-        assert state.regs[11] == 1, f"morph_id of g should be 1, got {state.regs[11]}"
-        assert state.regs[12] == 2, f"morph_id of g∘f should be 2, got {state.regs[12]}"
+        assert state.regs[11] == 2, f"morph_id of g should be 2, got {state.regs[11]}"
+        assert state.regs[12] == 3, f"morph_id of g∘f should be 3, got {state.regs[12]}"
 
     # --- MORPH_ID ---
 
@@ -1011,7 +1011,7 @@ class TestMorphOpcodes:
             "HALT 0",
         ])
         assert not state.err, f"MORPH_ID should not error, got err={state.err}"
-        assert state.regs[5] == 0, f"identity morph_id should be 0, got {state.regs[5]}"
+        assert state.regs[5] == 1, f"identity morph_id should be 1, got {state.regs[5]}"
         assert state.mu == 1, f"PNEW(1)+MORPH_ID(0)=1, got {state.mu}"
 
     # --- MORPH_DELETE ---
@@ -1021,8 +1021,8 @@ class TestMorphOpcodes:
         state = self._run([
             "PNEW {1} 1",
             "PNEW {2} 1",
-            "MORPH 10 1 2 0 2",    # creates morph_id=0
-            "MORPH_DELETE 0 0",    # delete morph 0
+            "MORPH 10 1 2 0 2",    # creates morph_id=1
+            "MORPH_DELETE 1 0",    # delete morph 1
             "HALT 0",
         ])
         assert not state.err, f"MORPH_DELETE on existing morph should succeed, err={state.err}"
@@ -1041,9 +1041,9 @@ class TestMorphOpcodes:
         state = self._run([
             "PNEW {1} 1",
             "PNEW {2} 1",
-            "MORPH 10 1 2 0 1",    # morph_id=0
-            "MORPH_DELETE 0 0",    # first delete: succeeds
-            "MORPH_DELETE 0 0",    # second delete: should error
+            "MORPH 10 1 2 0 1",    # morph_id=1
+            "MORPH_DELETE 1 0",    # first delete: succeeds
+            "MORPH_DELETE 1 0",    # second delete: should error
             "HALT 0",
         ])
         assert state.err, "second MORPH_DELETE on already-deleted morph should error"
@@ -1061,8 +1061,8 @@ class TestMorphOpcodes:
             "PNEW {3} 1",
             "MORPH 10 1 2 0 2",
             "MORPH 11 2 3 0 2",
-            "COMPOSE 12 0 1 1",
-            "MORPH_ASSERT 2 A-to-C-two-hop cert 4",   # S(4)=5
+            "COMPOSE 12 1 2 1",
+            "MORPH_ASSERT 3 A-to-C-two-hop cert 4",   # S(4)=5
             "HALT 0",
         ])
         assert not state.err, "MORPH_ASSERT on valid morph should not error"
@@ -1082,8 +1082,8 @@ class TestMorphOpcodes:
                 "PNEW {3} 1",
                 "MORPH 10 1 2 0 2",
                 "MORPH 11 2 3 0 2",
-                "COMPOSE 12 0 1 1",
-                f"MORPH_ASSERT 2 prop cert {cost}",
+                "COMPOSE 12 1 2 1",
+                f"MORPH_ASSERT 3 prop cert {cost}",
                 "HALT 0",
             ])
             expected_mu = base_mu + (cost + 1)   # S(cost) = cost+1
@@ -1116,7 +1116,7 @@ class TestMorphOpcodes:
         state = self._run([
             "PNEW {1} 1",
             "MORPH_ID 5 1 0",
-            "MORPH_ASSERT 0 property cert 0",   # cost=0 → S(0)=1
+            "MORPH_ASSERT 1 property cert 0",   # cost=0 → S(0)=1
             "HALT 0",
         ])
         assert not state.err
@@ -1132,9 +1132,9 @@ class TestMorphOpcodes:
         state = self._run([
             "PNEW {1} 1",
             "PNEW {2} 1",
-            "MORPH 10 1 2 0 1",    # f: src_mod=1 → dst_mod=2, morph_id=0
-            "MORPH_GET 5 0 0 0",   # r5 = source of morph 0
-            "MORPH_GET 6 0 1 0",   # r6 = target of morph 0
+            "MORPH 10 1 2 0 1",    # f: src_mod=1 → dst_mod=2, morph_id=1
+            "MORPH_GET 5 1 0 0",   # r5 = source of morph 1
+            "MORPH_GET 6 1 1 0",   # r6 = target of morph 1
             "HALT 0",
         ])
         assert not state.err
@@ -1146,7 +1146,7 @@ class TestMorphOpcodes:
     def test_morph_tensor_creates_product_morphism(self):
         """MORPH_TENSOR combines two morphisms into their tensor product.
 
-        f: A→B (morph_id=0), g: C→D (morph_id=1) → f⊗g: (A⊗C)→(B⊗D) (morph_id=2).
+        f: A→B (morph_id=1), g: C→D (morph_id=2) → f⊗g: (A⊗C)→(B⊗D) (morph_id=3).
         The tensor morph id is stored in the dst register.
 
         Pre-condition from graph_tensor_morphisms in VMState.v:
@@ -1162,13 +1162,13 @@ class TestMorphOpcodes:
             "PNEW {4} 1",     # module D (id=4), region={4}
             "PNEW {1,3} 1",   # module A⊗C (id=5), region={1,3} — pre-required union source
             "PNEW {2,4} 1",   # module B⊗D (id=6), region={2,4} — pre-required union target
-            "MORPH 10 1 2 0 1",      # f: A→B, morph_id=0 → r10
-            "MORPH 11 3 4 0 1",      # g: C→D, morph_id=1 → r11
-            "MORPH_TENSOR 12 0 1 2", # f⊗g: (A⊗C)→(B⊗D), cost=2, morph_id=2 → r12
+            "MORPH 10 1 2 0 1",      # f: A→B, morph_id=1 → r10
+            "MORPH 11 3 4 0 1",      # g: C→D, morph_id=2 → r11
+            "MORPH_TENSOR 12 1 2 2", # f⊗g: (A⊗C)→(B⊗D), cost=2, morph_id=3 → r12
             "HALT 0",
         ])
         assert not state.err, f"MORPH_TENSOR should not error, got err={state.err}"
-        assert state.regs[12] == 2, f"tensor morph_id should be 2, got {state.regs[12]}"
+        assert state.regs[12] == 3, f"tensor morph_id should be 3, got {state.regs[12]}"
         # mu = 6 PNEWs(1) + 2 MORPHs(1) + TENSOR(2) = 10
         assert state.mu == 10, f"expected mu=10, got {state.mu}"
 
@@ -1193,9 +1193,9 @@ class TestCategoricalSeparation:
         "PNEW {3} 1",
         "MORPH 10 1 2 0 2",    # f: A→B
         "MORPH 11 2 3 0 2",    # g: B→C
-        "COMPOSE 12 0 1 1",    # g∘f: A→C
-        "MORPH_GET 0 2 0 0",   # r0 = source = 1
-        "MORPH_GET 1 2 1 0",   # r1 = target = 3
+        "COMPOSE 12 1 2 1",    # g∘f: A→C
+        "MORPH_GET 0 3 0 0",   # r0 = source = 1
+        "MORPH_GET 1 3 1 0",   # r1 = target = 3
     ]
     _PROG_B_BASE = [
         "PNEW {1} 2",
@@ -1243,28 +1243,28 @@ class TestCategoricalSeparation:
     def test_morph_delete_probe_separates_programs(self):
         """MORPH_DELETE probe separates the programs in one step (Act 4 core).
 
-        Program A: morph_id=0 was built → DELETE succeeds (err=False)
-        Program B: morph_id=0 never existed → DELETE errors (err=True)
+        Program A: morph_id=1 was built → DELETE succeeds (err=False)
+        Program B: morph_id=1 never existed → DELETE errors (err=True)
 
         Same classical fingerprint before the probe; different err after.
         This is coq/kernel/PartitionSeparation.v §10 made executable.
         """
-        state_a = self._run(self._PROG_A_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
-        state_b = self._run(self._PROG_B_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
+        state_a = self._run(self._PROG_A_BASE + ["MORPH_DELETE 1 0", "HALT 0"])
+        state_b = self._run(self._PROG_B_BASE + ["MORPH_DELETE 1 0", "HALT 0"])
 
-        assert not state_a.err, "Program A: MORPH_DELETE must succeed (morph 0 was built)"
-        assert state_b.err,     "Program B: MORPH_DELETE must error (morph 0 never existed)"
+        assert not state_a.err, "Program A: MORPH_DELETE must succeed (morph 1 was built)"
+        assert state_b.err,     "Program B: MORPH_DELETE must error (morph 1 never existed)"
 
     def test_morph_get_probe_separates_programs(self):
         """MORPH_GET is an alternative categorical probe that also separates.
 
         Asking for the source of morph 0: works for A, errors for B.
         """
-        state_a = self._run(self._PROG_A_BASE + ["MORPH_GET 5 0 0 0", "HALT 0"])
-        state_b = self._run(self._PROG_B_BASE + ["MORPH_GET 5 0 0 0", "HALT 0"])
+        state_a = self._run(self._PROG_A_BASE + ["MORPH_GET 5 1 0 0", "HALT 0"])
+        state_b = self._run(self._PROG_B_BASE + ["MORPH_GET 5 1 0 0", "HALT 0"])
 
-        assert not state_a.err, "Program A: MORPH_GET on morph 0 must succeed"
-        assert state_b.err,     "Program B: MORPH_GET on morph 0 must error"
+        assert not state_a.err, "Program A: MORPH_GET on morph 1 must succeed"
+        assert state_b.err,     "Program B: MORPH_GET on morph 1 must error"
 
     def test_supra_cert_absent_before_morph_assert(self):
         """Before MORPH_ASSERT, both programs have supra_cert=False."""
@@ -1280,9 +1280,9 @@ class TestCategoricalSeparation:
         Program B has no valid morphisms so any MORPH_ASSERT attempt errors —
         and even the failed attempt charges mu (NoFI enforcement).
         """
-        # Program A: morph_id=2 is the composed g∘f — assert on it
+        # Program A: morph_id=3 is the composed g∘f — assert on it
         state_a = self._run(self._PROG_A_BASE + [
-            "MORPH_ASSERT 2 path cert 1",   # S(1)=2
+            "MORPH_ASSERT 3 path cert 1",   # S(1)=2
             "HALT 0",
         ])
         assert not state_a.err, "Program A: MORPH_ASSERT on real morph must succeed"
@@ -1317,8 +1317,8 @@ class TestCategoricalSeparation:
             "Precondition: programs must be classically identical before probe"
 
         # One probe instruction → definitive separation
-        probe_a = self._run(self._PROG_A_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
-        probe_b = self._run(self._PROG_B_BASE + ["MORPH_DELETE 0 0", "HALT 0"])
+        probe_a = self._run(self._PROG_A_BASE + ["MORPH_DELETE 1 0", "HALT 0"])
+        probe_b = self._run(self._PROG_B_BASE + ["MORPH_DELETE 1 0", "HALT 0"])
         assert probe_a.err != probe_b.err, (
             f"Probe must produce different err: A={probe_a.err}, B={probe_b.err}"
         )

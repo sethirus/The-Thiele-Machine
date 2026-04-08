@@ -515,12 +515,30 @@ Definition audit_master_nofi_to_discrete_einstein_from_bekenstein_calibration : 
        [ "positive hbar, c_light, and k_B";
          "nearest-neighbor split morphism with support witnesses";
          "Landauer-Unruh constants calibration";
-         "ledger-to-support entropy identification";
+         "explicit mu_bit_calibration over the chosen support witnesses";
          "well-formed pre/post triangulations" ];
      claim_premise_kinds := [ PremisePhysical; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
      claim_not_imply :=
        [ "Does not provide an empirical measurement theorem for the constants calibration.";
          "Still depends on the explicit Bekenstein/Landauer-Unruh premises that connect the μ-ledger to horizon thermodynamics." ] |}.
+
+Definition audit_master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration : HonestClaim :=
+  {| claim_name := "master_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration";
+     claim_sources := [ "NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration" ];
+     claim_scope := ConditionalPhysical;
+     claim_status := StatusConditional;
+     claim_role := WrapperOnly;
+     claim_premises :=
+       [ "positive hbar, c_light, and k_B";
+         "a concrete vm_step PSPLIT transition";
+         "nearest-neighbor condition for the induced psplit_transition_morphism";
+         "Landauer-Unruh constants calibration";
+         "PSPLIT cost matches the induced entropy event";
+         "well-formed pre/post triangulations" ];
+     claim_premise_kinds := [ PremisePhysical; PremiseSemantic; PremiseStructural; PremisePhysical; PremiseSemantic; PremiseStructural ];
+     claim_not_imply :=
+       [ "Does not yet generalize the execution-grounded entropy bridge beyond the PSPLIT family.";
+         "Does not eliminate the constants calibration premise." ] |}.
 
 Definition audit_master_verification_chain : HonestClaim :=
   {| claim_name := "master_verification_chain";
@@ -929,7 +947,7 @@ Definition exposed_nofi_to_discrete_einstein_content :
   NoFIToEinstein.nfi_to_discrete_einstein.
 
 Definition exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine : Prop :=
-  forall (hbar c_light k_B entropy_per_bit : R)
+  forall (hbar c_light k_B : R)
          (s_pre s_post : VMState)
          (P : LocalMorphismSemantics.SplitMorphism)
          (support_pre support_post : LocalMorphismSemantics.joint_support),
@@ -940,8 +958,8 @@ Definition exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine :
     In support_pre (LocalMorphismSemantics.morphism_support_semantics P) ->
     In support_post (LocalMorphismSemantics.morphism_support_semantics P) ->
     BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
-    BekensteinCalibration.landauer_entropy_identification
-      k_B entropy_per_bit support_pre support_post s_pre s_post ->
+    BekensteinCalibration.mu_bit_calibration
+      support_pre support_post s_pre s_post ->
     well_formed_triangulated (vm_graph s_pre) ->
     well_formed_triangulated (vm_graph s_post) ->
     (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
@@ -952,6 +970,31 @@ Definition exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine :
 Definition exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content :
   exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_spine :=
   NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration.
+
+Definition exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_spine : Prop :=
+  forall (hbar c_light k_B : R)
+         (s_pre s_post : VMState)
+         (module : ModuleID)
+         (left right : list nat)
+         (cost : nat),
+    (0 < hbar)%R ->
+    (0 < c_light)%R ->
+    (0 < k_B)%R ->
+    vm_step s_pre (instr_psplit module left right cost) s_post ->
+    LocalMorphismSemantics.is_nearest_neighbor
+      (LocalMorphismSemantics.psplit_transition_morphism left right) ->
+    BekensteinCalibration.landauer_unruh_constant_calibration hbar c_light ->
+    BekensteinCalibration.psplit_cost_matches_entropy left right cost ->
+    well_formed_triangulated (vm_graph s_pre) ->
+    well_formed_triangulated (vm_graph s_post) ->
+    (total_curvature (vm_graph s_post) - total_curvature (vm_graph s_pre))%R =
+    (einstein_coupling_constant *
+     IZR (euler_characteristic (vm_graph s_post) -
+          euler_characteristic (vm_graph s_pre))%Z)%R.
+
+Definition exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_content :
+  exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_spine :=
+  NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration.
 
 Definition exposed_import_spine : list string :=
   [ "QuantumPartitionPSD.npa_psd_iff_column_contractive -> exposed_zero_marginal_psd_contractivity";
@@ -966,7 +1009,8 @@ Definition exposed_import_spine : list string :=
     "ThermoEinsteinBridge.thermodynamic_locality_toward_einstein_with_clausius_model -> exposed_thermo_einstein_bridge_content";
     "ThermoEinsteinBridge.thermodynamic_locality_toward_discrete_einstein_emergence -> exposed_thermo_discrete_einstein_content";
     "NoFIToEinstein.nfi_to_discrete_einstein -> exposed_nofi_to_discrete_einstein_content";
-    "NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content" ].
+    "NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content";
+    "NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_content" ].
 
 (** =========================================================================
     PART 0c: METADATA COMPLETENESS AND KERNEL-STORY COVERAGE
@@ -2622,5 +2666,3 @@ Definition master_categorical_tensor_bifunctor := @tensor_bifunctor.
 Definition master_categorical_monoidal_coherence := @monoidal_coherence.
 
 (** End of Master Summary *)
-
-

@@ -1,26 +1,33 @@
-(** * ThreeLayerIsomorphism: Formal proof that Coq, Python, and Verilog are bisimilar
+(** * ThreeLayerIsomorphism: Abstract μ/PC comparison contracts
 
     WHY THIS FILE EXISTS:
     The Thiele Machine has three implementations: Coq (kernel), Python (VM),
-    and Verilog (hardware). This file proves they are bisimilar over all 40
-    opcodes: same input state + same instruction = same output state.
+    and Verilog (hardware). This file develops abstract comparison contracts
+    for shared observables, beginning with μ and PC and then defining a
+    stronger full-state interface record.
 
     THE CORE CLAIM:
-    1. The instruction set is COMPLETE (all 47 opcodes covered)
-    2. The mu-cost semantics are IDENTICAL across all layers
-    3. The state transitions are DETERMINISTIC and EQUIVALENT
-    4. Any correct implementation satisfying the WireSpec is bisimilar to Coq
+    1. the VM instruction datatype is exhaustively covered;
+    2. [vm_apply] has exact μ-cost semantics, and exact PC+1 semantics on the
+       sequential fragment;
+    3. any two implementations satisfying the abstract [WireSpec] agree on μ
+       and PC over traces;
+    4. any two implementations satisfying the stronger [FullWireSpec] agree on
+       the projected full state after a shared step.
 
     Trust chain:
      Coq vm_apply --[extraction]---> OCaml vm_apply  (Coq extraction guarantee)
-          | (proven here)                | (tested)
+          | (abstract contracts here)    | (tested)
      Python VM.step <--[testing]---> Verilog thiele_cpu  (cosimulation tests)
 
     FALSIFICATION:
-    Find a state s and instruction i where vm_apply produces different mu or PC
-    values in two WireSpec-conforming implementations. This is impossible: the
-    proof shows mu and PC are determined by instruction_cost and the initial
-    state, independent of implementation details.
+    To falsify the formal content here, produce either:
+    - a [WireSpec]-conforming pair of implementations that disagree on μ or PC,
+      or
+    - a [FullWireSpec]-conforming pair that disagree on one projected field.
+
+    This file does not by itself prove that the repository's concrete Python
+    and Verilog artifacts satisfy those interface records.
 *)
 
 From Coq Require Import Strings.String List Bool Arith.PeanoNat Lia.
@@ -144,6 +151,7 @@ Definition increments_pc_by_one (instr : vm_instruction) : bool :=
   | instr_jnez _ _ _ => false
   | instr_call _ _ => false
   | instr_ret _ => false
+  | instr_lassert _ _ _ _ _ => false
   | _ => true
   end.
 
@@ -186,9 +194,9 @@ Qed.
 (* Section 4: Wire Specification — abstract implementation contract    *)
 (* ================================================================== *)
 
-(** A "wire specification" defines the observable properties that any
-    correct implementation must satisfy. If an implementation meets
-    this spec, it is guaranteed bisimilar to the Coq kernel. *)
+(** A "wire specification" defines a μ/PC-level contract for an
+    implementation. Any two implementations satisfying this contract agree on
+    μ and PC for shared traces. *)
 
 Record WireSpec := {
   ws_state : Type;
@@ -257,9 +265,8 @@ Qed.
 (* Section 6: THE CORE THEOREM — 3-way bisimulation                    *)
 (* ================================================================== *)
 
-(** Any two implementations satisfying WireSpec, starting from the same
-    μ and PC, will produce identical μ and PC after executing ANY trace.
-    This guarantees Coq ≡ Python ≡ Verilog for all programs. *)
+(** Any two implementations satisfying [WireSpec], starting from the same
+    μ and PC, produce identical μ and PC after executing the same trace. *)
 
 Theorem three_layer_bisimulation :
   forall (spec1 spec2 : WireSpec)
@@ -324,10 +331,10 @@ Qed.
     graph, CSRs, and error flag.
 
     FullWireSpec strengthens WireSpec by requiring that every state
-    component of a conforming implementation matches what vm_apply would
-    produce given the same observable input. This is the strongest possible
-    correctness statement: any implementation satisfying FullWireSpec is
-    observationally equivalent to the Coq kernel on ALL state components. *)
+    component of a conforming implementation matches what [vm_apply] would
+    produce given the same observable input. This is an abstract full-state
+    interface contract; it does not by itself assert that any particular
+    repository backend has been shown to satisfy it. *)
 
 (** Reconstruct a VMState from observable projections. *)
 Definition project_vmstate
@@ -361,10 +368,9 @@ Definition preserves_memory (instr : vm_instruction) : bool :=
     The STORE instruction modifies memory by design, so a universal memory
     preservation theorem would need per-instruction predicates. *)
 
-(** A FullWireSpec extends WireSpec with the full current VMState observables.
-    The single proof obligation says: the output of every state component
-    must match vm_apply of the projected input. Any implementation that
-    satisfies this is provably bisimilar to the Coq kernel on ALL state. *)
+(** A [FullWireSpec] extends [WireSpec] with the current VMState observables.
+    The single proof obligation says: the output of every projected state
+    component must match [vm_apply] of the projected input. *)
 
 Record FullWireSpec := {
   fws_state : Type;
@@ -453,13 +459,13 @@ Definition coq_full_wire_spec : FullWireSpec := {|
 (* Section 9: THE CORE THEOREM — Full-State 3-Way Bisimulation         *)
 (* ================================================================== *)
 
-(** Single-step full-state bisimulation: if two FullWireSpec implementations
-  agree on all projected observables, they agree on those observables
-    after executing the SAME instruction.
+(** Single-step full-state comparison: if two [FullWireSpec] implementations
+    agree on all projected observables, they agree on those observables after
+    executing the same instruction.
 
-    This is the strongest possible bisimulation guarantee:
-    not just μ and PC, but registers, memory, graph, CSRs, error flag,
-    logic accumulator, and machine status.
+    This theorem is conditional on the [FullWireSpec] obligations. It is a
+    reusable abstract contract, not a standalone proof that all concrete
+    repository layers already instantiate that contract.
 
     Proof strategy: Both specs' fws_step_correct tie their outputs to
     vm_apply of the projected input. Since the projected inputs are

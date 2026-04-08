@@ -5,7 +5,7 @@ stays bit-for-bit isomorphic.  Every gap ever found gets a test here so
 it can never regress.
 
 Guards enforce:
-  1. MEM_SIZE=4096 across all four representations
+  1. MEM_SIZE=65536 across all four representations
   2. VerilogRefinement.v covers all 47 opcodes (including CERTIFY and categorical morphisms)
   3. RTL addr_width=12 in generated Verilog
   4. RTL Verilator binary is never stale vs source RTL
@@ -113,7 +113,7 @@ class TestMemSizeUnified:
 
 
 # ===========================================================================
-# 2. VerilogRefinement.v covers all 40 opcodes
+# 2. VerilogRefinement.v covers all 47 opcodes
 # ===========================================================================
 class TestVerilogRefinementCoverage:
     """VerilogRefinement.v must have per-opcode simulation theorems for all opcodes."""
@@ -159,9 +159,16 @@ class TestVerilogRefinementCoverage:
         "verilog_simulates_vm_step_lui",
         "verilog_simulates_vm_step_tensor_set",
         "verilog_simulates_vm_step_tensor_get",
+        "verilog_simulates_vm_step_morph",
+        "verilog_simulates_vm_step_compose",
+        "verilog_simulates_vm_step_morph_id",
+        "verilog_simulates_vm_step_morph_delete",
+        "verilog_simulates_vm_step_morph_assert",
+        "verilog_simulates_vm_step_morph_tensor",
+        "verilog_simulates_vm_step_morph_get",
     ]
 
-    def test_all_40_theorems_present(self):
+    def test_all_47_theorems_present(self):
         text = _read(COQ / "kami_hw" / "VerilogRefinement.v")
         missing = [t for t in self.EXPECTED_THEOREMS if t not in text]
         assert not missing, (
@@ -185,10 +192,10 @@ class TestVerilogRefinementCoverage:
 
 
 # ===========================================================================
-# 3. Abstraction.v covers all 40 opcodes in kami_step
+# 3. Abstraction.v covers all 47 opcodes in kami_step
 # ===========================================================================
 class TestAbstractionCoverage:
-    """Abstraction.v kami_step must have match arms for all 40 opcodes."""
+    """Abstraction.v kami_step must have match arms for all 47 opcodes."""
 
     def test_no_admitted(self):
         text = _read(COQ / "kami_hw" / "Abstraction.v")
@@ -209,39 +216,39 @@ class TestAbstractionCoverage:
 # 4. Opcode count consistency across all layers
 # ===========================================================================
 class TestOpcodeCountConsistency:
-    """All layers must agree on 40 opcodes."""
+    """All layers must agree on 47 opcodes."""
 
-    def test_coq_vmstep_has_40_constructors(self):
+    def test_coq_vmstep_has_47_constructors(self):
         text = _read(COQ / "kernel" / "VMStep.v")
         constructors = re.findall(r"Coq_instr_\w+|instr_\w+\s*:", text)
         # Count unique opcode names from step constructors
         step_ctors = re.findall(r"\|\s*step_(\w+)\s*:", text)
-        assert len(step_ctors) >= 40, (
-            f"VMStep.v has {len(step_ctors)} step constructors, expected >= 40"
+        assert len(step_ctors) >= 47, (
+            f"VMStep.v has {len(step_ctors)} step constructors, expected >= 47"
         )
 
-    def test_kami_types_has_40_opcodes(self):
+    def test_kami_types_has_47_opcodes(self):
         text = _read(COQ / "kami_hw" / "ThieleTypes.v")
         ops = re.findall(r"Definition OP_\w+", text)
-        assert len(ops) >= 40, (
-            f"ThieleTypes.v has {len(ops)} OP_* definitions, expected >= 40"
+        assert len(ops) >= 47, (
+            f"ThieleTypes.v has {len(ops)} OP_* definitions, expected >= 47"
         )
 
-    def test_ocaml_extraction_has_40_constructors(self):
+    def test_ocaml_extraction_has_47_constructors(self):
         text = _read(BUILD / "thiele_core.ml")
         # Handle both Instr_X (legacy) and Coq_instr_X (module-prefixed) naming
         ctors = re.findall(r"Instr_\w+", text)
         ctors += [f"Instr_{m}" for m in re.findall(r"Coq_instr_(\w+)", text)]
         unique = set(ctors)
-        assert len(unique) >= 40, (
-            f"thiele_core.ml has {len(unique)} Instr_* constructors, expected >= 40"
+        assert len(unique) >= 47, (
+            f"thiele_core.ml has {len(unique)} Instr_* constructors, expected >= 47"
         )
 
-    def test_isomorphism_map_has_40_opcodes(self):
+    def test_isomorphism_map_has_47_opcodes(self):
         iso_map = json.loads(_read(BUILD / "isomorphism_map.json"))
         opcodes = iso_map.get("opcodes", {})
-        assert len(opcodes) >= 40, (
-            f"isomorphism_map.json has {len(opcodes)} opcodes, expected >= 40"
+        assert len(opcodes) == 47, (
+            f"isomorphism_map.json has {len(opcodes)} opcodes, expected 47"
         )
 
 

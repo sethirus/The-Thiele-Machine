@@ -1534,9 +1534,7 @@ Lemma pnew_fresh_region_active : forall s region cost,
 Proof.
   intros s region cost Hfresh.
   unfold calibration_active_instruction.
-  unfold vm_apply. simpl.
-  unfold graph_pnew.
-  rewrite Hfresh.
+  rewrite vm_apply_pnew_graph.
   unfold graph_add_module. simpl.
   intro Heq.
   pose proof (f_equal pg_next_id Heq) as Hnext.
@@ -1554,21 +1552,32 @@ Proof.
   lia.
 Qed.
 
-(** Region disjointness against all existing modules in a graph. *)
+(** Region disjointness against all existing modules in a graph.
+    Hardware now stores List.seq 0 sz as the region, so disjointness
+    is checked against that canonical representation. *)
 Definition region_disjoint_from_graph (g : PartitionGraph) (region : list nat) : Prop :=
   forall mid ms,
     graph_lookup g mid = Some ms ->
-    nat_list_disjoint (module_region ms) (normalize_region region) = true.
+    nat_list_disjoint (module_region ms)
+      (List.seq 0 (List.length (normalize_region region))) = true.
+
+(** normalize_region is identity on seq (seq has no duplicates). *)
+Lemma normalize_region_seq : forall n,
+  normalize_region (List.seq 0 n) = List.seq 0 n.
+Proof.
+  intro n.
+  unfold normalize_region.
+  apply nodup_fixed_point.
+  apply seq_NoDup.
+Qed.
 
 (** [vm_graph_pnew]: formal specification. *)
 Lemma vm_graph_pnew : forall s region cost,
   vm_graph (vm_apply s (instr_pnew region cost)) =
-    fst (graph_pnew (vm_graph s) region).
+    fst (graph_add_module (vm_graph s) (List.seq 0 (List.length (normalize_region region))) []).
 Proof.
   intros s region cost.
-  unfold vm_apply. simpl.
-  destruct (graph_pnew (vm_graph s) region) as [g' mid'].
-  reflexivity.
+  apply vm_apply_pnew_graph.
 Qed.
 
 (** [graph_lookup_pnew_preserves_existing]: formal specification. *)
@@ -1579,7 +1588,7 @@ Lemma graph_lookup_pnew_preserves_existing : forall s region mid,
 Proof.
   intros s region mid Hlt.
   rewrite (vm_graph_pnew s region 0).
-  apply graph_pnew_preserves_existing.
+  apply graph_add_module_lookup_other.
   exact Hlt.
 Qed.
 
@@ -1724,32 +1733,18 @@ Lemma modules_adjacent_by_region_pnew_new_disjoint : forall s region m,
   m < pg_next_id (vm_graph s) ->
   modules_adjacent_by_region (vm_apply s (instr_pnew region 0)) m (pg_next_id (vm_graph s)) = false.
 Proof.
-  intros s region m Hfresh Hdisj Hlt.
+  intros s region m _ Hdisj Hlt.
   unfold modules_adjacent_by_region.
-  rewrite (graph_lookup_pnew_preserves_existing s region m Hlt).
-  rewrite (vm_graph_pnew s region 0).
-  unfold graph_pnew. rewrite Hfresh. simpl.
-  assert (Hlookup_new :
-    graph_lookup
-      {| pg_next_id := S (pg_next_id (vm_graph s));
-         pg_modules :=
-           (pg_next_id (vm_graph s),
-            normalize_module (mk_module_state (normalize_region region) []))
-             :: pg_modules (vm_graph s);
-         pg_next_morph_id := pg_next_morph_id (vm_graph s);
-         pg_morphisms := pg_morphisms (vm_graph s) |}
-      (pg_next_id (vm_graph s)) =
-    Some (normalize_module (mk_module_state (normalize_region region) []))).
-  {
-    unfold graph_lookup. simpl.
-    rewrite Nat.eqb_refl.
-    reflexivity.
-  }
-  rewrite Hlookup_new. simpl.
+  rewrite (vm_apply_pnew_noninterference s region 0 m Hlt).
+  rewrite (vm_apply_pnew_graph s region 0).
+  set (sz := List.length (normalize_region region)).
+  unfold graph_add_module, graph_lookup at 2. simpl.
+  rewrite Nat.eqb_refl.
   remember (graph_lookup (vm_graph s) m) as lookup_old.
   destruct lookup_old as [ms|]; simpl; [|reflexivity].
   unfold normalize_module. simpl.
-  assert (Hdisj_ms : nat_list_disjoint (module_region ms) (normalize_region region) = true).
+  rewrite normalize_region_seq.
+  assert (Hdisj_ms : nat_list_disjoint (module_region ms) (List.seq 0 sz) = true).
   {
     unfold region_disjoint_from_graph in Hdisj.
     specialize (Hdisj m ms).
@@ -1757,14 +1752,8 @@ Proof.
     rewrite <- Heqlookup_old.
     reflexivity.
   }
-  assert (Hdisj_ms' : nat_list_disjoint (module_region ms) (normalize_region (normalize_region region)) = true).
-  {
-    rewrite normalize_region_idempotent.
-    exact Hdisj_ms.
-  }
-  destruct (nat_list_disjoint (module_region ms) (normalize_region (normalize_region region))) eqn:Hdisj''.
-  - reflexivity.
-  - rewrite Hdisj_ms' in Hdisj''. discriminate.
+  rewrite Hdisj_ms.
+  reflexivity.
 Qed.
 
 (** [module_neighbors_pnew_disjoint]: formal specification. *)
@@ -1776,9 +1765,11 @@ Lemma module_neighbors_pnew_disjoint : forall s region m,
   module_neighbors (vm_apply s (instr_pnew region 0)) m = module_neighbors s m.
 Proof.
   intros s region m Hwf Hdisj Hfresh Hm.
+  assert (Hmod_list : map fst (pg_modules (vm_graph (vm_apply s (instr_pnew region 0)))) =
+    pg_next_id (vm_graph s) :: map fst (pg_modules (vm_graph s))).
+  { rewrite vm_apply_pnew_graph. unfold graph_add_module. simpl. reflexivity. }
   unfold module_neighbors, module_neighbors_physical, module_neighbors_adjacent.
-  rewrite (vm_graph_pnew s region 0).
-  unfold graph_pnew. rewrite Hfresh.
+  rewrite Hmod_list.
   set (new_id := pg_next_id (vm_graph s)).
   set (f := fun n =>
     andb (negb (m =? n)%nat)
@@ -1786,8 +1777,6 @@ Proof.
   set (g := fun n =>
     andb (negb (m =? n)%nat)
       (modules_adjacent_by_region s m n)).
-    change (filter f (new_id :: map fst (pg_modules (vm_graph s))) =
-      filter g (map fst (pg_modules (vm_graph s)))).
   simpl.
   assert (Hf_new : f new_id = false).
   {
@@ -1801,14 +1790,14 @@ Proof.
   { unfold mods. unfold well_formed_graph in Hwf. destruct Hwf as [H _]. exact H. }
   clear Hwf.
   revert Hwf_mods.
-  induction mods as [|[id ms] rest IH]; intros Hwf_mods; simpl in *.
-  - reflexivity.
-  - destruct Hwf_mods as [Hid Hrest].
+  induction mods as [|[id ms] rest IH]; intros Hwf_mods.
+  - simpl. reflexivity.
+  - simpl in Hwf_mods. destruct Hwf_mods as [Hid Hrest].
+    simpl.
     assert (Hf_id : f id = g id).
     {
       unfold f, g.
       pose proof (modules_adjacent_by_region_pnew_preserved s region m id Hm Hid) as Hadj.
-      unfold vm_apply, vm_apply_unsafe in Hadj.
       rewrite Hadj. reflexivity.
     }
     rewrite Hf_id.
@@ -1885,13 +1874,12 @@ Lemma sum_angles_pnew_disjoint_list : forall s region m tris,
   sum_angles (vm_apply s (instr_pnew region 0)) m tris = sum_angles s m tris.
 Proof.
   intros s region m tris Hm Htris.
-  induction tris as [|t rest IH]; simpl; [reflexivity|].
+  induction tris as [|t rest IH]; cbn [sum_angles]; [reflexivity|].
   destruct t as [n1 n2].
   assert (Hids : n1 < pg_next_id (vm_graph s) /\ n2 < pg_next_id (vm_graph s)).
   { apply (Htris n1 n2). simpl. left. reflexivity. }
   destruct Hids as [Hn1 Hn2].
   pose proof (triangle_angle_pnew_preserved s region m n1 n2 Hm Hn1 Hn2) as Hangle.
-  unfold vm_apply, vm_apply_unsafe in Hangle.
   rewrite Hangle.
   f_equal.
   apply IH.

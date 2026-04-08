@@ -5,9 +5,9 @@
 //
 // Signal naming matches BSC-generated RTL:
 //   - regs:  reg [1023:0] — 32 x 32-bit registers, reg[i] = regs[i*32 +: 32]
-//   - imem:  RegFile submodule — imem.arr[0:65535] (32-bit words)
+//   - imem:  RegFile submodule — imem.arr[0:65535] (128-bit words)
 //   - mem:   RegFile submodule — mem.arr[0:65535] (32-bit words)
-//   - loadInstr_x_0: 48-bit (16-bit addr [47:32] + 32-bit data [31:0])
+//   - loadInstr_x_0: 144-bit (16-bit addr [143:128] + 128-bit data [127:0])
 
 `timescale 1ns/1ps
 
@@ -19,13 +19,13 @@ module thiele_cpu_kami_tb;
   reg rst_n = 0;
   always #5 clk = ~clk;
 
-  reg [47:0] load_data;
+  reg [143:0] load_data;
   reg load_en;
 
 
   wire [31:0] pc_out, mu_out;
   wire [31:0] partition_ops_out, mdl_ops_out, info_gain_out, error_code_out;
-  wire [31:0] mstatus_out, mcycle_lo_out, mcycle_hi_out, minstret_lo_out, minstret_hi_out, logic_acc_out;
+  wire [31:0] mstatus_out, mcycle_lo_out, mcycle_hi_out, minstret_lo_out, minstret_hi_out, logic_acc_out, cert_addr_out;
   wire [31:0] mu_tensor_0, mu_tensor_1, mu_tensor_2, mu_tensor_3;
   wire [31:0] pt_next_id_out;
   wire [31:0] pt_size_out;
@@ -55,6 +55,7 @@ module thiele_cpu_kami_tb;
     .EN_getMinstretLo(1'b1), .getMinstretLo(minstret_lo_out), .RDY_getMinstretLo(),
     .EN_getMinstretHi(1'b1), .getMinstretHi(minstret_hi_out), .RDY_getMinstretHi(),
     .EN_getLogicAcc(1'b1), .getLogicAcc(logic_acc_out), .RDY_getLogicAcc(),
+    .EN_getCertAddr(1'b1), .getCertAddr(cert_addr_out), .RDY_getCertAddr(),
     .EN_getMuTensor0(1'b1), .getMuTensor0(mu_tensor_0), .RDY_getMuTensor0(),
     .EN_getMuTensor1(1'b1), .getMuTensor1(mu_tensor_1), .RDY_getMuTensor1(),
     .EN_getMuTensor2(1'b1), .getMuTensor2(mu_tensor_2), .RDY_getMuTensor2(),
@@ -63,7 +64,7 @@ module thiele_cpu_kami_tb;
     .setTrapVector_x_0(32'd0), .EN_setTrapVector(1'b0), .RDY_setTrapVector(),
     .apbReadData_x_0(32'd0), .EN_apbReadData(1'b0), .apbReadData(), .RDY_apbReadData(),
     .apbReadErr_x_0(32'd0), .EN_apbReadErr(1'b0), .apbReadErr(), .RDY_apbReadErr(),
-    .apbWrite_x_0(64'h0), .EN_apbWrite(1'b0), .apbWrite(), .RDY_apbWrite(),
+    .apbWrite_x_0(160'h0), .EN_apbWrite(1'b0), .apbWrite(), .RDY_apbWrite(),
     .EN_getBianchiAlarm(1'b1), .getBianchiAlarm(bianchi_alarm_out), .RDY_getBianchiAlarm(),
     .EN_getPtNextId(1'b1), .getPtNextId(pt_next_id_out), .RDY_getPtNextId(),
     .getPtSize_x_0(6'd0), .EN_getPtSize(1'b1), .getPtSize(pt_size_out), .RDY_getPtSize(),
@@ -78,7 +79,7 @@ module thiele_cpu_kami_tb;
     .EN_getWcDiff11(1'b1), .getWcDiff11(wc_diff_11_out), .RDY_getWcDiff11()
   );
 
-  reg [31:0] instr_memory [0:65535];
+  reg [127:0] instr_memory [0:65535];
   reg [31:0] data_memory [0:65535];
 
   integer i;
@@ -93,7 +94,7 @@ module thiele_cpu_kami_tb;
   reg [63:0] shadow_masks [0:NUM_SHADOW_MODS-1];
   reg [7:0] shadow_next_mid;
   reg shadow_executing;
-  reg [31:0] exec_word;
+  reg [127:0] exec_word;
   integer exec_op_i, exec_a_i, exec_b_i;
   integer sh_e, sh_m;
   integer sh_pred_mode_i, sh_pred_param_i;
@@ -112,19 +113,19 @@ module thiele_cpu_kami_tb;
   // Current instruction: updated procedurally from exec_word in the main loop.
   // Cannot use continuous assign on RegFile submodule arr[] — iverilog doesn't
   // support dynamic array indexing in continuous assigns across hierarchy.
-  reg [31:0] current_instr;
+  reg [127:0] current_instr;
   reg [7:0] current_opcode;
 
   initial begin
     for (i = 0; i < 65536; i = i + 1) begin
-      instr_memory[i] = 32'h00000000;
+      instr_memory[i] = 128'h00000000000000000000000000000000;
       data_memory[i] = 32'h00000000;
     end
     for (i = 0; i < NUM_SHADOW_MODS; i = i + 1)
       shadow_masks[i] = 64'd0;
     shadow_next_mid = 8'd1;
     shadow_executing = 1'b0;
-    exec_word = 32'd0;
+    exec_word = 128'd0;
     shadow_found_dup = 0;
     prev_mu = 32'd0;
     prev_mu_valid = 1'b0;
@@ -142,7 +143,7 @@ module thiele_cpu_kami_tb;
     if ($value$plusargs("PROGRAM=%s", program_hex_path)) begin
       $readmemh(program_hex_path, instr_memory);
     end else begin
-      instr_memory[0] = 32'hFF000000;
+      instr_memory[0] = 128'h020000000000000000000000FF000000;
     end
     if ($value$plusargs("DATA=%s", data_hex_path)) begin
       $readmemh(data_hex_path, data_memory);
@@ -153,7 +154,7 @@ module thiele_cpu_kami_tb;
 
     rst_n = 0;
     load_en = 0;
-    load_data = 48'd0;
+    load_data = 144'd0;
     @(posedge clk);
     @(posedge clk);
 
@@ -162,7 +163,7 @@ module thiele_cpu_kami_tb;
     // RDY_loadInstr = imem_init, and step rule requires imem_init && mem_init.
     while (!dut.imem_init || !dut.mem_init) @(posedge clk);
 
-    // loadInstr port is 48-bit: {addr[15:0], data[31:0]}
+    // loadInstr port is 144-bit: {addr[15:0], data[127:0]}
     for (i = 0; i < num_instrs; i = i + 1) begin
       load_data = {i[15:0], instr_memory[i]};
       load_en = 1;
@@ -186,11 +187,13 @@ module thiele_cpu_kami_tb;
     force dut.pt_next_id = 32'd1;
     for (i = 0; i < 16; i = i + 1) dut.mt_arr[i] = 32'd0;
     force dut.logic_acc = 32'd0;
+    force dut.cert_addr = 32'd0;
     @(posedge clk); @(negedge clk);
     release dut.pc; release dut.mu; release dut.err; release dut.halted;
     release dut.regs;
     release dut.partition_ops; release dut.mdl_ops; release dut.info_gain; release dut.error_code; release dut.pt_next_id;
     release dut.logic_acc;
+    release dut.cert_addr;
 
     if (init_mu_en != 0) force dut.mu = init_mu_value[31:0];
     if (init_active_module_en != 0) force dut.active_module = init_active_module_value[5:0];
@@ -208,7 +211,7 @@ module thiele_cpu_kami_tb;
 
     shadow_executing = 1'b1;
     cycle_count = 0;
-    current_instr = 32'd0;
+    current_instr = 128'd0;
     current_opcode = 8'd0;
     while (!halted_out && !err_out && cycle_count < 10000) begin
       exec_word = dut.imem.arr[pc_out[15:0]];
@@ -283,6 +286,7 @@ module thiele_cpu_kami_tb;
     $display("  \"mdl_ops\": %0d,", mdl_ops_out);
     $display("  \"info_gain\": %0d,", info_gain_out);
     $display("  \"mu\": %0d,", mu_out);
+    $display("  \"cert_addr\": %0d,", cert_addr_out);
     $display("  \"mu_tensor_0\": %0d,", mu_tensor_0);
     $display("  \"mu_tensor_1\": %0d,", mu_tensor_1);
     $display("  \"mu_tensor_2\": %0d,", mu_tensor_2);

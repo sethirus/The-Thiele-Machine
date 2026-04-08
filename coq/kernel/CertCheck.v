@@ -901,6 +901,144 @@ Module CertCheck.
         check_lrat_lines cnf.(cnf_num_vars) (split_lines proof_text) db false
     end.
 
+  (** ========================================================================
+      BINARY CLAUSE FORMAT — HARDWARE PATH
+      ========================================================================
+
+      WHY:
+      The on-chip LASSERT FSM reads formula and assignment directly from VM
+      data memory as 32-bit words.  Parsing DIMACS text in RTL is infeasible
+      (hundreds of FSM states); a binary word-per-literal layout reduces the
+      checker to ~20 FSM states.  This section provides the Coq model of
+      that binary format so the hardware FSM and the kernel can be related
+      by a shared semantic function.
+
+      BINARY FORMAT (agreed with hardware FSM):
+        mem[fbase + 0] : flen — number of literal/terminator words
+        mem[fbase + 1] : num_vars
+        mem[fbase + 2] : num_clauses
+        mem[fbase + 3 .. 3+flen-1] : clause data
+          Each word is a signed 32-bit literal (positive → variable true,
+          negative → variable false) or 0 (end-of-clause terminator).
+        mem[cbase + 0]   : num_vars (guard, must match formula header)
+        mem[cbase + k]   : assignment for variable k (0 = false, nonzero = true)
+          (variables are 1-indexed; cbase+0 is the guard word, not used as var 0)
+
+      SIGN CONVENTION:
+        A nat word w interpreted as a signed 32-bit value:
+          w < 2^31  → positive literal Z_of_nat(w)
+          w ≥ 2^31  → negative literal Z_of_nat(w) - 2^32
+
+      RELATIONSHIP TO check_model:
+        check_model parses DIMACS text.  check_model_binary reads the same
+        semantic content pre-formatted as words in memory.  They agree on
+        the same formula/assignment when the text and binary representations
+        are consistent.
+
+      FALSIFICATION:
+        Find formula_words and cert_words where check_model_binary returns
+        true but the assignment does not satisfy the formula, or vice versa.
+        The check is mechanical — no search, no approximation.
+      ======================================================================== *)
+
+  (** word32_to_signed: interpret a 32-bit nat as a signed Z (2's complement).
+      Values [0, 2^31-1] are non-negative; values [2^31, 2^32-1] are negative. *)
+  Definition word32_to_signed (w : nat) : Z :=
+    let w' := Z.of_nat w in
+    if (w' <? 2147483648)%Z   (* 2^31 *)
+    then w'
+    else (w' - 4294967296)%Z.  (* w' - 2^32 = 2's complement negative *)
+
+  (** check_model_binary: SAT certificate checker on binary memory words.
+
+      Takes the raw word list starting at fbase (formula) and the raw word
+      list starting at cbase (assignment), both as lists of nat.
+
+      formula_words layout:  [flen | num_vars | num_clauses | lit* | ...]
+      cert_words layout:     [num_vars | val_1 | val_2 | ... | val_num_vars]
+
+      Returns true iff all clauses are satisfied by the assignment. *)
+  Definition check_model_binary (formula_words : list nat) (cert_words : list nat) : bool :=
+    match formula_words with
+    | _ :: _ :: nclauses_w :: lit_words =>
+        (* Assignment lookup: cert_words[k] = value for variable k.
+           Variables are 1-indexed so cert_words[0] is the guard word. *)
+        let lookup_asgn (var : nat) : bool :=
+          match nth_error cert_words var with
+          | Some v => negb (Nat.eqb v 0)
+          | None   => false
+          end
+        in
+        (* Scan literal words, one clause at a time.
+           ndone = number of clauses fully verified so far.
+           clause_sat = has any literal in the current clause been satisfied? *)
+        let fix scan (words : list nat) (ndone : nat) (clause_sat : bool) : bool :=
+          if Nat.eqb ndone nclauses_w then true  (* all clauses verified *)
+          else
+            match words with
+            | []      => false   (* formula truncated before all clauses finished *)
+            | w :: ws =>
+                if Nat.eqb w 0 then
+                  (* end-of-clause terminator *)
+                  if clause_sat then scan ws (S ndone) false
+                  else false               (* this clause was never satisfied *)
+                else
+                  let lit := word32_to_signed w in
+                  (* SAFE: Z.abs is always >= 0; Z.to_nat (Z.abs lit) is exact, no truncation *)
+                  let var := Z.to_nat (Z.abs lit) in
+                  let lsat :=
+                    if (lit >? 0)%Z then lookup_asgn var
+                    else negb (lookup_asgn var)
+                  in
+                  scan ws ndone (orb clause_sat lsat)
+            end
+        in
+        scan lit_words 0%nat false
+    | _ => false
+    end.
+
+  (** check_model_binary_fn: function-based variant of check_model_binary.
+
+      Instead of taking a list of cert words, takes a function get_cert : nat -> nat
+      that maps variable indices to assignment values.  This avoids materialising a
+      65536-element list when the cert is implicitly stored in hardware data memory.
+
+      Semantically equivalent to check_model_binary when
+        get_cert k = nth k cert_words 0. *)
+  Definition check_model_binary_fn (formula_words : list nat) (get_cert : nat -> nat) : bool :=
+    match formula_words with
+    | _ :: _ :: nclauses_w :: lit_words =>
+        let lookup_asgn (var : nat) : bool :=
+          negb (Nat.eqb (get_cert var) 0)
+        in
+        let fix scan (words : list nat) (ndone : nat) (clause_sat : bool) : bool :=
+          if Nat.eqb ndone nclauses_w then true
+          else
+            match words with
+            | []      => false
+            | w :: ws =>
+                if Nat.eqb w 0 then
+                  if clause_sat then scan ws (S ndone) false
+                  else false
+                else
+                  let lit := word32_to_signed w in
+                  (* SAFE: Z.abs is always >= 0; Z.to_nat (Z.abs lit) is exact, no truncation *)
+                  let var := Z.to_nat (Z.abs lit) in
+                  let lsat :=
+                    if (lit >? 0)%Z then lookup_asgn var
+                    else negb (lookup_asgn var)
+                  in
+                  scan ws ndone (orb clause_sat lsat)
+            end
+        in
+        scan lit_words 0%nat false
+    | _ => false
+    end.
+
+  (** Prevent simpl from unfolding the recursive scanner: protects client proofs
+      from stack overflow when kami_step bodies are reduced. *)
+  Global Opaque check_model_binary_fn.
+
 End CertCheck.
 
 Export CertCheck.

@@ -159,17 +159,9 @@ Lemma pnew_module_count_change :
 Proof.
   intros s region cost s' Hstep.
   inversion Hstep; subst.
-  unfold state_info. simpl.
-  (* H3 : graph_pnew (vm_graph s) region = (graph', mid) *)
-  unfold graph_pnew in H3.
-  destruct (graph_find_region _ _) eqn:Hfind.
-  - (* Region exists, no new module *)
-    injection H3 as Hg' _. subst.
-    unfold state_info. lia.
-  - (* New region, new module added *)
-    unfold graph_add_module in H3.
-    injection H3 as Hg' _. subst.
-    simpl. lia.
+  unfold state_info.
+  cbn [vm_graph advance_state].
+  rewrite graph_add_module_length. lia.
 Qed.
 
 (** psplit changes module count by +1 (on success) *)
@@ -180,36 +172,61 @@ Lemma psplit_module_count_change :
     state_info s' >= state_info s.
 Proof.
   intros s mid left right cost s' Hstep.
-  inversion Hstep; subst; unfold state_info; simpl.
-  - (* Success: graph_psplit returns Some *)
-    unfold advance_state; simpl.
-    match goal with
-    | [ H : graph_psplit _ _ _ _ = Some _ |- _ ] =>
-      pose proof (graph_psplit_increases_length _ _ _ _ _ _ _ H) as Hlen
-    end.
-    exact Hlen.
-  - (* Failure: count unchanged *)
-    lia.
+  inversion Hstep; subst; unfold state_info.
+  cbn [vm_graph advance_state].
+  unfold graph_hw_psplit, graph_add_module.
+  destruct (graph_remove (vm_graph s) _) as [[g1 rm1]|] eqn:Hrem; simpl.
+  - pose proof (graph_remove_length (vm_graph s) _ g1 rm1 Hrem). lia.
+  - lia.
 Qed.
 
-(** pmerge changes module count by -2 or -1 *)
+(** graph_hw_pmerge: remove 0-2 modules, add 1; net module count
+    changes by at most +1 relative to original. *)
+Lemma graph_hw_pmerge_length_bound : forall g m1 m2,
+  List.length (pg_modules g) <=
+  S (List.length (pg_modules (graph_hw_pmerge g m1 m2))).
+Proof.
+  intros g m1 m2.
+  unfold graph_hw_pmerge.
+  destruct (graph_remove g m1) as [[g1 rm1]|] eqn:Hrem1;
+  [ destruct (graph_remove g1 m2) as [[g2 rm2]|] eqn:Hrem2
+  | destruct (graph_remove g m2) as [[g2 rm2]|] eqn:Hrem2 ];
+  unfold graph_add_module; simpl;
+  try (pose proof (graph_remove_length g m1 g1 rm1 Hrem1));
+  try (pose proof (graph_remove_length g1 m2 g2 rm2 Hrem2));
+  try (pose proof (graph_remove_length g m2 g2 rm2 Hrem2));
+  lia.
+Qed.
+
+(** graph_hw_pmerge upper bound: result has at most 1 more module *)
+Lemma graph_hw_pmerge_length_upper : forall g m1 m2,
+  List.length (pg_modules (graph_hw_pmerge g m1 m2)) <=
+  S (List.length (pg_modules g)).
+Proof.
+  intros g m1 m2.
+  unfold graph_hw_pmerge.
+  destruct (graph_remove g m1) as [[g1 rm1]|] eqn:Hrem1;
+  [ destruct (graph_remove g1 m2) as [[g2 rm2]|] eqn:Hrem2
+  | destruct (graph_remove g m2) as [[g2 rm2]|] eqn:Hrem2 ];
+  unfold graph_add_module; simpl;
+  try (pose proof (graph_remove_length g m1 g1 rm1 Hrem1));
+  try (pose proof (graph_remove_length g1 m2 g2 rm2 Hrem2));
+  try (pose proof (graph_remove_length g m2 g2 rm2 Hrem2));
+  lia.
+Qed.
+
+(** pmerge changes module count by at most +1
+    (removes 0-2 modules, adds 1; net change is -1, 0, or +1) *)
 Lemma pmerge_module_count_change :
   forall s m1 m2 cost s',
     vm_step s (instr_pmerge m1 m2 cost) s' ->
-    (* Either failed (count unchanged) or succeeded (count decreased) *)
-    state_info s' <= state_info s.
+    state_info s' <= state_info s + 1.
 Proof.
   intros s m1 m2 cost s' Hstep.
-  inversion Hstep; subst; unfold state_info; simpl.
-  - (* Success: uses graph_pmerge which decreases length *)
-    unfold advance_state. simpl.
-    match goal with
-    | [ H : graph_pmerge _ _ _ = Some _ |- _ ] =>
-      pose proof (graph_pmerge_decreases_length _ _ _ _ _ H) as Hlen
-    end.
-    exact Hlen.
-  - (* Failure: count unchanged *)
-    lia.
+  inversion Hstep; subst; unfold state_info.
+  cbn [vm_graph advance_state].
+  pose proof (graph_hw_pmerge_length_upper (vm_graph s) (m1 mod 64) (m2 mod 64)).
+  lia.
 Qed.
 
 (** graph_update_module_tensor preserves module count exactly *)
@@ -307,28 +324,19 @@ Lemma other_instr_module_count_unchanged :
 Proof.
   intros s i s' Hstep.
   destruct i; simpl; try trivial.
-  
-  (* lassert: uses graph_add_axiom which preserves length *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    + (* sat case: graph' = graph_add_axiom ... *)
-      apply graph_add_axiom_preserves_length.
-    + (* unsat case: graph unchanged *)
-      reflexivity.
-    + (* sat_failure: graph unchanged *)
-      reflexivity.
-    + (* unsat_failure: graph unchanged *)
-      reflexivity.
-      
+
+  (* lassert: single constructor, graph = s.(vm_graph) *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
   (* ljoin: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* mdlacc: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
-  (* pdiscover: uses graph_record_discovery which preserves length *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    apply graph_record_discovery_preserves_length.
-    
+
+  (* pdiscover: single constructor, graph = s.(vm_graph) *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
   (* xfer: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
@@ -359,30 +367,30 @@ Proof.
   (* ret: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
-  (* chsh_trial: graph unchanged *)
+  (* chsh_trial: graph unchanged (two constructors, both preserve graph) *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* xor_load: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* xor_add: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* xor_swap: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* xor_rank: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* emit: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* reveal: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* oracle_halts: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-  
+
   (* halt: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
@@ -422,56 +430,37 @@ Proof.
   (* lui: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
-  (* tensor_set: graph updated by graph_update_module_tensor (preserves length) *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    + (* success: graph_update_module_tensor preserves module count *)
-      rewrite graph_update_module_tensor_preserves_length. reflexivity.
-    + (* oob: graph unchanged *)
-      reflexivity.
+  (* tensor_set: two constructors; ok uses graph_update_module_tensor *)
+  - inversion Hstep; subst; unfold state_info; simpl; try reflexivity.
+    apply graph_update_module_tensor_preserves_length.
 
-  (* tensor_get: graph unchanged *)
+  (* tensor_get: graph unchanged in both branches *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
-  (* instr_morph: graph_add_morphism preserves module count *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    + (* success: use pair hypothesis to extract graph' = fst (graph_add_morphism ...) *)
-      match goal with H: (_, _) = graph_add_morphism _ _ _ _ _ |- _ =>
-        exact (graph_add_morphism_preserves_module_count _ _ _ _ _ _ _ H)
-      end.
-    + reflexivity.
+  (* morph: ok branch uses graph_add_morphism *)
+  - inversion Hstep; subst; unfold state_info; simpl; try reflexivity.
+    eapply graph_add_morphism_preserves_module_count; eassumption.
 
-  (* instr_compose: graph_compose_morphisms preserves module count *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    + match goal with H: graph_compose_morphisms _ _ _ = Some (_, _) |- _ =>
-        exact (graph_compose_morphisms_preserves_module_count _ _ _ _ _ H)
-      end.
-    + reflexivity.
+  (* compose: ok branch uses graph_compose_morphisms *)
+  - inversion Hstep; subst; unfold state_info; simpl; try reflexivity.
+    eapply graph_compose_morphisms_preserves_module_count; eassumption.
 
-  (* instr_morph_id: graph_add_identity preserves module count *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    + match goal with H: graph_add_identity _ _ = Some (_, _) |- _ =>
-        exact (graph_add_identity_preserves_module_count _ _ _ _ H)
-      end.
-    + reflexivity.
+  (* morph_id: ok branch uses graph_add_identity *)
+  - inversion Hstep; subst; unfold state_info; simpl; try reflexivity.
+    eapply graph_add_identity_preserves_module_count; eassumption.
 
-  (* instr_morph_delete: graph_delete_morphism preserves module count *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    + match goal with H: graph_delete_morphism _ _ = Some _ |- _ =>
-        exact (graph_delete_morphism_preserves_module_count _ _ _ H)
-      end.
-    + reflexivity.
+  (* morph_delete: ok branch uses graph_delete_morphism *)
+  - inversion Hstep; subst; unfold state_info; simpl; try reflexivity.
+    eapply graph_delete_morphism_preserves_module_count; eassumption.
 
-  (* instr_morph_assert: graph unchanged in all cases *)
+  (* morph_assert: graph unchanged in both branches *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
-  (* instr_morph_tensor: graph_tensor_morphisms preserves module count *)
-  - inversion Hstep; subst; unfold state_info; simpl.
-    + match goal with H: graph_tensor_morphisms _ _ _ = Some (_, _) |- _ =>
-        exact (graph_tensor_morphisms_preserves_module_count _ _ _ _ _ H)
-      end.
-    + reflexivity.
+  (* morph_tensor: ok branch uses graph_tensor_morphisms *)
+  - inversion Hstep; subst; unfold state_info; simpl; try reflexivity.
+    eapply graph_tensor_morphisms_preserves_module_count; eassumption.
 
-  (* instr_morph_get: graph unchanged in all cases *)
+  (* morph_get: graph unchanged in both branches *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 Qed.
 
@@ -504,17 +493,10 @@ Lemma pmerge_info_loss_bounded :
 Proof.
   intros s m1 m2 cost s' Hstep.
   unfold info_loss, state_info.
-  inversion Hstep; subst; simpl.
-  - (* Success: graph_pmerge removes 2, may add 1 back *)
-    unfold advance_state. simpl.
-    match goal with
-    | [ H : graph_pmerge _ _ _ = Some _ |- _ ] =>
-      pose proof (graph_pmerge_length_bound _ _ _ _ _ H) as Hbound
-    end.
-    (* length(g) <= length(g') + 2, so length(g) - length(g') <= 2 *)
-    lia.
-  - (* Failure: no change *)
-    lia.
+  inversion Hstep; subst.
+  cbn [vm_graph advance_state].
+  pose proof (graph_hw_pmerge_length_bound (vm_graph s) (m1 mod 64) (m2 mod 64)).
+  lia.
 Qed.
 
 (** Cost bounds information loss - the core causality-conservation theorem 

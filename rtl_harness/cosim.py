@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import shutil
 import subprocess
 import tempfile
 from pathlib import Path
@@ -59,6 +60,26 @@ OPCODES: Dict[str, int] = {
     "HALT": 0xFF,
 }
 
+ISA_V2_VERSION = 0x02
+FMT_LEGACY = 0x00
+FMT_TENSOR_EXT = 0x02
+FMT_MORPH_INLINE = 0x03
+FMT_CERT_INLINE = 0x05
+
+
+def _ascii_checksum(text: str) -> int:
+    return sum(ord(ch) for ch in text) & 0xFFFFFFFF
+
+
+def _parse_inline_checksum(token: str) -> int:
+    token = token.strip()
+    if len(token) >= 2 and token[0] == token[-1] and token[0] in {'"', "'"}:
+        token = token[1:-1]
+    try:
+        return int(token, 0)
+    except ValueError:
+        return _ascii_checksum(token)
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 RTL_DIR = REPO_ROOT / "thielecpu" / "hardware" / "rtl"
 BSC_VERILOG_DIR = Path("/usr/local/lib/Verilog")
@@ -82,11 +103,29 @@ def _command_available(command: str) -> bool:
     return _command_cache[command]
 
 
-def _encode_instruction(opcode_name: str, operand_a: int = 0, operand_b: int = 0, cost: int = 0) -> int:
+def _encode_instruction(
+    opcode_name: str,
+    operand_a: int = 0,
+    operand_b: int = 0,
+    cost: int = 0,
+    *,
+    format_id: int = FMT_LEGACY,
+    flags: int = 0,
+    ext0: int = 0,
+    ext1: int = 0,
+) -> int:
     opcode = OPCODES.get(opcode_name.upper())
     if opcode is None:
         raise ValueError(f"Unknown opcode: {opcode_name}")
-    return ((opcode & 0xFF) << 24) | ((operand_a & 0xFF) << 16) | ((operand_b & 0xFF) << 8) | (cost & 0xFF)
+    low32 = ((opcode & 0xFF) << 24) | ((operand_a & 0xFF) << 16) | ((operand_b & 0xFF) << 8) | (cost & 0xFF)
+    return (
+        ((ISA_V2_VERSION & 0xFF) << 120)
+        | ((format_id & 0xFF) << 112)
+        | ((flags & 0xFFFF) << 96)
+        | ((ext1 & 0xFFFFFFFF) << 64)
+        | ((ext0 & 0xFFFFFFFF) << 32)
+        | low32
+    )
 
 
 def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, int]]:
@@ -139,6 +178,154 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
             init_state["INIT_LOGIC_ACC"] = int(arg.split()[0], 0) & 0xFFFFFFFF
             continue
         if op == "INIT_REG":
+            continue
+
+        if op == "REVEAL_EXT":
+            reveal_parts = arg.split()
+            tensor_idx = int(reveal_parts[0], 0) if len(reveal_parts) > 0 else 0
+            bits = int(reveal_parts[1], 0) if len(reveal_parts) > 1 else 0
+            cost = int(reveal_parts[2], 0) if len(reveal_parts) > 2 else 0
+            instructions.append(
+                _encode_instruction(
+                    "REVEAL",
+                    0,
+                    bits,
+                    cost,
+                    format_id=FMT_TENSOR_EXT,
+                    ext0=tensor_idx,
+                )
+            )
+            continue
+
+        if op == "MORPH_EXT":
+            morph_parts = arg.split()
+            dst = int(morph_parts[0], 0) if len(morph_parts) > 0 else 0
+            src_mod = int(morph_parts[1], 0) if len(morph_parts) > 1 else 0
+            dst_mod = int(morph_parts[2], 0) if len(morph_parts) > 2 else 0
+            coupling_desc = int(morph_parts[3], 0) if len(morph_parts) > 3 else 0
+            cost = int(morph_parts[4], 0) if len(morph_parts) > 4 else 0
+            ext0 = (dst_mod & 0x3F) | ((coupling_desc & 0x3F) << 6)
+            instructions.append(
+                _encode_instruction(
+                    "MORPH",
+                    dst,
+                    src_mod,
+                    cost,
+                    format_id=FMT_MORPH_INLINE,
+                    flags=0x0004,
+                    ext0=ext0,
+                )
+            )
+            continue
+
+        if op == "COMPOSE_EXT":
+            compose_parts = arg.split()
+            dst = int(compose_parts[0], 0) if len(compose_parts) > 0 else 0
+            m1 = int(compose_parts[1], 0) if len(compose_parts) > 1 else 0
+            m2 = int(compose_parts[2], 0) if len(compose_parts) > 2 else 0
+            cost = int(compose_parts[3], 0) if len(compose_parts) > 3 else 0
+            instructions.append(
+                _encode_instruction(
+                    "COMPOSE",
+                    dst,
+                    m1,
+                    cost,
+                    format_id=FMT_MORPH_INLINE,
+                    flags=0x0004,
+                    ext0=m2,
+                )
+            )
+            continue
+
+        if op == "MORPH_ID_EXT":
+            morph_id_parts = arg.split()
+            dst = int(morph_id_parts[0], 0) if len(morph_id_parts) > 0 else 0
+            module = int(morph_id_parts[1], 0) if len(morph_id_parts) > 1 else 0
+            cost = int(morph_id_parts[2], 0) if len(morph_id_parts) > 2 else 0
+            instructions.append(
+                _encode_instruction(
+                    "MORPH_ID",
+                    dst,
+                    module,
+                    cost,
+                    format_id=FMT_MORPH_INLINE,
+                    flags=0x0004,
+                )
+            )
+            continue
+
+        if op == "MORPH_DELETE_EXT":
+            morph_delete_parts = arg.split()
+            morph_id = int(morph_delete_parts[0], 0) if len(morph_delete_parts) > 0 else 0
+            cost = int(morph_delete_parts[1], 0) if len(morph_delete_parts) > 1 else 0
+            instructions.append(
+                _encode_instruction(
+                    "MORPH_DELETE",
+                    morph_id,
+                    0,
+                    cost,
+                    format_id=FMT_MORPH_INLINE,
+                    flags=0x0004,
+                )
+            )
+            continue
+
+        if op == "MORPH_GET_EXT":
+            morph_get_parts = arg.split()
+            dst = int(morph_get_parts[0], 0) if len(morph_get_parts) > 0 else 0
+            morph_id = int(morph_get_parts[1], 0) if len(morph_get_parts) > 1 else 0
+            selector = int(morph_get_parts[2], 0) if len(morph_get_parts) > 2 else 0
+            cost = int(morph_get_parts[3], 0) if len(morph_get_parts) > 3 else 0
+            instructions.append(
+                _encode_instruction(
+                    "MORPH_GET",
+                    dst,
+                    morph_id,
+                    cost,
+                    format_id=FMT_MORPH_INLINE,
+                    flags=0x0004,
+                    ext0=selector,
+                )
+            )
+            continue
+
+        if op == "MORPH_ASSERT_EXT":
+            morph_assert_parts = arg.split()
+            morph_id = int(morph_assert_parts[0], 0) if len(morph_assert_parts) > 0 else 0
+            property_checksum = _parse_inline_checksum(morph_assert_parts[1]) if len(morph_assert_parts) > 1 else 0
+            cost = int(morph_assert_parts[2], 0) if len(morph_assert_parts) > 2 else 0
+            instructions.append(
+                _encode_instruction(
+                    "MORPH_ASSERT",
+                    morph_id,
+                    0,
+                    cost,
+                    format_id=FMT_CERT_INLINE,
+                    flags=0x0004,
+                    ext0=property_checksum,
+                )
+            )
+            continue
+
+        if op == "MORPH_TENSOR_EXT":
+            # MORPH_TENSOR_EXT dst f_id g_id cost
+            # FMT_MORPH_INLINE: f_id in op_b (low lane), g_id in ext0[5:0]
+            morph_t_parts = arg.split()
+            dst = int(morph_t_parts[0], 0) if len(morph_t_parts) > 0 else 0
+            f_id = int(morph_t_parts[1], 0) if len(morph_t_parts) > 1 else 0
+            g_id = int(morph_t_parts[2], 0) if len(morph_t_parts) > 2 else 0
+            cost = int(morph_t_parts[3], 0) if len(morph_t_parts) > 3 else 0
+            instructions.append(
+                _encode_instruction(
+                    "MORPH_TENSOR",
+                    dst,
+                    f_id,
+                    cost,
+                    format_id=FMT_MORPH_INLINE,
+                    flags=0x0004,
+                    ext0=g_id & 0x3F,
+                )
+            )
             continue
 
         if op == "PNEW":
@@ -271,12 +458,66 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
             instructions.append(_encode_instruction("HALT", 0, 0, int(halt_parts[0], 0) if halt_parts else 0))
             continue
 
+        if op == "MORPH":
+            morph_parts = arg.split()
+            dst = int(morph_parts[0], 0) if len(morph_parts) > 0 else 0
+            src_mod = int(morph_parts[1], 0) if len(morph_parts) > 1 else 0
+            cost = int(morph_parts[-1], 0) if len(morph_parts) > 1 else 0
+            instructions.append(_encode_instruction("MORPH", dst, src_mod, cost))
+            continue
+
+        if op == "COMPOSE":
+            compose_parts = arg.split()
+            dst = int(compose_parts[0], 0) if len(compose_parts) > 0 else 0
+            m1 = int(compose_parts[1], 0) if len(compose_parts) > 1 else 0
+            cost = int(compose_parts[-1], 0) if len(compose_parts) > 1 else 0
+            instructions.append(_encode_instruction("COMPOSE", dst, m1, cost))
+            continue
+
+        if op == "MORPH_ID":
+            morph_id_parts = arg.split()
+            dst = int(morph_id_parts[0], 0) if len(morph_id_parts) > 0 else 0
+            module = int(morph_id_parts[1], 0) if len(morph_id_parts) > 1 else 0
+            cost = int(morph_id_parts[-1], 0) if len(morph_id_parts) > 1 else 0
+            instructions.append(_encode_instruction("MORPH_ID", dst, module, cost))
+            continue
+
+        if op == "MORPH_DELETE":
+            morph_delete_parts = arg.split()
+            morph_id = int(morph_delete_parts[0], 0) if len(morph_delete_parts) > 0 else 0
+            cost = int(morph_delete_parts[-1], 0) if len(morph_delete_parts) > 1 else 0
+            instructions.append(_encode_instruction("MORPH_DELETE", morph_id, 0, cost))
+            continue
+
+        if op == "MORPH_ASSERT":
+            morph_assert_parts = arg.split()
+            morph_id = int(morph_assert_parts[0], 0) if len(morph_assert_parts) > 0 else 0
+            cost = int(morph_assert_parts[-1], 0) if len(morph_assert_parts) > 1 else 0
+            instructions.append(_encode_instruction("MORPH_ASSERT", morph_id, 0, cost))
+            continue
+
+        if op == "MORPH_TENSOR":
+            morph_tensor_parts = arg.split()
+            dst = int(morph_tensor_parts[0], 0) if len(morph_tensor_parts) > 0 else 0
+            f_id = int(morph_tensor_parts[1], 0) if len(morph_tensor_parts) > 1 else 0
+            cost = int(morph_tensor_parts[-1], 0) if len(morph_tensor_parts) > 1 else 0
+            instructions.append(_encode_instruction("MORPH_TENSOR", dst, f_id, cost))
+            continue
+
+        if op == "MORPH_GET":
+            morph_get_parts = arg.split()
+            dst = int(morph_get_parts[0], 0) if len(morph_get_parts) > 0 else 0
+            morph_id = int(morph_get_parts[1], 0) if len(morph_get_parts) > 1 else 0
+            cost = int(morph_get_parts[-1], 0) if len(morph_get_parts) > 1 else 0
+            instructions.append(_encode_instruction("MORPH_GET", dst, morph_id, cost))
+            continue
+
         generic = arg.split()
         instructions.append(_encode_instruction(op, int(generic[0], 0) if len(generic) > 0 else 0, int(generic[1], 0) if len(generic) > 1 else 0, int(generic[2], 0) if len(generic) > 2 else 0))
 
-    instruction_hex = [f"{word:08X}" for word in instructions]
+    instruction_hex = [f"{word:032X}" for word in instructions]
     while len(instruction_hex) < 256:
-        instruction_hex.append("00000000")
+        instruction_hex.append("00000000000000000000000000000000")
 
     data_hex = [f"{data_memory.get(index, 0):08X}" for index in range(256)]
     return instruction_hex, data_hex, init_state
@@ -332,6 +573,8 @@ def _ensure_verilator_current() -> Path:
     )
     if needs_compile:
         out_dir = CACHED_VERILATOR_BIN.parent
+        if out_dir.exists():
+            shutil.rmtree(out_dir)
         out_dir.mkdir(parents=True, exist_ok=True)
         extra_srcs = [str(bsc_regfile)] if bsc_regfile.exists() else []
         cmd = [

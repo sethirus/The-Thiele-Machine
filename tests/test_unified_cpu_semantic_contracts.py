@@ -28,8 +28,9 @@ _OPCODE_NAMES = {
 
 
 def _run_custom_tb(program_words: list[int]) -> dict[str, int]:
-    """Run a program (as raw 32-bit instruction words) through mkModule1.
+    """Run a program (as raw legacy-lane instruction words) through mkModule1.
 
+    Words are re-encoded to 128-bit ISA v2 by cosim before execution.
     Returns a dict with at least: mu, status, error (error_code), pc.
     """
     from thielecpu.hardware.cosim import run_verilog, OPCODES

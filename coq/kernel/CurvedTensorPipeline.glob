@@ -1,4 +1,4 @@
-DIGEST 63e70406641e248a36264e74e30bee57
+DIGEST 09df395e1468b4efcc79bece71299f1e
 FKernel.CurvedTensorPipeline
 R1405:1409 Coq.Reals.Reals <> <> lib
 R1411:1414 Coq.Lists.List <> <> lib
@@ -3640,24 +3640,330 @@ R48904:48924 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
 R48941:48943 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R48904:48924 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
 R49065:49079 Kernel.CurvedTensorPipeline <> curved_einstein def
-prf 49461:49500 <> mass_stress_energy_independent_of_tensor
+prf 49450:49498 <> local_einstein_from_mass_two_vertex_endpoint_diag
 binder 49511:49511 <> s:446
-binder 49513:49514 <> μ:447
-binder 49516:49517 <> ν:448
-binder 49519:49519 <> v:449
-R49552:49556 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R49524:49541 Kernel.CurvedTensorPipeline <> mass_stress_energy def
-R49543:49543 Kernel.CurvedTensorPipeline <> s:446 var
-R49545:49546 Kernel.CurvedTensorPipeline <> μ:447 var
-R49548:49549 Kernel.CurvedTensorPipeline <> ν:448 var
-R49551:49551 Kernel.CurvedTensorPipeline <> v:449 var
-R49569:49572 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R49563:49567 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R49561:49562 Kernel.CurvedTensorPipeline <> μ:447 var
-R49575:49579 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R49573:49574 Kernel.CurvedTensorPipeline <> ν:448 var
-R49594:49596 Coq.Reals.Raxioms <> INR def
-R49599:49620 Kernel.MuGravity <> module_structural_mass def
-R49622:49622 Kernel.CurvedTensorPipeline <> s:446 var
-R49624:49624 Kernel.CurvedTensorPipeline <> v:449 var
-R49661:49678 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+binder 49513:49513 <> v:447
+binder 49515:49515 <> w:448
+binder 49517:49517 <> d:449
+R49536:49543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49526:49529 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R49525:49525 Kernel.CurvedTensorPipeline <> v:447 var
+R49530:49530 Kernel.CurvedTensorPipeline <> w:448 var
+R49568:49575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49552:49555 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R49546:49550 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R49545:49545 Kernel.CurvedTensorPipeline <> v:447 var
+R49557:49561 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R49556:49556 Kernel.CurvedTensorPipeline <> w:448 var
+R49620:49627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49594:49597 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R49584:49586 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49578:49582 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R49577:49577 Kernel.CurvedTensorPipeline <> d:449 var
+R49588:49592 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R49587:49587 Kernel.CurvedTensorPipeline <> v:447 var
+R49605:49607 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49599:49603 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R49598:49598 Kernel.CurvedTensorPipeline <> d:449 var
+R49609:49613 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R49608:49608 Kernel.CurvedTensorPipeline <> w:448 var
+R49664:49671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49655:49657 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R49629:49650 Kernel.MuGravity <> module_structural_mass def
+R49652:49652 Kernel.CurvedTensorPipeline <> s:446 var
+R49654:49654 Kernel.CurvedTensorPipeline <> v:447 var
+R49672:49678 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R49685:49692 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R49684:49684 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 49679:49680 <> κ:450
+R49742:49750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49693:49713 Kernel.EinsteinEquations4D <> local_einstein_tensor def
+R49715:49715 Kernel.CurvedTensorPipeline <> s:446 var
+R49718:49730 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R49732:49732 Kernel.CurvedTensorPipeline <> v:447 var
+R49734:49734 Kernel.CurvedTensorPipeline <> w:448 var
+R49737:49737 Kernel.CurvedTensorPipeline <> d:449 var
+R49739:49739 Kernel.CurvedTensorPipeline <> d:449 var
+R49741:49741 Kernel.CurvedTensorPipeline <> v:447 var
+R49753:49755 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R49751:49752 Kernel.CurvedTensorPipeline <> κ:450 var
+R49756:49773 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R49775:49775 Kernel.CurvedTensorPipeline <> s:446 var
+R49777:49777 Kernel.CurvedTensorPipeline <> d:449 var
+R49779:49779 Kernel.CurvedTensorPipeline <> d:449 var
+R49781:49781 Kernel.CurvedTensorPipeline <> v:447 var
+R49841:49841 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R49963:49976 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R49842:49842 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R49910:49925 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R49962:49962 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R49875:49877 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R49843:49845 Coq.Reals.Raxioms <> INR def
+R49848:49869 Kernel.MuGravity <> module_structural_mass def
+R49878:49880 Coq.Reals.Raxioms <> INR def
+R49883:49904 Kernel.MuGravity <> module_structural_mass def
+R49927:49929 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R49930:49932 Coq.Reals.Raxioms <> INR def
+R49935:49956 Kernel.MuGravity <> module_structural_mass def
+R49977:49979 Coq.Reals.Raxioms <> INR def
+R49982:50003 Kernel.MuGravity <> module_structural_mass def
+R49841:49841 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R49963:49976 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R49842:49842 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R49910:49925 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R49962:49962 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R49875:49877 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R49843:49845 Coq.Reals.Raxioms <> INR def
+R49848:49869 Kernel.MuGravity <> module_structural_mass def
+R49878:49880 Coq.Reals.Raxioms <> INR def
+R49883:49904 Kernel.MuGravity <> module_structural_mass def
+R49927:49929 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R49930:49932 Coq.Reals.Raxioms <> INR def
+R49935:49956 Kernel.MuGravity <> module_structural_mass def
+R49977:49979 Coq.Reals.Raxioms <> INR def
+R49982:50003 Kernel.MuGravity <> module_structural_mass def
+R50024:50062 Kernel.EinsteinEquations4D <> local_einstein_two_vertex_endpoint_diag thm
+R50024:50062 Kernel.EinsteinEquations4D <> local_einstein_two_vertex_endpoint_diag thm
+R50024:50062 Kernel.EinsteinEquations4D <> local_einstein_two_vertex_endpoint_diag thm
+R50088:50105 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R50118:50129 Coq.Arith.PeanoNat Nat eqb_refl thm
+R50118:50129 Coq.Arith.PeanoNat Nat eqb_refl thm
+R50118:50129 Coq.Arith.PeanoNat Nat eqb_refl thm
+R50149:50157 Coq.Reals.RIneq <> not_0_INR thm
+R50149:50157 Coq.Reals.RIneq <> not_0_INR thm
+prf 50260:50307 <> mass_stress_energy_diag_nonzero_on_positive_mass
+binder 50318:50318 <> s:451
+binder 50320:50320 <> d:452
+binder 50322:50322 <> v:453
+R50363:50368 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50354:50356 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R50328:50349 Kernel.MuGravity <> module_structural_mass def
+R50351:50351 Kernel.CurvedTensorPipeline <> s:451 var
+R50353:50353 Kernel.CurvedTensorPipeline <> v:453 var
+R50395:50398 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R50369:50386 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R50388:50388 Kernel.CurvedTensorPipeline <> s:451 var
+R50390:50390 Kernel.CurvedTensorPipeline <> d:452 var
+R50392:50392 Kernel.CurvedTensorPipeline <> d:452 var
+R50394:50394 Kernel.CurvedTensorPipeline <> v:453 var
+R50442:50459 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R50472:50483 Coq.Arith.PeanoNat Nat eqb_refl thm
+R50472:50483 Coq.Arith.PeanoNat Nat eqb_refl thm
+R50472:50483 Coq.Arith.PeanoNat Nat eqb_refl thm
+R50520:50522 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R50523:50525 Coq.Reals.Raxioms <> INR def
+R50528:50549 Kernel.MuGravity <> module_structural_mass def
+R50520:50522 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R50523:50525 Coq.Reals.Raxioms <> INR def
+R50528:50549 Kernel.MuGravity <> module_structural_mass def
+R50571:50578 Coq.Reals.RIneq <> lt_0_INR thm
+R50571:50578 Coq.Reals.RIneq <> lt_0_INR thm
+prf 50708:50743 <> nonvacuum_mass_stress_energy_witness
+binder 50754:50754 <> s:454
+R50759:50759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50806:50812 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50760:50766 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R50768:50769 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 50767:50767 <> v:455
+R50797:50799 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R50771:50792 Kernel.MuGravity <> module_structural_mass def
+R50794:50794 Kernel.CurvedTensorPipeline <> s:454 var
+R50796:50796 Kernel.CurvedTensorPipeline <> v:455 var
+R50813:50819 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R50823:50824 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 50820:50820 <> d:456
+binder 50822:50822 <> v:457
+R50851:50854 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R50825:50842 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R50844:50844 Kernel.CurvedTensorPipeline <> s:454 var
+R50846:50846 Kernel.CurvedTensorPipeline <> d:456 var
+R50848:50848 Kernel.CurvedTensorPipeline <> d:456 var
+R50850:50850 Kernel.CurvedTensorPipeline <> v:457 var
+R50916:50963 Kernel.CurvedTensorPipeline <> mass_stress_energy_diag_nonzero_on_positive_mass thm
+R50916:50963 Kernel.CurvedTensorPipeline <> mass_stress_energy_diag_nonzero_on_positive_mass thm
+prf 51266:51305 <> mass_stress_energy_independent_of_tensor
+binder 51316:51316 <> s:458
+binder 51318:51319 <> μ:459
+binder 51321:51322 <> ν:460
+binder 51324:51324 <> v:461
+R51357:51361 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51329:51346 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R51348:51348 Kernel.CurvedTensorPipeline <> s:458 var
+R51350:51351 Kernel.CurvedTensorPipeline <> μ:459 var
+R51353:51354 Kernel.CurvedTensorPipeline <> ν:460 var
+R51356:51356 Kernel.CurvedTensorPipeline <> v:461 var
+R51374:51377 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R51368:51372 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R51366:51367 Kernel.CurvedTensorPipeline <> μ:459 var
+R51380:51384 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R51378:51379 Kernel.CurvedTensorPipeline <> ν:460 var
+R51399:51401 Coq.Reals.Raxioms <> INR def
+R51404:51425 Kernel.MuGravity <> module_structural_mass def
+R51427:51427 Kernel.CurvedTensorPipeline <> s:458 var
+R51429:51429 Kernel.CurvedTensorPipeline <> v:461 var
+R51466:51483 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+prf 52165:52207 <> local_einstein_explicit_coupling_two_vertex
+binder 52218:52218 <> s:462
+binder 52220:52220 <> v:463
+binder 52222:52222 <> w:464
+binder 52224:52224 <> d:465
+R52235:52240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52230:52233 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R52229:52229 Kernel.CurvedTensorPipeline <> v:463 var
+R52234:52234 Kernel.CurvedTensorPipeline <> w:464 var
+R52265:52270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52249:52252 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R52243:52247 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R52242:52242 Kernel.CurvedTensorPipeline <> v:463 var
+R52254:52258 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R52253:52253 Kernel.CurvedTensorPipeline <> w:464 var
+R52315:52320 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52289:52292 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R52279:52281 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52273:52277 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R52272:52272 Kernel.CurvedTensorPipeline <> d:465 var
+R52283:52287 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R52282:52282 Kernel.CurvedTensorPipeline <> v:463 var
+R52300:52302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52294:52298 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R52293:52293 Kernel.CurvedTensorPipeline <> d:465 var
+R52304:52308 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R52303:52303 Kernel.CurvedTensorPipeline <> w:464 var
+R52357:52362 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52348:52350 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R52322:52343 Kernel.MuGravity <> module_structural_mass def
+R52345:52345 Kernel.CurvedTensorPipeline <> s:462 var
+R52347:52347 Kernel.CurvedTensorPipeline <> v:463 var
+R52412:52418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52363:52383 Kernel.EinsteinEquations4D <> local_einstein_tensor def
+R52385:52385 Kernel.CurvedTensorPipeline <> s:462 var
+R52388:52400 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R52402:52402 Kernel.CurvedTensorPipeline <> v:463 var
+R52404:52404 Kernel.CurvedTensorPipeline <> w:464 var
+R52407:52407 Kernel.CurvedTensorPipeline <> d:465 var
+R52409:52409 Kernel.CurvedTensorPipeline <> d:465 var
+R52411:52411 Kernel.CurvedTensorPipeline <> v:463 var
+R52419:52419 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R52578:52585 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R52420:52420 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R52537:52545 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R52421:52421 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R52489:52499 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R52536:52536 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R52454:52456 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R52422:52424 Coq.Reals.Raxioms <> INR def
+R52427:52448 Kernel.MuGravity <> module_structural_mass def
+R52450:52450 Kernel.CurvedTensorPipeline <> s:462 var
+R52452:52452 Kernel.CurvedTensorPipeline <> w:464 var
+R52457:52459 Coq.Reals.Raxioms <> INR def
+R52462:52483 Kernel.MuGravity <> module_structural_mass def
+R52485:52485 Kernel.CurvedTensorPipeline <> s:462 var
+R52487:52487 Kernel.CurvedTensorPipeline <> v:463 var
+R52501:52503 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R52504:52506 Coq.Reals.Raxioms <> INR def
+R52509:52530 Kernel.MuGravity <> module_structural_mass def
+R52532:52532 Kernel.CurvedTensorPipeline <> s:462 var
+R52534:52534 Kernel.CurvedTensorPipeline <> v:463 var
+R52546:52548 Coq.Reals.Raxioms <> INR def
+R52551:52572 Kernel.MuGravity <> module_structural_mass def
+R52574:52574 Kernel.CurvedTensorPipeline <> s:462 var
+R52576:52576 Kernel.CurvedTensorPipeline <> v:463 var
+R52586:52603 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R52605:52605 Kernel.CurvedTensorPipeline <> s:462 var
+R52607:52607 Kernel.CurvedTensorPipeline <> d:465 var
+R52609:52609 Kernel.CurvedTensorPipeline <> d:465 var
+R52611:52611 Kernel.CurvedTensorPipeline <> v:463 var
+R52671:52709 Kernel.EinsteinEquations4D <> local_einstein_two_vertex_endpoint_diag thm
+R52671:52709 Kernel.EinsteinEquations4D <> local_einstein_two_vertex_endpoint_diag thm
+R52671:52709 Kernel.EinsteinEquations4D <> local_einstein_two_vertex_endpoint_diag thm
+R52735:52752 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R52765:52776 Coq.Arith.PeanoNat Nat eqb_refl thm
+R52765:52776 Coq.Arith.PeanoNat Nat eqb_refl thm
+R52765:52776 Coq.Arith.PeanoNat Nat eqb_refl thm
+R52796:52804 Coq.Reals.RIneq <> not_0_INR thm
+R52796:52804 Coq.Reals.RIneq <> not_0_INR thm
+prf 53086:53125 <> local_einstein_field_equation_two_vertex
+binder 53136:53136 <> s:466
+binder 53138:53138 <> v:467
+binder 53140:53140 <> w:468
+binder 53142:53142 <> d:469
+R53153:53158 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53148:53151 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R53147:53147 Kernel.CurvedTensorPipeline <> v:467 var
+R53152:53152 Kernel.CurvedTensorPipeline <> w:468 var
+R53183:53188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53167:53170 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R53161:53165 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R53160:53160 Kernel.CurvedTensorPipeline <> v:467 var
+R53172:53176 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R53171:53171 Kernel.CurvedTensorPipeline <> w:468 var
+R53233:53238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53207:53210 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R53197:53199 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53191:53195 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R53190:53190 Kernel.CurvedTensorPipeline <> d:469 var
+R53201:53205 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R53200:53200 Kernel.CurvedTensorPipeline <> v:467 var
+R53218:53220 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53212:53216 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R53211:53211 Kernel.CurvedTensorPipeline <> d:469 var
+R53222:53226 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R53221:53221 Kernel.CurvedTensorPipeline <> w:468 var
+R53275:53280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53266:53268 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R53240:53261 Kernel.MuGravity <> module_structural_mass def
+R53263:53263 Kernel.CurvedTensorPipeline <> s:466 var
+R53265:53265 Kernel.CurvedTensorPipeline <> v:467 var
+R53330:53336 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53281:53301 Kernel.EinsteinEquations4D <> local_einstein_tensor def
+R53303:53303 Kernel.CurvedTensorPipeline <> s:466 var
+R53306:53318 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R53320:53320 Kernel.CurvedTensorPipeline <> v:467 var
+R53322:53322 Kernel.CurvedTensorPipeline <> w:468 var
+R53325:53325 Kernel.CurvedTensorPipeline <> d:469 var
+R53327:53327 Kernel.CurvedTensorPipeline <> d:469 var
+R53329:53329 Kernel.CurvedTensorPipeline <> v:467 var
+R53557:53563 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53337:53337 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53389:53397 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53556:53556 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53344:53346 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53339:53341 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53342:53343 Coq.Reals.Rtrigo1 <> PI def
+R53347:53388 Kernel.EinsteinEquations4D <> gravitational_constant def
+R53398:53398 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R53515:53523 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R53399:53399 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53467:53477 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53514:53514 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R53432:53434 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R53400:53402 Coq.Reals.Raxioms <> INR def
+R53405:53426 Kernel.MuGravity <> module_structural_mass def
+R53428:53428 Kernel.CurvedTensorPipeline <> s:466 var
+R53430:53430 Kernel.CurvedTensorPipeline <> w:468 var
+R53435:53437 Coq.Reals.Raxioms <> INR def
+R53440:53461 Kernel.MuGravity <> module_structural_mass def
+R53463:53463 Kernel.CurvedTensorPipeline <> s:466 var
+R53465:53465 Kernel.CurvedTensorPipeline <> v:467 var
+R53479:53481 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R53482:53484 Coq.Reals.Raxioms <> INR def
+R53487:53508 Kernel.MuGravity <> module_structural_mass def
+R53510:53510 Kernel.CurvedTensorPipeline <> s:466 var
+R53512:53512 Kernel.CurvedTensorPipeline <> v:467 var
+R53524:53526 Coq.Reals.Raxioms <> INR def
+R53529:53550 Kernel.MuGravity <> module_structural_mass def
+R53552:53552 Kernel.CurvedTensorPipeline <> s:466 var
+R53554:53554 Kernel.CurvedTensorPipeline <> v:467 var
+R53564:53581 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R53583:53583 Kernel.CurvedTensorPipeline <> s:466 var
+R53585:53585 Kernel.CurvedTensorPipeline <> d:469 var
+R53587:53587 Kernel.CurvedTensorPipeline <> d:469 var
+R53589:53589 Kernel.CurvedTensorPipeline <> v:467 var
+R53649:53706 Kernel.EinsteinEquations4D <> gravitational_coupling_unit_convention thm
+R53649:53706 Kernel.EinsteinEquations4D <> gravitational_coupling_unit_convention thm
+R53649:53706 Kernel.EinsteinEquations4D <> gravitational_coupling_unit_convention thm
+R53719:53727 Coq.Reals.Raxioms <> Rmult_1_l thm
+R53719:53727 Coq.Reals.Raxioms <> Rmult_1_l thm
+R53719:53727 Coq.Reals.Raxioms <> Rmult_1_l thm
+R53739:53781 Kernel.CurvedTensorPipeline <> local_einstein_explicit_coupling_two_vertex thm
+R53739:53781 Kernel.CurvedTensorPipeline <> local_einstein_explicit_coupling_two_vertex thm

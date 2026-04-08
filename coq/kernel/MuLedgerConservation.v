@@ -84,7 +84,7 @@ Qed.
     original μ plus the instruction's cost. No more, no less.
 
     PROOF STRATEGY:
-    Case analysis on all 40 instructions. Each instruction's semantics (defined
+    Case analysis on all 47 instructions. Each instruction's semantics (defined
     in VMStep.v) explicitly computes new_mu = old_mu + instruction_cost. This
     lemma just extracts that fact from the step relation.
 
@@ -108,29 +108,45 @@ Lemma vm_apply_mu :
     (vm_apply s instr).(vm_mu) = s.(vm_mu) + instruction_cost instr.
 Proof.
   intros s instr.
-  destruct instr; simpl;
-    try (destruct (graph_pnew _ _) as [graph' mid] eqn:?; simpl; reflexivity);
-    try (destruct (graph_psplit _ _ _ _) as [[[graph' left_id] right_id]|] eqn:?; simpl; reflexivity);
-    try (destruct (graph_pmerge _ _ _) as [[graph' merged_id]|] eqn:?; simpl; reflexivity);
-    try (destruct cert as [proof | model]; simpl;
-         [destruct (check_lrat formula proof) eqn:?; simpl; reflexivity
-         |destruct (check_model formula model) eqn:?; simpl; reflexivity]);
-    try (destruct (String.eqb _ _) eqn:?; simpl; reflexivity);
-    try (destruct (Nat.eqb _ 0) eqn:?; simpl; reflexivity);
-    try (destruct (chsh_bits_ok _ _ _ _) eqn:?; simpl; reflexivity);
-    (* Phase 7: categorical instruction operations *)
-    try (destruct (graph_lookup _ _) as [?|]; simpl;
-         [destruct (graph_lookup _ _) as [?|]; simpl; reflexivity | reflexivity]);
-    try (destruct (graph_compose_morphisms _ _ _) as [[graph' new_id]|] eqn:?; simpl; reflexivity);
-    try (destruct (graph_add_identity _ _) as [[graph' morph_id]|] eqn:?; simpl; reflexivity);
-    try (destruct (graph_delete_morphism _ _) as [graph'|] eqn:?; simpl; reflexivity);
-    try (destruct (graph_tensor_morphisms _ _ _) as [[graph' new_id]|] eqn:?; simpl; reflexivity);
-    try (destruct (graph_lookup_morphism _ _) as [?|]; simpl; reflexivity);
-    try reflexivity.
-  (* Tensor instructions: both branches of the bounds check advance mu identically *)
-  all: unfold vm_apply; simpl;
-       repeat match goal with |- context[if ?b then _ else _] => destruct b end;
-       reflexivity.
+  destruct instr; unfold vm_apply; simpl; try reflexivity;
+  try (unfold advance_state; simpl; reflexivity);
+  try (unfold advance_state_rm; simpl; reflexivity);
+  try (unfold advance_state_reveal; simpl; reflexivity);
+  try (destruct (graph_add_module _ _ _) as [? ?]; unfold advance_state; simpl; reflexivity);
+  try (destruct (chsh_bits_ok _ _ _ _) eqn:?; simpl; reflexivity);
+  try (destruct (VMStep.tensor_indices_ok _ _) eqn:?; simpl; reflexivity);
+  try (destruct (graph_lookup s.(vm_graph) src_mod) as [?|] eqn:?; simpl;
+       [destruct (graph_lookup s.(vm_graph) dst_mod) as [?|] eqn:?; simpl;
+        [destruct (graph_add_morphism s.(vm_graph) src_mod dst_mod empty_coupling_data false) as [? ?];
+         unfold advance_state_rm; simpl; reflexivity
+        |unfold advance_state; simpl; reflexivity]
+       |unfold advance_state; simpl; reflexivity]);
+  try (destruct (graph_lookup _ _) as [?|] eqn:?; simpl;
+       [destruct (graph_lookup _ _) as [?|] eqn:?; simpl;
+        [destruct (graph_add_morphism _ _ _ _ _) as [? ?]; simpl;
+         unfold advance_state_rm; simpl; reflexivity
+        |unfold advance_state; simpl; reflexivity]
+       |unfold advance_state; simpl; reflexivity]);
+  try (destruct (graph_compose_morphisms _ _ _) as [[? ?]|] eqn:?; simpl;
+       [unfold advance_state_rm; simpl; reflexivity
+       |unfold advance_state; simpl; reflexivity]);
+  try (destruct (graph_add_identity _ _) as [[? ?]|] eqn:?; simpl;
+       [unfold advance_state_rm; simpl; reflexivity
+       |unfold advance_state; simpl; reflexivity]);
+  try (destruct (graph_delete_morphism _ _) as [?|] eqn:?; simpl;
+       [unfold advance_state; simpl; reflexivity
+       |unfold advance_state; simpl; reflexivity]);
+  try (destruct (graph_lookup_morphism _ _) as [?|] eqn:?; simpl;
+       [unfold advance_state_rm, advance_state; simpl; reflexivity
+       |unfold advance_state; simpl; reflexivity]);
+  try (destruct (graph_tensor_morphisms _ _ _) as [[? ?]|] eqn:?; simpl;
+       [unfold advance_state_rm; simpl; reflexivity
+       |unfold advance_state; simpl; reflexivity]);
+  try (destruct (lassert_check_ok _ _ _ _); simpl; unfold apply_cost; simpl; reflexivity).
+  (* JNEZ: two branches, both use apply_cost *)
+  destruct (read_reg _ _ =? 0); simpl;
+    [unfold advance_state; simpl; reflexivity
+    | unfold jump_state; simpl; reflexivity].
 Qed.
 
 Fixpoint ledger_conserved (states : list VMState) (entries : list nat)

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Comprehensive Python VM tests for all 40 Thiele CPU opcodes.
+"""Comprehensive Python VM tests for all Thiele CPU opcodes.
 
 Tests the Python VM directly (thielecpu.vm) for every opcode, including the
 5 newer opcodes (CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE)
 and control flow opcodes (JUMP, JNEZ, CALL, RET).
 
-This complements test_all_32_opcodes_comprehensive.py which tests via RTL.
+This complements test_all_opcodes_comprehensive.py which tests via RTL.
 """
 
 import pytest
@@ -184,9 +184,12 @@ class TestCertOpcodes:
         assert s.vm_mu == 7  # S(5)+1=7: cert-setters charge cost+1
 
     def test_oracle_halts(self):
+        # Per Coq extraction (thiele_core.ml), Instr_oracle_halts always charges
+        # exactly 1,000,000 regardless of the cost field — the cost parameter is
+        # ignored by the extracted semantics.
         s = run_py([{"op": "oracle_halts", "payload": 0, "cost": 11},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_mu == 12
+        assert s.vm_mu == 1_000_001  # 1_000_000 (oracle_halts fixed cost) + 1 (halt)
 
     def test_chsh_trial_x0(self):
         """CHSH_TRIAL with x=0 should succeed without surcharge."""
@@ -392,6 +395,121 @@ class TestTextFormatParsing:
         assert s.regs[2] == 55
 
 
+# ── Certify + extended ALU opcodes ───────────────────────────────────
+
+class TestCertifyAndALUOpcodes:
+    def test_certify(self):
+        """CERTIFY sets certified flag and charges S(cost)."""
+        s = run_py([{"op": "certify", "cost": 5},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_certified is True
+        assert s.vm_mu >= 6  # S(5)=6
+
+    def test_and(self):
+        s = run_py([{"op": "load_imm", "dst": 1, "imm": 255, "cost": 1},
+                     {"op": "load_imm", "dst": 2, "imm": 15, "cost": 1},
+                     {"op": "and", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_regs[3] == 15
+
+    def test_or(self):
+        s = run_py([{"op": "load_imm", "dst": 1, "imm": 240, "cost": 1},
+                     {"op": "load_imm", "dst": 2, "imm": 15, "cost": 1},
+                     {"op": "or", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_regs[3] == 255
+
+    def test_shl(self):
+        s = run_py([{"op": "load_imm", "dst": 1, "imm": 1, "cost": 1},
+                     {"op": "load_imm", "dst": 2, "imm": 4, "cost": 1},
+                     {"op": "shl", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_regs[3] == 16
+
+    def test_shr(self):
+        s = run_py([{"op": "load_imm", "dst": 1, "imm": 64, "cost": 1},
+                     {"op": "load_imm", "dst": 2, "imm": 2, "cost": 1},
+                     {"op": "shr", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_regs[3] == 16
+
+    def test_mul(self):
+        s = run_py([{"op": "load_imm", "dst": 1, "imm": 7, "cost": 1},
+                     {"op": "load_imm", "dst": 2, "imm": 6, "cost": 1},
+                     {"op": "mul", "dst": 3, "rs1": 1, "rs2": 2, "cost": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_regs[3] == 42
+
+    def test_lui(self):
+        s = run_py([{"op": "lui", "dst": 1, "imm": 1, "cost": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_regs[1] == (1 << 8)
+
+
+# ── Tensor opcodes ──────────────────────────────────────────────────
+
+class TestTensorOpcodes:
+    def test_tensor_set(self):
+        s = run_py([{"op": "tensor_set", "module": 0, "i": 0, "j": 0, "value": 42, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 1
+
+    def test_tensor_get(self):
+        s = run_py([{"op": "tensor_set", "module": 0, "i": 0, "j": 0, "value": 99, "mu_delta": 1},
+                     {"op": "tensor_get", "dst": 5, "module": 0, "i": 0, "j": 0, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 2
+
+
+# ── Categorical MORPH opcodes ─────────────────────────────────────────
+
+class TestMorphOpcodes:
+    def test_morph(self):
+        """MORPH creates a morphism; charges mu."""
+        s = run_py([{"op": "pnew", "region": [0, 1], "cost": 1},
+                     {"op": "pnew", "region": [2, 3], "cost": 1},
+                     {"op": "morph", "dst": 1, "src_mod": 0, "dst_mod": 1, "coupling_idx": 0, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 3
+
+    def test_compose(self):
+        """COMPOSE composes two morphisms; charges mu."""
+        s = run_py([{"op": "compose", "dst": 1, "m1": 0, "m2": 0, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 1
+
+    def test_morph_id(self):
+        """MORPH_ID creates identity morphism; charges mu."""
+        s = run_py([{"op": "pnew", "region": [0, 1], "cost": 1},
+                     {"op": "morph_id", "dst": 1, "module": 0, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 2
+
+    def test_morph_delete(self):
+        """MORPH_DELETE deletes a morphism; charges mu."""
+        s = run_py([{"op": "morph_delete", "morph_id": 0, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 1
+
+    def test_morph_assert(self):
+        """MORPH_ASSERT is a cert-setter; charges S(cost)."""
+        s = run_py([{"op": "morph_assert", "morph_id": 0, "property": 0, "cert": 0, "mu_delta": 3},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 3
+
+    def test_morph_tensor(self):
+        """MORPH_TENSOR creates tensor product; charges mu."""
+        s = run_py([{"op": "morph_tensor", "dst": 1, "f": 0, "g": 0, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 1
+
+    def test_morph_get(self):
+        """MORPH_GET reads morphism property; charges mu."""
+        s = run_py([{"op": "morph_get", "dst": 1, "morph_id": 0, "selector": 0, "mu_delta": 1},
+                     {"op": "halt", "cost": 1}])
+        assert s.vm_mu >= 1
+
+
 # ── Mu monotonicity ──────────────────────────────────────────────────
 
 class TestMuMonotonicity:
@@ -491,14 +609,14 @@ class TestIntegration:
         assert s.vm_regs[3] == 99, "main should continue after sub1 returns"
         assert s.vm_regs[31] == 0, "SP should be 0 after balanced calls"
 
-    def test_all_40_opcodes_counted(self):
-        """Verify build/thiele_core.ml (Coq extraction) contains all 40 opcodes."""
+    def test_all_47_opcodes_counted(self):
+        """Verify build/thiele_core.ml (Coq extraction) contains all 47 opcodes."""
         import re
         from pathlib import Path
         ml_path = Path(__file__).resolve().parents[1] / "build" / "thiele_core.ml"
         assert ml_path.exists(), f"build/thiele_core.ml not found at {ml_path}"
         content = ml_path.read_text(encoding="utf-8")
-        # All 40 constructors appear as Instr_X (legacy) or Coq_instr_X (module-prefixed)
+        # All 47 constructors appear as Instr_X (legacy) or Coq_instr_X (module-prefixed)
         constructors = set(re.findall(r"Instr_(\w+)", content))
         constructors |= set(re.findall(r"Coq_instr_(\w+)", content))
         ops = {c.lower() for c in constructors}
@@ -513,6 +631,8 @@ class TestIntegration:
             "certify",
             "and", "or", "shl", "shr", "mul", "lui",
             "tensor_set", "tensor_get",
+            "morph", "compose", "morph_id", "morph_delete",
+            "morph_assert", "morph_tensor", "morph_get",
         }
         assert expected <= ops, f"Missing from OCaml extraction: {expected - ops}"
-        assert len(expected) == 40
+        assert len(expected) == 47

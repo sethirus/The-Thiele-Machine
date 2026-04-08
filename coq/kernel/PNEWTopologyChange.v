@@ -248,15 +248,13 @@ Theorem vm_pnew_step_changes_topology : forall s region cost s',
 Proof.
   intros s region cost s' Hfresh Htriangle Hstep.
   inversion Hstep; subst.
-  - (* step_pnew case *)
-    (* After inversion, we have H3: graph_pnew (vm_graph s) region = (graph', mid) *)
-    simpl in *.
-    (* Apply the theorem by rewriting with H3 *)
-    assert (Htopo := pnew_fresh_measurably_changes_topology (vm_graph s) region Htriangle Hfresh).
-    (* Htopo: let (g', _) := graph_pnew (vm_graph s) region in (V g', E g', F g') <> ... *)
-    rewrite H3 in Htopo.
-    simpl in Htopo.
-    exact Htopo.
+  - (* step_pnew case — graph' = fst (graph_add_module ...) *)
+    simpl.
+    intro Heq.
+    apply (f_equal snd) in Heq.
+    simpl in Heq.
+    unfold F in Heq. simpl in Heq.
+    lia.
 Qed.
 
 (** ** Summary and Connection to Gravity Proof

@@ -70,7 +70,13 @@ def test_evidence_logic_paradox_trace() -> None:
         "\n".join(
             [
                 "INIT_LOGIC_ACC 0xCAFEEACE",
-                "LASSERT 0 1 1",
+                # Trivial SAT formula in data memory
+                "INIT_MEM 0 1",    # flen = 1
+                "INIT_MEM 1 1",    # cert: var 1 = true
+                "INIT_MEM 2 1",    # nclauses = 1
+                "INIT_MEM 3 1",    # literal: var 1 (positive)
+                "INIT_MEM 4 0",    # end-of-clause sentinel
+                "LASSERT 32 0 1",  # SAT (bit5=1), freg=0, creg=0, cost=1
                 "HALT 0",
                 "",
             ]

@@ -33,6 +33,7 @@ From Kernel Require Import HonestNoFI_TheoremsWithoutAssumptions.
 From Kernel Require Import NoFIToEinstein.
 (* Bekenstein → Landauer calibration: physical basis for mu_landauer_unruh_calibrated *)
 From Kernel Require Import BekensteinCalibration.
+From Kernel Require Import SimulationProof.
 From KamiHW Require Import Abstraction ThieleCPUBusTop CanonicalCPUProof.
 
 Import VMStep.VMStep.
@@ -279,6 +280,19 @@ Extract Constant VMState.word64 => "(fun x -> x)".
 
 (* All three are aliases for the same function; extract them all and let
    OCaml's sequential let-bindings resolve the references. *)
+
+(* =========================================================================
+   EXTRACTION: CANONICAL vm_apply FROM PROVEN MODULE SOURCES
+   =========================================================================
+   All definitions are extracted from the factored kernel/kami_hw modules.
+   SimulationProof.vm_apply is THE single canonical step function:
+   - Proven ≡ vm_step (via vm_step_vm_apply)
+   - Proven ≡ kami_step (via embed_step for supported opcodes)
+   - Axiom-free, fully transparent, directly extractable
+
+   Previous versions extracted from ThieleMachineComplete.vm_apply, which
+   was a standalone redefinition with DIFFERENT semantics for 8 opcodes
+   and NO equivalence theorem connecting it to vm_step. *)
 
 Extraction "../build/thiele_core.ml"
   VMStep.vm_instruction

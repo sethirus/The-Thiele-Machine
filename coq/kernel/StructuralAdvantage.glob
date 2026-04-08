@@ -1,0 +1,1277 @@
+DIGEST eaa4dd0c681ffc9bc34e45d7c81b5d20
+FKernel.StructuralAdvantage
+R2282:2285 Coq.Lists.List <> <> lib
+R2287:2300 Coq.Arith.PeanoNat <> <> lib
+R2302:2304 Coq.micromega.Lia <> <> lib
+R2306:2309 Coq.Bool.Bool <> <> lib
+R2336:2349 Coq.Strings.String <> <> lib
+R2376:2381 Coq.NArith.NArith <> <> lib
+R2383:2388 Coq.NArith.BinNat <> <> lib
+R2398:2410 Coq.Lists.List ListNotations <> mod
+R2441:2447 Kernel.VMState <> <> lib
+R2449:2454 Kernel.VMStep <> <> lib
+R2484:2503 Kernel.MuLedgerConservation <> <> lib
+R2533:2544 Kernel.MuInitiality <> <> lib
+R2574:2588 Kernel.SimulationProof <> <> lib
+R2618:2638 Kernel.TuringCompletenessISA <> <> lib
+def 3639:3648 <> step_count
+R3658:3660 Coq.Init.Datatypes <> nat ind
+binder 3651:3654 <> fuel:1
+R3672:3675 Coq.Init.Datatypes <> list ind
+R3677:3690 Kernel.VMStep VMStep vm_instruction ind
+binder 3664:3668 <> trace:2
+R3698:3704 Kernel.VMState <> VMState rec
+binder 3694:3694 <> s:3
+R3709:3711 Coq.Init.Datatypes <> nat ind
+R3756:3758 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3718:3728 Coq.Lists.List <> length abbrev
+R3731:3741 Kernel.MuLedgerConservation <> bounded_run def
+R3743:3746 Kernel.StructuralAdvantage <> fuel:1 var
+R3748:3752 Kernel.StructuralAdvantage <> trace:2 var
+R3754:3754 Kernel.StructuralAdvantage <> s:3 var
+def 4890:4902 <> blind_program
+R4918:4920 Coq.Init.Datatypes <> nat ind
+binder 4905:4914 <> target_idx:4
+R4925:4928 Coq.Init.Datatypes <> list ind
+R4930:4943 Kernel.VMStep VMStep vm_instruction ind
+R4948:4951 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4982:4997 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5028:5043 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5074:5089 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5120:5161 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5182:5215 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5236:5285 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5302:5357 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5373:5433 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5454:5486 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5501:5543 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4952:4965 Kernel.VMStep VMStep instr_load_imm constr
+R4998:5011 Kernel.VMStep VMStep instr_load_imm constr
+R5016:5025 Kernel.StructuralAdvantage <> target_idx:4 var
+R5044:5057 Kernel.VMStep VMStep instr_load_imm constr
+R5090:5103 Kernel.VMStep VMStep instr_load_imm constr
+R5162:5170 Kernel.VMStep VMStep instr_add constr
+R5216:5224 Kernel.VMStep VMStep instr_sub constr
+R5286:5295 Kernel.VMStep VMStep instr_jnez constr
+R5358:5367 Kernel.VMStep VMStep instr_jump constr
+R5434:5442 Kernel.VMStep VMStep instr_add constr
+R5487:5496 Kernel.VMStep VMStep instr_jump constr
+prf 5632:5651 <> blind_program_length
+binder 5662:5662 <> t:5
+R5694:5696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5665:5675 Coq.Lists.List <> length abbrev
+R5678:5690 Kernel.StructuralAdvantage <> blind_program def
+R5692:5692 Kernel.StructuralAdvantage <> t:5 var
+def 7503:7517 <> sighted_program
+R7547:7549 Coq.Init.Datatypes <> nat ind
+binder 7520:7530 <> left_target:6
+binder 7532:7543 <> right_target:7
+R7554:7557 Coq.Init.Datatypes <> list ind
+R7559:7572 Kernel.VMStep VMStep vm_instruction ind
+R7577:7580 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7613:7629 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7662:7678 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7711:7727 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7760:7776 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7809:7825 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7858:7900 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7921:7956 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7977:8028 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8047:8101 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8120:8175 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8191:8243 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8264:8299 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8315:8393 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8414:8450 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8471:8524 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8543:8598 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8617:8673 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8689:8752 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8773:8808 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R8824:8874 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7581:7594 Kernel.VMStep VMStep instr_load_imm constr
+R7630:7643 Kernel.VMStep VMStep instr_load_imm constr
+R7648:7658 Kernel.StructuralAdvantage <> left_target:6 var
+R7679:7692 Kernel.VMStep VMStep instr_load_imm constr
+R7728:7741 Kernel.VMStep VMStep instr_load_imm constr
+R7746:7757 Kernel.StructuralAdvantage <> right_target:7 var
+R7777:7790 Kernel.VMStep VMStep instr_load_imm constr
+R7826:7839 Kernel.VMStep VMStep instr_load_imm constr
+R7901:7909 Kernel.VMStep VMStep instr_add constr
+R7957:7965 Kernel.VMStep VMStep instr_sub constr
+R8029:8038 Kernel.VMStep VMStep instr_jnez constr
+R8102:8111 Kernel.VMStep VMStep instr_emit constr
+R8176:8185 Kernel.VMStep VMStep instr_jump constr
+R8244:8252 Kernel.VMStep VMStep instr_add constr
+R8300:8309 Kernel.VMStep VMStep instr_jump constr
+R8394:8402 Kernel.VMStep VMStep instr_add constr
+R8451:8459 Kernel.VMStep VMStep instr_sub constr
+R8525:8534 Kernel.VMStep VMStep instr_jnez constr
+R8599:8608 Kernel.VMStep VMStep instr_emit constr
+R8674:8683 Kernel.VMStep VMStep instr_jump constr
+R8753:8761 Kernel.VMStep VMStep instr_add constr
+R8809:8818 Kernel.VMStep VMStep instr_jump constr
+prf 8967:8988 <> sighted_program_length
+binder 8999:8999 <> l:8
+binder 9001:9001 <> r:9
+R9037:9039 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9004:9014 Coq.Lists.List <> length abbrev
+R9017:9031 Kernel.StructuralAdvantage <> sighted_program def
+R9033:9033 Kernel.StructuralAdvantage <> l:8 var
+R9035:9035 Kernel.StructuralAdvantage <> r:9 var
+prf 9413:9444 <> blind_program_total_cost_is_zero
+binder 9457:9466 <> target_idx:10
+R9558:9560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9473:9486 Coq.Lists.List <> fold_left def
+R9503:9510 Coq.Lists.List <> map def
+R9530:9542 Kernel.StructuralAdvantage <> blind_program def
+R9544:9553 Kernel.StructuralAdvantage <> target_idx:10 var
+R9512:9527 Kernel.VMStep VMStep instruction_cost def
+R9488:9494 Coq.Arith.PeanoNat Nat add def
+prf 9820:9836 <> emit_costs_one_mu
+binder 9849:9857 <> module_id:11
+binder 9859:9865 <> payload:12
+R9921:9923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9872:9887 Kernel.VMStep VMStep instruction_cost def
+R9890:9899 Kernel.VMStep VMStep instr_emit constr
+R9901:9909 Kernel.StructuralAdvantage <> module_id:11 var
+R9911:9917 Kernel.StructuralAdvantage <> payload:12 var
+prf 10262:10294 <> sighted_program_total_cost_is_two
+binder 10307:10317 <> left_target:13
+binder 10319:10330 <> right_target:14
+R10438:10440 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10337:10350 Coq.Lists.List <> fold_left def
+R10367:10374 Coq.Lists.List <> map def
+R10394:10408 Kernel.StructuralAdvantage <> sighted_program def
+R10410:10420 Kernel.StructuralAdvantage <> left_target:13 var
+R10422:10433 Kernel.StructuralAdvantage <> right_target:14 var
+R10376:10391 Kernel.VMStep VMStep instruction_cost def
+R10352:10358 Coq.Arith.PeanoNat Nat add def
+prf 10775:10795 <> both_programs_nofi_ok
+R10801:10801 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10863:10870 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10938:10938 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 10809:10809 <> t:15
+R10856:10858 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10812:10837 Kernel.VMStep VMStep nofi_trace_cost_okb def
+R10840:10852 Kernel.StructuralAdvantage <> blind_program def
+R10854:10854 Kernel.StructuralAdvantage <> t:15 var
+R10859:10862 Coq.Init.Datatypes <> true constr
+binder 10878:10878 <> l:16
+binder 10880:10880 <> r:17
+R10931:10933 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10883:10908 Kernel.VMStep VMStep nofi_trace_cost_okb def
+R10911:10925 Kernel.StructuralAdvantage <> sighted_program def
+R10927:10927 Kernel.StructuralAdvantage <> l:16 var
+R10929:10929 Kernel.StructuralAdvantage <> r:17 var
+R10934:10937 Coq.Init.Datatypes <> true constr
+R10971:10997 Kernel.VMStep VMStep nofi_trace_always_ok thm
+R10971:10997 Kernel.VMStep VMStep nofi_trace_always_ok thm
+R10971:10997 Kernel.VMStep VMStep nofi_trace_always_ok thm
+prf 11088:11116 <> blind_program_no_cert_setters
+binder 11129:11138 <> target_idx:18
+R11227:11229 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11145:11156 Coq.Lists.List <> forallb def
+R11202:11214 Kernel.StructuralAdvantage <> blind_program def
+R11216:11225 Kernel.StructuralAdvantage <> target_idx:18 var
+binder 11163:11163 <> i:19
+R11168:11171 Coq.Init.Datatypes <> negb def
+R11174:11195 Kernel.VMStep VMStep is_cert_setterb def
+R11197:11197 Kernel.StructuralAdvantage <> i:19 var
+R11230:11233 Coq.Init.Datatypes <> true constr
+prf 11958:11979 <> blind_iters_worst_case
+R12000:12002 Coq.Init.Datatypes <> nat ind
+binder 11992:11992 <> N:20
+binder 11994:11994 <> L:21
+binder 11996:11996 <> R:22
+R12018:12025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12014:12016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12010:12012 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12009:12009 Kernel.StructuralAdvantage <> L:21 var
+R12017:12017 Kernel.StructuralAdvantage <> N:20 var
+R12035:12042 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12031:12033 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12027:12029 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12026:12026 Kernel.StructuralAdvantage <> R:22 var
+R12034:12034 Kernel.StructuralAdvantage <> N:20 var
+R12056:12058 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12052:12054 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12048:12050 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12044:12046 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R12043:12043 Kernel.StructuralAdvantage <> L:21 var
+R12047:12047 Kernel.StructuralAdvantage <> N:20 var
+R12051:12051 Kernel.StructuralAdvantage <> R:22 var
+R12060:12062 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R12059:12059 Kernel.StructuralAdvantage <> N:20 var
+R12063:12063 Kernel.StructuralAdvantage <> N:20 var
+prf 12345:12368 <> sighted_iters_worst_case
+R12389:12391 Coq.Init.Datatypes <> nat ind
+binder 12381:12381 <> N:23
+binder 12383:12383 <> L:24
+binder 12385:12385 <> R:25
+R12407:12414 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12403:12405 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12399:12401 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12398:12398 Kernel.StructuralAdvantage <> L:24 var
+R12406:12406 Kernel.StructuralAdvantage <> N:23 var
+R12424:12431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12420:12422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12416:12418 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12415:12415 Kernel.StructuralAdvantage <> R:25 var
+R12423:12423 Kernel.StructuralAdvantage <> N:23 var
+R12449:12451 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12432:12432 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12438:12442 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12448:12448 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12434:12436 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12433:12433 Kernel.StructuralAdvantage <> L:24 var
+R12444:12446 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12443:12443 Kernel.StructuralAdvantage <> R:25 var
+R12453:12455 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R12456:12456 Kernel.StructuralAdvantage <> N:23 var
+prf 12819:12846 <> advantage_ratio_grows_with_n
+R12863:12865 Coq.Init.Datatypes <> nat ind
+binder 12859:12859 <> N:26
+R12878:12885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12873:12876 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12872:12872 Kernel.StructuralAdvantage <> N:26 var
+R12891:12894 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12887:12889 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R12886:12886 Kernel.StructuralAdvantage <> N:26 var
+R12890:12890 Kernel.StructuralAdvantage <> N:26 var
+R12896:12898 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R12899:12899 Kernel.StructuralAdvantage <> N:26 var
+prf 13195:13220 <> advantage_factor_unbounded
+R13237:13239 Coq.Init.Datatypes <> nat ind
+binder 13233:13233 <> k:27
+R13252:13259 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13247:13250 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13246:13246 Kernel.StructuralAdvantage <> k:27 var
+R13260:13266 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13268:13269 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13267:13267 <> N:28
+R13276:13279 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13271:13274 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13270:13270 Kernel.StructuralAdvantage <> N:28 var
+R13285:13288 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13281:13283 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13280:13280 Kernel.StructuralAdvantage <> N:28 var
+R13284:13284 Kernel.StructuralAdvantage <> N:28 var
+R13290:13293 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13299:13299 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13289:13289 Kernel.StructuralAdvantage <> k:27 var
+R13295:13297 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13298:13298 Kernel.StructuralAdvantage <> N:28 var
+R13335:13337 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13335:13337 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+prf 13645:13679 <> advantage_ratio_strictly_increasing
+R13700:13702 Coq.Init.Datatypes <> nat ind
+binder 13692:13693 <> N1:29
+binder 13695:13696 <> N2:30
+R13716:13719 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13710:13713 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13714:13715 Kernel.StructuralAdvantage <> N1:29 var
+R13727:13734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13722:13724 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13720:13721 Kernel.StructuralAdvantage <> N1:29 var
+R13725:13726 Kernel.StructuralAdvantage <> N2:30 var
+R13753:13755 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13742:13745 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13752:13752 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13737:13739 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13735:13736 Kernel.StructuralAdvantage <> N1:29 var
+R13740:13741 Kernel.StructuralAdvantage <> N1:29 var
+R13747:13749 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13750:13751 Kernel.StructuralAdvantage <> N2:30 var
+R13763:13766 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13773:13773 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13758:13760 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13756:13757 Kernel.StructuralAdvantage <> N2:30 var
+R13761:13762 Kernel.StructuralAdvantage <> N2:30 var
+R13768:13770 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R13771:13772 Kernel.StructuralAdvantage <> N1:29 var
+prf 14062:14087 <> sighted_wins_combined_cost
+R14111:14113 Coq.Init.Datatypes <> nat ind
+binder 14100:14100 <> N:31
+binder 14102:14107 <> lambda:32
+R14126:14133 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14121:14124 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R14120:14120 Kernel.StructuralAdvantage <> N:31 var
+R14160:14203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14152:14154 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14139:14141 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14135:14137 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14138:14138 Kernel.StructuralAdvantage <> N:31 var
+R14143:14145 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14146:14151 Kernel.StructuralAdvantage <> lambda:32 var
+R14156:14158 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14155:14155 Kernel.StructuralAdvantage <> N:31 var
+R14159:14159 Kernel.StructuralAdvantage <> N:31 var
+R14222:14224 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14209:14211 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14205:14207 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14208:14208 Kernel.StructuralAdvantage <> N:31 var
+R14213:14215 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14216:14221 Kernel.StructuralAdvantage <> lambda:32 var
+R14230:14232 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14226:14228 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14225:14225 Kernel.StructuralAdvantage <> N:31 var
+R14229:14229 Kernel.StructuralAdvantage <> N:31 var
+R14234:14236 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14237:14242 Kernel.StructuralAdvantage <> lambda:32 var
+prf 14636:14664 <> crossover_lambda_grows_with_n
+R14681:14683 Coq.Init.Datatypes <> nat ind
+binder 14677:14677 <> N:33
+R14696:14703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14691:14694 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R14690:14690 Kernel.StructuralAdvantage <> N:33 var
+R14709:14712 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R14705:14707 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14704:14704 Kernel.StructuralAdvantage <> N:33 var
+R14708:14708 Kernel.StructuralAdvantage <> N:33 var
+R14714:14716 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R14717:14717 Kernel.StructuralAdvantage <> N:33 var
+prf 14810:14836 <> sighted_mu_cost_is_constant
+R14853:14855 Coq.Init.Datatypes <> nat ind
+binder 14849:14849 <> N:34
+R14863:14865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+prf 15060:15091 <> iteration_savings_dwarfs_mu_cost
+R15108:15110 Coq.Init.Datatypes <> nat ind
+binder 15104:15104 <> N:35
+R15123:15130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15118:15121 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R15117:15117 Kernel.StructuralAdvantage <> N:35 var
+R15136:15138 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15132:15134 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R15131:15131 Kernel.StructuralAdvantage <> N:35 var
+R15135:15135 Kernel.StructuralAdvantage <> N:35 var
+R15144:15146 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15140:15142 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R15143:15143 Kernel.StructuralAdvantage <> N:35 var
+def 16321:16333 <> terminates_at
+R16343:16345 Coq.Init.Datatypes <> nat ind
+binder 16336:16339 <> fuel:36
+R16383:16386 Coq.Init.Datatypes <> list ind
+R16388:16401 Kernel.VMStep VMStep vm_instruction ind
+binder 16375:16379 <> trace:37
+R16439:16445 Kernel.VMState <> VMState rec
+binder 16431:16432 <> s0:38
+binder 16434:16435 <> sf:39
+R16460:16466 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16478:16483 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16475:16477 Coq.Init.Datatypes <> nat ind
+binder 16467:16471 <> steps:40
+R16537:16544 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16527:16529 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16484:16492 Coq.Lists.List <> nth_error def
+R16522:16526 Kernel.StructuralAdvantage <> steps:40 var
+R16495:16505 Kernel.MuLedgerConservation <> bounded_run def
+R16507:16510 Kernel.StructuralAdvantage <> fuel:36 var
+R16512:16516 Kernel.StructuralAdvantage <> trace:37 var
+R16518:16519 Kernel.StructuralAdvantage <> s0:38 var
+R16530:16533 Coq.Init.Datatypes <> Some constr
+R16535:16536 Kernel.StructuralAdvantage <> sf:39 var
+R16562:16565 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R16545:16555 Coq.Lists.List <> length abbrev
+R16557:16561 Kernel.StructuralAdvantage <> trace:37 var
+R16570:16574 Kernel.VMState <> vm_pc proj
+R16566:16567 Kernel.StructuralAdvantage <> sf:39 var
+prf 17997:18024 <> time_tax_theorem_conditional
+R18049:18051 Coq.Init.Datatypes <> nat ind
+binder 18038:18038 <> N:41
+binder 18040:18045 <> lambda:42
+R18065:18127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18060:18063 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18059:18059 Kernel.StructuralAdvantage <> N:41 var
+R18128:18128 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18222:18295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18129:18135 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18144:18151 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18136:18143 <> sf_blind:43
+R18192:18201 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18184:18186 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18152:18159 Coq.Lists.List <> nth def
+R18174:18180 Kernel.VMState <> vm_regs proj
+R18164:18171 Kernel.StructuralAdvantage <> sf_blind:43 var
+R18188:18190 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18187:18187 Kernel.StructuralAdvantage <> N:41 var
+R18191:18191 Kernel.StructuralAdvantage <> N:41 var
+R18218:18220 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18212:18216 Kernel.VMState <> vm_mu proj
+R18202:18209 Kernel.StructuralAdvantage <> sf_blind:43 var
+R18296:18296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18396:18466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18297:18303 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18314:18321 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18304:18313 <> sf_sighted:44
+R18364:18373 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18356:18358 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18322:18329 Coq.Lists.List <> nth def
+R18346:18352 Kernel.VMState <> vm_regs proj
+R18334:18343 Kernel.StructuralAdvantage <> sf_sighted:44 var
+R18360:18362 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18363:18363 Kernel.StructuralAdvantage <> N:41 var
+R18392:18394 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18386:18390 Kernel.VMState <> vm_mu proj
+R18374:18383 Kernel.StructuralAdvantage <> sf_sighted:44 var
+R18493:18500 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18485:18487 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18472:18474 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18468:18470 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18471:18471 Kernel.StructuralAdvantage <> N:41 var
+R18476:18478 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18479:18484 Kernel.StructuralAdvantage <> lambda:42 var
+R18489:18491 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18488:18488 Kernel.StructuralAdvantage <> N:41 var
+R18492:18492 Kernel.StructuralAdvantage <> N:41 var
+R18519:18521 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18506:18508 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18502:18504 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18505:18505 Kernel.StructuralAdvantage <> N:41 var
+R18510:18512 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18513:18518 Kernel.StructuralAdvantage <> lambda:42 var
+R18527:18529 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18523:18525 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18522:18522 Kernel.StructuralAdvantage <> N:41 var
+R18526:18526 Kernel.StructuralAdvantage <> N:41 var
+R18531:18533 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18534:18539 Kernel.StructuralAdvantage <> lambda:42 var
+prf 18846:18872 <> savings_grow_super_linearly
+R18889:18891 Coq.Init.Datatypes <> nat ind
+binder 18885:18885 <> N:45
+R18904:18911 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18899:18902 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18898:18898 Kernel.StructuralAdvantage <> N:45 var
+R18917:18920 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18913:18915 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18912:18912 Kernel.StructuralAdvantage <> N:45 var
+R18916:18916 Kernel.StructuralAdvantage <> N:45 var
+R18922:18924 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18925:18925 Kernel.StructuralAdvantage <> N:45 var
+prf 19839:19866 <> k_factor_blind_iters_formula
+R19885:19887 Coq.Init.Datatypes <> nat ind
+binder 19879:19879 <> N:46
+binder 19881:19881 <> k:47
+R19900:19903 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19895:19898 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19894:19894 Kernel.StructuralAdvantage <> N:46 var
+R19910:19917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19905:19908 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19904:19904 Kernel.StructuralAdvantage <> k:47 var
+R19923:19926 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19919:19921 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R19918:19918 Kernel.StructuralAdvantage <> N:46 var
+R19922:19922 Kernel.StructuralAdvantage <> k:47 var
+R19928:19930 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R19927:19927 Kernel.StructuralAdvantage <> k:47 var
+R19931:19931 Kernel.StructuralAdvantage <> N:46 var
+R20076:20079 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20067:20070 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20075:20075 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20071:20071 Coq.Init.Datatypes <> S constr
+R20080:20080 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20085:20088 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20081:20081 Coq.Init.Datatypes <> S constr
+R20076:20079 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20067:20070 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20075:20075 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20071:20071 Coq.Init.Datatypes <> S constr
+R20080:20080 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20085:20088 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20081:20081 Coq.Init.Datatypes <> S constr
+prf 20523:20546 <> k_factor_advantage_ratio
+R20565:20567 Coq.Init.Datatypes <> nat ind
+binder 20559:20559 <> N:48
+binder 20561:20561 <> k:49
+R20580:20583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20575:20578 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20574:20574 Kernel.StructuralAdvantage <> N:48 var
+R20590:20597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20585:20588 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20584:20584 Kernel.StructuralAdvantage <> k:49 var
+R20603:20606 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20599:20601 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20598:20598 Kernel.StructuralAdvantage <> N:48 var
+R20602:20602 Kernel.StructuralAdvantage <> k:49 var
+R20608:20610 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20607:20607 Kernel.StructuralAdvantage <> k:49 var
+R20611:20611 Kernel.StructuralAdvantage <> N:48 var
+R20649:20676 Kernel.StructuralAdvantage <> k_factor_blind_iters_formula thm
+R20649:20676 Kernel.StructuralAdvantage <> k_factor_blind_iters_formula thm
+prf 20850:20876 <> k_factor_ratio_grows_with_k
+R20895:20897 Coq.Init.Datatypes <> nat ind
+binder 20889:20889 <> N:50
+binder 20891:20891 <> k:51
+R20910:20913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20905:20908 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20904:20904 Kernel.StructuralAdvantage <> N:50 var
+R20920:20927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20915:20918 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20914:20914 Kernel.StructuralAdvantage <> k:51 var
+R20943:20945 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R20939:20941 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20929:20932 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20938:20938 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20928:20928 Kernel.StructuralAdvantage <> N:50 var
+R20934:20936 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20933:20933 Kernel.StructuralAdvantage <> k:51 var
+R20942:20942 Kernel.StructuralAdvantage <> k:51 var
+R20951:20954 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20960:20960 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R20947:20949 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R20946:20946 Kernel.StructuralAdvantage <> N:50 var
+R20950:20950 Kernel.StructuralAdvantage <> k:51 var
+R20956:20958 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20955:20955 Kernel.StructuralAdvantage <> k:51 var
+R21008:21011 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21013:21015 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21008:21011 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21013:21015 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21036:21046 Coq.Arith.PeanoNat Nat pow_1_l thm
+R21036:21046 Coq.Arith.PeanoNat Nat pow_1_l thm
+R21036:21046 Coq.Arith.PeanoNat Nat pow_1_l thm
+R21058:21074 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
+R21058:21074 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
+R21112:21114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21102:21105 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21111:21111 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21107:21109 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21116:21118 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21120:21122 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21112:21114 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21102:21105 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21111:21111 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21107:21109 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21116:21118 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21120:21122 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21141:21143 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21153:21153 Coq.Init.Datatypes <> S constr
+R21141:21143 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21153:21153 Coq.Init.Datatypes <> S constr
+R21172:21186 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R21172:21186 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+prf 21348:21378 <> k_factor_savings_exceed_mu_cost
+R21397:21399 Coq.Init.Datatypes <> nat ind
+binder 21391:21391 <> N:52
+binder 21393:21393 <> k:53
+R21412:21415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21407:21410 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R21406:21406 Kernel.StructuralAdvantage <> N:52 var
+R21422:21429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21417:21420 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R21416:21416 Kernel.StructuralAdvantage <> k:53 var
+R21435:21437 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R21431:21433 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21430:21430 Kernel.StructuralAdvantage <> N:52 var
+R21434:21434 Kernel.StructuralAdvantage <> k:53 var
+R21443:21445 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21439:21441 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21438:21438 Kernel.StructuralAdvantage <> k:53 var
+R21442:21442 Kernel.StructuralAdvantage <> N:52 var
+R21446:21446 Kernel.StructuralAdvantage <> k:53 var
+R21693:21695 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R21680:21682 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21683:21683 Coq.Init.Datatypes <> S constr
+R21686:21686 Coq.Init.Datatypes <> S constr
+R21710:21712 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21706:21708 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21696:21696 Coq.Init.Datatypes <> S constr
+R21699:21699 Coq.Init.Datatypes <> S constr
+R21713:21713 Coq.Init.Datatypes <> S constr
+R21716:21716 Coq.Init.Datatypes <> S constr
+R21693:21695 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R21680:21682 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21683:21683 Coq.Init.Datatypes <> S constr
+R21686:21686 Coq.Init.Datatypes <> S constr
+R21710:21712 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21706:21708 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21696:21696 Coq.Init.Datatypes <> S constr
+R21699:21699 Coq.Init.Datatypes <> S constr
+R21713:21713 Coq.Init.Datatypes <> S constr
+R21716:21716 Coq.Init.Datatypes <> S constr
+R21794:21796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21777:21779 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21780:21780 Coq.Init.Datatypes <> S constr
+R21783:21783 Coq.Init.Datatypes <> S constr
+R21786:21786 Coq.Init.Datatypes <> S constr
+R21798:21800 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21802:21804 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21805:21805 Coq.Init.Datatypes <> S constr
+R21808:21808 Coq.Init.Datatypes <> S constr
+R21794:21796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21777:21779 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21780:21780 Coq.Init.Datatypes <> S constr
+R21783:21783 Coq.Init.Datatypes <> S constr
+R21786:21786 Coq.Init.Datatypes <> S constr
+R21798:21800 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21802:21804 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21805:21805 Coq.Init.Datatypes <> S constr
+R21808:21808 Coq.Init.Datatypes <> S constr
+R21834:21848 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R21834:21848 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R21935:21961 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21899:21902 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21934:21934 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21930:21932 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21917:21919 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21913:21915 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21903:21903 Coq.Init.Datatypes <> S constr
+R21906:21906 Coq.Init.Datatypes <> S constr
+R21920:21920 Coq.Init.Datatypes <> S constr
+R21923:21923 Coq.Init.Datatypes <> S constr
+R21963:21965 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21967:21969 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21970:21970 Coq.Init.Datatypes <> S constr
+R21973:21973 Coq.Init.Datatypes <> S constr
+R21935:21961 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21899:21902 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21934:21934 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21930:21932 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21917:21919 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21913:21915 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21903:21903 Coq.Init.Datatypes <> S constr
+R21906:21906 Coq.Init.Datatypes <> S constr
+R21920:21920 Coq.Init.Datatypes <> S constr
+R21923:21923 Coq.Init.Datatypes <> S constr
+R21963:21965 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21967:21969 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R21970:21970 Coq.Init.Datatypes <> S constr
+R21973:21973 Coq.Init.Datatypes <> S constr
+R21999:22015 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+R21999:22015 Coq.Arith.PeanoNat Nat mul_le_mono_l thm
+prf 22965:22985 <> k3_first_emit_savings
+R23002:23004 Coq.Init.Datatypes <> nat ind
+binder 22998:22998 <> N:54
+R23017:23024 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23012:23015 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23011:23011 Kernel.StructuralAdvantage <> N:54 var
+R23030:23032 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R23026:23028 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23025:23025 Kernel.StructuralAdvantage <> N:54 var
+R23034:23036 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23033:23033 Kernel.StructuralAdvantage <> N:54 var
+R23038:23040 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23037:23037 Kernel.StructuralAdvantage <> N:54 var
+prf 23172:23199 <> k3_marginal_savings_decrease
+R23216:23218 Coq.Init.Datatypes <> nat ind
+binder 23212:23212 <> N:55
+R23231:23279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23226:23229 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23225:23225 Kernel.StructuralAdvantage <> N:55 var
+R23299:23301 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R23285:23288 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R23298:23298 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R23281:23283 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23280:23280 Kernel.StructuralAdvantage <> N:55 var
+R23290:23292 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23289:23289 Kernel.StructuralAdvantage <> N:55 var
+R23294:23296 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23293:23293 Kernel.StructuralAdvantage <> N:55 var
+R23302:23302 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R23312:23315 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R23304:23306 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R23303:23303 Kernel.StructuralAdvantage <> N:55 var
+R23308:23310 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23307:23307 Kernel.StructuralAdvantage <> N:55 var
+R23317:23319 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23320:23320 Kernel.StructuralAdvantage <> N:55 var
+R23576:23578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23572:23574 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23580:23582 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23576:23578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23572:23574 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23580:23582 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23624:23626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23620:23622 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23628:23631 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23637:23637 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23633:23635 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23624:23626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23620:23622 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R23628:23631 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23637:23637 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23633:23635 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+prf 23936:23961 <> last_emit_saves_zero_steps
+R23980:23982 Coq.Init.Datatypes <> nat ind
+binder 23974:23974 <> N:56
+binder 23976:23976 <> k:57
+R23995:23998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23990:23993 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23989:23989 Kernel.StructuralAdvantage <> N:56 var
+R24005:24162 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24000:24003 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23999:23999 Kernel.StructuralAdvantage <> k:57 var
+R24178:24180 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24174:24176 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R24163:24163 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R24169:24172 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R24165:24167 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R24164:24164 Kernel.StructuralAdvantage <> k:57 var
+R24173:24173 Kernel.StructuralAdvantage <> N:56 var
+R24177:24177 Kernel.StructuralAdvantage <> N:56 var
+R24182:24184 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R24181:24181 Kernel.StructuralAdvantage <> k:57 var
+R24185:24185 Kernel.StructuralAdvantage <> N:56 var
+prf 25022:25053 <> sighted_wins_for_nontrivial_left
+R25074:25076 Coq.Init.Datatypes <> nat ind
+binder 25066:25066 <> N:58
+binder 25068:25068 <> L:59
+binder 25070:25070 <> R:60
+R25089:25092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25084:25087 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R25083:25083 Kernel.StructuralAdvantage <> N:58 var
+R25099:25106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25094:25097 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R25093:25093 Kernel.StructuralAdvantage <> L:59 var
+R25120:25122 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R25116:25118 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25112:25114 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25108:25110 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R25107:25107 Kernel.StructuralAdvantage <> L:59 var
+R25111:25111 Kernel.StructuralAdvantage <> N:58 var
+R25115:25115 Kernel.StructuralAdvantage <> R:60 var
+R25128:25130 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25124:25126 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25123:25123 Kernel.StructuralAdvantage <> L:59 var
+R25127:25127 Kernel.StructuralAdvantage <> R:60 var
+prf 25269:25294 <> sighted_loses_at_left_zero
+R25313:25315 Coq.Init.Datatypes <> nat ind
+binder 25307:25307 <> N:61
+binder 25309:25309 <> R:62
+R25328:25335 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25323:25326 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R25322:25322 Kernel.StructuralAdvantage <> N:61 var
+R25349:25351 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R25345:25347 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25341:25343 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25337:25339 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R25340:25340 Kernel.StructuralAdvantage <> N:61 var
+R25344:25344 Kernel.StructuralAdvantage <> R:62 var
+R25357:25359 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25353:25355 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25356:25356 Kernel.StructuralAdvantage <> R:62 var
+prf 25482:25515 <> adversarial_fraction_is_one_over_n
+R25532:25534 Coq.Init.Datatypes <> nat ind
+binder 25528:25528 <> N:63
+R25547:25711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25542:25545 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R25541:25541 Kernel.StructuralAdvantage <> N:63 var
+R25727:25729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25723:25725 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R25713:25716 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R25722:25722 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R25712:25712 Kernel.StructuralAdvantage <> N:63 var
+R25718:25720 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R25717:25717 Kernel.StructuralAdvantage <> N:63 var
+R25726:25726 Kernel.StructuralAdvantage <> N:63 var
+R25731:25733 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R25730:25730 Kernel.StructuralAdvantage <> N:63 var
+R25734:25734 Kernel.StructuralAdvantage <> N:63 var
+prf 26069:26098 <> anti_diagonal_sighted_constant
+R26117:26119 Coq.Init.Datatypes <> nat ind
+binder 26111:26111 <> N:64
+binder 26113:26113 <> L:65
+R26132:26135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26127:26130 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R26126:26126 Kernel.StructuralAdvantage <> N:64 var
+R26146:26153 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26137:26140 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R26136:26136 Kernel.StructuralAdvantage <> L:65 var
+R26142:26144 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R26141:26141 Kernel.StructuralAdvantage <> N:64 var
+R26177:26179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26173:26175 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26159:26162 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26172:26172 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26155:26157 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26154:26154 Kernel.StructuralAdvantage <> L:65 var
+R26168:26170 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R26164:26166 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R26163:26163 Kernel.StructuralAdvantage <> N:64 var
+R26171:26171 Kernel.StructuralAdvantage <> L:65 var
+R26181:26183 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26180:26180 Kernel.StructuralAdvantage <> N:64 var
+prf 26320:26344 <> adversarial_zone_vanishes
+R26361:26363 Coq.Init.Datatypes <> nat ind
+binder 26357:26357 <> N:66
+R26376:26383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26371:26374 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R26370:26370 Kernel.StructuralAdvantage <> N:66 var
+R26395:26397 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R26385:26388 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R26394:26394 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R26384:26384 Kernel.StructuralAdvantage <> N:66 var
+R26390:26392 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R26389:26389 Kernel.StructuralAdvantage <> N:66 var
+R26398:26398 Kernel.StructuralAdvantage <> N:66 var
+prf 29508:29537 <> diagonal_ratio_exceeds_n_at_k3
+R29554:29556 Coq.Init.Datatypes <> nat ind
+binder 29550:29550 <> N:67
+R29569:29576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29564:29567 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R29563:29563 Kernel.StructuralAdvantage <> N:67 var
+R29582:29584 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R29578:29580 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29577:29577 Kernel.StructuralAdvantage <> N:67 var
+R29586:29588 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29589:29589 Kernel.StructuralAdvantage <> N:67 var
+R29633:29635 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29629:29631 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29637:29639 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29633:29635 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29629:29631 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29637:29639 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+prf 29764:29796 <> diagonal_ratio_exceeds_n_sq_at_k4
+R29813:29815 Coq.Init.Datatypes <> nat ind
+binder 29809:29809 <> N:68
+R29828:29835 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29823:29826 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R29822:29822 Kernel.StructuralAdvantage <> N:68 var
+R29841:29843 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R29837:29839 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29836:29836 Kernel.StructuralAdvantage <> N:68 var
+R29845:29847 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29849:29851 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29848:29848 Kernel.StructuralAdvantage <> N:68 var
+R29897:29899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29893:29895 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29901:29903 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29897:29899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29893:29895 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29901:29903 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29944:29946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29940:29942 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29948:29951 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29957:29957 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29953:29955 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29944:29946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29940:29942 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R29948:29951 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29957:29957 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R29953:29955 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+prf 30186:30212 <> diagonal_ratio_grows_with_k
+R30231:30233 Coq.Init.Datatypes <> nat ind
+binder 30225:30225 <> N:69
+binder 30227:30227 <> k:70
+R30246:30249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30241:30244 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R30240:30240 Kernel.StructuralAdvantage <> N:69 var
+R30256:30263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30251:30254 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R30250:30250 Kernel.StructuralAdvantage <> k:70 var
+R30273:30275 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R30269:30271 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R30265:30267 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30264:30264 Kernel.StructuralAdvantage <> N:69 var
+R30268:30268 Kernel.StructuralAdvantage <> k:70 var
+R30272:30272 Kernel.StructuralAdvantage <> k:70 var
+R30287:30290 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R30296:30296 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R30277:30280 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30286:30286 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30276:30276 Kernel.StructuralAdvantage <> N:69 var
+R30282:30284 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R30281:30281 Kernel.StructuralAdvantage <> k:70 var
+R30292:30294 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R30291:30291 Kernel.StructuralAdvantage <> k:70 var
+R30453:30459 Coq.Arith.PeanoNat Nat sub def
+R30489:30491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30482:30484 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30485:30485 Coq.Init.Datatypes <> S constr
+R30493:30495 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R30497:30499 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30489:30491 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30482:30484 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30485:30485 Coq.Init.Datatypes <> S constr
+R30493:30495 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R30497:30499 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30517:30531 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R30517:30531 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R30574:30577 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R30579:30581 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30574:30577 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R30579:30581 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30605:30615 Coq.Arith.PeanoNat Nat pow_1_l thm
+R30605:30615 Coq.Arith.PeanoNat Nat pow_1_l thm
+R30605:30615 Coq.Arith.PeanoNat Nat pow_1_l thm
+R30628:30644 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
+R30628:30644 Coq.Arith.PeanoNat Nat pow_le_mono_l thm
+R30666:30676 Coq.Arith.PeanoNat Nat sub_0_r thm
+R30666:30676 Coq.Arith.PeanoNat Nat sub_0_r thm
+R30666:30676 Coq.Arith.PeanoNat Nat sub_0_r thm
+prf 30884:30911 <> log_diagonal_mu_is_sublinear
+R30928:30930 Coq.Init.Datatypes <> nat ind
+binder 30924:30924 <> k:71
+R30943:30950 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30938:30941 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R30937:30937 Kernel.StructuralAdvantage <> k:71 var
+R30952:30954 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R30951:30951 Kernel.StructuralAdvantage <> k:71 var
+R30956:30958 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R30959:30959 Kernel.StructuralAdvantage <> k:71 var
+R31090:31092 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R31085:31085 Coq.Init.Datatypes <> S constr
+R31094:31096 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R31097:31097 Coq.Init.Datatypes <> S constr
+R31090:31092 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R31085:31085 Coq.Init.Datatypes <> S constr
+R31094:31096 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R31097:31097 Coq.Init.Datatypes <> S constr
+R31158:31160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31146:31148 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R31149:31149 Coq.Init.Datatypes <> S constr
+R31152:31152 Coq.Init.Datatypes <> S constr
+R31162:31164 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R31166:31168 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R31169:31169 Coq.Init.Datatypes <> S constr
+R31158:31160 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31146:31148 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R31149:31149 Coq.Init.Datatypes <> S constr
+R31152:31152 Coq.Init.Datatypes <> S constr
+R31162:31164 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R31166:31168 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R31169:31169 Coq.Init.Datatypes <> S constr
+R31191:31205 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R31191:31205 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+prf 31888:31914 <> mup_step_cost_is_polynomial
+R31933:31935 Coq.Init.Datatypes <> nat ind
+binder 31927:31927 <> N:72
+binder 31929:31929 <> k:73
+R31948:31951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R31943:31946 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R31942:31942 Kernel.StructuralAdvantage <> N:72 var
+R31958:31961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R31953:31956 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R31952:31952 Kernel.StructuralAdvantage <> k:73 var
+R31968:31975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R31963:31966 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R31962:31962 Kernel.StructuralAdvantage <> k:73 var
+R31967:31967 Kernel.StructuralAdvantage <> N:72 var
+R31981:31984 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R31977:31979 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R31976:31976 Kernel.StructuralAdvantage <> k:73 var
+R31980:31980 Kernel.StructuralAdvantage <> N:72 var
+R31986:31988 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R31985:31985 Kernel.StructuralAdvantage <> N:72 var
+R32042:32044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32038:32040 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32046:32048 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32042:32044 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32038:32040 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32046:32048 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+prf 32178:32212 <> p_mode_step_cost_is_superpolynomial
+R32231:32233 Coq.Init.Datatypes <> nat ind
+binder 32225:32225 <> N:74
+binder 32227:32227 <> k:75
+R32246:32249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32241:32244 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R32240:32240 Kernel.StructuralAdvantage <> N:74 var
+R32256:32263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32251:32254 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R32250:32250 Kernel.StructuralAdvantage <> k:75 var
+R32269:32272 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R32265:32267 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32264:32264 Kernel.StructuralAdvantage <> N:74 var
+R32268:32268 Kernel.StructuralAdvantage <> k:75 var
+R32274:32276 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32273:32273 Kernel.StructuralAdvantage <> N:74 var
+R32315:32331 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R32315:32331 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+prf 32562:32597 <> mup_separation_ratio_exceeds_n_at_k3
+R32614:32616 Coq.Init.Datatypes <> nat ind
+binder 32610:32610 <> N:76
+R32629:32636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32624:32627 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R32623:32623 Kernel.StructuralAdvantage <> N:76 var
+R32642:32644 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R32638:32640 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32637:32637 Kernel.StructuralAdvantage <> N:76 var
+R32646:32649 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32655:32655 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32645:32645 Kernel.StructuralAdvantage <> N:76 var
+R32651:32653 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32654:32654 Kernel.StructuralAdvantage <> N:76 var
+R32700:32702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32696:32698 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32704:32707 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32713:32713 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32709:32711 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32700:32702 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32696:32698 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32704:32707 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32713:32713 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32709:32711 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+prf 32871:32909 <> mup_separation_ratio_exceeds_n_sq_at_k4
+R32926:32928 Coq.Init.Datatypes <> nat ind
+binder 32922:32922 <> N:77
+R32941:32948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32936:32939 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R32935:32935 Kernel.StructuralAdvantage <> N:77 var
+R32954:32956 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R32950:32952 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32949:32949 Kernel.StructuralAdvantage <> N:77 var
+R32962:32965 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32971:32971 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32958:32960 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R32957:32957 Kernel.StructuralAdvantage <> N:77 var
+R32967:32969 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R32970:32970 Kernel.StructuralAdvantage <> N:77 var
+R33016:33018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33012:33014 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R33020:33022 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33016:33018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33012:33014 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R33020:33022 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33063:33065 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33059:33061 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R33067:33070 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33082:33082 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33072:33075 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33081:33081 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33077:33079 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33063:33065 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33059:33061 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R33067:33070 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33082:33082 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33072:33075 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33081:33081 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R33077:33079 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+prf 34226:34251 <> lassert_mu_exceeds_emit_mu
+R34292:34294 Coq.Init.Datatypes <> nat ind
+binder 34264:34274 <> formula_len:78
+binder 34276:34288 <> declared_cost:79
+R34317:34324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34312:34315 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R34301:34311 Kernel.StructuralAdvantage <> formula_len:78 var
+R34362:34364 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R34340:34343 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34361:34361 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34336:34338 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R34325:34335 Kernel.StructuralAdvantage <> formula_len:78 var
+R34357:34359 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34344:34356 Kernel.StructuralAdvantage <> declared_cost:79 var
+prf 34650:34678 <> lassert_verifiability_premium
+R34719:34721 Coq.Init.Datatypes <> nat ind
+binder 34691:34701 <> formula_len:80
+binder 34703:34715 <> declared_cost:81
+R34769:34771 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34765:34767 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R34743:34746 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34764:34764 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34739:34741 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R34728:34738 Kernel.StructuralAdvantage <> formula_len:80 var
+R34760:34762 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34747:34759 Kernel.StructuralAdvantage <> declared_cost:81 var
+R34787:34789 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34783:34785 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R34772:34782 Kernel.StructuralAdvantage <> formula_len:80 var
+R34790:34802 Kernel.StructuralAdvantage <> declared_cost:81 var
+prf 35253:35288 <> cert_type_does_not_affect_step_count
+R35307:35309 Coq.Init.Datatypes <> nat ind
+binder 35301:35301 <> k:82
+binder 35303:35303 <> N:83
+R35322:35325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35317:35320 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R35316:35316 Kernel.StructuralAdvantage <> k:82 var
+R35332:35339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35327:35330 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R35326:35326 Kernel.StructuralAdvantage <> N:83 var
+R35345:35347 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35341:35343 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35340:35340 Kernel.StructuralAdvantage <> k:82 var
+R35344:35344 Kernel.StructuralAdvantage <> N:83 var
+R35349:35351 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35348:35348 Kernel.StructuralAdvantage <> k:82 var
+R35352:35352 Kernel.StructuralAdvantage <> N:83 var
+prf 35648:35674 <> total_verifiability_premium
+R35717:35719 Coq.Init.Datatypes <> nat ind
+binder 35687:35687 <> k:84
+binder 35689:35699 <> formula_len:85
+binder 35701:35713 <> declared_cost:86
+R35732:35739 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35727:35730 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R35726:35726 Kernel.StructuralAdvantage <> k:84 var
+R35791:35797 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35783:35785 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R35741:35744 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35782:35782 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35740:35740 Kernel.StructuralAdvantage <> k:84 var
+R35760:35763 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35781:35781 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35756:35758 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35745:35755 Kernel.StructuralAdvantage <> formula_len:85 var
+R35777:35779 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35764:35776 Kernel.StructuralAdvantage <> declared_cost:86 var
+R35787:35789 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35786:35786 Kernel.StructuralAdvantage <> k:84 var
+R35799:35802 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35834:35834 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35798:35798 Kernel.StructuralAdvantage <> k:84 var
+R35818:35820 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35814:35816 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R35803:35813 Kernel.StructuralAdvantage <> formula_len:85 var
+R35821:35833 Kernel.StructuralAdvantage <> declared_cost:86 var
+prf 38499:38515 <> run_vm_step_instr
+binder 38528:38531 <> fuel:87
+binder 38533:38537 <> trace:88
+binder 38539:38539 <> s:89
+binder 38541:38545 <> instr:90
+R38590:38597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38577:38579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38552:38560 Coq.Lists.List <> nth_error def
+R38571:38575 Kernel.VMState <> vm_pc proj
+R38568:38568 Kernel.StructuralAdvantage <> s:89 var
+R38562:38566 Kernel.StructuralAdvantage <> trace:88 var
+R38580:38583 Coq.Init.Datatypes <> Some constr
+R38585:38589 Kernel.StructuralAdvantage <> instr:90 var
+R38621:38623 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38598:38603 Kernel.SimulationProof <> run_vm def
+R38606:38606 Coq.Init.Datatypes <> S constr
+R38608:38611 Kernel.StructuralAdvantage <> fuel:87 var
+R38614:38618 Kernel.StructuralAdvantage <> trace:88 var
+R38620:38620 Kernel.StructuralAdvantage <> s:89 var
+R38624:38629 Kernel.SimulationProof <> run_vm def
+R38631:38634 Kernel.StructuralAdvantage <> fuel:87 var
+R38636:38640 Kernel.StructuralAdvantage <> trace:88 var
+R38643:38650 Kernel.SimulationProof <> vm_apply def
+R38652:38652 Kernel.StructuralAdvantage <> s:89 var
+R38654:38658 Kernel.StructuralAdvantage <> instr:90 var
+prf 38807:38818 <> run_vm_stuck
+binder 38831:38831 <> n:91
+binder 38833:38837 <> trace:92
+binder 38839:38839 <> s:93
+R38878:38885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R38871:38873 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38846:38854 Coq.Lists.List <> nth_error def
+R38865:38869 Kernel.VMState <> vm_pc proj
+R38862:38862 Kernel.StructuralAdvantage <> s:93 var
+R38856:38860 Kernel.StructuralAdvantage <> trace:92 var
+R38874:38877 Coq.Init.Datatypes <> None constr
+R38902:38904 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R38886:38891 Kernel.SimulationProof <> run_vm def
+R38893:38893 Kernel.StructuralAdvantage <> n:91 var
+R38895:38899 Kernel.StructuralAdvantage <> trace:92 var
+R38901:38901 Kernel.StructuralAdvantage <> s:93 var
+R38905:38905 Kernel.StructuralAdvantage <> s:93 var
+prf 39024:39037 <> run_vm_compose
+binder 39050:39050 <> m:94
+binder 39052:39052 <> n:95
+binder 39054:39058 <> trace:96
+binder 39060:39060 <> s:97
+R39089:39091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39067:39072 Kernel.SimulationProof <> run_vm def
+R39076:39078 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R39075:39075 Kernel.StructuralAdvantage <> m:94 var
+R39079:39079 Kernel.StructuralAdvantage <> n:95 var
+R39082:39086 Kernel.StructuralAdvantage <> trace:96 var
+R39088:39088 Kernel.StructuralAdvantage <> s:97 var
+R39092:39097 Kernel.SimulationProof <> run_vm def
+R39099:39099 Kernel.StructuralAdvantage <> n:95 var
+R39101:39105 Kernel.StructuralAdvantage <> trace:96 var
+R39108:39113 Kernel.SimulationProof <> run_vm def
+R39115:39115 Kernel.StructuralAdvantage <> m:94 var
+R39117:39121 Kernel.StructuralAdvantage <> trace:96 var
+R39123:39123 Kernel.StructuralAdvantage <> s:97 var
+R39221:39229 Coq.Lists.List <> nth_error def
+R39240:39244 Kernel.VMState <> vm_pc proj
+R39221:39229 Coq.Lists.List <> nth_error def
+R39240:39244 Kernel.VMState <> vm_pc proj
+R39305:39316 Kernel.StructuralAdvantage <> run_vm_stuck thm
+R39305:39316 Kernel.StructuralAdvantage <> run_vm_stuck thm
+prf 39389:39403 <> word64_sa_small
+binder 39414:39414 <> n:98
+R39425:39428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R39418:39420 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R39417:39417 Kernel.StructuralAdvantage <> n:98 var
+R39422:39422 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R39437:39439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39429:39434 Kernel.VMState <> word64 def
+R39436:39436 Kernel.StructuralAdvantage <> n:98 var
+R39440:39440 Kernel.StructuralAdvantage <> n:98 var
+R39472:39477 Kernel.VMState <> word64 def
+R39480:39490 Kernel.VMState <> word64_mask def
+R39503:39513 Coq.NArith.BinNat N land_ones thm
+R39516:39526 Coq.NArith.BinNat N mod_small def
+R39503:39513 Coq.NArith.BinNat N land_ones thm
+R39503:39513 Coq.NArith.BinNat N land_ones thm
+R39516:39526 Coq.NArith.BinNat N mod_small def
+R39516:39526 Coq.NArith.BinNat N mod_small def
+R39516:39526 Coq.NArith.BinNat N mod_small def
+R39539:39551 Coq.NArith.Nnat Nat2N id thm
+R39539:39551 Coq.NArith.Nnat Nat2N id thm
+R39575:39582 Coq.NArith.BinNat N of_nat def
+R39575:39582 Coq.NArith.BinNat N of_nat def
+R39610:39617 Coq.NArith.BinNat N of_nat def
+R39610:39617 Coq.NArith.BinNat N of_nat def
+R39639:39656 Coq.NArith.Nnat Nat2N inj_pow thm
+R39639:39656 Coq.NArith.Nnat Nat2N inj_pow thm
+R39639:39656 Coq.NArith.Nnat Nat2N inj_pow thm
+R39674:39689 Coq.NArith.BinNat N compare_lt_iff thm
+R39674:39689 Coq.NArith.BinNat N compare_lt_iff thm
+R39674:39689 Coq.NArith.BinNat N compare_lt_iff thm
+R39707:39728 Coq.NArith.Nnat Nat2N inj_compare thm
+R39707:39728 Coq.NArith.Nnat Nat2N inj_compare thm
+R39707:39728 Coq.NArith.Nnat Nat2N inj_compare thm
+R39746:39763 Coq.Arith.PeanoNat Nat compare_lt_iff thm
+R39746:39763 Coq.Arith.PeanoNat Nat compare_lt_iff thm
+R39746:39763 Coq.Arith.PeanoNat Nat compare_lt_iff thm
+prf 40638:40661 <> blind_halts_in_n_squared
+R40676:40681 Kernel.SimulationProof <> run_vm def
+R40686:40698 Kernel.StructuralAdvantage <> blind_program def
+R40703:40712 Kernel.MuInitiality <> init_state def
+binder 40671:40671 <> s:99
+R40752:40757 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R40744:40746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40719:40726 Coq.Lists.List <> nth def
+R40734:40740 Kernel.VMState <> vm_regs proj
+R40731:40731 Kernel.StructuralAdvantage <> s:99 var
+R40748:40750 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R40771:40776 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R40767:40769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40761:40765 Kernel.VMState <> vm_mu proj
+R40758:40758 Kernel.StructuralAdvantage <> s:99 var
+R40786:40789 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R40780:40784 Kernel.VMState <> vm_pc proj
+R40777:40777 Kernel.StructuralAdvantage <> s:99 var
+R40790:40800 Coq.Lists.List <> length abbrev
+R40803:40815 Kernel.StructuralAdvantage <> blind_program def
+prf 41015:41036 <> sighted_halts_in_two_n
+R41051:41056 Kernel.SimulationProof <> run_vm def
+R41062:41076 Kernel.StructuralAdvantage <> sighted_program def
+R41083:41092 Kernel.MuInitiality <> init_state def
+binder 41046:41046 <> s:100
+R41132:41137 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R41124:41126 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41099:41106 Coq.Lists.List <> nth def
+R41114:41120 Kernel.VMState <> vm_regs proj
+R41111:41111 Kernel.StructuralAdvantage <> s:100 var
+R41128:41130 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R41151:41156 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R41147:41149 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41141:41145 Kernel.VMState <> vm_mu proj
+R41138:41138 Kernel.StructuralAdvantage <> s:100 var
+R41166:41169 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R41160:41164 Kernel.VMState <> vm_pc proj
+R41157:41157 Kernel.StructuralAdvantage <> s:100 var
+R41170:41180 Coq.Lists.List <> length abbrev
+R41183:41197 Kernel.StructuralAdvantage <> sighted_program def
+prf 41773:41797 <> advantage_ratio_unbounded
+R41814:41816 Coq.Init.Datatypes <> nat ind
+binder 41810:41810 <> B:101
+R41823:41829 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R41837:41844 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R41834:41836 Coq.Init.Datatypes <> nat ind
+binder 41830:41830 <> N:102
+R41851:41860 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R41846:41849 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R41845:41845 Kernel.StructuralAdvantage <> N:102 var
+R41874:41876 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R41866:41868 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R41862:41864 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R41861:41861 Kernel.StructuralAdvantage <> N:102 var
+R41865:41865 Kernel.StructuralAdvantage <> N:102 var
+R41870:41872 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R41873:41873 Kernel.StructuralAdvantage <> N:102 var
+R41877:41877 Kernel.StructuralAdvantage <> B:101 var
+R41907:41909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R41907:41909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
