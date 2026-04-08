@@ -1,7 +1,7 @@
 # Fourth-Phase Roadmap: Closing the Four First-Principles Gaps
 
 **Created:** 2026-04-02
-**Last updated:** 2026-04-02
+**Last updated:** 2026-04-08
 **Status:** COMPLETE (2026-04-05)
 
 ---
@@ -115,7 +115,7 @@ Build a **star complex**: central vertex `v` with 4 neighbors `w0..w3`, connecte
 - [N/A] **A7**: ricci_isotropy_star_tc — already proved in CurvedTensorPipeline.v
 - [x] **A8**: Prove `full_efe_from_diagonal_and_offdiag_ricci` — full tensor EFE reduction theorem
 - [x] **A9**: File compiles with `coqc`, zero Admitted
-- [ ] **A10**: Inquisitor clean
+- [x] **A10**: Inquisitor clean (verified: 0 findings as of 2026-04-07)
 
 ### Done condition — REVISED
 `EinsteinEquationsFull.v` compiles clean, 0 Admitted. Proves:
@@ -167,7 +167,7 @@ Boundedness hypothesis: counter values < 2^64 (standard for mechanized Minsky pr
 - [N/A] **B15**: multi-step — deferred (per-step is sufficient for G2)
 - [N/A] **B16**: final statement — deferred (per-step theorems address G2)
 - [x] **B17**: File compiles with `coqc`, zero Admitted
-- [ ] **B18**: Inquisitor clean
+- [x] **B18**: Inquisitor clean (verified: 0 findings as of 2026-04-07)
 
 ### Done condition — REVISED
 `TuringCompletenessISA.v` compiles clean, 0 Admitted. Proves:

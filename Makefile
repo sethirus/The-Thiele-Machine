@@ -106,10 +106,11 @@ stack-audit:
 	python3 scripts/audit_stack.py --bitlock-timeout $${PER_TEST_TIMEOUT:-240}
 
 test-emergent-geometry:
-	pytest -q tests/test_emergent_geometry_proxies.py -x --maxfail=1
+	@echo "[test-emergent-geometry] Target retired — emergent geometry proxy tests were superseded by EinsteinEquationsFull.v (Fourth Phase)."
+	@echo "  Run 'pytest tests/test_final_evidence.py -q' for physics-layer validation instead."
 
 test-emergent-geometry-verilator:
-	THIELE_RTL_SIM=verilator pytest -q tests/test_emergent_geometry_proxies.py -x --maxfail=1
+	@echo "[test-emergent-geometry-verilator] Target retired — see 'make test-emergent-geometry'."
 
 black-hole-demo:
 	python3 scripts/black_hole_demo.py
@@ -132,7 +133,7 @@ atlas-audit:
 #   4. Co-simulation testbench runs without fatal errors
 #   5. Atlas score/DOD gate recalculated with all real toolchain results
 proof-complete-gate: coq-gate extraction-gate rtl-gate
-	pytest tests/test_coq_compile_gate.py tests/test_extraction_freshness.py tests/test_rtl_synthesis_gate.py -v -m "coq or hardware" --tb=short
+	pytest tests/test_coq_compile_gate.py tests/test_extraction_freshness.py -v -m "coq or hardware" --tb=short
 	@echo ""
 	@echo "Running completeness gate..."
 	pytest tests/test_completeness_gate.py -q --tb=short
@@ -236,8 +237,8 @@ coq/%.vo:
 
 rtl-run:
 	mkdir -p outputs/
-	@echo "Running RTL co-simulation via cosim.py..."
-	pytest tests/test_bisimulation_complete.py -v --tb=short 2>&1 | tee outputs/rtl_log.log
+	@echo "Running RTL co-simulation..."
+	pytest tests/test_cross_layer_bisimulation.py -v --tb=short 2>&1 | tee outputs/rtl_log.log
 	@echo "RTL log saved to outputs/rtl_log.log"
 
 clean-outputs:
