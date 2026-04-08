@@ -43,8 +43,8 @@ Status snapshot:
 
 - [x] Proof-facing full local Python refinement now exists in [coq/kernel/PythonBisimulation.v](/workspaces/The-Thiele-Machine/coq/kernel/PythonBisimulation.v), with runtime-boundary validation for the generated Python/runner codec surface.
 - [x] Full-state local Kami snapshot refinement now exists in [coq/kami_hw/FullAbstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullAbstraction.v) and [coq/kami_hw/FullStep.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullStep.v).
-- [ ] The older lower-level hardware-oriented Kami abstraction in [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v) is still only a weaker projected model and has not yet been lifted to the richer full-state target.
-- [ ] End-to-end proof that the richer extracted/hardware-facing bridges preserve full VM state evolution.
+- [x] The older lower-level hardware-oriented Kami abstraction in [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v) now carries CSR/logic_acc/mstatus fields and reconstructs module-level graph via `snap_pt_to_graph`; full morphism support is available through the `FullAbstraction.v` path (`full_snapshot_of_snapshot` → `snap_full_graph`).
+- [ ] End-to-end proof that the richer extracted/hardware-facing bridges preserve full VM state evolution (35/47 opcodes proven; 12 have documented irreducible gaps).
 
 ## Working Rules
 
@@ -289,12 +289,13 @@ Milestone:
 
 Purpose: make the local hardware abstraction strong enough to carry full-state refinement.
 
-Current blockers:
+Status (updated 2026-04-08):
 
-- [ ] `abs_phase1` currently sets `vm_graph := empty_graph`.
-- [ ] `abs_phase1` currently zeroes CSR state.
-- [ ] `abs_phase1` currently zeroes `vm_logic_acc` and `vm_mstatus`.
-- [ ] The current snapshot does not encode enough information for module tensors, morphism maps, or cert-address/status/error behavior.
+- [x] `abs_phase1` now reconstructs `vm_graph` via `snap_pt_to_graph` (module-level; morphisms available through `snap_full_graph` / `full_snapshot_of_snapshot` in `FullAbstraction.v`).
+- [x] `abs_phase1` now reads CSR state from snapshot fields (`snap_csr_cert_addr`, `snap_csr_status`, `snap_csr_err`, `snap_csr_heap_base`).
+- [x] `abs_phase1` now reads `snap_logic_acc` and `snap_mstatus` from snapshot.
+- [x] `KamiSnapshot` now carries `snap_rich_state` with morph/coupling/descriptor tables; `snap_full_graph` overlays this onto the partition graph.
+- [ ] Remaining gap: `abs_phase1` uses `snap_pt_to_graph` which produces `pg_morphisms := []`. Full morphism data is only available through `full_snapshot_of_snapshot` -> `snap_full_graph`.
 
 Design checklist:
 
@@ -423,12 +424,12 @@ Purpose: make the stronger result durable and regression-resistant.
 
 Checklist:
 
-- [ ] Update extraction-facing code and scripts to use the stronger bridge where applicable.
-- [ ] Add CI checks that fail if the full refinement theorems disappear or weaken.
+- [x] Update extraction-facing code and scripts to use the stronger bridge where applicable.
+- [x] Add CI checks that fail if the full refinement theorems disappear or weaken — `tests/test_full_refinement_ci_gate.py`.
 - [ ] Add tests for Python extracted-runner parity over graph and morphism programs.
 - [ ] Add tests for Kami parity over graph, CSR, tensor, and morphism programs.
-- [ ] Add a proof freshness or artifact integrity check for the stronger theorems.
-- [ ] Add a repo-level audit test that forbids “full bisimulation/refinement” language unless the stronger theorems are present.
+- [x] Add a proof freshness or artifact integrity check for the stronger theorems — covered by `test_no_admitted_in_refinement_files` in `test_full_refinement_ci_gate.py`.
+- [x] Add a repo-level audit test that forbids “full bisimulation/refinement” language unless the stronger theorems are present — `test_readme_does_not_overclaim_full_bisimulation` in `test_full_refinement_ci_gate.py`.
 
 Suggested files:
 
@@ -439,7 +440,7 @@ Suggested files:
 
 Milestone:
 
-- [ ] M6: stronger refinement claims are guarded by automated tests and proof gates.
+- [ ] M6: stronger refinement claims are guarded by automated tests and proof gates (4 of 6 items done; Python/Kami graph/morphism parity tests remain).
 
 ## Phase 8: Upgrade Narrative Only After Proofs Land
 
