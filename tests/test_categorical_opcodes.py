@@ -27,6 +27,80 @@ from build import thiele_vm as vm
 class TestMorphCreate:
     """MORPH writes the new morphism ID to a destination register."""
 
+    def test_morph_graph_is_preserved_in_public_state(self):
+        """The public VMState graph exposes the created morphism, not just its ID."""
+        state = vm.run_vm([
+            "PNEW {0,1} 1",       # module 1
+            "PNEW {2,3} 1",       # module 2
+            "MORPH 5 1 2 0 2",    # create morph 1→2, morph ID=1 → reg[5], cost=2
+            "HALT 0",
+        ])
+        assert not state.err
+        assert state.graph.next_id == 3
+        assert state.graph.next_morph_id == 2
+        assert len(state.graph.morphisms) == 1
+        morph = state.graph.morphisms[0]
+        assert morph.id == 1
+        assert morph.source == 1
+        assert morph.target == 2
+        assert not morph.is_identity
+        assert morph.coupling == {"label": "empty", "pairs": []}
+
+    @pytest.mark.skipif(not vm._runner_available(), reason="OCaml runner unavailable")
+    def test_python_protocol_categorical_state_matches_ocaml(self):
+        """The Python protocol fallback must serialize categorical operands losslessly."""
+        cases = [
+            (
+                "linear",
+                [
+                    "PNEW {1} 1",
+                    "PNEW {2} 1",
+                    "PNEW {3} 1",
+                    "MORPH 5 1 2 0 2",
+                    "MORPH 6 2 3 0 3",
+                    "COMPOSE 7 1 2 4",
+                    "MORPH_GET 8 3 0 5",
+                    "MORPH_ID 9 1 2",
+                    "MORPH_ASSERT 4 prop cert 6",
+                    "MORPH_DELETE 4 7",
+                    "HALT 0",
+                ],
+            ),
+            (
+                "tensor",
+                [
+                    "PNEW {10} 1",
+                    "PNEW {20} 1",
+                    "PNEW {30} 1",
+                    "PNEW {40} 1",
+                    "PNEW {10,20} 1",
+                    "PNEW {30,40} 1",
+                    "MORPH 10 1 3 0 2",
+                    "MORPH 11 2 4 0 3",
+                    "MORPH_TENSOR 12 1 2 4",
+                    "HALT 0",
+                ],
+            ),
+        ]
+
+        def graph_signature(state):
+            return (
+                state.graph.next_id,
+                state.graph.next_morph_id,
+                [
+                    (m.id, m.source, m.target, m.is_identity, m.coupling)
+                    for m in state.graph.morphisms
+                ],
+            )
+
+        for name, program in cases:
+            ocaml = vm._run_extracted(program, 1000)
+            python = vm._run_python(program, 1000)
+            assert python.err == ocaml.err, name
+            assert python.mu == ocaml.mu, name
+            assert python.regs == ocaml.regs, name
+            assert graph_signature(python) == graph_signature(ocaml), name
+
     def test_morph_returns_id_to_register(self):
         """MORPH 5 1 2 0 cost writes morphism-ID 1 to reg[5]."""
         state = vm.run_vm([

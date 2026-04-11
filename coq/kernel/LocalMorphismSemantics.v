@@ -319,6 +319,7 @@ Theorem vm_step_pnew_constructs_creation_morphism :
          (morphism_support_semantics P).
 Proof.
   intros s s' region cost Hstep.
+  inversion Hstep; subst.
   exists (pnew_creation_morphism region).
   simpl.
   repeat split.

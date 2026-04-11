@@ -256,8 +256,10 @@ coq/kernel/VMStep.v          ← single ground truth (47 opcodes, semantics)
 
 ```
 coq/ThieleMachineComplete.v   ← zero project imports, zero admits, 11 sections
-  ├── build/thiele_core_complete.ml      (archive only — NOT the runtime)
-  └── build/kami_hw/Target_complete.ml   (archive only — NOT the runtime)
+  ├── archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.ml
+  │     (archive only — NOT the runtime)
+  └── archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.ml
+        (archive only — NOT the runtime)
 ```
 
 The standalone file proves every component is reachable from a single self-contained Coq source. It is a proof-completeness artifact. `Extraction.v` and `KamiExtraction.v` are the sole runtime extraction points.

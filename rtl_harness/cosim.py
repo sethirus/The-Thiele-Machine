@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import fcntl
 import json
 import os
 import re
@@ -565,33 +566,45 @@ def _ensure_verilator_current() -> Path:
         if not path.exists():
             raise FileNotFoundError(f"RTL source missing: {path}")
 
-    needs_compile = (
-        not CACHED_VERILATOR_BIN.exists()
-        or rtl.stat().st_mtime > CACHED_VERILATOR_BIN.stat().st_mtime
-        or tb.stat().st_mtime > CACHED_VERILATOR_BIN.stat().st_mtime
-        or sim_main.stat().st_mtime > CACHED_VERILATOR_BIN.stat().st_mtime
-    )
-    if needs_compile:
-        out_dir = CACHED_VERILATOR_BIN.parent
-        if out_dir.exists():
-            shutil.rmtree(out_dir)
-        out_dir.mkdir(parents=True, exist_ok=True)
-        extra_srcs = [str(bsc_regfile)] if bsc_regfile.exists() else []
-        cmd = [
-            "verilator", "--cc", "--timing", "--trace", "-Wno-fatal", "--build",
-            f"-I{RTL_DIR}", f"-I{BSC_VERILOG_DIR}",
-            "--top-module", "thiele_cpu_kami_tb",
-            "--Mdir", str(out_dir),
-            "--exe", str(sim_main),
-            str(rtl), str(tb),
-        ] + extra_srcs
-        env = dict(os.environ)
-        env.setdefault("THIELE_LOGIC_BRIDGE_SCRIPT", str(REPO_ROOT / "rtl_harness" / "logic_z3_bridge.py"))
-        result = subprocess.run(cmd, capture_output=True, text=True, timeout=300, env=env)
-        if result.returncode != 0:
-            raise RuntimeError(f"verilator compilation failed:\n{result.stderr}")
-        if not CACHED_VERILATOR_BIN.exists():
-            raise RuntimeError("verilator did not produce expected binary")
+    CACHED_VERILATOR_BIN.parent.mkdir(parents=True, exist_ok=True)
+    # Keep the compile lock outside the output directory; the rebuild path
+    # deletes `build/verilator/` wholesale when sources change.
+    lock_path = CACHED_VERILATOR_BIN.parent.parent / "verilator.lock"
+    with open(lock_path, "w") as lf:
+        fcntl.flock(lf, fcntl.LOCK_EX)
+        needs_compile = (
+            not CACHED_VERILATOR_BIN.exists()
+            or rtl.stat().st_mtime > CACHED_VERILATOR_BIN.stat().st_mtime
+            or tb.stat().st_mtime > CACHED_VERILATOR_BIN.stat().st_mtime
+            or sim_main.stat().st_mtime > CACHED_VERILATOR_BIN.stat().st_mtime
+        )
+        if needs_compile:
+            out_dir = CACHED_VERILATOR_BIN.parent
+            with tempfile.TemporaryDirectory(prefix="thiele-verilator-") as tmp_dir:
+                tmp_out_dir = Path(tmp_dir)
+                tmp_bin = tmp_out_dir / CACHED_VERILATOR_BIN.name
+                extra_srcs = [str(bsc_regfile)] if bsc_regfile.exists() else []
+                cmd = [
+                    "verilator", "--cc", "--timing", "--trace", "-Wno-fatal", "--build",
+                    "--output-split", "0", "--output-split-cfuncs", "0",
+                    f"-I{RTL_DIR}", f"-I{BSC_VERILOG_DIR}",
+                    "--top-module", "thiele_cpu_kami_tb",
+                    "--Mdir", str(tmp_out_dir),
+                    "--exe", str(sim_main),
+                    str(rtl), str(tb),
+                ] + extra_srcs
+                env = dict(os.environ)
+                env.setdefault("THIELE_LOGIC_BRIDGE_SCRIPT", str(REPO_ROOT / "rtl_harness" / "logic_z3_bridge.py"))
+                result = subprocess.run(cmd, capture_output=True, text=True, timeout=300, env=env)
+                if result.returncode != 0:
+                    raise RuntimeError(f"verilator compilation failed:\n{result.stderr}")
+                if not tmp_bin.exists():
+                    raise RuntimeError("verilator did not produce expected binary")
+                if out_dir.exists():
+                    shutil.rmtree(out_dir)
+                shutil.copytree(tmp_out_dir, out_dir)
+                if not CACHED_VERILATOR_BIN.exists():
+                    raise RuntimeError("verilator cache copy lost expected binary")
 
     _verilator_ready = True
     return CACHED_VERILATOR_BIN
@@ -675,8 +688,54 @@ def parse_verilog_output(stdout: str) -> Dict[str, Any]:
     json_text = re.sub(r",\s*\]", "]", json_text)
     json_text = re.sub(r",\s*\}", "}", json_text)
     result = json.loads(json_text)
-    if "err" in result and not isinstance(result["err"], bool):
-        result["err"] = bool(result["err"])
+    for bool_key in ("err", "certified"):
+        if bool_key in result and not isinstance(result[bool_key], bool):
+            result[bool_key] = bool(result[bool_key])
+
+    if "mu_tensor" not in result:
+        mu_tensor: List[int] = []
+        idx = 0
+        while f"mu_tensor_{idx}" in result:
+            mu_tensor.append(int(result[f"mu_tensor_{idx}"]))
+            idx += 1
+        if mu_tensor:
+            result["mu_tensor"] = mu_tensor
+
+    if "witness" not in result:
+        witness_keys = [
+            "wc_same_00",
+            "wc_diff_00",
+            "wc_same_01",
+            "wc_diff_01",
+            "wc_same_10",
+            "wc_diff_10",
+            "wc_same_11",
+            "wc_diff_11",
+        ]
+        if all(key in result for key in witness_keys):
+            result["witness"] = [int(result[key]) for key in witness_keys]
+
+    if "csrs" not in result:
+        csrs: Dict[str, int] = {}
+        if "cert_addr" in result:
+            csrs["cert_addr"] = int(result["cert_addr"])
+        if "error_code" in result:
+            csrs["err"] = int(result["error_code"])
+        if "csr_heap_base" in result:
+            csrs["heap_base"] = int(result["csr_heap_base"])
+        if csrs:
+            result["csrs"] = csrs
+
+    if "graph" not in result and isinstance(result.get("modules"), list):
+        graph: Dict[str, Any] = {
+            "next_id": int(result.get("pt_next_id", 1)),
+            "modules": result["modules"],
+            "next_morph_id": int(result.get("morph_next_id", 1)),
+            "morphisms": result.get("morphisms", []),
+        }
+        result["graph"] = graph
+    elif isinstance(result.get("graph"), dict) and "modules" in result["graph"] and "modules" not in result:
+        result["modules"] = result["graph"]["modules"]
     return result
 
 

@@ -6,8 +6,6 @@
 # Options:
 #   --skip-coq          Skip Phases 1-2 (Coq compilation/extraction).
 #                       Use when Target.ml already exists in build/kami_hw/.
-#   --monolithic        Compile ThieleMachineComplete.v instead of modular kami_hw/*.v
-#                       (standalone single-file proof that extracts to the same Target.ml)
 #   --top MODULE_NAME   Set the BSV top module name (default: ThieleCPU)
 #
 # Prerequisites:
@@ -27,16 +25,11 @@ TRACKED_RTL="$ROOT/thielecpu/hardware/rtl/thiele_cpu_kami.v"
 
 # Parse arguments
 SKIP_COQ=0
-USE_MONOLITHIC=0
 TOP_MODULE="ThieleCPU"
 while [[ $# -gt 0 ]]; do
     case "$1" in
         --skip-coq)
             SKIP_COQ=1
-            shift
-            ;;
-        --monolithic)
-            USE_MONOLITHIC=1
             shift
             ;;
         --top)
@@ -100,16 +93,6 @@ if [ "$SKIP_COQ" -eq 1 ]; then
     fi
     # Only clean BSV/Verilog artifacts, preserve Target.ml
     find "$BUILD_DIR" -maxdepth 1 -type f \( -name '*.v' -o -name '*.bsv' -o -name 'kami_to_bsv*' \) -delete
-elif [ "$USE_MONOLITHIC" -eq 1 ]; then
-    echo "=== Preflight: Reset artifacts for monolithic build ==="
-    find "$BUILD_DIR" -maxdepth 1 -type f \( -name '*.v' -o -name '*.bsv' -o -name 'Target.*' -o -name 'Main.*' -o -name 'PP.*' -o -name 'kami_to_bsv*' \) -delete
-
-    echo "=== Phase 1-2 (monolithic): Compiling ThieleMachineComplete.v ==="
-    cd "$COQ_DIR"
-    # ThieleMachineComplete.v is self-contained — imports only Coq stdlib + Kami.
-    # It re-derives the full machine and extracts to the same Target.ml as the
-    # modular kami_hw/ pipeline, making it an independent verification path.
-    eval "coqc -R $VENDOR_KAMI/Kami Kami ThieleMachineComplete.v"
 else
     echo "=== Preflight: Reset stale kami_hw artifacts (namespace-safe rebuild) ==="
     find "$COQ_KAMI_DIR" -maxdepth 1 -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' \) -delete

@@ -102,6 +102,7 @@ module thiele_cpu_kami_tb;
   integer shadow_found_dup;
   reg [63:0] shadow_new_mask;
   integer mod_j, bit_b, first_mod, first_bit;
+  integer morph_j, first_morph;
 
 
   reg [1023:0] program_hex_path;
@@ -286,11 +287,20 @@ module thiele_cpu_kami_tb;
     $display("  \"mdl_ops\": %0d,", mdl_ops_out);
     $display("  \"info_gain\": %0d,", info_gain_out);
     $display("  \"mu\": %0d,", mu_out);
+    $display("  \"logic_acc\": %0d,", logic_acc_out);
+    $display("  \"mstatus\": %0d,", mstatus_out);
     $display("  \"cert_addr\": %0d,", cert_addr_out);
+    $display("  \"csr_heap_base\": 0,");
     $display("  \"mu_tensor_0\": %0d,", mu_tensor_0);
     $display("  \"mu_tensor_1\": %0d,", mu_tensor_1);
     $display("  \"mu_tensor_2\": %0d,", mu_tensor_2);
     $display("  \"mu_tensor_3\": %0d,", mu_tensor_3);
+    $display("  \"mu_tensor\": [");
+    for (i = 0; i < 16; i = i + 1) begin
+      if (i < 15) $display("    %0d,", dut.mt_arr[i]);
+      else $display("    %0d", dut.mt_arr[i]);
+    end
+    $display("  ],");
     $display("  \"bianchi_alarm\": %0d,", bianchi_alarm_out);
     $display("  \"certified\": %0d,", certified_out);
     $display("  \"wc_same_00\": %0d,", wc_same_00_out);
@@ -301,6 +311,11 @@ module thiele_cpu_kami_tb;
     $display("  \"wc_diff_10\": %0d,", wc_diff_10_out);
     $display("  \"wc_same_11\": %0d,", wc_same_11_out);
     $display("  \"wc_diff_11\": %0d,", wc_diff_11_out);
+    $display(
+      "  \"witness\": [%0d,%0d,%0d,%0d,%0d,%0d,%0d,%0d],",
+      wc_same_00_out, wc_diff_00_out, wc_same_01_out, wc_diff_01_out,
+      wc_same_10_out, wc_diff_10_out, wc_same_11_out, wc_diff_11_out
+    );
     $display("  \"cycles\": %0d,", cycle_count);
     $display("  \"pc\": %0d,", pc_out);
     $display("  \"err\": %0d,", err_out);
@@ -336,6 +351,23 @@ module thiele_cpu_kami_tb;
         end
         $write("]}");
         first_mod = 0;
+      end
+    end
+    $display("],");
+    $display("  \"morph_next_id\": %0d,", dut.morph_next_id);
+    $write("  \"morphisms\": [");
+    first_morph = 1;
+    for (morph_j = 0; morph_j < 64; morph_j = morph_j + 1) begin
+      if (dut.morph_valid_table[morph_j]) begin
+        if (!first_morph) $write(", ");
+        $write(
+          "{\"id\": %0d, \"source\": %0d, \"target\": %0d, \"is_identity\": %0d, \"coupling\": {\"label\": \"empty\", \"pairs\": []}}",
+          morph_j,
+          dut.morph_src_table[morph_j*6 +: 6],
+          dut.morph_dst_table[morph_j*6 +: 6],
+          dut.morph_identity_table[morph_j]
+        );
+        first_morph = 0;
       end
     end
     $display("]");

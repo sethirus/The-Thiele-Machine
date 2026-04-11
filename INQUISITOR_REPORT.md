@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-04-11 03:38:32Z (UTC)
+Generated: 2026-04-11 05:57:08Z (UTC)
 Scanned: 184 Coq files across the repo
 ## Summary
-- HIGH: 0
-- MEDIUM: 0
-- LOW: 0
+- HIGH: 5
+- MEDIUM: 1
+- LOW: 1
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -31,11 +31,6 @@ Scanned: 184 Coq files across the repo
 - `OPCODE_PARITY_VIOLATION`: VM opcodes are not consistently defined across Coq, OCaml, Python, and RTL layers
 - `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons
 - `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics
-- `ACTIVE_CLAIM_SURFACE_WEAKENING`: Active extraction/summary/artifact surfaces still use reduced-scope or weakened closeout language
-- `ALTERNATE_EXTRACTION_LINEAGE_ACTIVE`: *_complete.ml / *_complete.mli alternate-lineage file is tracked outside archive/
-- `ROOT_MARKDOWN_SURFACE_DRIFT`: Root-level markdown file is not in the active closeout allowlist
-- `BUILD_SURFACE_DRIFT`: Git-tracked build/ artifact is not in the canonical build manifest
-- `ARCHIVED_ALTERNATE_LINEAGE_REFERENCE`: Active file references an archived alternate-extraction-lineage path
 - `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement
 - `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace
 - `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof
@@ -100,7 +95,41 @@ Scanned: 184 Coq files across the repo
 - `EXTRACT_CONSTANT`: `Extract Constant` bypasses Coq extraction with hand-written OCaml (trust boundary)
 
 ## Vacuity Ranking (file-level)
-(no files scored above zero — no trivially-true or placeholder patterns detected)
+Files scored by trivially-true / placeholder / definitional-proof heuristics.
+Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
+
+| score | tags | file |
+|---:|---|---|
+| 65 | const-fun | `coq/kami_hw/Abstraction.v` |
 
 ## Findings
-(none)
+### HIGH
+
+#### `coq/kami_hw/RichStateCommutation.v`
+- L32: **PROOF_CONNECTIVITY_GAP** — proof file is missing required foundation connectivity group(s): cost. ALL proofs must connect to the Thiele machine foundation chain — no exceptions, no tier-based exemptions. Add imports/bridge lemmas and iterate until connected.
+  - `Lemma filtermap_ext :`
+- L502: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not referenced in proof body.
+  - `intros rs mid Hlt.`
+
+#### `coq/kernel/LocalMorphismSemantics.v`
+- L311: **PHANTOM_VM_STEP** — Theorem \`vm_step_pnew_constructs_creation_morphism\` takes \`vm_step\` as hypothesis but the proof never uses it (no inversion/destruct/apply/specialize/eauto). The step relation is phantom — the result holds without it.
+  - `Theorem vm_step_pnew_constructs_creation_morphism :`
+- L320: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstep\` not referenced in proof body.
+  - `intros s s' region cost Hstep.`
+
+#### `coq/kernel/MasterSummary.v`
+- L1421: **CIRCULAR_DEFINITION** — Theorem \`master_nonclaim_inventory_is_explicit\` unfolds \`master_nonclaim_inventory_statement\` and proves claim by simple tactics. Mark with (* DEFINITIONAL HELPER *) if legitimate, or prove non-circularly by engaging with structure.
+  - `Theorem master_nonclaim_inventory_is_explicit :`
+
+### MEDIUM
+
+#### `coq/kernel/MasterSummary.v`
+- L1409: **EMPTY_LIST** — Definition immediately returns empty list [].
+  - `Definition master_remaining_open_obligations : list open_obligation_entry := [].`
+
+### LOW
+
+#### `coq/kami_hw/Abstraction.v`
+- L1: **VACUITY_SCORE** — Vacuity score 65 ≥ LOW threshold 50. Tags: const-fun. Review for trivially-true/placeholder/definitional proofs that don't advance the thesis goal.
+  - `(file-level vacuity scan)`
+

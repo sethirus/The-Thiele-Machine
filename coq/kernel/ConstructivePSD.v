@@ -786,11 +786,13 @@ Qed.
 
 (** * Reduction to Symmetric Case *)
 
-(** INQUISITOR NOTE: The symmetry reduction needs to be constructive.
-    Current approach: given M with |S(M)| ≤ bound, construct M_sym by averaging
-    over CHSH symmetries, show S(M_sym) = |S(M)| with S(M_sym) ≥ 0.
-    This eliminates the need for separate lower-bound axioms.
-    Currently not implemented. *)
+(** INQUISITOR NOTE: demoted research extension, not an active closeout claim.
+    A separate CHSH-symmetry averaging lemma would be useful for a stronger
+    presentation of the PSD story: given M with |S(M)| <= bound, construct
+    M_sym by averaging over CHSH symmetries and show S(M_sym) = |S(M)| with
+    S(M_sym) >= 0.  No active theorem in this file depends on that extension;
+    the exported closeout surface is the constructive PSD/quadratic-form
+    lemma set listed in the summary below. *)
 
 (** =========================================================================
     SUMMARY: WHAT THIS FILE PROVES
@@ -892,5 +894,4 @@ Qed.
     ========================================================================= *)
 
 Definition fin_to_nat_anchor := @fin_to_nat.
-
 

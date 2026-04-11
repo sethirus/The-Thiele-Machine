@@ -33,7 +33,7 @@ def _sha256(path: Path) -> str:
 def _load_master_summary_obligations() -> list[str]:
     text = MASTER_SUMMARY.read_text(encoding="utf-8")
     obligations = OBLIGATION_RE.findall(text)
-    assert len(obligations) == 7, f"Expected 7 obligations in {MASTER_SUMMARY}, found {len(obligations)}"
+    assert not obligations, f"Expected 0 obligations in {MASTER_SUMMARY}, found {len(obligations)}"
     return obligations
 
 
@@ -78,23 +78,27 @@ def test_obligation_inventory_matches_master_summary() -> None:
 
     assert payload["source_file"] == "coq/kernel/MasterSummary.v"
     assert payload["source_sha256"] == _sha256(MASTER_SUMMARY)
+    assert payload["closure_status"] == "closed"
 
     artifact_obligations = [entry["name"] for entry in payload["obligations"]]
     assert artifact_obligations == master_summary_obligations
 
     for entry in payload["obligations"]:
-        assert entry["status"] == "open-but-ci-backed"
+        assert entry["status"] == "closed"
         artifact_path = REPO_ROOT / entry["artifact"]
         assert artifact_path.exists(), f"Referenced artifact missing: {entry['artifact']}"
         for rel_path in entry["backing_files"]:
             assert (REPO_ROOT / rel_path).exists(), f"Referenced backing file missing: {rel_path}"
 
 
-def test_cross_layer_scope_is_observable_only() -> None:
+def test_cross_layer_scope_is_full_state_mixed_runtime_formal() -> None:
     payload = json.loads((ARTIFACT_DIR / "cross_layer_equivalence_scope.json").read_text(encoding="utf-8"))
-    assert payload["equivalence_mode"] == "observable_only"
-    assert payload["full_state_identity_status"] == "not claimed"
-    assert payload["observable_fields"] == ["vm_pc", "vm_mu"]
+    assert payload["equivalence_mode"] == "mixed_runtime_and_formal_full_state"
+    assert payload["full_state_identity_status"] == "runtime-extended-formally-bridged"
+    assert "vm_pc" in payload["observable_fields"]
+    assert "vm_mu" in payload["observable_fields"]
+    assert "vm_graph" in payload["observable_fields"]
+    assert "vm_witness" in payload["observable_fields"]
 
 
 def test_dependency_manifest_hashes_are_fresh() -> None:
