@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2026-04-07 01:35:09Z (UTC)
-Scanned: 182 Coq files across the repo
+Generated: 2026-04-11 03:38:32Z (UTC)
+Scanned: 184 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
@@ -31,6 +31,11 @@ Scanned: 182 Coq files across the repo
 - `OPCODE_PARITY_VIOLATION`: VM opcodes are not consistently defined across Coq, OCaml, Python, and RTL layers
 - `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons
 - `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics
+- `ACTIVE_CLAIM_SURFACE_WEAKENING`: Active extraction/summary/artifact surfaces still use reduced-scope or weakened closeout language
+- `ALTERNATE_EXTRACTION_LINEAGE_ACTIVE`: *_complete.ml / *_complete.mli alternate-lineage file is tracked outside archive/
+- `ROOT_MARKDOWN_SURFACE_DRIFT`: Root-level markdown file is not in the active closeout allowlist
+- `BUILD_SURFACE_DRIFT`: Git-tracked build/ artifact is not in the canonical build manifest
+- `ARCHIVED_ALTERNATE_LINEAGE_REFERENCE`: Active file references an archived alternate-extraction-lineage path
 - `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement
 - `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace
 - `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof

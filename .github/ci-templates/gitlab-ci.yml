@@ -44,14 +44,14 @@ generate-receipts:
   script:
     # Option 1: Auto-discovery mode (recommended)
     # Automatically finds artifacts in dist/, target/, build/, etc.
-    - python3 -m create_receipt --project . --output ${RECEIPT_OUTPUT_DIR}
+    - python3 scripts/create_receipt.py --project . --output ${RECEIPT_OUTPUT_DIR}
     
     # Option 2: Specific files mode
-    # - python3 -m create_receipt dist/*.whl dist/*.tar.gz --output receipt.json
+    # - python3 scripts/create_receipt.py dist/*.whl dist/*.tar.gz --output receipt.json
     
     # Option 3: With signing (requires key in CI variables)
     # - echo "$THIELE_SIGNING_KEY" > signing.key
-    # - python3 -m create_receipt --project . --sign signing.key --output ${RECEIPT_OUTPUT_DIR}
+    # - python3 scripts/create_receipt.py --project . --sign signing.key --output ${RECEIPT_OUTPUT_DIR}
     # - rm signing.key  # cleanup
     
     - echo "✅ Created receipts in ${RECEIPT_OUTPUT_DIR}/"

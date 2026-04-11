@@ -1,0 +1,21 @@
+{
+  "closeout_note": "MasterSummary.v now sets verification_scope_includes_full_state_equivalence = true. All 11 canonical vm_state fields are verified bit-for-bit across OCaml, Python, and RTL by the bitlock gate (test_bitlock_proof_vm_cpu.py).",
+  "closeout_status": "PASS",
+  "currently_equal_fields": [
+    "pc",
+    "mu",
+    "err",
+    "regs (32 registers)",
+    "mem (64 words)",
+    "mu_tensor (16 entries)",
+    "logic_acc",
+    "mstatus",
+    "witness (8 counters)",
+    "csrs",
+    "certified"
+  ],
+  "nonclaim": "The abstract HardwareBisimulation.v theorem still proves PC/mu agreement only; full-register and full-memory Coq theorems are not yet exported from that abstract model.",
+  "required_equivalence_mode": "full_canonical_state",
+  "source_file": "coq/kernel/MasterSummary.v",
+  "source_sha256": "08841ea0e65f0bf6867938f6341993ae42d59fa1e114b30dade78155507eead8"
+}
