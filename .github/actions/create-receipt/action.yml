@@ -83,10 +83,10 @@ runs:
         
         # Find create_receipt.py - try multiple locations
         SCRIPT_PATH=""
-        if [ -f "${{ github.action_path }}/../../../create_receipt.py" ]; then
-          SCRIPT_PATH="${{ github.action_path }}/../../../create_receipt.py"
-        elif [ -f "create_receipt.py" ]; then
-          SCRIPT_PATH="create_receipt.py"
+        if [ -f "${{ github.action_path }}/../../../scripts/create_receipt.py" ]; then
+          SCRIPT_PATH="${{ github.action_path }}/../../../scripts/create_receipt.py"
+        elif [ -f "scripts/create_receipt.py" ]; then
+          SCRIPT_PATH="scripts/create_receipt.py"
         elif command -v thiele-receipt &> /dev/null; then
           SCRIPT_PATH="thiele-receipt"
         else
@@ -145,10 +145,10 @@ runs:
         
         # Find create_receipt.py - try multiple locations
         SCRIPT_PATH=""
-        if [ -f "${{ github.action_path }}/../../../create_receipt.py" ]; then
-          SCRIPT_PATH="${{ github.action_path }}/../../../create_receipt.py"
-        elif [ -f "create_receipt.py" ]; then
-          SCRIPT_PATH="create_receipt.py"
+        if [ -f "${{ github.action_path }}/../../../scripts/create_receipt.py" ]; then
+          SCRIPT_PATH="${{ github.action_path }}/../../../scripts/create_receipt.py"
+        elif [ -f "scripts/create_receipt.py" ]; then
+          SCRIPT_PATH="scripts/create_receipt.py"
         elif command -v thiele-receipt &> /dev/null; then
           SCRIPT_PATH="thiele-receipt"
         else

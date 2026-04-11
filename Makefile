@@ -8,6 +8,7 @@
 .PHONY: generate-python ocaml-runner
 .PHONY: deliverable-one-hour
 .PHONY: proof-complete-gate coq-gate extraction-gate rtl-gate cosim-gate isa-proof-freshness-check
+.PHONY: closeout-gate
 .PHONY: bitlock-proof-vm-cpu bitlock-manifest
 .PHONY: canonical-source-gate canonical-extract canonical-e2e
 .PHONY: bitlock-stable stack-audit
@@ -36,6 +37,7 @@ help:
 	@echo "  make test-emergent-geometry - Fast proxy checks for silicon-curving claims"
 	@echo "  make test-emergent-geometry-verilator - Same proxy checks using Verilator backend"
 	@echo "  make black-hole-demo - Show Python fail-fast vs RTL kill-switch semantics"
+	@echo "  make closeout-gate  - Single full-closure gate (Coq+extract+inquisitor+tests+bitlock)"
 	@echo "  make atlas-audit    - Run inquisitor + completeness gate checks"
 	@echo "  make isomorphism-bitlock - Strict bit-for-bit Coq/Python/RTL lockstep gate"
 	@echo "  make bitlock-proof-vm-cpu - Deterministic hash lock from Coq roots to VM/RTL state"
@@ -61,6 +63,14 @@ install_deps:
 # ============================================================================
 # EXISTING TARGETS
 # ============================================================================
+
+# Default test: auto-parallel via conftest.py (4 xdist workers)
+test:
+	pytest tests/ -q
+
+# Sequential test (disable xdist)
+test-seq:
+	pytest tests/ -p no:xdist -q
 
 COQTOP ?= coqtop
 BELL_SKIP_COQ ?= 0
@@ -121,6 +131,49 @@ atlas-audit:
 	@echo "[atlas-audit] Running completeness gate tests..."
 	@pytest tests/test_completeness_gate.py -q --tb=short
 	@echo "[atlas-audit] PASS: all layers complete and consistent"
+
+# ============================================================================
+# CLOSEOUT GATE
+# ============================================================================
+# closeout-gate: the single command that means the repository is closed,
+# complete, and testable from a clean checkout.
+#
+#   1. Coq builds clean — zero Admitted, all .vo present
+#   2. Canonical extraction rebuilt from Coq roots (VM + Kami/RTL)
+#   3. Proof-sensitive files committed — no uncommitted drift
+#   4. Extraction freshness verified — .ml newer than .v source
+#   5. Strict Inquisitor pass — zero HIGH/MEDIUM hygiene findings
+#   6. Archive hygiene gate — root markdown surface + build manifest correct
+#   7. No-open-obligations gate — MasterSummary obligations empty,
+#      full-state verification scope affirmed
+#   8. Artifact generators emit only closed/final statuses
+#   9. Full canonical OCaml extraction surface (all 47 opcode arms present)
+#  10. Full-state bit-for-bit lockstep across Coq/OCaml/RTL (bitlock)
+#
+# Steps 1–9 run unconditionally. Step 10 (isomorphism-bitlock) requires
+# the RTL toolchain (yosys + verilator); it is an explicit dependency so the
+# gate fails honestly when the toolchain is absent.
+closeout-gate: coq-gate canonical-extract check-sensitive-files-strict isa-proof-freshness-check isomorphism-bitlock
+	@echo ""
+	@echo "============================================================"
+	@echo " CLOSEOUT GATE — running software/proof layer checks"
+	@echo "============================================================"
+	@echo "[closeout-gate] Step 5/10: Strict Inquisitor pass..."
+	@python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md
+	@echo "[closeout-gate] Step 6/10: Archive hygiene gate..."
+	@pytest tests/test_archive_hygiene.py -q --tb=short
+	@echo "[closeout-gate] Step 7/10: No-open-obligations + full-state verification scope..."
+	@pytest tests/test_completeness_gate.py -q --tb=short
+	@echo "[closeout-gate] Step 8/10: Artifact generators emit closed statuses..."
+	@pytest tests/test_master_summary_artifacts.py -q --tb=short
+	@echo "[closeout-gate] Step 9/10: Full canonical OCaml extraction surface (47 opcodes)..."
+	@pytest tests/test_extraction_freshness.py tests/test_ocaml_extraction_parity_47.py -q --tb=short
+	@echo "[closeout-gate] Step 10/10: Full-state RTL lockstep already verified by isomorphism-bitlock (above)."
+	@echo ""
+	@echo "============================================================"
+	@echo " CLOSEOUT GATE: PASSED"
+	@echo " The repository is closed, complete, and testable."
+	@echo "============================================================"
 
 # ============================================================================
 # PROOF COMPLETION GATES
@@ -217,7 +270,8 @@ inquisitor-visual-audit: atlas-audit
 generate-python: build/thiele_core.ml
 	python3 scripts/forge.py \
 		--input build/thiele_core.ml \
-		--out-python thielecpu/generated/generated_core.py
+		--out-python thielecpu/generated/generated_core.py \
+		--out-verilog /dev/null
 
 # Build the Coq-extracted OCaml VM runner.
 # Depends on coq/Extraction.vo so the runner is always built from the current proof tree.

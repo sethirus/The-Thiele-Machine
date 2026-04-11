@@ -72,14 +72,14 @@ stages:
         cp -r $(Pipeline.Workspace)/BuildArtifacts/* dist/
         
         # Option 1: Auto-discovery mode (recommended)
-        python3 create_receipt.py --project . --output $(receiptOutputDir)
+        python3 scripts/create_receipt.py --project . --output $(receiptOutputDir)
         
         # Option 2: Specific files mode
-        # python3 create_receipt.py dist/*.whl dist/*.tar.gz --output receipt.json
+        # python3 scripts/create_receipt.py dist/*.whl dist/*.tar.gz --output receipt.json
         
         # Option 3: With signing (requires secure file or variable)
         # echo "$THIELE_SIGNING_KEY" > signing.key
-        # python3 create_receipt.py --project . --sign signing.key --output $(receiptOutputDir)
+        # python3 scripts/create_receipt.py --project . --sign signing.key --output $(receiptOutputDir)
         # rm signing.key
         
         echo "✅ Created receipts in $(receiptOutputDir)/"

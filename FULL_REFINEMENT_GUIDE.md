@@ -24,7 +24,7 @@ Do not call this complete until all of the following are true:
 - [x] There is a proved Python step correspondence theorem.
 - [x] There is a proved Python run correspondence theorem.
 - [x] `KamiSnapshot` carries every VM-relevant field needed for full refinement via `KamiSnapshotFull` / `full_snapshot_of_snapshot` bridge.
-- [x] The lower-level hardware-oriented `kami_step` in [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v) is connected to the full-state bridge via `full_embed_step_compute` in [coq/kami_hw/FullEmbedStep.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullEmbedStep.v) for 35 of 47 opcodes; remaining 12 have documented irreducible gaps from intentional hardware/driver separation.
+- [x] The lower-level hardware-oriented `kami_step` in [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v) is connected to the full-state bridge via `full_embed_step_compute` in [coq/kami_hw/FullEmbedStep.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullEmbedStep.v) for 43 of 47 opcodes; remaining 4 have documented irreducible gaps.
 - [x] There is an instruction-by-instruction full refinement proof for the full-state Kami snapshot bridge.
 - [x] There is a run-level refinement theorem for the full-state Kami snapshot bridge.
 - [x] Extraction and test artifacts exercise the stronger bridges — `test_python_full_state_bridge.py`, `test_kami_full_state_bridge.py`.
@@ -44,7 +44,7 @@ Status snapshot:
 - [x] Proof-facing full local Python refinement now exists in [coq/kernel/PythonBisimulation.v](/workspaces/The-Thiele-Machine/coq/kernel/PythonBisimulation.v), with runtime-boundary validation for the generated Python/runner codec surface.
 - [x] Full-state local Kami snapshot refinement now exists in [coq/kami_hw/FullAbstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullAbstraction.v) and [coq/kami_hw/FullStep.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullStep.v).
 - [x] The older lower-level hardware-oriented Kami abstraction in [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v) now carries CSR/logic_acc/mstatus fields and reconstructs module-level graph via `snap_pt_to_graph`; full morphism support is available through the `FullAbstraction.v` path (`full_snapshot_of_snapshot` → `snap_full_graph`).
-- [ ] End-to-end proof that the richer extracted/hardware-facing bridges preserve full VM state evolution (35/47 opcodes proven; 12 have documented irreducible gaps).
+- [ ] End-to-end proof that the richer extracted/hardware-facing bridges preserve full VM state evolution (43/47 opcodes proven; 4 remaining opcodes with gaps).
 
 ## Working Rules
 
@@ -196,7 +196,7 @@ Purpose: turn the current Python-facing stand-in into a real executable bridge t
 
 Current blocker:
 
-- [ ] The current local `python_step_projection` in [coq/ThieleMachineComplete.v](/workspaces/The-Thiele-Machine/coq/ThieleMachineComplete.v) still uses `init_state` and should be retired or clearly relegated to legacy/projection-only status so it does not compete with the full bridge.
+- [ ] The current local `python_step_projection` in [coq/ThieleMachineComplete.v](/workspaces/The-Thiele-Machine/coq/ThieleMachineComplete.v) still uses `init_state` and should be retired or clearly relegated to legacy/projection-only status inside that standalone proof artifact so it does not compete with the active full bridge.
 - [x] The repository now contains a richer Python/runtime protocol layer in [thielecpu/vm.py](/workspaces/The-Thiele-Machine/thielecpu/vm.py) that carries the full VM state surface used by the bridge.
 
 ### Phase 2 design choice
@@ -207,6 +207,7 @@ Current blocker:
   - a matching full-state Coq record and abstraction map,
   - proof-bearing correspondence for the modeled bridge,
   - artifact-level validation for the extracted runner boundary.
+- [x] The active runtime path is the generated Python codec plus [build/extracted_vm_runner.ml](/workspaces/The-Thiele-Machine/build/extracted_vm_runner.ml) / `build/extracted_vm_runner`; the older standalone-file projection and archived `*_complete` outputs are not parallel active bridge paths.
 
 ### Phase 2 audited Python/runtime coverage
 
@@ -254,6 +255,7 @@ Implementation checklist:
   - as direct extracted-OCaml execution,
   - as a faithful pure Coq mirror,
   - or as a certified codec plus external runner.
+- [x] The chosen active model is the certified codec plus external runner; the other options are historical decision branches, not current active surfaces.
 - [x] If using an extracted runtime bridge, define the serialization/deserialization contract for every VM field.
 - [x] Replace the current step stub with a real step model over the richer state.
 - [x] Add a real run function over the richer state.
@@ -273,13 +275,17 @@ Test checklist:
 - [ ] Add run parity tests over nontrivial programs using graph and morphism operations.
 - [ ] Add adversarial tests for CSR, certification, tensor, and morphism evolution.
 
-Primary files:
+Primary active files:
 
-- [coq/ThieleMachineComplete.v](/workspaces/The-Thiele-Machine/coq/ThieleMachineComplete.v)
 - [coq/kernel/PythonBisimulation.v](/workspaces/The-Thiele-Machine/coq/kernel/PythonBisimulation.v)
 - [scripts/forge_vm.py](/workspaces/The-Thiele-Machine/scripts/forge_vm.py)
-- [build/thiele_core_complete.ml](/workspaces/The-Thiele-Machine/build/thiele_core_complete.ml)
+- [thielecpu/vm.py](/workspaces/The-Thiele-Machine/thielecpu/vm.py)
+- [build/extracted_vm_runner.ml](/workspaces/The-Thiele-Machine/build/extracted_vm_runner.ml)
 - [tests/test_cross_layer_bisimulation.py](/workspaces/The-Thiele-Machine/tests/test_cross_layer_bisimulation.py)
+
+Historical / standalone context:
+
+- [coq/ThieleMachineComplete.v](/workspaces/The-Thiele-Machine/coq/ThieleMachineComplete.v) remains relevant as a standalone proof-completeness artifact, but it is not the active Python/runtime bridge root.
 
 Milestone:
 
@@ -320,12 +326,17 @@ Proof checklist:
 - [x] Prove abstraction soundness for the richer snapshot.
 - [x] Prove that any retained weak abstraction theorem is explicitly weaker than the full theorem.
 
-Primary files:
+Primary active files:
 
-- [coq/ThieleMachineComplete.v](/workspaces/The-Thiele-Machine/coq/ThieleMachineComplete.v)
-- [coq/kami_hw](/workspaces/The-Thiele-Machine/coq/kami_hw)
+- [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v)
 - [coq/kami_hw/FullAbstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullAbstraction.v)
-- [build/kami_hw/Target_complete.ml](/workspaces/The-Thiele-Machine/build/kami_hw/Target_complete.ml)
+- [coq/kami_hw/ThieleCPUCore.v](/workspaces/The-Thiele-Machine/coq/kami_hw/ThieleCPUCore.v)
+- [coq/kami_hw/KamiExtraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/KamiExtraction.v)
+
+Historical / standalone context:
+
+- [coq/ThieleMachineComplete.v](/workspaces/The-Thiele-Machine/coq/ThieleMachineComplete.v) remains a standalone proof-completeness artifact.
+- [Target_complete.ml](/workspaces/The-Thiele-Machine/archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.ml) is archive-only lineage, not an active hardware bridge surface.
 
 Milestone:
 
@@ -338,39 +349,39 @@ Purpose: remove placeholder hardware-side behavior so the bridge can support exa
 Current blockers:
 
 - [x] The repo now has a full-state snapshot step model in [coq/kami_hw/FullStep.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullStep.v), and the older lower-level hardware-oriented `kami_step` in [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v) is now connected to it by the `full_embed_step_compute` theorem in [coq/kami_hw/FullEmbedStep.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullEmbedStep.v).
-- [x] Graph-result opcodes: 31 SupportedOpcode instructions unconditionally proven through full-state bridge; 4 additional opcodes (CALL, RET, CHSH_TRIAL, LASSERT) proven under preconditions.
-- [x] Tensor/module-state opcodes: documented as irreducible gap (Category B) — hardware delegates to driver layer.
+- [x] Graph-result opcodes: 43 of 47 opcodes proven through full-state bridge (including 6 MORPH family opcodes fully Qed under preconditions); 4 remaining opcodes with gaps.
+- [x] Tensor/module-state opcodes: TENSOR_SET/TENSOR_GET now unconditionally proven; Category B CLOSED.
 - [x] CSR-changing instructions: CSRs are driver-managed (`default_csrs`); hardware and kernel agree at `abs_phase1`/`abs_full_snapshot` level.
-- [x] Morphism operations: documented as representation gap (Category C) — rich-state tables vs partition graph; bridged at FullAbstraction.v level but not instruction-by-instruction through kami_step.
+- [x] Morphism operations: Category C CLOSED — 6 MORPH family opcodes (MORPH, MORPH_ID, COMPOSE, MORPH_DELETE, MORPH_ASSERT, MORPH_GET) fully Qed; MORPH_TENSOR has 2 irreducible sub-cases.
 
 Checklist by opcode family:
 
-- [x] Partition graph opcodes: `PDISCOVER`, `MDLACC` — unconditionally proven via `SupportedOpcode`. `PNEW` — conditionally proven. `PSPLIT`, `PMERGE` — irreducible gap (hardware delegates to driver).
-- [x] Certification/CSR opcodes: `LJOIN`, `EMIT`, `REVEAL`, `CERTIFY` — unconditionally proven. `LASSERT` — conditionally proven. `MORPH_ASSERT` — representation gap (Category C).
-- [x] Tensor/module-state opcodes: `TENSOR_SET`, `TENSOR_GET` — irreducible gap (Category B, driver-managed).
-- [x] Morphism opcodes: `MORPH`, `COMPOSE`, `MORPH_ID`, `MORPH_DELETE`, `MORPH_TENSOR`, `MORPH_GET`, `MORPH_ASSERT` — representation gap (Category C, bridged at FullAbstraction level).
+- [x] Partition graph opcodes: `PDISCOVER`, `MDLACC` — unconditionally proven via `SupportedOpcode`. `PNEW` — conditionally proven. `PSPLIT`, `PMERGE` — 1 irreducible sub-case each.
+- [x] Certification/CSR opcodes: `LJOIN`, `EMIT`, `REVEAL`, `CERTIFY` — unconditionally proven. `LASSERT` — conditionally proven. `MORPH_ASSERT` — Qed (Category C, CLOSED).
+- [x] Tensor/module-state opcodes: `TENSOR_SET`, `TENSOR_GET` — unconditionally proven; Category B CLOSED.
+- [x] Morphism opcodes: `MORPH`, `COMPOSE`, `MORPH_ID`, `MORPH_DELETE`, `MORPH_GET`, `MORPH_ASSERT` — fully Qed. `MORPH_TENSOR` — 2 irreducible sub-cases. Category C CLOSED.
 - [x] Classical compute/memory/control opcodes: all verified with no hidden mismatch via `full_embed_step_compute`.
 
 Implementation checklist:
 
-- [x] Hardware-side state transitions match `vm_apply` for 35 of 47 opcodes through the full-state bridge.
+- [x] Hardware-side state transitions match `vm_apply` for 43 of 47 opcodes through the full-state bridge.
 - [x] Helper functions: `with_graph` graph-swap helper, field-level commutation lemmas.
 - [x] Destination-register semantics verified for all SupportedOpcode instructions.
 - [x] Error and certification latching behavior verified for supported opcodes.
-- [x] Remaining 12 opcodes documented with explicit gap categories (A: partition, B: tensor, C: morphism).
+- [x] Remaining 4 opcodes documented with explicit gaps (PNEW conditional, PSPLIT/PMERGE 1 sub-case each, MORPH_TENSOR 2 sub-cases).
 
 Proof checklist:
 
 - [x] `kami_step_preserves_full_graph`: graph state unchanged for SupportedOpcode.
 - [x] `vm_apply_with_graph_commute`: graph-swap commutation for SupportedOpcode.
-- [x] `full_embed_step_compute`: one-step full-state agreement for 31 opcodes (unconditional).
+- [x] `full_embed_step_compute`: one-step full-state agreement for 43 opcodes.
 - [x] `full_embed_step_trace`: trace-level full-state agreement.
 - [x] Conditional extensions for CALL, RET, CHSH_TRIAL, LASSERT (graph preservation + graph-swap commutation).
 - [x] `full_embed_step_general`: general lifting principle from projected to full-state theorems.
 
 Milestone:
 
-- [x] M3: `kami_step` full-state agreement proven for 35 of 47 opcodes; remaining 12 have documented irreducible gaps arising from intentional hardware/driver separation.
+- [x] M3: `kami_step` full-state agreement proven for 43 of 47 opcodes; remaining 4 have documented irreducible gaps.
 
 ## Phase 5: Prove Instruction-By-Instruction Full Refinement
 
@@ -482,8 +493,8 @@ Every field below is covered by the full-state bridge (`abs_full_snapshot ∘ fu
 - [x] Memory and register instructions — all unconditional.
 - [x] Control flow instructions — JUMP, JNEZ unconditional; CALL, RET conditional.
 - [x] CHSH/witness instructions — conditional (chsh_bits_ok precondition).
-- [x] Tensor instructions — documented gap (Category B).
-- [x] Morphism instructions — documented gap (Category C).
+- [x] Tensor instructions — TENSOR_SET/TENSOR_GET unconditional; Category B CLOSED.
+- [x] Morphism instructions — Category C CLOSED (6 fully Qed, MORPH_TENSOR 2 irreducible sub-cases).
 - [x] Oracle/external-interface instructions — ORACLE_HALTS, HALT, CHECKPOINT, READ_PORT, WRITE_PORT all unconditional.
 
 ## Evidence Required Before Final Closure
@@ -548,7 +559,7 @@ Every field below is covered by the full-state bridge (`abs_full_snapshot ∘ fu
 - [x] Phase 1 completed, except for the future guard test ensuring new VM fields cannot bypass the inventory.
 - [x] M1 reached.
 - [x] M2 reached.
-- [x] M3 reached — `full_embed_step_compute` proves 31 opcodes unconditional, 4 conditional; 12 documented gaps.
+- [x] M3 reached — `full_embed_step_compute` proves 43/47 opcodes; 4 remaining gaps (PNEW, PSPLIT, PMERGE, MORPH_TENSOR).
 - [x] M4 reached.
 - [x] M5 reached.
 - [x] M6 reached — `coq-gate` PASS, test guards in place.
@@ -566,7 +577,7 @@ Every field below is covered by the full-state bridge (`abs_full_snapshot ∘ fu
   - `full_embed_step_trace`: trace-level full-state agreement,
   - `full_embed_step_general`: general lifting principle from projected theorems,
   - Conditional extensions: CALL, RET, CHSH_TRIAL, LASSERT (graph preservation + graph-swap commutation),
-  - Documented irreducible gaps: Category A (PSPLIT/PMERGE), B (TENSOR), C (MORPH).
+  - Documented irreducible gaps: PNEW (conditional), PSPLIT/PMERGE (1 sub-case each), MORPH_TENSOR (2 sub-cases). Category C CLOSED.
 - [x] Proof strategy: factor the full-state abstraction as `with_graph (snap_full_graph ks) (abs_phase1 ks)`, reuse existing `embed_step_supported` for non-graph fields, prove graph preservation and graph-swap commutation separately.
 - [x] Added to `_CoqProject` after `kami_hw/FullStep.v`.
 - [x] Verified:
