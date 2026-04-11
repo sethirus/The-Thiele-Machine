@@ -411,7 +411,7 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
     if op == "morph_delete":
         return "MORPH_DELETE" + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "morph_assert":
-        return "MORPH_ASSERT" + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("property", 0))) + " " + str(int(instr.get("cert", 0))) + " " + str(int(instr.get("mu_delta", 0)))
+        return "MORPH_ASSERT" + " " + str(int(instr.get("morph_id", 0))) + " " + str(instr.get("property", ".")) + " " + str(instr.get("cert", ".")) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "morph_tensor":
         return "MORPH_TENSOR" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("f", 0))) + " " + str(int(instr.get("g", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "morph_get":

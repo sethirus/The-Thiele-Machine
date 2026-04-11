@@ -38,6 +38,28 @@ class TestMorphRTLSmoke:
         assert not state.get("err"), "MORPH set error flag"
         assert state["mu"] == 3
 
+    @pytest.mark.strict_rtl
+    def test_morph_graph_surface_is_exposed(self):
+        """RTL cosim exposes the bounded morphism table as graph.morphisms."""
+        state = _run_cosim("PNEW {1} 1\nPNEW {2} 1\nMORPH_EXT 5 1 2 0 2\nHALT")
+        assert not state.get("err"), "MORPH set error flag"
+        graph = state["graph"]
+        assert graph["next_id"] == 3
+        assert graph["next_morph_id"] == 2
+        assert graph["modules"] == [
+            {"id": 1, "region": [1]},
+            {"id": 2, "region": [2]},
+        ]
+        assert graph["morphisms"] == [
+            {
+                "id": 1,
+                "source": 1,
+                "target": 2,
+                "is_identity": 0,
+                "coupling": {"label": "empty", "pairs": []},
+            },
+        ]
+
     def test_compose_charges_mu(self):
         """COMPOSE composes two morphisms; charges cost μ."""
         state = _run_cosim("COMPOSE 0 1 4\nHALT")

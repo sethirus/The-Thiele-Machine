@@ -608,7 +608,7 @@ def generate_instr_dict_to_text() -> str:
                 parts.append(f'str(instr.get("cost", 0))')
             elif py_key in ("region", "left", "right", "evidence"):
                 parts.append(f'_fmt_list(instr.get("{py_key}", []))')
-            elif py_key in ("payload", "label"):
+            elif py_key in ("payload", "label", "property", "cert"):
                 parts.append(f'str(instr.get("{py_key}", "."))')
             else:
                 parts.append(f'str(int(instr.get("{py_key}", 0)))')

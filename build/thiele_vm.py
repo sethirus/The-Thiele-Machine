@@ -60,9 +60,21 @@ class VMModule:
     axioms: Any
 
 @dataclass
+class VMMorphism:
+    """A morphism edge in the VM's property graph."""
+    id: int
+    source: int
+    target: int
+    is_identity: bool = False
+    coupling: Dict[str, Any] = field(default_factory=dict)
+
+@dataclass
 class VMGraph:
     """The VM's module graph."""
+    next_id: int = 1
     modules: List[VMModule] = field(default_factory=list)
+    next_morph_id: int = 1
+    morphisms: List[VMMorphism] = field(default_factory=list)
 
 @dataclass
 class VMState:
@@ -111,6 +123,62 @@ def graph_lookup(graph: VMGraph, module_id: int) -> Optional[VMModule]:
     if module_id < 0 or module_id >= len(graph.modules):
         return None
     return graph.modules[module_id]
+
+
+def _graph_from_json(graph_json: Dict[str, Any]) -> VMGraph:
+    modules = [
+        VMModule(
+            id=int(m["id"]),
+            region=list(m.get("region", [])),
+            axioms=m.get("axioms", len(m.get("axiom_strings", []))),
+        )
+        for m in graph_json.get("modules", [])
+    ]
+    morphisms = [
+        VMMorphism(
+            id=int(m["id"]),
+            source=int(m.get("source", 0)),
+            target=int(m.get("target", 0)),
+            is_identity=bool(m.get("is_identity", False)),
+            coupling=dict(m.get("coupling", {})),
+        )
+        for m in graph_json.get("morphisms", [])
+    ]
+    return VMGraph(
+        next_id=int(graph_json.get("next_id", 1)),
+        modules=modules,
+        next_morph_id=int(graph_json.get("next_morph_id", 1)),
+        morphisms=morphisms,
+    )
+
+
+def _graph_from_extracted_state(final_state: Any) -> VMGraph:
+    modules = [
+        VMModule(id=mid, region=list(ms.module_region), axioms=len(ms.module_axioms))
+        for mid, ms in final_state.vm_graph.pg_modules
+    ]
+    morphisms = [
+        VMMorphism(
+            id=morph_id,
+            source=ms.morph_source,
+            target=ms.morph_target,
+            is_identity=ms.morph_is_identity,
+            coupling={
+                "label": ms.morph_coupling.coupling_label,
+                "pairs": [
+                    [src, dst]
+                    for src, dst in ms.morph_coupling.coupling_pairs
+                ],
+            },
+        )
+        for morph_id, ms in final_state.vm_graph.pg_morphisms
+    ]
+    return VMGraph(
+        next_id=final_state.vm_graph.pg_next_id,
+        modules=modules,
+        next_morph_id=final_state.vm_graph.pg_next_morph_id,
+        morphisms=morphisms,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -253,25 +321,38 @@ def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
                 "i": _parse_int(toks[3]), "j": _parse_int(toks[4]), "mu_delta": _parse_int(toks[5])}
     # Phase 5: categorical morphism opcodes (0x27–0x2D) — mirrors extracted_vm_runner.ml lines 391-404
     elif op == "MORPH" and len(toks) >= 6:
+        cost = _parse_int(toks[5])
         return {"op": "morph", "dst": _parse_int(toks[1]), "src_mod": _parse_int(toks[2]),
-                "dst_mod": _parse_int(toks[3]), "coupling_idx": _parse_int(toks[4]), "cost": _parse_int(toks[5])}
+                "dst_mod": _parse_int(toks[3]), "coupling_idx": _parse_int(toks[4]),
+                "cost": cost, "mu_delta": cost}
     elif op == "COMPOSE" and len(toks) >= 5:
-        return {"op": "compose", "dst": _parse_int(toks[1]), "m1_id": _parse_int(toks[2]),
-                "m2_id": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+        cost = _parse_int(toks[4])
+        m1 = _parse_int(toks[2])
+        m2 = _parse_int(toks[3])
+        return {"op": "compose", "dst": _parse_int(toks[1]), "m1": m1, "m2": m2,
+                "m1_id": m1, "m2_id": m2, "cost": cost, "mu_delta": cost}
     elif op == "MORPH_ID" and len(toks) >= 4:
+        cost = _parse_int(toks[3])
         return {"op": "morph_id", "dst": _parse_int(toks[1]), "module": _parse_int(toks[2]),
-                "cost": _parse_int(toks[3])}
+                "cost": cost, "mu_delta": cost}
     elif op == "MORPH_DELETE" and len(toks) >= 3:
-        return {"op": "morph_delete", "morph_id": _parse_int(toks[1]), "cost": _parse_int(toks[2])}
+        cost = _parse_int(toks[2])
+        return {"op": "morph_delete", "morph_id": _parse_int(toks[1]),
+                "cost": cost, "mu_delta": cost}
     elif op == "MORPH_ASSERT" and len(toks) >= 5:
+        cost = _parse_int(toks[4])
         return {"op": "morph_assert", "morph_id": _parse_int(toks[1]), "property": toks[2],
-                "cert": toks[3], "cost": _parse_int(toks[4])}
+                "cert": toks[3], "cost": cost, "mu_delta": cost}
     elif op == "MORPH_TENSOR" and len(toks) >= 5:
-        return {"op": "morph_tensor", "dst": _parse_int(toks[1]), "f_id": _parse_int(toks[2]),
-                "g_id": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+        cost = _parse_int(toks[4])
+        f_id = _parse_int(toks[2])
+        g_id = _parse_int(toks[3])
+        return {"op": "morph_tensor", "dst": _parse_int(toks[1]), "f": f_id, "g": g_id,
+                "f_id": f_id, "g_id": g_id, "cost": cost, "mu_delta": cost}
     elif op == "MORPH_GET" and len(toks) >= 5:
+        cost = _parse_int(toks[4])
         return {"op": "morph_get", "dst": _parse_int(toks[1]), "morph_id": _parse_int(toks[2]),
-                "selector": _parse_int(toks[3]), "cost": _parse_int(toks[4])}
+                "selector": _parse_int(toks[3]), "cost": cost, "mu_delta": cost}
 
     return None
 
@@ -333,12 +414,9 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
     # Execute through Coq-extracted VM
     final_state = extracted_vm.vm_run(init_state, program, max_steps=fuel)
 
-    # Convert to external VMState format — use actual graph modules (id, region, axioms)
-    modules = [
-        VMModule(id=mid, region=list(ms.module_region), axioms=len(ms.module_axioms))
-        for mid, ms in final_state.vm_graph.pg_modules
-    ]
-    graph = VMGraph(modules=modules)
+    # Convert to external VMState format while preserving the full graph surface.
+    graph = _graph_from_extracted_state(final_state)
+    modules = list(graph.modules)
 
     return VMState(
         pc=final_state.vm_pc,
@@ -547,11 +625,8 @@ def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
                 f"Failed to parse VM output: {exc}\nOutput: {result.stdout}"
             ) from exc
 
-        modules = [
-            VMModule(id=m["id"], region=m["region"], axioms=m["axioms"])
-            for m in state_json["graph"]["modules"]
-        ]
-        graph = VMGraph(modules=list(modules))
+        graph = _graph_from_json(state_json["graph"])
+        modules = list(graph.modules)
 
         return VMState(
             pc=state_json["pc"],

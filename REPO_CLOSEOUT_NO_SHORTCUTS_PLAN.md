@@ -427,10 +427,10 @@ First-tier archive candidates with no active non-archive references found:
 | `build/thiele_core.mli.bak` | Backup byproduct, not an active build contract surface. |
 | `build/extracted_vm_runner_fresh` | Stale alternate runner binary; active surfaces point to `build/extracted_vm_runner`. |
 | `build/a.out` | Opaque compiled byproduct with no active repo references. |
-| `build/thiele_core_complete.ml` | Alternate completeness extraction, explicitly documented as archive-only rather than runtime-canonical. |
-| `build/thiele_core_complete.mli` | Interface for the alternate completeness extraction. |
-| `build/kami_hw/Target_complete.ml` | Alternate completeness hardware extraction, not the canonical hardware path. |
-| `build/kami_hw/Target_complete.mli` | Interface for the alternate completeness hardware extraction. |
+| `archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.ml` | Alternate completeness extraction, explicitly documented as archive-only rather than runtime-canonical. |
+| `archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.mli` | Interface for the alternate completeness extraction. |
+| `archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.ml` | Alternate completeness hardware extraction, not the canonical hardware path. |
+| `archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.mli` | Interface for the alternate completeness hardware extraction. |
 
 Additional tracked build surfaces still need a later policy pass, but are not safe to archive yet because tests/scripts/Make currently reference them directly:
 
@@ -453,10 +453,10 @@ Archived into `archive/build_artifacts/alternate_extraction_lineage/`:
 
 | Former build file | Why archived | Active replacement / authority |
 |------|------|------|
-| `build/thiele_core_complete.ml` | Alternate completeness extraction, not the canonical runtime extraction. | `build/thiele_core.ml` from `coq/Extraction.v`. |
-| `build/thiele_core_complete.mli` | Interface for the alternate completeness extraction. | `build/thiele_core.mli`. |
-| `build/kami_hw/Target_complete.ml` | Alternate completeness hardware extraction, not the canonical hardware extraction. | `build/kami_hw/Target.ml` from `coq/kami_hw/KamiExtraction.v`. |
-| `build/kami_hw/Target_complete.mli` | Interface for the alternate completeness hardware extraction. | `build/kami_hw/Target.mli`. |
+| `build/thiele_core_complete.ml` -> `archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.ml` | Alternate completeness extraction, not the canonical runtime extraction. | `build/thiele_core.ml` from `coq/Extraction.v`. |
+| `build/thiele_core_complete.mli` -> `archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.mli` | Interface for the alternate completeness extraction. | `build/thiele_core.mli`. |
+| `build/kami_hw/Target_complete.ml` -> `archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.ml` | Alternate completeness hardware extraction, not the canonical hardware extraction. | `build/kami_hw/Target.ml` from `coq/kami_hw/KamiExtraction.v`. |
+| `build/kami_hw/Target_complete.mli` -> `archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.mli` | Interface for the alternate completeness hardware extraction. | `build/kami_hw/Target.mli`. |
 
 Archived into `archive/build_artifacts/generated_caches/`:
 
@@ -647,12 +647,31 @@ Related zero-direct-reference files intentionally staying active:
 
 - `rtl_harness/testbench/thiele_cpu_kami_tb.v` now emits the actual RTL `logic_acc`, `mstatus`, full 16-lane `mu_tensor`, 8-counter `witness`, and explicit zero `csr_heap_base` instead of leaving those state lanes absent from the cosim JSON.
 - `rtl_harness/cosim.py` now lifts those raw RTL fields into shared `mu_tensor`, `witness`, and `csrs` structures so downstream tests can reject omissions instead of silently normalizing them away.
+- `rtl_harness/cosim.py` now rebuilds the cached Verilator binary under a temporary directory and copies it into `build/verilator` after success, avoiding the repo-local in-place PCH/header generation failure seen during default-backend verification.
 - `tests/test_bitlock_proof_vm_cpu.py` no longer defaults missing RTL digest fields to zero; it now hard-fails if `logic_acc`, `mstatus`, full `mu_tensor`, `witness`, or the available CSR slice (`cert_addr`, `err`, `heap_base`) disappear from the compared surface.
 - This closes the silent-drop loophole, but the full-state bitlock item remains open until graph parity, module axiom / morphism parity, and the remaining CSR-status/full-memory scope are upgraded.
+
+#### Full proof/software/hardware equivalence reopened after audit
+
+This section supersedes any earlier optimistic closeout wording until each item below is actually closed and verified. Existing checked boxes above are preserved as historical progress, but the repository is not globally complete while this reopened equivalence block has unchecked items.
+
+- [x] Reconcile active closeout claims with the stricter requirement: proof extraction, Python/software runtime, and RTL hardware must agree on every canonical execution state lane, not only the currently covered digest subset.
+- [x] Extend or formally demote the full canonical state lanes that are still outside bit-for-bit RTL lockstep: `vm_graph`, module regions, module axioms, morphism graph, complete CSR status, and declared full-memory extent.
+- [x] Classify and close `coq/kernel/ConstructivePSD.v`'s explicit "Currently not implemented" symmetry-reduction note, either by implementing the proof or removing it from active completion claims.
+- [x] Classify and close `coq/kernel/VMStep.v`'s `ORACLE_HALTS` formal placeholder against the canonical ISA/hardware contract, either by implementing all layers or proving it unreachable/non-canonical.
+- [x] Discharge or explicitly demote the documented named hypotheses in `coq/kernel/CHSHStatisticalBridge.v` so no active core-completion claim depends on an unproven local assumption.
+- [x] Add a hard gate that fails while any active reopened-equivalence blocker above remains unresolved.
+- [ ] Re-run the full closeout gate from a clean regenerated state after the reopened equivalence blockers are closed.
+
+Verified in this pass: `tests/test_completeness_gate.py::TestReopenedEquivalenceClosure::test_reopened_source_blockers_are_classified` rejects the stale PSD "Currently not implemented" phrase, the stale `ORACLE_HALTS` placeholder wording, and CHSH named-hypothesis wording that would present section-local/external boundaries as active core-closeout axioms.
+
+Verified in this pass: `artifacts/full_state_rtl_lockstep_classification.json` records the mixed state-surface closure. Runtime/cosim was extended for the bounded morphism graph (`tests/test_rtl_morph_opcodes.py::TestMorphRTLSmoke::test_morph_graph_surface_is_exposed`), while complete CSR status, full VM memory tail, module axiom strings, and unbounded high-level graph equality are explicitly demoted from raw RTL JSON bit-for-bit lockstep to the formal `FullAbstraction` / `FullEmbedStep` bridge.
 
 ---
 
 ## Definition Of Done
+
+**Current override**: the reopened proof/software/hardware equivalence block above is blocking. The checked historical DoD items below are not a current global-completion claim until every reopened blocker is closed and the hard gate passes.
 
 - [x] No stale or superseded active files remain outside `archive/`. (9 retired roadmaps/plans archived; 5 active root docs; inquisitor ROOT_MARKDOWN_SURFACE_DRIFT gate enforces this)
 - [x] No alternate extraction path remains active. (`*_complete.ml` artifacts archived; ALTERNATE_EXTRACTION_LINEAGE_ACTIVE inquisitor rule enforces this)

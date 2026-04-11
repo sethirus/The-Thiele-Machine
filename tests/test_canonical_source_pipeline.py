@@ -31,6 +31,21 @@ KAMI_MAIN_ML = REPO / "build" / "kami_hw" / "Main.ml"
 KAMI_RAW_V = REPO / "build" / "kami_hw" / "mkModule1.v"
 KAMI_SYNTH_V = REPO / "build" / "kami_hw" / "mkModule1_synth.v"
 TRACKED_RTL_V = REPO / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
+CANONICAL_BUILD_FILES = (
+    EXTRACTION_V,
+    KAMI_EXTRACTION_V,
+    REPO / "Makefile",
+    REPO / "scripts" / "kami_extract.sh",
+    COQ / "scripts" / "kami_extract.sh",
+)
+
+ARCHIVE_ONLY_EXTRACTION_TOKENS = (
+    "--monolithic",
+    "Target_complete",
+    "thiele_core_complete",
+    "extracted_vm_runner_native",
+    "build/vm_runner",
+)
 
 
 @pytest.mark.coq
@@ -104,3 +119,14 @@ def test_tracked_rtl_matches_generated_synth_artifact_exactly():
         "Tracked RTL diverges from build/kami_hw/mkModule1_synth.v; "
         "re-run the Kami extraction/synth transform pipeline and refresh the tracked RTL."
     )
+
+
+def test_active_build_surfaces_do_not_route_through_archive_only_lineage():
+    offenders: list[str] = []
+    for path in CANONICAL_BUILD_FILES:
+        text = path.read_text(encoding="utf-8")
+        for token in ARCHIVE_ONLY_EXTRACTION_TOKENS:
+            if token in text:
+                offenders.append(f"{path.relative_to(REPO)} contains {token}")
+
+    assert not offenders, "archive-only extraction lineage leaked into active build surfaces:\n" + "\n".join(offenders)

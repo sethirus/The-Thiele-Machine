@@ -21,6 +21,7 @@ Import ListNotations.
 
 Require Import Kernel.VMState.
 Require Import Kernel.VMStep.
+Require Import Kernel.MuCostModel.
 Import VMStep.VMStep.
 Require Import KamiHW.Abstraction.
 
@@ -495,12 +496,11 @@ Qed.
     is the original list filtered to exclude mid. *)
 Lemma morph_delete_commutation :
     forall (rs : RichSnapshotState) (mid : nat),
-      mid < rich_next_morph_id rs ->
       snapshot_morphisms_of_rich_state (rich_state_delete_morph rs mid) =
       filter (fun entry => negb (Nat.eqb (fst entry) mid))
              (snapshot_morphisms_of_rich_state rs).
 Proof.
-  intros rs mid Hlt.
+  intros rs mid.
   unfold snapshot_morphisms_of_rich_state. simpl.
   set (l := List.rev (List.seq 0 (rich_next_morph_id rs))).
   clearbody l.

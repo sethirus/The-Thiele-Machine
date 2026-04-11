@@ -103,7 +103,8 @@ Definition check_model : string -> string -> bool := CertCheck.check_model.
     SPECIAL:
     - MDLACC: Module discovery accumulator. Charges μ for structural access.
     - CHSH_TRIAL: CHSH inequality trial. Validates bits in {0,1}.
-    - ORACLE_HALTS: Oracle call. Formal placeholder (undecidable).
+    - ORACLE_HALTS: Deterministic fixed-cost marker for an oracle query.
+      The payload is uninterpreted; the VM never decides the halting problem.
     - HALT: Stop execution.
 
     SYSTEM / CHECKPOINTING:

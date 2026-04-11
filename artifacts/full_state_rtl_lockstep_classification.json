@@ -1,0 +1,49 @@
+{
+  "status": "mixed_extended_and_demoted",
+  "extended_fields": [
+    "pc",
+    "mu",
+    "err",
+    "regs",
+    "hardware_memory_extent",
+    "certified",
+    "logic_acc",
+    "mstatus",
+    "mu_tensor",
+    "witness",
+    "csr_cert_addr",
+    "csr_err",
+    "csr_heap_base",
+    "bounded_module_graph",
+    "bounded_morphism_graph"
+  ],
+  "demoted_from_raw_rtl_json_bit_for_bit_lockstep": [
+    {
+      "field": "complete CSR status",
+      "reason": "RTL exposes mstatus and selected CSR lanes; csr_status remains a formal abstraction lane in coq/kami_hw/Abstraction.v and coq/kami_hw/FullAbstraction.v rather than a distinct raw cosim JSON register."
+    },
+    {
+      "field": "declared full-memory extent beyond emitted hardware memory",
+      "reason": "RTL cosim emits the concrete 4096-word hardware data memory extent; VMState keeps a 65536-word software memory list. Bitlock compares the emitted hardware extent/prefix and treats un-emitted tail equality as a formal abstraction responsibility."
+    },
+    {
+      "field": "module axiom strings",
+      "reason": "The VM graph carries VMAxiom strings; RTL carries bounded descriptor/table state and module-region shadows, not Coq string payloads in raw JSON."
+    },
+    {
+      "field": "unbounded high-level vm_graph equality",
+      "reason": "RTL cosim now emits bounded module and morphism graph surfaces, but high-level PartitionGraph equality is discharged through the formal FullAbstraction/FullEmbedStep bridge rather than raw JSON bit-for-bit equality for every graph encoding."
+    }
+  ],
+  "formal_bridges": [
+    "coq/kami_hw/FullAbstraction.v",
+    "coq/kami_hw/FullEmbedStep.v",
+    "coq/kami_hw/FullStep.v",
+    "coq/kernel/VerilogRTLCorrespondence.v"
+  ],
+  "runtime_gates": [
+    "tests/test_bitlock_proof_vm_cpu.py",
+    "tests/test_rtl_morph_opcodes.py::TestMorphRTLSmoke::test_morph_graph_surface_is_exposed",
+    "tests/test_kami_full_state_bridge.py"
+  ]
+}

@@ -17,6 +17,7 @@ Cross-layer checks:
 from __future__ import annotations
 
 import os
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -50,6 +51,96 @@ CANONICAL_47 = CANONICAL_40 | CANONICAL_MORPH_7
 
 assert len(CANONICAL_40) == 40, f"CANONICAL_40 has {len(CANONICAL_40)} items, expected 40"
 assert len(CANONICAL_47) == 47, f"CANONICAL_47 has {len(CANONICAL_47)} items, expected 47"
+
+
+class TestReopenedEquivalenceClosure:
+    """The repo cannot claim closeout while reopened equivalence blockers remain."""
+
+    PLAN = ROOT / "REPO_CLOSEOUT_NO_SHORTCUTS_PLAN.md"
+    SECTION = "#### Full proof/software/hardware equivalence reopened after audit"
+
+    def test_reopened_equivalence_blockers_are_closed(self):
+        text = self.PLAN.read_text(encoding="utf-8")
+        assert self.SECTION in text, (
+            "Closeout plan is missing the reopened proof/software/hardware "
+            "equivalence blocker section"
+        )
+        section = text.split(self.SECTION, 1)[1].split("\n---", 1)[0]
+        blockers = [
+            line.strip()
+            for line in section.splitlines()
+            if line.lstrip().startswith("- [ ]")
+        ]
+        assert not blockers, (
+            "Reopened proof/software/hardware equivalence blockers remain:\n"
+            + "\n".join(blockers)
+        )
+
+    def test_reopened_source_blockers_are_classified(self):
+        checks = {
+            ROOT / "coq" / "kernel" / "ConstructivePSD.v": [
+                "Currently not implemented",
+            ],
+            ROOT / "coq" / "kernel" / "VMStep.v": [
+                "Formal placeholder (undecidable)",
+            ],
+            ROOT / "coq" / "kernel" / "CHSHStatisticalBridge.v": [
+                "local_bound_for_wc (Axiom)",
+                "hoeffding_chsh_concentration (Axiom)",
+                "one Axiom per named hypothesis",
+                "local_bound_for_wc axiom",
+            ],
+        }
+        for path, banned_phrases in checks.items():
+            text = path.read_text(encoding="utf-8")
+            for phrase in banned_phrases:
+                assert phrase not in text, f"{path.relative_to(ROOT)} still contains {phrase!r}"
+
+        assert "demoted research extension, not an active closeout claim" in (
+            ROOT / "coq" / "kernel" / "ConstructivePSD.v"
+        ).read_text(encoding="utf-8")
+        assert "Deterministic fixed-cost marker for an oracle query" in (
+            ROOT / "coq" / "kernel" / "VMStep.v"
+        ).read_text(encoding="utf-8")
+        assert "not part of the core closeout claim" in (
+            ROOT / "coq" / "kernel" / "CHSHStatisticalBridge.v"
+        ).read_text(encoding="utf-8")
+
+    def test_full_state_rtl_lockstep_classification_is_explicit(self):
+        artifact = ROOT / "artifacts" / "full_state_rtl_lockstep_classification.json"
+        payload = json.loads(artifact.read_text(encoding="utf-8"))
+
+        assert payload["status"] == "mixed_extended_and_demoted"
+        extended = set(payload["extended_fields"])
+        for field in {
+            "pc",
+            "mu",
+            "err",
+            "regs",
+            "hardware_memory_extent",
+            "logic_acc",
+            "mstatus",
+            "mu_tensor",
+            "witness",
+            "bounded_module_graph",
+            "bounded_morphism_graph",
+        }:
+            assert field in extended
+
+        demoted = {
+            entry["field"]
+            for entry in payload["demoted_from_raw_rtl_json_bit_for_bit_lockstep"]
+        }
+        for field in {
+            "complete CSR status",
+            "declared full-memory extent beyond emitted hardware memory",
+            "module axiom strings",
+            "unbounded high-level vm_graph equality",
+        }:
+            assert field in demoted
+
+        for rel_path in payload["formal_bridges"]:
+            assert (ROOT / rel_path).exists(), f"Missing formal bridge: {rel_path}"
 
 
 # ============================================================================

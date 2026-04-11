@@ -44,6 +44,42 @@ def _canonical_json_bytes(obj: Dict[str, Any]) -> bytes:
     return json.dumps(obj, sort_keys=True, separators=(",", ":")).encode("utf-8")
 
 
+def _require_key(state: Dict[str, Any], key: str, owner: str) -> Any:
+    if key not in state:
+        raise ValueError(f"{owner} missing `{key}`")
+    return state[key]
+
+
+def _require_list(value: Any, owner: str) -> List[Any]:
+    if not isinstance(value, (list, tuple)):
+        raise ValueError(f"{owner} must be a list")
+    return list(value)
+
+
+def _normalize_mu_tensor(values: Any, owner: str) -> List[int]:
+    tensor = _require_list(values, owner)
+    if len(tensor) < 16:
+        raise ValueError(f"{owner} must expose all 16 tensor lanes")
+    return [int(v) for v in tensor[:16]]
+
+
+def _normalize_witness(values: Any, owner: str) -> List[int]:
+    witness = _require_list(values, owner)
+    if len(witness) < 8:
+        raise ValueError(f"{owner} must expose all 8 witness counters")
+    return [int(v) for v in witness[:8]]
+
+
+def _normalize_csrs(values: Any, owner: str) -> Dict[str, int]:
+    if not isinstance(values, dict):
+        raise ValueError(f"{owner} must be a mapping")
+    required = ("cert_addr", "err", "heap_base")
+    missing = [key for key in required if key not in values]
+    if missing:
+        raise ValueError(f"{owner} missing keys: {', '.join(missing)}")
+    return {key: int(values[key]) for key in required}
+
+
 def _normalize_vm_state(state: text_vm.VMState, program: List[str]) -> Dict[str, Any]:
     out: Dict[str, Any] = {
         "pc": int(state.pc),
@@ -51,25 +87,37 @@ def _normalize_vm_state(state: text_vm.VMState, program: List[str]) -> Dict[str,
         "err": bool(state.err),
         "regs": [int(v) for v in state.regs[:32]],
         "mem": [int(v) for v in state.mem[:64]],
+        "mu_tensor": _normalize_mu_tensor(state.mu_tensor, "VM mu_tensor"),
         "logic_acc": int(state.logic_acc),
         "mstatus": int(state.mstatus),
+        "witness": _normalize_witness(state.witness, "VM witness"),
+        "csrs": _normalize_csrs(state.csrs, "VM csrs"),
         "certified": bool(state.certified),
     }
     return _normalize_halt_pc(out, program)
 
 
 def _normalize_rtl_state(state: Dict[str, Any], program: List[str]) -> Dict[str, Any]:
-    regs_obj = cast(List[Any], state.get("regs", []))
-    mem_obj = cast(List[Any], state.get("mem", []))
+    regs_obj = _require_list(_require_key(state, "regs", "RTL state"), "RTL regs")
+    mem_obj = _require_list(_require_key(state, "mem", "RTL state"), "RTL mem")
     out: Dict[str, Any] = {
-        "pc": int(cast(int, state.get("pc", 0))),
-        "mu": int(cast(int, state.get("mu", 0))),
-        "err": bool(state.get("err", False)),
+        "pc": int(cast(int, _require_key(state, "pc", "RTL state"))),
+        "mu": int(cast(int, _require_key(state, "mu", "RTL state"))),
+        "err": bool(_require_key(state, "err", "RTL state")),
         "regs": [int(v) for v in regs_obj[:32]],
         "mem": [int(v) for v in mem_obj[:64]],
-        "logic_acc": int(cast(int, state.get("logic_acc", 0))),
-        "mstatus": int(cast(int, state.get("mstatus", 0))),
-        "certified": bool(state.get("certified", False)),
+        "mu_tensor": _normalize_mu_tensor(
+            _require_key(state, "mu_tensor", "RTL state"), "RTL mu_tensor"
+        ),
+        "logic_acc": int(cast(int, _require_key(state, "logic_acc", "RTL state"))),
+        "mstatus": int(cast(int, _require_key(state, "mstatus", "RTL state"))),
+        "witness": _normalize_witness(
+            _require_key(state, "witness", "RTL state"), "RTL witness"
+        ),
+        "csrs": _normalize_csrs(
+            _require_key(state, "csrs", "RTL state"), "RTL csrs"
+        ),
+        "certified": bool(_require_key(state, "certified", "RTL state")),
     }
     return _normalize_halt_pc(out, program)
 
@@ -193,9 +241,17 @@ def _assert_program_lockstep(program: List[str], fuel: int) -> None:
 
     assert rtl_state is not None, f"RTL produced no state for program: {program}"
 
-    n_ocaml = _normalize_vm_state(ocaml_state, program)
-    n_python = _normalize_vm_state(python_state, program)
-    n_rtl = _normalize_rtl_state(rtl_state, program)
+    try:
+        n_ocaml = _normalize_vm_state(ocaml_state, program)
+        n_python = _normalize_vm_state(python_state, program)
+        n_rtl = _normalize_rtl_state(rtl_state, program)
+    except (TypeError, ValueError) as exc:
+        pytest.fail(
+            "State normalization failed\n"
+            f"program={program}\n"
+            f"error={exc}\n"
+            f"rtl={rtl_state}"
+        )
 
     d_ocaml = _state_digest(n_ocaml)
     d_python = _state_digest(n_python)

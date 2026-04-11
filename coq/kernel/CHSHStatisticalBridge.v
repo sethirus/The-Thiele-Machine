@@ -14,35 +14,38 @@
         [chsh_stat_from_wc — defined and bounded here]
                ↓
         No local deterministic strategy explains the WC
-        [Bell incompatibility — proven from local_bound_for_wc hypothesis]
+        [Bell incompatibility — conditional on local_bound_for_wc]
                ↓
         Quantum violation certified at confidence (1 - δ)
-        [hoeffding_chsh_concentration hypothesis + W2 count]
+        [external Hoeffding concentration boundary + W2 count]
 
-    THE DETERMINISTIC CORE (zero Admitted, zero named hypotheses):
+    THE DETERMINISTIC ARITHMETIC CORE (zero Admitted, zero global Axioms):
     ─────────────────────────────────────────────────────────────
     1. chsh_stat_from_wc: CHSH estimate from aggregate WitnessCounts
     2. |S| ≤ 4: algebraic no-signaling bound (triangle inequality)
     3. Concrete violation witness: S = 4 > 2 (vm_compute verified)
-    4. chsh_stat_violation_not_local: S > 2 ∧ local_bound_for_wc → not local
+    4. chsh_stat_violation_not_local: S > 2 plus the explicit
+       local_bound_for_wc section parameter implies not-local
     5. chsh_violation_witness_count: 4 trials require 4 CHSH_TRIAL instructions
 
-    THE NAMED HYPOTHESES (honest, documented, not proven here):
+    THE DEMOTED EXTERNAL BOUNDARIES (honest, documented, not core closeout):
     ─────────────────────────────────────────────────────────────
-    local_bound_for_wc (Axiom):
+    local_bound_for_wc (Section variable / external theorem boundary):
       For locally consistent WC with all settings sampled, |S| ≤ 2.
       BASIS: 16-case analysis identical in structure to CHSH.v's
       local_strategy_chsh_between_neg2_2. Provable but not duplicated here.
       The WC formula S = A0*(B0+B1) + A1*(B0-B1) gives |S| = 2 for all
       16 combinations of (a0,a1,b0,b1) ∈ {0,1}⁴.
 
-    hoeffding_chsh_concentration (Axiom):
+    hoeffding_chsh_concentration (Section variable / probability-library boundary):
       N_min trials → |observed S - true S| ≤ ε with probability ≥ 1-δ.
       BASIS: Hoeffding (1963) "Probability inequalities for sums of
       bounded random variables", JASA 58(301):13-30. Each trial contributes
       a bounded term to the CHSH sum; Hoeffding applies with N_min = ⌈2ln(2/δ)/ε²⌉.
 
-    STATUS: Deterministic parts zero Admitted. Named hypotheses documented.
+    STATUS: Deterministic arithmetic parts are zero Admitted. The Bell and
+    Hoeffding bridges are explicit section-local/external boundaries, not
+    active core-completion claims.
     ======================================================================
 *)
 
@@ -277,7 +280,7 @@ Record WCLocallyConsistent (a0 a1 b0 b1 : nat) (wc : WitnessCounts) : Prop :=
       (wc_same_11 wc + wc_diff_11 wc > 0)%nat
   }.
 
-(** *** NAMED HYPOTHESIS: Bell's inequality for WitnessCounts.
+(** *** DEMOTED EXTERNAL BOUNDARY: Bell's inequality for WitnessCounts.
     For any locally consistent WC with all settings sampled, |S_WC| ≤ 2.
 
     PROOF SKETCH (not executed here to avoid code duplication with CHSH.v):
@@ -286,12 +289,13 @@ Record WCLocallyConsistent (a0 a1 b0 b1 : nat) (wc : WitnessCounts) : Prop :=
       Compute S_WC = A0*(B0+B1) + A1*(B0-B1) ∈ {-2,+2} by vm_compute.
       Q bound follows from Z bound via Z_of_nat_pos.
 
-    This hypothesis is dischargeable by a 16-case vm_compute proof — the same
-    structure as local_strategy_chsh_between_neg2_2 in CHSH.v.
-    Wrapped in a Section Variable (not a global Axiom) per kernel convention.
+    This boundary is dischargeable by a 16-case vm_compute proof — the same
+    structure as local_strategy_chsh_between_neg2_2 in CHSH.v.  It remains a
+    Section Variable (not a global Axiom) and is not part of the core closeout
+    claim until that proof is supplied.
 *)
 Section BellInequalityHypothesis.
-(* INQUISITOR NOTE: named hypothesis, dischargeable by 16-case vm_compute *)
+(* INQUISITOR NOTE: demoted external boundary, dischargeable by 16-case vm_compute *)
 Variable local_bound_for_wc :
   forall (a0 a1 b0 b1 : nat) (wc : WitnessCounts),
     is_bit a0 = true ->
@@ -371,9 +375,11 @@ Qed.
     bounded random variables." J. Amer. Statist. Assoc. 58(301): 13-30.
     Formally provable in Coquelicot or MathComp probability libraries.
 
-    NAMED AXIOM (not proven here — requires probability library):
-    This axiom is fully formalizable in Coquelicot + measure theory. The
-    Hoeffding bound is a standard result requiring no physics assumptions.
+    DEMOTED EXTERNAL BOUNDARY (not proven here — requires probability library):
+    This boundary is fully formalizable in Coquelicot + measure theory. The
+    Hoeffding bound is a standard result requiring no physics assumptions, but
+    it is not part of the core closeout claim until the probability library
+    formalization is supplied.
 *)
 
 (** N_min per-setting trials needed for ε-accurate CHSH at confidence 1-δ.
@@ -385,18 +391,18 @@ Section HoeffdingHypothesis.
 Variable hoeffding_n_min : forall (epsilon_scaled delta_scaled : nat), nat.
 (* epsilon_scaled = 1000*ε, delta_scaled = 1000*δ for nat arithmetic *)
 
-(** *** NAMED AXIOM: Hoeffding concentration for CHSH statistics.
+(** *** DEMOTED EXTERNAL BOUNDARY: Hoeffding concentration for CHSH statistics.
 
     If the total witness count is ≥ 4 * N_min per setting, and the observed
     CHSH statistic exceeds 2 + gap, then the true CHSH value exceeds 2
     with probability ≥ 1 - delta.
 
     FORMAL CONTENT:
-    This axiom bridges the deterministic WC-based computation to the
+    This boundary bridges the deterministic WC-based computation to the
     probabilistic statement about the true quantum correlation. It is the
     only probabilistic element in the certification chain.
 
-    STATUS: Dischargeable via Coquelicot/MathComp probability. The bound is
+    STATUS: Demoted from core closeout; dischargeable via Coquelicot/MathComp probability. The bound is
     standard and experimentally verifiable: run N trials on hardware, compute
     S̃, check that |S̃ - 2| > 4ε for the chosen N and ε.
 *)
@@ -530,14 +536,14 @@ Qed.
     PART 8: SUMMARY AND WHAT REMAINS
     =========================================================================
 
-    PROVEN IN THIS FILE (zero Admitted, one Axiom per named hypothesis):
+    PROVEN IN THIS FILE (zero Admitted; section-local external boundaries only):
     ─────────────────────────────────────────────────────────────────────
     1. chsh_stat_from_wc: CHSH aggregate statistic from WitnessCounts
     2. correlator_abs_le_1: per-setting |E| ≤ 1 (algebraic)
     3. chsh_stat_algebraic_bound: |S| ≤ 4 (no-signaling bound)
     4. violation_wc: concrete WC with S = 4 > 2 (vm_compute)
     5. chsh_stat_violation_not_local: S > 2 → not locally consistent
-       (proven from local_bound_for_wc axiom)
+       (conditional on the section-local local_bound_for_wc boundary)
     6. four_trials_require_four_instructions: W2 for n=4
     7. n_trials_require_n_instructions: W2 for arbitrary N
 
