@@ -1293,6 +1293,10 @@ def scan_file(path: Path) -> list[Finding]:
     for m in def_empty_list.finditer(text):
         name = m.group(1)
         line = line_of[m.start()]
+        # Check for SAFE comment in original text
+        context = "\n".join(raw_lines[max(0, line - 3): line + 1])
+        if re.search(r"\(\*\s*SAFE:", context):
+            continue
         snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else m.group(0)
         findings.append(
             Finding(

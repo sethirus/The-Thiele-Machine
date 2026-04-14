@@ -13,6 +13,8 @@ from typing import Callable
 
 import pytest
 
+pytestmark = pytest.mark.strict_rtl
+
 from thielecpu.hardware.cosim import run_verilog
 
 # Standard preambles
@@ -320,30 +322,28 @@ tests.append(("MORPH", "MORPH 1 0 1 0 1\nHALT 0", {
     "err_on_missing_modules": lambda r: r["err"] is True,
 }))
 
-# 42. COMPOSE — categorical composition; hardware writes 0 to regs[dst]
-tests.append(("COMPOSE", "COMPOSE 1 0 1\nHALT", {
-    "writes_zero_to_dst": lambda r: r["regs"][1] == 0,
-    "charges_mu": lambda r: r["mu"] == 1,
-    "halts": lambda r: r["status"] == 2,
+# 42. COMPOSE — categorical composition; no morphisms → ERR_MORPH_NOT_FOUND
+tests.append(("COMPOSE", LOGIC_PREAMBLE + "COMPOSE 1 0 1\nHALT", {
+    "charges_mu": lambda r: r["mu"] >= 1,
+    "err_on_missing_morphisms": lambda r: r["err"] is True,
 }))
 
-# 43. MORPH_ID — identity morphism; hardware writes 0 to regs[dst]
-tests.append(("MORPH_ID", "MORPH_ID 1 0 1\nHALT", {
-    "writes_zero_to_dst": lambda r: r["regs"][1] == 0,
-    "charges_mu": lambda r: r["mu"] == 1,
-    "halts": lambda r: r["status"] == 2,
+# 43. MORPH_ID — identity morphism; no modules → ERR_MORPH_NOT_FOUND
+tests.append(("MORPH_ID", LOGIC_PREAMBLE + "MORPH_ID 1 0 1\nHALT", {
+    "charges_mu": lambda r: r["mu"] >= 1,
+    "err_on_missing_modules": lambda r: r["err"] is True,
 }))
 
-# 44. MORPH_DELETE — deletes morphism; no register write, just advances PC + charges mu
-tests.append(("MORPH_DELETE", "MORPH_DELETE 0 0 1\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 1,
-    "halts": lambda r: r["status"] == 2,
+# 44. MORPH_DELETE — deletes morphism; no morphisms → ERR_MORPH_NOT_FOUND
+tests.append(("MORPH_DELETE", LOGIC_PREAMBLE + "MORPH_DELETE 0 0 1\nHALT", {
+    "charges_mu": lambda r: r["mu"] >= 1,
+    "err_on_missing_morphisms": lambda r: r["err"] is True,
 }))
 
-# 45. MORPH_ASSERT — cert-setter op; charges S(cost)=cost+1 like CERTIFY
-tests.append(("MORPH_ASSERT", "MORPH_ASSERT 0 0 3\nHALT", {
-    "charges_mu_s_cost": lambda r: r["mu"] == 4,  # S(3)=4
-    "halts": lambda r: r["status"] == 2,
+# 45. MORPH_ASSERT — cert-setter op; no morphisms → ERR_MORPH_NOT_FOUND
+tests.append(("MORPH_ASSERT", LOGIC_PREAMBLE + "MORPH_ASSERT 0 0 3\nHALT", {
+    "charges_mu": lambda r: r["mu"] >= 1,
+    "err_on_missing_morphisms": lambda r: r["err"] is True,
 }))
 
 # 46. MORPH_TENSOR — tensor product of morphisms; no morphisms → error path

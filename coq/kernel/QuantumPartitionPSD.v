@@ -53,6 +53,8 @@ From Kernel Require Import VMState VMStep.
 From Kernel Require Import NPAMomentMatrix.
 From Kernel Require Import ConstructivePSD.
 From Kernel Require Import MuLedgerQuantumBridge.
+From Kernel Require Import CHSHExtraction.
+From Kernel Require Import TsirelsonGeneral.
 
 Require Import Coq.Reals.Reals.
 Require Import Coq.micromega.Lra.
@@ -310,4 +312,56 @@ Proof.
   set (e10 := trace_e10 fuel trace s_init).
   set (e11 := trace_e11 fuel trace s_init).
   apply column_contractive_iff_quantum_realizable.
+Qed.
+
+(** =========================================================================
+    SECTION 6: PSPLIT QUANTUM STATE → COLUMN CONTRACTIVITY (Gap C, Step C3)
+    =========================================================================
+
+    This is the missing bridge from Gap C: if a PSPLIT-initiated trace
+    implements a quantum state (i.e., its NPA moment matrix is quantum
+    realizable), then the trace correlators are column-contractive.
+
+    The proof is the backward direction of the established biconditional
+    trace_column_contractive_iff_trace_quantum_model, which is itself
+    the trace-level lift of column_contractive_iff_quantum_realizable.
+
+    CHAIN:
+      psplit_implements_quantum_state fuel trace s_init
+        (= quantum_realizable (trace_zero_marginal_npa fuel trace s_init))
+      → trace_column_contractive fuel trace s_init
+        (= zero_marginal_column_contractive E00 E01 E10 E11)
+      via npa_psd_implies_column_contractive (test-vector proof, Section 2)
+
+    This closes Gap C: column contractivity is DERIVED from the quantum
+    nature of PSPLIT bipartitions, not assumed as an external precondition.
+    ========================================================================= *)
+
+Theorem psplit_quantum_implementation_implies_column_contractive :
+  forall fuel trace s_init,
+    psplit_implements_quantum_state fuel trace s_init ->
+    trace_column_contractive fuel trace s_init.
+Proof.
+  intros fuel trace s_init Hqr.
+  apply trace_column_contractive_iff_trace_quantum_model.
+  exact Hqr.
+Qed.
+
+(** Direct corollary: PSPLIT quantum state implies the Tsirelson bound.
+    Chain: psplit_implements_quantum_state → column_contractive → row_bounds → S² ≤ 8. *)
+(* definitional lemma *)
+Corollary psplit_quantum_state_implies_tsirelson :
+  forall fuel trace s_init,
+    psplit_implements_quantum_state fuel trace s_init ->
+    (CHSH
+      (trace_e00 fuel trace s_init)
+      (trace_e01 fuel trace s_init)
+      (trace_e10 fuel trace s_init)
+      (trace_e11 fuel trace s_init))² <= 8.
+Proof.
+  intros fuel trace s_init Hqr.
+  unfold psplit_implements_quantum_state in Hqr.
+  unfold trace_zero_marginal_npa in Hqr.
+  apply quantum_realizable_implies_tsirelson_bound.
+  exact Hqr.
 Qed.

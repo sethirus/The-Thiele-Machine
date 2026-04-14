@@ -8,6 +8,7 @@ ERR_BIANCHI = 0x0B1A4C81
 
 
 @pytest.mark.hardware
+@pytest.mark.strict_rtl
 def test_bianchi_alarm_fires_on_uninitialised_tensor() -> None:
     """BIANCHI alarm fires when a CHSH tensor is set but locality walls are violated.
 

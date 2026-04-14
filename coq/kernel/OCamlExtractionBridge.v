@@ -36,8 +36,12 @@
 
     EMPIRICALLY VALIDATED (not proved in Coq):
     (4) err latching: once vm_err = true, it stays true (latch_err pattern)
-    (5) exact register/memory/graph values per opcode
+    (5) exact register/memory/graph/CSR/logic_acc/mstatus values per opcode
     (6) CERTIFY flag behavior, CHSH witness counters
+
+    All 12 VMState fields are now in the ExtractionObservable surface:
+    pc, mu, err, certified, mu_tensor, regs, mem, graph, csrs,
+    logic_acc, mstatus, witness.
 
     ==========================================================================
     STATUS: Named axiom stated.  Theorems proven.  Zero Admitted.
@@ -63,7 +67,14 @@ Record ExtractionObservable := {
   eo_mu        : nat;
   eo_err       : bool;
   eo_certified : bool;
-  eo_mu_tensor : list nat   (** 16-entry flat mu-tensor *)
+  eo_mu_tensor : list nat;          (** 16-entry flat mu-tensor *)
+  eo_regs      : list nat;          (** 32 registers *)
+  eo_mem       : list nat;          (** data memory *)
+  eo_graph     : PartitionGraph;    (** partition graph *)
+  eo_csrs      : CSRState;          (** control/status registers *)
+  eo_logic_acc : nat;               (** logic engine accumulator *)
+  eo_mstatus   : nat;               (** mode flag *)
+  eo_witness   : WitnessCounts      (** CHSH trial counters *)
 }.
 
 (** shadow_to_eo: project VMState to the extraction observable surface. *)
@@ -72,7 +83,14 @@ Definition shadow_to_eo (s : VMState) : ExtractionObservable := {|
   eo_mu        := s.(vm_mu);
   eo_err       := s.(vm_err);
   eo_certified := s.(vm_certified);
-  eo_mu_tensor := s.(vm_mu_tensor)
+  eo_mu_tensor := s.(vm_mu_tensor);
+  eo_regs      := s.(vm_regs);
+  eo_mem       := s.(vm_mem);
+  eo_graph     := s.(vm_graph);
+  eo_csrs      := s.(vm_csrs);
+  eo_logic_acc := s.(vm_logic_acc);
+  eo_mstatus   := s.(vm_mstatus);
+  eo_witness   := s.(vm_witness)
 |}.
 
 (** =========================================================================
@@ -157,8 +175,10 @@ Section ExtractionTrustBoundary.
 (* INQUISITOR NOTE: This was formerly stated as Axiom, but the Coq statement
    reduces to X = X (a tautology) so it is provable by reflexivity.
    The real trust-boundary content lives in the CI bisimulation test suite:
-     scripts/parity_extracted_only.sh verifies eo_mu, eo_err, eo_pc,
-     eo_certified, eo_mu_tensor match between Coq spec and OCaml runner.
+     scripts/parity_extracted_only.sh verifies all 12 ExtractionObservable
+     fields (eo_pc, eo_mu, eo_err, eo_certified, eo_mu_tensor, eo_regs,
+     eo_mem, eo_graph, eo_csrs, eo_logic_acc, eo_mstatus, eo_witness)
+     match between Coq spec and OCaml runner.
    Naming this theorem makes the trust boundary explicit and auditable. *)
 Theorem ocaml_extraction_faithful :
   forall (s : VMState) (i : vm_instruction),

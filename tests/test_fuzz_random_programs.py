@@ -27,6 +27,7 @@ import shutil
 IVERILOG = shutil.which("iverilog")
 pytestmark = [
     pytest.mark.integration,
+    pytest.mark.strict_rtl,
     pytest.mark.skipif(IVERILOG is None, reason="iverilog not installed"),
 ]
 

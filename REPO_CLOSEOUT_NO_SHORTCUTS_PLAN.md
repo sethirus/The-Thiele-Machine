@@ -661,7 +661,7 @@ This section supersedes any earlier optimistic closeout wording until each item 
 - [x] Classify and close `coq/kernel/VMStep.v`'s `ORACLE_HALTS` formal placeholder against the canonical ISA/hardware contract, either by implementing all layers or proving it unreachable/non-canonical.
 - [x] Discharge or explicitly demote the documented named hypotheses in `coq/kernel/CHSHStatisticalBridge.v` so no active core-completion claim depends on an unproven local assumption.
 - [x] Add a hard gate that fails while any active reopened-equivalence blocker above remains unresolved.
-- [ ] Re-run the full closeout gate from a clean regenerated state after the reopened equivalence blockers are closed.
+- [x] Re-run the full closeout gate from a clean regenerated state after the reopened equivalence blockers are closed.
 
 Verified in this pass: `tests/test_completeness_gate.py::TestReopenedEquivalenceClosure::test_reopened_source_blockers_are_classified` rejects the stale PSD "Currently not implemented" phrase, the stale `ORACLE_HALTS` placeholder wording, and CHSH named-hypothesis wording that would present section-local/external boundaries as active core-closeout axioms.
 

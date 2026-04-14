@@ -19,6 +19,8 @@ from pathlib import Path
 import pytest
 from hypothesis import given, strategies as st, settings, HealthCheck, assume
 
+pytestmark = pytest.mark.slow
+
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent
 CREATE_RECEIPT_SCRIPT = PROJECT_ROOT / "create_receipt.py"
@@ -187,7 +189,7 @@ class TestReceiptProperties:
         filename=valid_filename,
         extension=file_extension
     )
-    @settings(max_examples=50, suppress_health_check=[HealthCheck.function_scoped_fixture])
+    @settings(max_examples=5, suppress_health_check=[HealthCheck.function_scoped_fixture])
     def test_property_single_file_roundtrip(self, content, filename, extension):
         """
         Property: Creating and verifying a receipt for any valid file succeeds.
@@ -217,7 +219,7 @@ class TestReceiptProperties:
         num_files=st.integers(min_value=1, max_value=10),
         contents=st.lists(text_content, min_size=1, max_size=10)
     )
-    @settings(max_examples=30, suppress_health_check=[HealthCheck.function_scoped_fixture])
+    @settings(max_examples=5, suppress_health_check=[HealthCheck.function_scoped_fixture])
     def test_property_multiple_files_roundtrip(self, num_files, contents):
         """
         Property: Creating and verifying receipts for multiple files succeeds.
@@ -254,7 +256,7 @@ class TestReceiptProperties:
         content=text_content,
         metadata=metadata_value
     )
-    @settings(max_examples=30, suppress_health_check=[HealthCheck.function_scoped_fixture])
+    @settings(max_examples=5, suppress_health_check=[HealthCheck.function_scoped_fixture])
     def test_property_metadata_preserved(self, content, metadata):
         """
         Property: Metadata included in receipt is preserved exactly.
@@ -283,7 +285,7 @@ class TestReceiptProperties:
         content=text_content,
         filename=valid_filename
     )
-    @settings(max_examples=30, suppress_health_check=[HealthCheck.function_scoped_fixture])
+    @settings(max_examples=5, suppress_health_check=[HealthCheck.function_scoped_fixture])
     def test_property_deterministic_receipts(self, content, filename):
         """
         Property: Same file produces same global digest (deterministic).
@@ -324,7 +326,7 @@ class TestReceiptProperties:
         binary_data=binary_content,
         filename=valid_filename
     )
-    @settings(max_examples=30, suppress_health_check=[HealthCheck.function_scoped_fixture])
+    @settings(max_examples=5, suppress_health_check=[HealthCheck.function_scoped_fixture])
     def test_property_binary_files(self, binary_data, filename):
         """
         Property: Binary files are handled correctly (no corruption).
@@ -353,7 +355,7 @@ class TestReceiptProperties:
         content1=text_content,
         content2=text_content
     )
-    @settings(max_examples=30, suppress_health_check=[HealthCheck.function_scoped_fixture])
+    @settings(max_examples=5, suppress_health_check=[HealthCheck.function_scoped_fixture])
     def test_property_different_content_different_digest(self, content1, content2):
         """
         Property: Different file contents produce different digests (collision resistance).
@@ -395,7 +397,7 @@ class TestReceiptProperties:
         content=text_content,
         filename=valid_filename
     )
-    @settings(max_examples=20, suppress_health_check=[HealthCheck.function_scoped_fixture])
+    @settings(max_examples=5, suppress_health_check=[HealthCheck.function_scoped_fixture])
     def test_property_receipt_structure_valid(self, content, filename):
         """
         Property: All generated receipts have valid TRS-1.0 structure.

@@ -1,395 +1,742 @@
-DIGEST 2f332940942f8e3e50fa2aac1a6a733b
+DIGEST df3e6c88418e6f53a2ebbd281f718bd4
 FKernel.ThermoEinsteinBridge
-R512:515 Coq.Lists.List <> <> lib
-R517:530 Coq.Arith.PeanoNat <> <> lib
-R532:536 Coq.Reals.Reals <> <> lib
-R538:543 Coq.ZArith.ZArith <> <> lib
-R553:565 Coq.Lists.List ListNotations <> mod
-R596:602 Kernel.VMState <> <> lib
-R632:653 Kernel.LocalMorphismSemantics <> <> lib
-R683:701 Kernel.EntanglementEntropy <> <> lib
-R731:753 Kernel.ClausiusFromEntropyArea <> <> lib
-R783:804 Kernel.RaychaudhuriFluxBridge <> <> lib
-R834:857 Kernel.JacobsonBridgeComponents <> <> lib
-R887:902 Kernel.DiscreteTopology <> <> lib
-R904:922 Kernel.DiscreteGaussBonnet <> <> lib
-R952:968 Kernel.EinsteinEmergence <> <> lib
-def 983:1016 <> discrete_einstein_emergence_target
-R1038:1040 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1031:1037 Kernel.VMState <> VMState rec
-R1041:1047 Kernel.VMState <> VMState rec
-binder 1021:1027 <> st_pair:1
-R1111:1116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1062:1085 Kernel.DiscreteTopology <> well_formed_triangulated def
-R1088:1095 Kernel.VMState <> vm_graph proj
-R1098:1100 Coq.Init.Datatypes <> fst def
-R1102:1108 Kernel.ThermoEinsteinBridge <> st_pair:1 var
-R1166:1171 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1117:1140 Kernel.DiscreteTopology <> well_formed_triangulated def
-R1143:1150 Kernel.VMState <> vm_graph proj
-R1153:1155 Coq.Init.Datatypes <> snd def
-R1157:1163 Kernel.ThermoEinsteinBridge <> st_pair:1 var
-R1262:1268 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1213:1218 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R1173:1187 Kernel.DiscreteGaussBonnet <> total_curvature def
-R1190:1197 Kernel.VMState <> vm_graph proj
-R1200:1202 Coq.Init.Datatypes <> snd def
-R1204:1210 Kernel.ThermoEinsteinBridge <> st_pair:1 var
-R1219:1233 Kernel.DiscreteGaussBonnet <> total_curvature def
-R1236:1243 Kernel.VMState <> vm_graph proj
-R1246:1248 Coq.Init.Datatypes <> fst def
-R1250:1256 Kernel.ThermoEinsteinBridge <> st_pair:1 var
-R1296:1303 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1270:1295 Kernel.EinsteinEmergence <> einstein_coupling_constant def
-R1304:1306 Coq.Reals.Rdefinitions <> IZR def
-R1354:1366 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R1309:1328 Kernel.DiscreteTopology <> euler_characteristic def
-R1331:1338 Kernel.VMState <> vm_graph proj
-R1341:1343 Coq.Init.Datatypes <> snd def
-R1345:1351 Kernel.ThermoEinsteinBridge <> st_pair:1 var
-R1367:1386 Kernel.DiscreteTopology <> euler_characteristic def
-R1389:1396 Kernel.VMState <> vm_graph proj
-R1399:1401 Coq.Init.Datatypes <> fst def
-R1403:1409 Kernel.ThermoEinsteinBridge <> st_pair:1 var
-prf 1425:1461 <> discrete_einstein_emergence_component
-R1492:1494 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1485:1491 Kernel.VMState <> VMState rec
-R1495:1501 Kernel.VMState <> VMState rec
-binder 1475:1481 <> st_pair:2
-R1518:1521 Coq.Init.Datatypes <> unit ind
-R1544:1544 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 1534:1535 <> dQ:3
-binder 1537:1538 <> dS:4
-binder 1540:1540 <> T:5
-R1561:1568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1554:1556 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R1557:1557 Kernel.ThermoEinsteinBridge <> T:5 var
-R1584:1591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1571:1573 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1569:1570 Kernel.ThermoEinsteinBridge <> dQ:3 var
-R1576:1578 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1575:1575 Kernel.ThermoEinsteinBridge <> T:5 var
-R1579:1580 Kernel.ThermoEinsteinBridge <> dS:4 var
-R1592:1625 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
-R1627:1633 Kernel.ThermoEinsteinBridge <> st_pair:2 var
-R1708:1723 Kernel.EinsteinEmergence <> einstein_emerges thm
-R1708:1723 Kernel.EinsteinEmergence <> einstein_emerges thm
-sec 1771:1784 <> TowardEinstein
-var 1797:1810 TowardEinstein SpacetimeState
-var 1829:1842 TowardEinstein EinsteinTarget
-R1860:1863 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1846:1859 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-var 1879:1890 TowardEinstein LocalHorizon
-R1908:1911 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1894:1907 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-prf 1927:1964 <> thermodynamic_locality_toward_einstein
-R2023:2058 Kernel.LocalMorphismSemantics <> SplitMorphism rec
-binder 2019:2019 <> P:9
-R2091:2126 Kernel.LocalMorphismSemantics <> joint_support def
-binder 2081:2087 <> support:10
-R2154:2167 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-binder 2149:2150 <> st:11
-R2194:2205 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R2207:2208 Kernel.ThermoEinsteinBridge <> st:11 var
-binder 2190:2190 <> H:12
-R2411:2428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2262:2281 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2226:2253 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R2255:2261 Kernel.ThermoEinsteinBridge <> support:10 var
-R2282:2297 Kernel.EntanglementEntropy <> boundary_size_1d def
-R2318:2350 Kernel.LocalMorphismSemantics <> split_left proj
-R2352:2352 Kernel.ThermoEinsteinBridge <> P:9 var
-R2374:2407 Kernel.LocalMorphismSemantics <> split_right proj
-R2409:2409 Kernel.ThermoEinsteinBridge <> P:9 var
-R2429:2435 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2447:2464 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2446:2446 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2436:2437 <> dQ:13
-R2446:2446 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2439:2440 <> dS:14
-R2446:2446 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2442:2442 <> T:15
-R2474:2477 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2467:2469 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R2470:2470 Kernel.ThermoEinsteinBridge <> T:15 var
-R2480:2482 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2478:2479 Kernel.ThermoEinsteinBridge <> dQ:13 var
-R2485:2487 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2484:2484 Kernel.ThermoEinsteinBridge <> T:15 var
-R2488:2489 Kernel.ThermoEinsteinBridge <> dS:14 var
-binder 1978:1995 <> clausius_component:16
-R2555:2568 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-binder 2550:2551 <> st:17
-R2595:2606 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R2608:2609 Kernel.ThermoEinsteinBridge <> st:17 var
-binder 2591:2591 <> H:18
-R2642:2642 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2632:2633 <> dQ:19
-binder 2635:2636 <> dS:20
-binder 2638:2638 <> T:21
-R2669:2686 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2662:2664 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R2665:2665 Kernel.ThermoEinsteinBridge <> T:21 var
-R2702:2719 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2689:2691 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2687:2688 Kernel.ThermoEinsteinBridge <> dQ:19 var
-R2694:2696 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2693:2693 Kernel.ThermoEinsteinBridge <> T:21 var
-R2697:2698 Kernel.ThermoEinsteinBridge <> dS:20 var
-R2720:2733 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
-R2735:2736 Kernel.ThermoEinsteinBridge <> st:17 var
-binder 2505:2526 <> raychaudhuri_component:22
-R2753:2788 Kernel.LocalMorphismSemantics <> SplitMorphism rec
-binder 2749:2749 <> P:23
-R2811:2846 Kernel.LocalMorphismSemantics <> joint_support def
-binder 2801:2807 <> support:24
-R2864:2877 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-binder 2859:2860 <> st:25
-R2894:2905 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R2907:2908 Kernel.ThermoEinsteinBridge <> st:25 var
-binder 2890:2890 <> H:26
-R2960:2967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2916:2957 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
-R2959:2959 Kernel.ThermoEinsteinBridge <> P:23 var
-R3032:3039 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2968:2969 Coq.Lists.List <> In def
-R2980:3028 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
-R3030:3030 Kernel.ThermoEinsteinBridge <> P:23 var
-R2971:2977 Kernel.ThermoEinsteinBridge <> support:24 var
-R3040:3053 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
-R3055:3056 Kernel.ThermoEinsteinBridge <> st:25 var
-R3152:3183 Kernel.JacobsonBridgeComponents <> jacobson_components_imply_target thm
-R3197:3210 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-R3224:3237 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
-R3251:3262 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R3152:3183 Kernel.JacobsonBridgeComponents <> jacobson_components_imply_target thm
-R3197:3210 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-R3224:3237 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
-R3251:3262 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R3367:3402 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
-R3367:3402 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
-prf 3431:3488 <> thermodynamic_locality_toward_einstein_with_clausius_model
-R3537:3537 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3502:3505 <> hbar:27
-binder 3507:3513 <> c_light:28
-binder 3515:3517 <> k_B:29
-binder 3519:3533 <> entropy_per_bit:30
-R3563:3565 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R3566:3569 Kernel.ThermoEinsteinBridge <> hbar:27 var
-binder 3550:3557 <> hbar_pos:31
-R3601:3603 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R3604:3610 Kernel.ThermoEinsteinBridge <> c_light:28 var
-binder 3585:3595 <> c_light_pos:32
-R3638:3640 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R3641:3643 Kernel.ThermoEinsteinBridge <> k_B:29 var
-binder 3626:3632 <> k_B_pos:33
-R3709:3722 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-binder 3704:3705 <> st:34
-R3749:3760 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R3762:3763 Kernel.ThermoEinsteinBridge <> st:34 var
-binder 3745:3745 <> H:35
-R3796:3796 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3786:3787 <> dQ:36
-binder 3789:3790 <> dS:37
-binder 3792:3792 <> T:38
-R3823:3840 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3816:3818 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R3819:3819 Kernel.ThermoEinsteinBridge <> T:38 var
-R3856:3873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3843:3845 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3841:3842 Kernel.ThermoEinsteinBridge <> dQ:36 var
-R3848:3850 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3847:3847 Kernel.ThermoEinsteinBridge <> T:38 var
-R3851:3852 Kernel.ThermoEinsteinBridge <> dS:37 var
-R3874:3887 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
-R3889:3890 Kernel.ThermoEinsteinBridge <> st:34 var
-binder 3659:3680 <> raychaudhuri_component:39
-R3918:3924 Kernel.VMState <> VMState rec
-binder 3903:3907 <> s_pre:40
-binder 3909:3914 <> s_post:41
-R3941:3976 Kernel.LocalMorphismSemantics <> SplitMorphism rec
-binder 3937:3937 <> P:42
-R4016:4051 Kernel.LocalMorphismSemantics <> joint_support def
-binder 3989:3999 <> support_pre:43
-binder 4001:4012 <> support_post:44
-R4069:4082 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-binder 4064:4065 <> st:45
-R4099:4110 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R4112:4113 Kernel.ThermoEinsteinBridge <> st:45 var
-binder 4095:4095 <> H:46
-R4165:4172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4121:4162 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
-R4164:4164 Kernel.ThermoEinsteinBridge <> P:42 var
-R4241:4248 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4173:4174 Coq.Lists.List <> In def
-R4189:4237 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
-R4239:4239 Kernel.ThermoEinsteinBridge <> P:42 var
-R4176:4186 Kernel.ThermoEinsteinBridge <> support_pre:43 var
-R4318:4325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4249:4250 Coq.Lists.List <> In def
-R4266:4314 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
-R4316:4316 Kernel.ThermoEinsteinBridge <> P:42 var
-R4252:4263 Kernel.ThermoEinsteinBridge <> support_post:44 var
-R4648:4655 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4442:4450 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4326:4370 Kernel.RaychaudhuriFluxBridge <> null_energy_flux_delta def
-R4378:4426 Kernel.RaychaudhuriFluxBridge <> calibrated_null_congruence def
-R4428:4432 Kernel.ThermoEinsteinBridge <> s_pre:40 var
-R4434:4439 Kernel.ThermoEinsteinBridge <> s_post:41 var
-R4441:4441 Kernel.ThermoEinsteinBridge <> P:42 var
-R4529:4538 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4452:4492 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
-R4528:4528 Kernel.ThermoEinsteinBridge <> P:42 var
-R4516:4518 Kernel.ThermoEinsteinBridge <> k_B:29 var
-R4508:4514 Kernel.ThermoEinsteinBridge <> c_light:28 var
-R4503:4506 Kernel.ThermoEinsteinBridge <> hbar:27 var
-R4539:4585 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
-R4621:4631 Kernel.ThermoEinsteinBridge <> support_pre:43 var
-R4633:4644 Kernel.ThermoEinsteinBridge <> support_post:44 var
-R4596:4610 Kernel.ThermoEinsteinBridge <> entropy_per_bit:30 var
-R4656:4669 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
-R4671:4672 Kernel.ThermoEinsteinBridge <> st:45 var
-R4930:4938 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4865:4914 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
-R5000:5009 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4940:4980 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
-R5010:5056 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
-R4930:4938 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4865:4914 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
-R5000:5009 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4940:4980 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
-R5010:5056 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
-R5124:5197 Kernel.RaychaudhuriFluxBridge <> raychaudhuri_delta_flux_implies_clausius_delta_link thm
-R5124:5197 Kernel.RaychaudhuriFluxBridge <> raychaudhuri_delta_flux_implies_clausius_delta_link thm
-R5276:5285 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5236:5263 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R5286:5301 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5312:5344 Kernel.LocalMorphismSemantics <> split_left proj
-R5358:5391 Kernel.LocalMorphismSemantics <> split_right proj
-R5276:5285 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5236:5263 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R5286:5301 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5312:5344 Kernel.LocalMorphismSemantics <> split_left proj
-R5358:5391 Kernel.LocalMorphismSemantics <> split_right proj
-R5408:5443 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
-R5408:5443 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
-R5529:5538 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5488:5515 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R5539:5554 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5565:5597 Kernel.LocalMorphismSemantics <> split_left proj
-R5611:5644 Kernel.LocalMorphismSemantics <> split_right proj
-R5529:5538 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5488:5515 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R5539:5554 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5565:5597 Kernel.LocalMorphismSemantics <> split_left proj
-R5611:5644 Kernel.LocalMorphismSemantics <> split_right proj
-R5661:5696 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
-R5661:5696 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
-R5725:5778 Kernel.ClausiusFromEntropyArea <> clausius_component_delta_shape thm
-R5799:5810 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R5784:5797 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-R5725:5778 Kernel.ClausiusFromEntropyArea <> clausius_component_delta_shape thm
-R5799:5810 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
-R5784:5797 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
-R6010:6023 Kernel.ThermoEinsteinBridge TowardEinstein <> sec
-prf 6035:6091 <> thermodynamic_locality_toward_discrete_einstein_emergence
-R6140:6140 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 6105:6108 <> hbar:47
-binder 6110:6116 <> c_light:48
-binder 6118:6120 <> k_B:49
-binder 6122:6136 <> entropy_per_bit:50
-R6166:6168 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R6169:6172 Kernel.ThermoEinsteinBridge <> hbar:47 var
-binder 6153:6160 <> hbar_pos:51
-R6204:6206 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R6207:6213 Kernel.ThermoEinsteinBridge <> c_light:48 var
-binder 6188:6198 <> c_light_pos:52
-R6241:6243 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
-R6244:6246 Kernel.ThermoEinsteinBridge <> k_B:49 var
-binder 6229:6235 <> k_B_pos:53
-R6277:6283 Kernel.VMState <> VMState rec
-binder 6262:6266 <> s_pre:54
-binder 6268:6273 <> s_post:55
-R6300:6335 Kernel.LocalMorphismSemantics <> SplitMorphism rec
-binder 6296:6296 <> P:56
-R6375:6410 Kernel.LocalMorphismSemantics <> joint_support def
-binder 6348:6358 <> support_pre:57
-binder 6360:6371 <> support_post:58
-R6462:6469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6418:6459 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
-R6461:6461 Kernel.ThermoEinsteinBridge <> P:56 var
-R6538:6545 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6470:6471 Coq.Lists.List <> In def
-R6486:6534 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
-R6536:6536 Kernel.ThermoEinsteinBridge <> P:56 var
-R6473:6483 Kernel.ThermoEinsteinBridge <> support_pre:57 var
-R6615:6622 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6546:6547 Coq.Lists.List <> In def
-R6563:6611 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
-R6613:6613 Kernel.ThermoEinsteinBridge <> P:56 var
-R6549:6560 Kernel.ThermoEinsteinBridge <> support_post:58 var
-R6919:6926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6739:6747 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6623:6667 Kernel.RaychaudhuriFluxBridge <> null_energy_flux_delta def
-R6675:6723 Kernel.RaychaudhuriFluxBridge <> calibrated_null_congruence def
-R6725:6729 Kernel.ThermoEinsteinBridge <> s_pre:54 var
-R6731:6736 Kernel.ThermoEinsteinBridge <> s_post:55 var
-R6738:6738 Kernel.ThermoEinsteinBridge <> P:56 var
-R6809:6818 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6749:6789 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
-R6808:6808 Kernel.ThermoEinsteinBridge <> P:56 var
-R6804:6806 Kernel.ThermoEinsteinBridge <> k_B:49 var
-R6796:6802 Kernel.ThermoEinsteinBridge <> c_light:48 var
-R6791:6794 Kernel.ThermoEinsteinBridge <> hbar:47 var
-R6819:6865 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
-R6892:6902 Kernel.ThermoEinsteinBridge <> support_pre:57 var
-R6904:6915 Kernel.ThermoEinsteinBridge <> support_post:58 var
-R6876:6890 Kernel.ThermoEinsteinBridge <> entropy_per_bit:50 var
-R6968:6975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6927:6950 Kernel.DiscreteTopology <> well_formed_triangulated def
-R6953:6960 Kernel.VMState <> vm_graph proj
-R6962:6966 Kernel.ThermoEinsteinBridge <> s_pre:54 var
-R7018:7025 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6976:6999 Kernel.DiscreteTopology <> well_formed_triangulated def
-R7002:7009 Kernel.VMState <> vm_graph proj
-R7011:7016 Kernel.ThermoEinsteinBridge <> s_post:55 var
-R7098:7106 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7060:7062 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R7027:7041 Kernel.DiscreteGaussBonnet <> total_curvature def
-R7044:7051 Kernel.VMState <> vm_graph proj
-R7053:7058 Kernel.ThermoEinsteinBridge <> s_post:55 var
-R7063:7077 Kernel.DiscreteGaussBonnet <> total_curvature def
-R7080:7087 Kernel.VMState <> vm_graph proj
-R7089:7093 Kernel.ThermoEinsteinBridge <> s_pre:54 var
-R7134:7143 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7108:7133 Kernel.EinsteinEmergence <> einstein_coupling_constant def
-R7144:7146 Coq.Reals.Rdefinitions <> IZR def
-R7187:7201 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R7149:7168 Kernel.DiscreteTopology <> euler_characteristic def
-R7171:7178 Kernel.VMState <> vm_graph proj
+R777:780 Coq.Lists.List <> <> lib
+R782:795 Coq.Arith.PeanoNat <> <> lib
+R797:801 Coq.Reals.Reals <> <> lib
+R803:808 Coq.ZArith.ZArith <> <> lib
+R818:830 Coq.Lists.List ListNotations <> mod
+R861:867 Kernel.VMState <> <> lib
+R897:918 Kernel.LocalMorphismSemantics <> <> lib
+R948:966 Kernel.EntanglementEntropy <> <> lib
+R996:1018 Kernel.ClausiusFromEntropyArea <> <> lib
+R1048:1069 Kernel.RaychaudhuriFluxBridge <> <> lib
+R1099:1122 Kernel.JacobsonBridgeComponents <> <> lib
+R1152:1167 Kernel.DiscreteTopology <> <> lib
+R1169:1187 Kernel.DiscreteGaussBonnet <> <> lib
+R1217:1233 Kernel.EinsteinEmergence <> <> lib
+R1263:1271 Kernel.MuGravity <> <> lib
+R1301:1319 Kernel.EinsteinEquations4D <> <> lib
+R1349:1368 Kernel.CurvedTensorPipeline <> <> lib
+R1398:1417 Kernel.DiscreteRaychaudhuri <> <> lib
+def 1432:1465 <> discrete_einstein_emergence_target
+R1487:1489 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1480:1486 Kernel.VMState <> VMState rec
+R1490:1496 Kernel.VMState <> VMState rec
+binder 1470:1476 <> st_pair:1
+R1560:1565 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1511:1534 Kernel.DiscreteTopology <> well_formed_triangulated def
+R1537:1544 Kernel.VMState <> vm_graph proj
+R1547:1549 Coq.Init.Datatypes <> fst def
+R1551:1557 Kernel.ThermoEinsteinBridge <> st_pair:1 var
+R1615:1620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1566:1589 Kernel.DiscreteTopology <> well_formed_triangulated def
+R1592:1599 Kernel.VMState <> vm_graph proj
+R1602:1604 Coq.Init.Datatypes <> snd def
+R1606:1612 Kernel.ThermoEinsteinBridge <> st_pair:1 var
+R1711:1717 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1662:1667 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R1622:1636 Kernel.DiscreteGaussBonnet <> total_curvature def
+R1639:1646 Kernel.VMState <> vm_graph proj
+R1649:1651 Coq.Init.Datatypes <> snd def
+R1653:1659 Kernel.ThermoEinsteinBridge <> st_pair:1 var
+R1668:1682 Kernel.DiscreteGaussBonnet <> total_curvature def
+R1685:1692 Kernel.VMState <> vm_graph proj
+R1695:1697 Coq.Init.Datatypes <> fst def
+R1699:1705 Kernel.ThermoEinsteinBridge <> st_pair:1 var
+R1745:1752 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1719:1744 Kernel.EinsteinEmergence <> einstein_coupling_constant def
+R1753:1755 Coq.Reals.Rdefinitions <> IZR def
+R1803:1815 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1758:1777 Kernel.DiscreteTopology <> euler_characteristic def
+R1780:1787 Kernel.VMState <> vm_graph proj
+R1790:1792 Coq.Init.Datatypes <> snd def
+R1794:1800 Kernel.ThermoEinsteinBridge <> st_pair:1 var
+R1816:1835 Kernel.DiscreteTopology <> euler_characteristic def
+R1838:1845 Kernel.VMState <> vm_graph proj
+R1848:1850 Coq.Init.Datatypes <> fst def
+R1852:1858 Kernel.ThermoEinsteinBridge <> st_pair:1 var
+prf 1874:1910 <> discrete_einstein_emergence_component
+R1941:1943 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1934:1940 Kernel.VMState <> VMState rec
+R1944:1950 Kernel.VMState <> VMState rec
+binder 1924:1930 <> st_pair:2
+R1967:1970 Coq.Init.Datatypes <> unit ind
+R1993:1993 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1983:1984 <> dQ:3
+binder 1986:1987 <> dS:4
+binder 1989:1989 <> T:5
+R2010:2017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2003:2005 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2006:2006 Kernel.ThermoEinsteinBridge <> T:5 var
+R2033:2040 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2020:2022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2018:2019 Kernel.ThermoEinsteinBridge <> dQ:3 var
+R2025:2027 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2024:2024 Kernel.ThermoEinsteinBridge <> T:5 var
+R2028:2029 Kernel.ThermoEinsteinBridge <> dS:4 var
+R2041:2074 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
+R2076:2082 Kernel.ThermoEinsteinBridge <> st_pair:2 var
+R2157:2172 Kernel.EinsteinEmergence <> einstein_emerges thm
+R2157:2172 Kernel.EinsteinEmergence <> einstein_emerges thm
+sec 2220:2233 <> TowardEinstein
+var 2246:2259 TowardEinstein SpacetimeState
+var 2278:2291 TowardEinstein EinsteinTarget
+R2309:2312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2295:2308 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+var 2328:2339 TowardEinstein LocalHorizon
+R2357:2360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2343:2356 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+prf 2376:2413 <> thermodynamic_locality_toward_einstein
+R2472:2507 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 2468:2468 <> P:9
+R2540:2575 Kernel.LocalMorphismSemantics <> joint_support def
+binder 2530:2536 <> support:10
+R2603:2616 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+binder 2598:2599 <> st:11
+R2643:2654 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R2656:2657 Kernel.ThermoEinsteinBridge <> st:11 var
+binder 2639:2639 <> H:12
+R2860:2877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2711:2730 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2675:2702 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R2704:2710 Kernel.ThermoEinsteinBridge <> support:10 var
+R2731:2746 Kernel.EntanglementEntropy <> boundary_size_1d def
+R2767:2799 Kernel.LocalMorphismSemantics <> split_left proj
+R2801:2801 Kernel.ThermoEinsteinBridge <> P:9 var
+R2823:2856 Kernel.LocalMorphismSemantics <> split_right proj
+R2858:2858 Kernel.ThermoEinsteinBridge <> P:9 var
+R2878:2884 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2896:2913 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2895:2895 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2885:2886 <> dQ:13
+R2895:2895 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2888:2889 <> dS:14
+R2895:2895 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2891:2891 <> T:15
+R2923:2926 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2916:2918 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2919:2919 Kernel.ThermoEinsteinBridge <> T:15 var
+R2929:2931 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2927:2928 Kernel.ThermoEinsteinBridge <> dQ:13 var
+R2934:2936 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2933:2933 Kernel.ThermoEinsteinBridge <> T:15 var
+R2937:2938 Kernel.ThermoEinsteinBridge <> dS:14 var
+binder 2427:2444 <> clausius_component:16
+R3004:3017 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+binder 2999:3000 <> st:17
+R3044:3055 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R3057:3058 Kernel.ThermoEinsteinBridge <> st:17 var
+binder 3040:3040 <> H:18
+R3091:3091 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3081:3082 <> dQ:19
+binder 3084:3085 <> dS:20
+binder 3087:3087 <> T:21
+R3118:3135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3111:3113 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R3114:3114 Kernel.ThermoEinsteinBridge <> T:21 var
+R3151:3168 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3138:3140 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3136:3137 Kernel.ThermoEinsteinBridge <> dQ:19 var
+R3143:3145 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3142:3142 Kernel.ThermoEinsteinBridge <> T:21 var
+R3146:3147 Kernel.ThermoEinsteinBridge <> dS:20 var
+R3169:3182 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
+R3184:3185 Kernel.ThermoEinsteinBridge <> st:17 var
+binder 2954:2975 <> raychaudhuri_component:22
+R3202:3237 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 3198:3198 <> P:23
+R3260:3295 Kernel.LocalMorphismSemantics <> joint_support def
+binder 3250:3256 <> support:24
+R3313:3326 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+binder 3308:3309 <> st:25
+R3343:3354 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R3356:3357 Kernel.ThermoEinsteinBridge <> st:25 var
+binder 3339:3339 <> H:26
+R3409:3416 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3365:3406 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
+R3408:3408 Kernel.ThermoEinsteinBridge <> P:23 var
+R3481:3488 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3417:3418 Coq.Lists.List <> In def
+R3429:3477 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R3479:3479 Kernel.ThermoEinsteinBridge <> P:23 var
+R3420:3426 Kernel.ThermoEinsteinBridge <> support:24 var
+R3489:3502 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
+R3504:3505 Kernel.ThermoEinsteinBridge <> st:25 var
+R3601:3632 Kernel.JacobsonBridgeComponents <> jacobson_components_imply_target thm
+R3646:3659 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+R3673:3686 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
+R3700:3711 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R3601:3632 Kernel.JacobsonBridgeComponents <> jacobson_components_imply_target thm
+R3646:3659 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+R3673:3686 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
+R3700:3711 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R3816:3851 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
+R3816:3851 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
+prf 3880:3937 <> thermodynamic_locality_toward_einstein_with_clausius_model
+R3986:3986 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3951:3954 <> hbar:27
+binder 3956:3962 <> c_light:28
+binder 3964:3966 <> k_B:29
+binder 3968:3982 <> entropy_per_bit:30
+R4012:4014 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4015:4018 Kernel.ThermoEinsteinBridge <> hbar:27 var
+binder 3999:4006 <> hbar_pos:31
+R4050:4052 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4053:4059 Kernel.ThermoEinsteinBridge <> c_light:28 var
+binder 4034:4044 <> c_light_pos:32
+R4087:4089 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4090:4092 Kernel.ThermoEinsteinBridge <> k_B:29 var
+binder 4075:4081 <> k_B_pos:33
+R4158:4171 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+binder 4153:4154 <> st:34
+R4198:4209 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R4211:4212 Kernel.ThermoEinsteinBridge <> st:34 var
+binder 4194:4194 <> H:35
+R4245:4245 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4235:4236 <> dQ:36
+binder 4238:4239 <> dS:37
+binder 4241:4241 <> T:38
+R4272:4289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4265:4267 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R4268:4268 Kernel.ThermoEinsteinBridge <> T:38 var
+R4305:4322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4292:4294 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4290:4291 Kernel.ThermoEinsteinBridge <> dQ:36 var
+R4297:4299 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4296:4296 Kernel.ThermoEinsteinBridge <> T:38 var
+R4300:4301 Kernel.ThermoEinsteinBridge <> dS:37 var
+R4323:4336 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
+R4338:4339 Kernel.ThermoEinsteinBridge <> st:34 var
+binder 4108:4129 <> raychaudhuri_component:39
+R4367:4373 Kernel.VMState <> VMState rec
+binder 4352:4356 <> s_pre:40
+binder 4358:4363 <> s_post:41
+R4390:4425 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 4386:4386 <> P:42
+R4465:4500 Kernel.LocalMorphismSemantics <> joint_support def
+binder 4438:4448 <> support_pre:43
+binder 4450:4461 <> support_post:44
+R4518:4531 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+binder 4513:4514 <> st:45
+R4548:4559 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R4561:4562 Kernel.ThermoEinsteinBridge <> st:45 var
+binder 4544:4544 <> H:46
+R4614:4621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4570:4611 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
+R4613:4613 Kernel.ThermoEinsteinBridge <> P:42 var
+R4690:4697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4622:4623 Coq.Lists.List <> In def
+R4638:4686 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R4688:4688 Kernel.ThermoEinsteinBridge <> P:42 var
+R4625:4635 Kernel.ThermoEinsteinBridge <> support_pre:43 var
+R4767:4774 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4698:4699 Coq.Lists.List <> In def
+R4715:4763 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R4765:4765 Kernel.ThermoEinsteinBridge <> P:42 var
+R4701:4712 Kernel.ThermoEinsteinBridge <> support_post:44 var
+R5097:5104 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4891:4899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4775:4819 Kernel.RaychaudhuriFluxBridge <> null_energy_flux_delta def
+R4827:4875 Kernel.RaychaudhuriFluxBridge <> calibrated_null_congruence def
+R4877:4881 Kernel.ThermoEinsteinBridge <> s_pre:40 var
+R4883:4888 Kernel.ThermoEinsteinBridge <> s_post:41 var
+R4890:4890 Kernel.ThermoEinsteinBridge <> P:42 var
+R4978:4987 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4901:4941 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R4977:4977 Kernel.ThermoEinsteinBridge <> P:42 var
+R4965:4967 Kernel.ThermoEinsteinBridge <> k_B:29 var
+R4957:4963 Kernel.ThermoEinsteinBridge <> c_light:28 var
+R4952:4955 Kernel.ThermoEinsteinBridge <> hbar:27 var
+R4988:5034 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R5070:5080 Kernel.ThermoEinsteinBridge <> support_pre:43 var
+R5082:5093 Kernel.ThermoEinsteinBridge <> support_post:44 var
+R5045:5059 Kernel.ThermoEinsteinBridge <> entropy_per_bit:30 var
+R5105:5118 Kernel.ThermoEinsteinBridge <> TowardEinstein.EinsteinTarget var
+R5120:5121 Kernel.ThermoEinsteinBridge <> st:45 var
+R5379:5387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5314:5363 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
+R5449:5458 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5389:5429 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R5459:5505 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R5379:5387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5314:5363 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
+R5449:5458 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5389:5429 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R5459:5505 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R5573:5646 Kernel.RaychaudhuriFluxBridge <> raychaudhuri_delta_flux_implies_clausius_delta_link thm
+R5573:5646 Kernel.RaychaudhuriFluxBridge <> raychaudhuri_delta_flux_implies_clausius_delta_link thm
+R5725:5734 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5685:5712 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R5735:5750 Kernel.EntanglementEntropy <> boundary_size_1d def
+R5761:5793 Kernel.LocalMorphismSemantics <> split_left proj
+R5807:5840 Kernel.LocalMorphismSemantics <> split_right proj
+R5725:5734 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5685:5712 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R5735:5750 Kernel.EntanglementEntropy <> boundary_size_1d def
+R5761:5793 Kernel.LocalMorphismSemantics <> split_left proj
+R5807:5840 Kernel.LocalMorphismSemantics <> split_right proj
+R5857:5892 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
+R5857:5892 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
+R5978:5987 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5937:5964 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R5988:6003 Kernel.EntanglementEntropy <> boundary_size_1d def
+R6014:6046 Kernel.LocalMorphismSemantics <> split_left proj
+R6060:6093 Kernel.LocalMorphismSemantics <> split_right proj
+R5978:5987 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5937:5964 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R5988:6003 Kernel.EntanglementEntropy <> boundary_size_1d def
+R6014:6046 Kernel.LocalMorphismSemantics <> split_left proj
+R6060:6093 Kernel.LocalMorphismSemantics <> split_right proj
+R6110:6145 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
+R6110:6145 Kernel.EntanglementEntropy <> local_morphism_entropy_area_law_bits thm
+R6174:6227 Kernel.ClausiusFromEntropyArea <> clausius_component_delta_shape thm
+R6248:6259 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R6233:6246 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+R6174:6227 Kernel.ClausiusFromEntropyArea <> clausius_component_delta_shape thm
+R6248:6259 Kernel.ThermoEinsteinBridge <> TowardEinstein.LocalHorizon var
+R6233:6246 Kernel.ThermoEinsteinBridge <> TowardEinstein.SpacetimeState var
+R6459:6472 Kernel.ThermoEinsteinBridge TowardEinstein <> sec
+prf 6484:6540 <> thermodynamic_locality_toward_discrete_einstein_emergence
+R6589:6589 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6554:6557 <> hbar:47
+binder 6559:6565 <> c_light:48
+binder 6567:6569 <> k_B:49
+binder 6571:6585 <> entropy_per_bit:50
+R6615:6617 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6618:6621 Kernel.ThermoEinsteinBridge <> hbar:47 var
+binder 6602:6609 <> hbar_pos:51
+R6653:6655 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6656:6662 Kernel.ThermoEinsteinBridge <> c_light:48 var
+binder 6637:6647 <> c_light_pos:52
+R6690:6692 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6693:6695 Kernel.ThermoEinsteinBridge <> k_B:49 var
+binder 6678:6684 <> k_B_pos:53
+R6726:6732 Kernel.VMState <> VMState rec
+binder 6711:6715 <> s_pre:54
+binder 6717:6722 <> s_post:55
+R6749:6784 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 6745:6745 <> P:56
+R6824:6859 Kernel.LocalMorphismSemantics <> joint_support def
+binder 6797:6807 <> support_pre:57
+binder 6809:6820 <> support_post:58
+R6911:6918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6867:6908 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
+R6910:6910 Kernel.ThermoEinsteinBridge <> P:56 var
+R6987:6994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6919:6920 Coq.Lists.List <> In def
+R6935:6983 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R6985:6985 Kernel.ThermoEinsteinBridge <> P:56 var
+R6922:6932 Kernel.ThermoEinsteinBridge <> support_pre:57 var
+R7064:7071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6995:6996 Coq.Lists.List <> In def
+R7012:7060 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R7062:7062 Kernel.ThermoEinsteinBridge <> P:56 var
+R6998:7009 Kernel.ThermoEinsteinBridge <> support_post:58 var
+R7368:7375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7188:7196 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7072:7116 Kernel.RaychaudhuriFluxBridge <> null_energy_flux_delta def
+R7124:7172 Kernel.RaychaudhuriFluxBridge <> calibrated_null_congruence def
+R7174:7178 Kernel.ThermoEinsteinBridge <> s_pre:54 var
 R7180:7185 Kernel.ThermoEinsteinBridge <> s_post:55 var
-R7202:7221 Kernel.DiscreteTopology <> euler_characteristic def
-R7224:7231 Kernel.VMState <> vm_graph proj
-R7233:7237 Kernel.ThermoEinsteinBridge <> s_pre:54 var
-R7435:7492 Kernel.ThermoEinsteinBridge <> thermodynamic_locality_toward_einstein_with_clausius_model thm
-R7509:7511 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7502:7508 Kernel.VMState <> VMState rec
-R7512:7518 Kernel.VMState <> VMState rec
-R7528:7561 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
-R7580:7583 Coq.Init.Datatypes <> unit ind
-R7649:7685 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_component thm
-R7734:7734 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7740:7741 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7748:7748 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7750:7751 Coq.Init.Datatypes <> tt constr
-R7435:7492 Kernel.ThermoEinsteinBridge <> thermodynamic_locality_toward_einstein_with_clausius_model thm
-R7509:7511 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7502:7508 Kernel.VMState <> VMState rec
-R7512:7518 Kernel.VMState <> VMState rec
-R7528:7561 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
-R7580:7583 Coq.Init.Datatypes <> unit ind
-R7649:7685 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_component thm
-R7734:7734 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7740:7741 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7748:7748 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7750:7751 Coq.Init.Datatypes <> tt constr
+R7187:7187 Kernel.ThermoEinsteinBridge <> P:56 var
+R7258:7267 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7198:7238 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R7257:7257 Kernel.ThermoEinsteinBridge <> P:56 var
+R7253:7255 Kernel.ThermoEinsteinBridge <> k_B:49 var
+R7245:7251 Kernel.ThermoEinsteinBridge <> c_light:48 var
+R7240:7243 Kernel.ThermoEinsteinBridge <> hbar:47 var
+R7268:7314 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R7341:7351 Kernel.ThermoEinsteinBridge <> support_pre:57 var
+R7353:7364 Kernel.ThermoEinsteinBridge <> support_post:58 var
+R7325:7339 Kernel.ThermoEinsteinBridge <> entropy_per_bit:50 var
+R7417:7424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7376:7399 Kernel.DiscreteTopology <> well_formed_triangulated def
+R7402:7409 Kernel.VMState <> vm_graph proj
+R7411:7415 Kernel.ThermoEinsteinBridge <> s_pre:54 var
+R7467:7474 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7425:7448 Kernel.DiscreteTopology <> well_formed_triangulated def
+R7451:7458 Kernel.VMState <> vm_graph proj
+R7460:7465 Kernel.ThermoEinsteinBridge <> s_post:55 var
+R7547:7555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7509:7511 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R7476:7490 Kernel.DiscreteGaussBonnet <> total_curvature def
+R7493:7500 Kernel.VMState <> vm_graph proj
+R7502:7507 Kernel.ThermoEinsteinBridge <> s_post:55 var
+R7512:7526 Kernel.DiscreteGaussBonnet <> total_curvature def
+R7529:7536 Kernel.VMState <> vm_graph proj
+R7538:7542 Kernel.ThermoEinsteinBridge <> s_pre:54 var
+R7583:7592 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7557:7582 Kernel.EinsteinEmergence <> einstein_coupling_constant def
+R7593:7595 Coq.Reals.Rdefinitions <> IZR def
+R7636:7650 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R7598:7617 Kernel.DiscreteTopology <> euler_characteristic def
+R7620:7627 Kernel.VMState <> vm_graph proj
+R7629:7634 Kernel.ThermoEinsteinBridge <> s_post:55 var
+R7651:7670 Kernel.DiscreteTopology <> euler_characteristic def
+R7673:7680 Kernel.VMState <> vm_graph proj
+R7682:7686 Kernel.ThermoEinsteinBridge <> s_pre:54 var
+R7884:7941 Kernel.ThermoEinsteinBridge <> thermodynamic_locality_toward_einstein_with_clausius_model thm
+R7958:7960 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7951:7957 Kernel.VMState <> VMState rec
+R7961:7967 Kernel.VMState <> VMState rec
+R7977:8010 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
+R8029:8032 Coq.Init.Datatypes <> unit ind
+R8098:8134 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_component thm
+R8183:8183 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8189:8190 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8197:8197 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8199:8200 Coq.Init.Datatypes <> tt constr
+R7884:7941 Kernel.ThermoEinsteinBridge <> thermodynamic_locality_toward_einstein_with_clausius_model thm
+R7958:7960 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7951:7957 Kernel.VMState <> VMState rec
+R7961:7967 Kernel.VMState <> VMState rec
+R7977:8010 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
+R8029:8032 Coq.Init.Datatypes <> unit ind
+R8098:8134 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_component thm
+R8183:8183 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8189:8190 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8197:8197 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8199:8200 Coq.Init.Datatypes <> tt constr
+prf 9293:9338 <> discrete_einstein_emergence_from_mass_focusing
+R9387:9387 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 9352:9355 <> hbar:59
+binder 9357:9363 <> c_light:60
+binder 9365:9367 <> k_B:61
+binder 9369:9383 <> entropy_per_bit:62
+R9407:9413 Kernel.VMState <> VMState rec
+binder 9400:9400 <> s:63
+binder 9402:9403 <> s':64
+R9423:9430 Kernel.VMState <> ModuleID def
+binder 9417:9417 <> v:65
+binder 9419:9419 <> w:66
+R9447:9482 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 9443:9443 <> P:67
+R9505:9540 Kernel.LocalMorphismSemantics <> joint_support def
+binder 9495:9501 <> support:68
+R9560:9563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9550:9552 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9553:9556 Kernel.ThermoEinsteinBridge <> hbar:59 var
+R9579:9582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9566:9568 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9569:9575 Kernel.ThermoEinsteinBridge <> c_light:60 var
+R9594:9601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9585:9587 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9588:9590 Kernel.ThermoEinsteinBridge <> k_B:61 var
+R9614:9621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9604:9607 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9603:9603 Kernel.ThermoEinsteinBridge <> v:65 var
+R9608:9608 Kernel.ThermoEinsteinBridge <> w:66 var
+R9658:9665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9649:9651 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9623:9644 Kernel.MuGravity <> module_structural_mass def
+R9646:9646 Kernel.ThermoEinsteinBridge <> s:63 var
+R9648:9648 Kernel.ThermoEinsteinBridge <> v:65 var
+R9691:9698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9666:9686 Kernel.CurvedTensorPipeline <> isotropic_mass_metric def
+R9688:9688 Kernel.ThermoEinsteinBridge <> s:63 var
+R9690:9690 Kernel.ThermoEinsteinBridge <> v:65 var
+R9724:9731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9699:9719 Kernel.CurvedTensorPipeline <> isotropic_mass_metric def
+R9721:9721 Kernel.ThermoEinsteinBridge <> s:63 var
+R9723:9723 Kernel.ThermoEinsteinBridge <> w:66 var
+R9807:9814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9732:9780 Kernel.DiscreteRaychaudhuri <> lorentzian_coupling_positive def
+R9782:9782 Kernel.ThermoEinsteinBridge <> s:63 var
+R9784:9784 Kernel.ThermoEinsteinBridge <> v:65 var
+R9786:9786 Kernel.ThermoEinsteinBridge <> w:66 var
+R9789:9801 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R9803:9803 Kernel.ThermoEinsteinBridge <> v:65 var
+R9805:9805 Kernel.ThermoEinsteinBridge <> w:66 var
+R9852:9859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9815:9838 Kernel.DiscreteTopology <> well_formed_triangulated def
+R9841:9848 Kernel.VMState <> vm_graph proj
+R9850:9850 Kernel.ThermoEinsteinBridge <> s:63 var
+R9898:9905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9860:9883 Kernel.DiscreteTopology <> well_formed_triangulated def
+R9886:9893 Kernel.VMState <> vm_graph proj
+R9895:9896 Kernel.ThermoEinsteinBridge <> s':64 var
+R9906:9939 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
+R9941:9941 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9943:9944 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9947:9947 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R9942:9942 Kernel.ThermoEinsteinBridge <> s:63 var
+R9945:9946 Kernel.ThermoEinsteinBridge <> s':64 var
+R10338:10340 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10171:10219 Kernel.DiscreteRaychaudhuri <> discrete_null_expansion_rate def
+R10242:10290 Kernel.RaychaudhuriFluxBridge <> calibrated_null_congruence def
+R10316:10328 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R10338:10340 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10171:10219 Kernel.DiscreteRaychaudhuri <> discrete_null_expansion_rate def
+R10242:10290 Kernel.RaychaudhuriFluxBridge <> calibrated_null_congruence def
+R10316:10328 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R10358:10408 Kernel.DiscreteRaychaudhuri <> positive_mass_implies_focusing thm
+R10358:10408 Kernel.DiscreteRaychaudhuri <> positive_mass_implies_focusing thm
+R10513:10519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10531:10532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10530:10530 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10520:10521 <> dQ:69
+R10530:10530 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10523:10524 <> dS:70
+R10530:10530 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10526:10526 <> T:71
+R10542:10545 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10535:10537 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10538:10538 Kernel.ThermoEinsteinBridge <> T:71 var
+R10548:10550 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10546:10547 Kernel.ThermoEinsteinBridge <> dQ:69 var
+R10553:10555 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10552:10552 Kernel.ThermoEinsteinBridge <> T:71 var
+R10556:10557 Kernel.ThermoEinsteinBridge <> dS:70 var
+R10513:10519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10531:10532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10530:10530 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10520:10521 <> dQ:72
+R10530:10530 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10523:10524 <> dS:73
+R10530:10530 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10526:10526 <> T:74
+R10542:10545 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10535:10537 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R10538:10538 Kernel.ThermoEinsteinBridge <> T:74 var
+R10548:10550 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10546:10547 Kernel.ThermoEinsteinBridge <> dQ:72 var
+R10553:10555 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10552:10552 Kernel.ThermoEinsteinBridge <> T:74 var
+R10556:10557 Kernel.ThermoEinsteinBridge <> dS:73 var
+R10575:10630 Kernel.DiscreteRaychaudhuri <> focusing_implies_clausius_witnesses thm
+R10694:10706 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R10575:10630 Kernel.DiscreteRaychaudhuri <> focusing_implies_clausius_witnesses thm
+R10694:10706 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R10874:10907 Kernel.ThermoEinsteinBridge <> discrete_einstein_emergence_target def
+R10926:10941 Kernel.EinsteinEmergence <> einstein_emerges thm
+R10926:10941 Kernel.EinsteinEmergence <> einstein_emerges thm
+prf 12581:12613 <> clausius_load_bearing_einstein_4d
+R12662:12662 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 12627:12630 <> hbar:75
+binder 12632:12638 <> c_light:76
+binder 12640:12642 <> k_B:77
+binder 12644:12658 <> entropy_per_bit:78
+R12679:12685 Kernel.VMState <> VMState rec
+binder 12675:12675 <> s:79
+R12693:12695 Coq.Init.Datatypes <> nat ind
+binder 12689:12689 <> n:80
+R12714:12721 Kernel.VMState <> ModuleID def
+binder 12708:12708 <> v:81
+binder 12710:12710 <> w:82
+R12729:12731 Coq.Init.Datatypes <> nat ind
+binder 12725:12725 <> d:83
+R12748:12783 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 12744:12744 <> P:84
+R12806:12841 Kernel.LocalMorphismSemantics <> joint_support def
+binder 12796:12802 <> support:85
+R12861:12864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12851:12853 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R12854:12857 Kernel.ThermoEinsteinBridge <> hbar:75 var
+R12880:12883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12867:12869 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R12870:12876 Kernel.ThermoEinsteinBridge <> c_light:76 var
+R12895:12902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12886:12888 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R12889:12891 Kernel.ThermoEinsteinBridge <> k_B:77 var
+R12914:12975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12905:12907 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12904:12904 Kernel.ThermoEinsteinBridge <> d:83 var
+R13121:13515 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13114:13116 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R12977:13025 Kernel.DiscreteRaychaudhuri <> discrete_null_expansion_rate def
+R13033:13081 Kernel.RaychaudhuriFluxBridge <> calibrated_null_congruence def
+R13089:13089 Kernel.ThermoEinsteinBridge <> s:79 var
+R13092:13104 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R13106:13106 Kernel.ThermoEinsteinBridge <> v:81 var
+R13108:13108 Kernel.ThermoEinsteinBridge <> w:82 var
+R13111:13111 Kernel.ThermoEinsteinBridge <> v:81 var
+R13113:13113 Kernel.ThermoEinsteinBridge <> P:84 var
+R13516:13516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13619:13678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13534:13534 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 13524:13525 <> dQ:86
+binder 13527:13528 <> dS:87
+binder 13530:13530 <> T:88
+R13553:13556 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13546:13548 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R13549:13549 Kernel.ThermoEinsteinBridge <> T:88 var
+R13572:13582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13559:13561 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13557:13558 Kernel.ThermoEinsteinBridge <> dQ:86 var
+R13564:13566 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13563:13563 Kernel.ThermoEinsteinBridge <> T:88 var
+R13567:13568 Kernel.ThermoEinsteinBridge <> dS:87 var
+R13610:13612 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R13584:13605 Kernel.MuGravity <> module_structural_mass def
+R13607:13607 Kernel.ThermoEinsteinBridge <> s:79 var
+R13609:13609 Kernel.ThermoEinsteinBridge <> v:81 var
+R13729:13737 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13680:13703 Kernel.EinsteinEquations4D <> local_einstein_tensor_4d def
+R13705:13705 Kernel.ThermoEinsteinBridge <> s:79 var
+R13708:13719 Kernel.EinsteinEquations4D <> nat_chain_sc def
+R13721:13721 Kernel.ThermoEinsteinBridge <> n:80 var
+R13724:13724 Kernel.ThermoEinsteinBridge <> d:83 var
+R13726:13726 Kernel.ThermoEinsteinBridge <> d:83 var
+R13728:13728 Kernel.ThermoEinsteinBridge <> v:81 var
+R13959:13967 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13738:13738 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13790:13800 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13958:13958 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13745:13747 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13740:13742 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13743:13744 Coq.Reals.Rtrigo1 <> PI def
+R13748:13789 Kernel.EinsteinEquations4D <> gravitational_constant def
+R13801:13801 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R13915:13925 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R13862:13873 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13914:13914 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13803:13805 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13806:13833 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R13835:13835 Kernel.ThermoEinsteinBridge <> s:79 var
+R13838:13856 Kernel.EinsteinEquations4D <> nat_chain_successor def
+R13858:13858 Kernel.ThermoEinsteinBridge <> n:80 var
+R13861:13861 Kernel.ThermoEinsteinBridge <> v:81 var
+R13875:13877 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R13879:13881 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13882:13884 Coq.Reals.Raxioms <> INR def
+R13887:13908 Kernel.MuGravity <> module_structural_mass def
+R13910:13910 Kernel.ThermoEinsteinBridge <> s:79 var
+R13912:13912 Kernel.ThermoEinsteinBridge <> v:81 var
+R13926:13928 Coq.Reals.Raxioms <> INR def
+R13931:13952 Kernel.MuGravity <> module_structural_mass def
+R13954:13954 Kernel.ThermoEinsteinBridge <> s:79 var
+R13956:13956 Kernel.ThermoEinsteinBridge <> v:81 var
+R13968:13985 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R13987:13987 Kernel.ThermoEinsteinBridge <> s:79 var
+R13989:13989 Kernel.ThermoEinsteinBridge <> d:83 var
+R13991:13991 Kernel.ThermoEinsteinBridge <> d:83 var
+R13993:13993 Kernel.ThermoEinsteinBridge <> v:81 var
+R14187:14242 Kernel.DiscreteRaychaudhuri <> focusing_implies_clausius_witnesses thm
+R14284:14296 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R14187:14242 Kernel.DiscreteRaychaudhuri <> focusing_implies_clausius_witnesses thm
+R14284:14296 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R14556:14597 Kernel.CurvedTensorPipeline <> local_einstein_field_equation_nat_chain_4d thm
+R14556:14597 Kernel.CurvedTensorPipeline <> local_einstein_field_equation_nat_chain_4d thm
+prf 14797:14832 <> thermodynamic_einstein_full_chain_4d
+R14881:14881 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 14846:14849 <> hbar:89
+binder 14851:14857 <> c_light:90
+binder 14859:14861 <> k_B:91
+binder 14863:14877 <> entropy_per_bit:92
+R14898:14904 Kernel.VMState <> VMState rec
+binder 14894:14894 <> s:93
+R14912:14914 Coq.Init.Datatypes <> nat ind
+binder 14908:14908 <> n:94
+R14933:14940 Kernel.VMState <> ModuleID def
+binder 14927:14927 <> v:95
+binder 14929:14929 <> w:96
+R14948:14950 Coq.Init.Datatypes <> nat ind
+binder 14944:14944 <> d:97
+R14967:15002 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 14963:14963 <> P:98
+R15025:15060 Kernel.LocalMorphismSemantics <> joint_support def
+binder 15015:15021 <> support:99
+R15080:15083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15070:15072 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R15073:15076 Kernel.ThermoEinsteinBridge <> hbar:89 var
+R15099:15102 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15086:15088 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R15089:15095 Kernel.ThermoEinsteinBridge <> c_light:90 var
+R15114:15121 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15105:15107 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R15108:15110 Kernel.ThermoEinsteinBridge <> k_B:91 var
+R15133:15140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15124:15126 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15123:15123 Kernel.ThermoEinsteinBridge <> d:97 var
+R15153:15160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15143:15146 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R15142:15142 Kernel.ThermoEinsteinBridge <> v:95 var
+R15147:15147 Kernel.ThermoEinsteinBridge <> w:96 var
+R15197:15204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15188:15190 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15162:15183 Kernel.MuGravity <> module_structural_mass def
+R15185:15185 Kernel.ThermoEinsteinBridge <> s:93 var
+R15187:15187 Kernel.ThermoEinsteinBridge <> v:95 var
+R15230:15237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15205:15225 Kernel.CurvedTensorPipeline <> isotropic_mass_metric def
+R15227:15227 Kernel.ThermoEinsteinBridge <> s:93 var
+R15229:15229 Kernel.ThermoEinsteinBridge <> v:95 var
+R15263:15270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15238:15258 Kernel.CurvedTensorPipeline <> isotropic_mass_metric def
+R15260:15260 Kernel.ThermoEinsteinBridge <> s:93 var
+R15262:15262 Kernel.ThermoEinsteinBridge <> w:96 var
+R15346:15425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15271:15319 Kernel.DiscreteRaychaudhuri <> lorentzian_coupling_positive def
+R15321:15321 Kernel.ThermoEinsteinBridge <> s:93 var
+R15323:15323 Kernel.ThermoEinsteinBridge <> v:95 var
+R15325:15325 Kernel.ThermoEinsteinBridge <> w:96 var
+R15328:15340 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R15342:15342 Kernel.ThermoEinsteinBridge <> v:95 var
+R15344:15344 Kernel.ThermoEinsteinBridge <> w:96 var
+R15426:15426 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15475:15483 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15427:15433 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15445:15446 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15444:15444 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 15434:15435 <> dQ:100
+R15444:15444 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 15437:15438 <> dS:101
+R15444:15444 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 15440:15440 <> T:102
+R15456:15459 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15449:15451 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R15452:15452 Kernel.ThermoEinsteinBridge <> T:102 var
+R15462:15464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15460:15461 Kernel.ThermoEinsteinBridge <> dQ:100 var
+R15467:15469 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15466:15466 Kernel.ThermoEinsteinBridge <> T:102 var
+R15470:15471 Kernel.ThermoEinsteinBridge <> dS:101 var
+R15534:15542 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15485:15508 Kernel.EinsteinEquations4D <> local_einstein_tensor_4d def
+R15510:15510 Kernel.ThermoEinsteinBridge <> s:93 var
+R15513:15524 Kernel.EinsteinEquations4D <> nat_chain_sc def
+R15526:15526 Kernel.ThermoEinsteinBridge <> n:94 var
+R15529:15529 Kernel.ThermoEinsteinBridge <> d:97 var
+R15531:15531 Kernel.ThermoEinsteinBridge <> d:97 var
+R15533:15533 Kernel.ThermoEinsteinBridge <> v:95 var
+R15764:15772 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15543:15543 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15595:15605 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15763:15763 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15550:15552 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15545:15547 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15548:15549 Coq.Reals.Rtrigo1 <> PI def
+R15553:15594 Kernel.EinsteinEquations4D <> gravitational_constant def
+R15606:15606 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R15720:15730 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R15667:15678 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15719:15719 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15608:15610 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15611:15638 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R15640:15640 Kernel.ThermoEinsteinBridge <> s:93 var
+R15643:15661 Kernel.EinsteinEquations4D <> nat_chain_successor def
+R15663:15663 Kernel.ThermoEinsteinBridge <> n:94 var
+R15666:15666 Kernel.ThermoEinsteinBridge <> v:95 var
+R15680:15682 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R15684:15686 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15687:15689 Coq.Reals.Raxioms <> INR def
+R15692:15713 Kernel.MuGravity <> module_structural_mass def
+R15715:15715 Kernel.ThermoEinsteinBridge <> s:93 var
+R15717:15717 Kernel.ThermoEinsteinBridge <> v:95 var
+R15731:15733 Coq.Reals.Raxioms <> INR def
+R15736:15757 Kernel.MuGravity <> module_structural_mass def
+R15759:15759 Kernel.ThermoEinsteinBridge <> s:93 var
+R15761:15761 Kernel.ThermoEinsteinBridge <> v:95 var
+R15773:15790 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R15792:15792 Kernel.ThermoEinsteinBridge <> s:93 var
+R15794:15794 Kernel.ThermoEinsteinBridge <> d:97 var
+R15796:15796 Kernel.ThermoEinsteinBridge <> d:97 var
+R15798:15798 Kernel.ThermoEinsteinBridge <> v:95 var
+R16016:16066 Kernel.DiscreteRaychaudhuri <> positive_mass_implies_focusing thm
+R16016:16066 Kernel.DiscreteRaychaudhuri <> positive_mass_implies_focusing thm
+R16139:16194 Kernel.DiscreteRaychaudhuri <> focusing_implies_clausius_witnesses thm
+R16238:16250 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R16139:16194 Kernel.DiscreteRaychaudhuri <> focusing_implies_clausius_witnesses thm
+R16238:16250 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R16356:16397 Kernel.CurvedTensorPipeline <> local_einstein_field_equation_nat_chain_4d thm
+R16356:16397 Kernel.CurvedTensorPipeline <> local_einstein_field_equation_nat_chain_4d thm

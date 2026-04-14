@@ -157,7 +157,7 @@
 
     This produces:
       ThieleMachineComplete.vo    — proof certificate (machine-checked)
-      ../archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.ml — extracted OCaml archive (Extraction.v is the runtime path)
+      ../build/thiele_core_complete.ml — extracted OCaml (Extraction.v is the runtime path)
 
     Zero custom axioms. Zero admits. Zero project imports. The proofs compile.
     ========================================================================= *)
@@ -10035,7 +10035,7 @@ Set Extraction Optimize.
 Set Extraction KeepSingleton.
 Unset Extraction AutoInline.
 
-Extraction "../archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.ml" canonical_cpu_module targetB.
+Extraction "../build/kami_hw/Target_complete.ml" canonical_cpu_module targetB.
 
 (** =========================================================================
     SECTION 8: VERIFICATION SUMMARY — The Audit
@@ -12677,7 +12677,7 @@ Extract Constant word64_mask => "(-1)".
 (* SAFE: word64 identity function — truncation handled internally by word64 operations *)
 Extract Constant word64 => "(fun x -> x)".
 
-Extraction "../archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.ml"
+Extraction "../build/thiele_core_complete.ml"
   vm_instruction
   nofi_step_cost_okb
   nofi_trace_cost_okb
@@ -14176,7 +14176,7 @@ Qed.
         - MORPH_TENSOR bifunctoriality + interchange law (monoidal coherence)
         All proven from the graph operation definitions. Not assumed.
 
-    22. Extraction: vm_apply → ../archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.ml (archive-only OCaml)
+    22. Extraction: vm_apply → ../build/thiele_core_complete.ml (proof-archive OCaml)
 
     23. Hardware: Kami MODULE → Bluespec → Verilog RTL (same pipeline, proven)
 

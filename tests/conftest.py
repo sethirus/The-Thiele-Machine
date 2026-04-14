@@ -25,6 +25,29 @@ if sys.platform == "win32":
 ROOT = Path(__file__).resolve().parent
 REPO_ROOT = ROOT.parent
 
+
+def pytest_configure(config):
+    """Enable pytest-xdist parallel execution when available and not running
+    under VS Code's test adapter. VS Code manages its own parallelism by
+    spawning separate processes per test; injecting xdist there adds overhead."""
+    # Suppress pytest-benchmark warning when xdist is active (only if installed)
+    if importlib.util.find_spec("pytest_benchmark"):
+        config.addinivalue_line(
+            "filterwarnings",
+            "ignore::pytest_benchmark.logger.PytestBenchmarkWarning",
+        )
+
+    # Skip if xdist isn't installed
+    if not importlib.util.find_spec("xdist"):
+        return
+    # Skip if the user already specified -n on the CLI
+    if config.getoption("numprocesses", default=None) is not None:
+        return
+    # Inject -n auto for terminal runs
+    config.option.numprocesses = "auto"
+    config.option.dist = "load"
+
+
 # Guarantee the repository root is importable even when pytest adjusts sys.path.
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))

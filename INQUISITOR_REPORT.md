@@ -1,9 +1,9 @@
 # INQUISITOR REPORT
-Generated: 2026-04-11 05:57:08Z (UTC)
-Scanned: 184 Coq files across the repo
+Generated: 2026-04-13 18:32:59Z (UTC)
+Scanned: 186 Coq files across the repo
 ## Summary
-- HIGH: 5
-- MEDIUM: 1
+- HIGH: 0
+- MEDIUM: 0
 - LOW: 1
 
 ## Rules
@@ -103,30 +103,6 @@ Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
 | 65 | const-fun | `coq/kami_hw/Abstraction.v` |
 
 ## Findings
-### HIGH
-
-#### `coq/kami_hw/RichStateCommutation.v`
-- L32: **PROOF_CONNECTIVITY_GAP** — proof file is missing required foundation connectivity group(s): cost. ALL proofs must connect to the Thiele machine foundation chain — no exceptions, no tier-based exemptions. Add imports/bridge lemmas and iterate until connected.
-  - `Lemma filtermap_ext :`
-- L502: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hlt\` not referenced in proof body.
-  - `intros rs mid Hlt.`
-
-#### `coq/kernel/LocalMorphismSemantics.v`
-- L311: **PHANTOM_VM_STEP** — Theorem \`vm_step_pnew_constructs_creation_morphism\` takes \`vm_step\` as hypothesis but the proof never uses it (no inversion/destruct/apply/specialize/eauto). The step relation is phantom — the result holds without it.
-  - `Theorem vm_step_pnew_constructs_creation_morphism :`
-- L320: **UNUSED_HYPOTHESIS** — Introduced hypothesis \`Hstep\` not referenced in proof body.
-  - `intros s s' region cost Hstep.`
-
-#### `coq/kernel/MasterSummary.v`
-- L1421: **CIRCULAR_DEFINITION** — Theorem \`master_nonclaim_inventory_is_explicit\` unfolds \`master_nonclaim_inventory_statement\` and proves claim by simple tactics. Mark with (* DEFINITIONAL HELPER *) if legitimate, or prove non-circularly by engaging with structure.
-  - `Theorem master_nonclaim_inventory_is_explicit :`
-
-### MEDIUM
-
-#### `coq/kernel/MasterSummary.v`
-- L1409: **EMPTY_LIST** — Definition immediately returns empty list [].
-  - `Definition master_remaining_open_obligations : list open_obligation_entry := [].`
-
 ### LOW
 
 #### `coq/kami_hw/Abstraction.v`

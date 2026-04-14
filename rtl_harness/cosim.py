@@ -91,6 +91,16 @@ CACHED_VERILATOR_BIN = REPO_ROOT / "build" / "verilator" / "Vthiele_cpu_kami_tb"
 _vvp_ready = False
 _verilator_ready = False
 
+# Persistent work directory: reuse a single tmpdir across calls to avoid
+# per-call tempfile creation/deletion overhead (~200ms per call).
+_persistent_workdir: Optional[Path] = None
+
+def _get_workdir() -> Path:
+    global _persistent_workdir
+    if _persistent_workdir is None or not _persistent_workdir.exists():
+        _persistent_workdir = Path(tempfile.mkdtemp(prefix="thiele_cosim_persist_"))
+    return _persistent_workdir
+
 
 _command_cache: Dict[str, bool] = {}
 
@@ -750,24 +760,23 @@ def run_verilog(program, timeout: int = 30, backend: Optional[str] = None, logic
         return None
 
     instruction_hex, data_hex, init_state = program_to_hex(program)
-    with tempfile.TemporaryDirectory(prefix="thiele_cosim_") as tmpdir:
-        work_dir = Path(tmpdir)
-        program_hex = work_dir / "program.hex"
-        data_hex_path = work_dir / "data.hex"
-        program_hex.write_text("\n".join(instruction_hex) + "\n", encoding="utf-8")
-        data_hex_path.write_text("\n".join(data_hex) + "\n", encoding="utf-8")
+    work_dir = _get_workdir()
+    program_hex = work_dir / "program.hex"
+    data_hex_path = work_dir / "data.hex"
+    program_hex.write_text("\n".join(instruction_hex) + "\n", encoding="utf-8")
+    data_hex_path.write_text("\n".join(data_hex) + "\n", encoding="utf-8")
 
-        last_nonzero = 0
-        for index, text in enumerate(instruction_hex):
-            if text != "00000000":
-                last_nonzero = index
-        n_instrs_to_load = last_nonzero + 1
+    last_nonzero = 0
+    for index, text in enumerate(instruction_hex):
+        if text != "00000000":
+            last_nonzero = index
+    n_instrs_to_load = last_nonzero + 1
 
-        if selected_backend == "iverilog":
-            stdout = run_simulation_iverilog(_ensure_vvp_current(), program_hex, data_hex_path, timeout=timeout, n_instrs=n_instrs_to_load, logic_z3_bridge=logic_z3_bridge, init_state=init_state, trace_file=trace_file, force_logic_error=force_logic_error)
-        else:
-            stdout = run_simulation_verilator(_ensure_verilator_current(), program_hex, data_hex_path, timeout=timeout, n_instrs=n_instrs_to_load, logic_z3_bridge=logic_z3_bridge, init_state=init_state, trace_file=trace_file, force_logic_error=force_logic_error)
-        return parse_verilog_output(stdout)
+    if selected_backend == "iverilog":
+        stdout = run_simulation_iverilog(_ensure_vvp_current(), program_hex, data_hex_path, timeout=timeout, n_instrs=n_instrs_to_load, logic_z3_bridge=logic_z3_bridge, init_state=init_state, trace_file=trace_file, force_logic_error=force_logic_error)
+    else:
+        stdout = run_simulation_verilator(_ensure_verilator_current(), program_hex, data_hex_path, timeout=timeout, n_instrs=n_instrs_to_load, logic_z3_bridge=logic_z3_bridge, init_state=init_state, trace_file=trace_file, force_logic_error=force_logic_error)
+    return parse_verilog_output(stdout)
 
 
 def run_verilog_batch(programs: List[str], timeout: int = 300) -> List[Optional[Dict[str, Any]]]:

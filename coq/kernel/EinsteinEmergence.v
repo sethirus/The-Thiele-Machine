@@ -388,6 +388,12 @@ Qed.
     4D Einstein field equation G_μν = 8πG T_μν.
     *)
 
+(** NOTE: This theorem is the 2D discrete Gauss-Bonnet identity
+    ΔCurvature = 5π × Δχ (Euler characteristic change).
+    It is NOT the 4D Einstein field equation G_μν = 8πG T_μν.
+    The connection to 4D gravity requires the non-vacuum curved pipeline
+    in CurvedTensorPipeline.v and DiscreteRaychaudhuri.v. *)
+
 (** The discrete Gauss-Bonnet identity in one statement *)
 Theorem einstein_emerges : forall s s',
   well_formed_triangulated (vm_graph s) ->

@@ -9,6 +9,8 @@ import shutil
 
 import pytest
 
+pytestmark = pytest.mark.strict_rtl
+
 from thielecpu.hardware.cosim import run_verilog
 
 ERR_LOCALITY = 0x0BADC0DE

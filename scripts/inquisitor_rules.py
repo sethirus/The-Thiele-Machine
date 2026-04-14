@@ -29,8 +29,10 @@ PROP_TRUE_DEF_RE = re.compile(
 )
 
 # `Definition foo := fun _ => 0.` or `fun _ => True` etc.
+# The [^.{] exclusion prevents matching record fields that contain `fun _ => 0`
+# inside a `{| ... |}` constructor (e.g. empty_lassert_shadow_state).
 CONST_FUN_RE = re.compile(
-    r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b[^.]*:=\s*fun\s+_\s*=>\s*(True|False|0|1)\b[^.]*\."
+    r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b[^.{]*:=\s*fun\s+_\s*=>\s*(True|False|0|1)\b[^.]*\."
 )
 
 # NOTE: Avoid multi-line "dot-all" regexes over large Coq files. They can be

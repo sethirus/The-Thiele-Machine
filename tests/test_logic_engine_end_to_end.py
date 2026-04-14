@@ -13,6 +13,9 @@ matching observable state (mu, err, PC advancement).
 """
 
 import pytest
+
+pytestmark = pytest.mark.strict_rtl
+
 from thielecpu.vm import VMState, vm_run
 
 

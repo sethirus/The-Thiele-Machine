@@ -208,3 +208,52 @@ Definition einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
     4. Define stress-energy tensor (EinsteinEquations4D.v)
     5. State Einstein field equations (EinsteinEquations4D.v)
 *)
+
+(** ** Step 7: Diagonal Inverse Metric
+
+    For a diagonal metric (g_μν = 0 for μ ≠ ν), the inverse is:
+      g^μμ = 1 / g_μμ   (when g_μμ ≠ 0)
+      g^μν = 0          (for μ ≠ ν)
+
+    This is the correct inverse metric to use in the Ricci scalar contraction
+    R = g^μν R_μν.  The ricci_scalar definition above uses the identity
+    matrix as an approximation; this definition provides the proper diagonal
+    inverse for use in more refined proofs.
+*)
+
+Definition diagonal_inverse_metric
+  (s : VMState) (v : ModuleID) (mu nu : nat) : R :=
+  if (mu =? nu)%nat then
+    let entry := module_tensor_entry s v (mu mod 4) (mu mod 4) in
+    if (entry =? 0)%nat then 0%R
+    else / INR entry
+  else 0%R.
+
+(** [diagonal_inverse_metric_off_diag]: Off-diagonal elements are exactly 0. *)
+Lemma diagonal_inverse_metric_off_diag :
+  forall (s : VMState) (v : ModuleID) (mu nu : nat),
+    mu <> nu ->
+    diagonal_inverse_metric s v mu nu = 0%R.
+Proof.
+  intros s v mu nu Hne.
+  unfold diagonal_inverse_metric.
+  rewrite (proj2 (Nat.eqb_neq mu nu) Hne).
+  reflexivity.
+Qed.
+
+(** [diagonal_inverse_metric_correct]: For a non-degenerate diagonal metric
+    entry, the product g_μμ × g^μμ = 1 (unit-product identity). *)
+Lemma diagonal_inverse_metric_correct :
+  forall (s : VMState) (v : ModuleID) (mu : nat),
+    (module_tensor_entry s v (mu mod 4) (mu mod 4) <> 0)%nat ->
+    (metric_component s mu mu v * diagonal_inverse_metric s v mu mu = 1)%R.
+Proof.
+  intros s v mu Hne.
+  unfold metric_component, full_metric_at_vertex, diagonal_inverse_metric.
+  rewrite Nat.eqb_refl.
+  set (e := module_tensor_entry s v (mu mod 4) (mu mod 4)).
+  destruct (e =? 0)%nat eqn:Heq.
+  - apply Nat.eqb_eq in Heq. contradiction.
+  - apply Rinv_r.
+    apply not_0_INR. exact Hne.
+Qed.

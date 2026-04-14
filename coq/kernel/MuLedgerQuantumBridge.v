@@ -95,6 +95,32 @@ Definition trace_zero_marginal_npa
     (trace_e10 fuel trace s_init)
     (trace_e11 fuel trace s_init).
 
+(** =========================================================================
+    PSPLIT QUANTUM STATE PREDICATE (Gap C, Step C1)
+    =========================================================================
+
+    A PSPLIT-initiated trace "implements a quantum state" when the CHSH_TRIAL
+    witness counters it produces form a quantum_realizable NPA moment matrix.
+    This does not assume any density matrix — it is the operational definition:
+    the partition statistics are quantum-compatible.
+
+    NON-CIRCULARITY:
+    quantum_realizable is the NPA PSD condition (symmetric5 + PSD5), which
+    constrains the STATISTICS produced by the trace, not the trace itself.
+    psplit_implements_quantum_state names the condition; it does not assume it.
+    The condition must be VERIFIED (e.g., via instr_certify) at runtime.
+
+    RELATIONSHIP TO EXISTING PREDICATES:
+    - trace_quantum_model (TsirelsonQuantumModel.v) is the same definition;
+      psplit_implements_quantum_state is a named alias emphasizing the
+      PSPLIT-operational origin.
+    - kernel_state_bridge_coherent (this file) is STRONGER: it requires
+      vm_certified = true AND state_column_contractive.
+    ========================================================================= *)
+Definition psplit_implements_quantum_state
+  (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
+  quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
+
 (** ** Concrete state-side coherence *)
 
 Definition mu_tensor_symmetric (s : VMState) : Prop :=
@@ -150,6 +176,38 @@ Proof.
   - unfold zero_marginal_column_contractive. intro H.
     destruct H as [Hc0 _].
     lra.
+Qed.
+
+(** [column_contractive_equal_opposite]: When all four correlators have equal
+    absolute value and the last is negated, column contractivity reduces to
+    1 - 2*e² >= 0 and 0*0 - 0 >= 0, both satisfied when e² = 1/2. *)
+Lemma column_contractive_equal_opposite :
+  forall e : RealNumber, e * e = 1/2 ->
+    zero_marginal_column_contractive e e e (-e).
+Proof.
+  intros e He.
+  unfold zero_marginal_column_contractive.
+  split. { nra. }
+  split. { nra. }
+  { nra. }
+Qed.
+
+(** [quantum_optimal_correlators_column_contractive]: The quantum-optimal
+    CHSH correlators (1/√2, 1/√2, 1/√2, -1/√2) satisfy column contractivity.
+    This is the positive companion to the counterexample above: mu > 0 alone
+    does not imply column contractivity, but the quantum-optimal correlators do. *)
+Theorem quantum_optimal_correlators_column_contractive :
+  zero_marginal_column_contractive
+    (1 / sqrt 2) (1 / sqrt 2) (1 / sqrt 2) (-(1 / sqrt 2)).
+Proof.
+  apply column_contractive_equal_opposite.
+  assert (Hpos : (0 < sqrt 2)%R) by (apply sqrt_lt_R0; lra).
+  assert (Hne : (sqrt 2 <> 0)%R) by lra.
+  assert (Hstep : (1 / sqrt 2 * (1 / sqrt 2) = 1 / (sqrt 2 * sqrt 2))%R).
+  { field. exact Hne. }
+  rewrite Hstep.
+  rewrite sqrt_sqrt by lra.
+  lra.
 Qed.
 
 Definition bridge_counterexample_trace : list vm_instruction := [

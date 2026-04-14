@@ -32,6 +32,8 @@ def _rtl_available() -> bool:
         return False
 
 
+pytestmark = pytest.mark.strict_rtl
+
 RTL_SKIP = pytest.mark.skipif(
     not _rtl_available(),
     reason="RTL cosim backend unavailable",
