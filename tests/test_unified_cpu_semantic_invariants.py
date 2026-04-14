@@ -27,6 +27,7 @@ RTL_FILE = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
 
 pytestmark = [
     pytest.mark.hardware,
+    pytest.mark.strict_rtl,
     pytest.mark.skipif(shutil.which("iverilog") is None, reason="iverilog not installed"),
 ]
 

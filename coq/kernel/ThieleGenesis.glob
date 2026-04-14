@@ -1,0 +1,313 @@
+DIGEST b6bd2f5c3f39c6237dbefbdd8a0ef3c1
+FKernel.ThieleGenesis
+R1739:1742 Coq.Lists.List <> <> lib
+R1744:1757 Coq.Arith.PeanoNat <> <> lib
+R1767:1779 Coq.Lists.List ListNotations <> mod
+R1886:1891 Kernel.Kernel <> <> lib
+R1893:1900 Kernel.KernelTM <> <> lib
+R1930:1936 Kernel.VMState <> <> lib
+R1938:1943 Kernel.VMStep <> <> lib
+R1945:1953 Kernel.CertCheck <> <> lib
+R1983:1997 Kernel.SimulationProof <> <> lib
+R1999:2018 Kernel.MuLedgerConservation <> <> lib
+R2020:2029 Kernel.PrimeAxiom <> <> lib
+R2059:2070 Kernel.AbstractNoFI <> <> lib
+R2072:2097 Kernel.UniversalCertificationCost <> <> lib
+R2099:2114 Kernel.QuantitativeNoFI <> <> lib
+R2144:2155 Kernel.MuInitiality <> <> lib
+R2157:2171 Kernel.InsightTaxonomy <> <> lib
+R2201:2221 Kernel.TuringCompletenessISA <> <> lib
+R2251:2268 Kernel.LandauerDerivation <> <> lib
+R2270:2283 Kernel.PhysicsClosure <> <> lib
+R2285:2288 Kernel.CHSH <> <> lib
+R2318:2330 Kernel.KernelPhysics <> <> lib
+R2332:2349 Kernel.SpacetimeEmergence <> <> lib
+R2379:2399 Kernel.OCamlExtractionBridge <> <> lib
+R2401:2418 Kernel.PythonBisimulation <> <> lib
+R2420:2439 Kernel.HardwareBisimulation <> <> lib
+R2469:2489 Kernel.ThreeLayerIsomorphism <> <> lib
+R2491:2514 Kernel.VerilogRTLCorrespondence <> <> lib
+R2544:2560 Kernel.BornRuleLinearity <> <> lib
+R2562:2580 Kernel.QuantumPartitionPSD <> <> lib
+R2582:2601 Kernel.ThermoEinsteinBridge <> <> lib
+R2631:2651 Kernel.MuLedgerQuantumBridge <> <> lib
+R2758:2768 KamiHW.Abstraction <> <> lib
+R2770:2778 KamiHW.EmbedStep <> <> lib
+R2780:2792 KamiHW.FullEmbedStep <> <> lib
+R2794:2818 KamiHW.GraphReconstructionBridge <> <> lib
+R3563:3567 Kernel.Kernel <> state rec
+R3704:3721 Kernel.Kernel <> turing_instruction def
+R4974:4980 Kernel.VMState <> VMState rec
+R5027:5040 Kernel.VMStep VMStep vm_instruction ind
+R5119:5126 Kernel.SimulationProof <> vm_apply def
+R5190:5195 Kernel.SimulationProof <> run_vm def
+R6891:6905 Kernel.VMStep VMStep is_cert_setterb def
+R7179:7198 Kernel.VMStep VMStep cert_setter_cost_pos thm
+R8087:8097 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R8252:8270 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R9175:9192 Kernel.PrimeAxiom <> vm_apply_certified thm
+R9270:9305 Kernel.PrimeAxiom <> kernel_certified_implies_positive_mu thm
+R10872:10905 Kernel.AbstractNoFI <> certification_requires_positive_mu thm
+R11100:11126 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R11337:11362 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
+R11476:11488 Kernel.MuInitiality <> mu_initiality thm
+R11671:11695 Kernel.InsightTaxonomy <> no_free_certified_insight thm
+R12518:12533 Kernel.TuringCompletenessISA <> inc_via_vm_apply thm
+R12590:12612 Kernel.TuringCompletenessISA <> jzdec_zero_via_vm_apply thm
+R12672:12697 Kernel.TuringCompletenessISA <> jzdec_nonzero_via_vm_apply thm
+R14632:14651 Kernel.LandauerDerivation <> landauer_single_step thm
+R14726:14740 Kernel.PhysicsClosure <> Physics_Closure thm
+R14821:14865 Kernel.CHSH KernelCHSH local_strategy_chsh_between_neg2_2 thm
+R14947:14961 Kernel.BornRuleLinearity <> hardy_born_rule thm
+R14970:14991 Kernel.BornRuleLinearity <> hardy_born_rule_bridge thm
+R15069:15106 Kernel.QuantumPartitionPSD <> psplit_quantum_state_implies_tsirelson thm
+R15115:15170 Kernel.QuantumPartitionPSD <> psplit_quantum_implementation_implies_column_contractive thm
+R15248:15280 Kernel.ThermoEinsteinBridge <> clausius_load_bearing_einstein_4d thm
+R15289:15324 Kernel.ThermoEinsteinBridge <> thermodynamic_einstein_full_chain_4d thm
+R16584:16608 Kernel.OCamlExtractionBridge <> extraction_trust_boundary thm
+R16685:16707 Kernel.PythonBisimulation <> python_run_full_refines thm
+R16789:16814 Kernel.HardwareBisimulation <> hw_bisimulation_multi_step thm
+R16890:16918 Kernel.ThreeLayerIsomorphism <> full_state_trace_bisimulation thm
+R18142:18159 KamiHW.EmbedStep <> embed_step_compute thm
+R18235:18257 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R18313:18333 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+rec 20097:20109 <> ThieleGenesis
+proj 20159:20177 <> tg_single_principle
+proj 20320:20337 <> tg_mu_conservation
+proj 20490:20503 <> tg_prime_axiom
+proj 20749:20764 <> tg_universal_nfi
+proj 21031:21048 <> tg_physics_closure
+proj 21806:21818 <> tg_extraction
+proj 22087:22109 <> tg_hardware_commutation
+binder 20192:20196 <> instr:2
+R20233:20242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20226:20228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20205:20219 Kernel.VMStep VMStep is_cert_setterb def
+R20221:20225 Kernel.ThieleGenesis <> instr:2 var
+R20229:20232 Coq.Init.Datatypes <> true constr
+R20265:20268 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20243:20258 Kernel.VMStep VMStep instruction_cost def
+R20260:20264 Kernel.ThieleGenesis <> instr:2 var
+binder 20352:20352 <> s:4
+binder 20354:20358 <> instr:5
+R20393:20395 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20387:20391 Kernel.VMState <> vm_mu proj
+R20368:20375 Kernel.SimulationProof <> vm_apply def
+R20377:20377 Kernel.ThieleGenesis <> s:4 var
+R20379:20383 Kernel.ThieleGenesis <> instr:5 var
+R20405:20407 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20399:20403 Kernel.VMState <> vm_mu proj
+R20396:20396 Kernel.ThieleGenesis <> s:4 var
+R20408:20423 Kernel.VMStep VMStep instruction_cost def
+R20425:20429 Kernel.ThieleGenesis <> instr:5 var
+binder 20518:20521 <> fuel:7
+binder 20523:20529 <> program:8
+binder 20531:20532 <> s0:9
+R20566:20575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20558:20560 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20545:20556 Kernel.VMState <> vm_certified proj
+R20541:20542 Kernel.ThieleGenesis <> s0:9 var
+R20561:20565 Coq.Init.Datatypes <> false constr
+R20590:20599 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20586:20588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20580:20584 Kernel.VMState <> vm_mu proj
+R20576:20577 Kernel.ThieleGenesis <> s0:9 var
+R20646:20655 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20639:20641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20626:20637 Kernel.VMState <> vm_certified proj
+R20601:20606 Kernel.SimulationProof <> run_vm def
+R20608:20611 Kernel.ThieleGenesis <> fuel:7 var
+R20613:20619 Kernel.ThieleGenesis <> program:8 var
+R20621:20622 Kernel.ThieleGenesis <> s0:9 var
+R20642:20645 Coq.Init.Datatypes <> true constr
+R20657:20659 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20686:20690 Kernel.VMState <> vm_mu proj
+R20661:20666 Kernel.SimulationProof <> run_vm def
+R20668:20671 Kernel.ThieleGenesis <> fuel:7 var
+R20673:20679 Kernel.ThieleGenesis <> program:8 var
+R20681:20682 Kernel.ThieleGenesis <> s0:9 var
+R20785:20803 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 20780:20781 <> CS:11
+R20826:20829 Coq.Init.Datatypes <> list ind
+R20832:20839 Kernel.UniversalCertificationCost <> cs_instr proj
+R20841:20842 Kernel.ThieleGenesis <> CS:11 var
+binder 20818:20822 <> trace:12
+R20863:20870 Kernel.UniversalCertificationCost <> cs_state proj
+R20872:20873 Kernel.ThieleGenesis <> CS:11 var
+binder 20858:20859 <> s0:13
+R20904:20913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20896:20898 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20883:20889 Kernel.UniversalCertificationCost <> cs_cert proj
+R20891:20892 Kernel.ThieleGenesis <> CS:11 var
+R20894:20895 Kernel.ThieleGenesis <> s0:13 var
+R20899:20903 Coq.Init.Datatypes <> false constr
+R20952:20961 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20945:20947 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20914:20920 Kernel.UniversalCertificationCost <> cs_cert proj
+R20922:20923 Kernel.ThieleGenesis <> CS:11 var
+R20926:20931 Kernel.UniversalCertificationCost <> cs_run def
+R20933:20934 Kernel.ThieleGenesis <> CS:11 var
+R20936:20940 Kernel.ThieleGenesis <> trace:12 var
+R20942:20943 Kernel.ThieleGenesis <> s0:13 var
+R20948:20951 Coq.Init.Datatypes <> true constr
+R20984:20987 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20962:20974 Kernel.UniversalCertificationCost <> cs_total_cost def
+R20976:20977 Kernel.ThieleGenesis <> CS:11 var
+R20979:20983 Kernel.ThieleGenesis <> trace:12 var
+R21056:21056 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21341:21353 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 21064:21064 <> s:15
+binder 21066:21067 <> s':16
+binder 21069:21073 <> instr:17
+binder 21075:21077 <> mid:18
+R21118:21129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21088:21104 Kernel.VMState <> well_formed_graph def
+R21109:21116 Kernel.VMState <> vm_graph proj
+R21106:21106 Kernel.ThieleGenesis <> s:15 var
+R21159:21170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21133:21135 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21130:21132 Kernel.ThieleGenesis <> mid:18 var
+R21136:21145 Kernel.VMState <> pg_next_id proj
+R21150:21157 Kernel.VMState <> vm_graph proj
+R21147:21147 Kernel.ThieleGenesis <> s:15 var
+R21189:21200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21171:21177 Kernel.VMStep VMStep vm_step ind
+R21179:21179 Kernel.ThieleGenesis <> s:15 var
+R21181:21185 Kernel.ThieleGenesis <> instr:17 var
+R21187:21188 Kernel.ThieleGenesis <> s':16 var
+R21245:21256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21201:21202 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21203:21204 Coq.Lists.List <> In def
+R21211:21237 Kernel.KernelPhysics <> instr_targets def
+R21239:21243 Kernel.ThieleGenesis <> instr:17 var
+R21206:21208 Kernel.ThieleGenesis <> mid:18 var
+R21293:21303 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21257:21286 Kernel.KernelPhysics <> ObservableRegion def
+R21288:21288 Kernel.ThieleGenesis <> s:15 var
+R21290:21292 Kernel.ThieleGenesis <> mid:18 var
+R21304:21333 Kernel.KernelPhysics <> ObservableRegion def
+R21335:21336 Kernel.ThieleGenesis <> s':16 var
+R21338:21340 Kernel.ThieleGenesis <> mid:18 var
+R21354:21354 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21435:21448 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21753:21753 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 21362:21362 <> s:19
+binder 21364:21365 <> s':20
+binder 21367:21371 <> instr:21
+R21400:21411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21382:21388 Kernel.VMStep VMStep vm_step ind
+R21390:21390 Kernel.ThieleGenesis <> s:19 var
+R21392:21396 Kernel.ThieleGenesis <> instr:21 var
+R21398:21399 Kernel.ThieleGenesis <> s':20 var
+R21422:21425 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R21416:21420 Kernel.VMState <> vm_mu proj
+R21412:21413 Kernel.ThieleGenesis <> s':20 var
+R21429:21433 Kernel.VMState <> vm_mu proj
+R21426:21426 Kernel.ThieleGenesis <> s:19 var
+binder 21456:21456 <> s:22
+binder 21458:21462 <> trace:23
+binder 21464:21465 <> s':24
+binder 21467:21469 <> mid:25
+R21520:21531 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21480:21508 Kernel.SpacetimeEmergence <> exec_trace ind
+R21510:21510 Kernel.ThieleGenesis <> s:22 var
+R21512:21516 Kernel.ThieleGenesis <> trace:23 var
+R21518:21519 Kernel.ThieleGenesis <> s':24 var
+R21562:21573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21532:21548 Kernel.VMState <> well_formed_graph def
+R21553:21560 Kernel.VMState <> vm_graph proj
+R21550:21550 Kernel.ThieleGenesis <> s:22 var
+R21603:21614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21577:21579 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21574:21576 Kernel.ThieleGenesis <> mid:25 var
+R21580:21589 Kernel.VMState <> pg_next_id proj
+R21594:21601 Kernel.VMState <> vm_graph proj
+R21591:21591 Kernel.ThieleGenesis <> s:22 var
+R21657:21668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21615:21616 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21617:21618 Coq.Lists.List <> In def
+R21625:21649 Kernel.KernelPhysics <> causal_cone def
+R21651:21655 Kernel.ThieleGenesis <> trace:23 var
+R21620:21622 Kernel.ThieleGenesis <> mid:25 var
+R21705:21715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21669:21698 Kernel.KernelPhysics <> ObservableRegion def
+R21700:21700 Kernel.ThieleGenesis <> s:22 var
+R21702:21704 Kernel.ThieleGenesis <> mid:25 var
+R21716:21745 Kernel.KernelPhysics <> ObservableRegion def
+R21747:21748 Kernel.ThieleGenesis <> s':24 var
+R21750:21752 Kernel.ThieleGenesis <> mid:25 var
+R21826:21826 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21900:21908 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 21834:21834 <> s:27
+binder 21836:21836 <> i:28
+R21883:21885 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21877:21881 Kernel.OCamlExtractionBridge <> eo_mu proj
+R21847:21858 Kernel.OCamlExtractionBridge <> shadow_to_eo def
+R21861:21868 Kernel.SimulationProof <> vm_apply def
+R21870:21870 Kernel.ThieleGenesis <> s:27 var
+R21872:21872 Kernel.ThieleGenesis <> i:28 var
+R21886:21895 Kernel.VMStep VMStep apply_cost def
+R21897:21897 Kernel.ThieleGenesis <> s:27 var
+R21899:21899 Kernel.ThieleGenesis <> i:28 var
+R21909:21909 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21964:21973 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22021:22021 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 21917:21917 <> s:29
+binder 21919:21919 <> i:30
+R21938:21941 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21932:21936 Kernel.VMState <> vm_mu proj
+R21929:21929 Kernel.ThieleGenesis <> s:29 var
+R21958:21962 Kernel.VMState <> vm_mu proj
+R21943:21950 Kernel.SimulationProof <> vm_apply def
+R21952:21952 Kernel.ThieleGenesis <> s:29 var
+R21954:21954 Kernel.ThieleGenesis <> i:30 var
+binder 21981:21981 <> s:31
+binder 21983:21983 <> i:32
+R21993:21999 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22002:22003 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22000:22001 <> s':33
+R22016:22018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22004:22011 Kernel.SimulationProof <> vm_apply def
+R22013:22013 Kernel.ThieleGenesis <> s:31 var
+R22015:22015 Kernel.ThieleGenesis <> i:32 var
+R22019:22020 Kernel.ThieleGenesis <> s':33 var
+binder 22124:22125 <> ks:35
+binder 22127:22127 <> i:36
+R22153:22162 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22136:22150 KamiHW.EmbedStep <> SupportedOpcode def
+R22152:22152 Kernel.ThieleGenesis <> i:36 var
+R22265:22273 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22163:22195 KamiHW.FullAbstraction <> abs_full_snapshot def
+R22206:22246 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R22249:22257 KamiHW.Abstraction <> kami_step def
+R22259:22260 Kernel.ThieleGenesis <> ks:35 var
+R22262:22262 Kernel.ThieleGenesis <> i:36 var
+R22274:22281 Kernel.SimulationProof <> vm_apply def
+R22292:22324 KamiHW.FullAbstraction <> abs_full_snapshot def
+R22338:22378 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R22380:22381 Kernel.ThieleGenesis <> ks:35 var
+R22385:22385 Kernel.ThieleGenesis <> i:36 var
+def 22540:22553 <> thiele_genesis
+R22557:22569 Kernel.ThieleGenesis <> ThieleGenesis rec
+R22579:22597 Kernel.ThieleGenesis <> tg_single_principle proj
+R22579:22597 Kernel.ThieleGenesis <> tg_single_principle proj
+R22579:22597 Kernel.ThieleGenesis <> tg_single_principle proj
+R22629:22646 Kernel.ThieleGenesis <> tg_mu_conservation proj
+R22629:22646 Kernel.ThieleGenesis <> tg_mu_conservation proj
+R22670:22683 Kernel.ThieleGenesis <> tg_prime_axiom proj
+R22670:22683 Kernel.ThieleGenesis <> tg_prime_axiom proj
+R22736:22751 Kernel.ThieleGenesis <> tg_universal_nfi proj
+R22736:22751 Kernel.ThieleGenesis <> tg_universal_nfi proj
+R22793:22810 Kernel.ThieleGenesis <> tg_physics_closure proj
+R22793:22810 Kernel.ThieleGenesis <> tg_physics_closure proj
+R22838:22850 Kernel.ThieleGenesis <> tg_extraction proj
+R22838:22850 Kernel.ThieleGenesis <> tg_extraction proj
+R22893:22915 Kernel.ThieleGenesis <> tg_hardware_commutation proj
+R22893:22915 Kernel.ThieleGenesis <> tg_hardware_commutation proj
+R22605:22624 Kernel.VMStep VMStep cert_setter_cost_pos thm
+R22655:22665 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R22696:22731 Kernel.PrimeAxiom <> kernel_certified_implies_positive_mu thm
+R22762:22788 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R22819:22833 Kernel.PhysicsClosure <> Physics_Closure thm
+R22864:22888 Kernel.OCamlExtractionBridge <> extraction_trust_boundary thm
+R22920:22942 KamiHW.FullEmbedStep <> full_embed_step_compute thm

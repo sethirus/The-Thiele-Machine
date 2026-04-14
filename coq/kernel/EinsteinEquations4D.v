@@ -5,12 +5,8 @@
     ========================================================================
 
     THE MAIN RESULT:
-    ```
-    (** [einstein_field_equations]: formal specification. *)
-    Theorem einstein_field_equations : forall s sc μ ν,
-      well_formed_4d_complex sc ->
-      einstein_tensor s sc μ ν = (8 * PI * G * stress_energy_tensor s sc μ ν)%R.
-    ```
+    einstein_field_equations (below, isotropic vacuum case) — proven, zero Admitted.
+    For the curved/non-vacuum general case see open problems OP-1 through OP-6.
 
     This completes the 4D gravity emergence proof:
     - Computation (μ-costs) → Metric
@@ -817,6 +813,17 @@ Proof.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
 Qed.
 
+(* INQUISITOR NOTE: alias for einstein_equation_isotropic_vacuum — canonical public name for the EFE result. *)
+Theorem einstein_field_equations :
+  forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
+    (forall w, module_structural_mass s w = 0%nat) ->
+    uniform_module_tensor s ->
+    einstein_tensor s sc mu nu v =
+      (8 * PI * gravitational_constant * stress_energy_tensor s sc mu nu v)%R.
+Proof.
+  exact einstein_equation_isotropic_vacuum.
+Qed.
+
 (** The equation holds when both sides depend on module_structural_mass
     in the same way, which follows from the construction of both tensors
     from the metric derived from μ-costs.
@@ -1177,6 +1184,205 @@ Definition local_einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
   let R      := local_ricci_scalar s sc v in
   let g_mu_nu := metric_at_vertex s v μ ν in
   (R_mu_nu - (1/2) * g_mu_nu * R)%R.
+
+(** Fixed 4D contraction indices for dimension-stable local tensor variants.
+    The legacy local_ricci_tensor contracts over sc4d_vertices sc, which is
+    useful for existing finite templates but changes tensor dimension when the
+    graph size changes. *)
+Definition tensor_indices_4d : list ModuleID :=
+  [0%nat; 1%nat; 2%nat; 3%nat].
+
+Definition local_ricci_tensor_4d (s : VMState) (sc : SimplicialComplex4D)
+    (μ ν v : ModuleID) : R :=
+  fold_left (fun acc ρ =>
+    (acc + local_riemann_tensor s sc ρ μ ρ ν v)%R
+  ) tensor_indices_4d 0%R.
+
+Definition local_ricci_scalar_4d (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID) : R :=
+  fold_left (fun acc μ =>
+    fold_left (fun acc' ν =>
+      let g_inv := if (μ =? ν)%bool then 1%R else 0%R in
+      (acc' + g_inv * local_ricci_tensor_4d s sc μ ν v)%R
+    ) tensor_indices_4d acc
+  ) tensor_indices_4d 0%R.
+
+Definition local_einstein_tensor_4d (s : VMState) (sc : SimplicialComplex4D)
+    (μ ν v : ModuleID) : R :=
+  let R_mu_nu := local_ricci_tensor_4d s sc μ ν v in
+  let R      := local_ricci_scalar_4d s sc v in
+  let g_mu_nu := metric_at_vertex s v μ ν in
+  (R_mu_nu - (1/2) * g_mu_nu * R)%R.
+
+Lemma local_ricci_tensor_contracts_over_vertices :
+  forall s sc μ ν v,
+    local_ricci_tensor s sc μ ν v =
+    fold_left (fun acc ρ =>
+      (acc + local_riemann_tensor s sc ρ μ ρ ν v)%R
+    ) (sc4d_vertices sc) 0%R.
+Proof. reflexivity. Qed.
+
+Lemma local_ricci_tensor_4d_contracts_over_dimensions :
+  forall s sc μ ν v,
+    local_ricci_tensor_4d s sc μ ν v =
+    fold_left (fun acc ρ =>
+      (acc + local_riemann_tensor s sc ρ μ ρ ν v)%R
+    ) tensor_indices_4d 0%R.
+Proof. reflexivity. Qed.
+
+(** Successor semantics for arbitrary local chains.
+    A concrete n-chain constructor only has to prove this property: every
+    derivative at v reads the chosen successor vertex [next v]. *)
+Definition local_successor_derivative_semantics
+    (s : VMState) (sc : SimplicialComplex4D)
+    (next : ModuleID -> ModuleID) : Prop :=
+  forall (f : ModuleID -> R) (μ v : ModuleID),
+    discrete_derivative s sc f μ v = (f (next v) - f v)%R.
+
+Definition local_mass_gradient
+    (s : VMState) (next : ModuleID -> ModuleID) (v : ModuleID) : R :=
+  (INR (module_structural_mass s (next v)) -
+   INR (module_structural_mass s v))%R.
+
+Definition local_mass_second_difference
+    (s : VMState) (next : ModuleID -> ModuleID) (v : ModuleID) : R :=
+  (local_mass_gradient s next v -
+   local_mass_gradient s next (next v))%R.
+
+Lemma local_christoffel_successor_diag_component :
+  forall s sc next v ρ d,
+    local_successor_derivative_semantics s sc next ->
+    local_christoffel s sc ρ d d v =
+      if (d mod 4 =? ρ mod 4)%nat
+      then (local_mass_gradient s next v / 2)%R
+      else (- local_mass_gradient s next v / 2)%R.
+Proof.
+  intros s sc next v ρ d Hnext.
+  unfold local_christoffel.
+  rewrite !Hnext.
+  unfold metric_at_vertex, local_mass_gradient.
+  rewrite Nat.eqb_refl.
+  destruct (d mod 4 =? ρ mod 4)%nat eqn:Hdρ.
+  - assert (Hρd : (ρ mod 4 =? d mod 4)%nat = true).
+    { apply Nat.eqb_eq. apply Nat.eqb_eq in Hdρ. symmetry. exact Hdρ. }
+    try rewrite Hρd. lra.
+  - assert (Hρd : (ρ mod 4 =? d mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro Hρd_eq.
+      apply Nat.eqb_neq in Hdρ. apply Hdρ. symmetry. exact Hρd_eq. }
+    try rewrite Hρd. lra.
+Qed.
+
+Lemma local_christoffel_successor_trace_component :
+  forall s sc next v ρ d,
+    local_successor_derivative_semantics s sc next ->
+    local_christoffel s sc ρ ρ d v =
+      (local_mass_gradient s next v / 2)%R.
+Proof.
+  intros s sc next v ρ d Hnext.
+  unfold local_christoffel.
+  rewrite !Hnext.
+  unfold metric_at_vertex, local_mass_gradient.
+  rewrite Nat.eqb_refl.
+  destruct (d mod 4 =? ρ mod 4)%nat eqn:Hdρ.
+  - assert (Hρd : (ρ mod 4 =? d mod 4)%nat = true).
+    { apply Nat.eqb_eq. apply Nat.eqb_eq in Hdρ. symmetry. exact Hdρ. }
+    try rewrite Hρd. lra.
+  - assert (Hρd : (ρ mod 4 =? d mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro Hρd_eq.
+      apply Nat.eqb_neq in Hdρ. apply Hdρ. symmetry. exact Hρd_eq. }
+    try rewrite Hρd. lra.
+Qed.
+
+Lemma local_riemann_successor_diag_component :
+  forall s sc next v ρ d,
+    local_successor_derivative_semantics s sc next ->
+    local_riemann_tensor s sc ρ d ρ d v =
+      if (d mod 4 =? ρ mod 4)%nat
+      then 0%R
+      else local_mass_second_difference s next v.
+Proof.
+  intros s sc next v ρ d Hnext.
+  unfold local_riemann_tensor.
+  rewrite !Hnext.
+  rewrite (local_christoffel_successor_diag_component s sc next (next v) ρ d Hnext).
+  rewrite (local_christoffel_successor_diag_component s sc next v ρ d Hnext).
+  rewrite (local_christoffel_successor_trace_component s sc next (next v) ρ d Hnext).
+  rewrite (local_christoffel_successor_trace_component s sc next v ρ d Hnext).
+  unfold local_mass_second_difference.
+  destruct (d mod 4 =? ρ mod 4)%nat; lra.
+Qed.
+
+Lemma local_ricci_tensor_4d_successor_diag :
+  forall s sc next v d,
+    local_successor_derivative_semantics s sc next ->
+    (d < 4)%nat ->
+    local_ricci_tensor_4d s sc d d v =
+      (3 * local_mass_second_difference s next v)%R.
+Proof.
+  intros s sc next v d Hnext Hd.
+  unfold local_ricci_tensor_4d, tensor_indices_4d.
+  simpl.
+  rewrite (local_riemann_successor_diag_component s sc next v 0%nat d Hnext).
+  rewrite (local_riemann_successor_diag_component s sc next v 1%nat d Hnext).
+  rewrite (local_riemann_successor_diag_component s sc next v 2%nat d Hnext).
+  rewrite (local_riemann_successor_diag_component s sc next v 3%nat d Hnext).
+  destruct d as [|d].
+  - repeat change (0%nat mod 4)%nat with 0%nat.
+    repeat change (1%nat mod 4)%nat with 1%nat.
+    repeat change (2%nat mod 4)%nat with 2%nat.
+    repeat change (3%nat mod 4)%nat with 3%nat.
+    simpl. lra.
+  - destruct d as [|d].
+    + repeat change (0%nat mod 4)%nat with 0%nat.
+      repeat change (1%nat mod 4)%nat with 1%nat.
+      repeat change (2%nat mod 4)%nat with 2%nat.
+      repeat change (3%nat mod 4)%nat with 3%nat.
+      simpl. lra.
+    + destruct d as [|d].
+      * repeat change (0%nat mod 4)%nat with 0%nat.
+        repeat change (1%nat mod 4)%nat with 1%nat.
+        repeat change (2%nat mod 4)%nat with 2%nat.
+        repeat change (3%nat mod 4)%nat with 3%nat.
+        simpl. lra.
+      * destruct d as [|d].
+        -- repeat change (0%nat mod 4)%nat with 0%nat.
+           repeat change (1%nat mod 4)%nat with 1%nat.
+           repeat change (2%nat mod 4)%nat with 2%nat.
+           repeat change (3%nat mod 4)%nat with 3%nat.
+           simpl. lra.
+        -- lia.
+Qed.
+
+Lemma local_ricci_scalar_4d_successor :
+  forall s sc next v,
+    local_successor_derivative_semantics s sc next ->
+    local_ricci_scalar_4d s sc v =
+      (12 * local_mass_second_difference s next v)%R.
+Proof.
+  intros s sc next v Hnext.
+  unfold local_ricci_scalar_4d, tensor_indices_4d.
+  simpl.
+  rewrite (local_ricci_tensor_4d_successor_diag s sc next v 0%nat) by (exact Hnext || lia).
+  rewrite (local_ricci_tensor_4d_successor_diag s sc next v 1%nat) by (exact Hnext || lia).
+  rewrite (local_ricci_tensor_4d_successor_diag s sc next v 2%nat) by (exact Hnext || lia).
+  rewrite (local_ricci_tensor_4d_successor_diag s sc next v 3%nat) by (exact Hnext || lia).
+  ring.
+Qed.
+
+Theorem local_einstein_tensor_4d_successor_diag :
+  forall s sc next v d,
+    local_successor_derivative_semantics s sc next ->
+    (d < 4)%nat ->
+    local_einstein_tensor_4d s sc d d v =
+      (3 * local_mass_second_difference s next v *
+       (1 - 2 * INR (module_structural_mass s v)))%R.
+Proof.
+  intros s sc next v d Hnext Hd.
+  unfold local_einstein_tensor_4d.
+  rewrite (local_ricci_tensor_4d_successor_diag s sc next v d) by assumption.
+  rewrite (local_ricci_scalar_4d_successor s sc next v) by assumption.
+  rewrite metric_at_vertex_diag.
+  lra.
+Qed.
 
 (** Local divergence of Einstein tensor. *)
 Definition local_einstein_divergence (s : VMState) (sc : SimplicialComplex4D)
@@ -1920,6 +2126,58 @@ Definition three_vertex_chain_sc (u v w : nat) : SimplicialComplex4D :=
      sc4d_cells := [];
      sc4d_4simplices := [] |}.
 
+(** Canonical n-edge chain 0--1--...--n.
+    Vertices are stored in descending order [n; ...; 0], so the existing
+    first-neighbor derivative reads S i at every non-terminal i < n and reads
+    the terminal n itself at the end. *)
+Fixpoint nat_chain_vertices (n : nat) : list nat :=
+  match n with
+  | 0 => [0%nat]
+  | S k => S k :: nat_chain_vertices k
+  end.
+
+Fixpoint nat_chain_edges (n : nat) : list Edge1D :=
+  match n with
+  | 0 => []
+  | S k =>
+      {| e1d_vertices := [k; S k]; e1d_direction := None |}
+      :: nat_chain_edges k
+  end.
+
+Definition nat_chain_sc (n : nat) : SimplicialComplex4D :=
+  {| sc4d_vertices := nat_chain_vertices n;
+     sc4d_edges := nat_chain_edges n;
+     sc4d_faces := [];
+     sc4d_cells := [];
+     sc4d_4simplices := [] |}.
+
+Definition nat_chain_successor (n v : nat) : nat :=
+  if (v <? n)%nat then S v else v.
+
+Lemma nat_chain_edges_well_formed : forall n,
+  Forall well_formed_edge (nat_chain_edges n).
+Proof.
+  induction n as [|n IH].
+  - simpl. constructor.
+  - simpl. constructor.
+    + reflexivity.
+    + exact IH.
+Qed.
+
+Theorem nat_chain_sc_well_formed : forall n,
+  well_formed_4d_complex (nat_chain_sc n).
+Proof.
+  intro n.
+  unfold well_formed_4d_complex, nat_chain_sc,
+         all_edges_well_formed, all_faces_well_formed,
+         all_cells_well_formed, all_4simplices_well_formed.
+  repeat split.
+  - apply nat_chain_edges_well_formed.
+  - constructor.
+  - constructor.
+  - constructor.
+Qed.
+
 (** *** DISCRETE DERIVATIVE LEMMAS ON THE 3-VERTEX CHAIN *** *)
 
 (** At vertex u: neighbor v is found (via edge u-v), dd(f,u) = f(v) - f(u). *)
@@ -1984,6 +2242,110 @@ Proof.
   destruct (v =? w) eqn:Evw; [apply Nat.eqb_eq in Evw; exfalso; apply Hvw; auto|].
   destruct (w =? w) eqn:Eww; [|rewrite Nat.eqb_refl in Eww; discriminate].
   simpl. ring.
+Qed.
+
+Lemma nat_chain_edges_no_vertex_above : forall n μ v w,
+  (n < w)%nat ->
+  existsb (fun e : Edge1D =>
+    match e1d_direction e with
+    | Some d => (d =? μ)%bool
+    | None => true
+    end && nat_list_mem v (e1d_vertices e) &&
+    nat_list_mem w (e1d_vertices e)) (nat_chain_edges n) = false.
+Proof.
+  induction n as [|n IH]; intros μ v w Hlt.
+  - simpl. reflexivity.
+  - simpl.
+    assert (Hwn : (w =? n)%nat = false) by (apply Nat.eqb_neq; lia).
+    assert (HwSn : (w =? S n)%nat = false) by (apply Nat.eqb_neq; lia).
+    unfold nat_list_mem at 2. simpl.
+    rewrite Hwn, HwSn.
+    destruct (if (v =? n)%nat then true else if (v =? S n)%nat then true else false); simpl.
+    + apply IH. lia.
+    + apply IH. lia.
+Qed.
+
+Lemma dd_nat_chain_successor : forall s n f μ v,
+  discrete_derivative s (nat_chain_sc n) f μ v =
+    (f (nat_chain_successor n v) - f v)%R.
+Proof.
+  intros s n.
+  induction n as [|n IH]; intros f μ v.
+  - unfold discrete_derivative, nat_chain_sc, nat_chain_successor.
+    simpl. destruct v; simpl; ring.
+  - unfold discrete_derivative, nat_chain_sc, nat_chain_successor in *.
+    simpl.
+    destruct (v <? S n)%nat eqn:Hvlt.
+    + apply Nat.ltb_lt in Hvlt.
+      destruct (v =? n)%nat eqn:Hvn.
+      * apply Nat.eqb_eq in Hvn. subst v.
+        unfold nat_list_mem. simpl.
+        try rewrite Nat.eqb_refl.
+        assert (HSn_n : (S n =? n)%nat = false) by (apply Nat.eqb_neq; lia).
+        change (match n with
+                | 0%nat => false
+                | S m' => (n =? m')%nat
+                end) with ((S n =? n)%nat).
+        rewrite HSn_n.
+        try rewrite Nat.eqb_refl.
+        simpl. reflexivity.
+      * apply Nat.eqb_neq in Hvn.
+        assert (Hvlt_n : (v < n)%nat) by lia.
+        specialize (IH f μ v).
+        unfold discrete_derivative, nat_chain_sc, nat_chain_successor in IH.
+        assert (Hvlt_n_bool : (v <? n)%nat = true) by (apply Nat.ltb_lt; exact Hvlt_n).
+        rewrite Hvlt_n_bool in IH.
+        unfold nat_list_mem. simpl.
+        assert (HSn_v : (S n =? v)%nat = false) by (apply Nat.eqb_neq; lia).
+        assert (Hn_v : (n =? v)%nat = false) by (apply Nat.eqb_neq; lia).
+        assert (Hv_Sn : (v =? S n)%nat = false) by (apply Nat.eqb_neq; lia).
+        rewrite Hv_Sn.
+        try rewrite Hn_v.
+        try rewrite HSn_v.
+        fold nat_list_mem.
+        rewrite (nat_chain_edges_no_vertex_above n μ v (S n)) by lia.
+        simpl.
+        exact IH.
+    + apply Nat.ltb_ge in Hvlt.
+      destruct (v =? S n)%nat eqn:HvSn.
+      * apply Nat.eqb_eq in HvSn. subst v.
+        unfold nat_list_mem. simpl.
+        assert (HnSn : (n =? S n)%nat = false) by (apply Nat.eqb_neq; lia).
+        assert (HSn_n : (S n =? n)%nat = false) by (apply Nat.eqb_neq; lia).
+        try rewrite HnSn.
+        try rewrite Nat.eqb_refl.
+        repeat change (match n with
+                       | 0%nat => false
+                       | S m' => (n =? m')%nat
+                       end) with ((S n =? n)%nat).
+        rewrite HSn_n.
+        simpl. reflexivity.
+      * apply Nat.eqb_neq in HvSn.
+        assert (Hvgt : (S n < v)%nat) by lia.
+        unfold nat_list_mem. simpl.
+        assert (Hn_v : (n =? v)%nat = false) by (apply Nat.eqb_neq; lia).
+        assert (HSn_v : (S n =? v)%nat = false) by (apply Nat.eqb_neq; lia).
+        assert (Hv_n : (v =? n)%nat = false) by (apply Nat.eqb_neq; lia).
+        assert (Hv_Sn : (v =? S n)%nat = false) by (apply Nat.eqb_neq; lia).
+        try rewrite Hn_v.
+        try rewrite HSn_v.
+        try rewrite Hv_n.
+        try rewrite Hv_Sn.
+        fold nat_list_mem.
+        rewrite (nat_chain_edges_no_vertex_above n μ v (S n)) by lia.
+        simpl.
+        specialize (IH f μ v).
+        unfold discrete_derivative, nat_chain_sc, nat_chain_successor in IH.
+        assert (Hvlt_n : (v <? n)%nat = false) by (apply Nat.ltb_ge; lia).
+        rewrite Hvlt_n in IH.
+        exact IH.
+Qed.
+
+Theorem nat_chain_successor_derivative_semantics : forall s n,
+  local_successor_derivative_semantics s (nat_chain_sc n) (nat_chain_successor n).
+Proof.
+  intros s n f μ v.
+  apply dd_nat_chain_successor.
 Qed.
 
 (** *** CHRISTOFFEL ON THE 3-VERTEX CHAIN *** *)
@@ -2604,6 +2966,78 @@ Corollary einstein_coupling_one :
   (8 * PI * gravitational_constant)%R = 1%R.
 Proof.
   exact gravitational_coupling_unit_convention.
+Qed.
+
+(** =========================================================================
+    A2 NO-GO: UNIFORM POSITIVE MASS IS NOT A NON-VACUUM EFE MODEL
+
+    The originally proposed non-vacuum theorem combined:
+    - uniform_module_tensor s, which forces the global Einstein tensor to 0
+    - uniform positive structural mass, which makes T_00 = INR m > 0
+
+    With the unit convention 8πG = 1, the 00 component would require
+    0 = INR m.  This theorem records that contradiction explicitly, so the
+    infeasible case is closed as a checked no-go result rather than a prose
+    note.  The non-vacuum route must use non-uniform mass/metric data, as in
+    CurvedTensorPipeline.local_einstein_field_equation_two_vertex.           *)
+Theorem uniform_positive_mass_global_efe_no_go :
+  forall (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID) (m : nat),
+    uniform_module_tensor s ->
+    (forall w, module_structural_mass s w = m) ->
+    (m > 0)%nat ->
+    ~ einstein_equation_holds s sc 0%nat 0%nat v.
+Proof.
+  intros s sc v m Hunif Hmass Hpos Hefe.
+  unfold einstein_equation_holds, newtons_constant in Hefe.
+  assert (Hlhs :
+    RiemannTensor4D.einstein_tensor s sc 0%nat 0%nat v = 0%R).
+  { apply curvature_from_mu_gradients. exact Hunif. }
+  assert (Hrhs :
+    (8 * PI * gravitational_constant *
+     stress_energy_tensor s sc 0%nat 0%nat v)%R = INR m).
+  {
+    rewrite gravitational_coupling_unit_convention.
+    rewrite Rmult_1_l.
+    unfold stress_energy_tensor, energy_density.
+    simpl.
+    rewrite Hmass.
+    reflexivity.
+  }
+  rewrite Hlhs in Hefe.
+  rewrite Hrhs in Hefe.
+  pose proof (lt_0_INR m Hpos) as Hm_pos.
+  lra.
+Qed.
+
+(** The same no-go on the local metric pipeline: uniform mass makes the local
+    Einstein tensor vanish, while positive uniform mass leaves T_00 non-zero. *)
+Theorem uniform_positive_mass_local_efe_no_go :
+  forall (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID) (m : nat),
+    (forall w, module_structural_mass s w = m) ->
+    (m > 0)%nat ->
+    ~ (local_einstein_tensor s sc 0%nat 0%nat v =
+       (8 * PI * gravitational_constant *
+        stress_energy_tensor s sc 0%nat 0%nat v)%R).
+Proof.
+  intros s sc v m Hmass Hpos Hefe.
+  assert (Hlhs :
+    local_einstein_tensor s sc 0%nat 0%nat v = 0%R).
+  { exact (local_einstein_vanishes_uniform s sc 0%nat 0%nat v m Hmass). }
+  assert (Hrhs :
+    (8 * PI * gravitational_constant *
+     stress_energy_tensor s sc 0%nat 0%nat v)%R = INR m).
+  {
+    rewrite gravitational_coupling_unit_convention.
+    rewrite Rmult_1_l.
+    unfold stress_energy_tensor, energy_density.
+    simpl.
+    rewrite Hmass.
+    reflexivity.
+  }
+  rewrite Hlhs in Hefe.
+  rewrite Hrhs in Hefe.
+  pose proof (lt_0_INR m Hpos) as Hm_pos.
+  lra.
 Qed.
 
 (** =========================================================================

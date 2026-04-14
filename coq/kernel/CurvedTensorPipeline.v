@@ -173,6 +173,49 @@ Proof.
   destruct (i =? j)%nat; reflexivity.
 Qed.
 
+(** Metric invertibility boundary for the curved route.
+
+    The simplicial complex argument is retained because future general chain
+    theorems will state invertibility at a vertex of a particular complex; the
+    current predicate is local to the vertex and requires positive diagonal
+    entries in the module tensor. *)
+Definition metric_invertible
+  (s : VMState) (_sc : SimplicialComplex4D) (v : ModuleID) : Prop :=
+  forall i, (i < 4)%nat -> (0 < module_tensor_entry s v i i)%nat.
+
+(** Invertibility gives the non-zero diagonal hypothesis needed by
+    [diagonal_inverse_metric_correct]. *)
+Lemma metric_invertible_diagonal_inverse_correct :
+  forall s sc v i,
+    (i < 4)%nat ->
+    metric_invertible s sc v ->
+    (full_metric_at_vertex s v i i *
+     diagonal_inverse_metric s v i i = 1)%R.
+Proof.
+  intros s sc v i Hi Hinv.
+  change (RiemannTensor4D.metric_component s i i v *
+          diagonal_inverse_metric s v i i = 1)%R.
+  apply RiemannTensor4D.diagonal_inverse_metric_correct.
+  rewrite Nat.mod_small by lia.
+  specialize (Hinv i Hi).
+  lia.
+Qed.
+
+(** The existing physical metric constraint with positive structural mass is
+    enough to make the local metric invertible on the diagonal. *)
+Lemma isotropic_mass_metric_invertible :
+  forall s sc v,
+    isotropic_mass_metric s v ->
+    (module_structural_mass s v > 0)%nat ->
+    metric_invertible s sc v.
+Proof.
+  intros s sc v Hphys Hmass i Hi.
+  unfold metric_invertible, isotropic_mass_metric in *.
+  rewrite (Hphys i i Hi Hi).
+  rewrite Nat.eqb_refl.
+  exact Hmass.
+Qed.
+
 (** ** Phase 1D Proofs: Christoffel *)
 
 (** Christoffel symbols at v vanish for uniform metric on 2-vertex complex *)
@@ -1257,4 +1300,278 @@ Proof.
   rewrite EinsteinEquations4D.gravitational_coupling_unit_convention.
   rewrite Rmult_1_l.
   exact (local_einstein_explicit_coupling_two_vertex s v w d Hvw Hmod Hmatch Hmass).
+Qed.
+
+(** =========================================================================
+    THREE-VERTEX FIELD EQUATION CLOSURE
+
+    EinsteinEquations4D.v contains the local three-vertex chain computation at
+    u and w.  The middle vertex v is completed here, then all three vertices are
+    wrapped as explicit field equations against non-circular
+    [mass_stress_energy].
+    =========================================================================*)
+
+(** Ricci diagonal at the middle vertex v of the chain u--v--w. *)
+Lemma local_ricci_tensor_three_vertex_at_v :
+  forall s u v w d,
+    u <> v -> u <> w -> v <> w ->
+    (u mod 4 <> v mod 4)%nat ->
+    (u mod 4 <> w mod 4)%nat ->
+    (v mod 4 <> w mod 4)%nat ->
+    (d mod 4 = u mod 4 \/ d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+    local_ricci_tensor s (three_vertex_chain_sc u v w) d d v =
+      (2 * (INR (module_structural_mass s w) -
+            INR (module_structural_mass s v)))%R.
+Proof.
+  intros s u v w d Huv Huw Hvw Hmod_uv Hmod_uw Hmod_vw Hmatch.
+  unfold local_ricci_tensor.
+  change (fold_left
+    (fun acc ρ =>
+       (acc + local_riemann_tensor s (three_vertex_chain_sc u v w) ρ d ρ d v)%R)
+    [w; v; u] 0%R =
+    (2 * (INR (module_structural_mass s w) -
+          INR (module_structural_mass s v)))%R).
+  simpl.
+  rewrite local_riemann_three_vertex_at_v with (ρ := w) by assumption.
+  rewrite local_riemann_three_vertex_at_v with (ρ := v) by assumption.
+  rewrite local_riemann_three_vertex_at_v with (ρ := u) by assumption.
+  destruct Hmatch as [Hd | [Hd | Hd]].
+  - (* d mod 4 = u mod 4 *)
+    assert (Hdu : (d mod 4 =? u mod 4)%nat = true) by (apply Nat.eqb_eq; exact Hd).
+    assert (Hdv : (d mod 4 =? v mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro H. apply Hmod_uv. rewrite <- Hd. exact H. }
+    assert (Hdw : (d mod 4 =? w mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro H. apply Hmod_uw. rewrite <- Hd. exact H. }
+    rewrite Hdw, Hdv, Hdu. ring.
+  - (* d mod 4 = v mod 4 *)
+    assert (Hdv : (d mod 4 =? v mod 4)%nat = true) by (apply Nat.eqb_eq; exact Hd).
+    assert (Hdu : (d mod 4 =? u mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro H. apply Hmod_uv. rewrite <- H. exact Hd. }
+    assert (Hdw : (d mod 4 =? w mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro H. apply Hmod_vw. rewrite <- Hd. exact H. }
+    rewrite Hdw, Hdv, Hdu. ring.
+  - (* d mod 4 = w mod 4 *)
+    assert (Hdw : (d mod 4 =? w mod 4)%nat = true) by (apply Nat.eqb_eq; exact Hd).
+    assert (Hdu : (d mod 4 =? u mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro H. apply Hmod_uw. rewrite <- H. exact Hd. }
+    assert (Hdv : (d mod 4 =? v mod 4)%nat = false).
+    { apply Nat.eqb_neq. intro H. apply Hmod_vw. rewrite <- H. exact Hd. }
+    rewrite Hdw, Hdv, Hdu. ring.
+Qed.
+
+(** Ricci scalar at the middle vertex v. *)
+Lemma local_ricci_scalar_three_vertex_at_v :
+  forall s u v w,
+    u <> v -> u <> w -> v <> w ->
+    (u mod 4 <> v mod 4)%nat ->
+    (u mod 4 <> w mod 4)%nat ->
+    (v mod 4 <> w mod 4)%nat ->
+    local_ricci_scalar s (three_vertex_chain_sc u v w) v =
+      (6 * (INR (module_structural_mass s w) -
+            INR (module_structural_mass s v)))%R.
+Proof.
+  intros s u v w Huv Huw Hvw Hmod_uv Hmod_uw Hmod_vw.
+  unfold local_ricci_scalar.
+  change (fold_left
+    (fun acc μ =>
+       fold_left
+         (fun acc' ν =>
+            let g_inv := if (μ =? ν)%bool then 1%R else 0%R in
+            (acc' + g_inv * local_ricci_tensor s (three_vertex_chain_sc u v w) μ ν v)%R)
+         [w; v; u] acc)
+    [w; v; u] 0%R =
+    (6 * (INR (module_structural_mass s w) -
+          INR (module_structural_mass s v)))%R).
+  simpl.
+  rewrite local_ricci_tensor_three_vertex_at_v with (d := w) by (assumption || (right; right; reflexivity)).
+  rewrite local_ricci_tensor_three_vertex_at_v with (d := v) by (assumption || (right; left; reflexivity)).
+  rewrite local_ricci_tensor_three_vertex_at_v with (d := u) by (assumption || (left; reflexivity)).
+  assert (Hwv_false : (w =? v)%nat = false) by (apply Nat.eqb_neq; intro; apply Hvw; auto).
+  assert (Hwu_false : (w =? u)%nat = false) by (apply Nat.eqb_neq; intro; apply Huw; auto).
+  assert (Hvw_false : (v =? w)%nat = false) by (apply Nat.eqb_neq; exact Hvw).
+  assert (Hvu_false : (v =? u)%nat = false) by (apply Nat.eqb_neq; intro; apply Huv; auto).
+  assert (Huw_false : (u =? w)%nat = false) by (apply Nat.eqb_neq; exact Huw).
+  assert (Huv_false : (u =? v)%nat = false) by (apply Nat.eqb_neq; exact Huv).
+  rewrite Hwv_false, Hwu_false, Hvw_false, Hvu_false, Huw_false, Huv_false.
+  repeat rewrite Nat.eqb_refl. ring.
+Qed.
+
+(** Einstein tensor at the middle vertex v of the three-vertex chain. *)
+Theorem local_einstein_three_vertex_at_v :
+  forall s u v w d,
+    u <> v -> u <> w -> v <> w ->
+    (u mod 4 <> v mod 4)%nat ->
+    (u mod 4 <> w mod 4)%nat ->
+    (v mod 4 <> w mod 4)%nat ->
+    (d mod 4 = u mod 4 \/ d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+    local_einstein_tensor s (three_vertex_chain_sc u v w) d d v =
+      ((INR (module_structural_mass s w) -
+        INR (module_structural_mass s v)) *
+       (2 - 3 * INR (module_structural_mass s v)))%R.
+Proof.
+  intros s u v w d Huv Huw Hvw Hmod_uv Hmod_uw Hmod_vw Hmatch.
+  unfold local_einstein_tensor.
+  rewrite local_ricci_tensor_three_vertex_at_v by assumption.
+  rewrite local_ricci_scalar_three_vertex_at_v by assumption.
+  rewrite metric_at_vertex_diag.
+  lra.
+Qed.
+
+(** Explicit field equation at the u endpoint of the three-vertex chain. *)
+Theorem local_einstein_field_equation_three_vertex_at_u :
+  forall s u v w d,
+    u <> v -> u <> w -> v <> w ->
+    (u mod 4 <> v mod 4)%nat ->
+    (u mod 4 <> w mod 4)%nat ->
+    (v mod 4 <> w mod 4)%nat ->
+    (d mod 4 = u mod 4 \/ d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+    (module_structural_mass s u > 0)%nat ->
+    local_einstein_tensor s (three_vertex_chain_sc u v w) d d u =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      (((2 * INR (module_structural_mass s v) -
+         INR (module_structural_mass s w) -
+         INR (module_structural_mass s u)) *
+        (2 - 3 * INR (module_structural_mass s u))) /
+       INR (module_structural_mass s u)) *
+      mass_stress_energy s d d u.
+Proof.
+  intros s u v w d Huv Huw Hvw Hmod_uv Hmod_uw Hmod_vw Hmatch Hmass_u.
+  rewrite EinsteinEquations4D.gravitational_coupling_unit_convention.
+  rewrite Rmult_1_l.
+  rewrite local_einstein_three_vertex_at_u by assumption.
+  unfold mass_stress_energy.
+  rewrite Nat.eqb_refl.
+  field.
+  apply not_0_INR. lia.
+Qed.
+
+(** Explicit field equation at the middle vertex v of the three-vertex chain. *)
+Theorem local_einstein_field_equation_three_vertex_at_v :
+  forall s u v w d,
+    u <> v -> u <> w -> v <> w ->
+    (u mod 4 <> v mod 4)%nat ->
+    (u mod 4 <> w mod 4)%nat ->
+    (v mod 4 <> w mod 4)%nat ->
+    (d mod 4 = u mod 4 \/ d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    local_einstein_tensor s (three_vertex_chain_sc u v w) d d v =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      (((INR (module_structural_mass s w) -
+         INR (module_structural_mass s v)) *
+        (2 - 3 * INR (module_structural_mass s v))) /
+       INR (module_structural_mass s v)) *
+      mass_stress_energy s d d v.
+Proof.
+  intros s u v w d Huv Huw Hvw Hmod_uv Hmod_uw Hmod_vw Hmatch Hmass_v.
+  rewrite EinsteinEquations4D.gravitational_coupling_unit_convention.
+  rewrite Rmult_1_l.
+  rewrite local_einstein_three_vertex_at_v by assumption.
+  unfold mass_stress_energy.
+  rewrite Nat.eqb_refl.
+  field.
+  apply not_0_INR. lia.
+Qed.
+
+(** Explicit field equation at the w endpoint of the three-vertex chain. *)
+Theorem local_einstein_field_equation_three_vertex_at_w :
+  forall s u v w d,
+    u <> v -> u <> w -> v <> w ->
+    local_einstein_tensor s (three_vertex_chain_sc u v w) d d w =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      0 * mass_stress_energy s d d w.
+Proof.
+  intros s u v w d Huv Huw Hvw.
+  rewrite EinsteinEquations4D.gravitational_coupling_unit_convention.
+  rewrite Rmult_1_l.
+  rewrite local_einstein_three_vertex_at_w_zero by assumption.
+  ring.
+Qed.
+
+(** Packaged three-vertex closure: the non-vacuum local field equation is
+    explicit at u and v, and the terminal endpoint w is locally flat. *)
+Theorem local_einstein_field_equation_three_vertex :
+  forall s u v w d,
+    u <> v -> u <> w -> v <> w ->
+    (u mod 4 <> v mod 4)%nat ->
+    (u mod 4 <> w mod 4)%nat ->
+    (v mod 4 <> w mod 4)%nat ->
+    (d mod 4 = u mod 4 \/ d mod 4 = v mod 4 \/ d mod 4 = w mod 4)%nat ->
+    (module_structural_mass s u > 0)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    (local_einstein_tensor s (three_vertex_chain_sc u v w) d d u =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      (((2 * INR (module_structural_mass s v) -
+         INR (module_structural_mass s w) -
+         INR (module_structural_mass s u)) *
+        (2 - 3 * INR (module_structural_mass s u))) /
+       INR (module_structural_mass s u)) *
+      mass_stress_energy s d d u) /\
+    (local_einstein_tensor s (three_vertex_chain_sc u v w) d d v =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      (((INR (module_structural_mass s w) -
+         INR (module_structural_mass s v)) *
+        (2 - 3 * INR (module_structural_mass s v))) /
+       INR (module_structural_mass s v)) *
+      mass_stress_energy s d d v) /\
+    (local_einstein_tensor s (three_vertex_chain_sc u v w) d d w =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      0 * mass_stress_energy s d d w).
+Proof.
+  intros s u v w d Huv Huw Hvw Hmod_uv Hmod_uw Hmod_vw Hmatch Hmass_u Hmass_v.
+  repeat split.
+  - apply local_einstein_field_equation_three_vertex_at_u; assumption.
+  - apply local_einstein_field_equation_three_vertex_at_v; assumption.
+  - apply local_einstein_field_equation_three_vertex_at_w; assumption.
+Qed.
+
+(** Arbitrary successor-chain field equation on the dimension-fixed local tensor.
+
+    This is the n-chain target in its honest form: the complex may have any
+    number of vertices, but it must expose a successor function that the
+    derivative actually follows.  The curvature source is the local second mass
+    difference grad(v) - grad(next v). *)
+Theorem local_einstein_field_equation_successor_chain_4d :
+  forall s sc next v d,
+    local_successor_derivative_semantics s sc next ->
+    (d < 4)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    local_einstein_tensor_4d s sc d d v =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      ((3 * local_mass_second_difference s next v *
+        (1 - 2 * INR (module_structural_mass s v))) /
+       INR (module_structural_mass s v)) *
+      mass_stress_energy s d d v.
+Proof.
+  intros s sc next v d Hnext Hd Hmass.
+  rewrite EinsteinEquations4D.gravitational_coupling_unit_convention.
+  rewrite Rmult_1_l.
+  rewrite (local_einstein_tensor_4d_successor_diag s sc next v d) by assumption.
+  unfold mass_stress_energy.
+  rewrite Nat.eqb_refl.
+  field.
+  apply not_0_INR. lia.
+Qed.
+
+(** Concrete arbitrary n-edge chain closure.
+
+    [nat_chain_sc n] is the well-formed chain 0--1--...--n with vertex order
+    [n; ...; 0].  The derivative semantics theorem in EinsteinEquations4D.v
+    proves that this concrete constructor satisfies the successor contract, so
+    A3 no longer rests on a schematic chain hypothesis. *)
+Theorem local_einstein_field_equation_nat_chain_4d :
+  forall s n v d,
+    (d < 4)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    local_einstein_tensor_4d s (nat_chain_sc n) d d v =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      ((3 * local_mass_second_difference s (nat_chain_successor n) v *
+        (1 - 2 * INR (module_structural_mass s v))) /
+       INR (module_structural_mass s v)) *
+      mass_stress_energy s d d v.
+Proof.
+  intros s n v d Hd Hmass.
+  apply local_einstein_field_equation_successor_chain_4d.
+  - apply nat_chain_successor_derivative_semantics.
+  - exact Hd.
+  - exact Hmass.
 Qed.

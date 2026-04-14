@@ -10,6 +10,8 @@ from __future__ import annotations
 
 import pytest
 
+pytestmark = pytest.mark.strict_rtl
+
 from thielecpu.hardware.cosim import run_verilog
 
 

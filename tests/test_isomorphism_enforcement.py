@@ -23,6 +23,8 @@ from pathlib import Path
 
 import pytest
 
+pytestmark = pytest.mark.strict_rtl
+
 REPO = Path(__file__).resolve().parent.parent
 COQ = REPO / "coq"
 BUILD = REPO / "build"

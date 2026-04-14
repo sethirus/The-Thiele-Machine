@@ -1,4 +1,4 @@
-DIGEST 16047a9b2bc8282262da8abfec5afa2b
+DIGEST 1ceb1adf95517dc93e90998338431c21
 FKernel.RiemannTensor4D
 R920:924 Coq.Reals.Reals <> <> lib
 R926:929 Coq.Lists.List <> <> lib
@@ -315,3 +315,101 @@ R6875:6878 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R6873:6873 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
 R6879:6885 Kernel.RiemannTensor4D <> g_mu_nu:67 var
 R6889:6889 Kernel.RiemannTensor4D <> R:66 var
+def 8400:8422 <> diagonal_inverse_metric
+R8431:8437 Kernel.VMState <> VMState rec
+binder 8427:8427 <> s:68
+R8445:8452 Kernel.VMState <> ModuleID def
+binder 8441:8441 <> v:69
+R8464:8466 Coq.Init.Datatypes <> nat ind
+binder 8456:8457 <> mu:70
+binder 8459:8460 <> nu:71
+R8471:8471 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8484:8487 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8482:8483 Kernel.RiemannTensor4D <> mu:70 var
+R8488:8489 Kernel.RiemannTensor4D <> nu:71 var
+R8518:8536 Kernel.VMState <> module_tensor_entry def
+R8538:8538 Kernel.RiemannTensor4D <> s:68 var
+R8540:8540 Kernel.RiemannTensor4D <> v:69 var
+R8545:8549 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R8543:8544 Kernel.RiemannTensor4D <> mu:70 var
+R8556:8560 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R8554:8555 Kernel.RiemannTensor4D <> mu:70 var
+binder 8509:8513 <> entry:72
+R8580:8583 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8575:8579 Kernel.RiemannTensor4D <> entry:72 var
+R8609:8610 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R8611:8613 Coq.Reals.Raxioms <> INR def
+R8615:8619 Kernel.RiemannTensor4D <> entry:72 var
+prf 8720:8751 <> diagonal_inverse_metric_off_diag
+R8769:8775 Kernel.VMState <> VMState rec
+binder 8765:8765 <> s:73
+R8783:8790 Kernel.VMState <> ModuleID def
+binder 8779:8779 <> v:74
+R8802:8804 Coq.Init.Datatypes <> nat ind
+binder 8794:8795 <> mu:75
+binder 8797:8798 <> nu:76
+R8820:8827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8814:8817 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8812:8813 Kernel.RiemannTensor4D <> mu:75 var
+R8818:8819 Kernel.RiemannTensor4D <> nu:76 var
+R8861:8863 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8828:8850 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R8852:8852 Kernel.RiemannTensor4D <> s:73 var
+R8854:8854 Kernel.RiemannTensor4D <> v:74 var
+R8856:8857 Kernel.RiemannTensor4D <> mu:75 var
+R8859:8860 Kernel.RiemannTensor4D <> nu:76 var
+R8909:8931 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R8945:8949 Coq.Init.Logic <> proj2 thm
+R8952:8962 Coq.Arith.PeanoNat Nat eqb_neq thm
+R8945:8949 Coq.Init.Logic <> proj2 thm
+R8952:8962 Coq.Arith.PeanoNat Nat eqb_neq thm
+R8945:8949 Coq.Init.Logic <> proj2 thm
+R8952:8962 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 9152:9182 <> diagonal_inverse_metric_correct
+R9200:9206 Kernel.VMState <> VMState rec
+binder 9196:9196 <> s:77
+R9214:9221 Kernel.VMState <> ModuleID def
+binder 9210:9210 <> v:78
+R9230:9232 Coq.Init.Datatypes <> nat ind
+binder 9225:9226 <> mu:79
+R9296:9303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9286:9289 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9241:9259 Kernel.VMState <> module_tensor_entry def
+R9261:9261 Kernel.RiemannTensor4D <> s:77 var
+R9263:9263 Kernel.RiemannTensor4D <> v:78 var
+R9268:9272 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9266:9267 Kernel.RiemannTensor4D <> mu:79 var
+R9279:9283 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9277:9278 Kernel.RiemannTensor4D <> mu:79 var
+R9367:9369 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9331:9333 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9305:9320 Kernel.RiemannTensor4D <> metric_component def
+R9322:9322 Kernel.RiemannTensor4D <> s:77 var
+R9324:9325 Kernel.RiemannTensor4D <> mu:79 var
+R9327:9328 Kernel.RiemannTensor4D <> mu:79 var
+R9330:9330 Kernel.RiemannTensor4D <> v:78 var
+R9334:9356 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R9358:9358 Kernel.RiemannTensor4D <> s:77 var
+R9360:9360 Kernel.RiemannTensor4D <> v:78 var
+R9362:9363 Kernel.RiemannTensor4D <> mu:79 var
+R9365:9366 Kernel.RiemannTensor4D <> mu:79 var
+R9413:9428 Kernel.RiemannTensor4D <> metric_component def
+R9431:9451 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R9454:9476 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R9489:9500 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9489:9500 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9489:9500 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9515:9533 Kernel.VMState <> module_tensor_entry def
+R9542:9546 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9553:9557 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9515:9533 Kernel.VMState <> module_tensor_entry def
+R9542:9546 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9553:9557 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9576:9579 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9576:9579 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9606:9615 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9606:9615 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9650:9655 Coq.Reals.RIneq <> Rinv_r thm
+R9650:9655 Coq.Reals.RIneq <> Rinv_r thm
+R9668:9676 Coq.Reals.RIneq <> not_0_INR thm
+R9668:9676 Coq.Reals.RIneq <> not_0_INR thm

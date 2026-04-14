@@ -1,6 +1,10 @@
 
 val negb : bool -> bool
 
+val fst : ('a1*'a2) -> 'a1
+
+val snd : ('a1*'a2) -> 'a2
+
 val length : 'a1 list -> int
 
 val app : 'a1 list -> 'a1 list -> 'a1 list
@@ -50,10 +54,6 @@ val add : int -> int -> int
 
 val mul : int -> int -> int
 
-val sub : int -> int -> int
-
-val eqb : int -> int -> bool
-
 val tail_add : int -> int -> int
 
 val tail_addmul : int -> int -> int -> int
@@ -78,6 +78,8 @@ module Nat :
 
   val ltb : int -> int -> bool
 
+  val min : int -> int -> int
+
   val divmod : int -> int -> int -> int -> int*int
 
   val div : int -> int -> int
@@ -92,6 +94,8 @@ val nth : int -> 'a1 list -> 'a1 -> 'a1
 val map : ('a1 -> 'a2) -> 'a1 list -> 'a2 list
 
 val flat_map : ('a1 -> 'a2 list) -> 'a1 list -> 'a2 list
+
+val fold_left : ('a1 -> 'a2 -> 'a1) -> 'a2 list -> 'a1 -> 'a1
 
 val fold_right : ('a2 -> 'a1 -> 'a1) -> 'a1 -> 'a2 list -> 'a1
 
@@ -181,6 +185,12 @@ module N :
   val ones : int -> int
  end
 
+val n_of_digits : bool list -> int
+
+val n_of_ascii : char -> int
+
+val nat_of_ascii : char -> int
+
 module Z :
  sig
   val double : int -> int
@@ -210,21 +220,18 @@ module Z :
   val of_nat : int -> int
  end
 
-val n_of_digits : bool list -> int
-
-val n_of_ascii : char -> int
-
-val nat_of_ascii : char -> int
-
 val append : char list -> char list -> char list
 
 val string_of_list_ascii : char list -> char list
 
 val list_ascii_of_string : char list -> char list
 
-val pair_eq_dec :
-  ('a1 -> 'a1 -> bool) -> ('a2 -> 'a2 -> bool) -> ('a1*'a2) -> ('a1*'a2) ->
-  bool
+module CertCheck :
+ sig
+  val word32_to_signed : int -> int
+
+  val check_model_binary_fn : int list -> (int -> int) -> bool
+ end
 
 type moduleID = int
 
@@ -260,11 +267,11 @@ type morphismID = int
 type couplingData = { coupling_pairs : (int*int) list;
                       coupling_label : char list }
 
-val empty_coupling_data : couplingData
-
 type morphismState = { morph_source : moduleID; morph_target : moduleID;
                        morph_coupling : couplingData; morph_is_identity : 
                        bool }
+
+val nat_pair_eq_dec : (int*int) -> (int*int) -> bool
 
 val normalize_coupling : couplingData -> couplingData
 
@@ -299,8 +306,13 @@ val graph_find_region_modules :
 
 val graph_find_region : partitionGraph -> int list -> moduleID option
 
-val graph_update_module_tensor :
-  partitionGraph -> moduleID -> int -> int -> partitionGraph
+val graph_add_axioms :
+  partitionGraph -> moduleID -> vMAxiom list -> partitionGraph
+
+val graph_record_discovery :
+  partitionGraph -> moduleID -> vMAxiom list -> partitionGraph
+
+val relational_compose : (int*int) list -> (int*int) list -> (int*int) list
 
 val graph_lookup_morphism_list :
   (morphismID*morphismState) list -> morphismID -> morphismState option
@@ -318,8 +330,6 @@ val graph_add_identity :
 val graph_delete_morphism :
   partitionGraph -> morphismID -> partitionGraph option
 
-val relational_compose : (int*int) list -> (int*int) list -> (int*int) list
-
 val graph_compose_morphisms :
   partitionGraph -> morphismID -> morphismID -> (partitionGraph*morphismID)
   option
@@ -328,12 +338,10 @@ val graph_tensor_morphisms :
   partitionGraph -> morphismID -> morphismID -> (partitionGraph*morphismID)
   option
 
-val rEG_COUNT : int
-
-val mEM_SIZE : int
-
 type cSRState = { csr_cert_addr : int; csr_status : int; csr_err : int;
                   csr_heap_base : int }
+
+val csr_set_status : cSRState -> int -> cSRState
 
 val csr_set_err : cSRState -> int -> cSRState
 
@@ -349,8 +357,6 @@ type vMState = { vm_graph : partitionGraph; vm_csrs : cSRState;
                  vm_mu : int; vm_mu_tensor : int list; vm_err : bool;
                  vm_logic_acc : int; vm_mstatus : int;
                  vm_witness : witnessCounts; vm_certified : bool }
-
-val module_tensor_entry : vMState -> moduleID -> int -> int -> int
 
 val word64 : int -> int
 
@@ -372,6 +378,10 @@ val word64_shr : int -> int -> int
 
 val word64_mul : int -> int -> int
 
+val rEG_COUNT : int
+
+val mEM_SIZE : int
+
 val reg_index : int -> int
 
 val mem_index : int -> int
@@ -384,10 +394,6 @@ val read_mem : vMState -> int -> int
 
 val write_mem : vMState -> int -> int -> int list
 
-val swap_regs : int list -> int -> int -> int list
-
-val ascii_checksum : char list -> int
-
 val bytes_to_word_4 : int -> int -> int -> int -> int
 
 val word_to_bytes_4 : int -> char list
@@ -396,190 +402,139 @@ val bytes_to_words : char list -> int list
 
 val words_to_bytes : int list -> int -> char list
 
-val write_words_at : int list -> int -> int list -> int list
-
 val list_read_at : int list -> int -> int
-
-val write_string_to_mem : int list -> int -> char list -> int list
 
 val mem_to_string : int list -> int -> char list
 
-module CertCheck :
- sig
-  val word32_to_signed : int -> int
+val write_words_at : int list -> int -> int list -> int list
 
-  val check_model_binary_fn : int list -> (int -> int) -> bool
- end
+val write_string_to_mem : int list -> int -> char list -> int list
 
-module VMStep :
- sig
-  type vm_instruction =
-  | Coq_instr_pnew of int list * int
-  | Coq_instr_psplit of moduleID * int list * int list * int
-  | Coq_instr_pmerge of moduleID * moduleID * int
-  | Coq_instr_lassert of int * int * bool * int * int
-  | Coq_instr_ljoin of int * int * int
-  | Coq_instr_mdlacc of moduleID * int
-  | Coq_instr_pdiscover of moduleID * vMAxiom list * int
-  | Coq_instr_xfer of int * int * int
-  | Coq_instr_load_imm of int * int * int
-  | Coq_instr_load of int * int * int
-  | Coq_instr_store of int * int * int
-  | Coq_instr_add of int * int * int * int
-  | Coq_instr_sub of int * int * int * int
-  | Coq_instr_jump of int * int
-  | Coq_instr_jnez of int * int * int
-  | Coq_instr_call of int * int
-  | Coq_instr_ret of int
-  | Coq_instr_chsh_trial of int * int * int * int * int
-  | Coq_instr_xor_load of int * int * int
-  | Coq_instr_xor_add of int * int * int
-  | Coq_instr_xor_swap of int * int * int
-  | Coq_instr_xor_rank of int * int * int
-  | Coq_instr_emit of moduleID * char list * int
-  | Coq_instr_reveal of moduleID * int * char list * int
-  | Coq_instr_oracle_halts of char list * int
-  | Coq_instr_halt of int
-  | Coq_instr_checkpoint of char list * int
-  | Coq_instr_read_port of int * int * int * int * int
-  | Coq_instr_write_port of int * int * int
-  | Coq_instr_heap_load of int * int * int
-  | Coq_instr_heap_store of int * int * int
-  | Coq_instr_certify of int
-  | Coq_instr_and of int * int * int * int
-  | Coq_instr_or of int * int * int * int
-  | Coq_instr_shl of int * int * int * int
-  | Coq_instr_shr of int * int * int * int
-  | Coq_instr_mul of int * int * int * int
-  | Coq_instr_lui of int * int * int
-  | Coq_instr_tensor_set of moduleID * int * int * int * int
-  | Coq_instr_tensor_get of int * moduleID * int * int * int
-  | Coq_instr_morph of int * moduleID * moduleID * int * int
-  | Coq_instr_compose of int * morphismID * morphismID * int
-  | Coq_instr_morph_id of int * moduleID * int
-  | Coq_instr_morph_delete of morphismID * int
-  | Coq_instr_morph_assert of morphismID * char list * char list * int
-  | Coq_instr_morph_tensor of int * morphismID * morphismID * int
-  | Coq_instr_morph_get of int * morphismID * int * int
+val memory_word_at : int list -> int -> int
 
-  val coq_ORACLE_HALTS_HW_COST : int
+val serialized_coupling_pair_count : int list -> int -> int
 
-  val instruction_cost : vm_instruction -> int
+val load_coupling_pairs_from_mem : int list -> int -> int -> (int*int) list
 
-  val is_cert_setterb : vm_instruction -> bool
+val pair_respects_regions : int list -> int list -> (int*int) -> bool
 
-  val nofi_step_cost_okb : vm_instruction -> bool
+val restrict_coupling_to_regions :
+  int list -> int list -> couplingData -> couplingData
 
-  val nofi_trace_cost_okb : vm_instruction list -> bool
+val load_coupling_from_mem :
+  vMState -> int list -> int list -> int -> couplingData
 
-  val is_bit : int -> bool
+val swap_regs : int list -> int -> int -> int list
 
-  val chsh_bits_ok : int -> int -> int -> int -> bool
+val ascii_checksum : char list -> int
 
-  val apply_cost : vMState -> vm_instruction -> int
+val module_tensor_entry : vMState -> moduleID -> int -> int -> int
 
-  val latch_err : vMState -> bool -> bool
+val graph_pnew : partitionGraph -> int list -> partitionGraph*moduleID
 
-  val vm_mu_tensor_add_at : vMState -> int -> int -> int list
+val partition_valid : int list -> int list -> int list -> bool
 
-  val tensor_indices_ok : int -> int -> bool
+val graph_psplit :
+  partitionGraph -> moduleID -> int list -> int list ->
+  ((partitionGraph*moduleID)*moduleID) option
 
-  val morphism_selector_value : morphismState -> int -> int
+val graph_pmerge :
+  partitionGraph -> moduleID -> moduleID -> (partitionGraph*moduleID) option
 
-  val record_trial :
-    witnessCounts -> int -> int -> int -> int -> witnessCounts
+type vm_instruction =
+| Instr_pnew of int list * int
+| Instr_psplit of moduleID * int list * int list * int
+| Instr_pmerge of moduleID * moduleID * int
+| Instr_lassert of int * int * bool * int * int
+| Instr_ljoin of int * int * int
+| Instr_mdlacc of moduleID * int
+| Instr_pdiscover of moduleID * vMAxiom list * int
+| Instr_xfer of int * int * int
+| Instr_load_imm of int * int * int
+| Instr_load of int * int * int
+| Instr_store of int * int * int
+| Instr_add of int * int * int * int
+| Instr_sub of int * int * int * int
+| Instr_jump of int * int
+| Instr_jnez of int * int * int
+| Instr_call of int * int
+| Instr_ret of int
+| Instr_chsh_trial of int * int * int * int * int
+| Instr_xor_load of int * int * int
+| Instr_xor_add of int * int * int
+| Instr_xor_swap of int * int * int
+| Instr_xor_rank of int * int * int
+| Instr_emit of moduleID * char list * int
+| Instr_reveal of moduleID * int * char list * int
+| Instr_oracle_halts of char list * int
+| Instr_halt of int
+| Instr_checkpoint of char list * int
+| Instr_read_port of int * int * int * int * int
+| Instr_write_port of int * int * int
+| Instr_heap_load of int * int * int
+| Instr_heap_store of int * int * int
+| Instr_certify of int
+| Instr_and of int * int * int * int
+| Instr_or of int * int * int * int
+| Instr_shl of int * int * int * int
+| Instr_shr of int * int * int * int
+| Instr_mul of int * int * int * int
+| Instr_lui of int * int * int
+| Instr_tensor_set of moduleID * int * int * int * int
+| Instr_tensor_get of int * moduleID * int * int * int
+| Instr_morph of int * moduleID * moduleID * int * int
+| Instr_compose of int * morphismID * morphismID * int
+| Instr_morph_id of int * moduleID * int
+| Instr_morph_delete of morphismID * int
+| Instr_morph_assert of morphismID * char list * char list * int
+| Instr_morph_tensor of int * morphismID * morphismID * int
+| Instr_morph_get of int * morphismID * int * int
 
-  val advance_state :
-    vMState -> vm_instruction -> partitionGraph -> cSRState -> bool -> vMState
+val instruction_cost : vm_instruction -> int
 
-  val advance_state_reveal :
-    vMState -> vm_instruction -> int -> int -> partitionGraph -> cSRState ->
-    bool -> vMState
+val is_cert_setterb : vm_instruction -> bool
 
-  val advance_state_rm :
-    vMState -> vm_instruction -> partitionGraph -> cSRState -> int list ->
-    int list -> bool -> vMState
+val is_bit : int -> bool
 
-  val jump_state : vMState -> vm_instruction -> int -> vMState
+val chsh_bits_ok : int -> int -> int -> int -> bool
 
-  val jump_state_rm :
-    vMState -> vm_instruction -> int -> int list -> int list -> vMState
+val apply_cost : vMState -> vm_instruction -> int
 
-  val coq_LASSERT_TRAP_PC : int
+val latch_err : vMState -> bool -> bool
 
-  val graph_module_size : partitionGraph -> moduleID -> int
+val vm_mu_tensor_add_at : vMState -> int -> int -> int list
 
-  val graph_hw_psplit : partitionGraph -> int -> partitionGraph
+val record_trial : witnessCounts -> int -> int -> int -> int -> witnessCounts
 
-  val graph_hw_pmerge : partitionGraph -> int -> int -> partitionGraph
+val lASSERT_TRAP_PC : int
 
-  val lassert_check_ok : vMState -> int -> int -> bool -> bool
- end
+val lassert_check_ok : vMState -> int -> int -> bool -> bool
 
-val vm_apply : vMState -> VMStep.vm_instruction -> vMState
+val advance_state :
+  vMState -> vm_instruction -> partitionGraph -> cSRState -> bool -> vMState
 
-val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState
+val advance_state_reveal :
+  vMState -> vm_instruction -> int -> int -> partitionGraph -> cSRState ->
+  bool -> vMState
 
-val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState
+val advance_state_rm :
+  vMState -> vm_instruction -> partitionGraph -> cSRState -> int list -> int
+  list -> bool -> vMState
 
-val pnew_chain : int -> vMState -> int list -> int -> vMState
+val jump_state : vMState -> vm_instruction -> int -> vMState
 
-type morphTableEntry = { morph_entry_source : int; morph_entry_target : 
-                         int; morph_entry_coupling_desc : int;
-                         morph_entry_is_identity : bool }
+val jump_state_rm :
+  vMState -> vm_instruction -> int -> int list -> int list -> vMState
 
-type couplingDescriptorEntry = { coupling_desc_base : int;
-                                 coupling_desc_count : int }
+val vm_apply : vMState -> vm_instruction -> vMState
 
-type couplingPairEntry = { coupling_pair_source : int;
-                           coupling_pair_target : int }
+val nofi_step_cost_okb : vm_instruction -> bool
 
-type formulaDescriptorEntry = { formula_desc_base : int;
-                                formula_desc_count : int }
+val nofi_trace_cost_okb : vm_instruction list -> bool
 
-type certificationDescriptorEntry = { cert_desc_base : int;
-                                      cert_desc_count : int }
+val vm_apply_nofi : vMState -> vm_instruction -> vMState
 
-type descriptorMetadataEntry = { desc_meta_subtype : int;
-                                 desc_meta_kind : int;
-                                 desc_meta_inline_len : int;
-                                 desc_meta_aux : int }
-
-type lassertShadowState = { lassert_shadow_phase : int;
-                            lassert_shadow_kind : bool;
-                            lassert_shadow_fbase : int;
-                            lassert_shadow_cbase : int;
-                            lassert_shadow_flen : int;
-                            lassert_shadow_clen : int;
-                            lassert_shadow_fptr : int;
-                            lassert_shadow_cptr : int;
-                            lassert_shadow_clause_sat : bool;
-                            lassert_shadow_fbuf : (int -> int);
-                            lassert_shadow_cbuf : (int -> int) }
-
-type richSnapshotState = { rich_morph_table : (int -> morphTableEntry option);
-                           rich_next_morph_id : int;
-                           rich_coupling_desc_table : (int ->
-                                                      couplingDescriptorEntry
-                                                      option);
-                           rich_next_coupling_desc_id : int;
-                           rich_coupling_pair_table : (int ->
-                                                      couplingPairEntry
-                                                      option);
-                           rich_next_coupling_pair_id : int;
-                           rich_formula_desc_table : (int ->
-                                                     formulaDescriptorEntry
-                                                     option);
-                           rich_next_formula_desc_id : int;
-                           rich_cert_desc_table : (int ->
-                                                  certificationDescriptorEntry
-                                                  option);
-                           rich_next_cert_desc_id : int;
-                           rich_desc_meta_table : (int ->
-                                                  descriptorMetadataEntry
-                                                  option);
-                           rich_next_desc_meta_id : int;
-                           rich_lassert_state : lassertShadowState }
+val vm_apply_runtime : vMState -> vm_instruction -> vMState
 
 type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_halted : bool; snap_regs : (int -> int);
@@ -591,11 +546,7 @@ type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_wc_diff_00 : int; snap_wc_same_01 : int;
                       snap_wc_diff_01 : int; snap_wc_same_10 : int;
                       snap_wc_diff_10 : int; snap_wc_same_11 : int;
-                      snap_wc_diff_11 : int;
-                      snap_rich_state : richSnapshotState;
-                      snap_csr_cert_addr : int; snap_csr_status : int;
-                      snap_csr_err : int; snap_csr_heap_base : int;
-                      snap_logic_acc : int; snap_mstatus : int }
+                      snap_wc_diff_11 : int }
 
 type busReg =
 | BusRegPc
@@ -665,3 +616,5 @@ type busOp =
 | BusOpWrite of int * int
 
 val bus_step : busWrapperState -> busOp -> busWrapperState
+
+val pnew_chain : int -> vMState -> int list -> int -> vMState

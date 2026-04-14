@@ -2946,8 +2946,11 @@ module VMStep =
 
 let vm_apply s = function
 | VMStep.Coq_instr_pnew (region, cost) ->
-  let sz = length (normalize_region region) in
-  let graph',_ = graph_add_module s.vm_graph (seq 0 sz) [] in
+  let normalized = normalize_region region in
+  let graph',mid = match graph_find_region s.vm_graph normalized with
+    | Some existing -> (s.vm_graph, existing)
+    | None -> graph_add_module s.vm_graph normalized []
+  in
   VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
     s.vm_csrs s.vm_err
 | VMStep.Coq_instr_psplit (module0, left_region, right_region, cost) ->

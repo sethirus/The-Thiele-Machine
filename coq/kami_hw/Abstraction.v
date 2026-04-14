@@ -2338,3 +2338,88 @@ Proof.
   intros s dst v Hdst.
   exact (snapshot_reg_write s dst v Hdst).
 Qed.
+
+(* ======================================================================
+   §Extra  Algebraic helpers for GraphReconstructionBridge.v
+   ====================================================================== *)
+
+(** Generic extensionality for filtermap: if f and g agree on In elements, results equal. *)
+Lemma filtermap_ext_in :
+  forall {A B : Type} (f g : A -> option B) (l : list A),
+    (forall x, In x l -> f x = g x) ->
+    filtermap f l = filtermap g l.
+Proof.
+  intros A B f g l Hext.
+  induction l as [|x xs IH]; simpl.
+  - reflexivity.
+  - rewrite (Hext x (or_introl eq_refl)).
+    destruct (g x); [f_equal|]; apply IH;
+    intros y Hy; apply Hext; right; exact Hy.
+Qed.
+
+(** Zeroing sizes at [mid] in the filtermap = filtering out the (mid, _) entry. *)
+Lemma filtermap_zero_filters_entry :
+  forall (l : list nat) (mid : nat) (sizes : nat -> nat),
+    filtermap
+      (fun i =>
+        if Nat.eqb (if Nat.eqb i mid then 0 else sizes i) 0 then None
+        else Some (i, {| module_region := List.seq 0 (if Nat.eqb i mid then 0 else sizes i);
+                          module_axioms := [];
+                          module_mu_tensor := module_mu_tensor_default |}))
+      l =
+    filter
+      (fun '(id, _) => negb (Nat.eqb id mid))
+      (filtermap
+        (fun i =>
+          if Nat.eqb (sizes i) 0 then None
+          else Some (i, {| module_region := List.seq 0 (sizes i);
+                            module_axioms := [];
+                            module_mu_tensor := module_mu_tensor_default |}))
+        l).
+Proof.
+  intros l mid sizes.
+  induction l as [|x xs IH]; simpl; auto.
+  destruct (Nat.eqb x mid) eqn:Hxm; simpl.
+  - destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
+    + exact IH.
+    + rewrite Hxm; simpl. exact IH.
+  - destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
+    + exact IH.
+    + rewrite Hxm; simpl. f_equal. exact IH.
+Qed.
+
+(** Zeroing two slots (m1 and m2) equals filtering both entries out. *)
+Lemma filtermap_two_zeros_filter :
+  forall (l : list nat) (m1 m2 : nat) (sizes : nat -> nat),
+    m1 <> m2 ->
+    filtermap
+      (fun i =>
+        if Nat.eqb (if Nat.eqb i m1 then 0 else if Nat.eqb i m2 then 0 else sizes i) 0 then None
+        else Some (i, {| module_region := List.seq 0 (if Nat.eqb i m1 then 0 else if Nat.eqb i m2 then 0 else sizes i);
+                          module_axioms := [];
+                          module_mu_tensor := module_mu_tensor_default |}))
+      l =
+    filter
+      (fun '(id, _) => negb (Nat.eqb id m1) && negb (Nat.eqb id m2))%bool
+      (filtermap
+        (fun i =>
+          if Nat.eqb (sizes i) 0 then None
+          else Some (i, {| module_region := List.seq 0 (sizes i);
+                            module_axioms := [];
+                            module_mu_tensor := module_mu_tensor_default |}))
+        l).
+Proof.
+  intros l m1 m2 sizes Hne.
+  induction l as [|x xs IH]; simpl; auto.
+  destruct (Nat.eqb x m1) eqn:Hxm1; simpl.
+  - destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
+    + exact IH.
+    + rewrite Hxm1; simpl. exact IH.
+  - destruct (Nat.eqb x m2) eqn:Hxm2; simpl.
+    + destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
+      * exact IH.
+      * rewrite Hxm1; simpl. rewrite Hxm2; simpl. exact IH.
+    + destruct (Nat.eqb (sizes x) 0) eqn:Hszx; simpl.
+      * exact IH.
+      * rewrite Hxm1; simpl. rewrite Hxm2; simpl. f_equal. exact IH.
+Qed.

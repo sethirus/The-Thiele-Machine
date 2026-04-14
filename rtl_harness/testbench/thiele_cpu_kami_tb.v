@@ -160,9 +160,27 @@ module thiele_cpu_kami_tb;
     @(posedge clk);
 
     rst_n = 1;
-    // Wait for BSC RegFile initialization to complete (65536 cycles each for imem and mem).
-    // RDY_loadInstr = imem_init, and step rule requires imem_init && mem_init.
-    while (!dut.imem_init || !dut.mem_init) @(posedge clk);
+    // Fast-init: force BSC RegFile init flags permanently high, bypassing
+    // the 131K-cycle hardware zero-init loop.  We zero the arrays directly
+    // and write the real program/data via the normal loadInstr port.
+    // These forces are NEVER released — the flags would stay at 1 in
+    // normal operation anyway, and forcing prevents the clocked always
+    // block from reverting them to the reset value on the first posedge.
+    force dut.imem_init = 1'b1;
+    force dut.mem_init = 1'b1;
+    force dut.lassert_cbuf_init = 1'b1;
+    force dut.lassert_fbuf_init = 1'b1;
+    // Also hold halted=1 during loadInstr to prevent RL_step from
+    // executing garbage while instructions are being loaded.
+    force dut.halted = 1'b1;
+    for (i = 0; i < 4096; i = i + 1) begin
+      dut.imem.arr[i] = 128'd0;
+      dut.mem.arr[i] = 32'd0;
+    end
+    for (i = 0; i < 512; i = i + 1)
+      dut.lassert_cbuf.arr[i] = 32'd0;
+    for (i = 0; i < 256; i = i + 1)
+      dut.lassert_fbuf.arr[i] = 32'd0;
 
     // loadInstr port is 144-bit: {addr[15:0], data[127:0]}
     for (i = 0; i < num_instrs; i = i + 1) begin
@@ -178,6 +196,7 @@ module thiele_cpu_kami_tb;
     force dut.mu = 32'd0;
     force dut.err = 1'b0;
     force dut.halted = 1'b0;
+    force dut.lassert_phase = 3'd0;
     force dut.regs = {1024{1'b0}};
     // Data memory: direct assignment to RegFile arr (per BSC convention)
     // NOTE: RTL RegFile has hi=4095 (4096 words); limit loop to avoid C++ UB
@@ -191,6 +210,7 @@ module thiele_cpu_kami_tb;
     force dut.cert_addr = 32'd0;
     @(posedge clk); @(negedge clk);
     release dut.pc; release dut.mu; release dut.err; release dut.halted;
+    release dut.lassert_phase;
     release dut.regs;
     release dut.partition_ops; release dut.mdl_ops; release dut.info_gain; release dut.error_code; release dut.pt_next_id;
     release dut.logic_acc;

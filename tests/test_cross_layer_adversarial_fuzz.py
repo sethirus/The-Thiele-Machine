@@ -22,6 +22,7 @@ def _rtl_available() -> bool:
 
 pytestmark = [
     pytest.mark.integration,
+    pytest.mark.strict_rtl,
     pytest.mark.skipif(not _rtl_available(), reason="RTL backend unavailable"),
     pytest.mark.skipif(not text_vm._runner_available(), reason="OCaml extracted runner unavailable"),
 ]

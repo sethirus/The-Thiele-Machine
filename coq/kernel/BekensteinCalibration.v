@@ -481,3 +481,18 @@ Proof.
   simpl.
   lra.
 Qed.
+
+(** [natural_units_consistency]: In the computational unit system defined by
+    landauer_unruh_constant_calibration, the ratio hbar * ln 2 / (2 * PI * c_light)
+    equals 1 — confirming the equation is a dimensionless unit-normalisation. *)
+Lemma natural_units_consistency :
+  forall (hbar c_light : R),
+    (0 < c_light)%R ->
+    landauer_unruh_constant_calibration hbar c_light ->
+    (hbar * ln 2) / (2 * PI * c_light) = 1%R.
+Proof.
+  intros hbar c_light Hc Hcal.
+  unfold landauer_unruh_constant_calibration in Hcal.
+  assert (HPI : (0 < PI)%R) by apply PI_RGT_0.
+  rewrite Hcal. field; lra.
+Qed.

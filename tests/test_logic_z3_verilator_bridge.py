@@ -9,6 +9,7 @@ from thielecpu.hardware.cosim import run_verilog
 
 @pytest.mark.hardware
 @pytest.mark.z3
+@pytest.mark.strict_rtl
 def test_lassert_bridge_prevents_stall_and_reaches_halt() -> None:
     """LASSERT SAT path via on-chip FSM reaches HALT.
 
