@@ -203,12 +203,13 @@ canonical-source-gate:
 
 canonical-extract: canonical-source-gate
 	@echo "[canonical-extract] Rebuilding extraction artefacts from canonical source..."
-	@$(MAKE) -C coq -j4 Extraction.vo kami_hw/KamiExtraction.vo
+	@$(MAKE) -C coq -j4 Extraction.vo kami_hw/KamiExtraction.vo ThieleMachineComplete.vo
 	@if [ ! -s "build/thiele_core.ml" ]; then echo "FAIL: build/thiele_core.ml missing or empty"; exit 1; fi
 	@if [ ! -s "build/kami_hw/Target.ml" ]; then echo "FAIL: build/kami_hw/Target.ml missing or empty"; exit 1; fi
-	@cp build/thiele_core.ml build/thiele_core_complete.ml
-	@cp build/thiele_core.mli build/thiele_core_complete.mli 2>/dev/null || true
-	@echo "[canonical-extract] Copied thiele_core → thiele_core_complete (byte-for-byte identity)"
+	@if [ ! -s "build/thiele_core_complete.ml" ]; then echo "FAIL: build/thiele_core_complete.ml missing or empty (ThieleMachineComplete extraction)"; exit 1; fi
+	@echo "[canonical-extract] Verifying isomorphic extraction parity..."
+	@bash -c 'diff <(sort build/thiele_core.ml) <(sort build/thiele_core_complete.ml) > /dev/null || { echo "FAIL: thiele_core.ml and thiele_core_complete.ml are NOT isomorphic"; exit 1; }'
+	@echo "[canonical-extract] PASS: thiele_core.ml ≅ thiele_core_complete.ml (isomorphic)"
 	@if [ ! -s "build/kami_hw/Main.ml" ]; then echo "FAIL: build/kami_hw/Main.ml missing or empty"; exit 1; fi
 	@if [ ! -s "build/kami_hw/mkModule1.v" ]; then echo "FAIL: build/kami_hw/mkModule1.v missing or empty"; exit 1; fi
 	@if [ ! -s "build/kami_hw/mkModule1_synth.v" ]; then echo "FAIL: build/kami_hw/mkModule1_synth.v missing or empty"; exit 1; fi

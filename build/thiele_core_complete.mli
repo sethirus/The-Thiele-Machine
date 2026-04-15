@@ -181,6 +181,12 @@ module N :
   val ones : int -> int
  end
 
+val n_of_digits : bool list -> int
+
+val n_of_ascii : char -> int
+
+val nat_of_ascii : char -> int
+
 module Z :
  sig
   val double : int -> int
@@ -209,12 +215,6 @@ module Z :
 
   val of_nat : int -> int
  end
-
-val n_of_digits : bool list -> int
-
-val n_of_ascii : char -> int
-
-val nat_of_ascii : char -> int
 
 val append : char list -> char list -> char list
 
@@ -516,14 +516,6 @@ module VMStep :
   val lassert_check_ok : vMState -> int -> int -> bool -> bool
  end
 
-val vm_apply : vMState -> VMStep.vm_instruction -> vMState
-
-val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState
-
-val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState
-
-val pnew_chain : int -> vMState -> int list -> int -> vMState
-
 type morphTableEntry = { morph_entry_source : int; morph_entry_target : 
                          int; morph_entry_coupling_desc : int;
                          morph_entry_is_identity : bool }
@@ -667,3 +659,11 @@ type busOp =
 | BusOpWrite of int * int
 
 val bus_step : busWrapperState -> busOp -> busWrapperState
+
+val vm_apply : vMState -> VMStep.vm_instruction -> vMState
+
+val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState
+
+val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState
+
+val pnew_chain : int -> vMState -> int list -> int -> vMState
