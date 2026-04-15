@@ -300,7 +300,8 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
     For 2D: constant = 5π (proven in DiscreteGaussBonnet.v)
     For 4D: constant = 32π² (from 4D Gauss-Bonnet-Chern integral)
 
-    NEXT: Prove 4D Gauss-Bonnet-Chern theorem
+    OPEN: 4D Gauss-Bonnet-Chern. The gravity
+    pipeline currently uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
 *)
 
 (** ** Summary: What We've Proven
@@ -318,14 +319,12 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
 
     ZERO PROJECT-LOCAL AXIOMS. ZERO ADMITS.
 
-    NEXT STEPS:
-    - Complete 4D simplex extraction (FourDSimplicialComplex.v)
-    - Define Christoffel symbols from metric
-    - Define Riemann curvature tensor
-    - Prove 4D Gauss-Bonnet-Chern
-    - Add Lorentz signature
-    - Define Einstein tensor
-    - Prove Einstein field equations
+    OPEN (4D extension):
+    The gravity pipeline achieved a 2D discrete Einstein analogue
+    (EinsteinEmergence.v via Gauss-Bonnet). Full 4D formalization
+    (Christoffel symbols, Riemann tensor, Lorentz signature, Einstein
+    field equations) remains open. FourDSimplicialComplex.v is partially
+    complete.
 *)
 
 (** =========================================================================

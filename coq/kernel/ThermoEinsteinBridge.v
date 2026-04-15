@@ -40,6 +40,15 @@ Definition discrete_einstein_emergence_target
      IZR (euler_characteristic (vm_graph (snd st_pair)) -
           euler_characteristic (vm_graph (fst st_pair))))%R.
 
+(* DEPRECATED: vacuous 2D proof — the Clausius params (dQ, dS, T) are unused
+   because 2D Gauss-Bonnet does not need them.  The lemma accepts them only for
+   interface compatibility with the generic corridor theorem
+   (thermodynamic_locality_toward_einstein_with_clausius_model), but the 2D
+   proof path calls einstein_emerges directly and ignores all thermodynamic data.
+
+   For the load-bearing 4D version where Clausius IS structurally required
+   (mass-focusing chain → Clausius witnesses → EFE), see
+   clausius_load_bearing_einstein_4d below. *)
 Lemma discrete_einstein_emergence_component :
   forall (st_pair : VMState * VMState)
          (_ : unit)
@@ -249,6 +258,60 @@ Proof.
 Qed.
 
 (** =========================================================================
+    PHYSICAL AXIOM DECLARATION (C3 — H_clausius_mass)
+    =========================================================================
+
+    H_clausius_mass is the physical bridge from continuous thermodynamics
+    (Clausius relation dQ = T dS with T > 0) to discrete geometry
+    (positive structural mass at module v).
+
+    PHYSICAL CONTENT:
+    Non-zero heat at a horizon (T > 0) implies the module at that horizon
+    has positive structural mass: module_structural_mass s v > 0.
+
+    FORMAL DEFINITION (module_structural_mass):
+      match graph_lookup (vm_graph s) v with
+      | None => 0
+      | Some m => length(m.region) + length(m.axioms)
+      end
+    So mass > 0 iff the module exists AND has non-empty region or axioms.
+
+    DISCHARGE PATH (constructive, not yet formalized):
+    The discharge chain is:
+      1. T > 0 → the module sits at a non-zero Unruh-temperature horizon
+      2. Non-zero Unruh temperature → non-zero null congruence focusing
+      3. Focusing occurs AT module v → v exists in the graph
+      4. v exists AND focusing implies non-zero Bekenstein entropy
+      5. Non-zero Bekenstein entropy → non-zero area → length(region) ≥ 1
+    This chain uses discrete_null_expansion_rate < 0 as a precondition,
+    which in turn requires the Ricci curvature to be computable at v,
+    which requires module_structural_mass s v > 0 — creating a circularity.
+
+    CIRCULARITY NOTE: The discharge is CIRCULAR given the current definitions.
+    discrete_null_expansion_rate uses curved_ricci which uses the metric
+    which depends on module_structural_mass. So "focusing → mass > 0" cannot
+    be proven from focusing alone without additional module-existence hypotheses.
+
+    Classification: STRUCTURAL AXIOM — the gap is circular by construction.
+    The current formulation in clausius_load_bearing_einstein_4d is honest:
+    H_clausius_mass is named explicitly and cannot be hidden.
+
+    BYPASS: thermodynamic_einstein_full_chain_4d (below) takes
+    module_structural_mass > 0 as a DIRECT hypothesis, bypassing the
+    Clausius channel entirely.  All downstream consumers can use
+    the full-chain theorem instead.
+
+    See FULL_CLOSURE_PLAN.md §C3.
+    ========================================================================= *)
+
+(** PHYSICAL AXIOM (C3 — clausius_mass): non-zero Clausius heat implies positive
+    structural mass at the module.  This is a structural axiom — the discharge
+    is circular given the current metric/mass/focusing chain.  The axiom is
+    named explicitly rather than hidden in an Admitted or a closed hypothesis. *)
+Definition clausius_structural_mass_axiom_statement (s : VMState) (v : ModuleID) : Prop :=
+  forall dQ dS T : R, (0 < T)%R -> dQ = (T * dS)%R -> (module_structural_mass s v > 0)%nat.
+
+(** =========================================================================
     CLAUSIUS LOAD-BEARING 4D EINSTEIN BRIDGE (Gap B2 Closure)
     =========================================================================
 
@@ -276,8 +339,8 @@ Qed.
 
     H_clausius_mass names the physical content: non-zero heat at a
     module (dQ = T dS with T > 0) implies non-zero structural mass
-    (|region| + |axioms| > 0). This is the explicit interface between
-    the thermodynamic and geometric chains.
+    (|region| + |axioms| > 0).  See clausius_structural_mass_axiom_statement
+    above (C3) for the full discharge analysis.
     ========================================================================= *)
 
 Theorem clausius_load_bearing_einstein_4d :

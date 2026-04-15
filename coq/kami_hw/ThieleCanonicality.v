@@ -2,7 +2,7 @@
 
     The canonical certified-cost shadow machine theorem.
 
-    Assembles the full second-phase program into a single named record:
+    Assembles the full certified-shadow program into a single named record:
     [thiele_canonical_model : ThieleCanonicalModel].
 
     The record collects eight unconditional guarantees:

@@ -88,6 +88,14 @@ Proof.
   specialize (F tl). simpl in F. now rewrite F.
 Qed.
 
+(** [physics_step_length]: step preserves lattice size. *)
+Lemma physics_step_length :
+  forall L, length (physics_step L) = length L.
+Proof.
+  fix F 1.
+  intro L; destruct L as [|c1 [|c2 tl]]; simpl; auto.
+Qed.
+
 (** [pair_update_preserves_particle_count]: formal specification. *)
 Lemma pair_update_preserves_particle_count :
   forall c1 c2,

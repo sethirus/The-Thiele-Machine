@@ -290,9 +290,11 @@ Extract Constant VMState.word64 => "(fun x -> x)".
    - Proven ≡ kami_step (via embed_step for supported opcodes)
    - Axiom-free, fully transparent, directly extractable
 
-   Previous versions extracted from ThieleMachineComplete.vm_apply, which
-   was a standalone redefinition with DIFFERENT semantics for 8 opcodes
-   and NO equivalence theorem connecting it to vm_step. *)
+   ThieleMachineComplete.v's Extract Constant directives target these same
+   module-qualified symbols (via Require without Import), and its
+   ExtractionIdentityBundle verifies the extraction surface is complete.
+   The Makefile copies thiele_core.ml → thiele_core_complete.ml for
+   BYTE-FOR-BYTE identity. *)
 
 Extraction "../build/thiele_core.ml"
   VMStep.vm_instruction

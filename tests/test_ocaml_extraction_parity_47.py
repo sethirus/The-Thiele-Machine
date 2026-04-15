@@ -506,7 +506,8 @@ class TestCoverageCompleteness:
     def test_ocaml_runner_recognizes_all_47(self) -> None:
         """The OCaml runner must not return 'unrecognized instruction' for any canonical opcode."""
         import re
-        runner_ml = __import__("pathlib").Path("build/extracted_vm_runner.ml")
+        from pathlib import Path
+        runner_ml = Path(__file__).resolve().parent.parent / "build" / "extracted_vm_runner.ml"
         if not runner_ml.exists():
             pytest.skip("extracted_vm_runner.ml not found")
         text = runner_ml.read_text()

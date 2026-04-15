@@ -647,18 +647,17 @@ Proof.
   apply kami_step_mu_cost.
 Qed.
 
-(** For non-ORACLE_HALTS, non-LASSERT instructions, exact mu agreement between
+(** For non-ORACLE_HALTS instructions, exact mu agreement between
     abs_phase1 ∘ kami_step and vm_step ∘ abs_phase1.
-    LASSERT is excluded because hardware charges S cost while software charges
-    String.length formula + S cost (see kami_vm_mu_lassert_gap below). *)
+    Since hardware now charges flen * 8 + S cost for LASSERT (matching software),
+    no exclusions are needed. *)
 Theorem kami_vm_mu_diamond_non_oracle :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
     is_oracle_halts i = false ->
-    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     vm_step (abs_phase1 hs) i vs' ->
     vs'.(vm_mu) = (abs_phase1 (kami_step hs i)).(vm_mu).
 Proof.
-  intros hs i vs' Hnot_oracle Hl Hstep.
+  intros hs i vs' Hnot_oracle Hstep.
   inversion Hstep; subst;
   unfold apply_cost, instruction_cost, abs_phase1, kami_step,
          kami_advance_default, kami_instruction_cost,
@@ -669,22 +668,18 @@ Proof.
   end).
 Qed.
 
-(** For non-LASSERT instructions with cost fitting in hardware (cost <= 1M),
-    hardware mu >= software mu. This is the conservative refinement property:
-    hardware never under-charges relative to the formal spec.
-    LASSERT is excluded: hardware charges S cost while software charges
-    String.length formula + S cost; hardware UNDER-charges by formula_length.
-    See kami_vm_mu_lassert_gap for the LASSERT-specific property. *)
+(** Hardware mu >= software mu for ALL instructions with cost fitting in
+    hardware (cost <= 1M).  Since hardware now charges flen * 8 + S cost
+    for LASSERT (matching the kernel), no LASSERT exclusion is needed. *)
 Theorem kami_vm_mu_conservative :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
-    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     instruction_cost i <= ORACLE_HALTS_HW_COST ->
     vm_step (abs_phase1 hs) i vs' ->
     (abs_phase1 (kami_step hs i)).(vm_mu) >= vs'.(vm_mu).
 Proof.
-  intros hs i vs' Hl Hbound Hstep.
+  intros hs i vs' Hbound Hstep.
   assert (Hge : kami_instruction_cost i >= instruction_cost i).
-  { apply kami_cost_ge_instruction_cost. exact Hl. exact Hbound. }
+  { apply kami_cost_ge_instruction_cost. exact Hbound. }
   inversion Hstep; subst;
   unfold abs_phase1, kami_step, kami_advance_default,
          advance_state, advance_state_rm, advance_state_reveal,
@@ -698,14 +693,12 @@ Proof.
   end.
 Qed.
 
-(** For LASSERT, the software mu exceeds hardware mu by formula length.
-    This is the information-theoretic gap: formula text costs are invisible
-    to hardware at decode time but enforced by the formal spec. *)
+(** Since hardware now charges flen * 8 + S cost for LASSERT (matching
+    the kernel exactly), the LASSERT gap is zero: exact mu agreement. *)
 Theorem kami_vm_mu_lassert_gap :
   forall (hs : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat) (vs' : VMState),
     vm_step (abs_phase1 hs) (instr_lassert freg creg kind flen cost) vs' ->
-    vs'.(vm_mu) = (abs_phase1 (kami_step hs (instr_lassert freg creg kind flen cost))).(vm_mu)
-                  + flen * 8.
+    vs'.(vm_mu) = (abs_phase1 (kami_step hs (instr_lassert freg creg kind flen cost))).(vm_mu).
 Proof.
   intros hs freg creg kind flen cost vs' Hstep.
   inversion Hstep; subst;
@@ -740,13 +733,16 @@ Proof.
   - eexists. eapply step_tensor_get_bad. exact Hok.
 Qed.
 
-(** Predicate for non-jump instructions (PC advances by 1). *)
+(** Predicate for sequential instructions (PC advances by 1).
+    LASSERT is excluded: on failure, hardware traps to LASSERT_TRAP_PC
+    instead of incrementing. *)
 Definition verilog_increments_pc (i : vm_instruction) : bool :=
   match i with
   | instr_jump _ _ => false
   | instr_jnez _ _ _ => false
   | instr_call _ _ => false
   | instr_ret _ => false
+  | instr_lassert _ _ _ _ _ => false
   | _ => true
   end.
 
@@ -759,10 +755,13 @@ Theorem kami_step_pc_commutation_sequential :
 Proof.
   intros hs i Hinc.
   destruct i; simpl in Hinc; try discriminate;
-  unfold abs_phase1; simpl; try reflexivity;
-  (* CHSH_TRIAL: nested match — all arms have same PC *)
+  unfold abs_phase1, kami_step, kami_advance_default, kami_advance_err,
+         kami_advance_reg, kami_advance_rich_morph, kami_advance_rich_noret,
+         kami_advance_err_rich, kami_advance_cert_addr; simpl; try reflexivity;
   repeat match goal with
     | |- context [match ?x with _ => _ end] => destruct x; simpl; try reflexivity
+    | |- context [if ?b then _ else _] => destruct b; simpl; try reflexivity
+    | |- context [let (_, _) := ?x in _] => destruct x; simpl; try reflexivity
   end.
 Qed.
 (** ---------------------------------------------------------------

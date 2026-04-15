@@ -34,14 +34,6 @@ From Kernel Require Import CHSH QuantumBound.
     4. Cert-setting instructions charge μ (mu_ledger_monotone)
     5. Therefore: CHSH > 2√2 certified → Δμ > 0. QED.
 
-    MILESTONE STATUS:
-    ✓ Receipt abstraction defined (trace = receipts)
-    ✓ CHSH extraction formalized (extract_chsh_trials)
-    ✓ Non-forgeability proven (chsh_trials_non_forgeable)
-    ✓ No Free Insight theorem stated and proven (no_free_insight_chsh)
-    ✓ Quantitative bound proven (certified_supra_chsh_implies_mu_lower_bound)
-    ⚠ Runtime validation ongoing
-
     FALSIFICATION:
     Find a trace that certifies CHSH > 2√2 without containing REVEAL/EMIT/LJOIN/LASSERT.
     Or find a cert-setting instruction with μ-cost = 0. The proofs won't compile.
@@ -168,7 +160,7 @@ Definition compute_chsh (receipts : Receipts) : Q :=
       CHSH value exceeds the Tsirelson bound approximation.
     *)
 
-(** Simplified supra-quantum predicate for Milestone 1:
+(** Simplified supra-quantum predicate:
     "trace contains CHSH trials AND certification was written"
     
     This captures the essence: if you claim supra correlations via
@@ -250,11 +242,8 @@ Qed.
     
     This corresponds to Lemma 1.1 in the theorem document.
     
-    PROOF STATUS: Proven.
-    The claim is trivial by inspection of extract_chsh_trials (pattern matching).
-    
-    Future work: Complete formal proof when Coq tactics behave correctly with 40-constructor
-    inductive types in this module context.
+    PROOF STATUS: Proven (Qed).
+    Proof by induction on receipts with case analysis on extract_chsh_trials.
     *)
 
 Lemma chsh_trials_non_forgeable :
@@ -689,17 +678,6 @@ Qed.
     
     This is the "policy vs. theorem" distinction: Coq proves structural necessity,
     runtime enforces specific channel assignment.
-    *)
-
-(** * Milestone 1 Completion Criteria
-    
-    ✓ Define Certified predicate in Coq
-    ✓ Define supra_quantum_certified predicate
-    ✓ Prove no_free_insight_chsh theorem
-    ⚠ Map to runtime enforcement (validation in progress)
-    ⚠ Extract to OCaml and compare with VM implementation
-    
-    Next: Write human-readable proof sketch (2 pages, no jargon)
     *)
 
 (** * Relationship to General NoFreeInsight.v Framework

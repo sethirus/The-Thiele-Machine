@@ -543,6 +543,8 @@ Qed.
     ✓ Quantum realizability defined (PSD + symmetric)
     ✓ Bounds: Quantum realizable → correlators normalized
 
-    NEXT STEP:
-    Prove that NPA-1 feasibility implies CHSH ≤ 2√2 (Tsirelson bound).
+    COMPLETED (via alternate route):
+    Tsirelson bound proved in TsirelsonGeneral.v / TsirelsonFromAlgebra.v
+    via pure algebra, not NPA optimization. The NPA→Tsirelson path was
+    superseded.
     ========================================================================= *)

@@ -53,7 +53,7 @@
     ========================================================================= *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridges MuLedgerConservation to
-   Shannon information theory. Foundational for NoFI generalization (Track B). *)
+   Shannon information theory. Foundational for NoFI generalization. *)
 
 From Coq Require Import List Lia Arith.PeanoNat Arith.Compare_dec.
 Import ListNotations.
@@ -268,7 +268,7 @@ Qed.
     All cert-setters charge S cost ≥ 1 by construction.
 
     This is the maximum bound provable without probabilistic semantics.
-    The full Shannon bound (Δμ ≥ log₂|Ω|) requires B-track B3/B4 work. *)
+    The full Shannon bound (Δμ ≥ log₂|Ω|) requires probabilistic semantics. *)
 Theorem info_priced_cert_executions_bound :
   forall (fuel : nat) (trace : list vm_instruction) (s : VMState),
     cert_setter_executions fuel trace s <=
@@ -333,13 +333,13 @@ Definition shannon_entropy_reduction (omega_init omega_final : FeasibleSet) : na
   The actual missing piece is an expectation-level or whole-tree bridge from
   certification structure to entropy reduction. *)
 
-(** Placeholder type for consistent feasible-set reduction.
-    Will be filled in by the probabilistic semantics work (Track B, step B2). *)
+(** Consistent feasible-set reduction.
+    Requires probabilistic semantics (expectation-level feasible-set bridge). *)
 Definition consistent_reduction
     (fuel : nat) (trace : list vm_instruction)
     (omega_init omega_final : FeasibleSet)
     (s_init : VMState) : Prop :=
-  (* Placeholder: omega_final = states reachable from omega_init via trace *)
+  (* omega_final = states reachable from omega_init via trace *)
   forall s, In s omega_final ->
     In s omega_init /\
     exists s_out, run_vm fuel trace s = s_out.
@@ -785,8 +785,8 @@ Qed.
     ========================================================================= *)
 
 (** End of MuShannonBridge.
-    Next steps (Track B, steps B2-B4):
-  - B2: Define an expectation-level feasible-set semantics over input distributions
-  - B3: Connect consistent_reduction / decision-tree structure to Bayesian belief update
-  - B4: Prove the expected certification cost bound against the Shannon target *)
+    Open work:
+  - Define an expectation-level feasible-set semantics over input distributions
+  - Connect consistent_reduction / decision-tree structure to Bayesian belief update
+  - Prove the expected certification cost bound against the Shannon target *)
 

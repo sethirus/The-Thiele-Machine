@@ -654,9 +654,6 @@ Qed.
 
 (** ** Triangle Properties and Euler Characteristic *)
 
-(* Triangle edge count - requires detailed combinatorial proof *)
-(* Future work: prove from region_edges_internal definition *)
-
 (** ** Euler Characteristic Bounds
 
     For triangulated surfaces with F faces:
@@ -680,7 +677,7 @@ Qed.
 
 (** ** Connection to Curvature (Preview)
 
-    The Gauss-Bonnet theorem (Phase 2) will prove:
+    The Gauss-Bonnet theorem (Phase 2, DiscreteGaussBonnet.v) proves:
       sum(angle_defects) = 5π × χ
 
     This connects topology (χ) to geometry (curvature).
@@ -781,4 +778,4 @@ Proof.
   lia.
 Qed.
 
-(* To be proven in DiscreteGaussBonnet.v *)
+(* Continued in DiscreteGaussBonnet.v *)

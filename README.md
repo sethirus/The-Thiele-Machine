@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coq](https://img.shields.io/badge/Coq-171%20Proof%20Files-blue)](coq/)
+[![Coq](https://img.shields.io/badge/Coq-186%20Proof%20Files-blue)](coq/)
 
 ---
 
@@ -108,7 +108,7 @@ See `scripts/thiele_asm.py` for the full 47-opcode ISA, encoding format, and exa
 ### Compile the Coq Proofs (requires Coq 8.18+)
 
 ```bash
-make -C coq                # compile all 171 .v files
+make -C coq                # compile all 186 .v files
 make ocaml-runner          # extract and link the OCaml VM runner
 ```
 
@@ -135,12 +135,12 @@ THIELE_RTL_SIM=verilator pytest tests/test_logic_z3_verilator_bridge.py
 
 | Component | Status |
 |-----------|--------|
-| **Coq proofs** | 171 active `.v` files, zero admits anywhere in the active tree, zero project-local axioms per Inquisitor audit |
+| **Coq proofs** | 186 active `.v` files, zero admits anywhere in the active tree, zero project-local axioms per Inquisitor audit |
 | **Standalone proof** | `coq/ThieleMachineComplete.v` — one file, zero project imports, zero admits, full machine in 11 sections |
 | **OCaml runtime** | `build/extracted_vm_runner` built by mechanical extraction from Coq through `coq/Extraction.v` |
 | **Python VM** | `thielecpu/vm.py` — generated wrapper, delegates all execution to OCaml binary |
 | **Verilog RTL** | 3 source files: `thiele_cpu_kami.v` (Kami-generated, all 47 opcodes), `thiele_cpu_top.v` (FPGA wrapper), `RegFile.v` |
-| **Test suite** | 52 pytest files, 728 tests collected, covering opcode parity, cosim, bisimulation, Coq gates, fuzz, and RTL |
+| **Test suite** | 61 pytest files, 931 tests collected, covering opcode parity, cosim, bisimulation, Coq gates, fuzz, and RTL |
 | **Inquisitor audit** | Active tree passes maximum-strictness static analysis, report in `INQUISITOR_REPORT.md` |
 
 ---
@@ -255,14 +255,14 @@ coq/kernel/VMStep.v          ← single ground truth (47 opcodes, semantics)
 **Standalone completeness artifact:**
 
 ```
-coq/ThieleMachineComplete.v   ← zero project imports, zero admits, 11 sections
-  ├── archive/build_artifacts/alternate_extraction_lineage/thiele_core_complete.ml
-  │     (archive only — NOT the runtime)
-  └── archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.ml
-        (archive only — NOT the runtime)
+coq/ThieleMachineComplete.v   ← zero project imports for proofs, zero admits
+  ├── build/kami_hw/Target_complete.ml
+  │     (extracted by TMC via CanonicalCPUProof — byte-for-byte = Target.ml)
+  └── build/thiele_core_complete.ml
+        (copied from thiele_core.ml by Makefile — byte-for-byte identical)
 ```
 
-The standalone file proves every component is reachable from a single self-contained Coq source. It is a proof-completeness artifact. `Extraction.v` and `KamiExtraction.v` are the sole runtime extraction points.
+The standalone file proves every component is reachable from a single self-contained Coq source. It is a proof-completeness artifact. For extraction, TMC delegates to the modular kernel to ensure byte-for-byte identity: `Extraction.v` and `KamiExtraction.v` are the canonical extraction points; the Makefile copies `thiele_core.ml` → `thiele_core_complete.ml` and TMC directly extracts `Target_complete.ml` via `CanonicalCPUProof`.
 
 ### The 47-Opcode ISA
 
@@ -317,7 +317,7 @@ The low 32 bits (`[31:0]`) carry the legacy opcode + operand + cost fields. The 
 
 | Layer | Implementation | Role |
 |-------|----------------|------|
-| **Coq** | 171 `.v` files, zero admits | Mathematical ground truth |
+| **Coq** | 186 `.v` files, zero admits | Mathematical ground truth |
 | **OCaml** | Mechanically extracted from Coq | Authoritative executable |
 | **Verilog** | Kami-generated, Yosys-synthesizable | Physical realization |
 
@@ -361,9 +361,9 @@ Authoritative source files: `coq/kernel/VMStep.v` (semantics), `coq/kami_hw/Thie
 
 ```
 The-Thiele-Machine/
-├── coq/                         # Active proof tree (171 .v files)
-│   ├── kernel/                  # 128 core kernel files
-│   ├── kami_hw/                 # 10 hardware abstraction/extraction files
+├── coq/                         # Active proof tree (186 .v files)
+│   ├── kernel/                  # 131 core kernel files
+│   ├── kami_hw/                 # 22 hardware abstraction/extraction files
 │   ├── nofi/                    # NoFI interface (5 files)
 │   ├── physics/                 # Formal physics embeddings (5 files)
 │   ├── self_reference/          # Self-reference (9 files)
@@ -382,7 +382,7 @@ The-Thiele-Machine/
 │       └── testbench/           # Verilog testbench
 ├── build/                       # Extracted OCaml, compiled runner, Kami artifacts
 ├── rtl_harness/                 # Python bridge for Verilator co-simulation
-├── tests/                       # 52 pytest files
+├── tests/                       # 61 pytest files
 ├── scripts/                     # thiele_asm.py, inquisitor.py, kami_extract.sh, ...
 ├── examples/                    # Assembly programs and run scripts
 │   └── programs/                # Named example programs (10 files)

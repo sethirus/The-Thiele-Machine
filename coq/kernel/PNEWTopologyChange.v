@@ -263,10 +263,11 @@ Qed.
     ✓ PNEW with fresh triangle changes (V, E, F)
     ✓ Changes propagate through VM step semantics
 
-    NEXT STEPS (Phase 4):
-    - Prove Δχ → ΔCurvature via Gauss-Bonnet
-    - Connect curvature changes to stress-energy
-    - Derive Einstein's equation: Gμν = 8πTμν
+    COMPLETED (Phases 4–6):
+    - TopologyCurvatureBridge.v (Phase 4): Δχ → ΔCurvature via Gauss-Bonnet
+    - StressEnergyDynamics.v (Phase 5): stress-energy drives PNEW
+    - EinsteinEmergence.v (Phase 6): chains all phases into 2D discrete
+      Einstein analogue (curvature ∝ topology change ∝ stress-energy)
 
     The key insight: PNEW creates topological change (ΔF),
     which via χ = V - E + F creates measurable geometric effects.

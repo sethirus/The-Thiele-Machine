@@ -400,15 +400,16 @@ Definition graph_add_morphism (g : PartitionGraph)
       pg_next_morph_id := S new_id;
       pg_morphisms := (new_id, ms) :: g.(pg_morphisms) |}, new_id).
 
-(** graph_add_identity: Create an identity morphism for a module. *)
+(** graph_add_identity: Create an identity morphism for a module.
+    Coupling is empty_coupling_data — identity is structural
+    (morph_source = morph_target = mid, morph_is_identity = true).
+    Matches hardware: kami_step(MORPH_ID) uses coupling_desc=0. *)
 Definition graph_add_identity (g : PartitionGraph) (mid : ModuleID)
   : option (PartitionGraph * MorphismID) :=
   match graph_lookup g mid with
   | None => None
-  | Some m =>
-      let diag := map (fun x => (x, x)) m.(module_region) in
-      let c := {| coupling_pairs := diag; coupling_label := "id" |} in
-      Some (graph_add_morphism g mid mid c true)
+  | Some _ =>
+      Some (graph_add_morphism g mid mid empty_coupling_data true)
   end.
 
 (** graph_delete_morphism: Remove a morphism from the graph. *)

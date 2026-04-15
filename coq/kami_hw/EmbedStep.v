@@ -585,6 +585,7 @@ Lemma abs_phase1_kami_write_reg_advance :
          snap_csr_err := snap_csr_err ks;
          snap_csr_heap_base := snap_csr_heap_base ks;
          snap_logic_acc := snap_logic_acc ks;
+         snap_module_tensors := snap_module_tensors ks;
          snap_mstatus := snap_mstatus ks |} =
     advance_state_rm (abs_phase1 ks) i (abs_phase1 ks).(vm_graph)
                      (abs_phase1 ks).(vm_csrs)
@@ -760,6 +761,7 @@ Lemma abs_phase1_kami_graph_op_advance :
          snap_csr_err := snap_csr_err ks;
          snap_csr_heap_base := snap_csr_heap_base ks;
          snap_logic_acc := snap_logic_acc ks;
+         snap_module_tensors := snap_module_tensors ks;
          snap_mstatus := snap_mstatus ks |} =
     advance_state (abs_phase1 ks) i graph' (abs_phase1 ks).(vm_csrs) (abs_phase1 ks).(vm_err).
 Proof.
@@ -825,10 +827,9 @@ Proof.
   apply abs_phase1_read_mem.
 Qed.
 
-(** LASSERT embed_step: on success path, hardware and kernel agree on all
-    fields EXCEPT vm_mu. The mu gap is exactly flen * 8 (formula-reading cost
-    that hardware pays lazily). Hardware charges S cost; kernel charges
-    flen * 8 + S cost. *)
+(** LASSERT embed_step: now that hardware computes the full formula check
+    and charges flen*8+S(cost) matching the kernel, the success path yields
+    full field-by-field equality. *)
 Theorem embed_step_lassert :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
     let fbase := snap_regs ks (freg mod 32) in
@@ -848,10 +849,10 @@ Theorem embed_step_lassert :
     vm_regs hs' = vm_regs vs' /\
     vm_mem hs' = vm_mem vs' /\
     vm_err hs' = vm_err vs' /\
+    vm_mu hs' = vm_mu vs' /\
     vm_mu_tensor hs' = vm_mu_tensor vs' /\
     vm_witness hs' = vm_witness vs' /\
-    vm_certified hs' = vm_certified vs' /\
-    vm_mu vs' = vm_mu hs' + flen * 8.
+    vm_certified hs' = vm_certified vs'.
 Proof.
   intros ks freg creg kind flen cost fbase hw_flen cbase
          formula_words get_cert hw_check Hflen Hsuccess.
@@ -859,10 +860,9 @@ Proof.
   cbv zeta in Hcheck.
   fold fbase cbase hw_flen formula_words get_cert hw_check in Hcheck.
   cbv zeta.
-  unfold vm_apply. rewrite Hcheck.
-  unfold kami_step, kami_advance_default.
+  unfold vm_apply, kami_step.
   fold fbase hw_flen cbase formula_words get_cert hw_check.
-  rewrite Hsuccess.
+  rewrite Hcheck. rewrite Hsuccess.
   unfold apply_cost, instruction_cost.
   rewrite Hflen.
   unfold abs_phase1.
@@ -871,9 +871,10 @@ Proof.
        snap_mu_tensor snap_pt_sizes snap_pt_next_id snap_certified
        snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01 snap_wc_diff_01
        snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11
+       snap_module_tensors snap_csr_err
        vm_graph vm_csrs vm_regs vm_mem vm_pc vm_mu vm_mu_tensor
        vm_err vm_logic_acc vm_mstatus vm_witness vm_certified
        snapshot_regs_to_list snapshot_mem_to_list snapshot_tensor_to_list
        default_csrs].
-  repeat split; try reflexivity; lia.
+  repeat split; try reflexivity; try lia.
 Qed.

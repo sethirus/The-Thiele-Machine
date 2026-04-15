@@ -176,10 +176,11 @@ End WithDecEq.
     SECTION 4: BACKWARD COMPATIBILITY
     ========================================================================= *)
 
-(** The old theorem is retained for backward compatibility with downstream
-    proofs. It is now a corollary of the new non-trivial version.
-    DEPRECATED: Use feasible_strict_subset_implies_strict_predicates instead. *)
-Theorem feasible_reduction_implies_strict_predicates :
+(** The old theorem is retained for backward compatibility.
+    DEPRECATED: Use feasible_strict_subset_implies_strict_predicates instead.
+    NOTE: This proof is vacuous — it constructs trivial (true/false) predicates
+    that ignore the computation entirely. The real content is in Section 3. *)
+Definition feasible_reduction_implies_strict_predicates :
   forall (fuel : nat) (trace : list vm_instruction)
          (s_init s_final : VMState)
          (omega_prior omega_posterior : FeasibleSet),

@@ -305,9 +305,8 @@ Qed.
 (** First, establish that revelation charges μ 
     
     This uses the proven run_vm_mu_conservation from MuLedgerConservation.v.
-    We assume the wrapper pending formal proof that our total_mu_cost definition
-    equals ledger_sum(ledger_entries(...)), which is trivially true by construction.
-    Runtime tests validate this correspondence.
+    The total_mu_cost ↔ ledger_sum correspondence is proven as
+    delta_mu_equals_ledger_sum in MuShannonBridge.v.
     *)
 (** The program/trace distinction matters:
     [run_vm] executes by [vm_pc] indexing into the instruction list, so
@@ -392,7 +391,7 @@ Proof.
   apply trace_run_run_vm.
 Qed.
 
-(** ** Milestone 2 (strengthening form): certification of a stronger predicate
+(** ** Strengthening form: certification of a stronger predicate
     implies an explicit structure-addition (cert-setter) event.
 
     This theorem packages the abstract predicate framework with the

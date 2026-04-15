@@ -633,7 +633,8 @@ Qed.
       - Cauchy-Schwarz inequality for PSD matrices
       - Off-diagonal bound lemma
 
-    NEXT STEP:
-    Use these foundations to construct the NPA-1 moment matrix for CHSH
-    and prove the Tsirelson bound.
+    COMPLETED:
+    NPA-1 moment matrix constructed in NPAMomentMatrix.v using these SDP
+    foundations. Tsirelson bound proved in TsirelsonGeneral.v via pure
+    algebra.
     ========================================================================= *)

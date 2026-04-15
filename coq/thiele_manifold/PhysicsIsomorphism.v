@@ -188,23 +188,32 @@ Definition lattice_gas_model : DiscretePhysics.
 Proof.
   refine {| phys_state := DiscreteModel.Lattice;
             phys_step := DiscreteModel.physics_step;
-            phys_locality := True;
-            phys_finiteness := True;
+            phys_locality := forall l, length (DiscreteModel.physics_step l) = length l;
+            phys_finiteness := forall l, length (DiscreteModel.physics_step l) = length l;
             phys_energy := DiscreteModel.particle_count;
             phys_momentum := DiscreteModel.momentum;
             phys_energy_law := _;
-            phys_reversible := True |}.
+            phys_reversible := forall l, DiscreteModel.physics_step (DiscreteModel.physics_step l) = l |}.
   intro L.
   left.
   apply DiscreteModel.physics_preserves_particle_count.
 Defined.
 
+Lemma lattice_gas_local : phys_locality lattice_gas_model.
+Proof. exact DiscreteModel.physics_step_length. Qed.
+
+Lemma lattice_gas_finite : phys_finiteness lattice_gas_model.
+Proof. exact DiscreteModel.physics_step_length. Qed.
+
+Lemma lattice_gas_reversible : phys_reversible lattice_gas_model.
+Proof. exact DiscreteModel.physics_step_involutive. Qed.
+
   Definition dissipative_model : DiscretePhysics.
   Proof.
     refine {| phys_state := DissipativeModel.Lattice;
               phys_step := DissipativeModel.dissipative_step;
-              phys_locality := True;
-              phys_finiteness := True;
+              phys_locality := forall l, length (DissipativeModel.dissipative_step l) = length l;
+              phys_finiteness := forall l, length (DissipativeModel.dissipative_step l) = length l;
               phys_energy := DissipativeModel.energy;
               phys_momentum := fun _ => 0%Z;
               phys_energy_law := _;
@@ -215,20 +224,35 @@ Defined.
     - right. apply DissipativeModel.dissipative_energy_strict_when_hot. lia.
   Defined.
 
+Lemma dissipative_local : phys_locality dissipative_model.
+Proof. exact DissipativeModel.dissipative_step_length. Qed.
+
+Lemma dissipative_finite : phys_finiteness dissipative_model.
+Proof. exact DissipativeModel.dissipative_step_length. Qed.
+
 Definition wave_model : DiscretePhysics.
 Proof.
   refine {| phys_state := WaveModel.WaveState;
             phys_step := WaveModel.wave_step;
-            phys_locality := True;
-            phys_finiteness := True;
+            phys_locality := forall s, length (WaveModel.wave_step s) = length s;
+            phys_finiteness := forall s, length (WaveModel.wave_step s) = length s;
             phys_energy := WaveModel.wave_energy;
             phys_momentum := WaveModel.wave_momentum;
             phys_energy_law := _;
-            phys_reversible := True |}.
+            phys_reversible := forall s, WaveModel.wave_step_inv (WaveModel.wave_step s) = s |}.
   intro S.
   left.
   apply WaveModel.wave_energy_conserved.
 Defined.
+
+Lemma wave_local : phys_locality wave_model.
+Proof. exact WaveModel.wave_step_length. Qed.
+
+Lemma wave_finite : phys_finiteness wave_model.
+Proof. exact WaveModel.wave_step_length. Qed.
+
+Lemma wave_reversible : phys_reversible wave_model.
+Proof. exact WaveModel.wave_step_inverse. Qed.
 
 (** ** Case-study catalogue for the paper appendix *)
 Record EmbeddingCaseStudy := {

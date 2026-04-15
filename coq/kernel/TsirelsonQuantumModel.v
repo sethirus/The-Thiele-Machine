@@ -3,7 +3,7 @@
     =========================================================================
 
     PURPOSE:
-    Close Track C4 with an explicit theorem path that ties the executable
+    Provide an explicit theorem path that ties the executable
     Thiele trace model to the existing Tsirelson bounds.
 
     EXISTING RESULTS REUSED (no new axioms):
@@ -111,7 +111,7 @@ Proof.
   exact Hcoh.
 Qed.
 
-(** End-to-end closure theorem for Track C4 in one statement. *)
+(** End-to-end closure theorem in one statement. *)
 (* definitional lemma *)
 Theorem trace_quantum_model_connection_closed :
   forall fuel trace s_init,

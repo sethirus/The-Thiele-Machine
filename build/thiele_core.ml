@@ -1232,10 +1232,7 @@ let graph_add_morphism g src dst c is_id =
 
 let graph_add_identity g mid =
   match graph_lookup g mid with
-  | Some m ->
-    let diag = map (fun x -> x,x) m.module_region in
-    let c = { coupling_pairs = diag; coupling_label = ('i'::('d'::[])) } in
-    Some (graph_add_morphism g mid mid c true)
+  | Some _ -> Some (graph_add_morphism g mid mid empty_coupling_data true)
   | None -> None
 
 (** val graph_delete_morphism :
@@ -2946,11 +2943,8 @@ module VMStep =
 
 let vm_apply s = function
 | VMStep.Coq_instr_pnew (region, cost) ->
-  let normalized = normalize_region region in
-  let graph',mid = match graph_find_region s.vm_graph normalized with
-    | Some existing -> (s.vm_graph, existing)
-    | None -> graph_add_module s.vm_graph normalized []
-  in
+  let sz = length (normalize_region region) in
+  let graph',_ = graph_add_module s.vm_graph (seq 0 sz) [] in
   VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
     s.vm_csrs s.vm_err
 | VMStep.Coq_instr_psplit (module0, left_region, right_region, cost) ->
@@ -3370,7 +3364,8 @@ type morphTableEntry = { morph_entry_source : int; morph_entry_target :
                          morph_entry_is_identity : bool }
 
 type couplingDescriptorEntry = { coupling_desc_base : int;
-                                 coupling_desc_count : int }
+                                 coupling_desc_count : int;
+                                 coupling_desc_label : char list }
 
 type couplingPairEntry = { coupling_pair_source : int;
                            coupling_pair_target : int }
@@ -3433,6 +3428,7 @@ type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_wc_diff_01 : int; snap_wc_same_10 : int;
                       snap_wc_diff_10 : int; snap_wc_same_11 : int;
                       snap_wc_diff_11 : int;
+                      snap_module_tensors : (int -> int -> int);
                       snap_rich_state : richSnapshotState;
                       snap_csr_cert_addr : int; snap_csr_status : int;
                       snap_csr_err : int; snap_csr_heap_base : int;

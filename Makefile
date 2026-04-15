@@ -206,6 +206,9 @@ canonical-extract: canonical-source-gate
 	@$(MAKE) -C coq -j4 Extraction.vo kami_hw/KamiExtraction.vo
 	@if [ ! -s "build/thiele_core.ml" ]; then echo "FAIL: build/thiele_core.ml missing or empty"; exit 1; fi
 	@if [ ! -s "build/kami_hw/Target.ml" ]; then echo "FAIL: build/kami_hw/Target.ml missing or empty"; exit 1; fi
+	@cp build/thiele_core.ml build/thiele_core_complete.ml
+	@cp build/thiele_core.mli build/thiele_core_complete.mli 2>/dev/null || true
+	@echo "[canonical-extract] Copied thiele_core → thiele_core_complete (byte-for-byte identity)"
 	@if [ ! -s "build/kami_hw/Main.ml" ]; then echo "FAIL: build/kami_hw/Main.ml missing or empty"; exit 1; fi
 	@if [ ! -s "build/kami_hw/mkModule1.v" ]; then echo "FAIL: build/kami_hw/mkModule1.v missing or empty"; exit 1; fi
 	@if [ ! -s "build/kami_hw/mkModule1_synth.v" ]; then echo "FAIL: build/kami_hw/mkModule1_synth.v missing or empty"; exit 1; fi

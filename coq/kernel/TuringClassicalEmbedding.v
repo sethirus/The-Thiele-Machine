@@ -588,9 +588,7 @@ Qed.
     is preserved verbatim.  This confirms that shadow_proj is exactly the
     distinguishability quotient: shadow-equivalent states are indistinguishable
     by classical programs (Part 3), and shadow-inequivalent states are
-    immediately distinguishable (Part 5).
-
-    Phase 4 of the third-phase roadmap. *)
+    immediately distinguishable (Part 5). *)
 
 Theorem shadow_inequivalent_states_distinguishable :
   forall (s1 s2 : VMState),

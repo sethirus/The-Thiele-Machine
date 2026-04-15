@@ -51,6 +51,13 @@ Theorem dissipative_energy_strictly_decreasing :
   forall l, energy l > 0 -> energy (dissipative_step l) < energy l.
 Proof. apply dissipative_energy_strict_when_hot. Qed.
 
+(** [dissipative_step_length]: step preserves lattice size. *)
+Lemma dissipative_step_length :
+  forall l, length (dissipative_step l) = length l.
+Proof.
+  intro l. unfold dissipative_step. apply map_length.
+Qed.
+
 (** Abstract embedding wrapper so later proofs can transport the monotone
     energy law without committing to a specific machine. *)
 Section Embedding.

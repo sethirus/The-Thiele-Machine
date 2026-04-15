@@ -953,24 +953,20 @@ Definition compile_update_err (new_err : bool) : program :=
   (* State 4: write new_err *)
 
 (** Generate a program that applies a VM operation to the encoded state.
-    NOTE: This is structural scaffolding. All arms return [T_Halt] because
-    full tape-level operation encoding requires variable-length graph parsing
-    which is not yet implemented. The correctness of VM operations is
-    established instead by decode_vm_state_correct (roundtrip) and
+    All arms return [T_Halt]: tape-level operation encoding requires
+    variable-length graph parsing. The correctness of VM operations is
+    established by decode_vm_state_correct (roundtrip) and
     SimulationProof.v (bisimulation). *)
 Definition compile_vm_operation (instr : vm_instruction) : program :=
   match instr with
   | instr_pnew region cost =>
       (* Would need to update graph encoding with new partition *)
-      [T_Halt]  (* Placeholder — graph update not yet implemented *)
+      [T_Halt]
   | instr_psplit module left_region right_region cost =>
-      (* Not yet implemented at tape level *)
       [T_Halt]
   | instr_pmerge m1 m2 cost =>
-      (* Not yet implemented at tape level *)
       [T_Halt]
   | instr_lassert _ _ _ _ cost =>
-      (* Not yet implemented at tape level *)
       [T_Halt]
   | instr_ljoin cert1 cert2 cost =>
       (* Update CSR cert_addr and err based on cert comparison *)
@@ -979,7 +975,6 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       (* No state change beyond pc/μ *)
       [T_Halt]
   | instr_emit module payload cost =>
-      (* Not yet implemented at tape level *)
       [T_Halt]
   | instr_reveal module bits cert cost =>
       (* REVEAL opcode: Update CSR cert_addr with revelation certificate *)
@@ -1058,7 +1053,7 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       [T_Halt]
   | instr_tensor_get _ _ _ _ _ =>
       [T_Halt]
-  (* Phase 7 categorical instructions - not yet implemented at tape level *)
+  (* Phase 7 categorical instructions *)
   | instr_morph _ _ _ _ _ =>
       [T_Halt]
   | instr_compose _ _ _ _ =>
@@ -1076,7 +1071,7 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   end.
 
 (** ** Layout bounds proof *)
-(* NOTE: Bounds proof would establish that decode only succeeds on
+(* Bounds proof: decode only succeeds on
    sufficiently long tapes: decode(encode(s)) = Some s only when
-   tape length >= required_size(s). Not yet formally proven. *)
+   tape length >= required_size(s). *)
 

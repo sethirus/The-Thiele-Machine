@@ -284,10 +284,9 @@ Proof.
 Qed.
 
 (** LASSERT embed_step on the success path:
-    When the SAT check succeeds and flen matches the actual formula length,
-    hardware and kernel agree on all fields EXCEPT vm_mu.
-    The mu gap is flen * 8 (formula-reading cost charged by kernel but not hardware).
-    Hardware charges S cost; kernel charges flen * 8 + S cost. *)
+    Now that hardware computes the full formula check and charges
+    flen*8+S(cost) matching the kernel, the success path yields
+    full field-by-field equality including vm_mu. *)
 Theorem embed_step_lassert :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
     lassert_check_ok (abs_phase1 ks) freg creg kind = true ->
@@ -299,28 +298,28 @@ Theorem embed_step_lassert :
     vm_regs hs' = vm_regs vs' /\
     vm_mem hs' = vm_mem vs' /\
     vm_err hs' = vm_err vs' /\
+    vm_mu hs' = vm_mu vs' /\
     vm_mu_tensor hs' = vm_mu_tensor vs' /\
     vm_witness hs' = vm_witness vs' /\
-    vm_certified hs' = vm_certified vs' /\
-    vm_mu vs' = vm_mu hs' + flen * 8.
+    vm_certified hs' = vm_certified vs'.
 Proof.
   intros ks freg creg kind flen cost Hcheck Hflen.
   cbv zeta.
-  unfold vm_apply.
+  unfold vm_apply, kami_step.
   rewrite Hcheck.
-  unfold kami_step, kami_advance_default.
   unfold abs_phase1, apply_cost, instruction_cost.
   cbn [snap_pc snap_mu snap_err snap_halted snap_regs snap_mem
        snap_mu_tensor snap_pt_sizes snap_pt_next_id snap_certified
        snap_partition_ops snap_mdl_ops snap_info_gain snap_error_code
        snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01 snap_wc_diff_01
        snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11
+       snap_module_tensors snap_csr_err
        vm_graph vm_csrs vm_regs vm_mem vm_pc vm_mu vm_mu_tensor
        vm_err vm_logic_acc vm_mstatus vm_witness vm_certified
        snapshot_regs_to_list snapshot_mem_to_list snapshot_tensor_to_list
        default_csrs].
   rewrite Hflen.
-  repeat split; try reflexivity; lia.
+  repeat split; try reflexivity; try lia.
 Qed.
 
 (* ======================================================================

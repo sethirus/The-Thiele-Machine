@@ -672,7 +672,7 @@ def scan_unused_hypotheses(path: Path) -> list[Finding]:
         # These tactics can implicitly consume ANY hypothesis in scope:
         implicit_consumers = re.compile(
             r"\b(auto|eauto|intuition|firstorder|assumption|easy|trivial|"
-            r"lia|omega|lra|nra|nia|congruence|tauto|now|"
+            r"lia|omega|lra|nra|nia|congruence|tauto|now|subst|"
             r"contradiction|ring|field|discriminate|decide\s+equality)\b"
         )
         has_implicit_consumer = bool(implicit_consumers.search(proof_body_text))

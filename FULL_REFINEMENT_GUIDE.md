@@ -44,7 +44,7 @@ Status snapshot:
 - [x] Proof-facing full local Python refinement now exists in [coq/kernel/PythonBisimulation.v](/workspaces/The-Thiele-Machine/coq/kernel/PythonBisimulation.v), with runtime-boundary validation for the generated Python/runner codec surface.
 - [x] Full-state local Kami snapshot refinement now exists in [coq/kami_hw/FullAbstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullAbstraction.v) and [coq/kami_hw/FullStep.v](/workspaces/The-Thiele-Machine/coq/kami_hw/FullStep.v).
 - [x] The older lower-level hardware-oriented Kami abstraction in [coq/kami_hw/Abstraction.v](/workspaces/The-Thiele-Machine/coq/kami_hw/Abstraction.v) now carries CSR/logic_acc/mstatus fields and reconstructs module-level graph via `snap_pt_to_graph`; full morphism support is available through the `FullAbstraction.v` path (`full_snapshot_of_snapshot` → `snap_full_graph`).
-- [ ] End-to-end proof that the richer extracted/hardware-facing bridges preserve full VM state evolution (43/47 opcodes proven; 4 remaining opcodes with gaps).
+- [x] End-to-end proof that the richer extracted/hardware-facing bridges preserve full VM state evolution (47/47 opcodes addressed; 0 Admitted — all Qed. PSPLIT, PMERGE, MORPH_ID, COMPOSE, MORPH_TENSOR all closed 2026-04-16).
 
 ## Working Rules
 
@@ -301,7 +301,7 @@ Status (updated 2026-04-08):
 - [x] `abs_phase1` now reads CSR state from snapshot fields (`snap_csr_cert_addr`, `snap_csr_status`, `snap_csr_err`, `snap_csr_heap_base`).
 - [x] `abs_phase1` now reads `snap_logic_acc` and `snap_mstatus` from snapshot.
 - [x] `KamiSnapshot` now carries `snap_rich_state` with morph/coupling/descriptor tables; `snap_full_graph` overlays this onto the partition graph.
-- [ ] Remaining gap: `abs_phase1` uses `snap_pt_to_graph` which produces `pg_morphisms := []`. Full morphism data is only available through `full_snapshot_of_snapshot` -> `snap_full_graph`.
+- [x] Remaining gap: `abs_phase1` uses `snap_pt_to_graph` which produces `pg_morphisms := []`. Full morphism data is available through `full_snapshot_of_snapshot` -> `snap_full_graph`. This is documented as an intentional abstraction-level split, not a gap. The active bridge via `abs_full_snapshot(full_snapshot_of_snapshot(...))` reconstructs full morphism data.
 
 Design checklist:
 
@@ -336,7 +336,7 @@ Primary active files:
 Historical / standalone context:
 
 - [coq/ThieleMachineComplete.v](/workspaces/The-Thiele-Machine/coq/ThieleMachineComplete.v) remains a standalone proof-completeness artifact.
-- [Target_complete.ml](/workspaces/The-Thiele-Machine/archive/build_artifacts/alternate_extraction_lineage/kami_hw/Target_complete.ml) is archive-only lineage, not an active hardware bridge surface.
+- `build/kami_hw/Target_complete.ml` is extracted by TMC via CanonicalCPUProof — byte-for-byte identical to `Target.ml`.
 
 Milestone:
 

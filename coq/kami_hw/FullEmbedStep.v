@@ -458,16 +458,19 @@ Qed.
 
     CATEGORY C — Rich-state vs graph representation (7 opcodes):
 
-      MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT,
-      MORPH_TENSOR, MORPH_GET:
-        [kami_step] operates on bounded [RichSnapshotState] tables,
-        [vm_apply] operates on [PartitionGraph] morphism lists.
-        The representations are bridged by [snap_full_graph] /
-        [snapshot_morphisms_of_rich_state] in FullAbstraction.v,
-        but instruction-by-instruction commutation through
-        [kami_step] requires showing that bounded-table operations
-        match unbounded-list operations — a representation
-        isomorphism proof that is deferred to future work.
+      MORPH, MORPH_DELETE, MORPH_ASSERT, MORPH_GET:
+        Full-state equality proved through abs_full_snapshot under
+        WFDrivenPrecondition (GraphReconstructionBridge.v driven_step_wf).
+        Bounded-table ↔ unbounded-list isomorphism resolved via
+        snap_full_graph / snapshot_morphisms_of_rich_state.
+
+      MORPH_ID, COMPOSE, MORPH_TENSOR:
+        Field-by-field equality only (driven_step_*_fields).
+        Coupling label and representation mismatches prevent
+        exact VMState equality:
+        - MORPH_ID: coupling label "id" vs "empty"
+        - COMPOSE: coupling label "f;h" vs "empty", coupling pairs
+        - MORPH_TENSOR: source/target/coupling all differ
 
     These gaps are design constraints, not proof failures.  The hardware
     delegates graph, tensor, and categorical operations to the software

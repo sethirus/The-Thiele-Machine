@@ -64,6 +64,7 @@ From Kernel Require Import VMStep.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import SpacetimeEmergence.
 From Kernel Require Import ConeAlgebra.
+From Kernel Require Import ConeDerivation.
 From Kernel Require Import MuLedgerConservation.
 From Kernel Require Import KernelPhysics.
 From Kernel Require Import Locality.
@@ -2486,3 +2487,14 @@ Proof.
   Unshelve.
   all: unfold einstein_tensor, scalar_curvature; reflexivity.
 Qed.
+
+(** ** Cone Derivation Bridge
+
+    ConeDerivation.Cone_Structure_Unique proves that causal_cone is the
+    UNIQUE function satisfying compositional laws (cone_like). This
+    bridges to MuGravity: the gravitational coupling uses causal_cone,
+    and cone uniqueness guarantees no alternative causal structure exists.
+*)
+Lemma gravity_uses_unique_cone :
+  forall f, cone_like f -> forall trace, f trace = causal_cone trace.
+Proof. exact Cone_Structure_Unique. Qed.

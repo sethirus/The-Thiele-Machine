@@ -53,7 +53,7 @@
     When K = K(x): you need Kolmogorov-complexity(x) to certify x.
 
     The last two require connecting cs_witness to an information measure.
-    That is the open problem — the "arduous iterative development" ahead.
+    That is the open problem.
 
     STATUS: Zero Admitted.  Zero project-local axioms.
     A3/A4/A5 are requirements on the system, discharged per instantiation.
@@ -434,13 +434,13 @@ Qed.
           Connection: Chaitin's incompleteness theorem.
           Requires: an oracle for K, which must be axiomatized.
 
-    THE ITERATIVE DEVELOPMENT PLAN:
+    DEVELOPMENT STATUS:
     1. DONE (this file): quantitative framework + trivial threshold = 1.
-    2. NEXT: W2 (CHSH witness count) — concrete, connects to Tsirelson.
-       Prove: certifying a CHSH violation requires ≥ N_min CHSH trials.
-    3. LATER: W1 (cert string length) — connect cert cost to cert size.
-    4. LATER: W4 (Shannon) — formal connection to information theory.
-    5. EVENTUAL: W5 (Kolmogorov) — requires oracle axiom.
+    2. DONE: W2 (CHSH witness count) — proven as chsh_trial_count_lower_bound
+       below. Certifying a CHSH violation requires ≥ N_min CHSH trials.
+    3. OPEN: W1 (cert string length) — connect cert cost to cert size.
+    4. OPEN: W4 (Shannon) — formal connection to information theory.
+    5. OPEN: W5 (Kolmogorov) — requires oracle axiom.
 
     WHAT WOULD MAKE THIS EPOCH-SHIFTING:
     W5 with a concrete, falsifiable connection between K(cert) and
@@ -448,7 +448,7 @@ Qed.
     analog of the Landauer bound for cognition.
 
     STATUS: Zero Admitted.  Zero axioms.  The open hypotheses are named
-    above as W1-W5 — targets for the next phases of development.
+    above as W1-W5.
     =========================================================================
 *)
 
@@ -824,12 +824,10 @@ Qed.
     Any state with witness_total ≥ N was reached via ≥ N valid CHSH_TRIALs.
     Cost(N quantum measurements) ≥ N.
 
-    NEXT: STATISTICAL CONNECTION (W2 statistical):
-    Prove that witness_total ≥ N_min → CHSH violation is statistically
-    certified at confidence (1 - δ), where N_min depends on δ and the
-    Tsirelson gap (2√2 - 2 ≈ 0.83).
-    Requires: Hoeffding / Chernoff bound formalization, or connection to
-    the existing CHSH.v Tsirelson proofs.
+    COMPLETED: STATISTICAL CONNECTION (W2 statistical):
+    CHSHStatisticalBridge.v imports W2 and applies Hoeffding concentration
+    bounds to prove witness_total ≥ N_min → CHSH violation statistically
+    certified at confidence (1 - δ).
 
     LATER:
     W1 (cert string length): cost ≥ |cert_content|.

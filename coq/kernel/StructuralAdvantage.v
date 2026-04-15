@@ -8,7 +8,7 @@
 
     This file formalizes that measurement as Coq theorems.
 
-    THE CLAIM (formally stated, proof in progress):
+    THE CLAIM (formally stated):
     For any N ≥ 2, there exists:
       - A blind program P_blind : vm_instruction list
         that solves the N×N factored search problem in N² vm_apply calls,
@@ -704,7 +704,7 @@ Qed.
     Formula: (N^(k-1)/k) with k=log₂(N) = N^(log₂(N)-1)/log₂(N).
     For N=16, k=4: 16^3/4 = 4096/4 = 1024.
     For N=32, k=5: 32^4/5 = 1048576/5 ≈ 200k.
-    The ratio grows super-polynomially in N. Not yet formally proven in Coq.
+    The ratio grows super-polynomially in N. Open in Coq.
 
     OPEN QUESTION 2 (bounded μ complexity): STILL OPEN.
     Let MuP(k) = problems solvable in polynomial time and k μ-units.
