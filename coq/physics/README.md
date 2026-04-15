@@ -2,9 +2,7 @@
 
 **Mission:** Physics model formalizations including wave/discrete duality and lattice geometry.
 
-Note: `LandauerBridge.v` was archived to `archive/coq_unused/physics_landauer/` because it used a
-standalone `VMConfig` type unconnected to the Thiele kernel. The proper kernel-connected Landauer
-bridge is in `coq/kernel/LandauerBound.v` (Track D, D1).
+The kernel-connected Landauer derivation is in `coq/kernel/LandauerDerivation.v`.
 
 ## Structure
 

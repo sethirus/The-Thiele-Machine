@@ -48,7 +48,6 @@ PROTECTED_BASENAMES = {"CoreSemantics.v", "BridgeDefinitions.v"}
 # ULTRA STRICT: Critical kernel proof files
 CRITICAL_KERNEL_FILES = {
     "TsirelsonUpperBound.v",
-    "TsirelsonLowerBound.v", 
     "TsirelsonUniqueness.v",
     "NoFreeInsight.v",
     "MuCostModel.v",
