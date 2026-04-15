@@ -2,8 +2,8 @@
 
     Trace-level shadow compatibility class theorem.
 
-    Extends [ShadowDevice.every_shadow_device_satisfies_compat] (Phase 2,
-    state-level) to the dynamic case: if a device step function embeds into
+    Extends [ShadowDevice.every_shadow_device_satisfies_compat]
+    (state-level) to the dynamic case: if a device step function embeds into
     Thiele's [vm_apply], then the entire trace of device observations equals
     the classical-shadow trace of the corresponding Thiele execution.
 

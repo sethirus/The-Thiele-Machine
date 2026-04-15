@@ -189,7 +189,6 @@ Qed.
     Find another function satisfying cone_like that differs from causal_cone.
     Can't happen - Cone_Structure_Unique proves there's exactly one such function.
 
-    NEXT: Use this uniqueness to derive operational constraints (e.g., μ-cost
-    must track cone growth, no operations can shrink cones).
+    DOWNSTREAM: MuGravity.v imports ConeDerivation and re-exports\n    Cone_Structure_Unique as gravity_uses_unique_cone.
 
     ========================================================================= *)

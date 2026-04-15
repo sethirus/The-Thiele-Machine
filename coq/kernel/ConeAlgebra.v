@@ -705,7 +705,8 @@ Qed.
     the laws are THEOREMS proven from vm_step's definition. The VM semantics
     ENFORCE causal algebra.
 
-    NEXT: Use this algebraic structure to derive quantum principles (Born rule,
-    unitary evolution, entanglement) from operational constraints.
+    STATUS: The Born rule is derived independently in BornRule.v via
+    μ-cost accounting, not via cone algebra. ConeAlgebra feeds into
+    the gravity pipeline via MuGravity.v.
 
     ========================================================================= *)

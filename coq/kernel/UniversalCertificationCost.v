@@ -354,8 +354,6 @@ Qed.
     PART 7: REPRESENTATION THEOREM — SIMULATING CERTIFICATION SYSTEMS
     =========================================================================
 
-    Phase 3 of the third-phase roadmap.
-
     Any CertificationSystem with a simulation morphism into the Thiele VM
     is "faithfully represented" by Thiele:
 
@@ -442,8 +440,6 @@ Definition thiele_self_simulating : SimulatingCertificationSystem :=
 (** =========================================================================
     PART 8: CERTIFIED-COST MACHINE CATEGORY AND INITIALITY
     =========================================================================
-
-    Phase 5 of the third-phase roadmap.
 
     Defines a category of certified-cost machines (objects = CertCostMachine,
     morphisms = CertCostMorphism) and proves that the Thiele VM is an

@@ -196,11 +196,10 @@ Qed.
     - Curvature changes are QUANTIZED (ΔK = 5π, 10π, 15π, ...)
     - This is measurable: we can detect 5π changes in angle sums
 
-    NEXT STEP (Phase 5):
-    - Show that PNEW operations change χ
-    - Show that stress-energy determines PNEW frequency
-    - Combine to get: stress-energy → topology change → curvature change
-    - This IS gravity emerging from information!
+    COMPLETED (Phases 5–6):
+    - StressEnergyDynamics.v (Phase 5): stress-energy drives PNEW
+    - EinsteinEmergence.v (Phase 6): chains all phases
+    Gravity emerges from information: stress-energy → PNEW → Δχ → ΔK.
     *)
 
 (** ** Verification Requirements

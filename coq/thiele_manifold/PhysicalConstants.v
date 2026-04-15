@@ -17,26 +17,26 @@ Local Open Scope R_scope.
 Section Constants.
   Variable N : nat.
 
+  (** Abstract external predicates — instantiated by the Python sampling
+      harness.  The actual decode/execute cycle lives outside Coq. *)
+  Variable decodes_to : list bool -> Prog -> Prop.
+  Variable produces_own_payload : Prog -> list bool -> Prop.
+
   (** A state is a length-N bitstring interpreted as a program payload. *)
   Definition StateSpace := list bool.
 
-  (** Validity: the bitstring decodes to a length-N program.  The actual
-      decode function lives outside Coq; we leave validity abstract so the
-      counting functions can be instantiated from empirical measurements. *)
+  (** Validity: the bitstring decodes to a length-N program. *)
   Definition is_valid_program (bits : list bool) : Prop :=
     exists (p : Prog),
       length bits = N /\
-      (* Placeholder for a concrete decode check; supplied externally. *)
-      True.
+      decodes_to bits p.
 
-  (** Self-reference: the decoded program produces its own payload.  The
-      operational details are delegated to the external checker so this
-      predicate can be instantiated by the Python sampling harness. *)
+  (** Self-reference: the decoded program produces its own payload. *)
   Definition is_self_referential (bits : list bool) : Prop :=
     is_valid_program bits /\
     exists (p : Prog),
-      (* Decode bits to p, execute p, and check if its output matches bits. *)
-      True.
+      decodes_to bits p /\
+      produces_own_payload p bits.
 
   (** Counting functions – external measurements of program density. *)
   Definition volume_spacetime (n : nat) : R :=

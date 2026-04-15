@@ -35,6 +35,7 @@
     - mu_tensor: 4×4 revelation direction tracking
     - error_code: specific error condition identifier *)
 
+Require Import Coq.Strings.String.
 Require Import Coq.Lists.List.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.micromega.Lia.
@@ -66,7 +67,8 @@ Record MorphTableEntry := {
 
 Record CouplingDescriptorEntry := {
   coupling_desc_base : nat;
-  coupling_desc_count : nat
+  coupling_desc_count : nat;
+  coupling_desc_label : string
 }.
 
 Record CouplingPairEntry := {
@@ -177,6 +179,7 @@ Record KamiSnapshot := {
   snap_wc_diff_10    : nat ;
   snap_wc_same_11    : nat ;
   snap_wc_diff_11    : nat ;
+  snap_module_tensors : nat -> nat -> nat ;  (* per-module tensor: module_id -> flat_idx -> value *)
   snap_rich_state    : RichSnapshotState ;
   (* --- M1 unification fields: CSR / logic_acc / mstatus --- *)
   snap_csr_cert_addr : nat ;   (* mirrors CSRState.csr_cert_addr *)
@@ -230,16 +233,19 @@ Definition snapshot_morphisms_of_rich_state
       match rich_morph_table rs i with
       | None => None
       | Some entry =>
+          let label := match rich_coupling_desc_table rs (morph_entry_coupling_desc entry) with
+                       | Some desc => coupling_desc_label desc
+                       | None => coupling_label empty_coupling_data
+                       end in
           Some
             (i,
              {| morph_source := morph_entry_source entry;
                 morph_target := morph_entry_target entry;
                 morph_coupling :=
-                  normalize_coupling
                     {| coupling_pairs :=
                          snapshot_coupling_pairs_from_desc rs
                            (morph_entry_coupling_desc entry);
-                       coupling_label := coupling_label empty_coupling_data |};
+                       coupling_label := label |};
                 morph_is_identity := morph_entry_is_identity entry |})
       end)
     (List.rev (List.seq 0 (rich_next_morph_id rs))).
@@ -292,6 +298,66 @@ Definition rich_state_delete_morph (rs : RichSnapshotState) (mid : nat)
      rich_next_desc_meta_id := rs.(rich_next_desc_meta_id);
      rich_lassert_state := rs.(rich_lassert_state) |}.
 
+(** Write a list of coupling pairs into the pair table starting at the
+    current next_coupling_pair_id, allocate a coupling descriptor pointing
+    at them, and return (updated_state, descriptor_id). *)
+Fixpoint write_coupling_pairs_aux
+    (tbl : nat -> option CouplingPairEntry) (base : nat)
+    (pairs : list (nat * nat)) : nat -> option CouplingPairEntry :=
+  match pairs with
+  | [] => tbl
+  | (s, t) :: rest =>
+      write_coupling_pairs_aux
+        (fun i => if Nat.eqb i base
+                  then Some {| coupling_pair_source := s; coupling_pair_target := t |}
+                  else tbl i)
+        (S base) rest
+  end.
+
+Definition rich_state_add_coupling_data (rs : RichSnapshotState)
+    (pairs : list (nat * nat)) (label : string)
+    : RichSnapshotState * nat :=
+  let pair_base := rs.(rich_next_coupling_pair_id) in
+  let pair_count := length pairs in
+  let pair_table' := write_coupling_pairs_aux
+                       rs.(rich_coupling_pair_table) pair_base pairs in
+  let desc_id := rs.(rich_next_coupling_desc_id) in
+  let desc := {| coupling_desc_base := pair_base;
+                 coupling_desc_count := pair_count;
+                 coupling_desc_label := label |} in
+  ({| rich_morph_table := rs.(rich_morph_table);
+      rich_next_morph_id := rs.(rich_next_morph_id);
+      rich_coupling_desc_table := fun i =>
+        if Nat.eqb i desc_id then Some desc
+        else rs.(rich_coupling_desc_table) i;
+      rich_next_coupling_desc_id := desc_id + 1;
+      rich_coupling_pair_table := pair_table';
+      rich_next_coupling_pair_id := pair_base + pair_count;
+      rich_formula_desc_table := rs.(rich_formula_desc_table);
+      rich_next_formula_desc_id := rs.(rich_next_formula_desc_id);
+      rich_cert_desc_table := rs.(rich_cert_desc_table);
+      rich_next_cert_desc_id := rs.(rich_next_cert_desc_id);
+      rich_desc_meta_table := rs.(rich_desc_meta_table);
+      rich_next_desc_meta_id := rs.(rich_next_desc_meta_id);
+      rich_lassert_state := rs.(rich_lassert_state) |},
+   desc_id).
+
+(** Add a morphism with fully populated coupling data.
+    Returns (updated_state, new_morph_id). *)
+Definition rich_state_add_morph_with_coupling (rs : RichSnapshotState)
+    (src dst : nat) (pairs : list (nat * nat))
+    (label : string) (is_id : bool)
+    : RichSnapshotState * nat :=
+  let '(rs1, desc_id) := rich_state_add_coupling_data rs pairs label in
+  rich_state_add_morph rs1 src dst desc_id is_id.
+
+(** Look up the coupling label for a morphism entry's descriptor. *)
+Definition morph_coupling_label (rs : RichSnapshotState) (entry : MorphTableEntry) : string :=
+  match rs.(rich_coupling_desc_table) (morph_entry_coupling_desc entry) with
+  | Some desc => coupling_desc_label desc
+  | None => coupling_label empty_coupling_data
+  end.
+
 (** Advance pc/mu, write reg dst = new_id, replace rich_state with rs'. *)
 Definition kami_advance_rich_morph (hs : KamiSnapshot)
     (dst new_id cost : nat) (rs' : RichSnapshotState) : KamiSnapshot :=
@@ -318,6 +384,7 @@ Definition kami_advance_rich_morph (hs : KamiSnapshot)
      snap_wc_diff_10   := snap_wc_diff_10 hs;
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
      snap_rich_state    := rs';
      snap_csr_cert_addr := snap_csr_cert_addr hs;
      snap_csr_status    := snap_csr_status hs;
@@ -351,6 +418,7 @@ Definition kami_advance_rich_noret (hs : KamiSnapshot)
      snap_wc_diff_10   := snap_wc_diff_10 hs;
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
      snap_rich_state    := rs';
      snap_csr_cert_addr := snap_csr_cert_addr hs;
      snap_csr_status    := snap_csr_status hs;
@@ -385,7 +453,11 @@ Definition default_csrs : CSRState :=
     existing module-table lemmas built over this definition.
 
     This ordering invariant is what lets snap_pt_to_graph_pnew hold as a
-    structural equality (not just observational equivalence). *)
+    structural equality (not just observational equivalence).
+
+    Note: snap_pt_to_graph produces pg_morphisms := [] by design.
+    Morphism state is tracked at the full-snapshot level via snap_full_graph.
+    See GraphReconstructionBridge.v for the full-state bridge. *)
 Definition snap_pt_to_graph (next_id : nat) (sizes : nat -> nat) : PartitionGraph :=
   let modules :=
     filtermap
@@ -403,11 +475,17 @@ Definition snap_pt_to_graph (next_id : nat) (sizes : nat -> nat) : PartitionGrap
 
 (** Full bounded graph reconstruction from the hardware-facing snapshot.
     M3 uses the same module reconstruction as [snap_pt_to_graph], then overlays
-    bounded morph/coupling state from [snap_rich_state]. *)
+    bounded morph/coupling state from [snap_rich_state] and per-module tensor
+    data from [snap_module_tensors]. *)
 Definition snap_full_graph (s : KamiSnapshot) : PartitionGraph :=
   let base := snap_pt_to_graph (snap_pt_next_id s) (snap_pt_sizes s) in
   {| pg_next_id := base.(pg_next_id);
-     pg_modules := base.(pg_modules);
+     pg_modules := map (fun '(id, m) =>
+       (id, {| module_region := m.(module_region);
+               module_axioms := m.(module_axioms);
+               module_mu_tensor :=
+                 List.map (snap_module_tensors s id) (List.seq 0 16) |}))
+       base.(pg_modules);
      pg_next_morph_id := rich_next_morph_id (snap_rich_state s);
      pg_morphisms := snapshot_morphisms_of_rich_state (snap_rich_state s) |}.
 
@@ -482,6 +560,7 @@ Definition kami_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot 
      snap_wc_diff_10   := snap_wc_diff_10 hs;
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
      snap_rich_state    := snap_rich_state hs;
      snap_csr_cert_addr := snap_csr_cert_addr hs;
      snap_csr_status    := snap_csr_status hs;
@@ -524,6 +603,7 @@ Definition kami_advance_reg (hs : KamiSnapshot) (r v cost : nat) : KamiSnapshot 
      snap_wc_diff_10   := snap_wc_diff_10 hs;
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
      snap_rich_state    := snap_rich_state hs;
      snap_csr_cert_addr := snap_csr_cert_addr hs;
      snap_csr_status    := snap_csr_status hs;
@@ -558,6 +638,7 @@ Definition kami_advance_err (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
      snap_wc_diff_10   := snap_wc_diff_10 hs;
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
      snap_rich_state    := snap_rich_state hs;
      snap_csr_cert_addr := snap_csr_cert_addr hs;
      snap_csr_status    := snap_csr_status hs;
@@ -592,6 +673,7 @@ Definition kami_advance_err_rich (hs : KamiSnapshot) (cost : nat)
      snap_wc_diff_10   := snap_wc_diff_10 hs;
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
      snap_rich_state    := rs';
      snap_csr_cert_addr := snap_csr_cert_addr hs;
      snap_csr_status    := snap_csr_status hs;
@@ -625,6 +707,7 @@ Definition kami_advance_cert_addr (hs : KamiSnapshot) (addr cost : nat) : KamiSn
      snap_wc_diff_10   := snap_wc_diff_10 hs;
      snap_wc_same_11   := snap_wc_same_11 hs;
      snap_wc_diff_11   := snap_wc_diff_11 hs;
+     snap_module_tensors := snap_module_tensors hs;
      snap_rich_state    := snap_rich_state hs;
      snap_csr_cert_addr := addr;
      snap_csr_status    := snap_csr_status hs;
@@ -671,7 +754,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -712,7 +796,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10   := snap_wc_diff_10 hs;
          snap_wc_same_11   := snap_wc_same_11 hs;
          snap_wc_diff_11   := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -754,6 +839,45 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10   := snap_wc_diff_10 hs;
          snap_wc_same_11   := snap_wc_same_11 hs;
          snap_wc_diff_11   := snap_wc_diff_11 hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
+         snap_csr_cert_addr := snap_csr_cert_addr hs;
+         snap_csr_status    := snap_csr_status hs;
+         snap_csr_err       := snap_csr_err hs;
+         snap_csr_heap_base := snap_csr_heap_base hs;
+         snap_logic_acc     := snap_logic_acc hs;
+         snap_mstatus       := snap_mstatus hs |}
+  | instr_lassert freg creg kind flen cost =>
+      (* LASSERT: hardware computes full formula check, traps on failure.
+         Cost: flen * 8 + S cost (matches instruction_cost).
+         PC: S pc on success, LASSERT_TRAP_PC on failure.
+         Error: set snap_err on failure.  CSRs preserved (matching vm_apply). *)
+      let check_ok := lassert_check_ok (abs_phase1 hs) freg creg kind in
+      let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
+      let new_err  := if check_ok then snap_err hs else true in
+      {| snap_pc    := new_pc;
+         snap_mu    := snap_mu hs + (flen * 8 + S cost);
+         snap_err   := new_err;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs;
+         snap_module_tensors := snap_module_tensors hs;
          snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
@@ -761,8 +885,6 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
-  | instr_lassert _ _ _ _ cost =>
-      kami_advance_default hs (S cost)
   | instr_ljoin _ _ cost =>
       kami_advance_default hs (S cost)
   | instr_mdlacc _ cost =>
@@ -788,7 +910,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -820,7 +943,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -850,7 +974,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -880,7 +1005,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -910,7 +1036,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -941,7 +1068,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -974,7 +1102,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1004,7 +1133,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1035,7 +1165,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1075,7 +1206,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1108,7 +1240,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1137,6 +1270,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
            snap_wc_same_01 := s01; snap_wc_diff_01 := d01;
            snap_wc_same_10 := s10; snap_wc_diff_10 := d10;
            snap_wc_same_11 := s11; snap_wc_diff_11 := d11;
+           snap_module_tensors := snap_module_tensors hs;
            snap_rich_state    := snap_rich_state hs;
            snap_csr_cert_addr := snap_csr_cert_addr hs;
            snap_csr_status    := snap_csr_status hs;
@@ -1177,7 +1311,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1209,7 +1344,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1244,7 +1380,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1274,7 +1411,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1310,7 +1448,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1347,7 +1486,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1379,7 +1519,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1411,7 +1552,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1441,7 +1583,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1473,7 +1616,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1504,7 +1648,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1535,7 +1680,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1566,7 +1712,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1597,7 +1744,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1628,7 +1776,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1658,7 +1807,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
+         snap_module_tensors := snap_module_tensors hs;
+     snap_rich_state    := snap_rich_state hs;
          snap_csr_cert_addr := snap_csr_cert_addr hs;
          snap_csr_status    := snap_csr_status hs;
          snap_csr_err       := snap_csr_err hs;
@@ -1666,45 +1816,80 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   (* TENSOR_SET: Updates per-module tensor entry at (i,j).
-     The per-module tensor is managed by the software driver (like axioms);
-     snap_pt_to_graph reconstructs modules with module_mu_tensor_default.
-     Hardware just advances PC and charges cost, like PDISCOVER. *)
-  | instr_tensor_set _ _ _ _ cost =>
-      kami_advance_default hs cost
+     Hardware validates indices and stores the value in snap_module_tensors.
+     snap_full_graph reconstructs modules using snap_module_tensors. *)
+  | instr_tensor_set mid i j value cost =>
+      if tensor_indices_ok i j then
+        {| snap_pc    := S (snap_pc hs);
+           snap_mu    := snap_mu hs + cost;
+           snap_err   := snap_err hs;
+           snap_halted := snap_halted hs;
+           snap_regs  := snap_regs hs;
+           snap_mem   := snap_mem hs;
+           snap_partition_ops := snap_partition_ops hs;
+           snap_mdl_ops := snap_mdl_ops hs;
+           snap_info_gain := snap_info_gain hs;
+           snap_error_code := snap_error_code hs;
+           snap_mu_tensor := snap_mu_tensor hs;
+           snap_pt_sizes := snap_pt_sizes hs;
+           snap_pt_next_id := snap_pt_next_id hs;
+           snap_certified := snap_certified hs;
+           snap_wc_same_00 := snap_wc_same_00 hs;
+           snap_wc_diff_00 := snap_wc_diff_00 hs;
+           snap_wc_same_01 := snap_wc_same_01 hs;
+           snap_wc_diff_01 := snap_wc_diff_01 hs;
+           snap_wc_same_10 := snap_wc_same_10 hs;
+           snap_wc_diff_10 := snap_wc_diff_10 hs;
+           snap_wc_same_11 := snap_wc_same_11 hs;
+           snap_wc_diff_11 := snap_wc_diff_11 hs;
+           snap_module_tensors := fun m k =>
+             if andb (Nat.eqb m mid) (Nat.eqb k (i * 4 + j)) then value
+             else snap_module_tensors hs m k;
+           snap_rich_state    := snap_rich_state hs;
+           snap_csr_cert_addr := snap_csr_cert_addr hs;
+           snap_csr_status    := snap_csr_status hs;
+           snap_csr_err       := snap_csr_err hs;
+           snap_csr_heap_base := snap_csr_heap_base hs;
+           snap_logic_acc     := snap_logic_acc hs;
+           snap_mstatus       := snap_mstatus hs |}
+      else
+        kami_advance_err hs cost
   (* TENSOR_GET: Reads per-module tensor entry at (i,j) into register dst.
-     Per-module tensor data is not stored in KamiSnapshot hardware registers;
-     snap_pt_to_graph reconstructs all modules with module_mu_tensor_default
-     (all zeros), so the hardware read returns 0. *)
-  | instr_tensor_get dst _ _ _ cost =>
-      {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + cost;
-         snap_err   := snap_err hs;
-         snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst 0;
-         snap_mem   := snap_mem hs;
-         snap_partition_ops := snap_partition_ops hs;
-         snap_mdl_ops := snap_mdl_ops hs;
-         snap_info_gain := snap_info_gain hs;
-         snap_error_code := snap_error_code hs;
-         snap_mu_tensor := snap_mu_tensor hs;
-         snap_pt_sizes := snap_pt_sizes hs;
-         snap_pt_next_id := snap_pt_next_id hs;
-         snap_certified := snap_certified hs;
-         snap_wc_same_00 := snap_wc_same_00 hs;
-         snap_wc_diff_00 := snap_wc_diff_00 hs;
-         snap_wc_same_01 := snap_wc_same_01 hs;
-         snap_wc_diff_01 := snap_wc_diff_01 hs;
-         snap_wc_same_10 := snap_wc_same_10 hs;
-         snap_wc_diff_10 := snap_wc_diff_10 hs;
-         snap_wc_same_11 := snap_wc_same_11 hs;
-         snap_wc_diff_11 := snap_wc_diff_11 hs;
-         snap_rich_state    := snap_rich_state hs;
-         snap_csr_cert_addr := snap_csr_cert_addr hs;
-         snap_csr_status    := snap_csr_status hs;
-         snap_csr_err       := snap_csr_err hs;
-         snap_csr_heap_base := snap_csr_heap_base hs;
-         snap_logic_acc     := snap_logic_acc hs;
-         snap_mstatus       := snap_mstatus hs |}
+     Hardware validates indices and reads from snap_module_tensors. *)
+  | instr_tensor_get dst mid i j cost =>
+      if tensor_indices_ok i j then
+        {| snap_pc    := S (snap_pc hs);
+           snap_mu    := snap_mu hs + cost;
+           snap_err   := snap_err hs;
+           snap_halted := snap_halted hs;
+           snap_regs  := kami_write_reg hs dst (snap_module_tensors hs mid (i * 4 + j));
+           snap_mem   := snap_mem hs;
+           snap_partition_ops := snap_partition_ops hs;
+           snap_mdl_ops := snap_mdl_ops hs;
+           snap_info_gain := snap_info_gain hs;
+           snap_error_code := snap_error_code hs;
+           snap_mu_tensor := snap_mu_tensor hs;
+           snap_pt_sizes := snap_pt_sizes hs;
+           snap_pt_next_id := snap_pt_next_id hs;
+           snap_certified := snap_certified hs;
+           snap_wc_same_00 := snap_wc_same_00 hs;
+           snap_wc_diff_00 := snap_wc_diff_00 hs;
+           snap_wc_same_01 := snap_wc_same_01 hs;
+           snap_wc_diff_01 := snap_wc_diff_01 hs;
+           snap_wc_same_10 := snap_wc_same_10 hs;
+           snap_wc_diff_10 := snap_wc_diff_10 hs;
+           snap_wc_same_11 := snap_wc_same_11 hs;
+           snap_wc_diff_11 := snap_wc_diff_11 hs;
+           snap_module_tensors := snap_module_tensors hs;
+           snap_rich_state    := snap_rich_state hs;
+           snap_csr_cert_addr := snap_csr_cert_addr hs;
+           snap_csr_status    := snap_csr_status hs;
+           snap_csr_err       := snap_csr_err hs;
+           snap_csr_heap_base := snap_csr_heap_base hs;
+           snap_logic_acc     := snap_logic_acc hs;
+           snap_mstatus       := snap_mstatus hs |}
+      else
+        kami_advance_err hs cost
   (* Phase 7 categorical instructions — full rich-state mutations.
      The hardware maintains bounded morph tables (max 64 entries) and
      performs real allocations / lookups / deletions.
@@ -1714,26 +1899,40 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       (* Check that both source and target modules exist in partition table *)
       let src_exists := negb (Nat.eqb (snap_pt_sizes hs src_mod) 0) in
       let dst_exists := negb (Nat.eqb (snap_pt_sizes hs dst_mod) 0) in
-      if (src_exists && dst_exists)%bool then
+      if andb src_exists dst_exists then
         let rs := snap_rich_state hs in
         let '(rs', new_id) := rich_state_add_morph rs src_mod dst_mod 0 false in
         kami_advance_rich_morph hs dst new_id cost rs'
       else
         kami_advance_err hs cost
   | instr_compose dst m1_id m2_id cost =>
+      (* COMPOSE: hardware computes relational composition of coupling data.
+         Composed pairs = relational_compose(f.pairs, h.pairs).
+         Label = f.label ++ ";" ++ h.label.
+         Matches graph_compose_morphisms in kernel. *)
       let rs := snap_rich_state hs in
       match rs.(rich_morph_table) m1_id, rs.(rich_morph_table) m2_id with
       | Some e1, Some e2 =>
           if Nat.eqb (morph_entry_target e1) (morph_entry_source e2)
-          then let '(rs', new_id) :=
-                 rich_state_add_morph rs
-                   (morph_entry_source e1) (morph_entry_target e2) 0 false in
-               kami_advance_rich_morph hs dst new_id cost rs'
+          then
+            let pairs1 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e1) in
+            let pairs2 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e2) in
+            let composed_pairs := relational_compose pairs1 pairs2 in
+            let label1 := morph_coupling_label rs e1 in
+            let label2 := morph_coupling_label rs e2 in
+            let composed_label := (label1 ++ ";" ++ label2)%string in
+            let '(rs', new_id) :=
+              rich_state_add_morph_with_coupling rs
+                (morph_entry_source e1) (morph_entry_target e2)
+                composed_pairs composed_label false in
+            kami_advance_rich_morph hs dst new_id cost rs'
           else kami_advance_err hs cost  (* endpoint mismatch → error *)
       | _, _ => kami_advance_err hs cost  (* morph not found → error *)
       end
   | instr_morph_id dst module cost =>
-      (* Check that the module exists in partition table *)
+      (* MORPH_ID: identity morphism with coupling_desc=0 (empty_coupling_data).
+         Identity is structural (src=dst=module, is_identity=true).
+         Matches kernel graph_add_identity which uses empty_coupling_data. *)
       if negb (Nat.eqb (snap_pt_sizes hs module) 0) then
         let rs := snap_rich_state hs in
         let '(rs', new_id) := rich_state_add_morph rs module module 0 true in
@@ -1759,14 +1958,24 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
           kami_advance_err hs (S cost)  (* morph not found → error *)
       end
   | instr_morph_tensor dst f_id g_id cost =>
-      let rs := snap_rich_state hs in
-      match rs.(rich_morph_table) f_id, rs.(rich_morph_table) g_id with
-      | Some ef, Some eg =>
-          let '(rs', new_id) :=
-            rich_state_add_morph rs
-              (morph_entry_source ef) (morph_entry_target eg) 0 false in
-          kami_advance_rich_morph hs dst new_id cost rs'
-      | _, _ => kami_advance_err hs cost  (* morph not found → error *)
+      (* MORPH_TENSOR: hardware computes full categorical tensor product.
+         Calls graph_tensor_morphisms on the reconstructed graph to compute
+         correct source (A⊕C), target (B⊕D), and coupling (f_pairs ++ g_pairs).
+         Reflects result into rich state tables. *)
+      let g := snap_full_graph hs in
+      match graph_tensor_morphisms g f_id g_id with
+      | Some (graph', morph_id) =>
+          match graph_lookup_morphism graph' morph_id with
+          | Some new_ms =>
+              let rs := snap_rich_state hs in
+              let '(rs', _) := rich_state_add_morph_with_coupling rs
+                                 new_ms.(morph_source) new_ms.(morph_target)
+                                 new_ms.(morph_coupling).(coupling_pairs)
+                                 new_ms.(morph_coupling).(coupling_label) false in
+              kami_advance_rich_morph hs dst morph_id cost rs'
+          | None => kami_advance_err hs cost
+          end
+      | None => kami_advance_err hs cost
       end
   | instr_morph_get dst morph_id selector cost =>
       let rs := snap_rich_state hs in
@@ -1789,18 +1998,14 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
   end.
 
 (** kami_instruction_cost: the cost that the hardware charges for each opcode.
-    Matches instruction_cost for all opcodes EXCEPT:
+    Now matches instruction_cost for ALL opcodes except:
     - ORACLE_HALTS: charges a fixed ORACLE_HALTS_HW_COST (1,000,000)
     - CERTIFY: charges S delta_mu (structurally positive, matching step_certify)
-    - LASSERT: hardware charges S cost only (formula string not available at
-      decode time). Software (instruction_cost) charges String.length formula + S cost.
-      The delta is String.length formula — the information-theoretic gap between
-      hardware and software layers. *)
+    LASSERT now charges flen * 8 + S cost (matching instruction_cost). *)
 Definition kami_instruction_cost (i : vm_instruction) : nat :=
   match i with
   | instr_oracle_halts _ _ => ORACLE_HALTS_HW_COST
   | instr_certify dm => S dm
-  | instr_lassert _ _ _ _ cost => S cost
   | other => instruction_cost other
   end.
 
@@ -1821,12 +2026,21 @@ Definition is_certify (i : vm_instruction) : bool :=
 (** kami_step advances mu by exactly kami_instruction_cost.
     For ORACLE_HALTS, this is ORACLE_HALTS_HW_COST (1,000,000).
     For CERTIFY, this is S delta_mu (structurally positive).
+    For LASSERT, this is flen * 8 + S cost (matching instruction_cost).
     For all other opcodes, this equals instruction_cost. *)
 Lemma kami_step_mu_cost : forall (hs : KamiSnapshot) (i : vm_instruction),
     snap_mu (kami_step hs i) = snap_mu hs + kami_instruction_cost i.
 Proof.
   intros hs i. destruct i; simpl; try reflexivity;
-  (* CHSH_TRIAL: nested match on settings (x,y) and output same/diff — all arms have same mu *)
+  (* Handle branches: lassert_check_ok, tensor_indices_ok, morph lookups, etc. *)
+  try (destruct (lassert_check_ok _ _ _ _); simpl; reflexivity);
+  try (destruct (tensor_indices_ok _ _); simpl; try reflexivity;
+       unfold kami_advance_err; simpl; reflexivity);
+  try (destruct (graph_tensor_morphisms _ _ _) as [[]|]; simpl; try reflexivity;
+       try (destruct (graph_lookup_morphism _ _); simpl; try reflexivity;
+            unfold kami_advance_err; simpl; reflexivity);
+       unfold kami_advance_err; simpl; reflexivity);
+  (* CHSH_TRIAL: nested match on settings (x,y) and output same/diff *)
   (* Rich morph ops: match on option MorphTableEntry — all branches charge same mu *)
   repeat match goal with
     | |- context [match ?x with _ => _ end] =>
@@ -1834,30 +2048,22 @@ Proof.
   end.
 Qed.
 
-(** For non-ORACLE_HALTS, non-CERTIFY instructions, kami cost equals vm cost. *)
-(* INQUISITOR NOTE: definitional helper for relating kami and vm cost models *)
-(** For non-ORACLE_HALTS, non-CERTIFY, non-LASSERT instructions,
-    kami cost equals vm cost. LASSERT is excluded because hardware charges
-    only S cost while software charges String.length formula + S cost. *)
+(** For non-ORACLE_HALTS, non-CERTIFY instructions,
+    kami cost equals vm cost. LASSERT gap is now closed. *)
 Lemma kami_cost_eq_instruction_cost : forall i,
     is_oracle_halts i = false ->
     is_certify i = false ->
-    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     kami_instruction_cost i = instruction_cost i.
 Proof.
-  intros i H Hc Hl. destruct i; simpl in *; try reflexivity; try discriminate; contradiction.
+  intros i H Hc. destruct i; simpl in *; try reflexivity; try discriminate.
 Qed.
 
-(** For ORACLE_HALTS and CERTIFY, hardware cost >= software cost (conservative).
-    For LASSERT, hardware cost (S cost) <= software cost (len + S cost) —
-    hardware undercharges by String.length formula. This is the known gap. *)
-(* INQUISITOR NOTE: key conservative refinement property — updated for LASSERT gap *)
+(** For ORACLE_HALTS and CERTIFY, hardware cost >= software cost (conservative). *)
 Lemma kami_cost_ge_instruction_cost : forall i,
-    (match i with instr_lassert _ _ _ _ _ => False | _ => True end) ->
     instruction_cost i <= ORACLE_HALTS_HW_COST ->
     kami_instruction_cost i >= instruction_cost i.
 Proof.
-  intros i Hl Hbound. destruct i; simpl in *; try lia; try contradiction.
+  intros i Hbound. destruct i; simpl in *; try lia.
 Qed.
 
 (** * Execution preconditions *)
@@ -2218,8 +2424,7 @@ Proof.
 Qed.
 
 (* ====================================================================
-   Architectural invariant theorems — required by ROADMAP_TO_COMPLETION.md
-   Phase 1, Task 1.1
+   Architectural invariant theorems
    ==================================================================== *)
 
 (** Any hardware step adds a non-negative cost to mu, preserving μ-monotonicity
@@ -2400,7 +2605,7 @@ Lemma filtermap_two_zeros_filter :
                           module_mu_tensor := module_mu_tensor_default |}))
       l =
     filter
-      (fun '(id, _) => negb (Nat.eqb id m1) && negb (Nat.eqb id m2))%bool
+      (fun '(id, _) => andb (negb (Nat.eqb id m1)) (negb (Nat.eqb id m2)))
       (filtermap
         (fun i =>
           if Nat.eqb (sizes i) 0 then None

@@ -441,9 +441,9 @@ Qed.
    6. μ-costs bound physical energy (mu_cost_thermodynamic_bound)
    7. Cost function uniquely determined (cost_function_unique)
 
-   ADMITTED (provable, documented):
+   ALL PROVEN (zero Admitted):
 
-   - log2_subtraction_valid: Monotonicity of log2_nat (standard result, tedious proof)
+   - log2_subtraction_valid: Proven by Nat.log2_le_mono + case analysis (Qed)
 
    The mu_delta values are DETERMINED by information theory (non-circular).
    The costs in VMStep.v are information-theoretic necessities derived from

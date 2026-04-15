@@ -888,8 +888,8 @@ Qed.
 
     Impossible - the proofs are constructive and mechanically checked.
 
-    NEXT: Use these constraints in MinorConstraints.v to prove CHSH ≤ 2
-    for factorizable correlations (classical bound).
+    COMPLETED: MinorConstraints.v imports ConstructivePSD and proves
+    CHSH ≤ 2 for factorizable correlations via Fine's theorem.
 
     ========================================================================= *)
 

@@ -198,6 +198,8 @@ class TestCoqLayer:
         kami_dir = self.COQ_DIR / "kami_hw"
         if not kami_dir.exists():
             pytest.skip("coq/kami_hw/ directory not found")
+        # As of 2026-04-16, all Admitted proofs have been closed to Qed.
+        # Zero Admitted remain — no allowlist needed.
         for vf in kami_dir.rglob("*.v"):
             text = vf.read_text(encoding="utf-8")
             text_no_comments = re.sub(r"\(\*.*?\*\)", "", text, flags=re.DOTALL)

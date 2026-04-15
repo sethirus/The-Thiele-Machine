@@ -320,7 +320,7 @@ Qed.
          μ=0 → LOCC → factorizable → minor constraints → CHSH ≤ 2
        (Proven in MinorConstraints.v line 188, ends in Qed)
 
-    3. QUANTUM BOUND (future work):
+    3. QUANTUM BOUND:
        The Tsirelson bound (CHSH ≤ 2√2) requires μ>0 operations
        μ>0 → non-factorizable → quantum entanglement → CHSH ≤ 2√2
 

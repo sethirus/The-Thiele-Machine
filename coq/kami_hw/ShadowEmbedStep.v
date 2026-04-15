@@ -227,28 +227,27 @@ Proof.
 Qed.
 
 (** TENSOR_GET: shadow equality when bounds hold.
-    Hardware: writes 0 to regs[dst].
+    Hardware: writes snap_module_tensors ks mid (i*4+j) to regs[dst].
     Kernel: writes module_tensor_entry(abs_phase1 ks, mid, i, j) to regs[dst].
     From abs_phase1, all module tensors are all-zero (module_mu_tensor_default),
-    so module_tensor_entry = 0 on the kernel side too.
-
-    Additionally, both sides write to regs through the same mechanism:
-    hardware uses kami_write_reg (which applies word64), kernel uses write_reg
-    (which applies word64).  word64 0 = 0, so they agree. *)
+    so module_tensor_entry = 0 on the kernel side.  We require the hardware
+    tensor state to also be zero for fresh/initial snapshots. *)
 Lemma shadow_embed_step_tensor_get :
   forall (ks : KamiSnapshot) (dst mid i j cost : nat),
     tensor_indices_ok i j = true ->
+    snap_module_tensors ks mid (i * 4 + j) = 0 ->
     shadow_proj (abs_phase1 (kami_step ks (instr_tensor_get dst mid i j cost))) =
     shadow_proj (vm_apply (abs_phase1 ks) (instr_tensor_get dst mid i j cost)).
 Proof.
-  intros ks dst mid i j cost Hok.
+  intros ks dst mid i j cost Hok Htens.
   unfold vm_apply.
   rewrite Hok.
   rewrite (module_tensor_entry_abs_phase1_zero ks mid i j).
-  unfold shadow_proj, abs_phase1, kami_step, advance_state_rm,
-         apply_cost, instruction_cost.
+  unfold shadow_proj, abs_phase1, kami_step.
+  rewrite Hok.
   cbn [snap_regs snap_pc snap_mu snap_err snap_mem snap_certified
        vm_graph vm_csrs vm_regs vm_mem vm_err].
+  rewrite Htens.
   rewrite abs_phase1_kami_reg_write.
   reflexivity.
 Qed.
@@ -430,43 +429,20 @@ Proof.
   try (unfold kami_advance_rich_noret; simpl; reflexivity);
   try (unfold kami_advance_err; simpl; reflexivity);
   try (unfold kami_advance_cert_addr; simpl; reflexivity);
-  try reflexivity.
-  (* CHSH_TRIAL: conditional branches all preserve heap_base *)
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end; reflexivity.
-  (* MORPH: conditional on module existence *)
-  - destruct (negb _ && negb _)%bool;
-    [ destruct (rich_state_add_morph _ _ _ _ _);
-      unfold kami_advance_rich_morph; simpl; reflexivity
-    | unfold kami_advance_err; simpl; reflexivity ].
-  (* COMPOSE: branched on morphism lookup *)
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end;
-    try (unfold kami_advance_rich_morph; simpl; reflexivity);
-    try (unfold kami_advance_err; simpl; reflexivity).
-  (* MORPH_ID: conditional on module existence *)
-  - destruct (negb _);
-    [ destruct (rich_state_add_morph _ _ _ _ _);
-      unfold kami_advance_rich_morph; simpl; reflexivity
-    | unfold kami_advance_err; simpl; reflexivity ].
-  (* MORPH_DELETE: match on morph table lookup *)
-  - destruct (rich_morph_table _ _);
-    try (unfold kami_advance_rich_noret; simpl; reflexivity);
-    try (unfold kami_advance_err; simpl; reflexivity).
-  (* MORPH_ASSERT: match on morph table lookup *)
-  - destruct (rich_morph_table _ _);
-    try (unfold kami_advance_cert_addr; simpl; reflexivity);
-    try (unfold kami_advance_err; simpl; reflexivity).
-  (* MORPH_TENSOR *)
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end;
-    try (unfold kami_advance_rich_morph; simpl; reflexivity);
-    try (unfold kami_advance_err; simpl; reflexivity).
-  (* MORPH_GET *)
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end;
-    try (unfold kami_advance_reg; simpl; reflexivity);
-    try (unfold kami_advance_err; simpl; reflexivity).
+  try reflexivity;
+  (* Handle all conditional/match-based cases uniformly *)
+  try (repeat match goal with
+    | |- context [if ?b then _ else _] => destruct b
+    | |- context [match ?x with _ => _ end] => destruct x
+    | |- context [let (_, _) := ?x in _] => destruct x
+  end; simpl;
+  try reflexivity;
+  try (unfold kami_advance_rich_morph; simpl; reflexivity);
+  try (unfold kami_advance_err; simpl; reflexivity);
+  try (unfold kami_advance_err_rich; simpl; reflexivity);
+  try (unfold kami_advance_rich_noret; simpl; reflexivity);
+  try (unfold kami_advance_cert_addr; simpl; reflexivity);
+  try (unfold kami_advance_reg; simpl; reflexivity)).
 Qed.
 
 Lemma abs_phase1_heap_base_zero :

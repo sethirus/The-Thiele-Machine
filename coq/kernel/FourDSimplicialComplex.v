@@ -507,9 +507,8 @@ Proof.
   - apply extracted_4simplices_well_formed.
 Qed.
 
-(** NEXT STEPS:
-    1. Complete well-formedness proofs for cells and 4-simplices
-    2. Create Christoffel symbols file (discrete derivatives)
-    3. Create Riemann tensor file
-    4. Prove 4D Gauss-Bonnet-Chern
+(** OPEN (4D extension):
+    Well-formedness proofs (item 1) are complete above.
+    Remaining: Christoffel symbols, Riemann tensor, and 4D Gauss-Bonnet-Chern.
+    The current gravity pipeline uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
 *)

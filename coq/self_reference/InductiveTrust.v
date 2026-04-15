@@ -378,15 +378,12 @@ Qed.
 
     This section connects the abstract [StateSpace] model to the concrete
     Thiele Machine foundation:
-      - [vm_instruction] cost via [instruction_cost]
       - [VMState] ledger via [vm_mu]
+      - [VMState] partition graph as abstract state space
 
-    These definitions establish that the abstract μ-conservation results
-    above apply to real Thiele Machine executions. *)
-
-(** Bridge: instruction_cost from the VM kernel grounds abstract μ-costs. *)
-Definition vm_cost_bridge : nat -> nat :=
-  fun opcode => instruction_cost (instr_halt 0).  (* placeholder: halt with cost 0 *)
+    Note: per-opcode cost bridging requires [vm_instruction]-typed input
+    (not bare nat opcode numbers), so abstract-to-concrete cost alignment
+    is handled at the trace level in SimulationProof.v, not here. *)
 
 (** Any VMState has a finite partition graph size that can serve as
     an abstract state space size. The VM's pg_next_id provides this. *)

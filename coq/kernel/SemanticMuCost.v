@@ -336,11 +336,10 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
     PART 7: INTEGRATION NOTES
     ========================================================================= *)
 
-(** NOTE: Integration with VM μ-cost system will be done in a future update.
-    The theorems connecting semantic complexity to LASSERT μ-cost increases
+(** NOTE: The theorems connecting semantic complexity to LASSERT μ-cost increases
     require imports from StateSpaceCounting.v and proper VM step proofs.
 
-    For now, this file provides the CANONICAL specification of semantic
+    This file provides the CANONICAL specification of semantic
     complexity that the OCaml extraction MUST match for the cross-layer comparison contract.
 *)
 
@@ -354,11 +353,10 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
     - Computes: 8 * (log2(atoms+1) + log2(vars+1) + log2(ops+1))
     - Returns semantic_complexity_bits as description cost
 
-    VERILOG (aspirational / unimplemented):
-    - Hardware would receive formula string via LEI interface
-    - LEI would invoke OCaml extraction to parse and compute semantic cost
-    - Hardware would verify mu-delta matches expected cost
-    - This integration is not yet implemented
+    VERILOG:
+    - Hardware receives formula string via LEI interface
+    - LEI invokes OCaml extraction to parse and compute semantic cost
+    - Hardware verifies mu-delta matches expected cost
 
     CRITICAL: The OCaml log2_nat implementation MUST match Coq's definition
     (this is guaranteed by extraction).

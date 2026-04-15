@@ -1,4 +1,4 @@
-DIGEST e1074d797f72622e416992cc49293efd
+DIGEST 08364f0e8d48e2456ec173ce029de34a
 FKamiHW.EmbedStep
 R1498:1501 Coq.Lists.List <> <> lib
 R1503:1516 Coq.Arith.PeanoNat <> <> lib
@@ -1375,7 +1375,7 @@ R23219:23221 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R23201:23216 Kernel.VMStep VMStep instruction_cost def
 R23218:23218 KamiHW.EmbedStep <> i:73 var
 R23222:23225 KamiHW.EmbedStep <> cost:76 var
-R24568:24574 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24624:24630 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R23234:23243 KamiHW.Abstraction <> abs_phase1 def
 R23254:23260 KamiHW.Abstraction <> snap_pc proj
 R23254:23260 KamiHW.Abstraction <> snap_pc proj
@@ -1434,8 +1434,10 @@ R24434:24451 KamiHW.Abstraction <> snap_csr_heap_base proj
 R24434:24451 KamiHW.Abstraction <> snap_csr_heap_base proj
 R24488:24501 KamiHW.Abstraction <> snap_logic_acc proj
 R24488:24501 KamiHW.Abstraction <> snap_logic_acc proj
-R24534:24545 KamiHW.Abstraction <> snap_mstatus proj
-R24534:24545 KamiHW.Abstraction <> snap_mstatus proj
+R24534:24552 KamiHW.Abstraction <> snap_module_tensors proj
+R24534:24552 KamiHW.Abstraction <> snap_module_tensors proj
+R24590:24601 KamiHW.Abstraction <> snap_mstatus proj
+R24590:24601 KamiHW.Abstraction <> snap_mstatus proj
 R23265:23265 Coq.Init.Datatypes <> S constr
 R23268:23274 KamiHW.Abstraction <> snap_pc proj
 R23276:23277 KamiHW.EmbedStep <> ks:72 var
@@ -1485,6 +1487,8 @@ R24165:24179 KamiHW.Abstraction <> snap_wc_same_11 proj
 R24181:24182 KamiHW.EmbedStep <> ks:72 var
 R24213:24227 KamiHW.Abstraction <> snap_wc_diff_11 proj
 R24229:24230 KamiHW.EmbedStep <> ks:72 var
+R24557:24575 KamiHW.Abstraction <> snap_module_tensors proj
+R24577:24578 KamiHW.EmbedStep <> ks:72 var
 R24261:24275 KamiHW.Abstraction <> snap_rich_state proj
 R24277:24278 KamiHW.EmbedStep <> ks:72 var
 R24312:24329 KamiHW.Abstraction <> snap_csr_cert_addr proj
@@ -1497,826 +1501,828 @@ R24456:24473 KamiHW.Abstraction <> snap_csr_heap_base proj
 R24475:24476 KamiHW.EmbedStep <> ks:72 var
 R24506:24519 KamiHW.Abstraction <> snap_logic_acc proj
 R24521:24522 KamiHW.EmbedStep <> ks:72 var
-R24550:24561 KamiHW.Abstraction <> snap_mstatus proj
-R24563:24564 KamiHW.EmbedStep <> ks:72 var
-R24575:24590 Kernel.VMStep VMStep advance_state_rm def
-R24593:24602 KamiHW.Abstraction <> abs_phase1 def
-R24604:24605 KamiHW.EmbedStep <> ks:72 var
-R24608:24608 KamiHW.EmbedStep <> i:73 var
-R24627:24634 Kernel.VMState <> vm_graph proj
-R24611:24620 KamiHW.Abstraction <> abs_phase1 def
-R24622:24623 KamiHW.EmbedStep <> ks:72 var
-R24675:24681 Kernel.VMState <> vm_csrs proj
-R24659:24668 KamiHW.Abstraction <> abs_phase1 def
-R24670:24671 KamiHW.EmbedStep <> ks:72 var
-R24706:24714 Kernel.VMState <> write_reg def
-R24717:24726 KamiHW.Abstraction <> abs_phase1 def
-R24728:24729 KamiHW.EmbedStep <> ks:72 var
-R24732:24734 KamiHW.EmbedStep <> dst:74 var
-R24736:24736 KamiHW.EmbedStep <> v:75 var
-R24777:24782 Kernel.VMState <> vm_mem proj
-R24761:24770 KamiHW.Abstraction <> abs_phase1 def
-R24772:24773 KamiHW.EmbedStep <> ks:72 var
-R24802:24807 Kernel.VMState <> vm_err proj
-R24786:24795 KamiHW.Abstraction <> abs_phase1 def
-R24797:24798 KamiHW.EmbedStep <> ks:72 var
-R24859:24868 KamiHW.Abstraction <> abs_phase1 def
-R24871:24886 Kernel.VMStep VMStep advance_state_rm def
-R24889:24898 Kernel.VMStep VMStep apply_cost def
-R24933:24957 KamiHW.EmbedStep <> abs_phase1_kami_reg_write thm
-R24933:24957 KamiHW.EmbedStep <> abs_phase1_kami_reg_write thm
-R24933:24957 KamiHW.EmbedStep <> abs_phase1_kami_reg_write thm
-prf 25010:25025 <> embed_step_ljoin
-R25044:25055 KamiHW.Abstraction <> KamiSnapshot rec
-binder 25039:25040 <> ks:77
-R25073:25075 Coq.Init.Datatypes <> nat ind
-binder 25059:25063 <> c1reg:78
-binder 25065:25069 <> c2reg:79
-R25086:25088 Coq.Init.Datatypes <> nat ind
-binder 25079:25082 <> cost:80
-R25152:25158 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25096:25105 KamiHW.Abstraction <> abs_phase1 def
-R25108:25116 KamiHW.Abstraction <> kami_step def
-R25118:25119 KamiHW.EmbedStep <> ks:77 var
-R25122:25132 Kernel.VMStep VMStep instr_ljoin constr
-R25134:25138 KamiHW.EmbedStep <> c1reg:78 var
-R25140:25144 KamiHW.EmbedStep <> c2reg:79 var
-R25146:25149 KamiHW.EmbedStep <> cost:80 var
-R25159:25166 Kernel.SimulationProof <> vm_apply def
-R25169:25178 KamiHW.Abstraction <> abs_phase1 def
-R25180:25181 KamiHW.EmbedStep <> ks:77 var
-R25185:25195 Kernel.VMStep VMStep instr_ljoin constr
-R25197:25201 KamiHW.EmbedStep <> c1reg:78 var
-R25203:25207 KamiHW.EmbedStep <> c2reg:79 var
-R25209:25212 KamiHW.EmbedStep <> cost:80 var
-R25240:25248 KamiHW.Abstraction <> kami_step def
-R25251:25258 Kernel.SimulationProof <> vm_apply def
-R25269:25299 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-R25269:25299 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-prf 25351:25365 <> embed_step_emit
-R25384:25395 KamiHW.Abstraction <> KamiSnapshot rec
-binder 25379:25380 <> ks:81
-R25408:25410 Coq.Init.Datatypes <> nat ind
-binder 25399:25404 <> module:82
-R25424:25429 Coq.Strings.String <> string ind
-binder 25414:25420 <> payload:83
-R25440:25442 Coq.Init.Datatypes <> nat ind
-binder 25433:25436 <> cost:84
-R25508:25514 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25450:25459 KamiHW.Abstraction <> abs_phase1 def
-R25462:25470 KamiHW.Abstraction <> kami_step def
-R25472:25473 KamiHW.EmbedStep <> ks:81 var
-R25476:25485 Kernel.VMStep VMStep instr_emit constr
-R25487:25492 KamiHW.EmbedStep <> module:82 var
-R25494:25500 KamiHW.EmbedStep <> payload:83 var
-R25502:25505 KamiHW.EmbedStep <> cost:84 var
-R25515:25522 Kernel.SimulationProof <> vm_apply def
-R25525:25534 KamiHW.Abstraction <> abs_phase1 def
-R25536:25537 KamiHW.EmbedStep <> ks:81 var
-R25541:25550 Kernel.VMStep VMStep instr_emit constr
-R25552:25557 KamiHW.EmbedStep <> module:82 var
-R25559:25565 KamiHW.EmbedStep <> payload:83 var
-R25567:25570 KamiHW.EmbedStep <> cost:84 var
-R25598:25606 KamiHW.Abstraction <> kami_step def
-R25609:25616 Kernel.SimulationProof <> vm_apply def
-R25627:25657 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-R25627:25657 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-prf 25714:25733 <> embed_step_pdiscover
-R25752:25763 KamiHW.Abstraction <> KamiSnapshot rec
-binder 25747:25748 <> ks:85
-R25776:25778 Coq.Init.Datatypes <> nat ind
-binder 25767:25772 <> module:86
-R25793:25796 Coq.Init.Datatypes <> list ind
-R25798:25804 Kernel.VMState <> VMAxiom def
-binder 25782:25789 <> evidence:87
-R25815:25817 Coq.Init.Datatypes <> nat ind
-binder 25808:25811 <> cost:88
-R25889:25895 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25825:25834 KamiHW.Abstraction <> abs_phase1 def
-R25837:25845 KamiHW.Abstraction <> kami_step def
-R25847:25848 KamiHW.EmbedStep <> ks:85 var
-R25851:25865 Kernel.VMStep VMStep instr_pdiscover constr
-R25867:25872 KamiHW.EmbedStep <> module:86 var
-R25874:25881 KamiHW.EmbedStep <> evidence:87 var
-R25883:25886 KamiHW.EmbedStep <> cost:88 var
-R25896:25903 Kernel.SimulationProof <> vm_apply def
-R25906:25915 KamiHW.Abstraction <> abs_phase1 def
-R25917:25918 KamiHW.EmbedStep <> ks:85 var
-R25922:25936 Kernel.VMStep VMStep instr_pdiscover constr
-R25938:25943 KamiHW.EmbedStep <> module:86 var
-R25945:25952 KamiHW.EmbedStep <> evidence:87 var
-R25954:25957 KamiHW.EmbedStep <> cost:88 var
-R25985:25993 KamiHW.Abstraction <> kami_step def
-R25996:26003 Kernel.SimulationProof <> vm_apply def
-R26014:26044 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-R26014:26044 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-prf 26695:26717 <> embed_step_oracle_halts
-R26736:26747 KamiHW.Abstraction <> KamiSnapshot rec
-binder 26731:26732 <> ks:89
-R26761:26766 Coq.Strings.String <> string ind
-binder 26751:26757 <> payload:90
-R26777:26779 Coq.Init.Datatypes <> nat ind
-binder 26770:26773 <> cost:91
-R26846:26852 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R26787:26796 KamiHW.Abstraction <> abs_phase1 def
-R26799:26807 KamiHW.Abstraction <> kami_step def
-R26809:26810 KamiHW.EmbedStep <> ks:89 var
-R26813:26830 Kernel.VMStep VMStep instr_oracle_halts constr
-R26832:26838 KamiHW.EmbedStep <> payload:90 var
-R26840:26843 KamiHW.EmbedStep <> cost:91 var
-R26853:26860 Kernel.SimulationProof <> vm_apply def
-R26863:26872 KamiHW.Abstraction <> abs_phase1 def
-R26874:26875 KamiHW.EmbedStep <> ks:89 var
-R26879:26896 Kernel.VMStep VMStep instr_oracle_halts constr
-R26898:26904 KamiHW.EmbedStep <> payload:90 var
-R26906:26909 KamiHW.EmbedStep <> cost:91 var
-R26937:26945 KamiHW.Abstraction <> kami_step def
-R26948:26955 Kernel.SimulationProof <> vm_apply def
-R26966:26996 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-R26966:26996 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
-prf 27351:27367 <> embed_step_reveal
-R27386:27397 KamiHW.Abstraction <> KamiSnapshot rec
-binder 27381:27382 <> ks:92
-R27415:27417 Coq.Init.Datatypes <> nat ind
-binder 27401:27406 <> module:93
-binder 27408:27411 <> bits:94
-R27428:27433 Coq.Strings.String <> string ind
-binder 27421:27424 <> cert:95
-R27444:27446 Coq.Init.Datatypes <> nat ind
-binder 27437:27440 <> cost:96
-R27516:27522 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R27454:27463 KamiHW.Abstraction <> abs_phase1 def
-R27466:27474 KamiHW.Abstraction <> kami_step def
-R27476:27477 KamiHW.EmbedStep <> ks:92 var
-R27480:27491 Kernel.VMStep VMStep instr_reveal constr
-R27493:27498 KamiHW.EmbedStep <> module:93 var
-R27500:27503 KamiHW.EmbedStep <> bits:94 var
-R27505:27508 KamiHW.EmbedStep <> cert:95 var
-R27510:27513 KamiHW.EmbedStep <> cost:96 var
-R27523:27530 Kernel.SimulationProof <> vm_apply def
-R27533:27542 KamiHW.Abstraction <> abs_phase1 def
-R27544:27545 KamiHW.EmbedStep <> ks:92 var
-R27549:27560 Kernel.VMStep VMStep instr_reveal constr
-R27562:27567 KamiHW.EmbedStep <> module:93 var
-R27569:27572 KamiHW.EmbedStep <> bits:94 var
-R27574:27577 KamiHW.EmbedStep <> cert:95 var
-R27579:27582 KamiHW.EmbedStep <> cost:96 var
-R27646:27650 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R27646:27650 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R27672:27674 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R27699:27717 Coq.Arith.PeanoNat Nat mod_upper_bound def
-R27672:27674 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R27699:27717 Coq.Arith.PeanoNat Nat mod_upper_bound def
-R27735:27742 Kernel.SimulationProof <> vm_apply def
-R27745:27753 KamiHW.Abstraction <> kami_step def
-R27773:27792 Kernel.VMStep VMStep advance_state_reveal def
-R27795:27804 Kernel.VMStep VMStep apply_cost def
-R27807:27822 Kernel.VMStep VMStep instruction_cost def
-R27898:27907 KamiHW.Abstraction <> abs_phase1 def
-R27922:27928 KamiHW.Abstraction <> snap_pc proj
-R27930:27936 KamiHW.Abstraction <> snap_mu proj
-R27938:27945 KamiHW.Abstraction <> snap_err proj
-R27947:27957 KamiHW.Abstraction <> snap_halted proj
-R27959:27967 KamiHW.Abstraction <> snap_regs proj
-R27969:27976 KamiHW.Abstraction <> snap_mem proj
-R27985:28002 KamiHW.Abstraction <> snap_partition_ops proj
-R28004:28015 KamiHW.Abstraction <> snap_mdl_ops proj
-R28017:28030 KamiHW.Abstraction <> snap_info_gain proj
-R28032:28046 KamiHW.Abstraction <> snap_error_code proj
-R28055:28067 KamiHW.Abstraction <> snap_pt_sizes proj
-R28069:28083 KamiHW.Abstraction <> snap_pt_next_id proj
-R28085:28098 KamiHW.Abstraction <> snap_certified proj
-R28100:28113 KamiHW.Abstraction <> snap_mu_tensor proj
-R28122:28136 KamiHW.Abstraction <> snap_wc_same_00 proj
-R28138:28152 KamiHW.Abstraction <> snap_wc_diff_00 proj
-R28154:28168 KamiHW.Abstraction <> snap_wc_same_01 proj
-R28170:28184 KamiHW.Abstraction <> snap_wc_diff_01 proj
-R28193:28207 KamiHW.Abstraction <> snap_wc_same_10 proj
-R28209:28223 KamiHW.Abstraction <> snap_wc_diff_10 proj
-R28225:28239 KamiHW.Abstraction <> snap_wc_same_11 proj
-R28241:28255 KamiHW.Abstraction <> snap_wc_diff_11 proj
-R28344:28372 KamiHW.EmbedStep <> abs_phase1_kami_reveal_tensor thm
-R28344:28372 KamiHW.EmbedStep <> abs_phase1_kami_reveal_tensor thm
-R28344:28372 KamiHW.EmbedStep <> abs_phase1_kami_reveal_tensor thm
-R28397:28406 KamiHW.Abstraction <> abs_phase1 def
-R28397:28406 KamiHW.Abstraction <> abs_phase1 def
-def 28788:28799 <> WellFormedPT
-R28807:28818 KamiHW.Abstraction <> KamiSnapshot rec
-binder 28802:28803 <> ks:97
-R28856:28861 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R28851:28854 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R28833:28847 KamiHW.Abstraction <> snap_pt_next_id proj
-R28849:28850 KamiHW.EmbedStep <> ks:97 var
-R28885:28890 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R28880:28882 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R28862:28876 KamiHW.Abstraction <> snap_pt_next_id proj
-R28878:28879 KamiHW.EmbedStep <> ks:97 var
-R28928:28930 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28891:28903 KamiHW.Abstraction <> snap_pt_sizes proj
+R24606:24617 KamiHW.Abstraction <> snap_mstatus proj
+R24619:24620 KamiHW.EmbedStep <> ks:72 var
+R24631:24646 Kernel.VMStep VMStep advance_state_rm def
+R24649:24658 KamiHW.Abstraction <> abs_phase1 def
+R24660:24661 KamiHW.EmbedStep <> ks:72 var
+R24664:24664 KamiHW.EmbedStep <> i:73 var
+R24683:24690 Kernel.VMState <> vm_graph proj
+R24667:24676 KamiHW.Abstraction <> abs_phase1 def
+R24678:24679 KamiHW.EmbedStep <> ks:72 var
+R24731:24737 Kernel.VMState <> vm_csrs proj
+R24715:24724 KamiHW.Abstraction <> abs_phase1 def
+R24726:24727 KamiHW.EmbedStep <> ks:72 var
+R24762:24770 Kernel.VMState <> write_reg def
+R24773:24782 KamiHW.Abstraction <> abs_phase1 def
+R24784:24785 KamiHW.EmbedStep <> ks:72 var
+R24788:24790 KamiHW.EmbedStep <> dst:74 var
+R24792:24792 KamiHW.EmbedStep <> v:75 var
+R24833:24838 Kernel.VMState <> vm_mem proj
+R24817:24826 KamiHW.Abstraction <> abs_phase1 def
+R24828:24829 KamiHW.EmbedStep <> ks:72 var
+R24858:24863 Kernel.VMState <> vm_err proj
+R24842:24851 KamiHW.Abstraction <> abs_phase1 def
+R24853:24854 KamiHW.EmbedStep <> ks:72 var
+R24915:24924 KamiHW.Abstraction <> abs_phase1 def
+R24927:24942 Kernel.VMStep VMStep advance_state_rm def
+R24945:24954 Kernel.VMStep VMStep apply_cost def
+R24989:25013 KamiHW.EmbedStep <> abs_phase1_kami_reg_write thm
+R24989:25013 KamiHW.EmbedStep <> abs_phase1_kami_reg_write thm
+R24989:25013 KamiHW.EmbedStep <> abs_phase1_kami_reg_write thm
+prf 25066:25081 <> embed_step_ljoin
+R25100:25111 KamiHW.Abstraction <> KamiSnapshot rec
+binder 25095:25096 <> ks:77
+R25129:25131 Coq.Init.Datatypes <> nat ind
+binder 25115:25119 <> c1reg:78
+binder 25121:25125 <> c2reg:79
+R25142:25144 Coq.Init.Datatypes <> nat ind
+binder 25135:25138 <> cost:80
+R25208:25214 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25152:25161 KamiHW.Abstraction <> abs_phase1 def
+R25164:25172 KamiHW.Abstraction <> kami_step def
+R25174:25175 KamiHW.EmbedStep <> ks:77 var
+R25178:25188 Kernel.VMStep VMStep instr_ljoin constr
+R25190:25194 KamiHW.EmbedStep <> c1reg:78 var
+R25196:25200 KamiHW.EmbedStep <> c2reg:79 var
+R25202:25205 KamiHW.EmbedStep <> cost:80 var
+R25215:25222 Kernel.SimulationProof <> vm_apply def
+R25225:25234 KamiHW.Abstraction <> abs_phase1 def
+R25236:25237 KamiHW.EmbedStep <> ks:77 var
+R25241:25251 Kernel.VMStep VMStep instr_ljoin constr
+R25253:25257 KamiHW.EmbedStep <> c1reg:78 var
+R25259:25263 KamiHW.EmbedStep <> c2reg:79 var
+R25265:25268 KamiHW.EmbedStep <> cost:80 var
+R25296:25304 KamiHW.Abstraction <> kami_step def
+R25307:25314 Kernel.SimulationProof <> vm_apply def
+R25325:25355 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+R25325:25355 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+prf 25407:25421 <> embed_step_emit
+R25440:25451 KamiHW.Abstraction <> KamiSnapshot rec
+binder 25435:25436 <> ks:81
+R25464:25466 Coq.Init.Datatypes <> nat ind
+binder 25455:25460 <> module:82
+R25480:25485 Coq.Strings.String <> string ind
+binder 25470:25476 <> payload:83
+R25496:25498 Coq.Init.Datatypes <> nat ind
+binder 25489:25492 <> cost:84
+R25564:25570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25506:25515 KamiHW.Abstraction <> abs_phase1 def
+R25518:25526 KamiHW.Abstraction <> kami_step def
+R25528:25529 KamiHW.EmbedStep <> ks:81 var
+R25532:25541 Kernel.VMStep VMStep instr_emit constr
+R25543:25548 KamiHW.EmbedStep <> module:82 var
+R25550:25556 KamiHW.EmbedStep <> payload:83 var
+R25558:25561 KamiHW.EmbedStep <> cost:84 var
+R25571:25578 Kernel.SimulationProof <> vm_apply def
+R25581:25590 KamiHW.Abstraction <> abs_phase1 def
+R25592:25593 KamiHW.EmbedStep <> ks:81 var
+R25597:25606 Kernel.VMStep VMStep instr_emit constr
+R25608:25613 KamiHW.EmbedStep <> module:82 var
+R25615:25621 KamiHW.EmbedStep <> payload:83 var
+R25623:25626 KamiHW.EmbedStep <> cost:84 var
+R25654:25662 KamiHW.Abstraction <> kami_step def
+R25665:25672 Kernel.SimulationProof <> vm_apply def
+R25683:25713 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+R25683:25713 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+prf 25770:25789 <> embed_step_pdiscover
+R25808:25819 KamiHW.Abstraction <> KamiSnapshot rec
+binder 25803:25804 <> ks:85
+R25832:25834 Coq.Init.Datatypes <> nat ind
+binder 25823:25828 <> module:86
+R25849:25852 Coq.Init.Datatypes <> list ind
+R25854:25860 Kernel.VMState <> VMAxiom def
+binder 25838:25845 <> evidence:87
+R25871:25873 Coq.Init.Datatypes <> nat ind
+binder 25864:25867 <> cost:88
+R25945:25951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25881:25890 KamiHW.Abstraction <> abs_phase1 def
+R25893:25901 KamiHW.Abstraction <> kami_step def
+R25903:25904 KamiHW.EmbedStep <> ks:85 var
+R25907:25921 Kernel.VMStep VMStep instr_pdiscover constr
+R25923:25928 KamiHW.EmbedStep <> module:86 var
+R25930:25937 KamiHW.EmbedStep <> evidence:87 var
+R25939:25942 KamiHW.EmbedStep <> cost:88 var
+R25952:25959 Kernel.SimulationProof <> vm_apply def
+R25962:25971 KamiHW.Abstraction <> abs_phase1 def
+R25973:25974 KamiHW.EmbedStep <> ks:85 var
+R25978:25992 Kernel.VMStep VMStep instr_pdiscover constr
+R25994:25999 KamiHW.EmbedStep <> module:86 var
+R26001:26008 KamiHW.EmbedStep <> evidence:87 var
+R26010:26013 KamiHW.EmbedStep <> cost:88 var
+R26041:26049 KamiHW.Abstraction <> kami_step def
+R26052:26059 Kernel.SimulationProof <> vm_apply def
+R26070:26100 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+R26070:26100 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+prf 26751:26773 <> embed_step_oracle_halts
+R26792:26803 KamiHW.Abstraction <> KamiSnapshot rec
+binder 26787:26788 <> ks:89
+R26817:26822 Coq.Strings.String <> string ind
+binder 26807:26813 <> payload:90
+R26833:26835 Coq.Init.Datatypes <> nat ind
+binder 26826:26829 <> cost:91
+R26902:26908 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26843:26852 KamiHW.Abstraction <> abs_phase1 def
+R26855:26863 KamiHW.Abstraction <> kami_step def
+R26865:26866 KamiHW.EmbedStep <> ks:89 var
+R26869:26886 Kernel.VMStep VMStep instr_oracle_halts constr
+R26888:26894 KamiHW.EmbedStep <> payload:90 var
+R26896:26899 KamiHW.EmbedStep <> cost:91 var
+R26909:26916 Kernel.SimulationProof <> vm_apply def
+R26919:26928 KamiHW.Abstraction <> abs_phase1 def
+R26930:26931 KamiHW.EmbedStep <> ks:89 var
+R26935:26952 Kernel.VMStep VMStep instr_oracle_halts constr
+R26954:26960 KamiHW.EmbedStep <> payload:90 var
+R26962:26965 KamiHW.EmbedStep <> cost:91 var
+R26993:27001 KamiHW.Abstraction <> kami_step def
+R27004:27011 Kernel.SimulationProof <> vm_apply def
+R27022:27052 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+R27022:27052 KamiHW.EmbedStep <> abs_phase1_kami_advance_default thm
+prf 27407:27423 <> embed_step_reveal
+R27442:27453 KamiHW.Abstraction <> KamiSnapshot rec
+binder 27437:27438 <> ks:92
+R27471:27473 Coq.Init.Datatypes <> nat ind
+binder 27457:27462 <> module:93
+binder 27464:27467 <> bits:94
+R27484:27489 Coq.Strings.String <> string ind
+binder 27477:27480 <> cert:95
+R27500:27502 Coq.Init.Datatypes <> nat ind
+binder 27493:27496 <> cost:96
+R27572:27578 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27510:27519 KamiHW.Abstraction <> abs_phase1 def
+R27522:27530 KamiHW.Abstraction <> kami_step def
+R27532:27533 KamiHW.EmbedStep <> ks:92 var
+R27536:27547 Kernel.VMStep VMStep instr_reveal constr
+R27549:27554 KamiHW.EmbedStep <> module:93 var
+R27556:27559 KamiHW.EmbedStep <> bits:94 var
+R27561:27564 KamiHW.EmbedStep <> cert:95 var
+R27566:27569 KamiHW.EmbedStep <> cost:96 var
+R27579:27586 Kernel.SimulationProof <> vm_apply def
+R27589:27598 KamiHW.Abstraction <> abs_phase1 def
+R27600:27601 KamiHW.EmbedStep <> ks:92 var
+R27605:27616 Kernel.VMStep VMStep instr_reveal constr
+R27618:27623 KamiHW.EmbedStep <> module:93 var
+R27625:27628 KamiHW.EmbedStep <> bits:94 var
+R27630:27633 KamiHW.EmbedStep <> cert:95 var
+R27635:27638 KamiHW.EmbedStep <> cost:96 var
+R27702:27706 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R27702:27706 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R27728:27730 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R27755:27773 Coq.Arith.PeanoNat Nat mod_upper_bound def
+R27728:27730 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R27755:27773 Coq.Arith.PeanoNat Nat mod_upper_bound def
+R27791:27798 Kernel.SimulationProof <> vm_apply def
+R27801:27809 KamiHW.Abstraction <> kami_step def
+R27829:27848 Kernel.VMStep VMStep advance_state_reveal def
+R27851:27860 Kernel.VMStep VMStep apply_cost def
+R27863:27878 Kernel.VMStep VMStep instruction_cost def
+R27954:27963 KamiHW.Abstraction <> abs_phase1 def
+R27978:27984 KamiHW.Abstraction <> snap_pc proj
+R27986:27992 KamiHW.Abstraction <> snap_mu proj
+R27994:28001 KamiHW.Abstraction <> snap_err proj
+R28003:28013 KamiHW.Abstraction <> snap_halted proj
+R28015:28023 KamiHW.Abstraction <> snap_regs proj
+R28025:28032 KamiHW.Abstraction <> snap_mem proj
+R28041:28058 KamiHW.Abstraction <> snap_partition_ops proj
+R28060:28071 KamiHW.Abstraction <> snap_mdl_ops proj
+R28073:28086 KamiHW.Abstraction <> snap_info_gain proj
+R28088:28102 KamiHW.Abstraction <> snap_error_code proj
+R28111:28123 KamiHW.Abstraction <> snap_pt_sizes proj
+R28125:28139 KamiHW.Abstraction <> snap_pt_next_id proj
+R28141:28154 KamiHW.Abstraction <> snap_certified proj
+R28156:28169 KamiHW.Abstraction <> snap_mu_tensor proj
+R28178:28192 KamiHW.Abstraction <> snap_wc_same_00 proj
+R28194:28208 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R28210:28224 KamiHW.Abstraction <> snap_wc_same_01 proj
+R28226:28240 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R28249:28263 KamiHW.Abstraction <> snap_wc_same_10 proj
+R28265:28279 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R28281:28295 KamiHW.Abstraction <> snap_wc_same_11 proj
+R28297:28311 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R28400:28428 KamiHW.EmbedStep <> abs_phase1_kami_reveal_tensor thm
+R28400:28428 KamiHW.EmbedStep <> abs_phase1_kami_reveal_tensor thm
+R28400:28428 KamiHW.EmbedStep <> abs_phase1_kami_reveal_tensor thm
+R28453:28462 KamiHW.Abstraction <> abs_phase1 def
+R28453:28462 KamiHW.Abstraction <> abs_phase1 def
+def 28844:28855 <> WellFormedPT
+R28863:28874 KamiHW.Abstraction <> KamiSnapshot rec
+binder 28858:28859 <> ks:97
+R28912:28917 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R28907:28910 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R28889:28903 KamiHW.Abstraction <> snap_pt_next_id proj
 R28905:28906 KamiHW.EmbedStep <> ks:97 var
-R28909:28923 KamiHW.Abstraction <> snap_pt_next_id proj
-R28925:28926 KamiHW.EmbedStep <> ks:97 var
-prf 28963:28977 <> embed_step_pnew
-R28996:29007 KamiHW.Abstraction <> KamiSnapshot rec
-binder 28991:28992 <> ks:98
-R29020:29023 Coq.Init.Datatypes <> list ind
-R29025:29027 Coq.Init.Datatypes <> nat ind
-binder 29011:29016 <> region:99
-R29038:29040 Coq.Init.Datatypes <> nat ind
-binder 29031:29034 <> cost:100
-R29063:29070 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29048:29059 KamiHW.EmbedStep <> WellFormedPT def
-R29061:29062 KamiHW.EmbedStep <> ks:98 var
-R29112:29119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29108:29110 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R29071:29081 Coq.Lists.List <> length abbrev
-R29084:29099 Kernel.VMState <> normalize_region def
-R29101:29106 KamiHW.EmbedStep <> region:99 var
-R29170:29176 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29120:29129 KamiHW.Abstraction <> abs_phase1 def
-R29132:29140 KamiHW.Abstraction <> kami_step def
-R29142:29143 KamiHW.EmbedStep <> ks:98 var
-R29146:29155 Kernel.VMStep VMStep instr_pnew constr
+R28941:28946 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R28936:28938 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R28918:28932 KamiHW.Abstraction <> snap_pt_next_id proj
+R28934:28935 KamiHW.EmbedStep <> ks:97 var
+R28984:28986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28947:28959 KamiHW.Abstraction <> snap_pt_sizes proj
+R28961:28962 KamiHW.EmbedStep <> ks:97 var
+R28965:28979 KamiHW.Abstraction <> snap_pt_next_id proj
+R28981:28982 KamiHW.EmbedStep <> ks:97 var
+prf 29019:29033 <> embed_step_pnew
+R29052:29063 KamiHW.Abstraction <> KamiSnapshot rec
+binder 29047:29048 <> ks:98
+R29076:29079 Coq.Init.Datatypes <> list ind
+R29081:29083 Coq.Init.Datatypes <> nat ind
+binder 29067:29072 <> region:99
+R29094:29096 Coq.Init.Datatypes <> nat ind
+binder 29087:29090 <> cost:100
+R29119:29126 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29104:29115 KamiHW.EmbedStep <> WellFormedPT def
+R29117:29118 KamiHW.EmbedStep <> ks:98 var
+R29168:29175 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29164:29166 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R29127:29137 Coq.Lists.List <> length abbrev
+R29140:29155 Kernel.VMState <> normalize_region def
 R29157:29162 KamiHW.EmbedStep <> region:99 var
-R29164:29167 KamiHW.EmbedStep <> cost:100 var
-R29177:29184 Kernel.SimulationProof <> vm_apply def
-R29187:29196 KamiHW.Abstraction <> abs_phase1 def
+R29226:29232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29176:29185 KamiHW.Abstraction <> abs_phase1 def
+R29188:29196 KamiHW.Abstraction <> kami_step def
 R29198:29199 KamiHW.EmbedStep <> ks:98 var
-R29203:29212 Kernel.VMStep VMStep instr_pnew constr
-R29214:29219 KamiHW.EmbedStep <> region:99 var
-R29221:29224 KamiHW.EmbedStep <> cost:100 var
-R29297:29311 KamiHW.Abstraction <> snap_pt_next_id proj
-R29297:29311 KamiHW.Abstraction <> snap_pt_next_id proj
-R29331:29341 Coq.Lists.List <> length abbrev
-R29344:29359 Kernel.VMState <> normalize_region def
-R29331:29341 Coq.Lists.List <> length abbrev
-R29344:29359 Kernel.VMState <> normalize_region def
-R29380:29387 Kernel.SimulationProof <> vm_apply def
-R29390:29398 KamiHW.Abstraction <> kami_step def
-R29428:29440 Kernel.VMStep VMStep advance_state def
-R29443:29452 Kernel.VMStep VMStep apply_cost def
-R29455:29470 Kernel.VMStep VMStep instruction_cost def
-R29482:29491 KamiHW.Abstraction <> abs_phase1 def
-R29506:29512 KamiHW.Abstraction <> snap_pc proj
-R29514:29520 KamiHW.Abstraction <> snap_mu proj
-R29522:29529 KamiHW.Abstraction <> snap_err proj
-R29531:29541 KamiHW.Abstraction <> snap_halted proj
-R29543:29551 KamiHW.Abstraction <> snap_regs proj
-R29553:29560 KamiHW.Abstraction <> snap_mem proj
-R29569:29586 KamiHW.Abstraction <> snap_partition_ops proj
-R29588:29599 KamiHW.Abstraction <> snap_mdl_ops proj
-R29601:29614 KamiHW.Abstraction <> snap_info_gain proj
-R29616:29630 KamiHW.Abstraction <> snap_error_code proj
-R29639:29652 KamiHW.Abstraction <> snap_mu_tensor proj
-R29654:29666 KamiHW.Abstraction <> snap_pt_sizes proj
-R29668:29682 KamiHW.Abstraction <> snap_pt_next_id proj
-R29684:29697 KamiHW.Abstraction <> snap_certified proj
-R29706:29720 KamiHW.Abstraction <> snap_wc_same_00 proj
-R29722:29736 KamiHW.Abstraction <> snap_wc_diff_00 proj
-R29738:29752 KamiHW.Abstraction <> snap_wc_same_01 proj
-R29754:29768 KamiHW.Abstraction <> snap_wc_diff_01 proj
-R29777:29791 KamiHW.Abstraction <> snap_wc_same_10 proj
-R29793:29807 KamiHW.Abstraction <> snap_wc_diff_10 proj
-R29809:29823 KamiHW.Abstraction <> snap_wc_same_11 proj
-R29825:29839 KamiHW.Abstraction <> snap_wc_diff_11 proj
-R29851:29860 KamiHW.Abstraction <> abs_phase1 def
-R29851:29860 KamiHW.Abstraction <> abs_phase1 def
-R30114:30121 Kernel.VMState <> vm_graph proj
-R30124:30133 KamiHW.Abstraction <> abs_phase1 def
-R30146:30161 KamiHW.Abstraction <> snap_pt_to_graph def
-R30167:30179 KamiHW.Abstraction <> snap_pt_sizes proj
-R30114:30121 Kernel.VMState <> vm_graph proj
-R30124:30133 KamiHW.Abstraction <> abs_phase1 def
-R30146:30161 KamiHW.Abstraction <> snap_pt_to_graph def
-R30167:30179 KamiHW.Abstraction <> snap_pt_sizes proj
-R30198:30218 KamiHW.Abstraction <> snap_pt_to_graph_pnew thm
-R30227:30239 KamiHW.Abstraction <> snap_pt_sizes proj
-R30198:30218 KamiHW.Abstraction <> snap_pt_to_graph_pnew thm
-R30227:30239 KamiHW.Abstraction <> snap_pt_sizes proj
-R30198:30218 KamiHW.Abstraction <> snap_pt_to_graph_pnew thm
-R30227:30239 KamiHW.Abstraction <> snap_pt_sizes proj
-prf 30498:30529 <> abs_phase1_kami_graph_op_advance
-R30548:30559 KamiHW.Abstraction <> KamiSnapshot rec
-binder 30543:30544 <> ks:101
-R30567:30580 Kernel.VMStep VMStep vm_instruction ind
-binder 30563:30563 <> i:102
-R30591:30593 Coq.Init.Datatypes <> nat ind
-binder 30584:30587 <> cost:103
-R30618:30621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R30615:30617 Coq.Init.Datatypes <> nat ind
-R30622:30624 Coq.Init.Datatypes <> nat ind
-binder 30606:30611 <> sizes':104
-R30639:30641 Coq.Init.Datatypes <> nat ind
-binder 30628:30635 <> next_id':105
-R30654:30667 Kernel.VMState <> PartitionGraph rec
-binder 30645:30650 <> graph':106
-R30700:30707 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R30693:30695 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R30675:30690 Kernel.VMStep VMStep instruction_cost def
-R30692:30692 KamiHW.EmbedStep <> i:102 var
-R30696:30699 KamiHW.EmbedStep <> cost:103 var
-R30749:30756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R30740:30742 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R30708:30723 KamiHW.Abstraction <> snap_pt_to_graph def
-R30725:30732 KamiHW.EmbedStep <> next_id':105 var
-R30734:30739 KamiHW.EmbedStep <> sizes':104 var
-R30743:30748 KamiHW.EmbedStep <> graph':106 var
-R32064:32070 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R30757:30766 KamiHW.Abstraction <> abs_phase1 def
-R30777:30783 KamiHW.Abstraction <> snap_pc proj
-R30777:30783 KamiHW.Abstraction <> snap_pc proj
-R30777:30783 KamiHW.Abstraction <> snap_pc proj
-R30813:30819 KamiHW.Abstraction <> snap_mu proj
-R30813:30819 KamiHW.Abstraction <> snap_mu proj
-R30852:30859 KamiHW.Abstraction <> snap_err proj
-R30852:30859 KamiHW.Abstraction <> snap_err proj
-R30886:30896 KamiHW.Abstraction <> snap_halted proj
-R30886:30896 KamiHW.Abstraction <> snap_halted proj
-R30926:30934 KamiHW.Abstraction <> snap_regs proj
-R30926:30934 KamiHW.Abstraction <> snap_regs proj
-R30962:30969 KamiHW.Abstraction <> snap_mem proj
-R30962:30969 KamiHW.Abstraction <> snap_mem proj
-R30996:31013 KamiHW.Abstraction <> snap_partition_ops proj
-R30996:31013 KamiHW.Abstraction <> snap_partition_ops proj
-R31054:31065 KamiHW.Abstraction <> snap_mdl_ops proj
-R31054:31065 KamiHW.Abstraction <> snap_mdl_ops proj
-R31096:31109 KamiHW.Abstraction <> snap_info_gain proj
-R31096:31109 KamiHW.Abstraction <> snap_info_gain proj
-R31142:31156 KamiHW.Abstraction <> snap_error_code proj
-R31142:31156 KamiHW.Abstraction <> snap_error_code proj
-R31190:31203 KamiHW.Abstraction <> snap_mu_tensor proj
-R31190:31203 KamiHW.Abstraction <> snap_mu_tensor proj
-R31236:31248 KamiHW.Abstraction <> snap_pt_sizes proj
-R31236:31248 KamiHW.Abstraction <> snap_pt_sizes proj
-R31270:31284 KamiHW.Abstraction <> snap_pt_next_id proj
-R31270:31284 KamiHW.Abstraction <> snap_pt_next_id proj
-R31308:31321 KamiHW.Abstraction <> snap_certified proj
-R31308:31321 KamiHW.Abstraction <> snap_certified proj
-R31354:31368 KamiHW.Abstraction <> snap_wc_same_00 proj
-R31354:31368 KamiHW.Abstraction <> snap_wc_same_00 proj
-R31402:31416 KamiHW.Abstraction <> snap_wc_diff_00 proj
-R31402:31416 KamiHW.Abstraction <> snap_wc_diff_00 proj
-R31450:31464 KamiHW.Abstraction <> snap_wc_same_01 proj
-R31450:31464 KamiHW.Abstraction <> snap_wc_same_01 proj
-R31498:31512 KamiHW.Abstraction <> snap_wc_diff_01 proj
-R31498:31512 KamiHW.Abstraction <> snap_wc_diff_01 proj
-R31546:31560 KamiHW.Abstraction <> snap_wc_same_10 proj
-R31546:31560 KamiHW.Abstraction <> snap_wc_same_10 proj
-R31594:31608 KamiHW.Abstraction <> snap_wc_diff_10 proj
-R31594:31608 KamiHW.Abstraction <> snap_wc_diff_10 proj
-R31642:31656 KamiHW.Abstraction <> snap_wc_same_11 proj
-R31642:31656 KamiHW.Abstraction <> snap_wc_same_11 proj
-R31690:31704 KamiHW.Abstraction <> snap_wc_diff_11 proj
-R31690:31704 KamiHW.Abstraction <> snap_wc_diff_11 proj
-R31738:31752 KamiHW.Abstraction <> snap_rich_state proj
-R31738:31752 KamiHW.Abstraction <> snap_rich_state proj
-R31786:31803 KamiHW.Abstraction <> snap_csr_cert_addr proj
-R31786:31803 KamiHW.Abstraction <> snap_csr_cert_addr proj
-R31840:31854 KamiHW.Abstraction <> snap_csr_status proj
-R31840:31854 KamiHW.Abstraction <> snap_csr_status proj
-R31888:31899 KamiHW.Abstraction <> snap_csr_err proj
-R31888:31899 KamiHW.Abstraction <> snap_csr_err proj
-R31930:31947 KamiHW.Abstraction <> snap_csr_heap_base proj
-R31930:31947 KamiHW.Abstraction <> snap_csr_heap_base proj
-R31984:31997 KamiHW.Abstraction <> snap_logic_acc proj
-R31984:31997 KamiHW.Abstraction <> snap_logic_acc proj
-R32030:32041 KamiHW.Abstraction <> snap_mstatus proj
-R32030:32041 KamiHW.Abstraction <> snap_mstatus proj
-R30788:30788 Coq.Init.Datatypes <> S constr
-R30791:30797 KamiHW.Abstraction <> snap_pc proj
-R30799:30800 KamiHW.EmbedStep <> ks:101 var
-R30834:30836 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R30824:30830 KamiHW.Abstraction <> snap_mu proj
-R30832:30833 KamiHW.EmbedStep <> ks:101 var
-R30837:30840 KamiHW.EmbedStep <> cost:103 var
-R30864:30871 KamiHW.Abstraction <> snap_err proj
-R30873:30874 KamiHW.EmbedStep <> ks:101 var
-R30901:30911 KamiHW.Abstraction <> snap_halted proj
-R30913:30914 KamiHW.EmbedStep <> ks:101 var
-R30939:30947 KamiHW.Abstraction <> snap_regs proj
-R30949:30950 KamiHW.EmbedStep <> ks:101 var
-R30974:30981 KamiHW.Abstraction <> snap_mem proj
-R30983:30984 KamiHW.EmbedStep <> ks:101 var
-R31039:31041 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R31018:31035 KamiHW.Abstraction <> snap_partition_ops proj
-R31037:31038 KamiHW.EmbedStep <> ks:101 var
-R31070:31081 KamiHW.Abstraction <> snap_mdl_ops proj
-R31083:31084 KamiHW.EmbedStep <> ks:101 var
-R31114:31127 KamiHW.Abstraction <> snap_info_gain proj
-R31129:31130 KamiHW.EmbedStep <> ks:101 var
-R31161:31175 KamiHW.Abstraction <> snap_error_code proj
-R31177:31178 KamiHW.EmbedStep <> ks:101 var
-R31208:31221 KamiHW.Abstraction <> snap_mu_tensor proj
-R31223:31224 KamiHW.EmbedStep <> ks:101 var
-R31253:31258 KamiHW.EmbedStep <> sizes':104 var
-R31289:31296 KamiHW.EmbedStep <> next_id':105 var
-R31326:31339 KamiHW.Abstraction <> snap_certified proj
-R31341:31342 KamiHW.EmbedStep <> ks:101 var
-R31373:31387 KamiHW.Abstraction <> snap_wc_same_00 proj
-R31389:31390 KamiHW.EmbedStep <> ks:101 var
-R31421:31435 KamiHW.Abstraction <> snap_wc_diff_00 proj
-R31437:31438 KamiHW.EmbedStep <> ks:101 var
-R31469:31483 KamiHW.Abstraction <> snap_wc_same_01 proj
-R31485:31486 KamiHW.EmbedStep <> ks:101 var
-R31517:31531 KamiHW.Abstraction <> snap_wc_diff_01 proj
-R31533:31534 KamiHW.EmbedStep <> ks:101 var
-R31565:31579 KamiHW.Abstraction <> snap_wc_same_10 proj
-R31581:31582 KamiHW.EmbedStep <> ks:101 var
-R31613:31627 KamiHW.Abstraction <> snap_wc_diff_10 proj
-R31629:31630 KamiHW.EmbedStep <> ks:101 var
-R31661:31675 KamiHW.Abstraction <> snap_wc_same_11 proj
-R31677:31678 KamiHW.EmbedStep <> ks:101 var
-R31709:31723 KamiHW.Abstraction <> snap_wc_diff_11 proj
-R31725:31726 KamiHW.EmbedStep <> ks:101 var
-R31757:31771 KamiHW.Abstraction <> snap_rich_state proj
-R31773:31774 KamiHW.EmbedStep <> ks:101 var
-R31808:31825 KamiHW.Abstraction <> snap_csr_cert_addr proj
-R31827:31828 KamiHW.EmbedStep <> ks:101 var
-R31859:31873 KamiHW.Abstraction <> snap_csr_status proj
-R31875:31876 KamiHW.EmbedStep <> ks:101 var
-R31904:31915 KamiHW.Abstraction <> snap_csr_err proj
-R31917:31918 KamiHW.EmbedStep <> ks:101 var
-R31952:31969 KamiHW.Abstraction <> snap_csr_heap_base proj
-R31971:31972 KamiHW.EmbedStep <> ks:101 var
-R32002:32015 KamiHW.Abstraction <> snap_logic_acc proj
-R32017:32018 KamiHW.EmbedStep <> ks:101 var
-R32046:32057 KamiHW.Abstraction <> snap_mstatus proj
-R32059:32060 KamiHW.EmbedStep <> ks:101 var
-R32071:32083 Kernel.VMStep VMStep advance_state def
-R32086:32095 KamiHW.Abstraction <> abs_phase1 def
-R32097:32098 KamiHW.EmbedStep <> ks:101 var
-R32101:32101 KamiHW.EmbedStep <> i:102 var
-R32103:32108 KamiHW.EmbedStep <> graph':106 var
-R32127:32133 Kernel.VMState <> vm_csrs proj
-R32111:32120 KamiHW.Abstraction <> abs_phase1 def
-R32122:32123 KamiHW.EmbedStep <> ks:101 var
-R32153:32158 Kernel.VMState <> vm_err proj
-R32137:32146 KamiHW.Abstraction <> abs_phase1 def
-R32148:32149 KamiHW.EmbedStep <> ks:101 var
-R32234:32246 Kernel.VMStep VMStep advance_state def
-R32249:32258 Kernel.VMStep VMStep apply_cost def
-R32261:32270 KamiHW.Abstraction <> abs_phase1 def
-prf 32650:32673 <> embed_step_psplit_exists
-R32692:32703 KamiHW.Abstraction <> KamiSnapshot rec
-binder 32687:32688 <> ks:107
-R32716:32718 Coq.Init.Datatypes <> nat ind
-binder 32707:32712 <> module:108
-R32749:32752 Coq.Init.Datatypes <> list ind
-R32754:32756 Coq.Init.Datatypes <> nat ind
-binder 32722:32732 <> left_region:109
-binder 32734:32745 <> right_region:110
-R32767:32769 Coq.Init.Datatypes <> nat ind
-binder 32760:32763 <> cost:111
-R32777:32783 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R32787:32794 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 32784:32786 <> vs':112
-R32795:32801 Kernel.VMStep VMStep vm_step ind
-R32804:32813 KamiHW.Abstraction <> abs_phase1 def
-R32815:32816 KamiHW.EmbedStep <> ks:107 var
-R32820:32831 Kernel.VMStep VMStep instr_psplit constr
-R32833:32838 KamiHW.EmbedStep <> module:108 var
-R32840:32850 KamiHW.EmbedStep <> left_region:109 var
-R32852:32863 KamiHW.EmbedStep <> right_region:110 var
-R32865:32868 KamiHW.EmbedStep <> cost:111 var
-R32871:32873 KamiHW.EmbedStep <> vs':112 var
-R32909:32919 Kernel.VMStep VMStep step_psplit constr
-R32909:32919 Kernel.VMStep VMStep step_psplit constr
-prf 33052:33075 <> embed_step_pmerge_exists
-R33094:33105 KamiHW.Abstraction <> KamiSnapshot rec
-binder 33089:33090 <> ks:113
-R33122:33124 Coq.Init.Datatypes <> nat ind
-binder 33109:33110 <> m1:114
-binder 33112:33113 <> m2:115
-binder 33115:33118 <> cost:116
-R33132:33138 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R33142:33149 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 33139:33141 <> vs':117
-R33150:33156 Kernel.VMStep VMStep vm_step ind
-R33159:33168 KamiHW.Abstraction <> abs_phase1 def
-R33170:33171 KamiHW.EmbedStep <> ks:113 var
-R33175:33186 Kernel.VMStep VMStep instr_pmerge constr
-R33188:33189 KamiHW.EmbedStep <> m1:114 var
-R33191:33192 KamiHW.EmbedStep <> m2:115 var
-R33194:33197 KamiHW.EmbedStep <> cost:116 var
-R33200:33202 KamiHW.EmbedStep <> vs':117 var
-R33238:33248 Kernel.VMStep VMStep step_pmerge constr
-R33238:33248 Kernel.VMStep VMStep step_pmerge constr
-prf 33380:33403 <> abs_phase1_lassert_check
-R33422:33433 KamiHW.Abstraction <> KamiSnapshot rec
-binder 33417:33418 <> ks:118
-R33449:33451 Coq.Init.Datatypes <> nat ind
-binder 33437:33440 <> freg:119
-binder 33442:33445 <> creg:120
-R33462:33465 Coq.Init.Datatypes <> bool ind
-binder 33455:33458 <> kind:121
-R33489:33497 KamiHW.Abstraction <> snap_regs proj
-R33499:33500 KamiHW.EmbedStep <> ks:118 var
-R33507:33511 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R33503:33506 KamiHW.EmbedStep <> freg:119 var
-binder 33477:33484 <> fbase_hw:122
-R33539:33547 KamiHW.Abstraction <> snap_regs proj
-R33549:33550 KamiHW.EmbedStep <> ks:118 var
-R33557:33561 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R33553:33556 KamiHW.EmbedStep <> creg:120 var
-binder 33527:33534 <> cbase_hw:123
-R33588:33595 KamiHW.Abstraction <> snap_mem proj
-R33597:33598 KamiHW.EmbedStep <> ks:118 var
-R33609:33613 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R33601:33608 KamiHW.EmbedStep <> fbase_hw:122 var
-R33614:33621 Kernel.VMState <> MEM_SIZE def
-binder 33577:33583 <> hw_flen:124
-R33655:33662 Coq.Lists.List <> map def
-R33755:33762 Coq.Lists.List <> seq def
-R33768:33770 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R33771:33777 KamiHW.EmbedStep <> hw_flen:124 var
-binder 33669:33669 <> i:125
-R33674:33681 KamiHW.Abstraction <> snap_mem proj
-R33683:33684 KamiHW.EmbedStep <> ks:118 var
-R33687:33687 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R33700:33705 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R33696:33698 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R33688:33695 KamiHW.EmbedStep <> fbase_hw:122 var
-R33699:33699 KamiHW.EmbedStep <> i:125 var
-R33706:33713 Kernel.VMState <> MEM_SIZE def
-binder 33635:33650 <> formula_words_hw:126
-binder 33811:33813 <> var:127
-R33818:33825 KamiHW.Abstraction <> snap_mem proj
-R33827:33828 KamiHW.EmbedStep <> ks:118 var
-R33831:33831 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R33846:33851 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R33840:33842 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R33832:33839 KamiHW.EmbedStep <> cbase_hw:123 var
-R33843:33845 KamiHW.EmbedStep <> var:127 var
-R33852:33859 Kernel.VMState <> MEM_SIZE def
-binder 33792:33802 <> get_cert_hw:128
-R33888:33891 KamiHW.EmbedStep <> kind:121 var
-R33984:33988 Coq.Init.Datatypes <> false constr
-R33898:33928 Kernel.CertCheck CertCheck check_model_binary_fn def
-R33930:33945 KamiHW.EmbedStep <> formula_words_hw:126 var
-R33947:33957 KamiHW.EmbedStep <> get_cert_hw:128 var
-binder 33873:33880 <> hw_check:129
-R34044:34046 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33997:34012 Kernel.VMStep VMStep lassert_check_ok def
-R34015:34024 KamiHW.Abstraction <> abs_phase1 def
-R34026:34027 KamiHW.EmbedStep <> ks:118 var
-R34030:34033 KamiHW.EmbedStep <> freg:119 var
-R34035:34038 KamiHW.EmbedStep <> creg:120 var
-R34040:34043 KamiHW.EmbedStep <> kind:121 var
-R34047:34054 KamiHW.EmbedStep <> hw_check:129 var
-R34101:34116 Kernel.VMStep VMStep lassert_check_ok def
-R34129:34147 KamiHW.EmbedStep <> abs_phase1_read_reg thm
-R34129:34147 KamiHW.EmbedStep <> abs_phase1_read_reg thm
-R34129:34147 KamiHW.EmbedStep <> abs_phase1_read_reg thm
-R34166:34174 KamiHW.Abstraction <> snap_regs proj
-R34184:34188 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34166:34174 KamiHW.Abstraction <> snap_regs proj
-R34184:34188 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34205:34223 KamiHW.EmbedStep <> abs_phase1_read_reg thm
-R34205:34223 KamiHW.EmbedStep <> abs_phase1_read_reg thm
-R34205:34223 KamiHW.EmbedStep <> abs_phase1_read_reg thm
-R34242:34250 KamiHW.Abstraction <> snap_regs proj
-R34260:34264 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34242:34250 KamiHW.Abstraction <> snap_regs proj
-R34260:34264 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34281:34299 KamiHW.EmbedStep <> abs_phase1_read_mem thm
-R34281:34299 KamiHW.EmbedStep <> abs_phase1_read_mem thm
-R34281:34299 KamiHW.EmbedStep <> abs_phase1_read_mem thm
-R34320:34327 KamiHW.Abstraction <> snap_mem proj
-R34338:34342 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34343:34350 Kernel.VMState <> MEM_SIZE def
-R34320:34327 KamiHW.Abstraction <> snap_mem proj
-R34338:34342 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34343:34350 Kernel.VMState <> MEM_SIZE def
-R34542:34560 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R34434:34441 Coq.Lists.List <> map def
-R34517:34524 Coq.Lists.List <> seq def
-R34530:34532 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-binder 34448:34448 <> i:130
-R34453:34460 Kernel.VMState <> read_mem def
-R34463:34472 KamiHW.Abstraction <> abs_phase1 def
-R34484:34486 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R34487:34487 KamiHW.EmbedStep <> i:130 var
-R34561:34568 Coq.Lists.List <> map def
-R34646:34653 Coq.Lists.List <> seq def
-R34659:34661 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-binder 34575:34575 <> i:131
-R34580:34587 KamiHW.Abstraction <> snap_mem proj
-R34593:34593 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34603:34608 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34599:34601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R34602:34602 KamiHW.EmbedStep <> i:131 var
-R34609:34616 Kernel.VMState <> MEM_SIZE def
-R34542:34560 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R34434:34441 Coq.Lists.List <> map def
-R34517:34524 Coq.Lists.List <> seq def
-R34530:34532 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-binder 34448:34448 <> i:132
-R34453:34460 Kernel.VMState <> read_mem def
-R34463:34472 KamiHW.Abstraction <> abs_phase1 def
-R34484:34486 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R34487:34487 KamiHW.EmbedStep <> i:132 var
-R34561:34568 Coq.Lists.List <> map def
-R34646:34653 Coq.Lists.List <> seq def
-R34659:34661 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-binder 34575:34575 <> i:133
-R34580:34587 KamiHW.Abstraction <> snap_mem proj
-R34593:34593 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34603:34608 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R34599:34601 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R34602:34602 KamiHW.EmbedStep <> i:133 var
-R34609:34616 Kernel.VMState <> MEM_SIZE def
-R34684:34695 Coq.Lists.List <> map_ext thm
-R34684:34695 Coq.Lists.List <> map_ext thm
-R34713:34731 KamiHW.EmbedStep <> abs_phase1_read_mem thm
-R34713:34731 KamiHW.EmbedStep <> abs_phase1_read_mem thm
-R34802:34826 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R34802:34826 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
-R34848:34866 KamiHW.EmbedStep <> abs_phase1_read_mem thm
-R34848:34866 KamiHW.EmbedStep <> abs_phase1_read_mem thm
-prf 35133:35150 <> embed_step_lassert
-R35169:35180 KamiHW.Abstraction <> KamiSnapshot rec
-binder 35164:35165 <> ks:134
-R35196:35198 Coq.Init.Datatypes <> nat ind
-binder 35184:35187 <> freg:135
-binder 35189:35192 <> creg:136
-R35209:35212 Coq.Init.Datatypes <> bool ind
-binder 35202:35205 <> kind:137
-R35228:35230 Coq.Init.Datatypes <> nat ind
-binder 35216:35219 <> flen:138
-binder 35221:35224 <> cost:139
-R35251:35259 KamiHW.Abstraction <> snap_regs proj
-R35261:35262 KamiHW.EmbedStep <> ks:134 var
-R35269:35273 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R35265:35268 KamiHW.EmbedStep <> freg:135 var
-binder 35242:35246 <> fbase:140
-R35300:35307 KamiHW.Abstraction <> snap_mem proj
-R35309:35310 KamiHW.EmbedStep <> ks:134 var
+R29202:29211 Kernel.VMStep VMStep instr_pnew constr
+R29213:29218 KamiHW.EmbedStep <> region:99 var
+R29220:29223 KamiHW.EmbedStep <> cost:100 var
+R29233:29240 Kernel.SimulationProof <> vm_apply def
+R29243:29252 KamiHW.Abstraction <> abs_phase1 def
+R29254:29255 KamiHW.EmbedStep <> ks:98 var
+R29259:29268 Kernel.VMStep VMStep instr_pnew constr
+R29270:29275 KamiHW.EmbedStep <> region:99 var
+R29277:29280 KamiHW.EmbedStep <> cost:100 var
+R29353:29367 KamiHW.Abstraction <> snap_pt_next_id proj
+R29353:29367 KamiHW.Abstraction <> snap_pt_next_id proj
+R29387:29397 Coq.Lists.List <> length abbrev
+R29400:29415 Kernel.VMState <> normalize_region def
+R29387:29397 Coq.Lists.List <> length abbrev
+R29400:29415 Kernel.VMState <> normalize_region def
+R29436:29443 Kernel.SimulationProof <> vm_apply def
+R29446:29454 KamiHW.Abstraction <> kami_step def
+R29484:29496 Kernel.VMStep VMStep advance_state def
+R29499:29508 Kernel.VMStep VMStep apply_cost def
+R29511:29526 Kernel.VMStep VMStep instruction_cost def
+R29538:29547 KamiHW.Abstraction <> abs_phase1 def
+R29562:29568 KamiHW.Abstraction <> snap_pc proj
+R29570:29576 KamiHW.Abstraction <> snap_mu proj
+R29578:29585 KamiHW.Abstraction <> snap_err proj
+R29587:29597 KamiHW.Abstraction <> snap_halted proj
+R29599:29607 KamiHW.Abstraction <> snap_regs proj
+R29609:29616 KamiHW.Abstraction <> snap_mem proj
+R29625:29642 KamiHW.Abstraction <> snap_partition_ops proj
+R29644:29655 KamiHW.Abstraction <> snap_mdl_ops proj
+R29657:29670 KamiHW.Abstraction <> snap_info_gain proj
+R29672:29686 KamiHW.Abstraction <> snap_error_code proj
+R29695:29708 KamiHW.Abstraction <> snap_mu_tensor proj
+R29710:29722 KamiHW.Abstraction <> snap_pt_sizes proj
+R29724:29738 KamiHW.Abstraction <> snap_pt_next_id proj
+R29740:29753 KamiHW.Abstraction <> snap_certified proj
+R29762:29776 KamiHW.Abstraction <> snap_wc_same_00 proj
+R29778:29792 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R29794:29808 KamiHW.Abstraction <> snap_wc_same_01 proj
+R29810:29824 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R29833:29847 KamiHW.Abstraction <> snap_wc_same_10 proj
+R29849:29863 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R29865:29879 KamiHW.Abstraction <> snap_wc_same_11 proj
+R29881:29895 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R29907:29916 KamiHW.Abstraction <> abs_phase1 def
+R29907:29916 KamiHW.Abstraction <> abs_phase1 def
+R30170:30177 Kernel.VMState <> vm_graph proj
+R30180:30189 KamiHW.Abstraction <> abs_phase1 def
+R30202:30217 KamiHW.Abstraction <> snap_pt_to_graph def
+R30223:30235 KamiHW.Abstraction <> snap_pt_sizes proj
+R30170:30177 Kernel.VMState <> vm_graph proj
+R30180:30189 KamiHW.Abstraction <> abs_phase1 def
+R30202:30217 KamiHW.Abstraction <> snap_pt_to_graph def
+R30223:30235 KamiHW.Abstraction <> snap_pt_sizes proj
+R30254:30274 KamiHW.Abstraction <> snap_pt_to_graph_pnew thm
+R30283:30295 KamiHW.Abstraction <> snap_pt_sizes proj
+R30254:30274 KamiHW.Abstraction <> snap_pt_to_graph_pnew thm
+R30283:30295 KamiHW.Abstraction <> snap_pt_sizes proj
+R30254:30274 KamiHW.Abstraction <> snap_pt_to_graph_pnew thm
+R30283:30295 KamiHW.Abstraction <> snap_pt_sizes proj
+prf 30554:30585 <> abs_phase1_kami_graph_op_advance
+R30604:30615 KamiHW.Abstraction <> KamiSnapshot rec
+binder 30599:30600 <> ks:101
+R30623:30636 Kernel.VMStep VMStep vm_instruction ind
+binder 30619:30619 <> i:102
+R30647:30649 Coq.Init.Datatypes <> nat ind
+binder 30640:30643 <> cost:103
+R30674:30677 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30671:30673 Coq.Init.Datatypes <> nat ind
+R30678:30680 Coq.Init.Datatypes <> nat ind
+binder 30662:30667 <> sizes':104
+R30695:30697 Coq.Init.Datatypes <> nat ind
+binder 30684:30691 <> next_id':105
+R30710:30723 Kernel.VMState <> PartitionGraph rec
+binder 30701:30706 <> graph':106
+R30756:30763 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30749:30751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30731:30746 Kernel.VMStep VMStep instruction_cost def
+R30748:30748 KamiHW.EmbedStep <> i:102 var
+R30752:30755 KamiHW.EmbedStep <> cost:103 var
+R30805:30812 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30796:30798 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30764:30779 KamiHW.Abstraction <> snap_pt_to_graph def
+R30781:30788 KamiHW.EmbedStep <> next_id':105 var
+R30790:30795 KamiHW.EmbedStep <> sizes':104 var
+R30799:30804 KamiHW.EmbedStep <> graph':106 var
+R32176:32182 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30813:30822 KamiHW.Abstraction <> abs_phase1 def
+R30833:30839 KamiHW.Abstraction <> snap_pc proj
+R30833:30839 KamiHW.Abstraction <> snap_pc proj
+R30833:30839 KamiHW.Abstraction <> snap_pc proj
+R30869:30875 KamiHW.Abstraction <> snap_mu proj
+R30869:30875 KamiHW.Abstraction <> snap_mu proj
+R30908:30915 KamiHW.Abstraction <> snap_err proj
+R30908:30915 KamiHW.Abstraction <> snap_err proj
+R30942:30952 KamiHW.Abstraction <> snap_halted proj
+R30942:30952 KamiHW.Abstraction <> snap_halted proj
+R30982:30990 KamiHW.Abstraction <> snap_regs proj
+R30982:30990 KamiHW.Abstraction <> snap_regs proj
+R31018:31025 KamiHW.Abstraction <> snap_mem proj
+R31018:31025 KamiHW.Abstraction <> snap_mem proj
+R31052:31069 KamiHW.Abstraction <> snap_partition_ops proj
+R31052:31069 KamiHW.Abstraction <> snap_partition_ops proj
+R31110:31121 KamiHW.Abstraction <> snap_mdl_ops proj
+R31110:31121 KamiHW.Abstraction <> snap_mdl_ops proj
+R31152:31165 KamiHW.Abstraction <> snap_info_gain proj
+R31152:31165 KamiHW.Abstraction <> snap_info_gain proj
+R31198:31212 KamiHW.Abstraction <> snap_error_code proj
+R31198:31212 KamiHW.Abstraction <> snap_error_code proj
+R31246:31259 KamiHW.Abstraction <> snap_mu_tensor proj
+R31246:31259 KamiHW.Abstraction <> snap_mu_tensor proj
+R31292:31304 KamiHW.Abstraction <> snap_pt_sizes proj
+R31292:31304 KamiHW.Abstraction <> snap_pt_sizes proj
+R31326:31340 KamiHW.Abstraction <> snap_pt_next_id proj
+R31326:31340 KamiHW.Abstraction <> snap_pt_next_id proj
+R31364:31377 KamiHW.Abstraction <> snap_certified proj
+R31364:31377 KamiHW.Abstraction <> snap_certified proj
+R31410:31424 KamiHW.Abstraction <> snap_wc_same_00 proj
+R31410:31424 KamiHW.Abstraction <> snap_wc_same_00 proj
+R31458:31472 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R31458:31472 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R31506:31520 KamiHW.Abstraction <> snap_wc_same_01 proj
+R31506:31520 KamiHW.Abstraction <> snap_wc_same_01 proj
+R31554:31568 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R31554:31568 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R31602:31616 KamiHW.Abstraction <> snap_wc_same_10 proj
+R31602:31616 KamiHW.Abstraction <> snap_wc_same_10 proj
+R31650:31664 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R31650:31664 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R31698:31712 KamiHW.Abstraction <> snap_wc_same_11 proj
+R31698:31712 KamiHW.Abstraction <> snap_wc_same_11 proj
+R31746:31760 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R31746:31760 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R31794:31808 KamiHW.Abstraction <> snap_rich_state proj
+R31794:31808 KamiHW.Abstraction <> snap_rich_state proj
+R31842:31859 KamiHW.Abstraction <> snap_csr_cert_addr proj
+R31842:31859 KamiHW.Abstraction <> snap_csr_cert_addr proj
+R31896:31910 KamiHW.Abstraction <> snap_csr_status proj
+R31896:31910 KamiHW.Abstraction <> snap_csr_status proj
+R31944:31955 KamiHW.Abstraction <> snap_csr_err proj
+R31944:31955 KamiHW.Abstraction <> snap_csr_err proj
+R31986:32003 KamiHW.Abstraction <> snap_csr_heap_base proj
+R31986:32003 KamiHW.Abstraction <> snap_csr_heap_base proj
+R32040:32053 KamiHW.Abstraction <> snap_logic_acc proj
+R32040:32053 KamiHW.Abstraction <> snap_logic_acc proj
+R32086:32104 KamiHW.Abstraction <> snap_module_tensors proj
+R32086:32104 KamiHW.Abstraction <> snap_module_tensors proj
+R32142:32153 KamiHW.Abstraction <> snap_mstatus proj
+R32142:32153 KamiHW.Abstraction <> snap_mstatus proj
+R30844:30844 Coq.Init.Datatypes <> S constr
+R30847:30853 KamiHW.Abstraction <> snap_pc proj
+R30855:30856 KamiHW.EmbedStep <> ks:101 var
+R30890:30892 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R30880:30886 KamiHW.Abstraction <> snap_mu proj
+R30888:30889 KamiHW.EmbedStep <> ks:101 var
+R30893:30896 KamiHW.EmbedStep <> cost:103 var
+R30920:30927 KamiHW.Abstraction <> snap_err proj
+R30929:30930 KamiHW.EmbedStep <> ks:101 var
+R30957:30967 KamiHW.Abstraction <> snap_halted proj
+R30969:30970 KamiHW.EmbedStep <> ks:101 var
+R30995:31003 KamiHW.Abstraction <> snap_regs proj
+R31005:31006 KamiHW.EmbedStep <> ks:101 var
+R31030:31037 KamiHW.Abstraction <> snap_mem proj
+R31039:31040 KamiHW.EmbedStep <> ks:101 var
+R31095:31097 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R31074:31091 KamiHW.Abstraction <> snap_partition_ops proj
+R31093:31094 KamiHW.EmbedStep <> ks:101 var
+R31126:31137 KamiHW.Abstraction <> snap_mdl_ops proj
+R31139:31140 KamiHW.EmbedStep <> ks:101 var
+R31170:31183 KamiHW.Abstraction <> snap_info_gain proj
+R31185:31186 KamiHW.EmbedStep <> ks:101 var
+R31217:31231 KamiHW.Abstraction <> snap_error_code proj
+R31233:31234 KamiHW.EmbedStep <> ks:101 var
+R31264:31277 KamiHW.Abstraction <> snap_mu_tensor proj
+R31279:31280 KamiHW.EmbedStep <> ks:101 var
+R31309:31314 KamiHW.EmbedStep <> sizes':104 var
+R31345:31352 KamiHW.EmbedStep <> next_id':105 var
+R31382:31395 KamiHW.Abstraction <> snap_certified proj
+R31397:31398 KamiHW.EmbedStep <> ks:101 var
+R31429:31443 KamiHW.Abstraction <> snap_wc_same_00 proj
+R31445:31446 KamiHW.EmbedStep <> ks:101 var
+R31477:31491 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R31493:31494 KamiHW.EmbedStep <> ks:101 var
+R31525:31539 KamiHW.Abstraction <> snap_wc_same_01 proj
+R31541:31542 KamiHW.EmbedStep <> ks:101 var
+R31573:31587 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R31589:31590 KamiHW.EmbedStep <> ks:101 var
+R31621:31635 KamiHW.Abstraction <> snap_wc_same_10 proj
+R31637:31638 KamiHW.EmbedStep <> ks:101 var
+R31669:31683 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R31685:31686 KamiHW.EmbedStep <> ks:101 var
+R31717:31731 KamiHW.Abstraction <> snap_wc_same_11 proj
+R31733:31734 KamiHW.EmbedStep <> ks:101 var
+R31765:31779 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R31781:31782 KamiHW.EmbedStep <> ks:101 var
+R32109:32127 KamiHW.Abstraction <> snap_module_tensors proj
+R32129:32130 KamiHW.EmbedStep <> ks:101 var
+R31813:31827 KamiHW.Abstraction <> snap_rich_state proj
+R31829:31830 KamiHW.EmbedStep <> ks:101 var
+R31864:31881 KamiHW.Abstraction <> snap_csr_cert_addr proj
+R31883:31884 KamiHW.EmbedStep <> ks:101 var
+R31915:31929 KamiHW.Abstraction <> snap_csr_status proj
+R31931:31932 KamiHW.EmbedStep <> ks:101 var
+R31960:31971 KamiHW.Abstraction <> snap_csr_err proj
+R31973:31974 KamiHW.EmbedStep <> ks:101 var
+R32008:32025 KamiHW.Abstraction <> snap_csr_heap_base proj
+R32027:32028 KamiHW.EmbedStep <> ks:101 var
+R32058:32071 KamiHW.Abstraction <> snap_logic_acc proj
+R32073:32074 KamiHW.EmbedStep <> ks:101 var
+R32158:32169 KamiHW.Abstraction <> snap_mstatus proj
+R32171:32172 KamiHW.EmbedStep <> ks:101 var
+R32183:32195 Kernel.VMStep VMStep advance_state def
+R32198:32207 KamiHW.Abstraction <> abs_phase1 def
+R32209:32210 KamiHW.EmbedStep <> ks:101 var
+R32213:32213 KamiHW.EmbedStep <> i:102 var
+R32215:32220 KamiHW.EmbedStep <> graph':106 var
+R32239:32245 Kernel.VMState <> vm_csrs proj
+R32223:32232 KamiHW.Abstraction <> abs_phase1 def
+R32234:32235 KamiHW.EmbedStep <> ks:101 var
+R32265:32270 Kernel.VMState <> vm_err proj
+R32249:32258 KamiHW.Abstraction <> abs_phase1 def
+R32260:32261 KamiHW.EmbedStep <> ks:101 var
+R32346:32358 Kernel.VMStep VMStep advance_state def
+R32361:32370 Kernel.VMStep VMStep apply_cost def
+R32373:32382 KamiHW.Abstraction <> abs_phase1 def
+prf 32762:32785 <> embed_step_psplit_exists
+R32804:32815 KamiHW.Abstraction <> KamiSnapshot rec
+binder 32799:32800 <> ks:107
+R32828:32830 Coq.Init.Datatypes <> nat ind
+binder 32819:32824 <> module:108
+R32861:32864 Coq.Init.Datatypes <> list ind
+R32866:32868 Coq.Init.Datatypes <> nat ind
+binder 32834:32844 <> left_region:109
+binder 32846:32857 <> right_region:110
+R32879:32881 Coq.Init.Datatypes <> nat ind
+binder 32872:32875 <> cost:111
+R32889:32895 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R32899:32906 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 32896:32898 <> vs':112
+R32907:32913 Kernel.VMStep VMStep vm_step ind
+R32916:32925 KamiHW.Abstraction <> abs_phase1 def
+R32927:32928 KamiHW.EmbedStep <> ks:107 var
+R32932:32943 Kernel.VMStep VMStep instr_psplit constr
+R32945:32950 KamiHW.EmbedStep <> module:108 var
+R32952:32962 KamiHW.EmbedStep <> left_region:109 var
+R32964:32975 KamiHW.EmbedStep <> right_region:110 var
+R32977:32980 KamiHW.EmbedStep <> cost:111 var
+R32983:32985 KamiHW.EmbedStep <> vs':112 var
+R33021:33031 Kernel.VMStep VMStep step_psplit constr
+R33021:33031 Kernel.VMStep VMStep step_psplit constr
+prf 33164:33187 <> embed_step_pmerge_exists
+R33206:33217 KamiHW.Abstraction <> KamiSnapshot rec
+binder 33201:33202 <> ks:113
+R33234:33236 Coq.Init.Datatypes <> nat ind
+binder 33221:33222 <> m1:114
+binder 33224:33225 <> m2:115
+binder 33227:33230 <> cost:116
+R33244:33250 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R33254:33261 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 33251:33253 <> vs':117
+R33262:33268 Kernel.VMStep VMStep vm_step ind
+R33271:33280 KamiHW.Abstraction <> abs_phase1 def
+R33282:33283 KamiHW.EmbedStep <> ks:113 var
+R33287:33298 Kernel.VMStep VMStep instr_pmerge constr
+R33300:33301 KamiHW.EmbedStep <> m1:114 var
+R33303:33304 KamiHW.EmbedStep <> m2:115 var
+R33306:33309 KamiHW.EmbedStep <> cost:116 var
+R33312:33314 KamiHW.EmbedStep <> vs':117 var
+R33350:33360 Kernel.VMStep VMStep step_pmerge constr
+R33350:33360 Kernel.VMStep VMStep step_pmerge constr
+prf 33492:33515 <> abs_phase1_lassert_check
+R33534:33545 KamiHW.Abstraction <> KamiSnapshot rec
+binder 33529:33530 <> ks:118
+R33561:33563 Coq.Init.Datatypes <> nat ind
+binder 33549:33552 <> freg:119
+binder 33554:33557 <> creg:120
+R33574:33577 Coq.Init.Datatypes <> bool ind
+binder 33567:33570 <> kind:121
+R33601:33609 KamiHW.Abstraction <> snap_regs proj
+R33611:33612 KamiHW.EmbedStep <> ks:118 var
+R33619:33623 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R33615:33618 KamiHW.EmbedStep <> freg:119 var
+binder 33589:33596 <> fbase_hw:122
+R33651:33659 KamiHW.Abstraction <> snap_regs proj
+R33661:33662 KamiHW.EmbedStep <> ks:118 var
+R33669:33673 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R33665:33668 KamiHW.EmbedStep <> creg:120 var
+binder 33639:33646 <> cbase_hw:123
+R33700:33707 KamiHW.Abstraction <> snap_mem proj
+R33709:33710 KamiHW.EmbedStep <> ks:118 var
+R33721:33725 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R33713:33720 KamiHW.EmbedStep <> fbase_hw:122 var
+R33726:33733 Kernel.VMState <> MEM_SIZE def
+binder 33689:33695 <> hw_flen:124
+R33767:33774 Coq.Lists.List <> map def
+R33867:33874 Coq.Lists.List <> seq def
+R33880:33882 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R33883:33889 KamiHW.EmbedStep <> hw_flen:124 var
+binder 33781:33781 <> i:125
+R33786:33793 KamiHW.Abstraction <> snap_mem proj
+R33795:33796 KamiHW.EmbedStep <> ks:118 var
+R33799:33799 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R33812:33817 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R33808:33810 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R33800:33807 KamiHW.EmbedStep <> fbase_hw:122 var
+R33811:33811 KamiHW.EmbedStep <> i:125 var
+R33818:33825 Kernel.VMState <> MEM_SIZE def
+binder 33747:33762 <> formula_words_hw:126
+binder 33923:33925 <> var:127
+R33930:33937 KamiHW.Abstraction <> snap_mem proj
+R33939:33940 KamiHW.EmbedStep <> ks:118 var
+R33943:33943 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R33958:33963 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R33952:33954 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R33944:33951 KamiHW.EmbedStep <> cbase_hw:123 var
+R33955:33957 KamiHW.EmbedStep <> var:127 var
+R33964:33971 Kernel.VMState <> MEM_SIZE def
+binder 33904:33914 <> get_cert_hw:128
+R34000:34003 KamiHW.EmbedStep <> kind:121 var
+R34096:34100 Coq.Init.Datatypes <> false constr
+R34010:34040 Kernel.CertCheck CertCheck check_model_binary_fn def
+R34042:34057 KamiHW.EmbedStep <> formula_words_hw:126 var
+R34059:34069 KamiHW.EmbedStep <> get_cert_hw:128 var
+binder 33985:33992 <> hw_check:129
+R34156:34158 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34109:34124 Kernel.VMStep VMStep lassert_check_ok def
+R34127:34136 KamiHW.Abstraction <> abs_phase1 def
+R34138:34139 KamiHW.EmbedStep <> ks:118 var
+R34142:34145 KamiHW.EmbedStep <> freg:119 var
+R34147:34150 KamiHW.EmbedStep <> creg:120 var
+R34152:34155 KamiHW.EmbedStep <> kind:121 var
+R34159:34166 KamiHW.EmbedStep <> hw_check:129 var
+R34213:34228 Kernel.VMStep VMStep lassert_check_ok def
+R34241:34259 KamiHW.EmbedStep <> abs_phase1_read_reg thm
+R34241:34259 KamiHW.EmbedStep <> abs_phase1_read_reg thm
+R34241:34259 KamiHW.EmbedStep <> abs_phase1_read_reg thm
+R34278:34286 KamiHW.Abstraction <> snap_regs proj
+R34296:34300 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34278:34286 KamiHW.Abstraction <> snap_regs proj
+R34296:34300 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34317:34335 KamiHW.EmbedStep <> abs_phase1_read_reg thm
+R34317:34335 KamiHW.EmbedStep <> abs_phase1_read_reg thm
+R34317:34335 KamiHW.EmbedStep <> abs_phase1_read_reg thm
+R34354:34362 KamiHW.Abstraction <> snap_regs proj
+R34372:34376 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34354:34362 KamiHW.Abstraction <> snap_regs proj
+R34372:34376 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34393:34411 KamiHW.EmbedStep <> abs_phase1_read_mem thm
+R34393:34411 KamiHW.EmbedStep <> abs_phase1_read_mem thm
+R34393:34411 KamiHW.EmbedStep <> abs_phase1_read_mem thm
+R34432:34439 KamiHW.Abstraction <> snap_mem proj
+R34450:34454 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34455:34462 Kernel.VMState <> MEM_SIZE def
+R34432:34439 KamiHW.Abstraction <> snap_mem proj
+R34450:34454 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34455:34462 Kernel.VMState <> MEM_SIZE def
+R34654:34672 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34546:34553 Coq.Lists.List <> map def
+R34629:34636 Coq.Lists.List <> seq def
+R34642:34644 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+binder 34560:34560 <> i:130
+R34565:34572 Kernel.VMState <> read_mem def
+R34575:34584 KamiHW.Abstraction <> abs_phase1 def
+R34596:34598 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34599:34599 KamiHW.EmbedStep <> i:130 var
+R34673:34680 Coq.Lists.List <> map def
+R34758:34765 Coq.Lists.List <> seq def
+R34771:34773 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+binder 34687:34687 <> i:131
+R34692:34699 KamiHW.Abstraction <> snap_mem proj
+R34705:34705 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34715:34720 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34711:34713 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34714:34714 KamiHW.EmbedStep <> i:131 var
+R34721:34728 Kernel.VMState <> MEM_SIZE def
+R34654:34672 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34546:34553 Coq.Lists.List <> map def
+R34629:34636 Coq.Lists.List <> seq def
+R34642:34644 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+binder 34560:34560 <> i:132
+R34565:34572 Kernel.VMState <> read_mem def
+R34575:34584 KamiHW.Abstraction <> abs_phase1 def
+R34596:34598 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34599:34599 KamiHW.EmbedStep <> i:132 var
+R34673:34680 Coq.Lists.List <> map def
+R34758:34765 Coq.Lists.List <> seq def
+R34771:34773 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+binder 34687:34687 <> i:133
+R34692:34699 KamiHW.Abstraction <> snap_mem proj
+R34705:34705 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34715:34720 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R34711:34713 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R34714:34714 KamiHW.EmbedStep <> i:133 var
+R34721:34728 Kernel.VMState <> MEM_SIZE def
+R34796:34807 Coq.Lists.List <> map_ext thm
+R34796:34807 Coq.Lists.List <> map_ext thm
+R34825:34843 KamiHW.EmbedStep <> abs_phase1_read_mem thm
+R34825:34843 KamiHW.EmbedStep <> abs_phase1_read_mem thm
+R34914:34938 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R34914:34938 Coq.Logic.FunctionalExtensionality <> functional_extensionality thm
+R34960:34978 KamiHW.EmbedStep <> abs_phase1_read_mem thm
+R34960:34978 KamiHW.EmbedStep <> abs_phase1_read_mem thm
+prf 35182:35199 <> embed_step_lassert
+R35218:35229 KamiHW.Abstraction <> KamiSnapshot rec
+binder 35213:35214 <> ks:134
+R35245:35247 Coq.Init.Datatypes <> nat ind
+binder 35233:35236 <> freg:135
+binder 35238:35241 <> creg:136
+R35258:35261 Coq.Init.Datatypes <> bool ind
+binder 35251:35254 <> kind:137
+R35277:35279 Coq.Init.Datatypes <> nat ind
+binder 35265:35268 <> flen:138
+binder 35270:35273 <> cost:139
+R35300:35308 KamiHW.Abstraction <> snap_regs proj
+R35310:35311 KamiHW.EmbedStep <> ks:134 var
 R35318:35322 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R35313:35317 KamiHW.EmbedStep <> fbase:140 var
-R35323:35330 Kernel.VMState <> MEM_SIZE def
-binder 35289:35295 <> hw_flen:141
-R35353:35361 KamiHW.Abstraction <> snap_regs proj
-R35363:35364 KamiHW.EmbedStep <> ks:134 var
-R35371:35375 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R35367:35370 KamiHW.EmbedStep <> creg:136 var
-binder 35344:35348 <> cbase:142
-R35408:35415 Coq.Lists.List <> map def
-R35503:35510 Coq.Lists.List <> seq def
-R35516:35518 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R35519:35525 KamiHW.EmbedStep <> hw_flen:141 var
-binder 35422:35422 <> i:143
-R35427:35434 KamiHW.Abstraction <> snap_mem proj
-R35436:35437 KamiHW.EmbedStep <> ks:134 var
-R35440:35440 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R35450:35455 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R35446:35448 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R35441:35445 KamiHW.EmbedStep <> fbase:140 var
-R35449:35449 KamiHW.EmbedStep <> i:143 var
-R35456:35463 Kernel.VMState <> MEM_SIZE def
-binder 35391:35403 <> formula_words:144
-binder 35556:35558 <> var:145
-R35563:35570 KamiHW.Abstraction <> snap_mem proj
-R35572:35573 KamiHW.EmbedStep <> ks:134 var
-R35576:35576 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R35588:35593 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R35582:35584 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R35577:35581 KamiHW.EmbedStep <> cbase:142 var
-R35585:35587 KamiHW.EmbedStep <> var:145 var
-R35594:35601 Kernel.VMState <> MEM_SIZE def
-binder 35540:35547 <> get_cert:146
-R35630:35633 KamiHW.EmbedStep <> kind:137 var
-R35720:35724 Coq.Init.Datatypes <> false constr
-R35640:35670 Kernel.CertCheck CertCheck check_model_binary_fn def
-R35672:35684 KamiHW.EmbedStep <> formula_words:144 var
-R35686:35693 KamiHW.EmbedStep <> get_cert:146 var
-binder 35615:35622 <> hw_check:147
-R35747:35754 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R35737:35739 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35733:35736 KamiHW.EmbedStep <> flen:138 var
-R35740:35746 KamiHW.EmbedStep <> hw_flen:141 var
-R35770:35777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R35763:35765 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35755:35762 KamiHW.EmbedStep <> hw_check:147 var
-R35766:35769 Coq.Init.Datatypes <> true constr
-R35789:35798 KamiHW.Abstraction <> abs_phase1 def
-R35801:35809 KamiHW.Abstraction <> kami_step def
-R35811:35812 KamiHW.EmbedStep <> ks:134 var
-R35815:35827 Kernel.VMStep VMStep instr_lassert constr
-R35829:35832 KamiHW.EmbedStep <> freg:135 var
-R35834:35837 KamiHW.EmbedStep <> creg:136 var
-R35839:35842 KamiHW.EmbedStep <> kind:137 var
-R35844:35847 KamiHW.EmbedStep <> flen:138 var
-R35849:35852 KamiHW.EmbedStep <> cost:139 var
-binder 35782:35784 <> hs':148
-R35874:35881 Kernel.SimulationProof <> vm_apply def
-R35884:35893 KamiHW.Abstraction <> abs_phase1 def
-R35895:35896 KamiHW.EmbedStep <> ks:134 var
-R35900:35912 Kernel.VMStep VMStep instr_lassert constr
-R35914:35917 KamiHW.EmbedStep <> freg:135 var
-R35919:35922 KamiHW.EmbedStep <> creg:136 var
-R35924:35927 KamiHW.EmbedStep <> kind:137 var
-R35929:35932 KamiHW.EmbedStep <> flen:138 var
-R35934:35937 KamiHW.EmbedStep <> cost:139 var
-binder 35867:35869 <> vs':149
-R35968:35975 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R35956:35958 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35947:35951 Kernel.VMState <> vm_pc proj
-R35953:35955 KamiHW.EmbedStep <> hs':148 var
-R35959:35963 Kernel.VMState <> vm_pc proj
-R35965:35967 KamiHW.EmbedStep <> vs':149 var
-R36003:36010 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R35988:35990 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35976:35983 Kernel.VMState <> vm_graph proj
-R35985:35987 KamiHW.EmbedStep <> hs':148 var
-R35991:35998 Kernel.VMState <> vm_graph proj
-R36000:36002 KamiHW.EmbedStep <> vs':149 var
-R36036:36043 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36022:36024 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36011:36017 Kernel.VMState <> vm_regs proj
-R36019:36021 KamiHW.EmbedStep <> hs':148 var
-R36025:36031 Kernel.VMState <> vm_regs proj
-R36033:36035 KamiHW.EmbedStep <> vs':149 var
-R36067:36074 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36054:36056 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36044:36049 Kernel.VMState <> vm_mem proj
-R36051:36053 KamiHW.EmbedStep <> hs':148 var
-R36057:36062 Kernel.VMState <> vm_mem proj
-R36064:36066 KamiHW.EmbedStep <> vs':149 var
-R36098:36105 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36085:36087 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36075:36080 Kernel.VMState <> vm_err proj
-R36082:36084 KamiHW.EmbedStep <> hs':148 var
-R36088:36093 Kernel.VMState <> vm_err proj
-R36095:36097 KamiHW.EmbedStep <> vs':149 var
-R36141:36148 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36122:36124 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36106:36117 Kernel.VMState <> vm_mu_tensor proj
-R36119:36121 KamiHW.EmbedStep <> hs':148 var
-R36125:36136 Kernel.VMState <> vm_mu_tensor proj
-R36138:36140 KamiHW.EmbedStep <> vs':149 var
-R36180:36187 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36163:36165 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36149:36158 Kernel.VMState <> vm_witness proj
-R36160:36162 KamiHW.EmbedStep <> hs':148 var
-R36166:36175 Kernel.VMState <> vm_witness proj
-R36177:36179 KamiHW.EmbedStep <> vs':149 var
-R36223:36230 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36204:36206 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36188:36199 Kernel.VMState <> vm_certified proj
-R36201:36203 KamiHW.EmbedStep <> hs':148 var
-R36207:36218 Kernel.VMState <> vm_certified proj
-R36220:36222 KamiHW.EmbedStep <> vs':149 var
-R36240:36242 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36231:36235 Kernel.VMState <> vm_mu proj
-R36237:36239 KamiHW.EmbedStep <> vs':149 var
-R36252:36254 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R36243:36247 Kernel.VMState <> vm_mu proj
-R36249:36251 KamiHW.EmbedStep <> hs':148 var
-R36259:36261 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R36255:36258 KamiHW.EmbedStep <> flen:138 var
-R36400:36423 KamiHW.EmbedStep <> abs_phase1_lassert_check thm
-R36400:36423 KamiHW.EmbedStep <> abs_phase1_lassert_check thm
-R36568:36575 Kernel.SimulationProof <> vm_apply def
-R36603:36611 KamiHW.Abstraction <> kami_step def
-R36614:36633 KamiHW.Abstraction <> kami_advance_default def
-R36725:36734 Kernel.VMStep VMStep apply_cost def
-R36737:36752 Kernel.VMStep VMStep instruction_cost def
-R36781:36790 KamiHW.Abstraction <> abs_phase1 def
-R36800:36806 KamiHW.Abstraction <> snap_pc proj
-R36808:36814 KamiHW.Abstraction <> snap_mu proj
-R36816:36823 KamiHW.Abstraction <> snap_err proj
-R36825:36835 KamiHW.Abstraction <> snap_halted proj
-R36837:36845 KamiHW.Abstraction <> snap_regs proj
-R36847:36854 KamiHW.Abstraction <> snap_mem proj
-R36863:36880 KamiHW.Abstraction <> snap_partition_ops proj
-R36882:36893 KamiHW.Abstraction <> snap_mdl_ops proj
-R36895:36908 KamiHW.Abstraction <> snap_info_gain proj
-R36910:36924 KamiHW.Abstraction <> snap_error_code proj
-R36933:36946 KamiHW.Abstraction <> snap_mu_tensor proj
-R36948:36960 KamiHW.Abstraction <> snap_pt_sizes proj
-R36962:36976 KamiHW.Abstraction <> snap_pt_next_id proj
-R36978:36991 KamiHW.Abstraction <> snap_certified proj
-R37000:37014 KamiHW.Abstraction <> snap_wc_same_00 proj
-R37016:37030 KamiHW.Abstraction <> snap_wc_diff_00 proj
-R37032:37046 KamiHW.Abstraction <> snap_wc_same_01 proj
-R37048:37062 KamiHW.Abstraction <> snap_wc_diff_01 proj
-R37071:37085 KamiHW.Abstraction <> snap_wc_same_10 proj
-R37087:37101 KamiHW.Abstraction <> snap_wc_diff_10 proj
-R37103:37117 KamiHW.Abstraction <> snap_wc_same_11 proj
-R37119:37133 KamiHW.Abstraction <> snap_wc_diff_11 proj
-R37142:37149 Kernel.VMState <> vm_graph proj
-R37151:37157 Kernel.VMState <> vm_csrs proj
-R37159:37165 Kernel.VMState <> vm_regs proj
-R37167:37172 Kernel.VMState <> vm_mem proj
-R37174:37178 Kernel.VMState <> vm_pc proj
-R37180:37184 Kernel.VMState <> vm_mu proj
-R37186:37197 Kernel.VMState <> vm_mu_tensor proj
-R37206:37211 Kernel.VMState <> vm_err proj
-R37213:37224 Kernel.VMState <> vm_logic_acc proj
-R37226:37235 Kernel.VMState <> vm_mstatus proj
-R37237:37246 Kernel.VMState <> vm_witness proj
-R37248:37259 Kernel.VMState <> vm_certified proj
-R37268:37288 KamiHW.Abstraction <> snapshot_regs_to_list def
-R37290:37309 KamiHW.Abstraction <> snapshot_mem_to_list def
-R37311:37333 KamiHW.Abstraction <> snapshot_tensor_to_list def
-R37342:37353 KamiHW.Abstraction <> default_csrs def
+R35314:35317 KamiHW.EmbedStep <> freg:135 var
+binder 35291:35295 <> fbase:140
+R35349:35356 KamiHW.Abstraction <> snap_mem proj
+R35358:35359 KamiHW.EmbedStep <> ks:134 var
+R35367:35371 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R35362:35366 KamiHW.EmbedStep <> fbase:140 var
+R35372:35379 Kernel.VMState <> MEM_SIZE def
+binder 35338:35344 <> hw_flen:141
+R35402:35410 KamiHW.Abstraction <> snap_regs proj
+R35412:35413 KamiHW.EmbedStep <> ks:134 var
+R35420:35424 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R35416:35419 KamiHW.EmbedStep <> creg:136 var
+binder 35393:35397 <> cbase:142
+R35457:35464 Coq.Lists.List <> map def
+R35552:35559 Coq.Lists.List <> seq def
+R35565:35567 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35568:35574 KamiHW.EmbedStep <> hw_flen:141 var
+binder 35471:35471 <> i:143
+R35476:35483 KamiHW.Abstraction <> snap_mem proj
+R35485:35486 KamiHW.EmbedStep <> ks:134 var
+R35489:35489 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R35499:35504 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R35495:35497 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35490:35494 KamiHW.EmbedStep <> fbase:140 var
+R35498:35498 KamiHW.EmbedStep <> i:143 var
+R35505:35512 Kernel.VMState <> MEM_SIZE def
+binder 35440:35452 <> formula_words:144
+binder 35605:35607 <> var:145
+R35612:35619 KamiHW.Abstraction <> snap_mem proj
+R35621:35622 KamiHW.EmbedStep <> ks:134 var
+R35625:35625 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R35637:35642 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R35631:35633 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R35626:35630 KamiHW.EmbedStep <> cbase:142 var
+R35634:35636 KamiHW.EmbedStep <> var:145 var
+R35643:35650 Kernel.VMState <> MEM_SIZE def
+binder 35589:35596 <> get_cert:146
+R35679:35682 KamiHW.EmbedStep <> kind:137 var
+R35769:35773 Coq.Init.Datatypes <> false constr
+R35689:35719 Kernel.CertCheck CertCheck check_model_binary_fn def
+R35721:35733 KamiHW.EmbedStep <> formula_words:144 var
+R35735:35742 KamiHW.EmbedStep <> get_cert:146 var
+binder 35664:35671 <> hw_check:147
+R35796:35803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35786:35788 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35782:35785 KamiHW.EmbedStep <> flen:138 var
+R35789:35795 KamiHW.EmbedStep <> hw_flen:141 var
+R35819:35826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35812:35814 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35804:35811 KamiHW.EmbedStep <> hw_check:147 var
+R35815:35818 Coq.Init.Datatypes <> true constr
+R35838:35847 KamiHW.Abstraction <> abs_phase1 def
+R35850:35858 KamiHW.Abstraction <> kami_step def
+R35860:35861 KamiHW.EmbedStep <> ks:134 var
+R35864:35876 Kernel.VMStep VMStep instr_lassert constr
+R35878:35881 KamiHW.EmbedStep <> freg:135 var
+R35883:35886 KamiHW.EmbedStep <> creg:136 var
+R35888:35891 KamiHW.EmbedStep <> kind:137 var
+R35893:35896 KamiHW.EmbedStep <> flen:138 var
+R35898:35901 KamiHW.EmbedStep <> cost:139 var
+binder 35831:35833 <> hs':148
+R35923:35930 Kernel.SimulationProof <> vm_apply def
+R35933:35942 KamiHW.Abstraction <> abs_phase1 def
+R35944:35945 KamiHW.EmbedStep <> ks:134 var
+R35949:35961 Kernel.VMStep VMStep instr_lassert constr
+R35963:35966 KamiHW.EmbedStep <> freg:135 var
+R35968:35971 KamiHW.EmbedStep <> creg:136 var
+R35973:35976 KamiHW.EmbedStep <> kind:137 var
+R35978:35981 KamiHW.EmbedStep <> flen:138 var
+R35983:35986 KamiHW.EmbedStep <> cost:139 var
+binder 35916:35918 <> vs':149
+R36017:36024 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36005:36007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35996:36000 Kernel.VMState <> vm_pc proj
+R36002:36004 KamiHW.EmbedStep <> hs':148 var
+R36008:36012 Kernel.VMState <> vm_pc proj
+R36014:36016 KamiHW.EmbedStep <> vs':149 var
+R36052:36059 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36037:36039 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36025:36032 Kernel.VMState <> vm_graph proj
+R36034:36036 KamiHW.EmbedStep <> hs':148 var
+R36040:36047 Kernel.VMState <> vm_graph proj
+R36049:36051 KamiHW.EmbedStep <> vs':149 var
+R36085:36092 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36071:36073 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36060:36066 Kernel.VMState <> vm_regs proj
+R36068:36070 KamiHW.EmbedStep <> hs':148 var
+R36074:36080 Kernel.VMState <> vm_regs proj
+R36082:36084 KamiHW.EmbedStep <> vs':149 var
+R36116:36123 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36103:36105 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36093:36098 Kernel.VMState <> vm_mem proj
+R36100:36102 KamiHW.EmbedStep <> hs':148 var
+R36106:36111 Kernel.VMState <> vm_mem proj
+R36113:36115 KamiHW.EmbedStep <> vs':149 var
+R36147:36154 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36134:36136 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36124:36129 Kernel.VMState <> vm_err proj
+R36131:36133 KamiHW.EmbedStep <> hs':148 var
+R36137:36142 Kernel.VMState <> vm_err proj
+R36144:36146 KamiHW.EmbedStep <> vs':149 var
+R36176:36183 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36164:36166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36155:36159 Kernel.VMState <> vm_mu proj
+R36161:36163 KamiHW.EmbedStep <> hs':148 var
+R36167:36171 Kernel.VMState <> vm_mu proj
+R36173:36175 KamiHW.EmbedStep <> vs':149 var
+R36219:36226 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36200:36202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36184:36195 Kernel.VMState <> vm_mu_tensor proj
+R36197:36199 KamiHW.EmbedStep <> hs':148 var
+R36203:36214 Kernel.VMState <> vm_mu_tensor proj
+R36216:36218 KamiHW.EmbedStep <> vs':149 var
+R36258:36265 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36241:36243 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36227:36236 Kernel.VMState <> vm_witness proj
+R36238:36240 KamiHW.EmbedStep <> hs':148 var
+R36244:36253 Kernel.VMState <> vm_witness proj
+R36255:36257 KamiHW.EmbedStep <> vs':149 var
+R36282:36284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36266:36277 Kernel.VMState <> vm_certified proj
+R36279:36281 KamiHW.EmbedStep <> hs':148 var
+R36285:36296 Kernel.VMState <> vm_certified proj
+R36298:36300 KamiHW.EmbedStep <> vs':149 var
+R36438:36461 KamiHW.EmbedStep <> abs_phase1_lassert_check thm
+R36438:36461 KamiHW.EmbedStep <> abs_phase1_lassert_check thm
+R36606:36613 Kernel.SimulationProof <> vm_apply def
+R36616:36624 KamiHW.Abstraction <> kami_step def
+R36732:36741 Kernel.VMStep VMStep apply_cost def
+R36744:36759 Kernel.VMStep VMStep instruction_cost def
+R36788:36797 KamiHW.Abstraction <> abs_phase1 def
+R36807:36813 KamiHW.Abstraction <> snap_pc proj
+R36815:36821 KamiHW.Abstraction <> snap_mu proj
+R36823:36830 KamiHW.Abstraction <> snap_err proj
+R36832:36842 KamiHW.Abstraction <> snap_halted proj
+R36844:36852 KamiHW.Abstraction <> snap_regs proj
+R36854:36861 KamiHW.Abstraction <> snap_mem proj
+R36870:36887 KamiHW.Abstraction <> snap_partition_ops proj
+R36889:36900 KamiHW.Abstraction <> snap_mdl_ops proj
+R36902:36915 KamiHW.Abstraction <> snap_info_gain proj
+R36917:36931 KamiHW.Abstraction <> snap_error_code proj
+R36940:36953 KamiHW.Abstraction <> snap_mu_tensor proj
+R36955:36967 KamiHW.Abstraction <> snap_pt_sizes proj
+R36969:36983 KamiHW.Abstraction <> snap_pt_next_id proj
+R36985:36998 KamiHW.Abstraction <> snap_certified proj
+R37007:37021 KamiHW.Abstraction <> snap_wc_same_00 proj
+R37023:37037 KamiHW.Abstraction <> snap_wc_diff_00 proj
+R37039:37053 KamiHW.Abstraction <> snap_wc_same_01 proj
+R37055:37069 KamiHW.Abstraction <> snap_wc_diff_01 proj
+R37078:37092 KamiHW.Abstraction <> snap_wc_same_10 proj
+R37094:37108 KamiHW.Abstraction <> snap_wc_diff_10 proj
+R37110:37124 KamiHW.Abstraction <> snap_wc_same_11 proj
+R37126:37140 KamiHW.Abstraction <> snap_wc_diff_11 proj
+R37149:37167 KamiHW.Abstraction <> snap_module_tensors proj
+R37169:37180 KamiHW.Abstraction <> snap_csr_err proj
+R37189:37196 Kernel.VMState <> vm_graph proj
+R37198:37204 Kernel.VMState <> vm_csrs proj
+R37206:37212 Kernel.VMState <> vm_regs proj
+R37214:37219 Kernel.VMState <> vm_mem proj
+R37221:37225 Kernel.VMState <> vm_pc proj
+R37227:37231 Kernel.VMState <> vm_mu proj
+R37233:37244 Kernel.VMState <> vm_mu_tensor proj
+R37253:37258 Kernel.VMState <> vm_err proj
+R37260:37271 Kernel.VMState <> vm_logic_acc proj
+R37273:37282 Kernel.VMState <> vm_mstatus proj
+R37284:37293 Kernel.VMState <> vm_witness proj
+R37295:37306 Kernel.VMState <> vm_certified proj
+R37315:37335 KamiHW.Abstraction <> snapshot_regs_to_list def
+R37337:37356 KamiHW.Abstraction <> snapshot_mem_to_list def
+R37358:37380 KamiHW.Abstraction <> snapshot_tensor_to_list def
+R37389:37400 KamiHW.Abstraction <> default_csrs def

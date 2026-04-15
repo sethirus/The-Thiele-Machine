@@ -38,7 +38,7 @@ From Kernel Require Import NoFreeInsight InformationGainToStrengthening.
     that has non-zero μ-cost.
 
     Proof chain:
-    1. InformationGainToStrengthening.feasible_reduction_implies_strict_predicates
+    1. InformationGainToStrengthening.feasible_strict_subset_implies_strict_predicates
        → derives strictly_stronger from information reduction
     2. NoFreeInsight.strengthening_requires_structure_addition
        → shows that strictly_stronger predicates require structure addition
@@ -307,7 +307,7 @@ Qed.
     Why not:
     Our physics connections are CONDITIONAL (on Landauer) or FORMAL (analogy).
     We do not derive physics from the λ-calculus or VM semantics.
-    See F-track audits: all physics claims have explicit scope limitations.
+    All physics claims have explicit scope limitations.
 *)
 
 (** NOT CLAIMED: Particle masses derived from μ

@@ -819,4 +819,4 @@ Qed.
       documented but not proved here — it's a straightforward property
       of compile_minsky_aux producing instructions at the right offsets
 
-    This closes G2: the ISA IS Turing complete via vm_apply. *)
+    The ISA is Turing complete via vm_apply. *)

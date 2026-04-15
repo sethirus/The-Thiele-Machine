@@ -12,61 +12,9 @@ type ('a, 'p) sigT =
 
 val projT1 : ('a1, 'a2) sigT -> 'a1
 
-type uint =
-| Nil
-| D0 of uint
-| D1 of uint
-| D2 of uint
-| D3 of uint
-| D4 of uint
-| D5 of uint
-| D6 of uint
-| D7 of uint
-| D8 of uint
-| D9 of uint
-
-type uint0 =
-| Nil0
-| D10 of uint0
-| D11 of uint0
-| D12 of uint0
-| D13 of uint0
-| D14 of uint0
-| D15 of uint0
-| D16 of uint0
-| D17 of uint0
-| D18 of uint0
-| D19 of uint0
-| Da of uint0
-| Db of uint0
-| Dc of uint0
-| Dd of uint0
-| De of uint0
-| Df of uint0
-
-type uint1 =
-| UIntDecimal of uint
-| UIntHexadecimal of uint0
-
 val pred : int -> int
 
 val add : int -> int -> int
-
-val tail_add : int -> int -> int
-
-val tail_addmul : int -> int -> int -> int
-
-val tail_mul : int -> int -> int
-
-val of_uint_acc : uint -> int -> int
-
-val of_uint : uint -> int
-
-val of_hex_uint_acc : uint0 -> int -> int
-
-val of_hex_uint : uint0 -> int
-
-val of_num_uint : uint1 -> int
 
 val eqb : bool -> bool -> bool
 
@@ -82,7 +30,7 @@ type t =
 | FS of int * t
 
 type 'a t0 =
-| Nil1
+| Nil
 | Cons of 'a * int * 'a t0
 
 val nth : int -> 'a1 t0 -> t -> 'a1
@@ -365,21 +313,67 @@ val memAddrSz : int
 
 val wordSz : int
 
+val instrUpperSz : int
+
+val instrSz : int
+
+val formatIdSz : int
+
+val formatSubtypeSz : int
+
+val descKindFieldSz : int
+
+val inlineLenSz : int
+
 val opcodeSz : int
 
 val costSz : int
 
 val muTensorIdxSz : int
 
+val fMT_LEGACY : word
+
+val fMT_BRANCH_EXT : word
+
+val fMT_TENSOR_EXT : word
+
+val fMT_MORPH_INLINE : word
+
+val fMT_DESC : word
+
+val fMT_CERT_INLINE : word
+
 val pTableIdxSz : int
 
 val pTableNextIdSz : int
 
-val instrSz : int
+val descIdxSz : int
+
+val descTableNextIdSz : int
+
+val morphTableIdxSz : int
+
+val morphTableNextIdSz : int
+
+val couplingDescIdxSz : int
+
+val formulaDescIdxSz : int
+
+val certDescIdxSz : int
+
+val descMetaIdxSz : int
+
+val couplingPairIdxSz : int
+
+val couplingPairCountSz : int
 
 val aCTIVE_MODULE_INIT : word
 
 val pT_NEXT_ID_INIT : word
+
+val mORPH_NEXT_ID_INIT : word
+
+val dESC_NEXT_ID_INIT : word
 
 val eRR_CHSH_VAL : word
 
@@ -390,6 +384,24 @@ val eRR_LOGIC_VAL : word
 val eRR_LOCALITY_VAL : word
 
 val eRR_PARTITION_VAL : word
+
+val eRR_COUPLING_INVALID : word
+
+val eRR_COMPOSE_TYPE : word
+
+val eRR_MORPH_NOT_FOUND : word
+
+val eRR_ISA_VERSION : word
+
+val eRR_FORMAT_INVALID : word
+
+val eRR_DESC_RANGE : word
+
+val eRR_INLINE_MALFORMED : word
+
+val eRR_TABLE_OVERFLOW : word
+
+val eRR_CERT_DESC_INVALID : word
 
 val lOGIC_GATE_KEY : word
 
@@ -408,6 +420,8 @@ val oP_PSPLIT : word
 val oP_PMERGE : word
 
 val oP_LASSERT : word
+
+val oP_LJOIN : word
 
 val oP_MDLACC : word
 
@@ -469,7 +483,23 @@ val oP_MUL : word
 
 val oP_LUI : word
 
+val oP_TENSOR_SET : word
+
 val oP_TENSOR_GET : word
+
+val oP_MORPH : word
+
+val oP_COMPOSE : word
+
+val oP_MORPH_ID : word
+
+val oP_MORPH_DELETE : word
+
+val oP_MORPH_ASSERT : word
+
+val oP_MORPH_TENSOR : word
+
+val oP_MORPH_GET : word
 
 val oP_HALT : word
 
@@ -479,11 +509,11 @@ val aPBBusWritePort : kind attribute t0
 
 val sP_IDX : word
 
-val kami_check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr
+val check_bounds : 'a1 expr -> 'a1 expr -> 'a1 expr
 
-val kami_read_mem : 'a1 expr -> 'a1 expr -> 'a1 expr
+val read_mem : 'a1 expr -> 'a1 expr -> 'a1 expr
 
-val kami_write_mem : 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
+val write_mem : 'a1 expr -> 'a1 expr -> 'a1 expr -> 'a1 expr
 
 val thieleCore : modules
 

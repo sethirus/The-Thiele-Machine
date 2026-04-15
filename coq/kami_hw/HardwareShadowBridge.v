@@ -3,11 +3,19 @@
     The hardware-shadow bridge theorem: RTL observation of any KamiSnapshot
     is exactly the classical shadow of its abstract Thiele VM state.
 
-    STATUS: State-level theorem proved (hardware_shadow_compat,
-            hardware_shadow_sim_rel).
-            Trace-level theorem deferred — requires
-            abs_phase1 ∘ kami_step = vm_apply ∘ abs_phase1 combined
-            commutation lemma (future work: HardwareShadowTraceCompat.v).
+    STATUS:
+      State-level: Proved (hardware_shadow_compat, hardware_shadow_sim_rel).
+      Trace-level: Proved for 30/47 opcodes unconditionally
+        (rtl_shadow_trace_compat_extended in ShadowDeviceTrace.v),
+        34/47 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
+        LJOIN from EmbedStep_WF.v + ShadowEmbedStep.v).
+      Remaining 13 opcodes (PSPLIT, PMERGE, LASSERT, 7 MORPH family):
+        LASSERT has an irreducible mu gap (shadow-visible).
+        COMPOSE/MORPH_ID/MORPH_TENSOR have coupling-representation gaps.
+        MORPH/MORPH_DELETE/MORPH_ASSERT/MORPH_GET have full-state proofs
+        through abs_full_snapshot (GraphReconstructionBridge.v) but not
+        abs_phase1 shadow-level lemmas.
+        PSPLIT/PMERGE have existence proofs only.
 
     Key facts used:
       - verilog_sim_rel ks s := abs_phase1 ks = s  (VerilogRefinement.v)

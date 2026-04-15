@@ -34,7 +34,7 @@
       program is structured as a binary decision tree [conditional, proven]
 
     INQUISITOR NOTE: proof-connectivity -- quantitative Shannon bound
-    connecting cert_addr range to separation count. Track B completion.
+    connecting cert_addr range to separation count.
     ========================================================================= *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool Strings.String.

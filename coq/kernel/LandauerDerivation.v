@@ -475,5 +475,4 @@ Qed.
     - landauer_certification_bound: certification costs >= 1 μ-unit
     - All derived from vm_apply semantics + instruction_cost definition
 
-    FOURTH PHASE ROADMAP: Track C complete.
     ========================================================================= *)

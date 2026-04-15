@@ -1,1212 +1,1212 @@
-DIGEST d9641af73e7fadd42fb5bfae66451b03
+DIGEST 7ad4d01f91d2159fb54ae6c3393fdb3a
 FKernel.MuShannonBridge
-R3043:3046 Coq.Lists.List <> <> lib
-R3048:3050 Coq.micromega.Lia <> <> lib
-R3052:3065 Coq.Arith.PeanoNat <> <> lib
-R3067:3083 Coq.Arith.Compare_dec <> <> lib
-R3093:3105 Coq.Lists.List ListNotations <> mod
-R3136:3142 Kernel.VMState <> <> lib
-R3172:3177 Kernel.VMStep <> <> lib
-R3207:3221 Kernel.SimulationProof <> <> lib
-R3251:3270 Kernel.MuLedgerConservation <> <> lib
-R3300:3326 Kernel.MuNoFreeInsightQuantitative <> <> lib
-def 3942:3952 <> FeasibleSet
-R3957:3960 Coq.Init.Datatypes <> list ind
-R3962:3968 Kernel.VMState <> VMState rec
-def 4013:4025 <> feasible_size
-R4036:4046 Kernel.MuShannonBridge <> FeasibleSet def
-binder 4028:4032 <> omega:1
-R4051:4053 Coq.Init.Datatypes <> nat ind
-R4058:4063 Coq.Init.Datatypes <> length def
-R4065:4069 Kernel.MuShannonBridge <> omega:1 var
-def 4168:4180 <> distinguishes
-R4190:4192 Coq.Init.Datatypes <> nat ind
-binder 4183:4186 <> fuel:2
-R4204:4207 Coq.Init.Datatypes <> list ind
-R4209:4222 Kernel.VMStep VMStep vm_instruction ind
-binder 4196:4200 <> trace:3
-R4238:4244 Kernel.VMState <> VMState rec
-binder 4230:4231 <> s1:4
-binder 4233:4234 <> s2:5
-R4279:4282 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4259:4264 Kernel.SimulationProof <> run_vm def
-R4266:4269 Kernel.MuShannonBridge <> fuel:2 var
-R4271:4275 Kernel.MuShannonBridge <> trace:3 var
-R4277:4278 Kernel.MuShannonBridge <> s1:4 var
-R4283:4288 Kernel.SimulationProof <> run_vm def
-R4290:4293 Kernel.MuShannonBridge <> fuel:2 var
-R4295:4299 Kernel.MuShannonBridge <> trace:3 var
-R4301:4302 Kernel.MuShannonBridge <> s2:5 var
-def 4395:4403 <> separates
-R4413:4415 Coq.Init.Datatypes <> nat ind
-binder 4406:4409 <> fuel:6
-R4427:4430 Coq.Init.Datatypes <> list ind
-R4432:4445 Kernel.VMStep VMStep vm_instruction ind
-binder 4419:4423 <> trace:7
-R4461:4471 Kernel.MuShannonBridge <> FeasibleSet def
-binder 4453:4457 <> omega:8
-binder 4493:4494 <> s1:9
-binder 4496:4497 <> s2:10
-R4515:4518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4504:4505 Coq.Lists.List <> In def
-R4510:4514 Kernel.MuShannonBridge <> omega:8 var
-R4507:4508 Kernel.MuShannonBridge <> s1:9 var
-R4530:4533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4519:4520 Coq.Lists.List <> In def
-R4525:4529 Kernel.MuShannonBridge <> omega:8 var
-R4522:4523 Kernel.MuShannonBridge <> s2:10 var
-R4542:4549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4536:4539 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4534:4535 Kernel.MuShannonBridge <> s1:9 var
-R4540:4541 Kernel.MuShannonBridge <> s2:10 var
-R4550:4562 Kernel.MuShannonBridge <> distinguishes def
-R4564:4567 Kernel.MuShannonBridge <> fuel:6 var
-R4569:4573 Kernel.MuShannonBridge <> trace:7 var
-R4575:4576 Kernel.MuShannonBridge <> s1:9 var
-R4578:4579 Kernel.MuShannonBridge <> s2:10 var
-prf 5088:5099 <> log2_le_mono
-binder 5110:5110 <> m:11
-binder 5112:5112 <> n:12
-R5121:5124 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5116:5119 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5115:5115 Kernel.MuShannonBridge <> m:11 var
-R5120:5120 Kernel.MuShannonBridge <> n:12 var
-R5135:5138 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5125:5132 Coq.Arith.PeanoNat Nat log2 def
-R5134:5134 Kernel.MuShannonBridge <> m:11 var
-R5139:5146 Coq.Arith.PeanoNat Nat log2 def
-R5148:5148 Kernel.MuShannonBridge <> n:12 var
-R5182:5197 Coq.Arith.PeanoNat Nat log2_le_mono thm
-R5182:5197 Coq.Arith.PeanoNat Nat log2_le_mono thm
-prf 5269:5280 <> pow2_log2_le
-binder 5291:5291 <> n:13
-R5300:5303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5295:5298 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5294:5294 Kernel.MuShannonBridge <> n:13 var
-R5320:5323 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5305:5308 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R5319:5319 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R5309:5316 Coq.Arith.PeanoNat Nat log2 def
-R5318:5318 Kernel.MuShannonBridge <> n:13 var
-R5324:5324 Kernel.MuShannonBridge <> n:13 var
-R5356:5368 Coq.Arith.PeanoNat Nat log2_spec thm
-R5356:5368 Coq.Arith.PeanoNat Nat log2_spec thm
-def 6379:6389 <> info_priced
-R6400:6413 Kernel.VMStep VMStep vm_instruction ind
-binder 6392:6396 <> instr:14
-R6456:6459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6449:6451 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6428:6442 Kernel.VMStep VMStep is_cert_setterb def
-R6444:6448 Kernel.MuShannonBridge <> instr:14 var
-R6452:6455 Coq.Init.Datatypes <> true constr
-R6482:6485 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6460:6475 Kernel.VMStep VMStep instruction_cost def
-R6477:6481 Kernel.MuShannonBridge <> instr:14 var
-def 6557:6573 <> trace_info_priced
-R6584:6587 Coq.Init.Datatypes <> list ind
-R6589:6602 Kernel.VMStep VMStep vm_instruction ind
-binder 6576:6580 <> trace:15
-R6617:6622 Coq.Lists.List <> Forall ind
-R6636:6640 Kernel.MuShannonBridge <> trace:15 var
-R6624:6634 Kernel.MuShannonBridge <> info_priced def
-def 6707:6724 <> count_cert_setters
-R6735:6738 Coq.Init.Datatypes <> list ind
-R6740:6753 Kernel.VMStep VMStep vm_instruction ind
-binder 6727:6731 <> trace:16
-R6758:6760 Coq.Init.Datatypes <> nat ind
-R6773:6777 Kernel.MuShannonBridge <> trace:16 var
-R6788:6789 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6805:6808 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6821:6821 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7053:7056 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6846:6857 Kernel.VMStep VMStep instr_reveal constr
-R6880:6889 Kernel.VMStep VMStep instr_emit constr
-R6914:6926 Kernel.VMStep VMStep instr_lassert constr
-R6950:6962 Kernel.VMStep VMStep instr_certify constr
-R6984:6994 Kernel.VMStep VMStep instr_ljoin constr
-R7057:7074 Kernel.MuShannonBridge <> count_cert_setters:17 def
-prf 7727:7741 <> all_info_priced
-binder 7752:7756 <> instr:20
-R7759:7769 Kernel.MuShannonBridge <> info_priced def
-R7771:7775 Kernel.MuShannonBridge <> instr:20 var
-R7809:7819 Kernel.MuShannonBridge <> info_priced def
-R7845:7871 Kernel.VMStep VMStep cert_setter_cost_pos thm
-R7845:7871 Kernel.VMStep VMStep cert_setter_cost_pos thm
-prf 7976:7997 <> all_traces_info_priced
-binder 8008:8012 <> trace:21
-R8015:8031 Kernel.MuShannonBridge <> trace_info_priced def
-R8033:8037 Kernel.MuShannonBridge <> trace:21 var
-R8070:8082 Coq.Lists.List <> Forall_forall thm
-R8070:8082 Coq.Lists.List <> Forall_forall thm
-R8111:8125 Kernel.MuShannonBridge <> all_info_priced thm
-R8111:8125 Kernel.MuShannonBridge <> all_info_priced thm
-prf 8203:8228 <> delta_mu_equals_ledger_sum
-binder 8241:8244 <> fuel:22
-binder 8246:8250 <> trace:23
-binder 8252:8252 <> s:24
-R8300:8306 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8288:8290 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8282:8286 Kernel.VMState <> vm_mu proj
-R8260:8265 Kernel.SimulationProof <> run_vm def
-R8267:8270 Kernel.MuShannonBridge <> fuel:22 var
-R8272:8276 Kernel.MuShannonBridge <> trace:23 var
-R8278:8278 Kernel.MuShannonBridge <> s:24 var
-R8294:8298 Kernel.VMState <> vm_mu proj
-R8291:8291 Kernel.MuShannonBridge <> s:24 var
-R8307:8316 Kernel.MuLedgerConservation <> ledger_sum def
-R8319:8332 Kernel.MuLedgerConservation <> ledger_entries def
-R8334:8337 Kernel.MuShannonBridge <> fuel:22 var
-R8339:8343 Kernel.MuShannonBridge <> trace:23 var
-R8345:8345 Kernel.MuShannonBridge <> s:24 var
-R8393:8428 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
-R8393:8428 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
-def 9605:9626 <> cert_setter_executions
-R9636:9638 Coq.Init.Datatypes <> nat ind
-binder 9629:9632 <> fuel:25
-R9650:9653 Coq.Init.Datatypes <> list ind
-R9655:9668 Kernel.VMStep VMStep vm_instruction ind
-binder 9642:9646 <> trace:26
-R9680:9686 Kernel.VMState <> VMState rec
-binder 9676:9676 <> s:27
-R9691:9693 Coq.Init.Datatypes <> nat ind
-R9706:9709 Kernel.MuShannonBridge <> fuel:25 var
-R9731:9731 Coq.Init.Datatypes <> S constr
-R9754:9762 Coq.Lists.List <> nth_error def
-R9773:9777 Kernel.VMState <> vm_pc proj
-R9770:9770 Kernel.MuShannonBridge <> s:27 var
-R9764:9768 Kernel.MuShannonBridge <> trace:26 var
-R9793:9796 Coq.Init.Datatypes <> Some constr
-R9817:9817 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9856:9869 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9821:9835 Kernel.VMStep VMStep is_cert_setterb def
-R9870:9891 Kernel.MuShannonBridge <> cert_setter_executions:28 def
-R9906:9913 Kernel.SimulationProof <> vm_apply def
-R9915:9915 Kernel.MuShannonBridge <> s:27 var
-R9899:9903 Kernel.MuShannonBridge <> trace:26 var
-R9932:9935 Coq.Init.Datatypes <> None constr
-prf 10159:10190 <> info_priced_cert_setter_cost_pos
-R10212:10225 Kernel.VMStep VMStep vm_instruction ind
-binder 10204:10208 <> instr:30
-R10261:10268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10254:10256 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10233:10247 Kernel.VMStep VMStep is_cert_setterb def
-R10249:10253 Kernel.MuShannonBridge <> instr:30 var
-R10257:10260 Coq.Init.Datatypes <> true constr
-R10291:10294 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10269:10284 Kernel.VMStep VMStep instruction_cost def
-R10286:10290 Kernel.MuShannonBridge <> instr:30 var
-R10337:10363 Kernel.VMStep VMStep cert_setter_cost_pos thm
-R10337:10363 Kernel.VMStep VMStep cert_setter_cost_pos thm
-prf 10560:10584 <> cert_executions_le_ledger
-R10605:10607 Coq.Init.Datatypes <> nat ind
-binder 10598:10601 <> fuel:31
-R10619:10622 Coq.Init.Datatypes <> list ind
-R10624:10637 Kernel.VMStep VMStep vm_instruction ind
-binder 10611:10615 <> trace:32
-R10645:10651 Kernel.VMState <> VMState rec
-binder 10641:10641 <> s:33
-R10694:10701 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10659:10680 Kernel.MuShannonBridge <> cert_setter_executions def
-R10682:10685 Kernel.MuShannonBridge <> fuel:31 var
-R10687:10691 Kernel.MuShannonBridge <> trace:32 var
-R10693:10693 Kernel.MuShannonBridge <> s:33 var
-R10702:10711 Kernel.MuLedgerConservation <> ledger_sum def
-R10714:10727 Kernel.MuLedgerConservation <> ledger_entries def
-R10729:10732 Kernel.MuShannonBridge <> fuel:31 var
-R10734:10738 Kernel.MuShannonBridge <> trace:32 var
-R10740:10740 Kernel.MuShannonBridge <> s:33 var
-R10829:10837 Coq.Lists.List <> nth_error def
-R10848:10852 Kernel.VMState <> vm_pc proj
-R10829:10837 Coq.Lists.List <> nth_error def
-R10848:10852 Kernel.VMState <> vm_pc proj
-R10913:10920 Kernel.SimulationProof <> vm_apply def
-R10913:10920 Kernel.SimulationProof <> vm_apply def
-R10956:10970 Kernel.VMStep VMStep is_cert_setterb def
-R10956:10970 Kernel.VMStep VMStep is_cert_setterb def
-R11038:11041 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11016:11031 Kernel.VMStep VMStep instruction_cost def
-R11038:11041 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11016:11031 Kernel.VMStep VMStep instruction_cost def
-R11062:11093 Kernel.MuShannonBridge <> info_priced_cert_setter_cost_pos thm
-R11062:11093 Kernel.MuShannonBridge <> info_priced_cert_setter_cost_pos thm
-prf 11511:11543 <> info_priced_cert_executions_bound
-R11564:11566 Coq.Init.Datatypes <> nat ind
-binder 11557:11560 <> fuel:34
-R11578:11581 Coq.Init.Datatypes <> list ind
-R11583:11596 Kernel.VMStep VMStep vm_instruction ind
-binder 11570:11574 <> trace:35
-R11604:11610 Kernel.VMState <> VMState rec
-binder 11600:11600 <> s:36
-R11653:11662 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11618:11639 Kernel.MuShannonBridge <> cert_setter_executions def
-R11641:11644 Kernel.MuShannonBridge <> fuel:34 var
-R11646:11650 Kernel.MuShannonBridge <> trace:35 var
-R11652:11652 Kernel.MuShannonBridge <> s:36 var
-R11692:11694 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R11686:11690 Kernel.VMState <> vm_mu proj
-R11664:11669 Kernel.SimulationProof <> run_vm def
-R11671:11674 Kernel.MuShannonBridge <> fuel:34 var
-R11676:11680 Kernel.MuShannonBridge <> trace:35 var
-R11682:11682 Kernel.MuShannonBridge <> s:36 var
-R11698:11702 Kernel.VMState <> vm_mu proj
-R11695:11695 Kernel.MuShannonBridge <> s:36 var
-R11746:11771 Kernel.MuShannonBridge <> delta_mu_equals_ledger_sum thm
-R11746:11771 Kernel.MuShannonBridge <> delta_mu_equals_ledger_sum thm
-R11746:11771 Kernel.MuShannonBridge <> delta_mu_equals_ledger_sum thm
-R11782:11806 Kernel.MuShannonBridge <> cert_executions_le_ledger thm
-R11782:11806 Kernel.MuShannonBridge <> cert_executions_le_ledger thm
-def 12795:12819 <> shannon_entropy_reduction
-R12847:12857 Kernel.MuShannonBridge <> FeasibleSet def
-binder 12822:12831 <> omega_init:37
-binder 12833:12843 <> omega_final:38
-R12862:12864 Coq.Init.Datatypes <> nat ind
-R12906:12910 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R12871:12878 Coq.Arith.PeanoNat Nat log2 def
-R12881:12893 Kernel.MuShannonBridge <> feasible_size def
-R12895:12904 Kernel.MuShannonBridge <> omega_init:37 var
-R12911:12918 Coq.Arith.PeanoNat Nat log2 def
-R12921:12933 Kernel.MuShannonBridge <> feasible_size def
-R12935:12945 Kernel.MuShannonBridge <> omega_final:38 var
-def 14593:14612 <> consistent_reduction
-R14626:14628 Coq.Init.Datatypes <> nat ind
-binder 14619:14622 <> fuel:39
-R14640:14643 Coq.Init.Datatypes <> list ind
-R14645:14658 Kernel.VMStep VMStep vm_instruction ind
-binder 14632:14636 <> trace:40
-R14691:14701 Kernel.MuShannonBridge <> FeasibleSet def
-binder 14666:14675 <> omega_init:41
-binder 14677:14687 <> omega_final:42
-R14718:14724 Kernel.VMState <> VMState rec
-binder 14709:14714 <> s_init:43
-binder 14824:14824 <> s:44
-R14843:14850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14827:14828 Coq.Lists.List <> In def
-R14832:14842 Kernel.MuShannonBridge <> omega_final:42 var
-R14830:14830 Kernel.MuShannonBridge <> s:44 var
-R14866:14873 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R14851:14852 Coq.Lists.List <> In def
-R14856:14865 Kernel.MuShannonBridge <> omega_init:41 var
-R14854:14854 Kernel.MuShannonBridge <> s:44 var
-R14874:14880 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R14886:14887 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 14881:14885 <> s_out:45
-R14907:14909 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14888:14893 Kernel.SimulationProof <> run_vm def
-R14895:14898 Kernel.MuShannonBridge <> fuel:39 var
-R14900:14904 Kernel.MuShannonBridge <> trace:40 var
-R14906:14906 Kernel.MuShannonBridge <> s:44 var
-R14910:14914 Kernel.MuShannonBridge <> s_out:45 var
-def 15004:15028 <> MuShannonSingleTraceClaim
-R15057:15059 Coq.Init.Datatypes <> nat ind
-binder 15050:15053 <> fuel:46
-R15071:15074 Coq.Init.Datatypes <> list ind
-R15076:15089 Kernel.VMStep VMStep vm_instruction ind
-binder 15063:15067 <> trace:47
-R15111:15117 Kernel.VMState <> VMState rec
-binder 15102:15107 <> s_init:48
-R15155:15165 Kernel.MuShannonBridge <> FeasibleSet def
-binder 15130:15139 <> omega_init:49
-binder 15141:15151 <> omega_final:50
-R15193:15200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15173:15174 Coq.Lists.List <> In def
-R15183:15192 Kernel.MuShannonBridge <> omega_init:49 var
-R15176:15181 Kernel.MuShannonBridge <> s_init:48 var
-R15229:15236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15225:15227 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R15201:15213 Kernel.MuShannonBridge <> feasible_size def
-R15215:15224 Kernel.MuShannonBridge <> omega_init:49 var
-R15266:15273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15262:15264 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R15237:15249 Kernel.MuShannonBridge <> feasible_size def
-R15251:15261 Kernel.MuShannonBridge <> omega_final:50 var
-R15327:15334 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15299:15302 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R15274:15286 Kernel.MuShannonBridge <> feasible_size def
-R15288:15298 Kernel.MuShannonBridge <> omega_final:50 var
-R15303:15315 Kernel.MuShannonBridge <> feasible_size def
-R15317:15326 Kernel.MuShannonBridge <> omega_init:49 var
-R15396:15403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15335:15354 Kernel.MuShannonBridge <> consistent_reduction def
-R15356:15359 Kernel.MuShannonBridge <> fuel:46 var
-R15361:15365 Kernel.MuShannonBridge <> trace:47 var
-R15367:15376 Kernel.MuShannonBridge <> omega_init:49 var
-R15378:15388 Kernel.MuShannonBridge <> omega_final:50 var
-R15390:15395 Kernel.MuShannonBridge <> s_init:48 var
-R15427:15434 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15404:15420 Kernel.MuShannonBridge <> trace_info_priced def
-R15422:15426 Kernel.MuShannonBridge <> trace:47 var
-R15486:15495 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R15469:15471 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R15463:15467 Kernel.VMState <> vm_mu proj
-R15436:15441 Kernel.SimulationProof <> run_vm def
-R15443:15446 Kernel.MuShannonBridge <> fuel:46 var
-R15448:15452 Kernel.MuShannonBridge <> trace:47 var
-R15454:15459 Kernel.MuShannonBridge <> s_init:48 var
-R15480:15484 Kernel.VMState <> vm_mu proj
-R15472:15477 Kernel.MuShannonBridge <> s_init:48 var
-R15496:15520 Kernel.MuShannonBridge <> shannon_entropy_reduction def
-R15522:15531 Kernel.MuShannonBridge <> omega_init:49 var
-R15533:15543 Kernel.MuShannonBridge <> omega_final:50 var
-def 15642:15660 <> MuShannonConjecture
-R15672:15696 Kernel.MuShannonBridge <> MuShannonSingleTraceClaim def
-ind 16611:16622 <> DecisionTree
-constr 16636:16642 <> dt_leaf
-constr 16646:16654 <> dt_branch
-R16680:16691 Kernel.MuShannonBridge <> DecisionTree:51 ind
-binder 16657:16665 <> left_tree:53
-binder 16667:16676 <> right_tree:54
-scheme 16611:16622 <> DecisionTree_rect
-scheme 16611:16622 <> DecisionTree_ind
-scheme 16611:16622 <> DecisionTree_rec
-scheme 16611:16622 <> DecisionTree_sind
-def 16705:16723 <> decision_tree_depth
-R16733:16744 Kernel.MuShannonBridge <> DecisionTree ind
-binder 16726:16729 <> tree:55
-R16749:16751 Coq.Init.Datatypes <> nat ind
-R16764:16767 Kernel.MuShannonBridge <> tree:55 var
-R16778:16784 Kernel.MuShannonBridge <> dt_leaf constr
-R16795:16803 Kernel.MuShannonBridge <> dt_branch constr
-R16835:16835 Coq.Init.Datatypes <> S constr
-R16838:16844 Coq.Arith.PeanoNat Nat max def
-R16847:16865 Kernel.MuShannonBridge <> decision_tree_depth:56 def
-R16879:16897 Kernel.MuShannonBridge <> decision_tree_depth:56 def
-def 16929:16952 <> decision_tree_leaf_count
-R16962:16973 Kernel.MuShannonBridge <> DecisionTree ind
-binder 16955:16958 <> tree:58
-R16978:16980 Coq.Init.Datatypes <> nat ind
-R16993:16996 Kernel.MuShannonBridge <> tree:58 var
-R17007:17013 Kernel.MuShannonBridge <> dt_leaf constr
-R17024:17032 Kernel.MuShannonBridge <> dt_branch constr
-R17098:17100 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R17064:17087 Kernel.MuShannonBridge <> decision_tree_leaf_count:59 def
-R17101:17124 Kernel.MuShannonBridge <> decision_tree_leaf_count:59 def
-prf 17151:17184 <> decision_tree_leaves_le_pow2_depth
-binder 17197:17200 <> tree:61
-R17236:17239 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R17207:17230 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R17232:17235 Kernel.MuShannonBridge <> tree:61 var
-R17241:17243 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R17244:17262 Kernel.MuShannonBridge <> decision_tree_depth def
-R17264:17267 Kernel.MuShannonBridge <> tree:61 var
-R17375:17381 Coq.Arith.PeanoNat Nat max def
-R17384:17402 Kernel.MuShannonBridge <> decision_tree_depth def
-R17411:17429 Kernel.MuShannonBridge <> decision_tree_depth def
-R17375:17381 Coq.Arith.PeanoNat Nat max def
-R17384:17402 Kernel.MuShannonBridge <> decision_tree_depth def
-R17411:17429 Kernel.MuShannonBridge <> decision_tree_depth def
-R17451:17462 Coq.Arith.PeanoNat Nat le_trans thm
-R17451:17462 Coq.Arith.PeanoNat Nat le_trans thm
-R17477:17491 Coq.Arith.PeanoNat Nat add_le_mono thm
-R17477:17491 Coq.Arith.PeanoNat Nat add_le_mono thm
-R17509:17520 Coq.Arith.PeanoNat Nat le_trans thm
-R17509:17520 Coq.Arith.PeanoNat Nat le_trans thm
-R17563:17579 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
-R17563:17579 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
-R17641:17652 Coq.Arith.PeanoNat Nat le_max_l thm
-R17641:17652 Coq.Arith.PeanoNat Nat le_max_l thm
-R17670:17681 Coq.Arith.PeanoNat Nat le_trans thm
-R17670:17681 Coq.Arith.PeanoNat Nat le_trans thm
-R17725:17741 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
-R17725:17741 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
-R17803:17814 Coq.Arith.PeanoNat Nat le_max_r thm
-R17803:17814 Coq.Arith.PeanoNat Nat le_max_r thm
-R17924:17941 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R17859:17861 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R17862:17868 Coq.Arith.PeanoNat Nat max def
-R17871:17889 Kernel.MuShannonBridge <> decision_tree_depth def
-R17898:17916 Kernel.MuShannonBridge <> decision_tree_depth def
-R17943:17945 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R17946:17952 Coq.Arith.PeanoNat Nat max def
-R17955:17973 Kernel.MuShannonBridge <> decision_tree_depth def
-R17982:18000 Kernel.MuShannonBridge <> decision_tree_depth def
-R18025:18027 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18029:18031 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R18032:18038 Coq.Arith.PeanoNat Nat max def
-R18041:18059 Kernel.MuShannonBridge <> decision_tree_depth def
-R18068:18086 Kernel.MuShannonBridge <> decision_tree_depth def
-R17924:17941 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R17859:17861 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R17862:17868 Coq.Arith.PeanoNat Nat max def
-R17871:17889 Kernel.MuShannonBridge <> decision_tree_depth def
-R17898:17916 Kernel.MuShannonBridge <> decision_tree_depth def
-R17943:17945 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R17946:17952 Coq.Arith.PeanoNat Nat max def
-R17955:17973 Kernel.MuShannonBridge <> decision_tree_depth def
-R17982:18000 Kernel.MuShannonBridge <> decision_tree_depth def
-R18025:18027 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18029:18031 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R18032:18038 Coq.Arith.PeanoNat Nat max def
-R18041:18059 Kernel.MuShannonBridge <> decision_tree_depth def
-R18068:18086 Kernel.MuShannonBridge <> decision_tree_depth def
-R18121:18135 Coq.Arith.PeanoNat Nat pow_succ_r' thm
-R18121:18135 Coq.Arith.PeanoNat Nat pow_succ_r' thm
-R18121:18135 Coq.Arith.PeanoNat Nat pow_succ_r' thm
-prf 18176:18204 <> decision_tree_log2_leaf_bound
-binder 18217:18220 <> tree:62
-R18267:18270 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R18227:18234 Coq.Arith.PeanoNat Nat log2 def
-R18237:18260 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R18262:18265 Kernel.MuShannonBridge <> tree:62 var
-R18271:18289 Kernel.MuShannonBridge <> decision_tree_depth def
-R18291:18294 Kernel.MuShannonBridge <> tree:62 var
-R18327:18338 Coq.Arith.PeanoNat Nat le_trans thm
-R18327:18338 Coq.Arith.PeanoNat Nat le_trans thm
-R18351:18362 Kernel.MuShannonBridge <> log2_le_mono thm
-R18351:18362 Kernel.MuShannonBridge <> log2_le_mono thm
-R18375:18408 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
-R18375:18408 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
-R18423:18435 Coq.Arith.PeanoNat Nat log2_pow2 thm
-R18423:18435 Coq.Arith.PeanoNat Nat log2_pow2 thm
-R18423:18435 Coq.Arith.PeanoNat Nat log2_pow2 thm
-def 18479:18509 <> decision_tree_realized_by_trace
-R18523:18525 Coq.Init.Datatypes <> nat ind
-binder 18516:18519 <> fuel:63
-R18537:18540 Coq.Init.Datatypes <> list ind
-R18542:18555 Kernel.VMStep VMStep vm_instruction ind
-binder 18529:18533 <> trace:64
-R18563:18569 Kernel.VMState <> VMState rec
-binder 18559:18559 <> s:65
-R18580:18591 Kernel.MuShannonBridge <> DecisionTree ind
-binder 18573:18576 <> tree:66
-R18630:18633 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R18606:18624 Kernel.MuShannonBridge <> decision_tree_depth def
-R18626:18629 Kernel.MuShannonBridge <> tree:66 var
-R18634:18655 Kernel.MuShannonBridge <> cert_setter_executions def
-R18657:18660 Kernel.MuShannonBridge <> fuel:63 var
-R18662:18666 Kernel.MuShannonBridge <> trace:64 var
-R18668:18668 Kernel.MuShannonBridge <> s:65 var
-def 18833:18862 <> tree_covers_feasible_reduction
-R18876:18887 Kernel.MuShannonBridge <> DecisionTree ind
-binder 18869:18872 <> tree:67
-R18921:18931 Kernel.MuShannonBridge <> FeasibleSet def
-binder 18891:18901 <> omega_prior:68
-binder 18903:18917 <> omega_posterior:69
-R18971:18978 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R18946:18958 Kernel.MuShannonBridge <> feasible_size def
-R18960:18970 Kernel.MuShannonBridge <> omega_prior:68 var
-R19008:19010 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18979:19002 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R19004:19007 Kernel.MuShannonBridge <> tree:67 var
-R19011:19023 Kernel.MuShannonBridge <> feasible_size def
-R19025:19039 Kernel.MuShannonBridge <> omega_posterior:69 var
-def 19360:19383 <> FiberedFeasibleReduction
-R19397:19408 Kernel.MuShannonBridge <> DecisionTree ind
-binder 19390:19393 <> tree:70
-R19442:19452 Kernel.MuShannonBridge <> FeasibleSet def
-binder 19412:19422 <> omega_prior:71
-binder 19424:19438 <> omega_posterior:72
-R19467:19473 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R19511:19516 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R19483:19486 Coq.Init.Datatypes <> list ind
-R19496:19498 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R19489:19495 Kernel.VMState <> VMState rec
-R19499:19509 Kernel.MuShannonBridge <> FeasibleSet def
-binder 19474:19479 <> fibers:73
-R19549:19556 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19531:19533 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19517:19519 Coq.Lists.List <> map def
-R19525:19530 Kernel.MuShannonBridge <> fibers:73 var
-R19521:19523 Coq.Init.Datatypes <> fst def
-R19534:19548 Kernel.MuShannonBridge <> omega_posterior:72 var
-R19557:19557 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19667:19675 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19583:19592 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R19558:19570 Kernel.MuShannonBridge <> feasible_size def
-R19572:19582 Kernel.MuShannonBridge <> omega_prior:71 var
-R19593:19602 Coq.Lists.List <> fold_right def
-R19615:19617 Coq.Lists.List <> map def
-R19660:19665 Kernel.MuShannonBridge <> fibers:73 var
-R19625:19625 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19627:19628 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19634:19634 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 19629:19633 <> fiber:74
-binder 19625:19634 <> pat:75
-R19639:19651 Kernel.MuShannonBridge <> feasible_size def
-R19653:19657 Kernel.MuShannonBridge <> fiber:74 var
-R19604:19610 Coq.Arith.PeanoNat Nat add def
-R19676:19681 Coq.Lists.List <> Forall ind
-R19757:19762 Kernel.MuShannonBridge <> fibers:73 var
-R19689:19689 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19691:19692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19698:19698 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 19693:19697 <> fiber:76
-binder 19689:19698 <> pat:77
-R19722:19725 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R19703:19715 Kernel.MuShannonBridge <> feasible_size def
-R19717:19721 Kernel.MuShannonBridge <> fiber:76 var
-R19726:19749 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R19751:19754 Kernel.MuShannonBridge <> tree:70 var
-def 19777:19795 <> ObservationFunction
-R19807:19810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19800:19806 Kernel.VMState <> VMState rec
-R19811:19814 Coq.Init.Datatypes <> list ind
-R19816:19829 Kernel.VMStep VMStep vm_instruction ind
-def 19844:19860 <> observation_equiv
-R19876:19894 Kernel.MuShannonBridge <> ObservationFunction def
-binder 19867:19872 <> obs_fn:78
-R19906:19912 Kernel.VMState <> VMState rec
-binder 19898:19899 <> s1:79
-binder 19901:19902 <> s2:80
-R19936:19938 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19927:19932 Kernel.MuShannonBridge <> obs_fn:78 var
-R19934:19935 Kernel.MuShannonBridge <> s1:79 var
-R19939:19944 Kernel.MuShannonBridge <> obs_fn:78 var
-R19946:19947 Kernel.MuShannonBridge <> s2:80 var
-def 19962:19992 <> posterior_representative_fibers
-R20017:20027 Kernel.MuShannonBridge <> FeasibleSet def
-binder 19999:20013 <> omega_posterior:81
-R20049:20052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20042:20048 Kernel.VMState <> VMState rec
-R20053:20063 Kernel.MuShannonBridge <> FeasibleSet def
-binder 20031:20038 <> fiber_of:82
-R20072:20075 Coq.Init.Datatypes <> list ind
-R20085:20087 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R20078:20084 Kernel.VMState <> VMState rec
-R20088:20098 Kernel.MuShannonBridge <> FeasibleSet def
-R20106:20108 Coq.Lists.List <> map def
-R20152:20166 Kernel.MuShannonBridge <> omega_posterior:81 var
-binder 20115:20120 <> s_post:83
-R20125:20125 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R20132:20133 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R20149:20149 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R20126:20131 Kernel.MuShannonBridge <> s_post:83 var
-R20134:20141 Kernel.MuShannonBridge <> fiber_of:82 var
-R20143:20148 Kernel.MuShannonBridge <> s_post:83 var
-def 20470:20501 <> PosteriorRepresentativeReduction
-R20517:20535 Kernel.MuShannonBridge <> ObservationFunction def
-binder 20508:20513 <> obs_fn:84
-R20550:20561 Kernel.MuShannonBridge <> DecisionTree ind
-binder 20543:20546 <> tree:85
-R20595:20605 Kernel.MuShannonBridge <> FeasibleSet def
-binder 20565:20575 <> omega_prior:86
-binder 20577:20591 <> omega_posterior:87
-R20620:20626 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20660:20665 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20645:20648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20638:20644 Kernel.VMState <> VMState rec
-R20649:20659 Kernel.MuShannonBridge <> FeasibleSet def
-binder 20627:20634 <> fiber_of:88
-R20666:20666 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20854:20862 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 20674:20680 <> s_prior:89
-R20705:20714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20683:20684 Coq.Lists.List <> In def
-R20694:20704 Kernel.MuShannonBridge <> omega_prior:86 var
-R20686:20692 Kernel.MuShannonBridge <> s_prior:89 var
-R20715:20721 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20728:20737 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 20722:20727 <> s_post:90
-R20763:20774 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20738:20739 Coq.Lists.List <> In def
-R20748:20762 Kernel.MuShannonBridge <> omega_posterior:87 var
-R20741:20746 Kernel.MuShannonBridge <> s_post:90 var
-R20803:20814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20775:20776 Coq.Lists.List <> In def
-R20787:20794 Kernel.MuShannonBridge <> fiber_of:88 var
-R20796:20801 Kernel.MuShannonBridge <> s_post:90 var
-R20778:20784 Kernel.MuShannonBridge <> s_prior:89 var
-R20815:20831 Kernel.MuShannonBridge <> observation_equiv def
-R20833:20838 Kernel.MuShannonBridge <> obs_fn:84 var
-R20840:20846 Kernel.MuShannonBridge <> s_prior:89 var
-R20848:20853 Kernel.MuShannonBridge <> s_post:90 var
-R20863:20863 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20989:20998 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R21113:21113 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20889:20898 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R20864:20876 Kernel.MuShannonBridge <> feasible_size def
-R20878:20888 Kernel.MuShannonBridge <> omega_prior:86 var
-R20899:20908 Coq.Lists.List <> fold_right def
-R20921:20923 Coq.Lists.List <> map def
-R20973:20987 Kernel.MuShannonBridge <> omega_posterior:87 var
-binder 20930:20935 <> s_post:91
-R20940:20952 Kernel.MuShannonBridge <> feasible_size def
-R20955:20962 Kernel.MuShannonBridge <> fiber_of:88 var
-R20964:20969 Kernel.MuShannonBridge <> s_post:91 var
-R20910:20916 Coq.Arith.PeanoNat Nat add def
-binder 21006:21011 <> s_post:92
-R21039:21048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21014:21015 Coq.Lists.List <> In def
-R21024:21038 Kernel.MuShannonBridge <> omega_posterior:87 var
-R21017:21022 Kernel.MuShannonBridge <> s_post:92 var
-R21080:21083 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R21049:21061 Kernel.MuShannonBridge <> feasible_size def
-R21064:21071 Kernel.MuShannonBridge <> fiber_of:88 var
-R21073:21078 Kernel.MuShannonBridge <> s_post:92 var
-R21084:21107 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R21109:21112 Kernel.MuShannonBridge <> tree:85 var
-prf 21123:21159 <> posterior_representative_fibers_index
-binder 21172:21186 <> omega_posterior:93
-binder 21188:21195 <> fiber_of:94
-R21268:21270 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21202:21204 Coq.Lists.List <> map def
-R21211:21241 Kernel.MuShannonBridge <> posterior_representative_fibers def
-R21243:21257 Kernel.MuShannonBridge <> omega_posterior:93 var
-R21259:21266 Kernel.MuShannonBridge <> fiber_of:94 var
-R21206:21208 Coq.Init.Datatypes <> fst def
-R21271:21285 Kernel.MuShannonBridge <> omega_posterior:93 var
-prf 21428:21466 <> posterior_representative_fibers_bounded
-R21487:21498 Kernel.MuShannonBridge <> DecisionTree ind
-binder 21480:21483 <> tree:95
-R21520:21530 Kernel.MuShannonBridge <> FeasibleSet def
-binder 21502:21516 <> omega_posterior:96
-R21561:21564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21554:21560 Kernel.VMState <> VMState rec
-R21565:21575 Kernel.MuShannonBridge <> FeasibleSet def
-binder 21543:21550 <> fiber_of:97
-R21583:21583 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21698:21706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 21591:21596 <> s_post:98
-R21624:21633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21599:21600 Coq.Lists.List <> In def
-R21609:21623 Kernel.MuShannonBridge <> omega_posterior:96 var
-R21602:21607 Kernel.MuShannonBridge <> s_post:98 var
-R21665:21668 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R21634:21646 Kernel.MuShannonBridge <> feasible_size def
-R21649:21656 Kernel.MuShannonBridge <> fiber_of:97 var
-R21658:21663 Kernel.MuShannonBridge <> s_post:98 var
-R21669:21692 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R21694:21697 Kernel.MuShannonBridge <> tree:95 var
-R21707:21712 Coq.Lists.List <> Forall ind
-R21795:21825 Kernel.MuShannonBridge <> posterior_representative_fibers def
-R21827:21841 Kernel.MuShannonBridge <> omega_posterior:96 var
-R21843:21850 Kernel.MuShannonBridge <> fiber_of:97 var
-R21720:21720 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21722:21723 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21729:21729 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 21724:21728 <> fiber:99
-binder 21720:21729 <> pat:100
-R21753:21756 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R21734:21746 Kernel.MuShannonBridge <> feasible_size def
-R21748:21752 Kernel.MuShannonBridge <> fiber:99 var
-R21757:21780 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R21782:21785 Kernel.MuShannonBridge <> tree:95 var
-prf 22125:22165 <> posterior_representative_fibers_cover_sum
-binder 22178:22192 <> omega_posterior:101
-binder 22194:22201 <> fiber_of:102
-R22348:22354 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22208:22217 Coq.Lists.List <> fold_right def
-R22236:22238 Coq.Lists.List <> map def
-R22290:22320 Kernel.MuShannonBridge <> posterior_representative_fibers def
-R22322:22336 Kernel.MuShannonBridge <> omega_posterior:101 var
-R22338:22345 Kernel.MuShannonBridge <> fiber_of:102 var
-R22246:22246 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22248:22249 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22255:22255 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 22250:22254 <> fiber:103
-binder 22246:22255 <> pat:104
-R22260:22272 Kernel.MuShannonBridge <> feasible_size def
-R22274:22278 Kernel.MuShannonBridge <> fiber:103 var
-R22219:22225 Coq.Arith.PeanoNat Nat add def
-R22355:22364 Coq.Lists.List <> fold_right def
-R22383:22385 Coq.Lists.List <> map def
-R22435:22449 Kernel.MuShannonBridge <> omega_posterior:101 var
-binder 22392:22397 <> s_post:105
-R22402:22414 Kernel.MuShannonBridge <> feasible_size def
-R22417:22424 Kernel.MuShannonBridge <> fiber_of:102 var
-R22426:22431 Kernel.MuShannonBridge <> s_post:105 var
-R22366:22372 Coq.Arith.PeanoNat Nat add def
-prf 22593:22652 <> posterior_representative_reduction_assigns_observation_equiv
-R22675:22693 Kernel.MuShannonBridge <> ObservationFunction def
-binder 22666:22671 <> obs_fn:106
-R22704:22715 Kernel.MuShannonBridge <> DecisionTree ind
-binder 22697:22700 <> tree:107
-R22758:22768 Kernel.MuShannonBridge <> FeasibleSet def
-binder 22728:22738 <> omega_prior:108
-binder 22740:22754 <> omega_posterior:109
-R22848:22855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22776:22807 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
-R22809:22814 Kernel.MuShannonBridge <> obs_fn:106 var
-R22816:22819 Kernel.MuShannonBridge <> tree:107 var
-R22821:22831 Kernel.MuShannonBridge <> omega_prior:108 var
-R22833:22847 Kernel.MuShannonBridge <> omega_posterior:109 var
-R22856:22862 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22871:22878 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 22863:22870 <> fiber_of:110
-binder 22886:22892 <> s_prior:111
-R22917:22928 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22895:22896 Coq.Lists.List <> In def
-R22906:22916 Kernel.MuShannonBridge <> omega_prior:108 var
-R22898:22904 Kernel.MuShannonBridge <> s_prior:111 var
-R22929:22935 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22942:22953 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 22936:22941 <> s_post:112
-R23053:23066 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R22954:22955 Coq.Lists.List <> In def
-R22996:23026 Kernel.MuShannonBridge <> posterior_representative_fibers def
-R23028:23042 Kernel.MuShannonBridge <> omega_posterior:109 var
-R23044:23051 Kernel.MuShannonBridge <> fiber_of:110 var
-R22957:22957 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22964:22965 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22981:22981 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22958:22963 Kernel.MuShannonBridge <> s_post:112 var
-R22966:22973 Kernel.MuShannonBridge <> fiber_of:110 var
-R22975:22980 Kernel.MuShannonBridge <> s_post:112 var
-R23095:23108 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23067:23068 Coq.Lists.List <> In def
-R23079:23086 Kernel.MuShannonBridge <> fiber_of:110 var
-R23088:23093 Kernel.MuShannonBridge <> s_post:112 var
-R23070:23076 Kernel.MuShannonBridge <> s_prior:111 var
-R23109:23125 Kernel.MuShannonBridge <> observation_equiv def
-R23127:23132 Kernel.MuShannonBridge <> obs_fn:106 var
-R23134:23140 Kernel.MuShannonBridge <> s_prior:111 var
-R23142:23147 Kernel.MuShannonBridge <> s_post:112 var
-R23437:23467 Kernel.MuShannonBridge <> posterior_representative_fibers def
-R23480:23489 Coq.Lists.List <> in_map_iff thm
-R23480:23489 Coq.Lists.List <> in_map_iff thm
-R23534:23540 Coq.Init.Logic <> eq_refl constr
-R23534:23540 Coq.Init.Logic <> eq_refl constr
-prf 23600:23623 <> bounded_fiber_sum_le_mul
-R23644:23655 Kernel.MuShannonBridge <> DecisionTree ind
-binder 23637:23640 <> tree:113
-R23668:23671 Coq.Init.Datatypes <> list ind
-R23681:23683 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R23674:23680 Kernel.VMState <> VMState rec
-R23684:23694 Kernel.MuShannonBridge <> FeasibleSet def
-binder 23659:23664 <> fibers:114
-R23790:23797 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R23703:23708 Coq.Lists.List <> Forall ind
-R23784:23789 Kernel.MuShannonBridge <> fibers:114 var
-R23716:23716 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R23718:23719 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R23725:23725 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 23720:23724 <> fiber:115
-binder 23716:23725 <> pat:116
-R23749:23752 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R23730:23742 Kernel.MuShannonBridge <> feasible_size def
-R23744:23748 Kernel.MuShannonBridge <> fiber:115 var
-R23753:23776 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R23778:23781 Kernel.MuShannonBridge <> tree:113 var
-R23872:23881 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R23798:23807 Coq.Lists.List <> fold_right def
-R23820:23822 Coq.Lists.List <> map def
-R23865:23870 Kernel.MuShannonBridge <> fibers:114 var
-R23830:23830 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R23832:23833 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R23839:23839 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 23834:23838 <> fiber:117
-binder 23830:23839 <> pat:118
-R23844:23856 Kernel.MuShannonBridge <> feasible_size def
-R23858:23862 Kernel.MuShannonBridge <> fiber:117 var
-R23809:23815 Coq.Arith.PeanoNat Nat add def
-R23911:23913 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23882:23905 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R23907:23910 Kernel.MuShannonBridge <> tree:113 var
-R23914:23924 Coq.Lists.List <> length abbrev
-R23926:23931 Kernel.MuShannonBridge <> fibers:114 var
-prf 24076:24111 <> fibered_reduction_implies_tree_cover
-R24132:24143 Kernel.MuShannonBridge <> DecisionTree ind
-binder 24125:24128 <> tree:119
-R24177:24187 Kernel.MuShannonBridge <> FeasibleSet def
-binder 24147:24157 <> omega_prior:120
-binder 24159:24173 <> omega_posterior:121
-R24252:24259 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24195:24218 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
-R24220:24223 Kernel.MuShannonBridge <> tree:119 var
-R24225:24235 Kernel.MuShannonBridge <> omega_prior:120 var
-R24237:24251 Kernel.MuShannonBridge <> omega_posterior:121 var
-R24260:24289 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R24291:24294 Kernel.MuShannonBridge <> tree:119 var
-R24296:24306 Kernel.MuShannonBridge <> omega_prior:120 var
-R24308:24322 Kernel.MuShannonBridge <> omega_posterior:121 var
-R24453:24482 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R24515:24527 Kernel.MuShannonBridge <> feasible_size def
-R24566:24575 Coq.Lists.List <> fold_right def
-R24588:24590 Coq.Lists.List <> map def
-R24598:24598 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R24600:24601 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R24607:24607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 24602:24606 <> fiber:122
-binder 24598:24607 <> pat:123
-R24612:24624 Kernel.MuShannonBridge <> feasible_size def
-R24626:24630 Kernel.MuShannonBridge <> fiber:122 var
-R24577:24583 Coq.Arith.PeanoNat Nat add def
-R24538:24549 Coq.Arith.PeanoNat Nat le_trans thm
-R24566:24575 Coq.Lists.List <> fold_right def
-R24588:24590 Coq.Lists.List <> map def
-R24598:24598 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R24600:24601 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R24607:24607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-binder 24602:24606 <> fiber:124
-binder 24598:24607 <> pat:125
-R24612:24624 Kernel.MuShannonBridge <> feasible_size def
-R24626:24630 Kernel.MuShannonBridge <> fiber:124 var
-R24577:24583 Coq.Arith.PeanoNat Nat add def
-R24538:24549 Coq.Arith.PeanoNat Nat le_trans thm
-R24673:24682 Coq.Lists.List <> map_length thm
-R24673:24682 Coq.Lists.List <> map_length thm
-R24673:24682 Coq.Lists.List <> map_length thm
-R24695:24718 Kernel.MuShannonBridge <> bounded_fiber_sum_le_mul thm
-R24695:24718 Kernel.MuShannonBridge <> bounded_fiber_sum_le_mul thm
-prf 24755:24814 <> posterior_representative_reduction_implies_fibered_reduction
-R24837:24855 Kernel.MuShannonBridge <> ObservationFunction def
-binder 24828:24833 <> obs_fn:126
-R24866:24877 Kernel.MuShannonBridge <> DecisionTree ind
-binder 24859:24862 <> tree:127
-R24920:24930 Kernel.MuShannonBridge <> FeasibleSet def
-binder 24890:24900 <> omega_prior:128
-binder 24902:24916 <> omega_posterior:129
-R25010:25017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24938:24969 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
-R24971:24976 Kernel.MuShannonBridge <> obs_fn:126 var
-R24978:24981 Kernel.MuShannonBridge <> tree:127 var
-R24983:24993 Kernel.MuShannonBridge <> omega_prior:128 var
-R24995:25009 Kernel.MuShannonBridge <> omega_posterior:129 var
-R25018:25041 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
-R25043:25046 Kernel.MuShannonBridge <> tree:127 var
-R25048:25058 Kernel.MuShannonBridge <> omega_prior:128 var
-R25060:25074 Kernel.MuShannonBridge <> omega_posterior:129 var
-R25202:25232 Kernel.MuShannonBridge <> posterior_representative_fibers def
-R25202:25232 Kernel.MuShannonBridge <> posterior_representative_fibers def
-R25280:25316 Kernel.MuShannonBridge <> posterior_representative_fibers_index thm
-R25280:25316 Kernel.MuShannonBridge <> posterior_representative_fibers_index thm
-R25344:25384 Kernel.MuShannonBridge <> posterior_representative_fibers_cover_sum thm
-R25344:25384 Kernel.MuShannonBridge <> posterior_representative_fibers_cover_sum thm
-R25344:25384 Kernel.MuShannonBridge <> posterior_representative_fibers_cover_sum thm
-R25413:25451 Kernel.MuShannonBridge <> posterior_representative_fibers_bounded thm
-R25413:25451 Kernel.MuShannonBridge <> posterior_representative_fibers_bounded thm
-prf 25486:25518 <> decision_tree_leaf_count_positive
-binder 25531:25534 <> tree:130
-R25570:25572 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R25541:25564 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R25566:25569 Kernel.MuShannonBridge <> tree:130 var
-prf 25625:25656 <> decision_tree_log2_up_leaf_bound
-binder 25669:25672 <> tree:131
-R25722:25725 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R25679:25689 Coq.Arith.PeanoNat Nat log2_up def
-R25692:25715 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R25717:25720 Kernel.MuShannonBridge <> tree:131 var
-R25726:25744 Kernel.MuShannonBridge <> decision_tree_depth def
-R25746:25749 Kernel.MuShannonBridge <> tree:131 var
-R25782:25786 Coq.Init.Logic <> proj1 thm
-R25789:25807 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
-R25814:25837 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R25850:25868 Kernel.MuShannonBridge <> decision_tree_depth def
-R25881:25913 Kernel.MuShannonBridge <> decision_tree_leaf_count_positive thm
-R25782:25786 Coq.Init.Logic <> proj1 thm
-R25789:25807 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
-R25814:25837 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R25850:25868 Kernel.MuShannonBridge <> decision_tree_depth def
-R25881:25913 Kernel.MuShannonBridge <> decision_tree_leaf_count_positive thm
-R25932:25965 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
-R25932:25965 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
-prf 25982:26017 <> info_priced_decision_tree_leaf_bound
-R26038:26040 Coq.Init.Datatypes <> nat ind
-binder 26031:26034 <> fuel:132
-R26052:26055 Coq.Init.Datatypes <> list ind
-R26057:26070 Kernel.VMStep VMStep vm_instruction ind
-binder 26044:26048 <> trace:133
-R26078:26084 Kernel.VMState <> VMState rec
-binder 26074:26074 <> s:134
-R26095:26106 Kernel.MuShannonBridge <> DecisionTree ind
-binder 26088:26091 <> tree:135
-R26163:26170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26114:26144 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R26146:26149 Kernel.MuShannonBridge <> fuel:132 var
-R26151:26155 Kernel.MuShannonBridge <> trace:133 var
-R26157:26157 Kernel.MuShannonBridge <> s:134 var
-R26159:26162 Kernel.MuShannonBridge <> tree:135 var
-R26211:26220 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R26171:26178 Coq.Arith.PeanoNat Nat log2 def
-R26181:26204 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R26206:26209 Kernel.MuShannonBridge <> tree:135 var
-R26250:26252 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R26244:26248 Kernel.VMState <> vm_mu proj
-R26222:26227 Kernel.SimulationProof <> run_vm def
-R26229:26232 Kernel.MuShannonBridge <> fuel:132 var
-R26234:26238 Kernel.MuShannonBridge <> trace:133 var
-R26240:26240 Kernel.MuShannonBridge <> s:134 var
-R26256:26260 Kernel.VMState <> vm_mu proj
-R26253:26253 Kernel.MuShannonBridge <> s:134 var
-R26314:26344 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R26365:26376 Coq.Arith.PeanoNat Nat le_trans thm
-R26365:26376 Coq.Arith.PeanoNat Nat le_trans thm
-R26389:26417 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
-R26389:26417 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
-R26431:26442 Coq.Arith.PeanoNat Nat le_trans thm
-R26431:26442 Coq.Arith.PeanoNat Nat le_trans thm
-R26476:26508 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
-R26476:26508 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
-prf 26525:26568 <> info_priced_decision_tree_log2_up_leaf_bound
-R26589:26591 Coq.Init.Datatypes <> nat ind
-binder 26582:26585 <> fuel:136
-R26603:26606 Coq.Init.Datatypes <> list ind
-R26608:26621 Kernel.VMStep VMStep vm_instruction ind
-binder 26595:26599 <> trace:137
-R26629:26635 Kernel.VMState <> VMState rec
-binder 26625:26625 <> s:138
-R26646:26657 Kernel.MuShannonBridge <> DecisionTree ind
-binder 26639:26642 <> tree:139
-R26714:26721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26665:26695 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R26697:26700 Kernel.MuShannonBridge <> fuel:136 var
-R26702:26706 Kernel.MuShannonBridge <> trace:137 var
-R26708:26708 Kernel.MuShannonBridge <> s:138 var
-R26710:26713 Kernel.MuShannonBridge <> tree:139 var
-R26765:26774 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R26722:26732 Coq.Arith.PeanoNat Nat log2_up def
-R26735:26758 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R26760:26763 Kernel.MuShannonBridge <> tree:139 var
-R26804:26806 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R26798:26802 Kernel.VMState <> vm_mu proj
-R26776:26781 Kernel.SimulationProof <> run_vm def
-R26783:26786 Kernel.MuShannonBridge <> fuel:136 var
-R26788:26792 Kernel.MuShannonBridge <> trace:137 var
-R26794:26794 Kernel.MuShannonBridge <> s:138 var
-R26810:26814 Kernel.VMState <> vm_mu proj
-R26807:26807 Kernel.MuShannonBridge <> s:138 var
-R26868:26898 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R26919:26930 Coq.Arith.PeanoNat Nat le_trans thm
-R26919:26930 Coq.Arith.PeanoNat Nat le_trans thm
-R26943:26974 Kernel.MuShannonBridge <> decision_tree_log2_up_leaf_bound thm
-R26943:26974 Kernel.MuShannonBridge <> decision_tree_log2_up_leaf_bound thm
-R26988:26999 Coq.Arith.PeanoNat Nat le_trans thm
-R26988:26999 Coq.Arith.PeanoNat Nat le_trans thm
-R27033:27065 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
-R27033:27065 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
-prf 27080:27121 <> tree_cover_implies_log2_up_reduction_bound
-R27142:27153 Kernel.MuShannonBridge <> DecisionTree ind
-binder 27135:27138 <> tree:140
-R27187:27197 Kernel.MuShannonBridge <> FeasibleSet def
-binder 27157:27167 <> omega_prior:141
-binder 27169:27183 <> omega_posterior:142
-R27238:27245 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27234:27236 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R27205:27217 Kernel.MuShannonBridge <> feasible_size def
-R27219:27233 Kernel.MuShannonBridge <> omega_posterior:142 var
-R27309:27316 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27246:27275 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R27277:27280 Kernel.MuShannonBridge <> tree:140 var
-R27282:27292 Kernel.MuShannonBridge <> omega_prior:141 var
-R27294:27308 Kernel.MuShannonBridge <> omega_posterior:142 var
-R27408:27415 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R27356:27364 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R27317:27327 Coq.Arith.PeanoNat Nat log2_up def
-R27330:27342 Kernel.MuShannonBridge <> feasible_size def
-R27344:27354 Kernel.MuShannonBridge <> omega_prior:141 var
-R27365:27375 Coq.Arith.PeanoNat Nat log2_up def
-R27378:27390 Kernel.MuShannonBridge <> feasible_size def
-R27392:27406 Kernel.MuShannonBridge <> omega_posterior:142 var
-R27416:27426 Coq.Arith.PeanoNat Nat log2_up def
-R27429:27452 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R27454:27457 Kernel.MuShannonBridge <> tree:140 var
-R27533:27562 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R27636:27643 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R27597:27607 Coq.Arith.PeanoNat Nat log2_up def
-R27610:27622 Kernel.MuShannonBridge <> feasible_size def
-R27644:27654 Coq.Arith.PeanoNat Nat log2_up def
-R27686:27688 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R27657:27680 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R27689:27701 Kernel.MuShannonBridge <> feasible_size def
-R27636:27643 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R27597:27607 Coq.Arith.PeanoNat Nat log2_up def
-R27610:27622 Kernel.MuShannonBridge <> feasible_size def
-R27644:27654 Coq.Arith.PeanoNat Nat log2_up def
-R27686:27688 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R27657:27680 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R27689:27701 Kernel.MuShannonBridge <> feasible_size def
-R27732:27750 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
-R27732:27750 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
-R27865:27872 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R27790:27800 Coq.Arith.PeanoNat Nat log2_up def
-R27832:27834 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R27803:27826 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R27835:27847 Kernel.MuShannonBridge <> feasible_size def
-R27916:27918 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R27873:27883 Coq.Arith.PeanoNat Nat log2_up def
-R27886:27909 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R27919:27929 Coq.Arith.PeanoNat Nat log2_up def
-R27932:27944 Kernel.MuShannonBridge <> feasible_size def
-R27865:27872 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R27790:27800 Coq.Arith.PeanoNat Nat log2_up def
-R27832:27834 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R27803:27826 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R27835:27847 Kernel.MuShannonBridge <> feasible_size def
-R27916:27918 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R27873:27883 Coq.Arith.PeanoNat Nat log2_up def
-R27886:27909 Kernel.MuShannonBridge <> decision_tree_leaf_count def
-R27919:27929 Coq.Arith.PeanoNat Nat log2_up def
-R27932:27944 Kernel.MuShannonBridge <> feasible_size def
-R27975:27995 Coq.Arith.PeanoNat Nat log2_up_mul_above thm
-R27975:27995 Coq.Arith.PeanoNat Nat log2_up_mul_above thm
-prf 28026:28071 <> info_priced_arbitrary_feasible_reduction_bound
-R28092:28094 Coq.Init.Datatypes <> nat ind
-binder 28085:28088 <> fuel:143
-R28106:28109 Coq.Init.Datatypes <> list ind
-R28111:28124 Kernel.VMStep VMStep vm_instruction ind
-binder 28098:28102 <> trace:144
-R28132:28138 Kernel.VMState <> VMState rec
-binder 28128:28128 <> s:145
-R28181:28191 Kernel.MuShannonBridge <> FeasibleSet def
-binder 28151:28161 <> omega_prior:146
-binder 28163:28177 <> omega_posterior:147
-R28202:28213 Kernel.MuShannonBridge <> DecisionTree ind
-binder 28195:28198 <> tree:148
-R28270:28277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28221:28251 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R28253:28256 Kernel.MuShannonBridge <> fuel:143 var
-R28258:28262 Kernel.MuShannonBridge <> trace:144 var
-R28264:28264 Kernel.MuShannonBridge <> s:145 var
-R28266:28269 Kernel.MuShannonBridge <> tree:148 var
-R28311:28318 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28307:28309 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R28278:28290 Kernel.MuShannonBridge <> feasible_size def
-R28292:28306 Kernel.MuShannonBridge <> omega_posterior:147 var
-R28382:28389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28319:28348 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R28350:28353 Kernel.MuShannonBridge <> tree:148 var
-R28355:28365 Kernel.MuShannonBridge <> omega_prior:146 var
-R28367:28381 Kernel.MuShannonBridge <> omega_posterior:147 var
-R28481:28490 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R28429:28437 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R28390:28400 Coq.Arith.PeanoNat Nat log2_up def
-R28403:28415 Kernel.MuShannonBridge <> feasible_size def
-R28417:28427 Kernel.MuShannonBridge <> omega_prior:146 var
-R28438:28448 Coq.Arith.PeanoNat Nat log2_up def
-R28451:28463 Kernel.MuShannonBridge <> feasible_size def
-R28465:28479 Kernel.MuShannonBridge <> omega_posterior:147 var
-R28520:28522 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R28514:28518 Kernel.VMState <> vm_mu proj
-R28492:28497 Kernel.SimulationProof <> run_vm def
-R28499:28502 Kernel.MuShannonBridge <> fuel:143 var
-R28504:28508 Kernel.MuShannonBridge <> trace:144 var
-R28510:28510 Kernel.MuShannonBridge <> s:145 var
-R28526:28530 Kernel.VMState <> vm_mu proj
-R28523:28523 Kernel.MuShannonBridge <> s:145 var
-R28625:28636 Coq.Arith.PeanoNat Nat le_trans thm
-R28625:28636 Coq.Arith.PeanoNat Nat le_trans thm
-R28649:28690 Kernel.MuShannonBridge <> tree_cover_implies_log2_up_reduction_bound thm
-R28649:28690 Kernel.MuShannonBridge <> tree_cover_implies_log2_up_reduction_bound thm
-R28710:28753 Kernel.MuShannonBridge <> info_priced_decision_tree_log2_up_leaf_bound thm
-R28710:28753 Kernel.MuShannonBridge <> info_priced_decision_tree_log2_up_leaf_bound thm
-prf 28782:28825 <> info_priced_fibered_feasible_reduction_bound
-R28846:28848 Coq.Init.Datatypes <> nat ind
-binder 28839:28842 <> fuel:149
-R28860:28863 Coq.Init.Datatypes <> list ind
-R28865:28878 Kernel.VMStep VMStep vm_instruction ind
-binder 28852:28856 <> trace:150
-R28886:28892 Kernel.VMState <> VMState rec
-binder 28882:28882 <> s:151
-R28935:28945 Kernel.MuShannonBridge <> FeasibleSet def
-binder 28905:28915 <> omega_prior:152
-binder 28917:28931 <> omega_posterior:153
-R28956:28967 Kernel.MuShannonBridge <> DecisionTree ind
-binder 28949:28952 <> tree:154
-R29024:29031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28975:29005 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R29007:29010 Kernel.MuShannonBridge <> fuel:149 var
-R29012:29016 Kernel.MuShannonBridge <> trace:150 var
-R29018:29018 Kernel.MuShannonBridge <> s:151 var
-R29020:29023 Kernel.MuShannonBridge <> tree:154 var
-R29065:29072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29061:29063 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R29032:29044 Kernel.MuShannonBridge <> feasible_size def
-R29046:29060 Kernel.MuShannonBridge <> omega_posterior:153 var
-R29130:29137 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29073:29096 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
-R29098:29101 Kernel.MuShannonBridge <> tree:154 var
-R29103:29113 Kernel.MuShannonBridge <> omega_prior:152 var
-R29115:29129 Kernel.MuShannonBridge <> omega_posterior:153 var
-R29229:29238 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R29177:29185 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R29138:29148 Coq.Arith.PeanoNat Nat log2_up def
-R29151:29163 Kernel.MuShannonBridge <> feasible_size def
-R29165:29175 Kernel.MuShannonBridge <> omega_prior:152 var
-R29186:29196 Coq.Arith.PeanoNat Nat log2_up def
-R29199:29211 Kernel.MuShannonBridge <> feasible_size def
-R29213:29227 Kernel.MuShannonBridge <> omega_posterior:153 var
-R29268:29270 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R29262:29266 Kernel.VMState <> vm_mu proj
-R29240:29245 Kernel.SimulationProof <> run_vm def
-R29247:29250 Kernel.MuShannonBridge <> fuel:149 var
-R29252:29256 Kernel.MuShannonBridge <> trace:150 var
-R29258:29258 Kernel.MuShannonBridge <> s:151 var
-R29274:29278 Kernel.VMState <> vm_mu proj
-R29271:29271 Kernel.MuShannonBridge <> s:151 var
-R29375:29420 Kernel.MuShannonBridge <> info_priced_arbitrary_feasible_reduction_bound thm
-R29375:29420 Kernel.MuShannonBridge <> info_priced_arbitrary_feasible_reduction_bound thm
-R29438:29473 Kernel.MuShannonBridge <> fibered_reduction_implies_tree_cover thm
-R29438:29473 Kernel.MuShannonBridge <> fibered_reduction_implies_tree_cover thm
-prf 29508:29559 <> info_priced_posterior_representative_reduction_bound
-R29580:29582 Coq.Init.Datatypes <> nat ind
-binder 29573:29576 <> fuel:155
-R29594:29597 Coq.Init.Datatypes <> list ind
-R29599:29612 Kernel.VMStep VMStep vm_instruction ind
-binder 29586:29590 <> trace:156
-R29620:29626 Kernel.VMState <> VMState rec
-binder 29616:29616 <> s:157
-R29669:29679 Kernel.MuShannonBridge <> FeasibleSet def
-binder 29639:29649 <> omega_prior:158
-binder 29651:29665 <> omega_posterior:159
-R29690:29701 Kernel.MuShannonBridge <> DecisionTree ind
-binder 29683:29686 <> tree:160
-R29723:29741 Kernel.MuShannonBridge <> ObservationFunction def
-binder 29714:29719 <> obs_fn:161
-R29798:29805 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29749:29779 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R29781:29784 Kernel.MuShannonBridge <> fuel:155 var
-R29786:29790 Kernel.MuShannonBridge <> trace:156 var
-R29792:29792 Kernel.MuShannonBridge <> s:157 var
-R29794:29797 Kernel.MuShannonBridge <> tree:160 var
-R29839:29846 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29835:29837 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R29806:29818 Kernel.MuShannonBridge <> feasible_size def
-R29820:29834 Kernel.MuShannonBridge <> omega_posterior:159 var
-R29919:29926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29847:29878 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
-R29880:29885 Kernel.MuShannonBridge <> obs_fn:161 var
-R29887:29890 Kernel.MuShannonBridge <> tree:160 var
-R29892:29902 Kernel.MuShannonBridge <> omega_prior:158 var
-R29904:29918 Kernel.MuShannonBridge <> omega_posterior:159 var
-R30018:30027 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R29966:29974 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R29927:29937 Coq.Arith.PeanoNat Nat log2_up def
-R29940:29952 Kernel.MuShannonBridge <> feasible_size def
-R29954:29964 Kernel.MuShannonBridge <> omega_prior:158 var
-R29975:29985 Coq.Arith.PeanoNat Nat log2_up def
-R29988:30000 Kernel.MuShannonBridge <> feasible_size def
-R30002:30016 Kernel.MuShannonBridge <> omega_posterior:159 var
-R30057:30059 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R30051:30055 Kernel.VMState <> vm_mu proj
-R30029:30034 Kernel.SimulationProof <> run_vm def
-R30036:30039 Kernel.MuShannonBridge <> fuel:155 var
-R30041:30045 Kernel.MuShannonBridge <> trace:156 var
-R30047:30047 Kernel.MuShannonBridge <> s:157 var
-R30063:30067 Kernel.VMState <> vm_mu proj
-R30060:30060 Kernel.MuShannonBridge <> s:157 var
-R30178:30221 Kernel.MuShannonBridge <> info_priced_fibered_feasible_reduction_bound thm
-R30178:30221 Kernel.MuShannonBridge <> info_priced_fibered_feasible_reduction_bound thm
-R30239:30298 Kernel.MuShannonBridge <> posterior_representative_reduction_implies_fibered_reduction thm
-R30239:30298 Kernel.MuShannonBridge <> posterior_representative_reduction_implies_fibered_reduction thm
-prf 30844:30873 <> mu_nonnegative_under_execution
-binder 30886:30889 <> fuel:162
-binder 30891:30895 <> trace:163
-binder 30897:30897 <> s:164
-R30933:30936 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R30927:30931 Kernel.VMState <> vm_mu proj
-R30905:30910 Kernel.SimulationProof <> run_vm def
-R30912:30915 Kernel.MuShannonBridge <> fuel:162 var
-R30917:30921 Kernel.MuShannonBridge <> trace:163 var
-R30923:30923 Kernel.MuShannonBridge <> s:164 var
-R30940:30944 Kernel.VMState <> vm_mu proj
-R30937:30937 Kernel.MuShannonBridge <> s:164 var
-R30992:31027 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
-R30992:31027 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
-prf 31282:31298 <> run_vm_map_length
-R31319:31321 Coq.Init.Datatypes <> nat ind
-binder 31312:31315 <> fuel:165
-R31333:31336 Coq.Init.Datatypes <> list ind
-R31338:31351 Kernel.VMStep VMStep vm_instruction ind
-binder 31325:31329 <> trace:166
-R31363:31373 Kernel.MuShannonBridge <> FeasibleSet def
-binder 31355:31359 <> omega:167
-R31419:31421 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R31381:31386 Coq.Init.Datatypes <> length def
-R31389:31391 Coq.Lists.List <> map def
-R31413:31417 Kernel.MuShannonBridge <> omega:167 var
-R31394:31399 Kernel.SimulationProof <> run_vm def
-R31401:31404 Kernel.MuShannonBridge <> fuel:165 var
-R31406:31410 Kernel.MuShannonBridge <> trace:166 var
-R31422:31427 Coq.Init.Datatypes <> length def
-R31429:31433 Kernel.MuShannonBridge <> omega:167 var
-R31478:31487 Coq.Lists.List <> map_length thm
-R31478:31487 Coq.Lists.List <> map_length thm
+R3033:3036 Coq.Lists.List <> <> lib
+R3038:3040 Coq.micromega.Lia <> <> lib
+R3042:3055 Coq.Arith.PeanoNat <> <> lib
+R3057:3073 Coq.Arith.Compare_dec <> <> lib
+R3083:3095 Coq.Lists.List ListNotations <> mod
+R3126:3132 Kernel.VMState <> <> lib
+R3162:3167 Kernel.VMStep <> <> lib
+R3197:3211 Kernel.SimulationProof <> <> lib
+R3241:3260 Kernel.MuLedgerConservation <> <> lib
+R3290:3316 Kernel.MuNoFreeInsightQuantitative <> <> lib
+def 3932:3942 <> FeasibleSet
+R3947:3950 Coq.Init.Datatypes <> list ind
+R3952:3958 Kernel.VMState <> VMState rec
+def 4003:4015 <> feasible_size
+R4026:4036 Kernel.MuShannonBridge <> FeasibleSet def
+binder 4018:4022 <> omega:1
+R4041:4043 Coq.Init.Datatypes <> nat ind
+R4048:4053 Coq.Init.Datatypes <> length def
+R4055:4059 Kernel.MuShannonBridge <> omega:1 var
+def 4158:4170 <> distinguishes
+R4180:4182 Coq.Init.Datatypes <> nat ind
+binder 4173:4176 <> fuel:2
+R4194:4197 Coq.Init.Datatypes <> list ind
+R4199:4212 Kernel.VMStep VMStep vm_instruction ind
+binder 4186:4190 <> trace:3
+R4228:4234 Kernel.VMState <> VMState rec
+binder 4220:4221 <> s1:4
+binder 4223:4224 <> s2:5
+R4269:4272 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4249:4254 Kernel.SimulationProof <> run_vm def
+R4256:4259 Kernel.MuShannonBridge <> fuel:2 var
+R4261:4265 Kernel.MuShannonBridge <> trace:3 var
+R4267:4268 Kernel.MuShannonBridge <> s1:4 var
+R4273:4278 Kernel.SimulationProof <> run_vm def
+R4280:4283 Kernel.MuShannonBridge <> fuel:2 var
+R4285:4289 Kernel.MuShannonBridge <> trace:3 var
+R4291:4292 Kernel.MuShannonBridge <> s2:5 var
+def 4385:4393 <> separates
+R4403:4405 Coq.Init.Datatypes <> nat ind
+binder 4396:4399 <> fuel:6
+R4417:4420 Coq.Init.Datatypes <> list ind
+R4422:4435 Kernel.VMStep VMStep vm_instruction ind
+binder 4409:4413 <> trace:7
+R4451:4461 Kernel.MuShannonBridge <> FeasibleSet def
+binder 4443:4447 <> omega:8
+binder 4483:4484 <> s1:9
+binder 4486:4487 <> s2:10
+R4505:4508 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4494:4495 Coq.Lists.List <> In def
+R4500:4504 Kernel.MuShannonBridge <> omega:8 var
+R4497:4498 Kernel.MuShannonBridge <> s1:9 var
+R4520:4523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4509:4510 Coq.Lists.List <> In def
+R4515:4519 Kernel.MuShannonBridge <> omega:8 var
+R4512:4513 Kernel.MuShannonBridge <> s2:10 var
+R4532:4539 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4526:4529 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4524:4525 Kernel.MuShannonBridge <> s1:9 var
+R4530:4531 Kernel.MuShannonBridge <> s2:10 var
+R4540:4552 Kernel.MuShannonBridge <> distinguishes def
+R4554:4557 Kernel.MuShannonBridge <> fuel:6 var
+R4559:4563 Kernel.MuShannonBridge <> trace:7 var
+R4565:4566 Kernel.MuShannonBridge <> s1:9 var
+R4568:4569 Kernel.MuShannonBridge <> s2:10 var
+prf 5078:5089 <> log2_le_mono
+binder 5100:5100 <> m:11
+binder 5102:5102 <> n:12
+R5111:5114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5106:5109 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5105:5105 Kernel.MuShannonBridge <> m:11 var
+R5110:5110 Kernel.MuShannonBridge <> n:12 var
+R5125:5128 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5115:5122 Coq.Arith.PeanoNat Nat log2 def
+R5124:5124 Kernel.MuShannonBridge <> m:11 var
+R5129:5136 Coq.Arith.PeanoNat Nat log2 def
+R5138:5138 Kernel.MuShannonBridge <> n:12 var
+R5172:5187 Coq.Arith.PeanoNat Nat log2_le_mono thm
+R5172:5187 Coq.Arith.PeanoNat Nat log2_le_mono thm
+prf 5259:5270 <> pow2_log2_le
+binder 5281:5281 <> n:13
+R5290:5293 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5285:5288 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5284:5284 Kernel.MuShannonBridge <> n:13 var
+R5310:5313 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5295:5298 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R5309:5309 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R5299:5306 Coq.Arith.PeanoNat Nat log2 def
+R5308:5308 Kernel.MuShannonBridge <> n:13 var
+R5314:5314 Kernel.MuShannonBridge <> n:13 var
+R5346:5358 Coq.Arith.PeanoNat Nat log2_spec thm
+R5346:5358 Coq.Arith.PeanoNat Nat log2_spec thm
+def 6369:6379 <> info_priced
+R6390:6403 Kernel.VMStep VMStep vm_instruction ind
+binder 6382:6386 <> instr:14
+R6446:6449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6439:6441 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6418:6432 Kernel.VMStep VMStep is_cert_setterb def
+R6434:6438 Kernel.MuShannonBridge <> instr:14 var
+R6442:6445 Coq.Init.Datatypes <> true constr
+R6472:6475 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6450:6465 Kernel.VMStep VMStep instruction_cost def
+R6467:6471 Kernel.MuShannonBridge <> instr:14 var
+def 6547:6563 <> trace_info_priced
+R6574:6577 Coq.Init.Datatypes <> list ind
+R6579:6592 Kernel.VMStep VMStep vm_instruction ind
+binder 6566:6570 <> trace:15
+R6607:6612 Coq.Lists.List <> Forall ind
+R6626:6630 Kernel.MuShannonBridge <> trace:15 var
+R6614:6624 Kernel.MuShannonBridge <> info_priced def
+def 6697:6714 <> count_cert_setters
+R6725:6728 Coq.Init.Datatypes <> list ind
+R6730:6743 Kernel.VMStep VMStep vm_instruction ind
+binder 6717:6721 <> trace:16
+R6748:6750 Coq.Init.Datatypes <> nat ind
+R6763:6767 Kernel.MuShannonBridge <> trace:16 var
+R6778:6779 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6795:6798 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6811:6811 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7043:7046 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6836:6847 Kernel.VMStep VMStep instr_reveal constr
+R6870:6879 Kernel.VMStep VMStep instr_emit constr
+R6904:6916 Kernel.VMStep VMStep instr_lassert constr
+R6940:6952 Kernel.VMStep VMStep instr_certify constr
+R6974:6984 Kernel.VMStep VMStep instr_ljoin constr
+R7047:7064 Kernel.MuShannonBridge <> count_cert_setters:17 def
+prf 7717:7731 <> all_info_priced
+binder 7742:7746 <> instr:20
+R7749:7759 Kernel.MuShannonBridge <> info_priced def
+R7761:7765 Kernel.MuShannonBridge <> instr:20 var
+R7799:7809 Kernel.MuShannonBridge <> info_priced def
+R7835:7861 Kernel.VMStep VMStep cert_setter_cost_pos thm
+R7835:7861 Kernel.VMStep VMStep cert_setter_cost_pos thm
+prf 7966:7987 <> all_traces_info_priced
+binder 7998:8002 <> trace:21
+R8005:8021 Kernel.MuShannonBridge <> trace_info_priced def
+R8023:8027 Kernel.MuShannonBridge <> trace:21 var
+R8060:8072 Coq.Lists.List <> Forall_forall thm
+R8060:8072 Coq.Lists.List <> Forall_forall thm
+R8101:8115 Kernel.MuShannonBridge <> all_info_priced thm
+R8101:8115 Kernel.MuShannonBridge <> all_info_priced thm
+prf 8193:8218 <> delta_mu_equals_ledger_sum
+binder 8231:8234 <> fuel:22
+binder 8236:8240 <> trace:23
+binder 8242:8242 <> s:24
+R8290:8296 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8278:8280 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8272:8276 Kernel.VMState <> vm_mu proj
+R8250:8255 Kernel.SimulationProof <> run_vm def
+R8257:8260 Kernel.MuShannonBridge <> fuel:22 var
+R8262:8266 Kernel.MuShannonBridge <> trace:23 var
+R8268:8268 Kernel.MuShannonBridge <> s:24 var
+R8284:8288 Kernel.VMState <> vm_mu proj
+R8281:8281 Kernel.MuShannonBridge <> s:24 var
+R8297:8306 Kernel.MuLedgerConservation <> ledger_sum def
+R8309:8322 Kernel.MuLedgerConservation <> ledger_entries def
+R8324:8327 Kernel.MuShannonBridge <> fuel:22 var
+R8329:8333 Kernel.MuShannonBridge <> trace:23 var
+R8335:8335 Kernel.MuShannonBridge <> s:24 var
+R8383:8418 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R8383:8418 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+def 9595:9616 <> cert_setter_executions
+R9626:9628 Coq.Init.Datatypes <> nat ind
+binder 9619:9622 <> fuel:25
+R9640:9643 Coq.Init.Datatypes <> list ind
+R9645:9658 Kernel.VMStep VMStep vm_instruction ind
+binder 9632:9636 <> trace:26
+R9670:9676 Kernel.VMState <> VMState rec
+binder 9666:9666 <> s:27
+R9681:9683 Coq.Init.Datatypes <> nat ind
+R9696:9699 Kernel.MuShannonBridge <> fuel:25 var
+R9721:9721 Coq.Init.Datatypes <> S constr
+R9744:9752 Coq.Lists.List <> nth_error def
+R9763:9767 Kernel.VMState <> vm_pc proj
+R9760:9760 Kernel.MuShannonBridge <> s:27 var
+R9754:9758 Kernel.MuShannonBridge <> trace:26 var
+R9783:9786 Coq.Init.Datatypes <> Some constr
+R9807:9807 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9846:9859 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9811:9825 Kernel.VMStep VMStep is_cert_setterb def
+R9860:9881 Kernel.MuShannonBridge <> cert_setter_executions:28 def
+R9896:9903 Kernel.SimulationProof <> vm_apply def
+R9905:9905 Kernel.MuShannonBridge <> s:27 var
+R9889:9893 Kernel.MuShannonBridge <> trace:26 var
+R9922:9925 Coq.Init.Datatypes <> None constr
+prf 10149:10180 <> info_priced_cert_setter_cost_pos
+R10202:10215 Kernel.VMStep VMStep vm_instruction ind
+binder 10194:10198 <> instr:30
+R10251:10258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10244:10246 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10223:10237 Kernel.VMStep VMStep is_cert_setterb def
+R10239:10243 Kernel.MuShannonBridge <> instr:30 var
+R10247:10250 Coq.Init.Datatypes <> true constr
+R10281:10284 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10259:10274 Kernel.VMStep VMStep instruction_cost def
+R10276:10280 Kernel.MuShannonBridge <> instr:30 var
+R10327:10353 Kernel.VMStep VMStep cert_setter_cost_pos thm
+R10327:10353 Kernel.VMStep VMStep cert_setter_cost_pos thm
+prf 10550:10574 <> cert_executions_le_ledger
+R10595:10597 Coq.Init.Datatypes <> nat ind
+binder 10588:10591 <> fuel:31
+R10609:10612 Coq.Init.Datatypes <> list ind
+R10614:10627 Kernel.VMStep VMStep vm_instruction ind
+binder 10601:10605 <> trace:32
+R10635:10641 Kernel.VMState <> VMState rec
+binder 10631:10631 <> s:33
+R10684:10691 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10649:10670 Kernel.MuShannonBridge <> cert_setter_executions def
+R10672:10675 Kernel.MuShannonBridge <> fuel:31 var
+R10677:10681 Kernel.MuShannonBridge <> trace:32 var
+R10683:10683 Kernel.MuShannonBridge <> s:33 var
+R10692:10701 Kernel.MuLedgerConservation <> ledger_sum def
+R10704:10717 Kernel.MuLedgerConservation <> ledger_entries def
+R10719:10722 Kernel.MuShannonBridge <> fuel:31 var
+R10724:10728 Kernel.MuShannonBridge <> trace:32 var
+R10730:10730 Kernel.MuShannonBridge <> s:33 var
+R10819:10827 Coq.Lists.List <> nth_error def
+R10838:10842 Kernel.VMState <> vm_pc proj
+R10819:10827 Coq.Lists.List <> nth_error def
+R10838:10842 Kernel.VMState <> vm_pc proj
+R10903:10910 Kernel.SimulationProof <> vm_apply def
+R10903:10910 Kernel.SimulationProof <> vm_apply def
+R10946:10960 Kernel.VMStep VMStep is_cert_setterb def
+R10946:10960 Kernel.VMStep VMStep is_cert_setterb def
+R11028:11031 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11006:11021 Kernel.VMStep VMStep instruction_cost def
+R11028:11031 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11006:11021 Kernel.VMStep VMStep instruction_cost def
+R11052:11083 Kernel.MuShannonBridge <> info_priced_cert_setter_cost_pos thm
+R11052:11083 Kernel.MuShannonBridge <> info_priced_cert_setter_cost_pos thm
+prf 11506:11538 <> info_priced_cert_executions_bound
+R11559:11561 Coq.Init.Datatypes <> nat ind
+binder 11552:11555 <> fuel:34
+R11573:11576 Coq.Init.Datatypes <> list ind
+R11578:11591 Kernel.VMStep VMStep vm_instruction ind
+binder 11565:11569 <> trace:35
+R11599:11605 Kernel.VMState <> VMState rec
+binder 11595:11595 <> s:36
+R11648:11657 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11613:11634 Kernel.MuShannonBridge <> cert_setter_executions def
+R11636:11639 Kernel.MuShannonBridge <> fuel:34 var
+R11641:11645 Kernel.MuShannonBridge <> trace:35 var
+R11647:11647 Kernel.MuShannonBridge <> s:36 var
+R11687:11689 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11681:11685 Kernel.VMState <> vm_mu proj
+R11659:11664 Kernel.SimulationProof <> run_vm def
+R11666:11669 Kernel.MuShannonBridge <> fuel:34 var
+R11671:11675 Kernel.MuShannonBridge <> trace:35 var
+R11677:11677 Kernel.MuShannonBridge <> s:36 var
+R11693:11697 Kernel.VMState <> vm_mu proj
+R11690:11690 Kernel.MuShannonBridge <> s:36 var
+R11741:11766 Kernel.MuShannonBridge <> delta_mu_equals_ledger_sum thm
+R11741:11766 Kernel.MuShannonBridge <> delta_mu_equals_ledger_sum thm
+R11741:11766 Kernel.MuShannonBridge <> delta_mu_equals_ledger_sum thm
+R11777:11801 Kernel.MuShannonBridge <> cert_executions_le_ledger thm
+R11777:11801 Kernel.MuShannonBridge <> cert_executions_le_ledger thm
+def 12790:12814 <> shannon_entropy_reduction
+R12842:12852 Kernel.MuShannonBridge <> FeasibleSet def
+binder 12817:12826 <> omega_init:37
+binder 12828:12838 <> omega_final:38
+R12857:12859 Coq.Init.Datatypes <> nat ind
+R12901:12905 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R12866:12873 Coq.Arith.PeanoNat Nat log2 def
+R12876:12888 Kernel.MuShannonBridge <> feasible_size def
+R12890:12899 Kernel.MuShannonBridge <> omega_init:37 var
+R12906:12913 Coq.Arith.PeanoNat Nat log2 def
+R12916:12928 Kernel.MuShannonBridge <> feasible_size def
+R12930:12940 Kernel.MuShannonBridge <> omega_final:38 var
+def 14567:14586 <> consistent_reduction
+R14600:14602 Coq.Init.Datatypes <> nat ind
+binder 14593:14596 <> fuel:39
+R14614:14617 Coq.Init.Datatypes <> list ind
+R14619:14632 Kernel.VMStep VMStep vm_instruction ind
+binder 14606:14610 <> trace:40
+R14665:14675 Kernel.MuShannonBridge <> FeasibleSet def
+binder 14640:14649 <> omega_init:41
+binder 14651:14661 <> omega_final:42
+R14692:14698 Kernel.VMState <> VMState rec
+binder 14683:14688 <> s_init:43
+binder 14785:14785 <> s:44
+R14804:14811 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14788:14789 Coq.Lists.List <> In def
+R14793:14803 Kernel.MuShannonBridge <> omega_final:42 var
+R14791:14791 Kernel.MuShannonBridge <> s:44 var
+R14827:14834 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14812:14813 Coq.Lists.List <> In def
+R14817:14826 Kernel.MuShannonBridge <> omega_init:41 var
+R14815:14815 Kernel.MuShannonBridge <> s:44 var
+R14835:14841 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14847:14848 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14842:14846 <> s_out:45
+R14868:14870 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14849:14854 Kernel.SimulationProof <> run_vm def
+R14856:14859 Kernel.MuShannonBridge <> fuel:39 var
+R14861:14865 Kernel.MuShannonBridge <> trace:40 var
+R14867:14867 Kernel.MuShannonBridge <> s:44 var
+R14871:14875 Kernel.MuShannonBridge <> s_out:45 var
+def 14965:14989 <> MuShannonSingleTraceClaim
+R15018:15020 Coq.Init.Datatypes <> nat ind
+binder 15011:15014 <> fuel:46
+R15032:15035 Coq.Init.Datatypes <> list ind
+R15037:15050 Kernel.VMStep VMStep vm_instruction ind
+binder 15024:15028 <> trace:47
+R15072:15078 Kernel.VMState <> VMState rec
+binder 15063:15068 <> s_init:48
+R15116:15126 Kernel.MuShannonBridge <> FeasibleSet def
+binder 15091:15100 <> omega_init:49
+binder 15102:15112 <> omega_final:50
+R15154:15161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15134:15135 Coq.Lists.List <> In def
+R15144:15153 Kernel.MuShannonBridge <> omega_init:49 var
+R15137:15142 Kernel.MuShannonBridge <> s_init:48 var
+R15190:15197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15186:15188 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15162:15174 Kernel.MuShannonBridge <> feasible_size def
+R15176:15185 Kernel.MuShannonBridge <> omega_init:49 var
+R15227:15234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15223:15225 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R15198:15210 Kernel.MuShannonBridge <> feasible_size def
+R15212:15222 Kernel.MuShannonBridge <> omega_final:50 var
+R15288:15295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15260:15263 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15235:15247 Kernel.MuShannonBridge <> feasible_size def
+R15249:15259 Kernel.MuShannonBridge <> omega_final:50 var
+R15264:15276 Kernel.MuShannonBridge <> feasible_size def
+R15278:15287 Kernel.MuShannonBridge <> omega_init:49 var
+R15357:15364 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15296:15315 Kernel.MuShannonBridge <> consistent_reduction def
+R15317:15320 Kernel.MuShannonBridge <> fuel:46 var
+R15322:15326 Kernel.MuShannonBridge <> trace:47 var
+R15328:15337 Kernel.MuShannonBridge <> omega_init:49 var
+R15339:15349 Kernel.MuShannonBridge <> omega_final:50 var
+R15351:15356 Kernel.MuShannonBridge <> s_init:48 var
+R15388:15395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15365:15381 Kernel.MuShannonBridge <> trace_info_priced def
+R15383:15387 Kernel.MuShannonBridge <> trace:47 var
+R15447:15456 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R15430:15432 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15424:15428 Kernel.VMState <> vm_mu proj
+R15397:15402 Kernel.SimulationProof <> run_vm def
+R15404:15407 Kernel.MuShannonBridge <> fuel:46 var
+R15409:15413 Kernel.MuShannonBridge <> trace:47 var
+R15415:15420 Kernel.MuShannonBridge <> s_init:48 var
+R15441:15445 Kernel.VMState <> vm_mu proj
+R15433:15438 Kernel.MuShannonBridge <> s_init:48 var
+R15457:15481 Kernel.MuShannonBridge <> shannon_entropy_reduction def
+R15483:15492 Kernel.MuShannonBridge <> omega_init:49 var
+R15494:15504 Kernel.MuShannonBridge <> omega_final:50 var
+def 15603:15621 <> MuShannonConjecture
+R15633:15657 Kernel.MuShannonBridge <> MuShannonSingleTraceClaim def
+ind 16572:16583 <> DecisionTree
+constr 16597:16603 <> dt_leaf
+constr 16607:16615 <> dt_branch
+R16641:16652 Kernel.MuShannonBridge <> DecisionTree:51 ind
+binder 16618:16626 <> left_tree:53
+binder 16628:16637 <> right_tree:54
+scheme 16572:16583 <> DecisionTree_rect
+scheme 16572:16583 <> DecisionTree_ind
+scheme 16572:16583 <> DecisionTree_rec
+scheme 16572:16583 <> DecisionTree_sind
+def 16666:16684 <> decision_tree_depth
+R16694:16705 Kernel.MuShannonBridge <> DecisionTree ind
+binder 16687:16690 <> tree:55
+R16710:16712 Coq.Init.Datatypes <> nat ind
+R16725:16728 Kernel.MuShannonBridge <> tree:55 var
+R16739:16745 Kernel.MuShannonBridge <> dt_leaf constr
+R16756:16764 Kernel.MuShannonBridge <> dt_branch constr
+R16796:16796 Coq.Init.Datatypes <> S constr
+R16799:16805 Coq.Arith.PeanoNat Nat max def
+R16808:16826 Kernel.MuShannonBridge <> decision_tree_depth:56 def
+R16840:16858 Kernel.MuShannonBridge <> decision_tree_depth:56 def
+def 16890:16913 <> decision_tree_leaf_count
+R16923:16934 Kernel.MuShannonBridge <> DecisionTree ind
+binder 16916:16919 <> tree:58
+R16939:16941 Coq.Init.Datatypes <> nat ind
+R16954:16957 Kernel.MuShannonBridge <> tree:58 var
+R16968:16974 Kernel.MuShannonBridge <> dt_leaf constr
+R16985:16993 Kernel.MuShannonBridge <> dt_branch constr
+R17059:17061 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17025:17048 Kernel.MuShannonBridge <> decision_tree_leaf_count:59 def
+R17062:17085 Kernel.MuShannonBridge <> decision_tree_leaf_count:59 def
+prf 17112:17145 <> decision_tree_leaves_le_pow2_depth
+binder 17158:17161 <> tree:61
+R17197:17200 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17168:17191 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R17193:17196 Kernel.MuShannonBridge <> tree:61 var
+R17202:17204 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R17205:17223 Kernel.MuShannonBridge <> decision_tree_depth def
+R17225:17228 Kernel.MuShannonBridge <> tree:61 var
+R17336:17342 Coq.Arith.PeanoNat Nat max def
+R17345:17363 Kernel.MuShannonBridge <> decision_tree_depth def
+R17372:17390 Kernel.MuShannonBridge <> decision_tree_depth def
+R17336:17342 Coq.Arith.PeanoNat Nat max def
+R17345:17363 Kernel.MuShannonBridge <> decision_tree_depth def
+R17372:17390 Kernel.MuShannonBridge <> decision_tree_depth def
+R17412:17423 Coq.Arith.PeanoNat Nat le_trans thm
+R17412:17423 Coq.Arith.PeanoNat Nat le_trans thm
+R17438:17452 Coq.Arith.PeanoNat Nat add_le_mono thm
+R17438:17452 Coq.Arith.PeanoNat Nat add_le_mono thm
+R17470:17481 Coq.Arith.PeanoNat Nat le_trans thm
+R17470:17481 Coq.Arith.PeanoNat Nat le_trans thm
+R17524:17540 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R17524:17540 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R17602:17613 Coq.Arith.PeanoNat Nat le_max_l thm
+R17602:17613 Coq.Arith.PeanoNat Nat le_max_l thm
+R17631:17642 Coq.Arith.PeanoNat Nat le_trans thm
+R17631:17642 Coq.Arith.PeanoNat Nat le_trans thm
+R17686:17702 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R17686:17702 Coq.Arith.PeanoNat Nat pow_le_mono_r thm
+R17764:17775 Coq.Arith.PeanoNat Nat le_max_r thm
+R17764:17775 Coq.Arith.PeanoNat Nat le_max_r thm
+R17885:17902 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17820:17822 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R17823:17829 Coq.Arith.PeanoNat Nat max def
+R17832:17850 Kernel.MuShannonBridge <> decision_tree_depth def
+R17859:17877 Kernel.MuShannonBridge <> decision_tree_depth def
+R17904:17906 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R17907:17913 Coq.Arith.PeanoNat Nat max def
+R17916:17934 Kernel.MuShannonBridge <> decision_tree_depth def
+R17943:17961 Kernel.MuShannonBridge <> decision_tree_depth def
+R17986:17988 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R17990:17992 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R17993:17999 Coq.Arith.PeanoNat Nat max def
+R18002:18020 Kernel.MuShannonBridge <> decision_tree_depth def
+R18029:18047 Kernel.MuShannonBridge <> decision_tree_depth def
+R17885:17902 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17820:17822 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R17823:17829 Coq.Arith.PeanoNat Nat max def
+R17832:17850 Kernel.MuShannonBridge <> decision_tree_depth def
+R17859:17877 Kernel.MuShannonBridge <> decision_tree_depth def
+R17904:17906 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R17907:17913 Coq.Arith.PeanoNat Nat max def
+R17916:17934 Kernel.MuShannonBridge <> decision_tree_depth def
+R17943:17961 Kernel.MuShannonBridge <> decision_tree_depth def
+R17986:17988 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R17990:17992 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R17993:17999 Coq.Arith.PeanoNat Nat max def
+R18002:18020 Kernel.MuShannonBridge <> decision_tree_depth def
+R18029:18047 Kernel.MuShannonBridge <> decision_tree_depth def
+R18082:18096 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R18082:18096 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+R18082:18096 Coq.Arith.PeanoNat Nat pow_succ_r' thm
+prf 18137:18165 <> decision_tree_log2_leaf_bound
+binder 18178:18181 <> tree:62
+R18228:18231 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R18188:18195 Coq.Arith.PeanoNat Nat log2 def
+R18198:18221 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R18223:18226 Kernel.MuShannonBridge <> tree:62 var
+R18232:18250 Kernel.MuShannonBridge <> decision_tree_depth def
+R18252:18255 Kernel.MuShannonBridge <> tree:62 var
+R18288:18299 Coq.Arith.PeanoNat Nat le_trans thm
+R18288:18299 Coq.Arith.PeanoNat Nat le_trans thm
+R18312:18323 Kernel.MuShannonBridge <> log2_le_mono thm
+R18312:18323 Kernel.MuShannonBridge <> log2_le_mono thm
+R18336:18369 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
+R18336:18369 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
+R18384:18396 Coq.Arith.PeanoNat Nat log2_pow2 thm
+R18384:18396 Coq.Arith.PeanoNat Nat log2_pow2 thm
+R18384:18396 Coq.Arith.PeanoNat Nat log2_pow2 thm
+def 18440:18470 <> decision_tree_realized_by_trace
+R18484:18486 Coq.Init.Datatypes <> nat ind
+binder 18477:18480 <> fuel:63
+R18498:18501 Coq.Init.Datatypes <> list ind
+R18503:18516 Kernel.VMStep VMStep vm_instruction ind
+binder 18490:18494 <> trace:64
+R18524:18530 Kernel.VMState <> VMState rec
+binder 18520:18520 <> s:65
+R18541:18552 Kernel.MuShannonBridge <> DecisionTree ind
+binder 18534:18537 <> tree:66
+R18591:18594 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R18567:18585 Kernel.MuShannonBridge <> decision_tree_depth def
+R18587:18590 Kernel.MuShannonBridge <> tree:66 var
+R18595:18616 Kernel.MuShannonBridge <> cert_setter_executions def
+R18618:18621 Kernel.MuShannonBridge <> fuel:63 var
+R18623:18627 Kernel.MuShannonBridge <> trace:64 var
+R18629:18629 Kernel.MuShannonBridge <> s:65 var
+def 18794:18823 <> tree_covers_feasible_reduction
+R18837:18848 Kernel.MuShannonBridge <> DecisionTree ind
+binder 18830:18833 <> tree:67
+R18882:18892 Kernel.MuShannonBridge <> FeasibleSet def
+binder 18852:18862 <> omega_prior:68
+binder 18864:18878 <> omega_posterior:69
+R18932:18939 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R18907:18919 Kernel.MuShannonBridge <> feasible_size def
+R18921:18931 Kernel.MuShannonBridge <> omega_prior:68 var
+R18969:18971 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18940:18963 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R18965:18968 Kernel.MuShannonBridge <> tree:67 var
+R18972:18984 Kernel.MuShannonBridge <> feasible_size def
+R18986:19000 Kernel.MuShannonBridge <> omega_posterior:69 var
+def 19321:19344 <> FiberedFeasibleReduction
+R19358:19369 Kernel.MuShannonBridge <> DecisionTree ind
+binder 19351:19354 <> tree:70
+R19403:19413 Kernel.MuShannonBridge <> FeasibleSet def
+binder 19373:19383 <> omega_prior:71
+binder 19385:19399 <> omega_posterior:72
+R19428:19434 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19472:19477 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19444:19447 Coq.Init.Datatypes <> list ind
+R19457:19459 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R19450:19456 Kernel.VMState <> VMState rec
+R19460:19470 Kernel.MuShannonBridge <> FeasibleSet def
+binder 19435:19440 <> fibers:73
+R19510:19517 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19492:19494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19478:19480 Coq.Lists.List <> map def
+R19486:19491 Kernel.MuShannonBridge <> fibers:73 var
+R19482:19484 Coq.Init.Datatypes <> fst def
+R19495:19509 Kernel.MuShannonBridge <> omega_posterior:72 var
+R19518:19518 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19628:19636 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19544:19553 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R19519:19531 Kernel.MuShannonBridge <> feasible_size def
+R19533:19543 Kernel.MuShannonBridge <> omega_prior:71 var
+R19554:19563 Coq.Lists.List <> fold_right def
+R19576:19578 Coq.Lists.List <> map def
+R19621:19626 Kernel.MuShannonBridge <> fibers:73 var
+R19586:19586 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19588:19589 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19595:19595 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 19590:19594 <> fiber:74
+binder 19586:19595 <> pat:75
+R19600:19612 Kernel.MuShannonBridge <> feasible_size def
+R19614:19618 Kernel.MuShannonBridge <> fiber:74 var
+R19565:19571 Coq.Arith.PeanoNat Nat add def
+R19637:19642 Coq.Lists.List <> Forall ind
+R19718:19723 Kernel.MuShannonBridge <> fibers:73 var
+R19650:19650 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19652:19653 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19659:19659 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 19654:19658 <> fiber:76
+binder 19650:19659 <> pat:77
+R19683:19686 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R19664:19676 Kernel.MuShannonBridge <> feasible_size def
+R19678:19682 Kernel.MuShannonBridge <> fiber:76 var
+R19687:19710 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R19712:19715 Kernel.MuShannonBridge <> tree:70 var
+def 19738:19756 <> ObservationFunction
+R19768:19771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19761:19767 Kernel.VMState <> VMState rec
+R19772:19775 Coq.Init.Datatypes <> list ind
+R19777:19790 Kernel.VMStep VMStep vm_instruction ind
+def 19805:19821 <> observation_equiv
+R19837:19855 Kernel.MuShannonBridge <> ObservationFunction def
+binder 19828:19833 <> obs_fn:78
+R19867:19873 Kernel.VMState <> VMState rec
+binder 19859:19860 <> s1:79
+binder 19862:19863 <> s2:80
+R19897:19899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19888:19893 Kernel.MuShannonBridge <> obs_fn:78 var
+R19895:19896 Kernel.MuShannonBridge <> s1:79 var
+R19900:19905 Kernel.MuShannonBridge <> obs_fn:78 var
+R19907:19908 Kernel.MuShannonBridge <> s2:80 var
+def 19923:19953 <> posterior_representative_fibers
+R19978:19988 Kernel.MuShannonBridge <> FeasibleSet def
+binder 19960:19974 <> omega_posterior:81
+R20010:20013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20003:20009 Kernel.VMState <> VMState rec
+R20014:20024 Kernel.MuShannonBridge <> FeasibleSet def
+binder 19992:19999 <> fiber_of:82
+R20033:20036 Coq.Init.Datatypes <> list ind
+R20046:20048 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R20039:20045 Kernel.VMState <> VMState rec
+R20049:20059 Kernel.MuShannonBridge <> FeasibleSet def
+R20067:20069 Coq.Lists.List <> map def
+R20113:20127 Kernel.MuShannonBridge <> omega_posterior:81 var
+binder 20076:20081 <> s_post:83
+R20086:20086 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20093:20094 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20110:20110 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20087:20092 Kernel.MuShannonBridge <> s_post:83 var
+R20095:20102 Kernel.MuShannonBridge <> fiber_of:82 var
+R20104:20109 Kernel.MuShannonBridge <> s_post:83 var
+def 20431:20462 <> PosteriorRepresentativeReduction
+R20478:20496 Kernel.MuShannonBridge <> ObservationFunction def
+binder 20469:20474 <> obs_fn:84
+R20511:20522 Kernel.MuShannonBridge <> DecisionTree ind
+binder 20504:20507 <> tree:85
+R20556:20566 Kernel.MuShannonBridge <> FeasibleSet def
+binder 20526:20536 <> omega_prior:86
+binder 20538:20552 <> omega_posterior:87
+R20581:20587 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20621:20626 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20606:20609 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20599:20605 Kernel.VMState <> VMState rec
+R20610:20620 Kernel.MuShannonBridge <> FeasibleSet def
+binder 20588:20595 <> fiber_of:88
+R20627:20627 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20815:20823 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 20635:20641 <> s_prior:89
+R20666:20675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20644:20645 Coq.Lists.List <> In def
+R20655:20665 Kernel.MuShannonBridge <> omega_prior:86 var
+R20647:20653 Kernel.MuShannonBridge <> s_prior:89 var
+R20676:20682 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20689:20698 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20683:20688 <> s_post:90
+R20724:20735 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20699:20700 Coq.Lists.List <> In def
+R20709:20723 Kernel.MuShannonBridge <> omega_posterior:87 var
+R20702:20707 Kernel.MuShannonBridge <> s_post:90 var
+R20764:20775 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20736:20737 Coq.Lists.List <> In def
+R20748:20755 Kernel.MuShannonBridge <> fiber_of:88 var
+R20757:20762 Kernel.MuShannonBridge <> s_post:90 var
+R20739:20745 Kernel.MuShannonBridge <> s_prior:89 var
+R20776:20792 Kernel.MuShannonBridge <> observation_equiv def
+R20794:20799 Kernel.MuShannonBridge <> obs_fn:84 var
+R20801:20807 Kernel.MuShannonBridge <> s_prior:89 var
+R20809:20814 Kernel.MuShannonBridge <> s_post:90 var
+R20824:20824 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20950:20959 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21074:21074 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20850:20859 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20825:20837 Kernel.MuShannonBridge <> feasible_size def
+R20839:20849 Kernel.MuShannonBridge <> omega_prior:86 var
+R20860:20869 Coq.Lists.List <> fold_right def
+R20882:20884 Coq.Lists.List <> map def
+R20934:20948 Kernel.MuShannonBridge <> omega_posterior:87 var
+binder 20891:20896 <> s_post:91
+R20901:20913 Kernel.MuShannonBridge <> feasible_size def
+R20916:20923 Kernel.MuShannonBridge <> fiber_of:88 var
+R20925:20930 Kernel.MuShannonBridge <> s_post:91 var
+R20871:20877 Coq.Arith.PeanoNat Nat add def
+binder 20967:20972 <> s_post:92
+R21000:21009 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20975:20976 Coq.Lists.List <> In def
+R20985:20999 Kernel.MuShannonBridge <> omega_posterior:87 var
+R20978:20983 Kernel.MuShannonBridge <> s_post:92 var
+R21041:21044 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21010:21022 Kernel.MuShannonBridge <> feasible_size def
+R21025:21032 Kernel.MuShannonBridge <> fiber_of:88 var
+R21034:21039 Kernel.MuShannonBridge <> s_post:92 var
+R21045:21068 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R21070:21073 Kernel.MuShannonBridge <> tree:85 var
+prf 21084:21120 <> posterior_representative_fibers_index
+binder 21133:21147 <> omega_posterior:93
+binder 21149:21156 <> fiber_of:94
+R21229:21231 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21163:21165 Coq.Lists.List <> map def
+R21172:21202 Kernel.MuShannonBridge <> posterior_representative_fibers def
+R21204:21218 Kernel.MuShannonBridge <> omega_posterior:93 var
+R21220:21227 Kernel.MuShannonBridge <> fiber_of:94 var
+R21167:21169 Coq.Init.Datatypes <> fst def
+R21232:21246 Kernel.MuShannonBridge <> omega_posterior:93 var
+prf 21389:21427 <> posterior_representative_fibers_bounded
+R21448:21459 Kernel.MuShannonBridge <> DecisionTree ind
+binder 21441:21444 <> tree:95
+R21481:21491 Kernel.MuShannonBridge <> FeasibleSet def
+binder 21463:21477 <> omega_posterior:96
+R21522:21525 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21515:21521 Kernel.VMState <> VMState rec
+R21526:21536 Kernel.MuShannonBridge <> FeasibleSet def
+binder 21504:21511 <> fiber_of:97
+R21544:21544 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21659:21667 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 21552:21557 <> s_post:98
+R21585:21594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21560:21561 Coq.Lists.List <> In def
+R21570:21584 Kernel.MuShannonBridge <> omega_posterior:96 var
+R21563:21568 Kernel.MuShannonBridge <> s_post:98 var
+R21626:21629 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21595:21607 Kernel.MuShannonBridge <> feasible_size def
+R21610:21617 Kernel.MuShannonBridge <> fiber_of:97 var
+R21619:21624 Kernel.MuShannonBridge <> s_post:98 var
+R21630:21653 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R21655:21658 Kernel.MuShannonBridge <> tree:95 var
+R21668:21673 Coq.Lists.List <> Forall ind
+R21756:21786 Kernel.MuShannonBridge <> posterior_representative_fibers def
+R21788:21802 Kernel.MuShannonBridge <> omega_posterior:96 var
+R21804:21811 Kernel.MuShannonBridge <> fiber_of:97 var
+R21681:21681 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21683:21684 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R21690:21690 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 21685:21689 <> fiber:99
+binder 21681:21690 <> pat:100
+R21714:21717 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21695:21707 Kernel.MuShannonBridge <> feasible_size def
+R21709:21713 Kernel.MuShannonBridge <> fiber:99 var
+R21718:21741 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R21743:21746 Kernel.MuShannonBridge <> tree:95 var
+prf 22086:22126 <> posterior_representative_fibers_cover_sum
+binder 22139:22153 <> omega_posterior:101
+binder 22155:22162 <> fiber_of:102
+R22309:22315 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22169:22178 Coq.Lists.List <> fold_right def
+R22197:22199 Coq.Lists.List <> map def
+R22251:22281 Kernel.MuShannonBridge <> posterior_representative_fibers def
+R22283:22297 Kernel.MuShannonBridge <> omega_posterior:101 var
+R22299:22306 Kernel.MuShannonBridge <> fiber_of:102 var
+R22207:22207 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22209:22210 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22216:22216 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 22211:22215 <> fiber:103
+binder 22207:22216 <> pat:104
+R22221:22233 Kernel.MuShannonBridge <> feasible_size def
+R22235:22239 Kernel.MuShannonBridge <> fiber:103 var
+R22180:22186 Coq.Arith.PeanoNat Nat add def
+R22316:22325 Coq.Lists.List <> fold_right def
+R22344:22346 Coq.Lists.List <> map def
+R22396:22410 Kernel.MuShannonBridge <> omega_posterior:101 var
+binder 22353:22358 <> s_post:105
+R22363:22375 Kernel.MuShannonBridge <> feasible_size def
+R22378:22385 Kernel.MuShannonBridge <> fiber_of:102 var
+R22387:22392 Kernel.MuShannonBridge <> s_post:105 var
+R22327:22333 Coq.Arith.PeanoNat Nat add def
+prf 22554:22613 <> posterior_representative_reduction_assigns_observation_equiv
+R22636:22654 Kernel.MuShannonBridge <> ObservationFunction def
+binder 22627:22632 <> obs_fn:106
+R22665:22676 Kernel.MuShannonBridge <> DecisionTree ind
+binder 22658:22661 <> tree:107
+R22719:22729 Kernel.MuShannonBridge <> FeasibleSet def
+binder 22689:22699 <> omega_prior:108
+binder 22701:22715 <> omega_posterior:109
+R22809:22816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22737:22768 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R22770:22775 Kernel.MuShannonBridge <> obs_fn:106 var
+R22777:22780 Kernel.MuShannonBridge <> tree:107 var
+R22782:22792 Kernel.MuShannonBridge <> omega_prior:108 var
+R22794:22808 Kernel.MuShannonBridge <> omega_posterior:109 var
+R22817:22823 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22832:22839 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22824:22831 <> fiber_of:110
+binder 22847:22853 <> s_prior:111
+R22878:22889 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22856:22857 Coq.Lists.List <> In def
+R22867:22877 Kernel.MuShannonBridge <> omega_prior:108 var
+R22859:22865 Kernel.MuShannonBridge <> s_prior:111 var
+R22890:22896 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22903:22914 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22897:22902 <> s_post:112
+R23014:23027 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22915:22916 Coq.Lists.List <> In def
+R22957:22987 Kernel.MuShannonBridge <> posterior_representative_fibers def
+R22989:23003 Kernel.MuShannonBridge <> omega_posterior:109 var
+R23005:23012 Kernel.MuShannonBridge <> fiber_of:110 var
+R22918:22918 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22925:22926 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22942:22942 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R22919:22924 Kernel.MuShannonBridge <> s_post:112 var
+R22927:22934 Kernel.MuShannonBridge <> fiber_of:110 var
+R22936:22941 Kernel.MuShannonBridge <> s_post:112 var
+R23056:23069 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23028:23029 Coq.Lists.List <> In def
+R23040:23047 Kernel.MuShannonBridge <> fiber_of:110 var
+R23049:23054 Kernel.MuShannonBridge <> s_post:112 var
+R23031:23037 Kernel.MuShannonBridge <> s_prior:111 var
+R23070:23086 Kernel.MuShannonBridge <> observation_equiv def
+R23088:23093 Kernel.MuShannonBridge <> obs_fn:106 var
+R23095:23101 Kernel.MuShannonBridge <> s_prior:111 var
+R23103:23108 Kernel.MuShannonBridge <> s_post:112 var
+R23398:23428 Kernel.MuShannonBridge <> posterior_representative_fibers def
+R23441:23450 Coq.Lists.List <> in_map_iff thm
+R23441:23450 Coq.Lists.List <> in_map_iff thm
+R23495:23501 Coq.Init.Logic <> eq_refl constr
+R23495:23501 Coq.Init.Logic <> eq_refl constr
+prf 23561:23584 <> bounded_fiber_sum_le_mul
+R23605:23616 Kernel.MuShannonBridge <> DecisionTree ind
+binder 23598:23601 <> tree:113
+R23629:23632 Coq.Init.Datatypes <> list ind
+R23642:23644 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R23635:23641 Kernel.VMState <> VMState rec
+R23645:23655 Kernel.MuShannonBridge <> FeasibleSet def
+binder 23620:23625 <> fibers:114
+R23751:23758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23664:23669 Coq.Lists.List <> Forall ind
+R23745:23750 Kernel.MuShannonBridge <> fibers:114 var
+R23677:23677 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23679:23680 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23686:23686 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 23681:23685 <> fiber:115
+binder 23677:23686 <> pat:116
+R23710:23713 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R23691:23703 Kernel.MuShannonBridge <> feasible_size def
+R23705:23709 Kernel.MuShannonBridge <> fiber:115 var
+R23714:23737 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R23739:23742 Kernel.MuShannonBridge <> tree:113 var
+R23833:23842 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R23759:23768 Coq.Lists.List <> fold_right def
+R23781:23783 Coq.Lists.List <> map def
+R23826:23831 Kernel.MuShannonBridge <> fibers:114 var
+R23791:23791 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23793:23794 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R23800:23800 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 23795:23799 <> fiber:117
+binder 23791:23800 <> pat:118
+R23805:23817 Kernel.MuShannonBridge <> feasible_size def
+R23819:23823 Kernel.MuShannonBridge <> fiber:117 var
+R23770:23776 Coq.Arith.PeanoNat Nat add def
+R23872:23874 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23843:23866 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R23868:23871 Kernel.MuShannonBridge <> tree:113 var
+R23875:23885 Coq.Lists.List <> length abbrev
+R23887:23892 Kernel.MuShannonBridge <> fibers:114 var
+prf 24037:24072 <> fibered_reduction_implies_tree_cover
+R24093:24104 Kernel.MuShannonBridge <> DecisionTree ind
+binder 24086:24089 <> tree:119
+R24138:24148 Kernel.MuShannonBridge <> FeasibleSet def
+binder 24108:24118 <> omega_prior:120
+binder 24120:24134 <> omega_posterior:121
+R24213:24220 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24156:24179 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
+R24181:24184 Kernel.MuShannonBridge <> tree:119 var
+R24186:24196 Kernel.MuShannonBridge <> omega_prior:120 var
+R24198:24212 Kernel.MuShannonBridge <> omega_posterior:121 var
+R24221:24250 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R24252:24255 Kernel.MuShannonBridge <> tree:119 var
+R24257:24267 Kernel.MuShannonBridge <> omega_prior:120 var
+R24269:24283 Kernel.MuShannonBridge <> omega_posterior:121 var
+R24414:24443 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R24476:24488 Kernel.MuShannonBridge <> feasible_size def
+R24527:24536 Coq.Lists.List <> fold_right def
+R24549:24551 Coq.Lists.List <> map def
+R24559:24559 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R24561:24562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R24568:24568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 24563:24567 <> fiber:122
+binder 24559:24568 <> pat:123
+R24573:24585 Kernel.MuShannonBridge <> feasible_size def
+R24587:24591 Kernel.MuShannonBridge <> fiber:122 var
+R24538:24544 Coq.Arith.PeanoNat Nat add def
+R24499:24510 Coq.Arith.PeanoNat Nat le_trans thm
+R24527:24536 Coq.Lists.List <> fold_right def
+R24549:24551 Coq.Lists.List <> map def
+R24559:24559 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R24561:24562 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R24568:24568 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 24563:24567 <> fiber:124
+binder 24559:24568 <> pat:125
+R24573:24585 Kernel.MuShannonBridge <> feasible_size def
+R24587:24591 Kernel.MuShannonBridge <> fiber:124 var
+R24538:24544 Coq.Arith.PeanoNat Nat add def
+R24499:24510 Coq.Arith.PeanoNat Nat le_trans thm
+R24634:24643 Coq.Lists.List <> map_length thm
+R24634:24643 Coq.Lists.List <> map_length thm
+R24634:24643 Coq.Lists.List <> map_length thm
+R24656:24679 Kernel.MuShannonBridge <> bounded_fiber_sum_le_mul thm
+R24656:24679 Kernel.MuShannonBridge <> bounded_fiber_sum_le_mul thm
+prf 24716:24775 <> posterior_representative_reduction_implies_fibered_reduction
+R24798:24816 Kernel.MuShannonBridge <> ObservationFunction def
+binder 24789:24794 <> obs_fn:126
+R24827:24838 Kernel.MuShannonBridge <> DecisionTree ind
+binder 24820:24823 <> tree:127
+R24881:24891 Kernel.MuShannonBridge <> FeasibleSet def
+binder 24851:24861 <> omega_prior:128
+binder 24863:24877 <> omega_posterior:129
+R24971:24978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24899:24930 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R24932:24937 Kernel.MuShannonBridge <> obs_fn:126 var
+R24939:24942 Kernel.MuShannonBridge <> tree:127 var
+R24944:24954 Kernel.MuShannonBridge <> omega_prior:128 var
+R24956:24970 Kernel.MuShannonBridge <> omega_posterior:129 var
+R24979:25002 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
+R25004:25007 Kernel.MuShannonBridge <> tree:127 var
+R25009:25019 Kernel.MuShannonBridge <> omega_prior:128 var
+R25021:25035 Kernel.MuShannonBridge <> omega_posterior:129 var
+R25163:25193 Kernel.MuShannonBridge <> posterior_representative_fibers def
+R25163:25193 Kernel.MuShannonBridge <> posterior_representative_fibers def
+R25241:25277 Kernel.MuShannonBridge <> posterior_representative_fibers_index thm
+R25241:25277 Kernel.MuShannonBridge <> posterior_representative_fibers_index thm
+R25305:25345 Kernel.MuShannonBridge <> posterior_representative_fibers_cover_sum thm
+R25305:25345 Kernel.MuShannonBridge <> posterior_representative_fibers_cover_sum thm
+R25305:25345 Kernel.MuShannonBridge <> posterior_representative_fibers_cover_sum thm
+R25374:25412 Kernel.MuShannonBridge <> posterior_representative_fibers_bounded thm
+R25374:25412 Kernel.MuShannonBridge <> posterior_representative_fibers_bounded thm
+prf 25447:25479 <> decision_tree_leaf_count_positive
+binder 25492:25495 <> tree:130
+R25531:25533 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R25502:25525 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R25527:25530 Kernel.MuShannonBridge <> tree:130 var
+prf 25586:25617 <> decision_tree_log2_up_leaf_bound
+binder 25630:25633 <> tree:131
+R25683:25686 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R25640:25650 Coq.Arith.PeanoNat Nat log2_up def
+R25653:25676 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R25678:25681 Kernel.MuShannonBridge <> tree:131 var
+R25687:25705 Kernel.MuShannonBridge <> decision_tree_depth def
+R25707:25710 Kernel.MuShannonBridge <> tree:131 var
+R25743:25747 Coq.Init.Logic <> proj1 thm
+R25750:25768 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
+R25775:25798 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R25811:25829 Kernel.MuShannonBridge <> decision_tree_depth def
+R25842:25874 Kernel.MuShannonBridge <> decision_tree_leaf_count_positive thm
+R25743:25747 Coq.Init.Logic <> proj1 thm
+R25750:25768 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
+R25775:25798 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R25811:25829 Kernel.MuShannonBridge <> decision_tree_depth def
+R25842:25874 Kernel.MuShannonBridge <> decision_tree_leaf_count_positive thm
+R25893:25926 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
+R25893:25926 Kernel.MuShannonBridge <> decision_tree_leaves_le_pow2_depth thm
+prf 25943:25978 <> info_priced_decision_tree_leaf_bound
+R25999:26001 Coq.Init.Datatypes <> nat ind
+binder 25992:25995 <> fuel:132
+R26013:26016 Coq.Init.Datatypes <> list ind
+R26018:26031 Kernel.VMStep VMStep vm_instruction ind
+binder 26005:26009 <> trace:133
+R26039:26045 Kernel.VMState <> VMState rec
+binder 26035:26035 <> s:134
+R26056:26067 Kernel.MuShannonBridge <> DecisionTree ind
+binder 26049:26052 <> tree:135
+R26124:26131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26075:26105 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R26107:26110 Kernel.MuShannonBridge <> fuel:132 var
+R26112:26116 Kernel.MuShannonBridge <> trace:133 var
+R26118:26118 Kernel.MuShannonBridge <> s:134 var
+R26120:26123 Kernel.MuShannonBridge <> tree:135 var
+R26172:26181 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R26132:26139 Coq.Arith.PeanoNat Nat log2 def
+R26142:26165 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R26167:26170 Kernel.MuShannonBridge <> tree:135 var
+R26211:26213 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R26205:26209 Kernel.VMState <> vm_mu proj
+R26183:26188 Kernel.SimulationProof <> run_vm def
+R26190:26193 Kernel.MuShannonBridge <> fuel:132 var
+R26195:26199 Kernel.MuShannonBridge <> trace:133 var
+R26201:26201 Kernel.MuShannonBridge <> s:134 var
+R26217:26221 Kernel.VMState <> vm_mu proj
+R26214:26214 Kernel.MuShannonBridge <> s:134 var
+R26275:26305 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R26326:26337 Coq.Arith.PeanoNat Nat le_trans thm
+R26326:26337 Coq.Arith.PeanoNat Nat le_trans thm
+R26350:26378 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
+R26350:26378 Kernel.MuShannonBridge <> decision_tree_log2_leaf_bound thm
+R26392:26403 Coq.Arith.PeanoNat Nat le_trans thm
+R26392:26403 Coq.Arith.PeanoNat Nat le_trans thm
+R26437:26469 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+R26437:26469 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+prf 26486:26529 <> info_priced_decision_tree_log2_up_leaf_bound
+R26550:26552 Coq.Init.Datatypes <> nat ind
+binder 26543:26546 <> fuel:136
+R26564:26567 Coq.Init.Datatypes <> list ind
+R26569:26582 Kernel.VMStep VMStep vm_instruction ind
+binder 26556:26560 <> trace:137
+R26590:26596 Kernel.VMState <> VMState rec
+binder 26586:26586 <> s:138
+R26607:26618 Kernel.MuShannonBridge <> DecisionTree ind
+binder 26600:26603 <> tree:139
+R26675:26682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26626:26656 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R26658:26661 Kernel.MuShannonBridge <> fuel:136 var
+R26663:26667 Kernel.MuShannonBridge <> trace:137 var
+R26669:26669 Kernel.MuShannonBridge <> s:138 var
+R26671:26674 Kernel.MuShannonBridge <> tree:139 var
+R26726:26735 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R26683:26693 Coq.Arith.PeanoNat Nat log2_up def
+R26696:26719 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R26721:26724 Kernel.MuShannonBridge <> tree:139 var
+R26765:26767 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R26759:26763 Kernel.VMState <> vm_mu proj
+R26737:26742 Kernel.SimulationProof <> run_vm def
+R26744:26747 Kernel.MuShannonBridge <> fuel:136 var
+R26749:26753 Kernel.MuShannonBridge <> trace:137 var
+R26755:26755 Kernel.MuShannonBridge <> s:138 var
+R26771:26775 Kernel.VMState <> vm_mu proj
+R26768:26768 Kernel.MuShannonBridge <> s:138 var
+R26829:26859 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R26880:26891 Coq.Arith.PeanoNat Nat le_trans thm
+R26880:26891 Coq.Arith.PeanoNat Nat le_trans thm
+R26904:26935 Kernel.MuShannonBridge <> decision_tree_log2_up_leaf_bound thm
+R26904:26935 Kernel.MuShannonBridge <> decision_tree_log2_up_leaf_bound thm
+R26949:26960 Coq.Arith.PeanoNat Nat le_trans thm
+R26949:26960 Coq.Arith.PeanoNat Nat le_trans thm
+R26994:27026 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+R26994:27026 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+prf 27041:27082 <> tree_cover_implies_log2_up_reduction_bound
+R27103:27114 Kernel.MuShannonBridge <> DecisionTree ind
+binder 27096:27099 <> tree:140
+R27148:27158 Kernel.MuShannonBridge <> FeasibleSet def
+binder 27118:27128 <> omega_prior:141
+binder 27130:27144 <> omega_posterior:142
+R27199:27206 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27195:27197 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R27166:27178 Kernel.MuShannonBridge <> feasible_size def
+R27180:27194 Kernel.MuShannonBridge <> omega_posterior:142 var
+R27270:27277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27207:27236 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R27238:27241 Kernel.MuShannonBridge <> tree:140 var
+R27243:27253 Kernel.MuShannonBridge <> omega_prior:141 var
+R27255:27269 Kernel.MuShannonBridge <> omega_posterior:142 var
+R27369:27376 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R27317:27325 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R27278:27288 Coq.Arith.PeanoNat Nat log2_up def
+R27291:27303 Kernel.MuShannonBridge <> feasible_size def
+R27305:27315 Kernel.MuShannonBridge <> omega_prior:141 var
+R27326:27336 Coq.Arith.PeanoNat Nat log2_up def
+R27339:27351 Kernel.MuShannonBridge <> feasible_size def
+R27353:27367 Kernel.MuShannonBridge <> omega_posterior:142 var
+R27377:27387 Coq.Arith.PeanoNat Nat log2_up def
+R27390:27413 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R27415:27418 Kernel.MuShannonBridge <> tree:140 var
+R27494:27523 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R27597:27604 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R27558:27568 Coq.Arith.PeanoNat Nat log2_up def
+R27571:27583 Kernel.MuShannonBridge <> feasible_size def
+R27605:27615 Coq.Arith.PeanoNat Nat log2_up def
+R27647:27649 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R27618:27641 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R27650:27662 Kernel.MuShannonBridge <> feasible_size def
+R27597:27604 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R27558:27568 Coq.Arith.PeanoNat Nat log2_up def
+R27571:27583 Kernel.MuShannonBridge <> feasible_size def
+R27605:27615 Coq.Arith.PeanoNat Nat log2_up def
+R27647:27649 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R27618:27641 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R27650:27662 Kernel.MuShannonBridge <> feasible_size def
+R27693:27711 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
+R27693:27711 Coq.Arith.PeanoNat Nat log2_up_le_mono thm
+R27826:27833 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R27751:27761 Coq.Arith.PeanoNat Nat log2_up def
+R27793:27795 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R27764:27787 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R27796:27808 Kernel.MuShannonBridge <> feasible_size def
+R27877:27879 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R27834:27844 Coq.Arith.PeanoNat Nat log2_up def
+R27847:27870 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R27880:27890 Coq.Arith.PeanoNat Nat log2_up def
+R27893:27905 Kernel.MuShannonBridge <> feasible_size def
+R27826:27833 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R27751:27761 Coq.Arith.PeanoNat Nat log2_up def
+R27793:27795 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R27764:27787 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R27796:27808 Kernel.MuShannonBridge <> feasible_size def
+R27877:27879 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R27834:27844 Coq.Arith.PeanoNat Nat log2_up def
+R27847:27870 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R27880:27890 Coq.Arith.PeanoNat Nat log2_up def
+R27893:27905 Kernel.MuShannonBridge <> feasible_size def
+R27936:27956 Coq.Arith.PeanoNat Nat log2_up_mul_above thm
+R27936:27956 Coq.Arith.PeanoNat Nat log2_up_mul_above thm
+prf 27987:28032 <> info_priced_arbitrary_feasible_reduction_bound
+R28053:28055 Coq.Init.Datatypes <> nat ind
+binder 28046:28049 <> fuel:143
+R28067:28070 Coq.Init.Datatypes <> list ind
+R28072:28085 Kernel.VMStep VMStep vm_instruction ind
+binder 28059:28063 <> trace:144
+R28093:28099 Kernel.VMState <> VMState rec
+binder 28089:28089 <> s:145
+R28142:28152 Kernel.MuShannonBridge <> FeasibleSet def
+binder 28112:28122 <> omega_prior:146
+binder 28124:28138 <> omega_posterior:147
+R28163:28174 Kernel.MuShannonBridge <> DecisionTree ind
+binder 28156:28159 <> tree:148
+R28231:28238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28182:28212 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R28214:28217 Kernel.MuShannonBridge <> fuel:143 var
+R28219:28223 Kernel.MuShannonBridge <> trace:144 var
+R28225:28225 Kernel.MuShannonBridge <> s:145 var
+R28227:28230 Kernel.MuShannonBridge <> tree:148 var
+R28272:28279 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28268:28270 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R28239:28251 Kernel.MuShannonBridge <> feasible_size def
+R28253:28267 Kernel.MuShannonBridge <> omega_posterior:147 var
+R28343:28350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28280:28309 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R28311:28314 Kernel.MuShannonBridge <> tree:148 var
+R28316:28326 Kernel.MuShannonBridge <> omega_prior:146 var
+R28328:28342 Kernel.MuShannonBridge <> omega_posterior:147 var
+R28442:28451 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R28390:28398 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R28351:28361 Coq.Arith.PeanoNat Nat log2_up def
+R28364:28376 Kernel.MuShannonBridge <> feasible_size def
+R28378:28388 Kernel.MuShannonBridge <> omega_prior:146 var
+R28399:28409 Coq.Arith.PeanoNat Nat log2_up def
+R28412:28424 Kernel.MuShannonBridge <> feasible_size def
+R28426:28440 Kernel.MuShannonBridge <> omega_posterior:147 var
+R28481:28483 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R28475:28479 Kernel.VMState <> vm_mu proj
+R28453:28458 Kernel.SimulationProof <> run_vm def
+R28460:28463 Kernel.MuShannonBridge <> fuel:143 var
+R28465:28469 Kernel.MuShannonBridge <> trace:144 var
+R28471:28471 Kernel.MuShannonBridge <> s:145 var
+R28487:28491 Kernel.VMState <> vm_mu proj
+R28484:28484 Kernel.MuShannonBridge <> s:145 var
+R28586:28597 Coq.Arith.PeanoNat Nat le_trans thm
+R28586:28597 Coq.Arith.PeanoNat Nat le_trans thm
+R28610:28651 Kernel.MuShannonBridge <> tree_cover_implies_log2_up_reduction_bound thm
+R28610:28651 Kernel.MuShannonBridge <> tree_cover_implies_log2_up_reduction_bound thm
+R28671:28714 Kernel.MuShannonBridge <> info_priced_decision_tree_log2_up_leaf_bound thm
+R28671:28714 Kernel.MuShannonBridge <> info_priced_decision_tree_log2_up_leaf_bound thm
+prf 28743:28786 <> info_priced_fibered_feasible_reduction_bound
+R28807:28809 Coq.Init.Datatypes <> nat ind
+binder 28800:28803 <> fuel:149
+R28821:28824 Coq.Init.Datatypes <> list ind
+R28826:28839 Kernel.VMStep VMStep vm_instruction ind
+binder 28813:28817 <> trace:150
+R28847:28853 Kernel.VMState <> VMState rec
+binder 28843:28843 <> s:151
+R28896:28906 Kernel.MuShannonBridge <> FeasibleSet def
+binder 28866:28876 <> omega_prior:152
+binder 28878:28892 <> omega_posterior:153
+R28917:28928 Kernel.MuShannonBridge <> DecisionTree ind
+binder 28910:28913 <> tree:154
+R28985:28992 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28936:28966 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R28968:28971 Kernel.MuShannonBridge <> fuel:149 var
+R28973:28977 Kernel.MuShannonBridge <> trace:150 var
+R28979:28979 Kernel.MuShannonBridge <> s:151 var
+R28981:28984 Kernel.MuShannonBridge <> tree:154 var
+R29026:29033 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29022:29024 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R28993:29005 Kernel.MuShannonBridge <> feasible_size def
+R29007:29021 Kernel.MuShannonBridge <> omega_posterior:153 var
+R29091:29098 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29034:29057 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
+R29059:29062 Kernel.MuShannonBridge <> tree:154 var
+R29064:29074 Kernel.MuShannonBridge <> omega_prior:152 var
+R29076:29090 Kernel.MuShannonBridge <> omega_posterior:153 var
+R29190:29199 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R29138:29146 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R29099:29109 Coq.Arith.PeanoNat Nat log2_up def
+R29112:29124 Kernel.MuShannonBridge <> feasible_size def
+R29126:29136 Kernel.MuShannonBridge <> omega_prior:152 var
+R29147:29157 Coq.Arith.PeanoNat Nat log2_up def
+R29160:29172 Kernel.MuShannonBridge <> feasible_size def
+R29174:29188 Kernel.MuShannonBridge <> omega_posterior:153 var
+R29229:29231 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R29223:29227 Kernel.VMState <> vm_mu proj
+R29201:29206 Kernel.SimulationProof <> run_vm def
+R29208:29211 Kernel.MuShannonBridge <> fuel:149 var
+R29213:29217 Kernel.MuShannonBridge <> trace:150 var
+R29219:29219 Kernel.MuShannonBridge <> s:151 var
+R29235:29239 Kernel.VMState <> vm_mu proj
+R29232:29232 Kernel.MuShannonBridge <> s:151 var
+R29336:29381 Kernel.MuShannonBridge <> info_priced_arbitrary_feasible_reduction_bound thm
+R29336:29381 Kernel.MuShannonBridge <> info_priced_arbitrary_feasible_reduction_bound thm
+R29399:29434 Kernel.MuShannonBridge <> fibered_reduction_implies_tree_cover thm
+R29399:29434 Kernel.MuShannonBridge <> fibered_reduction_implies_tree_cover thm
+prf 29469:29520 <> info_priced_posterior_representative_reduction_bound
+R29541:29543 Coq.Init.Datatypes <> nat ind
+binder 29534:29537 <> fuel:155
+R29555:29558 Coq.Init.Datatypes <> list ind
+R29560:29573 Kernel.VMStep VMStep vm_instruction ind
+binder 29547:29551 <> trace:156
+R29581:29587 Kernel.VMState <> VMState rec
+binder 29577:29577 <> s:157
+R29630:29640 Kernel.MuShannonBridge <> FeasibleSet def
+binder 29600:29610 <> omega_prior:158
+binder 29612:29626 <> omega_posterior:159
+R29651:29662 Kernel.MuShannonBridge <> DecisionTree ind
+binder 29644:29647 <> tree:160
+R29684:29702 Kernel.MuShannonBridge <> ObservationFunction def
+binder 29675:29680 <> obs_fn:161
+R29759:29766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29710:29740 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R29742:29745 Kernel.MuShannonBridge <> fuel:155 var
+R29747:29751 Kernel.MuShannonBridge <> trace:156 var
+R29753:29753 Kernel.MuShannonBridge <> s:157 var
+R29755:29758 Kernel.MuShannonBridge <> tree:160 var
+R29800:29807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29796:29798 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R29767:29779 Kernel.MuShannonBridge <> feasible_size def
+R29781:29795 Kernel.MuShannonBridge <> omega_posterior:159 var
+R29880:29887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29808:29839 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R29841:29846 Kernel.MuShannonBridge <> obs_fn:161 var
+R29848:29851 Kernel.MuShannonBridge <> tree:160 var
+R29853:29863 Kernel.MuShannonBridge <> omega_prior:158 var
+R29865:29879 Kernel.MuShannonBridge <> omega_posterior:159 var
+R29979:29988 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R29927:29935 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R29888:29898 Coq.Arith.PeanoNat Nat log2_up def
+R29901:29913 Kernel.MuShannonBridge <> feasible_size def
+R29915:29925 Kernel.MuShannonBridge <> omega_prior:158 var
+R29936:29946 Coq.Arith.PeanoNat Nat log2_up def
+R29949:29961 Kernel.MuShannonBridge <> feasible_size def
+R29963:29977 Kernel.MuShannonBridge <> omega_posterior:159 var
+R30018:30020 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R30012:30016 Kernel.VMState <> vm_mu proj
+R29990:29995 Kernel.SimulationProof <> run_vm def
+R29997:30000 Kernel.MuShannonBridge <> fuel:155 var
+R30002:30006 Kernel.MuShannonBridge <> trace:156 var
+R30008:30008 Kernel.MuShannonBridge <> s:157 var
+R30024:30028 Kernel.VMState <> vm_mu proj
+R30021:30021 Kernel.MuShannonBridge <> s:157 var
+R30139:30182 Kernel.MuShannonBridge <> info_priced_fibered_feasible_reduction_bound thm
+R30139:30182 Kernel.MuShannonBridge <> info_priced_fibered_feasible_reduction_bound thm
+R30200:30259 Kernel.MuShannonBridge <> posterior_representative_reduction_implies_fibered_reduction thm
+R30200:30259 Kernel.MuShannonBridge <> posterior_representative_reduction_implies_fibered_reduction thm
+prf 30805:30834 <> mu_nonnegative_under_execution
+binder 30847:30850 <> fuel:162
+binder 30852:30856 <> trace:163
+binder 30858:30858 <> s:164
+R30894:30897 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R30888:30892 Kernel.VMState <> vm_mu proj
+R30866:30871 Kernel.SimulationProof <> run_vm def
+R30873:30876 Kernel.MuShannonBridge <> fuel:162 var
+R30878:30882 Kernel.MuShannonBridge <> trace:163 var
+R30884:30884 Kernel.MuShannonBridge <> s:164 var
+R30901:30905 Kernel.VMState <> vm_mu proj
+R30898:30898 Kernel.MuShannonBridge <> s:164 var
+R30953:30988 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+R30953:30988 Kernel.MuLedgerConservation <> bounded_model_mu_ledger_conservation thm
+prf 31243:31259 <> run_vm_map_length
+R31280:31282 Coq.Init.Datatypes <> nat ind
+binder 31273:31276 <> fuel:165
+R31294:31297 Coq.Init.Datatypes <> list ind
+R31299:31312 Kernel.VMStep VMStep vm_instruction ind
+binder 31286:31290 <> trace:166
+R31324:31334 Kernel.MuShannonBridge <> FeasibleSet def
+binder 31316:31320 <> omega:167
+R31380:31382 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31342:31347 Coq.Init.Datatypes <> length def
+R31350:31352 Coq.Lists.List <> map def
+R31374:31378 Kernel.MuShannonBridge <> omega:167 var
+R31355:31360 Kernel.SimulationProof <> run_vm def
+R31362:31365 Kernel.MuShannonBridge <> fuel:165 var
+R31367:31371 Kernel.MuShannonBridge <> trace:166 var
+R31383:31388 Coq.Init.Datatypes <> length def
+R31390:31394 Kernel.MuShannonBridge <> omega:167 var
+R31439:31448 Coq.Lists.List <> map_length thm
+R31439:31448 Coq.Lists.List <> map_length thm

@@ -7,7 +7,7 @@
     This file proves LOCAL bounds: each instruction's μ-cost bounds its information
     loss. Global conservation → local cost model.
 
-    THE KEY THEOREM (to be proven in this file):
+    THE KEY THEOREM:
     For each instruction i executing s → s', the information loss
     (distinct_obs(s) - distinct_obs(s')) ≤ instr_mu_cost(i).
 
@@ -760,9 +760,14 @@ Qed.
     is pmerge, which loses at most 2 modules. Well-formed programs
     allocate cost >= 2 for pmerge to cover this information loss.
     
-    NEXT STEPS:
-    - Complete graph operation analysis for module count changes
-    - Prove info_loss >= 0 from FiniteInformation.v's info_nonincreasing
-    - Connect to partition-native algorithm optimality
+    OPEN:
+    - Graph operation module count analysis is complete in this file
+    - FiniteInformation.info_nonincreasing proves info conservation for
+      finite state spaces; VMState is infinite, so direct instantiation
+      would require restricting to bounded subgraphs.  HOWEVER, this
+      bridge is UNNECESSARY: causality_implies_conservation (below) proves
+      cost-bounds-info-loss for VMState DIRECTLY, without going through
+      FiniteInformation, using per-instruction module-count analysis.
+    - Partition-native optimality connection requires constrained optimization
     
     ========================================================================= *)

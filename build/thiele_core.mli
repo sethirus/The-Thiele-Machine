@@ -529,7 +529,8 @@ type morphTableEntry = { morph_entry_source : int; morph_entry_target :
                          morph_entry_is_identity : bool }
 
 type couplingDescriptorEntry = { coupling_desc_base : int;
-                                 coupling_desc_count : int }
+                                 coupling_desc_count : int;
+                                 coupling_desc_label : char list }
 
 type couplingPairEntry = { coupling_pair_source : int;
                            coupling_pair_target : int }
@@ -592,6 +593,7 @@ type kamiSnapshot = { snap_pc : int; snap_mu : int; snap_err : bool;
                       snap_wc_diff_01 : int; snap_wc_same_10 : int;
                       snap_wc_diff_10 : int; snap_wc_same_11 : int;
                       snap_wc_diff_11 : int;
+                      snap_module_tensors : (int -> int -> int);
                       snap_rich_state : richSnapshotState;
                       snap_csr_cert_addr : int; snap_csr_status : int;
                       snap_csr_err : int; snap_csr_heap_base : int;

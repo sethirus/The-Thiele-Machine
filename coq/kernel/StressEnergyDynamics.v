@@ -284,10 +284,10 @@ Qed.
     3. ✓ PNEW frequency ≤ 1 (pnew_frequency_bounded)
     4. ✓ Information-gravity coupling exists (information_gravity_coupling)
 
-    WHAT'S NEXT:
-    - Prove topology change from PNEW (discrete Euler characteristic)
-    - Connect topology to curvature via Gauss-Bonnet
-    - Close the loop: stress-energy → PNEW → topology → curvature
+    COMPLETED (pipeline closed):
+    - PNEWTopologyChange.v (Phase 3): PNEW changes Euler characteristic
+    - TopologyCurvatureBridge.v (Phase 4): curvature via Gauss-Bonnet
+    - EinsteinEmergence.v (Phase 6): chains all six phases
 
     This completes Phase 5 of the gravity proof.
 *)

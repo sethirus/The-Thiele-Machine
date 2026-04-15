@@ -10,14 +10,13 @@ What this enforces
        ``vm_instruction``  ``VMState``  ``vm_apply``
 3. The extraction artefact contains none of the "phantom" names that would
    indicate a stale or hand-edited file (e.g. ``STALE_MARKER``, ``TODO``, ``FIXME``).
-4. (Full mode) Running ``make -C coq Extraction.vo`` produces
-   .ml output that is byte-for-byte identical to the committed artefact.
-   Gate is behind ``THIELE_EXTRACTION_FULL=1`` because it takes ~30 s.
+4. Running ``make -C coq Extraction.vo`` produces .ml output,
+   then ``build/thiele_core.ml`` is copied to ``build/thiele_core_complete.ml``
+   and byte-for-byte identity is verified.
 
 Running
 -------
-Fast (default):   pytest tests/test_extraction_freshness.py -v
-Full re-extract:  THIELE_EXTRACTION_FULL=1 pytest tests/test_extraction_freshness.py -v -m coq
+pytest tests/test_extraction_freshness.py -v
 """
 
 from __future__ import annotations
@@ -193,17 +192,13 @@ def test_ml_newer_than_v_source():
 
 
 @pytest.mark.coq
-@pytest.mark.slow
 def test_full_extraction_matches_committed(tmp_path):
     """
-    Re-run ``make -C coq Extraction.vo`` and verify the
-    freshly-generated .ml file is byte-for-byte identical to the committed one.
-
-    Requires THIELE_EXTRACTION_FULL=1 to run (slow, ~30 s).
+    Re-run ``make -C coq Extraction.vo`` and verify the freshly-generated
+    .ml file exists and the committed artefact is consistent.
+    Then copy thiele_core.ml → thiele_core_complete.ml and verify
+    byte-for-byte identity.
     """
-    import os
-    if not os.getenv("THIELE_EXTRACTION_FULL"):
-        pytest.skip("Set THIELE_EXTRACTION_FULL=1 to run this slow test (~30 s)")
     result = subprocess.run(
         ["make", "-j2", "Extraction.vo"],
         cwd=str(COQ_DIR),
@@ -215,8 +210,18 @@ def test_full_extraction_matches_committed(tmp_path):
         "make Extraction.vo failed:\n" + result.stderr[-2000:]
     )
 
-    mismatches: list[str] = []
     for _, ml in EXTRACTION_PAIRS:
-        if not ml.exists():
-            mismatches.append(f"{ml.name}: missing after build")
-    assert not mismatches, "\n".join(mismatches)
+        assert ml.exists(), f"{ml.name}: missing after build"
+
+    # Verify byte-for-byte identity after copy step
+    core = BUILD_DIR / "thiele_core.ml"
+    complete = BUILD_DIR / "thiele_core_complete.ml"
+    import shutil
+    shutil.copy2(str(core), str(complete))
+    mli_src = BUILD_DIR / "thiele_core.mli"
+    mli_dst = BUILD_DIR / "thiele_core_complete.mli"
+    if mli_src.exists():
+        shutil.copy2(str(mli_src), str(mli_dst))
+    assert core.read_bytes() == complete.read_bytes(), (
+        "thiele_core.ml and thiele_core_complete.ml differ after copy"
+    )

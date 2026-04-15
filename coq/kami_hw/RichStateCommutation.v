@@ -2,7 +2,7 @@
     operations in kami_step and graph operations in SimulationProof.vm_apply.
 
     These lemmas are the proof backbone for extending embed_step to all 47
-    opcodes (M4 in UNIFICATION_ROADMAP.md).
+    opcodes.
 
     STATUS: Zero Admitted.
 
@@ -467,10 +467,13 @@ Lemma morph_add_commutation :
        {| morph_source := src;
           morph_target := dst;
           morph_coupling :=
-            normalize_coupling
               {| coupling_pairs :=
                    snapshot_coupling_pairs_from_desc rs coupling_desc;
-                 coupling_label := coupling_label empty_coupling_data |};
+                 coupling_label :=
+                   match rich_coupling_desc_table rs coupling_desc with
+                   | Some desc => coupling_desc_label desc
+                   | None => coupling_label empty_coupling_data
+                   end |};
           morph_is_identity := is_id |})
       :: snapshot_morphisms_of_rich_state rs.
 Proof.
@@ -595,33 +598,13 @@ Proof.
   try (unfold kami_advance_rich_noret; simpl; split; reflexivity);
   try (unfold kami_advance_err; simpl; split; reflexivity);
   try (unfold kami_advance_cert_addr; simpl; split; reflexivity);
-  try (simpl; split; reflexivity).
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end; simpl; split; reflexivity.
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end; simpl;
-    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
-    try (unfold kami_advance_err; simpl; split; reflexivity).
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end; simpl;
-    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
-    try (unfold kami_advance_err; simpl; split; reflexivity).
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end; simpl;
-    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
-    try (unfold kami_advance_err; simpl; split; reflexivity).
-  - destruct (rich_morph_table _ _);
-    [ unfold kami_advance_rich_noret; simpl; split; reflexivity
-    | unfold kami_advance_err; simpl; split; reflexivity ].
-  - destruct (rich_morph_table _ _);
-    [ unfold kami_advance_cert_addr; simpl; split; reflexivity
-    | unfold kami_advance_err; simpl; split; reflexivity ].
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end; simpl;
-    try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
-    try (unfold kami_advance_err; simpl; split; reflexivity).
-  - repeat match goal with |- context [match ?x with _ => _ end] =>
-      destruct x end; simpl;
-    try (unfold kami_advance_reg; simpl; split; reflexivity);
-    try (unfold kami_advance_err; simpl; split; reflexivity).
+  try (simpl; split; reflexivity);
+  try (repeat match goal with |- context [match ?x with _ => _ end] =>
+         destruct x end; simpl;
+       try (unfold kami_advance_rich_morph; simpl; split; reflexivity);
+       try (unfold kami_advance_err; simpl; split; reflexivity);
+       try (unfold kami_advance_rich_noret; simpl; split; reflexivity);
+       try (unfold kami_advance_cert_addr; simpl; split; reflexivity);
+       try (unfold kami_advance_reg; simpl; split; reflexivity);
+       try (split; reflexivity)).
 Qed.

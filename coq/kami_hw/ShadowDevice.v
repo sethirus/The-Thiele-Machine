@@ -3,9 +3,8 @@
     Abstract interface for devices whose classical observation equals the
     classical shadow of their embedded Thiele VM state.
 
-    This is Phase 2 of the second-phase roadmap: extract the minimal
-    abstract interface already satisfied by the Thiele RTL, then state
-    the class-level theorem.
+    Extracts the minimal abstract interface already satisfied by the Thiele
+    RTL, then states the class-level theorem.
 
     DESIGN:
 
@@ -58,14 +57,14 @@ Definition thiele_rtl_shadow_device : ShadowDevice :=
      sd_embed  := abs_phase1 ;
      sd_embed_shadow_compat := hardware_shadow_compat |}.
 
-(** * Device-class theorem (Phase 3 seed)
+(** * Device-class theorem
 
     Every [ShadowDevice] satisfies the shadow compatibility invariant.
     Follows immediately from the record field — the theorem is here to
     make the class-level statement explicit and separately named.
 
-    This is the "Phase 3 seed": any future device satisfying the interface
-    is automatically a Thiele-shadow device. *)
+    Any device satisfying the interface is automatically a
+    Thiele-shadow device. *)
 Theorem every_shadow_device_satisfies_compat :
   forall (D : ShadowDevice) (d : D.(sd_state)),
     D.(sd_obs) d = shadow_proj (D.(sd_embed) d).
@@ -115,9 +114,7 @@ Qed.
     DESIGN DECISION: [dsd_step_embed] is scoped to instructions
     satisfying a class-provided predicate [dsd_supported].  This
     avoids requiring the RTL to commute on ALL 47 opcodes (some
-    diverge by design — see EmbedStep.v header).
-
-    Phase 2 of the third-phase roadmap. *)
+    diverge by design — see EmbedStep.v header). *)
 Record DynamicShadowDevice := {
   dsd_state     : Type ;
   dsd_obs       : dsd_state -> ClassicalState ;

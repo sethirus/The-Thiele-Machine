@@ -341,6 +341,13 @@ Qed.
     ANY positive-temperature Clausius relation dQ = T·dS gives the discrete
     Einstein target. The variable is fully closed.
 
+    NOTE: This definition aliases the VACUOUS 2D version of the proof —
+    the Clausius parameters (dQ, dS, T) are accepted for interface compatibility
+    but not used, because 2D Gauss-Bonnet (einstein_emerges) does not require
+    them.  The substantive 4D proof where Clausius IS structurally load-bearing
+    is clausius_load_bearing_einstein_4d in ThermoEinsteinBridge.v.  This alias
+    is retained here for backward compatibility with the chain summary record.
+
     CONSEQUENCE: the Jacobson-side Raychaudhuri discharge is closed. The
     stronger entry theorem [nfi_to_discrete_einstein_from_bekenstein_calibration]
     removes the raw null-flux equality as a top-level premise.

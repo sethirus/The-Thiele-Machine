@@ -36,7 +36,7 @@ From Kernel Require Import MuCostModel.
     See quantum_admissible_implies_no_supra_cert for the main result. *)
 
 (** =========================================================================
-    TEMPORARY DEFINITIONS FOR CERTIFICATION INTEGRATION
+    CERTIFICATION INTERFACE DEFINITIONS
     =========================================================================
 
     These definitions provide the interface that Certification.v requires.
@@ -208,5 +208,5 @@ Proof.
 Qed.
 
 (** =========================================================================
-    END TEMPORARY DEFINITIONS
+    END CERTIFICATION INTERFACE DEFINITIONS
     ========================================================================= *)
