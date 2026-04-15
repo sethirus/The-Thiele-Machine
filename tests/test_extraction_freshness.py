@@ -196,8 +196,8 @@ def test_full_extraction_matches_committed(tmp_path):
     """
     Re-run ``make -C coq Extraction.vo`` and verify the freshly-generated
     .ml file exists and the committed artefact is consistent.
-    Then copy thiele_core.ml → thiele_core_complete.ml and verify
-    byte-for-byte identity.
+    Then verify thiele_core_complete.ml (produced by ThieleMachineComplete.v)
+    is isomorphic to thiele_core.ml — same functions, same code, same content.
     """
     result = subprocess.run(
         ["make", "-j2", "Extraction.vo"],
@@ -213,15 +213,20 @@ def test_full_extraction_matches_committed(tmp_path):
     for _, ml in EXTRACTION_PAIRS:
         assert ml.exists(), f"{ml.name}: missing after build"
 
-    # Verify byte-for-byte identity after copy step
+    # Verify isomorphic identity: thiele_core_complete.ml (extracted by
+    # ThieleMachineComplete.v) contains the exact same OCaml code as
+    # thiele_core.ml (extracted by Extraction.v). Coq's extraction engine
+    # may reorder functions depending on compilation context, so we verify
+    # sorted-line identity (same content, potentially different layout).
     core = BUILD_DIR / "thiele_core.ml"
     complete = BUILD_DIR / "thiele_core_complete.ml"
-    import shutil
-    shutil.copy2(str(core), str(complete))
-    mli_src = BUILD_DIR / "thiele_core.mli"
-    mli_dst = BUILD_DIR / "thiele_core_complete.mli"
-    if mli_src.exists():
-        shutil.copy2(str(mli_src), str(mli_dst))
-    assert core.read_bytes() == complete.read_bytes(), (
-        "thiele_core.ml and thiele_core_complete.ml differ after copy"
+    assert complete.exists(), (
+        "thiele_core_complete.ml missing — "
+        "ThieleMachineComplete.v must be compiled first"
+    )
+    core_sorted = sorted(core.read_text(encoding="utf-8").splitlines())
+    complete_sorted = sorted(complete.read_text(encoding="utf-8").splitlines())
+    assert core_sorted == complete_sorted, (
+        "thiele_core.ml and thiele_core_complete.ml are NOT isomorphic — "
+        "sorted-line diff is non-empty"
     )
