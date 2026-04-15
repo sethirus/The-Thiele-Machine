@@ -259,7 +259,6 @@ def test_coqproject_count_matches_v_files():
     # are legitimately absent from _CoqProject.
     DISK_EXCLUDE: set[str] = {
         "kernel/Test.v",  # trivial `Check einstein_tensor.` scratch file
-        "kernel/TsirelsonLowerBound.v",  # deprecated: incorrect CHSH claims (see file header)
     }
     # Patterns whose entries in _CoqProject are excluded from the disk scan
     # (the corresponding directories are also excluded from on_disk above).

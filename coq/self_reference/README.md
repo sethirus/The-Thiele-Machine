@@ -1,15 +1,19 @@
 # Self Reference
 
-**Mission:** Self-reference exploration proofs examining fixed-point and diagonal arguments.
-
-## Structure
-
-- `SelfReference.v` - Self Reference - Defines: System; Key results: meta_system_richer, meta_system_can_reason_about, meta_system_self_referential (+1 more)
+**Mission:** Self-reference exploration proofs examining fixed-point, diagonal arguments, trust induction, and agent-level certification.
 
 ## Verification Status
 
 | File | Admits | Status |
 |:---|:---:|:---:|
+| `AdversarialChallenge.v` | 0 | ✅ |
+| `InductiveTrust.v` | 0 | ✅ |
+| `MuThresholdDisobedience.v` | 0 | ✅ |
+| `NeuralSymbolicBridge.v` | 0 | ✅ |
+| `NonInterference.v` | 0 | ✅ |
+| `RefinementInvariant.v` | 0 | ✅ |
+| `SelfCertifyingDecider.v` | 0 | ✅ |
 | `SelfReference.v` | 0 | ✅ |
+| `TilingChain.v` | 0 | ✅ |
 
-**Result:** All 1 files verified with 0 admits.
+**Result:** All 9 files verified with 0 admits.

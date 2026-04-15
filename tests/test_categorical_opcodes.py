@@ -3,7 +3,7 @@
 Tests the MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT, MORPH_TENSOR,
 and MORPH_GET instructions end-to-end through the Coq-extracted OCaml runner.
 
-Each test corresponds to a scenario from CATEGORICAL_EXTENSION_PLAN.md Part 10.
+Each test verifies end-to-end execution of categorical opcodes.
 All invariants verified here follow from formally proven theorems in:
   - coq/kernel/CategoryLaws.v    (relational compose laws)
   - coq/kernel/CategoryBridge.v  (graph-level laws + NoFI consistency)
