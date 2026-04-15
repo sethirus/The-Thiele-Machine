@@ -1,7 +1,7 @@
 """CI gate: full-refinement theorem presence and strength.
 
-Phase 7 of FULL_REFINEMENT_GUIDE.md — ensures the stronger refinement
-theorems cannot silently disappear or weaken without breaking CI.
+Ensures the stronger refinement theorems cannot silently disappear or
+weaken without breaking CI.
 """
 from __future__ import annotations
 
