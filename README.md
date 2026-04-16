@@ -137,6 +137,7 @@ THIELE_RTL_SIM=verilator pytest tests/test_logic_z3_verilator_bridge.py
 |-----------|--------|
 | **Coq proofs** | 185 active `.v` files, zero admits anywhere in the active tree, zero project-local axioms per Inquisitor audit |
 | **Standalone proof** | `coq/ThieleMachineComplete.v` — one file, zero project imports, zero admits, full machine in 46 sections |
+| **Thesis** | [`thesis/main.pdf`](thesis/main.pdf) — 125 pages, 13 chapters, full derivation chain with falsification conditions |
 | **OCaml runtime** | `build/extracted_vm_runner` built by mechanical extraction from Coq through `coq/Extraction.v` |
 | **Python VM** | `thielecpu/vm.py` — generated wrapper, delegates all execution to OCaml binary |
 | **Verilog RTL** | 3 source files: `thiele_cpu_kami.v` (Kami-generated, all 47 opcodes), `thiele_cpu_top.v` (FPGA wrapper), `RegFile.v` |
