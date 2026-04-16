@@ -43,7 +43,7 @@ This is not a paper with informal arguments. Every major claim is:
     \item \textbf{Formally proven}: Machine-checked proofs in Coq with zero \texttt{Admitted} in the active tree and no project-local axioms in the active audited tree.
     \item \textbf{Implemented}: Working Python VM with a two-pass assembler (\path{scripts/thiele_asm.py}), plus synthesizable Verilog RTL extracted from Coq through the Kami framework. The repository also contains synthesis artifacts and FPGA targets, subject to backend/toolchain availability.
     \item \textbf{Tested}: Automated tests verify opcode completeness, certificate plumbing, and cross-layer consistency on shared observable projections. Some RTL-backed evidence depends on backend availability.
-    \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim, including six QM-divergent predictions (QD1--QD6) with numerical values distinguishable from standard quantum mechanics.
+    \item \textbf{Falsifiable}: The thesis specifies exactly what would disprove each claim. Every major theorem has a concrete falsification condition, and \path{coq/kernel/FalsifiablePrediction.v} defines testable linear $\mu$-cost scaling bounds for VM operations.
 \end{enumerate}
 
 Every claim has a concrete falsification condition. If you find a counterexample, the Coq proof won't compile. The repository now includes signed TRS-1.0 receipt tooling for artifact and execution attestation, and the RTL testbench produces JSON snapshots for the gates that exercise it. This isn't a paper about ideas---it's a reproducible experiment. The claims are bound to executable evidence.
@@ -310,7 +310,7 @@ Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
 
     \item \textbf{Turing Completeness:} The Thiele Machine is Turing-complete, proven via direct simulation in \path{coq/kernel/ProperSubsumption.v}: every Turing computation has a faithful Thiele simulation, and Thiele strictly extends Turing through cost certificates and partition separation (\path{coq/kernel/PartitionSeparation.v}).
 
-    \item \textbf{QM-Divergent Falsifiable Predictions:} Six concrete predictions (QD1--QD6) where $\mu$-cost accounting produces measurable deviations from standard quantum mechanics---including a modified Tsirelson bound, Planck-time muon lifetime ratios, and temperature-dependent CHSH suppression. (Chapter 11)
+    \item \textbf{Falsifiable Predictions:} Concrete, testable $\mu$-cost scaling bounds for all VM operations (linear or better), plus the derivation of known physics bounds (CHSH $\le 2$, Tsirelson $\le 2\sqrt{2}$, Landauer erasure) from the single cost axiom. Whether the cost axiom produces genuinely new physical predictions beyond re-derivation remains an open question. (Chapters 6, 11)
 
     \item \textbf{Complete Toolchain and Empirical Artifacts:} A two-pass assembler (\path{scripts/thiele_asm.py}) with integrated \texttt{-{}-run} and \texttt{-{}-sim} execution modes, an example-program corpus, Coq-to-Verilog extraction through Kami, FPGA synthesis targets, active TRS-1.0 receipt tooling, and reproducible demos including Verilog co-simulation.
 \end{enumerate}

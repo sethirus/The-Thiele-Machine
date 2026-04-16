@@ -65,8 +65,8 @@ The thermodynamic bridge hypothesis ($Q \ge k_B T \ln 2 \cdot \mu$) would be \te
 \end{itemize}
 \end{tcolorbox}
 
-\paragraph{QM-Divergent Predictions.}
-The model also produces six quantitative predictions (QD1--QD6) where it diverges from standard quantum mechanics. These include projections for measurement-time ratios, modified Tsirelson bounds under finite $\mu$-budgets, and temperature-dependent CHSH suppression. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. These predictions are \textbf{speculative}---they follow from the $\mu$-accounting framework's axioms but have not been experimentally tested. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model commits to numbers rather than hedging.
+\paragraph{Falsifiable Predictions.}
+The model commits to concrete, testable predictions about its own behavior: every VM operation scales linearly (or better) in $\mu$-cost, and the cost axiom re-derives known physics bounds (CHSH $\le 2$, Tsirelson $\le 2\sqrt{2}$, Landauer erasure). These are machine-checked and experimentally validated in Chapter~11. Whether the cost axiom produces genuinely \emph{new} physical predictions---predictions that diverge from standard quantum mechanics---remains an open question. The theory currently re-derives known results from new axioms; it does not yet predict something that quantum mechanics alone does not. If it eventually does, the predictions will be stated with the same falsification discipline applied throughout this work.
 
 \section{Broader Implications}
 
@@ -660,7 +660,7 @@ The Thiele Machine offers:
     \item A new lens for understanding computational complexity, with concrete $\mu$-cost bounds for NP verification and a conservation law linking computation time to structural revelation cost
     \item Turing subsumption: a mechanized proof that the model is exactly Turing-complete (TM $\to$ Minsky $\to$ Thiele), anchoring the structure-aware complexity classes inside classical computability
     \item Oracle impossibility: three theorems bounding the model from above---halting is undecidable, partial oracles cost $\mu$, and hypercomputation is impossible at finite $\mu$
-    \item Six QM-divergent predictions (QD1--QD6) with named observables and numerical values, making the physics bridge empirically falsifiable
+    \item Concrete falsifiable $\mu$-cost scaling bounds and physics-bridge re-derivations (CHSH, Tsirelson, Landauer), with the open question of whether genuinely new physical predictions will emerge
 \end{enumerate}
 
 The limitations are real but surmountable. The foundational work---zero-admit proofs, 3-layer comparison discipline, receipt generation---provides a solid base for future research.

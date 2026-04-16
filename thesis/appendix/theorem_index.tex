@@ -288,19 +288,9 @@ Key theorems (in \texttt{coq/kernel/MasterSummary.v}) include:
 
 See also \texttt{non\_circularity\_verified} (NonCircularityAudit.v), \texttt{three\_layer\_semantic\_isomorphism} (SemanticComplexityIsomorphism.v, archived), and \texttt{complete\_verification\_chain} (HardwareBisimulation.v).
 
-\section{HardMathFacts Theorems (archived)}
+\section{Quantum-Information Facts (proved inline)}
 
-\textbf{Note}: \texttt{HardMathFactsProven.v} and \texttt{AssumptionBundle.v} have been archived to \texttt{archive/kernel\_exploratory/dead\_end\_chains/}.
-
-All six quantum-information facts that anchor the Tsirelson bound derivation are mechanically proven in \texttt{kernel/HardMathFactsProven.v} (686 lines). The proofs discharge the corresponding lemma statements from \texttt{AssumptionBundle.v}, upgrading them from parameters to theorems.
-\begin{itemize}
-    \item \texttt{norm\_E\_bound\_proven} (HardMathFactsProven.v): Norm bound on $E$ operators
-    \item \texttt{valid\_S\_4\_proven} (HardMathFactsProven.v): $S \leq 4$ for valid strategies
-    \item \texttt{local\_S\_2\_proven} (HardMathFactsProven.v): $S \leq 2$ for local strategies
-    \item \texttt{pr\_no\_ext\_proven} (HardMathFactsProven.v): Probability without external dependence
-    \item \texttt{symm\_coh\_bound\_proven} (HardMathFactsProven.v): Symmetric coherence bound
-    \item \texttt{tsir\_from\_coh\_proven} (HardMathFactsProven.v): Tsirelson bound from algebraic coherence
-\end{itemize}
+\textbf{Note}: The six quantum-information facts that anchor the Tsirelson bound derivation were originally proved in standalone files (\texttt{HardMathFactsProven.v} and \texttt{AssumptionBundle.v}), which have since been removed. The corresponding results are now proved directly in the active kernel files: \texttt{ClassicalBound.v} ($S \leq 2$ for local strategies), \texttt{BoxCHSH.v} ($S \leq 4$ for valid strategies), \texttt{AlgebraicCoherence.v} (symmetric coherence bound), \texttt{MinorConstraints.v} (Tsirelson from algebraic coherence), and \texttt{TsirelsonFromAlgebra.v} (tight Tsirelson bound). No standalone bundle or archive exists.
 
 \section{Theorem Count Summary}
 
@@ -308,7 +298,7 @@ The proof corpus is large and complete: every theorem listed in this appendix is
 
 \section{Zero-Admit Verification}
 
-All files in the active proof tree pass the zero-admit check: there are no \texttt{Admitted}, \texttt{admit.}, or \texttt{Axiom} declarations beyond foundational logic. The only axioms are standard Coq library axioms (\texttt{functional\_extensionality\_dep}, \texttt{sig\_forall\_dec}, \texttt{sig\_not\_dec}). The six \texttt{HardMathFacts} parameterized in \texttt{AssumptionBundle.v} are mechanically proven in \texttt{HardMathFactsProven.v}---the bundle is a theorem, not an assumption.
+All files in the active proof tree pass the zero-admit check: there are no \texttt{Admitted}, \texttt{admit.}, or \texttt{Axiom} declarations beyond foundational logic. The only axioms are standard Coq library axioms (\texttt{functional\_extensionality\_dep}, \texttt{sig\_forall\_dec}, \texttt{sig\_not\_dec}). The six quantum-information facts originally parameterized in a standalone bundle are now proved directly in the active kernel files (see above).
 
 \section{Compilation Status}
 
