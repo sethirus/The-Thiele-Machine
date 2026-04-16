@@ -761,7 +761,7 @@ The evaluation suite is organized by the kinds of claims it is meant to stress:
     \item \textbf{Partition operations}: normalization, split/merge preconditions, and canonical region equality.
     \item \textbf{$\mu$-ledger tests}: monotonicity, conservation, and irreversibility lower bounds.
     \item \textbf{CHSH/Bell tests}: enforcement of correlation bounds and revelation requirements.
-    \item \textbf{QM-divergent predictions}: six concrete predictions (QD1--QD6) where the $\mu$-accounting framework diverges from standard quantum mechanics, each with computed numerical thresholds and experimental protocols (Chapter~11).
+    \item \textbf{Falsifiable $\mu$-cost predictions}: linear scaling bounds for all VM operations, Landauer erasure consistency tests, CHSH bound enforcement, and red-team adversarial falsification protocols (Chapter~11).
     \item \textbf{Cross-layer bisimulation}: end-to-end validation spanning Python VM and Verilog RTL across the active opcode set, plus OCaml-vs-Python state identity, I/O ports, heap ops, Bianchi freeze, and trap routing. Some of this evidence is conditional on RTL backend availability.
     \item \textbf{Verilog co-simulation}: direct Python-to-RTL comparison via Icarus Verilog testbenches, covering compute, partition, and error-handling paths (\path{tests/test_verilog_cosim.py}, 29 tests).
     \item \textbf{Receipt verification}: signature integrity and replay for the active TRS-1.0 receipt kinds.
@@ -951,7 +951,7 @@ The evaluation demonstrates:
     \item \textbf{CHSH Correctness}: Supra-quantum certification requires revelation as predicted by theory
     \item \textbf{$\mu$-Conservation}: The ledger is monotonic and exactly tracks declared costs
     \item \textbf{Ledger-level falsifiers}: structural heat (certificate ceiling law) and time dilation (fixed-budget slowdown) match their first-principles derivations
-    \item \textbf{QM-Divergent Predictions}: Six concrete predictions (QD1--QD6) where $\mu$-accounting diverges from standard QM, each with computed thresholds and experimental protocols
+    \item \textbf{Falsifiable Predictions}: Concrete $\mu$-cost scaling bounds and red-team adversarial falsification protocols for all VM operations
     \item \textbf{Test Coverage}: active tests span cross-layer, co-simulation, falsifiability, receipt, and adversarial suites
     \item \textbf{Scalability}: Hardware synthesis targets modern FPGAs with reasonable resource utilization
     \item \textbf{Reproducibility}: All results can be reproduced from the published traces and artifact bundles
