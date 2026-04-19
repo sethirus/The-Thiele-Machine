@@ -1,21 +1,11 @@
 """Partition strategy vs blind strategy: μ-cost comparison on the real VM.
 
-FINDINGS FROM READING THE EXTRACTED OCAML:
+Current LASSERT pricing is based on the binary formula header written to memory:
+  cost(LASSERT) = hw_flen * 8 + (declared_cost + 1)
 
-1. LASSERT μ-cost formula (coq/kernel/VMStep.v → build/thiele_core.ml line 2715):
-       cost(LASSERT) = len(decoded_formula) * 8 + (declared_cost + 1)
-   The formula char list length is measured AFTER underscore-decoding.
-   Each character costs 8 μ-units. Declared cost gets +1 (NoFI S constructor).
-
-2. Formula encoding (Python API → OCaml runner):
-   The Python API uses underscore-encoding: space→'_', newline→'__'.
-   build/extracted_vm_runner.ml decode_formula() converts back before parse_dimacs.
-   Without this decode, parse_dimacs returns None → check_model=False → vm_err=True.
-
-3. VM halts immediately when vm_err is set (extracted_vm_runner.ml line 494):
-       if fuel <= 0 || s.vm_err then s
-
-4. LJOIN cert-joining works: checks cert1 == cert2 (string equality).
+The wrapper must therefore serialize dict-style formulas into the on-chip
+memory layout with flen = hw_flen. These tests pin that contract to the real
+OCaml runner surface.
 """
 import pytest
 
@@ -33,44 +23,20 @@ def _run(program: list, max_steps: int = 20) -> VMState:
 # 1.  NoFI: LASSERT always charges mu (even if cert check fails)
 # ---------------------------------------------------------------------------
 
-def _decode_formula(s: str) -> str:
-    """Python mirror of decode_formula() in build/extracted_vm_runner.ml."""
-    result = []
-    i = 0
-    while i < len(s):
-        if i + 1 < len(s) and s[i] == '_' and s[i + 1] == '_':
-            result.append('\n')
-            i += 2
-        elif s[i] == '_':
-            result.append(' ')
-            i += 1
-        else:
-            result.append(s[i])
-            i += 1
-    return ''.join(result)
-
-
 class TestLassertMuCostFormula:
-    """LASSERT μ-cost = len(decoded_formula)*8 + (declared_cost+1).
+    """LASSERT μ-cost = hw_flen*8 + (declared_cost+1)."""
 
-    Derived from instruction_cost in build/thiele_core.ml:
-        | Coq_instr_lassert (_, formula, _, cost) ->
-            add (mul (length0 formula) 8) (cost + 1)
-    formula is the char list AFTER decode_formula() in extracted_vm_runner.ml.
-    """
-
-    def test_lassert_charges_decoded_formula_len_times_8(self):
-        """μ delta = len(decoded_formula)*8 + (cost+1), verified against the real VM."""
-        formula = "p_cnf_1_1__1_0"          # "p cnf 1 1\n1 0" after decode = 13 chars
+    def test_lassert_charges_formula_header_len_times_8(self):
+        """μ delta = hw_flen*8 + (cost+1), verified against the real VM."""
+        formula = "p_cnf_1_1__1_0"
         declared_cost = 1
-        decoded_len = len(_decode_formula(formula))              # 13
-        expected_lassert_cost = decoded_len * 8 + (declared_cost + 1)  # 13*8+2 = 106
+        hw_flen = 2
+        expected_lassert_cost = hw_flen * 8 + (declared_cost + 1)
 
         s0 = VMState.default()
         prog = [
-            {"op": "pnew",    "region": [0, 256], "cost": 0},
             {"op": "lassert", "module": 0, "formula": formula,
-             "cert_type": "sat", "cert": "v_1_0", "cost": declared_cost},
+             "cert_type": "sat", "cert": "v_1_0", "countermodel": "v_-1_0", "cost": declared_cost},
         ]
         sf = vm_run(s0, prog, max_steps=10)
         actual_delta = sf.vm_mu - s0.vm_mu
@@ -80,30 +46,25 @@ class TestLassertMuCostFormula:
         )
 
     def test_lassert_formula_length_scales_mu(self):
-        """Longer decoded formula → proportionally higher μ-cost (8 per char)."""
-        # (encoded, valid_cert_for_formula)
+        """Longer binary formulas pay proportionally higher μ-cost."""
         cases = [
-            ("p_cnf_1_1__1_0",           "v_1_0"),      # x1=T
-            ("p_cnf_2_2__1_0__2_0",      "v_1_2_0"),    # x1=T, x2=T
-            ("p_cnf_3_3__1_0__2_0__3_0", "v_1_2_3_0"),  # x1=T, x2=T, x3=T
+            ("p_cnf_1_1__1_0", "v_1_0", "v_-1_0", 2),
+            ("p_cnf_2_2__1_0__2_0", "v_1_2_0", "v_-1_-2_0", 4),
+            ("p_cnf_3_3__1_0__2_0__3_0", "v_1_2_3_0", "v_-1_-2_-3_0", 6),
         ]
         declared_cost = 1
-        results = []
-        for formula, cert in cases:
-            decoded_len = len(_decode_formula(formula))
-            expected_mu = decoded_len * 8 + (declared_cost + 1)
+        for formula, cert, countermodel, hw_flen in cases:
+            expected_mu = hw_flen * 8 + (declared_cost + 1)
             s0 = VMState.default()
             prog = [
-                {"op": "pnew",    "region": [0, 256], "cost": 0},
                 {"op": "lassert", "module": 0, "formula": formula,
-                 "cert_type": "sat", "cert": cert, "cost": declared_cost},
+                 "cert_type": "sat", "cert": cert, "countermodel": countermodel, "cost": declared_cost},
             ]
             sf = vm_run(s0, prog, max_steps=10)
-            results.append((decoded_len, expected_mu, sf.vm_mu, sf.vm_err))
             assert sf.vm_mu == expected_mu, (
-                f"decoded_len={decoded_len}: expected μ={expected_mu}, got {sf.vm_mu}"
+                f"hw_flen={hw_flen}: expected μ={expected_mu}, got {sf.vm_mu}"
             )
-            assert not sf.vm_err, f"Valid cert should not set vm_err (decoded_len={decoded_len})"
+            assert not sf.vm_err, f"Valid cert should not set vm_err (hw_flen={hw_flen})"
 
     def test_lassert_valid_cert_succeeds(self):
         """After fix: valid DIMACS formula + correct model → vm_err=False."""
@@ -111,7 +72,7 @@ class TestLassertMuCostFormula:
         prog = [
             {"op": "pnew",    "region": [0, 256], "cost": 1},
             {"op": "lassert", "module": 0, "formula": "p_cnf_1_1__1_0",
-             "cert_type": "sat", "cert": "v_1_0", "cost": 1},
+             "cert_type": "sat", "cert": "v_1_0", "countermodel": "v_-1_0", "cost": 1},
             {"op": "halt",    "cost": 0},
         ]
         sf = vm_run(s0, prog, max_steps=10)

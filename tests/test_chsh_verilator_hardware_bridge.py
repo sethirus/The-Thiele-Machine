@@ -89,7 +89,7 @@ def test_chsh_x1_with_reveal_certificate_is_allowed_and_surcharged() -> None:
                 # causing REVEAL's mu charge to be applied before Phase 4 starts.
                 # Starting from mu=0 gives a clean, deterministic total.
                 "INIT_LOGIC_ACC 0xCAFEEACE",
-                "REVEAL 0 0 1",
+                "REVEAL 0 1 0",
                 "CHSH_TRIAL 1 0 0 0 7",
                 "HALT 0",
                 "",
@@ -102,5 +102,5 @@ def test_chsh_x1_with_reveal_certificate_is_allowed_and_surcharged() -> None:
 
     assert result.get("error_code", 0) == 0
     assert result.get("status", 0) == 2
-    # mu = REVEAL S(1)=2 + CHSH base cost (7) + x=1 surcharge (256) = 265.
+    # mu = REVEAL (1 bit + S(0)=2) + CHSH base cost (7) + x=1 surcharge (256) = 265.
     assert result.get("mu", -1) == 265

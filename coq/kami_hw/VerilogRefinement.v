@@ -300,18 +300,6 @@ Proof.
   - reflexivity.
 Qed.
 
-Theorem verilog_simulates_vm_step_oracle_halts :
-  forall (hs : KamiSnapshot) (payload : string) (cost : nat),
-    exists vs',
-      vm_step (abs_phase1 hs) (instr_oracle_halts payload cost) vs' /\
-      vs' = advance_state (abs_phase1 hs) (instr_oracle_halts payload cost)
-              (abs_phase1 hs).(vm_graph) (abs_phase1 hs).(vm_csrs) (abs_phase1 hs).(vm_err).
-Proof.
-  intros. eexists. split.
-  - eapply step_oracle_halts.
-  - reflexivity.
-Qed.
-
 Theorem verilog_simulates_vm_step_halt :
   forall (hs : KamiSnapshot) (cost : nat),
     exists vs',
@@ -629,10 +617,6 @@ Qed.
 (** ---------------------------------------------------------------
     Commutation diagram: kami_step ∘ abs commutes with vm_step on
     the hardware-observable cost (mu) field.
-
-    ORACLE_HALTS is a conservative refinement: hardware charges
-    ORACLE_HALTS_HW_COST (1,000,000) while vm_step charges the
-    user-specified cost. For all other opcodes, costs match exactly.
     --------------------------------------------------------------- *)
 
 (** kami_step mu commutation: the abstracted mu after a hardware step
@@ -647,30 +631,32 @@ Proof.
   apply kami_step_mu_cost.
 Qed.
 
-(** For non-ORACLE_HALTS instructions, exact mu agreement between
+(** For all instructions, exact mu agreement between
     abs_phase1 ∘ kami_step and vm_step ∘ abs_phase1.
     Since hardware now charges flen * 8 + S cost for LASSERT (matching software),
     no exclusions are needed. *)
-Theorem kami_vm_mu_diamond_non_oracle :
+Theorem kami_vm_mu_diamond :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
-    is_oracle_halts i = false ->
     vm_step (abs_phase1 hs) i vs' ->
     vs'.(vm_mu) = (abs_phase1 (kami_step hs i)).(vm_mu).
 Proof.
-  intros hs i vs' Hnot_oracle Hstep.
+  intros hs i vs' Hstep.
+  rewrite kami_step_mu_commutation.
+  (* Goal: vs'.(vm_mu) = (abs_phase1 hs).(vm_mu) + kami_instruction_cost i.
+     vm_step gives vs'.(vm_mu) = apply_cost (abs_phase1 hs) i for every branch.
+     kami_instruction_cost i = instruction_cost i for all opcodes (including CERTIFY).
+     apply_cost s i = s.(vm_mu) + instruction_cost i. *)
   inversion Hstep; subst;
-  unfold apply_cost, instruction_cost, abs_phase1, kami_step,
-         kami_advance_default, kami_instruction_cost,
-         ORACLE_HALTS_HW_COST in *;
+  unfold apply_cost, kami_instruction_cost in *;
   simpl in *; try lia; try reflexivity; try contradiction;
   try (repeat match goal with
     | |- context [match ?x with _ => _ end] => destruct x; simpl; try lia; try reflexivity
   end).
 Qed.
 
-(** Hardware mu >= software mu for ALL instructions with cost fitting in
-    hardware (cost <= 1M).  Since hardware now charges flen * 8 + S cost
-    for LASSERT (matching the kernel), no LASSERT exclusion is needed. *)
+(** Hardware μ is at least software μ for every instruction whose cost fits
+    under the cost ceiling. LASSERT now matches the kernel cost
+    table exactly; this theorem is the conservative wrapper used downstream. *)
 Theorem kami_vm_mu_conservative :
   forall (hs : KamiSnapshot) (i : vm_instruction) (vs' : VMState),
     instruction_cost i <= ORACLE_HALTS_HW_COST ->

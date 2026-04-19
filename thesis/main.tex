@@ -246,7 +246,7 @@ I'm a car salesman. I have no formal training in computer science, mathematics, 
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
     \item \textbf{Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
-    \item \textbf{Turing Subsumption}: A direct simulation proof shows Thiele strictly extends Turing, with cost certificates that Turing machines cannot produce---\path{coq/kernel/ProperSubsumption.v}.
+    \item \textbf{Turing Subsumption}: A direct simulation proof shows Thiele strictly extends Turing, with cost certificates that Turing machines cannot produce---\path{coq/kernel/TuringStrictness.v} (\texttt{D5\_thiele\_strictly\_extends\_classical}).
 \end{itemize}
 
 \textbf{What is built}:
@@ -255,7 +255,7 @@ I'm a car salesman. I have no formal training in computer science, mathematics, 
     \item Python reference VM with two-pass assembler (\path{scripts/thiele_asm.py})
     \item Synthesizable Verilog RTL extracted from Coq through Kami, with ECP5 FPGA bitstream
     \item Automated tests enforcing opcode completeness, certificate plumbing, and cross-layer comparison gates
-    \item Falsifiable predictions: linear $\mu$-cost scaling bounds for all 47 opcodes, plus the observation that the cost axiom re-derives known physics bounds (CHSH $\le 2$, Tsirelson $\le 2\sqrt{2}$, Landauer erasure)
+    \item Falsifiable predictions: linear $\mu$-cost scaling bounds for all 46 opcodes, plus the observation that the cost axiom re-derives known physics bounds (CHSH $\le 2$, Tsirelson $\le 2\sqrt{2}$, Landauer erasure)
 \end{itemize}
 
 If you can find an error, find it. Everything is open source, documented, and testable.

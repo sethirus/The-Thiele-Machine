@@ -1,6 +1,5 @@
-(** * BoxCHSH: The correlation box formalism for Bell inequalities
+(** BoxCHSH: The correlation box formalism for Bell inequalities
 
-    WHY THIS EXISTS:
     CHSH inequality tests need a precise mathematical framework. This file
     defines correlation "boxes" (probability distributions over Alice/Bob outcomes)
     and proves the fundamental bounds on CHSH values for different classes.
@@ -22,17 +21,21 @@
     THE CHSH PARAMETER:
     S = E(0,0) + E(0,1) + E(1,0) - E(1,1)
 
-    THE BOUNDS (ALL PROVEN):
+    THE BOUNDS PROVED HERE:
     - |E| ≤ 1 (correlations are bounded)
     - |S| ≤ 4 (no-signaling bound, triangle inequality)
-    - |S| ≤ 2√2 (quantum bound, requires algebraic coherence)
-    - |S| ≤ 2 (local bound, proven in MinorConstraints.v)
+    - Deterministic local strategies satisfy |S| ≤ 2
 
-    FALSIFICATION:
-    Find a valid box violating any bound. The proofs are machine-checked.
+    The 2√2 Tsirelson bound is not proved in this file. The algebraic-coherence
+    bridge at the bottom imports [tsirelson_from_algebraic_coherence], which
+    currently proves the weak general bound |S| <= 4.
+
+    Find a valid box with |E| > 1, or a valid box with |S| > 4, or a
+    deterministic local strategy with |S| > 2. Those are the machine-checked
+    claims in this file.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
     
@@ -53,7 +56,7 @@ From Kernel Require Import AlgebraicCoherence.
 
 Local Open Scope Q_scope.
 
-(** * Definitions *)
+(** Definitions *)
 
 (** Valid box: non-negative, normalized, no-signaling *)
 Definition valid_box (B : Box) : Prop :=
@@ -80,7 +83,7 @@ Definition correlators_of_box (B : Box) : Correlators := {|
   E11 := E B 1 1
 |}.
 
-(** * Fundamental Bounds *)
+(** Fundamental Bounds *)
 
 (** Helper: E expands to linear combination *)
 Lemma E_expand : forall B x y,
@@ -91,8 +94,6 @@ Proof.
 Qed.
 
 (** normalized_E_bound: Correlations from probability distributions are bounded.
-
-    WHY THIS IS FUNDAMENTAL:
     If you have a valid probability distribution P(a,b|x,y), the correlation
     E(x,y) = P(00) - P(01) - P(10) + P(11) is ALWAYS bounded by |E| ≤ 1.
 
@@ -104,11 +105,9 @@ Qed.
 
     Therefore |E| = |(P00+P11) - (P01+P10)| ≤ max(P00+P11, P01+P10) ≤ 1.
 
-    WHY THIS MATTERS:
     This is the foundation for ALL CHSH bounds. Correlations from probabilities
     can't exceed 1. Any theory violating this would be internally inconsistent.
 
-    FALSIFICATION:
     Find non-negative probabilities summing to 1 where |E| > 1. Can't happen.
     The proof is just probability theory.
 *)
@@ -131,9 +130,6 @@ Proof.
   assert (Hsum: p00 + p01 + p10 + p11 == 1).
   { unfold p00, p01, p10, p11. apply Hnorm. }
 
-  (* Weaker but provable bound: |E| <= 2 *)
-  (* Since p00, p01, p10, p11 are probabilities summing to 1,
-     each is at most 1, so |p00 - p01 - p10 + p11| <= |p00| + |p01| + |p10| + |p11| <= 4 *)
   apply (Qle_trans _ 1).
   2: { vm_compute. discriminate. }
 
@@ -254,10 +250,10 @@ Proof.
   vm_compute; discriminate.
 Qed.
 
-(** * Tsirelson / Coherence Definitions *)
+(** Algebraic Coherence Definitions *)
 
-(* Tsirelson bound: 2√2 ≈ 2.82842712475 *)
-Definition tsirelson_bound : Q := 5657#2000.  (* Approximation: 2.8285 *)
+(* Rational number near 2sqrt(2), kept for downstream code that names it. *)
+Definition tsirelson_bound : Q := 5657#2000.  (* 2.8285 *)
 
 (** Algebraic coherence for boxes *)
 Definition box_algebraically_coherent (B : Box) : Prop :=
@@ -271,13 +267,12 @@ Proof.
   ring.
 Qed.
 
-Section BoxTsirelsonBound.
+Section BoxAlgebraicBound.
 
-(** Assume the Tsirelson bound theorem from algebraic coherence. *)
-(** NOTE: This is the ONLY link to "Hard Assumptions" relating to 
-    Tsirelson bounds derived from algebraic structures *)
+(** The imported algebraic-coherence theorem currently gives the weak general
+    CHSH bound |S| <= 4, not the tight Tsirelson bound. *)
 
-(** Tsirelson bound for coherent boxes (General Case) *)
+(** Coherent boxes inherit the weak general CHSH bound from AlgebraicCoherence. *)
 Theorem box_chsh_bound_algebraic : forall B,
   valid_box B ->
   box_algebraically_coherent B ->
@@ -289,4 +284,4 @@ Proof.
   exact Hcoherent.
 Qed.
 
-End BoxTsirelsonBound.
+End BoxAlgebraicBound.

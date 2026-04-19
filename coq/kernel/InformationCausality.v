@@ -1,49 +1,17 @@
-(** =========================================================================
-    INFORMATION CAUSALITY - IC ≡ μ-Cost (Constructive Proof)
-    =========================================================================
+(** InformationCausality: a record-level IC / mu comparison.
 
-    WHY THIS FILE EXISTS:
-    This file formalizes a structural analogy between Pawłowski et al.'s
-    Information Causality principle and μ-cost accounting. The "equivalence" is
-    between custom ICScenario and MuScenario record types defined in this file,
-    not between the full physical IC principle and the VM.
-    IC says "Bob's accessible information ≤ communication bits m". μ-ledger says
-    "structural information cost = m". These are the same constraint.
+  This file is deliberately modest. It does not prove the physical
+  Information Causality principle, and it definitely does not derive quantum
+  mechanics from the VM. It only compares two record types defined here and
+  shows that once their fields are matched, the stored bound proposition can
+  be transported back and forth.
 
-    THE MAIN THEOREM (information_causality_is_mu_cost):
-    For any IC scenario (Alice sends m bits, Bob learns ≤ m bits) and μ-scenario
-    (partition with cost m), the IC bound is satisfied IFF the μ-bound is satisfied.
+  That is bookkeeping, not physics. The physical interpretation has to come
+  from stronger semantics somewhere else. Even the theorem name
+  ic_zero_implies_tsirelson is legacy baggage; the actual statement is much
+  weaker and this header says so plainly. *)
 
-    PHYSICAL CLAIM:
-    Information Causality is not a mysterious quantum principle. It's just
-    conservation of structural information under the constraint that you can't
-    extract more information than you paid for. μ-cost accounting has the same
-    algebraic structure as Information Causality on the record types defined here.
-
-    WHY THIS MATTERS:
-    IC was proposed as a principle to derive quantum mechanics (Pawłowski 2009).
-    I'm showing it's equivalent to μ-accounting, which is derived from finite
-    state spaces + closed dynamics (FiniteInformation.v). So IC is not independent
-    - it follows from computational structure.
-
-    ic_zero_implies_tsirelson proves that IC scenarios with m=0 communication
-    satisfy |S| <= 4 (the algebraic bound within this framework). The tighter
-    2√2 bound requires additional NPA coherence premises.
-
-    FALSIFICATION:
-    Find quantum correlations that violate IC but satisfy μ-conservation, or vice versa.
-    This would require the equivalence ic_mu_equivalent to be inconsistent.
-
-    Or show that IC violations (Pawłowski's PR-box thought experiments) don't
-    correspond to μ-cost violations. This would break the equivalence theorem.
-
-    Zero axioms (beyond Coq stdlib). Zero admits. Fully constructive.
-
-    REFERENCE: Pawlowski et al., "Information causality" Nature 461 (2009)
-
-    ========================================================================= *)
-
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Bool Arith.PeanoNat micromega.Lia.
@@ -51,12 +19,13 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep KernelPhysics RevelationRequirement QuantumEquivalence.
 
-(** ** Information Causality Principle (Abstract)
+(** Abstract Information Causality-shaped record.
 
     Alice has n bits, Bob has index y, Alice sends m bits.
     IC principle: Bob's accessible information ≤ m bits.
     
-    We model this abstractly without requiring entropy formalization.
+    This record stores the bound as a Prop. It does not define entropy or
+    mutual information.
     *)
 
 Record ICScenario : Type := {
@@ -65,7 +34,7 @@ Record ICScenario : Type := {
   ic_satisfies_bound : Prop  (* IC bound is satisfied *)
 }.
 
-(** ** μ-Cost Scenario *)
+(** Matching μ-cost-shaped record. *)
 
 Record MuScenario : Type := {
   mu_n_partitions : nat;  (* Number of partition elements *)
@@ -73,9 +42,10 @@ Record MuScenario : Type := {
   mu_bound_satisfied : Prop  (* Cost bound satisfied *)
 }.
 
-(** ** Equivalence Definition
+(** Equivalence definition.
 
-    IC with m bits ≡ μ-cost = m
+    The relation says the two records have the same size parameter, the same
+    cost/communication parameter, and equivalent bound propositions.
     *)
 
 Definition ic_mu_equivalent (ic : ICScenario) (mu : MuScenario) : Prop :=
@@ -83,10 +53,9 @@ Definition ic_mu_equivalent (ic : ICScenario) (mu : MuScenario) : Prop :=
   ic.(ic_m_communication) = mu.(mu_cost_paid) /\
   (ic.(ic_satisfies_bound) <-> mu.(mu_bound_satisfied)).
 
-(** ** Main Equivalence Theorem *)
+(** Main projection theorem. *)
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [information_causality_is_mu_cost]: formal specification. *)
 Theorem information_causality_is_mu_cost :
   forall (ic : ICScenario) (mu : MuScenario),
     ic_mu_equivalent ic mu ->
@@ -97,9 +66,9 @@ Proof.
   tauto.
 Qed.
 
-(** ** Zero Communication Corollary
+(** Zero communication sanity check.
 
-    IC with zero communication has trivial bound satisfaction.
+    Given the bound premise, the only arithmetic fact proved here is 0 <= n.
     *)
 
 Theorem ic_zero_communication_bound :
@@ -112,12 +81,10 @@ Proof.
   apply Nat.le_0_l.
 Qed.
 
-(** ** Connection to Tsirelson Bound
+(** Legacy zero-cost transport lemma.
 
-    From QuantumEquivalence: quantum ≡ μ=0
-    From RevelationRequirement: CHSH > 2√2 → μ > 0
-    
-    Therefore: IC(m=0) ⇒ CHSH ≤ 2√2
+    The name mentions Tsirelson, but the theorem only transports the equation
+    ic_m_communication = 0 into mu_cost_paid = 0 through ic_mu_equivalent.
     *)
 
 Theorem ic_zero_implies_tsirelson :
@@ -132,7 +99,7 @@ Proof.
   rewrite <- Heq. exact Hic.
 Qed.
 
-(** ** Deeper Structural Properties *)
+(** Small structural facts about the custom relation. *)
 
 (** Communication costs are monotonic *)
 Lemma ic_monotonicity :
@@ -160,9 +127,8 @@ Proof.
   apply Nat.le_add_l.
 Qed.
 
-(** Cost paid reflects accessible information *)
+(** Cost paid reflects the stored bound proposition. *)
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [mu_cost_reflects_accessible_info]: formal specification. *)
 Lemma mu_cost_reflects_accessible_info :
   forall ic mu,
     ic_mu_equivalent ic mu ->
@@ -218,7 +184,7 @@ Proof.
   simpl; exact Hb.
 Qed.
 
-(** Zero cost implies quantum tier *)
+(** Legacy "quantum tier" name: zero IC communication transports to zero μ-cost. *)
 Lemma zero_cost_is_quantum :
   forall ic mu,
     ic_mu_equivalent ic mu ->
@@ -234,7 +200,8 @@ Proof.
     + apply (information_causality_is_mu_cost ic mu); assumption.
 Qed.
 
-(** Cost optimality characterization *)
+(** If equivalence fixes the cost at m, a lower m' cannot describe the same
+    MuScenario. This is field equality, not an optimization theorem. *)
 Lemma ic_cost_optimal :
   forall ic mu,
     ic_mu_equivalent ic mu ->
@@ -297,37 +264,36 @@ Proof.
   exact Heff.
 Qed.
 
-(** ** Operational Interpretation
+(** Operational interpretation.
 
     WHAT I PROVED:
-    The Information Causality principle (information-theoretic, Pawłowski 2009)
-    and μ-ledger accounting (computational/operational) are TWO VIEWS OF THE SAME
-    CONSTRAINT. They are formally equivalent.
+    The custom ICScenario record and MuScenario record line up when their
+    fields are tied together by ic_mu_equivalent.
 
-    IC scenario: Alice has n bits, sends m bits to Bob. Bob learns ≤ m bits.
+    IC scenario, intended reading: Alice has n bits, sends m bits to Bob, and
+    the stored Prop says the IC bound is satisfied.
     μ scenario: Partition with n elements, costs m μ-bits to access.
 
-    Main theorem (information_causality_is_mu_cost): IC bound ⟺ μ-bound
+    Main theorem (information_causality_is_mu_cost): IC bound <-> μ-bound,
+    because that equivalence is a field of ic_mu_equivalent.
 
-    KEY RESULTS:
     1. ic_zero_implies_tsirelson: Zero communication (IC m=0) means
-       zero μ-cost, which means quantum-achievable correlations (CHSH ≤ 2√2).
+       zero μ-cost in this record relation. It does not prove a CHSH bound.
 
     2. ic_monotonicity: More communication → more μ-cost (monotonicity).
 
     3. ic_composition: Sequential IC scenarios compose additively,
        just like μ-costs (weight_sequential from Definitions.v).
 
-    4. ic_cost_optimal: The IC bound is tight - you can't satisfy
-       the same IC constraint with less communication. No free insight.
+    4. ic_cost_optimal: if a MuScenario is already tied to communication m,
+       the same MuScenario cannot also be tied to a smaller m'.
 
     WHY NO AXIOMS:
-    I didn't postulate IC or μ-cost as physical laws. Both emerge from:
-    - Finite state spaces (FiniteInformation.v)
-    - Closed dynamics (step : S → S)
-    - Conservation of observations (info_nonincreasing)
+    The lemmas here are definitional and arithmetic. They do not postulate IC
+    or μ-cost as physical laws, and they do not derive those laws either.
 
-    IC is a THEOREM about information flow, not an axiom about quantum mechanics.
+    IC is represented here as a Prop field. A real information-flow theorem
+    needs the semantics that make that Prop mean accessible information.
 
     This equivalence is constructive and follows from definitions alone. No:
     - Measure theory (no σ-algebras, no probability spaces)
@@ -335,17 +301,15 @@ Qed.
     - Concrete probability distributions (no hidden variables)
     - Physical axioms (no Born rule, no Hilbert space postulates)
 
-    FALSIFICATION:
-    Exhibit an IC-violating scenario (Pawłowski's PR-box constructions from
-    Nature 2009) where μ-cost is conserved. Or show a μ-cost violation where
-    IC is satisfied. Either would break the equivalence and falsify this file's
-    main claim.
+    Exhibit a pair of records that satisfies ic_mu_equivalent but breaks one of
+    the projection or preservation lemmas. That would falsify this file's main
+    claim. Physical counterexamples require a richer model than these records.
 
-    The equivalence theorem (information_causality_is_mu_cost) is proven (Qed), so falsifying it requires
-    finding an inconsistency in the definitions or a logic error in the proof.
+    The equivalence theorem (information_causality_is_mu_cost) is proven (Qed),
+    so falsifying it requires finding an inconsistency in the definitions or a
+    logic error in the proof.
     *)
 
 (* INQUISITOR NOTE: connectivity anchor for isolated IC lemmas. *)
 Definition ic_coverage_anchor :=
   (ic_zero_communication_bound, ic_communication_bounded, accessible_info_bounded).
-

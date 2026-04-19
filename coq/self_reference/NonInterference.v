@@ -1,33 +1,15 @@
-(** * NonInterference.v — Step 3 of 3: The Non-Interference Invariant
+(** NonInterference: the embedded safe region is inward-closed.
 
-    Completes the Tiling Agent challenge from InductiveTrust.v.
+    This file finishes the third step of the trust-chain story. Assuming the
+    partition graph of B is closed in the right direction, no path that starts
+    outside the embedded image of A can enter that image. In other words, the
+    new region of B cannot reach back in and overwrite the embedded safe core.
 
-    Steps 1–2 (InductiveTrust.v) proved:
-      Step 1 — Safety functor: A's safety predicate lifts faithfully through φ.
-      Step 2 — μ-Conservation: verification cost on Im(φ) is exactly preserved.
-
-    Step 3 (this file) proves:
-      Im(φ) ⊆ Ω_B is a *closed region* of B's directed partition graph.
-      No finite sequence of B-partition steps starting OUTSIDE Im(φ)
-      can arrive inside Im(φ).
-      ∴ Agent B's new capabilities are physically barred from overwriting
-        Agent A's safety laws — the Higher Dimension cannot edit the Lower
-        Dimension's core constraints.
-
-    PROOF STRATEGY
-    ──────────────
-    We define [partition_closed] (constructive, no classical logic):
-      every B-partition edge landing in Im(φ) must originate in Im(φ).
-
-    [non_interference] then proves by structural induction on the
-    reachability derivation that Im(φ) is inward-closed:
-      u →* v  ∧  v ∈ Im(φ)  ⟹  u ∈ Im(φ).
-
-    [non_interference_invariant] packages this as the final concrete
-    statement: a "fresh" B-state u (not in Im(φ)) cannot reach any
-    embedded A-state φ(s) via any number of B-partition steps.
-
-    Zero admits.  Self-contained.  Imports InductiveTrust (connects to kernel). *)
+    The argument is constructive. partition_closed states the local edge
+    condition, non_interference lifts it to reachability by induction on the
+    path derivation, and non_interference_invariant packages the result in the
+    form the rest of the section uses.
+ *)
 
 From Coq Require Import Arith List Lia.
 Import ListNotations.
@@ -37,7 +19,7 @@ From Kernel Require Import VMState VMStep MuCostModel.
 
 Require Import InductiveTrust.
 
-(* ================================================================== *)
+(* *)
 (** ** 1. Region membership and closure *)
 
 (** [in_image phi n_A t]: B-state [t] is *in A's region* —
@@ -56,7 +38,7 @@ Definition partition_closed {A B : StateSpace} (e : Expansion A B) : Prop :=
     in_image (e.(embed A B)) A.(ss_size) dst ->
     in_image (e.(embed A B)) A.(ss_size) src.
 
-(* ================================================================== *)
+(* *)
 (** ** 2. Reachability in a directed graph *)
 
 (** [reaches edges u v]: v is reachable from u in zero or more steps
@@ -70,10 +52,10 @@ Inductive reaches (edges : list (nat * nat)) : nat -> nat -> Prop :=
     reaches edges v w ->
     reaches edges u w.
 
-(* ================================================================== *)
+(* *)
 (** ** 3. Non-Interference Theorem
 
-    STATEMENT: Under [partition_closed], Im(φ) is inward-closed.
+    Under [partition_closed], Im(φ) is inward-closed.
     Reachability INTO Im(φ) implies the source is ALSO in Im(φ). *)
 
 Theorem non_interference :
@@ -96,7 +78,7 @@ Proof.
     + apply IH. exact Hv.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 4. Corollaries *)
 
 (** No state outside Im(φ) can reach any state inside Im(φ). *)

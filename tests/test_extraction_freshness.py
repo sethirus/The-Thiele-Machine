@@ -10,9 +10,8 @@ What this enforces
        ``vm_instruction``  ``VMState``  ``vm_apply``
 3. The extraction artefact contains none of the "phantom" names that would
    indicate a stale or hand-edited file (e.g. ``STALE_MARKER``, ``TODO``, ``FIXME``).
-4. Running ``make -C coq Extraction.vo`` produces .ml output,
-   then ``build/thiele_core.ml`` is copied to ``build/thiele_core_complete.ml``
-   and byte-for-byte identity is verified.
+4. Running ``make -C coq Extraction.vo ThieleMachineComplete.vo`` produces
+   both direct .ml outputs and byte-for-byte identity is verified.
 
 Running
 -------
@@ -58,15 +57,13 @@ def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
-def _expected_ml_path(v_file: Path) -> Path | None:
-    """Parse the ``Extraction "..."`` directive to find the target .ml path."""
+def _extracted_ml_paths(v_file: Path) -> list[Path]:
+    """Parse all ``Extraction "..."`` directives to find target .ml paths."""
     text = v_file.read_text(encoding="utf-8")
-    m = _EXTRACT_TARGET_RE.search(text)
-    if not m:
-        return None
-    raw = m.group(1)
-    target = (v_file.parent / raw).resolve()
-    return target
+    return [
+        (v_file.parent / raw).resolve()
+        for raw in _EXTRACT_TARGET_RE.findall(text)
+    ]
 
 
 # ── tests ────────────────────────────────────────────────────────────────────
@@ -100,12 +97,12 @@ def test_extraction_artefact_paths_match_v_directives():
     """
     mismatches: list[str] = []
     for v_file, expected_ml in EXTRACTION_PAIRS:
-        actual = _expected_ml_path(v_file)
-        if actual is None:
+        actual = _extracted_ml_paths(v_file)
+        if not actual:
             mismatches.append(f"{v_file.name}: no Extraction directive found")
-        elif actual != expected_ml.resolve():
+        elif expected_ml.resolve() not in actual:
             mismatches.append(
-                f"{v_file.name}: directive points to {actual}\n"
+                f"{v_file.name}: directives point to {actual}\n"
                 f"  but gate expects {expected_ml}"
             )
     assert not mismatches, "\n".join(mismatches)
@@ -194,13 +191,11 @@ def test_ml_newer_than_v_source():
 @pytest.mark.coq
 def test_full_extraction_matches_committed(tmp_path):
     """
-    Re-run ``make -C coq Extraction.vo`` and verify the freshly-generated
-    .ml file exists and the committed artefact is consistent.
-    Then verify thiele_core_complete.ml (produced by ThieleMachineComplete.v)
-    is isomorphic to thiele_core.ml — same functions, same code, same content.
+    Re-run ``make -C coq Extraction.vo ThieleMachineComplete.vo`` and verify
+    both direct extractions are present and byte-for-byte identical.
     """
     result = subprocess.run(
-        ["make", "-j2", "Extraction.vo"],
+        ["make", "-j2", "Extraction.vo", "ThieleMachineComplete.vo"],
         cwd=str(COQ_DIR),
         capture_output=True,
         text=True,
@@ -213,20 +208,23 @@ def test_full_extraction_matches_committed(tmp_path):
     for _, ml in EXTRACTION_PAIRS:
         assert ml.exists(), f"{ml.name}: missing after build"
 
-    # Verify isomorphic identity: thiele_core_complete.ml (extracted by
-    # ThieleMachineComplete.v) contains the exact same OCaml code as
-    # thiele_core.ml (extracted by Extraction.v). Coq's extraction engine
-    # may reorder functions depending on compilation context, so we verify
-    # sorted-line identity (same content, potentially different layout).
+    # Verify byte-for-byte identity: both files are direct extractions, one
+    # from the modular root and one from ThieleMachineComplete.v.
     core = BUILD_DIR / "thiele_core.ml"
     complete = BUILD_DIR / "thiele_core_complete.ml"
     assert complete.exists(), (
         "thiele_core_complete.ml missing — "
         "ThieleMachineComplete.v must be compiled first"
     )
-    core_sorted = sorted(core.read_text(encoding="utf-8").splitlines())
-    complete_sorted = sorted(complete.read_text(encoding="utf-8").splitlines())
-    assert core_sorted == complete_sorted, (
-        "thiele_core.ml and thiele_core_complete.ml are NOT isomorphic — "
-        "sorted-line diff is non-empty"
+    assert core.read_bytes() == complete.read_bytes(), (
+        "thiele_core.ml and thiele_core_complete.ml are not byte-identical"
+    )
+    core_mli = BUILD_DIR / "thiele_core.mli"
+    complete_mli = BUILD_DIR / "thiele_core_complete.mli"
+    assert complete_mli.exists(), (
+        "thiele_core_complete.mli missing — "
+        "ThieleMachineComplete.v must be compiled first"
+    )
+    assert core_mli.read_bytes() == complete_mli.read_bytes(), (
+        "thiele_core.mli and thiele_core_complete.mli are not byte-identical"
     )

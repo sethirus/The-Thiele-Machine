@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import re
 from pathlib import Path
+from typing import Any
 
 # ---------------------------------------------------------------------------
 # Phase A: Peano tower collapse (for constant extraction)
@@ -169,7 +170,6 @@ CONSTRUCTOR_FIELD_MAP: dict[str, list[tuple[str, str]]] = {
                            ("cost", "cost")],
     "Instr_reveal":       [("module0", "module"), ("bits", "bits"),
                            ("cert", "cert"), ("cost", "cost")],
-    "Instr_oracle_halts": [("payload", "payload"), ("cost", "cost")],
     "Instr_halt":         [("cost", "cost")],
     "Instr_checkpoint":   [("label", "label"), ("cost", "cost")],
     "Instr_read_port":    [("dst", "dst"), ("channel_idx", "channel"),
@@ -499,9 +499,9 @@ def generate_instr_dict_to_text() -> str:
     This function converts a Python instruction dict to the text format
     expected by build/extracted_vm_runner.
     """
-    # Special cases that need custom serialization
-    # lassert: OCaml format is "LASSERT mid axiom cost" — cert is OMITTED (hardcoded internally)
-    # reveal: OCaml format is "REVEAL ti tj bits [cert]" where bits is used as both bits and cost
+    # Special cases that need custom serialization.
+    # reveal: OCaml format is "REVEAL ti tj bits cost [cert]"; bits and
+    # declared delta are separate so the extracted VM charges bits + S(cost).
     SPECIAL_OPS = {"reveal", "lassert", "ljoin"}
 
     lines = [
@@ -582,6 +582,19 @@ def generate_instr_dict_to_text() -> str:
         "        if 1 <= v <= nvars: cert_words[v] = 1 if lit > 0 else 0",
         "    return cert_words",
         "",
+        "def _parse_dual_sat_certs(instr: Dict[str, Any], raw_cert: Any, nvars: int):",
+        '    """Return (model_words, countermodel_words) for SAT-mode LASSERT."""',
+        "    if isinstance(raw_cert, dict):",
+        "        model_text = str(raw_cert.get('model', raw_cert.get('proof', '')) or '')",
+        "        countermodel_text = str(raw_cert.get('countermodel', '') or '')",
+        "    else:",
+        "        model_text = str(raw_cert or instr.get('model', '') or '')",
+        "        countermodel_text = str(instr.get('countermodel', '') or '')",
+        "    return (",
+        "        _parse_sat_cert_binary(model_text, nvars),",
+        "        _parse_sat_cert_binary(countermodel_text, nvars),",
+        "    )",
+        "",
         "def _fmt_list(val: Any) -> str:",
         '    """Format a list field as {v1,v2,...} for OCaml runner."""',
         "    if not val:",
@@ -622,6 +635,14 @@ def generate_instr_dict_to_text() -> str:
     # Emits multi-line string (INIT_MEM_STR + INIT_REG pairs + LASSERT).
     # Reserved: formula_addr=0xE000 (reg 28), cert_addr=0xF000 (reg 29).
     lines.append('    if op == "lassert":')
+    lines.append('        if "freg" in instr or "creg" in instr or "flen" in instr:')
+    lines.append('            freg = int(instr.get("freg", 0))')
+    lines.append('            creg = int(instr.get("creg", 0))')
+    lines.append('            kind_value = instr.get("kind", 0)')
+    lines.append('            kind = 1 if bool(kind_value) else 0')
+    lines.append('            flen = int(instr.get("flen", 0))')
+    lines.append('            cost = int(instr.get("cost", 0))')
+    lines.append('            return f"LASSERT {freg} {creg} {kind} {flen} {cost}"')
     lines.append('        formula = str(instr.get("formula", ""))')
     lines.append('        cost = int(instr.get("cost", 0))')
     lines.append('        raw_cert = instr.get("cert", "")')
@@ -632,9 +653,9 @@ def generate_instr_dict_to_text() -> str:
     lines.append('            cert_type = str(instr.get("cert_type", "sat"))')
     lines.append('            cert_data = str(raw_cert or "")')
     lines.append('        kind = 0 if cert_type == "unsat" else 1')
-    lines.append('        flen = len(_decode_formula(formula))')
     lines.append('        # Parse formula/cert into binary word format for check_model_binary_fn.')
     lines.append('        hw_flen, nvars, nclauses, lit_words = _parse_dimacs_binary(formula)')
+    lines.append('        flen = hw_flen')
     lines.append('        fbase = _LASSERT_FORMULA_ADDR')
     lines.append('        cbase = _LASSERT_CERT_ADDR')
     lines.append('        parts: List[str] = []')
@@ -644,10 +665,13 @@ def generate_instr_dict_to_text() -> str:
     lines.append('        for i, w in enumerate(lit_words):')
     lines.append('            parts.append(f"INIT_MEM {fbase + 3 + i} {w}")')
     lines.append('        if kind == 1:')
-    lines.append('            cert_words = _parse_sat_cert_binary(cert_data, nvars)')
-    lines.append('            for i, w in enumerate(cert_words):')
+    lines.append('            model_words, countermodel_words = _parse_dual_sat_certs(instr, raw_cert, nvars)')
+    lines.append('            for i, w in enumerate(model_words):')
     lines.append('                if w != 0:')
     lines.append('                    parts.append(f"INIT_MEM {cbase + i} {w}")')
+    lines.append('            for i, w in enumerate(countermodel_words):')
+    lines.append('                if w != 0:')
+    lines.append('                    parts.append(f"INIT_MEM {cbase + nvars + i} {w}")')
     lines.append('        parts.append(f"INIT_REG {_LASSERT_FREG} {fbase}")')
     lines.append('        parts.append(f"INIT_REG {_LASSERT_CREG} {cbase}")')
     lines.append('        parts.append(f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}")')
@@ -677,17 +701,17 @@ def generate_instr_dict_to_text() -> str:
     lines.append('        c2i = int(c2reg_v) if c2reg_v is not None else 0')
     lines.append('        return f"LJOIN {c1i} {c2i} {cost}"')
 
-    # Special case for REVEAL: OCaml runner uses "REVEAL ti tj bits [cert]" format
-    # where module (flat_index) = ti*4 + tj; bits arg is used as BOTH bits AND cost (delta).
-    # We use the dict's "cost" field as delta so NoFI enforcement works correctly.
+    # Special case for REVEAL: OCaml runner uses "REVEAL ti tj bits cost [cert]".
+    # module (flat_index) = ti*4 + tj; bits and declared delta are distinct.
     lines.append('    if op == "reveal":')
     lines.append('        m = int(instr.get("module", 0))')
     lines.append('        ti, tj = m // 4, m % 4')
-    lines.append('        delta = int(instr.get("cost", instr.get("bits", 0)))')
+    lines.append('        bits = int(instr.get("bits", 0))')
+    lines.append('        cost = int(instr.get("cost", 0))')
     lines.append('        cert = str(instr.get("cert", "") or "")')
     lines.append('        if cert and cert not in ("None", ""):')
-    lines.append('            return f"REVEAL {ti} {tj} {delta} {cert}"')
-    lines.append('        return f"REVEAL {ti} {tj} {delta}"')
+    lines.append('            return f"REVEAL {ti} {tj} {bits} {cost} {cert}"')
+    lines.append('        return f"REVEAL {ti} {tj} {bits} {cost}"')
 
     lines.append('    raise ValueError(f"instr_dict_to_text: unknown opcode: {op!r}")')
     lines.append("")

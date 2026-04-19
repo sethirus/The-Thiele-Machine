@@ -1,22 +1,14 @@
-(** * Einstein Field Equations: G_μν = 8πG T_μν
+(** EinsteinEquations4D: unit-normalized Einstein-side identities.
 
-    ========================================================================
-    PURPOSE: Define 4D Einstein tensor, Ricci tensor, and stress-energy on the VM's mu-tensor, then verify the field equation holds by construction of these definitions
-    ========================================================================
+  This file defines the 4D Einstein-side objects built from the VM tensor
+  machinery and proves the cases it can honestly prove. The key limit is up
+  front: the clean theorem here is the isotropic vacuum case. The broader
+  curved and non-vacuum story gets handled by narrower bridge theorems and by
+  later files that add more hypotheses.
 
-    THE MAIN RESULT:
-    einstein_field_equations (below, isotropic vacuum case) — proven, zero Admitted.
-    For the curved/non-vacuum general case see open problems OP-1 through OP-6.
-
-    This completes the 4D gravity emergence proof:
-    - Computation (μ-costs) → Metric
-    - Metric → Curvature (Riemann tensor)
-    - Curvature → Einstein tensor G_μν
-    - Information density → Stress-energy T_μν
-    - PNEW dynamics → G_μν = 8πG T_μν
-
-    ZERO PROJECT-LOCAL AXIOMS. ZERO EXTRA ASSUMPTIONS. The field equation G_μν = 8πG T_μν holds because G := 1/(8π) is a unit choice and T_μν is defined from the same mu-tensor as the metric.
-    *)
+  The constant G = 1 / (8PI) is just a unit convention inside this file. It
+  normalizes 8PIG to 1 in computational units. It is not a derivation of the
+  physical Newton constant, and the header says that plainly. *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra Bool.
 From Coq Require Import FunctionalExtensionality.
@@ -30,64 +22,35 @@ From Kernel Require Import RiemannTensor4D.
 From Kernel Require Import MuGravity.
 From Kernel Require Import KernelPhysics.
 
-(** Import key definitions to avoid module prefixes in theorem statements *)
+(** Import key definitions so theorem statements stay readable. *)
 Import RiemannTensor4D.
 
-(** ** Newton's Gravitational Constant from Computational Scale
+(** Gravitational constant in computational units.
 
-    In classical GR, G is measured experimentally: G ≈ 6.674 × 10^{-11} m³/(kg·s²)
-
-    G is defined as 1/(8π), a unit choice (not a derivation).
-
-    DERIVATION:
-    The computational_scale is defined as 1 μ-cost unit.
-    This sets the fundamental quantum of computation.
-
-    G is derived as a dimensionless coupling constant that relates
-    discrete computational structure to continuous gravitational effects.
-*)
+  This is a normalization choice so the Einstein equation reads G_mn = T_mn
+  in the units used here. *)
 
 Definition computational_scale : R := 1%R.
 
-(* UNIT CONVENTION (not a derivation):
-   We work in "computational units" where the fundamental scale is set by
-   the μ-cost quantum.  We SET 8πG ≡ 1, giving G = 1/(8π).
-   This is analogous to choosing ħ = c = 1 in natural units.
-
-   Consequence: the Einstein equations read G_μν = T_μν in these units.
-
-   What is NOT claimed: that G takes this numerical value in physical units,
-   or that this convention can be derived from μ-cost dynamics.
-   No theorem in this file identifies this unit-normalized constant with the
-   separate scale-built constant MuGravity.gravitational_constant.
-   See Theorem gravitational_coupling_unit_convention for the Coq proof that
-   8 * PI * gravitational_constant = 1 under this definition.
-*)
+(* Unit convention only. The normalization 8PI G = 1 is chosen so later
+  formulas are readable. Nothing in this file claims that numerical value in
+  physical units or derives it from mu-cost dynamics. *)
 Definition gravitational_constant : R := (/ (8 * PI))%R.
 (** Alias for backwards compatibility *)
 Definition newtons_constant : R := gravitational_constant.
 
 (* DEFINITIONAL HELPER *)
-(** [computational_scale_positive]: formal specification. *)
 Lemma computational_scale_positive : (computational_scale > 0)%R.
 Proof.
   unfold computational_scale.
   lra.
 Qed.
 
-(** ** Stress-Energy Tensor from μ-Costs
+(** Stress-energy tensor from μ-costs.
 
-    T_μν encodes energy density, momentum density, and stress (pressure/shear).
-
-    Components:
-    - T_00 : energy density
-    - T_0i : momentum density in direction i
-    - T_ij : stress (pressure if i=j, shear if i≠j)
-
-    DERIVATION FROM μ-COSTS:
-    - Energy density ~ module_structural_mass (information content)
-    - Momentum density ~ rate of change of structural mass
-    - Stress ~ spatial gradients of structural mass
+    T_μν encodes energy density (T_00), momentum density (T_0i), and
+    stress (T_ij: pressure on diagonal, shear off-diagonal). These come
+    from module_structural_mass (information content) and its spatial gradients.
 *)
 
 (** Energy density at a vertex *)
@@ -106,7 +69,7 @@ Definition momentum_density (s : VMState) (sc : SimplicialComplex4D)
 
     Physical meaning: isotropic perfect fluid at rest.  The pressure tensor
     is proportional to the metric tensor.  In flat spacetime with diagonal
-    metric (g_ij = 0 for i ≠ j), this gives T_ij = ρ·δ_ij — pressure on
+    metric (g_ij = 0 for i ≠ j), this gives T_ij = ρ·δ_ij: pressure on
     the diagonal, zero shear off-diagonal.  In curved spacetime the
     off-diagonal components can be non-zero in general.
 
@@ -148,21 +111,21 @@ Definition stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
   then momentum_density s sc v μ  (* T_i0 = momentum density *)
   else stress_component s sc v μ ν.  (* T_ij = stress *)
 
-(** ** The Main Theorem: Einstein Field Equations
+(** Main theorem: isotropic vacuum Einstein equation
 
     G_μν = 8πG T_μν
 
-    HONEST SCOPE: This file proves the ISOTROPIC VACUUM case — both sides
+    HONEST SCOPE: This file proves the ISOTROPIC VACUUM case. Both sides
     independently equal 0.  The two former structural gaps are now closed:
 
-    CLOSED — Position-independent metric (was Structural Gap 1):
+    CLOSED: Position-independent metric (was Structural Gap 1):
     metric_component now reads full_metric_at_vertex s v μ ν (per-vertex).
     Christoffel symbols are zero only under uniform_module_tensor s (all
     modules carry the same tensor).  For non-uniform tensors the metric
     varies across the graph and curvature is non-trivial; see the curved
     spacetime section below and CurvedTensorPipeline.v.
 
-    CLOSED — Coordinate direction collapse (was Structural Gap 2):
+    CLOSED: Coordinate direction collapse (was Structural Gap 2):
     discrete_derivative now filters neighbors by e1d_direction, so partial
     derivatives in different coordinate directions can differ when edges are
     labeled with direction tags (e1d_direction = Some d).  Undirected edges
@@ -180,17 +143,17 @@ Definition stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
     gravitational_coupling_unit_convention for the Coq proof.
     It is not derived from μ-cost dynamics.
 
-    This is a valid Coq theorem — zero Admitted, zero project-local axioms.
+    This is a valid Coq theorem: zero Admitted, zero project-local axioms.
     For the curved / non-vacuum case, see einstein_equation_isotropic_vacuum
     open problems OP-1 through OP-6 and CurvedTensorPipeline.v.
 
-    The core machine theorems — μ-conservation, NoFI, initiality,
-    categorical laws — are independent of the geometry proofs here.
+    The core machine theorems: μ-conservation, NoFI, initiality, and
+    categorical laws, are independent of the geometry proofs here.
 *)
 
-(** ** The Einstein Field Equations (Isotropic Vacuum Case)
+(** Einstein field equations: isotropic vacuum case
 
-    THEOREM: einstein_equation_isotropic_vacuum
+    einstein_equation_isotropic_vacuum
     Under vacuum (mass=0) and flat geometry (uniform_module_tensor s):
       G_μν = 8πG · T_μν   (both sides = 0 independently)
 
@@ -203,7 +166,7 @@ Definition stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
     open problems OP-1 through OP-6 in einstein_equation_isotropic_vacuum.
 *)
 
-(** ** Bridge Lemmas: Connecting Discrete Geometry to Mass Distribution **)
+(** Bridge lemmas: connecting discrete geometry to mass distribution. *)
 
 From Coq Require Import Classical_Prop.
 
@@ -213,15 +176,14 @@ From Coq Require Import Classical_Prop.
     whenever neighbouring modules have different tensors.
 
     Definition: a state has UNIFORM module tensors when all vertices share
-    the same tensor entries — the analogue of flat spacetime.
+    the same tensor entries. That is the flat-spacetime analogue used here.
 *)
 
 (** Predicate: all modules in state s carry the same 4×4 tensor. *)
 Definition uniform_module_tensor (s : VMState) : Prop :=
   forall v1 v2 i j, module_tensor_entry s v1 i j = module_tensor_entry s v2 i j.
 
-(* Lemma 1: Metric at vertex v reads the per-vertex module tensor. *)
-(** [metric_diagonal_local]: formal specification. *)
+(* Metric at vertex v reads the per-vertex module tensor. *)
 Lemma metric_diagonal_local : forall s v mu,
   RiemannTensor4D.metric_component s mu mu v =
     INR (module_tensor_entry s v (mu mod 4) (mu mod 4)).
@@ -235,8 +197,7 @@ Qed.
    The metric is now genuinely position-dependent; different vertices can
    carry different metric values. *)
 
-(* Lemma 1b: The metric IS position-independent when tensors are uniform. *)
-(** [metric_component_uniform_flat]: formal specification. *)
+(* The metric is position-independent when tensors are uniform. *)
 Lemma metric_component_uniform_flat : forall s mu nu w1 w2,
   uniform_module_tensor s ->
   RiemannTensor4D.metric_component s mu nu w1 =
@@ -247,8 +208,7 @@ Proof.
   f_equal. apply Hunif.
 Qed.
 
-(* Lemma 2: Discrete derivative of constant function is 0 *)
-(** [discrete_derivative_constant]: formal specification. *)
+(* A constant function has zero discrete derivative. *)
 Lemma discrete_derivative_constant : forall s sc c mu v,
   RiemannTensor4D.discrete_derivative s sc (fun _ => c) mu v = 0%R.
 Proof.
@@ -263,8 +223,7 @@ Qed.
    It was an artefact of the old global-metric definition.
    Use metric_component_uniform_flat with uniform_module_tensor instead. *)
 
-(* Lemma 2c: Derivative of position-independent function is zero *)
-(** [discrete_derivative_position_independent]: formal specification. *)
+(* A position-independent function has zero discrete derivative. *)
 Lemma discrete_derivative_position_independent : forall s sc f mu v,
   (forall w1 w2, f w1 = f w2) ->
   RiemannTensor4D.discrete_derivative s sc f mu v = 0%R.
@@ -277,7 +236,6 @@ Proof.
 Qed.
 
 (* Helper: filter with always-false predicate gives empty list *)
-(** [filter_false]: formal specification. *)
 Lemma filter_false : forall {A} (l : list A),
   filter (fun _ => false) l = [].
 Proof.
@@ -285,8 +243,7 @@ Proof.
   induction l as [|x xs IH]; simpl; auto.
 Qed.
 
-(* Lemma: In a simplicial complex with no edges, all derivatives vanish *)
-(** [no_edges_derivative_zero]: formal specification. *)
+(* In a simplicial complex with no edges, all derivatives vanish. *)
 Lemma no_edges_derivative_zero : forall s sc f mu v,
   sc4d_edges sc = [] ->
   RiemannTensor4D.discrete_derivative s sc f mu v = 0%R.
@@ -301,9 +258,8 @@ Proof.
   - simpl. exact IH.
 Qed.
 
-(* Lemma 3: For flat spacetime (uniform mass), Christoffel symbols vanish
+(* For flat spacetime (uniform mass), Christoffel symbols vanish
    SIMPLIFIED VERSION: Prove for empty simplicial complex first *)
-(** [flat_spacetime_christoffel_zero]: formal specification. *)
 Lemma flat_spacetime_christoffel_zero : forall s sc rho mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   sc4d_edges sc = [] ->
@@ -318,7 +274,6 @@ Proof.
 Qed.
 
 (* GENERAL CASE: For arbitrary simplicial complex with uniform module tensors *)
-(** [flat_spacetime_christoffel_zero_general]: formal specification. *)
 Lemma flat_spacetime_christoffel_zero_general : forall s sc rho mu nu v,
   uniform_module_tensor s ->
   RiemannTensor4D.christoffel s sc rho mu nu v = 0%R.
@@ -353,8 +308,7 @@ Proof.
   unfold Rdiv. ring.
 Qed.
 
-(* Lemma 4: Flat spacetime has zero Riemann tensor - simple version *)
-(** [flat_spacetime_riemann_zero]: formal specification. *)
+(* Flat spacetime has zero Riemann tensor: no-edge version. *)
 Lemma flat_spacetime_riemann_zero : forall s sc rho sigma mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   sc4d_edges sc = [] ->
@@ -417,7 +371,6 @@ Proof.
 Qed.
 
 (* GENERAL VERSION *)
-(** [flat_spacetime_riemann_zero_general]: formal specification. *)
 Lemma flat_spacetime_riemann_zero_general : forall s sc rho sigma mu nu v,
   uniform_module_tensor s ->
   RiemannTensor4D.riemann_tensor s sc rho sigma mu nu v = 0%R.
@@ -485,8 +438,7 @@ Proof.
   ring.
 Qed.
 
-(* Lemma 5: fold_left of zeros is zero *)
-(** [fold_left_sum_zeros]: formal specification. *)
+(* fold_left over zero-valued terms is zero. *)
 Lemma fold_left_sum_zeros : forall {A} (l : list A) g,
   (forall x, g x = 0%R) ->
   fold_left (fun acc x => (acc + g x)%R) l 0%R = 0%R.
@@ -497,8 +449,7 @@ Proof.
   - simpl. rewrite Hg. rewrite Rplus_0_r. exact IH.
 Qed.
 
-(* Lemma 5b: Nested fold_left of zeros is zero *)
-(** [fold_left_nested_zeros]: formal specification. *)
+(* Nested fold_left over zero-valued terms is zero. *)
 Lemma fold_left_nested_zeros : forall {A B} (l1 : list A) (l2 : list B) f,
   (forall x y, f x y = 0%R) ->
   fold_left (fun acc x => fold_left (fun acc' y => (acc' + f x y)%R) l2 acc) l1 0%R = 0%R.
@@ -513,8 +464,7 @@ Proof.
   - simpl. rewrite H_inner. exact IH.
 Qed.
 
-(* Lemma 6: Flat spacetime has zero Einstein tensor - simple version *)
-(** [flat_spacetime_einstein_zero]: formal specification. *)
+(* Flat spacetime has zero Einstein tensor: no-edge version. *)
 Lemma flat_spacetime_einstein_zero : forall s sc mu nu v m,
   (forall w, module_structural_mass s w = m) ->
   sc4d_edges sc = [] ->
@@ -561,7 +511,6 @@ Proof.
 Qed.
 
 (* GENERAL VERSION *)
-(** [flat_spacetime_einstein_zero_general]: formal specification. *)
 Lemma flat_spacetime_einstein_zero_general : forall s sc mu nu v,
   uniform_module_tensor s ->
   RiemannTensor4D.einstein_tensor s sc mu nu v = 0%R.
@@ -605,7 +554,7 @@ Proof.
   unfold Rdiv. ring.
 Qed.
 
-(** ** Bridge Lemmas: Connecting μ-Costs to Curvature and Conservation *)
+(** Bridge lemmas: connecting μ-costs to curvature and conservation. *)
 
 (** Bridge Lemma 1: Curvature vanishes when module tensors are uniform.
 
@@ -614,7 +563,7 @@ Qed.
     the same everywhere, all Christoffel symbols vanish, and G_μν = 0.
 
     When vertices carry DIFFERENT tensors (e.g. after PNEW), the metric is
-    genuinely curved and G_μν can be non-zero — but proving G_μν = 8πG T_μν
+    genuinely curved and G_μν can be non-zero. Proving G_μν = 8πG T_μν
     in that regime is an open problem (see einstein_field_equations_general below).
 *)
 Lemma curvature_from_mu_gradients : forall s sc mu nu v,
@@ -674,7 +623,6 @@ Proof.
 Qed.
 
 (* Lemma 7: Flat spacetime stress-energy for (0,0) component *)
-(** [flat_spacetime_stress_energy_00]: formal specification. *)
 Lemma flat_spacetime_stress_energy_00 : forall s sc v m,
   (forall w, module_structural_mass s w = m) ->
   stress_energy_tensor s sc 0%nat 0%nat v = INR m.
@@ -687,20 +635,18 @@ Proof.
   reflexivity.
 Qed.
 
-(** Main Theorem: Einstein Field Equations (Isotropic Vacuum Case)
+(** Main theorem: Einstein equation in the isotropic vacuum case.
 
    HYPOTHESES:
    - H_vacuum: all modules have structural mass 0 (vacuum matter content)
    - H_unif:   all modules carry the same module tensor (flat geometry)
 
-   PROOF STRUCTURE:
    1. H_unif → uniform_module_tensor → metric position-independent
    2. Position-independent metric → zero Christoffel symbols (proven)
    3. Zero Christoffels → zero Riemann → zero Ricci → zero Einstein G_μν
    4. H_vacuum → zero stress-energy tensor T_μν
-   5. Therefore: 0 = 8πG·0 ✓
-
-   NOTE: Both sides are zero independently (G_μν from geometry, T_μν from
+   5. Therefore: 0 = 8πG·0.
+ Both sides are zero independently (G_μν from geometry, T_μν from
    mass content), so this is a genuine equation rather than a tautology.
    The non-flat/non-vacuum case remains an open problem.
 **)
@@ -720,18 +666,18 @@ Proof.
   { field_simplify. - reflexivity. - apply PI_neq0. }
   rewrite H_coeff.
 
-  (* STEP 2: Geometric side — uniform tensors force flat metric → G_μν = 0 *)
+  (* STEP 2: Geometric side: uniform tensors force flat metric → G_μν = 0 *)
   assert (H_ein: RiemannTensor4D.einstein_tensor s sc mu nu v = 0%R).
   { apply (curvature_from_mu_gradients s sc mu nu v). exact H_unif. }
   rewrite H_ein.
 
-  (* STEP 3: Matter side — vacuum mass forces T_μν = 0 *)
+  (* STEP 3: Matter side: vacuum mass forces T_μν = 0 *)
   symmetry.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v).
   exact H_vacuum.
 Qed.
 
-(** Einstein field equations — ISOTROPIC VACUUM CASE.
+(** Einstein field equations: ISOTROPIC VACUUM CASE.
 
     Scope: this theorem is RESTRICTED to states satisfying:
       (1) Vacuum: all modules have structural mass 0.
@@ -746,7 +692,7 @@ Qed.
     definition), not a value derived from μ-cost dynamics.  See
     gravitational_coupling_unit_convention for the explicit Coq proof.
 
-    OPEN PROBLEMS — NOT addressed by this theorem:
+    OPEN PROBLEMS, not addressed by this theorem:
       (a) Upgrade the current concrete non-vacuum local theorem
           (local_einstein_two_vertex_endpoint_diag) to a direct
           local_einstein_tensor = 8πG · T_μν statement for a genuinely
@@ -792,7 +738,7 @@ Proof.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
 Qed.
 
-(* INQUISITOR NOTE: alias for einstein_equation_isotropic_vacuum —
+(* INQUISITOR NOTE: alias for einstein_equation_isotropic_vacuum:
    kept for backward-compatibility with callers using the shorter name. *)
 Theorem einstein_equation : forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
   (forall w, module_structural_mass s w = 0%nat) ->
@@ -813,7 +759,7 @@ Proof.
   apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
 Qed.
 
-(* INQUISITOR NOTE: alias for einstein_equation_isotropic_vacuum — canonical public name for the EFE result. *)
+(* INQUISITOR NOTE: alias for einstein_equation_isotropic_vacuum: canonical public name for the vacuum EFE result. *)
 Theorem einstein_field_equations :
   forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
     (forall w, module_structural_mass s w = 0%nat) ->
@@ -824,24 +770,23 @@ Proof.
   exact einstein_equation_isotropic_vacuum.
 Qed.
 
-(** The equation holds when both sides depend on module_structural_mass
-    in the same way, which follows from the construction of both tensors
-    from the metric derived from μ-costs.
+(** In this file, the public Einstein equation theorem is the isotropic vacuum
+    theorem above. It does not prove the general non-vacuum field equation.
 
     EMPIRICAL TEST:
     - Construct VM states with varying information density
     - Compute G_μν from metric curvature
     - Compute T_μν from structural mass
-    - Verify they satisfy the equation with constant 8π
+    - Check whether the same coupling can be made to fit
 
-    If they don't match, the theory is falsified.
+    If they do not match, the proposed non-vacuum extension fails.
 *)
 
-(** Helper definition: Einstein equation holds at a point *)
+(** Predicate: the unit-normalized Einstein equation holds at a point. *)
 Definition einstein_equation_holds (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID) : Prop :=
   RiemannTensor4D.einstein_tensor s sc mu nu v = (8 * PI * newtons_constant * stress_energy_tensor s sc mu nu v)%R.
 
-(** Simple case: Empty spacetime with uniform module tensor *)
+(** Empty/vacuum spacetime with uniform module tensor satisfies the predicate. *)
 Lemma empty_spacetime_satisfies_einstein : forall s sc mu nu v,
   (forall w, module_structural_mass s w = 0%nat) ->
   uniform_module_tensor s ->
@@ -854,12 +799,12 @@ Proof.
   - exact H_unif.
 Qed.
 
-(** ** Corollaries and Predictions *)
+(** Corollaries and experiments to try. *)
 
-(** Stress-energy conservation (statement)
+(** Stress-energy conservation, stated as a property.
 
     In GR, ∇_μ T^{μν} = 0 follows from Bianchi identities.
-    This is a PREDICTION that can be tested.
+    Here this is a predicate that experiments can test.
 *)
 Definition stress_energy_conserved (s : VMState) (sc : SimplicialComplex4D) : Prop :=
   forall ν v,
@@ -870,29 +815,19 @@ Definition stress_energy_conserved (s : VMState) (sc : SimplicialComplex4D) : Pr
       (fun w => stress_energy_tensor s sc μ ν w) μ v)%R
   ) (sc4d_vertices sc) 0%R = 0%R.
 
-(** =========================================================================
-    THE BIANCHI IDENTITY FROM μ-CONSERVATION
-    =========================================================================
+(**
+    THE BIANCHI IDENTITY WITH A REACHABILITY WITNESS
 
-    THEOREM: μ-conservation in the VM kernel implies the discrete Bianchi
-    identity ∇_μ G^μν = 0: the Einstein tensor has zero covariant divergence.
+    The theorem below takes a vm_step so the state is known reachable, and it
+    uses mu_conservation_kernel as the machine-side witness. The Bianchi
+    conclusion itself comes from the explicit uniform_module_tensor s'
+    hypothesis.
 
-    PROOF CHAIN:
-    1. metric_component is structurally position-independent:
-         metric_component s μ ν v1 v2 = mu_tensor_to_metric s (μ mod 4) (ν mod 4)
-       (vertex arguments are ignored by definition)
+    1. uniform_module_tensor s' gives a position-independent metric.
     2. Position-independent metric → discrete derivatives vanish → Γ^ρ_{μν} = 0
     3. Zero Christoffels → zero Riemann → zero Ricci → zero Einstein G_μν = 0
     4. Divergence of identically-zero tensor = 0
-
-    CONNECTION TO μ-CONSERVATION:
-    mu_conservation_kernel proves every vm_step is monotone on vm_mu.
-    Therefore vm_mu_tensor entries, which drive the metric via
-      g_μν = INR(vm_mu_tensor[μ mod 4, ν mod 4]),
-    only accumulate across execution. This monotonicity guarantees the
-    metric remains well-defined and position-independent in every reachable
-    state, which is precisely the structural condition that forces Bianchi.
-    =========================================================================*)
+  *)
 
 (** Discrete covariant divergence of the Einstein tensor:
     ∇_μ G^μν(v) = Σ_μ Δ_μ G^μν(v) *)
@@ -1009,9 +944,9 @@ Proof.
   ring.
 Qed.
 
-(** *** DISCRETE BIANCHI IDENTITY ***
+(** DISCRETE BIANCHI IDENTITY
 
-    Theorem: ∇_μ G^μν = 0 — for all VM states with uniform module tensor,
+    Theorem: ∇_μ G^μν = 0 for all VM states with uniform module tensor,
     for all simplicial complexes.
 
     The discrete covariant divergence of the Einstein tensor is identically zero.
@@ -1020,7 +955,8 @@ Qed.
     It holds when the metric g_μν = INR(module_tensor_entry s v (μ mod 4) (ν mod 4))
     is position-independent, i.e., every module carries the same 4×4 tensor
     (uniform_module_tensor s).  A position-independent metric is a flat discrete
-    connection, and flat connections trivially satisfy the contracted Bianchi identity. *)
+    connection, and the contracted Bianchi identity reduces to divergence of
+    the zero tensor. *)
 Theorem discrete_bianchi_identity : forall s sc ν v,
   uniform_module_tensor s ->
   einstein_tensor_divergence s sc ν v = 0%R.
@@ -1036,7 +972,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** *** μ-CONSERVATION IMPLIES BIANCHI IDENTITY ***
+(** μ-CONSERVATION PLUS UNIFORMITY IMPLIES BIANCHI IDENTITY
 
     For any successor state s' reachable by vm_step that additionally satisfies
     uniform_module_tensor s' (all modules carry the same metric tensor), the
@@ -1047,10 +983,9 @@ Qed.
     → flat discrete connection → all Christoffels, Riemann, Ricci, Einstein vanish
     → divergence of Einstein tensor = 0.
 
-    MEANING:
-    "When the machine's information geometry is spatially uniform, it automatically
-    satisfies the same conservation law that Einstein's equations impose on spacetime.
-    This is the computational analogue of the contracted Bianchi identity." *)
+    Meaning: when the machine's information geometry is spatially uniform,
+    the Einstein tensor is divergence-free. The vm_step hypothesis records
+    reachability; uniformity does the geometric work. *)
 Theorem mu_conservation_implies_bianchi : forall s s' instr sc ν v,
   vm_step s instr s' ->
   uniform_module_tensor s' ->
@@ -1061,32 +996,32 @@ Proof.
   apply discrete_bianchi_identity. exact Hunif.
 Qed.
 
-(** PREDICTIONS TO TEST EXPERIMENTALLY:
+(** Experiments to try:
 
     1. Newtonian limit: In weak fields, ∇²Φ = 4πG ρ
     2. Time dilation: dτ/dt = √(1 - 2Φ/c²)
     3. Light deflection: Δθ = 4GM/(bc²)
     4. Gravitational waves: h_μν satisfies wave equation
 
-    These can be verified by:
+    These are not proven here. They would need:
     - Constructing VM states with appropriate configurations
     - Computing metric and curvature
     - Comparing to classical GR predictions
 *)
 
-(** SUMMARY
+(** Summary
 
-    1. ✓ Metric from μ-costs (MetricFromMuCosts.v)
-    2. ✓ 4D simplicial complex extraction (FourDSimplicialComplex.v)
-    3. ✓ Christoffel symbols with direction-labeled edges (RiemannTensor4D.v)
-    4. ✓ Riemann curvature tensor (RiemannTensor4D.v)
-    5. ✓ Einstein tensor G_μν with uniform/global and local/per-vertex formulations
-    6. ✓ Stress-energy tensor T_μν = ρ·g_ij (off-diagonal = 0 proved, not defined)
-    7. ✓ Local per-vertex metric, Christoffel, Riemann, Ricci, Einstein pipeline
-    8. ✓ Non-uniform mass → position-dependent local metric and curvature witnesses
-    9. ✓ Einstein equations — ISOTROPIC VACUUM / uniform special cases
-   10. ✓ Discrete Bianchi Identity ∇_μ G^μν = 0 (uniform_module_tensor case)
-   11. ✓ μ-Conservation → Bianchi Identity (this file)
+    1. Metric from μ-costs: MetricFromMuCosts.v.
+    2. 4D simplicial complex extraction: FourDSimplicialComplex.v.
+    3. Christoffel symbols with direction-labeled edges: RiemannTensor4D.v.
+    4. Riemann curvature tensor: RiemannTensor4D.v.
+    5. Einstein tensor G_μν with uniform/global and local/per-vertex formulations.
+    6. Stress-energy tensor T_μν = ρ·g_ij, with off-diagonal zero proved under isotropy.
+    7. Local per-vertex metric, Christoffel, Riemann, Ricci, Einstein pipeline.
+    8. Non-uniform mass gives position-dependent local metric and curvature witnesses.
+    9. Einstein equations: isotropic vacuum / uniform special cases.
+   10. Discrete Bianchi identity ∇_μ G^μν = 0: uniform_module_tensor case.
+   11. vm_step reachability + uniformity gives the Bianchi result.
 
     UNIT CONVENTION:
     G = 1/(8π) is a DEFINITION, not a derivation.  We work in computational
@@ -1102,7 +1037,7 @@ Qed.
           κ = (m_w - m_v)(1 - m_v)/m_v coupling and G = 8πG·T identity.
     OP-2. [CLOSED] Generalize beyond 2-vertex endpoint-matched family.
           RESOLVED below: three_vertex_chain_sc defines a 3-vertex chain
-          u—v—w, with Einstein equation proven at ALL vertices:
+          u-v-w, with explicit local tensor formulas at the vertices:
           - local_einstein_three_vertex_at_u: G_{dd}(u) = (2m_v-m_w-m_u)(2-3m_u)
           - local_einstein_three_vertex_at_v follows from dd_three_at_v ≡ dd_at_v
           - local_einstein_three_vertex_at_w_zero: G_{μν}(w) = 0
@@ -1125,13 +1060,13 @@ Qed.
           The missing objects are a metric-perturbation notion, a Laplacian on
           that potential, and a source normalization proving ∇²Φ = 4πGρ.
 
-    The Bianchi identity closes the conservation loop: μ-ledger monotonicity
-    IS the computational statement of ∇_μ G^μν = 0 (under uniform_module_tensor).
+    The Bianchi identity closes a scoped conservation loop: vm_step reachability
+    gives the machine-side witness, and uniform_module_tensor gives the flat
+    geometry needed for ∇_μ G^μν = 0.
 *)
 
-(** =========================================================================
-    CURVED SPACETIME: LOCAL METRIC AND GENUINE CURVATURE
-    =========================================================================
+(**
+    CURVED LOCAL PIPELINE
 
     The global metric metric_component uses vm_mu_tensor, which is the same
     at every vertex → flat spacetime.
@@ -1140,9 +1075,9 @@ Qed.
     module_structural_mass s v at each vertex v, so it varies across the
     partition graph whenever modules have different masses.
 
-    DEFINITION: local discrete Christoffel symbol with vertex-local metric.
+    Definition: local discrete Christoffel symbol with vertex-local metric.
     Γ^ρ_{μν}^{local}(v) uses metric_at_vertex for all three partial derivatives.
-    =========================================================================*)
+  *)
 
 (** Local Christoffel symbol using metric_at_vertex. *)
 Definition local_christoffel (s : VMState) (sc : SimplicialComplex4D)
@@ -1457,17 +1392,14 @@ Proof.
   rewrite H_ricci, H_scalar. ring.
 Qed.
 
-(** *** NON-FLAT CURVATURE: LOCAL CHRISTOFFEL FROM MASS GRADIENT ***
+(** NON-FLAT LOCAL CURVATURE: CHRISTOFFEL FROM MASS GRADIENT
 
     When two adjacent vertices v, w have different structural masses,
     the discrete derivative of metric_at_vertex is non-zero.
     This forces the local Christoffel symbol Γ^ρ_{μν}(v) ≠ 0:
-    genuine spacetime curvature arises from information density gradients. *)
+    the defined local metric sees the information-density gradient. *)
 
-(** Non-zero local Christoffel when the vertex-local metric is non-constant.
-    Uses discrete_derivative_position_independent contrapositive:
-    if the derivative is zero everywhere, then the function is constant.
-    Equivalently, non-constant metric → non-zero derivative → non-zero Christoffel. *)
+(** Different masses give different diagonal local metric entries. *)
 Lemma local_christoffel_nonzero_possible_when_masses_differ :
   forall s v w μ,
   module_structural_mass s v <> module_structural_mass s w ->
@@ -1480,14 +1412,11 @@ Proof.
   exact (INR_eq _ _ Heq).
 Qed.
 
-(** *** THE CURVATURE THEOREM ***
+(** Local metric position-dependence
 
     When the partition graph has adjacent vertices with different structural
     masses, the LOCAL metric is position-dependent.  This is the
-    computational origin of spacetime curvature.
-
-    Information density gradients (∇ module_structural_mass) produce
-    non-trivial gravitational curvature through the Christoffel→Riemann chain. *)
+    input needed by the local Christoffel/Riemann chain. *)
 Theorem non_uniform_mass_produces_curvature :
   forall s μ v w,
   module_structural_mass s v <> module_structural_mass s w ->
@@ -1501,9 +1430,10 @@ Proof.
   exact (INR_eq _ _ Hcontra).
 Qed.
 
-(** *** LOCAL EINSTEIN FIELD EQUATION (CURVED CASE) ***
+(** Local Einstein tensor in the curved case
 
-    When masses are non-uniform, local_einstein_tensor relates to stress-energy.
+    When masses are non-uniform, local_einstein_tensor can be compared to
+    stress-energy in specialized finite families.
 
     For diagonal terms (μ=ν) at vertex v:
       G^{local}_μμ(v) = R^{local}_μμ(v) - (1/2) mass(v) R^{local}(v)
@@ -1512,8 +1442,8 @@ Qed.
     components which depend on mass gradients.  The stress-energy tensor
     T_μν = energy_density = INR(mass(v)) for the (0,0) component.
 
-    Thus: G^{local}_μν ∝ T^{local}_μν when the proportionality constant
-    is fixed by the coupling constant 8πG = 1 in computational units. *)
+    This paragraph is a guide to the later two-vertex and three-vertex
+    formulas. It is not a universal theorem for arbitrary complexes. *)
 
 Theorem local_einstein_equation_vacuum : forall s sc μ ν v,
   (forall u, module_structural_mass s u = 0%nat) ->
@@ -1521,7 +1451,7 @@ Theorem local_einstein_equation_vacuum : forall s sc μ ν v,
     (8 * PI * gravitational_constant * stress_energy_tensor s sc μ ν v)%R.
 Proof.
   intros s sc μ ν v H_vacuum.
-  (* Step 1: LHS vanishes — all local Christoffels vanish because mass is uniform (=0) *)
+  (* Step 1: LHS vanishes because zero mass is uniform, so local Christoffels vanish. *)
   assert (H_lhs: local_einstein_tensor s sc μ ν v = 0%R).
   {
     unfold local_einstein_tensor.
@@ -1570,7 +1500,7 @@ Proof.
     rewrite H_ricci, H_scalar.
     unfold metric_at_vertex. rewrite H_vacuum. simpl. ring.
   }
-  (* Step 2: RHS vanishes — via bridge lemma stress_energy_conserved_non_pmerge *)
+  (* Step 2: RHS vanishes by stress_energy_conserved_non_pmerge. *)
   rewrite H_lhs.
   symmetry.
   rewrite (stress_energy_conserved_non_pmerge s sc μ ν v H_vacuum).
@@ -1630,12 +1560,11 @@ Proof.
   rewrite H_ricci, H_scalar. ring.
 Qed.
 
-(** *** STRESS-ENERGY TENSOR DIVERGENCE ***
+(** STRESS-ENERGY TENSOR DIVERGENCE
 
     The divergence of the stress-energy tensor vanishes.
-    This is a consequence of energy-momentum conservation.
-    For vacuum and uniform cases, this is trivially zero.
-    For general case, this follows from discrete Stokes theorem on closed complexes.
+    This file proves the vacuum, uniform, and no-edge cases. A true general
+    closed-complex theorem would need the discrete Stokes theorem.
 *)
 
 (** Vacuum case: When mass = 0 everywhere, stress-energy tensor is zero,
@@ -1723,12 +1652,11 @@ Proof.
           ring. }
 Qed.
 
-(** General structure: Stress-energy divergence for non-uniform mass.
-    For the general case, we need discrete Stokes theorem.
-    Here we prove a weaker version that's sufficient for physical applications. *)
+(** No-edge structure: with no edges, every discrete derivative is zero.
+    This is weaker than the closed-complex theorem a full Stokes bridge would
+    need. *)
 Lemma stress_energy_divergence_structure : forall s sc ν v,
-  (* For closed simplicial complexes, the divergence vanishes *)
-  (* We prove this for the case of no edges (trivially closed) *)
+  (* We prove only the no-edge case. *)
   sc4d_edges sc = [] ->
   fold_left (fun acc μ =>
     (acc + discrete_derivative s sc
@@ -1747,11 +1675,10 @@ Proof.
   - simpl. exact IH.
 Qed.
 
-(** *** BIANCHI IDENTITY ***
+(** BIANCHI IDENTITY
 
     The contracted Bianchi identity: ∇·G = 0
-    This is a geometric identity that follows from the definition
-    of the Einstein tensor.
+    This file proves vacuum and no-edge versions for the local tensor.
 *)
 
 (** Vacuum case: When curvature is zero, Einstein tensor is zero. *)
@@ -1823,28 +1750,27 @@ Proof.
   - simpl. exact IH.
 Qed.
 
-(** =========================================================================
-    NON-VACUUM CURVATURE EMERGENCE FROM PNEW
-    =========================================================================
+(**
+    NON-VACUUM LOCAL CURVATURE FROM PNEW-SHAPED MASS GRADIENTS
 
-    Three-step proof that computation creates genuine spacetime curvature:
+    Three-step local proof chain:
 
     Step 1: When modules have different structural masses, the local
-    Christoffel symbol is nonzero — the computational spacetime is curved.
+    Christoffel symbol is nonzero.
 
-    Step 2: The non-vacuum Einstein equation: uniform mass implies flat
-    spacetime (G = T = 0); non-uniform mass implies curved spacetime
-    with nonzero Christoffel (G ≠ 0) proportional to mass gradients.
-    The equation G_μν = 8πG T_μν holds as a field equation constraining
-    which mass distributions are physical, not as a universal identity.
+    Step 2: Uniform mass implies flat local geometry. Non-uniform mass gives
+    local curvature witnesses. The full G_μν = 8πG T_μν equation is a
+    constraint on physical families, not a universal identity for arbitrary
+    mass assignments.
 
     Step 3: PNEW creates mass gradients by adding modules with empty axioms
-    next to modules that have axioms, producing curvature from computation.
+    next to modules that have axioms, producing nonzero Christoffel in the
+    defined local metric.
 
     ZERO PROJECT-LOCAL AXIOMS.
-    ========================================================================= *)
+    *)
 
-(** *** CONCRETE SIMPLICIAL COMPLEX *** *)
+(** Concrete two-vertex simplicial complex. *)
 
 (** Minimal 2-vertex simplicial complex with one edge.
     Vertex ordering [w; v] ensures that when evaluating discrete_derivative
@@ -1857,7 +1783,7 @@ Definition two_vertex_sc (v w : nat) : SimplicialComplex4D :=
      sc4d_cells := [];
      sc4d_4simplices := [] |}.
 
-(** *** DISCRETE DERIVATIVE LEMMAS ON THE 2-VERTEX COMPLEX *** *)
+(** Discrete derivative lemmas on the two-vertex complex. *)
 
 (** At vertex v: neighbor w is found first, so derivative = f(w) - f(v).
     The undirected edge (e1d_direction = None) matches any direction μ. *)
@@ -1867,7 +1793,7 @@ Lemma dd_at_v : forall s v w f μ,
 Proof.
   intros s v w f μ Hvw.
   unfold discrete_derivative, two_vertex_sc.
-  (* e1d_direction = None → dir_ok = true for any μ *)
+  (* e1d_direction = None, so dir_ok is true for any μ. *)
   cbn [e1d_direction e1d_vertices sc4d_vertices sc4d_edges].
   unfold existsb, nat_list_mem. simpl.
   destruct (v =? v) eqn:Evv.
@@ -1902,7 +1828,7 @@ Proof.
   simpl. ring.
 Qed.
 
-(** *** STEP 1: NONZERO LOCAL CHRISTOFFEL FROM MASS GRADIENT *** *)
+(** Step 1: nonzero local Christoffel from a mass gradient. *)
 
 (** Christoffel at w vanishes (w's "neighbor" in the derivative is itself). *)
 Lemma christoffel_at_w_zero : forall s v w ρ μ ν,
@@ -1915,7 +1841,6 @@ Proof.
 Qed.
 
 (** Christoffel at v for diagonal direction: half the mass difference. *)
-(** [christoffel_at_v_diag]: formal specification. *)
 Lemma christoffel_at_v_diag : forall s v w d,
   v <> w ->
   local_christoffel s (two_vertex_sc v w) d d d v =
@@ -1927,13 +1852,13 @@ Proof.
   rewrite !metric_at_vertex_diag. lra.
 Qed.
 
-(** STEP 1 MAIN THEOREM: Nonzero Christoffel when masses differ.
+(** Main two-vertex witness: nonzero Christoffel when masses differ.
 
-    INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations.
+    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations.
 
-    FALSIFICATION: If this theorem fails, then information density gradients
-    do NOT produce spacetime curvature, and the computational gravity
-    emergence claim is wrong. Tested on concrete 2-vertex complexes. *)
+    To falsify: If this theorem fails, then information density gradients
+    do not produce a nonzero local Christoffel, and this two-vertex curvature
+    witness is wrong. *)
 Theorem local_christoffel_nonzero_from_mass_gradient : forall s v w μ,
   v <> w ->
   module_structural_mass s v <> module_structural_mass s w ->
@@ -1948,7 +1873,6 @@ Proof.
 Qed.
 
 (** Explicit value: Γ^d_{dd}(v) = (mass(w) - mass(v)) / 2 *)
-(** [christoffel_equals_half_mass_gradient]: formal specification. *)
 Theorem christoffel_equals_half_mass_gradient : forall s v w d,
   v <> w ->
   local_christoffel s (two_vertex_sc v w) d d d v =
@@ -2091,12 +2015,11 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    OP-2: BEYOND 2-VERTEX — 3-VERTEX CHAIN GENERALIZATION
-    =========================================================================
+(**
+    OP-2: beyond 2-vertex, the 3-vertex chain
 
     We extend the local Einstein equation from the 2-vertex family to a
-    3-vertex chain u—v—w. Key structural facts:
+    3-vertex chain u-v-w. Key structural facts:
 
     - discrete_derivative takes the FIRST neighbor found in vertex-list order.
     - For the 3-vertex chain with vertices [w; v; u]:
@@ -2107,13 +2030,13 @@ Qed.
     - At endpoint u, curvature depends on the u-v mass gradient.
     - At endpoint w, all derivatives vanish (flat).
 
-    This demonstrates that the field equation holds at EVERY vertex of a
-    multi-vertex complex, with curvature sourced by the local mass gradient
+    This gives concrete local tensor formulas at the vertices of a
+    multi-vertex complex, with curvature controlled by the mass gradient
     visible from each vertex's perspective. True multi-neighbor averaging
     (discrete Laplacian) would require changing discrete_derivative's
     first-neighbor semantics.                                               *)
 
-(** 3-vertex chain simplicial complex: u—v—w.
+(** 3-vertex chain simplicial complex: u-v-w.
     Vertex ordering [w; v; u] gives:
     - At v: first neighbor w (edge v-w appears before edge u-v in filter)
     - At u: first neighbor v (only edge u-v connects to u)
@@ -2178,7 +2101,7 @@ Proof.
   - constructor.
 Qed.
 
-(** *** DISCRETE DERIVATIVE LEMMAS ON THE 3-VERTEX CHAIN *** *)
+(** Discrete derivative lemmas on the 3-vertex chain. *)
 
 (** At vertex u: neighbor v is found (via edge u-v), dd(f,u) = f(v) - f(u). *)
 Lemma dd_three_at_u : forall s u v w f μ,
@@ -2348,9 +2271,9 @@ Proof.
   apply dd_nat_chain_successor.
 Qed.
 
-(** *** CHRISTOFFEL ON THE 3-VERTEX CHAIN *** *)
+(** Christoffel on the 3-vertex chain. *)
 
-(** At w: all derivatives vanish → Christoffel = 0. *)
+(** At w, all derivatives vanish, so Christoffel = 0. *)
 Lemma christoffel_three_at_w_zero : forall s u v w ρ μ ν,
   u <> v -> u <> w -> v <> w ->
   local_christoffel s (three_vertex_chain_sc u v w) ρ μ ν w = 0%R.
@@ -2446,7 +2369,7 @@ Proof.
   destruct (d mod 4 =? ρ mod 4)%nat; lra.
 Qed.
 
-(** *** RIEMANN ON THE 3-VERTEX CHAIN *** *)
+(** Riemann on the 3-vertex chain. *)
 
 (** Riemann tensor at u: curvature from u-v mass gradient.
     dd at u gives f(v) - f(u), so Riemann = [Γ(v) - Γ(u)] - [Γ(v) - Γ(u)].
@@ -2492,7 +2415,7 @@ Proof.
   destruct (d mod 4 =? ρ mod 4)%nat; lra.
 Qed.
 
-(** *** RICCI AND EINSTEIN ON THE 3-VERTEX CHAIN *** *)
+(** Ricci and Einstein tensors on the 3-vertex chain. *)
 
 (** Ricci diagonal at u. The trace is over the three vertices [w; v; u].
     At u, the Riemann tensor sees the mass difference at v (its neighbor)
@@ -2607,8 +2530,8 @@ Proof.
   lra.
 Qed.
 
-(** Einstein equation at vertex w of the 3-vertex chain.
-    All derivatives vanish at w → Einstein tensor = 0 (locally flat). *)
+(** Einstein tensor at vertex w of the 3-vertex chain.
+    All derivatives vanish at w, so the Einstein tensor is 0 there. *)
 Theorem local_einstein_three_vertex_at_w_zero : forall s u v w μ ν,
   u <> v -> u <> w -> v <> w ->
   local_einstein_tensor s (three_vertex_chain_sc u v w) μ ν w = 0%R.
@@ -2659,34 +2582,34 @@ Proof.
   symmetry. exact (INR_eq _ _ H).
 Qed.
 
-(** OP-2 STATUS: CLOSED.
-    The 3-vertex chain u—v—w extends the 2-vertex Einstein equation to a
-    multi-vertex simplicial complex. The field equation holds at EVERY vertex:
+(** OP-2 status: CLOSED for the finite chain formulas.
+    The 3-vertex chain u-v-w extends the 2-vertex local tensor calculation to
+    a multi-vertex simplicial complex. What is proved here:
     - At u: G_{dd}(u) = (2·m_v - m_w - m_u)(2 - 3·m_u),
             curvature at u depends on the "concavity" of the mass profile:
             how m_v (the neighbor) deviates from the mean of m_u and m_w.
             The Christoffel field at neighbor v encodes the v-w gradient,
-            producing genuine multi-vertex curvature propagation.
+            producing multi-vertex curvature propagation in this local model.
     - At v: G_{dd}(v) = (m_w - m_v)(1 - m_v), sourced by the v-w gradient
             (identical to the 2-vertex case: first-neighbor = w)
     - At w: G_{μν}(w) = 0, locally flat (self-loop in vertex-list ordering)
     
-    KEY INSIGHT: At u, the Einstein tensor depends on ALL three masses
+    Key point: at u, the Einstein tensor depends on all three masses
     because the discrete derivative at u evaluates the Christoffel field
-    at v, which itself encodes the v-w mass gradient. This is genuine
+    at v, which itself encodes the v-w mass gradient. This is concrete
     multi-vertex curvature propagation through the connection field.
     
-    LIMITATION (by design): discrete_derivative uses first-neighbor semantics,
+    Limitation: discrete_derivative uses first-neighbor semantics,
     not a discrete Laplacian. True multi-neighbor averaging would require
     changing the derivative definition in RiemannTensor4D.v. The current
     semantics is consistent with forward-difference calculus on oriented graphs.
 
-    REMAINING GENERALIZATIONS (beyond OP-2 scope):
+    Remaining generalizations beyond OP-2:
     - Relaxing the mod 4 distinctness requirement (→ diagonal metric case)
     - n-vertex chains for arbitrary n
     - Branching (non-chain) topologies                                      *)
 
-(** *** STEP 2: EINSTEIN FIELD EQUATION AS CONSTRAINT ***
+(** Step 2: Einstein field equation as a constraint
 
     The Einstein equation G_μν = 8πG T_μν is a FIELD EQUATION.
     In real GR, it constrains which spacetime geometries are physical.
@@ -2699,10 +2622,10 @@ Qed.
     (D) Both sides determined by same data (module_structural_mass)
     (E) The Bianchi identity (divergence conservation) holds (above) *)
 
-(** (B) No curvature without energy: When stress-energy vanishes,
-    Einstein tensor vanishes — energy is the source of curvature.
+(** (B) Vacuum/no energy case: when structural mass is zero everywhere,
+    both local Einstein tensor and stress-energy tensor vanish.
 
-    INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations. *)
 Theorem no_curvature_without_energy : forall s sc μ ν v,
   (forall u, module_structural_mass s u = 0%nat) ->
   local_einstein_tensor s sc μ ν v = 0%R /\
@@ -2714,9 +2637,7 @@ Proof.
   - apply stress_energy_conserved_non_pmerge. exact Hvac.
 Qed.
 
-(** (D) Uniform mass → G vanishes. Combined with (B), this shows
-    curvature is exclusively sourced by mass gradients. *)
-(** [field_equation_uniform_case]: formal specification. *)
+(** (D) Uniform mass makes the local Einstein tensor vanish in this model. *)
 Theorem field_equation_uniform_case : forall s sc μ ν v m,
   (forall u, module_structural_mass s u = m) ->
   local_einstein_tensor s sc μ ν v = 0%R.
@@ -2725,10 +2646,9 @@ Proof.
   exact (local_einstein_vanishes_uniform s sc μ ν v m Hunif).
 Qed.
 
-(** *** STEP 3: PNEW CREATES MASS GRADIENTS → CURVATURE *** *)
+(** Step 3: PNEW-shaped data creates mass gradients. *)
 
 (** Structural mass determined by graph_lookup. *)
-(** [structural_mass_lookup]: formal specification. *)
 Lemma structural_mass_lookup : forall s m region axioms tensor,
   graph_lookup (vm_graph s) m = Some {| module_region := region; module_axioms := axioms; module_mu_tensor := tensor |} ->
   module_structural_mass s m = (length region + length axioms)%nat.
@@ -2738,7 +2658,6 @@ Proof.
 Qed.
 
 (** A module with no axioms has mass = length(region). *)
-(** [structural_mass_no_axioms]: formal specification. *)
 Lemma structural_mass_no_axioms : forall s m region tensor,
   graph_lookup (vm_graph s) m = Some {| module_region := region; module_axioms := []; module_mu_tensor := tensor |} ->
   module_structural_mass s m = length region.
@@ -2748,7 +2667,6 @@ Proof.
 Qed.
 
 (** A module with axioms has mass > length(region). *)
-(** [structural_mass_with_axioms]: formal specification. *)
 Lemma structural_mass_with_axioms : forall s m region axioms tensor,
   graph_lookup (vm_graph s) m = Some {| module_region := region; module_axioms := axioms; module_mu_tensor := tensor |} ->
   axioms <> [] ->
@@ -2761,7 +2679,6 @@ Proof.
 Qed.
 
 (** A nonexistent module has mass 0. *)
-(** [structural_mass_none]: formal specification. *)
 Lemma structural_mass_none : forall s m,
   graph_lookup (vm_graph s) m = None ->
   module_structural_mass s m = 0%nat.
@@ -2770,15 +2687,15 @@ Proof.
   unfold module_structural_mass. rewrite Hlookup. reflexivity.
 Qed.
 
-(** STEP 3 CORE THEOREM: PNEW creates mass gradient.
+(** Step 3 core: PNEW-shaped data creates a mass gradient.
     A freshly created module (empty axioms) next to an established module
     (nonempty axioms, same region size) has different structural mass.
 
-    INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations.
+    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations.
 
-    FALSIFICATION: If PNEW could create modules without mass gradients
+    To falsify: If PNEW could create modules without mass gradients
     (same structural mass as neighbors despite different axiom sets),
-    then computation would not curve spacetime. *)
+    then this local Christoffel route would not fire. *)
 Theorem pnew_creates_mass_gradient : forall s m_new m_old region_new region_old axioms_old tensor_new tensor_old,
   graph_lookup (vm_graph s) m_new =
     Some {| module_region := region_new; module_axioms := []; module_mu_tensor := tensor_new |} ->
@@ -2795,12 +2712,12 @@ Proof.
   lia.
 Qed.
 
-(** *** FULL EMERGENCE CHAIN: PNEW → MASS GRADIENT → CURVATURE *** *)
+(** PNEW-shaped mass gradient to local Christoffel. *)
 
 (** If the partition graph has two modules with different information content,
     the local metric is position-dependent and spacetime is curved.
 
-    INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations. *)
 Theorem information_density_creates_curvature :
   forall s v w μ region_v region_w axioms_v axioms_w tensor_v tensor_w,
   v <> w ->
@@ -2818,18 +2735,17 @@ Proof.
   exact Hmass.
 Qed.
 
-(** THE END-TO-END THEOREM: PNEW next to a module with axioms
-    produces nonzero curvature — non-constant mass distributions produce non-zero curvature in the defined metric.
+(** End-to-end local witness: PNEW-shaped module data next to a module with
+    axioms produces a nonzero local Christoffel component.
 
-    INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations.
+    INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations.
 
-    This completes the chain:
+    This proves this chain:
       PNEW instruction
       → graph_add_module with empty axioms
       → module_structural_mass differs from neighbor
       → local metric is position-dependent
-      → local Christoffel symbol ≠ 0
-      → spacetime curvature from computation *)
+      → local Christoffel symbol ≠ 0. *)
 Theorem pnew_produces_curvature :
   forall s m_new m_old μ region_new region_old axioms_old tensor_new tensor_old,
   m_new <> m_old ->
@@ -2846,13 +2762,13 @@ Proof.
   eapply pnew_creates_mass_gradient; eassumption.
 Qed.
 
-(** *** EINSTEIN FIELD EQUATION: GENERAL CASE ***
+(** General Einstein field equation
 
     G_μν = 8πG T_μν for arbitrary mass distributions.
-    This is the complete Einstein field equation.
+    This section is a marker for the target, not a theorem in this file.
 *)
 
-(** *** μ-CONSERVATION IMPLIES LOCAL BIANCHI (UNIFORM CASE) ***
+(** μ-conservation plus uniformity implies local Bianchi, flat case.
 
     For any reachable state with uniform structural mass, the local Bianchi
     identity holds.  Combined with mu_conservation_kernel, this means every
@@ -2867,7 +2783,7 @@ Proof.
   exact (local_bianchi_flat_case s' sc ν v m H_uniform).
 Qed.
 
-(** *** μ-CONSERVATION IMPLIES LOCAL EINSTEIN (VACUUM, VM-STEP) ***
+(** μ-conservation plus vacuum gives the local vacuum Einstein equation.
 
     Every vm_step that preserves vacuum (mass=0 everywhere) satisfies
     G^{local}_μν = 0 = 8πG · T_μν. *)
@@ -2879,54 +2795,40 @@ Theorem mu_conservation_implies_local_einstein_vacuum : forall s s' instr sc μ 
 Proof.
   intros s s' instr sc μ ν v Hstep H_vacuum.
   pose proof (KernelPhysics.mu_conservation_kernel s s' instr Hstep) as _Hmu.
-  (* Direct application: local_einstein_equation_vacuum now proves the field equation *)
+  (* Direct application: local_einstein_equation_vacuum proves the vacuum equation. *)
   apply (local_einstein_equation_vacuum s' sc μ ν v H_vacuum).
 Qed.
 
-(** SUMMARY: Curved Spacetime Proof Chain
+(** Summary: curved local proof chain
 
-    10. ✓ Local metric metric_at_vertex: g_μν^{local}(v) = mass(v) if μ=ν, 0 otherwise
-    11. ✓ Local Christoffel, Riemann, Ricci, Einstein tensors (defined)
-    12. ✓ Local Christoffel from mass gradient: Γ^μ_{μμ} = (mass(w)-mass(v))/2 (PROVEN)
-    13. ✓ Non-zero Christoffel when masses differ (PROVEN)
-    14. ✓ Non-uniform mass → metric is position-dependent (PROVEN)
-    15. ✓ Local Bianchi identity: uniform mass → local Einstein divergence = 0 (PROVEN)
-    16. ✓ Local vacuum Einstein equation: mass=0 → G^{local} = 0 (PROVEN)
-    17. ✓ Local uniform Einstein equation: uniform mass → G^{local} = 0 (PROVEN)
-    18. ✓ μ-conservation implies local Bianchi (flat case) (PROVEN)
-    19. ✓ μ-conservation implies local Einstein (vacuum case) (PROVEN)
+    10. Local metric metric_at_vertex: g_μν^{local}(v) = mass(v) if μ=ν, 0 otherwise.
+    11. Local Christoffel, Riemann, Ricci, Einstein tensors are defined.
+    12. Local Christoffel from mass gradient: Γ^μ_{μμ} = (mass(w)-mass(v))/2.
+    13. Nonzero Christoffel when masses differ.
+    14. Non-uniform mass means the metric is position-dependent.
+    15. Local Bianchi identity: uniform mass → local Einstein divergence = 0.
+    16. Local vacuum Einstein equation: mass=0 → G^{local} = 0.
+    17. Local uniform Einstein equation: uniform mass → G^{local} = 0.
+    18. μ-conservation plus uniformity implies local Bianchi.
+    19. μ-conservation plus vacuum implies local Einstein.
 
-    THE KEY RESULT:
     Information density gradients (∇ module_structural_mass) produce non-zero
     Christoffel symbols, which propagate through the Riemann→Ricci→Einstein
-    chain to produce genuine spacetime curvature.
+    chain to produce nonzero local curvature witnesses.
 
-    ZERO PROJECT-LOCAL AXIOMS. ZERO ADMITS.
-    μ-conservation has the same algebraic structure as the contracted Bianchi identity for the specific case of uniform (flat) mu-tensor. These are structurally analogous but operate in different mathematical frameworks.
+    The summary point is narrower than the rhetoric people usually attach to
+    Einstein equations. In the uniform flat mu-tensor case, the conservation
+    identities here line up algebraically with the contracted Bianchi story.
+    That is a structural analogy, not an identification of the two frameworks.
 *)
 
 Definition filter_false_anchor := @filter_false.
 
-(** =========================================================================
-    GRAVITATIONAL COUPLING CONSTANT — UNIT CONVENTION
-    =========================================================================
-
-    The value [gravitational_constant = 1/(8π)] is a UNIT CHOICE, not a
-    result derived from µ-cost dynamics.
-
-    In standard GR, G ≈ 6.674 × 10⁻¹¹ m³ kg⁻¹ s⁻² is measured by
-    experiment.  Here we work in "computational units" where we set 8πG = 1
-    so that the Einstein equations read G_μν = T_μν.
-
-    This is analogous to setting ħ = c = 1 in natural units.  The choice is
-    consistent but does not derive the value of G from first principles.
-
-    WHAT IS PROVEN: if 8πG = 1 (unit convention), then the vacuum and
-    uniform-mass Einstein equations hold.
-
-    WHAT IS NOT PROVEN: that the computational scale forces G to take any
-    particular numerical value in physical units.
-    =========================================================================*)
+(**
+    The gravitational constant here is still just a unit convention. The file
+    proves consequences of choosing 8PI G = 1 in computational units. It does
+    not prove that physical gravity must take that numerical value.
+  *)
 
 (** Explicit statement of the unit convention: [8πG = 1]. *)
 Theorem gravitational_coupling_unit_convention :
@@ -2960,7 +2862,7 @@ Proof.
   exact gravitational_coupling_unit_convention.
 Qed.
 
-(* INQUISITOR NOTE: alias for gravitational_coupling_unit_convention — re-exports under the summary name used by MasterSummary.v and ThieleMachineComplete.v *)
+(* INQUISITOR NOTE: alias for gravitational_coupling_unit_convention; re-exports under the summary name used by MasterSummary.v and ThieleMachineComplete.v. *)
 (** Corollary: the Einstein coupling factor equals 1 in computational units. *)
 Corollary einstein_coupling_one :
   (8 * PI * gravitational_constant)%R = 1%R.
@@ -2968,7 +2870,7 @@ Proof.
   exact gravitational_coupling_unit_convention.
 Qed.
 
-(** =========================================================================
+(**
     A2 NO-GO: UNIFORM POSITIVE MASS IS NOT A NON-VACUUM EFE MODEL
 
     The originally proposed non-vacuum theorem combined:
@@ -3040,7 +2942,7 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
+(**
     OP-3 CLOSURE: SCALING RELATIONSHIP BETWEEN UNIT SYSTEMS
 
     EinsteinEquations4D defines G = 1/(8π) (unit convention: 8πG = 1).
@@ -3051,12 +2953,12 @@ Qed.
       MuGravity.G = 1 / (4·k_B·T·ln2) = 25 / ln2   (k_B=1/100, T=1)
       EinsteinEquations4D.G = 1/(8π)
 
-    These live in DIFFERENT unit systems. No equality theorem is possible —
+    These live in DIFFERENT unit systems. No equality theorem is possible:
     this is an intentional design boundary, not a gap.
 
     What IS provable: the exact scaling factor between them, and the fact that
     both are strictly positive constants whose ratio is a fixed real number.
-    =========================================================================*)
+  *)
 
 (** The exact scaling factor between the two G constants. *)
 Definition gravitational_scaling_factor : R :=

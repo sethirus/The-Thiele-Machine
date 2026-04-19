@@ -1,25 +1,26 @@
 (** EmbedStep.v
 
-    Proves the step-commutation theorem for all 47 VM opcodes:
+    Proves the step-commutation theorem for all 46 VM opcodes:
 
         abs_phase1 (kami_step ks i) = vm_apply (abs_phase1 ks) i
 
-    - 40 opcodes proved UNCONDITIONALLY via SupportedOpcode + embed_step_compute
+    - 30 opcodes proved UNCONDITIONALLY via SupportedOpcode + embed_step_compute
     - 3 opcodes added under snapshot/bit preconditions via EmbedStep_WF.v:
       CALL, RET, CHSH_TRIAL
     - 4 opcodes handled by specialised preconditioned lemmas in §8:
       PNEW, PSPLIT, PMERGE, LASSERT
+    - 9 opcodes have irreducible gaps (driver-managed / rich-state):
+      TENSOR_SET, TENSOR_GET,
+      MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT,
+      MORPH_TENSOR, MORPH_GET
 
-    UNCONDITIONAL (40 opcodes, SupportedOpcode):
+    UNCONDITIONAL (30 opcodes, SupportedOpcode):
       XFER, LOAD_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ,
       XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK,
       AND, OR, SHL, SHR, MUL, LUI,
       HALT, CHECKPOINT, WRITE_PORT, READ_PORT,
       HEAP_LOAD, HEAP_STORE, CERTIFY, MDLACC,
-      LJOIN, EMIT, PDISCOVER, REVEAL, ORACLE_HALTS,
-      TENSOR_SET, TENSOR_GET,
-      MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT,
-      MORPH_TENSOR, MORPH_GET
+      LJOIN, EMIT, PDISCOVER, REVEAL
 
     CONDITIONAL (7 opcodes, split across two layers):
       WF layer in EmbedStep_WF.v (3 opcodes):
@@ -33,7 +34,6 @@
         PMERGE: graph consistency hypothesis (embed_step_pmerge)
         LASSERT: flen = hw_flen + check success (embed_step_lassert)
 
-    STATUS: All 47 theorems proved. Zero Admitted.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool NArith.BinNat NArith.Nnat Strings.String FunctionalExtensionality.
@@ -49,7 +49,7 @@ Import VMStep.VMStep.
 
 (* ======================================================================
    §1  word64 idempotency
-   ====================================================================== *)
+   *)
 
 (** word64 is idempotent: applying it twice is the same as applying it once.
     Proof: bitwise AND with word64_mask applied twice is the same as once,
@@ -68,7 +68,7 @@ Qed.
 
 (* ======================================================================
    §2  Generalised map-update lemma for seq
-   ====================================================================== *)
+   *)
 
 (** map_update_at_seq_gen: Updating position (start + dst) in a function
     and then mapping over [seq start n] is equivalent to firstn/snoc/skipn
@@ -138,7 +138,7 @@ Qed.
 
 (* ======================================================================
    §3  Register and memory read/write helpers
-   ====================================================================== *)
+   *)
 
 (** Reading register r via abs_phase1 equals reading snap_regs at r mod 32. *)
 Lemma abs_phase1_read_reg : forall (ks : KamiSnapshot) (r : nat),
@@ -208,7 +208,7 @@ Qed.
 
 (* ======================================================================
    §4  XOR-swap helper
-   ====================================================================== *)
+   *)
 
 (** Hardware xor_swap via inline two-point function update matches swap_regs.
     Proof: show nth equality at all 32 positions, split on whether j = amod,
@@ -254,7 +254,7 @@ Qed.
 
 (* ======================================================================
    §4b  Tensor update helpers (needed by embed_step_compute REVEAL arm)
-   ====================================================================== *)
+   *)
 
 (** Helper: list_update_at on a list of length n at position k < n
     equals firstn k l ++ [v] ++ skipn (S k) l. *)
@@ -314,7 +314,7 @@ Qed.
 
 (* ======================================================================
    §5  Main embed_step theorem
-   ====================================================================== *)
+   *)
 
 (** For the compute instruction subset (where hardware and kernel implement
     identical classical semantics), abs_phase1 commutes with kami_step. *)
@@ -439,9 +439,9 @@ Qed.
 
 (* ======================================================================
    §6  SupportedOpcode predicate
-   ====================================================================== *)
+   *)
 
-(** SupportedOpcode: the 31 opcodes for which hardware and kernel semantics
+(** SupportedOpcode: the 30 opcodes for which hardware and kernel semantics
     agree unconditionally.  Defined as a Prop so trace theorems can use it
     as a hypothesis without repeating the multi-arm match everywhere.
 
@@ -502,7 +502,7 @@ Qed.
 
 (* ======================================================================
    §7  Trace corollaries
-   ====================================================================== *)
+   *)
 
 (** For a compute-only trace (all instructions satisfy SupportedOpcode),
     the RTL classical trace and the abstract VM trace agree
@@ -535,7 +535,7 @@ Qed.
 
 (* ======================================================================
    §8  Per-opcode embed_step for the remaining 18 opcodes
-   ====================================================================== *)
+   *)
 
 (** Helper: abs_phase1 of kami_advance_default equals advance_state
     on the abstracted input, for any instruction whose cost matches. *)
@@ -643,17 +643,6 @@ Qed.
 (** See NOTE above.  kami_step uses kami_advance_default while vm_apply
     uses graph_update_module_tensor with tensor_indices_ok validation. *)
 
-(** --- ORACLE_HALTS --- *)
-Theorem embed_step_oracle_halts :
-  forall (ks : KamiSnapshot) (payload : string) (cost : nat),
-    abs_phase1 (kami_step ks (instr_oracle_halts payload cost)) =
-    vm_apply (abs_phase1 ks) (instr_oracle_halts payload cost).
-Proof.
-  intros. unfold kami_step, vm_apply.
-  apply abs_phase1_kami_advance_default.
-  reflexivity.
-Qed.
-
 (** --- MORPH/COMPOSE/MORPH_ID/MORPH_TENSOR/MORPH_GET/TENSOR_GET --- *)
 (** See NOTE above for MORPH_DELETE.  All morph and tensor instructions now
     use rich-state tables in kami_step and partition graph operations in
@@ -686,7 +675,7 @@ Qed.
 (* ======================================================================
    §7  Graph opcodes: PNEW, PSPLIT, PMERGE
    These require well-formedness preconditions on the partition table.
-   ====================================================================== *)
+   *)
 
 (** WellFormedPT: the partition table is in a valid state for graph ops. *)
 Definition WellFormedPT (ks : KamiSnapshot) : Prop :=
@@ -794,7 +783,7 @@ Proof.
 Qed.
 
 (** --- LASSERT --- *)
-(** Helper: hardware SAT check matches kernel lassert_check_ok via abs_phase1 *)
+(** Helper: hardware dual-witness check matches kernel lassert_check_ok via abs_phase1 *)
 Lemma abs_phase1_lassert_check :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool),
     let fbase_hw := snap_regs ks (freg mod 32) in
@@ -802,8 +791,16 @@ Lemma abs_phase1_lassert_check :
     let hw_flen := snap_mem ks (fbase_hw mod MEM_SIZE) in
     let formula_words_hw := List.map (fun i => snap_mem ks ((fbase_hw + i) mod MEM_SIZE))
                                      (List.seq 0 (3 + hw_flen)) in
-    let get_cert_hw := fun var => snap_mem ks ((cbase_hw + var) mod MEM_SIZE) in
-    let hw_check := if kind then CertCheck.check_model_binary_fn formula_words_hw get_cert_hw
+    let num_vars_hw :=
+      match formula_words_hw with
+      | _ :: nv :: _ => nv
+      | _ => 0
+      end in
+    let get_model_hw := fun var => snap_mem ks ((cbase_hw + var) mod MEM_SIZE) in
+    let get_countermodel_hw := fun var => snap_mem ks ((cbase_hw + num_vars_hw + var) mod MEM_SIZE) in
+    let hw_check := if kind then
+                      andb (CertCheck.check_model_binary_fn formula_words_hw get_model_hw)
+                           (CertCheck.check_countermodel_binary_fn formula_words_hw get_countermodel_hw)
                     else false in
     lassert_check_ok (abs_phase1 ks) freg creg kind = hw_check.
 Proof.
@@ -823,8 +820,37 @@ Proof.
   { apply List.map_ext. intro a. apply abs_phase1_read_mem. }
   rewrite Hfw.
   destruct kind; [| reflexivity].
-  f_equal. apply functional_extensionality. intro var.
-  apply abs_phase1_read_mem.
+  repeat f_equal.
+  all: apply functional_extensionality; intro var; apply abs_phase1_read_mem.
+Qed.
+
+(** Helper: lassert_exec_ok on abs_phase1 equals the hardware length+check combination *)
+Lemma abs_phase1_lassert_exec_ok :
+  forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen : nat),
+    let fbase := snap_regs ks (freg mod 32) in
+    let hw_flen := snap_mem ks (fbase mod MEM_SIZE) in
+    let cbase := snap_regs ks (creg mod 32) in
+    let formula_words := List.map (fun i => snap_mem ks ((fbase + i) mod MEM_SIZE))
+                                   (List.seq 0 (3 + hw_flen)) in
+    let num_vars :=
+      match formula_words with
+      | _ :: nv :: _ => nv
+      | _ => 0
+      end in
+    let get_model := fun var => snap_mem ks ((cbase + var) mod MEM_SIZE) in
+    let get_countermodel := fun var => snap_mem ks ((cbase + num_vars + var) mod MEM_SIZE) in
+    let hw_check := if kind then
+                      andb (CertCheck.check_model_binary_fn formula_words get_model)
+                           (CertCheck.check_countermodel_binary_fn formula_words get_countermodel)
+                    else false in
+    lassert_exec_ok (abs_phase1 ks) freg creg kind flen = andb (Nat.eqb hw_flen flen) hw_check.
+Proof.
+  intros ks freg creg kind flen.
+  unfold lassert_exec_ok, lassert_hw_flen.
+  rewrite abs_phase1_read_reg, abs_phase1_read_mem.
+  pose proof (abs_phase1_lassert_check ks freg creg kind) as Hc.
+  cbv zeta in Hc.
+  rewrite Hc. cbv zeta. reflexivity.
 Qed.
 
 (** LASSERT embed_step: now that hardware computes the full formula check
@@ -837,8 +863,16 @@ Theorem embed_step_lassert :
     let cbase := snap_regs ks (creg mod 32) in
     let formula_words := List.map (fun i => snap_mem ks ((fbase + i) mod MEM_SIZE))
                                    (List.seq 0 (3 + hw_flen)) in
-    let get_cert := fun var => snap_mem ks ((cbase + var) mod MEM_SIZE) in
-    let hw_check := if kind then CertCheck.check_model_binary_fn formula_words get_cert
+    let num_vars :=
+      match formula_words with
+      | _ :: nv :: _ => nv
+      | _ => 0
+      end in
+    let get_model := fun var => snap_mem ks ((cbase + var) mod MEM_SIZE) in
+    let get_countermodel := fun var => snap_mem ks ((cbase + num_vars + var) mod MEM_SIZE) in
+    let hw_check := if kind then
+                      andb (CertCheck.check_model_binary_fn formula_words get_model)
+                           (CertCheck.check_countermodel_binary_fn formula_words get_countermodel)
                     else false in
     flen = hw_flen ->
     hw_check = true ->
@@ -855,16 +889,17 @@ Theorem embed_step_lassert :
     vm_certified hs' = vm_certified vs'.
 Proof.
   intros ks freg creg kind flen cost fbase hw_flen cbase
-         formula_words get_cert hw_check Hflen Hsuccess.
-  pose proof (abs_phase1_lassert_check ks freg creg kind) as Hcheck.
-  cbv zeta in Hcheck.
-  fold fbase cbase hw_flen formula_words get_cert hw_check in Hcheck.
+    formula_words num_vars get_model get_countermodel hw_check Hflen Hsuccess.
+  pose proof (abs_phase1_lassert_exec_ok ks freg creg kind flen) as Hexec.
+  cbv zeta in Hexec.
+  fold fbase cbase hw_flen formula_words num_vars get_model get_countermodel hw_check in Hexec.
   cbv zeta.
   unfold vm_apply, kami_step.
-  fold fbase hw_flen cbase formula_words get_cert hw_check.
-  rewrite Hcheck. rewrite Hsuccess.
+  fold fbase hw_flen cbase formula_words num_vars get_model get_countermodel hw_check.
+  rewrite Hexec.
+  rewrite Hflen. rewrite Nat.eqb_refl. simpl.
+  rewrite Hsuccess.
   unfold apply_cost, instruction_cost.
-  rewrite Hflen.
   unfold abs_phase1.
   cbn [snap_pc snap_mu snap_err snap_halted snap_regs snap_mem
        snap_partition_ops snap_mdl_ops snap_info_gain snap_error_code

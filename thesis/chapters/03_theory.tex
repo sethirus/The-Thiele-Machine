@@ -2,7 +2,7 @@
 
 \subsection{From Intuition to Formalism}
 
-The previous chapter established the problem: classical computers are structurally blind. This chapter presents the solution: the Thiele Machine.
+The previous chapter established the problem: classical computers are structurally blind. Here's the solution: the Thiele Machine.
 
 This is where it gets formal. The concepts became clear through building. Informal descriptions are ambiguous, and the proofs answer whether the ideas actually work or not: they compile or they don't.
 
@@ -469,24 +469,24 @@ Inductive vm_instruction :=
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
 | instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat)
-(* Phase 2 -- I/O and checkpoints *)
+(* I/O and checkpoints *)
 | instr_checkpoint (label : string) (mu_delta : nat)
 | instr_read_port (dst : nat) (channel_idx : nat) (value : nat)
     (bits : nat) (mu_delta : nat)
 | instr_write_port (channel_idx : nat) (src : nat) (mu_delta : nat)
-(* Phase 3B -- heap-relative memory access *)
+(* heap-relative memory access *)
 | instr_heap_load (dst : nat) (rs_addr : nat) (mu_delta : nat)
 | instr_heap_store (rs_addr : nat) (src : nat) (mu_delta : nat)
-(* Phase 4 -- state-based certification *)
+(* state-based certification *)
 | instr_certify (mu_delta : nat)
-(* Phase 5 -- extended ALU operations *)
+(* extended ALU operations *)
 | instr_and (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_or  (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_shl (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_shr (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_mul (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_lui (dst : nat) (imm : nat) (mu_delta : nat)
-(* Phase 6 -- per-module tensor instructions *)
+(* per-module tensor instructions *)
 | instr_tensor_set (module : ModuleID) (i j value : nat) (mu_delta : nat)
 | instr_tensor_get (dst : nat) (module : ModuleID) (i j : nat) (mu_delta : nat).
 \end{lstlisting}
@@ -571,7 +571,7 @@ The instructions fall into several categories:
 
 \textbf{Logical Operations:}
 \begin{itemize}
-    \item \texttt{LASSERT}: Assert a formula, verified by certificate (LRAT proof or SAT model)
+    \item \texttt{LASSERT}: Assert a formula, verified by certificate (LRAT proof or SAT model plus countermodel witness)
     \item \texttt{LJOIN}: Join two certificates
 \end{itemize}
 
@@ -659,7 +659,7 @@ Each instruction has one or more step rules. For example, \texttt{PNEW}:
 
 \subsection{Logic Engine $L$}
 
-The Logic Engine is an on-chip FSM that verifies logical consistency by reading formula and certificate data from \texttt{vm\_mem}. The program supplies formula and certificate by storing them in data memory and passing register indices to the instruction; the FSM checks them in-place without any external solver call.
+The Logic Engine is an on-chip FSM that verifies logical consistency by reading formula and witness data from \texttt{vm\_mem}. The program supplies formula and witnesses by storing them in data memory and passing register indices to the instruction; the FSM checks them in-place without any external solver call.
 
 \subsubsection{Trust Model for Logic Engine}
 
@@ -668,43 +668,45 @@ The Logic Engine is an on-chip FSM that verifies logical consistency by reading 
 
 \begin{itemize}
     \item \textbf{NOT trusted}: SMT solver outputs (Z3, CVC5, etc.) are \emph{not} assumed sound
-    \item \textbf{Trusted}: Certificate checkers (LRAT proof verifier, model validator) in \path{coq/kernel/CertCheck.v}
+    \item \textbf{Trusted}: Certificate checkers (LRAT proof verifier, model validator, countermodel validator) in \path{coq/kernel/CertCheck.v}
     \item \textbf{Soundness guarantee}: A false assertion cannot be accepted by the kernel, only fail to be proven
     \item \textbf{Completeness}: Not guaranteed---the solver may fail to find proofs that exist
     \item \textbf{TCB addition}: Hash functions (SHA-256), certificate parsers, and the Coq extraction correctness
 \end{itemize}
 
-\textbf{In practice}: Certificates (LRAT proofs or SAT models) are stored in \texttt{vm\_mem} by the program before executing \texttt{LASSERT}. The instruction reads them via register-indexed base addresses (\texttt{freg}, \texttt{creg}). The kernel verifies the certificate but does not search for solutions.
+\textbf{In practice}: Certificates are stored in \texttt{vm\_mem} by the program before executing \texttt{LASSERT}. For UNSAT this is an LRAT proof. For SAT it is a dual-witness package: one satisfying assignment and one falsifying assignment stored back-to-back. The instruction reads them via register-indexed base addresses (\texttt{freg}, \texttt{creg}). The kernel verifies the witnesses but does not search for solutions.
 \end{tcolorbox}
 
 \subsubsection{Certificate-Based Verification}
 
-Rather than embedding an SMT solver, the Thiele Machine uses \textit{certificate-based verification}. Certificates live in \texttt{vm\_mem}; the instruction encodes register indices and a byte-length rather than an inline value:
+Rather than embedding an SMT solver, the Thiele Machine uses \textit{certificate-based verification}. Certificates live in \texttt{vm\_mem}; the instruction encodes register indices and an encoded formula-unit count rather than an inline value:
 \begin{lstlisting}
 (* LASSERT instruction fields (VMStep.v): *)
 (* freg : register holding formula base address in vm_mem  *)
-(* creg : register holding certificate base address        *)
+(* creg : register holding witness base address            *)
 (* kind : lassert_sat | lassert_unsat                      *)
-(* flen : formula byte length; Delta_mu = flen*8 + S(cost) *)
+(* flen : encoded formula-unit count; Delta_mu = flen*8 + S(cost) *)
 (* cost : explicit cost floor                              *)
 
-Definition check_lrat  : string -> string -> bool := CertCheck.check_lrat.
-Definition check_model : string -> string -> bool := CertCheck.check_model.
+Definition check_lrat : string -> string -> bool := CertCheck.check_lrat.
+Definition check_model_binary_fn : list nat -> (nat -> nat) -> bool := CertCheck.check_model_binary_fn.
+Definition check_countermodel_binary_fn : list nat -> (nat -> nat) -> bool := CertCheck.check_countermodel_binary_fn.
 \end{lstlisting}
 
 \paragraph{Understanding Certificate-Based Verification:}
 \textbf{Memory-Resident Certificates:}
 \begin{itemize}
-    \item \textbf{freg / creg}: The program stores the formula string and certificate string anywhere in \texttt{vm\_mem} before executing \texttt{LASSERT}. The instruction holds only the register indices pointing to these locations---the actual bytes are never in the instruction word.
-    \item \textbf{kind field}: Selects which checker to invoke---\texttt{lassert\_sat} calls \texttt{check\_model}; \texttt{lassert\_unsat} calls \texttt{check\_lrat}.
-    \item \textbf{flen}: The byte length of the formula. This is the primary cost driver: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring longer formulas cost proportionally more.
+    \item \textbf{freg / creg}: The program stores the encoded formula and witness block anywhere in \texttt{vm\_mem} before executing \texttt{LASSERT}. The instruction holds only the register indices pointing to these locations---the actual bit payload is never in the instruction word.
+    \item \textbf{kind field}: Selects which checker to invoke---\texttt{lassert\_sat} runs both \texttt{check\_model\_binary\_fn} and \texttt{check\_countermodel\_binary\_fn}; \texttt{lassert\_unsat} calls \texttt{check\_lrat}.
+    \item \textbf{flen}: The encoded formula-unit count. This is the primary cost driver: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring longer formulas cost proportionally more in bits.
 \end{itemize}
 
 \textbf{The Checker Functions:}
 \begin{itemize}
     \item \textbf{check\_lrat}: Takes two strings (formula and LRAT proof), returns bool. Verified implementation of LRAT proof checking—guarantees that if it returns true, the formula is genuinely UNSAT.
-    \item \textbf{check\_model}: Takes two strings (formula and model), returns bool. Evaluates formula with given variable assignments—if true, the model is a valid solution.
-    \item \textbf{:= CertCheck.check\_lrat}: This is a definition binding—the function is implemented in the CertCheck module
+    \item \textbf{check\_model\_binary\_fn}: Takes binary formula words plus a memory-backed assignment function and returns bool. It confirms the satisfying witness.
+    \item \textbf{check\_countermodel\_binary\_fn}: Takes the same formula plus a second assignment and returns bool iff at least one clause is falsified. This is the non-triviality witness that blocks tautology inflation.
+    \item \textbf{:= CertCheck.\ldots}: These are definition bindings—the functions are implemented in the CertCheck module.
 \end{itemize}
 
 \textbf{Why This Design?}
@@ -715,12 +717,12 @@ Definition check_model : string -> string -> bool := CertCheck.check_model.
     \item \textbf{Composability}: Certificates can be stored, transmitted, audited offline.
 \end{enumerate}
 
-\textbf{Certificate Size and $\mu$-Cost:} The byte length of the formula string ($\mathtt{flen}$) directly sets the formula-component of the $\mu$-cost: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$. A structurally richer formula costs more, encoding the information-theoretic principle that each bit of constraint has exactly one bit of cost.
+\textbf{Certificate Size and $\mu$-Cost:} The encoded formula-unit count ($\mathtt{flen}$) directly sets the formula-component of the $\mu$-cost: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$. A structurally richer formula costs more, encoding the information-theoretic principle that each bit of constraint has exactly one bit of cost.
 
 An \texttt{LASSERT} instruction reads from \texttt{vm\_mem}:
 \begin{itemize}
-    \item A formula string (at \texttt{R[freg]}, length \texttt{flen} bytes)
-    \item Either an LRAT proof (for UNSAT, \texttt{kind = lassert\_unsat}) or a satisfying model (for SAT, \texttt{kind = lassert\_sat})
+    \item An encoded formula (at \texttt{R[freg]}, \texttt{flen} units, eight concrete bits per unit)
+    \item Either an LRAT proof (for UNSAT, \texttt{kind = lassert\_unsat}) or two assignments stored back-to-back (for SAT, \texttt{kind = lassert\_sat}): one satisfying model and one falsifying countermodel
 \end{itemize}
 
 The kernel verifies the certificate but does not search for solutions. This ensures:

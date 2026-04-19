@@ -1,189 +1,189 @@
-DIGEST 5327d1614d673cd171148202aecf7019
+DIGEST 0c0bb2b93b38964da7c7dee92ee8cb09
 FKernel.QuantumEquivalence
-R3252:3255 Coq.Lists.List <> <> lib
-R3257:3260 Coq.Bool.Bool <> <> lib
-R3262:3275 Coq.Arith.PeanoNat <> <> lib
-R3277:3282 Coq.QArith.QArith <> <> lib
-R3284:3286 Coq.micromega.Lia <> <> lib
-R3296:3308 Coq.Lists.List ListNotations <> mod
-R3365:3371 Kernel.VMState <> <> lib
-R3373:3378 Kernel.VMStep <> <> lib
-R3408:3421 Kernel.CHSHExtraction <> <> lib
-R3423:3433 Kernel.MuCostModel <> <> lib
-R3463:3476 Kernel.ClassicalBound <> <> lib
-R3478:3496 Kernel.TsirelsonUpperBound <> <> lib
-rec 3550:3568 <> AbstractCorrelation
-proj 3584:3605 <> satisfies_no_signaling
-proj 3617:3626 <> chsh_value
-R3630:3630 Coq.QArith.QArith_base <> Q rec
-def 3766:3780 <> classical_bound
-R3784:3784 Coq.QArith.QArith_base <> Q rec
-def 3905:3919 <> tsirelson_bound
-R3923:3923 Coq.QArith.QArith_base <> Q rec
-R3933:3935 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-def 3999:4020 <> is_quantum_correlation
-R4028:4046 Kernel.QuantumEquivalence <> AbstractCorrelation rec
-binder 4023:4024 <> ac:4
-R4088:4091 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4065:4086 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
-R4061:4062 Kernel.QuantumEquivalence <> ac:4 var
-R4107:4110 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R4096:4105 Kernel.QuantumEquivalence <> chsh_value proj
-R4092:4093 Kernel.QuantumEquivalence <> ac:4 var
-R4111:4125 Kernel.QuantumEquivalence <> tsirelson_bound def
-def 4171:4194 <> certifiable_with_mu_zero
-R4202:4220 Kernel.QuantumEquivalence <> AbstractCorrelation rec
-binder 4197:4198 <> ac:5
-R4235:4241 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4259:4264 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4242:4245 <> fuel:6
-binder 4247:4251 <> trace:7
-binder 4253:4258 <> s_init:8
-R4302:4309 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4294:4296 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4265:4280 Kernel.MuCostModel <> mu_cost_of_trace def
-R4282:4285 Kernel.QuantumEquivalence <> fuel:6 var
-R4287:4291 Kernel.QuantumEquivalence <> trace:7 var
-R4364:4371 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4346:4348 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4310:4327 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R4329:4332 Kernel.QuantumEquivalence <> fuel:6 var
-R4334:4338 Kernel.QuantumEquivalence <> trace:7 var
-R4340:4345 Kernel.QuantumEquivalence <> s_init:8 var
-R4353:4362 Kernel.QuantumEquivalence <> chsh_value proj
-R4349:4350 Kernel.QuantumEquivalence <> ac:5 var
-R4376:4397 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
-R4372:4373 Kernel.QuantumEquivalence <> ac:5 var
-prf 4652:4674 <> quantum_implies_mu_zero
-R4692:4710 Kernel.QuantumEquivalence <> AbstractCorrelation rec
-binder 4687:4688 <> ac:9
-R4742:4749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4717:4738 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R4740:4741 Kernel.QuantumEquivalence <> ac:9 var
-R4765:4768 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R4754:4763 Kernel.QuantumEquivalence <> chsh_value proj
-R4750:4751 Kernel.QuantumEquivalence <> ac:9 var
-R4769:4783 Kernel.QuantumEquivalence <> tsirelson_bound def
-R4818:4839 Kernel.QuantumEquivalence <> is_quantum_correlation def
-prf 5080:5102 <> mu_zero_implies_quantum
-R5120:5138 Kernel.QuantumEquivalence <> AbstractCorrelation rec
-binder 5115:5116 <> ac:10
-R5172:5179 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5145:5168 Kernel.QuantumEquivalence <> certifiable_with_mu_zero def
-R5170:5171 Kernel.QuantumEquivalence <> ac:10 var
-R5184:5205 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
-R5180:5181 Kernel.QuantumEquivalence <> ac:10 var
-R5244:5267 Kernel.QuantumEquivalence <> certifiable_with_mu_zero def
-prf 5603:5632 <> quantum_requires_no_revelation
-binder 5645:5646 <> ac:11
-R5678:5685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5653:5674 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R5676:5677 Kernel.QuantumEquivalence <> ac:11 var
-R5701:5704 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R5690:5699 Kernel.QuantumEquivalence <> chsh_value proj
-R5686:5687 Kernel.QuantumEquivalence <> ac:11 var
-R5705:5719 Kernel.QuantumEquivalence <> tsirelson_bound def
-R5754:5775 Kernel.QuantumEquivalence <> is_quantum_correlation def
-prf 5847:5866 <> classical_is_quantum
-binder 5879:5880 <> ac:12
-R5914:5921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5891:5912 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
-R5887:5888 Kernel.QuantumEquivalence <> ac:12 var
-R5956:5963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5937:5940 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R5926:5935 Kernel.QuantumEquivalence <> chsh_value proj
-R5922:5923 Kernel.QuantumEquivalence <> ac:12 var
-R5941:5955 Kernel.QuantumEquivalence <> classical_bound def
-R5964:5985 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R5987:5988 Kernel.QuantumEquivalence <> ac:12 var
-R6031:6052 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R6088:6102 Kernel.QuantumEquivalence <> tsirelson_bound def
-R6105:6119 Kernel.QuantumEquivalence <> tsirelson_bound def
-R6122:6136 Kernel.QuantumEquivalence <> classical_bound def
-R6209:6217 Coq.QArith.QArith_base <> Qle_trans thm
-R6209:6217 Coq.QArith.QArith_base <> Qle_trans thm
-R6254:6256 Coq.QArith.QArith_base <> Qle def
-def 7386:7414 <> correlation_hierarchy_derived
-binder 7587:7588 <> ac:13
-R7625:7641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7606:7609 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R7595:7604 Kernel.QuantumEquivalence <> chsh_value proj
-R7591:7592 Kernel.QuantumEquivalence <> ac:13 var
-R7610:7624 Kernel.QuantumEquivalence <> classical_bound def
-R7657:7660 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R7646:7655 Kernel.QuantumEquivalence <> chsh_value proj
-R7642:7643 Kernel.QuantumEquivalence <> ac:13 var
-R7661:7675 Kernel.QuantumEquivalence <> tsirelson_bound def
-prf 7740:7759 <> hierarchy_is_derived
-R7763:7791 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
-R7810:7838 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
-R7870:7878 Coq.QArith.QArith_base <> Qle_trans thm
-R7882:7896 Kernel.QuantumEquivalence <> classical_bound def
-R7870:7878 Coq.QArith.QArith_base <> Qle_trans thm
-R7882:7896 Kernel.QuantumEquivalence <> classical_bound def
-R7929:7943 Kernel.QuantumEquivalence <> classical_bound def
-R7946:7960 Kernel.QuantumEquivalence <> tsirelson_bound def
-R7974:7976 Coq.QArith.QArith_base <> Qle def
-def 8537:8563 <> qm_is_cost_free_computation
-binder 8584:8585 <> ac:14
-R8617:8626 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8692:8692 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8592:8613 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R8615:8616 Kernel.QuantumEquivalence <> ac:14 var
-R8654:8657 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8631:8652 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
-R8627:8628 Kernel.QuantumEquivalence <> ac:14 var
-R8673:8676 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R8662:8671 Kernel.QuantumEquivalence <> chsh_value proj
-R8658:8659 Kernel.QuantumEquivalence <> ac:14 var
-R8677:8691 Kernel.QuantumEquivalence <> tsirelson_bound def
-prf 8850:8868 <> qm_equals_cost_free
-R8872:8898 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
-R8917:8943 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
-R8946:8967 Kernel.QuantumEquivalence <> is_quantum_correlation def
-def 9074:9091 <> why_quantum_answer
-R9344:9349 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9315:9343 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
-R9350:9376 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
-prf 9449:9476 <> quantum_foundations_resolved
-R9480:9497 Kernel.QuantumEquivalence <> why_quantum_answer def
-R9516:9533 Kernel.QuantumEquivalence <> why_quantum_answer def
-R9555:9574 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
-R9555:9574 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
-R9587:9605 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
-R9587:9605 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
-prf 10265:10292 <> quantum_foundations_complete
-R10327:10332 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10298:10326 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
-R10333:10359 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
-R10388:10407 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
-R10388:10407 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
-R10420:10438 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
-R10420:10438 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
-prf 10698:10722 <> cost_causes_quantum_bound
-binder 10735:10736 <> ac:15
-R10770:10777 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10747:10768 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
-R10743:10744 Kernel.QuantumEquivalence <> ac:15 var
-R10812:10819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10793:10796 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R10782:10791 Kernel.QuantumEquivalence <> chsh_value proj
-R10778:10779 Kernel.QuantumEquivalence <> ac:15 var
-R10797:10811 Kernel.QuantumEquivalence <> tsirelson_bound def
-R10820:10841 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R10843:10844 Kernel.QuantumEquivalence <> ac:15 var
-R10887:10908 Kernel.QuantumEquivalence <> is_quantum_correlation def
-prf 11015:11042 <> exceeding_bound_implies_cost
-binder 11055:11056 <> ac:16
-R11096:11103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11078:11080 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
-R11081:11095 Kernel.QuantumEquivalence <> tsirelson_bound def
-R11067:11076 Kernel.QuantumEquivalence <> chsh_value proj
-R11063:11064 Kernel.QuantumEquivalence <> ac:16 var
-R11104:11105 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11131:11131 Coq.Init.Logic <> ::type_scope:'~'_x not
-R11106:11127 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R11129:11130 Kernel.QuantumEquivalence <> ac:16 var
-R11171:11192 Kernel.QuantumEquivalence <> is_quantum_correlation def
-R11319:11328 Coq.QArith.QArith_base <> Qlt_not_le thm
-R11319:11328 Coq.QArith.QArith_base <> Qlt_not_le thm
+R757:760 Coq.Lists.List <> <> lib
+R762:765 Coq.Bool.Bool <> <> lib
+R767:780 Coq.Arith.PeanoNat <> <> lib
+R782:787 Coq.QArith.QArith <> <> lib
+R789:791 Coq.micromega.Lia <> <> lib
+R801:813 Coq.Lists.List ListNotations <> mod
+R870:876 Kernel.VMState <> <> lib
+R878:883 Kernel.VMStep <> <> lib
+R913:926 Kernel.CHSHExtraction <> <> lib
+R928:938 Kernel.MuCostModel <> <> lib
+R968:981 Kernel.ClassicalBound <> <> lib
+R983:1001 Kernel.TsirelsonUpperBound <> <> lib
+rec 1055:1073 <> AbstractCorrelation
+proj 1089:1110 <> satisfies_no_signaling
+proj 1122:1131 <> chsh_value
+R1135:1135 Coq.QArith.QArith_base <> Q rec
+def 1271:1285 <> classical_bound
+R1289:1289 Coq.QArith.QArith_base <> Q rec
+def 1410:1424 <> tsirelson_bound
+R1428:1428 Coq.QArith.QArith_base <> Q rec
+R1438:1440 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 1504:1525 <> is_quantum_correlation
+R1533:1551 Kernel.QuantumEquivalence <> AbstractCorrelation rec
+binder 1528:1529 <> ac:4
+R1593:1596 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1570:1591 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
+R1566:1567 Kernel.QuantumEquivalence <> ac:4 var
+R1612:1615 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R1601:1610 Kernel.QuantumEquivalence <> chsh_value proj
+R1597:1598 Kernel.QuantumEquivalence <> ac:4 var
+R1616:1630 Kernel.QuantumEquivalence <> tsirelson_bound def
+def 1676:1699 <> certifiable_with_mu_zero
+R1707:1725 Kernel.QuantumEquivalence <> AbstractCorrelation rec
+binder 1702:1703 <> ac:5
+R1740:1746 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1764:1769 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1747:1750 <> fuel:6
+binder 1752:1756 <> trace:7
+binder 1758:1763 <> s_init:8
+R1807:1814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1799:1801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1770:1785 Kernel.MuCostModel <> mu_cost_of_trace def
+R1787:1790 Kernel.QuantumEquivalence <> fuel:6 var
+R1792:1796 Kernel.QuantumEquivalence <> trace:7 var
+R1869:1876 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1851:1853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1815:1832 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R1834:1837 Kernel.QuantumEquivalence <> fuel:6 var
+R1839:1843 Kernel.QuantumEquivalence <> trace:7 var
+R1845:1850 Kernel.QuantumEquivalence <> s_init:8 var
+R1858:1867 Kernel.QuantumEquivalence <> chsh_value proj
+R1854:1855 Kernel.QuantumEquivalence <> ac:5 var
+R1881:1902 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
+R1877:1878 Kernel.QuantumEquivalence <> ac:5 var
+prf 2101:2123 <> quantum_implies_mu_zero
+R2141:2159 Kernel.QuantumEquivalence <> AbstractCorrelation rec
+binder 2136:2137 <> ac:9
+R2191:2198 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2166:2187 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R2189:2190 Kernel.QuantumEquivalence <> ac:9 var
+R2214:2217 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R2203:2212 Kernel.QuantumEquivalence <> chsh_value proj
+R2199:2200 Kernel.QuantumEquivalence <> ac:9 var
+R2218:2232 Kernel.QuantumEquivalence <> tsirelson_bound def
+R2267:2288 Kernel.QuantumEquivalence <> is_quantum_correlation def
+prf 2473:2495 <> mu_zero_implies_quantum
+R2513:2531 Kernel.QuantumEquivalence <> AbstractCorrelation rec
+binder 2508:2509 <> ac:10
+R2565:2572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2538:2561 Kernel.QuantumEquivalence <> certifiable_with_mu_zero def
+R2563:2564 Kernel.QuantumEquivalence <> ac:10 var
+R2577:2598 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
+R2573:2574 Kernel.QuantumEquivalence <> ac:10 var
+R2637:2660 Kernel.QuantumEquivalence <> certifiable_with_mu_zero def
+prf 2933:2962 <> quantum_requires_no_revelation
+binder 2975:2976 <> ac:11
+R3008:3015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2983:3004 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R3006:3007 Kernel.QuantumEquivalence <> ac:11 var
+R3031:3034 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3020:3029 Kernel.QuantumEquivalence <> chsh_value proj
+R3016:3017 Kernel.QuantumEquivalence <> ac:11 var
+R3035:3049 Kernel.QuantumEquivalence <> tsirelson_bound def
+R3084:3105 Kernel.QuantumEquivalence <> is_quantum_correlation def
+prf 3177:3196 <> classical_is_quantum
+binder 3209:3210 <> ac:12
+R3244:3251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3221:3242 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
+R3217:3218 Kernel.QuantumEquivalence <> ac:12 var
+R3286:3293 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3267:3270 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R3256:3265 Kernel.QuantumEquivalence <> chsh_value proj
+R3252:3253 Kernel.QuantumEquivalence <> ac:12 var
+R3271:3285 Kernel.QuantumEquivalence <> classical_bound def
+R3294:3315 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R3317:3318 Kernel.QuantumEquivalence <> ac:12 var
+R3361:3382 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R3418:3432 Kernel.QuantumEquivalence <> tsirelson_bound def
+R3435:3449 Kernel.QuantumEquivalence <> tsirelson_bound def
+R3452:3466 Kernel.QuantumEquivalence <> classical_bound def
+R3539:3547 Coq.QArith.QArith_base <> Qle_trans thm
+R3539:3547 Coq.QArith.QArith_base <> Qle_trans thm
+R3584:3586 Coq.QArith.QArith_base <> Qle def
+def 4490:4518 <> correlation_hierarchy_derived
+binder 4691:4692 <> ac:13
+R4729:4745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4710:4713 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4699:4708 Kernel.QuantumEquivalence <> chsh_value proj
+R4695:4696 Kernel.QuantumEquivalence <> ac:13 var
+R4714:4728 Kernel.QuantumEquivalence <> classical_bound def
+R4761:4764 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R4750:4759 Kernel.QuantumEquivalence <> chsh_value proj
+R4746:4747 Kernel.QuantumEquivalence <> ac:13 var
+R4765:4779 Kernel.QuantumEquivalence <> tsirelson_bound def
+prf 4791:4810 <> hierarchy_is_derived
+R4814:4842 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
+R4861:4889 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
+R4921:4929 Coq.QArith.QArith_base <> Qle_trans thm
+R4933:4947 Kernel.QuantumEquivalence <> classical_bound def
+R4921:4929 Coq.QArith.QArith_base <> Qle_trans thm
+R4933:4947 Kernel.QuantumEquivalence <> classical_bound def
+R4980:4994 Kernel.QuantumEquivalence <> classical_bound def
+R4997:5011 Kernel.QuantumEquivalence <> tsirelson_bound def
+R5025:5027 Coq.QArith.QArith_base <> Qle def
+def 5588:5614 <> qm_is_cost_free_computation
+binder 5635:5636 <> ac:14
+R5668:5677 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5743:5743 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5643:5664 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R5666:5667 Kernel.QuantumEquivalence <> ac:14 var
+R5705:5708 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5682:5703 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
+R5678:5679 Kernel.QuantumEquivalence <> ac:14 var
+R5724:5727 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R5713:5722 Kernel.QuantumEquivalence <> chsh_value proj
+R5709:5710 Kernel.QuantumEquivalence <> ac:14 var
+R5728:5742 Kernel.QuantumEquivalence <> tsirelson_bound def
+prf 5901:5919 <> qm_equals_cost_free
+R5923:5949 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
+R5968:5994 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
+R5997:6018 Kernel.QuantumEquivalence <> is_quantum_correlation def
+def 6125:6142 <> why_quantum_answer
+R6395:6400 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6366:6394 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
+R6401:6427 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
+prf 6439:6466 <> quantum_foundations_resolved
+R6470:6487 Kernel.QuantumEquivalence <> why_quantum_answer def
+R6506:6523 Kernel.QuantumEquivalence <> why_quantum_answer def
+R6545:6564 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
+R6545:6564 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
+R6577:6595 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
+R6577:6595 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
+prf 7255:7282 <> quantum_foundations_complete
+R7317:7322 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7288:7316 Kernel.QuantumEquivalence <> correlation_hierarchy_derived def
+R7323:7349 Kernel.QuantumEquivalence <> qm_is_cost_free_computation def
+R7378:7397 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
+R7378:7397 Kernel.QuantumEquivalence <> hierarchy_is_derived thm
+R7410:7428 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
+R7410:7428 Kernel.QuantumEquivalence <> qm_equals_cost_free thm
+prf 7688:7712 <> cost_causes_quantum_bound
+binder 7725:7726 <> ac:15
+R7760:7767 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7737:7758 Kernel.QuantumEquivalence <> satisfies_no_signaling proj
+R7733:7734 Kernel.QuantumEquivalence <> ac:15 var
+R7802:7809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7783:7786 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R7772:7781 Kernel.QuantumEquivalence <> chsh_value proj
+R7768:7769 Kernel.QuantumEquivalence <> ac:15 var
+R7787:7801 Kernel.QuantumEquivalence <> tsirelson_bound def
+R7810:7831 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R7833:7834 Kernel.QuantumEquivalence <> ac:15 var
+R7877:7898 Kernel.QuantumEquivalence <> is_quantum_correlation def
+prf 8005:8032 <> exceeding_bound_implies_cost
+binder 8045:8046 <> ac:16
+R8086:8093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8068:8070 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R8071:8085 Kernel.QuantumEquivalence <> tsirelson_bound def
+R8057:8066 Kernel.QuantumEquivalence <> chsh_value proj
+R8053:8054 Kernel.QuantumEquivalence <> ac:16 var
+R8094:8095 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8121:8121 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8096:8117 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R8119:8120 Kernel.QuantumEquivalence <> ac:16 var
+R8161:8182 Kernel.QuantumEquivalence <> is_quantum_correlation def
+R8309:8318 Coq.QArith.QArith_base <> Qlt_not_le thm
+R8309:8318 Coq.QArith.QArith_base <> Qlt_not_le thm

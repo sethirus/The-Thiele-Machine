@@ -24,7 +24,6 @@ OPCODES: dict[str, int] = {
     "XOR_RANK": 0x0D,
     "EMIT": 0x0E,
     "REVEAL": 0x0F,
-    "ORACLE_HALTS": 0x10,
     "LOAD": 0x11,
     "STORE": 0x12,
     "ADD": 0x13,

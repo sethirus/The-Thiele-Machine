@@ -144,10 +144,8 @@ Definition MSTATUS_TURING : word WordSz :=
 Definition MSTATUS_THIELE : word WordSz :=
   WO~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~0~1.
 
-(** ORACLE_HALTS charges a fixed 1,000,000 μ penalty in hardware,
-    regardless of the user-specified cost field. This is an intentional
-    conservative refinement: undecidable oracles pay a fixed floor.
-    ThieleCPUCore.v hardcodes this in the final_mu computation. *)
+(** ORACLE_HALTS_HW_COST: legacy cost ceiling constant. No opcode uses it now;
+    kept for conservative cost-cap lemmas in Abstraction.v. *)
 Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
 (** CHSH x=1 surcharge constant (μ-bits).
@@ -172,7 +170,7 @@ Definition OP_XOR_SWAP      : word OpcodeSz := WO~0~0~0~0~1~1~0~0. (* 0x0C *)
 Definition OP_XOR_RANK      : word OpcodeSz := WO~0~0~0~0~1~1~0~1. (* 0x0D *)
 Definition OP_EMIT          : word OpcodeSz := WO~0~0~0~0~1~1~1~0. (* 0x0E *)
 Definition OP_REVEAL        : word OpcodeSz := WO~0~0~0~0~1~1~1~1. (* 0x0F *)
-Definition OP_ORACLE_HALTS  : word OpcodeSz := WO~0~0~0~1~0~0~0~0. (* 0x10 *)
+(* 0x10 reserved (formerly ORACLE_HALTS) *)
 Definition OP_LOAD          : word OpcodeSz := WO~0~0~0~1~0~0~0~1. (* 0x11 *)
 Definition OP_STORE         : word OpcodeSz := WO~0~0~0~1~0~0~1~0. (* 0x12 *)
 Definition OP_ADD           : word OpcodeSz := WO~0~0~0~1~0~0~1~1. (* 0x13 *)

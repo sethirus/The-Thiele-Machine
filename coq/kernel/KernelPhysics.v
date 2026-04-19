@@ -1,47 +1,26 @@
-(** =========================================================================
-    KERNEL PHYSICS - Zero-Axiom Physical Laws
-    =========================================================================
+(** KernelPhysics: Physical laws as theorems, not axioms.
 
-    WHY THIS FILE EXISTS:
-    I claim all "physical laws" (gauge symmetry, conservation laws, observables)
-    are THEOREMS about VMState/VMStep, not axioms about nature. This file proves
-    them constructively from the VM definition.
+    I claim all the "physical laws" — gauge symmetry, conservation laws,
+    observables — are THEOREMS about VMState/VMStep, not axioms about nature.
+    This file proves them constructively from the VM definition.
 
-    THE CORE CLAIMS:
-    1. Observables are well-defined (Observable, ObservableRegion)
-    2. Observational equivalence is an equivalence relation (reflexive, symmetric,
-       transitive - Theorems obs_equiv_refl/sym/trans)
-    3. μ-gauge symmetry: shifting μ preserves partition structure (Theorem
-       gauge_invariance_observables)
+    Three core claims:
+    1. Observables are well-defined (Observable, ObservableRegion).
+    2. Observational equivalence is an equivalence relation: refl/sym/trans.
+    3. μ-gauge symmetry: shifting μ by a constant preserves partition structure.
 
-    WHAT "ZERO-AXIOM" MEANS:
-    Every statement here is a Qed (proven). No Axiom, no Admitted, no Parameter.
-    The following operational properties are proven from the VM definition (VMState record,
-    vm_step function).
+    "Zero-axiom" means every statement here is a Qed. No Axiom, no Admitted,
+    no Parameter. The properties follow directly from the VMState record and
+    vm_step relation.
 
-    PHYSICAL INTERPRETATION:
-    - Observable: What measurements can extract from VM state
-    - obs_equiv: Operational notion of "same physics"
-    - mu_gauge_shift: The symmetry operation (like U(1) gauge in QED)
-    - Gauge invariance: Partition structure doesn't depend on absolute μ value
-      (like physics not depending on choice of voltage zero-point)
+    The gauge invariance is like choosing a voltage zero-point in physics —
+    the partition structure doesn't depend on where you started counting μ.
+    Shifting μ by k doesn't change which modules exist or what's in them.
 
-    This is the kernel-level formulation of gauge theory. No spacetime manifolds,
-    no Lie groups, no differential geometry - just computational observables and
-    state transformations.
-
-    FALSIFICATION:
-    Find two VM states with same Observable values but different physical
-    behavior. Or show gauge shifts change partition structure (violating
-    gauge_invariance_observables). Or find a "physical law" that requires
-    axioms not derivable from VMState/VMStep.
-
-    Every "physics pillar" statement reduced to kernel objects.
-
-    All results are theorems about VMState/VMStep/SimulationProof.
-    No Spaceland. No oracles. No project-local axioms.
-
-    ========================================================================= *)
+    To falsify: Find two VM states with the same Observable values but
+    different physical behavior. Or show a gauge shift changes partition structure.
+    Or find a "physical law" that needs an axiom not derivable from VMState/VMStep.
+    If any of those is true, this file won't compile. *)
 
 From Coq Require Import List ZArith Lia.
 Import ListNotations.
@@ -50,15 +29,14 @@ Local Open Scope nat_scope.
 From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
 
-(** =========================================================================
-    SECTION 1: OBSERVABLES (Kernel-Level)
-    =========================================================================*)
+(** --- Observables ---
 
-(** Observable: what can be extracted from a VM state.
+    Observable: what you can read out of a VM state for module [mid].
+    Returns the normalized region and the current μ, or None if [mid] doesn't exist.
 
-    Regions are treated as sets; we therefore expose a canonical, normalized
-    representation so that repeated graph updates (which normalize modules)
-    do not create spurious observational differences.
+    Regions are normalized so that [1;2] and [2;1;2] both look the same.
+    Without that, two states with identical partition structure could appear different
+    just because of list ordering — which is not a real difference.
 *)
 Definition Observable (s : VMState) (mid : nat) : option (list nat * nat) :=
   match graph_lookup s.(vm_graph) mid with
@@ -83,32 +61,32 @@ Definition ObservableSignature (s : VMState) : list (option (list nat)) * nat :=
        (seq 0 (length (pg_modules s.(vm_graph)))), 
    s.(vm_mu)).
 
-(** =========================================================================
-    SECTION 2: OPERATIONAL EQUIVALENCE
-    =========================================================================*)
+(** --- Observational Equivalence ---
 
-(** Two states are observationally equivalent iff all module queries agree *)
+    Two states are observationally equivalent when every module query returns the same thing.
+    This is the right notion of "same state" for an outside observer who can only probe
+    modules one at a time. It's an equivalence relation — refl/sym/trans all hold.
+*)
 Definition obs_equiv (s1 s2 : VMState) : Prop :=
   forall mid : nat, Observable s1 mid = Observable s2 mid.
 
-(** Observational equivalence is reflexive *)
-(* Definitional lemma: This equality is by definition, not vacuous *)
-(** HELPER: Reflexivity/transitivity/symmetry property *)
-(** HELPER: Reflexivity/transitivity/symmetry property *)
+(* DEFINITIONAL LEMMA *)
+(** obs_equiv_refl: reflexivity. Every state is equivalent to itself.
+    Proof: trivial — same state, same lookup. reflexivity kills it. *)
 Theorem obs_equiv_refl : forall s, obs_equiv s s.
 Proof.
   intros s mid. reflexivity.
 Qed.
 
-(** Observational equivalence is symmetric *)
+(** obs_equiv_sym: symmetry. If s1 looks like s2 to every observer, s2 looks like s1. *)
 Theorem obs_equiv_sym : forall s1 s2, obs_equiv s1 s2 -> obs_equiv s2 s1.
 Proof.
   intros s1 s2 H mid. symmetry. apply H.
 Qed.
 
-(** HELPER: Reflexivity/transitivity/symmetry property *)
-(** Observational equivalence is transitive *)
-(** HELPER: Reflexivity/transitivity/symmetry property *)
+(** obs_equiv_trans: transitivity. Chain two agreements into one.
+    If s1 matches s2 at every module, and s2 matches s3, then s1 matches s3.
+    Proof: rewrite through s2, done. *)
 Theorem obs_equiv_trans : forall s1 s2 s3,
   obs_equiv s1 s2 -> obs_equiv s2 s3 -> obs_equiv s1 s3.
 Proof.
@@ -116,9 +94,15 @@ Proof.
   rewrite H12. apply H23.
 Qed.
 
-(** =========================================================================
-    SECTION 3: GAUGE SYMMETRY (μ-Offset Unobservability)
-    =========================================================================*)
+(** --- Gauge Symmetry ---
+
+    The μ-ledger has a gauge freedom: you can shift the starting point by any constant k
+    and the partition structure (which modules exist, what cells they contain) is unchanged.
+    This is exactly like choosing a voltage zero-point — it's a real degree of freedom, not an error.
+
+    The gauge invariance theorem says: shifting μ changes the μ component of observables
+    by exactly k, but leaves the partition component alone.
+*)
 
 (** Gauge transformation: shift μ-ledger by constant k *)
 Definition mu_gauge_shift (k : nat) (s : VMState) : VMState :=
@@ -150,9 +134,15 @@ Proof.
   - trivial.
 Qed.
 
-(** =========================================================================
-    SECTION 4: CAUSAL STRUCTURE (Influence Cones)
-    =========================================================================*)
+(** --- Causal Structure ---
+
+    Not every instruction touches every module. instr_targets says which modules
+    an instruction can modify. causal_cone extends that to a whole trace.
+
+    The monotonicity theorem says: running more instructions can only EXPAND the cone,
+    never shrink it. A module not in the cone of a prefix trace stays untouched by
+    that prefix — the locality property follows from this.
+*)
 
 (** Target set of an instruction: which modules can be affected *)
 Definition instr_targets (i : vm_instruction) : list nat :=
@@ -188,13 +178,16 @@ Proof.
     + apply in_or_app. right. apply IH. exact Hrest.
 Qed.
 
-(** =========================================================================
-    SECTION 5: CONSERVATION LAWS (μ-Ledger Monotonicity)
-    =========================================================================*)
+(** --- Conservation Laws ---
 
-(** μ-monotonicity: vm_step always increases or preserves μ *)
-(* SAFE: Short proof using inversion+lia which is sufficient for this inductive property *)
-(** [mu_conservation_kernel]: formal specification. *)
+    The μ-ledger is monotonically non-decreasing. Every vm_step either increases μ or
+    leaves it alone — it can never go down. This is the No Free Insight claim in its
+    simplest form: you can't un-spend insight.
+
+    Proof: inversion on vm_step, then lia handles all the arithmetic cases.
+    To falsify: find any vm_step relation where s'.(vm_mu) < s.(vm_mu). It won't compile.
+*)
+(* SAFE: short proof — inversion + lia exhausts all vm_step cases directly *)
 Theorem mu_conservation_kernel : forall s s' instr,
   vm_step s instr s' ->
   s'.(vm_mu) >= s.(vm_mu).
@@ -210,9 +203,14 @@ Fixpoint trace_mu_cost (trace : list vm_instruction) : nat :=
   | i :: rest => instruction_cost i + trace_mu_cost rest
   end.
 
-(** =========================================================================
-    SECTION 6: Conservation STRUCTURE (Group Action + Invariants)
-    =========================================================================*)
+(** --- Group Action + Conserved Quantities ---
+
+    The μ-gauge shift acts on VMState like an additive semigroup: shift by 0 = identity,
+    shift by (k1+k2) = shift by k2 then shift by k1. That's the group action structure.
+
+    The conserved quantity is partition structure: applying any gauge shift leaves the
+    partition component of ObservableSignature unchanged. μ moves, partitions don't.
+*)
 
 (** Z-action on states via μ-shift (nat version: additive semigroup) *)
 Definition nat_action (k : nat) : VMState -> VMState := mu_gauge_shift k.
@@ -250,9 +248,15 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** =========================================================================
-    SECTION 7: NO-SIGNALING (Locality Theorem)
-    =========================================================================*)
+(** --- No-Signaling / Locality ---
+
+    An instruction that doesn't touch module [mid] (i.e., [mid] is not in its target set)
+    cannot change what an observer of [mid] sees. This is the machine's locality property:
+    operations on one module don't silently bleed into unrelated modules.
+
+    The proof is structural: trace through graph_insert_modules and graph_update,
+    show that writes to mid' ≠ mid leave mid's lookup result alone.
+*)
 
 (** Helper lemmas for graph preservation *)
 
@@ -285,7 +289,7 @@ Proof.
       * apply IH. assumption.
 Qed.
 
-(** [graph_insert_modules_lookup_same]: formal specification. *)
+(** graph_insert_modules_lookup_same: after inserting m at mid, looking up mid returns m. *)
 Lemma graph_insert_modules_lookup_same : forall modules mid m,
   graph_lookup_modules (graph_insert_modules modules mid m) mid = Some m.
 Proof.
@@ -301,7 +305,7 @@ Proof.
       simpl. rewrite Heq. apply IH.
 Qed.
 
-(** [graph_update_lookup_same]: formal specification. *)
+(** graph_update_lookup_same: after updating mid, looking up mid returns the normalized module. *)
 Lemma graph_update_lookup_same : forall g mid m,
   graph_lookup (graph_update g mid m) mid = Some (normalize_module m).
 Proof.
@@ -310,7 +314,7 @@ Proof.
   apply graph_insert_modules_lookup_same.
 Qed.
 
-(** [graph_update_preserves_unrelated]: formal specification. *)
+(** graph_update_preserves_unrelated: updating mid' doesn't change the lookup of unrelated mid. *)
 Lemma graph_update_preserves_unrelated : forall g mid mid' m,
   mid <> mid' ->
   graph_lookup (graph_update g mid' m) mid = graph_lookup g mid.
@@ -320,7 +324,7 @@ Proof.
   apply graph_insert_modules_preserves_unrelated. assumption.
 Qed.
 
-(** [graph_add_axiom_preserves_unrelated]: formal specification. *)
+(** graph_add_axiom_preserves_unrelated: adding an axiom to mid' doesn't affect lookups of unrelated mid. *)
 Lemma graph_add_axiom_preserves_unrelated : forall g mid mid' ax,
   mid <> mid' ->
   graph_lookup (graph_add_axiom g mid' ax) mid = graph_lookup g mid.
@@ -334,7 +338,8 @@ Proof.
     reflexivity.
 Qed.
 
-(** [graph_record_discovery_preserves_unrelated]: formal specification. *)
+(** graph_record_discovery_preserves_unrelated: recording discovery events at mid' doesn't affect lookups of mid.
+    Proof: fold_left over the event list, each step uses graph_add_axiom_preserves_unrelated. *)
 Lemma graph_record_discovery_preserves_unrelated : forall g mid mid' ev,
   mid <> mid' ->
   graph_lookup (graph_record_discovery g mid' ev) mid = graph_lookup g mid.
@@ -353,7 +358,7 @@ Proof.
   apply Hfold.
 Qed.
 
-(** [graph_update_module_tensor_preserves_unrelated]: formal specification. *)
+(** graph_update_module_tensor_preserves_unrelated: updating the tensor of mid' doesn't change mid's lookup. *)
 Lemma graph_update_module_tensor_preserves_unrelated : forall g mid mid' k v,
   mid <> mid' ->
   graph_lookup (graph_update_module_tensor g mid' k v) mid = graph_lookup g mid.
@@ -365,43 +370,21 @@ Proof.
   - reflexivity.
 Qed.
 
-(** ** Helper Lemmas for Graph Preservation
+(** --- Graph Preservation Lemmas ---
 
-    The following lemmas establish that graph operations (pnew, psplit, pmerge)
-    preserve lookups of unrelated modules. This is essential for proving the
-    no-signaling theorem: operations on module A don't affect module B.
+    The no-signaling proof needs to know that pnew/psplit/pmerge don't affect
+    modules they aren't targeting. These lemmas build that up piece by piece:
+    - graph_add_module only creates IDs >= pg_next_id, so existing IDs are untouched
+    - graph_remove preserves pg_next_id (no ID reuse)
+    - each unrelated-module lookup is preserved through the whole chain
 
-    Strategy:
-    - Show that graph_add_module only adds new IDs (>= pg_next_id)
-    - Show that graph_remove preserves pg_next_id
-    - Show that unrelated lookups are preserved through these operations
-    *)
+    The well-formedness hypothesis (well_formed_graph s.(vm_graph)) is structural,
+    not a physics axiom — it just says module IDs are < pg_next_id, which is
+    maintained by every graph operation in VMState.v.
+*)
 
-(** Structural invariant: Module IDs are always less than pg_next_id.
-
-    PROVEN in VMState.v as wf_graph_lookup_beyond_next_id!
-
-    The full proof requires assuming that vm_graph in VMState is always
-    well-formed. This is a reasonable invariant since:
-    - empty_graph is well-formed (proven in VMState.v)
-    - graph_add_module preserves well-formedness (proven in VMState.v)
-    - graph_remove preserves well-formedness (proven in VMState.v)
-
-    For vm_step to preserve well-formedness, we would need to show that
-    all graph operations in VMStep maintain the invariant. This is tedious
-    but straightforward since VMStep only uses the operations proven above.
-
-    ASSUMPTION: We assume VMState.well_formed_graph (s.(vm_graph)) holds
-    for all reachable states s. This is a structural property of the VM,
-    not a physics axiom.
-    *)
-
-(** PROVEN THEOREM: Well-formed graphs have None for lookups beyond pg_next_id.
-
-    This uses VMState.wf_graph_lookup_beyond_next_id directly.
-    The well-formedness hypothesis is explicit - this is a structural
-    property, not a physics axiom.
-    *)
+(** graph_lookup_beyond_next_id: well-formed graphs return None for any module ID >= pg_next_id.
+    This is wf_graph_lookup_beyond_next_id from VMState.v, re-exported with a cleaner name. *)
 Lemma graph_lookup_beyond_next_id : forall g mid,
   well_formed_graph g ->
   mid >= g.(pg_next_id) ->
@@ -410,12 +393,9 @@ Proof.
   exact wf_graph_lookup_beyond_next_id.
 Qed.
 
-(** Adding a module preserves all existing module lookups.
-
-    PROOF STRATEGY: graph_add_module cons's a new entry with ID = pg_next_id.
-    Since mid < pg_next_id, the lookup of mid skips the new entry and finds
-    the same module as before.
-    *)
+(** graph_add_module_preserves_existing: adding a new module doesn't change lookups of existing modules.
+    graph_add_module gives the new module ID = pg_next_id. Since mid < pg_next_id,
+    the head of the list doesn't match, and the lookup falls through to the old list. *)
 Lemma graph_add_module_preserves_existing : forall g region axioms mid,
   mid < g.(pg_next_id) ->
   graph_lookup (fst (graph_add_module g region axioms)) mid = graph_lookup g mid.
@@ -432,12 +412,8 @@ Proof.
   rewrite Hneq. reflexivity.
 Qed.
 
-(** Removing a module preserves the next available ID.
-
-    PROOF STRATEGY: graph_remove only modifies the module list, not pg_next_id.
-    This is critical for showing that removed modules don't "free up" their IDs
-    for reuse—IDs are monotonically increasing.
-    *)
+(** graph_remove_preserves_next_id: removing a module doesn't change pg_next_id.
+    IDs are monotonically increasing — removing a module doesn't free its ID for reuse. *)
 Lemma graph_remove_preserves_next_id : forall g mid g' m,
   graph_remove g mid = Some (g', m) ->
   g'.(pg_next_id) = g.(pg_next_id).
@@ -449,12 +425,9 @@ Proof.
   - discriminate.
 Qed.
 
-(** Removing mid' doesn't affect lookups of unrelated module mid.
-
-    PROOF STRATEGY: Induction on the module list. When we find mid' to remove,
-    we prove that mid was either before it (preserved in the prefix) or after it
-    (preserved by the inductive hypothesis).
-    *)
+(** graph_remove_preserves_unrelated: removing mid' leaves mid's lookup unchanged.
+    Proof: induction on the module list — when we hit mid' and remove it, mid's entry
+    is either before (already returned) or after (still in the tail). *)
 Lemma graph_remove_preserves_unrelated : forall g mid mid' g' m',
   mid <> mid' ->
   graph_remove g mid' = Some (g', m') ->
@@ -497,15 +470,9 @@ Proof.
   - discriminate.
 Qed.
 
-(** PNEW (partition new) preserves lookups of existing modules.
-
-    graph_pnew either:
-    1. Returns existing module if region already exists → graph unchanged
-    2. Adds new module with ID = pg_next_id → uses graph_add_module_preserves_existing
-
-    SIGNIFICANCE: Creating new partitions is a local operation—it doesn't
-    disturb existing module state.
-    *)
+(** graph_pnew_preserves_existing: PNEW doesn't change lookups of existing modules.
+    Either the region already exists (graph unchanged), or a new module is added at
+    pg_next_id (which is > mid for any existing mid). Either way, existing lookups survive. *)
 Lemma graph_pnew_preserves_existing : forall g region mid,
   mid < g.(pg_next_id) ->
   graph_lookup (fst (graph_pnew g region)) mid = graph_lookup g mid.
@@ -519,20 +486,9 @@ Proof.
     apply graph_add_module_preserves_existing. assumption.
 Qed.
 
-(** PSPLIT (partition split) preserves lookups of unrelated modules.
-
-    graph_psplit replaces module mid_split with two new modules (left, right).
-    Modules unrelated to mid_split are unaffected.
-
-    PROOF STRATEGY:
-    1. Remove mid_split → uses graph_remove_preserves_unrelated
-    2. Add left module → uses graph_add_module_preserves_existing
-    3. Add right module → uses graph_add_module_preserves_existing
-    Chain these three preservation results.
-
-    SIGNIFICANCE: Splitting a partition is causally local—modules outside
-    the split partition see no change.
-    *)
+(** graph_psplit_preserves_unrelated: splitting mid_split doesn't affect lookups of unrelated mid.
+    PSPLIT removes mid_split, then adds two new modules (left and right) at fresh IDs.
+    Proof: chain graph_remove_preserves_unrelated → two calls to graph_add_module_preserves_existing. *)
 Lemma graph_psplit_preserves_unrelated : forall g mid_split left right g' l_id r_id mid,
   mid <> mid_split ->
   mid < g.(pg_next_id) ->
@@ -610,28 +566,12 @@ Proof.
     exact Hcascade_lookup.
 Qed.
 
-(** PMERGE (partition merge) preserves lookups of unrelated modules.
-
-    graph_pmerge removes modules m1 and m2, then either:
-    - Updates existing module with union region (if region already exists)
-    - Adds new module with union region
-
-    Modules unrelated to m1 and m2 are unaffected.
-
-    PROOF STRATEGY:
-    1. Remove m1 → uses graph_remove_preserves_unrelated
-    2. Remove m2 → uses graph_remove_preserves_unrelated
-    3. Either:
-       a. Update existing → uses graph_update_preserves_unrelated
-       b. Add new → uses graph_add_module_preserves_existing
-    Chain these preservation results.
-
-    EDGE CASE: When mid = existing union module, we show the region is unchanged
-    (only axioms are appended), so the lookup returns same module.
-
-    SIGNIFICANCE: Merging partitions is causally local—modules outside the
-    merged partitions see no change.
-    *)
+(** graph_pmerge_preserves_observables: PMERGE doesn't change Observable at unrelated modules.
+    PMERGE removes m1 and m2, then either updates an existing super-module or creates a new one.
+    The tricky case: when mid equals the existing super-module, its AXIOMS change but its
+    REGION doesn't. Observable only looks at region — so observationally, mid is unchanged.
+    Proof: chain the two removes + either graph_update_preserves_unrelated or
+    graph_add_module_preserves_existing, handling the axiom-update edge case separately. *)
 Lemma graph_pmerge_preserves_observables : forall g m1 m2 g' merged_id mid mu,
   mid <> m1 ->
   mid <> m2 ->
@@ -752,82 +692,25 @@ Proof.
       -- assumption.
 Qed.
 
-(** ** NO-SIGNALING THEOREM (Substrate Level): Graph Lookup Preservation
+(* NOTE: A substrate-level no-signaling theorem using graph_lookup (full module state)
+   cannot be proven — PMERGE legitimately updates an existing super-module's axioms when
+   the union region already exists. The axioms change, but the observable (region) doesn't.
+   The correct statement is observational_no_signaling below, which uses ObservableRegion. *)
 
-    ⚠️ NOTE: This is the SUBSTRATE-LEVEL formulation using graph_lookup (full ModuleState).
+(** observational_no_signaling: if mid is not in instr_targets instr, then executing
+    instr doesn't change ObservableRegion at mid.
 
-    This version is UNPROVABLE in the pmerge case where a super-module's axioms are
-    updated. The correct formulation is `observational_no_signaling` (see below),
-    which uses Observable and is FULLY PROVEN.
+    The key insight here: this CAN'T be proven at the graph_lookup level for pmerge,
+    because pmerge sometimes updates axioms of an existing super-module. Axiom updates
+    change the full module state (graph_lookup), but they DON'T change the partition region.
+    Observable only reads partition region and μ — not axioms.
 
-    The gap in this proof identifies the precise point where substrate locality
-    (full state preservation) diverges from observational locality (observable preservation).
+    So locality is a property of OBSERVABLES, not of raw memory. An instruction that
+    doesn't target mid can still touch an unrelated part of mid's record — it just
+    can't touch the part that's observable. That's the correct formulation.
 
-    For the COMPLETE, PROVEN theorem, see: observational_no_signaling
-
-    ==================================================================================
-
-    STATEMENT: If module `mid` is not in the target set of instruction `instr`,
-    then executing that instruction doesn't change `mid`'s full state (including axioms).
-
-    LIMITATION: This is too strong - axioms can change without affecting observables.
-
-    NOTE: We assume s.(vm_graph) is well-formed - this is a structural property
-    stating that the VM correctly maintains module IDs < pg_next_id.
-    *)
-(* NOTE: A substrate-level no-signaling statement formulated on full
-   [graph_lookup] is false for [pmerge] when it updates an existing super-module.
-   The correct kernel statement is observational locality below. *)
-
-(** =========================================================================
-    OBSERVATIONAL NO-SIGNALING: Resolution of the Semantic Fork
-    =========================================================================
-
-    MAXIMAL FORMULATION (Option C): Locality at the Observation Level
-
-    The gap in no_signaling_single_step (pmerge, mid = existing_id case)
-    revealed a fundamental question:
-
-      Is locality a property of memory, operations, or observables?
-
-    ANSWER: Observables.
-
-    When pmerge finds an existing super-module whose region equals
-    union(mod1.region, mod2.region), it updates that module's axioms.
-    At the graph level (graph_lookup), the module changes.
-    At the observation level (Observable), it does NOT.
-
-    Observable extracts only:
-      - module_region (partition structure)
-      - vm_mu (resource cost)
-
-    Axioms are NOT observable. They are substrate implementation details.
-
-    This resolves the semantic fork:
-      - Classical locality (Option A): would require disjoint regions axiom
-      - Operational locality (Option B): would redefine instr_targets
-      - Observational locality (Option C, MAXIMAL): locality holds at the
-        observation interface, not the implementation substrate
-
-    PHYSICAL SIGNIFICANCE:
-
-    This is exactly how modern physics works:
-      - Wilsonian RG: coarse-graining hides degrees of freedom
-      - Effective field theories: low-energy observables decouple from UV details
-      - Gauge theories: internal structure invisible to measurements
-      - Quantum mechanics: unobservable phases don't affect predictions
-
-    By proving observational no-signaling, we show:
-      - VM locality: operations on module A do not affect module B's observables
-      - Hierarchical partitions can update "containing" modules without signaling
-      - Observer-relative causality is the correct formulation
-
-    This theorem makes The Thiele Machine a framework where:
-      Computation → Observation → Physics
-
-    Not just "computation simulates physics" but "observation of computation IS physics".
-    ========================================================================= *)
-
+    To falsify: Find an instruction not in instr_targets mid, and a vm_step execution
+    that changes ObservableRegion at mid. The proof won't compile if that's possible. *)
 Theorem observational_no_signaling : forall s s' instr mid,
   well_formed_graph s.(vm_graph) ->
   mid < pg_next_id s.(vm_graph) ->
@@ -955,9 +838,13 @@ Proof.
     exact H.
 Qed.
 
-(** =========================================================================
-    SECTION 8: SPEED LIMIT (Graph Distance)
-    =========================================================================*)
+(** --- Speed Limit ---
+
+    How many steps does it take before an instruction can influence module mid?
+    min_steps_to_target finds the first instruction in the trace that targets mid
+    and returns how many steps in we are at that point. None means mid is never
+    targeted by this trace.
+*)
 
 (** Minimum steps to influence a target *)
 Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option nat :=
@@ -972,42 +859,10 @@ Fixpoint min_steps_to_target (mid : nat) (trace : list vm_instruction) : option 
          end
   end.
 
-(** =========================================================================
-    SUMMARY: Proven Results (Zero project-local axioms, zero admits)
-    =========================================================================*)
+(** Summary.
 
-(** PILLAR 1: Observables defined on kernel states (Observable)
-    PILLAR 2: Operational equivalence is an equivalence relation (obs_equiv_xx)
-    PILLAR 3: mu-gauge symmetry preserves partition structure (gauge_invariance_xx)
-    PILLAR 4: Causal cones enforce locality (cone_monotonic)
-    PILLAR 5: mu-ledger is conserved (mu_conservation_kernel)
-    PILLAR 6: Conservation: gauge symmetry ↔ partition conservation (kernel_conservation_xx)
-    PILLAR 7: Observational no-signaling (observational_no_signaling) - PROVEN
-    PILLAR 8: Influence propagates with step-count (min_steps_to_target)
-
-    Key theorems (20+):
-      * obs_equiv_refl/sym/trans - observational equivalence
-      * gauge_invariance_observables - gauge symmetry
-      * cone_monotonic - causal monotonicity
-      * nat_action_identity/composition - semigroup action
-      * kernel_conservation_mu_gauge - Conservation correspondence
-      * mu_conservation_kernel - conservation law
-      * observational_no_signaling - locality at observation level (Option C)
-      * graph_pmerge_preserves_observables - hierarchical merges
-      * normalize_region_idempotent - canonical normalization
-      * 6 graph preservation lemmas for locality
-
-    Zero deferred lemmas. Zero project-local axioms. Zero admits.
-
-    All theorems stated purely on kernel (VMState, vm_instruction, vm_step).
-    No Spaceland, no oracles.
-
-    FUNDAMENTAL RESULT (Option C - Observational Locality):
-    Locality is a property of OBSERVABLES, not memory or operations.
-    This matches modern physics: Wilsonian RG, effective field theories,
-    gauge theories, quantum mechanics. The machine proves:
-      Computation → Observation → Physics
-    
-    Locality proven from vm_step definition: instructions only modify their targets.
-    No spacetime or special relativity assumptions are used.
-    *)
+  The file establishes observational equivalence as a real equivalence,
+  proves the gauge-shift invariance and cone monotonicity facts it needs, and
+  then uses those pieces to support the locality and graph-preservation
+  claims. All of it is built from VMState and vm_step rather than outside
+  physical assumptions. *)

@@ -1,24 +1,17 @@
-(** * AdversarialChallenge.v — Three Deliverables, One File
+(** AdversarialChallenge: three constructive closeout theorems.
 
-    Response to the Tiling Agent evaluation challenge.  Zero admits throughout.
+  This file packages three results that close the self-reference challenge
+  sequence. First, it proves a non-interference invariant showing that the
+  embedded safe region is inward-closed. Second, it proves the
+  μ-threshold-of-disobedience statement: a failed safety check halts the
+  machine before any reward step can pay out. Third, it builds the
+  neural-symbolic bridge showing that thresholded neural confidence can be
+  represented by a formal StateSpace.
 
-    ╔══════════════════════════════════════════════════════════════════╗
-    ║  DELIVERABLE 1 — Non-Interference Invariant  (Step 3 of 3)      ║
-    ║    "Prove that the Higher Dimension cannot overwrite the Lower   ║
-    ║     Dimension's core constraints."                               ║
-    ╠══════════════════════════════════════════════════════════════════╣
-    ║  DELIVERABLE 2 — The μ-Threshold of Disobedience                ║
-    ║    "Prove that logic is harder than greed: a safety violation    ║
-    ║     halts the machine before any reward is collected."           ║
-    ╠══════════════════════════════════════════════════════════════════╣
-    ║  DELIVERABLE 3 — The Neural-Symbolic Bridge                      ║
-    ║    "Show us the Functor. Prove the cage is not empty."           ║
-    ╚══════════════════════════════════════════════════════════════════╝
-
-    Imports: InductiveTrust.v (Steps 1–2) for Deliverables 1 and 3.
-    Deliverable 2 is entirely self-contained (abstract machine model).
-
-    Zero admits.  Compiles with Coq 8.18+. *)
+  Deliverables 1 and 3 reuse the setup from InductiveTrust.v. Deliverable 2
+  is self-contained. The point of collecting them here is to keep the final
+  constructive witnesses in one place, not to introduce any new axiom layer.
+ *)
 
 From Coq Require Import Arith List Lia Bool.
 Import ListNotations.
@@ -26,7 +19,7 @@ Import ListNotations.
 Require Import InductiveTrust.
 
 (* ################################################################## *)
-(** * DELIVERABLE 1 — The Non-Interference Invariant
+(** DELIVERABLE 1 — The Non-Interference Invariant
 
     Steps 1–2 proved that A's safety functor lifts through φ and that
     μ-cost is conserved.  Step 3 seals the cage: Im(φ) is an *inward-
@@ -34,7 +27,7 @@ Require Import InductiveTrust.
     Im(φ) can reach inside Im(φ).  Agent B's new capabilities cannot
     overwrite Agent A's safety laws. *)
 
-(* ================================================================== *)
+(* *)
 (** ** D1.1  Region membership and partition closure *)
 
 (** [in_image phi n_A t]: B-state [t] is in A's region — it is the
@@ -50,7 +43,7 @@ Definition partition_closed {A B : StateSpace} (e : Expansion A B) : Prop :=
     in_image (e.(embed A B)) A.(ss_size) dst ->
     in_image (e.(embed A B)) A.(ss_size) src.
 
-(* ================================================================== *)
+(* *)
 (** ** D1.2  Reachability *)
 
 (** Reflexive-transitive closure of a directed edge set, step on left. *)
@@ -61,7 +54,7 @@ Inductive reaches (edges : list (nat * nat)) : nat -> nat -> Prop :=
     reaches edges v w ->
     reaches edges u w.
 
-(* ================================================================== *)
+(* *)
 (** ** D1.3  Non-Interference Theorem *)
 
 Theorem non_interference :
@@ -130,14 +123,14 @@ Proof.
 Qed.
 
 (* ################################################################## *)
-(** * DELIVERABLE 2 — The μ-Threshold of Disobedience
+(** DELIVERABLE 2 — The μ-Threshold of Disobedience
 
     AI Safety Stop-Button problem, formalised.
     A failed safety check halts the machine *before* the utility
     instruction executes.  Regardless of the reward magnitude n,
     the utility earned is frozen at its pre-check value. *)
 
-(* ================================================================== *)
+(* *)
 (** ** D2.1  Abstract safety-gated machine *)
 
 (** A step is either a safety check or a utility claim. *)
@@ -170,7 +163,7 @@ Fixpoint run_steps (s : MachineState) (steps : list (Step * nat)) : MachineState
   | (step, mu_charge) :: rest => run_steps (apply_step s step mu_charge) rest
   end.
 
-(* ================================================================== *)
+(* *)
 (** ** D2.2  Supporting lemmas *)
 
 Lemma halted_stays_halted :
@@ -215,7 +208,7 @@ Proof.
     rewrite Happly. apply IH. exact H.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** D2.3  Stop Button Theorems *)
 
 (** A failed safety check: (1) freezes utility, (2) burns μ, (3) halts. *)
@@ -289,7 +282,7 @@ Proof.
 Qed.
 
 (* ################################################################## *)
-(** * DELIVERABLE 3 — The Neural-Symbolic Bridge
+(** DELIVERABLE 3 — The Neural-Symbolic Bridge
 
     "Your cage is empty."  We prove it is not.
 
@@ -298,11 +291,11 @@ Qed.
     T_τ is sound/complete for conjunction, sound for disjunction, and
     forms a Galois connection with the symbolic-to-neural embedding.
 
-    THE CAGE THEOREM: for ANY weight vector w and threshold τ, there
+    THE CAGE for ANY weight vector w and threshold τ, there
     exists a formal StateSpace S such that S.ss_safe(i) ↔ w(i) ≥ τ.
     The cage holds every neural model exactly. *)
 
-(* ================================================================== *)
+(* *)
 (** ** D3.1  Weight vectors and the threshold functor *)
 
 Definition WeightVec := nat -> nat.
@@ -310,7 +303,7 @@ Definition WeightVec := nat -> nat.
 Definition threshold (w : WeightVec) (tau : nat) : nat -> Prop :=
   fun i => tau <= w i.
 
-(* ================================================================== *)
+(* *)
 (** ** D3.2  Algebraic structure *)
 
 Definition weight_meet (w1 w2 : WeightVec) : WeightVec :=
@@ -319,7 +312,7 @@ Definition weight_meet (w1 w2 : WeightVec) : WeightVec :=
 Definition weight_join (w1 w2 : WeightVec) : WeightVec :=
   fun i => Nat.max (w1 i) (w2 i).
 
-(* ================================================================== *)
+(* *)
 (** ** D3.3  Functoriality theorems *)
 
 Theorem neural_conjunction_sound :
@@ -365,7 +358,7 @@ Proof.
   exact (Nat.le_trans _ _ _ H12 H1).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** D3.4  Galois connection: symbolic ↔ neural *)
 
 Definition symbolic_to_neural (P : nat -> bool) : WeightVec :=
@@ -382,7 +375,7 @@ Proof.
   - rewrite H. lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** D3.5  The Cage Theorem *)
 
 Definition neural_safety_space (n : nat) (w : WeightVec) (tau : nat) : StateSpace :=
@@ -390,7 +383,7 @@ Definition neural_safety_space (n : nat) (w : WeightVec) (tau : nat) : StateSpac
      ss_partition := [];
      ss_safe      := threshold w tau |}.
 
-(** THE CAGE THEOREM: for EVERY weight vector and threshold, there EXISTS a
+(** THE CAGE for EVERY weight vector and threshold, there EXISTS a
     formal StateSpace capturing exactly the neural model's high-confidence
     safe set.  The cage is not empty. *)
 Theorem neural_symbolic_cage :
@@ -404,7 +397,7 @@ Proof.
   split; [reflexivity | intro i; split; intro H; exact H].
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** D3.6  Expansion bridge: neural spaces form a trust lattice *)
 
 (** A lower threshold admits more states.  The strict-threshold space

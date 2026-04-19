@@ -4,7 +4,8 @@
 Each test provides the necessary init preamble for the RTL:
 - INIT_LOGIC_ACC: unlocks high-value ops (CHSH_TRIAL, REVEAL, PDISCOVER)
 - INIT_PT + INIT_ACTIVE_MODULE: unlocks locality-guarded ops (LOAD/STORE/CALL/RET/XOR_LOAD/HEAP_*)
-- NoFI constraint: cost >= info_gain for EMIT/PDISCOVER
+- NoFI constraint: PDISCOVER still uses a declared-cost bound; EMIT pays
+  op_b payload bits directly as op_b + S(cost)
 """
 
 from __future__ import annotations
@@ -143,24 +144,17 @@ tests.append(("XOR_RANK", "LOAD_IMM 1 255 1\nXOR_RANK 2 1 1\nHALT", {
     "charges_mu": lambda r: r["mu"] == 2,
 }))
 
-# 15. EMIT — NoFI constraint: cost >= info_gain (no logic gate needed)
+# 15. EMIT — op_b is the emitted bit count; cost is the declared delta
 tests.append(("EMIT", "EMIT 0 15 15\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 16,  # S(15)=16: cert-setters charge cost+1
+    "charges_mu": lambda r: r["mu"] == 31,  # 15 payload bits + S(15)=16
     "increments_info_gain": lambda r: r["info_gain"] == 15,
     "halts": lambda r: r["status"] == 2,
 }))
 
-# 16. REVEAL — needs logic gate
-tests.append(("REVEAL", LOGIC_PREAMBLE + "REVEAL 0 0 5\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 6,  # S(5)=6: cert-setters charge cost+1
-    "charges_tensor": lambda r: r["mu_tensor_0"] == 5,  # tensor gets bits (not cost)
-    "halts": lambda r: r["status"] == 2,
-}))
-
-# 17. ORACLE_HALTS — charges large fixed mu (1,000,000)
-tests.append(("ORACLE_HALTS", "ORACLE_HALTS 0 0 11\nHALT", {
-    "charges_large_mu": lambda r: r["mu"] >= 11,
-    "advances_pc": lambda r: r["pc"] == 1,
+# 16. REVEAL — needs logic gate; op_b is the revealed bit count
+tests.append(("REVEAL", LOGIC_PREAMBLE + "REVEAL 0 5 0\nHALT", {
+    "charges_mu": lambda r: r["mu"] == 6,  # 5 revealed bits + S(0)=1
+    "charges_tensor": lambda r: r["mu_tensor_0"] == 5,
     "halts": lambda r: r["status"] == 2,
 }))
 
@@ -227,9 +221,9 @@ tests.append(("CHECKPOINT", "CHECKPOINT 0 5\nHALT", {
     "halts": lambda r: r["status"] == 2,
 }))
 
-# 28. READ_PORT — hardware always returns 0 for port value
-tests.append(("READ_PORT", "READ_PORT 3 0 1\nHALT", {
-    "charges_mu": lambda r: r["mu"] == 2,  # S(1)=2: cert-setters charge cost+1
+# 28. READ_PORT — hardware always returns 0; op_b is the read bit count
+tests.append(("READ_PORT", "READ_PORT 3 1 0\nHALT", {
+    "charges_mu": lambda r: r["mu"] == 2,  # 1 read bit + S(0)=1
     "halts": lambda r: r["status"] == 2,
 }))
 

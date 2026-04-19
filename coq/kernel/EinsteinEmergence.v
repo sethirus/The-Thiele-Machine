@@ -1,37 +1,22 @@
-(** * Discrete Gauss-Bonnet for VM Graph Structure
+(** EinsteinEmergence: discrete curvature-topology bridge for VM graph dynamics.
 
-    ========================================================================
-    PHASE 6: Discrete curvature-topology bridge for VM graph dynamics
-    ========================================================================
+  This file is not the 4D Einstein equation. It is the discrete bridge that
+  says topology change in the VM graph forces total-curvature change through
+  Gauss-Bonnet.
 
-    PURPOSE: Chain Phases 1-5 to show that PNEW-induced topology changes
-    produce curvature changes governed by the discrete Gauss-Bonnet theorem.
+  The chain is short and explicit. DiscreteTopology.v defines chi.
+  DiscreteGaussBonnet.v proves total curvature is 5PI * chi.
+  PNEWTopologyChange.v shows executed PNEW steps can change the topology.
+  TopologyCurvatureBridge.v turns that into delta-curvature = 5PI * delta-chi.
+  StressEnergyDynamics.v supplies the source-side language.
 
-    THE CAUSAL CHAIN:
-    Phase 1 (DiscreteTopology.v): Define V, E, F, χ = V - E + F
-    Phase 2 (DiscreteGaussBonnet.v): Prove Σ(curvature) = 5π × χ
-    Phase 3 (PNEWTopologyChange.v): Prove PNEW changes χ
-    Phase 4 (TopologyCurvatureBridge.v): Prove Δχ → ΔCurvature = 5π×Δχ
-    Phase 5 (StressEnergyDynamics.v): Prove stress-energy drives PNEW
-    Phase 6 (THIS FILE): Chain them all → curvature ∝ topology change
+  So the algebraic shape looks like source implies curvature, but the object
+  here is still a 2D topological identity with coupling 5PI. It is an
+  analogy to Einstein, not a proof that the full Einstein field equation has
+  been recovered in this file.
 
-    MAIN RESULT:
-    For local module m, curvature change is proportional to Euler
-    characteristic change via the Gauss-Bonnet identity:
-        ΔK(m) = 5π × Δχ
-
-    ANALOGY TO GRAVITY:
-    This has the same STRUCTURE as Einstein's equation (G_μν ∝ T_μν):
-    curvature change is proportional to a source term. However, this is
-    a 2D topological identity (Gauss-Bonnet), not the 4D Einstein field
-    equation. The coupling constant is 5π (from triangulation geometry),
-    not 8πG/c⁴. The connection to physical gravity is an analogy.
-
-    FALSIFICATION:
-    Run VM traces with varying information densities. Measure local
-    curvature changes. If ΔK is NOT proportional to Δχ via 5π,
-    the Gauss-Bonnet bridge is falsified.
-    *)
+  To break it, produce VM traces where topology changes and the total
+  curvature jump fails to follow 5PI * delta-chi. *)
 
 From Coq Require Import Reals List Lia ZArith Lra.
 Import ListNotations.
@@ -46,19 +31,19 @@ From Kernel Require Import PNEWTopologyChange.
 From Kernel Require Import TopologyCurvatureBridge.
 From Kernel Require Import StressEnergyDynamics.
 
-(** ** The Coupling Constant
+(** Coupling constant
 
     The discrete Gauss-Bonnet identity uses a coupling constant of 5π,
     arising from the geometry of equilateral triangulations.
     This is a geometric constant, not Newton's gravitational constant G.
     *)
 
-Definition computational_scale : R := 1%R.  (* Fundamental quantum of computation *)
+Definition computational_scale : R := 1%R.  (* Normalized computation scale. *)
 
 Definition einstein_coupling_constant : R :=
   (5 * PI / computational_scale)%R.
 
-(** The coupling constant is positive and finite *)
+(** The normalized coupling constant is positive. *)
 Lemma coupling_constant_positive :
   (einstein_coupling_constant > 0)%R.
 Proof.
@@ -70,7 +55,7 @@ Proof.
   - lra.
 Qed.
 
-(** ** Local Curvature Response
+(** Local curvature response
 
     Define how local curvature changes in response to stress-energy.
     This is the discrete analog of the Einstein tensor G_μν.
@@ -79,47 +64,36 @@ Qed.
 Definition local_curvature_response (s s' : VMState) (m : ModuleID) : R :=
   (angle_defect (vm_graph s') m - angle_defect (vm_graph s) m)%R.
 
-(** Local stress-energy at a module *)
+(** Local stress-energy at a module, delegated to StressEnergyDynamics.v. *)
 Definition local_stress_energy (s : VMState) (m : ModuleID) : R :=
   stress_energy s m.
 
-(** ** The Main Theorem: Curvature Tracks Topology Change
+(** Curvature tracks topology change
 
-    WHAT THIS PROVES:
-    For any module m experiencing a PNEW operation:
-    1. PNEW changes topology (Δχ ≠ 0)
-    2. Δχ causes curvature change: ΔK = 5π×Δχ (Gauss-Bonnet)
-    3. PNEW frequency ∝ stress-energy (by construction)
-    4. Therefore: curvature change is linked to stress-energy via topology
+    For any module m experiencing a PNEW: the VM step changes the topology
+    tuple (V,E,F), and whatever Δχ results gives ΔK = 5π×Δχ by Gauss-Bonnet.
+    The stress-energy premise records the source-side trigger; this theorem
+    does not prove PNEW frequency from stress-energy.
 
-    NOTE: The curvature-topology link (step 2) is the discrete Gauss-Bonnet
-    theorem. The stress-energy link (step 3) is a structural analogy to
-    Einstein's equation, not a derivation of Einstein's equation.
+    The curvature-topology link is the discrete Gauss-Bonnet theorem. The
+    stress-energy link is a structural analogy to Einstein's equation,
+    not a derivation of Einstein's equation.
     *)
 
 
-
-(** ** Gauss-Bonnet Coupling with Explicit Constant
+(** Gauss-Bonnet coupling with explicit constant
 
     The coupling constant 5π arises from the Gauss-Bonnet identity
     on equilateral triangulations. This is a geometric identity. *)
 
 
-(** ** Information Creates Curvature: The Full Chain
+(** Information-to-curvature chain.
 
-    THEOREM: The complete causal chain from information to curvature.
-
-    This theorem synthesizes all six phases:
-    1. Information (stress-energy) drives PNEW frequency
-    2. PNEW operations create modules (ΔF > 0)
-    3. New modules change topology (Δχ ≠ 0)
-    4. Topology change causes curvature change (ΔK = 5π×Δχ)
-    5. Therefore: information → curvature (via topology, not directly)
-
-    This chain has the same structure as the gravity derivation in GR
-    (stress-energy → curvature), but operates on a 2D discrete
-    triangulation via the Gauss-Bonnet identity, not on 4D spacetime.
-    *)
+  The source term does not directly turn into a Ricci tensor here. The path
+  is more concrete: stress-energy marks the trigger, PNEW changes the graph,
+  graph change can change chi, and Gauss-Bonnet turns delta-chi into
+  delta-curvature. Same overall shape as source to curvature, but still on a
+  2D triangulated object rather than 4D spacetime. *)
 
 Theorem information_creates_curvature : forall s s' m region cost threshold,
   well_formed_triangulated (vm_graph s) ->
@@ -136,7 +110,7 @@ Theorem information_creates_curvature : forall s s' m region cost threshold,
   (* 1. Topology changes *)
   (V (vm_graph s'), E (vm_graph s'), F (vm_graph s')) <>
   (V (vm_graph s), E (vm_graph s), F (vm_graph s)) /\
-  (* 2. Curvature changes according to the Gauss-Bonnet identity *)
+  (* 2. The curvature difference obeys the Gauss-Bonnet identity *)
   exists Δχ,
     Δχ = (euler_characteristic (vm_graph s') - euler_characteristic (vm_graph s))%Z /\
     (total_curvature (vm_graph s') - total_curvature (vm_graph s) =
@@ -165,14 +139,10 @@ Proof.
       exact Hbridge.
 Qed.
 
-(** ** Quantized Curvature Changes
+(** Quantized curvature changes
 
-    A remarkable prediction: curvature changes are QUANTIZED.
-
-    Because Δχ is an integer, curvature changes in units of 5π:
-        ΔK ∈ { ..., -10π, -5π, 0, 5π, 10π, 15π, ... }
-
-    This is empirically testable!
+    Since Δχ is always an integer, curvature changes in units of 5π:
+    ΔK ∈ { ..., -10π, -5π, 0, 5π, 10π, 15π, ... }. Empirically testable.
     *)
 
 Theorem curvature_quantization : forall s s',
@@ -196,7 +166,7 @@ Proof.
   ring.
 Qed.
 
-(** Minimum observable curvature change is 5π *)
+(** If total curvature changes at all, the minimum jump is 5π. *)
 Corollary minimum_curvature_quantum : forall s s',
   well_formed_triangulated (vm_graph s) ->
   well_formed_triangulated (vm_graph s') ->
@@ -266,61 +236,31 @@ Proof.
     apply Rlt_le. apply PI_RGT_0.
 Qed.
 
-(** ** Physical Interpretation
+(** What this file really proves.
 
-    WHAT WE'VE PROVEN:
+  Gauss-Bonnet gives K = 5PI * chi. Executed PNEW steps can change the graph
+  topology. Under the stress-energy trigger used here, that means the induced
+  curvature difference follows delta-K = 5PI * delta-chi.
 
-    1. VM operations (PNEW) create 2D triangulated manifolds
-    2. Topology χ constrains total curvature: K = 5π×χ (Gauss-Bonnet)
-    3. PNEW operations change topology: Δχ when adding triangles
-    4. Topology changes cause curvature changes: ΔK = 5π×Δχ
-    5. Stress-energy drives PNEW frequency (by construction)
-    6. Therefore: stress-energy → curvature (via topology)
+  That has the same source-to-curvature shape as Einstein-style reasoning,
+  but the object here is still a discrete 2D topological curvature budget.
+  It is not a recovered 4D field equation, and this file says so explicitly. *)
 
-    COUPLING CONSTANT:
-    κ = 5π / computational_scale ≈ 15.7
+(** Classical GR: G_μν = (8πG/c⁴) T_μν.
+    Discrete bridge here: ΔK = (5π / computational_scale) × Δχ, with Δχ
+    coming from topology-changing VM steps.
+    Differences: discrete vs continuous; topology-mediated vs direct geometric;
+    5π vs 8πG; quantized vs smooth.
+    Similarity: source-shaped input is connected to curvature through a
+    geometric identity. *)
 
-    ANALOGY TO EINSTEIN'S EQUATION:
-    The relationship ΔK ∝ Δ(source) has the same algebraic form as
-    G_μν ∝ T_μν, but important differences:
-    - We're on a 2D discrete triangulation, not 4D spacetime
-    - The coupling 5π comes from triangulation geometry, not 8πG
-    - The identity is Gauss-Bonnet (topological), not Einstein's field equation
-    - No metric tensor, no Ricci curvature, no stress-energy tensor in GR sense
+(** Normalized 8π comparator. This is not the measured Newton constant. *)
+Definition classical_8piG : R := (8 * PI)%R.
 
-    FALSIFIABLE PREDICTIONS (within the VM):
-    1. Curvature changes are quantized in units of 5π
-    2. PNEW frequency correlates with information density
-    3. High-stress regions show more curvature change
-    *)
-
-(** ** Comparison to Classical Einstein Equation
-
-    Classical GR: G_μν = (8πG/c⁴) T_μν
-
-    Our discrete theory: ΔK = (5π / computational_scale) × Δχ
-                        and Δχ driven by stress-energy via PNEW
-
-    Key differences:
-    1. Discrete vs continuous
-    2. Topology-mediated (via χ) vs direct geometric
-    3. Coupling constant 5π vs 8πG
-    4. Quantized curvature changes vs smooth
-
-    Key similarities:
-    1. Curvature ∝ stress-energy ✓
-    2. Local conservation (stress-energy drives dynamics) ✓
-    3. Geometric interpretation (curvature of manifold) ✓
-    *)
-
-(** Classical gravitational constant (for comparison) *)
-Definition classical_8piG : R := (8 * PI)%R.  (* Times actual G *)
-
-(** Ratio of our coupling to classical *)
+(** Ratio of the normalized Gauss-Bonnet coupling to the normalized 8π comparator. *)
 Definition coupling_ratio : R :=
   (einstein_coupling_constant / classical_8piG)%R.
 
-(** [coupling_ratio_value]: formal specification. *)
 Lemma coupling_ratio_value :
   coupling_ratio = (5 / (8 * computational_scale))%R.
 Proof.
@@ -329,7 +269,7 @@ Proof.
   apply PI_neq0.
 Qed.
 
-(** With computational_scale = 1, our coupling is 5/8 of classical *)
+(** With computational_scale = 1, the normalized ratio is 5/8. *)
 Corollary coupling_comparison :
   (computational_scale = 1)%R ->
   (coupling_ratio = (5 / 8))%R.
@@ -340,65 +280,27 @@ Proof.
   field.
 Qed.
 
-(** ** Verification Requirements
+(** To verify empirically: create states s, s' with Δχ = 1 and check
+    ΔK = 5π ± ε; execute PNEW with fresh triangle and verify Δχ ≠ 0;
+    compare PNEW frequencies under high vs low stress; measure ΔK after
+    PNEW on a high-stress module and verify ΔK ∝ stress_energy(m). *)
 
-    To empirically verify Einstein's equation emergence:
+(** Information density, routed through executed PNEW steps, creates curvature
+    changes governed by the discrete Gauss-Bonnet identity:
+    stress-energy trigger → PNEW → Δχ (topology) → ΔK = 5π×Δχ.
+    This is analogous to G_μν ∝ T_μν
+    but is a 2D topological identity, not the 4D Einstein field equation. *)
 
-    TEST 1: Topology-Curvature Link
-    - Create states s, s' with Δχ = 1
-    - Compute ΔK = K(s') - K(s)
-    - Verify: ΔK = 5π ± ε (machine precision)
+(** This theorem is the 2D discrete Gauss-Bonnet identity ΔCurvature = 5π × Δχ.
+    It is NOT the 4D Einstein field equation. The connection to 4D gravity
+    requires the non-vacuum curved pipeline in CurvedTensorPipeline.v and
+    DiscreteRaychaudhuri.v. *)
 
-    TEST 2: PNEW-Topology Link
-    - Execute PNEW with fresh triangle
-    - Verify: Δχ ≠ 0
-    - Measure: ΔV, ΔE, ΔF
-
-    TEST 3: Stress-Energy-PNEW Link
-    - Create high-stress and low-stress modules
-    - Run comparable workloads
-    - Count PNEW operations
-    - Verify: PNEW_high > PNEW_low
-
-    TEST 4: Full Chain (this file's main test)
-    - Start with state s with module m
-    - Set high stress-energy on m
-    - Execute trace with PNEW on m
-    - Measure ΔK
-    - Verify: ΔK ∝ stress_energy(m)
-    *)
-
-(** ** Summary: Discrete Gauss-Bonnet Proven
-
-    Proven results:
-
-    THEOREM: Information density (via PNEW) creates curvature changes
-    governed by the discrete Gauss-Bonnet identity.
-
-    CHAIN:
-    Information (stress-energy)
-      → PNEW frequency (computation dynamics)
-      → Topology change (Δχ via graph operations)
-      → Curvature change (ΔK = 5π×Δχ via Gauss-Bonnet)
-
-    Therefore: ΔK ∝ Δχ, and Δχ is linked to information density.
-
-    This chain is ANALOGOUS to Einstein's equation (stress-energy → curvature)
-    but is a 2D topological identity on a discrete triangulation, not the
-    4D Einstein field equation G_μν = 8πG T_μν.
-    *)
-
-(** NOTE: This theorem is the 2D discrete Gauss-Bonnet identity
-    ΔCurvature = 5π × Δχ (Euler characteristic change).
-    It is NOT the 4D Einstein field equation G_μν = 8πG T_μν.
-    The connection to 4D gravity requires the non-vacuum curved pipeline
-    in CurvedTensorPipeline.v and DiscreteRaychaudhuri.v. *)
-
-(** The discrete Gauss-Bonnet identity in one statement *)
+(** The discrete Gauss-Bonnet delta identity in one statement. *)
 Theorem einstein_emerges : forall s s',
   well_formed_triangulated (vm_graph s) ->
   well_formed_triangulated (vm_graph s') ->
-  (* The Einstein equation: *)
+  (* The 2D topology-curvature equation, not the 4D Einstein equation. *)
   (total_curvature (vm_graph s') - total_curvature (vm_graph s))%R =
   (einstein_coupling_constant *
    IZR (euler_characteristic (vm_graph s') - euler_characteristic (vm_graph s)))%R.
@@ -413,7 +315,8 @@ Proof.
   exact H.
 Qed.
 
-(** Alternative formulation: local curvature ~ stress-energy *)
-(** This requires showing that Δχ is driven by stress-energy via PNEW *)
+(** A stronger local curvature ~ stress-energy statement would need a theorem
+    proving that Δχ is driven by stress-energy via PNEW. That is not proved
+    by einstein_emerges. *)
 
-(** DONE. Discrete Gauss-Bonnet curvature-topology bridge proven. *)
+(* Discrete Gauss-Bonnet curvature-topology bridge proven. *)

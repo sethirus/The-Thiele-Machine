@@ -1,63 +1,29 @@
-(** InsightTaxonomy.v — Formal Taxonomy of Insight Events
+(** InsightTaxonomy: formal taxonomy of insight events.
 
-    ==========================================================================
-    THE CORE INSIGHT DESIGN PRINCIPLE
-    ==========================================================================
+    The ISA makes a deliberate distinction between structural creation (can be
+    zero-cost) and certified insight (always cost >= 1). Structural ops such as PNEW,
+    MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_TENSOR, MORPH_GET, PSPLIT,
+    and PMERGE create or manipulate structural objects but do not certify them
+    by themselves.
+    instruction_cost uses the raw mu_delta parameter, so cost=0 is legal.
 
-    The Thiele Machine's ISA makes a deliberate distinction between two tiers
-    of structural operations:
+    Certified insight ops such as MORPH_ASSERT, LASSERT, LJOIN, EMIT, REVEAL,
+    READ_PORT, and CERTIFY certify structural claims. instruction_cost uses
+    S(mu_delta), guaranteeing >= 1. You can build structure for free; you cannot
+    certify for free.
 
-    TIER 1 — STRUCTURAL CREATION (can be zero-cost):
-      PNEW, MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_TENSOR, MORPH_GET,
-      PSPLIT, PMERGE, etc.
-      These create or manipulate structural objects (modules, morphisms,
-      partition refinements) but DO NOT certify them. instruction_cost uses
-      the raw mu_delta parameter — a user can call these with cost=0.
-
-    TIER 2 — CERTIFIED INSIGHT (always cost ≥ 1, enforced by S(cost)):
-      MORPH_ASSERT, LASSERT, LJOIN, EMIT, REVEAL, READ_PORT, CERTIFY
-      These CERTIFY structural claims — they mark a claim as formally valid
-      and recorded. instruction_cost uses S(mu_delta), guaranteeing ≥ 1.
-
-    THE NO FREE INSIGHT PRINCIPLE (formally precise):
-      Uncertified structural creation is free.
-      Certified structural insight cannot be free.
-
-    This is NOT a gap — it is a deliberate and correct design:
-    - Building structure cheaply allows exploration
-    - Certifying a claim requires paying at least 1 unit of cost
-    - The cost is the irreversible record that a claim was formally asserted
-
-    ==========================================================================
-    THEOREMS
-    ==========================================================================
-
-    1. structural_creation_can_be_free:
-       PNEW and MORPH have cost 0 when called with mu_delta=0.
-       This is intentional — not a gap.
-
-    2. certified_insight_nonfree:
-       Any transition that changes csr_cert_addr (0→nonzero) or vm_certified
-       (false→true) must have instruction_cost ≥ 1.
-       [from AbstractNoFI.v: certification_requires_positive_mu]
-
-    3. morph_assert_is_certified_insight:
-       MORPH_ASSERT sets csr_cert_addr (cert-addr-setter), hence is a
-       certified insight event and its cost is provably ≥ 1.
-
-    4. non_cert_ops_are_structurally_neutral_on_cert_channel:
-       PNEW, MORPH, MORPH_DELETE, MORPH_GET, MORPH_TENSOR, COMPOSE, MORPH_ID
-       preserve csr_cert_addr exactly (they are not cert_addr_setters).
-
-    5. certified_insight_trace_nonfree:
-       Along any trace, if cert evidence appears (cert_addr 0→nonzero),
-       then total mu growth is ≥ 1. Composition of zero-cost structural
-       creation ops cannot produce certification.
-       [from AbstractNoFI.v: no_free_certification_trace_mu]
-
-    ==========================================================================
-    STATUS: Fully proven. Zero Admitted.
-    ==========================================================================
+    Theorems proven here:
+    1. structural_creation_can_be_free: PNEW and MORPH have cost 0 when called
+       with mu_delta=0. Intentional.
+    2. certified_insight_nonfree: any transition that changes csr_cert_addr
+       (0→nonzero) or vm_certified (false→true) has instruction_cost ≥ 1.
+    3. morph_assert_is_certified_insight: MORPH_ASSERT is a cert-addr-setter,
+       so its cost is provably ≥ 1.
+    4. non_cert_ops_are_structurally_neutral_on_cert_channel: PNEW, MORPH,
+       MORPH_DELETE, MORPH_GET, MORPH_TENSOR, COMPOSE, MORPH_ID preserve
+       csr_cert_addr exactly.
+    5. certified_insight_trace_nonfree: along any trace, if cert evidence
+       appears (cert_addr 0→nonzero), total mu growth is ≥ 1.
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia.
@@ -66,21 +32,19 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
                            MuLedgerConservation.
 
-(** =========================================================================
-    PART 1: STRUCTURAL CREATION IS FREE (intentional design)
-    =========================================================================
+(**
 
     PNEW and MORPH use instruction_cost = mu_delta (not S mu_delta).
     When called with mu_delta=0, they cost nothing.
-    This is not a bug — it is the designed behavior:
+    This is not a bug. It is the designed behavior:
       - Structure creation is exploration, not commitment
       - Certification (MORPH_ASSERT etc.) is the commitment that costs
 
     IMPORTANT: These theorems prove that a cost of 0 IS POSSIBLE.
-    They do not say PNEW/MORPH always cost 0 — users may supply any mu_delta.
+    They do not say PNEW/MORPH always cost 0; users may supply any mu_delta.
 *)
 
-(** PNEW with mu_delta=0 costs 0 — structural creation is free. *)
+(** PNEW with mu_delta=0 costs 0; structural creation can be free. *)
 Lemma pnew_can_be_free :
   exists region,
     instruction_cost (instr_pnew region 0) = 0.
@@ -88,7 +52,7 @@ Proof.
   exists []. simpl. reflexivity.
 Qed.
 
-(** MORPH with mu_delta=0 costs 0 — morphism creation is free. *)
+(** MORPH with mu_delta=0 costs 0; morphism creation can be free. *)
 Lemma morph_can_be_free :
   exists dst src dst_mod cidx,
     instruction_cost (instr_morph dst src dst_mod cidx 0) = 0.
@@ -96,7 +60,7 @@ Proof.
   exists 0, 0, 0, 0. simpl. reflexivity.
 Qed.
 
-(** MORPH_DELETE costs 0 when mu_delta=0 — deletion is free. *)
+(** MORPH_DELETE costs 0 when mu_delta=0; deletion can be free. *)
 Lemma morph_delete_can_be_free :
   exists mid,
     instruction_cost (instr_morph_delete mid 0) = 0.
@@ -104,9 +68,7 @@ Proof.
   exists 0. simpl. reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 2: CERTIFIED INSIGHT IS ALWAYS NON-FREE
-    =========================================================================
+(**
 
     This is the core No Free Insight claim, stated in the formal vocabulary
     of "certified insight events."
@@ -116,7 +78,7 @@ Qed.
       - csr_cert_addr: 0 → nonzero (has_supra_cert becomes true)
       - vm_certified: false → true
 
-    THEOREM: Any certified insight event has instruction_cost ≥ 1 and
+    Any certified insight event has instruction_cost ≥ 1 and
     causes mu to increase by at least 1.
 
     This is exactly certification_requires_positive_mu from AbstractNoFI.v,
@@ -153,9 +115,7 @@ Proof.
     + exact (no_free_certification_certified_mu s i Hb0 Hb1).
 Qed.
 
-(** =========================================================================
-    PART 3: MORPH_ASSERT IS A CERTIFIED INSIGHT EVENT
-    =========================================================================
+(**
 
     MORPH_ASSERT is the primary structural certification opcode.
     When it succeeds (no error), it sets csr_cert_addr to a nonzero value.
@@ -165,7 +125,7 @@ Qed.
 *)
 
 (** morph_assert_is_cert_setter: MORPH_ASSERT is in cert_addr_setterb.
-    This means it CAN change csr_cert_addr — it is a cert-addr-setter. *)
+    This means it can change csr_cert_addr; it is a cert-addr-setter. *)
 Lemma morph_assert_is_cert_setter :
   forall mid p c cost,
     cert_addr_setterb (instr_morph_assert mid p c cost) = true.
@@ -190,9 +150,7 @@ Proof.
   intros. rewrite vm_apply_mu. simpl. lia.
 Qed.
 
-(** =========================================================================
-    PART 4: STRUCTURAL OPS PRESERVE THE CERT CHANNEL
-    =========================================================================
+(**
 
     The structural creation/manipulation ops (PNEW, MORPH, COMPOSE, etc.)
     do NOT set csr_cert_addr. They are NOT cert_addr_setters.
@@ -281,9 +239,7 @@ Proof.
   intros. apply thiele_non_cert_addr_setter_preserves. simpl. reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 5: TRACE-LEVEL — STRUCTURAL-ONLY TRACES CANNOT CERTIFY
-    =========================================================================
+(**
 
     A trace consisting ONLY of structural ops (no cert-setters) cannot
     produce cert evidence, no matter how many structural ops are composed.
@@ -310,7 +266,7 @@ Proof.
 Qed.
 
 (** COROLLARY: If cert_addr was 0 and the trace had no cert-setters,
-    cert_addr is still 0 afterward — structural ops cannot certify. *)
+    cert_addr is still 0 afterward; structural ops cannot certify. *)
 Corollary structural_only_trace_cannot_certify :
   forall (trace : list vm_instruction) (s0 : VMState),
     s0.(vm_csrs).(csr_cert_addr) = 0 ->
@@ -322,15 +278,13 @@ Proof.
   exact Hzero.
 Qed.
 
-(** =========================================================================
-    PART 6: THE INSIGHT DESIGN PRINCIPLE — SUMMARY
-    =========================================================================
+(**
 
     The following theorem packages the full NoFI design:
 
     no_free_certified_insight:
       - Structural creation (PNEW, MORPH, COMPOSE, etc.): CAN be zero-cost.
-        These ops preserve csr_cert_addr — they do not produce cert evidence.
+        These ops preserve csr_cert_addr; they do not produce cert evidence.
       - Certified insight (MORPH_ASSERT, LASSERT, EMIT, REVEAL, LJOIN, CERTIFY):
         ALWAYS cost ≥ 1 by instruction_cost definition.
         These ops CAN change csr_cert_addr (cert_addr_setterb = true).

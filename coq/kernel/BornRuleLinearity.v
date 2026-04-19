@@ -1,5 +1,4 @@
-(** =========================================================================
-    BornRuleLinearity: Born rule uniqueness from affinity + boundary conditions
+(** BornRuleLinearity: Born rule uniqueness from affinity plus boundaries
 
     Uniqueness of affine probability on [-1,1].
 
@@ -14,14 +13,16 @@
        correspondingly)
     2. BOUNDARY CONDITIONS: P(z=+1)=1, P(z=-1)=0 (perfect alignment)
 
-    Together these force P(z) = (1+z)/2 — the Born rule.
+    Together these force P(z) = (1+z)/2, the Born rule for this one-coordinate
+    model.
 
     CRITICAL NOTE ON THE BRIDGE:
     The function no_signaling_constraint_implies_mixture_compatibility (below)
-    is a DEFINITIONAL IDENTITY (fun P Hns => Hns) because no-signaling
+    is a definitional identity (fun P Hns => Hns) because no-signaling
     as formulated here IS mixture_compatible by type. The physical argument
     for WHY no-signaling implies affinity (Hardy 2001, Chiribella 2011) is
-    in the comments but is NOT formalized as a non-trivial proof step.
+    represented later as explicit hypotheses, not as a theorem derived from
+    VM semantics alone.
 
     THE PROOF (4-step derivation):
     Step C3a: Define mixture compatibility (affinity of probability in state)
@@ -29,10 +30,9 @@
     Step C3c: Derive Born rule from mixture compatibility + boundary conditions
     Step C3d: Bridge to BornRule.v's is_linear_in_z
 
-    REFERENCE:
     Hardy (2001) "Quantum Theory From Five Reasonable Axioms"
     Chiribella et al. (2011) "Informational Derivation of QM"
-    ========================================================================= *)
+*)
 
 From Coq Require Import List Lia Arith.PeanoNat.
 From Coq Require Import Reals Lra Psatz.
@@ -43,9 +43,7 @@ From Kernel Require Import KernelPhysics BornRule.
 
 Local Open Scope R_scope.
 
-(** =========================================================================
-    SECTION 1: DEFINITIONS
-    ========================================================================= *)
+(** Definitions. *)
 
 (** A probability rule assigns an outcome probability to each Bloch z-coordinate.
     For a qubit measured in the z-basis, P(z) = probability of outcome +1. *)
@@ -63,7 +61,7 @@ Definition ProbabilityRule := R -> R.
 
     If the measurer's outcome probability P(mixture) ≠ λ·P(a) + (1-λ)·P(b),
     then by repeating many measurements, the measurer could statistically
-    determine λ — learning information about the preparer's coin flip.
+    determine λ, learning information about the preparer's coin flip.
     This would be SIGNALING from preparer to measurer, violating locality.
 
     Therefore no-signaling FORCES mixture compatibility. *)
@@ -83,9 +81,7 @@ Definition valid_born_rule (P : ProbabilityRule) : Prop :=
 (** The Born rule probability function *)
 Definition born_probability (z : R) : R := (1 + z) / 2.
 
-(** =========================================================================
-    SECTION 2: THE BORN RULE DERIVATION (PROVEN)
-    ========================================================================= *)
+(** Born-rule uniqueness from mixture compatibility. *)
 
 (** INQUISITOR NOTE: This is the key derivation. Any z in [-1,1] can be
     written as a mixture of the boundary points z=+1 and z=-1. Mixture
@@ -113,42 +109,44 @@ Proof.
     lra.
 Qed.
 
-(** =========================================================================
-    SECTION 3: PROPERTIES OF THE BORN PROBABILITY
-    ========================================================================= *)
+(** Properties of the concrete Born probability. *)
 
-(** (* SAFE: zero-valued constant *) *)
+(** At the +1 boundary, the probability is 1. *)
 Lemma born_probability_at_plus_one : born_probability 1 = 1.
 Proof. unfold born_probability. lra. Qed.
 
-(** (* SAFE: zero-valued constant *) *)
+(** At the -1 boundary, the probability is 0. *)
 Lemma born_probability_at_minus_one : born_probability (-1) = 0.
 Proof. unfold born_probability. lra. Qed.
 
+(** At the midpoint, the probability is one half. *)
 Lemma born_probability_at_zero : born_probability 0 = 1/2.
 Proof. unfold born_probability. lra. Qed.
 
-(** INQUISITOR NOTE: born_probability_range is a definitional helper proving the
-    range property of (1+z)/2. Arithmetic is the correct proof method here. *)
+(** The concrete Born probability stays in [0,1] on [-1,1]. *)
 (* DEFINITIONAL HELPER *)
+(** INQUISITOR NOTE: born_probability_range checks the range of (1+z)/2.
+    This is arithmetic by design; it is not a physics derivation. *)
 Lemma born_probability_range :
   forall z, -1 <= z <= 1 -> 0 <= born_probability z <= 1.
 Proof.
   intros z Hz. unfold born_probability. lra.
 Qed.
 
-(** INQUISITOR NOTE: born_probability_complement is a definitional helper proving
-    the complement symmetry of (1+z)/2 + (1-z)/2 = 1. *)
+(** The probabilities for z and -z are complements. *)
 (* DEFINITIONAL HELPER *)
+(** INQUISITOR NOTE: born_probability_complement checks the algebra of
+    (1+z)/2 and (1-z)/2. Arithmetic is the whole claim. *)
 Lemma born_probability_complement :
   forall z, born_probability z + born_probability (-z) = 1.
 Proof.
   intros z. unfold born_probability. lra.
 Qed.
 
-(** INQUISITOR NOTE: born_probability_is_affine verifies the concrete function
-    (1+z)/2 satisfies the affinity property. Arithmetic proof is expected. *)
+(** The concrete Born probability is mixture-compatible. *)
 (* DEFINITIONAL HELPER *)
+(** INQUISITOR NOTE: born_probability_is_affine checks that the already-defined
+    function (1+z)/2 satisfies mixture_compatible. Arithmetic is expected. *)
 Lemma born_probability_is_affine :
   mixture_compatible born_probability.
 Proof.
@@ -156,6 +154,7 @@ Proof.
   intros a b lambda Hlam. lra.
 Qed.
 
+(** The concrete Born probability satisfies the boundary conditions. *)
 Lemma born_probability_has_boundaries :
   has_boundary_conditions born_probability.
 Proof.
@@ -164,13 +163,11 @@ Proof.
   - exact born_probability_at_minus_one.
 Qed.
 
-(** =========================================================================
-    SECTION 4: UNIQUENESS OF THE BORN RULE
-    ========================================================================= *)
+(** Uniqueness of the Born rule. *)
 
 (** INQUISITOR NOTE: born_rule_unique shows that any valid probability rule
-    must agree with born_probability on [-1,1]. This is the UNIQUENESS half
-    of the derivation — not just that (1+z)/2 works, but that it's the ONLY
+    must agree with born_probability on [-1,1]. This is the uniqueness half
+    of the derivation: not just that (1+z)/2 works, but that it is the only
     function that works. *)
 Theorem born_rule_unique :
   forall (P : ProbabilityRule),
@@ -194,34 +191,43 @@ Proof.
   reflexivity.
 Qed.
 
-(** =========================================================================
-    SECTION 5: NO-SIGNALING IMPLIES MIXTURE COMPATIBILITY
-    =========================================================================
+(** No-signaling and mixture compatibility.
 
-    This section provides the formal bridge from VM-level no-signaling
+    This block separates three things that are easy to blur:
+    VM-level no-signaling, the probability-level affinity predicate, and the
+    physical assumptions needed to connect them.
+
+    The first bridge below relates VM preparation operations to observables.
+    The older probability-level bridge is retained for compatibility, but it
+    is only a definitional identity: its input type is already exactly
+    [mixture_compatible].
+
+    The later Hardy bridge is stronger as documentation: it names the
+    grounding, observability, convexity, and encoding-completeness assumptions
+    that would be needed to turn the physical story into [mixture_compatible].
+
+    Original target:
+    This file provides the formal bridge from VM-level no-signaling
     (KernelPhysics.observational_no_signaling) to the mathematical
     mixture_compatible property used in the Born rule derivation.
-
-    THE CHAIN (now fully formalized):
-
-    Layer 1 — VM-level (proven in KernelPhysics.v):
+    Layer 1: VM-level, proved in KernelPhysics.v:
       observational_no_signaling:
       Instructions targeting module A cannot change the ObservableRegion
       of a disjoint module B.
 
-    Layer 2 — Bipartite scenario (proven below):
+    Layer 2: bipartite scenario, proved below:
       vm_preparation_no_signaling:
       In a bipartite (preparer + measurer) scenario, preparation operations
       on the preparer's module do not affect the measurer's observable.
 
-    Layer 3 — Mathematical (proven below):
+    Layer 3: mathematical bridge, defined below:
       no_signaling_forces_mixture_compatibility:
       If a probability rule P cannot distinguish between different preparation
       procedures that yield the same state, then P must be affine:
         P(λa + (1-λ)b) = λ·P(a) + (1-λ)·P(b)
-      This IS mixture_compatible.
+      In the deprecated bridge, this is already the hypothesis type.
 
-    Layer 4 — Born rule (already proven in Section 2):
+    Layer 4: Born rule, already proved above:
       mixture_compatible + boundary conditions → P(z) = (1+z)/2.
 
     THE PHYSICAL ARGUMENT (standard in quantum foundations):
@@ -231,11 +237,11 @@ Qed.
 
     The measurer receives the state WITHOUT knowing which was prepared.
     If P(λa + (1-λ)b) ≠ λ·P(a) + (1-λ)·P(b), then by repeating measurements,
-    the measurer can statistically determine λ — learning the preparer's choice.
-    This violates no-signaling (axiom A3).
+    the measurer can statistically determine λ, learning the preparer's choice.
+    This violates no-signaling, the A3 assumption in the surrounding physics story.
 
-    Therefore no-signaling FORCES P to be affine = mixture_compatible.
-    ========================================================================= *)
+    This last implication is physical content. In this file it is either the
+    deprecated definitional bridge or an explicit Hardy-style hypothesis. *)
 
 (** A bipartite preparation-measurement protocol.
     The preparer operates on one module, the measurer observes another. *)
@@ -286,16 +292,16 @@ Qed.
     Since these must be identical: P(λa + (1-λ)b) = λ·P(a) + (1-λ)·P(b).
     This IS mixture_compatible. *)
 
-(** DEPRECATED (B2 — see FULL_CLOSURE_PLAN.md).
+(** Deprecated bridge (B2, see FULL_CLOSURE_PLAN.md).
 
-    This definition is a DEFINITIONAL IDENTITY: fun P Hns => Hns.
+    This definition is a definitional identity: fun P Hns => Hns.
     The no-signaling constraint as formulated in its hypothesis type IS
     mixture_compatible by type, so the "proof" is just the identity function.
     No genuine derivation takes place.
 
     WHY THIS IS DISHONEST: The physical argument is that no-signaling
     IMPLIES affinity (Hardy 2001, Chiribella 2011).  That requires a
-    non-trivial step showing that operationally indistinguishable preparations
+    substantive step showing that operationally indistinguishable preparations
     force linearity.  That content lives in [hardy_born_rule_bridge] (below),
     which takes genuinely distinct hypotheses (H_grounded, H_observable,
     H_convex, H_universal) and composes them into mixture_compatible.
@@ -307,7 +313,7 @@ Qed.
     INQUISITOR NOTE: no_signaling_constraint_implies_mixture_compatibility
     formalizes that the no-signaling constraint on probability rules IS the
     definition of mixture_compatible. This is a definitional equivalence. *)
-(* definitional helper — DEPRECATED, see hardy_born_rule_bridge *)
+(* Deprecated definitional bridge; use hardy_born_rule_bridge for named assumptions. *)
 Definition no_signaling_constraint_implies_mixture_compatibility :
   forall (P : ProbabilityRule),
     (* No-signaling constraint: the probability function cannot distinguish
@@ -319,8 +325,8 @@ Definition no_signaling_constraint_implies_mixture_compatibility :
     mixture_compatible P :=
   fun P Hns => Hns.
 
-(* definitional helper alias retained for compatibility with existing references.
-   DEPRECATED — see no_signaling_constraint_implies_mixture_compatibility above. *)
+(* Deprecated alias retained for compatibility with existing references.
+   See no_signaling_constraint_implies_mixture_compatibility above. *)
 Definition no_signaling_forces_mixture_compatibility :=
   no_signaling_constraint_implies_mixture_compatibility.
 
@@ -348,7 +354,7 @@ Proof.
   - exact Hz.
 Qed.
 
-(** C3 derivation chain (fully proven):
+(** C3 chain in this file:
 
     observational_no_signaling (KernelPhysics.v, PROVEN)
       → vm_preparation_no_signaling (this file, PROVEN)
@@ -356,30 +362,27 @@ Qed.
       → no_signaling_forces_mixture_compatibility (this file, DEFINITIONAL)
         The no-signaling constraint as formulated here IS mixture_compatible
         by type. This step is an identity function (fun P Hns => Hns).
-        The physical argument for why no-signaling implies affinity is in
-        the comments above (Hardy 2001), but is not formalized as a
-        non-trivial proof step.
-      → born_rule_from_mixture_compatibility (Section 2, PROVEN)
+        The physical argument for why no-signaling implies affinity is named
+        in the Hardy bridge below, but it is not derived from VM semantics.
+      → born_rule_from_mixture_compatibility (proved above)
         Affinity + boundary conditions → P(z) = (1+z)/2.
-      → born_rule_is_linear (Section 6, PROVEN)
+      → born_rule_is_linear (proved below)
         P(z) = (1/2)z + (1/2) = is_linear_in_z.
 
     Summary: The mathematical content is the uniqueness of affine interpolation
     with fixed boundary conditions. The connection from VM-level no-signaling
     to probability-level affinity is definitional in this formalization. *)
 
-(** =========================================================================
-    SECTION 6: BRIDGE TO BornRule.v
-    ========================================================================= *)
+(** Bridge to [BornRule.v]. *)
 
 (** The existing BornRule.v uses `is_linear_in_z` as a hypothesis.
     We show that mixture_compatible + boundary conditions implies
     the functional form used there. *)
 
-(** (* SAFE: zero-valued constant *) *)
+(** Slope derived from the affine uniqueness proof. *)
 Definition derived_slope : R := 1/2.
 
-(** (* SAFE: zero-valued constant *) *)
+(** Intercept derived from the affine uniqueness proof. *)
 Definition derived_intercept : R := 1/2.
 
 Theorem born_rule_is_linear :
@@ -401,51 +404,42 @@ Proof.
   split; unfold derived_slope, derived_intercept; lra.
 Qed.
 
-(** =========================================================================
-    SECTION 7: SUMMARY
-    =========================================================================
+(** Summary of the algebraic layer.
 
     WHAT IS PROVEN (no admits, no axioms):
 
     1. born_rule_from_mixture_compatibility:
        mixture_compatible P → P(1)=1 → P(-1)=0 → P(z) = (1+z)/2
-       STATUS: PROVEN ✓
 
     2. born_rule_unique:
        valid_born_rule P → P(z) = (1+z)/2 for all z ∈ [-1,1]
-       STATUS: PROVEN ✓
 
     3. born_rule_agreement:
        Two valid Born rules agree on [-1,1]
-       STATUS: PROVEN ✓
 
     4. born_rule_is_linear:
        valid_born_rule P → P(z) = (1/2)z + (1/2)
-       STATUS: PROVEN ✓
 
     5. born_probability properties:
        Range, complement, affinity, boundary conditions
-       STATUS: ALL PROVEN ✓
 
-    WHAT IS THE PHYSICAL BRIDGE (Section 5):
-    No-signaling (axiom A3) implies mixture_compatible.
-    This is a DEFINITIONAL bridge: the mathematical content of no-signaling
-    IS mixture compatibility when applied to probability functions.
+    WHAT IS THE PHYSICAL BRIDGE:
+    The deprecated no-signaling bridge is definitional. The Hardy bridge names
+    the physical hypotheses needed for a non-definitional route to
+    mixture_compatible.
 
     DERIVATION CHAIN:
-    No-signaling (A3, proven in KernelPhysics.v)
-      → mixture_compatible (definitional equivalence)
+    No-signaling (A3, proved in KernelPhysics.v)
+      → mixture_compatible (definitional bridge or Hardy-style hypotheses)
       → P(z) = (1+z)/2 (born_rule_from_mixture_compatibility, PROVEN)
       → is_linear_in_z (born_rule_is_linear, PROVEN)
       → Born rule coefficients (BornRule.v, existing)
 
-    This removes the assumption of linearity from the proof chain.
-    ========================================================================= *)
+    The algebraic layer removes [is_linear_in_z] once [mixture_compatible] is
+    supplied. The physical source of mixture compatibility is still the bridge
+    assumption. *)
 
-(** =========================================================================
-    SECTION 8: VM-GROUNDED BORN RULE
-    Born probability expressed directly from CHSH witness counts.
-    ========================================================================= *)
+(** VM-grounded Born probability from CHSH witness counts. *)
 
 (** [born_rule_from_chsh_counts]: The Born probability (1+z)/2 equals the
     same-outcome frequency when z is the normalized difference of counts.
@@ -467,9 +461,7 @@ Proof.
   field. exact Hn.
 Qed.
 
-(** =========================================================================
-    SECTION 9: HARDY 2001 NO-SIGNALING → BORN RULE BRIDGE (Gap D)
-    =========================================================================
+(** Hardy 2001 bridge with named assumptions.
 
     The definitional bridge (no_signaling_constraint_implies_mixture_compatibility
     = fun P Hns => Hns) collapses the physical content of the Hardy 2001 argument
@@ -480,16 +472,16 @@ Qed.
     2. preparation_equivalent: ObservableRegion equality (D1)
     3. prep_instr_preserves_meas_observable: no-signaling bridge (D1b)
     4. no_signaling_preserves_outcome: outcome-level no-signaling (D2)
-    5. hardy_born_rule_bridge: non-trivial composition (D3)
+    5. hardy_born_rule_bridge: composition of the named assumptions (D3)
 
-    The key non-trivial contribution: hardy_born_rule_bridge takes four
-    DISTINCT hypotheses of different types and composes them into
-    mixture_compatible. Its proof is not an identity function — it
+    The key contribution: [hardy_born_rule_bridge] takes four distinct
+    hypotheses of different types and composes them into
+    mixture_compatible. Its proof is not the identity function: it
     destructs existential witnesses, rewrites through H_grounded, and
     applies H_convex. The physical content (Hardy 2001 Axiom 5: linearity
     of measurement probabilities in the prepared quantum state) is named
     explicitly as H_convex rather than hidden in a type coincidence.
-    ========================================================================= *)
+*)
 
 (** D0: Bloch z-coordinate encoding predicate.
     A register r in VMState s encodes Bloch z-coordinate z when
@@ -505,14 +497,14 @@ Definition preparation_equivalent
   (pmp : PrepMeasProtocol) (s1 s2 : VMState) : Prop :=
   ObservableRegion s1 (pm_meas_mid pmp) = ObservableRegion s2 (pm_meas_mid pmp).
 
-(** Preparation-equivalent is an equivalence relation. *)
-(* definitional lemma *)
+(* DEFINITIONAL LEMMA *)
+(** Reflexivity for preparation equivalence. *)
 Lemma preparation_equivalent_refl :
   forall pmp s, preparation_equivalent pmp s s.
 Proof. intros. unfold preparation_equivalent. reflexivity. Qed.
 
-(* INQUISITOR NOTE: arithmetic proof is intentional — symmetry of
-   propositional equality over ObservableRegion values. *)
+(* INQUISITOR NOTE: equality symmetry over ObservableRegion values. *)
+(** Symmetry for preparation equivalence. *)
 Lemma preparation_equivalent_sym :
   forall pmp s1 s2,
     preparation_equivalent pmp s1 s2 -> preparation_equivalent pmp s2 s1.
@@ -520,6 +512,7 @@ Proof.
   unfold preparation_equivalent. intros. symmetry. exact H.
 Qed.
 
+(** Transitivity for preparation equivalence. *)
 Lemma preparation_equivalent_trans :
   forall pmp s1 s2 s3,
     preparation_equivalent pmp s1 s2 ->
@@ -571,18 +564,16 @@ Proof.
   exact (vm_preparation_no_signaling pmp s s' instr Hgraph Htargets Hstep).
 Qed.
 
-(** =========================================================================
-    PHYSICAL AXIOM DECLARATIONS
-    =========================================================================
+(** Physical assumptions used by the Hardy bridge.
 
     The Hardy 2001 bridge uses three hypotheses that capture genuine physical
     content not derivable from the deterministic VM semantics.  Each is named
     below as a Definition (capturing the Prop) with a falsification protocol.
-    These are NOT Coq Axioms — they remain hypotheses of hardy_born_rule_bridge,
+    These are NOT Coq Axioms. They remain hypotheses of hardy_born_rule_bridge,
     so the logical chain is honest: the conclusion holds UNDER these assumptions.
-    ========================================================================= *)
+*)
 
-(** PHYSICAL AXIOM (C4 — Hardy 2001 Axiom 5, "Subspace Axiom").
+(** Physical assumption C4: Hardy 2001 Axiom 5, "Subspace Axiom".
 
     Content: Quantum measurement probabilities are LINEAR in the prepared state.
     A state encoding z = λa+(1-λ)b yields outcome equal to the λ-weighted
@@ -602,12 +593,12 @@ Qed.
     observed outcome statistics deviate from the λ-weighted average by more
     than 3σ/√N, this axiom is empirically falsified for this machine.
 
-    Classification: PHYSICAL AXIOM — accepted without Coq proof.
+    Classification: physical assumption accepted without Coq proof.
     The physical content is explicitly named so it cannot be hidden.
-    NOTE: When outcome is born_probability composed with register
+ When outcome is born_probability composed with register
     extraction, this reduces to born_probability_is_affine (already Qed).
-    The direct algebraic path (born_rule_capstone, Section 8) proves
-    the Born rule with zero hypotheses. *)
+    The direct algebraic path [born_rule_capstone] proves the algebraic
+    uniqueness theorem without the Hardy bridge hypotheses. *)
 Definition hardy_axiom_5_statement
   (pmp : PrepMeasProtocol) (outcome : VMState -> nat -> R) : Prop :=
   forall s_a s_b s_mix r_a r_b r_mix (lambda a b : R),
@@ -619,7 +610,7 @@ Definition hardy_axiom_5_statement
       lambda * outcome s_a (pm_meas_mid pmp) +
       (1 - lambda) * outcome s_b (pm_meas_mid pmp).
 
-(** PHYSICAL AXIOM (C1 — Encoding Completeness / "H_universal").
+(** Physical assumption C1: encoding completeness, or "H_universal".
 
     Content: Every Bloch z-coordinate in the range supported by the encoding
     can be represented in some VMState register.
@@ -633,18 +624,18 @@ Definition hardy_axiom_5_statement
 
     For the exact encoding, H_universal is CONSTRUCTIVELY dischargeable for
     z ∈ {-1, 1} by the witnesses:
-      z = -1: s with read_reg s r = 0; INR 0 = 0 = (1+(-1))/2. ✓
-      z = 1:  s with read_reg s r = 1; INR 1 = 1 = (1+1)/2. ✓
+      z = -1: s with read_reg s r = 0; INR 0 = 0 = (1+(-1))/2.
+      z = 1:  s with read_reg s r = 1; INR 1 = 1 = (1+1)/2.
 
-    Classification: REPRESENTATION AXIOM — dischargeable for the exact-encoding
+    Classification: representation assumption dischargeable for the exact-encoding
     two-point support.  Universal coverage requires an approximate encoding
     redesign (see FULL_CLOSURE_PLAN.md §C1). *)
 Definition bloch_encoding_completeness_statement : Prop :=
   forall z, exists s r, bloch_z_encoded s r z.
 
-(** PHYSICAL AXIOM (C2 — Grounding / "H_grounded").
+(** Physical assumption C2: grounding, or "H_grounded".
 
-    Content: The abstract probability rule P(z) is operationally grounded —
+    Content: The abstract probability rule P(z) is operationally grounded:
     P(z) equals the physical measurement outcome when the preparation state
     encodes z via bloch_z_encoded.
 
@@ -655,14 +646,14 @@ Definition bloch_encoding_completeness_statement : Prop :=
     With born_outcome s r := born_probability (2 * INR (read_reg s r) - 1),
     grounding follows from bloch_z_encoded and the definition of born_probability:
       bloch_z_encoded s r z → INR (read_reg s r) = (1+z)/2
-      → born_probability z = (1+z)/2 = INR (read_reg s r) = born_outcome s r. ✓
+      → born_probability z = (1+z)/2 = INR (read_reg s r) = born_outcome s r.
     This discharge path is constructive once [outcome] is fixed to [born_outcome].
 
-    Classification: GROUNDING AXIOM — constructively dischargeable when outcome
+    Classification: grounding assumption constructively dischargeable when outcome
     is born_outcome (see FULL_CLOSURE_PLAN.md §C2).
-    NOTE: The forall-r quantifier is stronger than the Hardy bridge proof
-    requires (see Section 8 capstone).  The direct algebraic path
-    (born_rule_capstone) proves the Born rule with zero hypotheses. *)
+ The forall-r quantifier is stronger than the Hardy bridge proof
+    requires. The direct algebraic path [born_rule_capstone] proves the
+    uniqueness theorem without the Hardy bridge hypotheses. *)
 Definition bloch_grounding_statement
   (pmp : PrepMeasProtocol) (P : ProbabilityRule)
   (outcome : VMState -> nat -> R) : Prop :=
@@ -673,7 +664,7 @@ Definition bloch_grounding_statement
     PHYSICAL CONTENT:
     The Hardy 2001 argument derives mixture compatibility from four ingredients:
 
-    H_grounded: P is operationally defined — P(z) equals the measurement
+    H_grounded: P is operationally defined. P(z) equals the measurement
     outcome when the preparation module encodes Bloch z-coordinate z.
     See bloch_grounding_statement (C2) above.
 
@@ -701,7 +692,7 @@ Theorem hardy_born_rule_bridge :
        P z = outcome s (pm_meas_mid pmp)) ->
     (* H_observable: outcome depends only on observable region *)
     outcome_depends_only_on_observable outcome (pm_meas_mid pmp) ->
-    (* H_convex: Hardy 2001 — quantum measurement linearity *)
+    (* H_convex: Hardy 2001 quantum measurement linearity. *)
     (forall s_a s_b s_mix r_a r_b r_mix lambda a b,
        0 <= lambda <= 1 ->
        bloch_z_encoded s_a r_a a ->
@@ -718,7 +709,7 @@ Proof.
   unfold mixture_compatible.
   intros a b lambda Hlambda.
   (* H_observable is a statement-level physical audit requirement:
-     it ensures the caller must verify outcomes depend only on
+     the caller must verify outcomes depend only on
      ObservableRegion. The proof route goes through H_convex directly. *)
   pose proof H_observable as _Hdep.
   (* Get witness states encoding a, b, and λa+(1-λ)b *)
@@ -733,9 +724,9 @@ Proof.
   exact (H_convex s_a s_b s_mix r_a r_b r_mix lambda a b Hlambda Ha Hb Hmix).
 Qed.
 
-(** End-to-end: Hardy no-signaling → Born rule.
+(** End-to-end: Hardy no-signaling to Born rule.
     Combines hardy_born_rule_bridge with born_rule_from_mixture_compatibility.
-    This is the non-trivial replacement for the chain:
+    This is the substantive replacement for the chain:
       no_signaling_constraint_implies_mixture_compatibility (identity)
       → born_rule_from_no_signaling (existing)
     with a genuine multi-step derivation. *)
@@ -768,9 +759,7 @@ Proof.
   - exact Hz.
 Qed.
 
-(** =========================================================================
-    SECTION 7: CONSTRUCTIVE WITNESS DISCHARGE FOR H_UNIVERSAL ({-1, 1})
-    =========================================================================
+(** Constructive witnesses for H_universal on {-1, 1}.
 
     The exact encoding bloch_z_encoded s r z ↔ INR (read_reg s r) = (1+z)/2
     restricts representable z to values where (1+z)/2 ∈ ℕ:
@@ -780,7 +769,7 @@ Qed.
     We construct explicit VMState witnesses discharging H_universal for
     these two points.  This is the maximal constructive range of the exact
     nat encoding.
-    ========================================================================= *)
+*)
 
 (** Witness state with register 0 set to a specific value. *)
 Definition witness_state (val : nat) : VMState :=
@@ -826,12 +815,10 @@ Proof.
   - rewrite witness_state_read_reg_0. simpl. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 8: CAPSTONE — BORN RULE FULLY CLOSED (ZERO HYPOTHESES)
-    =========================================================================
+(** Capstone: the algebraic Born rule is closed without Hardy bridge hypotheses.
 
-    The DIRECT algebraic path to the Born rule is fully proven with zero
-    named hypotheses, zero Section variables, and zero Admitted:
+    The direct algebraic path to the Born rule is machine-checked with no
+    named Hardy hypotheses, no section variables, and no admits:
 
     1. born_probability_is_affine: mixture_compatible born_probability.
        Proof: arithmetic on (1+z)/2.
@@ -846,11 +833,11 @@ Qed.
     4. born_rule_unique: valid_born_rule P -> P = born_probability on [-1,1].
        Proof: direct composition of (3).
 
-    The Hardy bridge (hardy_born_rule_bridge) provides an ALTERNATIVE
+    The Hardy bridge (hardy_born_rule_bridge) provides an alternative
     derivation showing WHY mixture_compatible holds physically (from
-    no-signaling + Hardy 2001 axioms).  Its four hypotheses
+    no-signaling plus Hardy-style assumptions).  Its four hypotheses
     (H_grounded, H_observable, H_convex, H_universal) are the physical
-    content of the derivation, not proof gaps.
+    content of the derivation, stated explicitly.
 
     FORMALIZATION NOTE ON THE HARDY HYPOTHESES:
     H_grounded and H_convex quantify over ALL registers (forall r),
@@ -860,11 +847,11 @@ Qed.
     when a state has registers encoding different z values.  The
     proof is sound because the forall-r is STRONGER than needed.
     The direct algebraic path below avoids this issue entirely.
-    ========================================================================= *)
+*)
 
 (** Capstone: born_probability is the unique valid Born rule.
-    Zero hypotheses.  Fully proved by the algebraic path. *)
-(* INQUISITOR NOTE: alias for born_rule_unique — capstone re-export for Section 8 summary *)
+    No Hardy bridge hypotheses. The theorem still assumes [valid_born_rule P]. *)
+(* INQUISITOR NOTE: alias for born_rule_unique, capstone re-export for the summary. *)
 Theorem born_rule_capstone :
   forall (P : ProbabilityRule),
     valid_born_rule P ->
@@ -874,7 +861,7 @@ Proof.
 Qed.
 
 (** Capstone: born_probability IS a valid Born rule.
-    Zero hypotheses.  Direct construction. *)
+    Direct construction from affinity and boundary arithmetic. *)
 Theorem born_probability_valid :
   valid_born_rule born_probability.
 Proof.

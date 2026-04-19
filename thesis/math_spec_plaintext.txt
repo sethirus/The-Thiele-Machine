@@ -334,7 +334,7 @@ Definition 4.2 (Execution). Run([], S) = S;            Run(i :: τ ′ , S) = Ru
 
 4.3     Selected Instruction Semantics
 PNEW: Normalize region; if already present, idempotent; else add (Rnorm , ∅) to G.
-    REVEAL: Update CSRs with checksum of certificate cert. Cost: ∆µ (typically 1).
+    REVEAL: Update CSRs with checksum of certificate cert. Cost: bits + S(∆µ).
     LASSERT: Read formula from vm_mem[R[formula_addr_reg]] (length formula_len bytes) and
 certificate from vm_mem[R[cert_addr_reg]]. Verify using cert_kind (false=LRAT/UNSAT,
 true=SAT model). If valid, append formula to Am; if invalid, set err <- true.

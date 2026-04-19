@@ -1,86 +1,63 @@
-(** * HardwareBisimulation: Cost-Level Python / Hardware Comparison
-    (* NOTE: This file proves cost-level bisimulation only: mu-accumulation
-       is consistent across an abstract hardware model and Python model.
-       The HardwareState here is a 4-field abstraction (pc, mu, alu_ready,
-       overflow) that models only PC+1 sequential execution and cost
-       accumulation. It does NOT model: register files, memory, partition
-       graph, CSRs, mu_tensor, jump/branch/call/ret targets, or any
-       instruction-specific behavior beyond cost charging.
+(** HardwareBisimulation: Cost-Level Python / Hardware Comparison
 
-       For full hardware state correspondence with the Kami-extracted RTL,
-       see VerilogRefinement.v which uses KamiSnapshot (13 fields) and
-       abs_phase1 from Abstraction.v.
+    This file proves cost-level bisimulation only: mu-accumulation is
+    consistent across an abstract hardware model and Python model. The
+    HardwareState here is a 4-field abstraction (pc, mu, alu_ready, overflow)
+    modeling only PC+1 sequential execution and cost accumulation. It does NOT
+    model register files, memory, partition graph, CSRs, mu_tensor,
+    jump/branch/call/ret targets, or any instruction-specific behavior.
 
-       The genuine results here (hw_bisimulation_step, hw_bisimulation_multi_step,
-       hw_step_reflects_vm_cost) are real and useful for reasoning about
-       mu-accumulation consistency. They should not be interpreted as
-       proving full behavioral equivalence between hardware and software. *)
+    For full hardware state correspondence with the Kami-extracted RTL,
+    see VerilogRefinement.v which uses KamiSnapshot (13 fields) and abs_phase1
+    from Abstraction.v.
 
-    THE 3-LAYER COMPARISON CLAIM:
-    I built the same machine three times in three different languages:
-    - Coq (this file + VMState.v + VMStep.v) - THE PROOFS
-    - Python (thielecpu/vm.py) - THIN WRAPPER over OCaml extracted runner
-    - Verilog (thielecpu/hardware/rtl/thiele_cpu_kami.v, generated from Kami) - THE SYNTHESIZABLE HARDWARE
+    The real results here - hw_bisimulation_step, hw_bisimulation_multi_step,
+    hw_step_reflects_vm_cost - are useful for reasoning about mu-accumulation
+    consistency. They do NOT prove full behavioral equivalence between hardware
+    and software.
 
-    This file proves the SECOND ARROW: Python ↔ Hardware
+    I built the same machine three times: Coq (this file + VMState.v + VMStep.v),
+    Python (thielecpu/vm.py, thin wrapper over OCaml extracted runner), and
+    Verilog (thiele_cpu_kami.v, generated from Kami). This file proves the
+    Python/hardware cost-accounting arrow.
 
-    Combined with separate Coq ↔ Python evidence, this contributes one leg of
-    the broader cross-layer comparison story:
-      Coq VM ↔ OCaml extraction (Python wrapper) ↔ Verilog-style hardware model
+    Hardware state and Python state correspond when hw.pc = py.pc,
+    hw.mu_accumulator = py.mu, hw.overflow = py.err. For every step with cost c:
+    Python runs new_pc = old_pc + 1, new_mu = old_mu + c; hardware does the same.
+    If states correspond before a step, they correspond after. By induction:
+    they correspond for all execution traces.
 
-    THE PROOF:
-    Hardware state and Python state correspond when:
-    1. Program counters match: hw.pc = py.pc
-    2. μ-accumulators match: hw.mu_accumulator = py.mu
-    3. Error flags correspond: hw.overflow = py.err
+    Cosimulation tests in tests/test_verilog_cosim.py compare snapshots across
+    layers. Any divergence fails the test.
 
-    For every Python step with cost c:
-    - Python: new_pc = old_pc + 1, new_mu = old_mu + c
-    - Hardware: (same via hardware_step function)
-
-    Therefore: If states correspond before a step, they correspond after.
-    By induction: They correspond for ALL execution traces.
-
-    THE VALIDATION:
-    Cosimulation tests (tests/test_verilog_cosim.py) compare snapshots
-    across layers. Any divergence fails the test.
-
-    WHY THIS MATTERS:
-    This file gives a real proof that the abstract hardware model and Python
-    model agree on the μ/PC-style invariant encoded here. It does not prove full
-    behavioral equality of every repository layer or every RTL backend artifact.
-
-    FALSIFICATION:
-    Run the hardware on FPGA. Run the OCaml extracted VM. Compare outputs.
-    If they diverge, this comparison claim is false. The supporting tests are
-    useful evidence, but the stronger repository-wide equality story still needs
-    the separate backend and projection hypotheses to be stated explicitly.
-
-    NO PROJECT-LOCAL AXIOMS. NO ADMITS. The theorem in this file is proven.
-*)
+    To break this cost-accounting claim: run hardware, run the OCaml extracted
+    VM, and compare the PC/mu/overflow traces that this abstraction talks
+    about. Divergence there falsifies the claim. Zero project-local axioms,
+    zero Admitted. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep.
 
-(** ** Abstract Hardware State Representation
+(** Abstract hardware state representation.
 
-    This record models an abstract hardware register file and mu-ALU state.
+    This record models the tiny part of hardware state used in this file.
     The Kami-extracted RTL is in thielecpu/hardware/rtl/thiele_cpu_kami.v.
 
-    The Q16.16 fixed-point format is represented here as nat for
-    the integer part, which suffices for bisimulation purposes.
+    Q16.16 values are represented here as nat-scaled quantities. This is enough
+    for the addition and monotonicity facts below, but it is not a full
+    fixed-point semantics.
     *)
 
 Record HardwareState := {
   hw_pc : nat;                     (* Program counter register *)
-  hw_mu_accumulator : nat;         (* μ-cost accumulator (Q16.16 integer part) *)
+  hw_mu_accumulator : nat;         (* μ-cost accumulator as a Q16.16-scaled nat *)
   hw_alu_ready : bool;             (* ALU ready flag *)
   hw_overflow : bool               (* Overflow/saturation flag *)
 }.
 
-(** ** Python State (imported from PythonBisimulation) *)
+(** Abstract Python-side state used by this comparison. *)
 
 Record PythonState := {
   py_pc : nat;
@@ -89,7 +66,7 @@ Record PythonState := {
   py_graph_modules : nat
 }.
 
-(** ** Hardware-Python State Correspondence
+(** Hardware/Python state correspondence.
     
     This defines when a hardware state corresponds to a Python state.
     The key invariants are:
@@ -103,7 +80,7 @@ Definition hw_py_states_correspond (hw : HardwareState) (py : PythonState) : Pro
   hw.(hw_mu_accumulator) = py.(py_mu) /\
   hw.(hw_overflow) = py.(py_err).
 
-(** ** Hardware Bisimulation Invariant
+(** Hardware bisimulation invariant.
     
     The core bisimulation property: PC and μ-cost are preserved.
     *)
@@ -112,7 +89,7 @@ Definition hw_bisimulation_invariant (hw : HardwareState) (py : PythonState) : P
   hw.(hw_pc) = py.(py_pc) /\
   hw.(hw_mu_accumulator) = py.(py_mu).
 
-(** ** Abstract Hardware Step Function
+(** Abstract hardware step function.
     
     Models a single clock cycle of hardware execution.
     The hardware advances PC and accumulates μ-cost.
@@ -125,7 +102,7 @@ Definition hardware_step (hw : HardwareState) (cost : nat) : HardwareState :=
      hw_overflow := hw.(hw_overflow)
   |}.
 
-(** ** Abstract Python Step Function (mirrors PythonBisimulation) *)
+(** Abstract Python step function for the same cost-only model. *)
 
 Definition python_step (py : PythonState) (cost : nat) : PythonState :=
   {| py_pc := S py.(py_pc);
@@ -134,7 +111,7 @@ Definition python_step (py : PythonState) (cost : nat) : PythonState :=
      py_graph_modules := py.(py_graph_modules)
   |}.
 
-(** ** Core Bisimulation Theorems *)
+(** Core bisimulation theorems. *)
 
 (** Initial states correspond *)
 Theorem hw_initial_correspondence :
@@ -187,7 +164,7 @@ Proof.
   - apply hw_step_preserves_mu. exact Hinv.
 Qed.
 
-(** ** Multi-Step Bisimulation *)
+(** Multi-step bisimulation. *)
 
 (** Multi-step hardware execution *)
 Fixpoint hardware_multi_step (hw : HardwareState) (costs : list nat) : HardwareState :=
@@ -219,7 +196,7 @@ Proof.
     exact Hinv.
 Qed.
 
-(** ** μ-Cost Consistency Corollary *)
+(** μ-cost consistency corollary. *)
 
 Corollary hw_mu_cost_consistency :
   forall hw py costs,
@@ -232,20 +209,20 @@ Proof.
   exact Hmu.
 Qed.
 
-(** ** Complete Verification Chain
+(** Abstract verification chain.
     
-    This theorem establishes the full verification chain:
-    Hardware ↔ Python ↔ Coq
+    Despite the historical theorem name below, this theorem only establishes
+    the abstract hardware/Python cost-preservation chain in this file.
     
-    Combined with PythonBisimulation.v (Coq ↔ Python), we have:
+    Combined with separately checked PythonBisimulation.v facts, it contributes
+    one link toward:
     
     Coq VM (formal proofs) 
-        ↔ Python VM (reference implementation)
-        ↔ Hardware (synthesized Verilog)
+        <-> Python VM (reference implementation)
+        <-> abstract hardware cost model
     
-    Any property proven about Coq VM traces (e.g., Tsirelson bounds,
-    μ-accounting, quantum foundations) automatically transfers through
-    this chain to the physical hardware implementation.
+    It does not by itself transfer every Coq theorem to physical hardware.
+    Claims about RTL or FPGA behavior need the refinement/cosimulation layer.
     *)
 
 Theorem complete_verification_chain :
@@ -268,7 +245,7 @@ Proof.
   - apply hw_mu_cost_consistency. exact Hinit.
 Qed.
 
-(** ** Connection to vm_step
+(** Connection to vm_step.
 
     The abstract hardware_step and python_step functions model a uniform
     cost-charging cycle. This theorem establishes that for any concrete
@@ -288,15 +265,15 @@ Proof.
   inversion Hstep; subst; apply hw_bisimulation_step; exact Hinv.
 Qed.
 
-(** ** Q16.16 Fixed-Point Arithmetic Properties
+(** Q16.16 arithmetic facts for the scaled-nat model.
     
-    These lemmas establish properties of the Q16.16 format used
-    in the hardware mu-ALU.
+    These lemmas establish the nat addition facts used by the abstract
+    hardware mu-ALU model.
     *)
 
 Definition q16_16_one : nat := 65536.  (* 1.0 in Q16.16 = 2^16 *)
 
-(** Q16.16 addition is associative (integer part) *)
+(** Q16.16-scaled nat addition is associative. *)
 Lemma q16_add_assoc :
   forall a b c : nat,
     a + (b + c) = (a + b) + c.
@@ -304,7 +281,7 @@ Proof.
   intros. lia.
 Qed.
 
-(** Q16.16 addition is commutative (integer part) *)
+(** Q16.16-scaled nat addition is commutative. *)
 Lemma q16_add_comm :
   forall a b : nat,
     a + b = b + a.
@@ -328,11 +305,11 @@ Proof.
     lia.
 Qed.
 
-(** ** Hardware Synthesis Correctness
+(** Abstract hardware/Python correctness.
     
-    This theorem states that synthesized hardware correctly implements
-    the abstract hardware model, which in turn correctly implements
-    the Python VM, which correctly implements the Coq VM.
+    The theorem name is historical. The theorem proves that the abstract
+    hardware stepper and abstract Python stepper keep PC and mu-cost aligned
+    for a list of costs. It does not prove synthesized RTL correctness.
     *)
 
 Theorem hardware_synthesis_correctness :
@@ -354,13 +331,13 @@ Proof.
   repeat split; assumption.
 Qed.
 
-(** ** Summary
+(** Summary.
 
     WHAT I PROVED IN THIS FILE:
 
     1. Hardware-software cost bisimulation (Theorem hardware_synthesis_correctness):
-       The abstract hardware model is bisimilar
-       to the abstract software model. Same PC, same mu-cost, same state transitions.
+       The abstract hardware model is bisimilar to the abstract software cost
+       model for PC and mu-cost.
 
     2. mu-cost exactness (Corollary hw_mu_cost_consistency):
        mu-accounting is preserved EXACTLY across the abstract models. Not approximately,
@@ -371,30 +348,15 @@ Qed.
        By induction on trace length.
 
     4. Complete verification chain (Theorem complete_verification_chain):
-       Combined with PythonBisimulation.v (Coq <-> OCaml extraction wrapper), this completes:
-       Coq VM <-> OCaml extraction <-> Verilog-style hardware model
+       This file supplies the hardware/Python cost-model link. Full
+       Coq-to-RTL correspondence depends on the other refinement files and
+       cosimulation tests.
 
-    THE VERIFICATION CHAIN:
-
-    ┌─────────────────────────────────────────────────────────────┐
-    │                    VERIFICATION CHAIN                       │
-    ├─────────────────────────────────────────────────────────────┤
-    │  Coq VM (VMState, VMStep)                                   │
-    │      ↕ PythonBisimulation.v                                │
-    │  OCaml extraction (build/thiele_core.ml)                    │
-    │      ↕ HardwareBisimulation.v (this file)                  │
-    │  Hardware (thielecpu/hardware/rtl/thiele_cpu_kami.v)        │
-    └─────────────────────────────────────────────────────────────┘
-
-    Proven properties flow down; implementation details flow up.
-
-    WHY THIS MATTERS:
     Properties expressed through this file's invariant can be transferred from
     the abstract hardware model to the Python model. Stronger claims about full
     physical hardware behavior require the separate RTL/refinement assumptions to
     be stated and checked.
 
-    FALSIFICATION:
     1. Synthesize the Verilog to FPGA (Xilinx, Intel, Lattice, whatever)
     2. Run the same test vectors through hardware and OCaml extracted VM
     3. Compare μ-accumulator values, PC values, observable outputs
@@ -406,5 +368,7 @@ Qed.
     Passing tests support the comparison story; they should not be paraphrased
     here as an unconditional proof that every repository layer is identical.
 
-    NO PROJECT-LOCAL AXIOMS. NO ADMITS. The lemmas in this file are proven.
+    The lemmas in this file are proven inside the current abstract hardware
+    model. The remaining risk is cross-layer mismatch in the concrete runners
+    or RTL, which is why the repository still needs the cosimulation checks.
 *)

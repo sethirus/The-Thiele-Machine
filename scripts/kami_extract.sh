@@ -115,6 +115,9 @@ cd "$BUILD_DIR"
 # Regenerate Target.mli from current Target.ml to handle name differences
 # between monolithic and modular extraction (e.g. kami_read_mem vs read_mem)
 ocamlfind ocamlopt -package str -linkpkg -i Target.ml > Target.mli 2>/dev/null || true
+if [ -f Target_complete.ml ]; then
+    ocamlfind ocamlopt -package str -linkpkg -i Target_complete.ml > Target_complete.mli 2>/dev/null || true
+fi
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/PP.ml" .
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/Main.ml" .
 cp "$VENDOR_KAMI/Kami/Ext/Ocaml/Header.bsv" .

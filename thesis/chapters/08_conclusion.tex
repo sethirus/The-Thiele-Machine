@@ -208,7 +208,7 @@ The proven connections:
 \begin{itemize}
     \item $\mu$-monotonicity $\sim$ Second Law of Thermodynamics ($\mu$-monotonicity is true by construction---costs are natural numbers that only accumulate---so the correspondence is a structural parallel, not an empirical discovery)
     \item No-signaling $\sim$ Bell locality
-    \item Gauge invariance $\sim$ Noether's theorem (gauge invariance is trivially true in the model because only the \texttt{vm\_mu} field is modified)
+    \item Gauge invariance $\sim$ Noether's theorem (gauge invariance holds by construction: only the \texttt{vm\_mu} field is modified)
 \end{itemize}
 
 
@@ -226,7 +226,7 @@ for some constant $c$? This would formalize how close the ledger comes to the be
 
 \subsection{Completeness}
 
-Are the 40 active opcodes sufficient for all partition-native computation? Is there a normal form theorem?
+Are the 47 active opcodes sufficient for all partition-native computation? Is there a normal form theorem?
 
 \subsection{Quantum Extension}
 
@@ -246,8 +246,8 @@ Can the RTL be fabricated and validated at silicon level? What are the limits of
 The Thiele Machine is not a finished monument but a foundation. The tools built here are ready for the next generation:
 
 \begin{itemize}
-    \item \textbf{The Coq Kernel}: Full active proof corpus, $\sim$75,000 lines of verified specification that can be extended to new instruction sets.
-    \item \textbf{The Python VM}: A thin wrapper delegating to the Coq-extracted OCaml runner, backed by 566 passing tests.
+    \item \textbf{The Coq Kernel}: Full active proof corpus, $\sim$70,000 lines in the kernel tier ($\sim$105,000 across the full active Coq tree) that can be extended to new instruction sets.
+    \item \textbf{The Python VM}: A thin wrapper delegating to the Coq-extracted OCaml runner, backed by over 900 collected tests.
     \item \textbf{The Verilog RTL}: A hardware template for physical realization, with co-simulation gates.
     \item \textbf{The Inquisitor}: A ${\sim}7{,}400$-line discipline enforcer that scans every Coq file for admits, axioms, and unproven claims.
     \item \textbf{The Receipt System}: A trust infrastructure for verifiable computation.

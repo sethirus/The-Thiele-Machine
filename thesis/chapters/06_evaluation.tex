@@ -31,7 +31,7 @@
 
 The previous chapters established the \textit{theoretical} foundations of the Thiele Machine: definitions, proofs, and implementations. But theoretical correctness is not sufficient---the theory must also be demonstrated to \textit{work in practice}. Evaluation has a different role than proof: it does not establish truth for all inputs, but it validates that implementations faithfully realize the formal semantics and that the predicted invariants hold under realistic workloads.
 
-This chapter presents empirical evaluation addressing three fundamental questions:
+Three fundamental questions get answered empirically here:
 \begin{enumerate}
     \item \textbf{Does the 3-layer comparison contract actually hold on supported backends?} \\
     The theory claims that Coq, Python, and Verilog implementations produce identical results. This claim is tested on hundreds of instruction sequences, including randomized traces and structured micro-programs designed to stress the ISA.
@@ -510,7 +510,7 @@ def test_bianchi_conservation(self, program):
     )
 \end{lstlisting}
 
-And from \path{tests/test_python_vm_all_31_opcodes.py}:
+And from \path{tests/test_python_vm_all_opcodes.py}:
 \begin{lstlisting}
 class TestMuMonotonicity:
     def test_mu_always_increases(self):

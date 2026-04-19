@@ -16,7 +16,7 @@ To validate this connection, the Coq framework includes explicit physics models:
 \end{itemize}
 
 These models are not metaphors---they are formally verified Coq proofs showing that computational structures exhibit physical-like behavior.
-The wave model lives in \texttt{WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{WaveEmbedding.v} (developed during the physics exploration phase; no longer part of the active build tree). The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
+The wave model lives in \texttt{WaveModel.v}, and its embedding into the Thiele Machine is proven in \texttt{WaveEmbedding.v} (developed before the kernel layer was finalized; no longer part of the active build tree). The lattice and dissipative models follow the same pattern: define a state and step function, then prove conservation or monotonicity lemmas that can be linked back to kernel invariants.
 
 \subsection{From Theory to Algorithms}
 
@@ -176,7 +176,7 @@ The continuum limit---recovering a Lorentzian manifold from this discrete struct
 \textit{Author's Note (Devon): This section documents one of the most exciting---and humbling---parts of this project. I tried to derive fundamental constants from information theory. I succeeded partially (Planck's constant $h$), found structure but not values (speed of light $c$), and hit walls (gravitational constant $G$, particle masses). The results are honest: some things work, most don't. But the attempt revealed something important: the boundary between what computation \textit{can} derive and what physics \textit{must axiomatize}.}
 \end{quote}
 
-The formal development includes an exploration of whether fundamental physical constants can be related to the $\mu$-theory. These proofs were developed during the physics exploration phase and are maintained \textit{separately} from the active kernel, which has zero project-local axioms (no Admitted). This section documents the successes, failures, and lessons learned.
+The formal development includes an exploration of whether fundamental physical constants can be related to the $\mu$-theory. These proofs were developed before the kernel layer was locked down and are maintained \textit{separately} from the active kernel, which has zero project-local axioms (no Admitted). This section documents the successes, failures, and lessons learned.
 
 \subsection{The Planck Constant: Structural Consistency, Not First-Principles Derivation}
 
@@ -196,7 +196,7 @@ Starting from Landauer's principle $E_{\text{landauer}} = k_B T \ln 2$, I \texti
 \]
 
 
-Given this definition, the relationship $h = 4 E_{\text{landauer}} \tau_\mu$ is trivially true by algebra.
+Given this definition, the relationship $h = 4 E_{\text{landauer}} \tau_\mu$ is true by algebra.
 
 \textbf{What this means:} IF there exist fundamental $\mu$-operations at time scale $\tau_\mu$, AND IF Planck's constant relates to them via $h = 4 E_{\text{landauer}} \tau_\mu$, THEN $\tau_\mu$ must have the computed value.
 

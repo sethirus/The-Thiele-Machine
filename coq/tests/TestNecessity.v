@@ -1,12 +1,10 @@
-(** * TEST: Try to construct a counter-example to thermodynamics-necessity
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(** TestNecessity: try to build counterexamples to the claimed necessity laws.
 
-
-    This file attempts to BUILD a consistent information accounting
-    that violates thermodynamics-like properties.
-    
-    If we can construct it: The claim is falsified.
-    If Coq rejects it: The claim survives this test.
+  This file is deliberately adversarial. It attempts to construct weight
+  functions that would violate the thermodynamics-style constraints while
+  still satisfying the abstract Definitions.v interface. If one of those
+  constructions went through, the necessity claim would fail. If each attempt
+  breaks one of the required laws, the claim survives this round of testing.
 *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
@@ -119,7 +117,6 @@ Proof.
   unfold weight_empty, w_free_read. simpl. reflexivity.
 Qed.
 
-(** [count_xfer_app]: formal specification. *)
 Lemma count_xfer_app : forall t1 t2, count_xfer (t1 ++ t2) = count_xfer t1 + count_xfer t2.
 Proof.
   induction t1 as [|i rest IH]; intro t2.
@@ -127,14 +124,12 @@ Proof.
   - simpl. destruct i; simpl; rewrite IH; lia.
 Qed.
 
-(** [w_free_read_sequential]: formal specification. *)
 Lemma w_free_read_sequential : weight_sequential w_free_read.
 Proof.
   unfold weight_sequential, w_free_read.
   intros t1 t2. apply count_xfer_app.
 Qed.
 
-(** [w_free_read_disjoint_commutes]: formal specification. *)
 Lemma w_free_read_disjoint_commutes : weight_disjoint_commutes w_free_read.
 Proof.
   unfold weight_disjoint_commutes, w_free_read.
@@ -142,7 +137,6 @@ Proof.
   rewrite !count_xfer_app. lia.
 Qed.
 
-(** [w_free_read_laws]: formal specification. *)
 Lemma w_free_read_laws : weight_laws w_free_read.
 Proof.
   unfold weight_laws.

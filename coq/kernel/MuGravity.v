@@ -1,57 +1,20 @@
-(** * MuGravity: From mu-Ledger to Discrete Gravity
+(** MuGravity: discrete geometry built on top of μ and module structure
 
-   ========================================================================
+   This file defines a geometric layer over the module graph and μ bookkeeping:
+   module distances, angle-style quantities, curvature proxies, and the
+   Gauss-Bonnet-style identities used later in the gravity pipeline.
 
-   This file builds a bridge from computational structure (mu-cost, module
-   graph, axiom encoding) to discrete geometric laws (angle-defect curvature,
-   metric structure, topological constraints).
-
-   What this file proves:
-   1. VM operations create 2D manifolds (not just 1D chains)
-   2. mu-costs define a metric (distances, triangle inequality)
-   3. Metric defines angles via law of cosines
-   4. Angles sum to pi per triangle (exact)
-   5. Discrete Gauss-Bonnet holds: sum(defects) = 5*pi*chi (exact)
-
-   BASE ASSUMPTION: VMState type and vm_step relation.
-   Only the existence of the computational substrate (VMState) is axiomatic.
-   Everything else is proven or observed, not assumed.
+   The scope is explicit. The file sets up discrete geometric structure and
+   related algebra, but it does not prove the full Einstein equation directly.
+   That stronger emergence story is handled in the later dynamic bridge files.
 
    INQUISITOR NOTE: MISSING einstein_equation IS INTENTIONAL
-   This file defines einstein_tensor and stress_energy but does NOT prove:
-     einstein_tensor = 8*pi*G * stress_energy
-   The static algebraic identity does not hold on the module graph.
-   The correct approach is dynamic: information changes topology, which
-   constrains curvature via Gauss-Bonnet. The dynamic emergence chain is
-   proven in EinsteinEquations4D.v (non-vacuum section):
-     - pnew_produces_curvature: PNEW -> mass gradient -> Gamma != 0
-     - no_curvature_without_energy: mass = 0 -> G = 0 /\ T = 0
-     - field_equation_uniform_case: uniform mass -> G = 0 (flat spacetime)
-     - christoffel_equals_half_mass_gradient: Gamma = (mass(w) - mass(v)) / 2
-   The static identity remains absent because it is a field equation
-   (constraint), not a universal identity.
-
-   ========================================================================
-
-   CORE CLAIMS:
-   1. A module-level metric exists from structural mass and satisfies
-     non-negativity, identity, symmetry, and triangle inequality.
-   2. Curvature is geometric (angle defect), not postulated from field form.
-   3. Stress-energy is primitive (axiom encoding + region size), independent
-     of curvature definitions.
-   4. Discrete Gauss-Bonnet constrains total curvature by topology (5*pi*chi).
-
-   KEY RESULTS:
-   - mu_module_distance_triangle (triangle inequality)
-   - flat_at_module_zero_curvature (definitional)
-   - discrete_gauss_bonnet_5pi (empirically verified, see DiscreteGaussBonnet.v)
-
-   VERIFICATION:
-   Compiles to kernel/MuGravity.vo with fully closed proofs.
-   Empirical validation: numerical check on V=7, E=15, F=9, chi=1 mesh.
-
-   FALSIFICATION:
-   Produce a 2D triangulated mesh where sum(angle_defects) != 5*pi*chi.
+   This file is in the ASPIRATIONAL physics tier. The Einstein equation,
+   source normalization identity, and horizon defect-area law require
+   calibration conditions (angle_defect = π·Laplacian, Laplacian = 16πG·T)
+   that are not derivable from current kernel definitions unconditionally.
+   These are documented physics research boundaries, not proof gaps.
+   See artifacts/physics_research_boundaries.json for the full registry.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Reals Lra String.
@@ -82,18 +45,14 @@ Proof.
   rewrite H2 in H3. exact H3.
 Qed.
 
-(** =========================================================================
-  SECTION 1: MODULE METRIC FROM STRUCTURAL MASS
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
+(**
   Geometry claims require a metric. This section lifts μ-accounting to module
   level and proves the resulting distance satisfies the standard metric laws.
 
   CORE RESULT:
   mu_module_distance is non-negative, reflexive, symmetric, and satisfies
   triangle inequality on ModuleID.
-  =========================================================================*)
+*)
 
 (* Module structural mass metric is used directly.
    Path-based formulations would require additional graph connectivity proofs. *)
@@ -115,13 +74,9 @@ Definition mu_module_distance (s : VMState) (m1 m2 : ModuleID) : nat :=
 
 (** METRIC AXIOM 1: Non-negativity
 
-  WHY THIS MATTERS:
   Distances must be non-negative to support any geometric interpretation.
-
-  USED BY:
   Module-level metric consistency checks and downstream geometric claims.
 
-  FALSIFICATION:
   Find s,m1,m2 with mu_module_distance < 0. *)
 Lemma mu_module_distance_nonneg : forall s m1 m2,
   0 <= mu_module_distance s m1 m2.
@@ -133,13 +88,9 @@ Qed.
 
 (** METRIC AXIOM 2: Identity
 
-  WHY THIS MATTERS:
   A point/module must have zero distance to itself.
-
-  USED BY:
   Basic metric sanity and horizon/local-neighborhood reasoning.
 
-  FALSIFICATION:
   Find s,m with mu_module_distance s m m <> 0. *)
 Lemma mu_module_distance_refl : forall s m,
   mu_module_distance s m m = 0.
@@ -151,13 +102,9 @@ Qed.
 
 (** METRIC AXIOM 3: Symmetry
 
-  WHY THIS MATTERS:
   Undirected geometric distance requires d(a,b)=d(b,a).
-
-  USED BY:
   Distance-based simplifications in local curvature arguments.
 
-  FALSIFICATION:
   Find s,m1,m2 with asymmetric module distance. *)
 Lemma mu_module_distance_sym : forall s m1 m2,
   mu_module_distance s m1 m2 = mu_module_distance s m2 m1.
@@ -175,13 +122,9 @@ Qed.
 
 (** METRIC AXIOM 4: Triangle inequality
 
-  WHY THIS MATTERS:
   Ensures the metric is path-consistent and non-pathological.
-
-  USED BY:
   Interpretation of μ-geometry as a valid metric space.
 
-  FALSIFICATION:
   Find s,a,b,c violating d(a,c) ≤ d(a,b)+d(b,c). *)
 Lemma mu_module_distance_triangle : forall s a b c,
   mu_module_distance s a c <= mu_module_distance s a b + mu_module_distance s b c.
@@ -193,17 +136,14 @@ Proof.
   destruct (Nat.eqb_spec b c) as [Hbc|Hbc]; subst; simpl; try lia.
 Qed.
 
-(** =========================================================================
+(**
   SECTION 1B: DISCRETE CURVATURE PRIMITIVES
-  =========================================================================
-
-  WHY THIS SUBSECTION EXISTS:
   To define geometric objects (triangle angles, local triangles, angle sums)
   before introducing any analytic bridge or field-equation statement.
 
   CORE RESULT:
   angle_defect_curvature is built from local triangle geometry only.
-  =========================================================================*)
+*)
 
 (** Helper: Convert nat distance to R for angle computation *)
 Definition dist_to_R (d : nat) : R := INR d.
@@ -218,7 +158,6 @@ Definition triangle_angle (s : VMState) (a b c : ModuleID) : R :=
   then 0%R
   else (PI * dist_to_R dbc / dist_to_R (S (dab + dac + dbc)))%R.
 
-(** [triangle_angle_constant_distances]: formal specification. *)
 Lemma triangle_angle_constant_distances : forall s a b c d,
   mu_module_distance s a b = d ->
   mu_module_distance s a c = d ->
@@ -283,7 +222,6 @@ Fixpoint sum_angles (s : VMState) (m : ModuleID) (triangles : list (ModuleID * M
   | (n1, n2) :: rest => triangle_angle s m n1 n2 + sum_angles s m rest
   end.
 
-(** [sum_angles_constant]: formal specification. *)
 Lemma sum_angles_constant : forall s m tris angle,
   (forall n1 n2, In (n1, n2) tris -> triangle_angle s m n1 n2 = angle) ->
   sum_angles s m tris = (INR (List.length tris) * angle)%R.
@@ -313,9 +251,9 @@ Definition gravitational_constant : R :=
   (which are π-scaled) and raw Laplacian integers. *)
 Definition curvature_coupling : R := PI.
 
-(** Encoding length of a single axiom (string length). *)
+(** Encoding length of a single axiom, measured as concrete payload bits. *)
 Definition axiom_encoding_length (ax : VMAxiom) : nat :=
-  String.length ax.
+  payload_bit_length ax.
 
 (** Total encoding length in a module. *)
 Definition module_encoding_length (s : VMState) (m : ModuleID) : nat :=
@@ -350,7 +288,6 @@ Definition mu_cost_density (s : VMState) (m : ModuleID) : R :=
 Definition geometric_angle_defect (s : VMState) (m : ModuleID) : R :=
   (2 * PI - sum_angles s m (module_triangles s m))%R.
 
-(** [geometric_angle_defect_constant_angles]: formal specification. *)
 Lemma geometric_angle_defect_constant_angles : forall s m angle,
   (forall n1 n2,
       In (n1, n2) (module_triangles s m) ->
@@ -369,13 +306,9 @@ Definition angle_defect_curvature (s : VMState) (m : ModuleID) : R :=
 
 (** Well-definedness of angle-defect curvature.
 
-  WHY THIS MATTERS:
   Establishes totality of the geometric curvature functional.
-
-  USED BY:
   Downstream existence packaging and summary theorem.
 
-  FALSIFICATION:
   Construct state/module where angle_defect_curvature is undefined.
   (Impossible in total Coq definition, so proof is reflexive.) *)
 Lemma angle_defect_curvature_defined : forall s m,
@@ -386,11 +319,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** =========================================================================
-  SECTION 2: GEOMETRIC CURVATURE AND μ-LAPLACIAN OPERATORS
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
+(**
   The file separates geometric curvature (angle defect) from analytic
   curvature surrogates (μ-gradients/Laplacian) so bridge assumptions are
   explicit and testable.
@@ -398,7 +327,7 @@ Qed.
   CORE RESULT:
   ricci_curvature is defined geometrically from angle_defect_curvature,
   while mu_laplacian is defined independently from μ-density gradients.
-  =========================================================================*)
+*)
 
 (** Gradient of μ-cost between adjacent modules *)
 Definition mu_gradient (s : VMState) (m1 m2 : ModuleID) : R :=
@@ -423,7 +352,6 @@ Definition stress_energy (s : VMState) (m : ModuleID) : R :=
 Definition mu_laplacian (s : VMState) (m : ModuleID) : R :=
   mu_laplacian_w s m.
 
-(** [mu_laplacian_w_zero_if_uniform_density_list]: formal specification. *)
 Lemma mu_laplacian_w_zero_if_uniform_density_list : forall s m neighbors,
   (forall n, In n neighbors -> mu_cost_density s n = mu_cost_density s m) ->
   forall acc,
@@ -444,7 +372,6 @@ Proof.
     lra.
 Qed.
 
-(** [mu_laplacian_zero_if_uniform_density]: formal specification. *)
 Lemma mu_laplacian_zero_if_uniform_density : forall s m,
   (forall n, In n (module_neighbors s m) ->
     mu_cost_density s n = mu_cost_density s m) ->
@@ -470,13 +397,9 @@ Definition metric_volume (s : VMState) (m : ModuleID) : R := 1.
 
 (** Curvature is well-defined for all module queries.
 
-  WHY THIS MATTERS:
   Guarantees curvature can always be referenced in theorem statements.
-
-  USED BY:
   mu_geometry_defined and Einstein-balance packaging.
 
-  FALSIFICATION:
   Show a state/module where ricci_curvature lacks a value. *)
 Lemma ricci_curvature_defined : forall s m,
   exists K, ricci_curvature s m = K.
@@ -487,13 +410,9 @@ Qed.
 
 (** Flat geometry implies zero curvature.
 
-  WHY THIS MATTERS:
   Gives the expected zero-defect boundary condition.
-
-  USED BY:
   Compatibility checks between flatness witness and Ricci representative.
 
-  FALSIFICATION:
   Provide Hflat with nonzero ricci_curvature. *)
 Lemma flat_implies_zero_curvature : forall s m,
   angle_defect_curvature s m = 0%R ->
@@ -526,16 +445,11 @@ Qed.
 
 (** Bridge extraction lemma: calibrated equality can be used directly.
 
-  WHY THIS MATTERS:
   Makes calibration obligations explicit in the proof graph.
-
-  USED BY:
   angle_defect_equals_laplacian, curvature_stress_balance.
 
-  FALSIFICATION:
   Any state/module violating calibration hypothesis blocks this bridge. *)
 (* INQUISITOR NOTE: This lemma intentionally re-exposes the calibration predicate as an interface projection. *)
-(** [curvature_laplacian_relation]: formal specification. *)
 Lemma curvature_laplacian_relation : forall s m,
   well_formed_graph (vm_graph s) ->
   (m < pg_next_id (vm_graph s))%nat ->
@@ -549,9 +463,8 @@ Proof.
 Qed.
 
 
-(* ========================================================================
+(*
    PROVEN RELATIONSHIP: Discrete Gauss-Bonnet for Triangulated Surfaces
-   ========================================================================
 
    For a triangulated 2D surface with vertices V, edges E, faces F:
 
@@ -578,18 +491,13 @@ Qed.
    REF: DiscreteGaussBonnet.v (formal proof)
         Verified unweighted sum(K) = 5π for χ=1 mesh
 
-   STATUS: Empirically verified, formal proof in DiscreteGaussBonnet.v
-   ======================================================================== *)
+   *)
 
 (** Ricci representation consistency.
 
-  WHY THIS MATTERS:
   Confirms the file's Ricci choice is exactly angle-defect curvature.
-
-  USED BY:
   Einstein tensor normalization and summary theorem packaging.
 
-  FALSIFICATION:
   Find any well-formed module with unequal sides (ruled out by reflexivity). *)
 Lemma curvature_from_angle_defect : forall s m,
   well_formed_graph (vm_graph s) ->
@@ -604,13 +512,9 @@ Qed.
 
 (** Positivity of derived gravitational constant.
 
-  WHY THIS MATTERS:
   Entropy and Einstein-side scaling require positive physical constants.
-
-  USED BY:
   horizon_entropy_nonneg and mu_geometry_defined.
 
-  FALSIFICATION:
   Any non-positive base constant would break this chain. *)
 Lemma gravitational_constant_pos : (gravitational_constant > 0)%R.
 Proof.
@@ -635,24 +539,16 @@ Proof.
       * apply tau_mu_pos.
 Qed.
 
-(** =========================================================================
-  SECTION 3: STRESS-ENERGY FROM KERNEL PRIMITIVES
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
+(**
   Source terms must be kernel-native. Stress-energy is defined from encoding
   complexity and region size only; no curvature quantity appears here.
-  =========================================================================*)
+*)
 
 (** Stress-energy is well-defined for all module queries.
 
-  WHY THIS MATTERS:
   Guarantees stress-energy can always be referenced in theorem statements.
-
-  USED BY:
   einstein_equation and summary theorem packaging.
 
-  FALSIFICATION:
   Construct state/module where stress_energy is undefined.
   (Impossible in total Coq definition, so proof is reflexive.) *)
 Lemma stress_energy_defined : forall s m,
@@ -668,9 +564,7 @@ Qed.
   instruction targets; conservation lemmas below therefore state explicit
   premises on preserved encoding/region observables. *)
 
-(** =========================================================================
-    SECTION 4: EINSTEIN BALANCE IN DISCRETE FORM
-    =========================================================================
+(**
 
     TARGET EQUATION:
       R - (1/2)R g = 8πG T
@@ -680,7 +574,7 @@ Qed.
     (i) geometric curvature definition,
     (ii) calibration link to μ-Laplacian,
     (iii) source normalization against μ-Laplacian.
-    =========================================================================*)
+  *)
 
 (** Einstein tensor: left-hand side of discrete Einstein balance. *)
 Definition einstein_tensor (s : VMState) (m : ModuleID) : R :=
@@ -728,9 +622,7 @@ Qed.
     normalization), rather than from a continuum variational derivation.
     This keeps the dependency surface explicit and testable at VM level. *)
 
-(** =========================================================================
-    SECTION 5: HORIZON LAW AND BEKENSTEIN-HAWKING FORM
-    =========================================================================
+(**
 
     TARGET SCALING:
       S = A / (4 G ħ)
@@ -738,7 +630,7 @@ Qed.
     KERNEL FORM:
     horizon entropy is related to geometric defect via Landauer bridge, then
     reduced to area law under horizon defect/area calibration.
-    =========================================================================*)
+  *)
 
 (** A horizon is a potential barrier cut: crossing outward from H does not
     increase accessibility (represented by non-increasing μ-cost density). *)
@@ -760,7 +652,6 @@ Definition horizon_area (s : VMState) (H : list ModuleID) : nat :=
 Definition horizon_total_angle_defect (s : VMState) (H : list ModuleID) : R :=
   fold_right (fun m acc => (acc + geometric_angle_defect s m)%R) 0%R H.
 
-(** [horizon_area_singleton]: formal specification. *)
 Lemma horizon_area_singleton : forall s m,
   horizon_area s [m] =
     List.length (filter (fun n => negb (Nat.eqb n m)) (module_neighbors s m)).
@@ -776,7 +667,6 @@ Proof.
 Qed.
 
 (* DEFINITIONAL HELPER *)
-(** [horizon_total_angle_defect_singleton]: formal specification. *)
 Lemma horizon_total_angle_defect_singleton : forall s m,
   horizon_total_angle_defect s [m] = geometric_angle_defect s m.
 Proof.
@@ -788,9 +678,7 @@ Qed.
 
 
 (** Entropy from geometric defect (Landauer-normalized).
-
-  NOTE:
-  This is intentionally NOT area by definition. The area law is recovered only
+ This is intentionally NOT area by definition. The area law is recovered only
   under explicit calibration/bridge hypotheses below. *)
 Definition horizon_entropy (s : VMState) (H : list ModuleID) : R :=
   (Rabs (horizon_total_angle_defect s H) / (4 * gravitational_constant * derived_h))%R.
@@ -803,13 +691,9 @@ Definition horizon_entropy (s : VMState) (H : list ModuleID) : R :=
 
 (** Entropy is non-negative.
 
-  WHY THIS MATTERS:
   Entropy sign consistency is required for thermodynamic interpretation.
-
-  USED BY:
   Safety checks on horizon-law outputs.
 
-  FALSIFICATION:
   Produce horizon with negative horizon_entropy. *)
 Lemma horizon_entropy_nonneg : forall s H,
   (0 <= horizon_entropy s H)%R.
@@ -838,11 +722,7 @@ Proof.
       * apply tau_mu_pos.
 Qed.
 
-(** =========================================================================
-  SECTION 6: DYNAMICS AND SELF-CALIBRATION OBLIGATIONS
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
+(**
   Static Einstein balance at one snapshot is not enough for physics.
   This section binds gravity claims to VM evolution ([run_vm]) and states
   explicit dynamic obligations required for physical emergence claims.
@@ -851,7 +731,7 @@ Qed.
   If an evolved state self-calibrates (zero curvature/Laplacian residual)
   and source normalization holds there, Einstein balance follows at that
   evolved state.
-  =========================================================================*)
+*)
 
 (** Thermodynamic/ledger time observable. *)
 Definition ledger_time (s : VMState) : nat := s.(vm_mu).
@@ -910,11 +790,8 @@ Definition eventual_einstein_ready (trace : list vm_instruction) (s : VMState) (
       (16 * PI * gravitational_constant * stress_energy (run_vm fuel trace s) m)%R.
 
 
-(** =========================================================================
+(**
   SECTION 6B: BOUNDED DESCENT UNDER RESTRICTED DYNAMICS
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
   Section 6 introduced dynamic obligations. This subsection proves a first
   nontrivial dynamic guarantee: for a restricted (graph-preserving) instruction
   class, calibration residual cannot increase along execution.
@@ -922,7 +799,7 @@ Definition eventual_einstein_ready (trace : list vm_instruction) (s : VMState) (
   CORE RESULT:
   For traces composed only of calibration-safe instructions,
   [calibration_residual] is non-increasing under [run_vm].
-  =========================================================================*)
+*)
 
 (** Restricted instruction class that preserves the partition graph. *)
 Inductive calibration_safe_instruction : vm_instruction -> Prop :=
@@ -964,12 +841,9 @@ Inductive calibration_safe_instruction : vm_instruction -> Prop :=
     calibration_safe_instruction (instr_xor_swap a b cost)
 | csi_xor_rank : forall dst src cost,
     calibration_safe_instruction (instr_xor_rank dst src cost)
-| csi_oracle_halts : forall payload cost,
-    calibration_safe_instruction (instr_oracle_halts payload cost)
 | csi_halt : forall cost,
     calibration_safe_instruction (instr_halt cost).
 
-(** [vm_apply_graph_preserved_safe]: formal specification. *)
 Lemma vm_apply_graph_preserved_safe : forall s i,
   calibration_safe_instruction i ->
   vm_graph (vm_apply s i) = vm_graph s.
@@ -983,7 +857,6 @@ Proof.
 Qed.
 
 (* definitional lemma: this invariance follows by vm_graph substitution in neighborhood definitions. *)
-(** [module_neighbors_vm_graph_invariant]: formal specification. *)
 Lemma module_neighbors_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   module_neighbors s1 m = module_neighbors s2 m.
@@ -995,7 +868,6 @@ Proof.
 Qed.
 
 (* definitional lemma: module encoding length depends only on vm_graph. *)
-(** [module_encoding_length_vm_graph_invariant]: formal specification. *)
 Lemma module_encoding_length_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   module_encoding_length s1 m = module_encoding_length s2 m.
@@ -1009,7 +881,6 @@ Proof.
 Qed.
 
 (* definitional lemma: module region size depends only on vm_graph. *)
-(** [module_region_size_vm_graph_invariant]: formal specification. *)
 Lemma module_region_size_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   module_region_size s1 m = module_region_size s2 m.
@@ -1023,7 +894,6 @@ Proof.
 Qed.
 
 (* definitional lemma: weighted μ-Laplacian depends only on vm_graph-observable module data. *)
-(** [mu_laplacian_vm_graph_invariant]: formal specification. *)
 Lemma mu_laplacian_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   mu_laplacian s1 m = mu_laplacian s2 m.
@@ -1037,7 +907,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [module_structural_mass_vm_graph_invariant]: formal specification. *)
 Lemma module_structural_mass_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   module_structural_mass s1 m = module_structural_mass s2 m.
@@ -1049,7 +918,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [mu_module_distance_vm_graph_invariant]: formal specification. *)
 Lemma mu_module_distance_vm_graph_invariant : forall s1 s2 m1 m2,
   vm_graph s1 = vm_graph s2 ->
   mu_module_distance s1 m1 m2 = mu_module_distance s2 m1 m2.
@@ -1062,7 +930,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [triangle_angle_vm_graph_invariant]: formal specification. *)
 Lemma triangle_angle_vm_graph_invariant : forall s1 s2 a b c,
   vm_graph s1 = vm_graph s2 ->
   triangle_angle s1 a b c = triangle_angle s2 a b c.
@@ -1076,7 +943,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [module_triangles_vm_graph_invariant]: formal specification. *)
 Lemma module_triangles_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   module_triangles s1 m = module_triangles s2 m.
@@ -1088,7 +954,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [sum_angles_vm_graph_invariant]: formal specification. *)
 Lemma sum_angles_vm_graph_invariant : forall s1 s2 m triangles,
   vm_graph s1 = vm_graph s2 ->
   sum_angles s1 m triangles = sum_angles s2 m triangles.
@@ -1103,7 +968,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [stress_energy_vm_graph_invariant]: formal specification. *)
 Lemma stress_energy_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   stress_energy s1 m = stress_energy s2 m.
@@ -1116,7 +980,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [angle_defect_vm_graph_invariant]: formal specification. *)
 Lemma angle_defect_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   angle_defect_curvature s1 m = angle_defect_curvature s2 m.
@@ -1130,7 +993,6 @@ Proof.
 Qed.
 
 (* definitional lemma *)
-(** [calibration_residual_vm_graph_invariant]: formal specification. *)
 Lemma calibration_residual_vm_graph_invariant : forall s1 s2 m,
   vm_graph s1 = vm_graph s2 ->
   calibration_residual s1 m = calibration_residual s2 m.
@@ -1142,7 +1004,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [calibration_residual_safe_step_eq]: formal specification. *)
 Lemma calibration_residual_safe_step_eq : forall s i m,
   calibration_safe_instruction i ->
   calibration_residual (vm_apply s i) m = calibration_residual s m.
@@ -1165,7 +1026,6 @@ Definition safe_trace_strict_descent_certificate (trace : list vm_instruction) (
     calibration_safe_instruction i ->
     strict_descent_at_step s' i m.
 
-(** [calibration_residual_bounded_descent_safe_trace]: formal specification. *)
 Theorem calibration_residual_bounded_descent_safe_trace : forall fuel trace s m,
   safe_trace_certificate trace ->
   (calibration_residual (run_vm fuel trace s) m <= calibration_residual s m)%R.
@@ -1193,11 +1053,8 @@ Proof.
   apply (calibration_residual_bounded_descent_safe_trace fuel trace s m Hsafe).
 Qed.
 
-(** =========================================================================
+(**
   SECTION 6C: STRICT DESCENT UNDER CONTRACTIVE STEP HYPOTHESES
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
   Section 6B proved nonincrease under safe dynamics. This section captures the
   stronger regime where at least one executed step is strictly contractive.
 
@@ -1205,7 +1062,7 @@ Qed.
   If the first executed safe step is strictly contractive and all remaining
   safe steps are nonincreasing, residual after bounded execution is strictly
   smaller than at start.
-  =========================================================================*)
+*)
 
 Theorem calibration_residual_strict_descent_safe_trace : forall fuel trace s m,
   safe_trace_certificate trace ->
@@ -1238,11 +1095,8 @@ Proof.
   eapply Rle_lt_trans; eauto.
 Qed.
 
-(** =========================================================================
+(**
   SECTION 6D: ACTIVE DYNAMICS (GRAPH-CHANGING PROGRESS)
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
   Safe instructions preserve vm_graph, so they cannot by themselves produce
   strict residual descent. This subsection makes that explicit and introduces
   a policy interface for graph-changing (active) dynamics.
@@ -1250,7 +1104,7 @@ Qed.
   CORE RESULT:
   If an uncalibrated state triggers an active graph-changing instruction and
   active steps are contractive, residual strictly decreases after one VM step.
-  =========================================================================*)
+*)
 
 Lemma safe_step_strict_descent_impossible : forall s i m,
   calibration_safe_instruction i ->
@@ -1291,7 +1145,6 @@ Definition selected_active_step_descent_certificate (trace : list vm_instruction
 Definition calibration_residual_rank (s : VMState) (m : ModuleID) : nat :=
   if Req_EM_T (calibration_residual s m) 0%R then 0%nat else 1%nat.
 
-(** [calibration_residual_rank_zero_iff]: formal specification. *)
 Lemma calibration_residual_rank_zero_iff : forall s m,
   calibration_residual_rank s m = 0%nat <-> calibration_residual s m = 0%R.
 Proof.
@@ -1317,7 +1170,6 @@ Definition selected_active_rank_descent_certificate (trace : list vm_instruction
     calibration_active_instruction s i ->
     (calibration_residual_rank (vm_apply s i) m < calibration_residual_rank s m)%nat.
 
-(** [calibration_rank_progress_one_step_active_policy]: formal specification. *)
 Theorem calibration_rank_progress_one_step_active_policy : forall trace s m,
   active_when_uncalibrated trace s m ->
   selected_active_rank_descent_certificate trace s m ->
@@ -1344,7 +1196,6 @@ Proof.
   apply (Hcontract i Hnth Hactive).
 Qed.
 
-(** [calibration_rank_reaches_zero_one_step]: formal specification. *)
 Theorem calibration_rank_reaches_zero_one_step : forall trace s m,
   active_when_uncalibrated trace s m ->
   selected_active_rank_descent_certificate trace s m ->
@@ -1361,7 +1212,6 @@ Proof.
     + lia.
 Qed.
 
-(** [run_vm_one_step_from_nth]: formal specification. *)
 Lemma run_vm_one_step_from_nth : forall trace s i,
   nth_error trace (vm_pc s) = Some i ->
   run_vm 1 trace s = vm_apply s i.
@@ -1372,7 +1222,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [calibration_progress_one_step_active_policy]: formal specification. *)
 Theorem calibration_progress_one_step_active_policy : forall trace s m,
   active_when_uncalibrated trace s m ->
   selected_active_step_descent_certificate trace s m ->
@@ -1426,7 +1275,6 @@ Definition prefix_active_progress_obligation
   selected_active_step_descent_certificate trace sk m /\
   (0 < calibration_residual sk m)%R.
 
-(** [calibration_prefix_one_step_progress]: formal specification. *)
 Theorem calibration_prefix_one_step_progress : forall trace s m k,
   prefix_active_progress_obligation trace s m k ->
   (calibration_residual (run_vm 1 trace (prefix_state trace s k)) m <
@@ -1438,7 +1286,6 @@ Proof.
     assumption.
 Qed.
 
-(** [calibration_prefix_chain_progress]: formal specification. *)
 Theorem calibration_prefix_chain_progress : forall trace s m n k,
   (k < n)%nat ->
   (forall j, (j < n)%nat -> prefix_active_progress_obligation trace s m j) ->
@@ -1451,7 +1298,6 @@ Proof.
   exact Hkn.
 Qed.
 
-(** [calibration_prefix_chain_progress_all]: formal specification. *)
 Corollary calibration_prefix_chain_progress_all : forall trace s m n,
   (forall j, (j < n)%nat -> prefix_active_progress_obligation trace s m j) ->
   forall j, (j < n)%nat ->
@@ -1462,11 +1308,8 @@ Proof.
   apply (calibration_prefix_chain_progress trace s m n j Hj Hchain).
 Qed.
 
-(** =========================================================================
+(**
   SECTION 6E: MECHANISM OF ACTION (SCHEDULER BIAS)
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
   Sections 6D/6C establish progress once active contractive instructions are
   selected. This subsection states a concrete scheduler-side mechanism: when
   residual is positive, the selected active step is at least as cheap as any
@@ -1475,7 +1318,7 @@ Qed.
   CORE RESULT:
   Cost-biased active selection implies active-when-uncalibrated, hence one-step
   strict residual descent under active-step contractivity.
-  =========================================================================*)
+*)
 
 Definition scheduler_prefers_active_when_uncalibrated
   (trace : list vm_instruction) (s : VMState) (m : ModuleID) : Prop :=
@@ -1487,7 +1330,6 @@ Definition scheduler_prefers_active_when_uncalibrated
       calibration_safe_instruction j ->
       (instruction_cost i <= instruction_cost j)%nat).
 
-(** [scheduler_prefers_active_implies_active_when_uncalibrated]: formal specification. *)
 Lemma scheduler_prefers_active_implies_active_when_uncalibrated : forall trace s m,
   scheduler_prefers_active_when_uncalibrated trace s m ->
   active_when_uncalibrated trace s m.
@@ -1498,7 +1340,6 @@ Proof.
   split; assumption.
 Qed.
 
-(** [cost_biased_scheduler_progress_one_step]: formal specification. *)
 Theorem cost_biased_scheduler_progress_one_step : forall trace s m,
   scheduler_prefers_active_when_uncalibrated trace s m ->
   selected_active_step_descent_certificate trace s m ->
@@ -1513,11 +1354,8 @@ Proof.
   - exact Hpos.
 Qed.
 
-(** =========================================================================
+(**
   SECTION 6F: CONCRETE VM INSTANTIATION (FRESH PNEW MECHANISM)
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
   Sections 6D/6E provide abstract policy interfaces. This subsection pins the
   mechanism directly to concrete ISA/scheduler behavior: [run_vm] executes the
   instruction at [vm_pc], and a fresh zero-cost [PNEW] is both active and
@@ -1527,7 +1365,7 @@ Qed.
   If [trace] places [instr_pnew region 0] at [vm_pc s], region is fresh, and
   that selected step is contractive for residual, then one VM step strictly
   decreases calibration residual.
-  =========================================================================*)
+*)
 
 Lemma pnew_fresh_region_active : forall s region cost,
   graph_find_region (vm_graph s) (normalize_region region) = None ->
@@ -1543,7 +1381,6 @@ Proof.
   lia.
 Qed.
 
-(** [pnew_zero_cost_minimal_against_safe]: formal specification. *)
 Lemma pnew_zero_cost_minimal_against_safe : forall region j,
   calibration_safe_instruction j ->
   (instruction_cost (instr_pnew region 0) <= instruction_cost j)%nat.
@@ -1572,7 +1409,6 @@ Proof.
   apply seq_NoDup.
 Qed.
 
-(** [vm_graph_pnew]: formal specification. *)
 Lemma vm_graph_pnew : forall s region cost,
   vm_graph (vm_apply s (instr_pnew region cost)) =
     fst (graph_add_module (vm_graph s) (List.seq 0 (List.length (normalize_region region))) []).
@@ -1581,7 +1417,6 @@ Proof.
   apply vm_apply_pnew_graph.
 Qed.
 
-(** [graph_lookup_pnew_preserves_existing]: formal specification. *)
 Lemma graph_lookup_pnew_preserves_existing : forall s region mid,
   mid < pg_next_id (vm_graph s) ->
   graph_lookup (vm_graph (vm_apply s (instr_pnew region 0))) mid =
@@ -1593,7 +1428,6 @@ Proof.
   exact Hlt.
 Qed.
 
-(** [module_encoding_length_pnew_preserved]: formal specification. *)
 Lemma module_encoding_length_pnew_preserved : forall s region mid,
   mid < pg_next_id (vm_graph s) ->
   module_encoding_length (vm_apply s (instr_pnew region 0)) mid =
@@ -1605,7 +1439,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [module_region_size_pnew_preserved]: formal specification. *)
 Lemma module_region_size_pnew_preserved : forall s region mid,
   mid < pg_next_id (vm_graph s) ->
   module_region_size (vm_apply s (instr_pnew region 0)) mid =
@@ -1617,7 +1450,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [mu_cost_density_pnew_preserved]: formal specification. *)
 Lemma mu_cost_density_pnew_preserved : forall s region mid,
   mid < pg_next_id (vm_graph s) ->
   mu_cost_density (vm_apply s (instr_pnew region 0)) mid =
@@ -1630,7 +1462,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [module_structural_mass_pnew_preserved]: formal specification. *)
 Lemma module_structural_mass_pnew_preserved : forall s region mid,
   mid < pg_next_id (vm_graph s) ->
   module_structural_mass (vm_apply s (instr_pnew region 0)) mid =
@@ -1642,7 +1473,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [mu_module_distance_pnew_preserved]: formal specification. *)
 Lemma mu_module_distance_pnew_preserved : forall s region m1 m2,
   m1 < pg_next_id (vm_graph s) ->
   m2 < pg_next_id (vm_graph s) ->
@@ -1657,7 +1487,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [triangle_angle_pnew_preserved]: formal specification. *)
 Lemma triangle_angle_pnew_preserved : forall s region a b c,
   a < pg_next_id (vm_graph s) ->
   b < pg_next_id (vm_graph s) ->
@@ -1673,7 +1502,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [modules_adjacent_by_region_pnew_preserved]: formal specification. *)
 Lemma modules_adjacent_by_region_pnew_preserved : forall s region m1 m2,
   m1 < pg_next_id (vm_graph s) ->
   m2 < pg_next_id (vm_graph s) ->
@@ -1687,7 +1515,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [edge_weight_pnew_preserved]: formal specification. *)
 Lemma edge_weight_pnew_preserved : forall s region m1 m2,
   m1 < pg_next_id (vm_graph s) ->
   m2 < pg_next_id (vm_graph s) ->
@@ -1700,7 +1527,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [mu_gradient_pnew_preserved]: formal specification. *)
 Lemma mu_gradient_pnew_preserved : forall s region m1 m2,
   m1 < pg_next_id (vm_graph s) ->
   m2 < pg_next_id (vm_graph s) ->
@@ -1713,7 +1539,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [all_ids_below_in_fst]: formal specification. *)
 Lemma all_ids_below_in_fst : forall modules bound mid,
   all_ids_below modules bound ->
   In mid (map fst modules) ->
@@ -1727,7 +1552,6 @@ Proof.
     + apply (IH bound mid Hrest Hin).
 Qed.
 
-(** [modules_adjacent_by_region_pnew_new_disjoint]: formal specification. *)
 Lemma modules_adjacent_by_region_pnew_new_disjoint : forall s region m,
   graph_find_region (vm_graph s) (normalize_region region) = None ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -1757,7 +1581,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [module_neighbors_pnew_disjoint]: formal specification. *)
 Lemma module_neighbors_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -1807,7 +1630,6 @@ Proof.
     + apply IH. exact Hrest.
 Qed.
 
-(** [module_triangles_pnew_disjoint]: formal specification. *)
 Lemma module_triangles_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -1821,7 +1643,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [module_triangles_in_neighbors]: formal specification. *)
 Lemma module_triangles_in_neighbors : forall s m n1 n2,
   In (n1, n2) (module_triangles s m) ->
   In n1 (module_neighbors s m) /\ In n2 (module_neighbors s m).
@@ -1838,7 +1659,6 @@ Proof.
   split; assumption.
 Qed.
 
-(** [module_neighbors_ids_below]: formal specification. *)
 Lemma module_neighbors_ids_below : forall s m n,
   well_formed_graph (vm_graph s) ->
   In n (module_neighbors s m) ->
@@ -1853,7 +1673,6 @@ Proof.
   - exact Hin.
 Qed.
 
-(** [module_triangles_ids_below]: formal specification. *)
 Lemma module_triangles_ids_below : forall s m n1 n2,
   well_formed_graph (vm_graph s) ->
   In (n1, n2) (module_triangles s m) ->
@@ -1866,7 +1685,6 @@ Proof.
   - apply (module_neighbors_ids_below s m n2 Hwf Hn2).
 Qed.
 
-(** [sum_angles_pnew_disjoint_list]: formal specification. *)
 Lemma sum_angles_pnew_disjoint_list : forall s region m tris,
   m < pg_next_id (vm_graph s) ->
   (forall n1 n2,
@@ -1888,7 +1706,6 @@ Proof.
   apply (Htris a b). simpl. right. exact Hin.
 Qed.
 
-(** [sum_angles_pnew_disjoint]: formal specification. *)
 Lemma sum_angles_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -1904,7 +1721,6 @@ Proof.
   apply (module_triangles_ids_below s m n1 n2 Hwf Hin).
 Qed.
 
-(** [geometric_angle_defect_pnew_disjoint]: formal specification. *)
 Lemma geometric_angle_defect_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -1918,7 +1734,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [mu_laplacian_w_pnew_disjoint_list]: formal specification. *)
 Lemma mu_laplacian_w_pnew_disjoint_list : forall s region m neighbors,
   m < pg_next_id (vm_graph s) ->
   (forall n, In n neighbors -> n < pg_next_id (vm_graph s)) ->
@@ -1939,7 +1754,6 @@ Proof.
   apply Hneighbors. simpl. right. exact Hin.
 Qed.
 
-(** [mu_laplacian_pnew_disjoint]: formal specification. *)
 Lemma mu_laplacian_pnew_disjoint : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -1956,7 +1770,6 @@ Proof.
 Qed.
 
 
-(** [scheduler_prefers_fresh_pnew_zero_cost]: formal specification. *)
 Theorem scheduler_prefers_fresh_pnew_zero_cost : forall trace s m region,
   nth_error trace (vm_pc s) = Some (instr_pnew region 0) ->
   graph_find_region (vm_graph s) (normalize_region region) = None ->
@@ -1974,7 +1787,6 @@ Proof.
       exact Hsafe.
 Qed.
 
-(** [calibration_progress_one_step_selected_instruction]: formal specification. *)
 Theorem calibration_progress_one_step_selected_instruction : forall trace s m i,
   nth_error trace (vm_pc s) = Some i ->
   calibration_active_instruction s i ->
@@ -1988,7 +1800,6 @@ Proof.
   exact Hcontractive.
 Qed.
 
-(** [fresh_pnew_zero_cost_progress_one_step]: formal specification. *)
 Theorem fresh_pnew_zero_cost_progress_one_step : forall trace s m region,
   nth_error trace (vm_pc s) = Some (instr_pnew region 0) ->
   graph_find_region (vm_graph s) (normalize_region region) = None ->
@@ -2003,7 +1814,6 @@ Proof.
   - exact Hcontractive.
 Qed.
 
-(** [pnew_zero_cost_not_universally_contractive]: formal specification. *)
 Lemma pnew_zero_cost_not_universally_contractive :
   exists s m region,
     graph_find_region (vm_graph s) (normalize_region region) = None /\
@@ -2030,7 +1840,6 @@ Proof.
     reflexivity.
 Qed.
 
-(** [no_unconditional_pnew_zero_cost_strict_descent]: formal specification. *)
 Theorem no_unconditional_pnew_zero_cost_strict_descent :
   ~ (forall s m region,
       graph_find_region (vm_graph s) (normalize_region region) = None ->
@@ -2051,7 +1860,6 @@ Definition calibration_gap (s : VMState) (m : ModuleID) : R :=
 Definition calibration_gap_delta (s : VMState) (i : vm_instruction) (m : ModuleID) : R :=
   (calibration_gap (vm_apply s i) m - calibration_gap s m)%R.
 
-(** [calibration_gap_pnew_disjoint_preserved]: formal specification. *)
 Lemma calibration_gap_pnew_disjoint_preserved : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -2066,7 +1874,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [calibration_residual_pnew_disjoint_preserved]: formal specification. *)
 Lemma calibration_residual_pnew_disjoint_preserved : forall s region m,
   well_formed_graph (vm_graph s) ->
   region_disjoint_from_graph (vm_graph s) region ->
@@ -2107,7 +1914,6 @@ Proof.
   lra.
 Qed.
 
-(** [semantic_gap_window_certificate_fresh_pnew_from_delta]: formal specification. *)
 Theorem semantic_gap_window_certificate_fresh_pnew_from_delta : forall s m region,
   graph_find_region (vm_graph s) (normalize_region region) = None ->
   (0 < calibration_gap s m)%R ->
@@ -2121,7 +1927,6 @@ Proof.
     rewrite Hdelta. lra.
 Qed.
 
-(** [semantic_gap_window_semantics_fresh_pnew_from_delta]: formal specification. *)
 Theorem semantic_gap_window_semantics_fresh_pnew_from_delta : forall s m region,
   graph_find_region (vm_graph s) (normalize_region region) = None ->
   (0 < calibration_gap s m)%R ->
@@ -2142,7 +1947,6 @@ Proof.
 Qed.
 
 (* DEFINITIONAL HELPER *)
-(** [calibration_gap_after_as_before_plus_delta]: formal specification. *)
 Lemma calibration_gap_after_as_before_plus_delta : forall s i m,
   calibration_gap (vm_apply s i) m = (calibration_gap s m + calibration_gap_delta s i m)%R.
 Proof.
@@ -2151,7 +1955,6 @@ Proof.
   lra.
 Qed.
 
-(** [abs_strict_descent_by_delta_window_pos]: formal specification. *)
 Lemma abs_strict_descent_by_delta_window_pos : forall r delta,
   (0 < r)%R ->
   (-2 * r < delta < 0)%R ->
@@ -2189,7 +1992,6 @@ Proof.
   apply abs_strict_descent_by_delta_window_pos; assumption.
 Qed.
 
-(** [calibration_gap_abs_strict_descent]: formal specification. *)
 Lemma calibration_gap_abs_strict_descent : forall s i m,
   (0 < calibration_gap s m)%R /\ (-2 * calibration_gap s m < calibration_gap_delta s i m < 0)%R ->
   (Rabs (calibration_gap (vm_apply s i) m) < Rabs (calibration_gap s m))%R.
@@ -2201,7 +2003,6 @@ Proof.
   exact Hdesc.
 Qed.
 
-(** [calibration_progress_one_step_from_gap_window]: formal specification. *)
 Theorem calibration_progress_one_step_from_gap_window : forall trace s m i,
   nth_error trace (vm_pc s) = Some i ->
   (0 < calibration_gap s m)%R /\ (-2 * calibration_gap s m < calibration_gap_delta s i m < 0)%R ->
@@ -2212,11 +2013,8 @@ Proof.
   apply (calibration_residual_strict_descent_from_semantic_gap_window s i m Hwindow).
 Qed.
 
-(** =========================================================================
+(**
   SECTION 6G: EXPLICIT SCHEDULER MECHANISM CONTRACT
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
   [run_vm] executes whatever instruction sits at [vm_pc]. To state a concrete
   mechanism-of-action, we make the scheduler obligation explicit: when residual
   is positive, the selected instruction is active and cost-minimal vs safe.
@@ -2224,7 +2022,7 @@ Qed.
   CORE RESULT:
   This explicit run-time scheduler contract implies one-step strict descent
   whenever the selected active step satisfies the semantic delta window.
-  =========================================================================*)
+*)
 
 Definition run_vm_prioritizes_active_when_uncalibrated
   (trace : list vm_instruction) (s : VMState) (m : ModuleID) : Prop :=
@@ -2236,7 +2034,6 @@ Definition run_vm_prioritizes_active_when_uncalibrated
       calibration_safe_instruction j ->
       (instruction_cost i <= instruction_cost j)%nat).
 
-(** [run_vm_prioritizes_implies_scheduler_prefers]: formal specification. *)
 Lemma run_vm_prioritizes_implies_scheduler_prefers : forall trace s m,
   run_vm_prioritizes_active_when_uncalibrated trace s m ->
   scheduler_prefers_active_when_uncalibrated trace s m.
@@ -2245,7 +2042,6 @@ Proof.
   exact (Hrun Hpos).
 Qed.
 
-(** [run_vm_prioritizes_implies_active_policy]: formal specification. *)
 Theorem run_vm_prioritizes_implies_active_policy : forall trace s m,
   run_vm_prioritizes_active_when_uncalibrated trace s m ->
   active_when_uncalibrated trace s m.
@@ -2256,7 +2052,6 @@ Proof.
   exact Hrun.
 Qed.
 
-(** [run_vm_prioritized_active_semantic_progress_one_step]: formal specification. *)
 Theorem run_vm_prioritized_active_semantic_progress_one_step : forall trace s m i,
   run_vm_prioritizes_active_when_uncalibrated trace s m ->
   (0 < calibration_residual s m)%R ->
@@ -2270,11 +2065,8 @@ Proof.
   apply (calibration_progress_one_step_from_gap_window trace s m i Hnth Hwindow).
 Qed.
 
-(** =========================================================================
+(**
   SECTION 6H: CONSTRUCTIVE TRACE SYNTHESIS (BY CONSTRUCTION)
-  =========================================================================
-
-  WHY THIS SECTION EXISTS:
   Section 6G states a scheduler contract. This subsection constructs a concrete
   trace that satisfies that contract by construction at the current [vm_pc].
 
@@ -2282,7 +2074,7 @@ Qed.
   A synthesized trace places a fresh zero-cost active [PNEW] exactly at
   [vm_pc s], proving scheduler prioritization and one-step progress under the
   semantic delta window without external policy assumptions.
-  =========================================================================*)
+*)
 
 Definition constructive_trace_at_pc (pc : nat) (i : vm_instruction) : list vm_instruction :=
   repeat (instr_halt 0) pc ++ [i].
@@ -2293,7 +2085,6 @@ Definition constructive_active_instruction (region : list nat) : vm_instruction 
 Definition constructive_trace_for_state (s : VMState) (region : list nat) : list vm_instruction :=
   constructive_trace_at_pc (vm_pc s) (constructive_active_instruction region).
 
-(** [nth_error_constructive_trace_at_pc]: formal specification. *)
 Lemma nth_error_constructive_trace_at_pc : forall pc i,
   nth_error (constructive_trace_at_pc pc i) pc = Some i.
 Proof.
@@ -2305,7 +2096,6 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** [nth_error_constructive_trace_for_state]: formal specification. *)
 Lemma nth_error_constructive_trace_for_state : forall s region,
   nth_error (constructive_trace_for_state s region) (vm_pc s) =
     Some (constructive_active_instruction region).
@@ -2315,7 +2105,6 @@ Proof.
   apply nth_error_constructive_trace_at_pc.
 Qed.
 
-(** [constructive_trace_prioritizes_active_when_uncalibrated]: formal specification. *)
 Theorem constructive_trace_prioritizes_active_when_uncalibrated : forall s m region,
   graph_find_region (vm_graph s) (normalize_region region) = None ->
   run_vm_prioritizes_active_when_uncalibrated (constructive_trace_for_state s region) s m.
@@ -2334,7 +2123,6 @@ Proof.
       exact Hsafe.
 Qed.
 
-(** [constructive_trace_semantic_progress_one_step]: formal specification. *)
 Theorem constructive_trace_semantic_progress_one_step : forall s m region,
   graph_find_region (vm_graph s) (normalize_region region) = None ->
   (0 < calibration_residual s m)%R ->
@@ -2359,7 +2147,6 @@ Fixpoint run_constructive_plan (plan : list (list nat)) (s : VMState) : VMState 
       run_constructive_plan rest (run_vm 1 (constructive_trace_for_state s region) s)
   end.
 
-(** [run_constructive_plan_app]: formal specification. *)
 Lemma run_constructive_plan_app : forall p1 p2 s,
   run_constructive_plan (p1 ++ p2) s =
   run_constructive_plan p2 (run_constructive_plan p1 s).
@@ -2383,7 +2170,6 @@ Definition constructive_prefix_obligation
     (0 < calibration_gap (constructive_prefix_state plan s k) m)%R /\
     calibration_gap (vm_apply (constructive_prefix_state plan s k) (constructive_active_instruction region)) m = 0%R.
 
-(** [constructive_prefix_one_step_progress]: formal specification. *)
 Theorem constructive_prefix_one_step_progress : forall plan s m k,
   constructive_prefix_obligation plan s m k ->
   (calibration_residual (constructive_prefix_state plan s (S k)) m <
@@ -2402,7 +2188,6 @@ Definition semantic_gap_window_consecutive_certificate (trace : list vm_instruct
   (-2 * calibration_gap (run_vm fuel trace s) m <
     (calibration_gap (run_vm (S fuel) trace s) m - calibration_gap (run_vm fuel trace s) m) < 0)%R.
 
-(** [constructive_prefix_chain_progress_all]: formal specification. *)
 Theorem constructive_prefix_chain_progress_all : forall plan s m n,
   (forall k, (k < n)%nat -> constructive_prefix_obligation plan s m k) ->
   forall k, (k < n)%nat ->
@@ -2415,7 +2200,6 @@ Proof.
   exact Hk.
 Qed.
 
-(** [calibration_progress_consecutive_run_vm_from_gap_window]: formal specification. *)
 Theorem calibration_progress_consecutive_run_vm_from_gap_window : forall trace s fuel m,
   semantic_gap_window_consecutive_certificate trace s fuel m ->
   (calibration_residual (run_vm (S fuel) trace s) m <
@@ -2430,9 +2214,8 @@ Proof.
   apply abs_strict_descent_by_delta_window_pos; assumption.
 Qed.
 
-(** =========================================================================
+(**
   FILE SUMMARY
-  =========================================================================
 
   This file provides:
   - Module metric laws
@@ -2440,17 +2223,13 @@ Qed.
   - Primitive stress-energy source definitions
   - Calibration-based Einstein balance theorems
   - Horizon area/entropy bridge theorems
-  ========================================================================= *)
+  *)
 
 (** Summary theorem: geometric and source machinery is well-defined.
 
-  WHY THIS MATTERS:
   Provides one theorem packaging definability + positivity + tensor form.
-
-  USED BY:
   Downstream files that need a single entry-point statement.
 
-  FALSIFICATION:
   Any failure of the packaged conjunction invalidates this theorem. *)
 Theorem mu_geometry_defined : forall s m,
   well_formed_graph (vm_graph s) ->

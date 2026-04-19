@@ -1,11 +1,8 @@
-(** AbstractNoFI.v — Universality Theorem: No Free Insight for Any Machine
-
-    ==========================================================================
-    THE CENTRAL UNIVERSALITY CLAIM
-    ==========================================================================
+(** AbstractNoFI: No Free Insight for the abstract cert machine
 
     The No Free Insight theorem is not a quirk of the Thiele VM's implementation.
-    It is a theorem about ANY computational system satisfying four properties:
+    It is a theorem about any machine that processes this vm_instruction
+    vocabulary and satisfies four properties:
 
       A1. The system has a state that includes a certification indicator.
       A2. The certification indicator starts unset.
@@ -19,14 +16,10 @@
 
     THE THIELE VM IS AN INSTANCE:
     We prove that the Thiele VM satisfies A1–A4, so all consequences apply.
-    This is the formal meaning of "no other machine can bypass this":
-    any machine that DOESN'T satisfy A1–A4 can be bypassed trivially
-    (it's not doing honest cert accounting). Any machine that DOES satisfy
-    A1–A4 has this property too — and the property is exactly NoFI.
+    A machine that does not satisfy A1–A4 is outside this theorem. It may be
+    doing something interesting, but it is not doing this honest cert-accounting
+    discipline. A machine that does satisfy A1–A4 is covered by this proof.
 
-    ==========================================================================
-    STATUS: Fully proven. Zero Admitted. Zero project-local axioms.
-    ==========================================================================
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia.
@@ -37,11 +30,9 @@ From Kernel Require Import VMState VMStep SimulationProof RevelationRequirement
 
 Import RevelationProof.
 
-(** =========================================================================
-    PART 1: THE ABSTRACT MACHINE MODEL
-    =========================================================================
+(** The Abstract Machine Model
 
-    We parameterize over the state type S but fix the instruction set to
+    I parameterize over the state type S but fix the instruction set to
     vm_instruction. This is the right generalization: the universality is
     about machines processing the SAME instruction vocabulary with different
     internal state representations.
@@ -77,7 +68,7 @@ Definition cost_of (i : vm_instruction) : nat := instruction_cost i.
     - A state type S (parameterized)
     - A step function acm_step: S → vm_instruction → S
     - A boolean cert indicator acm_cert: S → bool
-    - Axiom acm_preserve: non-cert-setters preserve the cert indicator
+    - Field acm_preserve: non-cert-setters preserve the cert indicator
       (this is the formal statement of "cert can only be SET by cert-setters")
 *)
 Record AbstractCertMachine (S : Type) := {
@@ -96,8 +87,8 @@ Arguments acm_preserve {S} _ _ _ _ _.
 
 (** Sequential execution of a trace on an abstract machine.
     Note: this is NOT PC-indexed; it executes instructions in list order.
-    The universality theorem holds for this model and subsumes PC-indexed
-    execution (proven separately for the Thiele VM below). *)
+    The universality theorem holds for this list-order model. The PC-indexed
+    Thiele VM connection is proven separately below. *)
 Fixpoint acm_run {S : Type} (M : AbstractCertMachine S)
                   (trace : list vm_instruction) (s : S) : S :=
   match trace with
@@ -105,9 +96,7 @@ Fixpoint acm_run {S : Type} (M : AbstractCertMachine S)
   | i :: rest => acm_run M rest (acm_step M s i)
   end.
 
-(** =========================================================================
-    PART 2: THE UNIVERSALITY THEOREM
-    =========================================================================
+(** The Universality Theorem
 
     THEOREM (abstract_nfi):
     For any abstract cert machine M satisfying A3,
@@ -170,9 +159,7 @@ Proof.
   discriminate.
 Qed.
 
-(** =========================================================================
-    PART 3: COST BOUND
-    =========================================================================
+(** Cost Bound
 
     A4 (formal): Every cert-setter has cost ≥ 1.
 
@@ -193,11 +180,9 @@ Proof.
   destruct i; simpl in Hi; try discriminate; lia.
 Qed.
 
-(** =========================================================================
-    PART 4: THE THIELE VM IS AN INSTANCE
-    =========================================================================
+(** The Thiele VM Is An Instance
 
-    We prove the Thiele VM satisfies axiom A3 with cert = has_supra_cert.
+    I prove the Thiele VM satisfies axiom A3 with cert = has_supra_cert.
     That is: non-cert-addr-setters preserve csr_cert_addr exactly.
 
     The key lemma bridges cert_addr_setterb = false to the 5 ≠-premises
@@ -219,8 +204,8 @@ Lemma thiele_non_cert_addr_setter_preserves :
 Proof.
   intros s i Hi.
   (* Split on whether i is instr_certify or something else.
-     instr_certify preserves csr_cert_addr (uses vm_csrs := s.(vm_csrs))
-     but non_cert_setter_preserves_cert incorrectly excludes it. *)
+     instr_certify preserves csr_cert_addr (uses vm_csrs := s.(vm_csrs)).
+     non_cert_setter_preserves_cert asks us to exclude it, so handle it here. *)
   assert (is_certify_or_not : (exists mu, i = instr_certify mu) \/
                                (forall mu, i <> instr_certify mu)).
   { destruct i; try (right; intros mu H; discriminate H).
@@ -288,9 +273,7 @@ Definition thiele_cert_machine : AbstractCertMachine VMState :=
      acm_cert    := thiele_cert_bool;
      acm_preserve := thiele_vm_axiom_A3 |}.
 
-(** =========================================================================
-    PART 5: CONSEQUENCES FOR THE THIELE VM
-    =========================================================================
+(** Consequences For The Thiele VM
 
     We now derive the NoFI consequences for the Thiele VM specifically.
     These connect the abstract universality theorem to the concrete VM.
@@ -328,10 +311,7 @@ Proof.
   { apply cert_addr_setter_cost_pos. exact Hi_cert. }
 Qed.
 
-(** =========================================================================
-    PART 5b: HELPER LEMMAS FOR PC-INDEXED CONNECTION
-    =========================================================================
-*)
+(** PC-Indexed Connection Helpers *)
 
 (** uses_revelation_has_reveal: uses_revelation trace → ∃ reveal in trace *)
 Lemma uses_revelation_has_reveal :
@@ -344,17 +324,15 @@ Proof.
   - intro Hrev.
     (* Destruct first, then simplify Hrev per-branch *)
     destruct i; cbn [uses_revelation] in Hrev;
-    (* Non-reveal: Hrev : uses_revelation rest — apply IH *)
+    (* Non-reveal: Hrev : uses_revelation rest, so apply IH. *)
     try ( apply IH in Hrev;
           destruct Hrev as [w [Hw_in Hw_cert]];
           exists w; split; [ right; exact Hw_in | exact Hw_cert ] );
-    (* instr_reveal: Hrev : True — head is the witness *)
+    (* instr_reveal: Hrev : True, so the head is the witness. *)
     ( eexists; split; [ left; reflexivity | simpl; reflexivity ] ).
 Qed.
 
-(** =========================================================================
-    PART 6: CONNECTION TO PC-INDEXED EXECUTION (run_vm / trace_run)
-    =========================================================================
+(** Connection To PC-Indexed Execution
 
     The above theorems use sequential (list-order) execution.
     The Thiele VM uses PC-indexed execution (run_vm).
@@ -413,9 +391,7 @@ Proof.
     { simpl. reflexivity. }
 Qed.
 
-(** =========================================================================
-    PART 7: THE COMPLETE STATEMENT
-    =========================================================================
+(** The Complete Statement
 
     THEOREM (universal_nfi): The complete No Free Insight universality claim.
 
@@ -426,10 +402,10 @@ Qed.
     THE THIELE VM SATISFIES THIS: proven above (thiele_cert_machine).
     ANY OTHER MACHINE satisfying A3 also satisfies this: proven by abstract_nfi.
 
-    This is the formal meaning of "No other computer can bypass NoFI":
+    This is the formal meaning of "No other machine in this model can bypass NoFI":
     any machine that processes vm_instructions with honest cert accounting
     (= satisfies A3) is subject to this theorem. A machine that does NOT
-    satisfy A3 is not doing honest cert accounting — it allows free forgery,
+    satisfy A3 is not doing honest cert accounting. It allows free forgery,
     which is exactly the property we are proving cannot happen here.
 *)
 
@@ -455,9 +431,7 @@ Proof.
   { apply cert_addr_setter_cost_pos. exact Hi_cert. }
 Qed.
 
-(** =========================================================================
-    PART 8: THE STRUCTURAL LOWER BOUND (no_free_certification)
-    =========================================================================
+(** The Structural Lower Bound
 
     THE GAP-CLOSING THEOREM.
 
@@ -471,7 +445,7 @@ Qed.
       (2) By contrapositive of thiele_non_cert_addr_setter_preserves:
             cert_addr_setterb i = true
           [STRUCTURAL: which instructions can alter csr_cert_addr, proven
-           by case analysis over all 32 vm_instruction constructors]
+           by case analysis over the vm_instruction constructors]
       (3) By cert_addr_setter_cost_pos:
             instruction_cost i ≥ 1
           [DEFINITIONAL: the 5 cert-addr-setters all use S(cost)]
@@ -483,7 +457,7 @@ Qed.
     The lower bound is derived from OBSERVATION OF STATE CHANGE, not from
     reading the cost definition. Step (2) is the structural pivot: we observe
     cert_addr changed, and from that alone (using the preservation lemma,
-    which is proven by exhaustive case analysis over all 32 opcodes)
+    which is proven by case analysis over the vm_instruction constructors)
     we conclude the instruction must be a cert-setter.
 
     The cost bound in step (3) then follows from the structural definition
@@ -532,9 +506,7 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
-    PART 9: TRACE-LEVEL STRUCTURAL LOWER BOUND
-    =========================================================================
+(** Trace-Level Structural Lower Bound
 
     Extends the single-step theorem to SEQUENCES of instructions.
     If cert_addr changes from 0 to nonzero anywhere over a trace,
@@ -593,7 +565,7 @@ Qed.
     then μ grew by ≥ 1 over the entire trace.
 
     This is strictly stronger than the single-step version:
-    it covers ANY finite sequence — no "smuggling through a sequence" loophole.
+    it covers ANY finite sequence. No "smuggling through a sequence" loophole.
 *)
 Theorem no_free_certification_trace_mu :
   forall (trace : list vm_instruction) (s0 : VMState),
@@ -611,13 +583,11 @@ Proof.
   exact (In_cert_setter_trace_cost_ge trace i Hin Hi_cert).
 Qed.
 
-(** =========================================================================
-    PART 10: THE vm_certified CHANNEL (CERTIFY OPCODE)
-    =========================================================================
+(** The vm_certified Channel
 
     The machine has two distinct certification channels:
-    (A) csr_cert_addr ≠ 0 — structural evidence from revelation/assertion ops
-    (B) vm_certified = true — direct certification flag from CERTIFY opcode
+    (A) csr_cert_addr ≠ 0: structural evidence from revelation/assertion ops
+    (B) vm_certified = true: direct certification flag from CERTIFY opcode
 
     Both are non-free. This section proves the cost lower bound for channel B.
 
@@ -661,14 +631,12 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
-    PART 11: THE MASTER THEOREM (certification_requires_positive_mu)
-    =========================================================================
+(** The Master Theorem
 
     Packages both certification channels into a single canonical statement.
 
     CLAIM TIER: KERNEL / PROVEN
-    DEPENDS ON: no_free_certification_mu (Part 8), no_free_certification_certified_mu (Part 10)
+    DEPENDS ON: no_free_certification_mu and no_free_certification_certified_mu
     WHAT IT PROVES: Neither cert channel can activate for free (in one step)
     WHAT IT DOES NOT PROVE: Cost is tight / exact; trace-level composition;
       that "insight" in the broad sense always costs ≥ 1
@@ -678,7 +646,7 @@ Qed.
         Set by: REVEAL, EMIT, LJOIN, LASSERT, MORPH_ASSERT (all use S cost)
       vm_certified = true
         Set by: CERTIFY (uses S cost)
-      vm_witness counters — NOT a cert channel; set by CHSH_TRIAL without S cost
+      vm_witness counters: NOT a cert channel; set by CHSH_TRIAL without S cost
         (witness counters are observational data, not authorization tokens)
 *)
 Theorem certification_requires_positive_mu :

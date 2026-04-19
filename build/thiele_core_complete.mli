@@ -409,10 +409,18 @@ module CertCheck :
   val word32_to_signed : int -> int
 
   val check_model_binary_fn : int list -> (int -> int) -> bool
+
+  val check_countermodel_binary_fn : int list -> (int -> int) -> bool
  end
 
 module VMStep :
  sig
+  val ascii_payload_bits : char -> bool list
+
+  val payload_bits : char list -> bool list
+
+  val payload_bit_length : char list -> int
+
   type vm_instruction =
   | Coq_instr_pnew of int list * int
   | Coq_instr_psplit of moduleID * int list * int list * int
@@ -438,7 +446,6 @@ module VMStep :
   | Coq_instr_xor_rank of int * int * int
   | Coq_instr_emit of moduleID * char list * int
   | Coq_instr_reveal of moduleID * int * char list * int
-  | Coq_instr_oracle_halts of char list * int
   | Coq_instr_halt of int
   | Coq_instr_checkpoint of char list * int
   | Coq_instr_read_port of int * int * int * int * int
@@ -461,8 +468,6 @@ module VMStep :
   | Coq_instr_morph_assert of morphismID * char list * char list * int
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
-
-  val coq_ORACLE_HALTS_HW_COST : int
 
   val instruction_cost : vm_instruction -> int
 
@@ -514,6 +519,10 @@ module VMStep :
   val graph_hw_pmerge : partitionGraph -> int -> int -> partitionGraph
 
   val lassert_check_ok : vMState -> int -> int -> bool -> bool
+
+  val lassert_hw_flen : vMState -> int -> int
+
+  val lassert_exec_ok : vMState -> int -> int -> bool -> int -> bool
  end
 
 type morphTableEntry = { morph_entry_source : int; morph_entry_target : 

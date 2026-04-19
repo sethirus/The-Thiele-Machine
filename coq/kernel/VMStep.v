@@ -1,142 +1,139 @@
 From Coq Require Import List Bool Arith.PeanoNat Lia.
-From Coq Require Import Strings.String.
+From Coq Require Import Strings.String Strings.Ascii.
 Import ListNotations.
 
 From Kernel Require Import CertCheck VMState.
 
-(** * VMStep: Operational semantics - how the machine actually executes
+(** VMStep: How the machine actually runs.
 
-  This file defines the active 40-opcode ISA and the step relation that governs
-    all state transitions. Every operation has an explicit μ-cost. Every step
-    either succeeds or sets the error flag - no undefined behavior.
+    This file defines the 46-opcode ISA and the vm_step relation that governs
+    every state transition. Every instruction has an explicit μ-cost. Every step
+    either succeeds or latches the error flag. No undefined behavior.
 
-    WHY THIS FILE EXISTS:
-    The Thiele Machine isn't just a model on paper. This file defines HOW IT RUNS.
-    Every instruction is executable, every cost is explicit, every failure mode
-    is specified. The proofs show this behaves correctly. If you find a step
-    that violates μ-monotonicity or observable locality, the whole thing breaks.
+    The Thiele Machine isn't just a model on paper. This IS the model. Every
+    instruction is executable, every cost is explicit, every failure mode is
+    named. If you find a step that violates μ-monotonicity or observable locality,
+    the whole thing breaks. That's not a figure of speech. The proofs in
+    MuLedgerConservation.v and KernelPhysics.v would literally fail to compile.
 
-    THE ACTIVE 40 OPCODES:
-    Structural (partition operations):
-      PNEW, PSPLIT, PMERGE, PDISCOVER
-    Logical (assertion/revelation):
-      LASSERT, LJOIN, REVEAL, EMIT
-    Computational (reversible XOR-based):
-      XFER, XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
-    General-purpose compute (compiler target):
-      LOAD_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ, CALL, RET
-    Special:
-      MDLACC, CHSH_TRIAL, ORACLE_HALTS, HALT
-    System / checkpointing:
-      CHECKPOINT, READ_PORT, WRITE_PORT
-    Heap-relative:
-      HEAP_LOAD, HEAP_STORE
-    Certification / bitwise / ALU extensions:
-      CERTIFY, AND, OR, SHL, SHR, MUL, LUI
-    Per-module tensor:
-      TENSOR_SET, TENSOR_GET
+    Three properties hold for all 46 opcodes:
+    - Deterministic: same (state, instruction) pair → same output state.
+      Proven: SimulationProof.vm_step_deterministic.
+    - μ-Monotonic: vm_mu never decreases.
+      Proven: MuLedgerConservation.vm_mu_monotonic_single_step.
+    - Observationally local: ops don't affect unrelated module observables.
+      Proven: KernelPhysics.observational_no_signaling.
 
-    KEY PROPERTIES (proven elsewhere):
-    - Deterministic: Same input state + instruction → same output state
-    - μ-Monotonic: vm_mu never decreases (MuLedgerConservation.v)
-    - Observationally local: Operations don't affect unrelated modules (KernelPhysics.v)
+    LASSERT uses a SAT certificate plus a non-triviality witness instead of
+    calling an oracle. The success path requires two checkable facts: one
+    assignment satisfies the formula, and one assignment falsifies it. That
+    blocks tautology inflation at the opcode boundary. UNSAT proof checking
+    (kind=false) is NOT implemented. It always fails. This is documented.
 
-    CERTIFICATE VERIFICATION:
-    LASSERT uses certificates (SAT model or UNSAT proof) instead of calling
-    an oracle. This makes execution deterministic and verifiable. The certificates
-    are checked by CertCheck.v (LRAT for UNSAT, model checking for SAT).
 
-    NO AXIOMS. NO ADMITS. All proofs compile with Coq 8.18+.
-
-    FALSIFICATION: If ANY instruction violates μ-monotonicity, NoFreeInsight
-    is false. If ANY step is nondeterministic, bisimulation breaks. Test it.
-    *)
+    To falsify: If ANY instruction violates μ-monotonicity, NoFreeInsight
+    is false. If ANY step is nondeterministic, bisimulation breaks. Test it. *)
 
 Module VMStep.
 
 Definition check_lrat : string -> string -> bool := CertCheck.check_lrat.
 Definition check_model : string -> string -> bool := CertCheck.check_model.
 
-(** vm_instruction: The active 40-opcode ISA of the Thiele Machine.
+(** Payload bits.
 
-    Every instruction carries an explicit μ-cost (mu_delta). The step relation
-    applies (vm_mu + instruction_cost instr), forcing μ-monotonicity by
-    construction. For most instructions, instruction_cost = mu_delta.
-    For cert-setters (LASSERT, LJOIN, EMIT, REVEAL, READ_PORT, CERTIFY),
-    instruction_cost = S mu_delta (or more — LASSERT adds |formula|_bits).
+    Coq strings are lists of 8-bit [ascii] values.  For cost accounting we do
+    not charge "string length" or "character length"; we expose the actual
+    Boolean bits carried by each payload byte and count those bits directly. *)
+Definition ascii_payload_bits (a : ascii) : list bool :=
+  match a with
+  | Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+      [b0; b1; b2; b3; b4; b5; b6; b7]
+  end.
 
-    STRUCTURAL OPERATIONS (modify partition graph):
-    - PNEW: Create new module with given region. Idempotent — returns existing if present.
-    - PSPLIT: Split module into left/right children. Validates partition is disjoint.
-    - PMERGE: Merge two modules. Fails if regions overlap or modules don't exist.
-    - PDISCOVER: Attach evidence (axioms) to module. Records structural knowledge.
+Fixpoint payload_bits (s : string) : list bool :=
+  match s with
+  | EmptyString => []
+  | String a rest => ascii_payload_bits a ++ payload_bits rest
+  end.
 
-    LOGICAL OPERATIONS (assertions and revelation):
-    - LASSERT: Assert formula over module. Takes certificate (SAT model or UNSAT proof).
-             Valid SAT: adds axiom to module. Valid UNSAT: sets error flag.
-             Invalid certificate: sets error flag.
-             Cost: |formula| * 8 + S mu_delta (μ denominated in bits).
-    - LJOIN: Join two certificates. Succeeds if strings match. Cost: S mu_delta.
-    - REVEAL: Reveal bits of information. Records revelation cost. Cost: S mu_delta.
-    - EMIT: Emit payload. Updates cert_addr CSR with checksum. Cost: S mu_delta.
+Definition payload_bit_length (s : string) : nat :=
+  List.length (payload_bits s).
 
-    REGISTER TRANSFER:
-    - XFER: Copy register to register (overwrites destination).
+Lemma ascii_payload_bits_length :
+  forall a, List.length (ascii_payload_bits a) = 8.
+Proof.
+  intro a. destruct a as [b0 b1 b2 b3 b4 b5 b6 b7]. reflexivity.
+Qed.
 
-    GF(2) / XOR-BASED ALU:
-    - XOR_LOAD: Load from memory to register (plain load, despite name).
-    - XOR_ADD: XOR two registers, store in dst. Reversible.
-    - XOR_SWAP: Swap two registers. Fredkin gate primitive.
-    - XOR_RANK: Population count (number of 1-bits). Hamming weight.
+Lemma payload_bit_length_ascii :
+  forall s, payload_bit_length s = 8 * String.length s.
+Proof.
+  induction s as [| a rest IH].
+  - reflexivity.
+  - unfold payload_bit_length in *.
+    simpl.
+    rewrite app_length.
+    rewrite ascii_payload_bits_length.
+    fold (payload_bits rest).
+    rewrite IH.
+    lia.
+Qed.
 
-    GENERAL-PURPOSE COMPUTE (compiler target):
-    - LOAD_IMM: Load immediate value into register.
-    - LOAD: Load from memory into register (register-indirect addressing).
-    - STORE: Store register value to memory (register-indirect addressing).
-    - ADD: Integer addition (word64).
-    - SUB: Integer subtraction (word64).
-    - JUMP: Unconditional branch to target PC.
-    - JNEZ: Branch if register nonzero.
-    - CALL: Push return address, branch to target. r31 = SP.
-    - RET: Pop return address from stack, branch to it. r31 = SP.
+(** vm_instruction: The 46-opcode ISA. Every instruction carries an explicit
+    μ-cost (mu_delta). The step relation applies (vm_mu + instruction_cost instr),
+    making μ-monotonicity structural. You can't step without paying.
 
-    SPECIAL:
-    - MDLACC: Module discovery accumulator. Charges μ for structural access.
-    - CHSH_TRIAL: CHSH inequality trial. Validates bits in {0,1}.
-    - ORACLE_HALTS: Deterministic fixed-cost marker for an oracle query.
-      The payload is uninterpreted; the VM never decides the halting problem.
+    WHY μ_delta IS EXPLICIT: Kolmogorov complexity is uncomputable. The assembler
+    sets the cost in the instruction encoding; the kernel applies it. This makes
+    execution deterministic and verifiable from Coq to OCaml to Verilog.
+
+    The quick reference:
+
+    Partition ops (modify graph):
+    - PNEW: Create a fresh hardware-shaped module at pg_next_id.
+    - PSPLIT: Split module into two halves (hardware: equal halves).
+    - PMERGE: Hardware merge by size. No abstract overlap check here.
+    - PDISCOVER: Carry evidence payload; current transition is pure advance.
+
+    Logical ops (cert-setters; cost ≥ 1 enforced by S):
+    - LASSERT: Check a formula with a SAT certificate and a falsifying witness.
+      Cost: flen * 8 + S mu_delta. Success requires both a model and a
+      countermodel, so tautologies do not activate structural certification.
+      UNSAT path always fails. That gap is documented.
+    - LJOIN: Reserve certificate join cost. Current state transition is pure advance.
+    - REVEAL: Reveal bits, record to μ-tensor. Cost: bits + S mu_delta.
+    - EMIT: Emit payload bits outside the Coq state. Cost:
+      payload_bit_length payload + S mu_delta.
+
+    Register/memory ops:
+    - XFER: dst = src (register copy).
+    - LOAD_IMM: dst = imm (immediate load).
+    - LOAD: dst = mem[regs[rs_addr]] (register-indirect).
+    - STORE: mem[regs[rs_addr]] = src.
+    - ADD/SUB: 64-bit modular arithmetic.
+    - JUMP/JNEZ/CALL/RET: control flow. r31 = SP.
+
+    GF(2) ops (reversible):
+    - XOR_LOAD: load from absolute addr (despite name, no XOR involved).
+    - XOR_ADD: dst ^= src.
+    - XOR_SWAP: swap two registers.
+    - XOR_RANK: popcount (Hamming weight).
+
+    Special:
+    - MDLACC: Charges μ for module-structure access.
+    - CHSH_TRIAL: Record CHSH trial if all bits ∈ {0,1}. Error otherwise.
     - HALT: Stop execution.
+    - CHECKPOINT: Record label.
+    - READ_PORT/WRITE_PORT: External I/O. READ_PORT costs ≥ 1 by runtime policy.
+    - HEAP_LOAD/HEAP_STORE: Heap-relative memory (base + addr).
+    - CERTIFY: Set vm_certified = true. Cost: S mu_delta.
+    - AND/OR/SHL/SHR/MUL/LUI: Extended 64-bit ALU.
+    - TENSOR_SET/GET: Per-module 4×4 metric tensor.
+    - MORPH/COMPOSE/MORPH_ID/MORPH_DELETE/MORPH_ASSERT/MORPH_TENSOR/MORPH_GET:
+      Categorical morphism operations. MORPH_ASSERT is a cert-setter.
 
-    SYSTEM / CHECKPOINTING:
-    - CHECKPOINT: Record execution label. Cost: mu_delta.
-    - READ_PORT: External input port — reads value into register. Cost: S mu_delta.
-    - WRITE_PORT: External output port — sends register value. Cost: mu_delta.
-
-    HEAP-RELATIVE MEMORY:
-    - HEAP_LOAD: Load from (heap_base + addr). Cost: mu_delta.
-    - HEAP_STORE: Store to (heap_base + addr). Cost: mu_delta.
-
-    CERTIFICATION:
-    - CERTIFY: Set vm_certified flag. Cost: S mu_delta.
-
-    EXTENDED ALU (Phase 5):
-    - AND/OR/SHL/SHR/MUL: Standard bitwise and arithmetic. Cost: mu_delta.
-    - LUI: Load upper immediate (imm << 16). Cost: mu_delta.
-
-    PER-MODULE TENSOR (Phase 6):
-    - TENSOR_SET: Set entry (i,j) of module's 4x4 metric tensor. Cost: mu_delta.
-    - TENSOR_GET: Get entry (i,j) of module's tensor into register. Cost: mu_delta.
-
-    WHY μ_delta IS EXPLICIT:
-    Kolmogorov complexity (the canonical information-theoretic cost) is
-    uncomputable. The instruction carries cost as a parameter; the assembler
-    sets it in the instruction encoding. The kernel applies it. This makes
-    execution deterministic and verifiable.
-
-    FALSIFICATION: Since instruction_cost returns a nat (>= 0), vm_mu can never
-    decrease. If any instruction could produce vm_mu' < vm_mu, μ-monotonicity
-    (proven in MuLedgerConservation.v) would fail to compile.
-*)
+    To falsify: instruction_cost returns nat (≥ 0). vm_mu can never decrease.
+    If any instruction could produce vm_mu' < vm_mu, MuLedgerConservation.v fails. *)
 Inductive vm_instruction :=
 | instr_pnew (region : list nat) (mu_delta : nat)
 | instr_psplit (module : ModuleID) (left right : list nat) (mu_delta : nat)
@@ -163,28 +160,21 @@ Inductive vm_instruction :=
 | instr_xor_rank (dst src : nat) (mu_delta : nat)
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
-| instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat)
-(** Phase 2 additions — proven Coq instructions *)
 | instr_checkpoint (label : string) (mu_delta : nat)
 | instr_read_port (dst : nat) (channel_idx : nat) (value : nat) (bits : nat) (mu_delta : nat)
 | instr_write_port (channel_idx : nat) (src : nat) (mu_delta : nat)
-(** Phase 3B — heap-relative memory access *)
 | instr_heap_load (dst : nat) (rs_addr : nat) (mu_delta : nat)
 | instr_heap_store (rs_addr : nat) (src : nat) (mu_delta : nat)
-(** Phase 4 — state-based certification *)
 | instr_certify (mu_delta : nat)
-(** Phase 5 — extended ALU operations *)
 | instr_and (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_or  (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_shl (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_shr (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_mul (dst : nat) (rs1 : nat) (rs2 : nat) (mu_delta : nat)
 | instr_lui (dst : nat) (imm : nat) (mu_delta : nat)
-(** Phase 6 — per-module tensor instructions *)
 | instr_tensor_set (module : ModuleID) (i j value : nat) (mu_delta : nat)
 | instr_tensor_get (dst : nat) (module : ModuleID) (i j : nat) (mu_delta : nat)
-(** Phase 7 — categorical structure (morphisms) *)
 | instr_morph (dst : nat) (src_mod dst_mod : ModuleID) (coupling_idx : nat) (mu_delta : nat)
 | instr_compose (dst : nat) (m1_id m2_id : MorphismID) (mu_delta : nat)
 | instr_morph_id (dst : nat) (module : ModuleID) (mu_delta : nat)
@@ -193,9 +183,22 @@ Inductive vm_instruction :=
 | instr_morph_tensor (dst : nat) (f_id g_id : MorphismID) (mu_delta : nat)
 | instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat).
 
-(** Hardware-fixed cost for ORACLE_HALTS (1,000,000 μ-units). *)
-Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
+(** instruction_cost: Extract the μ-cost from an instruction.
+
+    WHY THE SPECIAL CASES:
+    - LASSERT: flen * 8 + S cost. The kernel charges the encoded formula
+      units as concrete bits, then adds S cost.
+    - EMIT: payload_bit_length payload + S cost. The payload is unfolded into
+      actual Boolean bits before charging.
+    - REVEAL, READ_PORT: bits + S cost. The instruction carries the bit count.
+    - LJOIN, CERTIFY, MORPH_ASSERT: S cost (always ≥ 1).
+      These are the cert-setters. The S wrapper guarantees cost ≥ 1 regardless of
+      what the programmer puts in mu_delta. Zero-cost certification is impossible.
+    - Everything else: cost = mu_delta as declared (can be 0).
+
+    This table is the exact specification of the cost model. If you think NoFreeInsight
+    is wrong, start here. *)
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
   | instr_pnew _ cost => cost
@@ -220,12 +223,11 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_xor_add _ _ cost => cost
   | instr_xor_swap _ _ cost => cost
   | instr_xor_rank _ _ cost => cost
-  | instr_emit _ _ cost => S cost
-  | instr_reveal _ _ _ cost => S cost
-  | instr_oracle_halts _ _ => ORACLE_HALTS_HW_COST
+  | instr_emit _ payload cost => payload_bit_length payload + S cost
+  | instr_reveal _ bits _ cost => bits + S cost
   | instr_halt cost => cost
   | instr_checkpoint _ cost => cost
-  | instr_read_port _ _ _ _ cost => S cost
+  | instr_read_port _ _ _ bits cost => bits + S cost
   | instr_write_port _ _ cost => cost
   | instr_heap_load _ _ cost => cost
   | instr_heap_store _ _ cost => cost
@@ -238,7 +240,6 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_lui _ _ cost => cost
   | instr_tensor_set _ _ _ _ cost => cost
   | instr_tensor_get _ _ _ _ cost => cost
-  (* Phase 7: categorical instructions *)
   | instr_morph _ _ _ _ cost => cost
   | instr_compose _ _ _ cost => cost
   | instr_morph_id _ _ cost => cost
@@ -248,8 +249,20 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_morph_get _ _ _ cost => cost
   end.
 
-(** Executable NoFreeInsight runtime policy:
-    cert-setting instructions must carry strictly positive μ-cost. *)
+(** is_cert_setterb: Positive-cost policy predicate.
+
+    This is NOT the literal "sets csr_cert_addr" predicate. In the hardware-aligned
+    step semantics below, EMIT/LJOIN/LASSERT/REVEAL mostly advance state and charge
+    μ; MORPH_ASSERT writes csr_cert_addr, and CERTIFY sets vm_certified.
+
+    What this predicate says is narrower and more mechanical: instructions in the
+    certification/revelation class must have instruction_cost ≥ 1. That is exactly
+    what cert_setter_cost_pos proves by case analysis.
+
+    IMPORTANT DISTINCTION from cert_addr_setterb (in AbstractNoFI.v):
+    READ_PORT and CERTIFY are included here because the runtime policy makes them
+    positive-cost actions. cert_addr_setterb is the abstract cert_addr channel.
+    Different question, different predicate. *)
 Definition is_cert_setterb (instr : vm_instruction) : bool :=
   match instr with
   | instr_reveal _ _ _ _ => true
@@ -262,20 +275,26 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   | _ => false
   end.
 
+(** nofi_step_cost_okb: Check that a single instruction satisfies the NoFI
+    cost policy. If it's a cert-setter, its cost must be ≥ 1. For non-cert-setters,
+    this is always true (no restriction). Used as a runtime gate. *)
 Definition nofi_step_cost_okb (instr : vm_instruction) : bool :=
   match is_cert_setterb instr with
   | true => Nat.leb 1 (instruction_cost instr)
   | false => true
   end.
 
+(** nofi_trace_cost_okb: Check that every instruction in a trace satisfies
+    the NoFI cost policy. True iff forall i in trace, nofi_step_cost_okb i. *)
 Definition nofi_trace_cost_okb (trace : list vm_instruction) : bool :=
   forallb nofi_step_cost_okb trace.
 
-(** cert_setter_cost_pos: cert-setters always cost ≥ 1 — by construction.
-    EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY all use S cost in
-    instruction_cost, so the declared field value is irrelevant.
-    This makes the NoFI policy unconditional: no programmer can write a
-    zero-cost cert-setter. *)
+(** cert_setter_cost_pos: cert-setters always cost ≥ 1.
+    This isn't a policy we check. It's a structural fact baked into the ISA.
+    EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY, MORPH_ASSERT all include
+    the S cost floor in instruction_cost. Some also add payload bits. No matter
+    what mu_delta the programmer encodes, the cost is at least 1. You literally
+    cannot write a zero-cost cert-setter. *)
 Lemma cert_setter_cost_pos :
   forall instr,
     is_cert_setterb instr = true ->
@@ -285,8 +304,12 @@ Proof.
   destruct instr; simpl in H; try discriminate; simpl; lia.
 Qed.
 
-(** nofi_step_always_ok: every instruction satisfies the NoFI cost policy.
-    Follows from cert_setter_cost_pos since all cert-setters charge S cost. *)
+(** nofi_step_always_ok: Every instruction, unconditionally, satisfies the NoFI
+    cost policy. Non-cert-setters satisfy it because there is no constraint.
+    Cert-setters satisfy it because cert_setter_cost_pos guarantees cost ≥ 1.
+    This means the runtime check nofi_step_cost_okb never actually rejects anything.
+    It's always true by construction. The proof is: cases on is_cert_setterb; true
+    branch uses cert_setter_cost_pos + leb; false branch is reflexivity. *)
 Lemma nofi_step_always_ok : forall instr, nofi_step_cost_okb instr = true.
 Proof.
   intros instr.
@@ -296,7 +319,8 @@ Proof.
   - reflexivity.
 Qed.
 
-(** nofi_trace_always_ok: every trace satisfies the NoFI cost policy. *)
+(** nofi_trace_always_ok: Every trace satisfies the NoFI cost policy.
+    Follows immediately from nofi_step_always_ok + forallb_forall. One line. *)
 Lemma nofi_trace_always_ok : forall trace, nofi_trace_cost_okb trace = true.
 Proof.
   intros trace.
@@ -306,9 +330,14 @@ Proof.
   apply nofi_step_always_ok.
 Qed.
 
+(** is_bit: True iff n is 0 or 1. CHSH requires all inputs and outputs
+    to be binary. Anything else is a protocol violation and latches an error. *)
 Definition is_bit (n : nat) : bool :=
   orb (Nat.eqb n 0) (Nat.eqb n 1).
 
+(** chsh_bits_ok: All four CHSH trial values (settings x,y and outcomes a,b)
+    must be single bits. If this check fails, step_chsh_trial_badbits fires
+    and the error flag latches. No partial CHSH results: all bits or nothing. *)
 Definition chsh_bits_ok (x y a b : nat) : bool :=
   andb (andb (is_bit x) (is_bit y)) (andb (is_bit a) (is_bit b)).
 
@@ -327,6 +356,9 @@ Definition chsh_bits_ok (x y a b : nat) : bool :=
 Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
   s.(vm_mu) + instruction_cost instr.
 
+(** latch_err: Error flag is sticky. Once true, it stays true.
+    orb flag s.(vm_err) means: if the flag was already set OR this step sets it,
+    result is true. Errors can never clear. This mirrors hardware error latches. *)
 Definition latch_err (s : VMState) (flag : bool) : bool :=
   orb flag s.(vm_err).
 
@@ -393,6 +425,10 @@ Definition record_trial (wc : WitnessCounts) (x y a b : nat) : WitnessCounts :=
                              wc_same_11 := wc.(wc_same_11); wc_diff_11 := S wc.(wc_diff_11) |}
   end.
 
+(** advance_state: Standard state builder for instructions that modify graph
+    and/or CSRs but NOT registers or memory. Advances PC by 1, applies cost,
+    preserves regs/mem/logic_acc/mstatus/witness/certified. Used by most
+    structural instructions (PNEW, PSPLIT, PMERGE, EMIT, REVEAL, etc.). *)
 Definition advance_state (s : VMState) (instr : vm_instruction)
   (graph : PartitionGraph) (csrs : CSRState) (err_flag : bool)
   : VMState :=
@@ -431,6 +467,10 @@ Definition advance_state_reveal (s : VMState) (instr : vm_instruction)
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
 
+(** advance_state_rm: State builder for instructions that also update registers
+    or memory (rm = register/memory). Caller passes in the new regs and mem
+    explicitly; advance_state_rm slots them in. Used by LOAD, STORE, ADD, XFER,
+    XOR_*, CALL, RET, HEAP_LOAD, HEAP_STORE, and all the ALU ops. *)
 Definition advance_state_rm (s : VMState) (instr : vm_instruction)
   (graph : PartitionGraph) (csrs : CSRState)
   (regs : list nat) (mem : list nat) (err_flag : bool)
@@ -481,9 +521,9 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
 
-(** * Hardware-aligned constants and helpers *)
+(** Hardware-aligned constants and helpers *)
 
-(** Trap PC — hardware branches here on LASSERT failure.
+(** Trap PC: hardware branches here on LASSERT failure.
     Must match KamiHW.Abstraction.LASSERT_TRAP_PC and ThieleCPUCore.v. *)
 Definition LASSERT_TRAP_PC : nat := 3840.
 
@@ -494,8 +534,11 @@ Definition graph_module_size (g : PartitionGraph) (mid : ModuleID) : nat :=
   | None => 0
   end.
 
-(** Hardware-style PSPLIT: half-split module at [mid].
-    Removes original, adds left at pg_next_id, right at pg_next_id+1. *)
+(** graph_hw_psplit: Hardware-aligned PSPLIT. Split module mid into two halves.
+    The original module is removed, left gets size/2 cells, right gets the rest.
+    This is a simplification vs. the abstract graph_psplit which allows arbitrary
+    partition geometry. The hardware uses sequential region numbering (seq 0 n).
+    Module ID wraps to mod 64 to stay within NUM_MODULES. *)
 Definition graph_hw_psplit (g : PartitionGraph) (mid : nat) : PartitionGraph :=
   let orig_sz := graph_module_size g mid in
   let left_sz := Nat.div orig_sz 2 in
@@ -531,32 +574,106 @@ Definition lassert_check_ok (s : VMState) (freg creg : nat) (kind : bool) : bool
   let hw_flen := read_mem s fbase in
   let formula_words := List.map (fun i => read_mem s (fbase + i))
                                 (List.seq 0 (3 + hw_flen)) in
-  let get_cert := (fun var => read_mem s (cbase + var)) in
-  if kind then CertCheck.check_model_binary_fn formula_words get_cert
+  let num_vars :=
+    match formula_words with
+    | _ :: nv :: _ => nv
+    | _ => 0
+    end in
+  let get_model := (fun var => read_mem s (cbase + var)) in
+  let get_countermodel := (fun var => read_mem s (cbase + num_vars + var)) in
+  if kind then
+    andb (CertCheck.check_model_binary_fn formula_words get_model)
+         (CertCheck.check_countermodel_binary_fn formula_words get_countermodel)
   else false.
 
 (** Helper for LASSERT: hw_flen is the first word at formula base. *)
 Definition lassert_hw_flen (s : VMState) (freg : nat) : nat :=
   read_mem s (read_reg s freg).
 
+(** lassert_exec_ok: combined length-match + formula check.
+    Success requires BOTH:
+      (1) the instruction-encoded flen equals the in-memory formula header, AND
+      (2) the formula has a satisfying assignment and a falsifying assignment.
+    This closes the honest-cost gap: a successful LASSERT step pays
+    exactly hw_flen * 8 + S(cost), not a programmer-declared undercount. *)
+Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen : nat) : bool :=
+  andb (Nat.eqb (lassert_hw_flen s freg) flen)
+       (lassert_check_ok s freg creg kind).
+
+(** vm_step: The operational semantics of the Thiele Machine.
+
+    This is the step relation: a proposition that says "executing instruction I
+    in state S produces state S'." It's inductive because there are multiple
+    constructors (one per instruction, sometimes two for success/failure paths).
+
+    WHY AN INDUCTIVE RELATION INSTEAD OF A FUNCTION:
+    The function form (vm_apply) exists in SimulationProof.v. The relation form
+    here is useful for proofs: you can pattern-match on how a step was taken,
+    extract the exact constructor with its hypotheses, and reason about it.
+    vm_apply is easier for computation; vm_step is easier for proof.
+
+    ERROR HANDLING:
+    Most instructions have a _bad or _badbits constructor for failure cases.
+    All failure constructors: (a) still advance PC, (b) still charge μ-cost,
+    (c) latch the error flag. There is NO undefined behavior. Every (state,
+    instruction) pair has exactly one applicable constructor.
+
+    DETERMINISM: vm_step is deterministic. For each (s, instr) pair, at most one
+    output state is reachable. Proven by SimulationProof.vm_step_deterministic.
+
+    To falsify: If you find two constructors that both apply to the same
+    (s, instr) with different outputs, determinism is violated and bisimulation
+    breaks. The proofs in SimulationProof.v would fail to compile. *)
 Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
+(** step_pnew: Create a fresh module. Uses hardware-style sequential numbering
+    (seq 0 sz) rather than arbitrary region geometry. Module ID wraps mod 64. *)
 | step_pnew : forall s region cost graph',
     let sz := List.length (normalize_region region) in
     graph' = fst (graph_add_module s.(vm_graph) (List.seq 0 sz) []) ->
     vm_step s (instr_pnew region cost)
       (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
+(** step_psplit: Split module into two halves. Uses graph_hw_psplit (left gets
+    size/2 cells, right gets the rest). The abstract left/right parameters are
+    accepted but ignored. The split is always equal halves at the RTL level. *)
 | step_psplit : forall s module left right cost graph',
     graph' = graph_hw_psplit s.(vm_graph) (module mod 64) ->
     vm_step s (instr_psplit module left right cost)
       (advance_state s (instr_psplit module left right cost)
         graph' s.(vm_csrs) s.(vm_err))
+(** step_pmerge: Hardware merge by concatenating module sizes.
+    graph_hw_pmerge removes both and creates one with sz1+sz2 cells.
+    Module IDs wrap mod 64. There is no abstract overlap or m1=m2 failure check here. *)
 | step_pmerge : forall s m1 m2 cost graph',
     graph' = graph_hw_pmerge s.(vm_graph) (m1 mod 64) (m2 mod 64) ->
     vm_step s (instr_pmerge m1 m2 cost)
       (advance_state s (instr_pmerge m1 m2 cost)
         graph' s.(vm_csrs) s.(vm_err))
+(** step_lassert: Check a formula with a binary SAT certificate.
+    freg = register holding formula base address in memory.
+    creg = register holding certificate base address in memory.
+    kind = true: SAT certificate with non-triviality witness.
+      Memory at cbase stores two assignments back-to-back:
+      - cbase + k: satisfying assignment value for variable k
+      - cbase + num_vars + k: falsifying assignment value for variable k
+      Variables remain 1-indexed; slot 0 is ignored as before.
+    false: UNSAT (always fails here).
+     flen = declared formula length in 32-bit words (drives μ-cost via flen * 8 + S cost).
+
+     The instruction is only allowed to succeed when flen matches the in-memory
+     formula header [lassert_hw_flen s freg]. A mismatch traps exactly like a
+     failed witness check. This closes the underpricing gap: a successful LASSERT
+     cannot claim a cheaper length than the bytes the checker actually reads.
+
+     On SAT success (lassert_exec_ok = true): advance PC normally, no error.
+     On failure or length mismatch: jump to LASSERT_TRAP_PC (0xF00 = 3840),
+     latch vm_err.
+    μ-cost is always charged regardless of outcome. You pay to check, even to fail.
+ UNSAT proof checking (kind=false) is NOT implemented. It always fails.
+    This is documented in the file header. The SAT path now certifies only
+    non-trivial constraints: formulas with both a model and a countermodel.
+    That is the minimum kernel-level guard against tautology inflation. *)
 | step_lassert : forall s freg creg kind flen cost,
-    let check_ok := lassert_check_ok s freg creg kind in
+  let check_ok := lassert_exec_ok s freg creg kind flen in
     let new_pc   := if check_ok then S s.(vm_pc) else LASSERT_TRAP_PC in
     let new_err  := if check_ok then s.(vm_err) else true in
     vm_step s (instr_lassert freg creg kind flen cost)
@@ -572,25 +689,47 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
          vm_mstatus := s.(vm_mstatus);
          vm_witness := s.(vm_witness);
          vm_certified := s.(vm_certified) |}
+(** step_ljoin: Reserve the cost of joining two certificates.
+    Current hardware-aligned semantics do not compare certificate strings or touch
+    CSR state. The step advances and charges S mu_delta. *)
 | step_ljoin : forall s c1reg c2reg cost,
     vm_step s (instr_ljoin c1reg c2reg cost)
       (advance_state s (instr_ljoin c1reg c2reg cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** step_mdlacc: Module discovery accumulator. Charges μ for looking up a module.
+    No graph change. It advances PC and pays the cost. *)
 | step_mdlacc : forall s module cost,
     vm_step s (instr_mdlacc module cost)
       (advance_state s (instr_mdlacc module cost) s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** step_emit: Emit a payload outside the Coq state.
+    The module ID and payload are accepted parameters, but this transition does
+    not mutate graph, registers, memory, or CSR state. It advances PC and charges
+    payload_bit_length payload + S cost. *)
 | step_emit : forall s module payload cost,
     vm_step s (instr_emit module payload cost)
       (advance_state s (instr_emit module payload cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** step_reveal: Reveal bits of information and charge the μ-tensor.
+    The critical difference from advance_state: it increments vm_mu_tensor at
+    flat index (module mod 16), recording WHERE the revelation cost was charged.
+    The certificate string is not checked in this relation; `bits` is the tensor delta. *)
 | step_reveal : forall s module bits cert cost,
     vm_step s (instr_reveal module bits cert cost)
       (advance_state_reveal s (instr_reveal module bits cert cost) (module mod 16) bits
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** step_pdiscover: Hardware-aligned PDISCOVER is pure advance.
+    The evidence payload is present in the instruction, but this relation does
+    not attach axioms or mutate the graph. It advances PC and charges cost. *)
 | step_pdiscover : forall s module evidence cost,
     vm_step s (instr_pdiscover module evidence cost)
       (advance_state s (instr_pdiscover module evidence cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** step_chsh_trial_ok: Record a valid CHSH trial.
+    x, y ∈ {0,1} are measurement settings; a, b ∈ {0,1} are outcomes.
+    wc' is the updated WitnessCounts with the appropriate bucket incremented.
+    The CHSH inequality is NOT checked here. That's for CHSHStatisticalBridge.v.
+    Here we just record the trial into the unforgeable witness counters.
+    μ-cost is charged. Cost can be 0 for CHSH trials because they are not cert-setters. *)
 | step_chsh_trial_ok : forall s x y a b cost wc',
     chsh_bits_ok x y a b = true ->
     wc' = record_trial s.(vm_witness) x y a b ->
@@ -607,24 +746,30 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
           vm_mstatus := s.(vm_mstatus);
           vm_witness := wc';
           vm_certified := s.(vm_certified) |})
+(** step_chsh_trial_badbits: Protocol violation. At least one of x,y,a,b is not
+    in {0,1}. No trial is recorded. Error flag latches. Cost still charged. *)
 | step_chsh_trial_badbits : forall s x y a b cost,
     chsh_bits_ok x y a b = false ->
     vm_step s (instr_chsh_trial x y a b cost)
       (advance_state s (instr_chsh_trial x y a b cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_xfer: Copy register src to register dst. word64 truncation on write. *)
 | step_xfer : forall s dst src cost regs',
     regs' = write_reg s dst (read_reg s src) ->
     vm_step s (instr_xfer dst src cost)
       (advance_state_rm s (instr_xfer dst src cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
 (** ---------------------------------------------------------------
-    General-purpose compute instructions (compiler target)
+    General-purpose compute: the compiler targets these.
+    No graph changes, no cert state changes. Just registers and memory.
     --------------------------------------------------------------- *)
+(** step_load_imm: Put imm (truncated to 64 bits) into dst. *)
 | step_load_imm : forall s dst imm cost regs',
     regs' = write_reg s dst (word64 imm) ->
     vm_step s (instr_load_imm dst imm cost)
       (advance_state_rm s (instr_load_imm dst imm cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_load: Register-indirect load. addr = regs[rs_addr], then dst = mem[addr]. *)
 | step_load : forall s dst rs_addr cost regs' value addr,
     addr = read_reg s rs_addr ->
     value = read_mem s addr ->
@@ -632,6 +777,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_load dst rs_addr cost)
       (advance_state_rm s (instr_load dst rs_addr cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_store: Register-indirect store. addr = regs[rs_addr], mem[addr] = regs[src]. *)
 | step_store : forall s rs_addr src cost mem' value addr,
     addr = read_reg s rs_addr ->
     value = read_reg s src ->
@@ -639,6 +785,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_store rs_addr src cost)
       (advance_state_rm s (instr_store rs_addr src cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err))
+(** step_add: Modular 64-bit addition. dst = (rs1 + rs2) mod 2^64. *)
 | step_add : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
     v2 = read_reg s rs2 ->
@@ -646,6 +793,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_add dst rs1 rs2 cost)
       (advance_state_rm s (instr_add dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_sub: Modular 64-bit subtraction. dst = (rs1 - rs2) mod 2^64. *)
 | step_sub : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
     v2 = read_reg s rs2 ->
@@ -653,13 +801,16 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_sub dst rs1 rs2 cost)
       (advance_state_rm s (instr_sub dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_jump: Unconditional branch to target. μ-cost still charged. *)
 | step_jump : forall s target cost,
     vm_step s (instr_jump target cost)
       (jump_state s (instr_jump target cost) target)
+(** step_jnez_taken: Branch taken. rs is nonzero, PC jumps to target. *)
 | step_jnez_taken : forall s rs target cost,
     read_reg s rs <> 0 ->
     vm_step s (instr_jnez rs target cost)
       (jump_state s (instr_jnez rs target cost) target)
+(** step_jnez_not_taken: Branch not taken. rs is zero, PC advances by 1. *)
 | step_jnez_not_taken : forall s rs target cost,
     read_reg s rs = 0 ->
     vm_step s (instr_jnez rs target cost)
@@ -682,14 +833,18 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_ret cost)
       (jump_state_rm s (instr_ret cost) ret_pc regs' s.(vm_mem))
 (** ---------------------------------------------------------------
-    Bit-linear algebra (GF(2) operations for partition/info work)
+    GF(2) / bit-linear operations for partition and info work.
+    XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK: all reversible.
     --------------------------------------------------------------- *)
+(** step_xor_load: Load from absolute address `addr` (not register-indirect).
+    Despite the XOR name, this is just a plain load. No XOR involved. *)
 | step_xor_load : forall s dst addr cost regs' value,
     value = read_mem s addr ->
     regs' = write_reg s dst value ->
     vm_step s (instr_xor_load dst addr cost)
       (advance_state_rm s (instr_xor_load dst addr cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_xor_add: dst = dst XOR src. Reversible: applying again restores dst. *)
 | step_xor_add : forall s dst src cost regs' vdst vsrc,
     vdst = read_reg s dst ->
     vsrc = read_reg s src ->
@@ -697,35 +852,47 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_xor_add dst src cost)
       (advance_state_rm s (instr_xor_add dst src cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_xor_swap: Swap registers a and b. Uses swap_regs which does two
+    in-place writes. Fredkin gate primitive, reversible. *)
 | step_xor_swap : forall s a b cost regs',
     regs' = swap_regs s.(vm_regs) a b ->
     vm_step s (instr_xor_swap a b cost)
       (advance_state_rm s (instr_xor_swap a b cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_xor_rank: Population count (Hamming weight) of src. dst = popcount(src).
+    Counts the number of 1-bits in the 64-bit value. Used for measuring
+    information density in partition region bitfields. *)
 | step_xor_rank : forall s dst src cost regs' vsrc,
     vsrc = read_reg s src ->
     regs' = write_reg s dst (word64_popcount vsrc) ->
     vm_step s (instr_xor_rank dst src cost)
       (advance_state_rm s (instr_xor_rank dst src cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
-| step_oracle_halts : forall s payload cost,
-    vm_step s (instr_oracle_halts payload cost)
-      (advance_state s (instr_oracle_halts payload cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err))
-(** Phase 2 step rules *)
+(** step_checkpoint: Record an execution label. No graph or register changes.
+    Advances PC, charges mu_delta. The label string is accepted but not stored
+    in Coq state. The extraction layer handles it. *)
 | step_checkpoint : forall s label cost,
     vm_step s (instr_checkpoint label cost)
       (advance_state s (instr_checkpoint label cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** step_read_port: Read `value` from external channel `channel_idx` into dst.
+    The value is baked into the instruction at decode time (the IOEnvironment
+    oracle does this). So execution is deterministic given the instruction stream.
+    Cost: bits + S mu_delta. Cert-setter, always ≥ 1 regardless of mu_delta. *)
 | step_read_port : forall s dst channel_idx value bits cost regs',
     regs' = write_reg s dst value ->
     vm_step s (instr_read_port dst channel_idx value bits cost)
       (advance_state_rm s (instr_read_port dst channel_idx value bits cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_write_port: Send regs[src] to channel channel_idx. No register change,
+    no graph change. Cost: mu_delta (not a cert-setter). *)
 | step_write_port : forall s channel_idx src cost,
     vm_step s (instr_write_port channel_idx src cost)
       (advance_state s (instr_write_port channel_idx src cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
+(** step_heap_load: Load from (csr_heap_base + addr) into dst.
+    Heap-relative addressing: addr = regs[rs_addr], actual address = heap_base + addr.
+    This avoids conflating raw memory addresses with heap-allocated offsets. *)
 | step_heap_load : forall s dst rs_addr cost regs' value addr,
     addr = read_reg s rs_addr ->
     value = read_mem s (s.(vm_csrs).(csr_heap_base) + addr) ->
@@ -733,6 +900,8 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_heap_load dst rs_addr cost)
       (advance_state_rm s (instr_heap_load dst rs_addr cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_heap_store: Store regs[src] to (csr_heap_base + addr). Same heap-relative
+    addressing as heap_load. addr = regs[rs_addr], actual = heap_base + addr. *)
 | step_heap_store : forall s rs_addr src cost mem' value addr,
     addr = read_reg s rs_addr ->
     value = read_reg s src ->
@@ -741,8 +910,10 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
       (advance_state_rm s (instr_heap_store rs_addr src cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_regs) mem' s.(vm_err))
 (** ---------------------------------------------------------------
-    Extended ALU operations (Phase 5)
+    Extended ALU: AND/OR/SHL/SHR/MUL/LUI/HALT. All 64-bit modular.
+    No graph changes. No cert state changes. Just registers.
     --------------------------------------------------------------- *)
+(** step_and: Bitwise AND. dst = rs1 AND rs2, then word64 keeps it in range. *)
 | step_and : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
     v2 = read_reg s rs2 ->
@@ -750,6 +921,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_and dst rs1 rs2 cost)
       (advance_state_rm s (instr_and dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_or: Bitwise OR. Same register-only shape as step_and. *)
 | step_or : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
     v2 = read_reg s rs2 ->
@@ -757,6 +929,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_or dst rs1 rs2 cost)
       (advance_state_rm s (instr_or dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_shl: 64-bit left shift. dst = rs1 << rs2 under word64_shl. *)
 | step_shl : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
     v2 = read_reg s rs2 ->
@@ -764,6 +937,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_shl dst rs1 rs2 cost)
       (advance_state_rm s (instr_shl dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_shr: 64-bit right shift. dst = rs1 >> rs2 under word64_shr. *)
 | step_shr : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
     v2 = read_reg s rs2 ->
@@ -771,6 +945,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_shr dst rs1 rs2 cost)
       (advance_state_rm s (instr_shr dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_mul: 64-bit modular multiplication. dst = rs1 * rs2 under word64_mul. *)
 | step_mul : forall s dst rs1 rs2 cost regs' v1 v2,
     v1 = read_reg s rs1 ->
     v2 = read_reg s rs2 ->
@@ -778,16 +953,21 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_mul dst rs1 rs2 cost)
       (advance_state_rm s (instr_mul dst rs1 rs2 cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_lui: Load upper immediate. dst = imm << 8. Same shift-and-load pattern
+    as RISC-V LUI, but the shift amount is 8 (not 12). Used to build 16-bit constants
+    with a subsequent LOAD_IMM for the low 8 bits. *)
 | step_lui : forall s dst imm cost regs',
     regs' = write_reg s dst (word64_shl imm 8) ->
     vm_step s (instr_lui dst imm cost)
       (advance_state_rm s (instr_lui dst imm cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_halt: Stop execution. PC advances past HALT (so vm_pc is well-defined
+    after halt), μ-cost is charged, nothing else changes. *)
 | step_halt : forall s cost,
     vm_step s (instr_halt cost)
       (advance_state s (instr_halt cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
-(** CERTIFY — state-based certification with structurally positive cost.
+(** step_certify: State-based certification with structurally positive cost.
     Cost is S mu_delta (at least 1), making "certified => mu > 0" provable. *)
 | step_certify : forall s mu_delta,
     vm_step s (instr_certify mu_delta)
@@ -807,31 +987,47 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     TENSOR_SET writes a value to the per-module 4×4 metric tensor at (i,j).
     TENSOR_GET reads the per-module tensor entry at (i,j) into a register.
     Invalid indices take the same latched-error path as the extracted VM. *)
+(** step_tensor_set_ok: Valid 4×4 tensor index. Mutate the module tensor entry. *)
 | step_tensor_set_ok : forall s mid i j value cost,
     tensor_indices_ok i j = true ->
     vm_step s (instr_tensor_set mid i j value cost)
       (advance_state s (instr_tensor_set mid i j value cost)
         (graph_update_module_tensor s.(vm_graph) mid (i * 4 + j) value)
         s.(vm_csrs) s.(vm_err))
+(** step_tensor_set_bad: Invalid tensor index. Leave the graph alone and latch error. *)
 | step_tensor_set_bad : forall s mid i j value cost,
     tensor_indices_ok i j = false ->
     vm_step s (instr_tensor_set mid i j value cost)
       (advance_state s (instr_tensor_set mid i j value cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_tensor_get_ok: Valid 4×4 tensor index. Read the module tensor into dst. *)
 | step_tensor_get_ok : forall s dst mid i j cost regs',
     tensor_indices_ok i j = true ->
     regs' = write_reg s dst (module_tensor_entry s mid i j) ->
     vm_step s (instr_tensor_get dst mid i j cost)
       (advance_state_rm s (instr_tensor_get dst mid i j cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_tensor_get_bad: Invalid tensor index. No read happens; error latches. *)
 | step_tensor_get_bad : forall s dst mid i j cost,
     tensor_indices_ok i j = false ->
     vm_step s (instr_tensor_get dst mid i j cost)
       (advance_state s (instr_tensor_get dst mid i j cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
 (** ---------------------------------------------------------------
-    Categorical morphism instructions (Phase 7) — rich-state semantics
+    Categorical morphism instructions: rich-state semantics
+
+    These instructions manipulate the PartitionGraph's morphism table.
+    Each has an _ok constructor (precondition satisfied, operation succeeds)
+    and a _bad constructor (precondition fails, error latches).
+
+    The _ok cases return a morph_id in a register (for MORPH, COMPOSE,
+    MORPH_ID, MORPH_TENSOR, MORPH_GET) or just advance state (MORPH_DELETE,
+    MORPH_ASSERT). All charge μ-cost regardless of outcome.
+
+    Proven in CategoryLaws.v, CategoryBridge.v, and ThieleCanonicality.v.
+    Zero Admitted for all 7 opcodes.
     --------------------------------------------------------------- *)
+(** step_morph_ok: Both modules exist. Add a morphism and return its ID in dst. *)
 | step_morph_ok : forall s dst src_mod dst_mod coupling_idx cost src_ms dst_ms graph' morph_id,
     graph_lookup s.(vm_graph) src_mod = Some src_ms ->
     graph_lookup s.(vm_graph) dst_mod = Some dst_ms ->
@@ -839,97 +1035,112 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_morph dst src_mod dst_mod coupling_idx cost)
       (advance_state_rm s (instr_morph dst src_mod dst_mod coupling_idx cost)
         graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
+(** step_morph_bad_src: Source module missing. No graph mutation; error latches. *)
 | step_morph_bad_src : forall s dst src_mod dst_mod coupling_idx cost,
     graph_lookup s.(vm_graph) src_mod = None ->
     vm_step s (instr_morph dst src_mod dst_mod coupling_idx cost)
       (advance_state s (instr_morph dst src_mod dst_mod coupling_idx cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_morph_bad_dst: Destination module missing. Source exists, so this is the
+    exact other failure branch for MORPH. *)
 | step_morph_bad_dst : forall s dst src_mod dst_mod coupling_idx cost src_ms,
     graph_lookup s.(vm_graph) src_mod = Some src_ms ->
     graph_lookup s.(vm_graph) dst_mod = None ->
     vm_step s (instr_morph dst src_mod dst_mod coupling_idx cost)
       (advance_state s (instr_morph dst src_mod dst_mod coupling_idx cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_compose_ok: Composition exists. Store the composed morphism ID in dst. *)
 | step_compose_ok : forall s dst m1_id m2_id cost graph' morph_id,
     graph_compose_morphisms s.(vm_graph) m1_id m2_id = Some (graph', morph_id) ->
     vm_step s (instr_compose dst m1_id m2_id cost)
       (advance_state_rm s (instr_compose dst m1_id m2_id cost)
         graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
+(** step_compose_bad: Composition is undefined. Leave graph/registers alone and latch error. *)
 | step_compose_bad : forall s dst m1_id m2_id cost,
     graph_compose_morphisms s.(vm_graph) m1_id m2_id = None ->
     vm_step s (instr_compose dst m1_id m2_id cost)
       (advance_state s (instr_compose dst m1_id m2_id cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_morph_id_ok: Build the identity morphism for an existing module. *)
 | step_morph_id_ok : forall s dst module cost graph' morph_id,
     graph_add_identity s.(vm_graph) module = Some (graph', morph_id) ->
     vm_step s (instr_morph_id dst module cost)
       (advance_state_rm s (instr_morph_id dst module cost)
         graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
+(** step_morph_id_bad: No identity morphism exists for that module, so error latches. *)
 | step_morph_id_bad : forall s dst module cost,
     graph_add_identity s.(vm_graph) module = None ->
     vm_step s (instr_morph_id dst module cost)
       (advance_state s (instr_morph_id dst module cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_morph_delete_ok: Delete an existing morphism from the graph. *)
 | step_morph_delete_ok : forall s morph_id cost graph',
     graph_delete_morphism s.(vm_graph) morph_id = Some graph' ->
     vm_step s (instr_morph_delete morph_id cost)
       (advance_state s (instr_morph_delete morph_id cost)
         graph' s.(vm_csrs) s.(vm_err))
+(** step_morph_delete_bad: Asked to delete a missing morphism. State stays put, error latches. *)
 | step_morph_delete_bad : forall s morph_id cost,
     graph_delete_morphism s.(vm_graph) morph_id = None ->
     vm_step s (instr_morph_delete morph_id cost)
       (advance_state s (instr_morph_delete morph_id cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_morph_assert_ok: The morphism exists. Mark the property by writing its
+    checksum into csr_cert_addr. This is why MORPH_ASSERT is a cert-setter. *)
 | step_morph_assert_ok : forall s morph_id property cert cost ms,
     graph_lookup_morphism s.(vm_graph) morph_id = Some ms ->
     vm_step s (instr_morph_assert morph_id property cert cost)
       (advance_state s (instr_morph_assert morph_id property cert cost)
         s.(vm_graph) (csr_set_cert_addr s.(vm_csrs) (ascii_checksum property)) s.(vm_err))
+(** step_morph_assert_bad: Missing morphism. No certificate address is set; error latches. *)
 | step_morph_assert_bad : forall s morph_id property cert cost,
     graph_lookup_morphism s.(vm_graph) morph_id = None ->
     vm_step s (instr_morph_assert morph_id property cert cost)
       (advance_state s (instr_morph_assert morph_id property cert cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_morph_tensor_ok: Tensor two morphisms and return the new morphism ID in dst. *)
 | step_morph_tensor_ok : forall s dst f_id g_id cost graph' morph_id,
     graph_tensor_morphisms s.(vm_graph) f_id g_id = Some (graph', morph_id) ->
     vm_step s (instr_morph_tensor dst f_id g_id cost)
       (advance_state_rm s (instr_morph_tensor dst f_id g_id cost)
         graph' s.(vm_csrs) (write_reg s dst morph_id) s.(vm_mem) s.(vm_err))
+(** step_morph_tensor_bad: Tensor product is undefined. Leave graph/registers alone and latch error. *)
 | step_morph_tensor_bad : forall s dst f_id g_id cost,
     graph_tensor_morphisms s.(vm_graph) f_id g_id = None ->
     vm_step s (instr_morph_tensor dst f_id g_id cost)
       (advance_state s (instr_morph_tensor dst f_id g_id cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_morph_get_ok: Read one field out of a morphism into dst. Selector 0/1/2/3
+    maps to source/target/coupling-count/is-identity; anything else returns 0. *)
 | step_morph_get_ok : forall s dst morph_id selector cost ms regs',
     graph_lookup_morphism s.(vm_graph) morph_id = Some ms ->
     regs' = write_reg s dst (morphism_selector_value ms selector) ->
     vm_step s (instr_morph_get dst morph_id selector cost)
       (advance_state_rm s (instr_morph_get dst morph_id selector cost)
         s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err))
+(** step_morph_get_bad: Missing morphism. No register write; error latches. *)
 | step_morph_get_bad : forall s dst morph_id selector cost,
     graph_lookup_morphism s.(vm_graph) morph_id = None ->
     vm_step s (instr_morph_get dst morph_id selector cost)
       (advance_state s (instr_morph_get dst morph_id selector cost)
         s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)).
 
-(** =========================================================================
-    I/O PORT ENVIRONMENT ORACLE
-    =========================================================================
+(** I/O PORT ENVIRONMENT ORACLE
 
-    [instr_read_port] bakes the observed value into the instruction at decode
-    time, making execution deterministic given the instruction stream.  Here
-    we formalise the external-world interface as an [IOEnvironment] oracle and
-    prove the key invariant: μ-charging is INDEPENDENT of the channel value.
+    READ_PORT bakes the observed value into the instruction at decode time.
+    That makes execution deterministic: the same instruction stream, the same state.
+    But it raises a question: does the μ-cost depend on what the environment returns?
 
-    This closes the "I/O port oracle" gap: µ costs are fully determined by
-    the instruction's [mu_delta] field, not by what the environment returns.
-    =========================================================================*)
+    It doesn't. The three theorems below prove it. Cost = bits + S mu_delta,
+    regardless of which environment produced the value. This is what closes the
+    "I/O port oracle" gap in the hardening tracker.
 
-(** An [IOEnvironment] maps channel indices to the values they supply. *)
+    IOEnvironment: maps channel indices to the values they supply. *)
 Definition IOEnvironment := nat -> nat.
 
-(** The µ-cost of [instr_read_port] equals [S mu_delta] regardless of what
-    value the environment supplies on the channel. *)
+(** io_env_mu_cost_independent: Two instructions that differ only in the observed
+    value have identical μ-cost. The value field doesn't appear in instruction_cost.
+    Proof is reflexivity because the definition makes it immediate. *)
 Theorem io_env_mu_cost_independent :
   forall dst ch bits mu_delta (v v' : nat),
     instruction_cost (instr_read_port dst ch v  bits mu_delta) =
@@ -938,7 +1149,9 @@ Proof.
   intros. reflexivity.
 Qed.
 
-(** For any two environments, the µ-cost of reading the same channel is equal. *)
+(** io_env_mu_cost_env_agnostic: Two different environments reading the same
+    channel produce instructions with the same μ-cost. Follows immediately
+    from io_env_mu_cost_independent. *)
 Corollary io_env_mu_cost_env_agnostic :
   forall (env1 env2 : IOEnvironment) dst ch bits mu_delta,
     instruction_cost (instr_read_port dst ch (env1 ch) bits mu_delta) =
@@ -947,8 +1160,9 @@ Proof.
   intros. reflexivity.
 Qed.
 
-(** The µ-cost is exactly [S mu_delta] — strictly positive — so every I/O
-    read charges at least 1 µ unit to the ledger. *)
+(** io_read_cost_positive: Every I/O read charges at least 1 μ-unit.
+    Cost is S mu_delta, so it's ≥ 1 no matter what the programmer sets mu_delta to.
+    This is the structural positive-cost guarantee for READ_PORT. *)
 Lemma io_read_cost_positive :
   forall dst ch v bits mu_delta,
     (instruction_cost (instr_read_port dst ch v bits mu_delta) > 0)%nat.

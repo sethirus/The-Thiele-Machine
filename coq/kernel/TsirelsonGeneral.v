@@ -1,23 +1,19 @@
-(** * TsirelsonGeneral: Tsirelson Bound from Pure Algebra
+(** TsirelsonGeneral: Tsirelson Bound from Pure Algebra
 
-    WHY THIS FILE EXISTS:
     The Tsirelson bound |S| <= 2*sqrt(2) is usually derived from quantum
     mechanics (tensor product Hilbert spaces, projective measurements).
     This file derives it from PURE ALGEBRA: row constraints on correlation
     matrices plus the Cauchy-Schwarz inequality. No physics axioms needed.
 
-    THE CORE CLAIM:
     For ANY correlators e00, e01, e10, e11 satisfying the NPA-1 minor
     constraints (e00^2 + e01^2 <= 1, e10^2 + e11^2 <= 1), the CHSH
     expression S = e00 + e01 + e10 - e11 satisfies S^2 <= 8.
 
-    PHYSICAL INTERPRETATION:
     The Tsirelson bound is not a property of quantum mechanics specifically --
     it's a property of ANY correlation matrix satisfying PSD minor constraints.
     Quantum mechanics happens to saturate this bound (achievable at 1/sqrt(2)),
     but the bound itself is purely algebraic.
 
-    FALSIFICATION:
     Find correlators satisfying the row constraints where S^2 > 8. This would
     require violating the Cauchy-Schwarz inequality (a + b + c - d)^2 <=
     4(a^2 + b^2 + c^2 + d^2), which is a sum-of-squares identity.
@@ -33,9 +29,8 @@ Require Import Coq.micromega.Psatz.
 
 Local Open Scope R_scope.
 
-(** =========================================================================
+(**
     CORE LEMMA: Cauchy-Schwarz for CHSH
-    =========================================================================
     
     (a + b + c - d)² ≤ 4(a² + b² + c² + d²)
     
@@ -54,7 +49,6 @@ Proof.
     apply Rmult_le_pos; lra.
 Qed.
 
-(** [cauchy_schwarz_chsh]: formal specification. *)
 Lemma cauchy_schwarz_chsh :
   forall a b c d : R,
     (a + b + c - d) * (a + b + c - d) <= 4 * (a*a + b*b + c*c + d*d).
@@ -97,11 +91,10 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    MAIN THEOREM: Row bounds imply Tsirelson bound
-    ========================================================================= *)
+(**
+    MAIN Row bounds imply Tsirelson bound
+    *)
 (* SAFE: Tsirelson bound in squared form: S² ≤ 8 equivalent to |S| ≤ 2√2 *)
-(** [tsirelson_from_row_bounds]: formal specification. *)
 Theorem tsirelson_from_row_bounds :
   forall e00 e01 e10 e11 : R,
     (* Row constraints from NPA-1 with marginals = 0 *)
@@ -120,12 +113,11 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
+(**
     COROLLARIES WITH STANDARD NOTATION
-    
-    NOTE: These are definitional lemmas - pure algebra, not physics analogies.
+ These are definitional lemmas - pure algebra, not physics analogies.
     The CHSH acronym is historical nomenclature for the expression e00+e01+e10-e11.
-    ========================================================================= *)
+    *)
 
 (** Definitional lemma: CHSH is just the algebraic expression e00+e01+e10-e11 *)
 Definition CHSH (e00 e01 e10 e11 : R) : R := e00 + e01 + e10 - e11.
@@ -141,13 +133,12 @@ Proof.
   apply tsirelson_from_row_bounds; assumption.
 Qed.
 
-(** =========================================================================
+(**
     ABSOLUTE VALUE FORM: |S| ≤ √8 = 2√2
-    ========================================================================= *)
+    *)
 
 Definition sqrt8 : R := sqrt 8.
 
-(** [sqrt8_squared]: formal specification. *)
 Lemma sqrt8_squared : sqrt8 * sqrt8 = 8.
 Proof.
   unfold sqrt8. rewrite sqrt_sqrt; [reflexivity | lra].
@@ -184,11 +175,10 @@ Proof.
   exact Hsq.
 Qed.
 
-(** =========================================================================
+(**
     ACHIEVABILITY: The bound 2√2 is tight
-    
-    NOTE: Definitional lemma - pure algebra computation.
-    ========================================================================= *)
+ Definitional lemma - pure algebra computation.
+    *)
 
 (** Definition of 1/sqrt(2) *)
 Definition sqrt2inv : R := 1 / sqrt 2.
@@ -197,7 +187,6 @@ Definition sqrt2inv : R := 1 / sqrt 2.
 Lemma sqrt2_pos : sqrt 2 > 0.
 Proof. apply sqrt_lt_R0. lra. Qed.
 
-(** [sqrt2inv_squared]: formal specification. *)
 Lemma sqrt2inv_squared : sqrt2inv * sqrt2inv = 1/2.
 Proof.
   unfold sqrt2inv.
@@ -217,7 +206,6 @@ Proof.
   unfold CHSH. ring.
 Qed.
 
-(** [four_over_sqrt2]: formal specification. *)
 Lemma four_over_sqrt2 : 4 * sqrt2inv = sqrt8.
 Proof.
   unfold sqrt2inv, sqrt8.
@@ -254,9 +242,9 @@ Proof.
   - rewrite optimal_chsh_value, four_over_sqrt2. reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     CONNECTION TO NPA-1 MINOR CONSTRAINTS
-    ========================================================================= *)
+    *)
 
 Definition minor_constraint_zero_marginal (e1 e2 : R) : Prop :=
   1 - e1*e1 - e2*e2 >= 0.
@@ -296,12 +284,8 @@ Proof.
   - apply minor_implies_row_bound. exact Hminor2.
 Qed.
 
-(** =========================================================================
+(**
     SUMMARY: TSIRELSON BOUND FROM PURE ALGEBRA
-    =========================================================================
-    
-    MAIN RESULTS:
-    
     1. tsirelson_from_row_bounds: 
        Row bounds (e00² + e01² ≤ 1, e10² + e11² ≤ 1) imply S² ≤ 8
        
@@ -325,5 +309,5 @@ Qed.
     THE TSIRELSON BOUND IS A THEOREM OF PURE ALGEBRA.
     No quantum mechanics, no Hilbert spaces, no tensor products.
     Just accounting constraints on correlation matrices.
-    ========================================================================= *)
+    *)
 

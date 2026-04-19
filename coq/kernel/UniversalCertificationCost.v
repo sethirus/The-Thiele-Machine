@@ -1,103 +1,30 @@
-(** UniversalCertificationCost.v
-    ======================================================================
-    UNIVERSAL NO FREE INSIGHT: ANY SOUND CERTIFICATION MECHANISM COSTS
+(** UniversalCertificationCost: any sound certification mechanism costs.
 
-    THE GAP THIS CLOSES
-    ======================================================================
-    AbstractNoFI.v proves NoFI for AbstractCertMachine — parameterized over
-    STATE TYPE but fixed to vm_instruction as the instruction type.
-    "Universal" there means: any machine using Thiele's instruction vocabulary.
+    This file pushes No Free Insight one layer more abstract. AbstractNoFI.v is
+    still tied to the Thiele instruction vocabulary. Here the state type and the
+    instruction type are both left abstract, and the theorem only asks for one
+    premise: if a single step changes the system from uncertified to certified,
+    that step has to cost at least 1.
 
-    THIS FILE proves NoFI for CertificationSystem — parameterized over BOTH
-    state type AND instruction type.  The instruction vocabulary is fully
-    abstract.  No reference to vm_instruction, VMState, or Thiele at all.
+    That premise is intentionally small. It does not assume monotonicity of the
+    certificate, meaningful witnesses, or tight optimal cost. It only says that
+    the instant of certification cannot be free. From that, the trace-level
+    theorem follows by induction.
 
-    THE CLAIM
-    ======================================================================
-    THEOREM (universal_nfi_any_substrate):
-
-      For any computational system CS with:
-        A2. cs_cert_costs: going from uncertified → certified in one step
-            requires the instruction cost to be ≥ 1,
-
-      executing ANY trace from an uncertified initial state to a certified
-      final state must have total cost ≥ 1.
-
-    This is substrate-independent.  The instruction type is a Coq Type —
-    it could be vm_instruction, a proof term, a Bitcoin transaction, a
-    photon absorption, or anything else with a cost function.
-
-    THE MINIMUM AXIOM
-    ======================================================================
-    A2 alone is sufficient for the base claim.  It says:
-
-        ∀ s i,  cs_cert s = false  →
-                cs_cert (cs_step s i) = true  →
-                cs_cost i ≥ 1
-
-    In words: "You cannot certify in one step for free."
-
-    This is weaker than it looks.  It does NOT say:
-      - Cert is monotone (once certified, always certified)
-      - The witness is meaningful
-      - The cost is tight
-
-    It says only: the moment of certification has a positive price tag.
-
-    The universal theorem (trace-level, any length) follows from A2 alone
-    by induction on the trace.
-
-    THE THIELE INSTANTIATION
-    ======================================================================
-    The Thiele VM instantiates CertificationSystem TWICE:
-
-    Instance 1 (csr_cert_addr channel):
-      cs_cert   := thiele_cert_bool (csr_cert_addr ≠ 0)
-      cs_step   := vm_apply
-      cs_cost   := instruction_cost
-      A2 discharged by: no_free_certification (from AbstractNoFI.v)
-
-    Instance 2 (vm_certified channel):
-      cs_cert   := (fun s => s.(vm_certified))
-      cs_step   := vm_apply
-      cs_cost   := instruction_cost
-      A2 discharged by: no_free_certification_certified (from AbstractNoFI.v)
-
-    Both instances are fully proven (zero Admitted).
-
-    WHAT COMES NEXT (Axiom 5)
-    ======================================================================
-    This file closes the base gap: certification costs ≥ 1.
-    The next challenge is the QUANTITATIVE gap:
-
-        certification costs ≥ K(certificate)
-
-    where K is the Kolmogorov complexity (or information content) of the
-    certificate.  That would say: you can't compress the cost of insight
-    below the information content of what you learn.
-
-    Axiom 5 will require adding a witness complexity measure to
-    CertificationSystem.  This file provides the foundation.
-
-    STATUS: Zero Admitted.  Zero project-local axioms.
-    ======================================================================
-*)
+    The point is that this base theorem is substrate-independent. If someone has
+    any certification system with a step function and a cost function, this
+    theorem applies once they pay for that premise. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
 
-(** =========================================================================
-    PART 1: THE ABSTRACT CERTIFICATION SYSTEM
-    =========================================================================
+(**
 
-    CertificationSystem: fully parameterized over BOTH state type AND
-    instruction type.  No reference to vm_instruction.
-
-    THE SINGLE AXIOM (A2):
-    A certification step — one that moves cert from false to true —
-    must have cost ≥ 1.  This is the only axiom needed for the base theorem.
+  CertificationSystem is parameterized over both state and instruction type.
+  The only base premise is A2: a step that flips certification from false to
+  true has to cost at least 1.
 *)
 
 Record CertificationSystem := mk_cert_system {
@@ -137,10 +64,6 @@ Record CertificationSystem := mk_cert_system {
       cs_cost i >= 1;
 }.
 
-(** =========================================================================
-    PART 2: TRACE EXECUTION AND TOTAL COST
-    =========================================================================
-*)
 
 (** Execute a list of instructions on a CertificationSystem.
     Left-fold: instructions applied in list order. *)
@@ -160,9 +83,7 @@ Fixpoint cs_total_cost (CS : CertificationSystem)
   | i :: rest => cs_cost CS i + cs_total_cost CS rest
   end.
 
-(** =========================================================================
-    PART 3: THE UNIVERSAL THEOREM
-    =========================================================================
+(**
 
     universal_nfi_any_substrate:
 
@@ -170,7 +91,6 @@ Fixpoint cs_total_cost (CS : CertificationSystem)
     any trace from an uncertified initial state to a certified final state
     has total cost ≥ 1.
 
-    PROOF STRUCTURE:
     Induction on the trace.
     - Base: empty trace — cert cannot go from false to true → contradiction.
     - Step (i :: rest):
@@ -181,8 +101,7 @@ Fixpoint cs_total_cost (CS : CertificationSystem)
           → cert must be set somewhere in rest.
           → IH on rest gives total_cost rest ≥ 1.
           → total_cost (i::rest) = cost i + total_cost rest ≥ 0 + 1 = 1.
-
-    NOTE: The proof does NOT require cert monotonicity.
+ The proof does NOT require cert monotonicity.
     The single axiom A2 (cs_cert_costs) is sufficient.
 *)
 
@@ -231,9 +150,7 @@ Proof.
   subst trace. simpl in Htrue. rewrite Hfalse in Htrue. discriminate.
 Qed.
 
-(** =========================================================================
-    PART 4: THE THIELE VM AS AN INSTANCE — CHANNEL A
-    =========================================================================
+(**
 
     Instantiation of CertificationSystem for the Thiele VM's
     csr_cert_addr channel (thiele_cert_bool = csr_cert_addr ≠ 0).
@@ -270,9 +187,7 @@ Proof.
   exact (universal_nfi_any_substrate thiele_cert_addr_system trace s0 Hfalse Htrue).
 Qed.
 
-(** =========================================================================
-    PART 5: THE THIELE VM AS AN INSTANCE — CHANNEL B
-    =========================================================================
+(**
 
     Instantiation for the vm_certified channel (CERTIFY opcode).
 
@@ -305,9 +220,7 @@ Proof.
   exact (universal_nfi_any_substrate thiele_certified_system trace s0 Hfalse Htrue).
 Qed.
 
-(** =========================================================================
-    PART 6: WHAT THE UNIVERSAL THEOREM SAYS
-    =========================================================================
+(**
 
     The theorem is substrate-independent in the following sense:
 
@@ -333,11 +246,8 @@ Qed.
 
     So A2 is exactly the right minimal condition.
 
-    =========================================================================
-    STATUS: Zero Admitted.  Zero project-local axioms beyond cs_cert_costs,
     which is a STRUCTURAL REQUIREMENT of CertificationSystem, not an axiom
     about any particular system.  Each instance discharges it by proof.
-    =========================================================================
 
     NEXT: Axiom 5 — quantitative bound.
     The gap remaining after this file:
@@ -350,9 +260,7 @@ Qed.
     That is the content of Axiom 5 and the next phase of work.
 *)
 
-(** =========================================================================
-    PART 7: REPRESENTATION THEOREM — SIMULATING CERTIFICATION SYSTEMS
-    =========================================================================
+(**
 
     Any CertificationSystem with a simulation morphism into the Thiele VM
     is "faithfully represented" by Thiele:
@@ -437,9 +345,7 @@ Definition thiele_self_simulating : SimulatingCertificationSystem :=
      scs_cost_preserved := fun _ => le_n _ ;
      scs_cert_reflects  := fun _ => eq_refl |}.
 
-(** =========================================================================
-    PART 8: CERTIFIED-COST MACHINE CATEGORY AND INITIALITY
-    =========================================================================
+(**
 
     Defines a category of certified-cost machines (objects = CertCostMachine,
     morphisms = CertCostMorphism) and proves that the Thiele VM is an

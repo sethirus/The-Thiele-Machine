@@ -1,6 +1,5 @@
-(** =========================================================================
+(**
     MuShannonQuantitative: The Correct Quantitative Shannon Bound
-    =========================================================================
 
     WHAT IS PROVEN (no admits, no axioms):
 
@@ -19,14 +18,15 @@
        IF cert_setter_executions(fuel, trace, s) >= log2(n) (the decision
        tree hypothesis), THEN delta_mu(s) >= log2(n).
 
-    WHY MuShannonConjecture IS FALSE IN GENERAL:
+    WHY THE OLD MuShannonConjecture ARGUMENT IS NOT CLOSED:
 
     cert_addr is SET (not accumulated) to ascii_checksum(payload) where
     the payload is FIXED in the instruction encoding, independent of the
-    initial state. Branching (JNEZ etc.) determines which cert instruction
-    each state reaches. COUNTEREXAMPLE: a trace that branches 4 ways with
-    one EMIT per branch separates 4 states with delta_mu = 1 per state,
-    but log2(4) = 2 > 1 = delta_mu. So Conj fails for n > 2.
+    initial state. Branching (JNEZ etc.) determines which cert instruction each
+    state reaches. Under the current bit-priced EMIT rule, the old unit-cost
+    counterexample no longer has the stated numbers: a one-byte EMIT pays 9
+    mu, not 1. This file therefore proves only the trace-level and conditional
+    bounds below; it does not claim an unconditional individual Shannon bound.
 
     THE CORRECT BOUNDS:
     - Trace level: count_cert_addr_setters(trace) >= n   [proven here]
@@ -35,7 +35,7 @@
 
     INQUISITOR NOTE: proof-connectivity -- quantitative Shannon bound
     connecting cert_addr range to separation count.
-    ========================================================================= *)
+    *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool Strings.String.
 Import ListNotations.
@@ -45,13 +45,11 @@ From Kernel Require Import VMStep.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import MuLedgerConservation.
 
-(** =========================================================================
-    SECTION 1: CERT_ADDR RANGE
-    =========================================================================
+(**
     cert_addr is SET (not accumulated) by EMIT, REVEAL, LJOIN, and LASSERT
-    (when the SAT certificate passes). The range of possible final values is
+    (when the SAT witness package passes). The range of possible final values is
     determined statically by the instruction payloads in the trace.
-    ========================================================================= *)
+    *)
 
 (** cert_addr_value_of: The value this instruction would set cert_addr to.
     Returns None for instructions that do not modify cert_addr.
@@ -112,12 +110,10 @@ Proof.
       * apply IH with i; assumption.
 Qed.
 
-(** =========================================================================
-    SECTION 2: HELPER LEMMAS FOR advance_state / jump_state
-    =========================================================================
+(**
     All state-advancing functions pass vm_csrs directly, so cert_addr of
     the resulting state is exactly csrs.(csr_cert_addr).
-    ========================================================================= *)
+    *)
 
 Lemma csr_set_status_cert_addr :
   forall csrs status,
@@ -164,12 +160,10 @@ Lemma advance_state_reveal_cert_addr :
     csrs.(csr_cert_addr).
 Proof. intros. unfold advance_state_reveal. reflexivity. Qed.
 
-(** =========================================================================
-    SECTION 3: THE SINGLE-STEP CERT_ADDR LEMMA
-    =========================================================================
+(**
     After vm_apply, cert_addr is either preserved or set to the value
     from cert_addr_value_of. This proof covers all 47 instructions.
-    ========================================================================= *)
+    *)
 
 Lemma vm_apply_cert_addr_cases :
   forall s i,
@@ -218,7 +212,7 @@ Proof.
        rewrite csr_set_cert_addr_val; reflexivity);
   (* certify / chsh_trial-true: inline record, definitionally equal *)
   try (left; reflexivity);
-  (* advance_state cases: mdlacc, pdiscover, oracle_halts, halt, checkpoint, write_port *)
+  (* advance_state cases: mdlacc, pdiscover, halt, checkpoint, write_port *)
   try (left; cbv zeta; rewrite advance_state_cert_addr; reflexivity);
   (* advance_state_rm cases: xfer, load/store/ALU, read_port, heap, and/or/shl/shr/mul/lui *)
   try (left; cbv zeta; rewrite advance_state_rm_cert_addr; reflexivity);
@@ -299,12 +293,10 @@ Proof.
          | reflexivity ]).
 Qed.
 
-(** =========================================================================
-    SECTION 4: THE MULTI-STEP CERT_ADDR RANGE LEMMA
-    =========================================================================
+(**
     By induction on fuel: cert_addr is always the initial value or in
     cert_addr_range(trace).
-    ========================================================================= *)
+    *)
 
 Lemma run_vm_cert_addr_in_range :
   forall fuel trace s,
@@ -326,12 +318,10 @@ Proof.
     + left. reflexivity.
 Qed.
 
-(** =========================================================================
-    SECTION 5: COMBINATORIAL PIGEONHOLE LEMMA
-    =========================================================================
+(**
     A NoDup list included in another list has length <= the other's length.
     This is the key combinatorial fact; m may have duplicate elements.
-    ========================================================================= *)
+    *)
 
 (** Helper: x ≠ a, x ∈ l implies x ∈ (remove a l). *)
 Lemma in_remove_intro :
@@ -431,14 +421,12 @@ Proof.
     lia.
 Qed.
 
-(** =========================================================================
-    SECTION 6: MAIN THEOREM
-    =========================================================================
+(**
     n states with distinct nonzero cert_addr values (all starting from 0)
     require at least n cert_addr-setting instructions in the trace.
-    ========================================================================= *)
+    *)
 
-(** MAIN THEOREM: n-way cert_addr separation requires >= n cert_addr setters.
+(** MAIN n-way cert_addr separation requires >= n cert_addr setters.
 
     This bounds the TRACE-LEVEL count of cert_addr-setting instructions,
     NOT the delta_mu of any specific execution. *)
@@ -469,11 +457,9 @@ Proof.
   - apply nodup_length_le.
 Qed.
 
-(** =========================================================================
-    SECTION 7: INFO-PRICING BOUND
-    =========================================================================
+(**
     Under info-pricing, cert_addr-setting instructions each cost >= 1.
-    ========================================================================= *)
+    *)
 
 (** Under info-pricing, the total cost of cert_addr setters >= their count. *)
 Lemma cert_addr_setters_priced :
@@ -519,13 +505,11 @@ Proof.
   - apply cert_addr_setters_priced. exact Hpriced.
 Qed.
 
-(** =========================================================================
-    SECTION 8: CONDITIONAL INDIVIDUAL SHANNON BOUND
-    =========================================================================
+(**
     Δμ(s_init) >= log2(n) is conditional: it requires the "decision tree
     hypothesis" that cert_setter_executions(s_init) >= log2(n). Under
     that hypothesis, the bound follows from the conservation law.
-    ========================================================================= *)
+    *)
 
 Fixpoint cert_setter_executions_local (fuel : nat) (trace : list vm_instruction)
     (s : VMState) : nat :=
@@ -562,7 +546,7 @@ Proof.
   - lia.
 Qed.
 
-(** THEOREM: The Conditional Individual Shannon Bound.
+(** The Conditional Individual Shannon Bound.
     IF the program is structured as a binary decision tree for s_init
     (cert_setter_executions >= log2(n)), THEN delta_mu >= log2(n).
     This is the individual bound; it does not follow from the VM alone. *)
@@ -576,21 +560,21 @@ Proof.
   pose proof (cert_executions_le_delta_mu_local fuel trace s Hpriced). lia.
 Qed.
 
-(** =========================================================================
-    SECTION 9: RELATIONSHIP TO MuShannonConjecture
-    =========================================================================
+(**
     The MuShannonConjecture states delta_mu(s_init) >= log2(|Omega|/|Omega'|).
-    This is FALSE for n > 2 under current VM semantics (see file header).
+    This is not proved unconditionally here (see file header).
 
     What IS true (separation_requires_cert_count):
       count_cert_addr_setters(trace) >= n for n-way separation.
 
     The individual bound requires the decision tree hypothesis (Section 8).
-    ========================================================================= *)
+    *)
 
 (** SCOPE: The gap between proven results and the conjecture.
     Proven (trace level): count_cert_addr_setters >= n for n-way separation.
     Proven (conditional): delta_mu >= log2(n) IF cert_executions >= log2(n).
     Not proven (individual, unconditional): delta_mu(s) >= log2(n) for all s.
-    Reason: cert_addr is set by instruction-fixed values; 1 EMIT separates n
-    states via branching with delta_mu = 1, violating log2(n) for n > 2. *)
+    Reason: cert_addr is set by instruction-fixed values; control-flow can
+    choose among static cert-setters, so the trace-level count and a single
+    path's paid cost are different objects. Under bit pricing, any concrete
+    counterexample has to account for payload_bit_length, not a unit EMIT. *)

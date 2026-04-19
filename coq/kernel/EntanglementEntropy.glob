@@ -1,341 +1,341 @@
-DIGEST 34666341bbc054456e061192c71258b4
+DIGEST bafd9b6fca18d4a48289eedf239d5bb9
 FKernel.EntanglementEntropy
-R841:844 Coq.Lists.List <> <> lib
-R846:849 Coq.Bool.Bool <> <> lib
-R851:864 Coq.Arith.PeanoNat <> <> lib
-R866:868 Coq.micromega.Lia <> <> lib
-R878:890 Coq.Lists.List ListNotations <> mod
-R921:927 Kernel.VMState <> <> lib
-R929:934 Kernel.VMStep <> <> lib
-R964:974 Kernel.MuCostModel <> <> lib
-R1004:1025 Kernel.LocalMorphismSemantics <> <> lib
-def 1099:1115 <> psplit_subsystems
-R1127:1140 Kernel.VMState <> PartitionGraph rec
-binder 1120:1120 <> g:1
-binder 1122:1123 <> g':2
-R1155:1162 Kernel.VMState <> ModuleID def
-binder 1146:1151 <> parent:3
-R1181:1184 Coq.Init.Datatypes <> list ind
-R1186:1188 Coq.Init.Datatypes <> nat ind
-binder 1168:1171 <> left:4
-binder 1173:1177 <> right:5
-R1213:1220 Kernel.VMState <> ModuleID def
-binder 1194:1200 <> left_id:6
-binder 1202:1209 <> right_id:7
-R1267:1269 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1235:1246 Kernel.VMState <> graph_psplit def
-R1248:1248 Kernel.EntanglementEntropy <> g:1 var
-R1250:1255 Kernel.EntanglementEntropy <> parent:3 var
-R1257:1260 Kernel.EntanglementEntropy <> left:4 var
-R1262:1266 Kernel.EntanglementEntropy <> right:5 var
-R1270:1273 Coq.Init.Datatypes <> Some constr
-R1275:1275 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1278:1279 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1287:1288 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1297:1297 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R1276:1277 Kernel.EntanglementEntropy <> g':2 var
-R1280:1286 Kernel.EntanglementEntropy <> left_id:6 var
-R1289:1296 Kernel.EntanglementEntropy <> right_id:7 var
-def 1437:1447 <> cut_edge_1d
-R1463:1466 Coq.Init.Datatypes <> list ind
-R1468:1470 Coq.Init.Datatypes <> nat ind
-binder 1450:1453 <> left:8
-binder 1455:1459 <> right:9
-R1478:1480 Coq.Init.Datatypes <> nat ind
-binder 1474:1474 <> x:10
-R1485:1488 Coq.Init.Datatypes <> bool ind
-R1495:1497 Coq.Init.Datatypes <> orb def
-R1562:1565 Coq.Init.Datatypes <> andb def
-R1591:1602 Kernel.VMState <> nat_list_mem def
-R1605:1605 Coq.Init.Datatypes <> S constr
-R1607:1607 Kernel.EntanglementEntropy <> x:10 var
-R1610:1613 Kernel.EntanglementEntropy <> left:8 var
-R1568:1579 Kernel.VMState <> nat_list_mem def
-R1581:1581 Kernel.EntanglementEntropy <> x:10 var
-R1583:1587 Kernel.EntanglementEntropy <> right:9 var
-R1500:1503 Coq.Init.Datatypes <> andb def
-R1528:1539 Kernel.VMState <> nat_list_mem def
-R1542:1542 Coq.Init.Datatypes <> S constr
-R1544:1544 Kernel.EntanglementEntropy <> x:10 var
-R1547:1551 Kernel.EntanglementEntropy <> right:9 var
-R1506:1517 Kernel.VMState <> nat_list_mem def
-R1519:1519 Kernel.EntanglementEntropy <> x:10 var
-R1521:1524 Kernel.EntanglementEntropy <> left:8 var
-def 1695:1710 <> boundary_size_1d
-R1726:1729 Coq.Init.Datatypes <> list ind
-R1731:1733 Coq.Init.Datatypes <> nat ind
-binder 1713:1716 <> left:11
-binder 1718:1722 <> right:12
-R1738:1740 Coq.Init.Datatypes <> nat ind
-R1747:1757 Coq.Lists.List <> length abbrev
-R1760:1765 Coq.Lists.List <> filter def
-R1797:1812 Kernel.VMState <> normalize_region def
-R1819:1822 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R1815:1818 Kernel.EntanglementEntropy <> left:11 var
-R1823:1827 Kernel.EntanglementEntropy <> right:12 var
-R1768:1778 Kernel.EntanglementEntropy <> cut_edge_1d def
-R1780:1783 Kernel.EntanglementEntropy <> left:11 var
-R1785:1789 Kernel.EntanglementEntropy <> right:12 var
-def 1916:1928 <> joint_support
-R1933:1936 Coq.Init.Datatypes <> list ind
-R1942:1944 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R1939:1941 Coq.Init.Datatypes <> nat ind
-R1945:1947 Coq.Init.Datatypes <> nat ind
-def 2070:2096 <> partial_trace_right_support
-R2109:2121 Kernel.EntanglementEntropy <> joint_support def
-binder 2099:2105 <> support:13
-R2126:2129 Coq.Init.Datatypes <> list ind
-R2131:2133 Coq.Init.Datatypes <> nat ind
-R2140:2144 Coq.Lists.List <> nodup def
-R2158:2160 Coq.Lists.List <> map def
-R2166:2172 Kernel.EntanglementEntropy <> support:13 var
-R2162:2164 Coq.Init.Datatypes <> fst def
-R2146:2155 Coq.Arith.PeanoNat Nat eq_dec thm
-def 2240:2265 <> partial_trace_left_support
-R2278:2290 Kernel.EntanglementEntropy <> joint_support def
-binder 2268:2274 <> support:14
-R2295:2298 Coq.Init.Datatypes <> list ind
-R2300:2302 Coq.Init.Datatypes <> nat ind
-R2309:2313 Coq.Lists.List <> nodup def
-R2327:2329 Coq.Lists.List <> map def
-R2335:2341 Kernel.EntanglementEntropy <> support:14 var
-R2331:2333 Coq.Init.Datatypes <> snd def
-R2315:2324 Coq.Arith.PeanoNat Nat eq_dec thm
-def 2422:2442 <> reduced_state_support
-R2455:2467 Kernel.EntanglementEntropy <> joint_support def
-binder 2445:2451 <> support:15
-R2472:2475 Coq.Init.Datatypes <> list ind
-R2477:2479 Coq.Init.Datatypes <> nat ind
-R2486:2512 Kernel.EntanglementEntropy <> partial_trace_right_support def
-R2514:2520 Kernel.EntanglementEntropy <> support:15 var
-def 2678:2705 <> entanglement_entropy_vn_bits
-R2718:2730 Kernel.EntanglementEntropy <> joint_support def
-binder 2708:2714 <> support:16
-R2735:2737 Coq.Init.Datatypes <> nat ind
-R2744:2754 Coq.Arith.PeanoNat Nat log2_up def
-R2757:2767 Coq.Lists.List <> length abbrev
-R2770:2790 Kernel.EntanglementEntropy <> reduced_state_support def
-R2792:2798 Kernel.EntanglementEntropy <> support:16 var
-def 2994:3015 <> boundary_local_support
-R3033:3036 Coq.Init.Datatypes <> list ind
-R3038:3040 Coq.Init.Datatypes <> nat ind
-binder 3020:3023 <> left:17
-binder 3025:3029 <> right:18
-R3056:3068 Kernel.EntanglementEntropy <> joint_support def
-binder 3046:3052 <> support:19
-R3126:3131 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3083:3093 Coq.Lists.List <> length abbrev
-R3096:3116 Kernel.EntanglementEntropy <> reduced_state_support def
-R3118:3124 Kernel.EntanglementEntropy <> support:19 var
-R3132:3138 Coq.Arith.PeanoNat Nat pow def
-R3143:3158 Kernel.EntanglementEntropy <> boundary_size_1d def
-R3160:3163 Kernel.EntanglementEntropy <> left:17 var
-R3165:3169 Kernel.EntanglementEntropy <> right:18 var
-prf 3180:3194 <> length_nodup_le
-binder 3207:3208 <> xs:20
-R3248:3251 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3215:3225 Coq.Lists.List <> length abbrev
-R3228:3232 Coq.Lists.List <> nodup def
-R3245:3246 Kernel.EntanglementEntropy <> xs:20 var
-R3234:3243 Coq.Arith.PeanoNat Nat eq_dec thm
-R3252:3262 Coq.Lists.List <> length abbrev
-R3264:3265 Kernel.EntanglementEntropy <> xs:20 var
-R3332:3337 Coq.Lists.List <> in_dec thm
-R3339:3348 Coq.Arith.PeanoNat Nat eq_dec thm
-R3332:3337 Coq.Lists.List <> in_dec thm
-R3339:3348 Coq.Arith.PeanoNat Nat eq_dec thm
-prf 3444:3480 <> partial_trace_right_support_length_le
-binder 3493:3499 <> support:21
-R3555:3558 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3506:3516 Coq.Lists.List <> length abbrev
-R3519:3545 Kernel.EntanglementEntropy <> partial_trace_right_support def
-R3547:3553 Kernel.EntanglementEntropy <> support:21 var
-R3559:3569 Coq.Lists.List <> length abbrev
-R3571:3577 Kernel.EntanglementEntropy <> support:21 var
-R3613:3639 Kernel.EntanglementEntropy <> partial_trace_right_support def
-R3651:3662 Coq.Arith.PeanoNat Nat le_trans thm
-R3651:3662 Coq.Arith.PeanoNat Nat le_trans thm
-R3675:3689 Kernel.EntanglementEntropy <> length_nodup_le thm
-R3675:3689 Kernel.EntanglementEntropy <> length_nodup_le thm
-R3704:3713 Coq.Lists.List <> map_length thm
-R3704:3713 Coq.Lists.List <> map_length thm
-R3704:3713 Coq.Lists.List <> map_length thm
-prf 3894:3932 <> graph_psplit_success_partition_or_empty
-binder 3945:3945 <> g:22
-binder 3947:3948 <> g':23
-binder 3950:3955 <> parent:24
-binder 3957:3960 <> left:25
-binder 3962:3966 <> right:26
-binder 3968:3974 <> left_id:27
-binder 3976:3983 <> right_id:28
-binder 3985:3985 <> m:29
-R4022:4029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4013:4015 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3992:4003 Kernel.VMState <> graph_lookup def
-R4005:4005 Kernel.EntanglementEntropy <> g:22 var
-R4007:4012 Kernel.EntanglementEntropy <> parent:24 var
-R4016:4019 Coq.Init.Datatypes <> Some constr
-R4021:4021 Kernel.EntanglementEntropy <> m:29 var
-R4093:4100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4062:4064 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4030:4041 Kernel.VMState <> graph_psplit def
-R4043:4043 Kernel.EntanglementEntropy <> g:22 var
-R4045:4050 Kernel.EntanglementEntropy <> parent:24 var
-R4052:4055 Kernel.EntanglementEntropy <> left:25 var
-R4057:4061 Kernel.EntanglementEntropy <> right:26 var
-R4065:4068 Coq.Init.Datatypes <> Some constr
-R4070:4070 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4073:4074 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4082:4083 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4092:4092 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R4071:4072 Kernel.EntanglementEntropy <> g':23 var
-R4075:4081 Kernel.EntanglementEntropy <> left_id:27 var
-R4084:4091 Kernel.EntanglementEntropy <> right_id:28 var
-R4220:4227 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R4213:4215 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4101:4103 Coq.Init.Datatypes <> orb def
-R4164:4170 Coq.Arith.PeanoNat Nat eqb def
-R4173:4183 Coq.Lists.List <> length abbrev
-R4186:4201 Kernel.VMState <> normalize_region def
-R4203:4207 Kernel.EntanglementEntropy <> right:26 var
-R4106:4112 Coq.Arith.PeanoNat Nat eqb def
-R4115:4125 Coq.Lists.List <> length abbrev
-R4128:4143 Kernel.VMState <> normalize_region def
-R4145:4148 Kernel.EntanglementEntropy <> left:25 var
-R4216:4219 Coq.Init.Datatypes <> true constr
-R4322:4324 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4228:4242 Kernel.VMState <> partition_valid def
-R4245:4257 Kernel.VMState <> module_region proj
-R4259:4259 Kernel.EntanglementEntropy <> m:29 var
-R4269:4284 Kernel.VMState <> normalize_region def
-R4286:4289 Kernel.EntanglementEntropy <> left:25 var
-R4299:4314 Kernel.VMState <> normalize_region def
-R4316:4320 Kernel.EntanglementEntropy <> right:26 var
-R4325:4328 Coq.Init.Datatypes <> true constr
-R4414:4425 Kernel.VMState <> graph_psplit def
-R4479:4481 Coq.Init.Datatypes <> orb def
-R4550:4556 Coq.Arith.PeanoNat Nat eqb def
-R4559:4569 Coq.Lists.List <> length abbrev
-R4572:4587 Kernel.VMState <> normalize_region def
-R4484:4490 Coq.Arith.PeanoNat Nat eqb def
-R4493:4503 Coq.Lists.List <> length abbrev
-R4506:4521 Kernel.VMState <> normalize_region def
-R4479:4481 Coq.Init.Datatypes <> orb def
-R4550:4556 Coq.Arith.PeanoNat Nat eqb def
-R4559:4569 Coq.Lists.List <> length abbrev
-R4572:4587 Kernel.VMState <> normalize_region def
-R4484:4490 Coq.Arith.PeanoNat Nat eqb def
-R4493:4503 Coq.Lists.List <> length abbrev
-R4506:4521 Kernel.VMState <> normalize_region def
-R4650:4664 Kernel.VMState <> partition_valid def
-R4667:4679 Kernel.VMState <> module_region proj
-R4691:4706 Kernel.VMState <> normalize_region def
-R4715:4730 Kernel.VMState <> normalize_region def
-R4650:4664 Kernel.VMState <> partition_valid def
-R4667:4679 Kernel.VMState <> module_region proj
-R4691:4706 Kernel.VMState <> normalize_region def
-R4715:4730 Kernel.VMState <> normalize_region def
-prf 4943:4976 <> entanglement_entropy_area_law_bits
-binder 4989:4992 <> left:30
-binder 4994:4998 <> right:31
-binder 5000:5006 <> support:32
-R5054:5061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5013:5034 Kernel.EntanglementEntropy <> boundary_local_support def
-R5036:5039 Kernel.EntanglementEntropy <> left:30 var
-R5041:5045 Kernel.EntanglementEntropy <> right:31 var
-R5047:5053 Kernel.EntanglementEntropy <> support:32 var
-R5098:5101 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5062:5089 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R5091:5097 Kernel.EntanglementEntropy <> support:32 var
-R5102:5117 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5119:5122 Kernel.EntanglementEntropy <> left:30 var
-R5124:5128 Kernel.EntanglementEntropy <> right:31 var
-R5183:5204 Kernel.EntanglementEntropy <> boundary_local_support def
-R5207:5234 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R5254:5264 Coq.Lists.List <> length abbrev
-R5267:5287 Kernel.EntanglementEntropy <> reduced_state_support def
-R5254:5264 Coq.Lists.List <> length abbrev
-R5267:5287 Kernel.EntanglementEntropy <> reduced_state_support def
-R5330:5347 Coq.Arith.PeanoNat Nat log2_up_nonpos thm
-R5330:5347 Coq.Arith.PeanoNat Nat log2_up_nonpos thm
-R5330:5347 Coq.Arith.PeanoNat Nat log2_up_nonpos thm
-R5381:5399 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
-R5408:5408 Coq.Init.Datatypes <> S constr
-R5420:5435 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5456:5468 Coq.Arith.PeanoNat Nat lt_0_succ thm
-R5381:5399 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
-R5408:5408 Coq.Init.Datatypes <> S constr
-R5420:5435 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5456:5468 Coq.Arith.PeanoNat Nat lt_0_succ thm
-R5494:5498 Coq.Init.Logic <> proj1 thm
-R5494:5498 Coq.Init.Logic <> proj1 thm
-prf 5609:5649 <> psplit_entanglement_entropy_area_law_bits
-binder 5662:5662 <> g:33
-binder 5664:5665 <> g':34
-binder 5667:5672 <> parent:35
-binder 5674:5677 <> left:36
-binder 5679:5683 <> right:37
-binder 5685:5691 <> left_id:38
-binder 5693:5700 <> right_id:39
-binder 5702:5708 <> support:40
-R5772:5779 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5715:5731 Kernel.EntanglementEntropy <> psplit_subsystems def
-R5733:5733 Kernel.EntanglementEntropy <> g:33 var
-R5735:5736 Kernel.EntanglementEntropy <> g':34 var
-R5738:5743 Kernel.EntanglementEntropy <> parent:35 var
-R5745:5748 Kernel.EntanglementEntropy <> left:36 var
-R5750:5754 Kernel.EntanglementEntropy <> right:37 var
-R5756:5762 Kernel.EntanglementEntropy <> left_id:38 var
-R5764:5771 Kernel.EntanglementEntropy <> right_id:39 var
-R5859:5866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5780:5801 Kernel.EntanglementEntropy <> boundary_local_support def
-R5804:5819 Kernel.VMState <> normalize_region def
-R5821:5824 Kernel.EntanglementEntropy <> left:36 var
-R5828:5843 Kernel.VMState <> normalize_region def
-R5845:5849 Kernel.EntanglementEntropy <> right:37 var
-R5852:5858 Kernel.EntanglementEntropy <> support:40 var
-R5903:5910 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5867:5894 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R5896:5902 Kernel.EntanglementEntropy <> support:40 var
-R5911:5926 Kernel.EntanglementEntropy <> boundary_size_1d def
-R5929:5944 Kernel.VMState <> normalize_region def
-R5946:5949 Kernel.EntanglementEntropy <> left:36 var
-R5953:5968 Kernel.VMState <> normalize_region def
-R5970:5974 Kernel.EntanglementEntropy <> right:37 var
-R6060:6093 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
-R6060:6093 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
-prf 6337:6372 <> local_morphism_entropy_area_law_bits
-R6390:6425 Kernel.LocalMorphismSemantics <> SplitMorphism rec
-binder 6386:6386 <> P:41
-R6448:6483 Kernel.LocalMorphismSemantics <> joint_support def
-binder 6438:6444 <> support:42
-R6535:6542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6491:6532 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
-R6534:6534 Kernel.EntanglementEntropy <> P:41 var
-R6607:6614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6543:6544 Coq.Lists.List <> In def
-R6555:6603 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
-R6605:6605 Kernel.EntanglementEntropy <> P:41 var
-R6546:6552 Kernel.EntanglementEntropy <> support:42 var
-R6651:6658 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6615:6642 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
-R6644:6650 Kernel.EntanglementEntropy <> support:42 var
-R6659:6674 Kernel.EntanglementEntropy <> boundary_size_1d def
-R6683:6715 Kernel.LocalMorphismSemantics <> split_left proj
-R6717:6717 Kernel.EntanglementEntropy <> P:41 var
-R6727:6760 Kernel.LocalMorphismSemantics <> split_right proj
-R6762:6762 Kernel.EntanglementEntropy <> P:41 var
-R6809:6842 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
-R6809:6842 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
-R6854:6875 Kernel.EntanglementEntropy <> boundary_local_support def
-R6882:6926 Kernel.LocalMorphismSemantics <> boundary_local_support def
-R6933:6953 Kernel.EntanglementEntropy <> reduced_state_support def
-R6960:7003 Kernel.LocalMorphismSemantics <> reduced_state_support def
-R7010:7036 Kernel.EntanglementEntropy <> partial_trace_right_support def
-R7043:7092 Kernel.LocalMorphismSemantics <> partial_trace_right_support def
-R7099:7114 Kernel.EntanglementEntropy <> boundary_size_1d def
-R7121:7159 Kernel.LocalMorphismSemantics <> boundary_size_1d def
-R7166:7176 Kernel.EntanglementEntropy <> cut_edge_1d def
-R7183:7216 Kernel.LocalMorphismSemantics <> cut_edge_1d def
-R7228:7278 Kernel.LocalMorphismSemantics <> local_morphism_support_bound thm
-R7228:7278 Kernel.LocalMorphismSemantics <> local_morphism_support_bound thm
+R789:792 Coq.Lists.List <> <> lib
+R794:797 Coq.Bool.Bool <> <> lib
+R799:812 Coq.Arith.PeanoNat <> <> lib
+R814:816 Coq.micromega.Lia <> <> lib
+R826:838 Coq.Lists.List ListNotations <> mod
+R869:875 Kernel.VMState <> <> lib
+R877:882 Kernel.VMStep <> <> lib
+R912:922 Kernel.MuCostModel <> <> lib
+R952:973 Kernel.LocalMorphismSemantics <> <> lib
+def 1047:1063 <> psplit_subsystems
+R1075:1088 Kernel.VMState <> PartitionGraph rec
+binder 1068:1068 <> g:1
+binder 1070:1071 <> g':2
+R1103:1110 Kernel.VMState <> ModuleID def
+binder 1094:1099 <> parent:3
+R1129:1132 Coq.Init.Datatypes <> list ind
+R1134:1136 Coq.Init.Datatypes <> nat ind
+binder 1116:1119 <> left:4
+binder 1121:1125 <> right:5
+R1161:1168 Kernel.VMState <> ModuleID def
+binder 1142:1148 <> left_id:6
+binder 1150:1157 <> right_id:7
+R1215:1217 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1183:1194 Kernel.VMState <> graph_psplit def
+R1196:1196 Kernel.EntanglementEntropy <> g:1 var
+R1198:1203 Kernel.EntanglementEntropy <> parent:3 var
+R1205:1208 Kernel.EntanglementEntropy <> left:4 var
+R1210:1214 Kernel.EntanglementEntropy <> right:5 var
+R1218:1221 Coq.Init.Datatypes <> Some constr
+R1223:1223 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1226:1227 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1235:1236 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1245:1245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R1224:1225 Kernel.EntanglementEntropy <> g':2 var
+R1228:1234 Kernel.EntanglementEntropy <> left_id:6 var
+R1237:1244 Kernel.EntanglementEntropy <> right_id:7 var
+def 1385:1395 <> cut_edge_1d
+R1411:1414 Coq.Init.Datatypes <> list ind
+R1416:1418 Coq.Init.Datatypes <> nat ind
+binder 1398:1401 <> left:8
+binder 1403:1407 <> right:9
+R1426:1428 Coq.Init.Datatypes <> nat ind
+binder 1422:1422 <> x:10
+R1433:1436 Coq.Init.Datatypes <> bool ind
+R1443:1445 Coq.Init.Datatypes <> orb def
+R1510:1513 Coq.Init.Datatypes <> andb def
+R1539:1550 Kernel.VMState <> nat_list_mem def
+R1553:1553 Coq.Init.Datatypes <> S constr
+R1555:1555 Kernel.EntanglementEntropy <> x:10 var
+R1558:1561 Kernel.EntanglementEntropy <> left:8 var
+R1516:1527 Kernel.VMState <> nat_list_mem def
+R1529:1529 Kernel.EntanglementEntropy <> x:10 var
+R1531:1535 Kernel.EntanglementEntropy <> right:9 var
+R1448:1451 Coq.Init.Datatypes <> andb def
+R1476:1487 Kernel.VMState <> nat_list_mem def
+R1490:1490 Coq.Init.Datatypes <> S constr
+R1492:1492 Kernel.EntanglementEntropy <> x:10 var
+R1495:1499 Kernel.EntanglementEntropy <> right:9 var
+R1454:1465 Kernel.VMState <> nat_list_mem def
+R1467:1467 Kernel.EntanglementEntropy <> x:10 var
+R1469:1472 Kernel.EntanglementEntropy <> left:8 var
+def 1643:1658 <> boundary_size_1d
+R1674:1677 Coq.Init.Datatypes <> list ind
+R1679:1681 Coq.Init.Datatypes <> nat ind
+binder 1661:1664 <> left:11
+binder 1666:1670 <> right:12
+R1686:1688 Coq.Init.Datatypes <> nat ind
+R1695:1705 Coq.Lists.List <> length abbrev
+R1708:1713 Coq.Lists.List <> filter def
+R1745:1760 Kernel.VMState <> normalize_region def
+R1767:1770 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1763:1766 Kernel.EntanglementEntropy <> left:11 var
+R1771:1775 Kernel.EntanglementEntropy <> right:12 var
+R1716:1726 Kernel.EntanglementEntropy <> cut_edge_1d def
+R1728:1731 Kernel.EntanglementEntropy <> left:11 var
+R1733:1737 Kernel.EntanglementEntropy <> right:12 var
+def 1864:1876 <> joint_support
+R1881:1884 Coq.Init.Datatypes <> list ind
+R1890:1892 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1887:1889 Coq.Init.Datatypes <> nat ind
+R1893:1895 Coq.Init.Datatypes <> nat ind
+def 2018:2044 <> partial_trace_right_support
+R2057:2069 Kernel.EntanglementEntropy <> joint_support def
+binder 2047:2053 <> support:13
+R2074:2077 Coq.Init.Datatypes <> list ind
+R2079:2081 Coq.Init.Datatypes <> nat ind
+R2088:2092 Coq.Lists.List <> nodup def
+R2106:2108 Coq.Lists.List <> map def
+R2114:2120 Kernel.EntanglementEntropy <> support:13 var
+R2110:2112 Coq.Init.Datatypes <> fst def
+R2094:2103 Coq.Arith.PeanoNat Nat eq_dec thm
+def 2188:2213 <> partial_trace_left_support
+R2226:2238 Kernel.EntanglementEntropy <> joint_support def
+binder 2216:2222 <> support:14
+R2243:2246 Coq.Init.Datatypes <> list ind
+R2248:2250 Coq.Init.Datatypes <> nat ind
+R2257:2261 Coq.Lists.List <> nodup def
+R2275:2277 Coq.Lists.List <> map def
+R2283:2289 Kernel.EntanglementEntropy <> support:14 var
+R2279:2281 Coq.Init.Datatypes <> snd def
+R2263:2272 Coq.Arith.PeanoNat Nat eq_dec thm
+def 2370:2390 <> reduced_state_support
+R2403:2415 Kernel.EntanglementEntropy <> joint_support def
+binder 2393:2399 <> support:15
+R2420:2423 Coq.Init.Datatypes <> list ind
+R2425:2427 Coq.Init.Datatypes <> nat ind
+R2434:2460 Kernel.EntanglementEntropy <> partial_trace_right_support def
+R2462:2468 Kernel.EntanglementEntropy <> support:15 var
+def 2626:2653 <> entanglement_entropy_vn_bits
+R2666:2678 Kernel.EntanglementEntropy <> joint_support def
+binder 2656:2662 <> support:16
+R2683:2685 Coq.Init.Datatypes <> nat ind
+R2692:2702 Coq.Arith.PeanoNat Nat log2_up def
+R2705:2715 Coq.Lists.List <> length abbrev
+R2718:2738 Kernel.EntanglementEntropy <> reduced_state_support def
+R2740:2746 Kernel.EntanglementEntropy <> support:16 var
+def 2942:2963 <> boundary_local_support
+R2981:2984 Coq.Init.Datatypes <> list ind
+R2986:2988 Coq.Init.Datatypes <> nat ind
+binder 2968:2971 <> left:17
+binder 2973:2977 <> right:18
+R3004:3016 Kernel.EntanglementEntropy <> joint_support def
+binder 2994:3000 <> support:19
+R3074:3079 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3031:3041 Coq.Lists.List <> length abbrev
+R3044:3064 Kernel.EntanglementEntropy <> reduced_state_support def
+R3066:3072 Kernel.EntanglementEntropy <> support:19 var
+R3080:3086 Coq.Arith.PeanoNat Nat pow def
+R3091:3106 Kernel.EntanglementEntropy <> boundary_size_1d def
+R3108:3111 Kernel.EntanglementEntropy <> left:17 var
+R3113:3117 Kernel.EntanglementEntropy <> right:18 var
+prf 3128:3142 <> length_nodup_le
+binder 3155:3156 <> xs:20
+R3196:3199 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3163:3173 Coq.Lists.List <> length abbrev
+R3176:3180 Coq.Lists.List <> nodup def
+R3193:3194 Kernel.EntanglementEntropy <> xs:20 var
+R3182:3191 Coq.Arith.PeanoNat Nat eq_dec thm
+R3200:3210 Coq.Lists.List <> length abbrev
+R3212:3213 Kernel.EntanglementEntropy <> xs:20 var
+R3280:3285 Coq.Lists.List <> in_dec thm
+R3287:3296 Coq.Arith.PeanoNat Nat eq_dec thm
+R3280:3285 Coq.Lists.List <> in_dec thm
+R3287:3296 Coq.Arith.PeanoNat Nat eq_dec thm
+prf 3392:3428 <> partial_trace_right_support_length_le
+binder 3441:3447 <> support:21
+R3503:3506 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3454:3464 Coq.Lists.List <> length abbrev
+R3467:3493 Kernel.EntanglementEntropy <> partial_trace_right_support def
+R3495:3501 Kernel.EntanglementEntropy <> support:21 var
+R3507:3517 Coq.Lists.List <> length abbrev
+R3519:3525 Kernel.EntanglementEntropy <> support:21 var
+R3561:3587 Kernel.EntanglementEntropy <> partial_trace_right_support def
+R3599:3610 Coq.Arith.PeanoNat Nat le_trans thm
+R3599:3610 Coq.Arith.PeanoNat Nat le_trans thm
+R3623:3637 Kernel.EntanglementEntropy <> length_nodup_le thm
+R3623:3637 Kernel.EntanglementEntropy <> length_nodup_le thm
+R3652:3661 Coq.Lists.List <> map_length thm
+R3652:3661 Coq.Lists.List <> map_length thm
+R3652:3661 Coq.Lists.List <> map_length thm
+prf 3842:3880 <> graph_psplit_success_partition_or_empty
+binder 3893:3893 <> g:22
+binder 3895:3896 <> g':23
+binder 3898:3903 <> parent:24
+binder 3905:3908 <> left:25
+binder 3910:3914 <> right:26
+binder 3916:3922 <> left_id:27
+binder 3924:3931 <> right_id:28
+binder 3933:3933 <> m:29
+R3970:3977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3961:3963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3940:3951 Kernel.VMState <> graph_lookup def
+R3953:3953 Kernel.EntanglementEntropy <> g:22 var
+R3955:3960 Kernel.EntanglementEntropy <> parent:24 var
+R3964:3967 Coq.Init.Datatypes <> Some constr
+R3969:3969 Kernel.EntanglementEntropy <> m:29 var
+R4041:4048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4010:4012 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3978:3989 Kernel.VMState <> graph_psplit def
+R3991:3991 Kernel.EntanglementEntropy <> g:22 var
+R3993:3998 Kernel.EntanglementEntropy <> parent:24 var
+R4000:4003 Kernel.EntanglementEntropy <> left:25 var
+R4005:4009 Kernel.EntanglementEntropy <> right:26 var
+R4013:4016 Coq.Init.Datatypes <> Some constr
+R4018:4018 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4021:4022 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4030:4031 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4040:4040 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R4019:4020 Kernel.EntanglementEntropy <> g':23 var
+R4023:4029 Kernel.EntanglementEntropy <> left_id:27 var
+R4032:4039 Kernel.EntanglementEntropy <> right_id:28 var
+R4168:4175 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R4161:4163 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4049:4051 Coq.Init.Datatypes <> orb def
+R4112:4118 Coq.Arith.PeanoNat Nat eqb def
+R4121:4131 Coq.Lists.List <> length abbrev
+R4134:4149 Kernel.VMState <> normalize_region def
+R4151:4155 Kernel.EntanglementEntropy <> right:26 var
+R4054:4060 Coq.Arith.PeanoNat Nat eqb def
+R4063:4073 Coq.Lists.List <> length abbrev
+R4076:4091 Kernel.VMState <> normalize_region def
+R4093:4096 Kernel.EntanglementEntropy <> left:25 var
+R4164:4167 Coq.Init.Datatypes <> true constr
+R4270:4272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4176:4190 Kernel.VMState <> partition_valid def
+R4193:4205 Kernel.VMState <> module_region proj
+R4207:4207 Kernel.EntanglementEntropy <> m:29 var
+R4217:4232 Kernel.VMState <> normalize_region def
+R4234:4237 Kernel.EntanglementEntropy <> left:25 var
+R4247:4262 Kernel.VMState <> normalize_region def
+R4264:4268 Kernel.EntanglementEntropy <> right:26 var
+R4273:4276 Coq.Init.Datatypes <> true constr
+R4362:4373 Kernel.VMState <> graph_psplit def
+R4427:4429 Coq.Init.Datatypes <> orb def
+R4498:4504 Coq.Arith.PeanoNat Nat eqb def
+R4507:4517 Coq.Lists.List <> length abbrev
+R4520:4535 Kernel.VMState <> normalize_region def
+R4432:4438 Coq.Arith.PeanoNat Nat eqb def
+R4441:4451 Coq.Lists.List <> length abbrev
+R4454:4469 Kernel.VMState <> normalize_region def
+R4427:4429 Coq.Init.Datatypes <> orb def
+R4498:4504 Coq.Arith.PeanoNat Nat eqb def
+R4507:4517 Coq.Lists.List <> length abbrev
+R4520:4535 Kernel.VMState <> normalize_region def
+R4432:4438 Coq.Arith.PeanoNat Nat eqb def
+R4441:4451 Coq.Lists.List <> length abbrev
+R4454:4469 Kernel.VMState <> normalize_region def
+R4598:4612 Kernel.VMState <> partition_valid def
+R4615:4627 Kernel.VMState <> module_region proj
+R4639:4654 Kernel.VMState <> normalize_region def
+R4663:4678 Kernel.VMState <> normalize_region def
+R4598:4612 Kernel.VMState <> partition_valid def
+R4615:4627 Kernel.VMState <> module_region proj
+R4639:4654 Kernel.VMState <> normalize_region def
+R4663:4678 Kernel.VMState <> normalize_region def
+prf 4891:4924 <> entanglement_entropy_area_law_bits
+binder 4937:4940 <> left:30
+binder 4942:4946 <> right:31
+binder 4948:4954 <> support:32
+R5002:5009 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4961:4982 Kernel.EntanglementEntropy <> boundary_local_support def
+R4984:4987 Kernel.EntanglementEntropy <> left:30 var
+R4989:4993 Kernel.EntanglementEntropy <> right:31 var
+R4995:5001 Kernel.EntanglementEntropy <> support:32 var
+R5046:5049 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5010:5037 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R5039:5045 Kernel.EntanglementEntropy <> support:32 var
+R5050:5065 Kernel.EntanglementEntropy <> boundary_size_1d def
+R5067:5070 Kernel.EntanglementEntropy <> left:30 var
+R5072:5076 Kernel.EntanglementEntropy <> right:31 var
+R5131:5152 Kernel.EntanglementEntropy <> boundary_local_support def
+R5155:5182 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R5202:5212 Coq.Lists.List <> length abbrev
+R5215:5235 Kernel.EntanglementEntropy <> reduced_state_support def
+R5202:5212 Coq.Lists.List <> length abbrev
+R5215:5235 Kernel.EntanglementEntropy <> reduced_state_support def
+R5278:5295 Coq.Arith.PeanoNat Nat log2_up_nonpos thm
+R5278:5295 Coq.Arith.PeanoNat Nat log2_up_nonpos thm
+R5278:5295 Coq.Arith.PeanoNat Nat log2_up_nonpos thm
+R5329:5347 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
+R5356:5356 Coq.Init.Datatypes <> S constr
+R5368:5383 Kernel.EntanglementEntropy <> boundary_size_1d def
+R5404:5416 Coq.Arith.PeanoNat Nat lt_0_succ thm
+R5329:5347 Coq.Arith.PeanoNat Nat log2_up_le_pow2 thm
+R5356:5356 Coq.Init.Datatypes <> S constr
+R5368:5383 Kernel.EntanglementEntropy <> boundary_size_1d def
+R5404:5416 Coq.Arith.PeanoNat Nat lt_0_succ thm
+R5442:5446 Coq.Init.Logic <> proj1 thm
+R5442:5446 Coq.Init.Logic <> proj1 thm
+prf 5557:5597 <> psplit_entanglement_entropy_area_law_bits
+binder 5610:5610 <> g:33
+binder 5612:5613 <> g':34
+binder 5615:5620 <> parent:35
+binder 5622:5625 <> left:36
+binder 5627:5631 <> right:37
+binder 5633:5639 <> left_id:38
+binder 5641:5648 <> right_id:39
+binder 5650:5656 <> support:40
+R5720:5727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5663:5679 Kernel.EntanglementEntropy <> psplit_subsystems def
+R5681:5681 Kernel.EntanglementEntropy <> g:33 var
+R5683:5684 Kernel.EntanglementEntropy <> g':34 var
+R5686:5691 Kernel.EntanglementEntropy <> parent:35 var
+R5693:5696 Kernel.EntanglementEntropy <> left:36 var
+R5698:5702 Kernel.EntanglementEntropy <> right:37 var
+R5704:5710 Kernel.EntanglementEntropy <> left_id:38 var
+R5712:5719 Kernel.EntanglementEntropy <> right_id:39 var
+R5807:5814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5728:5749 Kernel.EntanglementEntropy <> boundary_local_support def
+R5752:5767 Kernel.VMState <> normalize_region def
+R5769:5772 Kernel.EntanglementEntropy <> left:36 var
+R5776:5791 Kernel.VMState <> normalize_region def
+R5793:5797 Kernel.EntanglementEntropy <> right:37 var
+R5800:5806 Kernel.EntanglementEntropy <> support:40 var
+R5851:5858 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5815:5842 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R5844:5850 Kernel.EntanglementEntropy <> support:40 var
+R5859:5874 Kernel.EntanglementEntropy <> boundary_size_1d def
+R5877:5892 Kernel.VMState <> normalize_region def
+R5894:5897 Kernel.EntanglementEntropy <> left:36 var
+R5901:5916 Kernel.VMState <> normalize_region def
+R5918:5922 Kernel.EntanglementEntropy <> right:37 var
+R6008:6041 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
+R6008:6041 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
+prf 6285:6320 <> local_morphism_entropy_area_law_bits
+R6338:6373 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 6334:6334 <> P:41
+R6396:6431 Kernel.LocalMorphismSemantics <> joint_support def
+binder 6386:6392 <> support:42
+R6483:6490 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6439:6480 Kernel.LocalMorphismSemantics <> is_nearest_neighbor def
+R6482:6482 Kernel.EntanglementEntropy <> P:41 var
+R6555:6562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6491:6492 Coq.Lists.List <> In def
+R6503:6551 Kernel.LocalMorphismSemantics <> morphism_support_semantics proj
+R6553:6553 Kernel.EntanglementEntropy <> P:41 var
+R6494:6500 Kernel.EntanglementEntropy <> support:42 var
+R6599:6606 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6563:6590 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R6592:6598 Kernel.EntanglementEntropy <> support:42 var
+R6607:6622 Kernel.EntanglementEntropy <> boundary_size_1d def
+R6631:6663 Kernel.LocalMorphismSemantics <> split_left proj
+R6665:6665 Kernel.EntanglementEntropy <> P:41 var
+R6675:6708 Kernel.LocalMorphismSemantics <> split_right proj
+R6710:6710 Kernel.EntanglementEntropy <> P:41 var
+R6757:6790 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
+R6757:6790 Kernel.EntanglementEntropy <> entanglement_entropy_area_law_bits thm
+R6802:6823 Kernel.EntanglementEntropy <> boundary_local_support def
+R6830:6874 Kernel.LocalMorphismSemantics <> boundary_local_support def
+R6881:6901 Kernel.EntanglementEntropy <> reduced_state_support def
+R6908:6951 Kernel.LocalMorphismSemantics <> reduced_state_support def
+R6958:6984 Kernel.EntanglementEntropy <> partial_trace_right_support def
+R6991:7040 Kernel.LocalMorphismSemantics <> partial_trace_right_support def
+R7047:7062 Kernel.EntanglementEntropy <> boundary_size_1d def
+R7069:7107 Kernel.LocalMorphismSemantics <> boundary_size_1d def
+R7114:7124 Kernel.EntanglementEntropy <> cut_edge_1d def
+R7131:7164 Kernel.LocalMorphismSemantics <> cut_edge_1d def
+R7176:7226 Kernel.LocalMorphismSemantics <> local_morphism_support_bound thm
+R7176:7226 Kernel.LocalMorphismSemantics <> local_morphism_support_bound thm

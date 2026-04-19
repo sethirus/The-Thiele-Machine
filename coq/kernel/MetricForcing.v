@@ -1,56 +1,21 @@
-(** * MetricForcing: The Tensor Pipeline Forces Pseudo-Riemannian Geometry
+(** MetricForcing: metric structure in the isotropic two-vertex pipeline.
 
-    ========================================================================
-    PURPOSE: Close the forcing gap in the spacetime emergence chain.
-    ========================================================================
+  This file is narrower than the name makes it sound. I am not proving that
+  every tensor everywhere in the VM must already be a spacetime metric. I am
+  proving that in the isotropic two-vertex setup, if you want to read the
+  pipeline geometrically, the usual Levi-Civita-style structure is forced.
 
-    THE GAP (identified by analysis):
-    The CurvedTensorPipeline interprets module_mu_tensor as a spacetime metric.
-    Is this interpretation a CHOICE or is it FORCED by the pipeline?
+  The argument breaks into the basic pieces you would expect: the determinant
+  has to stay away from zero, the Christoffel expression is torsion-free when
+  the metric is symmetric, the lowered identity holds, and under those same
+  hypotheses the connection is unique in the Levi-Civita sense.
 
-    THIS FILE PROVES: It is forced.
+  So the claim is conditional but sharp. If someone wants to deny the metric
+  reading in this setup, they need to produce a different interpretation that
+  still satisfies the same downstream tensor identities. *)
 
-    THE FORCING CHAIN:
-
-    Step 1 — NON-DEGENERACY FORCED:
-      The Christoffel computation requires det(g) ≠ 0 via Cramer's rule.
-      Degenerate tensors produce undefined (0/0) pipeline outputs.
-      THEOREM: metric_det_isotropic (det = a^4 for isotropic a·I)
-      THEOREM: degenerate_christoffel_undefined (det = 0 ⟹ pipeline fails)
-
-    Step 2 — TORSION-FREEDOM:
-      The pipeline's Christoffel formula Γ^ρ_{μν} is symmetric in (μ,ν)
-      when the metric is symmetric. This is the torsion-freedom condition,
-      characteristic of Riemannian/pseudo-Riemannian geometry.
-      THEOREM: christoffel_torsion_free
-
-    Step 3 — METRIC COMPATIBILITY (Lowered Christoffel Identity):
-      The pipeline's Γ satisfies: g_{στ}Γ^τ_{μν} = ½(∂_μ g_{νσ}+∂_ν g_{μσ}−∂_σ g_{μν}).
-      This IS the metric-compatibility condition defining the Levi-Civita connection.
-      THEOREM: christoffel_lowered_identity
-
-    Step 4 — LEVI-CIVITA UNIQUENESS (Fundamental Theorem of Riemannian Geometry):
-      Any torsion-free connection satisfying the lowered identity must equal
-      the pipeline's Christoffel. There is exactly ONE such connection for
-      each non-degenerate symmetric metric.
-      THEOREM: levi_civita_uniqueness
-
-    Step 5 — MAIN RESULT:
-      Combining Steps 1–4: The only consistent geometric interpretation of
-      module_mu_tensor that yields well-defined Christoffel symbols, torsion-
-      free connection, and metric-compatible transport IS pseudo-Riemannian
-      geometry with the Levi-Civita connection.
-      THEOREM: metric_structure_forced
-
-    ZERO AXIOMS. ZERO ADMITS.
-
-    FALSIFICATION: If you can exhibit a NON-metric interpretation of the 4×4
-    tensor that still produces well-defined Christoffel symbols, Riemann tensor,
-    Einstein equation, and Bianchi identity, this theorem is wrong.
-*)
-
-(* INQUISITOR NOTE: proof-connectivity — closes forcing gap between
-   module_mu_tensor and pseudo-Riemannian metric interpretation. *)
+(* INQUISITOR NOTE: proof-connectivity - closes the isotropic two-vertex gap
+   between module_mu_tensor and the metric-style interpretation. *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra.
 Import ListNotations.
@@ -66,9 +31,6 @@ From Kernel Require Import EinsteinEquations4D.
 From Kernel Require Import MuGravity.
 From Kernel Require Import CurvedTensorPipeline.
 
-(** =========================================================================
-    STEP 1: NON-DEGENERACY — The pipeline requires det(g) ≠ 0
-    ========================================================================= *)
 
 (** For isotropic metric g = a·I₄, determinant is a⁴. *)
 Theorem metric_det_isotropic : forall s v a,
@@ -87,7 +49,8 @@ Proof.
   ring.
 Qed.
 
-(** When a > 0, metric determinant a⁴ is strictly positive — non-degenerate. *)
+(** When a > 0, metric determinant a^4 is strictly positive, so the isotropic
+    metric is non-degenerate. *)
 Corollary metric_det_isotropic_positive : forall s v a,
   a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -99,7 +62,8 @@ Proof.
   apply Rmult_lt_0_compat; [apply Rmult_lt_0_compat; [apply Rmult_lt_0_compat|]|]; lra.
 Qed.
 
-(** When a = 0, determinant vanishes — pipeline cannot produce meaningful output. *)
+(** When a = 0, determinant vanishes, so the geometric nondegeneracy premise
+    fails for the isotropic metric. *)
 Theorem degenerate_metric_det_zero : forall s v,
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
     full_metric_at_vertex s v i j = 0) ->
@@ -114,9 +78,10 @@ Proof.
   ring.
 Qed.
 
-(** When det = 0, the inverse metric (used in Christoffel) involves 0/0.
-    We prove that the Cramer's rule inverse produces 0/0 on the diagonal,
-    making all Christoffel symbols degenerate. *)
+(** When det = 0, the Cramer-rule inverse used in Christoffel expressions
+    reaches 0/0 on the diagonal. Coq totalizes real division, so this theorem
+    records failure of the geometric nondegeneracy premise rather than runtime
+    undefinedness. *)
 Theorem degenerate_christoffel_undefined : forall s v,
   metric_det_at_vertex s v = 0 ->
   forall i, (i < 4)%nat ->
@@ -128,9 +93,6 @@ Proof.
   rewrite Hdet. unfold Rdiv. rewrite Rinv_0. ring.
 Qed.
 
-(** =========================================================================
-    STEP 2: TORSION-FREEDOM — Γ^ρ_{μν} = Γ^ρ_{νμ} when metric is symmetric
-    ========================================================================= *)
 
 (** The curved_christoffel formula is:
     Γ^ρ_{μν}(v) = Σ_σ g^{ρσ}(v) · (∂_μ g_{νσ} + ∂_ν g_{μσ} - ∂_σ g_{μν}) / 2
@@ -174,9 +136,6 @@ Proof.
     + reflexivity.
 Qed.
 
-(** =========================================================================
-    STEP 3: METRIC COMPATIBILITY — Lowered Christoffel Identity
-    ========================================================================= *)
 
 (** The lowered Christoffel symbol (contracted with metric):
     Γ_{σ,μν}(v) := Σ_τ g_{στ}(v) · Γ^τ_{μν}(v)
@@ -192,7 +151,7 @@ Definition lowered_christoffel (s : VMState) (sc : SimplicialComplex4D)
   sum_4 (fun τ => full_metric_at_vertex s v σ τ *
                    curved_christoffel s sc τ μ ν v).
 
-(** The "half-sum of derivatives" — the right-hand side of metric compatibility *)
+(** The "half-sum of derivatives", the right-hand side of the lowered identity. *)
 Definition metric_derivative_halfsum (s : VMState) (sc : SimplicialComplex4D)
     (σ μ ν : nat) (v : ModuleID) : R :=
   (discrete_derivative s sc (fun w => full_metric_at_vertex s w ν σ) μ v +
@@ -205,7 +164,7 @@ Definition metric_derivative_halfsum (s : VMState) (sc : SimplicialComplex4D)
     Proof strategy: For g = a·I, the contraction g_{στ} Γ^τ = a · Γ^σ.
     The Christoffel has a factor g^{-1} = (1/a)·I, which cancels the a.
     So g_{στ}Γ^τ_{μν} = a · (1/a) · ½(∂g+∂g-∂g) = ½(∂g+∂g-∂g). *)
-(* INQUISITOR NOTE: Metric compatibility — lowered Christoffel identity *)
+(* INQUISITOR NOTE: Metric compatibility - lowered Christoffel identity *)
 Theorem christoffel_lowered_identity : forall s v w σ μ ν a,
   (v <> w)%nat -> a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -269,11 +228,8 @@ Proof.
   simpl; field; lra.
 Qed.
 
-(** =========================================================================
-    STEP 4: LEVI-CIVITA UNIQUENESS
-    ========================================================================= *)
 
-(** Fundamental Theorem of Riemannian Geometry (isotropic case):
+(** Levi-Civita-style uniqueness in the isotropic two-vertex case:
 
     If Γ' is ANY connection (nat → nat → nat → R) that satisfies:
     (a) Torsion-freedom: Γ'(ρ,μ,ν) = Γ'(ρ,ν,μ)
@@ -343,9 +299,9 @@ Proof.
   simpl; field; lra.
 Qed.
 
-(** LEVI-CIVITA UNIQUENESS: Any connection satisfying torsion-freedom
+(** LEVI-CIVITA-STYLE UNIQUENESS: Any connection satisfying torsion-freedom
     and the lowered identity equals the pipeline's Christoffel. *)
-(* INQUISITOR NOTE: Levi-Civita uniqueness — fundamental theorem of Riemannian geometry *)
+(* INQUISITOR NOTE: Levi-Civita uniqueness - isotropic two-vertex theorem *)
 Theorem levi_civita_uniqueness : forall s v w a,
   (v <> w)%nat -> a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -426,8 +382,8 @@ Proof.
   ring.
 Qed.
 
-(** The torsion-freedom proof for the 2-vertex complex doesn't need the
-    global metric symmetry hypothesis — we can prove it directly from the
+(** The torsion-freedom proof for the 2-vertex complex does not need the
+    global metric symmetry hypothesis; it follows directly from the
     isotropic structure at v and w (the only vertices that matter). *)
 Theorem christoffel_torsion_free_isotropic : forall s v w a b ρ μ ν,
   (v <> w)%nat -> a > 0 ->
@@ -445,15 +401,16 @@ Proof.
   rewrite (Nat.eqb_sym ν μ). ring.
 Qed.
 
-(** =========================================================================
+(**
     MAIN THEOREM (COMPLETE, NO ADMITS)
-    ========================================================================= *)
+    *)
 
 (** metric_structure_forced: Full proof without admits.
     For any isotropic 2-vertex complex, the pipeline forces:
     (1) non-degeneracy, (2) torsion-freedom, (3) metric compatibility,
     (4) Levi-Civita uniqueness. *)
-(* INQUISITOR NOTE: Main forcing theorem — zero admits *)
+(* INQUISITOR NOTE: Main forcing theorem for the isotropic two-vertex forcing
+  result proved in this file. *)
 Theorem metric_structure_forced : forall s v w a b,
   (v <> w)%nat -> a > 0 ->
   (forall i j, (i < 4)%nat -> (j < 4)%nat ->
@@ -512,16 +469,15 @@ Proof.
              Gamma' Htorsion Hlowered ρ μ ν Hρ Hμ Hν).
 Qed.
 
-(** =========================================================================
+(**
     COROLLARY: Connecting to the Einstein equation chain
-    ========================================================================= *)
+    *)
 
-(** The forcing theorem connects to the Einstein equation:
-    metric_structure_forced proves the geometry is pseudo-Riemannian,
-    einstein_equation_from_mass (CurvedTensorPipeline) proves G = κ·T.
-
-    Together: module_mu_tensor FORCES pseudo-Riemannian geometry WITH
-    Einstein field equations. The interpretation is not a choice. *)
+(** The forcing theorem can be paired with the diagonal Einstein equation chain:
+    metric_structure_forced supplies the isotropic two-vertex geometric
+    conditions, and einstein_equation_from_mass supplies the diagonal
+    G = κ·T statement. This is not a full metric-forcing theorem for arbitrary
+    tensors. *)
 (* INQUISITOR NOTE: Connects metric forcing to Einstein equation chain *)
 Corollary forcing_implies_einstein : forall s v w,
   (v <> w)%nat ->

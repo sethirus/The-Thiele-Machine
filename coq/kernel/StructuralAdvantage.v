@@ -1,48 +1,16 @@
-(** =========================================================================
-    StructuralAdvantage.v — The Time Tax Theorem
+(** StructuralAdvantage.v: the time-tax theorem.
 
-    WHY THIS FILE EXISTS:
-    The Python tests in tests/test_structural_advantage.py measure a concrete
-    computational advantage: a sighted program (paying μ) solves a factored
-    search problem in Θ(N) iterations, while a blind program requires Θ(N²).
+    This file formalizes a simple claim the Python tests already measure on the
+    real VM. A blind program pays no mu but needs quadratic search time. A
+    sighted program pays a constant mu tax and cuts the search to linear time.
 
-    This file formalizes that measurement as Coq theorems.
+    That is the whole point. The theorem is not about vague efficiency vibes.
+    It is about a concrete exchange rate: spend a tiny amount of structural
+    cost, save a lot of time.
 
-    THE CLAIM (formally stated):
-    For any N ≥ 2, there exists:
-      - A blind program P_blind : vm_instruction list
-        that solves the N×N factored search problem in N² vm_apply calls,
-        paying 0 μ-cost.
-      - A sighted program P_sighted : vm_instruction list
-        that solves the same problem in 2N vm_apply calls,
-        paying exactly 2 μ-cost.
-
-    IMPLICATION:
-    The advantage ratio is N²/(2N) = N/2, which grows without bound.
-    The μ-cost of the sighted program (=2) is O(1) in N.
-    The combined cost (iters + λ·μ) favors sighted for any λ < N(N-2)/2.
-    For large N, this crossover grows as Θ(N²).
-
-    WHAT IS PROVEN HERE (zero Admitted):
-    - Definitions: Both programs, the step count metric, the problem statement.
-    - Computable bounds: blind_step_count_formula and sighted_step_count_formula.
-    - μ accounting: blind_mu_zero and sighted_mu_exactly_two.
-    - The advantage for the specific case N=8: structural_advantage_n8.
-    - Parts 1-15: all arithmetic advantage theorems, k-factor generalizations,
-      adversarial boundaries, MuP separation, LASSERT/EMIT gaps.
-    - Part 16: run_vm infrastructure lemmas (step, stuck, compose, word64_sa_small).
-    - Part 17: computational witnesses for N=1 on the actual VM:
-        blind_halts_in_n_squared, sighted_halts_in_two_n.
-    - Part 18: advantage_ratio_unbounded (pure arithmetic, all N).
-
-    STATUS: All theorems proven.  Zero Admitted.  Zero axioms.
-
-    FALSIFICATION:
-    Run the programs on the real VM (tests/test_structural_advantage.py).
-    The tests measure these exact values. If any theorem here contradicts the
-    measurements, the theorem is wrong, not the measurements.
-
-    ========================================================================= *)
+    The tests in tests/test_structural_advantage.py are the reality check. If a
+    proof here and a measured execution disagree, I trust the measurement first
+    and treat the theorem as wrong until the mismatch is explained. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 From Coq Require Import Strings.String.
@@ -55,31 +23,21 @@ From Kernel Require Import MuInitiality.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import TuringCompletenessISA.
 
-(** =========================================================================
-    PART 1: STEP COUNTING
+(**
 
-    The VM doesn't expose a step counter in the state. We define it externally
-    as the length of a bounded execution trace (bounded_run minus 1).
-    ========================================================================= *)
+  The VM state does not store a step counter, so I count steps externally as
+  the bounded trace length minus the initial state.
+  *)
 
 (** step_count: number of vm_apply calls in a bounded execution.
 
-    This counts how many instructions actually executed before either fuel was
-    exhausted or the PC moved out of bounds (nth_error trace pc = None).
-    It equals |bounded_run fuel trace s| - 1 (the initial state is in the list
-    without having executed any instruction).
-
-    RELATIONSHIP TO μ:
-    - step_count ≠ vm_mu in general (instructions can have cost 0)
-    - For our test programs: all instructions have cost 0, so vm_mu = 0
-    - step_count is a SEPARATE accounting axis from vm_mu
-    - This is the key point: the third axis (time cost vs μ cost) is distinct.
-*)
+  This is deliberately separate from mu. A program can burn time without
+  paying mu, and this file matters because that difference is exactly what
+  the blind-versus-sighted comparison exposes. *)
 Definition step_count (fuel : nat) (trace : list vm_instruction) (s : VMState) : nat :=
   List.length (bounded_run fuel trace s) - 1.
 
-(** =========================================================================
-    PART 2: THE BLIND SEARCH PROGRAM
+(**
 
     Searches linearly from 0 to target_idx (inclusive).
     Uses a loop counter in register r15 (index 15).
@@ -99,7 +57,7 @@ Definition step_count (fuel : nat) (trace : list vm_instruction) (s : VMState) :
 
     Termination in bounded_run: when JUMP 10 executes, vm_pc becomes 10.
     nth_error (blind_program _) 10 = None → bounded_run stops.
-    ========================================================================= *)
+    *)
 
 Definition blind_program (target_idx : nat) : list vm_instruction := [
   instr_load_imm 1  0          0;  (* pc=0 *)
@@ -119,12 +77,11 @@ Definition blind_program (target_idx : nat) : list vm_instruction := [
 Lemma blind_program_length : forall t, List.length (blind_program t) = 10.
 Proof. intro t. reflexivity. Qed.
 
-(** =========================================================================
-    PART 3: THE SIGHTED SEARCH PROGRAM
+(**
 
-    Searches left half (0..left_target), certifies with EMIT (1 μ),
-    then searches right half (0..right_target), certifies with EMIT (1 μ).
-    Total μ = 2 (exact). Iteration count = left_target + 1 + right_target + 1.
+    Searches left half (0..left_target), certifies with EMIT "." (9 μ),
+    then searches right half (0..right_target), certifies with EMIT "." (9 μ).
+    Total μ = 18 (exact). Iteration count = left_target + 1 + right_target + 1.
 
     PC layout:
        0: LOAD_IMM r1 0 0              (r1 = left counter)
@@ -136,21 +93,21 @@ Proof. intro t. reflexivity. Qed.
        6: ADD r15 r15 r10 0            [left_loop] iters++
        7: SUB r8 r1 r2 0               r8 = r1 - left_target (word64)
        8: JNEZ r8 11 0                 if r8≠0: go to pc=11
-       9: EMIT 0 "." 0                 CERT-SETTER (costs S(0) = 1 μ)
+       9: EMIT 0 "." 0                 CERT-SETTER (costs 8*1 + S(0) = 9 μ)
       10: JUMP 13 0                    go to right loop
       11: ADD r1 r1 r10 0              r1++
       12: JUMP 6 0                     left loop back
       13: ADD r15 r15 r10 0            [right_loop] iters++
       14: SUB r8 r3 r4 0               r8 = r3 - right_target (word64)
       15: JNEZ r8 18 0                 if r8≠0: go to pc=18
-      16: EMIT 1 "." 0                 CERT-SETTER (costs S(0) = 1 μ)
+      16: EMIT 1 "." 0                 CERT-SETTER (costs 8*1 + S(0) = 9 μ)
       17: JUMP 20 0                    done, jump past end → terminates
       18: ADD r3 r3 r10 0              r3++
       19: JUMP 13 0                    right loop back
 
     Termination: JUMP 20 at PC=17 sets vm_pc=20.
     nth_error (sighted_program _ _) 20 = None → bounded_run stops.
-    ========================================================================= *)
+    *)
 
 Definition sighted_program (left_target right_target : nat) : list vm_instruction := [
   instr_load_imm 1  0            0;   (* pc=0 *)
@@ -163,7 +120,7 @@ Definition sighted_program (left_target right_target : nat) : list vm_instructio
   instr_add 15 15 10 0;               (* pc=6: r15++ *)
   instr_sub 8  1  2  0;               (* pc=7: r8 = r1 - left_target *)
   instr_jnez 8  11 0;                 (* pc=8: if r8≠0, go to pc=11 *)
-  instr_emit 0 "." 0;                 (* pc=9: CERT-SETTER, costs 1 μ *)
+  instr_emit 0 "." 0;                 (* pc=9: CERT-SETTER, costs 9 μ *)
   instr_jump 13 0;                    (* pc=10: go to right loop *)
   instr_add 1  1  10 0;               (* pc=11: r1++ *)
   instr_jump 6  0;                    (* pc=12: left loop back *)
@@ -171,7 +128,7 @@ Definition sighted_program (left_target right_target : nat) : list vm_instructio
   instr_add 15 15 10 0;               (* pc=13: r15++ *)
   instr_sub 8  3  4  0;               (* pc=14: r8 = r3 - right_target *)
   instr_jnez 8  18 0;                 (* pc=15: if r8≠0, go to pc=18 *)
-  instr_emit 1 "." 0;                 (* pc=16: CERT-SETTER, costs 1 μ *)
+  instr_emit 1 "." 0;                 (* pc=16: CERT-SETTER, costs 9 μ *)
   instr_jump 20 0;                    (* pc=17: done, jump past program end *)
   instr_add 3  3  10 0;               (* pc=18: r3++ *)
   instr_jump 13 0                     (* pc=19: right loop back *)
@@ -181,11 +138,10 @@ Definition sighted_program (left_target right_target : nat) : list vm_instructio
 Lemma sighted_program_length : forall l r, List.length (sighted_program l r) = 20.
 Proof. intros l r. reflexivity. Qed.
 
-(** =========================================================================
-    PART 4: μ-COST ACCOUNTING
+(**
 
     Both programs are analyzed for their total μ-cost at termination.
-    ========================================================================= *)
+    *)
 
 (** PROVEN: All blind_program instructions cost exactly 0. *)
 Lemma blind_program_total_cost_is_zero :
@@ -198,27 +154,29 @@ Proof.
   reflexivity.
 Qed.
 
-(** PROVEN: The two EMIT instructions in sighted_program cost exactly 1 μ each.
-    Total sighted_program μ from cert-setters = 2. *)
-Lemma emit_costs_one_mu :
-  forall module_id payload,
-    instruction_cost (instr_emit module_id payload 0) = 1.
+(** PROVEN: EMIT cost formula — payload bits + S(declared_cost).
+    The payload is unfolded into concrete Boolean bits before charging.
+    For the "." payload (one ascii byte = 8 bits) with declared_cost=0:
+    cost = 8 + 1 = 9. *)
+Lemma emit_cost_formula :
+  forall module_id payload declared_cost,
+    instruction_cost (instr_emit module_id payload declared_cost) =
+      payload_bit_length payload + S declared_cost.
 Proof.
-  intros module_id payload.
-  simpl. (* instruction_cost (instr_emit _ _ 0) = S 0 = 1 *)
-  reflexivity.
+  intros module_id payload declared_cost.
+  simpl. reflexivity.
 Qed.
 
 (** PROVEN: sighted_program has exactly two cert-setters (EMIT at pc=9 and pc=16),
-    each costs 1 μ by the S-constructor rule. All other instructions cost 0.
-    Total μ charged by the program trace = 2.  *)
-Lemma sighted_program_total_cost_is_two :
+    each with payload "." (1 byte = 8 bits) and declared_cost=0 → costs 9 μ each.
+    Total μ charged by the program trace = 18.  *)
+Lemma sighted_program_total_cost_is_eighteen :
   forall left_target right_target,
     List.fold_left Nat.add
-      (List.map instruction_cost (sighted_program left_target right_target)) 0 = 2.
+      (List.map instruction_cost (sighted_program left_target right_target)) 0 = 18.
 Proof.
   intros left_target right_target.
-  (* Two EMIT instructions each cost S(0) = 1. All others cost 0. *)
+  (* Two EMIT "." 0 instructions each cost payload_bit_length "." + S 0 = 8 + 1 = 9. *)
   reflexivity.
 Qed.
 
@@ -241,12 +199,11 @@ Proof.
   reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 5: THE ADVANTAGE RATIO (ARITHMETIC)
+(**
 
     These theorems are about the formulas, not the program execution.
     They are fully proven and require no loop invariant reasoning.
-    ========================================================================= *)
+    *)
 
 (** blind_iters_worst_case: For N×N worst case, blind search iterates N² times.
 
@@ -344,26 +301,26 @@ Theorem crossover_lambda_grows_with_n :
 Proof.
   intros N HN. nia.
 Qed.
-(** PROVEN: μ-cost is O(1) in N (constant 2). *)
+(** PROVEN: μ-cost is O(1) in N (constant 18). *)
 Theorem sighted_mu_cost_is_constant :
   forall N : nat,
-    2 = 2.  (* trivially *)
+    18 = 18.  (* trivially *)
 Proof.
   reflexivity.
 Qed.
 
 (** STRONGER: The savings grow as Ω(N²) while cost is O(1).
-    Reformulated: N*N > 2*N + 2 for all N ≥ 4 (same as N*N - 2*N > 2). *)
+    Reformulated: N*N > 2*N + 18 for all N ≥ 6.
+    (For N=6: 36 > 12+18=30 ✓; exact threshold since N(N-2)>18 requires N≥6.) *)
 Theorem iteration_savings_dwarfs_mu_cost :
   forall N : nat,
-    N >= 4 ->
-    N * N > 2 * N + 2.
+    N >= 6 ->
+    N * N > 2 * N + 18.
 Proof.
   intros N HN. nia.
 Qed.
 
-(** =========================================================================
-    PART 6: THE MAIN THEOREM (PROOF OBLIGATION)
+(**
 
     The following theorems state what the Python tests measure but require
     loop invariant proofs to establish in Coq. They are stated here as
@@ -376,7 +333,7 @@ Qed.
     This structure is HONEST: the arithmetic facts above are proven;
     the operational semantics facts (how many steps the loops take)
     are proven in Part 16 below via loop invariant induction.
-    ========================================================================= *)
+    *)
 
 (** Termination predicate: program terminates at state sf with PC out of bounds.
 
@@ -394,25 +351,24 @@ Definition terminates_at (fuel : nat)
 (** Loop termination facts for blind_program and sighted_program.
 
     These are operationally validated by tests/test_structural_advantage.py
-    (OCaml VM measures exact r15=N², vm_mu=0 for blind; r15=2N, vm_mu=2 for
+    (OCaml VM measures exact r15=N², vm_mu=0 for blind; r15=2N, vm_mu=18 for
     sighted, for N∈{4,8,16,32}). Formal Coq proofs via loop invariant
     induction are given in Parts 16-17 below.
 
     The time_tax_theorem_conditional below is stated conditionally on these
     facts, making the dependency structure explicit. *)
 
-(** =========================================================================
-    PART 7: THE TIME TAX THEOREM (CONDITIONAL ON PROOF OBLIGATIONS)
+(**
 
     Given the proof obligations above (operationally verified on the VM),
     the following corollary follows by pure arithmetic.
-    ========================================================================= *)
+    *)
 
 (** time_tax_theorem: For N×N factored search,
     the sighted program pays constant μ-cost while saving Θ(N²) iterations.
 
     This is the TIME TAX made precise: certified structural knowledge costs
-    exactly 2 μ-units and saves N² - 2N compute steps.
+    exactly 18 μ-units and saves N² - 2N compute steps.
 
     For large N, the saving dominates:
     - For any fixed λ ≥ 0: sighted wins combined cost when N > 2(λ+1).
@@ -428,10 +384,10 @@ Theorem time_tax_theorem_conditional :
     (exists sf_blind,
       List.nth 15 sf_blind.(vm_regs) 0 = N * N /\
       sf_blind.(vm_mu) = 0) ->
-    (* Given: sighted program measures 2N iterations and 2 μ *)
+    (* Given: sighted program measures 2N iterations and 18 μ *)
     (exists sf_sighted,
       List.nth 15 sf_sighted.(vm_regs) 0 = 2 * N /\
-      sf_sighted.(vm_mu) = 2) ->
+      sf_sighted.(vm_mu) = 18) ->
     (* For 2*N + 2*λ < N*N, sighted wins on combined cost *)
     2 * N + 2 * lambda < N * N ->
     2 * N + 2 * lambda < N * N + 0 * lambda.
@@ -451,18 +407,17 @@ Proof.
   intros N HN. nia.
 Qed.
 
-(** =========================================================================
-    PART 8: k-FACTOR GENERALIZATION
+(**
     (Formalizes results from tests/test_complexity_frontier.py)
 
     The k=2 case is covered in Parts 2-7. Here we state the general
     arithmetic for k dimensions each of size N.
 
     MEASURED ON REAL OCaml VM:
-      k=3, N=4: blind=64,  sighted=12, μ=3
-      k=4, N=4: blind=256, sighted=16, μ=4
-      k=3, N=8: blind=512, sighted=24, μ=3 (k=log₂(N) case)
-    ========================================================================= *)
+      k=3, N=4: blind=64,  sighted=12, μ=27
+      k=4, N=4: blind=256, sighted=16, μ=36
+      k=3, N=8: blind=512, sighted=24, μ=27 (k=log₂(N) case)
+    *)
 
 (** k-factor blind: worst-case iterations = N^k.
 
@@ -543,8 +498,7 @@ Proof.
         nia.
 Qed.
 
-(** =========================================================================
-    PART 9: μ BUDGET THRESHOLD THEOREMS
+(**
     (Formalizes results from TestMuBudgetThreshold)
 
     For a k-dimensional problem, using j < k EMIT calls (j certified dimensions,
@@ -560,7 +514,7 @@ Qed.
     The last EMIT (j=k) saves 0 steps when k-j=0 (remaining is already 1D).
 
     This directly explains why the μ budget IS the structural depth.
-    ========================================================================= *)
+    *)
 
 (** PROVEN: For k=3, j=0→1: saves N^3 - (N + N^2) = N(N^2 - N - 1) steps. *)
 Theorem k3_first_emit_savings :
@@ -605,8 +559,7 @@ Proof.
   intros N k HN Hk. nia.
 Qed.
 
-(** =========================================================================
-    PART 10: ADVERSARIAL BOUNDARY THEOREMS
+(**
     (Formalizes results from TestAdversarialStructureBoundary)
 
     For 2D search on any target (L, R):
@@ -620,7 +573,7 @@ Qed.
 
     So: sighted LOSES only at L = 0. Exactly one column favors blind.
     The adversarial region is 1/N of all positions, vanishing as N → ∞.
-    ========================================================================= *)
+    *)
 
 (** PROVEN: Sighted wins (strict) whenever left_target ≥ 1 and N ≥ 3. *)
 Theorem sighted_wins_for_nontrivial_left :
@@ -675,9 +628,6 @@ Proof.
   intros N HN. nia.
 Qed.
 
-(** =========================================================================
-    PART 11: REVISED OPEN QUESTIONS (post-frontier testing)
-    ========================================================================= *)
 
 (**
     WHAT WAS RESOLVED (was open at Part 8):
@@ -713,7 +663,7 @@ Qed.
     But: does MuP(O(log n)) ≠ P? We don't know.
 
     OPEN QUESTION 3 (LASSERT strength): STILL OPEN.
-    EMIT pays 1 μ but proves nothing.
+    EMIT(".",0) pays 9 μ for its concrete payload bits but proves nothing.
     LASSERT pays formula_len*8+1 μ and verifies a SAT proof.
     Does the stronger certificate unlock problems EMIT cannot certify?
     Specifically: can LASSERT certify structural properties that are
@@ -721,8 +671,7 @@ Qed.
     Not tested yet.
 *)
 
-(** =========================================================================
-    PART 12: SUPER-POLYNOMIAL RATIO AT k = log₂(N)
+(**
     (Formalizes results from TestKLogNSuperPolyRatio in test_open_questions.py)
 
     At k = log₂(N), the advantage ratio = N^(k-1)/k = N^(log₂N - 1) / log₂N.
@@ -732,7 +681,7 @@ Qed.
       N=4,  k=2:  ratio = 2.0
       N=8,  k=3:  ratio = 64/3 ≈ 21.3
       N=16, k=4:  ratio = 4096/4 = 1024
-    ========================================================================= *)
+    *)
 
 (** PROVEN: Along the diagonal k=log₂(N), the ratio exceeds N^2 for N ≥ 8.
 
@@ -805,8 +754,7 @@ Proof.
       lia.
 Qed.
 
-(** =========================================================================
-    PART 13: MuP(O(log n)) ≠ P SEPARATION
+(**
     (Formalizes results from TestMuPSeparation in test_open_questions.py)
 
     Concrete witness: k-dimensional factored search at k = log₂(N).
@@ -814,7 +762,7 @@ Qed.
       P (0 μ):    steps = N^k = N^(log₂N) (super-polynomial in N)
 
     The ratio grows strictly faster than any polynomial: ratio = N^(log₂N-1)/log₂N.
-    ========================================================================= *)
+    *)
 
 (** PROVEN: In MuP mode (k μ), k-dimensional search costs k*N steps ≤ N^2. *)
 Theorem mup_step_cost_is_polynomial :
@@ -866,44 +814,55 @@ Proof.
   nia.
 Qed.
 
-(** =========================================================================
-    PART 14: LASSERT vs EMIT CAPABILITY GAP
+(**
     (Formalizes results from TestLassertVsEmitCapabilityGap in test_open_questions.py)
 
-    EMIT costs 1 μ (= S(0) = 1 in NoFI).
+    EMIT(".", 0) costs 9 μ: payload_bit_length "." = 8, then S(0) = 1.
     LASSERT costs formula_len * 8 + (declared_cost + 1) μ.
 
-    For a 13-char formula with cost=0: μ = 13*8 + 1 = 105.
-    The "verifiability premium" per certificate = 105 - 1 = 104 μ.
+    For a 13-byte formula with cost=0: μ = 13*8 + 1 = 105.
+    The "verifiability premium" per certificate relative to EMIT(".",0)
+    is 105 - 9 = 96 μ.
 
-    KEY THEOREM: Step count is independent of certificate strength.
+    The key theorem: Step count is independent of certificate strength.
     Both EMIT-based and LASSERT-based sighted programs execute the same
     number of iterations. The difference is entirely in μ expenditure.
 
     CONCLUSION: LASSERT does not unlock faster programs; it makes
     certificates machine-checkable (unfalsifiable by external verifier).
-    ========================================================================= *)
+    *)
 
-(** PROVEN: LASSERT μ-cost exceeds EMIT μ-cost for any formula of length ≥ 1.
-    EMIT: S(0) = 1.
+(** PROVEN: LASSERT μ-cost exceeds EMIT μ-cost (1-byte payload) once the
+    formula has at least two encoded bytes.
+    EMIT(".", 0): payload_bit_length "." + S(0) = 9.
     LASSERT: formula_len * 8 + S(cost).
-    Difference: formula_len * 8 + S(cost) - 1. For formula_len ≥ 1: diff ≥ 8. *)
+    Difference: formula_len * 8 + S(cost) - 9. For formula_len ≥ 2: diff ≥ 8. *)
 Theorem lassert_mu_exceeds_emit_mu :
   forall formula_len declared_cost : nat,
-    formula_len >= 1 ->
-    formula_len * 8 + (declared_cost + 1) > 1.
+    formula_len >= 2 ->
+    formula_len * 8 + (declared_cost + 1) >
+      payload_bit_length "." + S 0.
 Proof.
-  intros flen cost Hflen. nia.
+  intros flen cost Hflen.
+  change (payload_bit_length "." + S 0) with 9.
+  nia.
 Qed.
 
 (** PROVEN: The verifiability premium grows linearly with formula length.
-    premium = lassert_cost - emit_cost = formula_len * 8 + declared_cost.
-    For a fixed declared_cost, premium is exactly proportional to formula_len. *)
+    premium = lassert_cost - EMIT(".",0)
+            = (formula_len - 1) * 8 + declared_cost.
+    For a fixed declared_cost, premium is exactly proportional to the extra
+    eight-bit formula units beyond the eight-bit marker carried by ".". *)
 Theorem lassert_verifiability_premium :
   forall formula_len declared_cost : nat,
-    formula_len * 8 + (declared_cost + 1) - 1 = formula_len * 8 + declared_cost.
+    formula_len >= 1 ->
+    formula_len * 8 + (declared_cost + 1) -
+      (payload_bit_length "." + S 0) =
+      (formula_len - 1) * 8 + declared_cost.
 Proof.
-  intros flen cost. lia.
+  intros flen cost Hflen.
+  change (payload_bit_length "." + S 0) with 9.
+  nia.
 Qed.
 
 (** PROVEN: Both EMIT and LASSERT programs traverse the same search structure.
@@ -920,20 +879,23 @@ Proof.
   intros k N Hk HN. reflexivity.
 Qed.
 
-(** Stronger statement: the verifiability premium is exactly formula_len * 8 per cert.
-    Two programs with k certs differ in μ by k * (formula_len * 8 + declared_cost). *)
+(** Stronger statement: the verifiability premium is exactly the extra formula
+    bits beyond the one-byte EMIT marker, plus any declared LASSERT cost.
+    Two programs with k certs differ in μ by
+    k * ((formula_len - 1) * 8 + declared_cost). *)
 Theorem total_verifiability_premium :
   forall k formula_len declared_cost : nat,
     k >= 1 ->
-    k * (formula_len * 8 + (declared_cost + 1)) - k * 1 =
-    k * (formula_len * 8 + declared_cost).
+    formula_len >= 1 ->
+    k * (formula_len * 8 + (declared_cost + 1)) -
+      k * (payload_bit_length "." + S 0) =
+    k * ((formula_len - 1) * 8 + declared_cost).
 Proof.
-  intros k flen cost Hk. nia.
+  intros k flen cost Hk Hflen.
+  change (payload_bit_length "." + S 0) with 9.
+  nia.
 Qed.
 
-(** =========================================================================
-    PART 15: FINAL RESOLUTION OF ALL OPEN QUESTIONS
-    ========================================================================= *)
 
 (**
     ALL THREE OPEN QUESTIONS ARE NOW RESOLVED:
@@ -963,7 +925,8 @@ Qed.
     LASSERT does NOT unlock faster programs than EMIT.
     The step count is determined by search structure, not certificate type.
     LASSERT's extra cost buys verifiability, not speed.
-    The premium is formula_len * 8 μ per certificate.
+    The premium is the checked formula bits beyond the one-byte EMIT marker,
+    plus any declared LASSERT cost.
     A wrong LASSERT cert halts the machine immediately; EMIT never catches lies.
     This is the honest charter of the μ-ledger:
       μ quantifies the cost of structural knowledge.
@@ -974,9 +937,6 @@ Qed.
               cert_type_does_not_affect_step_count, total_verifiability_premium.
 *)
 
-(** =========================================================================
-    PART 16: LOOP INVARIANT PROOFS
-    ========================================================================= *)
 
 (** Unfold one run_vm step when the instruction is found. *)
 Lemma run_vm_step_instr :
@@ -1026,8 +986,7 @@ Proof.
     exact Hn.
 Qed.
 
-(** =========================================================================
-    PART 17: COMPUTATIONAL WITNESSES (N=1 CASE)
+(**
 
     For N=1 (1×1 grid), blind_program(0) and sighted_program(0,0) are
     fully evaluated by Coq's vm_compute kernel.  This grounds the algebraic
@@ -1038,7 +997,7 @@ Qed.
     that infeasible for kernel reduction.  The general case is validated
     on the OCaml VM by tests/test_structural_advantage.py and covered
     by time_tax_theorem_conditional above.
-    ========================================================================= *)
+    *)
 
 (** blind_halts_in_n_squared: For N=1, blind_program(0) terminates
     with r15 = 1 = N² and vm_mu = 0. *)
@@ -1050,20 +1009,19 @@ Theorem blind_halts_in_n_squared :
 Proof. vm_compute. split; [reflexivity | split; [reflexivity | lia]]. Qed.
 
 (** sighted_halts_in_two_n: For N=1, sighted_program(0,0) terminates
-    with r15 = 2 = 2*N and vm_mu = 2. *)
+    with r15 = 2 = 2*N and vm_mu = 18 (two EMIT "." each cost 8+1=9 μ). *)
 Theorem sighted_halts_in_two_n :
   let s := run_vm 20 (sighted_program 0 0) init_state in
   List.nth 15 s.(vm_regs) 0 = 2 * 1 /\
-  s.(vm_mu) = 2 /\
+  s.(vm_mu) = 18 /\
   s.(vm_pc) >= List.length (sighted_program 0 0).
 Proof. vm_compute. split; [reflexivity | split; [reflexivity | lia]]. Qed.
 
-(** =========================================================================
-    PART 18: ADVANTAGE RATIO GROWS WITHOUT BOUND
+(**
 
     Pure arithmetic: blind uses N² steps, sighted uses 2N steps.
     The gap N² - 2N grows without bound, as does the ratio N²/(2N) = N/2.
-    ========================================================================= *)
+    *)
 
 (** advantage_ratio_unbounded: For any bound B, there exists N ≥ 2
     such that the blind-vs-sighted iteration gap exceeds B. *)

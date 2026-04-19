@@ -1,4 +1,4 @@
-(** * VerilogRTLCorrespondence.v — Formal statement of RTL ↔ Coq correspondence
+(** VerilogRTLCorrespondence.v — Formal statement of RTL ↔ Coq correspondence
 
     This file closes the final gap in the three-layer verification chain by
     formally connecting the concrete Verilog RTL implementation
@@ -127,7 +127,7 @@ Variable verilog_mstatus   : VerilogState -> nat.
     - 31/31 cosim tests ALL PASS (tests/test_verilog_cosim.py)
     - 11,049/11,049 fuzz tests ALL PASS (tests/test_fuzz_random_programs.py)
     - kami_hw/Abstraction.v: kami_refines_vm_step (Qed), hw_step_preserves_invariants (Qed),
-      hw_step_preserves_bianchi (Qed), oracle_halts_abstraction_sound (Qed)
+      hw_step_preserves_bianchi (Qed)
 
     Using [Variable] (a section-local binding) rather than a global Axiom
     keeps the Coq logic sound: the RTL correspondence is a *premise*, not
@@ -422,8 +422,9 @@ Qed.
                           and kami_hw/Abstraction.v constructive evidence (all Qed)]
 
     The contract is universally quantified after closing the Section.
-    The kami_hw proofs supply the constructive instantiation.
-    Zero global Axioms; zero admits.
+    The kami_hw proofs supply the constructive instantiation, while the
+    repository cosimulation tests provide the concrete cross-check against the
+    generated RTL.
 *)
 Theorem complete_three_layer_isomorphism :
   forall (s_coq : VMState) (s_rtl : VerilogState)
@@ -474,7 +475,6 @@ Qed.
       - kami_refines_vm_step      (Qed) — register write commutation
       - hw_step_preserves_invariants (Qed) — μ-monotonicity
       - hw_step_preserves_bianchi    (Qed) — Bianchi conservation
-      - oracle_halts_abstraction_sound (Qed) — ORACLE_HALTS charge correctness
 
     Empirical validation of the full step contract:
       - 31/31 cosim tests pass (tests/test_verilog_cosim.py)

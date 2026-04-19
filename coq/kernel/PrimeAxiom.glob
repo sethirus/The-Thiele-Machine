@@ -1,173 +1,173 @@
-DIGEST 2e6f62738082d7714b0a0c8fbcdb6436
+DIGEST 075038806ef47f5dd3b2db51b738bef6
 FKernel.PrimeAxiom
-R1266:1269 Coq.Lists.List <> <> lib
-R1271:1284 Coq.Arith.PeanoNat <> <> lib
-R1286:1288 Coq.micromega.Lia <> <> lib
-R1298:1310 Coq.Lists.List ListNotations <> mod
-R1341:1347 Kernel.VMState <> <> lib
-R1349:1354 Kernel.VMStep <> <> lib
-R1356:1370 Kernel.SimulationProof <> <> lib
-prf 1462:1479 <> vm_apply_certified
-binder 1492:1492 <> s:1
-binder 1494:1498 <> instr:2
-R1538:1544 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1525:1536 Kernel.VMState <> vm_certified proj
-R1506:1513 Kernel.SimulationProof <> vm_apply def
-R1515:1515 Kernel.PrimeAxiom <> s:1 var
-R1517:1521 Kernel.PrimeAxiom <> instr:2 var
-R1551:1555 Kernel.PrimeAxiom <> instr:2 var
-R1568:1580 Kernel.VMStep VMStep instr_certify constr
-R1587:1590 Coq.Init.Datatypes <> true constr
-R1606:1617 Kernel.VMState <> vm_certified proj
-R1603:1603 Kernel.PrimeAxiom <> s:1 var
-R1783:1795 Kernel.VMStep VMStep advance_state def
-R1798:1817 Kernel.VMStep VMStep advance_state_reveal def
-R1824:1839 Kernel.VMStep VMStep advance_state_rm def
-R1842:1851 Kernel.VMStep VMStep jump_state def
-R1854:1866 Kernel.VMStep VMStep jump_state_rm def
-prf 1939:1963 <> vm_apply_mu_nondecreasing
-binder 1976:1976 <> s:4
-binder 1978:1982 <> instr:5
-R1998:2001 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1992:1996 Kernel.VMState <> vm_mu proj
-R1989:1989 Kernel.PrimeAxiom <> s:4 var
-R2022:2026 Kernel.VMState <> vm_mu proj
-R2003:2010 Kernel.SimulationProof <> vm_apply def
-R2012:2012 Kernel.PrimeAxiom <> s:4 var
-R2014:2018 Kernel.PrimeAxiom <> instr:5 var
-R2184:2196 Kernel.VMStep VMStep advance_state def
-R2199:2218 Kernel.VMStep VMStep advance_state_reveal def
-R2225:2240 Kernel.VMStep VMStep advance_state_rm def
-R2243:2252 Kernel.VMStep VMStep jump_state def
-R2255:2267 Kernel.VMStep VMStep jump_state_rm def
-R2270:2279 Kernel.VMStep VMStep apply_cost def
-prf 2342:2364 <> run_vm_mu_nondecreasing
-binder 2377:2380 <> fuel:6
-binder 2382:2388 <> program:7
-binder 2390:2390 <> s:8
-R2406:2409 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2400:2404 Kernel.VMState <> vm_mu proj
-R2397:2397 Kernel.PrimeAxiom <> s:8 var
-R2435:2439 Kernel.VMState <> vm_mu proj
-R2411:2416 Kernel.SimulationProof <> run_vm def
-R2418:2421 Kernel.PrimeAxiom <> fuel:6 var
-R2423:2429 Kernel.PrimeAxiom <> program:7 var
-R2431:2431 Kernel.PrimeAxiom <> s:8 var
-R2538:2546 Coq.Lists.List <> nth_error def
-R2557:2561 Kernel.VMState <> vm_pc proj
-R2538:2546 Coq.Lists.List <> nth_error def
-R2557:2561 Kernel.VMState <> vm_pc proj
-R2610:2617 Kernel.SimulationProof <> vm_apply def
-R2610:2617 Kernel.SimulationProof <> vm_apply def
-R2648:2672 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
-R2648:2672 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
-prf 2792:2815 <> certify_charges_positive
-binder 2828:2828 <> s:9
-binder 2830:2837 <> delta_mu:10
-R2889:2891 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2883:2887 Kernel.VMState <> vm_mu proj
-R2845:2852 Kernel.SimulationProof <> vm_apply def
-R2854:2854 Kernel.PrimeAxiom <> s:9 var
-R2857:2869 Kernel.VMStep VMStep instr_certify constr
-R2871:2878 Kernel.PrimeAxiom <> delta_mu:10 var
-R2901:2903 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2895:2899 Kernel.VMState <> vm_mu proj
-R2892:2892 Kernel.PrimeAxiom <> s:9 var
-R2904:2904 Coq.Init.Datatypes <> S constr
-R2906:2913 Kernel.PrimeAxiom <> delta_mu:10 var
-prf 3107:3147 <> single_step_certified_implies_positive_mu
-binder 3160:3160 <> s:11
-binder 3162:3166 <> instr:12
-R3197:3204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3189:3191 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3176:3187 Kernel.VMState <> vm_certified proj
-R3173:3173 Kernel.PrimeAxiom <> s:11 var
-R3192:3196 Coq.Init.Datatypes <> false constr
-R3218:3225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3214:3216 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3208:3212 Kernel.VMState <> vm_mu proj
-R3205:3205 Kernel.PrimeAxiom <> s:11 var
-R3266:3273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3259:3261 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3246:3257 Kernel.VMState <> vm_certified proj
-R3227:3234 Kernel.SimulationProof <> vm_apply def
-R3236:3236 Kernel.PrimeAxiom <> s:11 var
-R3238:3242 Kernel.PrimeAxiom <> instr:12 var
-R3262:3265 Coq.Init.Datatypes <> true constr
-R3275:3277 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3298:3302 Kernel.VMState <> vm_mu proj
-R3279:3286 Kernel.SimulationProof <> vm_apply def
-R3288:3288 Kernel.PrimeAxiom <> s:11 var
-R3290:3294 Kernel.PrimeAxiom <> instr:12 var
-R3360:3377 Kernel.PrimeAxiom <> vm_apply_certified thm
-R3360:3377 Kernel.PrimeAxiom <> vm_apply_certified thm
-R3360:3377 Kernel.PrimeAxiom <> vm_apply_certified thm
-prf 4001:4036 <> kernel_certified_implies_positive_mu
-binder 4049:4052 <> fuel:13
-binder 4054:4060 <> program:14
-binder 4062:4063 <> s0:15
-R4095:4102 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4087:4089 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4074:4085 Kernel.VMState <> vm_certified proj
-R4070:4071 Kernel.PrimeAxiom <> s0:15 var
-R4090:4094 Coq.Init.Datatypes <> false constr
-R4117:4124 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4113:4115 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4107:4111 Kernel.VMState <> vm_mu proj
+R1223:1226 Coq.Lists.List <> <> lib
+R1228:1241 Coq.Arith.PeanoNat <> <> lib
+R1243:1245 Coq.micromega.Lia <> <> lib
+R1255:1267 Coq.Lists.List ListNotations <> mod
+R1298:1304 Kernel.VMState <> <> lib
+R1306:1311 Kernel.VMStep <> <> lib
+R1313:1327 Kernel.SimulationProof <> <> lib
+prf 1419:1436 <> vm_apply_certified
+binder 1449:1449 <> s:1
+binder 1451:1455 <> instr:2
+R1495:1501 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1482:1493 Kernel.VMState <> vm_certified proj
+R1463:1470 Kernel.SimulationProof <> vm_apply def
+R1472:1472 Kernel.PrimeAxiom <> s:1 var
+R1474:1478 Kernel.PrimeAxiom <> instr:2 var
+R1508:1512 Kernel.PrimeAxiom <> instr:2 var
+R1525:1537 Kernel.VMStep VMStep instr_certify constr
+R1544:1547 Coq.Init.Datatypes <> true constr
+R1563:1574 Kernel.VMState <> vm_certified proj
+R1560:1560 Kernel.PrimeAxiom <> s:1 var
+R1740:1752 Kernel.VMStep VMStep advance_state def
+R1755:1774 Kernel.VMStep VMStep advance_state_reveal def
+R1781:1796 Kernel.VMStep VMStep advance_state_rm def
+R1799:1808 Kernel.VMStep VMStep jump_state def
+R1811:1823 Kernel.VMStep VMStep jump_state_rm def
+prf 1896:1920 <> vm_apply_mu_nondecreasing
+binder 1933:1933 <> s:4
+binder 1935:1939 <> instr:5
+R1955:1958 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1949:1953 Kernel.VMState <> vm_mu proj
+R1946:1946 Kernel.PrimeAxiom <> s:4 var
+R1979:1983 Kernel.VMState <> vm_mu proj
+R1960:1967 Kernel.SimulationProof <> vm_apply def
+R1969:1969 Kernel.PrimeAxiom <> s:4 var
+R1971:1975 Kernel.PrimeAxiom <> instr:5 var
+R2141:2153 Kernel.VMStep VMStep advance_state def
+R2156:2175 Kernel.VMStep VMStep advance_state_reveal def
+R2182:2197 Kernel.VMStep VMStep advance_state_rm def
+R2200:2209 Kernel.VMStep VMStep jump_state def
+R2212:2224 Kernel.VMStep VMStep jump_state_rm def
+R2227:2236 Kernel.VMStep VMStep apply_cost def
+prf 2299:2321 <> run_vm_mu_nondecreasing
+binder 2334:2337 <> fuel:6
+binder 2339:2345 <> program:7
+binder 2347:2347 <> s:8
+R2363:2366 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2357:2361 Kernel.VMState <> vm_mu proj
+R2354:2354 Kernel.PrimeAxiom <> s:8 var
+R2392:2396 Kernel.VMState <> vm_mu proj
+R2368:2373 Kernel.SimulationProof <> run_vm def
+R2375:2378 Kernel.PrimeAxiom <> fuel:6 var
+R2380:2386 Kernel.PrimeAxiom <> program:7 var
+R2388:2388 Kernel.PrimeAxiom <> s:8 var
+R2495:2503 Coq.Lists.List <> nth_error def
+R2514:2518 Kernel.VMState <> vm_pc proj
+R2495:2503 Coq.Lists.List <> nth_error def
+R2514:2518 Kernel.VMState <> vm_pc proj
+R2567:2574 Kernel.SimulationProof <> vm_apply def
+R2567:2574 Kernel.SimulationProof <> vm_apply def
+R2605:2629 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
+R2605:2629 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
+prf 2749:2772 <> certify_charges_positive
+binder 2785:2785 <> s:9
+binder 2787:2794 <> delta_mu:10
+R2846:2848 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2840:2844 Kernel.VMState <> vm_mu proj
+R2802:2809 Kernel.SimulationProof <> vm_apply def
+R2811:2811 Kernel.PrimeAxiom <> s:9 var
+R2814:2826 Kernel.VMStep VMStep instr_certify constr
+R2828:2835 Kernel.PrimeAxiom <> delta_mu:10 var
+R2858:2860 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2852:2856 Kernel.VMState <> vm_mu proj
+R2849:2849 Kernel.PrimeAxiom <> s:9 var
+R2861:2861 Coq.Init.Datatypes <> S constr
+R2863:2870 Kernel.PrimeAxiom <> delta_mu:10 var
+prf 3064:3104 <> single_step_certified_implies_positive_mu
+binder 3117:3117 <> s:11
+binder 3119:3123 <> instr:12
+R3154:3161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3146:3148 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3133:3144 Kernel.VMState <> vm_certified proj
+R3130:3130 Kernel.PrimeAxiom <> s:11 var
+R3149:3153 Coq.Init.Datatypes <> false constr
+R3175:3182 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3171:3173 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3165:3169 Kernel.VMState <> vm_mu proj
+R3162:3162 Kernel.PrimeAxiom <> s:11 var
+R3223:3230 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3216:3218 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3203:3214 Kernel.VMState <> vm_certified proj
+R3184:3191 Kernel.SimulationProof <> vm_apply def
+R3193:3193 Kernel.PrimeAxiom <> s:11 var
+R3195:3199 Kernel.PrimeAxiom <> instr:12 var
+R3219:3222 Coq.Init.Datatypes <> true constr
+R3232:3234 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3255:3259 Kernel.VMState <> vm_mu proj
+R3236:3243 Kernel.SimulationProof <> vm_apply def
+R3245:3245 Kernel.PrimeAxiom <> s:11 var
+R3247:3251 Kernel.PrimeAxiom <> instr:12 var
+R3317:3334 Kernel.PrimeAxiom <> vm_apply_certified thm
+R3317:3334 Kernel.PrimeAxiom <> vm_apply_certified thm
+R3317:3334 Kernel.PrimeAxiom <> vm_apply_certified thm
+prf 3958:3993 <> kernel_certified_implies_positive_mu
+binder 4006:4009 <> fuel:13
+binder 4011:4017 <> program:14
+binder 4019:4020 <> s0:15
+R4052:4059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4044:4046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4031:4042 Kernel.VMState <> vm_certified proj
+R4027:4028 Kernel.PrimeAxiom <> s0:15 var
+R4047:4051 Coq.Init.Datatypes <> false constr
+R4074:4081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4070:4072 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4064:4068 Kernel.VMState <> vm_mu proj
+R4060:4061 Kernel.PrimeAxiom <> s0:15 var
+R4128:4135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4121:4123 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4108:4119 Kernel.VMState <> vm_certified proj
+R4083:4088 Kernel.SimulationProof <> run_vm def
+R4090:4093 Kernel.PrimeAxiom <> fuel:13 var
+R4095:4101 Kernel.PrimeAxiom <> program:14 var
 R4103:4104 Kernel.PrimeAxiom <> s0:15 var
-R4171:4178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4164:4166 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4151:4162 Kernel.VMState <> vm_certified proj
-R4126:4131 Kernel.SimulationProof <> run_vm def
-R4133:4136 Kernel.PrimeAxiom <> fuel:13 var
-R4138:4144 Kernel.PrimeAxiom <> program:14 var
-R4146:4147 Kernel.PrimeAxiom <> s0:15 var
-R4167:4170 Coq.Init.Datatypes <> true constr
-R4180:4182 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4209:4213 Kernel.VMState <> vm_mu proj
-R4184:4189 Kernel.SimulationProof <> run_vm def
-R4191:4194 Kernel.PrimeAxiom <> fuel:13 var
-R4196:4202 Kernel.PrimeAxiom <> program:14 var
-R4204:4205 Kernel.PrimeAxiom <> s0:15 var
-R4385:4393 Coq.Lists.List <> nth_error def
-R4404:4408 Kernel.VMState <> vm_pc proj
-R4385:4393 Coq.Lists.List <> nth_error def
-R4404:4408 Kernel.VMState <> vm_pc proj
-R4455:4462 Kernel.SimulationProof <> vm_apply def
-R4455:4462 Kernel.SimulationProof <> vm_apply def
-R4496:4508 Coq.Bool.Bool <> bool_dec thm
-R4514:4525 Kernel.VMState <> vm_certified proj
-R4528:4531 Coq.Init.Datatypes <> true constr
-R4496:4508 Coq.Bool.Bool <> bool_dec thm
-R4514:4525 Kernel.VMState <> vm_certified proj
-R4528:4531 Coq.Init.Datatypes <> true constr
-R4670:4672 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4677:4681 Kernel.VMState <> vm_mu proj
-R4670:4672 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4677:4681 Kernel.VMState <> vm_mu proj
-R4703:4743 Kernel.PrimeAxiom <> single_step_certified_implies_positive_mu thm
-R4703:4743 Kernel.PrimeAxiom <> single_step_certified_implies_positive_mu thm
-R4798:4820 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm
-R4798:4820 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm
-R4938:4960 Coq.Bool.Bool <> not_true_iff_false thm
-R4938:4960 Coq.Bool.Bool <> not_true_iff_false thm
-R5006:5009 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5000:5004 Kernel.VMState <> vm_mu proj
-R5014:5018 Kernel.VMState <> vm_mu proj
-R5006:5009 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5000:5004 Kernel.VMState <> vm_mu proj
-R5014:5018 Kernel.VMState <> vm_mu proj
-R5050:5074 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
-R5050:5074 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
-R5118:5121 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R5114:5116 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5108:5112 Kernel.VMState <> vm_mu proj
-R5123:5125 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5130:5134 Kernel.VMState <> vm_mu proj
-R5118:5121 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R5114:5116 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5108:5112 Kernel.VMState <> vm_mu proj
-R5123:5125 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5130:5134 Kernel.VMState <> vm_mu proj
-R5268:5290 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm
-R5268:5290 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm
+R4124:4127 Coq.Init.Datatypes <> true constr
+R4137:4139 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4166:4170 Kernel.VMState <> vm_mu proj
+R4141:4146 Kernel.SimulationProof <> run_vm def
+R4148:4151 Kernel.PrimeAxiom <> fuel:13 var
+R4153:4159 Kernel.PrimeAxiom <> program:14 var
+R4161:4162 Kernel.PrimeAxiom <> s0:15 var
+R4342:4350 Coq.Lists.List <> nth_error def
+R4361:4365 Kernel.VMState <> vm_pc proj
+R4342:4350 Coq.Lists.List <> nth_error def
+R4361:4365 Kernel.VMState <> vm_pc proj
+R4412:4419 Kernel.SimulationProof <> vm_apply def
+R4412:4419 Kernel.SimulationProof <> vm_apply def
+R4453:4465 Coq.Bool.Bool <> bool_dec thm
+R4471:4482 Kernel.VMState <> vm_certified proj
+R4485:4488 Coq.Init.Datatypes <> true constr
+R4453:4465 Coq.Bool.Bool <> bool_dec thm
+R4471:4482 Kernel.VMState <> vm_certified proj
+R4485:4488 Coq.Init.Datatypes <> true constr
+R4627:4629 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4634:4638 Kernel.VMState <> vm_mu proj
+R4627:4629 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4634:4638 Kernel.VMState <> vm_mu proj
+R4660:4700 Kernel.PrimeAxiom <> single_step_certified_implies_positive_mu thm
+R4660:4700 Kernel.PrimeAxiom <> single_step_certified_implies_positive_mu thm
+R4755:4777 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm
+R4755:4777 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm
+R4895:4917 Coq.Bool.Bool <> not_true_iff_false thm
+R4895:4917 Coq.Bool.Bool <> not_true_iff_false thm
+R4963:4966 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4957:4961 Kernel.VMState <> vm_mu proj
+R4971:4975 Kernel.VMState <> vm_mu proj
+R4963:4966 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4957:4961 Kernel.VMState <> vm_mu proj
+R4971:4975 Kernel.VMState <> vm_mu proj
+R5007:5031 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
+R5007:5031 Kernel.PrimeAxiom <> vm_apply_mu_nondecreasing thm
+R5075:5078 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R5071:5073 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5065:5069 Kernel.VMState <> vm_mu proj
+R5080:5082 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5087:5091 Kernel.VMState <> vm_mu proj
+R5075:5078 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R5071:5073 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5065:5069 Kernel.VMState <> vm_mu proj
+R5080:5082 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5087:5091 Kernel.VMState <> vm_mu proj
+R5225:5247 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm
+R5225:5247 Kernel.PrimeAxiom <> run_vm_mu_nondecreasing thm

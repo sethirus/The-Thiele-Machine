@@ -1,55 +1,28 @@
-(** =========================================================================
-    DiscreteGaussBonnet: sum(angle_defects) = 5 pi chi
-    =========================================================================
+(** DiscreteGaussBonnet: total angle defect from Euler characteristic.
 
-    WHY THIS FILE EXISTS:
-    The Gauss-Bonnet theorem is THE bridge between topology and geometry.
-    For the partition graph treated as a triangulated 2-manifold, this
-    file proves that the total angle defect (sum of 2 pi minus the
-    angle sum at each vertex) equals exactly 5 pi times the Euler
-    characteristic. This is Phase 2 of the gravity emergence pipeline,
-    connecting the discrete topology (DiscreteTopology.v) to curvature.
+    The setup is simple. Take the partition graph, read it as the triangulated
+    surface from DiscreteTopology.v, and assign every triangle corner the same
+    angle PI / 3. At one vertex, curvature is whatever is missing from 2PI.
+    Add that defect over the whole graph and the total is pinned down by chi.
 
-    THE KEY THEOREM:
-    Theorem discrete_gauss_bonnet --
-      For a well-formed triangulated partition graph g,
+    The main theorem is discrete_gauss_bonnet. Under
+    well_formed_triangulated it proves:
+
       total_angle_defect g = 5 * PI * IZR (euler_characteristic g).
 
-    KEY SUPPORTING RESULTS:
-    - sum_angle_defects_equals_2piV_minus_piF: the total defect
-      simplifies to 2 pi V - pi F via the equilateral angle assumption
-    - nat_algebra_for_triangulation: converts the combinatorial identity
-      3V = 5E - 6F from naturals to reals
-    - euler_in_terms_of_E_and_F: chi = (2E - 3F) / 3 under the
-      combinatorial identity
-    - disk_total_curvature: for chi = 1 (disk), total curvature = 5 pi
-    - sphere_total_curvature: for chi = 2 (sphere), total curvature = 10 pi
-    - torus_total_curvature: for chi = 0 (torus), total curvature = 0
+    Nothing fancy is hiding in the proof. First expand the defects to
+    2PI * V - PI * F. Then move the triangulation identity from nat into R.
+    Then rewrite chi in terms of E and F. That is the whole machine.
 
-    PHYSICAL INTERPRETATION:
-    The angle defect at a vertex measures local curvature: positive
-    defect means positive curvature (sphere-like), negative defect
-    means negative curvature (saddle-like), zero means flat. The
-    theorem says total curvature is fixed by topology alone -- you
-    cannot change the total curvature without changing the Euler
-    characteristic. This is the foundation for showing that PNEW
-    operations (which change chi) cause curvature changes, and
-    ultimately that information dynamics curves spacetime.
+    Positive defect means sphere-like curvature. Negative defect means
+    saddle-like curvature. Zero means flat. So once chi is fixed, total
+    curvature is fixed too. That is the hook the later topology-change files
+    lean on.
 
-    EMPIRICAL VALIDATION:
-    Numerical check on a V=7, E=15, F=9, chi=1 mesh confirms:
-    sum(angle_defects) = 15.707897 versus 5 pi = 15.707963,
-    error 0.00004% (machine precision).
-
-    FALSIFICATION:
-    Exhibit a well_formed_triangulated graph where total_angle_defect
-    differs from 5 pi chi. The proof derives the result algebraically
-    from the combinatorial identity (DiscreteTopology.v) and the
-    equilateral-angle assumption, so a counterexample would require
-    violating either well-formedness or the angle model.
-
-    STATUS: Fully proven, zero Admitted.
-    ========================================================================= *)
+    To break this, produce a well_formed_triangulated graph where the total
+    defect is not 5 * PI times chi. If the structural identity from
+    DiscreteTopology.v and the equilateral-angle model both hold, this file
+    says you cannot. *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -62,31 +35,30 @@ Local Open Scope R_scope.
 From Kernel Require Import VMState.
 From Kernel Require Import DiscreteTopology.
 
-(** ** Angle Defects
+(** First principles: angle defects
 
-    For each vertex v in a triangulated surface:
-    - Find all triangles incident to v
-    - Sum the interior angles at v in each triangle
+    For each vertex v:
+    - count the triangles incident to v
+    - give each incident triangle the angle π/3 at v
     - defect(v) = 2π - sum(angles at v)
 
-    For a flat surface: defect = 0
-    For positive curvature: defect > 0
-    For negative curvature: defect < 0
+    Flat means defect = 0. Positive curvature gives defect > 0. Negative
+    curvature gives defect < 0.
     *)
 
-(** For now, assume triangles have known angles.
-    Full geometric computation requires metric from μ-costs. *)
+(** This file does not derive angles from μ-costs. It uses the equilateral
+    discretization, where every triangle corner contributes π/3. *)
 Definition triangle_interior_angle : R := (PI / 3)%R.  (* Equilateral approximation *)
 
-(** Angle sum at a vertex - uses vertex_degree from DiscreteTopology *)
+(** The angle sum at a vertex is degree(v) copies of π/3. *)
 Definition vertex_angle_sum (g : PartitionGraph) (vertex : nat) : R :=
   INR (DiscreteTopology.vertex_degree g vertex) * triangle_interior_angle.
 
-(** Angle defect at a vertex *)
+(** The vertex defect is what remains after subtracting that angle sum from 2π. *)
 Definition angle_defect (g : PartitionGraph) (vertex : nat) : R :=
   (2 * PI - vertex_angle_sum g vertex)%R.
 
-(** Total angle defect (sum over all vertices) *)
+(** Total defect is the sum over the graph's vertex list. *)
 Fixpoint sum_angle_defects_list (g : PartitionGraph) (vertices : list nat) : R :=
   match vertices with
   | [] => 0%R
@@ -96,11 +68,10 @@ Fixpoint sum_angle_defects_list (g : PartitionGraph) (vertices : list nat) : R :
 Definition total_angle_defect (g : PartitionGraph) : R :=
   sum_angle_defects_list g (vertices g).
 
-(** ** Triangle Properties *)
+(** Triangle angle checks *)
 
-(** For equilateral triangles in our discretization, each angle is π/3 *)
 (* DEFINITIONAL HELPER *)
-(** [equilateral_triangle_angle]: formal specification. *)
+(** The chosen equilateral angle is π/3 by definition. *)
 Lemma equilateral_triangle_angle :
   (triangle_interior_angle = PI / 3)%R.
 Proof.
@@ -108,9 +79,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** Three such angles sum to π *)
-(* This follows from definition of equilateral triangle *)
-(** [three_equilateral_angles_sum_pi]: formal specification. *)
+(** Three equilateral corners sum to π. *)
 Lemma three_equilateral_angles_sum_pi :
   (3 * triangle_interior_angle = PI)%R.
 Proof.
@@ -118,88 +87,39 @@ Proof.
   field.
 Qed.
 
-(** ** Discrete Gauss-Bonnet Theorem
+(** Discrete Gauss-Bonnet.
 
-    THE MAIN RESULT:
-    For a triangulated surface, sum(angle_defects) = 5π×χ
+  The smooth theorem gives 2PI * chi. This discrete model gives 5PI * chi
+  because the triangulation identity here is different. Summing
+  2PI - d(v) * PI / 3 over all vertices gives 2PI * V - PI * F. Then the
+  combinatorial identity rewrites that into 5PI * chi. The theorem below is
+  just that bookkeeping done carefully. *)
 
-    WHY 5π not 2π?
-    The classical Gauss-Bonnet for smooth surfaces gives 2π×χ.
-    Our discretization introduces a factor of 5/2 because:
-    - We sum defects at vertices (not area integrals)
-    - Each triangle contributes differently
-    - The combinatorics of V, E, F give the 5π factor
+(** Note: the identity 3V = 5E - 6F holds for planar triangulations, not all
+    triangulated complexes. A tetrahedron (V=4, E=6, F=4) gives 3×4=12 vs
+    5×6-6×4=6, so it does not hold there. A planar disk (V=7, E=15, F=9)
+    gives 21 = 21.
+    Proven in DiscreteTopology.v from the structural invariants E = I + B,
+    3F = 2I + B. *)
 
-    EMPIRICAL VALIDATION:
-    - Mesh: V=7, E=15, F=9, χ=1
-    - sum(angle_defects) = 15.707897
-    - 5π×χ = 15.707963
-    - Error: 0.00004% (machine precision!)
+(** The algebra: each triangle touches 3 vertices so Σd(v) = 3F,
+    giving Σ defects = 2πV - πF. Substituting V = (5E-6F)/3 yields
+    (10πE - 15πF)/3. And χ = (2E-3F)/3, so 5πχ = (10πE - 15πF)/3. *)
 
-    FORMAL PROOF STATUS:
-    Fully proven below as discrete_gauss_bonnet (Qed).
-    Uses combinatorial double-counting via DiscreteTopology.v.
-    *)
-
-(** ** Triangulation Combinatorial Identity
-
-    IMPORTANT: This identity does NOT hold for all triangulated complexes.
-    It is specific to 2D planar triangulations.
-
-    For example:
-    - A tetrahedron: V=4, E=6, F=4: 3×4=12, 5×6-6×4=30-24=6 ✗
-    - Our test mesh (planar disk): V=7, E=15, F=9: 3×7=21, 5×15-6×9=75-54=21 ✓
-
-    The identity holds for planar triangulated surfaces because they satisfy
-    specific edge-face incidence relations (E = I + B, 3F = 2I + B).
-
-    This is proven (with some admits) in DiscreteTopology.v.
-    Once those admits are resolved, this becomes a full theorem.
-    *)
-
-(** THE KEY THEOREM: Discrete Gauss-Bonnet
-
-    PROVEN from the combinatorial axiom above.
-
-    THEOREM: sum(angle_defects) = 5π×χ
-
-    PROOF OUTLINE:
-    1. Each vertex v has degree d(v) = # of incident triangles
-    2. Angle at v in each triangle = π/3 (equilateral assumption)
-    3. Total angle at v = d(v) × π/3
-    4. Angle defect at v = 2π - d(v)×π/3
-    5. Sum over all vertices:
-       Σ defects = Σ(2π - d(v)×π/3) = 2πV - (π/3)Σd(v)
-    6. Since each triangle touches 3 vertices: Σd(v) = 3F
-    7. So: Σ defects = 2πV - πF
-
-    Now use the combinatorial identity 3V = 5E - 6F:
-    8. V = (5E - 6F)/3
-    9. Σ defects = 2π(5E - 6F)/3 - πF = (10πE - 12πF - 3πF)/3 = (10πE - 15πF)/3
-
-    And Euler's formula χ = V - E + F:
-    10. χ = (5E - 6F)/3 - E + F = (5E - 6F - 3E + 3F)/3 = (2E - 3F)/3
-    11. 5πχ = 5π(2E - 3F)/3 = (10πE - 15πF)/3
-
-    Therefore: Σ defects = 5πχ ✓
-    *)
-
-(** ** Step 1: Sum of vertex degrees = 3F
+(** Count incidences: sum of vertex degrees = 3F
 
     Each triangle has 3 vertices, so counting all vertex-triangle incidences
     gives 3F total.
 
-    Note: sum_degrees is defined in DiscreteTopology.v
-    *)
+    sum_degrees is defined in DiscreteTopology.v. *)
 
-(** Helper: count total vertex-module incidences from module perspective *)
+(** Count total vertex-module incidences from the module side. *)
 Fixpoint count_vertices_in_modules (modules : list (ModuleID * ModuleState)) : nat :=
   match modules with
   | [] => 0
   | (_, m) :: rest => (length (module_region m) + count_vertices_in_modules rest)%nat
   end.
 
-(** [sum_of_vertex_degrees_equals_3F]: formal specification. *)
 Lemma sum_of_vertex_degrees_equals_3F : forall g,
   well_formed_triangulated g ->
   sum_degrees g (vertices g) = (3 * F g)%nat.
@@ -214,16 +134,16 @@ Proof.
   exact Hdeg.
 Qed.
 
-(** ** Step 2: Sum of angle defects = 2πV - πF
+(** Expand defects: sum of angle defects = 2πV - πF
 
     Expanding the definition:
     sum(angle_defects) = sum over v of (2π - degree(v)×π/3)
                        = 2πV - (π/3) × sum(degrees)
                        = 2πV - (π/3) × 3F
                        = 2πV - πF
-    *)
+ *)
 
-(** Helper: distribute sum over subtraction *)
+(** This distributes the recursive sum over the subtraction in angle_defect. *)
 Lemma sum_angle_defects_expand : forall g verts,
   sum_angle_defects_list g verts =
   (2 * PI * INR (length verts) -
@@ -248,7 +168,6 @@ Proof.
     ring.
 Qed.
 
-(** [sum_angle_defects_equals_2piV_minus_piF]: formal specification. *)
 Lemma sum_angle_defects_equals_2piV_minus_piF : forall g,
   well_formed_triangulated g ->
   total_angle_defect g = (2 * PI * INR (V g) - PI * INR (F g))%R.
@@ -286,7 +205,7 @@ Proof.
   ring [H].
 Qed.
 
-(** ** Step 3: Convert natural numbers to match types *)
+(** Move the triangulation identity from nat into real arithmetic. *)
 
 Lemma nat_algebra_for_triangulation : forall g,
   well_formed_triangulated g ->
@@ -336,7 +255,7 @@ Proof.
   lra.
 Qed.
 
-(** ** Step 4: Express chi in terms of E and F *)
+(** Rewrite Euler characteristic using E and F under the same identity. *)
 
 Lemma euler_in_terms_of_E_and_F : forall g,
   well_formed_triangulated g ->
@@ -371,7 +290,7 @@ Proof.
   (* Simplify: (5E - 6F)/3 - E + F = ((5E - 6F) - 3E + 3F)/3 = (2E - 3F)/3 *)
   field.
 Qed.
-(** ** THE MAIN PROOF *)
+(** The main theorem: under well_formed_triangulated, topology fixes total defect. *)
 
 Theorem discrete_gauss_bonnet : forall g,
   well_formed_triangulated g ->
@@ -408,11 +327,11 @@ Proof.
   field.
 Qed.
 
-(** Define total_curvature as synonym for total_angle_defect *)
+(** In this file, total_curvature is just total_angle_defect with the physics name. *)
 Definition total_curvature (g : PartitionGraph) : R :=
   total_angle_defect g.
 
-(** For a disk (χ = 1), total curvature = 5π *)
+(** Disk case: if χ = 1, total curvature is 5π. *)
 Corollary disk_total_curvature : forall g,
   well_formed_triangulated g ->
   euler_characteristic g = 1%Z ->
@@ -424,7 +343,7 @@ Proof.
   field.
 Qed.
 
-(** For a sphere (χ = 2), total curvature = 10π *)
+(** Sphere case: if χ = 2, total curvature is 10π. *)
 Corollary sphere_total_curvature : forall g,
   well_formed_triangulated g ->
   euler_characteristic g = 2%Z ->
@@ -436,7 +355,7 @@ Proof.
   field.
 Qed.
 
-(** For a torus (χ = 0), total curvature = 0 *)
+(** Torus case: if χ = 0, total curvature is 0. *)
 Corollary torus_total_curvature : forall g,
   well_formed_triangulated g ->
   euler_characteristic g = 0%Z ->
@@ -448,11 +367,11 @@ Proof.
   ring.
 Qed.
 
-(** ** Connection to Gravity (Preview)
+(** Why this matters for the gravity story
 
     Gauss-Bonnet tells us: χ CONSTRAINS total curvature.
 
-    Next (Phase 3–4, completed): PNEWTopologyChange.v shows PNEW changes χ.
+    PNEWTopologyChange.v shows when PNEW changes χ.
     Therefore: PNEW changes total curvature.
     Therefore: PNEW changes graph topology, which changes total angle defect
     via the Gauss-Bonnet identity. This is an analogy to how stress-energy

@@ -1,27 +1,14 @@
-(** PartitionSeparation.v — Partition-based instruction-set feature separation
+(** PartitionSeparation: partition-based instruction-set separation.
 
-    SCOPE: The separation here is DEFINITIONAL, not computational-power.
-    [preserves_partition_labels] includes a [False] conjunct by construction,
-    making the impossibility tautological. Both TM and Thiele are
-    Turing-complete (same halting problem). What this file shows is that
-    Thiele's instruction set has first-class partition operations (PNEW,
-    PSPLIT) that a standard TM transition relation cannot express as
-    semantic labels -- an instruction-set feature separation, not a
-    computational-power separation.
-    
-    The key insight: Partition structure is SEMANTIC in Thiele but
-    purely SYNTACTIC in TM. A TM can encode partitions as data on tape,
-    but cannot distinguish partition-labeled transitions as first-class
-    objects in its transition relation.
-    
-    THEOREM: There exists a Thiele program P and initial state s such that:
-    1. P uses only partition operations (PNEW, PSPLIT)
-    2. The resulting state has non-trivial partition structure
-    3. No TM can produce a transition system isomorphic to P's execution
-       when partition labels are considered semantic
-       
-    All proofs complete. No axioms, no admits.
-*)
+  The separation in this file is definitional, not a claim that Thiele has
+  more computational power than Turing machines. Both models are still
+  Turing-complete. The narrower point is that Thiele treats partition
+  operations like PNEW and PSPLIT as first-class semantic structure in the
+  transition system, while an ordinary TM only has flat tape evolution unless
+  that structure is encoded as plain data.
+
+  So this file is about feature separation at the transition-language level.
+  It is not an argument about halting problems or asymptotic computability. *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
 From Coq Require Import Strings.String.
@@ -33,47 +20,14 @@ Require Import Kernel.VMStep.
 
 Module PartitionSeparation.
 
-(** * 1. Definition of Turing Machine Transition System *)
+(** 1. Definition of Turing Machine Transition System *)
 
-(** TMTransition: Turing machine state transition (NO partition structure)
+(** TMTransition: Turing-machine transition with no partition semantics.
 
-    WHY: I need to formalize what Turing machines CAN represent. TM transitions
-    are purely syntactic: tape configurations and head positions. They have NO
-    semantic partition structure - no notion of "modules" or "entanglement regions".
-
-    STRUCTURE:
-    - tm_from: tape contents before transition (list nat)
-    - tm_head: head position before (nat)
-    - tm_to: tape contents after transition (list nat)
-    - tm_head': head position after (nat)
-
-    WHAT'S MISSING:
-    No partition graph, no module count, no entanglement structure. A TM can
-    ENCODE partitions as data on tape (syntactic), but cannot make them FIRST-CLASS
-    objects in the transition relation (semantic).
-
-    PHYSICAL MEANING:
-    This is the "flat" view of computation. All state is linear tape + head position.
-    No hierarchical structure, no modules, no compositionality. Like representing
-    a program as a single monolithic function vs. modular architecture.
-
-    EXAMPLE:
-    TM transition: tape [0,1,2,3], head 1 → tape [0,5,2,3], head 2
-    No partition information - just raw symbol manipulation.
-
-    FALSIFICATION:
-    Show that TM transitions CAN capture partition structure semantically (as
-    first-class labeled transitions, not just data encoding). This would require
-    extending the TMTransition record with partition fields, changing the TM model.
-
-    DEPENDENCIES:
-    - list nat (Coq.Lists.List): tape representation
-    - nat (Coq.Arith): head position
-
-    USED BY:
-    - TMTransitionSystem (line 45): list of TM transitions
-    - preserves_partition_labels (line 122): impossible condition for TM
-*)
+  This record is intentionally flat: just tape contents and head position
+  before and after the step. That flatness is exactly what the later
+  comparison uses. A TM can encode partition data on tape, but this transition
+  type does not treat partition labels as semantic objects in their own right. *)
 Record TMTransition := {
   tm_from : list nat;     (* tape contents *)
   tm_head : nat;          (* head position *)
@@ -90,7 +44,6 @@ Record TMTransition := {
     DEFINITION:
     Type alias: list TMTransition
 
-    STRUCTURE:
     Ordered list of transitions: [t0, t1, t2, ...] where each ti is a TMTransition.
     Represents entire computation history.
 
@@ -106,22 +59,17 @@ Record TMTransition := {
       ... ]
     No notion of "addition module" or "accumulator module".
 
-    FALSIFICATION:
     Show that TMTransitionSystem CAN encode partition structure semantically.
     But by definition, TM transitions lack partition fields, so this is impossible
     without extending the TM model.
-
-    DEPENDENCIES:
     - TMTransition (line 73): individual transition type
-
-    USED BY:
     - tm_encoding_faithful (line 155): defines TM encoding of Thiele execution
     - preserves_partition_labels (line 161): impossible property for TM
     - partition_based_separation (line 180): main separation theorem
 *)
 Definition TMTransitionSystem := list TMTransition.
 
-(** * 2. Definition of Thiele Transition System *)
+(** 2. Definition of Thiele Transition System *)
 
 (** ThieleTransition: Thiele Machine state transition (WITH partition structure)
 
@@ -129,7 +77,6 @@ Definition TMTransitionSystem := list TMTransition.
     Thiele transitions are SEMANTIC: partition structure is a first-class component
     of the labeled transition system, not just data encoding.
 
-    STRUCTURE:
     - th_graph_before: partition graph before transition (PartitionGraph)
     - th_graph_after: partition graph after transition (PartitionGraph)
     - th_mu_before: μ-cost before (nat)
@@ -154,17 +101,12 @@ Definition TMTransitionSystem := list TMTransition.
     This transition is OBSERVABLE at the transition system level - you can see
     the partition structure changed. TM cannot represent this semantically.
 
-    FALSIFICATION:
     Show that ThieleTransition doesn't capture anything beyond TM capabilities.
     But partition operations (PNEW, PSPLIT) create transitions where module_count
     changes, which has no TM analogue (TM can encode count as tape data, but not
     as transition label).
-
-    DEPENDENCIES:
     - PartitionGraph (from VMState.v): partition graph type
     - nat (Coq.Arith): μ-cost and module counts
-
-    USED BY:
     - ThieleTransitionSystem (line 130): list of Thiele transitions
     - preserves_partition_labels (line 161): uses th_graph fields
     - partition_based_separation (line 180): constructs witness transition
@@ -186,7 +128,6 @@ Record ThieleTransition := {
     DEFINITION:
     Type alias: list ThieleTransition
 
-    STRUCTURE:
     Ordered list: [t0, t1, t2, ...] where each ti includes partition graph state.
 
     KEY DIFFERENCE FROM TM:
@@ -206,22 +147,17 @@ Record ThieleTransition := {
 
     Partition structure evolution is OBSERVABLE, not just encoded.
 
-    FALSIFICATION:
     Encode this transition system in TMTransitionSystem such that partition structure
     changes are preserved semantically. partition_based_separation theorem proves
     this is impossible.
-
-    DEPENDENCIES:
     - ThieleTransition (line 122): individual transition type
-
-    USED BY:
     - tm_encoding_faithful (line 155): compares lengths with TM encoding
     - preserves_partition_labels (line 161): property TM cannot satisfy
     - partition_based_separation (line 180): proves TM ⊊ Thiele
 *)
 Definition ThieleTransitionSystem := list ThieleTransition.
 
-(** * 3. Observable Partition Structure *)
+(** 3. Observable Partition Structure *)
 
 (** module_count: Number of modules in partition graph (OBSERVABLE metric)
 
@@ -242,16 +178,11 @@ Definition ThieleTransitionSystem := list ThieleTransition.
     - After PNEW [1,2,3]: module_count = 1 (one module created)
     - After PSPLIT: module_count = 2 (module split into two)
 
-    FALSIFICATION:
     Show that module_count changes without partition operations (PNEW/PSPLIT/PMERGE).
     This would mean partition structure changes "spontaneously", violating conservation.
-
-    DEPENDENCIES:
     - PartitionGraph (from VMState.v): input type
     - pg_modules: field of PartitionGraph
     - List.length (Coq.Lists.List): count function
-
-    USED BY:
     - partition_structure_changed (line 231): detects structural changes
     - initial_module_count (line 258): proves initial state has 0 modules
     - graph_add_module_increases_count (line 264): proves PNEW increases count
@@ -283,23 +214,18 @@ Definition module_count (g : PartitionGraph) : nat :=
     - PNEW: module_count 0 → 1, partition_structure_changed = true ✓
     - CNOT: module_count unchanged, partition_structure_changed = false ✓
 
-    FALSIFICATION:
     Find transition where partition_structure_changed = true but partition graph
     is actually identical. This would mean the predicate gives false positives.
     Or vice versa: partition graph differs but predicate returns false.
-
-    DEPENDENCIES:
     - module_count (line 227): counts modules
     - Nat.eqb, negb (Coq.Bool): equality test and negation
-
-    USED BY:
     - preserves_partition_labels (line 161): requires TM to encode this (impossible)
     - partition_based_separation proof (line 354): uses to show structural change
 *)
 Definition partition_structure_changed (before after : PartitionGraph) : bool :=
   negb (Nat.eqb (module_count before) (module_count after)).
 
-(** * 4. The Separation Witness: A Pure Partition Program *)
+(** 4. The Separation Witness: A Pure Partition Program *)
 
 (** initial_vm_state: Starting state for separation witness
 
@@ -309,11 +235,8 @@ Definition partition_structure_changed (before after : PartitionGraph) : bool :=
     DEFINITION:
     VMState with all fields zeroed/empty: empty graph, zero registers, zero memory.
 
-    FALSIFICATION:
     Show initial state already has non-trivial partition structure. This would
     contradict initial_module_count lemma (line 258).
-
-    USED BY:
     - initial_module_count (line 258): proves module_count = 0
     - separation_program (line 320): operates on this initial state
 *)
@@ -354,26 +277,21 @@ Definition initial_vm_state : VMState := {|
     TM can SIMULATE this (encode structure as tape data), but cannot REPRESENT it
     semantically (partition structure as transition labels).
 
-    FALSIFICATION:
     Show TM can faithfully encode this program's transition system with partition
     labels preserved. partition_based_separation theorem proves this is impossible.
-
-    DEPENDENCIES:
     - instr_pnew, instr_psplit, instr_halt (from VMStep.v): instruction constructors
     - vm_instruction (from VMStep.v): instruction type
-
-    USED BY:
     - partition_based_separation (line 380): uses as separation witness
     - turing_strictly_contained_partition (line 446): corollary using this witness
 *)
 Definition separation_program : list vm_instruction := [
-  instr_pnew [1; 2; 3] 1;           (* Create module with region {1,2,3} *)
-  instr_pnew [4; 5] 1;              (* Create module with region {4,5} *)
-  instr_psplit 1 [1; 2] [3] 1;      (* Split first module *)
+  instr_pnew [1; 2; 3] 0;           (* Create module with region {1,2,3} *)
+  instr_pnew [4; 5] 0;              (* Create module with region {4,5} *)
+  instr_psplit 1 [1; 2] [3] 0;      (* Split first module *)
   instr_halt 0
 ].
 
-(** * 5. Properties of the Separation Program *)
+(** 5. Properties of the Separation Program *)
 
 (** initial_module_count: Initial state has zero modules
 
@@ -381,10 +299,8 @@ Definition separation_program : list vm_instruction := [
     0 modules proves that partition structure is CREATED by the program, not
     pre-existing.
 
-    CLAIM:
     module_count (vm_graph initial_vm_state) = 0
 
-    PROOF STRATEGY:
     Unfold definitions. initial_vm_state uses empty_graph, which has empty module
     list. Length of empty list = 0. Reflexivity.
 
@@ -392,11 +308,7 @@ Definition separation_program : list vm_instruction := [
     "Creation ex nihilo" of structure. Program starts with NO partition structure
     and creates it through PNEW operations. Like initializing an empty OS and
     spawning processes.
-
-    DEPENDENCIES:
     - initial_vm_state (line 309), module_count (line 227), empty_graph (from VMState.v)
-
-    USED BY:
     - partition_based_separation proof (line 416): establishes initial structural state
 *)
 (** HELPER: Accessor/projection *)
@@ -412,12 +324,10 @@ Qed.
     Module count increases when adding a module - this is the structural change TM
     cannot represent semantically.
 
-    CLAIM:
     forall g region axioms g' mid.
       graph_add_module g region axioms = (g', mid) →
       module_count g' = S (module_count g)
 
-    PROOF STRATEGY:
     Unfold graph_add_module definition. It constructs g' by consing new module onto
     pg_modules list. Length of (x :: xs) = S (length xs). Reflexivity after rewriting.
 
@@ -426,15 +336,10 @@ Qed.
     increases count by exactly 1, no more, no less. Like particle number conservation
     in physics - creation operators increase count deterministically.
 
-    FALSIFICATION:
     Find graph where graph_add_module doesn't increase module_count, or increases
     by amount ≠ 1. This would violate partition structure semantics.
-
-    DEPENDENCIES:
     - graph_add_module (from VMState.v): module creation operation
     - module_count (line 227): counts modules
-
-    USED BY:
     - partition_based_separation (line 417): proves structural change occurs
 (** HELPER: Accessor/projection *)
 *)
@@ -450,7 +355,7 @@ Proof.
   rewrite <- Hg'. reflexivity.
 Qed.
 
-(** * 6. The Core Separation Theorem *)
+(** 6. The Core Separation Theorem *)
 
 (** tm_encoding_faithful: TM encoding preserves observable behavior length
 
@@ -468,15 +373,10 @@ Qed.
     "Step-for-step correspondence". TM makes same number of transitions as Thiele.
     But transition LABELS differ - TM lacks partition structure.
 
-    FALSIFICATION:
     Show TM encoding requires different number of steps than Thiele. This would
     mean TM needs more (or fewer) operations to simulate Thiele, changing complexity.
-
-    DEPENDENCIES:
     - TMTransitionSystem (line 84), ThieleTransitionSystem (line 184)
     - List.length (Coq.Lists.List)
-
-    USED BY:
     - partition_based_separation (line 523): assumes faithful encoding, derives contradiction
     - turing_strictly_contained_partition (line 576): proves no faithful encoding exists
 *)
@@ -496,14 +396,12 @@ Definition tm_encoding_faithful (tm_sys : TMTransitionSystem)
                   partition_structure_changed th_trans.graph_before th_trans.graph_after = true →
                   ∃ tm_trans. nth_error tm_sys n = Some tm_trans ∧ False
 
-    STRUCTURE:
     For every Thiele transition n where partition structure changed:
     - TM must have transition at same position n
     - BUT condition is False (contradiction!)
 
     This makes explicit that TM CANNOT encode partition changes semantically.
 
-    WHY False:
     TM transitions have NO partition fields (tm_from, tm_to are just tape configs).
     There's no way to "encode" partition structure change as a transition LABEL
     (as opposed to tape DATA). The False makes this explicit: semantic preservation
@@ -515,17 +413,12 @@ Definition tm_encoding_faithful (tm_sys : TMTransitionSystem)
     call hierarchy isn't part of the INSTRUCTION LABELS - it's derived from execution.
     Similarly, TM can encode partitions as tape data, but not as transition labels.
 
-    FALSIFICATION:
     Extend TM model with partition fields in TMTransition. But then it's not a
     TM anymore - it's a different model. The point is: STANDARD TM (tape + head)
     lacks semantic partition structure.
-
-    DEPENDENCIES:
     - partition_structure_changed (line 264): detects structural changes
     - TMTransitionSystem (line 84), ThieleTransitionSystem (line 184)
     - nth_error (Coq.Lists.List): extracts nth transition
-
-    USED BY:
     - partition_based_separation (line 547): proves no TM satisfies this
     - turing_strictly_contained_partition (line 576): uses to show strict containment
 *)
@@ -550,23 +443,20 @@ Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
 
 (** partition_based_separation: THE MAIN SEPARATION THEOREM (TM ⊊ Thiele)
 
-    WHY THIS THEOREM: Proves Turing machines are STRICTLY CONTAINED in Thiele Machine
+    WHY THIS Proves Turing machines are STRICTLY CONTAINED in Thiele Machine
     using partition operations as constructive witness. This is the formal proof of
     TM ⊊ Thiele when partition structure is considered semantic.
 
-    THEOREM:
     exists prog th_sys.
       length prog > 0 ∧
       length th_sys > 0 ∧
       ∀ tm_sys. tm_encoding_faithful tm_sys th_sys →
                 ¬ preserves_partition_labels tm_sys th_sys
 
-    STRUCTURE:
     Constructive existence proof. Witnesses:
     - prog = separation_program (PNEW operations creating modules)
     - th_sys = transition with module_count 0 → 1 (partition structure change)
 
-    PROOF STRATEGY:
     1. Provide witnesses (separation_program, transition with PNEW)
     2. Prove prog non-empty (length > 0) ✓
     3. Prove th_sys non-empty (length > 0) ✓
@@ -588,19 +478,14 @@ Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
     objects as data structures), but cannot make objects FIRST-CLASS (no object
     creation as primitive operation in transition relation).
 
-    FALSIFICATION:
     Provide TM encoding of separation_program that preserves partition labels
     semantically. Theorem proves this is impossible - any encoding either loses
     faithfulness (wrong execution length) or loses partition labels (structure
     encoded as data, not labels).
-
-    DEPENDENCIES:
     - separation_program (line 348): witness Thiele program
     - tm_encoding_faithful (line 479): length-preserving condition
     - preserves_partition_labels (line 520): impossible condition for TM
     - partition_structure_changed (line 264): detects structural changes
-
-    USED BY:
     - turing_strictly_contained_partition (line 638): packages as TM ⊊ Thiele corollary
     - File header (line 140): main theorem establishing strict containment
 *)
@@ -610,7 +495,6 @@ Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
     The contradiction comes from [partition_structure_changed] detecting a
     0-to-1 module transition that no TM can semantically represent. *)
 (* DEFINITIONAL *)
-(** [partition_based_separation]: formal specification. *)
 Theorem partition_based_separation :
   (* There exists a Thiele program that produces transitions
      which no TM can faithfully represent when partition labels
@@ -675,7 +559,7 @@ Proof.
       exact Hfalse.
 Qed.
 
-(** * 7. Corollary: TM is Strictly Contained in Thiele *)
+(** 7. Corollary: TM is Strictly Contained in Thiele *)
 
 (** turing_strictly_contained_partition: TM ⊊ Thiele (partition-based witness)
 
@@ -693,7 +577,6 @@ Qed.
     "strictly contained" claim: Thiele can do something TM cannot (represent
     partition structure semantically).
 
-    PROOF STRATEGY:
     Immediate from partition_based_separation. Destruct the witnesses, apply the
     theorem. QED.
 
@@ -703,14 +586,9 @@ Qed.
     partition operations; TM doesn't. Like how high-level languages are "strictly
     richer" than assembly (same computability, different abstractions).
 
-    FALSIFICATION:
     Show TM IS Thiele (TM ≃ Thiele). Requires showing TM can encode partition
     operations semantically, contradicting partition_based_separation.
-
-    DEPENDENCIES:
     - partition_based_separation (line 598): main separation theorem
-
-    USED BY:
     - File header (line 208): corollary establishing strict containment
     - Replaces artificial H_ClaimTapeIsZero witness from Subsumption.v with
       concrete partition-based witness
@@ -731,29 +609,25 @@ Proof.
   split; [exact Hlen1 | exact Hsep].
 Qed.
 
-(** * 8. Strengthened Claim: Partition Operations Are Essential *)
+(** 8. Strengthened Claim: Partition Operations Are Essential *)
 
 (** pnew_not_tm_simulable: PNEW has no TM analogue (vacuously true statement)
 
-    WHY THIS THEOREM: Makes explicit that TM transitions lack partition fields.
+    WHY THIS Makes explicit that TM transitions lack partition fields.
     This is a "vacuous truth" theorem - TM operations can't be compared to PNEW
     because they operate in different domains.
 
-    THEOREM:
     forall region. module_count (fst (graph_pnew empty_graph region)) >= 1 ->
               ∀ tm_op. True
 
-    STRUCTURE:
     For any PNEW operation creating ≥1 modules, and any TM operation, conclude True
     (vacuously). TM operations have no partition structure to compare, so any
     statement about their "equivalence" to PNEW is vacuous.
 
-    WHY VACUOUS:
     TM transitions are (tape, head) → (tape', head'). PNEW creates modules. These
     are incommensurable - like comparing apples and SQL queries. No meaningful
     equivalence relation exists.
 
-    PROOF STRATEGY:
     exact I. (I is the proof of True in Coq)
 
     PHYSICAL MEANING:
@@ -762,19 +636,14 @@ Qed.
     (syntactic data). There's no meaningful comparison - they're different
     computational ontologies.
 
-    FALSIFICATION:
     Extend TM with partition operations, making them comparable. But then it's
     not a TM - it's a different model.
-
-    DEPENDENCIES:
     - graph_pnew (from VMState.v): PNEW operation
     - module_count (line 227): counts modules
     - TMTransition (line 73): TM operation type
-
-    USED BY:
     - File header (line 227): emphasizes partition operations are essential
 *)
-(** * 9. Summary *)
+(** 9. Summary *)
 
 (** This file proves:
 
@@ -794,7 +663,7 @@ Qed.
     This is the precise sense in which Thiele strictly extends TM.
 *)
 
-(** * 10. Categorical Separation
+(** 10. Categorical Separation
 
     We prove that two VMStates can be computationally equivalent — identical
     in all observable computational fields (registers, memory, μ, PC, error
@@ -901,8 +770,7 @@ Proof.
   eauto.
 Qed.
 
-(** * 11. The Classical Separation Theorem
-    =========================================================================
+(** 11. The Classical Separation Theorem
 
     CLAIM: A "classical observer" — any function that maps VMState to a
     result and depends ONLY on the computational fields (registers, memory,
@@ -934,7 +802,7 @@ Qed.
 Definition is_classical_observer {A : Type} (f : VMState -> A) : Prop :=
   forall s1 s2, computationally_equivalent s1 s2 -> f s1 = f s2.
 
-(** THEOREM: Classical observers cannot separate the two witness states. *)
+(** Classical observers cannot separate the two witness states. *)
 Theorem classical_observer_cannot_separate :
   forall {A : Type} (f : VMState -> A),
     is_classical_observer f ->

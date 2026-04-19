@@ -1,670 +1,670 @@
-DIGEST 15f649a507a49dd757ece774367e752f
+DIGEST 3e5c33b66b23421bfc2c5204440c080d
 FThermodynamic.ThermodynamicBridge
-R813:819 Kernel.VMState <> <> lib
-R821:826 Kernel.VMStep <> <> lib
-R856:866 Kernel.MuCostModel <> <> lib
-R885:899 Coq.Arith.Arith <> <> lib
-R917:930 Coq.Lists.List <> <> lib
-R948:960 Coq.Bool.Bool <> <> lib
-R978:994 Coq.micromega.Lia <> <> lib
-R1004:1016 Coq.Lists.List ListNotations <> mod
-def 1263:1268 <> Config
-R1273:1276 Coq.Init.Datatypes <> list ind
-R1278:1281 Coq.Init.Datatypes <> bool ind
-def 1438:1444 <> entropy
-R1451:1456 Thermodynamic.ThermodynamicBridge <> Config def
-binder 1447:1447 <> c:1
-R1461:1463 Coq.Init.Datatypes <> nat ind
-R1468:1473 Coq.Init.Datatypes <> length def
-R1475:1475 Thermodynamic.ThermodynamicBridge <> c:1 var
-rec 1512:1518 <> MuState
-proj 1537:1544 <> mu_value
-proj 1555:1560 <> config
-R1548:1550 Coq.Init.Datatypes <> nat ind
-R1564:1569 Thermodynamic.ThermodynamicBridge <> Config def
-def 1606:1618 <> initial_state
-R1625:1630 Thermodynamic.ThermodynamicBridge <> Config def
-binder 1621:1621 <> c:5
-R1635:1641 Thermodynamic.ThermodynamicBridge <> MuState rec
-R1648:1656 Thermodynamic.ThermodynamicBridge <> mkMuState constr
-R1660:1660 Thermodynamic.ThermodynamicBridge <> c:5 var
-ind 1896:1904 <> Operation
-constr 1920:1924 <> OpNop
-constr 1989:1994 <> OpFlip
-constr 2076:2082 <> OpErase
-constr 2154:2162 <> OpPermute
-constr 2236:2241 <> OpCopy
-constr 2323:2327 <> OpAnd
-constr 2405:2408 <> OpOr
-R1928:1936 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
-R2001:2004 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1998:2000 Coq.Init.Datatypes <> nat ind
-R2005:2013 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
-R2089:2092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2086:2088 Coq.Init.Datatypes <> nat ind
-R2093:2101 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
-R2174:2177 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2166:2169 Coq.Init.Datatypes <> list ind
-R2171:2173 Coq.Init.Datatypes <> nat ind
-R2178:2186 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
-R2248:2251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2245:2247 Coq.Init.Datatypes <> nat ind
-R2255:2258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2252:2254 Coq.Init.Datatypes <> nat ind
-R2259:2267 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
-R2334:2337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2331:2333 Coq.Init.Datatypes <> nat ind
-R2341:2344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2338:2340 Coq.Init.Datatypes <> nat ind
-R2348:2351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2345:2347 Coq.Init.Datatypes <> nat ind
-R2352:2360 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
-R2415:2418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2412:2414 Coq.Init.Datatypes <> nat ind
-R2422:2425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2419:2421 Coq.Init.Datatypes <> nat ind
-R2429:2432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2426:2428 Coq.Init.Datatypes <> nat ind
-R2433:2441 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
-scheme 1896:1904 <> Operation_rect
-scheme 1896:1904 <> Operation_ind
-scheme 1896:1904 <> Operation_rec
-scheme 1896:1904 <> Operation_sind
-def 2523:2529 <> set_bit
-R2536:2541 Thermodynamic.ThermodynamicBridge <> Config def
-binder 2532:2532 <> c:8
-R2551:2553 Coq.Init.Datatypes <> nat ind
-binder 2545:2547 <> idx:9
-R2561:2564 Coq.Init.Datatypes <> bool ind
-binder 2557:2557 <> v:10
-R2569:2574 Thermodynamic.ThermodynamicBridge <> Config def
-R2590:2592 Thermodynamic.ThermodynamicBridge <> idx:9 var
-R2587:2587 Thermodynamic.ThermodynamicBridge <> c:8 var
-R2603:2604 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2612:2613 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2620:2623 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2636:2639 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2635:2635 Thermodynamic.ThermodynamicBridge <> v:10 var
-R2650:2653 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2660:2660 Coq.Init.Datatypes <> S constr
-R2668:2671 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2672:2678 Thermodynamic.ThermodynamicBridge <> set_bit:11 def
-R2687:2687 Thermodynamic.ThermodynamicBridge <> v:10 var
-def 2737:2743 <> get_bit
-R2750:2755 Thermodynamic.ThermodynamicBridge <> Config def
-binder 2746:2746 <> c:14
-R2765:2767 Coq.Init.Datatypes <> nat ind
-binder 2759:2761 <> idx:15
-R2772:2775 Coq.Init.Datatypes <> bool ind
-R2791:2793 Thermodynamic.ThermodynamicBridge <> idx:15 var
-R2788:2788 Thermodynamic.ThermodynamicBridge <> c:14 var
-R2804:2805 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2813:2817 Coq.Init.Datatypes <> false constr
-R2824:2827 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2843:2846 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2853:2853 Coq.Init.Datatypes <> S constr
-R2860:2866 Thermodynamic.ThermodynamicBridge <> get_bit:16 def
-def 2925:2934 <> erase_bits
-R2941:2946 Thermodynamic.ThermodynamicBridge <> Config def
-binder 2937:2937 <> c:19
-R2954:2956 Coq.Init.Datatypes <> nat ind
-binder 2950:2950 <> n:20
-R2961:2966 Thermodynamic.ThermodynamicBridge <> Config def
-R2982:2982 Thermodynamic.ThermodynamicBridge <> n:20 var
-R2979:2979 Thermodynamic.ThermodynamicBridge <> c:19 var
-R2993:2994 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3002:3003 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3010:3013 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3025:3025 Thermodynamic.ThermodynamicBridge <> c:19 var
-R3032:3035 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3042:3042 Coq.Init.Datatypes <> S constr
-R3054:3057 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3049:3053 Coq.Init.Datatypes <> false constr
-R3058:3067 Thermodynamic.ThermodynamicBridge <> erase_bits:21 def
-def 3125:3141 <> apply_permutation
-R3148:3153 Thermodynamic.ThermodynamicBridge <> Config def
-binder 3144:3144 <> c:24
-R3164:3167 Coq.Init.Datatypes <> list ind
-R3169:3171 Coq.Init.Datatypes <> nat ind
-binder 3157:3160 <> perm:25
-R3176:3181 Thermodynamic.ThermodynamicBridge <> Config def
-R3188:3190 Coq.Lists.List <> map def
-R3215:3218 Thermodynamic.ThermodynamicBridge <> perm:25 var
-binder 3197:3197 <> i:27
-R3202:3208 Thermodynamic.ThermodynamicBridge <> get_bit def
-R3210:3210 Thermodynamic.ThermodynamicBridge <> c:24 var
-R3212:3212 Thermodynamic.ThermodynamicBridge <> i:27 var
-def 3263:3272 <> op_mu_cost
-R3280:3288 Thermodynamic.ThermodynamicBridge <> Operation ind
-binder 3275:3276 <> op:28
-R3296:3301 Thermodynamic.ThermodynamicBridge <> Config def
-binder 3292:3292 <> c:29
-R3306:3308 Coq.Init.Datatypes <> nat ind
-R3321:3322 Thermodynamic.ThermodynamicBridge <> op:28 var
-R3333:3337 Thermodynamic.ThermodynamicBridge <> OpNop constr
-R3348:3353 Thermodynamic.ThermodynamicBridge <> OpFlip constr
-R3413:3419 Thermodynamic.ThermodynamicBridge <> OpErase constr
-R3483:3491 Thermodynamic.ThermodynamicBridge <> OpPermute constr
-R3556:3561 Thermodynamic.ThermodynamicBridge <> OpCopy constr
-R3607:3611 Thermodynamic.ThermodynamicBridge <> OpAnd constr
-R3684:3687 Coq.Init.Datatypes <> andb def
-R3704:3710 Thermodynamic.ThermodynamicBridge <> get_bit def
-R3712:3712 Thermodynamic.ThermodynamicBridge <> c:29 var
-R3690:3696 Thermodynamic.ThermodynamicBridge <> get_bit def
-R3698:3698 Thermodynamic.ThermodynamicBridge <> c:29 var
-R3735:3738 Thermodynamic.ThermodynamicBridge <> OpOr constr
-R3809:3811 Coq.Init.Datatypes <> orb def
-R3828:3834 Thermodynamic.ThermodynamicBridge <> get_bit def
-R3836:3836 Thermodynamic.ThermodynamicBridge <> c:29 var
-R3814:3820 Thermodynamic.ThermodynamicBridge <> get_bit def
-R3822:3822 Thermodynamic.ThermodynamicBridge <> c:29 var
-def 3913:3920 <> apply_op
-R3928:3936 Thermodynamic.ThermodynamicBridge <> Operation ind
-binder 3923:3924 <> op:31
-R3944:3949 Thermodynamic.ThermodynamicBridge <> Config def
-binder 3940:3940 <> c:32
-R3954:3959 Thermodynamic.ThermodynamicBridge <> Config def
-R3972:3973 Thermodynamic.ThermodynamicBridge <> op:31 var
-R3984:3988 Thermodynamic.ThermodynamicBridge <> OpNop constr
-R3993:3993 Thermodynamic.ThermodynamicBridge <> c:32 var
-R3999:4004 Thermodynamic.ThermodynamicBridge <> OpFlip constr
-R4013:4019 Thermodynamic.ThermodynamicBridge <> set_bit def
-R4021:4021 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4028:4031 Coq.Init.Datatypes <> negb def
-R4034:4040 Thermodynamic.ThermodynamicBridge <> get_bit def
-R4042:4042 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4054:4060 Thermodynamic.ThermodynamicBridge <> OpErase constr
-R4067:4076 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R4078:4078 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4086:4094 Thermodynamic.ThermodynamicBridge <> OpPermute constr
-R4104:4120 Thermodynamic.ThermodynamicBridge <> apply_permutation def
-R4122:4122 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4133:4138 Thermodynamic.ThermodynamicBridge <> OpCopy constr
-R4147:4153 Thermodynamic.ThermodynamicBridge <> set_bit def
-R4155:4155 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4160:4166 Thermodynamic.ThermodynamicBridge <> get_bit def
-R4168:4168 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4177:4181 Thermodynamic.ThermodynamicBridge <> OpAnd constr
-R4192:4198 Thermodynamic.ThermodynamicBridge <> set_bit def
-R4200:4200 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4205:4208 Coq.Init.Datatypes <> andb def
-R4225:4231 Thermodynamic.ThermodynamicBridge <> get_bit def
-R4233:4233 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4211:4217 Thermodynamic.ThermodynamicBridge <> get_bit def
-R4219:4219 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4243:4246 Thermodynamic.ThermodynamicBridge <> OpOr constr
-R4257:4263 Thermodynamic.ThermodynamicBridge <> set_bit def
-R4265:4265 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4270:4272 Coq.Init.Datatypes <> orb def
-R4289:4295 Thermodynamic.ThermodynamicBridge <> get_bit def
-R4297:4297 Thermodynamic.ThermodynamicBridge <> c:32 var
-R4275:4281 Thermodynamic.ThermodynamicBridge <> get_bit def
-R4283:4283 Thermodynamic.ThermodynamicBridge <> c:32 var
-def 4366:4375 <> execute_op
-R4383:4391 Thermodynamic.ThermodynamicBridge <> Operation ind
-binder 4378:4379 <> op:34
-R4399:4405 Thermodynamic.ThermodynamicBridge <> MuState rec
-binder 4395:4395 <> s:35
-R4410:4416 Thermodynamic.ThermodynamicBridge <> MuState rec
-R4423:4431 Thermodynamic.ThermodynamicBridge <> mkMuState constr
-R4449:4451 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4439:4446 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R4448:4448 Thermodynamic.ThermodynamicBridge <> s:35 var
-R4452:4461 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R4463:4464 Thermodynamic.ThermodynamicBridge <> op:34 var
-R4467:4472 Thermodynamic.ThermodynamicBridge <> config proj
-R4474:4474 Thermodynamic.ThermodynamicBridge <> s:35 var
-R4483:4490 Thermodynamic.ThermodynamicBridge <> apply_op def
-R4492:4493 Thermodynamic.ThermodynamicBridge <> op:34 var
-R4496:4501 Thermodynamic.ThermodynamicBridge <> config proj
-R4503:4503 Thermodynamic.ThermodynamicBridge <> s:35 var
-def 4557:4567 <> execute_ops
-R4576:4579 Coq.Init.Datatypes <> list ind
-R4581:4589 Thermodynamic.ThermodynamicBridge <> Operation ind
-binder 4570:4572 <> ops:36
-R4597:4603 Thermodynamic.ThermodynamicBridge <> MuState rec
-binder 4593:4593 <> s:37
-R4608:4614 Thermodynamic.ThermodynamicBridge <> MuState rec
-R4627:4629 Thermodynamic.ThermodynamicBridge <> ops:36 var
-R4640:4641 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4646:4646 Thermodynamic.ThermodynamicBridge <> s:37 var
-R4654:4657 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R4666:4676 Thermodynamic.ThermodynamicBridge <> execute_ops:38 def
-R4684:4693 Thermodynamic.ThermodynamicBridge <> execute_op def
-R4698:4698 Thermodynamic.ThermodynamicBridge <> s:37 var
-prf 5022:5035 <> mu_nonnegative
-binder 5046:5048 <> ops:40
-binder 5050:5050 <> s:41
-R5083:5086 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5055:5062 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R5065:5075 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R5077:5079 Thermodynamic.ThermodynamicBridge <> ops:40 var
-R5081:5081 Thermodynamic.ThermodynamicBridge <> s:41 var
-R5087:5094 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R5096:5096 Thermodynamic.ThermodynamicBridge <> s:41 var
-R5255:5264 Thermodynamic.ThermodynamicBridge <> execute_op def
-R5255:5264 Thermodynamic.ThermodynamicBridge <> execute_op def
-R5285:5294 Thermodynamic.ThermodynamicBridge <> execute_op def
-R5331:5340 Thermodynamic.ThermodynamicBridge <> execute_op def
-R5447:5450 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5423:5432 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R5438:5443 Thermodynamic.ThermodynamicBridge <> config proj
-R5447:5450 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5423:5432 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R5438:5443 Thermodynamic.ThermodynamicBridge <> config proj
-prf 5586:5596 <> mu_additive
-binder 5607:5610 <> ops1:42
-binder 5612:5615 <> ops2:43
-binder 5617:5617 <> s:44
-R5661:5666 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5622:5629 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R5632:5642 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R5649:5652 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R5645:5648 Thermodynamic.ThermodynamicBridge <> ops1:42 var
-R5653:5656 Thermodynamic.ThermodynamicBridge <> ops2:43 var
-R5659:5659 Thermodynamic.ThermodynamicBridge <> s:44 var
-R5667:5674 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R5677:5687 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R5689:5692 Thermodynamic.ThermodynamicBridge <> ops2:43 var
-R5695:5705 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R5707:5710 Thermodynamic.ThermodynamicBridge <> ops1:42 var
-R5712:5712 Thermodynamic.ThermodynamicBridge <> s:44 var
-prf 5972:5983 <> single_op_mu
-binder 5994:5995 <> op:45
-binder 5997:5997 <> s:46
-R6028:6030 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6002:6009 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R6012:6021 Thermodynamic.ThermodynamicBridge <> execute_op def
-R6023:6024 Thermodynamic.ThermodynamicBridge <> op:45 var
-R6026:6026 Thermodynamic.ThermodynamicBridge <> s:46 var
-R6041:6043 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6031:6038 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R6040:6040 Thermodynamic.ThermodynamicBridge <> s:46 var
-R6044:6053 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R6055:6056 Thermodynamic.ThermodynamicBridge <> op:45 var
-R6059:6064 Thermodynamic.ThermodynamicBridge <> config proj
-R6066:6066 Thermodynamic.ThermodynamicBridge <> s:46 var
-R6101:6110 Thermodynamic.ThermodynamicBridge <> execute_op def
-prf 6332:6344 <> mu_total_cost
-binder 6355:6357 <> ops:47
-binder 6359:6359 <> s:48
-R6364:6370 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6387:6392 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6379:6382 Coq.Init.Datatypes <> list ind
-R6384:6386 Coq.Init.Datatypes <> nat ind
-binder 6371:6375 <> costs:49
-R6418:6425 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6405:6407 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6393:6398 Coq.Init.Datatypes <> length def
-R6400:6404 Thermodynamic.ThermodynamicBridge <> costs:49 var
-R6408:6413 Coq.Init.Datatypes <> length def
-R6415:6417 Thermodynamic.ThermodynamicBridge <> ops:47 var
-R6454:6456 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6426:6433 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R6436:6446 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R6448:6450 Thermodynamic.ThermodynamicBridge <> ops:47 var
-R6452:6452 Thermodynamic.ThermodynamicBridge <> s:48 var
-R6467:6469 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6457:6464 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R6466:6466 Thermodynamic.ThermodynamicBridge <> s:48 var
-R6470:6479 Coq.Lists.List <> fold_right def
-R6491:6495 Thermodynamic.ThermodynamicBridge <> costs:49 var
-R6481:6487 Coq.Arith.PeanoNat Nat add def
-R6593:6594 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6593:6594 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6688:6697 Thermodynamic.ThermodynamicBridge <> execute_op def
-R6688:6697 Thermodynamic.ThermodynamicBridge <> execute_op def
-R6784:6787 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6760:6769 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R6775:6780 Thermodynamic.ThermodynamicBridge <> config proj
-R6784:6787 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6760:6769 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R6775:6780 Thermodynamic.ThermodynamicBridge <> config proj
-R6888:6897 Thermodynamic.ThermodynamicBridge <> execute_op def
-prf 7132:7151 <> mu_increases_by_cost
-binder 7162:7163 <> op:50
-binder 7165:7165 <> s:51
-R7196:7198 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7170:7177 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R7180:7189 Thermodynamic.ThermodynamicBridge <> execute_op def
-R7191:7192 Thermodynamic.ThermodynamicBridge <> op:50 var
-R7194:7194 Thermodynamic.ThermodynamicBridge <> s:51 var
-R7209:7211 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7199:7206 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R7208:7208 Thermodynamic.ThermodynamicBridge <> s:51 var
-R7212:7221 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R7223:7224 Thermodynamic.ThermodynamicBridge <> op:50 var
-R7227:7232 Thermodynamic.ThermodynamicBridge <> config proj
-R7234:7234 Thermodynamic.ThermodynamicBridge <> s:51 var
-R7262:7271 Thermodynamic.ThermodynamicBridge <> execute_op def
-def 7559:7568 <> reversible
-binder 7571:7571 <> A:52
-R7587:7590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7586:7586 Thermodynamic.ThermodynamicBridge <> A:52 var
-R7591:7591 Thermodynamic.ThermodynamicBridge <> A:52 var
-binder 7582:7582 <> f:53
-R7606:7612 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7623:7624 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7618:7621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7617:7617 Thermodynamic.ThermodynamicBridge <> A:52 var
-R7622:7622 Thermodynamic.ThermodynamicBridge <> A:52 var
-binder 7613:7613 <> g:54
-binder 7632:7632 <> x:55
-R7646:7649 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7642:7644 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7635:7635 Thermodynamic.ThermodynamicBridge <> g:54 var
-R7638:7638 Thermodynamic.ThermodynamicBridge <> f:53 var
-R7640:7640 Thermodynamic.ThermodynamicBridge <> x:55 var
-R7645:7645 Thermodynamic.ThermodynamicBridge <> x:55 var
-R7657:7659 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7650:7650 Thermodynamic.ThermodynamicBridge <> f:53 var
-R7653:7653 Thermodynamic.ThermodynamicBridge <> g:54 var
-R7655:7655 Thermodynamic.ThermodynamicBridge <> x:55 var
-R7660:7660 Thermodynamic.ThermodynamicBridge <> x:55 var
-prf 7745:7759 <> flip_reversible
-binder 7770:7772 <> idx:56
-R7777:7786 Thermodynamic.ThermodynamicBridge <> reversible def
-binder 7793:7793 <> c:57
-R7798:7804 Thermodynamic.ThermodynamicBridge <> set_bit def
-R7806:7806 Thermodynamic.ThermodynamicBridge <> c:57 var
-R7808:7810 Thermodynamic.ThermodynamicBridge <> idx:56 var
-R7813:7816 Coq.Init.Datatypes <> negb def
-R7819:7825 Thermodynamic.ThermodynamicBridge <> get_bit def
-R7827:7827 Thermodynamic.ThermodynamicBridge <> c:57 var
-R7829:7831 Thermodynamic.ThermodynamicBridge <> idx:56 var
-R7866:7875 Thermodynamic.ThermodynamicBridge <> reversible def
-binder 7892:7892 <> c:58
-R7897:7903 Thermodynamic.ThermodynamicBridge <> set_bit def
-R7905:7905 Thermodynamic.ThermodynamicBridge <> c:58 var
-R7912:7915 Coq.Init.Datatypes <> negb def
-R7918:7924 Thermodynamic.ThermodynamicBridge <> get_bit def
-R7926:7926 Thermodynamic.ThermodynamicBridge <> c:58 var
-binder 7892:7892 <> c:59
-R7897:7903 Thermodynamic.ThermodynamicBridge <> set_bit def
-R7905:7905 Thermodynamic.ThermodynamicBridge <> c:59 var
-R7912:7915 Coq.Init.Datatypes <> negb def
-R7918:7924 Thermodynamic.ThermodynamicBridge <> get_bit def
-R7926:7926 Thermodynamic.ThermodynamicBridge <> c:59 var
-R8138:8152 Coq.Bool.Bool <> negb_involutive thm
-R8138:8152 Coq.Bool.Bool <> negb_involutive thm
-R8138:8152 Coq.Bool.Bool <> negb_involutive thm
-R8431:8445 Coq.Bool.Bool <> negb_involutive thm
-R8431:8445 Coq.Bool.Bool <> negb_involutive thm
-R8431:8445 Coq.Bool.Bool <> negb_involutive thm
-R8651:8665 Coq.Bool.Bool <> negb_involutive thm
-R8651:8665 Coq.Bool.Bool <> negb_involutive thm
-R8651:8665 Coq.Bool.Bool <> negb_involutive thm
-R8903:8917 Coq.Bool.Bool <> negb_involutive thm
-R8903:8917 Coq.Bool.Bool <> negb_involutive thm
-R8903:8917 Coq.Bool.Bool <> negb_involutive thm
-prf 9103:9122 <> erase_not_reversible
-binder 9133:9133 <> n:60
-R9143:9148 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9139:9141 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R9138:9138 Thermodynamic.ThermodynamicBridge <> n:60 var
-R9149:9150 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9151:9160 Thermodynamic.ThermodynamicBridge <> reversible def
-binder 9167:9167 <> c:61
-R9172:9181 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R9183:9183 Thermodynamic.ThermodynamicBridge <> c:61 var
-R9185:9185 Thermodynamic.ThermodynamicBridge <> n:60 var
-R9220:9229 Thermodynamic.ThermodynamicBridge <> reversible def
-R9354:9359 Coq.Lists.List <> repeat def
-R9361:9364 Coq.Init.Datatypes <> true constr
-R9354:9359 Coq.Lists.List <> repeat def
-R9361:9364 Coq.Init.Datatypes <> true constr
-R9383:9388 Coq.Lists.List <> repeat def
-R9390:9394 Coq.Init.Datatypes <> false constr
-R9383:9388 Coq.Lists.List <> repeat def
-R9390:9394 Coq.Init.Datatypes <> false constr
-R9470:9472 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9455:9464 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R9473:9478 Coq.Lists.List <> repeat def
-R9480:9484 Coq.Init.Datatypes <> false constr
-R9470:9472 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9455:9464 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R9473:9478 Coq.Lists.List <> repeat def
-R9480:9484 Coq.Init.Datatypes <> false constr
-R9610:9612 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9595:9604 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R9613:9618 Coq.Lists.List <> repeat def
-R9620:9624 Coq.Init.Datatypes <> false constr
-R9610:9612 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9595:9604 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R9613:9618 Coq.Lists.List <> repeat def
-R9620:9624 Coq.Init.Datatypes <> false constr
-R9767:9770 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9767:9770 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-prf 10457:10474 <> reversible_zero_mu
-binder 10485:10486 <> op:62
-binder 10488:10488 <> c:63
-R10493:10493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10609:10615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10504:10511 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10496:10498 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10494:10495 Thermodynamic.ThermodynamicBridge <> op:62 var
-R10499:10503 Thermodynamic.ThermodynamicBridge <> OpNop constr
-R10512:10512 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10540:10549 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10608:10608 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R10513:10519 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10523:10524 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10520:10522 <> idx:64
-R10527:10529 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10525:10526 Thermodynamic.ThermodynamicBridge <> op:62 var
-R10530:10535 Thermodynamic.ThermodynamicBridge <> OpFlip constr
-R10537:10539 Thermodynamic.ThermodynamicBridge <> idx:64 var
-R10550:10556 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10561:10562 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10557:10560 <> perm:65
-R10582:10585 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10565:10567 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10563:10564 Thermodynamic.ThermodynamicBridge <> op:62 var
-R10568:10576 Thermodynamic.ThermodynamicBridge <> OpPermute constr
-R10578:10581 Thermodynamic.ThermodynamicBridge <> perm:65 var
-R10597:10599 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10586:10591 Coq.Init.Datatypes <> length def
-R10593:10596 Thermodynamic.ThermodynamicBridge <> perm:65 var
-R10600:10605 Coq.Init.Datatypes <> length def
-R10607:10607 Thermodynamic.ThermodynamicBridge <> c:63 var
-R10631:10633 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10616:10625 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R10627:10628 Thermodynamic.ThermodynamicBridge <> op:62 var
-R10630:10630 Thermodynamic.ThermodynamicBridge <> c:63 var
-def 11207:11220 <> potential_info
-R11227:11232 Thermodynamic.ThermodynamicBridge <> Config def
-binder 11223:11223 <> c:66
-R11237:11239 Coq.Init.Datatypes <> nat ind
-R11246:11251 Coq.Init.Datatypes <> length def
-R11254:11259 Coq.Lists.List <> filter def
-R11274:11274 Thermodynamic.ThermodynamicBridge <> c:66 var
-binder 11266:11266 <> b:67
-R11271:11271 Thermodynamic.ThermodynamicBridge <> b:67 var
-prf 11444:11458 <> erase_info_loss
-binder 11469:11469 <> c:68
-binder 11471:11471 <> n:69
-R11489:11494 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11477:11480 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11476:11476 Thermodynamic.ThermodynamicBridge <> n:69 var
-R11481:11486 Coq.Init.Datatypes <> length def
-R11488:11488 Thermodynamic.ThermodynamicBridge <> c:68 var
-R11526:11529 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11495:11508 Thermodynamic.ThermodynamicBridge <> potential_info def
-R11511:11520 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R11522:11522 Thermodynamic.ThermodynamicBridge <> c:68 var
-R11524:11524 Thermodynamic.ThermodynamicBridge <> n:69 var
-R11530:11543 Thermodynamic.ThermodynamicBridge <> potential_info def
-R11545:11545 Thermodynamic.ThermodynamicBridge <> c:68 var
-R11583:11596 Thermodynamic.ThermodynamicBridge <> potential_info def
-R11892:11895 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11896:11901 Coq.Init.Datatypes <> length def
-R11892:11895 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11896:11901 Coq.Init.Datatypes <> length def
-R12059:12062 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R12063:12068 Coq.Init.Datatypes <> length def
-R12059:12062 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R12063:12068 Coq.Init.Datatypes <> length def
-prf 12317:12337 <> flip_preserves_length
-binder 12348:12348 <> c:70
-binder 12350:12352 <> idx:71
-R12402:12404 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12357:12362 Coq.Init.Datatypes <> length def
-R12365:12371 Thermodynamic.ThermodynamicBridge <> set_bit def
-R12373:12373 Thermodynamic.ThermodynamicBridge <> c:70 var
-R12375:12377 Thermodynamic.ThermodynamicBridge <> idx:71 var
-R12380:12383 Coq.Init.Datatypes <> negb def
-R12386:12392 Thermodynamic.ThermodynamicBridge <> get_bit def
-R12394:12394 Thermodynamic.ThermodynamicBridge <> c:70 var
-R12396:12398 Thermodynamic.ThermodynamicBridge <> idx:71 var
-R12405:12410 Coq.Init.Datatypes <> length def
-R12412:12412 Thermodynamic.ThermodynamicBridge <> c:70 var
-prf 12660:12681 <> erase_preserves_length
-binder 12692:12692 <> c:72
-binder 12694:12694 <> n:73
-R12722:12724 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12699:12704 Coq.Init.Datatypes <> length def
-R12707:12716 Thermodynamic.ThermodynamicBridge <> erase_bits def
-R12718:12718 Thermodynamic.ThermodynamicBridge <> c:72 var
-R12720:12720 Thermodynamic.ThermodynamicBridge <> n:73 var
-R12725:12730 Coq.Init.Datatypes <> length def
-R12732:12732 Thermodynamic.ThermodynamicBridge <> c:72 var
-prf 12990:13002 <> erase_mu_cost
-binder 13013:13013 <> n:74
-binder 13015:13015 <> c:75
-R13044:13046 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13020:13029 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R13032:13038 Thermodynamic.ThermodynamicBridge <> OpErase constr
-R13040:13040 Thermodynamic.ThermodynamicBridge <> n:74 var
-R13043:13043 Thermodynamic.ThermodynamicBridge <> c:75 var
-R13047:13047 Thermodynamic.ThermodynamicBridge <> n:74 var
-prf 13208:13225 <> reversible_mu_zero
-binder 13236:13236 <> c:76
-R13263:13268 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13259:13261 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13241:13250 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R13252:13256 Thermodynamic.ThermodynamicBridge <> OpNop constr
-R13258:13258 Thermodynamic.ThermodynamicBridge <> c:76 var
-R13269:13269 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13311:13318 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R13365:13365 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 13277:13279 <> idx:77
-R13307:13309 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13282:13291 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R13294:13299 Thermodynamic.ThermodynamicBridge <> OpFlip constr
-R13301:13303 Thermodynamic.ThermodynamicBridge <> idx:77 var
-R13306:13306 Thermodynamic.ThermodynamicBridge <> c:76 var
-binder 13326:13329 <> perm:78
-R13361:13363 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13332:13341 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
-R13344:13352 Thermodynamic.ThermodynamicBridge <> OpPermute constr
-R13354:13357 Thermodynamic.ThermodynamicBridge <> perm:78 var
-R13360:13360 Thermodynamic.ThermodynamicBridge <> c:76 var
-def 13884:13901 <> energy_lower_bound
-R13909:13911 Coq.Init.Datatypes <> nat ind
-binder 13904:13905 <> mu:79
-R13916:13918 Coq.Init.Datatypes <> nat ind
-R13923:13924 Thermodynamic.ThermodynamicBridge <> mu:79 var
-prf 14037:14050 <> landauer_bound
-binder 14061:14063 <> ops:80
-binder 14065:14065 <> s:81
-R14132:14137 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14070:14087 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
-R14118:14120 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R14090:14097 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R14100:14110 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R14112:14114 Thermodynamic.ThermodynamicBridge <> ops:80 var
-R14116:14116 Thermodynamic.ThermodynamicBridge <> s:81 var
-R14121:14128 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R14130:14130 Thermodynamic.ThermodynamicBridge <> s:81 var
-R14166:14168 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R14138:14145 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R14148:14158 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R14160:14162 Thermodynamic.ThermodynamicBridge <> ops:80 var
-R14164:14164 Thermodynamic.ThermodynamicBridge <> s:81 var
-R14169:14176 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R14178:14178 Thermodynamic.ThermodynamicBridge <> s:81 var
-R14357:14374 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
-R14463:14480 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
-prf 14790:14820 <> reversible_achieves_zero_energy
-binder 14831:14831 <> c:82
-binder 14833:14835 <> idx:83
-R14849:14861 Thermodynamic.ThermodynamicBridge <> initial_state def
-R14863:14863 Thermodynamic.ThermodynamicBridge <> c:82 var
-binder 14844:14844 <> s:84
-R14880:14889 Thermodynamic.ThermodynamicBridge <> execute_op def
-R14892:14897 Thermodynamic.ThermodynamicBridge <> OpFlip constr
-R14899:14901 Thermodynamic.ThermodynamicBridge <> idx:83 var
-R14904:14904 Thermodynamic.ThermodynamicBridge <> s:84 var
-binder 14874:14875 <> s':85
-R14956:14958 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14911:14928 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
-R14942:14944 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R14931:14938 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R14940:14941 Thermodynamic.ThermodynamicBridge <> s':85 var
-R14945:14952 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R14954:14954 Thermodynamic.ThermodynamicBridge <> s:84 var
-R15015:15024 Thermodynamic.ThermodynamicBridge <> execute_op def
-R15027:15039 Thermodynamic.ThermodynamicBridge <> initial_state def
-R15060:15077 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
-def 15494:15515 <> implementation_correct
-R15550:15553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15536:15539 Coq.Init.Datatypes <> list ind
-R15541:15549 Thermodynamic.ThermodynamicBridge <> Operation ind
-R15560:15563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15554:15559 Thermodynamic.ThermodynamicBridge <> Config def
-R15567:15569 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R15564:15566 Coq.Init.Datatypes <> nat ind
-R15570:15575 Thermodynamic.ThermodynamicBridge <> Config def
-binder 15521:15532 <> impl_execute:86
-binder 15597:15599 <> ops:87
-binder 15601:15601 <> c:88
-R15617:15629 Thermodynamic.ThermodynamicBridge <> initial_state def
-R15631:15631 Thermodynamic.ThermodynamicBridge <> c:88 var
-binder 15612:15612 <> s:89
-R15650:15660 Thermodynamic.ThermodynamicBridge <> execute_ops def
-R15662:15664 Thermodynamic.ThermodynamicBridge <> ops:87 var
-R15666:15666 Thermodynamic.ThermodynamicBridge <> s:89 var
-binder 15644:15645 <> s':90
-R15693:15695 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15675:15686 Thermodynamic.ThermodynamicBridge <> impl_execute:86 var
-R15692:15692 Thermodynamic.ThermodynamicBridge <> c:88 var
-R15688:15690 Thermodynamic.ThermodynamicBridge <> ops:87 var
-R15696:15696 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15708:15709 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15719:15719 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15697:15704 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R15706:15707 Thermodynamic.ThermodynamicBridge <> s':90 var
-R15710:15715 Thermodynamic.ThermodynamicBridge <> config proj
-R15717:15718 Thermodynamic.ThermodynamicBridge <> s':90 var
-prf 15860:15882 <> impl_satisfies_landauer
-binder 15895:15906 <> impl_execute:91
-R15946:15951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15911:15932 Thermodynamic.ThermodynamicBridge <> implementation_correct def
-R15934:15945 Thermodynamic.ThermodynamicBridge <> impl_execute:91 var
-binder 15959:15961 <> ops:92
-binder 15963:15963 <> c:93
-R15985:15996 Thermodynamic.ThermodynamicBridge <> impl_execute:91 var
-R15998:16000 Thermodynamic.ThermodynamicBridge <> ops:92 var
-R16002:16002 Thermodynamic.ThermodynamicBridge <> c:93 var
-binder 15975:15976 <> mu:94
-R16032:16035 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R16011:16028 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
-R16030:16031 Thermodynamic.ThermodynamicBridge <> mu:94 var
-R16036:16043 Thermodynamic.ThermodynamicBridge <> mu_value proj
-R16046:16058 Thermodynamic.ThermodynamicBridge <> initial_state def
-R16060:16060 Thermodynamic.ThermodynamicBridge <> c:93 var
-R16118:16139 Thermodynamic.ThermodynamicBridge <> implementation_correct def
-R16277:16294 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
-R16306:16318 Thermodynamic.ThermodynamicBridge <> initial_state def
-R16336:16349 Thermodynamic.ThermodynamicBridge <> mu_nonnegative thm
-R16336:16349 Thermodynamic.ThermodynamicBridge <> mu_nonnegative thm
-R16597:16610 Thermodynamic.ThermodynamicBridge <> mu_nonnegative thm
-R16631:16641 Thermodynamic.ThermodynamicBridge <> mu_additive thm
-R16662:16681 Thermodynamic.ThermodynamicBridge <> mu_increases_by_cost thm
-R16702:16716 Thermodynamic.ThermodynamicBridge <> flip_reversible thm
-R16737:16756 Thermodynamic.ThermodynamicBridge <> erase_not_reversible thm
-R16777:16794 Thermodynamic.ThermodynamicBridge <> reversible_zero_mu thm
-R16815:16829 Thermodynamic.ThermodynamicBridge <> erase_info_loss thm
-R16850:16863 Thermodynamic.ThermodynamicBridge <> landauer_bound thm
-R16884:16914 Thermodynamic.ThermodynamicBridge <> reversible_achieves_zero_energy thm
-R16935:16957 Thermodynamic.ThermodynamicBridge <> impl_satisfies_landauer thm
+R803:809 Kernel.VMState <> <> lib
+R811:816 Kernel.VMStep <> <> lib
+R846:856 Kernel.MuCostModel <> <> lib
+R875:889 Coq.Arith.Arith <> <> lib
+R907:920 Coq.Lists.List <> <> lib
+R938:950 Coq.Bool.Bool <> <> lib
+R968:984 Coq.micromega.Lia <> <> lib
+R994:1006 Coq.Lists.List ListNotations <> mod
+def 1145:1150 <> Config
+R1155:1158 Coq.Init.Datatypes <> list ind
+R1160:1163 Coq.Init.Datatypes <> bool ind
+def 1320:1326 <> entropy
+R1333:1338 Thermodynamic.ThermodynamicBridge <> Config def
+binder 1329:1329 <> c:1
+R1343:1345 Coq.Init.Datatypes <> nat ind
+R1350:1355 Coq.Init.Datatypes <> length def
+R1357:1357 Thermodynamic.ThermodynamicBridge <> c:1 var
+rec 1394:1400 <> MuState
+proj 1419:1426 <> mu_value
+proj 1437:1442 <> config
+R1430:1432 Coq.Init.Datatypes <> nat ind
+R1446:1451 Thermodynamic.ThermodynamicBridge <> Config def
+def 1488:1500 <> initial_state
+R1507:1512 Thermodynamic.ThermodynamicBridge <> Config def
+binder 1503:1503 <> c:5
+R1517:1523 Thermodynamic.ThermodynamicBridge <> MuState rec
+R1530:1538 Thermodynamic.ThermodynamicBridge <> mkMuState constr
+R1542:1542 Thermodynamic.ThermodynamicBridge <> c:5 var
+ind 1658:1666 <> Operation
+constr 1682:1686 <> OpNop
+constr 1751:1756 <> OpFlip
+constr 1838:1844 <> OpErase
+constr 1916:1924 <> OpPermute
+constr 1998:2003 <> OpCopy
+constr 2085:2089 <> OpAnd
+constr 2167:2170 <> OpOr
+R1690:1698 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
+R1763:1766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1760:1762 Coq.Init.Datatypes <> nat ind
+R1767:1775 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
+R1851:1854 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1848:1850 Coq.Init.Datatypes <> nat ind
+R1855:1863 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
+R1936:1939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1928:1931 Coq.Init.Datatypes <> list ind
+R1933:1935 Coq.Init.Datatypes <> nat ind
+R1940:1948 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
+R2010:2013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2007:2009 Coq.Init.Datatypes <> nat ind
+R2017:2020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2014:2016 Coq.Init.Datatypes <> nat ind
+R2021:2029 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
+R2096:2099 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2093:2095 Coq.Init.Datatypes <> nat ind
+R2103:2106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2100:2102 Coq.Init.Datatypes <> nat ind
+R2110:2113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2107:2109 Coq.Init.Datatypes <> nat ind
+R2114:2122 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
+R2177:2180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2174:2176 Coq.Init.Datatypes <> nat ind
+R2184:2187 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2181:2183 Coq.Init.Datatypes <> nat ind
+R2191:2194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2188:2190 Coq.Init.Datatypes <> nat ind
+R2195:2203 Thermodynamic.ThermodynamicBridge <> Operation:6 ind
+scheme 1658:1666 <> Operation_rect
+scheme 1658:1666 <> Operation_ind
+scheme 1658:1666 <> Operation_rec
+scheme 1658:1666 <> Operation_sind
+def 2285:2291 <> set_bit
+R2298:2303 Thermodynamic.ThermodynamicBridge <> Config def
+binder 2294:2294 <> c:8
+R2313:2315 Coq.Init.Datatypes <> nat ind
+binder 2307:2309 <> idx:9
+R2323:2326 Coq.Init.Datatypes <> bool ind
+binder 2319:2319 <> v:10
+R2331:2336 Thermodynamic.ThermodynamicBridge <> Config def
+R2352:2354 Thermodynamic.ThermodynamicBridge <> idx:9 var
+R2349:2349 Thermodynamic.ThermodynamicBridge <> c:8 var
+R2365:2366 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2374:2375 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2382:2385 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2398:2401 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2397:2397 Thermodynamic.ThermodynamicBridge <> v:10 var
+R2412:2415 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2422:2422 Coq.Init.Datatypes <> S constr
+R2430:2433 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2434:2440 Thermodynamic.ThermodynamicBridge <> set_bit:11 def
+R2449:2449 Thermodynamic.ThermodynamicBridge <> v:10 var
+def 2499:2505 <> get_bit
+R2512:2517 Thermodynamic.ThermodynamicBridge <> Config def
+binder 2508:2508 <> c:14
+R2527:2529 Coq.Init.Datatypes <> nat ind
+binder 2521:2523 <> idx:15
+R2534:2537 Coq.Init.Datatypes <> bool ind
+R2553:2555 Thermodynamic.ThermodynamicBridge <> idx:15 var
+R2550:2550 Thermodynamic.ThermodynamicBridge <> c:14 var
+R2566:2567 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2575:2579 Coq.Init.Datatypes <> false constr
+R2586:2589 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2605:2608 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2615:2615 Coq.Init.Datatypes <> S constr
+R2622:2628 Thermodynamic.ThermodynamicBridge <> get_bit:16 def
+def 2687:2696 <> erase_bits
+R2703:2708 Thermodynamic.ThermodynamicBridge <> Config def
+binder 2699:2699 <> c:19
+R2716:2718 Coq.Init.Datatypes <> nat ind
+binder 2712:2712 <> n:20
+R2723:2728 Thermodynamic.ThermodynamicBridge <> Config def
+R2744:2744 Thermodynamic.ThermodynamicBridge <> n:20 var
+R2741:2741 Thermodynamic.ThermodynamicBridge <> c:19 var
+R2755:2756 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2764:2765 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2772:2775 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2787:2787 Thermodynamic.ThermodynamicBridge <> c:19 var
+R2794:2797 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2804:2804 Coq.Init.Datatypes <> S constr
+R2816:2819 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2811:2815 Coq.Init.Datatypes <> false constr
+R2820:2829 Thermodynamic.ThermodynamicBridge <> erase_bits:21 def
+def 2887:2903 <> apply_permutation
+R2910:2915 Thermodynamic.ThermodynamicBridge <> Config def
+binder 2906:2906 <> c:24
+R2926:2929 Coq.Init.Datatypes <> list ind
+R2931:2933 Coq.Init.Datatypes <> nat ind
+binder 2919:2922 <> perm:25
+R2938:2943 Thermodynamic.ThermodynamicBridge <> Config def
+R2950:2952 Coq.Lists.List <> map def
+R2977:2980 Thermodynamic.ThermodynamicBridge <> perm:25 var
+binder 2959:2959 <> i:27
+R2964:2970 Thermodynamic.ThermodynamicBridge <> get_bit def
+R2972:2972 Thermodynamic.ThermodynamicBridge <> c:24 var
+R2974:2974 Thermodynamic.ThermodynamicBridge <> i:27 var
+def 3025:3034 <> op_mu_cost
+R3042:3050 Thermodynamic.ThermodynamicBridge <> Operation ind
+binder 3037:3038 <> op:28
+R3058:3063 Thermodynamic.ThermodynamicBridge <> Config def
+binder 3054:3054 <> c:29
+R3068:3070 Coq.Init.Datatypes <> nat ind
+R3083:3084 Thermodynamic.ThermodynamicBridge <> op:28 var
+R3095:3099 Thermodynamic.ThermodynamicBridge <> OpNop constr
+R3110:3115 Thermodynamic.ThermodynamicBridge <> OpFlip constr
+R3175:3181 Thermodynamic.ThermodynamicBridge <> OpErase constr
+R3245:3253 Thermodynamic.ThermodynamicBridge <> OpPermute constr
+R3318:3323 Thermodynamic.ThermodynamicBridge <> OpCopy constr
+R3369:3373 Thermodynamic.ThermodynamicBridge <> OpAnd constr
+R3446:3449 Coq.Init.Datatypes <> andb def
+R3466:3472 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3474:3474 Thermodynamic.ThermodynamicBridge <> c:29 var
+R3452:3458 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3460:3460 Thermodynamic.ThermodynamicBridge <> c:29 var
+R3497:3500 Thermodynamic.ThermodynamicBridge <> OpOr constr
+R3571:3573 Coq.Init.Datatypes <> orb def
+R3590:3596 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3598:3598 Thermodynamic.ThermodynamicBridge <> c:29 var
+R3576:3582 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3584:3584 Thermodynamic.ThermodynamicBridge <> c:29 var
+def 3675:3682 <> apply_op
+R3690:3698 Thermodynamic.ThermodynamicBridge <> Operation ind
+binder 3685:3686 <> op:31
+R3706:3711 Thermodynamic.ThermodynamicBridge <> Config def
+binder 3702:3702 <> c:32
+R3716:3721 Thermodynamic.ThermodynamicBridge <> Config def
+R3734:3735 Thermodynamic.ThermodynamicBridge <> op:31 var
+R3746:3750 Thermodynamic.ThermodynamicBridge <> OpNop constr
+R3755:3755 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3761:3766 Thermodynamic.ThermodynamicBridge <> OpFlip constr
+R3775:3781 Thermodynamic.ThermodynamicBridge <> set_bit def
+R3783:3783 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3790:3793 Coq.Init.Datatypes <> negb def
+R3796:3802 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3804:3804 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3816:3822 Thermodynamic.ThermodynamicBridge <> OpErase constr
+R3829:3838 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R3840:3840 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3848:3856 Thermodynamic.ThermodynamicBridge <> OpPermute constr
+R3866:3882 Thermodynamic.ThermodynamicBridge <> apply_permutation def
+R3884:3884 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3895:3900 Thermodynamic.ThermodynamicBridge <> OpCopy constr
+R3909:3915 Thermodynamic.ThermodynamicBridge <> set_bit def
+R3917:3917 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3922:3928 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3930:3930 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3939:3943 Thermodynamic.ThermodynamicBridge <> OpAnd constr
+R3954:3960 Thermodynamic.ThermodynamicBridge <> set_bit def
+R3962:3962 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3967:3970 Coq.Init.Datatypes <> andb def
+R3987:3993 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3995:3995 Thermodynamic.ThermodynamicBridge <> c:32 var
+R3973:3979 Thermodynamic.ThermodynamicBridge <> get_bit def
+R3981:3981 Thermodynamic.ThermodynamicBridge <> c:32 var
+R4005:4008 Thermodynamic.ThermodynamicBridge <> OpOr constr
+R4019:4025 Thermodynamic.ThermodynamicBridge <> set_bit def
+R4027:4027 Thermodynamic.ThermodynamicBridge <> c:32 var
+R4032:4034 Coq.Init.Datatypes <> orb def
+R4051:4057 Thermodynamic.ThermodynamicBridge <> get_bit def
+R4059:4059 Thermodynamic.ThermodynamicBridge <> c:32 var
+R4037:4043 Thermodynamic.ThermodynamicBridge <> get_bit def
+R4045:4045 Thermodynamic.ThermodynamicBridge <> c:32 var
+def 4128:4137 <> execute_op
+R4145:4153 Thermodynamic.ThermodynamicBridge <> Operation ind
+binder 4140:4141 <> op:34
+R4161:4167 Thermodynamic.ThermodynamicBridge <> MuState rec
+binder 4157:4157 <> s:35
+R4172:4178 Thermodynamic.ThermodynamicBridge <> MuState rec
+R4185:4193 Thermodynamic.ThermodynamicBridge <> mkMuState constr
+R4211:4213 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4201:4208 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R4210:4210 Thermodynamic.ThermodynamicBridge <> s:35 var
+R4214:4223 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R4225:4226 Thermodynamic.ThermodynamicBridge <> op:34 var
+R4229:4234 Thermodynamic.ThermodynamicBridge <> config proj
+R4236:4236 Thermodynamic.ThermodynamicBridge <> s:35 var
+R4245:4252 Thermodynamic.ThermodynamicBridge <> apply_op def
+R4254:4255 Thermodynamic.ThermodynamicBridge <> op:34 var
+R4258:4263 Thermodynamic.ThermodynamicBridge <> config proj
+R4265:4265 Thermodynamic.ThermodynamicBridge <> s:35 var
+def 4319:4329 <> execute_ops
+R4338:4341 Coq.Init.Datatypes <> list ind
+R4343:4351 Thermodynamic.ThermodynamicBridge <> Operation ind
+binder 4332:4334 <> ops:36
+R4359:4365 Thermodynamic.ThermodynamicBridge <> MuState rec
+binder 4355:4355 <> s:37
+R4370:4376 Thermodynamic.ThermodynamicBridge <> MuState rec
+R4389:4391 Thermodynamic.ThermodynamicBridge <> ops:36 var
+R4402:4403 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4408:4408 Thermodynamic.ThermodynamicBridge <> s:37 var
+R4416:4419 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4428:4438 Thermodynamic.ThermodynamicBridge <> execute_ops:38 def
+R4446:4455 Thermodynamic.ThermodynamicBridge <> execute_op def
+R4460:4460 Thermodynamic.ThermodynamicBridge <> s:37 var
+prf 4673:4686 <> mu_nonnegative
+binder 4697:4699 <> ops:40
+binder 4701:4701 <> s:41
+R4734:4737 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4706:4713 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R4716:4726 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R4728:4730 Thermodynamic.ThermodynamicBridge <> ops:40 var
+R4732:4732 Thermodynamic.ThermodynamicBridge <> s:41 var
+R4738:4745 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R4747:4747 Thermodynamic.ThermodynamicBridge <> s:41 var
+R4906:4915 Thermodynamic.ThermodynamicBridge <> execute_op def
+R4906:4915 Thermodynamic.ThermodynamicBridge <> execute_op def
+R4936:4945 Thermodynamic.ThermodynamicBridge <> execute_op def
+R4982:4991 Thermodynamic.ThermodynamicBridge <> execute_op def
+R5098:5101 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5074:5083 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R5089:5094 Thermodynamic.ThermodynamicBridge <> config proj
+R5098:5101 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5074:5083 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R5089:5094 Thermodynamic.ThermodynamicBridge <> config proj
+prf 5193:5203 <> mu_additive
+binder 5214:5217 <> ops1:42
+binder 5219:5222 <> ops2:43
+binder 5224:5224 <> s:44
+R5268:5273 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5229:5236 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R5239:5249 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R5256:5259 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R5252:5255 Thermodynamic.ThermodynamicBridge <> ops1:42 var
+R5260:5263 Thermodynamic.ThermodynamicBridge <> ops2:43 var
+R5266:5266 Thermodynamic.ThermodynamicBridge <> s:44 var
+R5274:5281 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R5284:5294 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R5296:5299 Thermodynamic.ThermodynamicBridge <> ops2:43 var
+R5302:5312 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R5314:5317 Thermodynamic.ThermodynamicBridge <> ops1:42 var
+R5319:5319 Thermodynamic.ThermodynamicBridge <> s:44 var
+prf 5534:5545 <> single_op_mu
+binder 5556:5557 <> op:45
+binder 5559:5559 <> s:46
+R5590:5592 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5564:5571 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R5574:5583 Thermodynamic.ThermodynamicBridge <> execute_op def
+R5585:5586 Thermodynamic.ThermodynamicBridge <> op:45 var
+R5588:5588 Thermodynamic.ThermodynamicBridge <> s:46 var
+R5603:5605 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5593:5600 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R5602:5602 Thermodynamic.ThermodynamicBridge <> s:46 var
+R5606:5615 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R5617:5618 Thermodynamic.ThermodynamicBridge <> op:45 var
+R5621:5626 Thermodynamic.ThermodynamicBridge <> config proj
+R5628:5628 Thermodynamic.ThermodynamicBridge <> s:46 var
+R5663:5672 Thermodynamic.ThermodynamicBridge <> execute_op def
+prf 5894:5906 <> mu_total_cost
+binder 5917:5919 <> ops:47
+binder 5921:5921 <> s:48
+R5926:5932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5949:5954 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5941:5944 Coq.Init.Datatypes <> list ind
+R5946:5948 Coq.Init.Datatypes <> nat ind
+binder 5933:5937 <> costs:49
+R5980:5987 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5967:5969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5955:5960 Coq.Init.Datatypes <> length def
+R5962:5966 Thermodynamic.ThermodynamicBridge <> costs:49 var
+R5970:5975 Coq.Init.Datatypes <> length def
+R5977:5979 Thermodynamic.ThermodynamicBridge <> ops:47 var
+R6016:6018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5988:5995 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R5998:6008 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R6010:6012 Thermodynamic.ThermodynamicBridge <> ops:47 var
+R6014:6014 Thermodynamic.ThermodynamicBridge <> s:48 var
+R6029:6031 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6019:6026 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R6028:6028 Thermodynamic.ThermodynamicBridge <> s:48 var
+R6032:6041 Coq.Lists.List <> fold_right def
+R6053:6057 Thermodynamic.ThermodynamicBridge <> costs:49 var
+R6043:6049 Coq.Arith.PeanoNat Nat add def
+R6155:6156 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6155:6156 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6250:6259 Thermodynamic.ThermodynamicBridge <> execute_op def
+R6250:6259 Thermodynamic.ThermodynamicBridge <> execute_op def
+R6346:6349 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6322:6331 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R6337:6342 Thermodynamic.ThermodynamicBridge <> config proj
+R6346:6349 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6322:6331 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R6337:6342 Thermodynamic.ThermodynamicBridge <> config proj
+R6450:6459 Thermodynamic.ThermodynamicBridge <> execute_op def
+prf 6641:6660 <> mu_increases_by_cost
+binder 6671:6672 <> op:50
+binder 6674:6674 <> s:51
+R6705:6707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6679:6686 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R6689:6698 Thermodynamic.ThermodynamicBridge <> execute_op def
+R6700:6701 Thermodynamic.ThermodynamicBridge <> op:50 var
+R6703:6703 Thermodynamic.ThermodynamicBridge <> s:51 var
+R6718:6720 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6708:6715 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R6717:6717 Thermodynamic.ThermodynamicBridge <> s:51 var
+R6721:6730 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R6732:6733 Thermodynamic.ThermodynamicBridge <> op:50 var
+R6736:6741 Thermodynamic.ThermodynamicBridge <> config proj
+R6743:6743 Thermodynamic.ThermodynamicBridge <> s:51 var
+R6771:6780 Thermodynamic.ThermodynamicBridge <> execute_op def
+def 6955:6964 <> reversible
+binder 6967:6967 <> A:52
+R6983:6986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6982:6982 Thermodynamic.ThermodynamicBridge <> A:52 var
+R6987:6987 Thermodynamic.ThermodynamicBridge <> A:52 var
+binder 6978:6978 <> f:53
+R7002:7008 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7019:7020 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7014:7017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7013:7013 Thermodynamic.ThermodynamicBridge <> A:52 var
+R7018:7018 Thermodynamic.ThermodynamicBridge <> A:52 var
+binder 7009:7009 <> g:54
+binder 7028:7028 <> x:55
+R7042:7045 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7038:7040 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7031:7031 Thermodynamic.ThermodynamicBridge <> g:54 var
+R7034:7034 Thermodynamic.ThermodynamicBridge <> f:53 var
+R7036:7036 Thermodynamic.ThermodynamicBridge <> x:55 var
+R7041:7041 Thermodynamic.ThermodynamicBridge <> x:55 var
+R7053:7055 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7046:7046 Thermodynamic.ThermodynamicBridge <> f:53 var
+R7049:7049 Thermodynamic.ThermodynamicBridge <> g:54 var
+R7051:7051 Thermodynamic.ThermodynamicBridge <> x:55 var
+R7056:7056 Thermodynamic.ThermodynamicBridge <> x:55 var
+prf 7093:7107 <> flip_reversible
+binder 7118:7120 <> idx:56
+R7125:7134 Thermodynamic.ThermodynamicBridge <> reversible def
+binder 7141:7141 <> c:57
+R7146:7152 Thermodynamic.ThermodynamicBridge <> set_bit def
+R7154:7154 Thermodynamic.ThermodynamicBridge <> c:57 var
+R7156:7158 Thermodynamic.ThermodynamicBridge <> idx:56 var
+R7161:7164 Coq.Init.Datatypes <> negb def
+R7167:7173 Thermodynamic.ThermodynamicBridge <> get_bit def
+R7175:7175 Thermodynamic.ThermodynamicBridge <> c:57 var
+R7177:7179 Thermodynamic.ThermodynamicBridge <> idx:56 var
+R7214:7223 Thermodynamic.ThermodynamicBridge <> reversible def
+binder 7240:7240 <> c:58
+R7245:7251 Thermodynamic.ThermodynamicBridge <> set_bit def
+R7253:7253 Thermodynamic.ThermodynamicBridge <> c:58 var
+R7260:7263 Coq.Init.Datatypes <> negb def
+R7266:7272 Thermodynamic.ThermodynamicBridge <> get_bit def
+R7274:7274 Thermodynamic.ThermodynamicBridge <> c:58 var
+binder 7240:7240 <> c:59
+R7245:7251 Thermodynamic.ThermodynamicBridge <> set_bit def
+R7253:7253 Thermodynamic.ThermodynamicBridge <> c:59 var
+R7260:7263 Coq.Init.Datatypes <> negb def
+R7266:7272 Thermodynamic.ThermodynamicBridge <> get_bit def
+R7274:7274 Thermodynamic.ThermodynamicBridge <> c:59 var
+R7486:7500 Coq.Bool.Bool <> negb_involutive thm
+R7486:7500 Coq.Bool.Bool <> negb_involutive thm
+R7486:7500 Coq.Bool.Bool <> negb_involutive thm
+R7779:7793 Coq.Bool.Bool <> negb_involutive thm
+R7779:7793 Coq.Bool.Bool <> negb_involutive thm
+R7779:7793 Coq.Bool.Bool <> negb_involutive thm
+R7999:8013 Coq.Bool.Bool <> negb_involutive thm
+R7999:8013 Coq.Bool.Bool <> negb_involutive thm
+R7999:8013 Coq.Bool.Bool <> negb_involutive thm
+R8251:8265 Coq.Bool.Bool <> negb_involutive thm
+R8251:8265 Coq.Bool.Bool <> negb_involutive thm
+R8251:8265 Coq.Bool.Bool <> negb_involutive thm
+prf 8398:8417 <> erase_not_reversible
+binder 8428:8428 <> n:60
+R8438:8443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8434:8436 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8433:8433 Thermodynamic.ThermodynamicBridge <> n:60 var
+R8444:8445 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8446:8455 Thermodynamic.ThermodynamicBridge <> reversible def
+binder 8462:8462 <> c:61
+R8467:8476 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R8478:8478 Thermodynamic.ThermodynamicBridge <> c:61 var
+R8480:8480 Thermodynamic.ThermodynamicBridge <> n:60 var
+R8515:8524 Thermodynamic.ThermodynamicBridge <> reversible def
+R8649:8654 Coq.Lists.List <> repeat def
+R8656:8659 Coq.Init.Datatypes <> true constr
+R8649:8654 Coq.Lists.List <> repeat def
+R8656:8659 Coq.Init.Datatypes <> true constr
+R8678:8683 Coq.Lists.List <> repeat def
+R8685:8689 Coq.Init.Datatypes <> false constr
+R8678:8683 Coq.Lists.List <> repeat def
+R8685:8689 Coq.Init.Datatypes <> false constr
+R8765:8767 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8750:8759 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R8768:8773 Coq.Lists.List <> repeat def
+R8775:8779 Coq.Init.Datatypes <> false constr
+R8765:8767 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8750:8759 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R8768:8773 Coq.Lists.List <> repeat def
+R8775:8779 Coq.Init.Datatypes <> false constr
+R8905:8907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8890:8899 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R8908:8913 Coq.Lists.List <> repeat def
+R8915:8919 Coq.Init.Datatypes <> false constr
+R8905:8907 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8890:8899 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R8908:8913 Coq.Lists.List <> repeat def
+R8915:8919 Coq.Init.Datatypes <> false constr
+R9062:9065 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9062:9065 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+prf 9752:9769 <> reversible_zero_mu
+binder 9780:9781 <> op:62
+binder 9783:9783 <> c:63
+R9788:9788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9904:9910 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9799:9806 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9791:9793 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9789:9790 Thermodynamic.ThermodynamicBridge <> op:62 var
+R9794:9798 Thermodynamic.ThermodynamicBridge <> OpNop constr
+R9807:9807 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9835:9844 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9903:9903 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9808:9814 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9818:9819 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9815:9817 <> idx:64
+R9822:9824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9820:9821 Thermodynamic.ThermodynamicBridge <> op:62 var
+R9825:9830 Thermodynamic.ThermodynamicBridge <> OpFlip constr
+R9832:9834 Thermodynamic.ThermodynamicBridge <> idx:64 var
+R9845:9851 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9856:9857 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9852:9855 <> perm:65
+R9877:9880 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9860:9862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9858:9859 Thermodynamic.ThermodynamicBridge <> op:62 var
+R9863:9871 Thermodynamic.ThermodynamicBridge <> OpPermute constr
+R9873:9876 Thermodynamic.ThermodynamicBridge <> perm:65 var
+R9892:9894 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9881:9886 Coq.Init.Datatypes <> length def
+R9888:9891 Thermodynamic.ThermodynamicBridge <> perm:65 var
+R9895:9900 Coq.Init.Datatypes <> length def
+R9902:9902 Thermodynamic.ThermodynamicBridge <> c:63 var
+R9926:9928 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9911:9920 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R9922:9923 Thermodynamic.ThermodynamicBridge <> op:62 var
+R9925:9925 Thermodynamic.ThermodynamicBridge <> c:63 var
+def 10385:10398 <> potential_info
+R10405:10410 Thermodynamic.ThermodynamicBridge <> Config def
+binder 10401:10401 <> c:66
+R10415:10417 Coq.Init.Datatypes <> nat ind
+R10424:10429 Coq.Init.Datatypes <> length def
+R10432:10437 Coq.Lists.List <> filter def
+R10452:10452 Thermodynamic.ThermodynamicBridge <> c:66 var
+binder 10444:10444 <> b:67
+R10449:10449 Thermodynamic.ThermodynamicBridge <> b:67 var
+prf 10574:10588 <> erase_info_loss
+binder 10599:10599 <> c:68
+binder 10601:10601 <> n:69
+R10619:10624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10607:10610 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10606:10606 Thermodynamic.ThermodynamicBridge <> n:69 var
+R10611:10616 Coq.Init.Datatypes <> length def
+R10618:10618 Thermodynamic.ThermodynamicBridge <> c:68 var
+R10656:10659 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10625:10638 Thermodynamic.ThermodynamicBridge <> potential_info def
+R10641:10650 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R10652:10652 Thermodynamic.ThermodynamicBridge <> c:68 var
+R10654:10654 Thermodynamic.ThermodynamicBridge <> n:69 var
+R10660:10673 Thermodynamic.ThermodynamicBridge <> potential_info def
+R10675:10675 Thermodynamic.ThermodynamicBridge <> c:68 var
+R10713:10726 Thermodynamic.ThermodynamicBridge <> potential_info def
+R11022:11025 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11026:11031 Coq.Init.Datatypes <> length def
+R11022:11025 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11026:11031 Coq.Init.Datatypes <> length def
+R11189:11192 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11193:11198 Coq.Init.Datatypes <> length def
+R11189:11192 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11193:11198 Coq.Init.Datatypes <> length def
+prf 11447:11467 <> flip_preserves_length
+binder 11478:11478 <> c:70
+binder 11480:11482 <> idx:71
+R11532:11534 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11487:11492 Coq.Init.Datatypes <> length def
+R11495:11501 Thermodynamic.ThermodynamicBridge <> set_bit def
+R11503:11503 Thermodynamic.ThermodynamicBridge <> c:70 var
+R11505:11507 Thermodynamic.ThermodynamicBridge <> idx:71 var
+R11510:11513 Coq.Init.Datatypes <> negb def
+R11516:11522 Thermodynamic.ThermodynamicBridge <> get_bit def
+R11524:11524 Thermodynamic.ThermodynamicBridge <> c:70 var
+R11526:11528 Thermodynamic.ThermodynamicBridge <> idx:71 var
+R11535:11540 Coq.Init.Datatypes <> length def
+R11542:11542 Thermodynamic.ThermodynamicBridge <> c:70 var
+prf 11790:11811 <> erase_preserves_length
+binder 11822:11822 <> c:72
+binder 11824:11824 <> n:73
+R11852:11854 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11829:11834 Coq.Init.Datatypes <> length def
+R11837:11846 Thermodynamic.ThermodynamicBridge <> erase_bits def
+R11848:11848 Thermodynamic.ThermodynamicBridge <> c:72 var
+R11850:11850 Thermodynamic.ThermodynamicBridge <> n:73 var
+R11855:11860 Coq.Init.Datatypes <> length def
+R11862:11862 Thermodynamic.ThermodynamicBridge <> c:72 var
+prf 12074:12086 <> erase_mu_cost
+binder 12097:12097 <> n:74
+binder 12099:12099 <> c:75
+R12128:12130 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12104:12113 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R12116:12122 Thermodynamic.ThermodynamicBridge <> OpErase constr
+R12124:12124 Thermodynamic.ThermodynamicBridge <> n:74 var
+R12127:12127 Thermodynamic.ThermodynamicBridge <> c:75 var
+R12131:12131 Thermodynamic.ThermodynamicBridge <> n:74 var
+prf 12292:12309 <> reversible_mu_zero
+binder 12320:12320 <> c:76
+R12347:12352 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12343:12345 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12325:12334 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R12336:12340 Thermodynamic.ThermodynamicBridge <> OpNop constr
+R12342:12342 Thermodynamic.ThermodynamicBridge <> c:76 var
+R12353:12353 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12395:12402 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12449:12449 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 12361:12363 <> idx:77
+R12391:12393 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12366:12375 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R12378:12383 Thermodynamic.ThermodynamicBridge <> OpFlip constr
+R12385:12387 Thermodynamic.ThermodynamicBridge <> idx:77 var
+R12390:12390 Thermodynamic.ThermodynamicBridge <> c:76 var
+binder 12410:12413 <> perm:78
+R12445:12447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12416:12425 Thermodynamic.ThermodynamicBridge <> op_mu_cost def
+R12428:12436 Thermodynamic.ThermodynamicBridge <> OpPermute constr
+R12438:12441 Thermodynamic.ThermodynamicBridge <> perm:78 var
+R12444:12444 Thermodynamic.ThermodynamicBridge <> c:76 var
+def 12866:12883 <> energy_lower_bound
+R12891:12893 Coq.Init.Datatypes <> nat ind
+binder 12886:12887 <> mu:79
+R12898:12900 Coq.Init.Datatypes <> nat ind
+R12905:12906 Thermodynamic.ThermodynamicBridge <> mu:79 var
+prf 12972:12985 <> landauer_bound
+binder 12996:12998 <> ops:80
+binder 13000:13000 <> s:81
+R13067:13072 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13005:13022 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
+R13053:13055 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13025:13032 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R13035:13045 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R13047:13049 Thermodynamic.ThermodynamicBridge <> ops:80 var
+R13051:13051 Thermodynamic.ThermodynamicBridge <> s:81 var
+R13056:13063 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R13065:13065 Thermodynamic.ThermodynamicBridge <> s:81 var
+R13101:13103 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13073:13080 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R13083:13093 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R13095:13097 Thermodynamic.ThermodynamicBridge <> ops:80 var
+R13099:13099 Thermodynamic.ThermodynamicBridge <> s:81 var
+R13104:13111 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R13113:13113 Thermodynamic.ThermodynamicBridge <> s:81 var
+R13292:13309 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
+R13398:13415 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
+prf 13725:13755 <> reversible_achieves_zero_energy
+binder 13766:13766 <> c:82
+binder 13768:13770 <> idx:83
+R13784:13796 Thermodynamic.ThermodynamicBridge <> initial_state def
+R13798:13798 Thermodynamic.ThermodynamicBridge <> c:82 var
+binder 13779:13779 <> s:84
+R13815:13824 Thermodynamic.ThermodynamicBridge <> execute_op def
+R13827:13832 Thermodynamic.ThermodynamicBridge <> OpFlip constr
+R13834:13836 Thermodynamic.ThermodynamicBridge <> idx:83 var
+R13839:13839 Thermodynamic.ThermodynamicBridge <> s:84 var
+binder 13809:13810 <> s':85
+R13891:13893 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13846:13863 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
+R13877:13879 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13866:13873 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R13875:13876 Thermodynamic.ThermodynamicBridge <> s':85 var
+R13880:13887 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R13889:13889 Thermodynamic.ThermodynamicBridge <> s:84 var
+R13950:13959 Thermodynamic.ThermodynamicBridge <> execute_op def
+R13962:13974 Thermodynamic.ThermodynamicBridge <> initial_state def
+R13995:14012 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
+def 14304:14325 <> implementation_correct
+R14360:14363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14346:14349 Coq.Init.Datatypes <> list ind
+R14351:14359 Thermodynamic.ThermodynamicBridge <> Operation ind
+R14370:14373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14364:14369 Thermodynamic.ThermodynamicBridge <> Config def
+R14377:14379 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R14374:14376 Coq.Init.Datatypes <> nat ind
+R14380:14385 Thermodynamic.ThermodynamicBridge <> Config def
+binder 14331:14342 <> impl_execute:86
+binder 14407:14409 <> ops:87
+binder 14411:14411 <> c:88
+R14427:14439 Thermodynamic.ThermodynamicBridge <> initial_state def
+R14441:14441 Thermodynamic.ThermodynamicBridge <> c:88 var
+binder 14422:14422 <> s:89
+R14460:14470 Thermodynamic.ThermodynamicBridge <> execute_ops def
+R14472:14474 Thermodynamic.ThermodynamicBridge <> ops:87 var
+R14476:14476 Thermodynamic.ThermodynamicBridge <> s:89 var
+binder 14454:14455 <> s':90
+R14503:14505 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14485:14496 Thermodynamic.ThermodynamicBridge <> impl_execute:86 var
+R14502:14502 Thermodynamic.ThermodynamicBridge <> c:88 var
+R14498:14500 Thermodynamic.ThermodynamicBridge <> ops:87 var
+R14506:14506 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14518:14519 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14529:14529 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14507:14514 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R14516:14517 Thermodynamic.ThermodynamicBridge <> s':90 var
+R14520:14525 Thermodynamic.ThermodynamicBridge <> config proj
+R14527:14528 Thermodynamic.ThermodynamicBridge <> s':90 var
+prf 14614:14636 <> impl_satisfies_landauer
+binder 14649:14660 <> impl_execute:91
+R14700:14705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14665:14686 Thermodynamic.ThermodynamicBridge <> implementation_correct def
+R14688:14699 Thermodynamic.ThermodynamicBridge <> impl_execute:91 var
+binder 14713:14715 <> ops:92
+binder 14717:14717 <> c:93
+R14739:14750 Thermodynamic.ThermodynamicBridge <> impl_execute:91 var
+R14752:14754 Thermodynamic.ThermodynamicBridge <> ops:92 var
+R14756:14756 Thermodynamic.ThermodynamicBridge <> c:93 var
+binder 14729:14730 <> mu:94
+R14786:14789 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R14765:14782 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
+R14784:14785 Thermodynamic.ThermodynamicBridge <> mu:94 var
+R14790:14797 Thermodynamic.ThermodynamicBridge <> mu_value proj
+R14800:14812 Thermodynamic.ThermodynamicBridge <> initial_state def
+R14814:14814 Thermodynamic.ThermodynamicBridge <> c:93 var
+R14872:14893 Thermodynamic.ThermodynamicBridge <> implementation_correct def
+R15031:15048 Thermodynamic.ThermodynamicBridge <> energy_lower_bound def
+R15060:15072 Thermodynamic.ThermodynamicBridge <> initial_state def
+R15090:15103 Thermodynamic.ThermodynamicBridge <> mu_nonnegative thm
+R15090:15103 Thermodynamic.ThermodynamicBridge <> mu_nonnegative thm
+R15245:15258 Thermodynamic.ThermodynamicBridge <> mu_nonnegative thm
+R15279:15289 Thermodynamic.ThermodynamicBridge <> mu_additive thm
+R15310:15329 Thermodynamic.ThermodynamicBridge <> mu_increases_by_cost thm
+R15350:15364 Thermodynamic.ThermodynamicBridge <> flip_reversible thm
+R15385:15404 Thermodynamic.ThermodynamicBridge <> erase_not_reversible thm
+R15425:15442 Thermodynamic.ThermodynamicBridge <> reversible_zero_mu thm
+R15463:15477 Thermodynamic.ThermodynamicBridge <> erase_info_loss thm
+R15498:15511 Thermodynamic.ThermodynamicBridge <> landauer_bound thm
+R15532:15562 Thermodynamic.ThermodynamicBridge <> reversible_achieves_zero_energy thm
+R15583:15605 Thermodynamic.ThermodynamicBridge <> impl_satisfies_landauer thm

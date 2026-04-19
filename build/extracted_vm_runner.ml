@@ -9,7 +9,6 @@
         PMERGE <m1> <m2> <cost>
         MDLACC <mid> <cost>
         PDISCOVER <mid> {axiom1,axiom2,...} <cost>
-        ORACLE_HALTS <payload_token> <cost>
         HALT   <cost>
 
   Output: a single JSON object on stdout describing the final vMState.
@@ -443,14 +442,20 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
       | [ "CHSH_TRIAL"; x; y; a; b; cost ] ->
         Some (Instr (Coq_instr_chsh_trial
              ( safe_int x, safe_int y, safe_int a, safe_int b, safe_int cost )))
-      | [ "REVEAL"; ti; tj; bits ] ->
+      | [ "REVEAL"; ti; tj; bits_str ] ->
         let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
-        let delta = safe_int bits in
-        Some (Instr (Coq_instr_reveal (flat_idx, delta, [], delta)))
-      | [ "REVEAL"; ti; tj; bits; cert ] ->
+        let bits_n = safe_int bits_str in
+        Some (Instr (Coq_instr_reveal (flat_idx, bits_n, [], 0)))
+      | [ "REVEAL"; ti; tj; bits_str; cost_str ] ->
         let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
-        let delta = safe_int bits in
-        Some (Instr (Coq_instr_reveal (flat_idx, delta, char_list_of_string cert, delta)))
+        let bits_n = safe_int bits_str in
+        let cost_n = safe_int cost_str in
+        Some (Instr (Coq_instr_reveal (flat_idx, bits_n, [], cost_n)))
+      | [ "REVEAL"; ti; tj; bits_str; cost_str; cert ] ->
+        let flat_idx = (safe_int ti) * 4 + (safe_int tj) in
+        let bits_n = safe_int bits_str in
+        let cost_n = safe_int cost_str in
+        Some (Instr (Coq_instr_reveal (flat_idx, bits_n, char_list_of_string cert, cost_n)))
       | [ "LASSERT"; freg; creg; kind; flen; cost ] ->
         (* On-chip model: freg/creg are register indices pointing to formula/cert in vm_mem.
            kind=1 → SAT mode (check_model); kind=0 → UNSAT mode (check_lrat).
@@ -462,8 +467,6 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         Some (Instr (Coq_instr_ljoin (safe_int c1reg, safe_int c2reg, safe_int cost)))
       | [ "EMIT"; mid; bits; cost ] ->
         Some (Instr (Coq_instr_emit (safe_int mid, char_list_of_string bits, safe_int cost)))
-      | [ "ORACLE_HALTS"; payload; cost ] ->
-        Some (Instr (Coq_instr_oracle_halts (char_list_of_string payload, safe_int cost)))
       | [ "HALT"; cost ] -> Some (Instr (Coq_instr_halt (safe_int cost)))
       | [ "CERTIFY"; cost ] -> Some (Instr (Coq_instr_certify (safe_int cost)))
       | [ "CERTIFY"; _; _; cost ] -> Some (Instr (Coq_instr_certify (safe_int cost)))

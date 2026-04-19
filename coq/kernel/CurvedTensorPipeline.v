@@ -1,30 +1,15 @@
-(** * CurvedTensorPipeline: Full Curved Spacetime GR Pipeline
+(** CurvedTensorPipeline: the curved Einstein-side pipeline.
 
-    PURPOSE: Derive Einstein field equations G_{dd} = κ·T_{dd} for NON-TRIVIAL
-    curved spacetime from per-module 4×4 metric tensors.
+  EinsteinEquations4D.v handles the easy flat or isotropic side. This file is
+  where the geometry becomes nontrivial. It uses the full per-module 4x4
+  metric tensor, carries the actual inverse metric, keeps the quadratic
+  Christoffel terms, and proves the concrete curved identities that survive
+  in the two-vertex setting.
 
-    Unlike the flat pipeline in EinsteinEquations4D.v (which uses a scalar-
-    diagonal metric making curvature identically zero), this pipeline:
-    1. Uses full 4×4 per-module metric from module_mu_tensor
-    2. Computes metric inverse via Cramer's rule (not identity approximation)
-    3. Includes quadratic Γ·Γ terms in Riemann tensor
-    4. Proves non-trivial Einstein equation on concrete 2-vertex complexes
-
-    NON-CIRCULARITY: The original stress-energy T := g (tautological) has been
-    renamed to curved_stress_energy_geometric. The main theorem
-    einstein_equation_from_mass uses mass_stress_energy built from
-    module_structural_mass — an independent ModuleState field from the
-    module_mu_tensor that feeds the metric. Ricci isotropy is PROVED
-    (ricci_isotropy_isotropic_2v), not assumed.
-
-    ZERO AXIOMS. All operations pure computation over Coq reals.
-
-    DEPENDENCY CHAIN:
-    MatrixAlgebra4.v → MetricFromMuCosts.v → THIS FILE
-    VMState.v (module_tensor_entry) → MetricFromMuCosts.v → THIS FILE
-    RiemannTensor4D.v (discrete_derivative) → THIS FILE
-    EinsteinEquations4D.v (two_vertex_sc, dd_at_v, dd_at_w) → THIS FILE
-*)
+  The non-circularity point matters here. The geometric stress-energy object
+  is kept separate from the mass-built source term, and the theorems that use
+  module_structural_mass say so explicitly. The whole point is that the
+  source side is not secretly being defined equal to the geometry side. *)
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra.
 From Coq Require Import FunctionalExtensionality.
@@ -455,7 +440,7 @@ Proof.
   ring.
 Qed.
 
-(** ** THE MAIN THEOREM: Einstein Equation with Uniform Coupling *)
+(** ** THE MAIN Einstein Equation with Uniform Coupling *)
 
 (** For an isotropic diagonal metric (a·I at v, b·I at w with a ≠ b),
     there exists a function κ such that G_{dd} = κ · T_{dd} for all d < 4.
@@ -600,9 +585,7 @@ Definition curved_einstein_vacuum_anchor := curved_einstein_uniform_zero_two_ver
 (** Bianchi flat case *)
 Definition curved_bianchi_flat_anchor := curved_bianchi_flat.
 
-(** =========================================================================
-    REMAINING DELIVERABLES
-    ========================================================================= *)
+(** Remaining deliverables for the curved pipeline. *)
 
 (** ** Non-zero Christoffel from mass gradient *)
 
@@ -912,18 +895,16 @@ Qed.
     curved_bianchi_flat) both give zero in the uniform-metric regime. *)
 Definition curved_compat_witness := curved_christoffel_compat_flat.
 
-(** =========================================================================
-    NON-CIRCULAR EINSTEIN EQUATION FROM STRUCTURAL MASS
-    =========================================================================
+(** Non-circular Einstein equation from structural mass.
 
-    The theorems below prove a non-circular Einstein equation:
-    - LEFT SIDE (G): computed from module_mu_tensor via the geometric pipeline
-      (Christoffel → Riemann → Ricci → Einstein tensor)
-    - RIGHT SIDE (T): computed from module_structural_mass via mass_stress_energy
-    - These come from DIFFERENT fields of ModuleState
-
-    The physical metric constraint (isotropic_mass_metric) connects the two
-    independent data sources. This is the physical content of the equation. *)
+    The point of the next block is that the Einstein equation is assembled from
+    two genuinely different data sources. The left-hand side G comes from the
+    geometric pipeline built out of module_mu_tensor through Christoffel,
+    Riemann, Ricci, and Einstein. The right-hand side T comes from
+    module_structural_mass through mass_stress_energy. Those fields are distinct
+    inside ModuleState. The physical metric constraint
+    isotropic_mass_metric is what connects them.
+*)
 
 (** ** Step 3: Inverse metric for isotropic diagonal case *)
 
@@ -1238,8 +1219,7 @@ Qed.
 
 (** Independence witness: mass_stress_energy does NOT depend on module_mu_tensor.
   This is the non-circularity guarantee. *)
-(* DEFINITIONAL HELPER *)
-(* INQUISITOR NOTE: Independence of stress-energy from metric tensor is an intentional definitional boundary witness. *)
+(* DEFINITIONAL HELPER — INQUISITOR NOTE: independence of stress-energy from metric tensor is an intentional definitional boundary witness. *)
 Lemma mass_stress_energy_independent_of_tensor : forall s μ ν v,
   mass_stress_energy s μ ν v =
   if (μ mod 4 =? ν mod 4)%nat
@@ -1249,16 +1229,15 @@ Proof.
   intros. unfold mass_stress_energy. reflexivity.
 Qed.
 
-(** =========================================================================
-    EXPLICIT FIELD EQUATION: G_{dd} = 8πG · κ · T_{dd}
+(** Explicit field equation: G_{dd} = 8πG · κ · T_{dd}.
 
-    OP-1 CLOSURE: The local Einstein tensor on the 2-vertex endpoint-matched
-    family equals a CONCRETE (non-existential) coupling times
-    mass_stress_energy, with the 8πG coefficient made explicit.
-
-    Since 8πG = 1 (gravitational_coupling_unit_convention), the field equation
-    reduces to G_{dd} = κ · T_{dd} where κ = (m_w - m_v)(1 - m_v) / m_v.
-    =========================================================================*)
+  This is the OP-1 closure point for the local 2-vertex endpoint-matched
+  family. The local Einstein tensor equals a concrete, non-existential
+  coupling times mass_stress_energy, and the 8πG coefficient is kept visible
+  in the statement. Under gravitational_coupling_unit_convention, 8πG = 1, so
+  the equation reduces to G_{dd} = κ · T_{dd} with
+  κ = (m_w - m_v)(1 - m_v) / m_v.
+*)
 
 (** Explicit non-existential coupling for the local 2-vertex family. *)
 Theorem local_einstein_explicit_coupling_two_vertex : forall s v w d,
@@ -1302,14 +1281,13 @@ Proof.
   exact (local_einstein_explicit_coupling_two_vertex s v w d Hvw Hmod Hmatch Hmass).
 Qed.
 
-(** =========================================================================
-    THREE-VERTEX FIELD EQUATION CLOSURE
+(** Three-vertex field-equation closure.
 
-    EinsteinEquations4D.v contains the local three-vertex chain computation at
-    u and w.  The middle vertex v is completed here, then all three vertices are
-    wrapped as explicit field equations against non-circular
-    [mass_stress_energy].
-    =========================================================================*)
+  EinsteinEquations4D.v already contains the local three-vertex chain
+  computation at u and w. This section fills in the middle vertex v and then
+  packages all three vertices as explicit field equations against the
+  non-circular mass_stress_energy term.
+*)
 
 (** Ricci diagonal at the middle vertex v of the chain u--v--w. *)
 Lemma local_ricci_tensor_three_vertex_at_v :

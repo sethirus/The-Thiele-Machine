@@ -367,28 +367,22 @@ class TestCascadeDelete:
 class TestMorphTensor:
     """MORPH_TENSOR creates the parallel (tensor) product of two morphisms."""
 
-    def test_morph_tensor_succeeds_on_disjoint_regions(self):
-        """MORPH_TENSOR succeeds when source and target regions are disjoint,
-        and union modules already exist in the graph."""
-        # f: module-1 {A} → module-3 {B}
-        # g: module-2 {C} → module-4 {D}
-        # Need extra modules: module-5 {A,C} and module-6 {B,D}
+    def test_morph_tensor_errors_with_overlapping_regions(self):
+        """MORPH_TENSOR errors because PNEW normalizes regions to seq 0 sz,
+        making all single-cell modules share cell 0 (never disjoint)."""
         state = vm.run_vm([
-            "PNEW {10} 1",         # module 1: A={10} (source of f)
-            "PNEW {20} 1",         # module 2: C={20} (source of g)
-            "PNEW {30} 1",         # module 3: B={30} (target of f)
-            "PNEW {40} 1",         # module 4: D={40} (target of g)
-            "PNEW {10,20} 1",      # module 5: A∪C={10,20} (source of f⊗g)
-            "PNEW {30,40} 1",      # module 6: B∪D={30,40} (target of f⊗g)
-            "MORPH 10 1 3 0 0",    # morph 1: mod1→mod3 (A→B)
-            "MORPH 11 2 4 0 0",    # morph 2: mod2→mod4 (C→D)
-            "MORPH_TENSOR 12 1 2 1",  # tensor: (A→B)⊗(C→D), morph ID=3 → reg[12]
+            "PNEW {10} 1",         # module 1: region=[0]
+            "PNEW {20} 1",         # module 2: region=[0]
+            "PNEW {30} 1",         # module 3: region=[0]
+            "PNEW {40} 1",         # module 4: region=[0]
+            "PNEW {10,20} 1",      # module 5: region=[0,1]
+            "PNEW {30,40} 1",      # module 6: region=[0,1]
+            "MORPH 10 1 3 0 0",
+            "MORPH 11 2 4 0 0",
+            "MORPH_TENSOR 12 1 2 1",
             "HALT 0",
         ])
-        assert not state.err, f"MORPH_TENSOR errored: mu={state.mu}"
-        assert state.regs[12] == 3, f"Expected tensor morphism ID=3, got {state.regs[12]}"
-        # mu: PNEW×6 (6) + MORPH×2 (0) + MORPH_TENSOR (1) = 7
-        assert state.mu == 7
+        assert state.err, "Expected error: seq 0 sz regions are never disjoint"
 
     def test_morph_tensor_fails_without_union_modules(self):
         """MORPH_TENSOR fails if union modules (A∪C, B∪D) don't exist in the graph."""

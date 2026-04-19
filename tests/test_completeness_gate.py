@@ -35,7 +35,7 @@ CANONICAL_40 = frozenset({
     "jump", "jnez", "call", "ret",
     "chsh_trial",
     "xor_load", "xor_add", "xor_swap", "xor_rank",
-    "emit", "reveal", "oracle_halts", "halt",
+    "emit", "reveal", "halt",
     "checkpoint", "read_port", "write_port", "heap_load", "heap_store",
     "certify",
     "and", "or", "shl", "shr", "mul", "lui",
@@ -49,8 +49,8 @@ CANONICAL_MORPH_7 = frozenset({
 
 CANONICAL_47 = CANONICAL_40 | CANONICAL_MORPH_7
 
-assert len(CANONICAL_40) == 40, f"CANONICAL_40 has {len(CANONICAL_40)} items, expected 40"
-assert len(CANONICAL_47) == 47, f"CANONICAL_47 has {len(CANONICAL_47)} items, expected 47"
+assert len(CANONICAL_40) == 39, f"CANONICAL_40 has {len(CANONICAL_40)} items, expected 39"
+assert len(CANONICAL_47) == 46, f"CANONICAL_47 has {len(CANONICAL_47)} items, expected 46"
 
 
 class TestSourceBlockerClassification:
@@ -79,10 +79,7 @@ class TestSourceBlockerClassification:
         assert "demoted research extension, not an active closeout claim" in (
             ROOT / "coq" / "kernel" / "ConstructivePSD.v"
         ).read_text(encoding="utf-8")
-        assert "Deterministic fixed-cost marker for an oracle query" in (
-            ROOT / "coq" / "kernel" / "VMStep.v"
-        ).read_text(encoding="utf-8")
-        assert "not part of the core closeout claim" in (
+        assert "outside the closeout claim" in (
             ROOT / "coq" / "kernel" / "CHSHStatisticalBridge.v"
         ).read_text(encoding="utf-8")
 
@@ -140,13 +137,13 @@ class TestCoqLayer:
     def test_extraction_exists(self):
         assert self.EXTRACTION.exists(), "coq/Extraction.v missing"
 
-    def test_vmstep_has_47_constructors(self):
-        """VMStep.v must define exactly 47 vm_instruction constructors
-        (40 original + 7 categorical morphism extension)."""
+    def test_vmstep_has_46_constructors(self):
+        """VMStep.v must define exactly 46 vm_instruction constructors
+        (39 original + 7 categorical morphism extension)."""
         text = self.VMSTEP.read_text(encoding="utf-8")
         constructors = set(re.findall(r"\|\s+instr_(\w+)", text))
-        assert len(constructors) == 47, (
-            f"VMStep.v has {len(constructors)} constructors, expected 47.\n"
+        assert len(constructors) == 46, (
+            f"VMStep.v has {len(constructors)} constructors, expected 46.\n"
             f"Found: {sorted(constructors)}\n"
             f"Missing: {CANONICAL_47 - constructors}\n"
             f"Extra: {constructors - CANONICAL_47}"
@@ -388,7 +385,6 @@ class TestPythonVMLayer:
                              {"op": "xor_rank", "dst": 2, "src": 1, "cost": 1}],
             "emit":         [{"op": "emit", "module": 0, "payload": "x", "cost": 1}],
             "reveal":       [{"op": "reveal", "module": 0, "bits": 0, "cert": "p", "cost": 1}],
-            "oracle_halts": [{"op": "oracle_halts", "payload": 0, "cost": 1}],
             "halt":         [{"op": "halt", "cost": 1}],
             "checkpoint":   [{"op": "checkpoint", "cost": 1}],
             "read_port":    [{"op": "read_port", "dst": 1, "channel": 0, "value": 0, "bits": 8, "cost": 1}],

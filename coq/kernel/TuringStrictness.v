@@ -1,8 +1,6 @@
 (** TuringStrictness.v — D4+D5: Thiele Strictly Extends Classical Semantics
 
-    ==========================================================================
     D4: STRICTNESS WITNESS
-    ==========================================================================
 
     A single Thiele instruction can reach a state that is provably
     inaccessible to any classical program (of any length) from the same
@@ -23,9 +21,7 @@
         Therefore pg_morphisms = [] throughout any classical trace.
         graph_delete_morphism on empty list → None → err = true.
 
-    ==========================================================================
     D5: SAFE WORDING — THIELE STRICTLY EXTENDS CLASSICAL
-    ==========================================================================
 
     The full classical strictness theorem combines D3 + D4:
 
@@ -41,9 +37,6 @@
       behavior exactly, while adding structural operations that classical
       machines cannot exercise."
 
-    ==========================================================================
-    STATUS: Fully proven.  Zero Admitted.
-    ==========================================================================
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia.
@@ -53,9 +46,7 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
                            ClassicalConservativity ShadowProjection
                            TuringClassicalEmbedding.
 
-(** =========================================================================
-    PART 1: D4 WITNESS STATE
-    =========================================================================
+(**
 
     d4_base: the base state for the D4 strictness argument.
     Module 0 is present (enabling MORPH_ID to succeed by finding module 0).
@@ -101,9 +92,6 @@ Definition d4_base : VMState := {|
   vm_certified := false
 |}.
 
-(** =========================================================================
-    PART 2: D4 — THIELE REACHES A MORPHISM-BEARING STATE IN ONE STEP
-    =========================================================================*)
 
 (** D4_thiele_creates_morphism: After instr_morph_id 0 0 0 from d4_base,
     the graph still has a morphism present.
@@ -131,9 +119,6 @@ Proof.
   simpl. lia.
 Qed.
 
-(** =========================================================================
-    PART 3: D4 — CLASSICAL PROGRAMS CANNOT CHANGE THE GRAPH
-    =========================================================================*)
 
 (** D4_classical_preserves_next_id: For any classical trace from s0,
     pg_next_id is preserved (because vm_graph is preserved). *)
@@ -148,9 +133,7 @@ Proof.
   rewrite Hgraph. reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 4: D4 — THE STRICTNESS THEOREM
-    =========================================================================
+(**
 
     D4_strictness: There exist a base state and a Thiele structural instruction
     such that:
@@ -183,9 +166,7 @@ Proof.
     apply D4_classical_preserves_next_id. exact Hclassical.
 Qed.
 
-(** =========================================================================
-    PART 5: D5 — THIELE STRICTLY EXTENDS CLASSICAL (SAFE WORDING THEOREM)
-    =========================================================================
+(**
 
     D5_thiele_strictly_extends_classical:
     The Thiele VM strictly extends classical computation semantics

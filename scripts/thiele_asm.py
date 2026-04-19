@@ -42,10 +42,9 @@ ISA Reference (47 opcodes total: 40 legacy encodings + 7 categorical morph opcod
     XOR_ADD  | 0x0B      | XOR_ADD a b cost
     XOR_SWAP | 0x0C      | XOR_SWAP a b cost
     XOR_RANK | 0x0D      | XOR_RANK a b cost
-    EMIT     | 0x0E      | EMIT a b cost
-    REVEAL   | 0x0F      | REVEAL a b cost
+    EMIT     | 0x0E      | EMIT module bits cost — charges bits + S(cost)
+    REVEAL   | 0x0F      | REVEAL tensor_idx bits cost — charges bits + S(cost)
     REVEAL_EXT|alias     | REVEAL_EXT tensor_idx bits cost — ISA-v2 tensor-extended reveal
-    ORACLE_HALTS|0x10    | ORACLE_HALTS a b cost
     LOAD     | 0x11      | LOAD dst rs_addr cost     — register-indirect
     STORE    | 0x12      | STORE rs_addr src cost    — register-indirect
     ADD      | 0x13      | ADD dst src1 src2 cost    — rs1/rs2 packed into op_b
@@ -100,7 +99,7 @@ OPCODES: dict[str, int] = {
     "LJOIN": 0x04, "MDLACC": 0x05, "PDISCOVER": 0x06, "XFER": 0x07,
     "LOAD_IMM": 0x08, "CHSH_TRIAL": 0x09, "XOR_LOAD": 0x0A,
     "XOR_ADD": 0x0B, "XOR_SWAP": 0x0C, "XOR_RANK": 0x0D,
-    "EMIT": 0x0E, "REVEAL": 0x0F, "ORACLE_HALTS": 0x10,
+    "EMIT": 0x0E, "REVEAL": 0x0F,
     "LOAD": 0x11, "STORE": 0x12, "ADD": 0x13, "SUB": 0x14,
     "JUMP": 0x15, "JNEZ": 0x16, "CALL": 0x17, "RET": 0x18,
     "CHECKPOINT": 0x19, "READ_PORT": 0x1A, "WRITE_PORT": 0x1B,

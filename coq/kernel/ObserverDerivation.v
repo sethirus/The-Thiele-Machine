@@ -8,133 +8,35 @@ Import ListNotations.
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
-(** * Observer Derivation: Physics from Observational Equivalence
+(** ObserverDerivation: physics from observational equivalence.
 
-    WHY THIS FILE EXISTS:
-    I claim "observers" are not fundamental - they're DERIVED from the partition
-    graph structure. An observer is any function O : VMState → A that maps states
-    to observations. The key insight: ObservableRegion (defined in VMState) is
-    THE MAXIMAL observer - it distinguishes states as finely as physics allows.
+  This file starts from a simple question: what counts as an observer in the
+  VM, and what can such an observer really distinguish? The answer here is
+  structural. Observers are functions out of VMState, but the physically
+  meaningful ones are constrained by the partition graph data already present
+  in the machine.
 
-    THE CORE CONCEPT:
-    observer_equiv O s1 s2 means O treats s1 and s2 as indistinguishable.
-    This defines an equivalence relation: reflexive, symmetric, transitive.
-    Different observers induce different equivalence classes (coarser or finer).
+  The main point is that locality and observational equivalence are not two
+  separate stories. If the VM enforces locality structurally, then observers
+  see that locality exactly through the induced equivalence classes. The
+  region-based observer is the strongest physical observer in that sense, and
+  the gauge-shift lemmas show why the mu ledger itself stays internal rather
+  than directly observable. *)
 
-    OBSERVER ORDERING (observer_le):
-    Oa ≤ Ob means "Oa is at least as fine-grained as Ob". If Ob can't distinguish
-    s1 from s2, then Oa also can't (but Oa might distinguish things Ob doesn't).
-    This forms a preorder (reflexive, transitive) on observers.
+(** Observer: abstract measurement device.
 
-    PHYSICAL OBSERVERS:
-    - ObserverObservable: sees full partition data (region + evidence)
-    - ObserverObservableRegion: sees only regions (coarse-grained)
-    Both are "physical" because they respect partition structure.
-
-    KEY THEOREM (Observational_Locality_Iff_Physics):
-    Locality of observations (instruction only affects local module) is
-    EQUIVALENT to the physics definition in KernelPhysics. Observers "see"
-    locality precisely when the VM enforces it structurally.
-
-    PHYSICAL INTERPRETATION:
-    This connects the "shut up and calculate" view (just observe outcomes) with
-    the structural view (partition graph dynamics). They're the SAME: what you
-    observe is determined by partition structure, and locality follows from
-    the causal cone definition in the VM semantics.
-
-    GAUGE INVARIANCE (observer_region_gauge_invariant):
-    Shifting μ by a constant (mu_gauge_shift) doesn't change observations.
-    This proves the μ-ledger is "internal" - it tracks cost but isn't measured.
-    Like gauge transformations in electromagnetism: physically unobservable.
-
-    FALSIFICATION:
-    Find an observer that can distinguish states with identical ObservableRegion
-    values for all modules. This would mean there's "hidden information" beyond
-    partition structure, contradicting the claim that partitions exhaust physics.
-
-    Or show two states with different observable regions but identical under
-    ObserverObservableRegion (contradicting the definition).
-
-    Or demonstrate that μ-gauge shifts ARE observable (violating gauge invariance).
-
-    This file is about the philosophy of measurement: WHAT can be observed,
-    HOW observations relate to state, WHY the partition graph is sufficient.
-*)
-
-(** Observer: Abstract measurement device
-
-    WHY: I need a formal notion of "what can be measured" in the Thiele Machine.
-    An observer is any function mapping VMState to observations (values in type A).
-    This captures the operational perspective: you can only know what you measure.
-
-    STRUCTURE:
-    - Type parameter A: observation space (could be nat, list nat, option, etc.)
-    - Field observe: VMState → A (the measurement function)
-
-    IMPLEMENTATION (coq/kernel/ObserverDerivation.v:61-63):
-    A single-field record. The type A determines what granularity the observer
-    has - coarse observers collapse distinctions that fine observers preserve.
-
-    EXAMPLE:
-    - ObserverObservableRegion: observes partition regions (list nat)
-    - ObserverObservable: observes full partition data (list nat * nat)
-
-    PHYSICAL MEANING:
-    Like quantum measurement operators. An observer "projects" the state space
-    onto equivalence classes - states that produce identical observations are
-    operationally indistinguishable to that observer.
-
-    FALSIFICATION:
-    Show two VMStates where ALL observers agree on observations, yet the states
-    behave differently under some instruction. This would mean hidden variables
-    exist beyond observable structure, contradicting partition-graph completeness.
-
-    USED BY:
-    - observer_equiv (line 65): defines observational equivalence
-    - ObserverObservable (line 99): concrete observer for full partition data
-    - ObserverObservableRegion (line 102): concrete observer for regions only
-    - Observer_Minimality (line 154): proves region observer is maximal
-*)
+  An observer is just a function from VMState into some observation type. The
+  choice of codomain fixes how coarse or fine the observation is. States that
+  map to the same observation are indistinguishable to that observer. *)
 Record Observer (A : Type) := {
   observe : VMState -> A
 }.
 
-(** observer_equiv: Observational equivalence relation
+(** observer_equiv: observational equivalence relation.
 
-    WHY: I need to formalize "when does observer O treat s1 and s2 as identical?"
-    Two states are observationally equivalent if they produce the same measurement
-    outcome under observer O.
-
-    DEFINITION (coq/kernel/ObserverDerivation.v:95-96):
-    observer_equiv O s1 s2 := observe A O s1 = observe A O s2
-
-    STRUCTURE: Propositional equality of observations. This is an equivalence
-    relation (reflexive, symmetric, transitive) - proven in line 75.
-
-    PHYSICAL MEANING:
-    Like quantum state collapse. If O(s1) = O(s2), then from the perspective
-    of observer O, states s1 and s2 are THE SAME. No measurement by O can
-    distinguish them. This partitions the state space into equivalence classes.
-
-    EXAMPLE:
-    - ObserverObservableRegion: s1 ≡ s2 if all partition regions match
-    - Coarser observer: might treat states as equivalent even when regions differ
-
-    FALSIFICATION:
-    Find states s1, s2 where observer_equiv O s1 s2 holds, yet s1 and s2 evolve
-    differently under some instruction. This would mean O is "missing" information
-    that affects dynamics, contradicting observational adequacy.
-
-    DEPENDENCIES:
-    - Observer record (line 61): defines observe function
-    - Equivalence typeclass (line 75): proves this is an equivalence relation
-
-    USED BY:
-    - observer_equiv_equivalence (line 75): proves equivalence properties
-    - observer_le (line 113): defines observer ordering
-    - observer_collapses_partition_physics (line 101): uses to define collapse
-    - Observer_Minimality (line 154): packages observational equivalence
-*)
+  Two states are observationally equivalent for O when O maps them to the
+  same measurement result. This is the basic equivalence relation used
+  throughout the rest of the file. *)
 Definition observer_equiv {A : Type} (O : Observer A) (s1 s2 : VMState) : Prop :=
   observe A O s1 = observe A O s2.
 
@@ -161,17 +63,12 @@ Definition observer_equiv {A : Type} (O : Observer A) (s1 s2 : VMState) : Prop :
     - Region-blind observer: only looks at μ-cost. Collapses distinct partitions
       with identical cost (physically different, observationally identical).
 
-    FALSIFICATION:
     Prove that ObserverObservableRegion collapses partition physics. Find s1, s2
     where observe(s1) = observe(s2) but regions differ. This is impossible by
     definition (ObservableRegion IS the observation), proving this observer is
     maximally fine-grained.
-
-    DEPENDENCIES:
     - observer_equiv (line 95): defines observational equivalence
     - ObservableRegion (from VMState.v): extracts partition region for module
-
-    USED BY:
     - weaker_observer_collapse_witness (line 225): proves collapse from witnessing data
     - File header (line 47): states falsification condition
 *)
@@ -192,7 +89,6 @@ Definition observer_collapses_partition_physics {A : Type} (O : Observer A) : Pr
     THEOREM (coq/kernel/ObserverDerivation.v:141-147):
     For any observer O, observer_equiv O is an Equivalence.
 
-    PROOF STRATEGY:
     Three cases, each trivial from propositional equality:
     1. Reflexive: s ≡ s because observe O s = observe O s (reflexivity of =)
     2. Symmetric: s1 ≡ s2 → s2 ≡ s1 because = is symmetric
@@ -206,18 +102,13 @@ Definition observer_collapses_partition_physics {A : Type} (O : Observer A) : Pr
     classes don't overlap. This is the foundation of measurement theory - observers
     induce categorical distinctions (states are "the same" or "different", no partial equivalence).
 
-    FALSIFICATION:
     Find an observer O and states s1, s2, s3 where:
     - observe O s1 = observe O s2
     - observe O s2 = observe O s3
     - observe O s1 ≠ observe O s3
     This would violate transitivity of = and break Coq's type system. Impossible.
-
-    DEPENDENCIES:
     - observer_equiv (line 95): the relation being proven equivalent
     - Equivalence typeclass (Coq standard library): structure being instantiated
-
-    USED BY:
     - Observer_Minimality (line 180): packages this as deliverable property
     - All code using observational equivalence can now use Equivalence tactics
 *)
@@ -256,15 +147,10 @@ Qed.
     - ObserverObservable ≤ ObserverObservableRegion (full data ≤ region-only)
     - Region-only observer ≤ trivial observer (some distinctions ≤ no distinctions)
 
-    FALSIFICATION:
     Find Oa, Ob where observer_le Oa Ob holds, yet there exist s1, s2 with
     observer_equiv Ob s1 s2 but NOT observer_equiv Oa s1 s2. This would mean
     Oa makes distinctions Ob doesn't, violating the ordering definition.
-
-    DEPENDENCIES:
     - observer_equiv (line 95): defines equivalence used in ordering
-
-    USED BY:
     - observer_le_refl (line 182): proves reflexivity
     - observer_le_trans (line 187): proves transitivity
 *)
@@ -280,7 +166,6 @@ Definition observer_le {A B : Type} (Oa : Observer A) (Ob : Observer B) : Prop :
     CLAIM (coq/kernel/ObserverDerivation.v:214-216):
     ∀ A (O : Observer A). observer_le O O
 
-    PROOF STRATEGY:
     Trivial. Given observer_equiv O s1 s2, return the same hypothesis.
     The implication H → H is always valid.
 
@@ -289,14 +174,9 @@ Definition observer_le {A B : Type} (Oa : Observer A) (Ob : Observer B) : Prop :
     a measurement device has the same precision as itself - tautological but
     necessary for ordering structure.
 
-    FALSIFICATION:
     Prove observer_le O O fails for some O. This would mean O distinguishes states
     that O conflates, a logical contradiction.
-
-    DEPENDENCIES:
     - observer_le (line 179): the preorder being proven reflexive
-
-    USED BY:
     - Establishes observer_le as a preorder (with observer_le_trans)
 *)
 Lemma observer_le_refl : forall A (O : Observer A), observer_le O O.
@@ -314,7 +194,6 @@ Qed.
     ∀ A B C (Oa : Observer A) (Ob : Observer B) (Oc : Observer C).
       observer_le Oa Ob → observer_le Ob Oc → observer_le Oa Oc
 
-    PROOF STRATEGY:
     Chain implications.
     - Given: Oa ≤ Ob (Hab) and Ob ≤ Oc (Hbc)
     - Want: Oa ≤ Oc (for arbitrary s1, s2)
@@ -327,15 +206,10 @@ Qed.
     Oa is at least as fine as Oc. Information hierarchy is transitive: precision
     compares transitively (high-res ≥ mid-res ≥ low-res → high-res ≥ low-res).
 
-    FALSIFICATION:
     Find Oa, Ob, Oc where Oa ≤ Ob and Ob ≤ Oc hold, yet Oa ≤ Oc fails. This
     would mean Oa conflates something Oc distinguishes, even though Oa is finer
     than Ob which is finer than Oc. Logical contradiction.
-
-    DEPENDENCIES:
     - observer_le (line 179): the preorder being proven transitive
-
-    USED BY:
     - Establishes observer_le as a preorder (with observer_le_refl)
 *)
 Lemma observer_le_trans :
@@ -368,16 +242,11 @@ Qed.
     If s has module 0 in region [2,3] with evidence 5, then:
     observe _ ObserverObservable s 0 = Some ([2,3], 5)
 
-    FALSIFICATION:
     Find two states s1, s2 where Observable s1 mid = Observable s2 mid for all mid,
     yet some physical observable (measured by experiment) differs. This would mean
     partition structure isn't sufficient to characterize physics.
-
-    DEPENDENCIES:
     - Observer record (line 61): the structure being instantiated
     - Observable (from VMState.v): extracts partition node data for module
-
-    USED BY:
     - Establishes full observation baseline (coarser observers discard information)
 *)
 Definition ObserverObservable : Observer (nat -> option (list nat * nat)) :=
@@ -412,18 +281,13 @@ Definition ObserverObservable : Observer (nat -> option (list nat * nat)) :=
     observe _ ObserverObservableRegion s 0 = Some [2,3]
     (evidence 5 is invisible)
 
-    FALSIFICATION:
     Show that two states with identical ObservableRegion values for all modules
     can be distinguished by some physical measurement (experiment). This would
     refute the claim that regions exhaust observable physics.
 
     Or show that μ-gauge shifts ARE observable, violating gauge invariance.
-
-    DEPENDENCIES:
     - Observer record (line 61): the structure being instantiated
     - ObservableRegion (from VMState.v): extracts partition region, discarding evidence
-
-    USED BY:
     - observer_region_gauge_invariant (line 192): proves gauge invariance
     - Observer_Minimality (line 237): packages as deliverable observer
     - Observational_Locality_Iff_Physics (line 210): uses to prove locality
@@ -441,7 +305,6 @@ Definition ObserverObservableRegion : Observer (nat -> option (list nat)) :=
     CLAIM (coq/kernel/ObserverDerivation.v:351-354):
     ∀ s1 s2. obs_equiv s1 s2 → ∀ mid. ObservableRegion s1 mid = ObservableRegion s2 mid
 
-    PROOF STRATEGY:
     Direct from definitions.
     - obs_equiv means Observable s1 mid = Observable s2 mid (full partition data)
     - Observable returns Some (region, evidence) or None
@@ -456,20 +319,14 @@ Definition ObserverObservableRegion : Observer (nat -> option (list nat)) :=
     objects are identical, their positions are identical. Tautological but necessary
     for formal proofs.
 
-    FALSIFICATION:
     Find s1, s2 where Observable s1 mid = Observable s2 mid but
     ObservableRegion s1 mid ≠ ObservableRegion s2 mid. This would mean
     ObservableRegion isn't the projection of Observable, contradicting definitions.
-
-    DEPENDENCIES:
     - obs_equiv (from VMState.v or KernelPhysics.v): full observational equivalence
     - Observable, ObservableRegion (from VMState.v): partition data extraction
-
-    USED BY:
     - Establishes consistency between full and region observations
 *)
 (* Definitional lemma: This equality is by definition, not vacuous *)
-(** [obs_equiv_implies_region_equiv]: formal specification. *)
 Lemma obs_equiv_implies_region_equiv : forall s1 s2,
   obs_equiv s1 s2 ->
   forall mid, ObservableRegion s1 mid = ObservableRegion s2 mid.
@@ -494,7 +351,6 @@ Qed.
     ∀ s k mid. observe _ ObserverObservableRegion s mid =
                observe _ ObserverObservableRegion (mu_gauge_shift k s) mid
 
-    PROOF STRATEGY:
     Trivial by reflexivity.
     - mu_gauge_shift only modifies vm_mu field (adds k to ledger)
     - ObservableRegion only looks at vm_graph field (partition structure)
@@ -514,23 +370,17 @@ Qed.
     - Observation: ObservableRegion s 0 = ObservableRegion s' 0 = Some [2,3]
     The shift is invisible!
 
-    FALSIFICATION:
     Find s, k, mid where gauge-shifted observation differs from original:
     observe(s) ≠ observe(mu_gauge_shift k s). This would mean μ IS observable,
     breaking gauge invariance and making absolute μ-values physical (contradicting
     the theory that only Δμ matters).
-
-    DEPENDENCIES:
     - ObserverObservableRegion (line 304): the region observer
     - mu_gauge_shift (from VMState.v): shifts μ-ledger by constant k
     - ObservableRegion (from VMState.v): extracts region, ignoring μ
-
-    USED BY:
     - Observer_Minimality (line 237): packages gauge invariance as deliverable
     - File header (line 42): states as key property
 *)
 (* Definitional lemma: This equality is by definition, not vacuous *)
-(** [observer_region_gauge_invariant]: formal specification. *)
 Lemma observer_region_gauge_invariant : forall s k mid,
   observe _ ObserverObservableRegion s mid =
   observe _ ObserverObservableRegion (mu_gauge_shift k s) mid.
@@ -543,7 +393,7 @@ Qed.
 
 (** Observational_Locality_Iff_Physics: Locality from observation equals structural locality
 
-    WHY THIS THEOREM: I claim "observational locality" (instruction only affects
+    WHY THIS I claim "observational locality" (instruction only affects
     modules in its target list) is EQUIVALENT to "structural locality" (partition
     graph enforces causal cones). This proves the observational view and the
     structural view are THE SAME - locality is both derivable and fundamental.
@@ -558,7 +408,6 @@ Qed.
     - This theorem says: region changed → mid ∈ targets
     These are logically equivalent (contrapositive).
 
-    PROOF STRATEGY:
     Use decidability of list membership.
     - Case mid ∈ targets: done, return Hin
     - Case mid ∉ targets: apply observational_no_signaling to get regions equal,
@@ -575,20 +424,15 @@ Qed.
     - Observation of qubit 2 unchanged: ObservableRegion s 2 = ObservableRegion s' 2
     - But observation of qubit 0 or 1 may change (they're in targets)
 
-    FALSIFICATION:
     Find instruction instr, states s, s', module mid where:
     - mid ∉ instr_targets instr (instruction doesn't target mid)
     - vm_step s instr s' (instruction executes)
     - ObservableRegion s mid ≠ ObservableRegion s' mid (observation changed)
     This would be "action at a distance" - violating locality.
-
-    DEPENDENCIES:
     - ObservableRegion (from VMState.v): partition region extraction
     - vm_step (from VMStep.v): instruction execution relation
     - observational_no_signaling (from KernelPhysics.v): structural locality theorem
     - well_formed_graph (from VMState.v): graph validity predicate
-
-    USED BY:
     - Establishes equivalence of observational and structural locality
     - File header (line 31): states as key theorem connecting views
 *)
@@ -609,7 +453,7 @@ Qed.
 
 (** Observer_Minimality: ObserverObservableRegion is the maximal physical observer
 
-    WHY THIS THEOREM: I need to deliver TWO key properties that establish
+    WHY THIS I need to deliver TWO key properties that establish
     ObserverObservableRegion as the "canonical" observer for the Thiele Machine:
     1. Observational equivalence is an equivalence relation (partitions state space)
     2. μ-gauge shifts are unobservable (μ is internal accounting, not measurement)
@@ -618,13 +462,11 @@ Qed.
     - Part 1: Equivalence (observer_equiv ObserverObservableRegion) is an Equivalence
     - Part 2: ∀ s k mid. observe(s, mid) = observe(mu_gauge_shift k s, mid)
 
-    PROOF STRATEGY:
     Packaging theorem. Both properties are already proven:
     - Part 1: observer_equiv_equivalence (line 141) instantiated for ObserverObservableRegion
     - Part 2: observer_region_gauge_invariant (line 402)
     This theorem just packages them together as "deliverable" for TOE attack plan.
 
-    STRUCTURE:
     Conjunction of two independent properties:
     - Equivalence structure (reflexive, symmetric, transitive)
     - Gauge invariance (μ-shifts unobservable)
@@ -637,16 +479,11 @@ Qed.
     Together, these justify treating ObservableRegion as THE physical observable,
     with μ as internal cost accounting.
 
-    FALSIFICATION:
     For Part 1: Find observer_equiv that fails transitivity (impossible, proven).
     For Part 2: Find gauge shift that changes observations (would break gauge invariance).
-
-    DEPENDENCIES:
     - ObserverObservableRegion (line 304): the region-only observer
     - observer_equiv_equivalence (line 141): proves equivalence properties
     - observer_region_gauge_invariant (line 402): proves gauge invariance
-
-    USED BY:
     - File header (line 154): packages as deliverable for TOE
     - Establishes canonical observer for all measurements in Thiele Machine
 *)
@@ -681,7 +518,6 @@ Qed.
       observer_equiv O s1 s2 ∧ ObservableRegion s1 mid ≠ ObservableRegion s2 mid
       → observer_collapses_partition_physics O
 
-    PROOF STRATEGY:
     Witness construction. The definition of observer_collapses_partition_physics
     is ∃ s1 s2 mid. observer_equiv O s1 s2 ∧ regions differ. This lemma provides
     the existential witness: given the data, construct the proof.
@@ -701,17 +537,12 @@ Qed.
     - ObservableRegion s1 0 ≠ ObservableRegion s2 0 ✓
     - Apply lemma: O_trivial collapses partition physics ✓
 
-    FALSIFICATION:
     Claim observer_collapses_partition_physics O holds, but cannot produce
     witness states s1, s2, mid. This would mean the collapse is "abstract" without
     concrete demonstration, violating constructive falsifiability.
-
-    DEPENDENCIES:
     - observer_collapses_partition_physics (line 129): the property being proven
     - observer_equiv (line 95): observational equivalence
     - ObservableRegion (from VMState.v): partition region extraction
-
-    USED BY:
     - Provides constructive proof method for collapse property
     - File header (line 167): stated as witness-based approach to maximality
 *)

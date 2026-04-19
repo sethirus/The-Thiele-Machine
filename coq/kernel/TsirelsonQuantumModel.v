@@ -1,8 +1,6 @@
-(** =========================================================================
+(**
     TsirelsonQuantumModel: quantum-model bridge to Tsirelson bounds
-    =========================================================================
 
-    PURPOSE:
     Provide an explicit theorem path that ties the executable
     Thiele trace model to the existing Tsirelson bounds.
 
@@ -15,7 +13,7 @@
       * tsirelson_from_minors / tsirelson_from_minors_abs
 
     This file packages those results under one explicit quantum-model interface.
-    ========================================================================= *)
+    *)
 
 From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
@@ -131,9 +129,8 @@ Proof.
     exact Hcoh.
 Qed.
 
-(** =========================================================================
+(**
     C4 DIRECT CHAIN: quantum_realizable → Tsirelson (no coherence assumption)
-    =========================================================================
 
     The theorems above route through mu_ledger_coherent, which assumes both
     row bounds AND column contractivity. The new C4 closure proves:
@@ -144,7 +141,7 @@ Qed.
     the Tsirelson bound with NO additional assumptions. The row bounds are
     DERIVED from the 3x3 minor determinant
     argument (psd_3x3_determinant_nonneg in ConstructivePSD.v).
-    ========================================================================= *)
+    *)
 
 (** INQUISITOR NOTE: c4_direct_tsirelson_from_quantum_realizable is the
     direct C4 closure: quantum_realizable → Tsirelson, no intermediate

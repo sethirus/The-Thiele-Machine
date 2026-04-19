@@ -17,10 +17,10 @@ We construct two programs that solve the same search problem:
   BLIND PROGRAM:   Scans from 0 to target linearly. Pays 0 μ.
                    Iterations = L * M + R + 1.
 
-  SIGHTED PROGRAM: Scans left half (0..L), pays 1 μ for EMIT cert.
-                   Scans right half (0..R), pays 1 μ for EMIT cert.
+    SIGHTED PROGRAM: Scans left half (0..L), pays payload_bits+1 μ for EMIT cert.
+                                     Scans right half (0..R), pays payload_bits+1 μ for EMIT cert.
                    Iterations = (L + 1) + (R + 1) = L + R + 2.
-                   Total μ = 2.
+                                     Total μ = (8*|"left_found"|+1) + (8*|"right_found"|+1) = 170.
 
 WHAT WE MEASURE
 ---------------
@@ -33,13 +33,13 @@ PREDICTIONS (formally verified in coq/kernel/StructuralAdvantage.v — 1079 line
 1. blind_iters = L * M + R + 1           (exact)
 2. sighted_iters = L + R + 2             (exact)
 3. blind_mu = 0                          (no cert-setters)
-4. sighted_mu = 2                        (two EMIT instructions, each S(0) = 1)
+4. sighted_mu = 170                      (two EMIT payload charges in bits)
 5. For L = M = N - 1 (worst case worst position):
    advantage_ratio = N² / (2N) = N/2    (grows without bound)
 6. Combined cost (iters + lambda * mu):
    sighted wins for lambda < (blind_iters - sighted_iters) / (sighted_mu - blind_mu)
-   = (L*M + R - L - R) / 2 = (L*M - L) / 2 = L*(M-1)/2
-   For L=M=N: (N(N-1))/2 grows as Θ(N²). Sighted is worth it even if μ
+    = (L*M + R - L - R) / 170 = L*(M-1)/170
+    For L=M=N: (N(N-1))/170 grows as Θ(N²). Sighted is worth it even if μ
    is quadratically more expensive than a compute step.
 
 STATUS
@@ -179,6 +179,11 @@ def _sighted_search_program(left_target: int, right_target: int) -> list:
     ]
 
 
+def _emit_cost_bits(payload: str, cost: int = 0) -> int:
+    """VM EMIT charge: payload bits + S(cost)."""
+    return (8 * len(payload.encode("utf-8"))) + (cost + 1)
+
+
 def _run(program: list, max_steps: int = 200_000) -> VMState:
     return vm_run(VMState.default(), program, max_steps=max_steps)
 
@@ -255,10 +260,11 @@ class TestSightedSearchFormula:
         (15, 15),
     ])
     def test_sighted_pays_exactly_two_mu(self, left_target, right_target):
-        """Two EMIT instructions, each costs S(0) = 1. Total must be exactly 2."""
+        """Two EMIT instructions charge payload bits + S(0)."""
         s = _run(_sighted_search_program(left_target, right_target))
-        assert s.vm_mu == 2, (
-            f"Sighted program: expected vm_mu=2 (two cert-setters), got {s.vm_mu}"
+        expected_mu = _emit_cost_bits("left_found") + _emit_cost_bits("right_found")
+        assert s.vm_mu == expected_mu, (
+            f"Sighted program: expected vm_mu={expected_mu} (bit-priced EMIT payloads), got {s.vm_mu}"
         )
 
 
@@ -311,7 +317,10 @@ class TestStructuralAdvantage:
             f"Blind should pay less μ: blind_mu={blind.vm_mu}, sighted_mu={sighted.vm_mu}"
         )
         assert blind.vm_mu == 0, f"Blind pays no μ (no cert-setters); got {blind.vm_mu}"
-        assert sighted.vm_mu == 2, f"Sighted pays exactly 2 μ; got {sighted.vm_mu}"
+        expected_mu = _emit_cost_bits("left_found") + _emit_cost_bits("right_found")
+        assert sighted.vm_mu == expected_mu, (
+            f"Sighted pays exact EMIT bit charge ({expected_mu} μ); got {sighted.vm_mu}"
+        )
 
 
 # ---------------------------------------------------------------------------

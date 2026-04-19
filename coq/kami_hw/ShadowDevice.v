@@ -14,7 +14,6 @@
     the RTL instance is separately handled by [VerilogRefinement.v] and
     [CanonicalCPUProof.v]; including it here would duplicate that layer.
 
-    STATUS: Six theorems proved cleanly.  Zero Admitted.
     - [thiele_rtl_shadow_device] : RTL is a [ShadowDevice] instance.
     - [every_shadow_device_satisfies_compat] : class-level theorem.
     - [shadow_device_mu_cost_observable] : μ-cost preserved through interface.
@@ -29,7 +28,7 @@ Import ListNotations.
 From Kernel  Require Import VMState VMStep SimulationProof ShadowProjection.
 From KamiHW  Require Import Abstraction VerilogRefinement HardwareShadowBridge EmbedStep.
 
-(** * ShadowDevice interface
+(** ShadowDevice interface
 
     A [ShadowDevice] is any system with:
     - a device state type [sd_state]
@@ -44,7 +43,7 @@ Record ShadowDevice := {
     forall d : sd_state, sd_obs d = shadow_proj (sd_embed d)
 }.
 
-(** * RTL instance
+(** RTL instance
 
     The Thiele hardware stack is a [ShadowDevice]:
     - state is [KamiSnapshot]
@@ -57,7 +56,7 @@ Definition thiele_rtl_shadow_device : ShadowDevice :=
      sd_embed  := abs_phase1 ;
      sd_embed_shadow_compat := hardware_shadow_compat |}.
 
-(** * Device-class theorem
+(** Device-class theorem
 
     Every [ShadowDevice] satisfies the shadow compatibility invariant.
     Follows immediately from the record field — the theorem is here to
@@ -73,7 +72,7 @@ Proof.
   exact (D.(sd_embed_shadow_compat) d).
 Qed.
 
-(** * μ-cost is observable through the interface
+(** μ-cost is observable through the interface
 
     For any [ShadowDevice], the μ-cost in the observation equals [vm_mu]
     of the embedded Thiele state.  Connects the interface to the
@@ -88,7 +87,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** * RTL instance satisfies the device-class theorem
+(** RTL instance satisfies the device-class theorem
 
     Explicit instantiation stating the RTL hardware is covered by the
     class theorem above. *)
@@ -101,9 +100,9 @@ Proof.
   exact (every_shadow_device_satisfies_compat thiele_rtl_shadow_device ks).
 Qed.
 
-(* ================================================================= *)
+(* *)
 (** ** DynamicShadowDevice: ShadowDevice with a step function        *)
-(* ================================================================= *)
+(* *)
 
 (** [DynamicShadowDevice] extends [ShadowDevice] with a step function
     and a proof that the step commutes with [vm_apply] through the
@@ -129,7 +128,7 @@ Record DynamicShadowDevice := {
       dsd_embed (dsd_step d i) = vm_apply (dsd_embed d) i
 }.
 
-(** * RTL instance of DynamicShadowDevice (26-opcode SupportedOpcode scope).
+(** RTL instance of DynamicShadowDevice (26-opcode SupportedOpcode scope).
 
     Uses [kami_step] as the device step and [SupportedOpcode] from
     EmbedStep.v as the support predicate.  [embed_step_supported]
@@ -143,7 +142,7 @@ Definition thiele_rtl_dynamic_shadow_device : DynamicShadowDevice :=
      dsd_embed_shadow_compat := hardware_shadow_compat ;
      dsd_step_embed := embed_step_supported |}.
 
-(** * Self-contained trace theorem for any DynamicShadowDevice.
+(** Self-contained trace theorem for any DynamicShadowDevice.
 
     For a supported trace (all instructions satisfy [dsd_supported]),
     the observation after running the trace equals the classical shadow
@@ -169,7 +168,7 @@ Proof.
     + intros j Hj. apply Hsupp. right. exact Hj.
 Qed.
 
-(** * RTL corollary: no hypotheses beyond SupportedOpcode scope. *)
+(** RTL corollary: no hypotheses beyond SupportedOpcode scope. *)
 Corollary rtl_dynamic_shadow_trace_compat :
   forall (trace : list vm_instruction) (ks : KamiSnapshot),
     (forall i, List.In i trace -> SupportedOpcode i) ->
@@ -181,7 +180,7 @@ Proof.
            thiele_rtl_dynamic_shadow_device trace ks Hsupp).
 Qed.
 
-(** * μ-cost observable through dynamic interface.
+(** μ-cost observable through dynamic interface.
 
     The μ-cost after a supported trace equals the Thiele-computed μ —
     connecting the dynamic device to the cost chain. *)

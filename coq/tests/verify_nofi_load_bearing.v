@@ -1,13 +1,12 @@
-(** =========================================================================
+(**
     NO-FREE-INSIGHT LOAD-BEARING DEPENDENCY GUARD
-    =========================================================================
 
     This file ensures downstream proofs can depend on the strengthened
     NoFreeInsight theorem in a nontrivial way.
 
     Unlike a mere symbol-presence check, this proof applies
     [NoFreeInsight.strengthening_obs_requires_structure_addition] directly.
-    ========================================================================= *)
+    *)
 
 From Kernel Require Import VMState SimulationProof RevelationRequirement NoFreeInsight.
 

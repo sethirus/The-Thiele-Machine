@@ -1,6 +1,4 @@
 # Coq logical paths - clean per-directory mappings (best practice)
-# Non-recursive root mapping for Extraction.v only (-Q prevents
-# subdirectories from being double-bound under Top.*)
 
 # Path mappings (required for coqtop assumption audit)
 -R kernel Kernel
@@ -198,6 +196,7 @@ kernel/DiscreteRaychaudhuri.v
 kernel/LorentzianTensorPipeline.v
 kernel/NoFIToEinstein.v
 kernel/InsightTaxonomy.v
+kernel/PartitionRefinementNoFI.v
 kernel/ShadowProjection.v
 kernel/ClassicalConservativity.v
 kernel/TuringClassicalEmbedding.v
@@ -208,3 +207,5 @@ kernel/QuantitativeNoFI.v
 kernel/CHSHStatisticalBridge.v
 kernel/StructuralAdvantage.v
 kernel/ThieleGenesis.v
+kernel/WitnessInsightGeneral.v
+kami_hw/RTLGapRegistry.v

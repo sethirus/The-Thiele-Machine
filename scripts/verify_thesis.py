@@ -1412,7 +1412,7 @@ def test_ch3_theory():
     data_transfer = ["instr_xfer", "instr_load_imm"]
     certification = ["instr_chsh_trial", "instr_certify"]
     xor_ops = ["instr_xor_load", "instr_xor_add", "instr_xor_swap", "instr_xor_rank"]
-    obs_rev = ["instr_emit", "instr_reveal", "instr_oracle_halts"]
+    obs_rev = ["instr_emit", "instr_reveal"]
     mem_alu = ["instr_load", "instr_store", "instr_add", "instr_sub"]
     ctrl_flow = ["instr_jump", "instr_jnez", "instr_call", "instr_ret", "instr_halt"]
     io_heap = ["instr_checkpoint", "instr_read_port", "instr_write_port",
@@ -1859,7 +1859,7 @@ def test_ch7_8_discussion_conclusion():
     verdict(file_exists("coq/modular_proofs/TM_to_Minsky.v"),
             "tm_to_minsky_exists", "TM_to_Minsky.v exists")
 
-    for thm in ["halting_undecidable", "oracle_halts_costs_mu",
+    for thm in ["halting_undecidable",
                  "hypercomputation_bounded"]:
         verdict(theorem_proved("coq/kernel/OracleImpossibility.v", thm),
                 f"oracle_{thm}", f"{thm} ends with Qed")
@@ -1874,7 +1874,6 @@ def test_ch7_8_discussion_conclusion():
         ("nonlocal_correlation_requires_revelation", "coq/kernel/RevelationRequirement.v"),
         ("kernel_conservation_mu_gauge", "coq/kernel/KernelPhysics.v"),
         ("halting_undecidable", "coq/kernel/OracleImpossibility.v"),
-        ("oracle_halts_costs_mu", "coq/kernel/OracleImpossibility.v"),
         ("hypercomputation_bounded", "coq/kernel/OracleImpossibility.v"),
     ]
     for thm, f in theorem_table:
@@ -2229,7 +2228,6 @@ def test_adversarial():
         {"op": "pmerge", "m1": 0, "m2": 1, "cost": 1},
         {"op": "emit", "module": 0, "payload": "x", "cost": 1},
         {"op": "reveal", "module": 0, "bits": 1, "cert": "x", "cost": 1},
-        {"op": "oracle_halts", "payload": "x", "cost": 1},
         {"op": "heap_load", "dst": 0, "addr": 0, "cost": 1},
         {"op": "heap_store", "addr": 0, "src": 0, "cost": 1},
     ]
@@ -2713,7 +2711,6 @@ def test_theorem_index():
         ("partition_based_separation", "coq/kernel/PartitionSeparation.v"),
         # Oracle
         ("halting_undecidable", "coq/kernel/OracleImpossibility.v"),
-        ("oracle_halts_costs_mu", "coq/kernel/OracleImpossibility.v"),
         ("hypercomputation_bounded", "coq/kernel/OracleImpossibility.v"),
         # Quantum
         ("quantum_admissible_implies_CHSH_le_tsirelson",
@@ -2814,14 +2811,14 @@ def test_ch13_hardware_extended():
         "LJOIN": 0x04, "MDLACC": 0x05, "PDISCOVER": 0x06, "XFER": 0x07,
         "LOAD_IMM": 0x08, "CHSH_TRIAL": 0x09, "XOR_LOAD": 0x0A,
         "XOR_ADD": 0x0B, "XOR_SWAP": 0x0C, "XOR_RANK": 0x0D,
-        "EMIT": 0x0E, "REVEAL": 0x0F, "ORACLE_HALTS": 0x10,
+        "EMIT": 0x0E, "REVEAL": 0x0F,
         "LOAD": 0x11, "STORE": 0x12, "ADD": 0x13, "SUB": 0x14,
         "JUMP": 0x15, "JNEZ": 0x16, "CALL": 0x17, "RET": 0x18,
         "CHECKPOINT": 0x19, "READ_PORT": 0x1A, "WRITE_PORT": 0x1B,
         "HEAP_LOAD": 0x1C, "HEAP_STORE": 0x1D, "CERTIFY": 0x1E, "HALT": 0xFF,
     }
-    verdict(len(opcode_map) == 32, "ch13_opcode_count",
-            f"{len(opcode_map)} opcode encodings listed (expect 32)")
+    verdict(len(opcode_map) == 31, "ch13_opcode_count",
+            f"{len(opcode_map)} opcode encodings listed (expect 31)")
 
     if file_exists("coq/kami_hw/ThieleTypes.v"):
         ov = read_file("coq/kami_hw/ThieleTypes.v")
@@ -2948,7 +2945,7 @@ def test_execution():
         for op in ["pnew", "psplit", "pmerge", "pdiscover", "lassert", "ljoin",
                     "mdlacc", "xfer", "load_imm", "chsh_trial", "xor_load",
                     "xor_add", "xor_swap", "xor_rank", "emit", "reveal",
-                    "oracle_halts", "halt"]:
+                    "halt"]:
             found = op.lower() in ml_text.lower() or op.capitalize() in ml_text
             verdict(found, f"exec_ocaml_op_{op}",
                     f"Opcode {op} appears in extracted OCaml")

@@ -1,56 +1,17 @@
-(** =========================================================================
-    TopologyCurvatureBridge: delta chi implies delta Curvature
-    =========================================================================
+(** TopologyCurvatureBridge: delta chi implies delta curvature.
 
-    WHY THIS FILE EXISTS:
-    This is Phase 4 of the gravity emergence pipeline. Given the
-    discrete Gauss-Bonnet theorem (Phase 2), this file proves the
-    bridge theorem: any change in Euler characteristic between two
-    VM states causes a proportional change in total curvature. This
-    is the step that turns a topological fact into a geometric one.
+    This file is the short bridge from topology to geometry. Once
+    DiscreteGaussBonnet.v says total curvature is 5PI * chi, taking the
+    difference between two VM states immediately gives delta-K = 5PI * delta-chi.
 
-    THE KEY THEOREM:
-    Theorem delta_chi_implies_delta_curvature --
-      For two VM states s, s' with well-formed triangulated graphs,
-      delta_K = 5 * PI * IZR(delta_chi),
-      where delta_K = total_curvature(s') - total_curvature(s)
-      and delta_chi = euler_characteristic(s') - euler_characteristic(s).
+    That makes curvature jumps discrete. If chi changes by 1, total curvature
+    changes by exactly 5PI. If chi does not move, total curvature does not move.
+    The corollaries below are just those cases written out explicitly.
 
-    KEY SUPPORTING RESULTS:
-    - add_triangle_changes_curvature: delta chi = +1 implies
-      delta K = +5 pi
-    - remove_triangle_changes_curvature: delta chi = -1 implies
-      delta K = -5 pi
-    - topology_invariant_implies_curvature_invariant: delta chi = 0
-      implies delta K = 0
-    - local_curvature_changes_sum_to_global: sum of per-vertex
-      curvature changes equals the global curvature change
-
-    PHYSICAL INTERPRETATION:
-    Topology changes are discrete (delta chi is an integer), so
-    curvature changes are quantized in units of 5 pi. This is a
-    measurable prediction: a PNEW operation that changes chi by 1
-    produces exactly 5 pi of total curvature change. The quantization
-    is the discrete-manifold analogue of topological invariance in
-    smooth general relativity.
-
-    FALSIFICATION:
-    Exhibit two well-formed triangulated VM states where delta K
-    differs from 5 pi delta chi. The proof is a direct algebraic
-    consequence of applying discrete_gauss_bonnet (Phase 2) to both
-    states and subtracting, so a counterexample would require
-    falsifying Gauss-Bonnet itself.
-
-    Fully proven, zero Admitted.
-
-    GRAVITY EMERGENCE PIPELINE (dependency chain):
-    1. DiscreteTopology.v — topological definitions
-    2. DiscreteGaussBonnet.v — Gauss-Bonnet theorem
-    3. PNEWTopologyChange.v — PNEW changes topology
-    4. This file — delta chi implies delta curvature
-    5. StressEnergyDynamics.v — stress-energy drives PNEW
-    6. EinsteinEmergence.v — derive discrete Einstein analogue
-    ========================================================================= *)
+    To break this file, exhibit two well-formed triangulated VM states where
+    the curvature difference fails to match 5PI times the Euler-characteristic
+    difference. Since the proof is just Gauss-Bonnet applied twice and
+    subtracted, any such counterexample would also break the earlier theorem. *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -66,10 +27,8 @@ From Kernel Require Import DiscreteGaussBonnet.
 
 (** ** The Central Bridge Theorem
 
-    This is THE KEY RESULT connecting topology changes to curvature changes.
-    It proves that the change in total curvature is EXACTLY determined by
-    the change in Euler characteristic.
-    *)
+  This is the exact statement that topology change fixes the total-curvature
+  change. Nothing probabilistic is happening here. *)
 
 Theorem delta_chi_implies_delta_curvature : forall s s',
   well_formed_triangulated (vm_graph s) ->
@@ -159,9 +118,8 @@ Qed.
 
 (** ** Local Curvature Changes
 
-    The total curvature change must be distributed among vertices.
-    We can track which vertices experience curvature changes.
-    *)
+  Global curvature only changes by moving local defects around. This section
+  records the bookkeeping identity for that redistribution. *)
 
 (** Change in angle defect at a specific vertex *)
 Definition delta_vertex_curvature (s s' : VMState) (v : nat) : R :=
@@ -186,26 +144,15 @@ Qed.
 
 (** ** Physical Interpretation
 
-    WHAT THIS MEANS:
-    - Euler characteristic χ measures the TOPOLOGY of the partition graph
-    - Total curvature K measures the GEOMETRY
-    - This theorem proves: Δχ DETERMINES ΔK exactly
+  Chi measures topology. K measures total curvature. This theorem says the
+  topology jump fixes the curvature jump exactly.
 
-    WHY IT MATTERS:
-    - Topology changes are DISCRETE (Δχ is an integer)
-    - Curvature changes are QUANTIZED (ΔK = 5π, 10π, 15π, ...)
-    - This is measurable: we can detect 5π changes in angle sums
-
-    COMPLETED (Phases 5–6):
-    - StressEnergyDynamics.v (Phase 5): stress-energy drives PNEW
-    - EinsteinEmergence.v (Phase 6): chains all phases
-    Gravity emerges from information: stress-energy → PNEW → Δχ → ΔK.
-    *)
+  That matters because chi is integer-valued. So the allowed curvature jumps
+  come in 5PI-sized units. The later files use that quantization when they
+  talk about topology-changing VM steps as curvature-changing events. *)
 
 (** ** Verification Requirements
 
-    To empirically verify this theorem:
-    1. Create two VM states s and s' with different chi
-    2. Compute total_curvature for both (sum angle defects)
-    3. Check: delta K = 5 pi x delta chi to machine precision
-    *)
+  To test this outside Coq, compare two VM states, compute chi and total
+  curvature for both, and check that the differences satisfy delta-K =
+  5PI * delta-chi. *)

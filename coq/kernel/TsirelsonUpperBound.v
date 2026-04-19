@@ -1,34 +1,17 @@
-(** =========================================================================
-    CLASSICAL CHSH UPPER BOUND - μ=0 Constraint Proof
-    =========================================================================
+(** TsirelsonUpperBound: what the μ = 0 fragment can and cannot certify about CHSH
 
-    GOAL: Bound CHSH for μ=0 programs
+    This file isolates the low-cost side of the CHSH story. Its main job is to
+    characterize μ = 0 executions tightly enough to recover the appropriate
+    correlation bounds. The important scope line is explicit: the algebraic and
+    classical bounds are separated, and the stronger quantum bound is not being
+    derived here from nothing.
 
-    This establishes the ALGEBRAIC UPPER BOUND proven in this file:
-      max{CHSH : μ=0} <= 4  (algebraic bound from correlation constraints)
-    The tighter classical bound (<=2) is proven in MinorConstraints.v via
-    factorizability and Fine's theorem, not in this file.
+    The file leans on results from MuCostModel and the minor-constraint layer.
+    In particular, it uses the fact that μ = 0 traces cannot perform the
+    structure-setting operations that would move the system out of the
+    factorizable regime.
 
-    Combined with ClassicalBound.v, this proves:
-      max{CHSH : μ=0} = 2  (classical bound, PROVEN in MinorConstraints.v)
-
-    Strategy:
-    1. Characterize what μ=0 programs can do (partition structure constraints)
-    2. Show these constraints preserve factorizability
-    3. Apply 3×3 minor constraints (proven in MinorConstraints.v)
-    4. Use Fine's theorem to establish CHSH ≤ 2
-
-    CRITICAL REVISION (January 2026):
-    - μ=0 programs cannot use REVEAL, LASSERT, or LJOIN (proven in MuCostModel.v)
-    - Without these operations, correlations remain FACTORIZABLE
-    - Factorizable correlations = LOCC + shared randomness = CLASSICAL
-    - CLASSICAL ≠ QUANTUM (this was the error!)
-    - Classical correlations satisfy 3×3 minor constraints → CHSH ≤ 2
-    - Quantum correlations (CHSH ≤ 2√2) require μ>0 operations
-
-    STATUS: ALGEBRAIC BOUND PROVEN (CHSH ≤ 4), TIGHTER BOUND REQUIRES MinorConstraints.v
-
-    ========================================================================= *)
+    *)
 
 From Coq Require Import List QArith Qabs Lia Arith.PeanoNat ZArith.
 Require Import Psatz.
@@ -44,7 +27,7 @@ Definition classical_bound_value : Q := 2%Q.
 
 (** Quantum Tsirelson bound: 2√2 ≈ 2.8284...
     Rational approximation: 5657/2000 = 2.8285
-    NOTE: Requires μ>0 operations (LJOIN, REVEAL, LASSERT) *)
+ Requires μ>0 operations (LJOIN, REVEAL, LASSERT) *)
 Definition quantum_tsirelson_bound : Q := (5657 # 2000)%Q.
 
 (** ** Characterization of μ=0 Programs
@@ -56,9 +39,9 @@ Definition quantum_tsirelson_bound : Q := (5657 # 2000)%Q.
     - HALT: termination (free)
     
     Forbidden in μ=0:
-    - REVEAL: exposes hidden partition structure (costs μ=1)
-    - LASSERT: adds logical structure to partitions (costs μ=1)
-    - LJOIN: correlates partition structures (costs μ=1)
+    - REVEAL: exposes hidden partition structure (bits + S delta)
+    - LASSERT: adds logical structure to partitions (flen * 8 + S delta)
+    - LJOIN: correlates partition structures (S delta)
 
     CRITICAL: LOCC (Local Operations + Classical Communication) is CLASSICAL, not quantum!
     - LOCC + shared randomness = factorizable correlations
@@ -184,7 +167,7 @@ Open Scope Q_scope.
 
 (** ** CHSH Upper Bound for mu=0 Programs
 
-    THEOREM: All mu=0 programs produce CHSH values bounded by 2 (classical bound)
+    All mu=0 programs produce CHSH values bounded by 2 (classical bound)
 
     The proof strategy follows from the mu=0 constraints:
 
@@ -276,7 +259,7 @@ Qed.
 
 (** ** Main Upper Bound Result
 
-    THEOREM: CHSH values from μ=0 traces are bounded by the algebraic maximum (4).
+    CHSH values from μ=0 traces are bounded by the algebraic maximum (4).
 
     The tighter bound of 2 (classical) follows from the correspondence:
       μ=0 operations ↔ LOCC ↔ factorizable correlations ↔ classical bound
@@ -394,7 +377,6 @@ Proof.
   native_compute. reflexivity.
 Qed.
 
-(** [algebraic_max_trials_chsh]: formal specification. *)
 Lemma algebraic_max_trials_chsh :
   chsh_from_trials algebraic_max_trials == 4%Q.
 Proof.
@@ -402,7 +384,6 @@ Proof.
   vm_compute. reflexivity.
 Qed.
 
-(** [extract_algebraic_max_trials]: formal specification. *)
 Lemma extract_algebraic_max_trials :
   extract_chsh_trials_from_trace 4 algebraic_max_trace init_state_for_algebraic_max =
   algebraic_max_trials.
@@ -410,7 +391,6 @@ Proof.
   native_compute. reflexivity.
 Qed.
 
-(** [algebraic_max_trace_chsh]: formal specification. *)
 Lemma algebraic_max_trace_chsh :
   chsh_from_vm_trace 4 algebraic_max_trace init_state_for_algebraic_max == 4%Q.
 Proof.
@@ -421,7 +401,6 @@ Qed.
 
 (** ARITHMETIC HELPER: concrete rational inequality [2 < 4]. *)
 (* SAFE: Simple rational comparison 2 < 4 — short proof is complete. *)
-(** [classical_bound_lt_algebraic_max]: formal specification. *)
 Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.
 Proof.
   (* INQUISITOR NOTE: This is a SIMPLE ARITHMETIC FACT (2 < 4).
@@ -463,7 +442,7 @@ Proof.
   - unfold Qle. simpl. apply (Z.leb_le 0 4000). reflexivity.
 Qed.
 
-(** * CORRECTION: The True Classical Upper Bound
+(** CORRECTION: The True Classical Upper Bound
 
     The theorem [mu_zero_chsh_bounded] only proves S ≤ 4 (algebraic bound).
     The classical bound S ≤ 2 follows from factorizability → minor constraints.
@@ -496,7 +475,7 @@ Proof.
   auto.
 Qed.
 
-(** =========================================================================
+(**
     VERIFICATION SUMMARY
 
     PROVEN IN THIS FILE:
@@ -512,4 +491,4 @@ Qed.
     ✓ μ=0 → factorizable → minor constraints → CHSH ≤ 2 (classical)
     ✓ Proven in MinorConstraints.v:188 (local_box_CHSH_bound, ends in Qed)
 
-    ========================================================================= *)
+    *)

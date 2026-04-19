@@ -2,14 +2,15 @@ From Coq Require Import Arith.PeanoNat.
 
 Require Import NoFI.NoFreeInsight_Interface.
 
-(** * No-Free-Insight theorem (functor)
+(** No-Free-Insight theorem functor.
 
-    This file proves the theorem for *any* system satisfying the interface.
-    It contains **no `Axiom`** and **no deferred proofs**.
+  This file packages the generic theorem for any system satisfying the
+  interface in NoFreeInsight_Interface.v. There is no extra theory here and
+  no hidden axiom layer. The whole point is that once an instance proves the
+  interface obligations, the no-free-insight theorem drops out immediately.
 *)
 
 Module NoFreeInsight (X : NO_FREE_INSIGHT_SYSTEM).
-  (** [no_free_insight]: formal specification. *)
   Theorem no_free_insight :
     forall tr s0 s1 strength weak,
       X.clean_start s0 ->

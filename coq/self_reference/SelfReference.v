@@ -1,11 +1,10 @@
-(** * Formalising self-reference and the need for a meta-level.
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(** SelfReference: a minimal model of self-reference and meta-levels.
 
-
-    This module gives a minimal, mechanically checked model of systems
-    that can talk about themselves.  The goal is not to encode a full
-    Gödel numbering, but to make the structural dependencies explicit
-    enough to reason about the need for a richer meta-layer. *)
+  This module gives a small, mechanically checked model of systems that can
+  talk about themselves. It does not attempt a full Gödel encoding. The goal
+  is more basic: make the structural dependencies explicit enough to state and
+  prove why self-reference forces a richer meta-layer.
+ *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -42,15 +41,13 @@ Definition meta_system (S : System) : System :=
   {| dimension := S.(dimension) + 1;
      sentences := fun P => sentences S P \/ P = contains_self_reference S |}.
 
-(* ARITHMETIC — meta_system adds 1 dimension, so dim+1 > dim *)
-(** [meta_system_richer]: formal specification. *)
+(* Arithmetic check: meta_system adds one dimension. *)
 Lemma meta_system_richer : forall S, dimensionally_richer (meta_system S) S.
 Proof.
   intros S; unfold dimensionally_richer, meta_system; simpl; lia.
 Qed.
 
 (* DEFINITIONAL — meta_system includes base sentences via left disjunct *)
-(** [meta_system_can_reason_about]: formal specification. *)
 Lemma meta_system_can_reason_about : forall S, can_reason_about (meta_system S) S.
 Proof.
   intros S P HP; unfold can_reason_about, meta_system in *; simpl in *; auto.
@@ -58,7 +55,7 @@ Qed.
 
 (** The meta-system inherits a concrete self-referential statement from the
     base system: it can assert the truth of [contains_self_reference S], and we
-    leverage the witness from [S] to keep the statement true. *)
+    use the witness from [S] to keep the statement true. *)
 Lemma meta_system_self_referential :
   forall S, contains_self_reference S -> contains_self_reference (meta_system S).
 Proof.

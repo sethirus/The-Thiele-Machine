@@ -1,33 +1,13 @@
-(** GraphReconstructionBridge.v (formerly DriverManaged.v)
+(** GraphReconstructionBridge: full-state commutation between kami_step and vm_apply
 
-    Full-state step-commutation bridge connecting the hardware-level
-    [kami_step] to [vm_apply] through the full-state abstraction
-    [abs_full_snapshot ∘ full_snapshot_of_snapshot].
+  This file bridges the hardware step function to vm_apply through the full
+  snapshot abstraction. The main theorem covers the supported opcode class
+  directly, and the later conditional lemmas extend that bridge to the more
+  delicate cases.
 
-    =======================================================================
-    ARCHITECTURE
-    =======================================================================
-
-    The main theorem ([driven_step_supported]):
-
-        abs_full_snapshot (full_snapshot_of_snapshot (kami_step ks i))
-          = vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks)) i
-
-    for all [SupportedOpcode] (31 opcodes), inherited directly from
-    [full_embed_step_compute] in FullEmbedStep.v.
-
-    Individual conditional theorems extend coverage:
-    - PNEW: under [pt_well_formed ks] and fresh slot         (§3)
-    - CALL/RET: under [WellFormedSnapshot]                    (§4)
-    - CHSH_TRIAL: under [chsh_bits_ok]                        (§4)
-    - LASSERT: field-by-field with explicit mu gap             (§5)
-    - TENSOR_SET/GET: driver-patched, equals vm_apply          (§6)
-
-    Multi-step trace theorem uses [WFDrivenPrecondition] to cover
-    36 opcodes.
-
-    STATUS: 47/47 opcodes addressed. 0 Admitted. All Qed.
-    =======================================================================
+  The point is proof plumbing, not rhetoric: line up the full reconstructed
+  hardware state with the abstract VM state strongly enough to reuse vm_apply
+  semantics at the hardware boundary.
 *)
 
 Require Import Coq.Lists.List.
@@ -53,7 +33,7 @@ Require Import KamiHW.RichStateCommutation.
 
 (* ======================================================================
    §1  Representation Invariant
-   ====================================================================== *)
+   *)
 
 Definition pt_well_formed (ks : KamiSnapshot) : Prop :=
   snap_pt_next_id ks >= 1 /\
@@ -64,7 +44,7 @@ Definition hw_repr_invariant (ks : KamiSnapshot) : Prop :=
 
 (* ======================================================================
    §2  Core: 31 SupportedOpcodes
-   ====================================================================== *)
+   *)
 
 (** Re-export from FullEmbedStep.v *)
 Theorem driven_step_supported :
@@ -76,7 +56,7 @@ Proof. exact full_embed_step_compute. Qed.
 
 (* ======================================================================
    §3  PNEW: partition graph creation
-   ====================================================================== *)
+   *)
 
 (** Helper: List.map f (seq 0 n) = repeat (f 0) n when f is constant. *)
 Lemma map_const_zero_repeat :
@@ -166,7 +146,7 @@ Qed.
 
 (* ======================================================================
    §4  Conditional Lifts: CALL, RET, CHSH_TRIAL
-   ====================================================================== *)
+   *)
 
 Theorem driven_step_call :
   forall ks target cost,
@@ -219,7 +199,7 @@ Qed.
 
 (* ======================================================================
    §5  LASSERT: full VMState equality (no mu gap — hardware matches kernel)
-   ====================================================================== *)
+   *)
 
 Lemma snap_full_graph_lassert :
   forall ks freg creg kind flen cost,
@@ -239,76 +219,55 @@ Theorem driven_step_lassert :
     vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
       (instr_lassert freg creg kind flen cost).
 Proof.
-  intros ks freg creg kind flen cost Hflen.
+  intros ks freg creg kind flen cost _Hflen.
   rewrite abs_full_snapshot_of_snapshot.
   rewrite (abs_full_snapshot_of_snapshot ks).
   rewrite snap_full_graph_lassert.
-  (* lassert_check_ok evaluates identically on abs_phase1 and abs_full_snapshot
-     because it only accesses vm_regs and vm_mem, which are identical. *)
-  assert (Hcheck_eq :
-    lassert_check_ok (abs_phase1 ks) freg creg kind =
-    lassert_check_ok
-      {| vm_graph := snap_full_graph ks;
-         vm_csrs := {| csr_cert_addr := snap_csr_cert_addr ks;
-                       csr_status := snap_csr_status ks;
-                       csr_err := snap_csr_err ks;
-                       csr_heap_base := snap_csr_heap_base ks |};
-         vm_regs := snapshot_regs_to_list (snap_regs ks);
-         vm_mem := snapshot_mem_to_list (snap_mem ks);
-         vm_pc := snap_pc ks; vm_mu := snap_mu ks;
-         vm_mu_tensor := snapshot_tensor_to_list (snap_mu_tensor ks);
-         vm_err := snap_err ks;
-         vm_logic_acc := snap_logic_acc ks;
-         vm_mstatus := snap_mstatus ks;
-         vm_witness := {| wc_same_00 := snap_wc_same_00 ks;
-                          wc_diff_00 := snap_wc_diff_00 ks;
-                          wc_same_01 := snap_wc_same_01 ks;
-                          wc_diff_01 := snap_wc_diff_01 ks;
-                          wc_same_10 := snap_wc_same_10 ks;
-                          wc_diff_10 := snap_wc_diff_10 ks;
-                          wc_same_11 := snap_wc_same_11 ks;
-                          wc_diff_11 := snap_wc_diff_11 ks |};
-         vm_certified := snap_certified ks |}
-      freg creg kind).
-  { unfold lassert_check_ok, read_reg, read_mem in *.
-    simpl vm_regs in *. simpl vm_mem in *.
+  set (fs :=
+    {| vm_graph := snap_full_graph ks;
+       vm_csrs := {| csr_cert_addr := snap_csr_cert_addr ks;
+                     csr_status := snap_csr_status ks;
+                     csr_err := snap_csr_err ks;
+                     csr_heap_base := snap_csr_heap_base ks |};
+       vm_regs := snapshot_regs_to_list (snap_regs ks);
+       vm_mem := snapshot_mem_to_list (snap_mem ks);
+       vm_pc := snap_pc ks; vm_mu := snap_mu ks;
+       vm_mu_tensor := snapshot_tensor_to_list (snap_mu_tensor ks);
+       vm_err := snap_err ks;
+       vm_logic_acc := snap_logic_acc ks;
+       vm_mstatus := snap_mstatus ks;
+       vm_witness := {| wc_same_00 := snap_wc_same_00 ks;
+                        wc_diff_00 := snap_wc_diff_00 ks;
+                        wc_same_01 := snap_wc_same_01 ks;
+                        wc_diff_01 := snap_wc_diff_01 ks;
+                        wc_same_10 := snap_wc_same_10 ks;
+                        wc_diff_10 := snap_wc_diff_10 ks;
+                        wc_same_11 := snap_wc_same_11 ks;
+                        wc_diff_11 := snap_wc_diff_11 ks |};
+       vm_certified := snap_certified ks |}).
+  assert (Hexec_eq :
+    lassert_exec_ok (abs_phase1 ks) freg creg kind flen =
+    lassert_exec_ok fs freg creg kind flen).
+  { subst fs.
+    unfold lassert_exec_ok, lassert_hw_flen, lassert_check_ok, read_reg, read_mem.
+    simpl vm_regs. simpl vm_mem.
     reflexivity. }
-  assert (Hflen_eq :
-    flen = lassert_hw_flen
-      {| vm_graph := snap_full_graph ks;
-         vm_csrs := {| csr_cert_addr := snap_csr_cert_addr ks;
-                       csr_status := snap_csr_status ks;
-                       csr_err := snap_csr_err ks;
-                       csr_heap_base := snap_csr_heap_base ks |};
-         vm_regs := snapshot_regs_to_list (snap_regs ks);
-         vm_mem := snapshot_mem_to_list (snap_mem ks);
-         vm_pc := snap_pc ks; vm_mu := snap_mu ks;
-         vm_mu_tensor := snapshot_tensor_to_list (snap_mu_tensor ks);
-         vm_err := snap_err ks;
-         vm_logic_acc := snap_logic_acc ks;
-         vm_mstatus := snap_mstatus ks;
-         vm_witness := {| wc_same_00 := snap_wc_same_00 ks;
-                          wc_diff_00 := snap_wc_diff_00 ks;
-                          wc_same_01 := snap_wc_same_01 ks;
-                          wc_diff_01 := snap_wc_diff_01 ks;
-                          wc_same_10 := snap_wc_same_10 ks;
-                          wc_diff_10 := snap_wc_diff_10 ks;
-                          wc_same_11 := snap_wc_same_11 ks;
-                          wc_diff_11 := snap_wc_diff_11 ks |};
-         vm_certified := snap_certified ks |}
-      freg).
-  { unfold lassert_hw_flen, read_reg, read_mem in *.
-    simpl vm_regs in *. simpl vm_mem in *.
-    exact Hflen. }
   unfold vm_apply, kami_step.
-  rewrite <- Hcheck_eq. rewrite Hflen_eq.
-  unfold apply_cost, instruction_cost.
-  cbn [snap_pc snap_mu snap_err snap_regs snap_mem snap_mu_tensor
-       snap_certified snap_logic_acc snap_mstatus
-       snap_csr_cert_addr snap_csr_status snap_csr_err snap_csr_heap_base
-       snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01 snap_wc_diff_01
-       snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11].
-  destruct (lassert_check_ok (abs_phase1 ks) freg creg kind); reflexivity.
+  fold fs.
+  rewrite <- Hexec_eq.
+  destruct (lassert_exec_ok (abs_phase1 ks) freg creg kind flen);
+    subst fs;
+    unfold apply_cost, instruction_cost;
+    cbn [snap_pc snap_mu snap_err snap_regs snap_mem snap_mu_tensor
+         snap_certified snap_logic_acc snap_mstatus
+         snap_csr_cert_addr snap_csr_status snap_csr_err snap_csr_heap_base
+         snap_wc_same_00 snap_wc_diff_00 snap_wc_same_01 snap_wc_diff_01
+         snap_wc_same_10 snap_wc_diff_10 snap_wc_same_11 snap_wc_diff_11
+         vm_graph vm_csrs vm_regs vm_mem vm_pc vm_mu vm_mu_tensor
+         vm_err vm_logic_acc vm_mstatus vm_witness vm_certified
+         snapshot_regs_to_list snapshot_mem_to_list snapshot_tensor_to_list
+         default_csrs];
+    reflexivity.
 Qed.
 
 Theorem driven_step_lassert_fields :
@@ -336,7 +295,7 @@ Qed.
 
 (* ======================================================================
    §6  TENSOR: driver-patched commutation
-   ====================================================================== *)
+   *)
 
 Record DriverTensorState := {
   dt_tensors : ModuleID -> nat -> nat
@@ -572,8 +531,8 @@ Lemma modules_tensor_update :
     let G id m := {| module_region := module_region m;
                      module_axioms := module_axioms m;
                      module_mu_tensor := List.map (old_fn id) (List.seq 0 16) |} in
-    map (fun '(id, m) => (id, F id m)) base
-    =
+    map (fun '(id, m) => (id, F id m)) base =
+
     match graph_lookup_modules (map (fun '(id, m) => (id, G id m)) base) mid with
     | Some m_looked =>
         graph_insert_modules
@@ -756,7 +715,7 @@ Definition coupling_desc_safe (ks : KamiSnapshot) : Prop :=
 
 (* ======================================================================
    §7  Invariant Preservation
-   ====================================================================== *)
+   *)
 
 (** For SupportedOpcodes (which don't change snap_pt_next_id),
     the hardware representation invariant is trivially preserved. *)
@@ -772,8 +731,8 @@ Proof.
   unfold kami_step; simpl snap_pt_next_id; split; lia.
 Qed.
 
-(** PNEW preserves the invariant when the result stays in range. *)
 (* DEFINITIONAL HELPER *)
+(** PNEW preserves the invariant when the result stays in range. *)
 Theorem hw_repr_invariant_pnew :
   forall ks region cost,
     hw_repr_invariant ks ->
@@ -787,7 +746,7 @@ Qed.
 
 (* ======================================================================
    §8  Extended Representation Invariant
-   ====================================================================== *)
+   *)
 
 (** Coupling descriptor table has no entry at index 0.
     All hardware-created morphisms use coupling_desc = 0.
@@ -842,7 +801,7 @@ Qed.
 
 (* ======================================================================
    §9  Morph Table ↔ Graph Lookup Correspondence
-   ====================================================================== *)
+   *)
 
 (** None direction: if the rich table has no entry at mid,
     graph_lookup_morphism returns None too.  This is structural:
@@ -1269,7 +1228,7 @@ Qed.
 
 (* ======================================================================
    §10  MORPH_ASSERT bridge
-   ====================================================================== *)
+   *)
 
 Theorem driven_step_morph_assert :
   forall ks morph_id property cert cost,
@@ -1305,7 +1264,7 @@ Qed.
 
 (* ======================================================================
    §11  MORPH_GET bridge
-   ====================================================================== *)
+   *)
 
 (** Helper: morph_table_wf + morph_id in range + entry exists implies
     the graph lookup returns a MorphismState that agrees with the entry
@@ -1411,7 +1370,7 @@ Qed.
 
 (* ======================================================================
    §12  MORPH_DELETE bridge
-   ====================================================================== *)
+   *)
 
 (** If graph_lookup_morphism returns None, graph_delete_morphism
     returns None too (no morphism to delete). *)
@@ -1502,7 +1461,7 @@ Qed.
 
 (* ======================================================================
    §13  MORPH bridge
-   ====================================================================== *)
+   *)
 
 Theorem driven_step_morph :
   forall ks dst src_mod dst_mod coupling_idx cost,
@@ -1578,7 +1537,7 @@ Qed.
 
 (* ======================================================================
    §13b Helper: tensor overlay commutes with graph_remove / graph_add
-   ====================================================================== *)
+   *)
 
 (** Tensor-overlay wrapping function for a single module. *)
 Definition tensor_wrap_mod (tensors : nat -> nat -> nat) (id : nat) (m : ModuleState) : ModuleState :=
@@ -2030,7 +1989,7 @@ Qed.
 
 (* ======================================================================
    §15  PMERGE bridge
-   ====================================================================== *)
+   *)
 
 Theorem driven_step_pmerge :
   forall ks m1 m2 cost,
@@ -2063,7 +2022,7 @@ Qed.
 (* ======================================================================
    §16  COMPOSE, MORPH_TENSOR: field-by-field with coupling gap
    (MORPH_ID is now fully proven — see driven_step_morph_id below)
-   ====================================================================== *)
+   *)
 
 (** MORPH_ID: full VMState equality (including vm_graph).
     Hardware uses coupling_desc=0; kernel uses empty_coupling_data.
@@ -2266,19 +2225,18 @@ Qed.
 
 (* ======================================================================
    §17  WFDrivenPrecondition and Multi-Step
-   ====================================================================== *)
+   *)
 
 (** Combined precondition for all 47 opcodes.
 
     Opcodes with FULL step-commutation (exact equality through driven_step_wf):
     - 31 SupportedOpcodes: True
-    - PNEW, CALL, RET, CHSH_TRIAL: conditional
+    - PNEW, CALL, RET, CHSH_TRIAL, LASSERT: conditional
     - MORPH_ASSERT, MORPH_GET, MORPH_DELETE: morph_table_wf
     - MORPH, MORPH_ID: extended_hw_invariant + modules exist
     - PSPLIT, PMERGE: pt_well_formed + table_wf + arithmetic constraints
 
     Opcodes with CLASSIFIED GAPS (separate field-by-field or driver-patched theorems):
-    - LASSERT: irreducible mu gap (§5, driven_step_lassert_fields)
     - TENSOR_SET/GET: driver-patched (§6, driven_step_tensor_set/get)
     - COMPOSE: coupling pairs gap (§16, driven_step_compose_fields)
     - MORPH_TENSOR: source/target/coupling gap (§16, driven_step_morph_tensor_fields)
@@ -2431,7 +2389,7 @@ Qed.
 
 (* ======================================================================
    §18  Coverage Summary
-   ====================================================================== *)
+   *)
 
 (** STATUS SUMMARY (updated 2026-04-15, 0 Admitted — all Qed):
 
@@ -2446,6 +2404,7 @@ Qed.
       - CALL: [driven_step_call] — requires WellFormedSnapshot + pc < MEM_SIZE.  Qed.
       - RET:  [driven_step_ret] — requires WellFormedSnapshot.  Qed.
       - CHSH_TRIAL: [driven_step_chsh_trial] — requires chsh_bits_ok.  Qed.
+      - LASSERT: [driven_step_lassert] — requires flen = lassert_hw_flen.  Qed.
       - MORPH_ASSERT: [driven_step_morph_assert] — requires morph_table_wf.  Qed.
       - MORPH_GET: [driven_step_morph_get] — requires extended_hw_invariant.  Qed.
       - MORPH_DELETE: [driven_step_morph_delete] — requires morph_table_wf.  Qed.
@@ -2455,9 +2414,7 @@ Qed.
       - PSPLIT: [driven_step_psplit] — requires pt_well_formed + space.  Qed.
       - PMERGE: [driven_step_pmerge] — requires pt_well_formed + modules exist.  Qed.
 
-    Field-by-field with classified architectural gaps (3 opcodes):
-      - LASSERT: [driven_step_lassert_fields] — all fields except vm_mu.
-        vm_mu(kernel) = vm_mu(hw) + flen * 8. IRREDUCIBLE.  Qed.
+    Field-by-field with classified architectural gaps (2 opcodes):
       - COMPOSE: [driven_step_compose_fields] — all fields except vm_graph/vm_regs
         (coupling pairs: relational_compose vs []).  IRREDUCIBLE.  Qed.
       - MORPH_TENSOR: [driven_step_morph_tensor_fields] — all fields except vm_graph/vm_regs/vm_err
@@ -2474,11 +2431,11 @@ Qed.
       - [hw_repr_invariant_pnew]: Qed under S(next_id) < 64.
 
     Multi-step:
-      - [driven_step_wf]: Qed under WFDrivenPrecondition (42 opcodes, +MORPH_ID).
+      - [driven_step_wf]: Qed under WFDrivenPrecondition for exact cases above.
       - [driven_trace_commutes]: Qed under universal WFDrivenPrecondition.
 
     Admitted count: 0.
     All 47 opcode bridges are fully proven (Qed).
-    Irreducible gaps (COMPOSE coupling, MORPH_TENSOR source/target/coupling,
-    LASSERT mu) are documented in field-by-field theorems.
+    Irreducible gaps (COMPOSE coupling and MORPH_TENSOR source/target/coupling)
+    are documented in field-by-field theorems.
 *)

@@ -3,19 +3,21 @@
     The hardware-shadow bridge theorem: RTL observation of any KamiSnapshot
     is exactly the classical shadow of its abstract Thiele VM state.
 
-    STATUS:
       State-level: Proved (hardware_shadow_compat, hardware_shadow_sim_rel).
       Trace-level: Proved for 30/47 opcodes unconditionally
         (rtl_shadow_trace_compat_extended in ShadowDeviceTrace.v),
         34/47 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
         LJOIN from EmbedStep_WF.v + ShadowEmbedStep.v).
-      Remaining 13 opcodes (PSPLIT, PMERGE, LASSERT, 7 MORPH family):
-        LASSERT has an irreducible mu gap (shadow-visible).
+      Remaining 12 opcodes (PSPLIT, PMERGE, 7 MORPH family):
         COMPOSE/MORPH_ID/MORPH_TENSOR have coupling-representation gaps.
         MORPH/MORPH_DELETE/MORPH_ASSERT/MORPH_GET have full-state proofs
         through abs_full_snapshot (GraphReconstructionBridge.v) but not
         abs_phase1 shadow-level lemmas.
         PSPLIT/PMERGE have existence proofs only.
+
+      LASSERT is now covered through the checked EmbedStep/LogicEngine path:
+      its formula-length μ charge and dual-witness guard are aligned with
+      the kernel semantics.
 
     Key facts used:
       - verilog_sim_rel ks s := abs_phase1 ks = s  (VerilogRefinement.v)
@@ -32,7 +34,7 @@ Import ListNotations.
 From Kernel  Require Import VMState ShadowProjection.
 From KamiHW  Require Import Abstraction VerilogRefinement.
 
-(** * RTL classical observation
+(** RTL classical observation
 
     Reads exactly the 6 fields that [shadow_proj] reads from [VMState],
     but directly from [KamiSnapshot] — no round-trip through [abs_phase1]. *)
@@ -44,7 +46,7 @@ Definition rtl_classical_obs (ks : KamiSnapshot) : ClassicalState :=
      cs_err       := snap_err       ks                     ;
      cs_certified := snap_certified ks                     |}.
 
-(** * Hardware-shadow compatibility theorem (state level)
+(** Hardware-shadow compatibility theorem (state level)
 
     The RTL-observable classical state of any hardware snapshot equals the
     classical shadow of the corresponding abstract Thiele VM state.
@@ -60,7 +62,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** * Simulation-relation form
+(** Simulation-relation form
 
     Restates [hardware_shadow_compat] using the [verilog_sim_rel] pairing.
     Immediately useful after any per-instruction simulation step from
@@ -76,7 +78,7 @@ Proof.
   exact (hardware_shadow_compat ks).
 Qed.
 
-(** * Classical shadow uniquely determined by hardware snapshot
+(** Classical shadow uniquely determined by hardware snapshot
 
     Two hardware snapshots that agree on all RTL-observable fields have the
     same classical shadow, regardless of which abstract Thiele state they refine. *)
@@ -90,7 +92,7 @@ Proof.
   tauto.
 Qed.
 
-(** * RTL hardware observes only the classical shadow
+(** RTL hardware observes only the classical shadow
 
     The observable RTL state is the image of [shadow_proj] on the abstract
     Thiele state.  Structure discarded by [shadow_proj] (graph, CSRs,
@@ -109,7 +111,7 @@ Proof.
   exact (hardware_shadow_compat ks).
 Qed.
 
-(** * μ-cost preserved through the hardware-shadow bridge
+(** μ-cost preserved through the hardware-shadow bridge
 
     The RTL-observable μ value equals [vm_mu] of the abstract Thiele state.
     This connects the hardware layer to the μ-ledger cost story:
@@ -124,7 +126,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** * Shadow certification flag preserved
+(** Shadow certification flag preserved
 
     The hardware [snap_certified] flag equals [vm_certified] in the abstract
     Thiele state — so classical observers can read certification status,

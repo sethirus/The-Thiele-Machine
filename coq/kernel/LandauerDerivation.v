@@ -1,52 +1,42 @@
-(** =========================================================================
-    LANDAUER DERIVATION FROM FIRST PRINCIPLES
-    =========================================================================
+(**
+    LandauerDerivation: VM μ-cost bounds with a Landauer-shaped reading.
 
-    WHY THIS FILE EXISTS:
-    The audit (G3) found that ThieleMachineComplete.v's `PhysicalErasure_tc`
-    bakes the Landauer entropy bound as a record field — `pe_second_law` is an
-    assumption, not a derivation. `landauer_information_bound_tc` trivially
-    extracts that field. This file provides the genuine derivation.
+    ThieleMachineComplete.v's PhysicalErasure_tc bakes the Landauer entropy
+    bound as a record field; pe_second_law is an assumption there. This file
+    does something narrower: it proves VM-level μ-cost lower bounds for
+    certification and for a conservative positive-cost indicator.
 
-    THE DERIVATION CHAIN:
-    1. CERTIFY is the ONLY instruction that sets vm_certified := true
-       (proved by 47-arm case analysis on vm_apply)
-    2. CERTIFY's cost = S(delta_mu) >= 1  (from instruction_cost definition)
-    3. Therefore: certification requires positive μ-cost (derived, not assumed)
-    4. Pigeonhole (FiniteInformation.v): information cannot increase under
-       closed deterministic dynamics (info_nonincreasing)
-    5. μ-conservation (MuLedgerConservation.v): every vm_apply step increases
-       μ by exactly instruction_cost
-    6. Combining: total μ-cost >= information destroyed (Landauer principle)
+    1. CERTIFY is the only instruction that sets vm_certified := true
+       (proved by case analysis on vm_apply).
+    2. CERTIFY's cost = S(delta_mu) ≥ 1 (from instruction_cost definition).
+    3. Certification requires positive μ-cost, derived from vm_apply semantics.
+    4. μ-accounting (MuLedgerConservation.v): every vm_apply step increases
+       μ by exactly instruction_cost.
+    5. total μ-cost bounds total_irreversible_bits, where irreversible_bits is
+       defined here as 1 for any positive-cost instruction and 0 otherwise.
 
-    FALSIFICATION:
-    Find an instruction that sets vm_certified := true with zero cost.
-    The proof won't compile — every arm is checked.
-
-    NO AXIOMS. NO ADMITS. NO RECORD SMUGGLING.
-    ========================================================================= *)
+    To falsify: find an instruction that sets vm_certified := true with zero
+    cost, or a vm_apply case where μ does not increase by instruction_cost.
+    *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof MuLedgerConservation.
 
-(** =========================================================================
-    PART 1: CERTIFY IS THE ONLY CERTIFIER
-    =========================================================================
+(**
 
-    We prove that for all 47 instructions, only instr_certify changes
+    We prove that in the current instruction set, only instr_certify changes
     vm_certified from false to true. All other instructions preserve
     vm_certified via advance_state / advance_state_rm / jump_state /
     jump_state_rm / advance_state_reveal, all of which copy
     s.(vm_certified) unchanged.
 
-    PROOF STRATEGY:
-    Case analysis on instr. For instructions that go through advance_state
-    and friends, vm_certified is trivially preserved. For the two instructions
-    with explicit record construction (LASSERT, CHSH_TRIAL), we unfold and
-    check both branches. For CERTIFY, the result is `true`.
-    ========================================================================= *)
+    Case analysis on instr. For instructions going through advance_state and
+    friends, vm_certified is preserved by definition. For LASSERT and CHSH_TRIAL
+    (explicit record construction), unfold and check both branches. For CERTIFY,
+    the result is `true`.
+    *)
 
 (** For non-certify instructions, vm_certified is preserved. *)
 Lemma vm_apply_preserves_certified_non_certify :
@@ -113,16 +103,14 @@ Proof.
   unfold vm_apply. simpl. reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 2: CERTIFICATION REQUIRES POSITIVE COST
-    =========================================================================
+(**
 
     If vm_certified changes from false to true, the instruction must be
     instr_certify, and its cost is S(delta_mu) >= 1.
 
-    This is the core Landauer content: you cannot certify (gain structural
-    knowledge) without paying at least 1 μ-unit.
-    ========================================================================= *)
+    This is the core certification-cost content: you cannot flip the
+    certification bit from false to true without paying at least 1 μ-unit.
+    *)
 
 (** If vm_certified goes from false to true, cost >= 1. *)
 Theorem certification_requires_positive_cost :
@@ -206,15 +194,13 @@ Proof.
   - simpl. lia.
 Qed.
 
-(** =========================================================================
-    PART 3: IRREVERSIBILITY ACCOUNTING FROM VM SEMANTICS
-    =========================================================================
+(**
 
     Every vm_apply step increases μ by exactly instruction_cost (from
     MuLedgerConservation). We define "irreversible bits" conservatively:
-    an instruction contributes 1 irreversible bit if and only if it charges
-    a positive μ-cost. This is a lower bound on actual information destruction.
-    ========================================================================= *)
+    an instruction contributes 1 if and only if it charges a positive μ-cost.
+    This is a coarse indicator, not a physical count of erased bits.
+    *)
 
 (** Irreversible bits: 1 if the instruction charges positive cost, 0 otherwise. *)
 Definition irreversible_bits (instr : vm_instruction) : nat :=
@@ -255,9 +241,7 @@ Proof.
   - specialize (irreversible_bits_le_cost i). lia.
 Qed.
 
-(** =========================================================================
-    PART 4: THE LANDAUER PRINCIPLE — μ-COST BOUNDS IRREVERSIBILITY
-    =========================================================================
+(**
 
     Combining:
     1. vm_apply_mu: Δμ = instruction_cost per step
@@ -265,9 +249,10 @@ Qed.
     3. Therefore: Δμ >= irreversible_bits (per step)
     4. And: total Δμ >= total irreversible_bits (over any trace)
 
-    This is the Landauer principle: the computational cost of any execution
-    is at least the number of irreversible bit operations performed.
-    ========================================================================= *)
+    This is the Landauer-shaped accounting invariant in this file: the
+    computational μ-cost of any execution is at least the coarse positive-cost
+    indicator accumulated by total_irreversible_bits.
+    *)
 
 Lemma total_irreversible_bits_cons :
   forall i rest,
@@ -359,11 +344,11 @@ Proof.
     + lia.
 Qed.
 
-(** Multi-step Landauer: over any bounded execution, total μ increase >= total
-    irreversible bits. This is the full Landauer principle from first principles.
+(** Multi-step accounting bound: over any bounded execution, total μ increase
+    is at least total_irreversible_bits.
 
-    The μ-cost of any computation is at least the number of logically
-    irreversible bit operations it performs. *)
+    The "irreversible bits" term is the conservative indicator defined above,
+    not a full thermodynamic entropy calculation. *)
 Theorem landauer_multi_step :
   forall (fuel : nat) (trace : list vm_instruction) (s : VMState),
     (run_vm fuel trace s).(vm_mu) >=
@@ -385,28 +370,26 @@ Proof.
         rewrite Hmu_step.
         rewrite Nat.add_assoc.
         apply Nat.add_le_mono_r. apply Nat.add_le_mono_l. exact Hirrev.
-      * (* apply_mu + rest <= run_mu — this is HIH *)
+      * (* apply_mu + rest <= run_mu; this is HIH *)
         exact HIH.
     + simpl. lia.
 Qed.
 
-(** =========================================================================
-    PART 5: CERTIFICATION COST — THE SHARP LANDAUER CONTENT
-    =========================================================================
+(**
 
     The sharpest result: gaining certification (vm_certified going from
     false to true) requires at least 1 unit of μ-cost. This is not
-    assumed as a record field — it is DERIVED from the vm_apply semantics
+    assumed as a record field; it is derived from the vm_apply semantics
     by exhaustive case analysis on all 47 instruction arms.
 
     Combined with μ-conservation (MuLedgerConservation):
     - Certification = structural insight about the computation
     - Structural insight requires positive cost (>= 1)
     - Cost is irreversible (μ only increases)
-    - Therefore: insight requires irreversible expenditure = Landauer
-    ========================================================================= *)
+    - Therefore: certification requires a positive μ expenditure
+    *)
 
-(** The complete Landauer theorem: if a computation achieves certification,
+(** Certification bound: if a computation achieves certification,
     the μ-cost of the certifying step is at least 1. This is a direct
     consequence of certification_requires_positive_cost. *)
 Corollary landauer_certification_bound :
@@ -463,16 +446,15 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
-    STATUS: GENUINE DERIVATION
+(**
 
     - Zero Admitted
     - Zero project-local axioms
     - Zero Hypothesis
-    - certification_requires_positive_cost: proved by 47-arm case analysis
+    - certification_requires_positive_cost: proved by case analysis
     - landauer_single_step: Δμ >= irreversible_bits (per step)
     - landauer_multi_step: total Δμ >= total irreversible bits (any trace)
     - landauer_certification_bound: certification costs >= 1 μ-unit
     - All derived from vm_apply semantics + instruction_cost definition
 
-    ========================================================================= *)
+    *)

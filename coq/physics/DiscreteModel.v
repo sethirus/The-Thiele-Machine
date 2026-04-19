@@ -5,7 +5,7 @@ From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 
 
-(** * A reversible lattice gas toy model
+(** A reversible lattice gas toy model
 
     This file supplies a simple, nontrivial "physics-style" model: a reversible
     1D lattice gas with local swaps.  The update rule is involutive and
@@ -26,7 +26,6 @@ Definition is_particle (c : Cell) : bool :=
 Definition particle_count (l : Lattice) : nat :=
   length (filter is_particle l).
 
-(** [particle_count_cons]: formal specification. *)
 Lemma particle_count_cons :
   forall c xs,
     particle_count (c :: xs) = (if is_particle c then 1 else 0) + particle_count xs.
@@ -61,24 +60,20 @@ Fixpoint physics_step (L : Lattice) : Lattice :=
   | [] => []
   end.
 
-(** [pair_update_involutive]: formal specification. *)
 Lemma pair_update_involutive :
   forall c1 c2, pair_update (fst (pair_update c1 c2)) (snd (pair_update c1 c2)) = (c1, c2).
 Proof. intros c1 c2. destruct c1, c2; simpl; reflexivity. Qed.
 
-(** [particle_count_swap]: formal specification. *)
 Lemma particle_count_swap :
   forall c1 c2 xs,
     particle_count (c1 :: c2 :: xs) = particle_count (c2 :: c1 :: xs).
 Proof. intros c1 c2 xs; destruct c1, c2; simpl; reflexivity. Qed.
 
-(** [momentum_swap]: formal specification. *)
 Lemma momentum_swap :
   forall c1 c2 xs,
     momentum (c1 :: c2 :: xs) = momentum (c2 :: c1 :: xs).
 Proof. intros c1 c2 xs; simpl; lia. Qed.
 
-(** [physics_step_involutive]: formal specification. *)
 Lemma physics_step_involutive :
   forall L, physics_step (physics_step L) = L.
 Proof.
@@ -96,7 +91,6 @@ Proof.
   intro L; destruct L as [|c1 [|c2 tl]]; simpl; auto.
 Qed.
 
-(** [pair_update_preserves_particle_count]: formal specification. *)
 Lemma pair_update_preserves_particle_count :
   forall c1 c2,
     particle_count [fst (pair_update c1 c2); snd (pair_update c1 c2)] =
@@ -106,7 +100,6 @@ Proof.
   repeat (destruct c1; destruct c2; simpl; try lia).
 Qed.
 
-(** [physics_preserves_particle_count]: formal specification. *)
 Lemma physics_preserves_particle_count :
   forall L, particle_count (physics_step L) = particle_count L.
 Proof.
@@ -118,7 +111,6 @@ Proof.
   destruct c1, c2; simpl; lia.
 Qed.
 
-(** [pair_update_preserves_momentum]: formal specification. *)
 Lemma pair_update_preserves_momentum :
   forall c1 c2,
     momentum [fst (pair_update c1 c2); snd (pair_update c1 c2)] =
@@ -128,7 +120,6 @@ Proof.
   repeat (destruct c1; destruct c2; simpl; lia).
 Qed.
 
-(** [physics_preserves_momentum]: formal specification. *)
 Lemma physics_preserves_momentum :
   forall L, momentum (physics_step L) = momentum L.
 Proof.
@@ -144,12 +135,10 @@ Theorem lattice_particles_conserved :
   forall L, particle_count (physics_step L) = particle_count L.
 Proof. apply physics_preserves_particle_count. Qed.
 
-(** [lattice_momentum_conserved]: formal specification. *)
 Theorem lattice_momentum_conserved :
   forall L, momentum (physics_step L) = momentum L.
 Proof. apply physics_preserves_momentum. Qed.
 
-(** [lattice_step_involutive]: formal specification. *)
 Theorem lattice_step_involutive :
   forall L, physics_step (physics_step L) = L.
 Proof. apply physics_step_involutive. Qed.
@@ -159,7 +148,6 @@ Proof. apply physics_step_involutive. Qed.
 Definition physics_conserves_particles := physics_preserves_particle_count.
 Definition physics_conserves_momentum := physics_preserves_momentum.
 
-(** [physics_conservation_bundle]: formal specification. *)
 Corollary physics_conservation_bundle :
   forall L,
     physics_step (physics_step L) = L /\
@@ -185,7 +173,6 @@ Section Embedding.
   Variable impl_refines_physics :
     forall L, decode (impl_step (encode L)) = physics_step L.
 
-  (** [embedded_particle_count_conserved]: formal specification. *)
   Lemma embedded_particle_count_conserved :
     forall L,
       particle_count (decode (impl_step (encode L))) = particle_count (decode (encode L)).
@@ -194,7 +181,6 @@ Section Embedding.
     apply physics_preserves_particle_count.
   Qed.
 
-  (** [embedded_momentum_conserved]: formal specification. *)
   Lemma embedded_momentum_conserved :
     forall L,
       momentum (decode (impl_step (encode L))) = momentum (decode (encode L)).

@@ -1,456 +1,456 @@
-DIGEST 155006cc0575c7938f04542303f5b40b
+DIGEST 14a82914aa31455599cef6ea4b6e38ef
 FSelfReference.RefinementInvariant
-R2117:2121 Coq.Arith.Arith <> <> lib
-R2123:2126 Coq.Lists.List <> <> lib
-R2128:2130 Coq.micromega.Lia <> <> lib
-R2140:2152 Coq.Lists.List ListNotations <> mod
-R2227:2233 Kernel.VMState <> <> lib
-R2235:2240 Kernel.VMStep <> <> lib
-R2242:2252 Kernel.MuCostModel <> <> lib
-R2271:2284 SelfReference.InductiveTrust <> <> lib
-rec 2535:2543 <> ExecState
-proj 2552:2556 <> ex_mu
-R2560:2562 Coq.Init.Datatypes <> nat ind
-def 2625:2633 <> exec_step
-R2640:2648 SelfReference.RefinementInvariant <> ExecState rec
-binder 2636:2636 <> s:3
-R2659:2661 Coq.Init.Datatypes <> nat ind
-binder 2652:2655 <> cost:4
-R2666:2674 SelfReference.RefinementInvariant <> ExecState rec
-R2684:2688 SelfReference.RefinementInvariant <> ex_mu proj
-R2684:2688 SelfReference.RefinementInvariant <> ex_mu proj
-R2684:2688 SelfReference.RefinementInvariant <> ex_mu proj
-R2702:2704 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2696:2700 SelfReference.RefinementInvariant <> ex_mu proj
-R2693:2693 SelfReference.RefinementInvariant <> s:3 var
-R2705:2708 SelfReference.RefinementInvariant <> cost:4 var
-def 2781:2789 <> run_trace
-R2796:2804 SelfReference.RefinementInvariant <> ExecState rec
-binder 2792:2792 <> s:5
-R2816:2819 Coq.Init.Datatypes <> list ind
-R2821:2823 Coq.Init.Datatypes <> nat ind
-binder 2808:2812 <> costs:6
-R2828:2836 SelfReference.RefinementInvariant <> ExecState rec
-R2849:2853 SelfReference.RefinementInvariant <> costs:6 var
-R2864:2865 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2877:2877 SelfReference.RefinementInvariant <> s:5 var
-R2884:2887 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2896:2904 SelfReference.RefinementInvariant <> run_trace:7 def
-R2907:2915 SelfReference.RefinementInvariant <> exec_step def
-R2917:2917 SelfReference.RefinementInvariant <> s:5 var
-def 3000:3015 <> trace_total_cost
-R3026:3029 Coq.Init.Datatypes <> list ind
-R3031:3033 Coq.Init.Datatypes <> nat ind
-binder 3018:3022 <> costs:9
-R3038:3040 Coq.Init.Datatypes <> nat ind
-R3053:3057 SelfReference.RefinementInvariant <> costs:9 var
-R3068:3069 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3088:3091 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3101:3103 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3104:3119 SelfReference.RefinementInvariant <> trace_total_cost:10 def
-prf 3316:3327 <> run_trace_mu
-R3349:3352 Coq.Init.Datatypes <> list ind
-R3354:3356 Coq.Init.Datatypes <> nat ind
-binder 3341:3345 <> costs:12
-R3364:3372 SelfReference.RefinementInvariant <> ExecState rec
-binder 3360:3360 <> s:13
-R3407:3409 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3401:3405 SelfReference.RefinementInvariant <> ex_mu proj
-R3381:3389 SelfReference.RefinementInvariant <> run_trace def
-R3391:3391 SelfReference.RefinementInvariant <> s:13 var
-R3393:3397 SelfReference.RefinementInvariant <> costs:12 var
-R3419:3421 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3413:3417 SelfReference.RefinementInvariant <> ex_mu proj
-R3410:3410 SelfReference.RefinementInvariant <> s:13 var
-R3422:3437 SelfReference.RefinementInvariant <> trace_total_cost def
-R3439:3443 SelfReference.RefinementInvariant <> costs:12 var
-R3552:3560 SelfReference.RefinementInvariant <> exec_step def
-prf 3587:3601 <> trace_total_app
-binder 3614:3615 <> l1:14
-binder 3617:3618 <> l2:15
-R3652:3654 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3625:3640 SelfReference.RefinementInvariant <> trace_total_cost def
-R3645:3648 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R3643:3644 SelfReference.RefinementInvariant <> l1:14 var
-R3649:3650 SelfReference.RefinementInvariant <> l2:15 var
-R3674:3676 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3655:3670 SelfReference.RefinementInvariant <> trace_total_cost def
-R3672:3673 SelfReference.RefinementInvariant <> l1:14 var
-R3677:3692 SelfReference.RefinementInvariant <> trace_total_cost def
-R3694:3695 SelfReference.RefinementInvariant <> l2:15 var
-def 3843:3866 <> full_certification_trace
-R3873:3875 Coq.Init.Datatypes <> nat ind
-binder 3869:3869 <> n:16
-R3880:3883 Coq.Init.Datatypes <> list ind
-R3885:3887 Coq.Init.Datatypes <> nat ind
-R3892:3902 Coq.Lists.List <> repeat def
-R3906:3906 SelfReference.RefinementInvariant <> n:16 var
-prf 3916:3944 <> full_certification_trace_cost
-binder 3957:3957 <> n:17
-R4005:4007 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3960:3975 SelfReference.RefinementInvariant <> trace_total_cost def
-R3978:4001 SelfReference.RefinementInvariant <> full_certification_trace def
-R4003:4003 SelfReference.RefinementInvariant <> n:17 var
-R4008:4008 SelfReference.RefinementInvariant <> n:17 var
-R4038:4061 SelfReference.RefinementInvariant <> full_certification_trace def
-def 4400:4413 <> embodies_trust
-R4422:4431 SelfReference.InductiveTrust <> StateSpace rec
-binder 4416:4416 <> A:18
-binder 4418:4418 <> B:19
-R4439:4447 SelfReference.InductiveTrust <> Expansion rec
-R4449:4449 SelfReference.RefinementInvariant <> A:18 var
-R4451:4451 SelfReference.RefinementInvariant <> B:19 var
-binder 4435:4435 <> e:20
-R4467:4470 Coq.Init.Datatypes <> list ind
-R4472:4474 Coq.Init.Datatypes <> nat ind
-binder 4459:4463 <> costs:21
-R4511:4513 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4489:4504 SelfReference.RefinementInvariant <> trace_total_cost def
-R4506:4510 SelfReference.RefinementInvariant <> costs:21 var
-R4514:4530 SelfReference.InductiveTrust <> expansion_insight def
-R4532:4532 SelfReference.RefinementInvariant <> e:20 var
-prf 4605:4626 <> embodying_trace_exists
-R4646:4655 SelfReference.InductiveTrust <> StateSpace rec
-binder 4640:4640 <> A:22
-binder 4642:4642 <> B:23
-R4663:4671 SelfReference.InductiveTrust <> Expansion rec
-R4673:4673 SelfReference.RefinementInvariant <> A:22 var
-R4675:4675 SelfReference.RefinementInvariant <> B:23 var
-binder 4659:4659 <> e:24
-R4683:4689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4695:4696 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4690:4694 <> costs:25
-R4697:4710 SelfReference.RefinementInvariant <> embodies_trust def
-R4714:4718 SelfReference.RefinementInvariant <> costs:25 var
-R4712:4712 SelfReference.RefinementInvariant <> e:24 var
-R4754:4777 SelfReference.RefinementInvariant <> full_certification_trace def
-R4780:4796 SelfReference.InductiveTrust <> expansion_insight def
-R4754:4777 SelfReference.RefinementInvariant <> full_certification_trace def
-R4780:4796 SelfReference.InductiveTrust <> expansion_insight def
-R4812:4825 SelfReference.RefinementInvariant <> embodies_trust def
-R4837:4865 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R4868:4884 SelfReference.InductiveTrust <> expansion_insight def
-R4837:4865 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R4868:4884 SelfReference.InductiveTrust <> expansion_insight def
-def 5314:5326 <> mu_refinement
-R5335:5344 SelfReference.InductiveTrust <> StateSpace rec
-binder 5329:5329 <> A:26
-binder 5331:5331 <> B:27
-R5352:5360 SelfReference.InductiveTrust <> Expansion rec
-R5362:5362 SelfReference.RefinementInvariant <> A:26 var
-R5364:5364 SelfReference.RefinementInvariant <> B:27 var
-binder 5348:5348 <> e:28
-R5383:5391 SelfReference.RefinementInvariant <> ExecState rec
-binder 5372:5374 <> pre:29
-binder 5376:5379 <> post:30
-R5418:5420 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5412:5416 SelfReference.RefinementInvariant <> ex_mu proj
-R5406:5409 SelfReference.RefinementInvariant <> post:30 var
-R5432:5434 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5426:5430 SelfReference.RefinementInvariant <> ex_mu proj
-R5421:5423 SelfReference.RefinementInvariant <> pre:29 var
-R5435:5451 SelfReference.InductiveTrust <> expansion_insight def
-R5453:5453 SelfReference.RefinementInvariant <> e:28 var
-prf 5531:5554 <> embodying_trace_realizes
-R5574:5583 SelfReference.InductiveTrust <> StateSpace rec
-binder 5568:5568 <> A:31
-binder 5570:5570 <> B:32
-R5591:5599 SelfReference.InductiveTrust <> Expansion rec
-R5601:5601 SelfReference.RefinementInvariant <> A:31 var
-R5603:5603 SelfReference.RefinementInvariant <> B:32 var
-binder 5587:5587 <> e:33
-R5621:5629 SelfReference.RefinementInvariant <> ExecState rec
-binder 5616:5617 <> s0:34
-R5641:5644 Coq.Init.Datatypes <> list ind
-R5646:5648 Coq.Init.Datatypes <> nat ind
-binder 5633:5637 <> costs:35
-R5678:5685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5656:5669 SelfReference.RefinementInvariant <> embodies_trust def
-R5673:5677 SelfReference.RefinementInvariant <> costs:35 var
-R5671:5671 SelfReference.RefinementInvariant <> e:33 var
-R5686:5698 SelfReference.RefinementInvariant <> mu_refinement def
-R5706:5714 SelfReference.RefinementInvariant <> run_trace def
-R5716:5717 SelfReference.RefinementInvariant <> s0:34 var
-R5719:5723 SelfReference.RefinementInvariant <> costs:35 var
-R5702:5703 SelfReference.RefinementInvariant <> s0:34 var
-R5700:5700 SelfReference.RefinementInvariant <> e:33 var
-R5773:5785 SelfReference.RefinementInvariant <> mu_refinement def
-R5798:5809 SelfReference.RefinementInvariant <> run_trace_mu thm
-R5798:5809 SelfReference.RefinementInvariant <> run_trace_mu thm
-R5798:5809 SelfReference.RefinementInvariant <> run_trace_mu thm
-R5821:5834 SelfReference.RefinementInvariant <> embodies_trust def
-prf 6056:6075 <> mu_refinement_unique
-R6095:6104 SelfReference.InductiveTrust <> StateSpace rec
-binder 6089:6089 <> A:36
-binder 6091:6091 <> B:37
-R6112:6120 SelfReference.InductiveTrust <> Expansion rec
-R6122:6122 SelfReference.RefinementInvariant <> A:36 var
-R6124:6124 SelfReference.RefinementInvariant <> B:37 var
-binder 6108:6108 <> e:38
-R6155:6163 SelfReference.RefinementInvariant <> ExecState rec
-binder 6137:6139 <> pre:39
-binder 6141:6145 <> post1:40
-binder 6147:6151 <> post2:41
-R6196:6203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6171:6183 SelfReference.RefinementInvariant <> mu_refinement def
-R6191:6195 SelfReference.RefinementInvariant <> post1:40 var
-R6187:6189 SelfReference.RefinementInvariant <> pre:39 var
-R6185:6185 SelfReference.RefinementInvariant <> e:38 var
-R6229:6236 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6204:6216 SelfReference.RefinementInvariant <> mu_refinement def
-R6224:6228 SelfReference.RefinementInvariant <> post2:41 var
-R6220:6222 SelfReference.RefinementInvariant <> pre:39 var
-R6218:6218 SelfReference.RefinementInvariant <> e:38 var
-R6250:6252 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6244:6248 SelfReference.RefinementInvariant <> ex_mu proj
-R6237:6241 SelfReference.RefinementInvariant <> post1:40 var
-R6260:6264 SelfReference.RefinementInvariant <> ex_mu proj
-R6253:6257 SelfReference.RefinementInvariant <> post2:41 var
-R6322:6334 SelfReference.RefinementInvariant <> mu_refinement def
-R6356:6363 Coq.Init.Logic <> eq_trans thm
-R6369:6374 Coq.Init.Logic <> eq_sym thm
-R6356:6363 Coq.Init.Logic <> eq_trans thm
-R6369:6374 Coq.Init.Logic <> eq_sym thm
-prf 6470:6497 <> mu_refinement_costs_positive
-R6517:6526 SelfReference.InductiveTrust <> StateSpace rec
-binder 6511:6511 <> A:42
-binder 6513:6513 <> B:43
-R6534:6542 SelfReference.InductiveTrust <> Expansion rec
-R6544:6544 SelfReference.RefinementInvariant <> A:42 var
-R6546:6546 SelfReference.RefinementInvariant <> B:43 var
-binder 6530:6530 <> e:44
-R6570:6578 SelfReference.RefinementInvariant <> ExecState rec
-binder 6559:6561 <> pre:45
-binder 6563:6566 <> post:46
-R6610:6617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6586:6598 SelfReference.RefinementInvariant <> mu_refinement def
-R6606:6609 SelfReference.RefinementInvariant <> post:46 var
-R6602:6604 SelfReference.RefinementInvariant <> pre:45 var
-R6600:6600 SelfReference.RefinementInvariant <> e:44 var
-R6629:6631 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6623:6627 SelfReference.RefinementInvariant <> ex_mu proj
-R6618:6620 SelfReference.RefinementInvariant <> pre:45 var
-R6638:6642 SelfReference.RefinementInvariant <> ex_mu proj
-R6632:6635 SelfReference.RefinementInvariant <> post:46 var
-R6689:6701 SelfReference.RefinementInvariant <> mu_refinement def
-R6704:6720 SelfReference.InductiveTrust <> expansion_insight def
-R6745:6755 SelfReference.InductiveTrust <> size_strict proj
-R6745:6755 SelfReference.InductiveTrust <> size_strict proj
-prf 7209:7237 <> embedded_states_zero_overhead
-R7257:7266 SelfReference.InductiveTrust <> StateSpace rec
-binder 7251:7251 <> A:47
-binder 7253:7253 <> B:48
-R7274:7282 SelfReference.InductiveTrust <> Expansion rec
-R7284:7284 SelfReference.RefinementInvariant <> A:47 var
-R7286:7286 SelfReference.RefinementInvariant <> B:48 var
-binder 7270:7270 <> e:49
-R7295:7304 SelfReference.InductiveTrust <> VerifyCost def
-R7306:7306 SelfReference.RefinementInvariant <> A:47 var
-binder 7290:7291 <> cA:50
-binder 7321:7321 <> s:51
-R7339:7348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7325:7327 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R7324:7324 SelfReference.RefinementInvariant <> s:51 var
-R7331:7337 SelfReference.InductiveTrust <> ss_size proj
-R7328:7328 SelfReference.RefinementInvariant <> A:47 var
-R7381:7383 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7349:7357 SelfReference.InductiveTrust <> lift_cost def
-R7368:7372 SelfReference.InductiveTrust <> embed proj
-R7374:7374 SelfReference.RefinementInvariant <> A:47 var
-R7376:7376 SelfReference.RefinementInvariant <> B:48 var
-R7365:7365 SelfReference.RefinementInvariant <> e:49 var
-R7379:7379 SelfReference.RefinementInvariant <> s:51 var
-R7361:7362 SelfReference.RefinementInvariant <> cA:50 var
-R7359:7359 SelfReference.RefinementInvariant <> e:49 var
-R7384:7385 SelfReference.RefinementInvariant <> cA:50 var
-R7387:7387 SelfReference.RefinementInvariant <> s:51 var
-R7430:7447 SelfReference.InductiveTrust <> lift_cost_image_eq thm
-R7430:7447 SelfReference.InductiveTrust <> lift_cost_image_eq thm
-prf 7545:7572 <> total_embedded_overhead_zero
-R7592:7601 SelfReference.InductiveTrust <> StateSpace rec
-binder 7586:7586 <> A:52
-binder 7588:7588 <> B:53
-R7609:7617 SelfReference.InductiveTrust <> Expansion rec
-R7619:7619 SelfReference.RefinementInvariant <> A:52 var
-R7621:7621 SelfReference.RefinementInvariant <> B:53 var
-binder 7605:7605 <> e:54
-R7630:7639 SelfReference.InductiveTrust <> VerifyCost def
-R7641:7641 SelfReference.RefinementInvariant <> A:52 var
-binder 7625:7626 <> cA:55
-R7739:7745 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7649:7656 SelfReference.InductiveTrust <> cost_sum def
-binder 7663:7663 <> s:56
-R7668:7676 SelfReference.InductiveTrust <> lift_cost def
-R7687:7691 SelfReference.InductiveTrust <> embed proj
-R7693:7693 SelfReference.RefinementInvariant <> A:52 var
-R7695:7695 SelfReference.RefinementInvariant <> B:53 var
-R7684:7684 SelfReference.RefinementInvariant <> e:54 var
-R7698:7698 SelfReference.RefinementInvariant <> s:56 var
-R7680:7681 SelfReference.RefinementInvariant <> cA:55 var
-R7678:7678 SelfReference.RefinementInvariant <> e:54 var
-R7716:7723 Coq.Lists.List <> seq def
-R7730:7736 SelfReference.InductiveTrust <> ss_size proj
-R7727:7727 SelfReference.RefinementInvariant <> A:52 var
-R7746:7753 SelfReference.InductiveTrust <> cost_sum def
-R7755:7756 SelfReference.RefinementInvariant <> cA:55 var
-R7759:7766 Coq.Lists.List <> seq def
-R7773:7779 SelfReference.InductiveTrust <> ss_size proj
-R7770:7770 SelfReference.RefinementInvariant <> A:52 var
-R7819:7833 SelfReference.InductiveTrust <> mu_conservation thm
-R7819:7833 SelfReference.InductiveTrust <> mu_conservation thm
-prf 8100:8120 <> mu_refinement_compose
-R8142:8151 SelfReference.InductiveTrust <> StateSpace rec
-binder 8134:8134 <> A:57
-binder 8136:8136 <> B:58
-binder 8138:8138 <> C:59
-R8170:8178 SelfReference.InductiveTrust <> Expansion rec
-R8180:8180 SelfReference.RefinementInvariant <> A:57 var
-R8182:8182 SelfReference.RefinementInvariant <> B:58 var
-binder 8164:8166 <> eAB:60
-R8192:8200 SelfReference.InductiveTrust <> Expansion rec
-R8202:8202 SelfReference.RefinementInvariant <> B:58 var
-R8204:8204 SelfReference.RefinementInvariant <> C:59 var
-binder 8186:8188 <> eBC:61
-R8232:8240 SelfReference.RefinementInvariant <> ExecState rec
-binder 8217:8219 <> pre:62
-binder 8221:8223 <> mid:63
-binder 8225:8228 <> post:64
-R8273:8280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8248:8260 SelfReference.RefinementInvariant <> mu_refinement def
-R8270:8272 SelfReference.RefinementInvariant <> mid:63 var
-R8266:8268 SelfReference.RefinementInvariant <> pre:62 var
-R8262:8264 SelfReference.RefinementInvariant <> eAB:60 var
-R8307:8314 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8281:8293 SelfReference.RefinementInvariant <> mu_refinement def
-R8303:8306 SelfReference.RefinementInvariant <> post:64 var
-R8299:8301 SelfReference.RefinementInvariant <> mid:63 var
-R8295:8297 SelfReference.RefinementInvariant <> eBC:61 var
-R8327:8329 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8321:8325 SelfReference.RefinementInvariant <> ex_mu proj
-R8315:8318 SelfReference.RefinementInvariant <> post:64 var
-R8341:8344 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8390:8390 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8335:8339 SelfReference.RefinementInvariant <> ex_mu proj
-R8330:8332 SelfReference.RefinementInvariant <> pre:62 var
-R8366:8368 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8345:8361 SelfReference.InductiveTrust <> expansion_insight def
-R8363:8365 SelfReference.RefinementInvariant <> eAB:60 var
-R8369:8385 SelfReference.InductiveTrust <> expansion_insight def
-R8387:8389 SelfReference.RefinementInvariant <> eBC:61 var
-R8454:8466 SelfReference.RefinementInvariant <> mu_refinement def
-prf 8719:8738 <> mu_refinement_exists
-R8758:8767 SelfReference.InductiveTrust <> StateSpace rec
-binder 8752:8752 <> A:65
-binder 8754:8754 <> B:66
-R8775:8783 SelfReference.InductiveTrust <> Expansion rec
-R8785:8785 SelfReference.RefinementInvariant <> A:65 var
-R8787:8787 SelfReference.RefinementInvariant <> B:66 var
-binder 8771:8771 <> e:67
-R8796:8804 SelfReference.RefinementInvariant <> ExecState rec
-binder 8791:8792 <> s0:68
-R8812:8818 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8835:8836 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R8826:8834 SelfReference.RefinementInvariant <> ExecState rec
-binder 8819:8822 <> post:69
-R8837:8849 SelfReference.RefinementInvariant <> mu_refinement def
-R8856:8859 SelfReference.RefinementInvariant <> post:69 var
-R8853:8854 SelfReference.RefinementInvariant <> s0:68 var
-R8851:8851 SelfReference.RefinementInvariant <> e:67 var
-R8898:8906 SelfReference.RefinementInvariant <> run_trace def
-R8912:8935 SelfReference.RefinementInvariant <> full_certification_trace def
-R8938:8954 SelfReference.InductiveTrust <> expansion_insight def
-R8898:8906 SelfReference.RefinementInvariant <> run_trace def
-R8912:8935 SelfReference.RefinementInvariant <> full_certification_trace def
-R8938:8954 SelfReference.InductiveTrust <> expansion_insight def
-R8970:8993 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
-R8970:8993 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
-R9005:9018 SelfReference.RefinementInvariant <> embodies_trust def
-R9030:9058 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R9061:9077 SelfReference.InductiveTrust <> expansion_insight def
-R9030:9058 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R9061:9077 SelfReference.InductiveTrust <> expansion_insight def
-prf 9424:9442 <> lob_bypass_concrete
-R9462:9471 SelfReference.InductiveTrust <> StateSpace rec
-binder 9456:9456 <> A:70
-binder 9458:9458 <> B:71
-R9479:9487 SelfReference.InductiveTrust <> Expansion rec
-R9489:9489 SelfReference.RefinementInvariant <> A:70 var
-R9491:9491 SelfReference.RefinementInvariant <> B:71 var
-binder 9475:9475 <> e:72
-R9500:9508 SelfReference.RefinementInvariant <> ExecState rec
-binder 9495:9496 <> s0:73
-R9529:9552 SelfReference.RefinementInvariant <> full_certification_trace def
-R9555:9571 SelfReference.InductiveTrust <> expansion_insight def
-R9573:9573 SelfReference.RefinementInvariant <> e:72 var
-binder 9520:9524 <> costs:74
-R9605:9612 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9583:9596 SelfReference.RefinementInvariant <> embodies_trust def
-R9600:9604 SelfReference.RefinementInvariant <> costs:74 var
-R9598:9598 SelfReference.RefinementInvariant <> e:72 var
-R9652:9659 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9613:9625 SelfReference.RefinementInvariant <> mu_refinement def
-R9633:9641 SelfReference.RefinementInvariant <> run_trace def
-R9643:9644 SelfReference.RefinementInvariant <> s0:73 var
-R9646:9650 SelfReference.RefinementInvariant <> costs:74 var
-R9629:9630 SelfReference.RefinementInvariant <> s0:73 var
-R9627:9627 SelfReference.RefinementInvariant <> e:72 var
-R9688:9690 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9682:9686 SelfReference.RefinementInvariant <> ex_mu proj
-R9661:9669 SelfReference.RefinementInvariant <> run_trace def
-R9671:9672 SelfReference.RefinementInvariant <> s0:73 var
-R9674:9678 SelfReference.RefinementInvariant <> costs:74 var
-R9701:9703 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9695:9699 SelfReference.RefinementInvariant <> ex_mu proj
-R9691:9692 SelfReference.RefinementInvariant <> s0:73 var
-R9704:9720 SelfReference.InductiveTrust <> expansion_insight def
-R9722:9722 SelfReference.RefinementInvariant <> e:72 var
-R9761:9764 Coq.Init.Logic <> conj constr
-R9769:9772 Coq.Init.Logic <> conj constr
-R9761:9764 Coq.Init.Logic <> conj constr
-R9769:9772 Coq.Init.Logic <> conj constr
-R9792:9805 SelfReference.RefinementInvariant <> embodies_trust def
-R9819:9847 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R9850:9866 SelfReference.InductiveTrust <> expansion_insight def
-R9819:9847 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R9850:9866 SelfReference.InductiveTrust <> expansion_insight def
-R9883:9906 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
-R9883:9906 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
-R9920:9933 SelfReference.RefinementInvariant <> embodies_trust def
-R9947:9975 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R9978:9994 SelfReference.InductiveTrust <> expansion_insight def
-R9947:9975 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R9978:9994 SelfReference.InductiveTrust <> expansion_insight def
-R10013:10024 SelfReference.RefinementInvariant <> run_trace_mu thm
-R10013:10024 SelfReference.RefinementInvariant <> run_trace_mu thm
-R10013:10024 SelfReference.RefinementInvariant <> run_trace_mu thm
-R10039:10067 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R10039:10067 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R10039:10067 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-prf 10235:10253 <> chain_link_mu_exact
-R10273:10282 SelfReference.InductiveTrust <> StateSpace rec
-binder 10267:10267 <> A:75
-binder 10269:10269 <> B:76
-R10290:10298 SelfReference.InductiveTrust <> Expansion rec
-R10300:10300 SelfReference.RefinementInvariant <> A:75 var
-R10302:10302 SelfReference.RefinementInvariant <> B:76 var
-binder 10286:10286 <> e:77
-R10311:10319 SelfReference.RefinementInvariant <> ExecState rec
-binder 10306:10307 <> s0:78
-R10398:10404 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10392:10396 SelfReference.RefinementInvariant <> ex_mu proj
-R10328:10336 SelfReference.RefinementInvariant <> run_trace def
-R10338:10339 SelfReference.RefinementInvariant <> s0:78 var
-R10342:10365 SelfReference.RefinementInvariant <> full_certification_trace def
-R10368:10384 SelfReference.InductiveTrust <> expansion_insight def
-R10386:10386 SelfReference.RefinementInvariant <> e:77 var
-R10415:10417 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10409:10413 SelfReference.RefinementInvariant <> ex_mu proj
-R10405:10406 SelfReference.RefinementInvariant <> s0:78 var
-R10418:10434 SelfReference.InductiveTrust <> expansion_insight def
-R10436:10436 SelfReference.RefinementInvariant <> e:77 var
-R10475:10486 SelfReference.RefinementInvariant <> run_trace_mu thm
-R10475:10486 SelfReference.RefinementInvariant <> run_trace_mu thm
-R10475:10486 SelfReference.RefinementInvariant <> run_trace_mu thm
-R10499:10527 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R10499:10527 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
-R10499:10527 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R759:763 Coq.Arith.Arith <> <> lib
+R765:768 Coq.Lists.List <> <> lib
+R770:772 Coq.micromega.Lia <> <> lib
+R782:794 Coq.Lists.List ListNotations <> mod
+R869:875 Kernel.VMState <> <> lib
+R877:882 Kernel.VMStep <> <> lib
+R884:894 Kernel.MuCostModel <> <> lib
+R913:926 SelfReference.InductiveTrust <> <> lib
+rec 1110:1118 <> ExecState
+proj 1127:1131 <> ex_mu
+R1135:1137 Coq.Init.Datatypes <> nat ind
+def 1200:1208 <> exec_step
+R1215:1223 SelfReference.RefinementInvariant <> ExecState rec
+binder 1211:1211 <> s:3
+R1234:1236 Coq.Init.Datatypes <> nat ind
+binder 1227:1230 <> cost:4
+R1241:1249 SelfReference.RefinementInvariant <> ExecState rec
+R1259:1263 SelfReference.RefinementInvariant <> ex_mu proj
+R1259:1263 SelfReference.RefinementInvariant <> ex_mu proj
+R1259:1263 SelfReference.RefinementInvariant <> ex_mu proj
+R1277:1279 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1271:1275 SelfReference.RefinementInvariant <> ex_mu proj
+R1268:1268 SelfReference.RefinementInvariant <> s:3 var
+R1280:1283 SelfReference.RefinementInvariant <> cost:4 var
+def 1356:1364 <> run_trace
+R1371:1379 SelfReference.RefinementInvariant <> ExecState rec
+binder 1367:1367 <> s:5
+R1391:1394 Coq.Init.Datatypes <> list ind
+R1396:1398 Coq.Init.Datatypes <> nat ind
+binder 1383:1387 <> costs:6
+R1403:1411 SelfReference.RefinementInvariant <> ExecState rec
+R1424:1428 SelfReference.RefinementInvariant <> costs:6 var
+R1439:1440 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1452:1452 SelfReference.RefinementInvariant <> s:5 var
+R1459:1462 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1471:1479 SelfReference.RefinementInvariant <> run_trace:7 def
+R1482:1490 SelfReference.RefinementInvariant <> exec_step def
+R1492:1492 SelfReference.RefinementInvariant <> s:5 var
+def 1575:1590 <> trace_total_cost
+R1601:1604 Coq.Init.Datatypes <> list ind
+R1606:1608 Coq.Init.Datatypes <> nat ind
+binder 1593:1597 <> costs:9
+R1613:1615 Coq.Init.Datatypes <> nat ind
+R1628:1632 SelfReference.RefinementInvariant <> costs:9 var
+R1643:1644 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1663:1666 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R1676:1678 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1679:1694 SelfReference.RefinementInvariant <> trace_total_cost:10 def
+prf 1824:1835 <> run_trace_mu
+R1857:1860 Coq.Init.Datatypes <> list ind
+R1862:1864 Coq.Init.Datatypes <> nat ind
+binder 1849:1853 <> costs:12
+R1872:1880 SelfReference.RefinementInvariant <> ExecState rec
+binder 1868:1868 <> s:13
+R1915:1917 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1909:1913 SelfReference.RefinementInvariant <> ex_mu proj
+R1889:1897 SelfReference.RefinementInvariant <> run_trace def
+R1899:1899 SelfReference.RefinementInvariant <> s:13 var
+R1901:1905 SelfReference.RefinementInvariant <> costs:12 var
+R1927:1929 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1921:1925 SelfReference.RefinementInvariant <> ex_mu proj
+R1918:1918 SelfReference.RefinementInvariant <> s:13 var
+R1930:1945 SelfReference.RefinementInvariant <> trace_total_cost def
+R1947:1951 SelfReference.RefinementInvariant <> costs:12 var
+R2060:2068 SelfReference.RefinementInvariant <> exec_step def
+prf 2095:2109 <> trace_total_app
+binder 2122:2123 <> l1:14
+binder 2125:2126 <> l2:15
+R2160:2162 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2133:2148 SelfReference.RefinementInvariant <> trace_total_cost def
+R2153:2156 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2151:2152 SelfReference.RefinementInvariant <> l1:14 var
+R2157:2158 SelfReference.RefinementInvariant <> l2:15 var
+R2182:2184 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2163:2178 SelfReference.RefinementInvariant <> trace_total_cost def
+R2180:2181 SelfReference.RefinementInvariant <> l1:14 var
+R2185:2200 SelfReference.RefinementInvariant <> trace_total_cost def
+R2202:2203 SelfReference.RefinementInvariant <> l2:15 var
+def 2351:2374 <> full_certification_trace
+R2381:2383 Coq.Init.Datatypes <> nat ind
+binder 2377:2377 <> n:16
+R2388:2391 Coq.Init.Datatypes <> list ind
+R2393:2395 Coq.Init.Datatypes <> nat ind
+R2400:2410 Coq.Lists.List <> repeat def
+R2414:2414 SelfReference.RefinementInvariant <> n:16 var
+prf 2424:2452 <> full_certification_trace_cost
+binder 2465:2465 <> n:17
+R2513:2515 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2468:2483 SelfReference.RefinementInvariant <> trace_total_cost def
+R2486:2509 SelfReference.RefinementInvariant <> full_certification_trace def
+R2511:2511 SelfReference.RefinementInvariant <> n:17 var
+R2516:2516 SelfReference.RefinementInvariant <> n:17 var
+R2546:2569 SelfReference.RefinementInvariant <> full_certification_trace def
+def 2841:2854 <> embodies_trust
+R2863:2872 SelfReference.InductiveTrust <> StateSpace rec
+binder 2857:2857 <> A:18
+binder 2859:2859 <> B:19
+R2880:2888 SelfReference.InductiveTrust <> Expansion rec
+R2890:2890 SelfReference.RefinementInvariant <> A:18 var
+R2892:2892 SelfReference.RefinementInvariant <> B:19 var
+binder 2876:2876 <> e:20
+R2908:2911 Coq.Init.Datatypes <> list ind
+R2913:2915 Coq.Init.Datatypes <> nat ind
+binder 2900:2904 <> costs:21
+R2952:2954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2930:2945 SelfReference.RefinementInvariant <> trace_total_cost def
+R2947:2951 SelfReference.RefinementInvariant <> costs:21 var
+R2955:2971 SelfReference.InductiveTrust <> expansion_insight def
+R2973:2973 SelfReference.RefinementInvariant <> e:20 var
+prf 3046:3067 <> embodying_trace_exists
+R3087:3096 SelfReference.InductiveTrust <> StateSpace rec
+binder 3081:3081 <> A:22
+binder 3083:3083 <> B:23
+R3104:3112 SelfReference.InductiveTrust <> Expansion rec
+R3114:3114 SelfReference.RefinementInvariant <> A:22 var
+R3116:3116 SelfReference.RefinementInvariant <> B:23 var
+binder 3100:3100 <> e:24
+R3124:3130 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3136:3137 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3131:3135 <> costs:25
+R3138:3151 SelfReference.RefinementInvariant <> embodies_trust def
+R3155:3159 SelfReference.RefinementInvariant <> costs:25 var
+R3153:3153 SelfReference.RefinementInvariant <> e:24 var
+R3195:3218 SelfReference.RefinementInvariant <> full_certification_trace def
+R3221:3237 SelfReference.InductiveTrust <> expansion_insight def
+R3195:3218 SelfReference.RefinementInvariant <> full_certification_trace def
+R3221:3237 SelfReference.InductiveTrust <> expansion_insight def
+R3253:3266 SelfReference.RefinementInvariant <> embodies_trust def
+R3278:3306 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R3309:3325 SelfReference.InductiveTrust <> expansion_insight def
+R3278:3306 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R3309:3325 SelfReference.InductiveTrust <> expansion_insight def
+def 3688:3700 <> mu_refinement
+R3709:3718 SelfReference.InductiveTrust <> StateSpace rec
+binder 3703:3703 <> A:26
+binder 3705:3705 <> B:27
+R3726:3734 SelfReference.InductiveTrust <> Expansion rec
+R3736:3736 SelfReference.RefinementInvariant <> A:26 var
+R3738:3738 SelfReference.RefinementInvariant <> B:27 var
+binder 3722:3722 <> e:28
+R3757:3765 SelfReference.RefinementInvariant <> ExecState rec
+binder 3746:3748 <> pre:29
+binder 3750:3753 <> post:30
+R3792:3794 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3786:3790 SelfReference.RefinementInvariant <> ex_mu proj
+R3780:3783 SelfReference.RefinementInvariant <> post:30 var
+R3806:3808 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3800:3804 SelfReference.RefinementInvariant <> ex_mu proj
+R3795:3797 SelfReference.RefinementInvariant <> pre:29 var
+R3809:3825 SelfReference.InductiveTrust <> expansion_insight def
+R3827:3827 SelfReference.RefinementInvariant <> e:28 var
+prf 3905:3928 <> embodying_trace_realizes
+R3948:3957 SelfReference.InductiveTrust <> StateSpace rec
+binder 3942:3942 <> A:31
+binder 3944:3944 <> B:32
+R3965:3973 SelfReference.InductiveTrust <> Expansion rec
+R3975:3975 SelfReference.RefinementInvariant <> A:31 var
+R3977:3977 SelfReference.RefinementInvariant <> B:32 var
+binder 3961:3961 <> e:33
+R3995:4003 SelfReference.RefinementInvariant <> ExecState rec
+binder 3990:3991 <> s0:34
+R4015:4018 Coq.Init.Datatypes <> list ind
+R4020:4022 Coq.Init.Datatypes <> nat ind
+binder 4007:4011 <> costs:35
+R4052:4059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4030:4043 SelfReference.RefinementInvariant <> embodies_trust def
+R4047:4051 SelfReference.RefinementInvariant <> costs:35 var
+R4045:4045 SelfReference.RefinementInvariant <> e:33 var
+R4060:4072 SelfReference.RefinementInvariant <> mu_refinement def
+R4080:4088 SelfReference.RefinementInvariant <> run_trace def
+R4090:4091 SelfReference.RefinementInvariant <> s0:34 var
+R4093:4097 SelfReference.RefinementInvariant <> costs:35 var
+R4076:4077 SelfReference.RefinementInvariant <> s0:34 var
+R4074:4074 SelfReference.RefinementInvariant <> e:33 var
+R4147:4159 SelfReference.RefinementInvariant <> mu_refinement def
+R4172:4183 SelfReference.RefinementInvariant <> run_trace_mu thm
+R4172:4183 SelfReference.RefinementInvariant <> run_trace_mu thm
+R4172:4183 SelfReference.RefinementInvariant <> run_trace_mu thm
+R4195:4208 SelfReference.RefinementInvariant <> embodies_trust def
+prf 4363:4382 <> mu_refinement_unique
+R4402:4411 SelfReference.InductiveTrust <> StateSpace rec
+binder 4396:4396 <> A:36
+binder 4398:4398 <> B:37
+R4419:4427 SelfReference.InductiveTrust <> Expansion rec
+R4429:4429 SelfReference.RefinementInvariant <> A:36 var
+R4431:4431 SelfReference.RefinementInvariant <> B:37 var
+binder 4415:4415 <> e:38
+R4462:4470 SelfReference.RefinementInvariant <> ExecState rec
+binder 4444:4446 <> pre:39
+binder 4448:4452 <> post1:40
+binder 4454:4458 <> post2:41
+R4503:4510 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4478:4490 SelfReference.RefinementInvariant <> mu_refinement def
+R4498:4502 SelfReference.RefinementInvariant <> post1:40 var
+R4494:4496 SelfReference.RefinementInvariant <> pre:39 var
+R4492:4492 SelfReference.RefinementInvariant <> e:38 var
+R4536:4543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4511:4523 SelfReference.RefinementInvariant <> mu_refinement def
+R4531:4535 SelfReference.RefinementInvariant <> post2:41 var
+R4527:4529 SelfReference.RefinementInvariant <> pre:39 var
+R4525:4525 SelfReference.RefinementInvariant <> e:38 var
+R4557:4559 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4551:4555 SelfReference.RefinementInvariant <> ex_mu proj
+R4544:4548 SelfReference.RefinementInvariant <> post1:40 var
+R4567:4571 SelfReference.RefinementInvariant <> ex_mu proj
+R4560:4564 SelfReference.RefinementInvariant <> post2:41 var
+R4629:4641 SelfReference.RefinementInvariant <> mu_refinement def
+R4663:4670 Coq.Init.Logic <> eq_trans thm
+R4676:4681 Coq.Init.Logic <> eq_sym thm
+R4663:4670 Coq.Init.Logic <> eq_trans thm
+R4676:4681 Coq.Init.Logic <> eq_sym thm
+prf 4777:4804 <> mu_refinement_costs_positive
+R4824:4833 SelfReference.InductiveTrust <> StateSpace rec
+binder 4818:4818 <> A:42
+binder 4820:4820 <> B:43
+R4841:4849 SelfReference.InductiveTrust <> Expansion rec
+R4851:4851 SelfReference.RefinementInvariant <> A:42 var
+R4853:4853 SelfReference.RefinementInvariant <> B:43 var
+binder 4837:4837 <> e:44
+R4877:4885 SelfReference.RefinementInvariant <> ExecState rec
+binder 4866:4868 <> pre:45
+binder 4870:4873 <> post:46
+R4917:4924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4893:4905 SelfReference.RefinementInvariant <> mu_refinement def
+R4913:4916 SelfReference.RefinementInvariant <> post:46 var
+R4909:4911 SelfReference.RefinementInvariant <> pre:45 var
+R4907:4907 SelfReference.RefinementInvariant <> e:44 var
+R4936:4938 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4930:4934 SelfReference.RefinementInvariant <> ex_mu proj
+R4925:4927 SelfReference.RefinementInvariant <> pre:45 var
+R4945:4949 SelfReference.RefinementInvariant <> ex_mu proj
+R4939:4942 SelfReference.RefinementInvariant <> post:46 var
+R4996:5008 SelfReference.RefinementInvariant <> mu_refinement def
+R5011:5027 SelfReference.InductiveTrust <> expansion_insight def
+R5052:5062 SelfReference.InductiveTrust <> size_strict proj
+R5052:5062 SelfReference.InductiveTrust <> size_strict proj
+prf 5449:5477 <> embedded_states_zero_overhead
+R5497:5506 SelfReference.InductiveTrust <> StateSpace rec
+binder 5491:5491 <> A:47
+binder 5493:5493 <> B:48
+R5514:5522 SelfReference.InductiveTrust <> Expansion rec
+R5524:5524 SelfReference.RefinementInvariant <> A:47 var
+R5526:5526 SelfReference.RefinementInvariant <> B:48 var
+binder 5510:5510 <> e:49
+R5535:5544 SelfReference.InductiveTrust <> VerifyCost def
+R5546:5546 SelfReference.RefinementInvariant <> A:47 var
+binder 5530:5531 <> cA:50
+binder 5561:5561 <> s:51
+R5579:5588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5565:5567 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5564:5564 SelfReference.RefinementInvariant <> s:51 var
+R5571:5577 SelfReference.InductiveTrust <> ss_size proj
+R5568:5568 SelfReference.RefinementInvariant <> A:47 var
+R5621:5623 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5589:5597 SelfReference.InductiveTrust <> lift_cost def
+R5608:5612 SelfReference.InductiveTrust <> embed proj
+R5614:5614 SelfReference.RefinementInvariant <> A:47 var
+R5616:5616 SelfReference.RefinementInvariant <> B:48 var
+R5605:5605 SelfReference.RefinementInvariant <> e:49 var
+R5619:5619 SelfReference.RefinementInvariant <> s:51 var
+R5601:5602 SelfReference.RefinementInvariant <> cA:50 var
+R5599:5599 SelfReference.RefinementInvariant <> e:49 var
+R5624:5625 SelfReference.RefinementInvariant <> cA:50 var
+R5627:5627 SelfReference.RefinementInvariant <> s:51 var
+R5670:5687 SelfReference.InductiveTrust <> lift_cost_image_eq thm
+R5670:5687 SelfReference.InductiveTrust <> lift_cost_image_eq thm
+prf 5785:5812 <> total_embedded_overhead_zero
+R5832:5841 SelfReference.InductiveTrust <> StateSpace rec
+binder 5826:5826 <> A:52
+binder 5828:5828 <> B:53
+R5849:5857 SelfReference.InductiveTrust <> Expansion rec
+R5859:5859 SelfReference.RefinementInvariant <> A:52 var
+R5861:5861 SelfReference.RefinementInvariant <> B:53 var
+binder 5845:5845 <> e:54
+R5870:5879 SelfReference.InductiveTrust <> VerifyCost def
+R5881:5881 SelfReference.RefinementInvariant <> A:52 var
+binder 5865:5866 <> cA:55
+R5979:5985 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5889:5896 SelfReference.InductiveTrust <> cost_sum def
+binder 5903:5903 <> s:56
+R5908:5916 SelfReference.InductiveTrust <> lift_cost def
+R5927:5931 SelfReference.InductiveTrust <> embed proj
+R5933:5933 SelfReference.RefinementInvariant <> A:52 var
+R5935:5935 SelfReference.RefinementInvariant <> B:53 var
+R5924:5924 SelfReference.RefinementInvariant <> e:54 var
+R5938:5938 SelfReference.RefinementInvariant <> s:56 var
+R5920:5921 SelfReference.RefinementInvariant <> cA:55 var
+R5918:5918 SelfReference.RefinementInvariant <> e:54 var
+R5956:5963 Coq.Lists.List <> seq def
+R5970:5976 SelfReference.InductiveTrust <> ss_size proj
+R5967:5967 SelfReference.RefinementInvariant <> A:52 var
+R5986:5993 SelfReference.InductiveTrust <> cost_sum def
+R5995:5996 SelfReference.RefinementInvariant <> cA:55 var
+R5999:6006 Coq.Lists.List <> seq def
+R6013:6019 SelfReference.InductiveTrust <> ss_size proj
+R6010:6010 SelfReference.RefinementInvariant <> A:52 var
+R6059:6073 SelfReference.InductiveTrust <> mu_conservation thm
+R6059:6073 SelfReference.InductiveTrust <> mu_conservation thm
+prf 6273:6293 <> mu_refinement_compose
+R6315:6324 SelfReference.InductiveTrust <> StateSpace rec
+binder 6307:6307 <> A:57
+binder 6309:6309 <> B:58
+binder 6311:6311 <> C:59
+R6343:6351 SelfReference.InductiveTrust <> Expansion rec
+R6353:6353 SelfReference.RefinementInvariant <> A:57 var
+R6355:6355 SelfReference.RefinementInvariant <> B:58 var
+binder 6337:6339 <> eAB:60
+R6365:6373 SelfReference.InductiveTrust <> Expansion rec
+R6375:6375 SelfReference.RefinementInvariant <> B:58 var
+R6377:6377 SelfReference.RefinementInvariant <> C:59 var
+binder 6359:6361 <> eBC:61
+R6405:6413 SelfReference.RefinementInvariant <> ExecState rec
+binder 6390:6392 <> pre:62
+binder 6394:6396 <> mid:63
+binder 6398:6401 <> post:64
+R6446:6453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6421:6433 SelfReference.RefinementInvariant <> mu_refinement def
+R6443:6445 SelfReference.RefinementInvariant <> mid:63 var
+R6439:6441 SelfReference.RefinementInvariant <> pre:62 var
+R6435:6437 SelfReference.RefinementInvariant <> eAB:60 var
+R6480:6487 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6454:6466 SelfReference.RefinementInvariant <> mu_refinement def
+R6476:6479 SelfReference.RefinementInvariant <> post:64 var
+R6472:6474 SelfReference.RefinementInvariant <> mid:63 var
+R6468:6470 SelfReference.RefinementInvariant <> eBC:61 var
+R6500:6502 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6494:6498 SelfReference.RefinementInvariant <> ex_mu proj
+R6488:6491 SelfReference.RefinementInvariant <> post:64 var
+R6514:6517 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6563:6563 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6508:6512 SelfReference.RefinementInvariant <> ex_mu proj
+R6503:6505 SelfReference.RefinementInvariant <> pre:62 var
+R6539:6541 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6518:6534 SelfReference.InductiveTrust <> expansion_insight def
+R6536:6538 SelfReference.RefinementInvariant <> eAB:60 var
+R6542:6558 SelfReference.InductiveTrust <> expansion_insight def
+R6560:6562 SelfReference.RefinementInvariant <> eBC:61 var
+R6627:6639 SelfReference.RefinementInvariant <> mu_refinement def
+prf 6825:6844 <> mu_refinement_exists
+R6864:6873 SelfReference.InductiveTrust <> StateSpace rec
+binder 6858:6858 <> A:65
+binder 6860:6860 <> B:66
+R6881:6889 SelfReference.InductiveTrust <> Expansion rec
+R6891:6891 SelfReference.RefinementInvariant <> A:65 var
+R6893:6893 SelfReference.RefinementInvariant <> B:66 var
+binder 6877:6877 <> e:67
+R6902:6910 SelfReference.RefinementInvariant <> ExecState rec
+binder 6897:6898 <> s0:68
+R6918:6924 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6941:6942 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6932:6940 SelfReference.RefinementInvariant <> ExecState rec
+binder 6925:6928 <> post:69
+R6943:6955 SelfReference.RefinementInvariant <> mu_refinement def
+R6962:6965 SelfReference.RefinementInvariant <> post:69 var
+R6959:6960 SelfReference.RefinementInvariant <> s0:68 var
+R6957:6957 SelfReference.RefinementInvariant <> e:67 var
+R7004:7012 SelfReference.RefinementInvariant <> run_trace def
+R7018:7041 SelfReference.RefinementInvariant <> full_certification_trace def
+R7044:7060 SelfReference.InductiveTrust <> expansion_insight def
+R7004:7012 SelfReference.RefinementInvariant <> run_trace def
+R7018:7041 SelfReference.RefinementInvariant <> full_certification_trace def
+R7044:7060 SelfReference.InductiveTrust <> expansion_insight def
+R7076:7099 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
+R7076:7099 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
+R7111:7124 SelfReference.RefinementInvariant <> embodies_trust def
+R7136:7164 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R7167:7183 SelfReference.InductiveTrust <> expansion_insight def
+R7136:7164 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R7167:7183 SelfReference.InductiveTrust <> expansion_insight def
+prf 7530:7548 <> lob_bypass_concrete
+R7568:7577 SelfReference.InductiveTrust <> StateSpace rec
+binder 7562:7562 <> A:70
+binder 7564:7564 <> B:71
+R7585:7593 SelfReference.InductiveTrust <> Expansion rec
+R7595:7595 SelfReference.RefinementInvariant <> A:70 var
+R7597:7597 SelfReference.RefinementInvariant <> B:71 var
+binder 7581:7581 <> e:72
+R7606:7614 SelfReference.RefinementInvariant <> ExecState rec
+binder 7601:7602 <> s0:73
+R7635:7658 SelfReference.RefinementInvariant <> full_certification_trace def
+R7661:7677 SelfReference.InductiveTrust <> expansion_insight def
+R7679:7679 SelfReference.RefinementInvariant <> e:72 var
+binder 7626:7630 <> costs:74
+R7711:7718 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7689:7702 SelfReference.RefinementInvariant <> embodies_trust def
+R7706:7710 SelfReference.RefinementInvariant <> costs:74 var
+R7704:7704 SelfReference.RefinementInvariant <> e:72 var
+R7758:7765 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7719:7731 SelfReference.RefinementInvariant <> mu_refinement def
+R7739:7747 SelfReference.RefinementInvariant <> run_trace def
+R7749:7750 SelfReference.RefinementInvariant <> s0:73 var
+R7752:7756 SelfReference.RefinementInvariant <> costs:74 var
+R7735:7736 SelfReference.RefinementInvariant <> s0:73 var
+R7733:7733 SelfReference.RefinementInvariant <> e:72 var
+R7794:7796 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7788:7792 SelfReference.RefinementInvariant <> ex_mu proj
+R7767:7775 SelfReference.RefinementInvariant <> run_trace def
+R7777:7778 SelfReference.RefinementInvariant <> s0:73 var
+R7780:7784 SelfReference.RefinementInvariant <> costs:74 var
+R7807:7809 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7801:7805 SelfReference.RefinementInvariant <> ex_mu proj
+R7797:7798 SelfReference.RefinementInvariant <> s0:73 var
+R7810:7826 SelfReference.InductiveTrust <> expansion_insight def
+R7828:7828 SelfReference.RefinementInvariant <> e:72 var
+R7867:7870 Coq.Init.Logic <> conj constr
+R7875:7878 Coq.Init.Logic <> conj constr
+R7867:7870 Coq.Init.Logic <> conj constr
+R7875:7878 Coq.Init.Logic <> conj constr
+R7898:7911 SelfReference.RefinementInvariant <> embodies_trust def
+R7925:7953 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R7956:7972 SelfReference.InductiveTrust <> expansion_insight def
+R7925:7953 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R7956:7972 SelfReference.InductiveTrust <> expansion_insight def
+R7989:8012 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
+R7989:8012 SelfReference.RefinementInvariant <> embodying_trace_realizes thm
+R8026:8039 SelfReference.RefinementInvariant <> embodies_trust def
+R8053:8081 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R8084:8100 SelfReference.InductiveTrust <> expansion_insight def
+R8053:8081 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R8084:8100 SelfReference.InductiveTrust <> expansion_insight def
+R8119:8130 SelfReference.RefinementInvariant <> run_trace_mu thm
+R8119:8130 SelfReference.RefinementInvariant <> run_trace_mu thm
+R8119:8130 SelfReference.RefinementInvariant <> run_trace_mu thm
+R8145:8173 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R8145:8173 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R8145:8173 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+prf 8341:8359 <> chain_link_mu_exact
+R8379:8388 SelfReference.InductiveTrust <> StateSpace rec
+binder 8373:8373 <> A:75
+binder 8375:8375 <> B:76
+R8396:8404 SelfReference.InductiveTrust <> Expansion rec
+R8406:8406 SelfReference.RefinementInvariant <> A:75 var
+R8408:8408 SelfReference.RefinementInvariant <> B:76 var
+binder 8392:8392 <> e:77
+R8417:8425 SelfReference.RefinementInvariant <> ExecState rec
+binder 8412:8413 <> s0:78
+R8504:8510 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8498:8502 SelfReference.RefinementInvariant <> ex_mu proj
+R8434:8442 SelfReference.RefinementInvariant <> run_trace def
+R8444:8445 SelfReference.RefinementInvariant <> s0:78 var
+R8448:8471 SelfReference.RefinementInvariant <> full_certification_trace def
+R8474:8490 SelfReference.InductiveTrust <> expansion_insight def
+R8492:8492 SelfReference.RefinementInvariant <> e:77 var
+R8521:8523 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8515:8519 SelfReference.RefinementInvariant <> ex_mu proj
+R8511:8512 SelfReference.RefinementInvariant <> s0:78 var
+R8524:8540 SelfReference.InductiveTrust <> expansion_insight def
+R8542:8542 SelfReference.RefinementInvariant <> e:77 var
+R8581:8592 SelfReference.RefinementInvariant <> run_trace_mu thm
+R8581:8592 SelfReference.RefinementInvariant <> run_trace_mu thm
+R8581:8592 SelfReference.RefinementInvariant <> run_trace_mu thm
+R8605:8633 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R8605:8633 SelfReference.RefinementInvariant <> full_certification_trace_cost thm
+R8605:8633 SelfReference.RefinementInvariant <> full_certification_trace_cost thm

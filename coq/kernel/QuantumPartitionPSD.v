@@ -1,51 +1,16 @@
-(** =========================================================================
-    QUANTUM PARTITION PSD
-    =========================================================================
+(** QuantumPartitionPSD: close the PSD versus column-contractivity gap.
 
-    THE KEY THEOREM (bidirectional):
-      zero_marginal_column_contractive e00 e01 e10 e11
-        ↔  PSD5 (nat_matrix_to_fin5 (npa_to_matrix (zero_marginal_npa e00 e01 e10 e11)))
+  MuLedgerQuantumBridge.v already proved one direction of the bridge:
+  column-contractivity implies PSD for the zero-marginal NPA matrix. This
+  file proves the converse. The result is the advertised biconditional between
+  PSD of the NPA matrix and the concrete column-contractivity conditions on
+  the correlator block.
 
-    One direction (→) was already proven in MuLedgerQuantumBridge.v as
-    zero_marginal_npa_column_contractive_implies_psd.
-
-    This file proves the REVERSE direction (←): PSD of the NPA moment matrix
-    implies column contractivity, closing the biconditional.
-
-    MATHEMATICAL CONTENT — SCHUR COMPLEMENT:
-    The zero-marginal NPA matrix has block structure:
-
-        M = diag(1) ⊕ [[I₂, C], [C^T, I₂]]
-
-    where C = [[e00, e01], [e10, e11]] is the 2×2 correlator matrix.
-
-    By the Schur complement theorem:
-        [[I₂, C], [C^T, I₂]] ≥ 0  ↔  I₂ − C^T C ≥ 0
-
-    And I₂ − C^T C ≥ 0 is EXACTLY zero_marginal_column_contractive.
-
-    PROOF TECHNIQUE — TEST VECTORS:
-    Instead of invoking abstract Schur complement theory, we extract each
-    condition directly by instantiating PSD5 on concrete test vectors.
-
-    Test vector for condition 1 (1 − e00² − e10² ≥ 0):
-        v₁ = [0; −e00; −e10; 1; 0]
-        Computes to: quad5 M v₁ = 1 − e00² − e10²
-
-    Test vector for condition 2 (1 − e01² − e11² ≥ 0):
-        v₂ = [0; −e01; −e11; 0; 1]
-        Computes to: quad5 M v₂ = 1 − e01² − e11²
-
-    Test vector for condition 3 (det(I − C^T C) ≥ 0):
-        v₃(t) = [0; −(e00·t + e01); −(e10·t + e11); t; 1]
-        Computes to: quad5 M v₃(t) = p·t² − 2s·t + q  for all t
-        where p = 1−e00²−e10², q = 1−e01²−e11², s = e00e01+e10e11
-        Apply quadratic_nonneg_discriminant: s² ≤ p·q, i.e. p·q − s² ≥ 0.
-
-    This gives all three conditions of zero_marginal_column_contractive. □
-
-    STATUS: ZERO PROJECT-LOCAL AXIOMS. ZERO ADMITS.
-    ========================================================================= *)
+  The proof is done with explicit test vectors rather than abstract Schur
+  complement machinery. Each vector extracts one of the needed inequalities,
+  and the final determinant condition comes from the quadratic discriminant
+  argument already available in ConstructivePSD.v.
+*)
 
 (* INQUISITOR NOTE: proof-connectivity — closes PSD ↔ column_contractive gap. *)
 
@@ -65,12 +30,7 @@ Require Import Coq.NArith.BinNatDef.
 
 Local Open Scope R_scope.
 
-(** =========================================================================
-    SECTION 1: Quadratic Form Computation Lemmas
-    =========================================================================
-
-    We compute quad5 M v for each test vector by unfolding and ring. These
-    are pure arithmetic identities about the NPA matrix structure. *)
+(** Arithmetic identities for the chosen test vectors. *)
 
 (** Test vector 1: v = [0; −e00; −e10; 1; 0]
     Extracts: quad5 M v = 1 − e00² − e10² *)
@@ -137,12 +97,7 @@ Proof.
   ring.
 Qed.
 
-(** =========================================================================
-    SECTION 2: Main Reverse Direction
-    =========================================================================
-
-    From PSD5 of the NPA matrix, extract all three column-contractivity
-    conditions via the test vectors above. *)
+(** Extract the three column-contractivity inequalities from PSD5. *)
 
 Theorem npa_psd_implies_column_contractive :
   forall e00 e01 e10 e11 : R,
@@ -220,9 +175,7 @@ Proof.
   exact (conj Hc0 (conj Hc1 Hdet)).
 Qed.
 
-(** =========================================================================
-    SECTION 3: The Biconditional
-    =========================================================================
+(**
 
     Combining the forward direction (already in MuLedgerQuantumBridge) with
     the reverse direction proven above. *)
@@ -241,9 +194,7 @@ Proof.
       assumption.
 Qed.
 
-(** =========================================================================
-    SECTION 4: Physical Interpretation
-    =========================================================================
+(**
 
     The biconditional has a clean physical reading:
 
@@ -292,9 +243,7 @@ Proof.
     exact Hpsd.
 Qed.
 
-(** =========================================================================
-    SECTION 5: Connection to Trace-Level Predicates
-    =========================================================================
+(**
 
     Lift the algebraic result to the trace-level predicates used in
     MasterSummary and the rest of the kernel. *)
@@ -314,9 +263,7 @@ Proof.
   apply column_contractive_iff_quantum_realizable.
 Qed.
 
-(** =========================================================================
-    SECTION 6: PSPLIT QUANTUM STATE → COLUMN CONTRACTIVITY (Gap C, Step C3)
-    =========================================================================
+(**
 
     This is the missing bridge from Gap C: if a PSPLIT-initiated trace
     implements a quantum state (i.e., its NPA moment matrix is quantum
@@ -325,8 +272,6 @@ Qed.
     The proof is the backward direction of the established biconditional
     trace_column_contractive_iff_trace_quantum_model, which is itself
     the trace-level lift of column_contractive_iff_quantum_realizable.
-
-    CHAIN:
       psplit_implements_quantum_state fuel trace s_init
         (= quantum_realizable (trace_zero_marginal_npa fuel trace s_init))
       → trace_column_contractive fuel trace s_init
@@ -335,7 +280,7 @@ Qed.
 
     This closes Gap C: column contractivity is DERIVED from the quantum
     nature of PSPLIT bipartitions, not assumed as an external precondition.
-    ========================================================================= *)
+    *)
 
 Theorem psplit_quantum_implementation_implies_column_contractive :
   forall fuel trace s_init,

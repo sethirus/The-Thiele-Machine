@@ -4,16 +4,16 @@ WHAT WAS PROVEN THERE
 ---------------------
 For k=2 factored search (N×N grid):
   blind:   N² steps, 0 μ
-  sighted: 2N steps, 2 μ
+  sighted: 2N steps, 18 μ
   ratio:   N/2  (grows without bound)
-  μ cost:  2    (constant in N)
+  μ cost:  18   (constant in N)
 
 THREE OPEN QUESTIONS THIS FILE PROBES
 --------------------------------------
 1. k-FACTOR GENERALIZATION
    Does k-factor decomposition generalize? For k dimensions each of size N:
      blind:   N^k steps,  0 μ
-     sighted: k*N steps,  k μ
+     sighted: k*N steps,  9*k μ
      ratio:   N^(k-1)/k  (grows faster than N for k≥3)
    We test k=3 and k=4 on the real OCaml VM.
 
@@ -102,7 +102,7 @@ def _k_sighted_program(targets: list[int]) -> list[dict]:
       PC+0: ADD r15 r15 r10 0      iters++
       PC+1: SUB r8 <ctr> <tgt> 0  scratch = counter - target (word64)
       PC+2: JNEZ r8 <PC+5> 0      if ≠ 0, jump to increment
-      PC+3: EMIT <i> "." 0         CERT-SETTER (costs 1 μ)
+      PC+3: EMIT <i> "." 0         CERT-SETTER (costs 9 μ)
       PC+4: JUMP <next_loop_start> 0
       PC+5: ADD <ctr> <ctr> r10 0  counter++
       PC+6: JUMP <loop_start> 0    back to loop top
@@ -140,7 +140,7 @@ def _k_sighted_program(targets: list[int]) -> list[dict]:
             {"op": "add",  "dst": 15, "rs1": 15, "rs2": 10, "cost": 0},  # iters++
             {"op": "sub",  "dst": 8,  "rs1": cr, "rs2": tr, "cost": 0},  # scratch
             {"op": "jnez", "rs": 8,   "target": incr_pc,    "cost": 0},  # branch
-            {"op": "emit", "module": i, "payload": ".", "cost": 0},       # CERT (1 μ)
+            {"op": "emit", "module": i, "payload": ".", "cost": 0},       # CERT (9 μ)
             {"op": "jump", "target": next_start,             "cost": 0},  # to next loop/end
             {"op": "add",  "dst": cr, "rs1": cr, "rs2": 10, "cost": 0},  # counter++
             {"op": "jump", "target": loop_start,             "cost": 0},  # loop back
@@ -188,16 +188,16 @@ class TestKFactorDecomposition:
     PREDICTED FORMULAS (extension of proven k=2 case):
       blind_iters  = N^k   (linear scan over N^k elements)
       sighted_iters = k * N (k independent loops of N each)
-      sighted_mu   = k     (k EMIT cert-setters, one per dimension)
+      sighted_mu   = 9*k   (k EMIT cert-setters, each 8*1+S(0)=9 μ)
       ratio        = N^(k-1) / k  (grows super-linearly for k≥2)
 
     WHAT THIS TESTS:
     The advantage isn't a k=2 coincidence. It scales with decomposition depth.
-    Each additional certified dimension removes N steps from the search at cost of 1 μ.
+    Each additional certified dimension removes N steps from the search at cost of 9 μ.
     """
 
     def test_k3_exact_iters_and_mu(self):
-        """k=3, N=4: blind=64 steps, sighted=12 steps, μ=3."""
+        """k=3, N=4: blind=64 steps, sighted=12 steps, μ=27."""
         N = 4
         targets = [N - 1, N - 1, N - 1]  # worst case: all at last position
         target_idx = N**3 - 1             # = 63
@@ -210,7 +210,7 @@ class TestKFactorDecomposition:
 
         assert blind.vm_regs[15]   == N**3,     f"blind_iters: got {blind.vm_regs[15]}, want {N**3}"
         assert sighted.vm_regs[15] == 3 * N,    f"sighted_iters: got {sighted.vm_regs[15]}, want {3*N}"
-        assert sighted.vm_mu       == 3,         f"sighted_mu: got {sighted.vm_mu}, want 3"
+        assert sighted.vm_mu       == 27,        f"sighted_mu: got {sighted.vm_mu}, want 27"
         assert blind.vm_mu         == 0,         f"blind_mu: got {blind.vm_mu}, want 0"
 
     def test_k3_ratio_grows_as_n_squared_over_3(self):
@@ -235,7 +235,7 @@ class TestKFactorDecomposition:
             )
 
     def test_k4_exact_iters_and_mu(self):
-        """k=4, N=4: blind=256 steps, sighted=16 steps, μ=4."""
+        """k=4, N=4: blind=256 steps, sighted=16 steps, μ=36."""
         N = 4
         targets = [N - 1] * 4  # worst case
         target_idx = N**4 - 1  # = 255
@@ -248,7 +248,7 @@ class TestKFactorDecomposition:
 
         assert blind.vm_regs[15]   == N**4, f"blind_iters: got {blind.vm_regs[15]}, want {N**4}"
         assert sighted.vm_regs[15] == 4 * N, f"sighted_iters: got {sighted.vm_regs[15]}, want {4*N}"
-        assert sighted.vm_mu       == 4,     f"sighted_mu: got {sighted.vm_mu}, want 4"
+        assert sighted.vm_mu       == 36,    f"sighted_mu: got {sighted.vm_mu}, want 36"
 
     def test_k4_ratio_n_cubed_over_4(self):
         """For k=4, N=4: ratio = 256/16 = 16 = N^3/4."""
@@ -284,13 +284,13 @@ class TestKFactorDecomposition:
         assert ratios[4] > ratios[3], f"k=4 ratio {ratios[4]:.1f} should > k=3 ratio {ratios[3]:.1f}"
 
     def test_mu_k_equals_dimensions_exactly(self):
-        """μ paid is exactly k, regardless of N or target positions."""
+        """μ paid is exactly 9*k (each EMIT(".", 0) costs 8*1+S(0)=9)."""
         N = 5
         for k in [1, 2, 3, 4]:
             targets = [N - 1] * k
             sighted = _run(_k_sighted_program(targets))
-            assert sighted.vm_mu == k, (
-                f"k={k}: expected sighted_mu={k}, got {sighted.vm_mu}"
+            assert sighted.vm_mu == 9 * k, (
+                f"k={k}: expected sighted_mu={9*k}, got {sighted.vm_mu}"
             )
 
     def test_k_log_n_approach(self):
@@ -334,17 +334,17 @@ class TestMuBudgetThreshold:
     - Partially-sighted strategy: j certified loops × N steps each,
       plus 1 blind loop over remaining N^(k-j) elements.
     - Steps: j*N + N^(k-j)
-    - μ = j
+    - μ = 9*j
 
     PREDICTIONS:
       j=0 (blind):           N^k steps, 0 μ
-      j=1 (one cert):        N + N^(k-1) steps, 1 μ
+      j=1 (one cert):        N + N^(k-1) steps, 9 μ
       j=k-1 (one dim blind): (k-1)*N + N steps = k*N steps. Wait: remaining is 1D.
-      j=k (fully sighted):   k*N steps, k μ
+      j=k (fully sighted):   k*N steps, 9*k μ
 
     THE MARGINAL VALUE:
     Going from j to j+1 certified dimensions saves N^(k-j) - N = N*(N^(k-j-1) - 1) steps
-    at cost of 1 μ. For k=3, j=0→1: saves N^3 - N - (N + N^2) = N^3 - N^2 - 2N steps.
+    at cost of 9 μ. For k=3, j=0→1: saves N^3 - N - (N + N^2) = N^3 - N^2 - 2N steps.
     Wait, let me recalculate.
 
     j=0:  blind:         N^3 steps         (k=3, N elements per dim)
@@ -352,13 +352,13 @@ class TestMuBudgetThreshold:
     j=2:  2-cert:        2N + N steps = 3N wait no.
 
     j=1 means: search dim-0 (N steps, 1 EMIT), then do blind 2D search over N^2 elements.
-    Total: N + N^2 steps, 1 μ.
+    Total: N + N^2 steps, 9 μ.
 
     j=2: search dim-0 (N steps, EMIT), search dim-1 (N steps, EMIT), search dim-2 (N steps).
-    Total: 3N steps, 2 μ. But this is k=3, j=2, so only 1 uncertified dimension remains
+    Total: 3N steps, 18 μ. But this is k=3, j=2, so only 1 uncertified dimension remains
     (a 1D blind search of N steps).
 
-    j=k=3: 3N steps, 3 μ. All dims certified.
+    j=k=3: 3N steps, 27 μ. All dims certified.
 
     Marginal step savings when going from j to j+1:
       j=0→1: (N^3) - (N + N^2) = N^3 - N^2 - N = N(N^2 - N - 1)
@@ -380,7 +380,7 @@ class TestMuBudgetThreshold:
     ) -> list[dict]:
         """3D problem where only the first n_emit dimensions are certified.
 
-        dims 0..n_emit-1: searched with EMIT (certified, 1μ each)
+        dims 0..n_emit-1: searched with EMIT (certified, 9μ each)
         dim n_emit: flat blind search over remaining flat elements
         dims n_emit+1..: not reached (the flat search covers them all)
 
@@ -483,9 +483,9 @@ class TestMuBudgetThreshold:
         """For k=3, N=4: partial certification gives strictly intermediate results.
 
         n_emit=0: 64 steps, 0 μ   (pure blind)
-        n_emit=1: 4 + 16 = 20 steps, 1 μ   (dim-0 certified, 2D blind tail)
-        n_emit=2: 4 + 4 + 4 = 12 steps, 2 μ (dims 0-1 certified, 1D blind tail)
-        n_emit=3: 4 + 4 + 4 = 12 steps, 3 μ (fully certified = sighted)
+        n_emit=1: 4 + 16 = 20 steps, 9 μ   (dim-0 certified, 2D blind tail)
+        n_emit=2: 4 + 4 + 4 = 12 steps, 18 μ (dims 0-1 certified, 1D blind tail)
+        n_emit=3: 4 + 4 + 4 = 12 steps, 27 μ (fully certified = sighted)
         """
         N = 4
         targets = [N - 1, N - 1, N - 1]
@@ -504,7 +504,7 @@ class TestMuBudgetThreshold:
         assert s1.vm_regs[15] == expected_steps_1, (
             f"n_emit=1: iters={s1.vm_regs[15]}, expected {expected_steps_1}"
         )
-        assert s1.vm_mu == 1, f"n_emit=1: mu={s1.vm_mu}, expected 1"
+        assert s1.vm_mu == 9, f"n_emit=1: mu={s1.vm_mu}, expected 9"
 
         # n_emit=2: certified dims 0-1, blind 1D tail
         p2 = self._partial_sighted_program_k3(targets, n_emit=2)
@@ -514,21 +514,21 @@ class TestMuBudgetThreshold:
         assert s2.vm_regs[15] == expected_steps_2, (
             f"n_emit=2: iters={s2.vm_regs[15]}, expected {expected_steps_2}"
         )
-        assert s2.vm_mu == 2, f"n_emit=2: mu={s2.vm_mu}, expected 2"
+        assert s2.vm_mu == 18, f"n_emit=2: mu={s2.vm_mu}, expected 18"
 
         # n_emit=3: fully sighted
         p3 = _k_sighted_program(targets)
         s3 = _run(p3)
         assert s3.vm_regs[15] == 3 * N
-        assert s3.vm_mu == 3
+        assert s3.vm_mu == 27
 
     def test_marginal_mu_value_decreases_with_j(self):
         """Each additional μ unit buys fewer steps as dimensions are exhausted.
 
         For k=3, N=4:
-          j=0→1: saves N^3 - (N + N^2) = 64 - 20 = 44 steps, costs 1 μ
-          j=1→2: saves (N + N^2) - 3N = 20 - 12 = 8 steps, costs 1 μ
-          j=2→3: saves 3N - 3N = 0 steps, costs 1 μ  ← no step saving from last emit!
+          j=0→1: saves N^3 - (N + N^2) = 64 - 20 = 44 steps, costs 9 μ
+          j=1→2: saves (N + N^2) - 3N = 20 - 12 = 8 steps, costs 9 μ
+          j=2→3: saves 3N - 3N = 0 steps, costs 9 μ  ← no step saving from last emit!
 
         The last EMIT buys 0 extra step savings (both j=2 and j=3 are 3N steps).
         This is because after certifying k-1 dimensions, the remaining dimension

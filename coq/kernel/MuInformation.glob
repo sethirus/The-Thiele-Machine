@@ -1,142 +1,142 @@
-DIGEST ab1f4bffb0e514c44b337e4e32a71299
+DIGEST 6990c30569928d0b283377fd98455bee
 FKernel.MuInformation
-R1828:1833 Coq.ZArith.ZArith <> <> lib
-R1835:1837 Coq.micromega.Lia <> <> lib
-R1839:1842 Coq.Lists.List <> <> lib
-R1852:1864 Coq.Lists.List ListNotations <> mod
-R1895:1901 Kernel.VMState <> <> lib
-R1903:1908 Kernel.VMStep <> <> lib
-R1938:1952 Kernel.SimulationProof <> <> lib
-R1954:1973 Kernel.MuLedgerConservation <> <> lib
-def 2245:2252 <> mu_total
-R2259:2265 Kernel.VMState <> VMState rec
-binder 2255:2255 <> s:1
-R2270:2272 Coq.Init.Datatypes <> nat ind
-R2280:2284 Kernel.VMState <> vm_mu proj
-R2277:2277 Kernel.MuInformation <> s:1 var
-def 2456:2464 <> mu_info_z
-R2484:2490 Kernel.VMState <> VMState rec
-binder 2467:2472 <> s_init:2
-binder 2474:2480 <> s_final:3
-R2495:2495 Coq.Numbers.BinNums <> Z ind
-R2530:2532 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R2503:2510 Coq.ZArith.BinInt Z of_nat def
-R2513:2520 Kernel.MuInformation <> mu_total def
-R2522:2528 Kernel.MuInformation <> s_final:3 var
-R2533:2540 Coq.ZArith.BinInt Z of_nat def
-R2543:2550 Kernel.MuInformation <> mu_total def
-R2552:2557 Kernel.MuInformation <> s_init:2 var
-def 2757:2767 <> mu_info_nat
-R2787:2793 Kernel.VMState <> VMState rec
-binder 2770:2775 <> s_init:4
-binder 2777:2783 <> s_final:5
-R2798:2800 Coq.Init.Datatypes <> nat ind
-R2823:2825 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2807:2814 Kernel.MuInformation <> mu_total def
-R2816:2822 Kernel.MuInformation <> s_final:5 var
-R2826:2833 Kernel.MuInformation <> mu_total def
-R2835:2840 Kernel.MuInformation <> s_init:4 var
-prf 3319:3336 <> mu_info_z_vm_apply
-binder 3349:3349 <> s:6
-binder 3351:3355 <> instr:7
-R3392:3394 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3362:3370 Kernel.MuInformation <> mu_info_z def
-R3372:3372 Kernel.MuInformation <> s:6 var
-R3375:3382 Kernel.SimulationProof <> vm_apply def
-R3384:3384 Kernel.MuInformation <> s:6 var
-R3386:3390 Kernel.MuInformation <> instr:7 var
-R3395:3402 Coq.ZArith.BinInt Z of_nat def
-R3405:3420 Kernel.VMStep VMStep instruction_cost def
-R3422:3426 Kernel.MuInformation <> instr:7 var
-R3464:3472 Kernel.MuInformation <> mu_info_z def
-R3475:3482 Kernel.MuInformation <> mu_total def
-R3558:3568 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R3558:3568 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R3558:3568 Kernel.MuLedgerConservation <> vm_apply_mu thm
-def 4089:4102 <> mu_info_run_vm
-R4112:4114 Coq.Init.Datatypes <> nat ind
-binder 4105:4108 <> fuel:8
-R4126:4129 Coq.Init.Datatypes <> list ind
-R4131:4144 Kernel.VMStep VMStep vm_instruction ind
-binder 4118:4122 <> trace:9
-R4152:4158 Kernel.VMState <> VMState rec
-binder 4148:4148 <> s:10
-R4165:4167 Coq.Init.Datatypes <> nat ind
-R4172:4181 Kernel.MuLedgerConservation <> ledger_sum def
-R4184:4197 Kernel.MuLedgerConservation <> ledger_entries def
-R4199:4202 Kernel.MuInformation <> fuel:8 var
-R4204:4208 Kernel.MuInformation <> trace:9 var
-R4210:4210 Kernel.MuInformation <> s:10 var
-prf 4602:4627 <> run_vm_mu_total_decomposes
-binder 4640:4643 <> fuel:11
-binder 4645:4649 <> trace:12
-binder 4651:4651 <> s:13
-R4688:4690 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4658:4665 Kernel.MuInformation <> mu_total def
-R4668:4673 Kernel.SimulationProof <> run_vm def
-R4675:4678 Kernel.MuInformation <> fuel:11 var
-R4680:4684 Kernel.MuInformation <> trace:12 var
-R4686:4686 Kernel.MuInformation <> s:13 var
-R4701:4703 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4691:4698 Kernel.MuInformation <> mu_total def
-R4700:4700 Kernel.MuInformation <> s:13 var
-R4704:4717 Kernel.MuInformation <> mu_info_run_vm def
-R4719:4722 Kernel.MuInformation <> fuel:11 var
-R4724:4728 Kernel.MuInformation <> trace:12 var
-R4730:4730 Kernel.MuInformation <> s:13 var
-R4772:4779 Kernel.MuInformation <> mu_total def
-R4782:4795 Kernel.MuInformation <> mu_info_run_vm def
-R4866:4887 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R4866:4887 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R4866:4887 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-prf 5102:5131 <> mu_info_z_run_vm_is_ledger_sum
-binder 5144:5147 <> fuel:14
-binder 5149:5153 <> trace:15
-binder 5155:5155 <> s:16
-R5195:5197 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5162:5170 Kernel.MuInformation <> mu_info_z def
-R5172:5172 Kernel.MuInformation <> s:16 var
-R5175:5180 Kernel.SimulationProof <> run_vm def
-R5182:5185 Kernel.MuInformation <> fuel:14 var
-R5187:5191 Kernel.MuInformation <> trace:15 var
-R5193:5193 Kernel.MuInformation <> s:16 var
-R5198:5205 Coq.ZArith.BinInt Z of_nat def
-R5208:5221 Kernel.MuInformation <> mu_info_run_vm def
-R5223:5226 Kernel.MuInformation <> fuel:14 var
-R5228:5232 Kernel.MuInformation <> trace:15 var
-R5234:5234 Kernel.MuInformation <> s:16 var
-R5277:5285 Kernel.MuInformation <> mu_info_z def
-R5351:5376 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
-R5351:5376 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
-R5351:5376 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
-R5388:5395 Kernel.MuInformation <> mu_total def
-prf 5695:5717 <> mu_info_z_run_vm_nonneg
-binder 5730:5733 <> fuel:17
-binder 5735:5739 <> trace:18
-binder 5741:5741 <> s:19
-R5750:5753 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
-R5754:5762 Kernel.MuInformation <> mu_info_z def
-R5764:5764 Kernel.MuInformation <> s:19 var
-R5767:5772 Kernel.SimulationProof <> run_vm def
-R5774:5777 Kernel.MuInformation <> fuel:17 var
-R5779:5783 Kernel.MuInformation <> trace:18 var
-R5785:5785 Kernel.MuInformation <> s:19 var
-R5832:5861 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
-R5832:5861 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
-R5832:5861 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
-prf 6181:6204 <> run_vm_mu_total_monotone
-binder 6217:6220 <> fuel:20
-binder 6222:6226 <> trace:21
-binder 6228:6228 <> s:22
-R6265:6268 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6235:6242 Kernel.MuInformation <> mu_total def
-R6245:6250 Kernel.SimulationProof <> run_vm def
-R6252:6255 Kernel.MuInformation <> fuel:20 var
-R6257:6261 Kernel.MuInformation <> trace:21 var
-R6263:6263 Kernel.MuInformation <> s:22 var
-R6269:6276 Kernel.MuInformation <> mu_total def
-R6278:6278 Kernel.MuInformation <> s:22 var
-R6321:6346 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
-R6321:6346 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
-R6321:6346 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
-R6358:6371 Kernel.MuInformation <> mu_info_run_vm def
+R526:531 Coq.ZArith.ZArith <> <> lib
+R533:535 Coq.micromega.Lia <> <> lib
+R537:540 Coq.Lists.List <> <> lib
+R550:562 Coq.Lists.List ListNotations <> mod
+R593:599 Kernel.VMState <> <> lib
+R601:606 Kernel.VMStep <> <> lib
+R636:650 Kernel.SimulationProof <> <> lib
+R652:671 Kernel.MuLedgerConservation <> <> lib
+def 788:795 <> mu_total
+R802:808 Kernel.VMState <> VMState rec
+binder 798:798 <> s:1
+R813:815 Coq.Init.Datatypes <> nat ind
+R823:827 Kernel.VMState <> vm_mu proj
+R820:820 Kernel.MuInformation <> s:1 var
+def 999:1007 <> mu_info_z
+R1027:1033 Kernel.VMState <> VMState rec
+binder 1010:1015 <> s_init:2
+binder 1017:1023 <> s_final:3
+R1038:1038 Coq.Numbers.BinNums <> Z ind
+R1073:1075 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R1046:1053 Coq.ZArith.BinInt Z of_nat def
+R1056:1063 Kernel.MuInformation <> mu_total def
+R1065:1071 Kernel.MuInformation <> s_final:3 var
+R1076:1083 Coq.ZArith.BinInt Z of_nat def
+R1086:1093 Kernel.MuInformation <> mu_total def
+R1095:1100 Kernel.MuInformation <> s_init:2 var
+def 1300:1310 <> mu_info_nat
+R1330:1336 Kernel.VMState <> VMState rec
+binder 1313:1318 <> s_init:4
+binder 1320:1326 <> s_final:5
+R1341:1343 Coq.Init.Datatypes <> nat ind
+R1366:1368 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R1350:1357 Kernel.MuInformation <> mu_total def
+R1359:1365 Kernel.MuInformation <> s_final:5 var
+R1369:1376 Kernel.MuInformation <> mu_total def
+R1378:1383 Kernel.MuInformation <> s_init:4 var
+prf 1707:1724 <> mu_info_z_vm_apply
+binder 1737:1737 <> s:6
+binder 1739:1743 <> instr:7
+R1780:1782 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1750:1758 Kernel.MuInformation <> mu_info_z def
+R1760:1760 Kernel.MuInformation <> s:6 var
+R1763:1770 Kernel.SimulationProof <> vm_apply def
+R1772:1772 Kernel.MuInformation <> s:6 var
+R1774:1778 Kernel.MuInformation <> instr:7 var
+R1783:1790 Coq.ZArith.BinInt Z of_nat def
+R1793:1808 Kernel.VMStep VMStep instruction_cost def
+R1810:1814 Kernel.MuInformation <> instr:7 var
+R1852:1860 Kernel.MuInformation <> mu_info_z def
+R1863:1870 Kernel.MuInformation <> mu_total def
+R1946:1956 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R1946:1956 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R1946:1956 Kernel.MuLedgerConservation <> vm_apply_mu thm
+def 2316:2329 <> mu_info_run_vm
+R2339:2341 Coq.Init.Datatypes <> nat ind
+binder 2332:2335 <> fuel:8
+R2353:2356 Coq.Init.Datatypes <> list ind
+R2358:2371 Kernel.VMStep VMStep vm_instruction ind
+binder 2345:2349 <> trace:9
+R2379:2385 Kernel.VMState <> VMState rec
+binder 2375:2375 <> s:10
+R2392:2394 Coq.Init.Datatypes <> nat ind
+R2399:2408 Kernel.MuLedgerConservation <> ledger_sum def
+R2411:2424 Kernel.MuLedgerConservation <> ledger_entries def
+R2426:2429 Kernel.MuInformation <> fuel:8 var
+R2431:2435 Kernel.MuInformation <> trace:9 var
+R2437:2437 Kernel.MuInformation <> s:10 var
+prf 2820:2845 <> run_vm_mu_total_decomposes
+binder 2858:2861 <> fuel:11
+binder 2863:2867 <> trace:12
+binder 2869:2869 <> s:13
+R2906:2908 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2876:2883 Kernel.MuInformation <> mu_total def
+R2886:2891 Kernel.SimulationProof <> run_vm def
+R2893:2896 Kernel.MuInformation <> fuel:11 var
+R2898:2902 Kernel.MuInformation <> trace:12 var
+R2904:2904 Kernel.MuInformation <> s:13 var
+R2919:2921 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2909:2916 Kernel.MuInformation <> mu_total def
+R2918:2918 Kernel.MuInformation <> s:13 var
+R2922:2935 Kernel.MuInformation <> mu_info_run_vm def
+R2937:2940 Kernel.MuInformation <> fuel:11 var
+R2942:2946 Kernel.MuInformation <> trace:12 var
+R2948:2948 Kernel.MuInformation <> s:13 var
+R2990:2997 Kernel.MuInformation <> mu_total def
+R3000:3013 Kernel.MuInformation <> mu_info_run_vm def
+R3084:3105 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R3084:3105 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R3084:3105 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+prf 3320:3349 <> mu_info_z_run_vm_is_ledger_sum
+binder 3362:3365 <> fuel:14
+binder 3367:3371 <> trace:15
+binder 3373:3373 <> s:16
+R3413:3415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3380:3388 Kernel.MuInformation <> mu_info_z def
+R3390:3390 Kernel.MuInformation <> s:16 var
+R3393:3398 Kernel.SimulationProof <> run_vm def
+R3400:3403 Kernel.MuInformation <> fuel:14 var
+R3405:3409 Kernel.MuInformation <> trace:15 var
+R3411:3411 Kernel.MuInformation <> s:16 var
+R3416:3423 Coq.ZArith.BinInt Z of_nat def
+R3426:3439 Kernel.MuInformation <> mu_info_run_vm def
+R3441:3444 Kernel.MuInformation <> fuel:14 var
+R3446:3450 Kernel.MuInformation <> trace:15 var
+R3452:3452 Kernel.MuInformation <> s:16 var
+R3495:3503 Kernel.MuInformation <> mu_info_z def
+R3569:3594 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R3569:3594 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R3569:3594 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R3606:3613 Kernel.MuInformation <> mu_total def
+prf 3913:3935 <> mu_info_z_run_vm_nonneg
+binder 3948:3951 <> fuel:17
+binder 3953:3957 <> trace:18
+binder 3959:3959 <> s:19
+R3968:3971 Coq.ZArith.BinInt <> ::Z_scope:x_'<='_x not
+R3972:3980 Kernel.MuInformation <> mu_info_z def
+R3982:3982 Kernel.MuInformation <> s:19 var
+R3985:3990 Kernel.SimulationProof <> run_vm def
+R3992:3995 Kernel.MuInformation <> fuel:17 var
+R3997:4001 Kernel.MuInformation <> trace:18 var
+R4003:4003 Kernel.MuInformation <> s:19 var
+R4050:4079 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
+R4050:4079 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
+R4050:4079 Kernel.MuInformation <> mu_info_z_run_vm_is_ledger_sum thm
+prf 4399:4422 <> run_vm_mu_total_monotone
+binder 4435:4438 <> fuel:20
+binder 4440:4444 <> trace:21
+binder 4446:4446 <> s:22
+R4483:4486 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4453:4460 Kernel.MuInformation <> mu_total def
+R4463:4468 Kernel.SimulationProof <> run_vm def
+R4470:4473 Kernel.MuInformation <> fuel:20 var
+R4475:4479 Kernel.MuInformation <> trace:21 var
+R4481:4481 Kernel.MuInformation <> s:22 var
+R4487:4494 Kernel.MuInformation <> mu_total def
+R4496:4496 Kernel.MuInformation <> s:22 var
+R4539:4564 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R4539:4564 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R4539:4564 Kernel.MuInformation <> run_vm_mu_total_decomposes thm
+R4576:4589 Kernel.MuInformation <> mu_info_run_vm def

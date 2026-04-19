@@ -8,113 +8,81 @@ From Kernel Require Import MuNoFreeInsightQuantitative RevelationRequirement.
 From Kernel Require Import SimulationProof NoFreeInsight.
 From Kernel Require Import CHSH QuantumBound.
 
-(** * Certification Theory: Proving No Free Insight for CHSH
+(** Certification Theory: Proving No Free Insight for CHSH
 
-    WHY THIS FILE EXISTS:
-    This is THE connection between the Thiele Machine's operational semantics
-    and the central impossibility theorem. The claim: you cannot certify supra-
-    quantum correlations (CHSH > 2√2) without paying μ-cost for revelation.
-    This file PROVES that claim as a Coq theorem.
+  This is the connection between the Thiele Machine's operational semantics
+  and the central impossibility theorem. The claim: you cannot certify
+  supra-quantum correlations (CHSH > 2√2) without paying μ-cost for
+  revelation. This file proves that claim as a Coq theorem.
 
-    THE CORE THEOREM:
-    If a trace produces receipts with CHSH > 2√2, AND sets the certification
-    flag, THEN the trace must contain a cert-setting instruction (REVEAL, EMIT,
-    LJOIN, or LASSERT), which costs μ>0. No exceptions. No loopholes.
+  The core theorem: if a trace produces receipts with CHSH > 2√2 AND sets
+  the certification flag, then it must contain a cert-setting instruction
+  (REVEAL, EMIT, LJOIN, or LASSERT), which costs μ>0. No exceptions.
 
-    WHY CHSH SPECIFICALLY:
-    CHSH is the simplest falsifiable witness of the general impossibility
-    theorem. It's 4 correlations, 1 inequality, universally testable. If the
-    theorem fails for CHSH, it fails. If it holds for CHSH, the structure
-    generalizes to arbitrary predicates (NoFreeInsight.v).
+  I use CHSH specifically because it's the simplest falsifiable witness of
+  the general impossibility theorem: 4 correlations, 1 inequality,
+  universally testable. If the theorem fails for CHSH, it fails. If it
+  holds for CHSH, the structure generalizes to arbitrary predicates
+  (NoFreeInsight.v).
 
-    THE PROOF CHAIN:
-    1. Receipts are non-forgeable (chsh_trials_non_forgeable)
-    2. CHSH > 2√2 requires cert_addr ≠ 0 (nonlocal_correlation_requires_revelation)
-    3. Setting cert_addr requires cert-setting instruction (by construction)
-    4. Cert-setting instructions charge μ (mu_ledger_monotone)
-    5. Therefore: CHSH > 2√2 certified → Δμ > 0. QED.
+  Proof chain:
+  1. Receipts are non-forgeable (chsh_trials_non_forgeable)
+  2. CHSH > 2√2 requires cert_addr ≠ 0 (nonlocal_correlation_requires_revelation)
+  3. Setting cert_addr requires a cert-setting instruction (by construction)
+  4. Cert-setting instructions charge μ (mu_ledger_monotone)
+  5. Therefore: CHSH > 2√2 certified → Δμ > 0
 
-    FALSIFICATION:
-    Find a trace that certifies CHSH > 2√2 without containing REVEAL/EMIT/LJOIN/LASSERT.
-    Or find a cert-setting instruction with μ-cost = 0. The proofs won't compile.
-
-    RELATIONSHIP TO GENERAL THEOREM:
-    NoFreeInsight.v proves the impossibility theorem for ARBITRARY predicates.
-    This file instantiates it for CHSH - the concrete, testable case. CHSH is
-    the witness. If CHSH works, the general theorem follows.
-    *)
+  To break this: find a trace that certifies CHSH > 2√2 without any
+  REVEAL/EMIT/LJOIN/LASSERT, or find a cert-setting instruction with
+  μ-cost = 0. The proofs won't compile.
+  *)
 
 Module CertificationTheory.
 
 Import VMStep.VMStep.
 Import RevelationProof.
 
-(** * Receipt Abstraction: Traces ARE Receipts
+(** Receipt Abstraction: Traces ARE Receipts
 
-    WHY THIS IDENTIFICATION:
-    The OCaml extracted VM produces receipts from execution. In Coq, we don't need
-    separate receipt objects - the trace (list of instructions) IS the receipt
-    stream. This works because:
+   The OCaml extracted VM produces receipts from execution. In Coq I don't
+   need separate receipt objects — the trace (list of instructions) IS the
+   receipt stream. This works for three reasons:
 
-    1. **Determinism**: vm_step is a function, not a relation. Each instruction
-       + state produces exactly one next state and one receipt.
+   1. vm_step is a function, not a relation. Each instruction + state
+     produces exactly one next state and one receipt.
 
-    2. **Non-forgeability**: Receipt content comes from instruction encoding.
-       You can't "fake" a CHSH trial receipt without executing instr_chsh_trial.
+   2. Receipt content comes from instruction encoding. You can't "fake" a
+     CHSH trial receipt without executing instr_chsh_trial.
 
-    3. **Extraction**: Decoding receipts = pattern matching on instruction list.
-       extract_chsh_trials scans for instr_chsh_trial, extracts (x,y,a,b).
+   3. Decoding receipts = pattern matching on instruction list.
+     extract_chsh_trials scans for instr_chsh_trial and extracts (x,y,a,b).
 
-    THE ISOMORPHISM:
-    - OCaml extraction: receipts = [step(s,i).receipt for i in trace]
-    - Coq: receipts = trace (the instructions themselves)
-    - Equivalence: instruction encoding determines receipt content
-
-    WHY THIS MATTERS:
-    This lets us prove theorems about receipts without modeling serialization.
-    The trace is the canonical representation. OCaml extraction receipts are
-    just a different view of the same information.
-
-    FALSIFICATION:
-    Find an instruction where the receipt contains information not determinable
-    from the instruction encoding. Can't happen - receipts are instruction data.
+   OCaml extraction: receipts = [step(s,i).receipt for i in trace].
+   Coq: receipts = trace. Equivalence: instruction encoding determines
+   receipt content. This lets me prove theorems about receipts without
+   modeling serialization. The trace is the canonical representation.
 *)
 
 Definition Receipt := vm_instruction.
 Definition Receipts := Trace.
 
-(** * CHSH Trial Extraction: Getting (x,y,a,b) from Trace
+(** CHSH Trial Extraction: Getting (x,y,a,b) from Trace
 
-    WHY:
-    The CHSH inequality tests correlations between Alice's and Bob's measurement
-    results. Each trial is (x,y,a,b) where:
-    - x,y: Alice and Bob's measurement choices (inputs)
-    - a,b: Their measurement results (outputs)
+  The CHSH inequality tests correlations between Alice's and Bob's
+  measurement results. Each trial is (x,y,a,b): x,y are measurement
+  choices (inputs), a,b are results (outputs).
 
-    THE EXTRACTION:
-    Scan the receipt stream (trace) for instr_chsh_trial instructions. Each
-    such instruction encodes one CHSH trial. Extract the (x,y,a,b) fields.
-
-    NON-FORGEABILITY:
-    This is the ONLY way to create CHSH trials. No other instruction type
-    contributes. Proven in chsh_trials_non_forgeable below.
-
-    THE CALCULATION:
-    Once you have N trials, compute:
-    - E_xy = average correlation for measurement pair (x,y)
-    - S = E00 + E01 + E10 - E11 (the CHSH parameter)
-
-    This is done by KernelCHSH.chsh. It's mechanical arithmetic on the trial list.
-
-    USED BY:
-    chsh_value, has_supra_chsh, supra_quantum_certified. This is WHERE the
-    receipt stream gets analyzed for supra-quantum correlations.
+  extract_chsh_trials scans the receipt stream for instr_chsh_trial
+  instructions — that's the ONLY way CHSH trials enter the stream,
+  proven in chsh_trials_non_forgeable below. Once we have the trial list,
+  KernelCHSH.chsh computes E_xy = average correlation per input pair and
+  S = E00 + E01 + E10 - E11. Mechanical arithmetic.
 *)
 
 Definition extract_chsh_trials (receipts : Receipts) : list KernelCHSH.Trial :=
   KernelCHSH.trials_of_receipts receipts.
 
-(** * CHSH Value Computation (Rational approximation)
+(** CHSH Value Computation (Rational approximation)
 
     We use the concrete empirical CHSH statistic [KernelCHSH.chsh].
     Tsirelson bound: $2\sqrt{2} \approx 2.828427$; we use a safe rational
@@ -149,7 +117,7 @@ Definition has_supra_chsh (receipts : Receipts) : Prop :=
 Definition compute_chsh (receipts : Receipts) : Q :=
   chsh_value receipts.
 
-(** * Supra-Quantum Predicate
+(** Supra-Quantum Predicate
     
     RUNTIME DEFINITION (OCaml extraction):
       S = compute_chsh_from_trials(trials)
@@ -179,72 +147,51 @@ Definition supra_quantum_certified (s : VMState) (receipts : Receipts) : Prop :=
 Definition chsh_claim_certified (q : Q) (s : VMState) (receipts : Receipts) : Prop :=
   Qlt q (chsh_value receipts) /\ has_supra_cert s.
 
-(** * Certified: What It Means to Make a Checkable Claim
+(** Certified: What It Means to Make a Checkable Claim
 
-    WHY THIS DEFINITION:
     Computational claims must be CHECKABLE. Saying "I found correlations with
-    CHSH > 2√2" is worthless without proof. Certification means:
-    1. Execution completed without error (vm_err = false)
-    2. The predicate P holds on (final state, receipts)
+    CHSH > 2√2" is worthless without proof. Certification is two things at once:
+    (1) execution completed without error — vm_err latches on error, never
+    clears, so a crashed run certifies nothing; and (2) the predicate P holds
+    on (final state, receipts) — the claim is actually TRUE.
 
-    THE TWO CONDITIONS:
-    - No errors: If the VM errored out, nothing is certified. Errors invalidate
-      all claims. The vm_err flag latches on error, never clears.
-    - Predicate holds: The claim (P s_final receipts) must be TRUE. This could
-      be "CHSH > 2√2", or "formula is SAT", or any checkable property.
+    I need both state and receipts because state contains certification metadata
+    (cert_addr, CSR flags) and receipts contain the computational evidence
+    (CHSH trials, SAT assignments). Together they form the complete certificate.
 
-    WHY BOTH STATE AND RECEIPTS:
-    - State: Contains certification metadata (cert_addr, CSR flags)
-    - Receipts: Contain the computational evidence (CHSH trials, SAT assignments)
-    Together they form the complete certificate.
-
-    USAGE:
-    Certified s_final supra_quantum_certified trace means:
-    - VM didn't error
-    - The trace's receipts have CHSH > 2√2
-    - The cert_addr flag is set
-
-    FALSIFICATION:
-    Find a trace where Certified holds but the predicate is actually false.
-    Can't happen - Certified is conjunction. Both conditions must hold.
+    Certified s_final supra_quantum_certified trace means: VM didn't error,
+    the trace's receipts have CHSH > 2√2, AND cert_addr is set. Conjunction
+    — all three must hold, no loopholes.
 *)
 
 Definition Certified (s_final : VMState) (P : VMState -> Receipts -> Prop)
                      (receipts : Receipts) : Prop :=
   s_final.(vm_err) = false /\ P s_final receipts.
 
-(** * Revelation Event Detection
-    
-    A trace contains a revelation event if uses_revelation holds.
-    We also require that the revelation actually charged μ-bits.
-    *)
+(** Revelation Event Detection
+    [revelation_charged]: the μ-ledger grew by at least min_bits between
+    s_init and s_final. Used to verify that revelation actually paid μ-cost. *)
 
 Definition revelation_charged (s_init s_final : VMState) (min_bits : nat) : Prop :=
   Nat.le (s_init.(vm_mu) + min_bits) (s_final.(vm_mu)).
 
-(** * μ-Ledger Monotonicity (imported from MuLedgerConservation.v)
-    
-    We rely on the proven fact that μ-ledger increases monotonically.
-    For REVEAL, the cost is the second argument (bits).
-    *)
+(** μ-Ledger Monotonicity (imported from MuLedgerConservation.v)
+    [reveal_charges_mu]: REVEAL with bits b and declared_cost k adds (b + S k) to vm_mu.
+    Proportional to the information revealed, plus the mandatory S() floor. *)
 
 Lemma reveal_charges_mu :
   forall s module bits cert cost,
-    (vm_apply s (instr_reveal module bits cert cost)).(vm_mu) = Nat.add (s.(vm_mu)) (S cost).
+    (vm_apply s (instr_reveal module bits cert cost)).(vm_mu) = Nat.add (s.(vm_mu)) (bits + S cost).
 Proof.
   intros. unfold vm_apply.
   unfold advance_state. simpl. reflexivity.
 Qed.
 
-(** * Non-Forgeability (CHSH trials only from chsh_trial opcode)
-    
-    Lemma: extract_chsh_trials only returns trials from instr_chsh_trial.
-    
-    This corresponds to Lemma 1.1 in the theorem document.
-    
-    PROOF STATUS: Proven (Qed).
-    Proof by induction on receipts with case analysis on extract_chsh_trials.
-    *)
+(** Non-Forgeability (CHSH trials only from chsh_trial opcode)
+    [chsh_trials_non_forgeable]: every trial returned by extract_chsh_trials
+    came from an instr_chsh_trial in the receipt stream. You cannot get a CHSH
+    trial into the evidence stream without executing the opcode. Proof by
+    induction on receipts. *)
 
 Lemma chsh_trials_non_forgeable :
   forall receipts t,
@@ -281,52 +228,25 @@ Proof.
 
     Qed.
 
-(** * no_free_insight_chsh: THE MAIN THEOREM
+(** no_free_insight_chsh: THE MAIN THEOREM
 
-    THE CLAIM:
-    If a trace certifies supra-quantum correlations (CHSH > 2√2), then it MUST
-    contain a cert-setting instruction: REVEAL, EMIT, LJOIN, or LASSERT.
-    No other way. No shortcuts. No loopholes.
+  If a trace certifies supra-quantum correlations (CHSH > 2√2), starting
+  from cert_addr = 0, then it MUST contain at least one cert-setting
+  instruction: REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT. No shortcuts.
 
-    WHY THIS MATTERS:
-    This is the formal proof that you can't get something for nothing. Supra-
-    quantum correlations aren't "free" - they require explicit structural
-    operations that cost μ. The μ-ledger tracks this cost. If you claim CHSH > 2√2,
-    you must have paid.
+  This is the formal proof that you can't get something for nothing. Supra-
+  quantum correlations aren't free — they require explicit structural
+  operations that cost μ. The μ-ledger tracks that cost.
 
-    THE HYPOTHESES:
-    1. trace_run fuel trace s_init = Some s_final: Execution succeeded
-    2. s_init.(csr_cert_addr) = 0: Initially no certification set
-    3. Certified s_final supra_quantum_certified trace: Final state certifies CHSH > 2√2
+  Proof structure: Certified → vm_err = false AND supra_quantum_certified →
+  has_supra_chsh AND has_supra_cert → cert_addr ≠ 0 at end →
+  cert_addr went from 0 to nonzero → a cert-setting instruction ran
+  (only REVEAL/EMIT/LJOIN/LASSERT/MORPH_ASSERT modify cert_addr) →
+  RevelationRequirement.nonlocal_correlation_requires_revelation closes it.
 
-    THE CONCLUSION:
-    At least one of:
-    - uses_revelation trace: REVEAL occurred
-    - EMIT occurred
-    - LJOIN occurred
-    - LASSERT occurred
-
-    THE PROOF STRUCTURE:
-    1. Certified means vm_err = false AND supra_quantum_certified holds
-    2. supra_quantum_certified means has_supra_chsh AND has_supra_cert
-    3. has_supra_cert means cert_addr ≠ 0 at end
-    4. cert_addr changed from 0 to nonzero → cert-setting instruction occurred
-    5. RevelationRequirement.nonlocal_correlation_requires_revelation proves this
-
-    WHY THE DISJUNCTION:
-    Four instructions can set cert_addr: REVEAL, EMIT, LJOIN, LASSERT. The
-    theorem says at least one must have executed. The OCaml runtime enforces
-    that REVEAL is specifically required for CHSH (policy, not theorem).
-
-    FALSIFICATION:
-    Find a trace with cert_addr going from 0 to nonzero without any of the
-    four cert-setting instructions. The vm_step relation won't allow it - only
-    those four instructions modify cert_addr.
-
-    THE SIGNIFICANCE:
-    This is the CHSH instance of the general impossibility theorem. It's
-    concrete, testable, falsifiable. If this theorem is wrong, find a
-    counterexample. The proof is machine-checked.
+  The Coq proof establishes structural necessity. The runtime adds that
+  REVEAL is specifically the required channel for CHSH — that's policy
+  layered on top of the theorem, not part of the proof itself.
 *)
 
 Theorem no_free_insight_chsh :
@@ -625,7 +545,6 @@ Proof.
   split; [exact Hstruct|exact Hmu].
 Qed.
 
-(** [certified_bell_violation_implies_mu_lower_bound]: formal specification. *)
 Corollary certified_bell_violation_implies_mu_lower_bound :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
     trace_run fuel trace s_init = Some s_final ->
@@ -668,7 +587,7 @@ Proof.
   lia.
 Qed.
 
-(** * Corollary: REVEAL is primary revelation mechanism
+(** Corollary: REVEAL is primary revelation mechanism
     
     For the specific case where we want REVEAL (not EMIT/LJOIN/LASSERT),
     we add a runtime policy gate.
@@ -680,7 +599,7 @@ Qed.
     runtime enforces specific channel assignment.
     *)
 
-(** * Relationship to General NoFreeInsight.v Framework
+(** Relationship to General NoFreeInsight.v Framework
     
     This file instantiates the general impossibility theorem:
     - Observation type A = CHSHTrial (x, y, a, b)

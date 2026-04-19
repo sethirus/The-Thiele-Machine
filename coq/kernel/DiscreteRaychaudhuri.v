@@ -1,50 +1,25 @@
-(** * DiscreteRaychaudhuri: The Raychaudhuri Equation on vm_graph
+(** DiscreteRaychaudhuri: Raychaudhuri accounting on vm_graph.
 
-    THE RAYCHAUDHURI EQUATION (continuous, Lorentzian):
+    This file is the discrete shadow of the Lorentzian Raychaudhuri equation.
+    The continuous picture says expansion goes down when the Ricci null term is
+    positive. Here I want the same sign story on the VM simplicial complex.
 
-      dθ/dλ = -(1/2)θ² - σ_{μν}σ^{μν} + ω_{μν}ω^{μν} - R_{μν}k^μk^ν
+    The annoying part is signature. CurvedTensorPipeline.v is written with a
+    Euclidean (+,+,+,+) metric, so the 00-component comes out with the wrong
+    sign for the Lorentzian focusing story. In the isotropic 4D case,
+    G_00 = - R_00^Euc. After the Lorentzian sign flip that becomes
+    R_kk^Lor = G_00. So if the effective coupling kappa is positive and the
+    mass term is positive, the Lorentzian Ricci null contraction is positive,
+    which is exactly the focusing direction we need.
 
-    For null geodesic congruences with:
-    - θ: expansion scalar (rate of area change)
-    - σ: shear (tidal distortion)
-    - ω: twist (rotation), zero for hypersurface-orthogonal congruences
-    - R_{μν}k^μk^ν: Ricci null contraction (= R_{00} for k=(1,0,0,0))
+    That is why this file carries the named hypothesis
+    lorentzian_coupling_positive. The Euclidean pipeline does not give that
+    sign for free. You only get it after choosing the Lorentzian continuation.
 
-    DISCRETE FORMULATION:
-
-    On the vm_graph (simplicial complex), we define:
-    - discrete_null_expansion_rate: the expansion change per step along null ray
-    - lorentzian_ricci_null: the Lorentzian Ricci null contraction R_{kk}^Lor
-
-    THE SIGNATURE ISSUE (honest):
-
-    CurvedTensorPipeline.v uses Euclidean metric signature (+,+,+,+).
-    In Euclidean 4D isotropic case: G_{00} = R_{00} - (1/2)g_{00}R
-    With R = (4/a)R_{00}: G_{00} = R_{00} - 2R_{00} = -R_{00}
-    So: R_{00}^Euc = -G_{00}.
-
-    In Lorentzian (-,+,+,+) signature, the (0,0) component flips sign:
-    R_{00}^Lor = -R_{00}^Euc = G_{00}
-
-    Therefore: R_{kk}^Lor = G_{00} = κ × mass (from einstein_equation_from_mass).
-
-    This means: POSITIVE MASS → POSITIVE Lorentzian R_{kk} → FOCUSING.
-
-    THE NAMED HYPOTHESIS:
-    [lorentzian_coupling_positive]: κ > 0 (the GR coupling has the correct
-    positive sign). This is the generic interface hypothesis at the
-    Raychaudhuri level. It is NOT derivable from the Euclidean
-    CurvedTensorPipeline without choosing a signature convention.
-
-    WHAT IS FULLY PROVEN:
-    1. G_{00} = -R_{00}^Euc for 4D isotropic metrics (algebraic identity)
-    2. G_{00} = κ × mass (from einstein_equation_from_mass)
-    3. κ > 0 + mass > 0 → G_{00} > 0 → R_{00}^Euc < 0 → R_{kk}^Lor > 0
-    4. R_{kk}^Lor > 0 → discrete expansion rate < 0 → focusing
-    5. Focusing → null area decreases → entropy bounded → heat flows
-
-    ZERO AXIOMS. ZERO ADMITS.
-*)
+    What gets proved is the full chain: the isotropic algebraic identity,
+    positive coupling times positive mass, positive Lorentzian Ricci null term,
+    negative discrete expansion rate, then a weak Clausius-shaped witness built
+    from the entropy-area side. No new axioms. No admits. *)
 
 From Coq Require Import Reals Lra Psatz ZArith List Lia Arith.PeanoNat.
 Import ListNotations.
@@ -62,11 +37,8 @@ From Kernel Require Import EinsteinEquations4D.
 From Kernel Require Import MuGravity.
 From Kernel Require Import CurvedTensorPipeline.
 
-(** =========================================================================
-    SECTION 1: THE EUCLIDEAN RAYCHAUDHURI EQUATION COMPONENTS
-    ========================================================================= *)
 
-(** [discrete_null_expansion_rate]: The rate of change of the null congruence
+(** [discrete_null_expansion_rate]: rate of change for the null congruence
     expansion at vertex v, as given by the discrete Raychaudhuri equation.
 
     For a null congruence nc with expansion θ = null_expansion nc and
@@ -74,8 +46,8 @@ From Kernel Require Import CurvedTensorPipeline.
 
       dθ/dλ = -(1/2)θ² - σ² - R_{kk}^Lor
 
-    The Lorentzian R_{kk}^Lor is approximated as -curved_ricci(0,0,v)
-    (Euclidean sign flip — see the signature discussion in the header).
+    The Lorentzian R_{kk}^Lor is represented as -curved_ricci(0,0,v).
+    That is the Euclidean sign flip explained in the header.
 
     For the calibrated congruence (θ=1+b, σ=b where b = boundary_size_1d):
       dθ/dλ = -(1/2)(1+b)² - b² - R_{kk}^Lor
@@ -129,9 +101,6 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    SECTION 2: G_{00} = -R_{00} FOR ISOTROPIC 4D METRICS
-    ========================================================================= *)
 
 (** [isotropic_einstein_ricci_relation]: For a 4D isotropic metric g_{μν} = a·δ_{μν},
     the (0,0) Einstein tensor component equals minus the (0,0) Ricci component.
@@ -140,7 +109,7 @@ Qed.
     For isotropic metric: R_scalar = (1/a) × 4 × R_{00}
     (using g^{μν} = (1/a)·δ^{μν} and Ricci isotropy R_{11}=R_{22}=R_{33}=R_{00})
     So: G_{00} = R_{00} - (1/2)·a·(4R_{00}/a) = R_{00} - 2R_{00} = -R_{00}.  *)
-(* INQUISITOR NOTE: Algebraic identity — G00 = -R00 for isotropic 4D Euclidean metric *)
+(* INQUISITOR NOTE: Algebraic identity: G00 = -R00 for isotropic 4D Euclidean metric. *)
 Theorem isotropic_einstein_ricci_relation :
   forall s v w,
     (v <> w)%nat ->
@@ -210,32 +179,22 @@ Proof.
   unfold R00. field. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 3: POSITIVE MASS → FOCUSING (WITH NAMED HYPOTHESIS)
-    ========================================================================= *)
 
-(** [lorentzian_coupling_positive]: The gravitational coupling κ has the
-    physically correct positive sign.
+(** [lorentzian_coupling_positive]: the effective gravitational coupling kappa
+    has the Lorentzian sign we actually want.
 
-    In Lorentzian GR: κ = 8πG > 0 always. In our Euclidean discrete pipeline,
-    the sign of κ depends on the metric values and cannot be determined without
-    fixing a Lorentzian continuation. This hypothesis asserts the correct sign.
+    In ordinary Lorentzian GR, kappa = 8PI G > 0. In this repository the sign
+    is not automatic because the earlier curved pipeline is Euclidean. So this
+    definition is the interface point where I say: if the Lorentzian reading is
+    the physically right one, then kappa should come out positive.
 
-    FALSIFICATION: Compute κ = G_{00} / T_{00} for a physically realized VM
-    state with positive mass. If κ < 0, the discrete metric has wrong signature
-    or the mass assignment is inverted.
+    To break it, compute kappa = G_00 / T_00 on a positive-mass VM state and
+    get a negative answer. That would mean the signature choice or the mass
+    interpretation is backwards.
 
-    NOTE: MetricFromMuCosts.v already defines lorentz_metric_at_vertex with
-    Lorentzian signature (-,+,+,+).  A full Lorentzian CurvedTensorPipeline
-    could use that metric to derive κ > 0 without this hypothesis.
-
-    DISCHARGED: LorentzianTensorPipeline.v proves
-    [lorentzian_coupling_positive_from_mass_gradient]:
-      v <> w → isotropic_mass_metric s v → isotropic_mass_metric s w →
-      mass_v > 0 → mass_v > mass_w →
-      lorentzian_coupling_positive s v w (two_vertex_sc v w).
-    The remaining hypothesis is the mass-gradient condition (mass decreases
-    along the edge), which is the discrete analog of matter causing focusing. *)
+    There is already partial discharge for this in LorentzianTensorPipeline.v:
+    once mass decreases along the edge in the right way, the positivity claim
+    can be derived instead of assumed. *)
 Definition lorentzian_coupling_positive
     (s : VMState) (v w : ModuleID) (sc : SimplicialComplex4D) : Prop :=
   exists κ : R,
@@ -276,14 +235,14 @@ Proof.
   lra.
 Qed.
 
-(** [positive_mass_implies_focusing]: With positive mass and κ > 0,
+(** [positive_mass_implies_focusing]: with positive mass and κ > 0,
     the discrete null expansion rate for the calibrated congruence is negative.
-    This means null geodesics FOCUS — the congruence converges.
+    This means null geodesics FOCUS. The congruence converges.
 
     PHYSICAL MEANING: Matter (positive mass) causes null rays to converge.
     This is the gravitational focusing theorem, proven in the discrete
     setting up to the Lorentzian coupling sign hypothesis. *)
-(* INQUISITOR NOTE: Main Raychaudhuri theorem — positive mass → focusing *)
+(* INQUISITOR NOTE: Main Raychaudhuri theorem: positive mass → focusing. *)
 Theorem positive_mass_implies_focusing :
   forall s v w,
     (v <> w)%nat ->
@@ -305,24 +264,14 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    SECTION 4: FOCUSING → HEAT FLUX (CONNECTION TO CLAUSIUS)
-    ========================================================================= *)
 
-(** [focusing_implies_heat_dissipation]: When the null congruence focuses
-    (expansion rate < 0) at a horizon with Unruh temperature T > 0,
-    heat is dissipated across the horizon.
+(** [focusing_implies_heat_dissipation]: this is the contract shape for the
+    Clausius bridge. If the calibrated congruence focuses, the conclusion must
+    provide dQ, dS, and T with T > 0 and dQ = T dS.
 
-    This is the Clausius connection: focusing = dA/dλ < 0 means the
-    horizon area decreases, which via the Bekenstein-Hawking entropy
-    S = A/(4G) means entropy decreases, which means heat flows OUT.
-    By the second law, the reverse process (heat flows IN, area increases)
-    is what we observe: matter falling in → area grows → entropy grows → dQ = TdS.
-
-    In the discrete VM setting: focusing at horizon P means
-    the null expansion rate < 0, which corresponds to heat
-    dQ > 0 being absorbed by the horizon. *)
-(* INQUISITOR NOTE: Raychaudhuri focusing → heat flows at horizon *)
+    This definition does not derive the numerical heat flow. It pins down the
+    witness shape that the theorem below can fill. *)
+(* INQUISITOR NOTE: Raychaudhuri focusing gives the trigger for the Clausius witness. *)
 Definition raychaudhuri_heat_dissipation
     (hbar c_light k_B : R)
     (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID)
@@ -333,10 +282,11 @@ Definition raychaudhuri_heat_dissipation
   exists dQ dS T : R,
     0 < T /\ dQ = (T * dS)%R.
 
-(** For any focusing congruence, heat dissipation witnesses exist.
-    The temperature is Unruh temperature (> 0 from ClausiusFromEntropyArea).
-    The entropy change is from the entropy-area law. *)
-(* INQUISITOR NOTE: Focusing + area law → heat witnesses exist *)
+(** Given focusing, the Clausius-shaped witnesses exist.
+    The temperature comes from unruh_temperature_pos. The entropy term comes
+    from entropy_increment. This is a weak existence bridge: the proof does
+    not compute heat from the focusing rate. *)
+(* INQUISITOR NOTE: Focusing + area law provide Clausius-shaped witnesses; no heat magnitude is derived here. *)
 Theorem focusing_implies_clausius_witnesses :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s : VMState) (sc : SimplicialComplex4D) (v : ModuleID)
@@ -357,23 +307,17 @@ Proof.
   - ring.
 Qed.
 
-(** =========================================================================
-    SECTION 5: SUMMARY — GENERIC INTERFACE OBLIGATION AND PROVEN CHAIN
-    ========================================================================= *)
 
-(** What is PROVEN (zero admits, zero axioms):
-    1. discrete_null_expansion_rate is well-defined from CurvedTensorPipeline
-    2. isotropic_einstein_ricci_relation: G_{00} = -R_{00} (4D isotropic)
-    3. positive_mass_implies_lorentzian_ricci_positive: given κ > 0
-       (or discharged from a mass gradient by LorentzianTensorPipeline.v)
-    4. positive_mass_implies_focusing: given κ > 0
-    5. focusing_implies_clausius_witnesses: focusing → ∃(dQ, dS, T) with T > 0
+(** What this file actually delivers.
 
-    GENERIC INTERFACE HYPOTHESIS: lorentzian_coupling_positive (κ > 0).
+   First, it fixes the sign bookkeeping between the Euclidean tensor pipeline
+   and the Lorentzian focusing story. Second, under the explicit positive-
+   coupling hypothesis, it proves the chain from positive mass to positive
+   Lorentzian Ricci null term to focusing. Third, it packages focusing into a
+   weak Clausius-shaped witness.
 
-    This file keeps the Lorentzian interface explicit. The specialized
-    2-vertex isotropic mass-gradient case is discharged in
-    LorentzianTensorPipeline.v via
-    [lorentzian_coupling_positive_from_mass_gradient]. The remaining work is
-    to generalize that discharge beyond the current mass-gradient setting. *)
+   The open interface remains the same: lorentzian_coupling_positive. The
+   current specialized discharge lives in LorentzianTensorPipeline.v for the
+   isotropic mass-gradient case. What is still missing is a broader discharge
+   that does not rely on that narrow setup. *)
 Definition raychaudhuri_open_obligation := lorentzian_coupling_positive.

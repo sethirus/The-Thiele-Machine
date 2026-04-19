@@ -1,192 +1,192 @@
-DIGEST f4f9e925efa40c8448a1b2ffff865106
+DIGEST 7a3faab882da9e66e645f4a3f96fae69
 FKernel.FalsifiablePrediction
-R1227:1233 Kernel.VMState <> <> lib
-R1235:1240 Kernel.VMStep <> <> lib
-R1242:1254 Kernel.KernelPhysics <> <> lib
-R1272:1285 Coq.Lists.List <> <> lib
-R1303:1320 Coq.Arith.PeanoNat <> <> lib
-R1338:1354 Coq.micromega.Lia <> <> lib
-R1364:1376 Coq.Lists.List ListNotations <> mod
-R1386:1388 Coq.Arith.PeanoNat Nat <> mod
-def 2395:2410 <> mu_cost_of_instr
-R2417:2437 Kernel.VMStep VMStep vm_instruction ind
-binder 2413:2413 <> i:1
-R2442:2444 Coq.Init.Datatypes <> nat ind
-R2451:2473 Kernel.VMStep VMStep instruction_cost def
-R2475:2475 Kernel.FalsifiablePrediction <> i:1 var
-def 2520:2532 <> trace_mu_cost
-R2543:2546 Coq.Init.Datatypes <> list ind
-R2548:2568 Kernel.VMStep VMStep vm_instruction ind
-binder 2535:2539 <> trace:2
-R2573:2575 Coq.Init.Datatypes <> nat ind
-R2588:2592 Kernel.FalsifiablePrediction <> trace:2 var
-R2603:2604 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2616:2619 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2646:2648 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R2628:2643 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
-R2649:2661 Kernel.FalsifiablePrediction <> trace_mu_cost:3 def
-def 4382:4392 <> region_size
-R4404:4407 Coq.Init.Datatypes <> list ind
-R4409:4411 Coq.Init.Datatypes <> nat ind
-binder 4395:4400 <> region:5
-R4416:4418 Coq.Init.Datatypes <> nat ind
-R4425:4430 Coq.Init.Datatypes <> length def
-R4433:4448 Kernel.VMState <> normalize_region def
-R4450:4455 Kernel.FalsifiablePrediction <> region:5 var
-def 4471:4483 <> evidence_size
-R4497:4500 Coq.Init.Datatypes <> list ind
-R4502:4508 Kernel.VMState <> VMAxiom def
-binder 4486:4493 <> evidence:6
-R4513:4515 Coq.Init.Datatypes <> nat ind
-R4522:4527 Coq.Init.Datatypes <> length def
-R4529:4536 Kernel.FalsifiablePrediction <> evidence:6 var
-def 4597:4611 <> pnew_cost_bound
-R4623:4626 Coq.Init.Datatypes <> list ind
-R4628:4630 Coq.Init.Datatypes <> nat ind
-binder 4614:4619 <> region:7
-R4635:4637 Coq.Init.Datatypes <> nat ind
-R4644:4654 Kernel.FalsifiablePrediction <> region_size def
-R4656:4661 Kernel.FalsifiablePrediction <> region:7 var
-def 4732:4748 <> psplit_cost_bound
-R4764:4767 Coq.Init.Datatypes <> list ind
-R4769:4771 Coq.Init.Datatypes <> nat ind
-binder 4751:4754 <> left:8
-binder 4756:4760 <> right:9
-R4776:4778 Coq.Init.Datatypes <> nat ind
-R4801:4803 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4785:4795 Kernel.FalsifiablePrediction <> region_size def
-R4797:4800 Kernel.FalsifiablePrediction <> left:8 var
-R4804:4814 Kernel.FalsifiablePrediction <> region_size def
-R4816:4820 Kernel.FalsifiablePrediction <> right:9 var
-def 4911:4927 <> pmerge_cost_bound
-R4938:4941 Coq.Init.Datatypes <> list ind
-R4943:4945 Coq.Init.Datatypes <> nat ind
-binder 4930:4931 <> r1:10
-binder 4933:4934 <> r2:11
-R4950:4952 Coq.Init.Datatypes <> nat ind
-R4973:4975 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R4959:4969 Kernel.FalsifiablePrediction <> region_size def
-R4971:4972 Kernel.FalsifiablePrediction <> r1:10 var
-R4976:4986 Kernel.FalsifiablePrediction <> region_size def
-R4988:4989 Kernel.FalsifiablePrediction <> r2:11 var
-def 5060:5078 <> discover_cost_bound
-R5092:5095 Coq.Init.Datatypes <> list ind
-R5097:5103 Kernel.VMState <> VMAxiom def
-binder 5081:5088 <> evidence:12
-R5108:5110 Coq.Init.Datatypes <> nat ind
-R5117:5129 Kernel.FalsifiablePrediction <> evidence_size def
-R5131:5138 Kernel.FalsifiablePrediction <> evidence:12 var
-prf 6060:6076 <> mu_monotonic_step
-binder 6087:6087 <> s:13
-binder 6089:6089 <> i:14
-binder 6091:6092 <> s':15
-R6118:6121 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6097:6110 Kernel.VMStep VMStep vm_step ind
-R6112:6112 Kernel.FalsifiablePrediction <> s:13 var
-R6114:6114 Kernel.FalsifiablePrediction <> i:14 var
-R6116:6117 Kernel.FalsifiablePrediction <> s':15 var
-R6133:6136 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6127:6131 Kernel.VMState <> vm_mu proj
-R6123:6124 Kernel.FalsifiablePrediction <> s':15 var
-R6140:6144 Kernel.VMState <> vm_mu proj
-R6137:6137 Kernel.FalsifiablePrediction <> s:13 var
-R6220:6239 Kernel.VMStep VMStep advance_state def
-R6242:6268 Kernel.VMStep VMStep advance_state_reveal def
-R6271:6293 Kernel.VMStep VMStep advance_state_rm def
-R6307:6323 Kernel.VMStep VMStep jump_state def
-R6326:6345 Kernel.VMStep VMStep jump_state_rm def
-R6348:6364 Kernel.VMStep VMStep apply_cost def
-prf 7326:7341 <> mu_cost_additive
-binder 7352:7353 <> i1:16
-binder 7355:7356 <> i2:17
-binder 7358:7362 <> cost1:18
-binder 7364:7368 <> cost2:19
-R7400:7405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7392:7394 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7373:7388 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
-R7390:7391 Kernel.FalsifiablePrediction <> i1:16 var
-R7395:7399 Kernel.FalsifiablePrediction <> cost1:18 var
-R7433:7438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7425:7427 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7406:7421 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
-R7423:7424 Kernel.FalsifiablePrediction <> i2:17 var
-R7428:7432 Kernel.FalsifiablePrediction <> cost2:19 var
-R7461:7463 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7439:7451 Kernel.FalsifiablePrediction <> trace_mu_cost def
-R7453:7453 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7456:7457 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7460:7460 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7454:7455 Kernel.FalsifiablePrediction <> i1:16 var
-R7458:7459 Kernel.FalsifiablePrediction <> i2:17 var
-R7469:7471 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R7464:7468 Kernel.FalsifiablePrediction <> cost1:18 var
-R7472:7476 Kernel.FalsifiablePrediction <> cost2:19 var
-R7529:7541 Kernel.FalsifiablePrediction <> trace_mu_cost def
-def 8893:8906 <> cost_violation
-R8930:8932 Coq.Init.Datatypes <> nat ind
-binder 8909:8916 <> measured:20
-binder 8918:8926 <> predicted:21
-R8956:8958 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R8948:8955 Kernel.FalsifiablePrediction <> measured:20 var
-R8959:8967 Kernel.FalsifiablePrediction <> predicted:21 var
-rec 9039:9055 <> ExperimentalTrial
-proj 9064:9074 <> trial_instr
-proj 9103:9121 <> trial_measured_cost
-R9078:9098 Kernel.VMStep VMStep vm_instruction ind
-R9125:9127 Coq.Init.Datatypes <> nat ind
-def 9186:9201 <> check_prediction
-R9208:9224 Kernel.FalsifiablePrediction <> ExperimentalTrial rec
-binder 9204:9204 <> t:25
-R9229:9232 Coq.Init.Datatypes <> bool ind
-R9239:9245 Coq.Arith.PeanoNat Nat ltb def
-R9248:9263 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
-R9266:9276 Kernel.FalsifiablePrediction <> trial_instr proj
-R9278:9278 Kernel.FalsifiablePrediction <> t:25 var
-R9283:9301 Kernel.FalsifiablePrediction <> trial_measured_cost proj
-R9303:9303 Kernel.FalsifiablePrediction <> t:25 var
-def 11075:11091 <> pnew_linear_bound
-R11098:11100 Coq.Init.Datatypes <> nat ind
-binder 11094:11094 <> C:26
-R11113:11116 Coq.Init.Datatypes <> list ind
-R11118:11120 Coq.Init.Datatypes <> nat ind
-binder 11104:11109 <> region:27
-R11135:11137 Coq.Init.Datatypes <> nat ind
-binder 11124:11131 <> measured:28
-R11161:11164 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11153:11160 Kernel.FalsifiablePrediction <> measured:28 var
-R11166:11168 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R11165:11165 Kernel.FalsifiablePrediction <> C:26 var
-R11169:11179 Kernel.FalsifiablePrediction <> region_size def
-R11181:11186 Kernel.FalsifiablePrediction <> region:27 var
-def 11278:11298 <> discover_linear_bound
-R11305:11307 Coq.Init.Datatypes <> nat ind
-binder 11301:11301 <> C:29
-R11322:11325 Coq.Init.Datatypes <> list ind
-R11327:11333 Kernel.VMState <> VMAxiom def
-binder 11311:11318 <> evidence:30
-R11348:11350 Coq.Init.Datatypes <> nat ind
-binder 11337:11344 <> measured:31
-R11374:11377 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11366:11373 Kernel.FalsifiablePrediction <> measured:31 var
-R11379:11381 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R11378:11378 Kernel.FalsifiablePrediction <> C:29 var
-R11382:11394 Kernel.FalsifiablePrediction <> evidence_size def
-R11396:11403 Kernel.FalsifiablePrediction <> evidence:30 var
-def 11481:11499 <> merge_dedup_savings
-R11510:11513 Coq.Init.Datatypes <> list ind
-R11515:11517 Coq.Init.Datatypes <> nat ind
-binder 11502:11503 <> r1:32
-binder 11505:11506 <> r2:33
-R11531:11533 Coq.Init.Datatypes <> nat ind
-binder 11521:11527 <> overlap:34
-R11548:11550 Coq.Init.Datatypes <> nat ind
-binder 11537:11544 <> measured:35
-R11574:11577 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11566:11573 Kernel.FalsifiablePrediction <> measured:35 var
-R11609:11611 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R11592:11594 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R11578:11588 Kernel.FalsifiablePrediction <> region_size def
-R11590:11591 Kernel.FalsifiablePrediction <> r1:32 var
-R11595:11605 Kernel.FalsifiablePrediction <> region_size def
-R11607:11608 Kernel.FalsifiablePrediction <> r2:33 var
-R11612:11618 Kernel.FalsifiablePrediction <> overlap:34 var
+R846:852 Kernel.VMState <> <> lib
+R854:859 Kernel.VMStep <> <> lib
+R861:873 Kernel.KernelPhysics <> <> lib
+R891:904 Coq.Lists.List <> <> lib
+R922:939 Coq.Arith.PeanoNat <> <> lib
+R957:973 Coq.micromega.Lia <> <> lib
+R983:995 Coq.Lists.List ListNotations <> mod
+R1005:1007 Coq.Arith.PeanoNat Nat <> mod
+def 1782:1797 <> mu_cost_of_instr
+R1804:1824 Kernel.VMStep VMStep vm_instruction ind
+binder 1800:1800 <> i:1
+R1829:1831 Coq.Init.Datatypes <> nat ind
+R1838:1860 Kernel.VMStep VMStep instruction_cost def
+R1862:1862 Kernel.FalsifiablePrediction <> i:1 var
+def 1907:1919 <> trace_mu_cost
+R1930:1933 Coq.Init.Datatypes <> list ind
+R1935:1955 Kernel.VMStep VMStep vm_instruction ind
+binder 1922:1926 <> trace:2
+R1960:1962 Coq.Init.Datatypes <> nat ind
+R1975:1979 Kernel.FalsifiablePrediction <> trace:2 var
+R1990:1991 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2003:2006 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2033:2035 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2015:2030 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
+R2036:2048 Kernel.FalsifiablePrediction <> trace_mu_cost:3 def
+def 3577:3587 <> region_size
+R3599:3602 Coq.Init.Datatypes <> list ind
+R3604:3606 Coq.Init.Datatypes <> nat ind
+binder 3590:3595 <> region:5
+R3611:3613 Coq.Init.Datatypes <> nat ind
+R3620:3625 Coq.Init.Datatypes <> length def
+R3628:3643 Kernel.VMState <> normalize_region def
+R3645:3650 Kernel.FalsifiablePrediction <> region:5 var
+def 3666:3678 <> evidence_size
+R3692:3695 Coq.Init.Datatypes <> list ind
+R3697:3703 Kernel.VMState <> VMAxiom def
+binder 3681:3688 <> evidence:6
+R3708:3710 Coq.Init.Datatypes <> nat ind
+R3717:3722 Coq.Init.Datatypes <> length def
+R3724:3731 Kernel.FalsifiablePrediction <> evidence:6 var
+def 3792:3806 <> pnew_cost_bound
+R3818:3821 Coq.Init.Datatypes <> list ind
+R3823:3825 Coq.Init.Datatypes <> nat ind
+binder 3809:3814 <> region:7
+R3830:3832 Coq.Init.Datatypes <> nat ind
+R3839:3849 Kernel.FalsifiablePrediction <> region_size def
+R3851:3856 Kernel.FalsifiablePrediction <> region:7 var
+def 3927:3943 <> psplit_cost_bound
+R3959:3962 Coq.Init.Datatypes <> list ind
+R3964:3966 Coq.Init.Datatypes <> nat ind
+binder 3946:3949 <> left:8
+binder 3951:3955 <> right:9
+R3971:3973 Coq.Init.Datatypes <> nat ind
+R3996:3998 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R3980:3990 Kernel.FalsifiablePrediction <> region_size def
+R3992:3995 Kernel.FalsifiablePrediction <> left:8 var
+R3999:4009 Kernel.FalsifiablePrediction <> region_size def
+R4011:4015 Kernel.FalsifiablePrediction <> right:9 var
+def 4106:4122 <> pmerge_cost_bound
+R4133:4136 Coq.Init.Datatypes <> list ind
+R4138:4140 Coq.Init.Datatypes <> nat ind
+binder 4125:4126 <> r1:10
+binder 4128:4129 <> r2:11
+R4145:4147 Coq.Init.Datatypes <> nat ind
+R4168:4170 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R4154:4164 Kernel.FalsifiablePrediction <> region_size def
+R4166:4167 Kernel.FalsifiablePrediction <> r1:10 var
+R4171:4181 Kernel.FalsifiablePrediction <> region_size def
+R4183:4184 Kernel.FalsifiablePrediction <> r2:11 var
+def 4255:4273 <> discover_cost_bound
+R4287:4290 Coq.Init.Datatypes <> list ind
+R4292:4298 Kernel.VMState <> VMAxiom def
+binder 4276:4283 <> evidence:12
+R4303:4305 Coq.Init.Datatypes <> nat ind
+R4312:4324 Kernel.FalsifiablePrediction <> evidence_size def
+R4326:4333 Kernel.FalsifiablePrediction <> evidence:12 var
+prf 4976:4992 <> mu_monotonic_step
+binder 5003:5003 <> s:13
+binder 5005:5005 <> i:14
+binder 5007:5008 <> s':15
+R5034:5037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5013:5026 Kernel.VMStep VMStep vm_step ind
+R5028:5028 Kernel.FalsifiablePrediction <> s:13 var
+R5030:5030 Kernel.FalsifiablePrediction <> i:14 var
+R5032:5033 Kernel.FalsifiablePrediction <> s':15 var
+R5049:5052 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5043:5047 Kernel.VMState <> vm_mu proj
+R5039:5040 Kernel.FalsifiablePrediction <> s':15 var
+R5056:5060 Kernel.VMState <> vm_mu proj
+R5053:5053 Kernel.FalsifiablePrediction <> s:13 var
+R5136:5155 Kernel.VMStep VMStep advance_state def
+R5158:5184 Kernel.VMStep VMStep advance_state_reveal def
+R5187:5209 Kernel.VMStep VMStep advance_state_rm def
+R5223:5239 Kernel.VMStep VMStep jump_state def
+R5242:5261 Kernel.VMStep VMStep jump_state_rm def
+R5264:5280 Kernel.VMStep VMStep apply_cost def
+prf 5853:5868 <> mu_cost_additive
+binder 5879:5880 <> i1:16
+binder 5882:5883 <> i2:17
+binder 5885:5889 <> cost1:18
+binder 5891:5895 <> cost2:19
+R5927:5932 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5919:5921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5900:5915 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
+R5917:5918 Kernel.FalsifiablePrediction <> i1:16 var
+R5922:5926 Kernel.FalsifiablePrediction <> cost1:18 var
+R5960:5965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5952:5954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5933:5948 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
+R5950:5951 Kernel.FalsifiablePrediction <> i2:17 var
+R5955:5959 Kernel.FalsifiablePrediction <> cost2:19 var
+R5988:5990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5966:5978 Kernel.FalsifiablePrediction <> trace_mu_cost def
+R5980:5980 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5983:5984 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5987:5987 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5981:5982 Kernel.FalsifiablePrediction <> i1:16 var
+R5985:5986 Kernel.FalsifiablePrediction <> i2:17 var
+R5996:5998 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R5991:5995 Kernel.FalsifiablePrediction <> cost1:18 var
+R5999:6003 Kernel.FalsifiablePrediction <> cost2:19 var
+R6056:6068 Kernel.FalsifiablePrediction <> trace_mu_cost def
+def 7188:7201 <> cost_violation
+R7225:7227 Coq.Init.Datatypes <> nat ind
+binder 7204:7211 <> measured:20
+binder 7213:7221 <> predicted:21
+R7251:7253 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7243:7250 Kernel.FalsifiablePrediction <> measured:20 var
+R7254:7262 Kernel.FalsifiablePrediction <> predicted:21 var
+rec 7334:7350 <> ExperimentalTrial
+proj 7359:7369 <> trial_instr
+proj 7398:7416 <> trial_measured_cost
+R7373:7393 Kernel.VMStep VMStep vm_instruction ind
+R7420:7422 Coq.Init.Datatypes <> nat ind
+def 7481:7496 <> check_prediction
+R7503:7519 Kernel.FalsifiablePrediction <> ExperimentalTrial rec
+binder 7499:7499 <> t:25
+R7524:7527 Coq.Init.Datatypes <> bool ind
+R7534:7540 Coq.Arith.PeanoNat Nat ltb def
+R7543:7558 Kernel.FalsifiablePrediction <> mu_cost_of_instr def
+R7561:7571 Kernel.FalsifiablePrediction <> trial_instr proj
+R7573:7573 Kernel.FalsifiablePrediction <> t:25 var
+R7578:7596 Kernel.FalsifiablePrediction <> trial_measured_cost proj
+R7598:7598 Kernel.FalsifiablePrediction <> t:25 var
+def 9170:9186 <> pnew_linear_bound
+R9193:9195 Coq.Init.Datatypes <> nat ind
+binder 9189:9189 <> C:26
+R9208:9211 Coq.Init.Datatypes <> list ind
+R9213:9215 Coq.Init.Datatypes <> nat ind
+binder 9199:9204 <> region:27
+R9230:9232 Coq.Init.Datatypes <> nat ind
+binder 9219:9226 <> measured:28
+R9256:9259 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9248:9255 Kernel.FalsifiablePrediction <> measured:28 var
+R9261:9263 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9260:9260 Kernel.FalsifiablePrediction <> C:26 var
+R9264:9274 Kernel.FalsifiablePrediction <> region_size def
+R9276:9281 Kernel.FalsifiablePrediction <> region:27 var
+def 9373:9393 <> discover_linear_bound
+R9400:9402 Coq.Init.Datatypes <> nat ind
+binder 9396:9396 <> C:29
+R9417:9420 Coq.Init.Datatypes <> list ind
+R9422:9428 Kernel.VMState <> VMAxiom def
+binder 9406:9413 <> evidence:30
+R9443:9445 Coq.Init.Datatypes <> nat ind
+binder 9432:9439 <> measured:31
+R9469:9472 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9461:9468 Kernel.FalsifiablePrediction <> measured:31 var
+R9474:9476 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9473:9473 Kernel.FalsifiablePrediction <> C:29 var
+R9477:9489 Kernel.FalsifiablePrediction <> evidence_size def
+R9491:9498 Kernel.FalsifiablePrediction <> evidence:30 var
+def 9576:9594 <> merge_dedup_savings
+R9605:9608 Coq.Init.Datatypes <> list ind
+R9610:9612 Coq.Init.Datatypes <> nat ind
+binder 9597:9598 <> r1:32
+binder 9600:9601 <> r2:33
+R9626:9628 Coq.Init.Datatypes <> nat ind
+binder 9616:9622 <> overlap:34
+R9643:9645 Coq.Init.Datatypes <> nat ind
+binder 9632:9639 <> measured:35
+R9669:9672 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9661:9668 Kernel.FalsifiablePrediction <> measured:35 var
+R9704:9706 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R9687:9689 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R9673:9683 Kernel.FalsifiablePrediction <> region_size def
+R9685:9686 Kernel.FalsifiablePrediction <> r1:32 var
+R9690:9700 Kernel.FalsifiablePrediction <> region_size def
+R9702:9703 Kernel.FalsifiablePrediction <> r2:33 var
+R9707:9713 Kernel.FalsifiablePrediction <> overlap:34 var

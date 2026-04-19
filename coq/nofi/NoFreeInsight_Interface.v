@@ -1,7 +1,7 @@
 From Coq Require Import List Arith.PeanoNat.
 Set Warnings "-declaration-outside-section".
 
-(** * No-Free-Insight interface (axiom-free)
+(** No-Free-Insight interface (axiom-free)
 
     This file intentionally contains **no `Axiom`** and **no deferred proofs**.
 

@@ -1,18 +1,16 @@
-(** =========================================================================
-    InformationGainToStrengthening: From Feasible-Set Reduction to Predicate Strictness
+(**
+    InformationGainToStrengthening: feasible-set reduction implies predicate strictness.
 
-    Derives strictly_stronger predicates from feasible-set membership,
-    removing the VM-specific assumption from NoFreeInsight.v.
+    I derive strictly_stronger predicates from feasible-set membership, removing
+    the VM-specific assumption from NoFreeInsight.v. If a computation reduces the
+    feasible set from Ω to Ω' (strict subset), and the observation function
+    distinguishes the eliminated states, then membership-based predicates
+    (defined via existsb over the feasible set) satisfy strictly_stronger. The
+    predicates connect to the information gain; they are not constant true/false
+    functions.
+    *)
 
-    THE KEY MATHEMATICAL CONTENT:
-    If a computation reduces the feasible set from Omega to Omega' (strict subset of Omega),
-    and the observation function distinguishes the eliminated states, then membership-
-    based predicates (defined via existsb over the feasible set) satisfy
-    strictly_stronger. The predicates are semantically connected to the
-    information gain -- they are NOT trivial true/false functions.
-    ========================================================================= *)
-
-(* INQUISITOR NOTE: foundational — bridges information
+(* INQUISITOR NOTE: foundational - bridges information
    theory to NoFreeInsight by removing the VM-specific assumption. *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool.
@@ -20,9 +18,6 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof MuLedgerConservation NoFreeInsight.
 
-(** =========================================================================
-    SECTION 1: DEFINITIONS
-    ========================================================================= *)
 
 Definition FeasibleSet := list VMState.
 Definition feasible_size (omega : FeasibleSet) : nat := length omega.
@@ -46,9 +41,6 @@ Definition observation_distinguishes
   forall s', In s' omega_posterior ->
     obs_fn s_witness <> obs_fn s'.
 
-(** =========================================================================
-    SECTION 2: DECIDABLE EQUALITY INFRASTRUCTURE
-    ========================================================================= *)
 
 (** Decidable equality on list (list vm_instruction) observations.
     We use a parametric approach: the caller provides the decidable
@@ -97,13 +89,10 @@ Proof.
   exact Heqb.
 Qed.
 
-(** =========================================================================
-    SECTION 3: THE CORE B3 THEOREM (NON-TRIVIAL PREDICATES)
-    ========================================================================= *)
 
 (** INQUISITOR NOTE: feasible_strict_subset_implies_strict_predicates is the
     core B3 result. Predicates are DERIVED from feasible-set membership via
-    omega_predicate, not trivially constructed. The witness state in Ω \ Ω'
+    omega_predicate, not by constant predicates. The witness state in Ω \ Ω'
     provides the separating observation. *)
 Theorem feasible_strict_subset_implies_strict_predicates :
   forall (omega_prior omega_posterior : FeasibleSet)
@@ -172,14 +161,12 @@ Qed.
 
 End WithDecEq.
 
-(** =========================================================================
-    SECTION 4: BACKWARD COMPATIBILITY
-    ========================================================================= *)
 
 (** The old theorem is retained for backward compatibility.
     DEPRECATED: Use feasible_strict_subset_implies_strict_predicates instead.
-    NOTE: This proof is vacuous — it constructs trivial (true/false) predicates
-    that ignore the computation entirely. The real content is in Section 3. *)
+    This proof is vacuous: it constructs constant true/false predicates that
+    ignore the computation entirely. The real content is the membership-based
+    theorem above. *)
 Definition feasible_reduction_implies_strict_predicates :
   forall (fuel : nat) (trace : list vm_instruction)
          (s_init s_final : VMState)
@@ -201,9 +188,7 @@ Proof.
   - exists []. constructor; reflexivity.
 Qed.
 
-(** =========================================================================
-    SECTION 5: CONNECTION TO NOFREEINSIGHT
-    =========================================================================
+(**
 
     ORIGINAL ASSUMPTION (NoFreeInsight.v):
       strengthening_obs_requires_structure_addition :
@@ -216,7 +201,7 @@ Qed.
       2. Observation distinguishability: the witness state's observation
          differs from all posterior states' observations
 
-      The predicates are omega_predicate — membership-based, NOT trivial.
+      The predicates are omega_predicate: membership-based, not constant.
       They are semantically connected to the feasible set reduction:
       - P_prior accepts obs iff some state in Ω maps to obs
       - P_posterior accepts obs iff some state in Ω' maps to obs
@@ -225,10 +210,10 @@ Qed.
 
     DERIVATION CHAIN:
       Ω' ⊊ Ω (information gain)
-        → observation_distinguishes (the computation revealed something)
-        → strictly_stronger P_posterior P_prior (B3, PROVEN)
-        → structure_addition required (NoFreeInsight.v, PROVEN)
-        → μ-cost > 0 (MuLedgerConservation, PROVEN)
+        -> observation_distinguishes (the computation revealed something)
+        -> strictly_stronger P_posterior P_prior (B3, PROVEN)
+        -> structure_addition required (NoFreeInsight.v, PROVEN)
+        -> μ-cost > 0 (MuLedgerConservation, PROVEN)
 
     This completes B3 and enables B4 (stating the honest NoFI theorem).
-    ========================================================================= *)
+    *)

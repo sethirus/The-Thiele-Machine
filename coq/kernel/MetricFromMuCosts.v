@@ -1,27 +1,19 @@
-(** * Metric Derivation From μ-Costs: No Assumptions
+(** MetricFromMuCosts: metric-style quantities from mu-cost bookkeeping.
 
-    ========================================================================
-    PURPOSE: Derive spacetime metric from μ-costs WITHOUT assuming angles
-    ========================================================================
+    This file defines metric-style quantities from computational structure
+    (module regions, axiom counts), mu-ledger accounting, and basic geometry
+    formulas such as the law of cosines. The intended chain is:
+      mu-costs -> edge lengths -> triangle sides -> angles (law of cosines)
+               -> curvature-style quantities -> topology bookkeeping
 
-    This file DERIVES the metric from μ-costs using only:
-    1. Computational structure (module regions, axiom counts)
-    2. μ-ledger accounting
-    3. Basic geometry (law of cosines)
-
-    No angle assumptions (e.g. equilateral triangles with pi/3 angles) are
-    needed. The derivation chain is:
-    μ-costs → edge lengths → triangle sides → angles (law of cosines) →
-    curvature → topology
-
-    ZERO EXTRA ASSUMPTIONS. ZERO PROJECT-LOCAL AXIOMS.
-
-    This defines a metric structure on the module graph using μ-cost differences.
-    Any cost function induces a pseudometric; the non-trivial claim would be that
-    this metric matches physical spacetime, which is not proven here.
+    The edge_length theorem below proves nonnegativity, symmetry, and a triangle
+    inequality for the chosen mass-sum distance-like quantity. It does not prove
+    identity of indiscernibles, and it does not claim a match to physical
+    spacetime. Zero extra assumptions.
+    Zero project-local axioms.
     *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import Reals List Arith.PeanoNat Lia Lra.
@@ -32,14 +24,14 @@ From Kernel Require Import VMState.
 From Kernel Require Import FourDSimplicialComplex.
 From Kernel Require Import MuGravity.
 
-(** ** Step 0: μ-Tensor as Metric
+(** ** Step 0: mu-Tensor as Metric
 
-    The vm_mu_tensor field is a 4×4 matrix (16 nat entries, row-major).
+    The vm_mu_tensor field is a 4x4 matrix (16 nat entries, row-major).
     It is defined as the spacetime metric g_μν in this formalization.
     This is a definitional identification, not a physical derivation.
 
     DERIVATION:
-    μ-tensor(i,j) = (i,j) component of the metric tensor
+    mu-tensor(i,j) = (i,j) component of the metric tensor
     This replaces the old scalar module_structural_mass approach.
 *)
 
@@ -71,7 +63,7 @@ Proof.
     + rewrite repeat_length. lia.
 Qed.
 
-(** ** Step 1: Edge Lengths from μ-Costs (structural mass compatibility)
+(** ** Step 1: Edge Lengths from mu-Costs (structural mass compatibility)
 
     The scalar edge_length remains useful for triangle geometry.
     The full metric tensor is given by mu_tensor_to_metric above.
@@ -112,8 +104,7 @@ Qed.
 
 (** Triangle inequality for edge lengths
 
-    PROOF STRATEGY:
-    This follows from the triangle inequality for structural mass.
+    This follows from elementary arithmetic on nonnegative structural masses.
     For any three modules m1, m2, m3:
     d(m1,m3) <= d(m1,m2) + d(m2,m3)
 *)
@@ -134,7 +125,7 @@ Proof.
   exact H.
 Qed.
 
-(** PROVEN: edge_length is a valid metric *)
+(** PROVEN: edge_length has nonnegativity, symmetry, and a triangle inequality. *)
 Theorem edge_length_is_metric : forall s m1 m2 m3,
   edge_length s m1 m2 >= 0 /\
   edge_length s m1 m2 = edge_length s m2 m1 /\
@@ -304,34 +295,22 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
     pipeline currently uses 2D Gauss-Bonnet (DiscreteGaussBonnet.v).
 *)
 
-(** ** Summary: What We've Proven
+(** ** Summary: local results
 
-    1. ✓ Edge lengths from μ-costs (edge_length_is_metric)
-    2. ✓ Angles from edge lengths (law of cosines - angle_at_vertex)
-    3. ✓ Curvature from angle deviation (angle_sum_determines_curvature)
-    4. ✓ Angle defects computed at vertices (angle_defect_4d)
-    5. ✓ Total curvature via summation (sum_angle_defects_4d)
+  This section extracts edge lengths, angles, angle defects, and a local
+  curvature-style quantity from mu-cost geometry. It does not assume a flat
+  Euclidean triangle sum. The deviation from PI is exactly what defines the
+  local curvature object here, while the separate Gauss-Bonnet files handle
+  the global theorem.
 
-    KEY INSIGHT:
-    We do NOT assume triangle angle sum = π.
-    Instead, the DEVIATION from π IS the curvature.
-    This is Gauss-Bonnet at the triangle level.
-
-    ZERO PROJECT-LOCAL AXIOMS. ZERO ADMITS.
-
-    OPEN (4D extension):
-    The gravity pipeline achieved a 2D discrete Einstein analogue
-    (EinsteinEmergence.v via Gauss-Bonnet). Full 4D formalization
-    (Christoffel symbols, Riemann tensor, Lorentz signature, Einstein
-    field equations) remains open. FourDSimplicialComplex.v is partially
-    complete.
+  The repo already gets a 2D discrete Einstein-style bridge out of that. A
+  full 4D formalization is a separate project and is still not finished here.
 *)
 
-(** =========================================================================
+(**
     LOCAL (VERTEX-DEPENDENT) METRIC
-    =========================================================================
 
-    The global vm_mu_tensor gives a single 4×4 metric for the whole state.
+    The global vm_mu_tensor gives a single 4x4 metric for the whole state.
     For "curved" discrete spacetime we also define a LOCAL metric where each
     vertex v carries its own mass = module_structural_mass s v.
 
@@ -339,9 +318,9 @@ Fixpoint sum_angle_defects_4d (s : VMState) (sc : SimplicialComplex4D)
                     = 0          if μ ≠ ν
 
     When masses differ between vertices, discrete derivatives of this metric
-    are non-zero, producing non-trivial Christoffel symbols, Riemann
-    curvature, and Einstein tensor.
-    =========================================================================*)
+    can be non-zero, giving the later pipeline local input for Christoffel
+    symbols, curvature-style quantities, and Einstein-style tensors.
+  *)
 
 (** Local diagonal metric at vertex v, direction (μ,ν). *)
 Definition metric_at_vertex (s : VMState) (v μ ν : ModuleID) : R :=
@@ -378,9 +357,8 @@ Proof.
   rewrite Nat.eqb_refl. reflexivity.
 Qed.
 
-(** KEY CURVATURE LEMMA: When two adjacent vertices have different masses,
-    the discrete derivative of the local metric is non-zero.
-    This is the computational origin of spacetime curvature. *)
+(** KEY CURVATURE LEMMA: distinct natural masses remain distinct after
+    embedding into reals. This supports local-metric derivative arguments. *)
 Lemma local_metric_derivative_nonzero_when_masses_differ :
   forall m1 m2,
   m1 <> m2 ->
@@ -392,8 +370,8 @@ Proof.
   exact (INR_eq m1 m2 Heq).
 Qed.
 
-(** Flat-space special case: uniform mass → local metric is position-independent
-    → same value at every vertex → discrete derivatives vanish. *)
+(** Flat-space special case: uniform mass makes the local metric
+    position-independent, so the same value appears at every vertex. *)
 Lemma local_metric_uniform_position_independent : forall s m μ ν v w,
   (forall u, module_structural_mass s u = m) ->
   metric_at_vertex s v μ ν = metric_at_vertex s w μ ν.
@@ -407,9 +385,8 @@ Qed.
 
 Definition metric_deriv_anchor := local_metric_derivative_nonzero_when_masses_differ.
 
-(** =========================================================================
+(**
     LORENTZIAN METRIC EXTENSION
-    =========================================================================
 
     The Euclidean [metric_at_vertex] has all non-negative diagonal entries
     (signature (+,+,+,+)).  For a Lorentzian manifold with one temporal
@@ -418,14 +395,13 @@ Definition metric_deriv_anchor := local_metric_derivative_nonzero_when_masses_di
 
     We define [lorentz_metric_at_vertex] by multiplying each diagonal entry
     by [lorentz_sign μ] and prove the signature theorem.
-
-    NOTE: This is a formal extension of the computational metric.  Whether
+ This is a formal extension of the computational metric.  Whether
     the physical interpretation warrants calling this a Lorentzian manifold
-    depends on identifying index 0 with a time dimension — an interpretation
+    depends on identifying index 0 with a time dimension, an interpretation
     that is not forced by the kernel dynamics alone (see LorentzNotForced.v).
-    =========================================================================*)
+  *)
 
-(** Sign of coordinate index μ: −1 for time (μ mod 4 = 0), +1 for space. *)
+(** Sign of coordinate index μ: -1 for time (μ mod 4 = 0), +1 for space. *)
 Definition lorentz_sign (mu : nat) : R :=
   if (mu mod 4 =? 0)%nat then (-1)%R else 1%R.
 
@@ -482,7 +458,7 @@ Proof.
   rewrite H. reflexivity.
 Qed.
 
-(** Signature theorem: the Lorentzian metric has signature (−,+,+,+)
+(** Signature theorem: the Lorentz-style metric has signature (-,+,+,+)
     at every vertex with positive mass. *)
 Theorem lorentz_metric_signature : forall s v,
   (module_structural_mass s v > 0)%nat ->
@@ -512,21 +488,20 @@ Proof.
   destruct Hk as [H|[H|H]]; rewrite H; simpl; ring.
 Qed.
 
-(** =========================================================================
-    FULL 4×4 METRIC FROM PER-MODULE TENSOR
-    =========================================================================
+(**
+    FULL 4x4 METRIC FROM PER-MODULE TENSOR
 
     Unlike the scalar-diagonal metric_at_vertex above (which reads only the
-    structural mass), this reads the full 4×4 per-module tensor stored in
+    structural mass), this reads the full 4x4 per-module tensor stored in
     module_mu_tensor (16 entries, row-major).
 
-    Enables genuine curved spacetime: each vertex can carry a different
-    4×4 metric, giving non-trivial Christoffel symbols and curvature.
-    ========================================================================= *)
+    Each vertex can carry a different 4x4 metric, giving the later pipeline
+    local input for Christoffel symbols and curvature-style quantities.
+    *)
 
 From Kernel Require Import MatrixAlgebra4.
 
-(** Full 4×4 metric at vertex v, indices (μ,ν). Reads from per-module tensor. *)
+(** Full 4x4 metric at vertex v, indices (μ,ν). Reads from per-module tensor. *)
 Definition full_metric_at_vertex (s : VMState) (v : ModuleID) (μ ν : nat) : R :=
   INR (module_tensor_entry s v (μ mod 4) (ν mod 4)).
 

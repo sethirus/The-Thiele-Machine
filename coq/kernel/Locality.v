@@ -1,61 +1,23 @@
-(** =========================================================================
-    LOCALITY PROOFS FOR VM INSTRUCTIONS
-    =========================================================================
+(**
+    Locality: existing module regions are preserved outside instruction targets.
 
-    WHY THIS FILE EXISTS:
-    I claim Einstein locality (spacelike-separated operations don't interfere)
-    is a THEOREM, not an axiom. This file proves it: vm_step only modifies
-    target modules, leaving untargeted modules unchanged.
+    This file proves a VM-locality theorem for the observable used here:
+    normalized module regions. For each instruction type, if an existing module
+    mid is not explicitly targeted, then module_region_obs(s, mid) =
+    module_region_obs(s', mid).
 
-    THE CORE CLAIM:
-    Each VM instruction satisfies locality: executing an instruction only changes
-    observables of explicitly targeted modules. Other modules are unaffected.
+    Proof structure: use the well_formed_graph invariant throughout. New modules
+    are added at pg_next_id (beyond existing IDs), so lookup at mid < pg_next_id
+    is unaffected by additions at ≥ pg_next_id. For ops that remove modules
+    (psplit, pmerge), explicitly check untargeted modules remain unchanged.
 
-    WHAT THIS PROVES:
-    For each instruction type (pnew, psplit, pmerge, etc.), if module mid is
-    not explicitly targeted, then ObservableRegion(s, mid) = ObservableRegion(s', mid).
+    To falsify: find an instruction where executing it on module A changes
+    the normalized region observation of an existing, untargeted module B. Or
+    show the well_formed_graph invariant is not strong enough for the lookup
+    preservation arguments.
+    *)
 
-    KEY LEMMAS:
-    - wf_graph_lookup_implies_below: Well-formed graphs have bounded module IDs (line 35)
-    - graph_pnew_preserves_lookup: PNEW doesn't change existing module lookups (line 69)
-    - Similar preservation lemmas for psplit, pmerge, etc.
-
-    PROOF STRATEGY:
-    1. Use well_formed_graph invariant throughout
-    2. Key insight: new modules are added at pg_next_id (beyond existing IDs)
-    3. Lookup at mid < pg_next_id is unaffected by additions at ≥ pg_next_id
-    4. For operations that remove modules (psplit, pmerge), explicitly check
-       untargeted modules remain unchanged
-
-    PHYSICAL INTERPRETATION:
-    This is the formal statement of "no action at a distance". If I operate on
-    partition A, partition B (disjoint from A) is unaffected. This is why
-    weight_disjoint_commutes holds (from Definitions.v).
-
-    FALSIFICATION:
-    Find an instruction where executing it on module A changes observables of
-    unrelated module B. This would violate locality and require superluminal
-    information transfer. Or show well_formed_graph invariant is violated,
-    breaking the proof.
-
-    This file proves that each VM instruction satisfies the locality property:
-    the vm_step relation only modifies observations of target modules.
-
-    This is the KEY LEMMA that connects locality to conservation.
-
-    KEY INSIGHT: Locality means existing module observations are unchanged
-    except for explicitly targeted modules. New modules may be created
-    (by pnew) but that doesn't violate locality for existing modules.
-
-    PROOF STRATEGY:
-    - Use well_formed_graph invariant throughout
-    - key lemma: lookup succeeds => id < pg_next_id
-    - pnew: adds at pg_next_id, existing lookups unchanged
-    - psplit/pmerge: removes specific modules, adds at next_id+
-
-    ========================================================================= *)
-
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
@@ -64,9 +26,6 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep KernelPhysics.
 
-(** =========================================================================
-    PART 0: WELL-FORMEDNESS LEMMAS
-    ========================================================================= *)
 
 (** Key contrapositive: If lookup succeeds, then mid < pg_next_id *)
 Lemma wf_graph_lookup_implies_below : forall g mid m,
@@ -97,9 +56,6 @@ Proof.
     + apply (IH mid m bound Hrest Hlookup).
 Qed.
 
-(** =========================================================================
-    PART 1: GRAPH LOCALITY LEMMAS
-    ========================================================================= *)
 
 (** Lookup is unchanged for modules not in the modified set *)
 
@@ -121,7 +77,6 @@ Proof.
     + reflexivity.
 Qed.
 
-(** [graph_update_preserves_lookup_other]: formal specification. *)
 Lemma graph_update_preserves_lookup_other :
   forall g mid_target m mid,
     mid <> mid_target ->
@@ -144,7 +99,6 @@ Proof.
       * apply IH.
 Qed.
 
-(** [graph_add_axiom_preserves_lookup_other]: formal specification. *)
 Lemma graph_add_axiom_preserves_lookup_other :
   forall g mid_target ax mid,
     mid <> mid_target ->
@@ -157,7 +111,6 @@ Proof.
   - reflexivity.
 Qed.
 
-(** [graph_add_axioms_preserves_lookup_other]: formal specification. *)
 Lemma graph_add_axioms_preserves_lookup_other :
   forall axs g mid_target mid,
     mid <> mid_target ->
@@ -170,9 +123,6 @@ Proof.
     apply graph_add_axiom_preserves_lookup_other. exact Hneq.
 Qed.
 
-(** =========================================================================
-    PART 2: STATE OBSERVATION LOCALITY
-    ========================================================================= *)
 
 (** Define observation of a module in a state as just the region (not axioms).
     We use the NORMALIZED region because graph operations may normalize regions
@@ -194,8 +144,7 @@ Definition states_agree_on_module (s s' : VMState) (mid : ModuleID) : Prop :=
 (** Two states agree on EXISTING modules except on target modules.
     This is the correct locality definition: we only require agreement on
     modules that already existed, not on newly created modules.
-    
-    NOTE: We compare REGIONS only, not axioms. This is because pmerge
+ We compare REGIONS only, not axioms. This is because pmerge
     can update axioms of an existing module with the union region, but
     that module is not in the targets [m1; m2]. Observable locality
     only guarantees region preservation, not axiom preservation. *)
@@ -205,42 +154,32 @@ Definition states_agree_except (s s' : VMState) (targets : list ModuleID) : Prop
     ~ In mid targets -> 
     states_agree_on_module s s' mid.
 
-(** =========================================================================
-    PART 3: HELPERS
-    ========================================================================= *)
 
 Lemma advance_state_graph :
   forall s i g csrs err,
     (advance_state s i g csrs err).(vm_graph) = g.
 Proof. intros. reflexivity. Qed.
 
-(** [advance_state_reveal_graph]: formal specification. *)
 Lemma advance_state_reveal_graph :
   forall s i flat_idx delta g csrs err,
     (advance_state_reveal s i flat_idx delta g csrs err).(vm_graph) = g.
 Proof. intros. reflexivity. Qed.
 
-(** [advance_state_rm_graph]: formal specification. *)
 Lemma advance_state_rm_graph :
   forall s i g csrs regs mem err,
     (advance_state_rm s i g csrs regs mem err).(vm_graph) = g.
 Proof. intros. reflexivity. Qed.
 
-(** [jump_state_graph]: formal specification. *)
 Lemma jump_state_graph :
   forall s i target,
     (jump_state s i target).(vm_graph) = s.(vm_graph).
 Proof. intros. reflexivity. Qed.
 
-(** [jump_state_rm_graph]: formal specification. *)
 Lemma jump_state_rm_graph :
   forall s i target regs mem,
     (jump_state_rm s i target regs mem).(vm_graph) = s.(vm_graph).
 Proof. intros. reflexivity. Qed.
 
-(** =========================================================================
-    PART 4: TARGET EXTRACTION
-    ========================================================================= *)
 
 Definition instr_targets (i : vm_instruction) : list ModuleID :=
   match i with
@@ -268,7 +207,6 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_xor_rank _ _ _ => []
   | instr_emit mid _ _ => [mid]
   | instr_reveal mid _ _ _ => [mid]
-  | instr_oracle_halts _ _ => []
   | instr_checkpoint _ _ => []
   | instr_read_port _ _ _ _ _ => []
   | instr_write_port _ _ _ => []
@@ -294,9 +232,6 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_morph_get _ _ _ _ => []
   end.
 
-(** =========================================================================
-    PART 5: THE MASTER LOCALITY THEOREM
-    ========================================================================= *)
 
 (** Helper: Define well-formed VM state *)
 Definition well_formed_state (s : VMState) : Prop :=
@@ -411,7 +346,7 @@ Proof.
     reflexivity.
 Qed.
 
-(** THE MASTER LOCALITY THEOREM: vm_step only changes target module observations
+(** THE MASTER LOCALITY vm_step only changes target module observations
     Requires well-formed initial state for pnew/psplit/pmerge cases *)
 Theorem vm_step_is_local :
   forall s i s',
@@ -497,7 +432,7 @@ Proof.
         destruct (graph_add_module (vm_graph s) _ _) as [g3 mid3] eqn:Hadd. simpl.
         change g3 with (fst (g3, mid3)). rewrite <- Hadd.
         apply graph_add_module_preserves_existing. exact Hmid_lt.
-  - (* lassert — single constructor, graph unchanged (record literal) *)
+  - (* lassert: single constructor, graph unchanged (record literal) *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     simpl. reflexivity.
@@ -509,7 +444,7 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_graph. reflexivity.
-  - (* pdiscover — graph unchanged *)
+  - (* pdiscover: graph unchanged *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_graph. reflexivity.
@@ -582,10 +517,6 @@ Proof.
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
     rewrite advance_state_reveal_graph. reflexivity.
-  - (* oracle_halts *)
-    inversion Hstep; subst.
-    unfold states_agree_on_module, module_region_obs.
-    rewrite advance_state_graph. reflexivity.
   - (* checkpoint *)
     inversion Hstep; subst.
     unfold states_agree_on_module, module_region_obs.
@@ -716,18 +647,17 @@ Proof.
     + rewrite advance_state_graph. reflexivity.
 Qed.
 
-(** =========================================================================
-    STATUS: LOCALITY FRAMEWORK - FULLY PROVEN
+(**
     
-    PROVEN (40 of 40 cases):
+    PROVEN over the current vm_step constructor cases:
     - pnew: Uses well_formed_graph invariant + region_obs_lookup_eq
     - psplit: Uses graph_psplit_preserves_unrelated + region_obs_lookup_eq
     - pmerge: Uses graph_pmerge_preserves_region_obs with normalized regions
     - lassert, ljoin, mdlacc, pdiscover, xfer
     - chsh_trial, xor_load, xor_add, xor_swap, xor_rank
-    - emit, reveal, oracle_halts, halt
+    - emit, reveal, halt
     
-    KEY INSIGHT: locality = existing module REGIONS unchanged except targets
+    KEY INSIGHT: locality here means existing module regions unchanged except targets
     - Axioms may change (e.g., pmerge updates axioms of existing module)
     - Region is the observable part - axioms are internal state
     - New modules (pnew, psplit, pmerge) don't violate this
@@ -738,4 +668,4 @@ Qed.
     - Well-formed initial state (all module IDs < pg_next_id)
     - This is preserved by all graph operations
     
-    ========================================================================= *)
+    *)

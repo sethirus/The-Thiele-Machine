@@ -1,52 +1,16 @@
-(** * RefinementInvariant.v — The Bridge from Spaceland to Flatland
+(** RefinementInvariant: abstract trust cost matched by concrete μ.
 
-    THE GAP
-    ───────
-    InductiveTrust.v lives in "Spaceland" — abstract state spaces, abstract
-    Expansions, abstract μ-costs.  The Thiele Machine lives in "Flatland" —
-    concrete vm_mu registers, concrete instruction streams, silicon.
+   InductiveTrust.v lives at an abstract state-space layer. This file ties that
+   layer back to a concrete execution-cost model. An ExecState keeps only a
+   μ-register, a trace is a list of concrete costs, and a trace embodies an
+   abstract expansion when its total cost is exactly the expansion insight.
 
-    Without a formal bridge, a TrustCertificate is poetry.  A program could
-    claim [expansion_insight = 42] while the hardware charges 0 μ, and the
-    formal proof would never catch the discrepancy.
-
-    This file builds the bridge.
-
-    THE BRIDGE
-    ──────────
-    An [ExecState] abstracts the VM's μ-cost register as a single nat.
-    A [trace] is a list of costs applied in sequence.
-    A trace [embodies] a trust expansion e if its total cost equals
-    [expansion_insight e] — the number of genuinely new states in B.
-
-    MAIN THEOREMS
-    ─────────────
-    1. [run_trace_mu]: μ after a trace = initial μ + total cost.
-
-    2. [mu_refinement]: formal definition — post.ex_mu = pre.ex_mu + insight.
-       This is the statement "Spaceland and Flatland agree."
-
-    3. [embodying_trace_realizes]: running an embodying trace achieves
-       mu_refinement exactly.
-
-    4. [embedded_states_zero_overhead]: A's certified states cost ZERO net μ
-       to re-certify — the Löb bypass in concrete form.
-
-    5. [mu_refinement_exists]: for ANY Expansion there is a concrete execution
-       achieving mu_refinement.
-
-    6. [mu_refinement_compose]: two back-to-back realizations compose.
-
-    7. [lob_bypass_concrete]: THE SMOKING GUN.  No self-referential reasoning
-       is needed.  The concrete witness trace IS the trust certificate.
-
-    PHYSICAL MEANING
-    ────────────────
-    If mu_refinement holds, then the abstract TrustCertificate is a
-    *pre-image* of the silicon behavior: the transistors and the type-checker
-    agree that trust costs exactly [expansion_insight e] μ units.
-
-    Zero admits.  Imports InductiveTrust (connects to kernel). *)
+   The key invariant is mu_refinement: post.ex_mu equals pre.ex_mu plus the
+   insight carried by the expansion. Once that is in place, the rest of the
+   section is straightforward: embodying traces realize the invariant, the
+   invariant composes, and the trust witness becomes a concrete costed trace
+   rather than a purely abstract certificate.
+ *)
 
 From Coq Require Import Arith List Lia.
 Import ListNotations.
@@ -56,7 +20,7 @@ From Kernel Require Import VMState VMStep MuCostModel.
 
 Require Import InductiveTrust.
 
-(* ================================================================== *)
+(* *)
 (** ** 1. Abstract execution model *)
 
 (** [ExecState] abstracts the VM's μ-cost register.
@@ -83,7 +47,7 @@ Fixpoint trace_total_cost (costs : list nat) : nat :=
   | c :: rest => c + trace_total_cost rest
   end.
 
-(* ================================================================== *)
+(* *)
 (** ** 2. Trace arithmetic *)
 
 (** The μ-register after a trace equals initial μ plus total cost. *)
@@ -118,7 +82,7 @@ Proof.
   - lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 3. Trust-embodying traces *)
 
 (** A trace [embodies] a trust expansion (A ↪ B) if its total cost equals
@@ -138,7 +102,7 @@ Proof.
   exact (full_certification_trace_cost (expansion_insight e)).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 4. The μ-Refinement Invariant *)
 
 (** [mu_refinement e pre post]: the concrete execution from [pre] to [post]
@@ -164,7 +128,7 @@ Proof.
   lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 5. Uniqueness and positivity *)
 
 (** Any two realizations of the same expansion charge identical total μ. *)
@@ -193,7 +157,7 @@ Proof.
   lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 6. Embedded states contribute zero net overhead *)
 
 (** From InductiveTrust, [lift_cost] reproduces A's cost on embedded states.
@@ -220,7 +184,7 @@ Proof.
   exact (mu_conservation e cA).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 7. Composition *)
 
 (** If A ↪ B is realized and B ↪ C is realized, the total μ increase equals
@@ -238,7 +202,7 @@ Proof.
   rewrite HBC, HAB. ring.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 8. Existence and the Löb bypass *)
 
 (** For any Expansion and any initial ExecState, mu_refinement is achievable. *)

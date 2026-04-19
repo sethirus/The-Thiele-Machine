@@ -1,45 +1,15 @@
-(** =========================================================================
-    μ-GEOMETRY: Metric Space Structure from μ-Accumulator
-    =========================================================================
+(** MuGeometry: the μ-ledger induces a simple distance on VM states
 
-    WHY THIS FILE EXISTS:
-    I claim μ defines a genuine geometric structure on VM states - not metaphorically,
-    but mathematically. Distance between states = absolute μ-difference. This is a
-    METRIC (satisfies triangle inequality, symmetry, identity). Along executions,
-    geometric distance equals computational cost. Geometry IS computation.
+  This file equips VM states with a distance defined by absolute difference in
+  total μ. The resulting structure is intentionally small: it proves the basic
+  metric-style laws needed downstream and relates path length along execution
+  traces to accumulated computational cost.
 
-    THE CORE CLAIM:
-    mu_distance defines a metric on VMState. Proven:
-    - Non-negativity: mu_distance_nonneg
-    - Identity: mu_distance_refl: d(s,s) = 0
-    - Symmetry: mu_distance_sym: d(s1,s2) = d(s2,s1)
-    - Triangle inequality: mu_distance_triangle: d(a,c) ≤ d(a,b) + d(b,c)
+  The scope line matters. This is a discrete metric on the machine's μ view of
+  state, not a derivation of physical spacetime geometry. Distinct states can
+  still collapse to distance zero when they carry the same μ total.
 
-    WHAT THIS PROVES:
-    The μ-accumulator induces a pseudometric on VM states (it is a metric
-    modulo states with equal μ-total). VM execution traces induce paths in
-    this metric space, with path length equal to μ-cost of the trace.
-
-    NOTE ON SCOPE:
-    This is a metric on VM states, not on physical spacetime. States are points,
-    instructions are steps, and μ-distance measures the absolute difference in
-    μ-accumulators. The metric is discrete (nat-valued) and satisfies all metric
-    axioms. Any analogy to physical spacetime geometry is speculative.
-
-    FALSIFICATION:
-    Show that mu_distance violates the triangle inequality for some triple of states.
-    This would break mu_distance_triangle and invalidate the metric structure.
-
-    Or prove that geometric distance ≠ computational cost along some execution path.
-    This would contradict mu_distance_run_vm.
-
-    Or find VM states where d(s1,s2)=0 but s1 ≠ s2 (different states, same μ).
-    The metric doesn't claim injectivity - this is expected. μ projects states to
-    their information content, losing operational details.
-
-    NO AXIOMS. NO ADMITS. All proofs complete.
-
-    ========================================================================= *)
+  *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -48,20 +18,14 @@ From Coq Require Import ZArith Lia.
 
 From Kernel Require Import VMState SimulationProof MuInformation.
 
-(** =========================================================================
-    μ-GEOMETRY MODULE
-    ========================================================================= *)
+(** Basic μ-geometry layer. *)
 
 Module MuGeometry.
 
 (** μ-total in integer form (for metric computation with subtraction) *)
 Definition mu_total_z (s : VMState) : Z := Z.of_nat (mu_total s).
 
-(** METRIC DEFINITION: Distance between states = absolute μ-difference
-
-    This is the fundamental geometric quantity. Two states are "close" if
-    their μ-accumulators differ by little. Distance measures information
-    content difference, not operational similarity. *)
+(** Distance between states is absolute μ-difference. *)
 Definition mu_distance (s1 s2 : VMState) : Z :=
   Z.abs (mu_total_z s2 - mu_total_z s1). (* SAFE: mu_total_z is Z.of_nat, so subtraction may be negative; Z.abs
                                            is the intentional metric on μ-accumulators (μ-totals), not full state. *)

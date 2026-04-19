@@ -1,47 +1,16 @@
-(** =========================================================================
-    VALID CORRELATION: Abstract Correlation Box Interface
-    =========================================================================
+(** ValidCorrelation: an abstract correlation-box interface for the Bell layer
 
-    WHY THIS FILE EXISTS:
-    I claim correlation boxes provide the RIGHT abstraction for Bell inequality
-    proofs. This file defines valid correlations (non-negative, normalized,
-    no-signaling) and local boxes (convex combinations of deterministic strategies).
-    This separates the abstract mathematical structure from physical implementation.
+  This file defines the mathematical interface used by the Bell and CHSH
+  arguments: valid boxes are non-negative, normalized, and no-signaling, and
+  local boxes are convex combinations of deterministic strategies. The point
+  is to separate the abstract correlation calculus from any specific machine
+  or physical realization.
 
-    THE CORE CLAIM:
-    bell_math_deterministic: Any deterministic local strategy
-    (Alice/Bob each output ±1) satisfies |CHSH| ≤ 2. This is Bell's theorem
-    in pure mathematics - no quantum mechanics, no physics, just algebra.
+  The main theorem in this file is the classical deterministic CHSH bound.
+  That result is purely algebraic. Quantum structure enters later, in other
+  files, when extra premises are added.
 
-    WHAT THIS PROVES:
-    - Box: Abstract correlation function
-    - non_negative, normalized, no_signaling: Valid correlation properties
-    - deterministic_box: Single deterministic strategy
-    - local_box: Convex combination of deterministic strategies
-    - bell_math_deterministic: Classical CHSH bound
-
-    PHYSICAL INTERPRETATION:
-    A "box" is a black box that takes Alice's input x, Bob's input y, and
-    outputs joint probabilities P(a,b|x,y). Valid boxes satisfy:
-    - Non-negativity: probabilities ≥ 0
-    - Normalization: probabilities sum to 1 for each (x,y)
-    - No-signaling: Alice's marginals don't depend on Bob's input (and vice versa)
-
-    Local boxes are those achievable with shared randomness + local determinism.
-    Bell's theorem: local boxes have |CHSH| ≤ 2, but quantum correlations reach 2√2.
-
-    FALSIFICATION:
-    Show that bell_math_deterministic fails for some deterministic strategy -
-    find functions gA, gB : nat -> {-1,+1} where |CHSH| > 2. This would
-    contradict the theorem bell_math_deterministic, but it's impossible (proven by exhaustive
-    case analysis over all 2^4 = 16 deterministic strategies).
-
-    Or show that a local box can violate no-signaling. This would break the
-    no_signaling definition and contradict special relativity.
-
-    NO AXIOMS. NO ADMITS. Pure mathematical definitions + Bell's theorem.
-
-    ========================================================================= *)
+  *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -54,9 +23,9 @@ Require Import Psatz.
 
 Local Open Scope Q_scope.
 
-(** =========================================================================
+(**
     CORRELATION BOX ABSTRACTION
-    ========================================================================= *)
+    *)
 
 (** BOX: Abstract correlation function
 
@@ -72,9 +41,9 @@ Local Open Scope Q_scope.
     classical axioms and makes proofs fully constructive. *)
 Definition Box := nat -> nat -> nat -> nat -> Q.
 
-(** =========================================================================
+(**
     VALID CORRELATION PROPERTIES
-    ========================================================================= *)
+    *)
 
 (** NON-NEGATIVE: All probabilities are non-negative
 
@@ -91,9 +60,9 @@ Definition normalized (B : Box) : Prop :=
   forall x y, (B x y 0%nat 0%nat + B x y 0%nat 1%nat +
                B x y 1%nat 0%nat + B x y 1%nat 1%nat) == 1.
 
-(** =========================================================================
+(**
     MARGINAL DISTRIBUTIONS
-    ========================================================================= *)
+    *)
 
 (** MARGINAL_A: Alice's marginal probability P(a|x,y)
 
@@ -111,9 +80,9 @@ Definition marginal_a (B : Box) (x y a : nat) : Q :=
 Definition marginal_b (B : Box) (x y b : nat) : Q :=
   B x y 0%nat b + B x y 1%nat b.
 
-(** =========================================================================
+(**
     NO-SIGNALING CONDITION
-    ========================================================================= *)
+    *)
 
 (** NO-SIGNALING: Einstein locality constraint
 
@@ -121,8 +90,7 @@ Definition marginal_b (B : Box) (x y b : nat) : Q :=
     cannot depend on Bob's choice of measurement (y), and vice versa. Otherwise,
     Alice could send signals to Bob faster than light by changing her measurement.
 
-    FORMAL STATEMENT:
-    - Alice's marginals independent of y: P_A(a|x,y1) = P_A(a|x,y2)
+    FORMAL - Alice's marginals independent of y: P_A(a|x,y1) = P_A(a|x,y2)
     - Bob's marginals independent of x: P_B(b|x1,y) = P_B(b|x2,y)
 
     This is WEAKER than locality (which forbids shared randomness) but STRONGER
@@ -132,9 +100,9 @@ Definition no_signaling (B : Box) : Prop :=
   (forall x y1 y2 a, marginal_a B x y1 a == marginal_a B x y2 a) /\
   (forall x1 x2 y b, marginal_b B x1 y b == marginal_b B x2 y b).
 
-(** =========================================================================
+(**
     LOCAL BOXES (BELL'S TARGET)
-    ========================================================================= *)
+    *)
 
 (** DETERMINISTIC_BOX: Single deterministic local strategy
 
@@ -163,7 +131,7 @@ Definition deterministic_box (B : Box) : Prop :=
     and flip coins), but response functions must be local (no communication
     during measurement).
 
-    BELL'S THEOREM: Local boxes satisfy |CHSH| ≤ 2. Quantum boxes reach 2√2.
+    BELL'S Local boxes satisfy |CHSH| ≤ 2. Quantum boxes reach 2√2.
     This is the gap Bell discovered. *)
 Definition local_box (B : Box) : Prop :=
   exists (weights : list Q) (det_boxes : list Box),
@@ -174,11 +142,11 @@ Definition local_box (B : Box) : Prop :=
     (forall x y a b, B x y a b == fold_right Qplus 0
       (map (fun '(w, db) => w * db x y a b) (combine weights det_boxes))).
 
-(** =========================================================================
+(**
     BELL'S THEOREM (MATHEMATICAL CORE)
-    ========================================================================= *)
+    *)
 
-(** BELL'S THEOREM: Deterministic strategies are bounded
+(** BELL'S Deterministic strategies are bounded
 
     THIS IS THE KEY MATHEMATICAL FACT: Any deterministic local strategy
     (Alice outputs ±1 depending on x, Bob outputs ±1 depending on y)
@@ -192,7 +160,7 @@ Definition local_box (B : Box) : Prop :=
     deterministic strategies (each of gA(0), gA(1), gB(0), gB(1) can be ±1).
     Coq checks all 16 cases and verifies |S| ≤ 2 for each.
 
-    WHY THIS PROVES BELL'S THEOREM: Local boxes are convex combinations of
+    WHY THIS PROVES BELL'S Local boxes are convex combinations of
     deterministic strategies. Convex combinations preserve bounds. If each
     deterministic strategy has |S| ≤ 2, then any convex combination also has
     |S| ≤ 2. Therefore, ALL local boxes satisfy |CHSH| ≤ 2.
@@ -200,7 +168,7 @@ Definition local_box (B : Box) : Prop :=
     QUANTUM VIOLATION: The singlet state achieves |CHSH| = 2√2 ≈ 2.828,
     violating this bound. Therefore, quantum correlations are NOT local.
 
-    FALSIFICATION: Find values gA(0), gA(1), gB(0), gB(1) ∈ {-1,+1} where
+    To falsify: Find values gA(0), gA(1), gB(0), gB(1) ∈ {-1,+1} where
     |S| > 2. The proof checks all 16 cases - it's impossible. *)
 Theorem bell_math_deterministic :
   forall (gA gB : nat -> Q),
@@ -228,7 +196,7 @@ Proof.
   (* Coq repeats this for all 16 branches. Each succeeds. QED. *)
 Qed.
 
-(** =========================================================================
+(**
     INTERPRETATION
 
     This file establishes the MATHEMATICAL foundation of Bell's theorem:
@@ -251,11 +219,9 @@ Qed.
        Quantum boxes satisfy |CHSH| ≤ 2√2 (proven in TsirelsonUpperBound.v).
        This is STRONGER than no-signaling (which allows |CHSH| ≤ 4), but
        WEAKER than locality (which forces |CHSH| ≤ 2).
-
-    USED BY:
     - BoxCHSH.v: Concrete CHSH computation on boxes
     - MinorConstraints.v: Connection to Fine's theorem
     - TsirelsonUpperBound.v: Quantum bound derivation
 
-    ========================================================================= *)
+    *)
 

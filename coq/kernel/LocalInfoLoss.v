@@ -1,54 +1,36 @@
-(** =========================================================================
-    LOCAL INFORMATION LOSS FOR VM INSTRUCTIONS
-    =========================================================================
+(**
+    LocalInfoLoss: module-count information-loss bounds for VM instructions.
 
-    WHY THIS FILE EXISTS:
-    I claim FiniteInformation.v proves GLOBAL information conservation (second law).
-    This file proves LOCAL bounds: each instruction's μ-cost bounds its information
-    loss. Global conservation → local cost model.
+    This file proves a local bound for a specific proxy: state_info is the
+    number of modules in the partition graph. For each well-formed instruction
+    step, instr_mu_cost bounds the signed module-count loss
+    state_info(before) - state_info(after).
 
-    THE KEY THEOREM:
-    For each instruction i executing s → s', the information loss
-    (distinct_obs(s) - distinct_obs(s')) ≤ instr_mu_cost(i).
+    Definitions: state_info counts modules (proxy for information content);
+    info_loss is the difference in state_info before/after; instr_mu_cost
+    extracts μ-cost. Different instructions change module count differently:
+    pnew (+1 module) is bounded by the cost parameter; psplit (+1 net) is
+    bounded by split cost; pmerge (-1 or -2 net) has NEGATIVE info loss
+    (permitted); others (0 change) have no info loss.
 
-    PHYSICAL CLAIM:
-    μ-cost isn't arbitrary - it MUST be at least the information destroyed.
-    This connects the abstract μ-ledger to concrete information theory.
+    To challenge this file: find an instruction where this module-count loss
+    exceeds μ-cost under instr_well_formed, or show module count is the wrong
+    proxy for the physical information claim being made elsewhere.
 
-    STRUCTURE:
-    1. state_info: Counts modules (proxy for information content)
-    2. info_loss: Difference in state_info before/after transition
-    3. instr_mu_cost: Extracts μ-cost from instruction
-    4. Module count changes: How each instruction affects module count
+    This file does not instantiate FiniteInformation.v for VMState. The key
+    theorem is local and syntactic:
 
-    KEY INSIGHT:
-    Different instructions change module count differently:
-    - pnew: +1 module (creates partition) → bounded by cost parameter
-    - psplit: +1 net (+2 created, -1 removed) → bounded by split cost
-    - pmerge: -1 or -2 net (removes modules) → NEGATIVE info loss (permitted)
-    - others: 0 change → no info loss
+    For each well-formed instruction i, the module-count loss
+    (info_before - info_after) is bounded by the instruction's μ-cost.
 
-    FALSIFICATION:
-    Find an instruction where information loss exceeds μ-cost (violates the bound).
-    Or show module count is not a valid proxy for information content (maybe
-    module *size* matters more than count). Or prove info can be destroyed
-    without μ-cost (violating local conservation).
-
-    This file connects the global information theory from FiniteInformation.v
-    to per-instruction costs. The key theorem:
-
-    For each instruction i, the information loss (info_before - info_after)
-    is bounded by the instruction's μ-cost.
-
-    STRUCTURE:
     1. Import global info theory from FiniteInformation.v
     2. Define local information loss per instruction
     3. Prove cost bounds information loss
     4. Connect to causality conservation
 
-    ========================================================================= *)
+    *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith.
@@ -58,9 +40,6 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import FiniteInformation Locality.
 
-(** =========================================================================
-    PART 1: INFORMATION MEASURES
-    ========================================================================= *)
 
 (** Information content of a VM state is bounded by module count *)
 Definition state_info (s : VMState) : nat :=
@@ -74,9 +53,6 @@ Definition state_region_signature (s : VMState) : list (list nat) :=
 Definition info_loss (s s' : VMState) : Z :=
   Z.of_nat (state_info s) - Z.of_nat (state_info s').
 
-(** =========================================================================
-    PART 2: COST MODEL INTERFACE
-    ========================================================================= *)
 
 (** The VM's cost model assigns a μ-cost to each instruction *)
 Definition instr_mu_cost (i : vm_instruction) : nat :=
@@ -105,7 +81,6 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_xor_rank _ _ cost => cost
   | instr_emit _ _ cost => cost
   | instr_reveal _ _ _ cost => cost
-  | instr_oracle_halts _ cost => cost
   | instr_halt cost => cost
   | instr_checkpoint _ cost => cost
   | instr_read_port _ _ _ _ cost => cost
@@ -130,9 +105,6 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_morph_get _ _ _ cost => cost
   end.
 
-(** =========================================================================
-    PART 3: MODULE COUNT CHANGES
-    ========================================================================= *)
 
 (** Different instructions change module count differently:
     - pnew: may add 0 or 1 module (if region exists, 0; else 1)
@@ -147,8 +119,8 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
     (more modules = more detailed observation = less information loss)
     Module count DECREASE means info can increase (coarser observation = potential info gain)
     
-    BUT: deterministic dynamics cannot create new information!
-    So info_loss >= 0 always (from FiniteInformation.v).
+    This is only a module-count proxy. info_loss can be negative when a step
+    creates more modules.
     *)
 
 (** pnew changes module count by 0 or 1 *)
@@ -388,9 +360,6 @@ Proof.
   (* reveal: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
-  (* oracle_halts: graph unchanged *)
-  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
-
   (* halt: graph unchanged *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 
@@ -464,25 +433,18 @@ Proof.
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 4: INFORMATION LOSS BOUNDS
-    ========================================================================= *)
 
-(** KEY THEOREM: Information loss is bounded by cost.
+(** The key theorem: module-count loss is bounded by cost.
 
-    For deterministic dynamics:
-    - info_before >= info_after (from FiniteInformation.v)
-    - info_loss = info_before - info_after >= 0
-    
-    The μ-cost model ensures that costly operations lose more information:
-    - pmerge costs proportional to merged partition size
-    - This bounds the information lost in the merge
+    This theorem is about the signed difference state_info(before) -
+    state_info(after). Negative loss means module count increased, so the bound
+    is automatic.
     
     IMPORTANT: This theorem requires the cost model to be well-designed:
     - For pmerge, the cost parameter must be >= 2 (the max info loss)
     - For other instructions, info_loss <= 0 always
     
-    We prove the general bound: cost >= info_loss (which can be negative).
+    We prove the signed bound: cost >= info_loss.
     *)
 
 (** Helper: pmerge info loss is bounded by 2 *)
@@ -499,12 +461,11 @@ Proof.
   lia.
 Qed.
 
-(** Cost bounds information loss - the core causality-conservation theorem 
-    
-    NOTE: For well-formed programs:
-    - For pnew/psplit: info_loss <= 0, so cost >= 0 >= info_loss ✓
+(** Cost bounds module-count loss.
+ For well-formed programs:
+    - For pnew/psplit: info_loss <= 0, so cost >= 0 >= info_loss
     - For pmerge: info_loss <= 2, requires cost >= 2 
-    - For other instructions: info_loss = 0, so cost >= 0 >= info_loss ✓
+    - For other instructions: info_loss = 0, so cost >= 0 >= info_loss
     
     We define a well-formed instruction predicate.
     *)
@@ -516,7 +477,6 @@ Definition instr_well_formed (i : vm_instruction) : Prop :=
   | _ => True
   end.
 
-(** [cost_bounds_info_loss]: formal specification. *)
 Theorem cost_bounds_info_loss :
   forall s i s',
     vm_step s i s' ->
@@ -542,8 +502,6 @@ Proof.
     lia.
   
   (* All other instructions: state_info unchanged, info_loss = 0 *)
-  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
-    unfold state_info in H. simpl in H. lia.
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
@@ -648,9 +606,6 @@ Proof.
     unfold state_info in H. simpl in H. lia.
 Qed.
 
-(** =========================================================================
-    PART 5: TRACE COST AND INFORMATION LOSS
-    ========================================================================= *)
 
 (** Execution trace *)
 Inductive exec_trace : VMState -> list vm_instruction -> VMState -> Prop :=
@@ -671,7 +626,7 @@ Fixpoint trace_cost (is : list vm_instruction) : nat :=
 Definition trace_well_formed (is : list vm_instruction) : Prop :=
   Forall instr_well_formed is.
 
-(** KEY THEOREM: Total trace cost bounds total information loss *)
+(** The key theorem: Total trace cost bounds total information loss *)
 Theorem trace_cost_bounds_total_info_loss :
   forall s is s',
     exec_trace s is s' ->
@@ -695,24 +650,18 @@ Proof.
     lia.
 Qed.
 
-(** =========================================================================
-    PART 6: THE CAUSALITY-CONSERVATION CONNECTION
-    ========================================================================= *)
 
-(** MAIN THEOREM: μ-cost bounds information change
+(** Main μ-cost bound for signed module-count change.
 
-    This is the causality-conservation theorem in its information-theoretic form:
-    - Total μ-cost measures computational work
-    - Information loss measures causal flow
-    - Cost bounds the ABSOLUTE VALUE of information change
+    This is not an absolute-value theorem. It proves:
+      trace_cost >= info_loss s s'
+    where info_loss is signed module-count loss.
     
     For practical systems:
-    - cost >= |info_loss| always (cost may include overhead)
+    - cost >= signed info_loss
     - For partition-native algorithms, cost ≈ |info_loss|
     
-    This theorem connects the VM's cost model to fundamental physics:
-    - Landauer's principle: erasure costs kT ln 2 per bit
-    - μ-cost is the discrete analogue of Landauer entropy production
+    Physical Landauer or entropy-production readings require extra premises.
     
     Note: info_loss can be negative (info increased by pnew/psplit)
           or positive (info decreased by pmerge)
@@ -729,35 +678,33 @@ Theorem causality_implies_conservation :
 Proof.
   intros s is s' Htrace Hwf.
   split.
-  - (* μ-cost >= 0 trivially *)
+  - (* μ-cost is a nat, so it is nonnegative. *)
     lia.
   - (* Cost bounds info loss *)
     apply trace_cost_bounds_total_info_loss; assumption.
 Qed.
 
-(** =========================================================================
-    LOCAL INFORMATION LOSS — PROVEN RESULTS
+(**
+    LOCAL MODULE-COUNT LOSS: PROVEN RESULTS
 
     Proven (no admits):
     - pnew_module_count_change: pnew increases or preserves module count
     - psplit_module_count_change: psplit increases module count on success
-    - pmerge_module_count_change: pmerge decreases module count on success
+    - pmerge_module_count_change: pmerge result has bounded module count
     - pmerge_info_loss_bounded: pmerge info loss is at most 2
     - other_instr_module_count_unchanged: other instructions preserve count
     - cost_bounds_info_loss: μ-cost bounds info loss for well-formed instructions
     - trace_cost_bounds_total_info_loss: total cost bounds total loss
-    - causality_implies_conservation: main theorem
+    - causality_implies_conservation: main signed-bound theorem
     
     ARCHITECTURE:
     - state_info = module count (information proxy)
     - instr_well_formed: pmerge requires cost >= 2
     - info_loss = state_info(before) - state_info(after)
     - Cost model extracts μ-cost from instructions
-    - Conservation = cost bounds info loss
-    
-    KEY INSIGHT:
-    The only instruction that can lose information (decrease module count)
-    is pmerge, which loses at most 2 modules. Well-formed programs
+    - Conservation-shaped statement = cost bounds signed module-count loss
+    The instruction that can decrease module count in this analysis is pmerge,
+    which loses at most 2 modules. Well-formed programs
     allocate cost >= 2 for pmerge to cover this information loss.
     
     OPEN:
@@ -765,9 +712,8 @@ Qed.
     - FiniteInformation.info_nonincreasing proves info conservation for
       finite state spaces; VMState is infinite, so direct instantiation
       would require restricting to bounded subgraphs.  HOWEVER, this
-      bridge is UNNECESSARY: causality_implies_conservation (below) proves
-      cost-bounds-info-loss for VMState DIRECTLY, without going through
-      FiniteInformation, using per-instruction module-count analysis.
+      bridge is not needed for this file: causality_implies_conservation proves
+      a module-count bound directly, using per-instruction analysis.
     - Partition-native optimality connection requires constrained optimization
     
-    ========================================================================= *)
+    *)

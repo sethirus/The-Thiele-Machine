@@ -1,22 +1,16 @@
-(** =========================================================================
-    TSIRELSON BOUND: NON-CIRCULARITY BRIDGE
-    =========================================================================
+(**
+  Tsirelson bound: non-circular bridge.
 
-    This file provides a non-circular derivation of the Tsirelson bound,
-    superseding TsirelsonDerivation.v (archived). The archived file defined
-    correlation_mu_cost with 2sqrt2 baked into the definition, then read it
-    back -- a circular construction.
+  This file exists because the old archived derivation baked the target bound
+  into the definition and therefore could not justify it. The replacement
+  route is to import the standalone algebraic derivation from
+  TsirelsonGeneral.v and then connect that result back into the mu-cost
+  framework.
 
-    NON-CIRCULAR APPROACH:
-    The Tsirelson bound 2sqrt2 is derived non-circularly in
-    TsirelsonGeneral.v (315 lines, zero admits). This file bridges that
-    derivation to the mu-cost framework:
-    1. Imports the non-circular derivation from TsirelsonGeneral.v
-    2. Connects it to the mu-cost framework
-    3. Provides the complete non-circular derivation chain
-    4. Shows where the bound 2sqrt2 = sqrt8 comes from (algebra, not definition)
+  So the file is not trying to re-prove the whole algebra from scratch. It is
+  the bridge that keeps the repository's Tsirelson story non-circular.
 
-    THE NON-CIRCULAR DERIVATION (from TsirelsonGeneral.v):
+  THE NON-CIRCULAR DERIVATION (from TsirelsonGeneral.v):
 
     Step 1: NPA-1 minor constraint with zero marginals:
             1 - e₁² - e₂² ≥ 0
@@ -36,8 +30,7 @@
     ZERO physics axioms. The Tsirelson bound 2√2 is a theorem of PURE
     ALGEBRA about constrained quadratic forms.
 
-    STATUS: ZERO PROJECT-LOCAL AXIOMS. ZERO ADMITS.
-    ========================================================================= *)
+    *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -49,9 +42,7 @@ Require Import Coq.micromega.Psatz.
 
 Local Open Scope R_scope.
 
-(** =========================================================================
-    SECTION 1: Import Non-Circular Derivation
-    =========================================================================
+(**
 
     TsirelsonGeneral.v proves these key results:
 
@@ -67,11 +58,9 @@ Local Open Scope R_scope.
     We re-derive the core result here for self-containment,
     then connect it to the μ-cost framework. *)
 
-(** =========================================================================
-    SECTION 2: Self-Contained Algebraic Derivation
-    =========================================================================
+(**
 
-    THEOREM: For any four real numbers satisfying row constraints,
+    For any four real numbers satisfying row constraints,
     their CHSH combination (a + b + c - d) is bounded by √8 = 2√2.
 
     This is pure algebra — no physics, no Hilbert spaces, no quantum. *)
@@ -102,7 +91,6 @@ Proof.
     apply Rmult_le_pos; lra.
 Qed.
 
-(** [cauchy_schwarz_chsh]: formal specification. *)
 Lemma cauchy_schwarz_chsh :
   forall a b c d : R,
     (a + b + c - d) * (a + b + c - d) <=
@@ -134,9 +122,7 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    SECTION 3: The Bound √8 = 2√2 is Computed, Not Assumed
-    =========================================================================
+(**
 
     KEY POINT: The number 2√2 ≈ 2.828... appears NOWHERE in our axioms.
     It emerges as √8 from the algebraic computation:
@@ -161,9 +147,7 @@ Proof.
     rewrite sqrt_sqrt by lra. ring.
 Qed.
 
-(** =========================================================================
-    SECTION 4: Achievability — The Bound is Tight
-    =========================================================================
+(**
 
     The bound √8 is EXACTLY achieved, confirming it cannot be improved.
     The optimal correlators are e = ±1/√2.
@@ -175,7 +159,6 @@ Qed.
 
 Definition optimal_correlator : R := / sqrt 2.
 
-(** [optimal_correlator_squared]: formal specification. *)
 Lemma optimal_correlator_squared :
   optimal_correlator * optimal_correlator = / 2.
 Proof.
@@ -203,7 +186,6 @@ Lemma optimal_chsh :
   4 * optimal_correlator.
 Proof. unfold CHSH_value. ring. Qed.
 
-(** [four_e_eq_sqrt8]: formal specification. *)
 Lemma four_e_eq_sqrt8 : 4 * optimal_correlator = sqrt 8.
 Proof.
   unfold optimal_correlator.
@@ -218,7 +200,6 @@ Proof.
     + field.
     + simpl. rewrite Rmult_1_r. rewrite sqrt_sqrt; lra.
 Qed.
-(** [tsirelson_tight]: formal specification. *)
 Theorem tsirelson_tight :
   exists e00 e01 e10 e11 : R,
     e00*e00 + e01*e01 <= 1 /\
@@ -235,9 +216,7 @@ Proof.
   - rewrite optimal_chsh, four_e_eq_sqrt8. reflexivity.
 Qed.
 
-(** =========================================================================
-    SECTION 5: Connection to μ-Cost Framework
-    =========================================================================
+(**
 
     The Tsirelson bound connects to the machine via μ-cost accounting:
 
@@ -269,7 +248,7 @@ Qed.
     - The derivation uses ZERO physics axioms
     - See TsirelsonGeneral.v for the full mechanized proof
     - See HardMathFactsProven.v (archived) for the Q-arithmetic version
-    ========================================================================= *)
+    *)
 
 (** Summary: Non-circular derivation chain for Tsirelson *)
 (**
@@ -283,9 +262,7 @@ Qed.
     TsirelsonDerivation.v's (archived) circular definition is superseded by this chain.
 *)
 
-(** =========================================================================
-    SECTION 6: Rational Approximation (for hardware comparison)
-    =========================================================================
+(**
 
     The machine hardware uses Q16.16 fixed-point arithmetic.
     We verify that the rational bound 5657/2000 > 2√2 is valid. *)
@@ -307,9 +284,8 @@ Proof.
     lra.
 Qed.
 
-(** =========================================================================
+(**
     SUMMARY: TSIRELSON BOUND IS A THEOREM, NOT AN AXIOM
-    =========================================================================
 
     PROVEN RESULTS:
 
@@ -322,16 +298,13 @@ Qed.
        TsirelsonDerivation.v's (archived) circular approach is superseded.
 
     4. HARDWARE LINK: Rational bound 5657/2000 > 2√2 verified for Q16.16.
-
-    WHAT THIS MEANS:
-
     The Tsirelson bound 2√2 is not a property of quantum mechanics.
     It is a property of constrained quadratic forms in R^4 — pure algebra.
     The NPA moment matrix constraints (from consistency of observations)
     combined with the Cauchy-Schwarz inequality produce the bound.
 
     No Hilbert spaces, no tensor products, no wavefunctions needed.
-    ========================================================================= *)
+    *)
 
 (* INQUISITOR NOTE: connectivity anchor. *)
 Definition tsirelson_algebra_anchor := (sqrt8_eq_2sqrt2, rational_tsirelson_bound).

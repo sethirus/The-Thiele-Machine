@@ -1,42 +1,15 @@
-(** * No-Cloning Theorem from μ-Cost Accounting
+(** NoCloning: cloning is blocked by the information accounting used here.
 
-    WHY THIS FILE EXISTS:
-    I claim the quantum no-cloning theorem (Wootters-Zurek 1982, Dieks 1982)
-    is not a postulate of quantum mechanics - it's a CONSEQUENCE of information
-    conservation. You cannot clone unknown states because information accounting
-    forbids it, independent of Hilbert space formalism.
+  This file models cloning through a small information-conservation schema.
+  One input state with information I cannot be turned into two full copies at
+  zero μ-cost, because conservation only allows total output information up to
+  input plus paid μ. If both outputs carry the full input information, the
+  arithmetic forces μ >= I.
 
-    THE CORE ARGUMENT:
-    Perfect cloning means: one input state → two identical output states.
-    Information content: input has I bits, each output must have I bits.
-    Conservation constraint: total output ≤ input + μ-cost paid.
-    Therefore: I + I ≤ I + μ, which requires μ ≥ I.
-    But quantum cloning claims μ = 0 (unitary, reversible) → contradiction.
-
-    MAIN THEOREM (no_cloning_from_conservation):
-    For any cloning operation on a non-trivial state (I > 0):
-    - Perfect cloning (both outputs equal input) +
-    - Respects conservation (output ≤ input + μ) +
-    - Zero cost (μ = 0)
-    → Contradiction (impossible)
-
-    PHYSICAL INTERPRETATION:
-    The no-cloning theorem is NOT about wavefunctions or Hilbert spaces. It's
-    about information: you cannot duplicate information without paying for it.
-    Quantum mechanics respects this bound (unitarity = zero cost operations),
-    therefore cloning fails. This is why quantum cryptography works - you cannot
-    copy a quantum state without disturbing it (disturbance = μ-cost).
-
-    FALSIFICATION:
-    Build a quantum device that perfectly clones unknown pure states without
-    dissipation or measurement. If this succeeds, information conservation is
-    violated and the theory is wrong. Experimentally: prepare |ψ⟩ unknown to
-    the device, input to cloner, measure both outputs, verify perfect fidelity
-    with input (F = 1 for all |ψ⟩). No such device has ever been built, despite
-    40 years of trying.
-
-    Or prove cloning is possible using μ-accounting (find error in proof below).
-    The proof is simple: 2I ≤ I + 0 contradicts I > 0 (arithmetic).
+  The result is deliberately phrased at the accounting level rather than as a
+  full Hilbert-space theorem. What is proved here is that perfect cloning is
+  incompatible with zero-cost conservation for nontrivial states. Any stronger
+  physical interpretation has to pass through that bound.
 *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
@@ -49,9 +22,6 @@ Require Import Coq.micromega.Psatz.
 
 Local Open Scope R_scope.
 
-(** =========================================================================
-    SECTION 1: State Information Content
-    ========================================================================= *)
 
 (** state_info: Information content of a quantum state
 
@@ -71,7 +41,7 @@ Local Open Scope R_scope.
     density matrix ρ = (I + x·σₓ + y·σᵧ + z·σᵨ)/2. It measures self-overlap
     of the state - pure states have maximum self-overlap (1), mixed states less.
 
-    FALSIFICATION: Find a quantum state where purity doesn't measure information
+    To falsify: Find a quantum state where purity doesn't measure information
     content (e.g., a state where r² = 0 but you still have knowledge about it,
     or r² = 1 but you have uncertainty). This would break the Bloch sphere model.
 *)
@@ -105,7 +75,7 @@ Definition state_info (x y z : R) : R :=
     information, it must pay μ-cost to do so. The theorem shows this cost
     must be at least equal to the input information, making free cloning impossible.
 
-    FALSIFICATION: Build a physical quantum cloner, measure its inputs and
+    To falsify: Build a physical quantum cloner, measure its inputs and
     outputs (via tomography), compute information contents, verify the
     conservation relation: out1_info + out2_info ≤ in_info + μ_paid. If
     this is violated, information accounting is wrong.
@@ -117,9 +87,6 @@ Record CloningOperation := {
   clone_mu_cost : R        (* μ-cost paid for the operation *)
 }.
 
-(** =========================================================================
-    SECTION 2: Information Conservation Constraint
-    ========================================================================= *)
 
 (** respects_conservation: Information cannot be created from nothing
 
@@ -146,7 +113,7 @@ Record CloningOperation := {
     knowledge) costs μ ≥ 1. These are dual principles: creation and destruction
     both have thermodynamic cost.
 
-    FALSIFICATION: Find a physical process where total output information exceeds
+    To falsify: Find a physical process where total output information exceeds
     input information + energy expended (in μ-units). This would be a perpetual
     motion machine of the second kind - violating thermodynamics. No such process
     has ever been demonstrated.
@@ -182,7 +149,7 @@ Definition respects_conservation (op : CloningOperation) : Prop :=
     f1 + f2 ≤ 1 (proven in Section 4) with f1 = f2 = 1/2, giving F = 5/6 for
     each copy after optimization.
 
-    FALSIFICATION: Build a quantum device with perfect cloning: prepare unknown
+    To falsify: Build a quantum device with perfect cloning: prepare unknown
     |ψ⟩, input to device, measure both outputs via tomography, verify fidelity
     F = 1 for all |ψ⟩ on the Bloch sphere. If this succeeds, the theorem is wrong.
 *)
@@ -213,16 +180,13 @@ Definition is_perfect_clone (op : CloningOperation) : Prop :=
     - Unitary: Hadamard gate H, CNOT, rotation gates (all have μ = 0)
     - Non-unitary: Measurement (μ > 0), reset (μ > 0), decoherence (μ > 0)
 
-    FALSIFICATION: Find a non-unitary operation with μ = 0 (impossible - would
+    To falsify: Find a non-unitary operation with μ = 0 (impossible - would
     violate reversibility). Or show cloning can be implemented as a unitary
     (contradicts the theorem below).
 *)
 Definition is_zero_cost (op : CloningOperation) : Prop :=
   op.(clone_mu_cost) = 0.
 
-(** =========================================================================
-    SECTION 3: No-Cloning Theorem
-    ========================================================================= *)
 
 (** nontrivial_input: The input state contains information
 
@@ -239,7 +203,7 @@ Definition is_zero_cost (op : CloningOperation) : Prop :=
     states" - trivial. The theorem is about cloning states with structure
     (pure states, partially mixed states).
 
-    FALSIFICATION: Prove no-cloning fails for maximally mixed states (would
+    To falsify: Prove no-cloning fails for maximally mixed states (would
     show in_info > 0 is not necessary). Or find the theorem holds even when
     in_info = 0 (would strengthen the bound).
 *)
@@ -248,7 +212,7 @@ Definition nontrivial_input (op : CloningOperation) : Prop :=
 
 (** no_cloning_from_conservation: THE MAIN NO-CLONING THEOREM
 
-    THEOREM: Perfect cloning of nontrivial states at zero cost is impossible.
+    Perfect cloning of nontrivial states at zero cost is impossible.
 
     CLAIM: You cannot simultaneously have:
     1. Nontrivial input (in_info > 0)
@@ -267,7 +231,6 @@ Definition nontrivial_input (op : CloningOperation) : Prop :=
 
     The proof is ONE LINE in Coq (`lra` solves the linear arithmetic).
 
-    PHYSICAL INTERPRETATION:
     This result is analogous to the Wootters-Zurek no-cloning theorem,
     formalized in terms of information accounting. The mathematical content is:
     if clone_mu_cost = 0 and both outputs have the same information as the
@@ -279,15 +242,12 @@ Definition nontrivial_input (op : CloningOperation) : Prop :=
     - Cloning needs to DOUBLE information (out1 + out2 = 2·in)
     - Therefore 2·in ≤ in, impossible for in > 0
     - Conclusion: No-cloning is impossible as a unitary operation
-
-    WHY THIS MATTERS FOR QUANTUM CRYPTOGRAPHY:
     BB84 protocol security relies on no-cloning. If Eve tries to copy Alice's
     qubits (to eavesdrop without detection), she cannot do so perfectly. Any
     cloning attempt introduces errors (μ-cost = disturbance), which Alice and
     Bob detect by comparing subsets of their data. This is why quantum key
     distribution works - eavesdropping is thermodynamically forbidden.
 
-    WHY THIS DIFFERS FROM CLASSICAL:
     Classical bits can be cloned at μ = 0 (just read the bit - no disturbance).
     The difference is:
     - Classical: Reading doesn't change the state (bit value persists)
@@ -302,7 +262,6 @@ Definition nontrivial_input (op : CloningOperation) : Prop :=
     has ever demonstrated F = 1 perfect cloning. This is strong evidence for
     the theorem (though not proof - you can't prove impossibility by failed attempts).
 
-    FALSIFICATION:
     1. Build a perfect quantum cloner: |ψ⟩ → |ψ⟩|ψ⟩ for all |ψ⟩, measure F = 1
     2. Show the cloner is unitary (reversible, μ = 0)
     3. Verify conservation: measure input and output purities, confirm equality
@@ -331,7 +290,7 @@ Qed.
 
 (** cloning_requires_mu: QUANTITATIVE COROLLARY - How much μ is needed?
 
-    THEOREM: Perfect cloning requires μ ≥ input information.
+    Perfect cloning requires μ ≥ input information.
 
     CLAIM: If you want to perfectly clone a state with information content I,
     you must pay at least μ ≥ I.
@@ -340,7 +299,6 @@ Qed.
     From perfect cloning: out1 = in, out2 = in
     Therefore: in + in ≤ in + μ, simplifying to in ≤ μ. QED.
 
-    PHYSICAL INTERPRETATION:
     This quantifies the cost of cloning: it's not just "impossible at μ = 0",
     it's "costs at least μ = I" where I is the input information. This makes
     cloning's impossibility quantitative and falsifiable.
@@ -359,7 +317,7 @@ Qed.
     Here we say: duplicating 1 bit of quantum information costs μ ≥ 1 (in
     dimensionless μ-units). Both are thermodynamic bounds on information processing.
 
-    FALSIFICATION: Build a cloner that achieves F = 1 (perfect) but costs μ < I.
+    To falsify: Build a cloner that achieves F = 1 (perfect) but costs μ < I.
     Measure input purity (tomography), measure output purities, measure energy
     dissipated (proxy for μ), verify μ < I. If this succeeds, conservation is wrong.
 *)
@@ -377,9 +335,6 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    SECTION 4: Approximate Cloning Bounds
-    ========================================================================= *)
 
 (** clone_fidelity: Measure of cloning quality
 
@@ -404,7 +359,7 @@ Qed.
     input information in each output. The missing 20% is lost to noise,
     decoherence, or measurement backaction.
 
-    FALSIFICATION: Measure fidelity experimentally (via tomography), compare
+    To falsify: Measure fidelity experimentally (via tomography), compare
     to this formula. If they disagree systematically, the information-based
     definition doesn't match physical fidelity.
 *)
@@ -433,7 +388,7 @@ Definition clone_fidelity (original copied : R) : R :=
     - Z-basis measurement: f = 1/2 (50% fidelity for equatorial states)
     - Optimal basis: f = 5/6 (highest achievable without entanglement)
 
-    FALSIFICATION: Find a cloner with f₁, f₂ > 1 (would violate bounds). Or
+    To falsify: Find a cloner with f₁, f₂ > 1 (would violate bounds). Or
     show a cloner with f₁ + f₂ > 1 + μ/I (would violate the bound below).
 *)
 Definition approximate_clone (op : CloningOperation) (f1 f2 : R) : Prop :=
@@ -444,7 +399,7 @@ Definition approximate_clone (op : CloningOperation) (f1 f2 : R) : Prop :=
 
 (** approximate_cloning_bound: THE GENERAL CLONING BOUND
 
-    THEOREM: Approximate cloning satisfies f₁ + f₂ ≤ 1 + μ/I.
+    Approximate cloning satisfies f₁ + f₂ ≤ 1 + μ/I.
 
     CLAIM: The sum of fidelities cannot exceed 1 (perfect) plus μ-cost per
     unit input information.
@@ -455,7 +410,6 @@ Definition approximate_clone (op : CloningOperation) (f1 f2 : R) : Prop :=
     - Factor out I: (f₁ + f₂)·I ≤ I + μ
     - Divide by I > 0: f₁ + f₂ ≤ 1 + μ/I. QED.
 
-    PHYSICAL INTERPRETATION:
     This is the universal bound on quantum cloning. It says:
     - Without μ-cost (μ = 0): f₁ + f₂ ≤ 1 (you can't get more than 1 total fidelity)
     - With μ-cost: you can exceed 1, but only by paying μ/I extra per unit info
@@ -480,7 +434,6 @@ Definition approximate_clone (op : CloningOperation) (f1 f2 : R) : Prop :=
     Setting μ = 0 gives f₁ + f₂ ≤ 1. Perfect cloning needs f₁ = f₂ = 1, so
     2 ≤ 1, impossible. This recovers the no-cloning theorem as a special case.
 
-    FALSIFICATION:
     Build an approximate cloner, measure fidelities f₁, f₂ and cost μ via
     tomography and calorimetry. If f₁ + f₂ > 1 + μ/I, conservation is violated.
     Decades of cloning experiments have never violated this bound.
@@ -512,14 +465,13 @@ Qed.
 
 (** optimal_approximate_cloning: ZERO-COST CLONING BOUND
 
-    THEOREM: Without μ-cost, approximate cloning satisfies f₁ + f₂ ≤ 1.
+    Without μ-cost, approximate cloning satisfies f₁ + f₂ ≤ 1.
 
     CLAIM: Unitary (reversible, μ = 0) cloning operations cannot achieve
     total fidelity exceeding 1.
 
     PROOF: Apply approximate_cloning_bound with μ = 0, giving f₁ + f₂ ≤ 1 + 0/I = 1.
 
-    PHYSICAL INTERPRETATION:
     This is the operational form of no-cloning. It says:
     - You can have two imperfect copies that "add up" to one perfect copy
     - But you cannot have two perfect copies (would need f₁ + f₂ = 2 > 1)
@@ -554,7 +506,6 @@ Qed.
     a bit doesn't disturb it. Quantum states cannot be "read" without disturbance,
     enforcing the f₁ + f₂ ≤ 1 bound.
 
-    FALSIFICATION:
     Build a zero-cost (unitary) quantum cloner with f₁ + f₂ > 1. Measure by
     preparing many copies of |ψ⟩, passing through cloner, doing tomography on
     outputs, computing fidelities, verifying sum > 1. No such cloner has been built.
@@ -600,20 +551,17 @@ Qed.
     overlap and purity. The 5/6 result uses this to achieve higher overlap
     than information content would naively suggest.
 
-    WHY THIS MATTERS:
     It shows the f₁ + f₂ ≤ 1 bound is TIGHT (achievable with equality). There's
     no slack - information conservation fully explains the cloning limit. If
     the bound were, say, f₁ + f₂ ≤ 0.8, that would suggest an additional constraint
     beyond conservation. But we have equality, confirming conservation is the
     ONLY constraint.
 
-    FALSIFICATION:
     Show that symmetric cloning with f₁ = f₂ = 1/2 is impossible even at μ = 0.
     This would prove the information bound f + f ≤ 1 is not tight, suggesting
     a missing constraint.
 *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-(** [symmetric_optimal_cloning]: formal specification. *)
 Lemma symmetric_optimal_cloning :
   forall op,
     nontrivial_input op ->
@@ -625,9 +573,6 @@ Proof.
   intros. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 5: Connection to Bloch Sphere
-    ========================================================================= *)
 
 (** bloch_info: Information content for Bloch sphere states
 
@@ -649,7 +594,7 @@ Qed.
     This measures how far the state is from maximal entropy (center of ball).
     Pure states have maximum information (1). Mixed states have less (< 1).
 
-    FALSIFICATION: Find a Bloch state where purity doesn't measure information
+    To falsify: Find a Bloch state where purity doesn't measure information
     (e.g., high purity but low knowledge, or low purity but high knowledge).
     This would break the Bloch sphere model.
 *)
@@ -673,14 +618,14 @@ Definition bloch_info (x y z : R) : R := x*x + y*y + z*z.
     Tr(ρ²) = Tr(ρ) = 1. Using the formula Tr(ρ²) = (1 + r²)/2, we get
     (1 + r²)/2 = 1, solving to r² = 1.
 
-    FALSIFICATION: Find a quantum state with Tr(ρ²) = 1 that isn't pure
+    To falsify: Find a quantum state with Tr(ρ²) = 1 that isn't pure
     (has nonzero entropy). This would break the purity-entropy connection.
 *)
 Definition is_pure_state (x y z : R) : Prop := bloch_info x y z = 1.
 
 (** no_cloning_bloch: NO-CLONING FOR PURE BLOCH STATES
 
-    THEOREM: Perfect cloning of pure states requires μ ≥ 1.
+    Perfect cloning of pure states requires μ ≥ 1.
 
     CLAIM: Take any pure qubit state (point on Bloch sphere). If you want to
     clone it perfectly (both outputs pure, both equal to input), you must pay
@@ -692,7 +637,6 @@ Definition is_pure_state (x y z : R) : Prop := bloch_info x y z = 1.
     - Apply cloning_requires_mu: μ ≥ input_info
     - Substitute input_info = 1: μ ≥ 1. QED.
 
-    PHYSICAL INTERPRETATION:
     This makes the no-cloning bound concrete and quantitative. It's not just
     "cloning is impossible at μ = 0", it's "cloning costs at least μ = 1" where
     1 is the information content of a pure qubit.
@@ -721,7 +665,6 @@ Definition is_pure_state (x y z : R) : Prop := bloch_info x y z = 1.
     μ ≥ 1 (must pay thermodynamic cost). This 1-bit energy gap is the fundamental
     difference between classical and quantum information.
 
-    FALSIFICATION:
     Prepare a pure qubit (e.g., |0⟩ + |1⟩)/√2), pass through a cloner, measure
     both outputs via tomography, verify perfect fidelity F = 1, measure energy
     dissipated, verify μ < 1. If this succeeds, the bound is wrong. No experiment
@@ -747,9 +690,6 @@ Proof.
   exact Hreq.
 Qed.
 
-(** =========================================================================
-    SECTION 6: Deletion Theorem (Dual of No-Cloning)
-    ========================================================================= *)
 
 (** DeletionOperation: Abstract model of quantum deletion
 
@@ -783,7 +723,7 @@ Qed.
     of conservation: information cannot be created or destroyed without
     thermodynamic cost.
 
-    FALSIFICATION: Build a quantum device that takes two identical pure states
+    To falsify: Build a quantum device that takes two identical pure states
     |ψ⟩|ψ⟩ as input, outputs one state |φ⟩ with |φ⟩ = |ψ⟩ (perfect preservation),
     without dissipating energy (μ = 0). Measure via tomography and calorimetry.
     If this succeeds, the deletion theorem is wrong.
@@ -810,7 +750,6 @@ Record DeletionOperation := {
     either into output or dissipated as μ), while cloning GAINS information
     (must come from somewhere, either input or paid as μ).
 
-    PHYSICAL INTERPRETATION:
     When you delete information, it doesn't just disappear. It either:
     1. Stays in the output (out_info = in1_info + in2_info, full preservation)
     2. Is dissipated as heat (μ = in1_info + in2_info - out_info, Landauer cost)
@@ -829,7 +768,7 @@ Record DeletionOperation := {
     In deletion, we bound the input (can't delete more than output + μ accounts for).
     The logic reverses: cloning creates, deletion destroys.
 
-    FALSIFICATION: Find a deletion operation where out + μ < in1 + in2. This
+    To falsify: Find a deletion operation where out + μ < in1 + in2. This
     would mean information disappeared without going into output or dissipation.
     Violates conservation and second law. No such process has been observed.
 *)
@@ -867,7 +806,7 @@ Definition del_respects_conservation (op : DeletionOperation) : Prop :=
     about reversibility. Quantum states CANNOT be deleted at zero cost - the
     no-deletion theorem forbids it.
 
-    FALSIFICATION: Build a device that deletes one quantum state from |ψ⟩|ψ⟩
+    To falsify: Build a device that deletes one quantum state from |ψ⟩|ψ⟩
     without dissipating energy and without degrading the kept copy. Verify by
     tomography (output has F = 1 with input) and calorimetry (μ = 0). If this
     succeeds, quantum mechanics is wrong.
@@ -878,7 +817,7 @@ Definition is_perfect_deletion (op : DeletionOperation) : Prop :=
 
 (** no_deletion_without_cost: THE NO-DELETION THEOREM
 
-    THEOREM: Perfect deletion of nontrivial states requires μ ≥ input information.
+    Perfect deletion of nontrivial states requires μ ≥ input information.
 
     CLAIM: To perfectly delete one copy from two identical quantum states, you
     must pay μ-cost at least equal to the information content of the deleted copy.
@@ -890,7 +829,6 @@ Definition is_perfect_deletion (op : DeletionOperation) : Prop :=
 
     Proof is ONE LINE (lra solves the arithmetic).
 
-    PHYSICAL INTERPRETATION:
     This is Landauer's principle for quantum states. Erasing one qubit with
     information content I requires dissipating at least μ = I energy (in μ-units).
     For a pure qubit (I = 1), deletion costs μ ≥ 1 ≈ kT ln 2.
@@ -924,7 +862,6 @@ Definition is_perfect_deletion (op : DeletionOperation) : Prop :=
     would verify the quantum no-deletion bound μ ≥ I. No violations have been
     reported.
 
-    FALSIFICATION:
     1. Prepare two identical pure qubits |ψ⟩|ψ⟩
     2. Apply deletion operation, leaving one output
     3. Measure output via tomography, verify F = 1 (perfect preservation)
@@ -932,7 +869,6 @@ Definition is_perfect_deletion (op : DeletionOperation) : Prop :=
     If all succeed, the theorem is false and Landauer's principle is violated.
 *)
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [no_deletion_without_cost]: formal specification. *)
 Theorem no_deletion_without_cost :
   forall op : DeletionOperation,
     op.(del_input1_info) > 0 ->
@@ -947,9 +883,6 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    SECTION 7: Bridge to Unitarity (derived, not assumed)
-    ========================================================================= *)
 
 (** This section connects the abstract cloning model above to the Bloch-sphere
     evolution model in Unitarity.v. The key import is zero_cost_implies_unitary,
@@ -978,7 +911,7 @@ Definition cloning_from_evolution (E : Evolution) (x y z : R) : CloningOperation
     clone_mu_cost := E.(evo_mu)
   |}.
 
-(** THEOREM: Unitary evolution cannot build a perfect cloner.
+(** Unitary evolution cannot build a perfect cloner.
     If an evolution is unitary (derived from zero_cost_implies_unitary),
     it cannot serve as a perfect cloner for nontrivial pure states.
 
@@ -988,7 +921,7 @@ Definition cloning_from_evolution (E : Evolution) (x y z : R) : CloningOperation
 *)
 (* INQUISITOR NOTE: bridges Unitarity.zero_cost_implies_unitary to
    NoCloning.no_cloning_from_conservation — closes C2 gap. *)
-(** THEOREM: A unitary (derived from μ=0 + conservation) cannot perfectly
+(** A unitary (derived from μ=0 + conservation) cannot perfectly
     clone any nontrivial state.
 
     The key insight: if an Evolution is unitary (r²_out = r²_in), then its

@@ -319,6 +319,19 @@ def _parse_sat_cert_binary(cert_encoded: str, nvars: int):
         if 1 <= v <= nvars: cert_words[v] = 1 if lit > 0 else 0
     return cert_words
 
+def _parse_dual_sat_certs(instr: Dict[str, Any], raw_cert: Any, nvars: int):
+    """Return (model_words, countermodel_words) for SAT-mode LASSERT."""
+    if isinstance(raw_cert, dict):
+        model_text = str(raw_cert.get('model', raw_cert.get('proof', '')) or '')
+        countermodel_text = str(raw_cert.get('countermodel', '') or '')
+    else:
+        model_text = str(raw_cert or instr.get('model', '') or '')
+        countermodel_text = str(instr.get('countermodel', '') or '')
+    return (
+        _parse_sat_cert_binary(model_text, nvars),
+        _parse_sat_cert_binary(countermodel_text, nvars),
+    )
+
 def _fmt_list(val: Any) -> str:
     """Format a list field as {v1,v2,...} for OCaml runner."""
     if not val:
@@ -370,8 +383,6 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
         return "XOR_RANK" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("src", 0))) + " " + str(instr.get("cost", 0))
     if op == "emit":
         return "EMIT" + " " + str(int(instr.get("module", 0))) + " " + str(instr.get("payload", ".")) + " " + str(instr.get("cost", 0))
-    if op == "oracle_halts":
-        return "ORACLE_HALTS" + " " + str(instr.get("payload", ".")) + " " + str(instr.get("cost", 0))
     if op == "halt":
         return "HALT" + " " + str(instr.get("cost", 0))
     if op == "checkpoint":
@@ -417,6 +428,14 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
     if op == "morph_get":
         return "MORPH_GET" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("selector", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "lassert":
+        if "freg" in instr or "creg" in instr or "flen" in instr:
+            freg = int(instr.get("freg", 0))
+            creg = int(instr.get("creg", 0))
+            kind_value = instr.get("kind", 0)
+            kind = 1 if bool(kind_value) else 0
+            flen = int(instr.get("flen", 0))
+            cost = int(instr.get("cost", 0))
+            return f"LASSERT {freg} {creg} {kind} {flen} {cost}"
         formula = str(instr.get("formula", ""))
         cost = int(instr.get("cost", 0))
         raw_cert = instr.get("cert", "")
@@ -427,9 +446,9 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
             cert_type = str(instr.get("cert_type", "sat"))
             cert_data = str(raw_cert or "")
         kind = 0 if cert_type == "unsat" else 1
-        flen = len(_decode_formula(formula))
         # Parse formula/cert into binary word format for check_model_binary_fn.
         hw_flen, nvars, nclauses, lit_words = _parse_dimacs_binary(formula)
+        flen = hw_flen
         fbase = _LASSERT_FORMULA_ADDR
         cbase = _LASSERT_CERT_ADDR
         parts: List[str] = []
@@ -439,10 +458,13 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
         for i, w in enumerate(lit_words):
             parts.append(f"INIT_MEM {fbase + 3 + i} {w}")
         if kind == 1:
-            cert_words = _parse_sat_cert_binary(cert_data, nvars)
-            for i, w in enumerate(cert_words):
+            model_words, countermodel_words = _parse_dual_sat_certs(instr, raw_cert, nvars)
+            for i, w in enumerate(model_words):
                 if w != 0:
                     parts.append(f"INIT_MEM {cbase + i} {w}")
+            for i, w in enumerate(countermodel_words):
+                if w != 0:
+                    parts.append(f"INIT_MEM {cbase + nvars + i} {w}")
         parts.append(f"INIT_REG {_LASSERT_FREG} {fbase}")
         parts.append(f"INIT_REG {_LASSERT_CREG} {cbase}")
         parts.append(f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}")
@@ -470,11 +492,12 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
     if op == "reveal":
         m = int(instr.get("module", 0))
         ti, tj = m // 4, m % 4
-        delta = int(instr.get("cost", instr.get("bits", 0)))
+        bits = int(instr.get("bits", 0))
+        cost = int(instr.get("cost", 0))
         cert = str(instr.get("cert", "") or "")
         if cert and cert not in ("None", ""):
-            return f"REVEAL {ti} {tj} {delta} {cert}"
-        return f"REVEAL {ti} {tj} {delta}"
+            return f"REVEAL {ti} {tj} {bits} {cost} {cert}"
+        return f"REVEAL {ti} {tj} {bits} {cost}"
     raise ValueError(f"instr_dict_to_text: unknown opcode: {op!r}")
 
 # ---------------------------------------------------------------------------

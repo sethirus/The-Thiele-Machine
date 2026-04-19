@@ -1,65 +1,15 @@
-(** =========================================================================
-    NPA MOMENT MATRIX FOR CHSH - Level 1 Hierarchy
-    =========================================================================
+(** NPAMomentMatrix: the level-1 NPA matrix used by the CHSH quantum layer
 
-    WHY THIS FILE EXISTS:
-    I claim the Tsirelson bound (CHSH ≤ 2√2) is not a postulate - it's derived
-    from algebraic coherence via the NPA (Navascués-Pironio-Acín) hierarchy.
-    This file constructs the level-1 NPA moment matrix for CHSH and proves
-    that quantum correlations are exactly those satisfying positive-semidefinite
-    (PSD) constraints on this matrix.
+  This file builds the level-1 NPA moment matrix for the CHSH scenario and
+  packages the PSD constraints that the later Tsirelson arguments consume.
+  Its role is structural: define the matrix, expose its entries, and isolate
+  the algebraic conditions associated with the NPA-1 relaxation.
 
-    THE CORE INSIGHT:
-    Quantum observables satisfy algebraic relations: A₀² = A₁² = B₀² = B₁² = I
-    (measurement observables are self-inverse). These force constraints on
-    expectation values ⟨AᵢBⱼ⟩. The NPA-1 moment matrix Γ encodes these constraints:
-    Γ must be PSD. This PSD condition is NECESSARY AND SUFFICIENT for quantum
-    realizability at level 1.
+  The stronger optimization claim belongs elsewhere. This file is the matrix
+  side of that pipeline, not the whole derivation of the final bound by
+  itself.
 
-    CHSH SCENARIO:
-    - Alice chooses x ∈ {0,1}, measures A_x, gets a ∈ {-1,+1}
-    - Bob chooses y ∈ {0,1}, measures B_y, gets b ∈ {-1,+1}
-    - CHSH value: S = E₀₀ + E₀₁ + E₁₀ - E₁₁ where E_xy = ⟨A_x ⊗ B_y⟩
-
-    NPA-1 OPERATORS (Level-1 sequence):
-    {1, A₀, A₁, B₀, B₁} → 5×5 moment matrix Γ
-
-    MOMENT MATRIX STRUCTURE:
-    Γ[i,j] = ⟨Opᵢ · Opⱼ⟩ for Op ∈ {1, A₀, A₁, B₀, B₁}
-
-    Γ = ⎡  1    E_A₀   E_A₁   E_B₀   E_B₁ ⎤
-        ⎢ E_A₀    1    ρ_AA  E₀₀   E₀₁  ⎥
-        ⎢ E_A₁  ρ_AA    1    E₁₀   E₁₁  ⎥
-        ⎢ E_B₀  E₀₀   E₁₀    1    ρ_BB ⎥
-        ⎣ E_B₁  E₀₁   E₁₁  ρ_BB    1   ⎦
-
-    KEY CONSTRAINTS:
-    1. Γ is PSD (all principal minors ≥ 0, eigenvalues ≥ 0)
-    2. Diagonal: Γ[i,i] = 1 for all i (normalization, projector constraints)
-    3. Symmetry: Γ[i,j] = Γ[j,i] (hermiticity)
-    4. CRUCIAL: Classical correlations satisfy E_AxBy = E_Ax · E_By (factorization)
-       Quantum correlations VIOLATE this, allowing CHSH > 2 but forcing CHSH ≤ 2√2
-
-    PHYSICAL INTERPRETATION:
-    The moment matrix is the "Gram matrix" of quantum state expectations. PSD
-    means the state has a valid Hilbert space representation. NPA showed (2008)
-    that this hierarchy converges to the set of quantum correlations: level 1
-    gives Tsirelson bound, higher levels tighten further, limit = quantum set.
-
-    FALSIFICATION:
-    Find quantum correlations (achievable by entangled states + local measurements)
-    that violate PSD constraints on Γ. This would mean quantum mechanics is
-    algebraically inconsistent. Or find PSD correlations with CHSH > 2√2 (proving
-    NPA-1 is insufficient). Or build a quantum device achieving CHSH > 2√2
-    (contradicting Cirel'son 1980 and 40+ years of experiments).
-
-    CONNECTION TO TSIRELSON BOUND:
-    TsirelsonDerivation.v (archived, superseded by TsirelsonFromAlgebra.v)
-    proved max CHSH subject to Γ ⪰ 0 equals 2√2.
-    This file constructs Γ; TsirelsonFromAlgebra.v solves the optimization
-    problem non-circularly.
-
-    ========================================================================= *)
+  *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -71,7 +21,7 @@ Local Open Scope R_scope.
 
 From Kernel Require Import ConstructivePSD.
 
-(** * Operator Indices *)
+(** Operator Indices *)
 
 (** NPAOperator: The algebraic basis for level-1 NPA hierarchy
 
@@ -108,7 +58,6 @@ From Kernel Require Import ConstructivePSD.
     on the E_xy values arising from quantum algebraic rules (commutativity, self-
     adjointness, projectivity).
 
-    FALSIFICATION:
     Prove that NPA-1 with these 5 operators is insufficient to characterize CHSH
     bounds (would need to show level-2 or higher gives different bound). Or find
     a different minimal operator set that works better.
@@ -129,7 +78,6 @@ Inductive NPAOperator : Type :=
     - Op_B0 → 3 (row/column 3)
     - Op_B1 → 4 (row/column 4)
 
-    WHY INDEXING:
     Coq's matrix operations (ConstructivePSD.v) use natural number indices.
     This function bridges between semantic operator names (Op_A0) and numerical
     matrix positions (1). It makes the moment matrix construction concrete:
@@ -151,7 +99,6 @@ Inductive NPAOperator : Type :=
     same index, the matrix would conflate distinct quantum observables, losing
     information.
 
-    FALSIFICATION:
     Show two operators map to the same index (violates injectivity, impossible
     by construction). Or show the indexing causes the moment matrix to fail
     capturing quantum constraints (would mean wrong operator ordering).
@@ -165,7 +112,7 @@ Definition op_index (op : NPAOperator) : nat :=
   | Op_B1 => 4%nat
   end.
 
-(** * CHSH Correlators *)
+(** CHSH Correlators *)
 
 (** CHSHCorrelations: The four correlation values defining CHSH
 
@@ -212,7 +159,6 @@ Definition op_index (op : NPAOperator) : nat :=
     E₀₀, E₀₁, E₁₀ are large, then E₁₁ must satisfy certain bounds). This is how
     NPA derives the Tsirelson bound algebraically.
 
-    FALSIFICATION:
     Find quantum correlations {E₀₀, E₀₁, E₁₀, E₁₁} with |E_xy| > 1 (would violate
     probability). Or find correlations achieving S-value > 2√2 (would violate
     Tsirelson bound). Or prove correlations with S ∈ (2, 2√2) are unrealizable
@@ -230,7 +176,6 @@ Record CHSHCorrelations : Type := {
     DEFINITION: For given correlations c, compute:
     S(c) = c.E00 + c.E01 + c.E10 - c.E11
 
-    WHY THIS COMBINATION:
     This is the CHSH-Bell operator expectation ⟨B⟩ where:
     B = A₀⊗B₀ + A₀⊗B₁ + A₁⊗B₀ - A₁⊗B₁
 
@@ -256,7 +201,6 @@ Record CHSHCorrelations : Type := {
     This is analogous to choosing the right "objective function" in optimization:
     CHSH is the function that best distinguishes quantum from classical.
 
-    PHYSICAL INTERPRETATION:
     S measures "how much Alice and Bob's results correlate" across the four settings.
     Positive correlations (E₀₀, E₀₁, E₁₀) and anti-correlation (E₁₁) combine to
     give a score. Classical: max score = 2. Quantum: max score = 2√2. This 40%
@@ -271,7 +215,6 @@ Record CHSHCorrelations : Type := {
     Loopholes closed: locality loophole (1998), detection loophole (2001), both
     simultaneously (2015). All confirm S ∈ (2, 2√2] for quantum systems.
 
-    FALSIFICATION:
     Build a device achieving S > 2√2 without classical communication. This would
     violate Tsirelson bound, disproving quantum mechanics or NPA hierarchy. Or
     prove S = 2√2 is achievable with local hidden variables (would refute Bell's
@@ -280,7 +223,7 @@ Record CHSHCorrelations : Type := {
 Definition S_value (c : CHSHCorrelations) : R :=
   c.(E00) + c.(E01) + c.(E10) - c.(E11).
 
-(** * NPA Moment Matrix Construction *)
+(** NPA Moment Matrix Construction *)
 
 (** The 5×5 NPA-1 moment matrix for CHSH.
 
@@ -363,7 +306,7 @@ Definition npa_to_matrix (npa : NPAMomentMatrix) : Matrix 5 :=
     | _, _ => 0
     end.
 
-(** * Quantum Realizability *)
+(** Quantum Realizability *)
 
 (** A moment matrix is quantum realizable if it's PSD and symmetric *)
 (** A moment matrix is quantum realizable if it's PSD and symmetric *)
@@ -397,7 +340,7 @@ Definition correlator_4x4 (E00 E01 E10 E11 : R) : Matrix 4 :=
     | _, _ => 0 
     end.
 
-(** * Extract CHSH Correlations *)
+(** Extract CHSH Correlations *)
 
 Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
   E00 := npa.(npa_E00);
@@ -406,7 +349,7 @@ Definition npa_to_chsh (npa : NPAMomentMatrix) : CHSHCorrelations := {|
   E11 := npa.(npa_E11);
 |}.
 
-(** * Key Theorems *)
+(** Key Theorems *)
 
 (** INQUISITOR NOTE: The following lemma relates quantum realizability to
     correlation bounds. This follows from PSD matrix properties 
@@ -485,7 +428,6 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** [quantum_realizable_implies_normalized]: formal specification. *)
 Lemma quantum_realizable_implies_normalized : forall (npa : NPAMomentMatrix),
   quantum_realizable npa ->
   Rabs (npa.(npa_E00)) <= 1 /\
@@ -534,7 +476,7 @@ Proof.
   destruct ni as [|[|[|[|[|]]]]]; destruct nj as [|[|[|[|[|]]]]]; try lia; reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     VERIFICATION SUMMARY - STEP 2
 
     ✓ NPA operator sequence defined (5 operators for CHSH)
@@ -547,4 +489,4 @@ Qed.
     Tsirelson bound proved in TsirelsonGeneral.v / TsirelsonFromAlgebra.v
     via pure algebra, not NPA optimization. The NPA→Tsirelson path was
     superseded.
-    ========================================================================= *)
+    *)

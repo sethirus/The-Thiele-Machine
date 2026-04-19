@@ -1,6 +1,5 @@
-(** =========================================================================
+(**
     PROPER SUBSUMPTION: Turing ⊂ Thiele (Non-Circular)
-    =========================================================================
     
     This file provides a NON-CIRCULAR proof that Turing computation is
     strictly contained in Thiele computation.
@@ -8,8 +7,7 @@
     KEY INSIGHT: The distinction is NOT computational power (both are
     Turing-complete), but COST ACCOUNTING. Thiele tracks μ-cost for every
     operation, enabling provable complexity bounds.
-    
-    STRUCTURE:
+
     1. Full Turing machine (read/write any symbol, move, branch)
     2. Thiele machine (same operations + μ-cost tracking)
     3. Simulation: every Turing computation can be simulated in Thiele
@@ -17,7 +15,7 @@
     
     NO CIRCULAR DEFINITIONS. The Turing machine is not artificially limited.
     
-    ========================================================================= *)
+    *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -28,9 +26,6 @@ Import ListNotations.
 
 Module ProperSubsumption.
 
-(** =========================================================================
-    SECTION 1: FULL TURING MACHINE (NOT CRIPPLED)
-    ========================================================================= *)
 
 (** Tape symbols - arbitrary natural numbers (Turing-complete) *)
 Definition Symbol := nat.
@@ -118,9 +113,6 @@ Fixpoint tm_run (fuel : nat) (delta : TM_Delta) (c : TM_Config) : TM_Config :=
       end
   end.
 
-(** =========================================================================
-    SECTION 2: THIELE MACHINE (TURING + μ-COST)
-    ========================================================================= *)
 
 (** Thiele configuration: Turing config + μ-ledger *)
 Record Thiele_Config := {
@@ -156,9 +148,6 @@ Fixpoint thiele_run (fuel : nat) (delta : TM_Delta) (c : Thiele_Config) : Thiele
       end
   end.
 
-(** =========================================================================
-    SECTION 3: SIMULATION THEOREM
-    ========================================================================= *)
 
 (** Lift Turing config to Thiele config *)
 Definition lift_config (c : TM_Config) : Thiele_Config :=
@@ -179,7 +168,7 @@ Proof.
     + reflexivity.
 Qed.
 
-(** KEY THEOREM: Thiele simulates Turing exactly (same tape, same state) *)
+(** The key theorem: Thiele simulates Turing exactly (same tape, same state) *)
 Theorem thiele_simulates_turing :
   forall fuel delta c,
     (thiele_run fuel delta (lift_config c)).(th_tm_config) = tm_run fuel delta c.
@@ -201,9 +190,6 @@ Proof.
   split; reflexivity.
 Qed.
 
-(** =========================================================================
-    SECTION 4: STRICT EXTENSION - COST CERTIFICATES
-    ========================================================================= *)
 
 (** The key property Thiele provides that Turing doesn't: 
     A verifiable cost certificate for any computation.
@@ -260,9 +246,6 @@ Proof.
   nia.
 Qed.
 
-(** =========================================================================
-    SECTION 5: STRICT CONTAINMENT THEOREM
-    ========================================================================= *)
 
 (** The Thiele machine strictly extends Turing by providing:
     1. All Turing-computable functions (simulation theorem)
@@ -308,9 +291,6 @@ Proof.
     intros fuel delta c. apply cost_certificate_valid.
 Qed.
 
-(** =========================================================================
-    SECTION 6: WHAT THIS PROVES
-    ========================================================================= *)
 
 (** 
     This file establishes:

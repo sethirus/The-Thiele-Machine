@@ -1,8 +1,8 @@
 (** EmbedStep_WF.v
 
     Full-state embed_step for the WF-guarded instruction layer.
-    Extends the 40-opcode unconditional SupportedOpcode coverage to a
-    43-opcode WFSupportedOpcode coverage by adding:
+    Extends the 31-opcode unconditional SupportedOpcode coverage to a
+    34-opcode WFSupportedOpcode coverage by adding:
     - CALL
     - RET
     - CHSH_TRIAL
@@ -18,7 +18,6 @@
     - LASSERT: check_ok = true /\ flen = hw_flen (success-path match)
     - PSPLIT/PMERGE: partition table well-formedness
 
-    STATUS: Zero Admitted.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool NArith.BinNat NArith.Nnat FunctionalExtensionality.
@@ -31,7 +30,7 @@ Import VMStep.VMStep.
 
 (* ======================================================================
    §1  Helper lemmas
-   ====================================================================== *)
+   *)
 
 (** word64 is the identity for nats whose N-encoding is below 2^64. *)
 Lemma word64_id_lt : forall (x : nat),
@@ -114,7 +113,7 @@ Definition WellFormedSnapshot (ks : KamiSnapshot) : Prop :=
 
 (* ======================================================================
    §2  CALL: full-state embed_step under WellFormedSnapshot
-   ====================================================================== *)
+   *)
 
 Theorem embed_step_call :
   forall (ks : KamiSnapshot) (target cost : nat),
@@ -146,7 +145,7 @@ Qed.
 
 (* ======================================================================
    §3  RET: full-state embed_step under WellFormedSnapshot
-   ====================================================================== *)
+   *)
 
 Theorem embed_step_ret :
   forall (ks : KamiSnapshot) (cost : nat),
@@ -174,7 +173,7 @@ Qed.
 
 (* ======================================================================
    §4  CHSH_TRIAL: full-state embed_step under chsh_bits_ok
-   ====================================================================== *)
+   *)
 
 (** After fixing the dispatch-swap bug in kami_step (2026-04-01),
     kami_step now uses the same convention as the kernel's record_trial:
@@ -208,9 +207,9 @@ Qed.
 
 (* ======================================================================
    §5  WFSupportedOpcode: 43-opcode predicate
-   ====================================================================== *)
+   *)
 
-(** WFSupportedOpcode extends the 40-opcode SupportedOpcode subset with
+(** WFSupportedOpcode extends the 31-opcode SupportedOpcode subset with
     CALL, RET, and CHSH_TRIAL, yielding a 43-opcode layer.
 
     Preconditions:
@@ -252,9 +251,9 @@ Qed.
 
 (* ======================================================================
    §6  LASSERT: embed_step under success-path precondition
-   ====================================================================== *)
+   *)
 
-(** The hardware SAT checker and the kernel's lassert_check_ok compute the
+(** The hardware dual-witness checker and the kernel's lassert_check_ok compute the
     same boolean when applied through abs_phase1. *)
 Lemma lassert_check_ok_hw_compat :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool),
@@ -263,8 +262,16 @@ Lemma lassert_check_ok_hw_compat :
     let hw_flen := snap_mem ks (fbase mod MEM_SIZE) in
     let formula_words := List.map (fun i => snap_mem ks ((fbase + i) mod MEM_SIZE))
                                   (List.seq 0 (3 + hw_flen)) in
-    let get_cert := (fun var => snap_mem ks ((cbase + var) mod MEM_SIZE)) in
-    let hw_check := if kind then CertCheck.check_model_binary_fn formula_words get_cert
+    let num_vars :=
+      match formula_words with
+      | _ :: nv :: _ => nv
+      | _ => 0
+      end in
+    let get_model := (fun var => snap_mem ks ((cbase + var) mod MEM_SIZE)) in
+    let get_countermodel := (fun var => snap_mem ks ((cbase + num_vars + var) mod MEM_SIZE)) in
+    let hw_check := if kind then
+                      andb (CertCheck.check_model_binary_fn formula_words get_model)
+                           (CertCheck.check_countermodel_binary_fn formula_words get_countermodel)
                     else false in
     hw_check = lassert_check_ok (abs_phase1 ks) freg creg kind.
 Proof.
@@ -275,12 +282,16 @@ Proof.
   set (cbase := snap_regs ks (creg mod 32)).
   rewrite abs_phase1_read_mem.
   set (hw_flen := snap_mem ks (fbase mod MEM_SIZE)).
+  assert (Hfw : List.map (fun i => read_mem (abs_phase1 ks) (fbase + i))
+                         (List.seq 0 (3 + hw_flen)) =
+                List.map (fun i => snap_mem ks ((fbase + i) mod MEM_SIZE))
+                         (List.seq 0 (3 + hw_flen))).
+  { apply List.map_ext. intro i. apply abs_phase1_read_mem. }
+  rewrite <- Hfw.
   destruct kind; [|reflexivity].
-  f_equal.
-  - apply List.map_ext. intro i.
-    symmetry. apply abs_phase1_read_mem.
-  - apply functional_extensionality. intro var.
-    symmetry. apply abs_phase1_read_mem.
+  repeat f_equal;
+    apply functional_extensionality; intro var;
+    symmetry; apply abs_phase1_read_mem.
 Qed.
 
 (** LASSERT embed_step on the success path:
@@ -306,6 +317,8 @@ Proof.
   intros ks freg creg kind flen cost Hcheck Hflen.
   cbv zeta.
   unfold vm_apply, kami_step.
+  unfold lassert_exec_ok.
+  rewrite <- Hflen. rewrite Nat.eqb_refl. simpl.
   rewrite Hcheck.
   unfold abs_phase1, apply_cost, instruction_cost.
   cbn [snap_pc snap_mu snap_err snap_halted snap_regs snap_mem
@@ -324,7 +337,7 @@ Qed.
 
 (* ======================================================================
    §7  PNEW: embed_step under well-formed partition table
-   ====================================================================== *)
+   *)
 
 (** Partition table well-formedness for PNEW. *)
 Definition WellFormedPT_PNEW (ks : KamiSnapshot) : Prop :=

@@ -22,7 +22,6 @@
     Combined: ShadowSupportedOpcode covers 30 opcodes unconditionally
     (original 26 + PNEW, PDISCOVER, EMIT, REVEAL).
 
-    STATUS: Zero Admitted.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool NArith.BinNat NArith.Nnat Strings.String.
@@ -35,7 +34,7 @@ Import VMStep.VMStep.
 
 (* ======================================================================
    §1  Unconditional shadow embed_step: PNEW, PDISCOVER, EMIT, REVEAL
-   ====================================================================== *)
+   *)
 
 (** PNEW: hardware updates partition table (snap_pt_sizes, snap_pt_next_id),
     kernel updates vm_graph via graph_pnew.  Both are invisible to shadow_proj.
@@ -68,7 +67,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** EMIT: hardware does kami_advance_default with S cost, kernel updates
+(** EMIT: hardware does kami_advance_default with payload-bit cost, kernel updates
     vm_csrs via csr_set_cert_addr.  CSR change invisible to shadow_proj. *)
 Lemma shadow_embed_step_emit :
   forall (ks : KamiSnapshot) (mid : ModuleID) (payload : string) (cost : nat),
@@ -99,7 +98,7 @@ Qed.
 
 (* ======================================================================
    §2  ShadowSupportedOpcode: 30 opcodes with unconditional shadow equality
-   ====================================================================== *)
+   *)
 
 (** ShadowSupportedOpcode extends SupportedOpcode with the 4 opcodes above.
     Every instruction satisfying this predicate has shadow_proj commutation
@@ -139,7 +138,7 @@ Qed.
 
 (* ======================================================================
    §3  Conditional shadow embed_step: CHSH_TRIAL, TENSOR_SET/GET, LJOIN
-   ====================================================================== *)
+   *)
 
 (** CHSH_TRIAL: shadow equality when chsh_bits_ok = true.
     Hardware unconditionally updates witness counters (dispatch-swapped);
@@ -254,13 +253,9 @@ Qed.
 
 (* ======================================================================
    §4  Divergence documentation
-   ====================================================================== *)
+   *)
 
 (** The following opcodes do NOT have shadow embed_step from abs_phase1:
-
-    IRREDUCIBLE — cs_mu diverges:
-    - LASSERT:      hw charges S cost; kernel charges flen*8 + S cost
-    - ORACLE_HALTS: hw charges 1,000,000; kernel charges 2
 
     IRREDUCIBLE — cs_err diverges (from abs_phase1):
     - MORPH_COMPOSE:  morphism lookup always fails (pg_morphisms=[]);
@@ -284,6 +279,9 @@ Qed.
     - LJOIN:          when cert strings differ, kernel sets err=true,
                       hw preserves err.  Shadow eq when strings match.
     - CHSH_TRIAL:     when chsh_bits_ok = false, kernel sets err=true,
+ 
+    LASSERT is no longer in this list: the formula-length μ charge and
+    dual-witness success condition are aligned through the EmbedStep bridge.
                       hw preserves err.  Shadow eq when bits OK.
     - TENSOR_SET:     when i >= 4 or j >= 4, kernel sets err=true,
                       hw preserves err.  Shadow eq when bounds OK.
@@ -292,7 +290,7 @@ Qed.
 
 (* ======================================================================
    §5  Shadow equality is preserved by vm_apply on ShadowSupportedOpcodes
-   ====================================================================== *)
+   *)
 
 (** Extract component equalities from shadow_proj equality. *)
 Lemma shadow_proj_eq_components :
@@ -402,7 +400,7 @@ Qed.
 
 (* ======================================================================
    §6  Shadow trace compositionality: 30-opcode trace theorem
-   ====================================================================== *)
+   *)
 
 (** Trace-level shadow commutation: for any trace of ShadowSupportedOpcodes,
     shadow_proj of the hardware end-state (via abs_phase1) equals

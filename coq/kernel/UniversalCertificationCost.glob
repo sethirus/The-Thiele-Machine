@@ -1,682 +1,682 @@
-DIGEST 6ef3e4402a0f2c0c8c9919bfef3851cf
+DIGEST 97a53a71a7b54693d86d934e7b20cca6
 FKernel.UniversalCertificationCost
-R3487:3490 Coq.Lists.List <> <> lib
-R3492:3505 Coq.Arith.PeanoNat <> <> lib
-R3507:3509 Coq.micromega.Lia <> <> lib
-R3511:3514 Coq.Bool.Bool <> <> lib
-R3524:3536 Coq.Lists.List ListNotations <> mod
-R3567:3573 Kernel.VMState <> <> lib
-R3575:3580 Kernel.VMStep <> <> lib
-R3582:3596 Kernel.SimulationProof <> <> lib
-R3598:3609 Kernel.AbstractNoFI <> <> lib
-rec 4131:4149 <> CertificationSystem
-proj 4227:4234 <> cs_state
-proj 4396:4403 <> cs_instr
-proj 4482:4488 <> cs_step
-proj 4605:4611 <> cs_cost
-proj 4699:4705 <> cs_cert
-proj 5325:5337 <> cs_cert_costs
-R4501:4504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4493:4500 Kernel.UniversalCertificationCost <> cs_state:2 meth
-R4513:4516 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4505:4512 Kernel.UniversalCertificationCost <> cs_instr:3 meth
-R4517:4524 Kernel.UniversalCertificationCost <> cs_state:2 meth
-R4624:4627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4616:4623 Kernel.UniversalCertificationCost <> cs_instr:3 meth
-R4628:4630 Coq.Init.Datatypes <> nat ind
-R4718:4721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4710:4717 Kernel.UniversalCertificationCost <> cs_state:2 meth
-R4722:4725 Coq.Init.Datatypes <> bool ind
-R5357:5364 Kernel.UniversalCertificationCost <> cs_state:2 meth
-binder 5353:5353 <> s:7
-R5372:5379 Kernel.UniversalCertificationCost <> cs_instr:3 meth
-binder 5368:5368 <> i:8
-R5406:5415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5398:5400 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5389:5395 Kernel.UniversalCertificationCost <> cs_cert:6 meth
-R5397:5397 Kernel.UniversalCertificationCost <> s:7 var
-R5401:5405 Coq.Init.Datatypes <> false constr
-R5444:5453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5437:5439 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5416:5422 Kernel.UniversalCertificationCost <> cs_cert:6 meth
-R5425:5431 Kernel.UniversalCertificationCost <> cs_step:4 meth
-R5435:5435 Kernel.UniversalCertificationCost <> i:8 var
-R5433:5433 Kernel.UniversalCertificationCost <> s:7 var
-R5440:5443 Coq.Init.Datatypes <> true constr
-R5463:5466 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5454:5460 Kernel.UniversalCertificationCost <> cs_cost:5 meth
-R5462:5462 Kernel.UniversalCertificationCost <> i:8 var
-def 5801:5806 <> cs_run
-R5814:5832 Kernel.UniversalCertificationCost <> CertificationSystem rec
-binder 5809:5810 <> CS:10
-R5860:5863 Coq.Init.Datatypes <> list ind
-R5866:5873 Kernel.UniversalCertificationCost <> cs_instr proj
-R5875:5876 Kernel.UniversalCertificationCost <> CS:10 var
-binder 5852:5856 <> trace:11
-R5901:5908 Kernel.UniversalCertificationCost <> cs_state proj
-R5910:5911 Kernel.UniversalCertificationCost <> CS:10 var
-binder 5897:5897 <> s:12
-R5916:5923 Kernel.UniversalCertificationCost <> cs_state proj
-R5925:5926 Kernel.UniversalCertificationCost <> CS:10 var
-R5939:5943 Kernel.UniversalCertificationCost <> trace:11 var
-R5954:5955 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5967:5967 Kernel.UniversalCertificationCost <> s:12 var
-R5974:5977 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5986:5991 Kernel.UniversalCertificationCost <> cs_run:13 def
-R6002:6008 Kernel.UniversalCertificationCost <> cs_step proj
-R6010:6011 Kernel.UniversalCertificationCost <> CS:10 var
-R6013:6013 Kernel.UniversalCertificationCost <> s:12 var
-R5993:5994 Kernel.UniversalCertificationCost <> CS:10 var
-def 6095:6107 <> cs_total_cost
-R6115:6133 Kernel.UniversalCertificationCost <> CertificationSystem rec
-binder 6110:6111 <> CS:15
-R6168:6171 Coq.Init.Datatypes <> list ind
-R6174:6181 Kernel.UniversalCertificationCost <> cs_instr proj
-R6183:6184 Kernel.UniversalCertificationCost <> CS:15 var
-binder 6160:6164 <> trace:16
-R6190:6192 Coq.Init.Datatypes <> nat ind
-R6205:6209 Kernel.UniversalCertificationCost <> trace:16 var
-R6220:6221 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6240:6243 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6264:6266 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6252:6258 Kernel.UniversalCertificationCost <> cs_cost proj
-R6260:6261 Kernel.UniversalCertificationCost <> CS:15 var
-R6267:6279 Kernel.UniversalCertificationCost <> cs_total_cost:17 def
-R6281:6282 Kernel.UniversalCertificationCost <> CS:15 var
-prf 7382:7408 <> universal_nfi_any_substrate
-R7427:7445 Kernel.UniversalCertificationCost <> CertificationSystem rec
-binder 7422:7423 <> CS:19
-R7466:7469 Coq.Init.Datatypes <> list ind
-R7472:7479 Kernel.UniversalCertificationCost <> cs_instr proj
-R7481:7482 Kernel.UniversalCertificationCost <> CS:19 var
-binder 7458:7462 <> trace:20
-R7501:7508 Kernel.UniversalCertificationCost <> cs_state proj
-R7510:7511 Kernel.UniversalCertificationCost <> CS:19 var
-binder 7496:7497 <> s0:21
-R7583:7630 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7575:7577 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7562:7568 Kernel.UniversalCertificationCost <> cs_cert proj
-R7570:7571 Kernel.UniversalCertificationCost <> CS:19 var
-R7573:7574 Kernel.UniversalCertificationCost <> s0:21 var
-R7578:7582 Coq.Init.Datatypes <> false constr
-R7669:7732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7662:7664 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7631:7637 Kernel.UniversalCertificationCost <> cs_cert proj
-R7639:7640 Kernel.UniversalCertificationCost <> CS:19 var
-R7643:7648 Kernel.UniversalCertificationCost <> cs_run def
-R7650:7651 Kernel.UniversalCertificationCost <> CS:19 var
-R7653:7657 Kernel.UniversalCertificationCost <> trace:20 var
-R7659:7660 Kernel.UniversalCertificationCost <> s0:21 var
-R7665:7668 Coq.Init.Datatypes <> true constr
-R7755:7758 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7733:7745 Kernel.UniversalCertificationCost <> cs_total_cost def
-R7747:7748 Kernel.UniversalCertificationCost <> CS:19 var
-R7750:7754 Kernel.UniversalCertificationCost <> trace:20 var
-R8090:8096 Kernel.UniversalCertificationCost <> cs_cert proj
-R8102:8108 Kernel.UniversalCertificationCost <> cs_step proj
-R8090:8096 Kernel.UniversalCertificationCost <> cs_cert proj
-R8102:8108 Kernel.UniversalCertificationCost <> cs_step proj
-R8283:8295 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R8283:8295 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R8495:8501 Kernel.UniversalCertificationCost <> cs_step proj
-R8495:8501 Kernel.UniversalCertificationCost <> cs_step proj
-prf 8694:8712 <> cert_trace_nonempty
-R8731:8749 Kernel.UniversalCertificationCost <> CertificationSystem rec
-binder 8726:8727 <> CS:22
-R8770:8773 Coq.Init.Datatypes <> list ind
-R8776:8783 Kernel.UniversalCertificationCost <> cs_instr proj
-R8785:8786 Kernel.UniversalCertificationCost <> CS:22 var
-binder 8762:8766 <> trace:23
-R8805:8812 Kernel.UniversalCertificationCost <> cs_state proj
-R8814:8815 Kernel.UniversalCertificationCost <> CS:22 var
-binder 8800:8801 <> s0:24
-R8844:8851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8836:8838 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8823:8829 Kernel.UniversalCertificationCost <> cs_cert proj
-R8831:8832 Kernel.UniversalCertificationCost <> CS:22 var
-R8834:8835 Kernel.UniversalCertificationCost <> s0:24 var
-R8839:8843 Coq.Init.Datatypes <> false constr
-R8890:8897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8883:8885 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8852:8858 Kernel.UniversalCertificationCost <> cs_cert proj
-R8860:8861 Kernel.UniversalCertificationCost <> CS:22 var
-R8864:8869 Kernel.UniversalCertificationCost <> cs_run def
-R8871:8872 Kernel.UniversalCertificationCost <> CS:22 var
-R8874:8878 Kernel.UniversalCertificationCost <> trace:23 var
-R8880:8881 Kernel.UniversalCertificationCost <> s0:24 var
-R8886:8889 Coq.Init.Datatypes <> true constr
-R8903:8906 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R8898:8902 Kernel.UniversalCertificationCost <> trace:23 var
-R8907:8908 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 9623:9645 <> thiele_cert_addr_system
-R9649:9667 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R9681:9688 Kernel.UniversalCertificationCost <> cs_state proj
-R9681:9688 Kernel.UniversalCertificationCost <> cs_state proj
-R9681:9688 Kernel.UniversalCertificationCost <> cs_state proj
-R9706:9713 Kernel.UniversalCertificationCost <> cs_instr proj
-R9706:9713 Kernel.UniversalCertificationCost <> cs_instr proj
-R9738:9744 Kernel.UniversalCertificationCost <> cs_step proj
-R9738:9744 Kernel.UniversalCertificationCost <> cs_step proj
-R9764:9770 Kernel.UniversalCertificationCost <> cs_cost proj
-R9764:9770 Kernel.UniversalCertificationCost <> cs_cost proj
-R9798:9804 Kernel.UniversalCertificationCost <> cs_cert proj
-R9798:9804 Kernel.UniversalCertificationCost <> cs_cert proj
-R9884:9896 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R9884:9896 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R9693:9699 Kernel.VMState <> VMState rec
-R9718:9731 Kernel.VMStep VMStep vm_instruction ind
-R9750:9757 Kernel.SimulationProof <> vm_apply def
-R9776:9791 Kernel.VMStep VMStep instruction_cost def
-R9810:9825 Kernel.AbstractNoFI <> thiele_cert_bool def
-binder 9911:9911 <> s:25
-binder 9913:9913 <> i:26
-binder 9915:9920 <> Hfalse:27
-binder 9922:9926 <> Htrue:28
-R9939:9959 Kernel.AbstractNoFI <> no_free_certification thm
-R9961:9961 Kernel.UniversalCertificationCost <> s:25 var
-R9963:9963 Kernel.UniversalCertificationCost <> i:26 var
-R9976:9980 Coq.Init.Logic <> proj1 thm
-R10012:10017 Kernel.UniversalCertificationCost <> Hfalse:27 var
-R9983:10007 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
-R10009:10009 Kernel.UniversalCertificationCost <> s:25 var
-R10031:10035 Coq.Init.Logic <> proj1 thm
-R10083:10087 Kernel.UniversalCertificationCost <> Htrue:28 var
-R10038:10065 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
-R10068:10075 Kernel.SimulationProof <> vm_apply def
-R10077:10077 Kernel.UniversalCertificationCost <> s:25 var
-R10079:10079 Kernel.UniversalCertificationCost <> i:26 var
-prf 10177:10206 <> thiele_universal_nfi_cert_addr
-R10228:10231 Coq.Init.Datatypes <> list ind
-R10233:10246 Kernel.VMStep VMStep vm_instruction ind
-binder 10220:10224 <> trace:29
-R10255:10261 Kernel.VMState <> VMState rec
-binder 10250:10251 <> s0:30
-R10296:10303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10288:10290 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10269:10284 Kernel.AbstractNoFI <> thiele_cert_bool def
-R10286:10287 Kernel.UniversalCertificationCost <> s0:30 var
-R10291:10295 Coq.Init.Datatypes <> false constr
-R10369:10376 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10362:10364 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10304:10319 Kernel.AbstractNoFI <> thiele_cert_bool def
-R10322:10327 Kernel.UniversalCertificationCost <> cs_run def
-R10329:10351 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R10353:10357 Kernel.UniversalCertificationCost <> trace:29 var
-R10359:10360 Kernel.UniversalCertificationCost <> s0:30 var
-R10365:10368 Coq.Init.Datatypes <> true constr
-R10420:10423 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10377:10389 Kernel.UniversalCertificationCost <> cs_total_cost def
-R10391:10413 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R10415:10419 Kernel.UniversalCertificationCost <> trace:29 var
-R10475:10501 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R10503:10525 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R10475:10501 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R10503:10525 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-def 11117:11139 <> thiele_certified_system
-R11143:11161 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R11175:11182 Kernel.UniversalCertificationCost <> cs_state proj
-R11175:11182 Kernel.UniversalCertificationCost <> cs_state proj
-R11175:11182 Kernel.UniversalCertificationCost <> cs_state proj
-R11200:11207 Kernel.UniversalCertificationCost <> cs_instr proj
-R11200:11207 Kernel.UniversalCertificationCost <> cs_instr proj
-R11232:11238 Kernel.UniversalCertificationCost <> cs_step proj
-R11232:11238 Kernel.UniversalCertificationCost <> cs_step proj
-R11258:11264 Kernel.UniversalCertificationCost <> cs_cost proj
-R11258:11264 Kernel.UniversalCertificationCost <> cs_cost proj
-R11292:11298 Kernel.UniversalCertificationCost <> cs_cert proj
-R11292:11298 Kernel.UniversalCertificationCost <> cs_cert proj
-R11399:11411 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R11399:11411 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R11187:11193 Kernel.VMState <> VMState rec
-R11212:11225 Kernel.VMStep VMStep vm_instruction ind
-R11244:11251 Kernel.SimulationProof <> vm_apply def
-R11270:11285 Kernel.VMStep VMStep instruction_cost def
-binder 11309:11309 <> s:31
-R11317:11328 Kernel.VMState <> vm_certified proj
-R11314:11314 Kernel.UniversalCertificationCost <> s:31 var
-R11416:11446 Kernel.AbstractNoFI <> no_free_certification_certified thm
-prf 11538:11567 <> thiele_universal_nfi_certified
-R11589:11592 Coq.Init.Datatypes <> list ind
-R11594:11607 Kernel.VMStep VMStep vm_instruction ind
-binder 11581:11585 <> trace:32
-R11616:11622 Kernel.VMState <> VMState rec
-binder 11611:11612 <> s0:33
-R11655:11662 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11647:11649 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11634:11645 Kernel.VMState <> vm_certified proj
-R11630:11631 Kernel.UniversalCertificationCost <> s0:33 var
-R11650:11654 Coq.Init.Datatypes <> false constr
-R11726:11733 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11719:11721 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11706:11717 Kernel.VMState <> vm_certified proj
-R11664:11669 Kernel.UniversalCertificationCost <> cs_run def
-R11671:11693 Kernel.UniversalCertificationCost <> thiele_certified_system def
-R11695:11699 Kernel.UniversalCertificationCost <> trace:32 var
-R11701:11702 Kernel.UniversalCertificationCost <> s0:33 var
-R11722:11725 Coq.Init.Datatypes <> true constr
-R11777:11780 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11734:11746 Kernel.UniversalCertificationCost <> cs_total_cost def
-R11748:11770 Kernel.UniversalCertificationCost <> thiele_certified_system def
-R11772:11776 Kernel.UniversalCertificationCost <> trace:32 var
-R11832:11858 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R11860:11882 Kernel.UniversalCertificationCost <> thiele_certified_system def
-R11832:11858 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R11860:11882 Kernel.UniversalCertificationCost <> thiele_certified_system def
-rec 14794:14822 <> SimulatingCertificationSystem
-proj 14831:14838 <> scs_base
-proj 14868:14877 <> scs_decode
-proj 14923:14931 <> scs_embed
-proj 14971:14987 <> scs_step_commutes
-proj 15146:15163 <> scs_cost_preserved
-proj 15271:15287 <> scs_cert_reflects
-R14844:14862 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R14900:14903 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14891:14898 Kernel.UniversalCertificationCost <> cs_instr proj
-R14881:14888 Kernel.UniversalCertificationCost <> scs_base:35 meth
-R14904:14917 Kernel.VMStep VMStep vm_instruction ind
-R14955:14958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14946:14953 Kernel.UniversalCertificationCost <> cs_state proj
-R14936:14943 Kernel.UniversalCertificationCost <> scs_base:35 meth
-R14959:14965 Kernel.VMState <> VMState rec
-R15017:15024 Kernel.UniversalCertificationCost <> cs_state proj
-R15007:15014 Kernel.UniversalCertificationCost <> scs_base:35 meth
-binder 15003:15003 <> s:38
-R15043:15050 Kernel.UniversalCertificationCost <> cs_instr proj
-R15033:15040 Kernel.UniversalCertificationCost <> scs_base:35 meth
-binder 15029:15029 <> i:39
-R15095:15103 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15061:15069 Kernel.UniversalCertificationCost <> scs_embed:37 meth
-R15082:15088 Kernel.UniversalCertificationCost <> cs_step proj
-R15072:15079 Kernel.UniversalCertificationCost <> scs_base:35 meth
-R15091:15091 Kernel.UniversalCertificationCost <> s:38 var
-R15093:15093 Kernel.UniversalCertificationCost <> i:39 var
-R15104:15111 Kernel.SimulationProof <> vm_apply def
-R15114:15122 Kernel.UniversalCertificationCost <> scs_embed:37 meth
-R15124:15124 Kernel.UniversalCertificationCost <> s:38 var
-R15128:15137 Kernel.UniversalCertificationCost <> scs_decode:36 meth
-R15139:15139 Kernel.UniversalCertificationCost <> i:39 var
-R15193:15200 Kernel.UniversalCertificationCost <> cs_instr proj
-R15183:15190 Kernel.UniversalCertificationCost <> scs_base:35 meth
-binder 15179:15179 <> i:41
-R15231:15234 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R15221:15227 Kernel.UniversalCertificationCost <> cs_cost proj
-R15211:15218 Kernel.UniversalCertificationCost <> scs_base:35 meth
-R15230:15230 Kernel.UniversalCertificationCost <> i:41 var
-R15235:15250 Kernel.VMStep VMStep instruction_cost def
-R15253:15262 Kernel.UniversalCertificationCost <> scs_decode:36 meth
-R15264:15264 Kernel.UniversalCertificationCost <> i:41 var
-R15317:15324 Kernel.UniversalCertificationCost <> cs_state proj
-R15307:15314 Kernel.UniversalCertificationCost <> scs_base:35 meth
-binder 15303:15303 <> s:43
-R15355:15357 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15345:15351 Kernel.UniversalCertificationCost <> cs_cert proj
-R15335:15342 Kernel.UniversalCertificationCost <> scs_base:35 meth
-R15354:15354 Kernel.UniversalCertificationCost <> s:43 var
-R15373:15384 Kernel.VMState <> vm_certified proj
-R15359:15367 Kernel.UniversalCertificationCost <> scs_embed:37 meth
-R15369:15369 Kernel.UniversalCertificationCost <> s:43 var
-prf 15473:15485 <> scs_run_embed
-R15505:15533 Kernel.UniversalCertificationCost <> SimulatingCertificationSystem rec
-binder 15499:15501 <> SCS:45
-R15554:15557 Coq.Init.Datatypes <> list ind
-R15576:15583 Kernel.UniversalCertificationCost <> cs_instr proj
-R15565:15572 Kernel.UniversalCertificationCost <> scs_base proj
-R15560:15562 Kernel.UniversalCertificationCost <> SCS:45 var
-binder 15546:15550 <> trace:46
-R15619:15626 Kernel.UniversalCertificationCost <> cs_state proj
-R15608:15615 Kernel.UniversalCertificationCost <> scs_base proj
-R15603:15605 Kernel.UniversalCertificationCost <> SCS:45 var
-binder 15598:15599 <> s0:47
-R15683:15689 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15640:15648 Kernel.UniversalCertificationCost <> scs_embed proj
-R15635:15637 Kernel.UniversalCertificationCost <> SCS:45 var
-R15652:15657 Kernel.UniversalCertificationCost <> cs_run def
-R15664:15671 Kernel.UniversalCertificationCost <> scs_base proj
-R15659:15661 Kernel.UniversalCertificationCost <> SCS:45 var
-R15674:15678 Kernel.UniversalCertificationCost <> trace:46 var
-R15680:15681 Kernel.UniversalCertificationCost <> s0:47 var
-R15690:15698 Coq.Lists.List <> fold_left def
-R15744:15752 Kernel.UniversalCertificationCost <> scs_embed proj
-R15739:15741 Kernel.UniversalCertificationCost <> SCS:45 var
-R15755:15756 Kernel.UniversalCertificationCost <> s0:47 var
-R15710:15712 Coq.Lists.List <> map def
-R15731:15735 Kernel.UniversalCertificationCost <> trace:46 var
-R15719:15728 Kernel.UniversalCertificationCost <> scs_decode proj
-R15714:15716 Kernel.UniversalCertificationCost <> SCS:45 var
-R15700:15707 Kernel.SimulationProof <> vm_apply def
-R15899:15915 Kernel.UniversalCertificationCost <> scs_step_commutes proj
-R15899:15915 Kernel.UniversalCertificationCost <> scs_step_commutes proj
-prf 16353:16392 <> thiele_represents_simulating_cert_system
-R16412:16440 Kernel.UniversalCertificationCost <> SimulatingCertificationSystem rec
-binder 16406:16408 <> SCS:48
-R16475:16482 Kernel.UniversalCertificationCost <> cs_state proj
-R16464:16471 Kernel.UniversalCertificationCost <> scs_base proj
-R16459:16461 Kernel.UniversalCertificationCost <> SCS:48 var
-binder 16453:16454 <> s0:49
-R16504:16507 Coq.Init.Datatypes <> list ind
-R16526:16533 Kernel.UniversalCertificationCost <> cs_instr proj
-R16515:16522 Kernel.UniversalCertificationCost <> scs_base proj
-R16510:16512 Kernel.UniversalCertificationCost <> SCS:48 var
-binder 16496:16500 <> trace:50
-R16578:16585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16570:16572 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16559:16565 Kernel.UniversalCertificationCost <> cs_cert proj
-R16548:16555 Kernel.UniversalCertificationCost <> scs_base proj
-R16543:16545 Kernel.UniversalCertificationCost <> SCS:48 var
-R16568:16569 Kernel.UniversalCertificationCost <> s0:49 var
-R16573:16577 Coq.Init.Datatypes <> false constr
-R16650:16688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16643:16645 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16602:16608 Kernel.UniversalCertificationCost <> cs_cert proj
-R16591:16598 Kernel.UniversalCertificationCost <> scs_base proj
-R16586:16588 Kernel.UniversalCertificationCost <> SCS:48 var
-R16612:16617 Kernel.UniversalCertificationCost <> cs_run def
-R16624:16631 Kernel.UniversalCertificationCost <> scs_base proj
-R16619:16621 Kernel.UniversalCertificationCost <> SCS:48 var
-R16634:16638 Kernel.UniversalCertificationCost <> trace:50 var
-R16640:16641 Kernel.UniversalCertificationCost <> s0:49 var
-R16646:16649 Coq.Init.Datatypes <> true constr
-R16728:16804 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16723:16726 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R16689:16701 Kernel.UniversalCertificationCost <> cs_total_cost def
-R16708:16715 Kernel.UniversalCertificationCost <> scs_base proj
-R16703:16705 Kernel.UniversalCertificationCost <> SCS:48 var
-R16718:16722 Kernel.UniversalCertificationCost <> trace:50 var
-R16897:16899 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16884:16895 Kernel.VMState <> vm_certified proj
-R16806:16814 Coq.Lists.List <> fold_left def
-R16867:16875 Kernel.UniversalCertificationCost <> scs_embed proj
-R16862:16864 Kernel.UniversalCertificationCost <> SCS:48 var
-R16878:16879 Kernel.UniversalCertificationCost <> s0:49 var
-R16826:16828 Coq.Lists.List <> map def
-R16847:16851 Kernel.UniversalCertificationCost <> trace:50 var
-R16835:16844 Kernel.UniversalCertificationCost <> scs_decode proj
-R16830:16832 Kernel.UniversalCertificationCost <> SCS:48 var
-R16816:16823 Kernel.SimulationProof <> vm_apply def
-R16900:16903 Coq.Init.Datatypes <> true constr
-R17013:17039 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R17046:17053 Kernel.UniversalCertificationCost <> scs_base proj
-R17013:17039 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R17046:17053 Kernel.UniversalCertificationCost <> scs_base proj
-R17140:17152 Kernel.UniversalCertificationCost <> scs_run_embed thm
-R17140:17152 Kernel.UniversalCertificationCost <> scs_run_embed thm
-R17140:17152 Kernel.UniversalCertificationCost <> scs_run_embed thm
-R17175:17191 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
-R17175:17191 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
-R17175:17191 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
-def 17316:17337 <> thiele_self_simulating
-R17341:17369 Kernel.UniversalCertificationCost <> SimulatingCertificationSystem rec
-R17379:17386 Kernel.UniversalCertificationCost <> scs_base proj
-R17379:17386 Kernel.UniversalCertificationCost <> scs_base proj
-R17379:17386 Kernel.UniversalCertificationCost <> scs_base proj
-R17424:17433 Kernel.UniversalCertificationCost <> scs_decode proj
-R17424:17433 Kernel.UniversalCertificationCost <> scs_decode proj
-R17456:17464 Kernel.UniversalCertificationCost <> scs_embed proj
-R17456:17464 Kernel.UniversalCertificationCost <> scs_embed proj
-R17488:17504 Kernel.UniversalCertificationCost <> scs_step_commutes proj
-R17488:17504 Kernel.UniversalCertificationCost <> scs_step_commutes proj
-R17535:17552 Kernel.UniversalCertificationCost <> scs_cost_preserved proj
-R17535:17552 Kernel.UniversalCertificationCost <> scs_cost_preserved proj
-R17580:17596 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
-R17580:17596 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
-R17393:17415 Kernel.UniversalCertificationCost <> thiele_certified_system def
-binder 17442:17442 <> i:51
-R17447:17447 Kernel.UniversalCertificationCost <> i:51 var
-binder 17474:17474 <> s:52
-R17479:17479 Kernel.UniversalCertificationCost <> s:52 var
-R17520:17526 Coq.Init.Logic <> eq_refl constr
-R17566:17569 Coq.Init.Peano <> le_n constr
-R17611:17617 Coq.Init.Logic <> eq_refl constr
-rec 19254:19268 <> CertCostMachine
-proj 19277:19285 <> ccm_state
-proj 19299:19306 <> ccm_step
-proj 19357:19364 <> ccm_cost
-proj 19396:19403 <> ccm_cert
-proj 19431:19444 <> ccm_cert_costs
-R19321:19324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19312:19320 Kernel.UniversalCertificationCost <> ccm_state:54 meth
-R19339:19342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19325:19338 Kernel.VMStep VMStep vm_instruction ind
-R19343:19351 Kernel.UniversalCertificationCost <> ccm_state:54 meth
-R19384:19387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19370:19383 Kernel.VMStep VMStep vm_instruction ind
-R19388:19390 Coq.Init.Datatypes <> nat ind
-R19418:19421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19409:19417 Kernel.UniversalCertificationCost <> ccm_state:54 meth
-R19422:19425 Coq.Init.Datatypes <> bool ind
-R19464:19472 Kernel.UniversalCertificationCost <> ccm_state:54 meth
-binder 19460:19460 <> s:58
-R19480:19493 Kernel.VMStep VMStep vm_instruction ind
-binder 19476:19476 <> i:59
-R19521:19530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19513:19515 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19503:19510 Kernel.UniversalCertificationCost <> ccm_cert:57 meth
-R19512:19512 Kernel.UniversalCertificationCost <> s:58 var
-R19516:19520 Coq.Init.Datatypes <> false constr
-R19561:19570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19554:19556 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19531:19538 Kernel.UniversalCertificationCost <> ccm_cert:57 meth
-R19541:19548 Kernel.UniversalCertificationCost <> ccm_step:55 meth
-R19552:19552 Kernel.UniversalCertificationCost <> i:59 var
-R19550:19550 Kernel.UniversalCertificationCost <> s:58 var
-R19557:19560 Coq.Init.Datatypes <> true constr
-R19581:19584 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19571:19578 Kernel.UniversalCertificationCost <> ccm_cost:56 meth
-R19580:19580 Kernel.UniversalCertificationCost <> i:59 var
-rec 19730:19745 <> CertCostMorphism
-proj 19778:19784 <> ccm_map
-proj 19823:19834 <> ccm_map_step
-proj 19957:19968 <> ccm_map_cert
-R19754:19768 Kernel.UniversalCertificationCost <> CertCostMachine rec
-binder 19748:19748 <> M:61
-binder 19750:19750 <> N:62
-R19801:19804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19791:19799 Kernel.UniversalCertificationCost <> ccm_state proj
-R19788:19788 Kernel.UniversalCertificationCost <> M:61 var
-R19808:19816 Kernel.UniversalCertificationCost <> ccm_state proj
-R19805:19805 Kernel.UniversalCertificationCost <> N:62 var
-R19857:19865 Kernel.UniversalCertificationCost <> ccm_state proj
-R19854:19854 Kernel.UniversalCertificationCost <> M:61 var
-binder 19850:19850 <> s:65
-R19874:19887 Kernel.VMStep VMStep vm_instruction ind
-binder 19870:19870 <> i:66
-R19923:19925 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19897:19903 Kernel.UniversalCertificationCost <> ccm_map:64 meth
-R19909:19916 Kernel.UniversalCertificationCost <> ccm_step proj
-R19906:19906 Kernel.UniversalCertificationCost <> M:61 var
-R19919:19919 Kernel.UniversalCertificationCost <> s:65 var
-R19921:19921 Kernel.UniversalCertificationCost <> i:66 var
-R19929:19936 Kernel.UniversalCertificationCost <> ccm_step proj
-R19926:19926 Kernel.UniversalCertificationCost <> N:62 var
-R19940:19946 Kernel.UniversalCertificationCost <> ccm_map:64 meth
-R19948:19948 Kernel.UniversalCertificationCost <> s:65 var
-R19951:19951 Kernel.UniversalCertificationCost <> i:66 var
-R19991:19999 Kernel.UniversalCertificationCost <> ccm_state proj
-R19988:19988 Kernel.UniversalCertificationCost <> M:61 var
-binder 19984:19984 <> s:68
-R20024:20026 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20013:20020 Kernel.UniversalCertificationCost <> ccm_cert proj
-R20010:20010 Kernel.UniversalCertificationCost <> M:61 var
-R20023:20023 Kernel.UniversalCertificationCost <> s:68 var
-R20030:20037 Kernel.UniversalCertificationCost <> ccm_cert proj
-R20027:20027 Kernel.UniversalCertificationCost <> N:62 var
-R20041:20047 Kernel.UniversalCertificationCost <> ccm_map:64 meth
-R20049:20049 Kernel.UniversalCertificationCost <> s:68 var
-def 20110:20133 <> thiele_cert_cost_machine
-R20137:20151 Kernel.UniversalCertificationCost <> CertCostMachine rec
-R20161:20169 Kernel.UniversalCertificationCost <> ccm_state proj
-R20161:20169 Kernel.UniversalCertificationCost <> ccm_state proj
-R20161:20169 Kernel.UniversalCertificationCost <> ccm_state proj
-R20194:20201 Kernel.UniversalCertificationCost <> ccm_step proj
-R20194:20201 Kernel.UniversalCertificationCost <> ccm_step proj
-R20228:20235 Kernel.UniversalCertificationCost <> ccm_cost proj
-R20228:20235 Kernel.UniversalCertificationCost <> ccm_cost proj
-R20270:20277 Kernel.UniversalCertificationCost <> ccm_cert proj
-R20270:20277 Kernel.UniversalCertificationCost <> ccm_cert proj
-R20321:20334 Kernel.UniversalCertificationCost <> ccm_cert_costs proj
-R20321:20334 Kernel.UniversalCertificationCost <> ccm_cert_costs proj
-R20179:20185 Kernel.VMState <> VMState rec
-R20212:20219 Kernel.SimulationProof <> vm_apply def
-R20246:20261 Kernel.VMStep VMStep instruction_cost def
-binder 20292:20292 <> s:70
-R20300:20311 Kernel.VMState <> vm_certified proj
-R20297:20297 Kernel.UniversalCertificationCost <> s:70 var
-R20339:20369 Kernel.AbstractNoFI <> no_free_certification_certified thm
-prf 20498:20519 <> thiele_morphism_exists
-R20537:20551 Kernel.UniversalCertificationCost <> CertCostMachine rec
-binder 20533:20533 <> M:71
-R20577:20580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20570:20576 Kernel.VMState <> VMState rec
-R20584:20592 Kernel.UniversalCertificationCost <> ccm_state proj
-R20581:20581 Kernel.UniversalCertificationCost <> M:71 var
-binder 20564:20566 <> phi:72
-binder 20621:20621 <> s:73
-binder 20623:20623 <> i:74
-R20644:20646 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20626:20628 Kernel.UniversalCertificationCost <> phi:72 var
-R20631:20638 Kernel.SimulationProof <> vm_apply def
-R20640:20640 Kernel.UniversalCertificationCost <> s:73 var
-R20642:20642 Kernel.UniversalCertificationCost <> i:74 var
-R20650:20657 Kernel.UniversalCertificationCost <> ccm_step proj
-R20647:20647 Kernel.UniversalCertificationCost <> M:71 var
-R20661:20663 Kernel.UniversalCertificationCost <> phi:72 var
-R20665:20665 Kernel.UniversalCertificationCost <> s:73 var
-R20668:20668 Kernel.UniversalCertificationCost <> i:74 var
-binder 20606:20610 <> Hstep:75
-binder 20696:20696 <> s:76
-R20715:20717 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20702:20713 Kernel.VMState <> vm_certified proj
-R20699:20699 Kernel.UniversalCertificationCost <> s:76 var
-R20721:20728 Kernel.UniversalCertificationCost <> ccm_cert proj
-R20718:20718 Kernel.UniversalCertificationCost <> M:71 var
-R20732:20734 Kernel.UniversalCertificationCost <> phi:72 var
-R20736:20736 Kernel.UniversalCertificationCost <> s:76 var
-binder 20681:20685 <> Hcert:77
-R20745:20760 Kernel.UniversalCertificationCost <> CertCostMorphism rec
-R20762:20785 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R20787:20787 Kernel.UniversalCertificationCost <> M:71 var
-R20834:20855 Kernel.UniversalCertificationCost <> Build_CertCostMorphism constr
-R20857:20880 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R20834:20855 Kernel.UniversalCertificationCost <> Build_CertCostMorphism constr
-R20857:20880 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-prf 21111:21142 <> thiele_morphism_unique_on_traces
-R21160:21174 Kernel.UniversalCertificationCost <> CertCostMachine rec
-binder 21156:21156 <> M:78
-R21199:21214 Kernel.UniversalCertificationCost <> CertCostMorphism rec
-R21216:21239 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R21241:21241 Kernel.UniversalCertificationCost <> M:78 var
-binder 21187:21190 <> phi1:79
-binder 21192:21195 <> phi2:80
-R21259:21265 Kernel.VMState <> VMState rec
-binder 21254:21255 <> s0:81
-R21286:21289 Coq.Init.Datatypes <> list ind
-R21291:21304 Kernel.VMStep VMStep vm_instruction ind
-binder 21278:21282 <> trace:82
-R21353:21360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21331:21333 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21312:21318 Kernel.UniversalCertificationCost <> ccm_map proj
-R21324:21327 Kernel.UniversalCertificationCost <> phi1:79 var
-R21329:21330 Kernel.UniversalCertificationCost <> s0:81 var
-R21334:21340 Kernel.UniversalCertificationCost <> ccm_map proj
-R21346:21349 Kernel.UniversalCertificationCost <> phi2:80 var
-R21351:21352 Kernel.UniversalCertificationCost <> s0:81 var
-R21407:21413 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21361:21367 Kernel.UniversalCertificationCost <> ccm_map proj
-R21373:21376 Kernel.UniversalCertificationCost <> phi1:79 var
-R21379:21387 Coq.Lists.List <> fold_left def
-R21404:21405 Kernel.UniversalCertificationCost <> s0:81 var
-R21398:21402 Kernel.UniversalCertificationCost <> trace:82 var
-R21389:21396 Kernel.SimulationProof <> vm_apply def
-R21414:21420 Kernel.UniversalCertificationCost <> ccm_map proj
-R21426:21429 Kernel.UniversalCertificationCost <> phi2:80 var
-R21432:21440 Coq.Lists.List <> fold_left def
-R21457:21458 Kernel.UniversalCertificationCost <> s0:81 var
-R21451:21455 Kernel.UniversalCertificationCost <> trace:82 var
-R21442:21449 Kernel.SimulationProof <> vm_apply def
-R21628:21635 Kernel.SimulationProof <> vm_apply def
-R21649:21656 Kernel.UniversalCertificationCost <> ccm_step proj
-R21658:21681 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R21628:21635 Kernel.SimulationProof <> vm_apply def
-R21649:21656 Kernel.UniversalCertificationCost <> ccm_step proj
-R21658:21681 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R21649:21656 Kernel.UniversalCertificationCost <> ccm_step proj
-R21658:21681 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R21703:21714 Kernel.UniversalCertificationCost <> ccm_map_step proj
-R21703:21714 Kernel.UniversalCertificationCost <> ccm_map_step proj
-R21703:21714 Kernel.UniversalCertificationCost <> ccm_map_step proj
-R21745:21756 Kernel.UniversalCertificationCost <> ccm_map_step proj
-R21745:21756 Kernel.UniversalCertificationCost <> ccm_map_step proj
-R21745:21756 Kernel.UniversalCertificationCost <> ccm_map_step proj
-def 21896:21913 <> thiele_id_morphism
-R21917:21932 Kernel.UniversalCertificationCost <> CertCostMorphism rec
-R21934:21957 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R21959:21982 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R21989:22010 Kernel.UniversalCertificationCost <> Build_CertCostMorphism constr
-R22012:22035 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-R22037:22060 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
-binder 22071:22071 <> s:83
-R22076:22076 Kernel.UniversalCertificationCost <> s:83 var
-R22091:22097 Coq.Init.Logic <> eq_refl constr
-R22110:22116 Coq.Init.Logic <> eq_refl constr
-def 22185:22202 <> ccm_to_cert_system
-R22209:22223 Kernel.UniversalCertificationCost <> CertCostMachine rec
-binder 22205:22205 <> M:84
-R22228:22246 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R22256:22263 Kernel.UniversalCertificationCost <> cs_state proj
-R22256:22263 Kernel.UniversalCertificationCost <> cs_state proj
-R22256:22263 Kernel.UniversalCertificationCost <> cs_state proj
-R22289:22296 Kernel.UniversalCertificationCost <> cs_instr proj
-R22289:22296 Kernel.UniversalCertificationCost <> cs_instr proj
-R22323:22329 Kernel.UniversalCertificationCost <> cs_step proj
-R22323:22329 Kernel.UniversalCertificationCost <> cs_step proj
-R22355:22361 Kernel.UniversalCertificationCost <> cs_cost proj
-R22355:22361 Kernel.UniversalCertificationCost <> cs_cost proj
-R22387:22393 Kernel.UniversalCertificationCost <> cs_cert proj
-R22387:22393 Kernel.UniversalCertificationCost <> cs_cert proj
-R22419:22431 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R22419:22431 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R22271:22279 Kernel.UniversalCertificationCost <> ccm_state proj
-R22268:22268 Kernel.UniversalCertificationCost <> M:84 var
-R22301:22314 Kernel.VMStep VMStep vm_instruction ind
-R22338:22345 Kernel.UniversalCertificationCost <> ccm_step proj
-R22335:22335 Kernel.UniversalCertificationCost <> M:84 var
-R22370:22377 Kernel.UniversalCertificationCost <> ccm_cost proj
-R22367:22367 Kernel.UniversalCertificationCost <> M:84 var
-R22402:22409 Kernel.UniversalCertificationCost <> ccm_cert proj
-R22399:22399 Kernel.UniversalCertificationCost <> M:84 var
-R22439:22452 Kernel.UniversalCertificationCost <> ccm_cert_costs proj
-R22436:22436 Kernel.UniversalCertificationCost <> M:84 var
-prf 22525:22541 <> ccm_universal_nfi
-R22559:22573 Kernel.UniversalCertificationCost <> CertCostMachine rec
-binder 22555:22555 <> M:85
-R22594:22597 Coq.Init.Datatypes <> list ind
-R22599:22612 Kernel.VMStep VMStep vm_instruction ind
-binder 22586:22590 <> trace:86
-R22633:22641 Kernel.UniversalCertificationCost <> ccm_state proj
-R22630:22630 Kernel.UniversalCertificationCost <> M:85 var
-binder 22625:22626 <> s0:87
-R22673:22680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22665:22667 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22653:22660 Kernel.UniversalCertificationCost <> ccm_cert proj
-R22650:22650 Kernel.UniversalCertificationCost <> M:85 var
-R22663:22664 Kernel.UniversalCertificationCost <> s0:87 var
-R22668:22672 Coq.Init.Datatypes <> false constr
-R22741:22748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22734:22736 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22684:22691 Kernel.UniversalCertificationCost <> ccm_cert proj
-R22681:22681 Kernel.UniversalCertificationCost <> M:85 var
-R22695:22700 Kernel.UniversalCertificationCost <> cs_run def
-R22703:22720 Kernel.UniversalCertificationCost <> ccm_to_cert_system def
-R22722:22722 Kernel.UniversalCertificationCost <> M:85 var
-R22725:22729 Kernel.UniversalCertificationCost <> trace:86 var
-R22731:22732 Kernel.UniversalCertificationCost <> s0:87 var
-R22737:22740 Coq.Init.Datatypes <> true constr
-R22791:22794 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R22749:22761 Kernel.UniversalCertificationCost <> cs_total_cost def
-R22764:22781 Kernel.UniversalCertificationCost <> ccm_to_cert_system def
-R22783:22783 Kernel.UniversalCertificationCost <> M:85 var
-R22786:22790 Kernel.UniversalCertificationCost <> trace:86 var
-R22846:22872 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R22875:22892 Kernel.UniversalCertificationCost <> ccm_to_cert_system def
-R22846:22872 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R22875:22892 Kernel.UniversalCertificationCost <> ccm_to_cert_system def
+R941:944 Coq.Lists.List <> <> lib
+R946:959 Coq.Arith.PeanoNat <> <> lib
+R961:963 Coq.micromega.Lia <> <> lib
+R965:968 Coq.Bool.Bool <> <> lib
+R978:990 Coq.Lists.List ListNotations <> mod
+R1021:1027 Kernel.VMState <> <> lib
+R1029:1034 Kernel.VMStep <> <> lib
+R1036:1050 Kernel.SimulationProof <> <> lib
+R1052:1063 Kernel.AbstractNoFI <> <> lib
+rec 1268:1286 <> CertificationSystem
+proj 1364:1371 <> cs_state
+proj 1533:1540 <> cs_instr
+proj 1619:1625 <> cs_step
+proj 1742:1748 <> cs_cost
+proj 1836:1842 <> cs_cert
+proj 2462:2474 <> cs_cert_costs
+R1638:1641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1630:1637 Kernel.UniversalCertificationCost <> cs_state:2 meth
+R1650:1653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1642:1649 Kernel.UniversalCertificationCost <> cs_instr:3 meth
+R1654:1661 Kernel.UniversalCertificationCost <> cs_state:2 meth
+R1761:1764 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1753:1760 Kernel.UniversalCertificationCost <> cs_instr:3 meth
+R1765:1767 Coq.Init.Datatypes <> nat ind
+R1855:1858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1847:1854 Kernel.UniversalCertificationCost <> cs_state:2 meth
+R1859:1862 Coq.Init.Datatypes <> bool ind
+R2494:2501 Kernel.UniversalCertificationCost <> cs_state:2 meth
+binder 2490:2490 <> s:7
+R2509:2516 Kernel.UniversalCertificationCost <> cs_instr:3 meth
+binder 2505:2505 <> i:8
+R2543:2552 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2535:2537 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2526:2532 Kernel.UniversalCertificationCost <> cs_cert:6 meth
+R2534:2534 Kernel.UniversalCertificationCost <> s:7 var
+R2538:2542 Coq.Init.Datatypes <> false constr
+R2581:2590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2574:2576 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2553:2559 Kernel.UniversalCertificationCost <> cs_cert:6 meth
+R2562:2568 Kernel.UniversalCertificationCost <> cs_step:4 meth
+R2572:2572 Kernel.UniversalCertificationCost <> i:8 var
+R2570:2570 Kernel.UniversalCertificationCost <> s:7 var
+R2577:2580 Coq.Init.Datatypes <> true constr
+R2600:2603 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2591:2597 Kernel.UniversalCertificationCost <> cs_cost:5 meth
+R2599:2599 Kernel.UniversalCertificationCost <> i:8 var
+def 2736:2741 <> cs_run
+R2749:2767 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 2744:2745 <> CS:10
+R2795:2798 Coq.Init.Datatypes <> list ind
+R2801:2808 Kernel.UniversalCertificationCost <> cs_instr proj
+R2810:2811 Kernel.UniversalCertificationCost <> CS:10 var
+binder 2787:2791 <> trace:11
+R2836:2843 Kernel.UniversalCertificationCost <> cs_state proj
+R2845:2846 Kernel.UniversalCertificationCost <> CS:10 var
+binder 2832:2832 <> s:12
+R2851:2858 Kernel.UniversalCertificationCost <> cs_state proj
+R2860:2861 Kernel.UniversalCertificationCost <> CS:10 var
+R2874:2878 Kernel.UniversalCertificationCost <> trace:11 var
+R2889:2890 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2902:2902 Kernel.UniversalCertificationCost <> s:12 var
+R2909:2912 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2921:2926 Kernel.UniversalCertificationCost <> cs_run:13 def
+R2937:2943 Kernel.UniversalCertificationCost <> cs_step proj
+R2945:2946 Kernel.UniversalCertificationCost <> CS:10 var
+R2948:2948 Kernel.UniversalCertificationCost <> s:12 var
+R2928:2929 Kernel.UniversalCertificationCost <> CS:10 var
+def 3030:3042 <> cs_total_cost
+R3050:3068 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 3045:3046 <> CS:15
+R3103:3106 Coq.Init.Datatypes <> list ind
+R3109:3116 Kernel.UniversalCertificationCost <> cs_instr proj
+R3118:3119 Kernel.UniversalCertificationCost <> CS:15 var
+binder 3095:3099 <> trace:16
+R3125:3127 Coq.Init.Datatypes <> nat ind
+R3140:3144 Kernel.UniversalCertificationCost <> trace:16 var
+R3155:3156 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3175:3178 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3199:3201 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3187:3193 Kernel.UniversalCertificationCost <> cs_cost proj
+R3195:3196 Kernel.UniversalCertificationCost <> CS:15 var
+R3202:3214 Kernel.UniversalCertificationCost <> cs_total_cost:17 def
+R3216:3217 Kernel.UniversalCertificationCost <> CS:15 var
+prf 4100:4126 <> universal_nfi_any_substrate
+R4145:4163 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 4140:4141 <> CS:19
+R4184:4187 Coq.Init.Datatypes <> list ind
+R4190:4197 Kernel.UniversalCertificationCost <> cs_instr proj
+R4199:4200 Kernel.UniversalCertificationCost <> CS:19 var
+binder 4176:4180 <> trace:20
+R4219:4226 Kernel.UniversalCertificationCost <> cs_state proj
+R4228:4229 Kernel.UniversalCertificationCost <> CS:19 var
+binder 4214:4215 <> s0:21
+R4301:4348 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4293:4295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4280:4286 Kernel.UniversalCertificationCost <> cs_cert proj
+R4288:4289 Kernel.UniversalCertificationCost <> CS:19 var
+R4291:4292 Kernel.UniversalCertificationCost <> s0:21 var
+R4296:4300 Coq.Init.Datatypes <> false constr
+R4387:4450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4380:4382 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4349:4355 Kernel.UniversalCertificationCost <> cs_cert proj
+R4357:4358 Kernel.UniversalCertificationCost <> CS:19 var
+R4361:4366 Kernel.UniversalCertificationCost <> cs_run def
+R4368:4369 Kernel.UniversalCertificationCost <> CS:19 var
+R4371:4375 Kernel.UniversalCertificationCost <> trace:20 var
+R4377:4378 Kernel.UniversalCertificationCost <> s0:21 var
+R4383:4386 Coq.Init.Datatypes <> true constr
+R4473:4476 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4451:4463 Kernel.UniversalCertificationCost <> cs_total_cost def
+R4465:4466 Kernel.UniversalCertificationCost <> CS:19 var
+R4468:4472 Kernel.UniversalCertificationCost <> trace:20 var
+R4808:4814 Kernel.UniversalCertificationCost <> cs_cert proj
+R4820:4826 Kernel.UniversalCertificationCost <> cs_step proj
+R4808:4814 Kernel.UniversalCertificationCost <> cs_cert proj
+R4820:4826 Kernel.UniversalCertificationCost <> cs_step proj
+R5001:5013 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R5001:5013 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R5213:5219 Kernel.UniversalCertificationCost <> cs_step proj
+R5213:5219 Kernel.UniversalCertificationCost <> cs_step proj
+prf 5412:5430 <> cert_trace_nonempty
+R5449:5467 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 5444:5445 <> CS:22
+R5488:5491 Coq.Init.Datatypes <> list ind
+R5494:5501 Kernel.UniversalCertificationCost <> cs_instr proj
+R5503:5504 Kernel.UniversalCertificationCost <> CS:22 var
+binder 5480:5484 <> trace:23
+R5523:5530 Kernel.UniversalCertificationCost <> cs_state proj
+R5532:5533 Kernel.UniversalCertificationCost <> CS:22 var
+binder 5518:5519 <> s0:24
+R5562:5569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5554:5556 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5541:5547 Kernel.UniversalCertificationCost <> cs_cert proj
+R5549:5550 Kernel.UniversalCertificationCost <> CS:22 var
+R5552:5553 Kernel.UniversalCertificationCost <> s0:24 var
+R5557:5561 Coq.Init.Datatypes <> false constr
+R5608:5615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5601:5603 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5570:5576 Kernel.UniversalCertificationCost <> cs_cert proj
+R5578:5579 Kernel.UniversalCertificationCost <> CS:22 var
+R5582:5587 Kernel.UniversalCertificationCost <> cs_run def
+R5589:5590 Kernel.UniversalCertificationCost <> CS:22 var
+R5592:5596 Kernel.UniversalCertificationCost <> trace:23 var
+R5598:5599 Kernel.UniversalCertificationCost <> s0:24 var
+R5604:5607 Coq.Init.Datatypes <> true constr
+R5621:5624 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5616:5620 Kernel.UniversalCertificationCost <> trace:23 var
+R5625:5626 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 6134:6156 <> thiele_cert_addr_system
+R6160:6178 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R6192:6199 Kernel.UniversalCertificationCost <> cs_state proj
+R6192:6199 Kernel.UniversalCertificationCost <> cs_state proj
+R6192:6199 Kernel.UniversalCertificationCost <> cs_state proj
+R6217:6224 Kernel.UniversalCertificationCost <> cs_instr proj
+R6217:6224 Kernel.UniversalCertificationCost <> cs_instr proj
+R6249:6255 Kernel.UniversalCertificationCost <> cs_step proj
+R6249:6255 Kernel.UniversalCertificationCost <> cs_step proj
+R6275:6281 Kernel.UniversalCertificationCost <> cs_cost proj
+R6275:6281 Kernel.UniversalCertificationCost <> cs_cost proj
+R6309:6315 Kernel.UniversalCertificationCost <> cs_cert proj
+R6309:6315 Kernel.UniversalCertificationCost <> cs_cert proj
+R6395:6407 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R6395:6407 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R6204:6210 Kernel.VMState <> VMState rec
+R6229:6242 Kernel.VMStep VMStep vm_instruction ind
+R6261:6268 Kernel.SimulationProof <> vm_apply def
+R6287:6302 Kernel.VMStep VMStep instruction_cost def
+R6321:6336 Kernel.AbstractNoFI <> thiele_cert_bool def
+binder 6422:6422 <> s:25
+binder 6424:6424 <> i:26
+binder 6426:6431 <> Hfalse:27
+binder 6433:6437 <> Htrue:28
+R6450:6470 Kernel.AbstractNoFI <> no_free_certification thm
+R6472:6472 Kernel.UniversalCertificationCost <> s:25 var
+R6474:6474 Kernel.UniversalCertificationCost <> i:26 var
+R6487:6491 Coq.Init.Logic <> proj1 thm
+R6523:6528 Kernel.UniversalCertificationCost <> Hfalse:27 var
+R6494:6518 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R6520:6520 Kernel.UniversalCertificationCost <> s:25 var
+R6542:6546 Coq.Init.Logic <> proj1 thm
+R6594:6598 Kernel.UniversalCertificationCost <> Htrue:28 var
+R6549:6576 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
+R6579:6586 Kernel.SimulationProof <> vm_apply def
+R6588:6588 Kernel.UniversalCertificationCost <> s:25 var
+R6590:6590 Kernel.UniversalCertificationCost <> i:26 var
+prf 6688:6717 <> thiele_universal_nfi_cert_addr
+R6739:6742 Coq.Init.Datatypes <> list ind
+R6744:6757 Kernel.VMStep VMStep vm_instruction ind
+binder 6731:6735 <> trace:29
+R6766:6772 Kernel.VMState <> VMState rec
+binder 6761:6762 <> s0:30
+R6807:6814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6799:6801 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6780:6795 Kernel.AbstractNoFI <> thiele_cert_bool def
+R6797:6798 Kernel.UniversalCertificationCost <> s0:30 var
+R6802:6806 Coq.Init.Datatypes <> false constr
+R6880:6887 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6873:6875 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6815:6830 Kernel.AbstractNoFI <> thiele_cert_bool def
+R6833:6838 Kernel.UniversalCertificationCost <> cs_run def
+R6840:6862 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+R6864:6868 Kernel.UniversalCertificationCost <> trace:29 var
+R6870:6871 Kernel.UniversalCertificationCost <> s0:30 var
+R6876:6879 Coq.Init.Datatypes <> true constr
+R6931:6934 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6888:6900 Kernel.UniversalCertificationCost <> cs_total_cost def
+R6902:6924 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+R6926:6930 Kernel.UniversalCertificationCost <> trace:29 var
+R6986:7012 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R7014:7036 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+R6986:7012 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R7014:7036 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+def 7421:7443 <> thiele_certified_system
+R7447:7465 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R7479:7486 Kernel.UniversalCertificationCost <> cs_state proj
+R7479:7486 Kernel.UniversalCertificationCost <> cs_state proj
+R7479:7486 Kernel.UniversalCertificationCost <> cs_state proj
+R7504:7511 Kernel.UniversalCertificationCost <> cs_instr proj
+R7504:7511 Kernel.UniversalCertificationCost <> cs_instr proj
+R7536:7542 Kernel.UniversalCertificationCost <> cs_step proj
+R7536:7542 Kernel.UniversalCertificationCost <> cs_step proj
+R7562:7568 Kernel.UniversalCertificationCost <> cs_cost proj
+R7562:7568 Kernel.UniversalCertificationCost <> cs_cost proj
+R7596:7602 Kernel.UniversalCertificationCost <> cs_cert proj
+R7596:7602 Kernel.UniversalCertificationCost <> cs_cert proj
+R7703:7715 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R7703:7715 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R7491:7497 Kernel.VMState <> VMState rec
+R7516:7529 Kernel.VMStep VMStep vm_instruction ind
+R7548:7555 Kernel.SimulationProof <> vm_apply def
+R7574:7589 Kernel.VMStep VMStep instruction_cost def
+binder 7613:7613 <> s:31
+R7621:7632 Kernel.VMState <> vm_certified proj
+R7618:7618 Kernel.UniversalCertificationCost <> s:31 var
+R7720:7750 Kernel.AbstractNoFI <> no_free_certification_certified thm
+prf 7842:7871 <> thiele_universal_nfi_certified
+R7893:7896 Coq.Init.Datatypes <> list ind
+R7898:7911 Kernel.VMStep VMStep vm_instruction ind
+binder 7885:7889 <> trace:32
+R7920:7926 Kernel.VMState <> VMState rec
+binder 7915:7916 <> s0:33
+R7959:7966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7951:7953 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7938:7949 Kernel.VMState <> vm_certified proj
+R7934:7935 Kernel.UniversalCertificationCost <> s0:33 var
+R7954:7958 Coq.Init.Datatypes <> false constr
+R8030:8037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8023:8025 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8010:8021 Kernel.VMState <> vm_certified proj
+R7968:7973 Kernel.UniversalCertificationCost <> cs_run def
+R7975:7997 Kernel.UniversalCertificationCost <> thiele_certified_system def
+R7999:8003 Kernel.UniversalCertificationCost <> trace:32 var
+R8005:8006 Kernel.UniversalCertificationCost <> s0:33 var
+R8026:8029 Coq.Init.Datatypes <> true constr
+R8081:8084 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8038:8050 Kernel.UniversalCertificationCost <> cs_total_cost def
+R8052:8074 Kernel.UniversalCertificationCost <> thiele_certified_system def
+R8076:8080 Kernel.UniversalCertificationCost <> trace:32 var
+R8136:8162 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R8164:8186 Kernel.UniversalCertificationCost <> thiele_certified_system def
+R8136:8162 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R8164:8186 Kernel.UniversalCertificationCost <> thiele_certified_system def
+rec 10446:10474 <> SimulatingCertificationSystem
+proj 10483:10490 <> scs_base
+proj 10520:10529 <> scs_decode
+proj 10575:10583 <> scs_embed
+proj 10623:10639 <> scs_step_commutes
+proj 10798:10815 <> scs_cost_preserved
+proj 10923:10939 <> scs_cert_reflects
+R10496:10514 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R10552:10555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10543:10550 Kernel.UniversalCertificationCost <> cs_instr proj
+R10533:10540 Kernel.UniversalCertificationCost <> scs_base:35 meth
+R10556:10569 Kernel.VMStep VMStep vm_instruction ind
+R10607:10610 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10598:10605 Kernel.UniversalCertificationCost <> cs_state proj
+R10588:10595 Kernel.UniversalCertificationCost <> scs_base:35 meth
+R10611:10617 Kernel.VMState <> VMState rec
+R10669:10676 Kernel.UniversalCertificationCost <> cs_state proj
+R10659:10666 Kernel.UniversalCertificationCost <> scs_base:35 meth
+binder 10655:10655 <> s:38
+R10695:10702 Kernel.UniversalCertificationCost <> cs_instr proj
+R10685:10692 Kernel.UniversalCertificationCost <> scs_base:35 meth
+binder 10681:10681 <> i:39
+R10747:10755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10713:10721 Kernel.UniversalCertificationCost <> scs_embed:37 meth
+R10734:10740 Kernel.UniversalCertificationCost <> cs_step proj
+R10724:10731 Kernel.UniversalCertificationCost <> scs_base:35 meth
+R10743:10743 Kernel.UniversalCertificationCost <> s:38 var
+R10745:10745 Kernel.UniversalCertificationCost <> i:39 var
+R10756:10763 Kernel.SimulationProof <> vm_apply def
+R10766:10774 Kernel.UniversalCertificationCost <> scs_embed:37 meth
+R10776:10776 Kernel.UniversalCertificationCost <> s:38 var
+R10780:10789 Kernel.UniversalCertificationCost <> scs_decode:36 meth
+R10791:10791 Kernel.UniversalCertificationCost <> i:39 var
+R10845:10852 Kernel.UniversalCertificationCost <> cs_instr proj
+R10835:10842 Kernel.UniversalCertificationCost <> scs_base:35 meth
+binder 10831:10831 <> i:41
+R10883:10886 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10873:10879 Kernel.UniversalCertificationCost <> cs_cost proj
+R10863:10870 Kernel.UniversalCertificationCost <> scs_base:35 meth
+R10882:10882 Kernel.UniversalCertificationCost <> i:41 var
+R10887:10902 Kernel.VMStep VMStep instruction_cost def
+R10905:10914 Kernel.UniversalCertificationCost <> scs_decode:36 meth
+R10916:10916 Kernel.UniversalCertificationCost <> i:41 var
+R10969:10976 Kernel.UniversalCertificationCost <> cs_state proj
+R10959:10966 Kernel.UniversalCertificationCost <> scs_base:35 meth
+binder 10955:10955 <> s:43
+R11007:11009 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10997:11003 Kernel.UniversalCertificationCost <> cs_cert proj
+R10987:10994 Kernel.UniversalCertificationCost <> scs_base:35 meth
+R11006:11006 Kernel.UniversalCertificationCost <> s:43 var
+R11025:11036 Kernel.VMState <> vm_certified proj
+R11011:11019 Kernel.UniversalCertificationCost <> scs_embed:37 meth
+R11021:11021 Kernel.UniversalCertificationCost <> s:43 var
+prf 11125:11137 <> scs_run_embed
+R11157:11185 Kernel.UniversalCertificationCost <> SimulatingCertificationSystem rec
+binder 11151:11153 <> SCS:45
+R11206:11209 Coq.Init.Datatypes <> list ind
+R11228:11235 Kernel.UniversalCertificationCost <> cs_instr proj
+R11217:11224 Kernel.UniversalCertificationCost <> scs_base proj
+R11212:11214 Kernel.UniversalCertificationCost <> SCS:45 var
+binder 11198:11202 <> trace:46
+R11271:11278 Kernel.UniversalCertificationCost <> cs_state proj
+R11260:11267 Kernel.UniversalCertificationCost <> scs_base proj
+R11255:11257 Kernel.UniversalCertificationCost <> SCS:45 var
+binder 11250:11251 <> s0:47
+R11335:11341 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11292:11300 Kernel.UniversalCertificationCost <> scs_embed proj
+R11287:11289 Kernel.UniversalCertificationCost <> SCS:45 var
+R11304:11309 Kernel.UniversalCertificationCost <> cs_run def
+R11316:11323 Kernel.UniversalCertificationCost <> scs_base proj
+R11311:11313 Kernel.UniversalCertificationCost <> SCS:45 var
+R11326:11330 Kernel.UniversalCertificationCost <> trace:46 var
+R11332:11333 Kernel.UniversalCertificationCost <> s0:47 var
+R11342:11350 Coq.Lists.List <> fold_left def
+R11396:11404 Kernel.UniversalCertificationCost <> scs_embed proj
+R11391:11393 Kernel.UniversalCertificationCost <> SCS:45 var
+R11407:11408 Kernel.UniversalCertificationCost <> s0:47 var
+R11362:11364 Coq.Lists.List <> map def
+R11383:11387 Kernel.UniversalCertificationCost <> trace:46 var
+R11371:11380 Kernel.UniversalCertificationCost <> scs_decode proj
+R11366:11368 Kernel.UniversalCertificationCost <> SCS:45 var
+R11352:11359 Kernel.SimulationProof <> vm_apply def
+R11551:11567 Kernel.UniversalCertificationCost <> scs_step_commutes proj
+R11551:11567 Kernel.UniversalCertificationCost <> scs_step_commutes proj
+prf 12005:12044 <> thiele_represents_simulating_cert_system
+R12064:12092 Kernel.UniversalCertificationCost <> SimulatingCertificationSystem rec
+binder 12058:12060 <> SCS:48
+R12127:12134 Kernel.UniversalCertificationCost <> cs_state proj
+R12116:12123 Kernel.UniversalCertificationCost <> scs_base proj
+R12111:12113 Kernel.UniversalCertificationCost <> SCS:48 var
+binder 12105:12106 <> s0:49
+R12156:12159 Coq.Init.Datatypes <> list ind
+R12178:12185 Kernel.UniversalCertificationCost <> cs_instr proj
+R12167:12174 Kernel.UniversalCertificationCost <> scs_base proj
+R12162:12164 Kernel.UniversalCertificationCost <> SCS:48 var
+binder 12148:12152 <> trace:50
+R12230:12237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12222:12224 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12211:12217 Kernel.UniversalCertificationCost <> cs_cert proj
+R12200:12207 Kernel.UniversalCertificationCost <> scs_base proj
+R12195:12197 Kernel.UniversalCertificationCost <> SCS:48 var
+R12220:12221 Kernel.UniversalCertificationCost <> s0:49 var
+R12225:12229 Coq.Init.Datatypes <> false constr
+R12302:12340 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12295:12297 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12254:12260 Kernel.UniversalCertificationCost <> cs_cert proj
+R12243:12250 Kernel.UniversalCertificationCost <> scs_base proj
+R12238:12240 Kernel.UniversalCertificationCost <> SCS:48 var
+R12264:12269 Kernel.UniversalCertificationCost <> cs_run def
+R12276:12283 Kernel.UniversalCertificationCost <> scs_base proj
+R12271:12273 Kernel.UniversalCertificationCost <> SCS:48 var
+R12286:12290 Kernel.UniversalCertificationCost <> trace:50 var
+R12292:12293 Kernel.UniversalCertificationCost <> s0:49 var
+R12298:12301 Coq.Init.Datatypes <> true constr
+R12380:12456 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12375:12378 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12341:12353 Kernel.UniversalCertificationCost <> cs_total_cost def
+R12360:12367 Kernel.UniversalCertificationCost <> scs_base proj
+R12355:12357 Kernel.UniversalCertificationCost <> SCS:48 var
+R12370:12374 Kernel.UniversalCertificationCost <> trace:50 var
+R12549:12551 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12536:12547 Kernel.VMState <> vm_certified proj
+R12458:12466 Coq.Lists.List <> fold_left def
+R12519:12527 Kernel.UniversalCertificationCost <> scs_embed proj
+R12514:12516 Kernel.UniversalCertificationCost <> SCS:48 var
+R12530:12531 Kernel.UniversalCertificationCost <> s0:49 var
+R12478:12480 Coq.Lists.List <> map def
+R12499:12503 Kernel.UniversalCertificationCost <> trace:50 var
+R12487:12496 Kernel.UniversalCertificationCost <> scs_decode proj
+R12482:12484 Kernel.UniversalCertificationCost <> SCS:48 var
+R12468:12475 Kernel.SimulationProof <> vm_apply def
+R12552:12555 Coq.Init.Datatypes <> true constr
+R12665:12691 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R12698:12705 Kernel.UniversalCertificationCost <> scs_base proj
+R12665:12691 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R12698:12705 Kernel.UniversalCertificationCost <> scs_base proj
+R12792:12804 Kernel.UniversalCertificationCost <> scs_run_embed thm
+R12792:12804 Kernel.UniversalCertificationCost <> scs_run_embed thm
+R12792:12804 Kernel.UniversalCertificationCost <> scs_run_embed thm
+R12827:12843 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
+R12827:12843 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
+R12827:12843 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
+def 12968:12989 <> thiele_self_simulating
+R12993:13021 Kernel.UniversalCertificationCost <> SimulatingCertificationSystem rec
+R13031:13038 Kernel.UniversalCertificationCost <> scs_base proj
+R13031:13038 Kernel.UniversalCertificationCost <> scs_base proj
+R13031:13038 Kernel.UniversalCertificationCost <> scs_base proj
+R13076:13085 Kernel.UniversalCertificationCost <> scs_decode proj
+R13076:13085 Kernel.UniversalCertificationCost <> scs_decode proj
+R13108:13116 Kernel.UniversalCertificationCost <> scs_embed proj
+R13108:13116 Kernel.UniversalCertificationCost <> scs_embed proj
+R13140:13156 Kernel.UniversalCertificationCost <> scs_step_commutes proj
+R13140:13156 Kernel.UniversalCertificationCost <> scs_step_commutes proj
+R13187:13204 Kernel.UniversalCertificationCost <> scs_cost_preserved proj
+R13187:13204 Kernel.UniversalCertificationCost <> scs_cost_preserved proj
+R13232:13248 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
+R13232:13248 Kernel.UniversalCertificationCost <> scs_cert_reflects proj
+R13045:13067 Kernel.UniversalCertificationCost <> thiele_certified_system def
+binder 13094:13094 <> i:51
+R13099:13099 Kernel.UniversalCertificationCost <> i:51 var
+binder 13126:13126 <> s:52
+R13131:13131 Kernel.UniversalCertificationCost <> s:52 var
+R13172:13178 Coq.Init.Logic <> eq_refl constr
+R13218:13221 Coq.Init.Peano <> le_n constr
+R13263:13269 Coq.Init.Logic <> eq_refl constr
+rec 14695:14709 <> CertCostMachine
+proj 14718:14726 <> ccm_state
+proj 14740:14747 <> ccm_step
+proj 14798:14805 <> ccm_cost
+proj 14837:14844 <> ccm_cert
+proj 14872:14885 <> ccm_cert_costs
+R14762:14765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14753:14761 Kernel.UniversalCertificationCost <> ccm_state:54 meth
+R14780:14783 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14766:14779 Kernel.VMStep VMStep vm_instruction ind
+R14784:14792 Kernel.UniversalCertificationCost <> ccm_state:54 meth
+R14825:14828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14811:14824 Kernel.VMStep VMStep vm_instruction ind
+R14829:14831 Coq.Init.Datatypes <> nat ind
+R14859:14862 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14850:14858 Kernel.UniversalCertificationCost <> ccm_state:54 meth
+R14863:14866 Coq.Init.Datatypes <> bool ind
+R14905:14913 Kernel.UniversalCertificationCost <> ccm_state:54 meth
+binder 14901:14901 <> s:58
+R14921:14934 Kernel.VMStep VMStep vm_instruction ind
+binder 14917:14917 <> i:59
+R14962:14971 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14954:14956 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14944:14951 Kernel.UniversalCertificationCost <> ccm_cert:57 meth
+R14953:14953 Kernel.UniversalCertificationCost <> s:58 var
+R14957:14961 Coq.Init.Datatypes <> false constr
+R15002:15011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14995:14997 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14972:14979 Kernel.UniversalCertificationCost <> ccm_cert:57 meth
+R14982:14989 Kernel.UniversalCertificationCost <> ccm_step:55 meth
+R14993:14993 Kernel.UniversalCertificationCost <> i:59 var
+R14991:14991 Kernel.UniversalCertificationCost <> s:58 var
+R14998:15001 Coq.Init.Datatypes <> true constr
+R15022:15025 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R15012:15019 Kernel.UniversalCertificationCost <> ccm_cost:56 meth
+R15021:15021 Kernel.UniversalCertificationCost <> i:59 var
+rec 15171:15186 <> CertCostMorphism
+proj 15219:15225 <> ccm_map
+proj 15264:15275 <> ccm_map_step
+proj 15398:15409 <> ccm_map_cert
+R15195:15209 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 15189:15189 <> M:61
+binder 15191:15191 <> N:62
+R15242:15245 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15232:15240 Kernel.UniversalCertificationCost <> ccm_state proj
+R15229:15229 Kernel.UniversalCertificationCost <> M:61 var
+R15249:15257 Kernel.UniversalCertificationCost <> ccm_state proj
+R15246:15246 Kernel.UniversalCertificationCost <> N:62 var
+R15298:15306 Kernel.UniversalCertificationCost <> ccm_state proj
+R15295:15295 Kernel.UniversalCertificationCost <> M:61 var
+binder 15291:15291 <> s:65
+R15315:15328 Kernel.VMStep VMStep vm_instruction ind
+binder 15311:15311 <> i:66
+R15364:15366 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15338:15344 Kernel.UniversalCertificationCost <> ccm_map:64 meth
+R15350:15357 Kernel.UniversalCertificationCost <> ccm_step proj
+R15347:15347 Kernel.UniversalCertificationCost <> M:61 var
+R15360:15360 Kernel.UniversalCertificationCost <> s:65 var
+R15362:15362 Kernel.UniversalCertificationCost <> i:66 var
+R15370:15377 Kernel.UniversalCertificationCost <> ccm_step proj
+R15367:15367 Kernel.UniversalCertificationCost <> N:62 var
+R15381:15387 Kernel.UniversalCertificationCost <> ccm_map:64 meth
+R15389:15389 Kernel.UniversalCertificationCost <> s:65 var
+R15392:15392 Kernel.UniversalCertificationCost <> i:66 var
+R15432:15440 Kernel.UniversalCertificationCost <> ccm_state proj
+R15429:15429 Kernel.UniversalCertificationCost <> M:61 var
+binder 15425:15425 <> s:68
+R15465:15467 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15454:15461 Kernel.UniversalCertificationCost <> ccm_cert proj
+R15451:15451 Kernel.UniversalCertificationCost <> M:61 var
+R15464:15464 Kernel.UniversalCertificationCost <> s:68 var
+R15471:15478 Kernel.UniversalCertificationCost <> ccm_cert proj
+R15468:15468 Kernel.UniversalCertificationCost <> N:62 var
+R15482:15488 Kernel.UniversalCertificationCost <> ccm_map:64 meth
+R15490:15490 Kernel.UniversalCertificationCost <> s:68 var
+def 15551:15574 <> thiele_cert_cost_machine
+R15578:15592 Kernel.UniversalCertificationCost <> CertCostMachine rec
+R15602:15610 Kernel.UniversalCertificationCost <> ccm_state proj
+R15602:15610 Kernel.UniversalCertificationCost <> ccm_state proj
+R15602:15610 Kernel.UniversalCertificationCost <> ccm_state proj
+R15635:15642 Kernel.UniversalCertificationCost <> ccm_step proj
+R15635:15642 Kernel.UniversalCertificationCost <> ccm_step proj
+R15669:15676 Kernel.UniversalCertificationCost <> ccm_cost proj
+R15669:15676 Kernel.UniversalCertificationCost <> ccm_cost proj
+R15711:15718 Kernel.UniversalCertificationCost <> ccm_cert proj
+R15711:15718 Kernel.UniversalCertificationCost <> ccm_cert proj
+R15762:15775 Kernel.UniversalCertificationCost <> ccm_cert_costs proj
+R15762:15775 Kernel.UniversalCertificationCost <> ccm_cert_costs proj
+R15620:15626 Kernel.VMState <> VMState rec
+R15653:15660 Kernel.SimulationProof <> vm_apply def
+R15687:15702 Kernel.VMStep VMStep instruction_cost def
+binder 15733:15733 <> s:70
+R15741:15752 Kernel.VMState <> vm_certified proj
+R15738:15738 Kernel.UniversalCertificationCost <> s:70 var
+R15780:15810 Kernel.AbstractNoFI <> no_free_certification_certified thm
+prf 15939:15960 <> thiele_morphism_exists
+R15978:15992 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 15974:15974 <> M:71
+R16018:16021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16011:16017 Kernel.VMState <> VMState rec
+R16025:16033 Kernel.UniversalCertificationCost <> ccm_state proj
+R16022:16022 Kernel.UniversalCertificationCost <> M:71 var
+binder 16005:16007 <> phi:72
+binder 16062:16062 <> s:73
+binder 16064:16064 <> i:74
+R16085:16087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16067:16069 Kernel.UniversalCertificationCost <> phi:72 var
+R16072:16079 Kernel.SimulationProof <> vm_apply def
+R16081:16081 Kernel.UniversalCertificationCost <> s:73 var
+R16083:16083 Kernel.UniversalCertificationCost <> i:74 var
+R16091:16098 Kernel.UniversalCertificationCost <> ccm_step proj
+R16088:16088 Kernel.UniversalCertificationCost <> M:71 var
+R16102:16104 Kernel.UniversalCertificationCost <> phi:72 var
+R16106:16106 Kernel.UniversalCertificationCost <> s:73 var
+R16109:16109 Kernel.UniversalCertificationCost <> i:74 var
+binder 16047:16051 <> Hstep:75
+binder 16137:16137 <> s:76
+R16156:16158 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16143:16154 Kernel.VMState <> vm_certified proj
+R16140:16140 Kernel.UniversalCertificationCost <> s:76 var
+R16162:16169 Kernel.UniversalCertificationCost <> ccm_cert proj
+R16159:16159 Kernel.UniversalCertificationCost <> M:71 var
+R16173:16175 Kernel.UniversalCertificationCost <> phi:72 var
+R16177:16177 Kernel.UniversalCertificationCost <> s:76 var
+binder 16122:16126 <> Hcert:77
+R16186:16201 Kernel.UniversalCertificationCost <> CertCostMorphism rec
+R16203:16226 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R16228:16228 Kernel.UniversalCertificationCost <> M:71 var
+R16275:16296 Kernel.UniversalCertificationCost <> Build_CertCostMorphism constr
+R16298:16321 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R16275:16296 Kernel.UniversalCertificationCost <> Build_CertCostMorphism constr
+R16298:16321 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+prf 16552:16583 <> thiele_morphism_unique_on_traces
+R16601:16615 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 16597:16597 <> M:78
+R16640:16655 Kernel.UniversalCertificationCost <> CertCostMorphism rec
+R16657:16680 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R16682:16682 Kernel.UniversalCertificationCost <> M:78 var
+binder 16628:16631 <> phi1:79
+binder 16633:16636 <> phi2:80
+R16700:16706 Kernel.VMState <> VMState rec
+binder 16695:16696 <> s0:81
+R16727:16730 Coq.Init.Datatypes <> list ind
+R16732:16745 Kernel.VMStep VMStep vm_instruction ind
+binder 16719:16723 <> trace:82
+R16794:16801 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16772:16774 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16753:16759 Kernel.UniversalCertificationCost <> ccm_map proj
+R16765:16768 Kernel.UniversalCertificationCost <> phi1:79 var
+R16770:16771 Kernel.UniversalCertificationCost <> s0:81 var
+R16775:16781 Kernel.UniversalCertificationCost <> ccm_map proj
+R16787:16790 Kernel.UniversalCertificationCost <> phi2:80 var
+R16792:16793 Kernel.UniversalCertificationCost <> s0:81 var
+R16848:16854 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16802:16808 Kernel.UniversalCertificationCost <> ccm_map proj
+R16814:16817 Kernel.UniversalCertificationCost <> phi1:79 var
+R16820:16828 Coq.Lists.List <> fold_left def
+R16845:16846 Kernel.UniversalCertificationCost <> s0:81 var
+R16839:16843 Kernel.UniversalCertificationCost <> trace:82 var
+R16830:16837 Kernel.SimulationProof <> vm_apply def
+R16855:16861 Kernel.UniversalCertificationCost <> ccm_map proj
+R16867:16870 Kernel.UniversalCertificationCost <> phi2:80 var
+R16873:16881 Coq.Lists.List <> fold_left def
+R16898:16899 Kernel.UniversalCertificationCost <> s0:81 var
+R16892:16896 Kernel.UniversalCertificationCost <> trace:82 var
+R16883:16890 Kernel.SimulationProof <> vm_apply def
+R17069:17076 Kernel.SimulationProof <> vm_apply def
+R17090:17097 Kernel.UniversalCertificationCost <> ccm_step proj
+R17099:17122 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R17069:17076 Kernel.SimulationProof <> vm_apply def
+R17090:17097 Kernel.UniversalCertificationCost <> ccm_step proj
+R17099:17122 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R17090:17097 Kernel.UniversalCertificationCost <> ccm_step proj
+R17099:17122 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R17144:17155 Kernel.UniversalCertificationCost <> ccm_map_step proj
+R17144:17155 Kernel.UniversalCertificationCost <> ccm_map_step proj
+R17144:17155 Kernel.UniversalCertificationCost <> ccm_map_step proj
+R17186:17197 Kernel.UniversalCertificationCost <> ccm_map_step proj
+R17186:17197 Kernel.UniversalCertificationCost <> ccm_map_step proj
+R17186:17197 Kernel.UniversalCertificationCost <> ccm_map_step proj
+def 17337:17354 <> thiele_id_morphism
+R17358:17373 Kernel.UniversalCertificationCost <> CertCostMorphism rec
+R17375:17398 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R17400:17423 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R17430:17451 Kernel.UniversalCertificationCost <> Build_CertCostMorphism constr
+R17453:17476 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+R17478:17501 Kernel.UniversalCertificationCost <> thiele_cert_cost_machine def
+binder 17512:17512 <> s:83
+R17517:17517 Kernel.UniversalCertificationCost <> s:83 var
+R17532:17538 Coq.Init.Logic <> eq_refl constr
+R17551:17557 Coq.Init.Logic <> eq_refl constr
+def 17626:17643 <> ccm_to_cert_system
+R17650:17664 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 17646:17646 <> M:84
+R17669:17687 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R17697:17704 Kernel.UniversalCertificationCost <> cs_state proj
+R17697:17704 Kernel.UniversalCertificationCost <> cs_state proj
+R17697:17704 Kernel.UniversalCertificationCost <> cs_state proj
+R17730:17737 Kernel.UniversalCertificationCost <> cs_instr proj
+R17730:17737 Kernel.UniversalCertificationCost <> cs_instr proj
+R17764:17770 Kernel.UniversalCertificationCost <> cs_step proj
+R17764:17770 Kernel.UniversalCertificationCost <> cs_step proj
+R17796:17802 Kernel.UniversalCertificationCost <> cs_cost proj
+R17796:17802 Kernel.UniversalCertificationCost <> cs_cost proj
+R17828:17834 Kernel.UniversalCertificationCost <> cs_cert proj
+R17828:17834 Kernel.UniversalCertificationCost <> cs_cert proj
+R17860:17872 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R17860:17872 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R17712:17720 Kernel.UniversalCertificationCost <> ccm_state proj
+R17709:17709 Kernel.UniversalCertificationCost <> M:84 var
+R17742:17755 Kernel.VMStep VMStep vm_instruction ind
+R17779:17786 Kernel.UniversalCertificationCost <> ccm_step proj
+R17776:17776 Kernel.UniversalCertificationCost <> M:84 var
+R17811:17818 Kernel.UniversalCertificationCost <> ccm_cost proj
+R17808:17808 Kernel.UniversalCertificationCost <> M:84 var
+R17843:17850 Kernel.UniversalCertificationCost <> ccm_cert proj
+R17840:17840 Kernel.UniversalCertificationCost <> M:84 var
+R17880:17893 Kernel.UniversalCertificationCost <> ccm_cert_costs proj
+R17877:17877 Kernel.UniversalCertificationCost <> M:84 var
+prf 17966:17982 <> ccm_universal_nfi
+R18000:18014 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 17996:17996 <> M:85
+R18035:18038 Coq.Init.Datatypes <> list ind
+R18040:18053 Kernel.VMStep VMStep vm_instruction ind
+binder 18027:18031 <> trace:86
+R18074:18082 Kernel.UniversalCertificationCost <> ccm_state proj
+R18071:18071 Kernel.UniversalCertificationCost <> M:85 var
+binder 18066:18067 <> s0:87
+R18114:18121 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18106:18108 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18094:18101 Kernel.UniversalCertificationCost <> ccm_cert proj
+R18091:18091 Kernel.UniversalCertificationCost <> M:85 var
+R18104:18105 Kernel.UniversalCertificationCost <> s0:87 var
+R18109:18113 Coq.Init.Datatypes <> false constr
+R18182:18189 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18175:18177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18125:18132 Kernel.UniversalCertificationCost <> ccm_cert proj
+R18122:18122 Kernel.UniversalCertificationCost <> M:85 var
+R18136:18141 Kernel.UniversalCertificationCost <> cs_run def
+R18144:18161 Kernel.UniversalCertificationCost <> ccm_to_cert_system def
+R18163:18163 Kernel.UniversalCertificationCost <> M:85 var
+R18166:18170 Kernel.UniversalCertificationCost <> trace:86 var
+R18172:18173 Kernel.UniversalCertificationCost <> s0:87 var
+R18178:18181 Coq.Init.Datatypes <> true constr
+R18232:18235 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18190:18202 Kernel.UniversalCertificationCost <> cs_total_cost def
+R18205:18222 Kernel.UniversalCertificationCost <> ccm_to_cert_system def
+R18224:18224 Kernel.UniversalCertificationCost <> M:85 var
+R18227:18231 Kernel.UniversalCertificationCost <> trace:86 var
+R18287:18313 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R18316:18333 Kernel.UniversalCertificationCost <> ccm_to_cert_system def
+R18287:18313 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R18316:18333 Kernel.UniversalCertificationCost <> ccm_to_cert_system def

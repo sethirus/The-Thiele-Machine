@@ -1,7 +1,6 @@
-(** * Clausius Component From Entropy-Area Control
+(** Clausius Component From Entropy-Area Control
 
-    WHY THIS FILE EXISTS:
-    Replace an opaque Clausius placeholder with explicit thermodynamic
+  Replaces an opaque Clausius placeholder with explicit thermodynamic
     ingredients: entropy-per-bit calibration, local Unruh temperature, and a
     constructive witness of dQ = T*dS from entropy bounds.
 *)

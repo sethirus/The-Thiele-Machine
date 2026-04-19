@@ -27,7 +27,6 @@ OPCODES: Dict[str, int] = {
     "XOR_RANK": 0x0D,
     "EMIT": 0x0E,
     "REVEAL": 0x0F,
-    "ORACLE_HALTS": 0x10,
     "LOAD": 0x11,
     "STORE": 0x12,
     "ADD": 0x13,
@@ -146,6 +145,7 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
     instructions: List[int] = []
     data_memory: Dict[int, int] = {}
     init_state: Dict[str, int] = {}
+    reg_values: Dict[int, int] = {}
 
     for raw_line in str(program).strip().splitlines():
         line = raw_line.strip()
@@ -189,6 +189,9 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
             init_state["INIT_LOGIC_ACC"] = int(arg.split()[0], 0) & 0xFFFFFFFF
             continue
         if op == "INIT_REG":
+            reg_parts = arg.split()
+            if len(reg_parts) >= 2:
+                reg_values[int(reg_parts[0], 0)] = int(reg_parts[1], 0)
             continue
 
         if op == "REVEAL_EXT":
@@ -413,7 +416,30 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
             instructions.append(_encode_instruction(op, rs_addr, src, cost))
             continue
 
-        if op in {"MDLACC", "XOR_LOAD", "XOR_ADD", "XOR_SWAP", "XOR_RANK", "XFER", "LASSERT", "LJOIN", "PDISCOVER", "ORACLE_HALTS", "EMIT", "REVEAL", "CHECKPOINT", "READ_PORT", "WRITE_PORT", "CERTIFY"}:
+        if op == "LASSERT":
+            lassert_parts = arg.split()
+            if len(lassert_parts) != 5:
+                raise ValueError(
+                    "Legacy LASSERT text forms are not supported; use canonical form "
+                    "`LASSERT <freg> <creg> <kind> <flen> <cost>`"
+                )
+            freg = int(lassert_parts[0], 0)
+            creg = int(lassert_parts[1], 0)
+            kind = int(lassert_parts[2], 0)
+            flen = int(lassert_parts[3], 0)
+            cost = int(lassert_parts[4], 0)
+            fbase = reg_values.get(freg)
+            if fbase is not None:
+                hw_flen = data_memory.get(fbase)
+                if hw_flen is not None and flen != hw_flen:
+                    raise ValueError(
+                        f"LASSERT flen {flen} does not match in-memory header {hw_flen} at formula base {fbase}"
+                    )
+            operand_a = (freg & 0x1F) | ((kind & 0x1) << 5)
+            instructions.append(_encode_instruction("LASSERT", operand_a, creg, cost))
+            continue
+
+        if op in {"MDLACC", "XOR_LOAD", "XOR_ADD", "XOR_SWAP", "XOR_RANK", "XFER", "LJOIN", "PDISCOVER", "EMIT", "REVEAL", "CHECKPOINT", "READ_PORT", "WRITE_PORT", "CERTIFY"}:
             generic_parts = arg.split()
             operand_a = int(generic_parts[0], 0) if len(generic_parts) > 0 else 0
             operand_b = int(generic_parts[1], 0) if len(generic_parts) > 1 else 0
@@ -423,6 +449,8 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
 
         if op == "LOAD_IMM":
             imm_parts = arg.split()
+            if len(imm_parts) >= 2:
+                reg_values[int(imm_parts[0], 0)] = int(imm_parts[1], 0)
             instructions.append(_encode_instruction("LOAD_IMM", int(imm_parts[0], 0), int(imm_parts[1], 0), int(imm_parts[2], 0) if len(imm_parts) > 2 else 0))
             continue
 

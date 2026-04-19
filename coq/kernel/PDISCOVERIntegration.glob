@@ -1,4 +1,4 @@
-DIGEST 99b9c0cd1f052d8e5aad512dd475d3ad
+DIGEST 4d4eb3d7c3c1bcd0128cc8076e32e45e
 FKernel.PDISCOVERIntegration
 R206:216 Kernel.MuCostModel <> <> lib
 R906:919 Coq.Lists.List <> <> lib
@@ -8,436 +8,436 @@ R998:1010 Coq.Lists.List ListNotations <> mod
 R1029:1042 Kernel.VMState <> <> lib
 R1060:1072 Kernel.VMStep <> <> lib
 mod 1083:1102 <> PDISCOVERIntegration
-rec 3091:3108 PDISCOVERIntegration GeometricSignature
-proj 3119:3133 PDISCOVERIntegration avg_edge_weight
-proj 3185:3199 PDISCOVERIntegration max_edge_weight
-proj 3251:3265 PDISCOVERIntegration std_edge_weight
-proj 3316:3325 PDISCOVERIntegration mst_weight
-proj 3391:3407 PDISCOVERIntegration threshold_density
-R3137:3139 Coq.Init.Datatypes <> nat ind
-R3203:3205 Coq.Init.Datatypes <> nat ind
-R3269:3271 Coq.Init.Datatypes <> nat ind
-R3329:3331 Coq.Init.Datatypes <> nat ind
-R3411:3413 Coq.Init.Datatypes <> nat ind
-ind 5244:5259 PDISCOVERIntegration StructureVerdict
-constr 5270:5279 PDISCOVERIntegration STRUCTURED
-constr 5340:5346 PDISCOVERIntegration CHAOTIC
-constr 5403:5409 PDISCOVERIntegration UNKNOWN
-scheme 5244:5259 PDISCOVERIntegration StructureVerdict_rect
-scheme 5244:5259 PDISCOVERIntegration StructureVerdict_ind
-scheme 5244:5259 PDISCOVERIntegration StructureVerdict_rec
-scheme 5244:5259 PDISCOVERIntegration StructureVerdict_sind
-def 8115:8131 PDISCOVERIntegration pdiscern_classify
-R8140:8157 Kernel.PDISCOVERIntegration PDISCOVERIntegration GeometricSignature rec
-binder 8134:8136 <> sig:9
-R8162:8177 Kernel.PDISCOVERIntegration PDISCOVERIntegration StructureVerdict ind
-R8209:8212 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R8190:8204 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R8206:8208 Kernel.PDISCOVERIntegration <> sig:9 var
-R8327:8333 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
-R8252:8255 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R8233:8247 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R8249:8251 Kernel.PDISCOVERIntegration <> sig:9 var
-R8304:8310 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
-R8274:8283 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
-def 9701:9704 PDISCOVERIntegration Edge
-R9719:9721 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9713:9715 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R9710:9712 Coq.Init.Datatypes <> nat ind
-R9716:9718 Coq.Init.Datatypes <> nat ind
-R9722:9724 Coq.Init.Datatypes <> nat ind
-def 11326:11341 PDISCOVERIntegration InteractionGraph
-R11346:11349 Coq.Init.Datatypes <> list ind
-R11351:11354 Kernel.PDISCOVERIntegration PDISCOVERIntegration Edge def
-def 12485:12496 PDISCOVERIntegration edge_weights
-R12503:12518 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
-binder 12499:12499 <> g:10
-R12523:12526 Coq.Init.Datatypes <> list ind
-R12528:12530 Coq.Init.Datatypes <> nat ind
-R12539:12541 Coq.Lists.List <> map def
-R12586:12586 Kernel.PDISCOVERIntegration <> g:10 var
-binder 12548:12548 <> e:11
-R12559:12559 Kernel.PDISCOVERIntegration <> e:11 var
-R12566:12566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12568:12569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12571:12572 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12574:12574 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-def 13581:13588 PDISCOVERIntegration list_sum
-R13595:13598 Coq.Init.Datatypes <> list ind
-R13600:13602 Coq.Init.Datatypes <> nat ind
-binder 13591:13591 <> l:13
-R13607:13609 Coq.Init.Datatypes <> nat ind
-R13624:13624 Kernel.PDISCOVERIntegration <> l:13 var
-R13637:13638 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R13652:13655 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R13663:13665 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R13666:13673 Kernel.PDISCOVERIntegration <> list_sum:14 def
-def 14941:14948 PDISCOVERIntegration list_max
-R14955:14958 Coq.Init.Datatypes <> list ind
-R14960:14962 Coq.Init.Datatypes <> nat ind
-binder 14951:14951 <> l:16
-R14967:14969 Coq.Init.Datatypes <> nat ind
-R14984:14984 Kernel.PDISCOVERIntegration <> l:16 var
-R14997:14998 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R15076:15079 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R15086:15092 Coq.Arith.PeanoNat Nat max def
-R15097:15104 Kernel.PDISCOVERIntegration <> list_max:17 def
-def 16239:16250 PDISCOVERIntegration squared_diff
-R16262:16264 Coq.Init.Datatypes <> nat ind
-binder 16253:16253 <> x:19
-binder 16255:16258 <> mean:20
-R16269:16271 Coq.Init.Datatypes <> nat ind
-R16296:16299 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R16295:16295 Kernel.PDISCOVERIntegration <> x:19 var
-R16300:16303 Kernel.PDISCOVERIntegration <> mean:20 var
-R16325:16327 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R16324:16324 Kernel.PDISCOVERIntegration <> x:19 var
-R16328:16331 Kernel.PDISCOVERIntegration <> mean:20 var
-R16314:16316 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R16310:16313 Kernel.PDISCOVERIntegration <> mean:20 var
-R16317:16317 Kernel.PDISCOVERIntegration <> x:19 var
-binder 16284:16287 <> diff:21
-R16344:16346 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R16340:16343 Kernel.PDISCOVERIntegration <> diff:21 var
-R16347:16350 Kernel.PDISCOVERIntegration <> diff:21 var
-def 17717:17733 PDISCOVERIntegration sum_squared_diffs
-R17740:17743 Coq.Init.Datatypes <> list ind
-R17745:17747 Coq.Init.Datatypes <> nat ind
-binder 17736:17736 <> l:22
-R17758:17760 Coq.Init.Datatypes <> nat ind
-binder 17751:17754 <> mean:23
-R17765:17767 Coq.Init.Datatypes <> nat ind
-R17776:17783 Kernel.PDISCOVERIntegration PDISCOVERIntegration list_sum def
-R17786:17788 Coq.Lists.List <> map def
-R17821:17821 Kernel.PDISCOVERIntegration <> l:22 var
-binder 17795:17795 <> x:24
-R17800:17811 Kernel.PDISCOVERIntegration PDISCOVERIntegration squared_diff def
-R17815:17818 Kernel.PDISCOVERIntegration <> mean:23 var
-R17813:17813 Kernel.PDISCOVERIntegration <> x:24 var
-def 19436:19444 PDISCOVERIntegration isqrt_aux
-R19457:19459 Coq.Init.Datatypes <> nat ind
-binder 19447:19447 <> n:25
-binder 19449:19453 <> guess:26
-R19470:19472 Coq.Init.Datatypes <> nat ind
-binder 19463:19466 <> fuel:27
-R19477:19479 Coq.Init.Datatypes <> nat ind
-R19494:19497 Kernel.PDISCOVERIntegration <> fuel:27 var
-R19515:19519 Kernel.PDISCOVERIntegration <> guess:26 var
-R19527:19527 Coq.Init.Datatypes <> S constr
-R19554:19557 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R19549:19553 Kernel.PDISCOVERIntegration <> guess:26 var
-R19607:19607 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R19625:19628 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R19613:19615 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R19608:19612 Kernel.PDISCOVERIntegration <> guess:26 var
-R19617:19619 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R19616:19616 Kernel.PDISCOVERIntegration <> n:25 var
-R19620:19624 Kernel.PDISCOVERIntegration <> guess:26 var
-binder 19594:19602 <> new_guess:30
-R19656:19659 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R19647:19655 Kernel.PDISCOVERIntegration <> new_guess:30 var
-R19660:19664 Kernel.PDISCOVERIntegration <> guess:26 var
-R19692:19700 Kernel.PDISCOVERIntegration <> isqrt_aux:28 def
-R19704:19712 Kernel.PDISCOVERIntegration <> new_guess:30 var
-R19702:19702 Kernel.PDISCOVERIntegration <> n:25 var
-R19671:19675 Kernel.PDISCOVERIntegration <> guess:26 var
-def 20917:20921 PDISCOVERIntegration isqrt
-R20928:20930 Coq.Init.Datatypes <> nat ind
-binder 20924:20924 <> n:31
-R20935:20937 Coq.Init.Datatypes <> nat ind
-R20950:20953 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R20949:20949 Kernel.PDISCOVERIntegration <> n:31 var
-R20972:20980 Kernel.PDISCOVERIntegration PDISCOVERIntegration isqrt_aux def
-R20990:20992 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R20986:20988 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R20985:20985 Kernel.PDISCOVERIntegration <> n:31 var
-R20982:20982 Kernel.PDISCOVERIntegration <> n:31 var
-def 23921:23947 PDISCOVERIntegration compute_geometric_signature
-R23954:23969 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
-binder 23950:23950 <> g:32
-R23974:23991 Kernel.PDISCOVERIntegration PDISCOVERIntegration GeometricSignature rec
-R24015:24026 Kernel.PDISCOVERIntegration PDISCOVERIntegration edge_weights def
-R24028:24028 Kernel.PDISCOVERIntegration <> g:32 var
-binder 24004:24010 <> weights:33
-R24046:24056 Coq.Lists.List <> length abbrev
-R24058:24064 Kernel.PDISCOVERIntegration <> weights:33 var
-binder 24041:24041 <> n:34
-R24077:24080 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R24076:24076 Kernel.PDISCOVERIntegration <> n:34 var
-R24323:24330 Kernel.PDISCOVERIntegration PDISCOVERIntegration list_sum def
-R24332:24338 Kernel.PDISCOVERIntegration <> weights:33 var
-binder 24314:24318 <> total:35
-R24360:24360 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R24373:24376 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R24366:24368 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R24361:24365 Kernel.PDISCOVERIntegration <> total:35 var
-R24377:24377 Kernel.PDISCOVERIntegration <> n:34 var
-binder 24353:24355 <> avg:36
-R24401:24408 Kernel.PDISCOVERIntegration PDISCOVERIntegration list_max def
-R24410:24416 Kernel.PDISCOVERIntegration <> weights:33 var
-binder 24392:24396 <> max_w:37
-R24443:24459 Kernel.PDISCOVERIntegration PDISCOVERIntegration sum_squared_diffs def
-R24475:24477 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R24470:24474 Kernel.PDISCOVERIntegration <> total:35 var
-R24478:24478 Kernel.PDISCOVERIntegration <> n:34 var
-R24461:24467 Kernel.PDISCOVERIntegration <> weights:33 var
-binder 24431:24438 <> variance:38
-R24501:24505 Kernel.PDISCOVERIntegration PDISCOVERIntegration isqrt def
-R24508:24508 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R24527:24530 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
-R24517:24519 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R24509:24516 Kernel.PDISCOVERIntegration <> variance:38 var
-R24531:24531 Kernel.PDISCOVERIntegration <> n:34 var
-binder 24494:24496 <> std:39
-R24546:24560 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R24546:24560 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R24546:24560 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R24579:24593 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
-R24579:24593 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
-R24621:24635 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R24621:24635 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R24654:24663 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
-R24654:24663 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
-R24710:24726 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
-R24710:24726 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
-R24565:24567 Kernel.PDISCOVERIntegration <> avg:36 var
-R24603:24605 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R24598:24602 Kernel.PDISCOVERIntegration <> max_w:37 var
-R24640:24642 Kernel.PDISCOVERIntegration <> std:39 var
-R24673:24675 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R24668:24672 Kernel.PDISCOVERIntegration <> max_w:37 var
-R24142:24156 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R24142:24156 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R24142:24156 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R24176:24190 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
-R24176:24190 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
-R24207:24221 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R24207:24221 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R24241:24250 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
-R24241:24250 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
-R24267:24283 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
-R24267:24283 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
-def 26443:26459 PDISCOVERIntegration pdiscover_compute
-R26466:26481 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
-binder 26462:26462 <> g:40
-R26486:26501 Kernel.PDISCOVERIntegration PDISCOVERIntegration StructureVerdict ind
-R26510:26526 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R26529:26555 Kernel.PDISCOVERIntegration PDISCOVERIntegration compute_geometric_signature def
-R26557:26557 Kernel.PDISCOVERIntegration <> g:40 var
-prf 28342:28363 PDISCOVERIntegration pdiscern_deterministic
-binder 28374:28376 <> sig:41
-R28417:28424 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R28404:28406 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28383:28399 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R28401:28403 Kernel.PDISCOVERIntegration <> sig:41 var
-R28407:28416 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
-R28446:28448 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28425:28441 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R28443:28445 Kernel.PDISCOVERIntegration <> sig:41 var
-R28449:28455 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
-R28493:28509 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R28545:28548 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R28526:28540 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R28545:28548 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R28526:28540 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R28599:28602 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R28580:28594 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R28599:28602 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R28580:28594 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-prf 29835:29866 PDISCOVERIntegration structured_implies_low_variation
-binder 29877:29879 <> sig:42
-R29920:29927 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29907:29909 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29886:29902 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R29904:29906 Kernel.PDISCOVERIntegration <> sig:42 var
-R29910:29919 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
-R29953:29956 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R29947:29949 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R29928:29942 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R29944:29946 Kernel.PDISCOVERIntegration <> sig:42 var
-R29976:29978 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R29957:29971 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R29973:29975 Kernel.PDISCOVERIntegration <> sig:42 var
-R30022:30038 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R30079:30082 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R30060:30074 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R30079:30082 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R30060:30074 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R30149:30152 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R30130:30144 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R30149:30152 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R30130:30144 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R30196:30205 Coq.Arith.PeanoNat Nat ltb_lt thm
-R30196:30205 Coq.Arith.PeanoNat Nat ltb_lt thm
-R30226:30235 Coq.Arith.PeanoNat Nat ltb_lt thm
-R30226:30235 Coq.Arith.PeanoNat Nat ltb_lt thm
-prf 31268:31297 PDISCOVERIntegration chaotic_implies_high_variation
-binder 31308:31310 <> sig:43
-R31348:31355 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R31338:31340 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R31317:31333 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R31335:31337 Kernel.PDISCOVERIntegration <> sig:43 var
-R31341:31347 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
-R31382:31385 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R31375:31378 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R31356:31370 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R31372:31374 Kernel.PDISCOVERIntegration <> sig:43 var
-R31405:31408 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R31386:31400 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R31402:31404 Kernel.PDISCOVERIntegration <> sig:43 var
-R31452:31468 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R31509:31512 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R31490:31504 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R31509:31512 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R31490:31504 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R31563:31566 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R31544:31558 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R31563:31566 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R31544:31558 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R31612:31621 Coq.Arith.PeanoNat Nat ltb_ge thm
-R31612:31621 Coq.Arith.PeanoNat Nat ltb_ge thm
-R31663:31672 Coq.Arith.PeanoNat Nat ltb_ge thm
-R31663:31672 Coq.Arith.PeanoNat Nat ltb_ge thm
-prf 32467:32489 PDISCOVERIntegration classification_complete
-binder 32500:32502 <> sig:44
-R32530:32533 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R32509:32525 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R32527:32529 Kernel.PDISCOVERIntegration <> sig:44 var
-R32534:32540 Kernel.PDISCOVERIntegration PDISCOVERIntegration UNKNOWN constr
-R32578:32594 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
-R32630:32633 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R32611:32625 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R32675:32678 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R32656:32670 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R32630:32633 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R32611:32625 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
-R32675:32678 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R32656:32670 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-R32675:32678 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
-R32656:32670 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
-def 33380:33395 PDISCOVERIntegration structured_graph
-R33399:33414 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
-R33423:33423 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R33435:33436 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R33448:33449 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R33461:33461 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R33424:33424 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33426:33427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33429:33430 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33434:33434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33437:33437 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33439:33440 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33442:33443 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33447:33447 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33450:33450 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33452:33453 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33455:33456 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R33460:33460 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-def 34105:34117 PDISCOVERIntegration chaotic_graph
-R34121:34136 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
-R34145:34145 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R34156:34157 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R34169:34170 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R34182:34183 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R34195:34195 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R34146:34146 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34148:34149 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34151:34152 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34155:34155 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34158:34158 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34160:34161 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34163:34164 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34168:34168 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34171:34171 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34173:34174 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34176:34177 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34181:34181 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34184:34184 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34186:34187 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34189:34190 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R34194:34194 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-def 35022:35039 PDISCOVERIntegration is_pdiscover_instr
-R35046:35059 Kernel.VMStep VMStep vm_instruction ind
-binder 35042:35042 <> i:45
-R35064:35067 Coq.Init.Datatypes <> bool ind
-R35082:35082 Kernel.PDISCOVERIntegration <> i:45 var
-R35095:35109 Kernel.VMStep VMStep instr_pdiscover constr
-R35120:35123 Coq.Init.Datatypes <> true constr
-R35136:35140 Coq.Init.Datatypes <> false constr
-def 35567:35586 PDISCOVERIntegration is_sight_aware_instr
-R35593:35606 Kernel.VMStep VMStep vm_instruction ind
-binder 35589:35589 <> i:47
-R35611:35614 Coq.Init.Datatypes <> bool ind
-R35623:35640 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_pdiscover_instr def
-R35642:35642 Kernel.PDISCOVERIntegration <> i:47 var
-def 36588:36607 PDISCOVERIntegration uses_sight_awareness
-R36617:36620 Coq.Init.Datatypes <> list ind
-R36622:36635 Kernel.VMStep VMStep vm_instruction ind
-binder 36610:36613 <> prog:48
-R36640:36643 Coq.Init.Datatypes <> bool ind
-R36652:36658 Coq.Lists.List <> existsb def
-R36681:36684 Kernel.PDISCOVERIntegration <> prog:48 var
-R36660:36679 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
-def 37974:37998 PDISCOVERIntegration vm_can_classify_structure
-R38026:38041 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
-binder 38022:38022 <> g:49
-R38051:38057 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R38065:38074 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 38058:38064 <> verdict:50
-R38104:38116 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R38158:38158 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R38082:38084 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38075:38081 Kernel.PDISCOVERIntegration <> verdict:50 var
-R38085:38101 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscover_compute def
-R38103:38103 Kernel.PDISCOVERIntegration <> g:49 var
-R38137:38140 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R38124:38126 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38117:38123 Kernel.PDISCOVERIntegration <> verdict:50 var
-R38127:38136 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
-R38148:38150 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R38141:38147 Kernel.PDISCOVERIntegration <> verdict:50 var
-R38151:38157 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
-prf 39332:39355 PDISCOVERIntegration vm_classification_exists
-R39359:39383 Kernel.PDISCOVERIntegration PDISCOVERIntegration vm_can_classify_structure def
-R39406:39430 Kernel.PDISCOVERIntegration PDISCOVERIntegration vm_can_classify_structure def
-R39458:39474 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscover_compute def
-R39458:39474 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscover_compute def
-R39522:39543 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_deterministic thm
-R39522:39543 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_deterministic thm
-prf 41363:41381 PDISCOVERIntegration backward_compatible
-R41400:41403 Coq.Init.Datatypes <> list ind
-R41405:41418 Kernel.VMStep VMStep vm_instruction ind
-binder 41393:41396 <> prog:51
-R41459:41466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41451:41453 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41426:41445 Kernel.PDISCOVERIntegration PDISCOVERIntegration uses_sight_awareness def
-R41447:41450 Kernel.PDISCOVERIntegration <> prog:51 var
-R41454:41458 Coq.Init.Datatypes <> false constr
-binder 41474:41476 <> mid:52
-binder 41478:41485 <> evidence:53
-binder 41487:41488 <> mu:54
-R41491:41492 Coq.Init.Logic <> ::type_scope:'~'_x not
-R41493:41494 Coq.Lists.List <> In def
-R41530:41533 Kernel.PDISCOVERIntegration <> prog:51 var
-R41497:41511 Kernel.VMStep VMStep instr_pdiscover constr
-R41513:41515 Kernel.PDISCOVERIntegration <> mid:52 var
-R41517:41524 Kernel.PDISCOVERIntegration <> evidence:53 var
-R41526:41527 Kernel.PDISCOVERIntegration <> mu:54 var
-R41597:41616 Kernel.PDISCOVERIntegration PDISCOVERIntegration uses_sight_awareness def
-R41642:41655 Coq.Lists.List <> existsb_exists thm
-R41657:41676 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
-R41642:41655 Coq.Lists.List <> existsb_exists thm
-R41657:41676 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
-R41737:41739 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41704:41710 Coq.Lists.List <> existsb def
-R41712:41731 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
-R41740:41743 Coq.Init.Datatypes <> true constr
-R41737:41739 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41704:41710 Coq.Lists.List <> existsb def
-R41712:41731 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
-R41740:41743 Coq.Init.Datatypes <> true constr
-R41792:41806 Kernel.VMStep VMStep instr_pdiscover constr
-R41792:41806 Kernel.VMStep VMStep instr_pdiscover constr
-R41866:41885 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
-R41888:41905 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_pdiscover_instr def
-R42825:42844 Kernel.PDISCOVERIntegration PDISCOVERIntegration <> mod
+rec 3016:3033 PDISCOVERIntegration GeometricSignature
+proj 3044:3058 PDISCOVERIntegration avg_edge_weight
+proj 3110:3124 PDISCOVERIntegration max_edge_weight
+proj 3176:3190 PDISCOVERIntegration std_edge_weight
+proj 3241:3250 PDISCOVERIntegration mst_weight
+proj 3316:3332 PDISCOVERIntegration threshold_density
+R3062:3064 Coq.Init.Datatypes <> nat ind
+R3128:3130 Coq.Init.Datatypes <> nat ind
+R3194:3196 Coq.Init.Datatypes <> nat ind
+R3254:3256 Coq.Init.Datatypes <> nat ind
+R3336:3338 Coq.Init.Datatypes <> nat ind
+ind 5111:5126 PDISCOVERIntegration StructureVerdict
+constr 5137:5146 PDISCOVERIntegration STRUCTURED
+constr 5207:5213 PDISCOVERIntegration CHAOTIC
+constr 5270:5276 PDISCOVERIntegration UNKNOWN
+scheme 5111:5126 PDISCOVERIntegration StructureVerdict_rect
+scheme 5111:5126 PDISCOVERIntegration StructureVerdict_ind
+scheme 5111:5126 PDISCOVERIntegration StructureVerdict_rec
+scheme 5111:5126 PDISCOVERIntegration StructureVerdict_sind
+def 7924:7940 PDISCOVERIntegration pdiscern_classify
+R7949:7966 Kernel.PDISCOVERIntegration PDISCOVERIntegration GeometricSignature rec
+binder 7943:7945 <> sig:9
+R7971:7986 Kernel.PDISCOVERIntegration PDISCOVERIntegration StructureVerdict ind
+R8018:8021 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R7999:8013 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R8015:8017 Kernel.PDISCOVERIntegration <> sig:9 var
+R8136:8142 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
+R8061:8064 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R8042:8056 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R8058:8060 Kernel.PDISCOVERIntegration <> sig:9 var
+R8113:8119 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
+R8083:8092 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
+def 9435:9438 PDISCOVERIntegration Edge
+R9453:9455 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9447:9449 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R9444:9446 Coq.Init.Datatypes <> nat ind
+R9450:9452 Coq.Init.Datatypes <> nat ind
+R9456:9458 Coq.Init.Datatypes <> nat ind
+def 10985:11000 PDISCOVERIntegration InteractionGraph
+R11005:11008 Coq.Init.Datatypes <> list ind
+R11010:11013 Kernel.PDISCOVERIntegration PDISCOVERIntegration Edge def
+def 12086:12097 PDISCOVERIntegration edge_weights
+R12104:12119 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
+binder 12100:12100 <> g:10
+R12124:12127 Coq.Init.Datatypes <> list ind
+R12129:12131 Coq.Init.Datatypes <> nat ind
+R12140:12142 Coq.Lists.List <> map def
+R12187:12187 Kernel.PDISCOVERIntegration <> g:10 var
+binder 12149:12149 <> e:11
+R12160:12160 Kernel.PDISCOVERIntegration <> e:11 var
+R12167:12167 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12169:12170 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12172:12173 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12175:12175 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 13124:13131 PDISCOVERIntegration list_sum
+R13138:13141 Coq.Init.Datatypes <> list ind
+R13143:13145 Coq.Init.Datatypes <> nat ind
+binder 13134:13134 <> l:13
+R13150:13152 Coq.Init.Datatypes <> nat ind
+R13167:13167 Kernel.PDISCOVERIntegration <> l:13 var
+R13180:13181 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R13195:13198 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R13206:13208 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13209:13216 Kernel.PDISCOVERIntegration <> list_sum:14 def
+def 14426:14433 PDISCOVERIntegration list_max
+R14440:14443 Coq.Init.Datatypes <> list ind
+R14445:14447 Coq.Init.Datatypes <> nat ind
+binder 14436:14436 <> l:16
+R14452:14454 Coq.Init.Datatypes <> nat ind
+R14469:14469 Kernel.PDISCOVERIntegration <> l:16 var
+R14482:14483 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14561:14564 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R14571:14577 Coq.Arith.PeanoNat Nat max def
+R14582:14589 Kernel.PDISCOVERIntegration <> list_max:17 def
+def 15666:15677 PDISCOVERIntegration squared_diff
+R15689:15691 Coq.Init.Datatypes <> nat ind
+binder 15680:15680 <> x:19
+binder 15682:15685 <> mean:20
+R15696:15698 Coq.Init.Datatypes <> nat ind
+R15723:15726 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R15722:15722 Kernel.PDISCOVERIntegration <> x:19 var
+R15727:15730 Kernel.PDISCOVERIntegration <> mean:20 var
+R15752:15754 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15751:15751 Kernel.PDISCOVERIntegration <> x:19 var
+R15755:15758 Kernel.PDISCOVERIntegration <> mean:20 var
+R15741:15743 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15737:15740 Kernel.PDISCOVERIntegration <> mean:20 var
+R15744:15744 Kernel.PDISCOVERIntegration <> x:19 var
+binder 15711:15714 <> diff:21
+R15771:15773 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R15767:15770 Kernel.PDISCOVERIntegration <> diff:21 var
+R15774:15777 Kernel.PDISCOVERIntegration <> diff:21 var
+def 17086:17102 PDISCOVERIntegration sum_squared_diffs
+R17109:17112 Coq.Init.Datatypes <> list ind
+R17114:17116 Coq.Init.Datatypes <> nat ind
+binder 17105:17105 <> l:22
+R17127:17129 Coq.Init.Datatypes <> nat ind
+binder 17120:17123 <> mean:23
+R17134:17136 Coq.Init.Datatypes <> nat ind
+R17145:17152 Kernel.PDISCOVERIntegration PDISCOVERIntegration list_sum def
+R17155:17157 Coq.Lists.List <> map def
+R17190:17190 Kernel.PDISCOVERIntegration <> l:22 var
+binder 17164:17164 <> x:24
+R17169:17180 Kernel.PDISCOVERIntegration PDISCOVERIntegration squared_diff def
+R17184:17187 Kernel.PDISCOVERIntegration <> mean:23 var
+R17182:17182 Kernel.PDISCOVERIntegration <> x:24 var
+def 18747:18755 PDISCOVERIntegration isqrt_aux
+R18768:18770 Coq.Init.Datatypes <> nat ind
+binder 18758:18758 <> n:25
+binder 18760:18764 <> guess:26
+R18781:18783 Coq.Init.Datatypes <> nat ind
+binder 18774:18777 <> fuel:27
+R18788:18790 Coq.Init.Datatypes <> nat ind
+R18805:18808 Kernel.PDISCOVERIntegration <> fuel:27 var
+R18826:18830 Kernel.PDISCOVERIntegration <> guess:26 var
+R18838:18838 Coq.Init.Datatypes <> S constr
+R18865:18868 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R18860:18864 Kernel.PDISCOVERIntegration <> guess:26 var
+R18918:18918 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R18936:18939 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R18924:18926 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18919:18923 Kernel.PDISCOVERIntegration <> guess:26 var
+R18928:18930 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R18927:18927 Kernel.PDISCOVERIntegration <> n:25 var
+R18931:18935 Kernel.PDISCOVERIntegration <> guess:26 var
+binder 18905:18913 <> new_guess:30
+R18967:18970 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R18958:18966 Kernel.PDISCOVERIntegration <> new_guess:30 var
+R18971:18975 Kernel.PDISCOVERIntegration <> guess:26 var
+R19003:19011 Kernel.PDISCOVERIntegration <> isqrt_aux:28 def
+R19015:19023 Kernel.PDISCOVERIntegration <> new_guess:30 var
+R19013:19013 Kernel.PDISCOVERIntegration <> n:25 var
+R18982:18986 Kernel.PDISCOVERIntegration <> guess:26 var
+def 20170:20174 PDISCOVERIntegration isqrt
+R20181:20183 Coq.Init.Datatypes <> nat ind
+binder 20177:20177 <> n:31
+R20188:20190 Coq.Init.Datatypes <> nat ind
+R20203:20206 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R20202:20202 Kernel.PDISCOVERIntegration <> n:31 var
+R20225:20233 Kernel.PDISCOVERIntegration PDISCOVERIntegration isqrt_aux def
+R20243:20245 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20239:20241 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R20238:20238 Kernel.PDISCOVERIntegration <> n:31 var
+R20235:20235 Kernel.PDISCOVERIntegration <> n:31 var
+def 23116:23142 PDISCOVERIntegration compute_geometric_signature
+R23149:23164 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
+binder 23145:23145 <> g:32
+R23169:23186 Kernel.PDISCOVERIntegration PDISCOVERIntegration GeometricSignature rec
+R23210:23221 Kernel.PDISCOVERIntegration PDISCOVERIntegration edge_weights def
+R23223:23223 Kernel.PDISCOVERIntegration <> g:32 var
+binder 23199:23205 <> weights:33
+R23241:23251 Coq.Lists.List <> length abbrev
+R23253:23259 Kernel.PDISCOVERIntegration <> weights:33 var
+binder 23236:23236 <> n:34
+R23272:23275 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R23271:23271 Kernel.PDISCOVERIntegration <> n:34 var
+R23518:23525 Kernel.PDISCOVERIntegration PDISCOVERIntegration list_sum def
+R23527:23533 Kernel.PDISCOVERIntegration <> weights:33 var
+binder 23509:23513 <> total:35
+R23555:23555 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R23568:23571 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R23561:23563 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23556:23560 Kernel.PDISCOVERIntegration <> total:35 var
+R23572:23572 Kernel.PDISCOVERIntegration <> n:34 var
+binder 23548:23550 <> avg:36
+R23596:23603 Kernel.PDISCOVERIntegration PDISCOVERIntegration list_max def
+R23605:23611 Kernel.PDISCOVERIntegration <> weights:33 var
+binder 23587:23591 <> max_w:37
+R23638:23654 Kernel.PDISCOVERIntegration PDISCOVERIntegration sum_squared_diffs def
+R23670:23672 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R23665:23669 Kernel.PDISCOVERIntegration <> total:35 var
+R23673:23673 Kernel.PDISCOVERIntegration <> n:34 var
+R23656:23662 Kernel.PDISCOVERIntegration <> weights:33 var
+binder 23626:23633 <> variance:38
+R23696:23700 Kernel.PDISCOVERIntegration PDISCOVERIntegration isqrt def
+R23703:23703 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R23722:23725 Coq.Arith.PeanoNat <> ::nat_scope:x_'/'_x not
+R23712:23714 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23704:23711 Kernel.PDISCOVERIntegration <> variance:38 var
+R23726:23726 Kernel.PDISCOVERIntegration <> n:34 var
+binder 23689:23691 <> std:39
+R23741:23755 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R23741:23755 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R23741:23755 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R23774:23788 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
+R23774:23788 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
+R23816:23830 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R23816:23830 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R23849:23858 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
+R23849:23858 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
+R23905:23921 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
+R23905:23921 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
+R23760:23762 Kernel.PDISCOVERIntegration <> avg:36 var
+R23798:23800 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23793:23797 Kernel.PDISCOVERIntegration <> max_w:37 var
+R23835:23837 Kernel.PDISCOVERIntegration <> std:39 var
+R23868:23870 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R23863:23867 Kernel.PDISCOVERIntegration <> max_w:37 var
+R23337:23351 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R23337:23351 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R23337:23351 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R23371:23385 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
+R23371:23385 Kernel.PDISCOVERIntegration PDISCOVERIntegration max_edge_weight proj
+R23402:23416 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R23402:23416 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R23436:23445 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
+R23436:23445 Kernel.PDISCOVERIntegration PDISCOVERIntegration mst_weight proj
+R23462:23478 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
+R23462:23478 Kernel.PDISCOVERIntegration PDISCOVERIntegration threshold_density proj
+def 25580:25596 PDISCOVERIntegration pdiscover_compute
+R25603:25618 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
+binder 25599:25599 <> g:40
+R25623:25638 Kernel.PDISCOVERIntegration PDISCOVERIntegration StructureVerdict ind
+R25647:25663 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R25666:25692 Kernel.PDISCOVERIntegration PDISCOVERIntegration compute_geometric_signature def
+R25694:25694 Kernel.PDISCOVERIntegration <> g:40 var
+prf 27375:27396 PDISCOVERIntegration pdiscern_deterministic
+binder 27407:27409 <> sig:41
+R27450:27457 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R27437:27439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27416:27432 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R27434:27436 Kernel.PDISCOVERIntegration <> sig:41 var
+R27440:27449 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
+R27479:27481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27458:27474 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R27476:27478 Kernel.PDISCOVERIntegration <> sig:41 var
+R27482:27488 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
+R27526:27542 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R27578:27581 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R27559:27573 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R27578:27581 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R27559:27573 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R27632:27635 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R27613:27627 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R27632:27635 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R27613:27627 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+prf 28764:28795 PDISCOVERIntegration structured_implies_low_variation
+binder 28806:28808 <> sig:42
+R28849:28856 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28836:28838 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28815:28831 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R28833:28835 Kernel.PDISCOVERIntegration <> sig:42 var
+R28839:28848 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
+R28882:28885 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R28876:28878 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R28857:28871 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R28873:28875 Kernel.PDISCOVERIntegration <> sig:42 var
+R28905:28907 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R28886:28900 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R28902:28904 Kernel.PDISCOVERIntegration <> sig:42 var
+R28951:28967 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R29008:29011 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R28989:29003 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R29008:29011 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R28989:29003 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R29078:29081 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R29059:29073 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R29078:29081 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R29059:29073 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R29125:29134 Coq.Arith.PeanoNat Nat ltb_lt thm
+R29125:29134 Coq.Arith.PeanoNat Nat ltb_lt thm
+R29155:29164 Coq.Arith.PeanoNat Nat ltb_lt thm
+R29155:29164 Coq.Arith.PeanoNat Nat ltb_lt thm
+prf 30093:30122 PDISCOVERIntegration chaotic_implies_high_variation
+binder 30133:30135 <> sig:43
+R30173:30180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R30163:30165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R30142:30158 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R30160:30162 Kernel.PDISCOVERIntegration <> sig:43 var
+R30166:30172 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
+R30207:30210 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R30200:30203 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R30181:30195 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R30197:30199 Kernel.PDISCOVERIntegration <> sig:43 var
+R30230:30233 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R30211:30225 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R30227:30229 Kernel.PDISCOVERIntegration <> sig:43 var
+R30277:30293 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R30334:30337 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R30315:30329 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R30334:30337 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R30315:30329 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R30388:30391 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R30369:30383 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R30388:30391 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R30369:30383 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R30437:30446 Coq.Arith.PeanoNat Nat ltb_ge thm
+R30437:30446 Coq.Arith.PeanoNat Nat ltb_ge thm
+R30488:30497 Coq.Arith.PeanoNat Nat ltb_ge thm
+R30488:30497 Coq.Arith.PeanoNat Nat ltb_ge thm
+prf 31209:31231 PDISCOVERIntegration classification_complete
+binder 31242:31244 <> sig:44
+R31272:31275 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R31251:31267 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R31269:31271 Kernel.PDISCOVERIntegration <> sig:44 var
+R31276:31282 Kernel.PDISCOVERIntegration PDISCOVERIntegration UNKNOWN constr
+R31320:31336 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_classify def
+R31372:31375 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R31353:31367 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R31417:31420 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R31398:31412 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R31372:31375 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R31353:31367 Kernel.PDISCOVERIntegration PDISCOVERIntegration avg_edge_weight proj
+R31417:31420 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R31398:31412 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+R31417:31420 Coq.Arith.PeanoNat <> ::nat_scope:x_'<?'_x not
+R31398:31412 Kernel.PDISCOVERIntegration PDISCOVERIntegration std_edge_weight proj
+def 32085:32100 PDISCOVERIntegration structured_graph
+R32104:32119 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
+R32128:32128 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32140:32141 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32153:32154 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32166:32166 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32129:32129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32131:32132 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32134:32135 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32139:32139 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32142:32142 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32144:32145 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32147:32148 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32152:32152 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32155:32155 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32157:32158 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32160:32161 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32165:32165 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 32773:32785 PDISCOVERIntegration chaotic_graph
+R32789:32804 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
+R32813:32813 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32824:32825 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32837:32838 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32850:32851 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32863:32863 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R32814:32814 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32816:32817 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32819:32820 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32823:32823 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32826:32826 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32828:32829 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32831:32832 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32836:32836 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32839:32839 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32841:32842 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32844:32845 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32849:32849 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32852:32852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32854:32855 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32857:32858 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R32862:32862 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 33653:33670 PDISCOVERIntegration is_pdiscover_instr
+R33677:33690 Kernel.VMStep VMStep vm_instruction ind
+binder 33673:33673 <> i:45
+R33695:33698 Coq.Init.Datatypes <> bool ind
+R33713:33713 Kernel.PDISCOVERIntegration <> i:45 var
+R33726:33740 Kernel.VMStep VMStep instr_pdiscover constr
+R33751:33754 Coq.Init.Datatypes <> true constr
+R33767:33771 Coq.Init.Datatypes <> false constr
+def 34161:34180 PDISCOVERIntegration is_sight_aware_instr
+R34187:34200 Kernel.VMStep VMStep vm_instruction ind
+binder 34183:34183 <> i:47
+R34205:34208 Coq.Init.Datatypes <> bool ind
+R34217:34234 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_pdiscover_instr def
+R34236:34236 Kernel.PDISCOVERIntegration <> i:47 var
+def 35145:35164 PDISCOVERIntegration uses_sight_awareness
+R35174:35177 Coq.Init.Datatypes <> list ind
+R35179:35192 Kernel.VMStep VMStep vm_instruction ind
+binder 35167:35170 <> prog:48
+R35197:35200 Coq.Init.Datatypes <> bool ind
+R35209:35215 Coq.Lists.List <> existsb def
+R35238:35241 Kernel.PDISCOVERIntegration <> prog:48 var
+R35217:35236 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
+def 36473:36497 PDISCOVERIntegration vm_can_classify_structure
+R36525:36540 Kernel.PDISCOVERIntegration PDISCOVERIntegration InteractionGraph def
+binder 36521:36521 <> g:49
+R36550:36556 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36564:36573 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 36557:36563 <> verdict:50
+R36603:36615 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36657:36657 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36581:36583 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36574:36580 Kernel.PDISCOVERIntegration <> verdict:50 var
+R36584:36600 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscover_compute def
+R36602:36602 Kernel.PDISCOVERIntegration <> g:49 var
+R36636:36639 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R36623:36625 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36616:36622 Kernel.PDISCOVERIntegration <> verdict:50 var
+R36626:36635 Kernel.PDISCOVERIntegration PDISCOVERIntegration STRUCTURED constr
+R36647:36649 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36640:36646 Kernel.PDISCOVERIntegration <> verdict:50 var
+R36650:36656 Kernel.PDISCOVERIntegration PDISCOVERIntegration CHAOTIC constr
+prf 37727:37750 PDISCOVERIntegration vm_classification_exists
+R37754:37778 Kernel.PDISCOVERIntegration PDISCOVERIntegration vm_can_classify_structure def
+R37801:37825 Kernel.PDISCOVERIntegration PDISCOVERIntegration vm_can_classify_structure def
+R37853:37869 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscover_compute def
+R37853:37869 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscover_compute def
+R37917:37938 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_deterministic thm
+R37917:37938 Kernel.PDISCOVERIntegration PDISCOVERIntegration pdiscern_deterministic thm
+prf 39654:39672 PDISCOVERIntegration backward_compatible
+R39691:39694 Coq.Init.Datatypes <> list ind
+R39696:39709 Kernel.VMStep VMStep vm_instruction ind
+binder 39684:39687 <> prog:51
+R39750:39757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R39742:39744 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39717:39736 Kernel.PDISCOVERIntegration PDISCOVERIntegration uses_sight_awareness def
+R39738:39741 Kernel.PDISCOVERIntegration <> prog:51 var
+R39745:39749 Coq.Init.Datatypes <> false constr
+binder 39765:39767 <> mid:52
+binder 39769:39776 <> evidence:53
+binder 39778:39779 <> mu:54
+R39782:39783 Coq.Init.Logic <> ::type_scope:'~'_x not
+R39784:39785 Coq.Lists.List <> In def
+R39821:39824 Kernel.PDISCOVERIntegration <> prog:51 var
+R39788:39802 Kernel.VMStep VMStep instr_pdiscover constr
+R39804:39806 Kernel.PDISCOVERIntegration <> mid:52 var
+R39808:39815 Kernel.PDISCOVERIntegration <> evidence:53 var
+R39817:39818 Kernel.PDISCOVERIntegration <> mu:54 var
+R39888:39907 Kernel.PDISCOVERIntegration PDISCOVERIntegration uses_sight_awareness def
+R39933:39946 Coq.Lists.List <> existsb_exists thm
+R39948:39967 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
+R39933:39946 Coq.Lists.List <> existsb_exists thm
+R39948:39967 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
+R40028:40030 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39995:40001 Coq.Lists.List <> existsb def
+R40003:40022 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
+R40031:40034 Coq.Init.Datatypes <> true constr
+R40028:40030 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R39995:40001 Coq.Lists.List <> existsb def
+R40003:40022 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
+R40031:40034 Coq.Init.Datatypes <> true constr
+R40083:40097 Kernel.VMStep VMStep instr_pdiscover constr
+R40083:40097 Kernel.VMStep VMStep instr_pdiscover constr
+R40157:40176 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_sight_aware_instr def
+R40179:40196 Kernel.PDISCOVERIntegration PDISCOVERIntegration is_pdiscover_instr def
+R41116:41135 Kernel.PDISCOVERIntegration PDISCOVERIntegration <> mod

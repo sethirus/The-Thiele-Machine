@@ -1,58 +1,27 @@
-(** * DiscreteTopology: Vertices, Edges, Faces, Euler Characteristic
+(** DiscreteTopology: vertices, edges, faces, Euler characteristic.
 
-    WHY THIS FILE EXISTS:
-    To derive Einstein's equation from VM dynamics, we first need a
-    discrete topology on the partition graph. This file treats the
-    partition graph as a triangulated 2-manifold and defines its
-    topological invariants: vertices (nodes in module regions), edges
-    (node pairs co-occurring in a module), faces (modules themselves),
-    and the Euler characteristic chi = V - E + F.
+    This is the topological floor of the gravity story. I take the partition
+    graph and read it as a triangulated 2D object. From that I define vertices,
+    edges, faces, and chi = V - E + F.
 
-    THE CORE CLAIM:
-    Theorem triangulation_combinatorial_identity --
-      For a well-formed triangulated partition graph,
+    The main structural theorem is triangulation_combinatorial_identity:
+
       3 * V = 5 * E - 6 * F.
-    This identity is the combinatorial backbone of the discrete
-    Gauss-Bonnet theorem (proven in DiscreteGaussBonnet.v).
 
-    KEY SUPPORTING RESULTS:
-    - total_edges_eq_interior_plus_boundary: E = I + B
-    - edge_face_incidence_equation: 3 * F = 2 * I + B
-    - triangle_has_3_edges: each triangular module has exactly 3 edges
-    - edge_is_interior_or_boundary: every edge is classified as
-      interior (shared by 2 faces) or boundary (in 1 face)
-    - empty_graph_euler_char_0: chi of the empty graph is 0
+    That identity is the combinatorial spine under DiscreteGaussBonnet.v.
+    Without it, the later curvature accounting does not go through.
 
-    PHYSICAL INTERPRETATION:
-    The partition graph is the discrete analogue of a Riemannian
-    manifold. Vertices are spacetime events, edges are causal
-    connections, and faces (modules) are elementary spacetime cells.
-    The Euler characteristic is a topological invariant that constrains
-    total curvature via Gauss-Bonnet. Changes in chi (caused by PNEW,
-    PSPLIT, PMERGE operations) correspond to topology change in
-    spacetime -- the discrete analogue of topology change in general
-    relativity.
+    The important limitation is that this file does not prove every geometric
+    invariant from raw graph data. Some of the needed relations live inside the
+    well_formed_triangulated contract. So if you want to break the theorem, the
+    right move is to exhibit a graph that claims to satisfy that contract while
+    still violating the identity.
 
-    FALSIFICATION:
-    Exhibit a well_formed_triangulated graph where the identity
-    3V = 5E - 6F fails. The proof derives this from the structural
-    invariants (E = I + B, 3F = 2I + B, B = 3 * chi) which are
-    enforced by well_formed_triangulated. If the identity fails,
-    one of these structural invariants must be wrong for the given
-    graph, contradicting well-formedness.
+    Later files use chi as the topology-change hook: PNEW can change chi, chi
+    forces total curvature, and that is how the discrete gravity chain gets off
+    the ground. *)
 
-    Fully proven, zero Admitted.
-
-    GRAVITY EMERGENCE PIPELINE (dependency chain):
-    1. This file — topological definitions and combinatorics
-    2. DiscreteGaussBonnet.v — sum(angle_defects) = 5 pi chi
-    3. PNEWTopologyChange.v — PNEW changes topology
-    4. TopologyCurvatureBridge.v — delta chi implies delta curvature
-    5. StressEnergyDynamics.v — stress-energy drives PNEW
-    6. EinsteinEmergence.v — derive discrete Einstein analogue
-    *)
-
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity: bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith.
@@ -60,7 +29,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState.
 
-(** ** Vertex Extraction
+(** Vertex extraction
 
     Extract all unique nodes appearing in any module region.
     This gives us the vertex set V of the discrete manifold.
@@ -77,26 +46,26 @@ Fixpoint collect_nodes_from_modules
 Definition vertices (g : PartitionGraph) : list nat :=
   normalize_region (collect_nodes_from_modules (pg_modules g)).
 
-(** Vertex count *)
+(** V is the number of normalized graph vertices. *)
 Definition V (g : PartitionGraph) : nat :=
   length (vertices g).
 
-(** ** Edge Extraction
+(** Edge extraction
 
     An edge exists between two nodes if they appear together in some module region.
     For triangulated surfaces, each face (module) contributes 3 edges.
     *)
 
-(** Check if two nodes appear together in a region *)
+(** Check whether two nodes appear together in a region. *)
 Definition nodes_in_region (n1 n2 : nat) (region : list nat) : bool :=
   nat_list_mem n1 region && nat_list_mem n2 region.
 
-(** Extract all edges from a single module *)
+(** Extract all unordered node pairs from one module region. *)
 Fixpoint region_edges_internal (region : list nat) : list (nat * nat) :=
   match region with
   | [] => []
   | n :: rest =>
-      (* Pair n with every node in rest *)
+      (* Pair n with every later node, then normalize pair order. *)
       map (fun m => if Nat.ltb n m then (n, m) else (m, n)) rest
       ++ region_edges_internal rest
   end.
@@ -104,7 +73,7 @@ Fixpoint region_edges_internal (region : list nat) : list (nat * nat) :=
 Definition module_edges (m : ModuleState) : list (nat * nat) :=
   region_edges_internal (module_region m).
 
-(** Extract all edges from all modules *)
+(** Extract all candidate edges from all modules. *)
 Fixpoint collect_edges_from_modules
   (modules : list (ModuleID * ModuleState)) : list (nat * nat) :=
   match modules with
@@ -113,7 +82,7 @@ Fixpoint collect_edges_from_modules
       module_edges m ++ collect_edges_from_modules rest
   end.
 
-(** Remove duplicate edges *)
+(** Remove duplicate normalized edges. *)
 Fixpoint deduplicate_edges (edges : list (nat * nat)) : list (nat * nat) :=
   match edges with
   | [] => []
@@ -126,11 +95,11 @@ Fixpoint deduplicate_edges (edges : list (nat * nat)) : list (nat * nat) :=
 Definition edges (g : PartitionGraph) : list (nat * nat) :=
   deduplicate_edges (collect_edges_from_modules (pg_modules g)).
 
-(** Edge count *)
+(** E is the number of deduplicated edges. *)
 Definition E (g : PartitionGraph) : nat :=
   length (edges g).
 
-(** ** Face Extraction
+(** Face extraction
 
     In our triangulated surface, each module IS a face.
     Modules are triangles in the discrete manifold.
@@ -139,34 +108,26 @@ Definition E (g : PartitionGraph) : nat :=
 Definition faces (g : PartitionGraph) : list ModuleID :=
   map fst (pg_modules g).
 
-(** Face count *)
+(** F is the number of modules/faces. *)
 Definition F (g : PartitionGraph) : nat :=
   length (pg_modules g).
 
-(** ** Euler Characteristic
+(** Euler characteristic.
 
-    The fundamental topological invariant: χ = V - E + F
-
-    For closed surfaces:
-    - χ = 2: sphere
-    - χ = 0: torus
-    - χ < 0: higher genus
-
-    CRUCIAL: Gauss-Bonnet relates χ to total curvature.
-    This is how topology constrains geometry!
-    *)
+  This is the topological number that survives all the local bookkeeping:
+  chi = V - E + F. DiscreteGaussBonnet.v is where this number turns into a
+  curvature statement, so this definition is doing real work later. *)
 
 Definition euler_characteristic (g : PartitionGraph) : Z :=
   Z.of_nat (V g) - Z.of_nat (E g) + Z.of_nat (F g).
 
-(** Short notation for Euler characteristic *)
-(* Note: Using χ directly as notation causes parsing issues, use euler_characteristic *)
+(** I do not introduce χ notation here because the unicode notation caused
+    parsing trouble in Coq scripts. Use euler_characteristic directly. *)
 
-(** ** Basic Topological Properties *)
+(** Basic topological checks *)
 
-(** Empty graph has no topology *)
 (* DEFINITIONAL HELPER *)
-(** [empty_graph_euler_char_0]: formal specification. *)
+(** The empty graph has Euler characteristic 0 by definition. *)
 Lemma empty_graph_euler_char_0 :
   euler_characteristic empty_graph = 0%Z.
 Proof.
@@ -175,31 +136,28 @@ Proof.
   reflexivity.
 Qed.
 
-(** Vertex count is non-negative *)
 (* DEFINITIONAL HELPER *)
-(** [V_nonneg]: formal specification. *)
+(** V is a nat, so non-negativity is only a sanity check. *)
 Lemma V_nonneg : forall g, (0 <= V g)%nat.
 Proof.
   intro g. unfold V. lia.
 Qed.
 
-(** Edge count is non-negative *)
 (* DEFINITIONAL HELPER *)
-(** [E_nonneg]: formal specification. *)
+(** E is a nat, so non-negativity is only a sanity check. *)
 Lemma E_nonneg : forall g, (0 <= E g)%nat.
 Proof.
   intro g. unfold E. lia.
 Qed.
 
-(** Face count is non-negative *)
 (* DEFINITIONAL HELPER *)
-(** [F_nonneg]: formal specification. *)
+(** F is a nat, so non-negativity is only a sanity check. *)
 Lemma F_nonneg : forall g, (0 <= F g)%nat.
 Proof.
   intro g. unfold F. lia.
 Qed.
 
-(** Face count equals module count *)
+(** Face count is module count because faces are modules in this model. *)
 Lemma F_equals_module_count : forall g,
   F g = length (pg_modules g).
 Proof.
@@ -207,7 +165,7 @@ Proof.
   induction (pg_modules g); simpl; auto.
 Qed.
 
-(** ** Well-Formed Triangulation
+(** Well-formed triangulation
 
     A triangulated surface has:
     - At least 1 vertex
@@ -224,13 +182,13 @@ Definition all_modules_are_triangles_list (g : PartitionGraph) : Prop :=
     In (mid, m) (pg_modules g) ->
     is_triangle (module_region m) = true.
 
-(** Modules have normalized regions (no duplicates) *)
+(** Modules have normalized regions: no duplicate vertices inside a face. *)
 Definition all_regions_normalized_list (g : PartitionGraph) : Prop :=
   forall mid m,
     In (mid, m) (pg_modules g) ->
     module_region m = normalize_region (module_region m).
 
-(** ** Edge-Face Incidence Relations
+(** Edge-face incidence relations
 
     To prove the combinatorial identity 3V = 5E - 6F, we need to
     understand how edges relate to faces.
@@ -242,18 +200,18 @@ Definition all_regions_normalized_list (g : PartitionGraph) : Prop :=
     - 3F = 2I + B (each triangle has 3 edges; interior edges counted twice)
     *)
 
-(** Helper: Edge equality *)
+(** Edge equality for normalized nat pairs. *)
 Definition edge_eq (e1 e2 : nat * nat) : bool :=
   (Nat.eqb (fst e1) (fst e2) && Nat.eqb (snd e1) (snd e2))%bool.
 
-(** Helper: Check if edge is in list *)
+(** Boolean list membership with caller-supplied equality. *)
 Fixpoint list_mem {A : Type} (eq : A -> A -> bool) (x : A) (l : list A) : bool :=
   match l with
   | [] => false
   | y :: rest => if eq x y then true else list_mem eq x rest
   end.
 
-(** Count how many modules contain a given edge *)
+(** Count how many modules contain a given edge. *)
 Fixpoint count_modules_with_edge (edge : nat * nat) (modules : list (ModuleID * ModuleState)) : nat :=
   match modules with
   | [] => 0
@@ -264,15 +222,15 @@ Fixpoint count_modules_with_edge (edge : nat * nat) (modules : list (ModuleID * 
       else count_modules_with_edge edge rest
   end.
 
-(** An edge is interior if shared by exactly 2 modules *)
+(** An edge is interior when exactly two modules contain it. *)
 Definition is_interior_edge (g : PartitionGraph) (edge : nat * nat) : bool :=
   Nat.eqb (count_modules_with_edge edge (pg_modules g)) 2.
 
-(** An edge is boundary if in exactly 1 module *)
+(** An edge is boundary when exactly one module contains it. *)
 Definition is_boundary_edge (g : PartitionGraph) (edge : nat * nat) : bool :=
   Nat.eqb (count_modules_with_edge edge (pg_modules g)) 1.
 
-(** Count interior edges *)
+(** Count interior edges in a supplied edge list. *)
 Fixpoint count_interior_edges (edge_list : list (nat * nat)) (g : PartitionGraph) : nat :=
   match edge_list with
   | [] => 0
@@ -282,11 +240,11 @@ Fixpoint count_interior_edges (edge_list : list (nat * nat)) (g : PartitionGraph
       else count_interior_edges rest g
   end.
 
-(** Number of interior edges *)
+(** I is the number of interior edges. *)
 Definition I (g : PartitionGraph) : nat :=
   count_interior_edges (edges g) g.
 
-(** Count boundary edges *)
+(** Count boundary edges in a supplied edge list. *)
 Fixpoint count_boundary_edges (edge_list : list (nat * nat)) (g : PartitionGraph) : nat :=
   match edge_list with
   | [] => 0
@@ -296,17 +254,17 @@ Fixpoint count_boundary_edges (edge_list : list (nat * nat)) (g : PartitionGraph
       else count_boundary_edges rest g
   end.
 
-(** Number of boundary edges *)
+(** B is the number of boundary edges. *)
 Definition B (g : PartitionGraph) : nat :=
   count_boundary_edges (edges g) g.
 
-(** ** Vertex Degrees
+(** Vertex degrees
 
     The degree of a vertex is the number of triangles incident to it.
     This is needed for the vertex-face degree relation.
     *)
 
-(** Count triangles incident to a vertex *)
+(** Count triangles incident to a vertex. *)
 Fixpoint count_incident_triangles
   (vertex : nat) (modules : list (ModuleID * ModuleState)) : nat :=
   match modules with
@@ -327,27 +285,27 @@ Fixpoint sum_degrees (g : PartitionGraph) (verts : list nat) : nat :=
   | v :: rest => vertex_degree g v + sum_degrees g rest
   end.
 
-(** ** Well-Formedness for Triangulated 2-Manifolds *)
+(** Well-formedness for triangulated 2-manifolds *)
 
-(** 2-manifold property: each edge belongs to at most 2 faces *)
+(** 2-manifold property: each edge belongs to one or two faces. *)
 Definition is_2_manifold (g : PartitionGraph) : Prop :=
   forall e,
     In e (edges g) ->
     let count := count_modules_with_edge e (pg_modules g) in
     count = 1%nat \/ count = 2%nat.
 
-(** Edge-face incidence relation: a structural property of triangulated surfaces *)
+(** Edge-face incidence is a required structural property of this model. *)
 Definition satisfies_edge_face_incidence (g : PartitionGraph) : Prop :=
   (3 * F g = 2 * I g + B g)%nat.
 
-(** Vertex-face degree relation: sum of vertex degrees equals 3F *)
+(** Vertex-face degree relation: sum of vertex degrees equals 3F. *)
 Definition satisfies_degree_face_relation (g : PartitionGraph) : Prop :=
   sum_degrees g (vertices g) = (3 * F g)%nat.
 
-(** Boundary-Euler relationship: for planar disk triangulations *)
+(** Boundary-Euler relationship for planar disk triangulations. *)
 Definition satisfies_boundary_euler_relation (g : PartitionGraph) : Prop :=
-  (* For planar disks: B = 3χ where χ = V - E + F *)
-  (3 * V g + 3 * F g >= 3 * E g)%nat /\  (* Ensures χ >= 0 *)
+  (* For planar disks: B = 3χ where χ = V - E + F. *)
+  (3 * V g + 3 * F g >= 3 * E g)%nat /\  (* This keeps χ non-negative. *)
   B g = (3 * (V g + F g) - 3 * E g)%nat.  (* B = 3(V - E + F) = 3χ *)
 
 Definition well_formed_triangulated (g : PartitionGraph) : Prop :=
@@ -362,12 +320,14 @@ Definition well_formed_triangulated (g : PartitionGraph) : Prop :=
   satisfies_degree_face_relation g /\
   satisfies_boundary_euler_relation g.
 
-(** ** Combinatorial Identity: The Heart of the Proof
+(** Combinatorial identity
 
-    This is what we MUST prove to get discrete Gauss-Bonnet.
+    This is the identity DiscreteGaussBonnet.v needs. The raw list machinery
+    proves E = I + B. The other incidence equations are part of
+    well_formed_triangulated.
     *)
 
-(** Helper lemmas for list operations *)
+(** Deduplication never invents an edge. *)
 Lemma deduplicate_edges_In : forall e L,
   In e (deduplicate_edges L) -> In e L.
 Proof.
@@ -381,7 +341,6 @@ Proof.
       * right. apply IH. exact H2.
 Qed.
 
-(** [collect_edges_In]: formal specification. *)
 Lemma collect_edges_In : forall e modules,
   In e (collect_edges_from_modules modules) ->
   exists mid m, In (mid, m) modules /\ In e (module_edges m).
@@ -397,7 +356,7 @@ Proof.
       exists mid', m'. split; [right; exact Hin | exact He].
 Qed.
 
-(** Helper: An edge appears in at least 1 module if it's in the edge list *)
+(** An edge in edges(g) appears in at least one module. *)
 Lemma edge_in_list_appears_in_some_module : forall g e,
   In e (edges g) ->
   exists mid m, In (mid, m) (pg_modules g) /\ In e (module_edges m).
@@ -408,7 +367,7 @@ Proof.
   apply collect_edges_In. exact Hin.
 Qed.
 
-(** Helper: Every edge appears in 1 or 2 modules (not 0, not 3+) *)
+(** In a well-formed triangulation, every edge in edges(g) appears once or twice. *)
 Lemma edge_appears_in_1_or_2_modules : forall g e,
   well_formed_triangulated g ->
   In e (edges g) ->
@@ -421,7 +380,7 @@ Proof.
   apply H2man. exact Hin.
 Qed.
 
-(** Helper: Interior and boundary are mutually exclusive *)
+(** Interior and boundary are mutually exclusive. *)
 Lemma interior_boundary_exclusive : forall g e,
   is_interior_edge g e = true ->
   is_boundary_edge g e = false.
@@ -433,7 +392,6 @@ Proof.
   lia.
 Qed.
 
-(** [boundary_interior_exclusive]: formal specification. *)
 Lemma boundary_interior_exclusive : forall g e,
   is_boundary_edge g e = true ->
   is_interior_edge g e = false.
@@ -445,7 +403,7 @@ Proof.
   lia.
 Qed.
 
-(** Helper: Every edge is either interior or boundary *)
+(** Every well-formed edge is either interior or boundary. *)
 Lemma edge_is_interior_or_boundary : forall g e,
   well_formed_triangulated g ->
   In e (edges g) ->
@@ -465,7 +423,7 @@ Proof.
     reflexivity.
 Qed.
 
-(** Key Lemma 1: E = I + B *)
+(** E = I + B. This one is proved from the edge partition above. *)
 Lemma total_edges_eq_interior_plus_boundary : forall g,
   well_formed_triangulated g ->
   E g = (I g + B g)%nat.
@@ -514,7 +472,7 @@ Proof.
     apply interior_boundary_exclusive. exact Hint.
 Qed.
 
-(** Helper: Count total edge-face incidences *)
+(** Count total edge-face incidences from the module side. *)
 Fixpoint count_all_edges_in_modules (modules : list (ModuleID * ModuleState)) : nat :=
   match modules with
   | [] => 0
@@ -522,14 +480,14 @@ Fixpoint count_all_edges_in_modules (modules : list (ModuleID * ModuleState)) : 
       length (module_edges m) + count_all_edges_in_modules rest
   end.
 
-(** Helper: Length of region_edges_internal *)
+(** A three-element region has exactly three unordered edges. *)
 Lemma region_edges_internal_length_3 : forall a b c,
   length (region_edges_internal [a; b; c]) = 3.
 Proof.
   intros. simpl. reflexivity.
 Qed.
 
-(** Each triangle contributes exactly 3 edges *)
+(** Each triangle contributes exactly three edges. *)
 Lemma triangle_has_3_edges : forall m,
   is_triangle (module_region m) = true ->
   module_region m = normalize_region (module_region m) ->
@@ -560,7 +518,7 @@ Proof.
       simpl in Hlen. discriminate.
 Qed.
 
-(** Helper: If a pair is in the module list, graph_lookup succeeds *)
+(** If a pair is in the module list, graph_lookup succeeds. *)
 Lemma In_implies_graph_lookup : forall g mid m,
   In (mid, m) (pg_modules g) ->
   exists m', graph_lookup g mid = Some m'.
@@ -580,7 +538,10 @@ Proof.
       * apply IH. exact Hrest.
 Qed.
 
-(** Key Lemma 2: 3F = 2I + B *)
+(** 3F = 2I + B. This theorem unwraps the structural invariant carried by
+    well_formed_triangulated. The local calculation checks that each module
+    contributes three edges, but the full incidence bijection is not reproven
+    from raw list theory here. *)
 Lemma edge_face_incidence_equation : forall g,
   well_formed_triangulated g ->
   (3 * F g = 2 * I g + B g)%nat.
@@ -634,9 +595,8 @@ Proof.
 
   (* Step 2: Prove 3F = 2I + B *)
 
-  (* We assert this as an additional well-formedness requirement
-     rather than trying to prove it. This is a structural property
-     of triangulated 2-manifolds that should hold by construction. *)
+  (* This is a well-formedness requirement, not a theorem derived from
+     raw module lists in this file. *)
 
   (* Since we defined I and B based on edge multiplicities,
      and we know each triangle has 3 edges, the equation 3F = 2I + B
@@ -646,15 +606,15 @@ Proof.
      count_all_edges_in_modules = sum_{e in edges} multiplicity(e)
 
      This bijection is true but requires extensive list theory.
-     Instead, we add this as a structural invariant. *)
+     That bijection is represented here as a structural invariant. *)
 
   (* Extract this property from well-formedness - already extracted above as H3F *)
   exact H3F.
 Qed.
 
-(** ** Triangle Properties and Euler Characteristic *)
+(** Triangle properties and Euler characteristic *)
 
-(** ** Euler Characteristic Bounds
+(** Euler characteristic bounds
 
     For triangulated surfaces with F faces:
     - Each face has 3 vertices
@@ -664,32 +624,28 @@ Qed.
     This gives bounds on χ.
     *)
 
-(** ** Topological Invariance
+(** Topological invariance
 
-    χ is invariant under continuous deformations.
-    For discrete surfaces, this means it's preserved under
-    certain graph transformations.
+    χ is invariant under continuous deformations. For discrete surfaces that
+    means it is preserved under certain graph transformations.
 
-    FUTURE: Define homeomorphism properly with graph transformations
-    and prove χ is invariant. For now we note this is a key property
-    to be formalized with full discrete topology machinery.
+    I haven't proven χ-invariance under homeomorphism yet. That needs a proper
+    definition of discrete homeomorphism and full discrete topology machinery.
     *)
 
-(** ** Connection to Curvature (Preview)
+(** Connection to curvature
 
-    The Gauss-Bonnet theorem (Phase 2, DiscreteGaussBonnet.v) proves:
+    DiscreteGaussBonnet.v proves:
       sum(angle_defects) = 5π × χ
 
     This connects topology (χ) to geometry (curvature).
     This is how topology CONSTRAINS curvature.
     *)
 
-(** ** The Combinatorial Identity: 3V = 5E - 6F
+(** Combinatorial Identity: 3V = 5E - 6F
 
-    This identity holds for planar disk triangulations that satisfy
-    the boundary-Euler relationship B = 3χ.
-
-    PROOF: From the edge-face relations and Euler's formula.
+    Holds for planar disk triangulations satisfying the boundary-Euler
+    relationship B = 3χ. Proof: from the edge-face relations and Euler's formula.
     *)
 
 Theorem triangulation_combinatorial_identity : forall g,

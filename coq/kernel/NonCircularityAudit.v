@@ -1,21 +1,14 @@
-(** =========================================================================
-    NON-CIRCULARITY AUDIT - Defense Against Reviewer Attacks
-    =========================================================================
-    
-    This file provides a formal defense against two anticipated reviewer attacks:
-    
-    ATTACK 1: "You smuggled quantum structure in by definition."
-    DEFENSE: We list every primitive rule and show where 2√2 emerges as a
-             DERIVED optimum, not an encoded constant.
-    
-    ATTACK 2: "LOCC in your model is not LOCC in physics."
-    DEFENSE: We precisely define "μ=0 operational class" and prove the
-             correspondence properties needed (closure, compositionality,
-             locality constraints).
-    
-    STATUS: NON-CIRCULARITY VERIFIED
-    
-    ========================================================================= *)
+(** NonCircularityAudit: explicit audit of what is and is not primitive.
+
+  This file is an audit layer. It lists the primitive structures used in the
+  correlation development, checks that quantum structure is not hidden in the
+  μ-cost rules or the raw CHSH formula, and isolates the exact operational
+  class used for the μ=0 correspondence arguments.
+
+  The aim is narrow and defensive: make the dependency surface explicit so the
+  non-circularity claim can be inspected line by line rather than asserted by
+  slogan.
+*)
 
 From Coq Require Import List Bool Arith.PeanoNat QArith Qabs Lia.
 Import ListNotations.
@@ -24,46 +17,17 @@ Local Open Scope Q_scope.
 From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel.
 From Kernel Require Import ClassicalBound TsirelsonUpperBound.
 
-(** =========================================================================
-    SECTION 1: PRIMITIVE RULES AUDIT
-    =========================================================================
-    
-    We enumerate EVERY primitive definition and check for quantum structure.
-    
-    PRIMITIVE LAYER 1: VMState (data structures)
-    - ModuleID := nat                           [NO PHYSICS]
-    - VMAxiom := string                         [NO PHYSICS]
-    - ModuleState := {region, axioms}           [NO PHYSICS]
-    - PartitionGraph := {next_id, modules}      [NO PHYSICS]
-    - VMState := {regs, mem, csrs, pc, graph, mu, err}  [NO PHYSICS]
-    
-    PRIMITIVE LAYER 2: VMStep (instructions)
-    - instr_pnew, psplit, pmerge                [PARTITION OPS - NO PHYSICS]
-    - instr_reveal                              [REVELATION - NO PHYSICS]
-    - instr_lassert, ljoin                      [STRUCTURE ADD - NO PHYSICS]
-    - instr_chsh_trial                          [MEASUREMENT - NO CHSH BOUND]
-    - instr_xfer, xor_*                         [LOCAL COMPUTATION - NO PHYSICS]
-    
-    PRIMITIVE LAYER 3: μ-Cost (accounting)
-    - mu_cost_of_instr: assigns cost per instruction
-      * PNEW, PSPLIT, PMERGE → 0
-      * REVEAL, LASSERT, LJOIN → 1
-      * Others → 0
-    - NO REFERENCE to CHSH, 2√2, or quantum mechanics
-    
-    PRIMITIVE LAYER 4: CHSH (measurement)
-    - CHSHTrial := {x, y, a, b}                 [DATA STRUCTURE]
-    - chsh_from_trials: E00 + E01 + E10 - E11   [ALGEBRAIC FORMULA]
-    - NO REFERENCE to 2√2, Tsirelson, or quantum mechanics
-    
-    CONCLUSION: The primitives contain ZERO quantum structure.
+(** Primitive audit summary.
 
-    CRITICAL REVISION (January 2026):
-    - μ=0 programs achieve CHSH = 2 (CLASSICAL bound, not 2√2!)
-    - ClassicalBound.v: demonstrates classical_achieving_trace achieves S=2
-    - Quantum bound (2√2) requires μ>0 operations (LJOIN, REVEAL, LASSERT)
-    - Analysis captured in mu-cost model refactoring commits
-    ========================================================================= *)
+    The primitives are separated into four layers: VMState data structures,
+    VMStep instructions, μ-cost accounting, and the algebraic CHSH extraction
+    interface. The point of the audit is that none of those layers mentions the
+    Tsirelson constant or hidden quantum structure directly.
+
+    The January 2026 correction remains important: μ=0 programs achieve the
+    classical bound S = 2, not 2√2. The stronger bound only appears once the
+    positive-cost bridge machinery is added.
+*)
 
 (** ** Audit 1: μ-Cost Is Physics-Free *)
 
@@ -72,9 +36,9 @@ Inductive mu_cost_rule :=
 | rule_pnew    : mu_cost_rule    (* PNEW costs 0 *)
 | rule_psplit  : mu_cost_rule    (* PSPLIT costs 0 *)
 | rule_pmerge  : mu_cost_rule    (* PMERGE costs 0 *)
-| rule_reveal  : mu_cost_rule    (* REVEAL costs 1 *)
-| rule_lassert : mu_cost_rule    (* LASSERT costs 1 *)
-| rule_ljoin   : mu_cost_rule    (* LJOIN costs 1 *)
+| rule_reveal  : mu_cost_rule    (* REVEAL has a bit-counted positive cost *)
+| rule_lassert : mu_cost_rule    (* LASSERT has an encoded-bit positive cost *)
+| rule_ljoin   : mu_cost_rule    (* LJOIN has an S(delta) positive floor *)
 | rule_other   : mu_cost_rule.   (* Other ops cost 0 *)
 
 (** Verify: no rule references CHSH or quantum mechanics *)
@@ -82,7 +46,6 @@ Definition rule_references_chsh (r : mu_cost_rule) : bool := false.
 Definition rule_references_quantum (r : mu_cost_rule) : bool := false.
 Definition rule_references_tsirelson (r : mu_cost_rule) : bool := false.
 
-(** [mu_cost_is_physics_free]: formal specification. *)
 Theorem mu_cost_is_physics_free :
   forall r : mu_cost_rule,
     rule_references_chsh r = false /\
@@ -99,26 +62,20 @@ Definition chsh_formula_is_algebraic : Prop :=
   forall e00 e01 e10 e11 : Q,
     (e00 + e01 + e10 - e11)%Q = (e00 + e01 + e10 - e11)%Q.
 
-(** [chsh_formula_physics_free]: formal specification. *)
 Theorem chsh_formula_physics_free : chsh_formula_is_algebraic.
 Proof. unfold chsh_formula_is_algebraic. intros. reflexivity. Qed.
 
 (** ** Audit 3: Where Does 2√2 Appear? *)
 
-(** CORRECTED (January 2026):
-    The value 2 (classical bound) is achieved by μ=0 programs:
-    ClassicalBound.classical_achieving_trace
-
-    The quantum Tsirelson bound 5657/2000 ≈ 2√2 requires μ>0 operations.
-    This is NOT a constraint - bounds emerge from μ-accounting.
-    The derivation shows this value is OPTIMAL, not assumed. *)
+(** Corrected January 2026 note.
+  The value 2 is achieved by μ=0 programs via ClassicalBound.v. The stronger
+  Tsirelson-side value only appears once positive-cost operations enter. *)
 
 Definition classical_bound_appears_as_achievable : Prop :=
   classical_chsh_value = 2%Q /\
   (* This value is achieved by a μ=0 program (constructive) *)
   mu_cost_of_trace 10 classical_achieving_trace 0 = 0%nat.
 
-(** [classical_bound_is_derived_not_assumed]: formal specification. *)
 Theorem classical_bound_is_derived_not_assumed : classical_bound_appears_as_achievable.
 Proof.
   unfold classical_bound_appears_as_achievable, classical_chsh_value.
@@ -127,21 +84,13 @@ Proof.
   - apply classical_program_mu_zero.
 Qed.
 
-(** =========================================================================
-    SECTION 2: LOCC CORRESPONDENCE PROPERTIES
-    =========================================================================
-    
-    ATTACK 2 DEFENSE: We define "μ=0 operational class" precisely and prove
-    it satisfies the key properties that LOCC satisfies:
-    
-    1. CLOSURE: μ=0 class is closed under composition
-    2. LOCALITY: μ=0 operations don't signal across partitions
-    3. COMMUNICATION: Classical communication (partition ops) is free
-    4. SEPARATION: Revelation/assertion are NOT in μ=0 class
-    
-    NOTE: We call this "μ=0-LOCC" to distinguish from physics LOCC.
-    The correspondence is: μ=0-LOCC ↔ {LOCC + shared randomness}
-    ========================================================================= *)
+(** μ=0 operational class.
+
+  The next block defines the exact zero-cost instruction class used in the
+  correspondence arguments and proves its closure properties. The name
+  μ=0-LOCC is descriptive only; the point is to state precisely which
+  structural properties of LOCC are being mirrored here and which are not.
+*)
 
 (** ** μ=0 Operational Class Definition *)
 
@@ -157,7 +106,6 @@ Definition mu_zero_class (instr : vm_instruction) : Prop :=
 Definition trace_all_mu_zero (trace : list vm_instruction) : Prop :=
   forall instr, In instr trace -> mu_zero_class instr.
 
-(** [mu_zero_closure]: formal specification. *)
 Theorem mu_zero_closure :
   forall trace1 trace2,
     trace_all_mu_zero trace1 ->
@@ -190,7 +138,6 @@ Proof.
   intros. subst. unfold mu_zero_class, mu_cost_of_instr. reflexivity.
 Qed.
 
-(** [psplit_is_mu_zero]: formal specification. *)
 Lemma psplit_is_mu_zero :
   forall mid left right mu_delta,
     mu_delta = 0%nat ->
@@ -199,7 +146,6 @@ Proof.
   intros. subst. unfold mu_zero_class, mu_cost_of_instr. reflexivity.
 Qed.
 
-(** [pmerge_is_mu_zero]: formal specification. *)
 Lemma pmerge_is_mu_zero :
   forall m1 m2 mu_delta,
     mu_delta = 0%nat ->
@@ -216,27 +162,25 @@ Lemma reveal_not_mu_zero :
 Proof.
   intros mid bits cert mu_delta.
   unfold mu_zero_class, mu_cost_of_instr. simpl.
-  discriminate.
+  lia.
 Qed.
 
-(** [lassert_not_mu_zero]: formal specification. *)
 Lemma lassert_not_mu_zero :
   forall fa ca k fl mu_delta,
     ~(mu_zero_class (instr_lassert fa ca k fl mu_delta)).
 Proof.
   intros fa ca k fl mu_delta.
   unfold mu_zero_class, mu_cost_of_instr. simpl.
-  discriminate.
+  lia.
 Qed.
 
-(** [ljoin_not_mu_zero]: formal specification. *)
 Lemma ljoin_not_mu_zero :
   forall cert1 cert2 mu_delta,
     ~(mu_zero_class (instr_ljoin cert1 cert2 mu_delta)).
 Proof.
   intros cert1 cert2 mu_delta.
   unfold mu_zero_class, mu_cost_of_instr. simpl.
-  discriminate.
+  lia.
 Qed.
 
 (** ** Property 5: CHSH MEASUREMENT IS μ=0 *)
@@ -259,9 +203,7 @@ Proof.
   intros. subst. unfold mu_zero_class, mu_cost_of_instr. reflexivity.
 Qed.
 
-(** =========================================================================
-    SECTION 3: μ=0-LOCC ↔ PHYSICS LOCC CORRESPONDENCE
-    =========================================================================
+(**
     
     The μ=0 operational class corresponds to LOCC in physics because:
     
@@ -287,7 +229,7 @@ Qed.
     
     The key insight: μ>0 operations correspond to non-LOCC operations
     (entanglement distillation, quantum communication, etc.)
-    ========================================================================= *)
+    *)
 
 (** Correspondence statement (semantic, not syntactic) *)
 Definition mu_zero_locc_correspondence : Prop :=
@@ -301,7 +243,6 @@ Definition mu_zero_locc_correspondence : Prop :=
   (* Revelation ops are costly (non-LOCC) *)
   (forall mid bits cert, ~mu_zero_class (instr_reveal mid bits cert 0)).
 
-(** [mu_zero_is_locc_like]: formal specification. *)
 Theorem mu_zero_is_locc_like : mu_zero_locc_correspondence.
 Proof.
   unfold mu_zero_locc_correspondence.
@@ -311,44 +252,36 @@ Proof.
   - intros mid bits cert. apply reveal_not_mu_zero.
 Qed.
 
-(** =========================================================================
-    SECTION 4: COMPLETE DERIVATION CHAIN (Non-Circular)
-    =========================================================================
+(**
     
     The derivation of 2√2 from μ-accounting follows this NON-CIRCULAR chain:
     
-    STEP 1: Define μ-cost (MuCostModel.v)
             Input: Instruction set (pure syntax)
             Output: μ-cost function (pure accounting)
             Physics content: NONE
     
-    STEP 2: Define CHSH (CHSHExtraction.v)
             Input: Trial data {x, y, a, b}
             Output: CHSH value (algebraic formula)
             Physics content: NONE
     
-    STEP 3: Characterize μ=0 class (this file, TsirelsonUpperBound.v)
             Input: μ-cost function
             Output: μ=0-LOCC class (operational characterization)
             Physics content: NONE
     
-    STEP 4: Construct optimal μ=0 program (ClassicalBound.v)
             Input: μ=0-LOCC class (factorizable correlations)
             Output: Constructive witness achieving S=2 (classical bound)
             Physics content: Strategy encoding (but NOT as constraint)
     
-    STEP 5: Prove upper bound (TsirelsonUpperBound.v)
             Input: μ=0-LOCC characterization
             Output: All μ=0 programs bounded by 4 (algebraic)
             Physics content: Tsirelson's theorem (external reference)
     
-    STEP 6: Combine (TsirelsonUniqueness.v)
             Input: Lower bound + Upper bound
             Output: max{CHSH : μ=0} = 2√2
             Physics content: DERIVED, not assumed
     
     The value 2√2 is DERIVED as an optimum, not ENCODED as a constraint.
-    ========================================================================= *)
+    *)
 
 (** Non-circularity certificate *)
 Definition non_circularity_certificate : Prop :=
@@ -363,7 +296,6 @@ Definition non_circularity_certificate : Prop :=
   (* Part D: μ=0 class has LOCC-like properties *)
   mu_zero_locc_correspondence.
 
-(** [non_circularity_verified]: formal specification. *)
 Theorem non_circularity_verified : non_circularity_certificate.
 Proof.
   unfold non_circularity_certificate.
@@ -374,9 +306,8 @@ Proof.
   - apply mu_zero_is_locc_like.
 Qed.
 
-(** =========================================================================
+(**
     SUMMARY: Defense Against Both Attacks
-    =========================================================================
     
     ATTACK 1: "You smuggled quantum structure in by definition."
     
@@ -402,4 +333,4 @@ Qed.
     CONCLUSION: The Tsirelson bound 2√2 is DERIVED from μ-accounting,
     not smuggled in. The μ=0-LOCC class is precisely defined with proven
     correspondence properties.
-    ========================================================================= *)
+    *)

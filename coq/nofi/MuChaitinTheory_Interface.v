@@ -10,7 +10,7 @@ Require Import Kernel.RevelationRequirement.
 
 Import RevelationProof.
 
-(** * μ–Chaitin Theory Interface (axiom-free)
+(** μ–Chaitin Theory Interface (axiom-free)
 
     This interface is the “theory layer” counterpart of [Kernel.MuChaitin].
 
@@ -26,7 +26,7 @@ Import RevelationProof.
     The functor theorem in [MuChaitinTheory_Theorem.v] turns these contracts
     into a quantitative impossibility statement:
 
-      proves_bits k -> k ≤ |desc| + overhead.
+      proves_bits k -> k ≤ payload_bit_length(desc) + overhead.
 *)
 
 #[warnings="-declaration-outside-section"]
@@ -56,7 +56,8 @@ Module Type MU_CHAITIN_THEORY_SYSTEM.
       Any additional certified payload must be paid via μ-injection.
 
       Concretely: for any k the trace-based run that witnesses [proves_bits k]
-      must have μ-ledger increase bounded by |desc| + overhead.
+      must have μ-ledger increase bounded by the concrete bit length of
+      [theory_desc] plus overhead.
   *)
   Variable proves_bits_witness :
     forall k,
@@ -70,5 +71,5 @@ Module Type MU_CHAITIN_THEORY_SYSTEM.
         (* The certified payload is at least k bits. *)
         MuChaitin.cert_payload_size instr >= k /\
         (* Budget upper bound: theory description size + overhead. *)
-        s_final.(vm_mu) <= s_init.(vm_mu) + String.length theory_desc + overhead.
+        s_final.(vm_mu) <= s_init.(vm_mu) + payload_bit_length theory_desc + overhead.
 End MU_CHAITIN_THEORY_SYSTEM.

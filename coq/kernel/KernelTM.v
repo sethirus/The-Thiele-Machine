@@ -1,36 +1,26 @@
-(** * KernelTM: Turing Machine Execution Semantics
+(** KernelTM: bounded execution for the toy machine in Kernel.v.
 
-    WHY THIS FILE EXISTS:
-    I claim Turing machines are a special case of the Thiele Machine - purely
-    classical computation without hypercomputational operations. This file
-    implements the execution semantics (step function, run function) for the
-    minimal TM defined in Kernel.v.
+    This file implements a bounded step/run function for the minimal machine
+    defined in Kernel.v. It is a toy executor, not a proof that Turing machines
+    are a formal subcategory of the full Thiele VM.
 
-    THE MODEL:
     - fetch: Get instruction from program at current state
     - step_tm: Execute one instruction (Write, Move, Branch, Halt, ClaimTapeIsZero)
     - run_tm: Execute for fuel steps (bounded execution)
     - TuringMachine record: program + initial state + step bound
 
-    CLASSICAL VS HYPERCOMPUTATION:
     Instructions T_Write, T_Move, T_Branch, T_Halt are standard Turing operations.
-    H_ClaimTapeIsZero is hypercomputational - it zeros the tape but should cost
-    μ-bits (though this file doesn't track μ-cost in step_tm, that's in Kernel.v).
+    H_ClaimTapeIsZero is present in the syntax, but this executor treats it as
+    an advance-only placeholder: it does not zero the tape and does not charge μ.
+    Any costful or tape-zeroing semantics would need a stronger step function.
 
-    THE TRIVIAL THEOREM (tm_is_turing_complete):
-    Proves that running a TuringMachine for its specified steps produces its
-    final state. This is tautological by construction - it just says the semantics
-    is well-defined.
+    tm_is_turing_complete proves that running a TuringMachine for its specified
+    steps produces its final_state_for. That theorem is tautological by
+    construction; the useful content is the explicit step_tm/run_tm definition.
 
-    WHY THIS ISN'T VACUOUS:
-    Even though the theorem is trivial, the *semantics* (step_tm, run_tm) are
-    the important part. They show how abstract TM instructions map to concrete
-    state transitions. This is the operational semantics.
-
-    FALSIFICATION:
-    Show that step_tm doesn't correctly implement Turing machine semantics
-    (wrong tape movement, incorrect branch behavior, etc.). Or find a computation
-    that requires more than the standard TM operations, falsifying Turing completeness.
+    To falsify: show that step_tm doesn't correctly implement TM semantics, or
+    show that the placeholder ClaimTapeIsZero behavior is being used somewhere
+    as if it erased the tape or charged μ.
 
     This file is a MINIMAL EXAMPLE for testing. The full VM (VMState, VMStep)
     is the production computational model.
@@ -87,7 +77,6 @@ Definition initial_state_for (M : TuringMachine) : state := tm_initial M.
 Definition final_state_for (M : TuringMachine) : state :=
   run_tm (tm_steps M) (tm_program M) (tm_initial M).
 
-(** [tm_is_turing_complete]: formal specification. *)
 Theorem tm_is_turing_complete :
   forall (M : TuringMachine),
     exists (p : program),

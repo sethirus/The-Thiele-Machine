@@ -71,7 +71,7 @@ This is not aspirational---it's enforced by automated tests. Any divergence is a
 
 \textbf{Honest scope caveat:} The Python layer is not an independent implementation. It delegates all execution to the Coq-extracted OCaml binary via subprocess, so $S_{\text{Python}}(\tau) = S_{\text{Coq}}(\tau)$ by construction. The genuine comparison is between the OCaml extraction pipeline and the Kami/Bluespec synthesis pipeline. The tests compare \textit{state projections} rather than full state identity. The project's own audit artifact at \path{artifacts/final_claim_audit/cross_layer_equivalence_scope.json} specifies \texttt{equivalence\_mode: "observable\_only"} and \texttt{full\_state\_identity\_status: "not claimed"}.
 
-Known divergences exist for several opcodes (MDLACC cost charging, LASSERT formula-length cost, ORACLE\_HALTS hardcoded RTL cost, CHECKPOINT no-op in hardware, CALL/RET init-directive format, PDISCOVER/READ\_PORT text format). The cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} document these exceptions explicitly. Of the 40 ISA opcodes, 30 have direct cross-layer mu/register comparison (including the bitwise ALU, LUI, and TENSOR opcodes), 8 have cross-layer tests with documented divergences where each layer is tested independently for its known behavior, and 2 (CERTIFY, WRITE\_PORT) are tested per-layer.
+Known divergences exist for several opcodes (MDLACC cost charging, ORACLE\_HALTS hardcoded RTL cost, CHECKPOINT no-op in hardware, CALL/RET init-directive format, PDISCOVER/READ\_PORT text format). The cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} document these exceptions explicitly. Of the 40 ISA opcodes, 30 have direct cross-layer mu/register comparison (including the bitwise ALU, LUI, TENSOR, and tightened LASSERT path), 8 have cross-layer tests with documented divergences where each layer is tested independently for its known behavior, and 2 (CERTIFY, WRITE\_PORT) are tested per-layer.
 
 The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_verilog_cosim.py} compares registers and memory, while the cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} compare canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
@@ -1039,7 +1039,7 @@ module mkModule1(CLK,
 
 The Kami specification defines one rule: \texttt{step}. This rule reads the instruction at \texttt{imem[pc]}, decodes the opcode from bits [31:24], executes the operation, updates all affected registers, and advances the program counter---all within a single clock cycle.
 
-This is different from a traditional pipelined processor. There are no pipeline stages, no stall logic, no forwarding paths. The trade-off is simplicity (easier to verify, trivially correct ordering) at the cost of clock frequency (the critical path is longer because everything happens combinationally).
+This is different from a traditional pipelined processor. There are no pipeline stages, no stall logic, no forwarding paths. The trade-off is simplicity (easier to verify, correct ordering by construction) at the cost of clock frequency (the critical path is longer because everything happens combinationally).
 
 The generated Verilog reflects this: you will find a single \texttt{always @(posedge CLK)} block with a large case statement on the opcode field, each branch updating the relevant registers via non-blocking assignments. The signal \texttt{WILL\_FIRE\_RL\_step} is high on every cycle when the core is not halted.
 
@@ -1166,23 +1166,23 @@ In the Kami-generated hardware, $\mu$-accounting is handled by a 32-bit register
 
 \subsection{Logic Engine Interface}
 
-The logic engine is implemented as an on-chip FSM inside \texttt{mkModule1}. The Kami specification in \texttt{ThieleCPUCore.v} defines ten FSM registers that read formula and certificate data directly from \texttt{vm\_mem}:
+The logic engine is implemented as an on-chip FSM inside \texttt{mkModule1}. The Kami specification in \texttt{ThieleCPUCore.v} defines ten FSM registers that read formula and witness data directly from \texttt{vm\_mem}:
 \begin{lstlisting}
 // On-chip FSM registers (ThieleCPUCore.v):
 //   lassert_phase   -- FSM phase (idle/fetch_formula/fetch_cert/check/done)
 //   lassert_kind    -- SAT or UNSAT certificate kind
 //   lassert_fbase   -- formula base address (from freg)
 //   lassert_cbase   -- certificate base address (from creg)
-//   lassert_flen    -- formula byte length
-//   lassert_clen    -- certificate byte length
+//   lassert_flen    -- encoded formula-unit count
+//   lassert_clen    -- certificate unit count
 //   lassert_fptr    -- formula fetch pointer (incremented each cycle)
 //   lassert_cptr    -- certificate fetch pointer
-//   lassert_fbuf    -- formula byte accumulator
-//   lassert_cbuf    -- certificate byte accumulator
+//   lassert_fbuf    -- formula unit accumulator
+//   lassert_cbuf    -- certificate unit accumulator
 \end{lstlisting}
 
 \paragraph{On-Chip Evaluation Protocol:}
-\textbf{Operation:} When an \texttt{LASSERT} instruction executes, the FSM reads the formula byte-by-byte from \texttt{vm\_mem} at address \texttt{R[freg]}, then reads the certificate from \texttt{R[creg]}. It verifies the certificate against the formula entirely on-chip. The $\mu$-cost charged is $\mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring certificate complexity is reflected in cost.
+\textbf{Operation:} When an \texttt{LASSERT} instruction executes, the FSM reads the formula from \texttt{vm\_mem} at address \texttt{R[freg]}, then reads the witness block from \texttt{R[creg]}. In SAT mode that block contains two assignments back-to-back: a satisfying model and a falsifying countermodel. It verifies both entirely on-chip. The $\mu$-cost charged is $\mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring description length is reflected in cost while the second witness ensures the spend bought a real narrowing.
 
 \textbf{Why Registers Instead of a Submodule?}
 \begin{itemize}
@@ -1376,7 +1376,7 @@ The Inquisitor (\path{scripts/inquisitor.py}, $\sim$7,400 lines) is a heuristic 
     \item \texttt{CLAMP\_OR\_TRUNCATION}: Uses of \texttt{Z.to\_nat}, \texttt{Nat.min}, \texttt{Nat.max} without nonnegativity guards---these can silently clamp values and break algebraic laws.
     \item \texttt{COMMENT\_SMELL}: \texttt{TODO}/\texttt{FIXME}/\texttt{WIP} markers in comments.
     \item \texttt{SUSPICIOUS\_SHORT\_PROOF}: Complex-sounding theorems (\texttt{*bound*}, \texttt{*uniqueness*}, \texttt{*conservation*}) with very short proofs.
-    \item \texttt{MU\_COST\_ZERO}: $\mu$-cost definitions trivially equal to zero.
+    \item \texttt{MU\_COST\_ZERO}: $\mu$-cost definitions equal to zero by definition.
     \item \texttt{PHYSICS\_ANALOGY\_CONTRACT}: Physics-named theorems lacking an accompanying invariance lemma.
     \item \texttt{PROBLEMATIC\_IMPORT}: Imports of \texttt{Classical}, \texttt{Decidable}, or \texttt{ProofIrrelevance} that may introduce classical axioms.
 \end{itemize}

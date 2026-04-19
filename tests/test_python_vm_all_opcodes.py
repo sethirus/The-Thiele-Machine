@@ -50,11 +50,12 @@ class TestPartitionOpcodes:
         assert s.vm_mu >= 11  # at least pnew(1) + pnew(1) + pmerge(9)
 
     def test_lassert(self):
-        # LASSERT is a cert-setter; charges mu, may set err (stops HALT)
+        # LASSERT is a logic-validation opcode; it still charges mu and may set err.
         s = run_py([{"op": "pnew", "region": [0, 1], "cost": 1},
-                     {"op": "lassert", "module": 0, "formula": "x", "cert": {"type": "sat", "proof": ""}, "cost": 3},
+                     {"op": "lassert", "module": 0, "formula": "p_cnf_1_1__1_0",
+                      "cert_type": "sat", "cert": "v_1_0", "countermodel": "v_-1_0", "cost": 3},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_mu >= 4  # at least pnew(1) + lassert(3)
+        assert s.vm_mu >= 20  # pnew(1) + lassert(2*8 + 3 + 1)
 
     def test_ljoin(self):
         s = run_py([{"op": "ljoin", "cert1": "a", "cert2": "b", "cost": 4},
@@ -176,20 +177,12 @@ class TestCertOpcodes:
     def test_emit(self):
         s = run_py([{"op": "emit", "module": 0, "payload": "hello", "cost": 7},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_mu == 9  # S(7)+1=9: cert-setters charge cost+1
+        assert s.vm_mu == 49  # 8*len("hello")+S(7)+halt(1) = 40+8+1 = 49
 
     def test_reveal(self):
-        s = run_py([{"op": "reveal", "module": 0, "bits": 0, "cert": "proof", "cost": 5},
+        s = run_py([{"op": "reveal", "module": 0, "bits": 4, "cert": "proof", "cost": 5},
                      {"op": "halt", "cost": 1}])
-        assert s.vm_mu == 7  # S(5)+1=7: cert-setters charge cost+1
-
-    def test_oracle_halts(self):
-        # Per Coq extraction (thiele_core.ml), Instr_oracle_halts always charges
-        # exactly 1,000,000 regardless of the cost field — the cost parameter is
-        # ignored by the extracted semantics.
-        s = run_py([{"op": "oracle_halts", "payload": 0, "cost": 11},
-                     {"op": "halt", "cost": 1}])
-        assert s.vm_mu == 1_000_001  # 1_000_000 (oracle_halts fixed cost) + 1 (halt)
+        assert s.vm_mu == 11  # 4 revealed bits + S(5)=6 + halt(1)
 
     def test_chsh_trial_x0(self):
         """CHSH_TRIAL with x=0 should succeed without surcharge."""
@@ -295,7 +288,7 @@ class TestNewOpcodes:
         s = run_py([{"op": "read_port", "dst": 3, "channel": 0, "value": 42, "bits": 8, "cost": 1},
                      {"op": "halt", "cost": 1}])
         assert s.vm_regs[3] == 42
-        assert s.vm_mu == 3  # S(1)+1=3: cert-setters charge cost+1
+        assert s.vm_mu == 11  # bits+S(cost)+halt = 8+S(1)+1 = 8+2+1 = 11
 
     def test_read_port_different_channels(self):
         """READ_PORT should work with different channel indices."""
@@ -626,7 +619,7 @@ class TestIntegration:
             "jump", "jnez", "call", "ret",
             "chsh_trial",
             "xor_load", "xor_add", "xor_swap", "xor_rank",
-            "emit", "reveal", "oracle_halts", "halt", "checkpoint",
+            "emit", "reveal", "halt", "checkpoint",
             "read_port", "write_port", "heap_load", "heap_store",
             "certify",
             "and", "or", "shl", "shr", "mul", "lui",
@@ -635,4 +628,4 @@ class TestIntegration:
             "morph_assert", "morph_tensor", "morph_get",
         }
         assert expected <= ops, f"Missing from OCaml extraction: {expected - ops}"
-        assert len(expected) == 47
+        assert len(expected) == 46

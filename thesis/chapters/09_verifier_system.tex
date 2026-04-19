@@ -136,8 +136,8 @@ The flagship prediction derived from the verifier system:
 
 Representative falsifier test (from \path{tests/test_lassert_certificate.py}):
 \begin{lstlisting}
-def test_lassert_legacy_empty_cert(self):
-    """LASSERT (empty cert) sets error — check_model fails on empty string."""
+def test_lassert_missing_dual_witness(self):
+    """LASSERT without the required SAT dual witnesses sets error."""
     s0 = VMState.default()
     program = [
         {"op": "lassert",
@@ -147,18 +147,18 @@ def test_lassert_legacy_empty_cert(self):
     ]
     result = vm_run(s0, program, max_steps=10)
     assert result.vm_mu >= 2
-    # Empty cert "" should fail check_model
+    # Missing model/countermodel should fail the tightened SAT check.
     assert result.vm_err is True, \
-        "Expected error with empty certificate (OCaml check_model fails)"
+        "Expected error without the required SAT witness package"
 \end{lstlisting}
 
 \paragraph{Understanding Uncertified Assertion Falsifier:}
 
-\textbf{What is this test?} This is the \textbf{flagship falsifier} for certificate enforcement: an \texttt{LASSERT} instruction issued \textbf{without providing a valid SAT certificate} is detected and rejected by the Coq-extracted OCaml runner. The VM sets \texttt{vm\_err = True} because the empty certificate fails the \texttt{check\_model} verification step.
+\textbf{What is this test?} This is the \textbf{flagship falsifier} for certificate enforcement: an \texttt{LASSERT} instruction issued \textbf{without providing the required SAT dual witness package} is detected and rejected by the Coq-extracted OCaml runner. The VM sets \texttt{vm\_err = True} because certification now requires both a satisfying assignment and a falsifying assignment.
 
 \textbf{Test structure:}
 \begin{enumerate}
-    \item \textbf{LASSERT} attempts to assert a CNF formula without supplying a SAT certificate. The formula is referenced via register-indexed \texttt{vm\_mem} addressing (on-chip model); no external solver is invoked.
+    \item \textbf{LASSERT} attempts to assert a CNF formula without supplying the SAT model-plus-countermodel package. The formula is referenced via register-indexed \texttt{vm\_mem} addressing (on-chip model); no external solver is invoked.
 
     \item \textbf{assert result.vm\_err is True} --- The VM rejects the uncertified assertion. The $\mu$-cost was still charged (assert $\mu \ge 2$), but the structural claim is not accepted.
 \end{enumerate}

@@ -3,12 +3,13 @@ From Coq Require Import Lia Arith.PeanoNat Strings.String.
 Require Import NoFI.MuChaitinTheory_Interface.
 
 Require Import Kernel.VMState.
+Require Import Kernel.VMStep.
 Require Import Kernel.MuInformation.
 Require Import Kernel.MuChaitin.
 Require Import Kernel.MuNoFreeInsightQuantitative.
 Require Import Kernel.RevelationRequirement.
 
-(** * μ–Chaitin Theory Theorem (functor)
+(** μ–Chaitin Theory Theorem (functor)
 
     This is the “theory layer” quantitative incompleteness theorem.
 
@@ -49,7 +50,6 @@ Module MuChaitinTheory (X : MU_CHAITIN_THEORY_SYSTEM).
     exact X.priced.
   Qed.
 
-  (** [mu_info_nat_le_from_mu_budget]: formal specification. *)
   Lemma mu_info_nat_le_from_mu_budget :
     forall (s_init s_final : VMState) (k : nat),
       s_final.(vm_mu) <= s_init.(vm_mu) + k ->
@@ -68,7 +68,7 @@ Module MuChaitinTheory (X : MU_CHAITIN_THEORY_SYSTEM).
   Theorem proves_bits_bounded_by_description :
     forall k,
       X.proves_bits k ->
-      k <= String.length X.theory_desc + X.overhead.
+      k <= payload_bit_length X.theory_desc + X.overhead.
   Proof.
     intros k Hprove.
     destruct (X.proves_bits_witness k Hprove)
@@ -76,12 +76,12 @@ Module MuChaitinTheory (X : MU_CHAITIN_THEORY_SYSTEM).
 
     assert (Hbudget' :
               s_final.(vm_mu) <=
-              X.s_init.(vm_mu) + (String.length X.theory_desc + X.overhead))
+              X.s_init.(vm_mu) + (payload_bit_length X.theory_desc + X.overhead))
       by lia.
 
     (* Convert the μ budget on [vm_mu] into a bound on [mu_info_nat]. *)
     pose proof (mu_info_nat_le_from_mu_budget X.s_init s_final
-                  (String.length X.theory_desc + X.overhead) Hbudget')
+                  (payload_bit_length X.theory_desc + X.overhead) Hbudget')
       as Hmu_le.
 
     (* Chain: k <= payload <= mu_info <= budget. *)

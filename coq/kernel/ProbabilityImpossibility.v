@@ -1,45 +1,14 @@
-(** =========================================================================
-    PROBABILITY IMPOSSIBILITY: Born Rule Cannot Be Uniquely Derived
-    =========================================================================
+(** ProbabilityImpossibility: composition laws alone do not determine a unique weight rule
 
-    WHY THIS FILE EXISTS:
-    I claim the Born rule (probability = |amplitude|²) is NOT uniquely determined
-    by composition laws alone. This proves the kernel CANNOT derive probability
-    theory from pure computation - you must ADD probabilistic structure as input.
-    This establishes the boundary between what's derivable and what requires axioms.
+  This file is a no-go result about abstraction level. It shows that simple
+  compositional laws for trace weights do not force a unique probability-like
+  assignment. Two different weight functions can satisfy the same additive
+  interface, so extra structure is needed before one can recover anything as
+  specific as the Born rule.
 
-    THE CORE CLAIM:
-    Born_Rule_Unique_Fails_Without_More_Structure: There exist at least
-    TWO distinct compositional weight functions (w_len and w_len2). Both satisfy
-    composition laws (w(t1++t2) = w(t1)+w(t2)), but give different values.
-    Therefore, composition alone doesn't uniquely determine weights.
+  The point is a boundary claim: pure composition is too weak by itself.
 
-    WHAT THIS PROVES:
-    - weight_compositional: Abstract interface for trace weights
-    - w_len_compositional: Trace length is compositional
-    - w_len2_compositional: Double length is also compositional
-    - Born_Rule_Unique_Fails_Without_More_Structure: Non-uniqueness proof
-
-    PHYSICAL INTERPRETATION:
-    This is a NO-GO result. If you want probability theory in your computational
-    model, you must ASSUME it - it doesn't follow from algebraic composition laws.
-    The Born rule (|ψ|²) is a POSTULATE of quantum mechanics, not a theorem.
-
-    Similarly, "frequency weights" or "probability measures" over traces cannot
-    be uniquely derived from compositional structure. You need additional axioms
-    (Kolmogorov axioms, measure theory, etc.) beyond pure computation.
-
-    FALSIFICATION:
-    Show that compositional weights are unique - prove that all functions satisfying
-    w(t1++t2) = w(t1)+w(t2) and w([]) = 0 must be identical. This would contradict
-    the theorem (Born_Rule_Unique_Fails_Without_More_Structure) which explicitly constructs two different ones.
-
-    Or prove the Born rule follows from computation alone. This would invalidate
-    the no-go result and suggest probability is derivable after all.
-
-    NO AXIOMS. NO ADMITS. Pure negative result.
-
-    ========================================================================= *)
+  *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -50,9 +19,7 @@ From Kernel Require Import VMStep.
 
 Import ListNotations.
 
-(** =========================================================================
-    ABSTRACT WEIGHT INTERFACE
-    ========================================================================= *)
+(** Abstract weight interface. *)
 
 (** WEIGHT: Abstract "probability-like" function on traces
 
@@ -75,9 +42,7 @@ Definition weight_compositional (w : Weight) : Prop :=
   w [] = 0 /\
   forall t1 t2, w (t1 ++ t2) = w t1 + w t2.
 
-(** =========================================================================
-    COUNTEREXAMPLE CONSTRUCTIONS
-    ========================================================================= *)
+(** Counterexample constructions. *)
 
 (** WEIGHT 1: Trace length
 
@@ -93,9 +58,7 @@ Definition w_len : Weight := fun t => length t.
     This is a DIFFERENT weight function but satisfies the same composition law. *)
 Definition w_len2 : Weight := fun t => 2 * length t.
 
-(** =========================================================================
-    COMPOSITIONALITY PROOFS
-    ========================================================================= *)
+(** Compositionality proofs. *)
 
 (** W_LEN IS COMPOSITIONAL: Trace length satisfies composition
 
@@ -133,9 +96,9 @@ Proof.
     lia.
 Qed.
 
-(** =========================================================================
+(**
     IMPOSSIBILITY THEOREM
-    ========================================================================= *)
+    *)
 
 (** BORN RULE CANNOT BE UNIQUELY DERIVED FROM COMPOSITION
 
@@ -144,7 +107,6 @@ Qed.
 
     CLAIM: There exist at least two distinct compositional weight functions.
 
-    PROOF STRATEGY:
     1. Exhibit w1 = w_len (trace length)
     2. Exhibit w2 = w_len2 (double trace length)
     3. Prove both are compositional
@@ -156,7 +118,7 @@ Qed.
     - Frequency interpretations are not unique without extra structure
     - The kernel cannot derive its own probability measure
 
-    FALSIFICATION: Prove all compositional weights are identical. This would
+    To falsify: Prove all compositional weights are identical. This would
     require showing w_len = w_len2, but we explicitly demonstrate they differ
     on the trace [instr_halt 0]: w_len gives 1, w_len2 gives 2. *)
 Theorem Born_Rule_Unique_Fails_Without_More_Structure :
@@ -187,15 +149,12 @@ Proof.
       discriminate.
 Qed.
 
-(** =========================================================================
+(**
     INTERPRETATION
 
     This theorem establishes a fundamental limitation: You CANNOT derive
     probability theory from pure computation. Compositional structure is
     insufficient to uniquely determine weights.
-
-    WHAT THIS MEANS:
-
     1. BORN RULE IS POSTULATED, NOT DERIVED:
        Quantum mechanics assumes |ψ|² gives probabilities. This cannot be
        proven from composition laws alone. It's an additional axiom.
@@ -223,4 +182,4 @@ Qed.
     Neither of these works applies here because we're only assuming
     compositional structure, nothing more.
 
-    ========================================================================= *)
+    *)
