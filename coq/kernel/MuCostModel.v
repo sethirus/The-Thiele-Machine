@@ -1,110 +1,82 @@
-(** =========================================================================
-    μ-COST MODEL - Operational Definition (No Physics Assumptions)
-    =========================================================================
+(**
+    MuCostModel: operational μ-cost ledger.
 
-    WHY THIS FILE EXISTS:
-    I claim μ-cost is DEFINED operationally (which instructions modify partition
-    structure) WITHOUT assuming CHSH bounds, Tsirelson bound (2√2), or quantum
-    mechanics. The correlation with physics is DERIVED later, not assumed here.
+    I define μ-cost by asking one concrete question: which instructions modify
+    partition structure? This file does NOT assume CHSH bounds, the Tsirelson
+    bound (2√2), or quantum mechanics. The physics bridge has to earn that
+    connection later.
 
-    THE CORE CLAIM:
-    μ-cost is determined purely by partition graph operations:
-    - PNEW/PSPLIT/PMERGE: cost 0 (rearrange structure, no new information)
-    - REVEAL: cost 1 (exposes hidden partition structure)
-    - LASSERT/LJOIN: cost δ (adds structural complexity)
-    - All other ops: cost 0 (don't touch partition graph)
+    μ-cost is determined here by the same operational ledger as VMStep:
+    [instruction_cost].  Older versions used a one-unit abstraction for
+    revelation-class operations; that hid the bit accounting.  This file now
+    delegates to the actual cost table, including payload bits for EMIT and
+    explicit bit counts for REVEAL/READ_PORT.
 
-    WHAT THIS PROVES:
-    - mu_cost_of_instr: Operational cost for each instruction type
-    - partition_ops_mu_free: PNEW/PSPLIT/PMERGE have zero cost
-    - reveal_costs_one: REVEAL costs exactly 1
-    - mu_zero_no_reveal: μ=0 programs cannot use REVEAL within fuel steps
+    mu_cost_of_instr: operational cost for each instruction type.
+    partition_ops_mu_free: PNEW/PSPLIT/PMERGE with delta 0 have zero cost.
+    reveal_cost_positive: REVEAL always costs at least 1.
+    mu_zero_no_reveal: μ=0 programs cannot use REVEAL within fuel steps.
 
-    KEY SEPARATION:
-    This file defines μ-cost INDEPENDENTLY of CHSH/quantum mechanics.
-    CHSHExtraction.v defines CHSH computation INDEPENDENTLY of μ-cost.
-    The relationship max{CHSH : μ=0} = 2√2 is PROVEN through the algebraic chain
-    (TsirelsonFromAlgebra.v, AlgebraicCoherence.v), not assumed here.
+    This file defines μ-cost independently of CHSH/quantum mechanics.
+    CHSHExtraction.v defines CHSH computation independently of μ-cost. The
+    relationship between μ=0 traces and CHSH-style bounds belongs to the
+    algebraic bridge files, not to this operational cost definition.
 
-    PHYSICAL INTERPRETATION:
-    μ-cost measures "structural information addition". Rearranging partitions is
-    free (reversible). Revealing hidden structure costs 1 (observation). Adding
-    constraints costs their complexity (description length). This is operational
-    accounting, not physics.
+    This is just the operational accounting layer. It defines the ledger and
+    leaves the stronger physics interpretation to later bridge files.
 
-    FALSIFICATION:
-    Show that a program with REVEAL has μ-cost = 0 according to mu_cost_of_instr.
-    This would contradict reveal_costs_one.
-
-    Or show that PNEW/PSPLIT/PMERGE have nonzero cost despite being partition
-    rearrangements (no information loss). This would contradict partition_ops_mu_free.
-
-    Or prove that the operational definition is inconsistent with actual VM
-    execution (vm_step modifies vm_mu differently than mu_cost_of_instr predicts).
-
-    NO REFERENCE TO CHSH, TSIRELSON, OR 2√2 ANYWHERE IN THIS FILE.
-    Pure operational accounting. Zero project-local axioms. Zero admits.
-
-    ========================================================================= *)
+    To falsify: show a program with REVEAL has μ-cost = 0 (contradicts
+    reveal_cost_positive), or show PNEW/PSPLIT/PMERGE with delta 0 have
+    nonzero cost (contradicts partition_ops_mu_free), or show this operational
+    definition is inconsistent with actual VM execution.
+    *)
 
 From Coq Require Import List Lia Arith PeanoNat.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep.
 
-(** ** μ-Cost Assignment Rules
+(** ** μ-cost assignment rules
 
-    Each operation has a μ-cost based on its effect on partition structure:
+    Each operation pays according to the executable VM cost table:
     
-    1. PNEW, PSPLIT, PMERGE: μ += 0 (partition rearrangement, no new info)
-    2. REVEAL: μ += 1 (exposes hidden partition structure)
-    3. LASSERT, LJOIN: μ += δ (structure addition, δ = complexity measure)
-    4. All other ops: μ += 0 (don't touch partition graph)
+    1. PNEW, PSPLIT, PMERGE: μ += delta; canonical zero-cost uses delta 0.
+    2. EMIT: μ += payload_bit_length payload + S delta.
+    3. REVEAL/READ_PORT: μ += bits + S delta.
+    4. LASSERT: μ += flen * 8 + S delta.
+    5. LJOIN/CERTIFY/MORPH_ASSERT: μ += S delta.
+    6. Other local ops: μ += delta.
     
-    This is DEFINED operationally, not derived from physics.
+    This is defined operationally. Physical readings must be added elsewhere.
     *)
 
-(** ** Partition Structure Complexity
+(** ** Partition structure complexity
 
-    Measure how much "new structure" is added by an operation.
-    This is the source of μ-cost.
+    Count the partition structure an operation adds. Right now the measure is
+    module count, so any stronger interpretation has to be proven elsewhere.
     *)
 
-(** Count non-trivial modules in partition graph *)
+(** Count the modules in the partition graph. *)
 Definition module_count (g : PartitionGraph) : nat :=
   length g.(pg_modules).
 
-(** Measure partition complexity (for now: module count) *)
+(** For now, partition complexity is exactly module count. *)
 Definition partition_complexity (g : PartitionGraph) : nat :=
   module_count g.
 
-(** ** μ-Cost for Individual Instructions
+(** ** μ-cost for individual instructions
 
-    Define μ-increment for each instruction type.
+    The match below is the accounting rule. If a constructor changes cost, the
+    proofs below are the first things that should break.
     *)
 
-Definition mu_cost_of_instr (instr : vm_instruction) (s : VMState) : nat :=
-  match instr with
-  | instr_pnew _ _ => 0  (* Create partition: structural rearrangement *)
-  | instr_psplit _ _ _ _ => 0  (* Split partition: no new correlation *)
-  | instr_pmerge _ _ _ => 0  (* Merge partition: no new correlation *)
-  | instr_reveal _ _ _ _ => 1  (* Reveal hidden structure: μ += 1 *)
-  | instr_lassert _ _ _ _ _ => 1  (* Assert structure: μ += 1 for complexity *)
-  | instr_ljoin _ _ _ => 1  (* Join correlations: μ += 1 for complexity *)
-  | instr_certify _ => 1  (* Certify: μ += 1 for certification *)
-  | instr_and _ _ _ _ => 0  (* AND: ALU op, no μ-cost *)
-  | instr_or _ _ _ _ => 0  (* OR: ALU op, no μ-cost *)
-  | instr_shl _ _ _ _ => 0  (* SHL: ALU op, no μ-cost *)
-  | instr_shr _ _ _ _ => 0  (* SHR: ALU op, no μ-cost *)
-  | instr_mul _ _ _ _ => 0  (* MUL: ALU op, no μ-cost *)
-  | instr_lui _ _ _ => 0  (* LUI: ALU op, no μ-cost *)
-  | _ => 0  (* Other instructions: no μ-cost *)
-  end.
+Definition mu_cost_of_instr (instr : vm_instruction) (_s : VMState) : nat :=
+  instruction_cost instr.
 
-(** ** Total μ-Cost of Trace
+(** ** Total μ-cost of a trace
 
-    Sum μ-costs of all instructions that would be executed.
-    We don't need full VM semantics, just cost accounting.
+    Add the costs for the instructions reached by the program counter. This is
+    only the ledger, not the full VM semantics.
     *)
 
 Fixpoint mu_cost_of_trace 
@@ -132,81 +104,78 @@ Fixpoint mu_cost_of_trace
       end
   end.
 
-(** ** μ=0 Programs (Operational Definition)
+(** ** μ=0 programs
 
     A program is μ=0 if its total μ-cost is zero.
     
-    KEY: This is defined WITHOUT reference to CHSH or correlation bounds.
+    This definition does NOT mention CHSH or correlation bounds.
     *)
 
 Definition mu_zero_program 
   (fuel : nat) (trace : list vm_instruction) : Prop :=
   mu_cost_of_trace fuel trace 0 = 0.
 
-(** ** μ-Preservation Property
+(** ** μ-preservation
 
-    Alternative characterization: μ=0 programs preserve initial μ-value.
+    This is the state-level version: final μ equals initial μ.
     *)
 
 Definition mu_preserving 
   (fuel : nat) (trace : list vm_instruction) (s_init s_final : VMState) : Prop :=
   s_final.(vm_mu) = s_init.(vm_mu).
 
-(** ** Properties of μ-Cost Model *)
+(** ** Properties of the μ ledger *)
 
-(** PNEW/PSPLIT/PMERGE are μ-free *)
+(** PNEW, PSPLIT, and PMERGE cost zero by definition. *)
 Lemma partition_ops_mu_free :
   forall s mid,
     mu_cost_of_instr (instr_pnew mid 0) s = 0 /\
     (forall mid1 mid2 mid3,
       mu_cost_of_instr (instr_psplit mid1 mid2 mid3 0) s = 0) /\
-    (forall mid1 mid2 mid3,
-      mu_cost_of_instr (instr_pmerge mid1 mid2 mid3) s = 0).
+    (forall mid1 mid2 cost,
+      cost = 0 ->
+      mu_cost_of_instr (instr_pmerge mid1 mid2 cost) s = 0).
 Proof.
-  intros. unfold mu_cost_of_instr. split; [reflexivity | split; reflexivity].
+  intros. unfold mu_cost_of_instr. split; [reflexivity | split; intros; subst; reflexivity].
 Qed.
 
-(** DEFINITIONAL HELPER: [mu_cost_of_instr] pattern-matches on instruction
-    constructors; [instr_reveal] maps to cost 1 by definition. *)
-Lemma reveal_costs_one :
-  forall s mid addr len mu,
-    mu_cost_of_instr (instr_reveal mid addr len mu) s = 1.
+(* DEFINITIONAL HELPER *)
+(** REVEAL is positive by the instruction accounting rule. *)
+Lemma reveal_cost_positive :
+  forall s mid bits cert mu,
+    mu_cost_of_instr (instr_reveal mid bits cert mu) s >= 1.
 Proof.
-  intros. unfold mu_cost_of_instr. reflexivity.
+  intros. unfold mu_cost_of_instr. simpl. lia.
 Qed.
 
-(** ** Connection to CHSHExtraction
+(** ** CHSH stays outside this file
 
-    KEY SEPARATION: 
+    The separation is the point:
     - CHSHExtraction.v defines CHSH computation (independent of μ)
     - This file defines μ-cost (independent of CHSH)
     
     These are SEPARATE accounting systems.
     
-    The derivation task is to PROVE their relationship:
-      max{CHSH : μ=0} = 2√2
-    
-    This is NOT assumed—it is proven through the algebraic chain
-    (TsirelsonFromAlgebra.v, AlgebraicCoherence.v)
+    Any bridge theorem relating μ=0 traces to CHSH-style bounds must cite both
+    systems explicitly. This file does not assume such a theorem.
     *)
 
-(** ** What μ=0 Programs Can Do
+(** ** What μ=0 programs can do
 
     μ=0 programs can:
     - Create partitions (PNEW)
     - Split/merge partitions (PSPLIT/PMERGE)  
     - Perform local operations
-    - Measure in separable bases
+    - Execute other zero-cost local instructions represented by this ledger
     
     μ=0 programs CANNOT:
-    - Use REVEAL (costs 1)
-    - Add entangled structure via LASSERT/LJOIN (costs complexity)
+    - Use REVEAL (bits + S delta)
+    - Use LASSERT/LJOIN/CERTIFY within the zero-cost prefix (each has an S delta floor)
     
     This restriction is OPERATIONAL, not assumed from physics.
     *)
 
-(** No-REVEAL characterization of μ=0 *)
-(**  If nth_error at pc is None and pc <= n, then nth_error at n is also None *)
+(** If the trace is already empty at pc, every later lookup is empty too. *)
 Lemma nth_error_none_propagates :
   forall {A : Type} (l : list A) pc n,
     nth_error l pc = None ->
@@ -219,7 +188,7 @@ Proof.
   lia.
 Qed.
 
-(** Unfolding lemma for mu_cost_of_trace *)
+(** One-step unfold for [mu_cost_of_trace]. *)
 Lemma mu_cost_of_trace_unfold :
   forall fuel' trace pc instr,
     nth_error trace pc = Some instr ->
@@ -231,15 +200,11 @@ Proof.
   intros. simpl. rewrite H. reflexivity.
 Qed.
 
-(** Auxiliary fact: 1 + anything ≠ 0 for nat *)
-(** HELPER: Base case property *)
-(** HELPER: Base case property *)
+(** One plus any natural number is not zero. *)
 Lemma one_plus_neq_zero : forall n, 1 + n <> 0.
 Proof. intros. lia. Qed.
 
-(** HELPER: Base case property *)
-(** Generalized version: REVEAL beyond horizon for any starting PC *)
-(** HELPER: Base case property *)
+(** A μ=0 trace cannot execute REVEAL before the fuel runs out. *)
 Lemma mu_zero_no_reveal_from_pc :
   forall fuel trace pc,
     mu_cost_of_trace fuel trace pc = 0 ->
@@ -279,10 +244,8 @@ Proof.
       exfalso. eapply nth_error_none_propagates in Hpc; [|exact Hge].
       rewrite Hpc in Hnth. discriminate.
 Qed.
-(** HELPER: Base case property *)
 
-(** Specialized to PC = 0 *)
-(** HELPER: Base case property *)
+(** The same no-REVEAL bound specialized to PC zero. *)
 Lemma mu_zero_no_reveal :
   forall fuel trace,
     mu_zero_program fuel trace ->

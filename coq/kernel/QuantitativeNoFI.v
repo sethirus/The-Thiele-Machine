@@ -1,9 +1,7 @@
 (** QuantitativeNoFI.v
-    ======================================================================
     AXIOM 5: QUANTITATIVE NO FREE INSIGHT
 
     THE GAP BEING CLOSED
-    ======================================================================
     UniversalCertificationCost.v proved:
         total_cost ≥ 1    (for any substrate satisfying A2)
 
@@ -16,7 +14,6 @@
     what is learned."
 
     THE FIVE AXIOMS
-    ======================================================================
     A2  (inherited): cert transition costs ≥ 1
     A3. cs_witness_cost_step:
           cs_witness s + cs_cost i ≥ cs_witness (cs_step s i)
@@ -32,7 +29,6 @@
           cs_witness s₀ = 0   (stated as theorem hypothesis)
 
     THE CENTRAL LEMMA (telescoping)
-    ======================================================================
     cs_witness s0 + cs_total_cost trace ≥ cs_witness (cs_run trace s0)
 
     Proof: at each step, cost ≥ Δwitness.  Summing over the trace:
@@ -42,7 +38,6 @@
     Therefore: total_cost ≥ K.
 
     THE INFORMATION-THEORETIC READING
-    ======================================================================
     cs_witness measures HOW MUCH the state has learned.
     cs_cert_threshold is HOW MUCH it needs to have learned to certify.
     cs_witness_cost_step says: learning costs.
@@ -55,9 +50,7 @@
     The last two require connecting cs_witness to an information measure.
     That is the open problem.
 
-    STATUS: Zero Admitted.  Zero project-local axioms.
     A3/A4/A5 are requirements on the system, discharged per instantiation.
-    ======================================================================
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
@@ -67,9 +60,7 @@ From Kernel Require Import VMState VMStep SimulationProof
                            AbstractNoFI UniversalCertificationCost
                            MuLedgerConservation.
 
-(** =========================================================================
-    PART 1: QUANTITATIVE CERTIFICATION SYSTEM
-    =========================================================================
+(**
 
     Extends CertificationSystem with:
       - cs_witness       : state → nat  (the evidence accumulator)
@@ -122,9 +113,7 @@ Record QuantitativeCertificationSystem := mk_qcs {
       qcs_witness s >= qcs_threshold;
 }.
 
-(** =========================================================================
-    PART 2: DERIVED NONDECREASING LEMMA
-    =========================================================================
+(**
 
     A4 (witness nondecreasing) follows from A3:
     cost ≥ 0 (since cost : _ → nat) and A3 gives:
@@ -164,9 +153,7 @@ Record QuantitativeCertificationSystem_full := mk_qcs_full {
       qcs_witness qcsf_qcs (cs_step (qcs_base qcsf_qcs) s i);
 }.
 
-(** =========================================================================
-    PART 3: THE TELESCOPING LEMMA
-    =========================================================================
+(**
 
     LEMMA (qcs_telescoping):
     For any QCS satisfying A3 (cost bounds witness growth),
@@ -209,9 +196,7 @@ Proof.
     lia.
 Qed.
 
-(** =========================================================================
-    PART 4: THE QUANTITATIVE UNIVERSAL THEOREM
-    =========================================================================
+(**
 
     THEOREM (universal_nfi_quantitative):
 
@@ -268,9 +253,7 @@ Proof.
   exact Htele.
 Qed.
 
-(** =========================================================================
-    PART 5: THE THIELE VM — TRIVIAL INSTANTIATION (threshold = 1)
-    =========================================================================
+(**
 
     The simplest Thiele instantiation: cs_witness = vm_mu, threshold = 1.
 
@@ -382,9 +365,7 @@ Proof.
   exact (universal_nfi_quantitative thiele_qcs_cert_addr trace s0 Hinit Hcert).
 Qed.
 
-(** =========================================================================
-    PART 6: THE OPEN PROBLEM — NON-TRIVIAL WITNESS (AXIOM 5 PROPER)
-    =========================================================================
+(**
 
     THE CURRENT STATE:
     With threshold = 1, this is equivalent to UniversalCertificationCost.v.
@@ -406,10 +387,11 @@ Qed.
 
     THE CANDIDATE WITNESS FUNCTIONS (to be developed):
 
-    W1. Certificate string length:
-          W(s) := length of string at csr_cert_addr in s's formula store.
-          Meaning: longer certificates cost more.
-          K = length(cert_content).
+    W1. Certificate payload bits:
+          W(s) := concrete bit length of the certificate payload reachable from
+          csr_cert_addr in s's formula store.
+          Meaning: larger certificate payloads cost more.
+          K = payload_bit_length(cert_content).
           Problem: requires formalizing the formula store lookup.
 
     W2. CHSH witness count:
@@ -438,7 +420,7 @@ Qed.
     1. DONE (this file): quantitative framework + trivial threshold = 1.
     2. DONE: W2 (CHSH witness count) — proven as chsh_trial_count_lower_bound
        below. Certifying a CHSH violation requires ≥ N_min CHSH trials.
-    3. OPEN: W1 (cert string length) — connect cert cost to cert size.
+    3. OPEN: W1 (cert payload bits) — connect cert cost to cert size.
     4. OPEN: W4 (Shannon) — formal connection to information theory.
     5. OPEN: W5 (Kolmogorov) — requires oracle axiom.
 
@@ -447,14 +429,10 @@ Qed.
     physical cost.  That would make "No Free Insight" a precise formal
     analog of the Landauer bound for cognition.
 
-    STATUS: Zero Admitted.  Zero axioms.  The open hypotheses are named
     above as W1-W5.
-    =========================================================================
 *)
 
-(** =========================================================================
-    PART 7: CHSH WITNESS COUNT — W2 (FIRST NON-TRIVIAL INSTANTIATION)
-    =========================================================================
+(**
 
     The Thiele VM tracks CHSH trial counts in vm_witness (WitnessCounts, 8
     fields: wc_same_00, wc_diff_00, ..., wc_same_11, wc_diff_11).
@@ -464,8 +442,7 @@ Qed.
       - cert predicate: chsh_cert (at least one valid trial has been run)
       - witness:        witness_total s.(vm_witness) (total trial count)
       - threshold:      1 (first non-trivial iteration)
-
-    NOTE: chsh_trial_cost is NOT instruction_cost (mu-cost).  The two cost
+ chsh_trial_cost is NOT instruction_cost (mu-cost).  The two cost
     notions are orthogonal.  A single CHSH_TRIAL can have mu_delta = 0 but
     still counts as 1 CHSH trial.  Using instruction_cost for A3 would fail.
 
@@ -475,8 +452,6 @@ Qed.
     NEXT ITERATION: Lift threshold from 1 to N_min for Tsirelson violation
     detection, by proving A5 with threshold = N_min.
 
-    STATUS: Zero Admitted.  Zero axioms.
-    =========================================================================
 *)
 
 (** The CHSH cost function: counts valid CHSH_TRIAL executions.
@@ -494,7 +469,7 @@ Definition chsh_trial_cost (i : vm_instruction) : nat :=
 Definition chsh_total_witness (s : VMState) : nat :=
   witness_total s.(vm_witness).
 
-(** =========================================================================
+(**
     HELPER LEMMA 1: record_trial increments witness_total by exactly 1.
     Proof: case split on (x,y) ∈ {(0,0),(0,S),(S,0),(S,S)} and Nat.eqb a b.
     Each case increments exactly one bucket of witness_total. *)
@@ -508,7 +483,7 @@ Proof.
   destruct (Nat.eqb a b); simpl; lia.
 Qed.
 
-(** =========================================================================
+(**
     HELPER LEMMA 2: vm_apply changes vm_witness ONLY for instr_chsh_trial
     with valid bits (chsh_bits_ok = true).  All other instructions
     (including CHSH_TRIAL with invalid bits) preserve vm_witness exactly.
@@ -535,7 +510,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     A3 PROOF: CHSH trial cost bounds witness growth.  ZERO ADMITTED.
 
     For valid CHSH_TRIAL: chsh_trial_cost = 1, witness grows by 1 (equality).
@@ -559,9 +534,8 @@ Proof.
     lia.
 Qed.
 
-(** =========================================================================
+(**
     THE CHSH CERTIFICATION SYSTEM
-    =========================================================================
 
     Cert predicate: at least one valid CHSH trial has been recorded.
     (witness_total s.(vm_witness) ≥ 1, equivalently 0 < witness_total ...)
@@ -657,9 +631,7 @@ Proof.
   - exact Hcert.
 Qed.
 
-(** =========================================================================
-    PART 8: W2 PROPER — PARAMETERIZED THRESHOLD (threshold = N)
-    =========================================================================
+(**
 
     The threshold=1 CHSH QCS proves: one trial requires one instruction.
     But the interesting bound is: N trials require N instructions.
@@ -681,8 +653,6 @@ Qed.
     No other instruction changes vm_witness.  Every trial is authentic.
     This is formal proof of trial authenticity for arbitrary N.
 
-    STATUS: Zero Admitted.  Threshold is a free nat parameter.
-    =========================================================================
 *)
 
 (** CHSH cert predicate parameterized by N: true when ≥N trials recorded. *)
@@ -756,8 +726,8 @@ Definition chsh_qcs_n (n : nat) : QuantitativeCertificationSystem :=
     qcs_cert_threshold_witness := chsh_a5_n n;
   |}.
 
-(** =========================================================================
-    THE W2 THEOREM: N CHSH TRIALS REQUIRE N CHSH_TRIAL INSTRUCTIONS.
+(**
+    THE W2 N CHSH TRIALS REQUIRE N CHSH_TRIAL INSTRUCTIONS.
 
     Formal content:
     Starting from a state with zero accumulated trials, any trace that
@@ -773,7 +743,6 @@ Definition chsh_qcs_n (n : nat) : QuantitativeCertificationSystem :=
     Cost(evidence) ≥ N ≥ evidence_count.
 
     This is the W2 instantiation of the quantitative NoFI principle.
-    =========================================================================
 *)
 Theorem chsh_trial_count_lower_bound :
   forall (n : nat) (trace : list vm_instruction) (s0 : VMState),
@@ -803,9 +772,8 @@ Proof.
   exact (chsh_trial_count_lower_bound 1 trace s0 Hinit Hcert).
 Qed.
 
-(** =========================================================================
+(**
     SUMMARY: WHAT IS DONE AND WHAT COMES NEXT
-    =========================================================================
 
     DONE (this file):
     1. QCS record with A2/A3/A5, telescoping lemma, universal_nfi_quantitative.
@@ -818,8 +786,6 @@ Qed.
        - chsh_a3_n: A3 for any N (delegates to chsh_a3_obligation)
        - chsh_qcs_n: family of QCS parameterized by threshold N
        - chsh_trial_count_lower_bound: the W2 theorem for arbitrary N
-
-    WHAT THIS MEANS:
     The vm_witness field is an unforgeable trial counter.
     Any state with witness_total ≥ N was reached via ≥ N valid CHSH_TRIALs.
     Cost(N quantum measurements) ≥ N.
@@ -830,11 +796,8 @@ Qed.
     certified at confidence (1 - δ).
 
     LATER:
-    W1 (cert string length): cost ≥ |cert_content|.
+    W1 (cert payload bits): cost ≥ |cert_content|_bits.
     W4 (Shannon entropy): cost ≥ H(X) for certified distribution.
     W5 (Kolmogorov): cost ≥ K(x) — requires oracle axiom (Chaitin-style).
 
-    =========================================================================
-    STATUS: Zero Admitted.  Zero project-local axioms.
-    =========================================================================
 *)

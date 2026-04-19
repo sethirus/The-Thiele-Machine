@@ -4,7 +4,10 @@ From Coq Require Import Strings.String Strings.Ascii.
 From Coq Require Import micromega.Lia.
 Import ListNotations.
 
-(** Helper: Product equality decision *)
+(** pair_eq_dec: Coq won't let you call nodup on a list of pairs without this.
+    If you can compare A-values for equality, and you can compare B-values,
+    this gives you pair comparison. I need it for deduplicating coupling_pairs.
+    One proof, used everywhere there's a list (nat * nat). *)
 Definition pair_eq_dec {A B : Type}
   (decA : forall x y : A, {x = y} + {x <> y})
   (decB : forall x y : B, {x = y} + {x <> y})
@@ -18,32 +21,25 @@ Proof.
   - right. intros H. injection H. intros. contradiction.
 Defined.
 
-(** * VMState: Core state model for the Thiele Machine
+(** VMState: The state the machine lives in.
 
-    This file defines the complete machine state: registers, memory, program
-    counter, mu-ledger, partition graph, CHSH witness counters, and
-    certification flag. All other kernel files build on these types.
+    Everything else — NoFI, the shadow theorem, the hardware bridge — builds on
+    the types in this file. Start here if you want to understand the machine.
 
-    KEY TYPES:
-    - VMState (12 fields): The complete machine state snapshot
-    - PartitionGraph: Module IDs mapped to regions + axiom sets + tensors
-    - ModuleState: Per-module region, axioms, and 4x4 metric tensor
-    - CSRState: Control/status registers (cert addr, status, err, heap base)
-    - WitnessCounts: 8-bucket CHSH trial counters
+    The full state is 12 fields: registers, memory, PC, the μ-ledger (the cost
+    counter that never goes down), the partition graph (modules + morphisms),
+    CHSH witness buckets, certification status, and a few housekeeping fields.
 
-    KEY PROPERTIES (PROVEN):
-    - normalize_region_idempotent: Normalization is stable (essential for observables)
-    - well_formed_graph: All module IDs < pg_next_id (prevents collisions)
-    - wf_graph_lookup_beyond_next_id: Lookups beyond pg_next_id return None
-    - graph_*_preserves_wf: All operations maintain well-formedness
+    Three things this file guarantees:
+    normalize_region is idempotent — normalize twice, get the same thing.
+    well_formed_graph is preserved by every operation that modifies the graph.
+    The Memory-String bridge lets the VM store and retrieve strings from memory.
 
-    ARCHITECTURE CONSTANTS:
-    REG_COUNT=32, MEM_SIZE=65536, NUM_MODULES=64
+    These aren't nice-to-haves. Every observational equality proof depends on them.
+    If normalize_region_idempotent failed, two states with the same partition would
+    look different after one extra normalization pass. The whole comparison machinery
+    falls apart. *)
 
-    EXTRACTION CHAIN:
-    - OCaml: Extraction.v extracts VMState to build/thiele_core.ml
-    - RTL: ThieleCPUCore.v mirrors state as Kami registers
-    *)
 
 Definition ModuleID := nat.
 Definition VMAxiom := string.
@@ -59,31 +55,36 @@ Fixpoint nat_list_mem (x : nat) (xs : list nat) : bool :=
 Definition nat_list_add (xs : list nat) (x : nat) : list nat :=
   if nat_list_mem x xs then xs else xs ++ [x].
 
-(** Canonical region normalization: duplicate-free, stable, idempotent.
+(** normalize_region: Make a region canonical — no duplicates.
+    The problem: [1;2] and [2;1;2] represent the same set of cells, but Coq's
+    = treats them as different lists. If I didn't normalize, two states with
+    "the same" partition could look different to the proofs. Whole observational
+    equality story falls apart. nodup from Coq stdlib solves it: one canonical
+    form per set. I just wrap it.
 
-    Cross-layer comparison requires matched observables. Without canonical
-    normalization, the same logical region could have multiple representations
-    ([1;2] vs [2;1;2]), breaking observable equality.
-
-    Uses Coq stdlib nodup with decidable equality. This ensures:
-    1. Duplicate-free: NoDup (normalize_region r)
-    2. Idempotent: normalize_region (normalize_region r) = normalize_region r
-    3. Deterministic: Same input always produces same output
-
-    FALSIFICATION: If normalize_region is not idempotent, repeated observations
-    of the same module would differ, violating observational_no_signaling.
-*)
+    To falsify: If normalize_region wasn't idempotent, observational_no_signaling
+    would fail to compile (proven in KernelPhysics.v). *)
 Definition normalize_region (region : list nat) : list nat :=
   nodup Nat.eq_dec region.
 
-(** [normalize_region_nodup]: formal specification. *)
+(** normalize_region_nodup: After normalization, the region has no duplicates.
+    That's the whole point — every region that comes out of normalize_region is
+    a clean set, no repeated cells. If two normalized regions are list-equal,
+    they're the same set. One line: NoDup_nodup from Coq stdlib. *)
 Lemma normalize_region_nodup : forall region, NoDup (normalize_region region).
 Proof.
   intro region. unfold normalize_region.
   apply NoDup_nodup.
 Qed.
 
-(** [normalize_region_idempotent]: formal specification. *)
+(** normalize_region_idempotent: Normalizing twice is the same as normalizing once.
+    Here's why this matters: throughout the codebase, states get normalized
+    whenever modules are created or updated. If normalization weren't idempotent,
+    re-normalizing an already-normalized region would produce a different result,
+    breaking observational equality — two states with "the same" module could
+    look different just because one had been through one extra update cycle.
+    Proof uses nodup_fixed_point from Coq stdlib, which says nodup on a
+    duplicate-free list is a no-op. *)
 Lemma normalize_region_idempotent : forall region,
   normalize_region (normalize_region region) = normalize_region region.
 Proof.
@@ -114,7 +115,8 @@ Record ModuleState := {
 (** Default per-module tensor: 16 zeros (flat space). *)
 Definition module_mu_tensor_default : list nat := repeat 0 16.
 
-(** Backward-compatible constructor: builds ModuleState with default tensor. *)
+(** Build a ModuleState with a default (all-zeros) metric tensor.
+    Most code creates modules without an explicit tensor — this is the constructor for that. *)
 Definition mk_module_state (region : list nat) (axioms : AxiomSet) : ModuleState :=
   {| module_region := region;
      module_axioms := axioms;
@@ -134,26 +136,21 @@ Definition normalize_module (m : ModuleState) : ModuleState :=
      module_axioms := m.(module_axioms);
      module_mu_tensor := m.(module_mu_tensor) |}.
 
-(** ** Morphism Types for Categorical Structure
+(** Morphisms are arrows between modules.
+    A morphism says: here's how cells in module A map to cells in module B.
+    coupling_pairs records those (source_cell, target_cell) pairs.
+    morph_is_identity marks the identity morphism (each cell maps to itself).
 
-    Morphisms are arrows between modules. Each morphism has:
-    - A source module ID
-    - A target module ID
-    - A coupling: list of (source_cell, target_cell) pairs
-    - An identity flag
-
-    These form a category where:
-    - Objects = Modules (with regions as carrier sets)
-    - Morphisms = Couplings (relations between regions)
-    - Composition = Relational composition
-    - Identity = Diagonal relation
-*)
+    Why add this? The partition graph is a category — modules are objects, morphisms
+    are the structure-preserving arrows. The Phase 7 opcodes (MORPH, COMPOSE,
+    MORPH_ID, MORPH_TENSOR, MORPH_GET, MORPH_DELETE, MORPH_ASSERT) let programs
+    read and manipulate this categorical structure directly. *)
 
 Definition MorphismID := nat.
 
-(** CouplingData: The relational data of a morphism.
-    coupling_pairs is the list of (source, target) pairs defining the relation.
-    coupling_label is a human-readable description for debugging/display. *)
+(** CouplingData: The actual cell-to-cell mappings of a morphism.
+    coupling_pairs lists the (source_cell, target_cell) pairs.
+    coupling_label is a name you can read in the debugger. *)
 Record CouplingData := {
   coupling_pairs : list (nat * nat);
   coupling_label : string
@@ -162,7 +159,8 @@ Record CouplingData := {
 Definition empty_coupling_data : CouplingData :=
   {| coupling_pairs := []; coupling_label := "empty" |}.
 
-(** MorphismState: Complete morphism descriptor stored in the graph. *)
+(** MorphismState: Everything the graph stores about one morphism.
+    Source, target, coupling (the cell-to-cell map), and whether it's an identity. *)
 Record MorphismState := {
   morph_source : ModuleID;
   morph_target : ModuleID;
@@ -170,17 +168,21 @@ Record MorphismState := {
   morph_is_identity : bool
 }.
 
-(** Normalize coupling: remove duplicate pairs *)
+(** normalize_coupling: Remove duplicate (source, target) pairs from a coupling.
+    Same reasoning as normalize_region — canonical form prevents spurious inequality. *)
 Definition normalize_coupling (c : CouplingData) : CouplingData :=
   {| coupling_pairs := nodup (pair_eq_dec Nat.eq_dec Nat.eq_dec) c.(coupling_pairs);
      coupling_label := c.(coupling_label) |}.
 
-(** ** PartitionGraph: Modules + Morphisms
+(** PartitionGraph: The partition structure the machine works in.
+    pg_modules: the (ID, module) pairs — who's in the graph.
+    pg_next_id: fresh module ID counter (only goes up, never reused).
+    pg_morphisms: the (ID, morphism) pairs — the arrows.
+    pg_next_morph_id: same idea for morphism IDs.
 
-    Extended record now includes:
-    - pg_next_morph_id: Counter for morphism ID allocation
-    - pg_morphisms: List of (MorphismID, MorphismState) pairs
-*)
+    The well-formedness invariant says all existing IDs are strictly below their
+    respective counters. Without that, you'd get aliasing — two modules with the
+    same ID — and lookups become ambiguous. *)
 
 Record PartitionGraph := {
   pg_next_id : ModuleID;
@@ -189,14 +191,11 @@ Record PartitionGraph := {
   pg_morphisms : list (MorphismID * MorphismState)
 }.
 
-(** ** Well-Formedness Invariant for PartitionGraph
-
-    A PartitionGraph is well-formed if all module IDs in pg_modules
-    are strictly less than pg_next_id. This ensures:
-    - No ID collisions when adding new modules
-    - Lookups beyond pg_next_id always return None
-    - Module IDs are monotonically increasing
-    *)
+(** well_formed_graph: The invariant that keeps the graph from breaking.
+    Three conditions: every module ID in pg_modules is < pg_next_id, every
+    morphism ID is < pg_next_morph_id, and every morphism's source and target
+    are real modules. I prove every graph operation preserves all three.
+    Without this, lookups become undefined and the whole API falls apart. *)
 
 Fixpoint all_ids_below (modules : list (ModuleID * ModuleState)) (bound : nat) : Prop :=
   match modules with
@@ -434,7 +433,11 @@ Definition graph_cascade_delete_morphisms (g : PartitionGraph) (mid : ModuleID)
        negb (Nat.eqb ms.(morph_source) mid) &&
        negb (Nat.eqb ms.(morph_target) mid)) g.(pg_morphisms) |}.
 
-(** graph_cascade_delete_morphisms preserves modules *)
+(** graph_cascade_delete_morphisms_preserves_modules: Cascade-deleting morphisms
+    that reference a module ID leaves the module list itself untouched.
+    graph_cascade_delete_morphisms only rewrites pg_morphisms (filters it), so
+    pg_modules, pg_next_id, and pg_next_morph_id are unchanged by definition.
+    These four lemmas are all reflexivity — the definitions make them obvious. *)
 Lemma graph_cascade_delete_morphisms_preserves_modules : forall g mid,
   pg_modules (graph_cascade_delete_morphisms g mid) = pg_modules g.
 Proof. reflexivity. Qed.
@@ -447,6 +450,9 @@ Lemma graph_cascade_delete_morphisms_preserves_next_morph_id : forall g mid,
   pg_next_morph_id (graph_cascade_delete_morphisms g mid) = pg_next_morph_id g.
 Proof. reflexivity. Qed.
 
+(** graph_cascade_delete_morphisms_lookup: Module lookup is unaffected by cascade delete.
+    Since cascade delete only touches the morphism list, you can still find any
+    module you could find before. Used to glue cascade-then-remove proofs together. *)
 Lemma graph_cascade_delete_morphisms_lookup : forall g mid module_id,
   graph_lookup (graph_cascade_delete_morphisms g mid) module_id = graph_lookup g module_id.
 Proof.
@@ -454,7 +460,10 @@ Proof.
   rewrite graph_cascade_delete_morphisms_preserves_modules. reflexivity.
 Qed.
 
-(** graph_cascade_delete_morphisms preserves well-formedness. *)
+(** graph_cascade_delete_morphisms_preserves_wf: Filtering the morphism list
+    can't break well-formedness — it can only reduce the set of morphisms, so
+    all remaining ones still satisfy the ID-bounds and endpoint-validity invariants.
+    The three-part split in the proof matches the three-part definition of well_formed_graph. *)
 Lemma graph_cascade_delete_morphisms_preserves_wf : forall g mid,
   well_formed_graph g ->
   well_formed_graph (graph_cascade_delete_morphisms g mid).
@@ -485,7 +494,7 @@ Proof.
 Qed.
 
 (** Relational composition of coupling pairs.
-    NOTE: This function is also defined in CategoryLaws.v with proven properties.
+ This function is also defined in CategoryLaws.v with proven properties.
     We inline it here to avoid import dependencies. *)
 Definition relational_compose (r1 r2 : list (nat * nat)) : list (nat * nat) :=
   flat_map (fun '(a, b) =>
@@ -540,19 +549,22 @@ Definition graph_tensor_morphisms (g : PartitionGraph) (f_id g_id : MorphismID)
   | _, _ => None (* Morphisms not found *)
   end.
 
-(** ** Morphism Operations Preserve Module Lookup
-    Morphism operations only modify pg_morphisms and pg_next_morph_id,
-    not pg_modules, so graph_lookup is preserved. *)
-
-(* DEFINITIONAL HELPER: graph_add_morphism only modifies pg_morphisms and
-   pg_next_morph_id; pg_modules is untouched, so graph_lookup (which reads
-   pg_modules) is definitionally unchanged. The reflexivity proof is correct. *)
+(** All the Phase 7 morphism ops (MORPH, COMPOSE, MORPH_ID, MORPH_DELETE,
+    MORPH_TENSOR) touch pg_morphisms and pg_next_morph_id only. None of them
+    touch pg_modules. So graph_lookup, which reads pg_modules, is unaffected.
+    The proofs are reflexivity because the definitions make the separation explicit.
+    observational_no_signaling in KernelPhysics.v needs these. *)
+(* DEFINITIONAL HELPER *)
+(** graph_add_morphism_preserves_lookup: Adding a morphism doesn't change module lookup.
+    Proof is reflexivity — the definition literally doesn't touch pg_modules. *)
 Lemma graph_add_morphism_preserves_lookup : forall g src dst c is_id mid,
   graph_lookup (fst (graph_add_morphism g src dst c is_id)) mid = graph_lookup g mid.
 Proof.
   intros. unfold graph_add_morphism. simpl. reflexivity.
 Qed.
 
+(** graph_add_identity_preserves_lookup: Creating an identity morphism (MORPH_ID)
+    doesn't change what modules exist or where they are. *)
 Lemma graph_add_identity_preserves_lookup : forall g module g' morph_id mid,
   graph_add_identity g module = Some (g', morph_id) ->
   graph_lookup g' mid = graph_lookup g mid.
@@ -564,6 +576,8 @@ Proof.
   unfold graph_add_morphism. simpl. reflexivity.
 Qed.
 
+(** graph_delete_morphism_preserves_lookup: Deleting a morphism (MORPH_DELETE)
+    doesn't remove or change any module. Modules and morphisms are separate lists. *)
 Lemma graph_delete_morphism_preserves_lookup : forall g morph_id g' mid,
   graph_delete_morphism g morph_id = Some g' ->
   graph_lookup g' mid = graph_lookup g mid.
@@ -574,6 +588,8 @@ Proof.
   injection H as Hg'. subst g'. simpl. reflexivity.
 Qed.
 
+(** graph_compose_morphisms_preserves_lookup: Composing two morphisms (COMPOSE)
+    creates one new morphism but leaves modules alone. *)
 Lemma graph_compose_morphisms_preserves_lookup : forall g m1 m2 g' new_id mid,
   graph_compose_morphisms g m1 m2 = Some (g', new_id) ->
   graph_lookup g' mid = graph_lookup g mid.
@@ -587,6 +603,11 @@ Proof.
   apply graph_add_morphism_preserves_lookup.
 Qed.
 
+(** graph_tensor_morphisms_preserves_lookup: Tensor product of morphisms (MORPH_TENSOR)
+    adds one new morphism. Modules untouched. The case analysis is long because
+    MORPH_TENSOR has many preconditions (four module lookups, disjointness check,
+    two region finds), but once you've confirmed it succeeded, the conclusion is
+    just graph_add_morphism_preserves_lookup. *)
 Lemma graph_tensor_morphisms_preserves_lookup : forall g f_id g_id g' new_id mid,
   graph_tensor_morphisms g f_id g_id = Some (g', new_id) ->
   graph_lookup g' mid = graph_lookup g mid.
@@ -606,9 +627,15 @@ Proof.
   apply graph_add_morphism_preserves_lookup.
 Qed.
 
-(** ** Well-Formedness Preservation Lemmas *)
+(** Every graph operation that modifies modules or morphisms has to prove it
+    preserves all three parts of well_formed_graph. I track this because the
+    alternative — checking at runtime — would mean undefined behavior is
+    observable. With WF as an invariant, the step semantics can assume it holds
+    and the proofs confirm nothing ever breaks it. *)
 
-(** Helper: IDs strictly less than bound remain so after incrementing bound *)
+(** all_ids_below_weaken: If all IDs are < n, they're still < n+1.
+    This comes up in graph_add_module: we increment pg_next_id, so we need
+    to know the old module IDs still satisfy the new, larger bound. Lia kills it. *)
 Lemma all_ids_below_weaken : forall modules n,
   all_ids_below modules n ->
   all_ids_below modules (S n).
@@ -621,7 +648,14 @@ Proof.
     + apply IH. exact Hrest.
 Qed.
 
-(** graph_add_module preserves well-formedness *)
+(** graph_add_module_preserves_wf: Adding a new module keeps the graph well-formed.
+    Three things to check: (1) the new module's ID equals pg_next_id, which is
+    strictly less than S(pg_next_id); (2) the old modules' IDs are still below
+    the new, larger bound — all_ids_below_weaken handles that; (3) morphism
+    endpoints are still valid because the new module isn't referenced by any
+    existing morphism yet. The endpoint proof needs to show each old morphism
+    endpoint is still in the (now larger) module list — it's there because it
+    was in the old list, and we added to the front. *)
 Lemma graph_add_module_preserves_wf : forall g region axioms,
   well_formed_graph g ->
   well_formed_graph (fst (graph_add_module g region axioms)).
@@ -647,7 +681,9 @@ Proof.
       * apply IH. exact Hrest.
 Qed.
 
-(** Helper: removing an element preserves all_ids_below *)
+(** graph_remove_modules_preserves_all_ids_below: Removing a module from a
+    WF list still gives a WF list for the same bound. Makes sense — removing
+    can't introduce IDs that weren't there. Induction on the module list. *)
 Lemma graph_remove_modules_preserves_all_ids_below : forall modules mid modules' m bound,
   all_ids_below modules bound ->
   graph_remove_modules modules mid = Some (modules', m) ->
@@ -667,7 +703,10 @@ Proof.
       * discriminate.
 Qed.
 
-(** Helper: removing an element preserves In for other IDs *)
+(** graph_remove_modules_preserves_other_in: If module `other` (which is NOT `mid`)
+    was in the module list before removal, it's still there after.
+    This is how the morphism-endpoint proofs stay valid after removing a module —
+    any morphism that didn't reference `mid` still has both endpoints present. *)
 Lemma graph_remove_modules_preserves_other_in : forall modules mid modules' removed other,
   other <> mid ->
   graph_remove_modules modules mid = Some (modules', removed) ->
@@ -695,8 +734,11 @@ Proof.
         -- discriminate.
 Qed.
 
-(** graph_remove preserves well-formedness if no morphisms reference the removed module.
-    NOTE: In practice, use graph_cascade_delete_morphisms before removing a module. *)
+(** graph_remove_preserves_wf: Removing a module keeps the graph well-formed,
+    PROVIDED no remaining morphisms reference that module. In practice, you always
+    call graph_cascade_delete_morphisms first to ensure that precondition.
+    The caller passes in the endpoint-validity proof explicitly because the lemma
+    doesn't know which cascade strategy was used. *)
 Lemma graph_remove_preserves_wf : forall g mid g' m,
   well_formed_graph g ->
   all_morph_endpoints_valid (pg_modules g') (pg_morphisms g) ->
@@ -716,8 +758,11 @@ Proof.
   - discriminate.
 Qed.
 
-(** After cascade delete, morphism endpoints remain valid after module removal.
-    This is because cascade delete removes all morphisms referencing the module. *)
+(** cascade_then_remove_endpoints_valid: After cascade-deleting morphisms that
+    reference `mid` and then removing `mid` itself, every remaining morphism's
+    endpoints still exist. Here's the argument: cascade delete filtered out
+    everything that touched `mid`, so the remaining morphisms only reference
+    other modules — and those other modules survived the removal. *)
 Lemma cascade_then_remove_endpoints_valid : forall g mid g_removed m,
   well_formed_graph g ->
   graph_remove (graph_cascade_delete_morphisms g mid) mid = Some (g_removed, m) ->
@@ -754,7 +799,9 @@ Proof.
     + destruct Hendpoints as [_ Hrest]. exact (IH Hrest).
 Qed.
 
-(** Simplified graph_remove_preserves_wf for after cascade delete. *)
+(** graph_remove_after_cascade_preserves_wf: The standard pattern for safe module
+    removal. Call cascade delete first, then remove — this lemma bundles both steps
+    into a single well-formedness guarantee. This is what PSPLIT and PMERGE use. *)
 Lemma graph_remove_after_cascade_preserves_wf : forall g mid g_removed m,
   well_formed_graph g ->
   graph_remove (graph_cascade_delete_morphisms g mid) mid = Some (g_removed, m) ->
@@ -766,7 +813,10 @@ Proof.
   eapply graph_remove_preserves_wf; eauto.
 Qed.
 
-(** Helper: if no morphisms reference mid, removing mid preserves endpoint validity. *)
+(** remove_no_ref_endpoints_valid: If you can guarantee none of the morphisms
+    reference `mid` (e.g., by some method other than cascade delete — or for
+    double-cascade proofs), then removing `mid` doesn't break endpoint validity.
+    Used by graph_remove_no_ref_preserves_wf below. *)
 Lemma remove_no_ref_endpoints_valid : forall g mid g_removed m,
   (forall morph_id ms, In (morph_id, ms) (pg_morphisms g) ->
    morph_source ms <> mid /\ morph_target ms <> mid) ->
@@ -798,7 +848,9 @@ Proof.
       * exact Hrest.
 Qed.
 
-(** Graph_remove preserves wf when morphisms don't reference the removed module. *)
+(** graph_remove_no_ref_preserves_wf: The general form — if you have some proof
+    that no morphism touches `mid`, then removing `mid` preserves well-formedness.
+    Combines remove_no_ref_endpoints_valid with the standard WF components. *)
 Lemma graph_remove_no_ref_preserves_wf : forall g mid g_removed m,
   well_formed_graph g ->
   (forall morph_id ms, In (morph_id, ms) (pg_morphisms g) ->
@@ -818,7 +870,11 @@ Proof.
   - exact Hendpoints.
 Qed.
 
-(** After double cascade delete, no morphisms reference either removed module. *)
+(** double_cascade_no_ref: After cascading twice (once for m1, once for m2),
+    no surviving morphism has m1 or m2 as a source or target.
+    This is the key lemma for PMERGE's WF proof — you need to remove two modules,
+    and you need to know that after both cascades, neither is referenced. The
+    filter_In lemma from Coq's stdlib plus Boolean algebra handles it. *)
 Lemma double_cascade_no_ref : forall g m1 m2 morph_id ms,
   In (morph_id, ms) (pg_morphisms (graph_cascade_delete_morphisms
                                     (graph_cascade_delete_morphisms g m1) m2)) ->
@@ -838,8 +894,11 @@ Proof.
   repeat split; assumption.
 Qed.
 
-(** Graph remove after second remove in pmerge preserves wf.
-    After double cascade and first remove, the second remove still preserves wf. *)
+(** pmerge_second_remove_preserves_wf: PMERGE removes two modules. After the
+    first remove, we need to know the second remove also preserves WF. The
+    critical observation: double_cascade_no_ref gives us that no morphism in
+    the doubly-cascaded graph references either m1 or m2. The first remove
+    doesn't change pg_morphisms, so the second remove still sees that guarantee. *)
 Lemma pmerge_second_remove_preserves_wf : forall g m1 m2 g2_cascaded g_without_m1 mod1 g_without_both mod2,
   well_formed_graph g ->
   g2_cascaded = graph_cascade_delete_morphisms (graph_cascade_delete_morphisms g m1) m2 ->
@@ -875,9 +934,14 @@ Proof.
   apply (graph_remove_no_ref_preserves_wf _ m2 g_without_both mod2 Hwf_m1 Hno_ref_m2 Hrem2).
 Qed.
 
-(** ** Lookup Helper Lemmas for Morphism Preservation *)
+(** Three ways to say "this module exists": graph_lookup returns Some, the ID is
+    In (map fst modules), or graph_lookup returns non-None. These converters show
+    up constantly in WF preservation proofs — you need to go back and forth between
+    them to prove morphism endpoints survive each graph operation. *)
 
-(** Helper: graph_lookup_modules succeeds implies mid is in the module list *)
+(** graph_lookup_modules_in: If lookup succeeds, the module ID is in the ID list.
+    The proof is just an induction reading off the match — when Nat.eqb says yes,
+    the ID is at the head; otherwise recurse. *)
 Lemma graph_lookup_modules_in : forall modules mid m,
   graph_lookup_modules modules mid = Some m ->
   In mid (List.map fst modules).
@@ -889,7 +953,9 @@ Proof.
     + right. apply (IH _ m). exact Hlu.
 Qed.
 
-(** Reverse direction: In mid modules implies graph_lookup_modules succeeds *)
+(** in_modules_graph_lookup: If the module ID is in the ID list, lookup doesn't
+    return None. The reverse of graph_lookup_modules_in — converts membership
+    to lookup success for the WF preservation proofs that go the other way. *)
 Lemma in_modules_graph_lookup : forall modules mid,
   In mid (List.map fst modules) ->
   graph_lookup_modules modules mid <> None.
@@ -901,9 +967,14 @@ Proof.
     + destruct (Nat.eqb id mid) eqn:Heq; [discriminate | apply IH; exact Hin'].
 Qed.
 
-(** ** Morphism Operation Well-Formedness Preservation Lemmas *)
+(** WF preservation for morphism operations (MORPH, COMPOSE, MORPH_ID, etc.):
+    every morphism op that succeeds produces a well-formed graph. *)
 
-(** Helper: all morphisms have valid endpoints (extraction from all_morph_endpoints_valid) *)
+(** all_morph_endpoints_valid_In: Given the bulk endpoint-validity predicate,
+    extract validity for a specific morphism by its list membership.
+    This turns "all morphisms in this list are valid" into "this specific
+    morphism is valid" — used when composing or tensoring morphisms where you
+    need to look up a specific morphism and prove its endpoints still exist. *)
 Lemma all_morph_endpoints_valid_In : forall modules morphisms,
   all_morph_endpoints_valid modules morphisms ->
   forall mid ms, In (mid, ms) morphisms ->
@@ -918,7 +989,9 @@ Proof.
     + exact (IH Hrest mid ms Hin').
 Qed.
 
-(** Helper: graph_lookup_morphism_list succeeds implies morphism is in list *)
+(** graph_lookup_morphism_list_In: If morphism lookup succeeds, that morphism is
+    in the list. Like graph_lookup_modules_in but for morphisms. Converts a
+    successful lookup into list membership so we can apply all_morph_endpoints_valid_In. *)
 Lemma graph_lookup_morphism_list_In : forall morphisms mid ms,
   graph_lookup_morphism_list morphisms mid = Some ms ->
   In (mid, ms) morphisms.
@@ -930,7 +1003,12 @@ Proof.
     + right. apply IH. exact Hlu.
 Qed.
 
-(** graph_add_morphism preserves well-formedness when endpoints are valid *)
+(** graph_add_morphism_preserves_wf: Adding a morphism is safe when both
+    endpoints (src and dst) actually exist in the graph. The proof has to show:
+    (1) module IDs unchanged (just reflexivity); (2) the new morphism's ID
+    is valid and the old ones still are; (3) the new morphism's endpoints are in
+    pg_modules, plus all the old ones still are too. The two lookup-ne hypotheses
+    let us extract the actual ModuleState values via Hsrc_eq/Hdst_eq. *)
 Lemma graph_add_morphism_preserves_wf : forall g src dst c is_id,
   well_formed_graph g ->
   graph_lookup g src <> None ->
@@ -973,7 +1051,10 @@ Proof.
         split; [exact Hms | apply IH; exact Hrest].
 Qed.
 
-(** graph_compose_morphisms preserves well-formedness *)
+(** graph_compose_morphisms_preserves_wf: Composing two morphisms f;h is WF when
+    f.target = h.source (the type compatibility check). The composed morphism
+    goes from f.source to h.target — both of which are valid endpoints because
+    we can look them up from the original morphisms' endpoint validity. *)
 Lemma graph_compose_morphisms_preserves_wf : forall g m1 m2 g' new_id,
   well_formed_graph g ->
   graph_compose_morphisms g m1 m2 = Some (g', new_id) ->
@@ -1009,7 +1090,10 @@ Proof.
   - exact Hdst.
 Qed.
 
-(** graph_add_identity preserves well-formedness *)
+(** graph_add_identity_preserves_wf: Creating an identity morphism (MORPH_ID)
+    is safe because the source and target are the same module — and the module
+    must exist (otherwise graph_add_identity returns None). So both endpoints
+    are trivially valid: they're the same valid module. *)
 Lemma graph_add_identity_preserves_wf : forall g module g' morph_id,
   well_formed_graph g ->
   graph_add_identity g module = Some (g', morph_id) ->
@@ -1025,7 +1109,9 @@ Proof.
   - rewrite Hlookup. discriminate.
 Qed.
 
-(** graph_delete_morphism preserves well-formedness *)
+(** graph_delete_morphism_preserves_wf: Removing a morphism (MORPH_DELETE) can't
+    break WF. Fewer morphisms means fewer things to check validity on. All three
+    WF components (module IDs, morphism IDs, endpoints) filter cleanly through. *)
 Lemma graph_delete_morphism_preserves_wf : forall g morph_id g',
   well_formed_graph g ->
   graph_delete_morphism g morph_id = Some g' ->
@@ -1059,7 +1145,13 @@ Proof.
       * exact (IH Hrest).
 Qed.
 
-(** graph_tensor_morphisms preserves well-formedness *)
+(** graph_tensor_morphisms_preserves_wf: MORPH_TENSOR adds one morphism whose
+    endpoints are the union modules (ac_id and bd_id). The proof is the longest
+    of the morphism WF lemmas because MORPH_TENSOR has the most preconditions:
+    two morphism lookups, four module lookups, a disjointness check, and two
+    region finds. Once all those succeed, the new morphism's endpoints are valid
+    because graph_find_region only returns IDs of modules that exist. The inline
+    helper Hfind_valid captures that fact from graph_find_region_modules. *)
 Lemma graph_tensor_morphisms_preserves_wf : forall g f_id g_id g' new_id,
   well_formed_graph g ->
   graph_tensor_morphisms g f_id g_id = Some (g', new_id) ->
@@ -1111,13 +1203,18 @@ Proof.
   - exact (Hfind_valid _ bd_id Hbd).
 Qed.
 
-(** ** Morphism Operations Preserve pg_next_id
-    These operations modify pg_morphisms/pg_next_morph_id but leave pg_next_id alone. *)
+(** The morphism opcodes (MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_TENSOR)
+    work on the morphism side of the graph. None of them add modules. So pg_next_id
+    stays constant across all of them. The proofs below are all one-liners used
+    by observational_no_signaling in KernelPhysics.v. *)
 
+(** graph_add_morphism_next_id_same: Adding a morphism doesn't change pg_next_id.
+    Reflexivity — the definition is explicit about what changes. *)
 Lemma graph_add_morphism_next_id_same : forall g src dst c is_id,
   pg_next_id (fst (graph_add_morphism g src dst c is_id)) = pg_next_id g.
 Proof. intros. unfold graph_add_morphism. simpl. reflexivity. Qed.
 
+(** graph_add_identity_next_id_same: MORPH_ID doesn't add modules. *)
 Lemma graph_add_identity_next_id_same : forall g module g' morph_id,
   graph_add_identity g module = Some (g', morph_id) ->
   pg_next_id g' = pg_next_id g.
@@ -1128,6 +1225,7 @@ Proof.
   injection H as Hg _. subst g'. apply graph_add_morphism_next_id_same.
 Qed.
 
+(** graph_compose_morphisms_next_id_same: COMPOSE doesn't add modules. *)
 Lemma graph_compose_morphisms_next_id_same : forall g m1 m2 g' new_id,
   graph_compose_morphisms g m1 m2 = Some (g', new_id) ->
   pg_next_id g' = pg_next_id g.
@@ -1140,6 +1238,7 @@ Proof.
   injection H as Hg _. subst g'. apply graph_add_morphism_next_id_same.
 Qed.
 
+(** graph_delete_morphism_next_id_same: MORPH_DELETE doesn't add modules. *)
 Lemma graph_delete_morphism_next_id_same : forall g morph_id g',
   graph_delete_morphism g morph_id = Some g' ->
   pg_next_id g' = pg_next_id g.
@@ -1150,6 +1249,9 @@ Proof.
   injection H as Hg. subst g'. simpl. reflexivity.
 Qed.
 
+(** graph_tensor_morphisms_next_id_same: MORPH_TENSOR doesn't add modules either,
+    even though it finds and uses the union-region modules. Those modules already
+    exist — the precondition requires graph_find_region to succeed on both. *)
 Lemma graph_tensor_morphisms_next_id_same : forall g f_id g_id g' new_id,
   graph_tensor_morphisms g f_id g_id = Some (g', new_id) ->
   pg_next_id g' = pg_next_id g.
@@ -1177,7 +1279,9 @@ Proof.
 Qed.
 
 
-(** graph_add_module increases length by 1 *)
+(** graph_add_module_length: Adding a module always increases the module list by
+    exactly 1. The new module is prepended: result = new :: old. So length goes
+    from n to n+1. Used by PSPLIT and PMERGE length accounting. *)
 Lemma graph_add_module_length : forall g region axioms,
   List.length (pg_modules (fst (graph_add_module g region axioms))) =
   S (List.length (pg_modules g)).
@@ -1186,7 +1290,10 @@ Proof.
   unfold graph_add_module. simpl. reflexivity.
 Qed.
 
-(** Helper: graph_remove_modules decreases length by 1 when successful *)
+(** graph_remove_modules_length: A successful removal decreases the module
+    list by exactly 1. "Successful" means the module was found and removed.
+    The induction handles the head (found immediately) and tail (found deeper)
+    cases separately. Used to track module count through PMERGE's two removals. *)
 Lemma graph_remove_modules_length : forall modules mid modules' m,
   graph_remove_modules modules mid = Some (modules', m) ->
   List.length modules = S (List.length modules').
@@ -1203,7 +1310,8 @@ Proof.
       * discriminate.
 Qed.
 
-(** graph_remove decreases length by 1 when successful *)
+(** graph_remove_length: Successful removal of a module from the graph reduces
+    pg_modules length by 1. Lifts graph_remove_modules_length to the graph level. *)
 Lemma graph_remove_length : forall g mid g' m,
   graph_remove g mid = Some (g', m) ->
   List.length (pg_modules g) = S (List.length (pg_modules g')).
@@ -1216,7 +1324,8 @@ Proof.
   - discriminate.
 Qed.
 
-(** graph_insert_modules preserves or increases length *)
+(** graph_insert_modules_length: Inserting may add one element (new ID) or
+    replace one (existing ID). Either way, length doesn't decrease. *)
 Lemma graph_insert_modules_length : forall modules mid m,
   List.length (graph_insert_modules modules mid m) >= List.length modules.
 Proof.
@@ -1227,7 +1336,10 @@ Proof.
     + specialize (IH mid m). lia.
 Qed.
 
-(** graph_insert_modules on existing id preserves length exactly *)
+(** graph_insert_modules_existing_length: If the module already exists (mid is
+    in the ID list), insertion replaces it in-place — length stays the same.
+    This is how graph_update works: it calls graph_insert_modules with the
+    assumption that the module already exists. *)
 Lemma graph_insert_modules_existing_length : forall modules mid m,
   In mid (List.map fst modules) ->
   List.length (graph_insert_modules modules mid m) = List.length modules.
@@ -1243,7 +1355,9 @@ Proof.
       * simpl. f_equal. apply IH. exact Hin'.
 Qed.
 
-(** graph_insert_modules preserves membership in map fst (module IDs) *)
+(** graph_insert_modules_preserves_in_map: Any module ID that was in the list
+    before insertion is still in the list after. Insertions can only add, never
+    remove. Used to prove morphism endpoints remain valid after graph_update. *)
 Lemma graph_insert_modules_preserves_in_map : forall modules mid m mid',
   In mid' (List.map fst modules) ->
   In mid' (List.map fst (graph_insert_modules modules mid m)).
@@ -1259,7 +1373,8 @@ Proof.
       * simpl. right. apply IH. exact Hin'.
 Qed.
 
-(** graph_update preserves or increases length *)
+(** graph_update_length: Updating a module (possibly new, possibly existing)
+    doesn't shrink the module list. Follows from graph_insert_modules_length. *)
 Lemma graph_update_length : forall g mid m,
   List.length (pg_modules (graph_update g mid m)) >= List.length (pg_modules g).
 Proof.
@@ -1268,7 +1383,9 @@ Proof.
   apply graph_insert_modules_length.
 Qed.
 
-(** graph_add_axiom preserves or increases length *)
+(** graph_add_axiom_length: Adding an axiom to a module (PDISCOVER) doesn't
+    remove modules. It either updates an existing module (same length) or
+    does nothing when the module doesn't exist (same length). *)
 Lemma graph_add_axiom_length : forall g mid ax,
   List.length (pg_modules (graph_add_axiom g mid ax)) >= List.length (pg_modules g).
 Proof.
@@ -1279,7 +1396,9 @@ Proof.
   - lia.
 Qed.
 
-(** graph_add_axiom preserves length exactly *)
+(** graph_add_axiom_preserves_length: Adding an axiom to an existing module
+    leaves the module count exactly the same — it updates in-place.
+    If the module doesn't exist, graph is unchanged, also same count. *)
 Lemma graph_add_axiom_preserves_length : forall g mid ax,
   List.length (pg_modules (graph_add_axiom g mid ax)) = List.length (pg_modules g).
 Proof.
@@ -1295,7 +1414,9 @@ Proof.
     reflexivity.
 Qed.
 
-(** graph_add_axioms preserves length exactly *)
+(** graph_add_axioms_preserves_length: Adding a list of axioms (fold over
+    graph_add_axiom) preserves length. Induction over the axiom list,
+    each step using graph_add_axiom_preserves_length. *)
 Lemma graph_add_axioms_preserves_length : forall g mid axs,
   List.length (pg_modules (graph_add_axioms g mid axs)) = List.length (pg_modules g).
 Proof.
@@ -1306,7 +1427,8 @@ Proof.
   - rewrite IH. apply graph_add_axiom_preserves_length.
 Qed.
 
-(** graph_record_discovery preserves length exactly *)
+(** graph_record_discovery_preserves_length: PDISCOVER stores evidence on a
+    module but doesn't create or remove modules. Length unchanged. *)
 Lemma graph_record_discovery_preserves_length : forall g mid evidence,
   List.length (pg_modules (graph_record_discovery g mid evidence)) = List.length (pg_modules g).
 Proof.
@@ -1315,7 +1437,10 @@ Proof.
   apply graph_add_axioms_preserves_length.
 Qed.
 
-(** graph_update on existing id preserves length exactly *)
+(** graph_update_existing_length: When the module already exists, graph_update
+    replaces it in-place and keeps the count exactly the same. The "existing"
+    precondition (lookup <> None) is what lets us use the in-place replacement
+    branch of graph_insert_modules_existing_length. *)
 Lemma graph_update_existing_length : forall g mid m,
   graph_lookup g mid <> None ->
   List.length (pg_modules (graph_update g mid m)) = List.length (pg_modules g).
@@ -1329,7 +1454,10 @@ Proof.
   - contradiction.
 Qed.
 
-(** graph_insert_modules lookup for the same id *)
+(** graph_insert_modules_lookup_same: After inserting module m at mid, looking
+    up mid returns m. This is the correctness property for graph_update —
+    what you write is what you get back. Requires mid to already be in the list
+    (in-place replacement, not append). Induction on the module list. *)
 Lemma graph_insert_modules_lookup_same : forall modules mid m,
   In mid (List.map fst modules) ->
   graph_lookup_modules (graph_insert_modules modules mid m) mid = Some m.
@@ -1349,7 +1477,10 @@ Proof.
         simpl. rewrite Heq. apply IH. exact Hin_rest.
 Qed.
 
-(** graph_update lookup for the same id *)
+(** graph_update_lookup_same: After updating module mid to m, looking up mid
+    returns normalize_module m. Note the normalize — graph_update always
+    normalizes the module on write, so the stored value has normalized region.
+    The normalize_module m in the result is NOT a surprise — it's by definition. *)
 Lemma graph_update_lookup_same : forall g mid m,
   graph_lookup g mid <> None ->
   graph_lookup (graph_update g mid m) mid = Some (normalize_module m).
@@ -1363,7 +1494,10 @@ Proof.
   - contradiction.
 Qed.
 
-(** graph_insert_modules preserves lookup for different id *)
+(** graph_insert_modules_preserves_unrelated: Inserting at mid_update doesn't
+    change the lookup result for any other module id. The proof handles the
+    case where the list was empty separately (the inserted element is the only
+    one, and you're looking up something different — returns None in both cases). *)
 Lemma graph_insert_modules_preserves_unrelated : forall modules mid_update mid_other m,
   mid_other <> mid_update ->
   graph_lookup_modules (graph_insert_modules modules mid_update m) mid_other =
@@ -1396,7 +1530,9 @@ Proof.
         apply IH. exact Hneq.
 Qed.
 
-(** graph_update preserves lookup for different id *)
+(** graph_update_preserves_unrelated: Updating one module doesn't change what
+    you see when you look up a different module. Lifts the list-level lemma
+    to the graph level. Used heavily in observational_no_signaling proofs. *)
 Lemma graph_update_preserves_unrelated : forall g mid_update mid_other m,
   mid_other <> mid_update ->
   graph_lookup (graph_update g mid_update m) mid_other = graph_lookup g mid_other.
@@ -1406,9 +1542,13 @@ Proof.
   apply graph_insert_modules_preserves_unrelated. exact Hneq.
 Qed.
 
-(** ** Key Structural Theorem: Lookups Beyond pg_next_id Return None *)
+(** Module IDs form the range [0, pg_next_id). Ask about anything above that,
+    you get None. No aliasing, no undefined behavior. This is what well-formedness
+    buys you: any ID above the counter is guaranteed fresh — never been allocated. *)
 
-(** Helper: If all IDs in a module list are < bound, then lookup of mid >= bound returns None *)
+(** all_ids_below_implies_lookup_none: If all IDs in the list are < bound, then
+    looking up anything >= bound finds nothing. This is the mechanical step
+    that makes wf_graph_lookup_beyond_next_id work. Lia handles the arithmetic. *)
 Lemma all_ids_below_implies_lookup_none : forall modules mid bound,
   all_ids_below modules bound ->
   mid >= bound ->
@@ -1424,7 +1564,10 @@ Proof.
       apply (IH mid bound Hrest Hge).
 Qed.
 
-(** graph_remove preserves pg_next_id *)
+(** graph_remove_preserves_next_id: Removing a module doesn't reset the ID counter.
+    pg_next_id only goes up — it never comes back down even if you free an ID.
+    IDs are not recycled. This prevents aliasing (a new module getting the same
+    ID as a just-removed module would be confusing). *)
 Lemma graph_remove_preserves_next_id : forall g mid g' m,
   graph_remove g mid = Some (g', m) ->
   g'.(pg_next_id) = g.(pg_next_id).
@@ -1436,7 +1579,10 @@ Proof.
   - discriminate.
 Qed.
 
-(** graph_remove preserves lookup for unrelated modules *)
+(** graph_remove_preserves_unrelated: Removing module mid' doesn't change the
+    lookup result for any other module mid. The proof has to chase through
+    graph_remove_modules to find the exact point where mid' was removed
+    and verify that mid's entry is undisturbed. *)
 Lemma graph_remove_preserves_unrelated : forall g mid mid' g' m',
   mid <> mid' ->
   graph_remove g mid' = Some (g', m') ->
@@ -1491,7 +1637,6 @@ Qed.
     is < pg_next_id. Every ID in the list is < pg_next_id, so mid >= pg_next_id
     can't match any existing ID.
 
-    USED BY: KernelPhysics.v uses this to prove observational_no_signaling —
     operations can't affect modules that don't exist.
 *)
 Theorem wf_graph_lookup_beyond_next_id : forall g mid,
@@ -1506,7 +1651,7 @@ Proof.
   apply (all_ids_below_implies_lookup_none _ _ _ Hwf_mods Hge).
 Qed.
 
-(** Architecture constants. Unified across Coq extraction and Kami RTL. *)
+(** Architecture constants — must match Kami RTL (ThieleCPUCore.v) and OCaml extraction. *)
 Definition REG_COUNT : nat := 32.
 Definition MEM_SIZE : nat := 65536.
 Definition NUM_MODULES : nat := 64.  (* Maximum number of concurrent modules *)
@@ -1522,6 +1667,9 @@ Definition Q16_SHIFT : nat := 16.            (* Fractional bit position *)
 Definition Q16_ONE : nat := 65536.           (* Representation of 1 in Q16.16 (2^16) *)
 Definition Q16_MAX : nat := 2147483647.      (* Max positive Q16.16 (2^31-1) *)
 
+(** graph_pnew: Create a module with this region. If one already exists with
+    this exact region, return it instead — PNEW is idempotent. Otherwise add
+    a fresh module with an empty axiom set. *)
 Definition graph_pnew (g : PartitionGraph) (region : list nat)
   : PartitionGraph * ModuleID :=
   let normalized := normalize_region region in
@@ -1530,6 +1678,9 @@ Definition graph_pnew (g : PartitionGraph) (region : list nat)
   | None => graph_add_module g normalized []
   end.
 
+(** partition_valid: Check that (left, right) is a valid partition of original.
+    left ⊆ original, right ⊆ original, left ∩ right = ∅, left ∪ right = original.
+    All four must hold. If any fails, PSPLIT rejects the split. *)
 Definition partition_valid
   (original left right : list nat) : bool :=
   nat_list_subset left original &&
@@ -1537,6 +1688,12 @@ Definition partition_valid
   nat_list_disjoint left right &&
   nat_list_subset original (nat_list_union left right).
 
+(** graph_psplit: Split module mid into two child modules with regions left and right.
+    Cascade-deletes morphisms referencing mid first (they'd be stale after removal).
+    If left or right is empty, creates one empty module and keeps mid as the other.
+    If partition_valid fails (regions don't cover original or overlap), returns None.
+    Returns (new_graph, left_id, right_id). The abstract form — the hardware-aligned
+    version (graph_hw_psplit) is in VMStep.v. *)
 Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
   (left right : list nat)
   : option (PartitionGraph * ModuleID * ModuleID) :=
@@ -1565,6 +1722,11 @@ Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
       else None
   end.
 
+(** graph_pmerge: Merge modules m1 and m2 into one. Returns None if m1 = m2 (can't
+    merge a module with itself) or if their regions overlap (would create ambiguity).
+    Cascade-deletes morphisms referencing either module first. If the union region
+    already exists as a module, merges axioms into it. Otherwise creates a fresh module.
+    Returns (new_graph, merged_id). *)
 Definition graph_pmerge (g : PartitionGraph) (m1 m2 : ModuleID)
   : option (PartitionGraph * ModuleID) :=
   if Nat.eqb m1 m2 then None else
@@ -1601,6 +1763,22 @@ Definition graph_pmerge (g : PartitionGraph) (m1 m2 : ModuleID)
       end
   end.
 
+(** CSRState: Control/Status Register state — four values the hardware
+    uses for certification bookkeeping and error reporting.
+
+    csr_cert_addr: The address (checksum) of the last EMIT/REVEAL/LASSERT/LJOIN.
+      Non-zero means the machine has produced certified output. This is what
+      has_supra_cert checks. The NoFreeInsight theorem is ultimately about
+      this field: you can't get csr_cert_addr != 0 without spending μ-cost.
+
+    csr_status: General status code. Currently informational.
+
+    csr_err: Error code. Non-zero means something bad happened.
+      ERR_LOGIC=0xC43471A1, ERR_LOCALITY=0x0BADC0DE, ERR_CHSH=0x0BADC45C.
+      Once set, the error flag latches — vm_err also goes true and stays true.
+
+    csr_heap_base: Base address for HEAP_LOAD/HEAP_STORE (pointer arithmetic
+      relative to a declared heap region, avoiding raw memory address confusion). *)
 Record CSRState := {
   csr_cert_addr : nat;
   csr_status : nat;
@@ -1608,6 +1786,10 @@ Record CSRState := {
   csr_heap_base : nat
 }.
 
+(** CSR setters: immutable record update helpers.
+    Coq records are immutable, so every "mutation" builds a new record with one
+    field changed. These four functions do that for each CSR field. They're
+    called directly by the instruction semantics in VMStep.v. *)
 Definition csr_set_status (csrs : CSRState) (status : nat) : CSRState :=
   {| csr_cert_addr := csrs.(csr_cert_addr);
      csr_status := status;
@@ -1632,45 +1814,38 @@ Definition csr_set_heap_base (csrs : CSRState) (base : nat) : CSRState :=
      csr_err := csrs.(csr_err);
      csr_heap_base := base |}.
 
-(** Accessors for CSR fields. *)
+(** cert_addr, status: Shorthand accessors for the most commonly queried CSR fields.
+    cert_addr is used in NoFreeInsight and RevelationRequirement to check
+    whether the machine has produced certified output. *)
 Definition cert_addr (csrs : CSRState) : nat := csrs.(csr_cert_addr).
 Definition status (csrs : CSRState) : nat := csrs.(csr_status).
 
-(** Accessors for PartitionGraph fields. *)
+(** next_id, partitions: PartitionGraph field accessors for cross-layer readability.
+    The thesis and external documentation refer to these by the plain names;
+    the record uses pg_ prefixes to avoid namespace collisions. *)
 Definition next_id (g : PartitionGraph) : ModuleID := g.(pg_next_id).
 Definition partitions (g : PartitionGraph) : list (ModuleID * ModuleState) := g.(pg_modules).
 
-(** VMState: Complete snapshot of the Thiele Machine at a single instant.
+(** VMState: Everything the machine needs to take its next step.
 
-    A state machine needs complete information to determine its next state.
-    This record provides exactly that — nothing more, nothing less.
+    12 fields:
+    vm_graph: the partition structure (modules and morphisms)
+    vm_csrs: control/status registers (cert address, status, error code, heap base)
+    vm_regs: register file (REG_COUNT=32 registers, default 0)
+    vm_mem: data memory (MEM_SIZE=65536 words, default 0)
+    vm_pc: program counter
+    vm_mu: THE μ-LEDGER. The cost counter that never goes down. Every instruction
+      adds to it. This is what No Free Insight is about. If μ could decrease, the
+      whole theorem is meaningless. Proven monotonic in MuLedgerConservation.v.
+    vm_mu_tensor: flattened 4×4 global μ-tensor (16 entries, row-major)
+    vm_err: error flag — latches on error, never clears
+    vm_logic_acc: logic engine accumulator (guards high-value opcodes; key = 0xCAFEEACE)
+    vm_mstatus: mode flag (0 = Turing mode, 1 = Thiele mode)
+    vm_witness: 8-bucket CHSH trial counters
+    vm_certified: state-based certification flag
 
-    STRUCTURE (12 fields):
-    - vm_graph: PartitionGraph — how state is decomposed into modules
-    - vm_csrs: CSRState — control/status registers (cert address, status, errors)
-    - vm_regs: list nat — register file (REG_COUNT=32 registers)
-    - vm_mem: list nat — data memory (MEM_SIZE=65536 words)
-    - vm_pc: nat — program counter
-    - vm_mu: nat — THE μ-LEDGER (the central cost measure)
-    - vm_mu_tensor: list nat — flattened 4×4 global μ-tensor (16 entries)
-    - vm_err: bool — error flag (latches on error, never clears)
-    - vm_logic_acc: nat — logic engine accumulator (guards high-value opcodes)
-    - vm_mstatus: nat — mode flag (0 = Turing mode, 1 = Thiele mode)
-    - vm_witness: WitnessCounts — 8-bucket CHSH trial counters
-    - vm_certified: bool — state-based certification flag
-
-    KEY INSIGHT: vm_mu is the innovation. Every structural operation increases
-    it monotonically. No operation decreases it. This is proven in
-    MuLedgerConservation.v. If μ could decrease, the No Free Insight theorem
-    would be meaningless.
-
-    EXTRACTION CHAIN:
-    - OCaml: Extraction.v extracts VMState to build/thiele_core.ml
-    - RTL: ThieleCPUCore.v mirrors this state as Kami registers
-
-    FALSIFICATION: If any valid step decreases vm_mu, μ-monotonicity is violated.
-    If state is incomplete, the step function is undefined. Proofs won't compile.
-*)
+    To falsify: If any valid step decreases vm_mu, MuLedgerConservation.v
+    won't compile. If the state record is incomplete, step is undefined. *)
 
 (** WitnessCounts: 8-bucket CHSH trial recorder.
     Each (setting, outcome) pair has its own counter:
@@ -1728,7 +1903,9 @@ Definition module_tensor_entry (s : VMState) (m : ModuleID) (i j : nat) : nat :=
   | Some ms => nth (i * 4 + j) (module_mu_tensor ms) 0
   end.
 
-(** [module_tensor_entry_none]: returns 0 for absent module. *)
+(** module_tensor_entry_none: Reading a tensor entry for a non-existent module
+    returns 0. This makes the tensor accessor total — you never get undefined
+    behavior from a bad module ID, just a silent zero. *)
 Lemma module_tensor_entry_none : forall s m i j,
   graph_lookup (vm_graph s) m = None ->
   module_tensor_entry s m i j = 0.
@@ -1736,7 +1913,8 @@ Proof.
   intros s m i j Hnone. unfold module_tensor_entry. rewrite Hnone. reflexivity.
 Qed.
 
-(** [module_tensor_entry_some]: reads correct entry for present module. *)
+(** module_tensor_entry_some: When the module exists, module_tensor_entry
+    reads the correct element at position (i*4+j) of its tensor list. *)
 Lemma module_tensor_entry_some : forall s m ms i j,
   graph_lookup (vm_graph s) m = Some ms ->
   module_tensor_entry s m i j = nth (i * 4 + j) (module_mu_tensor ms) 0.
@@ -1773,7 +1951,7 @@ Qed.
 
 (** tensor_set_get_roundtrip: set tensor entry (i,j) to value, then get it back.
     Returns the written value, provided module exists and indices are in bounds.
-    NOTE: normalize_region does NOT affect module_mu_tensor (preserves it as-is). *)
+ normalize_region does NOT affect module_mu_tensor (preserves it as-is). *)
 Lemma tensor_set_get_roundtrip : forall g mid i j v ms,
   graph_lookup g mid = Some ms ->
   (i < 4)%nat -> (j < 4)%nat ->
@@ -1790,46 +1968,36 @@ Proof.
   simpl. apply list_update_at_nth_same. exact Hlen.
 Qed.
 
-(** Helper aliases for μ-cost access. Multiple names exist for cross-layer readability. *)
+(** Four names for s.(vm_mu), used in different contexts to say what μ means there.
+    vm_mu_cost: it's a cost (MuLedgerConservation, NoFreeInsight).
+    vm_mu_information: it's information-theoretic (MuInformation).
+    vm_mu_total: it's cumulative (ThreeLayerIsomorphism).
+    mu_information: cross-layer isomorphism lemmas.
+    All identical. One field, four names for readability. *)
 Definition vm_mu_cost (s : VMState) : nat := s.(vm_mu).
-Definition vm_mu_information (s : VMState) : nat := s.(vm_mu).  (* μ-cost in information bits *)
-Definition vm_mu_total (s : VMState) : nat := s.(vm_mu).  (* Total accumulated μ-cost *)
-Definition mu_information (s : VMState) : nat := s.(vm_mu).  (* Alias for cross-layer isomorphism *)
+Definition vm_mu_information (s : VMState) : nat := s.(vm_mu).
+Definition vm_mu_total (s : VMState) : nat := s.(vm_mu).
+Definition mu_information (s : VMState) : nat := s.(vm_mu).
 
-(** word64_mask: Bitmask for 64-bit word truncation.
+(** word64_mask: 0xFFFFFFFFFFFFFFFF. The AND-mask for 64-bit truncation.
+    Coq's nat is unbounded. Real hardware wraps at 2^64. Without this,
+    overflow in Coq and overflow in hardware diverge, breaking the
+    three-layer isomorphism (Coq = OCaml = Verilog). N.ones 64 gives
+    64 consecutive 1-bits. AND with it truncates to 64 bits.
 
-    WHY: Coq's nat type is unbounded (0,1,2,...,∞). Real hardware uses fixed-width
-    registers. Without explicit masking, 0xFFFFFFFFFFFFFFFF + 1 = 0x10000000000000000
-    in Coq but 0x0000000000000000 in hardware (overflow/wraparound). This breaks
-    the three-layer isomorphism (Coq = OCaml = Verilog).
-
-    IMPLEMENTATION: N.ones 64 creates 64 consecutive 1-bits: 0xFFFFFFFFFFFFFFFF.
-    Bitwise AND with this mask truncates to lower 64 bits.
-
-    OCaml note: OCaml `int` is 63-bit on 64-bit platforms. The extraction layer
-    routes all word64 operations through Int64 for correct two's-complement
-    arithmetic, but Int64.to_int loses bit 63 (the 64th bit). Values in
-    [0, 2^62) are exact across all layers; values in [2^62, 2^64) lose the
-    top bit and are practically unreachable in VM programs. The Verilog RTL
-    has 32-bit word width (Bit#(32)).
-*)
+    OCaml note: OCaml int is 63-bit on 64-bit platforms. Int64 handles this
+    in extraction. Bit 63 (the 64th bit) is lossy at the OCaml layer.
+    Values in [0, 2^62) are exact. This is an irreducible gap. *)
 Definition word64_mask : N := N.ones 64.
 
-(** word64: Truncate arbitrary nat to 64-bit word.
-
-    Enforces hardware semantics in the mathematical model. Every write to
-    registers or memory applies this to ensure deterministic wraparound.
-
-    HOW IT WORKS:
-    1. N.of_nat x: Convert Coq nat (inductive) to N (binary)
-    2. N.land (...) word64_mask: Bitwise AND keeps only lower 64 bits
-    3. N.to_nat: Convert back to nat for proof convenience
-
-    USED BY: write_reg, write_mem — every stored value is explicitly truncated.
-*)
+(** word64: Truncate a nat to 64 bits.
+    N.of_nat converts to binary, N.land with word64_mask keeps the low 64 bits,
+    N.to_nat converts back. write_reg and write_mem apply this on every write
+    so hardware wraparound matches the Coq model. *)
 Definition word64 (x : nat) : nat :=
   N.to_nat (N.land (N.of_nat x) word64_mask).
 
+(** word64_xor: Bitwise XOR, result truncated to 64 bits. Used by XOR_ADD. *)
 Definition word64_xor (a b : nat) : nat :=
   word64 (N.to_nat (N.lxor (N.of_nat a) (N.of_nat b))).
 
@@ -1844,6 +2012,9 @@ Definition word64_sub (a b : nat) : nat :=
            (N.add (N.lxor (N.of_nat (word64 b)) word64_mask) 1%N))
     word64_mask).
 
+(** popcount_upto: Count the 1-bits in x, looking at `bits` bits from the top.
+    This is the inductive core of word64_popcount. It counts down from 63 to 0,
+    testing each bit with N.testbit. Used by XOR_RANK (Hamming weight instruction). *)
 Fixpoint popcount_upto (bits : nat) (x : N) : nat :=
   match bits with
   | 0 => 0
@@ -1874,23 +2045,38 @@ Definition word64_shr (a b : nat) : nat :=
 (** word64_mul: Modular 64-bit multiplication (wraps at 2^64). *)
 Definition word64_mul (a b : nat) : nat := word64 (a * b).
 
+(** reg_index, mem_index: Wrap register and memory indices to stay in bounds.
+    Modular addressing means out-of-range register/address references are never
+    undefined — they wrap around. REG_COUNT=32, MEM_SIZE=65536.
+    This is deterministic: same index always maps to the same register/cell. *)
 Definition reg_index (r : nat) : nat := r mod REG_COUNT.
 Definition mem_index (a : nat) : nat := a mod MEM_SIZE.
 
+(** read_reg: Read register r from state s. nth with default 0.
+    The default 0 makes the function total — uninitialized registers read as 0. *)
 Definition read_reg (s : VMState) (r : nat) : nat :=
   nth (reg_index r) s.(vm_regs) 0.
 
+(** write_reg: Write value v to register r. Splits the list at idx, inserts
+    word64 v, then rejoins. word64 truncates v to 64 bits before storage. *)
 Definition write_reg (s : VMState) (r v : nat) : list nat :=
   let idx := reg_index r in
   firstn idx s.(vm_regs) ++ [word64 v] ++ skipn (S idx) s.(vm_regs).
 
+(** read_mem: Read memory at address a. Wraps address to MEM_SIZE, default 0. *)
 Definition read_mem (s : VMState) (a : nat) : nat :=
   nth (mem_index a) s.(vm_mem) 0.
 
+(** write_mem: Write value v to memory at address a.
+    Same split-and-rejoin pattern as write_reg. word64 truncation on every write. *)
 Definition write_mem (s : VMState) (a v : nat) : list nat :=
   let idx := mem_index a in
   firstn idx s.(vm_mem) ++ [word64 v] ++ skipn (S idx) s.(vm_mem).
 
+(** swap_regs: Exchange values in registers a and b. Used by XOR_SWAP.
+    Read both values first, then write each to the other's slot. The two
+    writes are sequential on the intermediate list regs', not s.(vm_regs),
+    so the second write sees the result of the first — this is intentional. *)
 Definition swap_regs (regs : list nat) (a b : nat) : list nat :=
   let a_idx := a mod REG_COUNT in
   let b_idx := b mod REG_COUNT in
@@ -1899,11 +2085,24 @@ Definition swap_regs (regs : list nat) (a b : nat) : list nat :=
   let regs' := firstn a_idx regs ++ [vb] ++ skipn (S a_idx) regs in
   firstn b_idx regs' ++ [va] ++ skipn (S b_idx) regs'.
 
+(** advance_pc: Increment program counter by one. Every successful step calls
+    this. No bounds check — the step function handles out-of-range PC by
+    not finding an instruction (nth_error returns None). *)
 Definition advance_pc (s : VMState) : nat := S s.(vm_pc).
 
+(** ascii_checksum: Sum the ASCII values of all characters in a string.
+    This is a weak but deterministic hash used by EMIT to update csr_cert_addr.
+    It's not cryptographically secure — it's just a record of what was emitted,
+    distinguishable from the initial value of 0. *)
 Definition ascii_checksum (s : string) : nat :=
   fold_right (fun ch acc => nat_of_ascii ch + acc) 0 (list_ascii_of_string s).
 
+(** update_state: Apply a structural operation — update graph, csrs, mu, err —
+    while leaving regs, mem, logic_acc, mstatus, witness, and certified alone.
+    Also advances pc and resets vm_mu_tensor to default (flat space baseline).
+    PNEW, PSPLIT, PMERGE, and similar structural ops use this.
+    Ops that modify registers or memory (LOAD, ADD, XFER, etc.) build VMState
+    directly rather than going through here. *)
 Definition update_state
   (s : VMState) (graph : PartitionGraph) (csrs : CSRState)
   (mu : nat) (err : bool)
@@ -1921,9 +2120,15 @@ Definition update_state
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
 
-(** ** graph_psplit and graph_pmerge Length Lemmas *)
+(** PSPLIT turns one module into two (length goes up by at least 1).
+    PMERGE turns two modules into one (length goes down, but bounded).
+    These show the graph doesn't grow or shrink unboundedly across splits and merges.
+    The inquisitor and VMStep proofs use them. *)
 
-(** graph_psplit increases length on success *)
+(** graph_psplit_increases_length: PSPLIT removes one module and adds two
+    children, so length increases by at least 1. The empty-partition edge case
+    (when left or right is empty) only adds one module instead of two but still
+    doesn't decrease. The cascade delete before remove doesn't change module count. *)
 Lemma graph_psplit_increases_length : forall g mid left right g' lid rid,
   graph_psplit g mid left right = Some (g', lid, rid) ->
   List.length (pg_modules g') >= List.length (pg_modules g).
@@ -1949,7 +2154,9 @@ Proof.
     lia.
 Qed.
 
-(** graph_pmerge decreases length on success *)
+(** graph_pmerge_decreases_length: PMERGE removes two modules (m1 and m2) and
+    either adds one new merged module, or reuses an existing module that covers
+    the merged region. Either way, length goes down by at least 1. *)
 Lemma graph_pmerge_decreases_length : forall g m1 m2 g' merged,
   graph_pmerge g m1 m2 = Some (g', merged) ->
   List.length (pg_modules g') <= List.length (pg_modules g).
@@ -1989,7 +2196,10 @@ Proof.
     lia.
 Qed.
 
-(** graph_pmerge decreases length by at most 2 *)
+(** graph_pmerge_length_bound: PMERGE removes at most 2 modules (m1 and m2)
+    and adds at most 1 (the merged result), so the net change is at most -1.
+    The bound is length(before) <= length(after) + 2, which says the list
+    can't shrink by more than 2. Used to prove the module count stays finite. *)
 Lemma graph_pmerge_length_bound : forall g m1 m2 g' merged,
   graph_pmerge g m1 m2 = Some (g', merged) ->
   List.length (pg_modules g) <= List.length (pg_modules g') + 2.
@@ -2029,9 +2239,15 @@ Proof.
     lia.
 Qed.
 
-(** graph_pmerge preserves region observation for unrelated modules.
-    IMPORTANT: This preserves the NORMALIZED REGION for modules not in {m1, m2}.
-    We compare normalized regions because graph operations may normalize. *)
+(** graph_pmerge_preserves_region_obs: PMERGE only removes m1 and m2 and
+    creates a new merged module. Any other module `mid` (not m1, not m2) keeps
+    its region unchanged. The proof has to chase through two cascade deletes
+    and two removes, showing mid's entry survives each step.
+
+    IMPORTANT: We compare NORMALIZED regions because graph_update always
+    normalizes. The normalization is idempotent (normalize_region_idempotent),
+    so re-normalizing an already-normalized region is a no-op — but Coq doesn't
+    know that until you tell it. The proof explicitly handles this. *)
 Lemma graph_pmerge_preserves_region_obs : forall g m1 m2 g' merged_id mid,
   mid <> m1 ->
   mid <> m2 ->
@@ -2110,15 +2326,15 @@ Proof.
       rewrite Hlu_chain. reflexivity.
 Qed.
 
-(** * Memory-String Bridge (Phase 1: On-Chip LASSERT Plan)
+(** Memory-String Bridge: store and retrieve strings from vm_mem.
 
-    Utility functions for storing and retrieving strings from vm_mem.
-    Layout (length-prefixed, little-endian 4-bytes-per-word):
-      mem[base]      = byte_count
-      mem[base+1..]  = packed chars (4 per word, zero-padded last word)
-*)
+    LASSERT reads formula and certificate strings from memory. I need a
+    deterministic encoding. Layout is length-prefixed, little-endian, 4 bytes per word:
+      mem[base]     = byte_count
+      mem[base+1..] = packed chars (4 per word, zero-padded last word)
 
-(** ** Byte Packing / Unpacking *)
+    The roundtrip proof (mem_to_string_roundtrip below) confirms the encoding
+    is lossless — write a string, read it back, get the same string. *)
 
 (** Pack 4 bytes into one word (little-endian).
     Use product notation — NOT literals like 65536 — so [lia] can reason
@@ -2181,8 +2397,13 @@ Definition mem_to_string (mem : list nat) (base : nat) : string :=
   let words   := List.map (fun i => list_read_at mem (S base + i)) (List.seq 0 n_words) in
   string_of_list_ascii (words_to_bytes words len).
 
-(** ** list_update_at helper lemmas *)
+(** list_update_at is used for register writes, memory writes, and tensor updates.
+    The two key properties: it preserves length (no reallocation), and writes
+    only affect the target index — all other reads are unchanged. *)
 
+(** list_update_at_preserves_length: Writing to an index doesn't change the
+    list length. Structural induction — base case (empty list returns empty),
+    inductive case (cons + recursive call). *)
 Lemma list_update_at_preserves_length : forall lst k v,
   List.length (list_update_at lst k v) = List.length lst.
 Proof.
@@ -2191,6 +2412,8 @@ Proof.
   - destruct k; simpl; [reflexivity | rewrite IH; reflexivity].
 Qed.
 
+(** list_update_at_nth_diff: Reading at index j after writing at index k (k≠j)
+    returns the original value at j. Locality of writes — other cells are untouched. *)
 Lemma list_update_at_nth_diff : forall lst k j v,
   k <> j ->
   List.nth j (list_update_at lst k v) 0 = List.nth j lst 0.
@@ -2204,8 +2427,12 @@ Proof.
     + apply IH. lia.
 Qed.
 
-(** ** write_words_at helper lemmas *)
+(** write_words_at writes a list of words into flat memory at a base address.
+    Three things mem_to_string_roundtrip needs from it: the write doesn't resize
+    memory, doesn't corrupt slots before base, and actually writes what you asked. *)
 
+(** write_words_at_preserves_length: Writing words doesn't change memory size.
+    Each step is list_update_at_preserves_length; induction handles the chain. *)
 Lemma write_words_at_preserves_length : forall ws mem base,
   List.length (write_words_at mem base ws) = List.length mem.
 Proof.
@@ -2214,6 +2441,9 @@ Proof.
   - simpl. rewrite IH. apply list_update_at_preserves_length.
 Qed.
 
+(** write_words_at_read_below: Slots before `base` are unaffected by the write.
+    LASSERT writes start at base+1 (leaving the length slot at base untouched).
+    This proves those length slots survive the word writes. *)
 Lemma write_words_at_read_below : forall ws mem base j,
   j < base ->
   j < List.length mem ->
@@ -2228,6 +2458,9 @@ Proof.
     apply list_update_at_nth_diff. lia.
 Qed.
 
+(** write_words_at_read_in: Reading back at offset k from base returns the
+    k-th word from ws. This is the correctness property — you get back what
+    you wrote. The in-bounds conditions ensure no default-0 fallback. *)
 Lemma write_words_at_read_in : forall ws mem base k,
   k < List.length ws ->
   base + k < List.length mem ->
@@ -2248,14 +2481,24 @@ Proof.
       * rewrite list_update_at_preserves_length. lia.
 Qed.
 
-(** ** Byte roundtrip lemmas *)
+(** bytes_to_word_4 and word_to_bytes_4 form a lossless round-trip.
+    Pack 4 bytes into a word, unpack — get the same 4 bytes. Not obvious
+    from the arithmetic without proof. Each byte is recovered by shifting down
+    the right number of places (÷256^k) and masking (mod 256).
+    nat_of_ascii_lt_256 is the bound that makes the mod-arithmetic close. *)
 
+(** nat_of_ascii_lt_256: ASCII values are in [0, 255]. This bound is required
+    by all the byte-slot extraction lemmas below. Proof by exhaustive case
+    analysis on all 128 ASCII characters (vm_compute handles it). *)
 Lemma nat_of_ascii_lt_256 : forall c : Ascii.ascii, Ascii.nat_of_ascii c < 256.
 Proof.
   intro c. destruct c as [b0 b1 b2 b3 b4 b5 b6 b7].
   destruct b0, b1, b2, b3, b4, b5, b6, b7; vm_compute; lia.
 Qed.
 
+(** bytes_to_word_4_byte0: The first byte (byte 0) can be recovered by mod 256.
+    The key algebraic step: rewrite the packed word as b0 + (big_stuff) * 256,
+    then mod 256 picks out b0. *)
 Lemma bytes_to_word_4_byte0 : forall b0 b1 b2 b3,
   b0 < 256 ->
   bytes_to_word_4 b0 b1 b2 b3 mod 256 = b0.
@@ -2266,6 +2509,8 @@ Proof.
   rewrite Nat.Div0.mod_add. apply Nat.mod_small; lia.
 Qed.
 
+(** bytes_to_word_4_byte1: Byte 1 recovered by / 256 mod 256. Same pattern —
+    shift down one byte slot (÷256), then extract the low byte (mod 256). *)
 Lemma bytes_to_word_4_byte1 : forall b0 b1 b2 b3,
   b0 < 256 -> b1 < 256 ->
   bytes_to_word_4 b0 b1 b2 b3 / 256 mod 256 = b1.
@@ -2278,6 +2523,7 @@ Proof.
   apply Nat.mod_small; lia.
 Qed.
 
+(** bytes_to_word_4_byte2: Byte 2 recovered by / (256*256) mod 256. *)
 Lemma bytes_to_word_4_byte2 : forall b0 b1 b2 b3,
   b0 < 256 -> b1 < 256 -> b2 < 256 ->
   bytes_to_word_4 b0 b1 b2 b3 / (256 * 256) mod 256 = b2.
@@ -2290,6 +2536,8 @@ Proof.
   apply Nat.mod_small; lia.
 Qed.
 
+(** bytes_to_word_4_byte3: Byte 3 recovered by / (256*256*256) mod 256.
+    Needs all four bounds to prove the high word is < 256. *)
 Lemma bytes_to_word_4_byte3 : forall b0 b1 b2 b3,
   b0 < 256 -> b1 < 256 -> b2 < 256 -> b3 < 256 ->
   bytes_to_word_4 b0 b1 b2 b3 / (256 * 256 * 256) mod 256 = b3.
@@ -2301,6 +2549,9 @@ Proof.
   rewrite Nat.add_0_l. apply Nat.mod_small; lia.
 Qed.
 
+(** word_to_bytes_4_roundtrip: Pack 4 bytes into a word, unpack — get the
+    same 4 bytes back. This assembles the four byte-slot lemmas. Used by
+    word_bytes_4_roundtrip_ascii (the ascii-level version below). *)
 Lemma word_to_bytes_4_roundtrip : forall b0 b1 b2 b3,
   b0 < 256 -> b1 < 256 -> b2 < 256 -> b3 < 256 ->
   word_to_bytes_4 (bytes_to_word_4 b0 b1 b2 b3) =
@@ -2326,7 +2577,9 @@ Proof.
   rewrite 4 Ascii.ascii_nat_embedding. reflexivity.
 Qed.
 
-(** Partial-word roundtrip helpers (for 1, 2, 3 trailing chars). *)
+(** Partial-word roundtrip helpers: when a string length is not a multiple
+    of 4, the last word is zero-padded. These three lemmas prove that
+    firstn with the right length still extracts the original characters. *)
 Lemma word_bytes_ascii_prefix1 : forall a,
   List.firstn 1
     (word_to_bytes_4 (bytes_to_word_4 (Ascii.nat_of_ascii a) 0 0 0)) = [a].
@@ -2381,8 +2634,13 @@ Lemma flat_map_words_single (w : nat) :
   List.flat_map word_to_bytes_4 [w] = word_to_bytes_4 w.
 Proof. unfold List.flat_map. apply app_nil_r. Qed.
 
-(** ** Main roundtrip: pack chars → words → unpack → original chars *)
+(** The core encoding correctness: pack any list of ASCII chars into words,
+    then unpack taking len bytes — get the original char list back.
+    Proof by structural induction on chars, handling 0/1/2/3/4+ cases. *)
 
+(** words_to_bytes_roundtrip: The core encoding correctness. Pack any list of
+    ASCII chars into 4-byte-per-word encoding, then unpack taking len bytes —
+    you get the original list. The fixed point is the string store/load contract. *)
 Lemma words_to_bytes_roundtrip : forall chars,
   words_to_bytes (bytes_to_words chars) (List.length chars) = chars.
 Proof.
@@ -2413,8 +2671,12 @@ Proof.
     rewrite (IH rest). reflexivity.
 Qed.
 
-(** ** bytes_to_words length *)
+(** The packed-word count is ceil(len/4) = (len+3)/4.
+    mem_to_string uses this to know how many words to read back. *)
 
+(** bytes_to_words_length: The packed-word count is ceil(len/4) = (len+3)/4.
+    This is what mem_to_string uses to know how many words to read back.
+    Without this lemma, the roundtrip proof can't set up the map over seq. *)
 Lemma bytes_to_words_length : forall chars,
   List.length (bytes_to_words chars) = (List.length chars + 3) / 4.
 Proof.
@@ -2431,7 +2693,9 @@ Proof.
   rewrite Nat.div_add by lia. lia.
 Qed.
 
-(** map over seq 0 n applied to nth gives back the list *)
+(** map_seq_nth: Mapping "nth i ws 0" over seq 0 (length ws) reconstructs ws.
+    This is the bridge between "read each word by index" and "the actual word list."
+    Used in mem_to_string_roundtrip to equate the map over memory reads with ws. *)
 Lemma map_seq_nth : forall ws : list nat,
   List.map (fun i => List.nth i ws 0) (List.seq 0 (List.length ws)) = ws.
 Proof.
@@ -2441,8 +2705,15 @@ Proof.
     rewrite <- List.seq_shift. rewrite List.map_map. apply IH.
 Qed.
 
-(** ** mem_to_string roundtrip *)
+(** mem_to_string_roundtrip: Write a string to memory, read it back — same string.
+    This is the contract LASSERT relies on. The formula register points to a base
+    address; the string at that address round-trips exactly.
+    The preconditions (base in bounds, enough space for the words) are the bounds
+    the hardware checks. Within those, the round trip is guaranteed. *)
 
+(** String_length_eq_list_length: String.length counts characters the same way
+    list_ascii_of_string's List.length does. Needed to align the mem_to_string
+    output length with the character count used in words_to_bytes. *)
 Lemma String_length_eq_list_length : forall str,
   String.length str = List.length (list_ascii_of_string str).
 Proof.

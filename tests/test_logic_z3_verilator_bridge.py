@@ -13,19 +13,22 @@ from thielecpu.hardware.cosim import run_verilog
 def test_lassert_bridge_prevents_stall_and_reaches_halt() -> None:
     """LASSERT SAT path via on-chip FSM reaches HALT.
 
-    op_a=32: bit5=1 (SAT), freg=0 → fbase=regs[0]=0.
-    Trivial formula in memory: 1 clause (x1), assignment x1=true.
+    Registers 28/29 point to the binary formula and dual witness blocks.
+    Formula is (x1), model sets x1=true, countermodel sets x1=false.
     """
     program = "\n".join([
-        # Trivial SAT formula in data memory
-        "INIT_MEM 0 1",    # flen = 1
-        "INIT_MEM 1 1",    # cert: var 1 = true
-        "INIT_MEM 2 1",    # nclauses = 1
-        "INIT_MEM 3 1",    # literal: var 1 (positive)
-        "INIT_MEM 4 0",    # end-of-clause sentinel
-        "LASSERT 32 0 1",  # SAT (bit5=1), freg=0, creg=0, cost=1
-        "ADD 0 0 0",
-        "HALT",
+        "INIT_MEM 16 2",    # two literal words: +x1, end-of-clause
+        "INIT_MEM 17 1",    # num_vars
+        "INIT_MEM 18 1",    # num_clauses
+        "INIT_MEM 19 1",    # literal +x1
+        "INIT_MEM 20 0",    # end-of-clause
+        "INIT_MEM 97 1",    # model at cbase+1: x1=true
+        "INIT_MEM 98 0",    # countermodel at cbase+nvars+1: x1=false
+        "LOAD_IMM 28 16 0",
+        "LOAD_IMM 29 96 0",
+        "LASSERT 28 29 1 2 1",
+        "ADD 0 0 0 0",
+        "HALT 0",
     ])
     try:
         state = run_verilog(program, backend="verilator", logic_z3_bridge=True)

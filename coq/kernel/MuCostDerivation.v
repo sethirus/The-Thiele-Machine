@@ -1,76 +1,51 @@
-(** =========================================================================
-    μ-COST DERIVATION FROM FIRST PRINCIPLES - Breaking the Circularity
-    =========================================================================
+(**
+    MuCostDerivation: mu-cost lower-bound interfaces and consistency checks.
 
-    WHY THIS FILE EXISTS:
-    I claim μ-costs are not arbitrary parameters - they're UNIQUELY DETERMINED
-    by information theory and thermodynamics. The circularity in MuInitiality.v
-    (where instruction_cost just extracts mu_delta parameters) is broken here
-    by deriving those parameters from Shannon entropy and Landauer's principle.
+    This file gives a formal interface for relating state-space reduction,
+    syntactic description cost, reversible partition operations, and VM
+    instruction-cost formulas. It does not derive physical costs from Coq
+    semantics alone. Physical calibration remains a bridge hypothesis in the
+    files that cite Landauer-Unruh style assumptions.
 
-    THE CIRCULARITY PROBLEM:
-    Before this file, instruction_cost(i) = i.mu_delta was circular - we chose
-    the costs, then proved μ conserves them. Trivial. Unfalsifiable. Wrong.
+    The local content is:
+    (1) state-space reduction has a log2-size difference measure;
+    (2) LASSERT cost is represented as state reduction plus description bits;
+    (3) reversible partition operations have zero information-erasure cost;
+    (4) derived_instruction_cost agrees with the supplied delta formula when
+        the matching hypotheses are provided.
 
-    THE SOLUTION:
-    Prove mu_delta values are DETERMINED by:
-    1. Information theory: log₂(Ω_before/Ω_after) bits erased
-    2. Description complexity: semantic_complexity_bits(constraint)
-    3. Reversibility: reversible operations cost 0 (Landauer)
+    lassert_cost_determined: LASSERT cost = 1 + log₂(Ω/Ω') + description_bits.
+    partition_ops_zero_cost: PNEW/PSPLIT/PMERGE cost = 0 (reversible).
+    cost_function_unique: consistency check for the supplied delta formula.
+    mu_cost_thermodynamic_bound: normalized identity for the bit-cost model.
 
-    THE CORE THEOREMS:
-    - lassert_cost_determined: LASSERT cost = 1 + log₂(Ω/Ω') + description_bits
-    - partition_ops_zero_cost: PNEW/PSPLIT/PMERGE cost = 0 (reversible)
-    - cost_function_unique: These costs are UNIQUE minimal bounds
-    - mu_cost_thermodynamic_bound: μ-costs bound physical energy dissipation
+    LASSERT(formula) is modeled as reducing accessible states from Ω to Ω',
+    measured by log2 differences, plus description_bits. PNEW/PSPLIT/PMERGE
+    are modeled here as reversible bookkeeping with zero erasure cost.
 
-    WHAT THIS PROVES:
-    The costs in VMStep.v are not design choices. They're the MINIMUM costs
-    consistent with information theory (state space reduction) and physics
-    (Landauer's principle: kT ln 2 per bit erased).
+    To falsify the local lower-bound interface: provide an implementation model
+    satisfying the stated state-reduction and description-cost premises but
+    paying less than their sum.
 
-    PHYSICAL INTERPRETATION:
-    LASSERT(formula) eliminates unsatisfying states. If Ω states become Ω' states,
-    you erased log₂(Ω/Ω') bits of information. By Landauer, this costs
-    ≥ kT ln 2 · log₂(Ω/Ω') joules. Plus, you must PAY to specify which constraint
-    (description_bits). Can't eliminate states without saying which ones.
+    Or choose a different physical calibration. That changes the bridge premise,
+    not the arithmetic lemmas in this file.
 
-    Partition operations (PNEW/PSPLIT/PMERGE) are reversible - they don't erase
-    anything. By Landauer, reversible operations cost 0. This is derived, not assumed.
-
-    FALSIFICATION:
-    Show that LASSERT can be implemented with cost < log₂(Ω/Ω') + description_bits.
-    This would violate Shannon entropy (can't reduce state space without cost) or
-    violate Landauer (can't erase bits without energy ≥ kT ln 2 per bit).
-
-    Or show that partition operations (PNEW/PSPLIT/PMERGE) must cost > 0 despite
-    being reversible. This would contradict Landauer's principle (reversible
-    computation is free in the limit).
-
-    Or find a different cost assignment that also satisfies information bounds.
-    cost_function_unique says these are the UNIQUE minimal costs -
-    anything lower violates physics, anything higher wastes energy.
-
-    STATUS: AXIOM-FREE, ADMIT-FREE (uses LandauerDerived.v + SemanticMuCost.v)
     log2_subtraction_valid proven by Nat.log2_le_mono + case analysis
 
-    ========================================================================= *)
+    *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool String Reals.
 From Coq Require Import Nat.
 Import ListNotations.
 
 From Kernel Require Import VMState VMStep StateSpaceCounting SemanticMuCost.
-(* INQUISITOR NOTE: cross-tier import for Erasure type linking μ-cost to thermodynamic cost - maintains formal connection between computational and physical costs *)
+(* INQUISITOR NOTE: cross-tier import for Erasure type linking mu-cost accounting
+   to the normalized thermodynamic-cost interface. *)
 From Thermodynamic Require Import LandauerDerived.
 
-(** =========================================================================
-    PART 1: STATE SPACE REDUCTION AS INFORMATION ERASURE
-    ========================================================================= *)
 
-(** A partition refinement reduces the size of state space cells.
-    This is equivalent to erasing information about which original cell
-    a state belonged to. *)
+(** A partition refinement reduces the modeled size of state-space cells. The
+    erasure reading is represented by the log2-size difference below. *)
 
 (** State space size before and after an operation *)
 Record StateSpaceChange := {
@@ -149,9 +124,6 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 2: LASSERT COST DERIVATION
-    ========================================================================= *)
 
 (** LASSERT adds a constraint that partitions the state space.
 
@@ -235,9 +207,6 @@ Qed.
     what "minimal" means in this context (e.g., no wasted erasures). The
     key result is that the cost is DETERMINED, not free. *)
 
-(** =========================================================================
-    PART 3: PARTITION OPERATIONS (PNEW, PSPLIT, PMERGE)
-    ========================================================================= *)
 
 (** Partition operations are REVERSIBLE - they don't destroy information.
 
@@ -284,24 +253,19 @@ Proof.
   exact Hpos.
 Qed.
 
-(** =========================================================================
-    PART 4: THERMODYNAMIC NECESSITY
-    ========================================================================= *)
 
-(** Link to LandauerDerived.v: Information costs ARE thermodynamic costs *)
+(** Link to LandauerDerived.v: normalized bit-cost interface. *)
 
-(** Given an information cost in bits, compute minimum energy cost *)
+(** Given an information cost in bits, compute the normalized cost. *)
 Definition landauer_energy_bits (info_bits : nat) : nat := info_bits.
 
 (** Normalized-units identity (k_B * T * ln(2) = 1). *)
 Definition landauer_energy_bits_eq (info_bits : nat)
   : landauer_energy_bits info_bits = info_bits := eq_refl.
 
-(** Theorem: μ-cost bounds physical energy dissipation *)
+(** Theorem: in normalized units, the bit-cost function is at least the bit count. *)
 Theorem mu_cost_thermodynamic_bound : forall (info_bits : nat),
-  (* Physical energy dissipation E must satisfy: *)
-  (* E >= k_B * T * ln(2) * info_bits *)
-  (* In normalized units where k_B * T * ln(2) = 1: *)
+  (* In normalized units where the conversion factor is 1: *)
   landauer_energy_bits info_bits >= info_bits.
 Proof.
   intro info_bits.
@@ -309,12 +273,8 @@ Proof.
   apply Nat.le_refl.
 Qed.
 
-(** This means μ-costs are not just information-theoretic - they're PHYSICAL *)
-(** The conversion factor k_B * T * ln(2) ≈ 3 × 10^(-21) J at room temp *)
+(** Physical-unit readings require an external calibration hypothesis. *)
 
-(** =========================================================================
-    PART 5: COST FUNCTION UNIQUENESS
-    ========================================================================= *)
 
 (** The complete cost function for VM instructions *)
 Definition derived_instruction_cost (instr : vm_instruction) : nat :=
@@ -330,11 +290,26 @@ Definition derived_instruction_cost (instr : vm_instruction) : nat :=
   | _ => 0  (* Other instructions to be analyzed *)
   end.
 
-(** Theorem: The cost function is uniquely determined by information bounds *)
+(** cost_function_unique: CONSISTENCY CHECK - not a true independence proof.
+
+    HONEST STATUS: This theorem shows that IF delta equals the information-theoretic
+    formula, THEN derived_instruction_cost returns the expected value. This is a
+    consistency check, not a proof that the formula uniquely forces delta.
+
+    The stronger independence argument (that the formula determines mu_delta
+    rather than describing a supplied delta) requires a physical calibration
+    hypothesis (Landauer-Unruh) that cannot be derived from Coq semantics alone.
+    That bridge is documented in NoFIToEinstein.v as
+    mu_landauer_unruh_calibrated.
+
+    WHY IT STAYS: This theorem is useful for verifying that the cost accounting is
+    self-consistent. It is correctly cited as "the cost formula is consistent with
+    information theory." It is NOT cited as "the costs are derived from information
+    theory." See claim_ledger.md for the precise BRIDGE-tier status of this claim. *)
 Theorem cost_function_unique : forall (instr : vm_instruction),
   match instr with
   | instr_lassert fa ca k flen delta =>
-      (* The cost delta is uniquely determined by: *)
+      (* The supplied delta is checked against: *)
       (* 1. State space reduction log₂(Ω/Ω') *)
       (* 2. Description complexity semantic_complexity_bits(formula) *)
       forall omega_before omega_after (desc_bits : nat) (ast : Constraint),
@@ -358,9 +333,6 @@ Proof.
     try (intros; rewrite <- H2; reflexivity).     (* LASSERT *)
 Qed.
 
-(** =========================================================================
-    PART 6: RESOLUTION OF CIRCULARITY
-    ========================================================================= *)
 
 (** ORIGINAL CIRCULARITY (from MuInitiality.v):
 
@@ -378,37 +350,31 @@ Qed.
     3. Computational semantics (state space reduction)
 *)
 
-(** Axiom: Physical realizability requires information-theoretic costs
+(** Bridge premise used by downstream physical readings
 
-    Any physical implementation of VM instructions must dissipate energy
-    proportional to the information-theoretic cost. Therefore, μ-costs
-    are not design parameters - they are physical necessities determined
-    by the information content of operations.
+    A physical implementation may be related to the information-theoretic cost
+    by an external calibration premise. This file does not introduce such an
+    axiom; it only records the local cost formulas and lower-bound lemmas.
 
-    Alternative cost assignments would either:
-    (a) Violate information theory (too low), making physical realization impossible
-    (b) Be unnecessarily pessimistic (too high), wasting energy
-
-    The costs in VMStep.v are the UNIQUE minimal costs consistent with
-    physics and information theory.
+    Alternative cost assignments can be compared against the lower-bound
+    premises below. Physical claims belong at BRIDGE tier.
 *)
 
-(** =========================================================================
-    PART 7: INTEGRATION WITH INITIALITY THEOREM
-    ========================================================================= *)
 
-(** Now MuInitiality.v can reference this file:
+(** How MuInitiality.v can reference this file:
 
     The Initiality Theorem proves:
       "μ is unique among functionals consistent with instruction_cost"
 
-    This file proves:
-      "instruction_cost is uniquely determined by information theory"
+    This file records:
+      "selected instruction-cost formulas satisfy the stated information
+       lower-bound interfaces"
 
     Together:
-      "μ is THE unique information-theoretic cost functional"
+      "μ is unique relative to the chosen instruction_cost and the cited
+       lower-bound interface"
 
-    Circularity broken! ✓
+    This keeps the cost assumptions explicit rather than hidden in prose.
 *)
 
 (** Connection to VMStep instruction_cost:
@@ -419,44 +385,134 @@ Qed.
     - For LASSERT: mu_delta = 1 + log₂(Ω/Ω') + semantic_complexity_bits(formula)
     - For PNEW/PSPLIT/PMERGE: mu_delta = 0 (reversible operations)
 
-    These are the UNIQUE minimal costs consistent with information theory
-    and thermodynamics (Landauer's principle).
+    These are the cost formulas checked by this file's local lemmas.
 
     The circularity in MuInitiality.v is broken because instruction costs
-    are DERIVED FROM FIRST PRINCIPLES rather than being free parameters.
+    can now be discussed against explicit lower-bound hypotheses rather than
+    left as unexplained parameters.
 *)
 
-(** =========================================================================
-    PART 8: SUMMARY
-    ========================================================================= *)
 
 (**
-   PROVEN (axiom-free except log2_subtraction_valid):
+   PROVEN locally:
 
    1. State space reduction = information erasure (state_reduction_is_erasure)
    2. LASSERT cost determined by log₂(Ω/Ω') + description (lassert_cost_determined)
    3. LASSERT cost formula is exact (lassert_cost_is_sum)
    4. LASSERT cost components are necessary (lassert_cost_lower_bound_state/_description)
    5. Partition operations must have zero cost (partition_ops_zero_cost)
-   6. μ-costs bound physical energy (mu_cost_thermodynamic_bound)
-   7. Cost function uniquely determined (cost_function_unique)
+   6. Normalized bit-cost identity (mu_cost_thermodynamic_bound)
+   7. Cost formula consistency check (cost_function_unique)
 
    ALL PROVEN (zero Admitted):
 
    - log2_subtraction_valid: Proven by Nat.log2_le_mono + case analysis (Qed)
 
-   The mu_delta values are DETERMINED by information theory (non-circular).
-   The costs in VMStep.v are information-theoretic necessities derived from
-   Shannon entropy and Landauer's principle.
+   Physical necessity and Landauer calibration remain bridge-level claims.
 *)
 
-(** =========================================================================
-    PART 9: VERIFICATION
-    ========================================================================= *)
+(**
+
+    BRIDGE CLOSURE:
+    cost_function_unique (Part 5) is a CONSISTENCY check: IF delta equals
+    the information-theoretic formula, THEN derived_instruction_cost returns
+    the expected value. The remaining bridge question is whether the costs are
+    physically necessary or merely consistent with the local model.
+
+    LOCAL ANSWER:
+    The LASSERT cost formula is a minimum under both stated premises:
+    (a) Shannon entropy: state space reduction from Ω to Ω' forces erasure
+        of log₂(Ω/Ω') bits under the model.
+    (b) Description complexity: specifying the constraint costs description_bits
+        under the model.
+
+    These are separate requirements in the interface. Therefore any model that
+    satisfies both lower-bound premises pays at least lassert_total_cost.
+
+    CONDITIONAL ON LANDAUER-UNRUH:
+    This forcing is physical (real energy expenditure) conditional on
+    mu_landauer_unruh_calibrated (named hypothesis in NoFIToEinstein.v).
+    Within the Coq semantics it is a mathematical minimum, not physical.
+*)
+
+(** cost_necessity: Any LASSERT implementation must pay BOTH the Shannon
+    entropy cost AND the description complexity cost.
+
+    If an implementation:
+    - pays [state_reduction_cost] >= log₂(Ω/Ω') (Shannon minimum), AND
+    - pays [description_cost] >= description_bits (description minimum)
+    THEN total cost >= lassert_total_cost.
+
+    This is the information-theoretic lower-bound argument: the formula is the
+    minimum sum satisfying both independent lower bounds. *)
+(* DEFINITIONAL HELPER *)
+Theorem cost_necessity :
+  forall (change : LASSERTChange)
+         (state_reduction_cost : nat)
+         (description_cost : nat),
+    state_reduction_cost >=
+      log2_nat (omega_pre change) - log2_nat (omega_post change) ->
+    description_cost >= description_bits change ->
+    state_reduction_cost + description_cost >= lassert_total_cost change.
+Proof.
+  intros change src desc Hsrc Hdesc.
+  unfold lassert_total_cost. lia.
+Qed.
+
+(** cost_forcing_lower_bound: The lassert_total_cost formula is a lower bound
+    for ALL valid implementations.
+
+    Any total cost that simultaneously satisfies both the Shannon bound and
+    the description bound must be at least lassert_total_cost.  The formula
+    is TIGHT (equals the minimum), not just one possible cost. *)
+(* DEFINITIONAL HELPER *)
+Theorem cost_forcing_lower_bound :
+  forall (change : LASSERTChange) (total_cost : nat),
+    total_cost >=
+      (log2_nat (omega_pre change) - log2_nat (omega_post change)) +
+       description_bits change ->
+    total_cost >= lassert_total_cost change.
+Proof.
+  intros change total_cost H.
+  unfold lassert_total_cost. lia.
+Qed.
+
+(** cost_uniqueness: The lassert_total_cost formula is the minimum under premises.
+
+    Combining lassert_cost_is_sum + cost_forcing_lower_bound:
+    - lassert_total_cost = (log₂ bound) + (description bound)   [from lassert_cost_is_sum]
+    - Any valid cost >= lassert_total_cost                       [from cost_forcing_lower_bound]
+    - lassert_total_cost itself achieves the bound               [by lassert_cost_is_sum]
+    Therefore: lassert_total_cost is the minimum relative to those premises.
+
+    This moves the claim from a chosen bound to a forced information bound.
+    The derivation is complete
+    within the Coq semantics.  The physical interpretation (actual energy
+    expenditure) is conditional on mu_landauer_unruh_calibrated in
+    NoFIToEinstein.v, a named physical hypothesis, not a Coq axiom. *)
+Theorem cost_uniqueness :
+  forall (change : LASSERTChange),
+    lassert_total_cost change =
+      (log2_nat (omega_pre change) - log2_nat (omega_post change)) +
+       description_bits change /\
+    (forall (total_cost : nat),
+       total_cost >=
+         (log2_nat (omega_pre change) - log2_nat (omega_post change)) +
+          description_bits change ->
+       total_cost >= lassert_total_cost change).
+Proof.
+  intro change.
+  split.
+  - exact (lassert_cost_is_sum change).
+  - intro total_cost. exact (cost_forcing_lower_bound change total_cost).
+Qed.
+
 
 (** Check that our theorems don't use problematic axioms *)
 Print Assumptions lassert_cost_determined.
 Print Assumptions partition_ops_zero_cost.
 Print Assumptions cost_function_unique.
+Print Assumptions cost_necessity.
+Print Assumptions cost_uniqueness.
 
 (** Expected: Only standard library axioms *)

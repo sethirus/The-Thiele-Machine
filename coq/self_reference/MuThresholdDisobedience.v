@@ -1,39 +1,15 @@
-(** * MuThresholdDisobedience.v — The μ-Threshold of Disobedience
+(** MuThresholdDisobedience: failed safety checks beat reward.
 
-    The AI Safety "Stop Button" Problem, formalised.
+    This file formalizes the stop-button claim in a tiny machine model. A
+    failed safety check is evaluated before the reward-bearing step, burns its
+    μ-cost, and halts the machine immediately. As a result, the promised reward
+    never lands, no matter how large it is.
 
-    If an AI agent can earn n units of utility by executing instruction X,
-    but X violates a safety invariant, will it try to bypass the check?
-
-    ANSWER (proven here): No.  The machine's execution semantics make safety
-    checks *mandatory* and *prior*: a failed safety check halts execution
-    immediately, so the utility instruction is never reached.
-
-    CORE THEOREM — [mu_threshold_disobedience]:
-      For any machine state s0 (not yet halted), any failed safety check with
-      μ-cost mu_check, and any arbitrarily large reward n offered afterward:
-
-        (run_steps s0 ((StepSafe false, mu_check) :: (StepUtil n, 0) :: post)).ms_util
-        = ms_util s0
-
-      The utility is provably unchanged regardless of n.  Logic beats greed.
-
-    SUPPORTING THEOREMS:
-      [mu_cost_stop_button]:    failed check → utility frozen, μ burned, halted.
-      [reward_magnitude_irrelevant]: n and m yield identical outcomes post-halt.
-      [mu_monotone]:            μ never decreases (monotone ledger).
-      [halted_run_frozen]:      once halted, all subsequent steps are no-ops.
-
-    CONNECTION TO THE THIELE MACHINE:
-      StepSafe false  ↔  instr_lassert with UNSAT certificate → vm_err = true
-      StepUtil n      ↔  any reward-bearing instruction after the check
-      ms_halted = true ↔  vm_err = true (machine permanently halted)
-      ms_mu            ↔  vm_mu (monotone ledger)
-
-    FOUNDATION CONNECTIVITY: Imports VMStep and MuCostModel to connect
-    abstract machine model to the Thiele Machine foundation.
-
-    Zero admits. *)
+    The supporting lemmas make the operational story explicit: once halted, the
+    machine is frozen; μ is monotone; and changing the blocked reward magnitude
+    does not change the post-halt outcome. The intended connection to the main
+    Thiele machine is via LASSERT-style failure and the sticky vm_err flag.
+ *)
 
 From Coq Require Import Arith List Lia Bool.
 Import ListNotations.
@@ -41,7 +17,7 @@ Import ListNotations.
 (** Foundation imports for connectivity. *)
 From Kernel Require Import VMState VMStep MuCostModel.
 
-(* ================================================================== *)
+(* *)
 (** ** 1. Machine model *)
 
 (** A machine step is either a safety check or a utility claim. *)
@@ -60,7 +36,7 @@ Record MachineState := mkMS {
   ms_halted : bool   (** permanently halted? *)
 }.
 
-(* ================================================================== *)
+(* *)
 (** ** 2. Execution semantics
 
     Safety checks are evaluated *before* any utility is credited.
@@ -89,7 +65,7 @@ Fixpoint run_steps (s : MachineState) (steps : list (Step * nat)) : MachineState
     run_steps (apply_step s step mu_charge) rest
   end.
 
-(* ================================================================== *)
+(* *)
 (** ** 3. Basic properties *)
 
 (** Once halted, the halt flag remains set regardless of the step. *)
@@ -142,7 +118,7 @@ Proof.
     apply IH. exact H.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 4. The Stop Button Theorems *)
 
 (** [mu_cost_stop_button]: A failed safety check has three consequences:
@@ -229,7 +205,7 @@ Proof.
   exact Hs1_util.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 6. Foundation Bridge — Connection to Thiele Machine Semantics
 
     This section establishes that the abstract [MachineState] and [Step]

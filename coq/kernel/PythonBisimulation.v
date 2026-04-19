@@ -1,48 +1,14 @@
-(** * PythonBisimulation: Abstract Coq/Python cost correspondence
+(** PythonBisimulation: abstract Coq/Python cost correspondence.
 
-    ABSTRACT FIRST ARROW: Coq observables ↔ Python-facing model
+    This file keeps the formal cross-layer claim narrow. It does not prove the
+    entire Python implementation equal to the Coq semantics in every detail.
+    What it does prove is the part that this abstraction can really support:
+    shared PC and mu behavior, plus a simple correspondence surface that also
+    tracks error and module count.
 
-    The formal Coq semantics (VMState.v + VMStep.v) and the Python reference
-    stack are related here through an abstract Python-facing state and step
-    model. The proved results in this file focus on the shared observables
-    carried by [bisimulation_invariant]: PC and μ, plus a separate
-    correspondence predicate that also mentions error and module count.
-
-    WHY THIS MATTERS:
-    Coq proofs establish mathematical properties (No Free Insight, μ-monotonicity,
-    CHSH bounds). But you can't RUN Coq proofs on actual data. The Python VM is
-    EXECUTABLE. This file isolates the part of the cross-layer story that is
-    actually proved here: cost accounting and sequential-PC correspondence for
-    the abstract Python step model used below.
-
-    THE CORRESPONDENCE:
-    States correspond when:
-    - vm_pc (Coq) = py_pc (Python)
-    - vm_mu (Coq) = py_mu (Python)
-    - vm_err (Coq) = py_err (Python)
-    - Module counts match
-
-    For every Coq step:
-      Coq: vm_step s instr s'
-      Python: py_step s cost → s'
-
-    If s ↔ s_py before the step, then the theorems below show preservation of
-    the μ component for all steps and preservation of the PC/μ invariant for
-    the non-jump fragment modeled by [increments_pc].
-
-    THE VALIDATION:
-    tests/test_three_layer_isomorphism.py runs identical instruction sequences
-    through Coq (via extraction) and Python, comparing snapshots at every step.
-    Those tests are useful repository evidence, but they are not the formal
-    statement proved in this file.
-
-    FALSIFICATION:
-    To falsify the formal content here, one would need either:
-    - a [vm_step] transition violating the μ equation, or
-    - a non-jump step violating the abstract sequential-PC model.
-
-    NO AXIOMS. NO ADMITS. The abstract correspondence results below are proven.
-*)
+    The executable Python runner is still important because that is what the
+    repo actually runs. But the formal content here is the abstract bisimulation
+    invariant, not the test harness. *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia Strings.String.
 Import ListNotations.

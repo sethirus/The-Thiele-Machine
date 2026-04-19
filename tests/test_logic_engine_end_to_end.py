@@ -1,7 +1,7 @@
 """End-to-end Logic Engine tests.
 
 Tests the full certificate pipeline across layers:
-  - OCaml/Python VM: DIMACS formula -> SAT model / LRAT proof -> LASSERT -> verified
+    - OCaml/Python VM: DIMACS formula -> SAT model plus countermodel / LRAT proof -> LASSERT -> verified
   - RTL cosim: integer-encoded LASSERT -> logic bridge -> verified
   - Logic gate key unlock: LASSERT success -> REVEAL permitted
 
@@ -19,33 +19,43 @@ pytestmark = pytest.mark.strict_rtl
 from thielecpu.vm import VMState, vm_run
 
 
+def _rtl_lassert_sat_program(cost: int) -> list[str]:
+    """Memory-backed SAT package for formula (x1) with a falsifying countermodel."""
+    return [
+        "INIT_MEM 16 2",    # two literal words: +x1, end-of-clause
+        "INIT_MEM 17 1",    # num_vars
+        "INIT_MEM 18 1",    # num_clauses
+        "INIT_MEM 19 1",    # literal +x1
+        "INIT_MEM 20 0",    # end-of-clause
+        "INIT_MEM 97 1",    # model at cbase+1: x1=true
+        "INIT_MEM 98 0",    # countermodel at cbase+nvars+1: x1=false
+        "LOAD_IMM 28 16 0",
+        "LOAD_IMM 29 96 0",
+        f"LASSERT 28 29 1 2 {cost}",
+    ]
+
+
 # ---------------------------------------------------------------------------
 # M6.1: LASSERT SAT -- DIMACS formula with valid model
 # ---------------------------------------------------------------------------
 
 class TestLassertSatDimacsToRtl:
-    """Test LASSERT with a valid SAT model through OCaml VM and RTL."""
+    """Test LASSERT with a valid SAT witness package through OCaml VM and RTL."""
 
     def test_ocaml_vm_lassert_sat_valid_model(self):
-        """OCaml VM: LASSERT SAT charges mu and advances PC through OCaml runner.
-
-        Note: The underscore-encoded formula format (p_cnf_2_1__1_2_0) is opaque
-        to the Coq-extracted check_model which expects DIMACS whitespace format.
-        The OCaml check_model fails, so vm_err is True. This is expected behavior:
-        the underscore encoding is a transport format, not parsed DIMACS. The key
-        verification is that mu is charged and PC advances.
-        """
+        """OCaml VM: LASSERT SAT accepts a valid model-plus-countermodel package."""
         s0 = VMState.default()
         program = [
             {"op": "pnew", "region": [0, 256], "cost": 1},
             {"op": "lassert", "module": 0,
              "formula": "p_cnf_2_1__1_2_0",
-             "cert_type": "sat", "cert": "v_1_2_0",
+             "cert_type": "sat", "cert": "v_1_-2_0", "countermodel": "v_-1_-2_0",
              "cost": 1},
             {"op": "halt", "cost": 0},
         ]
         result = vm_run(s0, program, max_steps=10)
         assert result.vm_mu >= 2, "mu should include PNEW(1) + LASSERT(1)"
+        assert result.vm_err is False, "Valid witness package should pass"
         assert result.vm_pc >= 2, "PC should advance past LASSERT"
 
     def test_ocaml_vm_lassert_sat_invalid_model(self):
@@ -56,7 +66,7 @@ class TestLassertSatDimacsToRtl:
             {"op": "pnew", "region": [0, 256], "cost": 1},
             {"op": "lassert", "module": 0,
              "formula": "p_cnf_2_1__1_2_0",
-             "cert_type": "sat", "cert": "v_-1_-2_0",
+             "cert_type": "sat", "cert": "v_-1_-2_0", "countermodel": "v_-1_-2_0",
              "cost": 1},
             {"op": "halt", "cost": 0},
         ]
@@ -67,30 +77,20 @@ class TestLassertSatDimacsToRtl:
     def test_rtl_lassert_sat(self):
         """RTL: LASSERT SAT path — on-chip FSM verifies a trivial formula.
 
-        op_a=32 sets bit 5 (kind=SAT), freg=0 → fbase=regs[0]=0.
-        op_b=0 → creg=0 → cbase=regs[0]=0.
-        Formula: 1 clause "(x1)", assignment x1=true.
-        Memory layout (shared fbase=0, cbase=0):
-          mem[0]=1 (flen), mem[1]=1 (cert: var1=true),
-          mem[2]=1 (nclauses), mem[3]=1 (literal +x1), mem[4]=0 (end-of-clause).
+        Registers 28/29 point to the binary formula and dual witness blocks.
+        Formula is (x1), model sets x1=true, countermodel sets x1=false.
         """
         from thielecpu.hardware.cosim import run_verilog
 
         program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            # Set up trivial SAT formula in data memory
-            "INIT_MEM 0 1",    # flen = 1
-            "INIT_MEM 1 1",    # cert: var 1 = true
-            "INIT_MEM 2 1",    # nclauses = 1
-            "INIT_MEM 3 1",    # literal: var 1 (positive)
-            "INIT_MEM 4 0",    # end-of-clause sentinel
-            "LASSERT 32 0 2",  # SAT (bit5=1), freg=0, creg=0, cost=2
+            *_rtl_lassert_sat_program(2),
             "HALT 0",
         ]
         state = run_verilog(program)
         assert state["status"] == 2  # halted — SAT path succeeded
-        assert state["mu"] >= 2, "mu should include LASSERT cost"
+        assert state["mu"] >= 1 + (2 * 8 + 3), "mu should include PNEW + LASSERT"
 
     def test_rtl_lassert_unsat(self):
         """RTL: LASSERT UNSAT path — immediate error trap.
@@ -176,7 +176,7 @@ class TestLogicGateUnlockFullPipeline:
         program_with_key = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            "REVEAL 0 0 1",    # index=0, unused=0, cost=1
+            "REVEAL 0 1 0",    # index=0, bits=1, cost=0
             "HALT 0",
         ]
         state = run_verilog(program_with_key)
@@ -189,7 +189,7 @@ class TestLogicGateUnlockFullPipeline:
         # Without logic gate key: should trigger logic error -> trap
         program_no_key = [
             "PNEW {0,256} 1",
-            "REVEAL 0 0 1",    # index=0, unused=0, cost=1
+            "REVEAL 0 1 0",    # index=0, bits=1, cost=0
             "HALT 0",
         ]
         state = run_verilog(program_no_key)
@@ -205,22 +205,16 @@ class TestLogicGateUnlockFullPipeline:
         from thielecpu.hardware.cosim import run_verilog
 
         program = [
-            "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            # Trivial SAT formula in memory
-            "INIT_MEM 0 1",    # flen = 1
-            "INIT_MEM 1 1",    # cert: var 1 = true
-            "INIT_MEM 2 1",    # nclauses = 1
-            "INIT_MEM 3 1",    # literal: var 1 (positive)
-            "INIT_MEM 4 0",    # end-of-clause sentinel
-            "LASSERT 32 0 2",  # SAT (bit5=1), freg=0, creg=0, cost=2
-            "REVEAL 0 0 1",    # index=0, unused=0, cost=1
+            *_rtl_lassert_sat_program(2),
+            "REVEAL 0 1 0",    # index=0, bits=1, cost=0
             "HALT 0",
         ]
         state = run_verilog(program)
         assert state["status"] == 2  # halted
-        # mu includes at least PNEW(1) + LASSERT(cost) + REVEAL(1)
-        assert state["mu"] >= 3, "mu should include PNEW + LASSERT + REVEAL"
+        assert state["mu"] >= 1 + (2 * 8 + 3) + 2, (
+            "mu should include PNEW + LASSERT + REVEAL"
+        )
 
     def test_mu_isomorphism_lassert(self):
         """Both OCaml VM and RTL charge mu for LASSERT."""
@@ -232,7 +226,7 @@ class TestLogicGateUnlockFullPipeline:
             {"op": "pnew", "region": [0, 256], "cost": 1},
             {"op": "lassert", "module": 0,
              "formula": "p_cnf_2_1__1_2_0",
-             "cert_type": "sat", "cert": "v_1_2_0",
+             "cert_type": "sat", "cert": "v_1_-2_0", "countermodel": "v_-1_-2_0",
              "cost": 5},
             {"op": "halt", "cost": 0},
         ]
@@ -243,18 +237,13 @@ class TestLogicGateUnlockFullPipeline:
         rtl_program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            # Trivial SAT formula in memory
-            "INIT_MEM 0 1",    # flen = 1
-            "INIT_MEM 1 1",    # cert: var 1 = true
-            "INIT_MEM 2 1",    # nclauses = 1
-            "INIT_MEM 3 1",    # literal: var 1 (positive)
-            "INIT_MEM 4 0",    # end-of-clause sentinel
-            "LASSERT 32 0 5",  # SAT (bit5=1), freg=0, creg=0, cost=5
+            *_rtl_lassert_sat_program(5),
             "HALT 0",
         ]
         rtl_state = run_verilog(rtl_program)
-        # Both should charge PNEW(1) + LASSERT(5) = 6
-        assert rtl_state["mu"] >= 6, "RTL should charge at least PNEW(1) + LASSERT(5)"
+        assert rtl_state["mu"] >= 1 + (2 * 8 + 6), (
+            "RTL should charge PNEW plus full LASSERT formula cost"
+        )
 
 
 # ---------------------------------------------------------------------------

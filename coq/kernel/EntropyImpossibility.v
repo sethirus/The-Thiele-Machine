@@ -5,9 +5,8 @@ From Kernel Require Import VMState KernelPhysics.
 
 Import ListNotations.
 
-(** * EntropyImpossibility: Why naive entropy definitions fail
+(** EntropyImpossibility: why naive entropy definitions fail
 
-    WHY THIS FILE EXISTS:
     I claim you CANNOT define entropy as log(cardinality of microstate ensemble)
     without imposing additional finiteness structure. The reason: observational
     equivalence classes are INFINITE, so naive entropy is ∞ everywhere.
@@ -18,35 +17,33 @@ Import ListNotations.
     3. Show tweaking is injective (different x → different states)
     4. Conclude: infinitely many distinct microstates per observable class
 
-    PHYSICAL INTERPRETATION:
     This is like UV divergences in quantum field theory. If you allow arbitrarily
     fine-grained microstates (infinite cutoff), you get infinite entropy.
     The solution: impose finite_region_equiv_class (from Definitions.v) as a
     coarse-graining or measurement-resolution bound.
 
-    This justifies the Bekenstein bound and holographic principle: finite
-    information capacity per region is NOT optional - it's necessary for
-    thermodynamics to be well-defined.
+    This motivates the Bekenstein-bound style move: finite information
+    capacity per region is not optional if entropy is going to stay finite.
 
-    FALSIFICATION: Show entropy can be well-defined without finiteness assumptions.
+    To falsify: Show entropy can be well-defined without finiteness assumptions.
     Or exhibit a physical system with infinite entropy per finite region (violating
     Bekenstein bound). Or prove thermodynamics works with continuous (infinite)
     state spaces without cutoffs.
 *)
 
-(** region_equiv: Observational equivalence (same as Definitions.v)
-    Two states are equivalent if all observable regions match.
-*)
+(** region_equiv: two states are observationally equivalent when every
+    ObservableRegion agrees. *)
 Definition region_equiv (s1 s2 : VMState) : Prop :=
   forall mid, ObservableRegion s1 mid = ObservableRegion s2 mid.
 
-(** tweak_regs: Unobservable state modification
+(** tweak_regs: unobservable state modification.
     Prepends x to vm_regs (the register list) while leaving all other fields
     (graph, CSRs, memory, PC, μ-ledger, error) unchanged.
 
     CRUCIAL PROPERTY: vm_regs is NOT part of ObservableRegion. You can tweak
     registers arbitrarily without affecting any measurement. This is like
-    gauge freedom or internal degrees of freedom - invisible to physics.
+    gauge freedom or internal degrees of freedom: invisible to this observation
+    function.
 
     WHY THIS WORKS: ObservableRegion only depends on vm_mem and vm_graph,
     not on vm_regs. So tweak_regs creates infinitely many distinct states
@@ -67,7 +64,7 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
 
-(** Definitional lemma: This equality is by definition, not vacuous
+(** Definitional lemma: this equality is by definition, not vacuous.
 
     tweak_regs_region_equiv: Observational invisibility of register tweaking
     Proves region_equiv s (tweak_regs s x) for any x.
@@ -75,17 +72,16 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
     PROOF: Unfold definitions, observe that ObservableRegion doesn't touch
     vm_regs, conclude reflexivity.
 
-    PHYSICAL CLAIM: You can pack arbitrary information into internal registers
+    You can pack arbitrary information into internal registers
     without affecting any observable. This is the seed of the "infinite microstates
     per observable" problem.
 
-    FALSIFICATION: Find an observable (measurement) that distinguishes s from
+    To falsify: Find an observable (measurement) that distinguishes s from
     tweak_regs s x. This would mean registers are measurable, contradicting
     the definition of ObservableRegion.
 *)
 (* Definitional lemma: ObservableRegion ignores vm_regs, so region_equiv is
    unchanged by tweak_regs by construction. *)
-(** [tweak_regs_region_equiv]: formal specification. *)
 Lemma tweak_regs_region_equiv : forall s x,
   region_equiv s (tweak_regs s x).
 Proof.
@@ -96,7 +92,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** tweak_regs_injective: Different tweaks give different states
+(** tweak_regs_injective: different tweaks give different states.
     If tweak_regs s a = tweak_regs s b, then a = b.
 
     PROOF: Equal states have equal vm_regs fields (f_equal), so a :: ... = b :: ...,
@@ -121,7 +117,7 @@ Proof.
   inversion Hregs; subst; reflexivity.
 Qed.
 
-(** region_equiv_class_infinite: Main impossibility result
+(** region_equiv_class_infinite: main impossibility result.
     For any state s, there exists an injective function f : nat -> VMState
     where every f(n) is region_equiv to s.
 
@@ -129,7 +125,6 @@ Qed.
     - tweak_regs_region_equiv ensures ∀n, region_equiv s (f n)
     - tweak_regs_injective ensures f is injective (distinct inputs → distinct outputs)
 
-    PHYSICAL INTERPRETATION:
     Every observable state has INFINITELY MANY underlying microstates. If you
     try to compute entropy as S = k log(number of microstates), you get ∞.
 
@@ -141,7 +136,7 @@ Qed.
     All these are saying: you MUST impose finite information density or physics
     breaks down.
 
-    FALSIFICATION: Prove thermodynamics works without finiteness cutoffs, or
+    To falsify: Prove thermodynamics works without finiteness cutoffs, or
     show S = log(∞) is physically meaningful, or exhibit a natural coarse-graining
     that makes equiv classes finite without external assumptions.
 *)
@@ -167,7 +162,6 @@ Qed.
    This is the same proof as region_equiv_class_infinite, but with a name
    that explicitly states the implication for entropy.
 
-   THE CORE CLAIM:
    You cannot define S = k_B log |{microstates consistent with observations}|
    without FIRST imposing finite_region_equiv_class (from Definitions.v).
 
@@ -175,12 +169,12 @@ Qed.
    for EVERY state, so S = ∞ everywhere. This makes thermodynamics meaningless:
    no equilibrium, no temperature, no second law.
 
-   SOLUTION: Impose finite_region_equiv_class as an axiom. This says the universe
-   has finite information density - there are only finitely many distinguishable
+   SOLUTION: impose finite_region_equiv_class as an explicit assumption. This says the universe
+   has finite information density: there are only finitely many distinguishable
    microstates per observable region. This is the computational version of the
    Bekenstein bound.
 
-   FALSIFICATION: Define a workable notion of entropy for continuous state spaces
+   To falsify: Define a workable notion of entropy for continuous state spaces
    without cutoffs. Or show that S = ∞ is physically acceptable (thermal systems
    can have infinite entropy per finite volume).
 *)

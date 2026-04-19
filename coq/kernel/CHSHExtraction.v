@@ -1,9 +1,9 @@
-(** * CHSHExtraction: Computing CHSH values from execution traces
+(** CHSHExtraction: Computing CHSH values from execution traces
 
-    WHY THIS FILE EXISTS:
-    The Thiele Machine records measurement outcomes as receipts. This file defines
-    HOW to extract those outcomes and compute the CHSH statistic. It's pure
-    accounting - scan the trace, extract trials, compute correlations, sum them up.
+    The Thiele Machine records measurement outcomes as [instr_chsh_trial]
+    instructions. This file defines HOW to extract those outcomes from an
+    executed trace and compute the CHSH statistic. It's pure accounting: follow
+    the VM control flow, extract valid trials, compute correlations, sum them up.
 
     NO PHYSICS:
     This file makes ZERO assumptions about quantum mechanics, Tsirelson bounds,
@@ -19,17 +19,15 @@
 
     That's it. No interpretation, no theory, no assumptions. Just arithmetic.
 
-    WHY THIS SEPARATION:
-    By defining CHSH extraction independent of μ-cost, we can ASK: "What is the
-    maximum CHSH achievable with μ=0 operations?" The answer (proven elsewhere):
-    2. With μ>0: up to 2√2. This file doesn't care - it just computes the number.
+    By defining CHSH extraction independent of μ-cost, later files can ask
+    questions about what different μ-cost classes can achieve. This file does
+    not answer those questions. It just computes the number.
 
-    FALSIFICATION:
-    Execute a trace. Extract trials using these functions. Compute CHSH. If the
-    result doesn't match hand calculation, these functions are wrong. The
-    computation is deterministic - no randomness, no interpretation.
-
-    ========================================================================= *)
+    Execute a trace with a known control path. Extract trials using these
+    functions. Compute CHSH. If the result doesn't match hand calculation along
+    that same path, these functions are wrong. The computation is deterministic,
+    with no randomness and no interpretation.
+*)
 
 From Coq Require Import List QArith Qabs Lia Qround Qminmax Lra.
 Import ListNotations.
@@ -38,7 +36,6 @@ From Kernel Require Import VMState VMStep SimulationProof MuCostModel.
 
 (** CHSHTrial: One measurement in the Bell experiment.
 
-    WHY THIS RECORD:
     A CHSH test involves Alice and Bob making measurements. Each measurement
     produces 4 bits:
     - x: Alice's measurement choice (input)
@@ -46,7 +43,8 @@ From Kernel Require Import VMState VMStep SimulationProof MuCostModel.
     - a: Alice's measurement result (output)
     - b: Bob's measurement result (output)
 
-    This record bundles those 4 bits into one trial.
+    This record bundles those four values into one trial. Validity is checked
+    when extraction calls [chsh_bits_ok].
 
     THE INTERPRETATION:
     - Inputs (x,y): Which measurement basis/angle/setting was used
@@ -55,10 +53,8 @@ From Kernel Require Import VMState VMStep SimulationProof MuCostModel.
     In quantum experiments: x and y are settings on Alice's and Bob's measurement
     devices. a and b are the outcomes (detector clicks).
 
-    In the VM: x,y,a,b are just 4 nat values from the instr_chsh_trial instruction.
-    No interpretation needed - just data.
-
-    USED BY:
+    In the VM: x,y,a,b are just four nat values from the instr_chsh_trial
+    instruction. No interpretation is needed here.
     extract_chsh_trials_from_trace produces a list of these. compute_correlation
     consumes them. This is the data structure flowing through the CHSH pipeline.
 *)
@@ -80,9 +76,8 @@ Record CHSHTrial := {
     2. Step the current instruction using the actual vm_apply semantics
     3. If the executed instruction is a valid instr_chsh_trial: record (x,y,a,b)
     4. Otherwise: continue without recording a trial
-    4. Repeat until fuel exhausted or trace ends
+    5. Repeat until fuel is exhausted or the current PC is outside the trace
 
-    WHY FUEL:
     Coq requires proof of termination. Fuel bounds the number of steps. In
     practice, set fuel ≥ trace length.
 
@@ -93,14 +88,12 @@ Record CHSHTrial := {
     vm_apply keeps extraction aligned with actual execution rather than a simple
     linear scan.
 
-    WHY THIS MATTERS:
-    This is HOW receipts are extracted. In Python, receipts are JSON objects.
-    In Coq, receipts are implicit in the trace structure. This function makes
-    them explicit by pattern matching on instruction types.
+    This is HOW trial records are extracted in Coq. Receipt integrity is handled
+    in the receipt files; this function only follows VM execution and records
+    valid CHSH instructions.
 
-    FALSIFICATION:
-    Execute a trace with N chsh_trial instructions. This function should return
-    a list of length N. If not, it's broken.
+    Hand-simulate a trace with jumps, invalid trials, and fuel. If this function
+    returns a different list of valid executed trials, the extractor is broken.
 *)
 Definition executed_chsh_trial_of_instruction (instr : vm_instruction) : option CHSHTrial :=
   match instr with
@@ -115,33 +108,39 @@ Definition executed_chsh_trial_of_instruction (instr : vm_instruction) : option 
   | _ => None
   end.
 
-    Fixpoint extract_chsh_trials_from_trace
-      (fuel : nat) (trace : list vm_instruction) (s : VMState) : list CHSHTrial :=
-      match fuel with
-      | O => []
-      | S fuel' =>
-        match nth_error trace (s.(vm_pc)) with
-        | None => []
-        | Some instr =>
+(** Follow the VM for [fuel] steps and collect the valid CHSH trials that
+    actually execute. *)
+Fixpoint extract_chsh_trials_from_trace
+  (fuel : nat) (trace : list vm_instruction) (s : VMState) : list CHSHTrial :=
+  match fuel with
+  | O => []
+  | S fuel' =>
+      match nth_error trace (s.(vm_pc)) with
+      | None => []
+      | Some instr =>
           let s' := vm_apply s instr in
           match executed_chsh_trial_of_instruction instr with
           | Some trial => trial :: extract_chsh_trials_from_trace fuel' trace s'
           | None => extract_chsh_trials_from_trace fuel' trace s'
           end
-        end
-      end.
+      end
+  end.
 
+(** A CHSH trial is valid exactly when all four fields are accepted bits. *)
 Definition valid_chsh_trial (t : CHSHTrial) : Prop :=
   chsh_bits_ok t.(trial_x) t.(trial_y) t.(trial_a) t.(trial_b) = true.
 
+(** Replay one extracted trial into the VM witness counters. *)
 Definition record_extracted_trial (wc : WitnessCounts) (t : CHSHTrial) : WitnessCounts :=
   record_trial wc t.(trial_x) t.(trial_y) t.(trial_a) t.(trial_b).
 
-Lemma executed_chsh_trial_of_instruction_valid_and_cost_free :
+(** If extraction returns a trial, then the instruction was a valid CHSH trial.
+    Its μ-cost is still the instruction's declared cost; validity and pricing
+    are separate facts. *)
+Lemma executed_chsh_trial_of_instruction_valid :
   forall instr t,
     executed_chsh_trial_of_instruction instr = Some t ->
-    valid_chsh_trial t /\
-    forall s, mu_cost_of_instr instr s = 0%nat.
+    valid_chsh_trial t.
 Proof.
   intros instr t Hexec.
   destruct instr as
@@ -169,7 +168,6 @@ Proof.
     | dst src cost
     | module payload cost
     | module bits cert cost
-    | payload cost
     | cost
     | label cost
     | dst channel_idx value bits cost
@@ -194,9 +192,7 @@ Proof.
     | dst f_id g_id mu_delta
     | dst morph_id selector mu_delta]; simpl in Hexec; try discriminate.
   destruct (chsh_bits_ok _ _ _ _) eqn:Hok; inversion Hexec; subst.
-  split.
-  - unfold valid_chsh_trial. exact Hok.
-  - intro s. reflexivity.
+  unfold valid_chsh_trial. exact Hok.
 Qed.
 
 Lemma executed_chsh_trial_of_instruction_implies_valid :
@@ -205,8 +201,7 @@ Lemma executed_chsh_trial_of_instruction_implies_valid :
     valid_chsh_trial t.
 Proof.
   intros instr t Hexec.
-  destruct (executed_chsh_trial_of_instruction_valid_and_cost_free instr t Hexec) as [Hvalid _].
-  exact Hvalid.
+  exact (executed_chsh_trial_of_instruction_valid instr t Hexec).
 Qed.
 
 Lemma executed_chsh_trial_of_instruction_updates_witness :
@@ -240,7 +235,6 @@ Proof.
     | dst src cost
     | module payload cost
     | module bits cert cost
-    | payload cost
     | cost
     | label cost
     | dst channel_idx value bits cost
@@ -295,12 +289,16 @@ Proof.
        try discriminate;
        reflexivity.
 Qed.
+
+(** Replay the extracted trials into a witness-counter state. *)
 Fixpoint replay_trials_on_witness (trials : list CHSHTrial) (wc : WitnessCounts) : WitnessCounts :=
   match trials with
   | [] => wc
   | t :: ts => replay_trials_on_witness ts (record_extracted_trial wc t)
   end.
 
+(** Running the VM updates witness counters exactly as replaying the extracted
+    valid CHSH trials would. *)
 Lemma run_vm_witness_equals_replayed_trials :
   forall fuel trace s,
     (run_vm fuel trace s).(vm_witness) =
@@ -318,6 +316,7 @@ Proof.
     + reflexivity.
 Qed.
 
+(** A successful [is_bit] check leaves only the two accepted bits. *)
 Lemma is_bit_true_cases :
   forall n,
     is_bit n = true -> n = 0%nat \/ n = 1%nat.
@@ -330,6 +329,7 @@ Proof.
   - right. apply Nat.eqb_eq. exact Ho.
 Qed.
 
+(** A successful [chsh_bits_ok] check gives bit cases for all four fields. *)
 Lemma chsh_bits_ok_true_cases :
   forall x y a b,
     chsh_bits_ok x y a b = true ->
@@ -349,6 +349,7 @@ Proof.
   repeat split; apply is_bit_true_cases; assumption.
 Qed.
 
+(** Every trial emitted by the extractor passed [chsh_bits_ok]. *)
 Lemma extract_chsh_trials_from_trace_valid :
   forall fuel trace s t,
     In t (extract_chsh_trials_from_trace fuel trace s) ->
@@ -403,12 +404,10 @@ Definition filter_trials (trials : list CHSHTrial) (x y : nat) : list CHSHTrial 
     EDGE CASE:
     Empty trial list: return 0. No data means no correlation.
 
-    WHY THIS FORMULA:
     This is the standard statistical correlation for binary outcomes. It's
     measuring alignment. +1 = perfect agreement, -1 = perfect disagreement,
     0 = random/uncorrelated.
 
-    FALSIFICATION:
     Given specific trials, compute E by hand. Compare with this function's
     output. Should match exactly (no rounding, pure rational arithmetic).
 *)
@@ -433,7 +432,6 @@ Definition compute_correlation (trials : list CHSHTrial) : Q :=
     - E10 = correlation for inputs (1,0)
     - E11 = correlation for inputs (1,1)
 
-    WHY THIS COMBINATION:
     This is the CHSH-Bell inequality test statistic. The specific combination
     (+ + + -) is what Bell and CHSH derived as maximally sensitive to
     nonlocal correlations.
@@ -444,13 +442,10 @@ Definition compute_correlation (trials : list CHSHTrial) : Q :=
     means - just computing the number.
 
     THE OUTPUT:
-    A rational number (Q). Could be anything in principle, but physics constrains it:
-    - Classical/local: S ≤ 2
-    - Quantum: S ≤ 2√2 ≈ 2.828
-    - No-signaling: S ≤ 4
-    This function doesn't enforce those bounds - it just computes.
+    A rational number (Q). The function just computes. This file later proves
+    the algebraic list-level bound |S| <= 4. Tighter classical or quantum bounds
+    belong to other files and require additional hypotheses.
 
-    FALSIFICATION:
     Construct specific trials. Compute correlations by hand. Sum them. Compare
     with this function's output. Should match exactly.
 *)
@@ -470,10 +465,8 @@ Definition chsh_from_trials (trials : list CHSHTrial) : Q :=
     THE PIPELINE:
     1. extract_chsh_trials_from_trace: scan trace, collect trials
     2. chsh_from_trials: compute CHSH from trials
-
-    USED BY:
-    Tests, verification, runtime. This is THE function for computing CHSH
-    from execution. If the VM claims "CHSH = X", this function verifies it.
+    Tests, verification, runtime. This is the function for computing CHSH
+    from an executed VM trace.
 *)
 Definition chsh_from_vm_trace
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Q :=
@@ -487,25 +480,18 @@ Open Scope nat_scope.
 
 (** trial_partition: Same-count + diff-count = total.
 
-    WHY THIS MATTERS:
     For any list of trials, each trial either has matching outputs (a=b) or
     differing outputs (a≠b). There's no third option. So the counts must sum
     to the total.
-
-    THE CLAIM:
     (# trials with a=b) + (# trials with a≠b) = (# total trials)
-
-    THE PROOF:
     Induction on trial list. Base case: empty list, 0+0=0. Inductive case:
     look at first trial - either a=b (add to same_count) or a≠b (add to
     diff_count). Either way, totals match.
 
-    WHY THIS IS USED:
     Proves that compute_correlation is well-defined. We're computing
     (same - diff) / total where same + diff = total. This lemma justifies
     that the denominator equals the numerator's components.
 
-    FALSIFICATION:
     Find a trial list where same_count + diff_count ≠ total. Can't happen -
     Boolean logic guarantees a=b OR a≠b for any a,b.
 *)
@@ -526,15 +512,12 @@ Qed.
     WHY:
     Filtering a list removes elements that don't match the predicate. It can't
     add elements. So filtered length ≤ original length.
-
-    THE PROOF:
     Induction. Base case: empty list filters to empty. Inductive case: either
     predicate true (keep element, length stays same or increases by 1) or false
     (remove element, filtered length < original). Either way, bound holds.
 
-    WHY THIS IS USED:
     Sanity check for trial filtering. When we filter_trials for specific (x,y),
-    the result can't be longer than the original list. Obvious but good to prove.
+    the result can't be longer than the original list.
 *)
 Lemma filter_length_le :
   forall {A : Type} (f : A -> bool) (l : list A),
@@ -549,26 +532,19 @@ Close Scope nat_scope.
 Open Scope Q_scope.
 
 (** Qabs_4_triangle: Triangle inequality for sum of 4 terms.
-
-    THE CLAIM:
     |a + b + c - d| ≤ |a| + |b| + |c| + |d|
 
-    WHY THIS IS TRUE:
     Standard triangle inequality: |x + y| ≤ |x| + |y|. Apply repeatedly:
     - |a + b + c - d| = |a + b + c + (-d)| ≤ |a + b + c| + |-d|
     - |a + b + c| ≤ |a + b| + |c|
     - |a + b| ≤ |a| + |b|
     Chain them together: |a + b + c - d| ≤ |a| + |b| + |c| + |d|.
 
-    WHY THIS MATTERS:
     Used in chsh_algebraic_bound to prove CHSH ≤ 4. Since S = E00 + E01 + E10 - E11,
     we need a triangle inequality for this specific form (three plus, one minus).
-
-    THE PROOF:
     Rewrite a+b+c-d as a+b+c+(-d), apply triangle inequality three times,
     use |−d| = |d|, and chain the inequalities.
 
-    FALSIFICATION:
     Find a,b,c,d ∈ Q where |a+b+c-d| > |a|+|b|+|c|+|d|. Impossible - triangle
     inequality is a fundamental property of absolute value.
 *)
@@ -604,11 +580,8 @@ Qed.
 Open Scope Q_scope.
 
 (** correlation_bound_1: All correlations are bounded by ±1.
-
-    THE CLAIM:
     For any trial list, |E_xy| ≤ 1, where E_xy = (same - diff) / total.
 
-    WHY THIS IS TRUE:
     The key insight: same + diff = total (proven in trial_partition). This means
     both 'same' and 'diff' are ≤ total. Therefore:
     - Maximum: same = total, diff = 0 → E = total/total = +1
@@ -616,7 +589,7 @@ Open Scope Q_scope.
     - General: |same - diff| ≤ max(same + diff) = total → |E| ≤ 1
 
     THE PROOF STRUCTURE:
-    1. Empty trials: correlation = 0, trivially |0| ≤ 1
+    1. Empty trials: correlation = 0, so |0| ≤ 1
     2. Non-empty trials:
        - Set same = # trials with a=b
        - Set diff = # trials with a≠b
@@ -624,17 +597,15 @@ Open Scope Q_scope.
        - Prove |same - diff| ≤ total (arithmetic on naturals)
        - Therefore |(same - diff)/total| ≤ 1
 
-    WHY THIS MATTERS:
     This is THE fundamental bound on correlations. Probability theory guarantees
-    it. Without this bound, chsh_algebraic_bound (CHSH ≤ 4) wouldn't hold. This
-    is why the no-signaling bound exists (4) - correlations can't exceed ±1.
+    it. Without this bound, [chsh_algebraic_bound] would not hold. The ceiling
+    comes from the fact that correlations can't exceed ±1.
 
     THE Z.abs USAGE:
     The proof uses Z.abs (integer absolute value) to prove |same - diff| ≤ total
     at the integer level, then lifts to rational Q via Qabs. Safe because we're
     proving a mathematical bound, not computing it at runtime.
 
-    FALSIFICATION:
     Construct trials where |E_xy| > 1. Impossible - would require same - diff > total,
     which violates same + diff = total (Boolean partition).
 *)
@@ -705,41 +676,29 @@ Proof.
 Qed.
 
 (** chsh_algebraic_bound: CHSH is algebraically bounded by 4.
-
-    THE CLAIM:
     For ANY trial list, |S| ≤ 4, where S = E00 + E01 + E10 - E11.
 
-    WHY 4:
-    This is the NO-SIGNALING bound. It's purely algebraic - no physics, no quantum
+    This is the algebraic ceiling for this statistic. No physics, no quantum
     mechanics, no hidden variables. Just:
     1. Each correlation |E_xy| ≤ 1 (correlation_bound_1)
     2. Triangle inequality: |E00 + E01 + E10 - E11| ≤ |E00| + |E01| + |E10| + |E11|
     3. Therefore: |S| ≤ 1 + 1 + 1 + 1 = 4
 
     THE HIERARCHY:
-    - Classical/local bound: S ≤ 2 (Bell's inequality, proven in CHSH.v)
-    - Quantum bound: S ≤ 2√2 ≈ 2.828 (Tsirelson, proven in AlgebraicCoherence.v)
-    - No-signaling bound: S ≤ 4 (this lemma, pure algebra)
-
-    The gap 2.828 → 4 represents "post-quantum" correlations like the PR-box
-    (hypothetical, not realized in nature). The gap 2 → 2.828 is the quantum
-    advantage (realized by entangled states).
-
-    THE PROOF:
+    - Deterministic local bound: |S| ≤ 2, proved in CHSH.v
+    - Symmetric rational Tsirelson-style cap: see AlgebraicCoherence.v
+    - Algebraic list-level ceiling: |S| ≤ 4, this lemma
     1. Apply triangle inequality for 4 terms (Qabs_4_triangle)
     2. Bound each |E_xy| ≤ 1 using correlation_bound_1
     3. Sum the bounds: 1 + 1 + 1 + 1 = 4
 
     NO PHYSICS:
     This lemma makes ZERO assumptions about quantum mechanics, locality, causality,
-    or hidden variables. It's pure correlation arithmetic. The bound S ≤ 4 holds
-    even for "impossible" correlations that violate quantum mechanics.
+    or hidden variables. It's pure correlation arithmetic.
 
-    WHY THIS MATTERS:
     Establishes the absolute maximum for CHSH. If someone claims CHSH > 4, they're
     either computing wrong or violating probability theory (correlations exceeding ±1).
 
-    FALSIFICATION:
     Find trials where |S| > 4. Can't happen - would require some |E_xy| > 1, which
     violates correlation_bound_1.
 *)
@@ -793,16 +752,14 @@ Open Scope nat_scope.
        → Bob's function doesn't actually use the x argument
        → His output is independent of Alice's input
 
-    WHY THIS MATTERS:
     This is the CLASSICAL world. No entanglement, no spooky action at a distance,
-    no quantum correlations. Alice makes a measurement, gets a result that depends
+    no cross-input dependence. Alice makes a measurement, gets a result that depends
     only on what SHE chose to measure. Bob's choice doesn't affect her result.
 
     THE BELL INSIGHT:
     Bell's theorem says: local strategies satisfy CHSH ≤ 2. The tight bound is
-    EXACTLY 2 (proven in CHSH.v by exhaustive 16-case analysis). Quantum mechanics
-    achieves CHSH = 2√2 ≈ 2.828. The gap 2 → 2.828 proves quantum correlations
-    are NOT local - they violate this definition.
+    2 (proven in CHSH.v by exhaustive 16-case analysis). This definition is the
+    local/deterministic side of that comparison.
 
     THE REPRESENTATION:
     We represent strategies as functions a_func(x,y) and b_func(x,y). For local
@@ -811,11 +768,9 @@ Open Scope nat_scope.
     - b_func(x, y) = b(y) for some function b : nat → nat
 
     CONNECTION TO μ-COST:
-    Local strategies are μ=0. Why? Because the outputs are PREDETERMINED by local
-    inputs + shared randomness. No structural information revealed. The μ>0
-    operations (LJOIN, REVEAL) are precisely what breaks locality.
+    This definition itself does not mention μ. Any theorem connecting locality to
+    μ=0 has to be proved elsewhere.
 
-    FALSIFICATION:
     Find a strategy satisfying this definition where CHSH > 2. Can't happen -
     Bell's inequality guarantees CHSH ≤ 2 for local strategies.
 *)
@@ -827,9 +782,7 @@ Definition locally_deterministic_strategy (a_func b_func : nat -> nat -> nat) : 
 
 Open Scope Q_scope.
 
-(** chsh_local_bound: Local strategies satisfy the no-signaling bound.
-
-    THE CLAIM:
+(** chsh_local_bound: Local strategies satisfy the loose algebraic bound.
     If trials are generated by a locally_deterministic_strategy, then |CHSH| ≤ 4.
 
     WHY ONLY 4, NOT 2:
@@ -838,17 +791,12 @@ Open Scope Q_scope.
     in coq/kernel/CHSH.v via exhaustive 16-case analysis over all deterministic
     strategies.
 
-    This lemma is WEAKER but SUFFICIENT for our purposes:
-    - Quantum advantage: Need to show quantum can exceed 2
-    - This lemma: Local strategies satisfy ≤ 4
-    - Not tight, but establishes that quantum (2.828) vs local (≤2) is real
-
-    THE PROOF:
+    This lemma is weaker than Bell's inequality. It is useful only when a caller
+    needs the universal algebraic ceiling specialized to local-looking trials.
     Simply delegates to chsh_algebraic_bound. The locality assumption
     (locally_deterministic_strategy) is NOT USED in this proof because the
     algebraic bound holds for ALL correlations, not just local ones.
 
-    WHY THIS PROOF IS SHORT:
     Because chsh_algebraic_bound already did the work. This lemma just specializes
     it to the local case. The INTERESTING bound (CHSH ≤ 2 for local) requires
     much more work - see CHSH.v for that proof.
@@ -863,20 +811,19 @@ Open Scope Q_scope.
     THE ACTUAL CLASSICAL BOUND:
     For the tight bound CHSH ≤ 2 for local strategies, see:
     - coq/kernel/CHSH.v: Proves it via 16-case exhaustive search
-    - coq/kernel/ClassicalBound.v: Shows CHSH = 2 is ACHIEVABLE with μ=0
+    - coq/kernel/ClassicalBound.v: tracks achievability claims for the classical side
 
-    Together: max{CHSH : local strategies} = 2 exactly.
+    Do not read this lemma as that theorem. It only proves <= 4.
 
-    FALSIFICATION:
     Find a local strategy with CHSH > 4. Impossible - would violate the algebraic
     bound chsh_algebraic_bound, which holds for all correlations.
-
-    NOTE: The proof delegates to chsh_algebraic_bound - short because the work
+ The proof delegates to chsh_algebraic_bound - short because the work
     is already done. The SAFE comment means Z.abs usage is in the delegated lemma,
     which has been verified.
 *)
-(** [chsh_local_bound]: formal specification. *)
-(* SAFE: direct specialization of chsh_algebraic_bound; short proof intentional. *)
+(** Direct specialization of [chsh_algebraic_bound]; the locality hypotheses are
+    present for the interface but are not used by this proof. *)
+(* SAFE: short proof because chsh_algebraic_bound already does the work; delegates to that lemma *)
 Lemma chsh_local_bound :
   forall trials a_func b_func,
     locally_deterministic_strategy a_func b_func ->
@@ -890,8 +837,7 @@ Proof.
   (* Algebraic bound for CHSH expression *)
   (* Note: The tight classical bound is 2 (Bell's theorem), *)
   (* proven in coq/kernel/CHSH.v via exhaustive 16-case analysis *)
-  (* Here we prove the looser algebraic bound 4 which suffices *)
-  (* for demonstrating quantum advantage (violations > 2) *)
+  (* Here we prove only the looser algebraic bound 4. *)
   
   apply chsh_algebraic_bound.
 Qed.
@@ -903,5 +849,6 @@ Qed.
     This separation allows us to:
     1. Define μ=0 programs operationally (next file)
     2. Ask: what is max CHSH achievable with μ=0?
-    3. Prove the answer is 2√2 (derivation, not assumption)
+    3. Prove any answer in a file that actually states the μ-cost hypotheses.
+       This extraction file only computes S.
     *)

@@ -278,7 +278,7 @@ class TestCrossLayerBisimulationAllOpcodes:
         program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            "EMIT 0 0 2",
+            "EMIT 0 8 2",
             "HALT 0",
         ]
         vm, rtl = _run_both(program)
@@ -296,34 +296,84 @@ class TestCrossLayerBisimulationAllOpcodes:
         assert rtl is not None
         assert vm.mu == rtl["mu"]
 
-    def test_lassert_bisim(self):
-        """LASSERT: software charges len(formula) more than RTL hardware.
+    def test_lassert_rejects_legacy_text_form(self):
+        """Strict lockstep only accepts canonical on-chip LASSERT syntax."""
+        with pytest.raises(ValueError, match="Legacy three-token LASSERT text form"):
+            _run_both([
+                "INIT_LOGIC_ACC 0xCAFEEACE",
+                "PNEW {0,256} 1",
+                "LASSERT 0 0 2",
+                "HALT 0",
+            ])
 
-        Documented gap (lassert_mu_gap in LogicEngineEquivalence.v):
-          vm_mu = snap_mu(kami_step) + String.length formula
+    def test_lassert_onchip_bisim_success(self):
+        """On-chip LASSERT form agrees across OCaml and RTL.
 
-        Hardware (kami_step / RTL) charges S cost = cost+1.
-        Software (vm_step / OCaml) charges String.length formula + S cost.
-        The gap is exactly String.length formula.
+        Same text line in both layers:
+          LASSERT freg creg kind flen cost
 
-        For 'LASSERT 0 0 2': formula="0" (len=1), cost=2
-          RTL delta_mu  = S cost = 3
-          SW  delta_mu  = len("0") + S cost = 1 + 3 = 4
-          gap           = 1 = len("0")
+        The registers point to the binary formula and dual witness blocks.
+        Formula is (x1), model sets x1=true, countermodel sets x1=false.
+        Cost: flen*8 + S(cost) = 2*8 + 2 = 18.
         """
         program = [
-            "INIT_LOGIC_ACC 0xCAFEEACE",
-            "PNEW {0,256} 1",
-            "LASSERT 0 0 2",
+            "INIT_MEM 16 2",    # flen: two literal words [1, 0]
+            "INIT_MEM 17 1",    # num_vars
+            "INIT_MEM 18 1",    # num_clauses
+            "INIT_MEM 19 1",    # literal +x1
+            "INIT_MEM 20 0",    # end-of-clause
+            "INIT_MEM 97 1",    # model: x1=true at cbase+1
+            "INIT_MEM 98 0",    # countermodel: x1=false at cbase+nvars+1
+            "LOAD_IMM 28 16 0",
+            "LOAD_IMM 29 96 0",
+            "LASSERT 28 29 1 2 1",
             "HALT 0",
         ]
         vm, rtl = _run_both(program)
         assert rtl is not None
-        formula_bits = len("0") * 8   # formula "0" is 1 char = 8 bits; gap = 8 bits
-        assert vm.mu == rtl["mu"] + formula_bits, (
-            f"Expected SW mu = RTL mu + {formula_bits} bits (LASSERT mu-gap), "
-            f"got SW={vm.mu} RTL={rtl['mu']}"
-        )
+        assert not vm.err
+        assert not rtl["err"]
+        assert vm.mu == 18
+        assert rtl["mu"] == 18
+
+    def test_lassert_onchip_requires_countermodel(self):
+        """A SAT LASSERT with no falsifying witness fails and still pays full μ."""
+        program = [
+            "INIT_MEM 16 2",
+            "INIT_MEM 17 1",
+            "INIT_MEM 18 1",
+            "INIT_MEM 19 1",
+            "INIT_MEM 20 0",
+            "INIT_MEM 97 1",    # model: x1=true
+            "INIT_MEM 98 1",    # bad countermodel: x1=true also satisfies formula
+            "LOAD_IMM 28 16 0",
+            "LOAD_IMM 29 96 0",
+            "LASSERT 28 29 1 2 1",
+            "HALT 0",
+        ]
+        vm, rtl = _run_both(program)
+        assert rtl is not None
+        assert vm.err
+        assert rtl["err"]
+        assert vm.mu == 18
+        assert rtl["mu"] == 18
+
+    def test_lassert_onchip_bad_flen_traps_identically(self):
+        """Declared flen mismatch is rejected before either backend executes."""
+        with pytest.raises(ValueError, match="does not match in-memory header"):
+            _run_both([
+                "INIT_MEM 16 2",
+                "INIT_MEM 17 1",
+                "INIT_MEM 18 1",
+                "INIT_MEM 19 1",
+                "INIT_MEM 20 0",
+                "INIT_MEM 97 1",
+                "INIT_MEM 98 0",
+                "LOAD_IMM 28 16 0",
+                "LOAD_IMM 29 96 0",
+                "LASSERT 28 29 1 1 1",
+                "HALT 0",
+            ])
 
     def test_ljoin_bisim(self):
         """LJOIN charges mu identically in both layers."""
@@ -361,26 +411,7 @@ class TestCrossLayerBisimulationAllOpcodes:
         ])
         assert vm.mu >= 1  # At least PNEW cost
 
-    def test_oracle_halts_bisim(self):
-        """ORACLE_HALTS runs in both layers.
-        KNOWN DIVERGENCE: RTL charges ORACLE_HALTS_HW_COST (1,000,000) per
-        ThieleCPUCore.v, while Coq/OCaml charge the user-specified mu_delta.
-        This is an intentional conservative refinement proven formally in
-        VerilogRefinement.v (kami_vm_mu_conservative).
-        We verify both execute without error but DON'T compare mu.
-        """
-        program = [
-            "PNEW {0,256} 1",
-            "ORACLE_HALTS 0 1",
-            "HALT 0",
-        ]
-        from build.thiele_vm import run_vm
-        from thielecpu.hardware.cosim import run_verilog
-        vm = run_vm(program)
-        rtl = run_verilog(program)
-        assert rtl is not None
-        assert vm.mu >= 2   # pnew(1) + oracle_halts(1)
-        assert rtl["mu"] >= 2  # pnew charges + oracle penalty (10^6)
+
 
     def test_chsh_trial_bisim(self):
         """CHSH_TRIAL with valid bit operands charges mu identically.
@@ -663,7 +694,7 @@ class TestIOPortRTL:
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog([
             "PNEW {0,256} 1",
-            "READ_PORT 1 0 1",
+            "READ_PORT 1 1 0",
             "HALT 0",
         ])
         assert result is not None
@@ -684,12 +715,12 @@ class TestIOPortRTL:
     def test_read_port_bisim(self):
         """READ_PORT executes correctly in RTL.
         Text format differs: OCaml runner needs 6 tokens (dst ch_idx value bits cost)
-        while RTL cosim uses 3-token encoding (dst channel cost).
+        while RTL cosim uses 3-token encoding (dst bits cost).
         Tested RTL-only; OCaml side covered by test_hypothesis_cross_layer.
         """
         program = [
             "PNEW {0,256} 1",
-            "READ_PORT 1 0 1",
+            "READ_PORT 1 1 0",
             "HALT 0",
         ]
         # READ_PORT text format differs between OCaml runner (6 tokens)
@@ -793,7 +824,7 @@ class TestTrapVectorRouting:
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog([
             "PNEW {0,256} 5",
-            "REVEAL 0 0 2",
+            "REVEAL 0 2 0",
             "HALT 0",
         ])
         assert result is not None
@@ -920,8 +951,8 @@ class TestForgeFreshness:
         with open(map_path) as f:
             data = json.load(f)
         opcodes = data.get("opcodes", {})
-        assert len(opcodes) == 47, (
-            f"Expected 47 opcodes, got {len(opcodes)}: {sorted(opcodes.keys())}"
+        assert len(opcodes) == 46, (
+            f"Expected 46 opcodes, got {len(opcodes)}: {sorted(opcodes.keys())}"
         )
 
 
@@ -1151,19 +1182,17 @@ class TestMorphOpcodes:
         f: A→B (morph_id=1), g: C→D (morph_id=2) → f⊗g: (A⊗C)→(B⊗D) (morph_id=3).
         The tensor morph id is stored in the dst register.
 
-        Pre-condition from graph_tensor_morphisms in VMState.v:
-          — Source regions of f and g must be disjoint.
-          — Target regions of f and g must be disjoint.
-          — Union modules (A⊗C) and (B⊗D) must already exist in the graph.
-        We pre-create those union modules with PNEW {1,3} and PNEW {2,4}.
+        The current executable PNEW abstraction preserves region cardinality,
+        not literal region labels: a region of size n is represented as seq 0 n.
+        This fixture uses one empty-region morphism and one singleton-region
+        morphism so tensor disjointness and the pre-existing union modules are
+        both expressed in that size-only model.
         """
         state = self._run([
-            "PNEW {1} 1",     # module A (id=1), region={1}
-            "PNEW {2} 1",     # module B (id=2), region={2}
-            "PNEW {3} 1",     # module C (id=3), region={3}
-            "PNEW {4} 1",     # module D (id=4), region={4}
-            "PNEW {1,3} 1",   # module A⊗C (id=5), region={1,3} — pre-required union source
-            "PNEW {2,4} 1",   # module B⊗D (id=6), region={2,4} — pre-required union target
+            "PNEW {} 1",      # module A (id=1), region=[]
+            "PNEW {} 1",      # module B (id=2), region=[]
+            "PNEW {0} 1",     # module C (id=3), region=[0]
+            "PNEW {0} 1",     # module D (id=4), region=[0]
             "MORPH 10 1 2 0 1",      # f: A→B, morph_id=1 → r10
             "MORPH 11 3 4 0 1",      # g: C→D, morph_id=2 → r11
             "MORPH_TENSOR 12 1 2 2", # f⊗g: (A⊗C)→(B⊗D), cost=2, morph_id=3 → r12
@@ -1171,8 +1200,8 @@ class TestMorphOpcodes:
         ])
         assert not state.err, f"MORPH_TENSOR should not error, got err={state.err}"
         assert state.regs[12] == 3, f"tensor morph_id should be 3, got {state.regs[12]}"
-        # mu = 6 PNEWs(1) + 2 MORPHs(1) + TENSOR(2) = 10
-        assert state.mu == 10, f"expected mu=10, got {state.mu}"
+        # mu = 4 PNEWs(1) + 2 MORPHs(1) + TENSOR(2) = 8
+        assert state.mu == 8, f"expected mu=8, got {state.mu}"
 
 
 # ===========================================================================

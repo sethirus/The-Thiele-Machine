@@ -1,40 +1,17 @@
-(** =========================================================================
-    MuLedgerQuantumBridge: mu-Ledger / Quantum Realizability Bridge
-    =========================================================================
+(** MuLedgerQuantumBridge: connect μ-ledger traces to NPA-style constraints.
 
-    WHY THIS FILE EXISTS:
-    The kernel already has two proof islands:
+    The repository already contains two separate layers: μ-ledger trace
+    accounting and the NPA or Tsirelson correlation machinery. This file links
+    those layers as far as the current proofs honestly support. It defines a
+    concrete trace-to-correlator interface, states ledger-side coherence
+    predicates, proves that the coherent side implies the existing Tsirelson
+    bound, and keeps the remaining PSD gap explicit.
 
-    1. mu-ledger accounting and trace execution
-    2. NPA moment matrices and Tsirelson bounds
-
-    This file connects them as far as the current kernel infrastructure honestly
-    allows. In particular, it now contains:
-
-    - A concrete trace-to-correlator interface using CHSHExtraction.v
-    - A concrete mu-ledger coherence predicate over real correlators and final VM state
-    - A proved theorem: coherence implies the Tsirelson bound via existing minor constraints
-    - An explicit residual obligation isolating what is still needed to obtain
-      full quantum realizability (PSD of the induced NPA matrix)
-
-    THE CORE CLAIM:
-    mu_ledger_coherent implies Tsirelson bound (S^2 <= 8) and quantum
-    realizability of the extracted NPA matrix. The bridge is honest: it
-    requires column contractivity as an additional hypothesis beyond the
-    row minor constraints, and proves that this extra hypothesis is
-    genuinely needed (not derivable from row minors alone).
-
-    CRITICAL DISTINCTION:
-    We do NOT silently identify mu-ledger coherence with quantum realizability.
-    That would be circular. Instead, we prove the strongest theorem currently
-    supported by the repository and make the remaining PSD bridge explicit.
-
-    FALSIFICATION:
-    Show that mu_ledger_tsirelson_coherent alone implies PSD of the NPA
-    matrix. This is impossible: bridge_counterexample_not_final_tensor_quantum_gram
-    exhibits a concrete counterexample where Tsirelson coherence holds but PSD fails.
-
-    ========================================================================= *)
+    That last point matters. The file does not identify μ-ledger coherence with
+    full quantum realizability by fiat. Column contractivity remains an extra
+    hypothesis beyond the row-minor conditions, and the counterexample in this
+    file shows why that stronger PSD bridge cannot be silently smuggled in.
+*)
 
 From Coq Require Import List Reals QArith Psatz Field.
 From Coq.Vectors Require Import Fin.
@@ -95,28 +72,18 @@ Definition trace_zero_marginal_npa
     (trace_e10 fuel trace s_init)
     (trace_e11 fuel trace s_init).
 
-(** =========================================================================
-    PSPLIT QUANTUM STATE PREDICATE (Gap C, Step C1)
-    =========================================================================
+(** PSPLIT quantum-state predicate.
 
-    A PSPLIT-initiated trace "implements a quantum state" when the CHSH_TRIAL
-    witness counters it produces form a quantum_realizable NPA moment matrix.
-    This does not assume any density matrix — it is the operational definition:
-    the partition statistics are quantum-compatible.
+    A PSPLIT-initiated trace implements a quantum state here when the resulting
+    CHSH-trial statistics form a quantum_realizable NPA moment matrix. This is
+    an operational compatibility condition on the produced statistics, not an
+    assumed density-matrix model hidden in the trace itself.
 
-    NON-CIRCULARITY:
-    quantum_realizable is the NPA PSD condition (symmetric5 + PSD5), which
-    constrains the STATISTICS produced by the trace, not the trace itself.
-    psplit_implements_quantum_state names the condition; it does not assume it.
-    The condition must be VERIFIED (e.g., via instr_certify) at runtime.
-
-    RELATIONSHIP TO EXISTING PREDICATES:
-    - trace_quantum_model (TsirelsonQuantumModel.v) is the same definition;
-      psplit_implements_quantum_state is a named alias emphasizing the
-      PSPLIT-operational origin.
-    - kernel_state_bridge_coherent (this file) is STRONGER: it requires
-      vm_certified = true AND state_column_contractive.
-    ========================================================================= *)
+    The alias keeps the PSPLIT provenance visible. It matches
+    trace_quantum_model in TsirelsonQuantumModel.v, while the stronger bridge
+    predicates in this file additionally ask for certification and column-side
+    conditions.
+*)
 Definition psplit_implements_quantum_state
   (fuel : nat) (trace : list vm_instruction) (s_init : VMState) : Prop :=
   quantum_realizable (trace_zero_marginal_npa fuel trace s_init).
@@ -776,9 +743,9 @@ Qed.
 Definition load_bearing_psd_obligation : Prop :=
   final_tensor_quantum_gram_obligation.
 
-(** =========================================================================
+(**
     Generic exact-characterization meta-layer
-    ========================================================================= *)
+    *)
 
 Section ExactCharacterizationMeta.
 
@@ -825,9 +792,8 @@ Qed.
 
 End ExactCharacterizationMeta.
 
-(** =========================================================================
+(**
     STATE-BASED QUANTUM BRIDGE (formerly in ThielePrime, now in kernel)
-    =========================================================================
 
     The trace-based bridge above extracts correlators by scanning
     list vm_instruction. This section provides the equivalent
@@ -837,7 +803,7 @@ End ExactCharacterizationMeta.
     This is the key architectural improvement (formerly in ThielePrime, now in kernel):
     the quantum object is determined by final machine state alone,
     not reconstructed from an external execution trace.
-    ========================================================================= *)
+    *)
 
 (** Compute bucket correlation: (same - diff) / (same + diff).
     Returns 0 if no trials recorded for this setting pair. *)
@@ -989,9 +955,8 @@ Proof.
   - apply kernel_state_bridge_coherent_implies_quantum_realizable. exact Hcoh.
 Qed.
 
-(** =========================================================================
+(**
     PSD -> ROW BOUNDS -> TSIRELSON
-    =========================================================================
 
     This section derives the row bounds (minor_constraint_zero_marginal) from
     the PSD property of the zero-marginal NPA matrix, rather than assuming them.
@@ -1016,7 +981,7 @@ Qed.
     det = 1 - E10² - E11² ≥ 0.
 
     This uses psd_3x3_determinant_nonneg from ConstructivePSD.v.
-    ========================================================================= *)
+    *)
 
 (** INQUISITOR NOTE: quantum_realizable_zero_marginal_implies_row_bounds derives
     the row-sum constraints from PSD. The constraints follow from the 3x3 minor

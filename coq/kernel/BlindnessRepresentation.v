@@ -1,6 +1,5 @@
-(** * BlindnessRepresentation: The forgetful map as formal "Turing-style blindness"
+(** BlindnessRepresentation: the forgetful map as Turing-style blindness
 
-    WHY THIS FILE EXISTS:
     A Turing machine is "blind" to Thiele structure not merely as rhetoric
     but as a provable consequence of what a forgetful map loses. This file
     formalizes that blindness precisely:
@@ -11,10 +10,9 @@
       image iff they agree on pc, mu, registers, and memory.
     - Show forget is surjective: every classical state has a Thiele preimage.
 
-    These four facts together constitute the REPRESENTATION THEOREM FOR
-    BLINDNESS: the classical observer sees a quotient of Thiele state-space
-    by the equivalence relation eq_on_classical, and the quotient map is
-    exactly forget.
+    These four facts are the representation theorem for blindness in this
+    file: the classical observer sees the quotient of Thiele state-space by
+    [eq_on_classical], and the quotient map is [forget].
 
     COMPARISON WITH PartitionSeparation.v:
     PartitionSeparation.v shows an instruction-set separation (partition ops
@@ -22,7 +20,7 @@
     orthogonal: the STATE SPACE is richer, and the richness is not recoverable
     from the classical view.
 
-    NO AXIOMS. NO ADMITS. All proofs are constructive.
+    NO COQ AXIOMS. NO ADMITS. All proofs are constructive.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
@@ -32,9 +30,7 @@ From Kernel Require Import VMState.
 From Kernel Require Import ThieleTraceProjection.
 From Kernel Require Import ShadowProjection.
 
-(* ================================================================= *)
-(** ** I.  The forgetful map                                         *)
-(* ================================================================= *)
+(** The forgetful map. *)
 
 (** TMSnapshot: the classical Turing-machine-visible state.
     This is isomorphic to ClassicalSnapshot from ThieleTraceProjection.v,
@@ -58,9 +54,7 @@ Definition forget (s : VMState) : TMSnapshot :=
      tms_regs := s.(vm_regs);
      tms_mem  := s.(vm_mem) |}.
 
-(* ================================================================= *)
-(** ** II.  The equivalence relation induced by forget               *)
-(* ================================================================= *)
+(** The equivalence relation induced by [forget]. *)
 
 (** Two Thiele states are classically equivalent if they agree on all
     fields that survive the forgetful map. *)
@@ -70,11 +64,12 @@ Definition eq_on_classical (s1 s2 : VMState) : Prop :=
   s1.(vm_regs) = s2.(vm_regs) /\
   s1.(vm_mem)  = s2.(vm_mem).
 
-(** eq_on_classical is an equivalence relation. *)
+(** Reflexivity: a state agrees with itself on the classical fields. *)
 
 Lemma eq_on_classical_refl : forall s, eq_on_classical s s.
 Proof. intro s. unfold eq_on_classical. tauto. Qed.
 
+(** Symmetry: if the classical fields match one way, they match the other way. *)
 Lemma eq_on_classical_sym :
   forall s1 s2, eq_on_classical s1 s2 -> eq_on_classical s2 s1.
 Proof.
@@ -82,6 +77,7 @@ Proof.
   unfold eq_on_classical. repeat split; symmetry; assumption.
 Qed.
 
+(** Transitivity: matching classical fields can be chained through a middle state. *)
 Lemma eq_on_classical_trans :
   forall s1 s2 s3,
     eq_on_classical s1 s2 ->
@@ -92,12 +88,10 @@ Proof.
   unfold eq_on_classical. repeat split; congruence.
 Qed.
 
-(* ================================================================= *)
-(** ** III.  Theorem 3A: Kernel characterization                     *)
-(* ================================================================= *)
+(** Kernel characterization. *)
 
-(** [forget_sound]: formal specification.
-    forget is sound: eq_on_classical implies same forget image. *)
+(** [forget_sound]: states equivalent on classical fields have the same
+    forgetful image. *)
 Theorem forget_sound :
   forall s1 s2 : VMState,
     eq_on_classical s1 s2 ->
@@ -108,10 +102,9 @@ Proof.
   f_equal; assumption.
 Qed.
 
-(** [forget_complete]: formal specification.
-    forget is complete: same forget image implies eq_on_classical.
+(** [forget_complete]: equal forgetful images agree on the classical fields.
 
-    The kernel of forget is EXACTLY eq_on_classical — no more, no less.
+    The kernel of forget is exactly [eq_on_classical], no more and no less.
     This pins down precisely which information is lost by the forgetful map. *)
 Theorem forget_complete :
   forall s1 s2 : VMState,
@@ -125,7 +118,7 @@ Proof.
   exact (conj Hpc (conj Hmu (conj Hregs Hmem))).
 Qed.
 
-(** REPRESENTATION THEOREM: forget s1 = forget s2 ↔ eq_on_classical s1 s2.
+(** Representation theorem: [forget s1 = forget s2] iff [eq_on_classical s1 s2].
     The classical observer's inability to distinguish two states is exactly
     characterized by eq_on_classical. *)
 Theorem forget_kernel_is_eq_on_classical :
@@ -138,9 +131,7 @@ Proof.
   - exact (forget_sound s1 s2).
 Qed.
 
-(* ================================================================= *)
-(** ** IV.  Theorem 3B: Non-injectivity (constructive blindness)     *)
-(* ================================================================= *)
+(** Non-injectivity: constructive blindness. *)
 
 (** The two witnesses from ThieleTraceProjection have the same forget image. *)
 Lemma forget_A_eq_B :
@@ -166,9 +157,8 @@ Definition forget_witness_uncert : VMState :=
                         wc_same_11 := 0; wc_diff_11 := 0 |};
      vm_certified := false |}.
 
-(** [blindness_non_injective]: formal specification.
-
-    The forgetful map is NOT injective: different Thiele states can be
+(** [blindness_non_injective]: the forgetful map is not injective.
+    Different Thiele states can be
     indistinguishable to a classical observer. The information lost is
     precisely the Thiele-specific structure (witness counters, partition
     graph, certification flag, etc.). *)
@@ -181,13 +171,10 @@ Proof.
   exact (conj witnesses_A_B_distinct forget_A_eq_B).
 Qed.
 
-(** [what_is_lost]: formal specification.
-    The fields lost by forget are exactly the complement of eq_on_classical.
-    In particular, two states with the same forget image can differ in:
-      - vm_witness (CHSH trial counters)
-      - vm_certified (certification bit)
-      - vm_graph (partition graph)
-      - vm_csrs, vm_mu_tensor, vm_logic_acc, vm_mstatus, vm_err *)
+(** [what_is_lost]: witness counters are invisible to [forget].
+    This theorem only proves the witness-counter case. Certification gets its
+    own witness below; other dropped fields follow from the definition but are
+    not separately witnessed here. *)
 Theorem what_is_lost :
   exists s1 s2 : VMState,
     forget s1 = forget s2 /\
@@ -215,13 +202,9 @@ Proof.
   - discriminate.
 Qed.
 
-(* ================================================================= *)
-(** ** V.  Theorem 3C: Surjectivity (every classical state has preimage) *)
-(* ================================================================= *)
+(** Surjectivity: every classical snapshot has a preimage. *)
 
-(** [forget_surjective]: formal specification.
-
-    The forgetful map is SURJECTIVE: every classical TMSnapshot is the
+(** [forget_surjective]: every classical [TMSnapshot] is the
     image of some Thiele VMState. The preimage is constructed by
     supplying zero-initialized Thiele-specific fields. *)
 Theorem forget_surjective :
@@ -248,13 +231,11 @@ Proof.
   reflexivity.
 Qed.
 
-(* ================================================================= *)
-(** ** VI.  Corollaries: the quotient picture                        *)
-(* ================================================================= *)
+(** Corollaries: the quotient picture. *)
 
-(** The fiber over any TMSnapshot is non-trivial: it contains at least
+(** The fiber over any TMSnapshot is not a singleton: it contains at least
     two elements (one certified, one not). *)
-Theorem fiber_is_non_trivial :
+Theorem fiber_has_two_preimages :
   forall snap : TMSnapshot,
     exists s1 s2 : VMState,
       forget s1 = snap /\
@@ -312,14 +293,10 @@ Proof.
   - exact forget_surjective.
 Qed.
 
-(* ================================================================= *)
-(** ** VII.  Bridge: forget and shadow_proj agree on shared fields    *)
-(* ================================================================= *)
+(** Bridge: [forget] and [shadow_proj] agree on shared fields. *)
 
-(** [shadow_proj_and_forget_agree]: formal specification.
-
-    The two forgetful maps — forget (this file) and shadow_proj
-    (ShadowProjection.v) — are independent definitions, but they agree on
+(** [shadow_proj_and_forget_agree]: the two forgetful maps, [forget] in this
+    file and [shadow_proj] in [ShadowProjection.v], agree on
     all shared fields (pc, mu, regs, mem).  shadow_proj additionally retains
     vm_err and vm_certified, which TMSnapshot does not track.
 
@@ -329,7 +306,7 @@ Qed.
     a machine-checked answer here.
 
     Proof: both sides reduce to the same record via reflexivity. *)
-(* DEFINITIONAL HELPER: forget and shadow_proj agree on shared fields — unfolding produces reflexivity. *)
+(* Definitional check: unfolding both maps produces reflexivity. *)
 Lemma shadow_proj_and_forget_agree :
   forall s : VMState,
     forget s = {| tms_pc   := (shadow_proj s).(cs_pc);

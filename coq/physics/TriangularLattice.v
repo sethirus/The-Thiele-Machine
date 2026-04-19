@@ -3,7 +3,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState MuGravity.
 
-(** * Finite triangular lattice encoding for partition graphs.
+(** Finite triangular lattice encoding for partition graphs.
 
     This provides a concrete, bounded graph class that we can use as the
     first testbed for geometric calibration proofs.
@@ -86,7 +86,6 @@ Definition lattice_vm_state (n : nat) : VMState :=
      vm_witness := witness_counts_zero;
      vm_certified := false |}.
 
-(** [lattice_id_coord_of_id]: formal specification. *)
 Lemma lattice_id_coord_of_id : forall n u,
   n <> 0 ->
   lattice_id n (fst (coord_of_id n u)) (snd (coord_of_id n u)) = u.
@@ -103,7 +102,6 @@ Proof.
     exact Hdivmod.
 Qed.
 
-(** [coord_of_id_lattice_id]: formal specification. *)
 Lemma coord_of_id_lattice_id : forall n x y,
   n <> 0 ->
   x < n ->
@@ -123,7 +121,6 @@ Proof.
     reflexivity.
 Qed.
 
-(** [coord_of_id_in_bounds]: formal specification. *)
 Lemma coord_of_id_in_bounds : forall n u,
   n <> 0 ->
   u < lattice_size n ->
@@ -146,7 +143,6 @@ Proof.
       * exact Hn.
 Qed.
 
-(** [edge_id_sym]: formal specification. *)
 Lemma edge_id_sym : forall n u v,
   edge_id n u v = edge_id n v u.
 Proof.
@@ -166,7 +162,6 @@ Proof.
     reflexivity.
 Qed.
 
-(** [module_region_for_has_edge]: formal specification. *)
 Lemma module_region_for_has_edge : forall n u v,
   In v (neighbors_of n u) ->
   In (edge_id n u v) (module_region_for n u).
@@ -178,7 +173,6 @@ Proof.
   split; [reflexivity|assumption].
 Qed.
 
-(** [nat_list_disjoint_false_of_mem]: formal specification. *)
 Lemma nat_list_disjoint_false_of_mem : forall xs ys x,
   In x xs ->
   nat_list_mem x ys = true ->
@@ -195,7 +189,6 @@ Proof.
   discriminate.
 Qed.
 
-(** [nat_list_mem_true_of_in]: formal specification. *)
 Lemma nat_list_mem_true_of_in : forall x xs,
   In x xs ->
   nat_list_mem x xs = true.
@@ -210,7 +203,6 @@ Proof.
       * apply IH. exact Hin.
 Qed.
 
-(** [module_regions_share_edge_if_neighbors]: formal specification. *)
 Lemma module_regions_share_edge_if_neighbors : forall n u v,
   In v (neighbors_of n u) ->
   In u (neighbors_of n v) ->
@@ -227,7 +219,6 @@ Proof.
     exact Hvu.
 Qed.
 
-(** [neighbor_coords_sym]: formal specification. *)
 Lemma neighbor_coords_sym : forall x y x' y',
   In (x', y') (neighbor_coords x y) ->
   In (x, y) (neighbor_coords x' y').
@@ -269,7 +260,6 @@ Proof.
         inversion Hin]]]]]].
 Qed.
 
-(** [neighbors_of_symmetric]: formal specification. *)
 Lemma neighbors_of_symmetric : forall n u v,
   n <> 0 ->
   u < lattice_size n ->
@@ -322,7 +312,6 @@ Proof.
 Qed.
 
 
-(** [all_ids_below_map]: formal specification. *)
 Lemma all_ids_below_map : forall ids bound f,
   (forall id, In id ids -> id < bound) ->
   all_ids_below (map (fun id => (id, f id)) ids) bound.
@@ -334,7 +323,6 @@ Proof.
     + apply IH. intros id' Hin. apply Hlt. simpl. right. exact Hin.
 Qed.
 
-(** [lattice_graph_well_formed]: formal specification. *)
 Lemma lattice_graph_well_formed : forall n,
   well_formed_graph (lattice_graph n).
 Proof.
@@ -353,7 +341,6 @@ Proof.
     exact I.
 Qed.
 
-(** [graph_lookup_modules_map]: formal specification. *)
 Lemma graph_lookup_modules_map : forall ids f mid,
   In mid ids ->
   graph_lookup_modules (map (fun id => (id, f id)) ids) mid = Some (f mid).
@@ -367,7 +354,6 @@ Proof.
       * apply IH. exact Hin.
 Qed.
 
-(** [graph_lookup_lattice]: formal specification. *)
 Lemma graph_lookup_lattice : forall n id,
   id < lattice_size n ->
   graph_lookup (lattice_graph n) id = Some (module_state_for n id).
@@ -380,7 +366,6 @@ Proof.
   rewrite Nat.add_0_l. exact Hid.
 Qed.
 
-(** [nat_list_mem_true_in]: formal specification. *)
 Lemma nat_list_mem_true_in : forall x xs,
   nat_list_mem x xs = true ->
   In x xs.
@@ -392,7 +377,6 @@ Proof.
     + right. apply IH. exact Hmem.
 Qed.
 
-(** [nat_list_disjoint_false_exists]: formal specification. *)
 Lemma nat_list_disjoint_false_exists : forall xs ys,
   nat_list_disjoint xs ys = false ->
   exists x, In x xs /\ nat_list_mem x ys = true.
@@ -410,7 +394,6 @@ Proof.
       * exact Hmem.
 Qed.
 
-(** [in_bounds_true_lt]: formal specification. *)
 Lemma in_bounds_true_lt : forall n x y,
   in_bounds n x y = true ->
   x < n /\
@@ -423,7 +406,6 @@ Proof.
   split; apply Nat.ltb_lt; assumption.
 Qed.
 
-(** [lattice_id_lt]: formal specification. *)
 Lemma lattice_id_lt : forall n x y,
   x < n ->
   y < n ->
@@ -438,7 +420,6 @@ Proof.
     nia.
 Qed.
 
-(** [neighbors_of_lt]: formal specification. *)
 Lemma neighbors_of_lt : forall n id v,
   In v (neighbors_of n id) ->
   v < lattice_size n.
@@ -460,7 +441,6 @@ Proof.
   apply lattice_id_lt; assumption.
 Qed.
 
-(** [edge_id_min_max]: formal specification. *)
 Lemma edge_id_min_max : forall n u v,
   edge_id n u v = Nat.min u v * lattice_size n + Nat.max u v.
 Proof.
@@ -477,7 +457,6 @@ Proof.
     reflexivity.
 Qed.
 
-(** [edge_id_eq_unordered]: formal specification. *)
 Lemma edge_id_eq_unordered : forall n u v c d,
   n <> 0 ->
   u < lattice_size n ->
@@ -531,7 +510,6 @@ Proof.
     split; [exact Hmaxeq|exact Hmin].
 Qed.
 
-(** [modules_adjacent_by_region_lattice]: formal specification. *)
 Lemma modules_adjacent_by_region_lattice : forall n u v,
   u < lattice_size n ->
   v < lattice_size n ->
@@ -546,7 +524,6 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** [modules_adjacent_by_region_neighbors]: formal specification. *)
 Lemma modules_adjacent_by_region_neighbors : forall n u v,
   n <> 0 ->
   u < lattice_size n ->
@@ -585,7 +562,6 @@ Proof.
     apply module_regions_share_edge_if_neighbors; assumption.
 Qed.
 
-(** [lattice_modules_ids]: formal specification. *)
 Lemma lattice_modules_ids : forall n,
   map fst (lattice_modules n) = lattice_ids n.
 Proof.
@@ -595,7 +571,6 @@ Proof.
   rewrite map_id. reflexivity.
 Qed.
 
-(** [module_neighbors_lattice_iff_mutual]: formal specification. *)
 Lemma module_neighbors_lattice_iff_mutual : forall n u v,
   n <> 0 ->
   u < lattice_size n ->
@@ -633,7 +608,6 @@ Proof.
         split; assumption.
 Qed.
 
-(** [module_neighbors_lattice_iff]: formal specification. *)
 Lemma module_neighbors_lattice_iff : forall n u v,
   n <> 0 ->
   u < lattice_size n ->
@@ -654,7 +628,6 @@ Proof.
     apply neighbors_of_symmetric; assumption.
 Qed.
 
-(** [module_neighbors_lattice_eq]: formal specification. *)
 Lemma module_neighbors_lattice_eq : forall n u,
   n <> 0 ->
   u < lattice_size n ->

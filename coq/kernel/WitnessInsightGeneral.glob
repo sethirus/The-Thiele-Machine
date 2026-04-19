@@ -1,0 +1,328 @@
+DIGEST e95b9928dee2c9d7d5e933440cb5ac45
+FKernel.WitnessInsightGeneral
+R2729:2732 Coq.Lists.List <> <> lib
+R2734:2747 Coq.Arith.PeanoNat <> <> lib
+R2749:2752 Coq.Bool.Bool <> <> lib
+R2754:2756 Coq.micromega.Lia <> <> lib
+R2766:2778 Coq.Lists.List ListNotations <> mod
+R2809:2815 Kernel.VMState <> <> lib
+R2817:2822 Kernel.VMStep <> <> lib
+R2824:2838 Kernel.SimulationProof <> <> lib
+R2867:2878 Kernel.AbstractNoFI <> <> lib
+R2880:2894 Kernel.InsightTaxonomy <> <> lib
+R2923:2940 Kernel.LandauerDerivation <> <> lib
+R2942:2962 Kernel.OCamlExtractionBridge <> <> lib
+R2991:3011 Kernel.CHSHStatisticalBridge <> <> lib
+prf 3233:3263 <> chsh_trial_not_cert_addr_setter
+binder 3276:3276 <> a:1
+binder 3278:3278 <> b:2
+binder 3280:3280 <> x:3
+binder 3282:3282 <> y:4
+binder 3284:3291 <> mu_delta:5
+R3351:3353 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3298:3314 Kernel.AbstractNoFI <> cert_addr_setterb def
+R3317:3332 Kernel.VMStep VMStep instr_chsh_trial constr
+R3334:3334 Kernel.WitnessInsightGeneral <> a:1 var
+R3336:3336 Kernel.WitnessInsightGeneral <> b:2 var
+R3338:3338 Kernel.WitnessInsightGeneral <> x:3 var
+R3340:3340 Kernel.WitnessInsightGeneral <> y:4 var
+R3342:3349 Kernel.WitnessInsightGeneral <> mu_delta:5 var
+R3354:3358 Coq.Init.Datatypes <> false constr
+prf 3451:3480 <> chsh_trial_preserves_cert_addr
+binder 3493:3493 <> s:6
+binder 3495:3495 <> a:7
+binder 3497:3497 <> b:8
+binder 3499:3499 <> x:9
+binder 3501:3501 <> y:10
+binder 3503:3510 <> mu_delta:11
+R3591:3597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3577:3589 Kernel.VMState <> csr_cert_addr proj
+R3567:3573 Kernel.VMState <> vm_csrs proj
+R3518:3525 Kernel.SimulationProof <> vm_apply def
+R3527:3527 Kernel.WitnessInsightGeneral <> s:6 var
+R3530:3545 Kernel.VMStep VMStep instr_chsh_trial constr
+R3547:3547 Kernel.WitnessInsightGeneral <> a:7 var
+R3549:3549 Kernel.WitnessInsightGeneral <> b:8 var
+R3551:3551 Kernel.WitnessInsightGeneral <> x:9 var
+R3553:3553 Kernel.WitnessInsightGeneral <> y:10 var
+R3555:3562 Kernel.WitnessInsightGeneral <> mu_delta:11 var
+R3611:3623 Kernel.VMState <> csr_cert_addr proj
+R3601:3607 Kernel.VMState <> vm_csrs proj
+R3598:3598 Kernel.WitnessInsightGeneral <> s:6 var
+R3671:3707 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R3671:3707 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R3718:3748 Kernel.WitnessInsightGeneral <> chsh_trial_not_cert_addr_setter thm
+R3718:3748 Kernel.WitnessInsightGeneral <> chsh_trial_not_cert_addr_setter thm
+prf 3833:3865 <> chsh_trial_preserves_vm_certified
+binder 3878:3878 <> s:12
+binder 3880:3880 <> a:13
+binder 3882:3882 <> b:14
+binder 3884:3884 <> x:15
+binder 3886:3886 <> y:16
+binder 3888:3895 <> mu_delta:17
+R3965:3971 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3952:3963 Kernel.VMState <> vm_certified proj
+R3903:3910 Kernel.SimulationProof <> vm_apply def
+R3912:3912 Kernel.WitnessInsightGeneral <> s:12 var
+R3915:3930 Kernel.VMStep VMStep instr_chsh_trial constr
+R3932:3932 Kernel.WitnessInsightGeneral <> a:13 var
+R3934:3934 Kernel.WitnessInsightGeneral <> b:14 var
+R3936:3936 Kernel.WitnessInsightGeneral <> x:15 var
+R3938:3938 Kernel.WitnessInsightGeneral <> y:16 var
+R3940:3947 Kernel.WitnessInsightGeneral <> mu_delta:17 var
+R3975:3986 Kernel.VMState <> vm_certified proj
+R3972:3972 Kernel.WitnessInsightGeneral <> s:12 var
+R4034:4073 Kernel.LandauerDerivation <> vm_apply_preserves_certified_non_certify thm
+R4034:4073 Kernel.LandauerDerivation <> vm_apply_preserves_certified_non_certify thm
+prf 4227:4245 <> chsh_trial_is_tier0
+binder 4258:4258 <> s:18
+binder 4260:4260 <> a:19
+binder 4262:4262 <> b:20
+binder 4264:4264 <> x:21
+binder 4266:4266 <> y:22
+binder 4268:4275 <> mu_delta:23
+R4282:4283 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4284:4304 Kernel.InsightTaxonomy <> is_cert_insight_event def
+R4306:4306 Kernel.WitnessInsightGeneral <> s:18 var
+R4309:4324 Kernel.VMStep VMStep instr_chsh_trial constr
+R4326:4326 Kernel.WitnessInsightGeneral <> a:19 var
+R4328:4328 Kernel.WitnessInsightGeneral <> b:20 var
+R4330:4330 Kernel.WitnessInsightGeneral <> x:21 var
+R4332:4332 Kernel.WitnessInsightGeneral <> y:22 var
+R4334:4341 Kernel.WitnessInsightGeneral <> mu_delta:23 var
+R4397:4417 Kernel.InsightTaxonomy <> is_cert_insight_event def
+R4506:4535 Kernel.WitnessInsightGeneral <> chsh_trial_preserves_cert_addr thm
+R4506:4535 Kernel.WitnessInsightGeneral <> chsh_trial_preserves_cert_addr thm
+R4506:4535 Kernel.WitnessInsightGeneral <> chsh_trial_preserves_cert_addr thm
+R4588:4620 Kernel.WitnessInsightGeneral <> chsh_trial_preserves_vm_certified thm
+R4588:4620 Kernel.WitnessInsightGeneral <> chsh_trial_preserves_vm_certified thm
+R4588:4620 Kernel.WitnessInsightGeneral <> chsh_trial_preserves_vm_certified thm
+def 4982:5005 <> is_witness_insight_event
+R5012:5018 Kernel.VMState <> VMState rec
+binder 5008:5008 <> s:24
+R5026:5039 Kernel.VMStep VMStep vm_instruction ind
+binder 5022:5022 <> i:25
+R5054:5074 Kernel.InsightTaxonomy <> is_cert_insight_event def
+R5076:5076 Kernel.WitnessInsightGeneral <> s:24 var
+R5078:5078 Kernel.WitnessInsightGeneral <> i:25 var
+prf 5161:5193 <> certified_witness_insight_nonfree
+R5211:5217 Kernel.VMState <> VMState rec
+binder 5207:5207 <> s:26
+R5225:5238 Kernel.VMStep VMStep vm_instruction ind
+binder 5221:5221 <> i:27
+R5274:5281 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5246:5269 Kernel.WitnessInsightGeneral <> is_witness_insight_event def
+R5271:5271 Kernel.WitnessInsightGeneral <> s:26 var
+R5273:5273 Kernel.WitnessInsightGeneral <> i:27 var
+R5305:5312 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5300:5303 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5282:5297 Kernel.VMStep VMStep instruction_cost def
+R5299:5299 Kernel.WitnessInsightGeneral <> i:27 var
+R5335:5338 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5329:5333 Kernel.VMState <> vm_mu proj
+R5314:5321 Kernel.SimulationProof <> vm_apply def
+R5323:5323 Kernel.WitnessInsightGeneral <> s:26 var
+R5325:5325 Kernel.WitnessInsightGeneral <> i:27 var
+R5348:5350 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5342:5346 Kernel.VMState <> vm_mu proj
+R5339:5339 Kernel.WitnessInsightGeneral <> s:26 var
+R5391:5415 Kernel.InsightTaxonomy <> certified_insight_nonfree thm
+R5391:5415 Kernel.InsightTaxonomy <> certified_insight_nonfree thm
+def 5942:5971 <> has_certified_nonlocal_witness
+R5978:5984 Kernel.VMState <> VMState rec
+binder 5974:5974 <> s:28
+R6022:6025 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6015:6017 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6002:6013 Kernel.VMState <> vm_certified proj
+R5999:5999 Kernel.WitnessInsightGeneral <> s:28 var
+R6018:6021 Coq.Init.Datatypes <> true constr
+R6026:6049 Kernel.CHSHStatisticalBridge <> chsh_violation_certified def
+R6051:6051 Kernel.WitnessInsightGeneral <> s:28 var
+prf 6211:6242 <> nonlocal_witness_insight_nonfree
+R6260:6266 Kernel.VMState <> VMState rec
+binder 6256:6256 <> s:29
+R6274:6287 Kernel.VMStep VMStep vm_instruction ind
+binder 6270:6270 <> i:30
+R6319:6326 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6311:6313 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6298:6309 Kernel.VMState <> vm_certified proj
+R6295:6295 Kernel.WitnessInsightGeneral <> s:29 var
+R6314:6318 Coq.Init.Datatypes <> false constr
+R6372:6379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6327:6356 Kernel.WitnessInsightGeneral <> has_certified_nonlocal_witness def
+R6359:6366 Kernel.SimulationProof <> vm_apply def
+R6368:6368 Kernel.WitnessInsightGeneral <> s:29 var
+R6370:6370 Kernel.WitnessInsightGeneral <> i:30 var
+R6403:6410 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6398:6401 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6380:6395 Kernel.VMStep VMStep instruction_cost def
+R6397:6397 Kernel.WitnessInsightGeneral <> i:30 var
+R6433:6436 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6427:6431 Kernel.VMState <> vm_mu proj
+R6412:6419 Kernel.SimulationProof <> vm_apply def
+R6421:6421 Kernel.WitnessInsightGeneral <> s:29 var
+R6423:6423 Kernel.WitnessInsightGeneral <> i:30 var
+R6446:6448 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6440:6444 Kernel.VMState <> vm_mu proj
+R6437:6437 Kernel.WitnessInsightGeneral <> s:29 var
+R6516:6546 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R6516:6546 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R6584:6617 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R6584:6617 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+prf 7268:7307 <> no_free_certification_certified_trace_mu
+R7329:7332 Coq.Init.Datatypes <> list ind
+R7334:7347 Kernel.VMStep VMStep vm_instruction ind
+binder 7321:7325 <> trace:31
+R7356:7362 Kernel.VMState <> VMState rec
+binder 7351:7352 <> s0:32
+R7395:7402 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7387:7389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7374:7385 Kernel.VMState <> vm_certified proj
+R7370:7371 Kernel.WitnessInsightGeneral <> s0:32 var
+R7390:7394 Coq.Init.Datatypes <> false constr
+R7463:7470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7456:7458 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7443:7454 Kernel.VMState <> vm_certified proj
+R7404:7410 Kernel.AbstractNoFI <> acm_run def
+R7438:7439 Kernel.WitnessInsightGeneral <> s0:32 var
+R7432:7436 Kernel.WitnessInsightGeneral <> trace:31 var
+R7412:7430 Kernel.AbstractNoFI <> thiele_cert_machine def
+R7459:7462 Coq.Init.Datatypes <> true constr
+R7517:7520 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7511:7515 Kernel.VMState <> vm_mu proj
+R7472:7478 Kernel.AbstractNoFI <> acm_run def
+R7506:7507 Kernel.WitnessInsightGeneral <> s0:32 var
+R7500:7504 Kernel.WitnessInsightGeneral <> trace:31 var
+R7480:7498 Kernel.AbstractNoFI <> thiele_cert_machine def
+R7531:7533 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7525:7529 Kernel.VMState <> vm_mu proj
+R7521:7522 Kernel.WitnessInsightGeneral <> s0:32 var
+R7831:7842 Kernel.VMState <> vm_certified proj
+R7815:7822 Kernel.SimulationProof <> vm_apply def
+R7831:7842 Kernel.VMState <> vm_certified proj
+R7815:7822 Kernel.SimulationProof <> vm_apply def
+R7925:7958 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R7925:7958 Kernel.AbstractNoFI <> no_free_certification_certified_mu thm
+R8010:8034 Kernel.OCamlExtractionBridge <> eo_mu_trace_nondecreasing thm
+R8042:8049 Kernel.SimulationProof <> vm_apply def
+R8010:8034 Kernel.OCamlExtractionBridge <> eo_mu_trace_nondecreasing thm
+R8042:8049 Kernel.SimulationProof <> vm_apply def
+R8166:8173 Kernel.SimulationProof <> vm_apply def
+R8166:8173 Kernel.SimulationProof <> vm_apply def
+R8226:8244 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+R8226:8244 Kernel.OCamlExtractionBridge <> eo_mu_nondecreasing thm
+prf 8966:8996 <> witness_insight_nonfree_general
+R9018:9021 Coq.Init.Datatypes <> list ind
+R9023:9036 Kernel.VMStep VMStep vm_instruction ind
+binder 9010:9014 <> trace:33
+R9045:9051 Kernel.VMState <> VMState rec
+binder 9040:9041 <> s0:34
+R9084:9091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9076:9078 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9063:9074 Kernel.VMState <> vm_certified proj
+R9059:9060 Kernel.WitnessInsightGeneral <> s0:34 var
+R9079:9083 Coq.Init.Datatypes <> false constr
+R9152:9159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9145:9147 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9132:9143 Kernel.VMState <> vm_certified proj
+R9093:9099 Kernel.AbstractNoFI <> acm_run def
+R9127:9128 Kernel.WitnessInsightGeneral <> s0:34 var
+R9121:9125 Kernel.WitnessInsightGeneral <> trace:33 var
+R9101:9119 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9148:9151 Coq.Init.Datatypes <> true constr
+R9223:9230 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9160:9183 Kernel.CHSHStatisticalBridge <> chsh_violation_certified def
+R9186:9192 Kernel.AbstractNoFI <> acm_run def
+R9220:9221 Kernel.WitnessInsightGeneral <> s0:34 var
+R9214:9218 Kernel.WitnessInsightGeneral <> trace:33 var
+R9194:9212 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9277:9280 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9271:9275 Kernel.VMState <> vm_mu proj
+R9232:9238 Kernel.AbstractNoFI <> acm_run def
+R9266:9267 Kernel.WitnessInsightGeneral <> s0:34 var
+R9260:9264 Kernel.WitnessInsightGeneral <> trace:33 var
+R9240:9258 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9291:9293 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9285:9289 Kernel.VMState <> vm_mu proj
+R9281:9282 Kernel.WitnessInsightGeneral <> s0:34 var
+R9348:9387 Kernel.WitnessInsightGeneral <> no_free_certification_certified_trace_mu thm
+R9348:9387 Kernel.WitnessInsightGeneral <> no_free_certification_certified_trace_mu thm
+prf 9506:9538 <> witness_insight_complete_taxonomy
+R9622:9622 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9711:9800 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9630:9630 <> s:35
+binder 9632:9632 <> a:36
+binder 9634:9634 <> b:37
+binder 9636:9636 <> x:38
+binder 9638:9638 <> y:39
+binder 9640:9647 <> mu_delta:40
+R9650:9651 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9652:9672 Kernel.InsightTaxonomy <> is_cert_insight_event def
+R9674:9674 Kernel.WitnessInsightGeneral <> s:35 var
+R9677:9692 Kernel.VMStep VMStep instr_chsh_trial constr
+R9694:9694 Kernel.WitnessInsightGeneral <> a:36 var
+R9696:9696 Kernel.WitnessInsightGeneral <> b:37 var
+R9698:9698 Kernel.WitnessInsightGeneral <> x:38 var
+R9700:9700 Kernel.WitnessInsightGeneral <> y:39 var
+R9702:9709 Kernel.WitnessInsightGeneral <> mu_delta:40 var
+R9801:9801 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9914:10045 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10307:10307 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9809:9809 <> s:41
+binder 9811:9811 <> i:42
+R9839:9847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9814:9834 Kernel.InsightTaxonomy <> is_cert_insight_event def
+R9836:9836 Kernel.WitnessInsightGeneral <> s:41 var
+R9838:9838 Kernel.WitnessInsightGeneral <> i:42 var
+R9871:9874 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9866:9869 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9848:9863 Kernel.VMStep VMStep instruction_cost def
+R9865:9865 Kernel.WitnessInsightGeneral <> i:42 var
+R9897:9900 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9891:9895 Kernel.VMState <> vm_mu proj
+R9876:9883 Kernel.SimulationProof <> vm_apply def
+R9885:9885 Kernel.WitnessInsightGeneral <> s:41 var
+R9887:9887 Kernel.WitnessInsightGeneral <> i:42 var
+R9910:9912 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9904:9908 Kernel.VMState <> vm_mu proj
+R9901:9901 Kernel.WitnessInsightGeneral <> s:41 var
+binder 10053:10057 <> trace:43
+binder 10059:10060 <> s0:44
+R10093:10101 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10085:10087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10072:10083 Kernel.VMState <> vm_certified proj
+R10068:10069 Kernel.WitnessInsightGeneral <> s0:44 var
+R10088:10092 Coq.Init.Datatypes <> false constr
+R10162:10170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10155:10157 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10142:10153 Kernel.VMState <> vm_certified proj
+R10103:10109 Kernel.AbstractNoFI <> acm_run def
+R10137:10138 Kernel.WitnessInsightGeneral <> s0:44 var
+R10131:10135 Kernel.WitnessInsightGeneral <> trace:43 var
+R10111:10129 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10158:10161 Coq.Init.Datatypes <> true constr
+R10234:10242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10171:10194 Kernel.CHSHStatisticalBridge <> chsh_violation_certified def
+R10197:10203 Kernel.AbstractNoFI <> acm_run def
+R10231:10232 Kernel.WitnessInsightGeneral <> s0:44 var
+R10225:10229 Kernel.WitnessInsightGeneral <> trace:43 var
+R10205:10223 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10289:10292 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10283:10287 Kernel.VMState <> vm_mu proj
+R10244:10250 Kernel.AbstractNoFI <> acm_run def
+R10278:10279 Kernel.WitnessInsightGeneral <> s0:44 var
+R10272:10276 Kernel.WitnessInsightGeneral <> trace:43 var
+R10252:10270 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10303:10305 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10297:10301 Kernel.VMState <> vm_mu proj
+R10293:10294 Kernel.WitnessInsightGeneral <> s0:44 var
+R10327:10330 Coq.Init.Logic <> conj constr
+R10335:10338 Coq.Init.Logic <> conj constr
+R10327:10330 Coq.Init.Logic <> conj constr
+R10335:10338 Coq.Init.Logic <> conj constr
+R10357:10375 Kernel.WitnessInsightGeneral <> chsh_trial_is_tier0 thm
+R10357:10375 Kernel.WitnessInsightGeneral <> chsh_trial_is_tier0 thm
+R10388:10412 Kernel.InsightTaxonomy <> certified_insight_nonfree thm
+R10388:10412 Kernel.InsightTaxonomy <> certified_insight_nonfree thm
+R10425:10455 Kernel.WitnessInsightGeneral <> witness_insight_nonfree_general thm
+R10425:10455 Kernel.WitnessInsightGeneral <> witness_insight_nonfree_general thm

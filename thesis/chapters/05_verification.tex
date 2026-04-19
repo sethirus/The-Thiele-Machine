@@ -94,7 +94,7 @@ The guarantees come from the small, trusted kernel of Coq. Every lemma in the th
 \begin{enumerate}
     \item \textbf{Coq kernel} (8.18.x): The type-checker and proof-verification engine
     \item \textbf{Coq extraction correctness}: The OCaml code produced by extraction faithfully implements the semantics
-    \item \textbf{Certificate checkers}: LRAT proof verifier and SAT model validator in \path{coq/kernel/CertCheck.v}
+    \item \textbf{Certificate checkers}: LRAT proof verifier plus SAT model and countermodel validators in \path{coq/kernel/CertCheck.v}
     \item \textbf{Hash primitives}: SHA-256 implementation for receipt digests (assumed collision-resistant)
     \item \textbf{Python interpreter}: CPython 3.12.x correctly implements Python semantics
     \item \textbf{Verilog simulator}: Icarus Verilog 12.x correctly simulates RTL behavior
@@ -215,7 +215,7 @@ Focus on understanding the \textit{statements} (what the proofs establish), not 
 
 The credibility of the Thiele Machine rests on machine-checked proofs. This chapter documents the verification campaign that culminated in a full removal of \texttt{Admitted}, \texttt{admit.}, and \texttt{Axiom} declarations from the active Coq tree. The practical consequence is rebuildability: a reader can re-implement the definitions and re-prove the same claims without relying on hidden assumptions.
 
-All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or undocumented axiom fails CI. The comprehensive static analysis also detects vacuous statements, trivial tautologies, and hidden assumptions. See \path{scripts/inquisitor.py} and \path{scripts/inquisitor\_rules.py} for complete documentation of the 100 scan rules and enforcement policies.
+All proofs are verified by Coq 8.18.x. The Inquisitor enforces this invariant: any commit introducing an admit or undocumented axiom fails CI. The static analysis also detects vacuous statements, trivial tautologies, and hidden assumptions. See \path{scripts/inquisitor.py} and \path{scripts/inquisitor\_rules.py} for complete documentation of the 100 scan rules and enforcement policies.
 
 \section{Proof Architecture}
 
@@ -501,7 +501,7 @@ Inductive vm_instruction :=
 \textbf{Instruction categories:}
 \begin{itemize}
     \item \textbf{Partition operations:} \texttt{instr\_pnew}, \texttt{instr\_psplit}, \texttt{instr\_pmerge} — Create, split, merge modules.
-    \item \textbf{Logical operations:} \texttt{instr\_lassert}, \texttt{instr\_ljoin} — Assert formulas with SAT certificates, join certificate chains.
+    \item \textbf{Logical operations:} \texttt{instr\_lassert}, \texttt{instr\_ljoin} — Assert formulas with SAT witness packages, join certificate chains.
     \item \textbf{Discovery:} \texttt{instr\_pdiscover}, \texttt{instr\_mdlacc} — Declare axioms, compute logarithmic model size.
     \item \textbf{Data transfer:} \texttt{instr\_xfer}, \texttt{instr\_load\_imm}, \texttt{instr\_lui}, \texttt{instr\_xor\_*} — Register transfer, immediate loads, upper-immediate loads, bitwise XOR operations.
     \item \textbf{Memory \& ALU:} \texttt{instr\_load}, \texttt{instr\_store}, \texttt{instr\_add}, \texttt{instr\_sub}, \texttt{instr\_mul}, \texttt{instr\_and}, \texttt{instr\_or}, \texttt{instr\_shl}, \texttt{instr\_shr} — Memory access and arithmetic/bitwise operations.
@@ -868,7 +868,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
 
 \textbf{Why is this true?} Every step rule calls \texttt{apply\_cost s instr}, which computes \texttt{s.vm\_mu + instruction\_cost(instr)}. Since \texttt{instruction\_cost} returns a \texttt{nat} (natural number, always $\geq 0$), the result is always $\geq$ the original \texttt{vm\_mu}. This monotonicity is true \textit{by construction}: the cost type is unsigned, so adding it cannot decrease the total. The proof examines each step rule and confirms this arithmetic pattern holds uniformly.
 
-\textbf{Why does this matter?} Even though monotonicity is a consequence of the design (costs are nats), making it explicit as a Coq theorem is valuable: it becomes a lemma that later proofs depend on. The irreversibility bound, the ledger conservation theorem, and parts of the NoFI argument all chain through this result. The design choice that makes it trivially true---unsigned costs added to a monotonic counter---is intentional. I engineered the step semantics so that this property falls out automatically, precisely so it would be available for downstream reasoning.
+\textbf{Why does this matter?} Even though monotonicity is a consequence of the design (costs are nats), making it explicit as a Coq theorem is valuable: it becomes a lemma that later proofs depend on. The irreversibility bound, the ledger conservation theorem, and parts of the NoFI argument all chain through this result. The design choice that makes this true by construction---unsigned costs added to a monotonic counter---is intentional. I engineered the step semantics so that this property falls out automatically, precisely so it would be available for downstream reasoning.
 
 \textbf{Physical analogy:} This is the kernel's analog of the Second Law of Thermodynamics: entropy (here, $\mu$) never decreases. The analogy is intentional but should be read carefully. In physics, the Second Law is a deep empirical fact about the universe. Here, it is a definitional consequence of how I structured the cost accounting. The machine does not \textit{discover} that $\mu$ is monotonic---it is \textit{built} so that $\mu$ is monotonic.
 
@@ -1524,4 +1524,4 @@ The formal verification campaign establishes:
     \item \textbf{Completeness}: Zero admits, no project-local axioms---all proofs are machine-checked
 \end{enumerate}
 
-\textbf{A note on proof depth:} Some of these results are deeper than others. The no-signaling theorem requires genuine case analysis across 40 step constructors. The Tsirelson algebraic bound uses a real sum-of-squares identity. The Turing subsumption chain is a substantive compilation correctness proof. Other results---$\mu$-conservation, gauge invariance, oracle cost bounds---are closer to design consistency checks: they verify that properties the system was \textit{built to have} are indeed present. This is not a criticism. Engineering a system so that its key properties are trivially true is good design. But the thesis should be honest about which results are deep and which are definitional.
+\textbf{A note on proof depth:} Some of these results are deeper than others. The no-signaling theorem requires genuine case analysis across 40 step constructors. The Tsirelson algebraic bound uses a real sum-of-squares identity. The Turing subsumption chain is a substantive compilation correctness proof. Other results---$\mu$-conservation, gauge invariance, oracle cost bounds---are closer to design consistency checks: they verify that properties the system was \textit{built to have} are indeed present. This is not a criticism. Engineering a system so that its key properties hold by construction is good design. But the thesis should be honest about which results are deep and which are definitional.

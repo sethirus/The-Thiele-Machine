@@ -170,11 +170,11 @@ class TestMuMonotonicity:
         state = _run_cosim("""\
 PNEW {1,2,3} 3
 PNEW {4,5} 2
-EMIT 0 0 1
+EMIT 0 1 0
 HALT
 """)
-        # Final μ must be at least the sum of explicit costs
-        assert state["mu"] >= 3 + 2 + 1
+        # Final μ must include explicit costs plus the emitted bit.
+        assert state["mu"] >= 3 + 2 + 2
 
     def test_longer_program_more_mu(self):
         """A longer program accumulates more μ than a shorter one."""
@@ -198,28 +198,28 @@ class TestEmitReveal:
     """EMIT and REVEAL opcodes for certificate generation."""
 
     def test_emit_charges_mu(self):
-        """EMIT with cost > 0 increases μ."""
+        """EMIT with payload bits increases μ."""
         state_no_emit = _run_cosim("HALT")
         state_emit = _run_cosim("""\
-EMIT 0 0 5
+EMIT 0 5 0
 HALT
 """)
-        assert state_emit["mu"] >= state_no_emit["mu"] + 5
+        assert state_emit["mu"] >= state_no_emit["mu"] + 6
 
     def test_reveal_charges_mu(self):
-        """REVEAL with cost > 0 increases μ."""
+        """REVEAL with revealed bits increases μ."""
         state = _run_cosim("""\
 INIT_LOGIC_ACC -889263410
-REVEAL 0 0 3
+REVEAL 0 3 0
 HALT
 """)
-        assert state["mu"] >= 3
+        assert state["mu"] >= 4
 
     def test_reveal_ext_uses_upper_lane_tensor_index(self):
         """REVEAL_EXT consumes ext0 as the tensor index."""
         state = _run_cosim("""\
 INIT_LOGIC_ACC -889263410
-REVEAL_EXT 6 0 3
+REVEAL_EXT 6 3 0
 HALT
 """)
         assert state["mu_tensor_0"] == 0
@@ -382,9 +382,9 @@ class TestOpcodeEncoding:
         assert legacy & 0xFF == 4
 
     def test_all_opcodes_have_entries(self):
-        """All 47 opcodes in cosim.OPCODES match isa.py."""
+        """All 46 opcodes in cosim.OPCODES match isa.py."""
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 47
+        assert len(OPCODES) == 46
         assert OPCODES["HALT"] == 0xFF
         assert OPCODES["PNEW"] == 0x00
 
@@ -525,14 +525,14 @@ class TestISAAlignment:
         rtl = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         assert rtl.exists(), "thiele_cpu_kami.v not found"
 
-    def test_all_47_opcodes_in_cosim(self):
+    def test_all_46_opcodes_in_cosim(self):
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 47
+        assert len(OPCODES) == 46
         expected_names = {
             "PNEW", "PSPLIT", "PMERGE", "LASSERT", "LJOIN",
             "MDLACC", "PDISCOVER", "XFER", "LOAD_IMM", "CHSH_TRIAL",
             "XOR_LOAD", "XOR_ADD", "XOR_SWAP", "XOR_RANK",
-            "EMIT", "REVEAL", "ORACLE_HALTS",
+            "EMIT", "REVEAL",
             "LOAD", "STORE", "ADD", "SUB", "JUMP", "JNEZ", "CALL", "RET",
             "CHECKPOINT", "READ_PORT", "WRITE_PORT", "HEAP_LOAD", "HEAP_STORE",
             "CERTIFY", "HALT",

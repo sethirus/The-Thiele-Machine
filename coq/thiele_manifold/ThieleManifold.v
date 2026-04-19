@@ -1,13 +1,14 @@
-(** * Thiele manifold: an infinite-dimensional tower handling self-reference and projections.
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(** ThieleManifold: an infinite tower for self-reference and projection.
 
+  This file models the Thiele manifold as an infinite tower of systems. Each
+  level can reason about the level below and has strictly more dimensional
+  room. That makes the tower a natural place to put self-reference that no
+  single level can completely internalize.
 
-    This file introduces a lightweight model of the Thiele manifold as an
-    infinite tower of computational systems.  Each level can reason about
-    the level below, gains strictly more structural "dimensions", and the
-    whole tower provides a natural home for self-reference that any single
-    level cannot internalise.  A lossy projection onto 4D spacetime (π₄)
-    captures the information loss that motivates a meta-level.
+  The 4D projection pi4 is intentionally lossy. It records the idea that a
+  spacetime-level shadow forgets higher-dimensional structure, which is why a
+  meta-level becomes necessary in the first place. The file is a lightweight
+  scaffold for that argument, not a full geometric reconstruction.
  *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
@@ -31,15 +32,12 @@ Definition canonical_level (n : nat) : System :=
   {| dimension := 4 + n;
      sentences := fun P => P |}.
 
-(** [canonical_level_strict]: formal specification. *)
 Lemma canonical_level_strict : forall n, dimensionally_richer (canonical_level (S n)) (canonical_level n).
 Proof. intros n; unfold dimensionally_richer, canonical_level; simpl; lia. Qed.
 
-(** [canonical_level_reasoning]: formal specification. *)
 Lemma canonical_level_reasoning : forall n, can_reason_about (canonical_level (S n)) (canonical_level n).
 Proof. intros n P HP; exact HP. Qed.
 
-(** [canonical_base_dim]: formal specification. *)
 Lemma canonical_base_dim : 4 <= dimension (canonical_level 0).
 Proof. simpl; lia. Qed.
 
@@ -59,7 +57,6 @@ Proof.
     apply Nat.lt_le_incl in Hlt; exact Hlt.
 Qed.
 
-(** [level_dimension_gt_four]: formal specification. *)
 Lemma level_dimension_gt_four : forall (M : ThieleManifold) n, n > 0 -> 4 < dimension (level M n).
 Proof.
   intros M n Hpos.
@@ -78,7 +75,6 @@ Proof.
     lia.
 Qed.
 
-(** [tower_self_reference_escalates]: formal specification. *)
 Lemma tower_self_reference_escalates :
   forall (M : ThieleManifold) n,
     contains_self_reference (level M n) ->
@@ -113,7 +109,6 @@ Definition pi4 (M : ThieleManifold) : System :=
 
 Definition mu_cost (S Target : System) : nat := dimension S - dimension Target.
 
-(** [pi4_lossy_for_higher_levels]: formal specification. *)
 Lemma pi4_lossy_for_higher_levels :
   forall (M : ThieleManifold) n,
     n > 0 -> dimensionally_richer (level M n) (pi4 M).
@@ -124,7 +119,6 @@ Proof.
   lia.
 Qed.
 
-(** [mu_cost_positive_for_projection]: formal specification. *)
 Lemma mu_cost_positive_for_projection :
   forall (M : ThieleManifold) n,
     n > 0 -> mu_cost (level M n) (pi4 M) > 0.
@@ -140,7 +134,6 @@ Definition spacetime_shadow (M : ThieleManifold) : System := pi4 M.
 (* CREATIVE FIX: canonical_manifold accepts ALL Props (sentences := fun P => P).
    Since spacetime_sentences P is itself a Prop, canonical_manifold can reason about it.
    We just need to show: if spacetime_system can express P, then so can the shadow. *)
-(** [tower_projects_to_spacetime]: formal specification. *)
 Lemma tower_projects_to_spacetime :
   can_reason_about (spacetime_shadow canonical_manifold) spacetime_system.
 Proof.
@@ -160,14 +153,12 @@ Proof.
   exact (Himpl e He).
 Qed.
 
-(** [projection_discards_dimensions]: formal specification. *)
 Lemma projection_discards_dimensions :
   dimensionally_richer (level canonical_manifold 1) (spacetime_shadow canonical_manifold).
 Proof.
   unfold spacetime_shadow; apply pi4_lossy_for_higher_levels; lia.
 Qed.
 
-(** [projection_mu_cost]: formal specification. *)
 Lemma projection_mu_cost :
   mu_cost (level canonical_manifold 1) (spacetime_shadow canonical_manifold) > 0.
 Proof.

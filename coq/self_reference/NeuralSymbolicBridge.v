@@ -1,45 +1,17 @@
-(** * NeuralSymbolicBridge.v — The Neural-to-Symbolic Functor
+(** NeuralSymbolicBridge: thresholding neural scores into formal predicates.
 
-    The "Cage Theorem": can a Thiele formal structure bound a neural network?
+    This file turns a weight vector into a formal safety predicate by threshold
+    comparison. The basic algebraic results show how the thresholded predicate
+    behaves under pointwise meet, join, and threshold weakening. The roundtrip
+    theorem shows that a boolean predicate can be embedded back into this neural
+    representation at threshold 1.
 
-    THE CORE CLAIM:
-    A neural network's output layer is a vector of confidence scores over
-    states.  We define a threshold functor T_τ that converts any weight
-    vector into a formal logical predicate: state i "passes" iff its
-    neural confidence score is at least τ.
-
-    We prove that T_τ is a genuine functor with respect to the logical
-    structure of the partition safety model from InductiveTrust.v:
-
-      (i)  [neural_conjunction_sound/complete]:
-               T_τ(w₁ ⊓ w₂) ↔  T_τ(w₁) ∧ T_τ(w₂)
-      (ii) [neural_disjunction_sound]:
-               T_τ(w₁ ⊔ w₂) ←  T_τ(w₁) ∨ T_τ(w₂)
-      (iii)[threshold_monotone]:
-               τ₂ ≤ τ₁  →  T_{τ₁}(w) ⊆ T_{τ₂}(w)  (relaxing threshold adds states)
-      (iv) [symbolic_neural_roundtrip]:
-               the symbolic-to-neural embedding is a right inverse of T_1
-
-    THE CAGE THEOREM — [neural_symbolic_cage]:
-    For EVERY weight vector w and threshold τ, there EXISTS a formal
-    StateSpace S such that:
-          S.ss_safe(i)  ↔  w(i) ≥ τ
-    The cage is not empty.  The Thiele partition structure can bound any
-    well-calibrated neural confidence model.
-
-    THE EXPANSION BRIDGE — [neural_threshold_expansion]:
-    A neural space at strict threshold τ_hi embeds into the relaxed space
-    at τ_lo (fewer constraints = larger safe set = larger Ω).
-    Combined with [mk_trust_certificate], every such embedding carries a
-    constructive, cost-grounded TrustCertificate — no circular reasoning.
-
-    WHAT THIS MEANS FOR AI SAFETY:
-    Any neural network output can be formally "caged" by a Thiele
-    StateSpace.  High-confidence states become formal safety certificates.
-    Low-confidence states are excluded.  The boundary is adjustable (τ),
-    auditable (proof term), and Löb-safe (grounded in μ-cost, not self-reference).
-
-    Zero admits.  Self-contained.  Imports InductiveTrust (connects to kernel). *)
+    The key output is the cage theorem: every weight vector and threshold gives
+    rise to a concrete StateSpace whose safe states are exactly the states above
+    threshold. That makes the bridge explicit rather than rhetorical. A relaxed
+    threshold then yields the expected expansion relation used by the trust
+    machinery.
+ *)
 
 From Coq Require Import Arith List Lia.
 Import ListNotations.
@@ -49,7 +21,7 @@ From Kernel Require Import VMState VMStep MuCostModel.
 
 Require Import InductiveTrust.
 
-(* ================================================================== *)
+(* *)
 (** ** 1. Weight vectors — the neural confidence model *)
 
 (** A [WeightVec] assigns a non-negative integer confidence to every state
@@ -63,7 +35,7 @@ Definition WeightVec := nat -> nat.
 Definition threshold (w : WeightVec) (tau : nat) : nat -> Prop :=
   fun i => tau <= w i.
 
-(* ================================================================== *)
+(* *)
 (** ** 2. Algebraic structure on weight vectors *)
 
 (** Pointwise min: corresponds to logical AND (conjunction). *)
@@ -74,7 +46,7 @@ Definition weight_meet (w1 w2 : WeightVec) : WeightVec :=
 Definition weight_join (w1 w2 : WeightVec) : WeightVec :=
   fun i => Nat.max (w1 i) (w2 i).
 
-(* ================================================================== *)
+(* *)
 (** ** 3. The threshold functor is sound and complete for conjunction *)
 
 (** T_τ(w₁ ⊓ w₂) is sound for conjunction: if i passes both individually,
@@ -129,7 +101,7 @@ Proof.
   apply Nat.le_trans with tau1; assumption.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 4. The symbolic-to-neural embedding (right adjoint) *)
 
 (** [symbolic_to_neural P]: indicator function — weight 1 if P i = true, else 0.
@@ -154,7 +126,7 @@ Proof.
   - rewrite H. lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 5. The Cage: neural model → formal StateSpace *)
 
 (** [neural_safety_space n w tau]: the formal StateSpace of size [n]
@@ -169,7 +141,7 @@ Definition neural_safety_space (n : nat) (w : WeightVec) (tau : nat) : StateSpac
      ss_partition := [];
      ss_safe      := threshold w tau |}.
 
-(** THE CAGE THEOREM: for ANY weight vector and threshold, there EXISTS a
+(** THE CAGE for ANY weight vector and threshold, there EXISTS a
     formal StateSpace capturing exactly the neural model's safe states.
 
     "Your cage is not empty."  Every neural confidence model can be bounded
@@ -188,7 +160,7 @@ Proof.
   - intro i. split; intro H; exact H.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 6. Connecting to the Trust Lattice *)
 
 (** A lower threshold admits more states as "safe" (relaxed constraint).

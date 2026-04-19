@@ -1,20 +1,17 @@
-(** =========================================================================
-    CONSTANT UNIFICATION: Relational Constraints in Thiele-Planck Physics
-    =========================================================================
-    
-    This file formalizes the STRUCTURAL RELATIONSHIPS between the Thiele 
-    Machine's internal ledger units and physical constants.
-    
-    SCIENTIFIC HONESTY (Per Appendix D):
-    1. τμ (Operation Time) is a FREE PARAMETER.
-    2. dμ (Operation Distance) is a FREE PARAMETER.
-    3. The derivation of (h) is a RELATIONAL IDENTITY: if the machine is 
-       optimal (saturates Margolus-Levitin), (h) is fixed relative to (τμ).
-    
-    Axioms:
-    - Real-number arithmetic (Coq Reals).
-    - Optimality Postulate (Margolus-Levitin saturation).
-    ========================================================================= *)
+(** Constant Unification: Relational Constraints in Thiele-Planck Physics
+
+     This file formalizes the structural relationships between the Thiele
+     Machine's internal ledger units and physical constants.
+
+     Scientific honesty first:
+     1. τμ (operation time) is a free parameter.
+     2. dμ (operation distance) is a free parameter.
+     3. The derivation of h is only relational: if the machine is optimal and
+         saturates Margolus-Levitin, then h is fixed relative to τμ.
+
+     The axioms here are just real-number arithmetic and the optimality
+     postulate behind the Margolus-Levitin saturation story.
+*)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -23,234 +20,132 @@ From Kernel Require Import MuCostModel.
 From Coq Require Import Reals Lra.
 Local Open Scope R_scope.
 
-(** =========================================================================
-    1. The Physical Substrate Parameters
-    =========================================================================*)
+(** The physical substrate parameters. *)
 
-(** tau_mu: Operational time scale - the duration of one μ-bit operation.
+(** tau_mu: operational time scale, the duration of one μ-bit operation.
+    This is the clock period of the computational substrate. I am not deriving
+    τμ from first principles. It is an empirical parameter: measure how fast μ-bit
+    operations can happen and read off τμ.
 
-    WHAT THIS IS:
-    The fundamental time unit of the Thiele Machine. Each μ-bit operation
-    (LJOIN, REVEAL, etc.) takes time τμ. This is the CLOCK PERIOD of the
-    computational substrate.
-
-    WHY IT'S A FREE PARAMETER:
-    I don't claim to derive τμ from first principles. It's an EMPIRICAL value:
-    measure how fast the universe can perform μ-bit operations, read off τμ.
-    Like measuring the Planck time, but for computation instead of gravity.
-
-    THE NORMALIZATION:
-    Set to 1 here (normalized units). In physical units, τμ ~ 10^-44 seconds
-    (if saturating Margolus-Levitin at Planck scale). But that's a HYPOTHESIS,
-    not a derivation.
-
-    CONNECTION TO PHYSICS:
-    If τμ is the Planck time, then the Thiele Machine operates at the Planck
-    scale. If τμ is larger, then μ-bit operations are slower than Planck-scale
-    physics. This file is AGNOSTIC about which is true.
+    It is normalized to 1 here. In physical units it might be around 10^-44 s if
+    the machine saturates Margolus-Levitin at Planck scale, but that is a
+    hypothesis, not a derivation. If τμ is the Planck time, the machine runs at
+    Planck scale; if it is larger, μ-bit operations are slower than Planck-scale
+    physics. This file stays agnostic.
 *)
 Definition tau_mu : R := 1.      (* Operational time unit *)
 
-(** d_mu: Operational distance scale - the spatial extent of one μ-bit operation.
+(** d_mu: operational distance scale, the spatial extent of one μ-bit operation.
+    This is the grid spacing of the computational substrate: information
+    propagates at most distance dμ per operation.
 
-    WHAT THIS IS:
-    The fundamental length unit of the Thiele Machine. Information propagates
-    at most distance dμ per operation. This is the GRID SPACING of the
-    computational substrate.
+    Like τμ, it is empirical. Measure the spatial extent of μ-bit operations and
+    read off dμ. It is normalized to 1 here. In physical units it might be around
+    10^-35 m if the substrate is Planck-scale, but again that is only a
+    hypothesis.
 
-    WHY IT'S A FREE PARAMETER:
-    Like τμ, this is EMPIRICAL. Measure the spatial extent of μ-bit operations,
-    read off dμ. I make no claim to derive it from deeper principles.
-
-    THE NORMALIZATION:
-    Set to 1 here. In physical units, dμ ~ 10^-35 meters (if Planck scale).
-    But again, that's a hypothesis.
-
-    CONNECTION TO SPEED OF LIGHT:
-    If c = dμ/τμ, then the speed of light is the RATIO of spatial and temporal
-    granularity. This file DEFINES c in terms of free parameters (dμ, τμ).
-    This is a parametric definition, not a derivation from first principles.
+    If c = dμ/τμ, then the speed of light is the ratio of spatial and temporal
+    granularity. That makes c a parametric definition in terms of the free
+    parameters dμ and τμ, not a first-principles derivation.
 *)
 Definition d_mu : R := 1.        (* Operational distance unit *)
 
-(** k_B: Boltzmann constant - connecting energy to entropy.
+(** k_B: Boltzmann's constant, connecting energy to entropy.
+    It is the thermodynamic constant behind E = kB·T and Landauer's principle:
+    erasing one bit dissipates kB·T·ln(2) energy.
 
-    WHAT THIS IS:
-    The thermodynamic constant relating temperature to energy: E = kB·T.
-    Appears in Landauer's principle: erasing 1 bit dissipates kB·T·ln(2) energy.
+    It is normalized to 1/100 here for convenience. In physical units
+    kB ≈ 1.38×10^-23 J/K. The exact number is not the point of this file. The
+    point is the structural dependency graph: which constants depend on which.
 
-    WHY IT'S NORMALIZED:
-    Set to 1/100 here (arbitrary normalization for numerical stability). In
-    physical units, kB ≈ 1.38×10^-23 J/K. The exact value doesn't affect the
-    STRUCTURAL relationships (which constant depends on which).
-
-    CONNECTION TO μ-COST:
-    Landauer's principle links LOGICAL irreversibility (bit erasure) to
-    THERMODYNAMIC irreversibility (energy dissipation). μ-cost tracks logical
-    irreversibility. This file connects them via E_bit = kB·T·ln(2).
+    Landauer is the bridge from logical irreversibility to thermodynamic
+    irreversibility. μ-cost tracks the logical side. E_bit = kB·T·ln(2) is the
+    thermodynamic side.
 *)
 Definition k_B : R := / 100.     (* Boltzmann constant (normalized) *)
 
-(** T: Temperature - the thermodynamic context.
+(** T: the thermodynamic context.
+    This is the ambient temperature of the computational substrate. Landauer's
+    bound depends on T, so hotter systems dissipate more energy per erased bit.
 
-    WHAT THIS IS:
-    The ambient temperature of the computational substrate. Landauer's bound
-    depends on T: hotter systems dissipate more energy per bit erasure.
-
-    WHY IT'S NORMALIZED:
-    Set to 1 here. In physical units, T could be room temperature (~300 K) or
-    cosmic microwave background (~3 K) or hypothetically Planck temperature
-    (~10^32 K). The choice affects E_bit but not the structural relationships.
-
-    THE ASSUMPTION:
-    This file assumes a FIXED temperature. Real thermodynamic systems have
-    varying T. Extending to variable temperature requires more complex
-    thermodynamics (not formalized here).
+    It is normalized to 1 here. In physical units it could be room temperature,
+    CMB temperature, or something much higher. That changes E_bit numerically,
+    but not the structural relationships this file is about. The file assumes T
+    is fixed; variable-temperature thermodynamics is outside scope.
 *)
 Definition T : R := 1.           (* Temperature (normalized) *)
 
-(** Positivity lemmas: All physical parameters are strictly positive.
-
-    WHY THESE MATTER:
-    Division by zero errors are physics errors. τμ, dμ, kB, T must all be > 0
-    for the definitions to make sense. These lemmas guarantee well-formedness.
-
-    THE PROOFS:
-    Trivial: unfold definitions, apply lra (linear real arithmetic). For kB,
-    use Rinv_0_lt_compat (inverse of positive is positive).
+(** Positivity lemmas: all physical parameters are strictly positive.
+    This is just the well-formedness floor. τμ, dμ, kB, and T cannot be zero if
+    the definitions are supposed to mean anything physical. The proofs are the
+    obvious real-arithmetic ones.
 *)
 Lemma tau_mu_pos : tau_mu > 0.
 Proof. unfold tau_mu. lra. Qed.
 
-(** [d_mu_pos]: formal specification. *)
 Lemma d_mu_pos : d_mu > 0.
 Proof. unfold d_mu. lra. Qed.
 
-(** [k_B_pos]: formal specification. *)
 Lemma k_B_pos : k_B > 0.
 Proof. unfold k_B. apply Rinv_0_lt_compat. lra. Qed.
 
-(** [T_pos]: formal specification. *)
 Lemma T_pos : T > 0.
 Proof. unfold T. lra. Qed.
 
-(** =========================================================================
-    2. Relational Identities - Connecting Computational and Physical Units
-    =========================================================================*)
+(** Relational identities connecting computational and physical units. *)
 
-(** E_bit: Energy cost of one bit operation (Landauer's principle).
+(** E_bit: energy cost of one bit operation by Landauer's principle,
+    E_bit = kB · T · ln(2).
 
-    THE FORMULA:
-    E_bit = kB · T · ln(2)
+    This is the minimum thermodynamic energy cost to erase one bit at
+    temperature T. ln(2) is there because erasing one bit changes entropy by
+    kB·ln(2), and ΔE ≥ T·ΔS gives the bound.
 
-    WHAT THIS IS:
-    The minimum thermodynamic energy cost to erase one bit of information at
-    temperature T. Landauer's principle (1961): irreversible computation
-    requires energy dissipation. Reversible operations can be free (in principle).
-
-    WHY ln(2):
-    Erasing 1 bit reduces entropy by S = kB·ln(2) (the Shannon entropy of one
-    bit). By thermodynamics (ΔE ≥ T·ΔS), energy cost is E ≥ kB·T·ln(2).
-
-    CONNECTION TO μ-COST:
-    μ-bits track LOGICAL irreversibility (narrowing search space). E_bit tracks
-    THERMODYNAMIC irreversibility (energy dissipation). If the machine is
-    optimal (saturates physical bounds), these are PROPORTIONAL: each μ-bit
-    costs E_bit energy.
-
-    THE PHYSICAL INTERPRETATION:
-    At room temperature (T~300K), E_bit ~ 3×10^-21 J (about 0.01 eV). Tiny, but
-    nonzero. At Planck temperature (T~10^32 K), E_bit ~ 10^9 J (nuclear bomb).
-    The substrate's temperature determines the energy scale.
-
-    FALSIFICATION:
-    Build a device that irreversibly erases bits at < kB·T·ln(2) energy per bit.
-    Violates thermodynamics (Landauer's principle). No known loopholes.
+    μ-bits track logical irreversibility. E_bit tracks thermodynamic
+    irreversibility. If the machine saturates the relevant physical bounds, the
+    two are proportional: each μ-bit costs E_bit energy. The temperature picks
+    the numerical scale. To falsify it, build a device that erases bits below
+    kB·T·ln(2). That would be a Landauer violation.
 *)
 Definition E_bit : R := k_B * T * ln 2.
 
-(** derived_h: Planck's constant expressed in terms of computational parameters (τμ).
+(** derived_h: Planck's constant written relationally in terms of computational
+    parameters, h = 4 · E_bit · τμ.
 
-    THE FORMULA:
-    h = 4 · E_bit · τμ
+    The claim is conditional. If the Thiele Machine saturates the
+    Margolus-Levitin bound, then h is fixed relative to E_bit and τμ. That does
+    not make h derived unconditionally. It makes h relationally determined under
+    the optimality hypothesis.
 
-    THE CLAIM:
-    If the Thiele Machine saturates the Margolus-Levitin bound (maximal
-    computational speed for given energy), then Planck's constant h is DERIVED
-    as h = 4·E_bit·τμ. It's not fundamental - it's a CONSEQUENCE of optimal
-    computation.
+    Standard physics treats h as fundamental. This file is testing the idea that
+    h could instead be the conversion factor between the computational frequency
+    scale 1/τμ and the energy scale E_bit. The skeptical view is the right one:
+    this is only "if optimal, then h has this value." It is not a proof that the
+    machine actually saturates Margolus-Levitin.
 
-    THE MARGOLUS-LEVITIN BOUND:
-    For a system with energy E, the maximum computation rate is ν_max = E/(2πh).
-    If the machine saturates this (ν = ν_max), then 1/τμ = E/(2πh), so
-    h = E·τμ/(2π). With E = E_bit and absorbing factors, h = 4·E_bit·τμ.
-
-    WHY THIS MATTERS:
-    Standard physics treats h as a FUNDAMENTAL constant (measured, not derived).
-    This file claims: h is STRUCTURAL - it's the conversion factor between
-    computational frequency (1/τμ) and energy (E_bit). If the universe is a
-    computer, h is a DERIVED quantity.
-
-    THE SKEPTICAL VIEW:
-    This is a RELATIONAL identity: IF the machine saturates M-L, THEN h has
-    this value. But I haven't proven the machine saturates M-L - that's a
-    HYPOTHESIS. So this is "if optimal, then h is derived", not "h is derived".
-
-    CONNECTION TO QUANTUM MECHANICS:
-    In QM, h sets the energy-time uncertainty: ΔE·Δt ≥ h. Here, h = 4·E_bit·τμ
-    connects the energy scale (E_bit) to the time scale (τμ). Same structure,
-    different interpretation.
-
-    FALSIFICATION:
-    Measure h experimentally (done: h ≈ 6.626×10^-34 J·s). Measure τμ and
-    E_bit independently. Check if h = 4·E_bit·τμ. If not, either the machine
-    doesn't saturate M-L, or this derivation is wrong.
+    In quantum mechanics h ties together energy and time scales. Here the same
+    structure appears through E_bit and τμ. To falsify it, measure h, τμ, and
+    E_bit independently and check whether h = 4·E_bit·τμ.
 *)
 Definition derived_h : R := 4 * E_bit * tau_mu.
 
-(** =========================================================================
-    3. THEOREMS: Structural Relationships Between Constants
-    =========================================================================*)
+(** Theorems: structural relationships between constants. *)
 
-(** h_relational_identity: Planck's constant as energy-frequency converter.
+(** h_relational_identity: h as an energy-frequency converter.
+    The theorem states h = 4·E / ν_max, where ν_max = 1/τμ and E = E_bit.
 
-    THE CLAIM:
-    h = 4·E / ν_max, where ν_max = 1/τμ is the maximum computational frequency
-    and E = E_bit is the energy per bit.
+    This is relational, not numerical. It does not compute h from nothing. It
+    proves that if h is defined as 4·E_bit·τμ, then it converts energy and
+    frequency in exactly this way. The proof is just algebra plus Rinv_inv.
 
-    THE FORMULA:
-    Rearranging: ν_max = E/(h/4) = E/(πℏ) where ℏ = h/(2π). This is close to
-    the Margolus-Levitin bound ν_ML = 2E/(πℏ) (off by factor of 2, which is
-    absorbed in the "4" coefficient).
+    That means the theorem has a built-in skeptical reading: yes, it is circular
+    in the sense that I define h relationally and then prove the relation. The
+    real content is that h need not be treated as independent in this framework.
+    Whether that is physically right is an empirical question.
 
-    WHY THIS IS RELATIONAL:
-    This doesn't compute the VALUE of h. It proves that IF we define h as
-    4·E_bit·τμ, THEN h converts frequency to energy with this formula. It's
-    an IDENTITY, not a derivation.
-
-    THE PROOF:
-    Algebraic manipulation: derived_h = 4·E_bit·τμ = 4·E/(1/τμ) = 4·E/ν_max.
-    Unfold definitions, simplify, use Rinv_inv to cancel (1/τμ)^(-1) = τμ.
-
-    WHY THIS MATTERS:
-    In standard physics, E = h·ν is a FUNDAMENTAL law (Planck-Einstein relation).
-    This theorem shows: if h is defined relationally (h = 4·E_bit·τμ), then the
-    Planck-Einstein relation FOLLOWS. It's not fundamental - it's structural.
-
-    THE SKEPTICAL INTERPRETATION:
-    This is circular: define h such that E = (h/4)·ν, then prove E = (h/4)·ν.
-    True! But the point is: h CAN BE DEFINED this way (it's not independent).
-    Whether this is the "right" definition is an empirical question.
-
-    CONNECTION TO QUANTUM MECHANICS:
-    QM uses E = h·ν for photons, ΔE·Δt ≥ h for uncertainty. This file shows:
-    if the computational substrate saturates physical bounds, h is the RATIO
-    of energy scale to frequency scale. Same structure, different foundation.
-
-    FALSIFICATION:
-    Find a universe where E = h·ν holds but h ≠ 4·E_bit·τμ. Would mean either:
-    (a) the machine doesn't saturate M-L, or (b) E_bit isn't the right energy
-    scale. Check by measuring all three independently.
+    The quantum-mechanical shape is familiar: h as the ratio between an energy
+    scale and a frequency scale. To falsify the interpretation, measure h,
+    τμ, and E_bit independently and find h·ν behavior without h = 4·E_bit·τμ.
 *)
 Theorem h_relational_identity :
   let nu_max := 1 / tau_mu in
@@ -264,128 +159,61 @@ Proof.
   reflexivity.
 Qed.
 
-(** c_structural: The speed of light as structural ratio.
+(** c_structural: the speed of light as the ratio dμ / τμ.
+    Yes, the theorem is reflexivity. The point is not the proof but the
+    interpretation: c can be treated as secondary if dμ and τμ are taken as the
+    underlying substrate scales.
 
-    THE CLAIM:
-    c = dμ / τμ (the speed of light is distance per time).
+    On that reading, the speed of light is the speed of information propagation
+    on the computational grid. The circular objection is real and should stay in
+    view: define c this way, then of course c = dμ/τμ. The nontrivial question is
+    empirical consistency with measured c.
 
-    THE TRIVIALITY:
-    This theorem is reflexivity - it's a TAUTOLOGY. Define c as dμ/τμ, prove
-    c = dμ/τμ. Why include this?
-
-    THE POINT:
-    Standard physics treats c as a FUNDAMENTAL constant (measured: c ≈ 3×10^8 m/s).
-    This file claims: c is DERIVED - it's the ratio of the substrate's spatial
-    granularity (dμ) to temporal granularity (τμ).
-
-    WHY THIS IS NON-TRIVIAL:
-    If dμ and τμ are the FUNDAMENTAL scales (Planck length and time), then c is
-    SECONDARY. You measure dμ and τμ, compute c = dμ/τμ. The "speed of light"
-    is the speed of INFORMATION PROPAGATION on the computational grid.
-
-    THE EMPIRICAL CLAIM:
-    If dμ ~ 10^-35 m (Planck length) and τμ ~ 10^-44 s (Planck time), then
-    c ~ 10^9 m/s (close to measured c). But I haven't proven those values -
-    that's the "Planck hypothesis" (next definition).
-
-    CONNECTION TO RELATIVITY:
-    In special relativity, c is the MAXIMUM speed (causal boundary). Here, c is
-    the GRID SPEED - how fast information propagates on the discrete substrate.
-    Same phenomenology, different foundation.
-
-    THE CIRCULAR OBJECTION:
-    "You defined c = dμ/τμ, then proved c = dμ/τμ. Circular!" True. But the
-    point is: c CAN BE DEFINED this way. Whether this matches the measured
-    speed of light is an empirical question.
-
-    FALSIFICATION:
-    Measure c, dμ, τμ independently. Check if c = dμ/τμ. If not, either the
-    measurements are wrong or the structural derivation is invalid.
+    In relativity c is the causal boundary. Here it is the grid speed. To
+    falsify the identification, measure c, dμ, and τμ independently and find a
+    mismatch.
 *)
 Theorem c_structural :
   let c := d_mu / tau_mu in
   c = d_mu / tau_mu.
 Proof. intros. reflexivity. Qed.
 
-(** =========================================================================
-    5. Numerical Benchmarking - The Planck Hypothesis
-    =========================================================================*)
+(** Numerical benchmarking: the Planck hypothesis. *)
 
-(** is_planck_consistent: Checking if measured h matches derived h.
+(** is_planck_consistent: whether a measured h matches derived_h.
+    h_fixed is "Planck consistent" when h_fixed = derived_h = 4·E_bit·τμ.
 
-    THE DEFINITION:
-    A measured value h_fixed is "Planck consistent" if h_fixed = derived_h
-    = 4·E_bit·τμ.
+    This is explicitly an oracle-style consistency check, not a first-principles
+    numerical derivation. The honesty condition matters: the Planck-scale values
+    are measured or inferred elsewhere. The content here is only that if the
+    machine saturates the physical bounds and really operates at Planck scale,
+    then measured h should line up with derived_h.
 
-    THE PLANCK HYPOTHESIS:
-    If τμ = Planck time (~5.39×10^-44 s) and E_bit corresponds to Planck energy
-    scale, then derived_h should equal the measured Planck constant (h ≈ 6.626×10^-34 J·s).
-
-    WHY THIS IS AN "ORACLE":
-    I don't derive the numerical values of Planck scales from first principles.
-    They're MEASURED (experimentally) or CALCULATED (from other measured constants).
-    This definition just checks CONSISTENCY: does the structural derivation match
-    the measured value?
-
-    THE HONESTY:
-    The header says "external oracle" - I'm not claiming to compute h from nothing.
-    I'm claiming: IF the machine saturates physical bounds (M-L, Landauer) AND
-    operates at Planck scale, THEN h should match derived_h. That's a testable
-    hypothesis.
-
-    THE FALSIFICATION:
-    Compute derived_h using measured (τμ, E_bit). Compare with measured h.
-    If they differ significantly, either:
-    (a) The machine doesn't saturate bounds (not optimal)
-    (b) The machine doesn't operate at Planck scale
-    (c) The structural derivation is wrong
-
-    WHY THIS MATTERS:
-    This is the BRIDGE between abstract theory and experimental physics. The
-    structural relationships (h = 4·E_bit·τμ, c = dμ/τμ) are MATHEMATICAL.
-    Whether they match measured constants is EMPIRICAL.
+    If it does not, there are only a few live options: the machine is not
+    optimal, the machine is not Planck-scale, or the structural story is wrong.
+    That is exactly why this is the bridge from abstract structure to empirical
+    test.
 *)
 Definition is_planck_consistent (h_fixed : R) : Prop :=
   h_fixed = derived_h.
 
-(** =========================================================================
-    CONCLUSION: Structural Closure, Numerical Openness
-    =========================================================================
+(** Conclusion: structural closure, numerical openness.
 
-    WHAT THIS FILE PROVES:
-    ✓ The RELATIONSHIPS between constants are fixed (structural closure):
-      - h = 4·E_bit·τμ (energy-frequency conversion)
-      - c = dμ/τμ (information propagation speed)
-      - E_bit = kB·T·ln(2) (Landauer energy)
+        What is fixed here is the relationship graph among constants:
+        - h = 4·E_bit·τμ
+        - c = dμ/τμ
+        - E_bit = kB·T·ln(2)
 
-    ✓ The NUMERICAL VALUES are free parameters (numerical openness):
-      - τμ: empirical (measure the machine's clock rate)
-      - dμ: empirical (measure the grid spacing)
-      - T, kB: thermodynamic context (measured)
+        What is not fixed here is the numerical calibration. τμ and dμ remain free
+        empirical parameters, and T and kB come from the thermodynamic context.
 
-    THE CLAIM:
-    Physical constants (h, c) are expressed in terms of the free parameters
-    (dμ, τμ). This is a parametric relabeling, not a derivation from first
-    principles. The free parameters must be externally calibrated.
+        So the honest claim is modest: h and c can be expressed in terms of dμ and
+        τμ. That is a parametric reinterpretation, not a derivation from nothing.
+        The skeptical view is correct to insist on independent measurement and a
+        consistency check.
 
-    THE SKEPTICAL VIEW:
-    This is a REINTERPRETATION, not a derivation from nothing. I'm claiming:
-    "h can be expressed as 4·E_bit·τμ". True, but circular if you define E_bit
-    and τμ to make it work. The empirical test is: measure all three independently,
-    check consistency.
-
-    THE EMPIRICAL PROGRAM:
-    1. Measure h (done: Planck constant)
-    2. Measure τμ (compute from M-L bound, assuming saturation)
-    3. Measure E_bit (compute from Landauer, knowing T)
-    4. Check: h =? 4·E_bit·τμ
-
-    If YES: Evidence for "constants are structural".
-    If NO: Either machine isn't optimal, or derivation is wrong.
-
-    FALSIFICATION:
-    Find a fundamental inconsistency: measured h ≠ 4·E_bit·τμ by orders of
-    magnitude, with no plausible explanation (not just "machine isn't quite
-    optimal"). Would refute the structural interpretation.
-
-    ========================================================================= *)
+        The empirical program is straightforward: measure h, estimate τμ under the
+        saturation hypothesis, estimate E_bit from Landauer, and check whether
+        h = 4·E_bit·τμ. A large mismatch with no plausible explanation would refute
+        the structural interpretation.
+*)

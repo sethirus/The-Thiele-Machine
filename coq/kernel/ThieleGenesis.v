@@ -1,36 +1,15 @@
-(** ThieleGenesis.v --- The Unified Derivation
+(** ThieleGenesis: one file that checks the proof spine still connects
 
-    =====================================================================
-    FROM A SINGLE PRINCIPLE, THE ENTIRE THIELE MACHINE
-    =====================================================================
+  This file is a guided aggregation layer. It imports the modular kernel,
+  cites the main results in order, and adds almost no new mathematics of its
+  own. Its job is to make the dependency chain readable and to fail loudly if
+  an upstream statement moves, weakens, or disappears.
 
-    This file tells one story in ten chapters.  It imports the modular
-    kernel and re-exports nothing new: every theorem cited here is
-    proved elsewhere.  What this file adds is the NARRATIVE --- a
-    linear derivation that a reader can follow from first principles
-    to running hardware.
+  The chapter structure is deliberate: start from the machine model, pass
+  through μ-cost and certification results, then connect out to the physics,
+  extraction, and hardware layers. The value of this file is that the whole
+  arc type-checks as one connected story.
 
-    Compiling this file machine-checks that the entire chain is
-    connected.  If an upstream theorem is renamed, moved, or its type
-    changes, this file fails to compile.  It is a self-healing proof
-    map.
-
-    READING GUIDE:
-      Chapter 0  --- What is a Turing machine?
-      Chapter 1  --- The Thiele Machine (47 opcodes, 12-field state)
-      Chapter 2  --- The Single Principle (certification costs >= 1)
-      Chapter 3  --- The Bedrock (mu-ledger conservation)
-      Chapter 4  --- The Prime Axiom (certified implies positive mu)
-      Chapter 5  --- The Generalization Ladder (abstract / universal /
-                     quantitative No Free Insight + mu-initiality)
-      Chapter 6  --- Turing Completeness (cost does not cripple)
-      Chapter 7  --- Physics Emerges (Landauer, locality, CHSH)
-      Chapter 8  --- Three-Layer Isomorphism (Coq = OCaml = Python = Verilog)
-      Chapter 9  --- The Hardware Chain (Kami step commutation)
-      Coda       --- ThieleGenesis record (the complete arc)
-
-    STATUS: Zero Admitted.  Zero project-local Axiom.  Pure re-export.
-    =====================================================================
 *)
 
 From Coq Require Import List Arith.PeanoNat.
@@ -53,9 +32,8 @@ From Kernel Require Import MuLedgerQuantumBridge.
 (* --- Hardware imports ------------------------------------------------ *)
 From KamiHW Require Import Abstraction EmbedStep FullEmbedStep GraphReconstructionBridge.
 
-(** =====================================================================
+(**
     CHAPTER 0: WHAT IS A TURING MACHINE?
-    =====================================================================
 
     A Turing machine has a tape, a head, a finite control, and a
     transition function.  It can compute anything computable (Church-
@@ -75,9 +53,8 @@ Check state.
     the hypercomputational extension (H_ClaimTapeIsZero). *)
 Check turing_instruction.
 
-(** =====================================================================
+(**
     CHAPTER 1: THE THIELE MACHINE
-    =====================================================================
 
     The Thiele Machine is a register machine with:
     - 32 general-purpose registers (vm_regs)
@@ -111,9 +88,8 @@ Check vm_apply.
 (** Fuel-bounded execution over instruction traces. *)
 Check run_vm.
 
-(** =====================================================================
+(**
     CHAPTER 2: THE SINGLE PRINCIPLE
-    =====================================================================
 
     Of the 47 opcodes, 7 are "cert-setters" --- instructions that
     create or modify certified knowledge:
@@ -126,19 +102,20 @@ Check run_vm.
       CERTIFY   (set the vm_certified flag)
       MORPH_ASSERT (assert a morphism property)
 
-    For these 7 instructions, instruction_cost is defined using the
-    Peano successor S:
+    For these 7 instructions, instruction_cost includes the Peano successor
+    floor S, and some instructions add the actual bits they carry:
 
       instruction_cost(instr_certify delta)   = S delta
       instruction_cost(instr_lassert ... delta) = flen * 8 + S delta
-      instruction_cost(instr_reveal ... delta)  = S delta
-      ... etc.
+      instruction_cost(instr_emit payload delta) = payload_bit_length payload + S delta
+      instruction_cost(instr_reveal bits delta)  = bits + S delta
+      instruction_cost(instr_read_port bits delta) = bits + S delta
 
     Since S n >= 1 for all n : nat, cert-setters ALWAYS cost at least
     one mu-unit.  This is not an axiom --- it is a structural
-    consequence of using Peano natural numbers.
+    consequence of using Peano natural numbers; the bit-counted cases are
+    stronger than the floor.
 
-    WHY THIS DEFINITION IS CORRECT:
     State-space reduction (asserting a formula eliminates models that
     violate it) is information erasure.  By Landauer's principle,
     erasure is thermodynamically irreversible: minimum cost kT ln 2
@@ -162,9 +139,8 @@ Check cert_setter_cost_pos.
        is_cert_setterb instr = true ->
        instruction_cost instr >= 1 *)
 
-(** =====================================================================
+(**
     CHAPTER 3: THE BEDROCK
-    =====================================================================
 
     The bedrock lemma says: executing any instruction adds EXACTLY
     instruction_cost to the mu-ledger.  No more, no less.  This is
@@ -190,9 +166,8 @@ Check run_vm_mu_monotonic.
 (* : forall fuel trace s,
        s.(vm_mu) <= (run_vm fuel trace s).(vm_mu) *)
 
-(** =====================================================================
+(**
     CHAPTER 4: THE PRIME AXIOM
-    =====================================================================
 
     The Prime Axiom is a THEOREM, not an axiom.  Its name reflects
     its role as the foundational economic law, not its logical status.
@@ -219,9 +194,8 @@ Check kernel_certified_implies_positive_mu.
        (run_vm fuel program s0).(vm_certified) = true ->
        0 < (run_vm fuel program s0).(vm_mu) *)
 
-(** =====================================================================
+(**
     CHAPTER 5: THE GENERALIZATION LADDER
-    =====================================================================
 
     No Free Insight is not a fact about one specific machine.  It
     generalizes in four stages:
@@ -275,9 +249,8 @@ Check mu_initiality.
     costs >= 1. *)
 Check no_free_certified_insight.
 
-(** =====================================================================
+(**
     CHAPTER 6: TURING COMPLETENESS
-    =====================================================================
 
     The cost accounting adds information, not restriction.  The Thiele
     Machine is computationally universal: it can simulate a 2-counter
@@ -300,9 +273,8 @@ Check jzdec_zero_via_vm_apply.
 (** Minsky JZDEC (nonzero branch) via vm_apply. *)
 Check jzdec_nonzero_via_vm_apply.
 
-(** =====================================================================
+(**
     CHAPTER 7: PHYSICS EMERGES
-    =====================================================================
 
     Physical laws are theorems of vm_step, not axioms.
 
@@ -361,9 +333,8 @@ Check psplit_quantum_implementation_implies_column_contractive.
 Check clausius_load_bearing_einstein_4d.
 Check thermodynamic_einstein_full_chain_4d.
 
-(** =====================================================================
+(**
     CHAPTER 8: THE MACHINE IS REAL
-    =====================================================================
 
     The proofs are not just formalism.  The Thiele Machine runs on
     three substrates, and the Coq proofs connect them:
@@ -399,9 +370,8 @@ Check hw_bisimulation_multi_step.
 (** 8d. Three-layer contract: FullWireSpec trace bisimulation. *)
 Check full_state_trace_bisimulation.
 
-(** =====================================================================
+(**
     CHAPTER 9: THE HARDWARE CHAIN
-    =====================================================================
 
     The Kami hardware model (coq/kami_hw/) defines a KamiSnapshot
     record with 28 fields representing the hardware state.  The
@@ -436,9 +406,8 @@ Check full_embed_step_compute.
 (** Layer 3: multi-step trace commutation. *)
 Check driven_trace_commutes.
 
-(** =====================================================================
+(**
     CODA: THE COMPLETE ARC
-    =====================================================================
 
     From a single structural commitment --- cert-setters cost >= 1,
     encoded as S(delta) in the Peano naturals --- the following chain
@@ -552,9 +521,8 @@ Definition thiele_genesis : ThieleGenesis := {|
   tg_hardware_commutation := full_embed_step_compute
 |}.
 
-(** =====================================================================
+(**
     EPILOGUE
-    =====================================================================
 
     What you have just read is a machine-checked proof that:
 
@@ -582,5 +550,4 @@ Definition thiele_genesis : ThieleGenesis := {|
     The file you are reading has zero Admitted, zero project-local
     Axioms, and proves no new theorems.  It only imports and connects.
     Compiling it is the proof that the chain is unbroken.
-    =====================================================================
 *)

@@ -1,711 +1,711 @@
-DIGEST 2a95bcaa8cdda8e45214d4d5e192566a
+DIGEST c1c16081b40e81a0cfcb33826a42e920
 FKernel.QuantitativeNoFI
-R2835:2838 Coq.Lists.List <> <> lib
-R2840:2853 Coq.Arith.PeanoNat <> <> lib
-R2855:2857 Coq.micromega.Lia <> <> lib
-R2867:2879 Coq.Lists.List ListNotations <> mod
-R2910:2916 Kernel.VMState <> <> lib
-R2918:2923 Kernel.VMStep <> <> lib
-R2925:2939 Kernel.SimulationProof <> <> lib
-R2968:2979 Kernel.AbstractNoFI <> <> lib
-R2981:3006 Kernel.UniversalCertificationCost <> <> lib
-R3035:3054 Kernel.MuLedgerConservation <> <> lib
-rec 3702:3732 <> QuantitativeCertificationSystem
-proj 3821:3828 <> qcs_base
-proj 3933:3943 <> qcs_witness
-proj 4059:4071 <> qcs_threshold
-proj 4502:4524 <> qcs_cost_bounds_witness
-proj 5178:5203 <> qcs_cert_threshold_witness
-R3838:3856 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R3967:3970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3950:3957 Kernel.UniversalCertificationCost <> cs_state proj
-R3959:3966 Kernel.QuantitativeNoFI <> qcs_base:2 meth
-R3971:3973 Coq.Init.Datatypes <> nat ind
-R4076:4078 Coq.Init.Datatypes <> nat ind
-R4544:4551 Kernel.UniversalCertificationCost <> cs_state proj
-R4553:4560 Kernel.QuantitativeNoFI <> qcs_base:2 meth
-binder 4540:4540 <> s:5
-R4568:4575 Kernel.UniversalCertificationCost <> cs_instr proj
-R4577:4584 Kernel.QuantitativeNoFI <> qcs_base:2 meth
-binder 4564:4564 <> i:6
-R4628:4631 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4607:4609 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4594:4604 Kernel.QuantitativeNoFI <> qcs_witness:3 meth
-R4606:4606 Kernel.QuantitativeNoFI <> s:5 var
-R4610:4616 Kernel.UniversalCertificationCost <> cs_cost proj
-R4618:4625 Kernel.QuantitativeNoFI <> qcs_base:2 meth
-R4627:4627 Kernel.QuantitativeNoFI <> i:6 var
-R4632:4642 Kernel.QuantitativeNoFI <> qcs_witness:3 meth
-R4645:4651 Kernel.UniversalCertificationCost <> cs_step proj
-R4653:4660 Kernel.QuantitativeNoFI <> qcs_base:2 meth
-R4662:4662 Kernel.QuantitativeNoFI <> s:5 var
-R4664:4664 Kernel.QuantitativeNoFI <> i:6 var
-R5223:5230 Kernel.UniversalCertificationCost <> cs_state proj
-R5232:5239 Kernel.QuantitativeNoFI <> qcs_base:2 meth
-binder 5219:5219 <> s:8
-R5274:5283 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5267:5269 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5249:5255 Kernel.UniversalCertificationCost <> cs_cert proj
-R5257:5264 Kernel.QuantitativeNoFI <> qcs_base:2 meth
-R5266:5266 Kernel.QuantitativeNoFI <> s:8 var
-R5270:5273 Coq.Init.Datatypes <> true constr
-R5297:5300 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5284:5294 Kernel.QuantitativeNoFI <> qcs_witness:3 meth
-R5296:5296 Kernel.QuantitativeNoFI <> s:8 var
-R5301:5313 Kernel.QuantitativeNoFI <> qcs_threshold:4 meth
-rec 6287:6322 <> QuantitativeCertificationSystem_full
-proj 6397:6404 <> qcsf_qcs
-proj 6863:6888 <> qcsf_witness_nondecreasing
-R6414:6444 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
-R6909:6916 Kernel.UniversalCertificationCost <> cs_state proj
-R6919:6926 Kernel.QuantitativeNoFI <> qcs_base proj
-R6928:6935 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
-binder 6904:6904 <> s:12
-R6956:6963 Kernel.UniversalCertificationCost <> cs_instr proj
-R6966:6973 Kernel.QuantitativeNoFI <> qcs_base proj
-R6975:6982 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
-binder 6951:6951 <> i:13
-R7015:7024 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6993:7003 Kernel.QuantitativeNoFI <> qcs_witness proj
-R7005:7012 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
-R7014:7014 Kernel.QuantitativeNoFI <> s:12 var
-R7025:7035 Kernel.QuantitativeNoFI <> qcs_witness proj
-R7037:7044 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
-R7047:7053 Kernel.UniversalCertificationCost <> cs_step proj
-R7056:7063 Kernel.QuantitativeNoFI <> qcs_base proj
-R7065:7072 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
-R7075:7075 Kernel.QuantitativeNoFI <> s:12 var
-R7077:7077 Kernel.QuantitativeNoFI <> i:13 var
-prf 8135:8149 <> qcs_telescoping
-R8169:8199 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
-binder 8163:8165 <> QCS:15
-R8220:8223 Coq.Init.Datatypes <> list ind
-R8226:8233 Kernel.UniversalCertificationCost <> cs_instr proj
-R8236:8243 Kernel.QuantitativeNoFI <> qcs_base proj
-R8245:8247 Kernel.QuantitativeNoFI <> QCS:15 var
-binder 8212:8216 <> trace:16
-R8267:8274 Kernel.UniversalCertificationCost <> cs_state proj
-R8277:8284 Kernel.QuantitativeNoFI <> qcs_base proj
-R8286:8288 Kernel.QuantitativeNoFI <> QCS:15 var
-binder 8262:8263 <> s0:17
-R8352:8359 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8315:8317 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8297:8307 Kernel.QuantitativeNoFI <> qcs_witness proj
-R8309:8311 Kernel.QuantitativeNoFI <> QCS:15 var
-R8313:8314 Kernel.QuantitativeNoFI <> s0:17 var
-R8318:8330 Kernel.UniversalCertificationCost <> cs_total_cost def
-R8333:8340 Kernel.QuantitativeNoFI <> qcs_base proj
-R8342:8344 Kernel.QuantitativeNoFI <> QCS:15 var
-R8347:8351 Kernel.QuantitativeNoFI <> trace:16 var
-R8360:8370 Kernel.QuantitativeNoFI <> qcs_witness proj
-R8372:8374 Kernel.QuantitativeNoFI <> QCS:15 var
-R8377:8382 Kernel.UniversalCertificationCost <> cs_run def
-R8385:8392 Kernel.QuantitativeNoFI <> qcs_base proj
-R8394:8396 Kernel.QuantitativeNoFI <> QCS:15 var
-R8399:8403 Kernel.QuantitativeNoFI <> trace:16 var
-R8405:8406 Kernel.QuantitativeNoFI <> s0:17 var
-R8673:8695 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R8673:8695 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R8842:8848 Kernel.UniversalCertificationCost <> cs_step proj
-R8851:8858 Kernel.QuantitativeNoFI <> qcs_base proj
-R8842:8848 Kernel.UniversalCertificationCost <> cs_step proj
-R8851:8858 Kernel.QuantitativeNoFI <> qcs_base proj
-prf 9532:9557 <> universal_nfi_quantitative
-R9577:9607 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
-binder 9571:9573 <> QCS:18
-R9628:9631 Coq.Init.Datatypes <> list ind
-R9634:9641 Kernel.UniversalCertificationCost <> cs_instr proj
-R9644:9651 Kernel.QuantitativeNoFI <> qcs_base proj
-R9653:9655 Kernel.QuantitativeNoFI <> QCS:18 var
-binder 9620:9624 <> trace:19
-R9675:9682 Kernel.UniversalCertificationCost <> cs_state proj
-R9685:9692 Kernel.QuantitativeNoFI <> qcs_base proj
-R9694:9696 Kernel.QuantitativeNoFI <> QCS:18 var
-binder 9670:9671 <> s0:20
-R9762:9805 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9758:9760 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9740:9750 Kernel.QuantitativeNoFI <> qcs_witness proj
-R9752:9754 Kernel.QuantitativeNoFI <> QCS:18 var
-R9756:9757 Kernel.QuantitativeNoFI <> s0:20 var
-R9868:9923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9861:9863 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9806:9812 Kernel.UniversalCertificationCost <> cs_cert proj
-R9815:9822 Kernel.QuantitativeNoFI <> qcs_base proj
-R9824:9826 Kernel.QuantitativeNoFI <> QCS:18 var
-R9830:9835 Kernel.UniversalCertificationCost <> cs_run def
-R9838:9845 Kernel.QuantitativeNoFI <> qcs_base proj
-R9847:9849 Kernel.QuantitativeNoFI <> QCS:18 var
-R9852:9856 Kernel.QuantitativeNoFI <> trace:19 var
-R9858:9859 Kernel.QuantitativeNoFI <> s0:20 var
-R9864:9867 Coq.Init.Datatypes <> true constr
-R9958:9961 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9924:9936 Kernel.UniversalCertificationCost <> cs_total_cost def
-R9939:9946 Kernel.QuantitativeNoFI <> qcs_base proj
-R9948:9950 Kernel.QuantitativeNoFI <> QCS:18 var
-R9953:9957 Kernel.QuantitativeNoFI <> trace:19 var
-R9962:9974 Kernel.QuantitativeNoFI <> qcs_threshold proj
-R9976:9978 Kernel.QuantitativeNoFI <> QCS:18 var
-R10117:10131 Kernel.QuantitativeNoFI <> qcs_telescoping thm
-R10117:10131 Kernel.QuantitativeNoFI <> qcs_telescoping thm
-R10267:10292 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R10315:10320 Kernel.UniversalCertificationCost <> cs_run def
-R10323:10330 Kernel.QuantitativeNoFI <> qcs_base proj
-R10267:10292 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R10315:10320 Kernel.UniversalCertificationCost <> cs_run def
-R10323:10330 Kernel.QuantitativeNoFI <> qcs_base proj
-prf 10491:10524 <> universal_nfi_quantitative_witness
-R10544:10574 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
-binder 10538:10540 <> QCS:21
-R10595:10598 Coq.Init.Datatypes <> list ind
-R10601:10608 Kernel.UniversalCertificationCost <> cs_instr proj
-R10611:10618 Kernel.QuantitativeNoFI <> qcs_base proj
-R10620:10622 Kernel.QuantitativeNoFI <> QCS:21 var
-binder 10587:10591 <> trace:22
-R10642:10649 Kernel.UniversalCertificationCost <> cs_state proj
-R10652:10659 Kernel.QuantitativeNoFI <> qcs_base proj
-R10661:10663 Kernel.QuantitativeNoFI <> QCS:21 var
-binder 10637:10638 <> s0:23
-R10694:10701 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10690:10692 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10672:10682 Kernel.QuantitativeNoFI <> qcs_witness proj
-R10684:10686 Kernel.QuantitativeNoFI <> QCS:21 var
-R10688:10689 Kernel.QuantitativeNoFI <> s0:23 var
-R10764:10771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10757:10759 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10702:10708 Kernel.UniversalCertificationCost <> cs_cert proj
-R10711:10718 Kernel.QuantitativeNoFI <> qcs_base proj
-R10720:10722 Kernel.QuantitativeNoFI <> QCS:21 var
-R10726:10731 Kernel.UniversalCertificationCost <> cs_run def
-R10734:10741 Kernel.QuantitativeNoFI <> qcs_base proj
-R10743:10745 Kernel.QuantitativeNoFI <> QCS:21 var
-R10748:10752 Kernel.QuantitativeNoFI <> trace:22 var
-R10754:10755 Kernel.QuantitativeNoFI <> s0:23 var
-R10760:10763 Coq.Init.Datatypes <> true constr
-R10806:10815 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10772:10784 Kernel.UniversalCertificationCost <> cs_total_cost def
-R10787:10794 Kernel.QuantitativeNoFI <> qcs_base proj
-R10796:10798 Kernel.QuantitativeNoFI <> QCS:21 var
-R10801:10805 Kernel.QuantitativeNoFI <> trace:22 var
-R10816:10826 Kernel.QuantitativeNoFI <> qcs_witness proj
-R10828:10830 Kernel.QuantitativeNoFI <> QCS:21 var
-R10833:10838 Kernel.UniversalCertificationCost <> cs_run def
-R10841:10848 Kernel.QuantitativeNoFI <> qcs_base proj
-R10850:10852 Kernel.QuantitativeNoFI <> QCS:21 var
-R10855:10859 Kernel.QuantitativeNoFI <> trace:22 var
-R10861:10862 Kernel.QuantitativeNoFI <> s0:23 var
-R10922:10936 Kernel.QuantitativeNoFI <> qcs_telescoping thm
-R10922:10936 Kernel.QuantitativeNoFI <> qcs_telescoping thm
-prf 12020:12048 <> thiele_cost_bounds_witness_mu
-R12066:12072 Kernel.VMState <> VMState rec
-binder 12062:12062 <> s:24
-R12080:12093 Kernel.VMStep VMStep vm_instruction ind
-binder 12076:12076 <> i:25
-R12131:12134 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R12110:12112 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R12104:12108 Kernel.VMState <> vm_mu proj
-R12101:12101 Kernel.QuantitativeNoFI <> s:24 var
-R12113:12128 Kernel.VMStep VMStep instruction_cost def
-R12130:12130 Kernel.QuantitativeNoFI <> i:25 var
-R12151:12155 Kernel.VMState <> vm_mu proj
-R12136:12143 Kernel.SimulationProof <> vm_apply def
-R12145:12145 Kernel.QuantitativeNoFI <> s:24 var
-R12147:12147 Kernel.QuantitativeNoFI <> i:25 var
-R12190:12200 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R12190:12200 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R12190:12200 Kernel.MuLedgerConservation <> vm_apply_mu thm
-def 13170:13193 <> thiele_witness_cert_addr
-R13200:13206 Kernel.VMState <> VMState rec
-binder 13196:13196 <> s:26
-R13211:13213 Coq.Init.Datatypes <> nat ind
-R13223:13238 Kernel.AbstractNoFI <> thiele_cert_bool def
-R13240:13240 Kernel.QuantitativeNoFI <> s:26 var
-prf 13576:13611 <> thiele_cert_addr_cost_bounds_witness
-R13629:13635 Kernel.VMState <> VMState rec
-binder 13625:13625 <> s:27
-R13643:13656 Kernel.VMStep VMStep vm_instruction ind
-binder 13639:13639 <> i:28
-R13711:13718 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R13690:13692 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R13664:13687 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
-R13689:13689 Kernel.QuantitativeNoFI <> s:27 var
-R13693:13708 Kernel.VMStep VMStep instruction_cost def
-R13710:13710 Kernel.QuantitativeNoFI <> i:28 var
-R13719:13742 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
-R13745:13752 Kernel.SimulationProof <> vm_apply def
-R13754:13754 Kernel.QuantitativeNoFI <> s:27 var
-R13756:13756 Kernel.QuantitativeNoFI <> i:28 var
-R13790:13813 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
-R13828:13843 Kernel.AbstractNoFI <> thiele_cert_bool def
-R13868:13883 Kernel.AbstractNoFI <> thiele_cert_bool def
-R13886:13893 Kernel.SimulationProof <> vm_apply def
-R13828:13843 Kernel.AbstractNoFI <> thiele_cert_bool def
-R13868:13883 Kernel.AbstractNoFI <> thiele_cert_bool def
-R13886:13893 Kernel.SimulationProof <> vm_apply def
-R13868:13883 Kernel.AbstractNoFI <> thiele_cert_bool def
-R13886:13893 Kernel.SimulationProof <> vm_apply def
-R14003:14027 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
-R14003:14027 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
-R14062:14089 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
-R14092:14099 Kernel.SimulationProof <> vm_apply def
-R14062:14089 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
-R14092:14099 Kernel.SimulationProof <> vm_apply def
-R14140:14160 Kernel.AbstractNoFI <> no_free_certification thm
-R14140:14160 Kernel.AbstractNoFI <> no_free_certification thm
-prf 14366:14399 <> thiele_cert_addr_threshold_witness
-R14417:14423 Kernel.VMState <> VMState rec
-binder 14413:14413 <> s:29
-R14471:14478 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14464:14466 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14431:14437 Kernel.UniversalCertificationCost <> cs_cert proj
-R14439:14461 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R14463:14463 Kernel.QuantitativeNoFI <> s:29 var
-R14467:14470 Coq.Init.Datatypes <> true constr
-R14505:14508 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R14479:14502 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
-R14504:14504 Kernel.QuantitativeNoFI <> s:29 var
-R14546:14569 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
-def 14707:14726 <> thiele_qcs_cert_addr
-R14730:14760 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
-R14774:14781 Kernel.QuantitativeNoFI <> qcs_base proj
-R14774:14781 Kernel.QuantitativeNoFI <> qcs_base proj
-R14774:14781 Kernel.QuantitativeNoFI <> qcs_base proj
-R14820:14830 Kernel.QuantitativeNoFI <> qcs_witness proj
-R14820:14830 Kernel.QuantitativeNoFI <> qcs_witness proj
-R14867:14879 Kernel.QuantitativeNoFI <> qcs_threshold proj
-R14867:14879 Kernel.QuantitativeNoFI <> qcs_threshold proj
-R14891:14913 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R14891:14913 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R14965:14990 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R14965:14990 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R14791:14813 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
-R14837:14860 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
-R14923:14958 Kernel.QuantitativeNoFI <> thiele_cert_addr_cost_bounds_witness thm
-R14997:15030 Kernel.QuantitativeNoFI <> thiele_cert_addr_threshold_witness thm
-prf 15123:15155 <> thiele_quantitative_nfi_cert_addr
-R15177:15180 Coq.Init.Datatypes <> list ind
-R15182:15195 Kernel.VMStep VMStep vm_instruction ind
-binder 15169:15173 <> trace:30
-R15204:15210 Kernel.VMState <> VMState rec
-binder 15199:15200 <> s0:31
-R15249:15256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15245:15247 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15218:15241 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
-R15243:15244 Kernel.QuantitativeNoFI <> s0:31 var
-R15330:15337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R15323:15325 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15257:15272 Kernel.AbstractNoFI <> thiele_cert_bool def
-R15275:15280 Kernel.UniversalCertificationCost <> cs_run def
-R15283:15290 Kernel.QuantitativeNoFI <> qcs_base proj
-R15292:15311 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
-R15314:15318 Kernel.QuantitativeNoFI <> trace:30 var
-R15320:15321 Kernel.QuantitativeNoFI <> s0:31 var
-R15326:15329 Coq.Init.Datatypes <> true constr
-R15389:15392 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R15338:15350 Kernel.UniversalCertificationCost <> cs_total_cost def
-R15353:15360 Kernel.QuantitativeNoFI <> qcs_base proj
-R15362:15381 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
-R15384:15388 Kernel.QuantitativeNoFI <> trace:30 var
-R15443:15468 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
-R15470:15489 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
-R15443:15468 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
-R15470:15489 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
-def 20310:20324 <> chsh_trial_cost
-R20331:20344 Kernel.VMStep VMStep vm_instruction ind
-binder 20327:20327 <> i:32
-R20349:20351 Coq.Init.Datatypes <> nat ind
-R20364:20364 Kernel.QuantitativeNoFI <> i:32 var
-R20375:20390 Kernel.VMStep VMStep instr_chsh_trial constr
-R20414:20425 Kernel.VMStep VMStep chsh_bits_ok def
-def 20595:20612 <> chsh_total_witness
-R20619:20625 Kernel.VMState <> VMState rec
-binder 20615:20615 <> s:34
-R20630:20632 Coq.Init.Datatypes <> nat ind
-R20639:20651 Kernel.VMState <> witness_total def
-R20656:20665 Kernel.VMState <> vm_witness proj
-R20653:20653 Kernel.QuantitativeNoFI <> s:34 var
-prf 20969:20986 <> record_trial_total
-R21005:21017 Kernel.VMState <> WitnessCounts rec
-binder 21000:21001 <> wc:35
-R21031:21033 Coq.Init.Datatypes <> nat ind
-binder 21021:21021 <> x:36
-binder 21023:21023 <> y:37
-binder 21025:21025 <> a:38
-binder 21027:21027 <> b:39
-R21080:21082 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21041:21053 Kernel.VMState <> witness_total def
-R21056:21067 Kernel.VMStep VMStep record_trial def
-R21069:21070 Kernel.QuantitativeNoFI <> wc:35 var
-R21072:21072 Kernel.QuantitativeNoFI <> x:36 var
-R21074:21074 Kernel.QuantitativeNoFI <> y:37 var
-R21076:21076 Kernel.QuantitativeNoFI <> a:38 var
-R21078:21078 Kernel.QuantitativeNoFI <> b:39 var
-R21099:21101 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R21083:21095 Kernel.VMState <> witness_total def
-R21097:21098 Kernel.QuantitativeNoFI <> wc:35 var
-R21142:21153 Kernel.VMStep VMStep record_trial def
-R21156:21168 Kernel.VMState <> witness_total def
-R21227:21233 Coq.Arith.PeanoNat Nat eqb def
-R21227:21233 Coq.Arith.PeanoNat Nat eqb def
-R21227:21233 Coq.Arith.PeanoNat Nat eqb def
-R21227:21233 Coq.Arith.PeanoNat Nat eqb def
-R21227:21233 Coq.Arith.PeanoNat Nat eqb def
-prf 21710:21725 <> vm_apply_witness
-R21743:21749 Kernel.VMState <> VMState rec
-binder 21739:21739 <> s:40
-R21757:21770 Kernel.VMStep VMStep vm_instruction ind
-binder 21753:21753 <> i:41
-R21805:21811 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21794:21803 Kernel.VMState <> vm_witness proj
-R21779:21786 Kernel.SimulationProof <> vm_apply def
-R21788:21788 Kernel.QuantitativeNoFI <> s:40 var
-R21790:21790 Kernel.QuantitativeNoFI <> i:41 var
-R21818:21818 Kernel.QuantitativeNoFI <> i:41 var
-R21831:21846 Kernel.VMStep VMStep instr_chsh_trial constr
-R21872:21883 Kernel.VMStep VMStep chsh_bits_ok def
-R21950:21959 Kernel.VMState <> vm_witness proj
-R21947:21947 Kernel.QuantitativeNoFI <> s:40 var
-R21898:21909 Kernel.VMStep VMStep record_trial def
-R21914:21923 Kernel.VMState <> vm_witness proj
-R21911:21911 Kernel.QuantitativeNoFI <> s:40 var
-R21976:21985 Kernel.VMState <> vm_witness proj
-R21973:21973 Kernel.QuantitativeNoFI <> s:40 var
-R22143:22155 Kernel.VMStep VMStep advance_state def
-R22158:22177 Kernel.VMStep VMStep advance_state_reveal def
-R22184:22199 Kernel.VMStep VMStep advance_state_rm def
-R22202:22211 Kernel.VMStep VMStep jump_state def
-R22214:22226 Kernel.VMStep VMStep jump_state_rm def
-prf 22643:22660 <> chsh_a3_obligation
-R22678:22684 Kernel.VMState <> VMState rec
-binder 22674:22674 <> s:43
-R22692:22705 Kernel.VMStep VMStep vm_instruction ind
-binder 22688:22688 <> i:44
-R22753:22760 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R22733:22735 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R22713:22730 Kernel.QuantitativeNoFI <> chsh_total_witness def
-R22732:22732 Kernel.QuantitativeNoFI <> s:43 var
-R22736:22750 Kernel.QuantitativeNoFI <> chsh_trial_cost def
-R22752:22752 Kernel.QuantitativeNoFI <> i:44 var
-R22761:22778 Kernel.QuantitativeNoFI <> chsh_total_witness def
-R22781:22788 Kernel.SimulationProof <> vm_apply def
-R22790:22790 Kernel.QuantitativeNoFI <> s:43 var
-R22792:22792 Kernel.QuantitativeNoFI <> i:44 var
-R22826:22843 Kernel.QuantitativeNoFI <> chsh_total_witness def
-R22857:22872 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R22857:22872 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R22857:22872 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R22979:22990 Kernel.VMStep VMStep chsh_bits_ok def
-R22979:22990 Kernel.VMStep VMStep chsh_bits_ok def
-R23088:23105 Kernel.QuantitativeNoFI <> record_trial_total thm
-R23088:23105 Kernel.QuantitativeNoFI <> record_trial_total thm
-R23088:23105 Kernel.QuantitativeNoFI <> record_trial_total thm
-def 23934:23942 <> chsh_cert
-R23949:23955 Kernel.VMState <> VMState rec
-binder 23945:23945 <> s:45
-R23960:23963 Coq.Init.Datatypes <> bool ind
-R23970:23976 Coq.Arith.PeanoNat Nat ltb def
-R23981:23993 Kernel.VMState <> witness_total def
-R23998:24007 Kernel.VMState <> vm_witness proj
-R23995:23995 Kernel.QuantitativeNoFI <> s:45 var
-prf 24095:24101 <> chsh_a2
-R24119:24125 Kernel.VMState <> VMState rec
-binder 24115:24115 <> s:46
-R24133:24146 Kernel.VMStep VMStep vm_instruction ind
-binder 24129:24129 <> i:47
-R24173:24180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24165:24167 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24154:24162 Kernel.QuantitativeNoFI <> chsh_cert def
-R24164:24164 Kernel.QuantitativeNoFI <> s:46 var
-R24168:24172 Coq.Init.Datatypes <> false constr
-R24212:24219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24205:24207 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24181:24189 Kernel.QuantitativeNoFI <> chsh_cert def
-R24192:24199 Kernel.SimulationProof <> vm_apply def
-R24201:24201 Kernel.QuantitativeNoFI <> s:46 var
-R24203:24203 Kernel.QuantitativeNoFI <> i:47 var
-R24208:24211 Coq.Init.Datatypes <> true constr
-R24237:24240 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R24220:24234 Kernel.QuantitativeNoFI <> chsh_trial_cost def
-R24236:24236 Kernel.QuantitativeNoFI <> i:47 var
-R24289:24297 Kernel.QuantitativeNoFI <> chsh_cert def
-R24319:24334 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R24319:24334 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R24590:24601 Kernel.VMStep VMStep chsh_bits_ok def
-R24590:24601 Kernel.VMStep VMStep chsh_bits_ok def
-def 24868:24883 <> chsh_cert_system
-R24887:24905 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R24919:24926 Kernel.UniversalCertificationCost <> cs_state proj
-R24919:24926 Kernel.UniversalCertificationCost <> cs_state proj
-R24919:24926 Kernel.UniversalCertificationCost <> cs_state proj
-R24948:24955 Kernel.UniversalCertificationCost <> cs_instr proj
-R24948:24955 Kernel.UniversalCertificationCost <> cs_instr proj
-R24984:24990 Kernel.UniversalCertificationCost <> cs_step proj
-R24984:24990 Kernel.UniversalCertificationCost <> cs_step proj
-R25014:25020 Kernel.UniversalCertificationCost <> cs_cost proj
-R25014:25020 Kernel.UniversalCertificationCost <> cs_cost proj
-R25051:25057 Kernel.UniversalCertificationCost <> cs_cert proj
-R25051:25057 Kernel.UniversalCertificationCost <> cs_cert proj
-R25082:25094 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R25082:25094 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R24935:24941 Kernel.VMState <> VMState rec
-R24964:24977 Kernel.VMStep VMStep vm_instruction ind
-R25000:25007 Kernel.SimulationProof <> vm_apply def
-R25030:25044 Kernel.QuantitativeNoFI <> chsh_trial_cost def
-R25067:25075 Kernel.QuantitativeNoFI <> chsh_cert def
-R25099:25105 Kernel.QuantitativeNoFI <> chsh_a2 thm
-prf 25192:25198 <> chsh_a5
-R25216:25222 Kernel.VMState <> VMState rec
-binder 25212:25212 <> s:48
-R25263:25270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R25256:25258 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25230:25236 Kernel.UniversalCertificationCost <> cs_cert proj
-R25238:25253 Kernel.QuantitativeNoFI <> chsh_cert_system def
-R25255:25255 Kernel.QuantitativeNoFI <> s:48 var
-R25259:25262 Coq.Init.Datatypes <> true constr
-R25299:25302 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R25271:25283 Kernel.VMState <> witness_total def
-R25288:25297 Kernel.VMState <> vm_witness proj
-R25285:25285 Kernel.QuantitativeNoFI <> s:48 var
-R25356:25364 Kernel.QuantitativeNoFI <> chsh_cert def
-R25384:25393 Coq.Arith.PeanoNat Nat ltb_lt thm
-R25384:25393 Coq.Arith.PeanoNat Nat ltb_lt thm
-def 26001:26008 <> chsh_qcs
-R26012:26042 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
-R26056:26063 Kernel.QuantitativeNoFI <> qcs_base proj
-R26056:26063 Kernel.QuantitativeNoFI <> qcs_base proj
-R26056:26063 Kernel.QuantitativeNoFI <> qcs_base proj
-R26108:26118 Kernel.QuantitativeNoFI <> qcs_witness proj
-R26108:26118 Kernel.QuantitativeNoFI <> qcs_witness proj
-R26183:26195 Kernel.QuantitativeNoFI <> qcs_threshold proj
-R26183:26195 Kernel.QuantitativeNoFI <> qcs_threshold proj
-R26220:26242 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R26220:26242 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R26274:26299 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R26274:26299 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R26086:26101 Kernel.QuantitativeNoFI <> chsh_cert_system def
-binder 26143:26143 <> s:49
-R26148:26160 Kernel.VMState <> witness_total def
-R26165:26174 Kernel.VMState <> vm_witness proj
-R26162:26162 Kernel.QuantitativeNoFI <> s:49 var
-R26250:26267 Kernel.QuantitativeNoFI <> chsh_a3_obligation thm
-R26304:26310 Kernel.QuantitativeNoFI <> chsh_a5 thm
-prf 26478:26498 <> chsh_quantitative_nfi
-R26520:26523 Coq.Init.Datatypes <> list ind
-R26525:26538 Kernel.VMStep VMStep vm_instruction ind
-binder 26512:26516 <> trace:50
-R26547:26553 Kernel.VMState <> VMState rec
-binder 26542:26543 <> s0:51
-R26594:26601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26590:26592 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R26561:26573 Kernel.VMState <> witness_total def
-R26579:26588 Kernel.VMState <> vm_witness proj
-R26575:26576 Kernel.QuantitativeNoFI <> s0:51 var
-R26653:26660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26646:26648 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R26602:26610 Kernel.QuantitativeNoFI <> chsh_cert def
-R26613:26618 Kernel.UniversalCertificationCost <> cs_run def
-R26620:26635 Kernel.QuantitativeNoFI <> chsh_cert_system def
-R26637:26641 Kernel.QuantitativeNoFI <> trace:50 var
-R26643:26644 Kernel.QuantitativeNoFI <> s0:51 var
-R26649:26652 Coq.Init.Datatypes <> true constr
-R26697:26700 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R26661:26673 Kernel.UniversalCertificationCost <> cs_total_cost def
-R26675:26690 Kernel.QuantitativeNoFI <> chsh_cert_system def
-R26692:26696 Kernel.QuantitativeNoFI <> trace:50 var
-R26751:26776 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
-R26778:26785 Kernel.QuantitativeNoFI <> chsh_qcs def
-R26751:26776 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
-R26778:26785 Kernel.QuantitativeNoFI <> chsh_qcs def
-def 28204:28214 <> chsh_cert_n
-R28221:28223 Coq.Init.Datatypes <> nat ind
-binder 28217:28217 <> n:52
-R28231:28237 Kernel.VMState <> VMState rec
-binder 28227:28227 <> s:53
-R28242:28245 Coq.Init.Datatypes <> bool ind
-R28252:28258 Coq.Arith.PeanoNat Nat leb def
-R28260:28260 Kernel.QuantitativeNoFI <> n:52 var
-R28263:28275 Kernel.VMState <> witness_total def
-R28280:28289 Kernel.VMState <> vm_witness proj
-R28277:28277 Kernel.QuantitativeNoFI <> s:53 var
-prf 28718:28726 <> chsh_a2_n
-R28744:28746 Coq.Init.Datatypes <> nat ind
-binder 28740:28740 <> n:54
-R28754:28760 Kernel.VMState <> VMState rec
-binder 28750:28750 <> s:55
-R28768:28781 Kernel.VMStep VMStep vm_instruction ind
-binder 28764:28764 <> i:56
-R28812:28819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28804:28806 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28789:28799 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R28801:28801 Kernel.QuantitativeNoFI <> n:54 var
-R28803:28803 Kernel.QuantitativeNoFI <> s:55 var
-R28807:28811 Coq.Init.Datatypes <> false constr
-R28855:28862 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R28848:28850 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28820:28830 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R28832:28832 Kernel.QuantitativeNoFI <> n:54 var
-R28835:28842 Kernel.SimulationProof <> vm_apply def
-R28844:28844 Kernel.QuantitativeNoFI <> s:55 var
-R28846:28846 Kernel.QuantitativeNoFI <> i:56 var
-R28851:28854 Coq.Init.Datatypes <> true constr
-R28880:28883 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R28863:28877 Kernel.QuantitativeNoFI <> chsh_trial_cost def
-R28879:28879 Kernel.QuantitativeNoFI <> i:56 var
-R28934:28944 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R28963:28978 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R28963:28978 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R28963:28978 Kernel.QuantitativeNoFI <> vm_apply_witness thm
-R29083:29094 Kernel.VMStep VMStep chsh_bits_ok def
-R29083:29094 Kernel.VMStep VMStep chsh_bits_ok def
-prf 29267:29275 <> chsh_a5_n
-R29293:29295 Coq.Init.Datatypes <> nat ind
-binder 29289:29289 <> n:57
-R29303:29309 Kernel.VMState <> VMState rec
-binder 29299:29299 <> s:58
-R29339:29346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R29332:29334 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29317:29327 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R29329:29329 Kernel.QuantitativeNoFI <> n:57 var
-R29331:29331 Kernel.QuantitativeNoFI <> s:58 var
-R29335:29338 Coq.Init.Datatypes <> true constr
-R29375:29378 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R29347:29359 Kernel.VMState <> witness_total def
-R29364:29373 Kernel.VMState <> vm_witness proj
-R29361:29361 Kernel.QuantitativeNoFI <> s:58 var
-R29379:29379 Kernel.QuantitativeNoFI <> n:57 var
-R29418:29428 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R29448:29457 Coq.Arith.PeanoNat Nat leb_le thm
-R29448:29457 Coq.Arith.PeanoNat Nat leb_le thm
-def 29541:29558 <> chsh_cert_system_n
-R29565:29567 Coq.Init.Datatypes <> nat ind
-binder 29561:29561 <> n:59
-R29572:29590 Kernel.UniversalCertificationCost <> CertificationSystem rec
-R29604:29611 Kernel.UniversalCertificationCost <> cs_state proj
-R29604:29611 Kernel.UniversalCertificationCost <> cs_state proj
-R29604:29611 Kernel.UniversalCertificationCost <> cs_state proj
-R29633:29640 Kernel.UniversalCertificationCost <> cs_instr proj
-R29633:29640 Kernel.UniversalCertificationCost <> cs_instr proj
-R29669:29675 Kernel.UniversalCertificationCost <> cs_step proj
-R29669:29675 Kernel.UniversalCertificationCost <> cs_step proj
-R29699:29705 Kernel.UniversalCertificationCost <> cs_cost proj
-R29699:29705 Kernel.UniversalCertificationCost <> cs_cost proj
-R29736:29742 Kernel.UniversalCertificationCost <> cs_cert proj
-R29736:29742 Kernel.UniversalCertificationCost <> cs_cert proj
-R29771:29783 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R29771:29783 Kernel.UniversalCertificationCost <> cs_cert_costs proj
-R29620:29626 Kernel.VMState <> VMState rec
-R29649:29662 Kernel.VMStep VMStep vm_instruction ind
-R29685:29692 Kernel.SimulationProof <> vm_apply def
-R29715:29729 Kernel.QuantitativeNoFI <> chsh_trial_cost def
-R29752:29762 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R29764:29764 Kernel.QuantitativeNoFI <> n:59 var
-R29788:29796 Kernel.QuantitativeNoFI <> chsh_a2_n thm
-R29798:29798 Kernel.QuantitativeNoFI <> n:59 var
-prf 29956:29964 <> chsh_a3_n
-R29982:29984 Coq.Init.Datatypes <> nat ind
-binder 29978:29978 <> n:60
-R29992:29998 Kernel.VMState <> VMState rec
-binder 29988:29988 <> s:61
-R30006:30019 Kernel.VMStep VMStep vm_instruction ind
-binder 30002:30002 <> i:62
-R30090:30097 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R30055:30057 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R30027:30039 Kernel.VMState <> witness_total def
-R30044:30053 Kernel.VMState <> vm_witness proj
-R30041:30041 Kernel.QuantitativeNoFI <> s:61 var
-R30058:30064 Kernel.UniversalCertificationCost <> cs_cost proj
-R30067:30084 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
-R30086:30086 Kernel.QuantitativeNoFI <> n:60 var
-R30089:30089 Kernel.QuantitativeNoFI <> i:62 var
-R30098:30110 Kernel.VMState <> witness_total def
-R30150:30159 Kernel.VMState <> vm_witness proj
-R30113:30119 Kernel.UniversalCertificationCost <> cs_step proj
-R30122:30139 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
-R30141:30141 Kernel.QuantitativeNoFI <> n:60 var
-R30144:30144 Kernel.QuantitativeNoFI <> s:61 var
-R30146:30146 Kernel.QuantitativeNoFI <> i:62 var
-R30202:30219 Kernel.QuantitativeNoFI <> chsh_a3_obligation thm
-R30202:30219 Kernel.QuantitativeNoFI <> chsh_a3_obligation thm
-def 30306:30315 <> chsh_qcs_n
-R30322:30324 Coq.Init.Datatypes <> nat ind
-binder 30318:30318 <> n:63
-R30329:30359 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
-R30373:30380 Kernel.QuantitativeNoFI <> qcs_base proj
-R30373:30380 Kernel.QuantitativeNoFI <> qcs_base proj
-R30373:30380 Kernel.QuantitativeNoFI <> qcs_base proj
-R30429:30439 Kernel.QuantitativeNoFI <> qcs_witness proj
-R30429:30439 Kernel.QuantitativeNoFI <> qcs_witness proj
-R30504:30516 Kernel.QuantitativeNoFI <> qcs_threshold proj
-R30504:30516 Kernel.QuantitativeNoFI <> qcs_threshold proj
-R30541:30563 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R30541:30563 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
-R30588:30613 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R30588:30613 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
-R30403:30420 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
-R30422:30422 Kernel.QuantitativeNoFI <> n:63 var
-binder 30464:30464 <> s:64
-R30469:30481 Kernel.VMState <> witness_total def
-R30486:30495 Kernel.VMState <> vm_witness proj
-R30483:30483 Kernel.QuantitativeNoFI <> s:64 var
-R30534:30534 Kernel.QuantitativeNoFI <> n:63 var
-R30571:30579 Kernel.QuantitativeNoFI <> chsh_a3_n thm
-R30581:30581 Kernel.QuantitativeNoFI <> n:63 var
-R30618:30626 Kernel.QuantitativeNoFI <> chsh_a5_n thm
-R30628:30628 Kernel.QuantitativeNoFI <> n:63 var
-prf 31544:31571 <> chsh_trial_count_lower_bound
-R31589:31591 Coq.Init.Datatypes <> nat ind
-binder 31585:31585 <> n:65
-R31603:31606 Coq.Init.Datatypes <> list ind
-R31608:31621 Kernel.VMStep VMStep vm_instruction ind
-binder 31595:31599 <> trace:66
-R31630:31636 Kernel.VMState <> VMState rec
-binder 31625:31626 <> s0:67
-R31723:31768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R31719:31721 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R31690:31702 Kernel.VMState <> witness_total def
-R31708:31717 Kernel.VMState <> vm_witness proj
-R31704:31705 Kernel.QuantitativeNoFI <> s0:67 var
-R31830:31910 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R31823:31825 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R31769:31779 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R31781:31781 Kernel.QuantitativeNoFI <> n:65 var
-R31784:31789 Kernel.UniversalCertificationCost <> cs_run def
-R31792:31809 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
-R31811:31811 Kernel.QuantitativeNoFI <> n:65 var
-R31814:31818 Kernel.QuantitativeNoFI <> trace:66 var
-R31820:31821 Kernel.QuantitativeNoFI <> s0:67 var
-R31826:31829 Coq.Init.Datatypes <> true constr
-R31953:31956 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R31911:31923 Kernel.UniversalCertificationCost <> cs_total_cost def
-R31926:31943 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
-R31945:31945 Kernel.QuantitativeNoFI <> n:65 var
-R31948:31952 Kernel.QuantitativeNoFI <> trace:66 var
-R31957:31957 Kernel.QuantitativeNoFI <> n:65 var
-R32009:32034 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
-R32037:32046 Kernel.QuantitativeNoFI <> chsh_qcs_n def
-R32009:32034 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
-R32037:32046 Kernel.QuantitativeNoFI <> chsh_qcs_n def
-prf 32237:32256 <> chsh_qcs_n_1_matches
-R32278:32281 Coq.Init.Datatypes <> list ind
-R32283:32296 Kernel.VMStep VMStep vm_instruction ind
-binder 32270:32274 <> trace:68
-R32305:32311 Kernel.VMState <> VMState rec
-binder 32300:32301 <> s0:69
-R32352:32359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R32348:32350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R32319:32331 Kernel.VMState <> witness_total def
-R32337:32346 Kernel.VMState <> vm_witness proj
-R32333:32334 Kernel.QuantitativeNoFI <> s0:69 var
-R32421:32428 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R32414:32416 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R32360:32370 Kernel.QuantitativeNoFI <> chsh_cert_n def
-R32375:32380 Kernel.UniversalCertificationCost <> cs_run def
-R32383:32400 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
-R32405:32409 Kernel.QuantitativeNoFI <> trace:68 var
-R32411:32412 Kernel.QuantitativeNoFI <> s0:69 var
-R32417:32420 Coq.Init.Datatypes <> true constr
-R32471:32474 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R32429:32441 Kernel.UniversalCertificationCost <> cs_total_cost def
-R32444:32461 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
-R32466:32470 Kernel.QuantitativeNoFI <> trace:68 var
-R32525:32552 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm
-R32525:32552 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm
+R2330:2333 Coq.Lists.List <> <> lib
+R2335:2348 Coq.Arith.PeanoNat <> <> lib
+R2350:2352 Coq.micromega.Lia <> <> lib
+R2362:2374 Coq.Lists.List ListNotations <> mod
+R2405:2411 Kernel.VMState <> <> lib
+R2413:2418 Kernel.VMStep <> <> lib
+R2420:2434 Kernel.SimulationProof <> <> lib
+R2463:2474 Kernel.AbstractNoFI <> <> lib
+R2476:2501 Kernel.UniversalCertificationCost <> <> lib
+R2530:2549 Kernel.MuLedgerConservation <> <> lib
+rec 2999:3029 <> QuantitativeCertificationSystem
+proj 3118:3125 <> qcs_base
+proj 3230:3240 <> qcs_witness
+proj 3356:3368 <> qcs_threshold
+proj 3799:3821 <> qcs_cost_bounds_witness
+proj 4475:4500 <> qcs_cert_threshold_witness
+R3135:3153 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R3264:3267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3247:3254 Kernel.UniversalCertificationCost <> cs_state proj
+R3256:3263 Kernel.QuantitativeNoFI <> qcs_base:2 meth
+R3268:3270 Coq.Init.Datatypes <> nat ind
+R3373:3375 Coq.Init.Datatypes <> nat ind
+R3841:3848 Kernel.UniversalCertificationCost <> cs_state proj
+R3850:3857 Kernel.QuantitativeNoFI <> qcs_base:2 meth
+binder 3837:3837 <> s:5
+R3865:3872 Kernel.UniversalCertificationCost <> cs_instr proj
+R3874:3881 Kernel.QuantitativeNoFI <> qcs_base:2 meth
+binder 3861:3861 <> i:6
+R3925:3928 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3904:3906 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3891:3901 Kernel.QuantitativeNoFI <> qcs_witness:3 meth
+R3903:3903 Kernel.QuantitativeNoFI <> s:5 var
+R3907:3913 Kernel.UniversalCertificationCost <> cs_cost proj
+R3915:3922 Kernel.QuantitativeNoFI <> qcs_base:2 meth
+R3924:3924 Kernel.QuantitativeNoFI <> i:6 var
+R3929:3939 Kernel.QuantitativeNoFI <> qcs_witness:3 meth
+R3942:3948 Kernel.UniversalCertificationCost <> cs_step proj
+R3950:3957 Kernel.QuantitativeNoFI <> qcs_base:2 meth
+R3959:3959 Kernel.QuantitativeNoFI <> s:5 var
+R3961:3961 Kernel.QuantitativeNoFI <> i:6 var
+R4520:4527 Kernel.UniversalCertificationCost <> cs_state proj
+R4529:4536 Kernel.QuantitativeNoFI <> qcs_base:2 meth
+binder 4516:4516 <> s:8
+R4571:4580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4564:4566 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4546:4552 Kernel.UniversalCertificationCost <> cs_cert proj
+R4554:4561 Kernel.QuantitativeNoFI <> qcs_base:2 meth
+R4563:4563 Kernel.QuantitativeNoFI <> s:8 var
+R4567:4570 Coq.Init.Datatypes <> true constr
+R4594:4597 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4581:4591 Kernel.QuantitativeNoFI <> qcs_witness:3 meth
+R4593:4593 Kernel.QuantitativeNoFI <> s:8 var
+R4598:4610 Kernel.QuantitativeNoFI <> qcs_threshold:4 meth
+rec 5392:5427 <> QuantitativeCertificationSystem_full
+proj 5502:5509 <> qcsf_qcs
+proj 5968:5993 <> qcsf_witness_nondecreasing
+R5519:5549 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
+R6014:6021 Kernel.UniversalCertificationCost <> cs_state proj
+R6024:6031 Kernel.QuantitativeNoFI <> qcs_base proj
+R6033:6040 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
+binder 6009:6009 <> s:12
+R6061:6068 Kernel.UniversalCertificationCost <> cs_instr proj
+R6071:6078 Kernel.QuantitativeNoFI <> qcs_base proj
+R6080:6087 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
+binder 6056:6056 <> i:13
+R6120:6129 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6098:6108 Kernel.QuantitativeNoFI <> qcs_witness proj
+R6110:6117 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
+R6119:6119 Kernel.QuantitativeNoFI <> s:12 var
+R6130:6140 Kernel.QuantitativeNoFI <> qcs_witness proj
+R6142:6149 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
+R6152:6158 Kernel.UniversalCertificationCost <> cs_step proj
+R6161:6168 Kernel.QuantitativeNoFI <> qcs_base proj
+R6170:6177 Kernel.QuantitativeNoFI <> qcsf_qcs:11 meth
+R6180:6180 Kernel.QuantitativeNoFI <> s:12 var
+R6182:6182 Kernel.QuantitativeNoFI <> i:13 var
+prf 7054:7068 <> qcs_telescoping
+R7088:7118 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
+binder 7082:7084 <> QCS:15
+R7139:7142 Coq.Init.Datatypes <> list ind
+R7145:7152 Kernel.UniversalCertificationCost <> cs_instr proj
+R7155:7162 Kernel.QuantitativeNoFI <> qcs_base proj
+R7164:7166 Kernel.QuantitativeNoFI <> QCS:15 var
+binder 7131:7135 <> trace:16
+R7186:7193 Kernel.UniversalCertificationCost <> cs_state proj
+R7196:7203 Kernel.QuantitativeNoFI <> qcs_base proj
+R7205:7207 Kernel.QuantitativeNoFI <> QCS:15 var
+binder 7181:7182 <> s0:17
+R7271:7278 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7234:7236 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7216:7226 Kernel.QuantitativeNoFI <> qcs_witness proj
+R7228:7230 Kernel.QuantitativeNoFI <> QCS:15 var
+R7232:7233 Kernel.QuantitativeNoFI <> s0:17 var
+R7237:7249 Kernel.UniversalCertificationCost <> cs_total_cost def
+R7252:7259 Kernel.QuantitativeNoFI <> qcs_base proj
+R7261:7263 Kernel.QuantitativeNoFI <> QCS:15 var
+R7266:7270 Kernel.QuantitativeNoFI <> trace:16 var
+R7279:7289 Kernel.QuantitativeNoFI <> qcs_witness proj
+R7291:7293 Kernel.QuantitativeNoFI <> QCS:15 var
+R7296:7301 Kernel.UniversalCertificationCost <> cs_run def
+R7304:7311 Kernel.QuantitativeNoFI <> qcs_base proj
+R7313:7315 Kernel.QuantitativeNoFI <> QCS:15 var
+R7318:7322 Kernel.QuantitativeNoFI <> trace:16 var
+R7324:7325 Kernel.QuantitativeNoFI <> s0:17 var
+R7592:7614 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R7592:7614 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R7761:7767 Kernel.UniversalCertificationCost <> cs_step proj
+R7770:7777 Kernel.QuantitativeNoFI <> qcs_base proj
+R7761:7767 Kernel.UniversalCertificationCost <> cs_step proj
+R7770:7777 Kernel.QuantitativeNoFI <> qcs_base proj
+prf 8252:8277 <> universal_nfi_quantitative
+R8297:8327 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
+binder 8291:8293 <> QCS:18
+R8348:8351 Coq.Init.Datatypes <> list ind
+R8354:8361 Kernel.UniversalCertificationCost <> cs_instr proj
+R8364:8371 Kernel.QuantitativeNoFI <> qcs_base proj
+R8373:8375 Kernel.QuantitativeNoFI <> QCS:18 var
+binder 8340:8344 <> trace:19
+R8395:8402 Kernel.UniversalCertificationCost <> cs_state proj
+R8405:8412 Kernel.QuantitativeNoFI <> qcs_base proj
+R8414:8416 Kernel.QuantitativeNoFI <> QCS:18 var
+binder 8390:8391 <> s0:20
+R8482:8525 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8478:8480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8460:8470 Kernel.QuantitativeNoFI <> qcs_witness proj
+R8472:8474 Kernel.QuantitativeNoFI <> QCS:18 var
+R8476:8477 Kernel.QuantitativeNoFI <> s0:20 var
+R8588:8643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8581:8583 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8526:8532 Kernel.UniversalCertificationCost <> cs_cert proj
+R8535:8542 Kernel.QuantitativeNoFI <> qcs_base proj
+R8544:8546 Kernel.QuantitativeNoFI <> QCS:18 var
+R8550:8555 Kernel.UniversalCertificationCost <> cs_run def
+R8558:8565 Kernel.QuantitativeNoFI <> qcs_base proj
+R8567:8569 Kernel.QuantitativeNoFI <> QCS:18 var
+R8572:8576 Kernel.QuantitativeNoFI <> trace:19 var
+R8578:8579 Kernel.QuantitativeNoFI <> s0:20 var
+R8584:8587 Coq.Init.Datatypes <> true constr
+R8678:8681 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8644:8656 Kernel.UniversalCertificationCost <> cs_total_cost def
+R8659:8666 Kernel.QuantitativeNoFI <> qcs_base proj
+R8668:8670 Kernel.QuantitativeNoFI <> QCS:18 var
+R8673:8677 Kernel.QuantitativeNoFI <> trace:19 var
+R8682:8694 Kernel.QuantitativeNoFI <> qcs_threshold proj
+R8696:8698 Kernel.QuantitativeNoFI <> QCS:18 var
+R8837:8851 Kernel.QuantitativeNoFI <> qcs_telescoping thm
+R8837:8851 Kernel.QuantitativeNoFI <> qcs_telescoping thm
+R8987:9012 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R9035:9040 Kernel.UniversalCertificationCost <> cs_run def
+R9043:9050 Kernel.QuantitativeNoFI <> qcs_base proj
+R8987:9012 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R9035:9040 Kernel.UniversalCertificationCost <> cs_run def
+R9043:9050 Kernel.QuantitativeNoFI <> qcs_base proj
+prf 9211:9244 <> universal_nfi_quantitative_witness
+R9264:9294 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
+binder 9258:9260 <> QCS:21
+R9315:9318 Coq.Init.Datatypes <> list ind
+R9321:9328 Kernel.UniversalCertificationCost <> cs_instr proj
+R9331:9338 Kernel.QuantitativeNoFI <> qcs_base proj
+R9340:9342 Kernel.QuantitativeNoFI <> QCS:21 var
+binder 9307:9311 <> trace:22
+R9362:9369 Kernel.UniversalCertificationCost <> cs_state proj
+R9372:9379 Kernel.QuantitativeNoFI <> qcs_base proj
+R9381:9383 Kernel.QuantitativeNoFI <> QCS:21 var
+binder 9357:9358 <> s0:23
+R9414:9421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9410:9412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9392:9402 Kernel.QuantitativeNoFI <> qcs_witness proj
+R9404:9406 Kernel.QuantitativeNoFI <> QCS:21 var
+R9408:9409 Kernel.QuantitativeNoFI <> s0:23 var
+R9484:9491 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9477:9479 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9422:9428 Kernel.UniversalCertificationCost <> cs_cert proj
+R9431:9438 Kernel.QuantitativeNoFI <> qcs_base proj
+R9440:9442 Kernel.QuantitativeNoFI <> QCS:21 var
+R9446:9451 Kernel.UniversalCertificationCost <> cs_run def
+R9454:9461 Kernel.QuantitativeNoFI <> qcs_base proj
+R9463:9465 Kernel.QuantitativeNoFI <> QCS:21 var
+R9468:9472 Kernel.QuantitativeNoFI <> trace:22 var
+R9474:9475 Kernel.QuantitativeNoFI <> s0:23 var
+R9480:9483 Coq.Init.Datatypes <> true constr
+R9526:9535 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9492:9504 Kernel.UniversalCertificationCost <> cs_total_cost def
+R9507:9514 Kernel.QuantitativeNoFI <> qcs_base proj
+R9516:9518 Kernel.QuantitativeNoFI <> QCS:21 var
+R9521:9525 Kernel.QuantitativeNoFI <> trace:22 var
+R9536:9546 Kernel.QuantitativeNoFI <> qcs_witness proj
+R9548:9550 Kernel.QuantitativeNoFI <> QCS:21 var
+R9553:9558 Kernel.UniversalCertificationCost <> cs_run def
+R9561:9568 Kernel.QuantitativeNoFI <> qcs_base proj
+R9570:9572 Kernel.QuantitativeNoFI <> QCS:21 var
+R9575:9579 Kernel.QuantitativeNoFI <> trace:22 var
+R9581:9582 Kernel.QuantitativeNoFI <> s0:23 var
+R9642:9656 Kernel.QuantitativeNoFI <> qcs_telescoping thm
+R9642:9656 Kernel.QuantitativeNoFI <> qcs_telescoping thm
+prf 10520:10548 <> thiele_cost_bounds_witness_mu
+R10566:10572 Kernel.VMState <> VMState rec
+binder 10562:10562 <> s:24
+R10580:10593 Kernel.VMStep VMStep vm_instruction ind
+binder 10576:10576 <> i:25
+R10631:10634 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10610:10612 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10604:10608 Kernel.VMState <> vm_mu proj
+R10601:10601 Kernel.QuantitativeNoFI <> s:24 var
+R10613:10628 Kernel.VMStep VMStep instruction_cost def
+R10630:10630 Kernel.QuantitativeNoFI <> i:25 var
+R10651:10655 Kernel.VMState <> vm_mu proj
+R10636:10643 Kernel.SimulationProof <> vm_apply def
+R10645:10645 Kernel.QuantitativeNoFI <> s:24 var
+R10647:10647 Kernel.QuantitativeNoFI <> i:25 var
+R10690:10700 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R10690:10700 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R10690:10700 Kernel.MuLedgerConservation <> vm_apply_mu thm
+def 11670:11693 <> thiele_witness_cert_addr
+R11700:11706 Kernel.VMState <> VMState rec
+binder 11696:11696 <> s:26
+R11711:11713 Coq.Init.Datatypes <> nat ind
+R11723:11738 Kernel.AbstractNoFI <> thiele_cert_bool def
+R11740:11740 Kernel.QuantitativeNoFI <> s:26 var
+prf 12076:12111 <> thiele_cert_addr_cost_bounds_witness
+R12129:12135 Kernel.VMState <> VMState rec
+binder 12125:12125 <> s:27
+R12143:12156 Kernel.VMStep VMStep vm_instruction ind
+binder 12139:12139 <> i:28
+R12211:12218 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12190:12192 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12164:12187 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
+R12189:12189 Kernel.QuantitativeNoFI <> s:27 var
+R12193:12208 Kernel.VMStep VMStep instruction_cost def
+R12210:12210 Kernel.QuantitativeNoFI <> i:28 var
+R12219:12242 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
+R12245:12252 Kernel.SimulationProof <> vm_apply def
+R12254:12254 Kernel.QuantitativeNoFI <> s:27 var
+R12256:12256 Kernel.QuantitativeNoFI <> i:28 var
+R12290:12313 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
+R12328:12343 Kernel.AbstractNoFI <> thiele_cert_bool def
+R12368:12383 Kernel.AbstractNoFI <> thiele_cert_bool def
+R12386:12393 Kernel.SimulationProof <> vm_apply def
+R12328:12343 Kernel.AbstractNoFI <> thiele_cert_bool def
+R12368:12383 Kernel.AbstractNoFI <> thiele_cert_bool def
+R12386:12393 Kernel.SimulationProof <> vm_apply def
+R12368:12383 Kernel.AbstractNoFI <> thiele_cert_bool def
+R12386:12393 Kernel.SimulationProof <> vm_apply def
+R12503:12527 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R12503:12527 Kernel.AbstractNoFI <> thiele_cert_bool_zero_iff thm
+R12562:12589 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
+R12592:12599 Kernel.SimulationProof <> vm_apply def
+R12562:12589 Kernel.AbstractNoFI <> thiele_cert_bool_nonzero_iff thm
+R12592:12599 Kernel.SimulationProof <> vm_apply def
+R12640:12660 Kernel.AbstractNoFI <> no_free_certification thm
+R12640:12660 Kernel.AbstractNoFI <> no_free_certification thm
+prf 12866:12899 <> thiele_cert_addr_threshold_witness
+R12917:12923 Kernel.VMState <> VMState rec
+binder 12913:12913 <> s:29
+R12971:12978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12964:12966 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12931:12937 Kernel.UniversalCertificationCost <> cs_cert proj
+R12939:12961 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+R12963:12963 Kernel.QuantitativeNoFI <> s:29 var
+R12967:12970 Coq.Init.Datatypes <> true constr
+R13005:13008 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12979:13002 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
+R13004:13004 Kernel.QuantitativeNoFI <> s:29 var
+R13046:13069 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
+def 13207:13226 <> thiele_qcs_cert_addr
+R13230:13260 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
+R13274:13281 Kernel.QuantitativeNoFI <> qcs_base proj
+R13274:13281 Kernel.QuantitativeNoFI <> qcs_base proj
+R13274:13281 Kernel.QuantitativeNoFI <> qcs_base proj
+R13320:13330 Kernel.QuantitativeNoFI <> qcs_witness proj
+R13320:13330 Kernel.QuantitativeNoFI <> qcs_witness proj
+R13367:13379 Kernel.QuantitativeNoFI <> qcs_threshold proj
+R13367:13379 Kernel.QuantitativeNoFI <> qcs_threshold proj
+R13391:13413 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R13391:13413 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R13465:13490 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R13465:13490 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R13291:13313 Kernel.UniversalCertificationCost <> thiele_cert_addr_system def
+R13337:13360 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
+R13423:13458 Kernel.QuantitativeNoFI <> thiele_cert_addr_cost_bounds_witness thm
+R13497:13530 Kernel.QuantitativeNoFI <> thiele_cert_addr_threshold_witness thm
+prf 13623:13655 <> thiele_quantitative_nfi_cert_addr
+R13677:13680 Coq.Init.Datatypes <> list ind
+R13682:13695 Kernel.VMStep VMStep vm_instruction ind
+binder 13669:13673 <> trace:30
+R13704:13710 Kernel.VMState <> VMState rec
+binder 13699:13700 <> s0:31
+R13749:13756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13745:13747 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13718:13741 Kernel.QuantitativeNoFI <> thiele_witness_cert_addr def
+R13743:13744 Kernel.QuantitativeNoFI <> s0:31 var
+R13830:13837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13823:13825 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13757:13772 Kernel.AbstractNoFI <> thiele_cert_bool def
+R13775:13780 Kernel.UniversalCertificationCost <> cs_run def
+R13783:13790 Kernel.QuantitativeNoFI <> qcs_base proj
+R13792:13811 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
+R13814:13818 Kernel.QuantitativeNoFI <> trace:30 var
+R13820:13821 Kernel.QuantitativeNoFI <> s0:31 var
+R13826:13829 Coq.Init.Datatypes <> true constr
+R13889:13892 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13838:13850 Kernel.UniversalCertificationCost <> cs_total_cost def
+R13853:13860 Kernel.QuantitativeNoFI <> qcs_base proj
+R13862:13881 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
+R13884:13888 Kernel.QuantitativeNoFI <> trace:30 var
+R13943:13968 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
+R13970:13989 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
+R13943:13968 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
+R13970:13989 Kernel.QuantitativeNoFI <> thiele_qcs_cert_addr def
+def 18155:18169 <> chsh_trial_cost
+R18176:18189 Kernel.VMStep VMStep vm_instruction ind
+binder 18172:18172 <> i:32
+R18194:18196 Coq.Init.Datatypes <> nat ind
+R18209:18209 Kernel.QuantitativeNoFI <> i:32 var
+R18220:18235 Kernel.VMStep VMStep instr_chsh_trial constr
+R18259:18270 Kernel.VMStep VMStep chsh_bits_ok def
+def 18440:18457 <> chsh_total_witness
+R18464:18470 Kernel.VMState <> VMState rec
+binder 18460:18460 <> s:34
+R18475:18477 Coq.Init.Datatypes <> nat ind
+R18484:18496 Kernel.VMState <> witness_total def
+R18501:18510 Kernel.VMState <> vm_witness proj
+R18498:18498 Kernel.QuantitativeNoFI <> s:34 var
+prf 18740:18757 <> record_trial_total
+R18776:18788 Kernel.VMState <> WitnessCounts rec
+binder 18771:18772 <> wc:35
+R18802:18804 Coq.Init.Datatypes <> nat ind
+binder 18792:18792 <> x:36
+binder 18794:18794 <> y:37
+binder 18796:18796 <> a:38
+binder 18798:18798 <> b:39
+R18851:18853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18812:18824 Kernel.VMState <> witness_total def
+R18827:18838 Kernel.VMStep VMStep record_trial def
+R18840:18841 Kernel.QuantitativeNoFI <> wc:35 var
+R18843:18843 Kernel.QuantitativeNoFI <> x:36 var
+R18845:18845 Kernel.QuantitativeNoFI <> y:37 var
+R18847:18847 Kernel.QuantitativeNoFI <> a:38 var
+R18849:18849 Kernel.QuantitativeNoFI <> b:39 var
+R18870:18872 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R18854:18866 Kernel.VMState <> witness_total def
+R18868:18869 Kernel.QuantitativeNoFI <> wc:35 var
+R18913:18924 Kernel.VMStep VMStep record_trial def
+R18927:18939 Kernel.VMState <> witness_total def
+R18998:19004 Coq.Arith.PeanoNat Nat eqb def
+R18998:19004 Coq.Arith.PeanoNat Nat eqb def
+R18998:19004 Coq.Arith.PeanoNat Nat eqb def
+R18998:19004 Coq.Arith.PeanoNat Nat eqb def
+R18998:19004 Coq.Arith.PeanoNat Nat eqb def
+prf 19407:19422 <> vm_apply_witness
+R19440:19446 Kernel.VMState <> VMState rec
+binder 19436:19436 <> s:40
+R19454:19467 Kernel.VMStep VMStep vm_instruction ind
+binder 19450:19450 <> i:41
+R19502:19508 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19491:19500 Kernel.VMState <> vm_witness proj
+R19476:19483 Kernel.SimulationProof <> vm_apply def
+R19485:19485 Kernel.QuantitativeNoFI <> s:40 var
+R19487:19487 Kernel.QuantitativeNoFI <> i:41 var
+R19515:19515 Kernel.QuantitativeNoFI <> i:41 var
+R19528:19543 Kernel.VMStep VMStep instr_chsh_trial constr
+R19569:19580 Kernel.VMStep VMStep chsh_bits_ok def
+R19647:19656 Kernel.VMState <> vm_witness proj
+R19644:19644 Kernel.QuantitativeNoFI <> s:40 var
+R19595:19606 Kernel.VMStep VMStep record_trial def
+R19611:19620 Kernel.VMState <> vm_witness proj
+R19608:19608 Kernel.QuantitativeNoFI <> s:40 var
+R19673:19682 Kernel.VMState <> vm_witness proj
+R19670:19670 Kernel.QuantitativeNoFI <> s:40 var
+R19840:19852 Kernel.VMStep VMStep advance_state def
+R19855:19874 Kernel.VMStep VMStep advance_state_reveal def
+R19881:19896 Kernel.VMStep VMStep advance_state_rm def
+R19899:19908 Kernel.VMStep VMStep jump_state def
+R19911:19923 Kernel.VMStep VMStep jump_state_rm def
+prf 20266:20283 <> chsh_a3_obligation
+R20301:20307 Kernel.VMState <> VMState rec
+binder 20297:20297 <> s:43
+R20315:20328 Kernel.VMStep VMStep vm_instruction ind
+binder 20311:20311 <> i:44
+R20376:20383 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20356:20358 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R20336:20353 Kernel.QuantitativeNoFI <> chsh_total_witness def
+R20355:20355 Kernel.QuantitativeNoFI <> s:43 var
+R20359:20373 Kernel.QuantitativeNoFI <> chsh_trial_cost def
+R20375:20375 Kernel.QuantitativeNoFI <> i:44 var
+R20384:20401 Kernel.QuantitativeNoFI <> chsh_total_witness def
+R20404:20411 Kernel.SimulationProof <> vm_apply def
+R20413:20413 Kernel.QuantitativeNoFI <> s:43 var
+R20415:20415 Kernel.QuantitativeNoFI <> i:44 var
+R20449:20466 Kernel.QuantitativeNoFI <> chsh_total_witness def
+R20480:20495 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R20480:20495 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R20480:20495 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R20602:20613 Kernel.VMStep VMStep chsh_bits_ok def
+R20602:20613 Kernel.VMStep VMStep chsh_bits_ok def
+R20711:20728 Kernel.QuantitativeNoFI <> record_trial_total thm
+R20711:20728 Kernel.QuantitativeNoFI <> record_trial_total thm
+R20711:20728 Kernel.QuantitativeNoFI <> record_trial_total thm
+def 21405:21413 <> chsh_cert
+R21420:21426 Kernel.VMState <> VMState rec
+binder 21416:21416 <> s:45
+R21431:21434 Coq.Init.Datatypes <> bool ind
+R21441:21447 Coq.Arith.PeanoNat Nat ltb def
+R21452:21464 Kernel.VMState <> witness_total def
+R21469:21478 Kernel.VMState <> vm_witness proj
+R21466:21466 Kernel.QuantitativeNoFI <> s:45 var
+prf 21566:21572 <> chsh_a2
+R21590:21596 Kernel.VMState <> VMState rec
+binder 21586:21586 <> s:46
+R21604:21617 Kernel.VMStep VMStep vm_instruction ind
+binder 21600:21600 <> i:47
+R21644:21651 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21636:21638 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21625:21633 Kernel.QuantitativeNoFI <> chsh_cert def
+R21635:21635 Kernel.QuantitativeNoFI <> s:46 var
+R21639:21643 Coq.Init.Datatypes <> false constr
+R21683:21690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21676:21678 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21652:21660 Kernel.QuantitativeNoFI <> chsh_cert def
+R21663:21670 Kernel.SimulationProof <> vm_apply def
+R21672:21672 Kernel.QuantitativeNoFI <> s:46 var
+R21674:21674 Kernel.QuantitativeNoFI <> i:47 var
+R21679:21682 Coq.Init.Datatypes <> true constr
+R21708:21711 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R21691:21705 Kernel.QuantitativeNoFI <> chsh_trial_cost def
+R21707:21707 Kernel.QuantitativeNoFI <> i:47 var
+R21760:21768 Kernel.QuantitativeNoFI <> chsh_cert def
+R21790:21805 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R21790:21805 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R22061:22072 Kernel.VMStep VMStep chsh_bits_ok def
+R22061:22072 Kernel.VMStep VMStep chsh_bits_ok def
+def 22339:22354 <> chsh_cert_system
+R22358:22376 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R22390:22397 Kernel.UniversalCertificationCost <> cs_state proj
+R22390:22397 Kernel.UniversalCertificationCost <> cs_state proj
+R22390:22397 Kernel.UniversalCertificationCost <> cs_state proj
+R22419:22426 Kernel.UniversalCertificationCost <> cs_instr proj
+R22419:22426 Kernel.UniversalCertificationCost <> cs_instr proj
+R22455:22461 Kernel.UniversalCertificationCost <> cs_step proj
+R22455:22461 Kernel.UniversalCertificationCost <> cs_step proj
+R22485:22491 Kernel.UniversalCertificationCost <> cs_cost proj
+R22485:22491 Kernel.UniversalCertificationCost <> cs_cost proj
+R22522:22528 Kernel.UniversalCertificationCost <> cs_cert proj
+R22522:22528 Kernel.UniversalCertificationCost <> cs_cert proj
+R22553:22565 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R22553:22565 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R22406:22412 Kernel.VMState <> VMState rec
+R22435:22448 Kernel.VMStep VMStep vm_instruction ind
+R22471:22478 Kernel.SimulationProof <> vm_apply def
+R22501:22515 Kernel.QuantitativeNoFI <> chsh_trial_cost def
+R22538:22546 Kernel.QuantitativeNoFI <> chsh_cert def
+R22570:22576 Kernel.QuantitativeNoFI <> chsh_a2 thm
+prf 22663:22669 <> chsh_a5
+R22687:22693 Kernel.VMState <> VMState rec
+binder 22683:22683 <> s:48
+R22734:22741 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22727:22729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22701:22707 Kernel.UniversalCertificationCost <> cs_cert proj
+R22709:22724 Kernel.QuantitativeNoFI <> chsh_cert_system def
+R22726:22726 Kernel.QuantitativeNoFI <> s:48 var
+R22730:22733 Coq.Init.Datatypes <> true constr
+R22770:22773 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R22742:22754 Kernel.VMState <> witness_total def
+R22759:22768 Kernel.VMState <> vm_witness proj
+R22756:22756 Kernel.QuantitativeNoFI <> s:48 var
+R22827:22835 Kernel.QuantitativeNoFI <> chsh_cert def
+R22855:22864 Coq.Arith.PeanoNat Nat ltb_lt thm
+R22855:22864 Coq.Arith.PeanoNat Nat ltb_lt thm
+def 23472:23479 <> chsh_qcs
+R23483:23513 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
+R23527:23534 Kernel.QuantitativeNoFI <> qcs_base proj
+R23527:23534 Kernel.QuantitativeNoFI <> qcs_base proj
+R23527:23534 Kernel.QuantitativeNoFI <> qcs_base proj
+R23579:23589 Kernel.QuantitativeNoFI <> qcs_witness proj
+R23579:23589 Kernel.QuantitativeNoFI <> qcs_witness proj
+R23654:23666 Kernel.QuantitativeNoFI <> qcs_threshold proj
+R23654:23666 Kernel.QuantitativeNoFI <> qcs_threshold proj
+R23691:23713 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R23691:23713 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R23745:23770 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R23745:23770 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R23557:23572 Kernel.QuantitativeNoFI <> chsh_cert_system def
+binder 23614:23614 <> s:49
+R23619:23631 Kernel.VMState <> witness_total def
+R23636:23645 Kernel.VMState <> vm_witness proj
+R23633:23633 Kernel.QuantitativeNoFI <> s:49 var
+R23721:23738 Kernel.QuantitativeNoFI <> chsh_a3_obligation thm
+R23775:23781 Kernel.QuantitativeNoFI <> chsh_a5 thm
+prf 23949:23969 <> chsh_quantitative_nfi
+R23991:23994 Coq.Init.Datatypes <> list ind
+R23996:24009 Kernel.VMStep VMStep vm_instruction ind
+binder 23983:23987 <> trace:50
+R24018:24024 Kernel.VMState <> VMState rec
+binder 24013:24014 <> s0:51
+R24065:24072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24061:24063 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24032:24044 Kernel.VMState <> witness_total def
+R24050:24059 Kernel.VMState <> vm_witness proj
+R24046:24047 Kernel.QuantitativeNoFI <> s0:51 var
+R24124:24131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24117:24119 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24073:24081 Kernel.QuantitativeNoFI <> chsh_cert def
+R24084:24089 Kernel.UniversalCertificationCost <> cs_run def
+R24091:24106 Kernel.QuantitativeNoFI <> chsh_cert_system def
+R24108:24112 Kernel.QuantitativeNoFI <> trace:50 var
+R24114:24115 Kernel.QuantitativeNoFI <> s0:51 var
+R24120:24123 Coq.Init.Datatypes <> true constr
+R24168:24171 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R24132:24144 Kernel.UniversalCertificationCost <> cs_total_cost def
+R24146:24161 Kernel.QuantitativeNoFI <> chsh_cert_system def
+R24163:24167 Kernel.QuantitativeNoFI <> trace:50 var
+R24222:24247 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
+R24249:24256 Kernel.QuantitativeNoFI <> chsh_qcs def
+R24222:24247 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
+R24249:24256 Kernel.QuantitativeNoFI <> chsh_qcs def
+def 25316:25326 <> chsh_cert_n
+R25333:25335 Coq.Init.Datatypes <> nat ind
+binder 25329:25329 <> n:52
+R25343:25349 Kernel.VMState <> VMState rec
+binder 25339:25339 <> s:53
+R25354:25357 Coq.Init.Datatypes <> bool ind
+R25364:25370 Coq.Arith.PeanoNat Nat leb def
+R25372:25372 Kernel.QuantitativeNoFI <> n:52 var
+R25375:25387 Kernel.VMState <> witness_total def
+R25392:25401 Kernel.VMState <> vm_witness proj
+R25389:25389 Kernel.QuantitativeNoFI <> s:53 var
+prf 25830:25838 <> chsh_a2_n
+R25856:25858 Coq.Init.Datatypes <> nat ind
+binder 25852:25852 <> n:54
+R25866:25872 Kernel.VMState <> VMState rec
+binder 25862:25862 <> s:55
+R25880:25893 Kernel.VMStep VMStep vm_instruction ind
+binder 25876:25876 <> i:56
+R25924:25931 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25916:25918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25901:25911 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R25913:25913 Kernel.QuantitativeNoFI <> n:54 var
+R25915:25915 Kernel.QuantitativeNoFI <> s:55 var
+R25919:25923 Coq.Init.Datatypes <> false constr
+R25967:25974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R25960:25962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25932:25942 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R25944:25944 Kernel.QuantitativeNoFI <> n:54 var
+R25947:25954 Kernel.SimulationProof <> vm_apply def
+R25956:25956 Kernel.QuantitativeNoFI <> s:55 var
+R25958:25958 Kernel.QuantitativeNoFI <> i:56 var
+R25963:25966 Coq.Init.Datatypes <> true constr
+R25992:25995 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R25975:25989 Kernel.QuantitativeNoFI <> chsh_trial_cost def
+R25991:25991 Kernel.QuantitativeNoFI <> i:56 var
+R26046:26056 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R26075:26090 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R26075:26090 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R26075:26090 Kernel.QuantitativeNoFI <> vm_apply_witness thm
+R26195:26206 Kernel.VMStep VMStep chsh_bits_ok def
+R26195:26206 Kernel.VMStep VMStep chsh_bits_ok def
+prf 26379:26387 <> chsh_a5_n
+R26405:26407 Coq.Init.Datatypes <> nat ind
+binder 26401:26401 <> n:57
+R26415:26421 Kernel.VMState <> VMState rec
+binder 26411:26411 <> s:58
+R26451:26458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26444:26446 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26429:26439 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R26441:26441 Kernel.QuantitativeNoFI <> n:57 var
+R26443:26443 Kernel.QuantitativeNoFI <> s:58 var
+R26447:26450 Coq.Init.Datatypes <> true constr
+R26487:26490 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R26459:26471 Kernel.VMState <> witness_total def
+R26476:26485 Kernel.VMState <> vm_witness proj
+R26473:26473 Kernel.QuantitativeNoFI <> s:58 var
+R26491:26491 Kernel.QuantitativeNoFI <> n:57 var
+R26530:26540 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R26560:26569 Coq.Arith.PeanoNat Nat leb_le thm
+R26560:26569 Coq.Arith.PeanoNat Nat leb_le thm
+def 26653:26670 <> chsh_cert_system_n
+R26677:26679 Coq.Init.Datatypes <> nat ind
+binder 26673:26673 <> n:59
+R26684:26702 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R26716:26723 Kernel.UniversalCertificationCost <> cs_state proj
+R26716:26723 Kernel.UniversalCertificationCost <> cs_state proj
+R26716:26723 Kernel.UniversalCertificationCost <> cs_state proj
+R26745:26752 Kernel.UniversalCertificationCost <> cs_instr proj
+R26745:26752 Kernel.UniversalCertificationCost <> cs_instr proj
+R26781:26787 Kernel.UniversalCertificationCost <> cs_step proj
+R26781:26787 Kernel.UniversalCertificationCost <> cs_step proj
+R26811:26817 Kernel.UniversalCertificationCost <> cs_cost proj
+R26811:26817 Kernel.UniversalCertificationCost <> cs_cost proj
+R26848:26854 Kernel.UniversalCertificationCost <> cs_cert proj
+R26848:26854 Kernel.UniversalCertificationCost <> cs_cert proj
+R26883:26895 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R26883:26895 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R26732:26738 Kernel.VMState <> VMState rec
+R26761:26774 Kernel.VMStep VMStep vm_instruction ind
+R26797:26804 Kernel.SimulationProof <> vm_apply def
+R26827:26841 Kernel.QuantitativeNoFI <> chsh_trial_cost def
+R26864:26874 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R26876:26876 Kernel.QuantitativeNoFI <> n:59 var
+R26900:26908 Kernel.QuantitativeNoFI <> chsh_a2_n thm
+R26910:26910 Kernel.QuantitativeNoFI <> n:59 var
+prf 27068:27076 <> chsh_a3_n
+R27094:27096 Coq.Init.Datatypes <> nat ind
+binder 27090:27090 <> n:60
+R27104:27110 Kernel.VMState <> VMState rec
+binder 27100:27100 <> s:61
+R27118:27131 Kernel.VMStep VMStep vm_instruction ind
+binder 27114:27114 <> i:62
+R27202:27209 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R27167:27169 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R27139:27151 Kernel.VMState <> witness_total def
+R27156:27165 Kernel.VMState <> vm_witness proj
+R27153:27153 Kernel.QuantitativeNoFI <> s:61 var
+R27170:27176 Kernel.UniversalCertificationCost <> cs_cost proj
+R27179:27196 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R27198:27198 Kernel.QuantitativeNoFI <> n:60 var
+R27201:27201 Kernel.QuantitativeNoFI <> i:62 var
+R27210:27222 Kernel.VMState <> witness_total def
+R27262:27271 Kernel.VMState <> vm_witness proj
+R27225:27231 Kernel.UniversalCertificationCost <> cs_step proj
+R27234:27251 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R27253:27253 Kernel.QuantitativeNoFI <> n:60 var
+R27256:27256 Kernel.QuantitativeNoFI <> s:61 var
+R27258:27258 Kernel.QuantitativeNoFI <> i:62 var
+R27314:27331 Kernel.QuantitativeNoFI <> chsh_a3_obligation thm
+R27314:27331 Kernel.QuantitativeNoFI <> chsh_a3_obligation thm
+def 27418:27427 <> chsh_qcs_n
+R27434:27436 Coq.Init.Datatypes <> nat ind
+binder 27430:27430 <> n:63
+R27441:27471 Kernel.QuantitativeNoFI <> QuantitativeCertificationSystem rec
+R27485:27492 Kernel.QuantitativeNoFI <> qcs_base proj
+R27485:27492 Kernel.QuantitativeNoFI <> qcs_base proj
+R27485:27492 Kernel.QuantitativeNoFI <> qcs_base proj
+R27541:27551 Kernel.QuantitativeNoFI <> qcs_witness proj
+R27541:27551 Kernel.QuantitativeNoFI <> qcs_witness proj
+R27616:27628 Kernel.QuantitativeNoFI <> qcs_threshold proj
+R27616:27628 Kernel.QuantitativeNoFI <> qcs_threshold proj
+R27653:27675 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R27653:27675 Kernel.QuantitativeNoFI <> qcs_cost_bounds_witness proj
+R27700:27725 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R27700:27725 Kernel.QuantitativeNoFI <> qcs_cert_threshold_witness proj
+R27515:27532 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R27534:27534 Kernel.QuantitativeNoFI <> n:63 var
+binder 27576:27576 <> s:64
+R27581:27593 Kernel.VMState <> witness_total def
+R27598:27607 Kernel.VMState <> vm_witness proj
+R27595:27595 Kernel.QuantitativeNoFI <> s:64 var
+R27646:27646 Kernel.QuantitativeNoFI <> n:63 var
+R27683:27691 Kernel.QuantitativeNoFI <> chsh_a3_n thm
+R27693:27693 Kernel.QuantitativeNoFI <> n:63 var
+R27730:27738 Kernel.QuantitativeNoFI <> chsh_a5_n thm
+R27740:27740 Kernel.QuantitativeNoFI <> n:63 var
+prf 28495:28522 <> chsh_trial_count_lower_bound
+R28540:28542 Coq.Init.Datatypes <> nat ind
+binder 28536:28536 <> n:65
+R28554:28557 Coq.Init.Datatypes <> list ind
+R28559:28572 Kernel.VMStep VMStep vm_instruction ind
+binder 28546:28550 <> trace:66
+R28581:28587 Kernel.VMState <> VMState rec
+binder 28576:28577 <> s0:67
+R28674:28719 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28670:28672 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28641:28653 Kernel.VMState <> witness_total def
+R28659:28668 Kernel.VMState <> vm_witness proj
+R28655:28656 Kernel.QuantitativeNoFI <> s0:67 var
+R28781:28861 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R28774:28776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28720:28730 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R28732:28732 Kernel.QuantitativeNoFI <> n:65 var
+R28735:28740 Kernel.UniversalCertificationCost <> cs_run def
+R28743:28760 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R28762:28762 Kernel.QuantitativeNoFI <> n:65 var
+R28765:28769 Kernel.QuantitativeNoFI <> trace:66 var
+R28771:28772 Kernel.QuantitativeNoFI <> s0:67 var
+R28777:28780 Coq.Init.Datatypes <> true constr
+R28904:28907 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R28862:28874 Kernel.UniversalCertificationCost <> cs_total_cost def
+R28877:28894 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R28896:28896 Kernel.QuantitativeNoFI <> n:65 var
+R28899:28903 Kernel.QuantitativeNoFI <> trace:66 var
+R28908:28908 Kernel.QuantitativeNoFI <> n:65 var
+R28960:28985 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
+R28988:28997 Kernel.QuantitativeNoFI <> chsh_qcs_n def
+R28960:28985 Kernel.QuantitativeNoFI <> universal_nfi_quantitative thm
+R28988:28997 Kernel.QuantitativeNoFI <> chsh_qcs_n def
+prf 29188:29207 <> chsh_qcs_n_1_matches
+R29229:29232 Coq.Init.Datatypes <> list ind
+R29234:29247 Kernel.VMStep VMStep vm_instruction ind
+binder 29221:29225 <> trace:68
+R29256:29262 Kernel.VMState <> VMState rec
+binder 29251:29252 <> s0:69
+R29303:29310 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29299:29301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29270:29282 Kernel.VMState <> witness_total def
+R29288:29297 Kernel.VMState <> vm_witness proj
+R29284:29285 Kernel.QuantitativeNoFI <> s0:69 var
+R29372:29379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R29365:29367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29311:29321 Kernel.QuantitativeNoFI <> chsh_cert_n def
+R29326:29331 Kernel.UniversalCertificationCost <> cs_run def
+R29334:29351 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R29356:29360 Kernel.QuantitativeNoFI <> trace:68 var
+R29362:29363 Kernel.QuantitativeNoFI <> s0:69 var
+R29368:29371 Coq.Init.Datatypes <> true constr
+R29422:29425 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R29380:29392 Kernel.UniversalCertificationCost <> cs_total_cost def
+R29395:29412 Kernel.QuantitativeNoFI <> chsh_cert_system_n def
+R29417:29421 Kernel.QuantitativeNoFI <> trace:68 var
+R29476:29503 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm
+R29476:29503 Kernel.QuantitativeNoFI <> chsh_trial_count_lower_bound thm

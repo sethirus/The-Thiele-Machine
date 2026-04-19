@@ -8,114 +8,62 @@ Import ListNotations.
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
-(** * ConeDerivation: The causal cone is uniquely determined by algebraic laws
+(** ConeDerivation: The causal cone is uniquely determined by algebraic laws
 
-    WHY THIS FILE EXISTS:
-    In ConeAlgebra.v, I proved that causal_cone satisfies various algebraic
-    laws (monoid, commutativity, etc.). But WHY these laws? Are they arbitrary?
-    This file proves: NO. The causal cone is UNIQUELY DETERMINED by two simple
-    properties: empty trace → empty cone, and composition preserves structure.
+  In ConeAlgebra.v I proved that causal_cone satisfies algebraic laws such as
+  monoid structure and commutativity in the independent case. This file asks
+  the sharper question: why these laws, and are they arbitrary? The answer is
+  no. The causal cone is uniquely determined by two simple properties: empty
+  trace means empty cone, and composition preserves structure.
 
-    THE UNIQUENESS THEOREM:
-    Any function f : Trace → List[Module] satisfying cone_like is EQUAL to
-    causal_cone. There's only ONE function with these properties.
+  The uniqueness theorem says any function f from traces to module lists that
+  satisfies cone_like is equal to causal_cone. There is only one such
+  function. That means causal_cone is derived, not merely stipulated. The
+  algebraic structure forces the implementation.
 
-    WHY THIS MATTERS:
-    This means causal_cone is DERIVED, not DEFINED. The algebraic structure
-    (cone_like properties) FORCES the cone to be what it is. No other function
-    has the same compositional structure.
+  Philosophically this is the same style as asking why a law in physics has a
+  particular form: because the symmetry or compositional structure admits only
+  one solution. Here the compositional symmetries determine the causal
+  structure, the way Noether-style symmetry determines conservation laws. To
+  break it, find another cone_like function that differs from causal_cone.
+  Cone_Structure_Unique rules that out.
+ *)
 
-    THE PHILOSOPHICAL POINT:
-    In physics, we often ask: "Why this law and not another?" Here's an answer:
-    because the algebraic structure ADMITS ONLY ONE SOLUTION. The causal cone
-    isn't an arbitrary choice - it's the UNIQUE consequence of compositional
-    structure.
+(** cone_like: the defining properties of causal-cone functions.
 
-    CONNECTION TO PHYSICS:
-    Like conservation laws from Noether's theorem - symmetries DETERMINE
-    conserved quantities. Here, compositional symmetries DETERMINE the causal
-    structure. It's forced, not chosen.
+  The two properties are the minimal axioms:
+  1. f([]) = ∅
+  2. f(i :: rest) = targets(i) ++ f(rest)
 
-    FALSIFICATION:
-    Find another function satisfying cone_like that differs from causal_cone.
-    Impossible - Cone_Structure_Unique proves there's only one.
+  Property 1 is the identity law. Property 2 is the composition law. Together
+  they determine the whole recursive shape. Any function satisfying them is
+  computing the affected modules of a trace in exactly the same structural way
+  as causal_cone.
 
-    ========================================================================= *)
-
-(** cone_like: The defining properties of causal cone functions.
-
-    THE PROPERTIES:
-    1. f([]) = ∅ (empty trace has empty cone)
-    2. f([i] ++ rest) = targets(i) ++ f(rest) (composition preserves structure)
-
-    WHY THESE TWO:
-    These are the MINIMAL AXIOMS. Property 1 is the identity law (monoid).
-    Property 2 is the composition law (how traces combine). Together, they
-    UNIQUELY DETERMINE the causal cone.
-
-    THE INSIGHT:
-    Any function satisfying these properties must be computing "all modules
-    affected by the trace". There's no other way to satisfy both laws while
-    respecting instruction targets.
-
-    CONNECTION TO CATEGORY THEORY:
-    This is defining a FUNCTOR from (Traces, ++) to (Sets, ∪). The cone_like
-    properties are the FUNCTOR LAWS: preserve identity and composition.
-
-    WHY "LIKE":
-    "cone_like" means "has the same shape as causal_cone". This predicate
-    defines that shape algebraically, without reference to the specific
-    implementation of causal_cone.
+  In categorical language this is the functorial shape from traces under ++ to
+  sets under union. "cone_like" means "has the same algebraic shape as
+  causal_cone" without naming its implementation directly.
 *)
 Definition cone_like (f : list vm_instruction -> list nat) : Prop :=
   f [] = [] /\
   (forall i rest, f (i :: rest) = instr_targets i ++ f rest).
 
-(** Cone_Structure_Unique: The causal cone is uniquely determined by cone_like.
+(** Cone_Structure_Unique: cone_like uniquely determines causal_cone.
 
-    THE CLAIM:
-    If f satisfies cone_like, then f = causal_cone. There's only ONE function
-    with the compositional structure defined by cone_like.
+  If f satisfies cone_like, then f = causal_cone on every trace. The reason is
+  straightforward: cone_like completely specifies the recursive behavior. The
+  empty trace fixes the base case, and the head-plus-rest equation fixes the
+  recursive step. There is only one function satisfying those equations.
 
-    WHY THIS IS TRUE:
-    The cone_like properties COMPLETELY SPECIFY the function's behavior:
-    - Empty trace: f([]) = [] (base case)
-    - Non-empty trace: f([i] ++ rest) = targets(i) ++ f(rest) (recursive case)
-    This is a RECURSIVE DEFINITION. There's only one function satisfying these
-    equations: the one that appends all instruction targets.
+  Proof: induction on the trace. Base case uses Hnil. Inductive case uses the
+  cone_like recursion law and the IH. The result matters because it proves
+  causal_cone is not just one implementation among many. It is the only
+  implementation compatible with the compositional laws.
 
-    THE PROOF:
-    Induction on trace. Base case: f([]) = [] = causal_cone([]) (by Hnil).
-    Inductive case: f([i] ++ rest) = targets(i) ++ f(rest) = targets(i) ++
-    causal_cone(rest) (by IH) = causal_cone([i] ++ rest) (by definition).
-
-    WHY THIS MATTERS:
-    This is a UNIQUENESS theorem. It proves causal_cone is not just "one way"
-    to track causal influence - it's THE ONLY WAY given the compositional laws.
-    The algebraic structure (cone_like) FORCES the implementation.
-
-    THE PHILOSOPHICAL IMPORT:
-    We didn't CHOOSE causal_cone arbitrarily. It's the UNIQUE CONSEQUENCE of
-    requiring:
-    1. Empty traces have no causal influence
-    2. Composition preserves structure (targets append)
-
-    These are minimal, obvious requirements. Yet they UNIQUELY DETERMINE the
-    causal cone. The structure is FORCED.
-
-    CONNECTION TO PHYSICS:
-    Like how conservation of energy is the UNIQUE consequence of time-translation
-    symmetry (Noether's theorem). The symmetry (compositional structure) FORCES
-    the conserved quantity (causal cone).
-
-    THE DERIVATION PRINCIPLE:
-    This is evidence for "derivation not definition". We didn't define causal_cone
-    and then prove properties. We stated properties (cone_like) and derived that
-    causal_cone is the UNIQUE solution.
-
-    FALSIFICATION:
-    Find two different functions both satisfying cone_like. Impossible - this
-    theorem proves uniqueness. ANY function with this structure equals causal_cone.
+  This is the derivation-not-definition point in its cleanest form. Instead of
+  choosing causal_cone and then listing properties, I can state the minimal
+  properties first and show they force a unique solution. To falsify it, find
+  two different cone_like functions. The theorem says you cannot.
 *)
 Theorem Cone_Structure_Unique :
   forall f,
@@ -128,24 +76,11 @@ Proof.
   - rewrite Hcons. simpl. rewrite IH. reflexivity.
 Qed.
 
-(** cone_monotone: Wrapper around cone_monotonic from ConeAlgebra.v.
-
-    THE CLAIM:
-    Extending a trace extends its cone. Same as cone_monotonic but with
-    slightly different syntax.
-
-    WHY THIS EXISTS:
-    Provides an alternative name/interface for the monotonicity property.
-    Some proofs might prefer this formulation over cone_monotonic.
-
-    THE DELEGATION:
-    Simply calls cone_monotonic from ConeAlgebra.v via eapply. This is a
-    thin wrapper, not a new proof.
-
-    CONNECTION TO UNIQUENESS:
-    Monotonicity is a CONSEQUENCE of the cone_like structure. Since causal_cone
-    is uniquely determined by cone_like (proven above), monotonicity is derived
-    from the compositional laws, not assumed.
+(** cone_monotone: wrapper around cone_monotonic from ConeAlgebra.v.
+  Extending a trace extends its cone; this is the same fact with a slightly
+  different interface. The point is not a new proof but the observation that
+  monotonicity is another consequence of the cone_like structure. Once the
+  compositional laws force causal_cone, monotonicity comes along with them.
 *)
 Theorem cone_monotone :
   forall trace1 trace2 x,
@@ -155,40 +90,22 @@ Proof.
   eapply cone_monotonic; eauto.
 Qed.
 
-(** =========================================================================
-    WHAT THIS FILE PROVES
+(** Summary.
 
-    PROVEN:
-    ✓ cone_like defines the minimal axioms for causal cone functions
-       Two properties: empty identity, compositional structure
-    ✓ Cone_Structure_Unique: causal_cone is UNIQUELY DETERMINED by cone_like
-       Any function satisfying the axioms equals causal_cone (uniqueness)
-    ✓ cone_monotone: Monotonicity is derived from the cone structure
-       Extending traces extends cones (consequence of composition)
+   This file proves three things: cone_like captures the minimal axioms for a
+   causal-cone function, Cone_Structure_Unique shows those axioms uniquely
+   determine causal_cone, and cone_monotone records monotonicity in a wrapper
+   form.
 
-    THE INSIGHT:
-    The causal cone is NOT an arbitrary definition. It's the UNIQUE CONSEQUENCE
-    of requiring compositional structure. The algebraic laws (cone_like) FORCE
-    the implementation. There's no other function with these properties.
+   The central insight is that the causal cone is not arbitrary. It is the
+   unique consequence of compositional structure. The derivation principle is:
+   state the laws, prove uniqueness, then identify the unique solution as
+   causal_cone. That is the same general shape as Noether-style arguments,
+   where symmetry forces structure.
 
-    THE DERIVATION PRINCIPLE:
-    Instead of defining causal_cone and proving properties, we:
-    1. State the properties (cone_like)
-    2. Prove there's ONLY ONE function satisfying them
-    3. Identify that function as causal_cone
+   To break this file, find another cone_like function different from
+   causal_cone. Cone_Structure_Unique says there is no such function.
 
-    This is DERIVATION rather than DEFINITION. The structure emerges from
-    constraints, not arbitrary choices.
-
-    CONNECTION TO NOETHER'S THEOREM:
-    Like how conservation laws are UNIQUELY DETERMINED by symmetries. Here,
-    the causal structure is UNIQUELY DETERMINED by compositional symmetries.
-    The algebra FORCES the physics.
-
-    FALSIFICATION:
-    Find another function satisfying cone_like that differs from causal_cone.
-    Can't happen - Cone_Structure_Unique proves there's exactly one such function.
-
-    DOWNSTREAM: MuGravity.v imports ConeDerivation and re-exports\n    Cone_Structure_Unique as gravity_uses_unique_cone.
-
-    ========================================================================= *)
+   Downstream, MuGravity.v imports ConeDerivation and re-exports
+   Cone_Structure_Unique as gravity_uses_unique_cone.
+*)

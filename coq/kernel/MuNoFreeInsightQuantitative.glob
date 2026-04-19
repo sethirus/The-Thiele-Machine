@@ -1,356 +1,356 @@
-DIGEST 25834074137f3967a3f57e65e877a8f7
+DIGEST 2c35412c252c30516dc6338ae391572a
 FKernel.MuNoFreeInsightQuantitative
-R938:941 Coq.Lists.List <> <> lib
-R943:945 Coq.micromega.Lia <> <> lib
-R947:960 Coq.Arith.PeanoNat <> <> lib
-R962:965 Coq.Bool.Bool <> <> lib
-R975:987 Coq.Lists.List ListNotations <> mod
-R1018:1024 Kernel.VMState <> <> lib
-R1026:1031 Kernel.VMStep <> <> lib
-R1033:1047 Kernel.SimulationProof <> <> lib
-R1077:1096 Kernel.MuLedgerConservation <> <> lib
-R1098:1118 Kernel.RevelationRequirement <> <> lib
-mod 1129:1155 <> MuNoFreeInsightQuantitative
-R1166:1178 Kernel.VMStep VMStep <> mod
-R1188:1202 Kernel.RevelationRequirement RevelationProof <> mod
-def 1694:1708 MuNoFreeInsightQuantitative is_cert_setterb
-R1715:1728 Kernel.VMStep VMStep vm_instruction ind
-binder 1711:1711 <> i:1
-R1733:1736 Coq.Init.Datatypes <> bool ind
-R1749:1749 Kernel.MuNoFreeInsightQuantitative <> i:1 var
-R1760:1771 Kernel.VMStep VMStep instr_reveal constr
-R1784:1787 Coq.Init.Datatypes <> true constr
-R1793:1802 Kernel.VMStep VMStep instr_emit constr
-R1813:1816 Coq.Init.Datatypes <> true constr
-R1822:1832 Kernel.VMStep VMStep instr_ljoin constr
-R1843:1846 Coq.Init.Datatypes <> true constr
-R1852:1864 Kernel.VMStep VMStep instr_lassert constr
-R1879:1882 Coq.Init.Datatypes <> true constr
-R1888:1900 Kernel.VMStep VMStep instr_certify constr
-R1907:1910 Coq.Init.Datatypes <> true constr
-R1916:1933 Kernel.VMStep VMStep instr_morph_assert constr
-R1946:1949 Coq.Init.Datatypes <> true constr
-R1955:1963 Kernel.VMStep VMStep instr_and constr
-R1976:1980 Coq.Init.Datatypes <> false constr
-R1986:1993 Kernel.VMStep VMStep instr_or constr
-R2006:2010 Coq.Init.Datatypes <> false constr
-R2016:2024 Kernel.VMStep VMStep instr_shl constr
-R2037:2041 Coq.Init.Datatypes <> false constr
-R2047:2055 Kernel.VMStep VMStep instr_shr constr
-R2068:2072 Coq.Init.Datatypes <> false constr
-R2078:2086 Kernel.VMStep VMStep instr_mul constr
-R2099:2103 Coq.Init.Datatypes <> false constr
-R2109:2117 Kernel.VMStep VMStep instr_lui constr
-R2128:2132 Coq.Init.Datatypes <> false constr
-R2143:2147 Coq.Init.Datatypes <> false constr
-def 2168:2181 MuNoFreeInsightQuantitative is_cert_setter
-R2188:2201 Kernel.VMStep VMStep vm_instruction ind
-binder 2184:2184 <> i:3
-R2231:2233 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2214:2228 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
-R2230:2230 Kernel.MuNoFreeInsightQuantitative <> i:3 var
-R2234:2237 Coq.Init.Datatypes <> true constr
-prf 2299:2317 MuNoFreeInsightQuantitative vm_exec_mu_monotone
-binder 2330:2333 <> fuel:4
-binder 2335:2339 <> trace:5
-binder 2341:2342 <> s0:6
-binder 2344:2345 <> sf:7
-R2376:2383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2352:2358 Kernel.SimulationProof <> vm_exec ind
-R2360:2363 Kernel.MuNoFreeInsightQuantitative <> fuel:4 var
-R2365:2369 Kernel.MuNoFreeInsightQuantitative <> trace:5 var
-R2371:2372 Kernel.MuNoFreeInsightQuantitative <> s0:6 var
-R2374:2375 Kernel.MuNoFreeInsightQuantitative <> sf:7 var
-R2394:2397 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2388:2392 Kernel.VMState <> vm_mu proj
-R2384:2385 Kernel.MuNoFreeInsightQuantitative <> s0:6 var
-R2402:2406 Kernel.VMState <> vm_mu proj
-R2398:2399 Kernel.MuNoFreeInsightQuantitative <> sf:7 var
-R2569:2573 Kernel.VMState <> vm_mu proj
-R2541:2552 Coq.Arith.PeanoNat Nat le_trans thm
-R2569:2573 Kernel.VMState <> vm_mu proj
-R2541:2552 Coq.Arith.PeanoNat Nat le_trans thm
-R2593:2602 Kernel.SimulationProof <> vm_step_mu thm
-R2593:2602 Kernel.SimulationProof <> vm_step_mu thm
-R2593:2602 Kernel.SimulationProof <> vm_step_mu thm
-prf 3083:3103 MuNoFreeInsightQuantitative trace_run_mu_monotone
-binder 3116:3119 <> fuel:8
-binder 3121:3125 <> trace:9
-binder 3127:3128 <> s0:10
-binder 3130:3131 <> s1:11
-R3171:3178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3161:3163 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3138:3146 Kernel.RevelationRequirement RevelationProof trace_run def
-R3148:3151 Kernel.MuNoFreeInsightQuantitative <> fuel:8 var
-R3153:3157 Kernel.MuNoFreeInsightQuantitative <> trace:9 var
-R3159:3160 Kernel.MuNoFreeInsightQuantitative <> s0:10 var
-R3164:3167 Coq.Init.Datatypes <> Some constr
-R3169:3170 Kernel.MuNoFreeInsightQuantitative <> s1:11 var
-R3189:3192 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3183:3187 Kernel.VMState <> vm_mu proj
-R3179:3180 Kernel.MuNoFreeInsightQuantitative <> s0:10 var
-R3197:3201 Kernel.VMState <> vm_mu proj
-R3193:3194 Kernel.MuNoFreeInsightQuantitative <> s1:11 var
-R3349:3357 Coq.Lists.List <> nth_error def
-R3366:3370 Kernel.VMState <> vm_pc proj
-R3349:3357 Coq.Lists.List <> nth_error def
-R3366:3370 Kernel.VMState <> vm_pc proj
-R3457:3461 Kernel.VMState <> vm_mu proj
-R3437:3444 Kernel.SimulationProof <> vm_apply def
-R3412:3423 Coq.Arith.PeanoNat Nat le_trans thm
-R3457:3461 Kernel.VMState <> vm_mu proj
-R3437:3444 Kernel.SimulationProof <> vm_apply def
-R3412:3423 Coq.Arith.PeanoNat Nat le_trans thm
-R3483:3493 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R3483:3493 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R3483:3493 Kernel.MuLedgerConservation <> vm_apply_mu thm
-prf 3655:3688 MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb
-binder 3701:3701 <> s:12
-binder 3703:3707 <> instr:13
-R3743:3750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3735:3737 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3714:3728 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
-R3730:3734 Kernel.MuNoFreeInsightQuantitative <> instr:13 var
-R3738:3742 Coq.Init.Datatypes <> false constr
-R3795:3797 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3781:3793 Kernel.VMState <> csr_cert_addr proj
-R3771:3777 Kernel.VMState <> vm_csrs proj
-R3752:3759 Kernel.SimulationProof <> vm_apply def
-R3761:3761 Kernel.MuNoFreeInsightQuantitative <> s:12 var
-R3763:3767 Kernel.MuNoFreeInsightQuantitative <> instr:13 var
-R3811:3823 Kernel.VMState <> csr_cert_addr proj
-R3801:3807 Kernel.VMState <> vm_csrs proj
-R3798:3798 Kernel.MuNoFreeInsightQuantitative <> s:12 var
-R3866:3895 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
-R3866:3895 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
-prf 4435:4477 MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run
-binder 4490:4493 <> fuel:14
-binder 4495:4499 <> trace:15
-binder 4501:4506 <> s_init:16
-binder 4508:4514 <> s_final:17
-R4563:4570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4548:4550 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4521:4529 Kernel.RevelationRequirement RevelationProof trace_run def
-R4531:4534 Kernel.MuNoFreeInsightQuantitative <> fuel:14 var
-R4536:4540 Kernel.MuNoFreeInsightQuantitative <> trace:15 var
-R4542:4547 Kernel.MuNoFreeInsightQuantitative <> s_init:16 var
-R4551:4554 Coq.Init.Datatypes <> Some constr
-R4556:4562 Kernel.MuNoFreeInsightQuantitative <> s_final:17 var
-R4611:4618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4603:4605 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4589:4601 Kernel.VMState <> csr_cert_addr proj
-R4579:4585 Kernel.VMState <> vm_csrs proj
-R4571:4576 Kernel.MuNoFreeInsightQuantitative <> s_init:16 var
-R4641:4648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4619:4632 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R4634:4640 Kernel.MuNoFreeInsightQuantitative <> s_final:17 var
-R4649:4655 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4661:4668 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4656:4660 <> instr:18
-R4689:4698 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4669:4682 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R4684:4688 Kernel.MuNoFreeInsightQuantitative <> instr:18 var
-R4714:4717 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4708:4712 Kernel.VMState <> vm_mu proj
-R4699:4705 Kernel.MuNoFreeInsightQuantitative <> s_final:17 var
-R4732:4734 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4726:4730 Kernel.VMState <> vm_mu proj
-R4718:4723 Kernel.MuNoFreeInsightQuantitative <> s_init:16 var
-R4735:4750 Kernel.VMStep VMStep instruction_cost def
-R4752:4756 Kernel.MuNoFreeInsightQuantitative <> instr:18 var
-R4898:4911 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R4997:5005 Coq.Lists.List <> nth_error def
-R5014:5018 Kernel.VMState <> vm_pc proj
-R4997:5005 Coq.Lists.List <> nth_error def
-R5014:5018 Kernel.VMState <> vm_pc proj
-R5067:5081 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
-R5067:5081 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
-R5159:5172 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R5294:5314 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative trace_run_mu_monotone thm
-R5328:5335 Kernel.SimulationProof <> vm_apply def
-R5294:5314 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative trace_run_mu_monotone thm
-R5328:5335 Kernel.SimulationProof <> vm_apply def
-R5398:5408 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R5398:5408 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R5398:5408 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R5590:5592 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5576:5588 Kernel.VMState <> csr_cert_addr proj
-R5566:5572 Kernel.VMState <> vm_csrs proj
-R5542:5549 Kernel.SimulationProof <> vm_apply def
-R5590:5592 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5576:5588 Kernel.VMState <> csr_cert_addr proj
-R5566:5572 Kernel.VMState <> vm_csrs proj
-R5542:5549 Kernel.SimulationProof <> vm_apply def
-R5620:5653 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb thm
-R5620:5653 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb thm
-R5620:5653 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb thm
-R5724:5731 Kernel.SimulationProof <> vm_apply def
-R5724:5731 Kernel.SimulationProof <> vm_apply def
-R5998:6001 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5992:5996 Kernel.VMState <> vm_mu proj
-R6027:6031 Kernel.VMState <> vm_mu proj
-R6003:6010 Kernel.SimulationProof <> vm_apply def
-R5998:6001 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5992:5996 Kernel.VMState <> vm_mu proj
-R6027:6031 Kernel.VMState <> vm_mu proj
-R6003:6010 Kernel.SimulationProof <> vm_apply def
-R6055:6065 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R6055:6065 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R6055:6065 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R6144:6157 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-prf 6293:6330 MuNoFreeInsightQuantitative step_preserves_cert_if_not_cert_setter
-binder 6343:6343 <> s:19
-binder 6345:6349 <> instr:20
-binder 6351:6352 <> s':21
-R6377:6384 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6359:6365 Kernel.VMStep VMStep vm_step ind
-R6367:6367 Kernel.MuNoFreeInsightQuantitative <> s:19 var
-R6369:6373 Kernel.MuNoFreeInsightQuantitative <> instr:20 var
-R6375:6376 Kernel.MuNoFreeInsightQuantitative <> s':21 var
-R6414:6421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6406:6408 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6385:6399 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
-R6401:6405 Kernel.MuNoFreeInsightQuantitative <> instr:20 var
-R6409:6413 Coq.Init.Datatypes <> false constr
-R6450:6452 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6436:6448 Kernel.VMState <> csr_cert_addr proj
-R6426:6432 Kernel.VMState <> vm_csrs proj
-R6422:6423 Kernel.MuNoFreeInsightQuantitative <> s':21 var
-R6466:6478 Kernel.VMState <> csr_cert_addr proj
-R6456:6462 Kernel.VMState <> vm_csrs proj
-R6453:6453 Kernel.MuNoFreeInsightQuantitative <> s:19 var
-R6535:6550 Kernel.SimulationProof <> vm_step_vm_apply thm
-R6535:6550 Kernel.SimulationProof <> vm_step_vm_apply thm
-R6535:6550 Kernel.SimulationProof <> vm_step_vm_apply thm
-R6575:6604 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
-R6575:6604 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
-prf 7132:7162 MuNoFreeInsightQuantitative supra_cert_has_cert_setter_step
-binder 7175:7178 <> fuel:22
-binder 7180:7184 <> trace:23
-binder 7186:7191 <> s_init:24
-binder 7193:7199 <> s_final:25
-R7239:7246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7206:7212 Kernel.SimulationProof <> vm_exec ind
-R7214:7217 Kernel.MuNoFreeInsightQuantitative <> fuel:22 var
-R7219:7223 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
-R7225:7230 Kernel.MuNoFreeInsightQuantitative <> s_init:24 var
-R7232:7238 Kernel.MuNoFreeInsightQuantitative <> s_final:25 var
-R7283:7290 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7279:7281 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7265:7277 Kernel.VMState <> csr_cert_addr proj
-R7255:7261 Kernel.VMState <> vm_csrs proj
-R7247:7252 Kernel.MuNoFreeInsightQuantitative <> s_init:24 var
-R7313:7320 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7291:7304 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R7306:7312 Kernel.MuNoFreeInsightQuantitative <> s_final:25 var
-R7321:7327 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7358:7365 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 7328:7332 <> fuel1:26
-binder 7334:7338 <> fuel2:27
-binder 7340:7344 <> s_mid:28
-binder 7346:7350 <> instr:29
-binder 7352:7357 <> s_mid':30
-R7388:7397 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7370:7372 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7366:7369 Kernel.MuNoFreeInsightQuantitative <> fuel:22 var
-R7378:7380 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7373:7377 Kernel.MuNoFreeInsightQuantitative <> fuel1:26 var
-R7381:7381 Coq.Init.Datatypes <> S constr
-R7383:7387 Kernel.MuNoFreeInsightQuantitative <> fuel2:27 var
-R7430:7439 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7398:7404 Kernel.SimulationProof <> vm_exec ind
-R7406:7410 Kernel.MuNoFreeInsightQuantitative <> fuel1:26 var
-R7412:7416 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
-R7418:7423 Kernel.MuNoFreeInsightQuantitative <> s_init:24 var
-R7425:7429 Kernel.MuNoFreeInsightQuantitative <> s_mid:28 var
-R7482:7491 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7469:7471 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7440:7448 Coq.Lists.List <> nth_error def
-R7463:7467 Kernel.VMState <> vm_pc proj
-R7456:7460 Kernel.MuNoFreeInsightQuantitative <> s_mid:28 var
-R7450:7454 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
-R7472:7475 Coq.Init.Datatypes <> Some constr
-R7477:7481 Kernel.MuNoFreeInsightQuantitative <> instr:29 var
-R7518:7527 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7492:7498 Kernel.VMStep VMStep vm_step ind
-R7500:7504 Kernel.MuNoFreeInsightQuantitative <> s_mid:28 var
-R7506:7510 Kernel.MuNoFreeInsightQuantitative <> instr:29 var
-R7512:7517 Kernel.MuNoFreeInsightQuantitative <> s_mid':30 var
-R7548:7557 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7528:7541 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R7543:7547 Kernel.MuNoFreeInsightQuantitative <> instr:29 var
-R7558:7564 Kernel.SimulationProof <> vm_exec ind
-R7566:7570 Kernel.MuNoFreeInsightQuantitative <> fuel2:27 var
-R7572:7576 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
-R7578:7583 Kernel.MuNoFreeInsightQuantitative <> s_mid':30 var
-R7585:7591 Kernel.MuNoFreeInsightQuantitative <> s_final:25 var
-R7797:7810 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R7877:7891 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
-R7877:7891 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
-R8065:8076 Kernel.SimulationProof <> vm_exec_zero constr
-R8065:8076 Kernel.SimulationProof <> vm_exec_zero constr
-R8220:8233 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R8398:8400 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8384:8396 Kernel.VMState <> csr_cert_addr proj
-R8374:8380 Kernel.VMState <> vm_csrs proj
-R8414:8426 Kernel.VMState <> csr_cert_addr proj
-R8404:8410 Kernel.VMState <> vm_csrs proj
-R8398:8400 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8384:8396 Kernel.VMState <> csr_cert_addr proj
-R8374:8380 Kernel.VMState <> vm_csrs proj
-R8414:8426 Kernel.VMState <> csr_cert_addr proj
-R8404:8410 Kernel.VMState <> vm_csrs proj
-R8446:8483 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative step_preserves_cert_if_not_cert_setter thm
-R8446:8483 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative step_preserves_cert_if_not_cert_setter thm
-R8546:8548 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8532:8544 Kernel.VMState <> csr_cert_addr proj
-R8522:8528 Kernel.VMState <> vm_csrs proj
-R8546:8548 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8532:8544 Kernel.VMState <> csr_cert_addr proj
-R8522:8528 Kernel.VMState <> vm_csrs proj
-R8770:8770 Coq.Init.Datatypes <> S constr
-R8770:8770 Coq.Init.Datatypes <> S constr
-R8872:8883 Kernel.SimulationProof <> vm_exec_step constr
-R8872:8883 Kernel.SimulationProof <> vm_exec_step constr
-prf 9152:9184 MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound
-binder 9197:9200 <> fuel:31
-binder 9202:9206 <> trace:32
-binder 9208:9213 <> s_init:33
-binder 9215:9221 <> s_final:34
-R9261:9268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9228:9234 Kernel.SimulationProof <> vm_exec ind
-R9236:9239 Kernel.MuNoFreeInsightQuantitative <> fuel:31 var
-R9241:9245 Kernel.MuNoFreeInsightQuantitative <> trace:32 var
-R9247:9252 Kernel.MuNoFreeInsightQuantitative <> s_init:33 var
-R9254:9260 Kernel.MuNoFreeInsightQuantitative <> s_final:34 var
-R9305:9312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9301:9303 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9287:9299 Kernel.VMState <> csr_cert_addr proj
-R9277:9283 Kernel.VMState <> vm_csrs proj
-R9269:9274 Kernel.MuNoFreeInsightQuantitative <> s_init:33 var
-R9335:9342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9313:9326 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R9328:9334 Kernel.MuNoFreeInsightQuantitative <> s_final:34 var
-R9343:9349 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9355:9362 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 9350:9354 <> instr:35
-R9383:9392 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9363:9376 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
-R9378:9382 Kernel.MuNoFreeInsightQuantitative <> instr:35 var
-R9408:9411 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9402:9406 Kernel.VMState <> vm_mu proj
-R9393:9399 Kernel.MuNoFreeInsightQuantitative <> s_final:34 var
-R9426:9428 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9420:9424 Kernel.VMState <> vm_mu proj
-R9412:9417 Kernel.MuNoFreeInsightQuantitative <> s_init:33 var
-R9429:9444 Kernel.VMStep VMStep instruction_cost def
-R9446:9450 Kernel.MuNoFreeInsightQuantitative <> instr:35 var
-R9529:9559 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_has_cert_setter_step thm
-R9529:9559 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_has_cert_setter_step thm
-R9762:9780 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
-R9762:9780 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
-R9824:9833 Kernel.SimulationProof <> vm_step_mu thm
-R9824:9833 Kernel.SimulationProof <> vm_step_mu thm
-R9877:9895 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
-R9877:9895 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
-R9978:10004 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative <> mod
+R728:731 Coq.Lists.List <> <> lib
+R733:735 Coq.micromega.Lia <> <> lib
+R737:750 Coq.Arith.PeanoNat <> <> lib
+R752:755 Coq.Bool.Bool <> <> lib
+R765:777 Coq.Lists.List ListNotations <> mod
+R808:814 Kernel.VMState <> <> lib
+R816:821 Kernel.VMStep <> <> lib
+R823:837 Kernel.SimulationProof <> <> lib
+R867:886 Kernel.MuLedgerConservation <> <> lib
+R888:908 Kernel.RevelationRequirement <> <> lib
+mod 919:945 <> MuNoFreeInsightQuantitative
+R956:968 Kernel.VMStep VMStep <> mod
+R978:992 Kernel.RevelationRequirement RevelationProof <> mod
+def 1482:1496 MuNoFreeInsightQuantitative is_cert_setterb
+R1503:1516 Kernel.VMStep VMStep vm_instruction ind
+binder 1499:1499 <> i:1
+R1521:1524 Coq.Init.Datatypes <> bool ind
+R1537:1537 Kernel.MuNoFreeInsightQuantitative <> i:1 var
+R1548:1559 Kernel.VMStep VMStep instr_reveal constr
+R1572:1575 Coq.Init.Datatypes <> true constr
+R1581:1590 Kernel.VMStep VMStep instr_emit constr
+R1601:1604 Coq.Init.Datatypes <> true constr
+R1610:1620 Kernel.VMStep VMStep instr_ljoin constr
+R1631:1634 Coq.Init.Datatypes <> true constr
+R1640:1652 Kernel.VMStep VMStep instr_lassert constr
+R1667:1670 Coq.Init.Datatypes <> true constr
+R1676:1688 Kernel.VMStep VMStep instr_certify constr
+R1695:1698 Coq.Init.Datatypes <> true constr
+R1704:1721 Kernel.VMStep VMStep instr_morph_assert constr
+R1734:1737 Coq.Init.Datatypes <> true constr
+R1743:1751 Kernel.VMStep VMStep instr_and constr
+R1764:1768 Coq.Init.Datatypes <> false constr
+R1774:1781 Kernel.VMStep VMStep instr_or constr
+R1794:1798 Coq.Init.Datatypes <> false constr
+R1804:1812 Kernel.VMStep VMStep instr_shl constr
+R1825:1829 Coq.Init.Datatypes <> false constr
+R1835:1843 Kernel.VMStep VMStep instr_shr constr
+R1856:1860 Coq.Init.Datatypes <> false constr
+R1866:1874 Kernel.VMStep VMStep instr_mul constr
+R1887:1891 Coq.Init.Datatypes <> false constr
+R1897:1905 Kernel.VMStep VMStep instr_lui constr
+R1916:1920 Coq.Init.Datatypes <> false constr
+R1931:1935 Coq.Init.Datatypes <> false constr
+def 1956:1969 MuNoFreeInsightQuantitative is_cert_setter
+R1976:1989 Kernel.VMStep VMStep vm_instruction ind
+binder 1972:1972 <> i:3
+R2019:2021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2002:2016 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R2018:2018 Kernel.MuNoFreeInsightQuantitative <> i:3 var
+R2022:2025 Coq.Init.Datatypes <> true constr
+prf 2035:2053 MuNoFreeInsightQuantitative vm_exec_mu_monotone
+binder 2066:2069 <> fuel:4
+binder 2071:2075 <> trace:5
+binder 2077:2078 <> s0:6
+binder 2080:2081 <> sf:7
+R2112:2119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2088:2094 Kernel.SimulationProof <> vm_exec ind
+R2096:2099 Kernel.MuNoFreeInsightQuantitative <> fuel:4 var
+R2101:2105 Kernel.MuNoFreeInsightQuantitative <> trace:5 var
+R2107:2108 Kernel.MuNoFreeInsightQuantitative <> s0:6 var
+R2110:2111 Kernel.MuNoFreeInsightQuantitative <> sf:7 var
+R2130:2133 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2124:2128 Kernel.VMState <> vm_mu proj
+R2120:2121 Kernel.MuNoFreeInsightQuantitative <> s0:6 var
+R2138:2142 Kernel.VMState <> vm_mu proj
+R2134:2135 Kernel.MuNoFreeInsightQuantitative <> sf:7 var
+R2305:2309 Kernel.VMState <> vm_mu proj
+R2277:2288 Coq.Arith.PeanoNat Nat le_trans thm
+R2305:2309 Kernel.VMState <> vm_mu proj
+R2277:2288 Coq.Arith.PeanoNat Nat le_trans thm
+R2329:2338 Kernel.SimulationProof <> vm_step_mu thm
+R2329:2338 Kernel.SimulationProof <> vm_step_mu thm
+R2329:2338 Kernel.SimulationProof <> vm_step_mu thm
+prf 2819:2839 MuNoFreeInsightQuantitative trace_run_mu_monotone
+binder 2852:2855 <> fuel:8
+binder 2857:2861 <> trace:9
+binder 2863:2864 <> s0:10
+binder 2866:2867 <> s1:11
+R2907:2914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2897:2899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2874:2882 Kernel.RevelationRequirement RevelationProof trace_run def
+R2884:2887 Kernel.MuNoFreeInsightQuantitative <> fuel:8 var
+R2889:2893 Kernel.MuNoFreeInsightQuantitative <> trace:9 var
+R2895:2896 Kernel.MuNoFreeInsightQuantitative <> s0:10 var
+R2900:2903 Coq.Init.Datatypes <> Some constr
+R2905:2906 Kernel.MuNoFreeInsightQuantitative <> s1:11 var
+R2925:2928 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2919:2923 Kernel.VMState <> vm_mu proj
+R2915:2916 Kernel.MuNoFreeInsightQuantitative <> s0:10 var
+R2933:2937 Kernel.VMState <> vm_mu proj
+R2929:2930 Kernel.MuNoFreeInsightQuantitative <> s1:11 var
+R3085:3093 Coq.Lists.List <> nth_error def
+R3102:3106 Kernel.VMState <> vm_pc proj
+R3085:3093 Coq.Lists.List <> nth_error def
+R3102:3106 Kernel.VMState <> vm_pc proj
+R3193:3197 Kernel.VMState <> vm_mu proj
+R3173:3180 Kernel.SimulationProof <> vm_apply def
+R3148:3159 Coq.Arith.PeanoNat Nat le_trans thm
+R3193:3197 Kernel.VMState <> vm_mu proj
+R3173:3180 Kernel.SimulationProof <> vm_apply def
+R3148:3159 Coq.Arith.PeanoNat Nat le_trans thm
+R3219:3229 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3219:3229 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3219:3229 Kernel.MuLedgerConservation <> vm_apply_mu thm
+prf 3324:3357 MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb
+binder 3370:3370 <> s:12
+binder 3372:3376 <> instr:13
+R3412:3419 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3404:3406 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3383:3397 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R3399:3403 Kernel.MuNoFreeInsightQuantitative <> instr:13 var
+R3407:3411 Coq.Init.Datatypes <> false constr
+R3464:3466 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3450:3462 Kernel.VMState <> csr_cert_addr proj
+R3440:3446 Kernel.VMState <> vm_csrs proj
+R3421:3428 Kernel.SimulationProof <> vm_apply def
+R3430:3430 Kernel.MuNoFreeInsightQuantitative <> s:12 var
+R3432:3436 Kernel.MuNoFreeInsightQuantitative <> instr:13 var
+R3480:3492 Kernel.VMState <> csr_cert_addr proj
+R3470:3476 Kernel.VMState <> vm_csrs proj
+R3467:3467 Kernel.MuNoFreeInsightQuantitative <> s:12 var
+R3535:3564 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
+R3535:3564 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
+prf 4028:4070 MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound_trace_run
+binder 4083:4086 <> fuel:14
+binder 4088:4092 <> trace:15
+binder 4094:4099 <> s_init:16
+binder 4101:4107 <> s_final:17
+R4156:4163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4141:4143 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4114:4122 Kernel.RevelationRequirement RevelationProof trace_run def
+R4124:4127 Kernel.MuNoFreeInsightQuantitative <> fuel:14 var
+R4129:4133 Kernel.MuNoFreeInsightQuantitative <> trace:15 var
+R4135:4140 Kernel.MuNoFreeInsightQuantitative <> s_init:16 var
+R4144:4147 Coq.Init.Datatypes <> Some constr
+R4149:4155 Kernel.MuNoFreeInsightQuantitative <> s_final:17 var
+R4204:4211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4196:4198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4182:4194 Kernel.VMState <> csr_cert_addr proj
+R4172:4178 Kernel.VMState <> vm_csrs proj
+R4164:4169 Kernel.MuNoFreeInsightQuantitative <> s_init:16 var
+R4234:4241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4212:4225 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R4227:4233 Kernel.MuNoFreeInsightQuantitative <> s_final:17 var
+R4242:4248 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4254:4261 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4249:4253 <> instr:18
+R4282:4291 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4262:4275 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R4277:4281 Kernel.MuNoFreeInsightQuantitative <> instr:18 var
+R4307:4310 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4301:4305 Kernel.VMState <> vm_mu proj
+R4292:4298 Kernel.MuNoFreeInsightQuantitative <> s_final:17 var
+R4325:4327 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4319:4323 Kernel.VMState <> vm_mu proj
+R4311:4316 Kernel.MuNoFreeInsightQuantitative <> s_init:16 var
+R4328:4343 Kernel.VMStep VMStep instruction_cost def
+R4345:4349 Kernel.MuNoFreeInsightQuantitative <> instr:18 var
+R4491:4504 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R4590:4598 Coq.Lists.List <> nth_error def
+R4607:4611 Kernel.VMState <> vm_pc proj
+R4590:4598 Coq.Lists.List <> nth_error def
+R4607:4611 Kernel.VMState <> vm_pc proj
+R4660:4674 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R4660:4674 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R4752:4765 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R4887:4907 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative trace_run_mu_monotone thm
+R4921:4928 Kernel.SimulationProof <> vm_apply def
+R4887:4907 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative trace_run_mu_monotone thm
+R4921:4928 Kernel.SimulationProof <> vm_apply def
+R4991:5001 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R4991:5001 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R4991:5001 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R5183:5185 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5169:5181 Kernel.VMState <> csr_cert_addr proj
+R5159:5165 Kernel.VMState <> vm_csrs proj
+R5135:5142 Kernel.SimulationProof <> vm_apply def
+R5183:5185 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5169:5181 Kernel.VMState <> csr_cert_addr proj
+R5159:5165 Kernel.VMState <> vm_csrs proj
+R5135:5142 Kernel.SimulationProof <> vm_apply def
+R5213:5246 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb thm
+R5213:5246 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb thm
+R5213:5246 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative cert_preserved_if_not_cert_setterb thm
+R5317:5324 Kernel.SimulationProof <> vm_apply def
+R5317:5324 Kernel.SimulationProof <> vm_apply def
+R5591:5594 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5585:5589 Kernel.VMState <> vm_mu proj
+R5620:5624 Kernel.VMState <> vm_mu proj
+R5596:5603 Kernel.SimulationProof <> vm_apply def
+R5591:5594 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5585:5589 Kernel.VMState <> vm_mu proj
+R5620:5624 Kernel.VMState <> vm_mu proj
+R5596:5603 Kernel.SimulationProof <> vm_apply def
+R5648:5658 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R5648:5658 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R5648:5658 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R5737:5750 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+prf 5815:5852 MuNoFreeInsightQuantitative step_preserves_cert_if_not_cert_setter
+binder 5865:5865 <> s:19
+binder 5867:5871 <> instr:20
+binder 5873:5874 <> s':21
+R5899:5906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5881:5887 Kernel.VMStep VMStep vm_step ind
+R5889:5889 Kernel.MuNoFreeInsightQuantitative <> s:19 var
+R5891:5895 Kernel.MuNoFreeInsightQuantitative <> instr:20 var
+R5897:5898 Kernel.MuNoFreeInsightQuantitative <> s':21 var
+R5936:5943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5928:5930 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5907:5921 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R5923:5927 Kernel.MuNoFreeInsightQuantitative <> instr:20 var
+R5931:5935 Coq.Init.Datatypes <> false constr
+R5972:5974 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5958:5970 Kernel.VMState <> csr_cert_addr proj
+R5948:5954 Kernel.VMState <> vm_csrs proj
+R5944:5945 Kernel.MuNoFreeInsightQuantitative <> s':21 var
+R5988:6000 Kernel.VMState <> csr_cert_addr proj
+R5978:5984 Kernel.VMState <> vm_csrs proj
+R5975:5975 Kernel.MuNoFreeInsightQuantitative <> s:19 var
+R6057:6072 Kernel.SimulationProof <> vm_step_vm_apply thm
+R6057:6072 Kernel.SimulationProof <> vm_step_vm_apply thm
+R6057:6072 Kernel.SimulationProof <> vm_step_vm_apply thm
+R6097:6126 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
+R6097:6126 Kernel.RevelationRequirement RevelationProof non_cert_setter_preserves_cert thm
+prf 6590:6620 MuNoFreeInsightQuantitative supra_cert_has_cert_setter_step
+binder 6633:6636 <> fuel:22
+binder 6638:6642 <> trace:23
+binder 6644:6649 <> s_init:24
+binder 6651:6657 <> s_final:25
+R6697:6704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6664:6670 Kernel.SimulationProof <> vm_exec ind
+R6672:6675 Kernel.MuNoFreeInsightQuantitative <> fuel:22 var
+R6677:6681 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
+R6683:6688 Kernel.MuNoFreeInsightQuantitative <> s_init:24 var
+R6690:6696 Kernel.MuNoFreeInsightQuantitative <> s_final:25 var
+R6741:6748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6737:6739 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6723:6735 Kernel.VMState <> csr_cert_addr proj
+R6713:6719 Kernel.VMState <> vm_csrs proj
+R6705:6710 Kernel.MuNoFreeInsightQuantitative <> s_init:24 var
+R6771:6778 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6749:6762 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R6764:6770 Kernel.MuNoFreeInsightQuantitative <> s_final:25 var
+R6779:6785 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6816:6823 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6786:6790 <> fuel1:26
+binder 6792:6796 <> fuel2:27
+binder 6798:6802 <> s_mid:28
+binder 6804:6808 <> instr:29
+binder 6810:6815 <> s_mid':30
+R6846:6855 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6828:6830 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6824:6827 Kernel.MuNoFreeInsightQuantitative <> fuel:22 var
+R6836:6838 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6831:6835 Kernel.MuNoFreeInsightQuantitative <> fuel1:26 var
+R6839:6839 Coq.Init.Datatypes <> S constr
+R6841:6845 Kernel.MuNoFreeInsightQuantitative <> fuel2:27 var
+R6888:6897 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6856:6862 Kernel.SimulationProof <> vm_exec ind
+R6864:6868 Kernel.MuNoFreeInsightQuantitative <> fuel1:26 var
+R6870:6874 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
+R6876:6881 Kernel.MuNoFreeInsightQuantitative <> s_init:24 var
+R6883:6887 Kernel.MuNoFreeInsightQuantitative <> s_mid:28 var
+R6940:6949 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6927:6929 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6898:6906 Coq.Lists.List <> nth_error def
+R6921:6925 Kernel.VMState <> vm_pc proj
+R6914:6918 Kernel.MuNoFreeInsightQuantitative <> s_mid:28 var
+R6908:6912 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
+R6930:6933 Coq.Init.Datatypes <> Some constr
+R6935:6939 Kernel.MuNoFreeInsightQuantitative <> instr:29 var
+R6976:6985 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6950:6956 Kernel.VMStep VMStep vm_step ind
+R6958:6962 Kernel.MuNoFreeInsightQuantitative <> s_mid:28 var
+R6964:6968 Kernel.MuNoFreeInsightQuantitative <> instr:29 var
+R6970:6975 Kernel.MuNoFreeInsightQuantitative <> s_mid':30 var
+R7006:7015 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6986:6999 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R7001:7005 Kernel.MuNoFreeInsightQuantitative <> instr:29 var
+R7016:7022 Kernel.SimulationProof <> vm_exec ind
+R7024:7028 Kernel.MuNoFreeInsightQuantitative <> fuel2:27 var
+R7030:7034 Kernel.MuNoFreeInsightQuantitative <> trace:23 var
+R7036:7041 Kernel.MuNoFreeInsightQuantitative <> s_mid':30 var
+R7043:7049 Kernel.MuNoFreeInsightQuantitative <> s_final:25 var
+R7255:7268 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R7335:7349 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R7335:7349 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setterb def
+R7523:7534 Kernel.SimulationProof <> vm_exec_zero constr
+R7523:7534 Kernel.SimulationProof <> vm_exec_zero constr
+R7678:7691 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R7856:7858 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7842:7854 Kernel.VMState <> csr_cert_addr proj
+R7832:7838 Kernel.VMState <> vm_csrs proj
+R7872:7884 Kernel.VMState <> csr_cert_addr proj
+R7862:7868 Kernel.VMState <> vm_csrs proj
+R7856:7858 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7842:7854 Kernel.VMState <> csr_cert_addr proj
+R7832:7838 Kernel.VMState <> vm_csrs proj
+R7872:7884 Kernel.VMState <> csr_cert_addr proj
+R7862:7868 Kernel.VMState <> vm_csrs proj
+R7904:7941 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative step_preserves_cert_if_not_cert_setter thm
+R7904:7941 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative step_preserves_cert_if_not_cert_setter thm
+R8004:8006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7990:8002 Kernel.VMState <> csr_cert_addr proj
+R7980:7986 Kernel.VMState <> vm_csrs proj
+R8004:8006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7990:8002 Kernel.VMState <> csr_cert_addr proj
+R7980:7986 Kernel.VMState <> vm_csrs proj
+R8228:8228 Coq.Init.Datatypes <> S constr
+R8228:8228 Coq.Init.Datatypes <> S constr
+R8330:8341 Kernel.SimulationProof <> vm_exec_step constr
+R8330:8341 Kernel.SimulationProof <> vm_exec_step constr
+prf 8544:8576 MuNoFreeInsightQuantitative supra_cert_implies_mu_lower_bound
+binder 8589:8592 <> fuel:31
+binder 8594:8598 <> trace:32
+binder 8600:8605 <> s_init:33
+binder 8607:8613 <> s_final:34
+R8653:8660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8620:8626 Kernel.SimulationProof <> vm_exec ind
+R8628:8631 Kernel.MuNoFreeInsightQuantitative <> fuel:31 var
+R8633:8637 Kernel.MuNoFreeInsightQuantitative <> trace:32 var
+R8639:8644 Kernel.MuNoFreeInsightQuantitative <> s_init:33 var
+R8646:8652 Kernel.MuNoFreeInsightQuantitative <> s_final:34 var
+R8697:8704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8693:8695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8679:8691 Kernel.VMState <> csr_cert_addr proj
+R8669:8675 Kernel.VMState <> vm_csrs proj
+R8661:8666 Kernel.MuNoFreeInsightQuantitative <> s_init:33 var
+R8727:8734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8705:8718 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R8720:8726 Kernel.MuNoFreeInsightQuantitative <> s_final:34 var
+R8735:8741 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8747:8754 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8742:8746 <> instr:35
+R8775:8784 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8755:8768 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative is_cert_setter def
+R8770:8774 Kernel.MuNoFreeInsightQuantitative <> instr:35 var
+R8800:8803 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8794:8798 Kernel.VMState <> vm_mu proj
+R8785:8791 Kernel.MuNoFreeInsightQuantitative <> s_final:34 var
+R8818:8820 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8812:8816 Kernel.VMState <> vm_mu proj
+R8804:8809 Kernel.MuNoFreeInsightQuantitative <> s_init:33 var
+R8821:8836 Kernel.VMStep VMStep instruction_cost def
+R8838:8842 Kernel.MuNoFreeInsightQuantitative <> instr:35 var
+R8921:8951 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_has_cert_setter_step thm
+R8921:8951 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative supra_cert_has_cert_setter_step thm
+R9154:9172 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
+R9154:9172 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
+R9216:9225 Kernel.SimulationProof <> vm_step_mu thm
+R9216:9225 Kernel.SimulationProof <> vm_step_mu thm
+R9269:9287 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
+R9269:9287 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative vm_exec_mu_monotone thm
+R9370:9396 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative <> mod

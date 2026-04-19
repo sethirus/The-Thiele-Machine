@@ -5,7 +5,7 @@ From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 
 
-(** * A dissipative lattice model
+(** A dissipative lattice model
 
     This optional study provides a simple, explicitly irreversible dynamics to
     contrast with the reversible lattice gas.  Cells can be either [Vac] or
@@ -20,7 +20,6 @@ Definition energy (l : Lattice) : nat := length (filter (fun c => match c with H
 
 Definition dissipative_step (l : Lattice) : Lattice := map (fun _ => Vac) l.
 
-(** [dissipative_step_energy_zero]: formal specification. *)
 Lemma dissipative_step_energy_zero :
   forall l, energy (dissipative_step l) = 0.
 Proof.
@@ -28,7 +27,6 @@ Proof.
   induction l as [|c tl IH]; simpl; auto.
 Qed.
 
-(** [dissipative_energy_nonincreasing]: formal specification. *)
 Lemma dissipative_energy_nonincreasing :
   forall l, energy (dissipative_step l) <= energy l.
 Proof.
@@ -37,7 +35,6 @@ Proof.
   destruct c; simpl; lia.
 Qed.
 
-(** [dissipative_energy_strict_when_hot]: formal specification. *)
 Lemma dissipative_energy_strict_when_hot :
   forall l, energy l > 0 -> energy (dissipative_step l) < energy l.
 Proof.
@@ -70,7 +67,6 @@ Section Embedding.
   Variable impl_refines_dissipative :
     forall l, decode (impl_step (encode l)) = dissipative_step l.
 
-  (** [embedded_energy_nonincreasing]: formal specification. *)
   Lemma embedded_energy_nonincreasing :
     forall l, energy (decode (impl_step (encode l))) <= energy (decode (encode l)).
   Proof.

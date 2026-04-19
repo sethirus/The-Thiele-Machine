@@ -1,12 +1,10 @@
-(** * ThreeLayerIsomorphism: Abstract μ/PC comparison contracts
+(** ThreeLayerIsomorphism: Abstract μ/PC comparison contracts
 
-    WHY THIS FILE EXISTS:
     The Thiele Machine has three implementations: Coq (kernel), Python (VM),
     and Verilog (hardware). This file develops abstract comparison contracts
     for shared observables, beginning with μ and PC and then defining a
     stronger full-state interface record.
 
-    THE CORE CLAIM:
     1. the VM instruction datatype is exhaustively covered;
     2. [vm_apply] has exact μ-cost semantics, and exact PC+1 semantics on the
        sequential fragment;
@@ -20,7 +18,6 @@
           | (abstract contracts here)    | (tested)
      Python VM.step <--[testing]---> Verilog thiele_cpu  (cosimulation tests)
 
-    FALSIFICATION:
     To falsify the formal content here, produce either:
     - a [WireSpec]-conforming pair of implementations that disagree on μ or PC,
       or
@@ -35,22 +32,16 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof.
 
-(* ================================================================== *)
 (* Section 1: vm_apply always produces well-defined output             *)
-(* ================================================================== *)
 
-(** [vm_apply_total]: formal specification. *)
 Theorem vm_apply_total : forall (s : VMState) (i : vm_instruction),
   exists s', vm_apply s i = s'.
 Proof.
   intros s i. eexists. reflexivity.
 Qed.
 
-(* ================================================================== *)
-(* Section 2: The 40-Opcode Completeness Proof                        *)
-(* ================================================================== *)
+(* Section 2: The 47-Opcode Completeness Proof                        *)
 
-(** [instruction_exhaustive]: formal specification. *)
 Lemma instruction_exhaustive : forall (i : vm_instruction),
   match i with
   | instr_pnew _ _             => True
@@ -77,7 +68,6 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   | instr_xor_rank _ _ _        => True
   | instr_emit _ _ _            => True
   | instr_reveal _ _ _ _        => True
-  | instr_oracle_halts _ _      => True
   | instr_checkpoint _ _        => True
   | instr_read_port _ _ _ _ _   => True
   | instr_write_port _ _ _      => True
@@ -103,9 +93,7 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   end.
 Proof. destruct i; exact I. Qed.
 
-(* ================================================================== *)
 (* Section 3: μ-Cost is always exactly instruction_cost                *)
-(* ================================================================== *)
 
 (** Key lemma: advance_state always sets mu to apply_cost. *)
 Lemma advance_state_mu : forall s instr g c e,
@@ -190,9 +178,7 @@ Proof.
   intros s i s1 s2 H1 H2. rewrite <- H1, <- H2. reflexivity.
 Qed.
 
-(* ================================================================== *)
 (* Section 4: Wire Specification — abstract implementation contract    *)
-(* ================================================================== *)
 
 (** A "wire specification" defines a μ/PC-level contract for an
     implementation. Any two implementations satisfying this contract agree on
@@ -210,7 +196,7 @@ Record WireSpec := {
 }.
 
 (** The Coq kernel would satisfy the wire specification for non-jump instructions.
-    NOTE: WireSpec abstraction is idealized and incomplete. Jump instructions don't
+ WireSpec abstraction is idealized and incomplete. Jump instructions don't
     increment PC by 1. The complete semantics are proven in SimulationProof.v and
     HardwareBridge.v. This partial spec is kept for documentation but not proven. *)
 (*
@@ -226,9 +212,7 @@ Definition coq_wire_spec : WireSpec := {|
 |}.
 *)
 
-(* ================================================================== *)
 (* Section 5: Trace execution and cost accounting                      *)
-(* ================================================================== *)
 
 Fixpoint run_wire (spec : WireSpec) (instrs : list vm_instruction)
   (s : ws_state spec) : ws_state spec :=
@@ -243,7 +227,6 @@ Fixpoint trace_cost (instrs : list vm_instruction) : nat :=
   | i :: rest => instruction_cost i + trace_cost rest
   end.
 
-(** [trace_mu_exact]: formal specification. *)
 Theorem trace_mu_exact : forall (spec : WireSpec) instrs s,
   ws_mu spec (run_wire spec instrs s) = ws_mu spec s + trace_cost instrs.
 Proof.
@@ -252,7 +235,6 @@ Proof.
   - rewrite IH. rewrite (ws_mu_exact spec). lia.
 Qed.
 
-(** [trace_pc_exact]: formal specification. *)
 Theorem trace_pc_exact : forall (spec : WireSpec) instrs s,
   ws_pc spec (run_wire spec instrs s) = ws_pc spec s + length instrs.
 Proof.
@@ -261,9 +243,7 @@ Proof.
   - rewrite IH. rewrite (ws_pc_advance spec). lia.
 Qed.
 
-(* ================================================================== *)
 (* Section 6: THE CORE THEOREM — 3-way bisimulation                    *)
-(* ================================================================== *)
 
 (** Any two implementations satisfying [WireSpec], starting from the same
     μ and PC, produce identical μ and PC after executing the same trace. *)
@@ -302,11 +282,8 @@ Proof.
 Qed.
 *)
 
-(* ================================================================== *)
 (* Section 7: Single-step bisimulation (per-instruction guarantee)     *)
-(* ================================================================== *)
 
-(** [single_step_bisimulation]: formal specification. *)
 Theorem single_step_bisimulation :
   forall (spec1 spec2 : WireSpec)
     (s1 : ws_state spec1) (s2 : ws_state spec2)
@@ -322,9 +299,7 @@ Proof.
   - rewrite (ws_pc_advance spec1), (ws_pc_advance spec2). lia.
 Qed.
 
-(* ================================================================== *)
 (* Section 8: Full-State Wire Specification                            *)
-(* ================================================================== *)
 
 (** WireSpec only covers μ and PC. For the full three-layer comparison contract
     we need to verify ALL state components: registers, memory, partition
@@ -455,9 +430,7 @@ Definition coq_full_wire_spec : FullWireSpec := {|
   fws_step_correct := coq_full_step_correct
 |}.
 
-(* ================================================================== *)
 (* Section 9: THE CORE THEOREM — Full-State 3-Way Bisimulation         *)
-(* ================================================================== *)
 
 (** Single-step full-state comparison: if two [FullWireSpec] implementations
     agree on all projected observables, they agree on those observables after

@@ -834,6 +834,30 @@ module N =
     pred (shiftl 1 n0)
  end
 
+(** val n_of_digits : bool list -> int **)
+
+let rec n_of_digits = function
+| [] -> 0
+| b::l' ->
+  N.add (if b then 1 else 0) (N.mul ((fun p->2*p) 1) (n_of_digits l'))
+
+(** val n_of_ascii : char -> int **)
+
+let n_of_ascii a =
+  (* If this appears, you're using Ascii internals. Please don't *)
+ (fun f c ->
+  let n = Char.code c in
+  let h i = (n land (1 lsl i)) <> 0 in
+  f (h 0) (h 1) (h 2) (h 3) (h 4) (h 5) (h 6) (h 7))
+    (fun a0 a1 a2 a3 a4 a5 a6 a7 ->
+    n_of_digits (a0::(a1::(a2::(a3::(a4::(a5::(a6::(a7::[])))))))))
+    a
+
+(** val nat_of_ascii : char -> int **)
+
+let nat_of_ascii a =
+  N.to_nat (n_of_ascii a)
+
 module Z =
  struct
   (** val double : int -> int **)
@@ -942,30 +966,6 @@ module Z =
       (fun n1 -> (Pos.of_succ_nat n1))
       n0
  end
-
-(** val n_of_digits : bool list -> int **)
-
-let rec n_of_digits = function
-| [] -> 0
-| b::l' ->
-  N.add (if b then 1 else 0) (N.mul ((fun p->2*p) 1) (n_of_digits l'))
-
-(** val n_of_ascii : char -> int **)
-
-let n_of_ascii a =
-  (* If this appears, you're using Ascii internals. Please don't *)
- (fun f c ->
-  let n = Char.code c in
-  let h i = (n land (1 lsl i)) <> 0 in
-  f (h 0) (h 1) (h 2) (h 3) (h 4) (h 5) (h 6) (h 7))
-    (fun a0 a1 a2 a3 a4 a5 a6 a7 ->
-    n_of_digits (a0::(a1::(a2::(a3::(a4::(a5::(a6::(a7::[])))))))))
-    a
-
-(** val nat_of_ascii : char -> int **)
-
-let nat_of_ascii a =
-  N.to_nat (n_of_ascii a)
 
 (** val append : char list -> char list -> char list **)
 
@@ -1609,10 +1609,46 @@ module CertCheck =
                            in
                            scan ws ndone ((||) clause_sat lsat))
             in scan lit_words 0 false))
+
+  (** val check_countermodel_binary_fn : int list -> (int -> int) -> bool **)
+
+  let check_countermodel_binary_fn formula_words get_cert =
+    match formula_words with
+    | [] -> false
+    | _::l ->
+      (match l with
+       | [] -> false
+       | _::l0 ->
+         (match l0 with
+          | [] -> false
+          | _::_ -> negb (check_model_binary_fn formula_words get_cert)))
  end
 
 module VMStep =
  struct
+  (** val ascii_payload_bits : char -> bool list **)
+
+  let ascii_payload_bits a =
+    (* If this appears, you're using Ascii internals. Please don't *)
+ (fun f c ->
+  let n = Char.code c in
+  let h i = (n land (1 lsl i)) <> 0 in
+  f (h 0) (h 1) (h 2) (h 3) (h 4) (h 5) (h 6) (h 7))
+      (fun b0 b1 b2 b3 b4 b5 b6 b7 ->
+      b0::(b1::(b2::(b3::(b4::(b5::(b6::(b7::[]))))))))
+      a
+
+  (** val payload_bits : char list -> bool list **)
+
+  let rec payload_bits = function
+  | [] -> []
+  | a::rest -> app (ascii_payload_bits a) (payload_bits rest)
+
+  (** val payload_bit_length : char list -> int **)
+
+  let payload_bit_length s =
+    length (payload_bits s)
+
   type vm_instruction =
   | Coq_instr_pnew of int list * int
   | Coq_instr_psplit of moduleID * int list * int list * int
@@ -1638,7 +1674,6 @@ module VMStep =
   | Coq_instr_xor_rank of int * int * int
   | Coq_instr_emit of moduleID * char list * int
   | Coq_instr_reveal of moduleID * int * char list * int
-  | Coq_instr_oracle_halts of char list * int
   | Coq_instr_halt of int
   | Coq_instr_checkpoint of char list * int
   | Coq_instr_read_port of int * int * int * int * int
@@ -1661,11 +1696,6 @@ module VMStep =
   | Coq_instr_morph_assert of morphismID * char list * char list * int
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
-
-  (** val coq_ORACLE_HALTS_HW_COST : int **)
-
-  let coq_ORACLE_HALTS_HW_COST =
-    of_num_uint (UIntDecimal (D1 (D0 (D0 (D0 (D0 (D0 (D0 Nil))))))))
 
   (** val instruction_cost : vm_instruction -> int **)
 
@@ -1696,12 +1726,13 @@ module VMStep =
   | Coq_instr_xor_add (_, _, cost) -> cost
   | Coq_instr_xor_swap (_, _, cost) -> cost
   | Coq_instr_xor_rank (_, _, cost) -> cost
-  | Coq_instr_emit (_, _, cost) -> (fun x -> x + 1) cost
-  | Coq_instr_reveal (_, _, _, cost) -> (fun x -> x + 1) cost
-  | Coq_instr_oracle_halts (_, _) -> coq_ORACLE_HALTS_HW_COST
+  | Coq_instr_emit (_, payload, cost) ->
+    add (payload_bit_length payload) ((fun x -> x + 1) cost)
+  | Coq_instr_reveal (_, bits, _, cost) -> add bits ((fun x -> x + 1) cost)
   | Coq_instr_halt cost -> cost
   | Coq_instr_checkpoint (_, cost) -> cost
-  | Coq_instr_read_port (_, _, _, _, cost) -> (fun x -> x + 1) cost
+  | Coq_instr_read_port (_, _, _, bits, cost) ->
+    add bits ((fun x -> x + 1) cost)
   | Coq_instr_write_port (_, _, cost) -> cost
   | Coq_instr_heap_load (_, _, cost) -> cost
   | Coq_instr_heap_store (_, _, cost) -> cost
@@ -2933,431 +2964,34 @@ module VMStep =
           (add ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) 0)))
             hw_flen))
     in
-    let get_cert = fun var -> read_mem s (add cbase var) in
+    let num_vars =
+      match formula_words with
+      | [] -> 0
+      | _::l -> (match l with
+                 | [] -> 0
+                 | nv::_ -> nv)
+    in
+    let get_model = fun var -> read_mem s (add cbase var) in
+    let get_countermodel = fun var ->
+      read_mem s (add (add cbase num_vars) var)
+    in
     if kind
-    then CertCheck.check_model_binary_fn formula_words get_cert
+    then (&&) (CertCheck.check_model_binary_fn formula_words get_model)
+           (CertCheck.check_countermodel_binary_fn formula_words
+             get_countermodel)
     else false
+
+  (** val lassert_hw_flen : vMState -> int -> int **)
+
+  let lassert_hw_flen s freg =
+    read_mem s (read_reg s freg)
+
+  (** val lassert_exec_ok : vMState -> int -> int -> bool -> int -> bool **)
+
+  let lassert_exec_ok s freg creg kind flen =
+    (&&) (Nat.eqb (lassert_hw_flen s freg) flen)
+      (lassert_check_ok s freg creg kind)
  end
-
-(** val vm_apply : vMState -> VMStep.vm_instruction -> vMState **)
-
-let vm_apply s = function
-| VMStep.Coq_instr_pnew (region, cost) ->
-  let sz = length (normalize_region region) in
-  let graph',_ = graph_add_module s.vm_graph (seq 0 sz) [] in
-  VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
-    s.vm_csrs s.vm_err
-| VMStep.Coq_instr_psplit (module0, left_region, right_region, cost) ->
-  let graph' =
-    VMStep.graph_hw_psplit s.vm_graph
-      (Nat.modulo module0 ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1)
-        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-  in
-  VMStep.advance_state s (VMStep.Coq_instr_psplit (module0, left_region,
-    right_region, cost)) graph' s.vm_csrs s.vm_err
-| VMStep.Coq_instr_pmerge (m1, m2, cost) ->
-  let graph' =
-    VMStep.graph_hw_pmerge s.vm_graph
-      (Nat.modulo m1 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1)
-        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-      (Nat.modulo m2 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1)
-        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
-  in
-  VMStep.advance_state s (VMStep.Coq_instr_pmerge (m1, m2, cost)) graph'
-    s.vm_csrs s.vm_err
-| VMStep.Coq_instr_lassert (freg, creg, kind, flen, cost) ->
-  let check_ok = VMStep.lassert_check_ok s freg creg kind in
-  let new_pc =
-    if check_ok then (fun x -> x + 1) s.vm_pc else VMStep.coq_LASSERT_TRAP_PC
-  in
-  let new_err = if check_ok then s.vm_err else true in
-  { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem =
-  s.vm_mem; vm_pc = new_pc; vm_mu =
-  (VMStep.apply_cost s (VMStep.Coq_instr_lassert (freg, creg, kind, flen,
-    cost))); vm_mu_tensor = s.vm_mu_tensor; vm_err = new_err; vm_logic_acc =
-  s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness;
-  vm_certified = s.vm_certified }
-| VMStep.Coq_instr_xfer (dst, src, cost) ->
-  let regs' = write_reg s dst (read_reg s src) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_xfer (dst, src, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_load_imm (dst, imm, cost) ->
-  let regs' = write_reg s dst (word64 imm) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_load_imm (dst, imm, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_load (dst, rs_addr, cost) ->
-  let addr = read_reg s rs_addr in
-  let value = read_mem s addr in
-  let regs' = write_reg s dst value in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_load (dst, rs_addr, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_store (rs_addr, src, cost) ->
-  let addr = read_reg s rs_addr in
-  let value = read_reg s src in
-  let mem' = write_mem s addr value in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_store (rs_addr, src, cost))
-    s.vm_graph s.vm_csrs s.vm_regs mem' s.vm_err
-| VMStep.Coq_instr_add (dst, rs1, rs2, cost) ->
-  let v1 = read_reg s rs1 in
-  let v2 = read_reg s rs2 in
-  let regs' = write_reg s dst (word64_add v1 v2) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_add (dst, rs1, rs2, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_sub (dst, rs1, rs2, cost) ->
-  let v1 = read_reg s rs1 in
-  let v2 = read_reg s rs2 in
-  let regs' = write_reg s dst (word64_sub v1 v2) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_sub (dst, rs1, rs2, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_jump (target, cost) ->
-  VMStep.jump_state s (VMStep.Coq_instr_jump (target, cost)) target
-| VMStep.Coq_instr_jnez (rs, target, cost) ->
-  if Nat.eqb (read_reg s rs) 0
-  then VMStep.advance_state s (VMStep.Coq_instr_jnez (rs, target, cost))
-         s.vm_graph s.vm_csrs s.vm_err
-  else VMStep.jump_state s (VMStep.Coq_instr_jnez (rs, target, cost)) target
-| VMStep.Coq_instr_call (target, cost) ->
-  let sp =
-    read_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      0)))))))))))))))))))))))))))))))
-  in
-  let ret_addr = (fun x -> x + 1) s.vm_pc in
-  let mem' = write_mem s sp ret_addr in
-  let regs' =
-    write_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      0))))))))))))))))))))))))))))))) (word64_add sp ((fun x -> x + 1) 0))
-  in
-  VMStep.jump_state_rm s (VMStep.Coq_instr_call (target, cost)) target regs'
-    mem'
-| VMStep.Coq_instr_ret cost ->
-  let sp =
-    word64_sub
-      (read_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))))))))))))))))))) ((fun x -> x + 1)
-      0)
-  in
-  let ret_pc = read_mem s sp in
-  let regs' =
-    write_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      0))))))))))))))))))))))))))))))) sp
-  in
-  VMStep.jump_state_rm s (VMStep.Coq_instr_ret cost) ret_pc regs' s.vm_mem
-| VMStep.Coq_instr_chsh_trial (x, y, a, b, cost) ->
-  if VMStep.chsh_bits_ok x y a b
-  then { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
-         vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
-         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_trial (x, y, a, b,
-           cost))); vm_mu_tensor = s.vm_mu_tensor; vm_err = s.vm_err;
-         vm_logic_acc = s.vm_logic_acc; vm_mstatus = s.vm_mstatus;
-         vm_witness = (VMStep.record_trial s.vm_witness x y a b);
-         vm_certified = s.vm_certified }
-  else VMStep.advance_state s (VMStep.Coq_instr_chsh_trial (x, y, a, b,
-         cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-         (VMStep.latch_err s true)
-| VMStep.Coq_instr_xor_load (dst, addr, cost) ->
-  let value = read_mem s addr in
-  let regs' = write_reg s dst value in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_load (dst, addr, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_xor_add (dst, src, cost) ->
-  let vdst = read_reg s dst in
-  let vsrc = read_reg s src in
-  let regs' = write_reg s dst (word64_xor vdst vsrc) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_add (dst, src, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_xor_swap (a, b, cost) ->
-  let regs' = swap_regs s.vm_regs a b in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_swap (a, b, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_xor_rank (dst, src, cost) ->
-  let vsrc = read_reg s src in
-  let regs' = write_reg s dst (word64_popcount vsrc) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_rank (dst, src, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_reveal (module0, bits, cert, cost) ->
-  VMStep.advance_state_reveal s (VMStep.Coq_instr_reveal (module0, bits,
-    cert, cost))
-    (Nat.modulo module0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) 0))))))))))))))))) bits s.vm_graph s.vm_csrs s.vm_err
-| VMStep.Coq_instr_read_port (dst, channel_idx, value, bits, cost) ->
-  let regs' = write_reg s dst value in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_read_port (dst, channel_idx,
-    value, bits, cost)) s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_heap_load (dst, rs_addr, cost) ->
-  let addr = read_reg s rs_addr in
-  let value = read_mem s (add s.vm_csrs.csr_heap_base addr) in
-  let regs' = write_reg s dst value in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_heap_load (dst, rs_addr, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_heap_store (rs_addr, src, cost) ->
-  let addr = read_reg s rs_addr in
-  let value = read_reg s src in
-  let mem' = write_mem s (add s.vm_csrs.csr_heap_base addr) value in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_heap_store (rs_addr, src,
-    cost)) s.vm_graph s.vm_csrs s.vm_regs mem' s.vm_err
-| VMStep.Coq_instr_certify delta_mu ->
-  { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem =
-    s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
-    (add s.vm_mu ((fun x -> x + 1) delta_mu)); vm_mu_tensor = s.vm_mu_tensor;
-    vm_err = s.vm_err; vm_logic_acc = s.vm_logic_acc; vm_mstatus =
-    s.vm_mstatus; vm_witness = s.vm_witness; vm_certified = true }
-| VMStep.Coq_instr_and (dst, rs1, rs2, cost) ->
-  let v1 = read_reg s rs1 in
-  let v2 = read_reg s rs2 in
-  let regs' = write_reg s dst (word64_and v1 v2) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_and (dst, rs1, rs2, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_or (dst, rs1, rs2, cost) ->
-  let v1 = read_reg s rs1 in
-  let v2 = read_reg s rs2 in
-  let regs' = write_reg s dst (word64_or v1 v2) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_or (dst, rs1, rs2, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_shl (dst, rs1, rs2, cost) ->
-  let v1 = read_reg s rs1 in
-  let v2 = read_reg s rs2 in
-  let regs' = write_reg s dst (word64_shl v1 v2) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_shl (dst, rs1, rs2, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_shr (dst, rs1, rs2, cost) ->
-  let v1 = read_reg s rs1 in
-  let v2 = read_reg s rs2 in
-  let regs' = write_reg s dst (word64_shr v1 v2) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_shr (dst, rs1, rs2, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_mul (dst, rs1, rs2, cost) ->
-  let v1 = read_reg s rs1 in
-  let v2 = read_reg s rs2 in
-  let regs' = write_reg s dst (word64_mul v1 v2) in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_mul (dst, rs1, rs2, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_lui (dst, imm, cost) ->
-  let regs' =
-    write_reg s dst
-      (word64_shl imm ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) 0)))))))))
-  in
-  VMStep.advance_state_rm s (VMStep.Coq_instr_lui (dst, imm, cost))
-    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
-| VMStep.Coq_instr_tensor_set (mid, i, j, value, cost) ->
-  if VMStep.tensor_indices_ok i j
-  then VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
-         cost))
-         (graph_update_module_tensor s.vm_graph mid
-           (add
-             (mul i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-               ((fun x -> x + 1) 0))))) j) value) s.vm_csrs s.vm_err
-  else VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
-         cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-         (VMStep.latch_err s true)
-| VMStep.Coq_instr_tensor_get (dst, mid, i, j, cost) ->
-  if VMStep.tensor_indices_ok i j
-  then VMStep.advance_state_rm s (VMStep.Coq_instr_tensor_get (dst, mid, i,
-         j, cost)) s.vm_graph s.vm_csrs
-         (write_reg s dst (module_tensor_entry s mid i j)) s.vm_mem s.vm_err
-  else VMStep.advance_state s (VMStep.Coq_instr_tensor_get (dst, mid, i, j,
-         cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-         (VMStep.latch_err s true)
-| VMStep.Coq_instr_morph (dst, src_mod, dst_mod, coupling_idx, cost) ->
-  (match graph_lookup s.vm_graph src_mod with
-   | Some _ ->
-     (match graph_lookup s.vm_graph dst_mod with
-      | Some _ ->
-        let graph',morph_id =
-          graph_add_morphism s.vm_graph src_mod dst_mod empty_coupling_data
-            false
-        in
-        VMStep.advance_state_rm s (VMStep.Coq_instr_morph (dst, src_mod,
-          dst_mod, coupling_idx, cost)) graph' s.vm_csrs
-          (write_reg s dst morph_id) s.vm_mem s.vm_err
-      | None ->
-        VMStep.advance_state s (VMStep.Coq_instr_morph (dst, src_mod,
-          dst_mod, coupling_idx, cost)) s.vm_graph
-          (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-          (VMStep.latch_err s true))
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph (dst, src_mod, dst_mod,
-       coupling_idx, cost)) s.vm_graph
-       (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
-| VMStep.Coq_instr_compose (dst, m1_id, m2_id, cost) ->
-  (match graph_compose_morphisms s.vm_graph m1_id m2_id with
-   | Some p ->
-     let graph',morph_id = p in
-     VMStep.advance_state_rm s (VMStep.Coq_instr_compose (dst, m1_id, m2_id,
-       cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_compose (dst, m1_id, m2_id,
-       cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-       (VMStep.latch_err s true))
-| VMStep.Coq_instr_morph_id (dst, module0, cost) ->
-  (match graph_add_identity s.vm_graph module0 with
-   | Some p ->
-     let graph',morph_id = p in
-     VMStep.advance_state_rm s (VMStep.Coq_instr_morph_id (dst, module0,
-       cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph_id (dst, module0, cost))
-       s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-       (VMStep.latch_err s true))
-| VMStep.Coq_instr_morph_delete (morph_id, cost) ->
-  (match graph_delete_morphism s.vm_graph morph_id with
-   | Some graph' ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph_delete (morph_id, cost))
-       graph' s.vm_csrs s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph_delete (morph_id, cost))
-       s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-       (VMStep.latch_err s true))
-| VMStep.Coq_instr_morph_assert (morph_id, property, cert, cost) ->
-  (match graph_lookup_morphism s.vm_graph morph_id with
-   | Some _ ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph_assert (morph_id,
-       property, cert, cost)) s.vm_graph
-       (csr_set_cert_addr s.vm_csrs (ascii_checksum property)) s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph_assert (morph_id,
-       property, cert, cost)) s.vm_graph
-       (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
-| VMStep.Coq_instr_morph_tensor (dst, f_id, g_id, cost) ->
-  (match graph_tensor_morphisms s.vm_graph f_id g_id with
-   | Some p ->
-     let graph',morph_id = p in
-     VMStep.advance_state_rm s (VMStep.Coq_instr_morph_tensor (dst, f_id,
-       g_id, cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem
-       s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph_tensor (dst, f_id, g_id,
-       cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
-       (VMStep.latch_err s true))
-| VMStep.Coq_instr_morph_get (dst, morph_id, selector, cost) ->
-  (match graph_lookup_morphism s.vm_graph morph_id with
-   | Some ms ->
-     VMStep.advance_state_rm s (VMStep.Coq_instr_morph_get (dst, morph_id,
-       selector, cost)) s.vm_graph s.vm_csrs
-       (write_reg s dst (VMStep.morphism_selector_value ms selector))
-       s.vm_mem s.vm_err
-   | None ->
-     VMStep.advance_state s (VMStep.Coq_instr_morph_get (dst, morph_id,
-       selector, cost)) s.vm_graph
-       (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
-| x -> VMStep.advance_state s x s.vm_graph s.vm_csrs s.vm_err
-
-(** val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState **)
-
-let vm_apply_nofi =
-  vm_apply
-
-(** val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState **)
-
-let vm_apply_runtime =
-  vm_apply
-
-(** val pnew_chain : int -> vMState -> int list -> int -> vMState **)
-
-let rec pnew_chain n0 s region cost =
-  (fun zero succ n -> if n=0 then zero () else succ (n-1))
-    (fun _ -> s)
-    (fun k ->
-    pnew_chain k (vm_apply s (VMStep.Coq_instr_pnew (region, cost))) region
-      cost)
-    n0
 
 type morphTableEntry = { morph_entry_source : int; morph_entry_target : 
                          int; morph_entry_coupling_desc : int;
@@ -4383,3 +4017,423 @@ type busOp =
 let bus_step st = function
 | BusOpRead _ -> st
 | BusOpWrite (addr, data) -> busWrite st addr data
+
+(** val vm_apply : vMState -> VMStep.vm_instruction -> vMState **)
+
+let vm_apply s = function
+| VMStep.Coq_instr_pnew (region, cost) ->
+  let sz = length (normalize_region region) in
+  let graph',_ = graph_add_module s.vm_graph (seq 0 sz) [] in
+  VMStep.advance_state s (VMStep.Coq_instr_pnew (region, cost)) graph'
+    s.vm_csrs s.vm_err
+| VMStep.Coq_instr_psplit (module0, left_region, right_region, cost) ->
+  let graph' =
+    VMStep.graph_hw_psplit s.vm_graph
+      (Nat.modulo module0 ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1)
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  in
+  VMStep.advance_state s (VMStep.Coq_instr_psplit (module0, left_region,
+    right_region, cost)) graph' s.vm_csrs s.vm_err
+| VMStep.Coq_instr_pmerge (m1, m2, cost) ->
+  let graph' =
+    VMStep.graph_hw_pmerge s.vm_graph
+      (Nat.modulo m1 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1)
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+      (Nat.modulo m2 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1)
+        0)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))
+  in
+  VMStep.advance_state s (VMStep.Coq_instr_pmerge (m1, m2, cost)) graph'
+    s.vm_csrs s.vm_err
+| VMStep.Coq_instr_lassert (freg, creg, kind, flen, cost) ->
+  let check_ok = VMStep.lassert_exec_ok s freg creg kind flen in
+  let new_pc =
+    if check_ok then (fun x -> x + 1) s.vm_pc else VMStep.coq_LASSERT_TRAP_PC
+  in
+  let new_err = if check_ok then s.vm_err else true in
+  { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem =
+  s.vm_mem; vm_pc = new_pc; vm_mu =
+  (VMStep.apply_cost s (VMStep.Coq_instr_lassert (freg, creg, kind, flen,
+    cost))); vm_mu_tensor = s.vm_mu_tensor; vm_err = new_err; vm_logic_acc =
+  s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness;
+  vm_certified = s.vm_certified }
+| VMStep.Coq_instr_xfer (dst, src, cost) ->
+  let regs' = write_reg s dst (read_reg s src) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_xfer (dst, src, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_load_imm (dst, imm, cost) ->
+  let regs' = write_reg s dst (word64 imm) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_load_imm (dst, imm, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_load (dst, rs_addr, cost) ->
+  let addr = read_reg s rs_addr in
+  let value = read_mem s addr in
+  let regs' = write_reg s dst value in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_load (dst, rs_addr, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_store (rs_addr, src, cost) ->
+  let addr = read_reg s rs_addr in
+  let value = read_reg s src in
+  let mem' = write_mem s addr value in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_store (rs_addr, src, cost))
+    s.vm_graph s.vm_csrs s.vm_regs mem' s.vm_err
+| VMStep.Coq_instr_add (dst, rs1, rs2, cost) ->
+  let v1 = read_reg s rs1 in
+  let v2 = read_reg s rs2 in
+  let regs' = write_reg s dst (word64_add v1 v2) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_add (dst, rs1, rs2, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_sub (dst, rs1, rs2, cost) ->
+  let v1 = read_reg s rs1 in
+  let v2 = read_reg s rs2 in
+  let regs' = write_reg s dst (word64_sub v1 v2) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_sub (dst, rs1, rs2, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_jump (target, cost) ->
+  VMStep.jump_state s (VMStep.Coq_instr_jump (target, cost)) target
+| VMStep.Coq_instr_jnez (rs, target, cost) ->
+  if Nat.eqb (read_reg s rs) 0
+  then VMStep.advance_state s (VMStep.Coq_instr_jnez (rs, target, cost))
+         s.vm_graph s.vm_csrs s.vm_err
+  else VMStep.jump_state s (VMStep.Coq_instr_jnez (rs, target, cost)) target
+| VMStep.Coq_instr_call (target, cost) ->
+  let sp =
+    read_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      0)))))))))))))))))))))))))))))))
+  in
+  let ret_addr = (fun x -> x + 1) s.vm_pc in
+  let mem' = write_mem s sp ret_addr in
+  let regs' =
+    write_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      0))))))))))))))))))))))))))))))) (word64_add sp ((fun x -> x + 1) 0))
+  in
+  VMStep.jump_state_rm s (VMStep.Coq_instr_call (target, cost)) target regs'
+    mem'
+| VMStep.Coq_instr_ret cost ->
+  let sp =
+    word64_sub
+      (read_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) 0)))))))))))))))))))))))))))))))) ((fun x -> x + 1)
+      0)
+  in
+  let ret_pc = read_mem s sp in
+  let regs' =
+    write_reg s ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      0))))))))))))))))))))))))))))))) sp
+  in
+  VMStep.jump_state_rm s (VMStep.Coq_instr_ret cost) ret_pc regs' s.vm_mem
+| VMStep.Coq_instr_chsh_trial (x, y, a, b, cost) ->
+  if VMStep.chsh_bits_ok x y a b
+  then { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_trial (x, y, a, b,
+           cost))); vm_mu_tensor = s.vm_mu_tensor; vm_err = s.vm_err;
+         vm_logic_acc = s.vm_logic_acc; vm_mstatus = s.vm_mstatus;
+         vm_witness = (VMStep.record_trial s.vm_witness x y a b);
+         vm_certified = s.vm_certified }
+  else VMStep.advance_state s (VMStep.Coq_instr_chsh_trial (x, y, a, b,
+         cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+         (VMStep.latch_err s true)
+| VMStep.Coq_instr_xor_load (dst, addr, cost) ->
+  let value = read_mem s addr in
+  let regs' = write_reg s dst value in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_load (dst, addr, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_xor_add (dst, src, cost) ->
+  let vdst = read_reg s dst in
+  let vsrc = read_reg s src in
+  let regs' = write_reg s dst (word64_xor vdst vsrc) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_add (dst, src, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_xor_swap (a, b, cost) ->
+  let regs' = swap_regs s.vm_regs a b in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_swap (a, b, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_xor_rank (dst, src, cost) ->
+  let vsrc = read_reg s src in
+  let regs' = write_reg s dst (word64_popcount vsrc) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_xor_rank (dst, src, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_reveal (module0, bits, cert, cost) ->
+  VMStep.advance_state_reveal s (VMStep.Coq_instr_reveal (module0, bits,
+    cert, cost))
+    (Nat.modulo module0 ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((fun x -> x + 1) 0))))))))))))))))) bits s.vm_graph s.vm_csrs s.vm_err
+| VMStep.Coq_instr_read_port (dst, channel_idx, value, bits, cost) ->
+  let regs' = write_reg s dst value in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_read_port (dst, channel_idx,
+    value, bits, cost)) s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_heap_load (dst, rs_addr, cost) ->
+  let addr = read_reg s rs_addr in
+  let value = read_mem s (add s.vm_csrs.csr_heap_base addr) in
+  let regs' = write_reg s dst value in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_heap_load (dst, rs_addr, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_heap_store (rs_addr, src, cost) ->
+  let addr = read_reg s rs_addr in
+  let value = read_reg s src in
+  let mem' = write_mem s (add s.vm_csrs.csr_heap_base addr) value in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_heap_store (rs_addr, src,
+    cost)) s.vm_graph s.vm_csrs s.vm_regs mem' s.vm_err
+| VMStep.Coq_instr_certify delta_mu ->
+  { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem =
+    s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
+    (add s.vm_mu ((fun x -> x + 1) delta_mu)); vm_mu_tensor = s.vm_mu_tensor;
+    vm_err = s.vm_err; vm_logic_acc = s.vm_logic_acc; vm_mstatus =
+    s.vm_mstatus; vm_witness = s.vm_witness; vm_certified = true }
+| VMStep.Coq_instr_and (dst, rs1, rs2, cost) ->
+  let v1 = read_reg s rs1 in
+  let v2 = read_reg s rs2 in
+  let regs' = write_reg s dst (word64_and v1 v2) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_and (dst, rs1, rs2, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_or (dst, rs1, rs2, cost) ->
+  let v1 = read_reg s rs1 in
+  let v2 = read_reg s rs2 in
+  let regs' = write_reg s dst (word64_or v1 v2) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_or (dst, rs1, rs2, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_shl (dst, rs1, rs2, cost) ->
+  let v1 = read_reg s rs1 in
+  let v2 = read_reg s rs2 in
+  let regs' = write_reg s dst (word64_shl v1 v2) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_shl (dst, rs1, rs2, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_shr (dst, rs1, rs2, cost) ->
+  let v1 = read_reg s rs1 in
+  let v2 = read_reg s rs2 in
+  let regs' = write_reg s dst (word64_shr v1 v2) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_shr (dst, rs1, rs2, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_mul (dst, rs1, rs2, cost) ->
+  let v1 = read_reg s rs1 in
+  let v2 = read_reg s rs2 in
+  let regs' = write_reg s dst (word64_mul v1 v2) in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_mul (dst, rs1, rs2, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_lui (dst, imm, cost) ->
+  let regs' =
+    write_reg s dst
+      (word64_shl imm ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+        ((fun x -> x + 1) ((fun x -> x + 1) 0)))))))))
+  in
+  VMStep.advance_state_rm s (VMStep.Coq_instr_lui (dst, imm, cost))
+    s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
+| VMStep.Coq_instr_tensor_set (mid, i, j, value, cost) ->
+  if VMStep.tensor_indices_ok i j
+  then VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
+         cost))
+         (graph_update_module_tensor s.vm_graph mid
+           (add
+             (mul i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+               ((fun x -> x + 1) 0))))) j) value) s.vm_csrs s.vm_err
+  else VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
+         cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+         (VMStep.latch_err s true)
+| VMStep.Coq_instr_tensor_get (dst, mid, i, j, cost) ->
+  if VMStep.tensor_indices_ok i j
+  then VMStep.advance_state_rm s (VMStep.Coq_instr_tensor_get (dst, mid, i,
+         j, cost)) s.vm_graph s.vm_csrs
+         (write_reg s dst (module_tensor_entry s mid i j)) s.vm_mem s.vm_err
+  else VMStep.advance_state s (VMStep.Coq_instr_tensor_get (dst, mid, i, j,
+         cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+         (VMStep.latch_err s true)
+| VMStep.Coq_instr_morph (dst, src_mod, dst_mod, coupling_idx, cost) ->
+  (match graph_lookup s.vm_graph src_mod with
+   | Some _ ->
+     (match graph_lookup s.vm_graph dst_mod with
+      | Some _ ->
+        let graph',morph_id =
+          graph_add_morphism s.vm_graph src_mod dst_mod empty_coupling_data
+            false
+        in
+        VMStep.advance_state_rm s (VMStep.Coq_instr_morph (dst, src_mod,
+          dst_mod, coupling_idx, cost)) graph' s.vm_csrs
+          (write_reg s dst morph_id) s.vm_mem s.vm_err
+      | None ->
+        VMStep.advance_state s (VMStep.Coq_instr_morph (dst, src_mod,
+          dst_mod, coupling_idx, cost)) s.vm_graph
+          (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+          (VMStep.latch_err s true))
+   | None ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph (dst, src_mod, dst_mod,
+       coupling_idx, cost)) s.vm_graph
+       (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
+| VMStep.Coq_instr_compose (dst, m1_id, m2_id, cost) ->
+  (match graph_compose_morphisms s.vm_graph m1_id m2_id with
+   | Some p ->
+     let graph',morph_id = p in
+     VMStep.advance_state_rm s (VMStep.Coq_instr_compose (dst, m1_id, m2_id,
+       cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem s.vm_err
+   | None ->
+     VMStep.advance_state s (VMStep.Coq_instr_compose (dst, m1_id, m2_id,
+       cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+       (VMStep.latch_err s true))
+| VMStep.Coq_instr_morph_id (dst, module0, cost) ->
+  (match graph_add_identity s.vm_graph module0 with
+   | Some p ->
+     let graph',morph_id = p in
+     VMStep.advance_state_rm s (VMStep.Coq_instr_morph_id (dst, module0,
+       cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem s.vm_err
+   | None ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph_id (dst, module0, cost))
+       s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+       (VMStep.latch_err s true))
+| VMStep.Coq_instr_morph_delete (morph_id, cost) ->
+  (match graph_delete_morphism s.vm_graph morph_id with
+   | Some graph' ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph_delete (morph_id, cost))
+       graph' s.vm_csrs s.vm_err
+   | None ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph_delete (morph_id, cost))
+       s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+       (VMStep.latch_err s true))
+| VMStep.Coq_instr_morph_assert (morph_id, property, cert, cost) ->
+  (match graph_lookup_morphism s.vm_graph morph_id with
+   | Some _ ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph_assert (morph_id,
+       property, cert, cost)) s.vm_graph
+       (csr_set_cert_addr s.vm_csrs (ascii_checksum property)) s.vm_err
+   | None ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph_assert (morph_id,
+       property, cert, cost)) s.vm_graph
+       (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
+| VMStep.Coq_instr_morph_tensor (dst, f_id, g_id, cost) ->
+  (match graph_tensor_morphisms s.vm_graph f_id g_id with
+   | Some p ->
+     let graph',morph_id = p in
+     VMStep.advance_state_rm s (VMStep.Coq_instr_morph_tensor (dst, f_id,
+       g_id, cost)) graph' s.vm_csrs (write_reg s dst morph_id) s.vm_mem
+       s.vm_err
+   | None ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph_tensor (dst, f_id, g_id,
+       cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
+       (VMStep.latch_err s true))
+| VMStep.Coq_instr_morph_get (dst, morph_id, selector, cost) ->
+  (match graph_lookup_morphism s.vm_graph morph_id with
+   | Some ms ->
+     VMStep.advance_state_rm s (VMStep.Coq_instr_morph_get (dst, morph_id,
+       selector, cost)) s.vm_graph s.vm_csrs
+       (write_reg s dst (VMStep.morphism_selector_value ms selector))
+       s.vm_mem s.vm_err
+   | None ->
+     VMStep.advance_state s (VMStep.Coq_instr_morph_get (dst, morph_id,
+       selector, cost)) s.vm_graph
+       (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
+| x -> VMStep.advance_state s x s.vm_graph s.vm_csrs s.vm_err
+
+(** val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState **)
+
+let vm_apply_nofi =
+  vm_apply
+
+(** val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState **)
+
+let vm_apply_runtime =
+  vm_apply
+
+(** val pnew_chain : int -> vMState -> int list -> int -> vMState **)
+
+let rec pnew_chain n0 s region cost =
+  (fun zero succ n -> if n=0 then zero () else succ (n-1))
+    (fun _ -> s)
+    (fun k ->
+    pnew_chain k (vm_apply s (VMStep.Coq_instr_pnew (region, cost))) region
+      cost)
+    n0

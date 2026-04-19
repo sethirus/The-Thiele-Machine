@@ -1,19 +1,16 @@
-(** * VMEncoding: Canonical binary encoding of VM state onto the kernel tape
+(** VMEncoding: Canonical binary encoding of VM state onto the kernel tape
 
-    WHY THIS FILE EXISTS:
     The three-layer isomorphism (Coq = Python = Verilog) requires a single
     canonical serialization of VMState. This file defines the roundtrip
     encoding/decoding of every VMState field to and from a boolean tape
     (list bool). Without a proven-faithful encoding, the kernel machine
     and the VM would disagree on what a "state" means.
 
-    THE CORE CLAIM:
     encode then decode is the identity: for every VMState s,
       decode_vm_state (encode_vm_state s ++ rest) = Some (s, rest).
     Each primitive type (nat, bool, list, string) has its own roundtrip
     lemma, and they compose to give the full-state roundtrip.
 
-    FALSIFICATION:
     If encode_vm_state followed by decode_vm_state does not return the
     original state, then SimulationProof.v cannot establish bisimulation
     between the VM and the kernel Turing machine, and the three-layer
@@ -27,7 +24,7 @@ Local Open Scope list_scope.
 
 From Kernel Require Import Kernel VMState VMStep.
 
-(** * Canonical binary encoding of VM state onto the kernel tape. *)
+(** Canonical binary encoding of VM state onto the kernel tape. *)
 
 (** ** Primitive encodings *)
 
@@ -48,7 +45,6 @@ Fixpoint decode_nat (bs : list bool) : option (nat * list bool) :=
       end
   end.
 
-(** [decode_nat_correct]: formal specification. *)
 Lemma decode_nat_correct :
   forall n rest,
     decode_nat (encode_nat n ++ rest) = Some (n, rest).
@@ -73,7 +69,6 @@ Definition decode_bool (bs : list bool) : option (bool * list bool) :=
   | b :: rest => Some (b, rest)
   end.
 
-(** [decode_bool_correct]: formal specification. *)
 Lemma decode_bool_correct :
   forall b rest,
     decode_bool (encode_bool b ++ rest) = Some (b, rest).
@@ -95,7 +90,6 @@ Definition decode_ascii (bs : list bool) : option (ascii * list bool) :=
   | _ => None
   end.
 
-(** [decode_ascii_correct]: formal specification. *)
 Lemma decode_ascii_correct :
   forall a rest,
     decode_ascii (encode_ascii a ++ rest) = Some (a, rest).
@@ -141,7 +135,6 @@ Definition decode_sequence {A}
   | None => None
   end.
 
-(** [decode_list_payload_correct]: formal specification. *)
 Lemma decode_list_payload_correct :
   forall (A : Type) (encode : A -> list bool)
          (decode : list bool -> option (A * list bool))
@@ -163,7 +156,6 @@ Proof.
     reflexivity.
 Qed.
 
-(** [decode_sequence_correct]: formal specification. *)
 Lemma decode_sequence_correct :
   forall (A : Type) (encode : A -> list bool)
          (decode : list bool -> option (A * list bool))
@@ -191,7 +183,6 @@ Definition decode_string (bs : list bool) : option (string * list bool) :=
   | None => None
   end.
 
-(** [decode_string_correct]: formal specification. *)
 Lemma decode_string_correct :
   forall s rest,
     decode_string (encode_string s ++ rest) = Some (s, rest).
@@ -218,7 +209,6 @@ Definition decode_string_list (bs : list bool)
   : option (list string * list bool) :=
   decode_sequence decode_string bs.
 
-(** [decode_nat_list_correct]: formal specification. *)
 Lemma decode_nat_list_correct :
   forall xs rest,
     decode_nat_list (encode_nat_list xs ++ rest) = Some (xs, rest).
@@ -229,7 +219,6 @@ Proof.
   apply decode_nat_correct.
 Qed.
 
-(** [decode_string_list_correct]: formal specification. *)
 Lemma decode_string_list_correct :
   forall xs rest,
     decode_string_list (encode_string_list xs ++ rest) = Some (xs, rest).
@@ -263,7 +252,6 @@ Definition decode_module_state (bs : list bool)
   | None => None
   end.
 
-(** [decode_module_state_correct]: formal specification. *)
 Lemma decode_module_state_correct :
   forall m rest,
     decode_module_state (encode_module_state m ++ rest) = Some (m, rest).
@@ -296,7 +284,6 @@ Definition decode_module_entry (bs : list bool)
   | None => None
   end.
 
-(** [decode_module_entry_correct]: formal specification. *)
 Lemma decode_module_entry_correct :
   forall entry rest,
     decode_module_entry (encode_module_entry entry ++ rest) = Some (entry, rest).
@@ -470,7 +457,6 @@ Definition decode_partition_graph (bs : list bool)
   | None => None
   end.
 
-(** [decode_partition_graph_correct]: formal specification. *)
 Lemma decode_partition_graph_correct :
   forall g rest,
     decode_partition_graph (encode_partition_graph g ++ rest) = Some (g, rest).
@@ -517,7 +503,6 @@ Definition decode_csr (bs : list bool) : option (CSRState * list bool) :=
   | None => None
   end.
 
-(** [decode_csr_correct]: formal specification. *)
 Lemma decode_csr_correct :
   forall csrs rest,
     decode_csr (encode_csr csrs ++ rest) = Some (csrs, rest).
@@ -882,7 +867,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [update_pc_preserves_other_fields]: formal specification. *)
 Lemma update_pc_preserves_other_fields :
   forall tape pc s,
     decode_vm_state_from_tape tape = Some s ->
@@ -1018,9 +1002,6 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       [T_Halt]
     | instr_xor_rank dst src cost =>
       (* XOR rank operation *)
-      [T_Halt]
-  | instr_oracle_halts payload cost =>
-      (* Oracle halting check *)
       [T_Halt]
   | instr_halt cost =>
       (* Halt instruction *)

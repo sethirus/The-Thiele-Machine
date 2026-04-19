@@ -1,8 +1,6 @@
 (** ShadowProjection.v — Formal Classical Shadow Projection
 
-    ==========================================================================
     THE CLASSICAL SHADOW
-    ==========================================================================
 
     The Thiele VM state is richer than any "classical" state that only tracks
     the computational fields. The classical shadow is the lossy projection that
@@ -24,9 +22,6 @@
           — it depends on real retained structure, not metadata
       C5: shadow_proj is strictly lossy — the image does not capture morphism state
 
-    ==========================================================================
-    STATUS: Fully proven. Zero Admitted.
-    ==========================================================================
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia String.
@@ -34,9 +29,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof.
 
-(** =========================================================================
-    PART 1: THE SHADOW PROJECTION FUNCTION
-    =========================================================================
+(**
 
     ClassicalState: the 6-field classical observable state.
     shadow_proj: projects VMState to ClassicalState, discarding graph structure.
@@ -65,9 +58,7 @@ Definition shadow_proj (s : VMState) : ClassicalState := {|
   cs_certified := s.(vm_certified)
 |}.
 
-(** =========================================================================
-    PART 2: SHADOW EQUALITY (CLASSICAL INDISTINGUISHABILITY)
-    =========================================================================
+(**
 
     Two states are shadow-equal if their classical projections are identical.
     This is the formal notion of "indistinguishable to a classical observer."
@@ -94,9 +85,7 @@ Proof.
     f_equal; assumption.
 Qed.
 
-(** =========================================================================
-    PART 3: WITNESS STATES — THE SEPARATION PAIR
-    =========================================================================
+(**
 
     We define explicit witness states for the separation theorem.
     These correspond exactly to the states in categorical_separation
@@ -161,9 +150,7 @@ Definition separation_B : VMState := {|
   vm_certified := false
 |}.
 
-(** =========================================================================
-    PART 4: C2 — SHADOW PROJECTION IS LOSSY
-    =========================================================================
+(**
 
     Different morphism graphs produce the same shadow projection.
     Therefore shadow_proj forgets graph structure.
@@ -183,9 +170,7 @@ Proof.
     simpl. intro H. discriminate H.
 Qed.
 
-(** =========================================================================
-    PART 5: C4 — THE PROBE IS SEMANTICALLY LEGITIMATE
-    =========================================================================
+(**
 
     The ADD 0 0 0 0 probe is a legitimate Thiele instruction that preserves
     graph state unchanged. Since separation_A and separation_B differ in
@@ -216,9 +201,7 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 6: C3 — THE FORMAL SEPARATION THEOREM
-    =========================================================================
+(**
 
     Upgrades the demo (Act 4 in demo_knowledge_receipt.py) to a formal theorem:
     There exist two states with the same classical shadow that are separated
@@ -256,9 +239,7 @@ Proof.
     simpl. intro H. discriminate H.
 Qed.
 
-(** =========================================================================
-    PART 7: C5 — SHADOW IS STRICTLY LOSSY
-    =========================================================================
+(**
 
     The shadow projection is strictly lossy: there exist distinct (not
     shadow-related) structural facts that shadow_proj cannot express.

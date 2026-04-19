@@ -1,7 +1,7 @@
-(** ThieleCPUCore.v — Complete Thiele CPU in Kami (40-instruction ISA).
+(** ThieleCPUCore.v — Complete Thiele CPU in Kami (47-instruction ISA).
 
     Implements the full ISA from VMStep.v:
-      - Every instruction increments mu by its cost field (μ-monotonicity)
+      - Every instruction uses the μ cost table from VMStep.v
       - PC advances to PC+1 (sequential) or target (branch)
       - HALT latches the halted flag
       - CERTIFY sets the certified flag and charges S(cost) mu (structurally positive)
@@ -28,9 +28,8 @@
       XOR_RANK:  op_a = dst, op_b = src (popcount)
       CHSH_TRIAL: op_a[1:0] = setting (x,y), op_b[1:0] = outcome (a,b)
       REVEAL:    op_a[3:0] = tensor flat index (0-15), cost = charge amount
-      PNEW/PSPLIT/PMERGE/PDISCOVER/LASSERT/LJOIN/MDLACC/EMIT/ORACLE_HALTS:
-        charge mu + advance PC (module graph managed through the bounded hardware
-        tables observed by Abstraction.v / FullAbstraction.v)
+      PNEW/PSPLIT/PMERGE/PDISCOVER/LASSERT/LJOIN/MDLACC/EMIT:
+        charge μ through the same cost policy as VMStep.v.
       CHECKPOINT: advances PC; label managed externally (NOP in hardware)
       READ_PORT:  op_a = dst; writes port value (hardware always provides 0)
       WRITE_PORT: op_a = channel, op_b = src; NOP in hardware (no I/O bus)
@@ -49,8 +48,9 @@
     Formula and certificate strings are stored in VM data memory (vm_mem).
     Registers freg/creg hold base addresses; the on-chip FSM reads them
     directly via mem_to_string. No external coprocessor; no stall cycle.
-    Hardware charges S(cost); kernel charges flen*8 + S(cost) for LASSERT
-    (gap proven in LogicEngineEquivalence.v:lassert_mu_gap).
+    LASSERT charges flen*8 + S(cost), matching VMStep.v. SAT mode requires
+    both a satisfying model and a falsifying countermodel, so tautologies do
+    not become free certificate events.
     See LogicEngineEquivalence.v for the equivalence proof. *)
 
 Require Import Kami.Kami.
@@ -147,7 +147,7 @@ Section ThieleCPU.
       (* On-chip LASSERT FSM state — replaces external coprocessor interface.
          phase=0: idle; phase>0: multi-cycle formula/cert read in progress.
          fbase/cbase: base addresses of formula/cert in vm_mem.
-         flen/clen: lengths (in words) of formula/cert strings.
+         flen/clen/nvars: formula length, remaining clauses, variable count.
          fptr/cptr: current read pointers during FSM traversal.
          kind: true = SAT check, false = UNSAT check.
          fbuf/cbuf: bounded backing buffers that M3 exposes architecturally and
@@ -158,12 +158,15 @@ Section ThieleCPU.
       with Register "lassert_cbase" : Bit WordSz <- Default
       with Register "lassert_flen"  : Bit WordSz <- Default
       with Register "lassert_clen"  : Bit WordSz <- Default
+      with Register "lassert_nvars" : Bit WordSz <- Default
       with Register "lassert_fptr"  : Bit WordSz <- Default
       with Register "lassert_cptr"  : Bit WordSz <- Default
       with Register "lassert_fbuf"  : Vector (Bit WordSz) 8 <- Default
       with Register "lassert_cbuf"  : Vector (Bit WordSz) 9 <- Default
       (* Scratch flag: has any literal in the current clause been satisfied? *)
       with Register "lassert_clause_sat" : Bool <- false
+      with Register "lassert_counter_clause_sat" : Bool <- false
+      with Register "lassert_counter_seen_fail" : Bool <- false
       with Register "bus_load_instr_addr" : Bit MemAddrSz <- Default
       with Register "bus_load_instr_data" : Bit InstrSz <- Default
       with Register "bus_load_instr_kick" : Bool <- false
@@ -459,8 +462,18 @@ Section ThieleCPU.
                                         then $$(ERR_CERT_DESC_INVALID)
                                         else #error_code_v)))));
 
-        (* Zero-extend cost to 32 bits for mu addition *)
+        (* Zero-extend the declared delta and the packed bit-count.  In the
+           compact ISA, OP_EMIT/OP_REVEAL/OP_READ_PORT use op_b as the number
+           of information bits carried by the instruction. *)
         LET cost32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #cost_v;
+        LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        LET bit_payload_charge : Bit WordSz <-
+          IF ((#opcode == $$(OP_EMIT)) ||
+              (#opcode == $$(OP_REVEAL)) ||
+              (#opcode == $$(OP_READ_PORT)))
+          then #op_b_32
+          else $0;
+        LET bit_priced_mu : Bit WordSz <- #mu_v + #bit_payload_charge + #cost32 + $1;
 
         (* LASSERT: kind bit packed into op_a[5]; freg = dst_idx; creg = src_idx.
            SAT (kind=1): enter multi-cycle FSM.  UNSAT (kind=0): immediate trap. *)
@@ -469,8 +482,8 @@ Section ThieleCPU.
         LET is_lassert <- #opcode == $$(OP_LASSERT);
         LET lassert_unsat_trap <- #is_lassert && !#lassert_is_sat;
 
-        (* Compute new mu (always: mu' = mu + cost).
-           This is the μ-monotonicity mechanism from VMStep.v:apply_cost *)
+        (* Compute the declared-delta-only μ path.  Bit-bearing cert setters
+           use bit_priced_mu instead. *)
         LET new_mu : Bit WordSz <- #mu_v + #cost32;
 
         (* Default: PC+1 *)
@@ -841,11 +854,13 @@ Section ThieleCPU.
         LET is_bucket_10 <- #chsh_settings == $$(WO~1~0);
         LET is_bucket_11 <- #chsh_settings == $$(WO~1~1);
 
-        (* No-Free-Insight guard for info-bearing instructions. *)
-        LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        (* No-Free-Insight guard for info-bearing instructions.
+           EMIT pays op_b bits directly in μ, so the legacy cost>=op_b guard
+           remains only for PDISCOVER's non-bit-priced discovery counter. *)
         LET is_info_gain_op <-
           (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_EMIT));
-        LET nfi_violation <- #is_info_gain_op && (#cost32 < #op_b_32);
+        LET is_declared_bound_op <- #opcode == $$(OP_PDISCOVER);
+        LET nfi_violation <- #is_declared_bound_op && (#cost32 < #op_b_32);
 
         (* CHSH_TRIAL is valid only when opcode matches and no violations *)
         LET is_chsh_valid <- (#opcode == $$(OP_CHSH_TRIAL)) && !#chsh_bits_bad &&
@@ -862,11 +877,11 @@ Section ThieleCPU.
           then #ext_tensor_idx
           else #legacy_tensor_idx;
         LET tensor_old : Bit WordSz <- #mu_tensor_v@[#tensor_idx];
-        LET tensor_new_val : Bit WordSz <- #tensor_old + #cost32;
+        LET tensor_new_val : Bit WordSz <- #tensor_old + #op_b_32;
 
         (* ============================================================
            Determine new PC
-           ============================================================ *)
+           *)
         LET new_pc : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #trap_vector_v
@@ -897,7 +912,7 @@ Section ThieleCPU.
 
         (* ============================================================
            Determine new register file
-           ============================================================ *)
+           *)
         LET new_regs : Vector (Bit WordSz) RegIdxSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #regs_v
@@ -946,7 +961,7 @@ Section ThieleCPU.
           else #morph_result_regs)))))))))))))))))))));
         (* ============================================================
            Determine new memory
-           ============================================================ *)
+           *)
         LET new_mem : Vector (Bit WordSz) MemAddrSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #mem_v
@@ -991,8 +1006,7 @@ Section ThieleCPU.
                                               then $$(ERR_LOGIC_VAL)
                                               else #error_code_v))))))));
 
-        (* Determine new mu — only charge if not a bianchi violation.
-           ORACLE_HALTS (0x10) always charges 1,000,000 regardless of cost field. *)
+        (* Determine new mu — only charge if not a bianchi violation. *)
         LET rich_fault_mu : Bit WordSz <-
           IF (#opcode == $$(OP_CERTIFY))
           then #mu_v + #cost32 + $1
@@ -1002,14 +1016,13 @@ Section ThieleCPU.
                       then #new_mu + $1
                       else (IF ((#opcode == $$(OP_EMIT)) ||
                                 (#opcode == $$(OP_REVEAL)) ||
-                                (#opcode == $$(OP_LJOIN)) ||
                                 (#opcode == $$(OP_READ_PORT)))
-                            then #new_mu + $1
-                            else #new_mu)));
+                            then #bit_priced_mu
+                            else (IF (#opcode == $$(OP_LJOIN))
+                                  then #new_mu + $1
+                                  else #new_mu))));
         LET normal_step_mu : Bit WordSz <-
-          IF (#opcode == $$(OP_ORACLE_HALTS))
-          then #mu_v + $$(WO~0~0~0~0~0~0~0~0~0~0~0~0~1~1~1~1~0~1~0~0~0~0~1~0~0~1~0~0~0~0~0~0)
-          else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial))
+          IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial))
                 then #new_mu + $$(CHSH_X1_SURCHARGE)
                 else (IF (#opcode == $$(OP_CERTIFY))
                       then #mu_v + #cost32 + $1
@@ -1019,10 +1032,11 @@ Section ThieleCPU.
                                   then (IF #lassert_is_sat then #mu_v else #new_mu + $1)
                                   else (IF ((#opcode == $$(OP_EMIT)) ||
                                             (#opcode == $$(OP_REVEAL)) ||
-                                            (#opcode == $$(OP_LJOIN)) ||
                                             (#opcode == $$(OP_READ_PORT)))
-                                        then #new_mu + $1
-                                        else #new_mu)))));
+                                        then #bit_priced_mu
+                                        else (IF (#opcode == $$(OP_LJOIN))
+                                              then #new_mu + $1
+                                              else #new_mu)))));
         LET final_mu : Bit WordSz <-
           IF (#bianchi_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #mu_v
@@ -1030,7 +1044,7 @@ Section ThieleCPU.
 
         (* ============================================================
            CERTIFY flag update — set by CERTIFY opcode only
-           ============================================================ *)
+           *)
         LET new_certified : Bool <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation || #rich_fault || #morph_runtime_fault)
           then #certified_v
@@ -1043,7 +1057,7 @@ Section ThieleCPU.
            Matches handwritten RTL module_table / region_table semantics.
            pt_sizes[id] = region_size (0 = unallocated).
            pt_next_id grows monotonically.
-           ============================================================ *)
+           *)
 
         (* Truncate pt_next_id to PTableIdxSz bits for vector indexing *)
         LET pt_slot : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz _) #pt_next_id_v;
@@ -1107,7 +1121,7 @@ Section ThieleCPU.
 
         (* ============================================================
            Counter updates
-           ============================================================ *)
+           *)
         LET is_partition_op <-
           (#opcode == $$(OP_PNEW)) || (#opcode == $$(OP_PSPLIT)) || (#opcode == $$(OP_PMERGE));
         LET new_partition_ops : Bit WordSz <-
@@ -1130,7 +1144,7 @@ Section ThieleCPU.
 
         (* ============================================================
            Witness counter updates (CHSH_TRIAL increments the right bucket)
-           ============================================================ *)
+           *)
         LET new_wc_same_00 : Bit WordSz <-
           IF (#is_chsh_valid && #is_bucket_00 && #chsh_outcomes_same)
           then #wc_same_00_v + $1 else #wc_same_00_v;
@@ -1159,7 +1173,7 @@ Section ThieleCPU.
         (* ============================================================
            μ-tensor update (REVEAL charges tensor entry,
                             TENSOR_SET writes register value to entry)
-           ============================================================ *)
+           *)
         LET new_mu_tensor : Vector (Bit WordSz) MuTensorIdxSz <-
           IF ((#opcode == $$(OP_REVEAL)) && !#bianchi_violation && !#high_value_locked && !#rich_fault && !#morph_runtime_fault)
           then #mu_tensor_v@[#tensor_idx <- #tensor_new_val]
@@ -1215,9 +1229,7 @@ Section ThieleCPU.
           then #logic_acc_v
           else (IF (#opcode == $$(OP_LASSERT))
                 then #logic_acc_v ~+ $$(LOGIC_GATE_KEY)
-                else (IF (#opcode == $$(OP_ORACLE_HALTS))
-                      then #logic_acc_v + $1
-                      else #logic_acc_v));
+                else #logic_acc_v);
         LET new_cert_addr : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation || #ptable_overflow_violation ||
               #high_value_locked || #nfi_violation || #rich_fault || #morph_runtime_fault)
@@ -1286,7 +1298,7 @@ Section ThieleCPU.
            When opcode == OP_LASSERT and kind=SAT: enter phase 1.
            lassert_cptr repurposed as cost field for FSM commit.
            freg base = dst_val (regs[op_a[4:0]]), creg base = src_val.
-           ============================================================ *)
+           *)
         LET lassert_zero : Bit WordSz <- $$(natToWord WordSz 0);
         Write "lassert_phase"      <- IF (#is_lassert && #lassert_is_sat && !#rich_fault) then $$(WO~0~0~1) else $$(WO~0~0~0);
         Write "lassert_kind"       <- IF (#is_lassert && !#rich_fault) then #lassert_is_sat else $$false;
@@ -1296,11 +1308,14 @@ Section ThieleCPU.
         Write "lassert_fptr"       <- #lassert_zero;
         Write "lassert_flen"       <- #lassert_zero;
         Write "lassert_clen"       <- #lassert_zero;
+        Write "lassert_nvars"      <- #lassert_zero;
         Write "lassert_clause_sat" <- $$false;
+        Write "lassert_counter_clause_sat" <- $$false;
+        Write "lassert_counter_seen_fail" <- $$false;
         Retv
 
 
-      (** LASSERT FSM: multi-cycle on-chip SAT certificate checker.
+      (** LASSERT FSM: multi-cycle on-chip SAT witness checker.
 
           Fires only when lassert_phase > 0 (step rule is inhibited by its
           own Assert (#lassert_phase_v == $0) guard).
@@ -1310,24 +1325,50 @@ Section ThieleCPU.
             mem[fbase + 1] : num_vars
             mem[fbase + 2] : num_clauses
             mem[fbase + 3..3+flen-1] : literal words, 0 = end-of-clause
-            mem[cbase + 0] : num_vars (guard)
-            mem[cbase + k] : assignment for variable k (0 = false, nonzero = true)
+            mem[cbase + k] : satisfying assignment for variable k
+            mem[cbase + num_vars + k] : falsifying assignment for variable k
 
           Phases:
             1 — Read header: latch flen and num_clauses, set fptr to fbase+3.
             2 — Scan literals one per cycle:
-                  nonzero literal → check against assignment → update clause_sat flag
+                  nonzero literal → check both assignments
                   zero (0)        → end of clause:
-                    if !clause_sat → FAIL (trap, charge S(cost))
+                    if model failed any clause → FAIL
+                    if final countermodel never falsified a clause → FAIL
                     if last clause → SUCCESS (PC+1, charge flen*8+S(cost))
                     otherwise      → decrement clause counter, reset clause_sat, advance fptr
 
           lassert_cptr register is repurposed at dispatch to hold the cost field.
           The backing buffers are now architecturally exposed for the rich-state
           path even though this FSM still streams directly from memory today. *)
-      with Rule "lassert_fsm" :=
+      with Rule "lassert_fsm_header" :=
         Read lassert_phase_v : Bit 3 <- "lassert_phase";
-        Assert (#lassert_phase_v != $0);
+        Assert (#lassert_phase_v == $$(WO~0~0~1));
+
+        Read mem_v         : Vector (Bit WordSz) MemAddrSz <- "mem";
+        Read lassert_fbase_v     : Bit WordSz <- "lassert_fbase";
+
+        (* Phase 1: read formula header. *)
+        LET fbase_a0 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #lassert_fbase_v;
+        LET fbase_a1 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) (#lassert_fbase_v + $1);
+        LET fbase_a2 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) (#lassert_fbase_v + $2);
+        LET hdr_flen     : Bit WordSz <- read_mem #fbase_a0 #mem_v;
+        LET hdr_nvars    : Bit WordSz <- read_mem #fbase_a1 #mem_v;
+        LET hdr_nclauses : Bit WordSz <- read_mem #fbase_a2 #mem_v;
+
+        Write "lassert_phase"      <- $$(WO~0~1~0);
+        Write "lassert_flen"       <- #hdr_flen;
+        Write "lassert_clen"       <- #hdr_nclauses;
+        Write "lassert_nvars"      <- #hdr_nvars;
+        Write "lassert_fptr"       <- #lassert_fbase_v + $3;
+        Write "lassert_clause_sat" <- $$false;
+        Write "lassert_counter_clause_sat" <- $$false;
+        Write "lassert_counter_seen_fail" <- $$false;
+        Retv
+
+      with Rule "lassert_fsm_scan" :=
+        Read lassert_phase_v : Bit 3 <- "lassert_phase";
+        Assert (#lassert_phase_v == $$(WO~0~1~0));
 
         Read mem_v         : Vector (Bit WordSz) MemAddrSz <- "mem";
         Read mu_v          : Bit WordSz <- "mu";
@@ -1336,19 +1377,15 @@ Section ThieleCPU.
         Read err_v         : Bool <- "err";
         Read error_code_v  : Bit WordSz <- "error_code";
 
-        Read lassert_fbase_v     : Bit WordSz <- "lassert_fbase";
         Read lassert_cbase_v     : Bit WordSz <- "lassert_cbase";
         Read lassert_flen_v      : Bit WordSz <- "lassert_flen";
         Read lassert_clen_v      : Bit WordSz <- "lassert_clen";
+        Read lassert_nvars_v     : Bit WordSz <- "lassert_nvars";
         Read lassert_fptr_v      : Bit WordSz <- "lassert_fptr";
         Read lassert_cptr_v      : Bit WordSz <- "lassert_cptr";
         Read lassert_clause_sat_v : Bool <- "lassert_clause_sat";
-
-        (* Phase 1: read formula header — two mem reads in same cycle *)
-        LET fbase_a0 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #lassert_fbase_v;
-        LET fbase_a2 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) (#lassert_fbase_v + $2);
-        LET hdr_flen     : Bit WordSz <- read_mem #fbase_a0 #mem_v;
-        LET hdr_nclauses : Bit WordSz <- read_mem #fbase_a2 #mem_v;
+        Read lassert_counter_clause_sat_v : Bool <- "lassert_counter_clause_sat";
+        Read lassert_counter_seen_fail_v : Bool <- "lassert_counter_seen_fail";
 
         (* Phase 2: current literal from formula *)
         LET fptr_a : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #lassert_fptr_v;
@@ -1360,52 +1397,64 @@ Section ThieleCPU.
         LET lit_is_neg  <- (#lit_sign == $$(WO~1)) && !#lit_is_zero;
         LET lit_abs : Bit WordSz <- IF #lit_is_neg then ($0 - #literal) else #literal;
 
-        (* Assignment lookup: mem[cbase + abs(literal)] — direct indexed *)
+        (* Assignment lookup:
+           model[k] lives at cbase+k.
+           countermodel[k] lives at cbase+nvars+k. *)
         LET caddr : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) (#lassert_cbase_v + #lit_abs);
+        LET counter_caddr : Bit MemAddrSz <-
+          UniBit (Trunc MemAddrSz _) (#lassert_cbase_v + #lassert_nvars_v + #lit_abs);
         LET asgn_word : Bit WordSz <- read_mem #caddr #mem_v;
+        LET counter_asgn_word : Bit WordSz <- read_mem #counter_caddr #mem_v;
         LET asgn_t <- #asgn_word != $0;
+        LET counter_asgn_t <- #counter_asgn_word != $0;
         LET lit_sat <- !#lit_is_zero && (IF #lit_is_neg then !#asgn_t else #asgn_t);
-
-        (* Phase selector flags *)
-        LET is_phase1 <- #lassert_phase_v == $$(WO~0~0~1);
-        LET is_phase2 <- #lassert_phase_v == $$(WO~0~1~0);
+        LET counter_lit_sat <- !#lit_is_zero &&
+          (IF #lit_is_neg then !#counter_asgn_t else #counter_asgn_t);
 
         (* End-of-clause logic (phase 2 only) *)
-        LET end_of_clause <- #is_phase2 && #lit_is_zero;
+        LET end_of_clause <- #lit_is_zero;
         LET last_clause   <- #lassert_clen_v <= $1;
-        LET clause_fail   <- #end_of_clause && !#lassert_clause_sat_v;
-        LET all_done      <- #end_of_clause && #lassert_clause_sat_v && #last_clause;
+        LET model_clause_fail <- #end_of_clause && !#lassert_clause_sat_v;
+        LET counter_clause_fail <- #end_of_clause && !#lassert_counter_clause_sat_v;
+        LET counter_seen_fail_next <- #lassert_counter_seen_fail_v || #counter_clause_fail;
+        LET final_counter_fail <- #end_of_clause && #lassert_clause_sat_v &&
+          #last_clause && !#counter_seen_fail_next;
+        LET clause_fail   <- #model_clause_fail || #final_counter_fail;
+        LET all_done      <- #end_of_clause && #lassert_clause_sat_v &&
+          #last_clause && #counter_seen_fail_next;
         LET clause_ok_cont <- #end_of_clause && #lassert_clause_sat_v && !#last_clause;
 
-        (* μ at commit: mu + flen*8 + S(cost) for success, mu + S(cost) for fail *)
+        (* μ at commit: success and failure both pay flen*8 + S(cost).
+           You pay for the measurement even when the witness fails. *)
         LET cost_v   : Bit WordSz <- #lassert_cptr_v;
         LET flen_x8  : Bit WordSz <- BinBit (Sll _ _) #lassert_flen_v ($$(WO~0~0~0~0~1~1));
         LET mu_success : Bit WordSz <- #mu_v + #flen_x8 + #cost_v + $1;
-        LET mu_fail    : Bit WordSz <- #mu_v + #cost_v + $1;
+        LET mu_fail    : Bit WordSz <- #mu_v + #flen_x8 + #cost_v + $1;
 
         (* Next FSM state *)
         LET next_phase : Bit 3 <-
-          IF #is_phase1 then $$(WO~0~1~0)
-          else (IF (#all_done || #clause_fail) then $$(WO~0~0~0)
-                else $$(WO~0~1~0));
-
-        LET next_flen : Bit WordSz <-
-          IF #is_phase1 then #hdr_flen else #lassert_flen_v;
+          IF (#all_done || #clause_fail) then $$(WO~0~0~0)
+          else $$(WO~0~1~0);
 
         LET next_clen : Bit WordSz <-
-          IF #is_phase1 then #hdr_nclauses
-          else (IF #clause_ok_cont then (#lassert_clen_v - $1)
-                else #lassert_clen_v);
+          IF #clause_ok_cont then (#lassert_clen_v - $1)
+          else #lassert_clen_v;
 
         LET next_fptr : Bit WordSz <-
-          IF #is_phase1 then (#lassert_fbase_v + $3)
-          else (#lassert_fptr_v + $1);
+          #lassert_fptr_v + $1;
 
         LET next_clause_sat <-
-          IF #is_phase1 then $$false
-          else (IF #end_of_clause then $$false
-                else (IF #lit_sat then $$true
-                      else #lassert_clause_sat_v));
+          IF #end_of_clause then $$false
+          else (IF #lit_sat then $$true
+                else #lassert_clause_sat_v);
+
+        LET next_counter_clause_sat <-
+          IF #end_of_clause then $$false
+          else (IF #counter_lit_sat then $$true
+                else #lassert_counter_clause_sat_v);
+
+        LET next_counter_seen_fail <-
+          #counter_seen_fail_next;
 
         (* PC/mu commit — only fire on terminal transitions *)
         LET new_pc : Bit WordSz <-
@@ -1425,10 +1474,11 @@ Section ThieleCPU.
           IF #clause_fail then $$(ERR_LOGIC_VAL) else #error_code_v;
 
         Write "lassert_phase"      <- #next_phase;
-        Write "lassert_flen"       <- #next_flen;
         Write "lassert_clen"       <- #next_clen;
         Write "lassert_fptr"       <- #next_fptr;
         Write "lassert_clause_sat" <- #next_clause_sat;
+        Write "lassert_counter_clause_sat" <- #next_counter_clause_sat;
+        Write "lassert_counter_seen_fail" <- #next_counter_seen_fail;
         Write "pc"                 <- #new_pc;
         Write "mu"                 <- #new_mu;
         Write "err"                <- #new_err;

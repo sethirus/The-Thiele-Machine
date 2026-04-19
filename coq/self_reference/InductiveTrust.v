@@ -1,24 +1,16 @@
-(** * InductiveTrust.v — Steps 1-2 of 3: Safety Functor + μ-Conservation
+(** InductiveTrust: lifting safety and conserving trust cost.
 
-    CONTEXT: The "Tiling Agent" (Friday) challenge.  A predecessor agent A
-    lives in a state space Ω_A.  It wants to trust a successor agent B that
-    lives in a strictly larger Ω_B.  Löb's theorem blocks naive self-certification
-    (□P → P yields □P for free), so the trust handoff must be *constructive*.
+  This file sets up the first two pieces of the trust-transfer argument.
+  Given a predecessor space A and a strictly larger successor space B, it
+  first lifts A's safety predicate through an embedding phi and proves that
+  the lift is sound and complete on the embedded region. It then introduces
+  an abstract verification-cost model and proves the intended conservation
+  claim: reusing already certified embedded states is free, while only the
+  genuinely new part of B costs fresh μ.
 
-    STEP 1 — Safety Functor:
-    Carry A's safety predicate P_A into Ω_B via φ; prove soundness and completeness.
-
-    STEP 2 — μ-Conservation of Trust:
-    Define abstract verification cost.  Prove: cost of certifying B's safety on
-    embedded states ≤ insight gained (= |Ω_B| - |Ω_A|).  States A already
-    certified are *re-used*, not re-proved; only genuinely new states cost μ.
-    This is the constructive Löb-bypass: trust is grounded in cost, not circularity.
-
-    FOUNDATION CONNECTIVITY: This file imports VMStep (for semantics foundation)
-    and MuCostModel (for cost foundation) to connect abstract state-space
-    notions to the Thiele Machine semantics.
-
-    Zero admits. *)
+  The point is to keep the trust handoff constructive. The witness is a cost
+  bound attached to the expansion, not a circular self-certification story.
+ *)
 
 From Coq Require Import Arith List Lia.
 Import ListNotations.
@@ -108,7 +100,7 @@ Proof.
   exact H.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** Step 2 — μ-Conservation of Trust
 
     The key question: does trusting B cost *more* μ than what A already paid?
@@ -245,7 +237,7 @@ Proof.
     apply IH. intros i Hi. apply H. right. exact Hi.
 Qed.
 
-(** μ-CONSERVATION THEOREM: The total verification load that B incurs on
+(** μ-CONSERVATION The total verification load that B incurs on
     embedded states (those in Im φ) equals exactly what A paid — no
     overhead from the non-isomorphic state-space expansion. *)
 Theorem mu_conservation :
@@ -261,7 +253,7 @@ Proof.
   apply lift_cost_image_eq. lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** Step 3 — Constructive Trust Certificate and Löb Bypass
 
     Löb's theorem: any proof of □P → P immediately yields a proof of P.
@@ -373,7 +365,7 @@ Proof.
   lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 6. Foundation Bridge — Connection to Thiele Machine Semantics
 
     This section connects the abstract [StateSpace] model to the concrete

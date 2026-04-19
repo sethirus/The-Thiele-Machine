@@ -1,40 +1,28 @@
-(** * LorentzNotForced: Why Lorentz Invariance Is Not Derived
+(** LorentzNotForced: Why Lorentz Invariance Is Not Derived
 
-    WHY THIS FILE EXISTS:
     I claim the kernel layer does NOT derive Lorentz invariance. This is
     intentional. Lorentz boosts require a metric (spacetime interval), which
     is NOT present in the kernel. Causal cones are purely syntactic (instruction
     dependencies), not geometric.
 
-    THE CORE CLAIM:
     There exists a trivial cone-preserving symmetry (identity),
     and there exist NON-TRIVIAL cone symmetries (stutter) that
     preserve cones but are NOT Lorentz transformations.
 
-    WHAT THIS PROVES:
     - Lorentz_Not_Forced: Identity preserves cones (trivial symmetry)
     - Cone_Symmetry_Underdetermined: Stutter (inserting no-op instructions)
       preserves cones but is not a Lorentz boost
 
-    WHY "NOT FORCED":
-    With only kernel primitives (VMState, vm_step, causal_cone), we cannot
-    derive a unique Lorentz group. We get SOME symmetries (cone-preserving
-    maps) but not THE Lorentz group specifically.
+    With only kernel primitives (VMState, vm_step, causal_cone), I cannot derive
+    a unique Lorentz group: I get some cone-preserving symmetries but not the
+    Lorentz group specifically. To get Lorentz you need a metric, continuous
+    boosts, and interval preservation, none of which exist at kernel level.
+    This file leaves Lorentz invariance to spacetime/metric layers instead of
+    treating it as a primitive kernel constraint.
 
-    To get Lorentz: need metric, need continuous boosts, need interval preservation.
-    None of these exist at kernel level. They would require additional structure
-    (differential geometry, pseudo-Riemannian manifolds, etc.).
-
-    PHYSICAL INTERPRETATION:
-    Lorentz invariance is an EMERGENT property of spacetime, not a fundamental
-    computational constraint. The kernel layer is pre-geometric. Spacetime geometry
-    (metric, intervals, boosts) would emerge from statistical/thermodynamic
-    behavior of many computations, not from single VM state transitions.
-
-    FALSIFICATION:
-    Show that causal_cone function uniquely determines a Lorentz group structure
-    without additional geometric input. Or prove Lorentz boosts are the ONLY
-    cone-preserving symmetries (contradicting stutter example). Or demonstrate
+    To falsify: show causal_cone uniquely determines a Lorentz group structure
+    without additional geometric input, or prove Lorentz boosts are the ONLY
+    cone-preserving symmetries (contradicting the stutter example), or show
     kernel-level objects that encode metric/interval structure.
 
     This file localizes a kernel-level boundary:
@@ -55,7 +43,7 @@
     present in the kernel layer.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List.
@@ -68,7 +56,6 @@ Definition cone_preserving (phi : list vm_instruction -> list vm_instruction) : 
   forall t, causal_cone (phi t) = causal_cone t.
 
 (* There is always a trivial cone-preserving symmetry: identity. *)
-(** [Lorentz_Not_Forced]: formal specification. *)
 Theorem Lorentz_Not_Forced : exists phi, cone_preserving phi.
 Proof.
   exists (fun t => t).
@@ -98,7 +85,6 @@ Proof.
 Qed.
 
 (* Definitional lemma: This equality is by definition, not vacuous *)
-(** [Cone_Symmetry_Underdetermined]: formal specification. *)
 Theorem Cone_Symmetry_Underdetermined :
   exists phi,
     (forall t, causal_cone (phi t) = causal_cone t) /\

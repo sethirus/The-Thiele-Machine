@@ -1,14 +1,17 @@
-(** * CategoryLaws: Foundational proofs for categorical structure
+(** CategoryLaws: the raw relation algebra behind the category story
 
-    This file establishes the mathematical foundations for the categorical
-    extension to the Thiele Machine. It proves:
+  This file is the clean mathematical core. Before I talk about morphism IDs,
+  graph updates, or VM instructions, I need the relation algebra to hold on its
+  own terms.
 
-    1. Relational composition is associative
-    2. Diagonal relations are identities for relational composition
-    3. Helper lemmas for working with coupling pairs
+  The main facts are:
+  1. relational composition is associative
+  2. diagonal relations act like left and right identities
+  3. composition respects the coupling-equivalence notion used in this repo
 
-    These proofs are STANDALONE - they do not import kernel files and can
-    be verified independently before integration.
+  Most of the file is standalone combinatorics on nat pairs. The short kernel
+  bridge at the end only says that the same composition really is the one the
+  kernel uses.
 *)
 
 Require Import List.
@@ -19,7 +22,7 @@ Import ListNotations.
 
 (** ** Relational Composition on Nat Pairs *)
 
-(** A coupling is a list of (source, target) pairs representing a binary relation *)
+(** A coupling is just a finite binary relation written as source/target pairs. *)
 Definition Coupling := list (nat * nat).
 
 (** Relational composition: (a,c) ∈ r1;r2 iff ∃b, (a,b) ∈ r1 ∧ (b,c) ∈ r2 *)
@@ -131,16 +134,15 @@ Qed.
 
 (** ** Associativity of Relational Composition *)
 
-(** For category laws, we care about semantic equivalence, not syntactic equality.
-    So we define an equivalence relation and prove associativity up to that. *)
+(** For category laws, literal list equality is the wrong target.
+  We care about whether two coupling lists represent the same relation. *)
 
 Definition coupling_equiv (r1 r2 : Coupling) : Prop :=
   forall a c, In (a, c) r1 <-> In (a, c) r2.
 
 Notation "r1 ≡ r2" := (coupling_equiv r1 r2) (at level 70).
 
-(* definitional lemma: coupling_equiv_refl holds by iff-reflexivity since
-   coupling_equiv is defined as pointwise iff, and iff is reflexive. *)
+(* DEFINITIONAL LEMMA — coupling_equiv is pointwise iff, so reflexivity is immediate. *)
 Lemma coupling_equiv_refl : forall r, r ≡ r.
 Proof.
   intros r a c. reflexivity.
@@ -309,35 +311,23 @@ Definition disjoint_couplings (r1 r2 : Coupling) : Prop :=
   (forall a b c, In (a, b) r2 -> ~ In (a, c) r1) /\
   (forall a b c, In (a, b) r2 -> ~ In (c, b) r1).
 
-(** ** Summary of Proven Laws *)
+(** Summary of what is actually proved here.
 
-(** We have proven (up to coupling_equiv):
-    1. relational_compose_assoc: (r1;r2);r3 ≡ r1;(r2;r3)
-    2. relational_compose_diagonal_left: diag(D);r ≡ r (when dom(r) ⊆ D)
-    3. relational_compose_diagonal_right: r;diag(D) ≡ r (when cod(r) ⊆ D)
-    4. relational_compose_compat: composition respects equivalence
-    5. relational_compose_empty_l/r: empty is absorbing
-    6. coupling_equiv is an equivalence relation
+  Up to coupling equivalence, this file proves the category skeleton:
+  composition associates, diagonals act like identities, empty relations are
+  absorbing, and the equivalence notion behaves properly.
 
-    These are sufficient to establish that couplings form a category
-    with modules as objects, couplings as morphisms, diagonal as identity,
-    and relational_compose as composition.
-*)
+  That is enough for the next files to stop hand-waving about category laws
+  and start applying them to the kernel graph. *)
 
-(** We prove at top level without a Module wrapper *)
+(** I keep these theorems at top level so downstream files can import them directly. *)
 
-(** ** Connection to Thiele Machine Kernel Foundation
+(** Kernel bridge.
 
-    The relational mathematics above is connected to the Thiele Machine kernel
-    here. VMState.v defines the SAME relational_compose function (same body).
-    The theorems above apply directly to the kernel's coupling composition.
-
-    This section satisfies the foundation chain connectivity requirement:
-    CategoryLaws → VMState → VMStep → MuCostModel → NoFreeInsight *)
-
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations
-   via VMState/VMStep imports below. CategoryBridge.v builds the full graph-level
-   category law proofs on top of these relational foundations. *)
+  The abstract relational_compose above is not a parallel universe. VMState.v
+  defines the same function body for kernel couplings. The lemmas below make
+  that explicit so CategoryBridge.v can reuse the algebra without pretending
+  the names just happen to line up. *)
 From Kernel Require Import VMState VMStep MuCostModel.
 
 (** VMState.relational_compose is definitionally identical to the relational_compose

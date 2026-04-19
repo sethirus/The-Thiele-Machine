@@ -1,27 +1,14 @@
-(** ShadowDeviceTrace.v
+(** ShadowDeviceTrace: lift state-level shadow compatibility to traces
 
-    Trace-level shadow compatibility class theorem.
+    This file moves from one-step observation compatibility to whole-trace
+    compatibility. The abstract theorem says: if a device step embeds into
+    vm_apply, then the observed device trace matches the classical shadow of
+    the corresponding Thiele execution trace.
 
-    Extends [ShadowDevice.every_shadow_device_satisfies_compat]
-    (state-level) to the dynamic case: if a device step function embeds into
-    Thiele's [vm_apply], then the entire trace of device observations equals
-    the classical-shadow trace of the corresponding Thiele execution.
-
-    DESIGN: The abstract theorem assumes [embed_step] as a hypothesis.
-    For the RTL instance, [embed_step] is:
-
-      abs_phase1 (kami_step ks i) = vm_apply (abs_phase1 ks) i
-
-    This requires a bounded-invariant on [KamiSnapshot] (register values
-    within 64-bit range so that nat arithmetic = word64 arithmetic).  Supplying
-    that invariant is a separately-stated precondition in [rtl_shadow_trace_compat];
-    the abstract class theorem is zero-Admitted and fully general.
-
-    STATUS: Four theorems proved cleanly.
-    - [vm_apply_mu_nondecreasing] : single-step μ bound.
-    - [every_shadow_device_trace_compat] : abstract induction over trace.
-    - [rtl_shadow_trace_compat] : RTL corollary (embed_step as hypothesis).
-    - [shadow_trace_mu_monotone] : vm_mu never decreases over a trace. *)
+    For the RTL instance, the remaining work is exactly the embed-step bridge.
+    That hypothesis is kept explicit because it depends on bounded arithmetic
+    and snapshot well-formedness, not on hand-waving about the hardware layer.
+*)
 
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.
@@ -30,7 +17,7 @@ From Kernel  Require Import VMState VMStep SimulationProof ShadowProjection.
 From KamiHW  Require Import Abstraction HardwareShadowBridge ShadowDevice EmbedStep
                              ShadowEmbedStep.
 
-(** * Single-step μ monotonicity
+(** Single-step μ monotonicity
 
     [vm_apply] charges [instruction_cost i] to [vm_mu] regardless of
     which branch it takes: every state constructor
@@ -66,7 +53,7 @@ Proof.
   unfold apply_cost. lia.
 Qed.
 
-(** * Abstract trace-level shadow compatibility class theorem
+(** Abstract trace-level shadow compatibility class theorem
 
     For ANY device with:
     - state type [S]
@@ -104,7 +91,7 @@ Proof.
     reflexivity.
 Qed.
 
-(** * RTL corollary — [embed_step] as a hypothesis
+(** RTL corollary — [embed_step] as a hypothesis
 
     Instantiates [every_shadow_device_trace_compat] for the Thiele RTL stack.
 
@@ -136,7 +123,7 @@ Proof.
            trace ks).
 Qed.
 
-(** * Unconditional trace-level shadow compatibility for supported traces
+(** Unconditional trace-level shadow compatibility for supported traces
 
     Replaces [rtl_shadow_trace_compat] (which requires the full 47-opcode
     [embed_step] as an unproved hypothesis) with a theorem that is
@@ -160,7 +147,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** * Extended unconditional trace-level shadow compatibility (30 opcodes)
+(** Extended unconditional trace-level shadow compatibility (30 opcodes)
 
     Extends [rtl_shadow_trace_compat_supported] (26 opcodes) to
     [ShadowSupportedOpcode] traces (30 opcodes: 26 + PNEW, PDISCOVER,
@@ -184,7 +171,7 @@ Proof.
   exact Hsupp.
 Qed.
 
-(** * μ never decreases over a trace
+(** μ never decreases over a trace
 
     For any sequence of Thiele instructions, [vm_mu] is non-decreasing.
     Connects the trace theorem to the μ-ledger cost chain: hardware-observable

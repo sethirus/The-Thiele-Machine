@@ -1,65 +1,16 @@
-(** =========================================================================
-    QuantumEquivalence: QM = mu-Zero Tier (Derived from Accounting)
-    =========================================================================
+(** QuantumEquivalence: bookkeeping around the zero-cost quantum tier.
 
-    WHY THIS FILE EXISTS:
-    This file formalizes the claim that quantum correlations are exactly
-    those achievable at zero mu-cost. It defines "quantum correlation"
-    as satisfying no-signaling AND having CHSH value at most the
-    Tsirelson bound (5657/2000, a rational approximation of 2 sqrt 2),
-    then proves that this definition is consistent with the mu-cost
-    hierarchy: classical correlations (S <= 2) are a subset of quantum
-    correlations, and exceeding the Tsirelson bound is incompatible
-    with the quantum tier.
+    This file defines a quantum correlation by two conditions: no-signaling and
+    a CHSH value bounded by the chosen Tsirelson rational approximation. It
+    then proves the immediate compatibility results with the surrounding
+    μ-accounting hierarchy, such as classical correlations being quantum in this
+    sense and values above the Tsirelson threshold falling outside it.
 
-    THE CORE CLAIM:
-    Theorem quantum_foundations_resolved --
-      The correlation hierarchy (classical <= quantum) is derived
-      from mu-accounting, and quantum correlations are characterized
-      by cost-free (mu = 0) certification.
-
-    KEY THEOREMS:
-    - quantum_implies_mu_zero: quantum correlations satisfy S <= 2 sqrt 2
-    - mu_zero_implies_quantum: mu = 0 certifiable correlations satisfy
-      no-signaling
-    - quantum_requires_no_revelation: quantum correlations need no
-      revelation (S stays within Tsirelson bound)
-    - classical_is_quantum: classical (S <= 2) implies quantum
-    - hierarchy_is_derived: classical_bound <= tsirelson_bound as a
-      numerical fact
-    - qm_equals_cost_free: definitional equivalence between
-      is_quantum_correlation and the no-signaling + Tsirelson predicate
-    - cost_causes_quantum_bound: the constructive direction --
-      no-signaling + S <= Tsirelson implies quantum
-    - exceeding_bound_implies_cost: the contrapositive --
-      S > Tsirelson implies NOT quantum
-
-    PHYSICAL INTERPRETATION:
-    This file answers "Why is nature quantum and not more nonlocal?"
-    The answer from mu-accounting: quantum correlations are exactly
-    those achievable without paying mu-cost (revelation cost). Supra-
-    quantum correlations (S > 2 sqrt 2) require explicit coordination
-    (lookup-table specification of P(a,b|x,y)), which carries positive
-    mu-cost. The Tsirelson bound is the exact mu = 0 / mu > 0 boundary.
-
-    HONEST SCOPE NOTE:
-    The Tsirelson bound constant (5657/2000) is chosen to approximate
-    the known physical value 2 sqrt 2. This file does NOT derive from
-    first principles WHY 2 sqrt 2 is the physical bound -- that
-    derivation (under NPA coherence premises) is in
-    TsirelsonQuantumModel.v. The theorems here are primarily
-    definitional unfoldings and numerical inequalities.
-
-    FALSIFICATION:
-    Exhibit a correlation that satisfies no-signaling and has S <= 2 sqrt 2
-    but is NOT achievable at mu = 0, or vice versa. The definitional
-    structure makes the forward direction (quantum implies bounded)
-    trivially unfoldable. The backward direction (bounded implies
-    certifiable) depends on the constructive witness in
-    certifiable_with_mu_zero, which requires an explicit trace.
-
-    STATUS: Fully proven (constructive proofs, no axioms), zero Admitted.
-    ========================================================================= *)
+    The scope is explicit: this file mostly contains definitional unfoldings and
+    numerical inequalities. It does not derive from first principles why the
+    physical bound should be 2√2; that stronger story lives in the files that
+    add the NPA coherence premises.
+*)
 
 From Coq Require Import List Bool Arith.PeanoNat QArith Lia.
 Import ListNotations.
@@ -102,7 +53,6 @@ Definition certifiable_with_mu_zero (ac : AbstractCorrelation) : Prop :=
 
 (** Forward direction: Quantum implies μ=0 certifiable *)
 (* INQUISITOR NOTE: Intentional field projection from is_quantum_correlation conjunction. *)
-(** [quantum_implies_mu_zero]: formal specification. *)
 Lemma quantum_implies_mu_zero :
   forall ac : AbstractCorrelation,
     is_quantum_correlation ac ->
@@ -115,7 +65,6 @@ Qed.
 
 (** Backward direction: μ=0 certifiable implies quantum *)
 (* INQUISITOR NOTE: Intentional field projection from certifiable_with_mu_zero existential. *)
-(** [mu_zero_implies_quantum]: formal specification. *)
 Lemma mu_zero_implies_quantum :
   forall ac : AbstractCorrelation,
     certifiable_with_mu_zero ac ->
@@ -129,7 +78,6 @@ Qed.
 
 (** Quantum correlations don't require revelation *)
 (* INQUISITOR NOTE: Intentional field projection — same as quantum_implies_mu_zero, kept as named theorem for clarity. *)
-(** [quantum_requires_no_revelation]: formal specification. *)
 Theorem quantum_requires_no_revelation :
   forall ac,
     is_quantum_correlation ac ->
@@ -157,9 +105,8 @@ Proof.
   - unfold Qle. simpl. lia.
 Qed.
 
-(** =========================================================================
+(**
     QUANTUM FOUNDATIONS RESOLUTION
-    =========================================================================
     
     This section establishes that the μ-accounting framework SOLVES the
     foundational question "Why is nature quantum and not more nonlocal?"
@@ -177,7 +124,7 @@ Qed.
     
     This is stronger than "formal equivalence" - it provides a REASON
     why nature has these particular correlation limits.
-    ========================================================================= *)
+    *)
 
 (** ** Foundation 1: Correlation Hierarchy is Derived *)
 
@@ -187,7 +134,6 @@ Definition correlation_hierarchy_derived : Prop :=
   forall ac, ac.(chsh_value) <= classical_bound ->
              ac.(chsh_value) <= tsirelson_bound.
 
-(** [hierarchy_is_derived]: formal specification. *)
 Theorem hierarchy_is_derived : correlation_hierarchy_derived.
 Proof.
   unfold correlation_hierarchy_derived.
@@ -231,7 +177,6 @@ Definition why_quantum_answer : Prop :=
   correlation_hierarchy_derived /\
   qm_is_cost_free_computation.
 
-(** [quantum_foundations_resolved]: formal specification. *)
 Theorem quantum_foundations_resolved : why_quantum_answer.
 Proof.
   unfold why_quantum_answer.

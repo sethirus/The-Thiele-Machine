@@ -1,20 +1,15 @@
-(** * 4D Simplicial Complex: Foundation for 4D Spacetime
+(** 4D Simplicial Complex: finite 4-cell bookkeeping.
 
-    ========================================================================
-    PURPOSE: Extend discrete topology from 2D surfaces to 4D spacetime
-    ========================================================================
+    This file lifts the partition-graph overlap idea into a simple
+    clique-style combinatorial complex. It defines 0-, 1-, 2-, 3-, and
+    4-dimensional cells, extracts them from overlapping module regions, and
+    proves the extracted cells have the expected arity.
 
-    WHAT THIS FILE DOES:
-    1. Defines 4-simplices (tetrahedra in 4D)
-    2. Extends partition graph to 4D cells
-    3. Proves 4D Euler characteristic χ = V - E + F - C
-    4. Lays foundation for 4D Gauss-Bonnet-Chern theorem
+    What it does not prove: that the result is a smooth manifold, that the
+    cells have orientations or incidence compatibility, or that the
+    Gauss-Bonnet-Chern theorem has been derived. Those are separate geometric
+    obligations.
 
-    WHY 4D:
-    Physical spacetime has 3 spatial + 1 temporal dimension.
-    To prove Einstein's equation in physical spacetime, we need 4D geometry.
-
-    APPROACH:
     - Vertices (0-simplices): Computational events
     - Edges (1-simplices): Causal links between events
     - Faces (2-simplices): Triangular regions
@@ -23,10 +18,9 @@
 
     ZERO PROJECT-LOCAL AXIOMS. NO SHORTCUTS.
 
-    STATUS: Foundation - building from first principles
     *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Coq Require Import List Arith.PeanoNat Lia Bool ZArith.
@@ -35,9 +29,10 @@ Import ListNotations.
 From Kernel Require Import VMState.
 From Kernel Require Import DiscreteTopology.
 
-(** ** 4D Simplicial Structure *)
+(** Basic 4D simplicial records. *)
 
-(** A 4-simplex is defined by 5 vertices (in 4D space, 5 points determine a 4-simplex) *)
+(** A 4-simplex is represented by 5 vertices. Its boundary 3-cells are
+    tetrahedra; the 4-simplex itself is the 4D cell. *)
 Record Simplex4D := {
   s4d_vertices : list nat;  (* Must have exactly 5 vertices *)
 }.
@@ -60,7 +55,7 @@ Record Edge1D := {
   e1d_direction : option nat; (* None = undirected; Some d = direction d *)
 }.
 
-(** 4D Simplicial Complex *)
+(** A bare finite complex: lists only, no incidence laws baked into the record. *)
 Record SimplicialComplex4D := {
   sc4d_vertices : list nat;
   sc4d_edges : list Edge1D;
@@ -69,7 +64,7 @@ Record SimplicialComplex4D := {
   sc4d_4simplices : list Simplex4D;
 }.
 
-(** ** Well-Formedness Conditions *)
+(** Arity checks for the bare records. *)
 
 (** Edge connects exactly 2 vertices *)
 Definition well_formed_edge (e : Edge1D) : Prop :=
@@ -103,32 +98,30 @@ Definition all_cells_well_formed (cells : list Cell3D) : Prop :=
 Definition all_4simplices_well_formed (simplices : list Simplex4D) : Prop :=
   Forall well_formed_4simplex simplices.
 
-(** A 4D simplicial complex is well-formed if all components are well-formed *)
+(** This well-formedness only checks cell arities. It does not assert that
+    faces are shared consistently or that the complex is a manifold. *)
 Definition well_formed_4d_complex (sc : SimplicialComplex4D) : Prop :=
   all_edges_well_formed (sc4d_edges sc) /\
   all_faces_well_formed (sc4d_faces sc) /\
   all_cells_well_formed (sc4d_cells sc) /\
   all_4simplices_well_formed (sc4d_4simplices sc).
 
-(** ** 4D Euler Characteristic *)
+(** 4D Euler characteristic bookkeeping. *)
 
-(** V - E + F - C for 4D complexes
+(** Alternating count for this finite 4D complex:
 
-    For a 4D simplicial complex embedded in 4D space:
-    χ = V - E + F - C
+    chi = V - E + F - C + H
 
     where:
     - V = number of vertices
     - E = number of edges
     - F = number of 2-faces (triangles)
     - C = number of 3-cells (tetrahedra)
+    - H = number of 4-simplices
 
-    NOTE: For closed 4-manifolds, the full formula is:
-    χ = V - E + F - C + H
-    where H = number of 4-simplices
-
-    But for our computational spacetime (which may have boundaries),
-    we use the alternating sum.
+    This is only the combinatorial alternating sum over the stored cells.
+    Turning it into a topological invariant requires the missing incidence and
+    manifold hypotheses.
 *)
 
 Definition V_4d (sc : SimplicialComplex4D) : nat :=
@@ -146,26 +139,27 @@ Definition C_4d (sc : SimplicialComplex4D) : nat :=
 Definition H_4d (sc : SimplicialComplex4D) : nat :=
   length (sc4d_4simplices sc).
 
-(** 4D Euler characteristic (alternating sum) *)
+(** 4D Euler characteristic as the stored-cell alternating sum. *)
 Definition euler_characteristic_4d (sc : SimplicialComplex4D) : Z :=
   (Z.of_nat (V_4d sc) - Z.of_nat (E_4d sc) +
    Z.of_nat (F_4d sc) - Z.of_nat (C_4d sc) +
    Z.of_nat (H_4d sc))%Z.
 
-(** ** Extending Partition Graph to 4D *)
+(** Extracting a clique complex from partition-graph overlaps. *)
 
-(** Currently, VMState uses a PartitionGraph with modules.
-    To extend to 4D, we need to track how modules form 4D cells.
+(** VMState uses a PartitionGraph with modules. Here, overlapping module
+    regions are treated as adjacency data for candidate simplices.
 
-    APPROACH:
     - Each module region still represents a set of computational vertices
-    - But now we also track which regions form edges, faces, cells, 4-simplices
-    - The PNEW operation will create overlapping regions that form 4D structure
+    - Pairs with overlap become edges
+    - Larger pairwise-overlap cliques become faces, cells, and 4-simplices
+
+    This is a syntactic extraction rule, not a proof that the graph embeds as
+    a well-behaved 4D geometry.
 *)
 
-(** Extract 4D simplicial structure from partition graph
+(** Extract 4D simplicial structure from a partition graph:
 
-    STRATEGY:
     - Find all pairs of modules with overlapping regions → edges
     - Find all triples with pairwise overlaps → faces
     - Find all quadruples with pairwise overlaps → cells
@@ -309,11 +303,10 @@ Definition build_4d_complex_from_graph (g : PartitionGraph) : SimplicialComplex4
      sc4d_4simplices := simplices
   |}.
 
-(** ** Preliminary Results *)
+(** Small sanity checks for the Euler-count definition. *)
 
-(** Empty complex has χ = 0 *)
 (* DEFINITIONAL HELPER *)
-(** [empty_4d_complex_euler_zero]: formal specification. *)
+(** Empty complex has χ = 0 *)
 Lemma empty_4d_complex_euler_zero :
   euler_characteristic_4d {| sc4d_vertices := [];
                               sc4d_edges := [];
@@ -326,9 +319,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** Single vertex has χ = 1 *)
 (* DEFINITIONAL HELPER *)
-(** [single_vertex_euler_one]: formal specification. *)
+(** Single vertex has χ = 1 *)
 Lemma single_vertex_euler_one :
   euler_characteristic_4d {| sc4d_vertices := [0];
                               sc4d_edges := [];
@@ -341,7 +333,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** ** Theorems About 4D Complex Extraction *)
+(** Arity theorems for the extraction functions. *)
 
 (** All extracted edges are well-formed *)
 Lemma extracted_edges_well_formed : forall modules,
@@ -407,7 +399,6 @@ Proof.
     + apply IH. intros y Hy. apply H. simpl. right. exact Hy.
 Qed.
 
-(** [extracted_faces_well_formed]: formal specification. *)
 Lemma extracted_faces_well_formed : forall modules,
   all_faces_well_formed (extract_faces_from_modules modules).
 Proof.
@@ -492,7 +483,9 @@ Proof.
     + exact IH.
 Qed.
 
-(** Building complex from graph preserves well-formedness *)
+(** Building a complex from a graph preserves the arity-only well-formedness.
+    The well_formed_graph premise is kept for the public API, but this proof
+    only needs the shape of the extraction functions. *)
 Theorem build_4d_complex_well_formed : forall g,
   well_formed_graph g ->
   well_formed_4d_complex (build_4d_complex_from_graph g).

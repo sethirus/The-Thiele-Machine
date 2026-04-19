@@ -1,46 +1,17 @@
-(** * LorentzianTensorPipeline: Proving lorentzian_coupling_positive (κ > 0)
+(** LorentzianTensorPipeline: discharging positive Lorentzian coupling.
 
-    =========================================================================
-    WHAT THIS FILE PROVES:
+    DiscreteRaychaudhuri.v leaves one interface hypothesis explicit: the
+    effective Lorentzian coupling has to be positive. This file proves that
+    positivity in the isotropic two-vertex case when mass decreases along the
+    edge from v to w.
 
-    [lorentzian_coupling_positive_from_mass_gradient] — the main result.
+    The sign chain is the whole story. The mass gradient makes the isotropic c
+    parameter negative, that makes R_00 negative, that flips G_00 positive in
+    the way the earlier files need, and once the denominator is positive the
+    coupling kappa comes out positive too. So this file is the concrete closure
+    of that gap, but only for this specific mass-gradient setup. *)
 
-    For the isotropic 2-vertex complex, when vertex v has MORE structural mass
-    than vertex w (mass decreases along the edge v→w), the Einstein coupling
-    constant κ = G_{00}/mass is POSITIVE:
-
-        module_structural_mass s v > module_structural_mass s w
-          →  lorentzian_coupling_positive s v w (two_vertex_sc v w)
-
-    PROOF CHAIN:
-    1. Isotropic Christoffel formula: Γ^ρ_{μν}(v) = c·(δ_{νρ}+δ_{μρ}-δ_{μν})
-       where c = (b-a)/(2a), a = INR(mass v), b = INR(mass w).
-    2. Explicit Riemann via HRiem (same pattern as ricci_isotropy_isotropic_2v).
-    3. Compute R_{00} = 6c - 6c² = 6c(1-c).
-    4. When c < 0 (b < a, mass decreases): c < 0, 1-c > 1 > 0, so R_{00} < 0.
-    5. From isotropic_einstein_ricci_relation: G_{00} = -R_{00} > 0.
-    6. κ = G_{00}/a > 0 since a > 0.
-    7. By ricci_isotropy_isotropic_2v, G_{dd} = G_{00} for all d, so
-       G_{dd} = κ * T_{dd} for all d.
-
-    THE LORENTZIAN CONNECTION:
-    In the Euclidean (+,+,+,+) pipeline, G_{00}^Euc = -R_{00}^Euc.
-    In Lorentzian (-,+,+,+), the sign of the Ricci scalar trace flips:
-    G_{00}^Lor = +R_{00}^Lor (shown in DiscreteRaychaudhuri.v).
-    Both analyses give G_{00} > 0 when mass decreases — the Euclidean κ is
-    positive precisely because the Lorentzian interpretation is consistent.
-
-    ONE ADDITIONAL HYPOTHESIS:
-    module_structural_mass s v > module_structural_mass s w
-    This is the mass-gradient condition (mass decreases along the null ray).
-    It is falsifiable: a VM state with equal or increasing mass along the edge
-    would make κ ≤ 0.
-
-    ZERO AXIOMS. ZERO ADMITS.
-    =========================================================================
-*)
-
-(* INQUISITOR NOTE: proof-connectivity — closes lorentzian_coupling_positive
+(* INQUISITOR NOTE: proof-connectivity - closes lorentzian_coupling_positive
    gap from DiscreteRaychaudhuri.v using the mass-gradient sign argument.
    Chain: mass_v > mass_w → c < 0 → R_{00} < 0 → G_{00} > 0 → κ > 0. *)
 
@@ -59,23 +30,11 @@ From Kernel Require Import MuGravity.
 From Kernel Require Import CurvedTensorPipeline.
 From Kernel Require Import DiscreteRaychaudhuri.
 
-(** =========================================================================
-    SECTION 1: THE KEY LEMMA — R_{00} < 0 WHEN MASS DECREASES
-    =========================================================================
+(**
 
-    Manual calculation (verified by ring):
-
-      R_{00} = Σ_{ρ=0}^{3} R^ρ_{0ρ0}(v)
-
-    Using HRiem (same pattern as ricci_isotropy_isotropic_2v), each term:
-      ρ=0: linear=0, quad = (-2c²) - (-2c²) = 0
-      ρ=1: linear=2c, quad = (-2c²) - 0 = -2c²  →  2c - 2c²
-      ρ=2: same as ρ=1  →  2c - 2c²
-      ρ=3: same as ρ=1  →  2c - 2c²
-
-    Total: R_{00} = 6c - 6c²  =  6c(1-c)
-
-    When c < 0 (b < a):  c < 0  and  1-c > 1 > 0  →  R_{00} < 0.
+    The hand calculation here is simple but important: in this isotropic setup,
+    R_00 reduces to 6c(1-c). So once c < 0, the Ricci sign is fixed. That one
+    sign computation is what the later coupling argument rides on.
 *)
 
 (** [curved_ricci_00_negative_when_mass_decreases]: The (0,0) Ricci component
@@ -83,7 +42,7 @@ From Kernel Require Import DiscreteRaychaudhuri.
 
     Proof copies the HRiem construction from ricci_isotropy_isotropic_2v,
     then unfolds the 4-term Ricci sum for d=0 and closes with nlinarith. *)
-(* INQUISITOR NOTE: Key sign lemma — R_{00} < 0 when mass gradient c < 0 *)
+(* INQUISITOR NOTE: Key sign lemma - R_{00} < 0 when mass gradient c < 0 *)
 Lemma curved_ricci_00_negative_when_mass_decreases :
   forall s v w a b,
     (v <> w)%nat ->
@@ -172,9 +131,6 @@ Proof.
   nra.
 Qed.
 
-(** =========================================================================
-    SECTION 2: G_{00} > 0 FROM R_{00} < 0
-    ========================================================================= *)
 
 (** [einstein_00_positive_when_mass_decreases]: Under isotropic metric with
     mass decreasing from v to w, the (0,0) Einstein tensor component is positive.
@@ -216,9 +172,6 @@ Proof.
   lra.
 Qed.
 
-(** =========================================================================
-    SECTION 3: MAIN THEOREM — lorentzian_coupling_positive
-    ========================================================================= *)
 
 (** [lorentzian_coupling_positive_from_mass_gradient]: The main result.
 
@@ -236,9 +189,9 @@ Qed.
     2. einstein_00_positive_when_mass_decreases gives G_{00} > 0.
     3. a > 0 from mass hypothesis.
     4. Therefore κ = G_{00}/a > 0. *)
-(* INQUISITOR NOTE: Main theorem — closes the lorentzian_coupling_positive gap
-   for the isotropic mass-gradient case. Zero admits. Hypothesis:
-   mass_v > mass_w (mass gradient along edge). *)
+(* INQUISITOR NOTE: Main theorem closes the lorentzian_coupling_positive gap
+  for the isotropic mass-gradient case under the stated hypothesis
+  mass_v > mass_w. *)
 Theorem lorentzian_coupling_positive_from_mass_gradient :
   forall s v w,
     (v <> w)%nat ->
@@ -277,9 +230,7 @@ Proof.
   - exact Hκ_eq.
 Qed.
 
-(** =========================================================================
-    SECTION 4: DOWNSTREAM CONSEQUENCE FOR RAYCHAUDHURI FOCUSING
-    =========================================================================
+(**
 
     With lorentzian_coupling_positive proven for the mass-gradient case,
     the hypothesis used by DiscreteRaychaudhuri.v can be discharged in that
@@ -289,7 +240,7 @@ Qed.
 
 (** [positive_mass_implies_focusing_from_gradient]: Convenience re-export.
     Positive mass with gradient along edge → null congruence focuses. *)
-(* INQUISITOR NOTE: Convenience wrapper — gradient → focusing, using
+(* INQUISITOR NOTE: Convenience wrapper - gradient -> focusing, using
    lorentzian_coupling_positive_from_mass_gradient as the κ>0 source *)
 Theorem positive_mass_implies_focusing_from_gradient :
   forall s v w,

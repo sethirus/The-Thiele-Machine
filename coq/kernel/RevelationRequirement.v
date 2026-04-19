@@ -1,50 +1,18 @@
-(** =========================================================================
-    RevelationRequirement: Revelation Events for Nonlocal Correlations
-    =========================================================================
+(** RevelationRequirement: certification transitions require structure-setting steps
 
-    WHY THIS FILE EXISTS:
-    The Thiele Machine enforces a fundamental constraint: producing
-    supra-quantum correlations (CHSH value S > 2 sqrt 2) requires
-    explicit revelation of hidden partition structure. This file
-    proves that any VM execution trace whose certification CSR
-    transitions from zero to non-zero MUST contain a revelation-class
-    instruction (REVEAL, EMIT, LJOIN, or LASSERT). In other words,
-    nonlocal correlations cannot appear "for free" -- they demand
-    structure disclosure, which the mu-accounting system charges for.
+    This file proves a concrete operational claim: if execution starts with
+    cert_addr = 0 and ends with cert_addr <> 0, then some executed step must
+    perform the relevant structure-setting transition. In the current VM this
+    means certification does not appear out of arithmetic or control flow
+    alone.
 
-    THE CORE CLAIM:
-    Theorem nonlocal_correlation_requires_revelation --
-      If a trace starts with cert_addr = 0 and ends with cert_addr <> 0,
-      then the trace must contain a REVEAL, EMIT, LJOIN, or LASSERT
-      instruction. No purely computational (arithmetic, memory, control
-      flow) sequence can produce certification.
+    The result is intentionally scoped to the machine semantics in this
+    repository. It packages the connection between trace execution,
+    certification-state change, and the designated revelation class of steps.
+    It does not by itself derive the full Tsirelson story; that needs the
+    additional quantum premises proved elsewhere.
 
-    KEY SUPPORTING RESULTS:
-    - uses_revelation_decidable: decidability of the revelation predicate
-    - supra_cert_implies_structure_addition_in_run: if certification
-      appears, a structure-addition event occurred during execution
-    - non_cert_setter_preserves_cert: all non-revelation instructions
-      preserve the certification CSR unchanged
-    - cert_setter_necessary_for_supra: corollary restating the main
-      theorem for clarity
-
-    PHYSICAL INTERPRETATION:
-    This is the formal backbone of "No Free Insight" at the operational
-    level. mu = 0 traces (no structural cost) stay within the algebraic |S| <= 4 bound
-    (the no-signaling bound). The tighter Tsirelson bound |S| <= 2sqrt(2) requires
-    additional NPA coherence premises. Supra-quantum correlations require revelation,
-    which carries positive mu-cost. The theorem is proven by exhaustive
-    case analysis over all 47 VM instruction constructors.
-
-    FALSIFICATION:
-    Exhibit a VM trace containing only arithmetic / memory / control-flow
-    instructions (no REVEAL, EMIT, LJOIN, LASSERT, or CERTIFY) that
-    transitions cert_addr from 0 to non-zero. The proof shows this is
-    impossible: non_cert_setter_preserves_cert covers every other
-    instruction constructor by reflexivity.
-
-    STATUS: Fully proven, zero Admitted.
-    ========================================================================= *)
+    *)
 
 From Coq Require Import List Lia Arith.PeanoNat Bool.
 From Coq Require Import Strings.String.
@@ -66,11 +34,11 @@ Proof.
     try (decide equality; apply string_dec).
 Qed.
 
-(** * Revelation Requirement for Nonlocal Correlations *)
+(** Revelation Requirement for Nonlocal Correlations *)
 
 Module RevelationProof.
 
-(** * Trace Definitions *)
+(** Trace Definitions *)
 
 Definition Trace := list vm_instruction.
 
@@ -85,7 +53,7 @@ Fixpoint trace_run (fuel : nat) (trace : Trace) (s : VMState) : option VMState :
       end
   end.
 
-(** * Revelation Usage Predicate *)
+(** Revelation Usage Predicate *)
 
 Fixpoint uses_revelation (trace : Trace) : Prop :=
   match trace with
@@ -121,7 +89,7 @@ Proof.
     left. exact I.
 Qed.
 
-(** * Supra-Quantum Correlation Property *)
+(** Supra-Quantum Correlation Property *)
 
 (** We conservatively define supra-quantum correlations as requiring
     explicit certification. This is validated by the μ-accounting system
@@ -130,7 +98,7 @@ Qed.
 Definition has_supra_cert (s : VMState) : Prop :=
   s.(vm_csrs).(csr_cert_addr) <> 0.
 
-(** * Semantic structure addition (execution-based)
+(** Semantic structure addition (execution-based)
 
     To avoid defining “structure addition” by an opcode list, we define it
     as an *observable transition* during execution:
@@ -153,7 +121,6 @@ Fixpoint structure_addition_in_run (fuel : nat) (trace : Trace) (s : VMState) : 
       end
   end.
 
-(** [supra_cert_implies_structure_addition_in_run]: formal specification. *)
 Lemma supra_cert_implies_structure_addition_in_run :
   forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
     trace_run fuel trace s_init = Some s_final ->
@@ -184,7 +151,7 @@ Proof.
       unfold has_supra_cert in Hfinal. contradiction.
 Qed.
 
-(** * Graph Preservation Lemmas *)
+(** Graph Preservation Lemmas *)
 
 (** Non-reveal instructions preserve the certification state *)
 Lemma non_cert_setter_preserves_cert :
@@ -239,7 +206,6 @@ Proof.
   - (* xor_rank *) unfold advance_state_rm. simpl. reflexivity.
   - (* emit *) exfalso. eapply Hemit. reflexivity.
   - (* reveal *) exfalso. eapply Hrev. reflexivity.
-  - (* oracle_halts *) unfold advance_state. simpl. reflexivity.
   - (* halt *) unfold advance_state. simpl. reflexivity.
   - (* checkpoint *) unfold advance_state. simpl. reflexivity.
   - (* read_port *) unfold advance_state_rm. simpl. reflexivity.
@@ -442,10 +408,6 @@ Proof.
               ** exfalso. apply Hneq. injection Hnth0. intro. exact H.
            ++ destruct hd; simpl; try (apply (IHtrace pc' mod0 bits0 cert0 mu0); exact Hnth0).
               (* instr_reveal case: goal is True *) exact I.
-      * (* oracle_halts *) apply IH in Hrun.
-        -- exact Hrun.
-        -- unfold advance_state; simpl. exact Hinit.
-        -- exact Hfinal.
       * (* halt *) apply IH in Hrun.
         -- exact Hrun.
         -- unfold advance_state; simpl. exact Hinit.
@@ -591,7 +553,7 @@ Proof.
       unfold has_supra_cert in Hfinal. contradiction.
 Qed.
 
-(** * Corollary: Same as main theorem, restated for clarity *)
+(** Corollary: Same as main theorem, restated for clarity *)
 
 Corollary cert_setter_necessary_for_supra :
   forall trace s_init s_final fuel,

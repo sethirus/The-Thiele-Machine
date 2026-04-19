@@ -167,7 +167,7 @@ class TestOpcodeAlignment:
         """REVEAL, CHSH_TRIAL, PDISCOVER fail without logic key (err flag set)."""
         from thielecpu.hardware.cosim import run_verilog
         # Without INIT_LOGIC_ACC 0xCAFEEACE — should trigger ERR_LOGIC
-        result = run_verilog(["PNEW {0,256} 1", "REVEAL 0 0 1", "HALT 0"])
+        result = run_verilog(["PNEW {0,256} 1", "REVEAL 0 1 0", "HALT 0"])
         assert result is not None
         # err flag or non-zero err CSR expected
         assert result.get("err") or result.get("pc") != 3
@@ -317,11 +317,11 @@ class TestMuTensorBianchi:
         result = run_verilog([
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 10",
-            "REVEAL 0 0 3",
+            "REVEAL 0 3 0",
             "HALT 0",
         ])
         assert result is not None
-        assert result["mu"] >= 3, f"Expected mu >= 3, got {result['mu']}"
+        assert result["mu"] >= 4, f"Expected mu >= 4, got {result['mu']}"
 
     def test_bianchi_alarm_when_insufficient_mu(self):
         """Bianchi alarm fires when tensor_total > mu."""
@@ -342,7 +342,7 @@ class TestMuTensorBianchi:
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog([
             "PNEW {0,256} 5",
-            "REVEAL 0 0 2",
+            "REVEAL 0 2 0",
             "HALT 0",
         ])
         assert result is not None

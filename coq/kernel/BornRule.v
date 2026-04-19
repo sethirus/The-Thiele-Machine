@@ -1,4 +1,4 @@
-(** * BornRule: Measurement probabilities on the Bloch sphere
+(** BornRule: Measurement probabilities on the Bloch sphere
 
     THE RESULT:
     For a qubit parameterized by Bloch vector (x,y,z), if the probability
@@ -28,13 +28,12 @@
 
     These satisfy P(0)+P(1)=1 and are the standard Bloch sphere probabilities.
 
-    FALSIFICATION:
     Find a different probability assignment that is affine in z and
     matches the boundary conditions. The uniqueness proof shows this
     is impossible.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity, bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 
@@ -44,14 +43,13 @@ Require Import Coq.micromega.Psatz.
 
 Local Open Scope R_scope.
 
-(** =========================================================================
-    SECTION 1: Measurement Setup
-    ========================================================================= *)
+(** Measurement setup. *)
 
 (** A qubit measurement in the computational basis *)
 (** State: |ψ⟩ = α|0⟩ + β|1⟩ with |α|² + |β|² = 1 *)
 
-(** Bloch sphere representation: z-component determines computational basis probs *)
+(** Bloch sphere representation: z-component determines computational-basis
+    probabilities. *)
 (** For state with Bloch vector (x, y, z):
     P(|0⟩) = (1 + z)/2
     P(|1⟩) = (1 - z)/2 *)
@@ -59,9 +57,7 @@ Local Open Scope R_scope.
 Definition prob_zero (x y z : R) : R := (1 + z) / 2.
 Definition prob_one (x y z : R) : R := (1 - z) / 2.
 
-(** Probabilities are non-negative and sum to 1 *)
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
+(** Bloch-ball states make both computational-basis probabilities non-negative. *)
 Lemma probs_nonneg : forall x y z,
   x*x + y*y + z*z <= 1 ->
   0 <= prob_zero x y z /\ 0 <= prob_one x y z.
@@ -85,20 +81,16 @@ Proof.
       assert (z * z > 1) by nra. lra. }
   lra.
 Qed.
-(** HELPER: Normalization property *)
 
-(** HELPER: Normalization property *)
-(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-(** [probs_sum_to_one]: formal specification. *)
+(* DEFINITIONAL HELPER — INQUISITOR NOTE: arithmetic derivation from prob_zero + prob_one definitions. *)
+(** The two computational-basis probabilities sum to one by definition. *)
 Lemma probs_sum_to_one : forall x y z,
   prob_zero x y z + prob_one x y z = 1.
 Proof.
   intros. unfold prob_zero, prob_one. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 2: Information Gain from Measurement
-    ========================================================================= *)
+(** A simple measurement-cost proxy. *)
 
 (** Before measurement: information about outcome is uncertain *)
 (** Shannon entropy H = -Σ p_i log p_i *)
@@ -109,15 +101,16 @@ Qed.
 (** For a pure state |ψ⟩ measured in its eigenbasis: H = 0 (no surprise) *)
 (** For a maximally mixed state: H = 1 bit (maximal surprise) *)
 
-(** The μ-cost of measurement equals the information gained *)
+(** [measurement_mu_cost] is a linear-entropy proxy for uncertainty.
+    It is not Shannon entropy or von Neumann entropy; the comments below only
+    use the two facts this definition proves: pure states have zero cost and
+    mixed states have positive cost. *)
 Definition measurement_mu_cost (x y z : R) : R :=
   (* For simplicity, use linear entropy instead of von Neumann entropy *)
   (* Linear entropy S_L = 1 - Tr(ρ²) = (1 - x² - y² - z²)/2 *)
   (1 - x*x - y*y - z*z) / 2.
-(** HELPER: Base case property *)
 
 (** Pure states have zero measurement cost (already definite) *)
-(** HELPER: Base case property *)
 Lemma pure_state_zero_cost : forall x y z,
   x*x + y*y + z*z = 1 ->
   measurement_mu_cost x y z = 0.
@@ -126,13 +119,10 @@ Proof.
   unfold measurement_mu_cost.
   replace (x*x + y*y + z*z) with 1 by lra.
   lra.
-(** HELPER: Non-negativity property *)
 Qed.
 
+(* DEFINITIONAL HELPER — INQUISITOR NOTE: arithmetic derivation from measurement_mu_cost definition. *)
 (** Mixed states have positive measurement cost *)
-(** HELPER: Non-negativity property *)
-(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-(** [mixed_state_positive_cost]: formal specification. *)
 Lemma mixed_state_positive_cost : forall x y z,
   x*x + y*y + z*z < 1 ->
   measurement_mu_cost x y z > 0.
@@ -141,9 +131,7 @@ Proof.
   unfold measurement_mu_cost. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 3: Born Rule Uniqueness
-    ========================================================================= *)
+(** Born-rule uniqueness under an affine-in-z hypothesis. *)
 
 (** An alternative probability rule *)
 Definition ProbRule := R -> R -> R -> R -> R.  (* x y z → (p0, p1) via first component *)
@@ -164,7 +152,7 @@ Definition born_rule : ProbRule :=
   fun x y z outcome => 
     if Rle_dec outcome (1/2) then prob_zero x y z else prob_one x y z.
 
-(** THEOREM: Born rule is valid *)
+(** The concrete Born rule satisfies the validity predicate above. *)
 Theorem born_rule_valid : 
   valid_prob_rule born_rule.
 Proof.
@@ -185,17 +173,16 @@ Proof.
     unfold prob_zero. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 4: Linear Extension Uniqueness
-    ========================================================================= *)
+(** Linear extension uniqueness. *)
 
-(** Any valid probability rule that is linear in the state must equal Born *)
+(** A rule is linear in z when outcome 0 has the affine form a*z+b on the
+    Bloch ball. *)
 
 Definition is_linear_in_z (P : ProbRule) : Prop :=
   exists a b : R,
     forall x y z, x*x + y*y + z*z <= 1 -> P x y z 0 = a * z + b.
 
-(** THEOREM: Linear valid probability rule equals Born rule *)
+(** Any valid probability rule affine in z has the Born value for outcome 0. *)
 Theorem linear_implies_born :
   forall P : ProbRule,
     valid_prob_rule P ->
@@ -228,19 +215,15 @@ Proof.
   unfold prob_zero. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 5: Connection to Measurement Disturbance
-    ========================================================================= *)
+(** Connection to measurement disturbance. *)
 
 (** Post-measurement state after outcome 0: projects to |0⟩ *)
 Definition post_measurement_zero (x y z : R) : R * R * R := (0, 0, 1).
 
-(** HELPER: Base case property *)
 (** Post-measurement state after outcome 1: projects to |1⟩ *)
 Definition post_measurement_one (x y z : R) : R * R * R := (0, 0, -1).
 
 (** Measurement creates a pure state (purity = 1) *)
-(** HELPER: Base case property *)
 Lemma measurement_creates_pure_zero : forall x y z,
   let '(x', y', z') := post_measurement_zero x y z in
   x'*x' + y'*y' + z'*z' = 1.
@@ -248,7 +231,7 @@ Proof.
   intros. simpl. lra.
 Qed.
 
-(** [measurement_creates_pure_one]: formal specification. *)
+(** Outcome 1 also projects to a pure computational-basis state. *)
 Lemma measurement_creates_pure_one : forall x y z,
   let '(x', y', z') := post_measurement_one x y z in
   x'*x' + y'*y' + z'*z' = 1.
@@ -256,59 +239,49 @@ Proof.
   intros. simpl. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 6: Gleason's Theorem Connection
-    ========================================================================= *)
+(** What this file does not get from Gleason.
 
-(** Gleason's theorem states that any probability measure on quantum
-    propositions must have the Born rule form. Our accounting approach
-    gives an alternative derivation:
-    
-    1. Probabilities must be non-negative and sum to 1
-    2. Pure eigenstates must have probability 0 or 1
-    3. The μ-cost (information gain) must be consistent
-    4. Linearity follows from superposition principle
-    
-    These constraints uniquely determine the Born rule. *)
+    Gleason's theorem is the real theorem about probability measures on quantum
+    propositions. This file does not formalize Gleason and does not derive
+    linearity. The next predicate is only a weak side condition: the
+    measurement-cost proxy is non-negative on valid Bloch states. It does not
+    inspect [P]. *)
 
-(** The key constraint: μ-cost equals expected information gain *)
-Definition mu_consistent (P : ProbRule) : Prop :=
+(** The cost proxy is non-negative on valid Bloch states. *)
+Definition measurement_cost_nonnegative (P : ProbRule) : Prop :=
   forall x y z,
     x*x + y*y + z*z <= 1 ->
-    (* μ-cost = Shannon entropy of measurement outcomes *)
-    (* For binary outcome, this is approximately p(1-p) for small entropy *)
     measurement_mu_cost x y z >= 0.
 
-(** THEOREM: μ-consistency is satisfied by Born rule *)
-Theorem born_rule_mu_consistent :
-  mu_consistent born_rule.
+(** The Born rule satisfies the weak cost-side condition, because every rule
+    satisfies it when the state is inside the Bloch ball. *)
+Theorem born_rule_measurement_cost_nonnegative :
+  measurement_cost_nonnegative born_rule.
 Proof.
-  unfold mu_consistent, measurement_mu_cost.
+  unfold measurement_cost_nonnegative, measurement_mu_cost.
   intros x y z Hvalid.
   assert (Hpurity: x*x + y*y + z*z >= 0) by nra.
   lra.
 Qed.
 
-(** =========================================================================
-    SECTION 7: Summary - Born Rule from Accounting
-    ========================================================================= *)
+(** Summary: Born rule from validity plus affine linearity. *)
 
-(** The Born rule p = |⟨i|ψ⟩|² emerges from:
+(** The theorem below proves exactly this:
     
     1. CONSERVATION: Total probability = 1 (normalization)
     2. POSITIVITY: All probabilities ≥ 0
     3. EIGENSTATE CONSTRAINT: Measurement of eigenstate is certain
-    4. LINEARITY: Superposition principle
-    5. μ-CONSISTENCY: Information gain matches accounting
+    4. LINEARITY: outcome 0 is affine in z
     
-    These are purely accounting/information-theoretic constraints.
-    No Hilbert space structure is assumed a priori. *)
+    The cost-side condition is kept in the statement for compatibility with the
+    surrounding development, but the proof does not use it. The load-bearing
+    assumption is [is_linear_in_z]. *)
 
-Theorem born_rule_from_accounting :
+Theorem valid_linear_rule_is_born_with_cost_side_condition :
   forall P : ProbRule,
     valid_prob_rule P ->
     is_linear_in_z P ->
-    mu_consistent P ->
+    measurement_cost_nonnegative P ->
     forall x y z,
       x*x + y*y + z*z <= 1 ->
       P x y z 0 = prob_zero x y z /\
@@ -338,4 +311,3 @@ Lemma born_rule_measurement_cases :
 Proof.
   split; [exact measurement_creates_pure_zero | exact measurement_creates_pure_one].
 Qed.
-

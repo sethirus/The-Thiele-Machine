@@ -1,13 +1,10 @@
-(** * MatrixAlgebra4: 4×4 Matrix Operations over R
+(** MatrixAlgebra4: 4×4 matrix operations over R.
 
-    PURPOSE: Provide matrix algebra infrastructure for curved spacetime
-    computations. Defines 4×4 matrix multiplication, determinant (Leibniz
-    formula), cofactor/adjugate matrix, and Cramer's rule inverse.
-
-    USED BY: CurvedTensorPipeline.v (metric inverse for Christoffel symbols)
-
-    ZERO AXIOMS. All operations pure computation over Coq reals.
-*)
+  This file is the linear-algebra substrate for the curved spacetime
+  pipeline: multiplication, determinant, adjugate, and Cramer's-rule
+  inversion for 4x4 real matrices. The point is straightforward. The later
+  tensor files need a concrete metric inverse, so this file builds that layer
+  directly in Coq over reals. *)
 
 From Coq Require Import Reals Arith.PeanoNat Lia Lra.
 From Kernel Require Import MuCostModel VMState.

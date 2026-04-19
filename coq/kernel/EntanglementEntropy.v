@@ -1,12 +1,10 @@
-(** * Entanglement Entropy Over PSPLIT Subsystems
+(** Entanglement Entropy Over PSPLIT Subsystems
 
-    WHY THIS FILE EXISTS:
     The PSPLIT instruction creates a bipartite decomposition of a parent
     module region into two disjoint child regions. This file adds the minimal
     formal scaffolding needed to talk about reduced states and entropy over
     that split.
 
-    SCOPE OF THIS FILE:
     - partial trace is represented at support level (projection of joint
       support onto one subsystem)
     - entanglement entropy is represented in bits via log2_up of reduced

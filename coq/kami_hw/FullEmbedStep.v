@@ -18,8 +18,6 @@
     for [SupportedOpcode], with conditional extensions for additional
     opcodes (PNEW, CALL, RET, CHSH_TRIAL, LASSERT).
 
-    PROOF STRATEGY:
-
     The full-state abstraction [abs_full_snapshot ∘ full_snapshot_of_snapshot]
     differs from [abs_phase1] only in [vm_graph]: the former uses
     [snap_full_graph] (which includes morphism state from rich tables),
@@ -57,7 +55,7 @@ Import VMStep.VMStep.
 
 (* ======================================================================
    §1  Graph-swap helper
-   ====================================================================== *)
+   *)
 
 (** Replace the [vm_graph] field of a [VMState], keeping all other
     fields unchanged. *)
@@ -77,7 +75,7 @@ Definition with_graph (g : PartitionGraph) (s : VMState) : VMState :=
 
 (* ======================================================================
    §2  Decomposition lemma
-   ====================================================================== *)
+   *)
 
 (** The full-state abstraction equals [abs_phase1] with graph swapped to
     [snap_full_graph]. *)
@@ -93,7 +91,7 @@ Qed.
 
 (* ======================================================================
    §3  Graph preservation by kami_step
-   ====================================================================== *)
+   *)
 
 (** For [SupportedOpcode], [kami_step] preserves all graph-related
     hardware state: partition tables, rich-state tables.  Therefore
@@ -113,7 +111,7 @@ Qed.
 
 (* ======================================================================
    §4  Graph-swap commutation for vm_apply
-   ====================================================================== *)
+   *)
 
 (** For [SupportedOpcode], [vm_apply] commutes with graph-swapping:
     swapping the graph before or after applying the instruction produces
@@ -196,7 +194,7 @@ Qed.
 
 (* ======================================================================
    §5  Main theorem: full-state step commutation
-   ====================================================================== *)
+   *)
 
 (** For all [SupportedOpcode] instructions, the hardware step function
     [kami_step] commutes with [vm_apply] through the full-state
@@ -236,7 +234,7 @@ Proof. exact full_embed_step_compute. Qed.
 
 (* ======================================================================
    §6  Trace corollary
-   ====================================================================== *)
+   *)
 
 (** For a trace of [SupportedOpcode] instructions, the hardware and
     kernel execution agree through the full-state bridge at every step. *)
@@ -274,7 +272,7 @@ Qed.
 
 (* ======================================================================
    §7  Conditional extensions
-   ====================================================================== *)
+   *)
 
 (** For non-SupportedOpcode instructions that already have conditional
     theorems in EmbedStep.v / EmbedStep_WF.v, we lift those theorems
@@ -331,7 +329,7 @@ Qed.
 
 (* ======================================================================
    §8  CALL, RET, CHSH_TRIAL conditional lift
-   ====================================================================== *)
+   *)
 
 (** These three opcodes do not modify [vm_graph] in [kami_step]
     (partition tables and rich state are preserved).
@@ -431,7 +429,7 @@ Qed.
 
 (* ======================================================================
    §9  Irreducible gap documentation
-   ====================================================================== *)
+   *)
 
 (** The following opcodes have IRREDUCIBLE gaps between [kami_step] and
     [vm_apply] that prevent unconditional full-state commutation:
@@ -480,7 +478,7 @@ Qed.
 
 (* ======================================================================
    §10  FullSupportedPredicate  — composite coverage summary
-   ====================================================================== *)
+   *)
 
 (** Count of unconditionally covered opcodes through the full-state
     bridge: 31 via [SupportedOpcode] (§5).

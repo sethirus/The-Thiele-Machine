@@ -1,86 +1,86 @@
-DIGEST 3a3b5aed084670927b2f94193b24cb32
+DIGEST 1b1cb914bef91b34e427d11728de6175
 FKernel.ConstantUnification
-R981:987 Kernel.VMState <> <> lib
-R989:994 Kernel.VMStep <> <> lib
-R1024:1034 Kernel.MuCostModel <> <> lib
-R1062:1066 Coq.Reals.Reals <> <> lib
-R1068:1070 Coq.micromega.Lra <> <> lib
-def 2305:2310 <> tau_mu
-R2314:2314 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 3246:3249 <> d_mu
-R3253:3253 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 4047:4049 <> k_B
-R4053:4053 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4058:4059 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-def 4806:4806 <> T
-R4810:4810 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-prf 5276:5285 <> tau_mu_pos
-R5295:5297 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5289:5294 Kernel.ConstantUnification <> tau_mu def
-R5315:5320 Kernel.ConstantUnification <> tau_mu def
-prf 5381:5388 <> d_mu_pos
-R5396:5398 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5392:5395 Kernel.ConstantUnification <> d_mu def
-R5416:5419 Kernel.ConstantUnification <> d_mu def
-prf 5479:5485 <> k_B_pos
-R5492:5494 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5489:5491 Kernel.ConstantUnification <> k_B def
-R5512:5514 Kernel.ConstantUnification <> k_B def
-R5523:5538 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
-R5523:5538 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
-prf 5596:5600 <> T_pos
-R5605:5607 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R5604:5604 Kernel.ConstantUnification <> T def
-R5625:5625 Kernel.ConstantUnification <> T def
-def 7144:7148 <> E_bit
-R7152:7152 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7164:7166 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7160:7162 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7157:7159 Kernel.ConstantUnification <> k_B def
-R7163:7163 Kernel.ConstantUnification <> T def
-R7167:7168 Coq.Reals.Rpower <> ln def
-def 8881:8889 <> derived_h
-R8893:8893 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8907:8909 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8899:8901 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8902:8906 Kernel.ConstantUnification <> E_bit def
-R8910:8915 Kernel.ConstantUnification <> tau_mu def
-prf 11035:11055 <> h_relational_identity
-R11076:11078 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R11079:11084 Kernel.ConstantUnification <> tau_mu def
-binder 11065:11070 <> nu_max:1
-R11100:11104 Kernel.ConstantUnification <> E_bit def
-binder 11095:11095 <> E:2
-R11120:11122 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11111:11119 Kernel.ConstantUnification <> derived_h def
-R11128:11130 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R11124:11126 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11127:11127 Kernel.ConstantUnification <> E:2 var
-R11131:11136 Kernel.ConstantUnification <> nu_max:1 var
-R11163:11171 Kernel.ConstantUnification <> derived_h def
-R11174:11178 Kernel.ConstantUnification <> E_bit def
-R11198:11201 Coq.Reals.Rdefinitions <> Rdiv def
-R11214:11222 Coq.Reals.Raxioms <> Rmult_1_l thm
-R11214:11222 Coq.Reals.Raxioms <> Rmult_1_l thm
-R11214:11222 Coq.Reals.Raxioms <> Rmult_1_l thm
-R11254:11263 Coq.Reals.RIneq <> Rgt_not_eq thm
-R11272:11281 Kernel.ConstantUnification <> tau_mu_pos thm
-R11235:11242 Coq.Reals.RIneq <> Rinv_inv thm
-R11235:11242 Coq.Reals.RIneq <> Rinv_inv thm
-R11235:11242 Coq.Reals.RIneq <> Rinv_inv thm
-prf 12966:12977 <> c_structural
-R12996:12998 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R12992:12995 Kernel.ConstantUnification <> d_mu def
-R12999:13004 Kernel.ConstantUnification <> tau_mu def
-binder 12987:12987 <> c:3
-R13012:13014 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13011:13011 Kernel.ConstantUnification <> c:3 var
-R13019:13021 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R13015:13018 Kernel.ConstantUnification <> d_mu def
-R13022:13027 Kernel.ConstantUnification <> tau_mu def
-def 14795:14814 <> is_planck_consistent
-R14827:14827 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 14817:14823 <> h_fixed:4
-R14849:14851 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14842:14848 Kernel.ConstantUnification <> h_fixed:4 var
-R14852:14860 Kernel.ConstantUnification <> derived_h def
+R746:752 Kernel.VMState <> <> lib
+R754:759 Kernel.VMStep <> <> lib
+R789:799 Kernel.MuCostModel <> <> lib
+R827:831 Coq.Reals.Reals <> <> lib
+R833:835 Coq.micromega.Lra <> <> lib
+def 1565:1570 <> tau_mu
+R1574:1574 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2314:2317 <> d_mu
+R2321:2321 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 2987:2989 <> k_B
+R2993:2993 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2998:2999 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+def 3563:3563 <> T
+R3567:3567 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+prf 3892:3901 <> tau_mu_pos
+R3911:3913 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3905:3910 Kernel.ConstantUnification <> tau_mu def
+R3931:3936 Kernel.ConstantUnification <> tau_mu def
+prf 3956:3963 <> d_mu_pos
+R3971:3973 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3967:3970 Kernel.ConstantUnification <> d_mu def
+R3991:3994 Kernel.ConstantUnification <> d_mu def
+prf 4014:4020 <> k_B_pos
+R4027:4029 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4024:4026 Kernel.ConstantUnification <> k_B def
+R4047:4049 Kernel.ConstantUnification <> k_B def
+R4058:4073 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+R4058:4073 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+prf 4093:4097 <> T_pos
+R4102:4104 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4101:4101 Kernel.ConstantUnification <> T def
+R4122:4122 Kernel.ConstantUnification <> T def
+def 4886:4890 <> E_bit
+R4894:4894 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4906:4908 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4902:4904 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4899:4901 Kernel.ConstantUnification <> k_B def
+R4905:4905 Kernel.ConstantUnification <> T def
+R4909:4910 Coq.Reals.Rpower <> ln def
+def 5910:5918 <> derived_h
+R5922:5922 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5936:5938 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5928:5930 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5931:5935 Kernel.ConstantUnification <> E_bit def
+R5939:5944 Kernel.ConstantUnification <> tau_mu def
+prf 6943:6963 <> h_relational_identity
+R6984:6986 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6987:6992 Kernel.ConstantUnification <> tau_mu def
+binder 6973:6978 <> nu_max:1
+R7008:7012 Kernel.ConstantUnification <> E_bit def
+binder 7003:7003 <> E:2
+R7028:7030 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7019:7027 Kernel.ConstantUnification <> derived_h def
+R7036:7038 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7032:7034 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7035:7035 Kernel.ConstantUnification <> E:2 var
+R7039:7044 Kernel.ConstantUnification <> nu_max:1 var
+R7071:7079 Kernel.ConstantUnification <> derived_h def
+R7082:7086 Kernel.ConstantUnification <> E_bit def
+R7106:7109 Coq.Reals.Rdefinitions <> Rdiv def
+R7122:7130 Coq.Reals.Raxioms <> Rmult_1_l thm
+R7122:7130 Coq.Reals.Raxioms <> Rmult_1_l thm
+R7122:7130 Coq.Reals.Raxioms <> Rmult_1_l thm
+R7162:7171 Coq.Reals.RIneq <> Rgt_not_eq thm
+R7180:7189 Kernel.ConstantUnification <> tau_mu_pos thm
+R7143:7150 Coq.Reals.RIneq <> Rinv_inv thm
+R7143:7150 Coq.Reals.RIneq <> Rinv_inv thm
+R7143:7150 Coq.Reals.RIneq <> Rinv_inv thm
+prf 7936:7947 <> c_structural
+R7966:7968 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7962:7965 Kernel.ConstantUnification <> d_mu def
+R7969:7974 Kernel.ConstantUnification <> tau_mu def
+binder 7957:7957 <> c:3
+R7982:7984 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7981:7981 Kernel.ConstantUnification <> c:3 var
+R7989:7991 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7985:7988 Kernel.ConstantUnification <> d_mu def
+R7992:7997 Kernel.ConstantUnification <> tau_mu def
+def 8862:8881 <> is_planck_consistent
+R8894:8894 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8884:8890 <> h_fixed:4
+R8916:8918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8909:8915 Kernel.ConstantUnification <> h_fixed:4 var
+R8919:8927 Kernel.ConstantUnification <> derived_h def

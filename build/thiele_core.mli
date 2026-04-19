@@ -181,6 +181,12 @@ module N :
   val ones : int -> int
  end
 
+val n_of_digits : bool list -> int
+
+val n_of_ascii : char -> int
+
+val nat_of_ascii : char -> int
+
 module Z :
  sig
   val double : int -> int
@@ -209,12 +215,6 @@ module Z :
 
   val of_nat : int -> int
  end
-
-val n_of_digits : bool list -> int
-
-val n_of_ascii : char -> int
-
-val nat_of_ascii : char -> int
 
 val append : char list -> char list -> char list
 
@@ -409,10 +409,18 @@ module CertCheck :
   val word32_to_signed : int -> int
 
   val check_model_binary_fn : int list -> (int -> int) -> bool
+
+  val check_countermodel_binary_fn : int list -> (int -> int) -> bool
  end
 
 module VMStep :
  sig
+  val ascii_payload_bits : char -> bool list
+
+  val payload_bits : char list -> bool list
+
+  val payload_bit_length : char list -> int
+
   type vm_instruction =
   | Coq_instr_pnew of int list * int
   | Coq_instr_psplit of moduleID * int list * int list * int
@@ -438,7 +446,6 @@ module VMStep :
   | Coq_instr_xor_rank of int * int * int
   | Coq_instr_emit of moduleID * char list * int
   | Coq_instr_reveal of moduleID * int * char list * int
-  | Coq_instr_oracle_halts of char list * int
   | Coq_instr_halt of int
   | Coq_instr_checkpoint of char list * int
   | Coq_instr_read_port of int * int * int * int * int
@@ -461,8 +468,6 @@ module VMStep :
   | Coq_instr_morph_assert of morphismID * char list * char list * int
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
-
-  val coq_ORACLE_HALTS_HW_COST : int
 
   val instruction_cost : vm_instruction -> int
 
@@ -514,15 +519,11 @@ module VMStep :
   val graph_hw_pmerge : partitionGraph -> int -> int -> partitionGraph
 
   val lassert_check_ok : vMState -> int -> int -> bool -> bool
+
+  val lassert_hw_flen : vMState -> int -> int
+
+  val lassert_exec_ok : vMState -> int -> int -> bool -> int -> bool
  end
-
-val vm_apply : vMState -> VMStep.vm_instruction -> vMState
-
-val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState
-
-val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState
-
-val pnew_chain : int -> vMState -> int list -> int -> vMState
 
 type morphTableEntry = { morph_entry_source : int; morph_entry_target : 
                          int; morph_entry_coupling_desc : int;
@@ -667,3 +668,11 @@ type busOp =
 | BusOpWrite of int * int
 
 val bus_step : busWrapperState -> busOp -> busWrapperState
+
+val vm_apply : vMState -> VMStep.vm_instruction -> vMState
+
+val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState
+
+val vm_apply_runtime : vMState -> VMStep.vm_instruction -> vMState
+
+val pnew_chain : int -> vMState -> int list -> int -> vMState

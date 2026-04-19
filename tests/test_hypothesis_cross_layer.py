@@ -7,7 +7,7 @@ observable state for every generated program.
 
 This catches semantic divergences between layers that spot-check tests miss.
 
-NOTE: Some opcodes (PDISCOVER, ORACLE_HALTS, CHECKPOINT, READ_PORT) have
+NOTE: Some opcodes (PDISCOVER, CHECKPOINT, READ_PORT) have
 incompatible text formats between OCaml runner and RTL cosim, so they are
 tested RTL-only in TestHypothesisInvariants rather than cross-layer.
 """
@@ -124,18 +124,16 @@ def st_partition_instr(draw):
 @st.composite
 def st_logic_instr(draw):
     """Generate a logic/certification instruction.
-    ALL cert-setting opcodes (LASSERT/LJOIN/EMIT/REVEAL/ORACLE_HALTS) excluded from
+    ALL cert-setting opcodes (LASSERT/LJOIN/EMIT/REVEAL) excluded from
     cross-layer comparison due to:
     1. String-argument format incompatibilities between OCaml runner and RTL cosim
-    2. ORACLE_HALTS charges 1,000,000 in RTL vs user-specified cost in Coq/OCaml
-       (see kami_vm_mu_conservative in VerilogRefinement.v)
 
     For cross-layer testing, we only include non-cert-setter logic ops.
     PNEW is the only partition op that is NOT a cert-setter.
     Since we already have PNEW in st_partition_instr, this strategy
     falls back to a safe compute instruction.
     """
-    # Cert-setters have format divergences (string args) and ORACLE_HALTS has mu divergence
+    # Cert-setters have format divergences; use a safe compute instruction instead.
     # Use a safe compute instruction instead
     return f"LOAD_IMM {draw(st_register)} {draw(st_imm)} {draw(st_cost)}"
 
@@ -200,14 +198,13 @@ def st_rtl_only_instr(draw):
     """Generate instructions with cross-layer divergences — tested RTL-only.
     String-argument opcodes (LASSERT/LJOIN/EMIT/PDISCOVER): format divergence
     between OCaml runner (string args) and RTL cosim (integer-encoded).
-    ORACLE_HALTS: RTL charges 1,000,000 mu (see kami_vm_mu_conservative).
     REVEAL/CHSH_TRIAL: require INIT_LOGIC_ACC setup, tested separately.
     MDLACC: RTL does not charge mu (only increments mdl_ops).
     CHECKPOINT: NOP in hardware, does not charge mu.
     """
     opcode = draw(st.sampled_from([
         "PDISCOVER", "MDLACC", "LASSERT", "LJOIN", "EMIT",
-        "REVEAL", "ORACLE_HALTS", "CHSH_TRIAL", "CHECKPOINT",
+        "REVEAL", "CHSH_TRIAL", "CHECKPOINT",
     ]))
     cost = draw(st_cost_nonzero)
     if opcode == "PDISCOVER":
@@ -220,8 +217,6 @@ def st_rtl_only_instr(draw):
         return f"{opcode} {draw(st_imm)} {draw(st_imm)} {cost}"
     elif opcode == "REVEAL":
         return f"REVEAL {draw(st_tensor_idx)} 0 {cost}"
-    elif opcode == "ORACLE_HALTS":
-        return f"ORACLE_HALTS 0 0 {cost}"
     elif opcode == "CHSH_TRIAL":
         return f"CHSH_TRIAL 0 {draw(st_bit)} {draw(st_bit)} {draw(st_bit)} {cost}"
     elif opcode == "CHECKPOINT":

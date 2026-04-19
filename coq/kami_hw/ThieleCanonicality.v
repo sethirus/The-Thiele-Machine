@@ -1,31 +1,15 @@
-(** ThieleCanonicality.v
+(** ThieleCanonicality: package the main shadow-and-cost guarantees in one record
 
-    The canonical certified-cost shadow machine theorem.
+  This file collects the main unconditional canonical-model facts into a
+  single record. The point is organizational: instead of citing a scattered
+  list of lemmas, downstream files can refer to one named package of
+  guarantees about shadow compatibility, certification cost, and supported
+  trace behavior.
 
-    Assembles the full certified-shadow program into a single named record:
-    [thiele_canonical_model : ThieleCanonicalModel].
-
-    The record collects eight unconditional guarantees:
-    (1) hardware — RTL obs = classical shadow of abstract Thiele state
-    (2) device class (static) — any ShadowDevice has shadow-compat obs
-    (3) universal NoFI — any cert system satisfying A2 charges cost ≥ 1
-    (4) strict lossiness — shadow throws away actionable structure
-    (5) cost surjectivity — every natural number is a Thiele instruction cost
-    (6) cert cost completeness — every positive cost has a certifying instruction
-    (7) trace-level shadow compat — for SupportedOpcode traces (26 opcodes)
-    (8) extended trace shadow compat — for ShadowSupportedOpcode traces (30 opcodes)
-
-    The conditional [thiele_trace_compat_under_embed_step] is retained
-    separately for documentation purposes but is now superseded by (7) for
-    the supported opcode subset.
-
-    STATEMENT SCOPE:
-    Claims (1)-(4) are unconditional theorems about the current implementation.
-    Claims (5)-(6) are new structural facts about Thiele's instruction set.
-    Claim (7) is unconditional for the 26-opcode SupportedOpcode subset.
-    Claim (8) is unconditional for the 30-opcode ShadowSupportedOpcode subset.
-
-    STATUS: All eight record fields proved.  Zero Admitted.  Inquisitor OK.
+  The scope is spelled out by the record fields themselves. Some claims are
+  completely general, some are about the current implementation, and the
+  trace-level hardware results are limited to the supported opcode classes
+  stated in the theorem.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
@@ -37,7 +21,7 @@ From KamiHW  Require Import Abstraction HardwareShadowBridge
                             ShadowDevice ShadowDeviceTrace EmbedStep
                             ShadowEmbedStep.
 
-(** =========================================================================
+(**
     NEW LEMMA 1: Thiele instruction cost is surjective
 
     Every natural number is the cost of some Thiele instruction.
@@ -55,7 +39,7 @@ Proof.
   unfold instruction_cost. reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     NEW LEMMA 2: Thiele has certifying instructions for every positive cost
 
     For every cost value [S k], there exists a Thiele instruction that:
@@ -85,7 +69,7 @@ Proof.
     unfold vm_apply. reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     THE CANONICAL MODEL RECORD
 
     Bundles the seven unconditional guarantees into a single named structure.
@@ -177,7 +161,7 @@ Record ThieleCanonicalModel := {
       shadow_proj (List.fold_left vm_apply trace (abs_phase1 ks));
 }.
 
-(** =========================================================================
+(**
     INSTANTIATION: Thiele satisfies all seven guarantees
 
     The proof is by record construction from existing lemmata.
@@ -208,7 +192,7 @@ Proof.
        tcm_trace_compat_shadow_extended := rtl_shadow_trace_compat_extended |}.
 Qed.
 
-(** =========================================================================
+(**
     CONDITIONAL PHASE 3: Trace-level shadow compatibility
 
     Under [embed_step] — the claim that hardware stepping commutes with

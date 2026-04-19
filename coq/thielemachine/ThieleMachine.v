@@ -1,14 +1,14 @@
-(*
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(** ThieleMachine: a small executable machine model with receipts.
 
- * Formal Specification and Verification of the Thiele Machine
- *
- * This module provides the mathematical foundation for the Thiele Machine,
- * proving its existence, soundness, and key properties including:
- * - Small-step operational semantics with receipts
- * - Oracle-free replay and verification
- * - μ-bit accounting correctness
- * - Hash chain integrity
+  This file sets up the core program, state, step-observation, and replay
+  structures used by the Thiele machine model. The emphasis is on a concrete,
+  oracle-free small-step semantics with receipts and a checker that can replay
+  those receipts from the program text and pre-state.
+
+  The scope is exactly that foundation layer. The file is not trying to prove
+  every downstream theorem about the machine at once; it defines the minimal
+  mechanics that later proofs use for μ-accounting, receipt integrity, and
+  replay.
  *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
@@ -19,13 +19,10 @@ From Coq Require Import List String ZArith Lia Bool Nat.
 Import ListNotations.
 Open Scope Z_scope.
 
-(* ================================================================= *)
-(* Core Types and Abstract Alphabets *)
-(* ================================================================= *)
+(* Core types and abstract alphabets. *)
 
-(* Abstract alphabets for the machine – we specialise them to a
-   minimalist executable model so that the interface axioms can be
-   proven rather than assumed. *)
+(* Abstract alphabets specialized to a minimalist executable model so the
+  interface claims can be proved rather than assumed. *)
 
 Inductive CSR : Type := CSR0.
 
@@ -56,9 +53,7 @@ Definition is_MDLACC (i : Instr) : bool :=
   | _ => false
   end.
 
-(* ================================================================= *)
-(* Programs and Machine State *)
-(* ================================================================= *)
+(* Programs and machine state. *)
 
 (* Program representation *)
 Record Prog := {
@@ -70,9 +65,7 @@ Record State := {
   pc    : nat           (* Program counter *)
 }.
 
-(* ================================================================= *)
-(* Well-formedness (what programs are allowed) *)
-(* ================================================================= *)
+(* Well-formedness. *)
 
 (* What the checker needs to hold syntactically about programs *)
 Inductive well_formed_instr : Instr -> Prop :=
@@ -83,9 +76,7 @@ Inductive well_formed_instr : Instr -> Prop :=
 Definition well_formed (P:Prog) : Prop :=
   Forall well_formed_instr P.(code).
 
-(* ================================================================= *)
-(* Small-Step Semantics with Receipts *)
-(* ================================================================= *)
+(* Small-step semantics with receipts. *)
 
 (* Observation from a single step: event, μ-cost, certificate *)
 Record StepObs := {
@@ -110,7 +101,6 @@ Definition event_eqb : Event -> Event -> bool := Nat.eqb.
 Definition option_event_eqb := option_eqb event_eqb.
 Definition cert_eqb : Cert -> Cert -> bool := Nat.eqb.
 
-(** [option_event_eqb_refl]: formal specification. *)
 Lemma option_event_eqb_refl : forall e, option_event_eqb e e = true.
 Proof.
   intros [e|]; simpl.
@@ -118,13 +108,11 @@ Proof.
   - reflexivity.
 Qed.
 
-(** [cert_eqb_refl]: formal specification. *)
 Lemma cert_eqb_refl : forall c, cert_eqb c c = true.
 Proof.
   intro c. unfold cert_eqb. apply Nat.eqb_refl.
 Qed.
 
-(** [option_event_eqb_eq]: formal specification. *)
 Lemma option_event_eqb_eq : forall e1 e2,
   option_event_eqb e1 e2 = true -> e1 = e2.
 Proof.
@@ -132,7 +120,6 @@ Proof.
   - apply Nat.eqb_eq in H. subst. reflexivity.
 Qed.
 
-(** [cert_eqb_eq]: formal specification. *)
 Lemma cert_eqb_eq : forall c1 c2,
   cert_eqb c1 c2 = true -> c1 = c2.
 Proof.
@@ -189,13 +176,13 @@ Definition tm_step_fun (P : Prog) (s : State) : option (State * StepObs) :=
 (* NOTE: In a concrete implementation, enumerate all possible (s', obs) pairs.
    Here, this is a minimal implementation to illustrate the interface. *)
 
-(* ================================================================= *)
+(* *)
 (* Receipt Verification and Replay *)
-(* ================================================================= *)
+(* *)
 
-(* ================================================================= *)
+(* *)
 (* Hash Chain for Tamper-Evidence *)
-(* ================================================================= *)
+(* *)
 
 (* Hash functions for state and certificates – simple additions over
    natural numbers suffice for the abstract properties proved later. *)
@@ -213,9 +200,9 @@ Fixpoint hash_chain (P:Prog) (s0:State) (steps:list (State*StepObs)) : Hash :=
                (hash_chain P s' tl)
   end.
 
-(* ================================================================= *)
+(* *)
 (* Execution Semantics *)
-(* ================================================================= *)
+(* *)
 
 (* Finite execution: list of (poststate, observation) pairs *)
 Inductive Exec (P:Prog) : State -> list (State*StepObs) -> Prop :=
@@ -225,9 +212,9 @@ Inductive Exec (P:Prog) : State -> list (State*StepObs) -> Prop :=
     Exec P s1 tl ->
     Exec P s0 ((s1,obs)::tl).
 
-(* ================================================================= *)
+(* *)
 (* Receipt Format and Replay *)
-(* ================================================================= *)
+(* *)
 
 (* Receipt format: pre/post states, event, certificate *)
 Definition Receipt := (State * State * option Event * Cert)%type.
@@ -235,7 +222,6 @@ Definition Receipt := (State * State * option Event * Cert)%type.
 (* State equality (simplified - equality on program counters) *)
 Definition state_eq (s1 s2 : State) : bool := Nat.eqb s1.(pc) s2.(pc).
 
-(** [state_eq_of_pc]: formal specification. *)
 Lemma state_eq_of_pc : forall s1 s2,
   s1.(pc) = s2.(pc) -> s1 = s2.
 Proof.
@@ -255,12 +241,11 @@ Fixpoint replay_ok (P:Prog) (s0:State) (rs:list Receipt) : bool :=
            else false
   end.
 
-(* ================================================================= *)
+(* *)
 (* Semantic-Checker Interface Axioms *)
-(* ================================================================= *)
+(* *)
 
 (* Soundness: every concrete step yields a certificate the checker accepts *)
-(** [check_step_sound]: formal specification. *)
 Lemma check_step_sound :
   forall P s s' obs,
     step P s s' obs ->
@@ -278,7 +263,6 @@ Proof.
 Qed.
 
 (* μ covers certificate size per step *)
-(** [mu_lower_bound]: formal specification. *)
 Lemma mu_lower_bound :
   forall P s s' obs,
     step P s s' obs ->
@@ -290,7 +274,6 @@ Proof.
 Qed.
 
 (* Completeness: accepted certificates correspond to valid steps *)
-(** [check_step_complete]: formal specification. *)
 Lemma check_step_complete :
   forall P s s' oev c,
     check_step P s s' oev c = true ->
@@ -317,7 +300,6 @@ Proof.
 Qed.
 
 (* State equality correctness (for replay proof) *)
-(** [state_eqb_refl]: formal specification. *)
 Lemma state_eqb_refl : forall s, state_eq s s = true.
 Proof.
   intro s.
@@ -325,9 +307,9 @@ Proof.
   apply Nat.eqb_refl.
 Qed.
 
-(* ================================================================= *)
+(* *)
 (* Helper Functions for μ-Accounting *)
-(* ================================================================= *)
+(* *)
 
 (* Sum μ-deltas over execution trace (use fold_right so cons-case reduces to addition)
    This makes inductive reasoning on cons straightforward. *)
@@ -338,12 +320,12 @@ Definition sum_mu (steps: list (State*StepObs)) : Z :=
 Definition sum_bits (rs: list Receipt) : Z :=
   fold_right (fun '(_,_,_,c) acc => Z.add (bitsize c) acc) 0%Z rs.
 
-(* ================================================================= *)
+(* *)
 (* Universal Theorems *)
-(* ================================================================= *)
+(* *)
 
 
-(* ================================================================= *)
+(* *)
 (* Build receipts from execution trace, threading pre-states *)
 Fixpoint receipts_of (s0:State) (tr:list (State*StepObs)) : list Receipt :=
   match tr with
@@ -352,7 +334,6 @@ Fixpoint receipts_of (s0:State) (tr:list (State*StepObs)) : list Receipt :=
   end.
 
 (* Universal replay theorem *)
-(** [replay_of_exec]: formal specification. *)
 Lemma replay_of_exec :
   forall P s0 tr,
     Exec P s0 tr ->
@@ -366,7 +347,6 @@ Proof.
 Qed.
 
 (* Universal μ-accounting theorem *)
-(** [mu_pays_bits_exec]: formal specification. *)
 Lemma mu_pays_bits_exec :
   forall P s0 tr,
     Exec P s0 tr ->
@@ -380,7 +360,6 @@ Proof.
 Qed.
 
 (* Universal theorem (with well-formed guard) *)
-(** [ThieleMachine_universal]: formal specification. *)
 Theorem ThieleMachine_universal :
   forall P s0 tr,
     well_formed P ->
@@ -394,9 +373,9 @@ Proof.
   - apply (mu_pays_bits_exec P s0 tr HEX).
 Qed.
 
-(* ================================================================= *)
+(* *)
 (* Hash-Chain Equality (Optional) *)
-(* ================================================================= *)
+(* *)
 
 (* Hash chain from receipts *)
 Fixpoint chain_receipts (rs:list Receipt) : Hash :=
@@ -413,18 +392,16 @@ Definition chain_exec (s0:State) (tr:list (State*StepObs)) : Hash :=
 
 (* Auditor's recomputed chain equals runtime chain *)
 (* Definitional lemma: This equality is by definition, not vacuous *)
-(** [chain_equiv]: formal specification. *)
 Lemma chain_equiv :
   forall s0 tr,
     chain_exec s0 tr = hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr)).
 Proof. intros s0 tr. simpl. reflexivity. Qed.
 
-(* ================================================================= *)
+(* *)
 (* Derived Lemmas *)
-(* ================================================================= *)
+(* *)
 
 (* Replay soundness: valid executions produce verifiable receipts *)
-(** [replay_sound]: formal specification. *)
 Lemma replay_sound :
   forall P s0 tr,
     Exec P s0 tr ->
@@ -450,7 +427,6 @@ Proof.
 Qed.
 
 (* μ-accounting lifts to full executions *)
-(** [mu_pays_for_certs]: formal specification. *)
 Lemma mu_pays_for_certs :
   forall P s0 tr,
     Exec P s0 tr ->
@@ -460,9 +436,9 @@ Proof.
   apply mu_pays_bits_exec.
 Qed.
 
-(* ================================================================= *)
+(* *)
 (* Notes for Implementation *)
-(* ================================================================= *)
+(* *)
 
 (*
 This formalization provides the mathematical foundation for the Thiele Machine.

@@ -1,1336 +1,1336 @@
-DIGEST 422509687ce114d5ea40dff111a3a0de
+DIGEST ba4573657ee6fc350cb7b4051a6921ea
 FKernel.SemidefiniteProgramming
-R1724:1730 Kernel.VMState <> <> lib
-R1732:1737 Kernel.VMStep <> <> lib
-R1767:1777 Kernel.MuCostModel <> <> lib
-R1805:1809 Coq.Reals.Reals <> <> lib
-R1811:1813 Coq.micromega.Lra <> <> lib
-R1815:1817 Coq.micromega.Lia <> <> lib
-R1819:1822 Coq.Lists.List <> <> lib
-R1849:1866 Coq.Reals.ROrderedType <> <> lib
-R1876:1888 Coq.Lists.List ListNotations <> mod
-def 2100:2105 <> Matrix
-R2112:2114 Coq.Init.Datatypes <> nat ind
-binder 2108:2108 <> n:1
-R2130:2133 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2127:2129 Coq.Init.Datatypes <> nat ind
-R2137:2140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2134:2136 Coq.Init.Datatypes <> nat ind
-R2141:2141 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 2179:2179 <> I
-R2186:2188 Coq.Init.Datatypes <> nat ind
-binder 2182:2182 <> n:2
-R2193:2198 Kernel.SemidefiniteProgramming <> Matrix def
-R2200:2200 Kernel.SemidefiniteProgramming <> n:2 var
-binder 2211:2211 <> i:3
-binder 2213:2213 <> j:4
-R2221:2227 Coq.Arith.PeanoNat Nat eqb def
-R2229:2229 Kernel.SemidefiniteProgramming <> i:3 var
-R2231:2231 Kernel.SemidefiniteProgramming <> j:4 var
-def 2289:2291 <> get
-R2298:2300 Coq.Init.Datatypes <> nat ind
-binder 2294:2294 <> n:5
-R2308:2313 Kernel.SemidefiniteProgramming <> Matrix def
-R2315:2315 Kernel.SemidefiniteProgramming <> n:5 var
-binder 2304:2304 <> M:6
-R2325:2327 Coq.Init.Datatypes <> nat ind
-binder 2319:2319 <> i:7
-binder 2321:2321 <> j:8
-R2332:2332 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2339:2339 Kernel.SemidefiniteProgramming <> M:6 var
-R2341:2341 Kernel.SemidefiniteProgramming <> i:7 var
-R2343:2343 Kernel.SemidefiniteProgramming <> j:8 var
-def 2382:2390 <> transpose
-R2397:2399 Coq.Init.Datatypes <> nat ind
-binder 2393:2393 <> n:9
-R2407:2412 Kernel.SemidefiniteProgramming <> Matrix def
-R2414:2414 Kernel.SemidefiniteProgramming <> n:9 var
-binder 2403:2403 <> M:10
-R2419:2424 Kernel.SemidefiniteProgramming <> Matrix def
-R2426:2426 Kernel.SemidefiniteProgramming <> n:9 var
-binder 2437:2437 <> i:11
-binder 2439:2439 <> j:12
-R2444:2444 Kernel.SemidefiniteProgramming <> M:10 var
-R2446:2446 Kernel.SemidefiniteProgramming <> j:12 var
-R2448:2448 Kernel.SemidefiniteProgramming <> i:11 var
-def 2486:2494 <> symmetric
-R2501:2503 Coq.Init.Datatypes <> nat ind
-binder 2497:2497 <> n:13
-R2511:2516 Kernel.SemidefiniteProgramming <> Matrix def
-R2518:2518 Kernel.SemidefiniteProgramming <> n:13 var
-binder 2507:2507 <> M:14
-R2547:2549 Coq.Init.Datatypes <> nat ind
-binder 2541:2541 <> i:15
-binder 2543:2543 <> j:16
-R2564:2567 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2555:2557 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2554:2554 Kernel.SemidefiniteProgramming <> i:15 var
-R2558:2558 Kernel.SemidefiniteProgramming <> n:13 var
-R2579:2582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2570:2572 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R2569:2569 Kernel.SemidefiniteProgramming <> j:16 var
-R2573:2573 Kernel.SemidefiniteProgramming <> n:13 var
-R2588:2590 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2583:2583 Kernel.SemidefiniteProgramming <> M:14 var
-R2585:2585 Kernel.SemidefiniteProgramming <> i:15 var
-R2587:2587 Kernel.SemidefiniteProgramming <> j:16 var
-R2591:2591 Kernel.SemidefiniteProgramming <> M:14 var
-R2593:2593 Kernel.SemidefiniteProgramming <> j:16 var
-R2595:2595 Kernel.SemidefiniteProgramming <> i:15 var
-def 2668:2671 <> det2
-R2684:2684 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2674:2674 <> a:17
-binder 2676:2676 <> b:18
-binder 2678:2678 <> c:19
-binder 2680:2680 <> d:20
-R2689:2689 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2701:2703 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R2697:2699 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2696:2696 Kernel.SemidefiniteProgramming <> a:17 var
-R2700:2700 Kernel.SemidefiniteProgramming <> d:20 var
-R2705:2707 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2704:2704 Kernel.SemidefiniteProgramming <> b:18 var
-R2708:2708 Kernel.SemidefiniteProgramming <> c:19 var
-def 2754:2764 <> det2_matrix
-R2771:2776 Kernel.SemidefiniteProgramming <> Matrix def
-binder 2767:2767 <> M:21
-R2783:2783 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2790:2793 Kernel.SemidefiniteProgramming <> det2 def
-R2796:2796 Kernel.SemidefiniteProgramming <> M:21 var
-R2812:2812 Kernel.SemidefiniteProgramming <> M:21 var
-R2828:2828 Kernel.SemidefiniteProgramming <> M:21 var
-R2844:2844 Kernel.SemidefiniteProgramming <> M:21 var
-def 2910:2920 <> det3_matrix
-R2927:2932 Kernel.SemidefiniteProgramming <> Matrix def
-binder 2923:2923 <> M:22
-R2939:2939 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3191:3195 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3141:3145 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3091:3095 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3041:3045 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2991:2995 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2975:2977 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2959:2961 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2946:2946 Kernel.SemidefiniteProgramming <> M:22 var
-R2962:2962 Kernel.SemidefiniteProgramming <> M:22 var
-R2978:2978 Kernel.SemidefiniteProgramming <> M:22 var
-R3025:3027 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3009:3011 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2996:2996 Kernel.SemidefiniteProgramming <> M:22 var
-R3012:3012 Kernel.SemidefiniteProgramming <> M:22 var
-R3028:3028 Kernel.SemidefiniteProgramming <> M:22 var
-R3075:3077 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3059:3061 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3046:3046 Kernel.SemidefiniteProgramming <> M:22 var
-R3062:3062 Kernel.SemidefiniteProgramming <> M:22 var
-R3078:3078 Kernel.SemidefiniteProgramming <> M:22 var
-R3125:3127 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3109:3111 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3096:3096 Kernel.SemidefiniteProgramming <> M:22 var
-R3112:3112 Kernel.SemidefiniteProgramming <> M:22 var
-R3128:3128 Kernel.SemidefiniteProgramming <> M:22 var
-R3175:3177 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3159:3161 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3146:3146 Kernel.SemidefiniteProgramming <> M:22 var
-R3162:3162 Kernel.SemidefiniteProgramming <> M:22 var
-R3178:3178 Kernel.SemidefiniteProgramming <> M:22 var
-R3225:3227 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3209:3211 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3196:3196 Kernel.SemidefiniteProgramming <> M:22 var
-R3212:3212 Kernel.SemidefiniteProgramming <> M:22 var
-R3228:3228 Kernel.SemidefiniteProgramming <> M:22 var
-def 3294:3307 <> minor2_topleft
-R3314:3316 Coq.Init.Datatypes <> nat ind
-binder 3310:3310 <> n:23
-R3324:3329 Kernel.SemidefiniteProgramming <> Matrix def
-R3331:3331 Kernel.SemidefiniteProgramming <> n:23 var
-binder 3320:3320 <> M:24
-R3336:3336 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3343:3346 Kernel.SemidefiniteProgramming <> det2 def
-R3349:3349 Kernel.SemidefiniteProgramming <> M:24 var
-R3365:3365 Kernel.SemidefiniteProgramming <> M:24 var
-R3381:3381 Kernel.SemidefiniteProgramming <> M:24 var
-R3397:3397 Kernel.SemidefiniteProgramming <> M:24 var
-def 3472:3480 <> minor2_02
-R3487:3489 Coq.Init.Datatypes <> nat ind
-binder 3483:3483 <> n:25
-R3497:3502 Kernel.SemidefiniteProgramming <> Matrix def
-R3504:3504 Kernel.SemidefiniteProgramming <> n:25 var
-binder 3493:3493 <> M:26
-R3509:3509 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3516:3519 Kernel.SemidefiniteProgramming <> det2 def
-R3522:3522 Kernel.SemidefiniteProgramming <> M:26 var
-R3538:3538 Kernel.SemidefiniteProgramming <> M:26 var
-R3554:3554 Kernel.SemidefiniteProgramming <> M:26 var
-R3570:3570 Kernel.SemidefiniteProgramming <> M:26 var
-def 3645:3653 <> minor2_03
-R3660:3662 Coq.Init.Datatypes <> nat ind
-binder 3656:3656 <> n:27
-R3670:3675 Kernel.SemidefiniteProgramming <> Matrix def
-R3677:3677 Kernel.SemidefiniteProgramming <> n:27 var
-binder 3666:3666 <> M:28
-R3682:3682 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3689:3692 Kernel.SemidefiniteProgramming <> det2 def
-R3695:3695 Kernel.SemidefiniteProgramming <> M:28 var
-R3711:3711 Kernel.SemidefiniteProgramming <> M:28 var
-R3727:3727 Kernel.SemidefiniteProgramming <> M:28 var
-R3743:3743 Kernel.SemidefiniteProgramming <> M:28 var
-def 3818:3826 <> minor2_04
-R3833:3835 Coq.Init.Datatypes <> nat ind
-binder 3829:3829 <> n:29
-R3843:3848 Kernel.SemidefiniteProgramming <> Matrix def
-R3850:3850 Kernel.SemidefiniteProgramming <> n:29 var
-binder 3839:3839 <> M:30
-R3855:3855 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3862:3865 Kernel.SemidefiniteProgramming <> det2 def
-R3868:3868 Kernel.SemidefiniteProgramming <> M:30 var
-R3884:3884 Kernel.SemidefiniteProgramming <> M:30 var
-R3900:3900 Kernel.SemidefiniteProgramming <> M:30 var
-R3916:3916 Kernel.SemidefiniteProgramming <> M:30 var
-def 3991:3999 <> minor2_12
-R4006:4008 Coq.Init.Datatypes <> nat ind
-binder 4002:4002 <> n:31
-R4016:4021 Kernel.SemidefiniteProgramming <> Matrix def
-R4023:4023 Kernel.SemidefiniteProgramming <> n:31 var
-binder 4012:4012 <> M:32
-R4028:4028 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4035:4038 Kernel.SemidefiniteProgramming <> det2 def
-R4041:4041 Kernel.SemidefiniteProgramming <> M:32 var
-R4057:4057 Kernel.SemidefiniteProgramming <> M:32 var
-R4073:4073 Kernel.SemidefiniteProgramming <> M:32 var
-R4089:4089 Kernel.SemidefiniteProgramming <> M:32 var
-def 4164:4172 <> minor2_13
-R4179:4181 Coq.Init.Datatypes <> nat ind
-binder 4175:4175 <> n:33
-R4189:4194 Kernel.SemidefiniteProgramming <> Matrix def
-R4196:4196 Kernel.SemidefiniteProgramming <> n:33 var
-binder 4185:4185 <> M:34
-R4201:4201 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4208:4211 Kernel.SemidefiniteProgramming <> det2 def
-R4214:4214 Kernel.SemidefiniteProgramming <> M:34 var
-R4230:4230 Kernel.SemidefiniteProgramming <> M:34 var
-R4246:4246 Kernel.SemidefiniteProgramming <> M:34 var
-R4262:4262 Kernel.SemidefiniteProgramming <> M:34 var
-def 4337:4345 <> minor2_14
-R4352:4354 Coq.Init.Datatypes <> nat ind
-binder 4348:4348 <> n:35
-R4362:4367 Kernel.SemidefiniteProgramming <> Matrix def
-R4369:4369 Kernel.SemidefiniteProgramming <> n:35 var
-binder 4358:4358 <> M:36
-R4374:4374 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4381:4384 Kernel.SemidefiniteProgramming <> det2 def
-R4387:4387 Kernel.SemidefiniteProgramming <> M:36 var
-R4403:4403 Kernel.SemidefiniteProgramming <> M:36 var
-R4419:4419 Kernel.SemidefiniteProgramming <> M:36 var
-R4435:4435 Kernel.SemidefiniteProgramming <> M:36 var
-def 4510:4518 <> minor2_23
-R4525:4527 Coq.Init.Datatypes <> nat ind
-binder 4521:4521 <> n:37
-R4535:4540 Kernel.SemidefiniteProgramming <> Matrix def
-R4542:4542 Kernel.SemidefiniteProgramming <> n:37 var
-binder 4531:4531 <> M:38
-R4547:4547 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4554:4557 Kernel.SemidefiniteProgramming <> det2 def
-R4560:4560 Kernel.SemidefiniteProgramming <> M:38 var
-R4576:4576 Kernel.SemidefiniteProgramming <> M:38 var
-R4592:4592 Kernel.SemidefiniteProgramming <> M:38 var
-R4608:4608 Kernel.SemidefiniteProgramming <> M:38 var
-def 4683:4691 <> minor2_24
-R4698:4700 Coq.Init.Datatypes <> nat ind
-binder 4694:4694 <> n:39
-R4708:4713 Kernel.SemidefiniteProgramming <> Matrix def
-R4715:4715 Kernel.SemidefiniteProgramming <> n:39 var
-binder 4704:4704 <> M:40
-R4720:4720 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4727:4730 Kernel.SemidefiniteProgramming <> det2 def
-R4733:4733 Kernel.SemidefiniteProgramming <> M:40 var
-R4749:4749 Kernel.SemidefiniteProgramming <> M:40 var
-R4765:4765 Kernel.SemidefiniteProgramming <> M:40 var
-R4781:4781 Kernel.SemidefiniteProgramming <> M:40 var
-def 4856:4864 <> minor2_34
-R4871:4873 Coq.Init.Datatypes <> nat ind
-binder 4867:4867 <> n:41
-R4881:4886 Kernel.SemidefiniteProgramming <> Matrix def
-R4888:4888 Kernel.SemidefiniteProgramming <> n:41 var
-binder 4877:4877 <> M:42
-R4893:4893 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4900:4903 Kernel.SemidefiniteProgramming <> det2 def
-R4906:4906 Kernel.SemidefiniteProgramming <> M:42 var
-R4922:4922 Kernel.SemidefiniteProgramming <> M:42 var
-R4938:4938 Kernel.SemidefiniteProgramming <> M:42 var
-R4954:4954 Kernel.SemidefiniteProgramming <> M:42 var
-def 5021:5034 <> minor3_topleft
-R5041:5043 Coq.Init.Datatypes <> nat ind
-binder 5037:5037 <> n:43
-R5051:5056 Kernel.SemidefiniteProgramming <> Matrix def
-R5058:5058 Kernel.SemidefiniteProgramming <> n:43 var
-binder 5047:5047 <> M:44
-R5063:5063 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5070:5080 Kernel.SemidefiniteProgramming <> det3_matrix def
-binder 5087:5087 <> i:45
-binder 5089:5089 <> j:46
-R5094:5094 Kernel.SemidefiniteProgramming <> M:44 var
-R5096:5096 Kernel.SemidefiniteProgramming <> i:45 var
-R5098:5098 Kernel.SemidefiniteProgramming <> j:46 var
-def 5149:5164 <> principal_minor3
-R5171:5173 Coq.Init.Datatypes <> nat ind
-binder 5167:5167 <> n:47
-R5181:5186 Kernel.SemidefiniteProgramming <> Matrix def
-R5188:5188 Kernel.SemidefiniteProgramming <> n:47 var
-binder 5177:5177 <> M:48
-R5200:5202 Coq.Init.Datatypes <> nat ind
-binder 5192:5192 <> i:49
-binder 5194:5194 <> j:50
-binder 5196:5196 <> k:51
-R5207:5207 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5214:5224 Kernel.SemidefiniteProgramming <> det3_matrix def
-binder 5231:5231 <> a:52
-binder 5233:5233 <> b:53
-R5261:5261 Kernel.SemidefiniteProgramming <> a:52 var
-R5273:5273 Kernel.SemidefiniteProgramming <> i:49 var
-R5282:5282 Kernel.SemidefiniteProgramming <> j:50 var
-R5291:5291 Kernel.SemidefiniteProgramming <> k:51 var
-binder 5246:5250 <> idx_r:55
-R5323:5323 Kernel.SemidefiniteProgramming <> b:53 var
-R5335:5335 Kernel.SemidefiniteProgramming <> i:49 var
-R5344:5344 Kernel.SemidefiniteProgramming <> j:50 var
-R5353:5353 Kernel.SemidefiniteProgramming <> k:51 var
-binder 5308:5312 <> idx_c:57
-R5366:5366 Kernel.SemidefiniteProgramming <> M:48 var
-R5368:5372 Kernel.SemidefiniteProgramming <> idx_r:55 var
-R5374:5378 Kernel.SemidefiniteProgramming <> idx_c:57 var
-def 5511:5521 <> det4_matrix
-R5528:5533 Kernel.SemidefiniteProgramming <> Matrix def
-binder 5524:5524 <> M:58
-R5540:5540 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5731:5737 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5645:5651 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5579:5582 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5644:5644 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5566:5566 Kernel.SemidefiniteProgramming <> M:58 var
-R5612:5614 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5596:5598 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5583:5583 Kernel.SemidefiniteProgramming <> M:58 var
-R5599:5599 Kernel.SemidefiniteProgramming <> M:58 var
-R5628:5630 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5615:5615 Kernel.SemidefiniteProgramming <> M:58 var
-R5631:5631 Kernel.SemidefiniteProgramming <> M:58 var
-R5665:5668 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5730:5730 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5652:5652 Kernel.SemidefiniteProgramming <> M:58 var
-R5698:5700 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5682:5684 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5669:5669 Kernel.SemidefiniteProgramming <> M:58 var
-R5685:5685 Kernel.SemidefiniteProgramming <> M:58 var
-R5714:5716 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5701:5701 Kernel.SemidefiniteProgramming <> M:58 var
-R5717:5717 Kernel.SemidefiniteProgramming <> M:58 var
-R5751:5754 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5816:5816 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5738:5738 Kernel.SemidefiniteProgramming <> M:58 var
-R5784:5786 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5768:5770 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5755:5755 Kernel.SemidefiniteProgramming <> M:58 var
-R5771:5771 Kernel.SemidefiniteProgramming <> M:58 var
-R5800:5802 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5787:5787 Kernel.SemidefiniteProgramming <> M:58 var
-R5803:5803 Kernel.SemidefiniteProgramming <> M:58 var
-binder 5551:5557 <> minor_0:59
-R6007:6013 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5921:5927 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5855:5858 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5920:5920 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5842:5842 Kernel.SemidefiniteProgramming <> M:58 var
-R5888:5890 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5872:5874 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5859:5859 Kernel.SemidefiniteProgramming <> M:58 var
-R5875:5875 Kernel.SemidefiniteProgramming <> M:58 var
-R5904:5906 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5891:5891 Kernel.SemidefiniteProgramming <> M:58 var
-R5907:5907 Kernel.SemidefiniteProgramming <> M:58 var
-R5941:5944 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6006:6006 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5928:5928 Kernel.SemidefiniteProgramming <> M:58 var
-R5974:5976 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5958:5960 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5945:5945 Kernel.SemidefiniteProgramming <> M:58 var
-R5961:5961 Kernel.SemidefiniteProgramming <> M:58 var
-R5990:5992 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5977:5977 Kernel.SemidefiniteProgramming <> M:58 var
-R5993:5993 Kernel.SemidefiniteProgramming <> M:58 var
-R6027:6030 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6092:6092 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6014:6014 Kernel.SemidefiniteProgramming <> M:58 var
-R6060:6062 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6044:6046 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6031:6031 Kernel.SemidefiniteProgramming <> M:58 var
-R6047:6047 Kernel.SemidefiniteProgramming <> M:58 var
-R6076:6078 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6063:6063 Kernel.SemidefiniteProgramming <> M:58 var
-R6079:6079 Kernel.SemidefiniteProgramming <> M:58 var
-binder 5827:5833 <> minor_1:60
-R6283:6289 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6197:6203 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6131:6134 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6196:6196 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6118:6118 Kernel.SemidefiniteProgramming <> M:58 var
-R6164:6166 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6148:6150 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6135:6135 Kernel.SemidefiniteProgramming <> M:58 var
-R6151:6151 Kernel.SemidefiniteProgramming <> M:58 var
-R6180:6182 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6167:6167 Kernel.SemidefiniteProgramming <> M:58 var
-R6183:6183 Kernel.SemidefiniteProgramming <> M:58 var
-R6217:6220 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6282:6282 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6204:6204 Kernel.SemidefiniteProgramming <> M:58 var
-R6250:6252 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6234:6236 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6221:6221 Kernel.SemidefiniteProgramming <> M:58 var
-R6237:6237 Kernel.SemidefiniteProgramming <> M:58 var
-R6266:6268 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6253:6253 Kernel.SemidefiniteProgramming <> M:58 var
-R6269:6269 Kernel.SemidefiniteProgramming <> M:58 var
-R6303:6306 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6368:6368 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6290:6290 Kernel.SemidefiniteProgramming <> M:58 var
-R6336:6338 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6320:6322 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6307:6307 Kernel.SemidefiniteProgramming <> M:58 var
-R6323:6323 Kernel.SemidefiniteProgramming <> M:58 var
-R6352:6354 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6339:6339 Kernel.SemidefiniteProgramming <> M:58 var
-R6355:6355 Kernel.SemidefiniteProgramming <> M:58 var
-binder 6103:6109 <> minor_2:61
-R6559:6565 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6473:6479 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6407:6410 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6472:6472 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1419:1425 Kernel.VMState <> <> lib
+R1427:1432 Kernel.VMStep <> <> lib
+R1462:1472 Kernel.MuCostModel <> <> lib
+R1500:1504 Coq.Reals.Reals <> <> lib
+R1506:1508 Coq.micromega.Lra <> <> lib
+R1510:1512 Coq.micromega.Lia <> <> lib
+R1514:1517 Coq.Lists.List <> <> lib
+R1544:1561 Coq.Reals.ROrderedType <> <> lib
+R1571:1583 Coq.Lists.List ListNotations <> mod
+def 1793:1798 <> Matrix
+R1805:1807 Coq.Init.Datatypes <> nat ind
+binder 1801:1801 <> n:1
+R1823:1826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1820:1822 Coq.Init.Datatypes <> nat ind
+R1830:1833 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1827:1829 Coq.Init.Datatypes <> nat ind
+R1834:1834 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1872:1872 <> I
+R1879:1881 Coq.Init.Datatypes <> nat ind
+binder 1875:1875 <> n:2
+R1886:1891 Kernel.SemidefiniteProgramming <> Matrix def
+R1893:1893 Kernel.SemidefiniteProgramming <> n:2 var
+binder 1904:1904 <> i:3
+binder 1906:1906 <> j:4
+R1914:1920 Coq.Arith.PeanoNat Nat eqb def
+R1922:1922 Kernel.SemidefiniteProgramming <> i:3 var
+R1924:1924 Kernel.SemidefiniteProgramming <> j:4 var
+def 1982:1984 <> get
+R1991:1993 Coq.Init.Datatypes <> nat ind
+binder 1987:1987 <> n:5
+R2001:2006 Kernel.SemidefiniteProgramming <> Matrix def
+R2008:2008 Kernel.SemidefiniteProgramming <> n:5 var
+binder 1997:1997 <> M:6
+R2018:2020 Coq.Init.Datatypes <> nat ind
+binder 2012:2012 <> i:7
+binder 2014:2014 <> j:8
+R2025:2025 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2032:2032 Kernel.SemidefiniteProgramming <> M:6 var
+R2034:2034 Kernel.SemidefiniteProgramming <> i:7 var
+R2036:2036 Kernel.SemidefiniteProgramming <> j:8 var
+def 2075:2083 <> transpose
+R2090:2092 Coq.Init.Datatypes <> nat ind
+binder 2086:2086 <> n:9
+R2100:2105 Kernel.SemidefiniteProgramming <> Matrix def
+R2107:2107 Kernel.SemidefiniteProgramming <> n:9 var
+binder 2096:2096 <> M:10
+R2112:2117 Kernel.SemidefiniteProgramming <> Matrix def
+R2119:2119 Kernel.SemidefiniteProgramming <> n:9 var
+binder 2130:2130 <> i:11
+binder 2132:2132 <> j:12
+R2137:2137 Kernel.SemidefiniteProgramming <> M:10 var
+R2139:2139 Kernel.SemidefiniteProgramming <> j:12 var
+R2141:2141 Kernel.SemidefiniteProgramming <> i:11 var
+def 2179:2187 <> symmetric
+R2194:2196 Coq.Init.Datatypes <> nat ind
+binder 2190:2190 <> n:13
+R2204:2209 Kernel.SemidefiniteProgramming <> Matrix def
+R2211:2211 Kernel.SemidefiniteProgramming <> n:13 var
+binder 2200:2200 <> M:14
+R2240:2242 Coq.Init.Datatypes <> nat ind
+binder 2234:2234 <> i:15
+binder 2236:2236 <> j:16
+R2257:2260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2248:2250 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2247:2247 Kernel.SemidefiniteProgramming <> i:15 var
+R2251:2251 Kernel.SemidefiniteProgramming <> n:13 var
+R2272:2275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2263:2265 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2262:2262 Kernel.SemidefiniteProgramming <> j:16 var
+R2266:2266 Kernel.SemidefiniteProgramming <> n:13 var
+R2281:2283 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2276:2276 Kernel.SemidefiniteProgramming <> M:14 var
+R2278:2278 Kernel.SemidefiniteProgramming <> i:15 var
+R2280:2280 Kernel.SemidefiniteProgramming <> j:16 var
+R2284:2284 Kernel.SemidefiniteProgramming <> M:14 var
+R2286:2286 Kernel.SemidefiniteProgramming <> j:16 var
+R2288:2288 Kernel.SemidefiniteProgramming <> i:15 var
+def 2359:2362 <> det2
+R2375:2375 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2365:2365 <> a:17
+binder 2367:2367 <> b:18
+binder 2369:2369 <> c:19
+binder 2371:2371 <> d:20
+R2380:2380 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2392:2394 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2388:2390 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2387:2387 Kernel.SemidefiniteProgramming <> a:17 var
+R2391:2391 Kernel.SemidefiniteProgramming <> d:20 var
+R2396:2398 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2395:2395 Kernel.SemidefiniteProgramming <> b:18 var
+R2399:2399 Kernel.SemidefiniteProgramming <> c:19 var
+def 2445:2455 <> det2_matrix
+R2462:2467 Kernel.SemidefiniteProgramming <> Matrix def
+binder 2458:2458 <> M:21
+R2474:2474 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2481:2484 Kernel.SemidefiniteProgramming <> det2 def
+R2487:2487 Kernel.SemidefiniteProgramming <> M:21 var
+R2503:2503 Kernel.SemidefiniteProgramming <> M:21 var
+R2519:2519 Kernel.SemidefiniteProgramming <> M:21 var
+R2535:2535 Kernel.SemidefiniteProgramming <> M:21 var
+def 2601:2611 <> det3_matrix
+R2618:2623 Kernel.SemidefiniteProgramming <> Matrix def
+binder 2614:2614 <> M:22
+R2630:2630 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2882:2886 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2832:2836 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2782:2786 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2732:2736 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2682:2686 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2666:2668 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2650:2652 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2637:2637 Kernel.SemidefiniteProgramming <> M:22 var
+R2653:2653 Kernel.SemidefiniteProgramming <> M:22 var
+R2669:2669 Kernel.SemidefiniteProgramming <> M:22 var
+R2716:2718 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2700:2702 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2687:2687 Kernel.SemidefiniteProgramming <> M:22 var
+R2703:2703 Kernel.SemidefiniteProgramming <> M:22 var
+R2719:2719 Kernel.SemidefiniteProgramming <> M:22 var
+R2766:2768 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2750:2752 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2737:2737 Kernel.SemidefiniteProgramming <> M:22 var
+R2753:2753 Kernel.SemidefiniteProgramming <> M:22 var
+R2769:2769 Kernel.SemidefiniteProgramming <> M:22 var
+R2816:2818 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2800:2802 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2787:2787 Kernel.SemidefiniteProgramming <> M:22 var
+R2803:2803 Kernel.SemidefiniteProgramming <> M:22 var
+R2819:2819 Kernel.SemidefiniteProgramming <> M:22 var
+R2866:2868 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2850:2852 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2837:2837 Kernel.SemidefiniteProgramming <> M:22 var
+R2853:2853 Kernel.SemidefiniteProgramming <> M:22 var
+R2869:2869 Kernel.SemidefiniteProgramming <> M:22 var
+R2916:2918 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2900:2902 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2887:2887 Kernel.SemidefiniteProgramming <> M:22 var
+R2903:2903 Kernel.SemidefiniteProgramming <> M:22 var
+R2919:2919 Kernel.SemidefiniteProgramming <> M:22 var
+def 2985:2998 <> minor2_topleft
+R3005:3007 Coq.Init.Datatypes <> nat ind
+binder 3001:3001 <> n:23
+R3015:3020 Kernel.SemidefiniteProgramming <> Matrix def
+R3022:3022 Kernel.SemidefiniteProgramming <> n:23 var
+binder 3011:3011 <> M:24
+R3027:3027 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3034:3037 Kernel.SemidefiniteProgramming <> det2 def
+R3040:3040 Kernel.SemidefiniteProgramming <> M:24 var
+R3056:3056 Kernel.SemidefiniteProgramming <> M:24 var
+R3072:3072 Kernel.SemidefiniteProgramming <> M:24 var
+R3088:3088 Kernel.SemidefiniteProgramming <> M:24 var
+def 3163:3171 <> minor2_02
+R3178:3180 Coq.Init.Datatypes <> nat ind
+binder 3174:3174 <> n:25
+R3188:3193 Kernel.SemidefiniteProgramming <> Matrix def
+R3195:3195 Kernel.SemidefiniteProgramming <> n:25 var
+binder 3184:3184 <> M:26
+R3200:3200 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3207:3210 Kernel.SemidefiniteProgramming <> det2 def
+R3213:3213 Kernel.SemidefiniteProgramming <> M:26 var
+R3229:3229 Kernel.SemidefiniteProgramming <> M:26 var
+R3245:3245 Kernel.SemidefiniteProgramming <> M:26 var
+R3261:3261 Kernel.SemidefiniteProgramming <> M:26 var
+def 3336:3344 <> minor2_03
+R3351:3353 Coq.Init.Datatypes <> nat ind
+binder 3347:3347 <> n:27
+R3361:3366 Kernel.SemidefiniteProgramming <> Matrix def
+R3368:3368 Kernel.SemidefiniteProgramming <> n:27 var
+binder 3357:3357 <> M:28
+R3373:3373 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3380:3383 Kernel.SemidefiniteProgramming <> det2 def
+R3386:3386 Kernel.SemidefiniteProgramming <> M:28 var
+R3402:3402 Kernel.SemidefiniteProgramming <> M:28 var
+R3418:3418 Kernel.SemidefiniteProgramming <> M:28 var
+R3434:3434 Kernel.SemidefiniteProgramming <> M:28 var
+def 3509:3517 <> minor2_04
+R3524:3526 Coq.Init.Datatypes <> nat ind
+binder 3520:3520 <> n:29
+R3534:3539 Kernel.SemidefiniteProgramming <> Matrix def
+R3541:3541 Kernel.SemidefiniteProgramming <> n:29 var
+binder 3530:3530 <> M:30
+R3546:3546 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3553:3556 Kernel.SemidefiniteProgramming <> det2 def
+R3559:3559 Kernel.SemidefiniteProgramming <> M:30 var
+R3575:3575 Kernel.SemidefiniteProgramming <> M:30 var
+R3591:3591 Kernel.SemidefiniteProgramming <> M:30 var
+R3607:3607 Kernel.SemidefiniteProgramming <> M:30 var
+def 3682:3690 <> minor2_12
+R3697:3699 Coq.Init.Datatypes <> nat ind
+binder 3693:3693 <> n:31
+R3707:3712 Kernel.SemidefiniteProgramming <> Matrix def
+R3714:3714 Kernel.SemidefiniteProgramming <> n:31 var
+binder 3703:3703 <> M:32
+R3719:3719 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3726:3729 Kernel.SemidefiniteProgramming <> det2 def
+R3732:3732 Kernel.SemidefiniteProgramming <> M:32 var
+R3748:3748 Kernel.SemidefiniteProgramming <> M:32 var
+R3764:3764 Kernel.SemidefiniteProgramming <> M:32 var
+R3780:3780 Kernel.SemidefiniteProgramming <> M:32 var
+def 3855:3863 <> minor2_13
+R3870:3872 Coq.Init.Datatypes <> nat ind
+binder 3866:3866 <> n:33
+R3880:3885 Kernel.SemidefiniteProgramming <> Matrix def
+R3887:3887 Kernel.SemidefiniteProgramming <> n:33 var
+binder 3876:3876 <> M:34
+R3892:3892 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3899:3902 Kernel.SemidefiniteProgramming <> det2 def
+R3905:3905 Kernel.SemidefiniteProgramming <> M:34 var
+R3921:3921 Kernel.SemidefiniteProgramming <> M:34 var
+R3937:3937 Kernel.SemidefiniteProgramming <> M:34 var
+R3953:3953 Kernel.SemidefiniteProgramming <> M:34 var
+def 4028:4036 <> minor2_14
+R4043:4045 Coq.Init.Datatypes <> nat ind
+binder 4039:4039 <> n:35
+R4053:4058 Kernel.SemidefiniteProgramming <> Matrix def
+R4060:4060 Kernel.SemidefiniteProgramming <> n:35 var
+binder 4049:4049 <> M:36
+R4065:4065 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4072:4075 Kernel.SemidefiniteProgramming <> det2 def
+R4078:4078 Kernel.SemidefiniteProgramming <> M:36 var
+R4094:4094 Kernel.SemidefiniteProgramming <> M:36 var
+R4110:4110 Kernel.SemidefiniteProgramming <> M:36 var
+R4126:4126 Kernel.SemidefiniteProgramming <> M:36 var
+def 4201:4209 <> minor2_23
+R4216:4218 Coq.Init.Datatypes <> nat ind
+binder 4212:4212 <> n:37
+R4226:4231 Kernel.SemidefiniteProgramming <> Matrix def
+R4233:4233 Kernel.SemidefiniteProgramming <> n:37 var
+binder 4222:4222 <> M:38
+R4238:4238 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4245:4248 Kernel.SemidefiniteProgramming <> det2 def
+R4251:4251 Kernel.SemidefiniteProgramming <> M:38 var
+R4267:4267 Kernel.SemidefiniteProgramming <> M:38 var
+R4283:4283 Kernel.SemidefiniteProgramming <> M:38 var
+R4299:4299 Kernel.SemidefiniteProgramming <> M:38 var
+def 4374:4382 <> minor2_24
+R4389:4391 Coq.Init.Datatypes <> nat ind
+binder 4385:4385 <> n:39
+R4399:4404 Kernel.SemidefiniteProgramming <> Matrix def
+R4406:4406 Kernel.SemidefiniteProgramming <> n:39 var
+binder 4395:4395 <> M:40
+R4411:4411 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4418:4421 Kernel.SemidefiniteProgramming <> det2 def
+R4424:4424 Kernel.SemidefiniteProgramming <> M:40 var
+R4440:4440 Kernel.SemidefiniteProgramming <> M:40 var
+R4456:4456 Kernel.SemidefiniteProgramming <> M:40 var
+R4472:4472 Kernel.SemidefiniteProgramming <> M:40 var
+def 4547:4555 <> minor2_34
+R4562:4564 Coq.Init.Datatypes <> nat ind
+binder 4558:4558 <> n:41
+R4572:4577 Kernel.SemidefiniteProgramming <> Matrix def
+R4579:4579 Kernel.SemidefiniteProgramming <> n:41 var
+binder 4568:4568 <> M:42
+R4584:4584 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4591:4594 Kernel.SemidefiniteProgramming <> det2 def
+R4597:4597 Kernel.SemidefiniteProgramming <> M:42 var
+R4613:4613 Kernel.SemidefiniteProgramming <> M:42 var
+R4629:4629 Kernel.SemidefiniteProgramming <> M:42 var
+R4645:4645 Kernel.SemidefiniteProgramming <> M:42 var
+def 4712:4725 <> minor3_topleft
+R4732:4734 Coq.Init.Datatypes <> nat ind
+binder 4728:4728 <> n:43
+R4742:4747 Kernel.SemidefiniteProgramming <> Matrix def
+R4749:4749 Kernel.SemidefiniteProgramming <> n:43 var
+binder 4738:4738 <> M:44
+R4754:4754 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4761:4771 Kernel.SemidefiniteProgramming <> det3_matrix def
+binder 4778:4778 <> i:45
+binder 4780:4780 <> j:46
+R4785:4785 Kernel.SemidefiniteProgramming <> M:44 var
+R4787:4787 Kernel.SemidefiniteProgramming <> i:45 var
+R4789:4789 Kernel.SemidefiniteProgramming <> j:46 var
+def 4840:4855 <> principal_minor3
+R4862:4864 Coq.Init.Datatypes <> nat ind
+binder 4858:4858 <> n:47
+R4872:4877 Kernel.SemidefiniteProgramming <> Matrix def
+R4879:4879 Kernel.SemidefiniteProgramming <> n:47 var
+binder 4868:4868 <> M:48
+R4891:4893 Coq.Init.Datatypes <> nat ind
+binder 4883:4883 <> i:49
+binder 4885:4885 <> j:50
+binder 4887:4887 <> k:51
+R4898:4898 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4905:4915 Kernel.SemidefiniteProgramming <> det3_matrix def
+binder 4922:4922 <> a:52
+binder 4924:4924 <> b:53
+R4952:4952 Kernel.SemidefiniteProgramming <> a:52 var
+R4964:4964 Kernel.SemidefiniteProgramming <> i:49 var
+R4973:4973 Kernel.SemidefiniteProgramming <> j:50 var
+R4982:4982 Kernel.SemidefiniteProgramming <> k:51 var
+binder 4937:4941 <> idx_r:55
+R5014:5014 Kernel.SemidefiniteProgramming <> b:53 var
+R5026:5026 Kernel.SemidefiniteProgramming <> i:49 var
+R5035:5035 Kernel.SemidefiniteProgramming <> j:50 var
+R5044:5044 Kernel.SemidefiniteProgramming <> k:51 var
+binder 4999:5003 <> idx_c:57
+R5057:5057 Kernel.SemidefiniteProgramming <> M:48 var
+R5059:5063 Kernel.SemidefiniteProgramming <> idx_r:55 var
+R5065:5069 Kernel.SemidefiniteProgramming <> idx_c:57 var
+def 5200:5210 <> det4_matrix
+R5217:5222 Kernel.SemidefiniteProgramming <> Matrix def
+binder 5213:5213 <> M:58
+R5229:5229 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5420:5426 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5334:5340 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5268:5271 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5333:5333 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5255:5255 Kernel.SemidefiniteProgramming <> M:58 var
+R5301:5303 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5285:5287 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5272:5272 Kernel.SemidefiniteProgramming <> M:58 var
+R5288:5288 Kernel.SemidefiniteProgramming <> M:58 var
+R5317:5319 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5304:5304 Kernel.SemidefiniteProgramming <> M:58 var
+R5320:5320 Kernel.SemidefiniteProgramming <> M:58 var
+R5354:5357 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5419:5419 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5341:5341 Kernel.SemidefiniteProgramming <> M:58 var
+R5387:5389 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5371:5373 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5358:5358 Kernel.SemidefiniteProgramming <> M:58 var
+R5374:5374 Kernel.SemidefiniteProgramming <> M:58 var
+R5403:5405 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5390:5390 Kernel.SemidefiniteProgramming <> M:58 var
+R5406:5406 Kernel.SemidefiniteProgramming <> M:58 var
+R5440:5443 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5505:5505 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5427:5427 Kernel.SemidefiniteProgramming <> M:58 var
+R5473:5475 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5457:5459 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5444:5444 Kernel.SemidefiniteProgramming <> M:58 var
+R5460:5460 Kernel.SemidefiniteProgramming <> M:58 var
+R5489:5491 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5476:5476 Kernel.SemidefiniteProgramming <> M:58 var
+R5492:5492 Kernel.SemidefiniteProgramming <> M:58 var
+binder 5240:5246 <> minor_0:59
+R5696:5702 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5610:5616 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5544:5547 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5609:5609 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5531:5531 Kernel.SemidefiniteProgramming <> M:58 var
+R5577:5579 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5561:5563 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5548:5548 Kernel.SemidefiniteProgramming <> M:58 var
+R5564:5564 Kernel.SemidefiniteProgramming <> M:58 var
+R5593:5595 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5580:5580 Kernel.SemidefiniteProgramming <> M:58 var
+R5596:5596 Kernel.SemidefiniteProgramming <> M:58 var
+R5630:5633 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5695:5695 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5617:5617 Kernel.SemidefiniteProgramming <> M:58 var
+R5663:5665 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5647:5649 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5634:5634 Kernel.SemidefiniteProgramming <> M:58 var
+R5650:5650 Kernel.SemidefiniteProgramming <> M:58 var
+R5679:5681 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5666:5666 Kernel.SemidefiniteProgramming <> M:58 var
+R5682:5682 Kernel.SemidefiniteProgramming <> M:58 var
+R5716:5719 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5781:5781 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5703:5703 Kernel.SemidefiniteProgramming <> M:58 var
+R5749:5751 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5733:5735 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5720:5720 Kernel.SemidefiniteProgramming <> M:58 var
+R5736:5736 Kernel.SemidefiniteProgramming <> M:58 var
+R5765:5767 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5752:5752 Kernel.SemidefiniteProgramming <> M:58 var
+R5768:5768 Kernel.SemidefiniteProgramming <> M:58 var
+binder 5516:5522 <> minor_1:60
+R5972:5978 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5886:5892 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5820:5823 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5885:5885 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5807:5807 Kernel.SemidefiniteProgramming <> M:58 var
+R5853:5855 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5837:5839 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5824:5824 Kernel.SemidefiniteProgramming <> M:58 var
+R5840:5840 Kernel.SemidefiniteProgramming <> M:58 var
+R5869:5871 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5856:5856 Kernel.SemidefiniteProgramming <> M:58 var
+R5872:5872 Kernel.SemidefiniteProgramming <> M:58 var
+R5906:5909 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5971:5971 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5893:5893 Kernel.SemidefiniteProgramming <> M:58 var
+R5939:5941 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5923:5925 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5910:5910 Kernel.SemidefiniteProgramming <> M:58 var
+R5926:5926 Kernel.SemidefiniteProgramming <> M:58 var
+R5955:5957 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5942:5942 Kernel.SemidefiniteProgramming <> M:58 var
+R5958:5958 Kernel.SemidefiniteProgramming <> M:58 var
+R5992:5995 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6057:6057 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5979:5979 Kernel.SemidefiniteProgramming <> M:58 var
+R6025:6027 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6009:6011 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5996:5996 Kernel.SemidefiniteProgramming <> M:58 var
+R6012:6012 Kernel.SemidefiniteProgramming <> M:58 var
+R6041:6043 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6028:6028 Kernel.SemidefiniteProgramming <> M:58 var
+R6044:6044 Kernel.SemidefiniteProgramming <> M:58 var
+binder 5792:5798 <> minor_2:61
+R6248:6254 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6162:6168 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6096:6099 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6161:6161 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6083:6083 Kernel.SemidefiniteProgramming <> M:58 var
+R6129:6131 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6113:6115 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6100:6100 Kernel.SemidefiniteProgramming <> M:58 var
+R6116:6116 Kernel.SemidefiniteProgramming <> M:58 var
+R6145:6147 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6132:6132 Kernel.SemidefiniteProgramming <> M:58 var
+R6148:6148 Kernel.SemidefiniteProgramming <> M:58 var
+R6182:6185 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6247:6247 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6169:6169 Kernel.SemidefiniteProgramming <> M:58 var
+R6215:6217 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6199:6201 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6186:6186 Kernel.SemidefiniteProgramming <> M:58 var
+R6202:6202 Kernel.SemidefiniteProgramming <> M:58 var
+R6231:6233 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6218:6218 Kernel.SemidefiniteProgramming <> M:58 var
+R6234:6234 Kernel.SemidefiniteProgramming <> M:58 var
+R6268:6271 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6333:6333 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6255:6255 Kernel.SemidefiniteProgramming <> M:58 var
+R6301:6303 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6285:6287 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6272:6272 Kernel.SemidefiniteProgramming <> M:58 var
+R6288:6288 Kernel.SemidefiniteProgramming <> M:58 var
+R6317:6319 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6304:6304 Kernel.SemidefiniteProgramming <> M:58 var
+R6320:6320 Kernel.SemidefiniteProgramming <> M:58 var
+binder 6068:6074 <> minor_3:62
+R6417:6419 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6389:6393 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6363:6365 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6353:6355 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6340:6340 Kernel.SemidefiniteProgramming <> M:58 var
+R6356:6362 Kernel.SemidefiniteProgramming <> minor_0:59 var
+R6379:6381 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6366:6366 Kernel.SemidefiniteProgramming <> M:58 var
+R6382:6388 Kernel.SemidefiniteProgramming <> minor_1:60 var
+R6407:6409 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R6394:6394 Kernel.SemidefiniteProgramming <> M:58 var
-R6440:6442 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6424:6426 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6411:6411 Kernel.SemidefiniteProgramming <> M:58 var
-R6427:6427 Kernel.SemidefiniteProgramming <> M:58 var
-R6456:6458 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6443:6443 Kernel.SemidefiniteProgramming <> M:58 var
-R6459:6459 Kernel.SemidefiniteProgramming <> M:58 var
-R6493:6496 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6558:6558 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6480:6480 Kernel.SemidefiniteProgramming <> M:58 var
-R6526:6528 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6510:6512 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6497:6497 Kernel.SemidefiniteProgramming <> M:58 var
-R6513:6513 Kernel.SemidefiniteProgramming <> M:58 var
-R6542:6544 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6529:6529 Kernel.SemidefiniteProgramming <> M:58 var
-R6545:6545 Kernel.SemidefiniteProgramming <> M:58 var
-R6579:6582 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6644:6644 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6566:6566 Kernel.SemidefiniteProgramming <> M:58 var
-R6612:6614 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6596:6598 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6583:6583 Kernel.SemidefiniteProgramming <> M:58 var
-R6599:6599 Kernel.SemidefiniteProgramming <> M:58 var
-R6628:6630 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6615:6615 Kernel.SemidefiniteProgramming <> M:58 var
-R6631:6631 Kernel.SemidefiniteProgramming <> M:58 var
-binder 6379:6385 <> minor_3:62
-R6728:6730 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6700:6704 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6674:6676 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6664:6666 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6651:6651 Kernel.SemidefiniteProgramming <> M:58 var
-R6667:6673 Kernel.SemidefiniteProgramming <> minor_0:59 var
-R6690:6692 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6677:6677 Kernel.SemidefiniteProgramming <> M:58 var
-R6693:6699 Kernel.SemidefiniteProgramming <> minor_1:60 var
-R6718:6720 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6705:6705 Kernel.SemidefiniteProgramming <> M:58 var
-R6721:6727 Kernel.SemidefiniteProgramming <> minor_2:61 var
-R6744:6746 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6731:6731 Kernel.SemidefiniteProgramming <> M:58 var
-R6747:6753 Kernel.SemidefiniteProgramming <> minor_3:62 var
-def 6924:6934 <> det5_matrix
-R6941:6946 Kernel.SemidefiniteProgramming <> Matrix def
-binder 6937:6937 <> M:63
-R6953:6953 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7031:7041 Kernel.SemidefiniteProgramming <> det4_matrix def
-binder 7048:7048 <> i:64
-binder 7050:7050 <> j:65
-R7068:7068 Kernel.SemidefiniteProgramming <> j:65 var
-R7065:7065 Kernel.SemidefiniteProgramming <> i:64 var
-R7089:7089 Kernel.SemidefiniteProgramming <> M:63 var
-R7113:7113 Kernel.SemidefiniteProgramming <> M:63 var
-R7137:7137 Kernel.SemidefiniteProgramming <> M:63 var
-R7161:7161 Kernel.SemidefiniteProgramming <> M:63 var
-R7189:7189 Kernel.SemidefiniteProgramming <> M:63 var
-R7213:7213 Kernel.SemidefiniteProgramming <> M:63 var
-R7237:7237 Kernel.SemidefiniteProgramming <> M:63 var
-R7261:7261 Kernel.SemidefiniteProgramming <> M:63 var
-R7289:7289 Kernel.SemidefiniteProgramming <> M:63 var
-R7313:7313 Kernel.SemidefiniteProgramming <> M:63 var
-R7337:7337 Kernel.SemidefiniteProgramming <> M:63 var
-R7361:7361 Kernel.SemidefiniteProgramming <> M:63 var
-R7389:7389 Kernel.SemidefiniteProgramming <> M:63 var
-R7413:7413 Kernel.SemidefiniteProgramming <> M:63 var
-R7437:7437 Kernel.SemidefiniteProgramming <> M:63 var
-R7461:7461 Kernel.SemidefiniteProgramming <> M:63 var
-binder 7016:7026 <> cofactor_00:68
-R7524:7534 Kernel.SemidefiniteProgramming <> det4_matrix def
-binder 7541:7541 <> i:69
-binder 7543:7543 <> j:70
-R7561:7561 Kernel.SemidefiniteProgramming <> j:70 var
-R7558:7558 Kernel.SemidefiniteProgramming <> i:69 var
-R7582:7582 Kernel.SemidefiniteProgramming <> M:63 var
-R7606:7606 Kernel.SemidefiniteProgramming <> M:63 var
-R7630:7630 Kernel.SemidefiniteProgramming <> M:63 var
-R7654:7654 Kernel.SemidefiniteProgramming <> M:63 var
-R7682:7682 Kernel.SemidefiniteProgramming <> M:63 var
-R7706:7706 Kernel.SemidefiniteProgramming <> M:63 var
-R7730:7730 Kernel.SemidefiniteProgramming <> M:63 var
-R7754:7754 Kernel.SemidefiniteProgramming <> M:63 var
-R7782:7782 Kernel.SemidefiniteProgramming <> M:63 var
-R7806:7806 Kernel.SemidefiniteProgramming <> M:63 var
-R7830:7830 Kernel.SemidefiniteProgramming <> M:63 var
-R7854:7854 Kernel.SemidefiniteProgramming <> M:63 var
-R7882:7882 Kernel.SemidefiniteProgramming <> M:63 var
-R7906:7906 Kernel.SemidefiniteProgramming <> M:63 var
-R7930:7930 Kernel.SemidefiniteProgramming <> M:63 var
-R7954:7954 Kernel.SemidefiniteProgramming <> M:63 var
-binder 7509:7519 <> cofactor_01:73
-R8017:8027 Kernel.SemidefiniteProgramming <> det4_matrix def
-binder 8034:8034 <> i:74
-binder 8036:8036 <> j:75
-R8054:8054 Kernel.SemidefiniteProgramming <> j:75 var
-R8051:8051 Kernel.SemidefiniteProgramming <> i:74 var
-R8075:8075 Kernel.SemidefiniteProgramming <> M:63 var
-R8099:8099 Kernel.SemidefiniteProgramming <> M:63 var
-R8123:8123 Kernel.SemidefiniteProgramming <> M:63 var
-R8147:8147 Kernel.SemidefiniteProgramming <> M:63 var
-R8175:8175 Kernel.SemidefiniteProgramming <> M:63 var
-R8199:8199 Kernel.SemidefiniteProgramming <> M:63 var
-R8223:8223 Kernel.SemidefiniteProgramming <> M:63 var
-R8247:8247 Kernel.SemidefiniteProgramming <> M:63 var
-R8275:8275 Kernel.SemidefiniteProgramming <> M:63 var
-R8299:8299 Kernel.SemidefiniteProgramming <> M:63 var
-R8323:8323 Kernel.SemidefiniteProgramming <> M:63 var
-R8347:8347 Kernel.SemidefiniteProgramming <> M:63 var
-R8375:8375 Kernel.SemidefiniteProgramming <> M:63 var
-R8399:8399 Kernel.SemidefiniteProgramming <> M:63 var
-R8423:8423 Kernel.SemidefiniteProgramming <> M:63 var
-R8447:8447 Kernel.SemidefiniteProgramming <> M:63 var
-binder 8002:8012 <> cofactor_02:78
-R8510:8520 Kernel.SemidefiniteProgramming <> det4_matrix def
-binder 8527:8527 <> i:79
-binder 8529:8529 <> j:80
-R8547:8547 Kernel.SemidefiniteProgramming <> j:80 var
-R8544:8544 Kernel.SemidefiniteProgramming <> i:79 var
-R8568:8568 Kernel.SemidefiniteProgramming <> M:63 var
-R8592:8592 Kernel.SemidefiniteProgramming <> M:63 var
-R8616:8616 Kernel.SemidefiniteProgramming <> M:63 var
-R8640:8640 Kernel.SemidefiniteProgramming <> M:63 var
-R8668:8668 Kernel.SemidefiniteProgramming <> M:63 var
-R8692:8692 Kernel.SemidefiniteProgramming <> M:63 var
-R8716:8716 Kernel.SemidefiniteProgramming <> M:63 var
-R8740:8740 Kernel.SemidefiniteProgramming <> M:63 var
-R8768:8768 Kernel.SemidefiniteProgramming <> M:63 var
-R8792:8792 Kernel.SemidefiniteProgramming <> M:63 var
-R8816:8816 Kernel.SemidefiniteProgramming <> M:63 var
-R8840:8840 Kernel.SemidefiniteProgramming <> M:63 var
-R8868:8868 Kernel.SemidefiniteProgramming <> M:63 var
-R8892:8892 Kernel.SemidefiniteProgramming <> M:63 var
-R8916:8916 Kernel.SemidefiniteProgramming <> M:63 var
-R8940:8940 Kernel.SemidefiniteProgramming <> M:63 var
-binder 8495:8505 <> cofactor_03:83
-R9003:9013 Kernel.SemidefiniteProgramming <> det4_matrix def
-binder 9020:9020 <> i:84
-binder 9022:9022 <> j:85
-R9040:9040 Kernel.SemidefiniteProgramming <> j:85 var
-R9037:9037 Kernel.SemidefiniteProgramming <> i:84 var
-R9061:9061 Kernel.SemidefiniteProgramming <> M:63 var
-R9085:9085 Kernel.SemidefiniteProgramming <> M:63 var
-R9109:9109 Kernel.SemidefiniteProgramming <> M:63 var
-R9133:9133 Kernel.SemidefiniteProgramming <> M:63 var
-R9161:9161 Kernel.SemidefiniteProgramming <> M:63 var
-R9185:9185 Kernel.SemidefiniteProgramming <> M:63 var
-R9209:9209 Kernel.SemidefiniteProgramming <> M:63 var
-R9233:9233 Kernel.SemidefiniteProgramming <> M:63 var
-R9261:9261 Kernel.SemidefiniteProgramming <> M:63 var
-R9285:9285 Kernel.SemidefiniteProgramming <> M:63 var
-R9309:9309 Kernel.SemidefiniteProgramming <> M:63 var
-R9333:9333 Kernel.SemidefiniteProgramming <> M:63 var
-R9361:9361 Kernel.SemidefiniteProgramming <> M:63 var
-R9385:9385 Kernel.SemidefiniteProgramming <> M:63 var
-R9409:9409 Kernel.SemidefiniteProgramming <> M:63 var
-R9433:9433 Kernel.SemidefiniteProgramming <> M:63 var
-binder 8988:8998 <> cofactor_04:88
-R9596:9600 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R9566:9568 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R9534:9538 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R9504:9506 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R9490:9492 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9477:9477 Kernel.SemidefiniteProgramming <> M:63 var
-R9493:9503 Kernel.SemidefiniteProgramming <> cofactor_00:68 var
-R9520:9522 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9507:9507 Kernel.SemidefiniteProgramming <> M:63 var
-R9523:9533 Kernel.SemidefiniteProgramming <> cofactor_01:73 var
-R9552:9554 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9539:9539 Kernel.SemidefiniteProgramming <> M:63 var
-R9555:9565 Kernel.SemidefiniteProgramming <> cofactor_02:78 var
-R9582:9584 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9569:9569 Kernel.SemidefiniteProgramming <> M:63 var
-R9585:9595 Kernel.SemidefiniteProgramming <> cofactor_03:83 var
-R9614:9616 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9601:9601 Kernel.SemidefiniteProgramming <> M:63 var
-R9617:9627 Kernel.SemidefiniteProgramming <> cofactor_04:88 var
-def 9737:9741 <> PSD_4
-R9748:9753 Kernel.SemidefiniteProgramming <> Matrix def
-binder 9744:9744 <> M:89
-R9788:9793 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9783:9786 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9770:9770 Kernel.SemidefiniteProgramming <> M:89 var
-R9812:9817 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9807:9810 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9794:9794 Kernel.SemidefiniteProgramming <> M:89 var
-R9836:9841 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9831:9834 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9818:9818 Kernel.SemidefiniteProgramming <> M:89 var
-R9860:9889 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9855:9858 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9842:9842 Kernel.SemidefiniteProgramming <> M:89 var
-R9911:9916 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9906:9909 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9890:9903 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R9905:9905 Kernel.SemidefiniteProgramming <> M:89 var
-R9933:9938 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9928:9931 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9917:9925 Kernel.SemidefiniteProgramming <> minor2_02 def
-R9927:9927 Kernel.SemidefiniteProgramming <> M:89 var
-R9955:9960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9950:9953 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9939:9947 Kernel.SemidefiniteProgramming <> minor2_03 def
-R9949:9949 Kernel.SemidefiniteProgramming <> M:89 var
-R9977:9982 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9972:9975 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9961:9969 Kernel.SemidefiniteProgramming <> minor2_12 def
-R9971:9971 Kernel.SemidefiniteProgramming <> M:89 var
-R9999:10004 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9994:9997 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9983:9991 Kernel.SemidefiniteProgramming <> minor2_13 def
-R9993:9993 Kernel.SemidefiniteProgramming <> M:89 var
-R10021:10048 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10016:10019 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10005:10013 Kernel.SemidefiniteProgramming <> minor2_23 def
-R10015:10015 Kernel.SemidefiniteProgramming <> M:89 var
-R10070:10075 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10065:10068 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10049:10062 Kernel.SemidefiniteProgramming <> minor3_topleft def
-R10064:10064 Kernel.SemidefiniteProgramming <> M:89 var
-R10089:10092 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10076:10086 Kernel.SemidefiniteProgramming <> det4_matrix def
-R10088:10088 Kernel.SemidefiniteProgramming <> M:89 var
-def 10203:10207 <> PSD_5
-R10214:10219 Kernel.SemidefiniteProgramming <> Matrix def
-binder 10210:10210 <> M:90
-R10254:10259 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10249:10252 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6410:6416 Kernel.SemidefiniteProgramming <> minor_2:61 var
+R6433:6435 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6420:6420 Kernel.SemidefiniteProgramming <> M:58 var
+R6436:6442 Kernel.SemidefiniteProgramming <> minor_3:62 var
+def 6613:6623 <> det5_matrix
+R6630:6635 Kernel.SemidefiniteProgramming <> Matrix def
+binder 6626:6626 <> M:63
+R6642:6642 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6720:6730 Kernel.SemidefiniteProgramming <> det4_matrix def
+binder 6737:6737 <> i:64
+binder 6739:6739 <> j:65
+R6757:6757 Kernel.SemidefiniteProgramming <> j:65 var
+R6754:6754 Kernel.SemidefiniteProgramming <> i:64 var
+R6778:6778 Kernel.SemidefiniteProgramming <> M:63 var
+R6802:6802 Kernel.SemidefiniteProgramming <> M:63 var
+R6826:6826 Kernel.SemidefiniteProgramming <> M:63 var
+R6850:6850 Kernel.SemidefiniteProgramming <> M:63 var
+R6878:6878 Kernel.SemidefiniteProgramming <> M:63 var
+R6902:6902 Kernel.SemidefiniteProgramming <> M:63 var
+R6926:6926 Kernel.SemidefiniteProgramming <> M:63 var
+R6950:6950 Kernel.SemidefiniteProgramming <> M:63 var
+R6978:6978 Kernel.SemidefiniteProgramming <> M:63 var
+R7002:7002 Kernel.SemidefiniteProgramming <> M:63 var
+R7026:7026 Kernel.SemidefiniteProgramming <> M:63 var
+R7050:7050 Kernel.SemidefiniteProgramming <> M:63 var
+R7078:7078 Kernel.SemidefiniteProgramming <> M:63 var
+R7102:7102 Kernel.SemidefiniteProgramming <> M:63 var
+R7126:7126 Kernel.SemidefiniteProgramming <> M:63 var
+R7150:7150 Kernel.SemidefiniteProgramming <> M:63 var
+binder 6705:6715 <> cofactor_00:68
+R7213:7223 Kernel.SemidefiniteProgramming <> det4_matrix def
+binder 7230:7230 <> i:69
+binder 7232:7232 <> j:70
+R7250:7250 Kernel.SemidefiniteProgramming <> j:70 var
+R7247:7247 Kernel.SemidefiniteProgramming <> i:69 var
+R7271:7271 Kernel.SemidefiniteProgramming <> M:63 var
+R7295:7295 Kernel.SemidefiniteProgramming <> M:63 var
+R7319:7319 Kernel.SemidefiniteProgramming <> M:63 var
+R7343:7343 Kernel.SemidefiniteProgramming <> M:63 var
+R7371:7371 Kernel.SemidefiniteProgramming <> M:63 var
+R7395:7395 Kernel.SemidefiniteProgramming <> M:63 var
+R7419:7419 Kernel.SemidefiniteProgramming <> M:63 var
+R7443:7443 Kernel.SemidefiniteProgramming <> M:63 var
+R7471:7471 Kernel.SemidefiniteProgramming <> M:63 var
+R7495:7495 Kernel.SemidefiniteProgramming <> M:63 var
+R7519:7519 Kernel.SemidefiniteProgramming <> M:63 var
+R7543:7543 Kernel.SemidefiniteProgramming <> M:63 var
+R7571:7571 Kernel.SemidefiniteProgramming <> M:63 var
+R7595:7595 Kernel.SemidefiniteProgramming <> M:63 var
+R7619:7619 Kernel.SemidefiniteProgramming <> M:63 var
+R7643:7643 Kernel.SemidefiniteProgramming <> M:63 var
+binder 7198:7208 <> cofactor_01:73
+R7706:7716 Kernel.SemidefiniteProgramming <> det4_matrix def
+binder 7723:7723 <> i:74
+binder 7725:7725 <> j:75
+R7743:7743 Kernel.SemidefiniteProgramming <> j:75 var
+R7740:7740 Kernel.SemidefiniteProgramming <> i:74 var
+R7764:7764 Kernel.SemidefiniteProgramming <> M:63 var
+R7788:7788 Kernel.SemidefiniteProgramming <> M:63 var
+R7812:7812 Kernel.SemidefiniteProgramming <> M:63 var
+R7836:7836 Kernel.SemidefiniteProgramming <> M:63 var
+R7864:7864 Kernel.SemidefiniteProgramming <> M:63 var
+R7888:7888 Kernel.SemidefiniteProgramming <> M:63 var
+R7912:7912 Kernel.SemidefiniteProgramming <> M:63 var
+R7936:7936 Kernel.SemidefiniteProgramming <> M:63 var
+R7964:7964 Kernel.SemidefiniteProgramming <> M:63 var
+R7988:7988 Kernel.SemidefiniteProgramming <> M:63 var
+R8012:8012 Kernel.SemidefiniteProgramming <> M:63 var
+R8036:8036 Kernel.SemidefiniteProgramming <> M:63 var
+R8064:8064 Kernel.SemidefiniteProgramming <> M:63 var
+R8088:8088 Kernel.SemidefiniteProgramming <> M:63 var
+R8112:8112 Kernel.SemidefiniteProgramming <> M:63 var
+R8136:8136 Kernel.SemidefiniteProgramming <> M:63 var
+binder 7691:7701 <> cofactor_02:78
+R8199:8209 Kernel.SemidefiniteProgramming <> det4_matrix def
+binder 8216:8216 <> i:79
+binder 8218:8218 <> j:80
+R8236:8236 Kernel.SemidefiniteProgramming <> j:80 var
+R8233:8233 Kernel.SemidefiniteProgramming <> i:79 var
+R8257:8257 Kernel.SemidefiniteProgramming <> M:63 var
+R8281:8281 Kernel.SemidefiniteProgramming <> M:63 var
+R8305:8305 Kernel.SemidefiniteProgramming <> M:63 var
+R8329:8329 Kernel.SemidefiniteProgramming <> M:63 var
+R8357:8357 Kernel.SemidefiniteProgramming <> M:63 var
+R8381:8381 Kernel.SemidefiniteProgramming <> M:63 var
+R8405:8405 Kernel.SemidefiniteProgramming <> M:63 var
+R8429:8429 Kernel.SemidefiniteProgramming <> M:63 var
+R8457:8457 Kernel.SemidefiniteProgramming <> M:63 var
+R8481:8481 Kernel.SemidefiniteProgramming <> M:63 var
+R8505:8505 Kernel.SemidefiniteProgramming <> M:63 var
+R8529:8529 Kernel.SemidefiniteProgramming <> M:63 var
+R8557:8557 Kernel.SemidefiniteProgramming <> M:63 var
+R8581:8581 Kernel.SemidefiniteProgramming <> M:63 var
+R8605:8605 Kernel.SemidefiniteProgramming <> M:63 var
+R8629:8629 Kernel.SemidefiniteProgramming <> M:63 var
+binder 8184:8194 <> cofactor_03:83
+R8692:8702 Kernel.SemidefiniteProgramming <> det4_matrix def
+binder 8709:8709 <> i:84
+binder 8711:8711 <> j:85
+R8729:8729 Kernel.SemidefiniteProgramming <> j:85 var
+R8726:8726 Kernel.SemidefiniteProgramming <> i:84 var
+R8750:8750 Kernel.SemidefiniteProgramming <> M:63 var
+R8774:8774 Kernel.SemidefiniteProgramming <> M:63 var
+R8798:8798 Kernel.SemidefiniteProgramming <> M:63 var
+R8822:8822 Kernel.SemidefiniteProgramming <> M:63 var
+R8850:8850 Kernel.SemidefiniteProgramming <> M:63 var
+R8874:8874 Kernel.SemidefiniteProgramming <> M:63 var
+R8898:8898 Kernel.SemidefiniteProgramming <> M:63 var
+R8922:8922 Kernel.SemidefiniteProgramming <> M:63 var
+R8950:8950 Kernel.SemidefiniteProgramming <> M:63 var
+R8974:8974 Kernel.SemidefiniteProgramming <> M:63 var
+R8998:8998 Kernel.SemidefiniteProgramming <> M:63 var
+R9022:9022 Kernel.SemidefiniteProgramming <> M:63 var
+R9050:9050 Kernel.SemidefiniteProgramming <> M:63 var
+R9074:9074 Kernel.SemidefiniteProgramming <> M:63 var
+R9098:9098 Kernel.SemidefiniteProgramming <> M:63 var
+R9122:9122 Kernel.SemidefiniteProgramming <> M:63 var
+binder 8677:8687 <> cofactor_04:88
+R9285:9289 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9255:9257 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R9223:9227 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9193:9195 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R9179:9181 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9166:9166 Kernel.SemidefiniteProgramming <> M:63 var
+R9182:9192 Kernel.SemidefiniteProgramming <> cofactor_00:68 var
+R9209:9211 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9196:9196 Kernel.SemidefiniteProgramming <> M:63 var
+R9212:9222 Kernel.SemidefiniteProgramming <> cofactor_01:73 var
+R9241:9243 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9228:9228 Kernel.SemidefiniteProgramming <> M:63 var
+R9244:9254 Kernel.SemidefiniteProgramming <> cofactor_02:78 var
+R9271:9273 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9258:9258 Kernel.SemidefiniteProgramming <> M:63 var
+R9274:9284 Kernel.SemidefiniteProgramming <> cofactor_03:83 var
+R9303:9305 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9290:9290 Kernel.SemidefiniteProgramming <> M:63 var
+R9306:9316 Kernel.SemidefiniteProgramming <> cofactor_04:88 var
+def 9426:9430 <> PSD_4
+R9437:9442 Kernel.SemidefiniteProgramming <> Matrix def
+binder 9433:9433 <> M:89
+R9477:9482 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9472:9475 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9459:9459 Kernel.SemidefiniteProgramming <> M:89 var
+R9501:9506 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9496:9499 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9483:9483 Kernel.SemidefiniteProgramming <> M:89 var
+R9525:9530 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9520:9523 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9507:9507 Kernel.SemidefiniteProgramming <> M:89 var
+R9549:9578 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9544:9547 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9531:9531 Kernel.SemidefiniteProgramming <> M:89 var
+R9600:9605 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9595:9598 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9579:9592 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R9594:9594 Kernel.SemidefiniteProgramming <> M:89 var
+R9622:9627 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9617:9620 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9606:9614 Kernel.SemidefiniteProgramming <> minor2_02 def
+R9616:9616 Kernel.SemidefiniteProgramming <> M:89 var
+R9644:9649 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9639:9642 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9628:9636 Kernel.SemidefiniteProgramming <> minor2_03 def
+R9638:9638 Kernel.SemidefiniteProgramming <> M:89 var
+R9666:9671 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9661:9664 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9650:9658 Kernel.SemidefiniteProgramming <> minor2_12 def
+R9660:9660 Kernel.SemidefiniteProgramming <> M:89 var
+R9688:9693 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9683:9686 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9672:9680 Kernel.SemidefiniteProgramming <> minor2_13 def
+R9682:9682 Kernel.SemidefiniteProgramming <> M:89 var
+R9710:9737 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9705:9708 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9694:9702 Kernel.SemidefiniteProgramming <> minor2_23 def
+R9704:9704 Kernel.SemidefiniteProgramming <> M:89 var
+R9759:9764 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9754:9757 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9738:9751 Kernel.SemidefiniteProgramming <> minor3_topleft def
+R9753:9753 Kernel.SemidefiniteProgramming <> M:89 var
+R9778:9781 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9765:9775 Kernel.SemidefiniteProgramming <> det4_matrix def
+R9777:9777 Kernel.SemidefiniteProgramming <> M:89 var
+def 9892:9896 <> PSD_5
+R9903:9908 Kernel.SemidefiniteProgramming <> Matrix def
+binder 9899:9899 <> M:90
+R9943:9948 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9938:9941 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9925:9925 Kernel.SemidefiniteProgramming <> M:90 var
+R9967:9972 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9962:9965 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9949:9949 Kernel.SemidefiniteProgramming <> M:90 var
+R9991:9996 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9986:9989 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9973:9973 Kernel.SemidefiniteProgramming <> M:90 var
+R10015:10020 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10010:10013 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9997:9997 Kernel.SemidefiniteProgramming <> M:90 var
+R10039:10088 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10034:10037 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10021:10021 Kernel.SemidefiniteProgramming <> M:90 var
+R10110:10115 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10105:10108 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10089:10102 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R10104:10104 Kernel.SemidefiniteProgramming <> M:90 var
+R10132:10137 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10127:10130 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10116:10124 Kernel.SemidefiniteProgramming <> minor2_02 def
+R10126:10126 Kernel.SemidefiniteProgramming <> M:90 var
+R10154:10159 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10149:10152 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10138:10146 Kernel.SemidefiniteProgramming <> minor2_03 def
+R10148:10148 Kernel.SemidefiniteProgramming <> M:90 var
+R10176:10181 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10171:10174 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10160:10168 Kernel.SemidefiniteProgramming <> minor2_04 def
+R10170:10170 Kernel.SemidefiniteProgramming <> M:90 var
+R10198:10203 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10193:10196 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10182:10190 Kernel.SemidefiniteProgramming <> minor2_12 def
+R10192:10192 Kernel.SemidefiniteProgramming <> M:90 var
+R10220:10225 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10215:10218 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10204:10212 Kernel.SemidefiniteProgramming <> minor2_13 def
+R10214:10214 Kernel.SemidefiniteProgramming <> M:90 var
+R10242:10247 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10237:10240 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10226:10234 Kernel.SemidefiniteProgramming <> minor2_14 def
 R10236:10236 Kernel.SemidefiniteProgramming <> M:90 var
-R10278:10283 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10273:10276 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10260:10260 Kernel.SemidefiniteProgramming <> M:90 var
-R10302:10307 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10297:10300 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10284:10284 Kernel.SemidefiniteProgramming <> M:90 var
-R10326:10331 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10321:10324 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10308:10308 Kernel.SemidefiniteProgramming <> M:90 var
-R10350:10399 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10345:10348 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10332:10332 Kernel.SemidefiniteProgramming <> M:90 var
-R10421:10426 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10416:10419 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10400:10413 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R10415:10415 Kernel.SemidefiniteProgramming <> M:90 var
-R10443:10448 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10438:10441 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10427:10435 Kernel.SemidefiniteProgramming <> minor2_02 def
-R10437:10437 Kernel.SemidefiniteProgramming <> M:90 var
-R10465:10470 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10460:10463 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10449:10457 Kernel.SemidefiniteProgramming <> minor2_03 def
-R10459:10459 Kernel.SemidefiniteProgramming <> M:90 var
-R10487:10492 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10482:10485 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10471:10479 Kernel.SemidefiniteProgramming <> minor2_04 def
-R10481:10481 Kernel.SemidefiniteProgramming <> M:90 var
-R10509:10514 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10504:10507 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10493:10501 Kernel.SemidefiniteProgramming <> minor2_12 def
-R10503:10503 Kernel.SemidefiniteProgramming <> M:90 var
-R10531:10536 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10526:10529 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10515:10523 Kernel.SemidefiniteProgramming <> minor2_13 def
-R10525:10525 Kernel.SemidefiniteProgramming <> M:90 var
-R10553:10558 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10548:10551 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10537:10545 Kernel.SemidefiniteProgramming <> minor2_14 def
-R10547:10547 Kernel.SemidefiniteProgramming <> M:90 var
-R10575:10580 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10570:10573 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10559:10567 Kernel.SemidefiniteProgramming <> minor2_23 def
-R10569:10569 Kernel.SemidefiniteProgramming <> M:90 var
-R10597:10602 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10592:10595 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10581:10589 Kernel.SemidefiniteProgramming <> minor2_24 def
-R10591:10591 Kernel.SemidefiniteProgramming <> M:90 var
-R10619:10646 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10614:10617 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10603:10611 Kernel.SemidefiniteProgramming <> minor2_34 def
-R10613:10613 Kernel.SemidefiniteProgramming <> M:90 var
-R10668:10673 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10663:10666 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10647:10660 Kernel.SemidefiniteProgramming <> minor3_topleft def
-R10662:10662 Kernel.SemidefiniteProgramming <> M:90 var
-R10709:10714 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10704:10707 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10674:10684 Kernel.SemidefiniteProgramming <> det4_matrix def
-binder 10691:10691 <> i:91
-binder 10693:10693 <> j:92
-R10698:10698 Kernel.SemidefiniteProgramming <> M:90 var
-R10700:10700 Kernel.SemidefiniteProgramming <> i:91 var
-R10702:10702 Kernel.SemidefiniteProgramming <> j:92 var
-R10728:10731 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10715:10725 Kernel.SemidefiniteProgramming <> det5_matrix def
-R10727:10727 Kernel.SemidefiniteProgramming <> M:90 var
-def 10933:10937 <> PSD_1
-R10944:10949 Kernel.SemidefiniteProgramming <> Matrix def
-binder 10940:10940 <> M:93
-R10979:10982 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R10966:10966 Kernel.SemidefiniteProgramming <> M:93 var
-def 11072:11076 <> PSD_2
-R11083:11088 Kernel.SemidefiniteProgramming <> Matrix def
-binder 11079:11079 <> M:94
-R11123:11128 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11118:11121 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11105:11105 Kernel.SemidefiniteProgramming <> M:94 var
-R11147:11152 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11142:11145 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11129:11129 Kernel.SemidefiniteProgramming <> M:94 var
-R11166:11169 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11153:11163 Kernel.SemidefiniteProgramming <> det2_matrix def
-R11165:11165 Kernel.SemidefiniteProgramming <> M:94 var
-def 11270:11274 <> PSD_3
-R11281:11286 Kernel.SemidefiniteProgramming <> Matrix def
-binder 11277:11277 <> M:95
-R11321:11326 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11316:11319 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11303:11303 Kernel.SemidefiniteProgramming <> M:95 var
-R11345:11350 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11340:11343 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11327:11327 Kernel.SemidefiniteProgramming <> M:95 var
-R11369:11417 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11364:11367 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11351:11351 Kernel.SemidefiniteProgramming <> M:95 var
-R11439:11444 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11434:11437 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11418:11431 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R11433:11433 Kernel.SemidefiniteProgramming <> M:95 var
-R11461:11466 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11456:11459 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11445:11453 Kernel.SemidefiniteProgramming <> minor2_02 def
-R11455:11455 Kernel.SemidefiniteProgramming <> M:95 var
-R11483:11488 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11478:11481 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11467:11475 Kernel.SemidefiniteProgramming <> minor2_12 def
-R11477:11477 Kernel.SemidefiniteProgramming <> M:95 var
-R11502:11505 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11489:11499 Kernel.SemidefiniteProgramming <> det3_matrix def
-R11501:11501 Kernel.SemidefiniteProgramming <> M:95 var
-def 11586:11588 <> PSD
-R11595:11597 Coq.Init.Datatypes <> nat ind
-binder 11591:11591 <> n:96
-R11605:11610 Kernel.SemidefiniteProgramming <> Matrix def
-R11612:11612 Kernel.SemidefiniteProgramming <> n:96 var
-binder 11601:11601 <> M:97
-R11633:11633 Kernel.SemidefiniteProgramming <> n:96 var
-R11649:11652 Coq.Init.Logic <> True ind
-R11663:11667 Kernel.SemidefiniteProgramming <> PSD_1 def
-R11669:11669 Kernel.SemidefiniteProgramming <> M:97 var
-R11680:11684 Kernel.SemidefiniteProgramming <> PSD_2 def
-R11686:11686 Kernel.SemidefiniteProgramming <> M:97 var
-R11697:11701 Kernel.SemidefiniteProgramming <> PSD_3 def
-R11703:11703 Kernel.SemidefiniteProgramming <> M:97 var
-R11714:11718 Kernel.SemidefiniteProgramming <> PSD_4 def
-R11720:11720 Kernel.SemidefiniteProgramming <> M:97 var
-R11731:11735 Kernel.SemidefiniteProgramming <> PSD_5 def
-R11737:11737 Kernel.SemidefiniteProgramming <> M:97 var
-R11743:11743 Coq.Init.Datatypes <> S constr
-R11746:11746 Coq.Init.Datatypes <> S constr
-R11749:11749 Coq.Init.Datatypes <> S constr
-R11752:11752 Coq.Init.Datatypes <> S constr
-R11755:11755 Coq.Init.Datatypes <> S constr
-R11758:11758 Coq.Init.Datatypes <> S constr
-R11864:11866 Coq.Init.Datatypes <> nat ind
-binder 11860:11860 <> i:99
-R11880:11883 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11871:11873 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R11870:11870 Kernel.SemidefiniteProgramming <> i:99 var
-R11874:11874 Kernel.SemidefiniteProgramming <> n:96 var
-R11889:11892 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R11884:11884 Kernel.SemidefiniteProgramming <> M:97 var
-R11886:11886 Kernel.SemidefiniteProgramming <> i:99 var
-R11888:11888 Kernel.SemidefiniteProgramming <> i:99 var
-def 11945:11956 <> SymmetricPSD
-R11963:11965 Coq.Init.Datatypes <> nat ind
-binder 11959:11959 <> n:100
-R11973:11978 Kernel.SemidefiniteProgramming <> Matrix def
-R11980:11980 Kernel.SemidefiniteProgramming <> n:100 var
-binder 11969:11969 <> M:101
-R12006:12009 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11995:12003 Kernel.SemidefiniteProgramming <> symmetric def
-R12005:12005 Kernel.SemidefiniteProgramming <> M:101 var
-R12010:12012 Kernel.SemidefiniteProgramming <> PSD def
-R12014:12014 Kernel.SemidefiniteProgramming <> M:101 var
-prf 12353:12371 <> PSD_diagonal_nonneg
-R12387:12389 Coq.Init.Datatypes <> nat ind
-binder 12383:12383 <> n:102
-R12397:12402 Kernel.SemidefiniteProgramming <> Matrix def
-R12404:12404 Kernel.SemidefiniteProgramming <> n:102 var
-binder 12393:12393 <> M:103
-R12412:12414 Coq.Init.Datatypes <> nat ind
-binder 12408:12408 <> i:104
-R12431:12436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12422:12424 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R12421:12421 Kernel.SemidefiniteProgramming <> i:104 var
-R12425:12425 Kernel.SemidefiniteProgramming <> n:102 var
-R12442:12447 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12437:12439 Kernel.SemidefiniteProgramming <> PSD def
-R12441:12441 Kernel.SemidefiniteProgramming <> M:103 var
-R12453:12456 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R12448:12448 Kernel.SemidefiniteProgramming <> M:103 var
-R12450:12450 Kernel.SemidefiniteProgramming <> i:104 var
-R12452:12452 Kernel.SemidefiniteProgramming <> i:104 var
-R12576:12578 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12576:12578 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12612:12614 Kernel.SemidefiniteProgramming <> PSD def
-R12617:12621 Kernel.SemidefiniteProgramming <> PSD_1 def
-R12701:12703 Kernel.SemidefiniteProgramming <> PSD def
-R12706:12710 Kernel.SemidefiniteProgramming <> PSD_2 def
-R12869:12871 Kernel.SemidefiniteProgramming <> PSD def
-R12874:12878 Kernel.SemidefiniteProgramming <> PSD_3 def
-R13057:13059 Kernel.SemidefiniteProgramming <> PSD def
-R13062:13066 Kernel.SemidefiniteProgramming <> PSD_4 def
-R13268:13270 Kernel.SemidefiniteProgramming <> PSD def
-R13273:13277 Kernel.SemidefiniteProgramming <> PSD_5 def
-R13461:13463 Kernel.SemidefiniteProgramming <> PSD def
-prf 13552:13559 <> I_is_PSD
-binder 13570:13570 <> n:105
-R13573:13575 Kernel.SemidefiniteProgramming <> PSD def
-R13578:13578 Kernel.SemidefiniteProgramming <> I def
-R13580:13580 Kernel.SemidefiniteProgramming <> n:105 var
-R13679:13681 Kernel.SemidefiniteProgramming <> PSD def
-R13684:13684 Kernel.SemidefiniteProgramming <> I def
-R13687:13691 Kernel.SemidefiniteProgramming <> PSD_1 def
-R13761:13763 Kernel.SemidefiniteProgramming <> PSD def
-R13766:13766 Kernel.SemidefiniteProgramming <> I def
-R13769:13773 Kernel.SemidefiniteProgramming <> PSD_2 def
-R13776:13786 Kernel.SemidefiniteProgramming <> det2_matrix def
-R13789:13792 Kernel.SemidefiniteProgramming <> det2 def
-R13882:13884 Kernel.SemidefiniteProgramming <> PSD def
-R13887:13887 Kernel.SemidefiniteProgramming <> I def
-R13890:13894 Kernel.SemidefiniteProgramming <> PSD_3 def
-R13956:13969 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R13972:13975 Kernel.SemidefiniteProgramming <> det2 def
-R14019:14027 Kernel.SemidefiniteProgramming <> minor2_02 def
-R14030:14033 Kernel.SemidefiniteProgramming <> det2 def
-R14077:14085 Kernel.SemidefiniteProgramming <> minor2_12 def
-R14088:14091 Kernel.SemidefiniteProgramming <> det2 def
-R14135:14145 Kernel.SemidefiniteProgramming <> det3_matrix def
-R14229:14231 Kernel.SemidefiniteProgramming <> PSD def
-R14234:14234 Kernel.SemidefiniteProgramming <> I def
-R14237:14241 Kernel.SemidefiniteProgramming <> PSD_4 def
-R14371:14384 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R14387:14390 Kernel.SemidefiniteProgramming <> det2 def
-R14436:14444 Kernel.SemidefiniteProgramming <> minor2_02 def
-R14447:14450 Kernel.SemidefiniteProgramming <> det2 def
-R14496:14504 Kernel.SemidefiniteProgramming <> minor2_03 def
-R14507:14510 Kernel.SemidefiniteProgramming <> det2 def
-R14556:14564 Kernel.SemidefiniteProgramming <> minor2_12 def
-R14567:14570 Kernel.SemidefiniteProgramming <> det2 def
-R14616:14624 Kernel.SemidefiniteProgramming <> minor2_13 def
-R14627:14630 Kernel.SemidefiniteProgramming <> det2 def
-R14676:14684 Kernel.SemidefiniteProgramming <> minor2_23 def
-R14687:14690 Kernel.SemidefiniteProgramming <> det2 def
-R14736:14749 Kernel.SemidefiniteProgramming <> minor3_topleft def
-R14752:14762 Kernel.SemidefiniteProgramming <> det3_matrix def
-R14808:14818 Kernel.SemidefiniteProgramming <> det4_matrix def
-R14910:14912 Kernel.SemidefiniteProgramming <> PSD def
-R14915:14919 Kernel.SemidefiniteProgramming <> PSD_5 def
-R14922:14922 Kernel.SemidefiniteProgramming <> I def
-R15061:15074 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R15077:15080 Kernel.SemidefiniteProgramming <> det2 def
-R15129:15137 Kernel.SemidefiniteProgramming <> minor2_02 def
-R15140:15143 Kernel.SemidefiniteProgramming <> det2 def
-R15192:15200 Kernel.SemidefiniteProgramming <> minor2_03 def
-R15203:15206 Kernel.SemidefiniteProgramming <> det2 def
-R15255:15263 Kernel.SemidefiniteProgramming <> minor2_04 def
-R15266:15269 Kernel.SemidefiniteProgramming <> det2 def
-R15318:15326 Kernel.SemidefiniteProgramming <> minor2_12 def
-R15329:15332 Kernel.SemidefiniteProgramming <> det2 def
-R15381:15389 Kernel.SemidefiniteProgramming <> minor2_13 def
-R15392:15395 Kernel.SemidefiniteProgramming <> det2 def
-R15444:15452 Kernel.SemidefiniteProgramming <> minor2_14 def
-R15455:15458 Kernel.SemidefiniteProgramming <> det2 def
-R15507:15515 Kernel.SemidefiniteProgramming <> minor2_23 def
-R15518:15521 Kernel.SemidefiniteProgramming <> det2 def
-R15570:15578 Kernel.SemidefiniteProgramming <> minor2_24 def
-R15581:15584 Kernel.SemidefiniteProgramming <> det2 def
-R15633:15641 Kernel.SemidefiniteProgramming <> minor2_34 def
-R15644:15647 Kernel.SemidefiniteProgramming <> det2 def
-R15696:15709 Kernel.SemidefiniteProgramming <> minor3_topleft def
-R15712:15722 Kernel.SemidefiniteProgramming <> det3_matrix def
-R15771:15781 Kernel.SemidefiniteProgramming <> det4_matrix def
-R15830:15840 Kernel.SemidefiniteProgramming <> det5_matrix def
-R15916:15918 Kernel.SemidefiniteProgramming <> PSD def
-R15921:15921 Kernel.SemidefiniteProgramming <> I def
-R15952:15958 Coq.Arith.PeanoNat Nat eqb def
-R15985:15995 Coq.Arith.PeanoNat Nat eqb_neq thm
-R15952:15958 Coq.Arith.PeanoNat Nat eqb def
-R15985:15995 Coq.Arith.PeanoNat Nat eqb_neq thm
-def 16239:16258 <> schur_complement_2x2
-R16265:16270 Kernel.SemidefiniteProgramming <> Matrix def
-binder 16261:16261 <> M:106
-R16277:16277 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R16297:16299 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R16284:16284 Kernel.SemidefiniteProgramming <> M:106 var
-R16300:16300 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R16330:16333 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R16314:16316 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R16301:16301 Kernel.SemidefiniteProgramming <> M:106 var
-R16317:16317 Kernel.SemidefiniteProgramming <> M:106 var
-R16334:16334 Kernel.SemidefiniteProgramming <> M:106 var
-prf 16484:16502 <> schur_2x2_criterion
-R16518:16523 Kernel.SemidefiniteProgramming <> Matrix def
-binder 16514:16514 <> M:107
-R16542:16547 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16531:16539 Kernel.SemidefiniteProgramming <> symmetric def
-R16541:16541 Kernel.SemidefiniteProgramming <> M:107 var
-R16565:16571 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16633:16633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16561:16563 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R16548:16548 Kernel.SemidefiniteProgramming <> M:107 var
-R16577:16582 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R16632:16632 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R16572:16574 Kernel.SemidefiniteProgramming <> PSD def
-R16576:16576 Kernel.SemidefiniteProgramming <> M:107 var
-R16601:16604 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16596:16599 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R16583:16583 Kernel.SemidefiniteProgramming <> M:107 var
-R16627:16630 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R16605:16624 Kernel.SemidefiniteProgramming <> schur_complement_2x2 def
-R16626:16626 Kernel.SemidefiniteProgramming <> M:107 var
-R16674:16676 Kernel.SemidefiniteProgramming <> PSD def
-R16679:16683 Kernel.SemidefiniteProgramming <> PSD_2 def
-R16686:16705 Kernel.SemidefiniteProgramming <> schur_complement_2x2 def
-R16708:16718 Kernel.SemidefiniteProgramming <> det2_matrix def
-R16721:16724 Kernel.SemidefiniteProgramming <> det2 def
-R16755:16757 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16755:16757 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16826:16828 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R16811:16812 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R16842:16857 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
-R16826:16828 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R16811:16812 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R16842:16857 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
-R16899:16902 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R16884:16885 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R16899:16902 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R16884:16885 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R17016:17018 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17000:17002 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17032:17034 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17016:17018 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17000:17002 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17032:17034 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17173:17176 Coq.Reals.Rdefinitions <> Rdiv def
-R17421:17424 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R17389:17391 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R17373:17375 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17405:17407 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17421:17424 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R17389:17391 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R17373:17375 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17405:17407 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17579:17582 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R17529:17531 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R17561:17563 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17545:17547 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17564:17565 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R17579:17582 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R17529:17531 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R17561:17563 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17545:17547 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17564:17565 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R17611:17614 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17644:17646 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R17628:17630 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17660:17662 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17611:17614 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17644:17646 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R17628:17630 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17660:17662 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17710:17713 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17714:17715 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R17710:17713 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R17714:17715 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R17761:17764 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10264:10269 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10259:10262 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10248:10256 Kernel.SemidefiniteProgramming <> minor2_23 def
+R10258:10258 Kernel.SemidefiniteProgramming <> M:90 var
+R10286:10291 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10281:10284 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10270:10278 Kernel.SemidefiniteProgramming <> minor2_24 def
+R10280:10280 Kernel.SemidefiniteProgramming <> M:90 var
+R10308:10335 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10303:10306 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10292:10300 Kernel.SemidefiniteProgramming <> minor2_34 def
+R10302:10302 Kernel.SemidefiniteProgramming <> M:90 var
+R10357:10362 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10352:10355 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10336:10349 Kernel.SemidefiniteProgramming <> minor3_topleft def
+R10351:10351 Kernel.SemidefiniteProgramming <> M:90 var
+R10398:10403 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10393:10396 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10363:10373 Kernel.SemidefiniteProgramming <> det4_matrix def
+binder 10380:10380 <> i:91
+binder 10382:10382 <> j:92
+R10387:10387 Kernel.SemidefiniteProgramming <> M:90 var
+R10389:10389 Kernel.SemidefiniteProgramming <> i:91 var
+R10391:10391 Kernel.SemidefiniteProgramming <> j:92 var
+R10417:10420 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10404:10414 Kernel.SemidefiniteProgramming <> det5_matrix def
+R10416:10416 Kernel.SemidefiniteProgramming <> M:90 var
+def 10620:10624 <> PSD_1
+R10631:10636 Kernel.SemidefiniteProgramming <> Matrix def
+binder 10627:10627 <> M:93
+R10666:10669 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10653:10653 Kernel.SemidefiniteProgramming <> M:93 var
+def 10759:10763 <> PSD_2
+R10770:10775 Kernel.SemidefiniteProgramming <> Matrix def
+binder 10766:10766 <> M:94
+R10810:10815 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10805:10808 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10792:10792 Kernel.SemidefiniteProgramming <> M:94 var
+R10834:10839 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10829:10832 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10816:10816 Kernel.SemidefiniteProgramming <> M:94 var
+R10853:10856 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10840:10850 Kernel.SemidefiniteProgramming <> det2_matrix def
+R10852:10852 Kernel.SemidefiniteProgramming <> M:94 var
+def 10957:10961 <> PSD_3
+R10968:10973 Kernel.SemidefiniteProgramming <> Matrix def
+binder 10964:10964 <> M:95
+R11008:11013 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11003:11006 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R10990:10990 Kernel.SemidefiniteProgramming <> M:95 var
+R11032:11037 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11027:11030 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11014:11014 Kernel.SemidefiniteProgramming <> M:95 var
+R11056:11104 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11051:11054 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11038:11038 Kernel.SemidefiniteProgramming <> M:95 var
+R11126:11131 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11121:11124 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11105:11118 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R11120:11120 Kernel.SemidefiniteProgramming <> M:95 var
+R11148:11153 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11143:11146 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11132:11140 Kernel.SemidefiniteProgramming <> minor2_02 def
+R11142:11142 Kernel.SemidefiniteProgramming <> M:95 var
+R11170:11175 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11165:11168 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11154:11162 Kernel.SemidefiniteProgramming <> minor2_12 def
+R11164:11164 Kernel.SemidefiniteProgramming <> M:95 var
+R11189:11192 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11176:11186 Kernel.SemidefiniteProgramming <> det3_matrix def
+R11188:11188 Kernel.SemidefiniteProgramming <> M:95 var
+def 11273:11275 <> PSD
+R11282:11284 Coq.Init.Datatypes <> nat ind
+binder 11278:11278 <> n:96
+R11292:11297 Kernel.SemidefiniteProgramming <> Matrix def
+R11299:11299 Kernel.SemidefiniteProgramming <> n:96 var
+binder 11288:11288 <> M:97
+R11320:11320 Kernel.SemidefiniteProgramming <> n:96 var
+R11336:11339 Coq.Init.Logic <> True ind
+R11350:11354 Kernel.SemidefiniteProgramming <> PSD_1 def
+R11356:11356 Kernel.SemidefiniteProgramming <> M:97 var
+R11367:11371 Kernel.SemidefiniteProgramming <> PSD_2 def
+R11373:11373 Kernel.SemidefiniteProgramming <> M:97 var
+R11384:11388 Kernel.SemidefiniteProgramming <> PSD_3 def
+R11390:11390 Kernel.SemidefiniteProgramming <> M:97 var
+R11401:11405 Kernel.SemidefiniteProgramming <> PSD_4 def
+R11407:11407 Kernel.SemidefiniteProgramming <> M:97 var
+R11418:11422 Kernel.SemidefiniteProgramming <> PSD_5 def
+R11424:11424 Kernel.SemidefiniteProgramming <> M:97 var
+R11430:11430 Coq.Init.Datatypes <> S constr
+R11433:11433 Coq.Init.Datatypes <> S constr
+R11436:11436 Coq.Init.Datatypes <> S constr
+R11439:11439 Coq.Init.Datatypes <> S constr
+R11442:11442 Coq.Init.Datatypes <> S constr
+R11445:11445 Coq.Init.Datatypes <> S constr
+R11551:11553 Coq.Init.Datatypes <> nat ind
+binder 11547:11547 <> i:99
+R11567:11570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11558:11560 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11557:11557 Kernel.SemidefiniteProgramming <> i:99 var
+R11561:11561 Kernel.SemidefiniteProgramming <> n:96 var
+R11576:11579 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R11571:11571 Kernel.SemidefiniteProgramming <> M:97 var
+R11573:11573 Kernel.SemidefiniteProgramming <> i:99 var
+R11575:11575 Kernel.SemidefiniteProgramming <> i:99 var
+def 11632:11643 <> SymmetricPSD
+R11650:11652 Coq.Init.Datatypes <> nat ind
+binder 11646:11646 <> n:100
+R11660:11665 Kernel.SemidefiniteProgramming <> Matrix def
+R11667:11667 Kernel.SemidefiniteProgramming <> n:100 var
+binder 11656:11656 <> M:101
+R11693:11696 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11682:11690 Kernel.SemidefiniteProgramming <> symmetric def
+R11692:11692 Kernel.SemidefiniteProgramming <> M:101 var
+R11697:11699 Kernel.SemidefiniteProgramming <> PSD def
+R11701:11701 Kernel.SemidefiniteProgramming <> M:101 var
+prf 11986:12004 <> PSD_diagonal_nonneg
+R12020:12022 Coq.Init.Datatypes <> nat ind
+binder 12016:12016 <> n:102
+R12030:12035 Kernel.SemidefiniteProgramming <> Matrix def
+R12037:12037 Kernel.SemidefiniteProgramming <> n:102 var
+binder 12026:12026 <> M:103
+R12045:12047 Coq.Init.Datatypes <> nat ind
+binder 12041:12041 <> i:104
+R12064:12069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12055:12057 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12054:12054 Kernel.SemidefiniteProgramming <> i:104 var
+R12058:12058 Kernel.SemidefiniteProgramming <> n:102 var
+R12075:12080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12070:12072 Kernel.SemidefiniteProgramming <> PSD def
+R12074:12074 Kernel.SemidefiniteProgramming <> M:103 var
+R12086:12089 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R12081:12081 Kernel.SemidefiniteProgramming <> M:103 var
+R12083:12083 Kernel.SemidefiniteProgramming <> i:104 var
+R12085:12085 Kernel.SemidefiniteProgramming <> i:104 var
+R12209:12211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12209:12211 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12245:12247 Kernel.SemidefiniteProgramming <> PSD def
+R12250:12254 Kernel.SemidefiniteProgramming <> PSD_1 def
+R12334:12336 Kernel.SemidefiniteProgramming <> PSD def
+R12339:12343 Kernel.SemidefiniteProgramming <> PSD_2 def
+R12502:12504 Kernel.SemidefiniteProgramming <> PSD def
+R12507:12511 Kernel.SemidefiniteProgramming <> PSD_3 def
+R12690:12692 Kernel.SemidefiniteProgramming <> PSD def
+R12695:12699 Kernel.SemidefiniteProgramming <> PSD_4 def
+R12901:12903 Kernel.SemidefiniteProgramming <> PSD def
+R12906:12910 Kernel.SemidefiniteProgramming <> PSD_5 def
+R13094:13096 Kernel.SemidefiniteProgramming <> PSD def
+prf 13185:13192 <> I_is_PSD
+binder 13203:13203 <> n:105
+R13206:13208 Kernel.SemidefiniteProgramming <> PSD def
+R13211:13211 Kernel.SemidefiniteProgramming <> I def
+R13213:13213 Kernel.SemidefiniteProgramming <> n:105 var
+R13312:13314 Kernel.SemidefiniteProgramming <> PSD def
+R13317:13317 Kernel.SemidefiniteProgramming <> I def
+R13320:13324 Kernel.SemidefiniteProgramming <> PSD_1 def
+R13394:13396 Kernel.SemidefiniteProgramming <> PSD def
+R13399:13399 Kernel.SemidefiniteProgramming <> I def
+R13402:13406 Kernel.SemidefiniteProgramming <> PSD_2 def
+R13409:13419 Kernel.SemidefiniteProgramming <> det2_matrix def
+R13422:13425 Kernel.SemidefiniteProgramming <> det2 def
+R13515:13517 Kernel.SemidefiniteProgramming <> PSD def
+R13520:13520 Kernel.SemidefiniteProgramming <> I def
+R13523:13527 Kernel.SemidefiniteProgramming <> PSD_3 def
+R13589:13602 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R13605:13608 Kernel.SemidefiniteProgramming <> det2 def
+R13652:13660 Kernel.SemidefiniteProgramming <> minor2_02 def
+R13663:13666 Kernel.SemidefiniteProgramming <> det2 def
+R13710:13718 Kernel.SemidefiniteProgramming <> minor2_12 def
+R13721:13724 Kernel.SemidefiniteProgramming <> det2 def
+R13768:13778 Kernel.SemidefiniteProgramming <> det3_matrix def
+R13862:13864 Kernel.SemidefiniteProgramming <> PSD def
+R13867:13867 Kernel.SemidefiniteProgramming <> I def
+R13870:13874 Kernel.SemidefiniteProgramming <> PSD_4 def
+R14004:14017 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R14020:14023 Kernel.SemidefiniteProgramming <> det2 def
+R14069:14077 Kernel.SemidefiniteProgramming <> minor2_02 def
+R14080:14083 Kernel.SemidefiniteProgramming <> det2 def
+R14129:14137 Kernel.SemidefiniteProgramming <> minor2_03 def
+R14140:14143 Kernel.SemidefiniteProgramming <> det2 def
+R14189:14197 Kernel.SemidefiniteProgramming <> minor2_12 def
+R14200:14203 Kernel.SemidefiniteProgramming <> det2 def
+R14249:14257 Kernel.SemidefiniteProgramming <> minor2_13 def
+R14260:14263 Kernel.SemidefiniteProgramming <> det2 def
+R14309:14317 Kernel.SemidefiniteProgramming <> minor2_23 def
+R14320:14323 Kernel.SemidefiniteProgramming <> det2 def
+R14369:14382 Kernel.SemidefiniteProgramming <> minor3_topleft def
+R14385:14395 Kernel.SemidefiniteProgramming <> det3_matrix def
+R14441:14451 Kernel.SemidefiniteProgramming <> det4_matrix def
+R14543:14545 Kernel.SemidefiniteProgramming <> PSD def
+R14548:14552 Kernel.SemidefiniteProgramming <> PSD_5 def
+R14555:14555 Kernel.SemidefiniteProgramming <> I def
+R14694:14707 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R14710:14713 Kernel.SemidefiniteProgramming <> det2 def
+R14762:14770 Kernel.SemidefiniteProgramming <> minor2_02 def
+R14773:14776 Kernel.SemidefiniteProgramming <> det2 def
+R14825:14833 Kernel.SemidefiniteProgramming <> minor2_03 def
+R14836:14839 Kernel.SemidefiniteProgramming <> det2 def
+R14888:14896 Kernel.SemidefiniteProgramming <> minor2_04 def
+R14899:14902 Kernel.SemidefiniteProgramming <> det2 def
+R14951:14959 Kernel.SemidefiniteProgramming <> minor2_12 def
+R14962:14965 Kernel.SemidefiniteProgramming <> det2 def
+R15014:15022 Kernel.SemidefiniteProgramming <> minor2_13 def
+R15025:15028 Kernel.SemidefiniteProgramming <> det2 def
+R15077:15085 Kernel.SemidefiniteProgramming <> minor2_14 def
+R15088:15091 Kernel.SemidefiniteProgramming <> det2 def
+R15140:15148 Kernel.SemidefiniteProgramming <> minor2_23 def
+R15151:15154 Kernel.SemidefiniteProgramming <> det2 def
+R15203:15211 Kernel.SemidefiniteProgramming <> minor2_24 def
+R15214:15217 Kernel.SemidefiniteProgramming <> det2 def
+R15266:15274 Kernel.SemidefiniteProgramming <> minor2_34 def
+R15277:15280 Kernel.SemidefiniteProgramming <> det2 def
+R15329:15342 Kernel.SemidefiniteProgramming <> minor3_topleft def
+R15345:15355 Kernel.SemidefiniteProgramming <> det3_matrix def
+R15404:15414 Kernel.SemidefiniteProgramming <> det4_matrix def
+R15463:15473 Kernel.SemidefiniteProgramming <> det5_matrix def
+R15549:15551 Kernel.SemidefiniteProgramming <> PSD def
+R15554:15554 Kernel.SemidefiniteProgramming <> I def
+R15585:15591 Coq.Arith.PeanoNat Nat eqb def
+R15618:15628 Coq.Arith.PeanoNat Nat eqb_neq thm
+R15585:15591 Coq.Arith.PeanoNat Nat eqb def
+R15618:15628 Coq.Arith.PeanoNat Nat eqb_neq thm
+def 15870:15889 <> schur_complement_2x2
+R15896:15901 Kernel.SemidefiniteProgramming <> Matrix def
+binder 15892:15892 <> M:106
+R15908:15908 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R15928:15930 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R15915:15915 Kernel.SemidefiniteProgramming <> M:106 var
+R15931:15931 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R15961:15964 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R15945:15947 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15932:15932 Kernel.SemidefiniteProgramming <> M:106 var
+R15948:15948 Kernel.SemidefiniteProgramming <> M:106 var
+R15965:15965 Kernel.SemidefiniteProgramming <> M:106 var
+prf 16115:16133 <> schur_2x2_criterion
+R16149:16154 Kernel.SemidefiniteProgramming <> Matrix def
+binder 16145:16145 <> M:107
+R16173:16178 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16162:16170 Kernel.SemidefiniteProgramming <> symmetric def
+R16172:16172 Kernel.SemidefiniteProgramming <> M:107 var
+R16196:16202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16264:16264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16192:16194 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R16179:16179 Kernel.SemidefiniteProgramming <> M:107 var
+R16208:16213 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16263:16263 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16203:16205 Kernel.SemidefiniteProgramming <> PSD def
+R16207:16207 Kernel.SemidefiniteProgramming <> M:107 var
+R16232:16235 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16227:16230 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R16214:16214 Kernel.SemidefiniteProgramming <> M:107 var
+R16258:16261 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R16236:16255 Kernel.SemidefiniteProgramming <> schur_complement_2x2 def
+R16257:16257 Kernel.SemidefiniteProgramming <> M:107 var
+R16305:16307 Kernel.SemidefiniteProgramming <> PSD def
+R16310:16314 Kernel.SemidefiniteProgramming <> PSD_2 def
+R16317:16336 Kernel.SemidefiniteProgramming <> schur_complement_2x2 def
+R16339:16349 Kernel.SemidefiniteProgramming <> det2_matrix def
+R16352:16355 Kernel.SemidefiniteProgramming <> det2 def
+R16386:16388 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16386:16388 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16457:16459 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R16442:16443 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R16473:16488 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+R16457:16459 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R16442:16443 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R16473:16488 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+R16530:16533 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R16515:16516 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R16530:16533 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R16515:16516 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R16647:16649 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16631:16633 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16663:16665 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16647:16649 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16631:16633 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16663:16665 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R16804:16807 Coq.Reals.Rdefinitions <> Rdiv def
+R17052:17055 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R17020:17022 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17004:17006 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17036:17038 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17052:17055 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R17020:17022 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17004:17006 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17036:17038 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17210:17213 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R17160:17162 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17192:17194 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17176:17178 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17195:17196 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17210:17213 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R17160:17162 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17192:17194 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17176:17178 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17195:17196 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17242:17245 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17275:17277 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17259:17261 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17291:17293 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17242:17245 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17275:17277 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17259:17261 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17291:17293 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17341:17344 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17345:17346 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17341:17344 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17345:17346 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17392:17395 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17396:17396 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17458:17487 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17426:17428 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17410:17412 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17442:17444 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17488:17489 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17392:17395 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17396:17396 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17458:17487 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17426:17428 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17410:17412 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17442:17444 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17488:17489 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17520:17531 Coq.Reals.RIneq <> Rmult_le_pos thm
+R17520:17531 Coq.Reals.RIneq <> Rmult_le_pos thm
+R17846:17871 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R17765:17765 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17827:17856 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17827:17830 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R17795:17797 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
 R17779:17781 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R17811:17813 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17857:17858 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R17761:17764 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R17831:17832 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17885:17887 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17917:17919 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17901:17903 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17920:17921 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17846:17871 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R17765:17765 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17827:17856 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17827:17830 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R17795:17797 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
 R17779:17781 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
 R17811:17813 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17857:17858 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R17889:17900 Coq.Reals.RIneq <> Rmult_le_pos thm
-R17889:17900 Coq.Reals.RIneq <> Rmult_le_pos thm
-R18215:18240 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18134:18134 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18196:18199 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18164:18166 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R18148:18150 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18180:18182 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18200:18201 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18254:18256 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R18286:18288 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18270:18272 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18289:18290 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18215:18240 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18134:18134 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18196:18199 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18164:18166 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R18148:18150 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18180:18182 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18200:18201 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18254:18256 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R18286:18288 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18270:18272 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18289:18290 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18462:18482 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18444:18446 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18428:18430 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18447:18448 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18512:18514 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18496:18498 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18515:18516 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18462:18482 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18444:18446 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18428:18430 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18447:18448 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18512:18514 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18496:18498 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18515:18516 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18636:18639 Coq.Reals.Rdefinitions <> Rdiv def
-R18834:18837 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R18784:18786 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R18816:18818 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18800:18802 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18819:18820 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18834:18837 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R18784:18786 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R18816:18818 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18800:18802 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18819:18820 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18909:18931 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18891:18893 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18875:18877 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18894:18895 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18961:18963 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18945:18947 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18964:18965 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18909:18931 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18891:18893 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18875:18877 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18894:18895 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R18961:18963 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18945:18947 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R18964:18965 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19098:19101 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19131:19133 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19115:19117 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19134:19135 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19098:19101 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19131:19133 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19115:19117 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19134:19135 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19166:19177 Coq.Reals.RIneq <> Rmult_le_pos thm
-R19187:19195 Coq.Reals.RIneq <> Rle_0_sqr thm
-R19166:19177 Coq.Reals.RIneq <> Rmult_le_pos thm
-R19187:19195 Coq.Reals.RIneq <> Rle_0_sqr thm
-R19400:19403 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R19368:19370 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19352:19354 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19384:19386 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19400:19403 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R19368:19370 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19352:19354 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19384:19386 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19430:19433 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19447:19449 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19479:19481 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19463:19465 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19482:19483 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19430:19433 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19447:19449 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19479:19481 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19463:19465 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19482:19483 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19533:19536 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19533:19536 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19584:19587 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19601:19604 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19668:19668 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19618:19620 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19650:19652 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19634:19636 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19653:19654 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19584:19587 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R19601:19604 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19668:19668 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19618:19620 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19650:19652 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19634:19636 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19653:19654 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19688:19699 Coq.Reals.RIneq <> Rmult_le_pos thm
-R19688:19699 Coq.Reals.RIneq <> Rmult_le_pos thm
-R19822:19849 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19754:19757 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19821:19821 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19771:19773 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19803:19805 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19787:19789 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19806:19807 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19879:19881 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19863:19865 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19895:19897 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19822:19849 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19754:19757 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19821:19821 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19771:19773 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19803:19805 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19787:19789 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19806:19807 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R19879:19881 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R19863:19865 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R19895:19897 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-prf 20553:20570 <> PSD_cauchy_schwarz
-R20586:20588 Coq.Init.Datatypes <> nat ind
-binder 20582:20582 <> n:108
-R20596:20601 Kernel.SemidefiniteProgramming <> Matrix def
-R20603:20603 Kernel.SemidefiniteProgramming <> n:108 var
-binder 20592:20592 <> M:109
-R20613:20615 Coq.Init.Datatypes <> nat ind
-binder 20607:20607 <> i:110
-binder 20609:20609 <> j:111
-R20633:20638 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20623:20626 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R20622:20622 Kernel.SemidefiniteProgramming <> n:108 var
-R20650:20653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20641:20643 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R20640:20640 Kernel.SemidefiniteProgramming <> i:110 var
-R20644:20644 Kernel.SemidefiniteProgramming <> n:108 var
-R20665:20670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20656:20658 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R20655:20655 Kernel.SemidefiniteProgramming <> j:111 var
-R20659:20659 Kernel.SemidefiniteProgramming <> n:108 var
-R20676:20681 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20671:20673 Kernel.SemidefiniteProgramming <> PSD def
-R20675:20675 Kernel.SemidefiniteProgramming <> M:109 var
-R20693:20698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20682:20690 Kernel.SemidefiniteProgramming <> symmetric def
-R20692:20692 Kernel.SemidefiniteProgramming <> M:109 var
-R20716:20719 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R20699:20699 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20705:20709 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20715:20715 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20700:20700 Kernel.SemidefiniteProgramming <> M:109 var
-R20702:20702 Kernel.SemidefiniteProgramming <> i:110 var
-R20704:20704 Kernel.SemidefiniteProgramming <> j:111 var
-R20710:20710 Kernel.SemidefiniteProgramming <> M:109 var
-R20712:20712 Kernel.SemidefiniteProgramming <> i:110 var
-R20714:20714 Kernel.SemidefiniteProgramming <> j:111 var
-R20720:20720 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20726:20730 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20736:20736 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R20721:20721 Kernel.SemidefiniteProgramming <> M:109 var
-R20723:20723 Kernel.SemidefiniteProgramming <> i:110 var
-R20725:20725 Kernel.SemidefiniteProgramming <> i:110 var
-R20731:20731 Kernel.SemidefiniteProgramming <> M:109 var
-R20733:20733 Kernel.SemidefiniteProgramming <> j:111 var
-R20735:20735 Kernel.SemidefiniteProgramming <> j:111 var
-R20940:20942 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20940:20942 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21078:21080 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21078:21080 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21105:21107 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21105:21107 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21196:21198 Kernel.SemidefiniteProgramming <> PSD def
-R21201:21205 Kernel.SemidefiniteProgramming <> PSD_2 def
-R21270:21280 Kernel.SemidefiniteProgramming <> det2_matrix def
-R21283:21286 Kernel.SemidefiniteProgramming <> det2 def
-R21332:21334 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21332:21334 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21673:21675 Kernel.SemidefiniteProgramming <> PSD def
-R21678:21682 Kernel.SemidefiniteProgramming <> PSD_3 def
-R21779:21792 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R21795:21803 Kernel.SemidefiniteProgramming <> minor2_02 def
-R21806:21814 Kernel.SemidefiniteProgramming <> minor2_12 def
-R21817:21820 Kernel.SemidefiniteProgramming <> det2 def
-R21865:21867 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21865:21867 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21942:21944 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21942:21944 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22019:22021 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22019:22021 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22677:22679 Kernel.SemidefiniteProgramming <> PSD def
-R22682:22686 Kernel.SemidefiniteProgramming <> PSD_4 def
-R22822:22835 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R22838:22846 Kernel.SemidefiniteProgramming <> minor2_02 def
-R22849:22857 Kernel.SemidefiniteProgramming <> minor2_03 def
-R22860:22868 Kernel.SemidefiniteProgramming <> minor2_12 def
-R22871:22879 Kernel.SemidefiniteProgramming <> minor2_13 def
-R22882:22890 Kernel.SemidefiniteProgramming <> minor2_23 def
-R22893:22896 Kernel.SemidefiniteProgramming <> det2 def
-R22944:22946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22944:22946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23024:23026 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23024:23026 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23104:23106 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23104:23106 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23184:23186 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23184:23186 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23264:23266 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23264:23266 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23344:23346 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23344:23346 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24486:24488 Kernel.SemidefiniteProgramming <> PSD def
-R24491:24495 Kernel.SemidefiniteProgramming <> PSD_5 def
-R24681:24694 Kernel.SemidefiniteProgramming <> minor2_topleft def
-R24697:24705 Kernel.SemidefiniteProgramming <> minor2_02 def
-R24708:24716 Kernel.SemidefiniteProgramming <> minor2_03 def
-R24719:24727 Kernel.SemidefiniteProgramming <> minor2_04 def
-R24730:24738 Kernel.SemidefiniteProgramming <> minor2_12 def
-R24741:24749 Kernel.SemidefiniteProgramming <> minor2_13 def
-R24752:24760 Kernel.SemidefiniteProgramming <> minor2_14 def
-R24763:24771 Kernel.SemidefiniteProgramming <> minor2_23 def
-R24774:24782 Kernel.SemidefiniteProgramming <> minor2_24 def
-R24785:24793 Kernel.SemidefiniteProgramming <> minor2_34 def
-R24796:24799 Kernel.SemidefiniteProgramming <> det2 def
-R24850:24852 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24850:24852 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24933:24935 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24933:24935 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25016:25018 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25016:25018 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25099:25101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25099:25101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25182:25184 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25182:25184 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25265:25267 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25265:25267 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25348:25350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25348:25350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25431:25433 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25431:25433 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25514:25516 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25514:25516 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25597:25599 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25597:25599 Coq.Init.Logic <> ::type_scope:x_'='_x not
-prf 27166:27187 <> PSD_off_diagonal_bound
-R27203:27205 Coq.Init.Datatypes <> nat ind
-binder 27199:27199 <> n:112
-R27213:27218 Kernel.SemidefiniteProgramming <> Matrix def
-R27220:27220 Kernel.SemidefiniteProgramming <> n:112 var
-binder 27209:27209 <> M:113
-R27230:27232 Coq.Init.Datatypes <> nat ind
-binder 27224:27224 <> i:114
-binder 27226:27226 <> j:115
-R27250:27255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27240:27243 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R27239:27239 Kernel.SemidefiniteProgramming <> n:112 var
-R27267:27270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27258:27260 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R27257:27257 Kernel.SemidefiniteProgramming <> i:114 var
-R27261:27261 Kernel.SemidefiniteProgramming <> n:112 var
-R27282:27287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27273:27275 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R27272:27272 Kernel.SemidefiniteProgramming <> j:115 var
-R27276:27276 Kernel.SemidefiniteProgramming <> n:112 var
-R27293:27298 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27288:27290 Kernel.SemidefiniteProgramming <> PSD def
-R27292:27292 Kernel.SemidefiniteProgramming <> M:113 var
-R27310:27315 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27299:27307 Kernel.SemidefiniteProgramming <> symmetric def
-R27309:27309 Kernel.SemidefiniteProgramming <> M:113 var
-R27326:27331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27321:27324 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27316:27316 Kernel.SemidefiniteProgramming <> M:113 var
-R27318:27318 Kernel.SemidefiniteProgramming <> i:114 var
-R27320:27320 Kernel.SemidefiniteProgramming <> i:114 var
-R27342:27347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R27337:27340 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27332:27332 Kernel.SemidefiniteProgramming <> M:113 var
-R27334:27334 Kernel.SemidefiniteProgramming <> j:115 var
-R27336:27336 Kernel.SemidefiniteProgramming <> j:115 var
-R27360:27363 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27348:27351 Coq.Reals.Rbasic_fun <> Rabs def
-R27354:27354 Kernel.SemidefiniteProgramming <> M:113 var
-R27356:27356 Kernel.SemidefiniteProgramming <> i:114 var
-R27358:27358 Kernel.SemidefiniteProgramming <> j:115 var
-R27479:27482 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R27496:27514 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
-R27479:27482 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R27496:27514 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
-R27561:27564 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R27578:27596 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
-R27561:27564 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R27578:27596 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
-R27680:27683 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27663:27663 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27669:27673 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27679:27679 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27684:27684 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27690:27694 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27700:27700 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27680:27683 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27663:27663 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27669:27673 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27679:27679 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27684:27684 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27690:27694 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27700:27700 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27714:27731 Kernel.SemidefiniteProgramming <> PSD_cauchy_schwarz thm
-R27714:27731 Kernel.SemidefiniteProgramming <> PSD_cauchy_schwarz thm
-R27912:27915 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27895:27895 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27901:27905 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27911:27911 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27912:27915 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27895:27895 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27901:27905 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27911:27911 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27965:27968 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27948:27948 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27954:27958 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27964:27964 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27965:27968 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R27948:27948 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27954:27958 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R27964:27964 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R28094:28100 Coq.Reals.Rbasic_fun <> Rabs_le thm
-R28094:28100 Coq.Reals.Rbasic_fun <> Rabs_le thm
+R17831:17832 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R17885:17887 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R17917:17919 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17901:17903 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R17920:17921 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18093:18113 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18075:18077 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18059:18061 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18078:18079 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18143:18145 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18127:18129 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18146:18147 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18093:18113 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18075:18077 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18059:18061 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18078:18079 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18143:18145 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18127:18129 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18146:18147 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18267:18270 Coq.Reals.Rdefinitions <> Rdiv def
+R18465:18468 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R18415:18417 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R18447:18449 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18431:18433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18450:18451 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18465:18468 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R18415:18417 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R18447:18449 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18431:18433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18450:18451 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18540:18562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18522:18524 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18506:18508 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18525:18526 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18592:18594 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18576:18578 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18595:18596 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18540:18562 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18522:18524 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18506:18508 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18525:18526 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18592:18594 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18576:18578 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18595:18596 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18729:18732 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R18762:18764 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18746:18748 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18765:18766 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18729:18732 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R18762:18764 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18746:18748 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R18765:18766 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R18797:18808 Coq.Reals.RIneq <> Rmult_le_pos thm
+R18818:18826 Coq.Reals.RIneq <> Rle_0_sqr thm
+R18797:18808 Coq.Reals.RIneq <> Rmult_le_pos thm
+R18818:18826 Coq.Reals.RIneq <> Rle_0_sqr thm
+R19031:19034 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R18999:19001 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R18983:18985 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19015:19017 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19031:19034 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R18999:19001 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R18983:18985 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19015:19017 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19061:19064 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R19078:19080 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19110:19112 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19094:19096 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19113:19114 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R19061:19064 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R19078:19080 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19110:19112 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19094:19096 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19113:19114 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R19164:19167 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R19164:19167 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R19215:19218 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R19232:19235 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19299:19299 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19249:19251 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19281:19283 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19265:19267 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19284:19285 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R19215:19218 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R19232:19235 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19299:19299 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19249:19251 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19281:19283 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19265:19267 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19284:19285 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R19319:19330 Coq.Reals.RIneq <> Rmult_le_pos thm
+R19319:19330 Coq.Reals.RIneq <> Rmult_le_pos thm
+R19453:19480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19385:19388 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19452:19452 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19402:19404 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19434:19436 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19418:19420 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19437:19438 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R19510:19512 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19494:19496 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19526:19528 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19453:19480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19385:19388 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19452:19452 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19402:19404 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19434:19436 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19418:19420 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19437:19438 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R19510:19512 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19494:19496 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R19526:19528 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+prf 20182:20199 <> PSD_cauchy_schwarz
+R20215:20217 Coq.Init.Datatypes <> nat ind
+binder 20211:20211 <> n:108
+R20225:20230 Kernel.SemidefiniteProgramming <> Matrix def
+R20232:20232 Kernel.SemidefiniteProgramming <> n:108 var
+binder 20221:20221 <> M:109
+R20242:20244 Coq.Init.Datatypes <> nat ind
+binder 20236:20236 <> i:110
+binder 20238:20238 <> j:111
+R20262:20267 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20252:20255 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R20251:20251 Kernel.SemidefiniteProgramming <> n:108 var
+R20279:20282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20270:20272 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20269:20269 Kernel.SemidefiniteProgramming <> i:110 var
+R20273:20273 Kernel.SemidefiniteProgramming <> n:108 var
+R20294:20299 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20285:20287 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R20284:20284 Kernel.SemidefiniteProgramming <> j:111 var
+R20288:20288 Kernel.SemidefiniteProgramming <> n:108 var
+R20305:20310 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20300:20302 Kernel.SemidefiniteProgramming <> PSD def
+R20304:20304 Kernel.SemidefiniteProgramming <> M:109 var
+R20322:20327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20311:20319 Kernel.SemidefiniteProgramming <> symmetric def
+R20321:20321 Kernel.SemidefiniteProgramming <> M:109 var
+R20345:20348 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R20328:20328 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20334:20338 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20344:20344 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20329:20329 Kernel.SemidefiniteProgramming <> M:109 var
+R20331:20331 Kernel.SemidefiniteProgramming <> i:110 var
+R20333:20333 Kernel.SemidefiniteProgramming <> j:111 var
+R20339:20339 Kernel.SemidefiniteProgramming <> M:109 var
+R20341:20341 Kernel.SemidefiniteProgramming <> i:110 var
+R20343:20343 Kernel.SemidefiniteProgramming <> j:111 var
+R20349:20349 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20355:20359 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20365:20365 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R20350:20350 Kernel.SemidefiniteProgramming <> M:109 var
+R20352:20352 Kernel.SemidefiniteProgramming <> i:110 var
+R20354:20354 Kernel.SemidefiniteProgramming <> i:110 var
+R20360:20360 Kernel.SemidefiniteProgramming <> M:109 var
+R20362:20362 Kernel.SemidefiniteProgramming <> j:111 var
+R20364:20364 Kernel.SemidefiniteProgramming <> j:111 var
+R20569:20571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20569:20571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20707:20709 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20707:20709 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20734:20736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20734:20736 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20825:20827 Kernel.SemidefiniteProgramming <> PSD def
+R20830:20834 Kernel.SemidefiniteProgramming <> PSD_2 def
+R20899:20909 Kernel.SemidefiniteProgramming <> det2_matrix def
+R20912:20915 Kernel.SemidefiniteProgramming <> det2 def
+R20961:20963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20961:20963 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21302:21304 Kernel.SemidefiniteProgramming <> PSD def
+R21307:21311 Kernel.SemidefiniteProgramming <> PSD_3 def
+R21408:21421 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R21424:21432 Kernel.SemidefiniteProgramming <> minor2_02 def
+R21435:21443 Kernel.SemidefiniteProgramming <> minor2_12 def
+R21446:21449 Kernel.SemidefiniteProgramming <> det2 def
+R21494:21496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21494:21496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21571:21573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21571:21573 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21648:21650 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21648:21650 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22306:22308 Kernel.SemidefiniteProgramming <> PSD def
+R22311:22315 Kernel.SemidefiniteProgramming <> PSD_4 def
+R22451:22464 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R22467:22475 Kernel.SemidefiniteProgramming <> minor2_02 def
+R22478:22486 Kernel.SemidefiniteProgramming <> minor2_03 def
+R22489:22497 Kernel.SemidefiniteProgramming <> minor2_12 def
+R22500:22508 Kernel.SemidefiniteProgramming <> minor2_13 def
+R22511:22519 Kernel.SemidefiniteProgramming <> minor2_23 def
+R22522:22525 Kernel.SemidefiniteProgramming <> det2 def
+R22573:22575 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22573:22575 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22653:22655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22653:22655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22733:22735 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22733:22735 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22813:22815 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22813:22815 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22893:22895 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22893:22895 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22973:22975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22973:22975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24115:24117 Kernel.SemidefiniteProgramming <> PSD def
+R24120:24124 Kernel.SemidefiniteProgramming <> PSD_5 def
+R24310:24323 Kernel.SemidefiniteProgramming <> minor2_topleft def
+R24326:24334 Kernel.SemidefiniteProgramming <> minor2_02 def
+R24337:24345 Kernel.SemidefiniteProgramming <> minor2_03 def
+R24348:24356 Kernel.SemidefiniteProgramming <> minor2_04 def
+R24359:24367 Kernel.SemidefiniteProgramming <> minor2_12 def
+R24370:24378 Kernel.SemidefiniteProgramming <> minor2_13 def
+R24381:24389 Kernel.SemidefiniteProgramming <> minor2_14 def
+R24392:24400 Kernel.SemidefiniteProgramming <> minor2_23 def
+R24403:24411 Kernel.SemidefiniteProgramming <> minor2_24 def
+R24414:24422 Kernel.SemidefiniteProgramming <> minor2_34 def
+R24425:24428 Kernel.SemidefiniteProgramming <> det2 def
+R24479:24481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24479:24481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24562:24564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24562:24564 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24645:24647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24645:24647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24728:24730 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24728:24730 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24811:24813 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24811:24813 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24894:24896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24894:24896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24977:24979 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24977:24979 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25060:25062 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25060:25062 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25143:25145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25143:25145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25226:25228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25226:25228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+prf 26793:26814 <> PSD_off_diagonal_bound
+R26830:26832 Coq.Init.Datatypes <> nat ind
+binder 26826:26826 <> n:112
+R26840:26845 Kernel.SemidefiniteProgramming <> Matrix def
+R26847:26847 Kernel.SemidefiniteProgramming <> n:112 var
+binder 26836:26836 <> M:113
+R26857:26859 Coq.Init.Datatypes <> nat ind
+binder 26851:26851 <> i:114
+binder 26853:26853 <> j:115
+R26877:26882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26867:26870 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R26866:26866 Kernel.SemidefiniteProgramming <> n:112 var
+R26894:26897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26885:26887 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R26884:26884 Kernel.SemidefiniteProgramming <> i:114 var
+R26888:26888 Kernel.SemidefiniteProgramming <> n:112 var
+R26909:26914 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26900:26902 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R26899:26899 Kernel.SemidefiniteProgramming <> j:115 var
+R26903:26903 Kernel.SemidefiniteProgramming <> n:112 var
+R26920:26925 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26915:26917 Kernel.SemidefiniteProgramming <> PSD def
+R26919:26919 Kernel.SemidefiniteProgramming <> M:113 var
+R26937:26942 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26926:26934 Kernel.SemidefiniteProgramming <> symmetric def
+R26936:26936 Kernel.SemidefiniteProgramming <> M:113 var
+R26953:26958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26948:26951 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R26943:26943 Kernel.SemidefiniteProgramming <> M:113 var
+R26945:26945 Kernel.SemidefiniteProgramming <> i:114 var
+R26947:26947 Kernel.SemidefiniteProgramming <> i:114 var
+R26969:26974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26964:26967 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R26959:26959 Kernel.SemidefiniteProgramming <> M:113 var
+R26961:26961 Kernel.SemidefiniteProgramming <> j:115 var
+R26963:26963 Kernel.SemidefiniteProgramming <> j:115 var
+R26987:26990 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R26975:26978 Coq.Reals.Rbasic_fun <> Rabs def
+R26981:26981 Kernel.SemidefiniteProgramming <> M:113 var
+R26983:26983 Kernel.SemidefiniteProgramming <> i:114 var
+R26985:26985 Kernel.SemidefiniteProgramming <> j:115 var
+R27106:27109 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R27123:27141 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
+R27106:27109 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R27123:27141 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
+R27188:27191 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R27205:27223 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
+R27188:27191 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R27205:27223 Kernel.SemidefiniteProgramming <> PSD_diagonal_nonneg thm
+R27307:27310 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R27290:27290 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27296:27300 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27306:27306 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27311:27311 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27317:27321 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27327:27327 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27307:27310 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R27290:27290 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27296:27300 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27306:27306 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27311:27311 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27317:27321 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27327:27327 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27341:27358 Kernel.SemidefiniteProgramming <> PSD_cauchy_schwarz thm
+R27341:27358 Kernel.SemidefiniteProgramming <> PSD_cauchy_schwarz thm
+R27539:27542 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R27522:27522 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27528:27532 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27538:27538 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27539:27542 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R27522:27522 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27528:27532 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27538:27538 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27592:27595 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R27575:27575 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27581:27585 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27591:27591 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27592:27595 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R27575:27575 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27581:27585 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27591:27591 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R27721:27727 Coq.Reals.Rbasic_fun <> Rabs_le thm
+R27721:27727 Coq.Reals.Rbasic_fun <> Rabs_le thm

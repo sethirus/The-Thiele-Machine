@@ -1,49 +1,17 @@
-(** =========================================================================
-    SpacetimeEmergence: Causal Structure and No-Signaling from VM Dynamics
-    =========================================================================
+(** SpacetimeEmergence: a small causal-order and no-signaling layer over VM dynamics
 
-    WHY THIS FILE EXISTS:
-    Spacetime structure in the Thiele Machine is not assumed -- it emerges
-    from the partition graph dynamics. This file defines reachability
-    (the causal order on VM states), proves that it is transitive, and
-    establishes the no-signaling theorem: instructions that do not target
-    a module leave that module's observable region unchanged. This is the
-    formal basis for locality and causal structure in the system.
+    This file defines reachability between VM states, proves the expected
+    transitivity properties, and packages the no-signaling facts needed for
+    locality arguments. The central statement is modest: if an instruction or
+    trace does not target a module, that module's observable region does not
+    change.
 
-    THE CORE CLAIM:
-    Theorem exec_trace_no_signaling_outside_cone --
-      Given an execution trace from state s to s', if a module mid is
-      outside the causal cone of the trace (i.e. no instruction in the
-      trace targets mid), then ObservableRegion s mid = ObservableRegion
-      s' mid. Information cannot propagate outside the causal cone.
+    The spacetime language here is interpretive shorthand for the causal
+    structure induced by the partition graph and execution relation. The file
+    is not claiming a full derivation of relativity. It isolates the discrete
+    locality facts the rest of the proof stack needs.
 
-    KEY SUPPORTING RESULTS:
-    - reaches_trans: reachability is transitive (causal order)
-    - step_rel_no_signaling: single-step no-signaling for non-targeted
-      modules
-    - vm_step_preserves_wf: every VM step preserves graph well-formedness
-    - vm_step_next_id_monotone: module IDs only increase (no ID reuse)
-    - graph_pnew_preserves_wf, graph_psplit_preserves_wf,
-      graph_pmerge_preserves_wf: partition operations preserve
-      well-formedness
-    - graph_*_next_id_monotone: next_id is monotonically non-decreasing
-      through all graph operations
-
-    PHYSICAL INTERPRETATION:
-    The reachability relation (reaches) is the discrete analogue of the
-    causal order in general relativity. The no-signaling theorem is the
-    analogue of relativistic locality: spacelike-separated events cannot
-    influence each other. Here "spacelike separation" corresponds to
-    being outside the causal cone of the instruction trace.
-
-    FALSIFICATION:
-    Exhibit a VM instruction that changes ObservableRegion for a module
-    NOT listed in instr_targets for that instruction. The proof rules
-    this out by delegating to observational_no_signaling (from
-    KernelPhysics.v), which covers every instruction constructor.
-
-    STATUS: Fully proven, zero Admitted.
-    ========================================================================= *)
+    *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
 From Coq Require Import Classes.RelationClasses.
@@ -72,7 +40,6 @@ Inductive reaches : VMState -> VMState -> Prop :=
 | reaches_refl : forall s, reaches s s
 | reaches_cons : forall s1 s2 s3, step_rel s1 s2 -> reaches s2 s3 -> reaches s1 s3.
 
-(** [reaches_one]: formal specification. *)
 Lemma reaches_one : forall s s', step_rel s s' -> reaches s s'.
 Proof.
   intros s s' H.
@@ -81,7 +48,6 @@ Proof.
   - constructor.
 Qed.
 
-(** [reaches_trans]: formal specification. *)
 Lemma reaches_trans : forall s1 s2 s3, reaches s1 s2 -> reaches s2 s3 -> reaches s1 s3.
 Proof.
   intros s1 s2 s3 H12 H23.
@@ -90,7 +56,6 @@ Proof.
   - eapply reaches_cons; eauto.
 Qed.
 
-(** [step_rel_no_signaling]: formal specification. *)
 Lemma step_rel_no_signaling :
   forall s instr s' mid,
     well_formed_graph s.(vm_graph) ->
@@ -103,7 +68,6 @@ Proof.
   eapply observational_no_signaling; eauto.
 Qed.
 
-(** [all_ids_below_graph_insert_modules]: formal specification. *)
 Lemma all_ids_below_graph_insert_modules :
   forall modules bound mid m,
     all_ids_below modules bound ->
@@ -120,7 +84,6 @@ Proof.
       * apply IH; assumption.
 Qed.
 
-(** [graph_update_preserves_wf]: formal specification. *)
 Lemma graph_update_preserves_wf : forall g mid m,
   well_formed_graph g ->
   mid < pg_next_id g ->
@@ -144,7 +107,6 @@ Proof.
     + apply IH. exact Hrest.
 Qed.
 
-(** [graph_add_axiom_preserves_wf]: formal specification. *)
 Lemma graph_add_axiom_preserves_wf : forall g mid ax,
   well_formed_graph g ->
   well_formed_graph (graph_add_axiom g mid ax).
@@ -161,7 +123,6 @@ Proof.
   - exact Hwf.
 Qed.
 
-(** [graph_add_axioms_preserves_wf]: formal specification. *)
 Lemma graph_add_axioms_preserves_wf : forall axs g mid,
   well_formed_graph g ->
   well_formed_graph (graph_add_axioms g mid axs).
@@ -174,7 +135,6 @@ Proof.
     exact Hwf.
 Qed.
 
-(** [graph_record_discovery_preserves_wf]: formal specification. *)
 Lemma graph_record_discovery_preserves_wf : forall g mid ev,
   well_formed_graph g ->
   well_formed_graph (graph_record_discovery g mid ev).
@@ -185,7 +145,6 @@ Proof.
   exact Hwf.
 Qed.
 
-(** [graph_pnew_preserves_wf]: formal specification. *)
 Lemma graph_pnew_preserves_wf : forall g region,
   well_formed_graph g ->
   well_formed_graph (fst (graph_pnew g region)).
@@ -197,7 +156,6 @@ Proof.
   - simpl. apply graph_add_module_preserves_wf. exact Hwf.
 Qed.
 
-(** [graph_psplit_preserves_wf]: formal specification. *)
 Lemma graph_psplit_preserves_wf : forall g mid left right g' l_id r_id,
   well_formed_graph g ->
   graph_psplit g mid left right = Some (g', l_id, r_id) ->
@@ -229,7 +187,6 @@ Proof.
     exact Hwf_right_fst.
 Qed.
 
-(** [graph_pmerge_preserves_wf]: formal specification. *)
 Lemma graph_pmerge_preserves_wf : forall g m1 m2 g' merged_id,
   well_formed_graph g ->
   graph_pmerge g m1 m2 = Some (g', merged_id) ->
@@ -288,7 +245,6 @@ Proof.
   }
 Qed.
 
-(** [graph_update_module_tensor_preserves_wf]: formal specification. *)
 Lemma graph_update_module_tensor_preserves_wf : forall g mid k v,
   well_formed_graph g ->
   well_formed_graph (graph_update_module_tensor g mid k v).
@@ -308,7 +264,6 @@ Qed.
    case. The trace theorem (exec_trace_no_signaling_outside_cone) is restructured
    to use step_no_signaling_light which only needs mid < pg_next_id. *)
 
-(** [graph_pnew_next_id_monotone]: formal specification. *)
 Lemma graph_pnew_next_id_monotone : forall g region,
   pg_next_id g <= pg_next_id (fst (graph_pnew g region)).
 Proof.
@@ -317,7 +272,6 @@ Proof.
   destruct (graph_find_region g (normalize_region region)) eqn:Hfind; simpl; lia.
 Qed.
 
-(** [graph_update_next_id_same]: formal specification. *)
 Lemma graph_update_next_id_same : forall g mid m,
   pg_next_id (graph_update g mid m) = pg_next_id g.
 Proof.
@@ -325,7 +279,6 @@ Proof.
   unfold graph_update. simpl. reflexivity.
 Qed.
 
-(** [graph_update_module_tensor_next_id_same]: formal specification. *)
 Lemma graph_update_module_tensor_next_id_same : forall g mid k v,
   pg_next_id (graph_update_module_tensor g mid k v) = pg_next_id g.
 Proof.
@@ -336,7 +289,6 @@ Proof.
   - reflexivity.
 Qed.
 
-(** [graph_add_axiom_next_id_same]: formal specification. *)
 Lemma graph_add_axiom_next_id_same : forall g mid ax,
   pg_next_id (graph_add_axiom g mid ax) = pg_next_id g.
 Proof.
@@ -347,7 +299,6 @@ Proof.
   - reflexivity.
 Qed.
 
-(** [graph_add_axioms_next_id_same]: formal specification. *)
 Lemma graph_add_axioms_next_id_same : forall axs g mid,
   pg_next_id (graph_add_axioms g mid axs) = pg_next_id g.
 Proof.
@@ -359,7 +310,6 @@ Proof.
     reflexivity.
 Qed.
 
-(** [graph_record_discovery_next_id_same]: formal specification. *)
 Lemma graph_record_discovery_next_id_same : forall g mid ev,
   pg_next_id (graph_record_discovery g mid ev) = pg_next_id g.
 Proof.
@@ -368,7 +318,6 @@ Proof.
   apply graph_add_axioms_next_id_same.
 Qed.
 
-(** [graph_psplit_next_id_monotone]: formal specification. *)
 Lemma graph_psplit_next_id_monotone : forall g mid left right g' l_id r_id,
   graph_psplit g mid left right = Some (g', l_id, r_id) ->
   pg_next_id g <= pg_next_id g'.
@@ -404,7 +353,6 @@ Proof.
     rewrite Hrem_nid. rewrite Hcasc_nid. lia.
 Qed.
 
-(** [graph_remove_next_id_same]: formal specification. *)
 Lemma graph_remove_next_id_same : forall g mid g' m,
   graph_remove g mid = Some (g', m) ->
   pg_next_id g' = pg_next_id g.
@@ -417,7 +365,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [graph_pmerge_next_id_monotone]: formal specification. *)
 Lemma graph_pmerge_next_id_monotone : forall g m1 m2 g' merged_id,
   graph_pmerge g m1 m2 = Some (g', merged_id) ->
   pg_next_id g <= pg_next_id g'.
@@ -495,7 +442,6 @@ Proof.
       unfold graph_add_module in Hadd. inversion Hadd; subst; simpl. lia.
 Qed.
 
-(** [vm_step_next_id_monotone]: formal specification. *)
 Lemma vm_step_next_id_monotone : forall s instr s',
   vm_step s instr s' ->
   pg_next_id s.(vm_graph) <= pg_next_id s'.(vm_graph).
@@ -677,7 +623,6 @@ Inductive exec_trace : VMState -> list vm_instruction -> VMState -> Prop :=
     exec_trace s2 rest s3 ->
     exec_trace s1 (instr :: rest) s3.
 
-(** [exec_trace_no_signaling_outside_cone]: formal specification. *)
 Lemma exec_trace_no_signaling_outside_cone :
   forall s trace s' mid,
     exec_trace s trace s' ->

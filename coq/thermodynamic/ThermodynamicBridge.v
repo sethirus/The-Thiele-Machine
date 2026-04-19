@@ -1,18 +1,15 @@
-(* ========================================================================
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(** ThermodynamicBridge: simple thermodynamic bookkeeping over μ-cost.
 
-   THERMODYNAMIC BRIDGE: FORMAL COQ PROOF
-   ========================================================================
-   
-   This file contains the complete formal proof that:
-   1. μ-cost is additive (Theorem: mu_additive)
-   2. μ-cost is non-negative (Theorem: mu_nonnegative)  
-   3. Erase loses at most n bits of information (Theorem: erase_info_loss)
-   4. Energy lower bound is k_B * T * ln(2) * μ (Theorem: landauer_bound)
-   
-   All proofs are complete (Qed), with zero deferred tactics.
-   
-   Author: Thiele Machine Project
+  This file is a toy bridge from logical operations to a thermodynamic-style
+  lower bound. It proves that the μ-accounting used here is nonnegative and
+  additive across operation sequences, that erase-style operations lose
+  information, and that a Landauer-shaped lower bound can be stated in terms
+  of μ.
+
+  The scope is narrower than full thermodynamics. The model is a finite list
+  of booleans plus a hand-built operation set. What matters is the bookkeeping
+  pattern: irreversible updates increase μ, and that increase can be translated
+  into an energy lower bound once k_B, T, and ln 2 are supplied.
 *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
@@ -25,9 +22,7 @@ Require Import Coq.Bool.Bool.
 Require Import Coq.micromega.Lia.
 Import ListNotations.
 
-(* ========================================================================
-   SECTION 1: BASIC DEFINITIONS
-   ======================================================================== *)
+(* ------------------------------------------------------------------------ *)
 
 (* A configuration is a finite bitstring *)
 Definition Config := list bool.
@@ -46,9 +41,7 @@ Record MuState := mkMuState {
 Definition initial_state (c : Config) : MuState :=
   mkMuState 0 c.
 
-(* ========================================================================
-   SECTION 2: OPERATIONS AND THEIR μ-COSTS
-   ======================================================================== *)
+(* ------------------------------------------------------------------------ *)
 
 (* Operation types *)
 Inductive Operation : Type :=
@@ -129,9 +122,7 @@ Fixpoint execute_ops (ops : list Operation) (s : MuState) : MuState :=
   | op :: rest => execute_ops rest (execute_op op s)
   end.
 
-(* ========================================================================
-   SECTION 3: FUNDAMENTAL THEOREMS
-   ======================================================================== *)
+(* ------------------------------------------------------------------------ *)
 
 (* Theorem 1: μ is non-negative *)
 (** HELPER: Non-negativity property *)
@@ -155,7 +146,6 @@ Proof.
 Qed.
 
 (* Theorem 2: μ is additive over operation sequences *)
-(** [mu_additive]: formal specification. *)
 Theorem mu_additive : forall ops1 ops2 s,
   mu_value (execute_ops (ops1 ++ ops2) s) = 
   mu_value (execute_ops ops2 (execute_ops ops1 s)).
@@ -169,7 +159,6 @@ Proof.
 Qed.
 
 (* Helper lemma: single operation μ cost *)
-(** [single_op_mu]: formal specification. *)
 Lemma single_op_mu : forall op s,
   mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
 Proof.
@@ -204,7 +193,6 @@ Qed.
 
 (* Simpler version: μ increases by exactly the cost of each operation *)
 (* DEFINITIONAL — execute_op constructs state with mu += op_mu_cost *)
-(** [mu_increases_by_cost]: formal specification. *)
 Theorem mu_increases_by_cost : forall op s,
   mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
 Proof.
@@ -212,15 +200,13 @@ Proof.
 Qed.
 
 (* ========================================================================
-   SECTION 4: REVERSIBILITY AND ENTROPY
-   ======================================================================== *)
+   *)
 
 (* A function is reversible if it has an inverse *)
 Definition reversible {A : Type} (f : A -> A) : Prop :=
   exists g : A -> A, forall x, g (f x) = x /\ f (g x) = x.
 
 (* Flip is reversible *)
-(** [flip_reversible]: formal specification. *)
 Theorem flip_reversible : forall idx,
   reversible (fun c => set_bit c idx (negb (get_bit c idx))).
 Proof.
@@ -260,7 +246,6 @@ Proof.
 Qed.
 
 (* Erase is NOT reversible (many inputs map to same output) *)
-(** [erase_not_reversible]: formal specification. *)
 Theorem erase_not_reversible : forall n,
   n > 0 ->
   ~ reversible (fun c => erase_bits c n).
@@ -322,8 +307,7 @@ Proof.
 Qed.
 
 (* ========================================================================
-   SECTION 5: ENTROPY CHANGE EQUALS μ-COST
-   ======================================================================== *)
+   *)
 
 (* For erase: entropy decreases by exactly μ *)
 (* Note: This is a simplified model where entropy = potential information *)
@@ -332,7 +316,6 @@ Definition potential_info (c : Config) : nat :=
   length (filter (fun b => b) c).  (* Count of true bits = potential info *)
 
 (* When we erase n bits, we lose at most n bits of information *)
-(** [erase_info_loss]: formal specification. *)
 Theorem erase_info_loss : forall c n,
   n <= length c ->
   potential_info (erase_bits c n) <= potential_info c.
@@ -387,7 +370,6 @@ Proof.
 Qed.
 
 (* For erase: μ-cost is exactly n *)
-(** [erase_mu_cost]: formal specification. *)
 Theorem erase_mu_cost : forall n c,
   op_mu_cost (OpErase n) c = n.
 (** HELPER: Base case property *)
@@ -406,8 +388,7 @@ Proof.
 Qed.
 
 (* ========================================================================
-   SECTION 6: LANDAUER BOUND
-   ======================================================================== *)
+   *)
 
 (* Physical constants as rationals (avoiding reals for computability) *)
 (* We represent k_B * T * ln(2) as a rational multiple of a base unit *)
@@ -418,7 +399,6 @@ Qed.
 Definition energy_lower_bound (mu : nat) : nat := mu.
 
 (* The Landauer bound theorem: minimum energy = μ *)
-(** [landauer_bound]: formal specification. *)
 Theorem landauer_bound : forall ops s,
   energy_lower_bound (mu_value (execute_ops ops s) - mu_value s) = 
   mu_value (execute_ops ops s) - mu_value s.
@@ -453,8 +433,7 @@ Proof.
 Qed.
 
 (* ========================================================================
-   SECTION 7: THREE-LAYER ISOMORPHISM SPECIFICATION
-   ======================================================================== *)
+   *)
 
 (* This section defines correctness for an external implementation (e.g., OCaml extraction or Verilog RTL) *)
 
@@ -467,7 +446,6 @@ Definition implementation_correct
     impl_execute ops c = (mu_value s', config s').
 
 (* Theorem: If implementation is correct, Landauer bound holds for it *)
-(** [impl_satisfies_landauer]: formal specification. *)
 Theorem impl_satisfies_landauer :
   forall impl_execute,
   implementation_correct impl_execute ->
@@ -486,8 +464,7 @@ Proof.
 Qed.
 
 (* ========================================================================
-   SECTION 8: COMPLETENESS CHECK
-   ======================================================================== *)
+   *)
 
 (* Verify no deferred proofs *)
 Print Assumptions mu_nonnegative.

@@ -445,7 +445,7 @@ class TestEncodingWidthGate:
                 f"instruction {i} is {len(w)} hex chars, expected 32"
             )
 
-    def test_opcodes_dict_has_47_entries(self):
-        """OPCODES dict must have exactly 47 entries."""
+    def test_opcodes_dict_has_46_entries(self):
+        """OPCODES dict must have exactly 46 entries."""
         from rtl_harness.cosim import OPCODES
-        assert len(OPCODES) == 47, f"OPCODES has {len(OPCODES)} entries, expected 47"
+        assert len(OPCODES) == 46, f"OPCODES has {len(OPCODES)} entries, expected 46"

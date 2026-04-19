@@ -1,25 +1,17 @@
-(** * ReceiptIntegrity: Binding μ-cost to Computation
+(** ReceiptIntegrity: receipts really bind μ to execution
 
-    WHY THIS FILE EXISTS:
-    The Python receipt system originally signed claims without verifying
-    that the claimed μ_delta matches the actual instruction cost. This file
-    defines receipt validity as a formal binding between the instruction
-    executed, the claimed μ_delta, and the actual computed cost.
+  This file defines the minimum integrity conditions for a receipt: the
+  claimed post-state μ must equal pre-state μ plus the instruction cost,
+  and the μ values must stay inside the hardware range. The point is
+  narrow and operational. A valid receipt chain shows that μ was earned by
+  the recorded computation, not fabricated afterward.
 
-    THE CORE CLAIM:
-    A valid receipt chain proves that μ was earned through computation.
-    Forged receipts (wrong μ_delta) are detected by receipt_mu_consistent.
-    Overflow attacks (out-of-range μ) are detected by receipt_mu_in_range.
+  Forged μ deltas are rejected by receipt_mu_consistent. Overflow-style
+  receipts are rejected by receipt_mu_in_range. The key equalities are not
+  left informal; they are built directly into the predicates and their
+  boolean checkers.
 
-    FALSIFICATION:
-    Produce a valid receipt chain (receipt_chain_valid returns true) where
-    chain_final_mu differs from the sum of actual instruction costs. Or
-    construct a receipt that passes receipt_fully_valid_b but has
-    post_mu /= pre_mu + instruction_cost(instruction). Both are impossible
-    by construction: the predicates enforce these equalities definitionally.
-
-    NO AXIOMS. NO ADMITS.
-    *)
+  *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia Ring.
 Import ListNotations.
@@ -29,7 +21,7 @@ Require Import Kernel.VMStep.
 
 Module ReceiptIntegrity.
 
-(** * Receipt Structure
+(** Receipt Structure
     
     A receipt binds:
     - The instruction (with its embedded mu_delta claim)
@@ -44,7 +36,7 @@ Module ReceiptIntegrity.
     In the Python/Verilog implementation, this is SHA-256. *)
 Definition state_hash := nat.
 
-(** * μ Range Constants (Q16.16 Fixed Point)
+(** μ Range Constants (Q16.16 Fixed Point)
     
     CRITICAL: μ values must fit in 32-bit Q16.16 fixed-point format.
     Hardware uses 32-bit registers; Python must enforce the same bounds.
@@ -65,7 +57,6 @@ Definition mu_in_range (mu : nat) : Prop := mu <= mu_max.
 
 Definition mu_in_range_b (mu : nat) : bool := Nat.leb mu mu_max.
 
-(** [mu_in_range_b_correct]: formal specification. *)
 Lemma mu_in_range_b_correct :
   forall mu, mu_in_range_b mu = true <-> mu_in_range mu.
 Proof.
@@ -84,7 +75,7 @@ Record Receipt := {
   receipt_post_state_hash : state_hash;
 }.
 
-(** * Instruction Cost Consistency
+(** Instruction Cost Consistency
     
     CRITICAL INVARIANT: The mu_delta embedded in an instruction must equal
     the cost computed by instruction_cost.
@@ -96,7 +87,7 @@ Record Receipt := {
 Definition instruction_mu_delta (instr : vm_instruction) : nat :=
   instruction_cost instr.
 
-(** * Receipt Validity Predicate
+(** Receipt Validity Predicate
     
     A receipt is VALID iff:
     1. post_mu = pre_mu + instruction_cost(instruction)
@@ -112,7 +103,6 @@ Definition receipt_mu_consistent (r : Receipt) : Prop :=
 Definition receipt_mu_consistent_b (r : Receipt) : bool :=
   Nat.eqb r.(receipt_post_mu) (r.(receipt_pre_mu) + instruction_mu_delta r.(receipt_instruction)).
 
-(** [receipt_mu_consistent_b_correct]: formal specification. *)
 Lemma receipt_mu_consistent_b_correct :
   forall r, receipt_mu_consistent_b r = true <-> receipt_mu_consistent r.
 Proof.
@@ -122,7 +112,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** * μ Range Validity
+(** μ Range Validity
     
     CRITICAL: Both pre_mu and post_mu must be in valid Q16.16 range.
     This prevents overflow attacks where Python accepts values that
@@ -135,7 +125,6 @@ Definition receipt_mu_in_range (r : Receipt) : Prop :=
 Definition receipt_mu_in_range_b (r : Receipt) : bool :=
   mu_in_range_b r.(receipt_pre_mu) && mu_in_range_b r.(receipt_post_mu).
 
-(** [receipt_mu_in_range_b_correct]: formal specification. *)
 Lemma receipt_mu_in_range_b_correct :
   forall r, receipt_mu_in_range_b r = true <-> receipt_mu_in_range r.
 Proof.
@@ -147,7 +136,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** * Complete Receipt Validity (with range check)
+(** Complete Receipt Validity (with range check)
     
     A receipt is valid iff:
     1. μ arithmetic is consistent (receipt_mu_consistent)
@@ -160,7 +149,6 @@ Definition receipt_fully_valid (r : Receipt) : Prop :=
 Definition receipt_fully_valid_b (r : Receipt) : bool :=
   receipt_mu_consistent_b r && receipt_mu_in_range_b r.
 
-(** [receipt_fully_valid_b_correct]: formal specification. *)
 Lemma receipt_fully_valid_b_correct :
   forall r, receipt_fully_valid_b r = true <-> receipt_fully_valid r.
 Proof.
@@ -172,7 +160,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** * Full Receipt Validity
+(** Full Receipt Validity
     
     A receipt is fully valid iff:
     1. μ arithmetic is consistent (receipt_mu_consistent)
@@ -187,7 +175,7 @@ Definition receipt_valid_for_step (r : Receipt) (s_pre s_post : VMState) : Prop 
   s_post.(vm_mu) = r.(receipt_post_mu) /\
   vm_step s_pre r.(receipt_instruction) s_post.
 
-(** * Receipt Chain Validity
+(** Receipt Chain Validity
     
     A chain of receipts is valid iff:
     1. Each receipt is individually valid
@@ -273,7 +261,7 @@ Definition receipt_chain_valid_b (rs : list Receipt) (initial_mu : nat) : bool :
   | r :: _ => Nat.eqb r.(receipt_pre_mu) initial_mu
   end.
 
-(** * Main Theorem: Valid Receipt Chain Proves μ
+(** Main Theorem: Valid Receipt Chain Proves μ
     
     If a receipt chain is valid starting from initial_mu,
     then the final_mu equals the sum of all instruction costs.
@@ -291,7 +279,6 @@ Definition chain_final_mu (rs : list Receipt) (initial_mu : nat) : nat :=
   initial_mu + chain_total_cost rs.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [chain_links_mu_head]: formal specification. *)
 Lemma chain_links_mu_head :
   forall r1 r2 rest,
     chain_links_mu (r1 :: r2 :: rest) ->
@@ -305,7 +292,6 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [chain_links_hash_head]: formal specification. *)
 Lemma chain_links_hash_head :
   forall r1 r2 rest,
     chain_links_hash (r1 :: r2 :: rest) ->
@@ -318,7 +304,6 @@ Proof.
   apply Hlinks; reflexivity.
 Qed.
 
-(** [chain_links_head]: formal specification. *)
 Lemma chain_links_head :
   forall r1 r2 rest,
     chain_links (r1 :: r2 :: rest) ->
@@ -328,7 +313,6 @@ Proof.
   apply (chain_links_mu_head r1 r2 rest). exact Hmu.
 Qed.
 
-(** [chain_links_mu_tail]: formal specification. *)
 Lemma chain_links_mu_tail :
   forall r rest,
     chain_links_mu (r :: rest) ->
@@ -340,7 +324,6 @@ Proof.
   apply (Hlinks (S i) r1 r2); assumption.
 Qed.
 
-(** [chain_links_hash_tail]: formal specification. *)
 Lemma chain_links_hash_tail :
   forall r rest,
     chain_links_hash (r :: rest) ->
@@ -352,7 +335,6 @@ Proof.
   apply (Hlinks (S i) r1 r2); assumption.
 Qed.
 
-(** [chain_links_tail]: formal specification. *)
 Lemma chain_links_tail :
   forall r rest,
     chain_links (r :: rest) ->
@@ -365,7 +347,6 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [chain_all_consistent_head]: formal specification. *)
 Lemma chain_all_consistent_head :
   forall r rest,
     chain_all_consistent (r :: rest) ->
@@ -376,7 +357,6 @@ Proof.
   inversion Hconsistent. assumption.
 Qed.
 
-(** [chain_all_consistent_tail]: formal specification. *)
 Lemma chain_all_consistent_tail :
   forall r rest,
     chain_all_consistent (r :: rest) ->
@@ -387,7 +367,6 @@ Proof.
   inversion Hconsistent. assumption.
 Qed.
 
-(** [chain_final_mu_correct]: formal specification. *)
 Lemma chain_final_mu_correct :
   forall rs initial_mu,
     receipt_chain_valid rs initial_mu ->
@@ -456,9 +435,9 @@ Proof.
     exact IHrest.
 Qed.
 
-(** * Non-Forgeability Theorem
+(** Non-Forgeability Theorem
     
-    THEOREM: If receipt_chain_valid holds, then the claimed μ
+    If receipt_chain_valid holds, then the claimed μ
     was EARNED through the specified computation.
     
     FALSIFIER: Produce a valid receipt chain where:
@@ -502,9 +481,9 @@ Proof.
     exact Hfinal.
 Qed.
 
-(** * Forgery Detection
+(** Forgery Detection
     
-    THEOREM: Any receipt with mu_delta ≠ instruction_cost is INVALID.
+    Any receipt with mu_delta ≠ instruction_cost is INVALID.
     
     This directly addresses the Python vulnerability: forged receipts
     that claim arbitrary mu_delta will fail receipt_mu_consistent_b.
@@ -513,7 +492,6 @@ Qed.
 Definition is_forged_receipt (r : Receipt) (claimed_mu_delta : nat) : Prop :=
   claimed_mu_delta <> instruction_mu_delta r.(receipt_instruction).
 
-(** [forged_receipt_fails_validation]: formal specification. *)
 Theorem forged_receipt_fails_validation :
   forall r claimed_mu_delta,
     is_forged_receipt r claimed_mu_delta ->
@@ -531,9 +509,9 @@ Proof.
   contradiction.
 Qed.
 
-(** * Overflow Attack Detection
+(** Overflow Attack Detection
     
-    THEOREM: Any receipt with μ values outside Q16.16 range is INVALID.
+    Any receipt with μ values outside Q16.16 range is INVALID.
     
     This addresses the Python overflow vulnerability: receipts claiming
     huge μ values that hardware cannot represent.
@@ -542,7 +520,6 @@ Qed.
 Definition is_overflow_receipt (r : Receipt) : Prop :=
   r.(receipt_pre_mu) > mu_max \/ r.(receipt_post_mu) > mu_max.
 
-(** [overflow_receipt_fails_range_check]: formal specification. *)
 Theorem overflow_receipt_fails_range_check :
   forall r,
     is_overflow_receipt r ->
@@ -555,7 +532,6 @@ Proof.
   destruct Hoverflow as [Hpre_over | Hpost_over]; lia.
 Qed.
 
-(** [overflow_receipt_fails_full_validation]: formal specification. *)
 Theorem overflow_receipt_fails_full_validation :
   forall r,
     is_overflow_receipt r ->
@@ -568,7 +544,7 @@ Proof.
   exact (overflow_receipt_fails_range_check r Hoverflow Hrange).
 Qed.
 
-(** * ATTACK MITIGATION SUMMARY
+(** ATTACK MITIGATION SUMMARY
     
     The Python forgery attack worked because verify() only checked signature,
     not μ arithmetic.

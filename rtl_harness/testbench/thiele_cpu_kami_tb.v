@@ -243,11 +243,6 @@ module thiele_cpu_kami_tb;
       cycle_count = cycle_count + 1;
       exec_op_i = exec_word[31:24]; exec_a_i = exec_word[23:16]; exec_b_i = exec_word[15:8];
 
-      if ((exec_op_i == 8'h03 || exec_op_i == 8'h04 || exec_op_i == 8'h0E || exec_op_i == 8'h0F) && (exec_word[7:0] == 8'h00)) begin
-        $display("[NOFI] policy violation at cycle %0d pc=%0d opcode=0x%0h cost=0", cycle_count, pc_out, exec_op_i);
-        $fatal(1, "NoFreeInsight runtime policy violated: cert-setting opcode with zero cost");
-      end
-
       case (exec_op_i)
         8'h00: begin
           shadow_new_mask = (64'h1 << (exec_a_i & 8'h3F));

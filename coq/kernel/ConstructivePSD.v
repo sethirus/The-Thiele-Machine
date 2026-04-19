@@ -1,44 +1,25 @@
-(** =========================================================================
-    CONSTRUCTIVE PSD - Quadratic Form Approach
-    =========================================================================
+(** Constructive PSD via quadratic forms.
 
-    WHY THIS FILE EXISTS:
-    Fine's theorem (1982) says: correlations are factorizable iff they satisfy
-    3×3 minor constraints (determinants ≥ 0). This is THE mathematical foundation
-    for Bell's inequality. This file PROVES those constraints constructively,
-    using quadratic forms instead of axiomatizing PSD matrices.
+  Fine's theorem says correlations are factorizable exactly when they satisfy
+  the 3x3 minor constraints that sit behind Bell's inequality. This file proves
+  the relevant PSD facts constructively, using only quadratic forms instead of
+  eigenvalues, Schur complements, or imported linear-algebra black boxes.
 
-    THE APPROACH:
-    Define PSD (positive semidefinite) via quadratic forms: M is PSD iff
-    ∀v. v^T M v ≥ 0. This is CONSTRUCTIVE - no appeals to eigenvalues, Schur
-    complements, or abstract linear algebra. Just arithmetic.
+  The core definition is direct: M is positive semidefinite when every
+  quadratic form v^T M v is nonnegative. From that starting point the file
+  proves the off-diagonal bound, nonnegativity of the 3x3 determinant
+  constraints, convexity of the PSD cone, and the fact that perfect
+  correlation forces identical rows.
 
-    WHAT'S PROVEN:
-    ✓ PSD5_off_diagonal_bound: Off-diagonal entries bounded by ±1 (if diagonal=1)
-    ✓ psd_3x3_determinant_nonneg: 3×3 minors have det ≥ 0 (Fine's constraints)
-    ✓ PSD5_convex: PSD matrices are convex (linear combinations preserve PSD)
-    ✓ PSD_perfect_corr_implies_equal_rows: Perfect correlation → identical rows
-
-    WHY THIS MATTERS FOR THIELE MACHINE:
-    Classical correlations (μ=0) are factorizable. Factorizable correlations
-    satisfy 3×3 minor constraints (Fine's theorem). This file proves those
-    constraints from first principles. The chain:
-    - μ=0 → factorizable (MinorConstraints.v)
-    - factorizable → 3×3 minors (Fine's theorem, this file)
-    - 3×3 minors → CHSH ≤ 2 (MinorConstraints.v)
-
-    Together: max{CHSH : μ=0} = 2 (classical bound).
-
-    THE CONSTRUCTIVE ADVANTAGE:
-    I don't axiomatize "PSD matrices have property X". I PROVE X from the
-    quadratic form definition. No hidden assumptions. Pure arithmetic.
-
-    FALSIFICATION:
-    Find a symmetric matrix M with v^T M v ≥ 0 for all v, but violating one
-    of the proven properties (e.g., 3×3 minor < 0). Impossible - the proofs
-    are constructive.
-
-    ========================================================================= *)
+  This matters for the Thiele machine because the classical μ=0 sector is
+  factorizable. Combined with MinorConstraints.v, the chain is:
+  μ=0 implies factorizable, factorizable correlations satisfy the Fine-style
+  3x3 constraints, and those constraints force CHSH <= 2. The constructive
+  advantage is exactly that nothing is smuggled in by axiom: these properties
+  are derived from arithmetic. A falsification would require a symmetric M
+  with v^T M v >= 0 for all v but still violating one of the derived PSD
+  consequences.
+*)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -53,7 +34,7 @@ Local Open Scope R_scope.
 (** Avoid name collision between Fin.R and Reals.R *)
 Notation RealNumber := Rdefinitions.R.
 
-(** * Finite Index Type *)
+(** Finite Index Type *)
 
 (** Use Fin.t 5 for compile-time bounded indices *)
 Notation Fin5 := (Fin.t 5).
@@ -62,7 +43,7 @@ Notation Fin4 := (Fin.t 4).
 (** Helper to convert Fin5 to nat for display/reasoning *)
 Definition fin_to_nat {n} (i : Fin.t n) : nat := proj1_sig (Fin.to_nat i).
 
-(** * Matrix Type *)
+(** Matrix Type *)
 
 (** A 5×5 matrix using finite indices *)
 Definition Matrix5 : Type := Fin5 -> Fin5 -> RealNumber.
@@ -81,7 +62,7 @@ Definition nat_matrix_to_fin4 (M : Matrix 4) : Matrix4 :=
 (** A 5-vector using finite indices *)
 Definition Vec5 : Type := Fin5 -> RealNumber.
 
-(** * Quadratic Form Definition *)
+(** Quadratic Form Definition *)
 
 (** Sum over all Fin5 indices *)
 Definition sum_fin5 (f : Fin5 -> RealNumber) : RealNumber :=
@@ -99,7 +80,7 @@ Definition PSD5 (M : Matrix5) : Prop :=
 Definition symmetric5 (M : Matrix5) : Prop :=
   forall i j, M i j = M j i.
 
-(** * Computational Simplification Lemmas *)
+(** Computational Simplification Lemmas *)
 
 (** Expand sum_fin5 for computation *)
 Lemma sum_fin5_unfold : forall f : Fin5 -> RealNumber,
@@ -135,7 +116,7 @@ Proof.
   lra.
 Qed.
 
-(** * Linear Algebra Helper Lemmas *)
+(** Linear Algebra Helper Lemmas *)
 
 Lemma sum_fin5_linear : forall (f g : Fin5 -> RealNumber),
   sum_fin5 (fun i => f i + g i) = sum_fin5 f + sum_fin5 g.
@@ -143,7 +124,6 @@ Proof.
   intros. unfold sum_fin5. ring.
 Qed.
 
-(** [sum_fin5_scal]: formal specification. *)
 Lemma sum_fin5_scal : forall (c : RealNumber) (f : Fin5 -> RealNumber),
   sum_fin5 (fun i => c * f i) = c * sum_fin5 f.
 Proof.
@@ -153,7 +133,6 @@ Qed.
 Definition bilinear5 (M : Matrix5) (u v : Vec5) : RealNumber :=
   sum_fin5 (fun i => sum_fin5 (fun j => u i * M i j * v j)).
 
-(** [bilinear5_sym]: formal specification. *)
 Lemma bilinear5_sym : forall (M : Matrix5) (u v : Vec5),
   symmetric5 M ->
   bilinear5 M u v = bilinear5 M v u.
@@ -177,7 +156,6 @@ Proof.
   ring.
 Qed.
 
-(** [quad5_expansion_bilinear]: formal specification. *)
 Lemma quad5_expansion_bilinear : forall (M : Matrix5) (u v : Vec5),
   symmetric5 M ->
   quad5 M (fun k => u k + v k) = quad5 M u + 2 * bilinear5 M u v + quad5 M v.
@@ -224,7 +202,6 @@ Qed.
 
 Definition e_basis (k : Fin5) : Vec5 := fun x => if Fin.eq_dec x k then 1 else 0.
 
-(** [sum_e_basis]: formal specification. *)
 Lemma sum_e_basis : forall (k : Fin5) (f : Fin5 -> RealNumber),
   sum_fin5 (fun i => e_basis k i * f i) = f k.
 Proof.
@@ -243,7 +220,6 @@ Proof.
            ++ inversion k.
 Qed.
 
-(** [sum_e_basis_r]: formal specification. *)
 Lemma sum_e_basis_r : forall (k : Fin5) (f : Fin5 -> RealNumber),
   sum_fin5 (fun i => f i * e_basis k i) = f k.
 Proof.
@@ -252,7 +228,6 @@ Proof.
   apply f_equal. apply functional_extensionality. intro. rewrite Rmult_comm. reflexivity.
 Qed.
 
-(** [quad5_e_basis]: formal specification. *)
 Lemma quad5_e_basis : forall (M : Matrix5) (k : Fin5),
   quad5 M (e_basis k) = M k k.
 Proof.
@@ -267,7 +242,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [bilinear5_e_basis]: formal specification. *)
 Lemma bilinear5_e_basis : forall (M : Matrix5) (i j : Fin5),
   bilinear5 M (e_basis i) (e_basis j) = M i j.
 Proof.
@@ -283,7 +257,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [quad5_scal]: formal specification. *)
 Lemma quad5_scal : forall (M : Matrix5) (c : RealNumber) (u : Vec5),
   quad5 M (fun k => c * u k) = c * c * quad5 M u.
 Proof.
@@ -297,7 +270,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [bilinear5_scal_r]: formal specification. *)
 Lemma bilinear5_scal_r : forall (M : Matrix5) (c : RealNumber) (u v : Vec5),
   bilinear5 M u (fun k => c * v k) = c * bilinear5 M u v.
 Proof.
@@ -311,21 +283,18 @@ Proof.
   reflexivity.
 Qed.
 
-(** [bilinear5_linear_r]: formal specification. *)
 Lemma bilinear5_linear_r : forall (M : Matrix5) (u v w : Vec5),
   bilinear5 M u (fun k => v k + w k) = bilinear5 M u v + bilinear5 M u w.
 Proof.
   intros M u v w. unfold bilinear5, sum_fin5. ring.
 Qed.
 
-(** [bilinear5_linear_l]: formal specification. *)
 Lemma bilinear5_linear_l : forall (M : Matrix5) (u v w : Vec5),
   bilinear5 M (fun k => u k + v k) w = bilinear5 M u w + bilinear5 M v w.
 Proof.
   intros M u v w. unfold bilinear5, sum_fin5. ring.
 Qed.
 
-(** [bilinear5_scal_l]: formal specification. *)
 Lemma bilinear5_scal_l : forall (M : Matrix5) (c : RealNumber) (u v : Vec5),
   bilinear5 M (fun k => c * u k) v = c * bilinear5 M u v.
 Proof.
@@ -340,7 +309,6 @@ Proof.
 Qed.
 
 (* Expansion lemma for a linear combination of three basis vectors *)
-(** [quad5_e_combo_3]: formal specification. *)
 Lemma quad5_e_combo_3 : forall (M : Matrix5) (i j k : Fin5) (c1 c2 c3 : RealNumber),
   symmetric5 M ->
   quad5 M (fun idx => c1 * e_basis i idx + c2 * e_basis j idx + c3 * e_basis k idx)
@@ -361,7 +329,7 @@ Proof.
   ring.
 Qed.
 
-(** * Constructive Off-Diagonal Bound *)
+(** Constructive Off-Diagonal Bound *)
 
 (** Key lemma: nonnegative quadratic polynomial implies discriminant bound *)
 Lemma quadratic_nonneg_discriminant : forall (a b c : RealNumber),
@@ -457,7 +425,6 @@ Proof.
       lra.
 Qed.
 
-(** [PSD5_off_diagonal_bound]: formal specification. *)
 Lemma PSD5_off_diagonal_bound : forall (M : Matrix5) (i j : Fin5),
   PSD5 M ->
   symmetric5 M ->
@@ -493,7 +460,7 @@ Proof.
       + exact Hjj.
 Qed.
 
-(** * Support-Specific Quadratic Form Expansions *)
+(** Support-Specific Quadratic Form Expansions *)
 
 (** Indices for the 5×5 matrix (corresponding to [1, A0, A1, B0, B1]) *)
 Definition i0 : Fin5 := @Fin.F1 4.                                    (* index 0 *)
@@ -513,7 +480,7 @@ Definition i4 : Fin5 := @Fin.FS 4 (@Fin.FS 3 (@Fin.FS 2 (@Fin.FS 1 (@Fin.F1 0)))
     
     For now, we axiomatize the specific  constraints directly. *)
 
-(** * Constructive 3×3 Minor Constraints *)
+(** Constructive 3×3 Minor Constraints *)
 
 Lemma PSD_perfect_corr_implies_equal_rows : forall (M : Matrix5) (i j : Fin5),
   PSD5 M ->
@@ -763,7 +730,7 @@ Qed.
 (** We provide the generic lemma instead of specific axioms. *)
 
 
-(** * PSD Convexity Lemma *)
+(** PSD Convexity Lemma *)
 
 Lemma PSD5_convex : forall (M1 M2 : Matrix5) (lambda : RealNumber),
   0 <= lambda <= 1 ->
@@ -784,7 +751,7 @@ Proof.
   ring.
 Qed.
 
-(** * Reduction to Symmetric Case *)
+(** Reduction to Symmetric Case *)
 
 (** INQUISITOR NOTE: demoted research extension, not an active closeout claim.
     A separate CHSH-symmetry averaging lemma would be useful for a stronger
@@ -794,104 +761,33 @@ Qed.
     the exported closeout surface is the constructive PSD/quadratic-form
     lemma set listed in the summary below. *)
 
-(** =========================================================================
-    SUMMARY: WHAT THIS FILE PROVES
-    =========================================================================
+(** Summary.
 
-    PROVEN (Key Results):
-    ✓ PSD5_off_diagonal_bound: Cauchy-Schwarz for correlation matrices
-       If M is PSD with diagonal entries ≤ 1, then |M_ij| ≤ 1 for all i,j
-       Proof: Discriminant of quadratic form Q(e_i + t·e_j) ≥ 0
-    ✓ psd_3x3_determinant_nonneg: Fine's 3×3 minor constraints
-       For any 3×3 principal minor of a PSD correlation matrix:
-       det₃(x,y,z) = 1 - x² - y² - z² + 2xyz ≥ 0
-       Proof: Schur complement via quadratic forms Q(V) where V = -xe_i - ye_j + e_k
-    ✓ PSD_perfect_corr_implies_equal_rows: Perfect correlation = identity
-       If M_ij = 1 (perfect correlation), then row i = row j
-       Proof: Q(e_i - e_j) = 0 implies M·(e_i - e_j) = 0 by Cauchy-Schwarz
-    ✓ PSD5_convex: Convexity of PSD cone
-       Linear combinations λM₁ + (1-λ)M₂ preserve PSD (0 ≤ λ ≤ 1)
-       Proof: Quadratic forms are linear in M
+   The key outputs are these. PSD5_off_diagonal_bound gives the
+   Cauchy-Schwarz-style bound |M_ij| <= 1 when the diagonal entries are at most
+   1. psd_3x3_determinant_nonneg proves Fine's 3x3 determinant constraint
+   det3(x,y,z) = 1 - x^2 - y^2 - z^2 + 2xyz >= 0. PSD_perfect_corr_implies_equal_rows
+   shows that perfect correlation collapses two rows together. PSD5_convex shows
+   the PSD cone is convex.
 
-    THE CONSTRUCTIVE APPROACH:
-    All results proven from FIRST PRINCIPLES using only:
-    - Quadratic form definition: PSD ⟺ ∀v. v^T M v ≥ 0
-    - Real number arithmetic (lra, nra tactics)
-    - Discriminant analysis for quadratic polynomials
+   All of that is proved from first principles with quadratic forms, bilinear
+   expansions, discriminant arguments, and real arithmetic. There are no hidden
+   appeals to spectral theory, Cholesky, or abstract Schur-complement machinery.
+   The 3x3 determinant condition is the algebraic expression of factorizability:
+   classical correlations must satisfy it, while quantum correlations can fail
+   it when entanglement breaks factorization.
 
-    NO AXIOMS about:
-    - Eigenvalues or spectral theory
-    - Schur complements (derived here via quadratic forms)
-    - Cholesky decomposition
-    - Abstract linear algebra theorems
+   That is why this file matters for the classical bound. Classical
+   correlations are factorizable, factorizability gives the Fine constraints,
+   and MinorConstraints.v turns those constraints into CHSH <= 2. The helper
+   lemmas in the middle of the file are the arithmetic infrastructure that makes
+   the constructive proofs go through. A falsification would require a genuinely
+   PSD symmetric matrix that still violates one of these mechanically checked
+   consequences.
 
-    THE TECHNIQUE:
-    1. Quadratic forms: quad5 M v = Σᵢⱼ vᵢ Mᵢⱼ vⱼ (fully expanded for Fin 5)
-    2. Bilinear forms: bilinear5 M u v = Σᵢⱼ uᵢ Mᵢⱼ vⱼ (off-diagonal terms)
-    3. Expansion: Q(u + tv) = Q(u) + 2t·B(u,v) + t²·Q(v) (binomial)
-    4. Discriminant: If Q(u + tv) ≥ 0 for all t, then B(u,v)² ≤ Q(u)·Q(v)
-    5. Cauchy-Schwarz: Special case with Q(u)=1, Q(v)=1 gives |B(u,v)| ≤ 1
-    6. Determinant: Schur complement S(v₂,v₃) = Q(V) for specific vector V
-
-    CONNECTION TO FINE'S THEOREM:
-    Fine (1982) proved: Correlations are factorizable (local hidden variable)
-    ⟺ All 3×3 principal minors satisfy det₃ ≥ 0
-
-    This file provides the (⟹) direction constructively:
-    - PSD matrices represent quantum/no-signaling correlations
-    - Classical (factorizable) correlations are PSD with specific structure
-    - psd_3x3_determinant_nonneg proves det₃ ≥ 0 for all 3×3 minors
-
-    WHY THIS MATTERS FOR CLASSICAL BOUND:
-    1. Classical correlations are factorizable (by definition)
-    2. Factorizable → 3×3 minors satisfied (Fine's theorem)
-    3. 3×3 minors → CHSH ≤ 2 (algebraic derivation in MinorConstraints.v)
-    Therefore: Classical correlations satisfy CHSH ≤ 2 (Bell's inequality)
-
-    THE 3×3 MINOR CONSTRAINT:
-    For correlation matrix with M_ii = 1 (normalized), M_ij = M_ji (symmetric):
-    det₃(M_ij, M_ik, M_jk) = 1 - M_ij² - M_ik² - M_jk² + 2·M_ij·M_ik·M_jk ≥ 0
-
-    This is the ALGEBRAIC expression of factorizability. Quantum correlations
-    can violate this (entanglement breaks factorization). Classical can't.
-
-    COMPUTATIONAL ASPECTS:
-    - Uses Fin.t 5 for compile-time bounded indices (no runtime bounds checks)
-    - Fully unrolls sums: sum_fin5 f = f(0) + f(1) + f(2) + f(3) + f(4)
-    - Proves properties via ring (polynomial arithmetic)
-    - Discriminant computed via quadratic_nonneg_discriminant (case analysis)
-
-    THE HELPER LEMMAS (not individually documented):
-    - sum_fin5_linear, sum_fin5_scal: Sum is linear functional
-    - quad5_expansion_bilinear: Binomial expansion for quadratic forms
-    - quad5_e_basis: Quadratic form on basis vector = diagonal entry
-    - bilinear5_e_basis: Bilinear form on basis vectors = matrix entry
-    - quad5_scal: Scaling property Q(cv) = c²·Q(v)
-    - Rabs_le_inv, Rabs_sq_le: Absolute value bounds
-
-    THE PROOF TECHNIQUES:
-    - quadratic_nonneg_discriminant: Core lemma for Cauchy-Schwarz
-      If a + 2bt + ct² ≥ 0 for all t, then b² ≤ ac
-      Proof: Complete the square, analyze cases (c>0, c<0, c=0)
-    - PSD5_off_diagonal_bound: Apply discriminant to Q(e_i + t·e_j)
-      Gets M_ij² ≤ M_ii·M_jj, so |M_ij| ≤ 1 if M_ii = M_jj = 1
-    - psd_3x3_determinant_nonneg: Construct vector V orthogonal to e_i
-      Define V such that Q(V) = Schur complement quadratic form
-      Apply discriminant to show det₃ ≥ 0
-
-    FALSIFICATION:
-    Find a symmetric matrix M where:
-    1. v^T M v ≥ 0 for all v (PSD property), BUT
-    2. Some |M_ij| > 1 when M_ii = M_jj = 1 (violates Cauchy-Schwarz), OR
-    3. Some 3×3 minor has det₃ < 0 (violates Fine constraint), OR
-    4. Perfect correlation M_ij=1 but row i ≠ row j
-
-    Impossible - the proofs are constructive and mechanically checked.
-
-    COMPLETED: MinorConstraints.v imports ConstructivePSD and proves
-    CHSH ≤ 2 for factorizable correlations via Fine's theorem.
-
-    ========================================================================= *)
+   MinorConstraints.v already consumes this file to obtain CHSH <= 2 for the
+   factorizable case.
+*)
 
 Definition fin_to_nat_anchor := @fin_to_nat.
 

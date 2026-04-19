@@ -1,3 +1,11 @@
+# coq_makefile injects "-R . Top" into COQLIBS when no explicit root
+# mapping appears in _CoqProject. This pre-registers every subdirectory
+# as Top.xxx, and the subsequent -R kernel Kernel / -R nofi NoFI / etc.
+# remappings emit overriding-logical-loadpath warnings that cannot be
+# suppressed via coqc -w in Coq 8.18. Strip the offending flag here,
+# after Makefile.conf sets COQLIBS.
+COQLIBS := $(subst -R . Top,,$(COQLIBS))
+
 build:
 	mkdir -p build
 

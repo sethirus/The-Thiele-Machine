@@ -1,40 +1,14 @@
-(** =========================================================================
-    μ-INFORMATION: Quantitative Accounting API
-    =========================================================================
+(** MuInformation: reusable Δμ accounting facts
 
-    WHY THIS FILE EXISTS:
-    I claim μ is an information measure, not just an accounting ledger. This
-    file packages the "information injected" quantity Δμ = μ_final - μ_init
-    and proves it equals the sum of instruction costs. This connects the
-    abstract ledger to concrete computational semantics.
+  This file packages the basic quantitative interface around the μ ledger.
+  The central fact is straightforward: the change in μ across execution is
+  exactly the sum of instruction costs. The lemmas here expose that in forms
+  that other kernel files can reuse without reopening the conservation proofs.
 
-    THE CORE CLAIM:
-    μ-information injected by execution = sum of instruction costs. Proven:
-    - mu_info_z_vm_apply: Single step injects instruction_cost
-    - run_vm_mu_total_decomposes: Final μ = initial μ + ledger_sum
-    - mu_info_z_run_vm_is_ledger_sum: Δμ = ledger_sum exactly
-    - run_vm_mu_total_monotone: μ never decreases
+  The claim level is operational, not metaphysical. Δμ is just the ledger
+  difference carried through the step and trace semantics.
 
-    WHAT THIS PROVES:
-    The μ-accumulator is a genuine information measure (monotone, additive,
-    equals computational cost). This API makes μ-accounting reusable across
-    the kernel without duplicating ledger conservation proofs.
-
-    PHYSICAL INTERPRETATION:
-    Δμ measures "bits of structural information added" by computation. Every
-    instruction injects its declared cost. Total information = sum of costs.
-    This is information conservation in executable form.
-
-    FALSIFICATION:
-    Show that run_vm_mu_total_decomposes fails for some trace - final μ ≠
-    initial μ + ledger_sum. This would break the fundamental accounting.
-
-    Or prove μ can decrease (violate run_vm_mu_total_monotone). This would
-    allow "free information" and break thermodynamics.
-
-    NO AXIOMS. NO ADMITS. Pure API over verified ledger conservation.
-
-    ========================================================================= *)
+  *)
 
 From Coq Require Import ZArith Lia List.
 Import ListNotations.
@@ -42,9 +16,7 @@ Import ListNotations.
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import SimulationProof MuLedgerConservation.
 
-(** =========================================================================
-    BASIC μ-EXTRACTION
-    ========================================================================= *)
+(** Basic μ extraction. *)
 
 (** Extract total μ from VM state. This is the fundamental quantity. *)
 Definition mu_total (s : VMState) : nat := s.(vm_mu).
@@ -60,9 +32,7 @@ Definition mu_info_z (s_init s_final : VMState) : Z :=
 Definition mu_info_nat (s_init s_final : VMState) : nat :=
   mu_total s_final - mu_total s_init.
 
-(** =========================================================================
-    SINGLE-STEP μ-INFORMATION
-    ========================================================================= *)
+(** Single-step μ information. *)
 
 (** SINGLE-STEP ACCOUNTING: Applying instruction injects its cost
 
@@ -81,9 +51,7 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
-    MULTI-STEP μ-INFORMATION (TRACE EXECUTION)
-    ========================================================================= *)
+(** Multi-step μ information over traces. *)
 
 (** μ-information injected by bounded execution = sum of ledger entries
 
@@ -93,7 +61,7 @@ Qed.
 Definition mu_info_run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState)
   : nat := ledger_sum (ledger_entries fuel trace s).
 
-(** DECOMPOSITION THEOREM: Final μ = Initial μ + Information injected
+(** DECOMPOSITION Final μ = Initial μ + Information injected
 
     This is the fundamental equation of μ-accounting. After executing a trace,
     the final μ value equals what you started with plus the sum of all costs.
@@ -159,7 +127,7 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
+(**
     API SUMMARY
 
     This file provides clean abstractions for μ-accounting:
@@ -176,4 +144,4 @@ Qed.
     All backed by MuLedgerConservation.v (ledger faithfully tracks costs).
     No axioms, no admits, purely constructive proofs.
 
-    ========================================================================= *)
+    *)

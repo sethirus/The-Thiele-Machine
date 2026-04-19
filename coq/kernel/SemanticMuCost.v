@@ -1,11 +1,10 @@
-(** =========================================================================
+(**
     SEMANTIC μ-COST: SYNTAX-INVARIANT COMPLEXITY MEASURE
-    =========================================================================
 
-    This file replaces String.length-based μ-cost with a semantic measure
+    This file replaces raw textual payload-bit μ-cost with a semantic measure
     based on the logical structure of constraints.
 
-    PROBLEM: String.length is syntax-sensitive:
+    PROBLEM: raw text payload bits are syntax-sensitive:
       - "x>0" has length 3 (24 bits)
       - "x > 0" has length 5 (40 bits)
       - Same constraint, different costs!
@@ -24,7 +23,7 @@
       - OCaml extraction (build/thiele_core.ml) MUST match
       - Verilog enforcement (via LEI) MUST match
 
-    ========================================================================= *)
+    *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -35,9 +34,6 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep.
 
-(** =========================================================================
-    PART 1: ABSTRACT SYNTAX TREE FOR CONSTRAINTS
-    ========================================================================= *)
 
 (** Constraint variables (normalized identifiers) *)
 Inductive ConstraintVar : Type :=
@@ -72,9 +68,6 @@ Inductive Constraint : Type :=
 | CTrue : Constraint
 | CFalse : Constraint.
 
-(** =========================================================================
-    PART 2: CANONICAL NORMALIZATION
-    ========================================================================= *)
 
 (** Comparison operator normalization: convert > and ≥ to < and ≤ *)
 Definition normalize_comp_op (op : CompOp) : CompOp :=
@@ -127,9 +120,6 @@ Definition rebuild_or (cs : list Constraint) : Constraint :=
   | c :: cs' => fold_left COr cs' c
   end.
 
-(** =========================================================================
-    PART 3: STRUCTURAL COMPLEXITY MEASURE
-    ========================================================================= *)
 
 (** Count variables in an arithmetic expression *)
 Fixpoint count_vars_arith (e : ArithExpr) : nat :=
@@ -174,9 +164,6 @@ Fixpoint count_operators (c : Constraint) : nat :=
   | CFalse => 0
   end.
 
-(** =========================================================================
-    PART 4: SEMANTIC COMPLEXITY BITS (Kolmogorov Lower Bound)
-    ========================================================================= *)
 
 (** Logarithm base 2 (ceiling) - same as StateSpaceCounting.v *)
 Definition log2_nat (n : nat) : nat :=
@@ -214,9 +201,6 @@ Definition semantic_complexity_bits (c : Constraint) : nat :=
   (* Total: sum of structural complexities, converted to bytes *)
   8 * (atom_bits + var_bits + op_bits).
 
-(** =========================================================================
-    PART 5: PROPERTIES AND CORRECTNESS
-    ========================================================================= *)
 
 (** log2_nat returns >= 1 for inputs >= 2.
 
@@ -257,7 +241,7 @@ Qed.
     are eliminated by hypothesis. All other constructors give count_operators >= 1.
     Then log2_nat_ge_1_of_ge_2 gives us the bound.
 
-    FALSIFICATION: Find a non-trivial constraint with zero semantic complexity.
+    To falsify: Find a non-trivial constraint with zero semantic complexity.
     The definition makes this impossible: every CAtom, CAnd, COr, CNot contributes
     at least 1 to count_operators.
 *)
@@ -299,19 +283,16 @@ Qed.
     not string properties.
 *)
 
-(** =========================================================================
-    PART 6: INTEGRATION WITH VM μ-COST
-    ========================================================================= *)
 
 (** NEW definition: axiom μ-cost based on semantic complexity *)
 Definition axiom_semantic_cost (ax : VMAxiom) (ast : Constraint) : nat :=
   semantic_complexity_bits ast.
 
-(** BACKWARD COMPATIBILITY: fallback to string length if no AST *)
+(** BACKWARD COMPATIBILITY: fallback to concrete payload bits if no AST *)
 Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint) : nat :=
   match ast_opt with
   | Some ast => semantic_complexity_bits ast
-  | None => String.length ax * 8  (* Fallback for unparseable formulas *)
+  | None => payload_bit_length ax  (* Fallback for unparseable formulas *)
   end.
 
 (** ISOMORPHISM REQUIREMENT:
@@ -332,9 +313,6 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
     Any divergence breaks the intended cross-layer comparison contract.
 *)
 
-(** =========================================================================
-    PART 7: INTEGRATION NOTES
-    ========================================================================= *)
 
 (** NOTE: The theorems connecting semantic complexity to LASSERT μ-cost increases
     require imports from StateSpaceCounting.v and proper VM step proofs.
@@ -343,9 +321,8 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
     complexity that the OCaml extraction MUST match for the cross-layer comparison contract.
 *)
 
-(** =========================================================================
+(**
     IMPLEMENTATION NOTES
-    =========================================================================
 
     OCAML EXTRACTION (build/thiele_core.ml):
     - Coq extraction produces OCaml code preserving the AST structure
@@ -366,7 +343,6 @@ Definition axiom_cost_with_fallback (ax : VMAxiom) (ast_opt : option Constraint)
       coq_semantic_complexity_bits(parse(f)) ==
       extracted_semantic_complexity_bits(parse(f))
 
-    ========================================================================= *)
+    *)
 
 Definition ConstraintVar_anchor : Type := ConstraintVar.
-

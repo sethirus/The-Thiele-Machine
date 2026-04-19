@@ -1,280 +1,280 @@
-DIGEST 48c96f6a28b79d0ae8e62b05ac784d06
+DIGEST f3b64c39bda2ecfe619dbf9236e7e91c
 FKamiHW.ShadowDevice
-R1194:1197 Coq.Lists.List <> <> lib
-R1199:1212 Coq.Arith.PeanoNat <> <> lib
-R1222:1234 Coq.Lists.List ListNotations <> mod
-R1266:1272 Kernel.VMState <> <> lib
-R1274:1279 Kernel.VMStep <> <> lib
-R1281:1295 Kernel.SimulationProof <> <> lib
-R1297:1312 Kernel.ShadowProjection <> <> lib
-R1343:1353 KamiHW.Abstraction <> <> lib
-R1355:1371 KamiHW.VerilogRefinement <> <> lib
-R1373:1392 KamiHW.HardwareShadowBridge <> <> lib
-R1394:1402 KamiHW.EmbedStep <> <> lib
-rec 1687:1698 <> ShadowDevice
-proj 1707:1714 <> sd_state
-proj 1728:1733 <> sd_obs
-proj 1771:1778 <> sd_embed
-proj 1807:1828 <> sd_embed_shadow_compat
-R1748:1751 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1740:1747 KamiHW.ShadowDevice <> sd_state:2 meth
-R1752:1765 Kernel.ShadowProjection <> ClassicalState rec
-R1791:1794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1783:1790 KamiHW.ShadowDevice <> sd_state:2 meth
-R1795:1801 Kernel.VMState <> VMState rec
-R1847:1854 KamiHW.ShadowDevice <> sd_state:2 meth
-binder 1843:1843 <> d:5
-R1865:1867 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1857:1862 KamiHW.ShadowDevice <> sd_obs:3 meth
-R1864:1864 KamiHW.ShadowDevice <> d:5 var
-R1868:1878 Kernel.ShadowProjection <> shadow_proj def
-R1881:1888 KamiHW.ShadowDevice <> sd_embed:4 meth
-R1890:1890 KamiHW.ShadowDevice <> d:5 var
-def 2152:2175 <> thiele_rtl_shadow_device
-R2179:2190 KamiHW.ShadowDevice <> ShadowDevice rec
-R2200:2207 KamiHW.ShadowDevice <> sd_state proj
-R2200:2207 KamiHW.ShadowDevice <> sd_state proj
-R2200:2207 KamiHW.ShadowDevice <> sd_state proj
-R2233:2238 KamiHW.ShadowDevice <> sd_obs proj
-R2233:2238 KamiHW.ShadowDevice <> sd_obs proj
-R2271:2278 KamiHW.ShadowDevice <> sd_embed proj
-R2271:2278 KamiHW.ShadowDevice <> sd_embed proj
-R2302:2323 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
-R2302:2323 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
-R2213:2224 KamiHW.Abstraction <> KamiSnapshot rec
-R2246:2262 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R2284:2293 KamiHW.Abstraction <> abs_phase1 def
-R2328:2349 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-prf 2691:2726 <> every_shadow_device_satisfies_compat
-R2744:2755 KamiHW.ShadowDevice <> ShadowDevice rec
-binder 2740:2740 <> D:7
-R2766:2773 KamiHW.ShadowDevice <> sd_state proj
-R2763:2763 KamiHW.ShadowDevice <> D:7 var
-binder 2759:2759 <> d:8
-R2794:2796 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2785:2790 KamiHW.ShadowDevice <> sd_obs proj
-R2782:2782 KamiHW.ShadowDevice <> D:7 var
-R2793:2793 KamiHW.ShadowDevice <> d:8 var
-R2797:2807 Kernel.ShadowProjection <> shadow_proj def
-R2813:2820 KamiHW.ShadowDevice <> sd_embed proj
-R2810:2810 KamiHW.ShadowDevice <> D:7 var
-R2823:2823 KamiHW.ShadowDevice <> d:8 var
-R2860:2881 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
-R2860:2881 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
-prf 3121:3152 <> shadow_device_mu_cost_observable
-R3170:3181 KamiHW.ShadowDevice <> ShadowDevice rec
-binder 3166:3166 <> D:9
-R3192:3199 KamiHW.ShadowDevice <> sd_state proj
-R3189:3189 KamiHW.ShadowDevice <> D:9 var
-binder 3185:3185 <> d:10
-R3230:3232 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3224:3228 Kernel.ShadowProjection <> cs_mu proj
-R3212:3217 KamiHW.ShadowDevice <> sd_obs proj
-R3209:3209 KamiHW.ShadowDevice <> D:9 var
-R3220:3220 KamiHW.ShadowDevice <> d:10 var
-R3251:3255 Kernel.VMState <> vm_mu proj
-R3237:3244 KamiHW.ShadowDevice <> sd_embed proj
-R3234:3234 KamiHW.ShadowDevice <> D:9 var
-R3247:3247 KamiHW.ShadowDevice <> d:10 var
-R3293:3314 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
-R3293:3314 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
-R3293:3314 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
-R3327:3337 Kernel.ShadowProjection <> shadow_proj def
-prf 3524:3557 <> thiele_rtl_satisfies_shadow_compat
-R3575:3586 KamiHW.Abstraction <> KamiSnapshot rec
-binder 3570:3571 <> ks:11
-R3631:3637 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3621:3626 KamiHW.ShadowDevice <> sd_obs proj
-R3594:3617 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
-R3629:3630 KamiHW.ShadowDevice <> ks:11 var
-R3638:3648 Kernel.ShadowProjection <> shadow_proj def
-R3679:3686 KamiHW.ShadowDevice <> sd_embed proj
-R3652:3675 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
-R3689:3690 KamiHW.ShadowDevice <> ks:11 var
-R3723:3758 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
-R3760:3783 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
-R3723:3758 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
-R3760:3783 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
-rec 4553:4571 <> DynamicShadowDevice
-proj 4580:4588 <> dsd_state
-proj 4605:4611 <> dsd_obs
-proj 4653:4661 <> dsd_embed
-proj 4694:4701 <> dsd_step
-proj 4755:4767 <> dsd_supported
-proj 4798:4820 <> dsd_embed_shadow_compat
-proj 4892:4905 <> dsd_step_embed
-R4630:4633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4621:4629 KamiHW.ShadowDevice <> dsd_state:13 meth
-R4634:4647 Kernel.ShadowProjection <> ClassicalState rec
-R4678:4681 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4669:4677 KamiHW.ShadowDevice <> dsd_state:13 meth
-R4682:4688 Kernel.VMState <> VMState rec
-R4719:4722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4710:4718 KamiHW.ShadowDevice <> dsd_state:13 meth
-R4737:4740 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4723:4736 Kernel.VMStep VMStep vm_instruction ind
-R4741:4749 KamiHW.ShadowDevice <> dsd_state:13 meth
-R4785:4788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4771:4784 Kernel.VMStep VMStep vm_instruction ind
-R4839:4847 KamiHW.ShadowDevice <> dsd_state:13 meth
-binder 4835:4835 <> d:18
-R4859:4861 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4850:4856 KamiHW.ShadowDevice <> dsd_obs:14 meth
-R4858:4858 KamiHW.ShadowDevice <> d:18 var
-R4862:4872 Kernel.ShadowProjection <> shadow_proj def
-R4875:4883 KamiHW.ShadowDevice <> dsd_embed:15 meth
-R4885:4885 KamiHW.ShadowDevice <> d:18 var
-R4925:4933 KamiHW.ShadowDevice <> dsd_state:13 meth
-binder 4921:4921 <> d:20
-R4941:4954 Kernel.VMStep VMStep vm_instruction ind
-binder 4937:4937 <> i:21
-R4979:4988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4964:4976 KamiHW.ShadowDevice <> dsd_supported:17 meth
-R4978:4978 KamiHW.ShadowDevice <> i:21 var
-R5013:5015 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4989:4997 KamiHW.ShadowDevice <> dsd_embed:15 meth
-R5000:5007 KamiHW.ShadowDevice <> dsd_step:16 meth
-R5011:5011 KamiHW.ShadowDevice <> i:21 var
-R5009:5009 KamiHW.ShadowDevice <> d:20 var
-R5016:5023 Kernel.SimulationProof <> vm_apply def
-R5026:5034 KamiHW.ShadowDevice <> dsd_embed:15 meth
-R5036:5036 KamiHW.ShadowDevice <> d:20 var
-R5039:5039 KamiHW.ShadowDevice <> i:21 var
-def 5311:5342 <> thiele_rtl_dynamic_shadow_device
-R5346:5364 KamiHW.ShadowDevice <> DynamicShadowDevice rec
-R5374:5382 KamiHW.ShadowDevice <> dsd_state proj
-R5374:5382 KamiHW.ShadowDevice <> dsd_state proj
-R5374:5382 KamiHW.ShadowDevice <> dsd_state proj
-R5411:5417 KamiHW.ShadowDevice <> dsd_obs proj
-R5411:5417 KamiHW.ShadowDevice <> dsd_obs proj
-R5453:5461 KamiHW.ShadowDevice <> dsd_embed proj
-R5453:5461 KamiHW.ShadowDevice <> dsd_embed proj
-R5488:5495 KamiHW.ShadowDevice <> dsd_step proj
-R5488:5495 KamiHW.ShadowDevice <> dsd_step proj
-R5522:5534 KamiHW.ShadowDevice <> dsd_supported proj
-R5522:5534 KamiHW.ShadowDevice <> dsd_supported proj
-R5562:5584 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
-R5562:5584 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
-R5619:5632 KamiHW.ShadowDevice <> dsd_step_embed proj
-R5619:5632 KamiHW.ShadowDevice <> dsd_step_embed proj
-R5391:5402 KamiHW.Abstraction <> KamiSnapshot rec
-R5428:5444 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R5470:5479 KamiHW.Abstraction <> abs_phase1 def
-R5505:5513 KamiHW.Abstraction <> kami_step def
-R5539:5553 KamiHW.EmbedStep <> SupportedOpcode def
-R5589:5610 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R5637:5656 KamiHW.EmbedStep <> embed_step_supported thm
-prf 6020:6053 <> dynamic_shadow_device_trace_compat
-R6071:6089 KamiHW.ShadowDevice <> DynamicShadowDevice rec
-binder 6067:6067 <> D:23
-R6110:6113 Coq.Init.Datatypes <> list ind
-R6115:6128 Kernel.VMStep VMStep vm_instruction ind
-binder 6102:6106 <> trace:24
-R6148:6156 KamiHW.ShadowDevice <> dsd_state proj
-R6145:6145 KamiHW.ShadowDevice <> D:23 var
-binder 6141:6141 <> d:25
-R6165:6165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6214:6222 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 6173:6173 <> i:26
-R6191:6194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6176:6182 Coq.Lists.List <> In def
-R6186:6190 KamiHW.ShadowDevice <> trace:24 var
-R6184:6184 KamiHW.ShadowDevice <> i:26 var
-R6198:6210 KamiHW.ShadowDevice <> dsd_supported proj
-R6195:6195 KamiHW.ShadowDevice <> D:23 var
-R6213:6213 KamiHW.ShadowDevice <> i:26 var
-R6267:6273 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6226:6232 KamiHW.ShadowDevice <> dsd_obs proj
-R6223:6223 KamiHW.ShadowDevice <> D:23 var
-R6236:6244 Coq.Lists.List <> fold_left def
-R6265:6265 KamiHW.ShadowDevice <> d:25 var
-R6259:6263 KamiHW.ShadowDevice <> trace:24 var
-R6249:6256 KamiHW.ShadowDevice <> dsd_step proj
-R6246:6246 KamiHW.ShadowDevice <> D:23 var
-R6274:6284 Kernel.ShadowProjection <> shadow_proj def
-R6287:6295 Coq.Lists.List <> fold_left def
-R6316:6324 KamiHW.ShadowDevice <> dsd_embed proj
-R6313:6313 KamiHW.ShadowDevice <> D:23 var
-R6327:6327 KamiHW.ShadowDevice <> d:25 var
-R6306:6310 KamiHW.ShadowDevice <> trace:24 var
-R6297:6304 Kernel.SimulationProof <> vm_apply def
-R6425:6447 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
-R6425:6447 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
-R6498:6505 KamiHW.ShadowDevice <> dsd_step proj
-R6498:6505 KamiHW.ShadowDevice <> dsd_step proj
-R6498:6505 KamiHW.ShadowDevice <> dsd_step proj
-R6498:6505 KamiHW.ShadowDevice <> dsd_step proj
-R6533:6546 KamiHW.ShadowDevice <> dsd_step_embed proj
-R6533:6546 KamiHW.ShadowDevice <> dsd_step_embed proj
-R6533:6546 KamiHW.ShadowDevice <> dsd_step_embed proj
-R6533:6546 KamiHW.ShadowDevice <> dsd_step_embed proj
-prf 6749:6779 <> rtl_dynamic_shadow_trace_compat
-R6801:6804 Coq.Init.Datatypes <> list ind
-R6806:6819 Kernel.VMStep VMStep vm_instruction ind
-binder 6793:6797 <> trace:27
-R6828:6839 KamiHW.Abstraction <> KamiSnapshot rec
-binder 6823:6824 <> ks:28
-R6847:6847 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6894:6902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 6855:6855 <> i:29
-R6873:6876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6858:6864 Coq.Lists.List <> In def
-R6868:6872 KamiHW.ShadowDevice <> trace:27 var
-R6866:6866 KamiHW.ShadowDevice <> i:29 var
-R6877:6891 KamiHW.EmbedStep <> SupportedOpcode def
-R6893:6893 KamiHW.ShadowDevice <> i:29 var
-R6951:6957 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6903:6919 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R6922:6930 Coq.Lists.List <> fold_left def
-R6948:6949 KamiHW.ShadowDevice <> ks:28 var
-R6942:6946 KamiHW.ShadowDevice <> trace:27 var
-R6932:6940 KamiHW.Abstraction <> kami_step def
-R6958:6968 Kernel.ShadowProjection <> shadow_proj def
-R6971:6979 Coq.Lists.List <> fold_left def
-R6997:7006 KamiHW.Abstraction <> abs_phase1 def
-R7008:7009 KamiHW.ShadowDevice <> ks:28 var
-R6990:6994 KamiHW.ShadowDevice <> trace:27 var
-R6981:6988 Kernel.SimulationProof <> vm_apply def
-R7055:7088 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
-R7101:7132 KamiHW.ShadowDevice <> thiele_rtl_dynamic_shadow_device def
-R7055:7088 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
-R7101:7132 KamiHW.ShadowDevice <> thiele_rtl_dynamic_shadow_device def
-prf 7350:7384 <> dynamic_shadow_device_mu_observable
-R7402:7420 KamiHW.ShadowDevice <> DynamicShadowDevice rec
-binder 7398:7398 <> D:30
-R7441:7444 Coq.Init.Datatypes <> list ind
-R7446:7459 Kernel.VMStep VMStep vm_instruction ind
-binder 7433:7437 <> trace:31
-R7479:7487 KamiHW.ShadowDevice <> dsd_state proj
-R7476:7476 KamiHW.ShadowDevice <> D:30 var
-binder 7472:7472 <> d:32
-R7496:7496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7545:7553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 7504:7504 <> i:33
-R7522:7525 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7507:7513 Coq.Lists.List <> In def
-R7517:7521 KamiHW.ShadowDevice <> trace:31 var
-R7515:7515 KamiHW.ShadowDevice <> i:33 var
-R7529:7541 KamiHW.ShadowDevice <> dsd_supported proj
-R7526:7526 KamiHW.ShadowDevice <> D:30 var
-R7544:7544 KamiHW.ShadowDevice <> i:33 var
-R7608:7614 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7602:7606 Kernel.ShadowProjection <> cs_mu proj
-R7558:7564 KamiHW.ShadowDevice <> dsd_obs proj
-R7555:7555 KamiHW.ShadowDevice <> D:30 var
-R7568:7576 Coq.Lists.List <> fold_left def
-R7597:7597 KamiHW.ShadowDevice <> d:32 var
-R7591:7595 KamiHW.ShadowDevice <> trace:31 var
-R7581:7588 KamiHW.ShadowDevice <> dsd_step proj
-R7578:7578 KamiHW.ShadowDevice <> D:30 var
-R7661:7665 Kernel.VMState <> vm_mu proj
-R7616:7624 Coq.Lists.List <> fold_left def
-R7645:7653 KamiHW.ShadowDevice <> dsd_embed proj
-R7642:7642 KamiHW.ShadowDevice <> D:30 var
-R7656:7656 KamiHW.ShadowDevice <> d:32 var
-R7635:7639 KamiHW.ShadowDevice <> trace:31 var
-R7626:7633 Kernel.SimulationProof <> vm_apply def
-R7713:7746 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
-R7713:7746 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
-R7713:7746 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
-R7775:7785 Kernel.ShadowProjection <> shadow_proj def
+R1137:1140 Coq.Lists.List <> <> lib
+R1142:1155 Coq.Arith.PeanoNat <> <> lib
+R1165:1177 Coq.Lists.List ListNotations <> mod
+R1209:1215 Kernel.VMState <> <> lib
+R1217:1222 Kernel.VMStep <> <> lib
+R1224:1238 Kernel.SimulationProof <> <> lib
+R1240:1255 Kernel.ShadowProjection <> <> lib
+R1286:1296 KamiHW.Abstraction <> <> lib
+R1298:1314 KamiHW.VerilogRefinement <> <> lib
+R1316:1335 KamiHW.HardwareShadowBridge <> <> lib
+R1337:1345 KamiHW.EmbedStep <> <> lib
+rec 1628:1639 <> ShadowDevice
+proj 1648:1655 <> sd_state
+proj 1669:1674 <> sd_obs
+proj 1712:1719 <> sd_embed
+proj 1748:1769 <> sd_embed_shadow_compat
+R1689:1692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1681:1688 KamiHW.ShadowDevice <> sd_state:2 meth
+R1693:1706 Kernel.ShadowProjection <> ClassicalState rec
+R1732:1735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1724:1731 KamiHW.ShadowDevice <> sd_state:2 meth
+R1736:1742 Kernel.VMState <> VMState rec
+R1788:1795 KamiHW.ShadowDevice <> sd_state:2 meth
+binder 1784:1784 <> d:5
+R1806:1808 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1798:1803 KamiHW.ShadowDevice <> sd_obs:3 meth
+R1805:1805 KamiHW.ShadowDevice <> d:5 var
+R1809:1819 Kernel.ShadowProjection <> shadow_proj def
+R1822:1829 KamiHW.ShadowDevice <> sd_embed:4 meth
+R1831:1831 KamiHW.ShadowDevice <> d:5 var
+def 2091:2114 <> thiele_rtl_shadow_device
+R2118:2129 KamiHW.ShadowDevice <> ShadowDevice rec
+R2139:2146 KamiHW.ShadowDevice <> sd_state proj
+R2139:2146 KamiHW.ShadowDevice <> sd_state proj
+R2139:2146 KamiHW.ShadowDevice <> sd_state proj
+R2172:2177 KamiHW.ShadowDevice <> sd_obs proj
+R2172:2177 KamiHW.ShadowDevice <> sd_obs proj
+R2210:2217 KamiHW.ShadowDevice <> sd_embed proj
+R2210:2217 KamiHW.ShadowDevice <> sd_embed proj
+R2241:2262 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
+R2241:2262 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
+R2152:2163 KamiHW.Abstraction <> KamiSnapshot rec
+R2185:2201 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R2223:2232 KamiHW.Abstraction <> abs_phase1 def
+R2267:2288 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+prf 2628:2663 <> every_shadow_device_satisfies_compat
+R2681:2692 KamiHW.ShadowDevice <> ShadowDevice rec
+binder 2677:2677 <> D:7
+R2703:2710 KamiHW.ShadowDevice <> sd_state proj
+R2700:2700 KamiHW.ShadowDevice <> D:7 var
+binder 2696:2696 <> d:8
+R2731:2733 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2722:2727 KamiHW.ShadowDevice <> sd_obs proj
+R2719:2719 KamiHW.ShadowDevice <> D:7 var
+R2730:2730 KamiHW.ShadowDevice <> d:8 var
+R2734:2744 Kernel.ShadowProjection <> shadow_proj def
+R2750:2757 KamiHW.ShadowDevice <> sd_embed proj
+R2747:2747 KamiHW.ShadowDevice <> D:7 var
+R2760:2760 KamiHW.ShadowDevice <> d:8 var
+R2797:2818 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
+R2797:2818 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
+prf 3056:3087 <> shadow_device_mu_cost_observable
+R3105:3116 KamiHW.ShadowDevice <> ShadowDevice rec
+binder 3101:3101 <> D:9
+R3127:3134 KamiHW.ShadowDevice <> sd_state proj
+R3124:3124 KamiHW.ShadowDevice <> D:9 var
+binder 3120:3120 <> d:10
+R3165:3167 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3159:3163 Kernel.ShadowProjection <> cs_mu proj
+R3147:3152 KamiHW.ShadowDevice <> sd_obs proj
+R3144:3144 KamiHW.ShadowDevice <> D:9 var
+R3155:3155 KamiHW.ShadowDevice <> d:10 var
+R3186:3190 Kernel.VMState <> vm_mu proj
+R3172:3179 KamiHW.ShadowDevice <> sd_embed proj
+R3169:3169 KamiHW.ShadowDevice <> D:9 var
+R3182:3182 KamiHW.ShadowDevice <> d:10 var
+R3228:3249 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
+R3228:3249 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
+R3228:3249 KamiHW.ShadowDevice <> sd_embed_shadow_compat proj
+R3262:3272 Kernel.ShadowProjection <> shadow_proj def
+prf 3457:3490 <> thiele_rtl_satisfies_shadow_compat
+R3508:3519 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3503:3504 <> ks:11
+R3564:3570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3554:3559 KamiHW.ShadowDevice <> sd_obs proj
+R3527:3550 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
+R3562:3563 KamiHW.ShadowDevice <> ks:11 var
+R3571:3581 Kernel.ShadowProjection <> shadow_proj def
+R3612:3619 KamiHW.ShadowDevice <> sd_embed proj
+R3585:3608 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
+R3622:3623 KamiHW.ShadowDevice <> ks:11 var
+R3656:3691 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
+R3693:3716 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
+R3656:3691 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
+R3693:3716 KamiHW.ShadowDevice <> thiele_rtl_shadow_device def
+rec 4354:4372 <> DynamicShadowDevice
+proj 4381:4389 <> dsd_state
+proj 4406:4412 <> dsd_obs
+proj 4454:4462 <> dsd_embed
+proj 4495:4502 <> dsd_step
+proj 4556:4568 <> dsd_supported
+proj 4599:4621 <> dsd_embed_shadow_compat
+proj 4693:4706 <> dsd_step_embed
+R4431:4434 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4422:4430 KamiHW.ShadowDevice <> dsd_state:13 meth
+R4435:4448 Kernel.ShadowProjection <> ClassicalState rec
+R4479:4482 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4470:4478 KamiHW.ShadowDevice <> dsd_state:13 meth
+R4483:4489 Kernel.VMState <> VMState rec
+R4520:4523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4511:4519 KamiHW.ShadowDevice <> dsd_state:13 meth
+R4538:4541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4524:4537 Kernel.VMStep VMStep vm_instruction ind
+R4542:4550 KamiHW.ShadowDevice <> dsd_state:13 meth
+R4586:4589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4572:4585 Kernel.VMStep VMStep vm_instruction ind
+R4640:4648 KamiHW.ShadowDevice <> dsd_state:13 meth
+binder 4636:4636 <> d:18
+R4660:4662 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4651:4657 KamiHW.ShadowDevice <> dsd_obs:14 meth
+R4659:4659 KamiHW.ShadowDevice <> d:18 var
+R4663:4673 Kernel.ShadowProjection <> shadow_proj def
+R4676:4684 KamiHW.ShadowDevice <> dsd_embed:15 meth
+R4686:4686 KamiHW.ShadowDevice <> d:18 var
+R4726:4734 KamiHW.ShadowDevice <> dsd_state:13 meth
+binder 4722:4722 <> d:20
+R4742:4755 Kernel.VMStep VMStep vm_instruction ind
+binder 4738:4738 <> i:21
+R4780:4789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4765:4777 KamiHW.ShadowDevice <> dsd_supported:17 meth
+R4779:4779 KamiHW.ShadowDevice <> i:21 var
+R4814:4816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4790:4798 KamiHW.ShadowDevice <> dsd_embed:15 meth
+R4801:4808 KamiHW.ShadowDevice <> dsd_step:16 meth
+R4812:4812 KamiHW.ShadowDevice <> i:21 var
+R4810:4810 KamiHW.ShadowDevice <> d:20 var
+R4817:4824 Kernel.SimulationProof <> vm_apply def
+R4827:4835 KamiHW.ShadowDevice <> dsd_embed:15 meth
+R4837:4837 KamiHW.ShadowDevice <> d:20 var
+R4840:4840 KamiHW.ShadowDevice <> i:21 var
+def 5110:5141 <> thiele_rtl_dynamic_shadow_device
+R5145:5163 KamiHW.ShadowDevice <> DynamicShadowDevice rec
+R5173:5181 KamiHW.ShadowDevice <> dsd_state proj
+R5173:5181 KamiHW.ShadowDevice <> dsd_state proj
+R5173:5181 KamiHW.ShadowDevice <> dsd_state proj
+R5210:5216 KamiHW.ShadowDevice <> dsd_obs proj
+R5210:5216 KamiHW.ShadowDevice <> dsd_obs proj
+R5252:5260 KamiHW.ShadowDevice <> dsd_embed proj
+R5252:5260 KamiHW.ShadowDevice <> dsd_embed proj
+R5287:5294 KamiHW.ShadowDevice <> dsd_step proj
+R5287:5294 KamiHW.ShadowDevice <> dsd_step proj
+R5321:5333 KamiHW.ShadowDevice <> dsd_supported proj
+R5321:5333 KamiHW.ShadowDevice <> dsd_supported proj
+R5361:5383 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
+R5361:5383 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
+R5418:5431 KamiHW.ShadowDevice <> dsd_step_embed proj
+R5418:5431 KamiHW.ShadowDevice <> dsd_step_embed proj
+R5190:5201 KamiHW.Abstraction <> KamiSnapshot rec
+R5227:5243 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R5269:5278 KamiHW.Abstraction <> abs_phase1 def
+R5304:5312 KamiHW.Abstraction <> kami_step def
+R5338:5352 KamiHW.EmbedStep <> SupportedOpcode def
+R5388:5409 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R5436:5455 KamiHW.EmbedStep <> embed_step_supported thm
+prf 5817:5850 <> dynamic_shadow_device_trace_compat
+R5868:5886 KamiHW.ShadowDevice <> DynamicShadowDevice rec
+binder 5864:5864 <> D:23
+R5907:5910 Coq.Init.Datatypes <> list ind
+R5912:5925 Kernel.VMStep VMStep vm_instruction ind
+binder 5899:5903 <> trace:24
+R5945:5953 KamiHW.ShadowDevice <> dsd_state proj
+R5942:5942 KamiHW.ShadowDevice <> D:23 var
+binder 5938:5938 <> d:25
+R5962:5962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6011:6019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5970:5970 <> i:26
+R5988:5991 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5973:5979 Coq.Lists.List <> In def
+R5983:5987 KamiHW.ShadowDevice <> trace:24 var
+R5981:5981 KamiHW.ShadowDevice <> i:26 var
+R5995:6007 KamiHW.ShadowDevice <> dsd_supported proj
+R5992:5992 KamiHW.ShadowDevice <> D:23 var
+R6010:6010 KamiHW.ShadowDevice <> i:26 var
+R6064:6070 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6023:6029 KamiHW.ShadowDevice <> dsd_obs proj
+R6020:6020 KamiHW.ShadowDevice <> D:23 var
+R6033:6041 Coq.Lists.List <> fold_left def
+R6062:6062 KamiHW.ShadowDevice <> d:25 var
+R6056:6060 KamiHW.ShadowDevice <> trace:24 var
+R6046:6053 KamiHW.ShadowDevice <> dsd_step proj
+R6043:6043 KamiHW.ShadowDevice <> D:23 var
+R6071:6081 Kernel.ShadowProjection <> shadow_proj def
+R6084:6092 Coq.Lists.List <> fold_left def
+R6113:6121 KamiHW.ShadowDevice <> dsd_embed proj
+R6110:6110 KamiHW.ShadowDevice <> D:23 var
+R6124:6124 KamiHW.ShadowDevice <> d:25 var
+R6103:6107 KamiHW.ShadowDevice <> trace:24 var
+R6094:6101 Kernel.SimulationProof <> vm_apply def
+R6222:6244 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
+R6222:6244 KamiHW.ShadowDevice <> dsd_embed_shadow_compat proj
+R6295:6302 KamiHW.ShadowDevice <> dsd_step proj
+R6295:6302 KamiHW.ShadowDevice <> dsd_step proj
+R6295:6302 KamiHW.ShadowDevice <> dsd_step proj
+R6295:6302 KamiHW.ShadowDevice <> dsd_step proj
+R6330:6343 KamiHW.ShadowDevice <> dsd_step_embed proj
+R6330:6343 KamiHW.ShadowDevice <> dsd_step_embed proj
+R6330:6343 KamiHW.ShadowDevice <> dsd_step_embed proj
+R6330:6343 KamiHW.ShadowDevice <> dsd_step_embed proj
+prf 6544:6574 <> rtl_dynamic_shadow_trace_compat
+R6596:6599 Coq.Init.Datatypes <> list ind
+R6601:6614 Kernel.VMStep VMStep vm_instruction ind
+binder 6588:6592 <> trace:27
+R6623:6634 KamiHW.Abstraction <> KamiSnapshot rec
+binder 6618:6619 <> ks:28
+R6642:6642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6689:6697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6650:6650 <> i:29
+R6668:6671 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6653:6659 Coq.Lists.List <> In def
+R6663:6667 KamiHW.ShadowDevice <> trace:27 var
+R6661:6661 KamiHW.ShadowDevice <> i:29 var
+R6672:6686 KamiHW.EmbedStep <> SupportedOpcode def
+R6688:6688 KamiHW.ShadowDevice <> i:29 var
+R6746:6752 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6698:6714 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R6717:6725 Coq.Lists.List <> fold_left def
+R6743:6744 KamiHW.ShadowDevice <> ks:28 var
+R6737:6741 KamiHW.ShadowDevice <> trace:27 var
+R6727:6735 KamiHW.Abstraction <> kami_step def
+R6753:6763 Kernel.ShadowProjection <> shadow_proj def
+R6766:6774 Coq.Lists.List <> fold_left def
+R6792:6801 KamiHW.Abstraction <> abs_phase1 def
+R6803:6804 KamiHW.ShadowDevice <> ks:28 var
+R6785:6789 KamiHW.ShadowDevice <> trace:27 var
+R6776:6783 Kernel.SimulationProof <> vm_apply def
+R6850:6883 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
+R6896:6927 KamiHW.ShadowDevice <> thiele_rtl_dynamic_shadow_device def
+R6850:6883 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
+R6896:6927 KamiHW.ShadowDevice <> thiele_rtl_dynamic_shadow_device def
+prf 7143:7177 <> dynamic_shadow_device_mu_observable
+R7195:7213 KamiHW.ShadowDevice <> DynamicShadowDevice rec
+binder 7191:7191 <> D:30
+R7234:7237 Coq.Init.Datatypes <> list ind
+R7239:7252 Kernel.VMStep VMStep vm_instruction ind
+binder 7226:7230 <> trace:31
+R7272:7280 KamiHW.ShadowDevice <> dsd_state proj
+R7269:7269 KamiHW.ShadowDevice <> D:30 var
+binder 7265:7265 <> d:32
+R7289:7289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7338:7346 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7297:7297 <> i:33
+R7315:7318 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7300:7306 Coq.Lists.List <> In def
+R7310:7314 KamiHW.ShadowDevice <> trace:31 var
+R7308:7308 KamiHW.ShadowDevice <> i:33 var
+R7322:7334 KamiHW.ShadowDevice <> dsd_supported proj
+R7319:7319 KamiHW.ShadowDevice <> D:30 var
+R7337:7337 KamiHW.ShadowDevice <> i:33 var
+R7401:7407 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7395:7399 Kernel.ShadowProjection <> cs_mu proj
+R7351:7357 KamiHW.ShadowDevice <> dsd_obs proj
+R7348:7348 KamiHW.ShadowDevice <> D:30 var
+R7361:7369 Coq.Lists.List <> fold_left def
+R7390:7390 KamiHW.ShadowDevice <> d:32 var
+R7384:7388 KamiHW.ShadowDevice <> trace:31 var
+R7374:7381 KamiHW.ShadowDevice <> dsd_step proj
+R7371:7371 KamiHW.ShadowDevice <> D:30 var
+R7454:7458 Kernel.VMState <> vm_mu proj
+R7409:7417 Coq.Lists.List <> fold_left def
+R7438:7446 KamiHW.ShadowDevice <> dsd_embed proj
+R7435:7435 KamiHW.ShadowDevice <> D:30 var
+R7449:7449 KamiHW.ShadowDevice <> d:32 var
+R7428:7432 KamiHW.ShadowDevice <> trace:31 var
+R7419:7426 Kernel.SimulationProof <> vm_apply def
+R7506:7539 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
+R7506:7539 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
+R7506:7539 KamiHW.ShadowDevice <> dynamic_shadow_device_trace_compat thm
+R7568:7578 Kernel.ShadowProjection <> shadow_proj def

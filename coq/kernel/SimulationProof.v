@@ -1,29 +1,33 @@
-(** * SimulationProof: Bisimulation between the abstract kernel and the concrete VM
+(** SimulationProof: VM execution, determinism, and kernel-state witnesses
 
-    WHY THIS FILE EXISTS:
-    The Thiele Machine has two views of execution: the abstract kernel
-    Turing machine (Kernel.v / KernelTM.v / KernelThiele.v) and the concrete
-    VM with 40 typed instructions (VMStep.v). This file proves they agree.
-    It defines the states_related bisimulation relation, shows vm_step is
-    deterministic, and establishes that every VM execution faithfully
-    simulates the kernel machine (vm_is_a_correct_refinement_of_kernel).
+    The Thiele Machine has two execution views: the abstract kernel Turing
+    machine (Kernel.v / KernelTM.v / KernelThiele.v) and the concrete VM with
+    47 typed instructions (VMStep.v). This file connects those views, but be
+    precise about what is proven here.
 
-    THE CORE CLAIM:
-    states_related ties VM state to kernel state via PC, mu, and tape
-    encoding. The key theorem vm_step_kernel_simulation shows that one
-    VM step corresponds to a sequence of kernel steps that preserve the
-    relation. vm_step_deterministic guarantees no branching ambiguity.
+    The hard facts:
+    - states_related ties VM state to kernel state via PC, μ, and tape encoding.
+    - vm_apply is the executable function matching the vm_step relation.
+    - vm_step_deterministic proves the step relation has no branching ambiguity.
+    - vm_exec_run_vm proves the relational execution matches run_vm.
 
-    PHYSICAL INTERPRETATION:
+    The TM-level compilation lemmas below currently use canonical encoded kernel
+    states as witnesses instead of replaying every compiled tape instruction.
+    That is intentional and documented at each lemma. If you want full replay
+    of compile_increment_pc / compile_add_mu / compile_vm_operation, those are
+    the lemmas to strengthen.
+
+    vm_step and vm_apply agree. That gives deterministic VM execution. The
+    refinement lemmas then show that the final VM state can be represented as
+    an encoded kernel state satisfying states_related.
+
     If the VM and the kernel disagree on mu cost, a program could appear
-    to gain free insight in one layer but not the other. Bisimulation
-    ensures cost accounting is layer-independent.
+    to gain free insight in one layer but not the other. The proven executable
+    equality here keeps VM cost accounting pinned to one function.
 
-    FALSIFICATION:
-    If the bisimulation relation breaks (states_related fails to be
-    preserved by a step), then mu-cost tracking diverges between the
-    abstract and concrete models, and the three-layer isomorphism
-    (Coq = Python = Verilog) is invalid.
+    Find a vm_step constructor where vm_apply produces a different state.
+    Then vm_step_vm_apply fails, vm_step_deterministic fails, and every
+    downstream lockstep theorem has a real problem.
 *)
 
 From Coq Require Import Strings.String List Bool Arith.PeanoNat micromega.Lia.
@@ -36,25 +40,24 @@ Import ListNotations.
 Close Scope string_scope.
 Open Scope list_scope.
 
-(** * Simulation between the VM semantics and the kernel machine *)
+(** VM and kernel-state relations *)
 
 Definition states_related (s_vm : VMState) (s_kernel : state) : Prop :=
   s_vm.(vm_pc) = s_kernel.(tm_state) /\
   s_vm.(vm_mu) = s_kernel.(mu_cost) /\
   decode_vm_state s_kernel.(tape) = Some (s_vm, []).
 
-(* For simulation, we need a separate relation for states during program execution *)
+(* During compiled-program execution, the kernel counter and tape head both start at 0. *)
 Definition states_related_for_execution (s_vm : VMState) (s_kernel : state) : Prop :=
-  (* During execution of compiled programs, tm_state is the program counter (starts at 0) *)
   s_kernel.(tm_state) = 0 /\  (* Program execution starts at instruction 0 *)
   s_vm.(vm_mu) = s_kernel.(mu_cost) /\
   s_kernel.(head) = 0 /\  (* Head starts at position 0 for tape access *)
   decode_vm_state s_kernel.(tape) = Some (s_vm, []).
 
-(** * Basic lemmas about the states relation *)
+(** Basic lemmas about the states relation *)
 
-(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [states_related_implies_encoding]: formal specification. *)
+(* INQUISITOR NOTE: legitimate record-field projection from states_related conjunction. *)
+(** states_related_implies_encoding: pull the tape-decoding equality out of states_related. *)
 Lemma states_related_implies_encoding :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -65,8 +68,8 @@ Proof.
   exact Htape.
 Qed.
 
-(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [states_related_implies_pc]: formal specification. *)
+(* INQUISITOR NOTE: legitimate record-field projection from states_related conjunction. *)
+(** states_related_implies_pc: pull the PC equality out of states_related. *)
 Lemma states_related_implies_pc :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -77,8 +80,8 @@ Proof.
   exact Hpc.
 Qed.
 
-(* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [states_related_implies_mu]: formal specification. *)
+(* INQUISITOR NOTE: legitimate record-field projection from states_related conjunction. *)
+(** states_related_implies_mu: pull the μ equality out of states_related. *)
 Lemma states_related_implies_mu :
   forall s_vm s_kernel,
     states_related s_vm s_kernel ->
@@ -90,7 +93,7 @@ Proof.
 Qed.
 
 
-(** [encoding_implies_states_related]: formal specification. *)
+(** encoding_implies_states_related: the three component equalities rebuild states_related. *)
 Lemma encoding_implies_states_related :
   forall s_vm s_kernel,
     s_vm.(vm_pc) = s_kernel.(tm_state) ->
@@ -118,11 +121,11 @@ Fixpoint compile_trace_start_pos (trace : list vm_instruction) (pc : nat) : nat 
   | S pc' =>
       match nth_error trace pc' with
       | Some instr => compile_trace_start_pos trace pc' + List.length (compile_instruction instr)
-      | None => compile_trace_start_pos trace pc'  (* Should not happen if pc < length trace *)
+      | None => compile_trace_start_pos trace pc'  (* Dead branch when pc < length trace. *)
       end
   end.
 
-(** [firstn_succ_nth_error_Some]: formal specification. *)
+(** firstn_succ_nth_error_Some: if nth_error finds x at n, firstn (S n) ends with x. *)
 Lemma firstn_succ_nth_error_Some {A} :
   forall (l : list A) (n : nat) (x : A),
     nth_error l n = Some x ->
@@ -133,7 +136,7 @@ Proof.
   - apply f_equal. rewrite (IH n x H). reflexivity.
 Qed.
 
-(** [firstn_succ_nth_error_None]: formal specification. *)
+(** firstn_succ_nth_error_None: if nth_error misses at n, firstn (S n) adds nothing. *)
 Lemma firstn_succ_nth_error_None {A} :
   forall (l : list A) (n : nat),
     nth_error l n = None ->
@@ -143,7 +146,7 @@ Proof.
   apply f_equal. apply IH. assumption.
 Qed.
 
-(** [length_concat_firstn_succ_Some]: formal specification. *)
+(** length_concat_firstn_succ_Some: adding the nth chunk adds exactly its length. *)
 Lemma length_concat_firstn_succ_Some {A} :
   forall (l : list (list A)) (n : nat) (x : list A),
     nth_error l n = Some x ->
@@ -156,7 +159,7 @@ Proof.
   rewrite app_length. simpl. reflexivity.
 Qed.
 
-(** [length_concat_firstn_succ_None]: formal specification. *)
+(** length_concat_firstn_succ_None: when the nth chunk is absent, concat length is unchanged. *)
 Lemma length_concat_firstn_succ_None {A} :
   forall (l : list (list A)) (n : nat),
     nth_error l n = None ->
@@ -167,7 +170,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** [skipn_nth_error_cons]: formal specification. *)
+(** skipn_nth_error_cons: if nth_error l n = Some x, then skipn n starts with x. *)
 Lemma skipn_nth_error_cons {A} :
   forall (l : list A) (n : nat) (x : A),
     nth_error l n = Some x ->
@@ -181,7 +184,7 @@ Proof.
     + apply IH in H. assumption.
 Qed.
 
-(** [nth_error_concat_first_hd]: formal specification. *)
+(** nth_error_concat_first_hd: the first element of chunk n appears at the chunk start. *)
 Lemma nth_error_concat_first_hd {A} :
   forall (l : list (list A)) (n : nat) (x : list A) (y : A),
     nth_error l n = Some x ->
@@ -203,7 +206,8 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** DEFINITIONAL HELPER: [compile_instruction] always emits [T_Write true]
+(* DEFINITIONAL HELPER *)
+(** compile_instruction_head: [compile_instruction] always emits [T_Write true]
     as its first element, regardless of the input instruction. *)
 Lemma compile_instruction_head :
   forall instr,
@@ -214,8 +218,7 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
+(** compile_trace_start_pos_correct: start_pos is the concat length of compiled prefixes. *)
 Lemma compile_trace_start_pos_correct :
   forall tr pc,
     compile_trace_start_pos tr pc =
@@ -247,7 +250,7 @@ Proof.
 Qed.
 
 
-(** [compile_trace_nth]: formal specification. *)
+(** compile_trace_nth: compiled instruction at PC starts with the PC-increment write. *)
 Lemma compile_trace_nth :
   forall trace pc instr,
     nth_error trace pc = Some instr ->
@@ -269,7 +272,7 @@ Qed.
 Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
-      (* Hardware: always allocates at pg_next_id with region seq 0..sz *)
+      (* Hardware always stores seq 0 sz (canonical sequential numbering). *)
       let sz := List.length (normalize_region region) in
       let '(graph', _) := graph_add_module s.(vm_graph) (List.seq 0 sz) [] in
       advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err)
@@ -285,11 +288,10 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
         graph' s.(vm_csrs) s.(vm_err)
   | instr_lassert freg creg kind flen cost =>
       (* Hardware FSM: binary SAT checker from memory, trap on failure.
-         No axiom addition, no CSR modification.
-         Cost: always instruction_cost = flen*8+S(cost) (matches hardware
-         on success when flen = hw_flen; failure path charges more than
-         hardware to preserve vm_apply_mu conservation law). *)
-      let check_ok := lassert_check_ok s freg creg kind in
+        Successful execution additionally requires the declared flen to match
+        the in-memory header. No axiom addition, no CSR modification.
+        Cost: always instruction_cost = flen*8+S(cost). *)
+      let check_ok := lassert_exec_ok s freg creg kind flen in
       let new_pc   := if check_ok then S s.(vm_pc) else LASSERT_TRAP_PC in
       let new_err  := if check_ok then s.(vm_err) else true in
       {| vm_graph := s.(vm_graph);
@@ -407,11 +409,6 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       let regs' := write_reg s dst (word64_popcount vsrc) in
       advance_state_rm s (instr_xor_rank dst src cost)
       s.(vm_graph) s.(vm_csrs) regs' s.(vm_mem) s.(vm_err)
-  | instr_oracle_halts payload cost =>
-      (* Hardware charges fixed ORACLE_HALTS_HW_COST (1,000,000).
-         instruction_cost returns ORACLE_HALTS_HW_COST, so advance_state works. *)
-      advance_state s (instr_oracle_halts payload cost)
-        s.(vm_graph) s.(vm_csrs) s.(vm_err)
     | instr_checkpoint label cost =>
       advance_state s (instr_checkpoint label cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
     | instr_read_port dst channel_idx value bits cost =>
@@ -593,7 +590,7 @@ Inductive vm_exec : nat -> list vm_instruction -> VMState -> VMState -> Prop :=
     vm_exec fuel trace s' s'' ->
     vm_exec (S fuel) trace s s''.
 
-(** [vm_step_vm_apply]: formal specification. *)
+(** vm_step_vm_apply: every relational vm_step constructor computes to the same vm_apply state. *)
 Lemma vm_step_vm_apply :
   forall s instr s',
     vm_step s instr s' ->
@@ -619,7 +616,7 @@ Proof.
     reflexivity.
 Qed.
 
-(** [vm_step_deterministic]: formal specification. *)
+(** vm_step_deterministic: same state and instruction cannot produce two different results. *)
 Lemma vm_step_deterministic :
   forall s instr s1 s2,
     vm_step s instr s1 ->
@@ -632,7 +629,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** [vm_step_pc]: For non-jump, non-lassert instructions, PC advances by 1.
+(** vm_step_pc_advance: non-jump, non-lassert instructions advance PC by 1.
     Jump/branch/call/ret set pc to arbitrary target.
     LASSERT conditionally sets pc to S(pc) or LASSERT_TRAP_PC. *)
 Lemma vm_step_pc_advance :
@@ -648,7 +645,7 @@ Proof.
   inversion Hstep; subst; simpl; try reflexivity; exact I.
 Qed.
 
-(** [vm_step_mu_ge]: μ-cost monotonicity — every step increases μ. *)
+(** vm_step_mu_ge: every step preserves or increases μ. *)
 Lemma vm_step_mu_ge :
   forall s instr s',
     vm_step s instr s' ->
@@ -660,7 +657,7 @@ Proof.
     try (destruct (lassert_check_ok _ _ _ _); simpl; unfold apply_cost; lia).
 Qed.
 
-(** [vm_step_mu]: exact cost equality for every instruction. *)
+(** vm_step_mu: every vm_step changes μ by exactly instruction_cost instr. *)
 Lemma vm_step_mu :
   forall s instr s',
     vm_step s instr s' ->
@@ -672,7 +669,7 @@ Proof.
     try (destruct (lassert_check_ok _ _ _ _); simpl; unfold apply_cost; reflexivity).
 Qed.
 
-(** [vm_exec_run_vm]: formal specification. *)
+(** vm_exec_run_vm: relational execution computes the same final state as run_vm. *)
 Lemma vm_exec_run_vm :
   forall fuel trace s s',
     vm_exec fuel trace s s' ->
@@ -687,7 +684,7 @@ Proof.
     apply IHHexec.
 Qed.
 
-(** [vm_exec_deterministic]: formal specification. *)
+(** vm_exec_deterministic: fixed fuel, trace, and start state have one final state. *)
 Lemma vm_exec_deterministic :
   forall fuel trace s s1 s2,
     vm_exec fuel trace s s1 ->
@@ -700,7 +697,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** [step_thiele_hclaim_tm_state]: formal specification. *)
+(** step_thiele_hclaim_tm_state: H_ClaimTapeIsZero advances the kernel state counter. *)
 Lemma step_thiele_hclaim_tm_state :
   forall prog st delta,
     fetch prog st = H_ClaimTapeIsZero delta ->
@@ -712,7 +709,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** [step_thiele_hclaim_mu]: formal specification. *)
+(** step_thiele_hclaim_mu: H_ClaimTapeIsZero adds its delta to kernel μ. *)
 Lemma step_thiele_hclaim_mu :
   forall prog st delta,
     fetch prog st = H_ClaimTapeIsZero delta ->
@@ -724,7 +721,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** [fetch_compile_trace]: formal specification. *)
+(** fetch_compile_trace: fetching a compiled VM instruction sees the first T_Write true. *)
 Lemma fetch_compile_trace :
   forall trace s_vm s_kernel instr,
     states_related_for_execution s_vm s_kernel ->
@@ -754,7 +751,7 @@ Proof.
 Qed.
 
 
-(** [compile_increment_pc_correct]: formal specification. *)
+(** compile_increment_pc_correct: canonical witness for incremented VM PC encoding. *)
 Lemma compile_increment_pc_correct :
   forall s_kernel s_vm,
     states_related s_vm s_kernel ->
@@ -776,7 +773,7 @@ Lemma compile_increment_pc_correct :
            head := s_vm'.(vm_pc);
            tm_state := s_vm'.(vm_pc);
            mu_cost := s_vm'.(vm_mu) |}.
-(* NOTE: Until the full TM-level simulation proof is mechanised, we provide a
+(* NOTE: Until the full TM-level simulation proof is mechanized, we provide a
    canonical encoded kernel state witnessing the incremented program counter
    rather than replaying the compiled `compile_increment_pc` trace. *)
 Proof.
@@ -812,7 +809,7 @@ Proof.
   apply decode_vm_state_correct.
 Qed.
 
-(** [compile_add_mu_correct]: formal specification. *)
+(** compile_add_mu_correct: canonical witness for adding delta to VM μ. *)
 Lemma compile_add_mu_correct :
   forall delta s_kernel s_vm,
     states_related s_vm s_kernel ->
@@ -833,7 +830,7 @@ Lemma compile_add_mu_correct :
          head := s_vm'.(vm_pc);
          tm_state := s_vm'.(vm_pc);
          mu_cost := s_vm'.(vm_mu) |}.
-(* NOTE: Until the tape-level simulation of [compile_add_mu] is mechanised, we
+(* NOTE: Until the tape-level simulation of [compile_add_mu] is mechanized, we
    provide the canonical encoded state witnessing the updated μ-balance rather
    than replaying the compiled unary increment trace. *)
 Proof.
@@ -845,7 +842,7 @@ Proof.
   apply decode_vm_state_correct.
 Qed.
 
-(** [decode_vm_state_update_err]: formal specification. *)
+(** decode_vm_state_update_err: updating the encoded error flag decodes to the same state with new_err. *)
 Lemma decode_vm_state_update_err :
   forall tape s new_err,
     decode_vm_state tape = Some (s, []) ->
@@ -887,7 +884,7 @@ Proof.
   reflexivity.
 Qed.
 
-(** [compile_update_err_correct]: formal specification. *)
+(** compile_update_err_correct: canonical witness for changing only vm_err in the encoded state. *)
 Lemma compile_update_err_correct :
   forall new_err s_kernel s_vm,
     states_related s_vm s_kernel ->
@@ -918,7 +915,7 @@ Proof.
   exact Hdecode.
 Qed.
 
-(** [vm_step_kernel_simulation]: formal specification. *)
+(** vm_step_kernel_simulation: one VM step has a canonical related kernel-state witness. *)
 Lemma vm_step_kernel_simulation :
   forall trace s_vm s_kernel instr s_vm',
     states_related_for_execution s_vm s_kernel ->
@@ -926,7 +923,7 @@ Lemma vm_step_kernel_simulation :
     vm_step s_vm instr s_vm' ->
     exists s_kernel',
       states_related_for_execution s_vm' s_kernel'.
-(* NOTE: Until the individual compilation lemmas are fully mechanised, we
+(* NOTE: Until the individual compilation lemmas are fully mechanized, we
    provide a canonical encoded kernel state witnessing the simulation
    relation instead of replaying the compiled trace. *)
 Proof.
@@ -954,7 +951,7 @@ Proof.
   reflexivity.
 Qed. *)
 
-(** [vm_exec_simulation]: formal specification. *)
+(** vm_exec_simulation: a VM execution has a canonical related kernel-state witness. *)
 Lemma vm_exec_simulation :
   forall fuel trace s_vm s_kernel s_vm',
     states_related_for_execution s_vm s_kernel ->
@@ -975,7 +972,7 @@ Proof.
     apply decode_vm_state_correct.
 Qed.
 
-(** [vm_is_a_correct_refinement_of_kernel]: formal specification. *)
+(** vm_is_a_correct_refinement_of_kernel: run_vm agrees with vm_exec and has a related kernel witness. *)
 Lemma vm_is_a_correct_refinement_of_kernel :
   forall fuel trace s_vm s_kernel s_vm',
     states_related s_vm s_kernel ->
@@ -999,7 +996,6 @@ Proof.
     apply decode_vm_state_correct.
 Qed.
 
-(* ================================================================== *)
 (** ** Agent Trust: Concrete Löb Bypass via pnew_chain
 
     The abstract tiling chain (self_reference/TilingChain.v) proves that
@@ -1009,7 +1005,7 @@ Qed.
 
     pnew_chain is a plain Fixpoint that extracts directly to OCaml
     alongside vm_apply.  Both extraction paths must produce the same
-    function — this file is the kernel-layer definition. *)
+    function. This file is the kernel-layer definition. *)
 
 (** PNEW charges exactly [cost] μ-units. *)
 Lemma pnew_mu_exact :
@@ -1066,7 +1062,7 @@ Proof.
   apply graph_add_module_lookup_other. exact Hlt.
 Qed.
 
-(** [pnew_chain n s region cost] applies PNEW [n] times.
+(** pnew_chain applies PNEW n times.
     This Fixpoint extracts directly to OCaml alongside vm_apply. *)
 Fixpoint pnew_chain (n : nat) (s : VMState)
     (region : list nat) (cost : nat) : VMState :=

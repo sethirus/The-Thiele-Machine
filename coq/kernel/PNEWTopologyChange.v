@@ -1,27 +1,13 @@
-(** * PNEW Changes Topology: Phase 3 of Gravity Proof
+(** PNEWTopologyChange: PNEW and topological change.
 
-    PURPOSE: Prove that PNEW operations change the Euler characteristic χ.
-    This is Phase 3 of deriving Einstein's equation from VM dynamics.
+  This file asks a narrow question: when a PNEW step inserts a genuinely new
+  region, what has to change in the graph-level topology bookkeeping?
 
-    APPROACH: Show that PNEW with a fresh region changes V, E, F → changes χ.
-
-    GRAVITY EMERGENCE PIPELINE (dependency chain):
-    1. DiscreteTopology.v — topological definitions (V, E, F, χ)
-    2. DiscreteGaussBonnet.v — Gauss-Bonnet (Σ angle_defects = 5π×χ)
-    3. This file — PNEW changes topology (ΔV, ΔE, ΔF → Δχ)
-    4. TopologyCurvatureBridge.v — Δχ → ΔCurvature
-    5. StressEnergyDynamics.v — stress-energy drives PNEW frequency
-    6. EinsteinEmergence.v — derive discrete Einstein analogue
-
-    KEY THEOREMS:
-    - pnew_fresh_increases_F: PNEW with fresh region increases face count
-    - pnew_fresh_changes_topology: PNEW changes V, E, or F
-    - pnew_fresh_changes_euler_char: PNEW changes χ
-
-    NO AXIOMS. NO ADMITTED. All proofs compile with Coq 8.18+.
-
-    REF: DiscreteTopology.v, DiscreteGaussBonnet.v, TopologyCurvatureBridge.v
-    *)
+  The clean fact is that a fresh region increases F, because it adds a module.
+  From there, the file proves a sequence of weaker and stronger statements
+  about measurable topological change. The point is not that every PNEW step
+  changes chi in every configuration. The point is to state carefully which
+  graph changes are guaranteed and which depend on overlap geometry. *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -33,28 +19,13 @@ From Kernel Require Import VMState VMStep DiscreteTopology.
 
 (** ** PNEW Semantics Recap
 
-    From VMState.v:
-    Definition graph_pnew (g : PartitionGraph) (region : list nat)
-      : PartitionGraph * ModuleID :=
-      let normalized := normalize_region region in
-      match graph_find_region g normalized with
-      | Some existing => (g, existing)
-      | None => graph_add_module g normalized []
-      end.
-
-    KEY INSIGHT: When graph_find_region returns None (fresh region),
-    graph_add_module is called, which:
-    1. Increments pg_next_id
-    2. Adds new module to pg_modules
-    3. This changes the graph structure → changes topology
-    *)
+    The branch that matters is the fresh-region branch. If graph_find_region
+    returns None, graph_add_module runs and the module list grows. That is the
+    concrete source of the topological change discussed below. *)
 
 (** ** Face Count Changes
 
-    When PNEW adds a fresh region, F increases by 1.
-    This is because F = length(pg_modules), and graph_add_module
-    prepends a new module to the list.
-    *)
+  Fresh PNEW means one more module, so F goes up by exactly 1. *)
 
 Lemma graph_add_module_increases_F : forall g region axioms,
   F (fst (graph_add_module g region axioms)) = S (F g).
@@ -65,7 +36,6 @@ Proof.
   reflexivity.
 Qed.
 
-(** [pnew_fresh_increases_F]: formal specification. *)
 Theorem pnew_fresh_increases_F : forall g region,
   graph_find_region g (normalize_region region) = None ->
   let (g', _) := graph_pnew g region in
@@ -84,11 +54,7 @@ Qed.
 
 (** ** Triangle PNEW Changes Topology
 
-    KEY THEOREM: When PNEW adds a fresh triangular region,
-    the topology changes (V, E, or F changes).
-
-    For a triangle, F definitely increases by 1.
-    *)
+  For a fresh triangle, something measurable has to move. At minimum F does. *)
 
 Theorem pnew_fresh_triangle_changes_topology : forall g region,
   length (normalize_region region) = 3 ->
@@ -117,26 +83,16 @@ Qed.
 
 (** ** PNEW Changes Euler Characteristic
 
-    MAIN THEOREM: When PNEW adds a fresh triangular region, χ changes.
+  This is where the naive slogan needs tightening. A fresh triangle always
+  changes the graph, but it does not always change chi. The value of
+  delta-chi depends on how many vertices and edges were already present.
 
-    PROOF STRATEGY:
-    1. PNEW fresh → F increases by 1
-    2. PNEW fresh triangle → E increases by some amount (0 to 3)
-    3. PNEW fresh triangle → V increases by some amount (0 to 3)
-    4. χ = V - E + F, so Δχ = ΔV - ΔE + ΔF = ΔV - ΔE + 1
-    5. To show Δχ ≠ 0, we need ΔV - ΔE + 1 ≠ 0
-    6. This requires case analysis on ΔV and ΔE
-
-    CHALLENGE: The change depends on graph structure.
-    - If all 3 nodes are new: ΔV = 3, ΔE = 3, Δχ = 3 - 3 + 1 = 1 ✓
-    - If 2 nodes exist, 1 new: ΔV = 1, ΔE = 2, Δχ = 1 - 2 + 1 = 0 ✗
-
-    INSIGHT: Not all PNEW operations change χ! Only certain configurations do.
-    We need to strengthen the theorem to specify when χ changes.
-    *)
+  So the honest result is conditional: some fresh PNEW steps change chi, and
+  some preserve it. The file keeps the guaranteed statements separate from the
+  overlap-sensitive ones. *)
 
 
-(** Weaker version: PNEW with fresh region changes graph structure *)
+(** Weaker version: fresh PNEW changes graph structure. *)
 Theorem pnew_fresh_changes_graph : forall g region,
   normalize_region region <> [] ->
   graph_find_region g (normalize_region region) = None ->
@@ -164,7 +120,7 @@ Proof.
   lia.
 Qed.
 
-(** Simplified version: PNEW with fresh region changes F *)
+(** Simplified version: fresh PNEW increases F. *)
 Theorem pnew_fresh_changes_F : forall g region,
   graph_find_region g (normalize_region region) = None ->
   let (g', _) := graph_pnew g region in
@@ -186,24 +142,16 @@ Qed.
 
 (** ** Main Result: PNEW Changes Euler Characteristic (Specific Case)
 
-    REALISTIC THEOREM: For a fresh triangle where at least one edge is new,
-    the Euler characteristic changes.
-
-    This is the key result for the gravity proof:
-    PNEW operations that create new topological structure change χ.
-    *)
+  The gravity story needs exactly this distinction: PNEW steps that create
+  genuinely new topological structure can move chi, and those are the steps
+  that later induce curvature jumps. *)
 
 
-(** ** Practical Result: PNEW Fresh Triangle Changes Some Topological Invariant
+(** ** Practical Result: Fresh Triangle Changes Some Topological Invariant
 
-    WEAKEST USEFUL THEOREM: PNEW with fresh triangle changes SOMETHING
-    topologically measurable (V, E, or F), which propagates to χ in general.
-
-    This is sufficient for the gravity proof because:
-    1. Changes in V, E, F affect χ (by definition)
-    2. Changes in χ affect curvature (via Gauss-Bonnet)
-    3. Changes in curvature relate to gravity (Einstein's equation)
-    *)
+  This is the weakest robust statement worth carrying forward: a fresh
+  triangle changes at least one of V, E, or F, so the topological data is not
+  unchanged even when the exact chi effect depends on overlap. *)
 
 Theorem pnew_fresh_measurably_changes_topology : forall g region,
   length (normalize_region region) = 3 ->

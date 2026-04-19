@@ -1,4 +1,4 @@
-(** * Deriving physical constants from manifold geometry
+(** Deriving physical constants from manifold geometry
 
     This optional study packages a falsifiable definition of a
     "Thiele coupling constant" as the asymptotic density of

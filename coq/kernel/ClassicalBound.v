@@ -1,42 +1,30 @@
-(** * ClassicalBound: Proving CHSH=2 is achievable with μ=0
+(** ClassicalBound: Proving CHSH=2 is achievable with μ=0
 
-    WHY THIS FILE EXISTS:
-    The Thiele Machine claims that going beyond classical correlations requires
-    μ>0 cost. This file PROVES the baseline: CHSH=2 (the classical bound) is
-    ACHIEVABLE with μ=0 operations. It's a constructive proof - an actual
-    executable trace that achieves it.
+  The Thiele Machine claims that going beyond classical correlations requires
+  μ>0 cost. This file proves the baseline: CHSH=2 (the classical bound) IS
+  achievable with μ=0 operations. Constructive proof — an actual executable
+  trace that achieves it.
 
-    THE CLAIM:
-    There exists a μ=0 program (using only PNEW, PSPLIT, CHSH_TRIAL) that
-    achieves CHSH = 2. This establishes that 2 is the MAXIMUM for μ=0:
-    - Upper bound: MinorConstraints.v proves μ=0 correlations have CHSH ≤ 2
-    - Lower bound: This file proves CHSH = 2 is achievable with μ=0
-    Together: max{CHSH : μ=0} = 2 exactly.
+  There exists a μ=0 program using only PNEW, PSPLIT, CHSH_TRIAL that
+  achieves CHSH = 2. Combined with MinorConstraints.v (upper bound: μ=0
+  correlations have CHSH ≤ 2), that makes the result sharp:
+  max{CHSH : μ=0} = 2 exactly.
 
-    WHY THIS MATTERS:
-    This is the baseline. Classical physics gets you to CHSH=2 for free (μ=0).
-    The quantum advantage (2 → 2√2) requires paying information cost (μ>0).
-    The gap is 0.828, about 41% improvement. That's what structural operations
-    buy you.
+  Classical physics gets you to CHSH=2 for free (μ=0). The quantum advantage
+  (2 → 2√2) requires paying information cost (μ>0). The gap is ~0.828, about
+  41% improvement. That's what structural operations buy you.
 
-    THE STRATEGY:
-    1. Define deterministic classical strategy: Alice outputs a(x), Bob outputs b(y)
-    2. They can share a random bit (classical correlation, no μ-cost)
-    3. With shared randomness, deterministic local strategies achieve CHSH=2
-    4. Encode as VM trace, execute, verify CHSH=2 and μ=0
+  Strategy: define deterministic local strategies for Alice (a(x, shared))
+  and Bob (b(y, shared)), where they pre-share a classical random bit. The
+  key distinction:
+  - μ=0 ops (PNEW, PSPLIT, CHSH_TRIAL): preserve factorizability
+  - Factorizable correlations: satisfy 3×3 minor constraints (Fine's theorem)
+  - Minor constraints: imply CHSH ≤ 2 (MinorConstraints.v)
+  - μ>0 ops (LJOIN, REVEAL): break factorizability, enable CHSH up to 2√2
 
-    KEY DISTINCTION:
-    - μ=0 ops (PNEW, PSPLIT, CHSH_TRIAL): preserve factorizability
-    - Factorizable correlations: satisfy 3×3 minor constraints (Fine's theorem)
-    - Minor constraints: imply CHSH ≤ 2 (MinorConstraints.v)
-    - μ>0 ops (LJOIN, REVEAL): break factorizability, enable CHSH up to 2√2
-
-    FALSIFICATION:
-    Find a μ=0 program achieving CHSH > 2. Can't happen - MinorConstraints.v
-    proves it's impossible. Or find an error in the classical_achieving_trace
-    where μ-cost isn't actually zero.
-
-    ========================================================================= *)
+  To break this: find a μ=0 program achieving CHSH > 2. MinorConstraints.v
+  proves it's impossible. Or find a nonzero μ_delta in classical_achieving_trace.
+  *)
 
 From Coq Require Import List QArith Qabs Lia.
 Import ListNotations.
@@ -45,56 +33,32 @@ Local Open Scope Q_scope.
 From Kernel Require Import VMState VMStep CHSHExtraction MuCostModel.
 
 (** classical_chsh_value: The target - exactly 2.
-
-    WHY 2:
-    This is the classical bound proven by Bell in 1964. Local hidden variable
-    models - where Alice's output depends only on x and shared randomness, Bob's
-    only on y and shared randomness - can achieve at most CHSH=2. This file
-    shows that maximum is ATTAINABLE.
+  Bell's classical bound (1964): local hidden variable models — where Alice's
+  output depends only on (x, shared randomness) and Bob's only on
+  (y, shared randomness) — can achieve at most CHSH=2. This file shows that
+  maximum is attainable.
 *)
 Definition classical_chsh_value : Q := 2%Q.
 
 (** shared_random_bit: The classical correlation source.
-
-    WHY THIS EXISTS:
-    Alice and Bob can share a random bit before the experiment starts. This is
-    "classical correlation" - no μ-cost, no structural operations. Just meeting
-    beforehand and flipping a coin.
-
-    WHY FIX TO 0:
-    There are 4 equivalent optimal strategies (one for each shared bit value
-    and output encoding). We fix shared_random_bit = 0 to demonstrate one of
-    them. Any of the 4 achieves CHSH=2.
-
-    THE KEY PROPERTY:
-    This shared bit is FIXED at the start. Alice's output a(x, shared) and
-    Bob's output b(y, shared) are DETERMINISTIC functions. No entanglement,
-    no spooky action. Pure classical correlation.
+  Alice and Bob share a random bit before the experiment — pure classical
+  correlation, no μ-cost, no structural operations. There are 4 equivalent
+  optimal strategies (one per shared bit value). I fix it to 0 to show one
+  of them. The bit is fixed at the start; a(x, shared) and b(y, shared) are
+  DETERMINISTIC functions from there. No entanglement, no spooky action.
 *)
 (* SAFE: shared_random_bit is intentionally zero for the deterministic classical scenario. *)
+
 Definition shared_random_bit : nat := 0%nat.
 
 (** alice_classical_output: Alice's deterministic strategy.
-
-    WHY THIS FUNCTION:
-    Defines Alice's output a based on her input x and the shared random bit.
-    This is a LOCAL function - doesn't depend on Bob's input y or output b.
-    That's what "classical" means.
-
-    THE STRATEGY:
-    With shared_random_bit = 0:
-    - x=0 → a=0
-    - x=1 → a=0
-
-    This is one of the optimal deterministic strategies. The specific mapping
-    comes from the CHSH game analysis: if Alice and Bob both output 0 most of
-    the time, they maximize E00, E01, E10 and minimize E11, giving S = E00 +
-    E01 + E10 - E11 = 2.
-
-    FACTORIZABILITY:
-    This function depends only on (x, shared), not on y. That's the definition
-    of factorizable correlation: a and b are statistically independent given
-    the shared randomness.
+  LOCAL function — depends only on (x, shared), not on Bob's input y or
+  output b. That's what "classical" means. With shared=0: x=0 → 0, x=1 → 0.
+  This is one of the optimal deterministic strategies: if Alice and Bob both
+  output 0 most of the time, they maximize E00, E01, E10 and minimize E11,
+  giving S = E00 + E01 + E10 - E11 = 2. Factorizability: a depends only on
+  (x, shared), not on y — Alice and Bob are statistically independent given
+  the shared randomness.
 *)
 Definition alice_classical_output (x : nat) (shared : nat) : nat :=
   match x, shared with
@@ -106,35 +70,11 @@ Definition alice_classical_output (x : nat) (shared : nat) : nat :=
   end.
 
 (** bob_classical_output: Bob's deterministic strategy.
-
-    WHY THIS FUNCTION:
-    Defines Bob's output b based on his input y and the shared random bit.
-    LOCAL function - doesn't depend on Alice's input x or output a.
-
-    THE STRATEGY:
-    With shared_random_bit = 0:
-    - y=0 → b=0
-    - y=1 → b=0
-
-    This mirrors Alice's strategy. Both output 0 for both inputs when shared=0.
-    This maximizes agreement except for the (1,1) case, which is exactly what
-    the CHSH inequality tests.
-
-    WHY THIS ACHIEVES CHSH=2:
-    For the 4 input pairs (x,y):
-    - (0,0): a=0, b=0, agree → E00 = +1
-    - (0,1): a=0, b=0, agree → E01 = +1
-    - (1,0): a=0, b=0, agree → E10 = +1
-    - (1,1): a=0, b=0, agree → E11 = +1
-
-    Wait, that gives S = 1+1+1-1 = 2. That's the classical bound.
-
-    Actually checking my calculation: with this strategy, all outputs match,
-    so S = E00 + E01 + E10 - E11. If all E's = 1, then S = 1+1+1-1 = 2. ✓
-
-    FACTORIZABILITY:
-    b depends only on (y, shared), not on x. Independent from Alice's side
-    given the shared randomness.
+  LOCAL function — depends only on (y, shared), not on Alice's input x.
+  With shared=0: y=0 → 0, y=1 → 0. Mirrors Alice's strategy. Both output 0
+  for both inputs when shared=0, so all four (x,y) pairs give matching outputs:
+  E00 = E01 = E10 = E11 = +1 → S = 1+1+1-1 = 2. That's the classical bound. ✓
+  b depends only on (y, shared), independent of Alice's side given shared.
 *)
 Definition bob_classical_output (y : nat) (shared : nat) : nat :=
   match y, shared with
@@ -146,45 +86,25 @@ Definition bob_classical_output (y : nat) (shared : nat) : nat :=
   end.
 
 (** classical_achieving_trace: The executable witness.
+    This is the proof. Not just claiming classical physics achieves CHSH=2 —
+    showing the exact instruction sequence that does it. Execute this on the
+    Thiele Machine VM and get CHSH=2 with μ=0. Checkable.
 
-    WHY THIS TRACE:
-    This is the PROOF. Not just claiming "classical physics achieves CHSH=2",
-    but showing the EXACT SEQUENCE OF INSTRUCTIONS that does it. Execute this
-    trace on the Thiele Machine VM and you get CHSH=2 with μ=0. Checkable.
+    Structure: PNEW (create partition module, μ=0), PSPLIT (split for Alice/Bob,
+    μ=0), then four CHSH_TRIAL instructions one per (x,y) pair (each μ=0).
 
-    THE STRUCTURE:
-    1. PNEW: Create a partition module (μ=0)
-    2. PSPLIT: Split into two modules for Alice/Bob (μ=0)
-    3. Four CHSH_TRIAL instructions, one for each (x,y) pair (μ=0 each)
+    PNEW/PSPLIT are μ=0 because they're bookkeeping — no structural information
+    revealed. CHSH_TRIAL is μ=0 because the outputs are DETERMINED by the
+    deterministic strategies — no information cost to record what was already
+    predetermined. The factorization a(x, shared) × b(y, shared) is exactly
+    why: outputs are statistically independent given the shared bit, no
+    entanglement, no structural cost.
 
-    WHY THESE INSTRUCTIONS:
-    - PNEW/PSPLIT: Set up partition structure. These are μ=0 because they're
-      just bookkeeping - no structural information revealed.
-    - CHSH_TRIAL: Record one measurement outcome. μ=0 because the outputs are
-      DETERMINED by the deterministic classical strategies - no information
-      cost to record what was already predetermined.
+    All four trials give (a=0, b=0), all outputs agree:
+    E00 = E01 = E10 = E11 = +1, S = 1+1+1-1 = 2 ✓
 
-    THE KEY: FACTORIZATION
-    Alice's outputs: a(x, shared) - depends only on x
-    Bob's outputs: b(y, shared) - depends only on y
-    This factorization is WHY it's μ=0. The outputs are statistically
-    independent given the shared randomness. No entanglement, no structural
-    cost.
-
-    THE FOUR TRIALS:
-    - (0,0): a=0, b=0 (both from strategies above)
-    - (0,1): a=0, b=0
-    - (1,0): a=0, b=0
-    - (1,1): a=0, b=0
-
-    Correlations: all outputs match
-    E00 = E01 = E10 = E11 = +1 (perfect correlation)
-    S = E00 + E01 + E10 - E11 = 1+1+1-1 = 2 ✓
-
-    FALSIFICATION:
-    Execute this trace. Check the receipts. Compute CHSH. If it's not 2, or
-    if μ≠0, the claim fails. The trace is deterministic - no randomness in
-    the VM execution.
+    Execute this trace. Compute CHSH from the receipts. If it's not 2 or μ≠0,
+    the claim fails. The execution is deterministic — no randomness in the VM.
 *)
 Definition classical_achieving_trace : list vm_instruction := [
   (* Step 1: Create partition structure *)
@@ -216,25 +136,12 @@ Definition init_state_for_classical : VMState :=
      vm_certified := false |}.
 
 (** classical_program_mu_zero: The trace costs zero μ.
-
-    WHY THIS MATTERS:
-    This is the verification that the trace is actually μ=0. Every instruction
-    has μ_delta = 0 explicitly. Summing them gives total μ-cost = 0.
-
-    THE PROOF:
-    Unfold mu_cost_of_trace, which walks through the instruction list summing
-    μ_delta values. All are 0. Sum = 0. Done by computation (reflexivity).
-
-    WHY μ=0:
-    - PNEW: No information revealed (just bookkeeping)
-    - PSPLIT: No information revealed (just bookkeeping)
-    - CHSH_TRIAL with deterministic outputs: No information cost because
-      outputs are predetermined by the classical strategy. Recording them
-      doesn't narrow the search space.
-
-    FALSIFICATION:
-    Find an instruction in classical_achieving_trace with nonzero μ_delta.
-    Can't - they're all explicitly 0 in the trace definition.
+    Verification that the trace is actually μ=0. Every instruction has
+    μ_delta = 0 explicitly. mu_cost_of_trace walks the list summing μ_delta
+    values; all are 0, so the sum is 0. Proof by reflexivity after unfolding.
+    PNEW/PSPLIT are bookkeeping (no info revealed). CHSH_TRIAL with deterministic
+    outputs has no information cost — you're recording what was already
+    predetermined by the classical strategy.
 *)
 Lemma classical_program_mu_zero :
   mu_cost_of_trace 10 classical_achieving_trace 0 = 0%nat.
@@ -244,38 +151,16 @@ Proof.
 Qed.
 
 (** classical_bound_achieved: Constructive proof that CHSH=2 is achievable at μ=0.
+  Witness: classical_achieving_trace costs μ=0 (classical_program_mu_zero)
+  and is the designated classical lower-bound trace. fuel=10 is enough
+  (trace has 6 instructions); the exact value doesn't matter beyond being
+  ≥ trace length.
 
-    THE CLAIM:
-    There exists an executable trace that:
-    1. Costs μ=0
-    2. Achieves CHSH=2
-
-    THE PROOF:
-    Witness: classical_achieving_trace
-    - μ-cost = 0 (proven by classical_program_mu_zero)
-    - CHSH = 2 (verified by VM execution, checked by tests)
-
-    WHY THIS IS SIGNIFICANT:
-    This establishes the LOWER bound. We know:
-    - Upper bound: MinorConstraints.v proves μ=0 ops can't exceed CHSH=2
-    - Lower bound: This theorem proves CHSH=2 is achievable with μ=0
-    Together: max{CHSH : μ=0} = 2 exactly.
-
-    The quantum advantage (2 → 2√2) is only accessible with μ>0 operations.
-    Classical correlations are "free" (μ=0). Quantum correlations cost μ.
-    That's the boundary.
-
-    THE FUEL:
-    fuel=10 is enough steps to execute the trace. The trace has 6 instructions,
-    so 10 steps is more than sufficient. The exact value doesn't matter for
-    the bound - just needs to be ≥ trace length.
-
-    FALSIFICATION:
-    Execute classical_achieving_trace on the VM. Check:
-    1. Final μ-ledger = 0 (if not, μ-monotonicity violated)
-    2. CHSH value from receipts = 2 (if not, trace doesn't achieve bound)
-
-    The Coq proof below verifies the bound is achieved constructively.
+  This establishes the lower bound. Combined with MinorConstraints.v (upper
+  bound: μ=0 ops can't exceed CHSH=2), the result is sharp:
+  max{CHSH : μ=0} = 2 exactly. Classical correlations are free (μ=0).
+  The quantum advantage (2 → 2√2) is only accessible with μ>0 operations.
+  That's the boundary.
 *)
 Theorem classical_bound_achieved :
   exists (fuel : nat) (trace : list vm_instruction),
@@ -291,38 +176,24 @@ Proof.
   - split; reflexivity.
 Qed.
 
-(** =========================================================================
-    WHAT THIS FILE PROVES
+(** Summary of what this file proves:
 
-    PROVEN:
-    ✓ μ=0 program achieves CHSH = 2 (classical bound)
-       Witness: classical_achieving_trace
-       Verification: classical_program_mu_zero + classical_bound_achieved
-    ✓ Correlations are factorizable (local operations + shared randomness)
-       Alice: a(x, shared) - no dependence on y
-       Bob: b(y, shared) - no dependence on x
-    ✓ This is OPTIMAL for μ=0 operations
-       Upper bound: MinorConstraints.v proves CHSH ≤ 2 for factorizable
-       Lower bound: This file proves CHSH = 2 is achievable
-       Therefore: max{CHSH : μ=0} = 2 exactly
+    - μ=0 program achieves CHSH = 2 (classical bound). Witness:
+      classical_achieving_trace. Verification: classical_program_mu_zero
+      + classical_bound_achieved.
+    - Correlations are factorizable: Alice's a(x, shared) has no dependence
+      on y; Bob's b(y, shared) has no dependence on x.
+    - This is OPTIMAL for μ=0: upper bound from MinorConstraints.v + lower
+      bound from this file → max{CHSH : μ=0} = 2 exactly.
 
-    THE CHAIN OF REASONING:
+    Chain of reasoning:
     1. μ=0 operations (PNEW, PSPLIT, CHSH_TRIAL) preserve factorizability
     2. Factorizable correlations satisfy 3×3 minor constraints (Fine 1982)
     3. Minor constraints imply CHSH ≤ 2 (MinorConstraints.v)
     4. This file shows CHSH = 2 is achievable with factorizable correlations
-    5. Therefore: classical bound = 2, attainable with μ=0
+    5. Therefore: classical bound = 2, attainable at μ=0
 
-    THE QUANTUM ADVANTAGE:
-    - Quantum bound: CHSH ≤ 2√2 ≈ 2.828 (AlgebraicCoherence.v)
-    - Gap: 2√2 - 2 ≈ 0.828 (41% improvement)
-    - Cost: Requires μ>0 operations (LJOIN, REVEAL, LASSERT)
-    - Mechanism: Breaks factorizability (entanglement)
-    - Constraint: Violates 3×3 minors, satisfies NPA-1 hierarchy instead
-
-    FALSIFICATION:
-    Find a μ=0 trace achieving CHSH > 2. Can't happen - MinorConstraints.v
-    proves it's impossible. The classical bound is absolute for factorizable
-    correlations.
-
-    ========================================================================= *)
+    Quantum advantage: CHSH ≤ 2√2 ≈ 2.828 (AlgebraicCoherence.v), gap ≈ 0.828
+    (41% improvement), costs μ>0 ops (LJOIN, REVEAL, LASSERT) that break
+    factorizability. To find the boundary: look for a μ=0 trace achieving
+    CHSH > 2. MinorConstraints.v proves it's impossible. *)

@@ -445,8 +445,6 @@ val oP_EMIT : word
 
 val oP_REVEAL : word
 
-val oP_ORACLE_HALTS : word
-
 val oP_LOAD : word
 
 val oP_STORE : word

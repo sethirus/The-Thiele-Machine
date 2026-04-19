@@ -1,7 +1,6 @@
-(** * Thermodynamic-to-Einstein Bridge
+(** Thermodynamic-to-Einstein Bridge
     (* INQUISITOR NOTE: MISSING einstein_equation IS INTENTIONAL *)
 
-    WHY THIS FILE EXISTS:
     Connect the entropy-locality bridge (nearest-neighbor split morphisms
     imply boundary entropy scaling) to an explicit Jacobson-style bridge
     hypothesis that maps entropy-area control to Einstein dynamics.
@@ -257,9 +256,8 @@ Proof.
   exact (einstein_emerges s s').
 Qed.
 
-(** =========================================================================
+(**
     PHYSICAL AXIOM DECLARATION (C3 — H_clausius_mass)
-    =========================================================================
 
     H_clausius_mass is the physical bridge from continuous thermodynamics
     (Clausius relation dQ = T dS with T > 0) to discrete geometry
@@ -302,7 +300,7 @@ Qed.
     the full-chain theorem instead.
 
     See FULL_CLOSURE_PLAN.md §C3.
-    ========================================================================= *)
+    *)
 
 (** PHYSICAL AXIOM (C3 — clausius_mass): non-zero Clausius heat implies positive
     structural mass at the module.  This is a structural axiom — the discharge
@@ -311,9 +309,8 @@ Qed.
 Definition clausius_structural_mass_axiom_statement (s : VMState) (v : ModuleID) : Prop :=
   forall dQ dS T : R, (0 < T)%R -> dQ = (T * dS)%R -> (module_structural_mass s v > 0)%nat.
 
-(** =========================================================================
+(**
     CLAUSIUS LOAD-BEARING 4D EINSTEIN BRIDGE (Gap B2 Closure)
-    =========================================================================
 
     THE PROBLEM:
     discrete_einstein_emergence_from_mass_focusing threads the chain
@@ -341,7 +338,7 @@ Definition clausius_structural_mass_axiom_statement (s : VMState) (v : ModuleID)
     module (dQ = T dS with T > 0) implies non-zero structural mass
     (|region| + |axioms| > 0).  See clausius_structural_mass_axiom_statement
     above (C3) for the full discharge analysis.
-    ========================================================================= *)
+    *)
 
 Theorem clausius_load_bearing_einstein_4d :
   forall (hbar c_light k_B entropy_per_bit : R)

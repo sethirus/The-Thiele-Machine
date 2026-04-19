@@ -1,140 +1,140 @@
-DIGEST 39f09959cbca54e42dae6c176d8e4936
+DIGEST 98ef42e128621880852371c2ff2c548a
 FKernel.ClassicalBound
-R1937:1940 Coq.Lists.List <> <> lib
-R1942:1947 Coq.QArith.QArith <> <> lib
-R1949:1952 Coq.QArith.Qabs <> <> lib
-R1954:1956 Coq.micromega.Lia <> <> lib
-R1966:1978 Coq.Lists.List ListNotations <> mod
-R2035:2041 Kernel.VMState <> <> lib
-R2043:2048 Kernel.VMStep <> <> lib
-R2050:2063 Kernel.CHSHExtraction <> <> lib
-R2065:2075 Kernel.MuCostModel <> <> lib
-def 2428:2447 <> classical_chsh_value
-R2451:2451 Coq.QArith.QArith_base <> Q rec
-def 3282:3298 <> shared_random_bit
-R3302:3304 Coq.Init.Datatypes <> nat ind
-def 4154:4175 <> alice_classical_output
-R4182:4184 Coq.Init.Datatypes <> nat ind
-binder 4178:4178 <> x:1
-R4197:4199 Coq.Init.Datatypes <> nat ind
-binder 4188:4193 <> shared:2
-R4204:4206 Coq.Init.Datatypes <> nat ind
-R4222:4227 Kernel.ClassicalBound <> shared:2 var
-R4219:4219 Kernel.ClassicalBound <> x:1 var
-def 5461:5480 <> bob_classical_output
-R5487:5489 Coq.Init.Datatypes <> nat ind
-binder 5483:5483 <> y:5
-R5502:5504 Coq.Init.Datatypes <> nat ind
-binder 5493:5498 <> shared:6
-R5509:5511 Coq.Init.Datatypes <> nat ind
-R5527:5532 Kernel.ClassicalBound <> shared:6 var
-R5524:5524 Kernel.ClassicalBound <> y:5 var
-def 7329:7353 <> classical_achieving_trace
-R7357:7360 Coq.Init.Datatypes <> list ind
-R7362:7375 Kernel.VMStep VMStep vm_instruction ind
-R7380:7426 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7451:7493 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7534:7673 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7804:7807 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7938:7941 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8072:8075 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R8206:8207 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R7427:7436 Kernel.VMStep VMStep instr_pnew constr
-R7438:7438 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7444:7444 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7494:7505 Kernel.VMStep VMStep instr_psplit constr
-R7513:7513 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7519:7519 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7521:7521 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7527:7527 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R7674:7689 Kernel.VMStep VMStep instr_chsh_trial constr
-R7704:7725 Kernel.ClassicalBound <> alice_classical_output def
-R7733:7749 Kernel.ClassicalBound <> shared_random_bit def
-R7753:7772 Kernel.ClassicalBound <> bob_classical_output def
-R7780:7796 Kernel.ClassicalBound <> shared_random_bit def
-R7808:7823 Kernel.VMStep VMStep instr_chsh_trial constr
-R7838:7859 Kernel.ClassicalBound <> alice_classical_output def
-R7867:7883 Kernel.ClassicalBound <> shared_random_bit def
-R7887:7906 Kernel.ClassicalBound <> bob_classical_output def
-R7914:7930 Kernel.ClassicalBound <> shared_random_bit def
-R7942:7957 Kernel.VMStep VMStep instr_chsh_trial constr
-R7972:7993 Kernel.ClassicalBound <> alice_classical_output def
-R8001:8017 Kernel.ClassicalBound <> shared_random_bit def
-R8021:8040 Kernel.ClassicalBound <> bob_classical_output def
-R8048:8064 Kernel.ClassicalBound <> shared_random_bit def
-R8076:8091 Kernel.VMStep VMStep instr_chsh_trial constr
-R8106:8127 Kernel.ClassicalBound <> alice_classical_output def
-R8135:8151 Kernel.ClassicalBound <> shared_random_bit def
-R8155:8174 Kernel.ClassicalBound <> bob_classical_output def
-R8182:8198 Kernel.ClassicalBound <> shared_random_bit def
-def 8253:8276 <> init_state_for_classical
-R8280:8286 Kernel.VMState <> VMState rec
-R8296:8302 Kernel.VMState <> vm_regs proj
-R8296:8302 Kernel.VMState <> vm_regs proj
-R8296:8302 Kernel.VMState <> vm_regs proj
-R8329:8334 Kernel.VMState <> vm_mem proj
-R8329:8334 Kernel.VMState <> vm_mem proj
-R8348:8354 Kernel.VMState <> vm_csrs proj
-R8348:8354 Kernel.VMState <> vm_csrs proj
-R8453:8457 Kernel.VMState <> vm_pc proj
-R8453:8457 Kernel.VMState <> vm_pc proj
-R8474:8481 Kernel.VMState <> vm_graph proj
-R8474:8481 Kernel.VMState <> vm_graph proj
-R8504:8508 Kernel.VMState <> vm_mu proj
-R8504:8508 Kernel.VMState <> vm_mu proj
-R8525:8536 Kernel.VMState <> vm_mu_tensor proj
-R8525:8536 Kernel.VMState <> vm_mu_tensor proj
-R8568:8573 Kernel.VMState <> vm_err proj
-R8568:8573 Kernel.VMState <> vm_err proj
-R8590:8601 Kernel.VMState <> vm_logic_acc proj
-R8590:8601 Kernel.VMState <> vm_logic_acc proj
-R8614:8623 Kernel.VMState <> vm_mstatus proj
-R8614:8623 Kernel.VMState <> vm_mstatus proj
-R8636:8645 Kernel.VMState <> vm_witness proj
-R8636:8645 Kernel.VMState <> vm_witness proj
-R8676:8687 Kernel.VMState <> vm_certified proj
-R8676:8687 Kernel.VMState <> vm_certified proj
-R8486:8496 Kernel.VMState <> empty_graph def
-R8362:8374 Kernel.VMState <> csr_cert_addr proj
-R8362:8374 Kernel.VMState <> csr_cert_addr proj
-R8362:8374 Kernel.VMState <> csr_cert_addr proj
-R8386:8395 Kernel.VMState <> csr_status proj
-R8386:8395 Kernel.VMState <> csr_status proj
-R8407:8413 Kernel.VMState <> csr_err proj
-R8407:8413 Kernel.VMState <> csr_err proj
-R8425:8437 Kernel.VMState <> csr_heap_base proj
-R8425:8437 Kernel.VMState <> csr_heap_base proj
-R8307:8312 Coq.Lists.List <> repeat def
-R8339:8340 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8541:8560 Kernel.VMState <> vm_mu_tensor_default def
-R8578:8582 Coq.Init.Datatypes <> false constr
-R8650:8668 Kernel.VMState <> witness_counts_zero def
-R8692:8696 Coq.Init.Datatypes <> false constr
-prf 9583:9607 <> classical_program_mu_zero
-R9660:9662 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9613:9628 Kernel.MuCostModel <> mu_cost_of_trace def
-R9633:9657 Kernel.ClassicalBound <> classical_achieving_trace def
-R9686:9701 Kernel.MuCostModel <> mu_cost_of_trace def
-prf 11052:11075 <> classical_bound_achieved
-R11081:11088 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11129:11161 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11096:11098 Coq.Init.Datatypes <> nat ind
-binder 11089:11092 <> fuel:9
-R11110:11113 Coq.Init.Datatypes <> list ind
-R11115:11128 Kernel.VMStep VMStep vm_instruction ind
-binder 11102:11106 <> trace:10
-R11199:11297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11191:11193 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11162:11177 Kernel.MuCostModel <> mu_cost_of_trace def
-R11179:11182 Kernel.ClassicalBound <> fuel:9 var
-R11184:11188 Kernel.ClassicalBound <> trace:10 var
-R11311:11314 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11302:11304 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11298:11301 Kernel.ClassicalBound <> fuel:9 var
-R11320:11322 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11315:11319 Kernel.ClassicalBound <> trace:10 var
-R11323:11347 Kernel.ClassicalBound <> classical_achieving_trace def
-R11374:11398 Kernel.ClassicalBound <> classical_achieving_trace def
-R11374:11398 Kernel.ClassicalBound <> classical_achieving_trace def
-R11420:11444 Kernel.ClassicalBound <> classical_program_mu_zero thm
-R11420:11444 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R1424:1427 Coq.Lists.List <> <> lib
+R1429:1434 Coq.QArith.QArith <> <> lib
+R1436:1439 Coq.QArith.Qabs <> <> lib
+R1441:1443 Coq.micromega.Lia <> <> lib
+R1453:1465 Coq.Lists.List ListNotations <> mod
+R1522:1528 Kernel.VMState <> <> lib
+R1530:1535 Kernel.VMStep <> <> lib
+R1537:1550 Kernel.CHSHExtraction <> <> lib
+R1552:1562 Kernel.MuCostModel <> <> lib
+def 1879:1898 <> classical_chsh_value
+R1902:1902 Coq.QArith.QArith_base <> Q rec
+def 2455:2471 <> shared_random_bit
+R2475:2477 Coq.Init.Datatypes <> nat ind
+def 3048:3069 <> alice_classical_output
+R3076:3078 Coq.Init.Datatypes <> nat ind
+binder 3072:3072 <> x:1
+R3091:3093 Coq.Init.Datatypes <> nat ind
+binder 3082:3087 <> shared:2
+R3098:3100 Coq.Init.Datatypes <> nat ind
+R3116:3121 Kernel.ClassicalBound <> shared:2 var
+R3113:3113 Kernel.ClassicalBound <> x:1 var
+def 3718:3737 <> bob_classical_output
+R3744:3746 Coq.Init.Datatypes <> nat ind
+binder 3740:3740 <> y:5
+R3759:3761 Coq.Init.Datatypes <> nat ind
+binder 3750:3755 <> shared:6
+R3766:3768 Coq.Init.Datatypes <> nat ind
+R3784:3789 Kernel.ClassicalBound <> shared:6 var
+R3781:3781 Kernel.ClassicalBound <> y:5 var
+def 5068:5092 <> classical_achieving_trace
+R5096:5099 Coq.Init.Datatypes <> list ind
+R5101:5114 Kernel.VMStep VMStep vm_instruction ind
+R5119:5165 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5190:5232 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5273:5412 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5543:5546 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5677:5680 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5811:5814 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5945:5946 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5166:5175 Kernel.VMStep VMStep instr_pnew constr
+R5177:5177 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5183:5183 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5233:5244 Kernel.VMStep VMStep instr_psplit constr
+R5252:5252 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5258:5258 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5260:5260 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5266:5266 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5413:5428 Kernel.VMStep VMStep instr_chsh_trial constr
+R5443:5464 Kernel.ClassicalBound <> alice_classical_output def
+R5472:5488 Kernel.ClassicalBound <> shared_random_bit def
+R5492:5511 Kernel.ClassicalBound <> bob_classical_output def
+R5519:5535 Kernel.ClassicalBound <> shared_random_bit def
+R5547:5562 Kernel.VMStep VMStep instr_chsh_trial constr
+R5577:5598 Kernel.ClassicalBound <> alice_classical_output def
+R5606:5622 Kernel.ClassicalBound <> shared_random_bit def
+R5626:5645 Kernel.ClassicalBound <> bob_classical_output def
+R5653:5669 Kernel.ClassicalBound <> shared_random_bit def
+R5681:5696 Kernel.VMStep VMStep instr_chsh_trial constr
+R5711:5732 Kernel.ClassicalBound <> alice_classical_output def
+R5740:5756 Kernel.ClassicalBound <> shared_random_bit def
+R5760:5779 Kernel.ClassicalBound <> bob_classical_output def
+R5787:5803 Kernel.ClassicalBound <> shared_random_bit def
+R5815:5830 Kernel.VMStep VMStep instr_chsh_trial constr
+R5845:5866 Kernel.ClassicalBound <> alice_classical_output def
+R5874:5890 Kernel.ClassicalBound <> shared_random_bit def
+R5894:5913 Kernel.ClassicalBound <> bob_classical_output def
+R5921:5937 Kernel.ClassicalBound <> shared_random_bit def
+def 5992:6015 <> init_state_for_classical
+R6019:6025 Kernel.VMState <> VMState rec
+R6035:6041 Kernel.VMState <> vm_regs proj
+R6035:6041 Kernel.VMState <> vm_regs proj
+R6035:6041 Kernel.VMState <> vm_regs proj
+R6068:6073 Kernel.VMState <> vm_mem proj
+R6068:6073 Kernel.VMState <> vm_mem proj
+R6087:6093 Kernel.VMState <> vm_csrs proj
+R6087:6093 Kernel.VMState <> vm_csrs proj
+R6192:6196 Kernel.VMState <> vm_pc proj
+R6192:6196 Kernel.VMState <> vm_pc proj
+R6213:6220 Kernel.VMState <> vm_graph proj
+R6213:6220 Kernel.VMState <> vm_graph proj
+R6243:6247 Kernel.VMState <> vm_mu proj
+R6243:6247 Kernel.VMState <> vm_mu proj
+R6264:6275 Kernel.VMState <> vm_mu_tensor proj
+R6264:6275 Kernel.VMState <> vm_mu_tensor proj
+R6307:6312 Kernel.VMState <> vm_err proj
+R6307:6312 Kernel.VMState <> vm_err proj
+R6329:6340 Kernel.VMState <> vm_logic_acc proj
+R6329:6340 Kernel.VMState <> vm_logic_acc proj
+R6353:6362 Kernel.VMState <> vm_mstatus proj
+R6353:6362 Kernel.VMState <> vm_mstatus proj
+R6375:6384 Kernel.VMState <> vm_witness proj
+R6375:6384 Kernel.VMState <> vm_witness proj
+R6415:6426 Kernel.VMState <> vm_certified proj
+R6415:6426 Kernel.VMState <> vm_certified proj
+R6225:6235 Kernel.VMState <> empty_graph def
+R6101:6113 Kernel.VMState <> csr_cert_addr proj
+R6101:6113 Kernel.VMState <> csr_cert_addr proj
+R6101:6113 Kernel.VMState <> csr_cert_addr proj
+R6125:6134 Kernel.VMState <> csr_status proj
+R6125:6134 Kernel.VMState <> csr_status proj
+R6146:6152 Kernel.VMState <> csr_err proj
+R6146:6152 Kernel.VMState <> csr_err proj
+R6164:6176 Kernel.VMState <> csr_heap_base proj
+R6164:6176 Kernel.VMState <> csr_heap_base proj
+R6046:6051 Coq.Lists.List <> repeat def
+R6078:6079 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6280:6299 Kernel.VMState <> vm_mu_tensor_default def
+R6317:6321 Coq.Init.Datatypes <> false constr
+R6389:6407 Kernel.VMState <> witness_counts_zero def
+R6431:6435 Coq.Init.Datatypes <> false constr
+prf 6936:6960 <> classical_program_mu_zero
+R7013:7015 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6966:6981 Kernel.MuCostModel <> mu_cost_of_trace def
+R6986:7010 Kernel.ClassicalBound <> classical_achieving_trace def
+R7039:7054 Kernel.MuCostModel <> mu_cost_of_trace def
+prf 7733:7756 <> classical_bound_achieved
+R7762:7769 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7810:7842 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7777:7779 Coq.Init.Datatypes <> nat ind
+binder 7770:7773 <> fuel:9
+R7791:7794 Coq.Init.Datatypes <> list ind
+R7796:7809 Kernel.VMStep VMStep vm_instruction ind
+binder 7783:7787 <> trace:10
+R7880:7978 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7872:7874 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7843:7858 Kernel.MuCostModel <> mu_cost_of_trace def
+R7860:7863 Kernel.ClassicalBound <> fuel:9 var
+R7865:7869 Kernel.ClassicalBound <> trace:10 var
+R7992:7995 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7983:7985 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7979:7982 Kernel.ClassicalBound <> fuel:9 var
+R8001:8003 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7996:8000 Kernel.ClassicalBound <> trace:10 var
+R8004:8028 Kernel.ClassicalBound <> classical_achieving_trace def
+R8055:8079 Kernel.ClassicalBound <> classical_achieving_trace def
+R8055:8079 Kernel.ClassicalBound <> classical_achieving_trace def
+R8101:8125 Kernel.ClassicalBound <> classical_program_mu_zero thm
+R8101:8125 Kernel.ClassicalBound <> classical_program_mu_zero thm

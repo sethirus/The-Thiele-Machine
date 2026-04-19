@@ -70,7 +70,7 @@ def generate_random_instruction() -> str:
         "LASSERT", "LJOIN", "MDLACC", "PDISCOVER",
         "XFER", "LOAD_IMM",
         "XOR_LOAD", "XOR_ADD", "XOR_SWAP", "XOR_RANK",
-        "EMIT", "REVEAL", "ORACLE_HALTS",
+        "EMIT", "REVEAL",
         "LOAD", "STORE", "ADD", "SUB",
         "AND", "OR", "SHL", "SHR", "MUL", "LUI",
         # Skip JUMP/JNEZ to avoid infinite loops
@@ -80,8 +80,8 @@ def generate_random_instruction() -> str:
         "TENSOR_SET", "TENSOR_GET",
     ])
 
-    # Cert-setting opcodes (LASSERT, LJOIN, REVEAL, CHSH_TRIAL) require cost > 0
-    # per the NoFreeInsight runtime policy in the testbench.
+    # Cert-setting opcodes carry positive instruction_cost.  For REVEAL, op_b
+    # is the revealed bit count and cost is the declared delta.
     needs_nonzero_cost = opcode in ("LASSERT", "LJOIN", "REVEAL", "PDISCOVER", "EMIT", "CHSH_TRIAL")
     cost = rand_cost(1 if needs_nonzero_cost else 0)
 
@@ -111,9 +111,7 @@ def generate_random_instruction() -> str:
     elif opcode == "XOR_RANK":
         return f"XOR_RANK {rand_reg5()} {rand_reg5()} {cost}"
     elif opcode == "REVEAL":
-        return f"REVEAL {rand_tensor_idx()} 0 {cost}"
-    elif opcode == "ORACLE_HALTS":
-        return f"ORACLE_HALTS 0 0 {cost}"
+        return f"REVEAL {rand_tensor_idx()} 1 {cost}"
     elif opcode == "LOAD":
         return f"LOAD {rand_reg5()} {rand_addr()} {cost}"
     elif opcode == "STORE":
@@ -289,8 +287,8 @@ class TestEdgeCases:
         """REVEAL enough to trigger Bianchi alarm."""
         instrs = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
-            "REVEAL 0 0 10",   # tensor[0] = 10, mu = 10
-            "REVEAL 1 0 10",   # tensor[1] = 10, mu = 20
+            "REVEAL 0 10 0",   # tensor[0] = 10, mu += 11
+            "REVEAL 1 10 0",   # tensor[1] = 10, mu += 11
             "HALT"
         ]
         result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "bianchi-boundary case")
@@ -300,10 +298,10 @@ class TestEdgeCases:
     def test_all_tensor_entries(self):
         """REVEAL to each of 16 tensor entries."""
         instrs = ["INIT_LOGIC_ACC 0xCAFEEACE"]
-        instrs.extend(f"REVEAL {i} 0 1" for i in range(16))
+        instrs.extend(f"REVEAL {i} 1 0" for i in range(16))
         instrs.append("HALT")
         result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "all-tensor-entries case")
-        assert result["mu"] == 32  # 16 REVEALs × S(1)=2 each: cert-setters charge cost+1
+        assert result["mu"] == 32  # 16 REVEALs × (1 bit + S(0)=1)
         # Sum of all tensor row sums should be 16 (tensor adds cost=1, not S(cost))
         tensor_sum = sum(result.get(f"mu_tensor_{i}", 0) for i in range(4))
         assert tensor_sum == 16

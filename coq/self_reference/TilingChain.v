@@ -1,40 +1,14 @@
-(** * TilingChain.v — Transitive Closure of Trust: The Infinite Tiling Theorem
+(** TilingChain: trust certificates composed along an arbitrary chain.
 
-    CONTEXT: InductiveTrust.v proved that Agent A can transfer trust to Agent B
-    via a constructive Expansion φ : Ω_A ↪ Ω_B, grounded in μ-cost rather
-    than self-referential provability (the Löb bypass).
+   InductiveTrust proves a single constructive expansion step. This file shows
+   that the same story composes along an arbitrary finite chain. Expansions
+   compose, their insights add exactly, and the source safety predicate keeps
+   lifting through the whole chain.
 
-    The "Tiling Agent" challenge asks: does this scale to INFINITE chains?
-      A ↪ B ↪ C ↪ D ↪ ...
-    Each agent is strictly larger than its predecessor.  Can the chain grow
-    forever while preserving A's safety laws?
-
-    ANSWER: YES.  Constructively.  This file proves it.
-
-    MAIN RESULTS
-    ────────────
-    1. [compose_expansion]: Expansions compose.  A ↪ B composed with B ↪ C
-       yields A ↪ C.  Insight is exactly additive — no overhead, no synergy.
-
-    2. [TilingChain]: An inductive type for n-step trust chains A ↪ A₁ ↪ … ↪ Z.
-       Every link is a verified TrustCertificate.
-
-    3. [chain_expansion]: Every TilingChain yields a global Expansion A ↪ Z.
-
-    4. [chain_insight_additive]: Total insight = sum of individual insights.
-
-    5. [scale_invariance]: Safety is preserved at ANY depth.  A's originally
-       certified states remain faithfully embedded in Z, for every Z.
-
-    6. [chain_no_free_trust]: The tiling can never be a free lunch.
-
-    SOLVING RECURSIVE SELF-IMPROVEMENT
-    ────────────────────────────────────
-    Each new capability tier is trusted via a μ-cost certificate, not
-    circularity.  The tiling can continue indefinitely; safety invariants
-    are never weakened.
-
-    Zero admits.  Imports InductiveTrust (connects to kernel). *)
+   The result is a concrete model of recursive self-improvement without a free
+   lunch theorem hiding underneath it. Every link still pays its μ-cost, and
+   the endpoint certificate is just the composed witness.
+ *)
 
 From Coq Require Import Arith List Lia.
 Import ListNotations.
@@ -44,7 +18,7 @@ From Kernel Require Import VMState VMStep MuCostModel.
 
 Require Import InductiveTrust.
 
-(* ================================================================== *)
+(* *)
 (** ** 1. Composition of Expansions *)
 
 Definition compose_embed
@@ -102,7 +76,7 @@ Definition compose_expansion
      embed_inj   := compose_embed_inj eAB eBC;
      size_strict := compose_size_strict eAB eBC |}.
 
-(* ================================================================== *)
+(* *)
 (** ** 2. Insight of the composed expansion *)
 
 (** Insight is EXACTLY additive — no overhead, no synergy. *)
@@ -118,7 +92,7 @@ Proof.
   lia.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 3. TilingChain: n-step trust chains *)
 
 (** A [TilingChain Src Tgt] is either:
@@ -133,7 +107,7 @@ Inductive TilingChain : StateSpace -> StateSpace -> Type :=
     TrustCertificate B C ->
     TilingChain A C.
 
-(* ================================================================== *)
+(* *)
 (** ** 4. Global Expansion from a TilingChain *)
 
 (** Every TilingChain Src Tgt yields an Expansion Src ↪ Tgt
@@ -146,7 +120,7 @@ Fixpoint chain_expansion {Src Tgt : StateSpace} (ch : TilingChain Src Tgt)
       compose_expansion (chain_expansion ch') (tc.(tc_expansion B C))
   end.
 
-(* ================================================================== *)
+(* *)
 (** ** 5. Total insight along a TilingChain *)
 
 (** The total insight is the sum of individual insights along the chain. *)
@@ -158,7 +132,7 @@ Fixpoint chain_total_insight {Src Tgt : StateSpace} (ch : TilingChain Src Tgt)
       chain_total_insight ch' + expansion_insight (tc.(tc_expansion B C))
   end.
 
-(** THE ADDITIVE THEOREM: total insight = insight of the composed expansion.
+(** THE ADDITIVE total insight = insight of the composed expansion.
     No information is lost or created by the chain structure. *)
 Theorem chain_insight_additive :
   forall {Src Tgt : StateSpace} (ch : TilingChain Src Tgt),
@@ -170,7 +144,7 @@ Proof.
   - simpl. rewrite IH. apply compose_insight_eq.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 6. Safety lifts through any TilingChain *)
 
 (** The composed embedding faithfully carries Src's safe states into Tgt. *)
@@ -188,7 +162,7 @@ Proof.
   - exact Hsafe.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 7. Terminal space is strictly larger *)
 
 Theorem chain_strictly_grows :
@@ -199,11 +173,10 @@ Proof.
   exact (chain_expansion ch).(size_strict Src Tgt).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 8. Scale invariance: safety holds at every depth *)
 
-(** THE SCALE INVARIANCE THEOREM:
-    No matter how long the chain Src ↪ A₁ ↪ … ↪ Tgt, Src's originally
+(** THE SCALE INVARIANCE No matter how long the chain Src ↪ A₁ ↪ … ↪ Tgt, Src's originally
     certified states remain faithfully embedded in Tgt.
     Safety is NEVER weakened by recursive self-improvement. *)
 Theorem scale_invariance :
@@ -225,7 +198,7 @@ Proof.
   exact (mk_trust_certificate Src Tgt (chain_expansion ch) cSrc).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 9. No free trust *)
 
 (** Every link costs positive μ.  The tiling is never a free lunch. *)

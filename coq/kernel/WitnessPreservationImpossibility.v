@@ -1,6 +1,5 @@
-(** * WitnessPreservationImpossibility: No classical function can decide certification
+(** WitnessPreservationImpossibility: No classical function can decide certification
 
-    WHY THIS FILE EXISTS:
     ThieleTraceProjection.v shows that distinct Thiele states project to the
     same classical snapshot. This file draws the consequence: the witness
     structure and certification status CANNOT be recovered from the classical
@@ -26,7 +25,6 @@
     is hard to compute — it says the information required to decide it is
     not present in the classical projection at all.
 
-    NO AXIOMS. NO ADMITS. All proofs are constructive.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
@@ -35,9 +33,7 @@ Import ListNotations.
 From Kernel Require Import VMState.
 From Kernel Require Import ThieleTraceProjection.
 
-(* ================================================================= *)
 (** ** I.  A third witness: same classical view, opposite certification *)
-(* ================================================================= *)
 
 (** trace_witness_C: UNCERTIFIED state with the SAME classical fields
     as trace_witness_A (same pc=10, mu=5, regs, mem).
@@ -71,9 +67,7 @@ Lemma cert_A_ne_cert_C :
   trace_witness_A.(vm_certified) <> trace_witness_C.(vm_certified).
 Proof. discriminate. Qed.
 
-(* ================================================================= *)
 (** ** II.  The certification decider and its domain                 *)
-(* ================================================================= *)
 
 (** A default state for the empty-trace case. *)
 Definition default_vmstate : VMState :=
@@ -99,16 +93,13 @@ Definition last_state (t : ThieleTrace) : VMState :=
 Definition certification_decider (t : ThieleTrace) : bool :=
   (last_state t).(vm_certified).
 
-(** [cert_decider_A]: formal specification. *)
 Lemma cert_decider_A : certification_decider [trace_witness_A] = true.
 Proof. reflexivity. Qed.
 
-(** [cert_decider_C]: formal specification. *)
 Lemma cert_decider_C : certification_decider [trace_witness_C] = false.
 Proof. reflexivity. Qed.
 
-(** [proj_trace_A_eq_C]: formal specification.
-    The two traces are classically identical. *)
+(** The two traces are classically identical. *)
 Lemma proj_trace_A_eq_C :
   project_trace [trace_witness_A] = project_trace [trace_witness_C].
 Proof.
@@ -117,20 +108,15 @@ Proof.
   reflexivity.
 Qed.
 
-(* ================================================================= *)
 (** ** III.  Theorem 1: No classical certification decider           *)
-(* ================================================================= *)
 
-(** [no_classical_certification_decider]: formal specification.
-
-    There is no function f : ClassicalTrace → bool such that
+(** There is no function f : ClassicalTrace → bool such that
     f (project_trace t) = certification_decider t for all Thiele traces t.
 
-    PROOF STRUCTURE:
-    Suppose such f exists. Apply it to [trace_witness_A] and [trace_witness_C].
-    Both have the same classical trace (by proj_trace_A_eq_C), so f gives the
-    same boolean for both. But certification_decider gives true for A and false
-    for C. Contradiction. *)
+    Proof idea: suppose such f exists. Apply it to [trace_witness_A] and
+    [trace_witness_C]. Both have the same classical trace (by proj_trace_A_eq_C),
+    so f gives the same boolean for both. But certification_decider gives true
+    for A and false for C. Contradiction. *)
 Theorem no_classical_certification_decider :
   ~ exists f : ClassicalTrace -> bool,
       forall t : ThieleTrace,
@@ -150,9 +136,7 @@ Proof.
   congruence.
 Qed.
 
-(* ================================================================= *)
 (** ** IV.  Theorem 2: Preservation impossibility for encodings      *)
-(* ================================================================= *)
 
 (** certification_sound: an encoding that distinguishes certified states
     from uncertified states.
@@ -173,19 +157,15 @@ Definition factors_classically (enc : VMState -> list bool) : Prop :=
   exists f : ClassicalSnapshot -> list bool,
     forall s : VMState, enc s = f (project_state s).
 
-(** [certification_sound_encoding_not_classical]: formal specification.
+(** Any certification-sound encoding cannot factor through the classical
+    projection — it must carry bits the classical projection drops.
 
-    Any certification-sound encoding cannot factor through the classical
-    projection. In other words: it must carry bits that the classical
-    projection drops.
+    That is the formal statement that you cannot recover certification
+    information for free: any encoding supporting certification detection
+    must store extra information beyond pc/mu/regs/mem.
 
-    This is the formal statement that "the information cannot be recovered
-    for free": any encoding supporting certification detection must
-    explicitly store extra information beyond pc/mu/regs/mem.
-
-    PROOF STRUCTURE:
-    Suppose enc is certification-sound and factors classically through f.
-    Then enc trace_witness_A = f (project_state A) and
+    Proof idea: suppose enc is certification-sound and factors classically
+    through f. Then enc trace_witness_A = f (project_state A) and
          enc trace_witness_C = f (project_state C).
     Since project_state A = project_state C (project_A_eq_C),
     we get enc trace_witness_A = enc trace_witness_C.

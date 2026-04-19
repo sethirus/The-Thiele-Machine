@@ -1,878 +1,878 @@
-DIGEST 4b59820639fb01fc3bade21869998105
+DIGEST f9b1023cb7c5bb91252d6e8d5e1a4988
 FKernel.TsirelsonUpperBound
-R1571:1574 Coq.Lists.List <> <> lib
-R1576:1581 Coq.QArith.QArith <> <> lib
-R1583:1586 Coq.QArith.Qabs <> <> lib
-R1588:1590 Coq.micromega.Lia <> <> lib
-R1592:1605 Coq.Arith.PeanoNat <> <> lib
-R1607:1612 Coq.ZArith.ZArith <> <> lib
-R1630:1634 Coq.micromega.Psatz <> <> lib
-R1644:1656 Coq.Lists.List ListNotations <> mod
-R1713:1719 Kernel.VMState <> <> lib
-R1721:1726 Kernel.VMStep <> <> lib
-R1728:1741 Kernel.CHSHExtraction <> <> lib
-R1743:1753 Kernel.MuCostModel <> <> lib
-R1755:1768 Kernel.ClassicalBound <> <> lib
-R1798:1815 Kernel.AlgebraicCoherence <> <> lib
-def 1932:1952 <> classical_bound_value
-R1956:1956 Coq.QArith.QArith_base <> Q rec
-def 2137:2159 <> quantum_tsirelson_bound
-R2163:2163 Coq.QArith.QArith_base <> Q rec
-R2173:2175 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-def 3132:3153 <> instruction_is_mu_free
-R3164:3177 Kernel.VMStep VMStep vm_instruction ind
-binder 3156:3160 <> instr:1
-R3553:3555 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3192:3207 Kernel.MuCostModel <> mu_cost_of_instr def
-R3209:3213 Kernel.TsirelsonUpperBound <> instr:1 var
-R3223:3230 Kernel.VMState <> vm_graph proj
-R3223:3230 Kernel.VMState <> vm_graph proj
-R3223:3230 Kernel.VMState <> vm_graph proj
-R3255:3261 Kernel.VMState <> vm_csrs proj
-R3255:3261 Kernel.VMState <> vm_csrs proj
-R3350:3356 Kernel.VMState <> vm_regs proj
-R3350:3356 Kernel.VMState <> vm_regs proj
-R3365:3370 Kernel.VMState <> vm_mem proj
-R3365:3370 Kernel.VMState <> vm_mem proj
-R3379:3383 Kernel.VMState <> vm_pc proj
-R3379:3383 Kernel.VMState <> vm_pc proj
-R3391:3395 Kernel.VMState <> vm_mu proj
-R3391:3395 Kernel.VMState <> vm_mu proj
-R3403:3414 Kernel.VMState <> vm_mu_tensor proj
-R3403:3414 Kernel.VMState <> vm_mu_tensor proj
-R3441:3446 Kernel.VMState <> vm_err proj
-R3441:3446 Kernel.VMState <> vm_err proj
-R3458:3469 Kernel.VMState <> vm_logic_acc proj
-R3458:3469 Kernel.VMState <> vm_logic_acc proj
-R3477:3486 Kernel.VMState <> vm_mstatus proj
-R3477:3486 Kernel.VMState <> vm_mstatus proj
-R3494:3503 Kernel.VMState <> vm_witness proj
-R3494:3503 Kernel.VMState <> vm_witness proj
-R3529:3540 Kernel.VMState <> vm_certified proj
-R3529:3540 Kernel.VMState <> vm_certified proj
-R3235:3245 Kernel.VMState <> empty_graph def
-R3269:3281 Kernel.VMState <> csr_cert_addr proj
-R3269:3281 Kernel.VMState <> csr_cert_addr proj
-R3269:3281 Kernel.VMState <> csr_cert_addr proj
-R3289:3298 Kernel.VMState <> csr_status proj
-R3289:3298 Kernel.VMState <> csr_status proj
-R3306:3312 Kernel.VMState <> csr_err proj
-R3306:3312 Kernel.VMState <> csr_err proj
-R3320:3332 Kernel.VMState <> csr_heap_base proj
-R3320:3332 Kernel.VMState <> csr_heap_base proj
-R3361:3362 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3375:3376 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3419:3438 Kernel.VMState <> vm_mu_tensor_default def
-R3451:3455 Coq.Init.Datatypes <> false constr
-R3508:3526 Kernel.VMState <> witness_counts_zero def
-R3545:3549 Coq.Init.Datatypes <> false constr
-prf 3721:3746 <> mu_zero_no_lassert_from_pc
-binder 3759:3762 <> fuel:2
-binder 3764:3768 <> trace:3
-binder 3770:3771 <> pc:4
-R3816:3823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3808:3810 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3778:3793 Kernel.MuCostModel <> mu_cost_of_trace def
-R3795:3798 Kernel.TsirelsonUpperBound <> fuel:2 var
-R3800:3804 Kernel.TsirelsonUpperBound <> trace:3 var
-R3806:3807 Kernel.TsirelsonUpperBound <> pc:4 var
-binder 3831:3831 <> n:5
-binder 3833:3834 <> fa:6
-binder 3836:3837 <> ca:7
-binder 3839:3839 <> k:8
-binder 3841:3842 <> fl:9
-binder 3844:3845 <> mu:10
-R3908:3917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3871:3873 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3854:3862 Coq.Lists.List <> nth_error def
-R3870:3870 Kernel.TsirelsonUpperBound <> n:5 var
-R3864:3868 Kernel.TsirelsonUpperBound <> trace:3 var
-R3874:3877 Coq.Init.Datatypes <> Some constr
-R3880:3892 Kernel.VMStep VMStep instr_lassert constr
-R3894:3895 Kernel.TsirelsonUpperBound <> fa:6 var
-R3897:3898 Kernel.TsirelsonUpperBound <> ca:7 var
-R3900:3900 Kernel.TsirelsonUpperBound <> k:8 var
-R3902:3903 Kernel.TsirelsonUpperBound <> fl:9 var
-R3905:3906 Kernel.TsirelsonUpperBound <> mu:10 var
-R3925:3934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3920:3923 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3918:3919 Kernel.TsirelsonUpperBound <> pc:4 var
-R3924:3924 Kernel.TsirelsonUpperBound <> n:5 var
-R3936:3939 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3935:3935 Kernel.TsirelsonUpperBound <> n:5 var
-R3942:3944 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3940:3941 Kernel.TsirelsonUpperBound <> pc:4 var
-R3945:3948 Kernel.TsirelsonUpperBound <> fuel:2 var
-R4062:4070 Coq.Lists.List <> nth_error def
-R4062:4070 Coq.Lists.List <> nth_error def
-R4117:4126 Coq.Arith.PeanoNat Nat eq_dec thm
-R4117:4126 Coq.Arith.PeanoNat Nat eq_dec thm
-R4246:4268 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R4246:4268 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R4246:4268 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R4317:4332 Kernel.MuCostModel <> mu_cost_of_instr def
-R4391:4393 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4391:4393 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4422:4444 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R4422:4444 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R4422:4444 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R4498:4513 Kernel.MuCostModel <> mu_cost_of_instr def
-R4522:4529 Kernel.VMState <> vm_graph proj
-R4522:4529 Kernel.VMState <> vm_graph proj
-R4522:4529 Kernel.VMState <> vm_graph proj
-R4566:4572 Kernel.VMState <> vm_csrs proj
-R4566:4572 Kernel.VMState <> vm_csrs proj
-R4673:4679 Kernel.VMState <> vm_regs proj
-R4673:4679 Kernel.VMState <> vm_regs proj
-R4688:4693 Kernel.VMState <> vm_mem proj
-R4688:4693 Kernel.VMState <> vm_mem proj
-R4702:4706 Kernel.VMState <> vm_pc proj
-R4702:4706 Kernel.VMState <> vm_pc proj
-R4715:4719 Kernel.VMState <> vm_mu proj
-R4715:4719 Kernel.VMState <> vm_mu proj
-R4727:4738 Kernel.VMState <> vm_mu_tensor proj
-R4727:4738 Kernel.VMState <> vm_mu_tensor proj
-R4765:4770 Kernel.VMState <> vm_err proj
-R4765:4770 Kernel.VMState <> vm_err proj
-R4782:4793 Kernel.VMState <> vm_logic_acc proj
-R4782:4793 Kernel.VMState <> vm_logic_acc proj
-R4801:4810 Kernel.VMState <> vm_mstatus proj
-R4801:4810 Kernel.VMState <> vm_mstatus proj
-R4818:4827 Kernel.VMState <> vm_witness proj
-R4818:4827 Kernel.VMState <> vm_witness proj
-R4853:4864 Kernel.VMState <> vm_certified proj
-R4853:4864 Kernel.VMState <> vm_certified proj
-R4534:4544 Kernel.VMState <> empty_graph def
-R4580:4592 Kernel.VMState <> csr_cert_addr proj
-R4580:4592 Kernel.VMState <> csr_cert_addr proj
-R4580:4592 Kernel.VMState <> csr_cert_addr proj
-R4600:4609 Kernel.VMState <> csr_status proj
-R4600:4609 Kernel.VMState <> csr_status proj
-R4617:4623 Kernel.VMState <> csr_err proj
-R4617:4623 Kernel.VMState <> csr_err proj
-R4631:4643 Kernel.VMState <> csr_heap_base proj
-R4631:4643 Kernel.VMState <> csr_heap_base proj
-R4684:4685 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4698:4699 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4743:4762 Kernel.VMState <> vm_mu_tensor_default def
-R4775:4779 Coq.Init.Datatypes <> false constr
-R4832:4850 Kernel.VMState <> witness_counts_zero def
-R4869:4873 Coq.Init.Datatypes <> false constr
-R4498:4513 Kernel.MuCostModel <> mu_cost_of_instr def
-R4522:4529 Kernel.VMState <> vm_graph proj
-R4522:4529 Kernel.VMState <> vm_graph proj
-R4522:4529 Kernel.VMState <> vm_graph proj
-R4566:4572 Kernel.VMState <> vm_csrs proj
-R4566:4572 Kernel.VMState <> vm_csrs proj
-R4673:4679 Kernel.VMState <> vm_regs proj
-R4673:4679 Kernel.VMState <> vm_regs proj
-R4688:4693 Kernel.VMState <> vm_mem proj
-R4688:4693 Kernel.VMState <> vm_mem proj
-R4702:4706 Kernel.VMState <> vm_pc proj
-R4702:4706 Kernel.VMState <> vm_pc proj
-R4715:4719 Kernel.VMState <> vm_mu proj
-R4715:4719 Kernel.VMState <> vm_mu proj
-R4727:4738 Kernel.VMState <> vm_mu_tensor proj
-R4727:4738 Kernel.VMState <> vm_mu_tensor proj
-R4765:4770 Kernel.VMState <> vm_err proj
-R4765:4770 Kernel.VMState <> vm_err proj
-R4782:4793 Kernel.VMState <> vm_logic_acc proj
-R4782:4793 Kernel.VMState <> vm_logic_acc proj
-R4801:4810 Kernel.VMState <> vm_mstatus proj
-R4801:4810 Kernel.VMState <> vm_mstatus proj
-R4818:4827 Kernel.VMState <> vm_witness proj
-R4818:4827 Kernel.VMState <> vm_witness proj
-R4853:4864 Kernel.VMState <> vm_certified proj
-R4853:4864 Kernel.VMState <> vm_certified proj
-R4534:4544 Kernel.VMState <> empty_graph def
-R4580:4592 Kernel.VMState <> csr_cert_addr proj
-R4580:4592 Kernel.VMState <> csr_cert_addr proj
-R4580:4592 Kernel.VMState <> csr_cert_addr proj
-R4600:4609 Kernel.VMState <> csr_status proj
-R4600:4609 Kernel.VMState <> csr_status proj
-R4617:4623 Kernel.VMState <> csr_err proj
-R4617:4623 Kernel.VMState <> csr_err proj
-R4631:4643 Kernel.VMState <> csr_heap_base proj
-R4631:4643 Kernel.VMState <> csr_heap_base proj
-R4684:4685 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4698:4699 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R4743:4762 Kernel.VMState <> vm_mu_tensor_default def
-R4775:4779 Coq.Init.Datatypes <> false constr
-R4832:4850 Kernel.VMState <> witness_counts_zero def
-R4869:4873 Coq.Init.Datatypes <> false constr
-R4949:4952 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4957:4959 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4953:4953 Coq.Init.Datatypes <> S constr
-R4949:4952 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4957:4959 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4953:4953 Coq.Init.Datatypes <> S constr
-R5120:5122 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5103:5111 Coq.Lists.List <> nth_error def
-R5123:5126 Coq.Init.Datatypes <> None constr
-R5120:5122 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5103:5111 Coq.Lists.List <> nth_error def
-R5123:5126 Coq.Init.Datatypes <> None constr
-R5144:5157 Coq.Lists.List <> nth_error_None thm
-R5144:5157 Coq.Lists.List <> nth_error_None thm
-R5166:5179 Coq.Lists.List <> nth_error_None thm
-R5166:5179 Coq.Lists.List <> nth_error_None thm
-prf 5320:5337 <> mu_zero_no_lassert
-binder 5350:5353 <> fuel:11
-binder 5355:5359 <> trace:12
-R5392:5399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5366:5380 Kernel.MuCostModel <> mu_zero_program def
-R5382:5385 Kernel.TsirelsonUpperBound <> fuel:11 var
-R5387:5391 Kernel.TsirelsonUpperBound <> trace:12 var
-binder 5407:5407 <> n:13
-binder 5409:5410 <> fa:14
-binder 5412:5413 <> ca:15
-binder 5415:5415 <> k:16
-binder 5417:5418 <> fl:17
-binder 5420:5421 <> mu:18
-R5484:5493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5447:5449 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5430:5438 Coq.Lists.List <> nth_error def
-R5446:5446 Kernel.TsirelsonUpperBound <> n:13 var
-R5440:5444 Kernel.TsirelsonUpperBound <> trace:12 var
-R5450:5453 Coq.Init.Datatypes <> Some constr
-R5456:5468 Kernel.VMStep VMStep instr_lassert constr
-R5470:5471 Kernel.TsirelsonUpperBound <> fa:14 var
-R5473:5474 Kernel.TsirelsonUpperBound <> ca:15 var
-R5476:5476 Kernel.TsirelsonUpperBound <> k:16 var
-R5478:5479 Kernel.TsirelsonUpperBound <> fl:17 var
-R5481:5482 Kernel.TsirelsonUpperBound <> mu:18 var
-R5495:5498 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5494:5494 Kernel.TsirelsonUpperBound <> n:13 var
-R5499:5502 Kernel.TsirelsonUpperBound <> fuel:11 var
-R5569:5583 Kernel.MuCostModel <> mu_zero_program def
-R5611:5614 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5611:5614 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5645:5648 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5650:5652 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5670:5695 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert_from_pc thm
-R5645:5648 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5650:5652 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5670:5695 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert_from_pc thm
-prf 5856:5879 <> mu_zero_no_ljoin_from_pc
-binder 5892:5895 <> fuel:19
-binder 5897:5901 <> trace:20
-binder 5903:5904 <> pc:21
-R5949:5956 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5941:5943 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5911:5926 Kernel.MuCostModel <> mu_cost_of_trace def
-R5928:5931 Kernel.TsirelsonUpperBound <> fuel:19 var
-R5933:5937 Kernel.TsirelsonUpperBound <> trace:20 var
-R5939:5940 Kernel.TsirelsonUpperBound <> pc:21 var
-binder 5964:5964 <> n:22
-binder 5966:5970 <> cert1:23
-binder 5972:5976 <> cert2:24
-binder 5978:5979 <> mu:25
-R6041:6050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6005:6007 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5988:5996 Coq.Lists.List <> nth_error def
-R6004:6004 Kernel.TsirelsonUpperBound <> n:22 var
-R5998:6002 Kernel.TsirelsonUpperBound <> trace:20 var
-R6008:6011 Coq.Init.Datatypes <> Some constr
-R6014:6024 Kernel.VMStep VMStep instr_ljoin constr
-R6026:6030 Kernel.TsirelsonUpperBound <> cert1:23 var
-R6032:6036 Kernel.TsirelsonUpperBound <> cert2:24 var
-R6038:6039 Kernel.TsirelsonUpperBound <> mu:25 var
-R6058:6067 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6053:6056 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6051:6052 Kernel.TsirelsonUpperBound <> pc:21 var
-R6057:6057 Kernel.TsirelsonUpperBound <> n:22 var
-R6069:6072 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6068:6068 Kernel.TsirelsonUpperBound <> n:22 var
-R6075:6077 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6073:6074 Kernel.TsirelsonUpperBound <> pc:21 var
-R6078:6081 Kernel.TsirelsonUpperBound <> fuel:19 var
-R6196:6204 Coq.Lists.List <> nth_error def
-R6196:6204 Coq.Lists.List <> nth_error def
-R6251:6260 Coq.Arith.PeanoNat Nat eq_dec thm
-R6251:6260 Coq.Arith.PeanoNat Nat eq_dec thm
-R6380:6402 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R6380:6402 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R6380:6402 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R6451:6466 Kernel.MuCostModel <> mu_cost_of_instr def
-R6525:6527 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6525:6527 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6556:6578 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R6556:6578 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R6556:6578 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
-R6632:6647 Kernel.MuCostModel <> mu_cost_of_instr def
-R6656:6663 Kernel.VMState <> vm_graph proj
-R6656:6663 Kernel.VMState <> vm_graph proj
-R6656:6663 Kernel.VMState <> vm_graph proj
-R6700:6706 Kernel.VMState <> vm_csrs proj
-R6700:6706 Kernel.VMState <> vm_csrs proj
-R6807:6813 Kernel.VMState <> vm_regs proj
-R6807:6813 Kernel.VMState <> vm_regs proj
-R6822:6827 Kernel.VMState <> vm_mem proj
-R6822:6827 Kernel.VMState <> vm_mem proj
-R6836:6840 Kernel.VMState <> vm_pc proj
-R6836:6840 Kernel.VMState <> vm_pc proj
-R6849:6853 Kernel.VMState <> vm_mu proj
-R6849:6853 Kernel.VMState <> vm_mu proj
-R6861:6872 Kernel.VMState <> vm_mu_tensor proj
-R6861:6872 Kernel.VMState <> vm_mu_tensor proj
-R6899:6904 Kernel.VMState <> vm_err proj
-R6899:6904 Kernel.VMState <> vm_err proj
-R6916:6927 Kernel.VMState <> vm_logic_acc proj
-R6916:6927 Kernel.VMState <> vm_logic_acc proj
-R6935:6944 Kernel.VMState <> vm_mstatus proj
-R6935:6944 Kernel.VMState <> vm_mstatus proj
-R6952:6961 Kernel.VMState <> vm_witness proj
-R6952:6961 Kernel.VMState <> vm_witness proj
-R6987:6998 Kernel.VMState <> vm_certified proj
-R6987:6998 Kernel.VMState <> vm_certified proj
-R6668:6678 Kernel.VMState <> empty_graph def
-R6714:6726 Kernel.VMState <> csr_cert_addr proj
-R6714:6726 Kernel.VMState <> csr_cert_addr proj
-R6714:6726 Kernel.VMState <> csr_cert_addr proj
-R6734:6743 Kernel.VMState <> csr_status proj
-R6734:6743 Kernel.VMState <> csr_status proj
-R6751:6757 Kernel.VMState <> csr_err proj
-R6751:6757 Kernel.VMState <> csr_err proj
-R6765:6777 Kernel.VMState <> csr_heap_base proj
-R6765:6777 Kernel.VMState <> csr_heap_base proj
-R6818:6819 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6832:6833 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6877:6896 Kernel.VMState <> vm_mu_tensor_default def
-R6909:6913 Coq.Init.Datatypes <> false constr
-R6966:6984 Kernel.VMState <> witness_counts_zero def
-R7003:7007 Coq.Init.Datatypes <> false constr
-R6632:6647 Kernel.MuCostModel <> mu_cost_of_instr def
-R6656:6663 Kernel.VMState <> vm_graph proj
-R6656:6663 Kernel.VMState <> vm_graph proj
-R6656:6663 Kernel.VMState <> vm_graph proj
-R6700:6706 Kernel.VMState <> vm_csrs proj
-R6700:6706 Kernel.VMState <> vm_csrs proj
-R6807:6813 Kernel.VMState <> vm_regs proj
-R6807:6813 Kernel.VMState <> vm_regs proj
-R6822:6827 Kernel.VMState <> vm_mem proj
-R6822:6827 Kernel.VMState <> vm_mem proj
-R6836:6840 Kernel.VMState <> vm_pc proj
-R6836:6840 Kernel.VMState <> vm_pc proj
-R6849:6853 Kernel.VMState <> vm_mu proj
-R6849:6853 Kernel.VMState <> vm_mu proj
-R6861:6872 Kernel.VMState <> vm_mu_tensor proj
-R6861:6872 Kernel.VMState <> vm_mu_tensor proj
-R6899:6904 Kernel.VMState <> vm_err proj
-R6899:6904 Kernel.VMState <> vm_err proj
-R6916:6927 Kernel.VMState <> vm_logic_acc proj
-R6916:6927 Kernel.VMState <> vm_logic_acc proj
-R6935:6944 Kernel.VMState <> vm_mstatus proj
-R6935:6944 Kernel.VMState <> vm_mstatus proj
-R6952:6961 Kernel.VMState <> vm_witness proj
-R6952:6961 Kernel.VMState <> vm_witness proj
-R6987:6998 Kernel.VMState <> vm_certified proj
-R6987:6998 Kernel.VMState <> vm_certified proj
-R6668:6678 Kernel.VMState <> empty_graph def
-R6714:6726 Kernel.VMState <> csr_cert_addr proj
-R6714:6726 Kernel.VMState <> csr_cert_addr proj
-R6714:6726 Kernel.VMState <> csr_cert_addr proj
-R6734:6743 Kernel.VMState <> csr_status proj
-R6734:6743 Kernel.VMState <> csr_status proj
-R6751:6757 Kernel.VMState <> csr_err proj
-R6751:6757 Kernel.VMState <> csr_err proj
-R6765:6777 Kernel.VMState <> csr_heap_base proj
-R6765:6777 Kernel.VMState <> csr_heap_base proj
-R6818:6819 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6832:6833 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6877:6896 Kernel.VMState <> vm_mu_tensor_default def
-R6909:6913 Coq.Init.Datatypes <> false constr
-R6966:6984 Kernel.VMState <> witness_counts_zero def
-R7003:7007 Coq.Init.Datatypes <> false constr
-R7083:7086 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7091:7093 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7087:7087 Coq.Init.Datatypes <> S constr
-R7083:7086 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7091:7093 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7087:7087 Coq.Init.Datatypes <> S constr
-R7253:7255 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7236:7244 Coq.Lists.List <> nth_error def
-R7256:7259 Coq.Init.Datatypes <> None constr
-R7253:7255 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7236:7244 Coq.Lists.List <> nth_error def
-R7256:7259 Coq.Init.Datatypes <> None constr
-R7277:7290 Coq.Lists.List <> nth_error_None thm
-R7277:7290 Coq.Lists.List <> nth_error_None thm
-R7299:7312 Coq.Lists.List <> nth_error_None thm
-R7299:7312 Coq.Lists.List <> nth_error_None thm
-prf 7453:7468 <> mu_zero_no_ljoin
-binder 7481:7484 <> fuel:26
-binder 7486:7490 <> trace:27
-R7523:7530 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7497:7511 Kernel.MuCostModel <> mu_zero_program def
-R7513:7516 Kernel.TsirelsonUpperBound <> fuel:26 var
-R7518:7522 Kernel.TsirelsonUpperBound <> trace:27 var
-binder 7538:7538 <> n:28
-binder 7540:7544 <> cert1:29
-binder 7546:7550 <> cert2:30
-binder 7552:7553 <> mu:31
-R7615:7624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7579:7581 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7562:7570 Coq.Lists.List <> nth_error def
-R7578:7578 Kernel.TsirelsonUpperBound <> n:28 var
-R7572:7576 Kernel.TsirelsonUpperBound <> trace:27 var
-R7582:7585 Coq.Init.Datatypes <> Some constr
-R7588:7598 Kernel.VMStep VMStep instr_ljoin constr
-R7600:7604 Kernel.TsirelsonUpperBound <> cert1:29 var
-R7606:7610 Kernel.TsirelsonUpperBound <> cert2:30 var
-R7612:7613 Kernel.TsirelsonUpperBound <> mu:31 var
-R7626:7629 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7625:7625 Kernel.TsirelsonUpperBound <> n:28 var
-R7630:7633 Kernel.TsirelsonUpperBound <> fuel:26 var
-R7701:7715 Kernel.MuCostModel <> mu_zero_program def
-R7743:7746 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7743:7746 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7777:7780 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7782:7784 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7802:7825 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin_from_pc thm
-R7777:7780 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7782:7784 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7802:7825 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin_from_pc thm
-prf 8873:8897 <> classical_bound_algebraic
-R8914:8914 Coq.QArith.QArith_base <> Q rec
-binder 8910:8910 <> q:32
-R8934:8941 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8927:8930 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R8921:8924 Coq.QArith.Qabs <> Qabs def
-R8926:8926 Kernel.TsirelsonUpperBound <> q:32 var
-R8973:8976 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R8948:8951 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R8942:8945 Coq.QArith.Qabs <> Qabs def
-R8947:8947 Kernel.TsirelsonUpperBound <> q:32 var
-R8952:8972 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R8983:8985 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
-R8986:9006 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R8977:8980 Coq.QArith.Qabs <> Qabs def
-R8982:8982 Kernel.TsirelsonUpperBound <> q:32 var
-R9040:9060 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R9075:9084 Coq.QArith.QArith_base <> Qlt_le_dec thm
-R9089:9092 Coq.QArith.Qabs <> Qabs def
-R9075:9084 Coq.QArith.QArith_base <> Qlt_le_dec thm
-R9089:9092 Coq.QArith.Qabs <> Qabs def
-prf 9210:9236 <> quantum_tsirelson_algebraic
-R9253:9253 Coq.QArith.QArith_base <> Q rec
-binder 9249:9249 <> q:33
-R9273:9280 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9266:9269 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R9260:9263 Coq.QArith.Qabs <> Qabs def
-R9265:9265 Kernel.TsirelsonUpperBound <> q:33 var
-R9314:9317 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R9287:9290 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R9281:9284 Coq.QArith.Qabs <> Qabs def
-R9286:9286 Kernel.TsirelsonUpperBound <> q:33 var
-R9291:9313 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R9324:9326 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
-R9327:9349 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R9318:9321 Coq.QArith.Qabs <> Qabs def
-R9323:9323 Kernel.TsirelsonUpperBound <> q:33 var
-R9383:9405 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R9420:9429 Coq.QArith.QArith_base <> Qlt_le_dec thm
-R9436:9436 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R9444:9447 Coq.QArith.Qabs <> Qabs def
-R9420:9429 Coq.QArith.QArith_base <> Qlt_le_dec thm
-R9436:9436 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
-R9444:9447 Coq.QArith.Qabs <> Qabs def
-def 9990:10010 <> mu_zero_trace_is_locc
-R10020:10022 Coq.Init.Datatypes <> nat ind
-binder 10013:10016 <> fuel:34
-R10034:10037 Coq.Init.Datatypes <> list ind
-R10039:10052 Kernel.VMStep VMStep vm_instruction ind
-binder 10026:10030 <> trace:35
-R10093:10098 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10067:10081 Kernel.MuCostModel <> mu_zero_program def
-R10083:10086 Kernel.TsirelsonUpperBound <> fuel:34 var
-R10088:10092 Kernel.TsirelsonUpperBound <> trace:35 var
-R10099:10099 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10204:10210 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 10107:10107 <> n:36
-binder 10109:10111 <> mid:37
-binder 10113:10116 <> addr:38
-binder 10118:10120 <> len:39
-binder 10122:10123 <> mu:40
-R10144:10147 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10132:10134 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R10131:10131 Kernel.TsirelsonUpperBound <> n:36 var
-R10135:10138 Kernel.TsirelsonUpperBound <> fuel:34 var
-R10165:10168 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R10148:10156 Coq.Lists.List <> nth_error def
-R10164:10164 Kernel.TsirelsonUpperBound <> n:36 var
-R10158:10162 Kernel.TsirelsonUpperBound <> trace:35 var
-R10169:10172 Coq.Init.Datatypes <> Some constr
-R10175:10186 Kernel.VMStep VMStep instr_reveal constr
-R10188:10190 Kernel.TsirelsonUpperBound <> mid:37 var
-R10192:10195 Kernel.TsirelsonUpperBound <> addr:38 var
-R10197:10199 Kernel.TsirelsonUpperBound <> len:39 var
-R10201:10202 Kernel.TsirelsonUpperBound <> mu:40 var
-R10211:10211 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10313:10354 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10456:10456 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 10219:10219 <> n:41
-binder 10221:10222 <> fa:42
-binder 10224:10225 <> ca:43
-binder 10227:10227 <> k:44
-binder 10229:10230 <> fl:45
-binder 10232:10233 <> mu:46
-R10254:10257 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10242:10244 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R10241:10241 Kernel.TsirelsonUpperBound <> n:41 var
-R10245:10248 Kernel.TsirelsonUpperBound <> fuel:34 var
-R10275:10278 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R10258:10266 Coq.Lists.List <> nth_error def
-R10274:10274 Kernel.TsirelsonUpperBound <> n:41 var
-R10268:10272 Kernel.TsirelsonUpperBound <> trace:35 var
-R10279:10282 Coq.Init.Datatypes <> Some constr
-R10285:10297 Kernel.VMStep VMStep instr_lassert constr
-R10299:10300 Kernel.TsirelsonUpperBound <> fa:42 var
-R10302:10303 Kernel.TsirelsonUpperBound <> ca:43 var
-R10305:10305 Kernel.TsirelsonUpperBound <> k:44 var
-R10307:10308 Kernel.TsirelsonUpperBound <> fl:45 var
-R10310:10311 Kernel.TsirelsonUpperBound <> mu:46 var
-binder 10362:10362 <> n:47
-binder 10364:10368 <> cert1:48
-binder 10370:10374 <> cert2:49
-binder 10376:10377 <> mu:50
-R10398:10401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10386:10388 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R10385:10385 Kernel.TsirelsonUpperBound <> n:47 var
-R10389:10392 Kernel.TsirelsonUpperBound <> fuel:34 var
-R10419:10422 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R10402:10410 Coq.Lists.List <> nth_error def
-R10418:10418 Kernel.TsirelsonUpperBound <> n:47 var
-R10412:10416 Kernel.TsirelsonUpperBound <> trace:35 var
-R10423:10426 Coq.Init.Datatypes <> Some constr
-R10429:10439 Kernel.VMStep VMStep instr_ljoin constr
-R10441:10445 Kernel.TsirelsonUpperBound <> cert1:48 var
-R10447:10451 Kernel.TsirelsonUpperBound <> cert2:49 var
-R10453:10454 Kernel.TsirelsonUpperBound <> mu:50 var
-prf 10564:10583 <> mu_zero_implies_locc
-binder 10596:10599 <> fuel:51
-binder 10601:10605 <> trace:52
-R10638:10645 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10612:10626 Kernel.MuCostModel <> mu_zero_program def
-R10628:10631 Kernel.TsirelsonUpperBound <> fuel:51 var
-R10633:10637 Kernel.TsirelsonUpperBound <> trace:52 var
-R10646:10666 Kernel.TsirelsonUpperBound <> mu_zero_trace_is_locc def
-R10668:10671 Kernel.TsirelsonUpperBound <> fuel:51 var
-R10673:10677 Kernel.TsirelsonUpperBound <> trace:52 var
-R10721:10741 Kernel.TsirelsonUpperBound <> mu_zero_trace_is_locc def
-R10858:10861 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10884:10900 Kernel.MuCostModel <> mu_zero_no_reveal thm
-R10858:10861 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10884:10900 Kernel.MuCostModel <> mu_zero_no_reveal thm
-R11017:11020 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11043:11060 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert thm
-R11017:11020 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11043:11060 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert thm
-R11167:11170 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11193:11208 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin thm
-R11167:11170 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11193:11208 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin thm
-prf 12088:12107 <> mu_zero_chsh_bounded
-binder 12120:12123 <> fuel:53
-binder 12125:12129 <> trace:54
-binder 12131:12136 <> s_init:55
-R12169:12176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12143:12157 Kernel.MuCostModel <> mu_zero_program def
-R12159:12162 Kernel.TsirelsonUpperBound <> fuel:53 var
-R12164:12168 Kernel.TsirelsonUpperBound <> trace:54 var
-R12220:12223 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R12177:12180 Coq.QArith.Qabs <> Qabs def
-R12183:12200 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R12202:12205 Kernel.TsirelsonUpperBound <> fuel:53 var
-R12207:12211 Kernel.TsirelsonUpperBound <> trace:54 var
-R12213:12218 Kernel.TsirelsonUpperBound <> s_init:55 var
-R12347:12364 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R12431:12450 Kernel.CHSHExtraction <> chsh_algebraic_bound thm
-R12431:12450 Kernel.CHSHExtraction <> chsh_algebraic_bound thm
-prf 13307:13338 <> mu_zero_chsh_classical_decidable
-binder 13351:13354 <> fuel:56
-binder 13356:13360 <> trace:57
-binder 13362:13367 <> s_init:58
-R13400:13407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13374:13388 Kernel.MuCostModel <> mu_zero_program def
-R13390:13393 Kernel.TsirelsonUpperBound <> fuel:56 var
-R13395:13399 Kernel.TsirelsonUpperBound <> trace:57 var
-R13476:13483 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R13451:13454 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R13408:13411 Coq.QArith.Qabs <> Qabs def
-R13414:13431 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R13433:13436 Kernel.TsirelsonUpperBound <> fuel:56 var
-R13438:13442 Kernel.TsirelsonUpperBound <> trace:57 var
-R13444:13449 Kernel.TsirelsonUpperBound <> s_init:58 var
-R13455:13475 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R13527:13529 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
-R13530:13550 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R13484:13487 Coq.QArith.Qabs <> Qabs def
-R13490:13507 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R13509:13512 Kernel.TsirelsonUpperBound <> fuel:56 var
-R13514:13518 Kernel.TsirelsonUpperBound <> trace:57 var
-R13520:13525 Kernel.TsirelsonUpperBound <> s_init:58 var
-R13600:13624 Kernel.TsirelsonUpperBound <> classical_bound_algebraic thm
-R13600:13624 Kernel.TsirelsonUpperBound <> classical_bound_algebraic thm
-R13635:13654 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
-R13635:13654 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
-prf 13741:13780 <> mu_zero_chsh_quantum_tsirelson_decidable
-binder 13793:13796 <> fuel:59
-binder 13798:13802 <> trace:60
-binder 13804:13809 <> s_init:61
-R13842:13849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13816:13830 Kernel.MuCostModel <> mu_zero_program def
-R13832:13835 Kernel.TsirelsonUpperBound <> fuel:59 var
-R13837:13841 Kernel.TsirelsonUpperBound <> trace:60 var
-R13920:13927 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R13893:13896 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R13850:13853 Coq.QArith.Qabs <> Qabs def
-R13856:13873 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R13875:13878 Kernel.TsirelsonUpperBound <> fuel:59 var
-R13880:13884 Kernel.TsirelsonUpperBound <> trace:60 var
-R13886:13891 Kernel.TsirelsonUpperBound <> s_init:61 var
-R13897:13919 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R13971:13973 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
-R13974:13996 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R13928:13931 Coq.QArith.Qabs <> Qabs def
-R13934:13951 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R13953:13956 Kernel.TsirelsonUpperBound <> fuel:59 var
-R13958:13962 Kernel.TsirelsonUpperBound <> trace:60 var
-R13964:13969 Kernel.TsirelsonUpperBound <> s_init:61 var
-R14046:14072 Kernel.TsirelsonUpperBound <> quantum_tsirelson_algebraic thm
-R14046:14072 Kernel.TsirelsonUpperBound <> quantum_tsirelson_algebraic thm
-R14083:14102 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
-R14083:14102 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
-def 14323:14341 <> algebraic_max_trace
-R14345:14348 Coq.Init.Datatypes <> list ind
-R14350:14363 Kernel.VMStep VMStep vm_instruction ind
-R14368:14371 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14418:14421 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14468:14471 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14518:14521 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14568:14569 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14372:14387 Kernel.VMStep VMStep instr_chsh_trial constr
-R14422:14437 Kernel.VMStep VMStep instr_chsh_trial constr
-R14472:14487 Kernel.VMStep VMStep instr_chsh_trial constr
-R14522:14537 Kernel.VMStep VMStep instr_chsh_trial constr
-def 14584:14603 <> algebraic_max_trials
-R14607:14610 Coq.Init.Datatypes <> list ind
-R14612:14620 Kernel.CHSHExtraction <> CHSHTrial rec
-R14625:14631 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14702:14711 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14782:14791 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14862:14871 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14942:14946 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R14632:14638 Kernel.CHSHExtraction <> trial_x proj
-R14632:14638 Kernel.CHSHExtraction <> trial_x proj
-R14632:14638 Kernel.CHSHExtraction <> trial_x proj
-R14650:14656 Kernel.CHSHExtraction <> trial_y proj
-R14650:14656 Kernel.CHSHExtraction <> trial_y proj
-R14668:14674 Kernel.CHSHExtraction <> trial_a proj
-R14668:14674 Kernel.CHSHExtraction <> trial_a proj
-R14686:14692 Kernel.CHSHExtraction <> trial_b proj
-R14686:14692 Kernel.CHSHExtraction <> trial_b proj
-R14712:14718 Kernel.CHSHExtraction <> trial_x proj
-R14712:14718 Kernel.CHSHExtraction <> trial_x proj
-R14712:14718 Kernel.CHSHExtraction <> trial_x proj
-R14730:14736 Kernel.CHSHExtraction <> trial_y proj
-R14730:14736 Kernel.CHSHExtraction <> trial_y proj
-R14748:14754 Kernel.CHSHExtraction <> trial_a proj
-R14748:14754 Kernel.CHSHExtraction <> trial_a proj
-R14766:14772 Kernel.CHSHExtraction <> trial_b proj
-R14766:14772 Kernel.CHSHExtraction <> trial_b proj
-R14792:14798 Kernel.CHSHExtraction <> trial_x proj
-R14792:14798 Kernel.CHSHExtraction <> trial_x proj
-R14792:14798 Kernel.CHSHExtraction <> trial_x proj
-R14810:14816 Kernel.CHSHExtraction <> trial_y proj
-R14810:14816 Kernel.CHSHExtraction <> trial_y proj
-R14828:14834 Kernel.CHSHExtraction <> trial_a proj
-R14828:14834 Kernel.CHSHExtraction <> trial_a proj
-R14846:14852 Kernel.CHSHExtraction <> trial_b proj
-R14846:14852 Kernel.CHSHExtraction <> trial_b proj
-R14872:14878 Kernel.CHSHExtraction <> trial_x proj
-R14872:14878 Kernel.CHSHExtraction <> trial_x proj
-R14872:14878 Kernel.CHSHExtraction <> trial_x proj
-R14890:14896 Kernel.CHSHExtraction <> trial_y proj
-R14890:14896 Kernel.CHSHExtraction <> trial_y proj
-R14908:14914 Kernel.CHSHExtraction <> trial_a proj
-R14908:14914 Kernel.CHSHExtraction <> trial_a proj
-R14926:14932 Kernel.CHSHExtraction <> trial_b proj
-R14926:14932 Kernel.CHSHExtraction <> trial_b proj
-def 14961:14988 <> init_state_for_algebraic_max
-R14992:14998 Kernel.VMState <> VMState rec
-R15008:15014 Kernel.VMState <> vm_regs proj
-R15008:15014 Kernel.VMState <> vm_regs proj
-R15008:15014 Kernel.VMState <> vm_regs proj
-R15041:15046 Kernel.VMState <> vm_mem proj
-R15041:15046 Kernel.VMState <> vm_mem proj
-R15094:15100 Kernel.VMState <> vm_csrs proj
-R15094:15100 Kernel.VMState <> vm_csrs proj
-R15199:15203 Kernel.VMState <> vm_pc proj
-R15199:15203 Kernel.VMState <> vm_pc proj
-R15220:15227 Kernel.VMState <> vm_graph proj
-R15220:15227 Kernel.VMState <> vm_graph proj
-R15250:15254 Kernel.VMState <> vm_mu proj
-R15250:15254 Kernel.VMState <> vm_mu proj
-R15271:15282 Kernel.VMState <> vm_mu_tensor proj
-R15271:15282 Kernel.VMState <> vm_mu_tensor proj
-R15314:15319 Kernel.VMState <> vm_err proj
-R15314:15319 Kernel.VMState <> vm_err proj
-R15336:15347 Kernel.VMState <> vm_logic_acc proj
-R15336:15347 Kernel.VMState <> vm_logic_acc proj
-R15360:15369 Kernel.VMState <> vm_mstatus proj
-R15360:15369 Kernel.VMState <> vm_mstatus proj
-R15382:15391 Kernel.VMState <> vm_witness proj
-R15382:15391 Kernel.VMState <> vm_witness proj
-R15422:15433 Kernel.VMState <> vm_certified proj
-R15422:15433 Kernel.VMState <> vm_certified proj
-R15232:15242 Kernel.VMState <> empty_graph def
-R15108:15120 Kernel.VMState <> csr_cert_addr proj
-R15108:15120 Kernel.VMState <> csr_cert_addr proj
-R15108:15120 Kernel.VMState <> csr_cert_addr proj
-R15132:15141 Kernel.VMState <> csr_status proj
-R15132:15141 Kernel.VMState <> csr_status proj
-R15153:15159 Kernel.VMState <> csr_err proj
-R15153:15159 Kernel.VMState <> csr_err proj
-R15171:15183 Kernel.VMState <> csr_heap_base proj
-R15171:15183 Kernel.VMState <> csr_heap_base proj
-R15019:15024 Coq.Lists.List <> repeat def
-R15051:15052 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R15287:15306 Kernel.VMState <> vm_mu_tensor_default def
-R15324:15328 Coq.Init.Datatypes <> false constr
-R15396:15414 Kernel.VMState <> witness_counts_zero def
-R15438:15442 Coq.Init.Datatypes <> false constr
-prf 15489:15515 <> algebraic_max_trace_mu_zero
-R15561:15563 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15521:15536 Kernel.MuCostModel <> mu_cost_of_trace def
-R15540:15558 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
-prf 15679:15703 <> algebraic_max_trials_chsh
-R15746:15749 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R15709:15724 Kernel.CHSHExtraction <> chsh_from_trials def
-R15726:15745 Kernel.TsirelsonUpperBound <> algebraic_max_trials def
-R15771:15786 Kernel.CHSHExtraction <> chsh_from_trials def
-R15789:15807 Kernel.CHSHExtraction <> compute_correlation def
-R15810:15822 Kernel.CHSHExtraction <> filter_trials def
-prf 15925:15952 <> extract_algebraic_max_trials
-R16039:16043 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15958:15987 Kernel.CHSHExtraction <> extract_chsh_trials_from_trace def
-R15991:16009 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
-R16011:16038 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
-R16044:16063 Kernel.TsirelsonUpperBound <> algebraic_max_trials def
-prf 16173:16196 <> algebraic_max_trace_chsh
-R16271:16274 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
-R16202:16219 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R16223:16241 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
-R16243:16270 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
-R16296:16313 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R16326:16353 Kernel.TsirelsonUpperBound <> extract_algebraic_max_trials thm
-R16326:16353 Kernel.TsirelsonUpperBound <> extract_algebraic_max_trials thm
-R16326:16353 Kernel.TsirelsonUpperBound <> extract_algebraic_max_trials thm
-R16364:16388 Kernel.TsirelsonUpperBound <> algebraic_max_trials_chsh thm
-R16364:16388 Kernel.TsirelsonUpperBound <> algebraic_max_trials_chsh thm
-prf 16606:16637 <> classical_bound_lt_algebraic_max
-R16662:16664 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R16641:16661 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R16817:16837 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R16849:16851 Coq.QArith.QArith_base <> Qlt def
-prf 16949:16982 <> quantum_tsirelson_lt_algebraic_max
-R17009:17011 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R16986:17008 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R17217:17239 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R17251:17253 Coq.QArith.QArith_base <> Qlt def
-prf 17316:17346 <> mu_zero_trace_exceeds_classical
-R17373:17411 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R17352:17372 Kernel.TsirelsonUpperBound <> classical_bound_value def
-R17412:17415 Coq.QArith.Qabs <> Qabs def
-R17418:17435 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R17439:17457 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
-R17459:17486 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
-R17507:17530 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
-R17507:17530 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
-R17507:17530 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
-R17543:17550 Coq.QArith.Qabs <> Qabs_pos thm
-R17543:17550 Coq.QArith.Qabs <> Qabs_pos thm
-R17543:17550 Coq.QArith.Qabs <> Qabs_pos thm
-R17543:17550 Coq.QArith.Qabs <> Qabs_pos thm
-R17563:17594 Kernel.TsirelsonUpperBound <> classical_bound_lt_algebraic_max thm
-R17563:17594 Kernel.TsirelsonUpperBound <> classical_bound_lt_algebraic_max thm
-R17608:17610 Coq.QArith.QArith_base <> Qle def
-R17627:17634 Coq.ZArith.BinInt Z leb_le thm
-R17627:17634 Coq.ZArith.BinInt Z leb_le thm
-prf 17706:17744 <> mu_zero_trace_exceeds_quantum_tsirelson
-R17773:17777 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
-R17750:17772 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
-R17778:17781 Coq.QArith.Qabs <> Qabs def
-R17784:17801 Kernel.CHSHExtraction <> chsh_from_vm_trace def
-R17805:17823 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
-R17825:17852 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
-R17873:17896 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
-R17873:17896 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
-R17873:17896 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
-R17909:17916 Coq.QArith.Qabs <> Qabs_pos thm
-R17909:17916 Coq.QArith.Qabs <> Qabs_pos thm
-R17909:17916 Coq.QArith.Qabs <> Qabs_pos thm
-R17909:17916 Coq.QArith.Qabs <> Qabs_pos thm
-R17929:17962 Kernel.TsirelsonUpperBound <> quantum_tsirelson_lt_algebraic_max thm
-R17929:17962 Kernel.TsirelsonUpperBound <> quantum_tsirelson_lt_algebraic_max thm
-R17976:17978 Coq.QArith.QArith_base <> Qle def
-R17995:18002 Coq.ZArith.BinInt Z leb_le thm
-R17995:18002 Coq.ZArith.BinInt Z leb_le thm
-def 18486:18507 <> correlators_from_trace
-R18519:18521 Coq.Init.Datatypes <> nat ind
-binder 18512:18515 <> fuel:62
-R18533:18536 Coq.Init.Datatypes <> list ind
-R18538:18551 Kernel.VMStep VMStep vm_instruction ind
-binder 18525:18529 <> trace:63
-R18564:18570 Kernel.VMState <> VMState rec
-binder 18555:18560 <> s_init:64
-R18575:18585 Kernel.AlgebraicCoherence <> Correlators rec
-R18606:18635 Kernel.CHSHExtraction <> extract_chsh_trials_from_trace def
-R18637:18640 Kernel.TsirelsonUpperBound <> fuel:62 var
-R18642:18646 Kernel.TsirelsonUpperBound <> trace:63 var
-R18648:18653 Kernel.TsirelsonUpperBound <> s_init:64 var
-binder 18596:18601 <> trials:65
-R18663:18665 Kernel.AlgebraicCoherence <> E00 proj
-R18663:18665 Kernel.AlgebraicCoherence <> E00 proj
-R18663:18665 Kernel.AlgebraicCoherence <> E00 proj
-R18723:18725 Kernel.AlgebraicCoherence <> E01 proj
-R18723:18725 Kernel.AlgebraicCoherence <> E01 proj
-R18783:18785 Kernel.AlgebraicCoherence <> E10 proj
-R18783:18785 Kernel.AlgebraicCoherence <> E10 proj
-R18843:18845 Kernel.AlgebraicCoherence <> E11 proj
-R18843:18845 Kernel.AlgebraicCoherence <> E11 proj
-R18670:18688 Kernel.CHSHExtraction <> compute_correlation def
-R18691:18703 Kernel.CHSHExtraction <> filter_trials def
-R18705:18710 Kernel.TsirelsonUpperBound <> trials:65 var
-R18730:18748 Kernel.CHSHExtraction <> compute_correlation def
-R18751:18763 Kernel.CHSHExtraction <> filter_trials def
-R18765:18770 Kernel.TsirelsonUpperBound <> trials:65 var
-R18790:18808 Kernel.CHSHExtraction <> compute_correlation def
-R18811:18823 Kernel.CHSHExtraction <> filter_trials def
-R18825:18830 Kernel.TsirelsonUpperBound <> trials:65 var
-R18850:18868 Kernel.CHSHExtraction <> compute_correlation def
-R18871:18883 Kernel.CHSHExtraction <> filter_trials def
-R18885:18890 Kernel.TsirelsonUpperBound <> trials:65 var
-prf 18944:18966 <> mu_zero_algebraic_bound
-binder 18979:18982 <> fuel:66
-binder 18984:18988 <> trace:67
-binder 18990:18995 <> s_init:68
-R19028:19035 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19002:19016 Kernel.MuCostModel <> mu_zero_program def
-R19018:19021 Kernel.TsirelsonUpperBound <> fuel:66 var
-R19023:19027 Kernel.TsirelsonUpperBound <> trace:67 var
-R19101:19108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19036:19057 Kernel.AlgebraicCoherence <> algebraically_coherent def
-R19060:19081 Kernel.TsirelsonUpperBound <> correlators_from_trace def
-R19083:19086 Kernel.TsirelsonUpperBound <> fuel:66 var
-R19088:19092 Kernel.TsirelsonUpperBound <> trace:67 var
-R19094:19099 Kernel.TsirelsonUpperBound <> s_init:68 var
-R19177:19180 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
-R19109:19112 Coq.QArith.Qabs <> Qabs def
-R19115:19132 Kernel.AlgebraicCoherence <> S_from_correlators def
-R19135:19156 Kernel.TsirelsonUpperBound <> correlators_from_trace def
-R19158:19161 Kernel.TsirelsonUpperBound <> fuel:66 var
-R19163:19167 Kernel.TsirelsonUpperBound <> trace:67 var
-R19169:19174 Kernel.TsirelsonUpperBound <> s_init:68 var
-R19236:19247 Kernel.AlgebraicCoherence <> chsh_bound_4 thm
-R19236:19247 Kernel.AlgebraicCoherence <> chsh_bound_4 thm
-R19259:19280 Kernel.AlgebraicCoherence <> algebraically_coherent def
+R715:718 Coq.Lists.List <> <> lib
+R720:725 Coq.QArith.QArith <> <> lib
+R727:730 Coq.QArith.Qabs <> <> lib
+R732:734 Coq.micromega.Lia <> <> lib
+R736:749 Coq.Arith.PeanoNat <> <> lib
+R751:756 Coq.ZArith.ZArith <> <> lib
+R774:778 Coq.micromega.Psatz <> <> lib
+R788:800 Coq.Lists.List ListNotations <> mod
+R857:863 Kernel.VMState <> <> lib
+R865:870 Kernel.VMStep <> <> lib
+R872:885 Kernel.CHSHExtraction <> <> lib
+R887:897 Kernel.MuCostModel <> <> lib
+R899:912 Kernel.ClassicalBound <> <> lib
+R942:959 Kernel.AlgebraicCoherence <> <> lib
+def 1076:1096 <> classical_bound_value
+R1100:1100 Coq.QArith.QArith_base <> Q rec
+def 1272:1294 <> quantum_tsirelson_bound
+R1298:1298 Coq.QArith.QArith_base <> Q rec
+R1308:1310 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+def 2276:2297 <> instruction_is_mu_free
+R2308:2321 Kernel.VMStep VMStep vm_instruction ind
+binder 2300:2304 <> instr:1
+R2697:2699 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2336:2351 Kernel.MuCostModel <> mu_cost_of_instr def
+R2353:2357 Kernel.TsirelsonUpperBound <> instr:1 var
+R2367:2374 Kernel.VMState <> vm_graph proj
+R2367:2374 Kernel.VMState <> vm_graph proj
+R2367:2374 Kernel.VMState <> vm_graph proj
+R2399:2405 Kernel.VMState <> vm_csrs proj
+R2399:2405 Kernel.VMState <> vm_csrs proj
+R2494:2500 Kernel.VMState <> vm_regs proj
+R2494:2500 Kernel.VMState <> vm_regs proj
+R2509:2514 Kernel.VMState <> vm_mem proj
+R2509:2514 Kernel.VMState <> vm_mem proj
+R2523:2527 Kernel.VMState <> vm_pc proj
+R2523:2527 Kernel.VMState <> vm_pc proj
+R2535:2539 Kernel.VMState <> vm_mu proj
+R2535:2539 Kernel.VMState <> vm_mu proj
+R2547:2558 Kernel.VMState <> vm_mu_tensor proj
+R2547:2558 Kernel.VMState <> vm_mu_tensor proj
+R2585:2590 Kernel.VMState <> vm_err proj
+R2585:2590 Kernel.VMState <> vm_err proj
+R2602:2613 Kernel.VMState <> vm_logic_acc proj
+R2602:2613 Kernel.VMState <> vm_logic_acc proj
+R2621:2630 Kernel.VMState <> vm_mstatus proj
+R2621:2630 Kernel.VMState <> vm_mstatus proj
+R2638:2647 Kernel.VMState <> vm_witness proj
+R2638:2647 Kernel.VMState <> vm_witness proj
+R2673:2684 Kernel.VMState <> vm_certified proj
+R2673:2684 Kernel.VMState <> vm_certified proj
+R2379:2389 Kernel.VMState <> empty_graph def
+R2413:2425 Kernel.VMState <> csr_cert_addr proj
+R2413:2425 Kernel.VMState <> csr_cert_addr proj
+R2413:2425 Kernel.VMState <> csr_cert_addr proj
+R2433:2442 Kernel.VMState <> csr_status proj
+R2433:2442 Kernel.VMState <> csr_status proj
+R2450:2456 Kernel.VMState <> csr_err proj
+R2450:2456 Kernel.VMState <> csr_err proj
+R2464:2476 Kernel.VMState <> csr_heap_base proj
+R2464:2476 Kernel.VMState <> csr_heap_base proj
+R2505:2506 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2519:2520 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2563:2582 Kernel.VMState <> vm_mu_tensor_default def
+R2595:2599 Coq.Init.Datatypes <> false constr
+R2652:2670 Kernel.VMState <> witness_counts_zero def
+R2689:2693 Coq.Init.Datatypes <> false constr
+prf 2865:2890 <> mu_zero_no_lassert_from_pc
+binder 2903:2906 <> fuel:2
+binder 2908:2912 <> trace:3
+binder 2914:2915 <> pc:4
+R2960:2967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2952:2954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2922:2937 Kernel.MuCostModel <> mu_cost_of_trace def
+R2939:2942 Kernel.TsirelsonUpperBound <> fuel:2 var
+R2944:2948 Kernel.TsirelsonUpperBound <> trace:3 var
+R2950:2951 Kernel.TsirelsonUpperBound <> pc:4 var
+binder 2975:2975 <> n:5
+binder 2977:2978 <> fa:6
+binder 2980:2981 <> ca:7
+binder 2983:2983 <> k:8
+binder 2985:2986 <> fl:9
+binder 2988:2989 <> mu:10
+R3052:3061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3015:3017 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2998:3006 Coq.Lists.List <> nth_error def
+R3014:3014 Kernel.TsirelsonUpperBound <> n:5 var
+R3008:3012 Kernel.TsirelsonUpperBound <> trace:3 var
+R3018:3021 Coq.Init.Datatypes <> Some constr
+R3024:3036 Kernel.VMStep VMStep instr_lassert constr
+R3038:3039 Kernel.TsirelsonUpperBound <> fa:6 var
+R3041:3042 Kernel.TsirelsonUpperBound <> ca:7 var
+R3044:3044 Kernel.TsirelsonUpperBound <> k:8 var
+R3046:3047 Kernel.TsirelsonUpperBound <> fl:9 var
+R3049:3050 Kernel.TsirelsonUpperBound <> mu:10 var
+R3069:3078 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3064:3067 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3062:3063 Kernel.TsirelsonUpperBound <> pc:4 var
+R3068:3068 Kernel.TsirelsonUpperBound <> n:5 var
+R3080:3083 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3079:3079 Kernel.TsirelsonUpperBound <> n:5 var
+R3086:3088 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3084:3085 Kernel.TsirelsonUpperBound <> pc:4 var
+R3089:3092 Kernel.TsirelsonUpperBound <> fuel:2 var
+R3206:3214 Coq.Lists.List <> nth_error def
+R3206:3214 Coq.Lists.List <> nth_error def
+R3261:3270 Coq.Arith.PeanoNat Nat eq_dec thm
+R3261:3270 Coq.Arith.PeanoNat Nat eq_dec thm
+R3390:3412 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R3390:3412 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R3390:3412 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R3461:3476 Kernel.MuCostModel <> mu_cost_of_instr def
+R3535:3537 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3535:3537 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3566:3588 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R3566:3588 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R3566:3588 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R3642:3657 Kernel.MuCostModel <> mu_cost_of_instr def
+R3666:3673 Kernel.VMState <> vm_graph proj
+R3666:3673 Kernel.VMState <> vm_graph proj
+R3666:3673 Kernel.VMState <> vm_graph proj
+R3710:3716 Kernel.VMState <> vm_csrs proj
+R3710:3716 Kernel.VMState <> vm_csrs proj
+R3817:3823 Kernel.VMState <> vm_regs proj
+R3817:3823 Kernel.VMState <> vm_regs proj
+R3832:3837 Kernel.VMState <> vm_mem proj
+R3832:3837 Kernel.VMState <> vm_mem proj
+R3846:3850 Kernel.VMState <> vm_pc proj
+R3846:3850 Kernel.VMState <> vm_pc proj
+R3859:3863 Kernel.VMState <> vm_mu proj
+R3859:3863 Kernel.VMState <> vm_mu proj
+R3871:3882 Kernel.VMState <> vm_mu_tensor proj
+R3871:3882 Kernel.VMState <> vm_mu_tensor proj
+R3909:3914 Kernel.VMState <> vm_err proj
+R3909:3914 Kernel.VMState <> vm_err proj
+R3926:3937 Kernel.VMState <> vm_logic_acc proj
+R3926:3937 Kernel.VMState <> vm_logic_acc proj
+R3945:3954 Kernel.VMState <> vm_mstatus proj
+R3945:3954 Kernel.VMState <> vm_mstatus proj
+R3962:3971 Kernel.VMState <> vm_witness proj
+R3962:3971 Kernel.VMState <> vm_witness proj
+R3997:4008 Kernel.VMState <> vm_certified proj
+R3997:4008 Kernel.VMState <> vm_certified proj
+R3678:3688 Kernel.VMState <> empty_graph def
+R3724:3736 Kernel.VMState <> csr_cert_addr proj
+R3724:3736 Kernel.VMState <> csr_cert_addr proj
+R3724:3736 Kernel.VMState <> csr_cert_addr proj
+R3744:3753 Kernel.VMState <> csr_status proj
+R3744:3753 Kernel.VMState <> csr_status proj
+R3761:3767 Kernel.VMState <> csr_err proj
+R3761:3767 Kernel.VMState <> csr_err proj
+R3775:3787 Kernel.VMState <> csr_heap_base proj
+R3775:3787 Kernel.VMState <> csr_heap_base proj
+R3828:3829 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3842:3843 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3887:3906 Kernel.VMState <> vm_mu_tensor_default def
+R3919:3923 Coq.Init.Datatypes <> false constr
+R3976:3994 Kernel.VMState <> witness_counts_zero def
+R4013:4017 Coq.Init.Datatypes <> false constr
+R3642:3657 Kernel.MuCostModel <> mu_cost_of_instr def
+R3666:3673 Kernel.VMState <> vm_graph proj
+R3666:3673 Kernel.VMState <> vm_graph proj
+R3666:3673 Kernel.VMState <> vm_graph proj
+R3710:3716 Kernel.VMState <> vm_csrs proj
+R3710:3716 Kernel.VMState <> vm_csrs proj
+R3817:3823 Kernel.VMState <> vm_regs proj
+R3817:3823 Kernel.VMState <> vm_regs proj
+R3832:3837 Kernel.VMState <> vm_mem proj
+R3832:3837 Kernel.VMState <> vm_mem proj
+R3846:3850 Kernel.VMState <> vm_pc proj
+R3846:3850 Kernel.VMState <> vm_pc proj
+R3859:3863 Kernel.VMState <> vm_mu proj
+R3859:3863 Kernel.VMState <> vm_mu proj
+R3871:3882 Kernel.VMState <> vm_mu_tensor proj
+R3871:3882 Kernel.VMState <> vm_mu_tensor proj
+R3909:3914 Kernel.VMState <> vm_err proj
+R3909:3914 Kernel.VMState <> vm_err proj
+R3926:3937 Kernel.VMState <> vm_logic_acc proj
+R3926:3937 Kernel.VMState <> vm_logic_acc proj
+R3945:3954 Kernel.VMState <> vm_mstatus proj
+R3945:3954 Kernel.VMState <> vm_mstatus proj
+R3962:3971 Kernel.VMState <> vm_witness proj
+R3962:3971 Kernel.VMState <> vm_witness proj
+R3997:4008 Kernel.VMState <> vm_certified proj
+R3997:4008 Kernel.VMState <> vm_certified proj
+R3678:3688 Kernel.VMState <> empty_graph def
+R3724:3736 Kernel.VMState <> csr_cert_addr proj
+R3724:3736 Kernel.VMState <> csr_cert_addr proj
+R3724:3736 Kernel.VMState <> csr_cert_addr proj
+R3744:3753 Kernel.VMState <> csr_status proj
+R3744:3753 Kernel.VMState <> csr_status proj
+R3761:3767 Kernel.VMState <> csr_err proj
+R3761:3767 Kernel.VMState <> csr_err proj
+R3775:3787 Kernel.VMState <> csr_heap_base proj
+R3775:3787 Kernel.VMState <> csr_heap_base proj
+R3828:3829 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3842:3843 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3887:3906 Kernel.VMState <> vm_mu_tensor_default def
+R3919:3923 Coq.Init.Datatypes <> false constr
+R3976:3994 Kernel.VMState <> witness_counts_zero def
+R4013:4017 Coq.Init.Datatypes <> false constr
+R4093:4096 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4101:4103 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4097:4097 Coq.Init.Datatypes <> S constr
+R4093:4096 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4101:4103 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4097:4097 Coq.Init.Datatypes <> S constr
+R4264:4266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4247:4255 Coq.Lists.List <> nth_error def
+R4267:4270 Coq.Init.Datatypes <> None constr
+R4264:4266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4247:4255 Coq.Lists.List <> nth_error def
+R4267:4270 Coq.Init.Datatypes <> None constr
+R4288:4301 Coq.Lists.List <> nth_error_None thm
+R4288:4301 Coq.Lists.List <> nth_error_None thm
+R4310:4323 Coq.Lists.List <> nth_error_None thm
+R4310:4323 Coq.Lists.List <> nth_error_None thm
+prf 4464:4481 <> mu_zero_no_lassert
+binder 4494:4497 <> fuel:11
+binder 4499:4503 <> trace:12
+R4536:4543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4510:4524 Kernel.MuCostModel <> mu_zero_program def
+R4526:4529 Kernel.TsirelsonUpperBound <> fuel:11 var
+R4531:4535 Kernel.TsirelsonUpperBound <> trace:12 var
+binder 4551:4551 <> n:13
+binder 4553:4554 <> fa:14
+binder 4556:4557 <> ca:15
+binder 4559:4559 <> k:16
+binder 4561:4562 <> fl:17
+binder 4564:4565 <> mu:18
+R4628:4637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4591:4593 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4574:4582 Coq.Lists.List <> nth_error def
+R4590:4590 Kernel.TsirelsonUpperBound <> n:13 var
+R4584:4588 Kernel.TsirelsonUpperBound <> trace:12 var
+R4594:4597 Coq.Init.Datatypes <> Some constr
+R4600:4612 Kernel.VMStep VMStep instr_lassert constr
+R4614:4615 Kernel.TsirelsonUpperBound <> fa:14 var
+R4617:4618 Kernel.TsirelsonUpperBound <> ca:15 var
+R4620:4620 Kernel.TsirelsonUpperBound <> k:16 var
+R4622:4623 Kernel.TsirelsonUpperBound <> fl:17 var
+R4625:4626 Kernel.TsirelsonUpperBound <> mu:18 var
+R4639:4642 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4638:4638 Kernel.TsirelsonUpperBound <> n:13 var
+R4643:4646 Kernel.TsirelsonUpperBound <> fuel:11 var
+R4713:4727 Kernel.MuCostModel <> mu_zero_program def
+R4755:4758 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4755:4758 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4789:4792 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4794:4796 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4814:4839 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert_from_pc thm
+R4789:4792 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4794:4796 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4814:4839 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert_from_pc thm
+prf 5000:5023 <> mu_zero_no_ljoin_from_pc
+binder 5036:5039 <> fuel:19
+binder 5041:5045 <> trace:20
+binder 5047:5048 <> pc:21
+R5093:5100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5085:5087 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5055:5070 Kernel.MuCostModel <> mu_cost_of_trace def
+R5072:5075 Kernel.TsirelsonUpperBound <> fuel:19 var
+R5077:5081 Kernel.TsirelsonUpperBound <> trace:20 var
+R5083:5084 Kernel.TsirelsonUpperBound <> pc:21 var
+binder 5108:5108 <> n:22
+binder 5110:5114 <> cert1:23
+binder 5116:5120 <> cert2:24
+binder 5122:5123 <> mu:25
+R5185:5194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5149:5151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5132:5140 Coq.Lists.List <> nth_error def
+R5148:5148 Kernel.TsirelsonUpperBound <> n:22 var
+R5142:5146 Kernel.TsirelsonUpperBound <> trace:20 var
+R5152:5155 Coq.Init.Datatypes <> Some constr
+R5158:5168 Kernel.VMStep VMStep instr_ljoin constr
+R5170:5174 Kernel.TsirelsonUpperBound <> cert1:23 var
+R5176:5180 Kernel.TsirelsonUpperBound <> cert2:24 var
+R5182:5183 Kernel.TsirelsonUpperBound <> mu:25 var
+R5202:5211 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5197:5200 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5195:5196 Kernel.TsirelsonUpperBound <> pc:21 var
+R5201:5201 Kernel.TsirelsonUpperBound <> n:22 var
+R5213:5216 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5212:5212 Kernel.TsirelsonUpperBound <> n:22 var
+R5219:5221 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5217:5218 Kernel.TsirelsonUpperBound <> pc:21 var
+R5222:5225 Kernel.TsirelsonUpperBound <> fuel:19 var
+R5340:5348 Coq.Lists.List <> nth_error def
+R5340:5348 Coq.Lists.List <> nth_error def
+R5395:5404 Coq.Arith.PeanoNat Nat eq_dec thm
+R5395:5404 Coq.Arith.PeanoNat Nat eq_dec thm
+R5524:5546 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R5524:5546 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R5524:5546 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R5595:5610 Kernel.MuCostModel <> mu_cost_of_instr def
+R5669:5671 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5669:5671 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5700:5722 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R5700:5722 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R5700:5722 Kernel.MuCostModel <> mu_cost_of_trace_unfold thm
+R5776:5791 Kernel.MuCostModel <> mu_cost_of_instr def
+R5800:5807 Kernel.VMState <> vm_graph proj
+R5800:5807 Kernel.VMState <> vm_graph proj
+R5800:5807 Kernel.VMState <> vm_graph proj
+R5844:5850 Kernel.VMState <> vm_csrs proj
+R5844:5850 Kernel.VMState <> vm_csrs proj
+R5951:5957 Kernel.VMState <> vm_regs proj
+R5951:5957 Kernel.VMState <> vm_regs proj
+R5966:5971 Kernel.VMState <> vm_mem proj
+R5966:5971 Kernel.VMState <> vm_mem proj
+R5980:5984 Kernel.VMState <> vm_pc proj
+R5980:5984 Kernel.VMState <> vm_pc proj
+R5993:5997 Kernel.VMState <> vm_mu proj
+R5993:5997 Kernel.VMState <> vm_mu proj
+R6005:6016 Kernel.VMState <> vm_mu_tensor proj
+R6005:6016 Kernel.VMState <> vm_mu_tensor proj
+R6043:6048 Kernel.VMState <> vm_err proj
+R6043:6048 Kernel.VMState <> vm_err proj
+R6060:6071 Kernel.VMState <> vm_logic_acc proj
+R6060:6071 Kernel.VMState <> vm_logic_acc proj
+R6079:6088 Kernel.VMState <> vm_mstatus proj
+R6079:6088 Kernel.VMState <> vm_mstatus proj
+R6096:6105 Kernel.VMState <> vm_witness proj
+R6096:6105 Kernel.VMState <> vm_witness proj
+R6131:6142 Kernel.VMState <> vm_certified proj
+R6131:6142 Kernel.VMState <> vm_certified proj
+R5812:5822 Kernel.VMState <> empty_graph def
+R5858:5870 Kernel.VMState <> csr_cert_addr proj
+R5858:5870 Kernel.VMState <> csr_cert_addr proj
+R5858:5870 Kernel.VMState <> csr_cert_addr proj
+R5878:5887 Kernel.VMState <> csr_status proj
+R5878:5887 Kernel.VMState <> csr_status proj
+R5895:5901 Kernel.VMState <> csr_err proj
+R5895:5901 Kernel.VMState <> csr_err proj
+R5909:5921 Kernel.VMState <> csr_heap_base proj
+R5909:5921 Kernel.VMState <> csr_heap_base proj
+R5962:5963 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5976:5977 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6021:6040 Kernel.VMState <> vm_mu_tensor_default def
+R6053:6057 Coq.Init.Datatypes <> false constr
+R6110:6128 Kernel.VMState <> witness_counts_zero def
+R6147:6151 Coq.Init.Datatypes <> false constr
+R5776:5791 Kernel.MuCostModel <> mu_cost_of_instr def
+R5800:5807 Kernel.VMState <> vm_graph proj
+R5800:5807 Kernel.VMState <> vm_graph proj
+R5800:5807 Kernel.VMState <> vm_graph proj
+R5844:5850 Kernel.VMState <> vm_csrs proj
+R5844:5850 Kernel.VMState <> vm_csrs proj
+R5951:5957 Kernel.VMState <> vm_regs proj
+R5951:5957 Kernel.VMState <> vm_regs proj
+R5966:5971 Kernel.VMState <> vm_mem proj
+R5966:5971 Kernel.VMState <> vm_mem proj
+R5980:5984 Kernel.VMState <> vm_pc proj
+R5980:5984 Kernel.VMState <> vm_pc proj
+R5993:5997 Kernel.VMState <> vm_mu proj
+R5993:5997 Kernel.VMState <> vm_mu proj
+R6005:6016 Kernel.VMState <> vm_mu_tensor proj
+R6005:6016 Kernel.VMState <> vm_mu_tensor proj
+R6043:6048 Kernel.VMState <> vm_err proj
+R6043:6048 Kernel.VMState <> vm_err proj
+R6060:6071 Kernel.VMState <> vm_logic_acc proj
+R6060:6071 Kernel.VMState <> vm_logic_acc proj
+R6079:6088 Kernel.VMState <> vm_mstatus proj
+R6079:6088 Kernel.VMState <> vm_mstatus proj
+R6096:6105 Kernel.VMState <> vm_witness proj
+R6096:6105 Kernel.VMState <> vm_witness proj
+R6131:6142 Kernel.VMState <> vm_certified proj
+R6131:6142 Kernel.VMState <> vm_certified proj
+R5812:5822 Kernel.VMState <> empty_graph def
+R5858:5870 Kernel.VMState <> csr_cert_addr proj
+R5858:5870 Kernel.VMState <> csr_cert_addr proj
+R5858:5870 Kernel.VMState <> csr_cert_addr proj
+R5878:5887 Kernel.VMState <> csr_status proj
+R5878:5887 Kernel.VMState <> csr_status proj
+R5895:5901 Kernel.VMState <> csr_err proj
+R5895:5901 Kernel.VMState <> csr_err proj
+R5909:5921 Kernel.VMState <> csr_heap_base proj
+R5909:5921 Kernel.VMState <> csr_heap_base proj
+R5962:5963 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5976:5977 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6021:6040 Kernel.VMState <> vm_mu_tensor_default def
+R6053:6057 Coq.Init.Datatypes <> false constr
+R6110:6128 Kernel.VMState <> witness_counts_zero def
+R6147:6151 Coq.Init.Datatypes <> false constr
+R6227:6230 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6235:6237 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6231:6231 Coq.Init.Datatypes <> S constr
+R6227:6230 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6235:6237 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6231:6231 Coq.Init.Datatypes <> S constr
+R6397:6399 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6380:6388 Coq.Lists.List <> nth_error def
+R6400:6403 Coq.Init.Datatypes <> None constr
+R6397:6399 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6380:6388 Coq.Lists.List <> nth_error def
+R6400:6403 Coq.Init.Datatypes <> None constr
+R6421:6434 Coq.Lists.List <> nth_error_None thm
+R6421:6434 Coq.Lists.List <> nth_error_None thm
+R6443:6456 Coq.Lists.List <> nth_error_None thm
+R6443:6456 Coq.Lists.List <> nth_error_None thm
+prf 6597:6612 <> mu_zero_no_ljoin
+binder 6625:6628 <> fuel:26
+binder 6630:6634 <> trace:27
+R6667:6674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6641:6655 Kernel.MuCostModel <> mu_zero_program def
+R6657:6660 Kernel.TsirelsonUpperBound <> fuel:26 var
+R6662:6666 Kernel.TsirelsonUpperBound <> trace:27 var
+binder 6682:6682 <> n:28
+binder 6684:6688 <> cert1:29
+binder 6690:6694 <> cert2:30
+binder 6696:6697 <> mu:31
+R6759:6768 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6723:6725 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6706:6714 Coq.Lists.List <> nth_error def
+R6722:6722 Kernel.TsirelsonUpperBound <> n:28 var
+R6716:6720 Kernel.TsirelsonUpperBound <> trace:27 var
+R6726:6729 Coq.Init.Datatypes <> Some constr
+R6732:6742 Kernel.VMStep VMStep instr_ljoin constr
+R6744:6748 Kernel.TsirelsonUpperBound <> cert1:29 var
+R6750:6754 Kernel.TsirelsonUpperBound <> cert2:30 var
+R6756:6757 Kernel.TsirelsonUpperBound <> mu:31 var
+R6770:6773 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6769:6769 Kernel.TsirelsonUpperBound <> n:28 var
+R6774:6777 Kernel.TsirelsonUpperBound <> fuel:26 var
+R6845:6859 Kernel.MuCostModel <> mu_zero_program def
+R6887:6890 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6887:6890 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6921:6924 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6926:6928 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6946:6969 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin_from_pc thm
+R6921:6924 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6926:6928 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6946:6969 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin_from_pc thm
+prf 8008:8032 <> classical_bound_algebraic
+R8049:8049 Coq.QArith.QArith_base <> Q rec
+binder 8045:8045 <> q:32
+R8069:8076 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8062:8065 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R8056:8059 Coq.QArith.Qabs <> Qabs def
+R8061:8061 Kernel.TsirelsonUpperBound <> q:32 var
+R8108:8111 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R8083:8086 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R8077:8080 Coq.QArith.Qabs <> Qabs def
+R8082:8082 Kernel.TsirelsonUpperBound <> q:32 var
+R8087:8107 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R8118:8120 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R8121:8141 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R8112:8115 Coq.QArith.Qabs <> Qabs def
+R8117:8117 Kernel.TsirelsonUpperBound <> q:32 var
+R8175:8195 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R8210:8219 Coq.QArith.QArith_base <> Qlt_le_dec thm
+R8224:8227 Coq.QArith.Qabs <> Qabs def
+R8210:8219 Coq.QArith.QArith_base <> Qlt_le_dec thm
+R8224:8227 Coq.QArith.Qabs <> Qabs def
+prf 8345:8371 <> quantum_tsirelson_algebraic
+R8388:8388 Coq.QArith.QArith_base <> Q rec
+binder 8384:8384 <> q:33
+R8408:8415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8401:8404 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R8395:8398 Coq.QArith.Qabs <> Qabs def
+R8400:8400 Kernel.TsirelsonUpperBound <> q:33 var
+R8449:8452 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R8422:8425 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R8416:8419 Coq.QArith.Qabs <> Qabs def
+R8421:8421 Kernel.TsirelsonUpperBound <> q:33 var
+R8426:8448 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R8459:8461 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R8462:8484 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R8453:8456 Coq.QArith.Qabs <> Qabs def
+R8458:8458 Kernel.TsirelsonUpperBound <> q:33 var
+R8518:8540 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R8555:8564 Coq.QArith.QArith_base <> Qlt_le_dec thm
+R8571:8571 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R8579:8582 Coq.QArith.Qabs <> Qabs def
+R8555:8564 Coq.QArith.QArith_base <> Qlt_le_dec thm
+R8571:8571 Coq.QArith.QArith_base <> ::Q_scope:x_'#'_x not
+R8579:8582 Coq.QArith.Qabs <> Qabs def
+def 9125:9145 <> mu_zero_trace_is_locc
+R9155:9157 Coq.Init.Datatypes <> nat ind
+binder 9148:9151 <> fuel:34
+R9169:9172 Coq.Init.Datatypes <> list ind
+R9174:9187 Kernel.VMStep VMStep vm_instruction ind
+binder 9161:9165 <> trace:35
+R9228:9233 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9202:9216 Kernel.MuCostModel <> mu_zero_program def
+R9218:9221 Kernel.TsirelsonUpperBound <> fuel:34 var
+R9223:9227 Kernel.TsirelsonUpperBound <> trace:35 var
+R9234:9234 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9339:9345 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9242:9242 <> n:36
+binder 9244:9246 <> mid:37
+binder 9248:9251 <> addr:38
+binder 9253:9255 <> len:39
+binder 9257:9258 <> mu:40
+R9279:9282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9267:9269 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9266:9266 Kernel.TsirelsonUpperBound <> n:36 var
+R9270:9273 Kernel.TsirelsonUpperBound <> fuel:34 var
+R9300:9303 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9283:9291 Coq.Lists.List <> nth_error def
+R9299:9299 Kernel.TsirelsonUpperBound <> n:36 var
+R9293:9297 Kernel.TsirelsonUpperBound <> trace:35 var
+R9304:9307 Coq.Init.Datatypes <> Some constr
+R9310:9321 Kernel.VMStep VMStep instr_reveal constr
+R9323:9325 Kernel.TsirelsonUpperBound <> mid:37 var
+R9327:9330 Kernel.TsirelsonUpperBound <> addr:38 var
+R9332:9334 Kernel.TsirelsonUpperBound <> len:39 var
+R9336:9337 Kernel.TsirelsonUpperBound <> mu:40 var
+R9346:9346 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9448:9489 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9591:9591 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9354:9354 <> n:41
+binder 9356:9357 <> fa:42
+binder 9359:9360 <> ca:43
+binder 9362:9362 <> k:44
+binder 9364:9365 <> fl:45
+binder 9367:9368 <> mu:46
+R9389:9392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9377:9379 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9376:9376 Kernel.TsirelsonUpperBound <> n:41 var
+R9380:9383 Kernel.TsirelsonUpperBound <> fuel:34 var
+R9410:9413 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9393:9401 Coq.Lists.List <> nth_error def
+R9409:9409 Kernel.TsirelsonUpperBound <> n:41 var
+R9403:9407 Kernel.TsirelsonUpperBound <> trace:35 var
+R9414:9417 Coq.Init.Datatypes <> Some constr
+R9420:9432 Kernel.VMStep VMStep instr_lassert constr
+R9434:9435 Kernel.TsirelsonUpperBound <> fa:42 var
+R9437:9438 Kernel.TsirelsonUpperBound <> ca:43 var
+R9440:9440 Kernel.TsirelsonUpperBound <> k:44 var
+R9442:9443 Kernel.TsirelsonUpperBound <> fl:45 var
+R9445:9446 Kernel.TsirelsonUpperBound <> mu:46 var
+binder 9497:9497 <> n:47
+binder 9499:9503 <> cert1:48
+binder 9505:9509 <> cert2:49
+binder 9511:9512 <> mu:50
+R9533:9536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9521:9523 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9520:9520 Kernel.TsirelsonUpperBound <> n:47 var
+R9524:9527 Kernel.TsirelsonUpperBound <> fuel:34 var
+R9554:9557 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9537:9545 Coq.Lists.List <> nth_error def
+R9553:9553 Kernel.TsirelsonUpperBound <> n:47 var
+R9547:9551 Kernel.TsirelsonUpperBound <> trace:35 var
+R9558:9561 Coq.Init.Datatypes <> Some constr
+R9564:9574 Kernel.VMStep VMStep instr_ljoin constr
+R9576:9580 Kernel.TsirelsonUpperBound <> cert1:48 var
+R9582:9586 Kernel.TsirelsonUpperBound <> cert2:49 var
+R9588:9589 Kernel.TsirelsonUpperBound <> mu:50 var
+prf 9699:9718 <> mu_zero_implies_locc
+binder 9731:9734 <> fuel:51
+binder 9736:9740 <> trace:52
+R9773:9780 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9747:9761 Kernel.MuCostModel <> mu_zero_program def
+R9763:9766 Kernel.TsirelsonUpperBound <> fuel:51 var
+R9768:9772 Kernel.TsirelsonUpperBound <> trace:52 var
+R9781:9801 Kernel.TsirelsonUpperBound <> mu_zero_trace_is_locc def
+R9803:9806 Kernel.TsirelsonUpperBound <> fuel:51 var
+R9808:9812 Kernel.TsirelsonUpperBound <> trace:52 var
+R9856:9876 Kernel.TsirelsonUpperBound <> mu_zero_trace_is_locc def
+R9993:9996 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10019:10035 Kernel.MuCostModel <> mu_zero_no_reveal thm
+R9993:9996 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10019:10035 Kernel.MuCostModel <> mu_zero_no_reveal thm
+R10152:10155 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10178:10195 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert thm
+R10152:10155 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10178:10195 Kernel.TsirelsonUpperBound <> mu_zero_no_lassert thm
+R10302:10305 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10328:10343 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin thm
+R10302:10305 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10328:10343 Kernel.TsirelsonUpperBound <> mu_zero_no_ljoin thm
+prf 11214:11233 <> mu_zero_chsh_bounded
+binder 11246:11249 <> fuel:53
+binder 11251:11255 <> trace:54
+binder 11257:11262 <> s_init:55
+R11295:11302 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11269:11283 Kernel.MuCostModel <> mu_zero_program def
+R11285:11288 Kernel.TsirelsonUpperBound <> fuel:53 var
+R11290:11294 Kernel.TsirelsonUpperBound <> trace:54 var
+R11346:11349 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R11303:11306 Coq.QArith.Qabs <> Qabs def
+R11309:11326 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R11328:11331 Kernel.TsirelsonUpperBound <> fuel:53 var
+R11333:11337 Kernel.TsirelsonUpperBound <> trace:54 var
+R11339:11344 Kernel.TsirelsonUpperBound <> s_init:55 var
+R11473:11490 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R11557:11576 Kernel.CHSHExtraction <> chsh_algebraic_bound thm
+R11557:11576 Kernel.CHSHExtraction <> chsh_algebraic_bound thm
+prf 12433:12464 <> mu_zero_chsh_classical_decidable
+binder 12477:12480 <> fuel:56
+binder 12482:12486 <> trace:57
+binder 12488:12493 <> s_init:58
+R12526:12533 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12500:12514 Kernel.MuCostModel <> mu_zero_program def
+R12516:12519 Kernel.TsirelsonUpperBound <> fuel:56 var
+R12521:12525 Kernel.TsirelsonUpperBound <> trace:57 var
+R12602:12609 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R12577:12580 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R12534:12537 Coq.QArith.Qabs <> Qabs def
+R12540:12557 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R12559:12562 Kernel.TsirelsonUpperBound <> fuel:56 var
+R12564:12568 Kernel.TsirelsonUpperBound <> trace:57 var
+R12570:12575 Kernel.TsirelsonUpperBound <> s_init:58 var
+R12581:12601 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R12653:12655 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R12656:12676 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R12610:12613 Coq.QArith.Qabs <> Qabs def
+R12616:12633 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R12635:12638 Kernel.TsirelsonUpperBound <> fuel:56 var
+R12640:12644 Kernel.TsirelsonUpperBound <> trace:57 var
+R12646:12651 Kernel.TsirelsonUpperBound <> s_init:58 var
+R12726:12750 Kernel.TsirelsonUpperBound <> classical_bound_algebraic thm
+R12726:12750 Kernel.TsirelsonUpperBound <> classical_bound_algebraic thm
+R12761:12780 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+R12761:12780 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+prf 12867:12906 <> mu_zero_chsh_quantum_tsirelson_decidable
+binder 12919:12922 <> fuel:59
+binder 12924:12928 <> trace:60
+binder 12930:12935 <> s_init:61
+R12968:12975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12942:12956 Kernel.MuCostModel <> mu_zero_program def
+R12958:12961 Kernel.TsirelsonUpperBound <> fuel:59 var
+R12963:12967 Kernel.TsirelsonUpperBound <> trace:60 var
+R13046:13053 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13019:13022 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R12976:12979 Coq.QArith.Qabs <> Qabs def
+R12982:12999 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R13001:13004 Kernel.TsirelsonUpperBound <> fuel:59 var
+R13006:13010 Kernel.TsirelsonUpperBound <> trace:60 var
+R13012:13017 Kernel.TsirelsonUpperBound <> s_init:61 var
+R13023:13045 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R13097:13099 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R13100:13122 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R13054:13057 Coq.QArith.Qabs <> Qabs def
+R13060:13077 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R13079:13082 Kernel.TsirelsonUpperBound <> fuel:59 var
+R13084:13088 Kernel.TsirelsonUpperBound <> trace:60 var
+R13090:13095 Kernel.TsirelsonUpperBound <> s_init:61 var
+R13172:13198 Kernel.TsirelsonUpperBound <> quantum_tsirelson_algebraic thm
+R13172:13198 Kernel.TsirelsonUpperBound <> quantum_tsirelson_algebraic thm
+R13209:13228 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+R13209:13228 Kernel.TsirelsonUpperBound <> mu_zero_chsh_bounded thm
+def 13449:13467 <> algebraic_max_trace
+R13471:13474 Coq.Init.Datatypes <> list ind
+R13476:13489 Kernel.VMStep VMStep vm_instruction ind
+R13494:13497 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13544:13547 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13594:13597 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13644:13647 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13694:13695 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13498:13513 Kernel.VMStep VMStep instr_chsh_trial constr
+R13548:13563 Kernel.VMStep VMStep instr_chsh_trial constr
+R13598:13613 Kernel.VMStep VMStep instr_chsh_trial constr
+R13648:13663 Kernel.VMStep VMStep instr_chsh_trial constr
+def 13710:13729 <> algebraic_max_trials
+R13733:13736 Coq.Init.Datatypes <> list ind
+R13738:13746 Kernel.CHSHExtraction <> CHSHTrial rec
+R13751:13757 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13828:13837 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13908:13917 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13988:13997 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14068:14072 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R13758:13764 Kernel.CHSHExtraction <> trial_x proj
+R13758:13764 Kernel.CHSHExtraction <> trial_x proj
+R13758:13764 Kernel.CHSHExtraction <> trial_x proj
+R13776:13782 Kernel.CHSHExtraction <> trial_y proj
+R13776:13782 Kernel.CHSHExtraction <> trial_y proj
+R13794:13800 Kernel.CHSHExtraction <> trial_a proj
+R13794:13800 Kernel.CHSHExtraction <> trial_a proj
+R13812:13818 Kernel.CHSHExtraction <> trial_b proj
+R13812:13818 Kernel.CHSHExtraction <> trial_b proj
+R13838:13844 Kernel.CHSHExtraction <> trial_x proj
+R13838:13844 Kernel.CHSHExtraction <> trial_x proj
+R13838:13844 Kernel.CHSHExtraction <> trial_x proj
+R13856:13862 Kernel.CHSHExtraction <> trial_y proj
+R13856:13862 Kernel.CHSHExtraction <> trial_y proj
+R13874:13880 Kernel.CHSHExtraction <> trial_a proj
+R13874:13880 Kernel.CHSHExtraction <> trial_a proj
+R13892:13898 Kernel.CHSHExtraction <> trial_b proj
+R13892:13898 Kernel.CHSHExtraction <> trial_b proj
+R13918:13924 Kernel.CHSHExtraction <> trial_x proj
+R13918:13924 Kernel.CHSHExtraction <> trial_x proj
+R13918:13924 Kernel.CHSHExtraction <> trial_x proj
+R13936:13942 Kernel.CHSHExtraction <> trial_y proj
+R13936:13942 Kernel.CHSHExtraction <> trial_y proj
+R13954:13960 Kernel.CHSHExtraction <> trial_a proj
+R13954:13960 Kernel.CHSHExtraction <> trial_a proj
+R13972:13978 Kernel.CHSHExtraction <> trial_b proj
+R13972:13978 Kernel.CHSHExtraction <> trial_b proj
+R13998:14004 Kernel.CHSHExtraction <> trial_x proj
+R13998:14004 Kernel.CHSHExtraction <> trial_x proj
+R13998:14004 Kernel.CHSHExtraction <> trial_x proj
+R14016:14022 Kernel.CHSHExtraction <> trial_y proj
+R14016:14022 Kernel.CHSHExtraction <> trial_y proj
+R14034:14040 Kernel.CHSHExtraction <> trial_a proj
+R14034:14040 Kernel.CHSHExtraction <> trial_a proj
+R14052:14058 Kernel.CHSHExtraction <> trial_b proj
+R14052:14058 Kernel.CHSHExtraction <> trial_b proj
+def 14087:14114 <> init_state_for_algebraic_max
+R14118:14124 Kernel.VMState <> VMState rec
+R14134:14140 Kernel.VMState <> vm_regs proj
+R14134:14140 Kernel.VMState <> vm_regs proj
+R14134:14140 Kernel.VMState <> vm_regs proj
+R14167:14172 Kernel.VMState <> vm_mem proj
+R14167:14172 Kernel.VMState <> vm_mem proj
+R14220:14226 Kernel.VMState <> vm_csrs proj
+R14220:14226 Kernel.VMState <> vm_csrs proj
+R14325:14329 Kernel.VMState <> vm_pc proj
+R14325:14329 Kernel.VMState <> vm_pc proj
+R14346:14353 Kernel.VMState <> vm_graph proj
+R14346:14353 Kernel.VMState <> vm_graph proj
+R14376:14380 Kernel.VMState <> vm_mu proj
+R14376:14380 Kernel.VMState <> vm_mu proj
+R14397:14408 Kernel.VMState <> vm_mu_tensor proj
+R14397:14408 Kernel.VMState <> vm_mu_tensor proj
+R14440:14445 Kernel.VMState <> vm_err proj
+R14440:14445 Kernel.VMState <> vm_err proj
+R14462:14473 Kernel.VMState <> vm_logic_acc proj
+R14462:14473 Kernel.VMState <> vm_logic_acc proj
+R14486:14495 Kernel.VMState <> vm_mstatus proj
+R14486:14495 Kernel.VMState <> vm_mstatus proj
+R14508:14517 Kernel.VMState <> vm_witness proj
+R14508:14517 Kernel.VMState <> vm_witness proj
+R14548:14559 Kernel.VMState <> vm_certified proj
+R14548:14559 Kernel.VMState <> vm_certified proj
+R14358:14368 Kernel.VMState <> empty_graph def
+R14234:14246 Kernel.VMState <> csr_cert_addr proj
+R14234:14246 Kernel.VMState <> csr_cert_addr proj
+R14234:14246 Kernel.VMState <> csr_cert_addr proj
+R14258:14267 Kernel.VMState <> csr_status proj
+R14258:14267 Kernel.VMState <> csr_status proj
+R14279:14285 Kernel.VMState <> csr_err proj
+R14279:14285 Kernel.VMState <> csr_err proj
+R14297:14309 Kernel.VMState <> csr_heap_base proj
+R14297:14309 Kernel.VMState <> csr_heap_base proj
+R14145:14150 Coq.Lists.List <> repeat def
+R14177:14178 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R14413:14432 Kernel.VMState <> vm_mu_tensor_default def
+R14450:14454 Coq.Init.Datatypes <> false constr
+R14522:14540 Kernel.VMState <> witness_counts_zero def
+R14564:14568 Coq.Init.Datatypes <> false constr
+prf 14615:14641 <> algebraic_max_trace_mu_zero
+R14687:14689 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14647:14662 Kernel.MuCostModel <> mu_cost_of_trace def
+R14666:14684 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
+prf 14747:14771 <> algebraic_max_trials_chsh
+R14814:14817 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R14777:14792 Kernel.CHSHExtraction <> chsh_from_trials def
+R14794:14813 Kernel.TsirelsonUpperBound <> algebraic_max_trials def
+R14839:14854 Kernel.CHSHExtraction <> chsh_from_trials def
+R14857:14875 Kernel.CHSHExtraction <> compute_correlation def
+R14878:14890 Kernel.CHSHExtraction <> filter_trials def
+prf 14932:14959 <> extract_algebraic_max_trials
+R15046:15050 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14965:14994 Kernel.CHSHExtraction <> extract_chsh_trials_from_trace def
+R14998:15016 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
+R15018:15045 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
+R15051:15070 Kernel.TsirelsonUpperBound <> algebraic_max_trials def
+prf 15123:15146 <> algebraic_max_trace_chsh
+R15221:15224 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R15152:15169 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R15173:15191 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
+R15193:15220 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
+R15246:15263 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R15276:15303 Kernel.TsirelsonUpperBound <> extract_algebraic_max_trials thm
+R15276:15303 Kernel.TsirelsonUpperBound <> extract_algebraic_max_trials thm
+R15276:15303 Kernel.TsirelsonUpperBound <> extract_algebraic_max_trials thm
+R15314:15338 Kernel.TsirelsonUpperBound <> algebraic_max_trials_chsh thm
+R15314:15338 Kernel.TsirelsonUpperBound <> algebraic_max_trials_chsh thm
+prf 15491:15522 <> classical_bound_lt_algebraic_max
+R15547:15549 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R15526:15546 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R15702:15722 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R15734:15736 Coq.QArith.QArith_base <> Qlt def
+prf 15834:15867 <> quantum_tsirelson_lt_algebraic_max
+R15894:15896 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R15871:15893 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R16102:16124 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R16136:16138 Coq.QArith.QArith_base <> Qlt def
+prf 16201:16231 <> mu_zero_trace_exceeds_classical
+R16258:16296 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R16237:16257 Kernel.TsirelsonUpperBound <> classical_bound_value def
+R16297:16300 Coq.QArith.Qabs <> Qabs def
+R16303:16320 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R16324:16342 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
+R16344:16371 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
+R16392:16415 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
+R16392:16415 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
+R16392:16415 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
+R16428:16435 Coq.QArith.Qabs <> Qabs_pos thm
+R16428:16435 Coq.QArith.Qabs <> Qabs_pos thm
+R16428:16435 Coq.QArith.Qabs <> Qabs_pos thm
+R16428:16435 Coq.QArith.Qabs <> Qabs_pos thm
+R16448:16479 Kernel.TsirelsonUpperBound <> classical_bound_lt_algebraic_max thm
+R16448:16479 Kernel.TsirelsonUpperBound <> classical_bound_lt_algebraic_max thm
+R16493:16495 Coq.QArith.QArith_base <> Qle def
+R16512:16519 Coq.ZArith.BinInt Z leb_le thm
+R16512:16519 Coq.ZArith.BinInt Z leb_le thm
+prf 16591:16629 <> mu_zero_trace_exceeds_quantum_tsirelson
+R16658:16662 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R16635:16657 Kernel.TsirelsonUpperBound <> quantum_tsirelson_bound def
+R16663:16666 Coq.QArith.Qabs <> Qabs def
+R16669:16686 Kernel.CHSHExtraction <> chsh_from_vm_trace def
+R16690:16708 Kernel.TsirelsonUpperBound <> algebraic_max_trace def
+R16710:16737 Kernel.TsirelsonUpperBound <> init_state_for_algebraic_max def
+R16758:16781 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
+R16758:16781 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
+R16758:16781 Kernel.TsirelsonUpperBound <> algebraic_max_trace_chsh thm
+R16794:16801 Coq.QArith.Qabs <> Qabs_pos thm
+R16794:16801 Coq.QArith.Qabs <> Qabs_pos thm
+R16794:16801 Coq.QArith.Qabs <> Qabs_pos thm
+R16794:16801 Coq.QArith.Qabs <> Qabs_pos thm
+R16814:16847 Kernel.TsirelsonUpperBound <> quantum_tsirelson_lt_algebraic_max thm
+R16814:16847 Kernel.TsirelsonUpperBound <> quantum_tsirelson_lt_algebraic_max thm
+R16861:16863 Coq.QArith.QArith_base <> Qle def
+R16880:16887 Coq.ZArith.BinInt Z leb_le thm
+R16880:16887 Coq.ZArith.BinInt Z leb_le thm
+def 17369:17390 <> correlators_from_trace
+R17402:17404 Coq.Init.Datatypes <> nat ind
+binder 17395:17398 <> fuel:62
+R17416:17419 Coq.Init.Datatypes <> list ind
+R17421:17434 Kernel.VMStep VMStep vm_instruction ind
+binder 17408:17412 <> trace:63
+R17447:17453 Kernel.VMState <> VMState rec
+binder 17438:17443 <> s_init:64
+R17458:17468 Kernel.AlgebraicCoherence <> Correlators rec
+R17489:17518 Kernel.CHSHExtraction <> extract_chsh_trials_from_trace def
+R17520:17523 Kernel.TsirelsonUpperBound <> fuel:62 var
+R17525:17529 Kernel.TsirelsonUpperBound <> trace:63 var
+R17531:17536 Kernel.TsirelsonUpperBound <> s_init:64 var
+binder 17479:17484 <> trials:65
+R17546:17548 Kernel.AlgebraicCoherence <> E00 proj
+R17546:17548 Kernel.AlgebraicCoherence <> E00 proj
+R17546:17548 Kernel.AlgebraicCoherence <> E00 proj
+R17606:17608 Kernel.AlgebraicCoherence <> E01 proj
+R17606:17608 Kernel.AlgebraicCoherence <> E01 proj
+R17666:17668 Kernel.AlgebraicCoherence <> E10 proj
+R17666:17668 Kernel.AlgebraicCoherence <> E10 proj
+R17726:17728 Kernel.AlgebraicCoherence <> E11 proj
+R17726:17728 Kernel.AlgebraicCoherence <> E11 proj
+R17553:17571 Kernel.CHSHExtraction <> compute_correlation def
+R17574:17586 Kernel.CHSHExtraction <> filter_trials def
+R17588:17593 Kernel.TsirelsonUpperBound <> trials:65 var
+R17613:17631 Kernel.CHSHExtraction <> compute_correlation def
+R17634:17646 Kernel.CHSHExtraction <> filter_trials def
+R17648:17653 Kernel.TsirelsonUpperBound <> trials:65 var
+R17673:17691 Kernel.CHSHExtraction <> compute_correlation def
+R17694:17706 Kernel.CHSHExtraction <> filter_trials def
+R17708:17713 Kernel.TsirelsonUpperBound <> trials:65 var
+R17733:17751 Kernel.CHSHExtraction <> compute_correlation def
+R17754:17766 Kernel.CHSHExtraction <> filter_trials def
+R17768:17773 Kernel.TsirelsonUpperBound <> trials:65 var
+prf 17827:17849 <> mu_zero_algebraic_bound
+binder 17862:17865 <> fuel:66
+binder 17867:17871 <> trace:67
+binder 17873:17878 <> s_init:68
+R17911:17918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17885:17899 Kernel.MuCostModel <> mu_zero_program def
+R17901:17904 Kernel.TsirelsonUpperBound <> fuel:66 var
+R17906:17910 Kernel.TsirelsonUpperBound <> trace:67 var
+R17984:17991 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17919:17940 Kernel.AlgebraicCoherence <> algebraically_coherent def
+R17943:17964 Kernel.TsirelsonUpperBound <> correlators_from_trace def
+R17966:17969 Kernel.TsirelsonUpperBound <> fuel:66 var
+R17971:17975 Kernel.TsirelsonUpperBound <> trace:67 var
+R17977:17982 Kernel.TsirelsonUpperBound <> s_init:68 var
+R18060:18063 Coq.QArith.QArith_base <> ::Q_scope:x_'<='_x not
+R17992:17995 Coq.QArith.Qabs <> Qabs def
+R17998:18015 Kernel.AlgebraicCoherence <> S_from_correlators def
+R18018:18039 Kernel.TsirelsonUpperBound <> correlators_from_trace def
+R18041:18044 Kernel.TsirelsonUpperBound <> fuel:66 var
+R18046:18050 Kernel.TsirelsonUpperBound <> trace:67 var
+R18052:18057 Kernel.TsirelsonUpperBound <> s_init:68 var
+R18119:18130 Kernel.AlgebraicCoherence <> chsh_bound_4 thm
+R18119:18130 Kernel.AlgebraicCoherence <> chsh_bound_4 thm
+R18142:18163 Kernel.AlgebraicCoherence <> algebraically_coherent def

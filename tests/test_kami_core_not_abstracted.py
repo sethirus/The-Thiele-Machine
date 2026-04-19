@@ -14,7 +14,7 @@ def test_core_has_in_core_logic_engine_state_and_paths() -> None:
     assert 'Register "lassert_phase"' in txt
     assert 'Register "lassert_fbuf"' in txt
     assert 'Register "lassert_cbuf"' in txt
-    assert 'OP_LASSERT' in txt and 'OP_LJOIN' in txt and 'OP_ORACLE_HALTS' in txt
+    assert 'OP_LASSERT' in txt and 'OP_LJOIN' in txt
     assert 'LET new_logic_acc : Bit WordSz <-' in txt
     assert 'Write "logic_acc"      <- #new_logic_acc;' in txt
 

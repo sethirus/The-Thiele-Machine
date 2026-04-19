@@ -1,446 +1,452 @@
-DIGEST a683a8ec1fca29aa2d4928572b72bfed
-FTop.Extraction
-R549:558 Coq.extraction.Extraction <> <> lib
-R585:588 Coq.Lists.List <> <> lib
-R615:628 Coq.Strings.String <> <> lib
-R655:668 Coq.extraction.ExtrOcamlBasic <> <> lib
-R670:684 Coq.extraction.ExtrOcamlString <> <> lib
-R686:698 Coq.extraction.ExtrOcamlZInt <> <> lib
-R700:714 Coq.extraction.ExtrOcamlNatInt <> <> lib
-R741:745 Coq.Reals.Reals <> <> lib
-R776:782 Kernel.VMState <> <> lib
-R812:817 Kernel.VMStep <> <> lib
-R847:856 Kernel.VMEncoding <> <> lib
-R858:865 Kernel.KernelTM <> <> lib
-R895:905 Kernel.MuCostModel <> <> lib
-R907:926 Kernel.MuLedgerConservation <> <> lib
-R928:939 Kernel.MuInitiality <> <> lib
-R941:953 Kernel.NoFreeInsight <> <> lib
-R983:997 Kernel.SimulationProof <> <> lib
-R1027:1039 Kernel.Certification <> <> lib
-R1041:1052 Kernel.QuantumBound <> <> lib
-R1082:1102 Kernel.RevelationRequirement <> <> lib
-R1132:1148 Kernel.BornRuleLinearity <> <> lib
-R1150:1170 Kernel.TsirelsonQuantumModel <> <> lib
-R1200:1215 Kernel.TsirelsonGeneral <> <> lib
-R1217:1237 Kernel.MuLedgerQuantumBridge <> <> lib
-R1267:1276 Kernel.HonestNoFI <> <> lib
-R1278:1292 Kernel.MuShannonBridge <> <> lib
-R1294:1314 Kernel.MuShannonQuantitative <> <> lib
-R1316:1333 Kernel.StateSpaceCounting <> <> lib
-R1363:1399 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> <> lib
-R1507:1520 Kernel.NoFIToEinstein <> <> lib
-R1641:1661 Kernel.BekensteinCalibration <> <> lib
-R1691:1705 Kernel.SimulationProof <> <> lib
-R1735:1745 KamiHW.Abstraction <> <> lib
-R1747:1761 KamiHW.ThieleCPUBusTop <> <> lib
-R1763:1779 KamiHW.CanonicalCPUProof <> <> lib
-R1790:1802 Kernel.VMStep VMStep <> mod
-prf 1960:1996 <> extraction_nofi_supra_boundary_anchor
-R2018:2021 Coq.Init.Datatypes <> list ind
-R2023:2036 Kernel.VMStep VMStep vm_instruction ind
-binder 2010:2014 <> trace:1
-R2057:2063 Kernel.VMState <> VMState rec
-binder 2040:2045 <> s_init:2
-binder 2047:2053 <> s_final:3
-R2074:2076 Coq.Init.Datatypes <> nat ind
-binder 2067:2070 <> fuel:4
-R2142:2149 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2127:2129 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2084:2108 Kernel.RevelationRequirement RevelationProof trace_run def
-R2110:2113 Top.Extraction <> fuel:4 var
-R2115:2119 Top.Extraction <> trace:1 var
-R2121:2126 Top.Extraction <> s_init:2 var
-R2130:2133 Coq.Init.Datatypes <> Some constr
-R2135:2141 Top.Extraction <> s_final:3 var
-R2190:2197 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2182:2184 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2168:2180 Kernel.VMState <> csr_cert_addr proj
-R2158:2164 Kernel.VMState <> vm_csrs proj
-R2150:2155 Top.Extraction <> s_init:2 var
-R2235:2242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2198:2228 Kernel.QuantumBound <> quantum_admissible def
-R2230:2234 Top.Extraction <> trace:1 var
-R2243:2244 Coq.Init.Logic <> ::type_scope:'~'_x not
-R2245:2273 Kernel.Certification CertificationTheory Certified def
-R2275:2281 Top.Extraction <> s_final:3 var
-R2283:2325 Kernel.Certification CertificationTheory supra_quantum_certified def
-R2327:2331 Top.Extraction <> trace:1 var
-R2349:2412 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
-R2349:2412 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
-prf 2531:2564 <> extraction_canonical_source_anchor
-R2590:2592 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2570:2589 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
-R2593:2605 KamiHW.ThieleCPUBusTop <> thieleBusTopB def
-prf 2743:2772 <> extraction_c3_born_rule_anchor
-R2790:2804 Kernel.BornRuleLinearity <> ProbabilityRule def
-binder 2786:2786 <> P:5
-R2829:2836 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2812:2826 Kernel.BornRuleLinearity <> valid_born_rule def
-R2828:2828 Top.Extraction <> P:5 var
-R2849:2849 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2845:2845 <> z:6
-R2869:2872 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2856:2859 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R2861:2864 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R2860:2860 Top.Extraction <> z:6 var
-R2860:2860 Top.Extraction <> z:6 var
-R2876:2878 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2873:2873 Top.Extraction <> P:5 var
-R2875:2875 Top.Extraction <> z:6 var
-R2879:2894 Kernel.BornRuleLinearity <> born_probability def
-R2896:2896 Top.Extraction <> z:6 var
-R2914:2929 Kernel.BornRuleLinearity <> born_rule_unique thm
-R2914:2929 Kernel.BornRuleLinearity <> born_rule_unique thm
-prf 3045:3080 <> extraction_c4_tsirelson_model_anchor
-binder 3093:3096 <> fuel:7
-binder 3098:3102 <> trace:8
-binder 3104:3109 <> s_init:9
-R3163:3170 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3116:3144 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R3146:3149 Top.Extraction <> fuel:7 var
-R3151:3155 Top.Extraction <> trace:8 var
-R3157:3162 Top.Extraction <> s_init:9 var
-R3208:3215 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3171:3189 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R3191:3194 Top.Extraction <> fuel:7 var
-R3196:3200 Top.Extraction <> trace:8 var
-R3202:3207 Top.Extraction <> s_init:9 var
-R3372:3375 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3217:3220 Coq.Reals.Rbasic_fun <> Rabs def
-R3223:3226 Kernel.TsirelsonGeneral <> CHSH def
-R3235:3243 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R3245:3248 Top.Extraction <> fuel:7 var
-R3250:3254 Top.Extraction <> trace:8 var
-R3256:3261 Top.Extraction <> s_init:9 var
-R3271:3279 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R3281:3284 Top.Extraction <> fuel:7 var
-R3286:3290 Top.Extraction <> trace:8 var
-R3292:3297 Top.Extraction <> s_init:9 var
-R3307:3315 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R3317:3320 Top.Extraction <> fuel:7 var
-R3322:3326 Top.Extraction <> trace:8 var
-R3328:3333 Top.Extraction <> s_init:9 var
-R3343:3351 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R3353:3356 Top.Extraction <> fuel:7 var
-R3358:3362 Top.Extraction <> trace:8 var
-R3364:3369 Top.Extraction <> s_init:9 var
-R3376:3380 Kernel.TsirelsonGeneral <> sqrt8 def
-R3401:3437 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
-R3401:3437 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
-prf 3553:3581 <> extraction_honest_nofi_anchor
-R3602:3604 Coq.Init.Datatypes <> nat ind
-binder 3595:3598 <> fuel:10
-R3616:3619 Coq.Init.Datatypes <> list ind
-R3621:3634 Kernel.VMStep VMStep vm_instruction ind
-binder 3608:3612 <> trace:11
-R3664:3670 Kernel.VMState <> VMState rec
-binder 3647:3652 <> s_init:12
-binder 3654:3660 <> s_final:13
-R3693:3721 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
-R3724:3727 Coq.Init.Datatypes <> list ind
-R3729:3742 Kernel.VMStep VMStep vm_instruction ind
-binder 3683:3689 <> decoder:14
-R3778:3807 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
-R3810:3813 Coq.Init.Datatypes <> list ind
-R3815:3828 Kernel.VMStep VMStep vm_instruction ind
-binder 3756:3762 <> P_prior:15
-binder 3764:3774 <> P_posterior:16
-R3872:3913 Kernel.InformationGainToStrengthening <> FeasibleSet def
-binder 3842:3852 <> omega_prior:17
-binder 3854:3868 <> omega_posterior:18
-R3971:3978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3928:3930 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3921:3927 Top.Extraction <> s_final:13 var
-R3931:3952 Kernel.SimulationProof <> run_vm def
-R3954:3957 Top.Extraction <> fuel:10 var
-R3959:3963 Top.Extraction <> trace:11 var
-R3965:3970 Top.Extraction <> s_init:12 var
-R4000:4007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3979:3980 Coq.Lists.List <> In def
-R3989:3999 Top.Extraction <> omega_prior:17 var
-R3982:3987 Top.Extraction <> s_init:12 var
-R4086:4093 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4008:4057 Kernel.InformationGainToStrengthening <> is_strict_reduction def
-R4059:4069 Top.Extraction <> omega_prior:17 var
-R4071:4085 Top.Extraction <> omega_posterior:18 var
-R4164:4171 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4155:4157 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R4095:4138 Kernel.InformationGainToStrengthening <> feasible_size def
-R4140:4154 Top.Extraction <> omega_posterior:18 var
-R4212:4219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4204:4206 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4190:4202 Kernel.VMState <> csr_cert_addr proj
-R4180:4186 Kernel.VMState <> vm_csrs proj
-R4172:4177 Top.Extraction <> s_init:12 var
-R4271:4278 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4220:4250 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
-R4264:4270 Top.Extraction <> P_prior:15 var
-R4252:4262 Top.Extraction <> P_posterior:16 var
-R4336:4343 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4279:4301 Kernel.NoFreeInsight NoFreeInsight Certified def
-R4331:4335 Top.Extraction <> trace:11 var
-R4319:4329 Top.Extraction <> P_posterior:16 var
-R4311:4317 Top.Extraction <> decoder:14 var
-R4303:4309 Top.Extraction <> s_final:13 var
-R4344:4379 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
-R4381:4384 Top.Extraction <> fuel:10 var
-R4386:4390 Top.Extraction <> trace:11 var
-R4392:4397 Top.Extraction <> s_init:12 var
-R4415:4470 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
-R4415:4470 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
-prf 4586:4631 <> extraction_honest_nofi_trace_separation_anchor
-binder 4644:4647 <> fuel:19
-binder 4649:4653 <> trace:20
-binder 4655:4659 <> omega:21
-R4666:4666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4722:4730 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 4674:4674 <> s:22
-R4687:4690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4677:4678 Coq.Lists.List <> In def
-R4682:4686 Top.Extraction <> omega:21 var
-R4680:4680 Top.Extraction <> s:22 var
-R4718:4720 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4704:4716 Kernel.VMState <> csr_cert_addr proj
-R4694:4700 Kernel.VMState <> vm_csrs proj
-R4691:4691 Top.Extraction <> s:22 var
-R4731:4731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4808:4816 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 4739:4739 <> s:23
-R4752:4755 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4742:4743 Coq.Lists.List <> In def
-R4747:4751 Top.Extraction <> omega:21 var
-R4745:4745 Top.Extraction <> s:23 var
-R4803:4806 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+DIGEST d0613c9fad715402936572a82395b805
+FExtraction
+R582:585 Coq.Lists.List <> <> lib
+R587:593 Coq.Lists.ListDec <> <> lib
+R595:598 Coq.Bool.Bool <> <> lib
+R600:613 Coq.Arith.PeanoNat <> <> lib
+R615:620 Coq.NArith.NArith <> <> lib
+R622:627 Coq.ZArith.ZArith <> <> lib
+R654:667 Coq.Strings.String <> <> lib
+R669:681 Coq.Strings.Ascii <> <> lib
+R708:720 Coq.micromega.Lia <> <> lib
+R747:756 Coq.extraction.Extraction <> <> lib
+R783:796 Coq.extraction.ExtrOcamlBasic <> <> lib
+R798:812 Coq.extraction.ExtrOcamlString <> <> lib
+R814:826 Coq.extraction.ExtrOcamlZInt <> <> lib
+R828:842 Coq.extraction.ExtrOcamlNatInt <> <> lib
+R869:873 Coq.Reals.Reals <> <> lib
+R904:910 Kernel.VMState <> <> lib
+R940:945 Kernel.VMStep <> <> lib
+R975:984 Kernel.VMEncoding <> <> lib
+R986:993 Kernel.KernelTM <> <> lib
+R1023:1033 KamiHW.Abstraction <> <> lib
+R1035:1049 KamiHW.ThieleCPUBusTop <> <> lib
+R1051:1067 KamiHW.CanonicalCPUProof <> <> lib
+R1078:1090 Kernel.VMStep VMStep <> mod
+R1635:1645 Kernel.MuCostModel <> <> lib
+R1647:1666 Kernel.MuLedgerConservation <> <> lib
+R1668:1679 Kernel.MuInitiality <> <> lib
+R1681:1693 Kernel.NoFreeInsight <> <> lib
+R1723:1737 Kernel.SimulationProof <> <> lib
+R1767:1779 Kernel.Certification <> <> lib
+R1781:1792 Kernel.QuantumBound <> <> lib
+R1822:1842 Kernel.RevelationRequirement <> <> lib
+R1872:1888 Kernel.BornRuleLinearity <> <> lib
+R1890:1910 Kernel.TsirelsonQuantumModel <> <> lib
+R1940:1955 Kernel.TsirelsonGeneral <> <> lib
+R1957:1977 Kernel.MuLedgerQuantumBridge <> <> lib
+R2007:2016 Kernel.HonestNoFI <> <> lib
+R2018:2032 Kernel.MuShannonBridge <> <> lib
+R2034:2054 Kernel.MuShannonQuantitative <> <> lib
+R2056:2073 Kernel.StateSpaceCounting <> <> lib
+R2103:2139 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> <> lib
+R2247:2260 Kernel.NoFIToEinstein <> <> lib
+R2381:2401 Kernel.BekensteinCalibration <> <> lib
+prf 2559:2595 <> extraction_nofi_supra_boundary_anchor
+R2617:2620 Coq.Init.Datatypes <> list ind
+R2622:2635 Kernel.VMStep VMStep vm_instruction ind
+binder 2609:2613 <> trace:1
+R2656:2662 Kernel.VMState <> VMState rec
+binder 2639:2644 <> s_init:2
+binder 2646:2652 <> s_final:3
+R2673:2675 Coq.Init.Datatypes <> nat ind
+binder 2666:2669 <> fuel:4
+R2741:2748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2726:2728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2683:2707 Kernel.RevelationRequirement RevelationProof trace_run def
+R2709:2712 Extraction <> fuel:4 var
+R2714:2718 Extraction <> trace:1 var
+R2720:2725 Extraction <> s_init:2 var
+R2729:2732 Coq.Init.Datatypes <> Some constr
+R2734:2740 Extraction <> s_final:3 var
+R2789:2796 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2781:2783 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2767:2779 Kernel.VMState <> csr_cert_addr proj
+R2757:2763 Kernel.VMState <> vm_csrs proj
+R2749:2754 Extraction <> s_init:2 var
+R2834:2841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2797:2827 Kernel.QuantumBound <> quantum_admissible def
+R2829:2833 Extraction <> trace:1 var
+R2842:2843 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2844:2872 Kernel.Certification CertificationTheory Certified def
+R2874:2880 Extraction <> s_final:3 var
+R2882:2924 Kernel.Certification CertificationTheory supra_quantum_certified def
+R2926:2930 Extraction <> trace:1 var
+R2948:3011 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
+R2948:3011 Kernel.Certification CertificationTheory quantum_admissible_cannot_certify_supra_chsh thm
+prf 3130:3163 <> extraction_canonical_source_anchor
+R3189:3191 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3169:3188 KamiHW.CanonicalCPUProof <> canonical_cpu_module def
+R3192:3204 KamiHW.ThieleCPUBusTop <> thieleBusTopB def
+prf 3342:3371 <> extraction_c3_born_rule_anchor
+R3389:3403 Kernel.BornRuleLinearity <> ProbabilityRule def
+binder 3385:3385 <> P:5
+R3428:3435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3411:3425 Kernel.BornRuleLinearity <> valid_born_rule def
+R3427:3427 Extraction <> P:5 var
+R3448:3448 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3444:3444 <> z:6
+R3468:3471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3455:3458 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3460:3463 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3459:3459 Extraction <> z:6 var
+R3459:3459 Extraction <> z:6 var
+R3475:3477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3472:3472 Extraction <> P:5 var
+R3474:3474 Extraction <> z:6 var
+R3478:3493 Kernel.BornRuleLinearity <> born_probability def
+R3495:3495 Extraction <> z:6 var
+R3513:3528 Kernel.BornRuleLinearity <> born_rule_unique thm
+R3513:3528 Kernel.BornRuleLinearity <> born_rule_unique thm
+prf 3644:3679 <> extraction_c4_tsirelson_model_anchor
+binder 3692:3695 <> fuel:7
+binder 3697:3701 <> trace:8
+binder 3703:3708 <> s_init:9
+R3762:3769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3715:3743 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R3745:3748 Extraction <> fuel:7 var
+R3750:3754 Extraction <> trace:8 var
+R3756:3761 Extraction <> s_init:9 var
+R3807:3814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3770:3788 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R3790:3793 Extraction <> fuel:7 var
+R3795:3799 Extraction <> trace:8 var
+R3801:3806 Extraction <> s_init:9 var
+R3971:3974 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3816:3819 Coq.Reals.Rbasic_fun <> Rabs def
+R3822:3825 Kernel.TsirelsonGeneral <> CHSH def
+R3834:3842 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R3844:3847 Extraction <> fuel:7 var
+R3849:3853 Extraction <> trace:8 var
+R3855:3860 Extraction <> s_init:9 var
+R3870:3878 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R3880:3883 Extraction <> fuel:7 var
+R3885:3889 Extraction <> trace:8 var
+R3891:3896 Extraction <> s_init:9 var
+R3906:3914 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R3916:3919 Extraction <> fuel:7 var
+R3921:3925 Extraction <> trace:8 var
+R3927:3932 Extraction <> s_init:9 var
+R3942:3950 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R3952:3955 Extraction <> fuel:7 var
+R3957:3961 Extraction <> trace:8 var
+R3963:3968 Extraction <> s_init:9 var
+R3975:3979 Kernel.TsirelsonGeneral <> sqrt8 def
+R4000:4036 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
+R4000:4036 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
+prf 4152:4180 <> extraction_honest_nofi_anchor
+R4201:4203 Coq.Init.Datatypes <> nat ind
+binder 4194:4197 <> fuel:10
+R4215:4218 Coq.Init.Datatypes <> list ind
+R4220:4233 Kernel.VMStep VMStep vm_instruction ind
+binder 4207:4211 <> trace:11
+R4263:4269 Kernel.VMState <> VMState rec
+binder 4246:4251 <> s_init:12
+binder 4253:4259 <> s_final:13
+R4292:4320 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R4323:4326 Coq.Init.Datatypes <> list ind
+R4328:4341 Kernel.VMStep VMStep vm_instruction ind
+binder 4282:4288 <> decoder:14
+R4377:4406 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R4409:4412 Coq.Init.Datatypes <> list ind
+R4414:4427 Kernel.VMStep VMStep vm_instruction ind
+binder 4355:4361 <> P_prior:15
+binder 4363:4373 <> P_posterior:16
+R4471:4512 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 4441:4451 <> omega_prior:17
+binder 4453:4467 <> omega_posterior:18
+R4570:4577 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4527:4529 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4520:4526 Extraction <> s_final:13 var
+R4530:4551 Kernel.SimulationProof <> run_vm def
+R4553:4556 Extraction <> fuel:10 var
+R4558:4562 Extraction <> trace:11 var
+R4564:4569 Extraction <> s_init:12 var
+R4599:4606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4578:4579 Coq.Lists.List <> In def
+R4588:4598 Extraction <> omega_prior:17 var
+R4581:4586 Extraction <> s_init:12 var
+R4685:4692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4607:4656 Kernel.InformationGainToStrengthening <> is_strict_reduction def
+R4658:4668 Extraction <> omega_prior:17 var
+R4670:4684 Extraction <> omega_posterior:18 var
+R4763:4770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4754:4756 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4694:4737 Kernel.InformationGainToStrengthening <> feasible_size def
+R4739:4753 Extraction <> omega_posterior:18 var
+R4811:4818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4803:4805 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R4789:4801 Kernel.VMState <> csr_cert_addr proj
 R4779:4785 Kernel.VMState <> vm_csrs proj
-R4757:4762 Kernel.SimulationProof <> run_vm def
-R4764:4767 Top.Extraction <> fuel:19 var
-R4769:4773 Top.Extraction <> trace:20 var
-R4775:4775 Top.Extraction <> s:23 var
-R4893:4900 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4817:4821 Coq.Lists.List <> NoDup ind
-R4824:4826 Coq.Lists.List <> map def
-R4887:4891 Top.Extraction <> omega:21 var
-binder 4833:4833 <> s:24
-R4871:4883 Kernel.VMState <> csr_cert_addr proj
-R4861:4867 Kernel.VMState <> vm_csrs proj
-R4839:4844 Kernel.SimulationProof <> run_vm def
-R4846:4849 Top.Extraction <> fuel:19 var
-R4851:4855 Top.Extraction <> trace:20 var
-R4857:4857 Top.Extraction <> s:24 var
-R4918:4921 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4901:4911 Coq.Lists.List <> length abbrev
-R4913:4917 Top.Extraction <> omega:21 var
-R4922:4966 Kernel.MuShannonQuantitative <> count_cert_addr_setters def
-R4968:4972 Top.Extraction <> trace:20 var
-R4990:5024 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
-R4990:5024 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
-prf 5140:5195 <> extraction_honest_nofi_general_feasible_reduction_anchor
-binder 5208:5211 <> fuel:25
-binder 5213:5217 <> trace:26
-binder 5219:5219 <> s:27
-binder 5221:5231 <> omega_prior:28
-binder 5233:5247 <> omega_posterior:29
-binder 5249:5252 <> tree:30
-R5324:5331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5259:5305 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R5307:5310 Top.Extraction <> fuel:25 var
-R5312:5316 Top.Extraction <> trace:26 var
-R5318:5318 Top.Extraction <> s:27 var
-R5320:5323 Top.Extraction <> tree:30 var
-R5387:5394 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5378:5380 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5333:5361 Kernel.MuShannonBridge <> feasible_size def
-R5363:5377 Top.Extraction <> omega_posterior:29 var
-R5474:5481 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5395:5440 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
-R5442:5445 Top.Extraction <> tree:30 var
-R5447:5457 Top.Extraction <> omega_prior:28 var
-R5459:5473 Top.Extraction <> omega_posterior:29 var
-R5605:5612 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5537:5545 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R5482:5492 Coq.Arith.PeanoNat Nat log2_up def
-R5495:5523 Kernel.MuShannonBridge <> feasible_size def
-R5525:5535 Top.Extraction <> omega_prior:28 var
-R5546:5556 Coq.Arith.PeanoNat Nat log2_up def
-R5559:5587 Kernel.MuShannonBridge <> feasible_size def
-R5589:5603 Top.Extraction <> omega_posterior:29 var
-R5642:5644 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R5636:5640 Kernel.VMState <> vm_mu proj
-R5614:5619 Kernel.SimulationProof <> run_vm def
-R5621:5624 Top.Extraction <> fuel:25 var
-R5626:5630 Top.Extraction <> trace:26 var
-R5632:5632 Top.Extraction <> s:27 var
-R5648:5652 Kernel.VMState <> vm_mu proj
-R5645:5645 Top.Extraction <> s:27 var
-R5671:5715 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
-R5671:5715 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
-prf 5831:5886 <> extraction_honest_nofi_fibered_feasible_reduction_anchor
-binder 5899:5902 <> fuel:31
-binder 5904:5908 <> trace:32
-binder 5910:5910 <> s:33
-binder 5912:5922 <> omega_prior:34
-binder 5924:5938 <> omega_posterior:35
-binder 5940:5943 <> tree:36
-R6015:6022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5950:5996 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R5998:6001 Top.Extraction <> fuel:31 var
-R6003:6007 Top.Extraction <> trace:32 var
-R6009:6009 Top.Extraction <> s:33 var
-R6011:6014 Top.Extraction <> tree:36 var
-R6078:6085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6069:6071 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6024:6052 Kernel.MuShannonBridge <> feasible_size def
-R6054:6068 Top.Extraction <> omega_posterior:35 var
-R6159:6166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6086:6125 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
-R6127:6130 Top.Extraction <> tree:36 var
-R6132:6142 Top.Extraction <> omega_prior:34 var
-R6144:6158 Top.Extraction <> omega_posterior:35 var
-R6290:6297 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6222:6230 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6167:6177 Coq.Arith.PeanoNat Nat log2_up def
-R6180:6208 Kernel.MuShannonBridge <> feasible_size def
-R6210:6220 Top.Extraction <> omega_prior:34 var
-R6231:6241 Coq.Arith.PeanoNat Nat log2_up def
-R6244:6272 Kernel.MuShannonBridge <> feasible_size def
-R6274:6288 Top.Extraction <> omega_posterior:35 var
-R6327:6329 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6321:6325 Kernel.VMState <> vm_mu proj
-R6299:6304 Kernel.SimulationProof <> run_vm def
-R6306:6309 Top.Extraction <> fuel:31 var
-R6311:6315 Top.Extraction <> trace:32 var
-R6317:6317 Top.Extraction <> s:33 var
-R6333:6337 Kernel.VMState <> vm_mu proj
-R6330:6330 Top.Extraction <> s:33 var
-R6356:6400 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
-R6356:6400 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
-prf 6516:6579 <> extraction_honest_nofi_posterior_representative_reduction_anchor
-binder 6592:6595 <> fuel:37
-binder 6597:6601 <> trace:38
-binder 6603:6603 <> s:39
-binder 6605:6615 <> omega_prior:40
-binder 6617:6631 <> omega_posterior:41
-binder 6633:6636 <> tree:42
-R6657:6691 Kernel.MuShannonBridge <> ObservationFunction def
-binder 6648:6653 <> obs_fn:43
-R6764:6771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6699:6745 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
-R6747:6750 Top.Extraction <> fuel:37 var
-R6752:6756 Top.Extraction <> trace:38 var
-R6758:6758 Top.Extraction <> s:39 var
-R6760:6763 Top.Extraction <> tree:42 var
-R6827:6834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6818:6820 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6773:6801 Kernel.MuShannonBridge <> feasible_size def
-R6803:6817 Top.Extraction <> omega_posterior:41 var
-R6923:6930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6835:6882 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
-R6884:6889 Top.Extraction <> obs_fn:43 var
-R6891:6894 Top.Extraction <> tree:42 var
-R6896:6906 Top.Extraction <> omega_prior:40 var
-R6908:6922 Top.Extraction <> omega_posterior:41 var
-R7054:7061 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6986:6994 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6931:6941 Coq.Arith.PeanoNat Nat log2_up def
-R6944:6972 Kernel.MuShannonBridge <> feasible_size def
-R6974:6984 Top.Extraction <> omega_prior:40 var
-R6995:7005 Coq.Arith.PeanoNat Nat log2_up def
-R7008:7036 Kernel.MuShannonBridge <> feasible_size def
-R7038:7052 Top.Extraction <> omega_posterior:41 var
-R7091:7093 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7085:7089 Kernel.VMState <> vm_mu proj
-R7063:7068 Kernel.SimulationProof <> run_vm def
-R7070:7073 Top.Extraction <> fuel:37 var
-R7075:7079 Top.Extraction <> trace:38 var
-R7081:7081 Top.Extraction <> s:39 var
-R7097:7101 Kernel.VMState <> vm_mu proj
-R7094:7094 Top.Extraction <> s:39 var
-R7120:7172 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
-R7120:7172 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
-prf 7288:7336 <> extraction_honest_nofi_conditional_shannon_anchor
-binder 7349:7352 <> fuel:44
-binder 7354:7358 <> trace:45
-binder 7360:7360 <> s:46
-binder 7362:7362 <> n:47
-R7444:7451 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7369:7374 Coq.Lists.List <> Forall ind
-R7439:7443 Top.Extraction <> trace:45 var
-binder 7381:7381 <> i:48
-R7410:7413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7403:7405 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7386:7400 Kernel.VMStep VMStep is_cert_setterb def
-R7402:7402 Top.Extraction <> i:48 var
-R7406:7409 Coq.Init.Datatypes <> true constr
-R7432:7435 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7414:7429 Kernel.VMStep VMStep instruction_cost def
-R7431:7431 Top.Extraction <> i:48 var
-R7529:7536 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7515:7518 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7452:7501 Kernel.MuShannonQuantitative <> cert_setter_executions_local def
-R7503:7506 Top.Extraction <> fuel:44 var
-R7508:7512 Top.Extraction <> trace:45 var
-R7514:7514 Top.Extraction <> s:46 var
-R7519:7526 Coq.Arith.PeanoNat Nat log2 def
-R7528:7528 Top.Extraction <> n:47 var
-R7578:7581 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7566:7568 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7560:7564 Kernel.VMState <> vm_mu proj
-R7538:7543 Kernel.SimulationProof <> run_vm def
-R7545:7548 Top.Extraction <> fuel:44 var
-R7550:7554 Top.Extraction <> trace:45 var
-R7556:7556 Top.Extraction <> s:46 var
-R7572:7576 Kernel.VMState <> vm_mu proj
-R7569:7569 Top.Extraction <> s:46 var
-R7582:7589 Coq.Arith.PeanoNat Nat log2 def
-R7591:7591 Top.Extraction <> n:47 var
-R7609:7646 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
-R7609:7646 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
-prf 7762:7815 <> extraction_honest_nofi_quantitative_state_space_anchor
-R7836:7842 Kernel.VMState <> VMState rec
-binder 7829:7829 <> s:49
-binder 7831:7832 <> s':50
-R7858:7860 Coq.Init.Datatypes <> nat ind
-binder 7846:7849 <> freg:51
-binder 7851:7854 <> creg:52
-R7871:7874 Coq.Init.Datatypes <> bool ind
-binder 7864:7867 <> kind:53
-R7890:7892 Coq.Init.Datatypes <> nat ind
-binder 7878:7881 <> flen:54
-binder 7883:7886 <> cost:55
-R7953:7960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7900:7906 Kernel.VMStep VMStep vm_step ind
-R7908:7908 Top.Extraction <> s:49 var
-R7911:7923 Kernel.VMStep VMStep instr_lassert constr
-R7925:7928 Top.Extraction <> freg:51 var
-R7930:7933 Top.Extraction <> creg:52 var
-R7935:7938 Top.Extraction <> kind:53 var
-R7940:7943 Top.Extraction <> flen:54 var
-R7945:7948 Top.Extraction <> cost:55 var
-R7951:7952 Top.Extraction <> s':50 var
-R7974:7976 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R7970:7973 Top.Extraction <> flen:54 var
-binder 7965:7965 <> k:56
-R8013:8020 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8008:8011 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7996:7998 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R7990:7994 Kernel.VMState <> vm_mu proj
-R7986:7987 Top.Extraction <> s':50 var
-R8002:8006 Kernel.VMState <> vm_mu proj
-R7999:7999 Top.Extraction <> s:49 var
-R8012:8012 Top.Extraction <> k:56 var
-R8022:8025 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8021:8021 Top.Extraction <> k:56 var
-R8026:8052 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
-R8055:8061 Coq.Arith.PeanoNat Nat pow def
-R8065:8065 Top.Extraction <> k:56 var
-R8131:8173 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
-R8131:8173 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
-def 8638:8670 <> extraction_nfi_to_einstein_anchor
-R8677:8715 Kernel.NoFIToEinstein <> nfi_to_gr_chain_complete def
-R8765:8768 Coq.Init.Datatypes <> bool ind
-R8818:8823 Coq.Init.Datatypes <> option ind
-R8874:8877 Coq.Init.Datatypes <> list ind
-R8924:8927 Coq.Init.Datatypes <> prod ind
-R8968:8970 Coq.Init.Datatypes <> nat ind
+R4771:4776 Extraction <> s_init:12 var
+R4870:4877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4819:4849 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R4863:4869 Extraction <> P_prior:15 var
+R4851:4861 Extraction <> P_posterior:16 var
+R4935:4942 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4878:4900 Kernel.NoFreeInsight NoFreeInsight Certified def
+R4930:4934 Extraction <> trace:11 var
+R4918:4928 Extraction <> P_posterior:16 var
+R4910:4916 Extraction <> decoder:14 var
+R4902:4908 Extraction <> s_final:13 var
+R4943:4978 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R4980:4983 Extraction <> fuel:10 var
+R4985:4989 Extraction <> trace:11 var
+R4991:4996 Extraction <> s_init:12 var
+R5014:5069 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
+R5014:5069 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> honest_information_reduction_requires_structure_addition thm
+prf 5185:5230 <> extraction_honest_nofi_trace_separation_anchor
+binder 5243:5246 <> fuel:19
+binder 5248:5252 <> trace:20
+binder 5254:5258 <> omega:21
+R5265:5265 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5321:5329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5273:5273 <> s:22
+R5286:5289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5276:5277 Coq.Lists.List <> In def
+R5281:5285 Extraction <> omega:21 var
+R5279:5279 Extraction <> s:22 var
+R5317:5319 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5303:5315 Kernel.VMState <> csr_cert_addr proj
+R5293:5299 Kernel.VMState <> vm_csrs proj
+R5290:5290 Extraction <> s:22 var
+R5330:5330 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5407:5415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5338:5338 <> s:23
+R5351:5354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5341:5342 Coq.Lists.List <> In def
+R5346:5350 Extraction <> omega:21 var
+R5344:5344 Extraction <> s:23 var
+R5402:5405 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5388:5400 Kernel.VMState <> csr_cert_addr proj
+R5378:5384 Kernel.VMState <> vm_csrs proj
+R5356:5361 Kernel.SimulationProof <> run_vm def
+R5363:5366 Extraction <> fuel:19 var
+R5368:5372 Extraction <> trace:20 var
+R5374:5374 Extraction <> s:23 var
+R5492:5499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5416:5420 Coq.Lists.List <> NoDup ind
+R5423:5425 Coq.Lists.List <> map def
+R5486:5490 Extraction <> omega:21 var
+binder 5432:5432 <> s:24
+R5470:5482 Kernel.VMState <> csr_cert_addr proj
+R5460:5466 Kernel.VMState <> vm_csrs proj
+R5438:5443 Kernel.SimulationProof <> run_vm def
+R5445:5448 Extraction <> fuel:19 var
+R5450:5454 Extraction <> trace:20 var
+R5456:5456 Extraction <> s:24 var
+R5517:5520 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5500:5510 Coq.Lists.List <> length abbrev
+R5512:5516 Extraction <> omega:21 var
+R5521:5565 Kernel.MuShannonQuantitative <> count_cert_addr_setters def
+R5567:5571 Extraction <> trace:20 var
+R5589:5623 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
+R5589:5623 Kernel.HonestNoFI <> honest_nfi_trace_separation_partial thm
+prf 5739:5794 <> extraction_honest_nofi_general_feasible_reduction_anchor
+binder 5807:5810 <> fuel:25
+binder 5812:5816 <> trace:26
+binder 5818:5818 <> s:27
+binder 5820:5830 <> omega_prior:28
+binder 5832:5846 <> omega_posterior:29
+binder 5848:5851 <> tree:30
+R5923:5930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5858:5904 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R5906:5909 Extraction <> fuel:25 var
+R5911:5915 Extraction <> trace:26 var
+R5917:5917 Extraction <> s:27 var
+R5919:5922 Extraction <> tree:30 var
+R5986:5993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5977:5979 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5932:5960 Kernel.MuShannonBridge <> feasible_size def
+R5962:5976 Extraction <> omega_posterior:29 var
+R6073:6080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5994:6039 Kernel.MuShannonBridge <> tree_covers_feasible_reduction def
+R6041:6044 Extraction <> tree:30 var
+R6046:6056 Extraction <> omega_prior:28 var
+R6058:6072 Extraction <> omega_posterior:29 var
+R6204:6211 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6136:6144 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6081:6091 Coq.Arith.PeanoNat Nat log2_up def
+R6094:6122 Kernel.MuShannonBridge <> feasible_size def
+R6124:6134 Extraction <> omega_prior:28 var
+R6145:6155 Coq.Arith.PeanoNat Nat log2_up def
+R6158:6186 Kernel.MuShannonBridge <> feasible_size def
+R6188:6202 Extraction <> omega_posterior:29 var
+R6241:6243 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6235:6239 Kernel.VMState <> vm_mu proj
+R6213:6218 Kernel.SimulationProof <> run_vm def
+R6220:6223 Extraction <> fuel:25 var
+R6225:6229 Extraction <> trace:26 var
+R6231:6231 Extraction <> s:27 var
+R6247:6251 Kernel.VMState <> vm_mu proj
+R6244:6244 Extraction <> s:27 var
+R6270:6314 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
+R6270:6314 Kernel.HonestNoFI <> honest_nfi_general_feasible_reduction_partial thm
+prf 6430:6485 <> extraction_honest_nofi_fibered_feasible_reduction_anchor
+binder 6498:6501 <> fuel:31
+binder 6503:6507 <> trace:32
+binder 6509:6509 <> s:33
+binder 6511:6521 <> omega_prior:34
+binder 6523:6537 <> omega_posterior:35
+binder 6539:6542 <> tree:36
+R6614:6621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6549:6595 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R6597:6600 Extraction <> fuel:31 var
+R6602:6606 Extraction <> trace:32 var
+R6608:6608 Extraction <> s:33 var
+R6610:6613 Extraction <> tree:36 var
+R6677:6684 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6668:6670 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6623:6651 Kernel.MuShannonBridge <> feasible_size def
+R6653:6667 Extraction <> omega_posterior:35 var
+R6758:6765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6685:6724 Kernel.MuShannonBridge <> FiberedFeasibleReduction def
+R6726:6729 Extraction <> tree:36 var
+R6731:6741 Extraction <> omega_prior:34 var
+R6743:6757 Extraction <> omega_posterior:35 var
+R6889:6896 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6821:6829 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6766:6776 Coq.Arith.PeanoNat Nat log2_up def
+R6779:6807 Kernel.MuShannonBridge <> feasible_size def
+R6809:6819 Extraction <> omega_prior:34 var
+R6830:6840 Coq.Arith.PeanoNat Nat log2_up def
+R6843:6871 Kernel.MuShannonBridge <> feasible_size def
+R6873:6887 Extraction <> omega_posterior:35 var
+R6926:6928 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R6920:6924 Kernel.VMState <> vm_mu proj
+R6898:6903 Kernel.SimulationProof <> run_vm def
+R6905:6908 Extraction <> fuel:31 var
+R6910:6914 Extraction <> trace:32 var
+R6916:6916 Extraction <> s:33 var
+R6932:6936 Kernel.VMState <> vm_mu proj
+R6929:6929 Extraction <> s:33 var
+R6955:6999 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
+R6955:6999 Kernel.HonestNoFI <> honest_nfi_fibered_feasible_reduction_partial thm
+prf 7115:7178 <> extraction_honest_nofi_posterior_representative_reduction_anchor
+binder 7191:7194 <> fuel:37
+binder 7196:7200 <> trace:38
+binder 7202:7202 <> s:39
+binder 7204:7214 <> omega_prior:40
+binder 7216:7230 <> omega_posterior:41
+binder 7232:7235 <> tree:42
+R7256:7290 Kernel.MuShannonBridge <> ObservationFunction def
+binder 7247:7252 <> obs_fn:43
+R7363:7370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7298:7344 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R7346:7349 Extraction <> fuel:37 var
+R7351:7355 Extraction <> trace:38 var
+R7357:7357 Extraction <> s:39 var
+R7359:7362 Extraction <> tree:42 var
+R7426:7433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7417:7419 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7372:7400 Kernel.MuShannonBridge <> feasible_size def
+R7402:7416 Extraction <> omega_posterior:41 var
+R7522:7529 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7434:7481 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R7483:7488 Extraction <> obs_fn:43 var
+R7490:7493 Extraction <> tree:42 var
+R7495:7505 Extraction <> omega_prior:40 var
+R7507:7521 Extraction <> omega_posterior:41 var
+R7653:7660 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7585:7593 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7530:7540 Coq.Arith.PeanoNat Nat log2_up def
+R7543:7571 Kernel.MuShannonBridge <> feasible_size def
+R7573:7583 Extraction <> omega_prior:40 var
+R7594:7604 Coq.Arith.PeanoNat Nat log2_up def
+R7607:7635 Kernel.MuShannonBridge <> feasible_size def
+R7637:7651 Extraction <> omega_posterior:41 var
+R7690:7692 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7684:7688 Kernel.VMState <> vm_mu proj
+R7662:7667 Kernel.SimulationProof <> run_vm def
+R7669:7672 Extraction <> fuel:37 var
+R7674:7678 Extraction <> trace:38 var
+R7680:7680 Extraction <> s:39 var
+R7696:7700 Kernel.VMState <> vm_mu proj
+R7693:7693 Extraction <> s:39 var
+R7719:7771 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
+R7719:7771 Kernel.HonestNoFI <> honest_nfi_posterior_representative_reduction_partial thm
+prf 7887:7935 <> extraction_honest_nofi_conditional_shannon_anchor
+binder 7948:7951 <> fuel:44
+binder 7953:7957 <> trace:45
+binder 7959:7959 <> s:46
+binder 7961:7961 <> n:47
+R8043:8050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7968:7973 Coq.Lists.List <> Forall ind
+R8038:8042 Extraction <> trace:45 var
+binder 7980:7980 <> i:48
+R8009:8012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8002:8004 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7985:7999 Kernel.VMStep VMStep is_cert_setterb def
+R8001:8001 Extraction <> i:48 var
+R8005:8008 Coq.Init.Datatypes <> true constr
+R8031:8034 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8013:8028 Kernel.VMStep VMStep instruction_cost def
+R8030:8030 Extraction <> i:48 var
+R8128:8135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8114:8117 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8051:8100 Kernel.MuShannonQuantitative <> cert_setter_executions_local def
+R8102:8105 Extraction <> fuel:44 var
+R8107:8111 Extraction <> trace:45 var
+R8113:8113 Extraction <> s:46 var
+R8118:8125 Coq.Arith.PeanoNat Nat log2 def
+R8127:8127 Extraction <> n:47 var
+R8177:8180 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8165:8167 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8159:8163 Kernel.VMState <> vm_mu proj
+R8137:8142 Kernel.SimulationProof <> run_vm def
+R8144:8147 Extraction <> fuel:44 var
+R8149:8153 Extraction <> trace:45 var
+R8155:8155 Extraction <> s:46 var
+R8171:8175 Kernel.VMState <> vm_mu proj
+R8168:8168 Extraction <> s:46 var
+R8181:8188 Coq.Arith.PeanoNat Nat log2 def
+R8190:8190 Extraction <> n:47 var
+R8208:8245 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
+R8208:8245 Kernel.HonestNoFI <> honest_nfi_conditional_shannon_partial thm
+prf 8361:8414 <> extraction_honest_nofi_quantitative_state_space_anchor
+R8435:8441 Kernel.VMState <> VMState rec
+binder 8428:8428 <> s:49
+binder 8430:8431 <> s':50
+R8457:8459 Coq.Init.Datatypes <> nat ind
+binder 8445:8448 <> freg:51
+binder 8450:8453 <> creg:52
+R8470:8473 Coq.Init.Datatypes <> bool ind
+binder 8463:8466 <> kind:53
+R8489:8491 Coq.Init.Datatypes <> nat ind
+binder 8477:8480 <> flen:54
+binder 8482:8485 <> cost:55
+R8552:8559 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8499:8505 Kernel.VMStep VMStep vm_step ind
+R8507:8507 Extraction <> s:49 var
+R8510:8522 Kernel.VMStep VMStep instr_lassert constr
+R8524:8527 Extraction <> freg:51 var
+R8529:8532 Extraction <> creg:52 var
+R8534:8537 Extraction <> kind:53 var
+R8539:8542 Extraction <> flen:54 var
+R8544:8547 Extraction <> cost:55 var
+R8550:8551 Extraction <> s':50 var
+R8573:8575 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8569:8572 Extraction <> flen:54 var
+binder 8564:8564 <> k:56
+R8612:8619 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8607:8610 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8595:8597 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8589:8593 Kernel.VMState <> vm_mu proj
+R8585:8586 Extraction <> s':50 var
+R8601:8605 Kernel.VMState <> vm_mu proj
+R8598:8598 Extraction <> s:49 var
+R8611:8611 Extraction <> k:56 var
+R8621:8624 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8620:8620 Extraction <> k:56 var
+R8625:8651 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
+R8654:8660 Coq.Arith.PeanoNat Nat pow def
+R8664:8664 Extraction <> k:56 var
+R8730:8772 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
+R8730:8772 Kernel.HonestNoFI <> honest_nfi_quantitative_state_space_partial thm
+def 9237:9269 <> extraction_nfi_to_einstein_anchor
+R9276:9314 Kernel.NoFIToEinstein <> nfi_to_gr_chain_complete def
+R9423:9426 Coq.Init.Datatypes <> bool ind
+R9476:9481 Coq.Init.Datatypes <> option ind
+R9532:9535 Coq.Init.Datatypes <> list ind
+R9582:9585 Coq.Init.Datatypes <> prod ind
+R9626:9628 Coq.Init.Datatypes <> nat ind

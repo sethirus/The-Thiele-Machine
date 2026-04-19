@@ -62,7 +62,7 @@ def test_evidence_logic_paradox_trace() -> None:
     """Evidence trace: on-chip LASSERT FSM activates when logic assertion runs.
 
     In the on-chip model (replacing the old coprocessor bridge), LASSERT reads
-    formula and certificate bytes from vm_mem via register-indexed addressing.
+    formula and dual witness blocks from vm_mem via register-indexed addressing.
     This test records a VCD trace and verifies the lassert_phase FSM register
     was exercised during LASSERT execution.
     """
@@ -72,13 +72,16 @@ def test_evidence_logic_paradox_trace() -> None:
         "\n".join(
             [
                 "INIT_LOGIC_ACC 0xCAFEEACE",
-                # Trivial SAT formula in data memory
-                "INIT_MEM 0 1",    # flen = 1
-                "INIT_MEM 1 1",    # cert: var 1 = true
-                "INIT_MEM 2 1",    # nclauses = 1
-                "INIT_MEM 3 1",    # literal: var 1 (positive)
-                "INIT_MEM 4 0",    # end-of-clause sentinel
-                "LASSERT 32 0 1",  # SAT (bit5=1), freg=0, creg=0, cost=1
+                "INIT_MEM 16 2",    # two literal words: +x1, end-of-clause
+                "INIT_MEM 17 1",    # num_vars
+                "INIT_MEM 18 1",    # num_clauses
+                "INIT_MEM 19 1",    # literal +x1
+                "INIT_MEM 20 0",    # end-of-clause
+                "INIT_MEM 97 1",    # model at cbase+1: x1=true
+                "INIT_MEM 98 0",    # countermodel at cbase+nvars+1: x1=false
+                "LOAD_IMM 28 16 0",
+                "LOAD_IMM 29 96 0",
+                "LASSERT 28 29 1 2 1",
                 "HALT 0",
                 "",
             ]
@@ -105,7 +108,7 @@ def test_evidence_valid_quantum_physics_trace() -> None:
             [
                 "INIT_MU 100",
                 "INIT_LOGIC_ACC 0xCAFEEACE",
-                "REVEAL 0 0 1",
+                "REVEAL 0 1 0",
                 "CHSH_TRIAL 1 0 0 0 7",
                 "HALT 0",
                 "",
@@ -120,5 +123,3 @@ def test_evidence_valid_quantum_physics_trace() -> None:
     assert result.get("status", 0) == 2
     assert result.get("mu", 0) >= 260
     assert trace.exists() and trace.stat().st_size > 0
-
-

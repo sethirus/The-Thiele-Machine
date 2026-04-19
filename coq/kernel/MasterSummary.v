@@ -1,37 +1,13 @@
-(** =========================================================================
-    MASTER SUMMARY - Audit-Facing Index of Core Kernel Claims
-    =========================================================================
+(** MasterSummary: audit-facing index of the core kernel claims.
 
-    PURPOSE:
-    This file is the audit-facing index for the active kernel story. It does
-    not only re-export major theorems; it also classifies what kind of claim
-    each master theorem is, which premises it depends on, which semantic layer
-    it inhabits, and what it should not be read as proving.
+  This file is here to make the repository harder to misread. It re-exports
+  the big results, but it also labels what kind of result each one is:
+  definitional restatement, direct algebraic theorem, conditional bridge,
+  wrapper around an earlier theorem, or verification-transfer claim.
 
-    DESIGN GOAL:
-    Make the summary hard to misread. In particular, this file distinguishes:
-    - export wrappers versus new compositions
-    - definitional restatements versus algebraic derivations
-    - unconditional theorems versus conditional bridges
-    - formal theorem content versus executable preservation versus physical reading
-
-    MASTER CLAIMS COVERED HERE:
-    1. μ=0 traces satisfy the algebraic CHSH bound |S| ≤ 4.
-    2. Factorizable correlations satisfy the classical bound |S| ≤ 2.
-    3. The algebraic Tsirelson bound |S| ≤ 2√2 follows from row constraints.
-    4. The exported "quantum foundations" bundle is partly numerical and partly definitional.
-    5. The Tsirelson trace bridge is conditional on the explicit coherence premise.
-    6. At the zero-marginal level, PSD is equivalent to column contractivity.
-    7. No Free Insight exports a structural theorem, quantitative trace-level/conditional bounds, a posterior-representative semantics lift, and a conservative state-space-counting wrapper.
-    8. The verification transfer surface exported here is abstract PC/μ preservation.
-    9. The non-circularity certificate is decomposed into inspectable sub-results.
-
-    ASSUMPTION POSTURE:
-    - zero project-local axioms
-    - zero project-local admits
-    - standard-library dependencies may still appear and are surfaced explicitly
-
-    ========================================================================= *)
+  The point is not to sound impressive. The point is to keep the audit trail
+  explicit about what has actually been proved, what depends on extra
+  premises, and what should not be over-read from the theorem name alone. *)
 
 From Coq Require Import QArith Qabs Lia List Reals Strings.String.
 Require Import Coq.micromega.Lra.
@@ -65,9 +41,6 @@ From KamiHW Require Import FullEmbedStep GraphReconstructionBridge.
 Local Open Scope Q_scope.
 Local Open Scope string_scope.
 
-(** =========================================================================
-    PART 0: AUDIT INFRASTRUCTURE
-    ========================================================================= *)
 
 Inductive theorem_scope :=
 | ExportOnly
@@ -587,9 +560,8 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_verification_chain;
     audit_master_verification_preserved_observables ].
 
-(** =========================================================================
+(**
     PART 0a: MECHANISM FILE MAP
-    =========================================================================
 
     If a reader wants the machine "all the way down", the load-bearing files
     are not only theorem bundles. They also include the operational semantics,
@@ -656,9 +628,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     PART 0b: THEOREM STATEMENT EXPOSURE
-    =========================================================================
 
     This section exposes the mathematical content of the load-bearing imported
     theorems that the rest of this summary relies on. The goal is not to inline
@@ -1015,9 +986,9 @@ Definition exposed_import_spine : list string :=
     "NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_bekenstein_calibration_content";
     "NoFIToEinstein.nfi_to_discrete_einstein_from_psplit_bekenstein_calibration -> exposed_nofi_to_discrete_einstein_from_psplit_bekenstein_calibration_content" ].
 
-(** =========================================================================
+(**
     PART 0c: METADATA COMPLETENESS AND KERNEL-STORY COVERAGE
-    ========================================================================= *)
+    *)
 
 (** This first ledger covers the master-claim theorem family only.
   Closure theorems, boundary theorems, and compatibility aliases are
@@ -1249,9 +1220,9 @@ Proof.
   exact Harea.
 Qed.
 
-(** =========================================================================
+(**
     PART 0d: ASSUMPTION CERTIFICATE BOUNDARY
-    ========================================================================= *)
+    *)
 
 Definition master_inquisitor_assumption_artifact : external_artifact_reference :=
   {| artifact_path := "coq/INQUISITOR_ASSUMPTIONS.json";
@@ -1322,9 +1293,9 @@ Proof.
     + exact master_assumption_artifact_is_pinned.
 Qed.
 
-(** =========================================================================
+(**
     PART 0e: VERIFICATION SCOPE DECISION
-    ========================================================================= *)
+    *)
 
 Definition verification_nonclaims_list : list string :=
   [ "Raw RTL JSON bit-for-bit lockstep is bounded to the concrete hardware memory extent; VM memory-tail equality is carried by the formal full-state abstraction bridge.";
@@ -1371,9 +1342,9 @@ Proof.
   - exact master_verification_scope_includes_full_state_equivalence.
 Qed.
 
-(** =========================================================================
+(**
     PART 0f: PHYSICS READING INVENTORY AND OPEN OBLIGATIONS
-    ========================================================================= *)
+    *)
 
 Definition master_physics_reading_inventory : list physical_reading_entry :=
   [ {| reading_name := "Classical factorizable correlations obey |CHSH| <= 2";
@@ -1420,7 +1391,7 @@ Lemma hardware_chain_connectivity_check :
   1 <> 0.
 Proof. discriminate. Qed.
 
-(* SAFE: Zero remaining obligations is the correct final state — all Admitted
+(* SAFE: Zero remaining obligations is the correct final state; all Admitted
    have been closed across the entire coq/ tree. *)
 Definition master_remaining_open_obligations : list open_obligation_entry := [].
 
@@ -1551,9 +1522,9 @@ Proof.
   apply classical_program_mu_zero.
 Qed.
 
-(** =========================================================================
+(**
     PART I: CORE THEOREMS
-    ========================================================================= *)
+    *)
 
 (* AUDIT:
    theorem: master_mu_zero_algebraic_bound
@@ -1838,7 +1809,7 @@ Qed.
 
     WHAT IS PROVEN (UNCONDITIONAL):
     The 5×5 NPA moment matrix being positive semidefinite is EQUIVALENT to
-    zero_marginal_column_contractive — the algebraic condition that implies
+    zero_marginal_column_contractive, the algebraic condition that implies
     CHSH ≤ 2√2.
 
     Proof: The NPA matrix has block structure diag(1) ⊕ [[I, C], [C^T, I]].
@@ -2138,9 +2109,9 @@ Proof.
   exact NoFIToEinstein.nfi_to_discrete_einstein_from_bekenstein_calibration.
 Qed.
 
-(** =========================================================================
+(**
     PART II: VERIFICATION CHAIN
-    ========================================================================= *)
+    *)
 
 (** Verification-chain semantic boundary.
 
@@ -2213,7 +2184,6 @@ Definition verification_nonclaims : list string := verification_nonclaims_list.
   semantic_layer: executable semantics layer
   external_interpretation: abstract verification transfer for bisimulation invariant and μ only
 *)
-(** [master_verification_chain]: formal specification. *)
 Theorem master_verification_chain : verification_chain_holds.
 Proof.
   unfold verification_chain_holds.
@@ -2253,9 +2223,8 @@ Proof.
   exact Hcorr.
 Qed.
 
-(** =========================================================================
+(**
   PART IIb: NON-CIRCULARITY DECOMPOSITION
-  =========================================================================
 
   This section exposes the specific sub-certificates that support the
   exported non-circularity certificate.
@@ -2329,7 +2298,7 @@ Qed.
   semantic_layer: formal theorem layer
   external_interpretation: operational-class structure certificate only
 *)
-(* INQUISITOR NOTE: alias for mu_zero_is_locc_like — summary module export *)
+(* INQUISITOR NOTE: alias for mu_zero_is_locc_like - summary module export *)
 Theorem master_non_circular_mu_zero_locc : mu_zero_locc_correspondence.
 Proof.
   exact mu_zero_is_locc_like.
@@ -2340,9 +2309,8 @@ Definition non_circularity_nonclaims : list string :=
     "It does not by itself prove an import-graph theorem over the entire repository.";
     "It does not claim every external interpretation of LOCC is captured without remainder." ].
 
-(** =========================================================================
+(**
     PART IIc: STRONGER REPOSITORY-LEVEL RESULTS ELSEWHERE
-    =========================================================================
 
     This summary exports the kernel-story surface used in the main audit path.
     Some stronger results exist elsewhere in the repository and should not be
@@ -2379,9 +2347,8 @@ Proof.
   reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     PART IId: CURVED SPACETIME PIPELINE
-    =========================================================================
 
     The curved tensor pipeline (CurvedTensorPipeline.v) provides:
     1. Per-module 4×4 metric tensor (stored in ModuleState.module_mu_tensor)
@@ -2397,13 +2364,13 @@ Qed.
     9. Bianchi identity: ∇_μ G^{μν} = 0 (flat case)
     10. Riemann antisymmetry: R^ρ_{σμν} = -R^ρ_{σνμ}
 
-    ZERO AXIOMS, ZERO ADMITTED.
-    ========================================================================= *)
+    Everything above is meant as a structured export surface, not as a new
+    foundational claim about the repository. *)
 
 (** Curved pipeline is fully defined and computable *)
 Definition master_curved_pipeline_complete := curved_pipeline_complete.
 
-(** Riemann tensor antisymmetry — fundamental GR identity *)
+(** Formal Riemann tensor antisymmetry identity in this model. *)
 Definition master_riemann_antisymmetric := curved_riemann_antisymmetric.
 
 (** Flat spacetime produces zero Einstein tensor *)
@@ -2422,43 +2389,15 @@ Definition master_einstein_from_mass := einstein_equation_from_mass.
 (** Ricci isotropy: R_{d1,d1} = R_{d2,d2} for isotropic 2-vertex complex (proved) *)
 Definition master_ricci_isotropy := ricci_isotropy_isotropic_2v.
 
-(** =========================================================================
-    PART III: SUMMARY
-    ========================================================================= *)
+(** Summary bundle. *)
 
-(** Core summary bundle indexed by this file:
+(** Core summary bundle indexed by this file.
 
-    1. ACCOUNTING: μ-cost is monotonically non-decreasing (MuLedgerConservation.v)
-    2. INFORMATION: No Free Insight — structure discovery requires nonzero μ-cost
-       (NoFreeInsight.v, HonestNoFI chain — unconditional)
-    3. CHSH ≤ 2 for μ=0: classical factorizability → Fine's theorem (MinorConstraints.v)
-    4. CHSH ≤ 2√2 CONDITIONAL on NPA/Gram coherence (TsirelsonQuantumModel.v)
-    5. CORRELATION HIERARCHY: 2 ≤ 2√2 (numerical; classical_bound ≤ tsirelson_bound)
-    6. BORN RULE UNIQUENESS: valid Born rules on [-1,1] are uniquely the standard rule
-    7. VERIFICATION: abstract cross-layer PC/μ preservation and bisimulation-invariant transfer
-    8. NON-CIRCULARITY: μ-cost rules have no CHSH or quantum references
-
-    ASSUMPTION MANIFEST:
-    - project-local axioms: 0
-    - project-local admits: 0
-    - standard dependencies: see [master_summary_assumptions]
-    - classical logic: yes (conservative imported-surface summary)
-    - functional extensionality: yes (imported by MinorConstraints.v)
-    - choice principles: no
-    - proof irrelevance: no
-    - real-number completeness / real-analysis principles: yes
-
-    SEMANTIC BOUNDARY MANIFESTS:
-    - [chsh_trace_semantic_boundary]
-    - [verification_semantic_boundary]
-
-    WITNESS:
-    - [master_mu_zero_witness_trace] at fuel [master_mu_zero_witness_fuel]
-      is the named μ=0 witness exported by this file.
-
-    All proofs: Zero project-local axioms, zero admits, verified by Inquisitor.
-    Standard library principles (classical logic in Reals, etc.) may appear.
-*)
+    The exported bundle covers accounting, No Free Insight, the classical and
+    Tsirelson-side CHSH bounds, Born-rule uniqueness, verification transfer,
+    and the non-circularity certificate. The assumption surface is recorded
+    explicitly so the summary cannot be mistaken for a claim of zero imported
+    background principles. *)
 
 Definition thiele_machine_core_summary_holds : Prop :=
   (* μ=0 witness exists *)
@@ -2535,9 +2474,8 @@ Proof.
   - exact master_verification_chain.
 Qed.
 
-(** =========================================================================
+(**
   CLAIM TABLE (complete human audit view for master_claim_ledger)
-  =========================================================================
 
     | Claim                                             | Formal status        | Depends on                                      | Does not imply |
     |---------------------------------------------------|----------------------|-------------------------------------------------|----------------|
@@ -2564,7 +2502,7 @@ Qed.
     The complete top-level theorem inventory for this file is [summary_file_theorem_names].
 *)
 
-(** =========================================================================
+(**
     PART IIe: CATEGORICAL EXTENSION VERIFICATION (Phase 4–6)
 
     Confirms that the 7 categorical morphism opcodes (MORPH, COMPOSE, MORPH_ID,
@@ -2583,7 +2521,7 @@ Qed.
       normalization (normalize_coupling introduces a set-equivalence quotient)
     - Naturality squares for sources other than the relational model
     - Hardware-level associativity (that is covered by VerilogRefinement.v)
-    ========================================================================= *)
+    *)
 
 (* AUDIT:
   theorem: master_categorical_compose_assoc
@@ -2594,7 +2532,7 @@ Qed.
   new_content_here: none; permanent alias to CategoryBridge.morph_graph_compose_assoc
   semantic_layer: formal theorem layer
   external_interpretation: morphism composition in the partition graph is
-    associative at the coupling level — (f;g);k ≡ f;(g;k)
+    associative at the coupling level: (f;g);k ≡ f;(g;k)
 *)
 Definition master_categorical_compose_assoc := @morph_graph_compose_assoc.
 
@@ -2657,7 +2595,7 @@ Definition master_categorical_tensor_bifunctor := @tensor_bifunctor.
   new_content_here: none; permanent alias to CategoryMonoidal.monoidal_coherence
   semantic_layer: formal theorem layer
   external_interpretation: coupling_tensor (list append) satisfies strict monoidal
-    structure — associativity and left/right unit laws hold
+    structure: associativity and left/right unit laws hold
 *)
 Definition master_categorical_monoidal_coherence := @monoidal_coherence.
 

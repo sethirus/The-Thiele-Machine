@@ -3,38 +3,27 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof.
 
-(** * MuLedgerConservation: Proving μ never decreases
+(** MuLedgerConservation: μ never decreases.
 
-    WHY THIS FILE EXISTS:
-    The μ-ledger is the whole point. If it could decrease, the No Free Insight
-    theorem would be meaningless - you could "borrow" μ-cost, use the structure,
-    then get a refund. Physics doesn't work that way. This file proves it can't happen.
+    The μ-ledger is the whole point. If it could decrease, No Free Insight would
+    be meaningless — you could "borrow" μ-cost, use the structure, then get a
+    refund. This file proves it can't happen. For any execution trace, the final
+    μ equals the initial μ plus the sum of instruction costs that actually ran.
+    A step changes μ by exactly its declared cost. No refund path exists in
+    vm_apply: μ_final = μ_init + Σ(instruction_cost).
 
-    THE CLAIM:
-    For any execution trace, the final μ value equals the initial μ plus the
-    sum of all instruction costs. Every step increases μ by exactly its declared
-    cost. No exceptions, no loopholes.
+    vm_apply_mu: single step changes μ by exactly instruction_cost.
+    vm_step_respects_mu_ledger: step relation preserves ledger conservation.
+    ledger_conserved: inductive property over execution traces.
+    bounded_model_mu_ledger_conservation: conservation law for bounded runs.
 
-    FORMALLY:
-      μ_final = μ_init + Σ(instruction_cost)
+    Without conservation you could cheat. With conservation, every bit of
+    structural insight costs μ, permanently. Irreversibility is built in.
 
-    KEY RESULTS:
-    - vm_apply_mu: Single step increases μ by exactly instruction_cost
-    - vm_step_respects_mu_ledger: Step relation preserves ledger conservation
-    - ledger_conserved: Inductive property over execution traces
-    - mu_conservation_kernel: Complete conservation law for bounded executions
-
-    WHY THIS MATTERS:
-    This is what makes μ-cost enforceable. Without conservation, you could cheat.
-    With conservation, every bit of structural insight costs μ, permanently.
-    The ledger only grows. Irreversibility is built into the machine.
-
-    FALSIFICATION:
     Find ANY instruction sequence where μ decreases. Find ANY execution where
-    μ_final < μ_init + Σ(costs). If you can, the whole model breaks. The proofs
-    won't compile if this is violated.
+    μ_final is not μ_init + Σ(costs of the executed instructions). If you can,
+    the whole model breaks. The proofs won't compile if this is violated.
 
-    NO AXIOMS. NO ADMITS. Machine-checked conservation law.
     *)
 
 (** Ledger extraction from bounded executions. *)
@@ -64,7 +53,8 @@ Fixpoint bounded_run (fuel : nat) (trace : list vm_instruction)
       end
   end.
 
-(** [bounded_run_head]: formal specification. *)
+(** A bounded run is never empty. Even with zero fuel or a missing instruction,
+    the current state is still the head of the trace. *)
 Lemma bounded_run_head :
   forall fuel trace s,
     exists rest, bounded_run fuel trace s = s :: rest.
@@ -76,30 +66,26 @@ Proof.
     + exists []. reflexivity.
 Qed.
 
-(** vm_apply_mu: Every instruction increases μ by exactly its declared cost.
-
-    WHY THIS IS CRITICAL:
+(** vm_apply_mu: Every instruction changes μ by exactly its declared cost.
     This is the foundational lemma for μ-conservation. It states that when
     you apply ANY instruction to ANY state, the resulting μ value is the
-    original μ plus the instruction's cost. No more, no less.
+    original μ plus the instruction's cost. No more, no less. If the cost is
+    zero, μ stays put.
 
-    PROOF STRATEGY:
-    Case analysis on all 47 instructions. Each instruction's semantics (defined
-    in VMStep.v) explicitly computes new_mu = old_mu + instruction_cost. This
-    lemma just extracts that fact from the step relation.
+    Case analysis on the [vm_instruction] constructors. Each instruction's
+    semantics in [VMStep.v] computes new_mu = old_mu + instruction_cost. This
+    lemma extracts that fact from the executable function.
 
     WHY THE PROOF IS UGLY:
     Coq makes us handle every instruction separately. There are conditional
-    branches (graph operations can fail, certificates can be invalid), but
+    branches for graph/morphism/tensor checks and certificate assertions, but
     in EVERY branch, the μ update is the same: add the cost. The proof cases
-    through all branches and verifies this. It's mechanical but necessary.
-
-    USED BY:
+    through those branches and checks the arithmetic. It's mechanical, but
+    this is the bolt that holds the ledger shut.
     - vm_step_respects_mu_ledger
-    - ledger_sums_to_mu
-    - mu_conservation_kernel (the main theorem)
+    - bounded_model_mu_ledger_conservation
+    - vm_mu_monotonic_single_step
 
-    FALSIFICATION:
     Find an instruction where vm_apply changes μ by something other than
     instruction_cost. The proof breaks. The whole conservation law breaks.
 *)
@@ -159,7 +145,8 @@ Fixpoint ledger_conserved (states : list VMState) (entries : list nat)
   | _, _ => False
   end.
 
-(** [ledger_conserved_tail]: formal specification. *)
+(** Opening a conserved ledger exposes either the next paid step or the
+    finished one-state trace. There is no third shape hiding in the list. *)
 Lemma ledger_conserved_tail :
   forall s states entries,
     ledger_conserved (s :: states) entries ->
@@ -184,8 +171,8 @@ Qed.
 (** The next lemma isolates the per-instruction conservation law.
     It asserts that any single small-step transition must debit the
     µ-ledger by exactly the instruction's declared cost.  In particular
-    a "free" step—one that changes [vm_mu] without the matching ledger
-    delta—would violate [ledger_conserved]; therefore it cannot arise
+    a "free" step, one that changes [vm_mu] without the matching ledger
+    delta, would violate [ledger_conserved]. So it cannot arise
     under the kernel semantics. *)
 
 Theorem vm_step_respects_mu_ledger :
@@ -212,14 +199,16 @@ Fixpoint ledger_sum (entries : list nat) : nat :=
     entropy production.  To expose that connection, we conservatively count
     irreversible bit events per VM instruction and show the µ-ledger lower
     bounds that count for any bounded execution.  The count is deliberately
-    minimal—each instruction contributes at most one irreversible bit and only
-    when it charges a positive µ-cost—so the ledger bound holds without extra
-    semantic assumptions. *)
+    minimal: each instruction contributes at most one irreversible bit, and
+    only when it charges a positive µ-cost. That keeps the ledger bound tied
+    to the cost model instead of smuggling in extra physics. *)
 
 Definition irreversible_bits (instr : vm_instruction) : nat :=
   if instruction_cost instr =? 0 then 0 else 1.
 
-(** [irreversible_bits_le_cost]: formal specification. *)
+(** The irreversible-bit counter is intentionally weak: zero-cost instructions
+    count as zero, and every positive-cost instruction has at least enough μ
+    to pay for the single bit we count. *)
 Lemma irreversible_bits_le_cost :
   forall instr, irreversible_bits instr <= instruction_cost instr.
 Proof.
@@ -242,8 +231,7 @@ Fixpoint irreversible_count (fuel : nat) (trace : list vm_instruction)
       end
   end.
 
-(** HELPER: Accessor/projection *)
-(** HELPER: Accessor/projection *)
+(** Summing per-step costs bounds the conservative irreversible-bit count. *)
 Lemma ledger_sum_bounds_irreversible_count :
   forall fuel trace s,
     irreversible_count fuel trace s <= ledger_sum (ledger_entries fuel trace s).
@@ -269,10 +257,9 @@ Proof.
   apply ledger_sum_bounds_irreversible_count.
 Qed.
 
-  (** Component-wise accumulation for sighted/blind decompositions.
-      The function is parameterised by an instruction-to-cost projection,
-      allowing downstream theorems to reason about arbitrary partitions of
-    [instruction_cost] (e.g. blind search versus sighted certificates). *)
+(** Component-wise accumulation for sighted/blind decompositions.
+    The caller supplies the projection, so this file only proves the arithmetic
+    split. It does not decide which instructions are "blind" or "sighted." *)
 
 Fixpoint ledger_component_sum (component : vm_instruction -> nat)
   (fuel : nat) (trace : list vm_instruction) (s : VMState) : nat :=
@@ -287,8 +274,9 @@ Fixpoint ledger_component_sum (component : vm_instruction -> nat)
       end
   end.
 
-(** Final conservation theorem combining both the cumulative and
-    per-step statements. *)
+(** This is the file's main conservation theorem: the bounded trace is
+    step-by-step ledger-conserved, and the final μ equals the initial μ plus
+    the ledger sum. *)
 
 Theorem bounded_model_mu_ledger_conservation :
   forall fuel trace s,
@@ -310,7 +298,7 @@ Proof.
     + split; [exact I | rewrite Nat.add_0_r; reflexivity].
 Qed.
 
-(** [bounded_ledger_conservation]: formal specification. *)
+(** The per-step half of [bounded_model_mu_ledger_conservation]. *)
 Corollary bounded_ledger_conservation :
   forall fuel trace s,
     ledger_conserved (bounded_run fuel trace s)
@@ -320,7 +308,7 @@ Proof.
   apply (proj1 (bounded_model_mu_ledger_conservation fuel trace s)).
 Qed.
 
-(** [run_vm_mu_conservation]: formal specification. *)
+(** The scalar μ balance from the main theorem, quoted without the trace proof. *)
 Corollary run_vm_mu_conservation :
   forall fuel trace s,
     (run_vm fuel trace s).(vm_mu) =
@@ -330,7 +318,8 @@ Proof.
   apply (proj2 (bounded_model_mu_ledger_conservation fuel trace s)).
 Qed.
 
-(** [run_vm_mu_bounds_irreversibility]: formal specification. *)
+(** The final μ has enough room to pay for every irreversible bit event counted
+    by [irreversible_count]. *)
 Corollary run_vm_mu_bounds_irreversibility :
   forall fuel trace s,
     s.(vm_mu) + irreversible_count fuel trace s <= (run_vm fuel trace s).(vm_mu).
@@ -358,9 +347,8 @@ Proof.
 Qed.
 
 (** A quotable alias so downstream developments can refer to the same bound
-    without unpacking the µ-delta notation.  This is the flagship lemma for
-    mapping µ-ledger growth to a lower bound on logically irreversible bit
-    events in a bounded VM execution. *)
+    without unpacking the µ-delta notation.  The direction matters: the counted
+    irreversible events force at least that much µ-growth. *)
 Theorem vm_irreversible_bits_lower_bound :
   forall fuel trace s,
     irreversible_count fuel trace s <=
@@ -369,7 +357,7 @@ Proof.
   apply run_vm_irreversibility_gap.
 Qed.
 
-(** [bounded_prefix_mu_balance]: formal specification. *)
+(** Any prefix is just another bounded run, so it gets the same μ balance. *)
 Corollary bounded_prefix_mu_balance :
   forall fuel trace s k,
     k <= fuel ->
@@ -383,8 +371,8 @@ Qed.
 (** ** Multi-step µ-monotonicity
 
     The µ-accumulator never decreases during execution. This follows from
-    the fact that [instruction_cost] is always non-negative, ensuring that
-    each step either preserves or increases [vm_mu]. *)
+    the fact that [instruction_cost] is a natural number: each step either
+    preserves [vm_mu] or increases it. *)
 
 Theorem vm_mu_monotonic_single_step :
   forall s instr,
@@ -395,7 +383,7 @@ Proof.
   lia.
 Qed.
 
-(** [run_vm_mu_monotonic]: formal specification. *)
+(** Running the VM for a bounded number of steps cannot lower μ. *)
 Theorem run_vm_mu_monotonic :
   forall fuel trace s,
     s.(vm_mu) <= (run_vm fuel trace s).(vm_mu).
@@ -428,7 +416,8 @@ Proof.
       * simpl. lia.
 Qed.
 
-(** [run_vm_mu_monotonic_composition]: formal specification. *)
+(** Splitting an execution into two fuel windows cannot make the later window
+    cheaper than the earlier one. *)
 Theorem run_vm_mu_monotonic_composition :
   forall m n trace s,
     s.(vm_mu) <= (run_vm m trace s).(vm_mu) /\
@@ -445,10 +434,10 @@ Proof.
     lia.
 Qed.
 
-(** We now generalise the conservation statement by splitting the
-    instruction cost into complementary components.  This allows the
-    kernel development to project the ledger onto semantics such as
-    “blind” search work versus “sighted” certificate validation. *)
+(** I split the instruction cost into two components here. The only assumption
+    is arithmetic: the two projections add back up to [instruction_cost]. That
+    lets later files talk about blind search work versus sighted certificate
+    validation without changing the ledger theorem. *)
 
 Section MuDecomposition.
 
@@ -457,7 +446,8 @@ Variable mu_component_split : forall instr,
   instruction_cost instr =
     mu_blind_component instr + mu_sighted_component instr.
 
-(** [ledger_sum_component_decompose]: formal specification. *)
+(** If each instruction cost splits into blind plus sighted pieces, then the
+    whole ledger sum splits the same way. *)
 Lemma ledger_sum_component_decompose :
   forall fuel trace s,
     ledger_sum (ledger_entries fuel trace s) =
@@ -476,7 +466,7 @@ Proof.
     + reflexivity.
 Qed.
 
-(** [bounded_run_mu_decomposition]: formal specification. *)
+(** The μ balance can be quoted in terms of the two component sums. *)
 Theorem bounded_run_mu_decomposition :
   forall fuel trace s,
     (run_vm fuel trace s).(vm_mu) =
@@ -492,7 +482,7 @@ Proof.
   lia.
 Qed.
 
-(** [bounded_run_blind_component_le_total]: formal specification. *)
+(** The blind component alone is bounded by the total μ increase. *)
 Corollary bounded_run_blind_component_le_total :
   forall fuel trace s,
     s.(vm_mu) + ledger_component_sum mu_blind_component fuel trace s <=
@@ -505,7 +495,7 @@ Proof.
   lia.
 Qed.
 
-(** [bounded_run_sighted_component_le_total]: formal specification. *)
+(** The sighted component alone is bounded by the total μ increase. *)
 Corollary bounded_run_sighted_component_le_total :
   forall fuel trace s,
     s.(vm_mu) + ledger_component_sum mu_sighted_component fuel trace s <=
@@ -521,12 +511,11 @@ Qed.
 End MuDecomposition.
 
 (** Bridging the prophecy seal and ledger tail.
-    The gestalt certificate is derived by combining the pre-declared seal with
-    the final ledger digest.  The following abstract model captures that
-    construction and proves that the gestalt certificate is definitionally
-    identical to the computed isomorphism.  The "hash" combinator remains
-    uninterpreted here—the property is purely structural and does not depend
-    on cryptographic specifics. *)
+    This abstract model keeps the hash algebra uninterpreted. It only proves
+    the structural fact this file actually needs: the two certificate paths
+    agree for a singleton ledger. For longer ledgers, [final_digest ledger]
+    reads the tail while [final_digest (rev ledger)] reads the head, so no
+    general equality is claimed here. *)
 
 Section GestaltIsomorphism.
 
@@ -543,11 +532,9 @@ Section GestaltIsomorphism.
   Definition gestalt_certificate (seal : Hash) (ledger : list Hash) : Hash :=
     combine seal (final_digest ledger).
 
-  (** computed_isomorphism uses a structurally distinct path:
-      it applies combine to the reversed ledger's final_digest.
-      Both paths yield the same result because final_digest is
-      invariant under the prepending of earlier entries.  This
-      is the non-trivial content: two different traversals agree. *)
+  (** [computed_isomorphism] takes a different path on purpose: it digests the
+      reversed ledger. That means it agrees with [gestalt_certificate] for a
+      singleton ledger, not for arbitrary ledgers. *)
   Definition computed_isomorphism (seal : Hash) (ledger : list Hash) : Hash :=
     combine seal (final_digest (rev ledger)).
 
@@ -579,10 +566,9 @@ Section GestaltIsomorphism.
         apply List.last_last.
   Qed.
 
-  (** When the ledger has a single canonical element (seal = hd),
-      the two constructions agree.  For the general case, we
-      prove the relationship assuming a single-entry ledger
-      (typical operational pattern). *)
+  (** When the ledger has a single canonical entry, the two constructions agree.
+      That is the whole theorem. Anything stronger would need a stronger
+      digest definition or an explicit ledger-shape assumption. *)
   Lemma gestalt_matches_isomorphism_singleton :
     forall seal entry,
       gestalt_certificate seal [entry] = computed_isomorphism seal [entry].

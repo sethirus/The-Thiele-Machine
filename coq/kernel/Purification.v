@@ -1,46 +1,13 @@
-(** * Purification from Accounting Constraints
+(** Purification: Bloch-ball mixed states admit the expected two-point decomposition
 
-    WHY THIS FILE EXISTS:
-    I claim every mixed quantum state can be PURIFIED: written as a probabilistic
-    mixture ρ = λ₁|ψ₁⟩⟨ψ₁| + λ₂|ψ₂⟩⟨ψ₂| for some pure states and probabilities.
-    This is NOT a postulate - it's a THEOREM derivable from the Bloch sphere
-    geometry. Purification is the quantum version of "every classical mixed
-    state has an underlying ensemble of pure states."
+  This file works in the single-qubit Bloch-ball model and proves the basic
+  purification-style decomposition facts used later. Mixed states live in the
+  ball, pure states on the sphere, and the relevant purity arithmetic is made
+  explicit.
 
-    THE BLOCH SPHERE MODEL:
-    - Pure states (single qubits): surface of unit sphere x² + y² + z² = 1
-    - Mixed states: interior of sphere x² + y² + z² ≤ 1
-    - Maximally mixed (total ignorance): center (0,0,0)
-    - Purity measure: r² = x² + y² + z² (1 = pure, 0 = maximally mixed)
-
-    THE PURIFICATION THEOREM (purification_principle):
-    Every mixed state (x,y,z) with r² = x² + y² + z² ≤ 1 can be written as
-    a convex combination of TWO states with probabilities:
-    λ₁ = (1 + √r²)/2, λ₂ = (1 - √r²)/2
-    where λ₁ + λ₂ = 1 and (λ₁ - λ₂)² = r² (the purity).
-
-    PHYSICAL INTERPRETATION:
-    Mixed states arise from IGNORANCE (classical probability), not intrinsic
-    randomness. If you have a mixed state, there EXISTS a purification - a
-    larger Hilbert space where the state is pure but you've traced out (ignored)
-    part of it. This is the foundation of decoherence theory: "mixed" means
-    "entangled with environment we're not tracking."
-
-    PURIFICATION DEFICIT:
-    deficit = 1 - r² measures HOW MUCH "reference system" you need to add to
-    purify the state. Pure states (r² = 1) need deficit = 0 (no reference).
-    Maximally mixed (r² = 0) needs deficit = 1 (full reference system).
-
-    FALSIFICATION:
-    Find a mixed quantum state that CANNOT be written as a convex combination
-    of pure states. This would contradict the purification theorem, breaking
-    the Bloch sphere model and requiring new quantum postulates.
-
-    Or show purification_deficit < 0 for some state (impossible - it's the
-    distance from purity, which is always non-negative).
-
-    Or demonstrate a physical system where mixedness is FUNDAMENTAL (not
-    reducible to entanglement with environment), violating purification.
+  The scope is that small geometric model. The file is not trying to rebuild
+  all of decoherence theory; it proves the decomposition and deficit facts it
+  actually needs.
 *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
@@ -75,12 +42,11 @@ Definition bloch_pure (x y z : R) : Prop := x*x + y*y + z*z = 1.
 
     PROOF: Arithmetic (= implies ≤).
 
-    FALSIFICATION: Find a pure state violating the mixed state bound (impossible
+    To falsify: Find a pure state violating the mixed state bound (impossible
     by definition).
 *)
 (** ARITHMETIC HELPER: [r² = 1 -> r² <= 1] by lra. *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-(** [pure_is_mixed]: formal specification. *)
 Lemma pure_is_mixed : forall x y z : R,
   bloch_pure x y z -> bloch_mixed x y z.
 Proof.
@@ -103,13 +69,12 @@ Definition purity (x y z : R) : R := x*x + y*y + z*z.
 
     PROOF: Each term x², y², z² ≥ 0 (squares are non-negative).
 
-    FALSIFICATION: Find coordinates (x,y,z) with x² + y² + z² < 0 (impossible
+    To falsify: Find coordinates (x,y,z) with x² + y² + z² < 0 (impossible
     in real arithmetic).
 *)
 (** HELPER: Non-negativity property *)
 (** HELPER: Non-negativity property *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-(** [purity_nonneg]: formal specification. *)
 Lemma purity_nonneg : forall x y z : R, purity x y z >= 0.
 Proof.
   intros. unfold purity. nra.
@@ -118,7 +83,6 @@ Qed.
 (** purification_deficit: How much "reference system" is needed
     deficit = 1 - r² measures the GAP between current purity and maximum purity.
 
-    PHYSICAL INTERPRETATION:
     To purify a mixed state, you add a reference system (ancilla qubits) and
     view the original state as PART of a larger pure state. The deficit tells
     you the MINIMUM size of that reference system. deficit = 0 means the state
@@ -138,7 +102,7 @@ Definition purification_deficit (x y z : R) : R := 1 - purity x y z.
     WHY THIS MATTERS: It proves the deficit is well-defined (always a valid
     non-negative real number). You can always measure how far a state is from purity.
 
-    FALSIFICATION: Find a mixed state with deficit < 0 (would require r² > 1,
+    To falsify: Find a mixed state with deficit < 0 (would require r² > 1,
     contradicting bloch_mixed).
 *)
 Lemma mixed_has_deficit : forall x y z : R,
@@ -179,7 +143,6 @@ Proof. intro x. nra. Qed.
     3. The formulas for λ₁, λ₂ then satisfy all conditions by arithmetic
     4. Verify (λ₁ - λ₂)² = ((1+√r²)/2 - (1-√r²)/2)² = (√r²)² = r² ✓
 
-    PHYSICAL INTERPRETATION:
     This proves EVERY mixed state arises from a classical mixture of pure states.
     If you have a mixed qubit (r² < 1), it's because you have probability λ₁
     of being in one pure state and probability λ₂ of being in another, and
@@ -191,7 +154,6 @@ Proof. intro x. nra. Qed.
     then r² = 0 (maximally mixed). As the bias increases (λ₁ > λ₂), the purity
     increases (r² → 1), until λ₁ = 1, λ₂ = 0 (pure state, r² = 1).
 
-    FALSIFICATION:
     Find a mixed state where NO choice of λ₁, λ₂ satisfies the conditions.
     This would mean the Bloch ball model is wrong - there are quantum states
     outside the geometric structure. Or find λ₁ + λ₂ ≠ 1 for the constructed
@@ -257,7 +219,7 @@ Qed.
 
     PROOF: Arithmetic substitution.
 
-    FALSIFICATION: Find a pure state with deficit ≠ 0 (impossible by definition).
+    To falsify: Find a pure state with deficit ≠ 0 (impossible by definition).
 *)
 Corollary pure_needs_no_reference : forall x y z : R,
   bloch_pure x y z ->
@@ -279,10 +241,9 @@ Qed.
 
     PROOF: Direct computation: deficit = 1 - (0² + 0² + 0²) = 1.
 
-    FALSIFICATION: Show maximally mixed state has deficit ≠ 1 (arithmetic error).
+    To falsify: Show maximally mixed state has deficit ≠ 1 (arithmetic error).
 *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-(** [maximally_mixed_needs_full_reference]: formal specification. *)
 Lemma maximally_mixed_needs_full_reference :
   purification_deficit 0 0 0 = 1.
 Proof.

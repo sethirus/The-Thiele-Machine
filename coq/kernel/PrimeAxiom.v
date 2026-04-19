@@ -1,12 +1,11 @@
-(** * PrimeAxiom: State-based No Free Insight on the Kernel VM
+(** PrimeAxiom: State-based No Free Insight on the Kernel VM
 
-    WHY THIS FILE EXISTS:
     No Free Insight is the central economic law of the Thiele Machine:
     certification cannot be obtained without paying mu-cost. This file
     proves that law directly on the kernel VM by case-splitting over all
     47 instructions.
 
-    THE KEY THEOREM: vm_certified = true implies vm_mu > 0.
+    THE The key theorem: vm_certified = true implies vm_mu > 0.
 
     This is the state-based formulation of No Free Insight:
     CERTIFY is the ONLY instruction that sets vm_certified to true,
@@ -17,7 +16,6 @@
     this to arbitrary-fuel execution via run_vm: starting uncertified
     with mu=0, if execution ever reaches vm_certified=true then mu > 0.
 
-    FALSIFICATION:
     Add an instruction that sets vm_certified to true without charging
     at least S 0 = 1 unit of mu. The single_step theorem would then fail
     its case split, and the multi-step induction would collapse.

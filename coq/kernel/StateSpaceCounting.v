@@ -1,6 +1,5 @@
-(** * StateSpaceCounting: Proving mu-cost bounds information gained
+(** StateSpaceCounting: Proving mu-cost bounds information gained
 
-    WHY THIS FILE EXISTS:
     This file establishes the quantitative information-theoretic lower bound
     on mu-cost: when you narrow a search space from Omega possibilities to
     Omega' possibilities, you must pay mu-cost >= log2(Omega/Omega').
@@ -11,7 +10,6 @@
     minimum. You can't cheat. You can't get logarithmic space reduction
     without paying logarithmic information cost.
 
-    WHY THIS IS HARD TO ENFORCE:
     Computing the EXACT reduction |Omega|->|Omega'| requires model counting, which is
     #P-complete (counting SAT solutions is harder than deciding SAT). I can't
     solve #P-complete problems at runtime to compute costs.
@@ -25,7 +23,6 @@
     This GUARANTEES delta_mu >= log2(2^n/actual_count) for ANY actual_count >= 1.
     It may OVERCHARGE when multiple solutions exist, but it NEVER undercharges.
 
-    FALSIFICATION:
     Find a way to reduce search space by factor F without paying >= log2(F) mu-cost.
     You can't. The bound is information-theoretic.
 *)
@@ -46,7 +43,7 @@ Import VMStep.VMStep.
 Import MuLedgerConservation.
 Import MuNoFreeInsightQuantitative.MuNoFreeInsightQuantitative.
 
-(** * Logarithm base 2 (ceiling) *)
+(** Logarithm base 2 (ceiling) *)
 
 Definition log2_nat (n : nat) : nat :=
   match n with
@@ -54,11 +51,11 @@ Definition log2_nat (n : nat) : nat :=
   | S _ => Nat.log2 n + (if Nat.pow 2 (Nat.log2 n) =? n then 0 else 1)
   end.
 
-(** * Axiom Bit Length *)
+(** Axiom Bit Length *)
 
-(** Count SMT-LIB axiom string length in bits *)
+(** Count SMT-LIB axiom payload bits directly. *)
 Definition axiom_bitlength (ax : VMAxiom) : nat :=
-  String.length ax * 8.
+  payload_bit_length ax.
 
 (** Sum all axiom bits in a module *)
 Definition module_axiom_bits (m : ModuleState) : nat :=
@@ -68,11 +65,11 @@ Definition module_axiom_bits (m : ModuleState) : nat :=
 Definition graph_axiom_bits (g : PartitionGraph) : nat :=
   List.fold_left Nat.add (List.map (fun '(_, m) => module_axiom_bits m) g.(pg_modules)) 0.
 
-(** * Key Lemma: μ-cost bounds axiom bits *)
+(** Key Lemma: μ-cost bounds axiom bits *)
 
 (** instruction_cost for LASSERT is flen * 8 + S cost.
-    The bit-length of the formula is declared via formula_len (flen) in the new ISA.
-    Each character contributes 8 bits: μ is denominated in BITS of work. *)
+  flen is the encoded formula-unit count carried by the instruction.
+  Each encoded unit contributes eight concrete bits: μ is denominated in bits. *)
 Lemma lassert_cost_includes_formula_length :
   forall fa ca k flen cost,
     instruction_cost (instr_lassert fa ca k flen cost) = flen * 8 + S cost.
@@ -80,25 +77,26 @@ Proof.
   intros. simpl. reflexivity.
 Qed.
 
-(** * Quantitative No Free Insight — UNCONDITIONAL
+(** Quantitative No Free Insight — encoded-length lower bound
 
-    PROVEN: Strengthening requires μ-cost >= formula bit length.
+  PROVEN: Every LASSERT step pays at least the encoded formula bit length.
     No precondition on cost. The bound follows from instruction_cost alone.
 
-    This is the real theorem: delta_mu >= flen * 8 (BITS) for ALL
-    LASSERT executions, regardless of the programmer-supplied cost field.
-    In the new ISA, flen (formula_len) is declared in the instruction itself.
+  This is the syntactic pricing theorem: delta_mu >= flen * 8 (BITS) for ALL
+  LASSERT executions, regardless of the programmer-supplied cost field.
+  By itself, it is a bound on the instruction payload, not yet on the actual
+  in-memory formula size.
 
     The inequality chain:
     - delta_mu = flen * 8 + S cost >= flen * 8
-    - flen is the declared byte-length of the formula in memory
-    - K(formula) <= flen * 8 (formula text is a self-description)
+  - flen is the encoded byte-length carried by the instruction
+    - K(formula) <= flen * 8 (formula bits are a self-description)
     - information gained <= K(formula) <= 8 * flen = delta_mu
 *)
 
-(** When LASSERT executes, μ increases by at least the declared formula bit-length.
-    UNCONDITIONAL: no hypothesis on cost.
-    μ is denominated in bits: 8 bits per declared byte of formula. *)
+(** When LASSERT executes, μ increases by at least the encoded formula bit-length.
+  UNCONDITIONAL: no hypothesis on cost.
+  μ is denominated in bits: 8 bits per encoded byte of formula. *)
 Theorem mu_increase_bounds_axiom_bits :
   forall s s' fa ca ck flen cost,
     vm_step s (instr_lassert fa ca ck flen cost) s' ->
@@ -120,28 +118,21 @@ Proof.
   exact (mu_increase_bounds_axiom_bits s s' fa ca ck flen cost Hstep).
 Qed.
 
-(** * Honest bound: μ-cost >= ACTUAL formula bit-length
-
-    With flen validation now enforced in VMStep, the success cases guarantee
-    flen >= String.length formula. Combined with the cost bound above, this
-    closes the honesty gap: a successful LASSERT step proves
-    Δμ >= String.length(actual formula) * 8.
-
-    A lying programmer (flen < actual formula length) now traps, not succeeds.
-    So any reachable success state paid at least the actual formula cost. *)
+(** Honest bound: if the kernel's LASSERT guard passes, μ-cost bounds the
+    actual in-memory formula header exactly. This is the theorem that closes
+    the self-declared-length gap. *)
 Theorem mu_increase_bounds_actual_formula_bits :
-  forall s s' fa ca flen cost formula,
-    formula = mem_to_string s.(vm_mem) (read_reg s fa) ->
-    vm_step s (instr_lassert fa ca true flen cost) s' ->
-    String.length formula <= flen ->
-    s'.(vm_mu) - s.(vm_mu) >= String.length formula * 8.
+  forall s s' fa ca ck flen cost,
+    vm_step s (instr_lassert fa ca ck flen cost) s' ->
+    lassert_exec_ok s fa ca ck flen = true ->
+    s'.(vm_mu) - s.(vm_mu) >= lassert_hw_flen s fa * 8.
 Proof.
-  intros s s' fa ca flen cost formula Hformula Hstep Hflen.
-  pose proof (vm_step_mu _ _ _ Hstep) as Hmu.
-  rewrite Hmu.
-  (* flen >= |formula|, and instruction_cost = flen*8 + S(cost) >= flen*8 >= |formula|*8.
-     step_lassert_sat_flen_error contradicts Hflen; failure cases also provable by lia. *)
-  inversion Hstep; subst; simpl; lia.
+  intros s s' fa ca ck flen cost Hstep Hexec.
+  pose proof (mu_increase_bounds_axiom_bits s s' fa ca ck flen cost Hstep) as Hmu.
+  unfold lassert_exec_ok in Hexec.
+  apply andb_true_iff in Hexec as [Hlen _].
+  apply Nat.eqb_eq in Hlen.
+  lia.
 Qed.
 
 (** Helper: powers of 2 are at least 1 *)
@@ -212,7 +203,7 @@ Qed.
 (** Main theorem: Combining the pieces
 
     STRUCTURAL THEOREM (Coq-proven):
-    - μ-cost is at least k bits where k = formula string length
+    - μ-cost is at least k bits where k = the encoded formula bit length
 
     SEMANTIC ENFORCEMENT (kernel instruction_cost):
     - instruction_cost computes before = 2^num_vars
@@ -244,5 +235,44 @@ Proof.
     + apply nofreeinsight_information_theoretic_bound. lia.
 Qed.
 
-End StateSpaceCounting.
+(** lassert_honest_cost: closing the honest-cost gap.
 
+    A successful LASSERT step (one that does not trap) must have declared flen
+    equal to the actual in-memory formula length.  Therefore the μ-cost charged
+    (flen * 8 + S cost) is proportional to the formula the checker actually read,
+    not a self-reported undercount.
+
+    Proof: lassert_exec_ok returns false when lassert_hw_flen s freg ≠ flen,
+    which causes new_pc = LASSERT_TRAP_PC.  A non-trap outcome therefore implies
+    lassert_exec_ok = true, which implies Nat.eqb (lassert_hw_flen s freg) flen = true,
+    i.e., flen = lassert_hw_flen s freg. *)
+Theorem lassert_honest_cost :
+  forall (s s' : VMState) (fa ca : nat) (ck : bool) (flen cost : nat),
+    vm_step s (instr_lassert fa ca ck flen cost) s' ->
+    s'.(vm_pc) <> LASSERT_TRAP_PC ->
+    flen = lassert_hw_flen s fa.
+Proof.
+  intros s s' fa ca ck flen cost Hstep Hnotrap.
+  inversion Hstep; subst.
+  unfold lassert_exec_ok in *.
+  destruct (andb (Nat.eqb (lassert_hw_flen s fa) flen)
+                 (lassert_check_ok s fa ca ck)) eqn:Hexec.
+  - apply andb_true_iff in Hexec. destruct Hexec as [Hlen _].
+    apply Nat.eqb_eq in Hlen. symmetry. exact Hlen.
+  - simpl in *. exfalso. apply Hnotrap. reflexivity.
+Qed.
+
+(** Corollary: on a non-trapping LASSERT, the μ-cost equals hw_flen * 8 + S cost. *)
+Corollary lassert_honest_mu_cost :
+  forall (s s' : VMState) (fa ca : nat) (ck : bool) (flen cost : nat),
+    vm_step s (instr_lassert fa ca ck flen cost) s' ->
+    s'.(vm_pc) <> LASSERT_TRAP_PC ->
+    s'.(vm_mu) = s.(vm_mu) + (lassert_hw_flen s fa) * 8 + S cost.
+Proof.
+  intros s s' fa ca ck flen cost Hstep Hnotrap.
+  pose proof (lassert_honest_cost s s' fa ca ck flen cost Hstep Hnotrap) as Hlen.
+  pose proof (vm_step_mu s (instr_lassert fa ca ck flen cost) s' Hstep) as Hmu.
+  rewrite Hmu. simpl. lia.
+Qed.
+
+End StateSpaceCounting.

@@ -1,6 +1,5 @@
-(** * Raychaudhuri Flux Bridge
+(** Raychaudhuri Flux Bridge
 
-    WHY THIS FILE EXISTS:
     Provide a dedicated null-congruence flux layer with explicit expansion
     and shear terms, and connect that flux to the Clausius heat/entropy link
     used by ThermoEinsteinBridge.

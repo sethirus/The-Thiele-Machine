@@ -1,49 +1,23 @@
-(** =========================================================================
-    QuantumBound: Quantum-admissible traces preserve zero cert_addr
-    =========================================================================
+(** QuantumBound: quantum-admissible traces preserve zero cert_addr.
 
-    WHY THIS FILE EXISTS:
-    The Thiele Machine distinguishes classical (mu=0) from quantum (mu>0)
-    regimes. This file proves the foundational boundary theorem:
-    quantum-admissible traces -- those that avoid cert-setting instructions
-    (REVEAL, EMIT, LJOIN, LASSERT, CERTIFY) -- cannot achieve
-    supra-certification (csr_cert_addr <> 0).
+  The statement here is simple. If a trace never uses any of the
+  certification-setting instructions, then it cannot magically end with a
+  nonzero certification address when it started from zero. The proof is just
+  the repeated preservation argument you would expect.
 
-    THE KEY THEOREM:
-    quantum_admissible_implies_no_supra_cert: for any trace that is
-    quantum_admissible, if the initial cert_addr is 0 then the final
-    cert_addr remains 0 regardless of fuel. The proof proceeds by
-    showing every non-cert-setter instruction preserves cert_addr
-    (vm_apply_preserves_cert_addr), then applying induction on fuel.
-
-    SUPPORTING LEMMAS (all proven):
-    - csr_set_err_preserves_cert_addr
-    - csr_set_status_preserves_cert_addr
-    - advance_state_cert_addr / advance_state_rm_cert_addr
-    - vm_apply_preserves_cert_addr
-    - quantum_admissible_all_not_cert_setters
-
-    FALSIFICATION:
-    Find a quantum_admissible trace (no REVEAL/EMIT/LJOIN/LASSERT/CERTIFY)
-    that sets csr_cert_addr to a non-zero value. This would directly
-    contradict quantum_admissible_implies_no_supra_cert.
-    ========================================================================= *)
+  So the way to break this file is equally simple: find a trace that avoids
+  every cert-setting opcode and still flips cert_addr anyway. If that exists,
+  the boundary theorem is wrong. *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
-(** All theorems in this file are fully proved (zero Admitted).
-    See quantum_admissible_implies_no_supra_cert for the main result. *)
+(** The main result is quantum_admissible_implies_no_supra_cert. *)
 
-(** =========================================================================
-    CERTIFICATION INTERFACE DEFINITIONS
-    =========================================================================
-
-    These definitions provide the interface that Certification.v requires.
-    They bridge the quantum admissibility predicates to the main
-    certification machinery.
-
-    ========================================================================= *)
+(**
+  These interface definitions are here so Certification.v can reuse the same
+  quantum-admissibility boundary in its own statements.
+  *)
 
 From Coq Require Import List Bool Lia.
 Import ListNotations.
@@ -53,16 +27,7 @@ From Kernel Require Import RevelationRequirement SimulationProof.
 
 Import RevelationProof.
 
-(** A trace is "quantum admissible" if it contains no cert-setting instructions.
-
-    Cert-setting instructions are those that modify the certification address:
-    - REVEAL: sets cert_addr to non-zero value
-    - EMIT: sets cert_addr to non-zero value
-    - LJOIN: sets cert_addr to non-zero value
-    - LASSERT: sets cert_addr to non-zero value
-
-    This predicate defines the "quantum boundary" - traces that stay within
-    quantum correlations (CHSH ≤ 2√2) don't need certification operations. *)
+(** A trace is quantum-admissible when it contains no cert-setting opcode. *)
 
 Definition quantum_admissible (trace : list vm_instruction) : Prop :=
   forall instr, In instr trace ->
@@ -207,6 +172,4 @@ Proof.
       inversion Hrun. subst. lia.
 Qed.
 
-(** =========================================================================
-    END CERTIFICATION INTERFACE DEFINITIONS
-    ========================================================================= *)
+(** End of the certification interface definitions. *)

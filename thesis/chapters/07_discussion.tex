@@ -65,8 +65,8 @@ The thermodynamic bridge hypothesis ($Q \ge k_B T \ln 2 \cdot \mu$) would be \te
 \end{itemize}
 \end{tcolorbox}
 
-\paragraph{Falsifiable Predictions.}
-The model commits to concrete, testable predictions about its own behavior: every VM operation scales linearly (or better) in $\mu$-cost, and the cost axiom re-derives known physics bounds (CHSH $\le 2$, Tsirelson $\le 2\sqrt{2}$, Landauer erasure). These are machine-checked and experimentally validated in Chapter~11. Whether the cost axiom produces genuinely \emph{new} physical predictions---predictions that diverge from standard quantum mechanics---remains an open question. The theory currently re-derives known results from new axioms; it does not yet predict something that quantum mechanics alone does not. If it eventually does, the predictions will be stated with the same falsification discipline applied throughout this work.
+\paragraph{QM-Divergent Predictions.}
+The model also produces six quantitative predictions (QD1--QD6) where it diverges from standard quantum mechanics. These include projections for measurement-time ratios, modified Tsirelson bounds under finite $\mu$-budgets, and temperature-dependent CHSH suppression. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. These predictions are \textbf{speculative}---they follow from the $\mu$-accounting framework's axioms but have not been experimentally tested. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model commits to numbers rather than hedging.
 
 \section{Broader Implications}
 
@@ -586,7 +586,7 @@ Scaling to millions of dynamic partitions requires:
 
 \subsection{On-Chip Logic Engine}
 
-The \texttt{LASSERT} instruction uses an on-chip FSM that reads formula and certificate data directly from \texttt{vm\_mem}:
+The \texttt{LASSERT} instruction uses an on-chip FSM that reads formula and witness data directly from \texttt{vm\_mem}:
 \begin{lstlisting}
 instr_lassert (formula_addr_reg cert_addr_reg : nat)
     (cert_kind : bool) (formula_len : nat) (mu_delta : nat)
@@ -594,14 +594,14 @@ instr_lassert (formula_addr_reg cert_addr_reg : nat)
 
 \paragraph{On-Chip Instruction Encoding:}
 
-\textbf{What is this instruction?} \texttt{LASSERT} adds a logical constraint to a partition module. The formula and certificate are stored in the VM's data memory (\texttt{vm\_mem}); the instruction holds only register indices that point to them. This keeps the instruction word compact while allowing arbitrarily large formulas.
+\textbf{What is this instruction?} \texttt{LASSERT} adds a logical constraint to a partition module. The formula and witness block are stored in the VM's data memory (\texttt{vm\_mem}); the instruction holds only register indices that point to them. This keeps the instruction word compact while allowing arbitrarily large formulas.
 
 \textbf{Parameter breakdown:}
 \begin{itemize}
-    \item \textbf{formula\_addr\_reg : nat} — Register holding the base address of the formula byte string in \texttt{vm\_mem}.
-    \item \textbf{cert\_addr\_reg : nat} — Register holding the base address of the certificate byte string in \texttt{vm\_mem}.
-    \item \textbf{cert\_kind : bool} — Selects the checker: \texttt{false} = LRAT/UNSAT proof; \texttt{true} = SAT satisfying model.
-    \item \textbf{formula\_len : nat} — Byte length of the formula string in memory. Directly sets the formula-component of the $\mu$-cost.
+    \item \textbf{formula\_addr\_reg : nat} — Register holding the base address of the encoded formula in \texttt{vm\_mem}.
+    \item \textbf{cert\_addr\_reg : nat} — Register holding the base address of the witness block in \texttt{vm\_mem}.
+    \item \textbf{cert\_kind : bool} — Selects the checker: \texttt{false} = LRAT/UNSAT proof; \texttt{true} = SAT satisfying model plus falsifying countermodel.
+    \item \textbf{formula\_len : nat} — Encoded formula-unit count in memory. Directly sets the formula-component of the $\mu$-cost.
     \item \textbf{mu\_delta : nat} — Explicit cost floor. The total $\mu$-cost charged is $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$, ensuring cost is always at least 1.
 \end{itemize}
 
@@ -609,14 +609,14 @@ instr_lassert (formula_addr_reg cert_addr_reg : nat)
 \[
   \Delta\mu(\text{LASSERT}) = \mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})
 \]
-where $\mathtt{formula\_len}$ is the formula's byte length. Longer formulas cost proportionally more, encoding the information-theoretic principle that structurally richer claims are more expensive. $S(\mathtt{mu\_delta})$ guarantees the cost is at least 1, even for the empty formula.
+where $\mathtt{formula\_len}$ is the formula's encoded-unit count, with eight concrete bits charged per unit. Longer formulas cost proportionally more, encoding the information-theoretic principle that structurally richer claims are more expensive. $S(\mathtt{mu\_delta})$ guarantees the cost is at least 1, even for the empty formula.
 
 \textbf{Example workflow:}
 \begin{enumerate}
-    \item Store formula \texttt{"(and (or x0 x1) (or (not x0) x2))"} (38 bytes) at address 100 in \texttt{vm\_mem}; store SAT certificate \texttt{"x0=1,x1=0,x2=1"} at address 200.
+    \item Store the encoded formula for \texttt{"(and (or x0 x1) (or (not x0) x2))"} at address 100 in \texttt{vm\_mem}; store a satisfying model and a falsifying countermodel back-to-back at address 200.
     \item Load base addresses: \texttt{LOAD\_IMM r5 100}; \texttt{LOAD\_IMM r6 200}.
     \item Execute \texttt{LASSERT r5 r6 true 38 0}. $\mu$-cost $= 38 \times 8 + 1 = 305$.
-    \item The on-chip FSM reads the formula and certificate from memory, verifies the certificate, and updates the partition's axiom set.
+    \item The on-chip FSM reads the formula and both witnesses from memory, verifies that one satisfies and the other falsifies, and updates the partition's axiom set.
 \end{enumerate}
 
 \textbf{Formal correctness:} \path{coq/kami\_hw/LogicEngineEquivalence.v} proves that the on-chip evaluation refines the Coq step relation for \texttt{LASSERT} and \texttt{LJOIN}. No external solver is needed at runtime; the VM is self-sufficient for certificate verification.
@@ -660,7 +660,7 @@ The Thiele Machine offers:
     \item A new lens for understanding computational complexity, with concrete $\mu$-cost bounds for NP verification and a conservation law linking computation time to structural revelation cost
     \item Turing subsumption: a mechanized proof that the model is exactly Turing-complete (TM $\to$ Minsky $\to$ Thiele), anchoring the structure-aware complexity classes inside classical computability
     \item Oracle impossibility: three theorems bounding the model from above---halting is undecidable, partial oracles cost $\mu$, and hypercomputation is impossible at finite $\mu$
-    \item Concrete falsifiable $\mu$-cost scaling bounds and physics-bridge re-derivations (CHSH, Tsirelson, Landauer), with the open question of whether genuinely new physical predictions will emerge
+    \item Six QM-divergent predictions (QD1--QD6) with named observables and numerical values, making the physics bridge empirically falsifiable
 \end{enumerate}
 
 The limitations are real but surmountable. The foundational work---zero-admit proofs, 3-layer comparison discipline, receipt generation---provides a solid base for future research.

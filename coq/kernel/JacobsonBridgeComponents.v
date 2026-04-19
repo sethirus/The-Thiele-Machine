@@ -1,6 +1,5 @@
-(** * Jacobson Bridge Components
+(** Jacobson Bridge Components
 
-    WHY THIS FILE EXISTS:
     Replace a monolithic Jacobson bridge assumption with explicit components:
     Clausius-type thermodynamic relation and Raychaudhuri-to-Einstein link.
 

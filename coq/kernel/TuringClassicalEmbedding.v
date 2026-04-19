@@ -1,8 +1,6 @@
 (** TuringClassicalEmbedding.v — D1+D2: Classical Machine Notion and Embedding
 
-    ==========================================================================
     D1: THE TURING / CLASSICAL COMPUTATION NOTION
-    ==========================================================================
 
     The "Turing notion" used throughout D2-D5 is:
 
@@ -33,9 +31,7 @@
       establish the classical fragment as the authoritative Turing notion
       for D2-D5, noting that the KernelTM.v model is a special case.
 
-    ==========================================================================
     D2: THE CLASSICAL → THIELE EMBEDDING
-    ==========================================================================
 
     The embedding classical_to_thiele is the identity function:
     classical programs ARE Thiele programs — the ISA is shared, and
@@ -49,9 +45,6 @@
       (b) The structural state is frozen: vm_graph, csr_cert_addr, and
           vm_certified are unchanged by classical programs.
 
-    ==========================================================================
-    STATUS: Fully proven.  Zero Admitted.
-    ==========================================================================
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool.
@@ -61,9 +54,7 @@ From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI
                            ClassicalConservativity ShadowProjection
                            ProperSubsumption.
 
-(** =========================================================================
-    PART 1: D1 — THE CLASSICAL MACHINE NOTION
-    =========================================================================
+(**
 
     Pin down the "Turing notion" used in D2-D5.
 *)
@@ -88,9 +79,6 @@ Record ClassicalMachine := {
 Definition cm_run (M : ClassicalMachine) (s0 : VMState) : VMState :=
   acm_run thiele_cert_machine (cm_program M) s0.
 
-(** =========================================================================
-    PART 2: D2 — THE EMBEDDING AND FAITHFULNESS
-    =========================================================================*)
 
 (** classical_to_thiele: The formal embedding is the identity on program
     lists.  Classical programs are already Thiele programs — no
@@ -152,9 +140,7 @@ Proof.
   intros M s0. unfold cm_run, classical_to_thiele. reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 3: D2_CLASSICAL_SHADOW_PRESERVED
-    =========================================================================
+(**
 
     Two states that agree on the classical-observable fields plus vm_graph
     and vm_csrs produce equal shadow projections after any classical trace.
@@ -333,11 +319,9 @@ Proof.
   (* 15. xor_rank *)
   - apply shadow_advance_state_rm; try congruence.
     unfold write_reg, read_reg. congruence.
-  (* 16. oracle_halts *)
+  (* 16. halt *)
   - apply shadow_advance_state; congruence.
-  (* 17. halt *)
-  - apply shadow_advance_state; congruence.
-  (* 18. checkpoint *)
+  (* 17. checkpoint *)
   - apply shadow_advance_state; congruence.
   (* 19. read_port: value from instruction literal *)
   - apply shadow_advance_state_rm; try congruence.
@@ -486,9 +470,7 @@ Proof.
   exact Hproj'.
 Qed.
 
-(** =========================================================================
-    PART 4: THE DEGENERATE PROJECTION THEOREM
-    =========================================================================
+(**
 
     This is the capstone theorem for the "Turing ⊂ Thiele" relationship.
     It assembles four orthogonal results into a single named formal claim.
@@ -576,9 +558,7 @@ Proof.
       reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 5: SHADOW CONVERSE — INEQUIVALENT STATES ARE DISTINGUISHABLE
-    =========================================================================
+(**
 
     Converse of Part 3: if two states have different shadow projections,
     some classical program can distinguish them.

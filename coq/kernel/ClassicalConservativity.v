@@ -1,37 +1,23 @@
 (** ClassicalConservativity.v — D3: Classical Opcode Conservativity
 
-    ==========================================================================
-    THE D3 CONSERVATIVITY THEOREM
-    ==========================================================================
-
     The Thiele VM's full ISA includes both structural (categorical) instructions
-    and classical instructions. This file proves:
+    and classical instructions. D3 says: when the VM executes a program using
+    only "classical" opcodes — no PNEW, MORPH, MORPH_ASSERT, LASSERT, LJOIN,
+    EMIT, REVEAL, PDISCOVER, CHSH_TRIAL, CERTIFY, TENSOR_SET, or any
+    graph-modifying MORPH variants — the morphism graph, the cert address
+    channel, and the vm_certified flag are all preserved throughout.
 
-    D3 CONSERVATIVITY: When the Thiele VM executes a program using only
-    "classical" opcodes (no PNEW, MORPH, MORPH_ASSERT, LASSERT, LJOIN,
-    EMIT, REVEAL, PDISCOVER, CHSH_TRIAL, CERTIFY, TENSOR_SET, and
-    the graph-modifying MORPH variants), the morphism graph, the cert
-    address channel, and the vm_certified flag are all preserved.
+    Precisely: if all instructions satisfy is_classical_opcode, then
+    (1) vm_graph is unchanged, (2) csr_cert_addr is unchanged, and
+    (3) vm_certified is unchanged. Thiele restricted to classical opcodes does
+    not exercise the structural layer — it behaves like a classical machine on
+    the (graph, cert) dimensions.
 
-    PRECISE STATEMENT: If all instructions in a trace satisfy
-    is_classical_opcode, then:
-      (1) vm_graph is unchanged throughout
-      (2) csr_cert_addr is unchanged throughout
-      (3) vm_certified is unchanged throughout
-
-    This formalizes: "Thiele restricted to classical opcodes does not
-    exercise the structural layer — it behaves like a classical machine
-    on the (graph, cert) dimensions."
-
-    WHAT THIS DOES NOT PROVE:
-    - That the classical opcodes simulate a Turing machine (separate theorem)
-    - That the classical behavior equals any specific external model
-    - Conservativity on (regs, mem, pc) — those are unconstrained
-    - D4 (strictness): that Thiele can distinguish states classical machines cannot
-
-    ==========================================================================
-    STATUS: Fully proven. Zero Admitted.
-    ==========================================================================
+    What this does NOT prove: that classical opcodes simulate a Turing machine
+    (separate theorem), that classical behavior equals any specific external
+    model, conservativity on (regs, mem, pc) — those are unconstrained —
+    or D4 (strictness: that Thiele can distinguish states classical machines
+    cannot). Fully proven. Zero Admitted.
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool Lia.
@@ -39,26 +25,15 @@ Import ListNotations.
 
 From Kernel Require Import VMState VMStep SimulationProof AbstractNoFI.
 
-(** =========================================================================
-    PART 1: THE CLASSICAL OPCODE PREDICATE
-    =========================================================================
-
-    is_classical_opcode: returns true iff the instruction:
-      (a) does not modify vm_graph (morphisms, modules)
-      (b) does not modify csr_cert_addr
-      (c) does not modify vm_certified
-      (d) does not modify vm_witness
-
-    Excluded opcodes:
-      - Graph-modifying: pnew, psplit, pmerge, lassert (adds axiom),
-        pdiscover, tensor_set (modifies module tensor),
-        morph, compose, morph_id, morph_delete, morph_tensor
-      - Cert-channel: lassert, ljoin, emit, reveal, morph_assert
-      - vm_certified: certify
-      - vm_witness: chsh_trial
-
-    Note: mdlacc, morph_get, tensor_get, read_port, write_port, etc.
-    are classical — they do not modify graph/cert/witness.
+(** is_classical_opcode: true iff the instruction does not modify vm_graph,
+    csr_cert_addr, vm_certified, or vm_witness. Excluded:
+    - Graph-modifying: pnew, psplit, pmerge, lassert, pdiscover, tensor_set,
+      morph, compose, morph_id, morph_delete, morph_tensor
+    - Cert-channel: lassert, ljoin, emit, reveal, morph_assert
+    - vm_certified: certify
+    - vm_witness: chsh_trial
+    Instructions like mdlacc, morph_get, tensor_get, read_port, write_port
+    are classical — they don't touch graph/cert/witness.
 *)
 
 Definition is_classical_opcode (i : vm_instruction) : bool :=
@@ -83,10 +58,6 @@ Definition is_classical_opcode (i : vm_instruction) : bool :=
   | _                          => true
   end.
 
-(** =========================================================================
-    PART 2: SINGLE-STEP PRESERVATION LEMMAS
-    =========================================================================
-*)
 
 (** classical_opcode_preserves_graph: classical opcodes preserve vm_graph. *)
 Lemma classical_opcode_preserves_graph :
@@ -118,9 +89,8 @@ Proof.
     [unfold advance_state | unfold jump_state]; simpl; reflexivity.
 Qed.
 
-(** classical_opcode_preserves_cert_addr: classical opcodes preserve csr_cert_addr.
-    Proof: all classical opcodes have cert_addr_setterb = false;
-    apply thiele_non_cert_addr_setter_preserves. *)
+(** classical_opcode_is_not_cert_setter: cert_addr_setterb = false for all
+    classical opcodes. Used by classical_opcode_preserves_cert_addr. *)
 Lemma classical_opcode_is_not_cert_setter :
   forall (i : vm_instruction),
     is_classical_opcode i = true ->
@@ -141,7 +111,7 @@ Proof.
 Qed.
 
 (** classical_opcode_preserves_certified: classical opcodes preserve vm_certified.
-    Proof: only certify sets vm_certified; certify is excluded from is_classical_opcode. *)
+    certify is excluded from is_classical_opcode. *)
 Lemma classical_opcode_preserves_certified :
   forall (s : VMState) (i : vm_instruction),
     is_classical_opcode i = true ->
@@ -168,13 +138,8 @@ Proof.
     [unfold advance_state | unfold jump_state]; simpl; reflexivity.
 Qed.
 
-(** =========================================================================
-    PART 3: TRACE-LEVEL PRESERVATION (by induction)
-    =========================================================================
-
-    These theorems extend single-step preservation to arbitrary-length traces.
-    A classical trace is one where all instructions satisfy is_classical_opcode.
-*)
+(** Trace-level preservation by induction. A classical trace is one where
+    all instructions satisfy is_classical_opcode. *)
 
 (** classical_trace_preserves_graph: over any classical trace, vm_graph unchanged. *)
 Theorem classical_trace_preserves_graph :
@@ -221,30 +186,16 @@ Proof.
     exact (classical_opcode_preserves_certified s0 i Hi).
 Qed.
 
-(** =========================================================================
-    PART 4: D3 — THE CONSERVATIVITY THEOREM
-    =========================================================================
+(** D3 Conservativity. A trace using only classical opcodes does not
+    exercise the Thiele-specific structural layer. Thiele restricted to
+    classical opcodes behaves identically to any machine tracking only
+    (regs, mem, pc, mu, err): the morphism graph is unchanged, no structural
+    certification occurs, vm_certified is unchanged. This is the formal
+    content of "Thiele extends classical machines." *)
 
-    D3 CONSERVATIVITY: A trace using only classical opcodes does not
-    exercise the Thiele-specific structural layer.
-
-    The Thiele VM, restricted to classical opcodes, behaves identically
-    to any machine that tracks only (regs, mem, pc, mu, err):
-      - The morphism graph is unchanged
-      - No structural certification occurs (cert_addr stays 0 if it started 0)
-      - vm_certified is unchanged
-
-    This is the formal content of "Thiele extends classical machines":
-    the classical subset is preserved as-is.
-*)
-
-(** D3_conservativity: the complete conservativity statement.
-    Over any classical trace:
-      (1) vm_graph is unchanged
-      (2) csr_cert_addr is unchanged
-      (3) vm_certified is unchanged
-    Therefore the Thiele VM over classical programs does not exercise
-    the structural (categorical) layer. *)
+(** D3_conservativity: over any classical trace, (1) vm_graph, (2) csr_cert_addr,
+    and (3) vm_certified are all unchanged. Thiele over classical programs
+    does not exercise the structural (categorical) layer. *)
 Theorem D3_conservativity :
   forall (trace : list vm_instruction) (s0 : VMState),
     Forall (fun i => is_classical_opcode i = true) trace ->

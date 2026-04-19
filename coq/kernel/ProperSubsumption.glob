@@ -1,584 +1,584 @@
-DIGEST fc300ba99899c84590f0c8c28e360fd6
+DIGEST 21f6c5da48b35caa91cc7d64828043d9
 FKernel.ProperSubsumption
-R1106:1112 Kernel.VMState <> <> lib
-R1114:1119 Kernel.VMStep <> <> lib
-R1149:1159 Kernel.MuCostModel <> <> lib
-R1187:1190 Coq.Lists.List <> <> lib
-R1192:1205 Coq.Arith.PeanoNat <> <> lib
-R1207:1209 Coq.micromega.Lia <> <> lib
-R1211:1214 Coq.Bool.Bool <> <> lib
-R1216:1220 Coq.micromega.Psatz <> <> lib
-R1230:1242 Coq.Lists.List ListNotations <> mod
-mod 1253:1269 <> ProperSubsumption
-def 1560:1565 ProperSubsumption Symbol
-R1570:1572 Coq.Init.Datatypes <> nat ind
-def 1931:1935 ProperSubsumption blank
-R1939:1944 Kernel.ProperSubsumption ProperSubsumption Symbol def
-rec 2043:2046 ProperSubsumption Tape
-proj 2055:2063 ProperSubsumption tape_left
-proj 2119:2127 ProperSubsumption tape_head
-proj 2173:2182 ProperSubsumption tape_right
-R2068:2071 Coq.Init.Datatypes <> list ind
-R2073:2078 Kernel.ProperSubsumption ProperSubsumption Symbol def
-R2132:2137 Kernel.ProperSubsumption ProperSubsumption Symbol def
-R2186:2189 Coq.Init.Datatypes <> list ind
-R2191:2196 Kernel.ProperSubsumption ProperSubsumption Symbol def
-def 2251:2260 ProperSubsumption empty_tape
-R2264:2267 Kernel.ProperSubsumption ProperSubsumption Tape rec
-R2277:2285 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R2277:2285 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R2277:2285 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R2296:2304 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R2296:2304 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R2318:2327 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R2318:2327 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R2290:2291 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2309:2313 Kernel.ProperSubsumption ProperSubsumption blank def
-R2332:2333 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 2379:2386 ProperSubsumption TM_State
-R2391:2393 Coq.Init.Datatypes <> nat ind
-ind 2492:2500 ProperSubsumption Direction
-constr 2505:2505 ProperSubsumption L
-constr 2509:2509 ProperSubsumption R
-constr 2513:2516 ProperSubsumption Stay
-scheme 2492:2500 ProperSubsumption Direction_rect
-scheme 2492:2500 ProperSubsumption Direction_ind
-scheme 2492:2500 ProperSubsumption Direction_rec
-scheme 2492:2500 ProperSubsumption Direction_sind
-rec 2527:2539 ProperSubsumption TM_Transition
-proj 2548:2555 ProperSubsumption tm_write
-proj 2569:2575 ProperSubsumption tm_move
-proj 2593:2599 ProperSubsumption tm_next
-R2559:2564 Kernel.ProperSubsumption ProperSubsumption Symbol def
-R2580:2588 Kernel.ProperSubsumption ProperSubsumption Direction ind
-R2604:2611 Kernel.ProperSubsumption ProperSubsumption TM_State def
-def 2665:2672 ProperSubsumption TM_Delta
-R2685:2688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2677:2684 Kernel.ProperSubsumption ProperSubsumption TM_State def
-R2695:2698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2689:2694 Kernel.ProperSubsumption ProperSubsumption Symbol def
-R2699:2704 Coq.Init.Datatypes <> option ind
-R2706:2718 Kernel.ProperSubsumption ProperSubsumption TM_Transition rec
-def 2759:2767 ProperSubsumption move_tape
-R2774:2782 Kernel.ProperSubsumption ProperSubsumption Direction ind
-binder 2770:2770 <> d:11
-R2790:2793 Kernel.ProperSubsumption ProperSubsumption Tape rec
-binder 2786:2786 <> t:12
-R2798:2801 Kernel.ProperSubsumption ProperSubsumption Tape rec
-R2814:2814 Kernel.ProperSubsumption <> d:11 var
-R2825:2825 Kernel.ProperSubsumption ProperSubsumption L constr
-R2839:2847 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R2836:2836 Kernel.ProperSubsumption <> t:12 var
-R2866:2867 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2875:2883 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R2875:2883 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R2875:2883 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R2892:2900 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R2892:2900 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R2933:2942 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R2933:2942 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R2888:2889 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2905:2909 Kernel.ProperSubsumption ProperSubsumption blank def
-R2960:2963 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2950:2958 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R2947:2947 Kernel.ProperSubsumption <> t:12 var
-R2967:2976 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R2964:2964 Kernel.ProperSubsumption <> t:12 var
-R2994:2997 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3007:3015 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3007:3015 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3007:3015 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3024:3032 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3024:3032 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3065:3074 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3065:3074 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3092:3095 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3082:3090 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3079:3079 Kernel.ProperSubsumption <> t:12 var
-R3099:3108 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3096:3096 Kernel.ProperSubsumption <> t:12 var
-R3131:3131 Kernel.ProperSubsumption ProperSubsumption R constr
-R3145:3154 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3142:3142 Kernel.ProperSubsumption <> t:12 var
-R3173:3174 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3182:3190 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3182:3190 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3182:3190 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3247:3255 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3247:3255 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3267:3276 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3267:3276 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3208:3211 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3198:3206 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3195:3195 Kernel.ProperSubsumption <> t:12 var
-R3215:3223 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3212:3212 Kernel.ProperSubsumption <> t:12 var
-R3260:3264 Kernel.ProperSubsumption ProperSubsumption blank def
-R3281:3282 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3299:3302 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3312:3320 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3312:3320 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3312:3320 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3382:3390 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3382:3390 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3398:3407 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3398:3407 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3338:3341 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3328:3336 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3325:3325 Kernel.ProperSubsumption <> t:12 var
-R3345:3353 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3342:3342 Kernel.ProperSubsumption <> t:12 var
-R3435:3438 Kernel.ProperSubsumption ProperSubsumption Stay constr
-R3443:3443 Kernel.ProperSubsumption <> t:12 var
-def 3485:3494 ProperSubsumption write_tape
-R3501:3506 Kernel.ProperSubsumption ProperSubsumption Symbol def
-binder 3497:3497 <> s:14
-R3514:3517 Kernel.ProperSubsumption ProperSubsumption Tape rec
-binder 3510:3510 <> t:15
-R3522:3525 Kernel.ProperSubsumption ProperSubsumption Tape rec
-R3535:3543 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3535:3543 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3535:3543 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3563:3571 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3563:3571 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3579:3588 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3579:3588 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3551:3559 Kernel.ProperSubsumption ProperSubsumption tape_left proj
-R3548:3548 Kernel.ProperSubsumption <> t:15 var
-R3576:3576 Kernel.ProperSubsumption <> s:14 var
-R3596:3605 Kernel.ProperSubsumption ProperSubsumption tape_right proj
-R3593:3593 Kernel.ProperSubsumption <> t:15 var
-rec 3661:3669 ProperSubsumption TM_Config
-proj 3678:3685 ProperSubsumption tm_state
-proj 3701:3707 ProperSubsumption tm_tape
-R3689:3696 Kernel.ProperSubsumption ProperSubsumption TM_State def
-R3712:3715 Kernel.ProperSubsumption ProperSubsumption Tape rec
-def 3769:3775 ProperSubsumption tm_step
-R3786:3793 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
-binder 3778:3782 <> delta:19
-R3801:3809 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
-binder 3797:3797 <> c:20
-R3814:3819 Coq.Init.Datatypes <> option ind
-R3821:3829 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
-R3842:3846 Kernel.ProperSubsumption <> delta:19 var
-R3851:3858 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R3848:3848 Kernel.ProperSubsumption <> c:20 var
-R3874:3882 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R3864:3870 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R3861:3861 Kernel.ProperSubsumption <> c:20 var
-R3894:3897 Coq.Init.Datatypes <> None constr
-R3902:3905 Coq.Init.Datatypes <> None constr
-R3924:3927 Coq.Init.Datatypes <> Some constr
-R3960:3968 Kernel.ProperSubsumption ProperSubsumption move_tape def
-R3977:3983 Kernel.ProperSubsumption ProperSubsumption tm_move proj
-R3987:3996 Kernel.ProperSubsumption ProperSubsumption write_tape def
-R4005:4012 Kernel.ProperSubsumption ProperSubsumption tm_write proj
-R4018:4024 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R4015:4015 Kernel.ProperSubsumption <> c:20 var
-binder 3948:3955 <> new_tape:21
-R4037:4040 Coq.Init.Datatypes <> Some constr
-R4045:4052 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R4045:4052 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R4045:4052 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R4074:4080 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R4074:4080 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R4064:4070 Kernel.ProperSubsumption ProperSubsumption tm_next proj
-R4085:4092 Kernel.ProperSubsumption <> new_tape:21 var
-def 4152:4157 ProperSubsumption tm_run
-R4167:4169 Coq.Init.Datatypes <> nat ind
-binder 4160:4163 <> fuel:22
-R4181:4188 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
-binder 4173:4177 <> delta:23
-R4196:4204 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
-binder 4192:4192 <> c:24
-R4209:4217 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
-R4230:4233 Kernel.ProperSubsumption <> fuel:22 var
-R4249:4249 Kernel.ProperSubsumption <> c:24 var
-R4255:4255 Coq.Init.Datatypes <> S constr
-R4278:4284 Kernel.ProperSubsumption ProperSubsumption tm_step def
-R4286:4290 Kernel.ProperSubsumption <> delta:23 var
-R4292:4292 Kernel.ProperSubsumption <> c:24 var
-R4307:4310 Coq.Init.Datatypes <> None constr
-R4315:4315 Kernel.ProperSubsumption <> c:24 var
-R4340:4343 Coq.Init.Datatypes <> Some constr
-R4351:4356 Kernel.ProperSubsumption <> tm_run:25 def
-R4364:4368 Kernel.ProperSubsumption <> delta:23 var
-rec 4662:4674 ProperSubsumption Thiele_Config
-proj 4683:4694 ProperSubsumption th_tm_config
-proj 4711:4715 ProperSubsumption th_mu
-R4698:4706 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
-R4719:4721 Coq.Init.Datatypes <> nat ind
-def 4802:4810 ProperSubsumption step_cost
-R4814:4816 Coq.Init.Datatypes <> nat ind
-def 4835:4844 ProperSubsumption write_cost
-R4851:4856 Kernel.ProperSubsumption ProperSubsumption Symbol def
-binder 4847:4847 <> s:30
-R4861:4863 Coq.Init.Datatypes <> nat ind
-R4871:4877 Coq.Arith.PeanoNat Nat eqb def
-R4879:4879 Kernel.ProperSubsumption <> s:30 var
-R4881:4885 Kernel.ProperSubsumption ProperSubsumption blank def
-def 4967:4977 ProperSubsumption thiele_step
-R4988:4995 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
-binder 4980:4984 <> delta:31
-R5003:5015 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-binder 4999:4999 <> c:32
-R5020:5025 Coq.Init.Datatypes <> option ind
-R5027:5039 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-R5052:5058 Kernel.ProperSubsumption ProperSubsumption tm_step def
-R5060:5064 Kernel.ProperSubsumption <> delta:31 var
-R5069:5080 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R5066:5066 Kernel.ProperSubsumption <> c:32 var
-R5092:5095 Coq.Init.Datatypes <> None constr
-R5100:5103 Coq.Init.Datatypes <> None constr
-R5109:5112 Coq.Init.Datatypes <> Some constr
-R5150:5154 Kernel.ProperSubsumption <> delta:31 var
-R5174:5181 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R5159:5170 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R5156:5156 Kernel.ProperSubsumption <> c:32 var
-R5212:5220 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R5202:5208 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R5187:5198 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R5184:5184 Kernel.ProperSubsumption <> c:32 var
-R5251:5254 Coq.Init.Datatypes <> Some constr
-R5272:5279 Kernel.ProperSubsumption ProperSubsumption tm_write proj
-R5305:5308 Coq.Init.Datatypes <> None constr
-R5313:5317 Kernel.ProperSubsumption ProperSubsumption blank def
-binder 5133:5139 <> written:33
-R5374:5376 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5365:5373 Kernel.ProperSubsumption ProperSubsumption step_cost def
-R5377:5386 Kernel.ProperSubsumption ProperSubsumption write_cost def
-R5388:5394 Kernel.ProperSubsumption <> written:33 var
-binder 5357:5360 <> cost:34
-R5405:5408 Coq.Init.Datatypes <> Some constr
-R5413:5424 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R5413:5424 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R5413:5424 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R5436:5440 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R5436:5440 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R5454:5456 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5448:5452 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R5445:5445 Kernel.ProperSubsumption <> c:32 var
-R5457:5460 Kernel.ProperSubsumption <> cost:34 var
-def 5517:5526 ProperSubsumption thiele_run
-R5536:5538 Coq.Init.Datatypes <> nat ind
-binder 5529:5532 <> fuel:35
-R5550:5557 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
-binder 5542:5546 <> delta:36
-R5565:5577 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-binder 5561:5561 <> c:37
-R5582:5594 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-R5607:5610 Kernel.ProperSubsumption <> fuel:35 var
-R5626:5626 Kernel.ProperSubsumption <> c:37 var
-R5632:5632 Coq.Init.Datatypes <> S constr
-R5655:5665 Kernel.ProperSubsumption ProperSubsumption thiele_step def
-R5667:5671 Kernel.ProperSubsumption <> delta:36 var
-R5673:5673 Kernel.ProperSubsumption <> c:37 var
-R5688:5691 Coq.Init.Datatypes <> None constr
-R5696:5696 Kernel.ProperSubsumption <> c:37 var
-R5706:5709 Coq.Init.Datatypes <> Some constr
-R5717:5726 Kernel.ProperSubsumption <> thiele_run:38 def
-R5734:5738 Kernel.ProperSubsumption <> delta:36 var
-def 6009:6019 ProperSubsumption lift_config
-R6026:6034 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
-binder 6022:6022 <> c:40
-R6039:6051 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-R6061:6072 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R6061:6072 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R6061:6072 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R6080:6084 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R6080:6084 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R6077:6077 Kernel.ProperSubsumption <> c:40 var
-prf 6178:6204 ProperSubsumption thiele_simulates_turing_gen
-binder 6217:6220 <> fuel:41
-binder 6222:6226 <> delta:42
-binder 6228:6229 <> tc:43
-R6277:6279 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6264:6275 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R6237:6246 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R6248:6251 Kernel.ProperSubsumption <> fuel:41 var
-R6253:6257 Kernel.ProperSubsumption <> delta:42 var
-R6259:6260 Kernel.ProperSubsumption <> tc:43 var
-R6280:6285 Kernel.ProperSubsumption ProperSubsumption tm_run def
-R6287:6290 Kernel.ProperSubsumption <> fuel:41 var
-R6292:6296 Kernel.ProperSubsumption <> delta:42 var
-R6302:6313 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R6298:6299 Kernel.ProperSubsumption <> tc:43 var
-R6412:6422 Kernel.ProperSubsumption ProperSubsumption thiele_step def
-R6439:6445 Kernel.ProperSubsumption ProperSubsumption tm_step def
-R6454:6465 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R6439:6445 Kernel.ProperSubsumption ProperSubsumption tm_step def
-R6454:6465 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-prf 6665:6687 ProperSubsumption thiele_simulates_turing
-binder 6700:6703 <> fuel:44
-binder 6705:6709 <> delta:45
-binder 6711:6711 <> c:46
-R6772:6774 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6759:6770 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R6719:6728 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R6730:6733 Kernel.ProperSubsumption <> fuel:44 var
-R6735:6739 Kernel.ProperSubsumption <> delta:45 var
-R6742:6752 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R6754:6754 Kernel.ProperSubsumption <> c:46 var
-R6775:6780 Kernel.ProperSubsumption ProperSubsumption tm_run def
-R6782:6785 Kernel.ProperSubsumption <> fuel:44 var
-R6787:6791 Kernel.ProperSubsumption <> delta:45 var
-R6793:6793 Kernel.ProperSubsumption <> c:46 var
-R6834:6860 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing_gen thm
-R6834:6860 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing_gen thm
-prf 6947:6989 ProperSubsumption turing_computable_implies_thiele_computable
-binder 7002:7005 <> fuel:47
-binder 7007:7011 <> delta:48
-binder 7013:7018 <> c_init:49
-R7134:7141 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7092:7099 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7025:7031 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R7034:7045 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R7048:7057 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R7059:7062 Kernel.ProperSubsumption <> fuel:47 var
-R7064:7068 Kernel.ProperSubsumption <> delta:48 var
-R7071:7081 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R7083:7088 Kernel.ProperSubsumption <> c_init:49 var
-R7100:7106 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R7109:7114 Kernel.ProperSubsumption ProperSubsumption tm_run def
-R7116:7119 Kernel.ProperSubsumption <> fuel:47 var
-R7121:7125 Kernel.ProperSubsumption <> delta:48 var
-R7127:7132 Kernel.ProperSubsumption <> c_init:49 var
-R7210:7217 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7142:7149 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R7152:7163 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R7166:7175 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R7177:7180 Kernel.ProperSubsumption <> fuel:47 var
-R7182:7186 Kernel.ProperSubsumption <> delta:48 var
-R7189:7199 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R7201:7206 Kernel.ProperSubsumption <> c_init:49 var
-R7218:7225 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R7228:7233 Kernel.ProperSubsumption ProperSubsumption tm_run def
-R7235:7238 Kernel.ProperSubsumption <> fuel:47 var
-R7240:7244 Kernel.ProperSubsumption <> delta:48 var
-R7246:7251 Kernel.ProperSubsumption <> c_init:49 var
-R7300:7322 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
-R7300:7322 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
-R7300:7322 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
-rec 7898:7912 ProperSubsumption CostCertificate
-proj 7921:7927 ProperSubsumption cc_fuel
-proj 7938:7945 ProperSubsumption cc_bound
-proj 7956:7965 ProperSubsumption cc_witness
-R7931:7933 Coq.Init.Datatypes <> nat ind
-R7949:7951 Coq.Init.Datatypes <> nat ind
-R7969:7971 Coq.Init.Datatypes <> nat ind
-def 8076:8098 ProperSubsumption thiele_cost_certificate
-R8108:8110 Coq.Init.Datatypes <> nat ind
-binder 8101:8104 <> fuel:54
-R8122:8129 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
-binder 8114:8118 <> delta:55
-R8137:8149 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-binder 8133:8133 <> c:56
-R8159:8173 Kernel.ProperSubsumption ProperSubsumption CostCertificate rec
-R8193:8202 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R8204:8207 Kernel.ProperSubsumption <> fuel:54 var
-R8209:8213 Kernel.ProperSubsumption <> delta:55 var
-R8215:8215 Kernel.ProperSubsumption <> c:56 var
-binder 8184:8188 <> final:57
-R8225:8231 Kernel.ProperSubsumption ProperSubsumption cc_fuel proj
-R8225:8231 Kernel.ProperSubsumption ProperSubsumption cc_fuel proj
-R8225:8231 Kernel.ProperSubsumption ProperSubsumption cc_fuel proj
-R8247:8254 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
-R8247:8254 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
-R8308:8317 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
-R8308:8317 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
-R8236:8239 Kernel.ProperSubsumption <> fuel:54 var
-R8263:8266 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8280:8280 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8259:8262 Kernel.ProperSubsumption <> fuel:54 var
-R8276:8278 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8267:8275 Kernel.ProperSubsumption ProperSubsumption step_cost def
-R8335:8337 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8329:8333 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R8322:8326 Kernel.ProperSubsumption <> final:57 var
-R8341:8345 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R8338:8338 Kernel.ProperSubsumption <> c:56 var
-prf 8423:8441 ProperSubsumption thiele_run_mu_bound
-binder 8454:8457 <> fuel:58
-binder 8459:8463 <> delta:59
-binder 8465:8465 <> c:60
-R8505:8508 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R8499:8503 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R8473:8482 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R8484:8487 Kernel.ProperSubsumption <> fuel:58 var
-R8489:8493 Kernel.ProperSubsumption <> delta:59 var
-R8495:8495 Kernel.ProperSubsumption <> c:60 var
-R8518:8520 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8512:8516 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R8509:8509 Kernel.ProperSubsumption <> c:60 var
-R8525:8528 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8542:8542 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R8521:8524 Kernel.ProperSubsumption <> fuel:58 var
-R8538:8540 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8529:8537 Kernel.ProperSubsumption ProperSubsumption step_cost def
-R8634:8644 Kernel.ProperSubsumption ProperSubsumption thiele_step def
-R8661:8667 Kernel.ProperSubsumption ProperSubsumption tm_step def
-R8676:8687 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8661:8667 Kernel.ProperSubsumption ProperSubsumption tm_step def
-R8676:8687 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8755:8762 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R8765:8776 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8783:8791 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R8794:8800 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R8803:8814 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8842:8845 Coq.Init.Datatypes <> Some constr
-R8856:8863 Kernel.ProperSubsumption ProperSubsumption tm_write proj
-R8887:8890 Coq.Init.Datatypes <> None constr
-R8895:8899 Kernel.ProperSubsumption ProperSubsumption blank def
-R8755:8762 Kernel.ProperSubsumption ProperSubsumption tm_state proj
-R8765:8776 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8783:8791 Kernel.ProperSubsumption ProperSubsumption tape_head proj
-R8794:8800 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
-R8803:8814 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8842:8845 Coq.Init.Datatypes <> Some constr
-R8856:8863 Kernel.ProperSubsumption ProperSubsumption tm_write proj
-R8887:8890 Coq.Init.Datatypes <> None constr
-R8895:8899 Kernel.ProperSubsumption ProperSubsumption blank def
-R8984:8995 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8984:8995 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8984:8995 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R9004:9008 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R9004:9008 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R9020:9023 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9054:9054 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9013:9017 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R9033:9035 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9024:9032 Kernel.ProperSubsumption ProperSubsumption step_cost def
-R9036:9045 Kernel.ProperSubsumption ProperSubsumption write_cost def
-R8984:8995 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8984:8995 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R8984:8995 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R9004:9008 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R9004:9008 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R9020:9023 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9054:9054 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9013:9017 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R9033:9035 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9024:9032 Kernel.ProperSubsumption ProperSubsumption step_cost def
-R9036:9045 Kernel.ProperSubsumption ProperSubsumption write_cost def
-R9089:9097 Kernel.ProperSubsumption ProperSubsumption step_cost def
-R9100:9109 Kernel.ProperSubsumption ProperSubsumption write_cost def
-R9131:9137 Coq.Arith.PeanoNat Nat eqb def
-R9147:9151 Kernel.ProperSubsumption ProperSubsumption blank def
-R9131:9137 Coq.Arith.PeanoNat Nat eqb def
-R9147:9151 Kernel.ProperSubsumption ProperSubsumption blank def
-prf 9235:9256 ProperSubsumption cost_certificate_valid
-binder 9269:9272 <> fuel:61
-binder 9274:9278 <> delta:62
-binder 9280:9280 <> c:63
-R9338:9345 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R9327:9336 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
-R9288:9310 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
-R9312:9315 Kernel.ProperSubsumption <> fuel:61 var
-R9317:9321 Kernel.ProperSubsumption <> delta:62 var
-R9323:9323 Kernel.ProperSubsumption <> c:63 var
-R9386:9393 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
-R9347:9369 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
-R9371:9374 Kernel.ProperSubsumption <> fuel:61 var
-R9376:9380 Kernel.ProperSubsumption <> delta:62 var
-R9382:9382 Kernel.ProperSubsumption <> c:63 var
-R9436:9458 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
-R9482:9500 Kernel.ProperSubsumption ProperSubsumption thiele_run_mu_bound thm
-R9482:9500 Kernel.ProperSubsumption ProperSubsumption thiele_run_mu_bound thm
-R9531:9539 Kernel.ProperSubsumption ProperSubsumption step_cost def
-def 10189:10199 ProperSubsumption TM_computes
-R10210:10217 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
-binder 10202:10206 <> delta:64
-R10238:10246 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
-binder 10221:10226 <> c_init:65
-binder 10228:10234 <> c_final:66
-R10261:10267 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10272:10273 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10268:10271 <> fuel:67
-R10298:10300 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10274:10279 Kernel.ProperSubsumption ProperSubsumption tm_run def
-R10281:10284 Kernel.ProperSubsumption <> fuel:67 var
-R10286:10290 Kernel.ProperSubsumption <> delta:64 var
-R10292:10297 Kernel.ProperSubsumption <> c_init:65 var
-R10301:10307 Kernel.ProperSubsumption <> c_final:66 var
-def 10322:10346 ProperSubsumption Thiele_computes_with_cost
-R10357:10364 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
-binder 10349:10353 <> delta:68
-R10377:10389 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-binder 10368:10373 <> c_init:69
-R10408:10420 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
-binder 10398:10404 <> c_final:70
-R10431:10433 Coq.Init.Datatypes <> nat ind
-binder 10424:10427 <> cost:71
-R10448:10454 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10459:10460 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10455:10458 <> fuel:72
-R10499:10517 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10489:10491 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10461:10470 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R10472:10475 Kernel.ProperSubsumption <> fuel:72 var
-R10477:10481 Kernel.ProperSubsumption <> delta:68 var
-R10483:10488 Kernel.ProperSubsumption <> c_init:69 var
-R10492:10498 Kernel.ProperSubsumption <> c_final:70 var
-R10550:10552 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10533:10535 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R10527:10531 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R10518:10524 Kernel.ProperSubsumption <> c_final:70 var
-R10544:10548 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R10536:10541 Kernel.ProperSubsumption <> c_init:69 var
-R10553:10556 Kernel.ProperSubsumption <> cost:71 var
-prf 10620:10649 ProperSubsumption thiele_strictly_extends_turing
-R10721:10721 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10938:11015 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11133:11133 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 10729:10733 <> delta:73
-binder 10735:10740 <> c_init:74
-binder 10742:10748 <> c_final:75
-R10787:10794 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10755:10765 Kernel.ProperSubsumption ProperSubsumption TM_computes def
-R10767:10771 Kernel.ProperSubsumption <> delta:73 var
-R10773:10778 Kernel.ProperSubsumption <> c_init:74 var
-R10780:10786 Kernel.ProperSubsumption <> c_final:75 var
-R10795:10801 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10817:10824 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10802:10811 <> c_th_final:76
-binder 10813:10816 <> cost:77
-R10893:10902 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10825:10849 Kernel.ProperSubsumption ProperSubsumption Thiele_computes_with_cost def
-R10851:10855 Kernel.ProperSubsumption <> delta:73 var
-R10858:10868 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R10870:10875 Kernel.ProperSubsumption <> c_init:74 var
-R10878:10887 Kernel.ProperSubsumption <> c_th_final:76 var
-R10889:10892 Kernel.ProperSubsumption <> cost:77 var
-R10928:10930 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10915:10926 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
-R10903:10912 Kernel.ProperSubsumption <> c_th_final:76 var
-R10931:10937 Kernel.ProperSubsumption <> c_final:75 var
-binder 11023:11026 <> fuel:78
-binder 11028:11032 <> delta:79
-binder 11034:11034 <> c:80
-R11053:11075 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
-R11077:11080 Kernel.ProperSubsumption <> fuel:78 var
-R11082:11086 Kernel.ProperSubsumption <> delta:79 var
-R11088:11088 Kernel.ProperSubsumption <> c:80 var
-binder 11045:11048 <> cert:81
-R11114:11117 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R11103:11112 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
-R11097:11100 Kernel.ProperSubsumption <> cert:81 var
-R11124:11131 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
-R11118:11121 Kernel.ProperSubsumption <> cert:81 var
-R11226:11235 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R11249:11259 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R11226:11235 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R11249:11259 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R11329:11333 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R11284:11293 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R11307:11317 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R11329:11333 Kernel.ProperSubsumption ProperSubsumption th_mu proj
-R11284:11293 Kernel.ProperSubsumption ProperSubsumption thiele_run def
-R11307:11317 Kernel.ProperSubsumption ProperSubsumption lift_config def
-R11430:11452 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
-R11430:11452 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
-R11430:11452 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
-R11515:11536 Kernel.ProperSubsumption ProperSubsumption cost_certificate_valid thm
-R11515:11536 Kernel.ProperSubsumption ProperSubsumption cost_certificate_valid thm
-R12645:12661 Kernel.ProperSubsumption ProperSubsumption <> mod
+R861:867 Kernel.VMState <> <> lib
+R869:874 Kernel.VMStep <> <> lib
+R904:914 Kernel.MuCostModel <> <> lib
+R942:945 Coq.Lists.List <> <> lib
+R947:960 Coq.Arith.PeanoNat <> <> lib
+R962:964 Coq.micromega.Lia <> <> lib
+R966:969 Coq.Bool.Bool <> <> lib
+R971:975 Coq.micromega.Psatz <> <> lib
+R985:997 Coq.Lists.List ListNotations <> mod
+mod 1008:1024 <> ProperSubsumption
+def 1106:1111 ProperSubsumption Symbol
+R1116:1118 Coq.Init.Datatypes <> nat ind
+def 1477:1481 ProperSubsumption blank
+R1485:1490 Kernel.ProperSubsumption ProperSubsumption Symbol def
+rec 1589:1592 ProperSubsumption Tape
+proj 1601:1609 ProperSubsumption tape_left
+proj 1665:1673 ProperSubsumption tape_head
+proj 1719:1728 ProperSubsumption tape_right
+R1614:1617 Coq.Init.Datatypes <> list ind
+R1619:1624 Kernel.ProperSubsumption ProperSubsumption Symbol def
+R1678:1683 Kernel.ProperSubsumption ProperSubsumption Symbol def
+R1732:1735 Coq.Init.Datatypes <> list ind
+R1737:1742 Kernel.ProperSubsumption ProperSubsumption Symbol def
+def 1797:1806 ProperSubsumption empty_tape
+R1810:1813 Kernel.ProperSubsumption ProperSubsumption Tape rec
+R1823:1831 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R1823:1831 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R1823:1831 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R1842:1850 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R1842:1850 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R1864:1873 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R1864:1873 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R1836:1837 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1855:1859 Kernel.ProperSubsumption ProperSubsumption blank def
+R1878:1879 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 1925:1932 ProperSubsumption TM_State
+R1937:1939 Coq.Init.Datatypes <> nat ind
+ind 2038:2046 ProperSubsumption Direction
+constr 2051:2051 ProperSubsumption L
+constr 2055:2055 ProperSubsumption R
+constr 2059:2062 ProperSubsumption Stay
+scheme 2038:2046 ProperSubsumption Direction_rect
+scheme 2038:2046 ProperSubsumption Direction_ind
+scheme 2038:2046 ProperSubsumption Direction_rec
+scheme 2038:2046 ProperSubsumption Direction_sind
+rec 2073:2085 ProperSubsumption TM_Transition
+proj 2094:2101 ProperSubsumption tm_write
+proj 2115:2121 ProperSubsumption tm_move
+proj 2139:2145 ProperSubsumption tm_next
+R2105:2110 Kernel.ProperSubsumption ProperSubsumption Symbol def
+R2126:2134 Kernel.ProperSubsumption ProperSubsumption Direction ind
+R2150:2157 Kernel.ProperSubsumption ProperSubsumption TM_State def
+def 2211:2218 ProperSubsumption TM_Delta
+R2231:2234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2223:2230 Kernel.ProperSubsumption ProperSubsumption TM_State def
+R2241:2244 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2235:2240 Kernel.ProperSubsumption ProperSubsumption Symbol def
+R2245:2250 Coq.Init.Datatypes <> option ind
+R2252:2264 Kernel.ProperSubsumption ProperSubsumption TM_Transition rec
+def 2305:2313 ProperSubsumption move_tape
+R2320:2328 Kernel.ProperSubsumption ProperSubsumption Direction ind
+binder 2316:2316 <> d:11
+R2336:2339 Kernel.ProperSubsumption ProperSubsumption Tape rec
+binder 2332:2332 <> t:12
+R2344:2347 Kernel.ProperSubsumption ProperSubsumption Tape rec
+R2360:2360 Kernel.ProperSubsumption <> d:11 var
+R2371:2371 Kernel.ProperSubsumption ProperSubsumption L constr
+R2385:2393 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2382:2382 Kernel.ProperSubsumption <> t:12 var
+R2412:2413 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2421:2429 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2421:2429 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2421:2429 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2438:2446 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2438:2446 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2479:2488 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2479:2488 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2434:2435 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2451:2455 Kernel.ProperSubsumption ProperSubsumption blank def
+R2506:2509 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2496:2504 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2493:2493 Kernel.ProperSubsumption <> t:12 var
+R2513:2522 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2510:2510 Kernel.ProperSubsumption <> t:12 var
+R2540:2543 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2553:2561 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2553:2561 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2553:2561 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2570:2578 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2570:2578 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2611:2620 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2611:2620 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2638:2641 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2628:2636 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2625:2625 Kernel.ProperSubsumption <> t:12 var
+R2645:2654 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2642:2642 Kernel.ProperSubsumption <> t:12 var
+R2677:2677 Kernel.ProperSubsumption ProperSubsumption R constr
+R2691:2700 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2688:2688 Kernel.ProperSubsumption <> t:12 var
+R2719:2720 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2728:2736 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2728:2736 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2728:2736 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2793:2801 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2793:2801 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2813:2822 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2813:2822 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2754:2757 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2744:2752 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2741:2741 Kernel.ProperSubsumption <> t:12 var
+R2761:2769 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2758:2758 Kernel.ProperSubsumption <> t:12 var
+R2806:2810 Kernel.ProperSubsumption ProperSubsumption blank def
+R2827:2828 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2845:2848 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2858:2866 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2858:2866 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2858:2866 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2928:2936 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2928:2936 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2944:2953 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2944:2953 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R2884:2887 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2874:2882 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R2871:2871 Kernel.ProperSubsumption <> t:12 var
+R2891:2899 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R2888:2888 Kernel.ProperSubsumption <> t:12 var
+R2981:2984 Kernel.ProperSubsumption ProperSubsumption Stay constr
+R2989:2989 Kernel.ProperSubsumption <> t:12 var
+def 3031:3040 ProperSubsumption write_tape
+R3047:3052 Kernel.ProperSubsumption ProperSubsumption Symbol def
+binder 3043:3043 <> s:14
+R3060:3063 Kernel.ProperSubsumption ProperSubsumption Tape rec
+binder 3056:3056 <> t:15
+R3068:3071 Kernel.ProperSubsumption ProperSubsumption Tape rec
+R3081:3089 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R3081:3089 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R3081:3089 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R3109:3117 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R3109:3117 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R3125:3134 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R3125:3134 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R3097:3105 Kernel.ProperSubsumption ProperSubsumption tape_left proj
+R3094:3094 Kernel.ProperSubsumption <> t:15 var
+R3122:3122 Kernel.ProperSubsumption <> s:14 var
+R3142:3151 Kernel.ProperSubsumption ProperSubsumption tape_right proj
+R3139:3139 Kernel.ProperSubsumption <> t:15 var
+rec 3207:3215 ProperSubsumption TM_Config
+proj 3224:3231 ProperSubsumption tm_state
+proj 3247:3253 ProperSubsumption tm_tape
+R3235:3242 Kernel.ProperSubsumption ProperSubsumption TM_State def
+R3258:3261 Kernel.ProperSubsumption ProperSubsumption Tape rec
+def 3315:3321 ProperSubsumption tm_step
+R3332:3339 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
+binder 3324:3328 <> delta:19
+R3347:3355 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
+binder 3343:3343 <> c:20
+R3360:3365 Coq.Init.Datatypes <> option ind
+R3367:3375 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
+R3388:3392 Kernel.ProperSubsumption <> delta:19 var
+R3397:3404 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R3394:3394 Kernel.ProperSubsumption <> c:20 var
+R3420:3428 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R3410:3416 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R3407:3407 Kernel.ProperSubsumption <> c:20 var
+R3440:3443 Coq.Init.Datatypes <> None constr
+R3448:3451 Coq.Init.Datatypes <> None constr
+R3470:3473 Coq.Init.Datatypes <> Some constr
+R3506:3514 Kernel.ProperSubsumption ProperSubsumption move_tape def
+R3523:3529 Kernel.ProperSubsumption ProperSubsumption tm_move proj
+R3533:3542 Kernel.ProperSubsumption ProperSubsumption write_tape def
+R3551:3558 Kernel.ProperSubsumption ProperSubsumption tm_write proj
+R3564:3570 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R3561:3561 Kernel.ProperSubsumption <> c:20 var
+binder 3494:3501 <> new_tape:21
+R3583:3586 Coq.Init.Datatypes <> Some constr
+R3591:3598 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R3591:3598 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R3591:3598 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R3620:3626 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R3620:3626 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R3610:3616 Kernel.ProperSubsumption ProperSubsumption tm_next proj
+R3631:3638 Kernel.ProperSubsumption <> new_tape:21 var
+def 3698:3703 ProperSubsumption tm_run
+R3713:3715 Coq.Init.Datatypes <> nat ind
+binder 3706:3709 <> fuel:22
+R3727:3734 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
+binder 3719:3723 <> delta:23
+R3742:3750 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
+binder 3738:3738 <> c:24
+R3755:3763 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
+R3776:3779 Kernel.ProperSubsumption <> fuel:22 var
+R3795:3795 Kernel.ProperSubsumption <> c:24 var
+R3801:3801 Coq.Init.Datatypes <> S constr
+R3824:3830 Kernel.ProperSubsumption ProperSubsumption tm_step def
+R3832:3836 Kernel.ProperSubsumption <> delta:23 var
+R3838:3838 Kernel.ProperSubsumption <> c:24 var
+R3853:3856 Coq.Init.Datatypes <> None constr
+R3861:3861 Kernel.ProperSubsumption <> c:24 var
+R3886:3889 Coq.Init.Datatypes <> Some constr
+R3897:3902 Kernel.ProperSubsumption <> tm_run:25 def
+R3910:3914 Kernel.ProperSubsumption <> delta:23 var
+rec 4000:4012 ProperSubsumption Thiele_Config
+proj 4021:4032 ProperSubsumption th_tm_config
+proj 4049:4053 ProperSubsumption th_mu
+R4036:4044 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
+R4057:4059 Coq.Init.Datatypes <> nat ind
+def 4140:4148 ProperSubsumption step_cost
+R4152:4154 Coq.Init.Datatypes <> nat ind
+def 4173:4182 ProperSubsumption write_cost
+R4189:4194 Kernel.ProperSubsumption ProperSubsumption Symbol def
+binder 4185:4185 <> s:30
+R4199:4201 Coq.Init.Datatypes <> nat ind
+R4209:4215 Coq.Arith.PeanoNat Nat eqb def
+R4217:4217 Kernel.ProperSubsumption <> s:30 var
+R4219:4223 Kernel.ProperSubsumption ProperSubsumption blank def
+def 4305:4315 ProperSubsumption thiele_step
+R4326:4333 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
+binder 4318:4322 <> delta:31
+R4341:4353 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+binder 4337:4337 <> c:32
+R4358:4363 Coq.Init.Datatypes <> option ind
+R4365:4377 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+R4390:4396 Kernel.ProperSubsumption ProperSubsumption tm_step def
+R4398:4402 Kernel.ProperSubsumption <> delta:31 var
+R4407:4418 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R4404:4404 Kernel.ProperSubsumption <> c:32 var
+R4430:4433 Coq.Init.Datatypes <> None constr
+R4438:4441 Coq.Init.Datatypes <> None constr
+R4447:4450 Coq.Init.Datatypes <> Some constr
+R4488:4492 Kernel.ProperSubsumption <> delta:31 var
+R4512:4519 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R4497:4508 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R4494:4494 Kernel.ProperSubsumption <> c:32 var
+R4550:4558 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R4540:4546 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R4525:4536 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R4522:4522 Kernel.ProperSubsumption <> c:32 var
+R4589:4592 Coq.Init.Datatypes <> Some constr
+R4610:4617 Kernel.ProperSubsumption ProperSubsumption tm_write proj
+R4643:4646 Coq.Init.Datatypes <> None constr
+R4651:4655 Kernel.ProperSubsumption ProperSubsumption blank def
+binder 4471:4477 <> written:33
+R4712:4714 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4703:4711 Kernel.ProperSubsumption ProperSubsumption step_cost def
+R4715:4724 Kernel.ProperSubsumption ProperSubsumption write_cost def
+R4726:4732 Kernel.ProperSubsumption <> written:33 var
+binder 4695:4698 <> cost:34
+R4743:4746 Coq.Init.Datatypes <> Some constr
+R4751:4762 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R4751:4762 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R4751:4762 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R4774:4778 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R4774:4778 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R4792:4794 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4786:4790 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R4783:4783 Kernel.ProperSubsumption <> c:32 var
+R4795:4798 Kernel.ProperSubsumption <> cost:34 var
+def 4855:4864 ProperSubsumption thiele_run
+R4874:4876 Coq.Init.Datatypes <> nat ind
+binder 4867:4870 <> fuel:35
+R4888:4895 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
+binder 4880:4884 <> delta:36
+R4903:4915 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+binder 4899:4899 <> c:37
+R4920:4932 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+R4945:4948 Kernel.ProperSubsumption <> fuel:35 var
+R4964:4964 Kernel.ProperSubsumption <> c:37 var
+R4970:4970 Coq.Init.Datatypes <> S constr
+R4993:5003 Kernel.ProperSubsumption ProperSubsumption thiele_step def
+R5005:5009 Kernel.ProperSubsumption <> delta:36 var
+R5011:5011 Kernel.ProperSubsumption <> c:37 var
+R5026:5029 Coq.Init.Datatypes <> None constr
+R5034:5034 Kernel.ProperSubsumption <> c:37 var
+R5044:5047 Coq.Init.Datatypes <> Some constr
+R5055:5064 Kernel.ProperSubsumption <> thiele_run:38 def
+R5072:5076 Kernel.ProperSubsumption <> delta:36 var
+def 5154:5164 ProperSubsumption lift_config
+R5171:5179 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
+binder 5167:5167 <> c:40
+R5184:5196 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+R5206:5217 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R5206:5217 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R5206:5217 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R5225:5229 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R5225:5229 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R5222:5222 Kernel.ProperSubsumption <> c:40 var
+prf 5323:5349 ProperSubsumption thiele_simulates_turing_gen
+binder 5362:5365 <> fuel:41
+binder 5367:5371 <> delta:42
+binder 5373:5374 <> tc:43
+R5422:5424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5409:5420 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R5382:5391 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R5393:5396 Kernel.ProperSubsumption <> fuel:41 var
+R5398:5402 Kernel.ProperSubsumption <> delta:42 var
+R5404:5405 Kernel.ProperSubsumption <> tc:43 var
+R5425:5430 Kernel.ProperSubsumption ProperSubsumption tm_run def
+R5432:5435 Kernel.ProperSubsumption <> fuel:41 var
+R5437:5441 Kernel.ProperSubsumption <> delta:42 var
+R5447:5458 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R5443:5444 Kernel.ProperSubsumption <> tc:43 var
+R5557:5567 Kernel.ProperSubsumption ProperSubsumption thiele_step def
+R5584:5590 Kernel.ProperSubsumption ProperSubsumption tm_step def
+R5599:5610 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R5584:5590 Kernel.ProperSubsumption ProperSubsumption tm_step def
+R5599:5610 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+prf 5814:5836 ProperSubsumption thiele_simulates_turing
+binder 5849:5852 <> fuel:44
+binder 5854:5858 <> delta:45
+binder 5860:5860 <> c:46
+R5921:5923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5908:5919 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R5868:5877 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R5879:5882 Kernel.ProperSubsumption <> fuel:44 var
+R5884:5888 Kernel.ProperSubsumption <> delta:45 var
+R5891:5901 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R5903:5903 Kernel.ProperSubsumption <> c:46 var
+R5924:5929 Kernel.ProperSubsumption ProperSubsumption tm_run def
+R5931:5934 Kernel.ProperSubsumption <> fuel:44 var
+R5936:5940 Kernel.ProperSubsumption <> delta:45 var
+R5942:5942 Kernel.ProperSubsumption <> c:46 var
+R5983:6009 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing_gen thm
+R5983:6009 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing_gen thm
+prf 6096:6138 ProperSubsumption turing_computable_implies_thiele_computable
+binder 6151:6154 <> fuel:47
+binder 6156:6160 <> delta:48
+binder 6162:6167 <> c_init:49
+R6283:6290 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6241:6248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6174:6180 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R6183:6194 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R6197:6206 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R6208:6211 Kernel.ProperSubsumption <> fuel:47 var
+R6213:6217 Kernel.ProperSubsumption <> delta:48 var
+R6220:6230 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R6232:6237 Kernel.ProperSubsumption <> c_init:49 var
+R6249:6255 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R6258:6263 Kernel.ProperSubsumption ProperSubsumption tm_run def
+R6265:6268 Kernel.ProperSubsumption <> fuel:47 var
+R6270:6274 Kernel.ProperSubsumption <> delta:48 var
+R6276:6281 Kernel.ProperSubsumption <> c_init:49 var
+R6359:6366 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6291:6298 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R6301:6312 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R6315:6324 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R6326:6329 Kernel.ProperSubsumption <> fuel:47 var
+R6331:6335 Kernel.ProperSubsumption <> delta:48 var
+R6338:6348 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R6350:6355 Kernel.ProperSubsumption <> c_init:49 var
+R6367:6374 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R6377:6382 Kernel.ProperSubsumption ProperSubsumption tm_run def
+R6384:6387 Kernel.ProperSubsumption <> fuel:47 var
+R6389:6393 Kernel.ProperSubsumption <> delta:48 var
+R6395:6400 Kernel.ProperSubsumption <> c_init:49 var
+R6449:6471 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+R6449:6471 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+R6449:6471 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+rec 6836:6850 ProperSubsumption CostCertificate
+proj 6859:6865 ProperSubsumption cc_fuel
+proj 6876:6883 ProperSubsumption cc_bound
+proj 6894:6903 ProperSubsumption cc_witness
+R6869:6871 Coq.Init.Datatypes <> nat ind
+R6887:6889 Coq.Init.Datatypes <> nat ind
+R6907:6909 Coq.Init.Datatypes <> nat ind
+def 7014:7036 ProperSubsumption thiele_cost_certificate
+R7046:7048 Coq.Init.Datatypes <> nat ind
+binder 7039:7042 <> fuel:54
+R7060:7067 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
+binder 7052:7056 <> delta:55
+R7075:7087 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+binder 7071:7071 <> c:56
+R7097:7111 Kernel.ProperSubsumption ProperSubsumption CostCertificate rec
+R7131:7140 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R7142:7145 Kernel.ProperSubsumption <> fuel:54 var
+R7147:7151 Kernel.ProperSubsumption <> delta:55 var
+R7153:7153 Kernel.ProperSubsumption <> c:56 var
+binder 7122:7126 <> final:57
+R7163:7169 Kernel.ProperSubsumption ProperSubsumption cc_fuel proj
+R7163:7169 Kernel.ProperSubsumption ProperSubsumption cc_fuel proj
+R7163:7169 Kernel.ProperSubsumption ProperSubsumption cc_fuel proj
+R7185:7192 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
+R7185:7192 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
+R7246:7255 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
+R7246:7255 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
+R7174:7177 Kernel.ProperSubsumption <> fuel:54 var
+R7201:7204 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7218:7218 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7197:7200 Kernel.ProperSubsumption <> fuel:54 var
+R7214:7216 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7205:7213 Kernel.ProperSubsumption ProperSubsumption step_cost def
+R7273:7275 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7267:7271 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7260:7264 Kernel.ProperSubsumption <> final:57 var
+R7279:7283 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7276:7276 Kernel.ProperSubsumption <> c:56 var
+prf 7361:7379 ProperSubsumption thiele_run_mu_bound
+binder 7392:7395 <> fuel:58
+binder 7397:7401 <> delta:59
+binder 7403:7403 <> c:60
+R7443:7446 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7437:7441 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7411:7420 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R7422:7425 Kernel.ProperSubsumption <> fuel:58 var
+R7427:7431 Kernel.ProperSubsumption <> delta:59 var
+R7433:7433 Kernel.ProperSubsumption <> c:60 var
+R7456:7458 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7450:7454 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7447:7447 Kernel.ProperSubsumption <> c:60 var
+R7463:7466 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7480:7480 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7459:7462 Kernel.ProperSubsumption <> fuel:58 var
+R7476:7478 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7467:7475 Kernel.ProperSubsumption ProperSubsumption step_cost def
+R7572:7582 Kernel.ProperSubsumption ProperSubsumption thiele_step def
+R7599:7605 Kernel.ProperSubsumption ProperSubsumption tm_step def
+R7614:7625 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7599:7605 Kernel.ProperSubsumption ProperSubsumption tm_step def
+R7614:7625 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7693:7700 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R7703:7714 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7721:7729 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R7732:7738 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R7741:7752 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7780:7783 Coq.Init.Datatypes <> Some constr
+R7794:7801 Kernel.ProperSubsumption ProperSubsumption tm_write proj
+R7825:7828 Coq.Init.Datatypes <> None constr
+R7833:7837 Kernel.ProperSubsumption ProperSubsumption blank def
+R7693:7700 Kernel.ProperSubsumption ProperSubsumption tm_state proj
+R7703:7714 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7721:7729 Kernel.ProperSubsumption ProperSubsumption tape_head proj
+R7732:7738 Kernel.ProperSubsumption ProperSubsumption tm_tape proj
+R7741:7752 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7780:7783 Coq.Init.Datatypes <> Some constr
+R7794:7801 Kernel.ProperSubsumption ProperSubsumption tm_write proj
+R7825:7828 Coq.Init.Datatypes <> None constr
+R7833:7837 Kernel.ProperSubsumption ProperSubsumption blank def
+R7922:7933 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7922:7933 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7922:7933 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7942:7946 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7942:7946 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7958:7961 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7992:7992 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7951:7955 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7971:7973 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7962:7970 Kernel.ProperSubsumption ProperSubsumption step_cost def
+R7974:7983 Kernel.ProperSubsumption ProperSubsumption write_cost def
+R7922:7933 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7922:7933 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7922:7933 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R7942:7946 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7942:7946 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7958:7961 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7992:7992 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7951:7955 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R7971:7973 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7962:7970 Kernel.ProperSubsumption ProperSubsumption step_cost def
+R7974:7983 Kernel.ProperSubsumption ProperSubsumption write_cost def
+R8027:8035 Kernel.ProperSubsumption ProperSubsumption step_cost def
+R8038:8047 Kernel.ProperSubsumption ProperSubsumption write_cost def
+R8069:8075 Coq.Arith.PeanoNat Nat eqb def
+R8085:8089 Kernel.ProperSubsumption ProperSubsumption blank def
+R8069:8075 Coq.Arith.PeanoNat Nat eqb def
+R8085:8089 Kernel.ProperSubsumption ProperSubsumption blank def
+prf 8173:8194 ProperSubsumption cost_certificate_valid
+binder 8207:8210 <> fuel:61
+binder 8212:8216 <> delta:62
+binder 8218:8218 <> c:63
+R8276:8283 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8265:8274 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
+R8226:8248 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
+R8250:8253 Kernel.ProperSubsumption <> fuel:61 var
+R8255:8259 Kernel.ProperSubsumption <> delta:62 var
+R8261:8261 Kernel.ProperSubsumption <> c:63 var
+R8324:8331 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
+R8285:8307 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
+R8309:8312 Kernel.ProperSubsumption <> fuel:61 var
+R8314:8318 Kernel.ProperSubsumption <> delta:62 var
+R8320:8320 Kernel.ProperSubsumption <> c:63 var
+R8374:8396 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
+R8420:8438 Kernel.ProperSubsumption ProperSubsumption thiele_run_mu_bound thm
+R8420:8438 Kernel.ProperSubsumption ProperSubsumption thiele_run_mu_bound thm
+R8469:8477 Kernel.ProperSubsumption ProperSubsumption step_cost def
+def 8926:8936 ProperSubsumption TM_computes
+R8947:8954 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
+binder 8939:8943 <> delta:64
+R8975:8983 Kernel.ProperSubsumption ProperSubsumption TM_Config rec
+binder 8958:8963 <> c_init:65
+binder 8965:8971 <> c_final:66
+R8998:9004 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9009:9010 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9005:9008 <> fuel:67
+R9035:9037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9011:9016 Kernel.ProperSubsumption ProperSubsumption tm_run def
+R9018:9021 Kernel.ProperSubsumption <> fuel:67 var
+R9023:9027 Kernel.ProperSubsumption <> delta:64 var
+R9029:9034 Kernel.ProperSubsumption <> c_init:65 var
+R9038:9044 Kernel.ProperSubsumption <> c_final:66 var
+def 9059:9083 ProperSubsumption Thiele_computes_with_cost
+R9094:9101 Kernel.ProperSubsumption ProperSubsumption TM_Delta def
+binder 9086:9090 <> delta:68
+R9114:9126 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+binder 9105:9110 <> c_init:69
+R9145:9157 Kernel.ProperSubsumption ProperSubsumption Thiele_Config rec
+binder 9135:9141 <> c_final:70
+R9168:9170 Coq.Init.Datatypes <> nat ind
+binder 9161:9164 <> cost:71
+R9185:9191 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9196:9197 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9192:9195 <> fuel:72
+R9236:9254 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9226:9228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9198:9207 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R9209:9212 Kernel.ProperSubsumption <> fuel:72 var
+R9214:9218 Kernel.ProperSubsumption <> delta:68 var
+R9220:9225 Kernel.ProperSubsumption <> c_init:69 var
+R9229:9235 Kernel.ProperSubsumption <> c_final:70 var
+R9287:9289 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9270:9272 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9264:9268 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R9255:9261 Kernel.ProperSubsumption <> c_final:70 var
+R9281:9285 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R9273:9278 Kernel.ProperSubsumption <> c_init:69 var
+R9290:9293 Kernel.ProperSubsumption <> cost:71 var
+prf 9357:9386 ProperSubsumption thiele_strictly_extends_turing
+R9458:9458 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9675:9752 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9870:9870 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9466:9470 <> delta:73
+binder 9472:9477 <> c_init:74
+binder 9479:9485 <> c_final:75
+R9524:9531 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9492:9502 Kernel.ProperSubsumption ProperSubsumption TM_computes def
+R9504:9508 Kernel.ProperSubsumption <> delta:73 var
+R9510:9515 Kernel.ProperSubsumption <> c_init:74 var
+R9517:9523 Kernel.ProperSubsumption <> c_final:75 var
+R9532:9538 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9554:9561 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9539:9548 <> c_th_final:76
+binder 9550:9553 <> cost:77
+R9630:9639 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9562:9586 Kernel.ProperSubsumption ProperSubsumption Thiele_computes_with_cost def
+R9588:9592 Kernel.ProperSubsumption <> delta:73 var
+R9595:9605 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R9607:9612 Kernel.ProperSubsumption <> c_init:74 var
+R9615:9624 Kernel.ProperSubsumption <> c_th_final:76 var
+R9626:9629 Kernel.ProperSubsumption <> cost:77 var
+R9665:9667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9652:9663 Kernel.ProperSubsumption ProperSubsumption th_tm_config proj
+R9640:9649 Kernel.ProperSubsumption <> c_th_final:76 var
+R9668:9674 Kernel.ProperSubsumption <> c_final:75 var
+binder 9760:9763 <> fuel:78
+binder 9765:9769 <> delta:79
+binder 9771:9771 <> c:80
+R9790:9812 Kernel.ProperSubsumption ProperSubsumption thiele_cost_certificate def
+R9814:9817 Kernel.ProperSubsumption <> fuel:78 var
+R9819:9823 Kernel.ProperSubsumption <> delta:79 var
+R9825:9825 Kernel.ProperSubsumption <> c:80 var
+binder 9782:9785 <> cert:81
+R9851:9854 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9840:9849 Kernel.ProperSubsumption ProperSubsumption cc_witness proj
+R9834:9837 Kernel.ProperSubsumption <> cert:81 var
+R9861:9868 Kernel.ProperSubsumption ProperSubsumption cc_bound proj
+R9855:9858 Kernel.ProperSubsumption <> cert:81 var
+R9963:9972 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R9986:9996 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R9963:9972 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R9986:9996 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R10066:10070 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R10021:10030 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R10044:10054 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R10066:10070 Kernel.ProperSubsumption ProperSubsumption th_mu proj
+R10021:10030 Kernel.ProperSubsumption ProperSubsumption thiele_run def
+R10044:10054 Kernel.ProperSubsumption ProperSubsumption lift_config def
+R10167:10189 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+R10167:10189 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+R10167:10189 Kernel.ProperSubsumption ProperSubsumption thiele_simulates_turing thm
+R10252:10273 Kernel.ProperSubsumption ProperSubsumption cost_certificate_valid thm
+R10252:10273 Kernel.ProperSubsumption ProperSubsumption cost_certificate_valid thm
+R11191:11207 Kernel.ProperSubsumption ProperSubsumption <> mod

@@ -231,9 +231,10 @@ def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
                 "kind": _parse_int(toks[3]) != 0, "flen": _parse_int(toks[4]),
                 "cost": _parse_int(toks[5])}
     elif op == "LASSERT" and len(toks) >= 4:
-        # Legacy format (fallback)
-        return {"op": "lassert", "module": _parse_int(toks[1]), "formula": toks[2],
-                "cert": {"type": "sat", "proof": ""}, "cost": _parse_int(toks[3])}
+        raise ValueError(
+            "Legacy three-token LASSERT text form is no longer supported; "
+            "use canonical on-chip form `LASSERT <freg> <creg> <kind> <flen> <cost>`"
+        )
     elif op == "LJOIN" and len(toks) >= 4:
         return {"op": "ljoin", "c1reg": _parse_int(toks[1]), "c2reg": _parse_int(toks[2]),
                 "cost": _parse_int(toks[3])}
@@ -279,8 +280,6 @@ def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
     elif op == "REVEAL" and len(toks) >= 4:
         return {"op": "reveal", "module": _parse_int(toks[1]), "bits": _parse_int(toks[2]),
                 "cert": toks[3] if len(toks) > 4 else "", "cost": _parse_int(toks[min(4, len(toks)-1)])}
-    elif op == "ORACLE_HALTS" and len(toks) >= 3:
-        return {"op": "oracle_halts", "cost": _parse_int(toks[2])}
     elif op == "HALT":
         return {"op": "halt", "cost": _parse_int(toks[1]) if len(toks) >= 2 else 0}
     elif op == "CHECKPOINT" and len(toks) >= 2:
@@ -515,6 +514,20 @@ def _parse_sat_cert_binary(cert_encoded: str, nvars: int):
         if 1 <= v <= nvars: cert_words[v] = 1 if lit > 0 else 0
     return cert_words
 
+
+def _parse_dual_sat_certs(instr: Dict[str, Any], raw_cert: Any, nvars: int):
+    """Return (model_words, countermodel_words) for SAT-mode LASSERT."""
+    if isinstance(raw_cert, dict):
+        model_text = str(raw_cert.get("model", raw_cert.get("proof", "")) or "")
+        countermodel_text = str(raw_cert.get("countermodel", "") or "")
+    else:
+        model_text = str(raw_cert or instr.get("model", "") or "")
+        countermodel_text = str(instr.get("countermodel", "") or "")
+    return (
+        _parse_sat_cert_binary(model_text, nvars),
+        _parse_sat_cert_binary(countermodel_text, nvars),
+    )
+
 # Reserved addresses/registers for on-chip LASSERT memory layout
 # Low addresses avoid OCaml stack overflow (nth/firstn are O(n) recursive).
 _LASSERT_FORMULA_ADDR = 0x10   # 16
@@ -525,6 +538,8 @@ _LASSERT_CREG         = 29
 
 def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
     """Delegate execution to the Coq-extracted OCaml runner."""
+    reg_values: Dict[int, int] = {}
+    init_mem: Dict[int, int] = {}
     with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
         trace_path = f.name
         f.write(f"FUEL {fuel}\n")
@@ -534,51 +549,27 @@ def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
                 continue
             toks = line.split()
             op = toks[0].upper()
-            # Translate old-format LASSERT/LJOIN to on-chip register-indexed format.
-            # Old LASSERT: LASSERT mid formula cost | LASSERT_SAT mid formula model cost |
-            #              LASSERT_UNSAT mid formula proof cost
-            # Old LJOIN:   LJOIN cert1_str cert2_str cost  (string args, not register indices)
-            # New LASSERT: setup INIT_MEM_STR/INIT_REG for formula/cert, then LASSERT freg creg kind flen cost
+            # Translate old-format LJOIN to on-chip register-indexed format.
+            # New LASSERT: canonical on-chip form only: LASSERT freg creg kind flen cost
             # New LJOIN:   LJOIN c1reg c2reg cost  (both regs already pointing to cert strings)
             if op in ("LASSERT", "LASSERT_SAT", "LASSERT_UNSAT"):
-                # New on-chip format: LASSERT freg creg kind flen cost
-                # (exactly 6 tokens, all integer operands) — pass through verbatim.
                 def _all_int_toks(tokens: list) -> bool:
                     try: [int(t) for t in tokens]; return True
                     except ValueError: return False
-                if op == "LASSERT" and len(toks) == 6 and _all_int_toks(toks[1:]):
-                    pass  # fall through to verbatim write
-                else:
-                    if len(toks) == 4:  # LASSERT mid formula cost
-                        formula, cert_data, kind = toks[2], "", 1
-                        cost = int(toks[3])
-                    elif len(toks) == 5 and op == "LASSERT_SAT":
-                        formula, cert_data, kind = toks[2], toks[3], 1
-                        cost = int(toks[4])
-                    elif len(toks) == 5 and op == "LASSERT_UNSAT":
-                        formula, cert_data, kind = toks[2], toks[3], 0
-                        cost = int(toks[4])
-                    else:
-                        formula, cert_data, kind = toks[2] if len(toks) > 2 else "", "", 1
-                        cost = int(toks[-1])
-                    flen = _decode_formula_len(formula)
-                    hw_flen, nvars, nclauses, lit_words = _parse_dimacs_binary(formula)
-                    fbase = _LASSERT_FORMULA_ADDR
-                    cbase = _LASSERT_CERT_ADDR
-                    f.write(f"INIT_MEM {fbase} {hw_flen}\n")
-                    f.write(f"INIT_MEM {fbase + 1} {nvars}\n")
-                    f.write(f"INIT_MEM {fbase + 2} {nclauses}\n")
-                    for i, w in enumerate(lit_words):
-                        f.write(f"INIT_MEM {fbase + 3 + i} {w}\n")
-                    if kind == 1:
-                        cert_words = _parse_sat_cert_binary(cert_data, nvars)
-                        for i, w in enumerate(cert_words):
-                            if w != 0:
-                                f.write(f"INIT_MEM {cbase + i} {w}\n")
-                    f.write(f"INIT_REG {_LASSERT_FREG} {fbase}\n")
-                    f.write(f"INIT_REG {_LASSERT_CREG} {cbase}\n")
-                    f.write(f"LASSERT {_LASSERT_FREG} {_LASSERT_CREG} {kind} {flen} {cost}\n")
-                    continue
+                if op != "LASSERT" or len(toks) != 6 or not _all_int_toks(toks[1:]):
+                    raise ValueError(
+                        "Legacy three-token LASSERT text form is no longer supported; "
+                        "use canonical on-chip form `LASSERT <freg> <creg> <kind> <flen> <cost>`"
+                    )
+                freg = int(toks[1])
+                flen = int(toks[4])
+                fbase = reg_values.get(freg)
+                if fbase is not None:
+                    hw_flen = init_mem.get(fbase)
+                    if hw_flen is not None and flen != hw_flen:
+                        raise ValueError(
+                            f"LASSERT flen {flen} does not match in-memory header {hw_flen} at formula base {fbase}"
+                        )
             if op == "LJOIN" and len(toks) >= 4:
                 # Distinguish old format (LJOIN cert1_str cert2_str cost — strings)
                 # from new format (LJOIN c1reg c2reg cost — integer register indices).
@@ -599,6 +590,12 @@ def _run_ocaml(instructions: List[str], fuel: int) -> VMState:
             # Skip RTL-only directives unknown to the OCaml runner
             if op.startswith("INIT_") and op not in _OCAML_ONLY_INIT:
                 continue
+            if op == "INIT_REG" and len(toks) >= 3:
+                reg_values[int(toks[1])] = int(toks[2], 0)
+            elif op == "INIT_MEM" and len(toks) >= 3:
+                init_mem[int(toks[1], 0)] = int(toks[2], 0)
+            elif op == "LOAD_IMM" and len(toks) >= 3:
+                reg_values[int(toks[1], 0)] = int(toks[2], 0)
             # Translate register aliases (r1 → 1) for OCaml runner
             line = _translate_reg_names(line)
             # OCaml runner requires HALT to have a cost argument

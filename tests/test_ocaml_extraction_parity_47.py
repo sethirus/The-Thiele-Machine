@@ -20,13 +20,13 @@ TRUST BOUNDARY CONNECTION:
     - μ-cost theorem (eo_mu_is_apply_cost) is validated for each opcode.
     - No opcode causes an undefined/missing-arm failure.
 
-All 47 opcodes:
+All 46 opcodes:
   Partition:  PNEW PSPLIT PMERGE LASSERT LJOIN MDLACC PDISCOVER
   Data:       XFER LOAD_IMM LOAD STORE
   Arithmetic: ADD SUB AND OR SHL SHR MUL LUI
   Control:    JUMP JNEZ CALL RET HALT
   XOR-layer:  XOR_LOAD XOR_ADD XOR_SWAP XOR_RANK
-  Quantum:    CHSH_TRIAL EMIT REVEAL ORACLE_HALTS
+  Quantum:    CHSH_TRIAL EMIT REVEAL
   Cert:       CERTIFY
   Memory ext: CHECKPOINT READ_PORT WRITE_PORT HEAP_LOAD HEAP_STORE
   Boolean:    AND OR SHL SHR MUL LUI (covered above)
@@ -109,8 +109,8 @@ class TestPartitionOpcodesParity:
         # Formula "p cnf 1 1\n1 0" in binary: hw_flen=2, nvars=1, nclauses=1, lits=[1,0].
         # Addresses must be low to avoid OCaml stack overflow in linked-list nth.
         # fbase=0x10 (16), cbase=0x60 (96).
-        # flen=13 (decoded string length, the cost metric convention).
-        # cost=1 → mu = flen*8 + S(cost) = 13*8 + 2 = 106.
+        # flen=2 (binary formula-header word count).
+        # cost=1 → mu = flen*8 + S(cost) = 2*8 + 2 = 18.
         r = run([
             "INIT_MEM 16 2",    # mem[fbase+0] = hw_flen=2
             "INIT_MEM 17 1",    # mem[fbase+1] = nvars=1
@@ -118,12 +118,13 @@ class TestPartitionOpcodesParity:
             "INIT_MEM 19 1",    # mem[fbase+3] = literal +1
             "INIT_MEM 20 0",    # mem[fbase+4] = clause terminator
             "INIT_MEM 97 1",    # mem[cbase+1] = var1=true (cbase=96, cert_words[1]=1)
+            "INIT_MEM 98 0",    # mem[cbase+nvars+1] = var1=false (countermodel)
             "INIT_REG 28 16",   # freg=28 → fbase=16
             "INIT_REG 29 96",   # creg=29 → cbase=96
-            "LASSERT 28 29 1 13 1",  # freg=28 creg=29 kind=1(SAT) flen=13 cost=1
+            "LASSERT 28 29 1 2 1",  # freg=28 creg=29 kind=1(SAT) flen=2 cost=1
             "HALT 0",
         ])
-        assert_mu_at_least(r, 106, "LASSERT")  # 13*8 + 2 = 106
+        assert_mu_at_least(r, 18, "LASSERT")  # 2*8 + 2 = 18
 
     def test_ljoin_charges_cost(self):
         r = run(["LJOIN 0 1 4", "HALT 0"])
@@ -295,7 +296,7 @@ class TestXorLayerOpcodesParity:
 # ============================================================================
 
 class TestQuantumOpcodesParity:
-    """CHSH_TRIAL EMIT REVEAL ORACLE_HALTS"""
+    """CHSH_TRIAL EMIT REVEAL"""
 
     LOGIC_INIT = "INIT_LOGIC_ACC -889263410"
 
@@ -304,15 +305,11 @@ class TestQuantumOpcodesParity:
         assert_mu_at_least(r, 3, "CHSH_TRIAL")
 
     def test_emit_charges_cost(self):
-        r = run(["PNEW {0,256} 1", "EMIT 0 8 3", "HALT 0"])
-        assert_mu_at_least(r, 4, "EMIT")
-
-    def test_oracle_halts_charges_cost(self):
-        r = run(["ORACLE_HALTS payload123 4", "HALT 0"])
-        assert_mu_at_least(r, 4, "ORACLE_HALTS")
+        r = run(["EMIT 0 abc 3", "HALT 0"])
+        assert_mu_at_least(r, 28, "EMIT")
 
     def test_reveal_charges_cost(self):
-        # REVEAL has no explicit cost field in some forms; charges the cert semantics
+        # Four-token REVEAL uses the third token as the revealed bit count.
         r = run(["PNEW {0,256} 1", "REVEAL 0 1 8", "HALT 0"])
         # REVEAL may error (no valid cert) but should be handled without crash
         assert r is not None, "REVEAL: OCaml runner returned None"
@@ -490,7 +487,7 @@ class TestCoverageCompleteness:
         "add", "sub", "and", "or", "shl", "shr", "mul", "lui",
         "jump", "jnez", "call", "ret", "halt",
         "xor_load", "xor_add", "xor_swap", "xor_rank",
-        "chsh_trial", "emit", "reveal", "oracle_halts",
+        "chsh_trial", "emit", "reveal",
         "certify",
         "checkpoint", "read_port", "write_port", "heap_load", "heap_store",
         "tensor_set", "tensor_get",
@@ -499,8 +496,8 @@ class TestCoverageCompleteness:
     })
 
     def test_canonical_47_count(self) -> None:
-        assert len(self.CANONICAL_47) == 47, (
-            f"CANONICAL_47 has {len(self.CANONICAL_47)} entries, expected 47"
+        assert len(self.CANONICAL_47) == 46, (
+            f"CANONICAL_47 has {len(self.CANONICAL_47)} entries, expected 46"
         )
 
     def test_ocaml_runner_recognizes_all_47(self) -> None:

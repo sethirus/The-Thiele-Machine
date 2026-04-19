@@ -38,7 +38,7 @@
       Python (extracted), and synthesizable Verilog (Kami-derived).
       Three layers, one receipt, one proof.
 
-    THE CATEGORICAL LAYER (added in Phase 7):
+    THE CATEGORICAL LAYER:
 
     Beyond modules (objects), the machine now tracks morphisms — typed
     relational arrows between modules. This gives it a concrete category:
@@ -161,7 +161,7 @@
     This produces:
       ThieleMachineComplete.vo    — proof certificate (machine-checked)
       ../build/kami_hw/Target_complete.ml — extracted Kami OCaml (byte-for-byte = Target.ml)
-      ../build/thiele_core_complete.ml — copied from thiele_core.ml by Makefile (byte-for-byte)
+      ../build/thiele_core_complete.ml — direct OCaml extraction (byte-for-byte = thiele_core.ml)
 
     Zero custom axioms. Zero admits. Zero project imports. The proofs compile.
     ========================================================================= *)
@@ -311,9 +311,12 @@ Open Scope string_scope.
 
     TWO CHECKERS, one for each direction:
 
-    (a) check_model: SAT verification. Given a CNF formula and a candidate
-        assignment, evaluate whether every clause is satisfied. If yes, the
-        SAT claim is confirmed. Pure computation — no oracle required.
+    (a) check_model/check_countermodel: SAT verification with a
+      non-triviality guard. Given a CNF formula, one satisfying
+      assignment, and one falsifying assignment, evaluate whether the
+      first satisfies every clause and the second falsifies at least one.
+      If yes, the SAT claim is confirmed and the asserted formula is
+      known not to be a tautology. Pure computation — no oracle required.
 
     (b) check_lrat: UNSAT verification. Given a CNF formula and an LRAT
         proof, replay the proof using reverse unit propagation (RUP) to
@@ -323,9 +326,12 @@ Open Scope string_scope.
     WHY THIS MATTERS: The μ-cost is NOT charged for running these checkers.
     Verification is free. The cost is charged when the verified claim is
     RECORDED in machine state — when LASSERT accepts the result and
-    strengthens the module's axiom set. That's the irreversible reduction
-    of state space that Landauer's principle applies to. Looking costs
-    nothing. Committing to what you saw — that costs.
+    strengthens the module's axiom set. In the tightened architecture,
+    SAT-mode acceptance also requires a falsifying witness, so long
+    tautologies do not count as structural narrowing. That's the
+    irreversible reduction of state space that Landauer's principle
+    applies to. Looking costs nothing. Committing to what you saw — that
+    costs.
 
     FALSIFICATION: Find a CNF formula and assignment that check_model
     accepts but is actually unsatisfying. That would mean the checker
@@ -843,6 +849,20 @@ Module CertCheck.
     end.
 
   Global Opaque check_model_binary_fn.
+
+  (** check_countermodel_binary_fn: function-based non-triviality checker.
+
+      Given a formula and a candidate countermodel function, returns true
+      iff the supplied assignment is not also a model. This is the same cheap
+      guard used in Kernel.CertCheck: enough to witness non-triviality, not an
+      exact model-counting procedure. *)
+  Definition check_countermodel_binary_fn (formula_words : list nat) (get_cert : nat -> nat) : bool :=
+    match formula_words with
+    | _ :: _ :: _ :: _ => negb (check_model_binary_fn formula_words get_cert)
+    | _ => false
+    end.
+
+  Global Opaque check_countermodel_binary_fn.
 
   Close Scope Z_scope.
 
@@ -2153,10 +2173,7 @@ Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :
       HEAP_LOAD, HEAP_STORE — heap-relative memory access
 
     I/O AND CONTROL:
-      ORACLE_HALTS — halting oracle query. Fixed cost = 1,000,000
-                    (ORACLE_HALTS_HW_COST). The mu_delta field is
-                    ignored — the machine always pays the full hardware cost.
-      HALT        — stop execution
+    HALT        — stop execution
       CHECKPOINT  — emit a checkpoint label
       WRITE_PORT  — I/O port write (cost = mu_delta, can be 0)
 
@@ -2228,7 +2245,6 @@ Inductive vm_instruction :=
 | instr_xor_rank (dst src : nat) (mu_delta : nat)
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
-| instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat)
 | instr_checkpoint (label : string) (mu_delta : nat)
 | instr_read_port (dst : nat) (channel_idx : nat) (value : nat) (bits : nat) (mu_delta : nat)
@@ -2251,6 +2267,41 @@ Inductive vm_instruction :=
 | instr_morph_assert (morph_id : MorphismID) (property cert : string) (mu_delta : nat)
 | instr_morph_tensor (dst : nat) (f_id g_id : MorphismID) (mu_delta : nat)
 | instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat).
+
+Definition ascii_payload_bits (a : ascii) : list bool :=
+  match a with
+  | Ascii b0 b1 b2 b3 b4 b5 b6 b7 =>
+      [b0; b1; b2; b3; b4; b5; b6; b7]
+  end.
+
+Fixpoint payload_bits (s : string) : list bool :=
+  match s with
+  | EmptyString => []
+  | String a rest => ascii_payload_bits a ++ payload_bits rest
+  end.
+
+Definition payload_bit_length (s : string) : nat :=
+  List.length (payload_bits s).
+
+Lemma ascii_payload_bits_length :
+  forall a, List.length (ascii_payload_bits a) = 8.
+Proof.
+  intro a. destruct a as [b0 b1 b2 b3 b4 b5 b6 b7]. reflexivity.
+Qed.
+
+Lemma payload_bit_length_ascii :
+  forall s, payload_bit_length s = 8 * String.length s.
+Proof.
+  induction s as [| a rest IH].
+  - reflexivity.
+  - unfold payload_bit_length in *.
+    simpl.
+    rewrite app_length.
+    rewrite ascii_payload_bits_length.
+    fold (payload_bits rest).
+    rewrite IH.
+    lia.
+Qed.
 
 Definition instruction_cost (instr : vm_instruction) : nat :=
   match instr with
@@ -2276,12 +2327,11 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_xor_add _ _ cost => cost
   | instr_xor_swap _ _ cost => cost
   | instr_xor_rank _ _ cost => cost
-  | instr_emit _ _ cost => S cost
-  | instr_reveal _ _ _ cost => S cost
-  | instr_oracle_halts _ _ => 1000000  (* ORACLE_HALTS_HW_COST *)
+  | instr_emit _ payload cost => payload_bit_length payload + S cost
+  | instr_reveal _ bits _ cost => bits + S cost
   | instr_halt cost => cost
   | instr_checkpoint _ cost => cost
-  | instr_read_port _ _ _ _ cost => S cost
+  | instr_read_port _ _ _ bits cost => bits + S cost
   | instr_write_port _ _ cost => cost
   | instr_heap_load _ _ cost => cost
   | instr_heap_store _ _ cost => cost
@@ -2325,7 +2375,7 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
     on WHAT you observe — only on the act of observing itself. READ_PORT bakes
     the observed value into the instruction at decode time (making execution
     deterministic given the instruction stream), but the μ-charge is fixed by
-    mu_delta, not by the channel value. An environment that returns 0 costs
+    the requested bit count and mu_delta, not by the channel value. An environment that returns 0 costs
     exactly the same as one that returns 2^64-1.
 
     This formalizes the IOEnvironment as an oracle — a function from channel
@@ -2338,13 +2388,13 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
     FALSIFICATION: To disprove io_env_mu_cost_independent: exhibit two values
     v, v' where instruction_cost (instr_read_port ... v ...) ≠
     instruction_cost (instr_read_port ... v' ...). Impossible — instruction_cost
-    extracts mu_delta and wraps it in S(), ignoring every other field.
+    extracts bits and mu_delta, ignoring the observed value field.
     =========================================================================*)
 
 (** An [IOEnvironment] maps channel indices to the values they supply. *)
 Definition IOEnvironment := nat -> nat.
 
-(** The µ-cost of [instr_read_port] equals [S mu_delta] regardless of what
+(** The µ-cost of [instr_read_port] equals [bits + S mu_delta] regardless of what
     value the environment supplies on the channel. *)
 Theorem io_env_mu_cost_independent :
   forall dst ch bits mu_delta (v v' : nat),
@@ -2363,7 +2413,7 @@ Proof.
   intros. reflexivity.
 Qed.
 
-(** The µ-cost is exactly [S mu_delta] — strictly positive — so every I/O
+(** The µ-cost is exactly [bits + S mu_delta] — strictly positive — so every I/O
     read charges at least 1 µ unit to the ledger. *)
 Lemma io_read_cost_positive :
   forall dst ch v bits mu_delta,
@@ -2405,20 +2455,37 @@ Definition record_trial (wc : WitnessCounts) (x y a b : nat) : WitnessCounts :=
 (** Trap PC — hardware branches here on LASSERT failure. *)
 Definition LASSERT_TRAP_PC : nat := 3840.
 
-(** Helper for LASSERT: compute whether the binary SAT check passes. *)
+(** Helper for LASSERT: compute whether the binary SAT check passes.
+
+    SAT mode requires two witnesses stored back-to-back at cbase:
+    a satisfying assignment and a falsifying assignment. *)
 Definition lassert_check_ok (s : VMState) (freg creg : nat) (kind : bool) : bool :=
   let fbase := read_reg s freg in
   let cbase := read_reg s creg in
   let hw_flen := read_mem s fbase in
   let formula_words := List.map (fun i => read_mem s (fbase + i))
                                 (List.seq 0 (3 + hw_flen)) in
-  let get_cert := (fun var => read_mem s (cbase + var)) in
-  if kind then CertCheck.check_model_binary_fn formula_words get_cert
+  let num_vars :=
+    match formula_words with
+    | _ :: nv :: _ => nv
+    | _ => 0
+    end in
+  let get_model := (fun var => read_mem s (cbase + var)) in
+  let get_countermodel := (fun var => read_mem s (cbase + num_vars + var)) in
+  if kind then
+    andb (CertCheck.check_model_binary_fn formula_words get_model)
+         (CertCheck.check_countermodel_binary_fn formula_words get_countermodel)
   else false.
 
 (** Helper for LASSERT: hw_flen is the first word at formula base. *)
 Definition lassert_hw_flen (s : VMState) (freg : nat) : nat :=
   read_mem s (read_reg s freg).
+
+(** Helper for LASSERT: execution succeeds only if the instruction's declared
+    length matches the in-memory formula header and the witness check passes. *)
+Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen : nat) : bool :=
+  andb (Nat.eqb (lassert_hw_flen s freg) flen)
+       (lassert_check_ok s freg creg kind).
 
 Definition advance_state (s : VMState) (instr : vm_instruction)
   (graph : PartitionGraph) (csrs : CSRState) (err_flag : bool) : VMState :=
@@ -2505,7 +2572,7 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
 Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
   | instr_pnew region cost =>
-      (* Hardware: always allocates at pg_next_id with region seq 0..sz *)
+      (* Hardware always stores seq 0 sz (canonical sequential numbering). *)
       let sz := List.length (normalize_region region) in
       let '(graph', _) := graph_add_module s.(vm_graph) (List.seq 0 sz) [] in
       advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err)
@@ -2521,11 +2588,10 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
         graph' s.(vm_csrs) s.(vm_err)
   | instr_lassert freg creg kind flen cost =>
       (* Hardware FSM: binary SAT checker from memory, trap on failure.
-         No axiom addition, no CSR modification.
-         Cost: always instruction_cost = flen*8+S(cost) (matches hardware
-         on success when flen = hw_flen; failure path charges more than
-         hardware to preserve vm_apply_mu conservation law). *)
-      let check_ok := lassert_check_ok s freg creg kind in
+        SAT mode requires both a model and a countermodel witness, and the
+        encoded flen must match the in-memory formula header. No axiom
+        addition, no CSR modification. Cost: always flen*8+S(cost). *)
+      let check_ok := lassert_exec_ok s freg creg kind flen in
       let new_pc   := if check_ok then S s.(vm_pc) else LASSERT_TRAP_PC in
       let new_err  := if check_ok then s.(vm_err) else true in
       {| vm_graph := s.(vm_graph);
@@ -2601,8 +2667,6 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       advance_state_rm s (instr_xor_swap a b cost) s.(vm_graph) s.(vm_csrs) (swap_regs s.(vm_regs) a b) s.(vm_mem) s.(vm_err)
   | instr_xor_rank dst src cost =>
       advance_state_rm s (instr_xor_rank dst src cost) s.(vm_graph) s.(vm_csrs) (write_reg s dst (word64_popcount (read_reg s src))) s.(vm_mem) s.(vm_err)
-  | instr_oracle_halts payload cost =>
-      advance_state s (instr_oracle_halts payload cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   | instr_halt cost =>
       advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
   | instr_checkpoint label cost =>
@@ -3045,7 +3109,6 @@ Proof.
   - exfalso. eapply Hrev. reflexivity.
   - unfold advance_state. simpl. reflexivity.
   - unfold advance_state. simpl. reflexivity.
-  - unfold advance_state. simpl. reflexivity.
   - unfold advance_state_rm. simpl. reflexivity.
   - unfold advance_state. simpl. reflexivity.
   - unfold advance_state_rm. simpl. reflexivity.
@@ -3454,15 +3517,10 @@ Qed.
 
 (** ** μ-Cost Model: Operational cost classification *)
 
-(** μ-cost for individual instructions (operational, no physics assumptions) *)
+(** μ-cost for individual instructions (operational, no physics assumptions).
+    This aliases the executable cost table, so bit-priced payloads stay visible. *)
 Definition mu_cost_of_instr (instr : vm_instruction) : nat :=
-  match instr with
-  | instr_reveal _ _ _ _ => 1
-  | instr_lassert _ _ _ _ _ => 1
-  | instr_ljoin _ _ _ => 1
-  | instr_certify _ => 1
-  | _ => 0
-  end.
+  instruction_cost instr.
 
 (** Total μ-cost of a trace *)
 Fixpoint trace_mu_cost (trace : list vm_instruction) : nat :=
@@ -3471,24 +3529,25 @@ Fixpoint trace_mu_cost (trace : list vm_instruction) : nat :=
   | i :: rest => instruction_cost i + trace_mu_cost rest
   end.
 
-(** PNEW/PSPLIT/PMERGE are μ-free *)
+(** PNEW/PSPLIT/PMERGE are μ-free when their declared delta is zero. *)
 Lemma partition_ops_mu_free :
   forall mid,
     mu_cost_of_instr (instr_pnew mid 0) = 0 /\
     (forall mid1 mid2 mid3,
       mu_cost_of_instr (instr_psplit mid1 mid2 mid3 0) = 0) /\
-    (forall mid1 mid2 mid3,
-      mu_cost_of_instr (instr_pmerge mid1 mid2 mid3) = 0).
+    (forall mid1 mid2 cost,
+      cost = 0 ->
+      mu_cost_of_instr (instr_pmerge mid1 mid2 cost) = 0).
 Proof.
-  intros. split; [reflexivity | split; reflexivity].
+  intros. split; [reflexivity | split; intros; subst; reflexivity].
 Qed.
 
-(** REVEAL costs exactly 1 *)
-Lemma reveal_costs_one :
-  forall mid addr len mu,
-    mu_cost_of_instr (instr_reveal mid addr len mu) = 1.
+(** REVEAL always has positive bit-priced cost. *)
+Lemma reveal_cost_positive :
+  forall mid bits cert mu,
+    mu_cost_of_instr (instr_reveal mid bits cert mu) >= 1.
 Proof.
-  intros. reflexivity.
+  intros. unfold mu_cost_of_instr, instruction_cost. lia.
 Qed.
 
 (** Observables and equivalence *)
@@ -4293,11 +4352,10 @@ Proof.
   intros. simpl. lia.
 Qed.
 
-(** UNCONDITIONAL QUANTITATIVE NO FREE INSIGHT:
-    Every LASSERT execution charges at least flen * 8 bits of μ.
-    flen = formula word length; cost is in bytes (8 bits per word * flen words).
-    No precondition on cost — the bit-length is embedded in instruction_cost
-    by definition. This is the real NoFI theorem: Δμ ≥ flen * 8. *)
+(** QUANTITATIVE NO FREE INSIGHT ON THE ENCODED LENGTH:
+  Every LASSERT execution charges at least flen * 8 bits of μ.
+  This is a bound on the instruction payload. Honest pricing of the actual
+  in-memory formula size is enforced separately by lassert_exec_ok. *)
 Theorem no_free_insight_quantitative :
   forall (s : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
     let s' := vm_apply s (instr_lassert freg creg kind flen cost) in
@@ -4306,6 +4364,23 @@ Proof.
   intros s freg creg kind flen cost.
   pose proof (vm_apply_mu s (instr_lassert freg creg kind flen cost)) as Hmu.
   simpl (instruction_cost _) in Hmu. cbv zeta. lia.
+Qed.
+
+Lemma honest_lassert_pricing :
+  forall (s : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
+    lassert_exec_ok s freg creg kind flen = true ->
+    let s' := vm_apply s (instr_lassert freg creg kind flen cost) in
+    s'.(vm_mu) - s.(vm_mu) >= lassert_hw_flen s freg * 8.
+Proof.
+  intros s freg creg kind flen cost Hexec.
+  pose proof (vm_apply_mu s (instr_lassert freg creg kind flen cost)) as Hmu.
+  unfold lassert_exec_ok in Hexec.
+  apply andb_true_iff in Hexec as [Hlen _].
+  apply Nat.eqb_eq in Hlen.
+  cbv zeta.
+  rewrite Hmu.
+  simpl (instruction_cost _).
+  lia.
 Qed.
 
 (** =========================================================================
@@ -5024,12 +5099,12 @@ Definition shannon_entropy_reduction_tc (omega_init omega_final : FeasibleSet) :
     =========================================================================
 
     WHY THIS EXISTS:
-    String length is the wrong unit. "x>0" and "x > 0" are the same formula
-    but different strings. A cost measure that depends on whitespace is not a
-    measure of knowledge — it is a measure of formatting.
+    Raw textual payload bits are the wrong semantic unit. "x>0" and "x > 0"
+    are the same formula but different byte streams. A semantic cost measure
+    should not depend on whitespace formatting.
 
     THE FIX:
-    This section replaces String.length-based μ-cost with a SEMANTIC measure:
+    This section replaces raw text payload-bit μ-cost with a SEMANTIC measure:
     the size of the abstract syntax tree. Same formula = same AST = same cost.
     The measure is structural, not syntactic. "x > 0" and "x>0" have the same
     AST and therefore the same μ-cost.
@@ -5175,7 +5250,7 @@ Definition axiom_semantic_cost_tc (ax : VMAxiom) (ast : Constraint) : nat :=
 Definition axiom_cost_with_fallback_tc (ax : VMAxiom) (ast_opt : option Constraint) : nat :=
   match ast_opt with
   | Some ast => semantic_complexity_bits ast
-  | None => String.length ax * 8
+  | None => payload_bit_length ax
   end.
 
 (** =========================================================================
@@ -5569,10 +5644,10 @@ Definition states_correspond (coq_s : VMState) (py_s : PythonState) : Prop :=
   coq_s.(vm_mu) = py_s.(py_mu) /\
   coq_s.(vm_err) = py_s.(py_error).
 
-(** LEGACY — do not use. See OCamlExtractionBridge.v for the canonical
-    full-state bridge.
+(** Narrow Python projection: PC/μ/error only. See OCamlExtractionBridge.v
+    for the canonical full-state bridge.
 
-    Python step projection: KNOWN GAP — projects PC/μ/error from init_state,
+    KNOWN GAP — projects PC/μ/error from init_state,
     not from py_s itself. Registers and memory pass through unchanged.
     This is an honest conservative stand-in: the three observables (pc, μ, err)
     are correctly projected; full register/memory bisimulation is outside this
@@ -5791,7 +5866,7 @@ Definition OP_XOR_SWAP : word OpcodeSz := WO~0~0~0~0~1~1~0~0.
 Definition OP_XOR_RANK : word OpcodeSz := WO~0~0~0~0~1~1~0~1.
 Definition OP_EMIT : word OpcodeSz := WO~0~0~0~0~1~1~1~0.
 Definition OP_REVEAL : word OpcodeSz := WO~0~0~0~0~1~1~1~1.
-Definition OP_ORACLE_HALTS : word OpcodeSz := WO~0~0~0~1~0~0~0~0.
+(* 0x10 reserved (formerly ORACLE_HALTS) *)
 Definition OP_LOAD : word OpcodeSz := WO~0~0~0~1~0~0~0~1.
 Definition OP_STORE : word OpcodeSz := WO~0~0~0~1~0~0~1~0.
 Definition OP_ADD : word OpcodeSz := WO~0~0~0~1~0~0~1~1.
@@ -5991,6 +6066,14 @@ Section ThieleCPU.
         LET op_b   : Bit 8        <- UniBit (ConstExtract 8 8 16) #instr_v;
         LET cost_v : Bit CostSz   <- UniBit (Trunc 8 24) #instr_v;
         LET cost32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #cost_v;
+        LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        LET bit_payload_charge : Bit WordSz <-
+          IF ((#opcode == $$(OP_EMIT)) ||
+              (#opcode == $$(OP_REVEAL)) ||
+              (#opcode == $$(OP_READ_PORT)))
+          then #op_b_32
+          else $0;
+        LET bit_priced_mu : Bit WordSz <- #mu_v + #bit_payload_charge + #cost32 + $1;
         LET new_mu : Bit WordSz <- #mu_v + #cost32;
         LET pc_plus_1 : Bit WordSz <- #pc_v + $1;
         LET dst_idx : Bit RegIdxSz <- UniBit (Trunc RegIdxSz _) #op_a;
@@ -6114,10 +6197,11 @@ Section ThieleCPU.
         LET is_bucket_10 <- #chsh_settings == $$(WO~1~0);
         LET is_bucket_11 <- #chsh_settings == $$(WO~1~1);
 
-        (* No-Free-Insight guard *)
-        LET op_b_32 : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #op_b;
+        (* No-Free-Insight guard. EMIT pays op_b bits directly in μ, so the
+           legacy cost>=op_b guard remains only for PDISCOVER. *)
         LET is_info_gain_op <- (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_EMIT));
-        LET nfi_violation <- #is_info_gain_op && (#cost32 < #op_b_32);
+        LET is_declared_bound_op <- #opcode == $$(OP_PDISCOVER);
+        LET nfi_violation <- #is_declared_bound_op && (#cost32 < #op_b_32);
 
         LET is_chsh_valid <- (#opcode == $$(OP_CHSH_TRIAL)) && !#chsh_bits_bad &&
           !#bianchi_violation && !#locality_violation && !#ptable_overflow_violation &&
@@ -6125,7 +6209,7 @@ Section ThieleCPU.
 
         LET tensor_idx : Bit MuTensorIdxSz <- UniBit (Trunc MuTensorIdxSz _) #op_a;
         LET tensor_old : Bit WordSz <- #mu_tensor_v@[#tensor_idx];
-        LET tensor_new_val : Bit WordSz <- #tensor_old + #cost32;
+        LET tensor_new_val : Bit WordSz <- #tensor_old + #op_b_32;
 
         (* New PC *)
         LET new_pc : Bit WordSz <-
@@ -6204,9 +6288,11 @@ Section ThieleCPU.
         LET final_mu : Bit WordSz <-
           IF (#bianchi_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #mu_v
-          else (IF (#opcode == $$(OP_ORACLE_HALTS)) then #mu_v + $1000000
           else (IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial)) then #new_mu + $$(CHSH_X1_SURCHARGE)
           else (IF (#opcode == $$(OP_CERTIFY)) then #mu_v + #cost32 + $1
+          else (IF ((#opcode == $$(OP_EMIT)) ||
+                    (#opcode == $$(OP_REVEAL)) ||
+                    (#opcode == $$(OP_READ_PORT))) then #bit_priced_mu
           else #new_mu)));
 
         LET new_certified : Bool <-
@@ -6294,8 +6380,7 @@ Section ThieleCPU.
         LET new_logic_acc : Bit WordSz <-
           IF (#bianchi_violation || #locality_violation) then #logic_acc_v
           else (IF (#opcode == $$(OP_LASSERT)) then #logic_acc_v ~+ $$(LOGIC_GATE_KEY)
-          else (IF (#opcode == $$(OP_ORACLE_HALTS)) then #logic_acc_v + $1
-          else #logic_acc_v));
+          else #logic_acc_v);
 
         LET mcycle_lo_next : Bit WordSz <- #mcycle_lo_v + $1;
         LET mcycle_lo_wrap <- #mcycle_lo_next == $0;
@@ -7315,13 +7400,13 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_emit _ _ cost =>
-      snap_advance_default hs (S cost)
+  | instr_emit _ payload cost =>
+      snap_advance_default hs (payload_bit_length payload + S cost)
   | instr_reveal module0 bits _ cost =>
       (* REVEAL: tensor_idx = module0 mod 16, delta = bits — matches advance_state_reveal in vm_apply_unsafe *)
       let k := module0 mod 16 in
       {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + S cost;
+         snap_mu    := snap_mu hs + (bits + S cost);
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
@@ -7344,10 +7429,6 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  | instr_oracle_halts _ _ =>
-      (* Hardware charges ORACLE_HALTS_HW_COST (1,000,000) regardless of the
-         user-specified cost field. *)
-      snap_advance_default hs ORACLE_HALTS_HW_COST
   | instr_halt cost =>
       (* HALT: vm_apply_unsafe falls through to advance_state (PC+1, cost).
          snap_halted flag is hardware-only; abs_phase1 does not expose it.
@@ -7376,9 +7457,9 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
   | instr_checkpoint _ cost =>
       snap_advance_default hs cost
-  | instr_read_port dst _ v _ cost =>
+  | instr_read_port dst _ v bits cost =>
       {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + S cost;
+         snap_mu    := snap_mu hs + (bits + S cost);
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_write_reg hs dst v;
@@ -7648,7 +7729,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  (* Phase 7 categorical instructions - hardware writes 0 to dst for graph-result opcodes *)
+  (* Categorical instructions: hardware writes 0 to dst for graph-result opcodes *)
   | instr_morph dst _ _ _ cost =>
       snap_advance_reg hs dst 0 cost
   | instr_compose dst _ _ cost =>
@@ -7667,25 +7748,16 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
 
 (** kami_instruction_cost: the cost that the hardware charges for each opcode.
     Matches instruction_cost for all opcodes EXCEPT:
-    - ORACLE_HALTS: charges a fixed ORACLE_HALTS_HW_COST (1,000,000)
     - CERTIFY: charges S delta_mu (structurally positive, matching step_certify)
     - LASSERT: charges flen * 8 + S cost — identical to instruction_cost.
-      flen is an explicit instruction field (formula byte-length / 8), so
-      hardware can decode it directly without reading memory. The hardware-software
+      flen is an explicit encoded formula-unit count, so hardware can decode
+      the bit charge directly without reading memory. The hardware-software
       gap on LASSERT is therefore ZERO (proved in kami_vm_mu_lassert_gap). *)
 Definition kami_instruction_cost (i : vm_instruction) : nat :=
   match i with
-  | instr_oracle_halts _ _ => ORACLE_HALTS_HW_COST
   | instr_certify dm => S dm
   | instr_lassert _ _ _ flen cost => flen * 8 + S cost
   | other => instruction_cost other
-  end.
-
-(** Predicate for identifying ORACLE_HALTS instructions. *)
-Definition is_oracle_halts (i : vm_instruction) : bool :=
-  match i with
-  | instr_oracle_halts _ _ => true
-  | _ => false
   end.
 
 (** Predicate for identifying CERTIFY instructions. *)
@@ -7696,7 +7768,6 @@ Definition is_certify (i : vm_instruction) : bool :=
   end.
 
 (** kami_step advances mu by exactly kami_instruction_cost.
-    For ORACLE_HALTS, this is ORACLE_HALTS_HW_COST (1,000,000).
     For CERTIFY, this is S delta_mu (structurally positive).
     For all other opcodes, this equals instruction_cost. *)
 Lemma kami_step_mu_cost : forall (hs : KamiSnapshot) (i : vm_instruction),
@@ -7712,14 +7783,13 @@ Proof.
   end.
 Qed.
 
-(** For non-ORACLE_HALTS, non-CERTIFY instructions, kami cost equals vm cost. *)
+(** For non-CERTIFY instructions, kami cost equals vm cost. *)
 (* INQUISITOR NOTE: definitional helper for relating kami and vm cost models *)
 Lemma kami_cost_eq_instruction_cost : forall i,
-    is_oracle_halts i = false ->
     is_certify i = false ->
     kami_instruction_cost i = instruction_cost i.
 Proof.
-  intros i H Hc. destruct i; simpl in *; try reflexivity; try discriminate.
+  intros i Hc. destruct i; simpl in *; try reflexivity; try discriminate.
 Qed.
 
 (** * Execution preconditions *)
@@ -7758,18 +7828,17 @@ Proof.
   intros ks instr. rewrite kami_step_mu_cost. lia.
 Qed.
 
-(** Hardware-VM mu diamond: for non-ORACLE_HALTS, non-CERTIFY instructions,
+(** Hardware-VM mu diamond: for non-CERTIFY instructions,
     hardware and software mu agree exactly (kami charges = instruction_cost). *)
 Theorem kami_vm_mu_diamond :
   forall ks instr,
-    is_oracle_halts instr = false ->
     is_certify instr = false ->
     snap_mu (kami_step ks instr) = (vm_apply (abs_phase1 ks) instr).(vm_mu).
 Proof.
-  intros ks instr Hoh Hc.
+  intros ks instr Hc.
   rewrite kami_step_mu_cost, vm_apply_mu.
   unfold abs_phase1. simpl.
-  rewrite (kami_cost_eq_instruction_cost instr Hoh Hc). lia.
+  rewrite (kami_cost_eq_instruction_cost instr Hc). lia.
 Qed.
 
 (** LASSERT mu gap: now ZERO — both hardware and software charge flen * 8 + S cost. *)
@@ -7807,10 +7876,9 @@ Record CanonicalCPUProofBundle := {
   bundle_abstraction_sound :
     forall ks, kami_sim_rel ks (abs_phase1 ks);
 
-  (* Non-ORACLE_HALTS, non-CERTIFY: hardware and software mu agree exactly *)
+  (* Non-CERTIFY: hardware and software mu agree exactly *)
   bundle_step_commutes_standard :
     forall ks instr,
-      is_oracle_halts instr = false ->
       is_certify instr = false ->
       snap_mu (kami_step ks instr) = (vm_apply (abs_phase1 ks) instr).(vm_mu);
 
@@ -7847,14 +7915,14 @@ Qed.
     =========================================================================
 
     WHY THIS EXISTS: The machine runs on silicon. Silicon speaks MMIO.
-    This section provides the complete register map that lets a host system
-    read and write the machine's state through memory-mapped I/O addresses.
+    Here's the complete register map — every observable field gets a
+    memory-mapped I/O address so a host system can read and write state.
     Every observable field — PC, μ, err, tensors, partition counters — has
     a named BusReg that maps to a hardware-accessible address.
 
     This is the interface between the proof and the outside world.
     The bus layer is part of the extraction surface alongside vm_apply.
-    Both are included in thiele_core_complete.ml (build step copy).
+    Both are included in thiele_core_complete.ml by direct extraction.
     ========================================================================= *)
 
 Inductive BusReg : Type :=
@@ -10015,15 +10083,15 @@ Qed.
 
     For the core VM, Extraction.v → thiele_core.ml is the canonical path;
     this file's Extract Constant directives and ExtractionIdentityBundle
-    verify the same symbols. The Makefile copies thiele_core.ml →
-    thiele_core_complete.ml for byte-for-byte identity.
+    verify the same symbols. This file directly extracts
+    thiele_core_complete.ml with byte-for-byte identity to thiele_core.ml.
     ========================================================================= *)
 
 Extraction Language OCaml.
 
 (** Kami Hardware Extraction — generates OCaml for Bluespec pipeline.
-    Delegates to the modular kernel's CanonicalCPUProof to ensure
-    BYTE-FOR-BYTE IDENTICAL output with KamiExtraction.v → Target.ml. *)
+    Emitted before the core VM extraction so this file and Extraction.v have
+    the same extraction-engine state when the core VM surface is emitted. *)
 From KamiHW Require CanonicalCPUProof.
 Set Extraction Optimize.
 Set Extraction KeepSingleton.
@@ -12601,6 +12669,7 @@ Qed.
     Extraction.v has no explicit flags, so it uses these defaults.
     We set all three explicitly for clarity and to guard against any
     future changes to the file that might set them differently. *)
+Extraction Language OCaml.
 Set Extraction Optimize.
 Unset Extraction KeepSingleton.
 Unset Extraction AutoInline.
@@ -12711,10 +12780,6 @@ Extraction "../build/thiele_core_complete.ml"
   VMState.VMState
   VMState.mem_to_string
   VMState.write_string_to_mem
-  SimulationProof.vm_apply
-  SimulationProof.vm_apply_nofi
-  SimulationProof.vm_apply_runtime
-  SimulationProof.pnew_chain
   Abstraction.KamiSnapshot
   ThieleCPUBusTop.BusReg
   ThieleCPUBusTop.BusCoreView
@@ -12727,7 +12792,11 @@ Extraction "../build/thiele_core_complete.ml"
   ThieleCPUBusTop.busRead
   ThieleCPUBusTop.busWrite
   ThieleCPUBusTop.bus_step
-  ThieleCPUBusTop.coreViewOfSnapshot.
+  ThieleCPUBusTop.coreViewOfSnapshot
+  SimulationProof.vm_apply
+  SimulationProof.vm_apply_nofi
+  SimulationProof.vm_apply_runtime
+  SimulationProof.pnew_chain.
 
 (** THE AUDIT RECORD: every key claim, in one record, machine-checked.
     If this type-checks, every theorem in this record is proven.
@@ -12760,7 +12829,6 @@ Record ThieleMachineMasterSummary := {
 
   (* Layer 5: Hardware Refinement — exact μ commutation + LASSERT zero gap *)
   summary_hw_mu_diamond : forall ks instr,
-    is_oracle_halts instr = false ->
     is_certify instr = false ->
     snap_mu (kami_step ks instr) = (vm_apply (abs_phase1 ks) instr).(vm_mu);
   summary_hw_mu_lassert_gap : forall ks freg creg kind flen cost,
@@ -13458,7 +13526,7 @@ Proof.
     + rewrite Hsi. simpl. apply Nat.le_0_l.
 Qed.
 
-(** A5: cert_addr ≠ 0 → witness ≥ 1 (trivially, by definition). *)
+(** A5: cert_addr ≠ 0 → witness ≥ 1 (direct from the definition). *)
 Lemma thiele_cert_addr_threshold_witness_nfi_tc :
   forall (s : VMState),
     cs_cert_tc thiele_cert_addr_system_tc s = true ->
@@ -13904,10 +13972,10 @@ Close Scope R_scope.
     WHY THIS EXISTS:
     The modular kernel (coq/kernel/) uses names without the _tc suffix.
     This standalone file uses _tc names to avoid collisions with any future
-    imports. This section provides short aliases so that:
+    imports. Short aliases here so that:
     — downstream standalone ports can use familiar kernel names
     — extraction produces the same interface as the modular build
-    — no proof content is changed — pure Definition aliases only
+    — no proof content changes — pure Definition aliases only
 
     WHAT THIS IS NOT:
     This is not a duplication of proof content. Every Definition here is
@@ -13990,14 +14058,14 @@ Definition raychaudhuri_component_discharged_witness := nfi_to_einstein_tc.
 Definition nfi_to_gr_chain_complete := nfi_to_gr_chain_complete_tc.
 
 (** =========================================================================
-    SECTION 19C: EXTRACTION SURFACE — ISOMORPHIC IDENTITY
+    SECTION 19C: EXTRACTION SURFACE — BYTE-FOR-BYTE IDENTITY
     =========================================================================
 
     ARCHITECTURAL CLAIM:
-    This file and Extraction.v produce ISOMORPHIC OCaml code — identical
-    functions, identical implementations, identical types. The only difference
-    is function layout order, caused by Coq's context-dependent extraction
-    engine. Sorted-line diff = 0, verified by the test suite.
+    This file and Extraction.v produce byte-for-byte identical OCaml code:
+    identical functions, identical implementations, identical types, and
+    identical layout order. The build and test gates use byte comparison,
+    not sorted-line comparison.
 
       thiele_core_complete.ml — extracted DIRECTLY by this file (Section 19C
                                  Extraction directive below). Contains the
@@ -14014,12 +14082,11 @@ Definition nfi_to_gr_chain_complete := nfi_to_gr_chain_complete_tc.
       Target.ml               — extracted by KamiExtraction.v from the
                                  same CanonicalCPUProof.canonical_cpu_module.
 
-    WHY FUNCTION ORDERING DIFFERS:
-    Coq's extraction engine produces deterministic CODE but context-dependent
-    FUNCTION ORDERING. TMC's 14K-line compilation context creates different
-    internal extraction engine state than Extraction.v's minimal context.
-    The extracted functions are identical (sorted-file diff = 0), but their
-    layout in the .ml file differs. This is a known Coq extraction property.
+    HOW BYTE IDENTITY IS KEPT:
+    The hardware extraction is emitted before the core VM extraction in both
+    roots, and Extraction.v mirrors this file's Coq extraction context. That
+    keeps Coq's deterministic extraction ordering aligned across both direct
+    roots.
 
     WHAT IS VERIFIED:
     1. This file extracts thiele_core_complete.ml DIRECTLY from the kernel
@@ -14030,7 +14097,7 @@ Definition nfi_to_gr_chain_complete := nfi_to_gr_chain_complete_tc.
        that every extraction root symbol is well-defined and well-typed.
     4. Target_complete.ml is extracted directly and is byte-for-byte
        identical to Target.ml (verified by diff).
-    5. The build system verifies sorted-line identity between
+    5. The build system verifies byte-for-byte identity between
        thiele_core.ml and thiele_core_complete.ml.
     ========================================================================= *)
 
@@ -14257,7 +14324,7 @@ Qed.
         - MORPH_TENSOR bifunctoriality + interchange law (monoidal coherence)
         All proven from the graph operation definitions. Not assumed.
 
-    22. Extraction: vm_apply → build/thiele_core_complete.ml (this file, isomorphic to thiele_core.ml)
+    22. Extraction: vm_apply → build/thiele_core_complete.ml (this file, byte-identical to thiele_core.ml)
 
     23. Hardware: Kami MODULE → Bluespec → Verilog RTL (same pipeline, proven)
 

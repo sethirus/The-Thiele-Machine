@@ -8,34 +8,24 @@ From Kernel Require Import SimulationProof.
 From Kernel Require Import Locality.
 From Kernel Require Import KernelPhysics.
 
-(** * StressEnergyDynamics: Stress-Energy Drives PNEW Frequency
+(** StressEnergyDynamics: Stress-Energy Drives PNEW Frequency
 
-    ========================================================================
     PHASE 5 OF GRAVITY PROOF: PNEW FREQUENCY ~ INFORMATION DENSITY
-    ========================================================================
-
-    WHAT THIS FILE PROVES:
     1. PNEW operations increase module encoding length and axiom count
     2. High stress-energy (information density) → more PNEW operations
     3. PNEW frequency ∝ information density
     4. This creates the feedback loop: computation → curvature
-
-    THE CHAIN:
     - VMStep.v: PNEW creates modules with explicit μ-cost
     - MuGravity.v: stress_energy = mu_cost_density = encoding_length + region_size
     - This file: High stress_energy → high PNEW frequency
     - Future: PNEW changes topology → Gauss-Bonnet → curvature change
 
-    WHY THIS MATTERS:
     This is the missing link between computation and gravity:
     - Information (stress-energy) drives PNEW operations
     - PNEW operations change topology
     - Topology determines curvature (Gauss-Bonnet)
     - Therefore: Information curves spacetime!
 
-    NO AXIOMS. NO ADMITTED. Fully constructive proofs.
-
-    FALSIFICATION:
     Run VM traces with varying information densities. If PNEW frequency
     does NOT correlate with stress_energy, this theory is false.
 *)
@@ -44,7 +34,6 @@ Open Scope R_scope.
 
 (** High stress-energy means high information density.
 
-    WHY THIS MATTERS:
     Defines what "high stress-energy" means operationally:
     the module has accumulated many axioms or covers a large region.
 *)
@@ -53,7 +42,6 @@ Definition high_stress_energy_module (s : VMState) (m : ModuleID) (threshold : R
 
 (** PNEW operation increases total μ-cost.
 
-    WHY THIS MATTERS:
     Every PNEW consumes μ-cost, advancing the global computation ledger.
     This is μ-monotonicity: vm_mu never decreases.
 *)
@@ -89,7 +77,6 @@ Fixpoint count_pnew_in_trace (trace : list vm_instruction) : nat :=
 
 (** PNEW creates modules, increasing module count.
 
-    WHY THIS MATTERS:
     More PNEW operations → more modules → richer graph structure.
 *)
 Lemma pnew_trace_length_correlates : forall trace,
@@ -101,12 +88,11 @@ Proof.
     destruct instr; simpl; lia.
 Qed.
 
-(** KEY THEOREM: High stress-energy regions undergo more PNEW operations.
+(** The key theorem: High stress-energy regions undergo more PNEW operations.
 
     This is the core result: regions with high information density
     (high stress-energy) will have more PNEW operations targeting them.
 
-    WHY THIS IS TRUE:
     - Stress-energy = information density
     - Information is encoded via axioms and module structure
     - PNEW is how the VM creates module structure
@@ -116,7 +102,6 @@ Qed.
     Given a trace of execution, modules with higher stress-energy
     will be targets of more PNEW operations than low-stress modules.
 
-    FALSIFICATION:
     Run VM traces on high-density vs low-density regions.
     Count PNEW operations targeting each.
     If the counts are NOT correlated with density, theory is false.
@@ -226,7 +211,6 @@ Qed.
     4. Compute PNEW frequency = count / total_ops
     5. Verify: frequency correlates with stress_energy
 
-    FALSIFICATION:
     If no correlation exists, the fundamental premise
     "information curves spacetime" is empirically false.
 *)

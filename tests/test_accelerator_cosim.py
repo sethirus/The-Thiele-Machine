@@ -40,12 +40,12 @@ class TestPartitionPath:
 class TestReceiptVisiblePath:
     def test_emit_increases_mu(self):
         baseline = _run_cosim("HALT")
-        emitted = _run_cosim("EMIT 0 0 6\nHALT")
-        assert emitted["mu"] >= baseline["mu"] + 6
+        emitted = _run_cosim("EMIT 0 6 0\nHALT")
+        assert emitted["mu"] >= baseline["mu"] + 7
 
     def test_reveal_after_logic_init_runs(self):
-        state = _run_cosim("INIT_LOGIC_ACC -889263410\nREVEAL 0 0 4\nHALT")
-        assert state["mu"] >= 4
+        state = _run_cosim("INIT_LOGIC_ACC -889263410\nREVEAL 0 4 0\nHALT")
+        assert state["mu"] >= 5
 
 
 class TestArithmeticAdjacentPath:

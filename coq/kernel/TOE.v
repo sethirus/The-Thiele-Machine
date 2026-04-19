@@ -1,13 +1,10 @@
-(** =========================================================================
+(**
     KERNEL CLOSURE: Closure Properties of VM Semantics
-    =========================================================================
 
-    WHY THIS FILE EXISTS:
     This theorem summarizes what the Thiele Machine kernel PROVES from its
     operational semantics. KernelMaximalClosureP packages three properties:
     instruction locality, mu-monotonicity, and trace causality.
 
-    WHAT THIS PROVES:
     KernelTOE_FinalOutcome: The kernel theory derives:
     1. Instruction locality (operations only affect their targets)
     2. mu-monotonicity (information cost never decreases)
@@ -26,15 +23,12 @@
     instruction-consistent cost functional starting from zero must equal
     vm_mu on all reachable states.
 
-    FALSIFICATION:
     Find an instruction that modifies state outside its target list (violates
     locality). Find an instruction with negative cost (violates monotonicity).
     Find two distinct instruction-consistent cost functionals disagreeing on
     a reachable state (violates mu_is_initial_monotone from MuInitiality.v).
 
-    NO AXIOMS. NO ADMITS.
-
-    ========================================================================= *)
+    *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -90,7 +84,7 @@ Proof.
          exact (trace_quantum_model_connection_closed fuel trace s_init Hcoh).
 Qed.
 
-(** =========================================================================
+(**
     SCOPE
 
     KernelMaximalClosureP proves three VM operational properties:
@@ -116,4 +110,4 @@ Qed.
     - mu-cost is the unique instruction-consistent cost functional
     - No gauge freedom: the concrete VM pins down cost completely
 
-    ========================================================================= *)
+    *)

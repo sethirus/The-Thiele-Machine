@@ -1,13 +1,14 @@
-(** * Formalising spacetime as a 4D structure with self-reference and a necessary meta-level.
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
+(** Spacetime as a 4D system with a meta-level gap.
 
+  This file gives a lightweight spacetime model built from 4D events,
+  worldlines, light-cone reachability, and observer frames. It then connects
+  that model to the general self-reference framework and shows the intended
+  conclusion: once spacetime contains a genuinely self-referential phenomenon,
+  a richer meta-level is needed to reason about it.
 
-    This file gives a lightweight model of spacetime as a 4-tupled
-    coordinate system together with causal structure (worldlines,
-    light cones, observer frames).  We connect those notions to the
-    general self-reference framework from [SelfReference] and show
-    that any self-referential phenomenon in spacetime requires a
-    dimensionally richer meta-level system.
+  The model is deliberately small. The light cone is only a toy arithmetic
+  proxy, and the self-reference theorem is about the logical structure of the
+  model, not a claim that real relativity has been reconstructed here.
  *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
@@ -70,7 +71,6 @@ Definition spacetime_system : System :=
 Definition spacetime_self_reference : Prop :=
   exists (F : Frame) (P : Prop), P /\ observes F (fun _ => P).
 
-(** [spacetime_is_self_referential]: formal specification. *)
 Lemma spacetime_is_self_referential :
   spacetime_self_reference -> contains_self_reference spacetime_system.
 Proof.
@@ -111,19 +111,16 @@ Qed.
 (** A concrete meta-level witness for spacetime that is dimensionally richer. *)
 Definition spacetime_meta : System := meta_system spacetime_system.
 
-(** [spacetime_meta_properties]: formal specification. *)
 Lemma spacetime_meta_properties :
   can_reason_about spacetime_meta spacetime_system /\ dimensionally_richer spacetime_meta spacetime_system.
 Proof.
   split; [apply meta_system_can_reason_about | apply meta_system_richer].
 Qed.
 
-(** [spacetime_meta_dimensional_gap]: formal specification. *)
 Lemma spacetime_meta_dimensional_gap : dimension spacetime_system = 4.
 Proof. reflexivity. Qed.
 
-(* ARITHMETIC — meta_system adds 1 to dimension 4, giving 5 > 4 *)
-(** [spacetime_meta_exceeds_4d]: formal specification. *)
+(* Arithmetic check: meta_system adds one dimension, so 4 becomes 5. *)
 Lemma spacetime_meta_exceeds_4d : dimension spacetime_meta > 4.
 Proof.
   unfold spacetime_meta, meta_system, dimensionally_richer; simpl.
@@ -136,7 +133,6 @@ Qed.
 Definition spacetime_global_gap : Prop :=
   forall (Q : LocalPredicate), (exists e, at_event e Q) -> ~ (forall e, Q e = true -> contains_self_reference spacetime_system).
 
-(** [global_truth_escapes]: formal specification. *)
 Lemma global_truth_escapes :
   spacetime_global_gap ->
   exists Meta,

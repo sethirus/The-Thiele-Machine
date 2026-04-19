@@ -10,7 +10,8 @@ What this verifies:
 3. Canonical source exports `canonical_cpu_module` and `targetB`.
 4. Extracted Kami OCaml artefacts preserve those canonical symbols and drive
     the pretty-printer through `targetB`.
-5. The tracked RTL is byte-identical to the generated synthesis-transformed
+5. Modular and ThieleMachineComplete extractions are byte-identical.
+6. The tracked RTL is byte-identical to the generated synthesis-transformed
     Kami artefact (`build/kami_hw/mkModule1_synth.v`).
 """
 
@@ -26,7 +27,13 @@ KAMI_EXTRACTION_V = COQ / "kami_hw" / "KamiExtraction.v"
 CANONICAL_V = COQ / "kami_hw" / "CanonicalCPUProof.v"
 
 THIELE_CORE_ML = REPO / "build" / "thiele_core.ml"
+THIELE_CORE_COMPLETE_ML = REPO / "build" / "thiele_core_complete.ml"
+THIELE_CORE_MLI = REPO / "build" / "thiele_core.mli"
+THIELE_CORE_COMPLETE_MLI = REPO / "build" / "thiele_core_complete.mli"
 KAMI_TARGET_ML = REPO / "build" / "kami_hw" / "Target.ml"
+KAMI_TARGET_COMPLETE_ML = REPO / "build" / "kami_hw" / "Target_complete.ml"
+KAMI_TARGET_MLI = REPO / "build" / "kami_hw" / "Target.mli"
+KAMI_TARGET_COMPLETE_MLI = REPO / "build" / "kami_hw" / "Target_complete.mli"
 KAMI_MAIN_ML = REPO / "build" / "kami_hw" / "Main.ml"
 KAMI_RAW_V = REPO / "build" / "kami_hw" / "mkModule1.v"
 KAMI_SYNTH_V = REPO / "build" / "kami_hw" / "mkModule1_synth.v"
@@ -68,7 +75,20 @@ def test_canonical_source_exports_entrypoints():
 @pytest.mark.coq
 def test_extraction_artifacts_exist():
     missing = [
-        p for p in (THIELE_CORE_ML, KAMI_TARGET_ML, KAMI_MAIN_ML, KAMI_RAW_V, KAMI_SYNTH_V, TRACKED_RTL_V)
+        p for p in (
+            THIELE_CORE_ML,
+            THIELE_CORE_COMPLETE_ML,
+            THIELE_CORE_MLI,
+            THIELE_CORE_COMPLETE_MLI,
+            KAMI_TARGET_ML,
+            KAMI_TARGET_COMPLETE_ML,
+            KAMI_TARGET_MLI,
+            KAMI_TARGET_COMPLETE_MLI,
+            KAMI_MAIN_ML,
+            KAMI_RAW_V,
+            KAMI_SYNTH_V,
+            TRACKED_RTL_V,
+        )
         if not p.exists() or p.stat().st_size == 0
     ]
     assert not missing, (
@@ -87,6 +107,26 @@ def test_extracted_target_preserves_canonical_symbol_wiring():
     assert "val targetB" in text
     assert "let targetB _ =" in text
     assert "canonical_cpu_module" in text
+
+
+@pytest.mark.coq
+def test_modular_and_complete_ocaml_extractions_match_exactly():
+    assert THIELE_CORE_ML.read_bytes() == THIELE_CORE_COMPLETE_ML.read_bytes(), (
+        "build/thiele_core.ml and build/thiele_core_complete.ml diverge; "
+        "both direct extraction roots must emit byte-identical OCaml."
+    )
+    assert THIELE_CORE_MLI.read_bytes() == THIELE_CORE_COMPLETE_MLI.read_bytes(), (
+        "build/thiele_core.mli and build/thiele_core_complete.mli diverge; "
+        "both direct extraction roots must emit byte-identical interfaces."
+    )
+    assert KAMI_TARGET_ML.read_bytes() == KAMI_TARGET_COMPLETE_ML.read_bytes(), (
+        "build/kami_hw/Target.ml and Target_complete.ml diverge; "
+        "module and ThieleMachineComplete hardware extractions must match exactly."
+    )
+    assert KAMI_TARGET_MLI.read_bytes() == KAMI_TARGET_COMPLETE_MLI.read_bytes(), (
+        "build/kami_hw/Target.mli and Target_complete.mli diverge; "
+        "module and ThieleMachineComplete hardware interfaces must match exactly."
+    )
 
 
 @pytest.mark.coq

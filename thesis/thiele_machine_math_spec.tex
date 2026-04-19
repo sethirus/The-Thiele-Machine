@@ -138,10 +138,10 @@ These modify the partition graph $G$:
 \subsection{Logical Operations}
 These interact with information content:
 \begin{itemize}
-    \item $\texttt{LASSERT}(\mathit{freg}, \mathit{creg}, \mathit{kind}, \mathit{flen}, \mathit{cost})$: Assert a formula read from \texttt{vm\_mem}[\texttt{R[freg]}] (length $\mathit{flen}$ bytes) against a certificate at \texttt{vm\_mem}[\texttt{R[creg]}]; $\Delta\mu = \mathit{flen} \times 8 + S(\mathit{cost}) \geq 1$.
+    \item $\texttt{LASSERT}(\mathit{freg}, \mathit{creg}, \mathit{kind}, \mathit{flen}, \mathit{cost})$: Assert a formula read from \texttt{vm\_mem}[\texttt{R[freg]}] (encoded-unit count $\mathit{flen}$, eight concrete bits per unit) against a witness package at \texttt{vm\_mem}[\texttt{R[creg]}]. In SAT mode the package contains one satisfying assignment and one falsifying assignment, stored back-to-back; $\Delta\mu = \mathit{flen} \times 8 + S(\mathit{cost}) \geq 1$.
     \item $\texttt{LJOIN}(\mathit{c1reg}, \mathit{c2reg}, \Delta\mu)$: Join certificates from two memory-resident strings addressed by registers.
-    \item $\texttt{REVEAL}(m, n, \mathit{cert}, \Delta\mu)$: Reveal $n$ bits of structure from $m$. \emph{Primary source of $\mu$-cost.}
-    \item $\texttt{EMIT}(m, p, \Delta\mu)$: Emit payload $p$ from module $m$.
+    \item $\texttt{REVEAL}(m, n, \mathit{cert}, \Delta\mu)$: Reveal $n$ bits of structure from $m$; cost is $n + S(\Delta\mu)$.
+    \item $\texttt{EMIT}(m, p, \Delta\mu)$: Emit payload $p$ from module $m$; cost is $|p|_{\mathrm{bits}} + S(\Delta\mu)$.
 \end{itemize}
 
 \subsection{Computational Operations (Reversible ALU)}
@@ -221,9 +221,9 @@ $\mathrm{Run}([], S) = S$; \quad $\mathrm{Run}(i::\tau', S) = \mathrm{Run}(\tau'
 
 \textbf{PNEW}: Normalize region; if already present, idempotent; else add $(R_{\mathrm{norm}}, \emptyset)$ to $G$.
 
-\textbf{REVEAL}: Update CSRs with checksum of certificate $\mathit{cert}$. Cost: $\Delta\mu$ (typically 1).
+\textbf{REVEAL}: Update CSRs with checksum of certificate $\mathit{cert}$. Cost: $\mathit{bits} + S(\Delta\mu)$.
 
-\textbf{LASSERT}: Read formula from \texttt{vm\_mem}[\texttt{R[formula\_addr\_reg]}] (length \texttt{formula\_len} bytes) and certificate from \texttt{vm\_mem}[\texttt{R[cert\_addr\_reg]}]. Verify using \texttt{cert\_kind} (false = LRAT/UNSAT, true = SAT model). If valid, append the formula to $A_m$; if invalid, set $\mathit{err} \gets \mathrm{true}$. Cost: $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$.
+\textbf{LASSERT}: Read formula from \texttt{vm\_mem}[\texttt{R[formula\_addr\_reg]}] (encoded-unit count \texttt{formula\_len}, eight concrete bits per unit) and witness package from \texttt{vm\_mem}[\texttt{R[cert\_addr\_reg]}]. Verify using \texttt{cert\_kind} (false = LRAT/UNSAT, true = satisfying model plus falsifying countermodel). If valid, append the formula to $A_m$; if invalid, set $\mathit{err} \gets \mathrm{true}$. Cost: $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$.
 
 %=============================================================================
 % PART II: CORE THEOREMS

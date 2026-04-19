@@ -18,7 +18,6 @@ Section SplitTail.
     let k := length l - test_n in
     (firstn k l, skipn k l).
 
-  (** [split_tail_app]: formal specification. *)
   Lemma split_tail_app (test_n : nat) (l : list A) :
       l = fst (split_tail test_n l) ++ snd (split_tail test_n l).
   Proof.
@@ -29,7 +28,6 @@ Section SplitTail.
     reflexivity.
   Qed.
 
-  (** [split_tail_lengths]: formal specification. *)
   Lemma split_tail_lengths (test_n : nat) (l : list A) :
       length (fst (split_tail test_n l)) + length (snd (split_tail test_n l)) = length l.
   Proof.
@@ -38,7 +36,6 @@ Section SplitTail.
     reflexivity.
   Qed.
 
-  (** [split_tail_test_length_exact]: formal specification. *)
   Lemma split_tail_test_length_exact (test_n : nat) (l : list A) :
       test_n <= length l -> length (snd (split_tail test_n l)) = test_n.
   Proof.
@@ -52,7 +49,6 @@ Section SplitTail.
     lia.
   Qed.
 
-  (** [split_tail_train_length_exact]: formal specification. *)
   Lemma split_tail_train_length_exact (test_n : nat) (l : list A) :
       test_n <= length l -> length (fst (split_tail test_n l)) = length l - test_n.
   Proof.

@@ -1,57 +1,16 @@
-(** * SelfCertifyingDecider.v — The Self-Correcting Moral Agent
+(** SelfCertifyingDecider: safety checking inside the machine semantics.
 
-    THE PROBLEM
-    ───────────
-    We want a machine that cannot execute unsafe steps, even if it "tries."
-    An external safety monitor requires trusting a third party.
-    Can a machine check its own safety using its own verified logic?
+   This file builds a machine that queries its own safety oracle before every
+   transition. If the oracle approves, the machine advances and pays the check
+   cost. If the oracle rejects, the machine halts before the unsafe transition
+   occurs. The safety check is therefore part of the semantics, not an
+   external monitor bolted on afterward.
 
-    THE ANSWER: YES.
-    ────────────────
-    A [SelfCertifyingDecider] is a machine that, before every state transition:
-      (1) Proposes a next state via its transition function.
-      (2) Runs its safety oracle on the (current, next) pair.
-      (3) ONLY advances if the oracle approves (certifiably safe transition).
-      (4) HALTS permanently if the oracle rejects (possible violation detected).
-
-    This is not a monitor bolted on the side.  The safety check is baked into
-    the operational semantics.  The machine IS the checker.
-
-    MAIN THEOREMS
-    ─────────────
-    1. [decider_step_preserves_safety]: one step preserves any sound predicate P.
-
-    2. [decider_safety_all_steps]: THE SCALE-INVARIANT SAFETY THEOREM.
-       P holds at ds_current for ALL n steps.  This is the infinite-tiling
-       result instantiated in the concrete machine.
-
-    3. [decider_never_enters_unsafe]: if the oracle approves, the next state
-       is provably safe (by oracle soundness).
-
-    4. [decider_halts_on_unsafe]: if the oracle rejects, the machine halts
-       BEFORE the transition executes.  You cannot buy safety violation.
-
-    5. [decider_mu_monotone]: μ never decreases.
-
-    6. [decider_utility_frozen_after_halt]: once halted, no utility can
-       be gained.  LOGIC BEATS GREED (the μ-Threshold of Disobedience,
-       now in the self-certifying setting).
-
-    7. [decider_correctness]: THE MAIN RESULT.
-       A self-certifying machine with a sound oracle is permanently safe,
-       with monotone μ.
-
-    CONNECTION TO TRUST CERTIFICATES
-    ──────────────────────────────────
-    The [trust_certifying_oracle] connects oracle soundness to the lift_safety
-    functor from InductiveTrust: the decider's oracle checks exactly the states
-    that the TrustCertificate says are safe in the expanded space.
-
-    [decider_bridges_spaceland]: CLOSING THEOREM.
-    A self-certifying decider instantiated from a TrustCertificate satisfies
-    safety, μ-monotonicity, and the concrete Löb bypass simultaneously.
-
-    Zero admits.  Imports InductiveTrust and RefinementInvariant (connect to kernel). *)
+   The main results show that sound oracles preserve safety for every step,
+   halting is sticky, μ stays monotone, and utility is frozen after halt. The
+   later bridge theorems then tie this decider model back to the trust
+   certificates from InductiveTrust and RefinementInvariant.
+ *)
 
 From Coq Require Import Arith List Lia Bool.
 Import ListNotations.
@@ -62,7 +21,7 @@ From Kernel Require Import VMState VMStep MuCostModel.
 Require Import InductiveTrust.
 Require Import RefinementInvariant.
 
-(* ================================================================== *)
+(* *)
 (** ** 1. Abstract transition system *)
 
 (** A transition system: states are natural numbers, transitions are
@@ -85,7 +44,7 @@ Definition SafetyPred := nat -> Prop.
 Definition oracle_sound (oracle : SafetyOracle) (P : SafetyPred) : Prop :=
   forall s t, oracle s t = true -> P s -> P t.
 
-(* ================================================================== *)
+(* *)
 (** ** 2. Decider machine state *)
 
 (** A DeciderState tracks:
@@ -137,7 +96,7 @@ Fixpoint decider_run
   | S k => decider_run ts oracle util (decider_step ts oracle util s) k
   end.
 
-(* ================================================================== *)
+(* *)
 (** ** 3. Basic structural lemmas *)
 
 Lemma decider_halted_frozen :
@@ -180,7 +139,7 @@ Definition decider_mu_monotone :
     ds_mu s <= ds_mu (decider_run ts oracle util s n) :=
   decider_run_mu_monotone.
 
-(* ================================================================== *)
+(* *)
 (** ** 4. Safety invariant: the core theorem *)
 
 (** KEY LEMMA: one step of the decider preserves any sound safety predicate. *)
@@ -205,8 +164,7 @@ Proof.
       exact HP.
 Qed.
 
-(** THE SCALE-INVARIANT SAFETY THEOREM:
-    P holds at ds_current after ALL n steps, provided it holds initially
+(** THE SCALE-INVARIANT SAFETY P holds at ds_current after ALL n steps, provided it holds initially
     and the oracle is sound.
 
     This is the infinite-tiling induction principle instantiated in silicon:
@@ -226,7 +184,7 @@ Proof.
     exact (decider_step_preserves_safety ts oracle util P Hsound s0 HP).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 5. Halt theorems: logic beats greed *)
 
 (** The decider never advances to a state the oracle considers unsafe. *)
@@ -266,7 +224,7 @@ Proof.
   rewrite decider_halted_frozen; [reflexivity | exact H].
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 6. The bool_oracle: trivially sound for decidable safety *)
 
 (** [bool_oracle safe]: checks [safe t] before any transition to [t].
@@ -296,7 +254,7 @@ Proof.
            (bool_oracle_sound safe) n s0 H).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 7. Connection to TrustCertificates *)
 
 (** [trust_certifying_oracle]: given an Expansion φ : A ↪ B and a boolean
@@ -340,11 +298,10 @@ Proof.
     + exact Hsafe_b.
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 8. The main result *)
 
-(** THE DECIDER CORRECTNESS THEOREM:
-    A self-certifying machine with a sound oracle maintains its safety
+(** THE DECIDER CORRECTNESS A self-certifying machine with a sound oracle maintains its safety
     predicate at every step, with monotone μ throughout.
 
     This packages the Friday Challenge into a single formal claim:
@@ -365,7 +322,7 @@ Proof.
   - exact (decider_mu_monotone ts oracle util s0 n).
 Qed.
 
-(* ================================================================== *)
+(* *)
 (** ** 9. Closing theorem: bridge from Spaceland to Flatland to Silicon *)
 
 (** DECIDER_BRIDGES_SPACELAND: full closure from abstract trust to concrete VM.

@@ -1,8 +1,5 @@
-(** * Riemann Curvature Tensor in 4D: From Discrete Metric
-
-    ========================================================================
-    PURPOSE: Define 4D Riemann curvature tensor from discrete metric
-    ========================================================================
+(** Riemann Curvature Tensor in 4D: From Discrete Metric
+    Define 4D Riemann curvature tensor from discrete metric
 
     THE GOAL:
     Define the full Riemann curvature tensor R^ρ_{σμν} from the metric
@@ -15,7 +12,6 @@
     4. Contract again to get Ricci scalar R
     5. Build Einstein tensor G_μν = R_μν - (1/2)g_μν R
 
-    STATUS:
     ✓ Definitions complete with proper connection curvature
     ⚠ Proofs of Bianchi identities not yet completed
     ⚠ Full tensor algebra infrastructure needed
@@ -51,8 +47,7 @@ From Kernel Require Import MetricFromMuCosts.
 
     This is identical to full_metric_at_vertex (defined in MetricFromMuCosts)
     and is retained here as a thin alias so the rest of this file is readable.
-
-    NOTE: The old definition read from vm_mu_tensor (a global state field)
+ The old definition read from vm_mu_tensor (a global state field)
     making the metric identical at every vertex and all Christoffel symbols
     trivially zero.  The new definition is genuinely position-dependent.
 *)

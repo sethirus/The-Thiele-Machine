@@ -1,14 +1,11 @@
-(** =========================================================================
+(**
     SEMIDEFINITE PROGRAMMING - Foundation for NPA Hierarchy
-    =========================================================================
 
-    WHY THIS FILE EXISTS:
     The Tsirelson bound proof requires showing that certain moment matrices
     are positive semidefinite (PSD). This file provides the mathematical
     foundation: matrix representation, determinants, PSD definitions via
     Sylvester's criterion, and key inequalities (Cauchy-Schwarz for PSD).
 
-    THE CORE CLAIM:
     A matrix is PSD if and only if all principal minors are non-negative
     (Sylvester's criterion). From PSD, Cauchy-Schwarz follows: M[i,j]^2 <=
     M[i,i] * M[j,j]. These algebraic facts are the engine behind the
@@ -20,17 +17,15 @@
     - Schur complement criterion for 2x2 PSD
     - Cauchy-Schwarz inequality for PSD matrices
 
-    APPROACH:
     We use a computational approach where PSD is characterized by
     all principal minors being non-negative (Sylvester's criterion).
     This is more amenable to Coq proof than eigenvalue analysis.
 
-    FALSIFICATION:
     Find a matrix satisfying all principal minor constraints (PSD_n) where
     Cauchy-Schwarz fails: M[i,j]^2 > M[i,i]*M[j,j]. This is impossible
     because the 2x2 minor at (i,j) has det = M[i,i]*M[j,j] - M[i,j]^2 >= 0.
 
-    ========================================================================= *)
+    *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -41,7 +36,7 @@ From Coq Require Import Reals.ROrderedType.
 Import ListNotations.
 Local Open Scope R_scope.
 
-(** * Matrix Representation *)
+(** Matrix Representation *)
 
 (** We represent matrices as functions from indices to reals.
     For the CHSH NPA-1 matrix, we only need small matrices (up to 5×5). *)
@@ -64,7 +59,7 @@ Definition transpose {n : nat} (M : Matrix n) : Matrix n :=
 Definition symmetric {n : nat} (M : Matrix n) : Prop :=
   forall (i j : nat), (i < n)%nat -> (j < n)%nat -> M i j = M j i.
 
-(** * Determinants and Minors *)
+(** Determinants and Minors *)
 
 (** 2×2 determinant *)
 Definition det2 (a b c d : R) : R :=
@@ -134,7 +129,7 @@ Definition principal_minor3 {n : nat} (M : Matrix n) (i j k : nat) : R :=
     let idx_c := match b with 0 => i | 1 => j | _ => k end in
     M idx_r idx_c).
 
-(** * Extended Determinants for Larger Matrices *)
+(** Extended Determinants for Larger Matrices *)
 
 (** 4×4 determinant using cofactor expansion along first row *)
 Definition det4_matrix (M : Matrix 4) : R :=
@@ -245,7 +240,7 @@ Definition PSD_5 (M : Matrix 5) : Prop :=
   det4_matrix (fun i j => M i j) >= 0 /\
   det5_matrix M >= 0.
 
-(** * Positive Semidefinite Matrices *)
+(** Positive Semidefinite Matrices *)
 
 (** A matrix is PSD if all principal minors are non-negative.
     This is Sylvester's criterion for PSD matrices. *)
@@ -289,12 +284,11 @@ Definition PSD {n : nat} (M : Matrix n) : Prop :=
 Definition SymmetricPSD {n : nat} (M : Matrix n) : Prop :=
   symmetric M /\ PSD M.
 
-(** * Basic PSD Properties *)
+(** Basic PSD Properties *)
 
 (** Diagonal elements of PSD matrices are non-negative.
     This follows directly from our PSD definition which requires all M[i,i] >= 0. *)
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-(** [PSD_diagonal_nonneg]: formal specification. *)
 Lemma PSD_diagonal_nonneg : forall (n : nat) (M : Matrix n) (i : nat),
   (i < n)%nat ->
   PSD M ->
@@ -385,7 +379,7 @@ Proof.
            destruct (Nat.eqb i i) eqn:E; [lra | apply Nat.eqb_neq in E; contradiction].
 Qed.
 
-(** * Schur Complement Criterion *)
+(** Schur Complement Criterion *)
 
 (** For a 2×2 block matrix [[A, B], [B^T, C]], it's PSD iff
     A is PSD and C - B^T A^{-1} B is PSD (Schur complement). *)
@@ -467,7 +461,7 @@ Proof.
       lra.
 Qed.
 
-(** * Cauchy-Schwarz for PSD Matrices *)
+(** Cauchy-Schwarz for PSD Matrices *)
 
 (** Cauchy-Schwarz inequality for PSD matrices: M[i,j]^2 <= M[i,i] * M[j,j]
     This follows from the 2×2 principal submatrix having non-negative determinant.
@@ -590,7 +584,7 @@ Proof.
            ++ (* n >= 6: contradicted by Hn *) lia.
 Qed.
 
-(** * Absolute Value Bound *)
+(** Absolute Value Bound *)
 
 (** For PSD M with M[i,i] <= 1 and M[j,j] <= 1, we have |M[i,j]| <= 1 *)
 (** This follows from Cauchy-Schwarz: |M[i,j]|^2 <= M[i,i] * M[j,j] <= 1*1 = 1. *)
@@ -620,7 +614,7 @@ Proof.
   split; nra.
 Qed.
 
-(** =========================================================================
+(**
     VERIFICATION SUMMARY - STEP 1
 
     ✓ Matrix representation defined (function-based)
@@ -637,4 +631,4 @@ Qed.
     NPA-1 moment matrix constructed in NPAMomentMatrix.v using these SDP
     foundations. Tsirelson bound proved in TsirelsonGeneral.v via pure
     algebra.
-    ========================================================================= *)
+    *)

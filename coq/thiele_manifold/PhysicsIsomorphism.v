@@ -1,4 +1,4 @@
-(** * Physics-as-computation scaffold and conjectures
+(** Physics-as-computation scaffold and conjectures
 
     This optional study packages a shared interface for discrete physics
     models, a single embedding contract into the verified VM, and the
@@ -71,7 +71,6 @@ Definition embedding_trace_cost_positive {DP} (E : ThieleEmbedding DP) : Prop :=
   Notation encode := (emb_encode DP E).
   Notation decode := (emb_decode DP E).
 
-(** [reversible_trace_irreversibility_count_zero]: formal specification. *)
 Lemma reversible_trace_irreversibility_count_zero :
   embedding_trace_cost_free E ->
   forall fuel s_vm, irreversible_count fuel trace s_vm = 0.
@@ -86,7 +85,6 @@ Proof.
   rewrite H. simpl. apply IH.
 Qed.
 
-(** [reversible_trace_ledger_sum_zero]: formal specification. *)
 Lemma reversible_trace_ledger_sum_zero :
   embedding_trace_cost_free E ->
   forall fuel s_vm, ledger_sum (ledger_entries fuel trace s_vm) = 0.
@@ -100,7 +98,6 @@ Proof.
   specialize (IH (vm_apply s_vm instr)). lia.
 Qed.
 
-(** [reversible_embedding_zero_irreversibility]: formal specification. *)
 Lemma reversible_embedding_zero_irreversibility :
   phys_reversible DP -> embedding_trace_cost_free E ->
     forall fuel (s_vm : VMState),
@@ -115,7 +112,6 @@ Proof.
     lia.
 Qed.
 
-(** [irreversible_count_positive_from_cost]: formal specification. *)
 Lemma irreversible_count_positive_from_cost :
   embedding_trace_cost_positive E ->
   forall fuel s_vm instr,
@@ -133,7 +129,6 @@ Proof.
   - lia.
 Qed.
 
-(** [dissipative_embedding_mu_gap]: formal specification. *)
 Lemma dissipative_embedding_mu_gap :
   embedding_trace_cost_positive E ->
   forall fuel s_vm instr,
@@ -146,7 +141,6 @@ Proof.
   lia.
 Qed.
 
-(** [reversible_embedding_zero_irreversibility_hw]: formal specification. *)
 Lemma reversible_embedding_zero_irreversibility_hw :
   phys_reversible DP -> embedding_trace_cost_free E ->
   forall (Impl : FaithfulImplementation) fuel s_hw,
@@ -165,7 +159,6 @@ Proof.
     tauto.
 Qed.
 
-(** [dissipative_embedding_mu_gap_hw]: formal specification. *)
 Lemma dissipative_embedding_mu_gap_hw :
   embedding_trace_cost_positive E ->
   forall (Impl : FaithfulImplementation) fuel s_hw instr,

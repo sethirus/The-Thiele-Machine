@@ -1,37 +1,15 @@
-(** * BekensteinCalibration: From Bekenstein Bound to Landauer-Unruh Calibration
+(** BekensteinCalibration: explicit assumptions for Landauer-Unruh calibration.
 
-    THE BEKENSTEIN-RINDLER DERIVATION:
+    This file exists to name the physics gap instead of hand-waving past it. If
+    you assume a Bekenstein-style saturation relation and then plug in the
+    Landauer entropy per bit, the algebra tells you what energy per mu-unit
+    would have to look like. But that still does not identify the VM cost unit
+    with physical energy by magic.
 
-    For a Rindler horizon at proper acceleration a, the Bekenstein bound
-    saturates to an equality for a system in thermal equilibrium:
-
-      S = E / T_Unruh   where T_Unruh = ℏa / (2π c k_B)
-
-    For Landauer erasure of Δμ bits (each bit = k_B ln 2 entropy):
-      S = Δμ × k_B × ln 2
-      E = T_Unruh × S = T_Unruh × Δμ × k_B × ln 2
-
-    Energy per μ-unit:
-      E_per_μ = T_Unruh × k_B × ln 2   [Landauer energy — purely algebraic]
-
-    THE GAP MADE EXPLICIT:
-
-    The connection from E_per_μ (physical joules) to null_energy_flux_delta
-    (dimensionless VM real) requires identifying the VM's cost unit with
-    physical Landauer energy. We make this identification explicit as a
-    NAMED HYPOTHESIS: [mu_energy_unit_is_landauer].
-
-    This hypothesis is:
-    - Falsifiable: run hardware traces, measure energy per vm_mu increment,
-      compare against k_B × T_hardware × ln 2 at the operating temperature.
-    - Motivated: the Bekenstein argument above shows WHY the ratio E/S = T_Unruh
-      at a causal horizon, so any consistent cost measure at the horizon boundary
-      must equal Landauer energy.
-    - Structural: the VM's PSPLIT locality (nearest-neighbor split morphisms)
-      places computations exactly at causal boundaries where Bekenstein applies.
-
-    ZERO AXIOMS. ZERO ADMITS.
-*)
+    So the missing step is made explicit as a named hypothesis. That is the
+    honest move here. The file gives the clean algebra it can prove directly and
+    forces callers to state the extra calibration premise when they want the
+    physical bridge. *)
 
 From Coq Require Import Reals Lra Lia List.
 Import ListNotations.
@@ -45,18 +23,15 @@ From Kernel Require Import RaychaudhuriFluxBridge.
 
 Local Open Scope R_scope.
 
-(** =========================================================================
-    SECTION 1: THE BEKENSTEIN-RINDLER ALGEBRAIC IDENTITY
-    ========================================================================= *)
+(** The Bekenstein-Rindler algebra this file can prove directly. *)
 
-(** [bekenstein_rindler_energy_per_bit]: Pure algebra — no hypotheses about
-    the VM. Given Bekenstein saturation (E = T_Unruh × S) and Landauer
+(** [bekenstein_rindler_energy_per_bit]: Pure algebra, no VM hypothesis.
+    Given Bekenstein saturation (E = T_Unruh × S) and Landauer
     entropy (S = n_bits × k_B × ln 2), the energy per bit is T × k_B × ln 2.
 
-    This is the DERIVATION the user identified as "arguable from Bekenstein."
-    It IS fully derivable — from the Bekenstein equality and Landauer formula,
-    the Landauer energy per bit is determined purely by algebra. *)
-(* INQUISITOR NOTE: Pure algebra — Bekenstein saturation + Landauer entropy → energy per bit *)
+    The theorem does not prove saturation. It says that if saturation is one of
+    your inputs, the Landauer energy per bit falls out by algebra. *)
+(* INQUISITOR NOTE: Pure algebra, Bekenstein saturation plus Landauer entropy gives energy per bit. *)
 Theorem bekenstein_rindler_energy_per_bit :
   forall (k_B T_Unruh n_bits E_total : R),
     0 < n_bits ->
@@ -70,9 +45,8 @@ Proof.
   rewrite Hsat. field. lra.
 Qed.
 
-(** [bekenstein_entropy_energy_ratio]: The Bekenstein bound at saturation
-    gives entropy/energy = 1/T_Unruh. For a Rindler horizon this is an
-    EQUALITY (not just inequality) for systems in thermal equilibrium. *)
+(** [bekenstein_entropy_energy_ratio]: If the saturation equality is assumed,
+    then entropy divided by energy is 1/T_Unruh. *)
 (* INQUISITOR NOTE: Bekenstein equality gives S/E = 1/T *)
 Theorem bekenstein_entropy_energy_ratio :
   forall (T_Unruh S_total E_total : R),
@@ -88,12 +62,11 @@ Proof.
   rewrite Hsat. field. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 2: NAMED HYPOTHESES THAT CLOSE THE GAP
-    ========================================================================= *)
+(** Named hypotheses that close the physics-to-VM gap. *)
 
-(** [landauer_unruh_constant_calibration]: the constants relation needed to
-  identify the split-geometry horizon unit with the Landauer energy unit. *)
+(** [landauer_unruh_constant_calibration]: a unit-system calibration, not a
+    derived physical constant. It is the relation needed by the algebra below
+    to identify the split-geometry horizon unit with the Landauer energy unit. *)
 Definition landauer_unruh_constant_calibration
   (hbar c_light : R) : Prop :=
   (hbar * ln 2 = 2 * PI * c_light)%R.
@@ -103,10 +76,10 @@ Definition landauer_unruh_constant_calibration
     local Rindler horizon temperature.
 
     PHYSICAL MEANING: When the VM charges cost 1 via REVEAL/EMIT/etc,
-    this represents erasing exactly one bit of information at the Rindler
-    temperature T_Unruh, dissipating energy E = T_Unruh × k_B × ln 2.
+    this hypothesis says it represents erasing one bit of information at the
+    Rindler temperature T_Unruh, dissipating energy E = T_Unruh × k_B × ln 2.
 
-    FALSIFICATION: Measure the energy consumed per vm_mu increment on
+    To falsify: Measure the energy consumed per vm_mu increment on
     physical hardware operating at temperature T. Compare against
     T × k_B × ln 2 × (number of bits per instruction). *)
 Definition mu_energy_unit_is_landauer
@@ -120,12 +93,11 @@ Definition mu_energy_unit_is_landauer
   ClausiusFromEntropyArea.vm_mu_delta s_pre s_post *
   (k_B * ln 2).
 
-(** [landauer_entropy_identification]: Each μ-unit erases exactly
-    k_B × ln 2 of entropy — the Landauer minimum.
+(** [landauer_entropy_identification]: the caller's entropy bridge.
+    It says each μ-unit corresponds to k_B × ln 2 of entropy change.
 
-    This is the information-theoretic content of the NoFI theorem:
-    when the VM charges cost 1, it permanently commits to one bit
-    of information, erasing k_B × ln 2 of entropy from the feasible set. *)
+    This file does not derive that bridge from NoFI. It packages it as a
+    hypothesis so later theorems can show exactly where it is used. *)
 Definition landauer_entropy_identification
     (k_B entropy_per_bit : R)
     (support_pre support_post : LocalMorphismSemantics.joint_support)
@@ -136,7 +108,7 @@ Definition landauer_entropy_identification
   k_B * ln 2 *
   ClausiusFromEntropyArea.vm_mu_delta s_pre s_post.
 
-(** [mu_bit_calibration]: the irreducible machine-native calibration.
+(** [mu_bit_calibration]: the machine-native version of the entropy bridge.
 
     This isolates the empirical content of the entropy identification:
     the support-level entropy change in bits equals the VM μ-cost delta. *)
@@ -147,6 +119,8 @@ Definition mu_bit_calibration
    INR (entanglement_entropy_vn_bits support_pre))%R =
   ClausiusFromEntropyArea.vm_mu_delta s_pre s_post.
 
+(** If support entropy in bits matches μ, then multiplying by k_B ln 2 gives
+    the Landauer entropy identification. *)
 Theorem landauer_identification_from_bit_calibration :
   forall (k_B : R)
          (support_pre support_post : LocalMorphismSemantics.joint_support)
@@ -177,15 +151,20 @@ Proof.
     ring.
 Qed.
 
+(** PSPLIT uses the cartesian product of its normalized regions as the support
+    event whose entropy is charged to μ. *)
 Definition psplit_entropy_event
     (left right : list nat) : LocalMorphismSemantics.joint_support :=
   LocalMorphismSemantics.cartesian_pairs
     (normalize_region left) (normalize_region right).
 
+(** The PSPLIT price tag is explicit: the declared cost must equal the
+    entropy computed for the PSPLIT support event. *)
 Definition psplit_cost_matches_entropy
     (left right : list nat) (cost : nat) : Prop :=
   cost = entanglement_entropy_vn_bits (psplit_entropy_event left right).
 
+(** The empty support has zero von Neumann support entropy in this finite model. *)
 Lemma entanglement_entropy_vn_bits_nil :
   entanglement_entropy_vn_bits [] = 0%nat.
 Proof.
@@ -197,6 +176,7 @@ Proof.
   lia.
 Qed.
 
+(** A PSPLIT step increases vm_mu by the declared instruction cost. *)
 Lemma vm_mu_delta_of_psplit_step :
   forall s s' module left right cost,
     vm_step s (instr_psplit module left right cost) s' ->
@@ -212,6 +192,8 @@ Proof.
   lra.
 Qed.
 
+(** When PSPLIT's declared cost matches the support entropy event, the step
+    satisfies the machine-native bit calibration. *)
 Theorem psplit_step_mu_bit_calibration :
   forall s s' module left right cost,
     vm_step s (instr_psplit module left right cost) s' ->
@@ -230,6 +212,8 @@ Proof.
   lra.
 Qed.
 
+(** A PSPLIT step can be represented as a local split morphism whose support
+    trace contains the empty pre-event and the PSPLIT entropy event. *)
 Theorem psplit_step_realizes_transition_entropy_event :
   forall s s' module left right cost,
     vm_step s (instr_psplit module left right cost) s' ->
@@ -256,10 +240,11 @@ Proof.
         -- eapply psplit_step_mu_bit_calibration; eauto.
 Qed.
 
-(** =========================================================================
-    SECTION 3: THE DERIVATION — LANDAUER HYPOTHESES → CALIBRATION
-    ========================================================================= *)
+(** Landauer hypotheses imply the calibrated flux equation. *)
 
+(** The constant calibration is a strong unit choice. Under that choice, the
+    algebraic definition of [mu_energy_unit_is_landauer] follows for any
+    split morphism and any VM states. *)
 Theorem landauer_unruh_constant_calibration_implies_mu_energy_unit_is_landauer :
   forall (hbar c_light k_B : R)
          (s_pre s_post : VMState)
@@ -297,7 +282,6 @@ Qed.
     hypotheses (mu_energy_unit_is_landauer + landauer_entropy_identification)
     together imply mu_landauer_unruh_calibrated.
 
-    PROOF STRUCTURE:
     - mu_energy_unit_is_landauer says:
         vm_mu_delta × area = T_Unruh × vm_mu_delta × k_B × ln 2
     - landauer_entropy_identification says:
@@ -306,7 +290,7 @@ Qed.
     - But null_energy_flux_delta = vm_mu_delta × area × 1 (focusing=1)
     - Therefore: null_energy_flux_delta = T_Unruh × entropy_increment_delta
     = mu_landauer_unruh_calibrated.                                          *)
-(* INQUISITOR NOTE: Derivation — two named physical hypotheses → calibration *)
+(* INQUISITOR NOTE: Two named physical hypotheses give the calibration equation. *)
 Theorem bekenstein_implies_landauer_calibration :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s_pre s_post : VMState)
@@ -337,6 +321,8 @@ Proof.
   lra.
 Qed.
 
+(** Replace [mu_energy_unit_is_landauer] with the explicit constant
+    calibration, while keeping the entropy bridge as an input. *)
 Theorem mu_landauer_unruh_calibrated_from_constant_calibration :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s_pre s_post : VMState)
@@ -361,6 +347,8 @@ Proof.
   - exact Hentropy.
 Qed.
 
+(** The most concrete bridge in this file: constant calibration plus
+    machine-native bit calibration give the Landauer-Unruh flux equation. *)
 Theorem mu_landauer_unruh_calibrated_from_constant_and_bit_calibration :
   forall (hbar c_light k_B : R)
          (s_pre s_post : VMState)
@@ -385,13 +373,11 @@ Proof.
   apply landauer_identification_from_bit_calibration; assumption.
 Qed.
 
-(** =========================================================================
-    SECTION 4: WHAT THE BEKENSTEIN ARGUMENT ESTABLISHES
-    ========================================================================= *)
+(** What the Bekenstein calculation establishes. *)
 
-(** [bekenstein_establishes_energy_ratio]: The Bekenstein argument proves
-    that at a Rindler horizon, the RATIO of energy to entropy is exactly
-    T_Unruh. This is the physical content that justifies mu_energy_unit_is_landauer.
+(** [bekenstein_establishes_energy_ratio]: The Bekenstein calculation above
+    proves the energy-per-bit ratio once saturation is assumed. This alias names
+    that exact theorem for downstream files.
 
     The argument:
     1. Bekenstein bound: S ≤ 2π k_B R E / (ℏ c) at radius R
@@ -401,9 +387,9 @@ Qed.
     5. Each μ unit = one Landauer bit: S = k_B ln 2 per μ unit
     6. Therefore: E per μ unit = T_Unruh × k_B × ln 2  [Landauer energy]
 
-    STEPS 1-6 are justified. The identification of VM energy with physical
-    energy is the named hypothesis mu_energy_unit_is_landauer. Steps 1-6
-    give the RATIO, not the absolute scale. The scale is the named gap. *)
+    Steps 1-6 are the calculation. The identification of VM energy with
+    physical energy is still the named hypothesis [mu_energy_unit_is_landauer].
+    The calculation gives a ratio, not a free calibration of VM units. *)
 Definition bekenstein_rindler_ratio_justified := bekenstein_rindler_energy_per_bit.
 
 (** Summary: after the constants calibration is made explicit, the remaining
@@ -411,14 +397,14 @@ Definition bekenstein_rindler_ratio_justified := bekenstein_rindler_energy_per_b
 Definition bekenstein_calibration_open_obligation :=
   mu_bit_calibration.
 
-(** =========================================================================
-    SECTION 5: PNEW ENTROPY CALIBRATION
-    Generalizes beyond PSPLIT to the module-creation instruction family.
+(** PNEW entropy calibration.
+    This extends the same support-entropy check to the module-creation
+    instruction family.
 
-    PHYSICAL INTERPRETATION: Creating a new module with n distinct region
-    elements requires log₂(n) bits of information to specify the allocation.
-    The entropy event is the self-support of the normalized region.
-    ========================================================================= *)
+    MODEL INTERPRETATION: The support event for a new module is the
+    self-support of the normalized region. The entropy calculation then reads
+    off log₂ of that finite support size.
+*)
 
 (** The entropy event for PNEW: each region element paired with itself,
     forming a diagonal joint_support.  The reduced-state support equals
@@ -484,7 +470,8 @@ Qed.
 
 (** [natural_units_consistency]: In the computational unit system defined by
     landauer_unruh_constant_calibration, the ratio hbar * ln 2 / (2 * PI * c_light)
-    equals 1 — confirming the equation is a dimensionless unit-normalisation. *)
+    equals 1. This confirms what the calibration definition says: it is a
+    dimensionless unit normalization. *)
 Lemma natural_units_consistency :
   forall (hbar c_light : R),
     (0 < c_light)%R ->

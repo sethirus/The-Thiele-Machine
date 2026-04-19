@@ -1,18 +1,13 @@
-(** RichStateCommutation.v — Commutation lemmas between bounded-table
-    operations in kami_step and graph operations in SimulationProof.vm_apply.
+(** RichStateCommutation: bounded-table commutation lemmas for the Kami abstraction
 
-    These lemmas are the proof backbone for extending embed_step to all 47
-    opcodes.
+   This file proves the lookup and update lemmas needed to line up the rich
+   Kami snapshot tables with the graph operations performed by vm_apply. It is
+   infrastructure for the embed-step story, not a standalone semantic claim.
 
-    STATUS: Zero Admitted.
-
-    Organization:
-    1. Generic helpers for filtermap / graph_lookup_modules interaction
-    2. Partition table commutation: snap_pt_to_graph commutes with
-       graph_hw_psplit / graph_hw_pmerge
-    3. Morphism table commutation: snapshot_morphisms_of_rich_state
-       commutes with rich_state_add_morph / rich_state_delete_morph
-    4. kami_step invariants *)
+   The organization is simple: generic filtermap helpers first, then the
+   partition-table commutation facts, then the morphism-table commutation
+   facts, and finally the invariants needed by the step-level bridge.
+*)
 
 Require Import Coq.Lists.List.
 Require Import Coq.Arith.PeanoNat.
@@ -25,9 +20,9 @@ Require Import Kernel.MuCostModel.
 Import VMStep.VMStep.
 Require Import KamiHW.Abstraction.
 
-(* ====================================================================== *)
-(** * 0. Generic helpers                                                   *)
-(* ====================================================================== *)
+(* *)
+(** 0. Generic helpers                                                   *)
+(* *)
 
 (** filtermap extensionality: pointwise-equal functions give equal results. *)
 Lemma filtermap_ext :
@@ -198,9 +193,9 @@ Proof.
   apply nodup_fixed_point. apply seq_NoDup.
 Qed.
 
-(* ====================================================================== *)
-(** * 1. Partition table commutation                                       *)
-(* ====================================================================== *)
+(* *)
+(** 1. Partition table commutation                                       *)
+(* *)
 
 (** graph_module_size on snap_pt_to_graph yields sizes mid. *)
 Lemma snap_pt_to_graph_module_size :
@@ -449,9 +444,9 @@ Proof.
         cbv beta iota. reflexivity.
 Qed.
 
-(* ====================================================================== *)
-(** * 2. Morphism table commutation                                        *)
-(* ====================================================================== *)
+(* *)
+(** 2. Morphism table commutation                                        *)
+(* *)
 
 (* Reset simpl behavior that may have leaked from pmerge proof *)
 #[global] Arguments Nat.eqb : simpl nomatch.
@@ -576,9 +571,9 @@ Proof.
   destruct selector as [|[|[|[|n]]]]; simpl; reflexivity.
 Qed.
 
-(* ====================================================================== *)
-(** * 3. kami_step preserves graph-relevant invariants                      *)
-(* ====================================================================== *)
+(* *)
+(** 3. kami_step preserves graph-relevant invariants                      *)
+(* *)
 
 (** Non-partition opcodes preserve the partition table. *)
 Lemma kami_step_preserves_pt :

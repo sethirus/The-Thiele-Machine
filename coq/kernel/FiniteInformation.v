@@ -1,42 +1,25 @@
-(** =========================================================================
-    FINITE INFORMATION THEORY - GENUINE DERIVATION
-    =========================================================================
+(** FiniteInformation: finite-state information monotonicity.
 
-    WHY THIS FILE EXISTS:
-    I claim the second law of thermodynamics (information cannot be created, only
-    destroyed or preserved) is NOT a postulate - it's a THEOREM derivable from:
-    1. Finite state space
-    2. Closed dynamics (step : S → S, not S → larger space)
-    3. Observations determined by state
+    The theorem proved here is a second-law-shaped finite-state fact: with a
+    finite state space, closed dynamics (step : S -> S, not S -> a larger
+    space), and observations determined by state, deterministic evolution
+    cannot increase the number of distinct observable classes.
 
-    THE CORE INSIGHT:
-    If step : S → S (closed under state space), then image(step) ⊆ S, so
-    observations of image ⊆ observations of domain, so the number of distinct
-    observation classes can only decrease or stay constant. This is the second law.
+    Here is the idea: if step : S → S (closed under state space), then
+    image(step) ⊆ S, so the number of distinct observation classes can only
+    decrease or stay constant.
 
-    WHAT THIS PROVES:
-    - info_nonincreasing: Deterministic evolution cannot increase the number
-      of distinguishable observation classes (Theorem)
-    - mu_monotonic: The μ-ledger (cumulative information destruction) is
-      monotonically non-decreasing (Theorem)
-    - Application to Thiele Machine: vm_mu never decreases (Theorem)
+    Three theorems: info_nonincreasing (deterministic evolution cannot increase
+    distinguishable observation classes), mu_monotonic (the μ-ledger is
+    monotonically non-decreasing), and vm_mu never decreases.
 
-    FALSIFICATION:
-    Find a deterministic function step : S → S on a finite state space where
-    |{observations of step(S)}| > |{observations of S}|. This would require
-    step to map into a LARGER observation space, contradicting closure.
+    To break this: find a deterministic step : S → S on a finite state space
+    where |{observations of step(S)}| > |{observations of S}|. That requires
+    step to map into a larger observation space, contradicting closure.
 
-    Or show that thermodynamic entropy can decrease in closed systems without
-    external work, violating Clausius, Kelvin-Planck, and 150 years of experimental
-    thermodynamics.
-
-    NO SHORTCUTS:
-    - No Hypothesis (flagged by Inquisitor)
-    - No Axiom (except Coq stdlib)
-    - No deferred proofs
-    - Everything derived from definitions
-
-    ========================================================================= *)
+    No project-local Axiom/Hypothesis declarations. The Section below states
+    finite enumeration, decidable equality, observation, and transition data as
+    explicit variables. No deferred proofs. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool.
 From Coq Require Import Logic.FunctionalExtensionality.
@@ -44,9 +27,6 @@ From Coq Require Import Logic.Classical_Prop.
 From Coq Require Import Sorting.Permutation.
 Import ListNotations.
 
-(** =========================================================================
-    PART 1: LIST UTILITIES
-    ========================================================================= *)
 
 Section ListUtils.
 
@@ -121,9 +101,7 @@ Proof.
         -- right. apply IH. exact Hin.
 Qed.
 
-(** Length of nodup_list is at most length of original *)
-(** HELPER: Accessor/projection *)
-(** HELPER: Accessor/projection *)
+(** Deduplication cannot make a list longer. *)
 Lemma nodup_list_length : forall l, length (nodup_list l) <= length l.
 Proof.
   intros l. induction l as [| a rest IH].
@@ -135,9 +113,7 @@ Qed.
 
 End ListUtils.
 
-(** =========================================================================
-    PART 1B: MORE LIST UTILITIES (NoDup and remove)
-    ========================================================================= *)
+(** More list utilities: remove preserves the counting facts we need. *)
 
 Section MoreListUtils.
 
@@ -211,9 +187,7 @@ Proof.
     + f_equal. apply IH. intros Hin. apply Hnotin. right. exact Hin.
 Qed.
 
-(** HELPER: Accessor/projection *)
-(** Length of remove when element is in list *)
-(** HELPER: Accessor/projection *)
+(** Removing a present element from a NoDup list lowers length by one. *)
 Lemma remove_length_in : forall (a : A) (l : list A),
   NoDup l ->
   In a l ->
@@ -249,9 +223,6 @@ Qed.
 
 End MoreListUtils.
 
-(** =========================================================================
-    PART 2: FINITE STATE SPACE WITH OBSERVATIONS
-    ========================================================================= *)
 
 Section FiniteInformation.
 
@@ -271,9 +242,6 @@ Variable obs_eq_dec : forall o1 o2 : Obs, {o1 = o2} + {o1 <> o2}.
 (** Observation function *)
 Variable observe : State -> Obs.
 
-(** =========================================================================
-    PART 3: INFORMATION AS CLASS COUNT
-    ========================================================================= *)
 
 (** All observations of states in a list *)
 Definition observations (states : list State) : list Obs :=
@@ -290,9 +258,6 @@ Definition info (states : list State) : nat :=
 (** Current information of the state space *)
 Definition current_info : nat := info all_states.
 
-(** =========================================================================
-    PART 4: DETERMINISTIC STEP FUNCTION
-    ========================================================================= *)
 
 Variable step : State -> State.
 
@@ -302,9 +267,6 @@ Definition image : list State := map step all_states.
 (** Information after applying step *)
 Definition info_after : nat := info image.
 
-(** =========================================================================
-    PART 5: THE CORE THEOREM
-    ========================================================================= *)
 
 (** We want to prove: info_after <= current_info
     
@@ -344,7 +306,7 @@ Definition info_after : nat := info image.
     - step(s1) = some state with obs = o3 (different from o1, o2)
     - Then info_after could be 3 > current_info = 2
     
-    WAIT - that's impossible because step(s1) must be a state in S,
+    Wait: that is impossible because step(s1) must be a state in S,
     and all states in S have observations in {o1, o2}.
     
     So step : S -> S means the image is a subset of S.
@@ -387,8 +349,7 @@ Proof.
   exact Hin.
 Qed.
 
-(** If A ⊆ B and NoDup B then |nodup A| <= |nodup B| *)
-(** We need a counting lemma. Let's prove it differently. *)
+(** We need a counting lemma over NoDup lists with decidable equality. *)
 
 (** Pigeonhole on NoDup lists: if NoDup A is included in NoDup B, then |A| <= |B|.
 
@@ -397,10 +358,7 @@ Qed.
     The version below (NoDup_incl_length) adds eq_dec and proves it cleanly
     by inducting on A, removing each element from B via remove.
 *)
-(** HELPER: Accessor/projection *)
-
-(** Pigeonhole: NoDup list A contained in NoDup list B means |A| <= |B| *)
-(** HELPER: Accessor/projection *)
+(** Pigeonhole: NoDup list A contained in NoDup list B means |A| <= |B|. *)
 Lemma NoDup_incl_length {T : Type} (T_eq_dec : forall t1 t2 : T, {t1 = t2} + {t1 <> t2}) :
   forall (A B : list T),
     NoDup A ->
@@ -446,7 +404,7 @@ Proof.
     lia.
 Qed.
 
-(** THE CORE THEOREM: Information cannot increase under deterministic dynamics *)
+(** THE CORE Information cannot increase under deterministic dynamics *)
 Theorem info_nonincreasing : info_after <= current_info.
 Proof.
   unfold info_after, current_info, info, distinct_obs.
@@ -459,16 +417,12 @@ Proof.
     + exact Hin.
 Qed.
 
-(** =========================================================================
-    PART 6: INFORMATION CHANGE IS NON-NEGATIVE
-    ========================================================================= *)
 
 (** Information destroyed = current_info - info_after *)
 Definition info_destroyed : nat := current_info - info_after.
 
-(** By info_nonincreasing: info_destroyed >= 0 (trivially, nat) *)
-(** But more importantly: info_destroyed = current_info - info_after is well-defined
-    precisely because info_after <= current_info *)
+(** Since info_destroyed is a nat, it is nonnegative. The real content is that
+    info_after <= current_info, so the subtraction matches the intended ledger. *)
 
 Lemma info_destroyed_welldef : info_after + info_destroyed = current_info.
 Proof.
@@ -477,9 +431,6 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
-    PART 7: THE SECOND LAW
-    ========================================================================= *)
 
 (** If we track cumulative information destruction, it can only increase *)
 
@@ -492,21 +443,21 @@ Definition mu_after : nat := mu + info_destroyed.
     in [info_nonincreasing] (pigeonhole argument) which ensures
     info_destroyed is well-defined. *)
 (* ARITHMETIC *)
-(** [mu_monotonic]: formal specification. *)
 Theorem mu_monotonic : mu_after >= mu.
 Proof.
   unfold mu_after. lia.
 Qed.
 
-(** =========================================================================
+(**
     CONCLUSION
-    ========================================================================= *)
+    *)
 
-(** WHAT I PROVED (genuinely, with no hidden assumptions):
+(** WHAT I PROVED:
 
     1. info_nonincreasing (Theorem):
        The number of distinct observation classes CANNOT INCREASE when we apply
-       a deterministic function step : State -> State on a finite state space.
+       a deterministic function step : State -> State on an explicitly
+       enumerated finite state space.
 
        PROOF STRATEGY: step(s) is a state (closure), so observe(step(s)) is an
        observation of some state in S. Therefore {observe(step(s)) : s ∈ S} ⊆
@@ -519,58 +470,53 @@ Qed.
     3. mu_monotonic (Theorem):
        The cumulative destruction ledger μ_after = μ + info_destroyed is
        monotonically non-decreasing: μ_after ≥ μ.
-
-    KEY INSIGHT:
-
-    The second law is NOT about "determinism preventing information creation."
-    It's about CLOSED DYNAMICS: the image of a function f : X → X is a subset
-    of X, so |image(f)| ≤ |X|. Any observation of image(f) must be an observation
-    of some element in X.
+    This theorem is not a full thermodynamic derivation. It is about closed
+    finite dynamics: the image of a function f : X → X is a subset of X, so
+    |image(f)| ≤ |X|. Any observation of image(f) must be an observation of
+    some element in X.
 
     A function f : X → X has image(f) ⊆ X.
     Therefore |image(f)| ≤ |X|.
     Therefore observations of image ⊆ observations of domain.
     Therefore distinct observations cannot increase.
 
-    This is the Second Law (in this formulation): a consequence of:
+    This is the finite-state second-law-shaped statement in this formulation:
     - Finite state space (no continuous degrees of freedom)
     - Closed dynamics (step : S → S, not step : S → T for some larger T)
     - Observations determined by state (no hidden variables changing observations)
 
-    FALSIFICATION:
     To destroy this theorem, you must violate one of the three assumptions:
     1. Make the state space infinite (escape the pigeonhole principle)
     2. Open the dynamics (allow step : S → T where T properly contains S)
     3. Make observations depend on something other than state (hidden variables)
 
-    If you can do any of these AND preserve the Thiele Machine's physical
-    predictions (CHSH, closure, No Free Insight), you falsify the theory.
+    A physical application must still justify that its chosen state space,
+    dynamics, and observation map satisfy these premises.
 
-    ========================================================================= *)
+    *)
 
 End FiniteInformation.
 
-(** =========================================================================
-    PART 8: APPLICATION TO THIELE MACHINE
-    ========================================================================= *)
 
 From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
 
-(** The Thiele Machine VM satisfies the prerequisites:
-    - Finite state space (bounded memory)
-    - Closed dynamics (vm_step : VMState -> VMState)
-    - Observations determined by state (ObservableRegion)
+(** The VM accounting uses the same monotone-ledger shape:
+    - Closed dynamics are represented by vm_step : VMState -> instruction -> VMState
+      as an inductive transition relation.
+    - ObservableRegion is state-determined in the VM layer.
+    - instruction_cost is a nat.
     
-    The kernel defines instruction_cost : nat which represents info_destroyed.
+    This file does not instantiate a finite enumeration of all VMState values;
+    the generic theorem above carries that as an explicit premise. The concrete
+    VM result below proves the μ-accounting theorem directly from vm_step.
+
     The proof that vm_mu is monotonic follows from:
     - vm_mu' = vm_mu + instruction_cost
     - instruction_cost : nat >= 0
     
-    The SEMANTIC JUSTIFICATION for instruction_cost being a nat is:
-    - It represents information destruction
-    - Information destruction >= 0 (by info_nonincreasing)
-    - Therefore nat is the correct type
+    The semantic interpretation is that instruction_cost represents
+    nonnegative information destruction in the VM ledger.
 *)
 
 Lemma vm_mu_accounting :
@@ -582,7 +528,6 @@ Proof.
   inversion Hstep; subst; simpl; unfold apply_cost; reflexivity.
 Qed.
 
-(** [vm_mu_monotonic]: formal specification. *)
 Theorem vm_mu_monotonic :
   forall s s' i,
     vm_step s i s' ->
@@ -593,30 +538,26 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
-    STATUS: GENUINE DERIVATION
+(**
 
-    - No Hypothesis (checked by Inquisitor)
-    - No Axiom (except Coq stdlib: decidable equality, classical logic for excluded middle)
+    - No project-local Axiom/Hypothesis declarations
+    - Uses only explicit Section variables and Coq stdlib imports
     - No deferred proofs (no Admitted, no admit)
     - Core theorem (info_nonincreasing) proven from first principles
     - The proof shows WHY information cannot increase: because step : S → S
       means image(step) ⊆ S, so observations cannot escape the original set
 
     APPLICATION TO PHYSICS:
-    This theorem explains why the second law of thermodynamics holds:
+    This theorem gives a finite-state route toward second-law-style monotonicity:
     - Entropy S = k_B log(# of microstates consistent with observations)
     - Deterministic evolution: microstates evolve as s' = step(s)
     - Observation classes can only decrease (info_nonincreasing)
     - Therefore S_after ≥ S_before (entropy increases or stays constant)
 
-    This is Boltzmann's H-theorem for finite state spaces, but PROVEN not POSTULATED.
+    This is a finite-state Boltzmann-style theorem, proven rather than postulated.
 
-    FALSIFICATION:
-    Show that thermodynamic entropy can spontaneously decrease in a closed system.
-    Kelvin-Planck: impossible to extract work from a single heat bath.
-    Clausius: heat cannot flow from cold to hot without external work.
-    If you violate these, you violate info_nonincreasing, which would require
-    violating one of: finite state space, closed dynamics, or state-determined observations.
+    To challenge this finite-state route, violate one of its premises while
+    preserving the intended physical interpretation: finite state space, closed
+    dynamics, or state-determined observations.
 
-    ========================================================================= *)
+    *)

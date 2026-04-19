@@ -7,43 +7,37 @@ From Kernel Require Import MuLedgerConservation RevelationRequirement.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import EntropyImpossibility.
 
-(** * NoFreeInsight: You cannot narrow search space without paying for it
+(** NoFreeInsight: you cannot narrow search space without paying for it.
 
-    THIS IS THE CENTRAL CLAIM OF THE THIELE MACHINE.
+    This is the central claim of the Thiele Machine. Starting from
+    csr_cert_addr = 0, if a bounded execution ends with has_supra_cert, then
+    the trace contains one of the cert-setting instruction forms listed in
+    RevelationRequirement.v: REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT.
+    You cannot move from "no supra certificate" to "supra certificate" through
+    ordinary register arithmetic or a graph-only operation.
 
-    THE IMPOSSIBILITY THEOREM:
-    Any computational system satisfying four basic axioms (non-forgeable receipts,
-    monotone cost accounting, locality, weak observability) CANNOT strengthen
-    accepted predicates without explicit, charged revelation events.
+    Four facts grounding the claim:
+    A1. Receipts: the trace is the execution record this file reasons about.
+    A2. μ-ledger: costs only go up (MuLedgerConservation.v).
+    A3. Locality: unrelated module observables do not change (KernelPhysics.v).
+    A4. Weak observability: partition observations do not determine full state
+        (EntropyImpossibility.v).
 
-    WHAT THIS MEANS:
-    If you want to go from accepting "all correlations with CHSH ≤ 4" to accepting
-    only "correlations with CHSH ≤ 2.828", you must PAY μ-COST proportional to
-    the information gained. You can't cheat. You can't get insight for free.
+    This file imports the kernel lemmas and packages the structural result:
+    certification requires a cert-setter. The predicate-strengthening theorem
+    adds a bridge hypothesis for the step from "accepted stronger predicate"
+    to has_supra_cert.
 
-    THE FOUR AXIOMS:
-    A1. Non-Forgeable Receipts: You can't fake execution records
-    A2. Monotone μ-Ledger: Cost only goes up, never down
-    A3. Locality (No-Signaling): Operations don't affect unrelated modules
-    A4. Weak Observability: Partition structure alone doesn't determine probabilities
+    Produce a trace that starts with csr_cert_addr = 0, ends with has_supra_cert,
+    and contains none of REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT. If you
+    can do that, nonlocal_correlation_requires_revelation is false.
 
-    THE PROOF:
-    If you could strengthen a predicate without μ-cost, you'd violate one of these
-    axioms. The proof shows this is impossible. Strengthening REQUIRES revelation.
-    Revelation REQUIRES μ-cost. Therefore, insight REQUIRES cost. QED.
-
-    FALSIFICATION:
-    Build a system satisfying A1-A4 where you can strengthen predicates without
-    paying μ-cost. If you can, this theorem is false. The proof is machine-checked.
-
-    WHY THIS MATTERS:
     In the mu-cost model, strengthening certified predicates requires paying
     mu-cost. This is a property of the Thiele VM's cost accounting. It does
     not directly imply results about classical complexity classes (P vs NP)
     or specific algorithms (SAT, factoring), though it is structurally
     analogous to the intuition that narrowing search space costs resources.
 
-    NO AXIOMS. NO ADMITS. The impossibility is proven, not assumed.
     *)
 
 Module NoFreeInsight.
@@ -51,12 +45,13 @@ Module NoFreeInsight.
 Import VMStep.VMStep.
 Import RevelationProof.
 
-(** * Axiom A1: Non-Forgeable Receipts
-    
-    Receipts are cryptographically bound to executed instructions.
-    User code cannot forge receipts (untrusted code cannot inject arbitrary receipt types).
-    
-    WITNESS: VMStep.v step relation deterministically produces receipts.
+(** A1: Receipts
+
+    In this Coq file, a receipt is a vm_instruction in the trace. I am not
+    proving cryptographic binding here. The binding story lives in the receipt
+    tooling; this file only needs the execution trace as its observable record.
+
+    WITNESS: VMStep.v defines vm_instruction and the deterministic step relation.
     *)
 
 Definition Receipt := vm_instruction.
@@ -65,12 +60,12 @@ Definition Receipts := Trace.
 (** Receipt decoder: extract observations from trace *)
 Definition receipt_decoder (A : Type) := Receipts -> list A.
 
-(** * Axiom A2: Monotone Information Accounting (μ-Ledger)
-    
+(** A2: Monotone Information Accounting (μ-Ledger)
+
     Global counter vm_mu increases monotonically.
-    Each opcode declares μ-cost; ledger increases by exactly that amount.
-    
-    WITNESS: MuLedgerConservation.v::mu_ledger_monotone
+    Each opcode has instruction_cost; vm_apply increases vm_mu by exactly that amount.
+
+    WITNESS: MuLedgerConservation.vm_apply_mu and run_vm_mu_conservation.
     *)
 
 Definition mu_cost (i : vm_instruction) : nat :=
@@ -86,21 +81,22 @@ Definition mu_cost (i : vm_instruction) : nat :=
 Definition total_mu_cost (trace : Receipts) : nat :=
   fold_left (fun acc i => acc + mu_cost i) trace 0.
 
-(** μ-ledger conservation is proven in MuLedgerConservation.v
+(** μ-ledger conservation is proven in MuLedgerConservation.v.
     We use run_vm_mu_conservation which states:
       (run_vm fuel trace s).(vm_mu) = s.(vm_mu) + ledger_sum (ledger_entries fuel trace s)
-    
-    For the general framework, we assume a wrapper that relates our total_mu_cost
-    to the ledger_entries formulation. This is trivially true by construction
-    (both sum instruction costs), validated by runtime tests.
+
+    The local [mu_cost] and [total_mu_cost] above are a legacy coarse view over
+    certification-ish instructions. They are NOT the authoritative ledger.
+    The authoritative cost model is VMStep.instruction_cost, and the executed
+    ledger is ledger_entries in MuLedgerConservation.v.
     *)
 
-(** * Axiom A3: Locality (No-Signaling) — FORMALLY PROVEN
+(** A3: Locality (No-Signaling). Proven.
 
     If you don't touch module M, you cannot change M's observable state.
     Observable state = partition-only projection (ObservableRegion).
 
-    FORMAL STATEMENT: observational_no_signaling from KernelPhysics.v.
+    FORMAL observational_no_signaling from KernelPhysics.v.
 
     For any state s, instruction instr, and module mid NOT in instr_targets:
       well_formed_graph s.graph →
@@ -109,21 +105,21 @@ Definition total_mu_cost (trace : Receipts) : nat :=
       mid ∉ instr_targets instr →
       ObservableRegion s mid = ObservableRegion s' mid.
 
-    This axiom is PROVEN (not assumed) in KernelPhysics.v by exhaustive
-    case analysis over all 40+ vm_instruction constructors.
+    This fact is proven in KernelPhysics.v by case analysis over the vm_step
+    constructors.
 
     IMPORT: theorem is in scope via From Kernel Require Import KernelPhysics.
     *)
 Notation A3_observational_no_signaling := KernelPhysics.observational_no_signaling.
 
-(** * Axiom A4: Underdetermination — FORMALLY PROVEN
+(** A4: Underdetermination. Proven.
 
     Observation of observable regions is strictly weak:
     infinitely many distinct machine states are observationally equivalent.
     You CANNOT determine entropy, probability, or unique micro-state from
     observable partition structure alone.
 
-    FORMAL STATEMENT: region_equiv_class_infinite from EntropyImpossibility.v.
+    FORMAL region_equiv_class_infinite from EntropyImpossibility.v.
 
     For any state s:
       ∃ infinitely many s' with ObservableRegion s' mid = ObservableRegion s mid
@@ -143,7 +139,7 @@ Notation A3_observational_no_signaling := KernelPhysics.observational_no_signali
 Notation A4_region_equiv_class_infinite :=
   EntropyImpossibility.region_equiv_class_infinite.
 
-(** * Definition D1: Receipt Predicate
+(** Definition D1: Receipt Predicate
     
     A receipt predicate is a computable function from receipts to bool.
     Polymorphic over observation type A (e.g., CHSHTrial, FactorPair).
@@ -157,14 +153,11 @@ Definition ReceiptPredicate (A : Type) := list A -> bool.
     - chsh_supra(trials) := some S > 2√2 (supra-quantum)
     *)
 
-(** * Definition D2: Strength Ordering - measuring discriminative power
+(** Definition D2: Strength Ordering - measuring discriminative power
 
-    WHY THIS DEFINITION EXISTS:
     When you go from "this number might be 1-1000" to "this number is 1-10",
     you've STRENGTHENED your knowledge. You've ruled out possibilities.
     This definition makes that notion of "strengthening" mathematically precise.
-
-    FORMALLY:
     P1 ≤ P2 means "P1 is at least as strong as P2"
     ⟺ Everything P1 accepts, P2 also accepts
     ⟺ P1's acceptance set ⊆ P2's acceptance set
@@ -185,7 +178,6 @@ Definition ReceiptPredicate (A : Type) := list A -> bool.
     "P1 is lower (stronger)" not "P1 is weaker". This confuses people.
     Think of it as: "P1 fits under P2" (subset inclusion).
 
-    FALSIFICATION:
     If you can strengthen from P2 to P1 (where P1 < P2) without μ-cost,
     the No Free Insight theorem is false.
 *)
@@ -204,7 +196,7 @@ Definition strictly_stronger {A : Type} (P1 P2 : ReceiptPredicate A) : Prop :=
 
 Notation "P1 < P2" := (strictly_stronger P1 P2) (at level 70).
 
-(** * Definition D3: Certification
+(** Definition D3: Certification
 
     We split certification into two layers:
     - [CertifiedObs]: execution succeeded + predicate accepted on decoded receipts
@@ -236,7 +228,7 @@ Definition Certified {A : Type}
                      (receipts : Receipts) : Prop :=
   CertifiedWithSupra s_final decoder P receipts.
 
-(* INQUISITOR NOTE: projection — extracts the CertifiedObs component from
+(* INQUISITOR NOTE: projection. Extracts the CertifiedObs component from
    the CertifiedWithSupra conjunction. Not tautological: it is the canonical
    way downstream proofs access the observational certificate. *)
 Lemma certified_with_supra_implies_obs :
@@ -259,7 +251,7 @@ Proof.
   exact (proj2 Hcert).
 Qed.
 
-(** * Definition D4: Structure Addition (semantic)
+(** Definition D4: Structure Addition (semantic)
 
     We define structure-addition as an *execution-visible* event: during
     execution starting from an unset certification CSR (cert_addr = 0),
@@ -290,24 +282,21 @@ Proof.
 Qed.
 
 
-(** * Lemma: Structure addition is necessary for strengthening
-    
+(** Lemma: Structure addition is necessary for strengthening
+
     KEY INSIGHT: By A4 (underdetermination), partition-only observation
     cannot distinguish between different receipt predicates.
-    
-    To accept a STRONGER predicate (more restrictive), you must add
-    information that discriminates. By A2, this must be charged.
-    By A1, it must be detectable in receipts.
-    
-    ∴ Strengthening requires structure addition.
+
+    To accept a STRONGER predicate (more restrictive), the caller must provide
+    a bridge from that observational fact to has_supra_cert. Once that bridge
+    exists, RevelationRequirement.v proves the cert-setting event had to appear
+    in the trace.
+
+    This file proves the structural part: if the bridge hypothesis turns
+    strengthened observation into has_supra_cert, then the run contains
+    structure addition.
     *)
 
-(** First, establish that revelation charges μ 
-    
-    This uses the proven run_vm_mu_conservation from MuLedgerConservation.v.
-    The total_mu_cost ↔ ledger_sum correspondence is proven as
-    delta_mu_equals_ledger_sum in MuShannonBridge.v.
-    *)
 (** The program/trace distinction matters:
     [run_vm] executes by [vm_pc] indexing into the instruction list, so
     mere membership [In i trace] does not imply the instruction was executed.
@@ -315,31 +304,19 @@ Qed.
     and focus this file on the *structural* no-free-insight theorem about
     certification being impossible without a cert-setter instruction. *)
 
-(** * Theorem 2: No Free Insight (General Form)
-    
-    STATEMENT:
-    Assume:
-    - A system satisfying A1-A4 (kernel semantics)
-    - A receipt decoder for observation type A
-    - Two predicates P_weak, P_strong with P_strong < P_weak (strict subset)
-    
-    Then:
-    IF a trace certifies P_strong,
-    THEN the trace contains a structure-addition event (revelation).
-    
-    PROOF STRATEGY:
-    1. By A4, partition-only observation cannot distinguish P_strong from P_weak
-    2. By A1, only receipts are observable (no hidden state)
-    3. To accept P_strong (stricter), must add discriminative structure
-    4. By A2, discriminative structure must be charged (μ-cost > 0)
-    5. By D4, charged structure addition = revelation event
-    6. ∴ Certification of P_strong requires revelation in trace
-    
+(** Theorem 2: No Free Insight, structural form
+
+    If trace_run starts with csr_cert_addr = 0 and ends in has_supra_cert, then
+    the trace contains REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT.
+
+    PROOF:
+    This is exactly RevelationRequirement.nonlocal_correlation_requires_revelation.
+    The point of this theorem is to expose that result under the NoFreeInsight
+    name, not to smuggle in a separate informal argument.
+
     FALSIFIER:
-    Exhibit a system satisfying A1-A4 where:
-    - Two predicates P_weak, P_strong with P_strong < P_weak
-    - A trace tr certifies P_strong
-    - tr contains NO revelation event (has_structure_addition(tr) = False)
+    Same as above: find a certified final state from a clean initial cert_addr
+    with no cert-setting instruction in the trace.
     *)
 
 Theorem no_free_insight_general :
@@ -356,7 +333,7 @@ Proof.
   exact nonlocal_correlation_requires_revelation.
 Qed.
 
-(** Strengthening form that uses predicate strictness nontrivially.
+(** Strengthening form that really uses predicate strictness.
 
     The bridge hypothesis captures the domain-specific argument needed to turn
     observation-level certification into supra-certification in a given channel.
@@ -418,25 +395,25 @@ Proof.
     exact Hcert.
 Qed.
 
-(** * Corollary: CHSH Supra-Quantum as Instance
-    
-    The CHSH theorem from Certification.v is a concrete instance:
+(** Corollary: CHSH Supra-Quantum as Instance
+
+    The CHSH theorem from Certification.v is meant to be a concrete instance:
     - A = CHSHTrial
     - P_weak = chsh_quantum (S ≤ 2√2)
     - P_strong = chsh_supra (S > 2√2)
     - decoder = extract_chsh_trials
-    
-    The general theorem proves: certifying supra requires revelation.
-    The CHSH theorem proves the same for the specific CHSH channel.
+
+    This file does not instantiate those definitions directly. It provides the
+    generic shape the CHSH channel can plug into.
     *)
 
-(** * Proven Results
+(** Proven Results
 
     - Abstract receipt predicate framework
     - Strength ordering (≤, <)
     - Generalized Certified predicate
     - General no-free-insight theorem (cert requires cert-setter)
-    - CHSH as concrete instance (see CHSHExtraction.v)
+    - Pointer for the CHSH channel shape (see CHSHExtraction.v)
     *)
 
 End NoFreeInsight.

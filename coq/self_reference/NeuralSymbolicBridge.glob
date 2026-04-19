@@ -1,357 +1,357 @@
-DIGEST 30f81a7f32f9b4afccf228ddc6079365
+DIGEST 98e6ea4c97a031b3356bac8754d138fa
 FSelfReference.NeuralSymbolicBridge
-R2132:2136 Coq.Arith.Arith <> <> lib
-R2138:2141 Coq.Lists.List <> <> lib
-R2143:2145 Coq.micromega.Lia <> <> lib
-R2155:2167 Coq.Lists.List ListNotations <> mod
-R2242:2248 Kernel.VMState <> <> lib
-R2250:2255 Kernel.VMStep <> <> lib
-R2257:2267 Kernel.MuCostModel <> <> lib
-R2286:2299 SelfReference.InductiveTrust <> <> lib
-def 2654:2662 <> WeightVec
-R2670:2673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2667:2669 Coq.Init.Datatypes <> nat ind
-R2674:2676 Coq.Init.Datatypes <> nat ind
-def 2894:2902 <> threshold
-R2909:2917 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 2905:2905 <> w:1
-R2927:2929 Coq.Init.Datatypes <> nat ind
-binder 2921:2923 <> tau:2
-R2937:2940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2934:2936 Coq.Init.Datatypes <> nat ind
-binder 2955:2955 <> i:3
-R2963:2966 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2960:2962 SelfReference.NeuralSymbolicBridge <> tau:2 var
-R2967:2967 SelfReference.NeuralSymbolicBridge <> w:1 var
-R2969:2969 SelfReference.NeuralSymbolicBridge <> i:3 var
-def 3173:3183 <> weight_meet
-R3194:3202 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 3186:3187 <> w1:4
-binder 3189:3190 <> w2:5
-R3207:3215 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 3226:3226 <> i:6
-R3231:3237 Coq.Arith.PeanoNat Nat min def
-R3240:3241 SelfReference.NeuralSymbolicBridge <> w1:4 var
-R3243:3243 SelfReference.NeuralSymbolicBridge <> i:6 var
-R3247:3248 SelfReference.NeuralSymbolicBridge <> w2:5 var
-R3250:3250 SelfReference.NeuralSymbolicBridge <> i:6 var
-def 3329:3339 <> weight_join
-R3350:3358 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 3342:3343 <> w1:7
-binder 3345:3346 <> w2:8
-R3363:3371 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 3382:3382 <> i:9
-R3387:3393 Coq.Arith.PeanoNat Nat max def
-R3396:3397 SelfReference.NeuralSymbolicBridge <> w1:7 var
-R3399:3399 SelfReference.NeuralSymbolicBridge <> i:9 var
-R3403:3404 SelfReference.NeuralSymbolicBridge <> w2:8 var
-R3406:3406 SelfReference.NeuralSymbolicBridge <> i:9 var
-prf 3696:3719 <> neural_conjunction_sound
-R3741:3749 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 3733:3734 <> w1:10
-binder 3736:3737 <> w2:11
-R3759:3761 Coq.Init.Datatypes <> nat ind
-binder 3753:3755 <> tau:12
-R3769:3771 Coq.Init.Datatypes <> nat ind
-binder 3765:3765 <> i:13
-R3797:3804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3779:3787 SelfReference.NeuralSymbolicBridge <> threshold def
-R3789:3790 SelfReference.NeuralSymbolicBridge <> w1:10 var
-R3792:3794 SelfReference.NeuralSymbolicBridge <> tau:12 var
-R3796:3796 SelfReference.NeuralSymbolicBridge <> i:13 var
-R3823:3830 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3805:3813 SelfReference.NeuralSymbolicBridge <> threshold def
-R3815:3816 SelfReference.NeuralSymbolicBridge <> w2:11 var
-R3818:3820 SelfReference.NeuralSymbolicBridge <> tau:12 var
-R3822:3822 SelfReference.NeuralSymbolicBridge <> i:13 var
-R3831:3839 SelfReference.NeuralSymbolicBridge <> threshold def
-R3842:3852 SelfReference.NeuralSymbolicBridge <> weight_meet def
-R3854:3855 SelfReference.NeuralSymbolicBridge <> w1:10 var
-R3857:3858 SelfReference.NeuralSymbolicBridge <> w2:11 var
-R3861:3863 SelfReference.NeuralSymbolicBridge <> tau:12 var
-R3865:3865 SelfReference.NeuralSymbolicBridge <> i:13 var
-R3912:3920 SelfReference.NeuralSymbolicBridge <> threshold def
-R3923:3933 SelfReference.NeuralSymbolicBridge <> weight_meet def
-R3944:3954 Coq.Arith.PeanoNat Nat min_glb thm
-R3944:3954 Coq.Arith.PeanoNat Nat min_glb thm
-prf 4103:4129 <> neural_conjunction_complete
-R4151:4159 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 4143:4144 <> w1:14
-binder 4146:4147 <> w2:15
-R4169:4171 Coq.Init.Datatypes <> nat ind
-binder 4163:4165 <> tau:16
-R4179:4181 Coq.Init.Datatypes <> nat ind
-binder 4175:4175 <> i:17
-R4224:4231 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4189:4197 SelfReference.NeuralSymbolicBridge <> threshold def
-R4200:4210 SelfReference.NeuralSymbolicBridge <> weight_meet def
-R4212:4213 SelfReference.NeuralSymbolicBridge <> w1:14 var
-R4215:4216 SelfReference.NeuralSymbolicBridge <> w2:15 var
-R4219:4221 SelfReference.NeuralSymbolicBridge <> tau:16 var
-R4223:4223 SelfReference.NeuralSymbolicBridge <> i:17 var
-R4250:4253 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4232:4240 SelfReference.NeuralSymbolicBridge <> threshold def
-R4242:4243 SelfReference.NeuralSymbolicBridge <> w1:14 var
-R4245:4247 SelfReference.NeuralSymbolicBridge <> tau:16 var
-R4249:4249 SelfReference.NeuralSymbolicBridge <> i:17 var
-R4254:4262 SelfReference.NeuralSymbolicBridge <> threshold def
-R4264:4265 SelfReference.NeuralSymbolicBridge <> w2:15 var
-R4267:4269 SelfReference.NeuralSymbolicBridge <> tau:16 var
-R4271:4271 SelfReference.NeuralSymbolicBridge <> i:17 var
-R4314:4322 SelfReference.NeuralSymbolicBridge <> threshold def
-R4325:4335 SelfReference.NeuralSymbolicBridge <> weight_meet def
-R4363:4374 Coq.Arith.PeanoNat Nat le_trans thm
-R4385:4396 Coq.Arith.PeanoNat Nat le_min_l thm
-R4363:4374 Coq.Arith.PeanoNat Nat le_trans thm
-R4385:4396 Coq.Arith.PeanoNat Nat le_min_l thm
-R4416:4427 Coq.Arith.PeanoNat Nat le_trans thm
-R4438:4449 Coq.Arith.PeanoNat Nat le_min_r thm
-R4416:4427 Coq.Arith.PeanoNat Nat le_trans thm
-R4438:4449 Coq.Arith.PeanoNat Nat le_min_r thm
-prf 4539:4562 <> neural_disjunction_sound
-R4584:4592 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 4576:4577 <> w1:18
-binder 4579:4580 <> w2:19
-R4602:4604 Coq.Init.Datatypes <> nat ind
-binder 4596:4598 <> tau:20
-R4612:4614 Coq.Init.Datatypes <> nat ind
-binder 4608:4608 <> i:21
-R4662:4669 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4640:4643 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R4622:4630 SelfReference.NeuralSymbolicBridge <> threshold def
-R4632:4633 SelfReference.NeuralSymbolicBridge <> w1:18 var
-R4635:4637 SelfReference.NeuralSymbolicBridge <> tau:20 var
-R4639:4639 SelfReference.NeuralSymbolicBridge <> i:21 var
-R4644:4652 SelfReference.NeuralSymbolicBridge <> threshold def
-R4654:4655 SelfReference.NeuralSymbolicBridge <> w2:19 var
-R4657:4659 SelfReference.NeuralSymbolicBridge <> tau:20 var
-R4661:4661 SelfReference.NeuralSymbolicBridge <> i:21 var
-R4670:4678 SelfReference.NeuralSymbolicBridge <> threshold def
-R4681:4691 SelfReference.NeuralSymbolicBridge <> weight_join def
-R4693:4694 SelfReference.NeuralSymbolicBridge <> w1:18 var
-R4696:4697 SelfReference.NeuralSymbolicBridge <> w2:19 var
-R4700:4702 SelfReference.NeuralSymbolicBridge <> tau:20 var
-R4704:4704 SelfReference.NeuralSymbolicBridge <> i:21 var
-R4747:4755 SelfReference.NeuralSymbolicBridge <> threshold def
-R4758:4768 SelfReference.NeuralSymbolicBridge <> weight_join def
-R4809:4820 Coq.Arith.PeanoNat Nat le_trans thm
-R4832:4843 Coq.Arith.PeanoNat Nat le_max_l thm
-R4809:4820 Coq.Arith.PeanoNat Nat le_trans thm
-R4832:4843 Coq.Arith.PeanoNat Nat le_max_l thm
-R4863:4874 Coq.Arith.PeanoNat Nat le_trans thm
-R4886:4897 Coq.Arith.PeanoNat Nat le_max_r thm
-R4863:4874 Coq.Arith.PeanoNat Nat le_trans thm
-R4886:4897 Coq.Arith.PeanoNat Nat le_max_r thm
-prf 4999:5016 <> threshold_monotone
-R5034:5042 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 5030:5030 <> w:22
-R5058:5060 Coq.Init.Datatypes <> nat ind
-binder 5046:5049 <> tau1:23
-binder 5051:5054 <> tau2:24
-R5068:5070 Coq.Init.Datatypes <> nat ind
-binder 5064:5064 <> i:25
-R5090:5097 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5082:5085 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5078:5081 SelfReference.NeuralSymbolicBridge <> tau2:24 var
-R5086:5089 SelfReference.NeuralSymbolicBridge <> tau1:23 var
-R5116:5123 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5098:5106 SelfReference.NeuralSymbolicBridge <> threshold def
-R5108:5108 SelfReference.NeuralSymbolicBridge <> w:22 var
-R5110:5113 SelfReference.NeuralSymbolicBridge <> tau1:23 var
-R5115:5115 SelfReference.NeuralSymbolicBridge <> i:25 var
-R5124:5132 SelfReference.NeuralSymbolicBridge <> threshold def
-R5134:5134 SelfReference.NeuralSymbolicBridge <> w:22 var
-R5136:5139 SelfReference.NeuralSymbolicBridge <> tau2:24 var
-R5141:5141 SelfReference.NeuralSymbolicBridge <> i:25 var
-R5191:5199 SelfReference.NeuralSymbolicBridge <> threshold def
-R5221:5232 Coq.Arith.PeanoNat Nat le_trans thm
-R5221:5232 Coq.Arith.PeanoNat Nat le_trans thm
-def 5628:5645 <> symbolic_to_neural
-R5655:5658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5652:5654 Coq.Init.Datatypes <> nat ind
-R5659:5662 Coq.Init.Datatypes <> bool ind
-binder 5648:5648 <> P:26
-R5667:5675 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 5686:5686 <> i:27
-R5694:5694 SelfReference.NeuralSymbolicBridge <> P:26 var
-R5696:5696 SelfReference.NeuralSymbolicBridge <> i:27 var
-prf 5918:5942 <> symbolic_neural_roundtrip
-R5963:5966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5960:5962 Coq.Init.Datatypes <> nat ind
-R5967:5970 Coq.Init.Datatypes <> bool ind
-binder 5956:5956 <> P:28
-R5978:5980 Coq.Init.Datatypes <> nat ind
-binder 5974:5974 <> i:29
-R6024:6028 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5988:5996 SelfReference.NeuralSymbolicBridge <> threshold def
-R5999:6016 SelfReference.NeuralSymbolicBridge <> symbolic_to_neural def
-R6018:6018 SelfReference.NeuralSymbolicBridge <> P:28 var
-R6023:6023 SelfReference.NeuralSymbolicBridge <> i:29 var
-R6032:6034 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6029:6029 SelfReference.NeuralSymbolicBridge <> P:28 var
-R6031:6031 SelfReference.NeuralSymbolicBridge <> i:29 var
-R6035:6038 Coq.Init.Datatypes <> true constr
-R6071:6079 SelfReference.NeuralSymbolicBridge <> threshold def
-R6082:6099 SelfReference.NeuralSymbolicBridge <> symbolic_to_neural def
-def 6741:6759 <> neural_safety_space
-R6766:6768 Coq.Init.Datatypes <> nat ind
-binder 6762:6762 <> n:30
-R6776:6784 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 6772:6772 <> w:31
-R6794:6796 Coq.Init.Datatypes <> nat ind
-binder 6788:6790 <> tau:32
-R6801:6810 SelfReference.InductiveTrust <> StateSpace rec
-R6820:6826 SelfReference.InductiveTrust <> ss_size proj
-R6820:6826 SelfReference.InductiveTrust <> ss_size proj
-R6820:6826 SelfReference.InductiveTrust <> ss_size proj
-R6844:6855 SelfReference.InductiveTrust <> ss_partition proj
-R6844:6855 SelfReference.InductiveTrust <> ss_partition proj
-R6869:6875 SelfReference.InductiveTrust <> ss_safe proj
-R6869:6875 SelfReference.InductiveTrust <> ss_safe proj
-R6836:6836 SelfReference.NeuralSymbolicBridge <> n:30 var
-R6860:6861 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6885:6893 SelfReference.NeuralSymbolicBridge <> threshold def
-R6895:6895 SelfReference.NeuralSymbolicBridge <> w:31 var
-R6897:6899 SelfReference.NeuralSymbolicBridge <> tau:32 var
-prf 7292:7311 <> neural_symbolic_cage
-R7329:7331 Coq.Init.Datatypes <> nat ind
-binder 7325:7325 <> n:33
-R7339:7347 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 7335:7335 <> w:34
-R7357:7359 Coq.Init.Datatypes <> nat ind
-binder 7351:7353 <> tau:35
-R7367:7374 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7389:7397 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R7379:7388 SelfReference.InductiveTrust <> StateSpace rec
-binder 7375:7375 <> S:36
-R7413:7422 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7409:7411 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7401:7407 SelfReference.InductiveTrust <> ss_size proj
-R7398:7398 SelfReference.NeuralSymbolicBridge <> S:36 var
-R7412:7412 SelfReference.NeuralSymbolicBridge <> n:33 var
-binder 7430:7430 <> i:37
-R7446:7450 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R7436:7442 SelfReference.InductiveTrust <> ss_safe proj
-R7433:7433 SelfReference.NeuralSymbolicBridge <> S:36 var
-R7445:7445 SelfReference.NeuralSymbolicBridge <> i:37 var
-R7451:7459 SelfReference.NeuralSymbolicBridge <> threshold def
-R7461:7461 SelfReference.NeuralSymbolicBridge <> w:34 var
-R7463:7465 SelfReference.NeuralSymbolicBridge <> tau:35 var
-R7467:7467 SelfReference.NeuralSymbolicBridge <> i:37 var
-R7505:7523 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R7505:7523 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-prf 8167:8192 <> neural_threshold_expansion
-R8212:8214 Coq.Init.Datatypes <> nat ind
-binder 8206:8206 <> n:38
-binder 8208:8208 <> m:39
-R8222:8230 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 8218:8218 <> w:40
-R8250:8252 Coq.Init.Datatypes <> nat ind
-binder 8234:8239 <> tau_hi:41
-binder 8241:8246 <> tau_lo:42
-R8265:8272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8261:8263 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R8260:8260 SelfReference.NeuralSymbolicBridge <> n:38 var
-R8264:8264 SelfReference.NeuralSymbolicBridge <> m:39 var
-R8288:8295 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8279:8281 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R8273:8278 SelfReference.NeuralSymbolicBridge <> tau_lo:42 var
-R8282:8287 SelfReference.NeuralSymbolicBridge <> tau_hi:41 var
-R8296:8304 SelfReference.InductiveTrust <> Expansion rec
-R8307:8325 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R8327:8327 SelfReference.NeuralSymbolicBridge <> n:38 var
-R8329:8329 SelfReference.NeuralSymbolicBridge <> w:40 var
-R8331:8336 SelfReference.NeuralSymbolicBridge <> tau_hi:41 var
-R8354:8372 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R8374:8374 SelfReference.NeuralSymbolicBridge <> m:39 var
-R8376:8376 SelfReference.NeuralSymbolicBridge <> w:40 var
-R8378:8383 SelfReference.NeuralSymbolicBridge <> tau_lo:42 var
-R8449:8453 SelfReference.InductiveTrust <> embed proj
-R8449:8453 SelfReference.InductiveTrust <> embed proj
-R8449:8453 SelfReference.InductiveTrust <> embed proj
-R8480:8487 SelfReference.InductiveTrust <> embed_lt proj
-R8480:8487 SelfReference.InductiveTrust <> embed_lt proj
-R8502:8510 SelfReference.InductiveTrust <> embed_inj proj
-R8502:8510 SelfReference.InductiveTrust <> embed_inj proj
-R8524:8534 SelfReference.InductiveTrust <> size_strict proj
-R8524:8534 SelfReference.InductiveTrust <> size_strict proj
-binder 8468:8468 <> i:43
-R8473:8473 SelfReference.NeuralSymbolicBridge <> i:43 var
-R8449:8453 SelfReference.InductiveTrust <> embed proj
-R8449:8453 SelfReference.InductiveTrust <> embed proj
-R8449:8453 SelfReference.InductiveTrust <> embed proj
-R8480:8487 SelfReference.InductiveTrust <> embed_lt proj
-R8480:8487 SelfReference.InductiveTrust <> embed_lt proj
-R8502:8510 SelfReference.InductiveTrust <> embed_inj proj
-R8502:8510 SelfReference.InductiveTrust <> embed_inj proj
-R8524:8534 SelfReference.InductiveTrust <> size_strict proj
-R8524:8534 SelfReference.InductiveTrust <> size_strict proj
-binder 8468:8468 <> i:44
-R8473:8473 SelfReference.NeuralSymbolicBridge <> i:44 var
-prf 9201:9224 <> neural_trust_certificate
-R9244:9246 Coq.Init.Datatypes <> nat ind
-binder 9238:9238 <> n:45
-binder 9240:9240 <> m:46
-R9254:9262 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 9250:9250 <> w:47
-R9282:9284 Coq.Init.Datatypes <> nat ind
-binder 9266:9271 <> tau_hi:48
-binder 9273:9278 <> tau_lo:49
-R9297:9304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9293:9295 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9292:9292 SelfReference.NeuralSymbolicBridge <> n:45 var
-R9296:9296 SelfReference.NeuralSymbolicBridge <> m:46 var
-R9320:9327 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9311:9313 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9305:9310 SelfReference.NeuralSymbolicBridge <> tau_lo:49 var
-R9314:9319 SelfReference.NeuralSymbolicBridge <> tau_hi:48 var
-R9328:9343 SelfReference.InductiveTrust <> TrustCertificate rec
-R9346:9364 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R9366:9366 SelfReference.NeuralSymbolicBridge <> n:45 var
-R9368:9368 SelfReference.NeuralSymbolicBridge <> w:47 var
-R9370:9375 SelfReference.NeuralSymbolicBridge <> tau_hi:48 var
-R9400:9418 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R9420:9420 SelfReference.NeuralSymbolicBridge <> m:46 var
-R9422:9422 SelfReference.NeuralSymbolicBridge <> w:47 var
-R9424:9429 SelfReference.NeuralSymbolicBridge <> tau_lo:49 var
-R9488:9507 SelfReference.InductiveTrust <> mk_trust_certificate thm
-R9521:9539 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R9565:9583 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R9609:9634 SelfReference.NeuralSymbolicBridge <> neural_threshold_expansion thm
-R9488:9507 SelfReference.InductiveTrust <> mk_trust_certificate thm
-R9521:9539 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R9565:9583 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R9609:9634 SelfReference.NeuralSymbolicBridge <> neural_threshold_expansion thm
-prf 9904:9926 <> neural_cage_conjunction
-R9944:9946 Coq.Init.Datatypes <> nat ind
-binder 9940:9940 <> n:50
-R9958:9966 SelfReference.NeuralSymbolicBridge <> WeightVec def
-binder 9950:9951 <> w1:51
-binder 9953:9954 <> w2:52
-R9976:9978 Coq.Init.Datatypes <> nat ind
-binder 9970:9972 <> tau:53
-binder 9993:9993 <> i:54
-R10044:10053 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10034:10040 SelfReference.InductiveTrust <> ss_safe proj
-R10003:10021 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R10023:10023 SelfReference.NeuralSymbolicBridge <> n:50 var
-R10025:10026 SelfReference.NeuralSymbolicBridge <> w1:51 var
-R10028:10030 SelfReference.NeuralSymbolicBridge <> tau:53 var
-R10043:10043 SelfReference.NeuralSymbolicBridge <> i:54 var
-R10096:10105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10086:10092 SelfReference.InductiveTrust <> ss_safe proj
-R10055:10073 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R10075:10075 SelfReference.NeuralSymbolicBridge <> n:50 var
-R10077:10078 SelfReference.NeuralSymbolicBridge <> w2:52 var
-R10080:10082 SelfReference.NeuralSymbolicBridge <> tau:53 var
-R10095:10095 SelfReference.NeuralSymbolicBridge <> i:54 var
-R10155:10161 SelfReference.InductiveTrust <> ss_safe proj
-R10107:10125 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
-R10127:10127 SelfReference.NeuralSymbolicBridge <> n:50 var
-R10130:10140 SelfReference.NeuralSymbolicBridge <> weight_meet def
-R10142:10143 SelfReference.NeuralSymbolicBridge <> w1:51 var
-R10145:10146 SelfReference.NeuralSymbolicBridge <> w2:52 var
-R10149:10151 SelfReference.NeuralSymbolicBridge <> tau:53 var
-R10164:10164 SelfReference.NeuralSymbolicBridge <> i:54 var
-R10227:10250 SelfReference.NeuralSymbolicBridge <> neural_conjunction_sound thm
-R10227:10250 SelfReference.NeuralSymbolicBridge <> neural_conjunction_sound thm
+R794:798 Coq.Arith.Arith <> <> lib
+R800:803 Coq.Lists.List <> <> lib
+R805:807 Coq.micromega.Lia <> <> lib
+R817:829 Coq.Lists.List ListNotations <> mod
+R904:910 Kernel.VMState <> <> lib
+R912:917 Kernel.VMStep <> <> lib
+R919:929 Kernel.MuCostModel <> <> lib
+R948:961 SelfReference.InductiveTrust <> <> lib
+def 1249:1257 <> WeightVec
+R1265:1268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1262:1264 Coq.Init.Datatypes <> nat ind
+R1269:1271 Coq.Init.Datatypes <> nat ind
+def 1489:1497 <> threshold
+R1504:1512 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 1500:1500 <> w:1
+R1522:1524 Coq.Init.Datatypes <> nat ind
+binder 1516:1518 <> tau:2
+R1532:1535 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1529:1531 Coq.Init.Datatypes <> nat ind
+binder 1550:1550 <> i:3
+R1558:1561 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1555:1557 SelfReference.NeuralSymbolicBridge <> tau:2 var
+R1562:1562 SelfReference.NeuralSymbolicBridge <> w:1 var
+R1564:1564 SelfReference.NeuralSymbolicBridge <> i:3 var
+def 1701:1711 <> weight_meet
+R1722:1730 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 1714:1715 <> w1:4
+binder 1717:1718 <> w2:5
+R1735:1743 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 1754:1754 <> i:6
+R1759:1765 Coq.Arith.PeanoNat Nat min def
+R1768:1769 SelfReference.NeuralSymbolicBridge <> w1:4 var
+R1771:1771 SelfReference.NeuralSymbolicBridge <> i:6 var
+R1775:1776 SelfReference.NeuralSymbolicBridge <> w2:5 var
+R1778:1778 SelfReference.NeuralSymbolicBridge <> i:6 var
+def 1857:1867 <> weight_join
+R1878:1886 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 1870:1871 <> w1:7
+binder 1873:1874 <> w2:8
+R1891:1899 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 1910:1910 <> i:9
+R1915:1921 Coq.Arith.PeanoNat Nat max def
+R1924:1925 SelfReference.NeuralSymbolicBridge <> w1:7 var
+R1927:1927 SelfReference.NeuralSymbolicBridge <> i:9 var
+R1931:1932 SelfReference.NeuralSymbolicBridge <> w2:8 var
+R1934:1934 SelfReference.NeuralSymbolicBridge <> i:9 var
+prf 2157:2180 <> neural_conjunction_sound
+R2202:2210 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 2194:2195 <> w1:10
+binder 2197:2198 <> w2:11
+R2220:2222 Coq.Init.Datatypes <> nat ind
+binder 2214:2216 <> tau:12
+R2230:2232 Coq.Init.Datatypes <> nat ind
+binder 2226:2226 <> i:13
+R2258:2265 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2240:2248 SelfReference.NeuralSymbolicBridge <> threshold def
+R2250:2251 SelfReference.NeuralSymbolicBridge <> w1:10 var
+R2253:2255 SelfReference.NeuralSymbolicBridge <> tau:12 var
+R2257:2257 SelfReference.NeuralSymbolicBridge <> i:13 var
+R2284:2291 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2266:2274 SelfReference.NeuralSymbolicBridge <> threshold def
+R2276:2277 SelfReference.NeuralSymbolicBridge <> w2:11 var
+R2279:2281 SelfReference.NeuralSymbolicBridge <> tau:12 var
+R2283:2283 SelfReference.NeuralSymbolicBridge <> i:13 var
+R2292:2300 SelfReference.NeuralSymbolicBridge <> threshold def
+R2303:2313 SelfReference.NeuralSymbolicBridge <> weight_meet def
+R2315:2316 SelfReference.NeuralSymbolicBridge <> w1:10 var
+R2318:2319 SelfReference.NeuralSymbolicBridge <> w2:11 var
+R2322:2324 SelfReference.NeuralSymbolicBridge <> tau:12 var
+R2326:2326 SelfReference.NeuralSymbolicBridge <> i:13 var
+R2373:2381 SelfReference.NeuralSymbolicBridge <> threshold def
+R2384:2394 SelfReference.NeuralSymbolicBridge <> weight_meet def
+R2405:2415 Coq.Arith.PeanoNat Nat min_glb thm
+R2405:2415 Coq.Arith.PeanoNat Nat min_glb thm
+prf 2564:2590 <> neural_conjunction_complete
+R2612:2620 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 2604:2605 <> w1:14
+binder 2607:2608 <> w2:15
+R2630:2632 Coq.Init.Datatypes <> nat ind
+binder 2624:2626 <> tau:16
+R2640:2642 Coq.Init.Datatypes <> nat ind
+binder 2636:2636 <> i:17
+R2685:2692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2650:2658 SelfReference.NeuralSymbolicBridge <> threshold def
+R2661:2671 SelfReference.NeuralSymbolicBridge <> weight_meet def
+R2673:2674 SelfReference.NeuralSymbolicBridge <> w1:14 var
+R2676:2677 SelfReference.NeuralSymbolicBridge <> w2:15 var
+R2680:2682 SelfReference.NeuralSymbolicBridge <> tau:16 var
+R2684:2684 SelfReference.NeuralSymbolicBridge <> i:17 var
+R2711:2714 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2693:2701 SelfReference.NeuralSymbolicBridge <> threshold def
+R2703:2704 SelfReference.NeuralSymbolicBridge <> w1:14 var
+R2706:2708 SelfReference.NeuralSymbolicBridge <> tau:16 var
+R2710:2710 SelfReference.NeuralSymbolicBridge <> i:17 var
+R2715:2723 SelfReference.NeuralSymbolicBridge <> threshold def
+R2725:2726 SelfReference.NeuralSymbolicBridge <> w2:15 var
+R2728:2730 SelfReference.NeuralSymbolicBridge <> tau:16 var
+R2732:2732 SelfReference.NeuralSymbolicBridge <> i:17 var
+R2775:2783 SelfReference.NeuralSymbolicBridge <> threshold def
+R2786:2796 SelfReference.NeuralSymbolicBridge <> weight_meet def
+R2824:2835 Coq.Arith.PeanoNat Nat le_trans thm
+R2846:2857 Coq.Arith.PeanoNat Nat le_min_l thm
+R2824:2835 Coq.Arith.PeanoNat Nat le_trans thm
+R2846:2857 Coq.Arith.PeanoNat Nat le_min_l thm
+R2877:2888 Coq.Arith.PeanoNat Nat le_trans thm
+R2899:2910 Coq.Arith.PeanoNat Nat le_min_r thm
+R2877:2888 Coq.Arith.PeanoNat Nat le_trans thm
+R2899:2910 Coq.Arith.PeanoNat Nat le_min_r thm
+prf 3000:3023 <> neural_disjunction_sound
+R3045:3053 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 3037:3038 <> w1:18
+binder 3040:3041 <> w2:19
+R3063:3065 Coq.Init.Datatypes <> nat ind
+binder 3057:3059 <> tau:20
+R3073:3075 Coq.Init.Datatypes <> nat ind
+binder 3069:3069 <> i:21
+R3123:3130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3101:3104 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R3083:3091 SelfReference.NeuralSymbolicBridge <> threshold def
+R3093:3094 SelfReference.NeuralSymbolicBridge <> w1:18 var
+R3096:3098 SelfReference.NeuralSymbolicBridge <> tau:20 var
+R3100:3100 SelfReference.NeuralSymbolicBridge <> i:21 var
+R3105:3113 SelfReference.NeuralSymbolicBridge <> threshold def
+R3115:3116 SelfReference.NeuralSymbolicBridge <> w2:19 var
+R3118:3120 SelfReference.NeuralSymbolicBridge <> tau:20 var
+R3122:3122 SelfReference.NeuralSymbolicBridge <> i:21 var
+R3131:3139 SelfReference.NeuralSymbolicBridge <> threshold def
+R3142:3152 SelfReference.NeuralSymbolicBridge <> weight_join def
+R3154:3155 SelfReference.NeuralSymbolicBridge <> w1:18 var
+R3157:3158 SelfReference.NeuralSymbolicBridge <> w2:19 var
+R3161:3163 SelfReference.NeuralSymbolicBridge <> tau:20 var
+R3165:3165 SelfReference.NeuralSymbolicBridge <> i:21 var
+R3208:3216 SelfReference.NeuralSymbolicBridge <> threshold def
+R3219:3229 SelfReference.NeuralSymbolicBridge <> weight_join def
+R3270:3281 Coq.Arith.PeanoNat Nat le_trans thm
+R3293:3304 Coq.Arith.PeanoNat Nat le_max_l thm
+R3270:3281 Coq.Arith.PeanoNat Nat le_trans thm
+R3293:3304 Coq.Arith.PeanoNat Nat le_max_l thm
+R3324:3335 Coq.Arith.PeanoNat Nat le_trans thm
+R3347:3358 Coq.Arith.PeanoNat Nat le_max_r thm
+R3324:3335 Coq.Arith.PeanoNat Nat le_trans thm
+R3347:3358 Coq.Arith.PeanoNat Nat le_max_r thm
+prf 3460:3477 <> threshold_monotone
+R3495:3503 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 3491:3491 <> w:22
+R3519:3521 Coq.Init.Datatypes <> nat ind
+binder 3507:3510 <> tau1:23
+binder 3512:3515 <> tau2:24
+R3529:3531 Coq.Init.Datatypes <> nat ind
+binder 3525:3525 <> i:25
+R3551:3558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3543:3546 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3539:3542 SelfReference.NeuralSymbolicBridge <> tau2:24 var
+R3547:3550 SelfReference.NeuralSymbolicBridge <> tau1:23 var
+R3577:3584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3559:3567 SelfReference.NeuralSymbolicBridge <> threshold def
+R3569:3569 SelfReference.NeuralSymbolicBridge <> w:22 var
+R3571:3574 SelfReference.NeuralSymbolicBridge <> tau1:23 var
+R3576:3576 SelfReference.NeuralSymbolicBridge <> i:25 var
+R3585:3593 SelfReference.NeuralSymbolicBridge <> threshold def
+R3595:3595 SelfReference.NeuralSymbolicBridge <> w:22 var
+R3597:3600 SelfReference.NeuralSymbolicBridge <> tau2:24 var
+R3602:3602 SelfReference.NeuralSymbolicBridge <> i:25 var
+R3652:3660 SelfReference.NeuralSymbolicBridge <> threshold def
+R3682:3693 Coq.Arith.PeanoNat Nat le_trans thm
+R3682:3693 Coq.Arith.PeanoNat Nat le_trans thm
+def 4022:4039 <> symbolic_to_neural
+R4049:4052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4046:4048 Coq.Init.Datatypes <> nat ind
+R4053:4056 Coq.Init.Datatypes <> bool ind
+binder 4042:4042 <> P:26
+R4061:4069 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 4080:4080 <> i:27
+R4088:4088 SelfReference.NeuralSymbolicBridge <> P:26 var
+R4090:4090 SelfReference.NeuralSymbolicBridge <> i:27 var
+prf 4312:4336 <> symbolic_neural_roundtrip
+R4357:4360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4354:4356 Coq.Init.Datatypes <> nat ind
+R4361:4364 Coq.Init.Datatypes <> bool ind
+binder 4350:4350 <> P:28
+R4372:4374 Coq.Init.Datatypes <> nat ind
+binder 4368:4368 <> i:29
+R4418:4422 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4382:4390 SelfReference.NeuralSymbolicBridge <> threshold def
+R4393:4410 SelfReference.NeuralSymbolicBridge <> symbolic_to_neural def
+R4412:4412 SelfReference.NeuralSymbolicBridge <> P:28 var
+R4417:4417 SelfReference.NeuralSymbolicBridge <> i:29 var
+R4426:4428 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4423:4423 SelfReference.NeuralSymbolicBridge <> P:28 var
+R4425:4425 SelfReference.NeuralSymbolicBridge <> i:29 var
+R4429:4432 Coq.Init.Datatypes <> true constr
+R4465:4473 SelfReference.NeuralSymbolicBridge <> threshold def
+R4476:4493 SelfReference.NeuralSymbolicBridge <> symbolic_to_neural def
+def 5068:5086 <> neural_safety_space
+R5093:5095 Coq.Init.Datatypes <> nat ind
+binder 5089:5089 <> n:30
+R5103:5111 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 5099:5099 <> w:31
+R5121:5123 Coq.Init.Datatypes <> nat ind
+binder 5115:5117 <> tau:32
+R5128:5137 SelfReference.InductiveTrust <> StateSpace rec
+R5147:5153 SelfReference.InductiveTrust <> ss_size proj
+R5147:5153 SelfReference.InductiveTrust <> ss_size proj
+R5147:5153 SelfReference.InductiveTrust <> ss_size proj
+R5171:5182 SelfReference.InductiveTrust <> ss_partition proj
+R5171:5182 SelfReference.InductiveTrust <> ss_partition proj
+R5196:5202 SelfReference.InductiveTrust <> ss_safe proj
+R5196:5202 SelfReference.InductiveTrust <> ss_safe proj
+R5163:5163 SelfReference.NeuralSymbolicBridge <> n:30 var
+R5187:5188 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5212:5220 SelfReference.NeuralSymbolicBridge <> threshold def
+R5222:5222 SelfReference.NeuralSymbolicBridge <> w:31 var
+R5224:5226 SelfReference.NeuralSymbolicBridge <> tau:32 var
+prf 5610:5629 <> neural_symbolic_cage
+R5647:5649 Coq.Init.Datatypes <> nat ind
+binder 5643:5643 <> n:33
+R5657:5665 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 5653:5653 <> w:34
+R5675:5677 Coq.Init.Datatypes <> nat ind
+binder 5669:5671 <> tau:35
+R5685:5692 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5707:5715 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5697:5706 SelfReference.InductiveTrust <> StateSpace rec
+binder 5693:5693 <> S:36
+R5731:5740 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5727:5729 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5719:5725 SelfReference.InductiveTrust <> ss_size proj
+R5716:5716 SelfReference.NeuralSymbolicBridge <> S:36 var
+R5730:5730 SelfReference.NeuralSymbolicBridge <> n:33 var
+binder 5748:5748 <> i:37
+R5764:5768 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5754:5760 SelfReference.InductiveTrust <> ss_safe proj
+R5751:5751 SelfReference.NeuralSymbolicBridge <> S:36 var
+R5763:5763 SelfReference.NeuralSymbolicBridge <> i:37 var
+R5769:5777 SelfReference.NeuralSymbolicBridge <> threshold def
+R5779:5779 SelfReference.NeuralSymbolicBridge <> w:34 var
+R5781:5783 SelfReference.NeuralSymbolicBridge <> tau:35 var
+R5785:5785 SelfReference.NeuralSymbolicBridge <> i:37 var
+R5823:5841 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R5823:5841 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+prf 6418:6443 <> neural_threshold_expansion
+R6463:6465 Coq.Init.Datatypes <> nat ind
+binder 6457:6457 <> n:38
+binder 6459:6459 <> m:39
+R6473:6481 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 6469:6469 <> w:40
+R6501:6503 Coq.Init.Datatypes <> nat ind
+binder 6485:6490 <> tau_hi:41
+binder 6492:6497 <> tau_lo:42
+R6516:6523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6512:6514 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6511:6511 SelfReference.NeuralSymbolicBridge <> n:38 var
+R6515:6515 SelfReference.NeuralSymbolicBridge <> m:39 var
+R6539:6546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6530:6532 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6524:6529 SelfReference.NeuralSymbolicBridge <> tau_lo:42 var
+R6533:6538 SelfReference.NeuralSymbolicBridge <> tau_hi:41 var
+R6547:6555 SelfReference.InductiveTrust <> Expansion rec
+R6558:6576 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R6578:6578 SelfReference.NeuralSymbolicBridge <> n:38 var
+R6580:6580 SelfReference.NeuralSymbolicBridge <> w:40 var
+R6582:6587 SelfReference.NeuralSymbolicBridge <> tau_hi:41 var
+R6605:6623 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R6625:6625 SelfReference.NeuralSymbolicBridge <> m:39 var
+R6627:6627 SelfReference.NeuralSymbolicBridge <> w:40 var
+R6629:6634 SelfReference.NeuralSymbolicBridge <> tau_lo:42 var
+R6700:6704 SelfReference.InductiveTrust <> embed proj
+R6700:6704 SelfReference.InductiveTrust <> embed proj
+R6700:6704 SelfReference.InductiveTrust <> embed proj
+R6731:6738 SelfReference.InductiveTrust <> embed_lt proj
+R6731:6738 SelfReference.InductiveTrust <> embed_lt proj
+R6753:6761 SelfReference.InductiveTrust <> embed_inj proj
+R6753:6761 SelfReference.InductiveTrust <> embed_inj proj
+R6775:6785 SelfReference.InductiveTrust <> size_strict proj
+R6775:6785 SelfReference.InductiveTrust <> size_strict proj
+binder 6719:6719 <> i:43
+R6724:6724 SelfReference.NeuralSymbolicBridge <> i:43 var
+R6700:6704 SelfReference.InductiveTrust <> embed proj
+R6700:6704 SelfReference.InductiveTrust <> embed proj
+R6700:6704 SelfReference.InductiveTrust <> embed proj
+R6731:6738 SelfReference.InductiveTrust <> embed_lt proj
+R6731:6738 SelfReference.InductiveTrust <> embed_lt proj
+R6753:6761 SelfReference.InductiveTrust <> embed_inj proj
+R6753:6761 SelfReference.InductiveTrust <> embed_inj proj
+R6775:6785 SelfReference.InductiveTrust <> size_strict proj
+R6775:6785 SelfReference.InductiveTrust <> size_strict proj
+binder 6719:6719 <> i:44
+R6724:6724 SelfReference.NeuralSymbolicBridge <> i:44 var
+prf 7452:7475 <> neural_trust_certificate
+R7495:7497 Coq.Init.Datatypes <> nat ind
+binder 7489:7489 <> n:45
+binder 7491:7491 <> m:46
+R7505:7513 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 7501:7501 <> w:47
+R7533:7535 Coq.Init.Datatypes <> nat ind
+binder 7517:7522 <> tau_hi:48
+binder 7524:7529 <> tau_lo:49
+R7548:7555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7544:7546 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7543:7543 SelfReference.NeuralSymbolicBridge <> n:45 var
+R7547:7547 SelfReference.NeuralSymbolicBridge <> m:46 var
+R7571:7578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7562:7564 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R7556:7561 SelfReference.NeuralSymbolicBridge <> tau_lo:49 var
+R7565:7570 SelfReference.NeuralSymbolicBridge <> tau_hi:48 var
+R7579:7594 SelfReference.InductiveTrust <> TrustCertificate rec
+R7597:7615 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R7617:7617 SelfReference.NeuralSymbolicBridge <> n:45 var
+R7619:7619 SelfReference.NeuralSymbolicBridge <> w:47 var
+R7621:7626 SelfReference.NeuralSymbolicBridge <> tau_hi:48 var
+R7651:7669 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R7671:7671 SelfReference.NeuralSymbolicBridge <> m:46 var
+R7673:7673 SelfReference.NeuralSymbolicBridge <> w:47 var
+R7675:7680 SelfReference.NeuralSymbolicBridge <> tau_lo:49 var
+R7739:7758 SelfReference.InductiveTrust <> mk_trust_certificate thm
+R7772:7790 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R7816:7834 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R7860:7885 SelfReference.NeuralSymbolicBridge <> neural_threshold_expansion thm
+R7739:7758 SelfReference.InductiveTrust <> mk_trust_certificate thm
+R7772:7790 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R7816:7834 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R7860:7885 SelfReference.NeuralSymbolicBridge <> neural_threshold_expansion thm
+prf 8155:8177 <> neural_cage_conjunction
+R8195:8197 Coq.Init.Datatypes <> nat ind
+binder 8191:8191 <> n:50
+R8209:8217 SelfReference.NeuralSymbolicBridge <> WeightVec def
+binder 8201:8202 <> w1:51
+binder 8204:8205 <> w2:52
+R8227:8229 Coq.Init.Datatypes <> nat ind
+binder 8221:8223 <> tau:53
+binder 8244:8244 <> i:54
+R8295:8304 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8285:8291 SelfReference.InductiveTrust <> ss_safe proj
+R8254:8272 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R8274:8274 SelfReference.NeuralSymbolicBridge <> n:50 var
+R8276:8277 SelfReference.NeuralSymbolicBridge <> w1:51 var
+R8279:8281 SelfReference.NeuralSymbolicBridge <> tau:53 var
+R8294:8294 SelfReference.NeuralSymbolicBridge <> i:54 var
+R8347:8356 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8337:8343 SelfReference.InductiveTrust <> ss_safe proj
+R8306:8324 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R8326:8326 SelfReference.NeuralSymbolicBridge <> n:50 var
+R8328:8329 SelfReference.NeuralSymbolicBridge <> w2:52 var
+R8331:8333 SelfReference.NeuralSymbolicBridge <> tau:53 var
+R8346:8346 SelfReference.NeuralSymbolicBridge <> i:54 var
+R8406:8412 SelfReference.InductiveTrust <> ss_safe proj
+R8358:8376 SelfReference.NeuralSymbolicBridge <> neural_safety_space def
+R8378:8378 SelfReference.NeuralSymbolicBridge <> n:50 var
+R8381:8391 SelfReference.NeuralSymbolicBridge <> weight_meet def
+R8393:8394 SelfReference.NeuralSymbolicBridge <> w1:51 var
+R8396:8397 SelfReference.NeuralSymbolicBridge <> w2:52 var
+R8400:8402 SelfReference.NeuralSymbolicBridge <> tau:53 var
+R8415:8415 SelfReference.NeuralSymbolicBridge <> i:54 var
+R8478:8501 SelfReference.NeuralSymbolicBridge <> neural_conjunction_sound thm
+R8478:8501 SelfReference.NeuralSymbolicBridge <> neural_conjunction_sound thm

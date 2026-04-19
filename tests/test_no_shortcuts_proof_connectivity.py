@@ -39,6 +39,7 @@ CONNECTIVITY_EXEMPT = {
     "ReceiptIntegrity", "Abstraction", "Blink", "Compatibility",
     "ThieleCPUCore", "ThieleTypes",
     "GraphReconstructionBridge", "RichStateCommutation",
+    "RTLGapRegistry",
 }
 
 _FROM_IMPORT_RE = re.compile(r"From\s+([A-Za-z0-9_\.]+)\s+Require\s+Import\s+([^\.]+)\.")

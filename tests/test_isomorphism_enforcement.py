@@ -145,7 +145,6 @@ class TestVerilogRefinementCoverage:
         "verilog_simulates_vm_step_xor_rank",
         "verilog_simulates_vm_step_emit",
         "verilog_simulates_vm_step_reveal",
-        "verilog_simulates_vm_step_oracle_halts",
         "verilog_simulates_vm_step_halt",
         "verilog_simulates_vm_step_checkpoint",
         "verilog_simulates_vm_step_read_port",
@@ -218,39 +217,39 @@ class TestAbstractionCoverage:
 # 4. Opcode count consistency across all layers
 # ===========================================================================
 class TestOpcodeCountConsistency:
-    """All layers must agree on 47 opcodes."""
+    """All layers must agree on 46 opcodes."""
 
-    def test_coq_vmstep_has_47_constructors(self):
+    def test_coq_vmstep_has_46_constructors(self):
         text = _read(COQ / "kernel" / "VMStep.v")
         constructors = re.findall(r"Coq_instr_\w+|instr_\w+\s*:", text)
         # Count unique opcode names from step constructors
         step_ctors = re.findall(r"\|\s*step_(\w+)\s*:", text)
-        assert len(step_ctors) >= 47, (
-            f"VMStep.v has {len(step_ctors)} step constructors, expected >= 47"
+        assert len(step_ctors) >= 46, (
+            f"VMStep.v has {len(step_ctors)} step constructors, expected >= 46"
         )
 
-    def test_kami_types_has_47_opcodes(self):
+    def test_kami_types_has_46_opcodes(self):
         text = _read(COQ / "kami_hw" / "ThieleTypes.v")
         ops = re.findall(r"Definition OP_\w+", text)
-        assert len(ops) >= 47, (
-            f"ThieleTypes.v has {len(ops)} OP_* definitions, expected >= 47"
+        assert len(ops) >= 46, (
+            f"ThieleTypes.v has {len(ops)} OP_* definitions, expected >= 46"
         )
 
-    def test_ocaml_extraction_has_47_constructors(self):
+    def test_ocaml_extraction_has_46_constructors(self):
         text = _read(BUILD / "thiele_core.ml")
         # Handle both Instr_X (legacy) and Coq_instr_X (module-prefixed) naming
         ctors = re.findall(r"Instr_\w+", text)
         ctors += [f"Instr_{m}" for m in re.findall(r"Coq_instr_(\w+)", text)]
         unique = set(ctors)
-        assert len(unique) >= 47, (
-            f"thiele_core.ml has {len(unique)} Instr_* constructors, expected >= 47"
+        assert len(unique) >= 46, (
+            f"thiele_core.ml has {len(unique)} Instr_* constructors, expected >= 46"
         )
 
-    def test_isomorphism_map_has_47_opcodes(self):
+    def test_isomorphism_map_has_46_opcodes(self):
         iso_map = json.loads(_read(BUILD / "isomorphism_map.json"))
         opcodes = iso_map.get("opcodes", {})
-        assert len(opcodes) == 47, (
-            f"isomorphism_map.json has {len(opcodes)} opcodes, expected 47"
+        assert len(opcodes) == 46, (
+            f"isomorphism_map.json has {len(opcodes)} opcodes, expected 46"
         )
 
 

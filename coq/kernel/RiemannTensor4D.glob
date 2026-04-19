@@ -1,415 +1,415 @@
-DIGEST 1ceb1adf95517dc93e90998338431c21
+DIGEST 48361aa9cbdd7acb590683728d503ef7
 FKernel.RiemannTensor4D
-R920:924 Coq.Reals.Reals <> <> lib
-R926:929 Coq.Lists.List <> <> lib
-R931:944 Coq.Arith.PeanoNat <> <> lib
-R946:948 Coq.micromega.Lia <> <> lib
-R950:952 Coq.micromega.Lra <> <> lib
-R954:957 Coq.Bool.Bool <> <> lib
-R967:979 Coq.Lists.List ListNotations <> mod
-R1036:1042 Kernel.VMState <> <> lib
-R1072:1093 Kernel.FourDSimplicialComplex <> <> lib
-R1123:1139 Kernel.MetricFromMuCosts <> <> lib
-def 2232:2247 <> metric_component
-R2254:2260 Kernel.VMState <> VMState rec
-binder 2250:2250 <> s:1
-R2274:2281 Kernel.VMState <> ModuleID def
-binder 2264:2265 <> μ:2
-binder 2267:2268 <> ν:3
-binder 2270:2270 <> v:4
-R2286:2286 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2293:2313 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R2315:2315 Kernel.RiemannTensor4D <> s:1 var
-R2317:2317 Kernel.RiemannTensor4D <> v:4 var
-R2319:2320 Kernel.RiemannTensor4D <> μ:2 var
-R2322:2323 Kernel.RiemannTensor4D <> ν:3 var
-def 2844:2862 <> discrete_derivative
-R2869:2875 Kernel.VMState <> VMState rec
-binder 2865:2865 <> s:5
-R2884:2902 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 2879:2880 <> sc:6
-R2920:2923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2912:2919 Kernel.VMState <> ModuleID def
-R2924:2924 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2908:2908 <> f:7
-R2935:2942 Kernel.VMState <> ModuleID def
-binder 2928:2929 <> μ:8
-binder 2931:2931 <> v:9
-R2947:2947 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3121:3126 Coq.Lists.List <> filter def
-R3519:3531 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
-R3533:3534 Kernel.RiemannTensor4D <> sc:6 var
-binder 3133:3133 <> w:10
-R3142:3148 Coq.Lists.List <> existsb def
-R3499:3508 Kernel.FourDSimplicialComplex <> sc4d_edges proj
-R3510:3511 Kernel.RiemannTensor4D <> sc:6 var
-binder 3155:3155 <> e:11
-R3179:3190 Kernel.FourDSimplicialComplex <> e1d_vertices proj
-R3192:3192 Kernel.RiemannTensor4D <> e:11 var
-binder 3170:3174 <> verts:12
-R3223:3235 Kernel.FourDSimplicialComplex <> e1d_direction proj
-R3237:3237 Kernel.RiemannTensor4D <> e:11 var
-R3266:3269 Coq.Init.Datatypes <> None constr
-R3276:3279 Coq.Init.Datatypes <> true constr
-R3345:3348 Coq.Init.Datatypes <> Some constr
-R3357:3360 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R3361:3362 Kernel.RiemannTensor4D <> μ:8 var
-binder 3207:3212 <> dir_ok:13
-R3465:3469 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3490:3490 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3439:3443 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3464:3464 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R3433:3438 Kernel.RiemannTensor4D <> dir_ok:13 var
-R3444:3455 Kernel.VMState <> nat_list_mem def
-R3457:3457 Kernel.RiemannTensor4D <> v:9 var
-R3459:3463 Kernel.RiemannTensor4D <> verts:12 var
-R3470:3481 Kernel.VMState <> nat_list_mem def
-R3483:3483 Kernel.RiemannTensor4D <> w:10 var
-R3485:3489 Kernel.RiemannTensor4D <> verts:12 var
-binder 3108:3116 <> neighbors:14
-R3548:3556 Kernel.RiemannTensor4D <> neighbors:14 var
-R3567:3568 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3582:3585 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3595:3597 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3592:3592 Kernel.RiemannTensor4D <> f:7 var
-R3598:3598 Kernel.RiemannTensor4D <> f:7 var
-R3600:3600 Kernel.RiemannTensor4D <> v:9 var
-def 3733:3743 <> christoffel
-R3750:3756 Kernel.VMState <> VMState rec
-binder 3746:3746 <> s:16
-R3765:3783 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 3760:3761 <> sc:17
-R3802:3809 Kernel.VMState <> ModuleID def
-binder 3789:3790 <> ρ:18
-binder 3792:3793 <> μ:19
-binder 3795:3796 <> ν:20
-binder 3798:3798 <> v:21
-R3814:3814 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R3919:3937 Kernel.RiemannTensor4D <> discrete_derivative def
-R3939:3939 Kernel.RiemannTensor4D <> s:16 var
-R3941:3942 Kernel.RiemannTensor4D <> sc:17 var
-binder 3953:3953 <> w:22
-R3958:3973 Kernel.RiemannTensor4D <> metric_component def
-R3975:3975 Kernel.RiemannTensor4D <> s:16 var
-R3977:3978 Kernel.RiemannTensor4D <> μ:19 var
-R3980:3981 Kernel.RiemannTensor4D <> ρ:18 var
-R3983:3983 Kernel.RiemannTensor4D <> w:22 var
-R3986:3987 Kernel.RiemannTensor4D <> ν:20 var
-R3989:3989 Kernel.RiemannTensor4D <> v:21 var
-binder 3902:3914 <> deriv_nu_g_mu:23
-R4017:4035 Kernel.RiemannTensor4D <> discrete_derivative def
-R4037:4037 Kernel.RiemannTensor4D <> s:16 var
-R4039:4040 Kernel.RiemannTensor4D <> sc:17 var
-binder 4051:4051 <> w:24
-R4056:4071 Kernel.RiemannTensor4D <> metric_component def
-R4073:4073 Kernel.RiemannTensor4D <> s:16 var
-R4075:4076 Kernel.RiemannTensor4D <> ν:20 var
-R4078:4079 Kernel.RiemannTensor4D <> ρ:18 var
-R4081:4081 Kernel.RiemannTensor4D <> w:24 var
-R4084:4085 Kernel.RiemannTensor4D <> μ:19 var
-R4087:4087 Kernel.RiemannTensor4D <> v:21 var
-binder 4000:4012 <> deriv_mu_g_nu:25
-R4118:4136 Kernel.RiemannTensor4D <> discrete_derivative def
-R4138:4138 Kernel.RiemannTensor4D <> s:16 var
-R4140:4141 Kernel.RiemannTensor4D <> sc:17 var
-binder 4152:4152 <> w:26
-R4157:4172 Kernel.RiemannTensor4D <> metric_component def
-R4174:4174 Kernel.RiemannTensor4D <> s:16 var
-R4176:4177 Kernel.RiemannTensor4D <> μ:19 var
-R4179:4180 Kernel.RiemannTensor4D <> ν:20 var
-R4182:4182 Kernel.RiemannTensor4D <> w:26 var
-R4185:4186 Kernel.RiemannTensor4D <> ρ:18 var
-R4188:4188 Kernel.RiemannTensor4D <> v:21 var
-binder 4098:4113 <> deriv_rho_g_munu:27
-R4196:4196 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4245:4248 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4226:4228 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4210:4212 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4197:4209 Kernel.RiemannTensor4D <> deriv_mu_g_nu:25 var
-R4213:4225 Kernel.RiemannTensor4D <> deriv_nu_g_mu:23 var
-R4229:4244 Kernel.RiemannTensor4D <> deriv_rho_g_munu:27 var
-def 4865:4878 <> riemann_tensor
-R4885:4891 Kernel.VMState <> VMState rec
-binder 4881:4881 <> s:28
-R4900:4918 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 4895:4896 <> sc:29
-R4940:4947 Kernel.VMState <> ModuleID def
-binder 4924:4925 <> ρ:30
-binder 4927:4928 <> σ:31
-binder 4930:4931 <> μ:32
-binder 4933:4934 <> ν:33
-binder 4936:4936 <> v:34
-R4952:4952 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4977:4995 Kernel.RiemannTensor4D <> discrete_derivative def
-R4997:4997 Kernel.RiemannTensor4D <> s:28 var
-R4999:5000 Kernel.RiemannTensor4D <> sc:29 var
-binder 5011:5011 <> w:35
-R5016:5026 Kernel.RiemannTensor4D <> christoffel def
-R5028:5028 Kernel.RiemannTensor4D <> s:28 var
-R5030:5031 Kernel.RiemannTensor4D <> sc:29 var
-R5033:5034 Kernel.RiemannTensor4D <> ρ:30 var
-R5036:5037 Kernel.RiemannTensor4D <> ν:33 var
-R5039:5040 Kernel.RiemannTensor4D <> σ:31 var
-R5042:5042 Kernel.RiemannTensor4D <> w:35 var
-R5045:5046 Kernel.RiemannTensor4D <> μ:32 var
-R5048:5048 Kernel.RiemannTensor4D <> v:34 var
-binder 4963:4972 <> d_mu_gamma:36
-R5073:5091 Kernel.RiemannTensor4D <> discrete_derivative def
-R5093:5093 Kernel.RiemannTensor4D <> s:28 var
-R5095:5096 Kernel.RiemannTensor4D <> sc:29 var
-binder 5107:5107 <> w:37
-R5112:5122 Kernel.RiemannTensor4D <> christoffel def
-R5124:5124 Kernel.RiemannTensor4D <> s:28 var
-R5126:5127 Kernel.RiemannTensor4D <> sc:29 var
-R5129:5130 Kernel.RiemannTensor4D <> ρ:30 var
-R5132:5133 Kernel.RiemannTensor4D <> μ:32 var
-R5135:5136 Kernel.RiemannTensor4D <> σ:31 var
-R5138:5138 Kernel.RiemannTensor4D <> w:37 var
-R5141:5142 Kernel.RiemannTensor4D <> ν:33 var
-R5144:5144 Kernel.RiemannTensor4D <> v:34 var
-binder 5059:5068 <> d_nu_gamma:38
-R5221:5229 Coq.Lists.List <> fold_left def
-R5323:5335 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
-R5337:5338 Kernel.RiemannTensor4D <> sc:29 var
-binder 5236:5238 <> acc:39
-binder 5240:5241 <> λ:40
-R5254:5256 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5251:5253 Kernel.RiemannTensor4D <> acc:39 var
-R5284:5286 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5257:5267 Kernel.RiemannTensor4D <> christoffel def
-R5269:5269 Kernel.RiemannTensor4D <> s:28 var
-R5271:5272 Kernel.RiemannTensor4D <> sc:29 var
-R5274:5275 Kernel.RiemannTensor4D <> ρ:30 var
-R5277:5278 Kernel.RiemannTensor4D <> μ:32 var
-R5280:5281 Kernel.RiemannTensor4D <> λ:40 var
-R5283:5283 Kernel.RiemannTensor4D <> v:34 var
-R5287:5297 Kernel.RiemannTensor4D <> christoffel def
-R5299:5299 Kernel.RiemannTensor4D <> s:28 var
-R5301:5302 Kernel.RiemannTensor4D <> sc:29 var
-R5304:5305 Kernel.RiemannTensor4D <> λ:40 var
-R5307:5308 Kernel.RiemannTensor4D <> ν:33 var
-R5310:5311 Kernel.RiemannTensor4D <> σ:31 var
-R5313:5313 Kernel.RiemannTensor4D <> v:34 var
-binder 5204:5216 <> gamma_gamma_1:41
-R5371:5379 Coq.Lists.List <> fold_left def
-R5473:5485 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
-R5487:5488 Kernel.RiemannTensor4D <> sc:29 var
-binder 5386:5388 <> acc:42
-binder 5390:5391 <> λ:43
-R5404:5406 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5401:5403 Kernel.RiemannTensor4D <> acc:42 var
-R5434:5436 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5407:5417 Kernel.RiemannTensor4D <> christoffel def
-R5419:5419 Kernel.RiemannTensor4D <> s:28 var
-R5421:5422 Kernel.RiemannTensor4D <> sc:29 var
-R5424:5425 Kernel.RiemannTensor4D <> ρ:30 var
-R5427:5428 Kernel.RiemannTensor4D <> ν:33 var
-R5430:5431 Kernel.RiemannTensor4D <> λ:43 var
-R5433:5433 Kernel.RiemannTensor4D <> v:34 var
-R5437:5447 Kernel.RiemannTensor4D <> christoffel def
-R5449:5449 Kernel.RiemannTensor4D <> s:28 var
-R5451:5452 Kernel.RiemannTensor4D <> sc:29 var
-R5454:5455 Kernel.RiemannTensor4D <> λ:43 var
-R5457:5458 Kernel.RiemannTensor4D <> μ:32 var
-R5460:5461 Kernel.RiemannTensor4D <> σ:31 var
-R5463:5463 Kernel.RiemannTensor4D <> v:34 var
-binder 5354:5366 <> gamma_gamma_2:44
-R5594:5596 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5578:5580 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5565:5567 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5555:5564 Kernel.RiemannTensor4D <> d_mu_gamma:36 var
-R5568:5577 Kernel.RiemannTensor4D <> d_nu_gamma:38 var
-R5581:5593 Kernel.RiemannTensor4D <> gamma_gamma_1:41 var
-R5597:5609 Kernel.RiemannTensor4D <> gamma_gamma_2:44 var
-def 5755:5766 <> ricci_tensor
-R5773:5779 Kernel.VMState <> VMState rec
-binder 5769:5769 <> s:45
-R5788:5806 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 5783:5784 <> sc:46
-R5822:5829 Kernel.VMState <> ModuleID def
-binder 5812:5813 <> μ:47
-binder 5815:5816 <> ν:48
-binder 5818:5818 <> v:49
-R5834:5834 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R5861:5869 Coq.Lists.List <> fold_left def
-R5939:5951 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
-R5953:5954 Kernel.RiemannTensor4D <> sc:46 var
-binder 5876:5878 <> acc:50
-binder 5880:5881 <> ρ:51
-R5894:5896 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5891:5893 Kernel.RiemannTensor4D <> acc:50 var
-R5897:5910 Kernel.RiemannTensor4D <> riemann_tensor def
-R5912:5912 Kernel.RiemannTensor4D <> s:45 var
-R5914:5915 Kernel.RiemannTensor4D <> sc:46 var
-R5917:5918 Kernel.RiemannTensor4D <> ρ:51 var
-R5920:5921 Kernel.RiemannTensor4D <> μ:47 var
-R5923:5924 Kernel.RiemannTensor4D <> ρ:51 var
-R5926:5927 Kernel.RiemannTensor4D <> ν:48 var
-R5929:5929 Kernel.RiemannTensor4D <> v:49 var
-def 6078:6089 <> ricci_scalar
-R6096:6102 Kernel.VMState <> VMState rec
-binder 6092:6092 <> s:52
-R6111:6129 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 6106:6107 <> sc:53
-R6137:6144 Kernel.VMState <> ModuleID def
-binder 6133:6133 <> v:54
-R6149:6149 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6180:6188 Coq.Lists.List <> fold_left def
-R6457:6469 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
-R6471:6472 Kernel.RiemannTensor4D <> sc:53 var
-binder 6195:6197 <> acc:55
-binder 6199:6200 <> μ:56
-R6209:6217 Coq.Lists.List <> fold_left def
-R6448:6450 Kernel.RiemannTensor4D <> acc:55 var
-R6430:6442 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
-R6444:6445 Kernel.RiemannTensor4D <> sc:53 var
-binder 6224:6227 <> acc':57
-binder 6229:6230 <> ν:58
-R6338:6341 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R6336:6337 Kernel.RiemannTensor4D <> μ:56 var
-R6342:6343 Kernel.RiemannTensor4D <> ν:58 var
-binder 6323:6327 <> g_inv:59
-R6383:6385 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6379:6382 Kernel.RiemannTensor4D <> acc':57 var
-R6391:6393 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6386:6390 Kernel.RiemannTensor4D <> g_inv:59 var
-R6394:6405 Kernel.RiemannTensor4D <> ricci_tensor def
-R6407:6407 Kernel.RiemannTensor4D <> s:52 var
-R6409:6410 Kernel.RiemannTensor4D <> sc:53 var
-R6412:6413 Kernel.RiemannTensor4D <> μ:56 var
-R6415:6416 Kernel.RiemannTensor4D <> ν:58 var
-R6418:6418 Kernel.RiemannTensor4D <> v:54 var
-def 6617:6631 <> einstein_tensor
-R6638:6644 Kernel.VMState <> VMState rec
-binder 6634:6634 <> s:60
-R6653:6671 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-binder 6648:6649 <> sc:61
-R6687:6694 Kernel.VMState <> ModuleID def
-binder 6677:6678 <> μ:62
-binder 6680:6681 <> ν:63
-binder 6683:6683 <> v:64
-R6699:6699 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R6721:6732 Kernel.RiemannTensor4D <> ricci_tensor def
-R6734:6734 Kernel.RiemannTensor4D <> s:60 var
-R6736:6737 Kernel.RiemannTensor4D <> sc:61 var
-R6739:6740 Kernel.RiemannTensor4D <> μ:62 var
-R6742:6743 Kernel.RiemannTensor4D <> ν:63 var
-R6745:6745 Kernel.RiemannTensor4D <> v:64 var
-binder 6710:6716 <> R_mu_nu:65
-R6761:6772 Kernel.RiemannTensor4D <> ricci_scalar def
-R6774:6774 Kernel.RiemannTensor4D <> s:60 var
-R6776:6777 Kernel.RiemannTensor4D <> sc:61 var
-R6779:6779 Kernel.RiemannTensor4D <> v:64 var
-binder 6756:6756 <> R:66
-R6801:6816 Kernel.RiemannTensor4D <> metric_component def
-R6818:6818 Kernel.RiemannTensor4D <> s:60 var
-R6820:6821 Kernel.RiemannTensor4D <> μ:62 var
-R6823:6824 Kernel.RiemannTensor4D <> ν:63 var
-R6826:6826 Kernel.RiemannTensor4D <> v:64 var
-binder 6790:6796 <> g_mu_nu:67
-R6868:6870 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R6861:6867 Kernel.RiemannTensor4D <> R_mu_nu:65 var
-R6886:6888 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6871:6871 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6875:6878 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6873:6873 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6879:6885 Kernel.RiemannTensor4D <> g_mu_nu:67 var
-R6889:6889 Kernel.RiemannTensor4D <> R:66 var
-def 8400:8422 <> diagonal_inverse_metric
-R8431:8437 Kernel.VMState <> VMState rec
-binder 8427:8427 <> s:68
-R8445:8452 Kernel.VMState <> ModuleID def
-binder 8441:8441 <> v:69
-R8464:8466 Coq.Init.Datatypes <> nat ind
-binder 8456:8457 <> mu:70
-binder 8459:8460 <> nu:71
-R8471:8471 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8484:8487 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R8482:8483 Kernel.RiemannTensor4D <> mu:70 var
-R8488:8489 Kernel.RiemannTensor4D <> nu:71 var
-R8518:8536 Kernel.VMState <> module_tensor_entry def
-R8538:8538 Kernel.RiemannTensor4D <> s:68 var
-R8540:8540 Kernel.RiemannTensor4D <> v:69 var
-R8545:8549 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R8543:8544 Kernel.RiemannTensor4D <> mu:70 var
-R8556:8560 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R8554:8555 Kernel.RiemannTensor4D <> mu:70 var
-binder 8509:8513 <> entry:72
-R8580:8583 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R8575:8579 Kernel.RiemannTensor4D <> entry:72 var
-R8609:8610 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
-R8611:8613 Coq.Reals.Raxioms <> INR def
-R8615:8619 Kernel.RiemannTensor4D <> entry:72 var
-prf 8720:8751 <> diagonal_inverse_metric_off_diag
-R8769:8775 Kernel.VMState <> VMState rec
-binder 8765:8765 <> s:73
-R8783:8790 Kernel.VMState <> ModuleID def
-binder 8779:8779 <> v:74
-R8802:8804 Coq.Init.Datatypes <> nat ind
-binder 8794:8795 <> mu:75
-binder 8797:8798 <> nu:76
-R8820:8827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8814:8817 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R8812:8813 Kernel.RiemannTensor4D <> mu:75 var
-R8818:8819 Kernel.RiemannTensor4D <> nu:76 var
-R8861:8863 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8828:8850 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
-R8852:8852 Kernel.RiemannTensor4D <> s:73 var
-R8854:8854 Kernel.RiemannTensor4D <> v:74 var
-R8856:8857 Kernel.RiemannTensor4D <> mu:75 var
-R8859:8860 Kernel.RiemannTensor4D <> nu:76 var
-R8909:8931 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
-R8945:8949 Coq.Init.Logic <> proj2 thm
-R8952:8962 Coq.Arith.PeanoNat Nat eqb_neq thm
-R8945:8949 Coq.Init.Logic <> proj2 thm
-R8952:8962 Coq.Arith.PeanoNat Nat eqb_neq thm
-R8945:8949 Coq.Init.Logic <> proj2 thm
-R8952:8962 Coq.Arith.PeanoNat Nat eqb_neq thm
-prf 9152:9182 <> diagonal_inverse_metric_correct
-R9200:9206 Kernel.VMState <> VMState rec
-binder 9196:9196 <> s:77
-R9214:9221 Kernel.VMState <> ModuleID def
-binder 9210:9210 <> v:78
-R9230:9232 Coq.Init.Datatypes <> nat ind
-binder 9225:9226 <> mu:79
-R9296:9303 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9286:9289 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R9241:9259 Kernel.VMState <> module_tensor_entry def
-R9261:9261 Kernel.RiemannTensor4D <> s:77 var
-R9263:9263 Kernel.RiemannTensor4D <> v:78 var
-R9268:9272 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R9266:9267 Kernel.RiemannTensor4D <> mu:79 var
-R9279:9283 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R9277:9278 Kernel.RiemannTensor4D <> mu:79 var
-R9367:9369 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9331:9333 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9305:9320 Kernel.RiemannTensor4D <> metric_component def
-R9322:9322 Kernel.RiemannTensor4D <> s:77 var
-R9324:9325 Kernel.RiemannTensor4D <> mu:79 var
-R9327:9328 Kernel.RiemannTensor4D <> mu:79 var
-R9330:9330 Kernel.RiemannTensor4D <> v:78 var
-R9334:9356 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
-R9358:9358 Kernel.RiemannTensor4D <> s:77 var
-R9360:9360 Kernel.RiemannTensor4D <> v:78 var
-R9362:9363 Kernel.RiemannTensor4D <> mu:79 var
-R9365:9366 Kernel.RiemannTensor4D <> mu:79 var
-R9413:9428 Kernel.RiemannTensor4D <> metric_component def
-R9431:9451 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R9454:9476 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
-R9489:9500 Coq.Arith.PeanoNat Nat eqb_refl thm
-R9489:9500 Coq.Arith.PeanoNat Nat eqb_refl thm
-R9489:9500 Coq.Arith.PeanoNat Nat eqb_refl thm
-R9515:9533 Kernel.VMState <> module_tensor_entry def
-R9542:9546 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R9553:9557 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R9515:9533 Kernel.VMState <> module_tensor_entry def
-R9542:9546 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R9553:9557 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
-R9576:9579 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R9576:9579 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
-R9606:9615 Coq.Arith.PeanoNat Nat eqb_eq thm
-R9606:9615 Coq.Arith.PeanoNat Nat eqb_eq thm
-R9650:9655 Coq.Reals.RIneq <> Rinv_r thm
-R9650:9655 Coq.Reals.RIneq <> Rinv_r thm
-R9668:9676 Coq.Reals.RIneq <> not_0_INR thm
-R9668:9676 Coq.Reals.RIneq <> not_0_INR thm
+R742:746 Coq.Reals.Reals <> <> lib
+R748:751 Coq.Lists.List <> <> lib
+R753:766 Coq.Arith.PeanoNat <> <> lib
+R768:770 Coq.micromega.Lia <> <> lib
+R772:774 Coq.micromega.Lra <> <> lib
+R776:779 Coq.Bool.Bool <> <> lib
+R789:801 Coq.Lists.List ListNotations <> mod
+R858:864 Kernel.VMState <> <> lib
+R894:915 Kernel.FourDSimplicialComplex <> <> lib
+R945:961 Kernel.MetricFromMuCosts <> <> lib
+def 2044:2059 <> metric_component
+R2066:2072 Kernel.VMState <> VMState rec
+binder 2062:2062 <> s:1
+R2086:2093 Kernel.VMState <> ModuleID def
+binder 2076:2077 <> μ:2
+binder 2079:2080 <> ν:3
+binder 2082:2082 <> v:4
+R2098:2098 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2105:2125 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R2127:2127 Kernel.RiemannTensor4D <> s:1 var
+R2129:2129 Kernel.RiemannTensor4D <> v:4 var
+R2131:2132 Kernel.RiemannTensor4D <> μ:2 var
+R2134:2135 Kernel.RiemannTensor4D <> ν:3 var
+def 2656:2674 <> discrete_derivative
+R2681:2687 Kernel.VMState <> VMState rec
+binder 2677:2677 <> s:5
+R2696:2714 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 2691:2692 <> sc:6
+R2732:2735 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2724:2731 Kernel.VMState <> ModuleID def
+R2736:2736 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2720:2720 <> f:7
+R2747:2754 Kernel.VMState <> ModuleID def
+binder 2740:2741 <> μ:8
+binder 2743:2743 <> v:9
+R2759:2759 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2933:2938 Coq.Lists.List <> filter def
+R3331:3343 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R3345:3346 Kernel.RiemannTensor4D <> sc:6 var
+binder 2945:2945 <> w:10
+R2954:2960 Coq.Lists.List <> existsb def
+R3311:3320 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R3322:3323 Kernel.RiemannTensor4D <> sc:6 var
+binder 2967:2967 <> e:11
+R2991:3002 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R3004:3004 Kernel.RiemannTensor4D <> e:11 var
+binder 2982:2986 <> verts:12
+R3035:3047 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R3049:3049 Kernel.RiemannTensor4D <> e:11 var
+R3078:3081 Coq.Init.Datatypes <> None constr
+R3088:3091 Coq.Init.Datatypes <> true constr
+R3157:3160 Coq.Init.Datatypes <> Some constr
+R3169:3172 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R3173:3174 Kernel.RiemannTensor4D <> μ:8 var
+binder 3019:3024 <> dir_ok:13
+R3277:3281 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3302:3302 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3251:3255 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3276:3276 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R3245:3250 Kernel.RiemannTensor4D <> dir_ok:13 var
+R3256:3267 Kernel.VMState <> nat_list_mem def
+R3269:3269 Kernel.RiemannTensor4D <> v:9 var
+R3271:3275 Kernel.RiemannTensor4D <> verts:12 var
+R3282:3293 Kernel.VMState <> nat_list_mem def
+R3295:3295 Kernel.RiemannTensor4D <> w:10 var
+R3297:3301 Kernel.RiemannTensor4D <> verts:12 var
+binder 2920:2928 <> neighbors:14
+R3360:3368 Kernel.RiemannTensor4D <> neighbors:14 var
+R3379:3380 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3394:3397 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3407:3409 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3404:3404 Kernel.RiemannTensor4D <> f:7 var
+R3410:3410 Kernel.RiemannTensor4D <> f:7 var
+R3412:3412 Kernel.RiemannTensor4D <> v:9 var
+def 3545:3555 <> christoffel
+R3562:3568 Kernel.VMState <> VMState rec
+binder 3558:3558 <> s:16
+R3577:3595 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 3572:3573 <> sc:17
+R3614:3621 Kernel.VMState <> ModuleID def
+binder 3601:3602 <> ρ:18
+binder 3604:3605 <> μ:19
+binder 3607:3608 <> ν:20
+binder 3610:3610 <> v:21
+R3626:3626 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3731:3749 Kernel.RiemannTensor4D <> discrete_derivative def
+R3751:3751 Kernel.RiemannTensor4D <> s:16 var
+R3753:3754 Kernel.RiemannTensor4D <> sc:17 var
+binder 3765:3765 <> w:22
+R3770:3785 Kernel.RiemannTensor4D <> metric_component def
+R3787:3787 Kernel.RiemannTensor4D <> s:16 var
+R3789:3790 Kernel.RiemannTensor4D <> μ:19 var
+R3792:3793 Kernel.RiemannTensor4D <> ρ:18 var
+R3795:3795 Kernel.RiemannTensor4D <> w:22 var
+R3798:3799 Kernel.RiemannTensor4D <> ν:20 var
+R3801:3801 Kernel.RiemannTensor4D <> v:21 var
+binder 3714:3726 <> deriv_nu_g_mu:23
+R3829:3847 Kernel.RiemannTensor4D <> discrete_derivative def
+R3849:3849 Kernel.RiemannTensor4D <> s:16 var
+R3851:3852 Kernel.RiemannTensor4D <> sc:17 var
+binder 3863:3863 <> w:24
+R3868:3883 Kernel.RiemannTensor4D <> metric_component def
+R3885:3885 Kernel.RiemannTensor4D <> s:16 var
+R3887:3888 Kernel.RiemannTensor4D <> ν:20 var
+R3890:3891 Kernel.RiemannTensor4D <> ρ:18 var
+R3893:3893 Kernel.RiemannTensor4D <> w:24 var
+R3896:3897 Kernel.RiemannTensor4D <> μ:19 var
+R3899:3899 Kernel.RiemannTensor4D <> v:21 var
+binder 3812:3824 <> deriv_mu_g_nu:25
+R3930:3948 Kernel.RiemannTensor4D <> discrete_derivative def
+R3950:3950 Kernel.RiemannTensor4D <> s:16 var
+R3952:3953 Kernel.RiemannTensor4D <> sc:17 var
+binder 3964:3964 <> w:26
+R3969:3984 Kernel.RiemannTensor4D <> metric_component def
+R3986:3986 Kernel.RiemannTensor4D <> s:16 var
+R3988:3989 Kernel.RiemannTensor4D <> μ:19 var
+R3991:3992 Kernel.RiemannTensor4D <> ν:20 var
+R3994:3994 Kernel.RiemannTensor4D <> w:26 var
+R3997:3998 Kernel.RiemannTensor4D <> ρ:18 var
+R4000:4000 Kernel.RiemannTensor4D <> v:21 var
+binder 3910:3925 <> deriv_rho_g_munu:27
+R4008:4008 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4057:4060 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4038:4040 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4022:4024 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4009:4021 Kernel.RiemannTensor4D <> deriv_mu_g_nu:25 var
+R4025:4037 Kernel.RiemannTensor4D <> deriv_nu_g_mu:23 var
+R4041:4056 Kernel.RiemannTensor4D <> deriv_rho_g_munu:27 var
+def 4677:4690 <> riemann_tensor
+R4697:4703 Kernel.VMState <> VMState rec
+binder 4693:4693 <> s:28
+R4712:4730 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 4707:4708 <> sc:29
+R4752:4759 Kernel.VMState <> ModuleID def
+binder 4736:4737 <> ρ:30
+binder 4739:4740 <> σ:31
+binder 4742:4743 <> μ:32
+binder 4745:4746 <> ν:33
+binder 4748:4748 <> v:34
+R4764:4764 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4789:4807 Kernel.RiemannTensor4D <> discrete_derivative def
+R4809:4809 Kernel.RiemannTensor4D <> s:28 var
+R4811:4812 Kernel.RiemannTensor4D <> sc:29 var
+binder 4823:4823 <> w:35
+R4828:4838 Kernel.RiemannTensor4D <> christoffel def
+R4840:4840 Kernel.RiemannTensor4D <> s:28 var
+R4842:4843 Kernel.RiemannTensor4D <> sc:29 var
+R4845:4846 Kernel.RiemannTensor4D <> ρ:30 var
+R4848:4849 Kernel.RiemannTensor4D <> ν:33 var
+R4851:4852 Kernel.RiemannTensor4D <> σ:31 var
+R4854:4854 Kernel.RiemannTensor4D <> w:35 var
+R4857:4858 Kernel.RiemannTensor4D <> μ:32 var
+R4860:4860 Kernel.RiemannTensor4D <> v:34 var
+binder 4775:4784 <> d_mu_gamma:36
+R4885:4903 Kernel.RiemannTensor4D <> discrete_derivative def
+R4905:4905 Kernel.RiemannTensor4D <> s:28 var
+R4907:4908 Kernel.RiemannTensor4D <> sc:29 var
+binder 4919:4919 <> w:37
+R4924:4934 Kernel.RiemannTensor4D <> christoffel def
+R4936:4936 Kernel.RiemannTensor4D <> s:28 var
+R4938:4939 Kernel.RiemannTensor4D <> sc:29 var
+R4941:4942 Kernel.RiemannTensor4D <> ρ:30 var
+R4944:4945 Kernel.RiemannTensor4D <> μ:32 var
+R4947:4948 Kernel.RiemannTensor4D <> σ:31 var
+R4950:4950 Kernel.RiemannTensor4D <> w:37 var
+R4953:4954 Kernel.RiemannTensor4D <> ν:33 var
+R4956:4956 Kernel.RiemannTensor4D <> v:34 var
+binder 4871:4880 <> d_nu_gamma:38
+R5033:5041 Coq.Lists.List <> fold_left def
+R5135:5147 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R5149:5150 Kernel.RiemannTensor4D <> sc:29 var
+binder 5048:5050 <> acc:39
+binder 5052:5053 <> λ:40
+R5066:5068 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5063:5065 Kernel.RiemannTensor4D <> acc:39 var
+R5096:5098 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5069:5079 Kernel.RiemannTensor4D <> christoffel def
+R5081:5081 Kernel.RiemannTensor4D <> s:28 var
+R5083:5084 Kernel.RiemannTensor4D <> sc:29 var
+R5086:5087 Kernel.RiemannTensor4D <> ρ:30 var
+R5089:5090 Kernel.RiemannTensor4D <> μ:32 var
+R5092:5093 Kernel.RiemannTensor4D <> λ:40 var
+R5095:5095 Kernel.RiemannTensor4D <> v:34 var
+R5099:5109 Kernel.RiemannTensor4D <> christoffel def
+R5111:5111 Kernel.RiemannTensor4D <> s:28 var
+R5113:5114 Kernel.RiemannTensor4D <> sc:29 var
+R5116:5117 Kernel.RiemannTensor4D <> λ:40 var
+R5119:5120 Kernel.RiemannTensor4D <> ν:33 var
+R5122:5123 Kernel.RiemannTensor4D <> σ:31 var
+R5125:5125 Kernel.RiemannTensor4D <> v:34 var
+binder 5016:5028 <> gamma_gamma_1:41
+R5183:5191 Coq.Lists.List <> fold_left def
+R5285:5297 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R5299:5300 Kernel.RiemannTensor4D <> sc:29 var
+binder 5198:5200 <> acc:42
+binder 5202:5203 <> λ:43
+R5216:5218 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5213:5215 Kernel.RiemannTensor4D <> acc:42 var
+R5246:5248 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5219:5229 Kernel.RiemannTensor4D <> christoffel def
+R5231:5231 Kernel.RiemannTensor4D <> s:28 var
+R5233:5234 Kernel.RiemannTensor4D <> sc:29 var
+R5236:5237 Kernel.RiemannTensor4D <> ρ:30 var
+R5239:5240 Kernel.RiemannTensor4D <> ν:33 var
+R5242:5243 Kernel.RiemannTensor4D <> λ:43 var
+R5245:5245 Kernel.RiemannTensor4D <> v:34 var
+R5249:5259 Kernel.RiemannTensor4D <> christoffel def
+R5261:5261 Kernel.RiemannTensor4D <> s:28 var
+R5263:5264 Kernel.RiemannTensor4D <> sc:29 var
+R5266:5267 Kernel.RiemannTensor4D <> λ:43 var
+R5269:5270 Kernel.RiemannTensor4D <> μ:32 var
+R5272:5273 Kernel.RiemannTensor4D <> σ:31 var
+R5275:5275 Kernel.RiemannTensor4D <> v:34 var
+binder 5166:5178 <> gamma_gamma_2:44
+R5406:5408 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5390:5392 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5377:5379 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5367:5376 Kernel.RiemannTensor4D <> d_mu_gamma:36 var
+R5380:5389 Kernel.RiemannTensor4D <> d_nu_gamma:38 var
+R5393:5405 Kernel.RiemannTensor4D <> gamma_gamma_1:41 var
+R5409:5421 Kernel.RiemannTensor4D <> gamma_gamma_2:44 var
+def 5567:5578 <> ricci_tensor
+R5585:5591 Kernel.VMState <> VMState rec
+binder 5581:5581 <> s:45
+R5600:5618 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 5595:5596 <> sc:46
+R5634:5641 Kernel.VMState <> ModuleID def
+binder 5624:5625 <> μ:47
+binder 5627:5628 <> ν:48
+binder 5630:5630 <> v:49
+R5646:5646 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5673:5681 Coq.Lists.List <> fold_left def
+R5751:5763 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R5765:5766 Kernel.RiemannTensor4D <> sc:46 var
+binder 5688:5690 <> acc:50
+binder 5692:5693 <> ρ:51
+R5706:5708 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5703:5705 Kernel.RiemannTensor4D <> acc:50 var
+R5709:5722 Kernel.RiemannTensor4D <> riemann_tensor def
+R5724:5724 Kernel.RiemannTensor4D <> s:45 var
+R5726:5727 Kernel.RiemannTensor4D <> sc:46 var
+R5729:5730 Kernel.RiemannTensor4D <> ρ:51 var
+R5732:5733 Kernel.RiemannTensor4D <> μ:47 var
+R5735:5736 Kernel.RiemannTensor4D <> ρ:51 var
+R5738:5739 Kernel.RiemannTensor4D <> ν:48 var
+R5741:5741 Kernel.RiemannTensor4D <> v:49 var
+def 5890:5901 <> ricci_scalar
+R5908:5914 Kernel.VMState <> VMState rec
+binder 5904:5904 <> s:52
+R5923:5941 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 5918:5919 <> sc:53
+R5949:5956 Kernel.VMState <> ModuleID def
+binder 5945:5945 <> v:54
+R5961:5961 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5992:6000 Coq.Lists.List <> fold_left def
+R6269:6281 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R6283:6284 Kernel.RiemannTensor4D <> sc:53 var
+binder 6007:6009 <> acc:55
+binder 6011:6012 <> μ:56
+R6021:6029 Coq.Lists.List <> fold_left def
+R6260:6262 Kernel.RiemannTensor4D <> acc:55 var
+R6242:6254 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R6256:6257 Kernel.RiemannTensor4D <> sc:53 var
+binder 6036:6039 <> acc':57
+binder 6041:6042 <> ν:58
+R6150:6153 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R6148:6149 Kernel.RiemannTensor4D <> μ:56 var
+R6154:6155 Kernel.RiemannTensor4D <> ν:58 var
+binder 6135:6139 <> g_inv:59
+R6195:6197 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6191:6194 Kernel.RiemannTensor4D <> acc':57 var
+R6203:6205 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6198:6202 Kernel.RiemannTensor4D <> g_inv:59 var
+R6206:6217 Kernel.RiemannTensor4D <> ricci_tensor def
+R6219:6219 Kernel.RiemannTensor4D <> s:52 var
+R6221:6222 Kernel.RiemannTensor4D <> sc:53 var
+R6224:6225 Kernel.RiemannTensor4D <> μ:56 var
+R6227:6228 Kernel.RiemannTensor4D <> ν:58 var
+R6230:6230 Kernel.RiemannTensor4D <> v:54 var
+def 6429:6443 <> einstein_tensor
+R6450:6456 Kernel.VMState <> VMState rec
+binder 6446:6446 <> s:60
+R6465:6483 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 6460:6461 <> sc:61
+R6499:6506 Kernel.VMState <> ModuleID def
+binder 6489:6490 <> μ:62
+binder 6492:6493 <> ν:63
+binder 6495:6495 <> v:64
+R6511:6511 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R6533:6544 Kernel.RiemannTensor4D <> ricci_tensor def
+R6546:6546 Kernel.RiemannTensor4D <> s:60 var
+R6548:6549 Kernel.RiemannTensor4D <> sc:61 var
+R6551:6552 Kernel.RiemannTensor4D <> μ:62 var
+R6554:6555 Kernel.RiemannTensor4D <> ν:63 var
+R6557:6557 Kernel.RiemannTensor4D <> v:64 var
+binder 6522:6528 <> R_mu_nu:65
+R6573:6584 Kernel.RiemannTensor4D <> ricci_scalar def
+R6586:6586 Kernel.RiemannTensor4D <> s:60 var
+R6588:6589 Kernel.RiemannTensor4D <> sc:61 var
+R6591:6591 Kernel.RiemannTensor4D <> v:64 var
+binder 6568:6568 <> R:66
+R6613:6628 Kernel.RiemannTensor4D <> metric_component def
+R6630:6630 Kernel.RiemannTensor4D <> s:60 var
+R6632:6633 Kernel.RiemannTensor4D <> μ:62 var
+R6635:6636 Kernel.RiemannTensor4D <> ν:63 var
+R6638:6638 Kernel.RiemannTensor4D <> v:64 var
+binder 6602:6608 <> g_mu_nu:67
+R6680:6682 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6673:6679 Kernel.RiemannTensor4D <> R_mu_nu:65 var
+R6698:6700 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6683:6683 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6687:6690 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6685:6685 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6691:6697 Kernel.RiemannTensor4D <> g_mu_nu:67 var
+R6701:6701 Kernel.RiemannTensor4D <> R:66 var
+def 8212:8234 <> diagonal_inverse_metric
+R8243:8249 Kernel.VMState <> VMState rec
+binder 8239:8239 <> s:68
+R8257:8264 Kernel.VMState <> ModuleID def
+binder 8253:8253 <> v:69
+R8276:8278 Coq.Init.Datatypes <> nat ind
+binder 8268:8269 <> mu:70
+binder 8271:8272 <> nu:71
+R8283:8283 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8296:8299 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8294:8295 Kernel.RiemannTensor4D <> mu:70 var
+R8300:8301 Kernel.RiemannTensor4D <> nu:71 var
+R8330:8348 Kernel.VMState <> module_tensor_entry def
+R8350:8350 Kernel.RiemannTensor4D <> s:68 var
+R8352:8352 Kernel.RiemannTensor4D <> v:69 var
+R8357:8361 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R8355:8356 Kernel.RiemannTensor4D <> mu:70 var
+R8368:8372 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R8366:8367 Kernel.RiemannTensor4D <> mu:70 var
+binder 8321:8325 <> entry:72
+R8392:8395 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8387:8391 Kernel.RiemannTensor4D <> entry:72 var
+R8421:8422 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R8423:8425 Coq.Reals.Raxioms <> INR def
+R8427:8431 Kernel.RiemannTensor4D <> entry:72 var
+prf 8532:8563 <> diagonal_inverse_metric_off_diag
+R8581:8587 Kernel.VMState <> VMState rec
+binder 8577:8577 <> s:73
+R8595:8602 Kernel.VMState <> ModuleID def
+binder 8591:8591 <> v:74
+R8614:8616 Coq.Init.Datatypes <> nat ind
+binder 8606:8607 <> mu:75
+binder 8609:8610 <> nu:76
+R8632:8639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8626:8629 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8624:8625 Kernel.RiemannTensor4D <> mu:75 var
+R8630:8631 Kernel.RiemannTensor4D <> nu:76 var
+R8673:8675 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8640:8662 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R8664:8664 Kernel.RiemannTensor4D <> s:73 var
+R8666:8666 Kernel.RiemannTensor4D <> v:74 var
+R8668:8669 Kernel.RiemannTensor4D <> mu:75 var
+R8671:8672 Kernel.RiemannTensor4D <> nu:76 var
+R8721:8743 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R8757:8761 Coq.Init.Logic <> proj2 thm
+R8764:8774 Coq.Arith.PeanoNat Nat eqb_neq thm
+R8757:8761 Coq.Init.Logic <> proj2 thm
+R8764:8774 Coq.Arith.PeanoNat Nat eqb_neq thm
+R8757:8761 Coq.Init.Logic <> proj2 thm
+R8764:8774 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 8964:8994 <> diagonal_inverse_metric_correct
+R9012:9018 Kernel.VMState <> VMState rec
+binder 9008:9008 <> s:77
+R9026:9033 Kernel.VMState <> ModuleID def
+binder 9022:9022 <> v:78
+R9042:9044 Coq.Init.Datatypes <> nat ind
+binder 9037:9038 <> mu:79
+R9108:9115 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9098:9101 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R9053:9071 Kernel.VMState <> module_tensor_entry def
+R9073:9073 Kernel.RiemannTensor4D <> s:77 var
+R9075:9075 Kernel.RiemannTensor4D <> v:78 var
+R9080:9084 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9078:9079 Kernel.RiemannTensor4D <> mu:79 var
+R9091:9095 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9089:9090 Kernel.RiemannTensor4D <> mu:79 var
+R9179:9181 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9143:9145 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9117:9132 Kernel.RiemannTensor4D <> metric_component def
+R9134:9134 Kernel.RiemannTensor4D <> s:77 var
+R9136:9137 Kernel.RiemannTensor4D <> mu:79 var
+R9139:9140 Kernel.RiemannTensor4D <> mu:79 var
+R9142:9142 Kernel.RiemannTensor4D <> v:78 var
+R9146:9168 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R9170:9170 Kernel.RiemannTensor4D <> s:77 var
+R9172:9172 Kernel.RiemannTensor4D <> v:78 var
+R9174:9175 Kernel.RiemannTensor4D <> mu:79 var
+R9177:9178 Kernel.RiemannTensor4D <> mu:79 var
+R9225:9240 Kernel.RiemannTensor4D <> metric_component def
+R9243:9263 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R9266:9288 Kernel.RiemannTensor4D <> diagonal_inverse_metric def
+R9301:9312 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9301:9312 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9301:9312 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9327:9345 Kernel.VMState <> module_tensor_entry def
+R9354:9358 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9365:9369 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9327:9345 Kernel.VMState <> module_tensor_entry def
+R9354:9358 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9365:9369 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R9388:9391 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9388:9391 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9418:9427 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9418:9427 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9462:9467 Coq.Reals.RIneq <> Rinv_r thm
+R9462:9467 Coq.Reals.RIneq <> Rinv_r thm
+R9480:9488 Coq.Reals.RIneq <> not_0_INR thm
+R9480:9488 Coq.Reals.RIneq <> not_0_INR thm

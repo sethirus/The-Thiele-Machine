@@ -1,61 +1,20 @@
-(** * NoFIToEinstein: From No Free Insight to General Relativity
+(** NoFIToEinstein: from No Free Insight to the discrete Einstein bridge.
 
-    =========================================================================
-    THE CHAIN (all proven, zero admits, zero axioms):
+   This file is the long chain written in one place. Start with No Free
+   Insight: if the machine genuinely reduces uncertainty, mu has to go up.
+   Feed that into the locality and entropy files, then into Clausius and the
+   Raychaudhuri bridge, and you end up at the discrete curvature law used by
+   EinsteinEmergence.v.
 
-    No Free Insight (proven in HonestNoFI_TheoremsWithoutAssumptions.v):
-      Information reduction forces structure addition → Δμ ≥ 1
-                ↓
-      Nearest-neighbor PSPLIT locality (LocalMorphismSemantics.v):
-      Entanglement entropy ≤ boundary area (EntanglementEntropy.v)
-                ↓
-      Clausius dQ = T·dS at each local horizon (ClausiusFromEntropyArea.v)
-      with Unruh temperature T = ℏa/(2πck_B)
-                ↓   [mu_landauer_unruh_calibrated: explicit hypothesis, not axiom]
-      Raychaudhuri null flux = T·dS (RaychaudhuriFluxBridge.v)
-                ↓   [raychaudhuri_component discharged by
-                      discrete_einstein_emergence_component]
-      Discrete Einstein equation:
-        ΔCurvature = κ · Δ(Euler characteristic)
-      (ThermoEinsteinBridge.v + EinsteinEmergence.v)
+   The delicate step is the Landauer-Unruh calibration. I do not smuggle it
+   in as an axiom. I name it as a hypothesis, state exactly what equality it
+   claims, and then let later theorems discharge it from more explicit
+   calibration assumptions when those are available.
 
-    =========================================================================
-    THE LANDAUER-UNRUH CALIBRATION (named hypothesis, not axiom or variable):
-
-    mu_landauer_unruh_calibrated states that the μ-cost increment scaled by
-    horizon area equals the Clausius heat dQ = T·dS. Experimental basis:
-
-      - Landauer 1961: erasing 1 bit dissipates ≥ k_B T ln 2
-      - Bérut et al. 2012 Nature 483, 187: 95%-efficiency measurement
-      - Unruh 1976: uniformly accelerated observer sees T = ℏa/(2πck_B)
-
-    This file keeps the equality as a reusable predicate, but the repository
-    also proves a stronger entry theorem that derives it from an explicit
-    constants calibration plus ledger-to-support entropy identification.
-
-    =========================================================================
-    WHAT THIS FILE PROVES:
-
-    1. [nfi_to_discrete_einstein] — the full chain as a single theorem.
-       Nearest-neighbor locality + Landauer-Unruh calibration
-       → discrete Einstein equation.  Proof: direct application of
-       thermodynamic_locality_toward_discrete_einstein_emergence.
-
-    2. [certified_implies_positive_mu] — re-export of PrimeAxiom result.
-       Reaching vm_certified=true from mu=0 forces mu > 0.
-       This is the computational NoFI statement in its strongest form.
-
-    3. [nfi_cost_nonzero_implies_nontrivial_calibration] — NoFI contribution.
-       If μ increased and the calibration holds, the Raychaudhuri flux
-       is non-zero: heat flows, the spacetime is not static.
-
-     4. [raychaudhuri_component_discharged_witness] — explicit closure record.
-       The Jacobson/Thermo bridge interface is discharged by
-       discrete_einstein_emergence_component.
-
-    ZERO AXIOMS. ZERO ADMITS.
-    =========================================================================
-*)
+   So the real point of this file is not "general relativity is done." The
+   point is narrower: given the explicit bridge conditions, the repository can
+   carry a NoFI-style cost increase all the way to the discrete
+   delta-curvature = kappa * delta-chi statement. *)
 
 (* INQUISITOR NOTE: proof-connectivity — closes raychaudhuri_component gap by
    wiring discrete_einstein_emergence_component into the full Jacobson chain.
@@ -78,28 +37,16 @@ From Kernel Require Import DiscreteTopology.
 From Kernel Require Import DiscreteGaussBonnet.
 From Kernel Require Import EinsteinEmergence.
 
-(** =========================================================================
-    SECTION 1: THE LANDAUER-UNRUH CALIBRATION (named hypothesis)
-    ========================================================================= *)
 
-(** [mu_landauer_unruh_calibrated]: the physical bridge between μ-cost and heat.
+(** [mu_landauer_unruh_calibrated]: the bridge from mu-cost to heat.
 
-    The null energy flux from the computational cost increment equals the
-    Clausius product T·dS at the split horizon P.
+    This predicate says the cost jump, scaled by the horizon geometry, matches
+    the Clausius quantity T * dS at the split horizon. That is the explicit
+    place where computational bookkeeping is being read as thermodynamic flux.
 
-    Expansion (in R):
-      null_energy_flux_delta calibrated_null_congruence s_pre s_post P
-        = vm_mu_delta s_pre s_post * horizon_area_measure P * 1
-        = (INR s_post.vm_mu - INR s_pre.vm_mu) * INR(1 + boundary_size)
-
-      unruh_temperature hbar c_light k_B P * entropy_increment_delta ...
-        = ℏ·a/(2π·c·k_B) * entropy_per_bit * Δlog₂(|support|)
-
-    Equality: Δμ × area = T_Unruh × ΔS_bits (Landauer-Unruh identity).
-
-    Falsification: run hardware traces, measure Δμ and boundary_size,
-    check the calibration quantitatively.
-*)
+    If this bridge is wrong, the way to break it is empirical: measure mu
+    change and boundary data on real traces, then compare that with the
+    temperature-and-entropy side. *)
 Definition mu_landauer_unruh_calibrated
     (hbar c_light k_B entropy_per_bit : R)
     (s_pre s_post : VMState)
@@ -111,26 +58,15 @@ Definition mu_landauer_unruh_calibrated
    ClausiusFromEntropyArea.entropy_increment_delta
      entropy_per_bit support_pre support_post)%R.
 
-(** =========================================================================
-    SECTION 2: MAIN THEOREM — NoFI TO DISCRETE EINSTEIN
-    ========================================================================= *)
 
-(** [nfi_to_discrete_einstein]: the full chain in a single theorem.
+(** [nfi_to_discrete_einstein]: the whole bridge in one theorem.
 
-    PROOF STRUCTURE:
-      nearest-neighbor locality + In support_pre/post
-        → entanglement entropy ≤ boundary area  [local_morphism_entropy_area_law_bits]
-        → clausius_component_delta_shape gives dQ = T·dS
-      calibration = null flux = T·dS
-        → raychaudhuri_delta_flux_implies_clausius_delta_link (by ring)
-      clausius dQ = T·dS + well_formed_triangulated
-           → discrete_einstein_emergence_component
-             ← discharges the bridge's Raychaudhuri-to-Einstein interface
-        → einstein_emerges [DiscreteGaussBonnet chain]
-        = ΔCurvature = κ·Δχ.
-*)
+    The proof just threads the already-built pieces together. Locality gives
+    the area-law side, the calibration identifies the flux, the thermodynamic
+    bridge turns that into the Raychaudhuri component the Einstein-side theorem
+    wants, and the Gauss-Bonnet chain finishes the curvature statement. *)
 (* INQUISITOR NOTE: main theorem — discharges raychaudhuri_component gap via
-   discrete_einstein_emergence_component in ThermoEinsteinBridge. Zero admits. *)
+  discrete_einstein_emergence_component in ThermoEinsteinBridge. *)
 Theorem nfi_to_discrete_einstein :
   forall (hbar c_light k_B entropy_per_bit : R)
          (s_pre s_post : VMState)
@@ -263,9 +199,6 @@ Proof.
   - eapply BekensteinCalibration.pnew_step_mu_bit_calibration; eauto.
 Qed.
 
-(** =========================================================================
-    SECTION 3: THE NoFI CONTRIBUTION
-    ========================================================================= *)
 
 (** [certified_implies_positive_mu]: Re-export of PrimeAxiom's main result.
 
@@ -327,9 +260,7 @@ Proof.
   - rewrite RaychaudhuriFluxBridge.calibrated_focusing_unit. lra.
 Qed.
 
-(** =========================================================================
-    SECTION 4: RAYCHAUDHURI COMPONENT DISCHARGED
-    =========================================================================
+(**
 
     The Jacobson/Thermo bridge Raychaudhuri interface is discharged by
     ThermoEinsteinBridge.discrete_einstein_emergence_component:
@@ -340,8 +271,7 @@ Qed.
 
     ANY positive-temperature Clausius relation dQ = T·dS gives the discrete
     Einstein target. The variable is fully closed.
-
-    NOTE: This definition aliases the VACUOUS 2D version of the proof —
+ This definition aliases the VACUOUS 2D version of the proof —
     the Clausius parameters (dQ, dS, T) are accepted for interface compatibility
     but not used, because 2D Gauss-Bonnet (einstein_emerges) does not require
     them.  The substantive 4D proof where Clausius IS structurally load-bearing
@@ -356,11 +286,7 @@ Qed.
 Definition raychaudhuri_component_discharged_witness :=
   @ThermoEinsteinBridge.discrete_einstein_emergence_component.
 
-(** =========================================================================
-    SECTION 5: CHAIN SUMMARY RECORD
-    =========================================================================
 
-*)
 Definition nfi_to_gr_chain_complete :=
   (nfi_to_discrete_einstein,
    nfi_to_discrete_einstein_from_bekenstein_calibration,

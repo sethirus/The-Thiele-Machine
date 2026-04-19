@@ -1,6 +1,5 @@
-(** * ThieleTraceProjection: Formal projection from Thiele traces to classical traces
+(** ThieleTraceProjection: Formal projection from Thiele traces to classical traces
 
-    WHY THIS FILE EXISTS:
     The Thiele Machine carries structure a classical Turing machine cannot see:
     witness counters, partition graphs, certification flags, CSR registers,
     and the mu-tensor. This file formalizes the forgetful map that drops all
@@ -28,7 +27,6 @@
     Thiele machine carries richer state than classical computation, and
     that state is not recoverable from the classical projection.
 
-    NO AXIOMS. NO ADMITS. All proofs are constructive.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat.
@@ -36,9 +34,7 @@ Import ListNotations.
 
 From Kernel Require Import VMState.
 
-(* ================================================================= *)
 (** ** I.  Classical snapshot: what a Turing-style observer can see  *)
-(* ================================================================= *)
 
 (** A classical observer has access to the computational core only:
     the program counter, the mu-cost ledger, the register file, and
@@ -61,9 +57,7 @@ Record ClassicalSnapshot := mkClassicalSnapshot {
   cs_mem  : list nat
 }.
 
-(* ================================================================= *)
 (** ** II.  The forgetful projection                                 *)
-(* ================================================================= *)
 
 (** project_state: drop all Thiele-specific structure. *)
 Definition project_state (s : VMState) : ClassicalSnapshot :=
@@ -80,13 +74,9 @@ Definition ClassicalTrace := list ClassicalSnapshot.
 Definition project_trace (t : ThieleTrace) : ClassicalTrace :=
   List.map project_state t.
 
-(* ================================================================= *)
 (** ** III.  Theorem 1: Projection collapses witness structure       *)
-(* ================================================================= *)
 
-(** [projection_collapses_witness_structure]: formal specification.
-
-    Two states that agree on all classical fields project identically,
+(** Two states that agree on all classical fields project identically,
     even if they differ arbitrarily in witness counters, partition
     graphs, certification bits, or any other Thiele-only state. *)
 Theorem projection_collapses_witness_structure :
@@ -128,9 +118,7 @@ Proof.
         exact (Hagree (S i) si1 si2 Hi1 Hi2).
 Qed.
 
-(* ================================================================= *)
 (** ** IV.  Constructive witnesses for non-injectivity               *)
-(* ================================================================= *)
 
 Definition example_csr : CSRState :=
   {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |}.
@@ -195,19 +183,14 @@ Proof.
   discriminate.
 Qed.
 
-(** [project_A_eq_B]: formal specification.
-    Despite distinct witness counters, A and B project identically. *)
+(** Despite distinct witness counters, A and B project identically. *)
 Lemma project_A_eq_B :
   project_state trace_witness_A = project_state trace_witness_B.
 Proof. reflexivity. Qed.
 
-(* ================================================================= *)
 (** ** V.  Theorem 2: Distinct certified traces, same classical trace *)
-(* ================================================================= *)
 
-(** [distinct_certified_traces_same_classical]: formal specification.
-
-    The projection is genuinely many-to-one on certified traces.
+(** The projection is genuinely many-to-one on certified traces.
     The two witnesses carry different CHSH trial histories (different
     quantum witness evidence) but are indistinguishable to a classical
     observer. *)
@@ -242,9 +225,7 @@ Proof.
     reflexivity.
 Qed.
 
-(** [projection_not_injective]: formal specification.
-
-    The forgetful map from Thiele states to classical snapshots is not
+(** The forgetful map from Thiele states to classical snapshots is not
     injective. Structurally distinct Thiele states can be classically
     indistinguishable. *)
 Corollary projection_not_injective :

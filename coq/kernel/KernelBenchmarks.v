@@ -1,46 +1,25 @@
-(** =========================================================================
-    KERNEL BENCHMARKS: Complexity Bounds and Performance Specifications
-    =========================================================================
+(**
+    KernelBenchmarks: formal bounds for selected partition cost functions.
 
-    WHY THIS FILE EXISTS:
-    I claim ALL VM operations have polynomial time complexity - specifically,
-    O(n) or better where n is input size. No exponential blowups, no combinatorial
-    explosions. This file PROVES these complexity bounds formally.
+    This file proves linear-style bounds for the cost expressions named below.
+    It does not prove wall-clock runtime for every VM operation, and it does not
+    prove that every implementation layer has the same performance profile.
 
-    THE CORE CLAIM:
-    - PNEW (create partition): O(|region|) [Theorem pnew_linear]
-    - PSPLIT (split partition): O(|left| + |right|) [Theorem psplit_linear]
-    - PMERGE (merge partitions): O(|r1| + |r2|) [Theorem pmerge_linear_worst]
-    - Space usage: O(total elements) [Theorem space_linear]
-    - Workload (N ops on M-element partitions): O(N·M) [Theorem workload_linear]
+    - PNEW cost function: O(|region|), pnew_linear
+    - PSPLIT cost function: O(|left| + |right|), psplit_linear
+    - PMERGE cost function: O(|r1| + |r2|), pmerge_linear_worst
+    - Stored-region space expression: O(total elements), space_linear
+    - Abstract workload expression: O(N*M), workload_linear
 
-    WHY LINEARITY MATTERS:
-    If any operation scaled superlinearly (O(n²), O(n!), O(2ⁿ)), the theory would
-    predict exponential slowdown for quantum simulations. Real quantum computers
-    don't show this - they have polynomial overhead. So the theory MUST predict
-    polynomial bounds or it's falsified by experiment.
+    FalsifiablePrediction.v gives empirical protocols for checking whether the
+    extracted runner behaves like these cost expressions. If measurements show
+    superlinear growth, that challenges the implementation/performance story or
+    the modeling assumptions; the Coq theorem itself is about the definitions
+    in this file.
 
-    HOW THIS DIFFERS FROM FalsifiablePrediction.v:
-    - FalsifiablePrediction.v: Experimental protocols (run benchmarks, plot measured vs predicted)
-    - KernelBenchmarks.v: Formal complexity theory (prove asymptotic bounds using big-O notation)
+  *)
 
-    Both files make the same claim (linear scaling), but from different angles:
-    one is empirical/testable, the other is mathematical/proven.
-
-    FALSIFICATION:
-    1. Find ANY operation where cost grows superlinearly with input size
-    2. Run benchmarks against the OCaml extracted runner on large inputs (n = 10⁶, 10⁷, 10⁸)
-    3. Plot log(cost) vs log(n) - should be linear with slope ≤ 1
-    4. If slope > 1 (superlinear), the theorems are falsified
-
-    Or find a logical error in the proofs (all are Qed, no axioms).
-
-    GOAL: Formal complexity bounds for partition operations
-
-    NO AXIOMS. PROVEN BOUNDS ONLY.
-    =========================================================================*)
-
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+(* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
 
 From Kernel Require Import VMState VMStep KernelPhysics FalsifiablePrediction.
@@ -50,9 +29,7 @@ Require Import Coq.micromega.Lia.
 Import ListNotations.
 Import Nat.
 
-(** =========================================================================
-    OPERATION COMPLEXITY CLASSES
-    =========================================================================*)
+(** Operation-complexity predicates over nat cost expressions. *)
 
 (** O(n) operations *)
 Definition linear_time_op (input_size output_cost : nat) : Prop :=
@@ -66,9 +43,7 @@ Definition nlogn_time_op (input_size output_cost : nat) : Prop :=
 Definition quadratic_time_op (input_size output_cost : nat) : Prop :=
   exists C, (output_cost <= C * input_size * input_size)%nat.
 
-(** =========================================================================
-    PROVEN COMPLEXITY BOUNDS
-    =========================================================================*)
+(** Proven bounds for the selected cost expressions. *)
 
 (** PNEW is O(|region_size|) - cost proportional to deduplicated region *)
 Theorem pnew_linear : forall region cost,
@@ -100,9 +75,7 @@ Proof.
   rewrite Heq. unfold region_size. lia.
 Qed.
 
-(** =========================================================================
-    SPACE COMPLEXITY
-    =========================================================================*)
+(** Space expression used by these benchmark wrappers. *)
 
 (** Memory usage is O(active partition size) *)
 Definition space_bound (modules : list (ModuleID * ModuleState)) : nat :=
@@ -118,9 +91,7 @@ Proof.
   exists 1. rewrite Heq. lia.
 Qed.
 
-(** =========================================================================
-    BENCHMARK SCENARIOS
-    =========================================================================*)
+(** Benchmark scenario records. *)
 
 (** Scenario 1: Partition creation *)
 Record BenchmarkPNEW := {
@@ -138,9 +109,7 @@ Record BenchmarkPSPLIT := {
                        bench_psplit_left_size + bench_psplit_right_size
 }.
 
-(** =========================================================================
-    PERFORMANCE PREDICTIONS
-    =========================================================================*)
+(** Abstract workload expression. *)
 
 (** For N partition operations on M-element partitions:
     - Total μ-cost: O(N · M)
@@ -151,7 +120,6 @@ Record BenchmarkPSPLIT := {
 Definition total_cost_bound (num_ops partition_size : nat) : nat :=
   num_ops * partition_size.
 
-(** [workload_linear]: formal specification. *)
 Theorem workload_linear : forall N M total,
   total = total_cost_bound N M ->
   linear_time_op (N * M) total.
@@ -160,13 +128,15 @@ Proof.
   exists 1. rewrite Heq. unfold total_cost_bound. lia.
 Qed.
 
-(** =========================================================================
-    SUMMARY: ZERO PROJECT-LOCAL AXIOMS, ZERO ADMITS
-    =========================================================================*)
+(** Summary.
+
+  This file proves linear-style bounds for the selected cost expressions under
+  the chosen input measures. It does not claim to benchmark the whole VM or
+  to certify wall-clock runtime on a concrete machine. *)
 
 (** WHAT I PROVED:
 
-    All VM operations have POLYNOMIAL (actually LINEAR) time complexity:
+    The selected cost expressions have linear-style bounds:
 
     - PNEW: O(n) where n = |region| (Theorem pnew_linear)
     - PSPLIT: O(n) where n = |left| + |right| (Theorem psplit_linear)
@@ -174,31 +144,27 @@ Qed.
     - Space: O(n) where n = total elements (Theorem space_linear)
     - Workload: O(N·M) for N ops on M-element partitions (Theorem workload_linear)
 
-    NO SUPERLINEAR OPERATIONS. Every bound has the form cost ≤ C·n for some constant C.
-
-    WHY THIS MATTERS FOR QUANTUM MECHANICS:
-    Real quantum computers have polynomial overhead for simulation. If the Thiele
-    Machine predicted exponential costs, it would be falsified by IBM/Google/IonQ
-    quantum hardware actually running. The polynomial bounds are NECESSARY for
-    the theory to survive experimental contact.
+    Each bound has the form cost <= C*n for the chosen input measure. This is a
+    statement about the model's cost expressions, not a blanket statement about
+    all VM instructions or measured runtime.
 
     FALSIFICATION PROTOCOL:
     1. Implement benchmarks against the OCaml extracted runner
     2. Run on input sizes: n ∈ {10, 100, 1000, 10000, 100000, 1000000}
     3. Plot log(measured_cost) vs log(n) for each operation
-    4. Fit linear regression: if slope > 1.1, theory falsified (allowing 10% tolerance)
+    4. Fit linear regression: slope > 1.1 challenges the performance model
     5. Check R² > 0.99 (high linearity) - if not, superlinear growth detected
 
     COMPLEMENTARY TO FalsifiablePrediction.v:
     - FalsifiablePrediction.v: Concrete predictions with constants (cost ≤ C·n, find C empirically)
     - KernelBenchmarks.v: Asymptotic analysis (cost = O(n), proven mathematically)
 
-    Both must be true. If benchmarks show O(n²) but proofs claim O(n), there's
-    either an implementation bug or a proof error. Cross-layer comparison work
-    is meant to reduce that risk, but the repository should not describe it here
-    as an unconditional proof that every layer always matches.
+    Both need to agree for the story to hold. If benchmarks show O(n^2) while
+    proofs claim O(n), there is either an implementation mismatch, a modeling
+    mismatch, or a proof/definition issue. Cross-layer comparison work is meant
+    to reduce that risk, but this file should not describe it as an
+    unconditional proof that every layer always matches.
 
-    NO AXIOMS. NO ADMITS. All theorems are Qed (proven).
 
     These bounds are TESTABLE via benchmarks against the OCaml extracted runner.
     *)

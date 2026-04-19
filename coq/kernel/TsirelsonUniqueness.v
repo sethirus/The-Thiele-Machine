@@ -1,8 +1,6 @@
-(** =========================================================================
+(**
     TsirelsonUniqueness: Corrected CHSH Bounds under mu-Accounting
-    =========================================================================
 
-    WHY THIS FILE EXISTS:
     An earlier version of this file claimed "mu = 0 implies S <= 2 sqrt 2".
     That claim was FALSE: TsirelsonUpperBound.v exhibits a mu = 0 trace
     (algebraic_max_trace) that achieves S = 4 using only CHSH_TRIAL
@@ -10,7 +8,6 @@
     records the corrected understanding and proves the weaker but TRUE
     bound: mu = 0 programs satisfy |S| <= 4 (the algebraic maximum).
 
-    THE CORE CLAIM:
     Theorem mu_zero_algebraic_bound --
       For any mu = 0 program, |chsh_from_vm_trace| <= 4.
     This delegates to mu_zero_chsh_bounded (TsirelsonUpperBound.v).
@@ -27,7 +24,6 @@
     satisfies algebraic coherence (NPA level 1). Instruction-level
     mu = 0 alone is insufficient.
 
-    FALSIFICATION:
     Exhibit a mu = 0 trace with |S| > 4. Impossible: the VM encodes
     CHSH values as bounded naturals, and TsirelsonUpperBound.v proves
     the algebraic maximum is 4. Alternatively, reinstate the old
@@ -35,7 +31,7 @@
     counterexample in TsirelsonUpperBound.v refutes it.
 
     Fully proven, zero Admitted.
-    ========================================================================= *)
+    *)
 
 From Coq Require Import QArith Qabs Lia List.
 Import ListNotations.
@@ -56,7 +52,6 @@ Definition tsirelson_bound : Q := (5657 # 2000)%Q.
 (** HELPER: Base case property *)
 (** HELPER: Base case property *)
 (* SAFE: Delegates to mu_zero_chsh_bounded — this is proof composition, not a placeholder. *)
-(** [mu_zero_algebraic_bound]: formal specification. *)
 Theorem mu_zero_algebraic_bound :
   forall fuel trace s_init,
     mu_zero_program fuel trace ->

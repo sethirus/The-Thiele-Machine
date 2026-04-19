@@ -14,7 +14,7 @@
     - XOR ALU: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
     - Partition/Logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
       MDLACC, EMIT, REVEAL (partition graph managed at higher layer)
-    - Special: CHSH_TRIAL, ORACLE_HALTS, HALT
+    - Special: CHSH_TRIAL, HALT
     - Phase 2/3B: CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE
     - Phase 4: CERTIFY (state-based certification)
     - Phase 6: TENSOR_SET, TENSOR_GET (per-module tensor, software-managed)
@@ -25,10 +25,9 @@
     The current Kami core models LASSERT/LJOIN with on-chip logic-engine state,
     not an external coprocessor. Formula/certificate data live in VM memory,
     and the hardware advances an internal FSM to perform the check. The Coq
-    kernel still uses check_model/check_lrat/String.eqb inline, and
+    kernel uses the binary formula header and dual SAT witness check, and
     LogicEngineEquivalence.v relates the hardware path to the kernel path at
-    the observable-state boundary (PC, mu, error flag), including the known
-    LASSERT mu-gap accounting theorem.
+    the observable-state boundary (PC, μ, error flag).
 
     Extended state (matching handwritten RTL parity):
     - partition_ops, mdl_ops, info_gain: diagnostic counters
@@ -45,12 +44,11 @@ Require Import Kernel.VMState.
 Require Import Kernel.VMStep.
 Import VMStep.VMStep.
 
-(** ORACLE_HALTS charges a fixed 1,000,000 mu penalty in hardware.
-    This matches ThieleTypes.ORACLE_HALTS_HW_COST and ThieleCPUCore.v (ORACLE_HALTS rule).
-    Defined here as a plain nat (no Kami word dependency). *)
+(** ORACLE_HALTS_HW_COST preserved for use in cost-ceiling lemmas.
+    No opcode charges this anymore — it serves as a conservative cap reference. *)
 Definition ORACLE_HALTS_HW_COST : nat := 1000000.
 
-(** * Rich-state snapshot payload
+(** Rich-state snapshot payload
 
     M3 begins carrying bounded hardware-resident rich-state tables through the
     snapshot interface.  The legacy [abs_phase1] proof spine still uses the
@@ -151,7 +149,7 @@ Definition empty_rich_snapshot_state : RichSnapshotState :=
      rich_next_desc_meta_id := 0;
      rich_lassert_state := empty_lassert_shadow_state |}.
 
-(** * Hardware state snapshot
+(** Hardware state snapshot
 
     All values are stored as [nat]; the invariant [snap_regs_bounded] /
     [snap_mem_bounded] ensures they fit in hardware 32-bit registers. *)
@@ -190,7 +188,7 @@ Record KamiSnapshot := {
   snap_mstatus       : nat     (* mirrors VMState.vm_mstatus *)
 }.
 
-(** * Conversion: function-based registers/memory -> list (VMState expects list nat) *)
+(** Conversion: function-based registers/memory -> list (VMState expects list nat) *)
 
 Definition snapshot_regs_to_list (f : nat -> nat) : list nat :=
   List.map f (List.seq 0 32).
@@ -250,7 +248,7 @@ Definition snapshot_morphisms_of_rich_state
       end)
     (List.rev (List.seq 0 (rich_next_morph_id rs))).
 
-(** * Rich morph state helper operations
+(** Rich morph state helper operations
 
     These functions implement the morph-table mutations that [kami_step] needs
     to maintain full-state correspondence for the Phase 7 categorical opcodes. *)
@@ -427,11 +425,11 @@ Definition kami_advance_rich_noret (hs : KamiSnapshot)
      snap_logic_acc     := snap_logic_acc hs;
      snap_mstatus       := snap_mstatus hs |}.
 
-(** * Default CSRs: all fields zero *)
+(** Default CSRs: all fields zero *)
 Definition default_csrs : CSRState :=
   {| csr_cert_addr := 0 ; csr_status := 0 ; csr_err := 0; csr_heap_base := 0 |}.
 
-(** * Reconstruct a PartitionGraph from the bounded hardware partition table.
+(** Reconstruct a PartitionGraph from the bounded hardware partition table.
 
     The hardware stores (module_id -> region_size) for up to PTableSz=64 slots.
     A size of 0 means the slot is unallocated.  Axioms cannot be stored in
@@ -489,7 +487,7 @@ Definition snap_full_graph (s : KamiSnapshot) : PartitionGraph :=
      pg_next_morph_id := rich_next_morph_id (snap_rich_state s);
      pg_morphisms := snapshot_morphisms_of_rich_state (snap_rich_state s) |}.
 
-(** * Main abstraction: KamiSnapshot -> VMState.
+(** Main abstraction: KamiSnapshot -> VMState.
     The partition graph is reconstructed from the hardware partition table.
     Axioms are maintained by the software driver and are not stored in hardware. *)
 Definition abs_phase1 (s : KamiSnapshot) : VMState :=
@@ -526,7 +524,7 @@ Definition abs_full := abs_phase1.
 
    Stack-pointer register: register r31 (= kami_sp_reg) is reserved
    for CALL/RET, matching SP_IDX in ThieleCPUCore.v.
-   ==================================================================== *)
+   *)
 
 (** Stack-pointer register index — mirrors SP_IDX in ThieleCPUCore.v.
     RegIdxSz = 5 bits → max register index 31 is kami_sp_reg. *)
@@ -848,11 +846,12 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_lassert freg creg kind flen cost =>
-      (* LASSERT: hardware computes full formula check, traps on failure.
-         Cost: flen * 8 + S cost (matches instruction_cost).
+      (* LASSERT: hardware computes full formula check and validates that the
+        declared flen matches the in-memory formula header, trapping on any
+        failure. Cost: flen * 8 + S cost (matches instruction_cost).
          PC: S pc on success, LASSERT_TRAP_PC on failure.
          Error: set snap_err on failure.  CSRs preserved (matching vm_apply). *)
-      let check_ok := lassert_check_ok (abs_phase1 hs) freg creg kind in
+      let check_ok := lassert_exec_ok (abs_phase1 hs) freg creg kind flen in
       let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
       let new_err  := if check_ok then snap_err hs else true in
       {| snap_pc    := new_pc;
@@ -1419,13 +1418,13 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
-  | instr_emit _ _ cost =>
-      kami_advance_default hs (S cost)
+  | instr_emit _ payload cost =>
+      kami_advance_default hs (payload_bit_length payload + S cost)
   | instr_reveal module0 bits _ cost =>
       (* REVEAL: tensor_idx = module0 mod 16, delta = bits — matches advance_state_reveal in vm_apply_unsafe *)
       let k := module0 mod 16 in
       {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + S cost;
+         snap_mu    := snap_mu hs + (bits + S cost);
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
@@ -1456,10 +1455,6 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
-  | instr_oracle_halts _ _ =>
-      (* Hardware charges ORACLE_HALTS_HW_COST (1,000,000) regardless of the
-         user-specified cost field. This matches ThieleCPUCore.v line 1376. *)
-      kami_advance_default hs ORACLE_HALTS_HW_COST
   | instr_halt cost =>
       (* HALT: vm_apply_unsafe falls through to advance_state (PC+1, cost).
          snap_halted flag is hardware-only; abs_phase1 does not expose it.
@@ -1496,9 +1491,9 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mstatus       := snap_mstatus hs |}
   | instr_checkpoint _ cost =>
       kami_advance_default hs cost
-  | instr_read_port dst _ v _ cost =>
+  | instr_read_port dst _ v bits cost =>
       {| snap_pc    := S (snap_pc hs);
-         snap_mu    := snap_mu hs + S cost;
+         snap_mu    := snap_mu hs + (bits + S cost);
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst v;
@@ -1998,22 +1993,12 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
   end.
 
 (** kami_instruction_cost: the cost that the hardware charges for each opcode.
-    Now matches instruction_cost for ALL opcodes except:
-    - ORACLE_HALTS: charges a fixed ORACLE_HALTS_HW_COST (1,000,000)
-    - CERTIFY: charges S delta_mu (structurally positive, matching step_certify)
-    LASSERT now charges flen * 8 + S cost (matching instruction_cost). *)
+    CERTIFY pays S delta_mu; LASSERT pays flen * 8 + S cost;
+    EMIT pays payload_bit_length payload + S cost; REVEAL/READ_PORT pay bits + S cost. *)
 Definition kami_instruction_cost (i : vm_instruction) : nat :=
   match i with
-  | instr_oracle_halts _ _ => ORACLE_HALTS_HW_COST
   | instr_certify dm => S dm
   | other => instruction_cost other
-  end.
-
-(** Predicate for identifying ORACLE_HALTS instructions. *)
-Definition is_oracle_halts (i : vm_instruction) : bool :=
-  match i with
-  | instr_oracle_halts _ _ => true
-  | _ => false
   end.
 
 (** Predicate for identifying CERTIFY instructions. *)
@@ -2024,41 +2009,41 @@ Definition is_certify (i : vm_instruction) : bool :=
   end.
 
 (** kami_step advances mu by exactly kami_instruction_cost.
-    For ORACLE_HALTS, this is ORACLE_HALTS_HW_COST (1,000,000).
-    For CERTIFY, this is S delta_mu (structurally positive).
-    For LASSERT, this is flen * 8 + S cost (matching instruction_cost).
-    For all other opcodes, this equals instruction_cost. *)
+    For CERTIFY: S delta_mu (structurally positive).
+    For LASSERT: flen * 8 + S cost.
+    For EMIT: payload_bit_length payload + S cost.
+    For REVEAL/READ_PORT: bits + S cost.
+    For all other opcodes: equals instruction_cost directly. *)
 Lemma kami_step_mu_cost : forall (hs : KamiSnapshot) (i : vm_instruction),
     snap_mu (kami_step hs i) = snap_mu hs + kami_instruction_cost i.
 Proof.
-  intros hs i. destruct i; simpl; try reflexivity;
+  intros hs i. destruct i; simpl; try reflexivity; try lia;
   (* Handle branches: lassert_check_ok, tensor_indices_ok, morph lookups, etc. *)
-  try (destruct (lassert_check_ok _ _ _ _); simpl; reflexivity);
-  try (destruct (tensor_indices_ok _ _); simpl; try reflexivity;
-       unfold kami_advance_err; simpl; reflexivity);
-  try (destruct (graph_tensor_morphisms _ _ _) as [[]|]; simpl; try reflexivity;
-       try (destruct (graph_lookup_morphism _ _); simpl; try reflexivity;
-            unfold kami_advance_err; simpl; reflexivity);
-       unfold kami_advance_err; simpl; reflexivity);
+  try (destruct (lassert_check_ok _ _ _ _); simpl; try reflexivity; try lia);
+  try (destruct (tensor_indices_ok _ _); simpl; try reflexivity; try lia;
+       unfold kami_advance_err; simpl; try reflexivity; try lia);
+  try (destruct (graph_tensor_morphisms _ _ _) as [[]|]; simpl; try reflexivity; try lia;
+       try (destruct (graph_lookup_morphism _ _); simpl; try reflexivity; try lia;
+            unfold kami_advance_err; simpl; try reflexivity; try lia);
+       unfold kami_advance_err; simpl; try reflexivity; try lia);
   (* CHSH_TRIAL: nested match on settings (x,y) and output same/diff *)
   (* Rich morph ops: match on option MorphTableEntry — all branches charge same mu *)
   repeat match goal with
     | |- context [match ?x with _ => _ end] =>
-        destruct x; simpl; try reflexivity
+        destruct x; simpl; try reflexivity; try lia
   end.
 Qed.
 
-(** For non-ORACLE_HALTS, non-CERTIFY instructions,
+(** For non-CERTIFY instructions,
     kami cost equals vm cost. LASSERT gap is now closed. *)
 Lemma kami_cost_eq_instruction_cost : forall i,
-    is_oracle_halts i = false ->
     is_certify i = false ->
     kami_instruction_cost i = instruction_cost i.
 Proof.
-  intros i H Hc. destruct i; simpl in *; try reflexivity; try discriminate.
+  intros i Hc. destruct i; simpl in *; try reflexivity; try discriminate.
 Qed.
 
-(** For ORACLE_HALTS and CERTIFY, hardware cost >= software cost (conservative). *)
+(** For CERTIFY, hardware cost >= software cost (conservative). *)
 Lemma kami_cost_ge_instruction_cost : forall i,
     instruction_cost i <= ORACLE_HALTS_HW_COST ->
     kami_instruction_cost i >= instruction_cost i.
@@ -2066,7 +2051,7 @@ Proof.
   intros i Hbound. destruct i; simpl in *; try lia.
 Qed.
 
-(** * Execution preconditions *)
+(** Execution preconditions *)
 Definition cpu_preconditions (s : KamiSnapshot) : Prop :=
   snap_pc         s < MEM_SIZE /\
   snap_mu         s < 2^31   /\
@@ -2074,7 +2059,7 @@ Definition cpu_preconditions (s : KamiSnapshot) : Prop :=
   snap_halted     s = false  /\
   snap_pt_next_id s < 64.    (* partition table not full: room for at least one more allocation *)
 
-(** * Length invariants *)
+(** Length invariants *)
 
 Lemma snapshot_regs_to_list_length : forall f,
     length (snapshot_regs_to_list f) = 32.
@@ -2094,7 +2079,7 @@ Proof.
   intro f. unfold snapshot_tensor_to_list. rewrite map_length, seq_length. reflexivity.
 Qed.
 
-(** * Partition table correctness lemmas
+(** Partition table correctness lemmas
 
     These lemmas establish that snap_pt_to_graph faithfully represents the
     hardware partition table as a formal PartitionGraph, and that PNEW/PSPLIT/PMERGE
@@ -2189,7 +2174,7 @@ Proof.
   simpl. reflexivity.
 Qed.
 
-(** * snap_pt_to_graph_wf:
+(** snap_pt_to_graph_wf:
     The graph reconstructed from any hardware snapshot is well-formed:
     all module IDs are strictly less than pg_next_id. *)
 
@@ -2228,7 +2213,7 @@ Proof.
   lia.
 Qed.
 
-(** * snap_pt_to_graph_pnew:
+(** snap_pt_to_graph_pnew:
     After hardware PNEW allocating slot [next_id] with size [region_size],
     the reconstructed graph equals the result of graph_add_module applied to
     the previous graph with region (List.seq 0 region_size) and empty axioms.
@@ -2273,7 +2258,7 @@ Proof.
   apply filter_map_pt_below_unaffected.
 Qed.
 
-(** * snap_pt_to_graph_pnew_pg_next_id:
+(** snap_pt_to_graph_pnew_pg_next_id:
     After hardware PNEW, pg_next_id advances by 1. *)
 Corollary snap_pt_to_graph_pnew_next_id :
     forall (next_id region_size : nat) (sizes : nat -> nat),
@@ -2285,7 +2270,7 @@ Proof.
   intros. unfold snap_pt_to_graph. simpl. reflexivity.
 Qed.
 
-(** * snap_pt_to_graph_pmerge_size_conserved:
+(** snap_pt_to_graph_pmerge_size_conserved:
     After hardware PMERGE of slots m1 and m2 (merging their sizes into slot slot3),
     the total region-size sum across all allocated modules is conserved. *)
 Theorem snap_pt_to_graph_pmerge_size_conserved :
@@ -2367,7 +2352,7 @@ Proof.
   rewrite Nat.add_0_l in H. exact H.
 Qed.
 
-(** * Register and memory read equivalence *)
+(** Register and memory read equivalence *)
 
 Lemma snapshot_reg_read : forall f i,
     i < 32 ->
@@ -2396,7 +2381,7 @@ Proof.
   rewrite seq_nth_helper by exact Hi. simpl. reflexivity.
 Qed.
 
-(** * Register write equivalence *)
+(** Register write equivalence *)
 
 Definition mk_snap_vmstate (s : KamiSnapshot) : VMState :=
   abs_phase1 s.
@@ -2425,7 +2410,7 @@ Qed.
 
 (* ====================================================================
    Architectural invariant theorems
-   ==================================================================== *)
+   *)
 
 (** Any hardware step adds a non-negative cost to mu, preserving μ-monotonicity
     at the abstraction boundary: mu' = mu + cost ≥ mu. *)
@@ -2438,7 +2423,7 @@ Proof.
   unfold abs_phase1. simpl. lia.
 Qed.
 
-(** * hw_step_preserves_bianchi
+(** hw_step_preserves_bianchi
 
     Bianchi conservation: if the hardware is in a state where
     tensor_sum ≤ mu, and a step charges [cost] to mu and [delta] to a
@@ -2459,7 +2444,7 @@ Proof.
   lia.
 Qed.
 
-(** * partition_ops_count_correct
+(** partition_ops_count_correct
 
     The hardware partition_ops counter is a non-negative nat that
     increments monotonically.  Any snapshot satisfies
@@ -2472,7 +2457,7 @@ Proof.
   intros s. lia.
 Qed.
 
-(** * mu_tensor_charges_correct
+(** mu_tensor_charges_correct
 
     REVEAL charges the tensor at flat index k by [delta], giving
     new_tensor[k] = old_tensor[k] + delta, while all other indices
@@ -2498,7 +2483,7 @@ Proof.
   simpl. rewrite <- Nat.eqb_neq in Hne. rewrite Hne. reflexivity.
 Qed.
 
-(** * lassert_ljoin_abstraction_sound
+(** lassert_ljoin_abstraction_sound
 
     LASSERT and LJOIN involve certificate validation using arbitrary-length
     string data that cannot fit in the fixed-width 32-bit instruction encoding.
@@ -2514,19 +2499,7 @@ Proof.
   intros. reflexivity.
 Qed.
 
-(** ORACLE_HALTS charges ORACLE_HALTS_HW_COST (1,000,000) μ in hardware,
-    regardless of the user-specified cost field. This is a conservative
-    refinement: hardware charges >= software for all instructions. *)
-(** DEFINITIONAL HELPER *)
-Theorem oracle_halts_abstraction_sound :
-    forall (s : KamiSnapshot),
-      (abs_phase1 (kami_step s (instr_oracle_halts String.EmptyString 0))).(vm_mu) =
-      (abs_phase1 s).(vm_mu) + ORACLE_HALTS_HW_COST.
-Proof.
-  intros s. unfold abs_phase1, kami_step, kami_advance_default. simpl. reflexivity.
-Qed.
-
-(** * kami_refines_vm_step (abstraction commutation)
+(** kami_refines_vm_step (abstraction commutation)
 
     The abs_phase1 abstraction commutes with register updates:
     writing register dst with value v in the snapshot produces the
@@ -2546,7 +2519,7 @@ Qed.
 
 (* ======================================================================
    §Extra  Algebraic helpers for GraphReconstructionBridge.v
-   ====================================================================== *)
+   *)
 
 (** Generic extensionality for filtermap: if f and g agree on In elements, results equal. *)
 Lemma filtermap_ext_in :

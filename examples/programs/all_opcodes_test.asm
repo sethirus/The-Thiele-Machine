@@ -90,9 +90,6 @@ PDISCOVER 0 0 1               # discover partition (needs logic_acc guard)
 # ---- CHSH trial (requires logic_acc = 0xCAFEEACE) ----
 CHSH_TRIAL 0 0 0 0 1          # classical trial: x=0, y=0, a=0, b=0
 
-# ---- Oracle ----
-ORACLE_HALTS 0 0 1            # oracle halts query
-
 # ---- Checkpoint ----
 CHECKPOINT 0 0 1              # checkpoint (NOP in hardware)
 

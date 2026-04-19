@@ -16,7 +16,7 @@ Q2: MuP(O(log n)) ≠ P
     We measure the step ratio directly on the VM.
 
 Q3: LASSERT VS EMIT CAPABILITY GAP
-    EMIT costs 1 μ but proves nothing — the certificate is informal.
+    EMIT(".", 0) costs 9 μ for its payload bits but proves nothing — the certificate is informal.
     LASSERT costs formula_len*8 + (cost+1) μ and verifies a SAT proof on-chip.
     The gap: LASSERT certifies a checkable fact; EMIT just asserts one.
     We show:
@@ -178,22 +178,22 @@ class TestKLogNSuperPolyRatio:
         )
 
     def test_mu_cost_is_only_log_n(self):
-        """At k = log₂(N), sighted pays only k = log₂(N) μ for the super-poly savings.
+        """At k = log₂(N), sighted pays 9*k μ for the super-poly savings.
 
         The μ cost is O(log N) while the step savings is N^(log₂N - 1) / log₂N.
         The trade is extremely favorable: logarithmic certificate cost for
         super-polynomial step reduction.
         """
         cases = [
-            (4,  2),   # N=4,  k=log₂(4)=2,  μ=2
-            (8,  3),   # N=8,  k=log₂(8)=3,  μ=3
-            (16, 4),   # N=16, k=log₂(16)=4, μ=4
+            (4,  2),   # N=4,  k=log₂(4)=2,  μ=9*2=18
+            (8,  3),   # N=8,  k=log₂(8)=3,  μ=9*3=27
+            (16, 4),   # N=16, k=log₂(16)=4, μ=9*4=36
         ]
         for N, k in cases:
             targets = [N - 1] * k
             sighted = _run(_k_sighted_program(targets))
-            assert sighted.vm_mu == k, \
-                f"N={N}, k={k}: expected μ={k}, got {sighted.vm_mu}"
+            assert sighted.vm_mu == 9 * k, \
+                f"N={N}, k={k}: expected μ={9*k}, got {sighted.vm_mu}"
             # Verify k = log₂(N)
             assert k == int(math.log2(N)), \
                 f"N={N}: k={k} is not log₂(N)"
@@ -325,19 +325,25 @@ def _decode_formula(s: str) -> str:
     return ''.join(result)
 
 
-def _lassert_sighted_program(targets: list[int], formulas: list[str], certs: list[str]) -> list[dict]:
+def _lassert_sighted_program(
+    targets: list[int],
+    formulas: list[str],
+    certs: list[str],
+    countermodels: list[str],
+) -> list[dict]:
     """2-dimensional sighted program that uses LASSERT instead of EMIT.
 
-    For dimension i: instead of EMIT (1 μ), uses LASSERT with a SAT formula
+    For dimension i: instead of the 9 μ EMIT(".", 0) marker, uses LASSERT with a SAT formula
     certifying that the target register equals the counter register.
-    The certificate is a full SAT proof with formula_len*8 + 2 μ cost.
+    The witness package contains a satisfying model and a falsifying
+    countermodel, with formula_len*8 + 1 μ cost at cost=0.
 
     Same iteration structure as _k_sighted_program but LASSERT replaces EMIT.
     Loop body (7 instructions):
       ITERS++, SUB scratch, JNEZ→incr, LASSERT cert, JUMP next, INCR, JUMP back
     """
     k = len(targets)
-    assert k == len(formulas) == len(certs), "mismatched lengths"
+    assert k == len(formulas) == len(certs) == len(countermodels), "mismatched lengths"
 
     COUNTER_REGS = [1, 3, 5, 7, 11]
     TARGET_REGS  = [2, 4, 6, 9, 12]
@@ -368,7 +374,8 @@ def _lassert_sighted_program(targets: list[int], formulas: list[str], certs: lis
             {"op": "jnez",    "rs": 8,   "target": incr_pc,    "cost": 0},
             # LASSERT instead of EMIT — certifies "I found it" with a SAT proof
             {"op": "lassert", "module": i, "formula": formulas[i],
-             "cert_type": "sat", "cert": certs[i], "cost": 0},
+             "cert_type": "sat", "cert": certs[i],
+             "countermodel": countermodels[i], "cost": 0},
             {"op": "jump",    "target": next_start,             "cost": 0},
             {"op": "add",     "dst": cr, "rs1": cr, "rs2": 10, "cost": 0},
             {"op": "jump",    "target": loop_start,             "cost": 0},
@@ -378,11 +385,11 @@ def _lassert_sighted_program(targets: list[int], formulas: list[str], certs: lis
 
 
 class TestLassertVsEmitCapabilityGap:
-    """LASSERT charges formula_len*8 + (cost+1) μ; EMIT charges 1 μ.
+    """LASSERT charges hw_flen*8 + (cost+1) μ; EMIT charges payload_bits+(cost+1) μ.
 
     The capability difference:
       EMIT:    asserts a fact informally (programmer's word)
-      LASSERT: proves a fact via SAT certificate, checked on-chip
+    LASSERT: proves a fact via SAT witness package, checked on-chip
 
     KEY FINDING: Both get the same step savings. LASSERT pays more μ for
     verifiability. The extra μ is the cost of the proof, not of the search.
@@ -396,14 +403,14 @@ class TestLassertVsEmitCapabilityGap:
 
     # Simple 1-variable SAT formula: p cnf 1 1 \n 1 0
     # Encoded in underscore format: "p_cnf_1_1__1_0"
-    # Decoded: "p cnf 1 1\n1 0" = 13 chars
-    # μ cost: 13*8 + (0+1) = 105
+    # Decoded: "p cnf 1 1\n1 0" = 13 chars; binary hw_flen=2 words (lits: [1, 0])
+    # μ cost: hw_flen*8 + (0+1) = 2*8+1 = 17
     FORMULA_1VAR = "p_cnf_1_1__1_0"
     CERT_TRUE    = "v_1_0"     # x1 = true  (satisfies "1 0")
     CERT_FALSE   = "v_-1_0"    # x1 = false (does NOT satisfy "1 0")
 
     def test_emit_sighted_step_count(self):
-        """EMIT-based: 2D sighted gets 2N steps, 2 μ."""
+        """EMIT-based: 2D sighted gets 2N steps, 9*k=18 μ."""
         N = 4
         k = 2
         targets = [N - 1, N - 1]
@@ -412,8 +419,8 @@ class TestLassertVsEmitCapabilityGap:
 
         assert result.vm_regs[15] == k * N, \
             f"Expected {k*N} sighted iters, got {result.vm_regs[15]}"
-        assert result.vm_mu == k, \
-            f"Expected μ={k} (2 EMITs), got {result.vm_mu}"
+        assert result.vm_mu == 9 * k, \
+            f"Expected μ={9*k} (2 EMITs × 9), got {result.vm_mu}"
         assert result.vm_err is False
 
     def test_lassert_sighted_same_step_count(self):
@@ -425,36 +432,39 @@ class TestLassertVsEmitCapabilityGap:
         N = 4
         targets = [N - 1, N - 1]
         formulas = [self.FORMULA_1VAR, self.FORMULA_1VAR]
-        certs    = [self.CERT_TRUE, self.CERT_TRUE]
+        certs = [self.CERT_TRUE, self.CERT_TRUE]
+        countermodels = [self.CERT_FALSE, self.CERT_FALSE]
 
-        result = _run(_lassert_sighted_program(targets, formulas, certs))
+        result = _run(_lassert_sighted_program(targets, formulas, certs, countermodels))
 
         # Same step count as EMIT-based
         expected_steps = 2 * N
         assert result.vm_regs[15] == expected_steps, \
             f"Expected {expected_steps} iters, got {result.vm_regs[15]}"
 
-        # No error (valid SAT certs)
+        # No error (valid SAT witness packages)
         assert result.vm_err is False, \
-            "Valid LASSERT certs should not set vm_err"
+            "Valid LASSERT witness packages should not set vm_err"
 
-        # μ cost is much higher: 2 × (13*8 + 1) = 2 × 105 = 210
-        decoded_len = len(_decode_formula(self.FORMULA_1VAR))   # 13
-        expected_mu_per_lassert = decoded_len * 8 + 1            # cost=0 → S(0)=1
+        # μ cost: 2 × (hw_flen*8 + 1) = 2 × (2*8+1) = 2 × 17 = 34
+        # hw_flen=2 words (lit words [1, 0] for "1 0" clause)
+        hw_flen = 2
+        expected_mu_per_lassert = hw_flen * 8 + 1               # cost=0 → S(0)=1
         expected_total_mu = 2 * expected_mu_per_lassert          # two LDASSERTs
         assert result.vm_mu == expected_total_mu, \
             f"Expected μ={expected_total_mu}, got {result.vm_mu}"
 
     def test_lassert_mu_premium_vs_emit(self):
-        """The μ premium of LASSERT over EMIT = formula_len*8 per certificate.
+        """The μ premium of LASSERT over EMIT = (hw_flen - 1)*8 per certificate.
 
-        This is the verifiability price: each certified step costs 104 extra μ
-        (for a 13-char formula) relative to an informal EMIT.
+        This is the verifiability price: each certified step costs 8 extra μ
+        (for hw_flen=2 formula) relative to an informal EMIT(".", 0).
+        EMIT(".", 0) costs 8*1+S(0)=9; LASSERT costs hw_flen*8+S(0)=17.
         """
-        decoded_len = len(_decode_formula(self.FORMULA_1VAR))   # 13
-        emit_mu_per_cert   = 1                                    # S(0)=1
-        lassert_mu_per_cert = decoded_len * 8 + 1                 # 13*8+1=105
-        premium = lassert_mu_per_cert - emit_mu_per_cert          # 104
+        hw_flen = 2                                               # words for FORMULA_1VAR
+        emit_mu_per_cert    = 9                                   # 8*1+S(0) for EMIT(".", 0)
+        lassert_mu_per_cert = hw_flen * 8 + 1                    # 2*8+1=17
+        premium = lassert_mu_per_cert - emit_mu_per_cert          # 8
 
         # Verify against real VM: EMIT program
         N = 4
@@ -462,7 +472,10 @@ class TestLassertVsEmitCapabilityGap:
         from test_complexity_frontier import _k_sighted_program
         emit_result   = _run(_k_sighted_program(targets))
         lassert_result = _run(_lassert_sighted_program(
-            targets, [self.FORMULA_1VAR] * 2, [self.CERT_TRUE] * 2
+            targets,
+            [self.FORMULA_1VAR] * 2,
+            [self.CERT_TRUE] * 2,
+            [self.CERT_FALSE] * 2,
         ))
 
         actual_premium = (lassert_result.vm_mu - emit_result.vm_mu) // 2  # per cert
@@ -485,8 +498,9 @@ class TestLassertVsEmitCapabilityGap:
         # Use the WRONG cert: x1=false does NOT satisfy clause "1 0"
         formulas = [self.FORMULA_1VAR, self.FORMULA_1VAR]
         bad_certs = [self.CERT_FALSE, self.CERT_FALSE]
+        countermodels = [self.CERT_FALSE, self.CERT_FALSE]
 
-        result = _run(_lassert_sighted_program(targets, formulas, bad_certs))
+        result = _run(_lassert_sighted_program(targets, formulas, bad_certs, countermodels))
 
         # The invalid cert is caught and vm_err is set
         assert result.vm_err is True, (
@@ -511,20 +525,20 @@ class TestLassertVsEmitCapabilityGap:
         # No error — EMIT accepts any firing
         assert result.vm_err is False, \
             "EMIT should never set vm_err regardless of certificate content"
-        assert result.vm_mu == 2, \
-            "EMIT always charges exactly 1 μ per firing regardless of context"
+        assert result.vm_mu == 18, \
+            "EMIT charges 9 μ per firing (8*1+S(0)) regardless of context"
 
     def test_lassert_vs_emit_summary(self):
         """Summary: same step savings, wildly different μ and verifiability.
 
         EMIT sighted (k=2, N=4):
           - steps: 2N = 8    (identical)
-          - μ:     2          (cheap)
+          - μ:     18         (two EMIT(".",0) × 9)
           - verified: NO     (programmer asserts, no proof)
 
-        LASSERT sighted (k=2, N=4, 13-char formula):
+        LASSERT sighted (k=2, N=4, hw_flen=2 formula):
           - steps: 2N = 8    (identical)
-          - μ:     210       (expensive: 105 × 2)
+          - μ:     34        (two LASSERT × 17 = 2*(2*8+1))
           - verified: YES    (on-chip SAT check passed)
 
         Conclusion: LASSERT does not unlock new speed; it buys verifiability.
@@ -536,16 +550,19 @@ class TestLassertVsEmitCapabilityGap:
         from test_complexity_frontier import _k_sighted_program
         emit_r   = _run(_k_sighted_program(targets))
         lassert_r = _run(_lassert_sighted_program(
-            targets, [self.FORMULA_1VAR] * 2, [self.CERT_TRUE] * 2
+            targets,
+            [self.FORMULA_1VAR] * 2,
+            [self.CERT_TRUE] * 2,
+            [self.CERT_FALSE] * 2,
         ))
 
         # Identical step count
         assert emit_r.vm_regs[15] == lassert_r.vm_regs[15], \
             "EMIT and LASSERT sighted programs must take the same number of steps"
 
-        # LASSERT pays much more μ
-        assert lassert_r.vm_mu > emit_r.vm_mu * 10, \
-            f"LASSERT μ={lassert_r.vm_mu} should be >10× EMIT μ={emit_r.vm_mu}"
+        # LASSERT pays more μ (verifiability premium)
+        assert lassert_r.vm_mu > emit_r.vm_mu, \
+            f"LASSERT μ={lassert_r.vm_mu} should exceed EMIT μ={emit_r.vm_mu}"
 
         # LASSERT is verified, EMIT is not
         assert emit_r.vm_err is False    # EMIT never errors

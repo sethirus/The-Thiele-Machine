@@ -1,43 +1,15 @@
-(** =========================================================================
-    RECEIPT CORE: Generic Computational Receipt Framework
-    =========================================================================
+(** ReceiptCore: a minimal abstract interface for receipt traces
 
-    WHY THIS FILE EXISTS:
-    I claim computational systems must provide RECEIPTS - verifiable evidence
-    that operations occurred with specific costs. This file defines the minimal
-    abstract interface for receipt traces, independent of VM specifics. Receipts
-    make μ-accounting auditable.
+  This file defines a small generic framework for receipts and receipt
+  channels, independent of the concrete VM. A receipt is just an operation id
+  plus payload, and decoding filters a trace through a boolean channel
+  predicate.
 
-    THE CORE CLAIM:
-    Receipts are finite traces (r_op, r_payload) that can be DECODED via
-    channel predicates into payload streams. The decoder
-    is generic - works for any channel/trace combination. This is the universal
-    receipt abstraction.
+  The point is modest: isolate the reusable abstraction that later receipt
+  files instantiate. Using boolean channels keeps the interface constructive
+  and lightweight.
 
-    WHAT THIS PROVES:
-    - Receipt: Abstract receipt structure (opcode + payload)
-    - ReceiptChannel: Boolean predicate for filtering receipts
-    - decode: Extract payload stream for matching receipts
-    - decodes_to: Predicate asserting decoded stream equality
-    - decodes_to_refl: Reflexivity - decode always produces itself
-
-    PHYSICAL INTERPRETATION:
-    Receipts are the "observational outcomes" of computation. Like experimental
-    data, receipts are finite, concrete, and verifiable. The channel abstraction
-    separates EMISSION (kernel's job) from VERIFICATION (prover's job). Boolean
-    channels avoid classical axioms - keep verification constructive.
-
-    FALSIFICATION:
-    Show that decode(ch, tr) ≠ decode(ch, tr) for some channel/trace. This
-    would violate decodes_to_refl and break reflexivity.
-
-    Or prove the channel abstraction is insufficiently expressive - can't
-    distinguish some operationally distinct receipt sequences. Add more
-    structure to Receipt if needed.
-
-    NO AXIOMS (uses bool, not Prop, for channels). NO ADMITS. Pure abstraction.
-
-    ========================================================================= *)
+  *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -48,9 +20,7 @@ Import ListNotations.
 
 Module ReceiptCore.
 
-(** =========================================================================
-    RECEIPT STRUCTURE
-    ========================================================================= *)
+(** Receipt structure. *)
 
 (** ABSTRACT RECEIPT: Operation + Payload
 
@@ -69,9 +39,7 @@ Record Receipt := {
 (** Trace = sequence of receipts. This is what verifiers see. *)
 Definition Trace := list Receipt.
 
-(** =========================================================================
-    RECEIPT CHANNELS
-    ========================================================================= *)
+(** Receipt channels. *)
 
 (** CHANNEL ABSTRACTION: Boolean predicate on receipts
 
@@ -84,9 +52,7 @@ Definition Trace := list Receipt.
     - fun r => r.(r_op) =? CERT            (* Certification receipts only *) *)
 Definition ReceiptChannel := Receipt -> bool.
 
-(** =========================================================================
-    DECODING
-    ========================================================================= *)
+(** Decoding. *)
 
 (** GENERIC DECODER: Extract payload stream for channel
 
@@ -119,7 +85,7 @@ Proof.
   intros; unfold decodes_to; reflexivity.
 Qed.
 
-(** =========================================================================
+(**
     FRAMEWORK NOTES
 
     This module is INTENTIONALLY ABSTRACT. It doesn't specify:
@@ -139,6 +105,6 @@ Qed.
 
     See ReceiptIntegrity.v for how this connects to μ-accounting.
 
-    ========================================================================= *)
+    *)
 
 End ReceiptCore.

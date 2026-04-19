@@ -1,26 +1,43 @@
-(**
-  Extraction.v
+(** Extraction: keep the extracted runner limited to the core VM surface
 
-  MINIMAL extraction for the VM runner to avoid stack overflow.
-  
-  The full extraction with all modules (Receipt, CHSH, MuCost, etc.) causes
-  OCaml stack overflow during garbage collection due to deeply nested proof
-  structures. This minimal extraction includes only the core VM semantics
-  needed by build/extracted_vm_runner.ml
+  Full extraction of the entire proof stack currently blows the OCaml runtime
+  stack during garbage collection. This file therefore extracts only the VM
+  semantics and the small set of definitions the executable runner actually
+  needs. The broader proof development remains checked in Coq, but it is not
+  forced through the extraction path.
 
-  Note: Other experimental features (receipt validation, CHSH extraction, etc.)  
-  are verified in Coq but not extracted to OCaml to avoid the stack overflow issue.
+  The scope is practical rather than philosophical: this file defines the
+  extraction boundary used by build/extracted_vm_runner.ml.
 *)
 
+From Coq Require Import List ListDec Bool Arith.PeanoNat NArith ZArith.
+From Coq Require Import Strings.String Strings.Ascii.
+From Coq Require Import micromega.Lia.
 From Coq Require Import Extraction.
-From Coq Require Import List.
-From Coq Require Import Strings.String.
 From Coq Require Import ExtrOcamlBasic ExtrOcamlString ExtrOcamlZInt ExtrOcamlNatInt.
 From Coq Require Import Reals.
 
 From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
 From Kernel Require Import VMEncoding KernelTM.
+From KamiHW Require Import Abstraction ThieleCPUBusTop CanonicalCPUProof.
+
+Import VMStep.VMStep.
+
+Extraction Language OCaml.
+
+(** Hardware extraction first: this intentionally mirrors
+    ThieleMachineComplete.v so both roots have the same extraction-engine state
+    before emitting the core VM OCaml.  KamiExtraction.v extracts the same
+    symbols independently; the build gate checks all three outputs agree. *)
+Set Extraction Optimize.
+Set Extraction KeepSingleton.
+Unset Extraction AutoInline.
+
+Extraction "../build/kami_hw/Target.ml"
+  CanonicalCPUProof.canonical_cpu_module
+  CanonicalCPUProof.targetB.
+
 From Kernel Require Import MuCostModel MuLedgerConservation MuInitiality NoFreeInsight.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import Certification QuantumBound.
@@ -33,10 +50,6 @@ From Kernel Require Import HonestNoFI_TheoremsWithoutAssumptions.
 From Kernel Require Import NoFIToEinstein.
 (* Bekenstein → Landauer calibration: physical basis for mu_landauer_unruh_calibrated *)
 From Kernel Require Import BekensteinCalibration.
-From Kernel Require Import SimulationProof.
-From KamiHW Require Import Abstraction ThieleCPUBusTop CanonicalCPUProof.
-
-Import VMStep.VMStep.
 
 (* Proof anchor: extraction builds must type-check the NoFreeInsight certification
    boundary theorem used by downstream verification layers. *)
@@ -190,7 +203,9 @@ Qed.
 Definition extraction_nfi_to_einstein_anchor :=
   NoFIToEinstein.nfi_to_gr_chain_complete.
 
-Extraction Language OCaml.
+Set Extraction Optimize.
+Unset Extraction KeepSingleton.
+Unset Extraction AutoInline.
 
 Extract Inductive bool => "bool" [ "true" "false" ].
 Extract Inductive option => "option" [ "Some" "None" ].
@@ -215,9 +230,11 @@ Extract Constant Nat.div => "fun x y -> if y = 0 then 0 else x / y".
 Extract Constant Nat.modulo => "fun x y -> if y = 0 then 0 else x mod y".
 (* SAFE: Nat.ltb — OCaml (<) is equivalent for non-negative int *)
 Extract Constant Nat.ltb => "(<)".
+
 (* SAFE: word_to_bytes_4 — bit ops equivalent to Coq mod/div byte split; values returned are ascii chars (0-255) *)
 Extract Constant VMState.word_to_bytes_4 =>
   "(fun w -> [Char.chr (w land 0xff); Char.chr ((w lsr 8) land 0xff); Char.chr ((w lsr 16) land 0xff); Char.chr ((w lsr 24) land 0xff)])".
+
 (* SAFE: bytes_to_word_4 — lor/lsl equivalent to b0+b1*256+b2*65536+b3*16777216 for b0..b3 in [0,255] *)
 Extract Constant VMState.bytes_to_word_4 =>
   "(fun b0 b1 b2 b3 -> b0 lor (b1 lsl 8) lor (b2 lsl 16) lor (b3 lsl 24))".
@@ -283,7 +300,7 @@ Extract Constant VMState.word64 => "(fun x -> x)".
 
 (* =========================================================================
    EXTRACTION: CANONICAL vm_apply FROM PROVEN MODULE SOURCES
-   =========================================================================
+
    All definitions are extracted from the factored kernel/kami_hw modules.
    SimulationProof.vm_apply is THE single canonical step function:
    - Proven ≡ vm_step (via vm_step_vm_apply)
@@ -293,8 +310,8 @@ Extract Constant VMState.word64 => "(fun x -> x)".
    ThieleMachineComplete.v's Extract Constant directives target these same
    module-qualified symbols (via Require without Import), and its
    ExtractionIdentityBundle verifies the extraction surface is complete.
-   The Makefile copies thiele_core.ml → thiele_core_complete.ml for
-   BYTE-FOR-BYTE identity. *)
+   The extraction context mirrors ThieleMachineComplete.v so the two direct
+   extractions emit byte-for-byte identical OCaml. *)
 
 Extraction "../build/thiele_core.ml"
   VMStep.vm_instruction
@@ -303,10 +320,6 @@ Extraction "../build/thiele_core.ml"
   VMState.VMState
   VMState.mem_to_string
   VMState.write_string_to_mem
-  SimulationProof.vm_apply
-  SimulationProof.vm_apply_nofi
-  SimulationProof.vm_apply_runtime
-  SimulationProof.pnew_chain
   Abstraction.KamiSnapshot
   ThieleCPUBusTop.BusReg
   ThieleCPUBusTop.BusCoreView
@@ -319,4 +332,8 @@ Extraction "../build/thiele_core.ml"
   ThieleCPUBusTop.busRead
   ThieleCPUBusTop.busWrite
   ThieleCPUBusTop.bus_step
-  ThieleCPUBusTop.coreViewOfSnapshot.
+  ThieleCPUBusTop.coreViewOfSnapshot
+  SimulationProof.vm_apply
+  SimulationProof.vm_apply_nofi
+  SimulationProof.vm_apply_runtime
+  SimulationProof.pnew_chain.

@@ -1609,10 +1609,46 @@ module CertCheck =
                            in
                            scan ws ndone ((||) clause_sat lsat))
             in scan lit_words 0 false))
+
+  (** val check_countermodel_binary_fn : int list -> (int -> int) -> bool **)
+
+  let check_countermodel_binary_fn formula_words get_cert =
+    match formula_words with
+    | [] -> false
+    | _::l ->
+      (match l with
+       | [] -> false
+       | _::l0 ->
+         (match l0 with
+          | [] -> false
+          | _::_ -> negb (check_model_binary_fn formula_words get_cert)))
  end
 
 module VMStep =
  struct
+  (** val ascii_payload_bits : char -> bool list **)
+
+  let ascii_payload_bits a =
+    (* If this appears, you're using Ascii internals. Please don't *)
+ (fun f c ->
+  let n = Char.code c in
+  let h i = (n land (1 lsl i)) <> 0 in
+  f (h 0) (h 1) (h 2) (h 3) (h 4) (h 5) (h 6) (h 7))
+      (fun b0 b1 b2 b3 b4 b5 b6 b7 ->
+      b0::(b1::(b2::(b3::(b4::(b5::(b6::(b7::[]))))))))
+      a
+
+  (** val payload_bits : char list -> bool list **)
+
+  let rec payload_bits = function
+  | [] -> []
+  | a::rest -> app (ascii_payload_bits a) (payload_bits rest)
+
+  (** val payload_bit_length : char list -> int **)
+
+  let payload_bit_length s =
+    length (payload_bits s)
+
   type vm_instruction =
   | Coq_instr_pnew of int list * int
   | Coq_instr_psplit of moduleID * int list * int list * int
@@ -1638,7 +1674,6 @@ module VMStep =
   | Coq_instr_xor_rank of int * int * int
   | Coq_instr_emit of moduleID * char list * int
   | Coq_instr_reveal of moduleID * int * char list * int
-  | Coq_instr_oracle_halts of char list * int
   | Coq_instr_halt of int
   | Coq_instr_checkpoint of char list * int
   | Coq_instr_read_port of int * int * int * int * int
@@ -1661,11 +1696,6 @@ module VMStep =
   | Coq_instr_morph_assert of morphismID * char list * char list * int
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
-
-  (** val coq_ORACLE_HALTS_HW_COST : int **)
-
-  let coq_ORACLE_HALTS_HW_COST =
-    of_num_uint (UIntDecimal (D1 (D0 (D0 (D0 (D0 (D0 (D0 Nil))))))))
 
   (** val instruction_cost : vm_instruction -> int **)
 
@@ -1696,12 +1726,13 @@ module VMStep =
   | Coq_instr_xor_add (_, _, cost) -> cost
   | Coq_instr_xor_swap (_, _, cost) -> cost
   | Coq_instr_xor_rank (_, _, cost) -> cost
-  | Coq_instr_emit (_, _, cost) -> (fun x -> x + 1) cost
-  | Coq_instr_reveal (_, _, _, cost) -> (fun x -> x + 1) cost
-  | Coq_instr_oracle_halts (_, _) -> coq_ORACLE_HALTS_HW_COST
+  | Coq_instr_emit (_, payload, cost) ->
+    add (payload_bit_length payload) ((fun x -> x + 1) cost)
+  | Coq_instr_reveal (_, bits, _, cost) -> add bits ((fun x -> x + 1) cost)
   | Coq_instr_halt cost -> cost
   | Coq_instr_checkpoint (_, cost) -> cost
-  | Coq_instr_read_port (_, _, _, _, cost) -> (fun x -> x + 1) cost
+  | Coq_instr_read_port (_, _, _, bits, cost) ->
+    add bits ((fun x -> x + 1) cost)
   | Coq_instr_write_port (_, _, cost) -> cost
   | Coq_instr_heap_load (_, _, cost) -> cost
   | Coq_instr_heap_store (_, _, cost) -> cost
@@ -2933,10 +2964,33 @@ module VMStep =
           (add ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) 0)))
             hw_flen))
     in
-    let get_cert = fun var -> read_mem s (add cbase var) in
+    let num_vars =
+      match formula_words with
+      | [] -> 0
+      | _::l -> (match l with
+                 | [] -> 0
+                 | nv::_ -> nv)
+    in
+    let get_model = fun var -> read_mem s (add cbase var) in
+    let get_countermodel = fun var ->
+      read_mem s (add (add cbase num_vars) var)
+    in
     if kind
-    then CertCheck.check_model_binary_fn formula_words get_cert
+    then (&&) (CertCheck.check_model_binary_fn formula_words get_model)
+           (CertCheck.check_countermodel_binary_fn formula_words
+             get_countermodel)
     else false
+
+  (** val lassert_hw_flen : vMState -> int -> int **)
+
+  let lassert_hw_flen s freg =
+    read_mem s (read_reg s freg)
+
+  (** val lassert_exec_ok : vMState -> int -> int -> bool -> int -> bool **)
+
+  let lassert_exec_ok s freg creg kind flen =
+    (&&) (Nat.eqb (lassert_hw_flen s freg) flen)
+      (lassert_check_ok s freg creg kind)
  end
 
 type morphTableEntry = { morph_entry_source : int; morph_entry_target : 
@@ -4054,7 +4108,7 @@ let vm_apply s = function
   VMStep.advance_state s (VMStep.Coq_instr_pmerge (m1, m2, cost)) graph'
     s.vm_csrs s.vm_err
 | VMStep.Coq_instr_lassert (freg, creg, kind, flen, cost) ->
-  let check_ok = VMStep.lassert_check_ok s freg creg kind in
+  let check_ok = VMStep.lassert_exec_ok s freg creg kind flen in
   let new_pc =
     if check_ok then (fun x -> x + 1) s.vm_pc else VMStep.coq_LASSERT_TRAP_PC
   in

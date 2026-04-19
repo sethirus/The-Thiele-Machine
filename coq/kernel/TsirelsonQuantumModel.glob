@@ -1,387 +1,387 @@
-DIGEST f80fc4bd0207558cab998d7c239cfa1f
+DIGEST 8567e4ddcef656b7429873095cf2a992
 FKernel.TsirelsonQuantumModel
-R886:892 Kernel.VMState <> <> lib
-R922:927 Kernel.VMStep <> <> lib
-R957:970 Kernel.CHSHExtraction <> <> lib
-R1000:1014 Kernel.NPAMomentMatrix <> <> lib
-R1044:1064 Kernel.MuLedgerQuantumBridge <> <> lib
-R1094:1109 Kernel.TsirelsonGeneral <> <> lib
-R1128:1142 Coq.Reals.Reals <> <> lib
-def 1358:1376 <> trace_quantum_model
-R1388:1390 Coq.Init.Datatypes <> nat ind
-binder 1381:1384 <> fuel:1
-R1402:1405 Coq.Init.Datatypes <> list ind
-R1407:1420 Kernel.VMStep VMStep vm_instruction ind
-binder 1394:1398 <> trace:2
-R1433:1439 Kernel.VMState <> VMState rec
-binder 1424:1429 <> s_init:3
-R1454:1471 Kernel.NPAMomentMatrix <> quantum_realizable def
-R1474:1496 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R1498:1501 Kernel.TsirelsonQuantumModel <> fuel:1 var
-R1503:1507 Kernel.TsirelsonQuantumModel <> trace:2 var
-R1509:1514 Kernel.TsirelsonQuantumModel <> s_init:3 var
-def 1599:1627 <> trace_quantum_bridge_coherent
-R1639:1641 Coq.Init.Datatypes <> nat ind
-binder 1632:1635 <> fuel:4
-R1653:1656 Coq.Init.Datatypes <> list ind
-R1658:1671 Kernel.VMStep VMStep vm_instruction ind
-binder 1645:1649 <> trace:5
-R1684:1690 Kernel.VMState <> VMState rec
-binder 1675:1680 <> s_init:6
-R1705:1722 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent def
-R1724:1727 Kernel.TsirelsonQuantumModel <> fuel:4 var
-R1729:1733 Kernel.TsirelsonQuantumModel <> trace:5 var
-R1735:1740 Kernel.TsirelsonQuantumModel <> s_init:6 var
-prf 1775:1803 <> trace_quantum_model_invariant
-binder 1816:1819 <> fuel:7
-binder 1821:1825 <> trace:8
-R1836:1842 Kernel.VMState <> VMState rec
-binder 1828:1829 <> s1:9
-binder 1831:1832 <> s2:10
-R1857:1864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1852:1854 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1850:1851 Kernel.TsirelsonQuantumModel <> s1:9 var
-R1855:1856 Kernel.TsirelsonQuantumModel <> s2:10 var
-R1898:1902 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R1865:1883 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R1885:1888 Kernel.TsirelsonQuantumModel <> fuel:7 var
-R1890:1894 Kernel.TsirelsonQuantumModel <> trace:8 var
-R1896:1897 Kernel.TsirelsonQuantumModel <> s1:9 var
-R1903:1921 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R1923:1926 Kernel.TsirelsonQuantumModel <> fuel:7 var
-R1928:1932 Kernel.TsirelsonQuantumModel <> trace:8 var
-R1934:1935 Kernel.TsirelsonQuantumModel <> s2:10 var
-prf 2055:2093 <> trace_quantum_bridge_coherent_invariant
-binder 2106:2109 <> fuel:11
-binder 2111:2115 <> trace:12
-R2126:2132 Kernel.VMState <> VMState rec
-binder 2118:2119 <> s1:13
-binder 2121:2122 <> s2:14
-R2147:2154 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2142:2144 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2140:2141 Kernel.TsirelsonQuantumModel <> s1:13 var
-R2145:2146 Kernel.TsirelsonQuantumModel <> s2:14 var
-R2198:2206 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2155:2183 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R2185:2188 Kernel.TsirelsonQuantumModel <> fuel:11 var
-R2190:2194 Kernel.TsirelsonQuantumModel <> trace:12 var
-R2196:2197 Kernel.TsirelsonQuantumModel <> s1:13 var
-R2207:2235 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R2237:2240 Kernel.TsirelsonQuantumModel <> fuel:11 var
-R2242:2246 Kernel.TsirelsonQuantumModel <> trace:12 var
-R2248:2249 Kernel.TsirelsonQuantumModel <> s2:14 var
-prf 2440:2490 <> trace_quantum_bridge_coherent_implies_quantum_model
-binder 2503:2506 <> fuel:15
-binder 2508:2512 <> trace:16
-binder 2514:2519 <> s_init:17
-R2573:2580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2526:2554 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R2556:2559 Kernel.TsirelsonQuantumModel <> fuel:15 var
-R2561:2565 Kernel.TsirelsonQuantumModel <> trace:16 var
-R2567:2572 Kernel.TsirelsonQuantumModel <> s_init:17 var
-R2581:2599 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R2601:2604 Kernel.TsirelsonQuantumModel <> fuel:15 var
-R2606:2610 Kernel.TsirelsonQuantumModel <> trace:16 var
-R2612:2617 Kernel.TsirelsonQuantumModel <> s_init:17 var
-R2669:2697 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R2717:2735 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R2746:2799 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_quantum_realizable_of_trace thm
-R2746:2799 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_quantum_realizable_of_trace thm
-prf 2939:2993 <> trace_quantum_bridge_coherent_implies_tsirelson_squared
-binder 3006:3009 <> fuel:18
-binder 3011:3015 <> trace:19
-binder 3017:3022 <> s_init:20
-R3076:3083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3029:3057 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R3059:3062 Kernel.TsirelsonQuantumModel <> fuel:18 var
-R3064:3068 Kernel.TsirelsonQuantumModel <> trace:19 var
-R3070:3075 Kernel.TsirelsonQuantumModel <> s_init:20 var
-R3236:3239 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3084:3084 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R3233:3235 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R3085:3088 Kernel.TsirelsonGeneral <> CHSH def
-R3097:3105 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R3107:3110 Kernel.TsirelsonQuantumModel <> fuel:18 var
-R3112:3116 Kernel.TsirelsonQuantumModel <> trace:19 var
-R3118:3123 Kernel.TsirelsonQuantumModel <> s_init:20 var
-R3133:3141 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R3143:3146 Kernel.TsirelsonQuantumModel <> fuel:18 var
-R3148:3152 Kernel.TsirelsonQuantumModel <> trace:19 var
-R3154:3159 Kernel.TsirelsonQuantumModel <> s_init:20 var
-R3169:3177 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R3179:3182 Kernel.TsirelsonQuantumModel <> fuel:18 var
-R3184:3188 Kernel.TsirelsonQuantumModel <> trace:19 var
-R3190:3195 Kernel.TsirelsonQuantumModel <> s_init:20 var
-R3205:3213 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R3215:3218 Kernel.TsirelsonQuantumModel <> fuel:18 var
-R3220:3224 Kernel.TsirelsonQuantumModel <> trace:19 var
-R3226:3231 Kernel.TsirelsonQuantumModel <> s_init:20 var
-R3292:3320 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R3339:3388 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_squared thm
-R3339:3388 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_squared thm
-prf 3519:3569 <> trace_quantum_bridge_coherent_implies_tsirelson_abs
-binder 3582:3585 <> fuel:21
-binder 3587:3591 <> trace:22
-binder 3593:3598 <> s_init:23
-R3652:3659 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3605:3633 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R3635:3638 Kernel.TsirelsonQuantumModel <> fuel:21 var
-R3640:3644 Kernel.TsirelsonQuantumModel <> trace:22 var
-R3646:3651 Kernel.TsirelsonQuantumModel <> s_init:23 var
-R3815:3818 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R3660:3663 Coq.Reals.Rbasic_fun <> Rabs def
-R3666:3669 Kernel.TsirelsonGeneral <> CHSH def
-R3678:3686 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R3688:3691 Kernel.TsirelsonQuantumModel <> fuel:21 var
-R3693:3697 Kernel.TsirelsonQuantumModel <> trace:22 var
-R3699:3704 Kernel.TsirelsonQuantumModel <> s_init:23 var
-R3714:3722 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R3724:3727 Kernel.TsirelsonQuantumModel <> fuel:21 var
-R3729:3733 Kernel.TsirelsonQuantumModel <> trace:22 var
-R3735:3740 Kernel.TsirelsonQuantumModel <> s_init:23 var
-R3750:3758 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R3760:3763 Kernel.TsirelsonQuantumModel <> fuel:21 var
-R3765:3769 Kernel.TsirelsonQuantumModel <> trace:22 var
-R3771:3776 Kernel.TsirelsonQuantumModel <> s_init:23 var
-R3786:3794 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R3796:3799 Kernel.TsirelsonQuantumModel <> fuel:21 var
-R3801:3805 Kernel.TsirelsonQuantumModel <> trace:22 var
-R3807:3812 Kernel.TsirelsonQuantumModel <> s_init:23 var
-R3819:3823 Kernel.TsirelsonGeneral <> sqrt8 def
-R3875:3903 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R3922:3967 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_abs thm
-R3922:3967 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_abs thm
-prf 4075:4111 <> trace_quantum_model_connection_closed
-binder 4124:4127 <> fuel:24
-binder 4129:4133 <> trace:25
-binder 4135:4140 <> s_init:26
-R4194:4201 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4147:4175 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R4177:4180 Kernel.TsirelsonQuantumModel <> fuel:24 var
-R4182:4186 Kernel.TsirelsonQuantumModel <> trace:25 var
-R4188:4193 Kernel.TsirelsonQuantumModel <> s_init:26 var
-R4239:4246 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4202:4220 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R4222:4225 Kernel.TsirelsonQuantumModel <> fuel:24 var
-R4227:4231 Kernel.TsirelsonQuantumModel <> trace:25 var
-R4233:4238 Kernel.TsirelsonQuantumModel <> s_init:26 var
-R4402:4405 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R4247:4250 Coq.Reals.Rbasic_fun <> Rabs def
-R4253:4256 Kernel.TsirelsonGeneral <> CHSH def
-R4265:4273 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R4275:4278 Kernel.TsirelsonQuantumModel <> fuel:24 var
-R4280:4284 Kernel.TsirelsonQuantumModel <> trace:25 var
-R4286:4291 Kernel.TsirelsonQuantumModel <> s_init:26 var
-R4301:4309 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R4311:4314 Kernel.TsirelsonQuantumModel <> fuel:24 var
-R4316:4320 Kernel.TsirelsonQuantumModel <> trace:25 var
-R4322:4327 Kernel.TsirelsonQuantumModel <> s_init:26 var
-R4337:4345 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R4347:4350 Kernel.TsirelsonQuantumModel <> fuel:24 var
-R4352:4356 Kernel.TsirelsonQuantumModel <> trace:25 var
-R4358:4363 Kernel.TsirelsonQuantumModel <> s_init:26 var
-R4373:4381 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R4383:4386 Kernel.TsirelsonQuantumModel <> fuel:24 var
-R4388:4392 Kernel.TsirelsonQuantumModel <> trace:25 var
-R4394:4399 Kernel.TsirelsonQuantumModel <> s_init:26 var
-R4406:4410 Kernel.TsirelsonGeneral <> sqrt8 def
-R4472:4522 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_quantum_model thm
-R4472:4522 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_quantum_model thm
-R4551:4601 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_tsirelson_abs thm
-R4551:4601 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_tsirelson_abs thm
-prf 5683:5725 <> c4_direct_tsirelson_from_quantum_realizable
-binder 5738:5741 <> fuel:27
-binder 5743:5747 <> trace:28
-binder 5749:5754 <> s_init:29
-R5823:5830 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5761:5778 Kernel.NPAMomentMatrix <> quantum_realizable def
-R5781:5803 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R5805:5808 Kernel.TsirelsonQuantumModel <> fuel:27 var
-R5810:5814 Kernel.TsirelsonQuantumModel <> trace:28 var
-R5816:5821 Kernel.TsirelsonQuantumModel <> s_init:29 var
-R5983:5986 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R5831:5831 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R5980:5982 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R5832:5835 Kernel.TsirelsonGeneral <> CHSH def
-R5844:5852 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R5854:5857 Kernel.TsirelsonQuantumModel <> fuel:27 var
-R5859:5863 Kernel.TsirelsonQuantumModel <> trace:28 var
-R5865:5870 Kernel.TsirelsonQuantumModel <> s_init:29 var
-R5880:5888 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R5890:5893 Kernel.TsirelsonQuantumModel <> fuel:27 var
-R5895:5899 Kernel.TsirelsonQuantumModel <> trace:28 var
-R5901:5906 Kernel.TsirelsonQuantumModel <> s_init:29 var
-R5916:5924 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R5926:5929 Kernel.TsirelsonQuantumModel <> fuel:27 var
-R5931:5935 Kernel.TsirelsonQuantumModel <> trace:28 var
-R5937:5942 Kernel.TsirelsonQuantumModel <> s_init:29 var
-R5952:5960 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R5962:5965 Kernel.TsirelsonQuantumModel <> fuel:27 var
-R5967:5971 Kernel.TsirelsonQuantumModel <> trace:28 var
-R5973:5978 Kernel.TsirelsonQuantumModel <> s_init:29 var
-R6038:6060 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R6078:6119 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
-R6078:6119 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
-prf 6202:6248 <> c4_direct_tsirelson_abs_from_quantum_realizable
-binder 6261:6264 <> fuel:30
-binder 6266:6270 <> trace:31
-binder 6272:6277 <> s_init:32
-R6346:6353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6284:6301 Kernel.NPAMomentMatrix <> quantum_realizable def
-R6304:6326 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R6328:6331 Kernel.TsirelsonQuantumModel <> fuel:30 var
-R6333:6337 Kernel.TsirelsonQuantumModel <> trace:31 var
-R6339:6344 Kernel.TsirelsonQuantumModel <> s_init:32 var
-R6509:6512 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R6354:6357 Coq.Reals.Rbasic_fun <> Rabs def
-R6360:6363 Kernel.TsirelsonGeneral <> CHSH def
-R6372:6380 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R6382:6385 Kernel.TsirelsonQuantumModel <> fuel:30 var
-R6387:6391 Kernel.TsirelsonQuantumModel <> trace:31 var
-R6393:6398 Kernel.TsirelsonQuantumModel <> s_init:32 var
-R6408:6416 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R6418:6421 Kernel.TsirelsonQuantumModel <> fuel:30 var
-R6423:6427 Kernel.TsirelsonQuantumModel <> trace:31 var
-R6429:6434 Kernel.TsirelsonQuantumModel <> s_init:32 var
-R6444:6452 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R6454:6457 Kernel.TsirelsonQuantumModel <> fuel:30 var
-R6459:6463 Kernel.TsirelsonQuantumModel <> trace:31 var
-R6465:6470 Kernel.TsirelsonQuantumModel <> s_init:32 var
-R6480:6488 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R6490:6493 Kernel.TsirelsonQuantumModel <> fuel:30 var
-R6495:6499 Kernel.TsirelsonQuantumModel <> trace:31 var
-R6501:6506 Kernel.TsirelsonQuantumModel <> s_init:32 var
-R6513:6517 Kernel.TsirelsonGeneral <> sqrt8 def
-R6568:6590 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R6608:6653 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound_abs thm
-R6608:6653 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound_abs thm
-prf 6706:6758 <> c4_direct_tsirelson_from_quantum_realizable_invariant
-binder 6771:6774 <> fuel:33
-binder 6776:6780 <> trace:34
-R6791:6797 Kernel.VMState <> VMState rec
-binder 6783:6784 <> s1:35
-binder 6786:6787 <> s2:36
-R6812:6819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6807:6809 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6805:6806 Kernel.TsirelsonQuantumModel <> s1:35 var
-R6810:6811 Kernel.TsirelsonQuantumModel <> s2:36 var
-R6820:6820 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R7038:7048 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R7266:7266 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6879:6888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6821:6838 Kernel.NPAMomentMatrix <> quantum_realizable def
-R6841:6863 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R6865:6868 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R6870:6874 Kernel.TsirelsonQuantumModel <> trace:34 var
-R6876:6877 Kernel.TsirelsonQuantumModel <> s1:35 var
-R7033:7036 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R6889:6889 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R7030:7032 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R6890:6893 Kernel.TsirelsonGeneral <> CHSH def
-R6904:6912 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R6914:6917 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R6919:6923 Kernel.TsirelsonQuantumModel <> trace:34 var
-R6925:6926 Kernel.TsirelsonQuantumModel <> s1:35 var
-R6938:6946 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R6948:6951 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R6953:6957 Kernel.TsirelsonQuantumModel <> trace:34 var
-R6959:6960 Kernel.TsirelsonQuantumModel <> s1:35 var
-R6972:6980 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R6982:6985 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R6987:6991 Kernel.TsirelsonQuantumModel <> trace:34 var
-R6993:6994 Kernel.TsirelsonQuantumModel <> s1:35 var
-R7006:7014 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R7016:7019 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R7021:7025 Kernel.TsirelsonQuantumModel <> trace:34 var
-R7027:7028 Kernel.TsirelsonQuantumModel <> s1:35 var
-R7107:7116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7049:7066 Kernel.NPAMomentMatrix <> quantum_realizable def
-R7069:7091 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R7093:7096 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R7098:7102 Kernel.TsirelsonQuantumModel <> trace:34 var
-R7104:7105 Kernel.TsirelsonQuantumModel <> s2:36 var
-R7261:7264 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7117:7117 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R7258:7260 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R7118:7121 Kernel.TsirelsonGeneral <> CHSH def
-R7132:7140 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R7142:7145 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R7147:7151 Kernel.TsirelsonQuantumModel <> trace:34 var
-R7153:7154 Kernel.TsirelsonQuantumModel <> s2:36 var
-R7166:7174 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R7176:7179 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R7181:7185 Kernel.TsirelsonQuantumModel <> trace:34 var
-R7187:7188 Kernel.TsirelsonQuantumModel <> s2:36 var
-R7200:7208 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R7210:7213 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R7215:7219 Kernel.TsirelsonQuantumModel <> trace:34 var
-R7221:7222 Kernel.TsirelsonQuantumModel <> s2:36 var
-R7234:7242 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R7244:7247 Kernel.TsirelsonQuantumModel <> fuel:33 var
-R7249:7253 Kernel.TsirelsonQuantumModel <> trace:34 var
-R7255:7256 Kernel.TsirelsonQuantumModel <> s2:36 var
-prf 7368:7424 <> c4_direct_tsirelson_abs_from_quantum_realizable_invariant
-binder 7437:7440 <> fuel:37
-binder 7442:7446 <> trace:38
-R7457:7463 Kernel.VMState <> VMState rec
-binder 7449:7450 <> s1:39
-binder 7452:7453 <> s2:40
-R7478:7485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7473:7475 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7471:7472 Kernel.TsirelsonQuantumModel <> s1:39 var
-R7476:7477 Kernel.TsirelsonQuantumModel <> s2:40 var
-R7486:7486 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R7711:7721 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R7946:7946 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R7545:7554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7487:7504 Kernel.NPAMomentMatrix <> quantum_realizable def
-R7507:7529 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R7531:7534 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7536:7540 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7542:7543 Kernel.TsirelsonQuantumModel <> s1:39 var
-R7702:7705 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7555:7558 Coq.Reals.Rbasic_fun <> Rabs def
-R7561:7564 Kernel.TsirelsonGeneral <> CHSH def
-R7575:7583 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R7585:7588 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7590:7594 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7596:7597 Kernel.TsirelsonQuantumModel <> s1:39 var
-R7609:7617 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R7619:7622 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7624:7628 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7630:7631 Kernel.TsirelsonQuantumModel <> s1:39 var
-R7643:7651 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R7653:7656 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7658:7662 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7664:7665 Kernel.TsirelsonQuantumModel <> s1:39 var
-R7677:7685 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R7687:7690 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7692:7696 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7698:7699 Kernel.TsirelsonQuantumModel <> s1:39 var
-R7706:7710 Kernel.TsirelsonGeneral <> sqrt8 def
-R7780:7789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7722:7739 Kernel.NPAMomentMatrix <> quantum_realizable def
-R7742:7764 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R7766:7769 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7771:7775 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7777:7778 Kernel.TsirelsonQuantumModel <> s2:40 var
-R7937:7940 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7790:7793 Coq.Reals.Rbasic_fun <> Rabs def
-R7796:7799 Kernel.TsirelsonGeneral <> CHSH def
-R7810:7818 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R7820:7823 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7825:7829 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7831:7832 Kernel.TsirelsonQuantumModel <> s2:40 var
-R7844:7852 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R7854:7857 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7859:7863 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7865:7866 Kernel.TsirelsonQuantumModel <> s2:40 var
-R7878:7886 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R7888:7891 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7893:7897 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7899:7900 Kernel.TsirelsonQuantumModel <> s2:40 var
-R7912:7920 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R7922:7925 Kernel.TsirelsonQuantumModel <> fuel:37 var
-R7927:7931 Kernel.TsirelsonQuantumModel <> trace:38 var
-R7933:7934 Kernel.TsirelsonQuantumModel <> s2:40 var
-R7941:7945 Kernel.TsirelsonGeneral <> sqrt8 def
+R647:653 Kernel.VMState <> <> lib
+R683:688 Kernel.VMStep <> <> lib
+R718:731 Kernel.CHSHExtraction <> <> lib
+R761:775 Kernel.NPAMomentMatrix <> <> lib
+R805:825 Kernel.MuLedgerQuantumBridge <> <> lib
+R855:870 Kernel.TsirelsonGeneral <> <> lib
+R889:903 Coq.Reals.Reals <> <> lib
+def 1119:1137 <> trace_quantum_model
+R1149:1151 Coq.Init.Datatypes <> nat ind
+binder 1142:1145 <> fuel:1
+R1163:1166 Coq.Init.Datatypes <> list ind
+R1168:1181 Kernel.VMStep VMStep vm_instruction ind
+binder 1155:1159 <> trace:2
+R1194:1200 Kernel.VMState <> VMState rec
+binder 1185:1190 <> s_init:3
+R1215:1232 Kernel.NPAMomentMatrix <> quantum_realizable def
+R1235:1257 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R1259:1262 Kernel.TsirelsonQuantumModel <> fuel:1 var
+R1264:1268 Kernel.TsirelsonQuantumModel <> trace:2 var
+R1270:1275 Kernel.TsirelsonQuantumModel <> s_init:3 var
+def 1360:1388 <> trace_quantum_bridge_coherent
+R1400:1402 Coq.Init.Datatypes <> nat ind
+binder 1393:1396 <> fuel:4
+R1414:1417 Coq.Init.Datatypes <> list ind
+R1419:1432 Kernel.VMStep VMStep vm_instruction ind
+binder 1406:1410 <> trace:5
+R1445:1451 Kernel.VMState <> VMState rec
+binder 1436:1441 <> s_init:6
+R1466:1483 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent def
+R1485:1488 Kernel.TsirelsonQuantumModel <> fuel:4 var
+R1490:1494 Kernel.TsirelsonQuantumModel <> trace:5 var
+R1496:1501 Kernel.TsirelsonQuantumModel <> s_init:6 var
+prf 1536:1564 <> trace_quantum_model_invariant
+binder 1577:1580 <> fuel:7
+binder 1582:1586 <> trace:8
+R1597:1603 Kernel.VMState <> VMState rec
+binder 1589:1590 <> s1:9
+binder 1592:1593 <> s2:10
+R1618:1625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1613:1615 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1611:1612 Kernel.TsirelsonQuantumModel <> s1:9 var
+R1616:1617 Kernel.TsirelsonQuantumModel <> s2:10 var
+R1659:1663 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1626:1644 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R1646:1649 Kernel.TsirelsonQuantumModel <> fuel:7 var
+R1651:1655 Kernel.TsirelsonQuantumModel <> trace:8 var
+R1657:1658 Kernel.TsirelsonQuantumModel <> s1:9 var
+R1664:1682 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R1684:1687 Kernel.TsirelsonQuantumModel <> fuel:7 var
+R1689:1693 Kernel.TsirelsonQuantumModel <> trace:8 var
+R1695:1696 Kernel.TsirelsonQuantumModel <> s2:10 var
+prf 1816:1854 <> trace_quantum_bridge_coherent_invariant
+binder 1867:1870 <> fuel:11
+binder 1872:1876 <> trace:12
+R1887:1893 Kernel.VMState <> VMState rec
+binder 1879:1880 <> s1:13
+binder 1882:1883 <> s2:14
+R1908:1915 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1903:1905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1901:1902 Kernel.TsirelsonQuantumModel <> s1:13 var
+R1906:1907 Kernel.TsirelsonQuantumModel <> s2:14 var
+R1959:1967 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1916:1944 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R1946:1949 Kernel.TsirelsonQuantumModel <> fuel:11 var
+R1951:1955 Kernel.TsirelsonQuantumModel <> trace:12 var
+R1957:1958 Kernel.TsirelsonQuantumModel <> s1:13 var
+R1968:1996 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R1998:2001 Kernel.TsirelsonQuantumModel <> fuel:11 var
+R2003:2007 Kernel.TsirelsonQuantumModel <> trace:12 var
+R2009:2010 Kernel.TsirelsonQuantumModel <> s2:14 var
+prf 2201:2251 <> trace_quantum_bridge_coherent_implies_quantum_model
+binder 2264:2267 <> fuel:15
+binder 2269:2273 <> trace:16
+binder 2275:2280 <> s_init:17
+R2334:2341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2287:2315 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R2317:2320 Kernel.TsirelsonQuantumModel <> fuel:15 var
+R2322:2326 Kernel.TsirelsonQuantumModel <> trace:16 var
+R2328:2333 Kernel.TsirelsonQuantumModel <> s_init:17 var
+R2342:2360 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R2362:2365 Kernel.TsirelsonQuantumModel <> fuel:15 var
+R2367:2371 Kernel.TsirelsonQuantumModel <> trace:16 var
+R2373:2378 Kernel.TsirelsonQuantumModel <> s_init:17 var
+R2430:2458 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R2478:2496 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R2507:2560 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_quantum_realizable_of_trace thm
+R2507:2560 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_quantum_realizable_of_trace thm
+prf 2700:2754 <> trace_quantum_bridge_coherent_implies_tsirelson_squared
+binder 2767:2770 <> fuel:18
+binder 2772:2776 <> trace:19
+binder 2778:2783 <> s_init:20
+R2837:2844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2790:2818 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R2820:2823 Kernel.TsirelsonQuantumModel <> fuel:18 var
+R2825:2829 Kernel.TsirelsonQuantumModel <> trace:19 var
+R2831:2836 Kernel.TsirelsonQuantumModel <> s_init:20 var
+R2997:3000 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2845:2845 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R2994:2996 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R2846:2849 Kernel.TsirelsonGeneral <> CHSH def
+R2858:2866 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R2868:2871 Kernel.TsirelsonQuantumModel <> fuel:18 var
+R2873:2877 Kernel.TsirelsonQuantumModel <> trace:19 var
+R2879:2884 Kernel.TsirelsonQuantumModel <> s_init:20 var
+R2894:2902 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R2904:2907 Kernel.TsirelsonQuantumModel <> fuel:18 var
+R2909:2913 Kernel.TsirelsonQuantumModel <> trace:19 var
+R2915:2920 Kernel.TsirelsonQuantumModel <> s_init:20 var
+R2930:2938 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R2940:2943 Kernel.TsirelsonQuantumModel <> fuel:18 var
+R2945:2949 Kernel.TsirelsonQuantumModel <> trace:19 var
+R2951:2956 Kernel.TsirelsonQuantumModel <> s_init:20 var
+R2966:2974 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R2976:2979 Kernel.TsirelsonQuantumModel <> fuel:18 var
+R2981:2985 Kernel.TsirelsonQuantumModel <> trace:19 var
+R2987:2992 Kernel.TsirelsonQuantumModel <> s_init:20 var
+R3053:3081 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R3100:3149 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_squared thm
+R3100:3149 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_squared thm
+prf 3280:3330 <> trace_quantum_bridge_coherent_implies_tsirelson_abs
+binder 3343:3346 <> fuel:21
+binder 3348:3352 <> trace:22
+binder 3354:3359 <> s_init:23
+R3413:3420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3366:3394 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R3396:3399 Kernel.TsirelsonQuantumModel <> fuel:21 var
+R3401:3405 Kernel.TsirelsonQuantumModel <> trace:22 var
+R3407:3412 Kernel.TsirelsonQuantumModel <> s_init:23 var
+R3576:3579 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3421:3424 Coq.Reals.Rbasic_fun <> Rabs def
+R3427:3430 Kernel.TsirelsonGeneral <> CHSH def
+R3439:3447 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R3449:3452 Kernel.TsirelsonQuantumModel <> fuel:21 var
+R3454:3458 Kernel.TsirelsonQuantumModel <> trace:22 var
+R3460:3465 Kernel.TsirelsonQuantumModel <> s_init:23 var
+R3475:3483 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R3485:3488 Kernel.TsirelsonQuantumModel <> fuel:21 var
+R3490:3494 Kernel.TsirelsonQuantumModel <> trace:22 var
+R3496:3501 Kernel.TsirelsonQuantumModel <> s_init:23 var
+R3511:3519 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R3521:3524 Kernel.TsirelsonQuantumModel <> fuel:21 var
+R3526:3530 Kernel.TsirelsonQuantumModel <> trace:22 var
+R3532:3537 Kernel.TsirelsonQuantumModel <> s_init:23 var
+R3547:3555 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R3557:3560 Kernel.TsirelsonQuantumModel <> fuel:21 var
+R3562:3566 Kernel.TsirelsonQuantumModel <> trace:22 var
+R3568:3573 Kernel.TsirelsonQuantumModel <> s_init:23 var
+R3580:3584 Kernel.TsirelsonGeneral <> sqrt8 def
+R3636:3664 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R3683:3728 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_abs thm
+R3683:3728 Kernel.MuLedgerQuantumBridge <> mu_ledger_coherent_implies_tsirelson_bound_abs thm
+prf 3836:3872 <> trace_quantum_model_connection_closed
+binder 3885:3888 <> fuel:24
+binder 3890:3894 <> trace:25
+binder 3896:3901 <> s_init:26
+R3955:3962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3908:3936 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R3938:3941 Kernel.TsirelsonQuantumModel <> fuel:24 var
+R3943:3947 Kernel.TsirelsonQuantumModel <> trace:25 var
+R3949:3954 Kernel.TsirelsonQuantumModel <> s_init:26 var
+R4000:4007 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3963:3981 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R3983:3986 Kernel.TsirelsonQuantumModel <> fuel:24 var
+R3988:3992 Kernel.TsirelsonQuantumModel <> trace:25 var
+R3994:3999 Kernel.TsirelsonQuantumModel <> s_init:26 var
+R4163:4166 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4008:4011 Coq.Reals.Rbasic_fun <> Rabs def
+R4014:4017 Kernel.TsirelsonGeneral <> CHSH def
+R4026:4034 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R4036:4039 Kernel.TsirelsonQuantumModel <> fuel:24 var
+R4041:4045 Kernel.TsirelsonQuantumModel <> trace:25 var
+R4047:4052 Kernel.TsirelsonQuantumModel <> s_init:26 var
+R4062:4070 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R4072:4075 Kernel.TsirelsonQuantumModel <> fuel:24 var
+R4077:4081 Kernel.TsirelsonQuantumModel <> trace:25 var
+R4083:4088 Kernel.TsirelsonQuantumModel <> s_init:26 var
+R4098:4106 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R4108:4111 Kernel.TsirelsonQuantumModel <> fuel:24 var
+R4113:4117 Kernel.TsirelsonQuantumModel <> trace:25 var
+R4119:4124 Kernel.TsirelsonQuantumModel <> s_init:26 var
+R4134:4142 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R4144:4147 Kernel.TsirelsonQuantumModel <> fuel:24 var
+R4149:4153 Kernel.TsirelsonQuantumModel <> trace:25 var
+R4155:4160 Kernel.TsirelsonQuantumModel <> s_init:26 var
+R4167:4171 Kernel.TsirelsonGeneral <> sqrt8 def
+R4233:4283 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_quantum_model thm
+R4233:4283 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_quantum_model thm
+R4312:4362 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_tsirelson_abs thm
+R4312:4362 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent_implies_tsirelson_abs thm
+prf 5218:5260 <> c4_direct_tsirelson_from_quantum_realizable
+binder 5273:5276 <> fuel:27
+binder 5278:5282 <> trace:28
+binder 5284:5289 <> s_init:29
+R5358:5365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5296:5313 Kernel.NPAMomentMatrix <> quantum_realizable def
+R5316:5338 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R5340:5343 Kernel.TsirelsonQuantumModel <> fuel:27 var
+R5345:5349 Kernel.TsirelsonQuantumModel <> trace:28 var
+R5351:5356 Kernel.TsirelsonQuantumModel <> s_init:29 var
+R5518:5521 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5366:5366 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R5515:5517 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R5367:5370 Kernel.TsirelsonGeneral <> CHSH def
+R5379:5387 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R5389:5392 Kernel.TsirelsonQuantumModel <> fuel:27 var
+R5394:5398 Kernel.TsirelsonQuantumModel <> trace:28 var
+R5400:5405 Kernel.TsirelsonQuantumModel <> s_init:29 var
+R5415:5423 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R5425:5428 Kernel.TsirelsonQuantumModel <> fuel:27 var
+R5430:5434 Kernel.TsirelsonQuantumModel <> trace:28 var
+R5436:5441 Kernel.TsirelsonQuantumModel <> s_init:29 var
+R5451:5459 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R5461:5464 Kernel.TsirelsonQuantumModel <> fuel:27 var
+R5466:5470 Kernel.TsirelsonQuantumModel <> trace:28 var
+R5472:5477 Kernel.TsirelsonQuantumModel <> s_init:29 var
+R5487:5495 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R5497:5500 Kernel.TsirelsonQuantumModel <> fuel:27 var
+R5502:5506 Kernel.TsirelsonQuantumModel <> trace:28 var
+R5508:5513 Kernel.TsirelsonQuantumModel <> s_init:29 var
+R5573:5595 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R5613:5654 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
+R5613:5654 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
+prf 5737:5783 <> c4_direct_tsirelson_abs_from_quantum_realizable
+binder 5796:5799 <> fuel:30
+binder 5801:5805 <> trace:31
+binder 5807:5812 <> s_init:32
+R5881:5888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5819:5836 Kernel.NPAMomentMatrix <> quantum_realizable def
+R5839:5861 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R5863:5866 Kernel.TsirelsonQuantumModel <> fuel:30 var
+R5868:5872 Kernel.TsirelsonQuantumModel <> trace:31 var
+R5874:5879 Kernel.TsirelsonQuantumModel <> s_init:32 var
+R6044:6047 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5889:5892 Coq.Reals.Rbasic_fun <> Rabs def
+R5895:5898 Kernel.TsirelsonGeneral <> CHSH def
+R5907:5915 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R5917:5920 Kernel.TsirelsonQuantumModel <> fuel:30 var
+R5922:5926 Kernel.TsirelsonQuantumModel <> trace:31 var
+R5928:5933 Kernel.TsirelsonQuantumModel <> s_init:32 var
+R5943:5951 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R5953:5956 Kernel.TsirelsonQuantumModel <> fuel:30 var
+R5958:5962 Kernel.TsirelsonQuantumModel <> trace:31 var
+R5964:5969 Kernel.TsirelsonQuantumModel <> s_init:32 var
+R5979:5987 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R5989:5992 Kernel.TsirelsonQuantumModel <> fuel:30 var
+R5994:5998 Kernel.TsirelsonQuantumModel <> trace:31 var
+R6000:6005 Kernel.TsirelsonQuantumModel <> s_init:32 var
+R6015:6023 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R6025:6028 Kernel.TsirelsonQuantumModel <> fuel:30 var
+R6030:6034 Kernel.TsirelsonQuantumModel <> trace:31 var
+R6036:6041 Kernel.TsirelsonQuantumModel <> s_init:32 var
+R6048:6052 Kernel.TsirelsonGeneral <> sqrt8 def
+R6103:6125 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R6143:6188 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound_abs thm
+R6143:6188 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound_abs thm
+prf 6241:6293 <> c4_direct_tsirelson_from_quantum_realizable_invariant
+binder 6306:6309 <> fuel:33
+binder 6311:6315 <> trace:34
+R6326:6332 Kernel.VMState <> VMState rec
+binder 6318:6319 <> s1:35
+binder 6321:6322 <> s2:36
+R6347:6354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6342:6344 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6340:6341 Kernel.TsirelsonQuantumModel <> s1:35 var
+R6345:6346 Kernel.TsirelsonQuantumModel <> s2:36 var
+R6355:6355 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6573:6583 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6801:6801 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6414:6423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6356:6373 Kernel.NPAMomentMatrix <> quantum_realizable def
+R6376:6398 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R6400:6403 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6405:6409 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6411:6412 Kernel.TsirelsonQuantumModel <> s1:35 var
+R6568:6571 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6424:6424 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R6565:6567 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R6425:6428 Kernel.TsirelsonGeneral <> CHSH def
+R6439:6447 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R6449:6452 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6454:6458 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6460:6461 Kernel.TsirelsonQuantumModel <> s1:35 var
+R6473:6481 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R6483:6486 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6488:6492 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6494:6495 Kernel.TsirelsonQuantumModel <> s1:35 var
+R6507:6515 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R6517:6520 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6522:6526 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6528:6529 Kernel.TsirelsonQuantumModel <> s1:35 var
+R6541:6549 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R6551:6554 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6556:6560 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6562:6563 Kernel.TsirelsonQuantumModel <> s1:35 var
+R6642:6651 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6584:6601 Kernel.NPAMomentMatrix <> quantum_realizable def
+R6604:6626 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R6628:6631 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6633:6637 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6639:6640 Kernel.TsirelsonQuantumModel <> s2:36 var
+R6796:6799 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6652:6652 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R6793:6795 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R6653:6656 Kernel.TsirelsonGeneral <> CHSH def
+R6667:6675 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R6677:6680 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6682:6686 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6688:6689 Kernel.TsirelsonQuantumModel <> s2:36 var
+R6701:6709 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R6711:6714 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6716:6720 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6722:6723 Kernel.TsirelsonQuantumModel <> s2:36 var
+R6735:6743 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R6745:6748 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6750:6754 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6756:6757 Kernel.TsirelsonQuantumModel <> s2:36 var
+R6769:6777 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R6779:6782 Kernel.TsirelsonQuantumModel <> fuel:33 var
+R6784:6788 Kernel.TsirelsonQuantumModel <> trace:34 var
+R6790:6791 Kernel.TsirelsonQuantumModel <> s2:36 var
+prf 6903:6959 <> c4_direct_tsirelson_abs_from_quantum_realizable_invariant
+binder 6972:6975 <> fuel:37
+binder 6977:6981 <> trace:38
+R6992:6998 Kernel.VMState <> VMState rec
+binder 6984:6985 <> s1:39
+binder 6987:6988 <> s2:40
+R7013:7020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7008:7010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7006:7007 Kernel.TsirelsonQuantumModel <> s1:39 var
+R7011:7012 Kernel.TsirelsonQuantumModel <> s2:40 var
+R7021:7021 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7246:7256 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7481:7481 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7080:7089 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7022:7039 Kernel.NPAMomentMatrix <> quantum_realizable def
+R7042:7064 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R7066:7069 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7071:7075 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7077:7078 Kernel.TsirelsonQuantumModel <> s1:39 var
+R7237:7240 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7090:7093 Coq.Reals.Rbasic_fun <> Rabs def
+R7096:7099 Kernel.TsirelsonGeneral <> CHSH def
+R7110:7118 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R7120:7123 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7125:7129 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7131:7132 Kernel.TsirelsonQuantumModel <> s1:39 var
+R7144:7152 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R7154:7157 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7159:7163 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7165:7166 Kernel.TsirelsonQuantumModel <> s1:39 var
+R7178:7186 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R7188:7191 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7193:7197 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7199:7200 Kernel.TsirelsonQuantumModel <> s1:39 var
+R7212:7220 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R7222:7225 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7227:7231 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7233:7234 Kernel.TsirelsonQuantumModel <> s1:39 var
+R7241:7245 Kernel.TsirelsonGeneral <> sqrt8 def
+R7315:7324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7257:7274 Kernel.NPAMomentMatrix <> quantum_realizable def
+R7277:7299 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R7301:7304 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7306:7310 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7312:7313 Kernel.TsirelsonQuantumModel <> s2:40 var
+R7472:7475 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7325:7328 Coq.Reals.Rbasic_fun <> Rabs def
+R7331:7334 Kernel.TsirelsonGeneral <> CHSH def
+R7345:7353 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R7355:7358 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7360:7364 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7366:7367 Kernel.TsirelsonQuantumModel <> s2:40 var
+R7379:7387 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R7389:7392 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7394:7398 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7400:7401 Kernel.TsirelsonQuantumModel <> s2:40 var
+R7413:7421 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R7423:7426 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7428:7432 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7434:7435 Kernel.TsirelsonQuantumModel <> s2:40 var
+R7447:7455 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R7457:7460 Kernel.TsirelsonQuantumModel <> fuel:37 var
+R7462:7466 Kernel.TsirelsonQuantumModel <> trace:38 var
+R7468:7469 Kernel.TsirelsonQuantumModel <> s2:40 var
+R7476:7480 Kernel.TsirelsonGeneral <> sqrt8 def

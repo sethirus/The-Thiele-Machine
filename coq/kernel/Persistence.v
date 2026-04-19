@@ -1,55 +1,12 @@
-(** * Persistence: Resource Bounded Computation and Betting Games
+(** Persistence: a fuel overlay for resource-bounded execution
 
-    WHY THIS FILE EXISTS:
-    I claim mu-cost is not just an abstract ledger - it's a PHYSICAL RESOURCE
-    that can be exhausted. This file models resource-bounded computation via
-    "fuel": a finite budget that depletes with each operation. When fuel runs
-    out, computation halts with error.
+  This file adds a separate fuel counter on top of VM execution so resource
+  limits can be stated operationally. Each instruction spends fuel according
+  to its μ-cost, and execution halts with error once the budget is exhausted.
 
-    THE CORE CONCEPT:
-    FuelState wraps VMState + fuel counter. Each instruction costs mu-bits (via
-    fuel_cost = instruction_cost). If cost > remaining fuel, the machine halts
-    with vm_err = true. This models finite resources in real quantum computers.
-
-    WHY FUEL MATTERS:
-    Without resource bounds, No Free Insight would be vacuous ("you can't
-    search forever for free" is trivial). WITH fuel, No Free Insight becomes:
-    "you cannot reduce search space without consuming fuel proportionally".
-    Fuel makes mu-cost OPERATIONAL (measurable, enforceable, falsifiable).
-
-    BETTING GAME INTERPRETATION:
-    CBettingStrategy models prediction: given current state + choice set, how
-    much fuel do you bet on each instruction? If you predict correctly (oracle
-    = actual next instruction), you get fuel back. This game tests whether you
-    can "guess" computational outcomes without paying mu-cost.
-
-    UniformStrategy: Split fuel evenly across all choices.
-    OracleStrategy: Bet all fuel on the correct choice (impossible without
-    paying to compute the oracle).
-
-    THE PREDICTION IMPOSSIBILITY CLAIM:
-    Any strategy beating UniformStrategy (getting higher expected fuel) must
-    ALREADY KNOW something about the computation. But gaining that knowledge
-    costs fuel. The betting game formalizes "information isn't free".
-
-    FALSIFICATION:
-    Build a strategy that systematically beats UniformStrategy WITHOUT prior
-    computation (no fuel spent gathering information). This would mean you can
-    predict computational outcomes for free, violating No Free Insight.
-
-    Or show that fuel_step semantics disagrees with vm_step + mu-accounting
-    (fuel model inconsistent with actual VM).
-
-    Or demonstrate a physical quantum computer that doesn't respect resource
-    bounds (infinite free operations, contradicting thermodynamics).
-
-    PHYSICAL INTERPRETATION:
-    Fuel is energy x time (Joules x seconds). Depleting fuel models the second
-    law: computations consume free energy. When you run out, the machine stops
-    (thermal equilibrium, no more gradients to extract work from).
-
-    This file connects abstract mu-cost to OPERATIONAL resource bounds, making
-    the theory experimentally testable.
+  The betting-game material then uses that overlay to talk about prediction
+  under bounded resources. The point is not to redefine vm_step; it is to add
+  a small operational layer where limited resources are explicit.
 *)
 
 From Coq Require Import List Bool Arith.PeanoNat Lia.
@@ -60,37 +17,9 @@ From Kernel Require Import VMState VMStep.
 
 Module Persistence.
 
-(** ====================================================================== *)
-(** Fuel overlay (does not modify vm_step)                                  *)
-(** ====================================================================== *)
+(** Fuel overlay; vm_step itself is unchanged. *)
 
-(**
-  FuelState: VM state augmented with resource budget.
-
-  WHY: I need to model FINITE RESOURCE computation. Real quantum computers have
-  limited energy, time, and spatial resources. FuelState wraps the pure VMState
-  with a fuel counter that depletes with each operation.
-
-  STRUCTURE:
-  - fs_state: The underlying VM state (graph, registers, memory, etc.)
-  - fs_fuel: Remaining resource budget (nat). When this hits 0, computation halts.
-
-  PHYSICAL MEANING: fuel represents available free energy × time. Each instruction
-  consumes fuel proportional to its μ-cost. When fuel = 0, the system has reached
-  thermal equilibrium (no gradients left to extract work from).
-
-  IMPLEMENTATION: Direct product type VMState × nat. The fuel counter is orthogonal
-  to VM semantics - vm_step unchanged, fuel_step adds resource accounting layer.
-
-  EXAMPLE: Initial state {| fs_state := init_state; fs_fuel := 1000 |} can execute
-  ~166 PNEW operations (cost 6 each) before halting with fs_fuel = 4 < 6.
-
-  FALSIFICATION: Show that fuel_step and vm_step disagree on state transitions
-  (fuel model inconsistent). Or demonstrate a physical computer that executes
-  unbounded operations without consuming resources (violates thermodynamics).
-
-  USED BY: fuel_step, Dead, all betting game definitions, Uniform_Strategy_Dies.
-*)
+(** FuelState is VMState plus a remaining resource budget. *)
 Record FuelState := {
   fs_state : VMState;
   fs_fuel : nat
@@ -111,10 +40,9 @@ Record FuelState := {
   PHYSICAL MEANING: Dead represents thermodynamic equilibrium (no free energy left)
   or catastrophic failure (error state). Either way, no further computation possible.
 
-  FALSIFICATION: Construct a Dead state fs and a valid fuel_step from fs. This
+  To falsify: Construct a Dead state fs and a valid fuel_step from fs. This
   would mean the Dead criterion is too weak (misses some halting conditions).
 
-  USED BY: Uniform_Strategy_Dies (proves uniform betting leads to Dead state),
   game semantics (Dead is terminal condition).
 *)
 Definition Dead (fs : FuelState) : Prop :=
@@ -139,10 +67,9 @@ Definition Dead (fs : FuelState) : Prop :=
   ISOMORPHISM: Matches μ-accounting in the extracted OCaml runner
   (build/thiele_core.ml) and the Kami RTL (coq/kami_hw/ThieleCPUCore.v).
 
-  FALSIFICATION: Show instruction i where fuel_cost(i) ≠ instruction_cost(i).
+  To falsify: Show instruction i where fuel_cost(i) ≠ instruction_cost(i).
   This would break the fuel/μ correspondence.
 
-  USED BY: fuel_step (deducts fuel_cost from budget), betting game analysis.
 *)
 Definition fuel_cost (i : vm_instruction) : nat := instruction_cost i.
 
@@ -166,10 +93,9 @@ Definition fuel_cost (i : vm_instruction) : nat := instruction_cost i.
   2. Conservative bound (all costs are upper bounds)
   3. Matches physical irreversibility (no perfect reversibility in real hardware)
 
-  FALSIFICATION: Show that setting reward = cost for unitary operations breaks
+  To falsify: Show that setting reward = cost for unitary operations breaks
   μ-monotonicity or violates thermodynamic bounds. This would justify reward = 0.
 
-  USED BY: fuel_step (adds reward after deducting cost).
 *)
 Definition fuel_reward (i : vm_instruction) : nat :=
   match i with
@@ -200,13 +126,12 @@ Definition fuel_reward (i : vm_instruction) : nat :=
   PROOF STRATEGY: Case split on fuel_cost i ≤? fuel. If yes, apply vm_step
   and arithmetic. If no, set error flag.
 
-  FALSIFICATION: Find fs, i where fuel_cost i ≤ fuel but fuel_step sets vm_err.
+  To falsify: Find fs, i where fuel_cost i ≤ fuel but fuel_step sets vm_err.
   Or find fs, i where fuel_cost i > fuel but fuel_step succeeds. Either breaks
   the fuel accounting invariant.
 
   DEPENDENCIES: Requires vm_step (VMStep.v), instruction_cost (VMStep.v).
 
-  USED BY: game_stepC (betting game semantics), all resource-bounded proofs.
 *)
 Inductive fuel_step : FuelState -> vm_instruction -> FuelState -> Prop :=
 | fuel_step_ok : forall s s' i fuel,
@@ -235,9 +160,9 @@ Inductive fuel_step : FuelState -> vm_instruction -> FuelState -> Prop :=
                         vm_certified := s.(vm_certified) |};
          fs_fuel := 0 |}.
 
-(** ====================================================================== *)
+(**  *)
 (** Contextual betting game overlay                                         *)
-(** ====================================================================== *)
+(**  *)
 
 (**
   CBettingStrategy: Predictive betting on instruction execution.
@@ -265,7 +190,7 @@ Inductive fuel_step : FuelState -> vm_instruction -> FuelState -> Prop :=
   INFORMATION about the computation. But gaining information costs fuel. The
   game tests whether you can extract information for free.
 
-  FALSIFICATION: Construct a strategy S that beats UniformStrategy on all inputs
+  To falsify: Construct a strategy S that beats UniformStrategy on all inputs
   WITHOUT consuming fuel to compute S itself. This would violate No Free Insight.
 
   EXAMPLES:
@@ -273,7 +198,6 @@ Inductive fuel_step : FuelState -> vm_instruction -> FuelState -> Prop :=
   - OracleStrategy: Bet all fuel on correct choice (requires oracle access,
     costs fuel to compute oracle).
 
-  USED BY: cbet, ctotal_bet, cavailable_after_reveal, game_stepC, Uniform_Strategy_Dies.
 *)
 Definition CBettingStrategy : Type := FuelState -> list vm_instruction -> vm_instruction -> nat.
 
@@ -285,7 +209,6 @@ Definition CBettingStrategy : Type := FuelState -> list vm_instruction -> vm_ins
 
   IMPLEMENTATION: Direct function application S fs choices i. Pure wrapper.
 
-  USED BY: ctotal_bet, cavailable_after_reveal, game_stepC.
 *)
 Definition cbet (S : CBettingStrategy) (fs : FuelState) (choices : list vm_instruction) (i : vm_instruction) : nat :=
   S fs choices i.
@@ -304,10 +227,9 @@ Definition cbet (S : CBettingStrategy) (fs : FuelState) (choices : list vm_instr
   PHYSICAL MEANING: Total bet represents total energy committed to prediction.
   You can't commit more energy than you have available.
 
-  FALSIFICATION: Show strategy S, state fs where ctotal_bet S fs choices > fs_fuel fs
+  To falsify: Show strategy S, state fs where ctotal_bet S fs choices > fs_fuel fs
   but game_stepC doesn't reject. This would mean betting rules aren't enforced.
 
-  USED BY: cavailable_after_reveal, game correctness invariants.
 *)
 Definition ctotal_bet (S : CBettingStrategy) (fs : FuelState) (choices : list vm_instruction) : nat :=
   fold_left Nat.add (map (cbet S fs choices) choices) 0.
@@ -319,7 +241,6 @@ Definition ctotal_bet (S : CBettingStrategy) (fs : FuelState) (choices : list vm
   the oracle (if any). cavailable_after_reveal computes the resulting fuel:
   fuel' = (fs_fuel - total_bet) + bet_on_oracle.
 
-  STRUCTURE:
   - fs_fuel fs: Initial fuel before betting
   - ctotal_bet S fs choices: Sum of all bets (committed fuel)
   - cbet S fs choices oracle: Your bet on the revealed oracle instruction
@@ -337,10 +258,9 @@ Definition ctotal_bet (S : CBettingStrategy) (fs : FuelState) (choices : list vm
   Correct prediction means you "knew" the outcome, so the information was
   already encoded in your bet allocation (no new information gained, reversible).
 
-  FALSIFICATION: Show oracle ∈ choices where available_after_reveal < 0.
+  To falsify: Show oracle ∈ choices where available_after_reveal < 0.
   This would mean the arithmetic is broken (impossible with nat).
 
-  USED BY: game_stepC (determines fuel for next step), betting analysis.
 *)
 Definition cavailable_after_reveal
   (S : CBettingStrategy) (fs : FuelState) (choices : list vm_instruction) (oracle : vm_instruction)
@@ -363,11 +283,10 @@ Definition cavailable_after_reveal
   PHYSICAL MEANING: Instructions are discrete syntactic objects. Equality is
   computable by structural comparison (like comparing AST nodes).
 
-  FALSIFICATION: Find instructions x, y where structural comparison gives wrong
+  To falsify: Find instructions x, y where structural comparison gives wrong
   answer (x = y but they behave differently, or x ≠ y but they behave identically).
   This would mean the instruction representation is semantically ambiguous.
 
-  USED BY: UniformStrategy (membership check via in_dec), game semantics.
 *)
 (** Decidable equality for vm_instruction (needed for membership checks). *)
 Definition vm_instruction_eq_dec : forall (x y : vm_instruction), {x = y} + {x <> y}.
@@ -398,14 +317,13 @@ Qed.
   any outcome. This is the "ignorance prior" in Bayesian terms. Beating this
   strategy means you have mutual information with the oracle.
 
-  FALSIFICATION: Show that UniformStrategy systematically loses fuel faster than
+  To falsify: Show that UniformStrategy systematically loses fuel faster than
   alternative strategies WITHOUT those alternatives computing the oracle (free
   information). This would mean "ignorance is suboptimal" without learning cost.
 
   CRITICAL PROPERTY: When |choices| > fuel, UniformStrategy bets 0 on all choices
   (fuel / n = 0 when fuel < n). This leads to Uniform_Strategy_Dies theorem.
 
-  USED BY: Uniform_Strategy_Dies (shows uniform betting fails on expanding choices),
   baseline for betting game analysis.
 *)
 (** Uniform strategy: split fuel across choice set.
@@ -453,13 +371,12 @@ Definition UniformStrategy : CBettingStrategy :=
   PROOF STRATEGY: Case split on cbet S fs choices oracle. If 0, immediate halt.
   If > 0, check fuel arithmetic and vm_step validity.
 
-  FALSIFICATION: Construct fs, oracle where cbet = 0 but game_stepC_survive succeeds.
+  To falsify: Construct fs, oracle where cbet = 0 but game_stepC_survive succeeds.
   Or show game_stepC_survive with fuel' > available_after_reveal (violates
   conservation). Either breaks the game semantics.
 
   DEPENDENCIES: Requires vm_step, fuel_cost, cavailable_after_reveal.
 
-  USED BY: game_exec_schedule, Uniform_Strategy_Dies.
 *)
 Inductive game_stepC
   (S : CBettingStrategy)
@@ -519,13 +436,12 @@ Inductive game_stepC
   PROOF STRATEGY: Induction on schedule list. Base case trivial. Inductive case
   chains game_stepC with recursive call.
 
-  FALSIFICATION: Show schedule where game_exec_schedule succeeds but Dead fs0
+  To falsify: Show schedule where game_exec_schedule succeeds but Dead fs0
   (started dead). Or show non-Dead fs with empty schedule reaching Dead fsN
   (spontaneous death). Either breaks the semantics.
 
   DEPENDENCIES: Requires game_stepC.
 
-  USED BY: Uniform_Strategy_Dies (proves UniformStrategy fails on specific schedule).
 *)
 Inductive game_exec_schedule
   (S : CBettingStrategy)
@@ -537,9 +453,9 @@ Inductive game_exec_schedule
     game_exec_schedule S fs1 rest fsN ->
     game_exec_schedule S fs0 ((choices, oracle) :: rest) fsN.
 
-(** ====================================================================== *)
+(**  *)
 (** Expanding choice adversary + Uniformity is Fatal                        *)
-(** ====================================================================== *)
+(**  *)
 
 (**
   pnew_inst: Create PNEW instruction with given module ID.
@@ -553,7 +469,6 @@ Inductive game_exec_schedule
 
   PHYSICAL MEANING: PNEW allocates new partition structure, irreversible operation.
 
-  USED BY: pnew_choices (generate choice sets), schedule_expanding (adversary schedule).
 *)
 Definition pnew_inst (n : nat) : vm_instruction := instr_pnew [n] 0.
 
@@ -574,10 +489,9 @@ Definition pnew_inst (n : nat) : vm_instruction := instr_pnew [n] 0.
   space. "Here are n partition creation operations - predict which one I'll pick."
   As n grows beyond fuel, uniform betting fails.
 
-  FALSIFICATION: Show UniformStrategy survives pnew_choices (fuel + 1) without
+  To falsify: Show UniformStrategy survives pnew_choices (fuel + 1) without
   additional fuel. This would mean uniform betting handles unbounded choice sets.
 
-  USED BY: schedule_expanding, in_pnew_choices_0, Uniform_Strategy_Dies.
 *)
 Definition pnew_choices (n : nat) : list vm_instruction :=
   map pnew_inst (seq 0 n).
@@ -604,10 +518,9 @@ Definition pnew_choices (n : nat) : list vm_instruction :=
   can expand the search space beyond your fuel budget, uniform betting MUST fail.
   You cannot hedge bets across unbounded choices with finite resources.
 
-  FALSIFICATION: Show fuel0, s0 where UniformStrategy survives schedule_expanding fuel0.
+  To falsify: Show fuel0, s0 where UniformStrategy survives schedule_expanding fuel0.
   This would mean the schedule doesn't achieve the claimed adversarial effect.
 
-  USED BY: Uniform_Strategy_Dies (main theorem).
 *)
 Definition schedule_expanding (fuel0 : nat) : list (list vm_instruction * vm_instruction) :=
   [(pnew_choices (S fuel0), pnew_inst 0)].
@@ -620,7 +533,6 @@ Definition schedule_expanding (fuel0 : nat) : list (list vm_instruction * vm_ins
 
   CLAIM: ∀ n > 0, pnew_inst 0 ∈ pnew_choices n.
 
-  PROOF STRATEGY:
   1. Unfold pnew_choices n = map pnew_inst (seq 0 n).
   2. Apply in_map: suffices to show 0 ∈ seq 0 n.
   3. Apply in_seq: show 0 ≤ 0 < n. Follows from n > 0 (lia).
@@ -628,10 +540,9 @@ Definition schedule_expanding (fuel0 : nat) : list (list vm_instruction * vm_ins
   PHYSICAL MEANING: Trivial membership check. The 0th PNEW instruction is the
   first element of the choice list.
 
-  FALSIFICATION: Show n > 0 where pnew_inst 0 ∉ pnew_choices n. This would mean
+  To falsify: Show n > 0 where pnew_inst 0 ∉ pnew_choices n. This would mean
   seq or map is broken (impossible in Coq).
 
-  USED BY: Uniform_Strategy_Dies (proves oracle is valid choice).
 *)
 Lemma in_pnew_choices_0 : forall n,
   0 < n -> In (pnew_inst 0) (pnew_choices n).
@@ -655,7 +566,6 @@ Qed.
   CLAIM: If oracle ∈ choices AND |choices| > fuel, then
          cbet UniformStrategy fs choices oracle = 0.
 
-  PROOF STRATEGY:
   1. Unfold cbet, UniformStrategy.
   2. Case split on |choices|:
      - |choices| = 0: Contradiction (oracle ∈ choices but choices empty).
@@ -668,12 +578,11 @@ Qed.
   gives ZERO to each choice. This is integer division failure: 10 resources / 11
   choices = 0 per choice (can't allocate fractional resources).
 
-  FALSIFICATION: Find choices, fuel, oracle where |choices| > fuel but
+  To falsify: Find choices, fuel, oracle where |choices| > fuel but
   UniformStrategy bets > 0 on oracle. This would break the uniform allocation logic.
 
   DEPENDENCIES: Requires UniformStrategy definition, Nat.div_small (stdlib).
 
-  USED BY: Uniform_Strategy_Dies (applies this to schedule_expanding).
 *)
 Lemma uniform_bet_zero_when_choices_exceed_fuel : forall fs choices oracle,
   In oracle choices ->
@@ -707,7 +616,7 @@ Qed.
 (**
   Uniform_Strategy_Dies: THE MAIN THEOREM - UniformStrategy is not universally optimal.
 
-  THEOREM: For any initial state s0 and fuel0 > 0, there exists a schedule
+  For any initial state s0 and fuel0 > 0, there exists a schedule
   (schedule_expanding fuel0) such that UniformStrategy reaches a Dead state.
 
   WHY THIS MATTERS: This proves that "ignorance betting" (uniform allocation)
@@ -722,7 +631,6 @@ Qed.
            fsN
          ∧ Dead fsN.
 
-  PROOF STRATEGY:
   1. Construct witness fsN = {| fs_state := error_state; fs_fuel := 0 |}.
   2. Prove game_exec_schedule succeeds:
      a. Apply game_exec_schedule_cons (one-step schedule).
@@ -742,7 +650,7 @@ Qed.
   uniform search (breadth-first) exhausts resources exponentially. The theorem
   proves this is UNAVOIDABLE without biased (informed) search.
 
-  FALSIFICATION: Find s0, fuel0 where UniformStrategy survives schedule_expanding fuel0
+  To falsify: Find s0, fuel0 where UniformStrategy survives schedule_expanding fuel0
   (reaches non-Dead state). This would mean uniform allocation can handle
   unbounded search spaces, contradicting computational complexity lower bounds.
 

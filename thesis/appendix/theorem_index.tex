@@ -31,7 +31,7 @@ Theorems follow systematic naming:
     \item \texttt{no\_*}: Negative result (something is forbidden)
 \end{itemize}
 
-This appendix provides a comprehensive index of formally verified theorems, organized by domain.
+This appendix provides a full index of formally verified theorems, organized by domain.
 
 \section{Kernel Theorems}
 
@@ -94,6 +94,9 @@ Key theorems include:
     \item \texttt{main\_subsumption} (Subsumption.v): Main subsumption theorem (no project-local axioms)
     \item \texttt{thiele\_simulates\_turing} (ProperSubsumption.v): Turing simulation
     \item \texttt{thiele\_strictly\_extends\_turing} (ProperSubsumption.v): Strict extension
+    \item \texttt{D2\_faithfulness} (TuringClassicalEmbedding.v): Classical programs run faithfully inside Thiele
+    \item \texttt{D5\_thiele\_strictly\_extends\_classical} (TuringStrictness.v): Definitive KERNEL-tier strictness theorem
+    \item \texttt{degenerate\_projection\_theorem} (TuringClassicalEmbedding.v): Shadow projection = classical equivalence quotient
     \item \texttt{partition\_based\_separation} (PartitionSeparation.v): Partition separation
     \item \texttt{pnew\_not\_tm\_simulable} (PartitionSeparation.v): PNEW exceeds TM capability
 \end{itemize}

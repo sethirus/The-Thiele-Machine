@@ -1,56 +1,19 @@
-(** =========================================================================
-    MuShannonBridge: Connecting μ to Shannon Information Theory
-    =========================================================================
+(** MuShannonBridge: connecting mu to Shannon-style reasoning.
 
-    WHY THIS FILE EXISTS:
-    Older repository commentary compressed μ-accounting and Shannon-style
-    search-space reduction too aggressively. This file extracts the part that
-    is actually provable from the current VM semantics, isolates the missing
-    assumptions, and keeps the rejected single-trace entropy claim visible as
-    a boundary marker rather than a live theorem target.
+    Earlier versions of the repo blurred two different claims: the part I can
+    actually prove from the VM cost ledger, and the stronger Shannon-style
+    story people want to tell about search-space collapse. This file separates
+    them cleanly.
 
-    WHAT IS PROVEN HERE (no admits, no axioms):
-    1. Feasibility definitions: what it means to "distinguish" inputs
-    2. Policy-based bound: IF costs are properly sized THEN Δμ ≥ log₂(n)
-       (where n is the number of distinguished inputs)
-    3. Conservation bound: Δμ = sum of declared costs (from MuLedgerConservation)
+    The proven part is modest. I define what it means to distinguish states,
+    keep the ledger identity delta-mu = declared cost sum, and prove bounds
+    that go through once the pricing policy is assumed. The unproven part is
+    also stated plainly: I do not yet have a first-principles proof that every
+    n-way distinction requires cost-bearing operations in the general form a
+    Shannon argument would want.
 
-     WHAT IS NOT YET PROVEN (gap clearly labeled):
-    4. That distinguishing n inputs REQUIRES cost-bearing instructions
-       (this is the actual content of NoFI — needs separate proof)
-     5. An expectation-level Shannon bound for the whole branching structure
-       (this requires probabilistic or whole-tree semantics not yet formalized)
-
-     SINGLE-TRACE CLAIM (rejected):
-      The naive per-path inequality Δμ ≥ log₂|Ω| - log₂|Ω'| is false in
-      general under the deterministic VM and should not be read as an
-      open theorem.
-
-    SCOPE:
-    - Policy-based bound: follows from MuLedgerConservation
-    - Conditional decision-tree bound: proven
-    - General feasible-set reduction bound under explicit tree-cover hypothesis: proven
-    - Naive single-trace Shannon bound: rejected as false in general
-    - Expectation-level Shannon bound: open (requires probabilistic semantics)
-
-    FALSIFICATION:
-    Find a program trace that:
-    (a) distinguishes n ≥ 2 inputs (maps them to n distinct outputs)
-    (b) uses only zero-cost instructions (Δμ = 0)
-    This would disprove the pricing-policy bounds. The current VM allows zero-cost
-    LOAD_IMM, XFER, etc. — but do these suffice to distinguish inputs?
-    No: all zero-cost instructions are deterministic functions of their
-    register inputs. A program starting from distinct inputs with zero-cost
-    instructions only preserves the distinction — it does not CREATE it.
-    The proven part says: creating a certified distinction costs μ > 0.
-    It does not justify the stronger single-trace entropy inequality.
-
-    REFERENCES:
-    Cover & Thomas, "Elements of Information Theory" (2nd ed.), Ch. 2
-    Shannon, "A Mathematical Theory of Communication" (1948)
-    Landauer, "Irreversibility and Heat Generation in Computing" (1961)
-
-    ========================================================================= *)
+    The naive single-trace entropy slogan was too strong, and this file keeps
+    that failure visible instead of pretending it is almost proved. *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridges MuLedgerConservation to
    Shannon information theory. Foundational for NoFI generalization. *)
@@ -64,16 +27,12 @@ From Kernel Require Import SimulationProof.
 From Kernel Require Import MuLedgerConservation.
 From Kernel Require Import MuNoFreeInsightQuantitative.
 
-(** =========================================================================
-    SECTION 1: FEASIBLE SETS AND SEARCH SPACES
-    =========================================================================
+(**
 
-    A "feasible set" Ω is a list of possible initial VMStates that are
-    consistent with everything we know before execution.
-
-    "Search space reduction" from Ω to Ω' means: after observing the
-    execution trace, only states in Ω' ⊆ Ω remain plausible.
-    ========================================================================= *)
+  A feasible set is just the list of initial VM states still in play before
+  execution. Search-space reduction means the trace leaves fewer of those
+  states plausible afterward.
+  *)
 
 (** The feasible set type: a list of VMStates *)
 Definition FeasibleSet := list VMState.
@@ -93,15 +52,11 @@ Definition separates (fuel : nat) (trace : list vm_instruction)
     In s1 omega -> In s2 omega -> s1 <> s2 ->
     distinguishes fuel trace s1 s2.
 
-(** =========================================================================
-    SECTION 2: INTEGER LOGARITHM LOWER BOUND
-    =========================================================================
+(**
 
-    Nat.log2 n gives ⌊log₂(n)⌋.
-    The claim Δμ ≥ log₂(|Ω|/|Ω'|) is stated as:
-      Δμ ≥ Nat.log2 |Ω| - Nat.log2 |Ω'|
-    (using truncated subtraction on nat)
-    ========================================================================= *)
+    Nat.log2 is floor log base 2, so the bound gets written with truncated nat
+    subtraction rather than real-valued entropy algebra.
+    *)
 
 (** Helper: log₂ is monotone *)
 Lemma log2_le_mono : forall m n, m <= n -> Nat.log2 m <= Nat.log2 n.
@@ -119,21 +74,20 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
-    SECTION 3: COST-INFORMED PRICING POLICY
-    =========================================================================
+(**
 
-    This section establishes a POLICY-BASED bound: if the programmer declares
-    costs that are ≥ the information content of each operation, then μ ≥ log₂(n).
-
-    This is not derived from first principles — it requires that costs be
+  This next bound is policy-based. If the declared costs are chosen to price
+  information-carrying operations hard enough, then mu is forced above the
+  corresponding log bound. That is useful, but it is not the same thing as a
+  first-principles theorem about all possible distinctions.
     "honestly priced." The purpose is to make the pricing requirement explicit.
-    ========================================================================= *)
+    *)
 
 (** An instruction is "info-priced" if its cost ≥ 1 whenever it is a
     cert-setting operation.
-    Since EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY all use S cost
-    in instruction_cost, this is now unconditionally true for every instruction.
+    Since EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY all include the
+    S-cost floor in instruction_cost, this is now unconditionally true for every
+    instruction. Some of them also add explicit payload bits.
     The definition is kept for backwards compatibility; use all_info_priced
     to discharge it without any hypothesis. *)
 Definition info_priced (instr : vm_instruction) : Prop :=
@@ -158,17 +112,16 @@ Fixpoint count_cert_setters (trace : list vm_instruction) : nat :=
      end) + count_cert_setters rest
   end.
 
-(** =========================================================================
-    SECTION 4: THE CORE BOUND (POLICY-BASED)
-    =========================================================================
+(**
 
     Under the pricing policy, Δμ ≥ count_cert_setters * 1.
     This is a lower bound on information-bearing operations.
-    ========================================================================= *)
+    *)
 
 (** all_info_priced: every instruction is info-priced unconditionally.
     Cert-setters (EMIT, REVEAL, LASSERT, LJOIN, READ_PORT, CERTIFY) all
-    use S cost in instruction_cost, so instruction_cost >= 1 by construction. *)
+    include an S-cost floor in instruction_cost, so instruction_cost >= 1 by
+    construction. *)
 Lemma all_info_priced : forall instr, info_priced instr.
 Proof.
   intro instr.
@@ -198,9 +151,8 @@ Proof.
   lia.
 Qed.
 
-(** =========================================================================
+(**
     SECTION 4b: POLICY-BASED BOUND (PROVABLE WITHOUT PROBABILISTIC SEMANTICS)
-    =========================================================================
 
     We prove: under the info-pricing policy, the number of cert-setting
     instruction EXECUTIONS is bounded above by Δμ.
@@ -208,7 +160,6 @@ Qed.
     This is the strongest result we can prove without probabilistic semantics.
     It says: you can't execute more cert-setting operations than you pay for.
 
-    STATUS: PROVEN. No admits, no axioms beyond the kernel.
 
     RELATIONSHIP TO THE HISTORICAL SINGLE-TRACE CLAIM:
     This bound gives: Δμ ≥ cert_setter_executions.
@@ -216,7 +167,7 @@ Qed.
     on every realized path, which is not true in general.
     The remaining gap is expectation-level or whole-tree: aggregate over the
     entire branching structure, not one lucky execution path.
-    ========================================================================= *)
+    *)
 
 (** Number of cert-setting instruction executions in a bounded run *)
 Fixpoint cert_setter_executions (fuel : nat) (trace : list vm_instruction)
@@ -279,9 +230,7 @@ Proof.
   apply cert_executions_le_ledger.
 Qed.
 
-(** =========================================================================
-   SECTION 5: HISTORICAL SINGLE-TRACE CLAIM AND THE ACTUAL GAP
-    =========================================================================
+(**
 
    This section records the rejected single-trace formulation and makes the
    real remaining gap explicit.
@@ -294,7 +243,7 @@ Qed.
    1. An expectation-level or whole-decision-tree semantics tying the full
      branching structure to entropy reduction.
 
-    ========================================================================= *)
+    *)
 
 (** [shannon_entropy_reduction]: How much Shannon entropy is eliminated when
     a feasible set Ω reduces to Ω' (assuming uniform prior over Ω).
@@ -361,9 +310,8 @@ Definition MuShannonSingleTraceClaim : Prop :=
 (** Deprecated alias retained for repository continuity and cross-file comments. *)
 Definition MuShannonConjecture : Prop := MuShannonSingleTraceClaim.
 
-(** =========================================================================
+(**
     SECTION 5b: DECISION-TREE LOWER-BOUND FRAMEWORK
-    =========================================================================
 
     Instead of postulating full probabilistic semantics immediately, we can
     factor the Shannon bridge through an abstract binary decision tree.
@@ -376,7 +324,7 @@ Definition MuShannonConjecture : Prop := MuShannonSingleTraceClaim.
     This does NOT yet prove that every feasible-set reduction in the VM induces
     such a tree. That remaining step is now isolated as a concrete proof task:
     compile execution-side separation/certification behavior into this tree model.
-    ========================================================================= *)
+    *)
 
 Inductive DecisionTree : Type :=
 | dt_leaf
@@ -723,13 +671,11 @@ Proof.
   exact Hrepr.
 Qed.
 
-(** =========================================================================
-    SECTION 6: WHAT IS PROVABLE WITHOUT THE CONJECTURE
-    =========================================================================
+(**
 
     These are theorems that hold unconditionally, establishing the
     infrastructure for the eventual full proof.
-    ========================================================================= *)
+    *)
 
 (** Trivial bound: any certified execution spends some μ (from conservation) *)
 Theorem mu_nonnegative_under_execution :
@@ -759,9 +705,7 @@ Qed.
   This connects to the historical single-trace claim stated above and shows
   why the tree-depth hypothesis must be made explicit. *)
 
-(** =========================================================================
-    SECTION 7: RELATIONSHIP TO EXISTING KERNEL RESULTS
-    =========================================================================
+(**
 
     Summary of how this file fits with existing proofs:
 
@@ -782,11 +726,10 @@ Qed.
     decision-tree hypothesis is explicit. The arbitrary feasible-set reduction
     bound packages that hypothesis as an explicit leaf-cover condition over
     |Ω| and |Ω'|. The naive single-trace strengthening is false in general.
-    ========================================================================= *)
+    *)
 
 (** End of MuShannonBridge.
     Open work:
   - Define an expectation-level feasible-set semantics over input distributions
   - Connect consistent_reduction / decision-tree structure to Bayesian belief update
   - Prove the expected certification cost bound against the Shannon target *)
-

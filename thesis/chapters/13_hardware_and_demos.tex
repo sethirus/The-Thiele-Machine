@@ -95,7 +95,7 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
 
 \paragraph{Understanding Instruction Encoding:}
 
-\textbf{What is this code?} This is the \textbf{opcode mapping} for the Thiele CPU: hexadecimal codes assigned to each instruction type. These are \textit{generated from Coq} to ensure hardware and proofs use identical encodings.
+\textbf{What is this code?} This is a \textbf{representative subset} of the opcode mapping for the Thiele CPU. The full ISA has 47 opcodes; this listing covers the base 30. CERTIFY (0x1E) and the seven categorical MORPH opcodes (0x1F–0x25) are defined in the full generated header. These are \textit{generated from Coq} to ensure hardware and proofs use identical encodings.
 
 \textbf{Opcode breakdown:}
 \begin{itemize}
