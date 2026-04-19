@@ -55,7 +55,7 @@ def test_partition_table_wraparound_is_explicitly_guarded() -> None:
 
 def test_no_free_insight_gate_is_wired_in_core() -> None:
     txt = CORE.read_text(encoding="utf-8")
-    assert 'LET nfi_violation <- #is_info_gain_op && (#cost32 < #op_b_32);' in txt
+    assert 'LET nfi_violation <- #is_declared_bound_op && (#cost32 < #op_b_32);' in txt
     assert '!#nfi_violation' in txt
     assert 'then $$(ERR_LOGIC_VAL)' in txt
 
