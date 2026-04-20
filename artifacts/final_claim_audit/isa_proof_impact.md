@@ -17,7 +17,7 @@
 | `pnew` | NO | NO | `cost` | YES (module alloc fail) | YES (adds module) | MuLedgerConservation, InsightTaxonomy |
 | `psplit` | NO | NO | `cost` | YES | YES | MuLedgerConservation |
 | `pmerge` | NO | NO | `cost` | YES | YES | MuLedgerConservation |
-| `lassert` | **YES** | **YES** | `len(formula)×8 + S cost` | YES | NO | AbstractNoFI §8, InsightTaxonomy, MuLedgerConservation |
+| `lassert` | **YES** | **YES** | `encoded_formula_units×8 + S cost` | YES | NO | AbstractNoFI §8, InsightTaxonomy, MuLedgerConservation |
 | `ljoin` | **YES** | **YES** | `S cost` | NO | NO | AbstractNoFI §8, InsightTaxonomy, MuLedgerConservation |
 | `mdlacc` | NO | NO | `cost` | NO | NO | MuLedgerConservation |
 | `pdiscover` | NO | NO | `cost` | NO | YES | MuLedgerConservation |
@@ -62,7 +62,7 @@
 | `morph_tensor` | NO | NO | `cost` | YES (morphs invalid) | **YES** (adds morphism) | MuLedgerConservation, InsightTaxonomy |
 | `morph_get` | NO | NO | `cost` | YES (morph not found) | NO | MuLedgerConservation |
 
-**Total opcodes**: 47
+**Total opcodes**: 46
 
 ---
 

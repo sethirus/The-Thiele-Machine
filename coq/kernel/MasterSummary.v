@@ -599,7 +599,7 @@ Definition exact_mechanism_file_map : list string :=
     "5. abstract verification transfer theorem chain: coq/kernel/HardwareBisimulation.v";
     "6. hardware abstraction path from Kami snapshot to VMState: coq/kami_hw/Abstraction.v";
     "6. full-state per-instruction embed step: coq/kami_hw/FullEmbedStep.v";
-    "6. full-state step commutation bridge (all 47 opcodes): coq/kami_hw/GraphReconstructionBridge.v";
+    "6. full-state step commutation bridge (all 46 opcodes): coq/kami_hw/GraphReconstructionBridge.v";
     "6. Verilog/RTL refinement theorems: coq/kami_hw/VerilogRefinement.v";
     "6. generated RTL implementation: thielecpu/hardware/rtl/thiele_cpu_kami.v";
     "6. simulation testbench: rtl_harness/testbench/thiele_cpu_kami_tb.v";

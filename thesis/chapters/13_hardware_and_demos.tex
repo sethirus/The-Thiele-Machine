@@ -47,7 +47,7 @@ The complete RTL consists of 3 synthesizable source files, 1 generated opcode he
 \texttt{thiele\_cpu\_kami.v} & 7,278 & Kami-generated CPU covering the active opcode set \\
 \texttt{thiele\_cpu\_top.v} & 222 & Top-level wrapper for synthesis \\
 \texttt{RegFile.v} & 100 & BSC standard library register file \\
-\texttt{generated\_opcodes.vh} & 47 & Opcode constants (generated from Coq) \\
+\texttt{generated\_opcodes.vh} & 46 & Opcode constants (generated from Coq) \\
 \texttt{thiele\_cpu\_kami\_tb.v} & 438 & Interactive testbench \\
 \hline
 \end{tabular}}
@@ -95,7 +95,7 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
 
 \paragraph{Understanding Instruction Encoding:}
 
-\textbf{What is this code?} This is a \textbf{representative subset} of the opcode mapping for the Thiele CPU. The full ISA has 47 opcodes; this listing covers the base 30. CERTIFY (0x1E) and the seven categorical MORPH opcodes (0x1F–0x25) are defined in the full generated header. These are \textit{generated from Coq} to ensure hardware and proofs use identical encodings.
+\textbf{What is this code?} This is a \textbf{representative subset} of the opcode mapping for the Thiele CPU. The full ISA has 46 opcodes; this listing covers the base 30. CERTIFY (0x1E) and the seven categorical MORPH opcodes (0x27–0x2D) are defined in the full generated header. These are \textit{generated from Coq} to ensure hardware and proofs use identical encodings.
 
 \textbf{Opcode breakdown:}
 \begin{itemize}

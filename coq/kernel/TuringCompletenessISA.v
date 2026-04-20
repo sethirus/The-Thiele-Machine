@@ -4,11 +4,11 @@
 
     WHY THIS FILE EXISTS:
     The audit (G2) found that thiele_simulates_tm bypasses vm_apply.
-    This file proves: the 47-opcode ISA, executed THROUGH vm_apply,
+    This file proves: the 46-opcode ISA, executed THROUGH vm_apply,
     can simulate a 2-counter Minsky machine.
 
     Minsky machines with 2 counters are Turing complete (Minsky 1967).
-    The simulation uses only 5 of the 47 opcodes:
+    The simulation uses only 5 of the 46 opcodes:
       load_imm, add, sub, jnez, jump
     Each Minsky step maps to 2-3 vm_apply calls.
 
@@ -223,7 +223,7 @@ Definition minsky_vm_inv (prog : list MinskyInstr)
     PART 5: VM_APPLY DISPATCH LEMMAS
     =========================================================================
 
-    For each instruction type we use (5 of 47), we prove what vm_apply does.
+    For each instruction type we use (5 of 46), we prove what vm_apply does.
     These are the key lemmas showing vm_apply IS called, addressing G2.
     ========================================================================= *)
 

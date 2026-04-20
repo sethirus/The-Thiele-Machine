@@ -1,6 +1,6 @@
 \section{What Is This Document?}
 
-Let me be straight with you: I'm a car salesman. I started building this in January 2025 using LLM-directed development---I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. One year later, I'm presenting machine-verified proofs in Coq, a working virtual machine with a two-pass assembler, synthesizable hardware artifacts and FPGA targets, and a Coq-to-Verilog extraction pipeline through Kami---all centered on the same active 47-opcode computational model (40 original + 7 categorical morphism opcodes), with substantial cross-layer parity evidence and refinement links.
+Let me be straight with you: I'm a car salesman. I started building this in January 2025 using LLM-directed development---I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. One year later, I'm presenting machine-verified proofs in Coq, a working virtual machine with a two-pass assembler, synthesizable hardware artifacts and FPGA targets, and a Coq-to-Verilog extraction pipeline through Kami---all centered on the same active 46-opcode computational model (39 original + 7 categorical morphism opcodes), with substantial cross-layer parity evidence and refinement links.
 
 If that sounds impossible, good. Read the proofs. They compile.
 
@@ -198,7 +198,7 @@ The mathematical ground truth. Machine-checked proofs that the compiler verifies
 \begin{itemize}
     \item \textbf{State and partition definitions}: formal state space, partition graphs, region normalization with canonical representation lemmas
 
-    \item \textbf{Step semantics}: active 47-opcode ISA (40 original + 7 categorical morphism opcodes) with inductive \texttt{vm\_step} constructors covering success/failure branches across structural, logical, certification, compute, memory/ALU, bitwise, heap, I/O, categorical, and control paths
+    \item \textbf{Step semantics}: active 46-opcode ISA (39 original + 7 categorical morphism opcodes) with inductive \texttt{vm\_step} constructors covering success/failure branches across structural, logical, certification, compute, memory/ALU, bitwise, heap, I/O, categorical, and control paths
 
     \item \textbf{Kernel physics theorems}: $\mu$-monotonicity, observational no-signaling, gauge symmetry, Noether-style conservation
 
@@ -230,7 +230,7 @@ Executable semantics. Code you can run. Receipts you can verify:
 \begin{itemize}
     \item \textbf{State}: canonical structure with bitmask partition storage (hardware-isomorphic representation in \path{thielecpu/vm.py})
 
-    \item \textbf{Execution}: the active 47-opcode ISA, including partition operations, logic/certification, memory and ALU, bitwise extensions, heap/I/O operations, categorical morphism operations, and control flow
+    \item \textbf{Execution}: the active 46-opcode ISA, including partition operations, logic/certification, memory and ALU, bitwise extensions, heap/I/O operations, categorical morphism operations, and control flow
 
     \item \textbf{Tooling}: a two-pass assembler (\path{scripts/thiele_asm.py}) producing 32-bit instruction words with label resolution and macro expansion, with \texttt{-{}-run} and \texttt{-{}-sim} modes for integrated OCaml and RTL co-simulation execution
 
@@ -325,7 +325,7 @@ The remainder of this thesis is organized as follows:
 
     \item \textbf{Chapter 3: Theory} presents the complete formal definition of the Thiele Machine, Partition Logic, the $\mu$-bit currency, and the No Free Insight theorem with full proof sketches.
 
-    \item \textbf{Chapter 4: Implementation} details the 3-layer architecture, the active 47-opcode ISA, the assembler toolchain, and the hardware synthesis pipeline from Coq through Kami to synthesis artifacts and FPGA targets.
+    \item \textbf{Chapter 4: Implementation} details the 3-layer architecture, the active 46-opcode ISA, the assembler toolchain, and the hardware synthesis pipeline from Coq through Kami to synthesis artifacts and FPGA targets.
 \end{itemize}
 
 \textbf{Part II: Verification and Evaluation}

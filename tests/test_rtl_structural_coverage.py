@@ -96,7 +96,7 @@ class TestStateShape:
 # ===========================================================================
 @RTL_SKIP
 class TestOpcodeAlignment:
-    """Representative RTL programs execute correctly against the 47-opcode table."""
+    """Representative RTL programs execute correctly against the 46-opcode table."""
 
     # RTL_COVERAGE: opcode_alignment
 

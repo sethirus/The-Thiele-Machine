@@ -4,7 +4,7 @@
 
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Coq](https://img.shields.io/badge/Coq-185%20Proof%20Files-blue)](coq/)
+[![Coq](https://img.shields.io/badge/Coq-188%20Proof%20Files-blue)](coq/)
 
 ---
 
@@ -26,9 +26,11 @@ The Thiele Machine is a CPU that can see structure — but has to pay for it. Ev
 
 This is not a bookkeeping convention. It is an architectural invariant:
 
-- The $\mu$-counter is monotonically non-decreasing by construction — proven for all 47 opcodes
-- Cert-setting instructions (LASSERT, CERTIFY, EMIT, REVEAL) cost $\geq 1$ unconditionally — the `S cost` wrapper makes it mathematically impossible to write a zero-cost certified observation
+- The $\mu$-counter is monotonically non-decreasing by construction — proven for all 46 opcodes
+- Cert-setting instructions such as CERTIFY and MORPH_ASSERT cost $\geq 1$ unconditionally — the `S cost` wrapper makes it mathematically impossible to write a zero-cost certification event
 - The $\mu$-ledger is **unique**: the initiality theorem proves any cost measure satisfying the same constraints must equal $\mu$ — there is no alternative
+
+For LASSERT specifically, spending $\mu$ is no longer enough by itself. The kernel and hardware now both require the instruction's declared formula length to match the in-memory formula header before the check can succeed. SAT-mode validation also requires two witnesses in memory: one satisfying assignment and one falsifying assignment. The first proves the formula is satisfiable; the second proves the asserted constraint is non-trivial and actually excludes some states. Long tautologies can still cost $\mu$, but they no longer count as structural certification.
 
 **Insight is not free. The hardware will not let it be.**
 
@@ -41,7 +43,7 @@ This project started as a computer science question about the cost of structural
 When you enforce information cost rigorously enough to put it in hardware and prove it in Coq, certain results appear that were not expected:
 
 **Proven (zero Admitted, no project-local axioms):**
-- **No-Cloning** — Perfect copying requires $2I \leq I + \mu$. If $\mu = 0$, this is $2I \leq I$, which is false for any $I > 0$. The quantum no-cloning theorem falls out as arithmetic on the ledger. No wavefunctions required.
+- **No-Cloning** — Perfect copying requires $2I \leq I + \mu$. If $\mu = 0$, this is $2I \leq I$, which is false for any $I > 0$. The quantum no-cloning theorem falls out as arithmetic on the ledger. No wavefunctions required. Proven in `kernel/NoCloning.v` (`no_cloning_from_conservation`, `cloning_requires_mu`), zero Admitted.
 - **Classical CHSH bound $|S| \leq 2$** — Proven by exhaustive enumeration of all 16 deterministic local strategies. Any observer constrained by the $\mu$-ledger cannot exceed this classically.
 - **Tsirelson algebraic bound** — The quantum limit $2\sqrt{2}$ is derived from coherence constraints on the partition observer model.
 
@@ -103,12 +105,12 @@ ADD r2 r0 r1 1       ; r2 = r0 + r1, cost 1
 HALT 0
 ```
 
-See `scripts/thiele_asm.py` for the full 47-opcode ISA, encoding format, and example programs in `examples/`.
+See `scripts/thiele_asm.py` for the full 46-opcode ISA, encoding format, and example programs in `examples/`.
 
 ### Compile the Coq Proofs (requires Coq 8.18+)
 
 ```bash
-make -C coq                # compile all 185 .v files
+make -C coq                # compile all 188 .v files
 make ocaml-runner          # extract and link the OCaml VM runner
 ```
 
@@ -135,14 +137,14 @@ THIELE_RTL_SIM=verilator pytest tests/test_logic_z3_verilator_bridge.py
 
 | Component | Status |
 |-----------|--------|
-| **Coq proofs** | 185 active `.v` files, zero admits anywhere in the active tree, zero project-local axioms per Inquisitor audit |
+| **Coq proofs** | 188 active `.v` files, zero admits anywhere in the active tree, zero project-local axioms per Inquisitor audit |
 | **Standalone proof** | `coq/ThieleMachineComplete.v` — one file, zero project imports, zero admits, full machine in 46 sections |
 | **Thesis** | [`thesis/main.pdf`](thesis/main.pdf) — 125 pages, 13 chapters, full derivation chain with falsification conditions |
 | **OCaml runtime** | `build/extracted_vm_runner` built by mechanical extraction from Coq through `coq/Extraction.v` |
 | **Python VM** | `thielecpu/vm.py` — generated wrapper, delegates all execution to OCaml binary |
-| **Verilog RTL** | 3 source files: `thiele_cpu_kami.v` (Kami-generated, all 47 opcodes), `thiele_cpu_top.v` (FPGA wrapper), `RegFile.v` |
-| **Test suite** | 62 pytest files, 930 tests collected, covering opcode parity, cosim, bisimulation, Coq gates, fuzz, and RTL |
-| **Inquisitor audit** | Active tree passes maximum-strictness static analysis, report in `INQUISITOR_REPORT.md` |
+| **Verilog RTL** | 3 source files: `thiele_cpu_kami.v` (Kami-generated, all 46 opcodes), `thiele_cpu_top.v` (FPGA wrapper), `RegFile.v` |
+| **Test suite** | 61 pytest files, 929 tests collected, covering opcode parity, cosim, bisimulation, Coq gates, fuzz, and RTL |
+| **Inquisitor audit** | Zero findings across all 188 Coq files (HIGH: 0, MEDIUM: 0, LOW: 0). Report in `INQUISITOR_REPORT.md` |
 
 ---
 
@@ -217,7 +219,7 @@ The WitnessCounts hardware registers are updated unconditionally by the RTL on e
 |---------|---------------------|------|
 | `mu_is_initial_monotone` | $\mu$ is the unique canonical cost functional | `kernel/MuInitiality.v` |
 | `no_free_insight_general` | Supra-certification requires structure addition | `kernel/NoFreeInsight.v` |
-| `vm_apply_mu` | Single-step $\mu$-conservation for all 47 opcodes | `kernel/VMStep.v` |
+| `vm_apply_mu` | Single-step $\mu$-conservation for all 46 opcodes | `kernel/VMStep.v` |
 | `run_vm_mu_monotonic` | Multi-step $\mu$ never decreases | `kernel/SimulationProof.v` |
 | `main_subsumption` | Thiele instruction set properly extends Turing instruction set (syntactic, not computational-power, separation) | `kernel/Subsumption.v` |
 | `local_box_CHSH_bound` | Factorizable correlations satisfy $\|S\| \leq 2$ | `kernel/MinorConstraints.v` |
@@ -240,7 +242,7 @@ The WitnessCounts hardware registers are updated unconditionally by the RTL on e
 ### Ground Truth Chain
 
 ```
-coq/kernel/VMStep.v          ← single ground truth (47 opcodes, semantics)
+coq/kernel/VMStep.v          ← single ground truth (46 opcodes, semantics)
   │
   ├── coq/Extraction.v
   │     └── build/thiele_core.ml        (OCaml, mechanical extraction)
@@ -265,7 +267,7 @@ coq/ThieleMachineComplete.v   ← zero project imports for proofs, zero admits
 
 The standalone file proves every component is reachable from a single self-contained Coq source. It is a proof-completeness artifact. TMC directly extracts both `thiele_core_complete.ml` and `Target_complete.ml` — both are sorted-line isomorphic (identical function bodies, only declaration order differs) to their modular counterparts (`thiele_core.ml` and `Target.ml`). `Extraction.v` and `KamiExtraction.v` remain the canonical modular extraction points.
 
-### The 47-Opcode ISA
+### The 46-Opcode ISA
 
 ```
 Structural:    PNEW PSPLIT PMERGE PDISCOVER
@@ -276,7 +278,7 @@ Control:       JUMP JNEZ CALL RET HALT
 I/O:           CHECKPOINT READ_PORT WRITE_PORT HEAP_LOAD HEAP_STORE
 Certification: CERTIFY
 Bitwise/ALU:   AND OR SHL SHR MUL LUI
-Model/Other:   CHSH_TRIAL ORACLE_HALTS
+Model/Other:   CHSH_TRIAL
 Tensor:        TENSOR_SET TENSOR_GET
 Categorical:   MORPH COMPOSE MORPH_ID MORPH_DELETE MORPH_ASSERT MORPH_TENSOR MORPH_GET
 ```
@@ -318,7 +320,7 @@ The low 32 bits (`[31:0]`) carry the legacy opcode + operand + cost fields. The 
 
 | Layer | Implementation | Role |
 |-------|----------------|------|
-| **Coq** | 185 `.v` files, zero admits | Mathematical ground truth |
+| **Coq** | 188 `.v` files, zero admits | Mathematical ground truth |
 | **OCaml** | Mechanically extracted from Coq | Authoritative executable |
 | **Verilog** | Kami-generated, Yosys-synthesizable | Physical realization |
 
@@ -362,7 +364,7 @@ Authoritative source files: `coq/kernel/VMStep.v` (semantics), `coq/kami_hw/Thie
 
 ```
 The-Thiele-Machine/
-├── coq/                         # Active proof tree (185 .v files)
+├── coq/                         # Active proof tree (188 .v files)
 │   ├── kernel/                  # 130 core kernel files
 │   ├── kami_hw/                 # 22 hardware abstraction/extraction files
 │   ├── nofi/                    # NoFI interface (5 files)
@@ -383,7 +385,7 @@ The-Thiele-Machine/
 │       └── testbench/           # Verilog testbench
 ├── build/                       # Extracted OCaml, compiled runner, Kami artifacts
 ├── rtl_harness/                 # Python bridge for Verilator co-simulation
-├── tests/                       # 62 pytest files
+├── tests/                       # 61 pytest files
 ├── scripts/                     # thiele_asm.py, inquisitor.py, kami_extract.sh, ...
 ├── examples/                    # Assembly programs and run scripts
 │   └── programs/                # Named example programs (10 files)
@@ -394,8 +396,6 @@ The-Thiele-Machine/
 
 ## The Inquisitor Standard
 
-All active Coq proofs pass maximum-strictness static analysis:
-
 ```bash
 python scripts/inquisitor.py
 ```
@@ -405,6 +405,8 @@ python scripts/inquisitor.py
 - Zero project-local axioms in the audited tree
 - All proofs end with `Qed` or `Defined`
 - Standard library axioms only (`FunctionalExtensionality`, classical decidability)
+
+**Zero findings across all 188 Coq files (HIGH: 0, MEDIUM: 0, LOW: 0).** The four rules above hold unconditionally across the full audited tree. The aspirational physics tier (`MuGravity.v`) uses the established `INQUISITOR NOTE` bypass to document that the Einstein equation, source normalization, and horizon-cycle derivations are known-open research items — not proof gaps. All other files are clean.
 
 Current report: `INQUISITOR_REPORT.md`
 

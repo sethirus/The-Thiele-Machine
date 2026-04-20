@@ -80,7 +80,7 @@ These theoretical components map to concrete Coq artifacts: \path{VMState.v} and
     \end{itemize}
     The three layers are tied together by refinement proofs and observable-projection test gates. For compute traces the gate compares registers and memory; for partition traces it compares canonicalized module regions. The extracted runner provides a superset snapshot (pc, $\mu$, err, regs, mem, CSRs, graph) that can be used when a gate needs a broader view. Strong wording should remain conditional on backend/test coverage.
     
-    \item \textbf{47-Opcode ISA}: The instruction set covers partition-native computation. Every opcode has a clear semantic role: structure creation, structure modification, certification, computation, categorical relational tracking, and control.
+    \item \textbf{46-Opcode ISA}: The instruction set covers partition-native computation. Every opcode has a clear semantic role: structure creation, structure modification, certification, computation, categorical relational tracking, and control.
     \begin{itemize}
         \item Structural: PNEW, PSPLIT, PMERGE, PDISCOVER
         \item Logical: LASSERT, LJOIN, MDLACC
@@ -226,7 +226,7 @@ for some constant $c$? This would formalize how close the ledger comes to the be
 
 \subsection{Completeness}
 
-Are the 47 active opcodes sufficient for all partition-native computation? Is there a normal form theorem?
+Are the 46 active opcodes sufficient for all partition-native computation? Is there a normal form theorem?
 
 \subsection{Quantum Extension}
 

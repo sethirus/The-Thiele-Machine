@@ -2,7 +2,7 @@
 
     The Thiele Machine has two execution views: the abstract kernel Turing
     machine (Kernel.v / KernelTM.v / KernelThiele.v) and the concrete VM with
-    47 typed instructions (VMStep.v). This file connects those views, but be
+    46 typed instructions (VMStep.v). This file connects those views, but be
     precise about what is proven here.
 
     The hard facts:

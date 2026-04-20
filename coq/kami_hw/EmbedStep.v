@@ -9,10 +9,12 @@
       CALL, RET, CHSH_TRIAL
     - 4 opcodes handled by specialised preconditioned lemmas in §8:
       PNEW, PSPLIT, PMERGE, LASSERT
-    - 9 opcodes have irreducible gaps (driver-managed / rich-state):
-      TENSOR_SET, TENSOR_GET,
-      MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT,
-      MORPH_TENSOR, MORPH_GET
+    - 2 opcodes have driver-managed gaps (no unconditional full-state proof):
+      TENSOR_SET, TENSOR_GET (proven under tensor_indices_ok in GraphReconstructionBridge.v)
+    - 7 opcodes are gaps HERE under abs_phase1 but are FULLY PROVEN under
+      abs_full_snapshot in GraphReconstructionBridge.v with extended_hw_invariant:
+      MORPH, MORPH_ID, MORPH_DELETE, MORPH_ASSERT, MORPH_GET,
+      COMPOSE (driven_step_compose, Qed), MORPH_TENSOR (driven_step_morph_tensor, Qed)
 
     UNCONDITIONAL (30 opcodes, SupportedOpcode):
       XFER, LOAD_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ,
@@ -465,10 +467,23 @@ Qed.
       TENSOR_SET/TENSOR_GET: kami_step uses snap_mu_tensor/default
         while vm_apply uses graph_update_module_tensor/module_tensor_entry.
 
-    CATEGORY E — Rich-state vs graph mismatch (7 opcodes):
-      MORPH/COMPOSE/MORPH_ID/MORPH_DELETE/MORPH_ASSERT/MORPH_TENSOR/MORPH_GET:
-        kami_step operates on rich-state bounded tables while vm_apply
-        operates on partition graph — proven equivalent via FullAbstraction. *)
+    CATEGORY E — Rich-state vs graph mismatch (7 opcodes, abs_phase1 only):
+      MORPH/MORPH_ID/MORPH_DELETE/MORPH_ASSERT/MORPH_GET:
+        GAP HERE under abs_phase1 only. These are fully proven in
+        GraphReconstructionBridge.v (driven_step_morph/morph_id/morph_delete/
+        morph_assert/morph_get, all Qed) under extended_hw_invariant +
+        abs_full_snapshot. SupportedOpcode excludes them because they need
+        the richer abstraction.
+      COMPOSE:
+        GAP HERE under abs_phase1 only. Fully proven in GraphReconstructionBridge.v
+        (driven_step_compose, Qed) under extended_hw_invariant.
+      MORPH_TENSOR:
+        GAP HERE under abs_phase1 only. Fully proven in GraphReconstructionBridge.v
+        (driven_step_morph_tensor, Qed) under extended_hw_invariant.
+
+    This is the correct abstraction boundary: SupportedOpcode is right for
+    abs_phase1 (partition-only). The full 46/46 coverage lives in
+    GraphReconstructionBridge.v under abs_full_snapshot. *)
 Definition SupportedOpcode (i : vm_instruction) : Prop :=
   match i with
   | instr_pnew _ _              => False

@@ -74,7 +74,7 @@
         map (pg_morphisms): the categorical layer on top of modules.
         Every field is here because it has to be.
 
-    (3) INSTRUCTION SET: 47 opcodes, each with a declared cost. Nothing
+    (3) INSTRUCTION SET: 46 opcodes, each with a declared cost. Nothing
         arbitrary — every instruction exists because the machine needs
         it to compute, manage its state space model, interact with
         the physical world, or express categorical structure. The ones
@@ -2136,10 +2136,10 @@ Definition morphism_selector_value (ms : MorphismState) (selector : nat) : nat :
   end.
 
 (** =========================================================================
-    SECTION 3: INSTRUCTION SET (47 opcodes)
+    SECTION 3: INSTRUCTION SET (46 opcodes)
     =========================================================================
 
-    47 instructions. Not arbitrary — every one exists because the machine
+    46 instructions. Not arbitrary — every one exists because the machine
     needs it. Organized by function:
 
     STATE SPACE MANAGEMENT — REVERSIBLE (cost = mu_delta, can be 0):
@@ -2541,7 +2541,7 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
     Two definitions make the machine run:
 
     vm_apply (s : VMState) (instr : vm_instruction) : VMState
-      The total function that executes one instruction. 47-arm match on
+      The total function that executes one instruction. 46-arm match on
       the instruction type. For each arm:
       1. Read relevant state fields
       2. Compute new values (register writes, memory updates, graph ops,
@@ -2567,7 +2567,7 @@ Definition jump_state_rm (s : VMState) (instr : vm_instruction)
     This vm_apply is IDENTICAL to SimulationProof.vm_apply
     (kernel/SimulationProof.v), the canonical extraction target.
     Extraction.v extracts from the modular kernel; this file verifies
-    the same symbols via ExtractionIdentityBundle. All 47 opcodes match. *)
+    the same symbols via ExtractionIdentityBundle. All 46 opcodes match. *)
 
 Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
   match instr with
@@ -2817,7 +2817,7 @@ Definition vm_apply_runtime : VMState -> vm_instruction -> VMState := vm_apply.
         (vm_apply s i).(vm_mu) = s.(vm_mu) + instruction_cost i
       The μ field after one step equals μ before, plus exactly the
       instruction's declared cost. No more, no less.
-      Proof: case split on all 47 instructions. Each case reduces to
+      Proof: case split on all 46 instructions. Each case reduces to
       reflexivity — vm_apply always sets vm_mu := apply_cost s i
       which unfolds to s.(vm_mu) + instruction_cost i.
       The 7 MORPH instructions are included: MORPH_ASSERT charges S(cost),
@@ -2918,7 +2918,7 @@ Qed.
       CERTIFY is the only instruction that sets vm_certified = true.
       It charges S delta_mu ≥ 1. Starting uncertified with μ=0,
       reaching vm_certified = true forces μ > 0. Proven by exhaustive
-      case split over all 47 instructions (including all 7 MORPH opcodes,
+      case split over all 46 instructions (including all 7 MORPH opcodes,
       none of which set vm_certified).
 
     Part B — NON-REVELATION PRESERVES CERT CSR (RevelationRequirement):
@@ -3542,6 +3542,7 @@ Proof.
   intros. split; [reflexivity | split; intros; subst; reflexivity].
 Qed.
 
+(* DEFINITIONAL HELPER *)
 (** REVEAL always has positive bit-priced cost. *)
 Lemma reveal_cost_positive :
   forall mid bits cert mu,
@@ -4272,7 +4273,7 @@ Close Scope R_scope.
     To disprove honest_nofi_structural_cost: exhibit a cert-setting instruction
     with instruction_cost = 0. That would require a cert-setter whose cost
     definition returns zero — impossible by structural inspection of
-    instruction_cost over all 47 arms (lia closes every case).
+    instruction_cost over all 46 arms (lia closes every case).
     ========================================================================= *)
 
 (** Count cert-setter instructions in a trace *)
@@ -4398,7 +4399,7 @@ Qed.
 
     WHAT IS PROVEN (nine results, all machine-checked):
     1. cert_setter_cost_pos_tc: all cert-setters cost ≥ 1 (by construction
-       over all 47 instruction arms — lia closes every case)
+       over all 46 instruction arms — lia closes every case)
     2. dt_leaves_le_pow2_depth: a binary decision tree with depth d has at
        most 2^d leaves. Combinatorial upper bound.
     3. dt_log2_leaf_bound: log2(leaves) ≤ depth. Information-theoretic
@@ -5448,7 +5449,7 @@ Qed.
 
     The derivation chain:
       (1) CERTIFY is the ONLY instruction that sets vm_certified := true.
-          Proven by case analysis over all 47 vm_apply arms. Every other
+          Proven by case analysis over all 46 vm_apply arms. Every other
           instruction preserves vm_certified. This is checked, not claimed.
       (2) CERTIFY's instruction_cost = S(delta_mu) ≥ 1. Definitional.
           The S() wrapper makes cost strictly positive by construction.
@@ -5943,7 +5944,7 @@ Section ThieleCPU.
   (** The complete Kami MODULE definition for the Thiele CPU.
       In this standalone file it serves as the local proof-archive copy of
       the hardware definition used for extraction.
-      ~985 lines of Kami DSL covering all 47 opcodes for PC/mu/err tracking.
+      ~985 lines of Kami DSL covering all 46 opcodes for PC/mu/err tracking.
       Prototype gaps: OP_TENSOR_SET is not implemented (tensor writes not
       handled); OP_TENSOR_GET always returns 0 (no hardware tensor read);
       module graph, logic_acc, and mstatus are absent from KamiSnapshot
@@ -10250,9 +10251,9 @@ Print Assumptions einstein_equation_uniform_coupling_tc.
     To disprove Turing universality: exhibit a Turing-computable function
     that the Thiele VM cannot compute. That would require a function whose
     computation requires a memory model or control structure not available
-    in the 47-opcode ISA. The Minsky simulation in Section 10-B rules this
+    in the 46-opcode ISA. The Minsky simulation in Section 10-B rules this
     out — 2-counter Minsky machines are themselves Turing complete, and
-    they compile to 5 of the 47 opcodes.
+    they compile to 5 of the 46 opcodes.
     ========================================================================= *)
 
 (* Re-establish list notations which Kami may have overridden *)
@@ -10478,13 +10479,13 @@ Print Assumptions thiele_machine_subsumes_tm_tc.
     that the ISA is Turing complete. This section closes that gap.
 
     THE PROOF:
-    A 2-counter Minsky machine is compiled to FIVE of the 47 opcodes.
+    A 2-counter Minsky machine is compiled to FIVE of the 46 opcodes.
     Each Minsky step is simulated by EXPLICIT vm_apply calls — not list
     operations, not encoding tricks, but actual opcode execution.
 
     2-counter Minsky machines are Turing complete (Minsky, 1967).
     Therefore: if the Thiele VM can simulate any 2-counter Minsky machine
-    via vm_apply, the VM's 47-opcode ISA is Turing complete.
+    via vm_apply, the VM's 46-opcode ISA is Turing complete.
 
     COMPILATION SCHEME (five opcodes used):
       Counter 0 → register 2,  Counter 1 → register 3
@@ -10723,7 +10724,7 @@ Qed.
 
 (** Summary: the 5 dispatch lemmas confirm vm_apply is called for each
     Minsky opcode.  Together with Minsky Turing completeness (Minsky 1967),
-    these prove the Thiele 47-opcode ISA is Turing complete at the ISA level.
+    these prove the Thiele 46-opcode ISA is Turing complete at the ISA level.
 
     Unlike Section 10 Part A (encoding-level), these theorems exercise
     vm_apply directly. *)
@@ -10773,7 +10774,7 @@ Print Assumptions thiele_isa_turing_complete_via_minsky_tc.
 
     2-counter Minsky machines are Turing complete (Minsky 1967). Since the
     Thiele ISA can simulate any 2-counter Minsky machine step-by-step through
-    explicit vm_apply calls on real opcodes, the 47-opcode ISA is Turing
+    explicit vm_apply calls on real opcodes, the 46-opcode ISA is Turing
     complete at the ISA level.
 
     Section 10 Part A (encoding-level) never called vm_apply.
@@ -11130,7 +11131,7 @@ Qed.
     (one that sets cert_addr ≠ 0 or vm_certified := true) whose
     instruction_cost = 0. Every cert-setter's cost is ≥ 1 by the
     definition of instruction_cost — lia closes every arm. There is no
-    cert-setter with cost 0 in the 47-opcode ISA.
+    cert-setter with cost 0 in the 46-opcode ISA.
     ========================================================================= *)
 
 (* Re-establish list notations for Sections 12-16 *)
@@ -14233,15 +14234,15 @@ Qed.
 
     THE TWENTY-EIGHT THEOREMS (what "compiles" means):
 
-    1.  VMState: well-defined machine state (47 opcodes, categorical layer, CHSH
+    1.  VMState: well-defined machine state (46 opcodes, categorical layer, CHSH
         registers, tensor field, morphism graph — all in one self-contained type)
 
-    2.  vm_apply: 47 opcodes with executable semantics (run_vm executes any program)
-        40 original + 7 categorical: MORPH, COMPOSE, MORPH_ID, MORPH_DELETE,
+    2.  vm_apply: 46 opcodes with executable semantics (run_vm executes any program)
+        39 original + 7 categorical: MORPH, COMPOSE, MORPH_ID, MORPH_DELETE,
         MORPH_ASSERT, MORPH_TENSOR, MORPH_GET
 
     3.  run_vm_mu_monotonic: μ NEVER DECREASES. The second law.
-        Holds for all 47 opcodes. No exceptions. No loopholes.
+        Holds for all 46 opcodes. No exceptions. No loopholes.
 
     4.  mu_is_initial_monotone: μ IS UNIQUE. Any instruction-consistent cost
         measure that starts at 0 equals vm_mu on every reachable state.
@@ -14355,7 +14356,7 @@ Qed.
         Bell's theorem, machine-checked in the Thiele Machine.
 
     THE LOGICAL CHAIN:
-    Pure logic → types → ISA (47 opcodes) → semantics → conservation →
+    Pure logic → types → ISA (46 opcodes) → semantics → conservation →
     certification cost → Insight Taxonomy (Tier-1 free / Tier-2 costs) →
     No Free Insight (trace-level) → Universal NoFI (substrate-independent, A2) →
     Classical Conservativity (D3: structural layer frozen) →

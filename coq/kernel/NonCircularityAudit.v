@@ -156,6 +156,7 @@ Qed.
 
 (** ** Property 4: REVELATION OPS ARE NOT μ=0 *)
 
+(* DEFINITIONAL HELPER *)
 Lemma reveal_not_mu_zero :
   forall mid bits cert mu_delta,
     ~(mu_zero_class (instr_reveal mid bits cert mu_delta)).
@@ -165,6 +166,7 @@ Proof.
   lia.
 Qed.
 
+(* DEFINITIONAL HELPER *)
 Lemma lassert_not_mu_zero :
   forall fa ca k fl mu_delta,
     ~(mu_zero_class (instr_lassert fa ca k fl mu_delta)).
@@ -174,6 +176,7 @@ Proof.
   lia.
 Qed.
 
+(* DEFINITIONAL HELPER *)
 Lemma ljoin_not_mu_zero :
   forall cert1 cert2 mu_delta,
     ~(mu_zero_class (instr_ljoin cert1 cert2 mu_delta)).

@@ -40,7 +40,7 @@ Proof.
   intros s i. eexists. reflexivity.
 Qed.
 
-(* Section 2: The 47-Opcode Completeness Proof                        *)
+(* Section 2: The 46-Opcode Completeness Proof                        *)
 
 Lemma instruction_exhaustive : forall (i : vm_instruction),
   match i with

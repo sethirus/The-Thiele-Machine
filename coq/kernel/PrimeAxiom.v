@@ -3,7 +3,7 @@
     No Free Insight is the central economic law of the Thiele Machine:
     certification cannot be obtained without paying mu-cost. This file
     proves that law directly on the kernel VM by case-splitting over all
-    47 instructions.
+    46 instructions.
 
     THE The key theorem: vm_certified = true implies vm_mu > 0.
 

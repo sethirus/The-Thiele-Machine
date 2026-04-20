@@ -74,14 +74,14 @@ Check turing_instruction.
     The step function vm_apply is TOTAL --- no instruction produces an
     undefined result; errors latch a flag but execution continues.
 
-    The ISA has 47 opcodes spanning computation, control flow, XOR
+    The ISA has 46 opcodes spanning computation, control flow, XOR
     linear algebra, partition graph manipulation, logical assertion,
     categorical morphisms, CHSH quantum trials, and certification.
 *)
 
 (** The 12-field machine state. *)
 Check VMState.
-(** The 47-opcode instruction set. *)
+(** The 46-opcode instruction set. *)
 Check vm_instruction.
 (** The total step function: VMState -> vm_instruction -> VMState. *)
 Check vm_apply.
@@ -91,7 +91,7 @@ Check run_vm.
 (**
     CHAPTER 2: THE SINGLE PRINCIPLE
 
-    Of the 47 opcodes, 7 are "cert-setters" --- instructions that
+    Of the 46 opcodes, 7 are "cert-setters" --- instructions that
     create or modify certified knowledge:
 
       LASSERT   (logical assertion with certificate)
@@ -131,7 +131,7 @@ Check run_vm.
 Check is_cert_setterb.
 
 (** THE SINGLE PRINCIPLE: every cert-setter costs >= 1.
-    Proof: case split on all 47 instructions.  For the 7 cert-setters,
+    Proof: case split on all 46 instructions.  For the 7 cert-setters,
     instruction_cost uses S(delta), and S n >= 1.  For the other 40,
     the hypothesis is_cert_setterb = true is contradicted.  Qed. *)
 Check cert_setter_cost_pos.
@@ -144,7 +144,7 @@ Check cert_setter_cost_pos.
 
     The bedrock lemma says: executing any instruction adds EXACTLY
     instruction_cost to the mu-ledger.  No more, no less.  This is
-    proved by exhaustive case analysis over all 47 instruction arms
+    proved by exhaustive case analysis over all 46 instruction arms
     of vm_apply.
 
     Combined with the fact that instruction_cost always returns a nat
@@ -174,7 +174,7 @@ Check run_vm_mu_monotonic.
 
     The proof:
     (a) Only instr_certify sets vm_certified := true.
-        (By case split on all 47 instructions.)
+        (By case split on all 46 instructions.)
     (b) instruction_cost(instr_certify d) = S d >= 1.
     (c) By vm_apply_mu, executing CERTIFY adds at least 1 to vm_mu.
     (d) By mu-monotonicity, subsequent steps cannot decrease it.
@@ -254,7 +254,7 @@ Check no_free_certified_insight.
 
     The cost accounting adds information, not restriction.  The Thiele
     Machine is computationally universal: it can simulate a 2-counter
-    Minsky machine using only 5 of its 47 opcodes (load_imm, add,
+    Minsky machine using only 5 of its 46 opcodes (load_imm, add,
     sub, jnez, jump).
 
     2-counter Minsky machines are Turing-complete (Minsky 1967).
