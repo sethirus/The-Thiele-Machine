@@ -368,6 +368,9 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
     # Initialize state from INIT directives
     init_state = extracted_vm.VMState.default()
     program = []
+    # Track INIT_MEM and LOAD_IMM values at parse time for pre-execution LASSERT flen validation.
+    _init_mem: Dict[int, int] = {}
+    _reg_values: Dict[int, int] = {}
 
     for raw in instructions:
         line = raw.strip()
@@ -382,10 +385,15 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
                 fuel = _parse_int(toks[1])
         elif op == "INIT_REG":
             if len(toks) >= 3:
-                init_state.vm_regs[_parse_int(toks[1]) % 32] = _parse_int(toks[2])
+                reg_idx = _parse_int(toks[1])
+                init_state.vm_regs[reg_idx % 32] = _parse_int(toks[2])
+                _reg_values[reg_idx] = _parse_int(toks[2])
         elif op == "INIT_MEM":
             if len(toks) >= 3:
-                init_state.vm_mem[_parse_int(toks[1]) % 65536] = _parse_int(toks[2])
+                mem_addr = _parse_int(toks[1])
+                mem_val = _parse_int(toks[2])
+                init_state.vm_mem[mem_addr % 65536] = mem_val
+                _init_mem[mem_addr] = mem_val
         elif op == "INIT_MU":
             if len(toks) >= 2:
                 init_state.vm_mu = _parse_int(toks[1])
@@ -405,6 +413,25 @@ def _run_extracted_py(instructions: List[str], fuel: int) -> VMState:
         elif op.startswith("INIT_"):
             pass
         else:
+            # Track LOAD_IMM for LASSERT flen pre-execution validation.
+            if op == "LOAD_IMM" and len(toks) >= 3:
+                _reg_values[_parse_int(toks[1])] = _parse_int(toks[2])
+            # Pre-execution LASSERT flen validation (mirrors _run_ocaml check).
+            if op in ("LASSERT", "LASSERT_SAT", "LASSERT_UNSAT") and len(toks) == 6:
+                try:
+                    freg = int(toks[1])
+                    flen = int(toks[4])
+                    fbase = _reg_values.get(freg)
+                    if fbase is not None:
+                        hw_flen = _init_mem.get(fbase)
+                        if hw_flen is not None and flen != hw_flen:
+                            raise ValueError(
+                                f"LASSERT flen {flen} does not match in-memory header "
+                                f"{hw_flen} at formula base {fbase}"
+                            )
+                except (IndexError, ValueError) as _e:
+                    if "does not match in-memory header" in str(_e):
+                        raise
             # Parse instruction
             instr = _parse_instruction_dict(toks)
             if instr:
