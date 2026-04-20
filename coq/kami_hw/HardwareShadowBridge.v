@@ -4,9 +4,9 @@
     is exactly the classical shadow of its abstract Thiele VM state.
 
       State-level: Proved (hardware_shadow_compat, hardware_shadow_sim_rel).
-      Trace-level: Proved for 30/47 opcodes unconditionally
+      Trace-level: Proved for 30/46 opcodes unconditionally
         (rtl_shadow_trace_compat_extended in ShadowDeviceTrace.v),
-        34/47 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
+        34/46 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
         LJOIN from EmbedStep_WF.v + ShadowEmbedStep.v).
       Remaining 12 opcodes (PSPLIT, PMERGE, 7 MORPH family):
         COMPOSE/MORPH_ID/MORPH_TENSOR have coupling-representation gaps.

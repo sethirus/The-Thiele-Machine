@@ -125,7 +125,7 @@ Qed.
 
 (** Unconditional trace-level shadow compatibility for supported traces
 
-    Replaces [rtl_shadow_trace_compat] (which requires the full 47-opcode
+    Replaces [rtl_shadow_trace_compat] (which requires the full 46-opcode
     [embed_step] as an unproved hypothesis) with a theorem that is
     unconditionally true for any trace whose instructions satisfy
     [SupportedOpcode].

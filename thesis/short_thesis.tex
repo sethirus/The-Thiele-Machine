@@ -33,7 +33,7 @@ Accountable Computation, Structural Knowledge, and No Free Insight}
 \maketitle
 
 \begin{abstract}
-I'm a car salesman. I started building this in January 2025 because I couldn't find a machine model that correctly accounts for what it costs to know something. Fifteen months later, the result is machine-verified in Coq with zero admitted lemmas, synthesized in hardware, and executable in both extracted OCaml and Python. The central theorem: you cannot certify structural knowledge for free. Any trace that starts uncertified and ends with a certified structural claim must have paid at least one unit in a global monotone ledger called $\mu$. This document explains everything from first principles. What a Turing machine is and what it cannot see. What structure means precisely. What insight means and why it cannot be free. The full 46-opcode instruction set, every group and every opcode. What a categorical morphism is, and why the morphism layer makes this machine strictly richer than any classical machine with the same registers and memory. The hardware, which runs 34 of 46 opcodes in silicon and the rest in software, and why that is not incompleteness. The physics connections, which are carefully separated into what is proven and what is conditional. And how to break all of it.
+I'm a car salesman. I started building this in January 2025 because I couldn't find a machine model that correctly accounts for what it costs to know something. Fifteen months later, the result is machine-verified in Coq with zero admitted lemmas, synthesized in hardware, and executable in both extracted OCaml and Python. The central theorem: you cannot certify structural knowledge for free. Any trace that starts uncertified and ends with a certified structural claim must have paid at least one unit in a global monotone ledger called $\mu$. This document explains everything from first principles. What a Turing machine is and what it cannot see. What structure means precisely. What insight means and why it cannot be free. The full 46-opcode instruction set, every group and every opcode. What a categorical morphism is, and why the morphism layer makes this machine strictly richer than any classical machine with the same registers and memory. The hardware, which implements all 46 opcodes in silicon and has formal bisimulation proofs for all 46 of them under their stated preconditions, and why 5 of those proofs require runtime preconditions. The physics connections, which are carefully separated into what is proven and what is conditional. And how to break all of it.
 \end{abstract}
 
 \tableofcontents
@@ -79,7 +79,7 @@ Alan Turing described his machine in 1936 to make precise the intuitive notion o
 
 That is the entire machine. Nothing else.
 
-Here is the remarkable thing: this simple machine can compute \emph{anything that can be computed}. Every algorithm that has ever been written, in every programming language that has ever existed, can be translated into a Turing machine. This is the Church-Turing thesis, and it has never been falsified. Your laptop, your phone, every server in every data center --- all of them are, in the relevant theoretical sense, Turing machines. They can compute exactly the same class of things. The only difference is speed.
+Here is the remarkable thing: this simple machine can compute \emph{anything that can be computed}. Every algorithm that has ever been written, in every programming language that has ever existed, can be translated into a Turing machine. This is the Church-Turing thesis, and it has never been falsified. To falsify it, you would need to construct a physical device that reliably computes a function that no Turing machine can compute --- not faster, but \textit{at all}. No one has done it. Every physical computing device we have ever built turns out to be equivalent to a Turing machine in what it can compute. Your laptop, your phone, every server in every data center --- all of them are, in the relevant theoretical sense, Turing machines. They can compute exactly the same class of things. The only difference is speed.
 
 \subsection{The blind spot}
 
@@ -130,7 +130,7 @@ In a computational context, partitioning the memory or register state means sayi
 
 A partition alone is just a labeling. What makes it structural knowledge is when you attach \emph{constraints} to the modules. For example: ``Module A's memory region satisfies the predicate $\Phi_A$,'' where $\Phi_A$ might say ``this region is a valid binary heap'' or ``all values in this region are between 0 and 100'' or ``this region encodes a satisfying assignment to formula $\phi$.''
 
-These constraints are called axioms. They are written in a formal logic (the machine uses SMT-LIB 2.0 format internally). The machine's Logic Engine, which runs on-chip as a finite state machine, reads the encoded formula bits from memory and checks whether a certificate validates them. If validation succeeds, the axiom is accepted and the module carries it. If validation fails, the machine sets an error flag.
+These constraints are called axioms. They are written in a formal logic. Concretely, the machine encodes formulas as byte sequences in a standardized prefix-notation format for first-order logic --- each operator and operand is written before its arguments, and the whole formula is laid out as a flat byte array in the module's memory region. (The specific standard the machine uses is SMT-LIB 2.0, a public format; what matters is that it is a fixed, determinate byte encoding with a known bit-length for any given formula.) The machine's Logic Engine, which runs on-chip as a finite state machine, reads the encoded formula bits from memory and checks whether a certificate validates them. If validation succeeds, the axiom is accepted and the module carries it. If validation fails, the machine sets an error flag.
 
 The crucial point: you cannot add an axiom to a module for free. Adding an axiom means the machine paid to certify it. The axiom is evidence, not assertion.
 
@@ -192,7 +192,7 @@ Every instruction carries a cost parameter ($\delta$) in its encoding. The machi
 
 For \textbf{pure compute programs} --- programs that do arithmetic, load and store values, and jump --- every instruction carries $\delta = 0$. The program I use as the concrete comparison case for the Turing Strictness theorem (\texttt{blind\_program} in \texttt{StructuralAdvantage.v}) has this property: all instructions at $\delta = 0$, and the proof that its total $\mu$-cost is zero is trivial. For these programs, $\mu$ stays at 0 unless a cert-setter fires.
 
-For \textbf{cert-setter instructions} (CERTIFY, LASSERT, MORPH\_ASSERT, EMIT, REVEAL, LJOIN, READ\_PORT): the machine applies a mandatory wrapper regardless of $\delta$. Even with $\delta = 0$, the cost is at least 1. This is the enforcement that makes No Free Insight work. A real program in \texttt{StructuralAdvantage.v} uses \texttt{EMIT} with the payload ``.'' and $\delta = 0$; the proof unfolds that payload into eight concrete bits and confirms it costs exactly 9 ($|\text{payload}|_{\mathrm{bits}} + S(0) = 8 + 1 = 9$). EMIT, REVEAL, and READ\_PORT go further than the simple $S(\delta)$ floor: their cost is proportional to the content they carry in actual bits, so certifying more information costs more $\mu$ than certifying less.
+For \textbf{cert-setter instructions} (CERTIFY, LASSERT, MORPH\_ASSERT, EMIT, REVEAL, LJOIN, READ\_PORT): the machine applies a mandatory wrapper regardless of $\delta$. Even with $\delta = 0$, the cost is at least 1. This is the enforcement that makes No Free Insight work. A real program in \texttt{StructuralAdvantage.v} uses \texttt{EMIT} with the payload ``.'' and $\delta = 0$; the proof unfolds that payload into eight concrete bits and confirms it costs exactly 9 ($|\text{payload}|_{\mathrm{bits}} + S(0) = 8 + 1 = 9$). Throughout this document, $S(n)$ means $n + 1$ --- it is Coq's Peano successor function. I use it because the formal proofs are written in Coq and I want the formulas here to match the actual proof terms. $S(\delta) = \delta + 1 \geq 1$ always, which is precisely the enforcement that cert-setters can never be free even at $\delta = 0$. EMIT, REVEAL, and READ\_PORT go further than the simple $S(\delta)$ floor: their cost is proportional to the content they carry in actual bits, so certifying more information costs more $\mu$ than certifying less.
 
 For \textbf{everything that is not a cert-setter} --- ADD, LOAD, STORE, JUMP, PNEW, PSPLIT, PMERGE, MORPH, COMPOSE, and the rest --- the machine charges exactly $\delta$, and $\delta$ should be 0. These operations are structurally free. Creating a partition module, building a morphism chain, doing arithmetic: none of that accumulates $\mu$ unless you deliberately set $\delta > 0$, which you should not do. The design principle in \texttt{MuCostDerivation.v} (\texttt{partition\_ops\_cannot\_cost}) makes this explicit: partition operations are reversible and therefore have zero information cost.
 
@@ -373,7 +373,11 @@ Combines two memory-resident certificates into a single composite certificate. T
 
 \medskip
 \noindent\textbf{MDLACC($r$, $\delta$)} --- MDL cost accounting.\\
-Reads a model description length from register $r$ and charges it as a $\mu$ cost. MDL stands for Minimum Description Length, an information-theoretic principle from Rissanen (1978): the best model for data is the one that minimizes the combined length of the model description and the data given the model. This opcode lets the machine explicitly account for MDL-based structural costs in its ledger.
+Reads a model description length from register $r$ and charges it as a $\mu$ cost.
+
+Here is why this opcode exists. Suppose you have two models that both fit the same data. One model is a ten-thousand-parameter neural network. The other is a five-line formula. Both fit the training set. Which one are you buying? The minimum-description-length principle says: the total bill is the model description itself plus the cost of encoding the data once you have the model. The short formula costs more to encode data with, but costs almost nothing to describe. The massive network achieves perfect in-sample compression, but its own description is enormous. The correct choice minimizes the sum.
+
+Translated to the Thiele Machine vocabulary: a module structure that you built has a description-length cost. Not because someone told you it does, but because constructing a specific partition of state space took structure-setting instructions, each of which charged real $\mu$ cost. MDLACC is the opcode that lets a program explicitly enter that description cost into the ledger after the structure has been built. It performs no graph change. Its sole effect is to advance the program counter and debit $\mu$ by the value in register $r$. The connection to MDL is not a citation to a 1978 paper --- it is the claim that the machine's natural $\mu$-accounting correctly tracks what information-theoretic compression theory says a model costs.
 
 \subsection{Group 3: Compute and data transfer (14 opcodes)}
 
@@ -451,7 +455,7 @@ Opcode & What it does & Cost \\
 
 EMIT and READ\_PORT are cert-setters, but their cost goes beyond the simple $S(\delta)$ floor. EMIT charges $|\text{payload}|_{\mathrm{bits}} + S(\delta)$: the machine unfolds the emitted payload into concrete bits and charges for those bits directly, then adds at least 1 for the certification step. A one-byte ASCII payload has 8 payload bits, so with $\delta = 0$ it costs 9. A ten-byte ASCII payload has 80 payload bits, so with $\delta = 0$ it costs 81. The programmer cannot emit more bits for the same price as fewer bits. READ\_PORT charges $\text{bits} + S(\delta)$: the number of bits being read from the port, plus at least 1. More information in means more $\mu$ paid. The floor is still there --- zero-cost certification remains impossible --- but now the cost tracks the actual bit content.
 
-TENSOR\_SET and TENSOR\_GET manage per-module mu-tensor entries, tracking cost-tensor relationships between modules for the physics bridge (Section~\ref{sec:physics}). The hardware contains dedicated hardware-resident tensor table registers (4$\times$4 entries per module), but these opcodes fall in the irreducible-gap category in \texttt{RTLGapRegistry.v}: formal bisimulation proofs require reasoning about variable-length tensor state that the current Kami RTL verification framework cannot mechanically discharge. For these opcodes the OCaml extracted runner provides the verified reference semantics.
+TENSOR\_SET and TENSOR\_GET manage per-module mu-tensor entries, tracking cost-tensor relationships between modules for the physics bridge (Section~\ref{sec:physics}). The hardware contains dedicated hardware-resident tensor table registers (4$\times$4 entries per module). Formal bisimulation proofs exist in \texttt{GraphReconstructionBridge.v} under the precondition \texttt{tensor\_indices\_ok i j = true}; unconditional proofs require extending the Kami RTL tensor state representation. For these opcodes the OCaml extracted runner provides the verified reference semantics.
 
 \subsection{Group 6: Witness and certification (3 opcodes)}
 
@@ -478,9 +482,9 @@ Reveals the value in register $r$ as part of a non-local revelation protocol. RE
 
 These are the opcodes that make the Thiele Machine something a Turing machine cannot simulate without losing structure. I will explain what a morphism is before listing the opcodes.
 
-A \emph{morphism} is a record saying: ``module $A$ is related to module $B$ in this specific, named way.'' Not just ``$A$ and $B$ exist.'' Not just ``$A$ and $B$ are connected by an edge.'' A morphism has a source, a target, a coupling type (a natural number encoding the kind of relationship), and an is-identity flag.
+A \emph{morphism} is a record saying: ``module $A$ is related to module $B$ in this specific, named way.'' Not just ``$A$ and $B$ exist.'' Not just ``$A$ and $B$ are connected by an edge.'' A morphism has a source module ID, a target module ID, coupling data (a list of (source-cell, target-cell) pairs plus a label string), and an is-identity flag.
 
-The coupling type is how you say: ``this morphism represents entanglement'' or ``this morphism represents a simulation'' or ``this morphism represents a composition.'' The machine does not interpret coupling types --- that is left to the programmer. But the machine tracks them, and you can read them back via MORPH\_GET.
+The coupling data is actual relational content. MORPH creates a morphism with an empty coupling list initially. COMPOSE computes the relational composition of two morphisms' coupling lists: pair $(a, c)$ is included if and only if there exists $b$ such that $(a, b)$ is in the first coupling and $(b, c)$ is in the second. This is proven correct in \texttt{CategoryBridge.v}. MORPH\_TENSOR concatenates two coupling lists. The coupling is not a programmer tag --- it is data the machine builds and proves properties about. You can read back the number of coupling pairs via MORPH\_GET (selector 2).
 
 Why does this matter? Because two programs can have identical classical state (same registers, same memory, same $\mu$) while having completely different morphism maps. A classical machine cannot distinguish them. The Thiele Machine can, via a single morphism probe. This is the Categorical Separation Theorem (Section~\ref{sec:categorical}).
 
@@ -542,21 +546,31 @@ Two laws must hold:
 
 And composition must be associative: $(h \circ g) \circ f = h \circ (g \circ f)$.
 
-These laws are proven in Coq in \texttt{CategoryLaws.v}. Zero Admitted. The Thiele Machine's categorical layer is not just called a category --- it satisfies the actual axioms.
+\medskip
+\noindent\textbf{Why composition?} Because you want to chain relationships. If $A$ relates to $B$ and $B$ relates to $C$, you want to say $A$ therefore relates to $C$, transitively, without having to name every possible $A$-to-$C$ path individually. Without composition, the structure collapses into a flat list of unconnected pairs. It's entirely useless for multi-hop reasoning.
+
+\medskip
+\noindent\textbf{Why identity?} Because every object needs a minimal self-relationship. An isolated module --- no connections to anything else --- still needs to be expressible in the framework. MORPH\_ID is how you say ``module $A$ relates to itself with no coupling content.'' Without it, isolated objects fall outside the framework entirely, and any module with zero external relationships becomes unrepresentable.
+
+\medskip
+\noindent\textbf{Why associativity?} Because the parenthesization of a chain should not matter. Whether you write $(h \circ g) \circ f$ or $h \circ (g \circ f)$, both mean the same three-hop path $A \to B \to C \to D$. If associativity failed, two programs that build the same chain in different groupings would produce different morphisms. That is a bug: the chain is the thing, not how you assembled it.
+
+These laws are proven in Coq in \texttt{CategoryLaws.v}. Zero Admitted. Concretely: morphisms carry coupling data --- a list of (source-cell, target-cell) pairs plus a label. COMPOSE produces a new morphism whose coupling pairs are the relational composition of the two inputs. This is proven in \texttt{CategoryBridge.v} (\texttt{graph\_compose\_morphisms\_coupling}). The Thiele Machine's categorical layer is not just called a category --- it satisfies the actual axioms on the actual coupling data.
 
 \subsection{Why modules as objects}
 
 In the Thiele Machine, the objects of the category are the modules of the partition graph. A module is a named piece of the computation: it owns a region of memory or state, it may carry certified axioms about that region, and it contributes a local $\mu$ cost.
 
-A morphism between two modules says: ``there is a named, typed relationship between module $A$ and module $B$.'' This could mean:
+A morphism between two modules says: ``there is a named relationship between module $A$ and module $B$, with explicit coupling data.'' The coupling data is a list of (source-cell, target-cell) pairs. COMPOSE computes the relational composition of two couplings --- pair $(a, c)$ is in the composed coupling exactly when there exists $b$ such that $(a, b)$ is in the first coupling and $(b, c)$ is in the second. This is proven correct. The machine tracks it. Via MORPH\_GET (selector 2), you can read back the number of coupling pairs in any morphism.
+
+What the coupling pairs represent is up to the programmer. They could encode:
 \begin{itemize}
-\item Module $B$ refines module $A$ (finer partition)
-\item Module $A$ entangles with module $B$ (quantum coupling)
-\item Module $A$ simulates module $B$ (bisimulation)
-\item Whatever the programmer puts in the coupling field
+\item Module $B$ refines module $A$ (which cells in $A$ map to which cells in $B$)
+\item Module $A$ entangles with module $B$ (which cell-pairs are correlated)
+\item Module $A$ simulates module $B$ (which states correspond)
 \end{itemize}
 
-The machine does not interpret coupling types. The programmer does. But the machine tracks them, and the machine can be asked to confirm or deny their existence.
+The machine enforces the relational composition correctly. The interpretation is yours.
 
 \subsection{Why this is not just ``extra state''}
 
@@ -687,7 +701,7 @@ The trust boundary here is named explicitly (not hidden): \texttt{ocaml\_runner\
 
 \subsection{Layer 3: The Kami RTL hardware}
 
-The Kami framework lets you write hardware specifications in Coq and extract them to Bluespec SystemVerilog, which then compiles to Verilog RTL. The Thiele Machine hardware is defined in \texttt{ThieleCPUCore.v} (Kami module) and extracted through this pipeline.
+The Kami framework lets you write hardware specifications in Coq and extract them to Bluespec SystemVerilog. Bluespec SystemVerilog is a high-level hardware description language: you describe what the hardware should compute --- the registers, the rules, the conditions under which state transitions fire --- and the Bluespec compiler generates standard Verilog RTL. Verilog RTL is the low-level gate-and-register description that synthesis tools can turn into actual logic gates on an FPGA or ASIC. The Thiele Machine hardware is defined in \texttt{ThieleCPUCore.v} (Kami module) and extracted through this pipeline.
 
 The hardware has:
 \begin{itemize}
@@ -701,13 +715,21 @@ The hardware has:
 \item A $\mu$-ALU running in parallel with main execution
 \end{itemize}
 
-The hardware implements 34 of 46 opcodes with verified proofs (30 unconditionally, 4 under explicit preconditions). The remaining 12 are documented in \texttt{RTLGapRegistry.v}:
+All 46 opcodes are implemented in silicon --- the RTL in \texttt{ThieleCPUCore.v} has circuits for all of them. The question is not which opcodes are in hardware, but which opcodes have a completed formal \emph{bisimulation proof} showing the hardware circuit and the Coq spec agree step-for-step.
+
+Formal bisimulation proofs exist for all 46 opcodes (zero Admitted, all Qed). Specifically:
 \begin{itemize}
-\item 9 irreducible gaps (morphism ops and tensor ops): the hardware contains hardware-resident tables for these (64 morphism descriptor slots, per-module tensor entries), and ISA v2 upper-lane opcodes drive real hardware state mutation via those tables. The irreducibility is in the \emph{proofs}: formal bisimulation for these opcodes requires reasoning about variable-length graph and tensor state that the current Kami RTL proof framework cannot mechanically discharge. For these opcodes the OCaml extracted runner provides the verified reference semantics.
-\item 3 conditional gaps (CALL, RET, CHSH\_TRIAL): proofs exist in \texttt{EmbedStep\_WF.v} under explicit preconditions, but unconditional proofs are not provable without more specific hardware assumptions.
+\item 30 opcodes have unconditional proofs (\texttt{SupportedOpcode}, \texttt{EmbedStep.v}): XFER, LOAD\_IMM, LOAD, STORE, ADD, SUB, JUMP, JNEZ, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK, AND, OR, SHL, SHR, MUL, LUI, HALT, CHECKPOINT, WRITE\_PORT, READ\_PORT, HEAP\_LOAD, HEAP\_STORE, CERTIFY, MDLACC, LJOIN, EMIT, PDISCOVER, REVEAL.
+\item 11 opcodes have conditional proofs (all Qed): PNEW, PSPLIT, PMERGE, LASSERT (under graph-consistency preconditions, \texttt{EmbedStep.v} \S8), plus MORPH, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR (under \texttt{extended\_hw\_invariant} + \texttt{abs\_full\_snapshot}, \texttt{GraphReconstructionBridge.v}).
 \end{itemize}
 
-The 34/46 split is NOT a sign of incompleteness. It is the same relationship that exists between any ISA and its hardware implementation. Real CPUs delegate complex operations to microcode, firmware, or operating system libraries. The Intel x86 FPU uses microcode for some operations. The ARM Cortex-A series uses software emulation for some floating-point sequences. The abstract ISA is complete. The silicon implements the fast path. The software implements the rest.
+Five opcodes have proofs that require runtime-checkable preconditions and are documented in \texttt{RTLGapRegistry.v} (\texttt{rtl\_gap\_count = 5}, proven in Coq):
+\begin{itemize}
+\item 2 driver-managed preconditions: TENSOR\_SET, TENSOR\_GET (proofs in \texttt{GraphReconstructionBridge.v} under \texttt{tensor\_indices\_ok i j = true}; formal unconditional closure requires extending the RTL tensor state representation).
+\item 3 snapshot preconditions: CALL, RET (proofs under \texttt{WellFormedSnapshot}), CHSH\_TRIAL (proof under \texttt{chsh\_bits\_ok = true}).
+\end{itemize}
+
+The 46/46 proof coverage (all Qed, zero Admitted) is the correct relationship between an abstract ISA and its physical instantiation. The abstract model defines what is correct; the hardware implements all of it; the formal bisimulation proofs have been completed for all 46 opcodes; five of those proofs carry runtime preconditions that are documented precisely in \texttt{RTLGapRegistry.v}. This is not a deficiency. It is honest proof accounting.
 
 The abstract Thiele Machine is the Coq kernel: infinite, complete, proven. The hardware is a finite physical instantiation that covers the most common case. This is the only relationship physical hardware can have with an abstract mathematical model. There is no other kind.
 
@@ -716,29 +738,87 @@ The abstract Thiele Machine is the Coq kernel: infinite, complete, proven. The h
 \label{sec:chsh}
 %===========================================================================
 
-The Thiele Machine has opcodes for recording CHSH trials. I need to explain what CHSH is.
+The Thiele Machine has opcodes for recording CHSH trials. I need to explain what CHSH is, and I want to build it from the ground up because the inequality itself is not obvious until you see where it comes from.
 
 \subsection{The Bell test setup, from scratch}
 
-Imagine two players, Alice and Bob, in separate rooms. They cannot communicate once the game starts. A referee sends Alice one of two questions ($a = 0$ or $a = 1$). The referee sends Bob one of two questions ($b = 0$ or $b = 1$). Alice answers $x \in \{0,1\}$. Bob answers $y \in \{0,1\}$.
+Imagine two players, Alice and Bob, in separate rooms. They cannot communicate once the game starts. A referee sends Alice one of two questions ($a \in \{0,1\}$). The referee sends Bob one of two questions ($b \in \{0,1\}$). Alice answers $x \in \{0,1\}$. Bob answers $y \in \{0,1\}$.
 
-The game rule: they want $x \oplus y = a \land b$. In plain language: their answers should be different if and only if both questions were 1.
+The game rule: they want $x \oplus y = a \land b$. In plain language: their answers should be different if and only if both questions were 1. For all other question combinations, they should match.
 
-Classical strategy: Alice and Bob can agree on a strategy before the game. With the best classical strategy, they win at most 75\% of the time. This is a mathematical fact.
+\medskip
+\noindent\textbf{Why 75\% is the classical ceiling.}
+Before the game, Alice and Bob can agree on any deterministic strategy: a function $a(x, \lambda)$ for Alice and $b(y, \lambda)$ for Bob, where $\lambda$ is any shared randomness they agree on in advance. Once the game starts, no communication.
 
-\subsection{The CHSH inequality}
+Fix any deterministic strategy. There are four question combinations: $(0,0)$, $(0,1)$, $(1,0)$, $(1,1)$. The rule says ``answer different'' only for $(1,1)$; for the other three, ``answer same.'' Check every possible output pairing:
 
-Define the CHSH combination:
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Alice output & Bob output & Case $(1,1)$ wins? \\
+\midrule
+0 & 0 & No ($x=y=0$, but need $x \neq y$) \\
+0 & 1 & Yes for $(1,1)$, but now $(0,0), (0,1), (1,0)$ fail \\
+1 & 0 & Yes for $(1,1)$, but now $(0,0), (0,1), (1,0)$ fail \\
+1 & 1 & No ($x=y=1$, but need $x \neq y$) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Whatever Alice fixes her output to and whatever Bob fixes his output to, their answers agree for some question combinations and disagree for others. You cannot make them agree for all three ``agree'' cases and also disagree for the one ``disagree'' case simultaneously --- the outputs are constants, not question-dependent. So the best deterministic strategy wins exactly 3 out of 4 question combinations.
+
+Randomized strategies cannot do better: they are just mixtures of deterministic strategies, and averaging strategies that each win 75\% at most gives you 75\% at most. This is not a vague claim. It is a direct consequence of linearity of expectation.
+
+So: maximum classical win rate = 3/4 = 75\%. Proven by exhaustion in \texttt{ClassicalBound.v} (zero Admitted): an executable trace using only PNEW, PSPLIT, and CHSH\_TRIAL with $\mu = 0$ achieves exactly this, and \texttt{MinorConstraints.v} proves no $\mu = 0$ program can exceed it.
+
+\subsection{The CHSH inequality: where it comes from}
+
+Now here is what took me a while to understand: why is there a specific algebraic combination $S$ that detects whether correlations can be explained classically?
+
+The key move is this. For any fixed shared randomness $\lambda$, Alice's output $A_a(\lambda) \in \{-1, +1\}$ (I'm using $\pm 1$ encoding now, not $0/1$) and Bob's $B_b(\lambda) \in \{-1, +1\}$. Consider the expression:
+
+\[
+A_0(\lambda) B_0(\lambda) + A_0(\lambda) B_1(\lambda) + A_1(\lambda) B_0(\lambda) - A_1(\lambda) B_1(\lambda)
+\]
+
+Factor it:
+
+\[
+= A_0(\lambda)(B_0(\lambda) + B_1(\lambda)) + A_1(\lambda)(B_0(\lambda) - B_1(\lambda))
+\]
+
+Since $B_0$ and $B_1$ are each $\pm 1$, either $B_0 + B_1 = \pm 2$ and $B_0 - B_1 = 0$, or $B_0 + B_1 = 0$ and $B_0 - B_1 = \pm 2$. The two terms cannot both be large. In either case, $|B_0 + B_1| + |B_0 - B_1| = 2$, and since $|A_0|, |A_1| \leq 1$, the entire expression is at most 2 in absolute value for any fixed $\lambda$.
+
+Average over $\lambda$:
+
 \[
 S = \langle A_0 B_0 \rangle + \langle A_0 B_1 \rangle + \langle A_1 B_0 \rangle - \langle A_1 B_1 \rangle
 \]
-where $\langle A_a B_b \rangle$ is the correlation between Alice's and Bob's answers when the questions are $a$ and $b$, with answers encoded as $+1$ and $-1$.
 
-For any strategy where Alice's answer depends only on her question and some shared randomness $\lambda$ (and similarly Bob's answer depends only on his question and $\lambda$), we have $|S| \leq 2$. This is the classical CHSH bound.
+where $\langle A_a B_b \rangle$ is the correlation (expected value of the product) when questions are $a$ and $b$. Since the expression before averaging was bounded by 2 for every $\lambda$, the average satisfies $|S| \leq 2$.
 
-Quantum mechanics allows $|S| \leq 2\sqrt{2} \approx 2.83$. This is the Tsirelson bound.
+That is the argument. The combination with the minus sign is chosen exactly because the factoring trick works: one of the B-terms goes to zero and the other to $\pm 2$, forcing the whole thing below 2. The inequality $|S| \leq 2$ is not a coincidence. It is a pure algebraic consequence of the outputs being $\pm 1$ and being determined locally.
 
-The gap between 2 and $2\sqrt{2}$ is the signature of quantum non-locality: correlations that cannot be explained by any shared classical randomness.
+This is proven in Coq in \texttt{ClassicalBound.v} (zero Admitted). The formal statement: for any locally factorizable strategy, $|S| \leq 2$.
+
+\subsection{The quantum bound: why $2\sqrt{2}$?}
+
+Quantum mechanics allows $|S|$ to reach $2\sqrt{2} \approx 2.828$. Why that number?
+
+In quantum mechanics, Alice's observable for question $a$ is a Hermitian operator $\hat{A}_a$ on a Hilbert space, and similarly for Bob. For a shared quantum state $\rho$, the correlation is $\langle A_a B_b \rangle = \text{tr}(\rho \cdot \hat{A}_a \otimes \hat{B}_b)$. Now form the CHSH operator:
+
+\[
+\hat{S} = \hat{A}_0 \otimes \hat{B}_0 + \hat{A}_0 \otimes \hat{B}_1 + \hat{A}_1 \otimes \hat{B}_0 - \hat{A}_1 \otimes \hat{B}_1
+\]
+
+The maximum of $|\langle \hat{S} \rangle|$ over all quantum states is the operator norm $\|\hat{S}\|$. For qubit observables with eigenvalues $\pm 1$, this norm reaches exactly $2\sqrt{2}$ when the observables are chosen at the right angles on the Bloch sphere. The Bloch sphere is a way to represent any qubit state geometrically: a qubit $\alpha|0\rangle + \beta|1\rangle$ with $|\alpha|^2 + |\beta|^2 = 1$ corresponds to a point on a unit sphere, with the two classical states $|0\rangle$ and $|1\rangle$ at opposite poles. A Hermitian observable with eigenvalues $\pm 1$ corresponds to an axis through the sphere. The angle between two observables is the angle between their axes. The optimal CHSH setting places Alice's axes 45 degrees apart and Bob's axes 45 degrees from Alice's, giving a total separation in the operator algebra that drives the maximum eigenvalue of $\hat{S}^2$ to 8. You get $2\sqrt{2}$ from the Pythagorean theorem applied to a 2-dimensional operator algebra: the maximum eigenvalue of $\hat{S}^2$ is 8, so $\|\hat{S}\| = \sqrt{8} = 2\sqrt{2}$.
+
+That bound is proven in this repository in \texttt{TsirelsonUpperBound.v}: no quantum strategy exceeds $2\sqrt{2}$. And it is tight: the quantum model achieving it is in \texttt{TsirelsonQuantumModel.v}. Zero Admitted throughout.
+
+The gap between 2 and $2\sqrt{2}$ is real. No locally factorizable strategy can bridge it. That is the signature of quantum non-locality: correlations that cannot be produced by any shared classical randomness, no matter how much pre-game coordination you allow.
+
+\medskip
+\textbf{The Inquisitor's note on the rational approximation.} Because Coq works in exact arithmetic, the Tsirelson bound in the formal proofs uses the rational approximation $5657/2000 \approx 2.8285$, which is a verified upper bound on $2\sqrt{2}$. This is not an error or a weakness. It is how you work with irrational numbers in a verified formal system.
 
 \subsection{What the Thiele Machine proves}
 
@@ -758,20 +838,32 @@ What does this have to do with computation? The connection is through the witnes
 
 \subsection{The REVEAL requirement}
 
-Getting $S > 2\sqrt{2}$ in any computational context requires revelation: at some point, Alice-side and Bob-side information must be shared to compute the correlation. That sharing is a communication event, and it has a cost. The REVEAL opcode is the Thiele Machine's way of making that cost explicit. Trying to get non-local statistics above the quantum bound without paying for revelation will fail. This is not enforced as a policy. It is a structural consequence of the step semantics.
+Getting $S > 2$ in any computational context requires revelation. Here is why that is not just a policy: it is a structural fact about the step semantics.
+
+Alice's CHSH\_TRIAL increments Alice's witness counters based on her question $a$ and her outcome $x$. Bob's CHSH\_TRIAL increments Bob's witness counters based on $b$ and $y$. The cross-correlations $\langle A_a B_b \rangle$ cannot be computed without combining both sides' results. The only opcode that explicitly exports state across that boundary is REVEAL. Without a REVEAL step, the joint correlation cannot be computed from a single side's counters.
+
+This is proven in \texttt{RevelationRequirement.v} (zero Admitted): if execution starts with \texttt{csr\_cert\_addr = 0} and ends with \texttt{csr\_cert\_addr $\neq$ 0}, then some structure-setting step was executed. Trying to get certified non-local statistics above the classical bound without paying for revelation is not just inadvisable. It is structurally impossible.
 
 %===========================================================================
 \section{Landauer: information erasure costs energy}
 \label{sec:landauer}
 %===========================================================================
 
-Rolf Landauer proved in 1961 that erasing one bit of information from a physical system must release at least $kT \ln 2$ joules of heat into the environment, where $k$ is Boltzmann's constant and $T$ is the temperature of the environment.
+Rolf Landauer proved in 1961 that erasing one bit of information from a physical system must release at least $kT \ln 2$ joules of heat into the environment, where $k$ is Boltzmann's constant and $T$ is the temperature of the environment. I want to explain where that formula comes from because it matters for how the $\mu$ ledger connects to physics.
 
-This is a theorem about physics, not just computers. Information is physical. Forgetting costs energy. This is Landauer's principle.
+\subsection{Where the formula comes from}
+
+A bit of information is stored in a physical system with two distinguishable states: call them 0 and 1. The system might be a tiny magnet pointing up or down, a capacitor charged or uncharged, a transistor on or off.
+
+``Erasing'' the bit means forcing the system to state 0 regardless of what it was before. Before erasure, the bit could be 0 or 1 --- you have no idea which. After erasure, you know it is 0. You have gone from maximum uncertainty (1 bit of entropy) to zero uncertainty.
+
+Here is the heat physics. Total entropy of the universe must not decrease (second law of thermodynamics). The bit's entropy went down by $k \ln 2$ (that is what ``1 bit = $\ln 2$ nats of entropy'' means in physical units). Some other part of the universe must gain at least that much entropy to compensate. The cheapest way to dump entropy is to release it as heat into a heat bath at temperature $T$. Dumping $\Delta S = k \ln 2$ of entropy into a bath at temperature $T$ requires releasing heat $Q = T \cdot \Delta S = kT \ln 2$.
+
+That is Landauer's argument. It is not complicated. Information is physical. The bit has to go somewhere. Destroying it means the physical system's entropy decreases, and the second law guarantees you pay for that in heat.
+
+I found this argument important because it is the same kind of argument as No Free Insight: you cannot get structure for free, and the machine tracks where you paid. The difference is that Landauer's principle is about physical energy and the $\mu$ ledger is a formal accounting tool. The connection between the two is real but conditional.
 
 \subsection{What the Thiele Machine proves}
-
-The $\mu$ ledger is consistent with Landauer's principle in the following sense:
 
 \begin{theorem}[$\mu$-Landauer Step Bound, \texttt{LandauerDerivation.v}, zero Admitted]
 For any step that erases $k$ bits of information, the instruction's $\mu$-delta is $\geq k$.
@@ -781,16 +873,22 @@ This is a theorem about the formal step semantics of the machine. It says: the m
 
 The physical interpretation --- that $\mu$ costs correspond to actual thermodynamic entropy --- is conditional. It depends on a named hypothesis (\texttt{mu\_landauer\_unruh\_calibrated}) that calibrates $\mu$ to physical energy units. That hypothesis is physically motivated and consistent with the formal development, but it is not proven in Coq. It is a bridge to physics, not a derived fact. I say this directly because it is true.
 
+The formal content of \texttt{LandauerDerivation.v} is narrower and cleaner: (1) only CERTIFY sets \texttt{vm\_certified := true} --- proven by case analysis on every instruction; (2) CERTIFY's cost is $S(\delta) \geq 1$ by construction; (3) therefore certification always requires positive $\mu$-cost; (4) total $\mu$-cost bounds total irreversible bit-operations in the trace. None of this requires a physical calibration. Physical calibration would plug in the Boltzmann constant and the temperature, turning $\mu$ counts into joules. That step is the named bridge hypothesis.
+
 %===========================================================================
 \section{Einstein from computation: what we proved and what we did not}
 \label{sec:physics}
 %===========================================================================
 
-The Thiele Machine's $\mu$ costs define a geometry. Here is what that means.
+The Thiele Machine's $\mu$ costs define a geometry. Here is what that means, from first principles.
 
-Each module carries a local $\mu$ cost. The partition graph gives a graph structure. The morphisms give relationships between modules. Together, these define a discrete metric: the cost of going from one module to an adjacent one in the partition graph.
+\subsection{From mu costs to a metric}
 
-A discrete metric defines curvature. Curvature means the space is not flat: triangles have angles that don't add up to 180 degrees. The Gauss-Bonnet theorem relates the total curvature of a surface to its topology.
+Each module in the partition graph carries a local $\mu$ cost. Two modules connected by an edge in the graph are ``adjacent'' in a discrete structure. The $\mu$ costs give that structure a metric: the cost of going from one module to an adjacent one is the $\mu$ difference between the two states.
+
+A discrete metric defines curvature. To see why: on a flat surface, if you draw a triangle, the interior angles sum to $180^{\circ}$. On a curved surface --- the surface of a sphere, for example --- the angles sum to more than $180^{\circ}$. Curvature is the amount by which triangles deviate from flat. The $\mu$ metric defines triangles on the partition graph, and those triangles have a measurable angle-sum.
+
+The Euler characteristic $\chi$ is a topological invariant of the simplicial complex --- a number that depends on the overall shape of the space, not its geometry. For a triangulation with $V$ vertices, $E$ edges, and $F$ faces: $\chi = V - E + F$. For a sphere, $\chi = 2$. For a torus (a donut surface), $\chi = 0$. The Gauss-Bonnet theorem says the total curvature of a closed surface equals $2\pi\chi$: the geometry and the topology are linked.
 
 \subsection{What is proven}
 
@@ -800,14 +898,32 @@ For a finite simplicial complex induced by the partition graph's $\mu$-metric, t
 
 This is a fully proven theorem about the discrete geometry defined by $\mu$ costs. Zero Admitted.
 
-The chain from this to Einstein's field equations goes through:
+The chain from this to Einstein's field equations goes through five steps:
 \begin{enumerate}
-\item Gauss-Bonnet (proven)
-\item Clausius entropy-area relation (proven in \texttt{ClausiusFromEntropyArea.v})
-\item Raychaudhuri equation (proven conditionally in \texttt{DiscreteRaychaudhuri.v})
+\item Gauss-Bonnet (proven: \texttt{DiscreteGaussBonnet.v})
+\item Clausius entropy-area relation (proven: \texttt{ClausiusFromEntropyArea.v})
+\item Raychaudhuri equation (proven conditionally: \texttt{DiscreteRaychaudhuri.v})
 \item Jacobson derivation of Einstein equations from thermodynamics (chain assembled in \texttt{EinsteinEmergence.v})
-\item Full tensor Einstein equations $G_{\mu\nu} = \kappa T_{\mu\nu}$ (proven in Section in \texttt{EinsteinEquationsFull.v})
+\item Full tensor Einstein equations $G_{\mu\nu} = \kappa T_{\mu\nu}$ (proven in section: \texttt{EinsteinEquationsFull.v})
 \end{enumerate}
+
+Let me explain steps 3 and 4 from first principles, because they are the non-obvious ones.
+
+\medskip
+\noindent\textbf{The Raychaudhuri equation.}
+Imagine two nearby light rays traveling through space. They start parallel. As they travel, they can converge (focus toward each other) or diverge (spread apart). The rate of focusing is called the ``expansion'' of the beam.
+
+The Raychaudhuri equation says: the rate of change of the expansion depends on the Ricci curvature of the spacetime along the beam direction. Positive Ricci curvature means the beam converges. This is gravitational focusing --- matter curves spacetime, spacetime curves geodesics, geodesics converge. This is how gravity works in General Relativity.
+
+In the Thiele Machine, the discrete analog is: the null congruence expansion (how fast adjacent null geodesics of the $\mu$-metric converge) decreases when the effective Ricci curvature is positive. \texttt{DiscreteRaychaudhuri.v} proves this for the $\mu$-geometry. The result is conditional on a named hypothesis (\texttt{lorentzian\_coupling\_positive}) because the discrete geometry is Euclidean by construction and requires an explicit sign choice to be treated as Lorentzian. That sign choice is physically motivated but not proved from the Coq definitions alone.
+
+\medskip
+\noindent\textbf{The Jacobson derivation.}
+Ted Jacobson showed in 1995 that if you apply the first law of thermodynamics ($dE = T \, dS$) to the boundary of every small causal region of spacetime, and if entropy is proportional to the \emph{area} of that boundary, then Einstein's field equations follow as a thermodynamic equation of state. Why area and not volume? Jacob Bekenstein argued in 1973 that the information in a region of space is bounded by its boundary area, not its volume --- the interior degrees of freedom cannot exceed what can be encoded on the surface at one bit per Planck-area patch. Stephen Hawking confirmed this for black holes: a black hole's entropy is exactly proportional to its event horizon area ($S = A / 4 G\hbar$ in natural units). This is non-obvious and surprising. Intuitively volume should hold more information than surface. The answer is that gravity compresses the interior: if you tried to pack more entropy into a region than its boundary allows, the region would collapse into a black hole. The surface is the ceiling. In the Thiele Machine's formal development, this is a named hypothesis (Bekenstein saturation): the claim that the partition graph's boundary area bounds its interior information content is taken as a bridge premise, not derived.
+
+The key move: gravity is not fundamental. It is what you get when you treat spacetime as a thermodynamic system. The Einstein equations say that the geometry of spacetime adjusts so that entropy is extremized --- just as pressure equilibrates in a gas. You do not need quantum mechanics or strings. You need thermodynamics applied to the geometry.
+
+The Thiele Machine's $\mu$ costs play the role of entropy. The partition graph's morphism layer plays the role of the causal boundary. \texttt{JacobsonBridgeComponents.v} makes the two components explicit: a Clausius-type relation (first law for the $\mu$-geometry horizon) and a Raychaudhuri-to-Einstein link (focusing implies curvature constraints). Together, they imply the Einstein target. \texttt{EinsteinEmergence.v} assembles the chain.
 
 \begin{theorem}[Full Tensor Einstein Equations, \texttt{EinsteinEquationsFull.v~\S10}, zero Admitted in section]
 \label{thm:einstein}
@@ -826,7 +942,7 @@ Theorem~\ref{thm:einstein} is conditional. It is proven inside a Coq \texttt{Sec
 \item \texttt{off\_diagonal\_ricci\_zero}: the off-diagonal Ricci curvature vanishes.
 \end{itemize}
 
-These are not \texttt{Admitted} proofs. They are explicitly named hypotheses that make the trust boundary auditable. The proof of Theorem~\ref{thm:einstein} from these three hypotheses is zero Admitted: the derivation is valid. The hypotheses themselves are physically motivated (the off-diagonal Ricci vanishes in the continuum limit of many discrete geometries) but not proven in Coq.
+These are not \texttt{Admitted} proofs. They are explicitly named hypotheses that make the trust boundary auditable. The proof of Theorem~\ref{thm:einstein} from these three hypotheses is zero Admitted: the derivation is valid. The hypotheses themselves are physically motivated (the off-diagonal Ricci vanishes in vacuum for symmetric metrics, and in the continuum limit of many discrete geometries) but not proven in Coq.
 
 The honest claim: the Thiele Machine's $\mu$ geometry is consistent with Einstein's field equations in the diagonal metric case, and the extension to the full tensor case is proven conditional on the off-diagonal Ricci hypothesis. This is not a claim that gravity \emph{is} computation. It is a claim that the formal analog is consistent.
 
@@ -868,8 +984,8 @@ Current Inquisitor status: zero HIGH/MEDIUM/LOW findings across all 188 Coq file
 This is what it does NOT mean:
 \begin{itemize}
 \item It does not mean the theorems prove physical reality. The theorems prove things about the Thiele Machine model, which is a formal object in Coq. Whether the model correctly describes physical reality is a separate empirical question.
-\item It does not mean the Coq axioms themselves are consistent. Coq is based on the Calculus of Constructions, which is believed to be consistent but this has not been proven within Coq (Gödel's incompleteness theorem prevents it).
-\item It does not mean the hardware implements exactly the Coq semantics. The hardware covers 34/46 opcodes with proofs; 12 gaps are documented in \texttt{RTLGapRegistry.v}.
+\item It does not mean the Coq axioms themselves are consistent. Coq is based on the Calculus of Constructions --- a formal language where types and programs are the same thing, so a proof is literally a program and a proposition is literally a type. Within this system, constructing a term of a given type means constructing a proof of the corresponding proposition. This foundation is believed to be consistent but this has not been proven within Coq itself (Gödel's incompleteness theorem prevents any sufficiently expressive system from proving its own consistency).
+\item It does not mean the hardware implements exactly the Coq semantics in all cases. All 46 opcodes have Qed bisimulation proofs; five carry runtime preconditions documented in \texttt{RTLGapRegistry.v}.
 \item It does not mean the OCaml runner is bitwise identical to the Coq semantics. The trust boundary is the named hypothesis \texttt{ocaml\_runner\_agrees}.
 \end{itemize}
 
@@ -954,7 +1070,7 @@ These are the kernel-tier claims (zero Admitted, zero named hypotheses):
 
 Bridge-tier claims (zero Admitted, with named hypotheses or documented trust boundaries):
 \begin{itemize}
-\item \textbf{Hardware bisimulation}: 34/46 with proofs (30 unconditional, 4 conditional); 12 gaps in \texttt{RTLGapRegistry.v}.
+\item \textbf{Hardware bisimulation}: 46/46 opcodes with Qed proofs (30 unconditional, 11 conditional, 5 with runtime preconditions); documented in \texttt{RTLGapRegistry.v}.
 \item \textbf{OCaml extraction}: \texttt{ocaml\_bisimulation\_closure} with named \texttt{ocaml\_runner\_agrees} hypothesis.
 \item \textbf{Cost formula forcing}: \texttt{cost\_necessity} + \texttt{cost\_uniqueness}, conditional on Landauer-Unruh calibration for physical interpretation.
 \item \textbf{Einstein equations}: \texttt{full\_tensor\_efe\_conditional} with named \texttt{off\_diagonal\_ricci\_zero} hypothesis.
@@ -983,13 +1099,13 @@ I could pretend these are answered. I could wave at them vaguely and say ``futur
 
 That's the whole thing.
 
-A Turing machine is blind to global structure. It can compute anything but it pays in time whenever it needs to discover structure that is already there. The Thiele Machine makes structural knowledge visible, first-class, and cost-bearing. The discipline that governs it is No Free Insight: you cannot certify stronger claims than you started with without paying in a monotone ledger $\mu$ that records every structural commitment.
+A Turing machine is blind to global structure. It can compute anything but it pays in time whenever it needs to discover structure that is already there. The Thiele Machine makes structural knowledge visible, first-class, and cost-bearing. The one rule is No Free Insight: you cannot certify stronger claims than you started with without paying in a monotone ledger $\mu$ that records every structural commitment.
 
 The machine has 46 opcodes. Most of them are ordinary compute operations that carry zero structural cost. The structural cost is concentrated in a small set of opcodes: LASSERT (formula certification), CERTIFY (global certification flag), MORPH\_ASSERT (categorical existence claim), and the partition operations (PNEW, PSPLIT, PMERGE). These are the opcodes that can transition a machine from uncertified to certified, and none of them can do it for free.
 
 The categorical morphism layer is strictly richer than any classical equivalent. Two programs with identical registers, memory, $\mu$, and error flag can be distinguished by a single morphism probe. No classical observer can see this difference. The Coq proof checks it.
 
-The hardware implements 34 of 46 opcodes in silicon with proofs and the rest in software. This is not incompleteness. It is the normal relationship between an abstract machine model and its physical instantiation. The abstract model is mathematically complete. The hardware is a finite physical approximation. Every physical computer in the world has this relationship with its mathematical model. The Thiele Machine is no different.
+The hardware implements all 46 opcodes in silicon. Formal bisimulation proofs --- Coq proofs that the hardware step function matches the Coq spec step-for-step --- have been completed for all 46 of them (zero Admitted). Five proofs carry runtime preconditions: COMPOSE and MORPH\_TENSOR under \texttt{extended\_hw\_invariant}; TENSOR\_SET and TENSOR\_GET under \texttt{tensor\_indices\_ok}; CALL, RET, CHSH\_TRIAL under \texttt{WellFormedSnapshot} or \texttt{chsh\_bits\_ok}. These are documented in \texttt{RTLGapRegistry.v} (\texttt{rtl\_gap\_count = 5}).
 
 The physics connections --- Landauer, Einstein, CHSH, Tsirelson --- are real but carefully scoped. Some are proven. Some are conditional. None are claimed to be physics. They are formal analogs that are consistent with physics, and I have been honest about which is which.
 

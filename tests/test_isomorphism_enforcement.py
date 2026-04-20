@@ -6,7 +6,7 @@ it can never regress.
 
 Guards enforce:
   1. MEM_SIZE=65536 across all four representations
-  2. VerilogRefinement.v covers all 47 opcodes (including CERTIFY and categorical morphisms)
+  2. VerilogRefinement.v covers all 46 opcodes (including CERTIFY and categorical morphisms)
   3. RTL addr_width=12 in generated Verilog
   4. RTL Verilator binary is never stale vs source RTL
   5. CERTIFY opcode works in RTL cosim (behavioral)
@@ -115,7 +115,7 @@ class TestMemSizeUnified:
 
 
 # ===========================================================================
-# 2. VerilogRefinement.v covers all 47 opcodes
+# 2. VerilogRefinement.v covers all 46 opcodes
 # ===========================================================================
 class TestVerilogRefinementCoverage:
     """VerilogRefinement.v must have per-opcode simulation theorems for all opcodes."""
@@ -169,7 +169,7 @@ class TestVerilogRefinementCoverage:
         "verilog_simulates_vm_step_morph_get",
     ]
 
-    def test_all_47_theorems_present(self):
+    def test_all_46_theorems_present(self):
         text = _read(COQ / "kami_hw" / "VerilogRefinement.v")
         missing = [t for t in self.EXPECTED_THEOREMS if t not in text]
         assert not missing, (
@@ -193,10 +193,10 @@ class TestVerilogRefinementCoverage:
 
 
 # ===========================================================================
-# 3. Abstraction.v covers all 47 opcodes in kami_step
+# 3. Abstraction.v covers all 46 opcodes in kami_step
 # ===========================================================================
 class TestAbstractionCoverage:
-    """Abstraction.v kami_step must have match arms for all 47 opcodes."""
+    """Abstraction.v kami_step must have match arms for all 46 opcodes."""
 
     def test_no_admitted(self):
         text = _read(COQ / "kami_hw" / "Abstraction.v")

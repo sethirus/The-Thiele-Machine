@@ -16,7 +16,7 @@ The Thiele Machine development contains a large, fully verified Coq proof corpus
     \item \textbf{No project-local axioms}: No unproven project-local assumptions (beyond foundational logic)
     \item \textbf{Full extraction}: Proofs can be compiled to executable code
 \end{itemize}
-The corpus is split between the kernel (\texttt{coq/kernel/}), which remains active, and the extended proofs developed before the kernel crystallized. Many of those files have since been superseded by the kernel's consolidated proof surface and are no longer part of the active build tree. This chapter documents those formalizations for completeness.
+The corpus is split between the kernel (\texttt{coq/kernel/}), which remains active, and the extended proofs maintained as a separate formalization surface. Many of those files are replaced by the kernel's consolidated proof surface and are reference-only proof surface. This chapter documents those formalizations for completeness.
 
 This chapter documents the complete formalization beyond the kernel layer, organized into specialized proof domains.
 
@@ -61,7 +61,7 @@ The proof corpus is organized by \emph{domain} rather than by implementation det
     \item \textbf{No Free Insight interface}: abstract axiomatization of the impossibility theorem.
     \item \textbf{Self-reference and meta-theory}: formal limits of self-description.
 \end{itemize}
-For readers navigating the code, the ``kernel semantics'' block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v} under \texttt{coq/kernel/}. The ``extended machine proofs'' (e.g.\ \texttt{PartitionLogic.v}, \texttt{Subsumption.v}) were developed before the kernel layer existed and are no longer part of the active build tree. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
+For readers navigating the code, the ``kernel semantics'' block corresponds to files such as \texttt{VMState.v} and \texttt{VMStep.v} under \texttt{coq/kernel/}. The ``extended machine proofs'' (e.g.\ \texttt{PartitionLogic.v}, \texttt{Subsumption.v}) were maintained as a separate formalization surface and are reference-only proof surface. The structure is intentionally layered so that higher-level proofs explicitly import the kernel rather than re-deriving it.
 
 \section{The ThieleMachine Proof Suite (71 Files, Historical)}
 
@@ -429,13 +429,13 @@ The file \texttt{HardAssumptions.v} (~8KB) provides explicit documentation of al
 \begin{lstlisting}
 (** Hard Mathematical Assumptions - Proven and Documented *)
 Module HardFacts.
-  (* Fact 1: |E_xy| <= 1 — PROVEN in BoxCHSH.v *)
+    (* Fact 1: |E_xy| <= 1 - PROVEN in BoxCHSH.v *)
   Definition normalized_E_bound := BoxCHSH.normalized_E_bound.
 
-  (* Fact 2: No-signaling -> |S| <= 4 — PROVEN in BoxCHSH.v *)
+    (* Fact 2: No-signaling -> |S| <= 4 - PROVEN in BoxCHSH.v *)
   Definition valid_box_S_le_4 := BoxCHSH.valid_box_S_le_4.
 
-  (* Fact 3: Local hidden variable -> |S| <= 2 — PROVEN in BoxCHSH.v *)
+    (* Fact 3: Local hidden variable -> |S| <= 2 - PROVEN in BoxCHSH.v *)
   Definition local_S_2_deterministic := BoxCHSH.local_S_2_deterministic.
 End HardFacts.
 \end{lstlisting}
@@ -519,10 +519,10 @@ The quantum axiom proofs live in eight files totaling 3,259 lines of Coq with ze
 \textbf{File} & \textbf{Lines} & \textbf{Defs/Thms} & \textbf{Primary Result} \\
 \midrule
 \texttt{NoCloning.v} & 947 & 21 & No-cloning from conservation \\
-\texttt{NoCloningFromMuMonotonicity.v} & 281 & 14 & Machine-native no-cloning (\texttt{lia}), superseded \\
+\texttt{NoCloningFromMuMonotonicity.v} & 281 & 14 & Machine-native no-cloning (\texttt{lia}), replaced \\
 \texttt{Unitarity.v} & 592 & 25 & CPTP from irreversibility \\
 \texttt{BornRule.v} & 342 & 21 & Born rule from linearity \\
-\texttt{BornRuleFromSymmetry.v} & 144 & 5 & Born rule from tensor consistency, superseded \\
+\texttt{BornRuleFromSymmetry.v} & 144 & 5 & Born rule from tensor consistency, replaced \\
 \texttt{Purification.v} & 290 & 11 & Purification principle \\
 \texttt{TsirelsonGeneral.v} & 324 & 19 & Tsirelson bound from algebra \\
 \texttt{TsirelsonFromAlgebra.v} & 339 & 14 & Self-contained Tsirelson with witness \\
@@ -551,10 +551,10 @@ Theorem no_cloning_from_conservation :
 
 \textbf{What this actually checks:} The physics is in the hypotheses. The \texttt{respects\_conservation} predicate encodes the no-cloning content (you can't double information without cost). The proof confirms the arithmetic is consistent. This is honest: the hard part is \textit{accepting} the conservation constraint; once you accept it, no-cloning is an immediate consequence.
 
-\paragraph{Machine-native proof (\texttt{NoCloningFromMuMonotonicity.v}, superseded).}
-This file has been superseded by the active no-cloning proof in \texttt{kernel/NoCloning.v}, which derives no-cloning from unitarity.
+\paragraph{Machine-native proof (\texttt{NoCloningFromMuMonotonicity.v}, replaced).}
+This file has been replaced by the active no-cloning proof in \texttt{kernel/NoCloning.v}, which derives no-cloning from unitarity.
 
-The superseded version contains a self-contained no-cloning proof working entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
+The replaced version contains a self-contained no-cloning proof working entirely in natural-number arithmetic, avoiding any real-analysis imports. The key theorem \texttt{no\_cloning\_mu\_monotonicity} shows that perfect cloning would require at least $\mu = n$ additional bits for an $n$-bit state, contradicting the zero-cost hypothesis. All proof obligations close with \texttt{lia} (linear integer arithmetic), making the argument fully decidable.
 
 The file also proves:
 \begin{itemize}
@@ -611,10 +611,10 @@ Theorem born_rule_from_accounting :
 
 \textbf{Honest assessment:} The \texttt{mu\_consistent} hypothesis is present but completely unused---the proof works from \texttt{valid\_prob\_rule} and \texttt{is\_linear\_in\_z} alone. The linearity hypothesis \textit{is} the Born rule in disguise: on the Bloch sphere, only the Born rule is linear in the density matrix. The proof verifies that linearity plus normalization has a unique fixed point. This is why the non-circular derivation below matters.
 
-\paragraph{Existence proof (\texttt{BornRuleFromSymmetry.v}, superseded).}
+\paragraph{Existence proof (\texttt{BornRuleFromSymmetry.v}, replaced).}
 The active Born rule derivation is in \texttt{kernel/BornRuleLinearity.v}, which derives $P(z) = (1+z)/2$ as the unique affine interpolation satisfying no-signaling (mixture compatibility) and boundary conditions.
 
-The superseded \texttt{BornRuleFromSymmetry.v} (144 lines) proves that the identity function $g(x) = x$ satisfies eigenstate consistency, normalization, tensor product consistency, and range constraints (the \texttt{born\_identity\_*} lemmas). A uniqueness proof (that $g(x) = x$ is the \emph{only} such function) was removed because it relied on Section-scoped Context assumptions that violated the zero-axiom policy.
+The replaced \texttt{BornRuleFromSymmetry.v} (144 lines) proves that the identity function $g(x) = x$ satisfies eigenstate consistency, normalization, tensor product consistency, and range constraints (the \texttt{born\_identity\_*} lemmas). A uniqueness proof (that $g(x) = x$ is the \emph{only} such function) was removed because it relied on Section-scoped Context assumptions that violated the zero-axiom policy.
 
 Additional theorems:
 \begin{itemize}
@@ -1725,7 +1725,7 @@ This formalizes why self-referential systems require meta-levels with additional
 
 \section{Modular Simulation Proofs}
 
-The following files were developed during the modular simulation proof campaign. They are no longer part of the active build tree but established the TM $\to$ Minsky $\to$ Thiele reduction chain:
+The following files were developed during the modular simulation proof campaign. They are reference-only proof surface but established the TM $\to$ Minsky $\to$ Thiele reduction chain:
 
 Representative list:
 \begin{itemize}

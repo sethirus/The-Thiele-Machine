@@ -25,7 +25,7 @@ Syntax:
     .DATA 10 42                 # data memory initialization: mem[10] = 42
     FUEL 1000                   # max execution steps (trace format only)
 
-ISA Reference (47 opcodes total: 40 legacy encodings + 7 categorical morph opcodes):
+ISA Reference (46 opcodes total: 39 original encodings + 7 categorical morph opcodes):
     Opcode   | Encoding  | Syntax
     ---------+-----------+-------
     PNEW     | 0x00      | PNEW {region} cost       — or — PNEW a b cost

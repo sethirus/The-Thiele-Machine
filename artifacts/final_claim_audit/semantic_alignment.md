@@ -59,7 +59,7 @@ thielecpu/hardware/rtl/thiele_cpu_kami.v ← Verilog RTL (GENERATED)
 | RTL bisimulates Coq spec | `hardware_bisimulation` | `kernel/HardwareBisimulation.v` |
 | Three layers are isomorphic | `three_layer_isomorphism` | `kernel/ThreeLayerIsomorphism.v` |
 | Extraction preserves vm_apply | `vm_step_vm_apply` | `kernel/SimulationProof.v` |
-| RTL covers all 47 opcodes | `verilog_simulates_vm_step_*` | `kami_hw/VerilogRefinement.v` |
+| RTL refinement covers supported opcode paths with explicit unsupported classes | `verilog_simulates_vm_step_*` + gap registry lemmas | `kami_hw/VerilogRefinement.v`, `kami_hw/RTLGapRegistry.v` |
 
 ---
 

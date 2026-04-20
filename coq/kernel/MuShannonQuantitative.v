@@ -162,7 +162,7 @@ Proof. intros. unfold advance_state_reveal. reflexivity. Qed.
 
 (**
     After vm_apply, cert_addr is either preserved or set to the value
-    from cert_addr_value_of. This proof covers all 47 instructions.
+    from cert_addr_value_of. This proof covers all 46 instructions.
     *)
 
 Lemma vm_apply_cert_addr_cases :

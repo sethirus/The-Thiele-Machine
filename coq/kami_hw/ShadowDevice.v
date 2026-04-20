@@ -112,7 +112,7 @@ Qed.
 
     DESIGN DECISION: [dsd_step_embed] is scoped to instructions
     satisfying a class-provided predicate [dsd_supported].  This
-    avoids requiring the RTL to commute on ALL 47 opcodes (some
+    avoids requiring the RTL to commute on ALL 46 opcodes (some
     diverge by design — see EmbedStep.v header). *)
 Record DynamicShadowDevice := {
   dsd_state     : Type ;

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Cross-layer bisimulation tests for all 47 opcodes.
+"""Cross-layer bisimulation tests for all 46 opcodes.
 
 Verifies that the Python VM (backed by OCaml runner) and RTL co-simulation
 produce identical observable results for every opcode in the ISA. This is the
@@ -940,8 +940,8 @@ class TestForgeFreshness:
         finally:
             os.unlink(tmp_path)
 
-    def test_isomorphism_map_has_47_opcodes(self):
-        """build/isomorphism_map.json lists all 47 opcodes."""
+    def test_isomorphism_map_has_46_opcodes(self):
+        """build/isomorphism_map.json lists all 46 opcodes."""
         map_path = os.path.join(
             os.path.dirname(__file__), "..", "build", "isomorphism_map.json"
         )

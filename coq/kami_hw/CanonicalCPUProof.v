@@ -25,6 +25,9 @@ From Kernel Require Import BornRuleLinearity TsirelsonQuantumModel.
 From Kernel Require Import TsirelsonGeneral MuLedgerQuantumBridge.
 From Kernel Require Import HonestNoFI MuShannonBridge MuShannonQuantitative StateSpaceCounting.
 From Kernel Require Import HonestNoFI_TheoremsWithoutAssumptions.
+From Kernel Require Import CategoryLaws CategoryMonoidal.
+From KamiHW Require Import GraphReconstructionBridge.
+From KamiHW Require Import FullAbstraction.
 
 Import VMStep.VMStep.
 
@@ -134,7 +137,42 @@ Record CanonicalCPUProofBundle : Prop := {
       vm_step s (instr_lassert freg creg kind flen cost) s' ->
       let k := flen * 8 in
       s'.(vm_mu) - s.(vm_mu) >= k /\
-      k >= StateSpaceCounting.log2_nat (Nat.pow 2 k)
+      k >= StateSpaceCounting.log2_nat (Nat.pow 2 k);
+
+  canonical_monoidal_coherence :
+    forall r1 r2 r3 : list (nat * nat),
+      (CategoryMonoidal.coupling_tensor
+         (CategoryMonoidal.coupling_tensor r1 r2) r3 =
+       CategoryMonoidal.coupling_tensor r1
+         (CategoryMonoidal.coupling_tensor r2 r3)) /\
+      (CategoryMonoidal.coupling_tensor nil r1 = r1) /\
+      (CategoryMonoidal.coupling_tensor r1 nil = r1);
+
+  canonical_compose_assoc :
+    forall r1 r2 r3 : CategoryLaws.Coupling,
+      CategoryLaws.coupling_equiv
+        (CategoryLaws.relational_compose
+           (CategoryLaws.relational_compose r1 r2) r3)
+        (CategoryLaws.relational_compose r1
+           (CategoryLaws.relational_compose r2 r3));
+
+  (* COMPOSE opcode hardware bridge: proven under extended_hw_invariant *)
+  canonical_compose_step_simulates :
+    forall ks dst m1_id m2_id cost,
+      extended_hw_invariant ks ->
+      abs_full_snapshot (full_snapshot_of_snapshot
+        (kami_step ks (instr_compose dst m1_id m2_id cost))) =
+      vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
+        (instr_compose dst m1_id m2_id cost);
+
+  (* MORPH_TENSOR opcode hardware bridge: proven under extended_hw_invariant *)
+  canonical_morph_tensor_step_simulates :
+    forall ks dst f_id g_id cost,
+      extended_hw_invariant ks ->
+      abs_full_snapshot (full_snapshot_of_snapshot
+        (kami_step ks (instr_morph_tensor dst f_id g_id cost))) =
+      vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
+        (instr_morph_tensor dst f_id g_id cost)
 }.
 
 Theorem canonical_cpu_proof : CanonicalCPUProofBundle.
@@ -156,7 +194,11 @@ Proof.
        canonical_nofi_fibered_feasible_reduction := honest_nfi_fibered_feasible_reduction_partial;
       canonical_nofi_posterior_representative_reduction := honest_nfi_posterior_representative_reduction_partial;
        canonical_nofi_conditional_shannon := honest_nfi_conditional_shannon_partial;
-       canonical_nofi_quantitative_state_space := honest_nfi_quantitative_state_space_partial |}.
+       canonical_nofi_quantitative_state_space := honest_nfi_quantitative_state_space_partial;
+       canonical_monoidal_coherence := CategoryMonoidal.monoidal_coherence;
+       canonical_compose_assoc := CategoryLaws.relational_compose_assoc;
+       canonical_compose_step_simulates := driven_step_compose;
+       canonical_morph_tensor_step_simulates := driven_step_morph_tensor |}.
 Qed.
 
 (* Proof anchors: ensure extraction-root proofs depend on C3/C4 and honest NoFI wiring. *)

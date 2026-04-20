@@ -49,7 +49,7 @@ The Thiele Machine has five components:
     \item \textbf{State Space $S$}: What the machine "remembers"---registers, memory, partition graph
     \item \textbf{Partition Graph $\Pi$}: How the state is \textit{decomposed} into independent modules
     \item \textbf{Axiom Set $A$}: What logical constraints each module satisfies
-    \item \textbf{Transition Rules $R$}: How the machine evolves---the active 47-opcode ISA
+    \item \textbf{Transition Rules $R$}: How the machine evolves---the active 46-opcode ISA
     \item \textbf{Logic Engine $L$}: The on-chip FSM that reads formula and certificate bytes from \texttt{vm\_mem} and verifies them in-place
 \end{enumerate}
 Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \path{coq/kernel/VMState.v}; the instruction set and step relation are defined in \path{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \path{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
@@ -202,7 +202,7 @@ Definition word64 (x : nat) : nat :=
   N.to_nat (N.land (N.of_nat x) word64_mask).
 \end{lstlisting}
 
-\paragraph{What word masking does:} The \texttt{word64} function masks any number down to 64 bits---bitwise AND with \texttt{0xFFFFFFFFFFFFFFFF}. I had to learn why this exists the hard way: Coq's \texttt{nat} type is unbounded, but hardware registers are 64 bits. Without the mask, the Coq model and the hardware disagree on what happens at overflow.
+\paragraph{What word masking does:} The \texttt{word64} function masks any number down to 64 bits---bitwise AND with \texttt{0xFFFFFFFFFFFFFFFF}. This exists for cross-layer fidelity: Coq's \texttt{nat} type is unbounded, but hardware registers are 64 bits. Without the mask, the Coq model and the hardware disagree on what happens at overflow.
 
 \textbf{Step by step:}
 \begin{enumerate}
@@ -427,7 +427,7 @@ When modules are split, axioms are copied to both children. When modules are mer
 
 \subsection{Transition Rules $R$}
 
-The transition rules define how state evolves. The active implementation exposes a 47-opcode ISA (40 original + 7 categorical morphism opcodes), defined in the formal step semantics.
+The transition rules define how state evolves. The active implementation exposes a 46-opcode ISA (39 original + 7 categorical morphism opcodes), defined in the formal step semantics.
 Each instruction constructor in \path{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
 
 \subsubsection{Instruction Set}
@@ -502,7 +502,7 @@ The key design choice: every instruction carries a \texttt{mu\_delta} field. The
     \item \textbf{\texttt{instr\_xor\_swap}}: Takes two register indices and a \texttt{mu\_delta}. XOR is reversible, so its structural cost is zero, but the field is still there---the type system forces that.
 \end{itemize}
 
-The active 47 opcodes break into groups:
+The active 46 opcodes break into groups:
 \begin{itemize}
     \item \textbf{Partition Ops} (4): Structure creation, splitting, merging, and discovery (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDISCOVER})
     \item \textbf{Logic Ops} (3): Axiom assertion, certificate joining, and MDL accounting (\texttt{LASSERT}, \texttt{LJOIN}, \texttt{MDLACC})
@@ -880,7 +880,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
     \item \textbf{No Rewinds}: Can't ``undo'' structural knowledge by stepping backward
 \end{enumerate}
 
-I had to learn how Coq handles this kind of proof the hard way: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. Some instructions have multiple step rules for success and failure branches, so 47 opcodes expand into roughly 57 cases. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
+Coq handles this proof by structural induction on the step relation: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. Some instructions have multiple step rules for success and failure branches, so 46 opcodes expand into roughly 57 cases. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
 
 \subsubsection{Multi-Step Conservation}
 

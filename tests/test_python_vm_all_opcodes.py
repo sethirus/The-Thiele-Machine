@@ -602,14 +602,14 @@ class TestIntegration:
         assert s.vm_regs[3] == 99, "main should continue after sub1 returns"
         assert s.vm_regs[31] == 0, "SP should be 0 after balanced calls"
 
-    def test_all_47_opcodes_counted(self):
-        """Verify build/thiele_core.ml (Coq extraction) contains all 47 opcodes."""
+    def test_all_46_opcodes_counted(self):
+        """Verify build/thiele_core.ml (Coq extraction) contains all 46 opcodes."""
         import re
         from pathlib import Path
         ml_path = Path(__file__).resolve().parents[1] / "build" / "thiele_core.ml"
         assert ml_path.exists(), f"build/thiele_core.ml not found at {ml_path}"
         content = ml_path.read_text(encoding="utf-8")
-        # All 47 constructors appear as Instr_X (legacy) or Coq_instr_X (module-prefixed)
+        # All 46 constructors appear as Instr_X (legacy) or Coq_instr_X (module-prefixed)
         constructors = set(re.findall(r"Instr_(\w+)", content))
         constructors |= set(re.findall(r"Coq_instr_(\w+)", content))
         ops = {c.lower() for c in constructors}

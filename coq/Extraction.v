@@ -21,6 +21,8 @@ From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
 From Kernel Require Import VMEncoding KernelTM.
 From KamiHW Require Import Abstraction ThieleCPUBusTop CanonicalCPUProof.
+From KamiHW Require Import GraphReconstructionBridge.
+From KamiHW Require Import FullAbstraction.
 
 Import VMStep.VMStep.
 
@@ -46,6 +48,7 @@ From Kernel Require Import BornRuleLinearity TsirelsonQuantumModel.
 From Kernel Require Import TsirelsonGeneral MuLedgerQuantumBridge.
 From Kernel Require Import HonestNoFI MuShannonBridge MuShannonQuantitative StateSpaceCounting.
 From Kernel Require Import HonestNoFI_TheoremsWithoutAssumptions.
+From Kernel Require Import CategoryLaws CategoryMonoidal.
 (* Physics chain: NoFI → thermodynamics → Raychaudhuri → discrete GR *)
 From Kernel Require Import NoFIToEinstein.
 (* Bekenstein → Landauer calibration: physical basis for mu_landauer_unruh_calibrated *)
@@ -202,6 +205,63 @@ Qed.
     The only open hypothesis: mu_landauer_unruh_calibrated (Landauer + Unruh, experimental). *)
 Definition extraction_nfi_to_einstein_anchor :=
   NoFIToEinstein.nfi_to_gr_chain_complete.
+
+(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(** [extraction_monoidal_coherence_anchor]: pins CategoryMonoidal.monoidal_coherence
+    into the extraction root. Tensor (coupling append) is associative with []
+    as left and right unit — the categorical foundation for MORPH_TENSOR. *)
+Theorem extraction_monoidal_coherence_anchor :
+  forall r1 r2 r3 : list (nat * nat),
+    CategoryMonoidal.coupling_tensor
+      (CategoryMonoidal.coupling_tensor r1 r2) r3 =
+    CategoryMonoidal.coupling_tensor r1
+      (CategoryMonoidal.coupling_tensor r2 r3) /\
+    CategoryMonoidal.coupling_tensor nil r1 = r1 /\
+    CategoryMonoidal.coupling_tensor r1 nil = r1.
+Proof.
+  exact CategoryMonoidal.monoidal_coherence.
+Qed.
+
+(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(** [extraction_compose_assoc_anchor]: pins CategoryLaws.relational_compose_assoc
+    into the extraction root. Relational composition is associative up to
+    coupling_equiv — the categorical foundation for COMPOSE. *)
+Theorem extraction_compose_assoc_anchor :
+  forall r1 r2 r3 : CategoryLaws.Coupling,
+    CategoryLaws.coupling_equiv
+      (CategoryLaws.relational_compose
+         (CategoryLaws.relational_compose r1 r2) r3)
+      (CategoryLaws.relational_compose r1
+         (CategoryLaws.relational_compose r2 r3)).
+Proof.
+  exact CategoryLaws.relational_compose_assoc.
+Qed.
+
+(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring — pins driven_step_compose into extraction surface. *)
+Theorem extraction_compose_anchor :
+  forall ks dst m1_id m2_id cost,
+    extended_hw_invariant ks ->
+    abs_full_snapshot (full_snapshot_of_snapshot
+      (kami_step ks (instr_compose dst m1_id m2_id cost))) =
+    vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
+      (instr_compose dst m1_id m2_id cost).
+Proof.
+  exact driven_step_compose.
+Qed.
+
+(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
+(* INQUISITOR NOTE: alias for extraction proof-root dependency wiring — pins driven_step_morph_tensor into extraction surface. *)
+Theorem extraction_morph_tensor_anchor :
+  forall ks dst f_id g_id cost,
+    extended_hw_invariant ks ->
+    abs_full_snapshot (full_snapshot_of_snapshot
+      (kami_step ks (instr_morph_tensor dst f_id g_id cost))) =
+    vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks))
+      (instr_morph_tensor dst f_id g_id cost).
+Proof.
+  exact driven_step_morph_tensor.
+Qed.
 
 Set Extraction Optimize.
 Unset Extraction KeepSingleton.

@@ -484,15 +484,15 @@ Qed.
     bridge: 31 via [SupportedOpcode] (§5).
 
     Additionally covered under preconditions: CALL, RET, CHSH_TRIAL,
-    LASSERT (§7–§8), totalling 35 of 47 opcodes.
+    LASSERT (§7–§8), totalling 35 of 46 opcodes.
 
-    Remaining 12 opcodes:
-    - 3 partition graph ops (PNEW has conditional coverage in EmbedStep.v;
-      PSPLIT, PMERGE are irreducible Category A gaps)
+    Remaining 11 opcodes:
+    - 2 partition graph ops (PSPLIT, PMERGE are irreducible Category A gaps;
+      PNEW has conditional coverage in EmbedStep.v)
     - 2 tensor ops (TENSOR_SET, TENSOR_GET — Category B)
     - 7 morphism ops (MORPH family — Category C)
 
-    The 12 uncovered opcodes are handled at the wrapper level by
+    The 11 uncovered opcodes are handled at the wrapper level by
     [FullStep.v]'s [kami_step_full_refines], which trivially commutes
     because [kami_step_full] is defined as [full_snapshot_repr ∘ vm_apply
     ∘ abs_full_snapshot].  The remaining gap is *only* in connecting

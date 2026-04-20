@@ -2355,7 +2355,7 @@ def test_ch6_evaluation():
         verdict(thesis_files == actual_test_files, "ch6_test_file_count",
                 f"thesis={thesis_files}, actual={actual_test_files}")
 
-    # "47 tests" in test_cross_layer_bisimulation.py — check actual count
+    # test count in test_cross_layer_bisimulation.py — check actual count
     r = subprocess.run(
         ["bash", "-c",
          r"grep -cE '^\s*def test_' tests/test_cross_layer_bisimulation.py"],

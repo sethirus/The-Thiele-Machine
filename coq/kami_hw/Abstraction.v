@@ -9,7 +9,7 @@
     [kami_step] in Abstraction.v by construction: the Kami rule bodies
     compute exactly the same nat operations as [vm_apply] under the abstraction.
 
-    All 47 instructions are covered:
+    All 46 instructions are covered:
     - Compute: LOAD_IMM, ADD, SUB, XFER, LOAD, STORE, JUMP, JNEZ, CALL, RET
     - XOR ALU: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
     - Partition/Logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
@@ -138,7 +138,7 @@ Definition empty_rich_snapshot_state : RichSnapshotState :=
   {| rich_morph_table := fun _ => None;
      rich_next_morph_id := 1;
      rich_coupling_desc_table := fun _ => None;
-     rich_next_coupling_desc_id := 0;
+  rich_next_coupling_desc_id := 1;
      rich_coupling_pair_table := fun _ => None;
      rich_next_coupling_pair_id := 0;
      rich_formula_desc_table := fun _ => None;
@@ -514,7 +514,7 @@ Definition abs_phase1 (s : KamiSnapshot) : VMState :=
                         wc_diff_11 := snap_wc_diff_11 s |} ;
      vm_certified := snap_certified s |}.
 
-(** Full alias — all 47 instructions covered *)
+(** Full alias — all 46 instructions covered *)
 Definition abs_full := abs_phase1.
 
 (* ====================================================================

@@ -365,8 +365,8 @@ class TestISAV2ArtifactFreshness:
             "128-bit instruction should have version byte in top byte"
         )
 
-    def test_vm_py_has_all_47_opcodes(self):
-        """thielecpu/vm.py must reference all 47 opcode names."""
+    def test_vm_py_has_all_46_opcodes(self):
+        """thielecpu/vm.py must reference all 46 opcode names."""
         vm_path = REPO_ROOT / "thielecpu" / "vm.py"
         text = vm_path.read_text(encoding="utf-8").lower()
         from rtl_harness.cosim import OPCODES
@@ -388,8 +388,8 @@ class TestISAV2ArtifactFreshness:
         size = rtl.stat().st_size
         assert size > 50_000, f"thiele_cpu_kami.v is {size} bytes, suspiciously small for ISA v2"
 
-    def test_thiele_core_ml_has_47_constructors(self):
-        """build/thiele_core.ml must contain all 47 vm_instruction constructors."""
+    def test_thiele_core_ml_has_46_constructors(self):
+        """build/thiele_core.ml must contain all 46 vm_instruction constructors."""
         ml = REPO_ROOT / "build" / "thiele_core.ml"
         assert ml.exists(), "build/thiele_core.ml missing"
         text = ml.read_text(encoding="utf-8")

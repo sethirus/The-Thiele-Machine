@@ -147,7 +147,7 @@ atlas-audit:
 #   7. No-open-obligations gate — MasterSummary obligations empty,
 #      full-state verification scope affirmed
 #   8. Artifact generators emit only closed/final statuses
-#   9. Full canonical OCaml extraction surface (all 47 opcode arms present)
+#   9. Full canonical OCaml extraction surface (all 46 opcode arms present)
 #  10. Full-state bit-for-bit lockstep across Coq/OCaml/RTL (bitlock)
 #
 # Steps 1–9 run unconditionally. Step 10 (isomorphism-bitlock) requires
@@ -166,8 +166,8 @@ closeout-gate: coq-gate canonical-extract check-sensitive-files-strict isa-proof
 	@pytest tests/test_completeness_gate.py -q --tb=short
 	@echo "[closeout-gate] Step 8/10: Artifact generators emit closed statuses..."
 	@pytest tests/test_master_summary_artifacts.py -q --tb=short
-	@echo "[closeout-gate] Step 9/10: Full canonical OCaml extraction surface (47 opcodes)..."
-	@pytest tests/test_extraction_freshness.py tests/test_ocaml_extraction_parity_47.py -q --tb=short
+	@echo "[closeout-gate] Step 9/10: Full canonical OCaml extraction surface (46 opcodes)..."
+	@pytest tests/test_extraction_freshness.py tests/test_ocaml_extraction_parity_46.py -q --tb=short
 	@echo "[closeout-gate] Step 10/10: Full-state RTL lockstep already verified by isomorphism-bitlock (above)."
 	@echo ""
 	@echo "============================================================"

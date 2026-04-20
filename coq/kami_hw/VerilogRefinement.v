@@ -4,7 +4,7 @@
     abstraction to Kernel VM stepping, intended to replace assumption-only
     correspondence with proved refinement lemmas rooted in kami_hw.
 
-    Per-instruction vm_step witnesses for all 47 opcodes.
+    Per-instruction vm_step witnesses for all 46 opcodes.
 *)
 
 From Coq Require Import Arith.PeanoNat Lia Strings.String List.

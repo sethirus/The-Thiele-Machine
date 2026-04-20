@@ -2,7 +2,7 @@
 Python interface to the Thiele VM.
 
 This is a thin wrapper around thielecpu/vm.py (the Coq-extracted Python VM).
-All 47 opcodes are handled by the formally-derived VM from coq/Extraction.v.
+All 46 opcodes are handled by the formally-derived VM from coq/Extraction.v.
 
 Backend priority:
   1. Coq-extracted OCaml binary (extracted_vm_runner) - when available
@@ -666,7 +666,7 @@ def run_vm_trace(instructions: List[str], fuel: int = 1000) -> VMState:
       1. Coq-extracted OCaml binary (extracted_vm_runner) - when available
       2. Coq-extracted Python VM (thielecpu/vm.py) - THE definitive Python VM
 
-    All 47 opcodes are handled by formally-derived code from coq/Extraction.v.
+    All 46 opcodes are handled by formally-derived code from coq/Extraction.v.
     """
     strict = _strict_backend_required()
 

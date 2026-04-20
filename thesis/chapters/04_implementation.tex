@@ -142,7 +142,7 @@ The binding constraint is a cross-layer comparison contract: for supported gates
 The formal kernel is organized around a small set of interlocking definitions:
 \begin{itemize}
     \item \textbf{State and partition structure}: the record that defines registers, memory, the partition graph, and the $\mu$-ledger.
-    \item \textbf{Step semantics}: the active 47-opcode ISA and the inductive transition rules.
+    \item \textbf{Step semantics}: the active 46-opcode ISA and the inductive transition rules.
     \item \textbf{Logical certificates}: checkers for proofs and models that allow deterministic verification.
     \item \textbf{Conservation and locality}: theorems that enforce $\mu$-monotonicity and observational no-signaling.
     \item \textbf{Receipts and simulation}: trace formats and cross-layer correspondence lemmas.
@@ -761,7 +761,7 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
                + " " + fmt_list(instr.get("left", []))
                + " " + fmt_list(instr.get("right", []))
                + " " + str(instr.get("cost", 0))
-    ...  # 47 opcode arms total
+    ...  # 46 opcode arms total
 \end{lstlisting}
 
 \paragraph{Understanding the Serialization Architecture:}
@@ -855,31 +855,20 @@ python tools/verify_trs10.py program.execution-receipt.json \
 \end{itemize}
 
 \textbf{What remains design-level:} per-step witness receipts and richer selective-disclosure chains. Those ideas motivate the architecture, but the active interface is the TRS-1.0 CLI and verifier.
-    \begin{itemize}
-        \item Hash chain: \texttt{hash(prev\_receipt || cur\_data)}
-        \item Signature: EdDSA signature over receipt data
-        \item $\mu$-delta: Information cost charged
-        \item Timestamp: Execution time (for audit logs)
-    \end{itemize}
 
-    \item \textbf{Append to Log}:
-    \begin{lstlisting}
+\textbf{Planned receipt fields for future per-step formats:}
+\begin{itemize}
+    \item Hash chain: \texttt{hash(prev\_receipt || cur\_data)}
+    \item Signature: EdDSA signature over receipt data
+    \item $\mu$-delta: information cost charged
+    \item Timestamp: execution time for audit logs
+\end{itemize}
+
+\textbf{Representative state updates in a step-receipt pipeline:}
+\begin{lstlisting}
 self.step_receipts.append(receipt)
-    \end{lstlisting}
-    \begin{itemize}
-        \item Adds receipt to chronological list
-        \item Creates Merkle chain: each receipt depends on previous
-    \end{itemize}
-
-    \item \textbf{Update Witness State}:
-    \begin{lstlisting}
 self.witness_state = post_state
-    \end{lstlisting}
-    \begin{itemize}
-        \item Advances the witness simulation to match main execution
-        \item Ensures next receipt starts from correct state
-    \end{itemize}
-\end{enumerate}
+\end{lstlisting}
 
 \textbf{Cryptographic Properties:}
 \begin{itemize}

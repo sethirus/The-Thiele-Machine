@@ -54,12 +54,12 @@ Key theorems include:
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{mu\_monotonic}, \texttt{mu\_never\_decreases} (MuComplexity.v, archived): $\mu$-cost monotonicity
+    \item \texttt{mu\_monotonic}, \texttt{mu\_never\_decreases} (MuComplexity.v, reference-only): $\mu$-cost monotonicity
     \item \texttt{vm\_exec\_mu\_monotone} (MuNoFreeInsightQuantitative.v): Multi-step $\mu$-monotonicity
     \item \texttt{mu\_conservation\_kernel} (KernelPhysics.v): Kernel-level $\mu$-conservation
     \item \texttt{run\_vm\_mu\_conservation} (MuLedgerConservation.v): VM-level $\mu$-conservation
     \item \texttt{mu\_ledger\_bounds\_irreversible\_events} (MuLedgerConservation.v): Ledger bounds on irreversibility
-    \item \texttt{mu\_is\_landauer\_valid} (MuNecessity.v, archived): $\mu$-cost satisfies Landauer's principle
+    \item \texttt{mu\_is\_landauer\_valid} (MuNecessity.v, reference-only): $\mu$-cost satisfies Landauer's principle
     \item \texttt{mu\_distance\_triangle} (MuGeometry.v): $\mu$-distance metric inequality
 \end{itemize}
 
@@ -78,7 +78,7 @@ Key theorems include:
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{Physics\_Requires\_Extra\_Structure} (TOEDecision.v, archived): Theory-of-everything impossibility
+    \item \texttt{Physics\_Requires\_Extra\_Structure} (TOEDecision.v, reference-only): Theory-of-everything impossibility
     \item \texttt{KernelTOE\_FinalOutcome} (TOE.v): Final TOE outcome
     \item \texttt{cone\_composition}, \texttt{cone\_monotone} (ConeAlgebra.v, ConeDerivation.v): Cone algebra
     \item \texttt{Cone\_Structure\_Unique} (ConeDerivation.v): Cone uniqueness
@@ -101,9 +101,9 @@ Key theorems include:
     \item \texttt{pnew\_not\_tm\_simulable} (PartitionSeparation.v): PNEW exceeds TM capability
 \end{itemize}
 
-\section{Kernel TOE Theorems (archived)}
+\section{Kernel TOE Theorems (reference-only)}
 
-\textbf{Note}: The kernel\_toe/ files have been archived to \texttt{archive/coq\_unused/kernel\_toe/}.
+\textbf{Note}: The kernel\_toe/ files are maintained as reference-only at \texttt{archive/coq\_unused/kernel\_toe/}.
 
 Key theorems include:
 \begin{itemize}
@@ -115,9 +115,9 @@ Key theorems include:
     \item \texttt{MultiplicativeWeightFamily\_Infinite} (kernel\_toe/NoGoSensitivity.v): Multiplicative sensitivity
 \end{itemize}
 
-\section{ThieleMachine Theorems (archived)}
+\section{ThieleMachine Theorems (reference-only)}
 
-\textbf{Note}: The \texttt{coq/thielemachine/} files have been archived to \texttt{archive/coq\_unused/thielemachine/}.
+\textbf{Note}: The \texttt{coq/thielemachine/} files are maintained as reference-only at \texttt{archive/coq\_unused/thielemachine/}.
 
 \subsection{Quantum Bounds}
 
@@ -130,8 +130,8 @@ Key theorems include:
     \item \texttt{local\_trials\_CHSH\_bound} (BellReceiptLocalGeneral.v): Receipt-based locality
     \item \texttt{trials\_from\_concrete\_receipts\_are\_sound} (BellReceiptSoundness.v): Receipt soundness
     \item \texttt{born\_rule\_valid} (BornRule.v): Born rule validity
-    \item \texttt{born\_rule\_from\_tensor\_consistency} (BornRuleFromSymmetry.v, archived; active replacement: BornRuleLinearity.v): Born rule from tensor product consistency (non-circular)
-    \item \texttt{no\_cloning\_from\_mu\_monotonicity} (NoCloningFromMuMonotonicity.v, archived; active replacement: NoCloning.v): Machine-native no-cloning via integer arithmetic
+    \item \texttt{born\_rule\_from\_tensor\_consistency} (BornRuleFromSymmetry.v, reference-only; active replacement: BornRuleLinearity.v): Born rule from tensor product consistency (non-circular)
+    \item \texttt{no\_cloning\_from\_mu\_monotonicity} (NoCloningFromMuMonotonicity.v, reference-only; active replacement: NoCloning.v): Machine-native no-cloning via integer arithmetic
     \item \texttt{tsirelson\_from\_algebraic\_coherence} (AlgebraicCoherence.v): Algebraic coherence route
     \item \texttt{tsirelson\_bound\_proof} (TsirelsonFromAlgebra.v): Self-contained algebraic Tsirelson derivation
     \item \texttt{tsirelson\_achieved} (TsirelsonFromAlgebra.v): Achievability witness for $2\sqrt{2}$
@@ -148,22 +148,22 @@ Key theorems include:
     \item \texttt{deterministic\_replay} (PartitionLogic.v): Deterministic replay
 \end{itemize}
 
-\subsection{Oracle Impossibility (archived)}
+\subsection{Oracle Impossibility (reference-only)}
 
-\textbf{Note}: OracleImpossibility.v has been archived to \texttt{archive/kernel\_exploratory/dead\_end\_chains/}.
+\textbf{Note}: OracleImpossibility.v is maintained as reference-only at \texttt{archive/kernel\_exploratory/dead\_end\_chains/}.
 
 Key theorems include:
 \begin{itemize}
-    \item \texttt{halting\_undecidable} (OracleImpossibility.v, archived): Halting problem undecidability via diagonalization
-    \item \texttt{oracle\_halts\_costs\_mu} (OracleImpossibility.v, archived): Any halting oracle incurs $\mu$-cost
-    \item \texttt{hypercomputation\_bounded} (OracleImpossibility.v, archived): Hypercomputation is bounded by the Thiele framework
-    \item \texttt{always\_halts\_undecidable} (OracleImpossibility.v, archived): Rice's theorem---no non-trivial semantic property is decidable
-    \item \texttt{oracle\_cost\_linear} (OracleImpossibility.v, archived): Oracle cost grows linearly
+    \item \texttt{halting\_undecidable} (OracleImpossibility.v, reference-only): Halting problem undecidability via diagonalization
+    \item \texttt{oracle\_halts\_costs\_mu} (OracleImpossibility.v, reference-only): Any halting oracle incurs $\mu$-cost
+    \item \texttt{hypercomputation\_bounded} (OracleImpossibility.v, reference-only): Hypercomputation is bounded by the Thiele framework
+    \item \texttt{always\_halts\_undecidable} (OracleImpossibility.v, reference-only): Rice's theorem---no non-trivial semantic property is decidable
+    \item \texttt{oracle\_cost\_linear} (OracleImpossibility.v, reference-only): Oracle cost grows linearly
 \end{itemize}
 
-\subsection{Oracle Accounting (archived)}
+\subsection{Oracle Accounting (reference-only)}
 
-\textbf{Note}: Oracle.v, HyperThiele*.v have been archived to \texttt{archive/coq\_unused/thielemachine/}.
+\textbf{Note}: Oracle.v and HyperThiele*.v are maintained as reference-only at \texttt{archive/coq\_unused/thielemachine/}.
 
 Key results include:
 \begin{itemize}
@@ -185,9 +185,9 @@ Key theorems include:
     \item \texttt{nonlocal\_correlation\_requires\_revelation} (RevelationRequirement.v): Revelation requirement
 \end{itemize}
 
-\section{Bridge Theorems (archived)}
+\section{Bridge Theorems (reference-only)}
 
-\textbf{Note}: All bridge/ files have been archived to \texttt{archive/coq\_unused/bridge/}.
+\textbf{Note}: All bridge/ files are maintained as reference-only at \texttt{archive/coq\_unused/bridge/}.
 
 Key theorems include:
 \begin{itemize}
@@ -211,9 +211,9 @@ Key theorems include:
     \item \texttt{erase\_mu\_equals\_entropy\_loss} (LandauerBridge.v): Erasure cost equals entropy loss
 \end{itemize}
 
-\section{Shor Primitives Theorems (archived)}
+\section{Shor Primitives Theorems (reference-only)}
 
-\textbf{Note}: All shor\_primitives/ files have been archived to \texttt{archive/coq\_unused/shor\_primitives/}.
+\textbf{Note}: All shor\_primitives/ files are maintained as reference-only at \texttt{archive/coq\_unused/shor\_primitives/}.
 
 Key theorems include:
 \begin{itemize}
@@ -240,9 +240,9 @@ Key theorems include:
     \item \texttt{self\_reference\_requires\_metalevel} (SelfReference.v): Meta-level requirement
 \end{itemize}
 
-\section{Modular Proofs Theorems (archived)}
+\section{Modular Proofs Theorems (reference-only)}
 
-\textbf{Note}: All \texttt{coq/modular\_proofs/} files have been archived to \texttt{archive/coq\_unused/modular\_proofs/}.
+\textbf{Note}: All \texttt{coq/modular\_proofs/} files are maintained as reference-only at \texttt{archive/coq\_unused/modular\_proofs/}.
 
 \subsection{Cornerstone and Simulation}
 
@@ -267,9 +267,9 @@ The TM $\to$ Minsky $\to$ Thiele subsumption chain (776 lines across two files):
     \item \texttt{identity\_tm\_thiele\_simulation} (ThieleInstance.v): Concrete witness for the identity TM
 \end{itemize}
 
-\section{ThieleUniversal Theorems (archived)}
+\section{ThieleUniversal Theorems (reference-only)}
 
-\textbf{Note}: All \texttt{coq/thieleuniversal/} files have been archived to \texttt{archive/coq\_unused/thieleuniversal/}.
+\textbf{Note}: All \texttt{coq/thieleuniversal/} files are maintained as reference-only at \texttt{archive/coq\_unused/thieleuniversal/}.
 
 Key theorems include:
 \begin{itemize}
@@ -289,11 +289,11 @@ Key theorems (in \texttt{coq/kernel/MasterSummary.v}) include:
     \item \texttt{master\_verification\_chain}: Full verification chain
 \end{itemize}
 
-See also \texttt{non\_circularity\_verified} (NonCircularityAudit.v), \texttt{three\_layer\_semantic\_isomorphism} (SemanticComplexityIsomorphism.v, archived), and \texttt{complete\_verification\_chain} (HardwareBisimulation.v).
+See also \texttt{non\_circularity\_verified} (NonCircularityAudit.v), \texttt{three\_layer\_semantic\_isomorphism} (SemanticComplexityIsomorphism.v, reference-only), and \texttt{complete\_verification\_chain} (HardwareBisimulation.v).
 
 \section{Quantum-Information Facts (proved inline)}
 
-\textbf{Note}: The six quantum-information facts that anchor the Tsirelson bound derivation were originally proved in standalone files (\texttt{HardMathFactsProven.v} and \texttt{AssumptionBundle.v}), which have since been removed. The corresponding results are now proved directly in the active kernel files: \texttt{ClassicalBound.v} ($S \leq 2$ for local strategies), \texttt{BoxCHSH.v} ($S \leq 4$ for valid strategies), \texttt{AlgebraicCoherence.v} (symmetric coherence bound), \texttt{MinorConstraints.v} (Tsirelson from algebraic coherence), and \texttt{TsirelsonFromAlgebra.v} (tight Tsirelson bound). No standalone bundle or archive exists.
+\textbf{Note}: The six quantum-information facts that anchor the Tsirelson bound derivation were originally proved in standalone files (\texttt{HardMathFactsProven.v} and \texttt{AssumptionBundle.v}), which are removed. The corresponding results are now proved directly in the active kernel files: \texttt{ClassicalBound.v} ($S \leq 2$ for local strategies), \texttt{BoxCHSH.v} ($S \leq 4$ for valid strategies), \texttt{AlgebraicCoherence.v} (symmetric coherence bound), \texttt{MinorConstraints.v} (Tsirelson from algebraic coherence), and \texttt{TsirelsonFromAlgebra.v} (tight Tsirelson bound). No standalone bundle or archive exists.
 
 \section{Theorem Count Summary}
 
