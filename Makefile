@@ -165,6 +165,7 @@ closeout-gate: coq-gate canonical-extract check-sensitive-files-strict isa-proof
 	@echo "[closeout-gate] Step 7/10: No-open-obligations + full-state verification scope..."
 	@pytest tests/test_completeness_gate.py -q --tb=short
 	@echo "[closeout-gate] Step 8/10: Artifact generators emit closed statuses..."
+	@python3 scripts/generate_master_summary_artifacts.py
 	@pytest tests/test_master_summary_artifacts.py -q --tb=short
 	@echo "[closeout-gate] Step 9/10: Full canonical OCaml extraction surface (46 opcodes)..."
 	@pytest tests/test_extraction_freshness.py tests/test_ocaml_extraction_parity_46.py -q --tb=short
