@@ -6092,6 +6092,30 @@ def _run_cross_layer_foundation_checks(repo_root: Path) -> list[Finding]:
                 ", ".join(missing),
             )
 
+        # 4b) Parser field map must stay in sync with forge_vm.py CONSTRUCTOR_FIELD_MAP.
+        # Any opcode that appears in _parse_instruction_dict but NOT in forge_vm.py
+        # indicates handwritten parsing logic that escaped the extraction pipeline.
+        forge_vm = _require_file(repo_root / "scripts" / "forge_vm.py")
+        if forge_vm is not None:
+            import re as _re
+            forge_ctors = set(_re.findall(r'"Instr_(\w+)"', forge_vm))
+            # Opcodes that _parse_instruction_dict handles by explicit elif branch
+            # must all be derivable from the forge_vm constructor map.
+            shim_branches = set(_re.findall(r'elif op == "(\w+)"', py_vm))
+            unknown_branches = {b.lower() for b in shim_branches} - {c.lower() for c in forge_ctors} - {
+                # Allowed harness-only branches: init directives, fuel, etc.
+                "fuel", "init_reg", "init_mem", "init_mu", "init_tensor",
+                "init_logic_acc", "init_active_module", "init_pt",
+            }
+            if unknown_branches:
+                    _add(
+                        repo_root / "build" / "thiele_vm.py",
+                        "build/thiele_vm.py parser contains opcode branches not present in "
+                        "forge_vm.py CONSTRUCTOR_FIELD_MAP — handwritten parsing escaped "
+                        "the extraction pipeline.",
+                        ", ".join(sorted(unknown_branches)),
+                    )
+
     # 5) Hardware cosim must use canonical Kami RTL/testbench path.
     cosim_py = _require_file(repo_root / "thielecpu" / "hardware" / "cosim.py")
     if cosim_py is not None:
