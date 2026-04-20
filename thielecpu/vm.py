@@ -243,6 +243,435 @@ class VMState:
 _CERT_SETTERS: frozenset = frozenset({"certify", "emit", "lassert", "ljoin", "morph_assert", "read_port", "reveal"})
 
 # ---------------------------------------------------------------------------
+# _parse_instruction_dict: parses text tokens to instruction dict.
+# Derived from CONSTRUCTOR_FIELD_MAP in forge_vm.py — inverse of instr_dict_to_text.
+# ---------------------------------------------------------------------------
+
+def _parse_region(tok: str) -> List[int]:
+    """Parse {v1,v2,...} region encoding to list of ints."""
+    tok = tok.strip()
+    if tok in ("", "{}", "{}"):
+        return []
+    if tok.startswith("{") and tok.endswith("}"):
+        tok = tok[1:-1]
+    if not tok:
+        return []
+    return [int(x) for x in tok.split(",") if x.strip()]
+
+
+def _parse_int(tok: str) -> int:
+    """Parse a token as integer (hex or decimal)."""
+    try:
+        return int(tok, 0)
+    except (ValueError, TypeError):
+        return 0
+
+
+def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
+    """Parse textual instruction tokens into dict. Generated from CONSTRUCTOR_FIELD_MAP."""
+    if not toks:
+        return None
+    op = toks[0].upper()
+
+    if op == "LASSERT" and 2 <= len(toks) <= 5:
+        raise ValueError(
+            "Legacy LASSERT text form not supported; "
+            "use canonical on-chip form `LASSERT <freg> <creg> <kind> <flen> <cost>`"
+        )
+
+    if op == "PNEW" and len(toks) >= 3:
+        return {
+            "op": "pnew",
+            "region": _parse_region(toks[1]),
+            "cost": _parse_int(toks[2]),
+        }
+
+    if op == "PSPLIT" and len(toks) >= 5:
+        return {
+            "op": "psplit",
+            "module": _parse_int(toks[1]),
+            "left": _parse_region(toks[2]),
+            "right": _parse_region(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "PMERGE" and len(toks) >= 4:
+        return {
+            "op": "pmerge",
+            "m1": _parse_int(toks[1]),
+            "m2": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "LASSERT" and len(toks) >= 6:
+        return {
+            "op": "lassert",
+            "freg": _parse_int(toks[1]),
+            "creg": _parse_int(toks[2]),
+            "kind": _parse_int(toks[3]) != 0,
+            "flen": _parse_int(toks[4]),
+            "cost": _parse_int(toks[5]),
+        }
+
+    if op == "LJOIN" and len(toks) >= 4:
+        return {
+            "op": "ljoin",
+            "c1reg": _parse_int(toks[1]),
+            "c2reg": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "MDLACC" and len(toks) >= 3:
+        return {
+            "op": "mdlacc",
+            "module": _parse_int(toks[1]),
+            "cost": _parse_int(toks[2]),
+        }
+
+    if op == "PDISCOVER" and len(toks) >= 4:
+        return {
+            "op": "pdiscover",
+            "module": _parse_int(toks[1]),
+            "evidence": _parse_region(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "XFER" and len(toks) >= 4:
+        return {
+            "op": "xfer",
+            "dst": _parse_int(toks[1]),
+            "src": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "LOAD_IMM" and len(toks) >= 4:
+        return {
+            "op": "load_imm",
+            "dst": _parse_int(toks[1]),
+            "imm": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "LOAD" and len(toks) >= 4:
+        return {
+            "op": "load",
+            "dst": _parse_int(toks[1]),
+            "addr": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "STORE" and len(toks) >= 4:
+        return {
+            "op": "store",
+            "addr": _parse_int(toks[1]),
+            "src": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "ADD" and len(toks) >= 5:
+        return {
+            "op": "add",
+            "dst": _parse_int(toks[1]),
+            "rs1": _parse_int(toks[2]),
+            "rs2": _parse_int(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "SUB" and len(toks) >= 5:
+        return {
+            "op": "sub",
+            "dst": _parse_int(toks[1]),
+            "rs1": _parse_int(toks[2]),
+            "rs2": _parse_int(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "JUMP" and len(toks) >= 3:
+        return {
+            "op": "jump",
+            "target": _parse_int(toks[1]),
+            "cost": _parse_int(toks[2]),
+        }
+
+    if op == "JNEZ" and len(toks) >= 4:
+        return {
+            "op": "jnez",
+            "rs": _parse_int(toks[1]),
+            "target": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "CALL" and len(toks) >= 3:
+        return {
+            "op": "call",
+            "target": _parse_int(toks[1]),
+            "cost": _parse_int(toks[2]),
+        }
+
+    if op == "RET" and len(toks) >= 2:
+        return {
+            "op": "ret",
+            "cost": _parse_int(toks[1]),
+        }
+
+    if op == "CHSH_TRIAL" and len(toks) >= 6:
+        return {
+            "op": "chsh_trial",
+            "x": _parse_int(toks[1]),
+            "y": _parse_int(toks[2]),
+            "a": _parse_int(toks[3]),
+            "b": _parse_int(toks[4]),
+            "cost": _parse_int(toks[5]),
+        }
+
+    if op == "XOR_LOAD" and len(toks) >= 4:
+        return {
+            "op": "xor_load",
+            "dst": _parse_int(toks[1]),
+            "addr": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "XOR_ADD" and len(toks) >= 4:
+        return {
+            "op": "xor_add",
+            "dst": _parse_int(toks[1]),
+            "src": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "XOR_SWAP" and len(toks) >= 4:
+        return {
+            "op": "xor_swap",
+            "a": _parse_int(toks[1]),
+            "b": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "XOR_RANK" and len(toks) >= 4:
+        return {
+            "op": "xor_rank",
+            "dst": _parse_int(toks[1]),
+            "src": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "EMIT" and len(toks) >= 4:
+        return {
+            "op": "emit",
+            "module": _parse_int(toks[1]),
+            "payload": toks[2],
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "REVEAL" and len(toks) >= 5:
+        return {
+            "op": "reveal",
+            "module": _parse_int(toks[1]),
+            "bits": _parse_int(toks[2]),
+            "cert": toks[3],
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "HALT" and len(toks) >= 2:
+        return {
+            "op": "halt",
+            "cost": _parse_int(toks[1]),
+        }
+
+    if op == "CHECKPOINT" and len(toks) >= 3:
+        return {
+            "op": "checkpoint",
+            "label": toks[1],
+            "cost": _parse_int(toks[2]),
+        }
+
+    if op == "READ_PORT" and len(toks) >= 6:
+        return {
+            "op": "read_port",
+            "dst": _parse_int(toks[1]),
+            "channel": _parse_int(toks[2]),
+            "value": _parse_int(toks[3]),
+            "bits": _parse_int(toks[4]),
+            "cost": _parse_int(toks[5]),
+        }
+
+    if op == "WRITE_PORT" and len(toks) >= 4:
+        return {
+            "op": "write_port",
+            "channel": _parse_int(toks[1]),
+            "src": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "HEAP_LOAD" and len(toks) >= 4:
+        return {
+            "op": "heap_load",
+            "dst": _parse_int(toks[1]),
+            "addr": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "HEAP_STORE" and len(toks) >= 4:
+        return {
+            "op": "heap_store",
+            "addr": _parse_int(toks[1]),
+            "src": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "CERTIFY" and len(toks) >= 2:
+        return {
+            "op": "certify",
+            "cost": _parse_int(toks[1]),
+        }
+
+    if op == "AND" and len(toks) >= 5:
+        return {
+            "op": "and",
+            "dst": _parse_int(toks[1]),
+            "rs1": _parse_int(toks[2]),
+            "rs2": _parse_int(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "OR" and len(toks) >= 5:
+        return {
+            "op": "or",
+            "dst": _parse_int(toks[1]),
+            "rs1": _parse_int(toks[2]),
+            "rs2": _parse_int(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "SHL" and len(toks) >= 5:
+        return {
+            "op": "shl",
+            "dst": _parse_int(toks[1]),
+            "rs1": _parse_int(toks[2]),
+            "rs2": _parse_int(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "SHR" and len(toks) >= 5:
+        return {
+            "op": "shr",
+            "dst": _parse_int(toks[1]),
+            "rs1": _parse_int(toks[2]),
+            "rs2": _parse_int(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "MUL" and len(toks) >= 5:
+        return {
+            "op": "mul",
+            "dst": _parse_int(toks[1]),
+            "rs1": _parse_int(toks[2]),
+            "rs2": _parse_int(toks[3]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "LUI" and len(toks) >= 4:
+        return {
+            "op": "lui",
+            "dst": _parse_int(toks[1]),
+            "imm": _parse_int(toks[2]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "TENSOR_SET" and len(toks) >= 6:
+        return {
+            "op": "tensor_set",
+            "module": _parse_int(toks[1]),
+            "i": _parse_int(toks[2]),
+            "j": _parse_int(toks[3]),
+            "value": _parse_int(toks[4]),
+            "mu_delta": _parse_int(toks[5]),
+            "cost": _parse_int(toks[5]),
+        }
+
+    if op == "TENSOR_GET" and len(toks) >= 6:
+        return {
+            "op": "tensor_get",
+            "dst": _parse_int(toks[1]),
+            "module": _parse_int(toks[2]),
+            "i": _parse_int(toks[3]),
+            "j": _parse_int(toks[4]),
+            "mu_delta": _parse_int(toks[5]),
+            "cost": _parse_int(toks[5]),
+        }
+
+    if op == "MORPH" and len(toks) >= 6:
+        return {
+            "op": "morph",
+            "dst": _parse_int(toks[1]),
+            "src_mod": _parse_int(toks[2]),
+            "dst_mod": _parse_int(toks[3]),
+            "coupling_idx": _parse_int(toks[4]),
+            "mu_delta": _parse_int(toks[5]),
+            "cost": _parse_int(toks[5]),
+        }
+
+    if op == "COMPOSE" and len(toks) >= 5:
+        return {
+            "op": "compose",
+            "dst": _parse_int(toks[1]),
+            "m1": _parse_int(toks[2]),
+            "m2": _parse_int(toks[3]),
+            "mu_delta": _parse_int(toks[4]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "MORPH_ID" and len(toks) >= 4:
+        return {
+            "op": "morph_id",
+            "dst": _parse_int(toks[1]),
+            "module": _parse_int(toks[2]),
+            "mu_delta": _parse_int(toks[3]),
+            "cost": _parse_int(toks[3]),
+        }
+
+    if op == "MORPH_DELETE" and len(toks) >= 3:
+        return {
+            "op": "morph_delete",
+            "morph_id": _parse_int(toks[1]),
+            "mu_delta": _parse_int(toks[2]),
+            "cost": _parse_int(toks[2]),
+        }
+
+    if op == "MORPH_ASSERT" and len(toks) >= 5:
+        return {
+            "op": "morph_assert",
+            "morph_id": _parse_int(toks[1]),
+            "property": toks[2],
+            "cert": toks[3],
+            "mu_delta": _parse_int(toks[4]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "MORPH_TENSOR" and len(toks) >= 5:
+        return {
+            "op": "morph_tensor",
+            "dst": _parse_int(toks[1]),
+            "f": _parse_int(toks[2]),
+            "g": _parse_int(toks[3]),
+            "mu_delta": _parse_int(toks[4]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    if op == "MORPH_GET" and len(toks) >= 5:
+        return {
+            "op": "morph_get",
+            "dst": _parse_int(toks[1]),
+            "morph_id": _parse_int(toks[2]),
+            "selector": _parse_int(toks[3]),
+            "mu_delta": _parse_int(toks[4]),
+            "cost": _parse_int(toks[4]),
+        }
+
+    return None
+
+# ---------------------------------------------------------------------------
 # instr_dict_to_text: serializes instruction dict to OCaml runner text format.
 # Derived from CONSTRUCTOR_FIELD_MAP in forge_vm.py — the field order matches
 # the constructor argument order in build/thiele_core.ml.

@@ -493,6 +493,107 @@ def _fmt_list_field(val: Any) -> str:
     return "{" + ",".join(str(x) for x in val) + "}"
 
 
+def generate_text_parser() -> str:
+    """Generate _parse_instruction_dict() from CONSTRUCTOR_FIELD_MAP.
+
+    This is the inverse of instr_dict_to_text(): converts textual token list
+    (e.g. ["ADD", "1", "2", "3", "0"]) to instruction dict (e.g. {"op": "add", ...}).
+    Generated from the same CONSTRUCTOR_FIELD_MAP as the serializer.
+    """
+    # Fields whose dict values are parsed from text as a region list (space-encoded)
+    LIST_FIELDS = frozenset({"region", "left", "right", "evidence"})
+    # Fields whose dict values are kept as raw strings
+    STR_FIELDS = frozenset({"payload", "label", "property", "cert"})
+    # Fields parsed as bool (int != 0)
+    BOOL_FIELDS = frozenset({"kind"})
+    # Opcode names that use mu_delta instead of cost; parser should also emit cost alias
+    MU_DELTA_OPS = frozenset({
+        "tensor_set", "tensor_get",
+        "morph", "compose", "morph_id", "morph_delete",
+        "morph_assert", "morph_tensor", "morph_get",
+    })
+    # Python-safe op name overrides (avoids conflict with Python builtins)
+    OP_NAME_OVERRIDE: dict[str, str] = {}  # and/or now use bare names ("and","or") matching instr_dict_to_text
+
+    lines = [
+        "# ---------------------------------------------------------------------------",
+        "# _parse_instruction_dict: parses text tokens to instruction dict.",
+        "# Derived from CONSTRUCTOR_FIELD_MAP in forge_vm.py — inverse of instr_dict_to_text.",
+        "# ---------------------------------------------------------------------------",
+        "",
+        "def _parse_region(tok: str) -> List[int]:",
+        '    """Parse {v1,v2,...} region encoding to list of ints."""',
+        "    tok = tok.strip()",
+        '    if tok in ("", "{}", "{}"):',
+        "        return []",
+        '    if tok.startswith("{") and tok.endswith("}"):',
+        "        tok = tok[1:-1]",
+        '    if not tok:',
+        "        return []",
+        '    return [int(x) for x in tok.split(",") if x.strip()]',
+        "",
+        "",
+        "def _parse_int(tok: str) -> int:",
+        '    """Parse a token as integer (hex or decimal)."""',
+        "    try:",
+        "        return int(tok, 0)",
+        "    except (ValueError, TypeError):",
+        "        return 0",
+        "",
+        "",
+        "def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:",
+        '    """Parse textual instruction tokens into dict. Generated from CONSTRUCTOR_FIELD_MAP."""',
+        "    if not toks:",
+        "        return None",
+        "    op = toks[0].upper()",
+        "",
+    ]
+
+    # Special: LASSERT legacy error guard (must come before normal LASSERT branch)
+    lines.append('    if op == "LASSERT" and 2 <= len(toks) <= 5:')
+    lines.append('        raise ValueError(')
+    lines.append('            "Legacy LASSERT text form not supported; "')
+    lines.append('            "use canonical on-chip form `LASSERT <freg> <creg> <kind> <flen> <cost>`"')
+    lines.append('        )')
+    lines.append('')
+
+    for ctor, field_pairs in CONSTRUCTOR_FIELD_MAP.items():
+        opname = ctor_to_opname(ctor)
+        op_upper = opname.upper()
+        display_opname = OP_NAME_OVERRIDE.get(opname, opname)
+
+        n_fields = len(field_pairs)
+        min_toks = 1 + n_fields  # 1 for opcode token itself
+
+        lines.append(f'    if op == "{op_upper}" and len(toks) >= {min_toks}:')
+        dict_entries = [f'"op": "{display_opname}"']
+        for i, (_ocaml_name, py_key) in enumerate(field_pairs):
+            tok_idx = i + 1
+            if py_key in LIST_FIELDS:
+                dict_entries.append(f'"{py_key}": _parse_region(toks[{tok_idx}])')
+            elif py_key in STR_FIELDS:
+                dict_entries.append(f'"{py_key}": toks[{tok_idx}]')
+            elif py_key in BOOL_FIELDS:
+                dict_entries.append(f'"{py_key}": _parse_int(toks[{tok_idx}]) != 0')
+            else:
+                dict_entries.append(f'"{py_key}": _parse_int(toks[{tok_idx}])')
+        # For mu_delta ops, also emit cost alias pointing to mu_delta so consumers
+        # that read "cost" still work.
+        if opname in MU_DELTA_OPS and not any(pk == "cost" for _, pk in field_pairs):
+            mu_idx = next(i + 1 for i, (_, pk) in enumerate(field_pairs) if pk == "mu_delta")
+            dict_entries.append(f'"cost": _parse_int(toks[{mu_idx}])')
+        indent = "            "
+        dict_str = (",\n" + indent).join(dict_entries)
+        lines.append(f'        return {{')
+        lines.append(f'            {dict_str},')
+        lines.append(f'        }}')
+        lines.append('')
+
+    lines.append('    return None')
+    lines.append('')
+    return "\n".join(lines)
+
+
 def generate_instr_dict_to_text() -> str:
     """Generate instr_dict_to_text() from CONSTRUCTOR_FIELD_MAP.
 
@@ -910,6 +1011,7 @@ def generate_full_vm(ml_text: str) -> str:
         generate_constants(constants),
         generate_types(),
         generate_cert_setters(cert_setters),
+        generate_text_parser(),
         generate_instr_dict_to_text(),
         generate_runner_and_vm(),
     ]
