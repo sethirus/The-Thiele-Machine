@@ -130,7 +130,7 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
 \end{itemize}
 
 
-These definitions are generated in \texttt{artifacts/synthesis\_gate/generated\_opcodes\_run2.vh} from the Coq instruction list, ensuring that the hardware and proofs share the same opcode mapping. (Note: the file was previously at \texttt{thielecpu/hardware/rtl/generated\_opcodes.vh}.)
+These definitions are generated in \texttt{artifacts/synthesis\_gate/generated\_opcodes\_run2.vh} from the Coq instruction list, so the hardware and proofs share the same opcode mapping. (Note: the file was previously at \texttt{thielecpu/hardware/rtl/generated\_opcodes.vh}.)
 
 \subsection{$\mu$-ALU Design}
 
@@ -610,7 +610,7 @@ OPCODE_HALT
     \end{itemize}
 \end{itemize}
 
-\textbf{Why is this the proof artifact?} The extracted runner is \textit{guaranteed correct by Coq}: if the proofs type-check, the extracted code implements the proven semantics. This eliminates the \textit{trusted verification gap} (gap between specification and implementation).
+\textbf{Why is this the proof artifact?} The extracted runner is \textit{proven correct by Coq}: if the proofs type-check, the extracted code implements the proven semantics. This eliminates the \textit{trusted verification gap} (gap between specification and implementation).
 
 
 \subsection{RTL Integration}
@@ -658,4 +658,4 @@ The hardware implementation and demonstration suite establish:
     \item \textbf{Benchmarks}: Performance measurements across layers
 \end{enumerate}
 
-The hardware layer proves that the Thiele Machine is not merely a theoretical construct but a realizable computational architecture with silicon-enforced guarantees.
+The hardware layer proves that the Thiele Machine is not merely a theoretical construct but a realizable computational architecture with silicon-enforced proves.

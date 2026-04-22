@@ -118,3 +118,34 @@
 | `shadow_separation_theorem` | WITNESS | YES | Existential with explicit design |
 | `shadow_does_not_capture_morphisms` | ALGEBRAIC | YES | Universal quantification over all classical functions |
 | `shadow_strictly_lossy` | WITNESS | YES | Combines C2/C3/C4 in one statement |
+| `full_efe_uniform_two_vertex` | BRIDGE+ALGEBRAIC | YES | First unconditional full-tensor EFE; discharges off-diagonal Ricci for flat case |
+| `curved_ricci_uniform_two_vertex` | ALGEBRAIC | YES | Off-diagonal Ricci=0 for uniform metric via Riemann=0 reduction |
+| `full_efe_from_diagonal_and_offdiag_ricci` | BRIDGE | YES | Structural reduction: full tensor EFE iff diagonal EFE + off-diagonal Ricci=0; falsifiable |
+| `hardware_shadow_compat` | DEFINITIONAL | YES-DESIGN | Shadow and RTL agree definitionally; value is the layered architecture it formalizes |
+| `morph_table_wf_kami_step_preserved` | CASE-ANALYSIS | YES | All 46 kami_step ops preserve morph_table_wf; closes MORPH family gaps |
+| `driven_step_compose` | STRUCTURAL+ALGEBRAIC | YES | Both success and error branches of COMPOSE; coupling_wf migration required |
+
+---
+
+## EinsteinEquationsFull.v (Updated 2026-04-22)
+
+### `curved_ricci_uniform_two_vertex`
+**Claim**: For uniform metric (same at all vertices), `curved_ricci s (two_vertex_sc v w) mu nu v = 0`
+**Classification**: **ALGEBRAIC**
+**Content**: All Riemann components are zero under uniform metric (by `curved_riemann_uniform_zero_two_vertex`); Ricci = sum of zeros. `ring` closes it.
+**Is it trivial?** No — the key insight is that uniform metric ⟹ all Christoffels vanish ⟹ Riemann vanishes ⟹ Ricci vanishes. This chain was not obvious; it required tracing through the curved tensor pipeline.
+
+### `full_efe_uniform_two_vertex`
+**Claim**: `curved_einstein s (two_vertex_sc v w) mu nu v = 0 * mass_stress_energy s mu nu v` — the first unconditional full-tensor EFE (kappa=0, flat spacetime)
+**Classification**: **BRIDGE + ALGEBRAIC**
+**Content**: Applies `full_efe_from_diagonal_and_offdiag_ricci` with:
+- Diagonal EFE discharged by `curved_einstein_uniform_zero_two_vertex`
+- Off-diagonal Ricci discharged by `curved_ricci_uniform_two_vertex`
+
+**Is it trivial?** No — this is the first theorem with 0 Admitted **and** 0 named open premises for the full 4×4 tensor equation. The conditional version existed for weeks; closing it required extracting the off-diagonal Ricci lemma.
+
+### `full_efe_from_diagonal_and_offdiag_ricci`
+**Claim**: Diagonal EFE + off-diagonal Ricci=0 ⟹ full tensor EFE for all (mu,nu)<4
+**Classification**: **BRIDGE**
+**Content**: Case split on mu=nu vs mu≠nu. Diagonal case: direct. Off-diagonal: G_{μν}=R_{μν} (diagonal metric), R_{μν}=0 (hypothesis), T_{μν}=0 (proved). The structural decomposition is the interesting content.
+**Is it trivial?** No — the reduction is falsifiable: on finite complexes with non-uniform metric, off-diagonal Ricci is nonzero (proved in CurvedTensorPipeline.v:1085-1101). The theorem makes the gap explicit and auditable.

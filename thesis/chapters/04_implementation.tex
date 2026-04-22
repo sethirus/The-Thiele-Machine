@@ -313,7 +313,7 @@ Record ModuleState := {
     \item \textbf{pg\_next\_id}: Monotonically increasing counter for assigning new ModuleIDs
     \begin{itemize}
         \item Ensures uniqueness: each module gets a distinct ID
-        \item Never decreases: guarantees forward-only allocation
+        \item Never decreases: proves forward-only allocation
         \item Type: \texttt{ModuleID} (alias for \texttt{nat})
     \end{itemize}
     \item \textbf{pg\_modules}: Association list mapping IDs to module states
@@ -1098,7 +1098,7 @@ wire [7:0] operand_cost = current_instr[7:0];
     \item \textbf{Python}: Using struct unpacking or bitwise operations
     \item \textbf{Verilog}: This code
 \end{itemize}
-All three must produce identical field values given the same 32-bit instruction, ensuring consistent encoding across compilation pipelines.
+All three must produce identical field values given the same 32-bit instruction, so encoding stays consistent across compilation pipelines.
 
 \textbf{Example Decoding:} \texttt{0x01050003}
 \begin{itemize}
@@ -1171,7 +1171,7 @@ The logic engine is implemented as an on-chip FSM inside \texttt{mkModule1}. The
 \end{lstlisting}
 
 \paragraph{On-Chip Evaluation Protocol:}
-\textbf{Operation:} When an \texttt{LASSERT} instruction executes, the FSM reads the formula from \texttt{vm\_mem} at address \texttt{R[freg]}, then reads the witness block from \texttt{R[creg]}. In SAT mode that block contains two assignments back-to-back: a satisfying model and a falsifying countermodel. It verifies both entirely on-chip. The $\mu$-cost charged is $\mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring description length is reflected in cost while the second witness ensures the spend bought a real narrowing.
+\textbf{Operation:} When an \texttt{LASSERT} instruction executes, the FSM reads the formula from \texttt{vm\_mem} at address \texttt{R[freg]}, then reads the witness block from \texttt{R[creg]}. In SAT mode that block contains two assignments back-to-back: a satisfying model and a falsifying countermodel. It verifies both entirely on-chip. The $\mu$-cost charged is $\mathtt{flen} \times 8 + S(\mathtt{cost})$, so description length is reflected in cost while the second witness shows the spend bought a real narrowing.
 
 \textbf{Why Registers Instead of a Submodule?}
 \begin{itemize}

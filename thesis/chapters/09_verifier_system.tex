@@ -63,7 +63,7 @@ The active repository receipt surface is defined through the TRS-1.0 (Thiele Rec
     \item \textbf{"files": [...]} — For \texttt{fileset} receipts, the \textbf{manifest} of artifacts. Each entry contains:
     \begin{itemize}
         \item \textbf{"path"} — The relative filename (e.g., "claim.json").
-        \item \textbf{"sha256"} — The SHA-256 hash of the file content. Guaranteed data integrity.
+        \item \textbf{"sha256"} — The SHA-256 hash of the file content. Used as the integrity check value.
     \end{itemize}
     
     \item \textbf{"global\_digest": "..."} — A canonical hash over the sorted list of file entries. This digest represents the entire state of the certified work.

@@ -48,7 +48,7 @@ If you haven't seen Coq before, here's the gist: the theorem says ``for all $n$,
 
 I didn't write these tactics by hand---I fed Coq's error messages back to the LLM until it stopped complaining. The point isn't that I understand every tactic invocation intuitively. The point is that \texttt{Qed.} means Coq checked it, and that's the only opinion that matters.
 
-\textbf{Why this matters more than paper proofs:} A human could write ``By induction on $n$, trivially.'' That \textit{looks} correct, but glosses over whether each step actually follows from the definitions. I've seen plenty of ``obvious'' claims in papers that turn out to be wrong. Coq eliminates that failure mode---it forces every step to be justified, and if any step is wrong, it refuses to say \texttt{Qed.}
+\textbf{Why this matters more than paper proofs:} A human could write ``By induction on $n$, directly from the definition.'' That \textit{looks} correct, but glosses over whether each step actually follows from the definitions. I've seen plenty of ``direct'' claims in papers that turn out to be wrong. Coq eliminates that failure mode---it forces every step to be justified, and if any step is wrong, it refuses to say \texttt{Qed.}
 
 \section{Proof Inventory}
 
@@ -209,7 +209,7 @@ Supra-quantum correlations ($S > 2.8285$) are \textit{impossible in standard qua
     \item Case 1: $B$ is local. Then $S(B) \leq 2 < 2.8285$ (classical bound, proven separately).
     \item Case 2: $B = \text{TsirelsonApprox}$. Then $S(B) = 2\sqrt{2} \approx 2.82842712 < 2.8285$ (proven by explicit construction of the quantum box and exact rational arithmetic).
 \end{enumerate}
-Coq verifies \textit{every} arithmetic step using \texttt{Q} rationals, ensuring no rounding errors.
+Coq verifies \textit{every} arithmetic step using \texttt{Q} rationals, so there are no rounding errors.
 
 \textbf{Example:} The standard CHSH setup: Alice and Bob share a maximally entangled state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|00\rangle + |11\rangle)$. Alice measures along $\sigma_Z$ or $\sigma_X$; Bob measures along $(\sigma_Z \pm \sigma_X)/\sqrt{2}$. These optimal settings give $S = 2\sqrt{2} \approx 2.8284$, and the Coq proof confirms this is the maximum for any quantum-admissible box. The important part for the Thiele Machine: if someone claims correlations above this bound without paying $\mu$, the machine rejects the claim.
 
@@ -314,7 +314,7 @@ Theorem thiele_simulates_turing :
 \begin{itemize}
     \item \textbf{Turing machine program:} Move tape head right, read symbol, add to accumulator, halt.
     \item \textbf{Thiele Machine program:} \texttt{[PUSH 3; PUSH 5; ADD; HALT]}.
-    \item \textbf{Result:} Both machines output 8. The theorem guarantees this equality.
+    \item \textbf{Result:} Both machines output 8. The theorem proves this equality.
 \end{itemize}
 
 \textbf{What about non-Turing instructions?} The Thiele Machine has instructions like \texttt{REVEAL} that \textit{cannot} be simulated by a Turing machine (they inspect partition structure). The theorem only applies when \texttt{program\_is\_turing prog} holds---when the program avoids these extra features. This is analogous to how a quantum computer can simulate a classical computer, but not vice versa.
@@ -815,7 +815,7 @@ Consider a partition with 3 modules $\{A, B, C\}$:
     \item \textbf{Weight function $w_1$:} Assign $w_1(A) = 1$, $w_1(B) = 2$, $w_1(C) = 1$. Total weight = 4.
     \item \textbf{Weight function $w_2$:} Assign $w_2(A) = 1$, $w_2(B) = 1$, $w_2(C) = 3$. Total weight = 5.
 \end{itemize}
-All three functions satisfy compositionality (e.g., $w_1(A \cup B) = w_1(A) + w_1(B) = 1 + 2 = 3$), but they differ on module $B$ or $C$. The theorem guarantees infinitely many such functions exist.
+All three functions satisfy compositionality (e.g., $w_1(A \cup B) = w_1(A) + w_1(B) = 1 + 2 = 3$), but they differ on module $B$ or $C$. The theorem proves infinitely many such functions exist.
 
 \textbf{Why does this matter for physics?} In quantum mechanics, probabilities are derived from \textit{Born's rule} ($P = |\psi|^2$). But Born's rule is an \textit{additional postulate}---it's not derived from the Schr\"odinger equation alone. Similarly, the kernel axioms (analogous to Schr\"odinger dynamics) do not uniquely determine probabilities. You need an extra postulate (analogous to Born's rule) to pin down the weight function.
 
@@ -853,7 +853,7 @@ Theorem KernelNoGo_UniqueWeight_Fails : KernelNoGo_UniqueWeight_FailsP.
     \item Assume (for contradiction) that there exists a unique weight function $w_{\text{unique}}$ forced by the kernel.
     \item By CompositionalWeightFamily\_Infinite, there exist infinitely many distinct weight functions $w_0, w_1, w_2, \ldots$ all satisfying the compositional laws.
     \item If $w_{\text{unique}}$ were forced, then $w_0 = w_{\text{unique}}$ and $w_1 = w_{\text{unique}}$, so $w_0 = w_1$.
-    \item But CompositionalWeightFamily\_Infinite guarantees $w_0 \neq w_1$ (they differ on at least one trace). Contradiction.
+    \item But CompositionalWeightFamily\_Infinite proves $w_0 \neq w_1$ (they differ on at least one trace). Contradiction.
     \item Therefore, no unique weight function exists.
 \end{enumerate}
 
@@ -1114,7 +1114,7 @@ The causal cone of \texttt{s0} is $\{\texttt{s0}, \texttt{s1}, \texttt{s2}, \tex
 
 \textbf{Why emergent, not fundamental?} Spacetime is \textit{not} an input to the Thiele Machine. There is no ``space coordinate'' or ``time coordinate'' in \texttt{VMState}. Instead, causal structure \textit{emerges} from the computation rules (\texttt{vm\_step}). This is analogous to theories of emergent spacetime in quantum gravity (e.g., causal set theory, loop quantum gravity), where spacetime is not fundamental but arises from more primitive structures.
 
-\textbf{Connection to cone locality:} The KernelMaximalClosure theorem (previous section) guarantees \textit{cone locality}: an event at state $s$ can only affect events in its future cone $\{s' \mid \text{reaches}\ s\ s'\}$. Events outside the cone are causally independent. This is the computational analogue of ``no faster-than-light signaling'' in relativity.
+\textbf{Connection to cone locality:} The KernelMaximalClosure theorem (previous section) proves \textit{cone locality}: an event at state $s$ can only affect events in its future cone $\{s' \mid \text{reaches}\ s\ s'\}$. Events outside the cone are causally independent. This is the computational analogue of ``no faster-than-light signaling'' in relativity.
 
 \textbf{What's missing: Metric structure:} The \texttt{reaches} relation defines \textit{causal order} but not \textit{distances} or \textit{geometry}. It tells you ``event $A$ can influence event $B$,'' but not ``how far apart are $A$ and $B$?'' or ``what is the proper time between $A$ and $B$?'' To add metric structure, you would need additional axioms (e.g., a distance function on states). This is part of the TOE no-go result: the kernel does not force a unique spacetime geometry.
 
@@ -1174,7 +1174,7 @@ Suppose:
     \item \textbf{Causal cone of $t_2$:} $\{\texttt{r1}\}$ (\texttt{r1} is read).
     \item \textbf{Causal cone of $t_1 ++ t_2$:} $\{\texttt{r0}, \texttt{r1}\}$ (both registers are in the cone).
 \end{itemize}
-The theorem guarantees: $\text{causal\_cone}(t_1 ++ t_2) = \{\texttt{r0}\} \cup \{\texttt{r1}\} = \{\texttt{r0}, \texttt{r1}\}$. $\checkmark$
+The theorem proves: $\text{causal\_cone}(t_1 ++ t_2) = \{\texttt{r0}\} \cup \{\texttt{r1}\} = \{\texttt{r0}, \texttt{r1}\}$. $\checkmark$
 
 \textbf{What is monoidal structure?} In abstract algebra, a \textit{monoid} is a set with an associative binary operation and an identity element. The theorem shows that causal cones form a monoid:
 \begin{itemize}
@@ -1372,7 +1372,7 @@ The cert CSR is the \textit{witness} of supra-quantum capability. If a trace cla
 
     \item \textbf{Supra-quantum trace:} \texttt{[PNEW, REVEAL, LASSERT, CHSH\_TRIAL, EMIT, HALT]}. Reveals partition structure and asserts logical constraints. \textit{Not} quantum-admissible. Final state: supra-quantum certificate present.
 \end{itemize}
-The theorem guarantees: if the trace is quantum-admissible, supra-quantum certification is impossible.
+The theorem proves: if the trace is quantum-admissible, supra-quantum certification is impossible.
 
 \textbf{Connection to Tsirelson bound:} The Tsirelson bound theorem (quantum\_admissible\_implies\_CHSH\_le\_tsirelson) proved that quantum-admissible boxes satisfy $S \leq 2.8285$. This theorem proves that quantum-admissible \textit{traces} cannot achieve supra-quantum certification. Together, they establish:
 \[
@@ -1459,7 +1459,7 @@ s0 --(PUSH 5)--> s1 --(REVEAL)--> s2 --(ADD)--> sf
     
     \item \textbf{Final result:} $\mu(\texttt{s0}) = 100 \leq \mu(\texttt{sf}) = 150$. $\checkmark$
 \end{itemize}
-The lemma guarantees this inequality holds for \textit{any} trace.
+The lemma proves this inequality holds for \textit{any} trace.
 
 \textbf{What if supra-certification happens?} If the trace sets the cert CSR (claiming supra-quantum capability), then $\mu$ \textit{must} increase by at least the declared cost. The cert contains a proof that $\mu$ increased by the claimed amount. This ensures you cannot "cheat" by claiming supra-quantum power without paying the $\mu$ cost.
 
@@ -1650,7 +1650,7 @@ Lemma meta_system_richer : forall S,
     
     \item \textbf{Example:} Let $P = $ ``System $S$ cannot prove $P$.''
     \begin{itemize}
-        \item If $S$ can express $P$ (\texttt{sentences S P}), and $P$ is true (Gödel's theorem guarantees this for sufficiently strong systems), then \texttt{contains\_self\_reference S} holds.
+        \item If $S$ can express $P$ (\texttt{sentences S P}), and $P$ is true (Gödel's theorem proves this for sufficiently strong systems), then \texttt{contains\_self\_reference S} holds.
     \end{itemize}
 \end{itemize}
 

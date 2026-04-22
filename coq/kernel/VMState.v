@@ -1766,10 +1766,14 @@ Definition graph_pmerge (g : PartitionGraph) (m1 m2 : ModuleID)
 (** CSRState: Control/Status Register state — four values the hardware
     uses for certification bookkeeping and error reporting.
 
-    csr_cert_addr: The address (checksum) of the last EMIT/REVEAL/LASSERT/LJOIN.
-      Non-zero means the machine has produced certified output. This is what
-      has_supra_cert checks. The NoFreeInsight theorem is ultimately about
-      this field: you can't get csr_cert_addr != 0 without spending μ-cost.
+    csr_cert_addr: The certification-address channel. Under the current
+      hardware-aligned step semantics, successful MORPH_ASSERT writes a
+      checksum here; the broader revelation/certification class still carries
+      positive μ-cost, but those instructions preserve this field unless a
+      future semantics change says otherwise. Non-zero means the machine has
+      produced a supra-certificate. This is what has_supra_cert checks.
+      The NoFreeInsight theorem is ultimately about this field: you can't get
+      csr_cert_addr != 0 without paying for the bridge event that wrote it.
 
     csr_status: General status code. Currently informational.
 
@@ -2091,9 +2095,10 @@ Definition swap_regs (regs : list nat) (a b : nat) : list nat :=
 Definition advance_pc (s : VMState) : nat := S s.(vm_pc).
 
 (** ascii_checksum: Sum the ASCII values of all characters in a string.
-    This is a weak but deterministic hash used by EMIT to update csr_cert_addr.
-    It's not cryptographically secure — it's just a record of what was emitted,
-    distinguishable from the initial value of 0. *)
+  This is a weak but deterministic hash used for inline certification tags,
+  including the current MORPH_ASSERT write to csr_cert_addr. It is not
+  cryptographically secure; it is only a stable, cheap, non-zero marker for
+  non-empty certification labels. *)
 Definition ascii_checksum (s : string) : nat :=
   fold_right (fun ch acc => nat_of_ascii ch + acc) 0 (list_ascii_of_string s).
 

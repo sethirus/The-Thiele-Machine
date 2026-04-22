@@ -60,7 +60,7 @@ The specification covers: the state space and operational semantics; the core ``
 \chapter{Introduction}
 The Thiele Machine is a computational model designed to make the thermodynamic cost of structure explicit. Unlike a Turing Machine, which treats all state transitions as cost-equivalent, the Thiele Machine assigns a specific cost $\mu$ to every operation that extracts or asserts structural information.
 
-The central claim, proven formally, is: \emph{one cannot gain structural insight about a system without paying $\mu$-cost}. This specification explores how this constraint, combined with explicit physical axioms (superposition, linearity, information conservation), yields structural results that parallel the laws of quantum mechanics, thermodynamics, and emergent spacetime. The epistemological status of each result---whether it is a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)}---is clearly marked throughout.
+The central claim, proven formally, is: \emph{one cannot gain structural insight about a system without paying $\mu$-cost}. This specification explores how this constraint, combined with explicit physical axioms (superposition, linearity, information conservation), yields structural results that parallel the laws of quantum mechanics, thermodynamics, and emergent spacetime. The epistemological status of each result---whether it is a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)}---is directly marked throughout.
 
 This specification is organized into eight parts:
 \begin{enumerate}
@@ -450,7 +450,7 @@ $\mathrm{Obs}(\sigma_\delta(S)) = \mathrm{Obs}(S)$. Shifting $\mu$ by a constant
 \begin{theorem}[Noether's Theorem {\normalfont (KernelNoether.v, RepresentationTheorem.v --- reference-only)}]
 \leavevmode
 \begin{enumerate}
-    \item \textbf{Forward}: States identical except for $\mu$ lie on the same gauge orbit. (Trivially true by construction: if all other fields match, the $\mu$ difference is the gauge shift.)
+    \item \textbf{Forward}: States identical except for $\mu$ lie on the same gauge orbit. (This is direct from the definition: if all other fields match, the $\mu$ difference is the gauge shift.)
     \item \textbf{Gauge Invariance}: \texttt{z\_gauge\_invariance} proves that shifting $\mu$ does not change \texttt{Observable\_partition}. This is definitional: \texttt{z\_gauge\_shift} only modifies the \texttt{vm\_mu} field, and \texttt{Observable\_partition} reads only \texttt{vm\_graph}.
     \item \textbf{Trace Preservation}: Gauge-equivalent states produce identical observable traces (same labels, same $\mu$-costs) for any finite horizon. Proven as \texttt{vm\_step\_orbit\_equiv}.
 \end{enumerate}
@@ -531,7 +531,7 @@ The Born rule $P(|0\rangle) = (1+z)/2$ is the \textbf{unique} probability assign
 \end{enumerate}
 Proof: Boundary conditions force $a = 1/2$, $b = 1/2$. No other solution exists.
 
-\textbf{Note:} The Coq theorem also lists a \texttt{mu\_consistent} hypothesis, but it is \textbf{unused} in the proof. The hypothesis \texttt{mu\_consistent P} unfolds to ``measurement cost $\ge 0$ for valid Bloch vectors,'' which is trivially true for all states and does not constrain $P$. The linearity assumption (item~3) does all the work---it assumes the functional form $P = az+b$ and solves a 2-equation system. This is less ``deriving the Born rule from $\mu$-accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.'' The non-circular derivation from tensor consistency (\texttt{BornRuleFromSymmetry.v}, below) is the stronger result.
+\textbf{Note:} The Coq theorem also lists a \texttt{mu\_consistent} hypothesis, but it is \textbf{unused} in the proof. The hypothesis \texttt{mu\_consistent P} unfolds to ``measurement cost $\ge 0$ for valid Bloch vectors,'' which is directly from the definition true for all states and does not constrain $P$. The linearity assumption (item~3) does all the work---it assumes the functional form $P = az+b$ and solves a 2-equation system. This is less ``deriving the Born rule from $\mu$-accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.'' The non-circular derivation from tensor consistency (\texttt{BornRuleFromSymmetry.v}, below) is the stronger result.
 \end{theorem}
 
 \begin{theorem}[Born Rule from Tensor Consistency {\normalfont (BornRuleFromSymmetry.v --- reference-only/replaced; active derivation in \texttt{kernel/BornRuleLinearity.v})}]

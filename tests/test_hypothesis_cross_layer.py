@@ -213,7 +213,13 @@ def st_rtl_only_instr(draw):
         return f"PDISCOVER {a} {b} {cost}"
     elif opcode == "MDLACC":
         return f"MDLACC {draw(st.integers(min_value=0, max_value=3))} {cost}"
-    elif opcode in ("LASSERT", "LJOIN", "EMIT"):
+    elif opcode == "LASSERT":
+        freg = draw(st.integers(min_value=0, max_value=31))
+        creg = draw(st.integers(min_value=0, max_value=31))
+        kind = draw(st.integers(min_value=0, max_value=1))
+        flen = draw(st.integers(min_value=1, max_value=8))
+        return f"LASSERT {freg} {creg} {kind} {flen} {cost}"
+    elif opcode in ("LJOIN", "EMIT"):
         return f"{opcode} {draw(st_imm)} {draw(st_imm)} {cost}"
     elif opcode == "REVEAL":
         return f"REVEAL {draw(st_tensor_idx)} 0 {cost}"

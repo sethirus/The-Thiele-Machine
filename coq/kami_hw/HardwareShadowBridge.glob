@@ -1,132 +1,132 @@
-DIGEST 4b5d2d3d4c363def4e8220d50e124fca
+DIGEST 399b1e9854aca9e22eeb95634818d878
 FKamiHW.HardwareShadowBridge
-R1572:1575 Coq.Lists.List <> <> lib
-R1577:1590 Coq.Arith.PeanoNat <> <> lib
-R1600:1612 Coq.Lists.List ListNotations <> mod
-R1644:1650 Kernel.VMState <> <> lib
-R1652:1667 Kernel.ShadowProjection <> <> lib
-R1698:1708 KamiHW.Abstraction <> <> lib
-R1710:1726 KamiHW.VerilogRefinement <> <> lib
-def 1924:1940 <> rtl_classical_obs
-R1948:1959 KamiHW.Abstraction <> KamiSnapshot rec
-binder 1943:1944 <> ks:1
-R1964:1977 Kernel.ShadowProjection <> ClassicalState rec
-R1987:1993 Kernel.ShadowProjection <> cs_regs proj
-R1987:1993 Kernel.ShadowProjection <> cs_regs proj
-R1987:1993 Kernel.ShadowProjection <> cs_regs proj
-R2048:2053 Kernel.ShadowProjection <> cs_mem proj
-R2048:2053 Kernel.ShadowProjection <> cs_mem proj
-R2109:2113 Kernel.ShadowProjection <> cs_pc proj
-R2109:2113 Kernel.ShadowProjection <> cs_pc proj
-R2170:2174 Kernel.ShadowProjection <> cs_mu proj
-R2170:2174 Kernel.ShadowProjection <> cs_mu proj
-R2231:2236 Kernel.ShadowProjection <> cs_err proj
-R2231:2236 Kernel.ShadowProjection <> cs_err proj
-R2292:2303 Kernel.ShadowProjection <> cs_certified proj
-R2292:2303 Kernel.ShadowProjection <> cs_certified proj
-R2003:2023 KamiHW.Abstraction <> snapshot_regs_to_list def
-R2026:2034 KamiHW.Abstraction <> snap_regs proj
-R2036:2037 KamiHW.HardwareShadowBridge <> ks:1 var
-R2064:2083 KamiHW.Abstraction <> snapshot_mem_to_list def
-R2087:2094 KamiHW.Abstraction <> snap_mem proj
-R2097:2098 KamiHW.HardwareShadowBridge <> ks:1 var
-R2125:2131 KamiHW.Abstraction <> snap_pc proj
-R2140:2141 KamiHW.HardwareShadowBridge <> ks:1 var
-R2186:2192 KamiHW.Abstraction <> snap_mu proj
-R2201:2202 KamiHW.HardwareShadowBridge <> ks:1 var
-R2247:2254 KamiHW.Abstraction <> snap_err proj
-R2262:2263 KamiHW.HardwareShadowBridge <> ks:1 var
-R2308:2321 KamiHW.Abstraction <> snap_certified proj
-R2323:2324 KamiHW.HardwareShadowBridge <> ks:1 var
-prf 2741:2762 <> hardware_shadow_compat
-R2780:2791 KamiHW.Abstraction <> KamiSnapshot rec
-binder 2775:2776 <> ks:2
-R2818:2820 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2798:2814 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R2816:2817 KamiHW.HardwareShadowBridge <> ks:2 var
-R2821:2831 Kernel.ShadowProjection <> shadow_proj def
-R2834:2843 KamiHW.Abstraction <> abs_phase1 def
-R2845:2846 KamiHW.HardwareShadowBridge <> ks:2 var
-R2879:2895 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R2898:2908 Kernel.ShadowProjection <> shadow_proj def
-R2911:2920 KamiHW.Abstraction <> abs_phase1 def
-prf 3157:3179 <> hardware_shadow_sim_rel
-R3198:3209 KamiHW.Abstraction <> KamiSnapshot rec
-binder 3193:3194 <> ks:3
-R3217:3223 Kernel.VMState <> VMState rec
-binder 3213:3213 <> s:4
-R3251:3258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3231:3245 KamiHW.VerilogRefinement <> verilog_sim_rel def
-R3247:3248 KamiHW.HardwareShadowBridge <> ks:3 var
-R3250:3250 KamiHW.HardwareShadowBridge <> s:4 var
-R3279:3281 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3259:3275 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R3277:3278 KamiHW.HardwareShadowBridge <> ks:3 var
-R3282:3292 Kernel.ShadowProjection <> shadow_proj def
-R3294:3294 KamiHW.HardwareShadowBridge <> s:4 var
-R3330:3344 KamiHW.VerilogRefinement <> verilog_sim_rel def
-R3377:3398 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R3377:3398 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-prf 3645:3678 <> rtl_classical_obs_injective_shadow
-R3702:3713 KamiHW.Abstraction <> KamiSnapshot rec
-binder 3692:3694 <> ks1:5
-binder 3696:3698 <> ks2:6
-R3766:3774 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3742:3744 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3721:3737 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R3739:3741 KamiHW.HardwareShadowBridge <> ks1:5 var
-R3745:3761 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R3763:3765 KamiHW.HardwareShadowBridge <> ks2:6 var
-R3803:3805 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3775:3785 Kernel.ShadowProjection <> shadow_proj def
-R3788:3797 KamiHW.Abstraction <> abs_phase1 def
-R3799:3801 KamiHW.HardwareShadowBridge <> ks1:5 var
-R3806:3816 Kernel.ShadowProjection <> shadow_proj def
-R3819:3828 KamiHW.Abstraction <> abs_phase1 def
-R3830:3832 KamiHW.HardwareShadowBridge <> ks2:6 var
-R3874:3895 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R3901:3922 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R3874:3895 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R3874:3895 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R3901:3922 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R3901:3922 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-prf 4382:4416 <> hardware_sees_only_classical_shadow
-R4434:4445 KamiHW.Abstraction <> KamiSnapshot rec
-binder 4429:4430 <> ks:7
-R4452:4458 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4470:4477 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4463:4469 Kernel.VMState <> VMState rec
-binder 4459:4459 <> s:8
-R4498:4500 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4478:4494 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R4496:4497 KamiHW.HardwareShadowBridge <> ks:7 var
-R4501:4511 Kernel.ShadowProjection <> shadow_proj def
-R4513:4513 KamiHW.HardwareShadowBridge <> s:8 var
-R4546:4555 KamiHW.Abstraction <> abs_phase1 def
-R4546:4555 KamiHW.Abstraction <> abs_phase1 def
-R4571:4592 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R4571:4592 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-prf 4967:4994 <> hardware_shadow_mu_preserved
-R5012:5023 KamiHW.Abstraction <> KamiSnapshot rec
-binder 5007:5008 <> ks:9
-R5060:5062 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5054:5058 Kernel.ShadowProjection <> cs_mu proj
-R5031:5047 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R5049:5050 KamiHW.HardwareShadowBridge <> ks:9 var
-R5080:5084 Kernel.VMState <> vm_mu proj
-R5064:5073 KamiHW.Abstraction <> abs_phase1 def
-R5075:5076 KamiHW.HardwareShadowBridge <> ks:9 var
-R5117:5133 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R5136:5145 KamiHW.Abstraction <> abs_phase1 def
-prf 5527:5556 <> hardware_shadow_cert_preserved
-R5574:5585 KamiHW.Abstraction <> KamiSnapshot rec
-binder 5569:5570 <> ks:10
-R5629:5631 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5616:5627 Kernel.ShadowProjection <> cs_certified proj
-R5593:5609 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R5611:5612 KamiHW.HardwareShadowBridge <> ks:10 var
-R5649:5660 Kernel.VMState <> vm_certified proj
-R5633:5642 KamiHW.Abstraction <> abs_phase1 def
-R5644:5645 KamiHW.HardwareShadowBridge <> ks:10 var
-R5693:5709 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R5712:5721 KamiHW.Abstraction <> abs_phase1 def
+R1803:1806 Coq.Lists.List <> <> lib
+R1808:1821 Coq.Arith.PeanoNat <> <> lib
+R1831:1843 Coq.Lists.List ListNotations <> mod
+R1875:1881 Kernel.VMState <> <> lib
+R1883:1898 Kernel.ShadowProjection <> <> lib
+R1929:1939 KamiHW.Abstraction <> <> lib
+R1941:1957 KamiHW.VerilogRefinement <> <> lib
+def 2155:2171 <> rtl_classical_obs
+R2179:2190 KamiHW.Abstraction <> KamiSnapshot rec
+binder 2174:2175 <> ks:1
+R2195:2208 Kernel.ShadowProjection <> ClassicalState rec
+R2218:2224 Kernel.ShadowProjection <> cs_regs proj
+R2218:2224 Kernel.ShadowProjection <> cs_regs proj
+R2218:2224 Kernel.ShadowProjection <> cs_regs proj
+R2279:2284 Kernel.ShadowProjection <> cs_mem proj
+R2279:2284 Kernel.ShadowProjection <> cs_mem proj
+R2340:2344 Kernel.ShadowProjection <> cs_pc proj
+R2340:2344 Kernel.ShadowProjection <> cs_pc proj
+R2401:2405 Kernel.ShadowProjection <> cs_mu proj
+R2401:2405 Kernel.ShadowProjection <> cs_mu proj
+R2462:2467 Kernel.ShadowProjection <> cs_err proj
+R2462:2467 Kernel.ShadowProjection <> cs_err proj
+R2523:2534 Kernel.ShadowProjection <> cs_certified proj
+R2523:2534 Kernel.ShadowProjection <> cs_certified proj
+R2234:2254 KamiHW.Abstraction <> snapshot_regs_to_list def
+R2257:2265 KamiHW.Abstraction <> snap_regs proj
+R2267:2268 KamiHW.HardwareShadowBridge <> ks:1 var
+R2295:2314 KamiHW.Abstraction <> snapshot_mem_to_list def
+R2318:2325 KamiHW.Abstraction <> snap_mem proj
+R2328:2329 KamiHW.HardwareShadowBridge <> ks:1 var
+R2356:2362 KamiHW.Abstraction <> snap_pc proj
+R2371:2372 KamiHW.HardwareShadowBridge <> ks:1 var
+R2417:2423 KamiHW.Abstraction <> snap_mu proj
+R2432:2433 KamiHW.HardwareShadowBridge <> ks:1 var
+R2478:2485 KamiHW.Abstraction <> snap_err proj
+R2493:2494 KamiHW.HardwareShadowBridge <> ks:1 var
+R2539:2552 KamiHW.Abstraction <> snap_certified proj
+R2554:2555 KamiHW.HardwareShadowBridge <> ks:1 var
+prf 2972:2993 <> hardware_shadow_compat
+R3011:3022 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3006:3007 <> ks:2
+R3049:3051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3029:3045 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R3047:3048 KamiHW.HardwareShadowBridge <> ks:2 var
+R3052:3062 Kernel.ShadowProjection <> shadow_proj def
+R3065:3074 KamiHW.Abstraction <> abs_phase1 def
+R3076:3077 KamiHW.HardwareShadowBridge <> ks:2 var
+R3110:3126 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R3129:3139 Kernel.ShadowProjection <> shadow_proj def
+R3142:3151 KamiHW.Abstraction <> abs_phase1 def
+prf 3388:3410 <> hardware_shadow_sim_rel
+R3429:3440 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3424:3425 <> ks:3
+R3448:3454 Kernel.VMState <> VMState rec
+binder 3444:3444 <> s:4
+R3482:3489 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3462:3476 KamiHW.VerilogRefinement <> verilog_sim_rel def
+R3478:3479 KamiHW.HardwareShadowBridge <> ks:3 var
+R3481:3481 KamiHW.HardwareShadowBridge <> s:4 var
+R3510:3512 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3490:3506 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R3508:3509 KamiHW.HardwareShadowBridge <> ks:3 var
+R3513:3523 Kernel.ShadowProjection <> shadow_proj def
+R3525:3525 KamiHW.HardwareShadowBridge <> s:4 var
+R3561:3575 KamiHW.VerilogRefinement <> verilog_sim_rel def
+R3608:3629 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R3608:3629 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+prf 3876:3909 <> rtl_classical_obs_injective_shadow
+R3933:3944 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3923:3925 <> ks1:5
+binder 3927:3929 <> ks2:6
+R3997:4005 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3973:3975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3952:3968 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R3970:3972 KamiHW.HardwareShadowBridge <> ks1:5 var
+R3976:3992 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R3994:3996 KamiHW.HardwareShadowBridge <> ks2:6 var
+R4034:4036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4006:4016 Kernel.ShadowProjection <> shadow_proj def
+R4019:4028 KamiHW.Abstraction <> abs_phase1 def
+R4030:4032 KamiHW.HardwareShadowBridge <> ks1:5 var
+R4037:4047 Kernel.ShadowProjection <> shadow_proj def
+R4050:4059 KamiHW.Abstraction <> abs_phase1 def
+R4061:4063 KamiHW.HardwareShadowBridge <> ks2:6 var
+R4105:4126 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R4132:4153 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R4105:4126 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R4105:4126 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R4132:4153 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R4132:4153 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+prf 4613:4647 <> hardware_sees_only_classical_shadow
+R4665:4676 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4660:4661 <> ks:7
+R4683:4689 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4701:4708 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4694:4700 Kernel.VMState <> VMState rec
+binder 4690:4690 <> s:8
+R4729:4731 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4709:4725 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R4727:4728 KamiHW.HardwareShadowBridge <> ks:7 var
+R4732:4742 Kernel.ShadowProjection <> shadow_proj def
+R4744:4744 KamiHW.HardwareShadowBridge <> s:8 var
+R4777:4786 KamiHW.Abstraction <> abs_phase1 def
+R4777:4786 KamiHW.Abstraction <> abs_phase1 def
+R4802:4823 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R4802:4823 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+prf 5198:5225 <> hardware_shadow_mu_preserved
+R5243:5254 KamiHW.Abstraction <> KamiSnapshot rec
+binder 5238:5239 <> ks:9
+R5291:5293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5285:5289 Kernel.ShadowProjection <> cs_mu proj
+R5262:5278 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R5280:5281 KamiHW.HardwareShadowBridge <> ks:9 var
+R5311:5315 Kernel.VMState <> vm_mu proj
+R5295:5304 KamiHW.Abstraction <> abs_phase1 def
+R5306:5307 KamiHW.HardwareShadowBridge <> ks:9 var
+R5348:5364 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R5367:5376 KamiHW.Abstraction <> abs_phase1 def
+prf 5758:5787 <> hardware_shadow_cert_preserved
+R5805:5816 KamiHW.Abstraction <> KamiSnapshot rec
+binder 5800:5801 <> ks:10
+R5860:5862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5847:5858 Kernel.ShadowProjection <> cs_certified proj
+R5824:5840 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R5842:5843 KamiHW.HardwareShadowBridge <> ks:10 var
+R5880:5891 Kernel.VMState <> vm_certified proj
+R5864:5873 KamiHW.Abstraction <> abs_phase1 def
+R5875:5876 KamiHW.HardwareShadowBridge <> ks:10 var
+R5924:5940 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R5943:5952 KamiHW.Abstraction <> abs_phase1 def

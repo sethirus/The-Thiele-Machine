@@ -117,7 +117,11 @@ make ocaml-runner          # extract and link the OCaml VM runner
 The standalone proof file — a single file with zero project imports and zero admits — compiles separately:
 
 ```bash
-coqc -R vendor/kami/Kami Kami coq/ThieleMachineComplete.v
+cd coq
+coqc -R kernel Kernel -R nofi NoFI -R kami_hw KamiHW -R ../vendor/kami/Kami Kami \
+  -R spacetime Spacetime -R thielemachine ThieleMachine -R physics Physics \
+  -R self_reference SelfReference -R thiele_manifold ThieleManifold \
+  -R thermodynamic Thermodynamic -R tests Tests ThieleMachineComplete.v
 ```
 
 ### Hardware Simulation
@@ -143,7 +147,7 @@ THIELE_RTL_SIM=verilator pytest tests/test_logic_z3_verilator_bridge.py
 | **OCaml runtime** | `build/extracted_vm_runner` built by mechanical extraction from Coq through `coq/Extraction.v` |
 | **Python VM** | `thielecpu/vm.py` — generated wrapper, delegates all execution to OCaml binary |
 | **Verilog RTL** | 3 source files: `thiele_cpu_kami.v` (Kami-generated, all 46 opcodes), `thiele_cpu_top.v` (FPGA wrapper), `RegFile.v` |
-| **Test suite** | 61 pytest files, 929 tests collected, covering opcode parity, cosim, bisimulation, Coq gates, fuzz, and RTL |
+| **Test suite** | 61 pytest files, 934 tests collected, covering opcode parity, cosim, bisimulation, Coq gates, fuzz, and RTL |
 | **Inquisitor audit** | Zero findings across all 188 Coq files (HIGH: 0, MEDIUM: 0, LOW: 0). Report in `INQUISITOR_REPORT.md` |
 
 ---
@@ -184,6 +188,12 @@ The theorem exists in four increasingly general forms:
 
 See `coq/kernel/NoFreeInsight.v` for the original statement, `kernel/InsightTaxonomy.v` for the umbrella, and `kernel/UniversalCertificationCost.v` for the substrate-independent form.
 
+### Structural Shortcut Boundary
+
+The repository now separates the factorized-search shortcut into two precise layers instead of treating it as one blurred claim. The original `sighted_n1` trace in `StructuralAdvantageObservedShortcut.v` is observation-only: it closes `CertifiedObs`, but the new class theorem `supra_bridge_free_trace_never_fully_certified` says any trace with no executed `MORPH_ASSERT` bridge stays on that layer. It cannot finish with `has_supra_cert`, and it cannot satisfy full `Certified`.
+
+The positive frontier is equally explicit. `observed_shortcut_full_upgrade_iff_final_supra_and_morph_assert_bridge` proves that an observed shortcut upgrades to the full theorem boundary exactly when the run both ends with `has_supra_cert` and contains an executed nonzero `MORPH_ASSERT` bridge step. The concrete positive witness is `StructuralAdvantageCertifiedShortcut.v`: keep the factorized search unchanged, then append `PNEW ; MORPH_ID ; MORPH_ASSERT`.
+
 ### The $\mu$-Conservation Law
 
 For any trace $\tau = [i_1, \ldots, i_n]$:
@@ -219,6 +229,7 @@ The WitnessCounts hardware registers are updated unconditionally by the RTL on e
 |---------|---------------------|------|
 | `mu_is_initial_monotone` | $\mu$ is the unique canonical cost functional | `kernel/MuInitiality.v` |
 | `no_free_insight_general` | Supra-certification requires structure addition | `kernel/NoFreeInsight.v` |
+| `supra_bridge_free_trace_never_fully_certified` | Any trace with no executed `MORPH_ASSERT` bridge stays observation-only and cannot satisfy full `Certified` | `kernel/NoFreeInsight.v` |
 | `vm_apply_mu` | Single-step $\mu$-conservation for all 46 opcodes | `kernel/VMStep.v` |
 | `run_vm_mu_monotonic` | Multi-step $\mu$ never decreases | `kernel/SimulationProof.v` |
 | `main_subsumption` | Thiele instruction set properly extends Turing instruction set (syntactic, not computational-power, separation) | `kernel/Subsumption.v` |
@@ -230,6 +241,7 @@ The WitnessCounts hardware registers are updated unconditionally by the RTL on e
 | `tensor_bifunctor` | `graph_tensor_morphisms` is a bifunctor (interchange law) | `kernel/CategoryMonoidal.v` |
 | `categorical_separation` | Two states can be computationally equivalent but categorically distinct | `kernel/PartitionSeparation.v` |
 | `no_free_certified_insight` | Any trace that changes cert evidence contains a cert-setter instruction with cost ≥ 1; umbrella theorem covering all cert channels and all structural ops | `kernel/InsightTaxonomy.v` |
+| `observed_shortcut_full_upgrade_iff_final_supra_and_morph_assert_bridge` | An observed shortcut upgrades to the full theorem exactly when final `has_supra_cert` and an executed nonzero `MORPH_ASSERT` bridge are both present | `kernel/HonestNoFI_TheoremsWithoutAssumptions.v` |
 | `shadow_separation_theorem` | Two states share identical classical (register+mu+err) shadow but are separated by a MORPH_DELETE probe — classical layer cannot distinguish what the categorical layer can | `kernel/ShadowProjection.v` |
 | `D5_thiele_strictly_extends_classical` | Thiele extends classical Turing (any classical trace is embeddable) and is strict (categorical ops are not classically reachable) | `kernel/TuringStrictness.v` |
 | `universal_nfi_any_substrate` | For any `CertificationSystem` satisfying the cost axiom (one cert step costs ≥ 1), any trace from uncertified to certified has total cost ≥ 1 — holds for proof assistants, consensus protocols, physical measurements, or neural networks, not just Thiele | `kernel/UniversalCertificationCost.v` |
@@ -262,10 +274,10 @@ coq/ThieleMachineComplete.v   ← zero project imports for proofs, zero admits
   ├── build/kami_hw/Target_complete.ml
   │     (extracted by TMC via CanonicalCPUProof — byte-for-byte = Target.ml)
   └── build/thiele_core_complete.ml
-        (directly extracted by TMC — sorted-line isomorphic to thiele_core.ml)
+        (directly extracted by TMC — byte-for-byte identical to thiele_core.ml)
 ```
 
-The standalone file proves every component is reachable from a single self-contained Coq source. It is a proof-completeness artifact. TMC directly extracts both `thiele_core_complete.ml` and `Target_complete.ml` — both are sorted-line isomorphic (identical function bodies, only declaration order differs) to their modular counterparts (`thiele_core.ml` and `Target.ml`). `Extraction.v` and `KamiExtraction.v` remain the canonical modular extraction points.
+The standalone file proves every component is reachable from a single self-contained Coq source. It is a proof-completeness artifact. TMC directly extracts both `thiele_core_complete.ml` and `Target_complete.ml` — both are byte-for-byte identical to their modular counterparts (`thiele_core.ml` and `Target.ml`). `Extraction.v` and `KamiExtraction.v` remain the canonical modular extraction points.
 
 ### The 46-Opcode ISA
 

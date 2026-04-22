@@ -66,6 +66,73 @@
 
 ---
 
+## Hardware-Layer Proof Coverage (Updated 2026-04-22)
+
+This section maps each opcode to its coverage across the 5 Kami/hardware proof layers.
+All 46 opcodes have at least one Qed theorem (VerilogRefinement is the floor).
+
+**Column key**: ES = EmbedStep.v, WF = EmbedStep_WF.v, SE = ShadowEmbedStep.v,
+VR = VerilogRefinement.v, GRB = GraphReconstructionBridge.v.
+EXCL = explicitly excluded from EmbedStep (not a gap — delegated to VR+GRB).
+
+| # | Opcode | ES | WF | SE | VR | GRB | Notes |
+|---|--------|----|----|----|-----|-----|-------|
+| 1 | pnew | YES | YES | YES | YES | YES | Full 5-layer chain |
+| 2 | psplit | EXCL | — | — | YES | YES | Existence proofs in GRB; full commutation open |
+| 3 | pmerge | EXCL | — | — | YES | YES | Existence proofs in GRB; full commutation open |
+| 4 | lassert | EXCL | YES | — | YES | YES | WF: formula-length precondition |
+| 5 | ljoin | YES | — | — | YES | — | No graph layer needed |
+| 6 | mdlacc | YES | — | — | YES | — | Module-local accumulator |
+| 7 | pdiscover | YES | — | YES | YES | — | SE: shadow theorem |
+| 8 | xfer | YES | — | — | YES | — | |
+| 9 | load_imm | YES | — | — | YES | — | |
+| 10 | load | YES | — | — | YES | — | |
+| 11 | store | YES | — | — | YES | — | |
+| 12 | add | YES | — | — | YES | — | |
+| 13 | sub | YES | — | — | YES | — | |
+| 14 | jump | YES | — | — | YES | — | |
+| 15 | jnez | YES | — | — | YES | — | VR: taken+not_taken cases |
+| 16 | call | EXCL | YES | — | YES | YES | WF: stack precondition |
+| 17 | ret | EXCL | YES | — | YES | YES | WF: stack precondition |
+| 18 | chsh_trial | EXCL | YES | YES | YES | YES | WF+SE+GRB all cover |
+| 19 | xor_load | YES | — | — | YES | — | |
+| 20 | xor_add | YES | — | — | YES | — | |
+| 21 | xor_swap | YES | — | — | YES | — | |
+| 22 | xor_rank | YES | — | — | YES | — | |
+| 23 | emit | YES | — | YES | YES | — | SE: shadow theorem |
+| 24 | reveal | YES | — | YES | YES | — | SE: shadow theorem |
+| 25 | halt | YES | — | — | YES | — | |
+| 26 | checkpoint | YES | — | — | YES | — | |
+| 27 | read_port | YES | — | — | YES | — | |
+| 28 | write_port | YES | — | — | YES | — | |
+| 29 | heap_load | YES | — | — | YES | — | |
+| 30 | heap_store | YES | — | — | YES | — | |
+| 31 | certify | YES | — | — | YES | — | |
+| 32 | and | YES | — | — | YES | — | |
+| 33 | or | YES | — | — | YES | — | |
+| 34 | shl | YES | — | — | YES | — | |
+| 35 | shr | YES | — | — | YES | — | |
+| 36 | mul | YES | — | — | YES | — | |
+| 37 | lui | YES | — | — | YES | — | |
+| 38 | tensor_set | EXCL | — | YES | YES | YES | SE+GRB under ext_hw_inv |
+| 39 | tensor_get | EXCL | — | YES | YES | YES | SE+GRB under ext_hw_inv |
+| 40 | morph | EXCL | — | — | YES | YES | GRB: abs_full_snapshot level |
+| 41 | compose | EXCL | — | — | YES | YES | GRB: both success+error branches |
+| 42 | morph_id | EXCL | — | — | YES | YES | GRB: abs_full_snapshot level |
+| 43 | morph_delete | EXCL | — | — | YES | YES | GRB: abs_full_snapshot level |
+| 44 | morph_assert | EXCL | — | — | YES | YES | GRB: abs_full_snapshot level |
+| 45 | morph_tensor | EXCL | — | — | YES | YES | GRB: both branches |
+| 46 | morph_get | EXCL | — | — | YES | YES | GRB: abs_full_snapshot level |
+
+**Open items** (as of 2026-04-22):
+- MORPH family (rows 40-46 except compose/morph_tensor): proofs exist at `abs_full_snapshot`
+  level but not at `abs_phase1` (shadow-level commutation). abs_full_snapshot is the
+  stronger abstraction used by VerilogRefinement — this is a documentation gap, not a
+  correctness gap.
+- PSPLIT/PMERGE: GRB has existence proofs; full `abs_phase1` commutation under investigation.
+
+---
+
 ## Impact Zones by Proof File
 
 ### If you change ANY opcode in cert_addr_setterb (lassert, ljoin, emit, reveal, morph_assert):

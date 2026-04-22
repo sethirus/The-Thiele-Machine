@@ -264,6 +264,293 @@ Proof.
     + unfold advance_state, csr_set_err. simpl. reflexivity.
 Qed.
 
+(** Under the current kernel semantics, every instruction except MORPH_ASSERT
+    preserves csr_cert_addr exactly. MORPH_ASSERT is the only opcode whose
+    success branch writes a new cert address. This is the precise bridge
+    boundary for the structural shortcut upgrade story. *)
+
+Definition non_morph_assert_instr (i : vm_instruction) : Prop :=
+  match i with
+  | instr_morph_assert _ _ _ _ => False
+  | _ => True
+  end.
+
+Lemma non_morph_assert_preserves_cert_addr :
+  forall s i,
+    non_morph_assert_instr i ->
+    (vm_apply s i).(vm_csrs).(csr_cert_addr) = s.(vm_csrs).(csr_cert_addr).
+Proof.
+  intros s i Hnon.
+  destruct i; simpl in Hnon;
+    unfold vm_apply, vm_apply_unsafe.
+  - (* pnew *)
+    match goal with
+    | |- context [graph_add_module ?g ?r ?e] => destruct (graph_add_module g r e) as [? ?]
+    end.
+    unfold advance_state. simpl. reflexivity.
+  - (* psplit *)
+    unfold advance_state. simpl. reflexivity.
+  - (* pmerge *)
+    unfold advance_state. simpl. reflexivity.
+  - (* lassert *)
+    simpl. reflexivity.
+  - (* ljoin *)
+    unfold advance_state. simpl. reflexivity.
+  - (* mdlacc *)
+    unfold advance_state. simpl. reflexivity.
+  - (* pdiscover *)
+    unfold advance_state. simpl. reflexivity.
+  - (* xfer *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* load_imm *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* load *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* store *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* add *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* sub *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* jump *)
+    unfold jump_state. simpl. reflexivity.
+  - (* jnez *)
+    match goal with
+    | |- context [Nat.eqb (read_reg ?st ?rs) 0] =>
+        destruct (Nat.eqb (read_reg st rs) 0) eqn:?
+    end;
+      [unfold advance_state | unfold jump_state]; simpl; reflexivity.
+  - (* call *)
+    unfold jump_state_rm. simpl. reflexivity.
+  - (* ret *)
+    unfold jump_state_rm. simpl. reflexivity.
+  - (* chsh_trial *)
+    match goal with
+    | |- context [chsh_bits_ok ?x ?y ?a ?b] =>
+        destruct (chsh_bits_ok x y a b) eqn:?
+    end;
+      unfold advance_state, csr_set_err; simpl; reflexivity.
+  - (* xor_load *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* xor_add *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* xor_swap *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* xor_rank *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* emit *)
+    unfold advance_state. simpl. reflexivity.
+  - (* reveal *)
+    unfold advance_state_reveal. simpl. reflexivity.
+  - (* halt *)
+    unfold advance_state. simpl. reflexivity.
+  - (* checkpoint *)
+    unfold advance_state. simpl. reflexivity.
+  - (* read_port *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* write_port *)
+    unfold advance_state. simpl. reflexivity.
+  - (* heap_load *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* heap_store *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* certify *)
+    simpl. reflexivity.
+  - (* and *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* or *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* shl *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* shr *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* mul *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* lui *)
+    unfold advance_state_rm. simpl. reflexivity.
+  - (* tensor_set *)
+    destruct (tensor_indices_ok i j) eqn:?.
+    + unfold advance_state. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* tensor_get *)
+    destruct (tensor_indices_ok i j) eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* morph *)
+    destruct (graph_lookup s.(vm_graph) src_mod) as [?|] eqn:?.
+    + destruct (graph_lookup s.(vm_graph) dst_mod) as [?|] eqn:?.
+      * destruct (graph_add_morphism s.(vm_graph) src_mod dst_mod empty_coupling_data false) as [? ?].
+        unfold advance_state_rm. simpl. reflexivity.
+      * unfold advance_state, csr_set_err. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* compose *)
+    destruct (graph_compose_morphisms s.(vm_graph) m1_id m2_id) as [[? ?]|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* morph_id *)
+    destruct (graph_add_identity s.(vm_graph) module) as [[? ?]|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* morph_delete *)
+    destruct (graph_delete_morphism s.(vm_graph) morph_id) as [?|] eqn:?.
+    + unfold advance_state. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* morph_assert *)
+    unfold non_morph_assert_instr in Hnon.
+    simpl in Hnon.
+    exfalso.
+    exact Hnon.
+  - (* morph_tensor *)
+    destruct (graph_tensor_morphisms s.(vm_graph) f_id g_id) as [[? ?]|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* morph_get *)
+    destruct (graph_lookup_morphism s.(vm_graph) morph_id) as [?|] eqn:?.
+    + unfold advance_state_rm. simpl. reflexivity.
+    + unfold advance_state, csr_set_err. simpl. reflexivity.
+Qed.
+
+Lemma morph_assert_or_non_morph_assert :
+  forall i,
+    (exists morph_id property cert cost,
+        i = instr_morph_assert morph_id property cert cost) \/
+    non_morph_assert_instr i.
+Proof.
+  intros i.
+  destruct i; simpl; try (right; exact I).
+  left. eauto.
+Qed.
+
+(** A bridge-pattern step is exactly a successful MORPH_ASSERT that writes a
+    non-zero checksum into csr_cert_addr while the channel is still zero. *)
+Lemma morph_assert_step_sets_supra_cert_iff :
+  forall s i,
+    s.(vm_csrs).(csr_cert_addr) = 0 ->
+    ((vm_apply s i).(vm_csrs).(csr_cert_addr) <> 0 <->
+     exists morph_id property cert cost ms,
+       i = instr_morph_assert morph_id property cert cost /\
+       graph_lookup_morphism s.(vm_graph) morph_id = Some ms /\
+       ascii_checksum property <> 0).
+Proof.
+  intros s i Hzero.
+  split.
+  - intro Hnz.
+    destruct (morph_assert_or_non_morph_assert i) as
+      [(morph_id & property & cert & cost & Hi) | Hnon].
+    + subst i.
+      destruct (graph_lookup_morphism s.(vm_graph) morph_id) as [ms|] eqn:Hlookup.
+      * exists morph_id, property, cert, cost, ms.
+        split; [reflexivity|].
+        split; [exact Hlookup|].
+        unfold vm_apply, vm_apply_unsafe in Hnz.
+        rewrite Hlookup in Hnz.
+        cbn in Hnz.
+        exact Hnz.
+      * unfold vm_apply, vm_apply_unsafe in Hnz.
+        rewrite Hlookup in Hnz.
+        cbn in Hnz.
+        rewrite Hzero in Hnz.
+        contradiction.
+    + rewrite (non_morph_assert_preserves_cert_addr s i Hnon) in Hnz.
+      rewrite Hzero in Hnz.
+      contradiction.
+  - intros (morph_id & property & cert & cost & ms & Hi & Hlookup & Hchecksum).
+    subst i.
+    unfold vm_apply, vm_apply_unsafe.
+    rewrite Hlookup.
+    cbn.
+    exact Hchecksum.
+Qed.
+
+Inductive morph_assert_bridge_pattern : nat -> Trace -> VMState -> Prop :=
+| morph_assert_bridge_here :
+    forall fuel trace s morph_id property cert cost ms,
+      nth_error trace (vm_pc s) = Some (instr_morph_assert morph_id property cert cost) ->
+      s.(vm_csrs).(csr_cert_addr) = 0 ->
+      graph_lookup_morphism s.(vm_graph) morph_id = Some ms ->
+      ascii_checksum property <> 0 ->
+      morph_assert_bridge_pattern (S fuel) trace s
+| morph_assert_bridge_later :
+    forall fuel trace s instr,
+      nth_error trace (vm_pc s) = Some instr ->
+      morph_assert_bridge_pattern fuel trace (vm_apply s instr) ->
+      morph_assert_bridge_pattern (S fuel) trace s.
+
+Theorem structure_addition_in_run_iff_morph_assert_bridge_pattern :
+  forall fuel trace s,
+    structure_addition_in_run fuel trace s <->
+    morph_assert_bridge_pattern fuel trace s.
+Proof.
+  induction fuel as [|fuel IH]; intros trace s; split; intro H.
+  - simpl in H. contradiction.
+  - inversion H.
+  - simpl in H.
+    destruct (nth_error trace (vm_pc s)) as [instr|] eqn:Hnth.
+    + simpl in H.
+      destruct H as [[Hzero Hnz] | Hlater].
+      * pose proof (proj1 (morph_assert_step_sets_supra_cert_iff s instr Hzero) Hnz)
+          as (morph_id & property & cert & cost & ms & Hi & Hlookup & Hchecksum).
+        subst instr.
+        econstructor 1 with (ms := ms); eauto.
+      * econstructor 2 with (instr := instr); eauto.
+        apply (proj1 (IH trace (vm_apply s instr))).
+        exact Hlater.
+    + contradiction.
+  - inversion H as
+      [fuel' trace' s' morph_id property cert cost ms Hnth Hzero Hlookup Hchecksum
+      | fuel' trace' s' instr Hnth Hrest]; subst.
+    + simpl. rewrite Hnth. simpl. left.
+      split; [exact Hzero|].
+      apply (proj2 (morph_assert_step_sets_supra_cert_iff s
+               (instr_morph_assert morph_id property cert cost) Hzero)).
+      exists morph_id, property, cert, cost, ms.
+      repeat split; eauto.
+    + simpl. rewrite Hnth. simpl. right.
+      apply (proj2 (IH trace (vm_apply s instr))).
+      exact Hrest.
+Qed.
+
+Theorem non_morph_assert_trace_excludes_morph_assert_bridge_pattern :
+  forall fuel trace s,
+    Forall non_morph_assert_instr trace ->
+    ~ morph_assert_bridge_pattern fuel trace s.
+Proof.
+  induction fuel as [|fuel IH]; intros trace s Hforall Hbridge.
+  - inversion Hbridge.
+  - inversion Hbridge; subst.
+    + apply nth_error_In in H0.
+      rewrite Forall_forall in Hforall.
+      pose proof (Hforall _ H0) as Hnon.
+      simpl in Hnon.
+      contradiction.
+    + eapply IH; eauto.
+Qed.
+
+Corollary non_morph_assert_trace_has_no_structure_addition :
+  forall fuel trace s,
+    Forall non_morph_assert_instr trace ->
+    ~ structure_addition_in_run fuel trace s.
+Proof.
+  intros fuel trace s Hforall Hstruct.
+  apply (non_morph_assert_trace_excludes_morph_assert_bridge_pattern
+           fuel trace s Hforall).
+  apply (proj1 (structure_addition_in_run_iff_morph_assert_bridge_pattern
+                  fuel trace s)).
+  exact Hstruct.
+Qed.
+
+Theorem non_morph_assert_trace_cannot_gain_supra_cert :
+  forall (trace : Trace) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+    Forall non_morph_assert_instr trace ->
+    ~ has_supra_cert s_final.
+Proof.
+  intros trace s_init s_final fuel Hrun Hinit Hforall Hsupra.
+  apply (non_morph_assert_trace_has_no_structure_addition fuel trace s_init Hforall).
+  eapply supra_cert_implies_structure_addition_in_run; eauto.
+Qed.
+
 (** If certification appears (cert_addr becomes non-zero), it must have been
     set by a revelation-class instruction. REVEAL is the primary one for
     partition disclosure; others (EMIT, LJOIN, LASSERT) serve related purposes.

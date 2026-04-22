@@ -103,7 +103,7 @@ class TestLassertSatDimacsToRtl:
         program = [
             "INIT_LOGIC_ACC 0xCAFEEACE",
             "PNEW {0,256} 1",
-            "LASSERT 2 9 2",   # op_a=2, bit5=0 → UNSAT → immediate trap
+            "LASSERT 2 9 0 1 2",  # freg=2, creg=9, kind=0 (UNSAT), flen=1, cost=2 → immediate trap
             "HALT 0",
         ]
         state = run_verilog(program)

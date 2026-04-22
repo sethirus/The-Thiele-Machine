@@ -1,0 +1,151 @@
+DIGEST 512cd04507646b8a785e1f2e17a5af76
+FKernel.StructuralAdvantageObservedShortcutResult
+R436:439 Coq.Lists.List <> <> lib
+R441:454 Coq.Arith.PeanoNat <> <> lib
+R456:459 Coq.Bool.Bool <> <> lib
+R490:496 Kernel.VMState <> <> lib
+R526:531 Kernel.VMStep <> <> lib
+R561:572 Kernel.MuInitiality <> <> lib
+R602:622 Kernel.RevelationRequirement <> <> lib
+R652:666 Kernel.SimulationProof <> <> lib
+R696:708 Kernel.NoFreeInsight <> <> lib
+R710:739 Kernel.InformationGainToStrengthening <> <> lib
+R741:755 Kernel.MuShannonBridge <> <> lib
+R785:821 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> <> lib
+R851:869 Kernel.StructuralAdvantage <> <> lib
+R899:933 Kernel.StructuralAdvantageObservedShortcut <> <> lib
+R944:958 Kernel.RevelationRequirement RevelationProof <> mod
+def 973:990 <> sighted_n1_decoder
+R994:1022 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R1024:1037 Kernel.VMStep VMStep vm_instruction ind
+binder 1048:1055 <> receipts:1
+R1060:1067 Kernel.StructuralAdvantageObservedShortcutResult <> receipts:1 var
+def 1082:1107 <> sighted_n1_prior_predicate
+R1113:1142 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R1144:1157 Kernel.VMStep VMStep vm_instruction ind
+R1164:1209 Kernel.InformationGainToStrengthening <> omega_predicate def
+R1232:1247 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_prior def
+R1249:1275 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_predicate_obs_fn def
+R1215:1230 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+def 1290:1319 <> sighted_n1_posterior_predicate
+R1325:1354 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R1356:1369 Kernel.VMStep VMStep vm_instruction ind
+R1376:1421 Kernel.InformationGainToStrengthening <> omega_predicate def
+R1444:1463 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_posterior def
+R1465:1491 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_predicate_obs_fn def
+R1427:1442 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+prf 1501:1538 <> sighted_n1_prior_accepts_decoded_trace
+R1608:1610 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1544:1569 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_prior_predicate def
+R1572:1589 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_decoder def
+R1591:1606 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R1611:1614 Coq.Init.Datatypes <> true constr
+R1633:1658 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_prior_predicate def
+R1661:1678 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_decoder def
+R1690:1735 Kernel.InformationGainToStrengthening <> omega_predicate def
+R1748:1793 Kernel.InformationGainToStrengthening <> existsb_In_true thm
+R1824:1844 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R1807:1822 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R1748:1793 Kernel.InformationGainToStrengthening <> existsb_In_true thm
+R1824:1844 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R1807:1822 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R1875:1904 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_predicate_obs_final thm
+R1875:1904 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_predicate_obs_final thm
+prf 1919:1954 <> sighted_n1_trace_has_no_supra_bridge
+R1960:1965 Coq.Lists.List <> Forall ind
+R1990:2005 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R1967:1988 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R2024:2039 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R2042:2056 Kernel.StructuralAdvantage <> sighted_program def
+prf 2093:2117 <> sighted_n1_not_supra_cert
+R2123:2124 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2125:2138 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R2140:2155 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_final def
+R2174:2228 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm
+R2174:2228 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm
+R2241:2270 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+R2241:2270 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+R2300:2335 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_trace_has_no_supra_bridge thm
+R2300:2335 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_trace_has_no_supra_bridge thm
+prf 2350:2381 <> sighted_n1_no_structure_addition
+R2387:2388 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2389:2424 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R2429:2444 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R2446:2455 Kernel.MuInitiality <> init_state def
+R2474:2521 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_has_no_structure_addition thm
+R2474:2521 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_has_no_structure_addition thm
+R2532:2567 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_trace_has_no_supra_bridge thm
+R2532:2567 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_trace_has_no_supra_bridge thm
+prf 2582:2619 <> sighted_n1_final_never_fully_certified
+binder 2633:2633 <> A:2
+R2654:2682 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R2684:2684 Kernel.StructuralAdvantageObservedShortcutResult <> A:2 var
+binder 2644:2650 <> decoder:3
+R2701:2730 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R2732:2732 Kernel.StructuralAdvantageObservedShortcutResult <> A:2 var
+binder 2697:2697 <> P:4
+R2747:2768 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 2736:2743 <> receipts:5
+R2776:2777 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2778:2800 Kernel.NoFreeInsight NoFreeInsight Certified def
+R2829:2836 Kernel.StructuralAdvantageObservedShortcutResult <> receipts:5 var
+R2827:2827 Kernel.StructuralAdvantageObservedShortcutResult <> P:4 var
+R2819:2825 Kernel.StructuralAdvantageObservedShortcutResult <> decoder:3 var
+R2802:2817 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_final def
+R2891:2915 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_not_supra_cert thm
+R2891:2915 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_not_supra_cert thm
+R2927:2931 Coq.Init.Logic <> proj2 thm
+R2927:2931 Coq.Init.Logic <> proj2 thm
+prf 2953:2990 <> sighted_n1_trace_never_fully_certified
+binder 3004:3004 <> A:6
+R3025:3053 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R3055:3055 Kernel.StructuralAdvantageObservedShortcutResult <> A:6 var
+binder 3015:3021 <> decoder:7
+R3072:3101 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R3103:3103 Kernel.StructuralAdvantageObservedShortcutResult <> A:6 var
+binder 3068:3068 <> P:8
+R3111:3112 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3113:3135 Kernel.NoFreeInsight NoFreeInsight Certified def
+R3195:3210 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R3193:3193 Kernel.StructuralAdvantageObservedShortcutResult <> P:8 var
+R3185:3191 Kernel.StructuralAdvantageObservedShortcutResult <> decoder:7 var
+R3146:3151 Kernel.SimulationProof <> run_vm def
+R3156:3171 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R3173:3182 Kernel.MuInitiality <> init_state def
+R3251:3309 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_never_fully_certified thm
+R3251:3309 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_never_fully_certified thm
+R3322:3351 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+R3322:3351 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+R3381:3416 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_trace_has_no_supra_bridge thm
+R3381:3416 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_trace_has_no_supra_bridge thm
+def 3436:3463 <> sighted_n1_bridge_hypothesis
+binder 3484:3490 <> s_final:9
+R3544:3551 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3504:3506 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3497:3503 Kernel.StructuralAdvantageObservedShortcutResult <> s_final:9 var
+R3507:3512 Kernel.SimulationProof <> run_vm def
+R3517:3532 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R3534:3543 Kernel.MuInitiality <> init_state def
+R3623:3630 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3616:3618 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3552:3577 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_prior_predicate def
+R3580:3597 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_decoder def
+R3599:3614 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R3619:3622 Coq.Init.Datatypes <> true constr
+R3738:3745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3631:3656 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R3722:3737 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_trace def
+R3691:3720 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_posterior_predicate def
+R3672:3689 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_decoder def
+R3664:3670 Kernel.StructuralAdvantageObservedShortcutResult <> s_final:9 var
+R3746:3759 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R3761:3767 Kernel.StructuralAdvantageObservedShortcutResult <> s_final:9 var
+prf 3779:3812 <> sighted_n1_bridge_hypothesis_false
+R3818:3819 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3820:3847 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_bridge_hypothesis def
+R3882:3906 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_not_supra_cert thm
+R3882:3906 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_not_supra_cert thm
+R3954:3991 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_prior_accepts_decoded_trace thm
+R3954:3991 Kernel.StructuralAdvantageObservedShortcutResult <> sighted_n1_prior_accepts_decoded_trace thm
+R4004:4027 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_certified_obs thm
+R4004:4027 Kernel.StructuralAdvantageObservedShortcut <> sighted_n1_certified_obs thm

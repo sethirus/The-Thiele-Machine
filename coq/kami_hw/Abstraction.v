@@ -1912,10 +1912,11 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
           then
             let pairs1 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e1) in
             let pairs2 := snapshot_coupling_pairs_from_desc rs (morph_entry_coupling_desc e2) in
-            let composed_pairs := relational_compose pairs1 pairs2 in
             let label1 := morph_coupling_label rs e1 in
             let label2 := morph_coupling_label rs e2 in
             let composed_label := (label1 ++ ";" ++ label2)%string in
+            let composed_pairs := (normalize_coupling {| coupling_pairs := relational_compose pairs1 pairs2;
+                                                         coupling_label := composed_label |}).(coupling_pairs) in
             let '(rs', new_id) :=
               rich_state_add_morph_with_coupling rs
                 (morph_entry_source e1) (morph_entry_target e2)
@@ -2255,6 +2256,38 @@ Proof.
   (* Now we need to show two PartitionGraphs with 4 fields are equal *)
   f_equal.  (* pg_modules equality suffices since all other fields match *)
   f_equal.  (* cons equality: head matches, need tail *)
+  apply filter_map_pt_below_unaffected.
+Qed.
+
+(** snap_pt_to_graph_pnew_minimal: same as snap_pt_to_graph_pnew but without
+    the vestigial preconditions next_id >= 1, next_id < 64, and sizes next_id = 0.
+    The proof never uses those hypotheses; they were added conservatively. *)
+Theorem snap_pt_to_graph_pnew_minimal :
+    forall (next_id region_size : nat) (sizes : nat -> nat),
+      region_size > 0 ->
+      snap_pt_to_graph (S next_id)
+        (fun j => if Nat.eqb j next_id then region_size else sizes j) =
+      fst (graph_add_module (snap_pt_to_graph next_id sizes)
+                            (List.seq 0 region_size) []).
+Proof.
+  intros next_id region_size sizes Hrsz.
+  assert (Hrsz_neq : Nat.eqb region_size 0 = false) by (apply Nat.eqb_neq; lia).
+  assert (Hnorm : normalize_module {| module_region := List.seq 0 region_size;
+                                       module_axioms := [];
+                                       module_mu_tensor := module_mu_tensor_default |} =
+                  {| module_region := List.seq 0 region_size;
+                     module_axioms := [];
+                     module_mu_tensor := module_mu_tensor_default |}).
+  { unfold normalize_module. simpl. rewrite normalize_seq_nodups. reflexivity. }
+  unfold snap_pt_to_graph, graph_add_module, mk_module_state.
+  rewrite Hnorm.
+  rewrite rev_seq_succ.
+  rewrite filter_map_app_dist.
+  cbn [filtermap fst snd pg_next_id pg_modules pg_next_morph_id pg_morphisms List.app].
+  rewrite Nat.eqb_refl, Hrsz_neq.
+  cbn [filtermap List.app].
+  f_equal.
+  f_equal.
   apply filter_map_pt_below_unaffected.
 Qed.
 

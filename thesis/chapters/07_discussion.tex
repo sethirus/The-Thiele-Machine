@@ -144,7 +144,7 @@ Theorem vm_irreversible_bits_lower_bound :
 
 \textbf{Why is this the computational Landauer?} Landauer's principle states that erasing one bit requires dissipating at least $k_B T \ln 2$ energy. This theorem states that erasing one bit requires incrementing the $\mu$-ledger by at least 1. The physical energy cost is an \textit{additional} hypothesis (the bridge postulate: $Q_{\min} = k_B T \ln 2 \cdot \mu$), but the abstract accounting bound is \textbf{proven in Coq}.
 
-\textbf{Example:} If a trace performs 100 bit erasures, the ledger must grow by at least 100 $\mu$-bits. If the ledger only grows by 50, the proof guarantees this trace is invalid (it would have been rejected during execution).
+\textbf{Example:} If a trace performs 100 bit erasures, the ledger must grow by at least 100 $\mu$-bits. If the ledger only grows by 50, the proof proves this trace is invalid (it would have been rejected during execution).
 
 \textbf{Connection to thermodynamics:} Combining this proven bound with the thermodynamic bridge postulate gives the full Landauer inequality:
 \[
@@ -185,7 +185,7 @@ Theorem observational_no_signaling : forall s s' instr mid,
 
 \textbf{Why exclude axioms from observables?} Axioms are \textit{internal commitments} (logical constraints on a module's state space). They are not externally visible signals. For example, if module A adds axiom ``$x < 5$'' (via \texttt{LASSERT}), this does not signal to module B---it only constrains A's internal state. Observables are restricted to \textit{public} information: partition regions and $\mu$-costs.
 
-\textbf{Example:} Suppose state $s$ has modules $\{A, B, C\}$ and you execute \texttt{PSPLIT A \{0,1\} \{2,3\}}. The theorem guarantees:
+\textbf{Example:} Suppose state $s$ has modules $\{A, B, C\}$ and you execute \texttt{PSPLIT A \{0,1\} \{2,3\}}. The theorem proves:
 \begin{itemize}
     \item Module B's region is unchanged (e.g., still $\{4,5,6\}$).
     \item Module C's region is unchanged.
@@ -229,7 +229,7 @@ Theorem kernel_conservation_mu_gauge : forall s k,
 
 \textbf{Physical intuition:} In electromagnetism, the gauge transformation $A_\mu \to A_\mu + \partial_\mu \chi$ leaves the electromagnetic field $F_{\mu\nu}$ unchanged. Physical observables (E, B fields) are gauge-invariant. Similarly, in the Thiele Machine, adding a constant to $\mu$ does not change the \textit{structure} of the partition graph. What matters is \textbf{how much $\mu$ you pay} ($\Delta\mu$), not where you started.
 
-\textbf{Why does this matter?} This theorem guarantees that:
+\textbf{Why does this matter?} This theorem proves that:
 \begin{enumerate}
     \item Absolute $\mu$ values are not physically meaningful---only differences matter.
     \item Cross-layer isomorphism tests can use different $\mu$ origins (Python initializes at 0, Coq might start at 100) without breaking equivalence.
@@ -241,7 +241,7 @@ Theorem kernel_conservation_mu_gauge : forall s k,
     \item VM1: starts at $\mu = 0$, ends at $\mu = 100$. $\Delta\mu = 100$.
     \item VM2: starts at $\mu = 1000$, ends at $\mu = 1100$. $\Delta\mu = 100$.
 \end{itemize}
-The theorem guarantees both VMs have identical partition structures at the end. The absolute $\mu$ differs by 1000, but this is a gauge artifact---the \textit{structural work} ($\Delta\mu = 100$) is the same.
+The theorem proves both VMs have identical partition structures at the end. The absolute $\mu$ differs by 1000, but this is a gauge artifact---the \textit{structural work} ($\Delta\mu = 100$) is the same.
 
 
 The symmetry (freedom to shift $\mu$ by a constant) corresponds to the conserved quantity (partition structure). This is not metaphorical—it is the same mathematical relationship that underlies energy conservation in classical mechanics: a symmetry of the dynamics induces a conserved observable.
@@ -251,7 +251,7 @@ The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gaug
 
 The bridge from a formally verified $\mu$-ledger to a physical claim requires an explicit translation dictionary and at least one measurement that could prove the bridge wrong.
 
-\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The Coq kernel proves $\mu \ge |\phi|_{\text{bits}}$ (description length). The Python VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ using a conservative bound ($\text{before} = 2^{n}$, $\text{after} = 1$); may overcharge when multiple solutions exist, avoiding \#P-complete model counting. The system adopts the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
+\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The Coq kernel proves $\mu \ge |\phi|_{\text{bits}}$ (description length). The Python VM \emph{proves} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ using a conservative bound ($\text{before} = 2^{n}$, $\text{after} = 1$); may overcharge when multiple solutions exist, avoiding \#P-complete model counting. The system adopts the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
 
 \paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq.
 \paragraph{Falsifiable prediction.} Consider four paired workloads that differ only in which singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within the stated $\epsilon$). A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation overhead. Genesis-only traces remain the lone zero-$\mu$ case.
@@ -602,14 +602,14 @@ instr_lassert (formula_addr_reg cert_addr_reg : nat)
     \item \textbf{cert\_addr\_reg : nat} — Register holding the base address of the witness block in \texttt{vm\_mem}.
     \item \textbf{cert\_kind : bool} — Selects the checker: \texttt{false} = LRAT/UNSAT proof; \texttt{true} = SAT satisfying model plus falsifying countermodel.
     \item \textbf{formula\_len : nat} — Encoded formula-unit count in memory. Directly sets the formula-component of the $\mu$-cost.
-    \item \textbf{mu\_delta : nat} — Explicit cost floor. The total $\mu$-cost charged is $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$, ensuring cost is always at least 1.
+    \item \textbf{mu\_delta : nat} — Explicit cost floor. The total $\mu$-cost charged is $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$, so cost is always at least 1.
 \end{itemize}
 
 \textbf{$\mu$-cost formula:} The $\mu$-cost is
 \[
   \Delta\mu(\text{LASSERT}) = \mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})
 \]
-where $\mathtt{formula\_len}$ is the formula's encoded-unit count, with eight concrete bits charged per unit. Longer formulas cost proportionally more, encoding the information-theoretic principle that structurally richer claims are more expensive. $S(\mathtt{mu\_delta})$ guarantees the cost is at least 1, even for the empty formula.
+where $\mathtt{formula\_len}$ is the formula's encoded-unit count, with eight concrete bits charged per unit. Longer formulas cost proportionally more, encoding the information-theoretic principle that structurally richer claims are more expensive. $S(\mathtt{mu\_delta})$ proves the cost is at least 1, even for the empty formula.
 
 \textbf{Example workflow:}
 \begin{enumerate}

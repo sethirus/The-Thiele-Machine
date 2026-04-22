@@ -114,6 +114,9 @@ jobs:
           pip install --quiet -r requirements.txt
           python scripts/inquisitor.py --report INQUISITOR_REPORT.md
 
+      - name: Run bedrock assumption gate
+        run: python scripts/inquisitor_assumption_gate.py
+
       - name: Run reproducible proof gate
         run: bash scripts/proof_gate_reproducible.sh
 

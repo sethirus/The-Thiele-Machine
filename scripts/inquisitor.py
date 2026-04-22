@@ -6455,6 +6455,8 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         "AssumptionBundle", "HardAssumptions", "HardMathFactsProven",
         "ThieleCPUCore", "VerilogRefinement", "Abstraction",
         "KamiExtraction", "Compatibility", "CanonicalCPUProof",
+        # Registry/documentation modules — connect indirectly through KamiHW
+        "RTLGapRegistry", "CloseoutVerification",
     }
 
     for vf in v_files:

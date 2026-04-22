@@ -8,12 +8,14 @@
         (rtl_shadow_trace_compat_extended in ShadowDeviceTrace.v),
         34/46 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
         LJOIN from EmbedStep_WF.v + ShadowEmbedStep.v).
-      Remaining 12 opcodes (PSPLIT, PMERGE, 7 MORPH family):
-        COMPOSE/MORPH_ID/MORPH_TENSOR have coupling-representation gaps.
-        MORPH/MORPH_DELETE/MORPH_ASSERT/MORPH_GET have full-state proofs
-        through abs_full_snapshot (GraphReconstructionBridge.v) but not
-        abs_phase1 shadow-level lemmas.
-        PSPLIT/PMERGE have existence proofs only.
+      Remaining 12 opcodes (PSPLIT, PMERGE, 7 MORPH family, COMPOSE):
+        All 12 have Qed proofs under abs_full_snapshot with extended_hw_invariant
+        (GraphReconstructionBridge.v morph_table_wf_kami_step_preserved covers all
+        46 kami_step operations; coupling_wf migration closed the prior
+        coupling-representation gaps as of 2026-04-21).
+        The remaining open question is abs_phase1 shadow-level lemmas (matching the
+        30+4 unconditional format) — not blocking correctness since abs_full_snapshot
+        is the stronger abstraction used by VerilogRefinement.v.
 
       LASSERT is now covered through the checked EmbedStep/LogicEngine path:
       its formula-length μ charge and dual-witness guard are aligned with
