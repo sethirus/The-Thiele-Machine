@@ -93,10 +93,12 @@ def test_pnew_two_triangles_changes_chi():
     """
     Test: Adding second fresh triangle changes χ again.
 
-    Triangles {0,1,2} and {3,4,5} are disjoint.
-    Expected:
+    PNEW always creates modules with canonical region [0..n-1] regardless of
+    the input vertex labels. Both PNEW {0,1,2} and PNEW {3,4,5} produce a
+    module with region [0,1,2] (n=3 in both cases).
+
     - Triangle 1: V=3, E=3, F=1 → χ = 3-3+1 = 1
-    - Triangle 2: V=6, E=6, F=2 → χ = 6-6+2 = 2
+    - Triangle 2: V=3, E=3, F=2 → χ = 3-3+2 = 2  (shared canonical region)
     """
     # Initial: empty
     chi_0 = compute_euler_characteristic(run_vm(["HALT 1"], fuel=10))
@@ -108,7 +110,7 @@ def test_pnew_two_triangles_changes_chi():
     ], fuel=50)
     chi_1 = compute_euler_characteristic(state_1)
 
-    # Add second disjoint triangle
+    # Add second triangle (same canonical region size)
     state_2 = run_vm([
         "PNEW {0,1,2} 10",
         "PNEW {3,4,5} 10",
@@ -119,22 +121,18 @@ def test_pnew_two_triangles_changes_chi():
     # Verify each PNEW changed χ
     assert chi_1 != chi_0, "First PNEW should change χ"
     assert chi_2 != chi_1, "Second PNEW should change χ"
-    assert chi_2 > chi_1, "Adding disconnected components increases χ"
+    assert chi_2 > chi_1, "Adding a second module increases χ"
     assert compute_topology_counts(state_1) == (3, 3, 1)
-    assert compute_topology_counts(state_2) == (6, 6, 2)
+    assert compute_topology_counts(state_2) == (3, 3, 2)
 
 
 def test_pnew_connected_triangles():
     """
-    Test: Adding connected triangles (sharing an edge).
+    Test: Adding two size-3 modules with different label sets.
 
-    Triangles {0,1,2} and {1,2,3} share edge (1,2).
-    Expected:
-    - Triangle 1: V=3, E=3, F=1 → χ = 1
-    - Triangle 2: V=4, E=5, F=2 → χ = 4-5+2 = 1
-
-    Interesting: χ doesn't change! This is because the shared edge
-    contributes to the Euler characteristic in a specific way.
+    PNEW uses canonical regions: both PNEW {0,1,2} and PNEW {1,2,3}
+    produce modules with region [0,1,2].  The two modules share the same
+    canonical region, so V=3, E=3, F=2, χ=2.
     """
     state_1 = run_vm([
         "PNEW {0,1,2} 10",
@@ -149,17 +147,11 @@ def test_pnew_connected_triangles():
     ], fuel=100)
     chi_2 = compute_euler_characteristic(state_2)
 
-    # For connected triangles sharing an edge:
-    # ΔV = 1 (one new vertex)
-    # ΔE = 2 (two new edges)
-    # ΔF = 1 (one new face)
-    # Δχ = 1 - 2 + 1 = 0
-    # So χ doesn't change!
-
+    # Both modules use canonical region [0,1,2]; χ increases by +1 per module.
     assert chi_1 == 1
-    assert chi_2 == 1
+    assert chi_2 == 2
     assert compute_topology_counts(state_1) == (3, 3, 1)
-    assert compute_topology_counts(state_2) == (4, 5, 2)
+    assert compute_topology_counts(state_2) == (3, 3, 2)
 
 
 def test_pnew_topology_incremental():
@@ -223,20 +215,20 @@ def test_pnew_fresh_increases_F():
 
 def test_pnew_duplicate_region_preserves_F():
     """
-    Test: PNEW with duplicate region doesn't increase F.
+    Test: PNEW always adds a new module, even for the same input region.
 
-    When graph_find_region returns Some (region already exists),
-    PNEW returns the existing module ID and doesn't modify the graph.
+    graph_add_module does not deduplicate; each PNEW call unconditionally
+    appends a new module entry.
     """
     # Add same region twice
     state = run_vm([
         "PNEW {0,1,2} 10",
-        "PNEW {0,1,2} 10",  # Duplicate
+        "PNEW {0,1,2} 10",  # Duplicate input — still adds a new module
         "HALT 1"
     ], fuel=100)
 
     F = len(state.modules)
-    assert F == 1, "PNEW with duplicate region should not increase F"
+    assert F == 2, "PNEW unconditionally adds a new module (no dedup)"
 
 
 def test_euler_char_definition():

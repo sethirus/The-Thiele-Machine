@@ -87,7 +87,13 @@ def generate_random_instruction() -> str:
 
     if opcode in ("PNEW", "PSPLIT", "PMERGE"):
         return f"{opcode} {random.randint(0,7)} {random.randint(0,7)} {cost}"
-    elif opcode in ("LASSERT", "LJOIN", "EMIT"):
+    elif opcode in ("LASSERT",):
+        freg = rand_reg5()
+        creg = rand_reg5()
+        kind = random.randint(0, 1)
+        flen = random.randint(1, 8)
+        return f"LASSERT {freg} {creg} {kind} {flen} {cost}"
+    elif opcode in ("LJOIN", "EMIT"):
         return f"{opcode} {rand_imm()} {rand_imm()} {cost}"
     elif opcode == "MDLACC":
         return f"MDLACC {random.randint(0,3)} {cost}"

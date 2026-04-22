@@ -9241,8 +9241,16 @@ Qed.
     diagonal EFE + off-diagonal Ricci = 0.
 
     This is the formal bridge from the diagonal result above to the
-    full tensor statement. The off-diagonal Ricci hypothesis is the
-    sole remaining gap at this discretization scale. *)
+    full tensor statement.
+
+    STATUS: The off-diagonal Ricci hypothesis is DISCHARGED for flat
+    (uniform metric) spacetime. See EinsteinEquationsFull.curved_ricci_uniform_two_vertex
+    and EinsteinEquationsFull.full_efe_uniform_two_vertex — these give the first
+    unconditional full-tensor EFE for flat discrete spacetime (0 Admitted, 0 open premises).
+
+    For curved (non-uniform metric) spacetime on finite complexes, off-diagonal
+    discrete Ricci is generically nonzero — a known discretization artifact.
+    The diagonal EFE is proved unconditionally (einstein_equation_from_mass). *)
 Theorem full_efe_from_diagonal_and_offdiag_ricci_tc :
   forall s sc v κ,
     (* Diagonal metric at v *)

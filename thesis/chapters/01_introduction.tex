@@ -255,7 +255,7 @@ This isn't theoretical. The abstract $\mu$-costs map to real physical resources:
     \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity. The Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is checked every cycle---violation freezes the CPU.
 \end{itemize}
 
-The RTL runs on Icarus Verilog and Verilator simulation with Yosys-compatible synthesis defines. The CI pipeline uses an entirely open-source FPGA flow: Yosys for logic synthesis, nextpnr for place-and-route, and ecppack for bitstream generation when those tools are available. The primary target is the Lattice ECP5-85k. Synthesis artifacts and bitstream generation are therefore best described as tested build targets rather than unconditional correctness guarantees.
+The RTL runs on Icarus Verilog and Verilator simulation with Yosys-compatible synthesis defines. The CI pipeline uses an entirely open-source FPGA flow: Yosys for logic synthesis, nextpnr for place-and-route, and ecppack for bitstream generation when those tools are available. The primary target is the Lattice ECP5-85k. Synthesis artifacts and bitstream generation are therefore best described as tested build targets rather than unconditional correctness proves.
 
 The hardware abstraction layer is proven correct in \path{coq/kami_hw/Abstraction.v} (1,546 lines, 34 Qed, 0 Admitted), which establishes that hardware steps preserve $\mu$-monotonicity, maintain the Bianchi invariant, and refine the VM semantics: \texttt{kami\_refines\_vm\_step}.
 
@@ -298,7 +298,7 @@ Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
 
     \item \textbf{The $\mu$-bit Currency:} Canonical, implementation-independent measure of structural information cost (MDL-based). The initiality theorem (\path{coq/kernel/MuInitiality.v}) proves $\mu$ is the \emph{unique} such measure: any instruction-consistent monotone cost starting at zero must equal $\mu$.
 
-    \item \textbf{No Free Insight:} Mechanized proof that predicate strengthening requires $\mu \ge |\phi|_{\text{bits}}$. VM guarantees $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ via conservative bounds.
+    \item \textbf{No Free Insight:} Mechanized proof that predicate strengthening requires $\mu \ge |\phi|_{\text{bits}}$. VM proves $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ via conservative bounds.
 
     \item \textbf{Observational No-Signaling:} Operations on one module can't affect observables of unrelated modules---computational Bell locality.
 

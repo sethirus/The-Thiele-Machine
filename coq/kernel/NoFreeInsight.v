@@ -11,10 +11,14 @@ From Kernel Require Import EntropyImpossibility.
 
     This is the central claim of the Thiele Machine. Starting from
     csr_cert_addr = 0, if a bounded execution ends with has_supra_cert, then
-    the trace contains one of the cert-setting instruction forms listed in
-    RevelationRequirement.v: REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT.
-    You cannot move from "no supra certificate" to "supra certificate" through
-    ordinary register arithmetic or a graph-only operation.
+  the trace crosses a positive-cost certification boundary. The broad
+  structural envelope exported from RevelationRequirement.v still lists the
+  revelation/certification instruction forms REVEAL, EMIT, LJOIN, LASSERT,
+  and MORPH_ASSERT. The sharper current-semantics shortcut frontier is now
+  explicit too: the actual bridge pattern for the csr_cert_addr channel is an
+  executed nonzero MORPH_ASSERT step, and traces with no such bridge remain
+  observation-only. You cannot move from "no supra certificate" to "supra
+  certificate" through ordinary register arithmetic or a graph-only op.
 
     Four facts grounding the claim:
     A1. Receipts: the trace is the execution record this file reasons about.
@@ -309,6 +313,11 @@ Qed.
     If trace_run starts with csr_cert_addr = 0 and ends in has_supra_cert, then
     the trace contains REVEAL, EMIT, LJOIN, LASSERT, or MORPH_ASSERT.
 
+  This is the conservative outer envelope. For the exact current structural
+  shortcut bridge, see [morph_assert_bridge_pattern] in
+  RevelationRequirement.v and the class theorem
+  [supra_bridge_free_trace_never_fully_certified] below.
+
     PROOF:
     This is exactly RevelationRequirement.nonlocal_correlation_requires_revelation.
     The point of this theorem is to expose that result under the NoFreeInsight
@@ -393,6 +402,42 @@ Proof.
     exact (certified_implies_supra A (run_vm fuel trace s_init) decoder P_strong trace Hcert).
   - apply certified_with_supra_implies_obs.
     exact Hcert.
+Qed.
+
+(** Bridge-free traces stay at the observation layer.
+
+    Under the current kernel semantics, a trace with no executed MORPH_ASSERT
+    bridge cannot finish with [has_supra_cert]. That makes the negative result
+    class-level rather than witness-level: any such trace remains observation-
+    only, regardless of which decoder or observational predicate you attach to
+    the final state. *)
+Theorem supra_bridge_free_trace_has_no_supra_cert :
+  forall (trace : Receipts) (s_init s_final : VMState) (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+    Forall non_morph_assert_instr trace ->
+    ~ has_supra_cert s_final.
+Proof.
+  intros trace s_init s_final fuel Hrun Hinit Hfree.
+  eapply non_morph_assert_trace_cannot_gain_supra_cert; eauto.
+Qed.
+
+Theorem supra_bridge_free_trace_never_fully_certified :
+  forall (A : Type)
+         (decoder : receipt_decoder A)
+         (P : ReceiptPredicate A)
+         (receipts : Receipts)
+         (trace : Receipts)
+         (s_init s_final : VMState)
+         (fuel : nat),
+    trace_run fuel trace s_init = Some s_final ->
+    s_init.(vm_csrs).(csr_cert_addr) = 0 ->
+    Forall non_morph_assert_instr trace ->
+    ~ Certified s_final decoder P receipts.
+Proof.
+  intros A decoder P receipts trace s_init s_final fuel Hrun Hinit Hfree Hcert.
+  eapply supra_bridge_free_trace_has_no_supra_cert; eauto.
+  exact (certified_implies_supra A s_final decoder P receipts Hcert).
 Qed.
 
 (** Corollary: CHSH Supra-Quantum as Instance

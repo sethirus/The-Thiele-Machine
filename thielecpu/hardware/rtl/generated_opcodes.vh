@@ -26,7 +26,7 @@ localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
 localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
 localparam [7:0] OPCODE_EMIT = 8'h0E;
 localparam [7:0] OPCODE_REVEAL = 8'h0F;
-localparam [7:0] OPCODE_ORACLE_HALTS = 8'h10;
+// 0x10 reserved (formerly ORACLE_HALTS — removed, no hardware implementation)
 localparam [7:0] OPCODE_HALT = 8'hFF;
 localparam [7:0] OPCODE_CHECKPOINT = 8'h19;
 localparam [7:0] OPCODE_READ_PORT = 8'h1A;

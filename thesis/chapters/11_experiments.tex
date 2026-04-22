@@ -20,7 +20,7 @@ Where possible, the experiments correspond to concrete harnesses in the reposito
 
 \subsection{Falsification vs.\ Confirmation}
 
-The point of these experiments is to try to \textbf{break} the theory, not to confirm it. Confirmation is cheap---you can always find cases where things work. The real test is whether you can construct an input that violates the guarantees. That's how I approached it: red-team first, celebrate later.
+The point of these experiments is to try to \textbf{break} the theory, not to confirm it. Confirmation is cheap---you can always find cases where things work. The real test is whether you can construct an input that violates the proves. That's how I approached it: red-team first, celebrate later.
 
 The experimental suite includes:
 \begin{itemize}
@@ -114,7 +114,7 @@ def run_landauer_experiment(
 \end{itemize}
 The Thiele Machine enforces this via $\mu$-conservation: erasing bits (destroying information) increases $\mu$ (structural complexity), which maps to energy dissipation.
 
-\textbf{Connection to kernel proofs:} The experiment is the \textit{empirical} verification of formal proof \texttt{MuLedgerConservation.v}, which proves that irreversible operations increase $\mu$ monotonically. The proof guarantees this \textit{must} happen; the experiment checks it \textit{does} happen in the implementation.
+\textbf{Connection to kernel proofs:} The experiment is the \textit{empirical} verification of formal proof \texttt{MuLedgerConservation.v}, which proves that irreversible operations increase $\mu$ monotonically. The proof proves this \textit{must} happen; the experiment checks it \textit{does} happen in the implementation.
 
 \textbf{Example run:}
 \begin{itemize}
@@ -284,7 +284,7 @@ def measure_entropy_vs_coarseness(
 \end{itemize}
 Without coarse-graining, $\Omega = \infty$ and entropy is undefined.
 
-\textbf{Connection to kernel proofs:} This experiment validates Theorem region\_equiv\_class\_infinite (Chapter 10, Section on Impossibility Theorems), which proves that observational equivalence classes are infinite. The proof \textit{guarantees} entropy diverges without coarse-graining; the experiment \textit{demonstrates} it in practice.
+\textbf{Connection to kernel proofs:} This experiment validates Theorem region\_equiv\_class\_infinite (Chapter 10, Section on Impossibility Theorems), which proves that observational equivalence classes are infinite. The proof \textit{proves} entropy diverges without coarse-graining; the experiment \textit{demonstrates} it in practice.
 
 \textbf{Example results:}
 \begin{itemize}
@@ -364,7 +364,7 @@ This validates that $\mu$-cost tracks \textit{information gain}, not just the ac
 
 \textbf{Falsification attempt:} A red-team test attempted to measure a quantum state \textit{without} increasing $\mu$ by exploiting a hypothetical bypass of the \texttt{REVEAL} instruction's cost-charging path. The kernel rejected all traces with $\Delta\mu < 1$ for non-eigenstate measurements, enforced by the NoFreeInsight guard (\texttt{ERR\_NOFI}, \texttt{0x4E4F4649}). The theory remains unfalsified.
 
-\textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves that observations increase $\mu$ monotonically. The proof \textit{guarantees} $\Delta\mu \geq 1$; the experiment \textit{checks} it holds in practice.
+\textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves that observations increase $\mu$ monotonically. The proof \textit{proves} $\Delta\mu \geq 1$; the experiment \textit{checks} it holds in practice.
 
 
 \textbf{Results:} Every observation increments $\mu$ by at least 1 unit, consistent with minimum measurement cost.
@@ -466,9 +466,9 @@ def run_chsh_game(n_rounds: int) -> CHSHResults:
     \item If $S > 2.8285$, it's \textit{definitely} supra-quantum (no false negatives).
     \item If $S \leq 2.8285$, it \textit{might} be quantum or supra-quantum (conservative).
 \end{itemize}
-The experiment uses the same rational bound, ensuring consistency between proofs and measurements.
+The experiment uses the same rational bound, so proofs and measurements are checked against one threshold.
 
-\textbf{Connection to kernel proofs:} This experiment validates Theorem quantum\_admissible\_implies\_CHSH\_le\_tsirelson (Chapter 10), which proves quantum-admissible boxes satisfy $S \leq 2.8285$. The proof \textit{guarantees} this bound; the experiment \textit{demonstrates} it across 100,000 trials.
+\textbf{Connection to kernel proofs:} This experiment validates Theorem quantum\_admissible\_implies\_CHSH\_le\_tsirelson (Chapter 10), which proves quantum-admissible boxes satisfy $S \leq 2.8285$. The proof \textit{proves} this bound; the experiment \textit{demonstrates} it across 100,000 trials.
 
 
 \textbf{Results:} 100,000 rounds achieved 85.3\% $\pm$ 0.1\%, consistent with the Tsirelson bound $\frac{2+\sqrt{2}}{4}$.
@@ -546,7 +546,7 @@ The bound holds tightly across 10 orders of magnitude.
 \end{itemize}
 Both outcomes would indicate a bug or theoretical flaw. The experiment verifies neither occurs.
 
-\textbf{Connection to kernel proofs:} This experiment validates the No Free Insight theorem (Theorem 3.3, Chapter 3), which proves that revealing structure costs $\mu$ proportional to the information gained. The proof \textit{guarantees} $\Delta\mu \geq \log_2(\text{reduction})$; the experiment \textit{demonstrates} tightness.
+\textbf{Connection to kernel proofs:} This experiment validates the No Free Insight theorem (Theorem 3.3, Chapter 3), which proves that revealing structure costs $\mu$ proportional to the information gained. The proof \textit{proves} $\Delta\mu \geq \log_2(\text{reduction})$; the experiment \textit{demonstrates} tightness.
 
 
 \textbf{Results:} All sweep points remain within the envelope $\mu \in [\log_2(n!), \log_2(n!)+1)$ across $n \in [1024, 1,048,576]$. Checks \texttt{mu\_lower\_bounds\_log2\_ratio} and \texttt{mu\_slack\_in\_[0,1)} pass.
@@ -632,7 +632,7 @@ The curve is \textit{piecewise linear} (due to the floor function) and \textit{m
     \item \textbf{Tradeoff:} High-communication systems (e.g., distributed consensus) pay for coordination by slowing computation.
 \end{itemize}
 
-\textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves $\mu$ increases monotonically and is conserved across operations. The proof \textit{guarantees} $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$; the experiment \textit{verifies} it holds for every tick.
+\textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves $\mu$ increases monotonically and is conserved across operations. The proof \textit{proves} $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$; the experiment \textit{verifies} it holds for every tick.
 
 
 \textbf{Results:} All invariants hold: (i) $r$ is monotonically non-increasing as $C$ increases, (ii) budget conservation $\mu_{\text{total}} = \mu_{\text{comm}} + \mu_{\text{compute}}$ verified across all sweeps. Time dilation curve matches prediction.
@@ -950,7 +950,7 @@ def benchmark_layer_isomorphism():
 \textbf{The three layers:}
 \begin{itemize}
     \item \textbf{Python:} Thin wrapper that delegates all execution to the OCaml extracted runner via subprocess. Contains state serialization/deserialization but no opcode semantics.
-    \item \textbf{Extracted OCaml:} Mechanically extracted from Coq proofs (guarantees correctness).
+    \item \textbf{Extracted OCaml:} Mechanically extracted from Coq proofs (proves correctness).
     \item \textbf{RTL (Verilog):} Hardware implementation (high performance, synthesizable to FPGA).
 \end{itemize}
 
@@ -968,7 +968,7 @@ def benchmark_layer_isomorphism():
 \textbf{Theoretical implications:} Cross-layer agreement is important evidence for the thesis's correctness story, but it should be read together with the proof/test boundary stated in the repository status matrix. In particular, backend availability and observable coverage determine how far any given experiment supports the stronger hardware-faithfulness claim.
 
 
-\textbf{Interpretation:} Cross-layer validation is intended to quantify the cost of stronger trust guarantees. Exact percentages are harness-dependent and should be treated as implementation-specific measurements rather than stable claims unless reproduced from active artifacts.
+\textbf{Interpretation:} Cross-layer validation is intended to quantify the cost of stronger trust proves. Exact percentages are harness-dependent and should be treated as implementation-specific measurements rather than stable claims unless reproduced from active artifacts.
 
 \section{Demonstrations}
 
@@ -1190,12 +1190,12 @@ Each proofpack includes Coq sources, compiled \texttt{.vo} files, and test trace
 
 The experimental validation suite establishes:
 \begin{enumerate}
-    \item \textbf{Physics simulations} validating theoretical predictions
+    \item \textbf{Physics simulations} that test theoretical predictions
     \item \textbf{Falsification tests} attempting to break the theory
     \item \textbf{Benchmarks} measuring performance characteristics
     \item \textbf{Demonstrations} showcasing capabilities
-    \item \textbf{Integration tests} ensuring end-to-end correctness
-    \item \textbf{Continuous validation} enforcing quality gates
+    \item \textbf{Integration tests} that check end-to-end correctness
+    \item \textbf{Continuous validation} that enforces quality gates
 \end{enumerate}
 
 All experiments passed. The theory remains unfalsified.

@@ -268,7 +268,7 @@ Record ModuleState := {
 
 \textbf{PartitionGraph Analysis:}
 \begin{itemize}
-    \item \textbf{pg\_next\_id}: Acts as a monotonic counter ensuring unique module IDs. Starting from 0, each new module increments this value. This prevents ID collisions and provides a total ordering over module creation time.
+    \item \textbf{pg\_next\_id}: Acts as a monotonic counter so module IDs stay unique. Starting from 0, each new module increments this value. This prevents ID collisions and provides a total ordering over module creation time.
     \item \textbf{pg\_modules}: An association list (list of pairs) mapping each \texttt{ModuleID} to its \texttt{ModuleState}. Think of this as a dictionary or hash table in other languages, but implemented as an immutable list for provability.
 \end{itemize}
 
@@ -491,7 +491,7 @@ Inductive vm_instruction :=
 | instr_tensor_get (dst : nat) (module : ModuleID) (i j : nat) (mu_delta : nat).
 \end{lstlisting}
 
-\paragraph{Why the instruction type matters:} Coq forces you to list every possible instruction up front---there's no way to sneak in a new one later without updating every proof that pattern-matches on instructions. That was painful during development (every time I added an instruction, dozens of proofs broke), but it means the proofs cover \emph{every} instruction, guaranteed.
+\paragraph{Why the instruction type matters:} Coq forces you to list every possible instruction up front---there's no way to sneak in a new one later without updating every proof that pattern-matches on instructions. That was painful during development (every time I added an instruction, dozens of proofs broke), but it means the proofs cover \emph{every} instruction, proven.
 
 The key design choice: every instruction carries a \texttt{mu\_delta} field. The cost isn't bolted on after the fact---it's baked into the instruction itself, so you literally cannot define an instruction without saying what it costs. That was intentional. It means every proof about the ledger gets the cost for free, just by pattern matching.
 
@@ -670,7 +670,7 @@ The Logic Engine is an on-chip FSM that verifies logical consistency by reading 
     \item \textbf{NOT trusted}: SMT solver outputs (Z3, CVC5, etc.) are \emph{not} assumed sound
     \item \textbf{Trusted}: Certificate checkers (LRAT proof verifier, model validator, countermodel validator) in \path{coq/kernel/CertCheck.v}
     \item \textbf{Soundness guarantee}: A false assertion cannot be accepted by the kernel, only fail to be proven
-    \item \textbf{Completeness}: Not guaranteed---the solver may fail to find proofs that exist
+    \item \textbf{Completeness}: Not proven---the solver may fail to find proofs that exist
     \item \textbf{TCB addition}: Hash functions (SHA-256), certificate parsers, and the Coq extraction correctness
 \end{itemize}
 
@@ -698,12 +698,12 @@ Definition check_countermodel_binary_fn : list nat -> (nat -> nat) -> bool := Ce
 \begin{itemize}
     \item \textbf{freg / creg}: The program stores the encoded formula and witness block anywhere in \texttt{vm\_mem} before executing \texttt{LASSERT}. The instruction holds only the register indices pointing to these locations---the actual bit payload is never in the instruction word.
     \item \textbf{kind field}: Selects which checker to invoke---\texttt{lassert\_sat} runs both \texttt{check\_model\_binary\_fn} and \texttt{check\_countermodel\_binary\_fn}; \texttt{lassert\_unsat} calls \texttt{check\_lrat}.
-    \item \textbf{flen}: The encoded formula-unit count. This is the primary cost driver: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$, ensuring longer formulas cost proportionally more in bits.
+    \item \textbf{flen}: The encoded formula-unit count. This is the primary cost driver: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$, so longer formulas cost proportionally more in bits.
 \end{itemize}
 
 \textbf{The Checker Functions:}
 \begin{itemize}
-    \item \textbf{check\_lrat}: Takes two strings (formula and LRAT proof), returns bool. Verified implementation of LRAT proof checking—guarantees that if it returns true, the formula is genuinely UNSAT.
+    \item \textbf{check\_lrat}: Takes two strings (formula and LRAT proof), returns bool. Verified implementation of LRAT proof checking—proves that if it returns true, the formula is genuinely UNSAT.
     \item \textbf{check\_model\_binary\_fn}: Takes binary formula words plus a memory-backed assignment function and returns bool. It confirms the satisfying witness.
     \item \textbf{check\_countermodel\_binary\_fn}: Takes the same formula plus a second assignment and returns bool iff at least one clause is falsified. This is the non-triviality witness that blocks tautology inflation.
     \item \textbf{:= CertCheck.\ldots}: These are definition bindings—the functions are implemented in the CertCheck module.
@@ -805,7 +805,9 @@ vm_mu : nat
 \paragraph{Understanding the $\mu$-Ledger Field:}
 \textbf{Why Just a Natural Number?}
 \begin{itemize}
-    \item \textbf{Simplicity}: A single counter is trivial to verify, impossible to forge, and unambiguous to compare
+    \item \textbf{Simplicity}: A single counter keeps the invariant explicit: one ordered value that every step updates by addition.
+    \item \textbf{Tamper detection}: Any attempt to change $\mu$ outside \texttt{instruction\_cost} and \texttt{apply\_cost} shows up as a proof obligation failure in the step semantics.
+    \item \textbf{Comparison}: One scalar value makes cross-layer checks deterministic because each trace has a single ledger value at every step.
     \item \textbf{Monotonicity}: Natural numbers have a total order ($0 < 1 < 2 < \cdots$), making "greater than" checks straightforward
     \item \textbf{Unbounded}: Coq's \texttt{nat} is mathematically unbounded (no overflow), matching the theoretical model
     \item \textbf{Additive}: Costs combine via simple addition—no complex accounting logic
@@ -872,7 +874,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
 
 \textbf{Why it works:} Every instruction's cost is a \texttt{nat} (natural number, can't be negative), so the ledger can only go up or stay the same. The proof walks through the step constructors covering success and failure branches across the active opcode set and confirms that \texttt{advance\_state} adds \texttt{instruction\_cost instr} to the ledger, which is always $\geq 0$. This isn't ``probably true'' or ``true in tests''---it's checked for all possible executions.
 
-\textbf{What this guarantees:}
+\textbf{What this proves:}
 \begin{enumerate}
     \item \textbf{No Negative Costs}: Instructions can't push the ledger backwards
     \item \textbf{No Accounting Bugs}: Even with complex state updates involving partition splits, merges, and data transfers, the ledger never decreases
@@ -1467,7 +1469,7 @@ Then:
     \[
     \Delta\mu = |\phi|_{\text{bits}} + n = |\phi|_{\text{bits}} + \log_2(2^n)
     \]
-    Since $|\Omega'| \ge 1$ for satisfiable formulas, this \emph{guarantees} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ (may overcharge when multiple solutions exist).
+    Since $|\Omega'| \ge 1$ for satisfiable formulas, this \emph{proves} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ (may overcharge when multiple solutions exist).
 \end{enumerate}
 \end{theorem}
 
@@ -1589,7 +1591,7 @@ Theorem nonlocal_correlation_requires_revelation :
     \item \textbf{LASSERT}: Assert logical constraints (adds axiom structure)
 \end{itemize}
 
-\textbf{Falsification Criterion:} If someone claims "I achieved supra-quantum correlations without paying computational cost," inspect their trace. This theorem guarantees you'll find at least one high-cost instruction. If not, the claim is provably false.
+\textbf{Falsification Criterion:} If someone claims "I achieved supra-quantum correlations without paying computational cost," inspect their trace. This theorem proves you'll find at least one high-cost instruction. If not, the claim is provably false.
 
 You can't get "free" quantum advantage---the total $\mu$ cost must be paid explicitly, whether as heat or stored structure.
 
@@ -1972,4 +1974,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (4,015 lines of Coq across seven files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Importantly, under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (4,015 lines of Coq across seven files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Key point: under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

@@ -49,10 +49,11 @@ def test_logic_related_opcodes_defined_in_coq_and_present_in_rtl_paths() -> None
     coq_types = (Path(__file__).resolve().parents[1] / "coq" / "kami_hw" / "ThieleTypes.v").read_text(encoding="utf-8")
     assert "OP_LASSERT" in coq_types
     assert "OP_LJOIN" in coq_types
-    assert "OP_ORACLE_HALTS" in coq_types
+    # OP_ORACLE_HALTS was removed (0x10 reserved); legacy cost constant remains
+    assert "ORACLE_HALTS_HW_COST" in coq_types
 
     txt = _rtl_text()
-    # LASSERT and ORACLE_HALTS appear as explicit opcode literals in the extracted RTL.
+    # LASSERT appears as explicit opcode literal in the extracted RTL.
     # LJOIN may be optimized into shared/default datapaths in generated output.
+    # ORACLE_HALTS (0x10) removed from RTL — no longer checked here.
     assert "8'h03" in txt
-    assert "8'h10" in txt

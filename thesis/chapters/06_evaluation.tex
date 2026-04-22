@@ -37,10 +37,10 @@ Three fundamental questions get answered empirically here:
     The theory claims that Coq, Python, and Verilog implementations produce identical results. This claim is tested on hundreds of instruction sequences, including randomized traces and structured micro-programs designed to stress the ISA.
     
     \item \textbf{Does the system respect causal bounds?} \\
-    The theory claims that partition geometry alone, without explicit revelation, remains local. CHSH experiments verify that the manifold projection mechanism respects the classical bound ($S \le 2$) in the absence of signaling, ensuring causal isolation.
+    The theory claims that partition geometry alone, without explicit revelation, remains local. CHSH experiments verify that the manifold projection mechanism respects the classical bound ($S \le 2$) in the absence of signaling, which means causal isolation is preserved.
     
     \item \textbf{Is the implementation practical?} \\
-    A beautiful theory that runs too slowly is useless. Performance and resource utilization are benchmarked to assess practicality, verifying that the hardware fits within standard FPGA constraints (Lattice ECP5).
+    A beautiful theory that runs too slowly is useless. Performance and resource utilization are benchmarked to assess practicality and check whether the hardware fits within standard FPGA constraints (Lattice ECP5).
 
     \item \textbf{Do the ledger-level predictions behave as derived?} \\
     Some of the most important claims in this thesis are not about any particular workload, but about unavoidable trade-offs induced by the $\mu$ rules themselves. The evaluation therefore includes two ``physics-without-physics'' harnesses that run on any machine: (i) a structural-heat certificate benchmark derived from $\mu=\lceil\log_2(n!)\rceil$, and (ii) a fixed-budget time-dilation benchmark derived from $r=\lfloor(B-C)/c\rfloor$.
@@ -293,7 +293,7 @@ Where:
 
 \subsection{Correlation Bounds}
 
-The validation suite enforces strict causal isolation, ensuring that geometric projections do not inadvertently produce signaling.
+The validation suite enforces strict causal isolation, so geometric projections do not produce signaling in the tested regime.
 
 From \path{tests/test_chsh_verilator_hardware_bridge.py}:
 \begin{lstlisting}
@@ -378,7 +378,7 @@ Theorem nonlocal_correlation_requires_revelation :
 
 \textbf{What is this theorem?} This is a \textbf{reference} to the formal Coq theorem proven in Chapter 5 (Section 5.9). It states that achieving supra-quantum certification requires explicit revelation events in the trace. The evaluation (Chapter 6) \textbf{tests} this theorem experimentally.
 
-\textbf{Theorem statement (simplified):} If you start with no certificate (\texttt{csr\_cert\_addr = 0}) and end with a supra-certificate (\texttt{has\_supra\_cert}), the trace must contain at least one revelation instruction (REVEAL, EMIT, LJOIN, or LASSERT).
+\textbf{Theorem statement (simplified):} If you start with no certificate (\texttt{csr\_cert\_addr = 0}) and end with a supra-certificate (\texttt{has\_supra\_cert}), the trace must cross a positive-cost certification boundary. The conservative theorem surface lists REVEAL, EMIT, LJOIN, LASSERT, and MORPH\_ASSERT. For the current structural-shortcut bridge specifically, the exact cert-address path is the executed MORPH\_ASSERT bridge proved in Chapter 5.
 
 \textbf{Evaluation role:} The validation suite focuses on the \textit{classical consistency} of the partition geometry. It confirms that the platform does not produce spurious quantum effects:
 \begin{itemize}
@@ -557,7 +557,7 @@ To connect the ledger to a physical observable, a narrowly scoped, falsifiable e
 Use the thermodynamic bridge harness to emit four traces that differ only in which singleton module is revealed from a fixed candidate pool: (1) choose 1 of 2 elements, (2) choose 1 of 4, (3) choose 1 of 16, (4) choose 1 of 64. Instruction count, data size, and clocking remain identical so that only the $\Omega \to \Omega'$ reduction changes. The bundle records per-step $\mu$ (raw and normalized), $|\Omega|$, $|\Omega'|$, normalization flags for the formal, reference, and hardware layers, and an `evidence\_strict` bit indicating whether normalization was allowed.
 
 \subsection{Bridge prediction}
-The VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace using a conservative bound (assumes single solution, avoids \#P-complete model counting). Under the thermodynamic postulate $Q_{\min} = k_B T \ln 2 \cdot \mu$, measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within an explicit inefficiency factor $\epsilon$). Genesis-only traces remain the lone legitimate zero-$\mu$ run; a zero $\mu$ on any nontrivial trace is treated as a test failure, not “alignment.”
+The VM \emph{proves} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace using a conservative bound (assumes single solution, avoids \#P-complete model counting). Under the thermodynamic postulate $Q_{\min} = k_B T \ln 2 \cdot \mu$, measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within an explicit inefficiency factor $\epsilon$). Genesis-only traces remain the lone legitimate zero-$\mu$ run; a zero $\mu$ on any nontrivial trace is treated as a test failure, not “alignment.”
 
 \subsection{Instrumentation and analysis}
 Run the three traces on instrumented hardware (or a calibrated switching-energy simulator) at fixed temperature $T$. Record per-run energy and environmental metadata. Fit measured energy against $k_B T \ln 2 \cdot \mu$ and report residuals. A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies overhead. Publish both ledger outputs and raw measurements so reviewers can recompute the bound.
@@ -580,7 +580,7 @@ from\_64 & 7 & 7/7 & 6 & $2.01\!\times\!10^{-20}$ & 1.17 \\
 \end{center}
 }
 
-All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ (guaranteed by VM conservative bound) and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.
+All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ (proven by VM conservative bound) and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.
 
 \subsection{The Conservation of Difficulty Experiment}
 This experiment directly tests the Landauer patch on the \textit{Blind Sort} vs \textit{Sighted Sort} micro-programs. The setup runs two traces that both sort the same buffer: (i) a blind trace that uses only XOR/XFER data movement, and (ii) a sighted trace that uses PNEW/LASSERT to reveal structure before moving data. The purpose is to show that the total $\mu$ is conserved even when the cost shifts between heat and stored structure.

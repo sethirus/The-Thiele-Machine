@@ -127,6 +127,9 @@ def _get_timeout(item) -> int:
     # many subprocess invocations; use a higher default when no CLI override.
     if item.get_closest_marker("strict_rtl") is not None:
         return 240
+    # coq-marked tests may trigger Coq compilation which can take minutes.
+    if item.get_closest_marker("coq") is not None:
+        return 600
     ini = cfg.getini("per_test_timeout")
     try:
         return int(ini)

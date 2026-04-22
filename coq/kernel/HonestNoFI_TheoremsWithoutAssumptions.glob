@@ -1,136 +1,1109 @@
-DIGEST 88111e08135e318d2dbea9a14b0f0cbf
+DIGEST e761a452c744c86c6a8fb0bbb7fd5939
 FKernel.HonestNoFI_TheoremsWithoutAssumptions
-R554:557 Coq.Lists.List <> <> lib
-R567:579 Coq.Lists.List ListNotations <> mod
-R610:616 Kernel.VMState <> <> lib
-R618:623 Kernel.VMStep <> <> lib
-R625:639 Kernel.SimulationProof <> <> lib
-R669:681 Kernel.NoFreeInsight <> <> lib
-R711:740 Kernel.InformationGainToStrengthening <> <> lib
-prf 1007:1062 <> honest_information_reduction_requires_structure_addition
-R1083:1085 Coq.Init.Datatypes <> nat ind
-binder 1076:1079 <> fuel:1
-R1097:1100 Coq.Init.Datatypes <> list ind
-R1102:1115 Kernel.VMStep VMStep vm_instruction ind
-binder 1089:1093 <> trace:2
-R1145:1151 Kernel.VMState <> VMState rec
-binder 1128:1133 <> s_init:3
-binder 1135:1141 <> s_final:4
-R1174:1202 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
-R1205:1208 Coq.Init.Datatypes <> list ind
-R1210:1223 Kernel.VMStep VMStep vm_instruction ind
-binder 1164:1170 <> decoder:5
-R1259:1288 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
-R1291:1294 Coq.Init.Datatypes <> list ind
-R1296:1309 Kernel.VMStep VMStep vm_instruction ind
-binder 1237:1243 <> P_prior:6
-binder 1245:1255 <> P_posterior:7
-R1353:1394 Kernel.InformationGainToStrengthening <> FeasibleSet def
-binder 1323:1333 <> omega_prior:8
-binder 1335:1349 <> omega_posterior:9
-R1436:1443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1409:1411 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1402:1408 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:4 var
-R1412:1417 Kernel.SimulationProof <> run_vm def
-R1419:1422 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:1 var
-R1424:1428 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:2 var
-R1430:1435 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
-R1465:1472 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1444:1445 Coq.Lists.List <> In def
-R1454:1464 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:8 var
-R1447:1452 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
-R1551:1558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1473:1522 Kernel.InformationGainToStrengthening <> is_strict_reduction def
-R1524:1534 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:8 var
-R1536:1550 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:9 var
-R1623:1630 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1619:1621 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R1559:1602 Kernel.InformationGainToStrengthening <> feasible_size def
-R1604:1618 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:9 var
-R1667:1674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1663:1665 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1649:1661 Kernel.VMState <> csr_cert_addr proj
-R1639:1645 Kernel.VMState <> vm_csrs proj
-R1631:1636 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
-R1726:1733 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1675:1705 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
-R1719:1725 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:6 var
-R1707:1717 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:7 var
-R1791:1798 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1734:1756 Kernel.NoFreeInsight NoFreeInsight Certified def
-R1786:1790 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:2 var
-R1774:1784 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:7 var
-R1766:1772 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:5 var
-R1758:1764 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:4 var
-R1799:1834 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
-R1836:1839 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:1 var
-R1841:1845 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:2 var
-R1847:1852 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
-R2045:2099 Kernel.NoFreeInsight NoFreeInsight strengthening_requires_structure_addition thm
-R2113:2116 Coq.Init.Datatypes <> list ind
-R2118:2131 Kernel.VMStep VMStep vm_instruction ind
-R2045:2099 Kernel.NoFreeInsight NoFreeInsight strengthening_requires_structure_addition thm
-R2113:2116 Coq.Init.Datatypes <> list ind
-R2118:2131 Kernel.VMStep VMStep vm_instruction ind
-prf 2779:2828 <> b4_information_reduction_derives_strict_predicates
-R2872:2913 Kernel.InformationGainToStrengthening <> FeasibleSet def
-binder 2842:2852 <> omega_prior:10
-binder 2854:2868 <> omega_posterior:11
-R2935:2984 Kernel.InformationGainToStrengthening <> ObservationFunction def
-binder 2926:2931 <> obs_fn:12
-R3026:3029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3007:3010 Coq.Init.Datatypes <> list ind
-R3012:3025 Kernel.VMStep VMStep vm_instruction ind
-R3049:3052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3030:3033 Coq.Init.Datatypes <> list ind
-R3035:3048 Kernel.VMStep VMStep vm_instruction ind
-R3053:3056 Coq.Init.Datatypes <> bool ind
-binder 2997:3003 <> obs_eqb:13
-R3064:3064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3111:3119 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 3072:3073 <> o1:14
-binder 3075:3076 <> o2:15
-R3099:3103 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3092:3094 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3079:3085 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:13 var
-R3090:3091 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:15 var
-R3087:3088 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:14 var
-R3095:3098 Coq.Init.Datatypes <> true constr
-R3106:3108 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3104:3105 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:14 var
-R3109:3110 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:15 var
-R3195:3202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3120:3166 Kernel.InformationGainToStrengthening <> is_strict_subset def
-R3168:3182 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:11 var
-R3184:3194 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:10 var
-R3203:3203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3391:3399 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3204:3210 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3220:3227 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3211:3219 <> s_witness:16
-R3252:3261 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3228:3229 Coq.Lists.List <> In def
-R3241:3251 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:10 var
-R3231:3239 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:16 var
-R3292:3301 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3262:3263 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3264:3265 Coq.Lists.List <> In def
-R3277:3291 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:11 var
-R3267:3275 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:16 var
-R3302:3357 Kernel.InformationGainToStrengthening <> observation_distinguishes def
-R3359:3364 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:12 var
-R3366:3374 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:16 var
-R3376:3390 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:11 var
-R3400:3407 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3475:3483 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3430:3459 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
-R3461:3474 Kernel.VMStep VMStep vm_instruction ind
-binder 3408:3414 <> P_prior:17
-R3430:3459 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
-R3461:3474 Kernel.VMStep VMStep vm_instruction ind
-binder 3416:3426 <> P_posterior:18
-R3484:3514 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
-R3528:3534 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:17 var
-R3516:3526 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:18 var
-R3629:3714 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates_exists thm
-R3629:3714 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates_exists thm
+R743:746 Coq.Lists.List <> <> lib
+R748:761 Coq.Arith.PeanoNat <> <> lib
+R771:783 Coq.Lists.List ListNotations <> mod
+R814:820 Kernel.VMState <> <> lib
+R822:827 Kernel.VMStep <> <> lib
+R829:843 Kernel.SimulationProof <> <> lib
+R873:893 Kernel.RevelationRequirement <> <> lib
+R923:935 Kernel.NoFreeInsight <> <> lib
+R965:994 Kernel.InformationGainToStrengthening <> <> lib
+R1024:1038 Kernel.MuShannonBridge <> <> lib
+R1049:1063 Kernel.RevelationRequirement RevelationProof <> mod
+prf 1330:1385 <> honest_information_reduction_requires_structure_addition
+R1406:1408 Coq.Init.Datatypes <> nat ind
+binder 1399:1402 <> fuel:1
+R1420:1423 Coq.Init.Datatypes <> list ind
+R1425:1438 Kernel.VMStep VMStep vm_instruction ind
+binder 1412:1416 <> trace:2
+R1468:1474 Kernel.VMState <> VMState rec
+binder 1451:1456 <> s_init:3
+binder 1458:1464 <> s_final:4
+R1497:1525 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R1528:1531 Coq.Init.Datatypes <> list ind
+R1533:1546 Kernel.VMStep VMStep vm_instruction ind
+binder 1487:1493 <> decoder:5
+R1582:1611 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R1614:1617 Coq.Init.Datatypes <> list ind
+R1619:1632 Kernel.VMStep VMStep vm_instruction ind
+binder 1560:1566 <> P_prior:6
+binder 1568:1578 <> P_posterior:7
+R1676:1717 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 1646:1656 <> omega_prior:8
+binder 1658:1672 <> omega_posterior:9
+R1759:1766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1732:1734 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1725:1731 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:4 var
+R1735:1740 Kernel.SimulationProof <> run_vm def
+R1742:1745 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:1 var
+R1747:1751 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:2 var
+R1753:1758 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
+R1788:1795 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1767:1768 Coq.Lists.List <> In def
+R1777:1787 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:8 var
+R1770:1775 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
+R1874:1881 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1796:1845 Kernel.InformationGainToStrengthening <> is_strict_reduction def
+R1847:1857 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:8 var
+R1859:1873 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:9 var
+R1946:1953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1942:1944 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1882:1925 Kernel.InformationGainToStrengthening <> feasible_size def
+R1927:1941 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:9 var
+R1990:1997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1986:1988 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1972:1984 Kernel.VMState <> csr_cert_addr proj
+R1962:1968 Kernel.VMState <> vm_csrs proj
+R1954:1959 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
+R2049:2056 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1998:2028 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R2042:2048 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:6 var
+R2030:2040 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:7 var
+R2114:2121 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2057:2079 Kernel.NoFreeInsight NoFreeInsight Certified def
+R2109:2113 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:2 var
+R2097:2107 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:7 var
+R2089:2095 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:5 var
+R2081:2087 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:4 var
+R2122:2157 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R2159:2162 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:1 var
+R2164:2168 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:2 var
+R2170:2175 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:3 var
+R2368:2422 Kernel.NoFreeInsight NoFreeInsight strengthening_requires_structure_addition thm
+R2436:2439 Coq.Init.Datatypes <> list ind
+R2441:2454 Kernel.VMStep VMStep vm_instruction ind
+R2368:2422 Kernel.NoFreeInsight NoFreeInsight strengthening_requires_structure_addition thm
+R2436:2439 Coq.Init.Datatypes <> list ind
+R2441:2454 Kernel.VMStep VMStep vm_instruction ind
+prf 3102:3151 <> b4_information_reduction_derives_strict_predicates
+R3195:3236 Kernel.InformationGainToStrengthening <> FeasibleSet def
+binder 3165:3175 <> omega_prior:10
+binder 3177:3191 <> omega_posterior:11
+R3258:3307 Kernel.InformationGainToStrengthening <> ObservationFunction def
+binder 3249:3254 <> obs_fn:12
+R3349:3352 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3330:3333 Coq.Init.Datatypes <> list ind
+R3335:3348 Kernel.VMStep VMStep vm_instruction ind
+R3372:3375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3353:3356 Coq.Init.Datatypes <> list ind
+R3358:3371 Kernel.VMStep VMStep vm_instruction ind
+R3376:3379 Coq.Init.Datatypes <> bool ind
+binder 3320:3326 <> obs_eqb:13
+R3387:3387 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3434:3442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3395:3396 <> o1:14
+binder 3398:3399 <> o2:15
+R3422:3426 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3415:3417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3402:3408 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:13 var
+R3413:3414 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:15 var
+R3410:3411 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:14 var
+R3418:3421 Coq.Init.Datatypes <> true constr
+R3429:3431 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3427:3428 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:14 var
+R3432:3433 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:15 var
+R3518:3525 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3443:3489 Kernel.InformationGainToStrengthening <> is_strict_subset def
+R3491:3505 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:11 var
+R3507:3517 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:10 var
+R3526:3526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3714:3722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3527:3533 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3543:3550 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3534:3542 <> s_witness:16
+R3575:3584 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3551:3552 Coq.Lists.List <> In def
+R3564:3574 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:10 var
+R3554:3562 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:16 var
+R3615:3624 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3585:3586 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3587:3588 Coq.Lists.List <> In def
+R3600:3614 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:11 var
+R3590:3598 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:16 var
+R3625:3680 Kernel.InformationGainToStrengthening <> observation_distinguishes def
+R3682:3687 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:12 var
+R3689:3697 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:16 var
+R3699:3713 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:11 var
+R3723:3730 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3798:3806 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3753:3782 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R3784:3797 Kernel.VMStep VMStep vm_instruction ind
+binder 3731:3737 <> P_prior:17
+R3753:3782 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R3784:3797 Kernel.VMStep VMStep vm_instruction ind
+binder 3739:3749 <> P_posterior:18
+R3807:3837 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R3851:3857 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:17 var
+R3839:3849 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:18 var
+R3952:4037 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates_exists thm
+R3952:4037 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates_exists thm
+prf 4546:4599 <> distinguishing_observation_not_posterior_representable
+R4629:4632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4622:4628 Kernel.VMState <> VMState rec
+R4633:4636 Coq.Init.Datatypes <> list ind
+R4638:4651 Kernel.VMStep VMStep vm_instruction ind
+binder 4613:4618 <> obs_fn:19
+R4671:4698 Kernel.MuShannonBridge <> DecisionTree ind
+binder 4664:4667 <> tree:20
+R4741:4744 Coq.Init.Datatypes <> list ind
+R4746:4752 Kernel.VMState <> VMState rec
+binder 4711:4721 <> omega_prior:21
+binder 4723:4737 <> omega_posterior:22
+R4777:4783 Kernel.VMState <> VMState rec
+binder 4765:4773 <> s_witness:23
+R4815:4822 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4791:4792 Coq.Lists.List <> In def
+R4804:4814 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:21 var
+R4794:4802 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:23 var
+R4918:4925 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4823:4878 Kernel.InformationGainToStrengthening <> observation_distinguishes def
+R4886:4891 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:19 var
+R4893:4901 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:23 var
+R4903:4917 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:22 var
+R5020:5027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4926:4973 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R4981:4986 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:19 var
+R4988:4991 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> tree:20 var
+R4993:5003 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:21 var
+R5005:5019 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:22 var
+R5028:5032 Coq.Init.Logic <> False ind
+R5266:5298 Kernel.MuShannonBridge <> observation_equiv def
+prf 5979:6015 <> structural_entitlement_representation
+R6036:6038 Coq.Init.Datatypes <> nat ind
+binder 6029:6032 <> fuel:24
+R6050:6053 Coq.Init.Datatypes <> list ind
+R6055:6068 Kernel.VMStep VMStep vm_instruction ind
+binder 6042:6046 <> trace:25
+R6090:6096 Kernel.VMState <> VMState rec
+binder 6081:6086 <> s_init:26
+R6119:6147 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R6149:6162 Kernel.VMStep VMStep vm_instruction ind
+binder 6109:6115 <> decoder:27
+R6191:6194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6184:6190 Kernel.VMState <> VMState rec
+R6195:6198 Coq.Init.Datatypes <> list ind
+R6200:6213 Kernel.VMStep VMStep vm_instruction ind
+binder 6175:6180 <> obs_fn:28
+R6247:6250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6240:6246 Kernel.VMState <> VMState rec
+R6251:6254 Coq.Init.Datatypes <> list ind
+R6256:6269 Kernel.VMStep VMStep vm_instruction ind
+binder 6226:6236 <> repr_obs_fn:29
+R6311:6314 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6292:6295 Coq.Init.Datatypes <> list ind
+R6297:6310 Kernel.VMStep VMStep vm_instruction ind
+R6334:6337 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6315:6318 Coq.Init.Datatypes <> list ind
+R6320:6333 Kernel.VMStep VMStep vm_instruction ind
+R6338:6341 Coq.Init.Datatypes <> bool ind
+binder 6282:6288 <> obs_eqb:30
+R6384:6387 Coq.Init.Datatypes <> list ind
+R6389:6395 Kernel.VMState <> VMState rec
+binder 6354:6364 <> omega_prior:31
+binder 6366:6380 <> omega_posterior:32
+R6415:6442 Kernel.MuShannonBridge <> DecisionTree ind
+binder 6408:6411 <> tree:33
+R6450:6450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6497:6505 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6458:6459 <> o1:34
+binder 6461:6462 <> o2:35
+R6485:6489 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6478:6480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6465:6471 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:30 var
+R6476:6477 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:35 var
+R6473:6474 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:34 var
+R6481:6484 Coq.Init.Datatypes <> true constr
+R6492:6494 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6490:6491 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:34 var
+R6495:6496 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:35 var
+R6581:6588 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6506:6552 Kernel.InformationGainToStrengthening <> is_strict_subset def
+R6554:6568 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R6570:6580 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:31 var
+R6589:6589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6777:6785 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6590:6596 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6606:6613 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6597:6605 <> s_witness:36
+R6638:6647 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6614:6615 Coq.Lists.List <> In def
+R6627:6637 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:31 var
+R6617:6625 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:36 var
+R6678:6687 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6648:6649 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6650:6651 Coq.Lists.List <> In def
+R6663:6677 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R6653:6661 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:36 var
+R6688:6743 Kernel.InformationGainToStrengthening <> observation_distinguishes def
+R6745:6750 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:28 var
+R6752:6760 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:36 var
+R6762:6776 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R6822:6829 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6818:6820 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6804:6816 Kernel.VMState <> csr_cert_addr proj
+R6794:6800 Kernel.VMState <> vm_csrs proj
+R6786:6791 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:26 var
+R7007:7014 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6830:6852 Kernel.NoFreeInsight NoFreeInsight Certified def
+R7002:7006 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:25 var
+R6908:6953 Kernel.InformationGainToStrengthening <> omega_predicate def
+R6972:6986 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R6988:6993 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:28 var
+R6964:6970 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:30 var
+R6893:6899 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:27 var
+R6861:6866 Kernel.SimulationProof <> run_vm def
+R6868:6871 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:24 var
+R6873:6877 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:25 var
+R6879:6884 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:26 var
+R7085:7092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7015:7061 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R7063:7066 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:24 var
+R7068:7072 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:25 var
+R7074:7079 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:26 var
+R7081:7084 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> tree:33 var
+R7142:7149 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7138:7140 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7093:7121 Kernel.MuShannonBridge <> feasible_size def
+R7123:7137 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R7249:7256 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7150:7197 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R7205:7215 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> repr_obs_fn:29 var
+R7217:7220 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> tree:33 var
+R7222:7232 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:31 var
+R7234:7248 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R7278:7323 Kernel.InformationGainToStrengthening <> omega_predicate def
+R7341:7351 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:31 var
+R7353:7358 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:28 var
+R7333:7339 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:30 var
+binder 7261:7267 <> P_prior:37
+R7392:7437 Kernel.InformationGainToStrengthening <> omega_predicate def
+R7455:7469 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R7471:7476 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:28 var
+R7447:7453 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:30 var
+binder 7371:7381 <> P_posterior:38
+R7536:7543 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7485:7515 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R7529:7535 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:37 var
+R7517:7527 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:38 var
+R7598:7605 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7544:7579 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R7581:7584 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:24 var
+R7586:7590 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:25 var
+R7592:7597 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:26 var
+R7729:7738 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7661:7669 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7606:7616 Coq.Arith.PeanoNat Nat log2_up def
+R7619:7647 Kernel.MuShannonBridge <> feasible_size def
+R7649:7659 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:31 var
+R7670:7680 Coq.Arith.PeanoNat Nat log2_up def
+R7683:7711 Kernel.MuShannonBridge <> feasible_size def
+R7713:7727 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:32 var
+R7773:7775 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7767:7771 Kernel.VMState <> vm_mu proj
+R7740:7745 Kernel.SimulationProof <> run_vm def
+R7747:7750 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:24 var
+R7752:7756 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:25 var
+R7758:7763 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:26 var
+R7784:7788 Kernel.VMState <> vm_mu proj
+R7776:7781 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:26 var
+R8040:8085 Kernel.InformationGainToStrengthening <> omega_predicate def
+R8040:8085 Kernel.InformationGainToStrengthening <> omega_predicate def
+R8148:8193 Kernel.InformationGainToStrengthening <> omega_predicate def
+R8148:8193 Kernel.InformationGainToStrengthening <> omega_predicate def
+R8254:8284 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R8254:8284 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R8352:8430 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates thm
+R8352:8430 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates thm
+R8502:8556 Kernel.NoFreeInsight NoFreeInsight strengthening_requires_structure_addition thm
+R8502:8556 Kernel.NoFreeInsight NoFreeInsight strengthening_requires_structure_addition thm
+R8642:8709 Kernel.MuShannonBridge <> info_priced_posterior_representative_reduction_bound thm
+R8642:8709 Kernel.MuShannonBridge <> info_priced_posterior_representative_reduction_bound thm
+prf 9288:9338 <> observational_structural_entitlement_representation
+R9359:9361 Coq.Init.Datatypes <> nat ind
+binder 9352:9355 <> fuel:39
+R9373:9376 Coq.Init.Datatypes <> list ind
+R9378:9391 Kernel.VMStep VMStep vm_instruction ind
+binder 9365:9369 <> trace:40
+R9413:9419 Kernel.VMState <> VMState rec
+binder 9404:9409 <> s_init:41
+R9442:9470 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R9472:9485 Kernel.VMStep VMStep vm_instruction ind
+binder 9432:9438 <> decoder:42
+R9514:9517 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9507:9513 Kernel.VMState <> VMState rec
+R9518:9521 Coq.Init.Datatypes <> list ind
+R9523:9536 Kernel.VMStep VMStep vm_instruction ind
+binder 9498:9503 <> obs_fn:43
+R9566:9569 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9559:9565 Kernel.VMState <> VMState rec
+R9570:9573 Coq.Init.Datatypes <> list ind
+R9575:9588 Kernel.VMStep VMStep vm_instruction ind
+binder 9545:9555 <> repr_obs_fn:44
+R9630:9633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9611:9614 Coq.Init.Datatypes <> list ind
+R9616:9629 Kernel.VMStep VMStep vm_instruction ind
+R9653:9656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9634:9637 Coq.Init.Datatypes <> list ind
+R9639:9652 Kernel.VMStep VMStep vm_instruction ind
+R9657:9660 Coq.Init.Datatypes <> bool ind
+binder 9601:9607 <> obs_eqb:45
+R9703:9706 Coq.Init.Datatypes <> list ind
+R9708:9714 Kernel.VMState <> VMState rec
+binder 9673:9683 <> omega_prior:46
+binder 9685:9699 <> omega_posterior:47
+R9734:9761 Kernel.MuShannonBridge <> DecisionTree ind
+binder 9727:9730 <> tree:48
+R9769:9769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9816:9824 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 9777:9778 <> o1:49
+binder 9780:9781 <> o2:50
+R9804:9808 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9797:9799 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9784:9790 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:45 var
+R9795:9796 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:50 var
+R9792:9793 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:49 var
+R9800:9803 Coq.Init.Datatypes <> true constr
+R9811:9813 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9809:9810 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:49 var
+R9814:9815 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:50 var
+R9900:9907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9825:9871 Kernel.InformationGainToStrengthening <> is_strict_subset def
+R9873:9887 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R9889:9899 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:46 var
+R9908:9908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10096:10104 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9909:9915 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9925:9932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9916:9924 <> s_witness:51
+R9957:9966 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9933:9934 Coq.Lists.List <> In def
+R9946:9956 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:46 var
+R9936:9944 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:51 var
+R9997:10006 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9967:9968 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9969:9970 Coq.Lists.List <> In def
+R9982:9996 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R9972:9980 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:51 var
+R10007:10062 Kernel.InformationGainToStrengthening <> observation_distinguishes def
+R10064:10069 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:43 var
+R10071:10079 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:51 var
+R10081:10095 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R10285:10292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10105:10130 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R10280:10284 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:40 var
+R10186:10231 Kernel.InformationGainToStrengthening <> omega_predicate def
+R10250:10264 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R10266:10271 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:43 var
+R10242:10248 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:45 var
+R10171:10177 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:42 var
+R10139:10144 Kernel.SimulationProof <> run_vm def
+R10146:10149 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:39 var
+R10151:10155 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:40 var
+R10157:10162 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:41 var
+R10363:10370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10293:10339 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R10341:10344 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:39 var
+R10346:10350 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:40 var
+R10352:10357 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:41 var
+R10359:10362 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> tree:48 var
+R10420:10427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10416:10418 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R10371:10399 Kernel.MuShannonBridge <> feasible_size def
+R10401:10415 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R10527:10534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10428:10475 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R10483:10493 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> repr_obs_fn:44 var
+R10495:10498 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> tree:48 var
+R10500:10510 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:46 var
+R10512:10526 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R10556:10601 Kernel.InformationGainToStrengthening <> omega_predicate def
+R10619:10629 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:46 var
+R10631:10636 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:43 var
+R10611:10617 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:45 var
+binder 10539:10545 <> P_prior:52
+R10670:10715 Kernel.InformationGainToStrengthening <> omega_predicate def
+R10733:10747 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R10749:10754 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_fn:43 var
+R10725:10731 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> obs_eqb:45 var
+binder 10649:10659 <> P_posterior:53
+R10866:10873 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10763:10788 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R10861:10865 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:40 var
+R10843:10853 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:53 var
+R10829:10835 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:42 var
+R10797:10802 Kernel.SimulationProof <> run_vm def
+R10804:10807 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:39 var
+R10809:10813 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:40 var
+R10815:10820 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:41 var
+R10925:10932 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10874:10904 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R10918:10924 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:52 var
+R10906:10916 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:53 var
+R11056:11065 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10988:10996 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10933:10943 Coq.Arith.PeanoNat Nat log2_up def
+R10946:10974 Kernel.MuShannonBridge <> feasible_size def
+R10976:10986 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_prior:46 var
+R10997:11007 Coq.Arith.PeanoNat Nat log2_up def
+R11010:11038 Kernel.MuShannonBridge <> feasible_size def
+R11040:11054 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> omega_posterior:47 var
+R11100:11102 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11094:11098 Kernel.VMState <> vm_mu proj
+R11067:11072 Kernel.SimulationProof <> run_vm def
+R11074:11077 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:39 var
+R11079:11083 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:40 var
+R11085:11090 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:41 var
+R11111:11115 Kernel.VMState <> vm_mu proj
+R11103:11108 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:41 var
+R11359:11404 Kernel.InformationGainToStrengthening <> omega_predicate def
+R11359:11404 Kernel.InformationGainToStrengthening <> omega_predicate def
+R11467:11512 Kernel.InformationGainToStrengthening <> omega_predicate def
+R11467:11512 Kernel.InformationGainToStrengthening <> omega_predicate def
+R11573:11603 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R11573:11603 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R11671:11749 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates thm
+R11671:11749 Kernel.InformationGainToStrengthening <> feasible_strict_subset_implies_strict_predicates thm
+R11843:11910 Kernel.MuShannonBridge <> info_priced_posterior_representative_reduction_bound thm
+R11843:11910 Kernel.MuShannonBridge <> info_priced_posterior_representative_reduction_bound thm
+rec 12249:12274 <> ObservedStructuralShortcut
+proj 12356:12380 <> observed_shortcut_decoder
+proj 12432:12455 <> observed_shortcut_obs_fn
+proj 12493:12521 <> observed_shortcut_repr_obs_fn
+proj 12559:12583 <> observed_shortcut_obs_eqb
+proj 12641:12669 <> observed_shortcut_omega_prior
+proj 12689:12721 <> observed_shortcut_omega_posterior
+proj 12741:12762 <> observed_shortcut_tree
+proj 12799:12828 <> observed_shortcut_obs_eqb_spec
+proj 12905:12938 <> observed_shortcut_strict_narrowing
+proj 13068:13107 <> observed_shortcut_distinguishing_witness
+proj 13387:13423 <> observed_shortcut_certified_posterior
+proj 13703:13733 <> observed_shortcut_tree_realized
+proj 13840:13875 <> observed_shortcut_posterior_nonempty
+proj 13955:13987 <> observed_shortcut_representatives
+R12288:12290 Coq.Init.Datatypes <> nat ind
+binder 12281:12284 <> fuel:54
+R12302:12305 Coq.Init.Datatypes <> list ind
+R12307:12320 Kernel.VMStep VMStep vm_instruction ind
+binder 12294:12298 <> trace:55
+R12333:12339 Kernel.VMState <> VMState rec
+binder 12324:12329 <> s_init:56
+R12384:12412 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R12414:12427 Kernel.VMStep VMStep vm_instruction ind
+R12466:12469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12459:12465 Kernel.VMState <> VMState rec
+R12470:12473 Coq.Init.Datatypes <> list ind
+R12475:12488 Kernel.VMStep VMStep vm_instruction ind
+R12532:12535 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12525:12531 Kernel.VMState <> VMState rec
+R12536:12539 Coq.Init.Datatypes <> list ind
+R12541:12554 Kernel.VMStep VMStep vm_instruction ind
+R12606:12609 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12587:12590 Coq.Init.Datatypes <> list ind
+R12592:12605 Kernel.VMStep VMStep vm_instruction ind
+R12629:12632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12610:12613 Coq.Init.Datatypes <> list ind
+R12615:12628 Kernel.VMStep VMStep vm_instruction ind
+R12633:12636 Coq.Init.Datatypes <> bool ind
+R12673:12676 Coq.Init.Datatypes <> list ind
+R12678:12684 Kernel.VMState <> VMState rec
+R12725:12728 Coq.Init.Datatypes <> list ind
+R12730:12736 Kernel.VMState <> VMState rec
+R12766:12793 Kernel.MuShannonBridge <> DecisionTree ind
+binder 12843:12844 <> o1:65
+binder 12846:12847 <> o2:66
+R12888:12892 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R12881:12883 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12850:12874 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_eqb:61 meth
+R12879:12880 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:66 var
+R12876:12877 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:65 var
+R12884:12887 Coq.Init.Datatypes <> true constr
+R12895:12897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12893:12894 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:65 var
+R12898:12899 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:66 var
+R12946:12992 Kernel.InformationGainToStrengthening <> is_strict_subset def
+R13000:13032 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior:63 meth
+R13034:13062 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_prior:62 meth
+R13115:13121 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13131:13138 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13122:13130 <> s_witness:69
+R13181:13190 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13139:13140 Coq.Lists.List <> In def
+R13152:13180 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_prior:62 meth
+R13142:13150 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:69 var
+R13239:13248 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13191:13192 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13193:13194 Coq.Lists.List <> In def
+R13206:13238 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior:63 meth
+R13196:13204 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:69 var
+R13249:13304 Kernel.InformationGainToStrengthening <> observation_distinguishes def
+R13314:13337 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_fn:59 meth
+R13339:13347 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:69 var
+R13349:13381 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior:63 meth
+R13431:13456 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R13693:13697 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:55 var
+R13530:13575 Kernel.InformationGainToStrengthening <> omega_predicate def
+R13619:13651 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior:63 meth
+R13661:13684 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_fn:59 meth
+R13585:13609 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_eqb:61 meth
+R13497:13521 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_decoder:58 meth
+R13465:13470 Kernel.SimulationProof <> run_vm def
+R13472:13475 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:54 var
+R13477:13481 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:55 var
+R13483:13488 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:56 var
+R13741:13787 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R13795:13798 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:54 var
+R13800:13804 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:55 var
+R13806:13811 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:56 var
+R13813:13834 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_tree:64 meth
+R13946:13948 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R13883:13911 Kernel.MuShannonBridge <> feasible_size def
+R13913:13945 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior:63 meth
+R13995:14042 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R14050:14078 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_repr_obs_fn:60 meth
+R14086:14107 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_tree:64 meth
+R14115:14143 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_prior:62 meth
+R14151:14183 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior:63 meth
+prf 14197:14241 <> every_observed_structural_shortcut_lands_here
+R14262:14264 Coq.Init.Datatypes <> nat ind
+binder 14255:14258 <> fuel:75
+R14276:14279 Coq.Init.Datatypes <> list ind
+R14281:14294 Kernel.VMStep VMStep vm_instruction ind
+binder 14268:14272 <> trace:76
+R14307:14313 Kernel.VMState <> VMState rec
+binder 14298:14303 <> s_init:77
+R14337:14362 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> ObservedStructuralShortcut rec
+R14364:14367 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14369:14373 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14375:14380 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+binder 14326:14333 <> shortcut:78
+R14409:14454 Kernel.InformationGainToStrengthening <> omega_predicate def
+R14528:14556 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_prior proj
+R14558:14561 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14563:14567 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14569:14574 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R14576:14583 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+R14595:14618 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_fn proj
+R14620:14623 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14625:14629 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14631:14636 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R14638:14645 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+R14465:14489 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_eqb proj
+R14491:14494 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14496:14500 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14502:14507 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R14509:14516 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+binder 14392:14398 <> P_prior:79
+R14680:14725 Kernel.InformationGainToStrengthening <> omega_predicate def
+R14799:14831 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior proj
+R14833:14836 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14838:14842 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14844:14849 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R14851:14858 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+R14870:14893 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_fn proj
+R14895:14898 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14900:14904 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14906:14911 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R14913:14920 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+R14736:14760 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_eqb proj
+R14762:14765 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14767:14771 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14773:14778 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R14780:14787 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+binder 14659:14669 <> P_posterior:80
+R15080:15087 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14930:14955 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R15075:15079 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R15057:15067 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:80 var
+R14997:15021 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_decoder proj
+R15023:15026 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R15028:15032 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R15034:15039 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R15041:15048 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+R14964:14969 Kernel.SimulationProof <> run_vm def
+R14971:14974 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R14976:14980 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R14982:14987 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R15139:15146 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15088:15118 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R15132:15138 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:79 var
+R15120:15130 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:80 var
+R15396:15405 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R15263:15271 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15147:15157 Coq.Arith.PeanoNat Nat log2_up def
+R15166:15194 Kernel.MuShannonBridge <> feasible_size def
+R15205:15233 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_prior proj
+R15235:15238 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R15240:15244 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R15246:15251 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R15253:15260 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+R15272:15282 Coq.Arith.PeanoNat Nat log2_up def
+R15293:15321 Kernel.MuShannonBridge <> feasible_size def
+R15334:15366 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior proj
+R15368:15371 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R15373:15377 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R15379:15384 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R15386:15393 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:78 var
+R15440:15442 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R15434:15438 Kernel.VMState <> vm_mu proj
+R15407:15412 Kernel.SimulationProof <> run_vm def
+R15414:15417 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:75 var
+R15419:15423 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:76 var
+R15425:15430 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R15451:15455 Kernel.VMState <> vm_mu proj
+R15443:15448 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:77 var
+R15738:15788 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observational_structural_entitlement_representation thm
+R15738:15788 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observational_structural_entitlement_representation thm
+prf 16308:16357 <> observed_certified_obs_bridge_iff_final_supra_cert
+binder 16371:16371 <> A:81
+R16401:16429 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R16431:16431 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> A:81 var
+binder 16391:16397 <> decoder:82
+R16462:16491 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R16493:16493 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> A:81 var
+binder 16444:16449 <> P_weak:83
+binder 16451:16458 <> P_strong:84
+R16514:16517 Coq.Init.Datatypes <> list ind
+R16519:16532 Kernel.VMStep VMStep vm_instruction ind
+binder 16506:16510 <> trace:85
+R16554:16560 Kernel.VMState <> VMState rec
+binder 16545:16550 <> s_init:86
+R16580:16582 Coq.Init.Datatypes <> nat ind
+binder 16573:16576 <> fuel:87
+R16619:16626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16612:16614 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16590:16595 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_weak:83 var
+R16598:16604 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:82 var
+R16606:16610 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:85 var
+R16615:16618 Coq.Init.Datatypes <> true constr
+R16703:16711 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16971:16971 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16627:16652 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R16698:16702 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:85 var
+R16689:16696 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_strong:84 var
+R16681:16687 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:82 var
+R16655:16660 Kernel.SimulationProof <> run_vm def
+R16662:16665 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:87 var
+R16667:16671 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:85 var
+R16673:16678 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:86 var
+R16712:16712 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R16919:16929 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 16720:16726 <> s_final:88
+R16772:16784 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16745:16747 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16738:16744 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:88 var
+R16748:16753 Kernel.SimulationProof <> run_vm def
+R16755:16758 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:87 var
+R16760:16764 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:85 var
+R16766:16771 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:86 var
+R16814:16826 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16807:16809 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16785:16790 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_weak:83 var
+R16793:16799 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:82 var
+R16801:16805 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:85 var
+R16810:16813 Coq.Init.Datatypes <> true constr
+R16884:16896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16827:16852 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R16879:16883 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:85 var
+R16870:16877 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_strong:84 var
+R16862:16868 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:82 var
+R16854:16860 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:88 var
+R16897:16910 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R16912:16918 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:88 var
+R16930:16943 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R16946:16951 Kernel.SimulationProof <> run_vm def
+R16953:16956 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:87 var
+R16958:16962 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:85 var
+R16964:16969 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:86 var
+prf 17763:17832 <> observed_shortcut_full_upgrade_iff_final_supra_and_morph_assert_bridge
+R17853:17855 Coq.Init.Datatypes <> nat ind
+binder 17846:17849 <> fuel:89
+R17867:17870 Coq.Init.Datatypes <> list ind
+R17872:17885 Kernel.VMStep VMStep vm_instruction ind
+binder 17859:17863 <> trace:90
+R17898:17904 Kernel.VMState <> VMState rec
+binder 17889:17894 <> s_init:91
+R17928:17953 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> ObservedStructuralShortcut rec
+R17955:17958 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R17960:17964 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R17966:17971 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+binder 17917:17924 <> shortcut:92
+R18015:18022 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18011:18013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17997:18009 Kernel.VMState <> csr_cert_addr proj
+R17987:17993 Kernel.VMState <> vm_csrs proj
+R17979:17984 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18044:18068 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_decoder proj
+R18070:18073 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18075:18079 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18081:18086 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18088:18095 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:92 var
+binder 18027:18033 <> decoder:93
+R18129:18174 Kernel.InformationGainToStrengthening <> omega_predicate def
+R18248:18280 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior proj
+R18282:18285 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18287:18291 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18293:18298 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18300:18307 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:92 var
+R18319:18342 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_fn proj
+R18344:18347 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18349:18353 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18355:18360 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18362:18369 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:92 var
+R18185:18209 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_eqb proj
+R18211:18214 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18216:18220 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18222:18227 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18229:18236 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:92 var
+binder 18108:18118 <> P_posterior:94
+R18379:18379 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18547:18557 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18653:18653 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18484:18492 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18380:18402 Kernel.NoFreeInsight NoFreeInsight Certified def
+R18479:18483 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18460:18470 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:94 var
+R18445:18451 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:93 var
+R18412:18417 Kernel.SimulationProof <> run_vm def
+R18419:18422 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18424:18428 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18430:18435 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18493:18528 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R18530:18533 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18535:18539 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18541:18546 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18599:18607 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18558:18571 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R18574:18579 Kernel.SimulationProof <> run_vm def
+R18581:18584 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18586:18590 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18592:18597 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18608:18634 Kernel.RevelationRequirement RevelationProof morph_assert_bridge_pattern ind
+R18636:18639 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:89 var
+R18641:18645 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:90 var
+R18647:18652 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:91 var
+R18989:19025 Kernel.NoFreeInsight NoFreeInsight certified_implies_supra thm
+R18989:19025 Kernel.NoFreeInsight NoFreeInsight certified_implies_supra thm
+R19058:19062 Coq.Init.Logic <> proj1 thm
+R19065:19121 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
+R19058:19062 Coq.Init.Logic <> proj1 thm
+R19065:19121 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
+R19240:19262 Kernel.NoFreeInsight NoFreeInsight Certified def
+R19278:19309 Kernel.NoFreeInsight NoFreeInsight CertifiedWithSupra def
+R19390:19394 Coq.Init.Logic <> proj2 thm
+R19397:19453 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
+R19390:19394 Coq.Init.Logic <> proj2 thm
+R19397:19453 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
+prf 19840:19892 <> every_bridged_observed_structural_shortcut_lands_here
+R19913:19915 Coq.Init.Datatypes <> nat ind
+binder 19906:19909 <> fuel:95
+R19927:19930 Coq.Init.Datatypes <> list ind
+R19932:19945 Kernel.VMStep VMStep vm_instruction ind
+binder 19919:19923 <> trace:96
+R19958:19964 Kernel.VMState <> VMState rec
+binder 19949:19954 <> s_init:97
+R19988:20013 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> ObservedStructuralShortcut rec
+R20015:20018 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20020:20024 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20026:20031 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+binder 19977:19984 <> shortcut:98
+R20075:20082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20071:20073 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20057:20069 Kernel.VMState <> csr_cert_addr proj
+R20047:20053 Kernel.VMState <> vm_csrs proj
+R20039:20044 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20104:20128 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_decoder proj
+R20130:20133 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20135:20139 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20141:20146 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20148:20155 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+binder 20087:20093 <> decoder:99
+R20185:20230 Kernel.InformationGainToStrengthening <> omega_predicate def
+R20304:20332 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_prior proj
+R20334:20337 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20339:20343 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20345:20350 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20352:20359 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+R20371:20394 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_fn proj
+R20396:20399 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20401:20405 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20407:20412 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20414:20421 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+R20241:20265 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_eqb proj
+R20267:20270 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20272:20276 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20278:20283 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20285:20292 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+binder 20168:20174 <> P_prior:100
+R20456:20501 Kernel.InformationGainToStrengthening <> omega_predicate def
+R20575:20607 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior proj
+R20609:20612 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20614:20618 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20620:20625 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20627:20634 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+R20646:20669 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_fn proj
+R20671:20674 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20676:20680 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20682:20687 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20689:20696 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+R20512:20536 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_obs_eqb proj
+R20538:20541 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20543:20547 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20549:20554 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20556:20563 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+binder 20435:20445 <> P_posterior:101
+R20706:20706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20913:20921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 20714:20720 <> s_final:102
+R20765:20776 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20738:20740 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20731:20737 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:102 var
+R20741:20746 Kernel.SimulationProof <> run_vm def
+R20748:20751 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20753:20757 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20759:20764 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R20807:20818 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20800:20802 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20777:20783 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:100 var
+R20786:20792 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:99 var
+R20794:20798 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20803:20806 Coq.Init.Datatypes <> true constr
+R20879:20890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20819:20844 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R20874:20878 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20862:20872 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:101 var
+R20854:20860 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:99 var
+R20846:20852 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:102 var
+R20891:20904 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R20906:20912 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_final:102 var
+R21025:21032 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20922:20947 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R21020:21024 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R21002:21012 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:101 var
+R20988:20994 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> decoder:99 var
+R20956:20961 Kernel.SimulationProof <> run_vm def
+R20963:20966 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R20968:20972 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R20974:20979 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R21084:21091 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21033:21063 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R21077:21083 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:100 var
+R21065:21075 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:101 var
+R21146:21153 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21092:21127 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R21129:21132 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R21134:21138 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R21140:21145 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R21403:21412 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R21270:21278 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21154:21164 Coq.Arith.PeanoNat Nat log2_up def
+R21173:21201 Kernel.MuShannonBridge <> feasible_size def
+R21212:21240 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_prior proj
+R21242:21245 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R21247:21251 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R21253:21258 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R21260:21267 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+R21279:21289 Coq.Arith.PeanoNat Nat log2_up def
+R21300:21328 Kernel.MuShannonBridge <> feasible_size def
+R21341:21373 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observed_shortcut_omega_posterior proj
+R21375:21378 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R21380:21384 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R21386:21391 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R21393:21400 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:98 var
+R21447:21449 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21441:21445 Kernel.VMState <> vm_mu proj
+R21414:21419 Kernel.SimulationProof <> run_vm def
+R21421:21424 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:95 var
+R21426:21430 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:96 var
+R21432:21437 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R21458:21462 Kernel.VMState <> vm_mu proj
+R21450:21455 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:97 var
+R21774:21824 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observational_structural_entitlement_representation thm
+R21774:21824 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> observational_structural_entitlement_representation thm
+R22163:22221 Kernel.NoFreeInsight NoFreeInsight strengthening_obs_requires_structure_addition thm
+R22163:22221 Kernel.NoFreeInsight NoFreeInsight strengthening_obs_requires_structure_addition thm
+rec 22697:22719 <> SoundStructuralShortcut
+proj 22801:22816 <> shortcut_decoder
+proj 22868:22882 <> shortcut_obs_fn
+proj 22920:22939 <> shortcut_repr_obs_fn
+proj 22977:22992 <> shortcut_obs_eqb
+proj 23050:23069 <> shortcut_omega_prior
+proj 23089:23112 <> shortcut_omega_posterior
+proj 23132:23144 <> shortcut_tree
+proj 23181:23201 <> shortcut_obs_eqb_spec
+proj 23269:23293 <> shortcut_strict_narrowing
+proj 23405:23435 <> shortcut_distinguishing_witness
+proj 23679:23706 <> shortcut_initial_uncertified
+proj 23755:23782 <> shortcut_certified_posterior
+proj 24007:24028 <> shortcut_tree_realized
+proj 24126:24152 <> shortcut_posterior_nonempty
+proj 24223:24246 <> shortcut_representatives
+R22733:22735 Coq.Init.Datatypes <> nat ind
+binder 22726:22729 <> fuel:103
+R22747:22750 Coq.Init.Datatypes <> list ind
+R22752:22765 Kernel.VMStep VMStep vm_instruction ind
+binder 22739:22743 <> trace:104
+R22778:22784 Kernel.VMState <> VMState rec
+binder 22769:22774 <> s_init:105
+R22820:22848 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R22850:22863 Kernel.VMStep VMStep vm_instruction ind
+R22893:22896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22886:22892 Kernel.VMState <> VMState rec
+R22897:22900 Coq.Init.Datatypes <> list ind
+R22902:22915 Kernel.VMStep VMStep vm_instruction ind
+R22950:22953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22943:22949 Kernel.VMState <> VMState rec
+R22954:22957 Coq.Init.Datatypes <> list ind
+R22959:22972 Kernel.VMStep VMStep vm_instruction ind
+R23015:23018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22996:22999 Coq.Init.Datatypes <> list ind
+R23001:23014 Kernel.VMStep VMStep vm_instruction ind
+R23038:23041 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23019:23022 Coq.Init.Datatypes <> list ind
+R23024:23037 Kernel.VMStep VMStep vm_instruction ind
+R23042:23045 Coq.Init.Datatypes <> bool ind
+R23073:23076 Coq.Init.Datatypes <> list ind
+R23078:23084 Kernel.VMState <> VMState rec
+R23116:23119 Coq.Init.Datatypes <> list ind
+R23121:23127 Kernel.VMState <> VMState rec
+R23148:23175 Kernel.MuShannonBridge <> DecisionTree ind
+binder 23216:23217 <> o1:114
+binder 23219:23220 <> o2:115
+R23252:23256 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R23245:23247 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23223:23238 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb:110 meth
+R23243:23244 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:115 var
+R23240:23241 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:114 var
+R23248:23251 Coq.Init.Datatypes <> true constr
+R23259:23261 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23257:23258 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o1:114 var
+R23262:23263 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> o2:115 var
+R23301:23347 Kernel.InformationGainToStrengthening <> is_strict_subset def
+R23355:23378 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior:112 meth
+R23380:23399 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior:111 meth
+R23443:23449 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23459:23466 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 23450:23458 <> s_witness:118
+R23500:23509 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23467:23468 Coq.Lists.List <> In def
+R23480:23499 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior:111 meth
+R23470:23478 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:118 var
+R23549:23558 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23510:23511 Coq.Init.Logic <> ::type_scope:'~'_x not
+R23512:23513 Coq.Lists.List <> In def
+R23525:23548 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior:112 meth
+R23515:23523 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:118 var
+R23559:23614 Kernel.InformationGainToStrengthening <> observation_distinguishes def
+R23624:23638 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn:108 meth
+R23640:23648 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_witness:118 var
+R23650:23673 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior:112 meth
+R23746:23748 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23732:23744 Kernel.VMState <> csr_cert_addr proj
+R23722:23728 Kernel.VMState <> vm_csrs proj
+R23714:23719 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:105 var
+R23790:23812 Kernel.NoFreeInsight NoFreeInsight Certified def
+R23997:24001 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:104 var
+R23877:23922 Kernel.InformationGainToStrengthening <> omega_predicate def
+R23949:23972 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior:112 meth
+R23974:23988 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn:108 meth
+R23932:23947 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb:110 meth
+R23853:23868 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_decoder:107 meth
+R23821:23826 Kernel.SimulationProof <> run_vm def
+R23828:23831 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:103 var
+R23833:23837 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:104 var
+R23839:23844 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:105 var
+R24036:24082 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R24090:24093 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:103 var
+R24095:24099 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:104 var
+R24101:24106 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:105 var
+R24108:24120 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_tree:113 meth
+R24214:24216 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R24160:24188 Kernel.MuShannonBridge <> feasible_size def
+R24190:24213 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior:112 meth
+R24254:24301 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R24309:24328 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_repr_obs_fn:109 meth
+R24330:24342 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_tree:113 meth
+R24344:24363 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior:111 meth
+R24365:24388 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior:112 meth
+prf 24703:24744 <> every_sound_structural_shortcut_lands_here
+R24765:24767 Coq.Init.Datatypes <> nat ind
+binder 24758:24761 <> fuel:125
+R24779:24782 Coq.Init.Datatypes <> list ind
+R24784:24797 Kernel.VMStep VMStep vm_instruction ind
+binder 24771:24775 <> trace:126
+R24810:24816 Kernel.VMState <> VMState rec
+binder 24801:24806 <> s_init:127
+R24840:24862 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> SoundStructuralShortcut rec
+R24864:24867 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R24869:24873 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R24875:24880 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+binder 24829:24836 <> shortcut:128
+R24909:24954 Kernel.InformationGainToStrengthening <> omega_predicate def
+R25019:25038 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior proj
+R25040:25043 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25045:25049 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25051:25056 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25058:25065 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+R25077:25091 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn proj
+R25093:25096 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25098:25102 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25104:25109 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25111:25118 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+R24965:24980 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb proj
+R24982:24985 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R24987:24991 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R24993:24998 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25000:25007 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+binder 24892:24898 <> P_prior:129
+R25153:25198 Kernel.InformationGainToStrengthening <> omega_predicate def
+R25263:25286 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior proj
+R25288:25291 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25293:25297 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25299:25304 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25306:25313 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+R25325:25339 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn proj
+R25341:25344 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25346:25350 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25352:25357 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25359:25366 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+R25209:25224 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb proj
+R25226:25229 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25231:25235 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25237:25242 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25244:25251 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+binder 25132:25142 <> P_posterior:130
+R25427:25434 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R25376:25406 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R25420:25426 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_prior:129 var
+R25408:25418 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> P_posterior:130 var
+R25489:25496 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R25435:25470 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R25472:25475 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25477:25481 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25483:25488 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25728:25737 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R25604:25612 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R25497:25507 Coq.Arith.PeanoNat Nat log2_up def
+R25516:25544 Kernel.MuShannonBridge <> feasible_size def
+R25555:25574 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior proj
+R25576:25579 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25581:25585 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25587:25592 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25594:25601 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+R25613:25623 Coq.Arith.PeanoNat Nat log2_up def
+R25634:25662 Kernel.MuShannonBridge <> feasible_size def
+R25675:25698 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior proj
+R25700:25703 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25705:25709 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25711:25716 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25718:25725 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut:128 var
+R25772:25774 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R25766:25770 Kernel.VMState <> vm_mu proj
+R25739:25744 Kernel.SimulationProof <> run_vm def
+R25746:25749 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> fuel:125 var
+R25751:25755 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> trace:126 var
+R25757:25762 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R25783:25787 Kernel.VMState <> vm_mu proj
+R25775:25780 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> s_init:127 var
+R26084:26120 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> structural_entitlement_representation thm
+R26084:26120 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> structural_entitlement_representation thm

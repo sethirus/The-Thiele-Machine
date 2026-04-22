@@ -73,7 +73,7 @@ tests.append(("PMERGE", "PMERGE 0 0 9\nHALT", {
 # 4. LASSERT — UNSAT path (op_a[5]=0 → kind=UNSAT → immediate trap with ERR_LOGIC).
 #    The RTL uses bit 5 of op_a as the SAT/UNSAT kind flag.
 #    Here op_a=0, so kind=0 (UNSAT), which traps immediately and charges S(cost).
-tests.append(("LASSERT", "LASSERT 0 0 3\nHALT", {
+tests.append(("LASSERT", "LASSERT 0 0 0 0 3\nHALT", {
     "charges_mu": lambda r: r["mu"] == 4,  # S(3)=4: cert-setters charge cost+1
     "traps_with_err": lambda r: r["status"] == 3,  # err trap, not halted
     "sets_err_logic": lambda r: r["error_code"] == 0xC43471A1,

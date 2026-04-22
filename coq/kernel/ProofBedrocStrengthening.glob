@@ -1,0 +1,45 @@
+DIGEST 15e8fa9270c9212d535c755d9c6d2ca5
+FKernel.ProofBedrocStrengthening
+R708:711 Coq.Lists.List <> <> lib
+R713:715 Coq.micromega.Lia <> <> lib
+R717:721 Coq.Arith.Arith <> <> lib
+R723:730 Coq.Arith.PeanoNat <> <> lib
+R732:735 Coq.Bool.Bool <> <> lib
+R762:775 Coq.Strings.String <> <> lib
+R785:797 Coq.Lists.List ListNotations <> mod
+R828:834 Kernel.VMState <> <> lib
+R836:841 Kernel.VMStep <> <> lib
+R843:853 Kernel.MuCostModel <> <> lib
+R855:874 Kernel.MuLedgerConservation <> <> lib
+R904:916 Kernel.NoFreeInsight <> <> lib
+R918:938 Kernel.RevelationRequirement <> <> lib
+R940:952 Kernel.KernelPhysics <> <> lib
+R982:996 Kernel.SimulationProof <> <> lib
+R998:1017 Kernel.EntropyImpossibility <> <> lib
+mod 1378:1396 <> FoundationIsolation
+prf 1491:1518 FoundationIsolation mu_monotonic_from_step_alone
+binder 1531:1531 <> s:1
+binder 1533:1537 <> instr:2
+binder 1539:1540 <> s':3
+R1565:1572 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1547:1553 Kernel.VMStep VMStep vm_step ind
+R1555:1555 Kernel.ProofBedrocStrengthening <> s:1 var
+R1557:1561 Kernel.ProofBedrocStrengthening <> instr:2 var
+R1563:1564 Kernel.ProofBedrocStrengthening <> s':3 var
+R1582:1585 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1576:1580 Kernel.VMState <> vm_mu proj
+R1573:1573 Kernel.ProofBedrocStrengthening <> s:1 var
+R1606:1610 Kernel.VMState <> vm_mu proj
+R1587:1594 Kernel.SimulationProof <> vm_apply def
+R1596:1596 Kernel.ProofBedrocStrengthening <> s:1 var
+R1598:1602 Kernel.ProofBedrocStrengthening <> instr:2 var
+R1763:1773 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R1763:1773 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R1763:1773 Kernel.MuLedgerConservation <> vm_apply_mu thm
+prf 1854:1882 FoundationIsolation mu_never_decreases_from_trace
+binder 1895:1898 <> fuel:4
+binder 1900:1904 <> trace:5
+binder 1906:1906 <> s:6
+binder 1908:1918 <> final_state:7
+R1970:1977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1951:1953 Coq.Init.Logic <> ::type_scope:x_'='_x not

@@ -240,6 +240,7 @@ from __future__ import annotations
 import dataclasses
 import json
 import os
+import re
 import subprocess
 import sys
 import tempfile
@@ -470,6 +471,40 @@ class VMState:
             vm_witness=list(d.get("witness", [0] * 8)),
             vm_certified=bool(d.get("certified", False)),
         )
+
+    @property
+    def pc(self) -> int: return self.vm_pc
+    @property
+    def mu(self) -> int: return self.vm_mu
+    @property
+    def err(self) -> bool: return self.vm_err
+    @property
+    def regs(self) -> List[int]: return self.vm_regs
+    @property
+    def mem(self) -> List[int]: return self.vm_mem
+    @property
+    def csrs(self) -> Dict[str, int]:
+        return {"cert_addr": self.vm_csrs.csr_cert_addr, "status": self.vm_csrs.csr_status,
+                "err": self.vm_csrs.csr_err, "heap_base": self.vm_csrs.csr_heap_base}
+    @property
+    def mu_tensor(self) -> List[int]: return self.vm_mu_tensor
+    @property
+    def logic_acc(self) -> int: return self.vm_logic_acc
+    @property
+    def mstatus(self) -> int: return self.vm_mstatus
+    @property
+    def witness(self) -> List[int]: return self.vm_witness
+    @property
+    def certified(self) -> bool: return self.vm_certified
+    @property
+    def supra_cert(self) -> bool: return self.vm_csrs.csr_cert_addr != 0
+    @property
+    def modules(self) -> list:
+        from types import SimpleNamespace
+        return [SimpleNamespace(id=mid, region=list(ms.module_region), axioms=len(ms.module_axioms))
+                for mid, ms in self.vm_graph.pg_modules]
+    @property
+    def graph(self) -> "partitionGraph": return self.vm_graph
 '''
 
 
@@ -515,6 +550,9 @@ def generate_text_parser() -> str:
     # Python-safe op name overrides (avoids conflict with Python builtins)
     OP_NAME_OVERRIDE: dict[str, str] = {}  # and/or now use bare names ("and","or") matching instr_dict_to_text
 
+    # Special case opcodes handled below the main loop (text format differs from CONSTRUCTOR_FIELD_MAP order)
+    SPECIAL_PARSE_OPS = frozenset({"reveal", "certify"})
+
     lines = [
         "# ---------------------------------------------------------------------------",
         "# _parse_instruction_dict: parses text tokens to instruction dict.",
@@ -552,7 +590,7 @@ def generate_text_parser() -> str:
     # Special: LASSERT legacy error guard (must come before normal LASSERT branch)
     lines.append('    if op == "LASSERT" and 2 <= len(toks) <= 5:')
     lines.append('        raise ValueError(')
-    lines.append('            "Legacy LASSERT text form not supported; "')
+    lines.append('            "Legacy three-token LASSERT text form not supported; "')
     lines.append('            "use canonical on-chip form `LASSERT <freg> <creg> <kind> <flen> <cost>`"')
     lines.append('        )')
     lines.append('')
@@ -561,6 +599,9 @@ def generate_text_parser() -> str:
         opname = ctor_to_opname(ctor)
         op_upper = opname.upper()
         display_opname = OP_NAME_OVERRIDE.get(opname, opname)
+
+        if opname in SPECIAL_PARSE_OPS:
+            continue  # handled below
 
         n_fields = len(field_pairs)
         min_toks = 1 + n_fields  # 1 for opcode token itself
@@ -588,6 +629,24 @@ def generate_text_parser() -> str:
         lines.append(f'            {dict_str},')
         lines.append(f'        }}')
         lines.append('')
+
+    # Special case: REVEAL — OCaml/canonical text format is "REVEAL ti tj bits [cost [cert]]"
+    # where module = ti*4 + tj. This matches the format generate_instr_dict_to_text() produces.
+    # Accepts 4-6 tokens: REVEAL ti tj bits [cost [cert]]
+    lines.append('    if op == "REVEAL" and len(toks) >= 4:')
+    lines.append('        ti = _parse_int(toks[1])')
+    lines.append('        tj = _parse_int(toks[2])')
+    lines.append('        bits = _parse_int(toks[3])')
+    lines.append('        cost = _parse_int(toks[4]) if len(toks) >= 5 else 0')
+    lines.append('        cert = toks[5] if len(toks) >= 6 and toks[5] not in (".", "None", "") else ""')
+    lines.append('        return {"op": "reveal", "module": ti * 4 + tj, "bits": bits, "cert": cert, "cost": cost}')
+    lines.append('')
+
+    # Special case: CERTIFY — supports both 1-arg and 3-arg RTL format.
+    # OCaml runner handles: CERTIFY cost  AND  CERTIFY _ _ cost (cost = toks[-1]).
+    lines.append('    if op == "CERTIFY" and len(toks) >= 2:')
+    lines.append('        return {"op": "certify", "cost": _parse_int(toks[-1])}  # 1-arg: CERTIFY cost; 3-arg: CERTIFY _ _ cost')
+    lines.append('')
 
     lines.append('    return None')
     lines.append('')
@@ -946,6 +1005,85 @@ def vm_apply_runtime(state: VMState, instr: Dict[str, Any]) -> VMState:
 def vm_apply(state: VMState, instr: Dict[str, Any]) -> VMState:
     """Apply a single instruction (alias for vm_apply_unsafe)."""
     return vm_apply_unsafe(state, instr)
+
+
+# ---------------------------------------------------------------------------
+# Text-program runner (handles INIT directives + text→dict→exec)
+# Generated from CONSTRUCTOR_FIELD_MAP — no hand-written opcode bodies.
+# ---------------------------------------------------------------------------
+
+_REG_ALIAS_RE = re.compile(r"\\br([0-9]{1,2})\\b")
+
+_OCAML_ONLY_INIT: frozenset = frozenset({
+    "INIT_REG", "INIT_MEM", "INIT_MU", "INIT_TENSOR", "FUEL",
+    "INIT_MEM_STR", "INIT_LOGIC_ACC",
+})
+
+
+def run_text_program(instructions: List[str], fuel: int = 1000) -> VMState:
+    """Execute text-format instructions (with INIT directives).
+
+    Generated from CONSTRUCTOR_FIELD_MAP — delegates all opcode semantics
+    to the OCaml extracted binary via vm_run().
+    """
+    state = VMState.default()
+    program: List[Dict[str, Any]] = []
+    _init_mem: Dict[int, int] = {}
+    _reg_values: Dict[int, int] = {}
+    for raw in instructions:
+        line = raw.strip()
+        if not line or line[0] in ("#", ";"):
+            continue
+        line = _REG_ALIAS_RE.sub(lambda m: str(int(m.group(1)) & 0x1F), line)
+        toks = line.split()
+        op = toks[0].upper()
+        if op == "FUEL" and len(toks) >= 2:
+            try:
+                fuel = int(toks[1], 0)
+            except ValueError:
+                pass
+        elif op == "INIT_REG" and len(toks) >= 3:
+            idx = int(toks[1], 0) % REG_COUNT
+            val = int(toks[2], 0)
+            state.vm_regs[idx] = val
+            _reg_values[int(toks[1], 0)] = val
+        elif op == "INIT_MEM" and len(toks) >= 3:
+            addr = int(toks[1], 0) % MEM_SIZE
+            val = int(toks[2], 0)
+            state.vm_mem[addr] = val
+            _init_mem[int(toks[1], 0)] = val
+        elif op == "INIT_MU" and len(toks) >= 2:
+            state.vm_mu = int(toks[1], 0)
+        elif op == "INIT_TENSOR" and len(toks) >= 3:
+            state.vm_mu_tensor[int(toks[1], 0) % TENSOR_SIZE] = int(toks[2], 0)
+        elif op == "INIT_LOGIC_ACC" and len(toks) >= 2:
+            state.vm_logic_acc = int(toks[1], 0)
+        elif op.startswith("INIT_"):
+            pass
+        else:
+            if op == "LOAD_IMM" and len(toks) >= 3:
+                try:
+                    _reg_values[int(toks[1], 0)] = int(toks[2], 0)
+                except (ValueError, IndexError):
+                    pass
+            if op == "LASSERT" and len(toks) == 6:
+                try:
+                    freg = int(toks[1])
+                    flen = int(toks[4])
+                    fbase = _reg_values.get(freg)
+                    if fbase is not None:
+                        hw_flen = _init_mem.get(fbase)
+                        if hw_flen is not None and flen != hw_flen:
+                            raise ValueError(
+                                f"LASSERT flen {flen} does not match in-memory header {hw_flen} at formula base {fbase}"
+                            )
+                except (IndexError, ValueError) as _ve:
+                    if "does not match in-memory header" in str(_ve):
+                        raise
+            instr = _parse_instruction_dict(toks)
+            if instr is not None:
+                program.append(instr)
+    return vm_run(state, program, max_steps=fuel)
 
 
 # ---------------------------------------------------------------------------

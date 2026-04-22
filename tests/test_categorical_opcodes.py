@@ -36,15 +36,16 @@ class TestMorphCreate:
             "HALT 0",
         ])
         assert not state.err
-        assert state.graph.next_id == 3
-        assert state.graph.next_morph_id == 2
-        assert len(state.graph.morphisms) == 1
-        morph = state.graph.morphisms[0]
-        assert morph.id == 1
-        assert morph.source == 1
-        assert morph.target == 2
-        assert not morph.is_identity
-        assert morph.coupling == {"label": "empty", "pairs": []}
+        assert state.graph.pg_next_id == 3
+        assert state.graph.pg_next_morph_id == 2
+        assert len(state.graph.pg_morphisms) == 1
+        morph_id, morph = state.graph.pg_morphisms[0]
+        assert morph_id == 1
+        assert morph.morph_source == 1
+        assert morph.morph_target == 2
+        assert not morph.morph_is_identity
+        assert morph.morph_coupling.coupling_label == "empty"
+        assert morph.morph_coupling.coupling_pairs == []
 
     @pytest.mark.skipif(not vm._runner_available(), reason="OCaml runner unavailable")
     def test_python_protocol_categorical_state_matches_ocaml(self):
@@ -85,11 +86,12 @@ class TestMorphCreate:
 
         def graph_signature(state):
             return (
-                state.graph.next_id,
-                state.graph.next_morph_id,
+                state.graph.pg_next_id,
+                state.graph.pg_next_morph_id,
                 [
-                    (m.id, m.source, m.target, m.is_identity, m.coupling)
-                    for m in state.graph.morphisms
+                    (mid, ms.morph_source, ms.morph_target, ms.morph_is_identity,
+                     ms.morph_coupling.coupling_label, ms.morph_coupling.coupling_pairs)
+                    for mid, ms in state.graph.pg_morphisms
                 ],
             )
 
