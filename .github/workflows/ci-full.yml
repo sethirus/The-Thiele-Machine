@@ -36,7 +36,9 @@ jobs:
         run: |
           git submodule update --init --recursive vendor/bbv vendor/kami
           cd vendor/bbv && make -j4
-          cd ../kami && make -j4
+          cd ../..
+          bash scripts/fix_kami_coq18.sh
+          cd vendor/kami && make -j4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -161,7 +163,9 @@ jobs:
         run: |
           git submodule update --init --recursive vendor/bbv vendor/kami
           cd vendor/bbv && make -j4
-          cd ../kami && make -j4
+          cd ../..
+          bash scripts/fix_kami_coq18.sh
+          cd vendor/kami && make -j4
 
       - name: Set up Python
         uses: actions/setup-python@v5
