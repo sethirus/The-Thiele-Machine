@@ -46,11 +46,16 @@ echo "[sim] compile and run extracted RTL testbench"
 iverilog -g2012 -Ithielecpu/hardware/rtl -o "$ROOT/build/thiele_cpu_kami_tb.out" \
   thielecpu/hardware/rtl/thiele_cpu_kami.v \
   thielecpu/hardware/rtl/RegFile.v \
-  thielecpu/hardware/testbench/thiele_cpu_kami_tb.v
+  rtl_harness/testbench/thiele_cpu_kami_tb.v
 vvp "$ROOT/build/thiele_cpu_kami_tb.out" +VCD="$ROOT/build/thiele_cpu_tb.vcd" > "$ART_DIR/simulation.log" 2>&1
 
 if ! grep -q '"status"' "$ART_DIR/simulation.log"; then
   echo "FAIL: simulation evidence missing JSON payload"
+  exit 1
+fi
+
+if [ ! -s "$ROOT/build/thiele_cpu_tb.vcd" ]; then
+  echo "FAIL: expected waveform $ROOT/build/thiele_cpu_tb.vcd was not generated"
   exit 1
 fi
 
@@ -69,6 +74,6 @@ for k in ("mu", "pc", "regs", "mem", "status"):
 Path("artifacts/synthesis_gate/simulation_payload.json").write_text(json.dumps(payload, indent=2, sort_keys=True), encoding="utf-8")
 PY
 
-sha256sum "$ART_DIR"/*.log "$ART_DIR"/*.txt "$ART_DIR"/*.json "$ART_DIR"/*.py "$ART_DIR"/*.vh > "$ART_DIR/checksums.sha256"
+sha256sum "$ART_DIR"/*.log "$ART_DIR"/*.txt "$ART_DIR"/*.json "$ART_DIR"/*.py "$ART_DIR"/*.vh "$ROOT/build/thiele_cpu_tb.vcd" > "$ART_DIR/checksums.sha256"
 
 echo "[synth] PASS"

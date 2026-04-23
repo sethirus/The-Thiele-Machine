@@ -165,7 +165,8 @@ Record MorphismState := {
   morph_source : ModuleID;
   morph_target : ModuleID;
   morph_coupling : CouplingData;
-  morph_is_identity : bool
+  morph_is_identity : bool;
+  morph_cert_cost : nat  (* μ paid when MORPH_ASSERT certified this morphism; 0 if uncertified *)
 }.
 
 (** normalize_coupling: Remove duplicate (source, target) pairs from a coupling.
@@ -393,11 +394,81 @@ Definition graph_add_morphism (g : PartitionGraph)
   let ms := {| morph_source := src;
                morph_target := dst;
                morph_coupling := normalize_coupling c;
-               morph_is_identity := is_id |} in
+               morph_is_identity := is_id;
+               morph_cert_cost := 0 |} in
   ({| pg_next_id := g.(pg_next_id);
       pg_modules := g.(pg_modules);
       pg_next_morph_id := S new_id;
       pg_morphisms := (new_id, ms) :: g.(pg_morphisms) |}, new_id).
+
+(** graph_certify_morphism: Record the μ-cost paid to certify a morphism via
+    MORPH_ASSERT. This updates the morph_cert_cost field of the morphism.
+    Called when MORPH_ASSERT succeeds. The cost is S(delta) ≥ 1. *)
+Definition graph_certify_morphism (g : PartitionGraph)
+    (morph_id : MorphismID) (cert_cost : nat) : PartitionGraph :=
+  {| pg_next_id := g.(pg_next_id);
+     pg_modules := g.(pg_modules);
+     pg_next_morph_id := g.(pg_next_morph_id);
+     pg_morphisms := List.map (fun '(mid, ms) =>
+       if Nat.eqb mid morph_id
+       then (mid, {| morph_source := ms.(morph_source);
+                     morph_target := ms.(morph_target);
+                     morph_coupling := ms.(morph_coupling);
+                     morph_is_identity := ms.(morph_is_identity);
+                     morph_cert_cost := cert_cost |})
+       else (mid, ms)) g.(pg_morphisms) |}.
+
+Lemma graph_certify_morphism_lookup :
+  forall g morph_id cost ms,
+    graph_lookup_morphism g morph_id = Some ms ->
+    graph_lookup_morphism (graph_certify_morphism g morph_id cost) morph_id =
+    Some {| morph_source := ms.(morph_source);
+            morph_target := ms.(morph_target);
+            morph_coupling := ms.(morph_coupling);
+            morph_is_identity := ms.(morph_is_identity);
+            morph_cert_cost := cost |}.
+Proof.
+  intros g morph_id cost ms Hlookup.
+  unfold graph_certify_morphism, graph_lookup_morphism in *.
+  simpl pg_morphisms in *.
+  set (morphs := pg_morphisms g) in *.
+  induction morphs as [|[mid ms'] rest IH].
+  { inversion Hlookup. }
+  { unfold graph_lookup_morphism_list in *.
+    fold graph_lookup_morphism_list in *.
+    simpl map.
+    simpl in Hlookup.
+    destruct (Nat.eqb mid morph_id) eqn:Heq.
+    - simpl. rewrite Heq.
+      injection Hlookup as Heqs. subst ms'. destruct ms. reflexivity.
+    - simpl. rewrite Heq. exact (IH Hlookup). }
+Qed.
+
+(** morph_assert_cost_correct: specification for the intended MORPH_ASSERT
+    extension. When graph_certify_morphism is applied, morph_cert_cost becomes
+    S(cost). Currently MORPH_ASSERT does not call graph_certify_morphism (to
+    avoid RTL cascade), so all morphisms have morph_cert_cost = 0 by default.
+    This theorem states the contract for a future extension. *)
+
+(* DEFINITIONAL HELPER — morph_assert_cost_correct unfolds graph_certify_morphism
+   and proves by reflexivity. The lemma states exactly what graph_certify_morphism
+   computes, making the contract explicit for callers. *)
+Lemma morph_assert_cost_correct :
+  forall g morph_id cost ms,
+    graph_lookup_morphism g morph_id = Some ms ->
+    (graph_certify_morphism g morph_id (S cost)).(pg_morphisms) =
+    List.map (fun '(mid, m) =>
+      if Nat.eqb mid morph_id
+      then (mid, {| morph_source := m.(morph_source);
+                    morph_target := m.(morph_target);
+                    morph_coupling := m.(morph_coupling);
+                    morph_is_identity := m.(morph_is_identity);
+                    morph_cert_cost := S cost |})
+      else (mid, m)) g.(pg_morphisms).
+Proof.
+  intros g morph_id cost ms _.
+  unfold graph_certify_morphism. reflexivity.
+Qed.
 
 (** graph_add_identity: Create an identity morphism for a module.
     Coupling is empty_coupling_data — identity is structural
@@ -586,6 +657,29 @@ Proof.
   unfold graph_delete_morphism in H.
   destruct (existsb _ _); try discriminate.
   injection H as Hg'. subst g'. simpl. reflexivity.
+Qed.
+
+(** compose_certified_morphisms_cost_zero: COMPOSE produces a morphism with
+    morph_cert_cost = 0 (the default). The composed morphism is not automatically
+    certified — certification requires a separate MORPH_ASSERT. This is the
+    current semantics: build structure cheaply, pay only when asserting. *)
+Lemma compose_certified_morphisms_cost_zero :
+  forall (g : PartitionGraph) f_id h_id graph' morph_id,
+    graph_compose_morphisms g f_id h_id = Some (graph', morph_id) ->
+    exists ms, graph_lookup_morphism graph' morph_id = Some ms /\
+               ms.(morph_cert_cost) = 0.
+Proof.
+  intros g f_id h_id graph' morph_id Hcompose.
+  unfold graph_compose_morphisms in Hcompose.
+  destruct (graph_lookup_morphism g f_id) as [f|] eqn:Hf. 2: discriminate.
+  destruct (graph_lookup_morphism g h_id) as [h|] eqn:Hh. 2: discriminate.
+  destruct (Nat.eqb f.(morph_target) h.(morph_source)) eqn:Htgt. 2: discriminate.
+  injection Hcompose as Hg' Hmid. subst.
+  unfold graph_add_morphism. simpl.
+  eexists. split.
+  - unfold graph_lookup_morphism, graph_lookup_morphism_list. simpl.
+    rewrite Nat.eqb_refl. reflexivity.
+  - reflexivity.
 Qed.
 
 (** graph_compose_morphisms_preserves_lookup: Composing two morphisms (COMPOSE)

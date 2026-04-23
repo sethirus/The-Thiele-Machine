@@ -125,8 +125,8 @@ if ! python3 -c "import create_receipt" 2>/dev/null; then
         log_success "Installed Thiele tools"
     else
         # Fallback: check if we're in the repository
-        if [ -f "create_receipt.py" ]; then
-            log_info "Using local create_receipt.py"
+        if [ -f "scripts/create_receipt.py" ]; then
+            log_info "Using local scripts/create_receipt.py"
         else
             log_error "Cannot find or install Thiele tools"
             echo "Please install with: pip install git+https://github.com/sethirus/The-Thiele-Machine.git"
@@ -160,9 +160,9 @@ log_info "Project directory: $PROJECT_DIR"
 # Build the command
 CMD="python3"
 
-# Check if create_receipt.py is in current directory
-if [ -f "create_receipt.py" ]; then
-    CMD="$CMD create_receipt.py"
+# Check if create_receipt.py is in scripts/
+if [ -f "scripts/create_receipt.py" ]; then
+    CMD="$CMD scripts/create_receipt.py"
 else
     CMD="$CMD -m create_receipt"
 fi

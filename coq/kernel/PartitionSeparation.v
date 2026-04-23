@@ -716,7 +716,8 @@ Proof.
                             morph_coupling   :=
                               {| coupling_pairs := [];
                                  coupling_label := "" |};
-                            morph_is_identity := true |})] |};
+                            morph_is_identity := true;
+               morph_cert_cost := 0 |})] |};
              vm_csrs      := {| csr_cert_addr := 0; csr_status := 0;
                                 csr_err := 0; csr_heap_base := 0 |};
              vm_regs      := [];

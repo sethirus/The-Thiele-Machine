@@ -13,6 +13,7 @@ From KamiHW Require Import ThieleCPUCore.
 From KamiHW Require Import ThieleCPUBusTop.
 From KamiHW Require Import Abstraction.
 From KamiHW Require Import VerilogRefinement.
+Require Import Kami.Ext.BSyntax.
 From Coq Require Import List.
 From Coq Require Import Strings.String.
 From Coq Require Import Reals.
@@ -31,11 +32,27 @@ From KamiHW Require Import FullAbstraction.
 
 Import VMStep.VMStep.
 
-(** Canonical hardware module (Bluespec/Kami backend input).
-  Route through wrapper boundary so protocol integration evolves at source. *)
+(** Canonical hardware module as a direct Coq-generated Bluespec-subset AST.
+  Route through the wrapper boundary so protocol integration evolves at source,
+  but keep the emitted object explicit: this is already the result of the
+  verified Kami synthesis path [getModuleS |> ModulesSToBModules]. *)
 Definition canonical_cpu_module := thieleBusTopB.
 
-(** Entry point alias for Kami PP.ml's Main.ml (expects targetB). *)
+(** Explicit generator normal form.
+
+    This theorem isolates what is already closed on the option-2 path: the
+    canonical extraction root is not a raw module term, but the Bluespec-subset
+    AST produced in Coq by Kami's synthesis functions. The remaining trust
+    boundary is therefore PP.ml/BSC after this point, not the AST generator. *)
+Theorem canonical_cpu_module_from_source :
+  canonical_cpu_module = ModulesSToBModules thieleBusTopS.
+Proof.
+  unfold canonical_cpu_module, thieleBusTopS.
+  rewrite thieleBusTop_stage1_equiv.
+  reflexivity.
+Qed.
+
+(** Entry point alias for the OCaml printer driver (expects targetB). *)
 Definition targetB (_ : nat) := canonical_cpu_module.
 
 (** Canonical abstraction relation and map. *)
@@ -126,6 +143,17 @@ Record CanonicalCPUProofBundle : Prop := {
         Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
       (run_vm fuel trace s).(vm_mu) - s.(vm_mu);
 
+  canonical_nofi_normalized_expected_reduction :
+    forall fuel trace omega_prior omega_posterior tree,
+      MuShannonBridge.normalized_weighted_distribution omega_prior ->
+      MuShannonBridge.normalized_weighted_distribution omega_posterior ->
+      (forall s weight, In (s, weight) omega_prior ->
+        MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree) ->
+      MuShannonBridge.tree_covers_weighted_reduction tree omega_prior omega_posterior ->
+      MuShannonBridge.normalized_weighted_entropy_reduction omega_prior omega_posterior *
+        MuShannonBridge.normalized_weighted_mass omega_prior <=
+      MuShannonBridge.weighted_delta_mu_numerator fuel trace omega_prior;
+
   canonical_nofi_conditional_shannon :
     forall fuel trace s n,
       Forall (fun i => is_cert_setterb i = true -> instruction_cost i >= 1) trace ->
@@ -193,6 +221,7 @@ Proof.
        canonical_nofi_general_feasible_reduction := honest_nfi_general_feasible_reduction_partial;
        canonical_nofi_fibered_feasible_reduction := honest_nfi_fibered_feasible_reduction_partial;
       canonical_nofi_posterior_representative_reduction := honest_nfi_posterior_representative_reduction_partial;
+       canonical_nofi_normalized_expected_reduction := MuShannonBridge.info_priced_normalized_expected_entropy_reduction_bound;
        canonical_nofi_conditional_shannon := honest_nfi_conditional_shannon_partial;
        canonical_nofi_quantitative_state_space := honest_nfi_quantitative_state_space_partial;
        canonical_monoidal_coherence := CategoryMonoidal.monoidal_coherence;

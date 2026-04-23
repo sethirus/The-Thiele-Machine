@@ -100,7 +100,8 @@ Definition separation_morph : MorphismState := {|
   morph_source     := 0;
   morph_target     := 0;
   morph_coupling   := {| coupling_pairs := []; coupling_label := "" |};
-  morph_is_identity := true
+  morph_is_identity := true;
+               morph_cert_cost := 0
 |}.
 
 Definition separation_csrs : CSRState :=

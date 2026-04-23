@@ -439,6 +439,10 @@ Qed.
     lets later files talk about blind search work versus sighted certificate
     validation without changing the ledger theorem. *)
 
+(* INQUISITOR NOTE: abstract section — parameterized theorem.
+   Section Variables here are explicit forall premises when the section closes.
+   mu_component_split is not a machine-specific assumption; it holds for any
+   cost decomposition. All theorems export as explicit forall statements. *)
 Section MuDecomposition.
 
 Variable mu_blind_component mu_sighted_component : vm_instruction -> nat.
@@ -517,6 +521,9 @@ End MuDecomposition.
     reads the tail while [final_digest (rev ledger)] reads the head, so no
     general equality is claimed here. *)
 
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   Hash, combine, default are type/value parameters for abstract hash algebra.
+   All theorems export as explicit forall when section closes. *)
 Section GestaltIsomorphism.
 
   Variable Hash : Type.

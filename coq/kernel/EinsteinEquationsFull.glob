@@ -1,4 +1,4 @@
-DIGEST 37b3dd874c440e4b77314660eeae8a56
+DIGEST 4c15f0260943ee4882de789bba309287
 FKernel.EinsteinEquationsFull
 R1835:1839 Coq.Reals.Reals <> <> lib
 R1841:1844 Coq.Lists.List <> <> lib
@@ -469,260 +469,135 @@ R7663:7687 Kernel.EinsteinEquationsFull <> offdiag_einstein_eq_ricci thm
 R7783:7808 Kernel.EinsteinEquationsFull <> offdiag_stress_energy_zero thm
 R7783:7808 Kernel.EinsteinEquationsFull <> offdiag_stress_energy_zero thm
 R7783:7808 Kernel.EinsteinEquationsFull <> offdiag_stress_energy_zero thm
-rec 7858:7874 <> EinsteinFullScope
-proj 7883:7901 <> efs_diagonal_proved
-proj 7913:7933 <> efs_offdiag_reduction
-proj 7945:7963 <> efs_stress_diagonal
-proj 7975:7998 <> efs_full_efe_conditional
-def 8023:8044 <> einstein_scope_summary
-R8048:8064 Kernel.EinsteinEquationsFull <> EinsteinFullScope rec
-R8074:8092 Kernel.EinsteinEquationsFull <> efs_diagonal_proved proj
-R8074:8092 Kernel.EinsteinEquationsFull <> efs_diagonal_proved proj
-R8074:8092 Kernel.EinsteinEquationsFull <> efs_diagonal_proved proj
-R8180:8200 Kernel.EinsteinEquationsFull <> efs_offdiag_reduction proj
-R8180:8200 Kernel.EinsteinEquationsFull <> efs_offdiag_reduction proj
-R8288:8306 Kernel.EinsteinEquationsFull <> efs_stress_diagonal proj
-R8288:8306 Kernel.EinsteinEquationsFull <> efs_stress_diagonal proj
-R8380:8403 Kernel.EinsteinEquationsFull <> efs_full_efe_conditional proj
-R8380:8403 Kernel.EinsteinEquationsFull <> efs_full_efe_conditional proj
-R8169:8172 Coq.Init.Logic <> True ind
-R8277:8280 Coq.Init.Logic <> True ind
-R8369:8372 Coq.Init.Logic <> True ind
-R8743:8746 Coq.Init.Logic <> True ind
-sec 11733:11756 <> FullTensorEFEConditional
-var 11773:11773 FullTensorEFEConditional s
-var 11790:11791 FullTensorEFEConditional sc
-var 11819:11819 FullTensorEFEConditional v
-var 11837:11841 FullTensorEFEConditional kappa
-R11778:11784 Kernel.VMState <> VMState rec
-R11795:11813 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
-R11824:11831 Kernel.VMState <> ModuleID def
-R11845:11845 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-var 11991:12007 FullTensorEFEConditional diagonal_metric_h
-R12026:12028 Coq.Init.Datatypes <> nat ind
-binder 12020:12020 <> i:74
-binder 12022:12022 <> j:75
-R12037:12044 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12032:12035 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R12031:12031 Kernel.EinsteinEquationsFull <> i:74 var
-R12036:12036 Kernel.EinsteinEquationsFull <> j:75 var
-R12074:12076 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12045:12065 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R12067:12067 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R12069:12069 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-R12071:12071 Kernel.EinsteinEquationsFull <> i:74 var
-R12073:12073 Kernel.EinsteinEquationsFull <> j:75 var
-var 12458:12471 FullTensorEFEConditional diagonal_efe_h
-R12488:12490 Coq.Init.Datatypes <> nat ind
-binder 12484:12484 <> d:77
-R12504:12511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12495:12497 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R12494:12494 Kernel.EinsteinEquationsFull <> d:77 var
-R12538:12540 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12512:12526 Kernel.CurvedTensorPipeline <> curved_einstein def
-R12528:12528 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R12530:12531 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.sc var
-R12533:12533 Kernel.EinsteinEquationsFull <> d:77 var
-R12535:12535 Kernel.EinsteinEquationsFull <> d:77 var
-R12537:12537 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-R12547:12549 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R12542:12546 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.kappa var
-R12550:12567 Kernel.CurvedTensorPipeline <> mass_stress_energy def
-R12569:12569 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R12571:12571 Kernel.EinsteinEquationsFull <> d:77 var
-R12573:12573 Kernel.EinsteinEquationsFull <> d:77 var
-R12575:12575 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-var 13444:13466 FullTensorEFEConditional off_diagonal_ricci_zero
-R13487:13489 Coq.Init.Datatypes <> nat ind
-binder 13479:13480 <> mu:79
-binder 13482:13483 <> nu:80
-R13508:13511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13499:13501 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13497:13498 Kernel.EinsteinEquationsFull <> mu:79 var
-R13524:13527 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13515:13517 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R13513:13514 Kernel.EinsteinEquationsFull <> nu:80 var
-R13536:13543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13530:13533 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R13528:13529 Kernel.EinsteinEquationsFull <> mu:79 var
-R13534:13535 Kernel.EinsteinEquationsFull <> nu:80 var
-R13569:13571 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13544:13555 Kernel.CurvedTensorPipeline <> curved_ricci def
-R13557:13557 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R13559:13560 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.sc var
-R13562:13563 Kernel.EinsteinEquationsFull <> mu:79 var
-R13565:13566 Kernel.EinsteinEquationsFull <> nu:80 var
-R13568:13568 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-prf 13966:13992 <> full_tensor_efe_conditional
-R14013:14015 Coq.Init.Datatypes <> nat ind
-binder 14005:14006 <> mu:82
-binder 14008:14009 <> nu:83
-R14034:14037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14025:14027 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R14023:14024 Kernel.EinsteinEquationsFull <> mu:82 var
-R14050:14057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14041:14043 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R14039:14040 Kernel.EinsteinEquationsFull <> nu:83 var
-R14086:14088 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14058:14072 Kernel.CurvedTensorPipeline <> curved_einstein def
-R14074:14074 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R14076:14077 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.sc var
-R14079:14080 Kernel.EinsteinEquationsFull <> mu:82 var
-R14082:14083 Kernel.EinsteinEquationsFull <> nu:83 var
-R14085:14085 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-R14095:14097 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R14090:14094 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.kappa var
-R14098:14115 Kernel.CurvedTensorPipeline <> mass_stress_energy def
-R14117:14117 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R14119:14120 Kernel.EinsteinEquationsFull <> mu:82 var
-R14122:14123 Kernel.EinsteinEquationsFull <> nu:83 var
-R14125:14125 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-R14147:14186 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
-R14199:14199 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R14201:14202 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.sc var
-R14204:14204 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-R14206:14210 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.kappa var
-R14223:14239 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.diagonal_metric_h var
-R14252:14265 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.diagonal_efe_h var
-R14278:14300 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.off_diagonal_ricci_zero var
-R14147:14186 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
-R14199:14199 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.s var
-R14201:14202 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.sc var
-R14204:14204 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.v var
-R14206:14210 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.kappa var
-R14223:14239 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.diagonal_metric_h var
-R14252:14265 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.diagonal_efe_h var
-R14278:14300 Kernel.EinsteinEquationsFull <> FullTensorEFEConditional.off_diagonal_ricci_zero var
-R14314:14337 Kernel.EinsteinEquationsFull FullTensorEFEConditional <> sec
-prf 16136:16166 <> curved_ricci_uniform_two_vertex
-binder 16179:16179 <> s:84
-binder 16181:16181 <> v:85
-binder 16183:16183 <> w:86
-binder 16185:16186 <> mu:87
-binder 16188:16189 <> nu:88
-R16208:16215 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16198:16201 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R16197:16197 Kernel.EinsteinEquationsFull <> v:85 var
-R16202:16202 Kernel.EinsteinEquationsFull <> w:86 var
-R16216:16216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16290:16298 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 16224:16224 <> i:89
-binder 16226:16226 <> j:90
-R16258:16260 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16229:16249 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R16251:16251 Kernel.EinsteinEquationsFull <> s:84 var
-R16253:16253 Kernel.EinsteinEquationsFull <> v:85 var
-R16255:16255 Kernel.EinsteinEquationsFull <> i:89 var
-R16257:16257 Kernel.EinsteinEquationsFull <> j:90 var
-R16261:16281 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R16283:16283 Kernel.EinsteinEquationsFull <> s:84 var
-R16285:16285 Kernel.EinsteinEquationsFull <> w:86 var
-R16287:16287 Kernel.EinsteinEquationsFull <> i:89 var
-R16289:16289 Kernel.EinsteinEquationsFull <> j:90 var
-R16341:16343 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16299:16310 Kernel.CurvedTensorPipeline <> curved_ricci def
-R16312:16312 Kernel.EinsteinEquationsFull <> s:84 var
-R16315:16327 Kernel.EinsteinEquations4D <> two_vertex_sc def
-R16329:16329 Kernel.EinsteinEquationsFull <> v:85 var
-R16331:16331 Kernel.EinsteinEquationsFull <> w:86 var
-R16334:16335 Kernel.EinsteinEquationsFull <> mu:87 var
-R16337:16338 Kernel.EinsteinEquationsFull <> nu:88 var
-R16340:16340 Kernel.EinsteinEquationsFull <> v:85 var
-binder 16470:16472 <> rho:91
-binder 16474:16478 <> sigma:92
-binder 16480:16480 <> m:93
-binder 16482:16482 <> n:94
-R16541:16543 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16489:16502 Kernel.CurvedTensorPipeline <> curved_riemann def
-R16507:16519 Kernel.EinsteinEquations4D <> two_vertex_sc def
-R16526:16528 Kernel.EinsteinEquationsFull <> rho:91 var
-R16530:16534 Kernel.EinsteinEquationsFull <> sigma:92 var
-R16536:16536 Kernel.EinsteinEquationsFull <> m:93 var
-R16538:16538 Kernel.EinsteinEquationsFull <> n:94 var
-binder 16470:16472 <> rho:95
-binder 16474:16478 <> sigma:96
-binder 16480:16480 <> m:97
-binder 16482:16482 <> n:98
-R16541:16543 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16489:16502 Kernel.CurvedTensorPipeline <> curved_riemann def
-R16507:16519 Kernel.EinsteinEquations4D <> two_vertex_sc def
-R16526:16528 Kernel.EinsteinEquationsFull <> rho:95 var
-R16530:16534 Kernel.EinsteinEquationsFull <> sigma:96 var
-R16536:16536 Kernel.EinsteinEquationsFull <> m:97 var
-R16538:16538 Kernel.EinsteinEquationsFull <> n:98 var
-R16566:16603 Kernel.CurvedTensorPipeline <> curved_riemann_uniform_zero_two_vertex thm
-R16566:16603 Kernel.CurvedTensorPipeline <> curved_riemann_uniform_zero_two_vertex thm
-R16629:16640 Kernel.CurvedTensorPipeline <> curved_ricci def
-R16643:16647 Kernel.MatrixAlgebra4 <> sum_4 def
-R16650:16654 Kernel.MatrixAlgebra4 <> sum_n def
-prf 17248:17274 <> full_efe_uniform_two_vertex
-binder 17287:17287 <> s:99
-binder 17289:17289 <> v:100
-binder 17291:17291 <> w:101
-binder 17293:17294 <> mu:102
-binder 17296:17297 <> nu:103
-R17316:17323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17306:17309 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R17305:17305 Kernel.EinsteinEquationsFull <> v:100 var
-R17310:17310 Kernel.EinsteinEquationsFull <> w:101 var
-R17324:17324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17398:17406 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 17332:17332 <> i:104
-binder 17334:17334 <> j:105
-R17366:17368 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17337:17357 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R17359:17359 Kernel.EinsteinEquationsFull <> s:99 var
-R17361:17361 Kernel.EinsteinEquationsFull <> v:100 var
-R17363:17363 Kernel.EinsteinEquationsFull <> i:104 var
-R17365:17365 Kernel.EinsteinEquationsFull <> j:105 var
-R17369:17389 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R17391:17391 Kernel.EinsteinEquationsFull <> s:99 var
-R17393:17393 Kernel.EinsteinEquationsFull <> w:101 var
-R17395:17395 Kernel.EinsteinEquationsFull <> i:104 var
-R17397:17397 Kernel.EinsteinEquationsFull <> j:105 var
-R17407:17407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17463:17471 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 17415:17415 <> i:106
-binder 17417:17417 <> j:107
-R17426:17429 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17421:17424 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R17420:17420 Kernel.EinsteinEquationsFull <> i:106 var
-R17425:17425 Kernel.EinsteinEquationsFull <> j:107 var
-R17459:17461 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17430:17450 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
-R17452:17452 Kernel.EinsteinEquationsFull <> s:99 var
-R17454:17454 Kernel.EinsteinEquationsFull <> v:100 var
-R17456:17456 Kernel.EinsteinEquationsFull <> i:106 var
-R17458:17458 Kernel.EinsteinEquationsFull <> j:107 var
-R17484:17487 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17475:17477 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R17473:17474 Kernel.EinsteinEquationsFull <> mu:102 var
-R17500:17507 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17491:17493 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R17489:17490 Kernel.EinsteinEquationsFull <> nu:103 var
-R17553:17559 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17508:17522 Kernel.CurvedTensorPipeline <> curved_einstein def
-R17524:17524 Kernel.EinsteinEquationsFull <> s:99 var
-R17527:17539 Kernel.EinsteinEquations4D <> two_vertex_sc def
-R17541:17541 Kernel.EinsteinEquationsFull <> v:100 var
-R17543:17543 Kernel.EinsteinEquationsFull <> w:101 var
-R17546:17547 Kernel.EinsteinEquationsFull <> mu:102 var
-R17549:17550 Kernel.EinsteinEquationsFull <> nu:103 var
-R17552:17552 Kernel.EinsteinEquationsFull <> v:100 var
-R17562:17564 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R17565:17582 Kernel.CurvedTensorPipeline <> mass_stress_energy def
-R17584:17584 Kernel.EinsteinEquationsFull <> s:99 var
-R17586:17587 Kernel.EinsteinEquationsFull <> mu:102 var
-R17589:17590 Kernel.EinsteinEquationsFull <> nu:103 var
-R17592:17592 Kernel.EinsteinEquationsFull <> v:100 var
-R17663:17702 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
-R17718:17730 Kernel.EinsteinEquations4D <> two_vertex_sc def
-R17663:17702 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
-R17718:17730 Kernel.EinsteinEquations4D <> two_vertex_sc def
-R17848:17856 Coq.Reals.RIneq <> Rmult_0_l thm
-R17848:17856 Coq.Reals.RIneq <> Rmult_0_l thm
-R17848:17856 Coq.Reals.RIneq <> Rmult_0_l thm
-R17869:17907 Kernel.CurvedTensorPipeline <> curved_einstein_uniform_zero_two_vertex thm
-R17869:17907 Kernel.CurvedTensorPipeline <> curved_einstein_uniform_zero_two_vertex thm
-R18039:18069 Kernel.EinsteinEquationsFull <> curved_ricci_uniform_two_vertex thm
-R18039:18069 Kernel.EinsteinEquationsFull <> curved_ricci_uniform_two_vertex thm
+prf 10183:10213 <> curved_ricci_uniform_two_vertex
+binder 10226:10226 <> s:65
+binder 10228:10228 <> v:66
+binder 10230:10230 <> w:67
+binder 10232:10233 <> mu:68
+binder 10235:10236 <> nu:69
+R10255:10262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10245:10248 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10244:10244 Kernel.EinsteinEquationsFull <> v:66 var
+R10249:10249 Kernel.EinsteinEquationsFull <> w:67 var
+R10263:10263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10337:10345 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10271:10271 <> i:70
+binder 10273:10273 <> j:71
+R10305:10307 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10276:10296 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R10298:10298 Kernel.EinsteinEquationsFull <> s:65 var
+R10300:10300 Kernel.EinsteinEquationsFull <> v:66 var
+R10302:10302 Kernel.EinsteinEquationsFull <> i:70 var
+R10304:10304 Kernel.EinsteinEquationsFull <> j:71 var
+R10308:10328 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R10330:10330 Kernel.EinsteinEquationsFull <> s:65 var
+R10332:10332 Kernel.EinsteinEquationsFull <> w:67 var
+R10334:10334 Kernel.EinsteinEquationsFull <> i:70 var
+R10336:10336 Kernel.EinsteinEquationsFull <> j:71 var
+R10388:10390 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10346:10357 Kernel.CurvedTensorPipeline <> curved_ricci def
+R10359:10359 Kernel.EinsteinEquationsFull <> s:65 var
+R10362:10374 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R10376:10376 Kernel.EinsteinEquationsFull <> v:66 var
+R10378:10378 Kernel.EinsteinEquationsFull <> w:67 var
+R10381:10382 Kernel.EinsteinEquationsFull <> mu:68 var
+R10384:10385 Kernel.EinsteinEquationsFull <> nu:69 var
+R10387:10387 Kernel.EinsteinEquationsFull <> v:66 var
+binder 10517:10519 <> rho:72
+binder 10521:10525 <> sigma:73
+binder 10527:10527 <> m:74
+binder 10529:10529 <> n:75
+R10588:10590 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10536:10549 Kernel.CurvedTensorPipeline <> curved_riemann def
+R10554:10566 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R10573:10575 Kernel.EinsteinEquationsFull <> rho:72 var
+R10577:10581 Kernel.EinsteinEquationsFull <> sigma:73 var
+R10583:10583 Kernel.EinsteinEquationsFull <> m:74 var
+R10585:10585 Kernel.EinsteinEquationsFull <> n:75 var
+binder 10517:10519 <> rho:76
+binder 10521:10525 <> sigma:77
+binder 10527:10527 <> m:78
+binder 10529:10529 <> n:79
+R10588:10590 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10536:10549 Kernel.CurvedTensorPipeline <> curved_riemann def
+R10554:10566 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R10573:10575 Kernel.EinsteinEquationsFull <> rho:76 var
+R10577:10581 Kernel.EinsteinEquationsFull <> sigma:77 var
+R10583:10583 Kernel.EinsteinEquationsFull <> m:78 var
+R10585:10585 Kernel.EinsteinEquationsFull <> n:79 var
+R10613:10650 Kernel.CurvedTensorPipeline <> curved_riemann_uniform_zero_two_vertex thm
+R10613:10650 Kernel.CurvedTensorPipeline <> curved_riemann_uniform_zero_two_vertex thm
+R10676:10687 Kernel.CurvedTensorPipeline <> curved_ricci def
+R10690:10694 Kernel.MatrixAlgebra4 <> sum_4 def
+R10697:10701 Kernel.MatrixAlgebra4 <> sum_n def
+prf 11295:11321 <> full_efe_uniform_two_vertex
+binder 11334:11334 <> s:80
+binder 11336:11336 <> v:81
+binder 11338:11338 <> w:82
+binder 11340:11341 <> mu:83
+binder 11343:11344 <> nu:84
+R11363:11370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11353:11356 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11352:11352 Kernel.EinsteinEquationsFull <> v:81 var
+R11357:11357 Kernel.EinsteinEquationsFull <> w:82 var
+R11371:11371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11445:11453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11379:11379 <> i:85
+binder 11381:11381 <> j:86
+R11413:11415 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11384:11404 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11406:11406 Kernel.EinsteinEquationsFull <> s:80 var
+R11408:11408 Kernel.EinsteinEquationsFull <> v:81 var
+R11410:11410 Kernel.EinsteinEquationsFull <> i:85 var
+R11412:11412 Kernel.EinsteinEquationsFull <> j:86 var
+R11416:11436 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11438:11438 Kernel.EinsteinEquationsFull <> s:80 var
+R11440:11440 Kernel.EinsteinEquationsFull <> w:82 var
+R11442:11442 Kernel.EinsteinEquationsFull <> i:85 var
+R11444:11444 Kernel.EinsteinEquationsFull <> j:86 var
+R11454:11454 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11510:11518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 11462:11462 <> i:87
+binder 11464:11464 <> j:88
+R11473:11476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11468:11471 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R11467:11467 Kernel.EinsteinEquationsFull <> i:87 var
+R11472:11472 Kernel.EinsteinEquationsFull <> j:88 var
+R11506:11508 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11477:11497 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11499:11499 Kernel.EinsteinEquationsFull <> s:80 var
+R11501:11501 Kernel.EinsteinEquationsFull <> v:81 var
+R11503:11503 Kernel.EinsteinEquationsFull <> i:87 var
+R11505:11505 Kernel.EinsteinEquationsFull <> j:88 var
+R11531:11534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11522:11524 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11520:11521 Kernel.EinsteinEquationsFull <> mu:83 var
+R11547:11554 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11538:11540 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R11536:11537 Kernel.EinsteinEquationsFull <> nu:84 var
+R11600:11606 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11555:11569 Kernel.CurvedTensorPipeline <> curved_einstein def
+R11571:11571 Kernel.EinsteinEquationsFull <> s:80 var
+R11574:11586 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R11588:11588 Kernel.EinsteinEquationsFull <> v:81 var
+R11590:11590 Kernel.EinsteinEquationsFull <> w:82 var
+R11593:11594 Kernel.EinsteinEquationsFull <> mu:83 var
+R11596:11597 Kernel.EinsteinEquationsFull <> nu:84 var
+R11599:11599 Kernel.EinsteinEquationsFull <> v:81 var
+R11609:11611 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11612:11629 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R11631:11631 Kernel.EinsteinEquationsFull <> s:80 var
+R11633:11634 Kernel.EinsteinEquationsFull <> mu:83 var
+R11636:11637 Kernel.EinsteinEquationsFull <> nu:84 var
+R11639:11639 Kernel.EinsteinEquationsFull <> v:81 var
+R11710:11749 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
+R11765:11777 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R11710:11749 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
+R11765:11777 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R11895:11903 Coq.Reals.RIneq <> Rmult_0_l thm
+R11895:11903 Coq.Reals.RIneq <> Rmult_0_l thm
+R11895:11903 Coq.Reals.RIneq <> Rmult_0_l thm
+R11916:11954 Kernel.CurvedTensorPipeline <> curved_einstein_uniform_zero_two_vertex thm
+R11916:11954 Kernel.CurvedTensorPipeline <> curved_einstein_uniform_zero_two_vertex thm
+R12086:12116 Kernel.EinsteinEquationsFull <> curved_ricci_uniform_two_vertex thm
+R12086:12116 Kernel.EinsteinEquationsFull <> curved_ricci_uniform_two_vertex thm

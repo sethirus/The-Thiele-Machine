@@ -1,0 +1,154 @@
+{
+  "boundary_statement": {
+    "closed_by_this_manifest": [
+      "canonical source wiring",
+      "intermediate artifact presence",
+      "intermediate artifact hash pinning",
+      "tracked RTL identity with generated synthesis RTL"
+    ],
+    "still_named_trust_boundary": "Semantic preservation of PP.ml, project text transforms, BSC, and the generated Verilog backend remains outside Coq.",
+    "trusted_boundary": "coq/kernel/VerilogRTLCorrespondence.v:bsc_kami_compilation_trusted"
+  },
+  "files": [
+    {
+      "path": "coq/kami_hw/CanonicalCPUProof.v",
+      "sha256": "b2b7ba0454b257e24ac4575e5aa8d9d781cf80f258b5c7d1499fb2d5245bb44d",
+      "size_bytes": 17208
+    },
+    {
+      "path": "coq/kami_hw/VerilogSemantics.v",
+      "sha256": "4905a0ff4f9fdc1c6cdc26cfed4c414acd6db8fc284193f1b6684fab3e8b50dc",
+      "size_bytes": 10517
+    },
+    {
+      "path": "coq/kami_hw/KamiExtraction.v",
+      "sha256": "0afd5d0825f4b643310e0adced5a7d628fa5064a46ac992dd23c7f9473b7ee87",
+      "size_bytes": 722
+    },
+    {
+      "path": "coq/kami_hw/ThieleCPUCore.v",
+      "sha256": "1ca19b47bf9da32d3e1187b9a1e3f07c9f806ad15b034d6092c4bbc2c95c2e7b",
+      "size_bytes": 105525
+    },
+    {
+      "path": "coq/kami_hw/ThieleCPUBusTop.v",
+      "sha256": "fa2eb4022a1455459edd1858d23da8998b9fd95699ea3c6d0f277bf642d0b682",
+      "size_bytes": 15035
+    },
+    {
+      "path": "coq/kami_hw/ThieleTypes.v",
+      "sha256": "b01360a4728e41241f6ee3438c55f6d0e98ac5ac1b3e1dd39a328660445b8c65",
+      "size_bytes": 11804
+    },
+    {
+      "path": "coq/kernel/VerilogRTLCorrespondence.v",
+      "sha256": "a6445af1e56c404724ffe9a564a31079b0899adeb81324b7fdfff51c503634ea",
+      "size_bytes": 27430
+    },
+    {
+      "path": "scripts/kami_extract.sh",
+      "sha256": "9cf60cbcbbfb4dd8d7e5dd51bd3b6b8c2f679e1b6420be73e12cd5e2bbca13a2",
+      "size_bytes": 10316
+    },
+    {
+      "path": "scripts/bsv_regfile_transform.py",
+      "sha256": "3e1a52bc2b99f86ab6545fd22ec1e70f1eb7721f506de18640e2b2007bef8c33",
+      "size_bytes": 13187
+    },
+    {
+      "path": "scripts/verilog_synth_transform.py",
+      "sha256": "055cbf251979d6b33560a808326e427215772ce54a20bb95b5175da88f580ee3",
+      "size_bytes": 23586
+    },
+    {
+      "path": "vendor/kami/Kami/Ext/Ocaml/PP.ml",
+      "sha256": "2d54be8227456c530f2f7e23e832f83afd043edd8cf326c3cc5948a98fb37051",
+      "size_bytes": 41231
+    },
+    {
+      "path": "vendor/kami/Kami/Ext/Ocaml/Main.ml",
+      "sha256": "398f16ac2cde6195bf1cce09b3b0967b8bbeba1e78ba9b01a0d3367ce78407de",
+      "size_bytes": 1529
+    },
+    {
+      "path": "build/kami_hw/Target.ml",
+      "sha256": "023668198d18af4117f54ce536af0d4ee4e2b22123a4f08d145e99754659115e",
+      "size_bytes": 753763
+    },
+    {
+      "path": "build/kami_hw/Target.mli",
+      "sha256": "67d813a310770d84d084a1e09cecbc8e7421c0bd51d81b76a40115f3c1d85de2",
+      "size_bytes": 10437
+    },
+    {
+      "path": "build/kami_hw/PP.ml",
+      "sha256": "2d54be8227456c530f2f7e23e832f83afd043edd8cf326c3cc5948a98fb37051",
+      "size_bytes": 41231
+    },
+    {
+      "path": "build/kami_hw/Main.ml",
+      "sha256": "398f16ac2cde6195bf1cce09b3b0967b8bbeba1e78ba9b01a0d3367ce78407de",
+      "size_bytes": 1529
+    },
+    {
+      "path": "build/kami_hw/thiele_hw.bsv",
+      "sha256": "86edefdcce92652c6b715a8fb9e8358c2e01b3da944bb757ef8f5aa0f0aa717a",
+      "size_bytes": 65374
+    },
+    {
+      "path": "build/kami_hw/thiele_hw_clean.bsv",
+      "sha256": "dd2941962cf49dee3f99b7aaf58385d6cb0163019edee8d536f8142800a2e8b8",
+      "size_bytes": 65095
+    },
+    {
+      "path": "build/kami_hw/mkModule1.v",
+      "sha256": "c9281df3596024966a8032ca9aeaf564619749083ad0971da6f5b604fdfdaa05",
+      "size_bytes": 783955
+    },
+    {
+      "path": "build/kami_hw/mkModule1_synth.v",
+      "sha256": "821f27a8b747582520081475f50b5889aa0cc871f42d895f564d09059aaf7bd6",
+      "size_bytes": 785679
+    },
+    {
+      "path": "thielecpu/hardware/rtl/RegFile.v",
+      "sha256": "7de616d2aff8b2411994abadf3876aba8bd64e753741c73d2c0ea19fff0a7db8",
+      "size_bytes": 3103
+    },
+    {
+      "path": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+      "sha256": "821f27a8b747582520081475f50b5889aa0cc871f42d895f564d09059aaf7bd6",
+      "size_bytes": 785679
+    }
+  ],
+  "invariants": {
+    "canonical_cpu_module_declared": true,
+    "canonical_cpu_module_generated_in_coq": true,
+    "kami_extraction_imports_canonical_source": true,
+    "main_ml_drives_pp_through_targetB": true,
+    "raw_verilog_has_mkModule1_top": true,
+    "raw_verilog_is_bsc_generated": true,
+    "synth_verilog_has_mkModule1_top": true,
+    "targetB_declared_as_printer_entrypoint": true,
+    "target_ml_exports_canonical_cpu_module": true,
+    "target_ml_exports_targetB": true,
+    "tracked_rtl_has_mkModule1_top": true,
+    "tracked_rtl_matches_generated_synth_verilog": true
+  },
+  "manifest_kind": "canonical_rtl_pipeline_provenance",
+  "pipeline": [
+    "Coq CanonicalCPUProof.v",
+    "Coq extraction to build/kami_hw/Target.ml",
+    "Kami PP.ml/Main.ml to Bluespec",
+    "project BSV transform",
+    "BSC to raw Verilog",
+    "project Verilog synthesis transform",
+    "tracked RTL thiele_cpu_kami.v"
+  ],
+  "schema_version": 1,
+  "source_of_truth": {
+    "coq_canonical_module": "coq/kami_hw/CanonicalCPUProof.v:canonical_cpu_module",
+    "coq_generator_theorem": "coq/kami_hw/CanonicalCPUProof.v:canonical_cpu_module_from_source",
+    "printer_entrypoint": "coq/kami_hw/CanonicalCPUProof.v:targetB"
+  }
+}

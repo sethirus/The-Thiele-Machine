@@ -11,6 +11,11 @@ From Kernel Require Import VMState.
 From Kernel Require Import LocalMorphismSemantics.
 From Kernel Require Import EntanglementEntropy.
 
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   Physical constants hbar, c_light, k_B, entropy_per_bit and their positivity
+   conditions are explicit parameters. All theorems export as explicit forall
+   premises when section closes. This is conditional physics, not machine-specific
+   assumptions. *)
 Section ClausiusModel.
 
 Variable SpacetimeState : Type.

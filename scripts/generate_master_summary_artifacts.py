@@ -21,7 +21,7 @@ OPEN_OBLIGATION_ARTIFACTS = {
         "backing_files": [
             "coq/kernel/NonCircularityAudit.v",
             "artifacts/proof_dependency_connectivity.json",
-            "INQUISITOR_REPORT.md",
+            "coq/INQUISITOR_ASSUMPTIONS.json",
         ],
     },
     "Tool-linked dependency manifest certificate": {
@@ -34,7 +34,6 @@ OPEN_OBLIGATION_ARTIFACTS = {
             "artifacts/isomorphism_bitlock_manifest.json",
             "coq/INQUISITOR_ASSUMPTIONS.json",
             "coq/artifacts/print_assumptions_ci_report.json",
-            "INQUISITOR_REPORT.md",
         ],
     },
     "Formal completeness theorem for the semantic partition": {
@@ -157,7 +156,7 @@ def main() -> int:
             "backing_files": [
                 _rel_file_record("coq/kernel/NonCircularityAudit.v"),
                 _rel_file_record("artifacts/proof_dependency_connectivity.json"),
-                _rel_file_record("INQUISITOR_REPORT.md"),
+                _rel_file_record("coq/INQUISITOR_ASSUMPTIONS.json"),
             ],
             "claim_status": "demoted-nonclaim-boundary-pinned",
             "obligation": "Repository-wide non-circularity theorem",

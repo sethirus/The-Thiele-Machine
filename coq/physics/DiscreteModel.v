@@ -163,6 +163,8 @@ Qed.
     conservation laws.  No Thiele-specific machinery is required here; the
     assumptions can be discharged later by a simulation lemma in the VM/Thiele
     stack. *)
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   Section Variables become explicit forall premises when the section closes. *)
 Section Embedding.
   Variable Encoded : Type.
   Variable encode : Lattice -> Encoded.

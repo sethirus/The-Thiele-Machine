@@ -891,7 +891,8 @@ let parse_morphisms_from_json (json : string) : (int * morphismState) list =
                morph_coupling =
                  { coupling_pairs = pairs;
                    coupling_label = char_list_of_string label };
-               morph_is_identity = is_identity }) :: !morphisms;
+               morph_is_identity = is_identity;
+               morph_cert_cost = 0 }) :: !morphisms;
           incr i
         end
       done;

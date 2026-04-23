@@ -7,9 +7,8 @@
   be transported back and forth.
 
   That is bookkeeping, not physics. The physical interpretation has to come
-  from stronger semantics somewhere else. Even the theorem name
-  ic_zero_implies_tsirelson is legacy baggage; the actual statement is much
-  weaker and this header says so plainly. *)
+  from stronger semantics somewhere else. The theorem names in this file now
+  say exactly what the proofs establish. *)
 
 (* INQUISITOR NOTE: proof-connectivity - bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.
@@ -56,7 +55,7 @@ Definition ic_mu_equivalent (ic : ICScenario) (mu : MuScenario) : Prop :=
 (** Main projection theorem. *)
 
 (* INQUISITOR NOTE: Extraction lemma exposing component of compound definition for modular reasoning. *)
-Theorem information_causality_is_mu_cost :
+Theorem ic_mu_record_projection :
   forall (ic : ICScenario) (mu : MuScenario),
     ic_mu_equivalent ic mu ->
     ic.(ic_satisfies_bound) <-> mu.(mu_bound_satisfied).
@@ -81,13 +80,9 @@ Proof.
   apply Nat.le_0_l.
 Qed.
 
-(** Legacy zero-cost transport lemma.
+(** Zero-cost transport lemma. *)
 
-    The name mentions Tsirelson, but the theorem only transports the equation
-    ic_m_communication = 0 into mu_cost_paid = 0 through ic_mu_equivalent.
-    *)
-
-Theorem ic_zero_implies_tsirelson :
+Theorem ic_zero_communication_implies_zero_mu_cost :
   forall ic mu,
     ic_mu_equivalent ic mu ->
     ic.(ic_m_communication) = 0 ->
@@ -194,10 +189,10 @@ Proof.
   intros ic mu Hequiv Hzero.
   split; intro H.
   - destruct H as [Hcost Hbound].
-    apply (information_causality_is_mu_cost ic mu); assumption.
+    apply (ic_mu_record_projection ic mu); assumption.
   - split.
-    + apply (ic_zero_implies_tsirelson ic mu); assumption.
-    + apply (information_causality_is_mu_cost ic mu); assumption.
+    + apply (ic_zero_communication_implies_zero_mu_cost ic mu); assumption.
+    + apply (ic_mu_record_projection ic mu); assumption.
 Qed.
 
 (** If equivalence fixes the cost at m, a lower m' cannot describe the same
@@ -274,10 +269,10 @@ Qed.
     the stored Prop says the IC bound is satisfied.
     μ scenario: Partition with n elements, costs m μ-bits to access.
 
-    Main theorem (information_causality_is_mu_cost): IC bound <-> μ-bound,
+    Main theorem (ic_mu_record_projection): IC bound <-> μ-bound,
     because that equivalence is a field of ic_mu_equivalent.
 
-    1. ic_zero_implies_tsirelson: Zero communication (IC m=0) means
+    1. ic_zero_communication_implies_zero_mu_cost: Zero communication (IC m=0) means
        zero μ-cost in this record relation. It does not prove a CHSH bound.
 
     2. ic_monotonicity: More communication → more μ-cost (monotonicity).
@@ -305,7 +300,7 @@ Qed.
     the projection or preservation lemmas. That would falsify this file's main
     claim. Physical counterexamples require a richer model than these records.
 
-    The equivalence theorem (information_causality_is_mu_cost) is proven (Qed),
+    The equivalence theorem (ic_mu_record_projection) is proven (Qed),
     so falsifying it requires finding an inconsistency in the definitions or a
     logic error in the proof.
     *)

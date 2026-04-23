@@ -432,7 +432,7 @@ How do you know a proof is correct? You could check it by hand. You could have r
 
 Coq is the machine. It implements the Calculus of Inductive Constructions---a type theory where proofs are programs and types are propositions. This is the Curry-Howard correspondence: proving a theorem is the same as writing a program that inhabits a type. When the Coq compiler accepts a proof, the type checker has verified every logical step. No human judgment involved. No ``trust me'' appeals.
 
-The trusted computing base is small---Coq's kernel is roughly 30,000 lines of OCaml. If you trust that kernel (and thousands of mathematicians do, daily), then you trust every proof it accepts. The alternative is trusting me, a car salesman. I know which one I would pick.
+The trusted computing base is small---Coq's kernel is roughly 30,000 lines of OCaml. If you trust that kernel (and thousands of mathematicians do, daily), then you trust every proof it accepts. The alternative is trusting my prose. I know which one I would pick.
 
 For the Thiele Machine, this matters because the claims are not hand-waved. The active Coq proof tree is checked by the compiler. Every property---$\mu$-monotonicity, $\mu$-initiality, No Free Insight, observational no-signaling---is established by a proof that the machine accepted, not by an argument I wrote in prose.
 

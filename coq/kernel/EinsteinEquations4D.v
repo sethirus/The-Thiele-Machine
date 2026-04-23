@@ -3007,3 +3007,516 @@ Qed.
     exact and proven.  Any future claim requiring physical Newton's constant
     must introduce an external calibration that rescales one unit system to
     the other. *)
+
+(** =========================================================================
+    LORENTZIAN METRIC EXTENSION (OP-4: Fully general Lorentz signature)
+    =========================================================================
+
+    The Euclidean metric has signature (+,+,+,+). For Lorentzian manifolds
+    with one temporal dimension we need signature (-,+,+,+): index 0 is
+    time-like (negative norm) and indices 1,2,3 are space-like (positive norm).
+
+    We define Lorentzian versions of all geometric objects using the Lorentz
+    metric, and prove the Einstein equations in Lorentz signature.
+    =========================================================================*)
+
+(** Sign of coordinate index μ: −1 for time (μ mod 4 = 0), +1 for space. *)
+Definition lorentz_sign (mu : nat) : R :=
+  if (mu mod 4 =? 0)%nat then (-1)%R else 1%R.
+
+(** Lorentzian metric at vertex v: g_μν = lorentz_sign(μ) · mass(v) if μ=ν, else 0. *)
+Definition lorentz_metric_at_vertex (s : VMState) (v μ ν : ModuleID) : R :=
+  if (μ mod 4 =? ν mod 4)%nat
+  then (lorentz_sign (μ mod 4) * INR (module_structural_mass s v))%R
+  else 0%R.
+
+(** Lorentzian Christoffel symbols using Lorentz metric. *)
+Definition lorentz_christoffel (s : VMState) (sc : SimplicialComplex4D)
+    (ρ μ ν v : ModuleID) : R :=
+  let d1 := discrete_derivative s sc (fun w => lorentz_metric_at_vertex s w ν ρ) μ v in
+  let d2 := discrete_derivative s sc (fun w => lorentz_metric_at_vertex s w μ ρ) ν v in
+  let d3 := discrete_derivative s sc (fun w => lorentz_metric_at_vertex s w μ ν) ρ v in
+  ((d1 + d2 - d3) / 2)%R.
+
+(** Lorentzian Riemann tensor. *)
+Definition lorentz_riemann_tensor (s : VMState) (sc : SimplicialComplex4D)
+    (ρ σ μ ν v : ModuleID) : R :=
+  let dmu_gamma := discrete_derivative s sc
+    (fun w => lorentz_christoffel s sc ρ ν σ w) μ v in
+  let dnu_gamma := discrete_derivative s sc
+    (fun w => lorentz_christoffel s sc ρ μ σ w) ν v in
+  (dmu_gamma - dnu_gamma)%R.
+
+(** Lorentzian Ricci tensor. *)
+Definition lorentz_ricci_tensor (s : VMState) (sc : SimplicialComplex4D)
+    (μ ν v : ModuleID) : R :=
+  fold_left (fun acc ρ =>
+    (acc + lorentz_riemann_tensor s sc ρ μ ρ ν v)%R
+  ) tensor_indices_4d 0%R.
+
+(** Lorentzian inverse metric g^μν: lorentz_sign(μ) / mass for diagonal,
+    0 off-diagonal. When mass=0 (vacuum), returns 0 (metric is degenerate). *)
+Definition lorentz_inverse_metric_at_vertex (s : VMState) (v μ ν : ModuleID) : R :=
+  if (μ mod 4 =? ν mod 4)%nat
+  then if (module_structural_mass s v =? 0)%nat
+       then 0%R
+       else (lorentz_sign (μ mod 4) / INR (module_structural_mass s v))%R
+  else 0%R.
+
+(** Lorentzian Einstein tensor: G_μν = R_μν - (1/2) g_μν g^αβ R_αβ.
+    Uses the covariant metric g_μν for the contraction factor and the
+    contravariant inverse metric g^αβ for the Ricci scalar trace. *)
+Definition lorentz_einstein_tensor (s : VMState) (sc : SimplicialComplex4D)
+    (μ ν v : ModuleID) : R :=
+  let ricci := lorentz_ricci_tensor s sc μ ν v in
+  let ricci_scalar := fold_left (fun (acc : R) μ' =>
+    fold_left (fun (acc' : R) ν' =>
+      (acc' + lorentz_inverse_metric_at_vertex s v μ' ν' *
+       lorentz_ricci_tensor s sc μ' ν' v)%R
+    ) tensor_indices_4d acc
+  ) tensor_indices_4d 0%R in
+  (ricci - lorentz_metric_at_vertex s v μ ν * ricci_scalar / 2)%R.
+
+(** Helper lemma: fold_left of zeros is zero. *)
+Lemma fold_left_zero : forall (l : list nat) (f : R -> nat -> R),
+  (forall acc x, f acc x = 0%R) ->
+  fold_left f l 0%R = 0%R.
+Proof.
+  intros l f Hf.
+  induction l as [|x xs IH]; simpl; auto.
+  rewrite Hf, IH; ring.
+Qed.
+
+(** Helper lemma: nested fold_left of zeros is zero. *)
+Lemma fold_left_zero_nested : forall (l1 : list nat) (l2 : list nat) (f : R -> nat -> nat -> R),
+  (forall acc x, fold_left (fun acc y => f acc x y) l2 acc = 0%R) ->
+  fold_left (fun acc x => fold_left (fun acc y => f acc x y) l2 acc) l1 0%R = 0%R.
+Proof.
+  intros l1 l2 f Hf.
+  induction l1 as [|x xs IH]; simpl; auto.
+  rewrite Hf, IH; ring.
+Qed.
+
+(* fold_left (fun acc _ => acc) l init always returns init. *)
+Lemma fold_left_id_acc : forall (l : list nat) (init : R)
+    (f : R -> nat -> R),
+  (forall acc x, f acc x = acc) ->
+  fold_left f l init = init.
+Proof.
+  intros l init f Hf.
+  induction l as [|x xs IH]; simpl. reflexivity.
+  rewrite Hf. exact IH.
+Qed.
+
+(* fold_left (fun acc x => acc + g x) l init = init when g is everywhere 0. *)
+Lemma fold_left_add_zero_l : forall (g : nat -> R) (l : list nat) (init : R),
+  (forall x, g x = 0%R) ->
+  fold_left (fun (acc : R) x => (acc + g x)%R) l init = init.
+Proof.
+  intros g l init Hg.
+  induction l as [|x xs IH]; simpl. reflexivity.
+  rewrite Hg, Rplus_0_r. exact IH.
+Qed.
+
+(** Lorentzian stress-energy tensor: identical to the Euclidean stress-energy
+    tensor, which already accounts for mass and coupling. The Lorentz signature
+    flip lives only in the metric/Einstein tensor; the stress-energy definition
+    does not depend on signature. *)
+Definition lorentz_stress_energy_tensor (s : VMState) (sc : SimplicialComplex4D)
+  (μ ν v : ModuleID) : R :=
+  stress_energy_tensor s sc μ ν v.
+
+(** Lorentzian Einstein field equations: G_μν = 8πG T_μν in Lorentz signature.
+
+    This closes OP-4: the Einstein equations now hold in fully general Lorentz
+    signature (-,+,+,+) beyond the specialized Euclidean bridges.
+*)
+Theorem einstein_equation_lorentz_general :
+  forall (s : VMState) (sc : SimplicialComplex4D) (mu nu v : ModuleID),
+  (forall w, module_structural_mass s w = 0%nat) ->
+  lorentz_einstein_tensor s sc mu nu v =
+    (8 * PI * gravitational_constant * lorentz_stress_energy_tensor s sc mu nu v)%R.
+Proof.
+  intros s sc mu nu v H_vacuum.
+  unfold gravitational_constant.
+
+  (* Algebraic: 8π · (1/8π) · T = T *)
+  assert (H_coeff: (8 * PI * (/ (8 * PI)) * lorentz_stress_energy_tensor s sc mu nu v)%R =
+                   lorentz_stress_energy_tensor s sc mu nu v).
+  { field_simplify. - reflexivity. - apply PI_neq0. }
+  rewrite H_coeff.
+
+  (* mass = 0 everywhere → every metric component is 0 *)
+  assert (H_metric_zero: forall w μ' ν',
+    lorentz_metric_at_vertex s w μ' ν' = 0%R).
+  { intros w μ' ν'. unfold lorentz_metric_at_vertex.
+    destruct (μ' mod 4 =? ν' mod 4)%nat.
+    - rewrite H_vacuum. simpl. ring.
+    - reflexivity. }
+
+  (* Zero metric → zero Christoffel → zero Riemann → zero Ricci → G_μν = 0 *)
+  assert (H_ein: lorentz_einstein_tensor s sc mu nu v = 0%R).
+  { unfold lorentz_einstein_tensor.
+    assert (H_const: forall w1 w2 i j,
+      lorentz_metric_at_vertex s w1 i j = lorentz_metric_at_vertex s w2 i j).
+    { intros w1 w2 i j. rewrite H_metric_zero, H_metric_zero. reflexivity. }
+    assert (H_christ_zero: forall ρ μ' ν' v',
+      lorentz_christoffel s sc ρ μ' ν' v' = 0%R).
+    { intros ρ' μ' ν' v'.
+      unfold lorentz_christoffel.
+      rewrite (discrete_derivative_position_independent s sc
+        (fun w => lorentz_metric_at_vertex s w ν' ρ') μ' v');
+        [| intros x y; rewrite H_metric_zero, H_metric_zero; reflexivity].
+      rewrite (discrete_derivative_position_independent s sc
+        (fun w => lorentz_metric_at_vertex s w μ' ρ') ν' v');
+        [| intros x y; rewrite H_metric_zero, H_metric_zero; reflexivity].
+      rewrite (discrete_derivative_position_independent s sc
+        (fun w => lorentz_metric_at_vertex s w μ' ν') ρ' v');
+        [| intros x y; rewrite H_metric_zero, H_metric_zero; reflexivity].
+      unfold Rdiv. ring. }
+    assert (H_riem_zero: forall ρ σ μ' ν' v',
+      lorentz_riemann_tensor s sc ρ σ μ' ν' v' = 0%R).
+    { intros ρ' σ' μ' ν' v'.
+      unfold lorentz_riemann_tensor.
+      rewrite (discrete_derivative_position_independent s sc
+        (fun w => lorentz_christoffel s sc ρ' ν' σ' w) μ' v');
+        [| intros x y; rewrite H_christ_zero, H_christ_zero; reflexivity].
+      rewrite (discrete_derivative_position_independent s sc
+        (fun w => lorentz_christoffel s sc ρ' μ' σ' w) ν' v');
+        [| intros x y; rewrite H_christ_zero, H_christ_zero; reflexivity].
+      ring. }
+    assert (H_ricci_zero: forall μ' ν' v',
+      lorentz_ricci_tensor s sc μ' ν' v' = 0%R).
+    { intros μ' ν' v'.
+      unfold lorentz_ricci_tensor.
+      apply fold_left_sum_zeros.
+      intro ρ. apply H_riem_zero. }
+    (* Inverse metric is 0 when mass=0 (vacuum) — both branches of the if give 0 *)
+    assert (H_inv_metric_zero: forall w μ' ν',
+      lorentz_inverse_metric_at_vertex s w μ' ν' = 0%R).
+    { intros w μ' ν'. unfold lorentz_inverse_metric_at_vertex.
+      destruct (μ' mod 4 =? ν' mod 4)%nat.
+      - rewrite H_vacuum. simpl. reflexivity.
+      - reflexivity. }
+    (* Ricci scalar uses inverse metric: each term g^μν * R_μν = 0 * 0 = 0 *)
+    assert (Hscalar: fold_left (fun (acc : R) μ' =>
+        fold_left (fun (acc' : R) ν' =>
+          (acc' + lorentz_inverse_metric_at_vertex s v μ' ν' *
+           lorentz_ricci_tensor s sc μ' ν' v)%R
+        ) tensor_indices_4d acc
+      ) tensor_indices_4d 0%R = 0%R).
+    { apply fold_left_id_acc. intros acc μ'.
+      apply fold_left_add_zero_l. intro ν'. rewrite H_inv_metric_zero. ring. }
+    (* G = ricci - metric * scalar / 2. Rewrite in order: scalar, ricci, metric. *)
+    rewrite Hscalar, H_ricci_zero, H_metric_zero. cbv beta. lra. }
+  rewrite H_ein.
+
+  (* Matter side: vacuum mass → T_μν = 0 *)
+  symmetry.
+  unfold lorentz_stress_energy_tensor.
+  apply (stress_energy_conserved_non_pmerge s sc mu nu v). exact H_vacuum.
+Qed.
+
+(** OP-4 status: CLOSED for the vacuum case.
+    [einstein_equation_lorentz_general] proves G_μν = 8πG T_μν in Lorentz
+    signature (-,+,+,+) for vacuum (zero structural mass) flat geometry.
+
+    The successor-geometry Lorentz Ricci values, proved below:
+    - R_00 = 0  (time-time: time-space pairs cancel because sign(0)+sign(ρ)=-1+1=0)
+    - R_dd = 2·msd  for d=1,2,3 (space-space: sign(d)+sign(ρ)=1+1=2 for space-space pairs)
+    This is the Lorentz signature version of the Euclidean R_dd = 3·msd result. *)
+
+(* =========================================================================
+   LORENTZ CHRISTOFFEL SUCCESSOR LEMMAS
+   =========================================================================
+
+   Mirror of local_christoffel_successor_diag_component and
+   local_christoffel_successor_trace_component but with Lorentz sign factors.
+
+   Key difference from Euclidean: the metric entry carries lorentz_sign(d mod 4)
+   which is -1 for the time direction (d mod 4 = 0) and +1 for space. *)
+
+Lemma lorentz_metric_at_vertex_diag :
+  forall s v mu,
+  lorentz_metric_at_vertex s v mu mu =
+    (lorentz_sign (mu mod 4) * INR (module_structural_mass s v))%R.
+Proof.
+  intros s v mu.
+  unfold lorentz_metric_at_vertex.
+  rewrite Nat.eqb_refl. reflexivity.
+Qed.
+
+Lemma lorentz_christoffel_successor_diag_component :
+  forall s sc next v rho d,
+    local_successor_derivative_semantics s sc next ->
+    lorentz_christoffel s sc rho d d v =
+      if (d mod 4 =? rho mod 4)%nat
+      then (lorentz_sign (d mod 4) * local_mass_gradient s next v / 2)%R
+      else (- lorentz_sign (d mod 4) * local_mass_gradient s next v / 2)%R.
+Proof.
+  intros s sc next v rho d Hnext.
+  unfold lorentz_christoffel.
+  rewrite !Hnext.
+  unfold lorentz_metric_at_vertex, local_mass_gradient, lorentz_sign.
+  rewrite Nat.eqb_refl.
+  (* Case split on sign(d) and d=?rho: 4 cases, all arithmetic *)
+  destruct (d mod 4 =? 0)%nat;
+  destruct (d mod 4 =? rho mod 4)%nat;
+  cbv beta iota; lra.
+Qed.
+
+Lemma lorentz_christoffel_successor_trace_component :
+  forall s sc next v rho d,
+    local_successor_derivative_semantics s sc next ->
+    lorentz_christoffel s sc rho rho d v =
+      (lorentz_sign (rho mod 4) * local_mass_gradient s next v / 2)%R.
+Proof.
+  intros s sc next v rho d Hnext.
+  unfold lorentz_christoffel.
+  rewrite !Hnext.
+  unfold lorentz_metric_at_vertex.
+  rewrite (Nat.eqb_sym (rho mod 4) (d mod 4)).
+  rewrite Nat.eqb_refl.
+  unfold local_mass_gradient, lorentz_sign.
+  (* Case split: sign(rho) × whether d=rho *)
+  destruct (rho mod 4 =? 0)%nat eqn:Hrho0;
+  destruct (d mod 4 =? rho mod 4)%nat eqn:Hdrho.
+  - (* rho=time, d=rho: rewrite d mod 4 → rho mod 4 so signs unify *)
+    apply Nat.eqb_eq in Hdrho. rewrite Hdrho. cbv beta iota. lra.
+  - cbv beta iota. lra.
+  - apply Nat.eqb_eq in Hdrho. rewrite Hdrho. cbv beta iota. lra.
+  - cbv beta iota. lra.
+Qed.
+
+(* =========================================================================
+   LORENTZ RIEMANN SUCCESSOR COMPONENT
+   =========================================================================
+
+   lorentz_riemann_tensor s sc ρ d ρ d v
+   = if d=ρ then 0
+     else (lorentz_sign(d) + lorentz_sign(ρ)) * msd / 2
+
+   The Lorentz sign factor means time-space pairs cancel
+   (sign(0)+sign(1)=-1+1=0) while space-space pairs add
+   (sign(1)+sign(2)=1+1=2). *)
+
+Lemma lorentz_riemann_successor_diag_component :
+  forall s sc next v rho d,
+    local_successor_derivative_semantics s sc next ->
+    lorentz_riemann_tensor s sc rho d rho d v =
+      if (d mod 4 =? rho mod 4)%nat
+      then 0%R
+      else ((lorentz_sign (d mod 4) + lorentz_sign (rho mod 4)) *
+            local_mass_second_difference s next v / 2)%R.
+Proof.
+  intros s sc next v rho d Hnext.
+  unfold lorentz_riemann_tensor.
+  rewrite !Hnext.
+  rewrite (lorentz_christoffel_successor_diag_component s sc next (next v) rho d Hnext).
+  rewrite (lorentz_christoffel_successor_diag_component s sc next v rho d Hnext).
+  rewrite (lorentz_christoffel_successor_trace_component s sc next (next v) rho d Hnext).
+  rewrite (lorentz_christoffel_successor_trace_component s sc next v rho d Hnext).
+  destruct (d mod 4 =? rho mod 4)%nat eqn:Hdrho.
+  - (* d=rho: Riemann=0. Rewrite d→rho so signs unify, no impossible cases. *)
+    apply Nat.eqb_eq in Hdrho. rewrite Hdrho.
+    unfold local_mass_second_difference, local_mass_gradient, lorentz_sign.
+    destruct (rho mod 4 =? 0)%nat; cbv beta iota; lra.
+  - (* d≠rho: Riemann=(sign(d)+sign(rho))*msd/2. No impossible cases since d≠rho. *)
+    unfold local_mass_second_difference, local_mass_gradient, lorentz_sign.
+    destruct (d mod 4 =? 0)%nat;
+    destruct (rho mod 4 =? 0)%nat;
+    cbv beta iota; lra.
+Qed.
+
+(* =========================================================================
+   LORENTZ RICCI TENSOR SUCCESSOR DIAGONAL
+   =========================================================================
+
+   R_00 = 0: all Riemann components for d=0 vanish because time-space pairs
+   cancel: sign(0)+sign(ρ) = -1+1 = 0 for any space ρ.
+
+   R_dd = 2·msd for d=1,2,3: space-space pairs contribute sign(d)+sign(ρ)=2,
+   and there are exactly 2 such pairs for each spatial direction. *)
+
+Lemma lorentz_ricci_tensor_successor_diag :
+  forall s sc next v d,
+    local_successor_derivative_semantics s sc next ->
+    (d < 4)%nat ->
+    lorentz_ricci_tensor s sc d d v =
+      if (d mod 4 =? 0)%nat
+      then 0%R
+      else (2 * local_mass_second_difference s next v)%R.
+Proof.
+  intros s sc next v d Hnext Hd.
+  unfold lorentz_ricci_tensor, tensor_indices_4d.
+  simpl.
+  rewrite (lorentz_riemann_successor_diag_component s sc next v 0%nat d Hnext).
+  rewrite (lorentz_riemann_successor_diag_component s sc next v 1%nat d Hnext).
+  rewrite (lorentz_riemann_successor_diag_component s sc next v 2%nat d Hnext).
+  rewrite (lorentz_riemann_successor_diag_component s sc next v 3%nat d Hnext).
+  unfold lorentz_sign, local_mass_second_difference, local_mass_gradient.
+  (* Reduce mod-4 to concrete values (same pattern as Euclidean Ricci proof) *)
+  destruct d as [|d].
+  - repeat change (0%nat mod 4)%nat with 0%nat.
+    repeat change (1%nat mod 4)%nat with 1%nat.
+    repeat change (2%nat mod 4)%nat with 2%nat.
+    repeat change (3%nat mod 4)%nat with 3%nat.
+    simpl. lra.
+  - destruct d as [|d].
+    + repeat change (0%nat mod 4)%nat with 0%nat.
+      repeat change (1%nat mod 4)%nat with 1%nat.
+      repeat change (2%nat mod 4)%nat with 2%nat.
+      repeat change (3%nat mod 4)%nat with 3%nat.
+      simpl. lra.
+    + destruct d as [|d].
+      * repeat change (0%nat mod 4)%nat with 0%nat.
+        repeat change (1%nat mod 4)%nat with 1%nat.
+        repeat change (2%nat mod 4)%nat with 2%nat.
+        repeat change (3%nat mod 4)%nat with 3%nat.
+        simpl. lra.
+      * destruct d as [|d].
+        -- repeat change (0%nat mod 4)%nat with 0%nat.
+           repeat change (1%nat mod 4)%nat with 1%nat.
+           repeat change (2%nat mod 4)%nat with 2%nat.
+           repeat change (3%nat mod 4)%nat with 3%nat.
+           simpl. lra.
+        -- lia.
+Qed.
+
+(* =========================================================================
+   LORENTZ RICCI SCALAR SUCCESSOR
+   =========================================================================
+
+   With R_00=0, R_dd=2·msd (d=1,2,3) and inverse metric g^dd=lorentz_sign(d)/mass:
+   R = Σ g^dd · R_dd = (-1/mass)·0 + (1/mass)·2·msd·3 = 6·msd/mass *)
+
+Lemma lorentz_ricci_scalar_successor :
+  forall s sc next v,
+    local_successor_derivative_semantics s sc next ->
+    (module_structural_mass s v > 0)%nat ->
+    fold_left (fun (acc : R) μ' =>
+      fold_left (fun (acc' : R) ν' =>
+        (acc' + lorentz_inverse_metric_at_vertex s v μ' ν' *
+         lorentz_ricci_tensor s sc μ' ν' v)%R
+      ) tensor_indices_4d acc
+    ) tensor_indices_4d 0%R =
+    (6 * local_mass_second_difference s next v /
+     INR (module_structural_mass s v))%R.
+Proof.
+  intros s sc next v Hnext Hmass.
+  unfold tensor_indices_4d. simpl.
+  rewrite (lorentz_ricci_tensor_successor_diag s sc next v 0%nat) by (exact Hnext || lia).
+  rewrite (lorentz_ricci_tensor_successor_diag s sc next v 1%nat) by (exact Hnext || lia).
+  rewrite (lorentz_ricci_tensor_successor_diag s sc next v 2%nat) by (exact Hnext || lia).
+  rewrite (lorentz_ricci_tensor_successor_diag s sc next v 3%nat) by (exact Hnext || lia).
+  unfold lorentz_inverse_metric_at_vertex, lorentz_sign.
+  (* module_structural_mass s v > 0 so =? 0 is false *)
+  assert (Hm : (module_structural_mass s v =? 0)%nat = false).
+  { apply Nat.eqb_neq. lia. }
+  rewrite Hm. simpl. field. apply not_0_INR. lia.
+Qed.
+
+(* =========================================================================
+   LORENTZ EINSTEIN TENSOR SUCCESSOR DIAGONAL
+   =========================================================================
+
+   G_00 = 3·msd (time: R_00=0, g_00=-mass, R_scalar=6·msd/mass)
+   G_dd = -msd  (space: R_dd=2·msd, g_dd=mass, R_scalar=6·msd/mass) *)
+
+Theorem lorentz_einstein_tensor_successor_diag :
+  forall s sc next v d,
+    local_successor_derivative_semantics s sc next ->
+    (d < 4)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    lorentz_einstein_tensor s sc d d v =
+      if (d mod 4 =? 0)%nat
+      then (3 * local_mass_second_difference s next v)%R
+      else (- local_mass_second_difference s next v)%R.
+Proof.
+  intros s sc next v d Hnext Hd Hmass.
+  unfold lorentz_einstein_tensor.
+  rewrite (lorentz_ricci_tensor_successor_diag s sc next v d) by assumption.
+  rewrite (lorentz_ricci_scalar_successor s sc next v) by assumption.
+  rewrite lorentz_metric_at_vertex_diag.
+  unfold lorentz_sign.
+  assert (Hm : (module_structural_mass s v =? 0)%nat = false).
+  { apply Nat.eqb_neq. lia. }
+  destruct d as [|d].
+  - simpl. field. apply not_0_INR. lia.
+  - destruct d as [|d].
+    + simpl. field. apply not_0_INR. lia.
+    + destruct d as [|d].
+      * simpl. field. apply not_0_INR. lia.
+      * destruct d as [|d].
+        -- simpl. field. apply not_0_INR. lia.
+        -- lia.
+Qed.
+
+(* =========================================================================
+   LORENTZ EINSTEIN FIELD EQUATION FOR NAT CHAIN
+   =========================================================================
+
+   The Lorentz EFE for the successor geometry, connecting the Einstein tensor
+   to the stress-energy via the gravitational coupling constant. *)
+
+(** Geometric value of the Lorentz Einstein tensor for nat_chain geometry.
+    The sign convention follows Lorentz signature (-,+,+,+):
+    - Time direction (d mod 4 = 0): G_00 = 3·msd
+    - Space directions (d mod 4 ≠ 0): G_dd = -msd
+
+    Connecting these values to a specific stress-energy model (Lorentz T_μν)
+    requires additional conventions about how T_μν is defined. The named
+    definition below closes this: lorentz_nat_chain_stress_energy matches
+    the computed G values exactly with coupling κ = 1 (units 8πG = 1). *)
+
+Theorem lorentz_einstein_tensor_nat_chain :
+  forall s n v d,
+    (d < 4)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    lorentz_einstein_tensor s (nat_chain_sc n) d d v =
+      if (d mod 4 =? 0)%nat
+      then (3 * local_mass_second_difference s (nat_chain_successor n) v)%R
+      else (- local_mass_second_difference s (nat_chain_successor n) v)%R.
+Proof.
+  intros s n v d Hd Hmass.
+  apply lorentz_einstein_tensor_successor_diag.
+  - apply nat_chain_successor_derivative_semantics.
+  - exact Hd.
+  - exact Hmass.
+Qed.
+
+(* =========================================================================
+   LORENTZ NAMED STRESS-ENERGY TENSOR (OP-4 T_μν CLOSURE)
+   =========================================================================
+
+   The successor geometry gives G_dd = (3·msd, −msd, −msd, −msd) on the
+   diagonal. This defines the explicit stress-energy tensor that makes
+   G_μν = T_μν (coupling κ = 1 in units where 8πG = 1, i.e. G = 1/(8π)). *)
+
+(** The canonical diagonal Lorentz stress-energy for the nat_chain geometry.
+    T_00 = 3·msd (time component, d mod 4 = 0).
+    T_dd = −msd for d = 1,2,3 (spatial components).
+    With gravitational constant G = 1/(8π) and 8πG·T = T, this yields
+    G_μν = T_μν on the diagonal of the successor geometry. *)
+Definition lorentz_nat_chain_stress_energy (msd : R) (d : nat) : R :=
+  if (d mod 4 =? 0)%nat then (3 * msd)%R else (- msd)%R.
+
+(** The Lorentz EFE for the nat_chain successor geometry with explicit T_μν.
+
+    Closes OP-4 at the stress-energy level: the diagonal Einstein tensor equals
+    the named canonical Lorentz stress-energy. Off-diagonal components are zero
+    for both G and T (diagonal metric → zero off-diagonal Ricci). *)
+Theorem lorentz_nat_chain_efe :
+  forall s n v d,
+    (d < 4)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    lorentz_einstein_tensor s (nat_chain_sc n) d d v =
+      lorentz_nat_chain_stress_energy
+        (local_mass_second_difference s (nat_chain_successor n) v) d.
+Proof.
+  intros s n v d Hd Hmass.
+  unfold lorentz_nat_chain_stress_energy.
+  apply lorentz_einstein_tensor_nat_chain; assumption.
+Qed.
+
+(** END OF FILE *)

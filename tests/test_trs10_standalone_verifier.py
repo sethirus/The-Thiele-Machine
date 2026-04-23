@@ -10,8 +10,8 @@ from tools.trs10_standalone import verify_receipt_dict
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-CREATE_RECEIPT_SCRIPT = PROJECT_ROOT / "create_receipt.py"
-CREATE_EXECUTION_RECEIPT = PROJECT_ROOT / "create_execution_receipt.py"
+CREATE_RECEIPT_SCRIPT = PROJECT_ROOT / "scripts" / "create_receipt.py"
+CREATE_EXECUTION_RECEIPT = PROJECT_ROOT / "scripts" / "create_execution_receipt.py"
 TEST_PRIVATE_KEY_HEX = "082c001813feb4d26e8bb941414b0e577c7ece64fcfa71d0012dc653abccfbff"
 TEST_PUBLIC_KEY_HEX = "254b57576959e5fb37d087a60d5a72bb75dcf82240cbd62577059695dda0ebea"
 

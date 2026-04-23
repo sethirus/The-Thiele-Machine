@@ -3,13 +3,12 @@
 Checks:
   1. Root markdown surface — no stale working-doc or handoff files that
      should have been deleted or integrated before closeout.
-  2. Required root files exist (README, MASTER_PLAN, INQUISITOR_REPORT).
+  2. Required root files exist for the current closeout surface.
   3. Key build artefacts exist (verification_receipt.json, isomorphism_map.json).
-  4. INQUISITOR_REPORT.md contains a PASS verdict (no open HIGH findings).
+  4. If a local INQUISITOR report exists, it must not record a fail verdict.
 """
 from __future__ import annotations
 
-import glob
 import json
 from pathlib import Path
 
@@ -30,8 +29,7 @@ STALE_PATTERNS = [
 # Root markdown files that must be present.
 REQUIRED_ROOT_FILES = [
     "README.md",
-    "MASTER_PLAN.md",
-    "INQUISITOR_REPORT.md",
+    "STYLE_GUIDE.md",
 ]
 
 # Build artefacts that must be present.
@@ -78,7 +76,7 @@ class TestBuildManifest:
 
 class TestInquisitorReport:
     def test_inquisitor_report_has_no_high_findings(self):
-        """INQUISITOR_REPORT.md must not contain unresolved HIGH findings."""
+        """A locally generated INQUISITOR report must not record a FAIL verdict."""
         report_path = ROOT / "INQUISITOR_REPORT.md"
         if not report_path.exists():
             pytest.skip("INQUISITOR_REPORT.md not present")

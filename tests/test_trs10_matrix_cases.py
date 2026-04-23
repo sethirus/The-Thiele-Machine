@@ -11,7 +11,7 @@ from tools.trs10_standalone.execution import StandaloneProgramCanonicalizer
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FIXTURE_ROOT = PROJECT_ROOT / "tests" / "fixtures" / "trs10"
-CREATE_RECEIPT_SCRIPT = PROJECT_ROOT / "create_receipt.py"
+CREATE_RECEIPT_SCRIPT = PROJECT_ROOT / "scripts" / "create_receipt.py"
 NODE_CANONICALIZER = PROJECT_ROOT / "tools" / "trs10_node" / "canonicalize_program.mjs"
 TEST_PRIVATE_KEY_HEX = "082c001813feb4d26e8bb941414b0e577c7ece64fcfa71d0012dc653abccfbff"
 

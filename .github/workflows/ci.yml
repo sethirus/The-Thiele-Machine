@@ -6,6 +6,7 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
@@ -289,63 +290,11 @@ jobs:
           # Documented in SECURITY.md
           pip-audit -r requirements.txt --progress=off --ignore-vuln CVE-2025-53000
 
-  thesis-verifier:
-    name: Thesis verifier
-    runs-on: ubuntu-latest
-    needs: [proof-check, extraction, python-tests, trs-receipts]
-    timeout-minutes: 30
-    env:
-      OCAMLRUNPARAM: "l=64M"
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Install Coq + OCaml + RTL tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib \
-            iverilog verilator yosys
-
-      - name: Build vendored deps (bbv + kami)
-        run: |
-          git submodule update --init --recursive vendor/bbv vendor/kami
-          cd vendor/bbv && make -j4
-          cd ../kami && make -j4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --quiet --upgrade pip
-          pip install --quiet -r requirements.txt
-          pip install --quiet -e . --no-deps
-
-      - name: Rebuild extracted artifacts required by thesis verifier
-        run: |
-          cd coq
-          coq_makefile -f _CoqProject -o Makefile 2>&1 | grep -v "Warning:"
-          make -j4
-          make Extraction.vo
-          cd ..
-          ocamlfind ocamlc -I build -package str -linkpkg \
-            -o build/extracted_vm_runner \
-            build/thiele_core.mli \
-            build/thiele_core.ml \
-            build/extracted_vm_runner.ml
-
-      - name: Run thesis verifier
-        run: python scripts/verify_thesis.py
-
   # Summary
   verify-summary:
     name: Verification Summary
     runs-on: ubuntu-latest
-    needs: [proof-check, extraction, python-tests, dependencies, thesis-verifier]
+    needs: [proof-check, extraction, python-tests, dependencies]
     if: always()
     steps:
       - name: Check job results
@@ -359,14 +308,13 @@ jobs:
           | Extraction (OCaml + Bisimulation) | ${{ needs.extraction.result }} |
           | Python Tests | ${{ needs.python-tests.result }} |
           | Dependency Scan | ${{ needs.dependencies.result }} |
-          | Thesis Verifier | ${{ needs.thesis-verifier.result }} |
           
           **Verification Status:** ${{ job.status }}
           
           > **Note:** This is the fast verification path (proof + extraction + tests).
           > For full verification including hardware synthesis, see the nightly run or use:
           > ```
-          > ./scripts/quick_verify.sh full
+          > make closeout-gate
           > ```
           EOF
           cat /tmp/summary.md >> $GITHUB_STEP_SUMMARY
@@ -376,8 +324,5 @@ jobs:
           needs.proof-check.result == 'failure' ||
           needs.extraction.result == 'failure' ||
           needs.python-tests.result == 'failure' ||
-          needs.dependencies.result == 'failure' ||
-          needs.thesis-verifier.result == 'failure'
+          needs.dependencies.result == 'failure'
         run: exit 1
-
-

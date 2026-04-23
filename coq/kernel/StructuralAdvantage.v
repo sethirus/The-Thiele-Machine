@@ -646,29 +646,22 @@ Qed.
     Each μ unit buys N^(k-j) - N step savings, decelerating to 0 for the last unit.
     First EMIT always buys the most. Proven above.
 
-    REMAINING OPEN QUESTIONS:
-    --------------------------
-    OPEN QUESTION 1 (NOW): The k=log(N) regime at large N.
-    We measured k=3, N=8. For k=4, N=16: blind=65536, sighted=64.
-    Does the ratio N^(k-1)/k grow super-polynomially at k=log(N)?
-    Formula: (N^(k-1)/k) with k=log₂(N) = N^(log₂(N)-1)/log₂(N).
-    For N=16, k=4: 16^3/4 = 4096/4 = 1024.
-    For N=32, k=5: 32^4/5 = 1048576/5 ≈ 200k.
-    The ratio grows super-polynomially in N. Open in Coq.
+     STATUS SNAPSHOT BEFORE THE LOCAL THEOREMS:
+     -----------------------------------------
+     The next block discharges the three local questions that motivated this
+     section.
 
-    OPEN QUESTION 2 (bounded μ complexity): STILL OPEN.
-    Let MuP(k) = problems solvable in polynomial time and k μ-units.
-    We now know: MuP(k) ≠ MuP(k-1) for factored search problems
-    (paying one fewer μ costs at least N^(k-j-1) - 1 extra steps).
-    But: does MuP(O(log n)) ≠ P? We don't know.
-
-    OPEN QUESTION 3 (LASSERT strength): STILL OPEN.
-    EMIT(".",0) pays 9 μ for its concrete payload bits but proves nothing.
-    LASSERT pays formula_len*8+1 μ and verifies a SAT proof.
-    Does the stronger certificate unlock problems EMIT cannot certify?
-    Specifically: can LASSERT certify structural properties that are
-    not checkable by the programmer (adversarial setting)?
-    Not tested yet.
+     1. The k = log₂(N) regime is handled by explicit arithmetic growth lemmas.
+       The concrete diagonal ratio witnesses at k = 3 and k = 4 are proved
+       below, together with monotonicity in k.
+     2. The factored-search witness gives a formal witness-level separation
+       between polynomial k·N cost with μ and N^k cost without μ. What remains
+       open is the stronger class-level statement MuP(O(log n)) ≠ P for a fully
+       formalized Thiele-VM complexity theory.
+     3. LASSERT strength is reduced to a checked-cost question here: the local
+       theorems below prove that LASSERT increases verifiability cost, not step
+       count. Broader adversarial expressivity questions remain outside this
+       file's current semantics.
 *)
 
 (**
@@ -909,14 +902,15 @@ Qed.
     Theorems: diagonal_ratio_exceeds_n_at_k3, diagonal_ratio_exceeds_n_sq_at_k4,
               diagonal_ratio_grows_with_k, log_diagonal_mu_is_sublinear.
 
-    OPEN QUESTION 2 (MuP(O(log n)) ≠ P): RESOLVED (empirically).
+    OPEN QUESTION 2 (MuP(O(log n)) ≠ P): RESOLVED at the witness level.
     The concrete witness (k-dimensional search at k=log₂N) shows:
       MuP(log₂N) cost: k·N = O(N log N) steps
       P (0 μ) cost:    N^k = N^(log₂N) steps (super-polynomial in N)
       Ratio:           > N for k≥3, N≥4 (and grows to 1024 at N=16, k=4)
-    The separation exists and grows. Whether it constitutes a formal complexity
-    class separation MuP(O(log n)) ≠ P requires formalizing P as a complexity
-    class over the Thiele VM model — that remains a future proof obligation.
+    The separation exists and grows by theorem, not only by measurement.
+    Whether it constitutes a formal complexity-class separation
+    MuP(O(log n)) ≠ P still requires formalizing P as a complexity class over
+    the Thiele VM model.
     Theorems: mup_step_cost_is_polynomial, p_mode_step_cost_is_superpolynomial,
               mup_separation_ratio_exceeds_n_at_k3,
               mup_separation_ratio_exceeds_n_sq_at_k4.

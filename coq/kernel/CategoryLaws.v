@@ -363,3 +363,84 @@ Proof.
   intros cd1 cd2 cd3.
   apply relational_compose_assoc.
 Qed.
+
+(** ** Separability of Couplings
+
+    A coupling is SEPARABLE (functional) if every source maps to at most one
+    target — i.e., it is the graph of a partial function from sources to
+    targets. This is the computational sense of separability: the coupling
+    can be described by an independent function on each dimension.
+
+    A coupling is NON-SEPARABLE if some source maps to two different targets,
+    creating a correlation that cannot be explained by independent functions.
+
+    In the context of quantum entanglement: non-separable couplings can
+    represent correlated pairs whose statistics violate Bell inequalities.
+    The entanglement certification program uses morphisms with non-separable
+    coupling data as certified entanglement witnesses. *)
+
+(** A coupling is separable if it is functional: each source has at most one target. *)
+Definition separable_coupling (r : Coupling) : Prop :=
+  forall a c1 c2, In (a, c1) r -> In (a, c2) r -> c1 = c2.
+
+(** A coupling is non-separable if some source maps to two distinct targets. *)
+Definition non_separable_coupling (r : Coupling) : Prop :=
+  exists a c1 c2, c1 <> c2 /\ In (a, c1) r /\ In (a, c2) r.
+
+(** Separable and non-separable are mutually exclusive. *)
+Lemma separable_not_non_separable : forall r,
+  separable_coupling r -> ~ non_separable_coupling r.
+Proof.
+  intros r Hsep [a [c1 [c2 [Hneq [H1 H2]]]]].
+  apply Hneq. exact (Hsep a c1 c2 H1 H2).
+Qed.
+
+(** The empty coupling is separable. *)
+Lemma empty_coupling_separable : separable_coupling [].
+Proof.
+  intros a c1 c2 H. inversion H.
+Qed.
+
+(** The diagonal coupling is separable (it's the identity function). *)
+Lemma diagonal_coupling_separable : forall region,
+  separable_coupling (diagonal region).
+Proof.
+  intros region a c1 c2 H1 H2.
+  unfold diagonal in *.
+  apply in_map_iff in H1. destruct H1 as [x [Hx _]]. injection Hx; intros; subst.
+  apply in_map_iff in H2. destruct H2 as [y [Hy _]]. injection Hy; intros; subst.
+  reflexivity.
+Qed.
+
+(** A coupling with repeated source is non-separable. *)
+Lemma coupling_non_separable_witness : forall a c1 c2,
+  c1 <> c2 ->
+  non_separable_coupling [(a, c1); (a, c2)].
+Proof.
+  intros a c1 c2 H.
+  exists a, c1, c2. split. exact H.
+  split. left. reflexivity. right. left. reflexivity.
+Qed.
+
+(** Projection helpers. *)
+Definition coupling_sources (r : Coupling) : list nat := map fst r.
+Definition coupling_targets (r : Coupling) : list nat := map snd r.
+
+(** The XOR coupling {(0,1),(1,0)} is separable (it's a bijection: f(0)=1, f(1)=0). *)
+Definition xor_coupling : Coupling := [(0,1);(1,0)].
+
+Lemma xor_coupling_separable : separable_coupling xor_coupling.
+Proof.
+  intros a c1 c2 H1 H2.
+  unfold xor_coupling in *.
+  destruct H1 as [H1|[H1|[]]]; destruct H2 as [H2|[H2|[]]];
+  inversion H1; inversion H2; subst; try reflexivity; try discriminate.
+Qed.
+
+(** Non-separable witness: source 0 maps to both 0 and 1. *)
+Definition entangled_coupling : Coupling := [(0,0);(0,1)].
+
+Lemma entangled_coupling_non_separable : non_separable_coupling entangled_coupling.
+Proof.
+  apply coupling_non_separable_witness. lia.
+Qed.

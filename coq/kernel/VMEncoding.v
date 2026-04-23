@@ -358,7 +358,8 @@ Definition encode_morphism_state (ms : MorphismState) : list bool :=
   encode_nat ms.(morph_source) ++
   encode_nat ms.(morph_target) ++
   encode_coupling_data ms.(morph_coupling) ++
-  encode_bool ms.(morph_is_identity).
+  encode_bool ms.(morph_is_identity) ++
+  encode_nat ms.(morph_cert_cost).
 
 Definition decode_morphism_state (bs : list bool) : option (MorphismState * list bool) :=
   match decode_nat bs with
@@ -369,10 +370,15 @@ Definition decode_morphism_state (bs : list bool) : option (MorphismState * list
           | Some (coupling, rest'') =>
               match decode_bool rest'' with
               | Some (is_id, rest''') =>
-                  Some ({| morph_source := src;
-                           morph_target := tgt;
-                           morph_coupling := coupling;
-                           morph_is_identity := is_id |}, rest''')
+                  match decode_nat rest''' with
+                  | Some (cert_cost, rest'''') =>
+                      Some ({| morph_source := src;
+                               morph_target := tgt;
+                               morph_coupling := coupling;
+                               morph_is_identity := is_id;
+                               morph_cert_cost := cert_cost |}, rest'''')
+                  | None => None
+                  end
               | None => None
               end
           | None => None
@@ -398,6 +404,8 @@ Proof.
   rewrite decode_coupling_data_correct.
   simpl (match Some _ with | Some (_, _) => _ | None => _ end).
   rewrite decode_bool_correct.
+  simpl (match Some _ with | Some (_, _) => _ | None => _ end).
+  rewrite decode_nat_correct.
   simpl (match Some _ with | Some (_, _) => _ | None => _ end).
   destruct ms. reflexivity.
 Qed.

@@ -28,6 +28,9 @@ From Coq Require Import Sorting.Permutation.
 Import ListNotations.
 
 
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   A_eq_dec is decidable equality parameter (standard Coq parameterization).
+   All theorems export as explicit forall premises when section closes. *)
 Section ListUtils.
 
 Variable A : Type.
@@ -115,6 +118,9 @@ End ListUtils.
 
 (** More list utilities: remove preserves the counting facts we need. *)
 
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   A_eq_dec is decidable equality parameter (standard Coq parameterization).
+   All theorems export as explicit forall premises when section closes. *)
 Section MoreListUtils.
 
 Variable A : Type.
@@ -228,6 +234,9 @@ Section FiniteInformation.
 
 (** State type with decidable equality *)
 Variable State : Type.
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   State, Obs, decidable equality and completeness are abstract parameters.
+   All theorems export as explicit forall premises when section closes. *)
 Variable state_eq_dec : forall s1 s2 : State, {s1 = s2} + {s1 <> s2}.
 
 (** Finite enumeration of all states *)

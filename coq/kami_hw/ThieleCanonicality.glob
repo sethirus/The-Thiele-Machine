@@ -1,4 +1,4 @@
-DIGEST f1738a7413bcbc0c379340f6075757a5
+DIGEST 2be50ff460770ad57387e0962ec50450
 FKamiHW.ThieleCanonicality
 R672:675 Coq.Lists.List <> <> lib
 R677:690 Coq.Arith.PeanoNat <> <> lib
@@ -15,345 +15,373 @@ R941:952 KamiHW.ShadowDevice <> <> lib
 R954:970 KamiHW.ShadowDeviceTrace <> <> lib
 R972:980 KamiHW.EmbedStep <> <> lib
 R1010:1024 KamiHW.ShadowEmbedStep <> <> lib
-prf 1349:1385 <> thiele_instruction_cost_is_surjective
-R1402:1404 Coq.Init.Datatypes <> nat ind
-binder 1398:1398 <> n:1
-R1411:1417 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1436:1437 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1422:1435 Kernel.VMStep VMStep vm_instruction ind
-binder 1418:1418 <> i:2
-R1456:1458 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1438:1453 Kernel.VMStep VMStep instruction_cost def
-R1455:1455 KamiHW.ThieleCanonicality <> i:2 var
-R1459:1459 KamiHW.ThieleCanonicality <> n:1 var
-R1491:1500 Kernel.VMStep VMStep instr_halt constr
-R1491:1500 Kernel.VMStep VMStep instr_halt constr
-R1515:1530 Kernel.VMStep VMStep instruction_cost def
-prf 2011:2035 <> thiele_cert_cost_complete
-R2052:2054 Coq.Init.Datatypes <> nat ind
-binder 2048:2048 <> k:3
-R2061:2067 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2086:2093 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2072:2085 Kernel.VMStep VMStep vm_instruction ind
-binder 2068:2068 <> i:4
-R2118:2127 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2112:2114 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2094:2109 Kernel.VMStep VMStep instruction_cost def
-R2111:2111 KamiHW.ThieleCanonicality <> i:4 var
-R2115:2115 Coq.Init.Datatypes <> S constr
-R2117:2117 KamiHW.ThieleCanonicality <> k:3 var
-R2139:2145 Kernel.VMState <> VMState rec
-binder 2135:2135 <> s:5
-R2180:2191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2172:2174 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2159:2170 Kernel.VMState <> vm_certified proj
-R2156:2156 KamiHW.ThieleCanonicality <> s:5 var
-R2175:2179 Coq.Init.Datatypes <> false constr
-R2221:2223 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2208:2219 Kernel.VMState <> vm_certified proj
-R2193:2200 Kernel.SimulationProof <> vm_apply def
-R2202:2202 KamiHW.ThieleCanonicality <> s:5 var
-R2204:2204 KamiHW.ThieleCanonicality <> i:4 var
-R2224:2227 Coq.Init.Datatypes <> true constr
-R2259:2271 Kernel.VMStep VMStep instr_certify constr
-R2259:2271 Kernel.VMStep VMStep instr_certify constr
-R2354:2369 Kernel.VMStep VMStep instruction_cost def
-R2472:2479 Kernel.SimulationProof <> vm_apply def
-rec 2737:2756 <> ThieleCanonicalModel
-proj 2900:2925 <> tcm_hardware_shadow_compat
-proj 3241:3263 <> tcm_device_class_compat
-proj 3726:3742 <> tcm_nfi_universal
-proj 4243:4267 <> tcm_shadow_strictly_lossy
-proj 4809:4827 <> tcm_cost_surjective
-proj 5122:5143 <> tcm_cert_cost_complete
-proj 5712:5737 <> tcm_trace_compat_supported
-proj 6319:6350 <> tcm_trace_compat_shadow_extended
-R2945:2956 KamiHW.Abstraction <> KamiSnapshot rec
-binder 2940:2941 <> ks:7
-R2985:2987 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2965:2981 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R2983:2984 KamiHW.ThieleCanonicality <> ks:7 var
-R2988:2998 Kernel.ShadowProjection <> shadow_proj def
-R3001:3010 KamiHW.Abstraction <> abs_phase1 def
-R3012:3013 KamiHW.ThieleCanonicality <> ks:7 var
-R3283:3294 KamiHW.ShadowDevice <> ShadowDevice rec
-binder 3279:3279 <> D:9
-R3305:3312 KamiHW.ShadowDevice <> sd_state proj
-R3302:3302 KamiHW.ThieleCanonicality <> D:9 var
-binder 3298:3298 <> d:10
-R3335:3337 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3326:3331 KamiHW.ShadowDevice <> sd_obs proj
-R3323:3323 KamiHW.ThieleCanonicality <> D:9 var
-R3334:3334 KamiHW.ThieleCanonicality <> d:10 var
-R3338:3348 Kernel.ShadowProjection <> shadow_proj def
-R3354:3361 KamiHW.ShadowDevice <> sd_embed proj
-R3351:3351 KamiHW.ThieleCanonicality <> D:9 var
-R3364:3364 KamiHW.ThieleCanonicality <> d:10 var
-R3763:3781 Kernel.UniversalCertificationCost <> CertificationSystem rec
-binder 3758:3759 <> CS:12
-R3804:3807 Coq.Init.Datatypes <> list ind
-R3810:3817 Kernel.UniversalCertificationCost <> cs_instr proj
-R3819:3820 KamiHW.ThieleCanonicality <> CS:12 var
-binder 3796:3800 <> trace:13
-R3841:3848 Kernel.UniversalCertificationCost <> cs_state proj
-R3850:3851 KamiHW.ThieleCanonicality <> CS:12 var
-binder 3836:3837 <> s0:14
-R3882:3891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3874:3876 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3861:3867 Kernel.UniversalCertificationCost <> cs_cert proj
-R3869:3870 KamiHW.ThieleCanonicality <> CS:12 var
-R3872:3873 KamiHW.ThieleCanonicality <> s0:14 var
-R3877:3881 Coq.Init.Datatypes <> false constr
-R3930:3939 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3923:3925 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3892:3898 Kernel.UniversalCertificationCost <> cs_cert proj
-R3900:3901 KamiHW.ThieleCanonicality <> CS:12 var
-R3904:3909 Kernel.UniversalCertificationCost <> cs_run def
+R1026:1040 KamiHW.FullAbstraction <> <> lib
+R1042:1066 KamiHW.GraphReconstructionBridge <> <> lib
+prf 1391:1427 <> thiele_instruction_cost_is_surjective
+R1444:1446 Coq.Init.Datatypes <> nat ind
+binder 1440:1440 <> n:1
+R1453:1459 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1478:1479 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1464:1477 Kernel.VMStep VMStep vm_instruction ind
+binder 1460:1460 <> i:2
+R1498:1500 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1480:1495 Kernel.VMStep VMStep instruction_cost def
+R1497:1497 KamiHW.ThieleCanonicality <> i:2 var
+R1501:1501 KamiHW.ThieleCanonicality <> n:1 var
+R1533:1542 Kernel.VMStep VMStep instr_halt constr
+R1533:1542 Kernel.VMStep VMStep instr_halt constr
+R1557:1572 Kernel.VMStep VMStep instruction_cost def
+prf 2053:2077 <> thiele_cert_cost_complete
+R2094:2096 Coq.Init.Datatypes <> nat ind
+binder 2090:2090 <> k:3
+R2103:2109 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2128:2135 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2114:2127 Kernel.VMStep VMStep vm_instruction ind
+binder 2110:2110 <> i:4
+R2160:2169 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2154:2156 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2136:2151 Kernel.VMStep VMStep instruction_cost def
+R2153:2153 KamiHW.ThieleCanonicality <> i:4 var
+R2157:2157 Coq.Init.Datatypes <> S constr
+R2159:2159 KamiHW.ThieleCanonicality <> k:3 var
+R2181:2187 Kernel.VMState <> VMState rec
+binder 2177:2177 <> s:5
+R2222:2233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2214:2216 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2201:2212 Kernel.VMState <> vm_certified proj
+R2198:2198 KamiHW.ThieleCanonicality <> s:5 var
+R2217:2221 Coq.Init.Datatypes <> false constr
+R2263:2265 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2250:2261 Kernel.VMState <> vm_certified proj
+R2235:2242 Kernel.SimulationProof <> vm_apply def
+R2244:2244 KamiHW.ThieleCanonicality <> s:5 var
+R2246:2246 KamiHW.ThieleCanonicality <> i:4 var
+R2266:2269 Coq.Init.Datatypes <> true constr
+R2301:2313 Kernel.VMStep VMStep instr_certify constr
+R2301:2313 Kernel.VMStep VMStep instr_certify constr
+R2396:2411 Kernel.VMStep VMStep instruction_cost def
+R2514:2521 Kernel.SimulationProof <> vm_apply def
+rec 2779:2798 <> ThieleCanonicalModel
+proj 2942:2967 <> tcm_hardware_shadow_compat
+proj 3283:3305 <> tcm_device_class_compat
+proj 3768:3784 <> tcm_nfi_universal
+proj 4285:4309 <> tcm_shadow_strictly_lossy
+proj 4851:4869 <> tcm_cost_surjective
+proj 5164:5185 <> tcm_cert_cost_complete
+proj 5754:5779 <> tcm_trace_compat_supported
+proj 6361:6392 <> tcm_trace_compat_shadow_extended
+R2987:2998 KamiHW.Abstraction <> KamiSnapshot rec
+binder 2982:2983 <> ks:7
+R3027:3029 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3007:3023 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R3025:3026 KamiHW.ThieleCanonicality <> ks:7 var
+R3030:3040 Kernel.ShadowProjection <> shadow_proj def
+R3043:3052 KamiHW.Abstraction <> abs_phase1 def
+R3054:3055 KamiHW.ThieleCanonicality <> ks:7 var
+R3325:3336 KamiHW.ShadowDevice <> ShadowDevice rec
+binder 3321:3321 <> D:9
+R3347:3354 KamiHW.ShadowDevice <> sd_state proj
+R3344:3344 KamiHW.ThieleCanonicality <> D:9 var
+binder 3340:3340 <> d:10
+R3377:3379 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3368:3373 KamiHW.ShadowDevice <> sd_obs proj
+R3365:3365 KamiHW.ThieleCanonicality <> D:9 var
+R3376:3376 KamiHW.ThieleCanonicality <> d:10 var
+R3380:3390 Kernel.ShadowProjection <> shadow_proj def
+R3396:3403 KamiHW.ShadowDevice <> sd_embed proj
+R3393:3393 KamiHW.ThieleCanonicality <> D:9 var
+R3406:3406 KamiHW.ThieleCanonicality <> d:10 var
+R3805:3823 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 3800:3801 <> CS:12
+R3846:3849 Coq.Init.Datatypes <> list ind
+R3852:3859 Kernel.UniversalCertificationCost <> cs_instr proj
+R3861:3862 KamiHW.ThieleCanonicality <> CS:12 var
+binder 3838:3842 <> trace:13
+R3883:3890 Kernel.UniversalCertificationCost <> cs_state proj
+R3892:3893 KamiHW.ThieleCanonicality <> CS:12 var
+binder 3878:3879 <> s0:14
+R3924:3933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3916:3918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3903:3909 Kernel.UniversalCertificationCost <> cs_cert proj
 R3911:3912 KamiHW.ThieleCanonicality <> CS:12 var
-R3914:3918 KamiHW.ThieleCanonicality <> trace:13 var
-R3920:3921 KamiHW.ThieleCanonicality <> s0:14 var
-R3926:3929 Coq.Init.Datatypes <> true constr
-R3962:3965 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3940:3952 Kernel.UniversalCertificationCost <> cs_total_cost def
-R3954:3955 KamiHW.ThieleCanonicality <> CS:12 var
-R3957:3961 KamiHW.ThieleCanonicality <> trace:13 var
-R4275:4282 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4298:4306 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4291:4297 Kernel.VMState <> VMState rec
-binder 4283:4284 <> s1:16
-R4291:4297 Kernel.VMState <> VMState rec
-binder 4286:4287 <> s2:17
-R4338:4347 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4321:4323 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4307:4317 Kernel.ShadowProjection <> shadow_proj def
-R4319:4320 KamiHW.ThieleCanonicality <> s1:16 var
-R4324:4334 Kernel.ShadowProjection <> shadow_proj def
-R4336:4337 KamiHW.ThieleCanonicality <> s2:17 var
-R4408:4417 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4376:4379 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4363:4374 Kernel.VMState <> pg_morphisms proj
-R4352:4359 Kernel.VMState <> vm_graph proj
-R4348:4349 KamiHW.ThieleCanonicality <> s1:16 var
-R4395:4406 Kernel.VMState <> pg_morphisms proj
-R4384:4391 Kernel.VMState <> vm_graph proj
-R4380:4381 KamiHW.ThieleCanonicality <> s2:17 var
-R4418:4424 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4430:4439 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 4425:4429 <> probe:18
-R4485:4498 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4472:4483 Kernel.VMState <> pg_morphisms proj
-R4461:4468 Kernel.VMState <> vm_graph proj
-R4441:4448 Kernel.SimulationProof <> vm_apply def
-R4450:4451 KamiHW.ThieleCanonicality <> s1:16 var
-R4453:4457 KamiHW.ThieleCanonicality <> probe:18 var
-R4531:4542 Kernel.VMState <> pg_morphisms proj
-R4520:4527 Kernel.VMState <> vm_graph proj
-R4500:4507 Kernel.SimulationProof <> vm_apply def
-R4509:4510 KamiHW.ThieleCanonicality <> s2:17 var
-R4512:4516 KamiHW.ThieleCanonicality <> probe:18 var
-R4846:4848 Coq.Init.Datatypes <> nat ind
-binder 4842:4842 <> n:20
-R4857:4863 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4882:4883 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R4868:4881 Kernel.VMStep VMStep vm_instruction ind
-binder 4864:4864 <> i:21
-R4902:4904 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4884:4899 Kernel.VMStep VMStep instruction_cost def
-R4901:4901 KamiHW.ThieleCanonicality <> i:21 var
-R4905:4905 KamiHW.ThieleCanonicality <> n:20 var
-R5162:5164 Coq.Init.Datatypes <> nat ind
-binder 5158:5158 <> k:23
-R5173:5179 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5198:5207 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5184:5197 Kernel.VMStep VMStep vm_instruction ind
-binder 5180:5180 <> i:24
-R5232:5243 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5226:5228 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5208:5223 Kernel.VMStep VMStep instruction_cost def
-R5225:5225 KamiHW.ThieleCanonicality <> i:24 var
-R5229:5229 Coq.Init.Datatypes <> S constr
-R5231:5231 KamiHW.ThieleCanonicality <> k:23 var
-R5255:5261 Kernel.VMState <> VMState rec
-binder 5251:5251 <> s:25
-R5298:5311 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5290:5292 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5277:5288 Kernel.VMState <> vm_certified proj
-R5274:5274 KamiHW.ThieleCanonicality <> s:25 var
-R5293:5297 Coq.Init.Datatypes <> false constr
-R5341:5343 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5328:5339 Kernel.VMState <> vm_certified proj
-R5313:5320 Kernel.SimulationProof <> vm_apply def
-R5322:5322 KamiHW.ThieleCanonicality <> s:25 var
-R5324:5324 KamiHW.ThieleCanonicality <> i:24 var
-R5344:5347 Coq.Init.Datatypes <> true constr
-R5761:5764 Coq.Init.Datatypes <> list ind
-R5766:5779 Kernel.VMStep VMStep vm_instruction ind
-binder 5753:5757 <> trace:27
-R5788:5799 KamiHW.Abstraction <> KamiSnapshot rec
-binder 5783:5784 <> ks:28
-R5809:5809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5856:5866 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5817:5817 <> i:29
-R5835:5838 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5820:5826 Coq.Lists.List <> In def
-R5830:5834 KamiHW.ThieleCanonicality <> trace:27 var
-R5828:5828 KamiHW.ThieleCanonicality <> i:29 var
-R5839:5853 KamiHW.EmbedStep <> SupportedOpcode def
-R5855:5855 KamiHW.ThieleCanonicality <> i:29 var
-R5920:5928 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5867:5883 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R5886:5899 Coq.Lists.List <> fold_left def
-R5917:5918 KamiHW.ThieleCanonicality <> ks:28 var
-R5911:5915 KamiHW.ThieleCanonicality <> trace:27 var
-R5901:5909 KamiHW.Abstraction <> kami_step def
-R5929:5939 Kernel.ShadowProjection <> shadow_proj def
-R5942:5955 Coq.Lists.List <> fold_left def
-R5973:5982 KamiHW.Abstraction <> abs_phase1 def
-R5984:5985 KamiHW.ThieleCanonicality <> ks:28 var
-R5966:5970 KamiHW.ThieleCanonicality <> trace:27 var
-R5957:5964 Kernel.SimulationProof <> vm_apply def
-R6374:6377 Coq.Init.Datatypes <> list ind
-R6379:6392 Kernel.VMStep VMStep vm_instruction ind
-binder 6366:6370 <> trace:31
-R6401:6412 KamiHW.Abstraction <> KamiSnapshot rec
-binder 6396:6397 <> ks:32
-R6447:6456 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6443:6445 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6422:6439 KamiHW.Abstraction <> snap_csr_heap_base proj
-R6441:6442 KamiHW.ThieleCanonicality <> ks:32 var
-R6457:6457 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6510:6520 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 6465:6465 <> i:33
-R6483:6486 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6468:6474 Coq.Lists.List <> In def
-R6478:6482 KamiHW.ThieleCanonicality <> trace:31 var
-R6476:6476 KamiHW.ThieleCanonicality <> i:33 var
-R6487:6507 KamiHW.ShadowEmbedStep <> ShadowSupportedOpcode def
-R6509:6509 KamiHW.ThieleCanonicality <> i:33 var
-R6574:6582 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6521:6537 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R6540:6553 Coq.Lists.List <> fold_left def
-R6571:6572 KamiHW.ThieleCanonicality <> ks:32 var
-R6565:6569 KamiHW.ThieleCanonicality <> trace:31 var
-R6555:6563 KamiHW.Abstraction <> kami_step def
-R6583:6593 Kernel.ShadowProjection <> shadow_proj def
-R6596:6609 Coq.Lists.List <> fold_left def
-R6627:6636 KamiHW.Abstraction <> abs_phase1 def
-R6638:6639 KamiHW.ThieleCanonicality <> ks:32 var
-R6620:6624 KamiHW.ThieleCanonicality <> trace:31 var
-R6611:6618 Kernel.SimulationProof <> vm_apply def
-prf 6921:6949 <> thiele_trace_compat_supported
-R6971:6974 Coq.Init.Datatypes <> list ind
-R6976:6989 Kernel.VMStep VMStep vm_instruction ind
-binder 6963:6967 <> trace:35
-R6998:7009 KamiHW.Abstraction <> KamiSnapshot rec
-binder 6993:6994 <> ks:36
-R7017:7017 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7064:7072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 7025:7025 <> i:37
-R7043:7046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7028:7034 Coq.Lists.List <> In def
-R7038:7042 KamiHW.ThieleCanonicality <> trace:35 var
-R7036:7036 KamiHW.ThieleCanonicality <> i:37 var
-R7047:7061 KamiHW.EmbedStep <> SupportedOpcode def
-R7063:7063 KamiHW.ThieleCanonicality <> i:37 var
-R7126:7132 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7073:7089 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R7092:7105 Coq.Lists.List <> fold_left def
-R7123:7124 KamiHW.ThieleCanonicality <> ks:36 var
-R7117:7121 KamiHW.ThieleCanonicality <> trace:35 var
-R7107:7115 KamiHW.Abstraction <> kami_step def
-R7133:7143 Kernel.ShadowProjection <> shadow_proj def
-R7146:7159 Coq.Lists.List <> fold_left def
-R7177:7186 KamiHW.Abstraction <> abs_phase1 def
-R7188:7189 KamiHW.ThieleCanonicality <> ks:36 var
-R7170:7174 KamiHW.ThieleCanonicality <> trace:35 var
-R7161:7168 Kernel.SimulationProof <> vm_apply def
-R7235:7267 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_supported thm
-R7235:7267 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_supported thm
-prf 7300:7321 <> thiele_canonical_model
-R7325:7344 KamiHW.ThieleCanonicality <> ThieleCanonicalModel rec
-R7370:7395 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
-R7370:7395 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
-R7370:7395 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
-R7433:7455 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
-R7433:7455 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
-R7510:7526 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
-R7510:7526 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
-R7578:7602 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
-R7578:7602 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
-R7640:7658 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
-R7640:7658 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
-R7718:7739 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
-R7718:7739 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
-R7784:7809 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
-R7784:7809 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
-R7854:7885 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
-R7854:7885 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
-R7402:7423 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R7465:7500 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
-R7542:7568 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R7610:7630 Kernel.ShadowProjection <> shadow_strictly_lossy thm
-R7672:7708 KamiHW.ThieleCanonicality <> thiele_instruction_cost_is_surjective thm
-R7750:7774 KamiHW.ThieleCanonicality <> thiele_cert_cost_complete thm
-R7816:7844 KamiHW.ThieleCanonicality <> thiele_trace_compat_supported thm
-R7890:7921 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_extended thm
-R7370:7395 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
-R7370:7395 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
-R7370:7395 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
-R7433:7455 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
-R7433:7455 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
-R7510:7526 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
-R7510:7526 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
-R7578:7602 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
-R7578:7602 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
-R7640:7658 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
-R7640:7658 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
-R7718:7739 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
-R7718:7739 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
-R7784:7809 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
-R7784:7809 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
-R7854:7885 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
-R7854:7885 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
-R7402:7423 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
-R7465:7500 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
-R7542:7568 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
-R7610:7630 Kernel.ShadowProjection <> shadow_strictly_lossy thm
-R7672:7708 KamiHW.ThieleCanonicality <> thiele_instruction_cost_is_surjective thm
-R7750:7774 KamiHW.ThieleCanonicality <> thiele_cert_cost_complete thm
-R7816:7844 KamiHW.ThieleCanonicality <> thiele_trace_compat_supported thm
-R7890:7921 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_extended thm
-prf 8499:8534 <> thiele_trace_compat_under_embed_step
-R8574:8585 KamiHW.Abstraction <> KamiSnapshot rec
-binder 8569:8570 <> ks:38
-R8593:8606 Kernel.VMStep VMStep vm_instruction ind
-binder 8589:8589 <> i:39
-R8662:8664 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8635:8644 KamiHW.Abstraction <> abs_phase1 def
-R8647:8655 KamiHW.Abstraction <> kami_step def
-R8657:8658 KamiHW.ThieleCanonicality <> ks:38 var
-R8660:8660 KamiHW.ThieleCanonicality <> i:39 var
-R8665:8672 Kernel.SimulationProof <> vm_apply def
-R8675:8684 KamiHW.Abstraction <> abs_phase1 def
-R8686:8687 KamiHW.ThieleCanonicality <> ks:38 var
-R8690:8690 KamiHW.ThieleCanonicality <> i:39 var
-binder 8548:8557 <> embed_step:40
-R8711:8714 Coq.Init.Datatypes <> list ind
-R8716:8729 Kernel.VMStep VMStep vm_instruction ind
-binder 8703:8707 <> trace:41
-R8747:8758 KamiHW.Abstraction <> KamiSnapshot rec
-binder 8742:8743 <> ks:42
-R8814:8820 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8766:8782 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R8785:8793 Coq.Lists.List <> fold_left def
-R8811:8812 KamiHW.ThieleCanonicality <> ks:42 var
-R8805:8809 KamiHW.ThieleCanonicality <> trace:41 var
-R8795:8803 KamiHW.Abstraction <> kami_step def
-R8821:8831 Kernel.ShadowProjection <> shadow_proj def
-R8834:8842 Coq.Lists.List <> fold_left def
-R8860:8869 KamiHW.Abstraction <> abs_phase1 def
-R8871:8872 KamiHW.ThieleCanonicality <> ks:42 var
-R8853:8857 KamiHW.ThieleCanonicality <> trace:41 var
-R8844:8851 Kernel.SimulationProof <> vm_apply def
-R8923:8945 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat thm
-R8923:8945 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat thm
+R3914:3915 KamiHW.ThieleCanonicality <> s0:14 var
+R3919:3923 Coq.Init.Datatypes <> false constr
+R3972:3981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3965:3967 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3934:3940 Kernel.UniversalCertificationCost <> cs_cert proj
+R3942:3943 KamiHW.ThieleCanonicality <> CS:12 var
+R3946:3951 Kernel.UniversalCertificationCost <> cs_run def
+R3953:3954 KamiHW.ThieleCanonicality <> CS:12 var
+R3956:3960 KamiHW.ThieleCanonicality <> trace:13 var
+R3962:3963 KamiHW.ThieleCanonicality <> s0:14 var
+R3968:3971 Coq.Init.Datatypes <> true constr
+R4004:4007 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3982:3994 Kernel.UniversalCertificationCost <> cs_total_cost def
+R3996:3997 KamiHW.ThieleCanonicality <> CS:12 var
+R3999:4003 KamiHW.ThieleCanonicality <> trace:13 var
+R4317:4324 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4340:4348 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4333:4339 Kernel.VMState <> VMState rec
+binder 4325:4326 <> s1:16
+R4333:4339 Kernel.VMState <> VMState rec
+binder 4328:4329 <> s2:17
+R4380:4389 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4363:4365 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4349:4359 Kernel.ShadowProjection <> shadow_proj def
+R4361:4362 KamiHW.ThieleCanonicality <> s1:16 var
+R4366:4376 Kernel.ShadowProjection <> shadow_proj def
+R4378:4379 KamiHW.ThieleCanonicality <> s2:17 var
+R4450:4459 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4418:4421 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4405:4416 Kernel.VMState <> pg_morphisms proj
+R4394:4401 Kernel.VMState <> vm_graph proj
+R4390:4391 KamiHW.ThieleCanonicality <> s1:16 var
+R4437:4448 Kernel.VMState <> pg_morphisms proj
+R4426:4433 Kernel.VMState <> vm_graph proj
+R4422:4423 KamiHW.ThieleCanonicality <> s2:17 var
+R4460:4466 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4472:4481 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4467:4471 <> probe:18
+R4527:4540 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4514:4525 Kernel.VMState <> pg_morphisms proj
+R4503:4510 Kernel.VMState <> vm_graph proj
+R4483:4490 Kernel.SimulationProof <> vm_apply def
+R4492:4493 KamiHW.ThieleCanonicality <> s1:16 var
+R4495:4499 KamiHW.ThieleCanonicality <> probe:18 var
+R4573:4584 Kernel.VMState <> pg_morphisms proj
+R4562:4569 Kernel.VMState <> vm_graph proj
+R4542:4549 Kernel.SimulationProof <> vm_apply def
+R4551:4552 KamiHW.ThieleCanonicality <> s2:17 var
+R4554:4558 KamiHW.ThieleCanonicality <> probe:18 var
+R4888:4890 Coq.Init.Datatypes <> nat ind
+binder 4884:4884 <> n:20
+R4899:4905 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4924:4925 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4910:4923 Kernel.VMStep VMStep vm_instruction ind
+binder 4906:4906 <> i:21
+R4944:4946 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4926:4941 Kernel.VMStep VMStep instruction_cost def
+R4943:4943 KamiHW.ThieleCanonicality <> i:21 var
+R4947:4947 KamiHW.ThieleCanonicality <> n:20 var
+R5204:5206 Coq.Init.Datatypes <> nat ind
+binder 5200:5200 <> k:23
+R5215:5221 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5240:5249 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5226:5239 Kernel.VMStep VMStep vm_instruction ind
+binder 5222:5222 <> i:24
+R5274:5285 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5268:5270 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5250:5265 Kernel.VMStep VMStep instruction_cost def
+R5267:5267 KamiHW.ThieleCanonicality <> i:24 var
+R5271:5271 Coq.Init.Datatypes <> S constr
+R5273:5273 KamiHW.ThieleCanonicality <> k:23 var
+R5297:5303 Kernel.VMState <> VMState rec
+binder 5293:5293 <> s:25
+R5340:5353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5332:5334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5319:5330 Kernel.VMState <> vm_certified proj
+R5316:5316 KamiHW.ThieleCanonicality <> s:25 var
+R5335:5339 Coq.Init.Datatypes <> false constr
+R5383:5385 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5370:5381 Kernel.VMState <> vm_certified proj
+R5355:5362 Kernel.SimulationProof <> vm_apply def
+R5364:5364 KamiHW.ThieleCanonicality <> s:25 var
+R5366:5366 KamiHW.ThieleCanonicality <> i:24 var
+R5386:5389 Coq.Init.Datatypes <> true constr
+R5803:5806 Coq.Init.Datatypes <> list ind
+R5808:5821 Kernel.VMStep VMStep vm_instruction ind
+binder 5795:5799 <> trace:27
+R5830:5841 KamiHW.Abstraction <> KamiSnapshot rec
+binder 5825:5826 <> ks:28
+R5851:5851 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5898:5908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5859:5859 <> i:29
+R5877:5880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5862:5868 Coq.Lists.List <> In def
+R5872:5876 KamiHW.ThieleCanonicality <> trace:27 var
+R5870:5870 KamiHW.ThieleCanonicality <> i:29 var
+R5881:5895 KamiHW.EmbedStep <> SupportedOpcode def
+R5897:5897 KamiHW.ThieleCanonicality <> i:29 var
+R5962:5970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5909:5925 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R5928:5941 Coq.Lists.List <> fold_left def
+R5959:5960 KamiHW.ThieleCanonicality <> ks:28 var
+R5953:5957 KamiHW.ThieleCanonicality <> trace:27 var
+R5943:5951 KamiHW.Abstraction <> kami_step def
+R5971:5981 Kernel.ShadowProjection <> shadow_proj def
+R5984:5997 Coq.Lists.List <> fold_left def
+R6015:6024 KamiHW.Abstraction <> abs_phase1 def
+R6026:6027 KamiHW.ThieleCanonicality <> ks:28 var
+R6008:6012 KamiHW.ThieleCanonicality <> trace:27 var
+R5999:6006 Kernel.SimulationProof <> vm_apply def
+R6416:6419 Coq.Init.Datatypes <> list ind
+R6421:6434 Kernel.VMStep VMStep vm_instruction ind
+binder 6408:6412 <> trace:31
+R6443:6454 KamiHW.Abstraction <> KamiSnapshot rec
+binder 6438:6439 <> ks:32
+R6489:6498 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6485:6487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6464:6481 KamiHW.Abstraction <> snap_csr_heap_base proj
+R6483:6484 KamiHW.ThieleCanonicality <> ks:32 var
+R6499:6499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6552:6562 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6507:6507 <> i:33
+R6525:6528 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6510:6516 Coq.Lists.List <> In def
+R6520:6524 KamiHW.ThieleCanonicality <> trace:31 var
+R6518:6518 KamiHW.ThieleCanonicality <> i:33 var
+R6529:6549 KamiHW.ShadowEmbedStep <> ShadowSupportedOpcode def
+R6551:6551 KamiHW.ThieleCanonicality <> i:33 var
+R6616:6624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6563:6579 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R6582:6595 Coq.Lists.List <> fold_left def
+R6613:6614 KamiHW.ThieleCanonicality <> ks:32 var
+R6607:6611 KamiHW.ThieleCanonicality <> trace:31 var
+R6597:6605 KamiHW.Abstraction <> kami_step def
+R6625:6635 Kernel.ShadowProjection <> shadow_proj def
+R6638:6651 Coq.Lists.List <> fold_left def
+R6669:6678 KamiHW.Abstraction <> abs_phase1 def
+R6680:6681 KamiHW.ThieleCanonicality <> ks:32 var
+R6662:6666 KamiHW.ThieleCanonicality <> trace:31 var
+R6653:6660 Kernel.SimulationProof <> vm_apply def
+prf 6963:6991 <> thiele_trace_compat_supported
+R7013:7016 Coq.Init.Datatypes <> list ind
+R7018:7031 Kernel.VMStep VMStep vm_instruction ind
+binder 7005:7009 <> trace:35
+R7040:7051 KamiHW.Abstraction <> KamiSnapshot rec
+binder 7035:7036 <> ks:36
+R7059:7059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7106:7114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7067:7067 <> i:37
+R7085:7088 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7070:7076 Coq.Lists.List <> In def
+R7080:7084 KamiHW.ThieleCanonicality <> trace:35 var
+R7078:7078 KamiHW.ThieleCanonicality <> i:37 var
+R7089:7103 KamiHW.EmbedStep <> SupportedOpcode def
+R7105:7105 KamiHW.ThieleCanonicality <> i:37 var
+R7168:7174 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7115:7131 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R7134:7147 Coq.Lists.List <> fold_left def
+R7165:7166 KamiHW.ThieleCanonicality <> ks:36 var
+R7159:7163 KamiHW.ThieleCanonicality <> trace:35 var
+R7149:7157 KamiHW.Abstraction <> kami_step def
+R7175:7185 Kernel.ShadowProjection <> shadow_proj def
+R7188:7201 Coq.Lists.List <> fold_left def
+R7219:7228 KamiHW.Abstraction <> abs_phase1 def
+R7230:7231 KamiHW.ThieleCanonicality <> ks:36 var
+R7212:7216 KamiHW.ThieleCanonicality <> trace:35 var
+R7203:7210 Kernel.SimulationProof <> vm_apply def
+R7277:7309 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_supported thm
+R7277:7309 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_supported thm
+prf 7342:7363 <> thiele_canonical_model
+R7367:7386 KamiHW.ThieleCanonicality <> ThieleCanonicalModel rec
+R7412:7437 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
+R7412:7437 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
+R7412:7437 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
+R7475:7497 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
+R7475:7497 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
+R7552:7568 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
+R7552:7568 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
+R7620:7644 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
+R7620:7644 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
+R7682:7700 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
+R7682:7700 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
+R7760:7781 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
+R7760:7781 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
+R7826:7851 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
+R7826:7851 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
+R7896:7927 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
+R7896:7927 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
+R7444:7465 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R7507:7542 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
+R7584:7610 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R7652:7672 Kernel.ShadowProjection <> shadow_strictly_lossy thm
+R7714:7750 KamiHW.ThieleCanonicality <> thiele_instruction_cost_is_surjective thm
+R7792:7816 KamiHW.ThieleCanonicality <> thiele_cert_cost_complete thm
+R7858:7886 KamiHW.ThieleCanonicality <> thiele_trace_compat_supported thm
+R7932:7963 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_extended thm
+R7412:7437 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
+R7412:7437 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
+R7412:7437 KamiHW.ThieleCanonicality <> tcm_hardware_shadow_compat proj
+R7475:7497 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
+R7475:7497 KamiHW.ThieleCanonicality <> tcm_device_class_compat proj
+R7552:7568 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
+R7552:7568 KamiHW.ThieleCanonicality <> tcm_nfi_universal proj
+R7620:7644 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
+R7620:7644 KamiHW.ThieleCanonicality <> tcm_shadow_strictly_lossy proj
+R7682:7700 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
+R7682:7700 KamiHW.ThieleCanonicality <> tcm_cost_surjective proj
+R7760:7781 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
+R7760:7781 KamiHW.ThieleCanonicality <> tcm_cert_cost_complete proj
+R7826:7851 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
+R7826:7851 KamiHW.ThieleCanonicality <> tcm_trace_compat_supported proj
+R7896:7927 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
+R7896:7927 KamiHW.ThieleCanonicality <> tcm_trace_compat_shadow_extended proj
+R7444:7465 KamiHW.HardwareShadowBridge <> hardware_shadow_compat thm
+R7507:7542 KamiHW.ShadowDevice <> every_shadow_device_satisfies_compat thm
+R7584:7610 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R7652:7672 Kernel.ShadowProjection <> shadow_strictly_lossy thm
+R7714:7750 KamiHW.ThieleCanonicality <> thiele_instruction_cost_is_surjective thm
+R7792:7816 KamiHW.ThieleCanonicality <> thiele_cert_cost_complete thm
+R7858:7886 KamiHW.ThieleCanonicality <> thiele_trace_compat_supported thm
+R7932:7963 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_extended thm
+prf 8300:8328 <> thiele_trace_compat_wf_driven
+binder 8341:8344 <> fuel:38
+binder 8346:8350 <> trace:39
+binder 8352:8353 <> ks:40
+R8360:8360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8401:8409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8368:8370 <> ks':41
+binder 8372:8372 <> i:42
+R8375:8394 KamiHW.GraphReconstructionBridge <> WFDrivenPrecondition def
+R8396:8398 KamiHW.ThieleCanonicality <> ks':41 var
+R8400:8400 KamiHW.ThieleCanonicality <> i:42 var
+R8459:8465 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8410:8426 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R8429:8443 KamiHW.GraphReconstructionBridge <> kami_run_driven def
+R8445:8448 KamiHW.ThieleCanonicality <> fuel:38 var
+R8450:8454 KamiHW.ThieleCanonicality <> trace:39 var
+R8456:8457 KamiHW.ThieleCanonicality <> ks:40 var
+R8466:8476 Kernel.ShadowProjection <> shadow_proj def
+R8479:8484 Kernel.SimulationProof <> run_vm def
+R8486:8489 KamiHW.ThieleCanonicality <> fuel:38 var
+R8491:8495 KamiHW.ThieleCanonicality <> trace:39 var
+R8498:8514 KamiHW.FullAbstraction <> abs_full_snapshot def
+R8517:8541 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R8543:8544 KamiHW.ThieleCanonicality <> ks:40 var
+R8595:8620 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_wf thm
+R8595:8620 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat_wf thm
+prf 8850:8885 <> thiele_trace_compat_under_embed_step
+R8925:8936 KamiHW.Abstraction <> KamiSnapshot rec
+binder 8920:8921 <> ks:43
+R8944:8957 Kernel.VMStep VMStep vm_instruction ind
+binder 8940:8940 <> i:44
+R9013:9015 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8986:8995 KamiHW.Abstraction <> abs_phase1 def
+R8998:9006 KamiHW.Abstraction <> kami_step def
+R9008:9009 KamiHW.ThieleCanonicality <> ks:43 var
+R9011:9011 KamiHW.ThieleCanonicality <> i:44 var
+R9016:9023 Kernel.SimulationProof <> vm_apply def
+R9026:9035 KamiHW.Abstraction <> abs_phase1 def
+R9037:9038 KamiHW.ThieleCanonicality <> ks:43 var
+R9041:9041 KamiHW.ThieleCanonicality <> i:44 var
+binder 8899:8908 <> embed_step:45
+R9062:9065 Coq.Init.Datatypes <> list ind
+R9067:9080 Kernel.VMStep VMStep vm_instruction ind
+binder 9054:9058 <> trace:46
+R9098:9109 KamiHW.Abstraction <> KamiSnapshot rec
+binder 9093:9094 <> ks:47
+R9165:9171 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9117:9133 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R9136:9144 Coq.Lists.List <> fold_left def
+R9162:9163 KamiHW.ThieleCanonicality <> ks:47 var
+R9156:9160 KamiHW.ThieleCanonicality <> trace:46 var
+R9146:9154 KamiHW.Abstraction <> kami_step def
+R9172:9182 Kernel.ShadowProjection <> shadow_proj def
+R9185:9193 Coq.Lists.List <> fold_left def
+R9211:9220 KamiHW.Abstraction <> abs_phase1 def
+R9222:9223 KamiHW.ThieleCanonicality <> ks:47 var
+R9204:9208 KamiHW.ThieleCanonicality <> trace:46 var
+R9195:9202 Kernel.SimulationProof <> vm_apply def
+R9274:9296 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat thm
+R9274:9296 KamiHW.ShadowDeviceTrace <> rtl_shadow_trace_compat thm

@@ -8,14 +8,10 @@
         (rtl_shadow_trace_compat_extended in ShadowDeviceTrace.v),
         34/46 with preconditions (adding CALL, RET, CHSH_TRIAL, TENSOR_SET/GET,
         LJOIN from EmbedStep_WF.v + ShadowEmbedStep.v).
-      Remaining 12 opcodes (PSPLIT, PMERGE, 7 MORPH family, COMPOSE):
-        All 12 have Qed proofs under abs_full_snapshot with extended_hw_invariant
-        (GraphReconstructionBridge.v morph_table_wf_kami_step_preserved covers all
-        46 kami_step operations; coupling_wf migration closed the prior
-        coupling-representation gaps as of 2026-04-21).
-        The remaining open question is abs_phase1 shadow-level lemmas (matching the
-        30+4 unconditional format) — not blocking correctness since abs_full_snapshot
-        is the stronger abstraction used by VerilogRefinement.v.
+      Full 46-opcode, PC-driven trace correctness is now also exported under
+        explicit [WFDrivenPrecondition] through
+        [rtl_shadow_trace_compat_wf] in ShadowDeviceTrace.v.
+        This uses the stronger abs_full_snapshot/GraphReconstructionBridge path.
 
       LASSERT is now covered through the checked EmbedStep/LogicEngine path:
       its formula-length μ charge and dual-witness guard are aligned with
@@ -34,7 +30,7 @@ From Coq Require Import List Arith.PeanoNat.
 Import ListNotations.
 
 From Kernel  Require Import VMState ShadowProjection.
-From KamiHW  Require Import Abstraction VerilogRefinement.
+From KamiHW  Require Import Abstraction VerilogRefinement FullAbstraction.
 
 (** RTL classical observation
 
@@ -61,6 +57,18 @@ Theorem hardware_shadow_compat :
 Proof.
   intros ks.
   unfold rtl_classical_obs, shadow_proj, abs_phase1.
+  reflexivity.
+Qed.
+
+(* DEFINITIONAL HELPER: full snapshots project to the same classical fields as
+   rtl_classical_obs after unfolding the record bridges. *)
+Theorem hardware_shadow_compat_full :
+  forall ks : KamiSnapshot,
+    rtl_classical_obs ks =
+    shadow_proj (abs_full_snapshot (full_snapshot_of_snapshot ks)).
+Proof.
+  intros ks.
+  unfold rtl_classical_obs, shadow_proj, abs_full_snapshot, full_snapshot_of_snapshot.
   reflexivity.
 Qed.
 

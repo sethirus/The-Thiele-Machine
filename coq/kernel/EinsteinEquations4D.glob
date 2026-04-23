@@ -1,4 +1,4 @@
-DIGEST 72f752163fb3b32cebca88aa3b8427a7
+DIGEST 9cce8668d46bfac7960a8d9276ea7c3e
 FKernel.EinsteinEquations4D
 R654:658 Coq.Reals.Reals <> <> lib
 R660:663 Coq.Lists.List <> <> lib
@@ -6867,3 +6867,1271 @@ R122902:122918 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
 R122934:122941 Coq.Reals.Rtrigo1 <> PI_RGT_0 thm
 R122955:122990 Kernel.MuGravity <> gravitational_constant_pos thm
 R122955:122990 Kernel.MuGravity <> gravitational_constant_pos thm
+def 124220:124231 <> lorentz_sign
+R124239:124241 Coq.Init.Datatypes <> nat ind
+binder 124234:124235 <> mu:974
+R124246:124246 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R124265:124268 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R124259:124263 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R124257:124258 Kernel.EinsteinEquations4D <> mu:974 var
+def 124403:124426 <> lorentz_metric_at_vertex
+R124433:124439 Kernel.VMState <> VMState rec
+binder 124429:124429 <> s:975
+R124453:124460 Kernel.VMState <> ModuleID def
+binder 124443:124443 <> v:976
+binder 124445:124446 <> μ:977
+binder 124448:124449 <> ν:978
+R124465:124465 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R124484:124487 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R124478:124482 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R124476:124477 Kernel.EinsteinEquations4D <> μ:977 var
+R124490:124494 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R124488:124489 Kernel.EinsteinEquations4D <> ν:978 var
+R124533:124535 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R124510:124521 Kernel.EinsteinEquations4D <> lorentz_sign def
+R124526:124530 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R124524:124525 Kernel.EinsteinEquations4D <> μ:977 var
+R124536:124538 Coq.Reals.Raxioms <> INR def
+R124541:124562 Kernel.MuGravity <> module_structural_mass def
+R124564:124564 Kernel.EinsteinEquations4D <> s:975 var
+R124566:124566 Kernel.EinsteinEquations4D <> v:976 var
+def 124656:124674 <> lorentz_christoffel
+R124681:124687 Kernel.VMState <> VMState rec
+binder 124677:124677 <> s:979
+R124696:124714 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 124691:124692 <> sc:980
+R124735:124742 Kernel.VMState <> ModuleID def
+binder 124722:124723 <> ρ:981
+binder 124725:124726 <> μ:982
+binder 124728:124729 <> ν:983
+binder 124731:124731 <> v:984
+R124747:124747 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R124764:124782 Kernel.RiemannTensor4D <> discrete_derivative def
+R124784:124784 Kernel.EinsteinEquations4D <> s:979 var
+R124786:124787 Kernel.EinsteinEquations4D <> sc:980 var
+binder 124794:124794 <> w:985
+R124799:124822 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R124824:124824 Kernel.EinsteinEquations4D <> s:979 var
+R124826:124826 Kernel.EinsteinEquations4D <> w:985 var
+R124828:124829 Kernel.EinsteinEquations4D <> ν:983 var
+R124831:124832 Kernel.EinsteinEquations4D <> ρ:981 var
+R124835:124836 Kernel.EinsteinEquations4D <> μ:982 var
+R124838:124838 Kernel.EinsteinEquations4D <> v:984 var
+binder 124758:124759 <> d1:986
+R124855:124873 Kernel.RiemannTensor4D <> discrete_derivative def
+R124875:124875 Kernel.EinsteinEquations4D <> s:979 var
+R124877:124878 Kernel.EinsteinEquations4D <> sc:980 var
+binder 124885:124885 <> w:987
+R124890:124913 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R124915:124915 Kernel.EinsteinEquations4D <> s:979 var
+R124917:124917 Kernel.EinsteinEquations4D <> w:987 var
+R124919:124920 Kernel.EinsteinEquations4D <> μ:982 var
+R124922:124923 Kernel.EinsteinEquations4D <> ρ:981 var
+R124926:124927 Kernel.EinsteinEquations4D <> ν:983 var
+R124929:124929 Kernel.EinsteinEquations4D <> v:984 var
+binder 124849:124850 <> d2:988
+R124946:124964 Kernel.RiemannTensor4D <> discrete_derivative def
+R124966:124966 Kernel.EinsteinEquations4D <> s:979 var
+R124968:124969 Kernel.EinsteinEquations4D <> sc:980 var
+binder 124976:124976 <> w:989
+R124981:125004 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R125006:125006 Kernel.EinsteinEquations4D <> s:979 var
+R125008:125008 Kernel.EinsteinEquations4D <> w:989 var
+R125010:125011 Kernel.EinsteinEquations4D <> μ:982 var
+R125013:125014 Kernel.EinsteinEquations4D <> ν:983 var
+R125017:125018 Kernel.EinsteinEquations4D <> ρ:981 var
+R125020:125020 Kernel.EinsteinEquations4D <> v:984 var
+binder 124940:124941 <> d3:990
+R125028:125028 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R125041:125044 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R125036:125038 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R125031:125033 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R125029:125030 Kernel.EinsteinEquations4D <> d1:986 var
+R125034:125035 Kernel.EinsteinEquations4D <> d2:988 var
+R125039:125040 Kernel.EinsteinEquations4D <> d3:990 var
+def 125097:125118 <> lorentz_riemann_tensor
+R125125:125131 Kernel.VMState <> VMState rec
+binder 125121:125121 <> s:991
+R125140:125158 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 125135:125136 <> sc:992
+R125182:125189 Kernel.VMState <> ModuleID def
+binder 125166:125167 <> ρ:993
+binder 125169:125170 <> σ:994
+binder 125172:125173 <> μ:995
+binder 125175:125176 <> ν:996
+binder 125178:125178 <> v:997
+R125194:125194 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R125218:125236 Kernel.RiemannTensor4D <> discrete_derivative def
+R125238:125238 Kernel.EinsteinEquations4D <> s:991 var
+R125240:125241 Kernel.EinsteinEquations4D <> sc:992 var
+binder 125252:125252 <> w:998
+R125257:125275 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R125277:125277 Kernel.EinsteinEquations4D <> s:991 var
+R125279:125280 Kernel.EinsteinEquations4D <> sc:992 var
+R125282:125283 Kernel.EinsteinEquations4D <> ρ:993 var
+R125285:125286 Kernel.EinsteinEquations4D <> ν:996 var
+R125288:125289 Kernel.EinsteinEquations4D <> σ:994 var
+R125291:125291 Kernel.EinsteinEquations4D <> w:998 var
+R125294:125295 Kernel.EinsteinEquations4D <> μ:995 var
+R125297:125297 Kernel.EinsteinEquations4D <> v:997 var
+binder 125205:125213 <> dmu_gamma:999
+R125321:125339 Kernel.RiemannTensor4D <> discrete_derivative def
+R125341:125341 Kernel.EinsteinEquations4D <> s:991 var
+R125343:125344 Kernel.EinsteinEquations4D <> sc:992 var
+binder 125355:125355 <> w:1000
+R125360:125378 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R125380:125380 Kernel.EinsteinEquations4D <> s:991 var
+R125382:125383 Kernel.EinsteinEquations4D <> sc:992 var
+R125385:125386 Kernel.EinsteinEquations4D <> ρ:993 var
+R125388:125389 Kernel.EinsteinEquations4D <> μ:995 var
+R125391:125392 Kernel.EinsteinEquations4D <> σ:994 var
+R125394:125394 Kernel.EinsteinEquations4D <> w:1000 var
+R125397:125398 Kernel.EinsteinEquations4D <> ν:996 var
+R125400:125400 Kernel.EinsteinEquations4D <> v:997 var
+binder 125308:125316 <> dnu_gamma:1001
+R125417:125419 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R125408:125416 Kernel.EinsteinEquations4D <> dmu_gamma:999 var
+R125420:125428 Kernel.EinsteinEquations4D <> dnu_gamma:1001 var
+def 125478:125497 <> lorentz_ricci_tensor
+R125504:125510 Kernel.VMState <> VMState rec
+binder 125500:125500 <> s:1002
+R125519:125537 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 125514:125515 <> sc:1003
+R125555:125562 Kernel.VMState <> ModuleID def
+binder 125545:125546 <> μ:1004
+binder 125548:125549 <> ν:1005
+binder 125551:125551 <> v:1006
+R125567:125567 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R125574:125582 Coq.Lists.List <> fold_left def
+R125659:125675 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+binder 125589:125591 <> acc:1007
+binder 125593:125594 <> ρ:1008
+R125607:125609 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R125604:125606 Kernel.EinsteinEquations4D <> acc:1007 var
+R125610:125631 Kernel.EinsteinEquations4D <> lorentz_riemann_tensor def
+R125633:125633 Kernel.EinsteinEquations4D <> s:1002 var
+R125635:125636 Kernel.EinsteinEquations4D <> sc:1003 var
+R125638:125639 Kernel.EinsteinEquations4D <> ρ:1008 var
+R125641:125642 Kernel.EinsteinEquations4D <> μ:1004 var
+R125644:125645 Kernel.EinsteinEquations4D <> ρ:1008 var
+R125647:125648 Kernel.EinsteinEquations4D <> ν:1005 var
+R125650:125650 Kernel.EinsteinEquations4D <> v:1006 var
+def 125849:125880 <> lorentz_inverse_metric_at_vertex
+R125887:125893 Kernel.VMState <> VMState rec
+binder 125883:125883 <> s:1009
+R125907:125914 Kernel.VMState <> ModuleID def
+binder 125897:125897 <> v:1010
+binder 125899:125900 <> μ:1011
+binder 125902:125903 <> ν:1012
+R125919:125919 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R125938:125941 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R125932:125936 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R125930:125931 Kernel.EinsteinEquations4D <> μ:1011 var
+R125944:125948 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R125942:125943 Kernel.EinsteinEquations4D <> ν:1012 var
+R125993:125996 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R125967:125988 Kernel.MuGravity <> module_structural_mass def
+R125990:125990 Kernel.EinsteinEquations4D <> s:1009 var
+R125992:125992 Kernel.EinsteinEquations4D <> v:1010 var
+R126056:126058 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R126033:126044 Kernel.EinsteinEquations4D <> lorentz_sign def
+R126049:126053 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R126047:126048 Kernel.EinsteinEquations4D <> μ:1011 var
+R126059:126061 Coq.Reals.Raxioms <> INR def
+R126064:126085 Kernel.MuGravity <> module_structural_mass def
+R126087:126087 Kernel.EinsteinEquations4D <> s:1009 var
+R126089:126089 Kernel.EinsteinEquations4D <> v:1010 var
+def 126340:126362 <> lorentz_einstein_tensor
+R126369:126375 Kernel.VMState <> VMState rec
+binder 126365:126365 <> s:1013
+R126384:126402 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 126379:126380 <> sc:1014
+R126420:126427 Kernel.VMState <> ModuleID def
+binder 126410:126411 <> μ:1015
+binder 126413:126414 <> ν:1016
+binder 126416:126416 <> v:1017
+R126432:126432 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R126452:126471 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R126473:126473 Kernel.EinsteinEquations4D <> s:1013 var
+R126475:126476 Kernel.EinsteinEquations4D <> sc:1014 var
+R126478:126479 Kernel.EinsteinEquations4D <> μ:1015 var
+R126481:126482 Kernel.EinsteinEquations4D <> ν:1016 var
+R126484:126484 Kernel.EinsteinEquations4D <> v:1017 var
+binder 126443:126447 <> ricci:1018
+R126511:126519 Coq.Lists.List <> fold_left def
+R126719:126735 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R126533:126533 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 126527:126529 <> acc:1019
+binder 126536:126538 <> μ':1020
+R126547:126555 Coq.Lists.List <> fold_left def
+R126711:126713 Kernel.EinsteinEquations4D <> acc:1019 var
+R126693:126709 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R126570:126570 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 126563:126566 <> acc':1021
+binder 126573:126575 <> ν':1022
+R126591:126593 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R126587:126590 Kernel.EinsteinEquations4D <> acc':1021 var
+R126638:126647 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R126594:126625 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R126627:126627 Kernel.EinsteinEquations4D <> s:1013 var
+R126629:126629 Kernel.EinsteinEquations4D <> v:1017 var
+R126631:126633 Kernel.EinsteinEquations4D <> μ':1020 var
+R126635:126637 Kernel.EinsteinEquations4D <> ν':1022 var
+R126648:126667 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R126669:126669 Kernel.EinsteinEquations4D <> s:1013 var
+R126671:126672 Kernel.EinsteinEquations4D <> sc:1014 var
+R126674:126676 Kernel.EinsteinEquations4D <> μ':1020 var
+R126678:126680 Kernel.EinsteinEquations4D <> ν':1022 var
+R126682:126682 Kernel.EinsteinEquations4D <> v:1017 var
+binder 126495:126506 <> ricci_scalar:1023
+R126752:126754 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R126747:126751 Kernel.EinsteinEquations4D <> ricci:1018 var
+R126804:126806 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R126789:126791 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R126755:126778 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R126780:126780 Kernel.EinsteinEquations4D <> s:1013 var
+R126782:126782 Kernel.EinsteinEquations4D <> v:1017 var
+R126784:126785 Kernel.EinsteinEquations4D <> μ:1015 var
+R126787:126788 Kernel.EinsteinEquations4D <> ν:1016 var
+R126792:126803 Kernel.EinsteinEquations4D <> ricci_scalar:1023 var
+prf 126869:126882 <> fold_left_zero
+R126898:126901 Coq.Init.Datatypes <> list ind
+R126903:126905 Coq.Init.Datatypes <> nat ind
+binder 126894:126894 <> l:1024
+R126914:126917 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R126913:126913 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R126921:126924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R126918:126920 Coq.Init.Datatypes <> nat ind
+R126925:126925 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 126909:126909 <> f:1025
+R126931:126931 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R126959:126965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 126939:126941 <> acc:1026
+binder 126943:126943 <> x:1027
+R126953:126955 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R126946:126946 Kernel.EinsteinEquations4D <> f:1025 var
+R126952:126952 Kernel.EinsteinEquations4D <> x:1027 var
+R126948:126950 Kernel.EinsteinEquations4D <> acc:1026 var
+R126983:126985 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R126966:126974 Coq.Lists.List <> fold_left def
+R126978:126978 Kernel.EinsteinEquations4D <> l:1024 var
+R126976:126976 Kernel.EinsteinEquations4D <> f:1025 var
+prf 127149:127169 <> fold_left_zero_nested
+R127186:127189 Coq.Init.Datatypes <> list ind
+R127191:127193 Coq.Init.Datatypes <> nat ind
+binder 127181:127182 <> l1:1028
+R127202:127205 Coq.Init.Datatypes <> list ind
+R127207:127209 Coq.Init.Datatypes <> nat ind
+binder 127197:127198 <> l2:1029
+R127218:127221 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127217:127217 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R127225:127228 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127222:127224 Coq.Init.Datatypes <> nat ind
+R127232:127235 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127229:127231 Coq.Init.Datatypes <> nat ind
+R127236:127236 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 127213:127213 <> f:1030
+R127242:127242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127304:127310 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 127250:127252 <> acc:1031
+binder 127254:127254 <> x:1032
+R127298:127300 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R127257:127265 Coq.Lists.List <> fold_left def
+R127295:127297 Kernel.EinsteinEquations4D <> acc:1031 var
+R127292:127293 Kernel.EinsteinEquations4D <> l2:1029 var
+binder 127272:127274 <> acc:1033
+binder 127276:127276 <> y:1034
+R127281:127281 Kernel.EinsteinEquations4D <> f:1030 var
+R127289:127289 Kernel.EinsteinEquations4D <> y:1034 var
+R127287:127287 Kernel.EinsteinEquations4D <> x:1032 var
+R127283:127285 Kernel.EinsteinEquations4D <> acc:1033 var
+R127384:127386 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R127311:127319 Coq.Lists.List <> fold_left def
+R127378:127379 Kernel.EinsteinEquations4D <> l1:1028 var
+binder 127326:127328 <> acc:1035
+binder 127330:127330 <> x:1036
+R127335:127343 Coq.Lists.List <> fold_left def
+R127373:127375 Kernel.EinsteinEquations4D <> acc:1035 var
+R127370:127371 Kernel.EinsteinEquations4D <> l2:1029 var
+binder 127350:127352 <> acc:1037
+binder 127354:127354 <> y:1038
+R127359:127359 Kernel.EinsteinEquations4D <> f:1030 var
+R127367:127367 Kernel.EinsteinEquations4D <> y:1038 var
+R127365:127365 Kernel.EinsteinEquations4D <> x:1036 var
+R127361:127363 Kernel.EinsteinEquations4D <> acc:1037 var
+prf 127562:127577 <> fold_left_id_acc
+R127593:127596 Coq.Init.Datatypes <> list ind
+R127598:127600 Coq.Init.Datatypes <> nat ind
+binder 127589:127589 <> l:1039
+R127611:127611 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 127604:127607 <> init:1040
+R127624:127627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127623:127623 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R127631:127634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127628:127630 Coq.Init.Datatypes <> nat ind
+R127635:127635 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 127619:127619 <> f:1041
+R127641:127641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127669:127675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 127649:127651 <> acc:1042
+binder 127653:127653 <> x:1043
+R127663:127665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R127656:127656 Kernel.EinsteinEquations4D <> f:1041 var
+R127662:127662 Kernel.EinsteinEquations4D <> x:1043 var
+R127658:127660 Kernel.EinsteinEquations4D <> acc:1042 var
+R127666:127668 Kernel.EinsteinEquations4D <> acc:1042 var
+R127694:127696 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R127676:127684 Coq.Lists.List <> fold_left def
+R127690:127693 Kernel.EinsteinEquations4D <> init:1040 var
+R127688:127688 Kernel.EinsteinEquations4D <> l:1039 var
+R127686:127686 Kernel.EinsteinEquations4D <> f:1041 var
+R127697:127700 Kernel.EinsteinEquations4D <> init:1040 var
+prf 127896:127915 <> fold_left_add_zero_l
+R127934:127937 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127931:127933 Coq.Init.Datatypes <> nat ind
+R127938:127938 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 127927:127927 <> g:1044
+R127946:127949 Coq.Init.Datatypes <> list ind
+R127951:127953 Coq.Init.Datatypes <> nat ind
+binder 127942:127942 <> l:1045
+R127964:127964 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 127957:127960 <> init:1046
+R127970:127970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R127990:127996 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 127978:127978 <> x:1047
+R127984:127986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R127981:127981 Kernel.EinsteinEquations4D <> g:1044 var
+R127983:127983 Kernel.EinsteinEquations4D <> x:1047 var
+R128048:128050 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R127997:128005 Coq.Lists.List <> fold_left def
+R128044:128047 Kernel.EinsteinEquations4D <> init:1046 var
+R128042:128042 Kernel.EinsteinEquations4D <> l:1045 var
+R128019:128019 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 128013:128015 <> acc:1048
+binder 128022:128022 <> x:1049
+R128031:128033 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R128028:128030 Kernel.EinsteinEquations4D <> acc:1048 var
+R128034:128034 Kernel.EinsteinEquations4D <> g:1044 var
+R128036:128036 Kernel.EinsteinEquations4D <> x:1049 var
+R128051:128054 Kernel.EinsteinEquations4D <> init:1046 var
+R128149:128157 Coq.Reals.RIneq <> Rplus_0_r thm
+R128149:128157 Coq.Reals.RIneq <> Rplus_0_r thm
+R128149:128157 Coq.Reals.RIneq <> Rplus_0_r thm
+def 128462:128489 <> lorentz_stress_energy_tensor
+R128496:128502 Kernel.VMState <> VMState rec
+binder 128492:128492 <> s:1050
+R128511:128529 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 128506:128507 <> sc:1051
+R128545:128552 Kernel.VMState <> ModuleID def
+binder 128535:128536 <> μ:1052
+binder 128538:128539 <> ν:1053
+binder 128541:128541 <> v:1054
+R128557:128557 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R128564:128583 Kernel.EinsteinEquations4D <> stress_energy_tensor def
+R128585:128585 Kernel.EinsteinEquations4D <> s:1050 var
+R128587:128588 Kernel.EinsteinEquations4D <> sc:1051 var
+R128590:128591 Kernel.EinsteinEquations4D <> μ:1052 var
+R128593:128594 Kernel.EinsteinEquations4D <> ν:1053 var
+R128596:128596 Kernel.EinsteinEquations4D <> v:1054 var
+prf 128841:128873 <> einstein_equation_lorentz_general
+R128891:128897 Kernel.VMState <> VMState rec
+binder 128887:128887 <> s:1055
+R128906:128924 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 128901:128902 <> sc:1056
+R128938:128945 Kernel.VMState <> ModuleID def
+binder 128928:128929 <> mu:1057
+binder 128931:128932 <> nu:1058
+binder 128934:128934 <> v:1059
+R128951:128951 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R128996:129002 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 128959:128959 <> w:1060
+R128988:128990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R128962:128983 Kernel.MuGravity <> module_structural_mass def
+R128985:128985 Kernel.EinsteinEquations4D <> s:1055 var
+R128987:128987 Kernel.EinsteinEquations4D <> w:1060 var
+R129039:129045 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R129003:129025 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+R129027:129027 Kernel.EinsteinEquations4D <> s:1055 var
+R129029:129030 Kernel.EinsteinEquations4D <> sc:1056 var
+R129032:129033 Kernel.EinsteinEquations4D <> mu:1057 var
+R129035:129036 Kernel.EinsteinEquations4D <> nu:1058 var
+R129038:129038 Kernel.EinsteinEquations4D <> v:1059 var
+R129078:129080 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129053:129055 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129048:129050 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129051:129052 Coq.Reals.Rtrigo1 <> PI def
+R129056:129077 Kernel.EinsteinEquations4D <> gravitational_constant def
+R129081:129108 Kernel.EinsteinEquations4D <> lorentz_stress_energy_tensor def
+R129110:129110 Kernel.EinsteinEquations4D <> s:1055 var
+R129112:129113 Kernel.EinsteinEquations4D <> sc:1056 var
+R129115:129116 Kernel.EinsteinEquations4D <> mu:1057 var
+R129118:129119 Kernel.EinsteinEquations4D <> nu:1058 var
+R129121:129121 Kernel.EinsteinEquations4D <> v:1059 var
+R129175:129196 Kernel.EinsteinEquations4D <> gravitational_constant def
+R129331:129352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R129284:129286 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129269:129272 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129283:129283 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129264:129266 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129267:129268 Coq.Reals.Rtrigo1 <> PI def
+R129273:129275 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R129282:129282 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R129277:129279 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129280:129281 Coq.Reals.Rtrigo1 <> PI def
+R129287:129314 Kernel.EinsteinEquations4D <> lorentz_stress_energy_tensor def
+R129353:129380 Kernel.EinsteinEquations4D <> lorentz_stress_energy_tensor def
+R129331:129352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R129284:129286 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129269:129272 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129283:129283 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129264:129266 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129267:129268 Coq.Reals.Rtrigo1 <> PI def
+R129273:129275 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R129282:129282 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R129277:129279 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R129280:129281 Coq.Reals.Rtrigo1 <> PI def
+R129287:129314 Kernel.EinsteinEquations4D <> lorentz_stress_energy_tensor def
+R129353:129380 Kernel.EinsteinEquations4D <> lorentz_stress_energy_tensor def
+R129440:129446 Coq.Reals.Rtrigo1 <> PI_neq0 thm
+R129440:129446 Coq.Reals.Rtrigo1 <> PI_neq0 thm
+binder 129563:129563 <> w:1061
+binder 129565:129567 <> μ':1062
+binder 129569:129571 <> ν':1063
+R129614:129616 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R129578:129601 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R129605:129605 Kernel.EinsteinEquations4D <> w:1061 var
+R129607:129609 Kernel.EinsteinEquations4D <> μ':1062 var
+R129611:129613 Kernel.EinsteinEquations4D <> ν':1063 var
+binder 129563:129563 <> w:1064
+binder 129565:129567 <> μ':1065
+binder 129569:129571 <> ν':1066
+R129614:129616 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R129578:129601 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R129605:129605 Kernel.EinsteinEquations4D <> w:1064 var
+R129607:129609 Kernel.EinsteinEquations4D <> μ':1065 var
+R129611:129613 Kernel.EinsteinEquations4D <> ν':1066 var
+R129652:129675 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R129701:129704 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R129695:129699 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R129708:129712 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R129701:129704 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R129695:129699 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R129708:129712 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R129921:129923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R129885:129907 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+R129921:129923 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R129885:129907 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+R129941:129963 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+binder 129994:129995 <> w1:1067
+binder 129997:129998 <> w2:1068
+binder 130000:130000 <> i:1069
+binder 130002:130002 <> j:1070
+R130044:130046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R130011:130034 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130038:130039 Kernel.EinsteinEquations4D <> w1:1067 var
+R130041:130041 Kernel.EinsteinEquations4D <> i:1069 var
+R130043:130043 Kernel.EinsteinEquations4D <> j:1070 var
+R130047:130070 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130074:130075 Kernel.EinsteinEquations4D <> w2:1068 var
+R130077:130077 Kernel.EinsteinEquations4D <> i:1069 var
+R130079:130079 Kernel.EinsteinEquations4D <> j:1070 var
+binder 129994:129995 <> w1:1071
+binder 129997:129998 <> w2:1072
+binder 130000:130000 <> i:1073
+binder 130002:130002 <> j:1074
+R130044:130046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R130011:130034 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130038:130039 Kernel.EinsteinEquations4D <> w1:1071 var
+R130041:130041 Kernel.EinsteinEquations4D <> i:1073 var
+R130043:130043 Kernel.EinsteinEquations4D <> j:1074 var
+R130047:130070 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130074:130075 Kernel.EinsteinEquations4D <> w2:1072 var
+R130077:130077 Kernel.EinsteinEquations4D <> i:1073 var
+R130079:130079 Kernel.EinsteinEquations4D <> j:1074 var
+binder 130194:130195 <> ρ:1075
+binder 130197:130199 <> μ':1076
+binder 130201:130203 <> ν':1077
+binder 130205:130206 <> v':1078
+R130253:130255 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R130215:130233 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R130240:130241 Kernel.EinsteinEquations4D <> ρ:1075 var
+R130243:130245 Kernel.EinsteinEquations4D <> μ':1076 var
+R130247:130249 Kernel.EinsteinEquations4D <> ν':1077 var
+R130251:130252 Kernel.EinsteinEquations4D <> v':1078 var
+binder 130194:130195 <> ρ:1079
+binder 130197:130199 <> μ':1080
+binder 130201:130203 <> ν':1081
+binder 130205:130206 <> v':1082
+R130253:130255 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R130215:130233 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R130240:130241 Kernel.EinsteinEquations4D <> ρ:1079 var
+R130243:130245 Kernel.EinsteinEquations4D <> μ':1080 var
+R130247:130249 Kernel.EinsteinEquations4D <> ν':1081 var
+R130251:130252 Kernel.EinsteinEquations4D <> v':1082 var
+R130304:130322 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R130340:130379 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130399:130399 <> w:1083
+R130404:130427 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130431:130431 Kernel.EinsteinEquations4D <> w:1083 var
+R130340:130379 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130399:130399 <> w:1084
+R130404:130427 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130431:130431 Kernel.EinsteinEquations4D <> w:1084 var
+R130340:130379 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130399:130399 <> w:1085
+R130404:130427 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130431:130431 Kernel.EinsteinEquations4D <> w:1085 var
+R130340:130379 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130399:130399 <> w:1086
+R130404:130427 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130431:130431 Kernel.EinsteinEquations4D <> w:1086 var
+R130541:130580 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130600:130600 <> w:1087
+R130605:130628 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130632:130632 Kernel.EinsteinEquations4D <> w:1087 var
+R130541:130580 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130600:130600 <> w:1088
+R130605:130628 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130632:130632 Kernel.EinsteinEquations4D <> w:1088 var
+R130541:130580 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130600:130600 <> w:1089
+R130605:130628 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130632:130632 Kernel.EinsteinEquations4D <> w:1089 var
+R130541:130580 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130600:130600 <> w:1090
+R130605:130628 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130632:130632 Kernel.EinsteinEquations4D <> w:1090 var
+R130742:130781 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130801:130801 <> w:1091
+R130806:130829 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130833:130833 Kernel.EinsteinEquations4D <> w:1091 var
+R130742:130781 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130801:130801 <> w:1092
+R130806:130829 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130833:130833 Kernel.EinsteinEquations4D <> w:1092 var
+R130742:130781 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130801:130801 <> w:1093
+R130806:130829 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130833:130833 Kernel.EinsteinEquations4D <> w:1093 var
+R130742:130781 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 130801:130801 <> w:1094
+R130806:130829 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R130833:130833 Kernel.EinsteinEquations4D <> w:1094 var
+R130941:130944 Coq.Reals.Rdefinitions <> Rdiv def
+binder 130987:130988 <> ρ:1095
+binder 130990:130991 <> σ:1096
+binder 130993:130995 <> μ':1097
+binder 130997:130999 <> ν':1098
+binder 131001:131002 <> v':1099
+R131055:131057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R131011:131032 Kernel.EinsteinEquations4D <> lorentz_riemann_tensor def
+R131039:131040 Kernel.EinsteinEquations4D <> ρ:1095 var
+R131042:131043 Kernel.EinsteinEquations4D <> σ:1096 var
+R131045:131047 Kernel.EinsteinEquations4D <> μ':1097 var
+R131049:131051 Kernel.EinsteinEquations4D <> ν':1098 var
+R131053:131054 Kernel.EinsteinEquations4D <> v':1099 var
+binder 130987:130988 <> ρ:1100
+binder 130990:130991 <> σ:1101
+binder 130993:130995 <> μ':1102
+binder 130997:130999 <> ν':1103
+binder 131001:131002 <> v':1104
+R131055:131057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R131011:131032 Kernel.EinsteinEquations4D <> lorentz_riemann_tensor def
+R131039:131040 Kernel.EinsteinEquations4D <> ρ:1100 var
+R131042:131043 Kernel.EinsteinEquations4D <> σ:1101 var
+R131045:131047 Kernel.EinsteinEquations4D <> μ':1102 var
+R131049:131051 Kernel.EinsteinEquations4D <> ν':1103 var
+R131053:131054 Kernel.EinsteinEquations4D <> v':1104 var
+R131110:131131 Kernel.EinsteinEquations4D <> lorentz_riemann_tensor def
+R131149:131188 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131208:131208 <> w:1105
+R131213:131231 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131250:131250 Kernel.EinsteinEquations4D <> w:1105 var
+R131149:131188 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131208:131208 <> w:1106
+R131213:131231 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131250:131250 Kernel.EinsteinEquations4D <> w:1106 var
+R131149:131188 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131208:131208 <> w:1107
+R131213:131231 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131250:131250 Kernel.EinsteinEquations4D <> w:1107 var
+R131149:131188 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131208:131208 <> w:1108
+R131213:131231 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131250:131250 Kernel.EinsteinEquations4D <> w:1108 var
+R131352:131391 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131411:131411 <> w:1109
+R131416:131434 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131453:131453 Kernel.EinsteinEquations4D <> w:1109 var
+R131352:131391 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131411:131411 <> w:1110
+R131416:131434 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131453:131453 Kernel.EinsteinEquations4D <> w:1110 var
+R131352:131391 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131411:131411 <> w:1111
+R131416:131434 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131453:131453 Kernel.EinsteinEquations4D <> w:1111 var
+R131352:131391 Kernel.EinsteinEquations4D <> discrete_derivative_position_independent thm
+binder 131411:131411 <> w:1112
+R131416:131434 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R131453:131453 Kernel.EinsteinEquations4D <> w:1112 var
+binder 131587:131589 <> μ':1113
+binder 131591:131593 <> ν':1114
+binder 131595:131596 <> v':1115
+R131641:131643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R131605:131624 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R131631:131633 Kernel.EinsteinEquations4D <> μ':1113 var
+R131635:131637 Kernel.EinsteinEquations4D <> ν':1114 var
+R131639:131640 Kernel.EinsteinEquations4D <> v':1115 var
+binder 131587:131589 <> μ':1116
+binder 131591:131593 <> ν':1117
+binder 131595:131596 <> v':1118
+R131641:131643 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R131605:131624 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R131631:131633 Kernel.EinsteinEquations4D <> μ':1116 var
+R131635:131637 Kernel.EinsteinEquations4D <> ν':1117 var
+R131639:131640 Kernel.EinsteinEquations4D <> v':1118 var
+R131688:131707 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R131722:131740 Kernel.EinsteinEquations4D <> fold_left_sum_zeros thm
+R131722:131740 Kernel.EinsteinEquations4D <> fold_left_sum_zeros thm
+binder 131904:131904 <> w:1119
+binder 131906:131908 <> μ':1120
+binder 131910:131912 <> ν':1121
+R131965:131967 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R131921:131952 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R131956:131956 Kernel.EinsteinEquations4D <> w:1119 var
+R131958:131960 Kernel.EinsteinEquations4D <> μ':1120 var
+R131962:131964 Kernel.EinsteinEquations4D <> ν':1121 var
+binder 131904:131904 <> w:1122
+binder 131906:131908 <> μ':1123
+binder 131910:131912 <> ν':1124
+R131965:131967 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R131921:131952 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R131956:131956 Kernel.EinsteinEquations4D <> w:1122 var
+R131958:131960 Kernel.EinsteinEquations4D <> μ':1123 var
+R131962:131964 Kernel.EinsteinEquations4D <> ν':1124 var
+R132005:132036 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R132064:132067 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R132058:132062 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R132071:132075 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R132064:132067 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R132058:132062 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R132071:132075 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R132505:132507 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R132256:132264 Coq.Lists.List <> fold_left def
+R132484:132500 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R132278:132278 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 132272:132274 <> acc:1125
+binder 132281:132283 <> μ':1126
+R132296:132304 Coq.Lists.List <> fold_left def
+R132472:132474 Kernel.EinsteinEquations4D <> acc:1125 var
+R132454:132470 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R132319:132319 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 132312:132315 <> acc':1127
+binder 132322:132324 <> ν':1128
+R132344:132346 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R132340:132343 Kernel.EinsteinEquations4D <> acc':1127 var
+R132391:132404 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R132347:132378 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R132384:132386 Kernel.EinsteinEquations4D <> μ':1126 var
+R132388:132390 Kernel.EinsteinEquations4D <> ν':1128 var
+R132405:132424 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R132431:132433 Kernel.EinsteinEquations4D <> μ':1126 var
+R132435:132437 Kernel.EinsteinEquations4D <> ν':1128 var
+R132505:132507 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R132256:132264 Coq.Lists.List <> fold_left def
+R132484:132500 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R132278:132278 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 132272:132274 <> acc:1129
+binder 132281:132283 <> μ':1130
+R132296:132304 Coq.Lists.List <> fold_left def
+R132472:132474 Kernel.EinsteinEquations4D <> acc:1129 var
+R132454:132470 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R132319:132319 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 132312:132315 <> acc':1131
+binder 132322:132324 <> ν':1132
+R132344:132346 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R132340:132343 Kernel.EinsteinEquations4D <> acc':1131 var
+R132391:132404 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R132347:132378 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R132384:132386 Kernel.EinsteinEquations4D <> μ':1130 var
+R132388:132390 Kernel.EinsteinEquations4D <> ν':1132 var
+R132405:132424 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R132431:132433 Kernel.EinsteinEquations4D <> μ':1130 var
+R132435:132437 Kernel.EinsteinEquations4D <> ν':1132 var
+R132526:132541 Kernel.EinsteinEquations4D <> fold_left_id_acc thm
+R132526:132541 Kernel.EinsteinEquations4D <> fold_left_id_acc thm
+R132572:132591 Kernel.EinsteinEquations4D <> fold_left_add_zero_l thm
+R132572:132591 Kernel.EinsteinEquations4D <> fold_left_add_zero_l thm
+R132878:132905 Kernel.EinsteinEquations4D <> lorentz_stress_energy_tensor def
+R132917:132950 Kernel.EinsteinEquations4D <> stress_energy_conserved_non_pmerge thm
+R132917:132950 Kernel.EinsteinEquations4D <> stress_energy_conserved_non_pmerge thm
+prf 134008:134036 <> lorentz_metric_at_vertex_diag
+binder 134049:134049 <> s:1133
+binder 134051:134051 <> v:1134
+binder 134053:134054 <> mu:1135
+R134093:134099 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R134059:134082 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R134084:134084 Kernel.EinsteinEquations4D <> s:1133 var
+R134086:134086 Kernel.EinsteinEquations4D <> v:1134 var
+R134088:134089 Kernel.EinsteinEquations4D <> mu:1135 var
+R134091:134092 Kernel.EinsteinEquations4D <> mu:1135 var
+R134124:134126 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R134101:134112 Kernel.EinsteinEquations4D <> lorentz_sign def
+R134117:134121 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134115:134116 Kernel.EinsteinEquations4D <> mu:1135 var
+R134127:134129 Coq.Reals.Raxioms <> INR def
+R134132:134153 Kernel.MuGravity <> module_structural_mass def
+R134155:134155 Kernel.EinsteinEquations4D <> s:1133 var
+R134157:134157 Kernel.EinsteinEquations4D <> v:1134 var
+R134197:134220 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R134233:134244 Coq.Arith.PeanoNat Nat eqb_refl thm
+R134233:134244 Coq.Arith.PeanoNat Nat eqb_refl thm
+R134233:134244 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 134272:134315 <> lorentz_christoffel_successor_diag_component
+binder 134328:134328 <> s:1136
+binder 134330:134331 <> sc:1137
+binder 134333:134336 <> next:1138
+binder 134338:134338 <> v:1139
+binder 134340:134342 <> rho:1140
+binder 134344:134344 <> d:1141
+R134397:134404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R134351:134386 Kernel.EinsteinEquations4D <> local_successor_derivative_semantics def
+R134388:134388 Kernel.EinsteinEquations4D <> s:1136 var
+R134390:134391 Kernel.EinsteinEquations4D <> sc:1137 var
+R134393:134396 Kernel.EinsteinEquations4D <> next:1138 var
+R134439:134447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R134405:134423 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R134425:134425 Kernel.EinsteinEquations4D <> s:1136 var
+R134427:134428 Kernel.EinsteinEquations4D <> sc:1137 var
+R134430:134432 Kernel.EinsteinEquations4D <> rho:1140 var
+R134434:134434 Kernel.EinsteinEquations4D <> d:1141 var
+R134436:134436 Kernel.EinsteinEquations4D <> d:1141 var
+R134438:134438 Kernel.EinsteinEquations4D <> v:1139 var
+R134459:134462 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R134453:134457 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134452:134452 Kernel.EinsteinEquations4D <> d:1141 var
+R134466:134470 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134463:134465 Kernel.EinsteinEquations4D <> rho:1140 var
+R134618:134620 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R134587:134589 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R134563:134564 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R134565:134576 Kernel.EinsteinEquations4D <> lorentz_sign def
+R134580:134584 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134579:134579 Kernel.EinsteinEquations4D <> d:1141 var
+R134590:134608 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R134610:134610 Kernel.EinsteinEquations4D <> s:1136 var
+R134612:134615 Kernel.EinsteinEquations4D <> next:1138 var
+R134617:134617 Kernel.EinsteinEquations4D <> v:1139 var
+R134543:134545 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R134512:134514 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R134490:134501 Kernel.EinsteinEquations4D <> lorentz_sign def
+R134505:134509 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134504:134504 Kernel.EinsteinEquations4D <> d:1141 var
+R134515:134533 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R134535:134535 Kernel.EinsteinEquations4D <> s:1136 var
+R134537:134540 Kernel.EinsteinEquations4D <> next:1138 var
+R134542:134542 Kernel.EinsteinEquations4D <> v:1139 var
+R134677:134695 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R134725:134748 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R134751:134769 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R134772:134783 Kernel.EinsteinEquations4D <> lorentz_sign def
+R134796:134807 Coq.Arith.PeanoNat Nat eqb_refl thm
+R134796:134807 Coq.Arith.PeanoNat Nat eqb_refl thm
+R134796:134807 Coq.Arith.PeanoNat Nat eqb_refl thm
+R134895:134898 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R134889:134893 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134926:134929 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R134920:134924 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134933:134937 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134895:134898 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R134889:134893 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134926:134929 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R134920:134924 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134933:134937 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134926:134929 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R134920:134924 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R134933:134937 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+prf 134980:135024 <> lorentz_christoffel_successor_trace_component
+binder 135037:135037 <> s:1142
+binder 135039:135040 <> sc:1143
+binder 135042:135045 <> next:1144
+binder 135047:135047 <> v:1145
+binder 135049:135051 <> rho:1146
+binder 135053:135053 <> d:1147
+R135106:135113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R135060:135095 Kernel.EinsteinEquations4D <> local_successor_derivative_semantics def
+R135097:135097 Kernel.EinsteinEquations4D <> s:1142 var
+R135099:135100 Kernel.EinsteinEquations4D <> sc:1143 var
+R135102:135105 Kernel.EinsteinEquations4D <> next:1144 var
+R135150:135158 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R135114:135132 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R135134:135134 Kernel.EinsteinEquations4D <> s:1142 var
+R135136:135137 Kernel.EinsteinEquations4D <> sc:1143 var
+R135139:135141 Kernel.EinsteinEquations4D <> rho:1146 var
+R135143:135145 Kernel.EinsteinEquations4D <> rho:1146 var
+R135147:135147 Kernel.EinsteinEquations4D <> d:1147 var
+R135149:135149 Kernel.EinsteinEquations4D <> v:1145 var
+R135215:135217 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R135184:135186 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R135160:135171 Kernel.EinsteinEquations4D <> lorentz_sign def
+R135177:135181 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135174:135176 Kernel.EinsteinEquations4D <> rho:1146 var
+R135187:135205 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R135207:135207 Kernel.EinsteinEquations4D <> s:1142 var
+R135209:135212 Kernel.EinsteinEquations4D <> next:1144 var
+R135214:135214 Kernel.EinsteinEquations4D <> v:1145 var
+R135274:135292 Kernel.EinsteinEquations4D <> lorentz_christoffel def
+R135322:135345 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex def
+R135359:135369 Coq.Arith.PeanoNat Nat eqb_sym thm
+R135385:135389 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135375:135379 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135359:135369 Coq.Arith.PeanoNat Nat eqb_sym thm
+R135385:135389 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135375:135379 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135359:135369 Coq.Arith.PeanoNat Nat eqb_sym thm
+R135385:135389 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135375:135379 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135405:135416 Coq.Arith.PeanoNat Nat eqb_refl thm
+R135405:135416 Coq.Arith.PeanoNat Nat eqb_refl thm
+R135405:135416 Coq.Arith.PeanoNat Nat eqb_refl thm
+R135428:135446 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R135449:135460 Kernel.EinsteinEquations4D <> lorentz_sign def
+R135531:135534 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R135525:135529 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135572:135575 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R135566:135570 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135579:135583 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135531:135534 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R135525:135529 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135572:135575 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R135566:135570 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135579:135583 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135572:135575 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R135566:135570 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135579:135583 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R135684:135693 Coq.Arith.PeanoNat Nat eqb_eq thm
+R135684:135693 Coq.Arith.PeanoNat Nat eqb_eq thm
+R135774:135783 Coq.Arith.PeanoNat Nat eqb_eq thm
+R135774:135783 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 136326:136365 <> lorentz_riemann_successor_diag_component
+binder 136378:136378 <> s:1148
+binder 136380:136381 <> sc:1149
+binder 136383:136386 <> next:1150
+binder 136388:136388 <> v:1151
+binder 136390:136392 <> rho:1152
+binder 136394:136394 <> d:1153
+R136447:136454 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R136401:136436 Kernel.EinsteinEquations4D <> local_successor_derivative_semantics def
+R136438:136438 Kernel.EinsteinEquations4D <> s:1148 var
+R136440:136441 Kernel.EinsteinEquations4D <> sc:1149 var
+R136443:136446 Kernel.EinsteinEquations4D <> next:1150 var
+R136496:136504 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R136455:136476 Kernel.EinsteinEquations4D <> lorentz_riemann_tensor def
+R136478:136478 Kernel.EinsteinEquations4D <> s:1148 var
+R136480:136481 Kernel.EinsteinEquations4D <> sc:1149 var
+R136483:136485 Kernel.EinsteinEquations4D <> rho:1152 var
+R136487:136487 Kernel.EinsteinEquations4D <> d:1153 var
+R136489:136491 Kernel.EinsteinEquations4D <> rho:1152 var
+R136493:136493 Kernel.EinsteinEquations4D <> d:1153 var
+R136495:136495 Kernel.EinsteinEquations4D <> v:1151 var
+R136516:136519 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R136510:136514 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R136509:136509 Kernel.EinsteinEquations4D <> d:1153 var
+R136523:136527 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R136520:136522 Kernel.EinsteinEquations4D <> rho:1152 var
+R136665:136667 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R136562:136562 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R136612:136627 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R136585:136587 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R136563:136574 Kernel.EinsteinEquations4D <> lorentz_sign def
+R136578:136582 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R136577:136577 Kernel.EinsteinEquations4D <> d:1153 var
+R136588:136599 Kernel.EinsteinEquations4D <> lorentz_sign def
+R136605:136609 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R136602:136604 Kernel.EinsteinEquations4D <> rho:1152 var
+R136628:136655 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R136657:136657 Kernel.EinsteinEquations4D <> s:1148 var
+R136659:136662 Kernel.EinsteinEquations4D <> next:1150 var
+R136664:136664 Kernel.EinsteinEquations4D <> v:1151 var
+R136724:136745 Kernel.EinsteinEquations4D <> lorentz_riemann_tensor def
+R136777:136820 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_diag_component thm
+R136777:136820 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_diag_component thm
+R136777:136820 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_diag_component thm
+R136866:136909 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_diag_component thm
+R136866:136909 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_diag_component thm
+R136866:136909 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_diag_component thm
+R136948:136992 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_trace_component thm
+R136948:136992 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_trace_component thm
+R136948:136992 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_trace_component thm
+R137038:137082 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_trace_component thm
+R137038:137082 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_trace_component thm
+R137038:137082 Kernel.EinsteinEquations4D <> lorentz_christoffel_successor_trace_component thm
+R137129:137132 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137123:137127 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137136:137140 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137129:137132 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137123:137127 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137136:137140 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137250:137259 Coq.Arith.PeanoNat Nat eqb_eq thm
+R137250:137259 Coq.Arith.PeanoNat Nat eqb_eq thm
+R137297:137324 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R137327:137345 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R137348:137359 Kernel.EinsteinEquations4D <> lorentz_sign def
+R137385:137388 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137379:137383 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137385:137388 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137379:137383 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137517:137544 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R137547:137565 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R137568:137579 Kernel.EinsteinEquations4D <> lorentz_sign def
+R137603:137606 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137597:137601 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137638:137641 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137632:137636 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137603:137606 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137597:137601 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137638:137641 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137632:137636 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R137638:137641 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R137632:137636 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+prf 138167:138201 <> lorentz_ricci_tensor_successor_diag
+binder 138214:138214 <> s:1154
+binder 138216:138217 <> sc:1155
+binder 138219:138222 <> next:1156
+binder 138224:138224 <> v:1157
+binder 138226:138226 <> d:1158
+R138279:138286 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R138233:138268 Kernel.EinsteinEquations4D <> local_successor_derivative_semantics def
+R138270:138270 Kernel.EinsteinEquations4D <> s:1154 var
+R138272:138273 Kernel.EinsteinEquations4D <> sc:1155 var
+R138275:138278 Kernel.EinsteinEquations4D <> next:1156 var
+R138298:138305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R138289:138291 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R138288:138288 Kernel.EinsteinEquations4D <> d:1158 var
+R138337:138345 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R138306:138325 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R138327:138327 Kernel.EinsteinEquations4D <> s:1154 var
+R138329:138330 Kernel.EinsteinEquations4D <> sc:1155 var
+R138332:138332 Kernel.EinsteinEquations4D <> d:1158 var
+R138334:138334 Kernel.EinsteinEquations4D <> d:1158 var
+R138336:138336 Kernel.EinsteinEquations4D <> v:1157 var
+R138357:138360 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R138351:138355 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R138350:138350 Kernel.EinsteinEquations4D <> d:1158 var
+R138396:138398 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R138399:138426 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R138428:138428 Kernel.EinsteinEquations4D <> s:1154 var
+R138430:138433 Kernel.EinsteinEquations4D <> next:1156 var
+R138435:138435 Kernel.EinsteinEquations4D <> v:1157 var
+R138490:138509 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R138512:138528 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R138551:138590 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138551:138590 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138551:138590 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138631:138670 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138631:138670 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138631:138670 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138711:138750 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138711:138750 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138711:138750 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138791:138830 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138791:138830 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138791:138830 Kernel.EinsteinEquations4D <> lorentz_riemann_successor_diag_component thm
+R138869:138880 Kernel.EinsteinEquations4D <> lorentz_sign def
+R138883:138910 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R138913:138931 Kernel.EinsteinEquations4D <> local_mass_gradient def
+R139060:139064 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139060:139064 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139060:139064 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139060:139064 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139108:139112 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139108:139112 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139108:139112 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139108:139112 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139156:139160 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139156:139160 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139156:139160 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139156:139160 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139204:139208 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139204:139208 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139204:139208 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139204:139208 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139294:139298 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139294:139298 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139294:139298 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139294:139298 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139344:139348 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139344:139348 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139344:139348 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139344:139348 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139394:139398 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139394:139398 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139394:139398 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139394:139398 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139444:139448 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139444:139448 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139444:139448 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139444:139448 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139540:139544 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139540:139544 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139540:139544 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139540:139544 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139592:139596 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139592:139596 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139592:139596 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139592:139596 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139644:139648 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139644:139648 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139644:139648 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139644:139648 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139696:139700 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139696:139700 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139696:139700 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139696:139700 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139799:139803 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139799:139803 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139799:139803 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139799:139803 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139854:139858 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139854:139858 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139854:139858 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139854:139858 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139909:139913 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139909:139913 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139909:139913 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139909:139913 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139964:139968 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139964:139968 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139964:139968 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R139964:139968 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+prf 140390:140419 <> lorentz_ricci_scalar_successor
+binder 140432:140432 <> s:1159
+binder 140434:140435 <> sc:1160
+binder 140437:140440 <> next:1161
+binder 140442:140442 <> v:1162
+R140495:140502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R140449:140484 Kernel.EinsteinEquations4D <> local_successor_derivative_semantics def
+R140486:140486 Kernel.EinsteinEquations4D <> s:1159 var
+R140488:140489 Kernel.EinsteinEquations4D <> sc:1160 var
+R140491:140494 Kernel.EinsteinEquations4D <> next:1161 var
+R140539:140546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R140530:140532 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R140504:140525 Kernel.MuGravity <> module_structural_mass def
+R140527:140527 Kernel.EinsteinEquations4D <> s:1159 var
+R140529:140529 Kernel.EinsteinEquations4D <> v:1162 var
+R140786:140792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R140547:140555 Coq.Lists.List <> fold_left def
+R140765:140781 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R140569:140569 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 140563:140565 <> acc:1163
+binder 140572:140574 <> μ':1164
+R140585:140593 Coq.Lists.List <> fold_left def
+R140755:140757 Kernel.EinsteinEquations4D <> acc:1163 var
+R140737:140753 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R140608:140608 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 140601:140604 <> acc':1165
+binder 140611:140613 <> ν':1166
+R140631:140633 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R140627:140630 Kernel.EinsteinEquations4D <> acc':1165 var
+R140678:140689 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R140634:140665 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R140667:140667 Kernel.EinsteinEquations4D <> s:1159 var
+R140669:140669 Kernel.EinsteinEquations4D <> v:1162 var
+R140671:140673 Kernel.EinsteinEquations4D <> μ':1164 var
+R140675:140677 Kernel.EinsteinEquations4D <> ν':1166 var
+R140690:140709 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor def
+R140711:140711 Kernel.EinsteinEquations4D <> s:1159 var
+R140713:140714 Kernel.EinsteinEquations4D <> sc:1160 var
+R140716:140718 Kernel.EinsteinEquations4D <> μ':1164 var
+R140720:140722 Kernel.EinsteinEquations4D <> ν':1166 var
+R140724:140724 Kernel.EinsteinEquations4D <> v:1162 var
+R140835:140842 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R140795:140797 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R140798:140825 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R140827:140827 Kernel.EinsteinEquations4D <> s:1159 var
+R140829:140832 Kernel.EinsteinEquations4D <> next:1161 var
+R140834:140834 Kernel.EinsteinEquations4D <> v:1162 var
+R140843:140845 Coq.Reals.Raxioms <> INR def
+R140848:140869 Kernel.MuGravity <> module_structural_mass def
+R140871:140871 Kernel.EinsteinEquations4D <> s:1159 var
+R140873:140873 Kernel.EinsteinEquations4D <> v:1162 var
+R140930:140946 Kernel.EinsteinEquations4D <> tensor_indices_4d def
+R140967:141001 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R140967:141001 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R140967:141001 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141058:141092 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141058:141092 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141058:141092 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141149:141183 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141149:141183 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141149:141183 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141240:141274 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141240:141274 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141240:141274 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R141329:141360 Kernel.EinsteinEquations4D <> lorentz_inverse_metric_at_vertex def
+R141363:141374 Kernel.EinsteinEquations4D <> lorentz_sign def
+R141485:141487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R141475:141478 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R141449:141470 Kernel.MuGravity <> module_structural_mass def
+R141488:141492 Coq.Init.Datatypes <> false constr
+R141485:141487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R141475:141478 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R141449:141470 Kernel.MuGravity <> module_structural_mass def
+R141488:141492 Coq.Init.Datatypes <> false constr
+R141506:141516 Coq.Arith.PeanoNat Nat eqb_neq thm
+R141506:141516 Coq.Arith.PeanoNat Nat eqb_neq thm
+R141560:141568 Coq.Reals.RIneq <> not_0_INR thm
+R141560:141568 Coq.Reals.RIneq <> not_0_INR thm
+prf 141931:141968 <> lorentz_einstein_tensor_successor_diag
+binder 141981:141981 <> s:1167
+binder 141983:141984 <> sc:1168
+binder 141986:141989 <> next:1169
+binder 141991:141991 <> v:1170
+binder 141993:141993 <> d:1171
+R142046:142053 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R142000:142035 Kernel.EinsteinEquations4D <> local_successor_derivative_semantics def
+R142037:142037 Kernel.EinsteinEquations4D <> s:1167 var
+R142039:142040 Kernel.EinsteinEquations4D <> sc:1168 var
+R142042:142045 Kernel.EinsteinEquations4D <> next:1169 var
+R142065:142072 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R142056:142058 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R142055:142055 Kernel.EinsteinEquations4D <> d:1171 var
+R142109:142116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R142100:142102 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R142074:142095 Kernel.MuGravity <> module_structural_mass def
+R142097:142097 Kernel.EinsteinEquations4D <> s:1167 var
+R142099:142099 Kernel.EinsteinEquations4D <> v:1170 var
+R142151:142159 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R142117:142139 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+R142141:142141 Kernel.EinsteinEquations4D <> s:1167 var
+R142143:142144 Kernel.EinsteinEquations4D <> sc:1168 var
+R142146:142146 Kernel.EinsteinEquations4D <> d:1171 var
+R142148:142148 Kernel.EinsteinEquations4D <> d:1171 var
+R142150:142150 Kernel.EinsteinEquations4D <> v:1170 var
+R142171:142174 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R142165:142169 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R142164:142164 Kernel.EinsteinEquations4D <> d:1171 var
+R142251:142252 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R142253:142280 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R142282:142282 Kernel.EinsteinEquations4D <> s:1167 var
+R142284:142287 Kernel.EinsteinEquations4D <> next:1169 var
+R142289:142289 Kernel.EinsteinEquations4D <> v:1170 var
+R142195:142197 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R142198:142225 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R142227:142227 Kernel.EinsteinEquations4D <> s:1167 var
+R142229:142232 Kernel.EinsteinEquations4D <> next:1169 var
+R142234:142234 Kernel.EinsteinEquations4D <> v:1170 var
+R142350:142372 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+R142386:142420 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R142386:142420 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R142386:142420 Kernel.EinsteinEquations4D <> lorentz_ricci_tensor_successor_diag thm
+R142463:142492 Kernel.EinsteinEquations4D <> lorentz_ricci_scalar_successor thm
+R142463:142492 Kernel.EinsteinEquations4D <> lorentz_ricci_scalar_successor thm
+R142463:142492 Kernel.EinsteinEquations4D <> lorentz_ricci_scalar_successor thm
+R142532:142560 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex_diag thm
+R142532:142560 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex_diag thm
+R142532:142560 Kernel.EinsteinEquations4D <> lorentz_metric_at_vertex_diag thm
+R142572:142583 Kernel.EinsteinEquations4D <> lorentz_sign def
+R142638:142640 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R142628:142631 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R142602:142623 Kernel.MuGravity <> module_structural_mass def
+R142641:142645 Coq.Init.Datatypes <> false constr
+R142638:142640 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R142628:142631 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R142602:142623 Kernel.MuGravity <> module_structural_mass def
+R142641:142645 Coq.Init.Datatypes <> false constr
+R142659:142669 Coq.Arith.PeanoNat Nat eqb_neq thm
+R142659:142669 Coq.Arith.PeanoNat Nat eqb_neq thm
+R142725:142733 Coq.Reals.RIneq <> not_0_INR thm
+R142725:142733 Coq.Reals.RIneq <> not_0_INR thm
+R142791:142799 Coq.Reals.RIneq <> not_0_INR thm
+R142791:142799 Coq.Reals.RIneq <> not_0_INR thm
+R142861:142869 Coq.Reals.RIneq <> not_0_INR thm
+R142861:142869 Coq.Reals.RIneq <> not_0_INR thm
+R142936:142944 Coq.Reals.RIneq <> not_0_INR thm
+R142936:142944 Coq.Reals.RIneq <> not_0_INR thm
+prf 143877:143909 <> lorentz_einstein_tensor_nat_chain
+binder 143922:143922 <> s:1172
+binder 143924:143924 <> n:1173
+binder 143926:143926 <> v:1174
+binder 143928:143928 <> d:1175
+R143946:143953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R143937:143939 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R143936:143936 Kernel.EinsteinEquations4D <> d:1175 var
+R143990:143997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R143981:143983 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R143955:143976 Kernel.MuGravity <> module_structural_mass def
+R143978:143978 Kernel.EinsteinEquations4D <> s:1172 var
+R143980:143980 Kernel.EinsteinEquations4D <> v:1174 var
+R144046:144054 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R143998:144020 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+R144022:144022 Kernel.EinsteinEquations4D <> s:1172 var
+R144025:144036 Kernel.EinsteinEquations4D <> nat_chain_sc def
+R144038:144038 Kernel.EinsteinEquations4D <> n:1173 var
+R144041:144041 Kernel.EinsteinEquations4D <> d:1175 var
+R144043:144043 Kernel.EinsteinEquations4D <> d:1175 var
+R144045:144045 Kernel.EinsteinEquations4D <> v:1174 var
+R144066:144069 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R144060:144064 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R144059:144059 Kernel.EinsteinEquations4D <> d:1175 var
+R144165:144166 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R144167:144194 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R144196:144196 Kernel.EinsteinEquations4D <> s:1172 var
+R144199:144217 Kernel.EinsteinEquations4D <> nat_chain_successor def
+R144219:144219 Kernel.EinsteinEquations4D <> n:1173 var
+R144222:144222 Kernel.EinsteinEquations4D <> v:1174 var
+R144090:144092 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R144093:144120 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R144122:144122 Kernel.EinsteinEquations4D <> s:1172 var
+R144125:144143 Kernel.EinsteinEquations4D <> nat_chain_successor def
+R144145:144145 Kernel.EinsteinEquations4D <> n:1173 var
+R144148:144148 Kernel.EinsteinEquations4D <> v:1174 var
+R144270:144307 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor_successor_diag thm
+R144270:144307 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor_successor_diag thm
+R144320:144359 Kernel.EinsteinEquations4D <> nat_chain_successor_derivative_semantics thm
+R144320:144359 Kernel.EinsteinEquations4D <> nat_chain_successor_derivative_semantics thm
+def 145178:145208 <> lorentz_nat_chain_stress_energy
+R145217:145217 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 145211:145213 <> msd:1176
+R145225:145227 Coq.Init.Datatypes <> nat ind
+binder 145221:145221 <> d:1177
+R145232:145232 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R145250:145253 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R145244:145248 Coq.Arith.PeanoNat <> ::nat_scope:x_'mod'_x not
+R145243:145243 Kernel.EinsteinEquations4D <> d:1177 var
+R145284:145285 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R145286:145288 Kernel.EinsteinEquations4D <> msd:1176 var
+R145268:145270 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R145271:145273 Kernel.EinsteinEquations4D <> msd:1176 var
+prf 145614:145634 <> lorentz_nat_chain_efe
+binder 145647:145647 <> s:1178
+binder 145649:145649 <> n:1179
+binder 145651:145651 <> v:1180
+binder 145653:145653 <> d:1181
+R145671:145678 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R145662:145664 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R145661:145661 Kernel.EinsteinEquations4D <> d:1181 var
+R145715:145722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R145706:145708 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R145680:145701 Kernel.MuGravity <> module_structural_mass def
+R145703:145703 Kernel.EinsteinEquations4D <> s:1178 var
+R145705:145705 Kernel.EinsteinEquations4D <> v:1180 var
+R145771:145779 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R145723:145745 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor def
+R145747:145747 Kernel.EinsteinEquations4D <> s:1178 var
+R145750:145761 Kernel.EinsteinEquations4D <> nat_chain_sc def
+R145763:145763 Kernel.EinsteinEquations4D <> n:1179 var
+R145766:145766 Kernel.EinsteinEquations4D <> d:1181 var
+R145768:145768 Kernel.EinsteinEquations4D <> d:1181 var
+R145770:145770 Kernel.EinsteinEquations4D <> v:1180 var
+R145780:145810 Kernel.EinsteinEquations4D <> lorentz_nat_chain_stress_energy def
+R145821:145848 Kernel.EinsteinEquations4D <> local_mass_second_difference def
+R145850:145850 Kernel.EinsteinEquations4D <> s:1178 var
+R145853:145871 Kernel.EinsteinEquations4D <> nat_chain_successor def
+R145873:145873 Kernel.EinsteinEquations4D <> n:1179 var
+R145876:145876 Kernel.EinsteinEquations4D <> v:1180 var
+R145879:145879 Kernel.EinsteinEquations4D <> d:1181 var
+R145925:145955 Kernel.EinsteinEquations4D <> lorentz_nat_chain_stress_energy def
+R145966:145998 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor_nat_chain thm
+R145966:145998 Kernel.EinsteinEquations4D <> lorentz_einstein_tensor_nat_chain thm

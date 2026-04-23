@@ -19,7 +19,7 @@ From Kernel  Require Import VMState VMStep SimulationProof
                             ShadowProjection UniversalCertificationCost.
 From KamiHW  Require Import Abstraction HardwareShadowBridge
                             ShadowDevice ShadowDeviceTrace EmbedStep
-                            ShadowEmbedStep.
+                            ShadowEmbedStep FullAbstraction GraphReconstructionBridge.
 
 (**
     NEW LEMMA 1: Thiele instruction cost is surjective
@@ -193,16 +193,27 @@ Proof.
 Qed.
 
 (**
-    CONDITIONAL PHASE 3: Trace-level shadow compatibility
+    Full PC-driven trace compatibility for the current hardware model.
 
-    Under [embed_step] — the claim that hardware stepping commutes with
-    [abs_phase1] through [vm_apply] — the entire observable device trace
-    equals the classical-shadow trace of the corresponding Thiele execution.
+    This is the stronger replacement for the older abstract [embed_step]
+    theorem shape: the hardware trace is run by [kami_run_driven], and the
+    exact side conditions for all 46 opcodes are collected in
+    [WFDrivenPrecondition]. *)
+Theorem thiele_trace_compat_wf_driven :
+  forall fuel trace ks,
+    (forall ks' i, WFDrivenPrecondition ks' i) ->
+    rtl_classical_obs (kami_run_driven fuel trace ks) =
+    shadow_proj (run_vm fuel trace (abs_full_snapshot (full_snapshot_of_snapshot ks))).
+Proof.
+  intros fuel trace ks Hpre.
+  exact (rtl_shadow_trace_compat_wf fuel trace ks Hpre).
+Qed.
 
-    [embed_step] is not yet proved for the RTL instance.  Its proof requires
-    a [WellFormedSnapshot] invariant (register values within 64-bit range).
-    The theorem is stated here so the scope of the precondition is visible
-    next to the canonicality record. *)
+(**
+    Legacy abstract trace theorem.
+
+    Kept for downstream files that still consume the generic [embed_step]
+    shape rather than the concrete 46-opcode [WFDrivenPrecondition] bridge. *)
 Theorem thiele_trace_compat_under_embed_step :
   forall (embed_step : forall (ks : KamiSnapshot) (i : vm_instruction),
                          abs_phase1 (kami_step ks i) = vm_apply (abs_phase1 ks) i)

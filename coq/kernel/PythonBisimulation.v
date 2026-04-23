@@ -175,7 +175,8 @@ Record PythonMorphismState := {
   pyf_morph_source : nat;
   pyf_morph_target : nat;
   pyf_morph_coupling : PythonCouplingData;
-  pyf_morph_is_identity : bool
+  pyf_morph_is_identity : bool;
+  pyf_morph_cert_cost : nat
 }.
 
 Record PythonPartitionGraph := {
@@ -245,13 +246,15 @@ Definition python_morphism_abs (ms : PythonMorphismState) : MorphismState :=
   {| morph_source := ms.(pyf_morph_source);
      morph_target := ms.(pyf_morph_target);
      morph_coupling := python_coupling_abs ms.(pyf_morph_coupling);
-     morph_is_identity := ms.(pyf_morph_is_identity) |}.
+     morph_is_identity := ms.(pyf_morph_is_identity);
+     morph_cert_cost := ms.(pyf_morph_cert_cost) |}.
 
 Definition python_morphism_repr (ms : MorphismState) : PythonMorphismState :=
   {| pyf_morph_source := ms.(morph_source);
      pyf_morph_target := ms.(morph_target);
      pyf_morph_coupling := python_coupling_repr ms.(morph_coupling);
-     pyf_morph_is_identity := ms.(morph_is_identity) |}.
+     pyf_morph_is_identity := ms.(morph_is_identity);
+     pyf_morph_cert_cost := ms.(morph_cert_cost) |}.
 
 Fixpoint python_modules_abs
   (mods : list (nat * PythonModuleState)) : list (nat * ModuleState) :=
