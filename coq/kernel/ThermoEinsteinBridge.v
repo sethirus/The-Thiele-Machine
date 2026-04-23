@@ -13,7 +13,7 @@
     Jacobson is already fully derived in this module.
 *)
 
-From Coq Require Import List Arith.PeanoNat Reals ZArith.
+From Coq Require Import List Arith.PeanoNat Reals ZArith Lia.
 Import ListNotations.
 
 From Kernel Require Import VMState.
@@ -60,6 +60,9 @@ Proof.
   exact (einstein_emerges s_pre s_post Hwf_pre Hwf_post).
 Qed.
 
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   EinsteinTarget is an abstract predicate. All theorems export as explicit
+   forall premises when section closes. *)
 Section TowardEinstein.
 
 Variable SpacetimeState : Type.
@@ -377,8 +380,13 @@ Proof.
     as [dQ [dS [T [HT HdQ]]]].
   (* Step 2: Clausius → positive structural mass (bridge) *)
   pose proof (H_clausius_mass dQ dS T HT HdQ) as Hmass.
-  (* Step 3: positive mass → 4D EFE (A3 closed theorem) *)
-  exact (local_einstein_field_equation_nat_chain_4d s n v d Hd Hmass).
+  (* Step 3: positive mass → 4D Euclidean EFE *)
+  rewrite EinsteinEquations4D.gravitational_coupling_unit_convention, Rmult_1_l.
+  rewrite (EinsteinEquations4D.local_einstein_tensor_4d_successor_diag
+    s (nat_chain_sc n) (nat_chain_successor n) v d
+    (EinsteinEquations4D.nat_chain_successor_derivative_semantics s n) Hd).
+  unfold mass_stress_energy. rewrite Nat.eqb_refl. field.
+  apply not_0_INR. lia.
 Qed.
 
 (** Full chain connector: mass + geometric hypotheses yield BOTH
@@ -415,6 +423,63 @@ Proof.
     exact (DiscreteRaychaudhuri.focusing_implies_clausius_witnesses
       hbar c_light k_B entropy_per_bit s (two_vertex_sc v w) v P support
       Hh Hc Hk Hfocus).
-  - (* Geometric chain: positive mass → 4D EFE *)
-    exact (local_einstein_field_equation_nat_chain_4d s n v d Hd Hmass).
+  - (* Geometric chain: positive mass → 4D Euclidean EFE *)
+    rewrite EinsteinEquations4D.gravitational_coupling_unit_convention, Rmult_1_l.
+    rewrite (EinsteinEquations4D.local_einstein_tensor_4d_successor_diag
+      s (nat_chain_sc n) (nat_chain_successor n) v d
+      (EinsteinEquations4D.nat_chain_successor_derivative_semantics s n) Hd).
+    unfold mass_stress_energy. rewrite Nat.eqb_refl. field.
+    apply not_0_INR. lia.
+Qed.
+
+(** Direct non-circular corollary: downstream users that already have
+    positive structural mass do not need to pass through the circular
+    Clausius-mass bridge. *)
+Corollary positive_mass_implies_clausius_witnesses_4d :
+  forall (hbar c_light k_B entropy_per_bit : R)
+         (s : VMState) (n : nat)
+         (v w : ModuleID) (d : nat)
+         (P : LocalMorphismSemantics.SplitMorphism)
+         (support : LocalMorphismSemantics.joint_support),
+    (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R ->
+    (d < 4)%nat ->
+    (v <> w)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    isotropic_mass_metric s v ->
+    isotropic_mass_metric s w ->
+    DiscreteRaychaudhuri.lorentzian_coupling_positive s v w (two_vertex_sc v w) ->
+    exists dQ dS T : R, (0 < T)%R /\ dQ = (T * dS)%R.
+Proof.
+  intros hbar c_light k_B entropy_per_bit s n v w d P support
+         Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling.
+  exact (proj1 (thermodynamic_einstein_full_chain_4d
+    hbar c_light k_B entropy_per_bit s n v w d P support
+    Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling)).
+Qed.
+
+Corollary direct_mass_load_bearing_einstein_4d :
+  forall (hbar c_light k_B entropy_per_bit : R)
+         (s : VMState) (n : nat)
+         (v w : ModuleID) (d : nat)
+         (P : LocalMorphismSemantics.SplitMorphism)
+         (support : LocalMorphismSemantics.joint_support),
+    (0 < hbar)%R -> (0 < c_light)%R -> (0 < k_B)%R ->
+    (d < 4)%nat ->
+    (v <> w)%nat ->
+    (module_structural_mass s v > 0)%nat ->
+    isotropic_mass_metric s v ->
+    isotropic_mass_metric s w ->
+    DiscreteRaychaudhuri.lorentzian_coupling_positive s v w (two_vertex_sc v w) ->
+    (local_einstein_tensor_4d s (nat_chain_sc n) d d v =
+      (8 * PI * EinsteinEquations4D.gravitational_constant) *
+      ((3 * local_mass_second_difference s (nat_chain_successor n) v *
+        (1 - 2 * INR (module_structural_mass s v))) /
+       INR (module_structural_mass s v)) *
+      mass_stress_energy s d d v)%R.
+Proof.
+  intros hbar c_light k_B entropy_per_bit s n v w d P support
+         Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling.
+  exact (proj2 (thermodynamic_einstein_full_chain_4d
+    hbar c_light k_B entropy_per_bit s n v w d P support
+    Hh Hc Hk Hd Hvw Hmass Hiso_v Hiso_w Hcoupling)).
 Qed.

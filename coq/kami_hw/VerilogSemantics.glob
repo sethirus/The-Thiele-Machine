@@ -1,0 +1,307 @@
+DIGEST ff1cf492625dd96f7fd065a19a151d5e
+FKamiHW.VerilogSemantics
+R2946:2949 Coq.Lists.List <> <> lib
+R2951:2954 Coq.Bool.Bool <> <> lib
+R2956:2969 Coq.Arith.PeanoNat <> <> lib
+R2971:2973 Coq.micromega.Lia <> <> lib
+R2983:2995 Coq.Lists.List ListNotations <> mod
+R3026:3032 Kernel.VMState <> <> lib
+R3034:3039 Kernel.VMStep <> <> lib
+R3041:3055 Kernel.SimulationProof <> <> lib
+R3085:3095 KamiHW.Abstraction <> <> lib
+R3125:3139 KamiHW.FullAbstraction <> <> lib
+R3169:3177 KamiHW.EmbedStep <> <> lib
+R3207:3219 KamiHW.FullEmbedStep <> <> lib
+R3249:3273 KamiHW.GraphReconstructionBridge <> <> lib
+def 3480:3496 <> coq_verilog_graph
+R3505:3516 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3500:3501 <> ks:1
+R3521:3534 Kernel.VMState <> PartitionGraph rec
+R3541:3548 Kernel.VMState <> vm_graph proj
+R3552:3561 KamiHW.Abstraction <> abs_phase1 def
+R3563:3564 KamiHW.VerilogSemantics <> ks:1 var
+def 3579:3594 <> coq_verilog_csrs
+R3604:3615 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3599:3600 <> ks:2
+R3620:3627 Kernel.VMState <> CSRState rec
+R3634:3640 Kernel.VMState <> vm_csrs proj
+R3645:3654 KamiHW.Abstraction <> abs_phase1 def
+R3656:3657 KamiHW.VerilogSemantics <> ks:2 var
+def 3672:3687 <> coq_verilog_regs
+R3697:3708 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3692:3693 <> ks:3
+R3713:3716 Coq.Init.Datatypes <> list ind
+R3718:3720 Coq.Init.Datatypes <> nat ind
+R3727:3733 Kernel.VMState <> vm_regs proj
+R3738:3747 KamiHW.Abstraction <> abs_phase1 def
+R3749:3750 KamiHW.VerilogSemantics <> ks:3 var
+def 3765:3779 <> coq_verilog_mem
+R3790:3801 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3785:3786 <> ks:4
+R3806:3809 Coq.Init.Datatypes <> list ind
+R3811:3813 Coq.Init.Datatypes <> nat ind
+R3820:3825 Kernel.VMState <> vm_mem proj
+R3831:3840 KamiHW.Abstraction <> abs_phase1 def
+R3842:3843 KamiHW.VerilogSemantics <> ks:4 var
+def 3858:3871 <> coq_verilog_pc
+R3883:3894 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3878:3879 <> ks:5
+R3899:3901 Coq.Init.Datatypes <> nat ind
+R3908:3912 Kernel.VMState <> vm_pc proj
+R3919:3928 KamiHW.Abstraction <> abs_phase1 def
+R3930:3931 KamiHW.VerilogSemantics <> ks:5 var
+def 3946:3959 <> coq_verilog_mu
+R3971:3982 KamiHW.Abstraction <> KamiSnapshot rec
+binder 3966:3967 <> ks:6
+R3987:3989 Coq.Init.Datatypes <> nat ind
+R3996:4000 Kernel.VMState <> vm_mu proj
+R4007:4016 KamiHW.Abstraction <> abs_phase1 def
+R4018:4019 KamiHW.VerilogSemantics <> ks:6 var
+def 4034:4054 <> coq_verilog_mu_tensor
+R4062:4073 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4057:4058 <> ks:7
+R4078:4081 Coq.Init.Datatypes <> list ind
+R4083:4085 Coq.Init.Datatypes <> nat ind
+R4092:4103 Kernel.VMState <> vm_mu_tensor proj
+R4106:4115 KamiHW.Abstraction <> abs_phase1 def
+R4117:4118 KamiHW.VerilogSemantics <> ks:7 var
+def 4133:4147 <> coq_verilog_err
+R4158:4169 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4153:4154 <> ks:8
+R4174:4177 Coq.Init.Datatypes <> bool ind
+R4184:4189 Kernel.VMState <> vm_err proj
+R4195:4204 KamiHW.Abstraction <> abs_phase1 def
+R4206:4207 KamiHW.VerilogSemantics <> ks:8 var
+def 4222:4242 <> coq_verilog_logic_acc
+R4250:4261 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4245:4246 <> ks:9
+R4266:4268 Coq.Init.Datatypes <> nat ind
+R4275:4286 Kernel.VMState <> vm_logic_acc proj
+R4289:4298 KamiHW.Abstraction <> abs_phase1 def
+R4300:4301 KamiHW.VerilogSemantics <> ks:9 var
+def 4316:4334 <> coq_verilog_mstatus
+R4342:4353 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4337:4338 <> ks:10
+R4358:4360 Coq.Init.Datatypes <> nat ind
+R4367:4376 Kernel.VMState <> vm_mstatus proj
+R4379:4388 KamiHW.Abstraction <> abs_phase1 def
+R4390:4391 KamiHW.VerilogSemantics <> ks:10 var
+prf 4729:4769 <> coq_kami_model_satisfies_rtl_step_correct
+R4788:4799 KamiHW.Abstraction <> KamiSnapshot rec
+binder 4783:4784 <> ks:11
+R4807:4820 Kernel.VMStep VMStep vm_instruction ind
+binder 4803:4803 <> i:12
+R4845:4852 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4828:4842 KamiHW.EmbedStep <> SupportedOpcode def
+R4844:4844 KamiHW.VerilogSemantics <> i:12 var
+R4866:4882 KamiHW.FullAbstraction <> abs_full_snapshot def
+R4885:4909 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R4911:4912 KamiHW.VerilogSemantics <> ks:11 var
+binder 4857:4861 <> input:13
+R4936:4943 Kernel.SimulationProof <> vm_apply def
+R4945:4949 KamiHW.VerilogSemantics <> input:13 var
+R4951:4951 KamiHW.VerilogSemantics <> i:12 var
+binder 4926:4931 <> output:14
+R5022:5024 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4960:4976 KamiHW.FullAbstraction <> abs_full_snapshot def
+R4979:5003 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R5006:5014 KamiHW.Abstraction <> kami_step def
+R5016:5017 KamiHW.VerilogSemantics <> ks:11 var
+R5019:5019 KamiHW.VerilogSemantics <> i:12 var
+R5025:5030 KamiHW.VerilogSemantics <> output:14 var
+R5069:5091 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R5069:5091 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+prf 5192:5216 <> coq_kami_model_mu_correct
+R5235:5246 KamiHW.Abstraction <> KamiSnapshot rec
+binder 5230:5231 <> ks:15
+R5254:5267 Kernel.VMStep VMStep vm_instruction ind
+binder 5250:5250 <> i:16
+R5292:5299 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5275:5289 KamiHW.EmbedStep <> SupportedOpcode def
+R5291:5291 KamiHW.VerilogSemantics <> i:16 var
+R5370:5376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5300:5304 Kernel.VMState <> vm_mu proj
+R5307:5323 KamiHW.FullAbstraction <> abs_full_snapshot def
+R5326:5350 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R5353:5361 KamiHW.Abstraction <> kami_step def
+R5363:5364 KamiHW.VerilogSemantics <> ks:15 var
+R5366:5366 KamiHW.VerilogSemantics <> i:16 var
+R5377:5381 Kernel.VMState <> vm_mu proj
+R5384:5391 Kernel.SimulationProof <> vm_apply def
+R5394:5410 KamiHW.FullAbstraction <> abs_full_snapshot def
+R5413:5437 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R5439:5440 KamiHW.VerilogSemantics <> ks:15 var
+R5444:5444 KamiHW.VerilogSemantics <> i:16 var
+R5485:5525 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R5485:5525 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R5485:5525 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R5485:5525 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+prf 5572:5596 <> coq_kami_model_pc_correct
+R5615:5626 KamiHW.Abstraction <> KamiSnapshot rec
+binder 5610:5611 <> ks:17
+R5634:5647 Kernel.VMStep VMStep vm_instruction ind
+binder 5630:5630 <> i:18
+R5672:5679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5655:5669 KamiHW.EmbedStep <> SupportedOpcode def
+R5671:5671 KamiHW.VerilogSemantics <> i:18 var
+R5750:5756 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5680:5684 Kernel.VMState <> vm_pc proj
+R5687:5703 KamiHW.FullAbstraction <> abs_full_snapshot def
+R5706:5730 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R5733:5741 KamiHW.Abstraction <> kami_step def
+R5743:5744 KamiHW.VerilogSemantics <> ks:17 var
+R5746:5746 KamiHW.VerilogSemantics <> i:18 var
+R5757:5761 Kernel.VMState <> vm_pc proj
+R5764:5771 Kernel.SimulationProof <> vm_apply def
+R5774:5790 KamiHW.FullAbstraction <> abs_full_snapshot def
+R5793:5817 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R5819:5820 KamiHW.VerilogSemantics <> ks:17 var
+R5824:5824 KamiHW.VerilogSemantics <> i:18 var
+R5865:5905 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R5865:5905 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R5865:5905 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R5865:5905 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+prf 5952:5978 <> coq_kami_model_regs_correct
+R5997:6008 KamiHW.Abstraction <> KamiSnapshot rec
+binder 5992:5993 <> ks:19
+R6016:6029 Kernel.VMStep VMStep vm_instruction ind
+binder 6012:6012 <> i:20
+R6054:6061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6037:6051 KamiHW.EmbedStep <> SupportedOpcode def
+R6053:6053 KamiHW.VerilogSemantics <> i:20 var
+R6134:6140 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6062:6068 Kernel.VMState <> vm_regs proj
+R6071:6087 KamiHW.FullAbstraction <> abs_full_snapshot def
+R6090:6114 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R6117:6125 KamiHW.Abstraction <> kami_step def
+R6127:6128 KamiHW.VerilogSemantics <> ks:19 var
+R6130:6130 KamiHW.VerilogSemantics <> i:20 var
+R6141:6147 Kernel.VMState <> vm_regs proj
+R6150:6157 Kernel.SimulationProof <> vm_apply def
+R6160:6176 KamiHW.FullAbstraction <> abs_full_snapshot def
+R6179:6203 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R6205:6206 KamiHW.VerilogSemantics <> ks:19 var
+R6210:6210 KamiHW.VerilogSemantics <> i:20 var
+R6251:6291 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R6251:6291 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R6251:6291 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+R6251:6291 KamiHW.VerilogSemantics <> coq_kami_model_satisfies_rtl_step_correct thm
+prf 6459:6486 <> coq_kami_model_trace_correct
+binder 6499:6502 <> fuel:21
+binder 6504:6508 <> trace:22
+binder 6510:6511 <> ks:23
+R6518:6518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6565:6573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 6526:6526 <> i:24
+R6544:6547 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6529:6535 Coq.Lists.List <> In def
+R6539:6543 KamiHW.VerilogSemantics <> trace:22 var
+R6537:6537 KamiHW.VerilogSemantics <> i:24 var
+R6548:6562 KamiHW.EmbedStep <> SupportedOpcode def
+R6564:6564 KamiHW.VerilogSemantics <> i:24 var
+R6660:6666 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6574:6590 KamiHW.FullAbstraction <> abs_full_snapshot def
+R6593:6617 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R6626:6643 KamiHW.FullEmbedStep <> kami_run_supported def
+R6645:6648 KamiHW.VerilogSemantics <> fuel:21 var
+R6650:6654 KamiHW.VerilogSemantics <> trace:22 var
+R6656:6657 KamiHW.VerilogSemantics <> ks:23 var
+R6667:6672 Kernel.SimulationProof <> run_vm def
+R6674:6677 KamiHW.VerilogSemantics <> fuel:21 var
+R6679:6683 KamiHW.VerilogSemantics <> trace:22 var
+R6692:6708 KamiHW.FullAbstraction <> abs_full_snapshot def
+R6711:6735 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R6737:6738 KamiHW.VerilogSemantics <> ks:23 var
+R6758:6778 KamiHW.FullEmbedStep <> full_embed_step_trace thm
+R6758:6778 KamiHW.FullEmbedStep <> full_embed_step_trace thm
+prf 7174:7217 <> coq_kami_model_satisfies_rtl_step_correct_wf
+R7236:7247 KamiHW.Abstraction <> KamiSnapshot rec
+binder 7231:7232 <> ks:25
+R7255:7268 Kernel.VMStep VMStep vm_instruction ind
+binder 7251:7251 <> i:26
+R7301:7308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7276:7295 KamiHW.GraphReconstructionBridge <> WFDrivenPrecondition def
+R7297:7298 KamiHW.VerilogSemantics <> ks:25 var
+R7300:7300 KamiHW.VerilogSemantics <> i:26 var
+R7322:7338 KamiHW.FullAbstraction <> abs_full_snapshot def
+R7341:7365 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R7367:7368 KamiHW.VerilogSemantics <> ks:25 var
+binder 7313:7317 <> input:27
+R7392:7399 Kernel.SimulationProof <> vm_apply def
+R7401:7405 KamiHW.VerilogSemantics <> input:27 var
+R7407:7407 KamiHW.VerilogSemantics <> i:26 var
+binder 7382:7387 <> output:28
+R7478:7480 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7416:7432 KamiHW.FullAbstraction <> abs_full_snapshot def
+R7435:7459 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R7462:7470 KamiHW.Abstraction <> kami_step def
+R7472:7473 KamiHW.VerilogSemantics <> ks:25 var
+R7475:7475 KamiHW.VerilogSemantics <> i:26 var
+R7481:7486 KamiHW.VerilogSemantics <> output:28 var
+R7524:7537 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
+R7524:7537 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
+prf 7721:7751 <> coq_kami_model_trace_correct_wf
+binder 7764:7767 <> fuel:29
+binder 7769:7773 <> trace:30
+binder 7775:7776 <> ks:31
+R7783:7783 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7824:7832 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 7791:7793 <> ks':32
+binder 7795:7795 <> i:33
+R7798:7817 KamiHW.GraphReconstructionBridge <> WFDrivenPrecondition def
+R7819:7821 KamiHW.VerilogSemantics <> ks':32 var
+R7823:7823 KamiHW.VerilogSemantics <> i:33 var
+R7916:7922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7833:7849 KamiHW.FullAbstraction <> abs_full_snapshot def
+R7852:7876 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R7885:7899 KamiHW.GraphReconstructionBridge <> kami_run_driven def
+R7901:7904 KamiHW.VerilogSemantics <> fuel:29 var
+R7906:7910 KamiHW.VerilogSemantics <> trace:30 var
+R7912:7913 KamiHW.VerilogSemantics <> ks:31 var
+R7923:7928 Kernel.SimulationProof <> run_vm def
+R7930:7933 KamiHW.VerilogSemantics <> fuel:29 var
+R7935:7939 KamiHW.VerilogSemantics <> trace:30 var
+R7948:7964 KamiHW.FullAbstraction <> abs_full_snapshot def
+R7967:7991 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R7993:7994 KamiHW.VerilogSemantics <> ks:31 var
+R8014:8034 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+R8014:8034 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+def 9691:9714 <> rtl_trust_boundary_audit
+R9785:9785 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9954:10089 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 9793:9794 <> ks:34
+binder 9796:9796 <> i:35
+R9816:9823 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9799:9813 KamiHW.EmbedStep <> SupportedOpcode def
+R9815:9815 KamiHW.VerilogSemantics <> i:35 var
+R9886:9892 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9824:9840 KamiHW.FullAbstraction <> abs_full_snapshot def
+R9843:9867 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R9870:9878 KamiHW.Abstraction <> kami_step def
+R9880:9881 KamiHW.VerilogSemantics <> ks:34 var
+R9883:9883 KamiHW.VerilogSemantics <> i:35 var
+R9893:9900 Kernel.SimulationProof <> vm_apply def
+R9903:9919 KamiHW.FullAbstraction <> abs_full_snapshot def
+R9922:9946 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R9948:9949 KamiHW.VerilogSemantics <> ks:34 var
+R9953:9953 KamiHW.VerilogSemantics <> i:35 var
+R10090:10093 Coq.Init.Logic <> True ind
+prf 10233:10263 <> rtl_trust_boundary_audit_layer1
+binder 10309:10310 <> ks:36
+binder 10312:10312 <> i:37
+R10332:10339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10315:10329 KamiHW.EmbedStep <> SupportedOpcode def
+R10331:10331 KamiHW.VerilogSemantics <> i:37 var
+R10402:10408 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10340:10356 KamiHW.FullAbstraction <> abs_full_snapshot def
+R10359:10383 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R10386:10394 KamiHW.Abstraction <> kami_step def
+R10396:10397 KamiHW.VerilogSemantics <> ks:36 var
+R10399:10399 KamiHW.VerilogSemantics <> i:37 var
+R10409:10416 Kernel.SimulationProof <> vm_apply def
+R10419:10435 KamiHW.FullAbstraction <> abs_full_snapshot def
+R10438:10462 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R10464:10465 KamiHW.VerilogSemantics <> ks:36 var
+R10469:10469 KamiHW.VerilogSemantics <> i:37 var
+R10487:10509 KamiHW.FullEmbedStep <> full_embed_step_compute thm
+R10487:10509 KamiHW.FullEmbedStep <> full_embed_step_compute thm

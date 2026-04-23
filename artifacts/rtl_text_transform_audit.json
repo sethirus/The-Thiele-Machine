@@ -1,0 +1,140 @@
+{
+  "boundary_statement": "This manifest replays and pins project-local BSV/Verilog text transforms. It proves byte-for-byte transform reproducibility and allowed storage-shape rewrites, but it does not prove PP.ml or BSC semantic correctness.",
+  "bsv_transform": {
+    "large_vector_sources": [
+      {
+        "address_bits": 16,
+        "element_type": "Bit#(128)",
+        "elements": 65536,
+        "name": "imem"
+      },
+      {
+        "address_bits": 9,
+        "element_type": "Bit#(32)",
+        "elements": 512,
+        "name": "lassert_cbuf"
+      },
+      {
+        "address_bits": 8,
+        "element_type": "Bit#(32)",
+        "elements": 256,
+        "name": "lassert_fbuf"
+      },
+      {
+        "address_bits": 16,
+        "element_type": "Bit#(32)",
+        "elements": 65536,
+        "name": "mem"
+      }
+    ],
+    "preprocess_steps": [
+      "strip generated top wrapper modules mkThieleCPU/mkTop/mk<TOP>",
+      "prepend Vector import required by generated vector code",
+      "rewrite vec(...) constructors to unpack({...})"
+    ],
+    "regfile_targets": [
+      {
+        "address_bits": 16,
+        "element_type": "Bit#(128)",
+        "name": "imem"
+      },
+      {
+        "address_bits": 9,
+        "element_type": "Bit#(32)",
+        "name": "lassert_cbuf"
+      },
+      {
+        "address_bits": 8,
+        "element_type": "Bit#(32)",
+        "name": "lassert_fbuf"
+      },
+      {
+        "address_bits": 16,
+        "element_type": "Bit#(32)",
+        "name": "mem"
+      }
+    ],
+    "sub_reads": 12,
+    "upd_writes": 5
+  },
+  "files": {
+    "bsv_transform_script": {
+      "bytes": 13187,
+      "lines": 422,
+      "path": "scripts/bsv_regfile_transform.py",
+      "sha256": "3e1a52bc2b99f86ab6545fd22ec1e70f1eb7721f506de18640e2b2007bef8c33"
+    },
+    "clean_bsv": {
+      "bytes": 65095,
+      "lines": 1445,
+      "path": "build/kami_hw/thiele_hw_clean.bsv",
+      "sha256": "dd2941962cf49dee3f99b7aaf58385d6cb0163019edee8d536f8142800a2e8b8"
+    },
+    "raw_bsv": {
+      "bytes": 65374,
+      "lines": 1456,
+      "path": "build/kami_hw/thiele_hw.bsv",
+      "sha256": "86edefdcce92652c6b715a8fb9e8358c2e01b3da944bb757ef8f5aa0f0aa717a"
+    },
+    "raw_verilog": {
+      "bytes": 783955,
+      "lines": 18331,
+      "path": "build/kami_hw/mkModule1.v",
+      "sha256": "c9281df3596024966a8032ca9aeaf564619749083ad0971da6f5b604fdfdaa05"
+    },
+    "synth_verilog": {
+      "bytes": 785679,
+      "lines": 18378,
+      "path": "build/kami_hw/mkModule1_synth.v",
+      "sha256": "821f27a8b747582520081475f50b5889aa0cc871f42d895f564d09059aaf7bd6"
+    },
+    "tracked_rtl": {
+      "bytes": 785679,
+      "lines": 18378,
+      "path": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
+      "sha256": "821f27a8b747582520081475f50b5889aa0cc871f42d895f564d09059aaf7bd6"
+    },
+    "verilog_transform_script": {
+      "bytes": 23586,
+      "lines": 645,
+      "path": "scripts/verilog_synth_transform.py",
+      "sha256": "055cbf251979d6b33560a808326e427215772ce54a20bb95b5175da88f580ee3"
+    }
+  },
+  "invariants": {
+    "bsv_expected_regfiles_present": true,
+    "bsv_no_large_vector_mkreg_remains": true,
+    "bsv_no_vec_constructor_remains": true,
+    "bsv_preprocessed_then_regfile_transform_reproduces_clean_bsv": true,
+    "bsv_wrapper_removed": true,
+    "tracked_rtl_matches_synth_verilog": true,
+    "verilog_bsc_regfile_submodules_preserved": true,
+    "verilog_flat_storage_removed": true,
+    "verilog_mu_tensor_array_present": true,
+    "verilog_synth_transform_reproduces_synth_verilog": true,
+    "verilog_top_module_preserved": true
+  },
+  "manifest_kind": "rtl_text_transform_audit",
+  "verilog_transform": {
+    "raw_flat_storage_counts": {
+      "imem_8192": 0,
+      "mem_scalar_regs": 0,
+      "mu_tensor_512": 1,
+      "pt_scalar_regs": 0,
+      "rf_scalar_regs": 0
+    },
+    "raw_modules": [
+      "mkModule1"
+    ],
+    "storage_rewrites": {
+      "dm_refs": 0,
+      "imem_arr_refs": 0,
+      "mt_arr_refs": 114,
+      "pt_tbl_refs": 0,
+      "rf_refs": 0
+    },
+    "synth_modules": [
+      "mkModule1"
+    ]
+  }
+}

@@ -10244,18 +10244,16 @@ cost tracking.                                                                  
    • If
      textttop = sub and operand_a < operand_b, set                            • Bytes 12-15: module_0_id = 0 (0x00000000).
      textttoverflow = 1 (reject operation).                                   • ...and so on for all fields.
-   • The µ-core checks                                                       The serializer logic is integrated into the RTL testbench
-     textttoverflow and halts execution with error                         (thielecpu/hardware/testbench/partition_-
-     textttMU_VIOLATION.                                                   core_tb.v), which emits the Canonical Serialization Format
-  Key property: µ only increases at the ledger boundary.                   (CSF) as documented in the thielecpu/canonical_-
-The µ-ALU implements arithmetic in Q16.16 fixed-point (see                 encoding.py reference implementation.        JSON snapshots
-                                                                           used by the isomorphism harness come from the RTL testbench
+  • The µ-core checks                                                       The serializer logic lives in the RTL harness testbench
+    textttoverflow and halts execution with error                         (rtl_harness/testbench/thiele_cpu_kami_tb.v).
+    textttMU_VIOLATION.                                                   That same testbench emits the JSON snapshots consumed by the
+ Key property: µ only increases at the ledger boundary.                   isomorphism harness; there is no standalone serializer module.
+The µ-ALU implements arithmetic in Q16.16 fixed-point (see
 APPENDIX E. HARDWARE IMPLEMENTATION AND DEMONSTRATIONS                                                                                     123
 
 
 
-(thielecpu/hardware/testbench/thiele_cpu_tb.v),                          E.3.2    Fuzzing Harness
-not from a standalone serializer module.
+                                                                         E.3.2    Fuzzing Harness
                                                                          Representative fuzzing harness: random instruction sequences test
                                                                          robustness:
 E.2.5    Synthesis Results
@@ -10679,8 +10677,8 @@ Key theorems include:
                                                                       • physical_evolution_is_CPTP (Unitarity.v): Physical
   • quantum_admissible_implies_CHSH_le_-                                evolution is CPTP
     tsirelson (QuantumAdmissibilityTsirelson.v):           Main       • purification_principle (Purification.v): Purification
-    Tsirelson bound                                                   • information_causality_is_mu_cost (Information-
-  • S_SupraQuantum (BellInequality.v): Supra-quantum witness            Causality.v): Information causality from µ
+    Tsirelson bound                                                   • ic_mu_record_projection (Information-
+  • S_SupraQuantum (BellInequality.v): Supra-quantum witness            Causality.v): IC--µ record-equivalence projection
   • CHSH_classical_bound (BellCheck.v): Classical CHSH                • no_free_insight_general (NoFreeInsight.v): General
     bound                                                               no-free-insight theorem
   • local_fragment_CHSH_le_2_end_to_end (BellRe-                      • nonlocal_correlation_requires_revelation

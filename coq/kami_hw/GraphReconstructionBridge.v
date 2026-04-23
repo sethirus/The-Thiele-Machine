@@ -985,7 +985,8 @@ Lemma morph_add_with_coupling_commutation_gen :
           morph_coupling :=
             {| coupling_pairs := pairs;
                coupling_label := label |};
-          morph_is_identity := is_id |})
+          morph_is_identity := is_id;
+               morph_cert_cost := 0 |})
       :: snapshot_morphisms_of_rich_state rs.
 Proof.
   intros rs src dst pairs label is_id Hwcf Hcze Hsafe.
@@ -1932,7 +1933,8 @@ Lemma morph_add_with_coupling_commutation :
           morph_coupling :=
             {| coupling_pairs := pairs;
                coupling_label := label |};
-          morph_is_identity := is_id |})
+          morph_is_identity := is_id;
+               morph_cert_cost := 0 |})
       :: snapshot_morphisms_of_rich_state rs.
 Proof.
   intros rs src dst pairs label is_id Hcdaz Hcze Hsafe.
@@ -1969,7 +1971,8 @@ Lemma graph_lookup_morphism_corresponds :
                      | Some desc => coupling_desc_label desc
                      | None => coupling_label empty_coupling_data
                      end |};
-            morph_is_identity := morph_entry_is_identity entry |}.
+            morph_is_identity := morph_entry_is_identity entry;
+               morph_cert_cost := 0 |}.
 Proof.
   intros ks morph_id entry ms Hwf Htbl Hgraph.
   unfold graph_lookup_morphism, snap_full_graph in Hgraph. simpl in Hgraph.
@@ -3633,7 +3636,8 @@ Proof.
                   coupling_label := (coupling_label (morph_coupling f_ms_tensor) ++
                                      "⊗" ++
                                      coupling_label (morph_coupling g_ms_tensor))%string |};
-           morph_is_identity := false |}) as
+           morph_is_identity := false;
+               morph_cert_cost := 0 |}) as
           (f_ms_tensor & g_ms_tensor & ac_id_tensor & bd_id_tensor & Hnew_ms_eq).
       { unfold graph_tensor_morphisms in Htensor.
         destruct (graph_lookup_morphism g f_id) as [f_ms'|] eqn:Hf'; [|discriminate].
@@ -3700,25 +3704,29 @@ Proof.
                 {| morph_source := ac_id;
                   morph_target := bd_id;
                   morph_coupling := tensor_c;
-                  morph_is_identity := false |}) with ac_id in Hmc by reflexivity.
+                  morph_is_identity := false;
+               morph_cert_cost := 0 |}) with ac_id in Hmc by reflexivity.
           replace (morph_target
                 {| morph_source := ac_id;
                   morph_target := bd_id;
                   morph_coupling := tensor_c;
-                  morph_is_identity := false |}) with bd_id in Hmc by reflexivity.
+                  morph_is_identity := false;
+               morph_cert_cost := 0 |}) with bd_id in Hmc by reflexivity.
           replace (coupling_pairs
                 (morph_coupling
                   {| morph_source := ac_id;
                     morph_target := bd_id;
                     morph_coupling := tensor_c;
-                    morph_is_identity := false |}))
+                    morph_is_identity := false;
+               morph_cert_cost := 0 |}))
            with tensor_c.(coupling_pairs) in Hmc by reflexivity.
           replace (coupling_label
                 (morph_coupling
                   {| morph_source := ac_id;
                     morph_target := bd_id;
                     morph_coupling := tensor_c;
-                    morph_is_identity := false |}))
+                    morph_is_identity := false;
+               morph_cert_cost := 0 |}))
            with tensor_c.(coupling_label) in Hmc by reflexivity.
             cbn [morph_source morph_target morph_coupling coupling_pairs coupling_label] in Eaddm.
         rewrite <- Eaddm in Hmc. simpl in Hmc.

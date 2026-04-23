@@ -28,17 +28,13 @@
 
 \section{Why Three Layers?}
 
-\subsection{A Car Salesman's Take on Building Trust}
+\subsection{How I Built Trust}
 
-\begin{quote}
-\textit{``Okay, so here's the thing. I'm a car salesman. Not a computer scientist. Not a mathematician. A guy who sold Hondas and Toyotas for years. And in that world, you learn something real fast: talk is cheap. A customer can tell you their car runs great, but until I see it drive, hear the engine, and check the VIN myself, I don't know anything.''}
-\end{quote}
+I could write a beautiful mathematical definition of how this machine \textit{should} work, but that alone is not enough. A nice specification can still drift from the executable path. What matters is whether the thing \textit{does what I said it does}.
 
-Same thing here. I could write a beautiful mathematical definition of how this machine \textit{should} work, but that's just talk. That's just the brochure. What matters is: does it actually work? Does the engine turn over? Does the thing \textit{do what I said it does}?
+That's why the system was built three ways. Not because I enjoy multiplying work, but because I needed to know. I needed to see the same answer come out of three different execution paths---one that speaks pure math (Coq), one that speaks Python as a protocol wrapper around extracted OCaml, and one that speaks to actual hardware through Kami-generated Verilog.
 
-That's why the system was built three ways. Not out of masochism (though I question that sometimes), but because I needed to \textit{know}. I needed to see the same answer come out of three completely different execution paths---one that speaks pure math (Coq), one that speaks Python as a protocol wrapper around extracted OCaml, and one that speaks to actual hardware through Kami-generated Verilog.
-
-If all three shops give me the same answer, I know the car is real. If they disagree? Someone's lying, and I need to find out who.
+If all three paths give me the same answer on the checked projection, I have something solid. If they disagree, one of the pipelines is wrong, and I need to find out which one.
 
 \subsection{The Problem of Trust (The Academic Version)}
 
@@ -830,7 +826,7 @@ The active repository receipt surface is TRS-1.0: signed JSON receipts for deter
 
 Representative active workflow:
 \begin{lstlisting}
-python create_execution_receipt.py program.asm \
+python scripts/create_execution_receipt.py program.asm \
   --output program.execution-receipt.json \
   --sign signing_key.hex \
   --key-id local-dev

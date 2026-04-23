@@ -244,7 +244,8 @@ Definition snapshot_morphisms_of_rich_state
                          snapshot_coupling_pairs_from_desc rs
                            (morph_entry_coupling_desc entry);
                        coupling_label := label |};
-                morph_is_identity := morph_entry_is_identity entry |})
+                morph_is_identity := morph_entry_is_identity entry;
+               morph_cert_cost := 0 |})
       end)
     (List.rev (List.seq 0 (rich_next_morph_id rs))).
 

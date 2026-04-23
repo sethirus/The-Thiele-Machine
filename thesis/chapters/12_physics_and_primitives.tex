@@ -168,6 +168,8 @@ The formal development proves that this structure satisfies the axioms of a \tex
 \end{itemize}
 The main theorem \texttt{partition\_graph\_is\_causal\_set} collects these into a single constructive record.
 
+The curvature bridge now also has an exact internal scope boundary. The active Coq development proves the uniform diagonal boundary-of-4-simplex witness through the full tensor Einstein pipeline. It does \emph{not} prove that every non-uniform diagonal assignment on that boundary forces off-diagonal Ricci to vanish. Under the current discrete derivative operator, that stronger extension is formally false. The repository now goes one step further than a pure failure statement: \texttt{SymmetricDerivative4D.v} proves that a concrete signed affine metric-scaled redesign rescues the same non-uniform boundary shell, making the off-diagonal Ricci term vanish there and yielding an explicit Einstein-tensor witness, plus a conditional full-tensor EFE witness at unit structural mass. So the geometry story here now has three parts: a genuine proved regime in the active operator, a genuine proved limit in the active operator, and a separately proved redesign witness beyond that limit.
+
 The continuum limit---recovering a Lorentzian manifold from this discrete structure---remains open. As established in \texttt{LorentzNotForced.v}, Lorentz invariance is underdetermined by kernel constraints alone. Closing this gap requires Hauptvermutung-type faithful embedding results (Sorkin 2003), which demand external mathematical machinery beyond the kernel's scope.
 
 \section{Physical Constant Derivation}
@@ -435,7 +437,7 @@ $c$ & \texttt{Definition c := d\_mu/tau\_mu} & Derived from placeholders \\
 \end{tabular}
 \end{center}
 
-\textbf{Key point:} The physics\_exploration directory is \textit{isolated} from the kernel which has zero project-local axioms (no Admitted). The kernel proofs (\path{coq/kernel/}) contain no Admitted.
+\textbf{Key point:} This reference-only physics surface is \textit{isolated} from the active kernel closeout claim. The kernel proofs (\path{coq/kernel/}) contain no Admitted.
 
 \subsection{Lessons Learned: The Boundary Between Computation and Physics}
 

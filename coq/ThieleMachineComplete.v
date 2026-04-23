@@ -40,11 +40,11 @@
 
     THE CATEGORICAL LAYER:
 
-    Beyond modules (objects), the machine now tracks morphisms — typed
+    Beyond modules (objects), the machine tracks morphisms — typed
     relational arrows between modules. This gives it a concrete category:
     objects = partition modules, arrows = MORPH relations, composition =
-    COMPOSE, tensor = MORPH_TENSOR, identity = MORPH_ID. Seven new
-    opcodes (0x27–0x2D) implement this. The category laws are proved
+    COMPOSE, tensor = MORPH_TENSOR, identity = MORPH_ID. Seven opcodes
+    (0x27–0x2D) implement this. The category laws are proved
     in this file (local category laws, §2 subsection) and also in the
     modular kernel (CategoryLaws.v, CategoryBridge.v, CategoryMonoidal.v).
 
@@ -70,8 +70,8 @@
     (2) MACHINE STATE: The minimal state that can track cost. Registers,
         memory, a partition graph (the machine's model of itself),
         a μ-accumulator (the cost ledger), and witness counters for
-        Bell experiments. The partition graph now also holds a morphism
-        map (pg_morphisms): the categorical layer on top of modules.
+        Bell experiments. The partition graph holds a morphism map
+        (pg_morphisms): the categorical layer on top of modules.
         Every field is here because it has to be.
 
     (3) INSTRUCTION SET: 46 opcodes, each with a declared cost. Nothing
@@ -1058,7 +1058,8 @@ Record MorphismState := {
   morph_source : ModuleID;
   morph_target : ModuleID;
   morph_coupling : CouplingData;
-  morph_is_identity : bool
+  morph_is_identity : bool;
+  morph_cert_cost : nat
 }.
 
 Definition nat_pair_eq_dec : forall (p1 p2 : nat * nat), {p1 = p2} + {p1 <> p2}.
@@ -1505,7 +1506,8 @@ Definition graph_add_morphism (g : PartitionGraph)
   let ms := {| morph_source := src;
                morph_target := dst;
                morph_coupling := normalize_coupling c;
-               morph_is_identity := is_id |} in
+               morph_is_identity := is_id;
+               morph_cert_cost := 0 |} in
   ({| pg_next_id := g.(pg_next_id);
       pg_modules := g.(pg_modules);
       pg_next_morph_id := S new_id;
@@ -7842,7 +7844,7 @@ Proof.
   rewrite (kami_cost_eq_instruction_cost instr Hc). lia.
 Qed.
 
-(** LASSERT mu gap: now ZERO — both hardware and software charge flen * 8 + S cost. *)
+(** LASSERT mu gap: ZERO — hardware and software both charge flen * 8 + S cost. *)
 Theorem kami_vm_mu_lassert_gap :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
     (vm_apply (abs_phase1 ks) (instr_lassert freg creg kind flen cost)).(vm_mu) =
@@ -12468,7 +12470,8 @@ Definition categorical_state_with_morphism : VMState := {|
          {| morph_source := 0;
             morph_target := 0;
             morph_coupling := {| coupling_pairs := nil; coupling_label := "" |};
-            morph_is_identity := true |})
+            morph_is_identity := true;
+               morph_cert_cost := 0 |})
         nil
   |};
   vm_csrs := {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |};

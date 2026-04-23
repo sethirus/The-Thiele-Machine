@@ -1078,8 +1078,8 @@ let empty_coupling_data =
     ('e'::('m'::('p'::('t'::('y'::[]))))) }
 
 type morphismState = { morph_source : moduleID; morph_target : moduleID;
-                       morph_coupling : couplingData; morph_is_identity : 
-                       bool }
+                       morph_coupling : couplingData;
+                       morph_is_identity : bool; morph_cert_cost : int }
 
 (** val normalize_coupling : couplingData -> couplingData **)
 
@@ -1221,7 +1221,7 @@ let graph_lookup_morphism g morph_id =
 let graph_add_morphism g src dst c is_id =
   let new_id = g.pg_next_morph_id in
   let ms = { morph_source = src; morph_target = dst; morph_coupling =
-    (normalize_coupling c); morph_is_identity = is_id }
+    (normalize_coupling c); morph_is_identity = is_id; morph_cert_cost = 0 }
   in
   { pg_next_id = g.pg_next_id; pg_modules = g.pg_modules; pg_next_morph_id =
   ((fun x -> x + 1) new_id); pg_morphisms =

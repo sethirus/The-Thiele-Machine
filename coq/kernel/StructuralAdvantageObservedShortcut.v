@@ -42,8 +42,9 @@ Definition sighted_n1_final : VMState :=
 Definition sighted_n1_predicate_obs_fn (s : VMState) : list vm_instruction :=
   if Nat.eqb s.(vm_mu) 18 then sighted_n1_trace else [].
 
-Definition sighted_n1_repr_obs_fn (s : VMState) : list vm_instruction :=
-  if Nat.eqb s.(vm_mu) s.(vm_mu) then [] else [instr_halt 0].
+(** The representative observation is deliberately silent here. The separating
+    transcript lives in [sighted_n1_predicate_obs_fn]. *)
+Definition sighted_n1_repr_obs_fn (_ : VMState) : list vm_instruction := nil.
 
 Definition sighted_n1_prior : list VMState := [init_state; sighted_n1_final].
 
@@ -174,8 +175,6 @@ Proof.
     + split.
       * exact Hin_prior.
       * unfold MuShannonBridge.observation_equiv.
-        rewrite Nat.eqb_refl.
-        rewrite Nat.eqb_refl.
         reflexivity.
   - split.
     + simpl. lia.

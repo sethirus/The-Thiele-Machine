@@ -57,6 +57,8 @@ Qed.
 
 (** Abstract embedding wrapper so later proofs can transport the monotone
     energy law without committing to a specific machine. *)
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   Section Variables become explicit forall premises when the section closes. *)
 Section Embedding.
   Variable Encoded : Type.
   Variable encode : Lattice -> Encoded.

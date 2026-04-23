@@ -1,375 +1,375 @@
-DIGEST 14df71d27e460a3badb1eafa403dbb99
+DIGEST 3c761a9290ac72a97de7d91304113c16
 FKernel.InformationCausality
-R765:775 Kernel.MuCostModel <> <> lib
-R803:806 Coq.Lists.List <> <> lib
-R808:811 Coq.Bool.Bool <> <> lib
-R813:826 Coq.Arith.PeanoNat <> <> lib
-R828:840 Coq.micromega.Lia <> <> lib
-R850:862 Coq.Lists.List ListNotations <> mod
-R893:899 Kernel.VMState <> <> lib
-R901:906 Kernel.VMStep <> <> lib
-R908:920 Kernel.KernelPhysics <> <> lib
-R922:942 Kernel.RevelationRequirement <> <> lib
-R944:961 Kernel.QuantumEquivalence <> <> lib
-rec 1252:1261 <> ICScenario
-proj 1277:1285 <> ic_n_bits
-proj 1331:1348 <> ic_m_communication
-proj 1385:1402 <> ic_satisfies_bound
-R1289:1291 Coq.Init.Datatypes <> nat ind
-R1352:1354 Coq.Init.Datatypes <> nat ind
-rec 1491:1500 <> MuScenario
-proj 1516:1530 <> mu_n_partitions
-proj 1577:1588 <> mu_cost_paid
-proj 1624:1641 <> mu_bound_satisfied
-R1534:1536 Coq.Init.Datatypes <> nat ind
-R1592:1594 Coq.Init.Datatypes <> nat ind
-def 1876:1891 <> ic_mu_equivalent
-R1899:1908 Kernel.InformationCausality <> ICScenario rec
-binder 1894:1895 <> ic:9
-R1917:1926 Kernel.InformationCausality <> MuScenario rec
-binder 1912:1913 <> mu:10
-R1978:1983 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R1955:1957 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1945:1953 Kernel.InformationCausality <> ic_n_bits proj
-R1941:1942 Kernel.InformationCausality <> ic:9 var
-R1962:1976 Kernel.InformationCausality <> mu_n_partitions proj
-R1958:1959 Kernel.InformationCausality <> mu:10 var
-R2027:2033 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2085:2085 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2007:2009 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1988:2005 Kernel.InformationCausality <> ic_m_communication proj
-R1984:1985 Kernel.InformationCausality <> ic:9 var
-R2014:2025 Kernel.InformationCausality <> mu_cost_paid proj
-R2010:2011 Kernel.InformationCausality <> mu:10 var
-R2057:2061 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2038:2055 Kernel.InformationCausality <> ic_satisfies_bound proj
-R2034:2035 Kernel.InformationCausality <> ic:9 var
-R2066:2083 Kernel.InformationCausality <> mu_bound_satisfied proj
-R2062:2063 Kernel.InformationCausality <> mu:10 var
-prf 2235:2266 <> information_causality_is_mu_cost
-R2285:2294 Kernel.InformationCausality <> ICScenario rec
-binder 2280:2281 <> ic:11
-R2303:2312 Kernel.InformationCausality <> MuScenario rec
-binder 2298:2299 <> mu:12
-R2342:2349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2320:2335 Kernel.InformationCausality <> ic_mu_equivalent def
-R2337:2338 Kernel.InformationCausality <> ic:11 var
-R2340:2341 Kernel.InformationCausality <> mu:12 var
-R2373:2377 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R2354:2371 Kernel.InformationCausality <> ic_satisfies_bound proj
-R2350:2351 Kernel.InformationCausality <> ic:11 var
-R2382:2399 Kernel.InformationCausality <> mu_bound_satisfied proj
-R2378:2379 Kernel.InformationCausality <> mu:12 var
-R2439:2454 Kernel.InformationCausality <> ic_mu_equivalent def
-prf 2610:2636 <> ic_zero_communication_bound
-binder 2649:2650 <> ic:13
-R2684:2691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2680:2682 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2661:2678 Kernel.InformationCausality <> ic_m_communication proj
-R2657:2658 Kernel.InformationCausality <> ic:13 var
-R2715:2722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2696:2713 Kernel.InformationCausality <> ic_satisfies_bound proj
-R2692:2693 Kernel.InformationCausality <> ic:13 var
-R2724:2727 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2732:2740 Kernel.InformationCausality <> ic_n_bits proj
-R2728:2729 Kernel.InformationCausality <> ic:13 var
-R2776:2785 Coq.Arith.PeanoNat Nat le_0_l thm
-R2776:2785 Coq.Arith.PeanoNat Nat le_0_l thm
-prf 3002:3026 <> ic_zero_implies_tsirelson
-binder 3039:3040 <> ic:14
-binder 3042:3043 <> mu:15
-R3072:3079 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3050:3065 Kernel.InformationCausality <> ic_mu_equivalent def
-R3067:3068 Kernel.InformationCausality <> ic:14 var
-R3070:3071 Kernel.InformationCausality <> mu:15 var
-R3107:3114 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3103:3105 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3084:3101 Kernel.InformationCausality <> ic_m_communication proj
-R3080:3081 Kernel.InformationCausality <> ic:14 var
-R3132:3134 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3119:3130 Kernel.InformationCausality <> mu_cost_paid proj
-R3115:3116 Kernel.InformationCausality <> mu:15 var
-R3178:3193 Kernel.InformationCausality <> ic_mu_equivalent def
-prf 3374:3388 <> ic_monotonicity
-binder 3401:3403 <> ic1:16
-binder 3405:3407 <> ic2:17
-binder 3409:3411 <> mu1:18
-binder 3413:3415 <> mu2:19
-R3446:3453 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3422:3437 Kernel.InformationCausality <> ic_mu_equivalent def
-R3439:3441 Kernel.InformationCausality <> ic1:16 var
-R3443:3445 Kernel.InformationCausality <> mu1:18 var
-R3478:3485 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3454:3469 Kernel.InformationCausality <> ic_mu_equivalent def
-R3471:3473 Kernel.InformationCausality <> ic2:17 var
-R3475:3477 Kernel.InformationCausality <> mu2:19 var
-R3519:3526 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3501:3503 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3491:3499 Kernel.InformationCausality <> ic_n_bits proj
-R3486:3488 Kernel.InformationCausality <> ic1:16 var
-R3509:3517 Kernel.InformationCausality <> ic_n_bits proj
-R3504:3506 Kernel.InformationCausality <> ic2:17 var
-R3579:3586 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3551:3554 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3532:3549 Kernel.InformationCausality <> ic_m_communication proj
-R3527:3529 Kernel.InformationCausality <> ic1:16 var
-R3560:3577 Kernel.InformationCausality <> ic_m_communication proj
-R3555:3557 Kernel.InformationCausality <> ic2:17 var
-R3605:3608 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3592:3603 Kernel.InformationCausality <> mu_cost_paid proj
-R3587:3589 Kernel.InformationCausality <> mu1:18 var
-R3614:3625 Kernel.InformationCausality <> mu_cost_paid proj
-R3609:3611 Kernel.InformationCausality <> mu2:19 var
-R3687:3702 Kernel.InformationCausality <> ic_mu_equivalent def
-prf 3879:3902 <> ic_communication_bounded
-binder 3915:3916 <> ic:20
-R3946:3953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3927:3944 Kernel.InformationCausality <> ic_satisfies_bound proj
-R3923:3924 Kernel.InformationCausality <> ic:20 var
-R3977:3980 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3958:3975 Kernel.InformationCausality <> ic_m_communication proj
-R3954:3955 Kernel.InformationCausality <> ic:20 var
-R3995:3997 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3985:3993 Kernel.InformationCausality <> ic_n_bits proj
-R3981:3982 Kernel.InformationCausality <> ic:20 var
-R4002:4019 Kernel.InformationCausality <> ic_m_communication proj
-R3998:3999 Kernel.InformationCausality <> ic:20 var
-R4053:4064 Coq.Arith.PeanoNat Nat le_add_l thm
-R4053:4064 Coq.Arith.PeanoNat Nat le_add_l thm
-prf 4240:4271 <> mu_cost_reflects_accessible_info
-binder 4284:4285 <> ic:21
-binder 4287:4288 <> mu:22
-R4317:4324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4295:4310 Kernel.InformationCausality <> ic_mu_equivalent def
-R4312:4313 Kernel.InformationCausality <> ic:21 var
-R4315:4316 Kernel.InformationCausality <> mu:22 var
-R4348:4355 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4329:4346 Kernel.InformationCausality <> ic_satisfies_bound proj
-R4325:4326 Kernel.InformationCausality <> ic:21 var
-R4360:4377 Kernel.InformationCausality <> mu_bound_satisfied proj
-R4356:4357 Kernel.InformationCausality <> mu:22 var
-R4421:4436 Kernel.InformationCausality <> ic_mu_equivalent def
-prf 4502:4515 <> ic_composition
-binder 4528:4530 <> ic1:23
-binder 4532:4534 <> ic2:24
-binder 4536:4538 <> mu1:25
-binder 4540:4542 <> mu2:26
-R4573:4580 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4549:4564 Kernel.InformationCausality <> ic_mu_equivalent def
-R4566:4568 Kernel.InformationCausality <> ic1:23 var
-R4570:4572 Kernel.InformationCausality <> mu1:25 var
-R4605:4612 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4581:4596 Kernel.InformationCausality <> ic_mu_equivalent def
-R4598:4600 Kernel.InformationCausality <> ic2:24 var
-R4602:4604 Kernel.InformationCausality <> mu2:26 var
-R4646:4653 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4628:4630 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4618:4626 Kernel.InformationCausality <> ic_n_bits proj
-R4613:4615 Kernel.InformationCausality <> ic1:23 var
-R4636:4644 Kernel.InformationCausality <> ic_n_bits proj
-R4631:4633 Kernel.InformationCausality <> ic2:24 var
-R4654:4669 Kernel.InformationCausality <> ic_mu_equivalent def
-R4681:4689 Kernel.InformationCausality <> ic_n_bits proj
-R4681:4689 Kernel.InformationCausality <> ic_n_bits proj
-R4681:4689 Kernel.InformationCausality <> ic_n_bits proj
-R4720:4737 Kernel.InformationCausality <> ic_m_communication proj
-R4720:4737 Kernel.InformationCausality <> ic_m_communication proj
-R4804:4821 Kernel.InformationCausality <> ic_satisfies_bound proj
-R4804:4821 Kernel.InformationCausality <> ic_satisfies_bound proj
-R4699:4707 Kernel.InformationCausality <> ic_n_bits proj
-R4694:4696 Kernel.InformationCausality <> ic1:23 var
-R4766:4768 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4747:4764 Kernel.InformationCausality <> ic_m_communication proj
-R4742:4744 Kernel.InformationCausality <> ic1:23 var
-R4774:4791 Kernel.InformationCausality <> ic_m_communication proj
-R4769:4771 Kernel.InformationCausality <> ic2:24 var
-R4850:4853 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4831:4848 Kernel.InformationCausality <> ic_satisfies_bound proj
-R4826:4828 Kernel.InformationCausality <> ic1:23 var
-R4859:4876 Kernel.InformationCausality <> ic_satisfies_bound proj
-R4854:4856 Kernel.InformationCausality <> ic2:24 var
-R4891:4905 Kernel.InformationCausality <> mu_n_partitions proj
-R4891:4905 Kernel.InformationCausality <> mu_n_partitions proj
-R4891:4905 Kernel.InformationCausality <> mu_n_partitions proj
-R4942:4953 Kernel.InformationCausality <> mu_cost_paid proj
-R4942:4953 Kernel.InformationCausality <> mu_cost_paid proj
-R5008:5025 Kernel.InformationCausality <> mu_bound_satisfied proj
-R5008:5025 Kernel.InformationCausality <> mu_bound_satisfied proj
-R4915:4929 Kernel.InformationCausality <> mu_n_partitions proj
-R4910:4912 Kernel.InformationCausality <> mu1:25 var
-R4976:4978 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4963:4974 Kernel.InformationCausality <> mu_cost_paid proj
-R4958:4960 Kernel.InformationCausality <> mu1:25 var
-R4984:4995 Kernel.InformationCausality <> mu_cost_paid proj
-R4979:4981 Kernel.InformationCausality <> mu2:26 var
-R5054:5057 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5035:5052 Kernel.InformationCausality <> mu_bound_satisfied proj
-R5030:5032 Kernel.InformationCausality <> mu1:25 var
-R5063:5080 Kernel.InformationCausality <> mu_bound_satisfied proj
-R5058:5060 Kernel.InformationCausality <> mu2:26 var
-prf 5494:5519 <> ic_equiv_cost_preservation
-binder 5532:5533 <> ic:27
-binder 5535:5536 <> mu:28
-binder 5538:5542 <> delta:29
-R5571:5578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5549:5564 Kernel.InformationCausality <> ic_mu_equivalent def
-R5566:5567 Kernel.InformationCausality <> ic:27 var
-R5569:5570 Kernel.InformationCausality <> mu:28 var
-R5579:5594 Kernel.InformationCausality <> ic_mu_equivalent def
-R5605:5613 Kernel.InformationCausality <> ic_n_bits proj
-R5605:5613 Kernel.InformationCausality <> ic_n_bits proj
-R5605:5613 Kernel.InformationCausality <> ic_n_bits proj
-R5643:5660 Kernel.InformationCausality <> ic_m_communication proj
-R5643:5660 Kernel.InformationCausality <> ic_m_communication proj
-R5707:5724 Kernel.InformationCausality <> ic_satisfies_bound proj
-R5707:5724 Kernel.InformationCausality <> ic_satisfies_bound proj
-R5622:5630 Kernel.InformationCausality <> ic_n_bits proj
-R5618:5619 Kernel.InformationCausality <> ic:27 var
-R5688:5690 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5669:5686 Kernel.InformationCausality <> ic_m_communication proj
-R5665:5666 Kernel.InformationCausality <> ic:27 var
-R5691:5695 Kernel.InformationCausality <> delta:29 var
-R5733:5750 Kernel.InformationCausality <> ic_satisfies_bound proj
-R5729:5730 Kernel.InformationCausality <> ic:27 var
-R5765:5779 Kernel.InformationCausality <> mu_n_partitions proj
-R5765:5779 Kernel.InformationCausality <> mu_n_partitions proj
-R5765:5779 Kernel.InformationCausality <> mu_n_partitions proj
-R5815:5826 Kernel.InformationCausality <> mu_cost_paid proj
-R5815:5826 Kernel.InformationCausality <> mu_cost_paid proj
-R5867:5884 Kernel.InformationCausality <> mu_bound_satisfied proj
-R5867:5884 Kernel.InformationCausality <> mu_bound_satisfied proj
-R5788:5802 Kernel.InformationCausality <> mu_n_partitions proj
-R5784:5785 Kernel.InformationCausality <> mu:28 var
-R5848:5850 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5835:5846 Kernel.InformationCausality <> mu_cost_paid proj
-R5831:5832 Kernel.InformationCausality <> mu:28 var
-R5851:5855 Kernel.InformationCausality <> delta:29 var
-R5893:5910 Kernel.InformationCausality <> mu_bound_satisfied proj
-R5889:5890 Kernel.InformationCausality <> mu:28 var
-R5959:5974 Kernel.InformationCausality <> ic_mu_equivalent def
-prf 6187:6206 <> zero_cost_is_quantum
-binder 6219:6220 <> ic:30
-binder 6222:6223 <> mu:31
-R6252:6259 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6230:6245 Kernel.InformationCausality <> ic_mu_equivalent def
-R6247:6248 Kernel.InformationCausality <> ic:30 var
-R6250:6251 Kernel.InformationCausality <> mu:31 var
-R6287:6294 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6283:6285 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6264:6281 Kernel.InformationCausality <> ic_m_communication proj
-R6260:6261 Kernel.InformationCausality <> ic:30 var
-R6343:6347 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6316:6319 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R6312:6314 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6299:6310 Kernel.InformationCausality <> mu_cost_paid proj
-R6295:6296 Kernel.InformationCausality <> mu:31 var
-R6324:6341 Kernel.InformationCausality <> mu_bound_satisfied proj
-R6320:6321 Kernel.InformationCausality <> mu:31 var
-R6352:6369 Kernel.InformationCausality <> ic_satisfies_bound proj
-R6348:6349 Kernel.InformationCausality <> ic:30 var
-R6472:6503 Kernel.InformationCausality <> information_causality_is_mu_cost thm
-R6472:6503 Kernel.InformationCausality <> information_causality_is_mu_cost thm
-R6549:6573 Kernel.InformationCausality <> ic_zero_implies_tsirelson thm
-R6549:6573 Kernel.InformationCausality <> ic_zero_implies_tsirelson thm
-R6608:6639 Kernel.InformationCausality <> information_causality_is_mu_cost thm
-R6608:6639 Kernel.InformationCausality <> information_causality_is_mu_cost thm
-prf 6821:6835 <> ic_cost_optimal
-binder 6848:6849 <> ic:32
-binder 6851:6852 <> mu:33
-R6881:6888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6859:6874 Kernel.InformationCausality <> ic_mu_equivalent def
-R6876:6877 Kernel.InformationCausality <> ic:32 var
-R6879:6880 Kernel.InformationCausality <> mu:33 var
-R6912:6919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6893:6910 Kernel.InformationCausality <> ic_satisfies_bound proj
-R6889:6890 Kernel.InformationCausality <> ic:32 var
-binder 6927:6928 <> m':34
-R6965:6974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6939:6941 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R6937:6938 Kernel.InformationCausality <> m':34 var
-R6946:6963 Kernel.InformationCausality <> ic_m_communication proj
-R6942:6943 Kernel.InformationCausality <> ic:32 var
-R6975:6976 Coq.Init.Logic <> ::type_scope:'~'_x not
-R6977:6992 Kernel.InformationCausality <> ic_mu_equivalent def
-R7005:7013 Kernel.InformationCausality <> ic_n_bits proj
-R7005:7013 Kernel.InformationCausality <> ic_n_bits proj
-R7005:7013 Kernel.InformationCausality <> ic_n_bits proj
-R7045:7062 Kernel.InformationCausality <> ic_m_communication proj
-R7045:7062 Kernel.InformationCausality <> ic_m_communication proj
-R7082:7099 Kernel.InformationCausality <> ic_satisfies_bound proj
-R7082:7099 Kernel.InformationCausality <> ic_satisfies_bound proj
-R7022:7030 Kernel.InformationCausality <> ic_n_bits proj
-R7018:7019 Kernel.InformationCausality <> ic:32 var
-R7067:7068 Kernel.InformationCausality <> m':34 var
-R7108:7125 Kernel.InformationCausality <> ic_satisfies_bound proj
-R7104:7105 Kernel.InformationCausality <> ic:32 var
-R7139:7140 Kernel.InformationCausality <> mu:33 var
-prf 7506:7528 <> accessible_info_bounded
-binder 7541:7542 <> ic:35
-R7572:7579 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7553:7570 Kernel.InformationCausality <> ic_satisfies_bound proj
-R7549:7550 Kernel.InformationCausality <> ic:35 var
-R7607:7610 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R7603:7605 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R7584:7601 Kernel.InformationCausality <> ic_m_communication proj
-R7580:7581 Kernel.InformationCausality <> ic:35 var
-R7615:7632 Kernel.InformationCausality <> ic_m_communication proj
-R7611:7612 Kernel.InformationCausality <> ic:35 var
-R7668:7678 Coq.Arith.PeanoNat Nat mul_1_r thm
-R7668:7678 Coq.Arith.PeanoNat Nat mul_1_r thm
-R7668:7678 Coq.Arith.PeanoNat Nat mul_1_r thm
-R7689:7699 Coq.Arith.PeanoNat Nat le_refl thm
-R7689:7699 Coq.Arith.PeanoNat Nat le_refl thm
-prf 7759:7789 <> ic_implies_partition_constraint
-binder 7802:7803 <> ic:36
-binder 7805:7806 <> mu:37
-R7835:7842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7813:7828 Kernel.InformationCausality <> ic_mu_equivalent def
-R7830:7831 Kernel.InformationCausality <> ic:36 var
-R7833:7834 Kernel.InformationCausality <> mu:37 var
-R7866:7873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7847:7864 Kernel.InformationCausality <> ic_satisfies_bound proj
-R7843:7844 Kernel.InformationCausality <> ic:36 var
-R7911:7918 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R7894:7896 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7878:7892 Kernel.InformationCausality <> mu_n_partitions proj
-R7874:7875 Kernel.InformationCausality <> mu:37 var
-R7901:7909 Kernel.InformationCausality <> ic_n_bits proj
-R7897:7898 Kernel.InformationCausality <> ic:36 var
-R7936:7938 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7923:7934 Kernel.InformationCausality <> mu_cost_paid proj
-R7919:7920 Kernel.InformationCausality <> mu:37 var
-R7943:7960 Kernel.InformationCausality <> ic_m_communication proj
-R7939:7940 Kernel.InformationCausality <> ic:36 var
-R8002:8017 Kernel.InformationCausality <> ic_mu_equivalent def
-prf 8156:8179 <> communication_efficiency
-binder 8192:8193 <> ic:38
-binder 8195:8196 <> mu:39
-R8225:8232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8203:8218 Kernel.InformationCausality <> ic_mu_equivalent def
-R8220:8221 Kernel.InformationCausality <> ic:38 var
-R8223:8224 Kernel.InformationCausality <> mu:39 var
-R8251:8258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8247:8249 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R8237:8245 Kernel.InformationCausality <> ic_n_bits proj
-R8233:8234 Kernel.InformationCausality <> ic:38 var
-R8299:8306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8282:8284 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R8263:8280 Kernel.InformationCausality <> ic_m_communication proj
-R8259:8260 Kernel.InformationCausality <> ic:38 var
-R8289:8297 Kernel.InformationCausality <> ic_n_bits proj
-R8285:8286 Kernel.InformationCausality <> ic:38 var
-R8324:8326 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R8311:8322 Kernel.InformationCausality <> mu_cost_paid proj
-R8307:8308 Kernel.InformationCausality <> mu:39 var
-R8331:8345 Kernel.InformationCausality <> mu_n_partitions proj
-R8327:8328 Kernel.InformationCausality <> mu:39 var
-R8392:8407 Kernel.InformationCausality <> ic_mu_equivalent def
-def 10685:10702 <> ic_coverage_anchor
-R10709:10709 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10737:10738 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10763:10764 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10788:10788 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10710:10736 Kernel.InformationCausality <> ic_zero_communication_bound thm
-R10739:10762 Kernel.InformationCausality <> ic_communication_bounded thm
-R10765:10787 Kernel.InformationCausality <> accessible_info_bounded thm
+R701:711 Kernel.MuCostModel <> <> lib
+R739:742 Coq.Lists.List <> <> lib
+R744:747 Coq.Bool.Bool <> <> lib
+R749:762 Coq.Arith.PeanoNat <> <> lib
+R764:776 Coq.micromega.Lia <> <> lib
+R786:798 Coq.Lists.List ListNotations <> mod
+R829:835 Kernel.VMState <> <> lib
+R837:842 Kernel.VMStep <> <> lib
+R844:856 Kernel.KernelPhysics <> <> lib
+R858:878 Kernel.RevelationRequirement <> <> lib
+R880:897 Kernel.QuantumEquivalence <> <> lib
+rec 1188:1197 <> ICScenario
+proj 1213:1221 <> ic_n_bits
+proj 1267:1284 <> ic_m_communication
+proj 1321:1338 <> ic_satisfies_bound
+R1225:1227 Coq.Init.Datatypes <> nat ind
+R1288:1290 Coq.Init.Datatypes <> nat ind
+rec 1427:1436 <> MuScenario
+proj 1452:1466 <> mu_n_partitions
+proj 1513:1524 <> mu_cost_paid
+proj 1560:1577 <> mu_bound_satisfied
+R1470:1472 Coq.Init.Datatypes <> nat ind
+R1528:1530 Coq.Init.Datatypes <> nat ind
+def 1812:1827 <> ic_mu_equivalent
+R1835:1844 Kernel.InformationCausality <> ICScenario rec
+binder 1830:1831 <> ic:9
+R1853:1862 Kernel.InformationCausality <> MuScenario rec
+binder 1848:1849 <> mu:10
+R1914:1919 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1891:1893 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1881:1889 Kernel.InformationCausality <> ic_n_bits proj
+R1877:1878 Kernel.InformationCausality <> ic:9 var
+R1898:1912 Kernel.InformationCausality <> mu_n_partitions proj
+R1894:1895 Kernel.InformationCausality <> mu:10 var
+R1963:1969 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2021:2021 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1943:1945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1924:1941 Kernel.InformationCausality <> ic_m_communication proj
+R1920:1921 Kernel.InformationCausality <> ic:9 var
+R1950:1961 Kernel.InformationCausality <> mu_cost_paid proj
+R1946:1947 Kernel.InformationCausality <> mu:10 var
+R1993:1997 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1974:1991 Kernel.InformationCausality <> ic_satisfies_bound proj
+R1970:1971 Kernel.InformationCausality <> ic:9 var
+R2002:2019 Kernel.InformationCausality <> mu_bound_satisfied proj
+R1998:1999 Kernel.InformationCausality <> mu:10 var
+prf 2171:2193 <> ic_mu_record_projection
+R2212:2221 Kernel.InformationCausality <> ICScenario rec
+binder 2207:2208 <> ic:11
+R2230:2239 Kernel.InformationCausality <> MuScenario rec
+binder 2225:2226 <> mu:12
+R2269:2276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2247:2262 Kernel.InformationCausality <> ic_mu_equivalent def
+R2264:2265 Kernel.InformationCausality <> ic:11 var
+R2267:2268 Kernel.InformationCausality <> mu:12 var
+R2300:2304 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2281:2298 Kernel.InformationCausality <> ic_satisfies_bound proj
+R2277:2278 Kernel.InformationCausality <> ic:11 var
+R2309:2326 Kernel.InformationCausality <> mu_bound_satisfied proj
+R2305:2306 Kernel.InformationCausality <> mu:12 var
+R2366:2381 Kernel.InformationCausality <> ic_mu_equivalent def
+prf 2537:2563 <> ic_zero_communication_bound
+binder 2576:2577 <> ic:13
+R2611:2618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2607:2609 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2588:2605 Kernel.InformationCausality <> ic_m_communication proj
+R2584:2585 Kernel.InformationCausality <> ic:13 var
+R2642:2649 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2623:2640 Kernel.InformationCausality <> ic_satisfies_bound proj
+R2619:2620 Kernel.InformationCausality <> ic:13 var
+R2651:2654 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2659:2667 Kernel.InformationCausality <> ic_n_bits proj
+R2655:2656 Kernel.InformationCausality <> ic:13 var
+R2703:2712 Coq.Arith.PeanoNat Nat le_0_l thm
+R2703:2712 Coq.Arith.PeanoNat Nat le_0_l thm
+prf 2764:2805 <> ic_zero_communication_implies_zero_mu_cost
+binder 2818:2819 <> ic:14
+binder 2821:2822 <> mu:15
+R2851:2858 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2829:2844 Kernel.InformationCausality <> ic_mu_equivalent def
+R2846:2847 Kernel.InformationCausality <> ic:14 var
+R2849:2850 Kernel.InformationCausality <> mu:15 var
+R2886:2893 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2882:2884 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2863:2880 Kernel.InformationCausality <> ic_m_communication proj
+R2859:2860 Kernel.InformationCausality <> ic:14 var
+R2911:2913 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2898:2909 Kernel.InformationCausality <> mu_cost_paid proj
+R2894:2895 Kernel.InformationCausality <> mu:15 var
+R2957:2972 Kernel.InformationCausality <> ic_mu_equivalent def
+prf 3153:3167 <> ic_monotonicity
+binder 3180:3182 <> ic1:16
+binder 3184:3186 <> ic2:17
+binder 3188:3190 <> mu1:18
+binder 3192:3194 <> mu2:19
+R3225:3232 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3201:3216 Kernel.InformationCausality <> ic_mu_equivalent def
+R3218:3220 Kernel.InformationCausality <> ic1:16 var
+R3222:3224 Kernel.InformationCausality <> mu1:18 var
+R3257:3264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3233:3248 Kernel.InformationCausality <> ic_mu_equivalent def
+R3250:3252 Kernel.InformationCausality <> ic2:17 var
+R3254:3256 Kernel.InformationCausality <> mu2:19 var
+R3298:3305 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3280:3282 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3270:3278 Kernel.InformationCausality <> ic_n_bits proj
+R3265:3267 Kernel.InformationCausality <> ic1:16 var
+R3288:3296 Kernel.InformationCausality <> ic_n_bits proj
+R3283:3285 Kernel.InformationCausality <> ic2:17 var
+R3358:3365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3330:3333 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3311:3328 Kernel.InformationCausality <> ic_m_communication proj
+R3306:3308 Kernel.InformationCausality <> ic1:16 var
+R3339:3356 Kernel.InformationCausality <> ic_m_communication proj
+R3334:3336 Kernel.InformationCausality <> ic2:17 var
+R3384:3387 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3371:3382 Kernel.InformationCausality <> mu_cost_paid proj
+R3366:3368 Kernel.InformationCausality <> mu1:18 var
+R3393:3404 Kernel.InformationCausality <> mu_cost_paid proj
+R3388:3390 Kernel.InformationCausality <> mu2:19 var
+R3466:3481 Kernel.InformationCausality <> ic_mu_equivalent def
+prf 3658:3681 <> ic_communication_bounded
+binder 3694:3695 <> ic:20
+R3725:3732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3706:3723 Kernel.InformationCausality <> ic_satisfies_bound proj
+R3702:3703 Kernel.InformationCausality <> ic:20 var
+R3756:3759 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3737:3754 Kernel.InformationCausality <> ic_m_communication proj
+R3733:3734 Kernel.InformationCausality <> ic:20 var
+R3774:3776 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3764:3772 Kernel.InformationCausality <> ic_n_bits proj
+R3760:3761 Kernel.InformationCausality <> ic:20 var
+R3781:3798 Kernel.InformationCausality <> ic_m_communication proj
+R3777:3778 Kernel.InformationCausality <> ic:20 var
+R3832:3843 Coq.Arith.PeanoNat Nat le_add_l thm
+R3832:3843 Coq.Arith.PeanoNat Nat le_add_l thm
+prf 4019:4050 <> mu_cost_reflects_accessible_info
+binder 4063:4064 <> ic:21
+binder 4066:4067 <> mu:22
+R4096:4103 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4074:4089 Kernel.InformationCausality <> ic_mu_equivalent def
+R4091:4092 Kernel.InformationCausality <> ic:21 var
+R4094:4095 Kernel.InformationCausality <> mu:22 var
+R4127:4134 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4108:4125 Kernel.InformationCausality <> ic_satisfies_bound proj
+R4104:4105 Kernel.InformationCausality <> ic:21 var
+R4139:4156 Kernel.InformationCausality <> mu_bound_satisfied proj
+R4135:4136 Kernel.InformationCausality <> mu:22 var
+R4200:4215 Kernel.InformationCausality <> ic_mu_equivalent def
+prf 4281:4294 <> ic_composition
+binder 4307:4309 <> ic1:23
+binder 4311:4313 <> ic2:24
+binder 4315:4317 <> mu1:25
+binder 4319:4321 <> mu2:26
+R4352:4359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4328:4343 Kernel.InformationCausality <> ic_mu_equivalent def
+R4345:4347 Kernel.InformationCausality <> ic1:23 var
+R4349:4351 Kernel.InformationCausality <> mu1:25 var
+R4384:4391 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4360:4375 Kernel.InformationCausality <> ic_mu_equivalent def
+R4377:4379 Kernel.InformationCausality <> ic2:24 var
+R4381:4383 Kernel.InformationCausality <> mu2:26 var
+R4425:4432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4407:4409 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4397:4405 Kernel.InformationCausality <> ic_n_bits proj
+R4392:4394 Kernel.InformationCausality <> ic1:23 var
+R4415:4423 Kernel.InformationCausality <> ic_n_bits proj
+R4410:4412 Kernel.InformationCausality <> ic2:24 var
+R4433:4448 Kernel.InformationCausality <> ic_mu_equivalent def
+R4460:4468 Kernel.InformationCausality <> ic_n_bits proj
+R4460:4468 Kernel.InformationCausality <> ic_n_bits proj
+R4460:4468 Kernel.InformationCausality <> ic_n_bits proj
+R4499:4516 Kernel.InformationCausality <> ic_m_communication proj
+R4499:4516 Kernel.InformationCausality <> ic_m_communication proj
+R4583:4600 Kernel.InformationCausality <> ic_satisfies_bound proj
+R4583:4600 Kernel.InformationCausality <> ic_satisfies_bound proj
+R4478:4486 Kernel.InformationCausality <> ic_n_bits proj
+R4473:4475 Kernel.InformationCausality <> ic1:23 var
+R4545:4547 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4526:4543 Kernel.InformationCausality <> ic_m_communication proj
+R4521:4523 Kernel.InformationCausality <> ic1:23 var
+R4553:4570 Kernel.InformationCausality <> ic_m_communication proj
+R4548:4550 Kernel.InformationCausality <> ic2:24 var
+R4629:4632 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4610:4627 Kernel.InformationCausality <> ic_satisfies_bound proj
+R4605:4607 Kernel.InformationCausality <> ic1:23 var
+R4638:4655 Kernel.InformationCausality <> ic_satisfies_bound proj
+R4633:4635 Kernel.InformationCausality <> ic2:24 var
+R4670:4684 Kernel.InformationCausality <> mu_n_partitions proj
+R4670:4684 Kernel.InformationCausality <> mu_n_partitions proj
+R4670:4684 Kernel.InformationCausality <> mu_n_partitions proj
+R4721:4732 Kernel.InformationCausality <> mu_cost_paid proj
+R4721:4732 Kernel.InformationCausality <> mu_cost_paid proj
+R4787:4804 Kernel.InformationCausality <> mu_bound_satisfied proj
+R4787:4804 Kernel.InformationCausality <> mu_bound_satisfied proj
+R4694:4708 Kernel.InformationCausality <> mu_n_partitions proj
+R4689:4691 Kernel.InformationCausality <> mu1:25 var
+R4755:4757 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4742:4753 Kernel.InformationCausality <> mu_cost_paid proj
+R4737:4739 Kernel.InformationCausality <> mu1:25 var
+R4763:4774 Kernel.InformationCausality <> mu_cost_paid proj
+R4758:4760 Kernel.InformationCausality <> mu2:26 var
+R4833:4836 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4814:4831 Kernel.InformationCausality <> mu_bound_satisfied proj
+R4809:4811 Kernel.InformationCausality <> mu1:25 var
+R4842:4859 Kernel.InformationCausality <> mu_bound_satisfied proj
+R4837:4839 Kernel.InformationCausality <> mu2:26 var
+prf 5273:5298 <> ic_equiv_cost_preservation
+binder 5311:5312 <> ic:27
+binder 5314:5315 <> mu:28
+binder 5317:5321 <> delta:29
+R5350:5357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5328:5343 Kernel.InformationCausality <> ic_mu_equivalent def
+R5345:5346 Kernel.InformationCausality <> ic:27 var
+R5348:5349 Kernel.InformationCausality <> mu:28 var
+R5358:5373 Kernel.InformationCausality <> ic_mu_equivalent def
+R5384:5392 Kernel.InformationCausality <> ic_n_bits proj
+R5384:5392 Kernel.InformationCausality <> ic_n_bits proj
+R5384:5392 Kernel.InformationCausality <> ic_n_bits proj
+R5422:5439 Kernel.InformationCausality <> ic_m_communication proj
+R5422:5439 Kernel.InformationCausality <> ic_m_communication proj
+R5486:5503 Kernel.InformationCausality <> ic_satisfies_bound proj
+R5486:5503 Kernel.InformationCausality <> ic_satisfies_bound proj
+R5401:5409 Kernel.InformationCausality <> ic_n_bits proj
+R5397:5398 Kernel.InformationCausality <> ic:27 var
+R5467:5469 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5448:5465 Kernel.InformationCausality <> ic_m_communication proj
+R5444:5445 Kernel.InformationCausality <> ic:27 var
+R5470:5474 Kernel.InformationCausality <> delta:29 var
+R5512:5529 Kernel.InformationCausality <> ic_satisfies_bound proj
+R5508:5509 Kernel.InformationCausality <> ic:27 var
+R5544:5558 Kernel.InformationCausality <> mu_n_partitions proj
+R5544:5558 Kernel.InformationCausality <> mu_n_partitions proj
+R5544:5558 Kernel.InformationCausality <> mu_n_partitions proj
+R5594:5605 Kernel.InformationCausality <> mu_cost_paid proj
+R5594:5605 Kernel.InformationCausality <> mu_cost_paid proj
+R5646:5663 Kernel.InformationCausality <> mu_bound_satisfied proj
+R5646:5663 Kernel.InformationCausality <> mu_bound_satisfied proj
+R5567:5581 Kernel.InformationCausality <> mu_n_partitions proj
+R5563:5564 Kernel.InformationCausality <> mu:28 var
+R5627:5629 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5614:5625 Kernel.InformationCausality <> mu_cost_paid proj
+R5610:5611 Kernel.InformationCausality <> mu:28 var
+R5630:5634 Kernel.InformationCausality <> delta:29 var
+R5672:5689 Kernel.InformationCausality <> mu_bound_satisfied proj
+R5668:5669 Kernel.InformationCausality <> mu:28 var
+R5738:5753 Kernel.InformationCausality <> ic_mu_equivalent def
+prf 5966:5985 <> zero_cost_is_quantum
+binder 5998:5999 <> ic:30
+binder 6001:6002 <> mu:31
+R6031:6038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6009:6024 Kernel.InformationCausality <> ic_mu_equivalent def
+R6026:6027 Kernel.InformationCausality <> ic:30 var
+R6029:6030 Kernel.InformationCausality <> mu:31 var
+R6066:6073 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6062:6064 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6043:6060 Kernel.InformationCausality <> ic_m_communication proj
+R6039:6040 Kernel.InformationCausality <> ic:30 var
+R6122:6126 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6095:6098 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6091:6093 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6078:6089 Kernel.InformationCausality <> mu_cost_paid proj
+R6074:6075 Kernel.InformationCausality <> mu:31 var
+R6103:6120 Kernel.InformationCausality <> mu_bound_satisfied proj
+R6099:6100 Kernel.InformationCausality <> mu:31 var
+R6131:6148 Kernel.InformationCausality <> ic_satisfies_bound proj
+R6127:6128 Kernel.InformationCausality <> ic:30 var
+R6251:6273 Kernel.InformationCausality <> ic_mu_record_projection thm
+R6251:6273 Kernel.InformationCausality <> ic_mu_record_projection thm
+R6319:6360 Kernel.InformationCausality <> ic_zero_communication_implies_zero_mu_cost thm
+R6319:6360 Kernel.InformationCausality <> ic_zero_communication_implies_zero_mu_cost thm
+R6395:6417 Kernel.InformationCausality <> ic_mu_record_projection thm
+R6395:6417 Kernel.InformationCausality <> ic_mu_record_projection thm
+prf 6599:6613 <> ic_cost_optimal
+binder 6626:6627 <> ic:32
+binder 6629:6630 <> mu:33
+R6659:6666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6637:6652 Kernel.InformationCausality <> ic_mu_equivalent def
+R6654:6655 Kernel.InformationCausality <> ic:32 var
+R6657:6658 Kernel.InformationCausality <> mu:33 var
+R6690:6697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6671:6688 Kernel.InformationCausality <> ic_satisfies_bound proj
+R6667:6668 Kernel.InformationCausality <> ic:32 var
+binder 6705:6706 <> m':34
+R6743:6752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6717:6719 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6715:6716 Kernel.InformationCausality <> m':34 var
+R6724:6741 Kernel.InformationCausality <> ic_m_communication proj
+R6720:6721 Kernel.InformationCausality <> ic:32 var
+R6753:6754 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6755:6770 Kernel.InformationCausality <> ic_mu_equivalent def
+R6783:6791 Kernel.InformationCausality <> ic_n_bits proj
+R6783:6791 Kernel.InformationCausality <> ic_n_bits proj
+R6783:6791 Kernel.InformationCausality <> ic_n_bits proj
+R6823:6840 Kernel.InformationCausality <> ic_m_communication proj
+R6823:6840 Kernel.InformationCausality <> ic_m_communication proj
+R6860:6877 Kernel.InformationCausality <> ic_satisfies_bound proj
+R6860:6877 Kernel.InformationCausality <> ic_satisfies_bound proj
+R6800:6808 Kernel.InformationCausality <> ic_n_bits proj
+R6796:6797 Kernel.InformationCausality <> ic:32 var
+R6845:6846 Kernel.InformationCausality <> m':34 var
+R6886:6903 Kernel.InformationCausality <> ic_satisfies_bound proj
+R6882:6883 Kernel.InformationCausality <> ic:32 var
+R6917:6918 Kernel.InformationCausality <> mu:33 var
+prf 7284:7306 <> accessible_info_bounded
+binder 7319:7320 <> ic:35
+R7350:7357 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7331:7348 Kernel.InformationCausality <> ic_satisfies_bound proj
+R7327:7328 Kernel.InformationCausality <> ic:35 var
+R7385:7388 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7381:7383 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7362:7379 Kernel.InformationCausality <> ic_m_communication proj
+R7358:7359 Kernel.InformationCausality <> ic:35 var
+R7393:7410 Kernel.InformationCausality <> ic_m_communication proj
+R7389:7390 Kernel.InformationCausality <> ic:35 var
+R7446:7456 Coq.Arith.PeanoNat Nat mul_1_r thm
+R7446:7456 Coq.Arith.PeanoNat Nat mul_1_r thm
+R7446:7456 Coq.Arith.PeanoNat Nat mul_1_r thm
+R7467:7477 Coq.Arith.PeanoNat Nat le_refl thm
+R7467:7477 Coq.Arith.PeanoNat Nat le_refl thm
+prf 7537:7567 <> ic_implies_partition_constraint
+binder 7580:7581 <> ic:36
+binder 7583:7584 <> mu:37
+R7613:7620 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7591:7606 Kernel.InformationCausality <> ic_mu_equivalent def
+R7608:7609 Kernel.InformationCausality <> ic:36 var
+R7611:7612 Kernel.InformationCausality <> mu:37 var
+R7644:7651 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7625:7642 Kernel.InformationCausality <> ic_satisfies_bound proj
+R7621:7622 Kernel.InformationCausality <> ic:36 var
+R7689:7696 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7672:7674 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7656:7670 Kernel.InformationCausality <> mu_n_partitions proj
+R7652:7653 Kernel.InformationCausality <> mu:37 var
+R7679:7687 Kernel.InformationCausality <> ic_n_bits proj
+R7675:7676 Kernel.InformationCausality <> ic:36 var
+R7714:7716 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7701:7712 Kernel.InformationCausality <> mu_cost_paid proj
+R7697:7698 Kernel.InformationCausality <> mu:37 var
+R7721:7738 Kernel.InformationCausality <> ic_m_communication proj
+R7717:7718 Kernel.InformationCausality <> ic:36 var
+R7780:7795 Kernel.InformationCausality <> ic_mu_equivalent def
+prf 7934:7957 <> communication_efficiency
+binder 7970:7971 <> ic:38
+binder 7973:7974 <> mu:39
+R8003:8010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7981:7996 Kernel.InformationCausality <> ic_mu_equivalent def
+R7998:7999 Kernel.InformationCausality <> ic:38 var
+R8001:8002 Kernel.InformationCausality <> mu:39 var
+R8029:8036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8025:8027 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8015:8023 Kernel.InformationCausality <> ic_n_bits proj
+R8011:8012 Kernel.InformationCausality <> ic:38 var
+R8077:8084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8060:8062 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8041:8058 Kernel.InformationCausality <> ic_m_communication proj
+R8037:8038 Kernel.InformationCausality <> ic:38 var
+R8067:8075 Kernel.InformationCausality <> ic_n_bits proj
+R8063:8064 Kernel.InformationCausality <> ic:38 var
+R8102:8104 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8089:8100 Kernel.InformationCausality <> mu_cost_paid proj
+R8085:8086 Kernel.InformationCausality <> mu:39 var
+R8109:8123 Kernel.InformationCausality <> mu_n_partitions proj
+R8105:8106 Kernel.InformationCausality <> mu:39 var
+R8170:8185 Kernel.InformationCausality <> ic_mu_equivalent def
+def 10462:10479 <> ic_coverage_anchor
+R10486:10486 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10514:10515 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10540:10541 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10565:10565 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R10487:10513 Kernel.InformationCausality <> ic_zero_communication_bound thm
+R10516:10539 Kernel.InformationCausality <> ic_communication_bounded thm
+R10542:10564 Kernel.InformationCausality <> accessible_info_bounded thm

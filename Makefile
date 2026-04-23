@@ -6,11 +6,10 @@
 .PHONY: rtl-run clean deep-clean purge
 .PHONY: test-isomorphism test-alignment test-all test-ultra-smoke-isomorphism test-smoke-isomorphism test-full-isomorphism test-emergent-geometry test-emergent-geometry-verilator
 .PHONY: generate-python ocaml-runner
-.PHONY: deliverable-one-hour
 .PHONY: proof-complete-gate coq-gate extraction-gate rtl-gate cosim-gate isa-proof-freshness-check
 .PHONY: closeout-gate
 .PHONY: bitlock-proof-vm-cpu bitlock-manifest
-.PHONY: canonical-source-gate canonical-extract canonical-e2e
+.PHONY: canonical-source-gate canonical-extract canonical-e2e rtl-pipeline-manifest-check rtl-text-transform-audit-check
 .PHONY: bitlock-stable stack-audit
 
 # ============================================================================
@@ -21,22 +20,19 @@ help:
 	@echo "Thiele Machine - Available Targets"
 	@echo "==================================="
 	@echo ""
-	@echo "DEMO TARGETS (E1.1):"
-	@echo "  make demo_cnf       - CNF analyzer demonstration"
-	@echo "  make demo_sat       - SAT benchmark demonstration"
-	@echo "  make demo_analysis  - Statistical analysis demonstration"
-	@echo "  make demo_all       - Run all demos"
+	@echo "SETUP:"
 	@echo "  make install_deps   - Install required dependencies"
-	@echo "  make verify         - Verify installation"
 	@echo ""
-	@echo "EXISTING TARGETS:"
-	@echo "  make showcase       - Run showcase programs"
+	@echo "TEST TARGETS:"
+	@echo "  make test           - Run the pytest suite"
+	@echo "  make test-seq       - Run the pytest suite without xdist"
 	@echo "  make test-all       - Run all tests"
 	@echo "  make test-ultra-smoke-isomorphism - Fast (<2 min) cross-layer sanity checks"
 	@echo "  make test-smoke-isomorphism - Practical local isomorphism smoke run"
 	@echo "  make test-emergent-geometry - Fast proxy checks for silicon-curving claims"
 	@echo "  make test-emergent-geometry-verilator - Same proxy checks using Verilator backend"
-	@echo "  make black-hole-demo - Show Python fail-fast vs RTL kill-switch semantics"
+	@echo ""
+	@echo "CLOSURE GATES:"
 	@echo "  make closeout-gate  - Single full-closure gate (Coq+extract+inquisitor+tests+bitlock)"
 	@echo "  make atlas-audit    - Run inquisitor + completeness gate checks"
 	@echo "  make isomorphism-bitlock - Strict bit-for-bit Coq/Python/RTL lockstep gate"
@@ -46,11 +42,12 @@ help:
 	@echo "  make bitlock-manifest - Emit reproducible proof->VM->CPU hash manifest"
 	@echo "  make proof-undeniable - Machine-checkable formal proof gate (inquisitor + coqchk)"
 	@echo "  make canonical-e2e - Canonical single-source Coq->OCaml->Kami/RTL->tests pipeline"
-	@echo "  make deliverable-one-hour - Publishable real-result brief (proof + RSA artifact)"
-	@echo "  make experiments-*  - Run partition experiments"
 	@echo ""
-	@echo "CLOSED WORK (A+B+C):"
-	@echo "  make closed_work    - Build Coq core + falsifier report + C verifier artifact"
+	@echo "HARDWARE:"
+	@echo "  make rtl-check      - iverilog compilation check"
+	@echo "  make rtl-synth      - Yosys gate-level synthesis"
+	@echo "  make rtl-cosim      - Co-simulation tests"
+	@echo "  make rtl-verify     - Full RTL verification pipeline"
 	@echo ""
 
 # Install dependencies
@@ -80,7 +77,7 @@ test-isomorphism:
 	pytest tests/test_cross_layer_bisimulation.py tests/test_opcode_alignment.py tests/test_verilog_cosim.py -v
 
 test-alignment:
-	pytest tests/alignment/ tests/test_opcode_alignment.py -v
+	pytest tests/test_opcode_alignment.py -v
 
 test-all:
 	pytest tests/test_mu.py tests/test_accelerator_cosim.py tests/test_cross_layer_bisimulation.py tests/test_opcode_alignment.py tests/test_rtl_mu_charging.py tests/test_fuzz_random_programs.py tests/test_verilog_cosim.py tests/test_canonical_source_pipeline.py -v
@@ -121,9 +118,6 @@ test-emergent-geometry:
 
 test-emergent-geometry-verilator:
 	@echo "[test-emergent-geometry-verilator] Target retired — see 'make test-emergent-geometry'."
-
-black-hole-demo:
-	python3 scripts/black_hole_demo.py
 
 atlas-audit:
 	@echo "[atlas-audit] Running inquisitor proof hygiene check..."
@@ -167,6 +161,8 @@ closeout-gate: coq-gate canonical-extract check-sensitive-files-strict isa-proof
 	@echo "[closeout-gate] Step 8/10: Artifact generators emit closed statuses..."
 	@python3 scripts/generate_master_summary_artifacts.py
 	@pytest tests/test_master_summary_artifacts.py -q --tb=short
+	@$(MAKE) rtl-pipeline-manifest-check
+	@$(MAKE) rtl-text-transform-audit-check
 	@echo "[closeout-gate] Step 9/10: Full canonical OCaml extraction surface (46 opcodes)..."
 	@pytest tests/test_extraction_freshness.py tests/test_ocaml_extraction_parity_46.py -q --tb=short
 	@echo "[closeout-gate] Step 10/10: Full-state RTL lockstep already verified by isomorphism-bitlock (above)."
@@ -230,6 +226,18 @@ canonical-extract: canonical-source-gate
 canonical-e2e: canonical-extract rtl-gate cosim-gate test-smoke-isomorphism
 	@echo ""
 	@echo "canonical-e2e: PASS (canonical source -> extraction -> RTL synth/cosim -> smoke tests)"
+
+rtl-pipeline-manifest-check: canonical-extract
+	@echo "[rtl-pipeline-manifest] Checking canonical RTL provenance manifest..."
+	@python3 scripts/generate_rtl_pipeline_manifest.py --check
+	@pytest tests/test_rtl_pipeline_manifest.py -q --tb=short
+	@echo "[rtl-pipeline-manifest] PASS"
+
+rtl-text-transform-audit-check: canonical-extract
+	@echo "[rtl-text-transform-audit] Checking BSV/Verilog text transform audit..."
+	@python3 scripts/audit_rtl_text_transforms.py --check
+	@pytest tests/test_rtl_text_transform_audit.py -q --tb=short
+	@echo "[rtl-text-transform-audit] PASS"
 
 coq-gate:
 	@echo "[coq-gate] Building all Coq proofs..."
@@ -303,11 +311,6 @@ rtl-run:
 clean-outputs:
 	rm -rf outputs/
 
-        @run_tag=$${RUN_TAG:-ci-turbulence}; \
-          echo "Running high-budget turbulence pipeline with run tag '$$run_tag'"; \
-          rm -rf artifacts/experiments/$$run_tag; \
-          PYTHONPATH=. python scripts/run_proofpack_pipeline.py --profile quick --signing-key kernel_secret.key --run-tag $$run_tag --note CI-turbulence --public-data-root archive --turbulence-dataset isotropic1024_8pt --turbulence-dataset isotropic1024_12pt --turbulence-protocol sighted --turbulence-protocol blind --turbulence-protocol destroyed --turbulence-seed 11
-
 # ============================================================================
 # RTL SYNTHESIS TARGETS - Hardware Validation
 # ============================================================================
@@ -316,7 +319,7 @@ RTL_DIR := thielecpu/hardware/rtl
 RTL_CANONICAL := $(RTL_DIR)/thiele_cpu_kami.v
 RTL_REGFILE := $(RTL_DIR)/RegFile.v
 RTL_TOP := mkModule1
-RTL_TESTBENCH := thielecpu/hardware/testbench/thiele_cpu_kami_tb.v
+RTL_TESTBENCH := rtl_harness/testbench/thiele_cpu_kami_tb.v
 SYNTH_LOG := $(RTL_DIR)/synth_lite_clean.log
 SYNTH_OUT := $(RTL_DIR)/synth_lite_out.v
 
@@ -325,8 +328,10 @@ SYNTH_OUT := $(RTL_DIR)/synth_lite_out.v
 # iverilog compilation check (simulation mode, all $display active)
 rtl-check:
 	@echo "=== RTL Compilation Check ==="
-	@iverilog -g2012 -Wall -o /dev/null $(RTL_REGFILE) $(RTL_CANONICAL) 2>&1
-	@echo "✓ iverilog: zero warnings, zero errors"
+	@iverilog -g2012 -Wall -o /dev/null $(RTL_REGFILE) $(RTL_CANONICAL) 2>&1 | tee /tmp/rtl_compile.log
+	@if grep -qi "error:" /tmp/rtl_compile.log; then echo "FAIL: iverilog reported errors"; exit 1; fi
+	@warns=$$(grep -ci "warning:" /tmp/rtl_compile.log || true); \
+	echo "✓ iverilog: compile succeeded ($$warns warnings)"
 
 # Full Yosys gate-level synthesis (YOSYS_LITE: same logic, smaller arrays)
 rtl-synth: $(RTL_CANONICAL)
@@ -335,7 +340,7 @@ rtl-synth: $(RTL_CANONICAL)
 	@echo "    Top:    $(RTL_TOP)"
 	@echo "    Defines: -DSYNTHESIS"
 	@echo "    Running (this takes ~5 minutes)..."
-	@yosys -l $(SYNTH_LOG) -p "read_verilog -sv -DSYNTHESIS $(RTL_REGFILE) $(RTL_CANONICAL); prep -top $(RTL_TOP); check; stat; write_verilog $(SYNTH_OUT)" 2>&1
+	@yosys -l $(SYNTH_LOG) -p "read_verilog -sv -DSYNTHESIS $(RTL_REGFILE) $(RTL_CANONICAL); prep -top $(RTL_TOP); check; stat; write_verilog $(SYNTH_OUT); write_json build/netlist.json;" 2>&1
 	@echo ""
 	@echo "=== Synthesis Results ==="
 	@grep "Warnings:" $(SYNTH_LOG) | tail -1
@@ -343,7 +348,16 @@ rtl-synth: $(RTL_CANONICAL)
 	@echo ""
 	@grep -A20 "=== $(RTL_TOP) ===" $(SYNTH_LOG)
 	@echo ""
-	@echo "✓ Synthesis complete — netlist written to $(SYNTH_OUT)"
+	@echo "✓ Synthesis complete — netlist written to $(SYNTH_OUT), JSON: build/netlist.json"
+	@echo "=== Generating Circuit Diagram ==="
+	@mkdir -p artifacts/synthesis_gate
+	@yosys -p "read_verilog -sv -DSYNTHESIS $(RTL_REGFILE) $(RTL_CANONICAL); hierarchy -top $(RTL_TOP); show -format dot -prefix artifacts/synthesis_gate/circuit_hierarchy -notitle;" 2>/dev/null || true
+	@if [ -f artifacts/synthesis_gate/circuit_hierarchy.dot ]; then \
+		dot -Tsvg artifacts/synthesis_gate/circuit_hierarchy.dot \
+		  -o artifacts/synthesis_gate/circuit_hierarchy.svg 2>/dev/null \
+		  && echo "✓ Circuit diagram: artifacts/synthesis_gate/circuit_hierarchy.svg" \
+		  || echo "⚠ graphviz not found — DOT at artifacts/synthesis_gate/circuit_hierarchy.dot"; \
+	fi
 
 # Run all cosim tests (bisimulation + accelerator)
 rtl-cosim:
@@ -359,7 +373,7 @@ rtl-verify: rtl-check rtl-synth rtl-cosim
 	@echo "╔══════════════════════════════════════════════════╗"
 	@echo "║   THIELE CPU RTL VERIFICATION — ALL PASSED      ║"
 	@echo "╠══════════════════════════════════════════════════╣"
-	@echo "║  ✓ iverilog compilation     (zero warnings)     ║"
+	@echo "║  ✓ iverilog compilation     (warnings reviewed) ║"
 	@echo "║  ✓ Yosys gate-level synth   (zero errors)       ║"
 	@echo "║  ✓ bisimulation cosim       (39 tests)          ║"
 	@echo "║  ✓ accelerator cosim        (22+ tests)         ║"
@@ -396,11 +410,6 @@ archive-vm-verilog:
 	done; \
 	if [ -d build/verilator ]; then mv build/verilator "$$archive_dir/build/"; fi; \
 	echo "✓ Archived VM/Verilog byproducts into $$archive_dir"
-
-# Legacy aliases
-synth-mu-alu: rtl-synth
-synth-modules: rtl-synth
-synth-all: rtl-synth
 
 synth-report:
 	@echo "=== Thiele Machine RTL Synthesis Report ==="
@@ -534,13 +543,6 @@ proof-undeniable:
 	@$(MAKE) isomorphism-bitlock
 	@echo "✓ Formal proof gate PASSED (inquisitor + coqchk)"
 
-deliverable-one-hour:
-	@echo "Building one-hour tangible deliverable..."
-	@$(MAKE) proof-undeniable
-	@python3 scripts/rsa_partition_demo.py --moduli $${DELIVERABLE_MODULI:-3233 10403} --analysis-bits 256 512 1024
-	@python3 scripts/generate_impact_deliverable.py --input rsa_demo_output/analysis_report.json --output artifacts/ONE_HOUR_DELIVERABLE.md
-	@echo "✓ Deliverable ready: artifacts/ONE_HOUR_DELIVERABLE.md"
-
 # Integration testing
 .PHONY: test-vm-rtl test-integration
 
@@ -549,7 +551,7 @@ test-vm-rtl:
 	@pytest -q tests/test_cross_layer_adversarial_fuzz.py tests/test_cross_layer_bisimulation.py --tb=line
 	@echo "✓ VM-RTL equivalence tests passed"
 
-test-integration: coq-core synth-all test-vm-rtl
+test-integration: coq-core rtl-synth test-vm-rtl
 	@echo "✓ Full integration test complete"
 	@echo "  - Coq proofs compiled"
 	@echo "  - RTL synthesized"

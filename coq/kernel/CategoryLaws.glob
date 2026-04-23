@@ -1,4 +1,4 @@
-DIGEST 385d7d219c97c8d9f04eee8835af0aa2
+DIGEST 4e13c740ca951ce30f887fb247fa5034
 FKernel.CategoryLaws
 R633:636 Coq.Lists.List <> <> lib
 R654:658 Coq.Arith.Arith <> <> lib
@@ -675,3 +675,145 @@ R11951:11964 Kernel.VMState <> coupling_pairs proj
 R11946:11948 Kernel.CategoryLaws <> cd3:103 var
 R12006:12029 Kernel.CategoryLaws <> relational_compose_assoc thm
 R12006:12029 Kernel.CategoryLaws <> relational_compose_assoc thm
+def 12906:12923 <> separable_coupling
+R12930:12937 Kernel.CategoryLaws <> Coupling def
+binder 12926:12926 <> r:104
+binder 12959:12959 <> a:105
+binder 12961:12962 <> c1:106
+binder 12964:12965 <> c2:107
+R12980:12983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12968:12969 Coq.Lists.List <> In def
+R12979:12979 Kernel.CategoryLaws <> r:104 var
+R12971:12971 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12973:12974 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12977:12977 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12972:12972 Kernel.CategoryLaws <> a:105 var
+R12975:12976 Kernel.CategoryLaws <> c1:106 var
+R12996:12999 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12984:12985 Coq.Lists.List <> In def
+R12995:12995 Kernel.CategoryLaws <> r:104 var
+R12987:12987 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12989:12990 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12993:12993 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R12988:12988 Kernel.CategoryLaws <> a:105 var
+R12991:12992 Kernel.CategoryLaws <> c2:107 var
+R13002:13004 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13000:13001 Kernel.CategoryLaws <> c1:106 var
+R13005:13006 Kernel.CategoryLaws <> c2:107 var
+def 13101:13122 <> non_separable_coupling
+R13129:13136 Kernel.CategoryLaws <> Coupling def
+binder 13125:13125 <> r:108
+R13151:13157 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13165:13166 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13158:13158 <> a:109
+binder 13160:13161 <> c1:110
+binder 13163:13164 <> c2:111
+R13175:13178 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13169:13172 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R13167:13168 Kernel.CategoryLaws <> c1:110 var
+R13173:13174 Kernel.CategoryLaws <> c2:111 var
+R13191:13194 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13179:13180 Coq.Lists.List <> In def
+R13190:13190 Kernel.CategoryLaws <> r:108 var
+R13182:13182 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13184:13185 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13188:13188 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13183:13183 Kernel.CategoryLaws <> a:109 var
+R13186:13187 Kernel.CategoryLaws <> c1:110 var
+R13195:13196 Coq.Lists.List <> In def
+R13206:13206 Kernel.CategoryLaws <> r:108 var
+R13198:13198 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13200:13201 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13204:13204 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R13199:13199 Kernel.CategoryLaws <> a:109 var
+R13202:13203 Kernel.CategoryLaws <> c2:111 var
+prf 13275:13301 <> separable_not_non_separable
+binder 13312:13312 <> r:112
+R13337:13340 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13317:13334 Kernel.CategoryLaws <> separable_coupling def
+R13336:13336 Kernel.CategoryLaws <> r:112 var
+R13341:13342 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13343:13364 Kernel.CategoryLaws <> non_separable_coupling def
+R13366:13366 Kernel.CategoryLaws <> r:112 var
+prf 13516:13539 <> empty_coupling_separable
+R13543:13560 Kernel.CategoryLaws <> separable_coupling def
+R13562:13563 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 13690:13716 <> diagonal_coupling_separable
+binder 13727:13732 <> region:113
+R13737:13754 Kernel.CategoryLaws <> separable_coupling def
+R13757:13764 Kernel.CategoryLaws <> diagonal def
+R13766:13771 Kernel.CategoryLaws <> region:113 var
+R13822:13829 Kernel.CategoryLaws <> diagonal def
+R13845:13854 Coq.Lists.List <> in_map_iff thm
+R13845:13854 Coq.Lists.List <> in_map_iff thm
+R13927:13936 Coq.Lists.List <> in_map_iff thm
+R13927:13936 Coq.Lists.List <> in_map_iff thm
+prf 14085:14114 <> coupling_non_separable_witness
+binder 14125:14125 <> a:114
+binder 14127:14128 <> c1:115
+binder 14130:14131 <> c2:116
+R14144:14149 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14138:14141 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14136:14137 Kernel.CategoryLaws <> c1:115 var
+R14142:14143 Kernel.CategoryLaws <> c2:116 var
+R14150:14171 Kernel.CategoryLaws <> non_separable_coupling def
+R14173:14173 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14181:14182 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14190:14190 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14174:14174 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14176:14177 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14180:14180 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14175:14175 Kernel.CategoryLaws <> a:114 var
+R14178:14179 Kernel.CategoryLaws <> c1:115 var
+R14183:14183 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14185:14186 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14189:14189 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14184:14184 Kernel.CategoryLaws <> a:114 var
+R14187:14188 Kernel.CategoryLaws <> c2:116 var
+def 14354:14369 <> coupling_sources
+R14376:14383 Kernel.CategoryLaws <> Coupling def
+binder 14372:14372 <> r:117
+R14388:14391 Coq.Init.Datatypes <> list ind
+R14393:14395 Coq.Init.Datatypes <> nat ind
+R14400:14402 Coq.Lists.List <> map def
+R14408:14408 Kernel.CategoryLaws <> r:117 var
+R14404:14406 Coq.Init.Datatypes <> fst def
+def 14422:14437 <> coupling_targets
+R14444:14451 Kernel.CategoryLaws <> Coupling def
+binder 14440:14440 <> r:118
+R14456:14459 Coq.Init.Datatypes <> list ind
+R14461:14463 Coq.Init.Datatypes <> nat ind
+R14468:14470 Coq.Lists.List <> map def
+R14476:14476 Kernel.CategoryLaws <> r:118 var
+R14472:14474 Coq.Init.Datatypes <> snd def
+def 14578:14589 <> xor_coupling
+R14593:14600 Kernel.CategoryLaws <> Coupling def
+R14605:14605 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14611:14611 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14617:14617 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14606:14606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14608:14608 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14610:14610 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14612:14612 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14614:14614 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14616:14616 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+prf 14627:14648 <> xor_coupling_separable
+R14652:14669 Kernel.CategoryLaws <> separable_coupling def
+R14671:14682 Kernel.CategoryLaws <> xor_coupling def
+R14725:14736 Kernel.CategoryLaws <> xor_coupling def
+def 14954:14971 <> entangled_coupling
+R14975:14982 Kernel.CategoryLaws <> Coupling def
+R14987:14987 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14993:14993 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14999:14999 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R14988:14988 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14990:14990 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14992:14992 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14994:14994 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14996:14996 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R14998:14998 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+prf 15009:15040 <> entangled_coupling_non_separable
+R15044:15065 Kernel.CategoryLaws <> non_separable_coupling def
+R15067:15084 Kernel.CategoryLaws <> entangled_coupling def
+R15102:15131 Kernel.CategoryLaws <> coupling_non_separable_witness thm
+R15102:15131 Kernel.CategoryLaws <> coupling_non_separable_witness thm

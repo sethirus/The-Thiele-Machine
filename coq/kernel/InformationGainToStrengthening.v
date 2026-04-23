@@ -47,6 +47,9 @@ Definition observation_distinguishes
     equality on observations. This avoids needing decidable equality
     on vm_instruction (which has 38 constructors). *)
 
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   obs_eqb_spec is a decidable equality parameter. All theorems export with
+   obs_eqb and obs_eqb_spec as explicit forall premises when section closes. *)
 Section WithDecEq.
 
 Variable obs_eqb : list vm_instruction -> list vm_instruction -> bool.

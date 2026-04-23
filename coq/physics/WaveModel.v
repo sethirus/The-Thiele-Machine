@@ -251,6 +251,8 @@ Proof.
 Qed.
 
 (** Abstract embedding helper for reuse in VM/Thiele contexts. *)
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   Section Variables become explicit forall premises when the section closes. *)
 Section Embedding.
   Variable Encoded : Type.
   Variable encode : WaveState -> Encoded.

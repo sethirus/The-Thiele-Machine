@@ -18,6 +18,10 @@
 \setlist{itemsep=0.35em, topsep=0.4em}
 \emergencystretch=3em
 
+\DeclareUnicodeCharacter{03BC}{\ensuremath{\mu}}
+\DeclareUnicodeCharacter{03B4}{\ensuremath{\delta}}
+\DeclareUnicodeCharacter{2014}{---}
+
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}{Definition}
@@ -35,7 +39,7 @@ Structural Entitlement, Accountable Computation, and No Free Insight}
 \maketitle
 
 \begin{abstract}
-I'm a car salesman. I started building this in January 2025 because I couldn't find a machine model that correctly accounts for the moment a computation becomes entitled to use structure. Fifteen months later, the result is machine-verified in Coq with zero admitted lemmas, implemented as RTL hardware, and executable in both extracted OCaml and Python. The thesis is not merely that proof costs something. The thesis is that ordinary computation is incomplete as a formal account if it models state evolution but not the acquisition of admissible structure: decompositions, morphisms, invariants, constraints, and certified narrowings that a later computation is allowed to use. No Free Insight is the first conservation law of that idea: any trace that starts uncertified and ends with a certified structural claim must have paid at least one unit in a global monotone ledger called $\mu$. The structural-entitlement representation theorem closes the explicit witness case: strict narrowing plus distinguishability, certified posterior admissibility, and a decision-tree representative imply predicate strengthening, structure addition, and a $\Delta\mu$ lower bound. This document explains everything from first principles. What a Turing machine is and what it cannot see. What structural entitlement means. What insight means and why it cannot be free. The full 46-opcode instruction set. What a categorical morphism is, and why the morphism layer makes this machine strictly richer than any classical machine with the same registers and memory. The hardware design, which implements all 46 opcodes in RTL and has formal bisimulation proofs for all 46 of them (36 unconditional, 10 under inductive structural preconditions, zero gaps). The physics connections, which are carefully separated into what is proven and what is conditional. And how to break all of it.
+I started building this in January 2025 because I couldn't find a machine model that correctly accounts for the moment a computation becomes entitled to use structure. Fifteen months later, the result is machine-checked in the active audited Coq tree with zero admitted lemmas, implemented as RTL hardware, and executable in both extracted OCaml and Python. The thesis is not merely that proof costs something. The thesis is that ordinary computation is incomplete as a formal account if it models state evolution but not the acquisition of admissible structure: decompositions, morphisms, invariants, constraints, and certified narrowings that a later computation is allowed to use. No Free Insight is the first conservation law of that idea: any trace that starts uncertified and ends with a certified structural claim must have paid at least one unit in a global monotone ledger called $\mu$. The structural-entitlement representation theorem closes the explicit witness case: strict narrowing plus distinguishability, certified posterior admissibility, and a decision-tree representative imply predicate strengthening, structure addition, and a $\Delta\mu$ lower bound. This document explains everything from first principles. What a Turing machine is and what it cannot see. What structural entitlement means. What insight means and why it cannot be free. The full 46-opcode instruction set. What a categorical morphism is, and why the morphism layer makes this machine strictly richer than any classical machine with the same registers and memory. The hardware design, which implements all 46 opcodes in RTL and has formal bisimulation proofs for all 46 of them (36 unconditional, 10 under inductive structural preconditions, zero gaps). The physics connections, which are carefully separated into what is proven and what is conditional. And how to break all of it.
 \end{abstract}
 
 \tableofcontents
@@ -45,11 +49,19 @@ I'm a car salesman. I started building this in January 2025 because I couldn't f
 \section{Let me be straight with you}
 %===========================================================================
 
-I'm a car salesman. I sell cars for a living.
+I started building this in January 2025. I had no CS degree, no math degree, no physics degree. I barely knew what programming was. And I was not trying to build a formally verified CPU.
 
-I started building this in January 2025. I had no CS degree, no math degree, no physics degree. I barely knew what programming was. I used large language models as implementation tools: I specify what I want, the invariants it must satisfy, and the conditions under which it should fail, and I direct the AI to build it. Every Coq proof, every Python file, every line of RTL in this project was generated through that process. The ideas are mine. The proofs compile or they don't, and I verified every one of them.
+I was trying to build a 3D renderer.
 
-I'm telling you this because it matters for how I think. I don't come from a background where anyone told me ``this is how it works, trust us.'' I don't have professors or colleagues whose authority I can lean on. When I encounter a claim, I either find the proof or I don't believe it. That is not a methodology I adopted. It is how I think. It's the only way I know.
+I had read about category theory and thought it was the right mathematical structure for a rendering pipeline that could not be wrong. Objects, morphisms, a rendering functor. Get triangles on screen using math that enforced correctness by design. I built it. At 2 AM on January 22, the morphisms were being applied correctly. That was supposed to be the end of the project.
+
+Sixteen days in, I realized the categorical framework I had built for rendering also ran physics simulations without any changes. I plugged Newton's laws into the same category structure and it ran. I did not plan that. I discovered it. I went from debugging why a pixel was not appearing to realizing I had built something that described physics too.
+
+I followed that question for eight months. Rendering became physics became formal computation became Coq proofs became hardware. Every step revealed another layer I did not know existed. I did not know what a Turing machine was when I started. I did not know what Coq was. I learned each thing by needing it for the next step.
+
+I used large language models as implementation tools throughout. The tool was useless for most of the early work because nothing like this existed: no reference implementation, no prior work to hand it, no Stack Overflow answer. I had to build all the context from scratch before the tool became useful, and that took months. Once the context was there, it became a force multiplier. The ideas, the architecture, the math, the direction: mine. The proofs compile or they don't, and I checked every one of them.
+
+I'm telling you this because it matters for how I think. I don't come from a background where anyone told me ``this is how it works, trust us.'' I don't have professors or colleagues whose authority I can lean on. When I encounter a claim, I either find the proof or I don't believe it. That's not a methodology I adopted. It's how I think. It's the only way I know.
 
 This document explains everything from the ground up. Not because I think you don't know it, but because I'm not confident I understand something until I can build it from scratch. So I explain it like I'm building it, because I am.
 
@@ -81,7 +93,9 @@ Alan Turing described his machine in 1936 to make precise the intuitive notion o
 
 That is the entire machine. Nothing else.
 
-Here is the remarkable thing: this simple machine can compute \emph{anything that can be computed}. Every algorithm that has ever been written, in every programming language that has ever existed, can be translated into a Turing machine. This is the Church-Turing thesis, and it has never been falsified. To falsify it, you would need to construct a physical device that reliably computes a function that no Turing machine can compute, not faster, but \textit{at all}. No one has done it. Every physical computing device we have ever built turns out to be equivalent to a Turing machine in what it can compute. Your laptop, your phone, every server in every data center: all of them are, in the relevant theoretical sense, Turing machines. They can compute exactly the same class of things. The only difference is speed.
+Here is the remarkable thing: this simple machine can compute \emph{anything that can be computed by following a definite procedure}. Every algorithm that has ever been written, in every programming language that has ever existed, can be translated into a Turing machine. This is the Church-Turing thesis. The original claim (Church 1936, Turing 1936) is specifically about \emph{effective calculability}: anything that can be computed by following a mechanical, finite, step-by-step procedure, a Turing machine can also compute. The thesis has never been falsified within mathematics and computation theory.
+
+The claim about physical hardware is a related but separate conjecture, sometimes called the \emph{physical Church-Turing thesis}: that every physical computing device is computationally equivalent to a Turing machine. This is an empirical claim about physics, not proven mathematics. So far, every physical computing device built turns out to be equivalent to a Turing machine in what it can compute. Your laptop, your phone, every server in every data center: all of them are, in the relevant theoretical sense, Turing machines. They can compute exactly the same class of things. The only confirmed difference is speed.
 
 \subsection{The blind spot}
 
@@ -95,9 +109,9 @@ The machine cannot ask: ``Are these two parts of the input independent of each o
 
 The Turing machine's view of its tape is LOCAL. One cell at a time. It has no primitive way to see global structure. It can COMPUTE global structure, but computing it and seeing it are different things. To compute that a list is sorted, the machine has to execute a sorting-detection algorithm that touches every element. It pays in time and space for every structural fact it learns.
 
-I spent months staring at this before it clicked. The Turing Machine isn't broken. It's blind by design. It's like trying to find your way through a maze by only ever looking at the floor tile you're standing on. You \emph{can} do it. You will eventually reach the exit. But you're paying for every wrong turn, and you're paying for every part of the maze you already explored. Someone with a map doesn't pay that cost.
+I spent months staring at this before it clicked. The Turing Machine isn't broken. It's blind by design. It's like trying to find your way through a maze by only ever looking at the floor tile you're standing on. You \emph{might} do it --- if the maze has an exit and if your search strategy eventually reaches it. Some mazes have no exit, and some search strategies loop forever. That is the halting problem: the machine cannot in general tell from the floor tile whether it is making progress or going in circles. But if the maze does terminate, you are paying for every wrong turn and every part already explored. Someone with a map doesn't pay that cost.
 
-The Thiele Machine does not magically give the map. It represents the moment a computation becomes entitled to use a map, and it makes that entitlement auditable. The map is not free.
+The Thiele Machine does not magically give the map. ``The map'' here is a concrete thing: a certified partition graph with proven structural properties: a checked decomposition into modules, a validated formula, an asserted morphism with provenance. The Thiele Machine represents the specific moment a computation becomes entitled to use one of these, and it makes that entitlement auditable: there is always a μ-ledger entry showing when the certification was paid for. The map is not free.
 
 \subsection{Classical complexity ignores structural cost}
 
@@ -132,7 +146,7 @@ In a computational context, partitioning the memory or register state means sayi
 
 A partition alone is just a labeling. What makes it structural knowledge is when you attach \emph{constraints} to the modules. For example: ``Module A's memory region satisfies the predicate $\Phi_A$,'' where $\Phi_A$ might say ``this region is a valid binary heap'' or ``all values in this region are between 0 and 100'' or ``this region encodes a satisfying assignment to formula $\phi$.''
 
-These constraints are called axioms. They are written in a formal logic. Concretely, the repository has two formula surfaces. The text-level certificate checker in \texttt{CertCheck.v} uses DIMACS CNF-style formulas with assignment/certificate text. The on-chip \texttt{LASSERT} path uses a binary memory layout: a formula header stores the encoded word count, variable count, and clause count, followed by literal words. The certificate block stores one satisfying assignment and one falsifying assignment. The Logic Engine finite-state machine reads those words from memory. If validation succeeds, the checked constraint package can be used by the later certification path. If validation fails, the machine traps and sets an error flag.
+These constraints are called axioms. They are written in a formal logic. Concretely, there are two formula surfaces. The text-level certificate checker in \texttt{CertCheck.v} uses DIMACS CNF-style formulas with assignment/certificate text. The on-chip \texttt{LASSERT} path uses a binary memory layout: a formula header stores the encoded word count, variable count, and clause count, followed by literal words. The certificate block stores one satisfying assignment and one falsifying assignment. The Logic Engine finite-state machine reads those words from memory. If validation succeeds, the checked constraint package can be used by the later certification path. If validation fails, the machine traps and sets an error flag.
 
 The crucial point: you cannot add an axiom to a module for free. Adding an axiom means the machine paid to certify it. The axiom is evidence, not assertion.
 
@@ -163,7 +177,43 @@ A state has structural entitlement to a claim $P$ when three things are present:
 Without the third part, the object may exist as raw data, but the computation has not earned the right to use it as certified structure.
 \end{definition}
 
-The repository proves the pieces of this idea and now proves the weld between them.
+I've proved the pieces of this idea and proved how they connect.
+
+\subsection{The precise vocabulary}
+
+Before stating the theorems, I need to define every term they use. These are not metaphors. They are exact Coq definitions.
+
+\medskip
+\noindent\textbf{Feasible set.}
+A feasible set $\Omega$ is a concrete, finite list of Thiele Machine states. In the Coq code, the type is literally \texttt{list VMState}. The interpretation: $\Omega$ is the set of machine states the computation might be in, given everything that has been checked and certified so far. Before any structural knowledge is certified, $\Omega$ can contain many states. After certifying a constraint, $\Omega$ shrinks to only the states consistent with that constraint. A feasible set is not an abstract notion of ``possible worlds.'' It is a list of actual machine states.
+
+\medskip
+\noindent\textbf{Prior and posterior.}
+The \emph{prior} $\Omega$ is the feasible set before an observation or structural certification event. The \emph{posterior} $\Omega'$ is the feasible set after. The posterior is always a subset of the prior: $\Omega' \subseteq \Omega$. If the posterior is a \emph{strict} subset ($|\Omega'| < |\Omega|$), some states have been ruled out. The observation eliminated them. This is the Bayesian idea: you start with a set of possibilities, you learn something, and the set of possibilities that are still consistent with what you learned is the posterior. Here, ``learning something'' means the machine certified a structural claim that is false in those eliminated states.
+
+\medskip
+\noindent\textbf{Distinguishing observation.}
+A distinguishing observation is a function that returns different values on the eliminated states (in $\Omega$ but not in $\Omega'$) versus the remaining states (in $\Omega'$). Formally: there exists at least one eliminated state $s_w \in \Omega \setminus \Omega'$ such that the observation function outputs a value on $s_w$ that no state in $\Omega'$ produces. The observation is the ``test'' that reveals the structure. If you cannot name such a function, you cannot show that the posterior genuinely excludes something the prior allowed.
+
+\medskip
+\noindent\textbf{Strictly stronger predicate.}
+A predicate $P_1$ is strictly stronger than $P_2$ if $P_1$ accepts a strict subset of what $P_2$ accepts. Formally in Coq: $P_1 \leq P_2$ (whenever $P_1$ is true, $P_2$ is true too) AND there exists an observation where $P_1$ is false but $P_2$ is true. The word ``stronger'' means more restrictive: $P_1$ makes a harder claim, rules out more states as invalid. If $P_2$ is ``the state is in $\Omega$'' and $P_1$ is ``the state is in $\Omega' \subsetneq \Omega$'', then $P_1$ is strictly stronger --- it demands more, and anything that satisfies $P_1$ also satisfies $P_2$ but not vice versa. This is the opposite of everyday use of ``stronger'': a stronger claim in this logical sense is harder to satisfy, not more impressive-sounding.
+
+\medskip
+\noindent\textbf{Structure-addition event.}
+A structure-addition event is a single execution step where the formula-certification register \texttt{csr\_cert\_addr} transitions from 0 to nonzero. Precisely: $s.\texttt{vm\_csrs}.\texttt{csr\_cert\_addr} = 0$ before the step and $(\texttt{vm\_apply}\ s\ i).\texttt{vm\_csrs}.\texttt{csr\_cert\_addr} \neq 0$ after. This is the concrete moment at which a checked formula/certificate package has its address registered in the machine's control-status registers. Not ``structural knowledge was acquired'' in some vague sense. Precisely: this bit flipped from zero, at this step, by this instruction.
+
+\medskip
+\noindent\textbf{Supra-certification (\texttt{has\_supra\_cert}).}
+The machine has reached supra-certification when \texttt{csr\_cert\_addr} $\neq 0$. The name distinguishes it from \texttt{vm\_certified} (the top-level flag set by the CERTIFY opcode). Supra-certification specifically tracks the formula-certificate address channel: has a formula been validated and its address registered? A machine can have \texttt{vm\_certified = true} without \texttt{has\_supra\_cert} (if it used only CERTIFY and not MORPH\_ASSERT or LASSERT). Both are positive-cost certification channels; they record different things.
+
+\medskip
+\noindent\textbf{Decision tree.}
+In this context, a decision tree is an explicit witness to \emph{how} the trace's observations branch over the state space. At each node, the tree records: here is an observation, these states passed it, these states failed it. The leaves record which states ended up in the posterior. The tree is a proof object, not a runtime structure: it exists to demonstrate that the transition from prior to posterior was the result of a definite sequence of binary tests rather than a magic jump. The Coq requires you to construct it explicitly as a witness; you cannot claim a shortcut is sound without handing over the actual branching structure that produced the posterior.
+
+\medskip
+\noindent\textbf{Posterior-representative reduction.}
+Given a prior state $s \in \Omega$, a posterior-representative reduction provides a function mapping $s$ to a representative $s' \in \Omega'$. This proves that every prior state corresponds to something in the posterior. The purpose: it shows the posterior was not reached by arbitrarily discarding states, but by a coherent mapping where each prior state is ``accounted for'' by a posterior representative. Without this, the narrowing could in principle be fake: you could claim the posterior is small by just deleting states without any principled connection to the prior.
 
 \begin{theorem}[Classical blindness as quotient, \texttt{BlindnessRepresentation.v} and \texttt{ShadowProjection.v}, zero Admitted]
 The four-field forgetful map from Thiele states to Turing-style snapshots is a many-to-one quotient. Its kernel is exactly equality on PC, $\mu$, registers, and memory, so it can identify states that differ in certification, witness counters, or graph structure. The six-field \texttt{shadow\_proj} keeps \texttt{vm\_certified} but still forgets morphism structure; no function of that shadow alone can separate the morphism witness states.
@@ -216,15 +266,15 @@ This is the formal version of ``it has to.'' Once a shortcut is no longer just a
 
 The machine also has a concrete structural-advantage demonstration. \texttt{StructuralAdvantage.v} studies a factored search problem. The blind program has all instruction costs set to 0 and searches the flat space. The sighted program pays two receipt-visible events, each \texttt{EMIT "." 0}, for total cost 18, and searches two factors separately. The file proves the exact cost formulas and the arithmetic fact that the $N^2$ versus $2N$ gap eventually dwarfs the constant $\mu$ cost. The executable tests check the measured VM behavior on representative sizes.
 
-The repository now separates two nearby claims instead of blurring them. The original \texttt{EMIT}-only $N=1$ witness closes the observation layer: it proves posterior admissibility as \texttt{CertifiedObs}. It does not close the stronger bridge. The run does not end in \texttt{has\_supra\_cert}, and in the semantic CSR-transition sense it does not realize structure addition. A minimally extended witness does close the full theorem honestly: keep the factorized search exactly as it is, then append \texttt{PNEW}, \texttt{MORPH\_ID}, and \texttt{MORPH\_ASSERT}. That suffix is enough to fire the concrete certification channel, so the extended trace lands in the full structure-addition theorem.
+There are two nearby claims here and it matters to keep them separate. The original \texttt{EMIT}-only $N=1$ witness closes the observation layer: it proves posterior admissibility as \texttt{CertifiedObs}. It does not close the stronger bridge. The run does not end in \texttt{has\_supra\_cert}, and in the semantic CSR-transition sense it does not realize structure addition. A minimally extended witness does close the full theorem honestly: keep the factorized search exactly as it is, then append \texttt{PNEW}, \texttt{MORPH\_ID}, and \texttt{MORPH\_ASSERT}. That suffix is enough to fire the concrete certification channel, so the extended trace lands in the full structure-addition theorem.
 
 That example is not a P vs NP result. It is a small, honest witness for the thing this machine is meant to track: certified structure can change which computation is admissible, and the cost of acquiring that admissibility is not the same as the time saved by using it.
 
 \subsection{The boundary}
 
-What I still do not have is the open translation theorem: whether every human informal story about symmetry, modularity, factorization, independence, or decomposition can always be packaged as a \texttt{SoundStructuralShortcut}. That would be a full informal-to-formal representation theorem for structural use, and it is stronger than what the repository proves today. It also sets the standard for the work: if a claimed shortcut can be pushed down into explicit witnesses, it has to be pushed to bedrock. If it can still be pushed, push again. Stop only where the proof honestly stops.
+What I still do not have is the open translation theorem: whether every human informal story about symmetry, modularity, factorization, independence, or decomposition can always be packaged as a \texttt{SoundStructuralShortcut}. That would be a full informal-to-formal representation theorem for structural use, and it is stronger than what's proved here. It also sets the standard for the work: if a claimed shortcut can be pushed down into explicit witnesses, it has to be pushed to bedrock. If it can still be pushed, push again. Stop only where the proof honestly stops.
 
-The repository now proves the hard internal theorem for the explicit class, and it proves the boundary in both directions on a nearby concrete witness. The original \texttt{EMIT}-only factorized-search trace closes only the observation layer: the posterior predicate is certified observationally, but the run does not reach \texttt{has\_supra\_cert} and does not realize semantic structure addition. A minimally extended trace, with the factorized search unchanged and only a post-search suffix \texttt{PNEW ; MORPH\_ID ; MORPH\_ASSERT}, does close the whole chain: stronger predicate, structure addition, and the $\Delta\mu$ lower bound. The unconditional Shannon-style statement for every deterministic single trace is still explicitly rejected in the code. The bridge needs a whole-tree, fiber, or distributional witness. That is not a weakness in the proof. It is where the proof stopped lying.
+I've proved the hard internal theorem for the explicit class, and proved the boundary in both directions on a nearby concrete witness. The original \texttt{EMIT}-only factorized-search trace closes only the observation layer: the posterior predicate is certified observationally, but the run does not reach \texttt{has\_supra\_cert} and does not realize semantic structure addition. A minimally extended trace, with the factorized search unchanged and only a post-search suffix \texttt{PNEW ; MORPH\_ID ; MORPH\_ASSERT}, does close the whole chain: stronger predicate, structure addition, and the $\Delta\mu$ lower bound. The unconditional Shannon-style statement for every deterministic single trace is still explicitly rejected in the code. The bridge needs a whole-tree, fiber, or distributional witness. That is not a weakness in the proof. It is where the proof stopped lying.
 
 So the honest thesis is this: once structural entitlement is internalized with explicit witnesses, free certified strengthening is impossible; classical shadows lose entitlement-relevant distinctions; and feasible-set narrowing has a formal path into predicate strengthening and a ledger lower bound. The broader project is to show how many real structural shortcuts can be compiled into those witnesses.
 
@@ -245,7 +295,9 @@ A raw observation records data without committing to any structural interpretati
 
 \medskip
 \noindent\textbf{Tier 1: Certified structural insight (always costs $\geq 1$).}
-The machine has two recorded certification channels. One is the formula/certificate address channel, \texttt{csr\_cert\_addr}. The other is the top-level flag, \texttt{vm\_certified}. Any instruction that turns either channel from ``off'' to ``on'' must have cost $\geq 1$. This is proven in Coq (\texttt{certification\_requires\_positive\_mu}). Zero Admitted. I need one precision point here: in the current hardware-aligned step relation, \texttt{LASSERT} checks a constraint package and charges for it, but the concrete state-changing channels are \texttt{CERTIFY} for \texttt{vm\_certified} and \texttt{MORPH\_ASSERT} for \texttt{csr\_cert\_addr}. \texttt{AbstractNoFI.v} also reasons about the broader certification/revelation class as a positive-cost policy.
+The machine has two recorded certification channels. One is the formula/certificate address channel, \texttt{csr\_cert\_addr}. The other is the top-level flag, \texttt{vm\_certified}. Any instruction that turns either channel from ``off'' to ``on'' must have cost $\geq 1$. This is proven in Coq (\texttt{certification\_requires\_positive\_mu}). Zero Admitted.
+
+One thing to be precise about: in the current hardware-aligned step relation, LASSERT checks a constraint package and charges for it, but LASSERT itself does not directly mutate the cert channels. The concrete state-changing instructions are CERTIFY (sets \texttt{vm\_certified = true}) and MORPH\_ASSERT (sets \texttt{csr\_cert\_addr} nonzero). LASSERT performs the validation that might precede MORPH\_ASSERT or CERTIFY. \texttt{AbstractNoFI.v} reasons about the broader certification/revelation class --- which includes LASSERT, EMIT, REVEAL, LJOIN, CERTIFY, and MORPH\_ASSERT --- as a positive-cost policy: all of them cost $\geq 1$. The distinction matters: LASSERT checking a formula is part of the work chain, even if the formal cert-channel flip happens via the subsequent CERTIFY or MORPH\_ASSERT.
 
 \medskip
 \noindent\textbf{Tier 2: Certified non-local witness insight (always costs $\geq 1$).}
@@ -255,7 +307,7 @@ The sharpest case: a machine that is certified AND whose CHSH statistics show a 
 
 Here is the argument. It is a proof, not an intuition.
 
-Suppose a machine starts uncertified and ends certified. Somewhere in that trace, a specific opcode fired that flipped one of the certification registers from off to on. Either CERTIFY ran and set the top-level certified flag to true, or MORPH\_ASSERT ran and proved a morphism exists. Look at the exact step where that happened. That step, by the semantics of the machine, has cost $\geq 1$. And because $\mu$ never decreases (proven in \texttt{MuLedgerConservation.v}), the final $\mu$ is at least $\mu_{\text{before that step}} + 1 \geq \mu_{\text{initial}} + 1$.
+Suppose a machine starts uncertified and ends certified. Somewhere in that trace, a specific opcode fired that flipped one of the certification registers from off to on. The two concrete cert-channel instructions are: CERTIFY (which sets \texttt{vm\_certified = true}) and MORPH\_ASSERT (which sets \texttt{csr\_cert\_addr} nonzero). These are the only instructions that change those fields. This is proven by case analysis over all 46 opcodes --- every other instruction leaves those fields unchanged. So: the cert flip happened at a CERTIFY or MORPH\_ASSERT step. Look at that exact step. That step, by the semantics of the machine, has cost $S(\delta) \geq 1$, because both CERTIFY and MORPH\_ASSERT are in the mandatory-floor class. And because $\mu$ never decreases (proven in \texttt{MuLedgerConservation.v}), the final $\mu$ is at least $\mu_{\text{before that step}} + 1 \geq \mu_{\text{initial}} + 1$.
 
 This is not a philosophical argument. It is a structural property of the step function. The Coq proof checks it mechanically. The proof does not say ``intuitively, certification should cost something.'' It says: here is the step function definition, here is the cost semantics, here is the monotonicity lemma, here is the induction on the trace. QED. Zero Admitted.
 
@@ -296,14 +348,14 @@ That equality should not be misunderstood. It means the ledger is exact about sp
 
 \subsection{Why mu is the unique canonical cost measure}
 
-Here is the stronger claim, which took me a while to prove: $\mu$ is not just A valid cost measure. It is THE cost measure. Any other non-decreasing cost functional that starts at zero and is consistent with the instruction step semantics must be isomorphic to $\mu$.
+Here is the stronger claim, which took me a while to prove: $\mu$ is not just A valid cost measure. It is THE cost measure. Any other cost functional that starts at zero and is instruction-consistent --- meaning it increases by exactly \texttt{instruction\_cost}~$i$ at each step --- must equal $\mu$ on every reachable state. Not ``isomorphic to'' in some abstract sense. Literally equal to, value by value, on every state the machine can actually reach.
 
 \begin{theorem}[$\mu$-Initiality, \texttt{MuInitiality.v}, zero Admitted]
 \label{thm:initiality}
 Let $M$ be any function on machine states satisfying: (a) $M(s_{\text{init}}) = 0$ for all initial states, (b) $M(s') \geq M(s)$ for all steps $s \to s'$, and (c) $M(\texttt{vm\_apply}\ s\ i) = M(s) + \texttt{instruction\_cost}\ i$ for all reachable states. Then $M = \mu$ on all reachable states.
 \end{theorem}
 
-In plain language: there is no alternative accounting. If you want to track structural cost on this machine, you end up at $\mu$. The cost structure was forced by the machine design, not chosen arbitrarily.
+In plain language: for this machine with this instruction cost assignment, there is no alternative accounting. If you define costs the way the machine does --- S(δ) for cert-setters, |payload| + S(δ) for EMIT, and so on --- then $\mu$ is the only functional that starts at zero and tracks those costs exactly. What was chosen was the cost assignment itself: the decision that CERTIFY costs S(δ) and ADD costs δ. The initiality theorem says that given that assignment, $\mu$ is the unique canonical measure. You cannot swap in a different count that agrees on the cost schedule and gets a different total. That freedom is closed.
 
 \subsection{The LASSERT cost formula}
 
@@ -402,9 +454,9 @@ A Thiele Machine state $s$ is a record with 12 fields:
 \item $s.\texttt{vm\_mu} \in \mathbb{N}$: the structural cost ledger. Starts at 0. Never decreases.
 \item $s.\texttt{vm\_mu\_tensor}$: a flattened 4 by 4 cost tensor, 16 entries in the kernel model.
 \item $s.\texttt{vm\_err} \in \{\text{false}, \text{true}\}$: the error flag. Set when an instruction fails.
-\item $s.\texttt{vm\_logic\_acc}$: logic-engine accumulator state.
-\item $s.\texttt{vm\_mstatus}$: machine-status word.
-\item $s.\texttt{vm\_witness}$: the CHSH witness counters.
+\item $s.\texttt{vm\_logic\_acc}$: the accumulator register for the on-chip Logic Engine FSM. The Logic Engine processes formula words and certificate bytes during LASSERT. This field mirrors the RTL logic accumulator so the Coq model and the hardware agree on its value after each step.
+\item $s.\texttt{vm\_mstatus}$: machine-status word. Value 0 means Turing mode (no structural ops active). Value 1 means Thiele mode (structural state is live). This field records which operational context the machine is in.
+\item $s.\texttt{vm\_witness}$: the CHSH witness counters. This is a record of 8 natural-number counters, one for each combination of (measurement setting pair) $\times$ (same/different outcome). The four setting pairs are $(a,b) \in \{(0,0),(0,1),(1,0),(1,1)\}$. For each pair, there are two counters: same-outcome (\texttt{wc\_same\_ab}) and different-outcome (\texttt{wc\_diff\_ab}). Eight counters total: \texttt{wc\_same\_00}, \texttt{wc\_diff\_00}, \texttt{wc\_same\_01}, \texttt{wc\_diff\_01}, \texttt{wc\_same\_10}, \texttt{wc\_diff\_10}, \texttt{wc\_same\_11}, \texttt{wc\_diff\_11}. Each CHSH\_TRIAL instruction increments exactly one counter. The CHSH score $S$ is computed from the aggregate sums of these counters. For each setting pair $(a,b)$, define $N_{ab} = \texttt{wc\_same}_{ab} + \texttt{wc\_diff}_{ab}$ (total trials with that setting) and $E_{ab} = (\texttt{wc\_same}_{ab} - \texttt{wc\_diff}_{ab}) / N_{ab}$ (the correlation: fraction same minus fraction different). Then $S = E_{00} + E_{01} + E_{10} - E_{11}$. Classically $|S| \leq 2$; quantum mechanics allows $|S| \leq 2\sqrt{2}$. The concrete Coq definition is \texttt{chsh\_stat\_from\_wc} in \texttt{CHSHStatisticalBridge.v}.
 \item $s.\texttt{vm\_certified} \in \{\text{false}, \text{true}\}$: the top-level certification flag. Set by the CERTIFY opcode.
 \end{itemize}
 \end{definition}
@@ -444,7 +496,7 @@ These opcodes modify the partition graph. They are how the machine builds struct
 \noindent\textbf{PNEW($R$, $\delta$)}: allocate a new module.\\
 Creates a fresh module and charges $\delta$ to $\mu$. The instruction carries a region list $R$, but the current hardware-aligned semantics use the length of the normalized region and store the canonical region \texttt{seq 0 sz}. So the checked step preserves the module size, not arbitrary input geometry. The bounded RTL has its own partition-table and active-module machinery for locality enforcement, but \texttt{PNEW} itself is the graph allocation step.
 
-Why does this exist? Because structural knowledge needs a home. Creating a module is how you tell the machine ``this region of computation is a named unit I am tracking.'' The cost $\delta$ is programmer-declared and can be 0; the machine does not force you to pay for allocation itself. If building this partition cost something because you had to figure out the right boundary, run a search, or derive the structure, you record that here. If it was bookkeeping, $\delta = 0$ is fine.
+Why does this exist? Because structural knowledge needs a home. Creating a module is how you tell the machine ``this region of computation is a named unit I'm tracking.'' The cost $\delta$ is programmer-declared and can be 0; the machine does not force you to pay for allocation itself. If building this partition cost something because you had to figure out the right boundary, run a search, or derive the structure, you record that here. If it was bookkeeping, $\delta = 0$ is fine.
 
 \medskip
 \noindent\textbf{PSPLIT($m$, $L$, $R$, $\delta$)}: split one module into two.\\
@@ -534,9 +586,9 @@ Opcode & What it does & Note \\
 
 At the kernel level, LOAD and STORE are register-indirect memory operations over \texttt{vm\_mem}. At the RTL/cosimulation layer, the partition wall adds active-module locality checks. \texttt{INIT\_PT} and \texttt{INIT\_ACTIVE\_MODULE} are harness setup commands for that finite hardware table, not VM opcodes and not fields of \texttt{VMState}. This is the honest split: the abstract ISA defines memory semantics; the bounded hardware layer enforces locality through its own table state.
 
-\subsection{Group 5: I/O, heap, and tensor (7 opcodes)}
+\subsection{Group 5: Revelation, I/O, heap, and tensor (7 opcodes)}
 
-Input/output and non-register storage.
+This group mixes two fundamentally different kinds of operations. EMIT and READ\_PORT are in the \emph{certification/revelation cost class} --- they cost $\geq 1$ unconditionally and are subject to the same mandatory-floor rule as CERTIFY and MORPH\_ASSERT. WRITE\_PORT, HEAP\_LOAD, and HEAP\_STORE are ordinary I/O and storage, no mandatory floor. TENSOR\_SET and TENSOR\_GET manage per-module cost tensors. The shared table is a historical artifact; the cost semantics are distinct.
 
 \begin{center}
 \small
@@ -558,7 +610,7 @@ Opcode & What it does & Cost \\
 
 EMIT and READ\_PORT are in the certification/revelation cost class, but their cost goes beyond the simple $S(\delta)$ floor. EMIT charges $|\text{payload}|_{\mathrm{bits}} + S(\delta)$: the machine unfolds the emitted payload into concrete bits and charges for those bits directly, then adds at least 1 for the certification step. A one-byte ASCII payload has 8 payload bits, so with $\delta = 0$ it costs 9. A ten-byte ASCII payload has 80 payload bits, so with $\delta = 0$ it costs 81. The programmer cannot emit more bits for the same price as fewer bits. READ\_PORT charges $\text{bits} + S(\delta)$: the number of bits being read from the port, plus at least 1. More information in means more $\mu$ paid. The floor is still there; zero-cost certification remains impossible, and the cost tracks the actual bit content.
 
-TENSOR\_SET and TENSOR\_GET manage per-module mu-tensor entries, tracking cost-tensor relationships between modules for the physics bridge (Section~\ref{sec:physics}). The kernel tensor is a flattened 4$\times$4 vector. The hardware has dedicated tensor state, and the closeout proofs now cover both TENSOR opcodes unconditionally in \texttt{GraphReconstructionBridge.v} and \texttt{RTLGapRegistry.v}. Bad tensor indices latch error in both semantics; good indices agree step-for-step.
+TENSOR\_SET and TENSOR\_GET manage per-module mu-tensor entries, tracking cost-tensor relationships between modules for the physics bridge (Section~\ref{sec:physics}). The kernel tensor is a flattened 4$\times$4 vector. The hardware has dedicated tensor state, and the bisimulation proofs cover both TENSOR opcodes unconditionally in \texttt{GraphReconstructionBridge.v} and \texttt{RTLGapRegistry.v}. Bad tensor indices latch error in both semantics; good indices agree step-for-step.
 
 \subsection{Group 6: Witness and certification (3 opcodes)}
 
@@ -566,7 +618,7 @@ These opcodes interact with the CHSH witness counters and the top-level certific
 
 \medskip
 \noindent\textbf{CHSH\_TRIAL($x$, $y$, $a$, $b$, $\delta$)}: record one CHSH trial.\\
-Updates one of the eight witness counters based on measurement settings ($x \in \{0,1\}$, $y \in \{0,1\}$) and outcomes ($a \in \{0,1\}$, $b \in \{0,1\}$). The Coq constructor order is settings first, then outcomes. The counter for the setting pair ($x$, $y$) and same/different outcome bucket goes up by 1. Charges $\delta$ to $\mu$.
+Records one trial of the CHSH game. $x \in \{0,1\}$ is Alice's measurement setting. $y \in \{0,1\}$ is Bob's measurement setting. $a \in \{0,1\}$ is Alice's outcome. $b \in \{0,1\}$ is Bob's outcome. The Coq constructor order is settings first ($x$, $y$), then outcomes ($a$, $b$). The instruction increments exactly one of the 8 WitnessCount counters: if $a = b$ (same outcome), it increments \texttt{wc\_same\_xy}; if $a \neq b$ (different outcome), it increments \texttt{wc\_diff\_xy}. There are 4 setting pairs $\times$ 2 same/different buckets = 8 counters. The CHSH score $S$ is computed later from these counters. Charges $\delta$ to $\mu$.
 
 This is a Tier 0 operation: it records data but does not activate any certification channel. It is provably free in the sense that CHSH\_TRIAL does not and cannot trigger a cert-insight event (proven in \texttt{WitnessInsightGeneral.v}, \texttt{chsh\_trial\_is\_tier0}).
 
@@ -631,7 +683,7 @@ Every opcode exists for a reason. None are redundant. If you removed CERTIFY, yo
 \label{sec:category}
 %===========================================================================
 
-I said earlier that a morphism is a record saying ``module $A$ is related to module $B$ in a specific way.'' That is informal. Let me be precise. But I am going to explain category theory from zero, because I did not know what it was when I started this project.
+I said earlier that a morphism is a record saying ``module $A$ is related to module $B$ in a specific way.'' That's informal. Let me be precise. But I'm going to explain category theory from zero, because I didn't know what it was when I started this project.
 
 \subsection{The idea of a category}
 
@@ -658,7 +710,7 @@ And composition must be associative: $(h \circ g) \circ f = h \circ (g \circ f)$
 \medskip
 \noindent\textbf{Why associativity?} Because the parenthesization of a chain should not matter. Whether you write $(h \circ g) \circ f$ or $h \circ (g \circ f)$, both mean the same three-hop path $A \to B \to C \to D$. If associativity failed, two programs that build the same chain in different groupings would produce different morphisms. That is a bug: the chain is the thing, not how you assembled it.
 
-These laws are proven in Coq in \texttt{CategoryLaws.v}. Zero Admitted. Concretely: morphisms carry coupling data, a list of (source-cell, target-cell) pairs plus a label. COMPOSE produces a new morphism whose coupling pairs are the relational composition of the two inputs. This is proven in \texttt{CategoryBridge.v} (\texttt{graph\_compose\_morphisms\_coupling}). The Thiele Machine's categorical layer is not just called a category; it satisfies the actual axioms on the actual coupling data.
+These laws are proven in Coq in \texttt{CategoryLaws.v}. Zero Admitted. Concretely: morphisms carry coupling data, a list of (source-cell, target-cell) pairs plus a label. A ``cell'' is a natural number indexing into a module's memory region. A coupling pair $(a, c)$ says: cell $a$ in the source module is related to cell $c$ in the target module. The coupling is the \emph{relational content} of the morphism --- the actual evidence of which parts of one module correspond to which parts of another. COMPOSE produces a new morphism whose coupling pairs are the relational composition of the two inputs: $(a, c)$ is included when there exists an intermediate cell $b$ such that $(a, b)$ is in the first coupling and $(b, c)$ is in the second. This is the standard relational composition (like matrix multiplication but for sets of pairs). This is proven in \texttt{CategoryBridge.v} (\texttt{graph\_compose\_morphisms\_coupling}). The Thiele Machine's categorical layer is not just called a category; it satisfies the actual axioms on the actual coupling data.
 
 \subsection{Why modules as objects}
 
@@ -798,7 +850,7 @@ Zero Admitted means: no step in any theorem proof was asserted without derivatio
 
 Coq can automatically extract a Coq development to OCaml. The extracted runner executes all 46 opcodes from the Coq semantics, including the morphism operations.
 
-The trust boundary here is named explicitly. \texttt{OCamlExtractionBridge.v} proves formal facts about the Coq-side observable \texttt{shadow\_to\_eo (vm\_apply s i)}: exact $\mu$ accounting, nondecreasing $\mu$, and totality. It also names the external runner boundary. The current file does not contain a real unproved Coq \texttt{Hypothesis} called \texttt{ocaml\_runner\_agrees}; the lemma with that name is a reflexive Coq-side witness. The actual cross-language claim, that the built OCaml binary returns the same observable as the Coq semantics, is checked by the parity test suite. I do not count that as a kernel theorem. It is an audited extraction boundary backed by tests.
+The trust boundary here is named explicitly. \texttt{OCamlExtractionBridge.v} proves formal facts about the Coq-side observable \texttt{shadow\_to\_eo (vm\_apply s i)}: exact $\mu$ accounting, nondecreasing $\mu$, and totality. It also names the external runner boundary. The current file does not contain a real unproved Coq \texttt{Hypothesis} called \texttt{ocaml\_runner\_agrees}; the lemma with that name is a reflexive Coq-side witness. The actual cross-language claim, that the built OCaml binary returns the same observable as the Coq semantics, is checked by the parity test suite. I don't count that as a kernel theorem. It is an audited extraction boundary backed by tests.
 
 \subsection{Layer 3: The Kami RTL hardware}
 
@@ -826,7 +878,7 @@ Formal bisimulation proofs exist for all 46 opcodes (zero Admitted, all Qed). Sp
 
 Zero opcodes have unresolved coverage gaps. \texttt{RTLGapRegistry.v} records an empty gap registry (\texttt{rtl\_gap\_count = 0}, proven in Coq). The partition $36 + 10 + 0 = 46$ is itself a Coq theorem (\texttt{rtl\_coverage\_partition}).
 
-The 46/46 proof coverage (all Qed, zero Admitted) is the correct relationship between an abstract ISA and its physical instantiation. The abstract model defines what is correct; the hardware implements all of it; the formal bisimulation proofs have been completed for all 46 opcodes. This is not a deficiency. It is honest proof accounting.
+The 46/46 proof coverage (all Qed, zero Admitted) is the correct relationship between an abstract ISA and its physical instantiation. The abstract model defines what is correct; the hardware implements all of it; all 46 opcodes have formal bisimulation proofs. This is not a deficiency. It is honest proof accounting.
 
 The abstract Thiele Machine is the Coq kernel. The hardware is a finite physical instantiation with explicit table sizes and word widths. The proofs state the bridge between them under the finite representation invariants where those invariants are needed. This is the only honest relationship physical hardware can have with an abstract mathematical model.
 
@@ -904,7 +956,11 @@ In quantum mechanics, Alice's observable for question $a$ is a Hermitian operato
 
 The maximum of $|\langle \hat{S} \rangle|$ over all quantum states is the operator norm $\|\hat{S}\|$. For qubit observables with eigenvalues $\pm 1$, this norm reaches exactly $2\sqrt{2}$ when the observables are chosen at the right angles on the Bloch sphere. The Bloch sphere is a way to represent any qubit state geometrically: a qubit $\alpha|0\rangle + \beta|1\rangle$ with $|\alpha|^2 + |\beta|^2 = 1$ corresponds to a point on a unit sphere, with the two classical states $|0\rangle$ and $|1\rangle$ at opposite poles. A Hermitian observable with eigenvalues $\pm 1$ corresponds to an axis through the sphere. The angle between two observables is the angle between their axes. The optimal CHSH setting places Alice's axes 45 degrees apart and Bob's axes 45 degrees from Alice's, giving a total separation in the operator algebra that drives the maximum eigenvalue of $\hat{S}^2$ to 8. You get $2\sqrt{2}$ from the Pythagorean theorem applied to a 2-dimensional operator algebra: the maximum eigenvalue of $\hat{S}^2$ is 8, so $\|\hat{S}\| = \sqrt{8} = 2\sqrt{2}$.
 
-The repository proves this in a deliberately scoped way. \texttt{TsirelsonQuantumModel.v} proves that traces satisfying the repository's \texttt{quantum\_realizable} zero-marginal NPA model obey the bound, in the form \texttt{c4\_direct\_tsirelson\_abs\_from\_quantum\_realizable}: $|S| \leq \sqrt{8}$. \texttt{TsirelsonUpperBound.v} supplies the rational threshold bookkeeping and the algebraic/classical side of the story. I am not claiming that \texttt{TsirelsonUpperBound.v} alone proves every possible quantum strategy is bounded. The formal claim is the named quantum-model theorem, and it has the \texttt{quantum\_realizable} premise.
+This is proved in a deliberately scoped way. \texttt{TsirelsonQuantumModel.v} proves that traces satisfying the \texttt{quantum\_realizable} zero-marginal NPA model obey the bound, in the form \texttt{c4\_direct\_tsirelson\_abs\_from\_quantum\_realizable}: $|S| \leq \sqrt{8}$.
+
+The NPA model here refers to a mathematical framework introduced by Navascués, Pironio, and Acín in 2007 for bounding quantum correlations. The idea: instead of directly characterizing what quantum mechanics allows, the NPA hierarchy gives a sequence of conditions (each tighter than the last) that any quantum correlation must satisfy. The ``zero-marginal'' version imposes the specific constraint that marginal probabilities factor correctly: the probability of Alice's outcome does not depend on Bob's measurement setting and vice versa, which is the no-signaling condition. A trace is \texttt{quantum\_realizable} in this model if its CHSH statistics are consistent with those NPA-level constraints. This is a sufficient condition for quantum realizability, not a characterization of all quantum strategies.
+
+\texttt{TsirelsonUpperBound.v} supplies the rational threshold bookkeeping and the algebraic/classical side of the story. I'm not claiming that \texttt{TsirelsonUpperBound.v} alone proves every possible quantum strategy is bounded. The formal claim is the named quantum-model theorem, and it has the \texttt{quantum\_realizable} premise.
 
 The gap between 2 and $2\sqrt{2}$ is real. No locally factorizable strategy can bridge it. That is the signature of quantum non-locality: correlations that cannot be produced by any shared classical randomness, no matter how much pre-game coordination you allow.
 
@@ -921,9 +977,11 @@ For any locally factorizable strategy (Alice's answer depends only on $a$ and $\
 WitnessCount configurations with $S > 2$ cannot be produced by any local hidden variable model.
 \end{theorem}
 
-\begin{theorem}[Tsirelson upper bound for the repository quantum model, \texttt{TsirelsonQuantumModel.v}, zero Admitted]
-If a trace is quantum-realizable in the repository's zero-marginal NPA model, then its CHSH value satisfies $|S| \leq \sqrt{8} = 2\sqrt{2}$.
+\begin{theorem}[Tsirelson upper bound for the zero-marginal NPA model, \texttt{TsirelsonQuantumModel.v}, zero Admitted]
+If a trace is quantum-realizable in the zero-marginal NPA model, then its CHSH value satisfies $|S| \leq \sqrt{8} = 2\sqrt{2}$.
 \end{theorem}
+
+The coupling language version of Bell's theorem is proved in \texttt{CHSHCouplingBridge.v}: a WitnessCount-consistent locally deterministic strategy (a0, a1, b0, b1) produces a \emph{separable coupling} — one that maps each setting to exactly one outcome type. Any locally factorizable morphism coupling satisfying WCLocallyConsistent has $|S| \leq 2$. Contrapositively: $S > 2$ rules out every locally factorizable morphism coupling. The no-go is stated in the morphism coupling language, not just in the statistical layer.
 
 What does this have to do with computation? The connection is through the witness counters and the certification layer. If a Thiele Machine program accumulates CHSH trial results (via CHSH\_TRIAL) and then certifies that $S > 2$ (via CERTIFY or LASSERT), the certification is non-free. Certifying non-local statistics requires paying $\mu \geq 1$. The statistics themselves (raw CHSH trials) are free. Claiming you know what they mean is not. This is the witness insight taxonomy (Section~\ref{sec:insight}).
 
@@ -933,7 +991,7 @@ Getting $S > 2$ in any computational context requires revelation. Here is why th
 
 Each CHSH\_TRIAL records setting bits and outcome bits into witness counters. The cross-correlations $\langle A_a B_b \rangle$ cannot be justified without some explicit certification/revelation path that combines or attests to the relevant data.
 
-This is proven in \texttt{RevelationRequirement.v} (zero Admitted) in the repository's operational vocabulary: if execution starts with \texttt{csr\_cert\_addr = 0} and ends with \texttt{csr\_cert\_addr $\neq$ 0}, then the trace used a revelation-class instruction. The theorem's disjunction includes \texttt{REVEAL}, \texttt{EMIT}, \texttt{LJOIN}, \texttt{LASSERT}, and \texttt{MORPH\_ASSERT}; runtime policy treats \texttt{REVEAL} as the primary partition-disclosure path. Trying to get certified non-local statistics above the classical bound without paying one of those costs is structurally impossible.
+This is proven in \texttt{RevelationRequirement.v} (zero Admitted) in the machine's operational vocabulary: if execution starts with \texttt{csr\_cert\_addr = 0} and ends with \texttt{csr\_cert\_addr $\neq$ 0}, then the trace used a revelation-class instruction. The theorem's disjunction includes \texttt{REVEAL}, \texttt{EMIT}, \texttt{LJOIN}, \texttt{LASSERT}, and \texttt{MORPH\_ASSERT}; runtime policy treats \texttt{REVEAL} as the primary partition-disclosure path. Trying to get certified non-local statistics above the classical bound without paying one of those costs is structurally impossible.
 
 %===========================================================================
 \section{Landauer: information erasure costs energy}
@@ -957,17 +1015,17 @@ I found this argument important because it is the same kind of argument as No Fr
 \subsection{What the Thiele Machine proves}
 
 \begin{theorem}[$\mu$-Landauer Step Bound, \texttt{LandauerDerivation.v}, zero Admitted]
-For any instruction $i$, the repository's conservative \texttt{irreversible\_bits i} indicator is bounded by \texttt{instruction\_cost i}. For a single step, the $\mu$ increase is at least \texttt{irreversible\_bits i}; for a trace, total irreversible-bit indicators are bounded by total instruction cost.
+For any instruction $i$, the conservative \texttt{irreversible\_bits i} indicator is bounded by \texttt{instruction\_cost i}. For a single step, the $\mu$ increase is at least \texttt{irreversible\_bits i}; for a trace, total irreversible-bit indicators are bounded by total instruction cost.
 \end{theorem}
 
 This is a theorem about the formal step semantics of the machine. It says the machine's cost accounting is Landauer-shaped: every positive-cost irreversible indicator used by this file is covered by $\mu$. It is deliberately coarse. It is not a microscopic physical erasure model for every possible hardware transition.
 
 The physical interpretation, that $\mu$ costs correspond to actual thermodynamic entropy, is conditional. It depends on a named hypothesis (\texttt{mu\_landauer\_unruh\_calibrated}) that calibrates $\mu$ to physical energy units. That hypothesis is physically motivated and consistent with the formal development, but it is not proven in Coq. It is a bridge to physics, not a derived fact. I say this directly because it is true.
 
-The formal content of \texttt{LandauerDerivation.v} is narrower and cleaner: (1) only CERTIFY sets \texttt{vm\_certified := true}, proven by case analysis on every instruction; (2) CERTIFY's cost is $S(\delta) \geq 1$ by construction; (3) therefore certification always requires positive $\mu$-cost; (4) total $\mu$-cost bounds the file's \texttt{total\_irreversible\_bits} measure over the trace. None of this requires a physical calibration. Physical calibration would plug in the Boltzmann constant and the temperature, turning $\mu$ counts into joules. That step is the named bridge hypothesis.
+The formal content of \texttt{LandauerDerivation.v} is narrower and cleaner: (1) only CERTIFY sets \texttt{vm\_certified := true}, proven by case analysis on every instruction; (2) CERTIFY's cost is $S(\delta) \geq 1$ by construction; (3) therefore certification always requires positive $\mu$-cost; (4) total $\mu$-cost bounds the file's \texttt{total\_irreversible\_bits} measure over the trace. \texttt{irreversible\_bits} is a conservative indicator function: it returns 1 for instructions that the file classifies as irreversible (those in the certification/revelation class) and 0 for everything else. The theorem says: the total number of irreversible-class instruction firings in a trace is bounded by the total $\mu$ spent. This is the formal Landauer-shaped claim: irreversible operations are tracked by $\mu$. It does not say that irreversible operations in the thermodynamic sense (erasing physical bits) cost exactly $kT\ln 2$ each. That would require the calibration hypothesis. None of this requires a physical calibration. Physical calibration would plug in the Boltzmann constant and the temperature, turning $\mu$ counts into joules. That step is the named bridge hypothesis.
 
 %===========================================================================
-\section{Einstein from computation: what we proved and what we did not}
+\section{Einstein from computation: what I proved and what I did not}
 \label{sec:physics}
 %===========================================================================
 
@@ -984,13 +1042,13 @@ The Euler characteristic $\chi$ is a topological invariant of the simplicial com
 \subsection{What is proven}
 
 \begin{theorem}[Discrete Gauss-Bonnet, \texttt{DiscreteGaussBonnet.v}, zero Admitted]
-For any \texttt{well\_formed\_triangulated} partition graph $g$ in the repository's equilateral angle model,
+For any \texttt{well\_formed\_triangulated} partition graph $g$ in the equilateral angle model,
 \[
 \texttt{total\_angle\_defect}\ g = 5\pi \cdot \texttt{euler\_characteristic}\ g.
 \]
 \end{theorem}
 
-This is a fully proven theorem about the repository's discrete triangulation model. It is not the continuum Gauss-Bonnet theorem and it is not a derivation of angles from $\mu$ cost. Zero Admitted.
+This is a fully proven theorem about the discrete triangulation model used here. It is not the continuum Gauss-Bonnet theorem and it is not a derivation of angles from $\mu$ cost. Zero Admitted.
 
 The chain from this to Einstein's field equations goes through five steps:
 \begin{enumerate}
@@ -1013,7 +1071,7 @@ In the Thiele Machine, the discrete analog is: the null congruence expansion (ho
 
 \medskip
 \noindent\textbf{The Jacobson derivation.}
-Ted Jacobson showed in 1995 that if you apply the first law of thermodynamics ($dE = T \, dS$) to the boundary of every small causal region of spacetime, and if entropy is proportional to the \emph{area} of that boundary, then Einstein's field equations follow as a thermodynamic equation of state. Why area and not volume? Jacob Bekenstein argued in 1973 that the information in a region of space is bounded by its boundary area, not its volume; the interior degrees of freedom cannot exceed what can be encoded on the surface at one bit per Planck-area patch. Stephen Hawking confirmed this for black holes: a black hole's entropy is exactly proportional to its event horizon area ($S = A / 4 G\hbar$ in natural units). This is surprising. Intuitively volume should hold more information than surface. The answer is that gravity compresses the interior: if you tried to pack more entropy into a region than its boundary allows, the region would collapse into a black hole. The surface is the ceiling. In the Thiele Machine's formal development, this is a named hypothesis (Bekenstein saturation): the claim that the partition graph's boundary area bounds its interior information content is taken as a bridge premise, not derived.
+Ted Jacobson showed in 1995 that if you apply the first law of thermodynamics ($dE = T \, dS$) to the boundary of every small causal region of spacetime, and if entropy is proportional to the \emph{area} of that boundary, then Einstein's field equations follow as a thermodynamic equation of state. Why area and not volume? Jacob Bekenstein argued in 1973 that the information in a region of space is bounded by its boundary area, not its volume; the interior degrees of freedom cannot exceed what can be encoded on the surface at one bit per Planck-area patch. Stephen Hawking derived this for black holes in 1974: a black hole's entropy is exactly proportional to its event horizon area ($S = A / 4 G\hbar$ in natural units). This is a theoretical derivation using quantum field theory in curved spacetime. Hawking radiation has never been directly observed experimentally. This is surprising. Intuitively volume should hold more information than surface. The answer is that gravity compresses the interior: if you tried to pack more entropy into a region than its boundary allows, the region would collapse into a black hole. The surface is the ceiling. In the Thiele Machine's formal development, this is a named hypothesis (Bekenstein saturation): the claim that the partition graph's boundary area bounds its interior information content is taken as a bridge premise, not derived.
 
 The key move: gravity is not fundamental. It is what you get when you treat spacetime as a thermodynamic system. The Einstein equations say that the geometry of spacetime adjusts so that entropy is extremized, just as pressure equilibrates in a gas. You do not need quantum mechanics or strings. You need thermodynamics applied to the geometry.
 
@@ -1031,16 +1089,16 @@ G_{\mu\nu}(s, \mathit{sc}, v) = \kappa \cdot T_{\mu\nu}(s, \mathit{sc}, v)
 
 Theorem~\ref{thm:einstein} is conditional. It is proven inside a Coq \texttt{Section} with three named hypotheses:
 \begin{itemize}
-\item \texttt{diagonal\_metric\_h}: the $\mu$-metric is diagonal (no off-diagonal metric terms).
-\item \texttt{diagonal\_efe\_h}: the diagonal Einstein equations hold (already proven separately).
-\item \texttt{off\_diagonal\_ricci\_zero}: the off-diagonal Ricci curvature vanishes.
+\item \texttt{diagonal\_metric\_h}: the $\mu$-metric is diagonal. A \emph{diagonal metric} is one where the metric tensor $g_{\mu\nu}$ is zero for $\mu \neq \nu$: the only nonzero entries sit on the main diagonal. In physical language, the coordinates are aligned with the geometry so there is no mixing between directions. The metric for a flat space is diagonal (the identity matrix). Off-diagonal terms appear when the coordinates are not aligned with the geometry, or when there is off-diagonal curvature. This hypothesis says: in the Thiele Machine's discrete geometry, the $\mu$-cost tensor has no mixing between coordinate directions.
+\item \texttt{diagonal\_efe\_h}: the diagonal Einstein equations hold. This means $G_{\mu\mu} = \kappa T_{\mu\mu}$ has already been proved for the diagonal components ($\mu = \nu$). This is the easier half of the full tensor equation.
+\item \texttt{off\_diagonal\_ricci\_zero}: the off-diagonal Ricci curvature vanishes. The \emph{Ricci tensor} $R_{\mu\nu}$ is derived from the metric: it measures how volumes of small regions change as you move along geodesics. If $R_{\mu\nu} = 0$ for $\mu \neq \nu$, the curvature has no mixing between directions --- the directions are geometrically independent of each other. This is the harder condition to prove for the discrete operator in this machine. For the uniform diagonal regime it holds. For non-uniform assignments it fails.
 \end{itemize}
 
-These are not \texttt{Admitted} proofs. They are explicitly named hypotheses that make the trust boundary auditable. The proof of Theorem~\ref{thm:einstein} from these three hypotheses is zero Admitted: the derivation is valid. The hypotheses themselves are physically motivated (the off-diagonal Ricci vanishes in vacuum for symmetric metrics, and in the continuum limit of many discrete geometries) but not proven in Coq.
+These are not \texttt{Admitted} proofs. They are explicitly named hypotheses that make the trust boundary auditable. The proof of Theorem~\ref{thm:einstein} from these three hypotheses is zero Admitted: the derivation is valid. The physics bridge is three explicit named hypotheses, not a single vague open claim. The uniform diagonal boundary-of-4-simplex regime is proved directly in Coq. The stronger non-uniform diagonal extension is formally refuted for the current discrete derivative operator.
 
-The honest claim: the Thiele Machine's $\mu$ geometry is consistent with Einstein's field equations in the diagonal metric case, and the extension to the full tensor case is proven conditional on the off-diagonal Ricci hypothesis. This is not a claim that gravity \emph{is} computation. It is a claim that the formal analog is consistent.
+The honest claim: the Thiele Machine's $\mu$ geometry is consistent with Einstein's field equations in the diagonal metric case, and for the specific uniform diagonal boundary witness the full tensor bridge is proved at the theorem level. The stronger statement that arbitrary non-uniform diagonal boundary assignments force off-diagonal Ricci to vanish fails for the first-neighbor operator — formally proved, not a gap. A concrete signed metric-scaled redesign branch (affine factor $8 - 5g_{00}$) makes the non-uniform boundary shell off-diagonal Ricci-flat at vertex 1 and closes the full-tensor witness $G_{\mu\nu} = 3T_{\mu\nu}$ there under unit structural mass. At the outer vertices (0, 2, 3, 4), where the metric weight is 1, the same affine operator produces a non-trivial Einstein tensor: off-diagonal Ricci $= 3/32$ (non-zero), and the diagonal EFE form fails. The affine factor is specifically tuned to the center vertex. This is not a claim that gravity \emph{is} computation. It is a claim that the formal analog has a proved regime at vertex 1, a proved failure mode at the outer vertices, and a clear statement of what remains physically open: whether the affine discretization corresponds to actual spacetime curvature.
 
-If you want to know when the hypotheses fail: any situation where the $\mu$-metric has strong off-diagonal correlations between modules would stress-test \texttt{off\_diagonal\_ricci\_zero}. Designing an experiment to distinguish the $\mu$-geometry from standard GR is an open problem. I have not solved it.
+If you want to know where the stronger extension fails: non-uniform diagonal assignments already produce the wrong off-diagonal curvature behavior in the current discrete derivative pipeline. Designing an experiment to distinguish the $\mu$-geometry from standard GR is still an open problem. I have not solved it.
 
 %===========================================================================
 \section{What Coq is, and why I used it}
@@ -1053,20 +1111,21 @@ Here is the idea. In a normal programming language, a type says something about 
 
 The compiler checks whether the types line up. If your proof has a hole and you write ``trust me,'' the compiler rejects it. There is no way to convince the compiler of a false theorem by being persuasive or authoritative. The only way through is to actually prove it.
 
-I used Coq because I do not trust informal arguments. Including my own. I spent months being convinced by my own reasoning that various claims were true, only to find when I tried to write the Coq proof that some key step was wrong. The machine caught it. That is the point.
+I used Coq because I don't trust informal arguments. Including my own. I spent months being convinced by my own reasoning that various claims were true, only to find when I tried to write the Coq proof that some key step was wrong. The machine caught it. That is the point.
 
 \subsection{The Inquisitor}
 
-Beyond Coq's type checker, the project has a custom proof auditor called the Inquisitor (\texttt{scripts/inquisitor.py}). It runs on every commit and checks:
+Beyond Coq's type checker, the project has a custom proof auditor called the Inquisitor (\texttt{scripts/inquisitor.py}). It runs on every commit and has 170 distinct rules. The main categories:
 \begin{itemize}
-\item No \texttt{Admitted} anywhere in the active proof files
-\item No circular proofs (theorems that depend on themselves through the import graph)
-\item No vacuous theorems (theorems that prove things like \texttt{True} or \texttt{0 = 0} but are claimed to be content)
-\item No tautological implications (theorems of the form $P \to P$)
-\item No smuggled constraints (definitions that assume what they should be proving)
+\item \textbf{No holes.} No \texttt{Admitted}, \texttt{admit}, or \texttt{give\_up} anywhere in the active proof files. No unproved \texttt{Axiom} or \texttt{Parameter} declarations in project code.
+\item \textbf{No vacuous theorems.} No theorem whose conclusion is literally \texttt{True}, \texttt{0 = 0}, or any other tautology that proves nothing. No ``theorem'' of the form $P \to P$. No existence claims backed by constant witnesses. Coq's kernel already prevents circularly dependent proofs (it checks definitional well-foundedness); the Inquisitor catches separately the case where a proof is technically valid but epistemically empty --- proving \texttt{True} by \texttt{trivial}, for instance.
+\item \textbf{No physics stubs.} No physics quantity defined as a constant placeholder. No physics claim without a corresponding invariance condition. No theorem stated about a physics concept if that concept is not genuinely formalized.
+\item \textbf{No trivial true proofs.} If a theorem's entire proof is \texttt{trivial} or \texttt{tauto} and the conclusion reduces to \texttt{True}, the theorem is rejected.
+\item \textbf{Scope enforcement.} Kernel files (Tier 1) may not import exploratory files. Theorem connectivity: every file must reach the cost or semantics foundation through its import chain.
+\item \textbf{Comment hygiene.} No TODO/FIXME/WIP markers in active proof comments.
 \end{itemize}
 
-Current Inquisitor status: zero HIGH/MEDIUM/LOW findings across all 189 Coq files.
+Current Inquisitor status: zero HIGH/MEDIUM/LOW findings across all 197 Coq files in the active tree.
 
 %===========================================================================
 \section{Zero Admitted: what it actually means}
@@ -1078,7 +1137,7 @@ Current Inquisitor status: zero HIGH/MEDIUM/LOW findings across all 189 Coq file
 This is what it does NOT mean:
 \begin{itemize}
 \item It does not mean the theorems prove physical reality. The theorems prove things about the Thiele Machine model, which is a formal object in Coq. Whether the model correctly describes physical reality is a separate empirical question.
-\item It does not mean the Coq axioms themselves are consistent. Coq is based on the Calculus of Constructions, a formal language where types and programs are the same thing, so a proof is literally a program and a proposition is literally a type. Within this system, constructing a term of a given type means constructing a proof of the corresponding proposition. This foundation is believed to be consistent but this has not been proven within Coq itself (Gödel's incompleteness theorem prevents any sufficiently expressive system from proving its own consistency).
+\item It does not mean the Coq axioms themselves are consistent. Coq is based on the Calculus of Inductive Constructions (CIC) --- a formal language that combines the Curry-Howard correspondence (proofs are programs, propositions are types) with inductive type definitions (lists, natural numbers, trees, and any other recursive structure you want to define). Constructing a term of a given type is constructing a proof of the corresponding proposition. This foundation is believed to be consistent but this has not been proven within Coq itself (Gödel's incompleteness theorem prevents any sufficiently expressive system from proving its own consistency). The ``Inductive'' part is what makes natural numbers and lists definable inside the system rather than being primitives --- without it, you could not state most of the theorems in this project.
 \item It does not mean the hardware implements exactly the Coq semantics in all cases. All 46 opcodes have Qed bisimulation proofs (36 unconditional, 10 under inductive structural preconditions, zero gaps); documented in \texttt{RTLGapRegistry.v}.
 \item It does not mean the OCaml runner binary is proven inside Coq to be bitwise identical to the Coq semantics. \texttt{OCamlExtractionBridge.v} proves Coq-side observable facts and the parity suite checks the extracted binary empirically.
 \end{itemize}
@@ -1130,7 +1189,7 @@ Exhibit a locally factorizable strategy that achieves $|S| > 2$. This would cont
 
 \medskip
 \noindent\textbf{Stress-test the physics bridge.}\\
-Design an experiment where a physical system implementing the Thiele Machine's $\mu$-geometry produces off-diagonal Ricci curvature. If \texttt{off\_diagonal\_ricci\_zero} fails empirically, the conditional Einstein theorem \texttt{full\_tensor\_efe\_conditional} loses its grounding. The theorem itself would still be valid (it is still true that the hypothesis implies the conclusion), but the hypothesis would be known false.
+Design an experiment where a physical system implementing the Thiele Machine's $\mu$-geometry distinguishes the proved uniform diagonal regime from the stronger non-uniform diagonal behavior. In the current formalism, the non-uniform extension already fails internally, so the empirical task is no longer to guess whether \texttt{off\_diagonal\_ricci\_zero} might survive in full generality. The task is to determine whether the proved uniform bridge is physically meaningful and whether a different discrete operator would be better grounded.
 
 \medskip
 \noindent\textbf{The Inquisitor standard.}\\
@@ -1165,7 +1224,9 @@ These are the kernel-tier claims (zero Admitted, zero named hypotheses):
 \item \textbf{strengthening\_requires\_structure\_addition}: certified predicate strengthening requires a structure-addition event.
 \item \textbf{b4\_information\_reduction\_derives\_strict\_predicates}: feasible-set reduction can generate the strict-predicate premise used by NoFI.
 \item \textbf{info\_priced\_cert\_executions\_bound}: executed cert-setting events are bounded by $\Delta\mu$.
+\item \textbf{observation\_partition\_reduction\_implies\_posterior\_representative\_reduction}: explicit observation classes plus an aggregate cover inequality package into the posterior-representative witness used by the structural-entitlement bridge.
 \item \textbf{info\_priced\_posterior\_representative\_reduction\_bound}: with an explicit decision-tree/posterior-representative witness, feasible-set compression is bounded by $\Delta\mu$.
+\item \textbf{info\_priced\_weighted\_feasible\_reduction\_bound}: the same rounded $\Delta\mu$ lower bound extends to finite nat-weighted feasible sets, so the bridge is no longer limited to pure uniform counting semantics.
 \item \textbf{structural\_entitlement\_representation}: strict narrowing plus distinguishability, certified posterior admissibility, and an explicit posterior-representative reduction imply a strictly stronger predicate, a structure-addition event, and a $\Delta\mu$ lower bound.
 \item \textbf{every\_sound\_structural\_shortcut\_lands\_here}: every packaged \texttt{SoundStructuralShortcut} instantiates the structural-entitlement representation theorem.
 \item \textbf{categorical\_separation}: classical-identical states distinguishable by morphism probe.
@@ -1183,6 +1244,20 @@ These are the kernel-tier claims (zero Admitted, zero named hypotheses):
 \item \textbf{partition\_free\_but\_certification\_nonfree}: partition structure can be built at $\delta=0$, but certified partition knowledge cannot be acquired for free.
 \item \textbf{witness\_insight\_nonfree\_general}: certified non-local witness insight requires $\mu \geq 1$.
 \item \textbf{witness\_insight\_complete\_taxonomy}: full three-tier taxonomy proven.
+\item \textbf{lorentz\_ricci\_tensor\_successor\_diag}: Lorentz diagonal Ricci values proved: $R_{00} = 0$, $R_{dd} = 2 \cdot \text{msd}$ for $d = 1,2,3$.
+\item \textbf{lorentz\_einstein\_tensor\_successor\_diag}: Lorentz Einstein tensor values: $G_{00} = 3 \cdot \text{msd}$, $G_{dd} = -\text{msd}$. Uses inverse metric $g^{\mu\nu}$.
+\item \textbf{lorentz\_einstein\_tensor\_nat\_chain}: Lorentz Einstein tensor values for nat-chain geometry.
+\item \textbf{separable\_coupling / non\_separable\_coupling}: Functional (separable) and non-functional (non-separable) coupling predicates with concrete witnesses (\texttt{CategoryLaws.v}).
+\item \textbf{CHSH coupling bridge} (\texttt{CHSHCouplingBridge.v}): Bell's theorem in morphism coupling language. A locally consistent strategy produces a separable coupling and has $|S| \leq 2$. $S > 2$ rules out every locally factorizable morphism coupling. Zero Admitted.
+\item \textbf{graph\_certify\_morphism\_lookup}: morphism certification cost utility, including lookup correctness.
+\item \textbf{exists\_covering\_tree}: for any feasible-set reduction, a covering complete binary tree exists constructively.
+\item \textbf{info\_priced\_reduction\_no\_tree\_hypothesis}: entropy bound without requiring the tree as an explicit input.
+\item \textbf{sound\_shortcut\_from\_components}: assembly lemma for SoundStructuralShortcut from its component witnesses.
+\item \textbf{lorentz\_nat\_chain\_stress\_energy / lorentz\_nat\_chain\_efe}: explicit canonical stress-energy tensor for the Lorentz nat-chain geometry: $T_{00} = 3 \cdot \text{msd}$, $T_{dd} = -\text{msd}$ for $d = 1,2,3$. Theorem \texttt{lorentz\_nat\_chain\_efe} proves $G_{\mu\nu} = T_{\mu\nu}$ on the diagonal. Closes the Lorentz $T_{\mu\nu}$ connection.
+\item \textbf{affine\_off\_diagonal\_ricci\_zero}: under the affine metric-scaled symmetric operator, off-diagonal Ricci vanishes at vertex 1 of the non-uniform isotropic boundary\_4simplex. Zero Admitted. Zero Section Variables.
+\item \textbf{affine\_full\_tensor\_efe}: $G_{\mu\nu} = 3T_{\mu\nu}$ at vertex 1 of the non-uniform isotropic boundary\_4simplex under unit structural mass.
+\item \textbf{Outer vertex affine characterization} (\texttt{AffineEFEClosure.v}): at vertices 0, 2, 3, 4 of the boundary 4-simplex, off-diagonal Ricci $= 3/32$ (non-zero), diagonal Ricci $= -45/32$, Ricci scalar $= -45/8$, Einstein tensor $= 45/32$ diagonal / $3/32$ off-diagonal. The diagonal EFE $G = 3T$ fails there because $G$ has non-zero off-diagonal components. The affine factor $8 - 5g_{00}$ is specific to the center vertex geometry.
+\item \textbf{in\_muP / in\_muNP / classical\_in\_muP}: $\mu$-complexity class definitions and basic inclusion.
 \end{enumerate}
 
 Bridge-tier claims (zero Admitted, with named hypotheses or documented trust boundaries):
@@ -1191,7 +1266,7 @@ Bridge-tier claims (zero Admitted, with named hypotheses or documented trust bou
 \item \textbf{OCaml extraction}: \texttt{ocaml\_bisimulation\_closure} proves NoFI, $\mu$-monotonicity, and totality for the Coq-side extracted observable. The external OCaml binary equivalence is a parity-test trust boundary, not a kernel theorem.
 \item \textbf{Structural advantage}: \texttt{StructuralAdvantage.v} proves exact $\mu$ costs and the arithmetic time-tax facts for the factored-search witness; executable tests check the measured VM behavior.
 \item \textbf{Cost formula forcing}: \texttt{cost\_necessity} + \texttt{cost\_uniqueness}, conditional on Landauer-Unruh calibration for physical interpretation.
-\item \textbf{Einstein equations}: the full tensor EFE theorem is conditional on the named off-diagonal Ricci hypothesis.
+\item \textbf{Einstein equations}: the diagonal bridge is proved, the uniform diagonal boundary witness is proved through the full tensor pipeline, the stronger non-uniform diagonal extension is formally false for the first-neighbor operator, the affine metric-scaled redesign closes vertex 1 ($G_{\mu\nu} = 3T_{\mu\nu}$, zero Admitted), and the outer vertices (0,2,3,4) are fully characterized: off-diagonal Ricci $= 3/32$ (non-zero), diagonal Ricci $= -45/32$, Einstein tensor $= 45/32$ diagonal / $3/32$ off-diagonal, diagonal EFE fails there. The remaining open question is whether the affine factor $8 - 5g_{00}$ is the correct physical discretization.
 \end{itemize}
 
 %===========================================================================
@@ -1203,15 +1278,15 @@ This document is honest about what is proven. Here is what I don't know.
 
 \textbf{Physical interpretation of $\mu$.} The formal development is consistent with Landauer's principle and with the Einstein equation structure. Whether the $\mu$ ledger actually corresponds to thermodynamic entropy in a physical Thiele Machine is an open empirical question. I think it does. I cannot prove it.
 
-\textbf{Full informal representation theorem for structural entitlement.} The repository now proves \texttt{structural\_entitlement\_representation} and \texttt{every\_sound\_structural\_shortcut\_lands\_here}. For the explicit witness class, structural entitlement becomes strict predicate strengthening, requires structure addition, and carries a $\Delta\mu$ lower bound. I have not proven the open translation theorem: whether every human informal story about symmetry, factorization, modularity, independence, or decomposition can always be packaged as a \texttt{SoundStructuralShortcut}. That is the next theorem layer. It is also the methodological demand: if an argument can be pushed down into explicit witnesses, then it has to be pushed to bedrock; if it can still be pushed, it has to be pushed again.
+\textbf{Full informal representation theorem for structural entitlement.} I've proved \texttt{structural\_entitlement\_representation} and \texttt{every\_sound\_structural\_shortcut\_lands\_here}. For the explicit witness class, structural entitlement becomes strict predicate strengthening, requires structure addition, and carries a $\Delta\mu$ lower bound. I have not proven the open translation theorem: whether every human informal story about symmetry, factorization, modularity, independence, or decomposition can always be packaged as a \texttt{SoundStructuralShortcut}. That is the next theorem layer. It is also the methodological demand: if an argument can be pushed down into explicit witnesses, then it has to be pushed to bedrock; if it can still be pushed, it has to be pushed again.
 
-\textbf{Complexity implications.} The No Free Insight theorem says structural certification costs $\mu \geq 1$. \texttt{StructuralAdvantage.v} gives a concrete factored-search witness where paying constant $\mu$ changes the search shape from $N^2$ to $2N$, with exact cost arithmetic and executable tests. That is not a classical complexity-class separation. It does not resolve P vs NP. Formalizing classes such as $\mu$P and proving separations between them remains open.
+\textbf{Complexity implications.} $\mu$P and $\mu$NP are formally defined in \texttt{MuComplexity.v} with basic inclusions proved. Proving that $\mu$P $\neq$ $\mu$NP, or that there exist problems in $\mu$NP not in $\mu$P, is hard research and doesn't follow from the current definitions. The factored-search witness in \texttt{StructuralAdvantage.v} shows a concrete structural advantage from paying $\mu = 18$, but that is a concrete example, not a class separation.
 
-\textbf{Unconditional Shannon-style lower bound.} \texttt{MuShannonBridge.v} proves quantitative bounds when the decision-tree, fiber, or posterior-representative witness is explicit. It also records that the naive deterministic single-trace entropy claim is false in general. The missing step is an expectation-level, whole-tree, or distributional semantics that turns arbitrary feasible-set reduction into the required witness.
+\textbf{Shannon-style lower bound.} \texttt{MuShannonBridge.v} proves that for any feasible-set reduction, a covering decision tree EXISTS constructively (\texttt{exists\_covering\_tree}). The \texttt{info\_priced\_reduction\_no\_tree\_hypothesis} theorem proves the entropy bound without requiring the tree as an explicit input --- the tree is chosen automatically from the reduction sizes. The remaining open step: derive the realization condition (\texttt{decision\_tree\_realized\_by\_trace}) from arbitrary VM trace behavior without requiring the user to verify the leaf count explicitly. The naive single-trace claim is false in general and the file records that explicitly.
 
 \textbf{Quantum mechanics connection.} The CHSH and Tsirelson results are proven for the machine model. Whether a physical Thiele Machine can actually produce CHSH-violating statistics (exploiting quantum entanglement) depends on hardware design and quantum engineering that is outside the scope of this project.
 
-\textbf{Off-diagonal Ricci.} The condition \texttt{off\_diagonal\_ricci\_zero} is physically reasonable (it holds in vacuum for symmetric metrics) but I have not proven it in Coq for the general $\mu$-geometry case. This is the main open gap in the physics bridge.
+\textbf{Off-diagonal Ricci.} The uniform diagonal boundary regime is proved. The non-uniform diagonal extension is formally refuted for the first-neighbor operator — a proved theorem, not a gap. The affine metric-scaled symmetric operator (\texttt{SymmetricDerivative4D.v}) closes vertex 1: \texttt{affine\_off\_diagonal\_ricci\_zero} proves off-diagonal Ricci vanishes there, and \texttt{affine\_full\_tensor\_efe} closes $G_{\mu\nu} = 3T_{\mu\nu}$ under unit structural mass. The outer vertices (0,2,3,4) are fully characterized: off-diagonal Ricci $= 3/32$, diagonal Ricci $= -45/32$, Einstein tensor $= 45/32$ diagonal / $3/32$ off-diagonal, and \texttt{affine\_efe\_fails\_outer\_offdiag} proves the diagonal EFE form fails there. The affine factor $8 - 5g_{00}$ is specifically tuned to the center vertex geometry; at outer vertices it produces a non-trivial Einstein tensor. Whether the affine factor is the physically correct discretization requires connecting to a physical substrate — that remains open.
 
 I could pretend these are answered. I could wave at them vaguely and say ``future work.'' I don't know. These are real open questions.
 
@@ -1229,12 +1304,12 @@ The machine has 46 opcodes. Most of them are ordinary compute operations that ca
 
 The categorical morphism layer is strictly richer than any classical equivalent. Two programs with identical registers, memory, $\mu$, and error flag can differ in morphism structure, and no classical observer can see that difference. The Coq proof checks it.
 
-The hardware design implements all 46 opcodes in RTL. Formal bisimulation proofs, Coq proofs that the hardware step function matches the Coq spec step-for-step, have been completed for all 46 of them (zero Admitted). 36 have unconditional proofs; 10 have proofs under inductive structural invariants (proved to hold at initialization and be preserved by every instruction). The gap registry is empty (\texttt{rtl\_gap\_count = 0}). This is documented in \texttt{RTLGapRegistry.v}.
+The hardware design implements all 46 opcodes in RTL. All 46 have formal bisimulation proofs --- Coq proofs that the hardware step function matches the Coq spec step-for-step (zero Admitted). 36 have unconditional proofs; 10 have proofs under inductive structural invariants (proved to hold at initialization and preserved by every instruction). The gap registry is empty (\texttt{rtl\_gap\_count = 0}), documented in \texttt{RTLGapRegistry.v}.
 
-The physics connections, Landauer, Einstein, CHSH, and Tsirelson, are real but carefully scoped. Some are proven inside the repository's formal models. Some are conditional. None are claimed to settle physical reality. They are formal analogs and bridges, and I have been honest about which is which.
+The physics connections --- Landauer, Einstein, CHSH, and Tsirelson --- are real but carefully scoped. Some are proven in the machine's formal model. Some are conditional on named hypotheses. None are claimed to settle physical reality. They are formal analogs and bridges, and I've been explicit about which is which.
 
 Zero Admitted. Zero Inquisitor findings. Every claim has a falsification condition. If this is wrong, it will fail visibly, and that is exactly how it should be.
 
-I'm a car salesman. I built this. Read the proofs.
+I built this. Read the proofs.
 
 \end{document}

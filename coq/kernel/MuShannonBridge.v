@@ -26,6 +26,7 @@ From Kernel Require Import VMStep.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import MuLedgerConservation.
 From Kernel Require Import MuNoFreeInsightQuantitative.
+From Kernel Require Import RevelationRequirement.
 
 (**
 
@@ -37,13 +38,25 @@ From Kernel Require Import MuNoFreeInsightQuantitative.
 (** The feasible set type: a list of VMStates *)
 Definition FeasibleSet := list VMState.
 
+(** A finite weighted feasible set packages an explicit multiplicity or mass for
+    each feasible state. This is the smallest non-uniform prior semantics we
+    can add without importing full real-valued probability theory. *)
+Definition WeightedFeasibleSet := list (VMState * nat).
+
 (** Size of a feasible set *)
 Definition feasible_size (omega : FeasibleSet) : nat := length omega.
+
+Definition weighted_mass (omega : WeightedFeasibleSet) : nat :=
+  fold_right Nat.add 0 (map snd omega).
 
 (** A program DISTINGUISHES two states if it maps them to different final states *)
 Definition distinguishes (fuel : nat) (trace : list vm_instruction)
     (s1 s2 : VMState) : Prop :=
   run_vm fuel trace s1 <> run_vm fuel trace s2.
+
+Definition delta_mu (fuel : nat) (trace : list vm_instruction)
+    (s : VMState) : nat :=
+  (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
 
 (** A program SEPARATES a feasible set: all pairs produce distinct outputs *)
 Definition separates (fuel : nat) (trace : list vm_instruction)
@@ -165,8 +178,9 @@ Qed.
     This bound gives: Δμ ≥ cert_setter_executions.
     The rejected single-trace claim would need: cert_setter_executions ≥ log₂|Ω|
     on every realized path, which is not true in general.
-    The remaining gap is expectation-level or whole-tree: aggregate over the
-    entire branching structure, not one lucky execution path.
+    The later decision-tree and weighted-expectation sections aggregate over
+    finite weighted support. What remains after that is deriving the needed
+    tree/posterior witnesses from arbitrary VM reductions.
     *)
 
 (** Number of cert-setting instruction executions in a bounded run *)
@@ -240,8 +254,8 @@ Qed.
      whole feasible-set collapse.
 
    What remains open:
-   1. An expectation-level or whole-decision-tree semantics tying the full
-     branching structure to entropy reduction.
+   1. Deriving the needed whole-decision-tree/posterior witnesses from an
+     arbitrary feasible-set reduction, rather than supplying them explicitly.
 
     *)
 
@@ -253,6 +267,64 @@ Qed.
 Definition shannon_entropy_reduction (omega_init omega_final : FeasibleSet) : nat :=
   Nat.log2 (feasible_size omega_init) -
   Nat.log2 (feasible_size omega_final).
+
+(** [uniform_feasible_entropy]: rounded uniform-prior entropy for a finite
+    feasible set. This is the explicit whole-set semantics used by the
+    decision-tree bounds below. *)
+Definition uniform_feasible_entropy (omega : FeasibleSet) : nat :=
+  Nat.log2_up (feasible_size omega).
+
+(** [uniform_entropy_reduction]: rounded uniform-prior entropy eliminated when
+    Ω reduces to Ω'. *)
+Definition uniform_entropy_reduction
+    (omega_init omega_final : FeasibleSet) : nat :=
+  uniform_feasible_entropy omega_init - uniform_feasible_entropy omega_final.
+
+(** Finite weighted entropy semantics: rounded entropy of the total prior mass.
+    This does not claim a full normalized Shannon expectation over reals; it is
+    the exact finite weighted analogue available in the current nat-valued tree
+    framework. *)
+Definition weighted_feasible_entropy (omega : WeightedFeasibleSet) : nat :=
+  Nat.log2_up (weighted_mass omega).
+
+Definition weighted_entropy_reduction
+    (omega_init omega_final : WeightedFeasibleSet) : nat :=
+  weighted_feasible_entropy omega_init - weighted_feasible_entropy omega_final.
+
+(** A finite normalized input distribution is represented by arbitrary natural
+    weights together with the implicit denominator [weighted_mass omega].
+    This covers every finite rational distribution after clearing
+    denominators, while staying in the nat-valued proof framework used by the
+    rest of this file. *)
+Definition normalized_weighted_distribution (omega : WeightedFeasibleSet) : Prop :=
+  weighted_mass omega > 0.
+
+Definition normalized_weighted_mass (omega : WeightedFeasibleSet) : nat :=
+  weighted_mass omega.
+
+Definition normalized_weighted_entropy (omega : WeightedFeasibleSet) : nat :=
+  weighted_feasible_entropy omega.
+
+Definition normalized_weighted_entropy_reduction
+    (omega_init omega_final : WeightedFeasibleSet) : nat :=
+  normalized_weighted_entropy omega_init -
+  normalized_weighted_entropy omega_final.
+
+(** Expected mu is kept in cross-multiplied numerator form:
+
+      sum_s weight(s) * DeltaMu(s)
+
+    The actual normalized expectation is this numerator divided by the total
+    mass. Keeping the theorem cross-multiplied avoids importing rational or
+    real-valued probability libraries while still proving the expectation-level
+    finite-prior inequality. *)
+Definition weighted_delta_mu_numerator
+    (fuel : nat) (trace : list vm_instruction)
+    (omega : WeightedFeasibleSet) : nat :=
+  fold_right
+    (fun '(s, weight) acc => weight * delta_mu fuel trace s + acc)
+    0
+    omega.
 
 (** HISTORICAL SINGLE-TRACE CLAIM:
    Executing a trace that reduces the feasible set from Ω to Ω' requires
@@ -279,11 +351,12 @@ Definition shannon_entropy_reduction (omega_init omega_final : FeasibleSet) : na
 
     The closest existing result: MuNoFreeInsightQuantitative.supra_cert_implies_mu_lower_bound_trace_run
     proves that cert-setting requires paying some μ > 0.
-  The actual missing piece is an expectation-level or whole-tree bridge from
-  certification structure to entropy reduction. *)
+  The actual missing piece after the finite weighted-expectation theorem below
+  is deriving the tree/posterior witness from general VM-side reduction data. *)
 
 (** Consistent feasible-set reduction.
-    Requires probabilistic semantics (expectation-level feasible-set bridge). *)
+    This is a minimal shape marker; turning it into posterior fibers or a
+    decision tree is the remaining bridge. *)
 Definition consistent_reduction
     (fuel : nat) (trace : list vm_instruction)
     (omega_init omega_final : FeasibleSet)
@@ -396,6 +469,12 @@ Definition tree_covers_feasible_reduction
   feasible_size omega_prior <=
     decision_tree_leaf_count tree * feasible_size omega_posterior.
 
+Definition tree_covers_weighted_reduction
+    (tree : DecisionTree)
+    (omega_prior omega_posterior : WeightedFeasibleSet) : Prop :=
+  weighted_mass omega_prior <=
+    decision_tree_leaf_count tree * weighted_mass omega_posterior.
+
 (** A structured feasible-set reduction witness: each posterior state carries
     a finite fiber of prior states that reduce to it, and every fiber is
     bounded by the tree's leaf budget. This is the first semantics layer that
@@ -413,6 +492,77 @@ Definition ObservationFunction := VMState -> list vm_instruction.
 Definition observation_equiv
     (obs_fn : ObservationFunction) (s1 s2 : VMState) : Prop :=
   obs_fn s1 = obs_fn s2.
+
+Definition observation_matchb
+    (obs_fn : ObservationFunction) (s1 s2 : VMState) : bool :=
+  if list_eq_dec vm_instruction_eq_dec (obs_fn s1) (obs_fn s2) then true else false.
+
+Lemma observation_matchb_spec :
+  forall (obs_fn : ObservationFunction) (s1 s2 : VMState),
+    observation_matchb obs_fn s1 s2 = true <-> observation_equiv obs_fn s1 s2.
+Proof.
+  intros obs_fn s1 s2.
+  unfold observation_matchb, observation_equiv.
+  destruct (list_eq_dec vm_instruction_eq_dec (obs_fn s1) (obs_fn s2)) as [Heq|Hneq].
+  - split.
+    + intro Htrue. exact Heq.
+    + intro Heq'. reflexivity.
+  - split.
+    + discriminate.
+    + intro Heq'. contradiction.
+Qed.
+
+Definition observation_fiber
+    (obs_fn : ObservationFunction) (omega_prior : FeasibleSet) (s_post : VMState)
+    : FeasibleSet :=
+  filter (fun s_prior => observation_matchb obs_fn s_prior s_post) omega_prior.
+
+Definition observation_fiber_sum
+    (obs_fn : ObservationFunction) (omega_prior omega_posterior : FeasibleSet) : nat :=
+  fold_right Nat.add 0
+    (map (fun s_post => feasible_size (observation_fiber obs_fn omega_prior s_post))
+      omega_posterior).
+
+Definition ObservationPartitionReduction
+    (obs_fn : ObservationFunction)
+    (tree : DecisionTree) (omega_prior omega_posterior : FeasibleSet) : Prop :=
+  (forall s_prior, In s_prior omega_prior ->
+    exists s_post,
+      In s_post omega_posterior /\
+      observation_equiv obs_fn s_prior s_post) /\
+  (feasible_size omega_prior <=
+    observation_fiber_sum obs_fn omega_prior omega_posterior) /\
+  (forall s_post, In s_post omega_posterior ->
+    feasible_size (observation_fiber obs_fn omega_prior s_post) <=
+      decision_tree_leaf_count tree).
+
+Lemma in_observation_fiber_iff :
+  forall (obs_fn : ObservationFunction) (omega_prior : FeasibleSet)
+         (s_prior s_post : VMState),
+    In s_prior (observation_fiber obs_fn omega_prior s_post) <->
+    In s_prior omega_prior /\ observation_equiv obs_fn s_prior s_post.
+Proof.
+  intros obs_fn omega_prior s_prior s_post.
+  unfold observation_fiber.
+  rewrite filter_In.
+  rewrite observation_matchb_spec.
+  tauto.
+Qed.
+
+Lemma observation_fiber_sum_monotone :
+  forall (obs_fn : ObservationFunction) (omega_prior omega_posterior : FeasibleSet)
+         (s : VMState),
+    observation_fiber_sum obs_fn omega_prior omega_posterior <=
+    observation_fiber_sum obs_fn (s :: omega_prior) omega_posterior.
+Proof.
+  intros obs_fn omega_prior omega_posterior s.
+  unfold observation_fiber_sum, feasible_size.
+  induction omega_posterior as [| s_post rest IH]; simpl.
+  - lia.
+  - apply Nat.add_le_mono.
+    + destruct (observation_matchb obs_fn s s_post); simpl; lia.
+    + exact IH.
+Qed.
 
 Definition posterior_representative_fibers
     (omega_posterior : FeasibleSet) (fiber_of : VMState -> FeasibleSet)
@@ -551,6 +701,29 @@ Proof.
       exact Hbound.
 Qed.
 
+Theorem observation_partition_reduction_implies_posterior_representative_reduction :
+  forall (obs_fn : ObservationFunction) (tree : DecisionTree)
+         (omega_prior omega_posterior : FeasibleSet),
+    ObservationPartitionReduction obs_fn tree omega_prior omega_posterior ->
+    PosteriorRepresentativeReduction obs_fn tree omega_prior omega_posterior.
+Proof.
+  intros obs_fn tree omega_prior omega_posterior [Hcover [Hsum Hbound]].
+  exists (observation_fiber obs_fn omega_prior).
+  split.
+  - intros s_prior Hin_prior.
+    destruct (Hcover s_prior Hin_prior) as [s_post [Hin_post Hequiv]].
+    exists s_post.
+    split; [exact Hin_post|].
+    split.
+    + apply in_observation_fiber_iff.
+      split; assumption.
+    + exact Hequiv.
+  - split.
+    + exact Hsum.
+    + intros s_post Hin_post.
+      exact (Hbound s_post Hin_post).
+Qed.
+
 Lemma decision_tree_leaf_count_positive :
   forall tree,
     decision_tree_leaf_count tree > 0.
@@ -621,6 +794,29 @@ Proof.
   lia.
 Qed.
 
+Lemma weighted_tree_cover_implies_log2_up_reduction_bound :
+  forall (tree : DecisionTree)
+         (omega_prior omega_posterior : WeightedFeasibleSet),
+    weighted_mass omega_posterior > 0 ->
+    tree_covers_weighted_reduction tree omega_prior omega_posterior ->
+    Nat.log2_up (weighted_mass omega_prior) -
+      Nat.log2_up (weighted_mass omega_posterior) <=
+    Nat.log2_up (decision_tree_leaf_count tree).
+Proof.
+  intros tree omega_prior omega_posterior Hpost Hcover.
+  unfold tree_covers_weighted_reduction in Hcover.
+  assert (Hmono :
+    Nat.log2_up (weighted_mass omega_prior) <=
+    Nat.log2_up (decision_tree_leaf_count tree * weighted_mass omega_posterior)).
+  { apply Nat.log2_up_le_mono. exact Hcover. }
+  assert (Hmul :
+    Nat.log2_up (decision_tree_leaf_count tree * weighted_mass omega_posterior) <=
+    Nat.log2_up (decision_tree_leaf_count tree) +
+    Nat.log2_up (weighted_mass omega_posterior)).
+  { apply Nat.log2_up_mul_above; lia. }
+  lia.
+Qed.
+
 Theorem info_priced_arbitrary_feasible_reduction_bound :
   forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
          (omega_prior omega_posterior : FeasibleSet) (tree : DecisionTree),
@@ -635,6 +831,98 @@ Proof.
   eapply Nat.le_trans.
   - apply tree_cover_implies_log2_up_reduction_bound; eauto.
   - apply info_priced_decision_tree_log2_up_leaf_bound; assumption.
+Qed.
+
+(** Explicit uniform-prior semantics for the decision-tree bridge. *)
+Theorem info_priced_uniform_entropy_reduction_bound :
+  forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
+         (omega_prior omega_posterior : FeasibleSet) (tree : DecisionTree),
+    decision_tree_realized_by_trace fuel trace s tree ->
+    feasible_size omega_posterior > 0 ->
+    tree_covers_feasible_reduction tree omega_prior omega_posterior ->
+    uniform_entropy_reduction omega_prior omega_posterior <=
+      (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+  intros fuel trace s omega_prior omega_posterior tree Htree Hpost Hcover.
+  unfold uniform_entropy_reduction, uniform_feasible_entropy.
+  eapply info_priced_arbitrary_feasible_reduction_bound; eauto.
+Qed.
+
+Theorem info_priced_weighted_feasible_reduction_bound :
+  forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
+         (omega_prior omega_posterior : WeightedFeasibleSet) (tree : DecisionTree),
+    decision_tree_realized_by_trace fuel trace s tree ->
+    weighted_mass omega_posterior > 0 ->
+    tree_covers_weighted_reduction tree omega_prior omega_posterior ->
+    weighted_entropy_reduction omega_prior omega_posterior <=
+      (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+  intros fuel trace s omega_prior omega_posterior tree Htree Hpost Hcover.
+  unfold weighted_entropy_reduction, weighted_feasible_entropy,
+         tree_covers_weighted_reduction.
+  eapply Nat.le_trans.
+  - apply weighted_tree_cover_implies_log2_up_reduction_bound; eauto.
+  - apply info_priced_decision_tree_log2_up_leaf_bound; assumption.
+Qed.
+
+Theorem info_priced_normalized_weighted_feasible_reduction_bound :
+  forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
+         (omega_prior omega_posterior : WeightedFeasibleSet) (tree : DecisionTree),
+    normalized_weighted_distribution omega_prior ->
+    normalized_weighted_distribution omega_posterior ->
+    decision_tree_realized_by_trace fuel trace s tree ->
+    tree_covers_weighted_reduction tree omega_prior omega_posterior ->
+    normalized_weighted_entropy_reduction omega_prior omega_posterior <=
+      delta_mu fuel trace s.
+Proof.
+  intros fuel trace s omega_prior omega_posterior tree _ Hpost Htree Hcover.
+  unfold normalized_weighted_entropy_reduction,
+         normalized_weighted_entropy,
+         weighted_feasible_entropy,
+         delta_mu.
+  eapply info_priced_weighted_feasible_reduction_bound; eauto.
+Qed.
+
+Lemma weighted_delta_mu_numerator_lower_bound :
+  forall (fuel : nat) (trace : list vm_instruction)
+         (omega : WeightedFeasibleSet) (bound : nat),
+    (forall s weight, In (s, weight) omega -> bound <= delta_mu fuel trace s) ->
+    bound * weighted_mass omega <=
+      weighted_delta_mu_numerator fuel trace omega.
+Proof.
+  intros fuel trace omega.
+  induction omega as [| [s weight] rest IH]; intros bound Hbound; simpl.
+  - unfold weighted_mass. simpl. lia.
+  - assert (Hhead : bound <= delta_mu fuel trace s).
+    { exact (Hbound s weight (or_introl eq_refl)). }
+    assert (Hrest :
+      bound * weighted_mass rest <=
+        weighted_delta_mu_numerator fuel trace rest).
+    { apply IH.
+      intros s' weight' Hin.
+      exact (Hbound s' weight' (or_intror Hin)). }
+    unfold weighted_mass in *. simpl in *.
+    nia.
+Qed.
+
+Theorem info_priced_normalized_expected_entropy_reduction_bound :
+  forall (fuel : nat) (trace : list vm_instruction)
+         (omega_prior omega_posterior : WeightedFeasibleSet)
+         (tree : DecisionTree),
+    normalized_weighted_distribution omega_prior ->
+    normalized_weighted_distribution omega_posterior ->
+    (forall s weight, In (s, weight) omega_prior ->
+      decision_tree_realized_by_trace fuel trace s tree) ->
+    tree_covers_weighted_reduction tree omega_prior omega_posterior ->
+    normalized_weighted_entropy_reduction omega_prior omega_posterior *
+      normalized_weighted_mass omega_prior <=
+    weighted_delta_mu_numerator fuel trace omega_prior.
+Proof.
+  intros fuel trace omega_prior omega_posterior tree Hprior Hpost Hrealized Hcover.
+  unfold normalized_weighted_mass.
+  apply weighted_delta_mu_numerator_lower_bound.
+  intros s weight Hin.
+  eapply info_priced_normalized_weighted_feasible_reduction_bound; eauto.
 Qed.
 
 Theorem info_priced_fibered_feasible_reduction_bound :
@@ -669,6 +957,24 @@ Proof.
   eapply info_priced_fibered_feasible_reduction_bound; eauto.
   apply posterior_representative_reduction_implies_fibered_reduction with (obs_fn := obs_fn).
   exact Hrepr.
+Qed.
+
+Theorem info_priced_observation_partition_reduction_bound :
+  forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
+         (omega_prior omega_posterior : FeasibleSet) (tree : DecisionTree)
+         (obs_fn : ObservationFunction),
+    decision_tree_realized_by_trace fuel trace s tree ->
+    feasible_size omega_posterior > 0 ->
+    ObservationPartitionReduction obs_fn tree omega_prior omega_posterior ->
+    Nat.log2_up (feasible_size omega_prior) -
+      Nat.log2_up (feasible_size omega_posterior) <=
+      (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+  intros fuel trace s omega_prior omega_posterior tree obs_fn.
+  intros Htree Hpost Hpartition.
+  eapply info_priced_posterior_representative_reduction_bound; eauto.
+  apply observation_partition_reduction_implies_posterior_representative_reduction.
+  exact Hpartition.
 Qed.
 
 (**
@@ -717,19 +1023,128 @@ Qed.
       event with cost > 0 (proven for the Thiele VM)
 
     REMAINING OPEN WORK:
-    - Expectation-level connection between Δμ and entropy reduction
-    - Probabilistic semantics: what distribution over inputs justifies entropy calc
-    - Compilation of VM-side separation behavior into a whole decision-tree model
+    - Connect VM-side separation behavior to posterior fibers or decision-tree
+      witnesses without taking those witnesses as hypotheses
+    - Connect the feasible-set reduction semantics to Bayesian belief update
 
     The existing results prove NoFI QUALITATIVELY (any cert costs > 0).
     The conditional tree bound strengthens this QUANTITATIVELY when the
     decision-tree hypothesis is explicit. The arbitrary feasible-set reduction
     bound packages that hypothesis as an explicit leaf-cover condition over
-    |Ω| and |Ω'|. The naive single-trace strengthening is false in general.
+    |Ω| and |Ω'|. The normalized weighted theorem additionally proves the
+    finite-prior expectation-level bound in cross-multiplied numerator form.
+    The naive single-trace strengthening is false in general.
     *)
 
+(** ** Constructive existence of covering decision trees
+
+    The theorems above require an explicit decision tree as a hypothesis.
+    This section proves that for any feasible-set reduction, a covering
+    decision tree EXISTS. The witness is a complete binary tree of depth
+    log2_up(|Ω| / |Ω'|). This closes the gap between the quantitative bound
+    (which requires the tree as input) and arbitrary reductions (which only
+    know |Ω'| < |Ω|). *)
+
+(** A complete binary tree of depth d has 2^d leaves. *)
+Fixpoint complete_tree (d : nat) : DecisionTree :=
+  match d with
+  | 0 => dt_leaf
+  | S d' => dt_branch (complete_tree d') (complete_tree d')
+  end.
+
+Lemma complete_tree_leaf_count : forall d,
+  decision_tree_leaf_count (complete_tree d) = 2 ^ d.
+Proof.
+  induction d as [|d IH]. reflexivity.
+  simpl. rewrite IH. lia.
+Qed.
+
+(** For any feasible-set sizes with posterior > 0, a complete tree of
+    sufficient depth covers the reduction. *)
+Lemma complete_tree_covers_reduction :
+  forall omega_prior omega_posterior d,
+    feasible_size omega_prior <= 2 ^ d * feasible_size omega_posterior ->
+    tree_covers_feasible_reduction (complete_tree d) omega_prior omega_posterior.
+Proof.
+  intros omega_prior omega_posterior d Hle.
+  unfold tree_covers_feasible_reduction.
+  rewrite complete_tree_leaf_count. exact Hle.
+Qed.
+
+(** For any strict reduction, there exists a covering tree. The depth is
+    chosen as Nat.log2_up(|Ω| / |Ω'|) + 1 to guarantee coverage. *)
+Theorem exists_covering_tree :
+  forall omega_prior omega_posterior,
+    feasible_size omega_posterior > 0 ->
+    exists tree,
+      tree_covers_feasible_reduction tree omega_prior omega_posterior.
+Proof.
+  intros omega_prior omega_posterior Hpos.
+  set (k := feasible_size omega_prior / feasible_size omega_posterior + 1).
+  set (d := Nat.log2_up k).
+  exists (complete_tree d).
+  apply complete_tree_covers_reduction.
+  (* Need: |Ω| ≤ 2^d * |Ω'|.
+     We have: |Ω| < k * |Ω'| (from division definition)
+     And: k ≤ 2^log2_up(k) = 2^d *)
+  assert (Hpos' : feasible_size omega_posterior <> 0) by lia.
+  assert (Hk_bound : feasible_size omega_prior < k * feasible_size omega_posterior).
+  { unfold k.
+    pose proof (Nat.div_mod (feasible_size omega_prior) (feasible_size omega_posterior) Hpos') as Hmod.
+    pose proof (Nat.mod_upper_bound (feasible_size omega_prior) (feasible_size omega_posterior) Hpos') as Hlt.
+    nia. }
+  assert (Hkpos : 0 < k) by (unfold k; lia).
+  assert (Hpow : k <= 2 ^ d).
+  { unfold d. apply (proj2 (Nat.log2_up_le_pow2 k (Nat.log2_up k) Hkpos)).
+    apply Nat.le_refl. }
+  apply Nat.lt_le_incl.
+  apply Nat.lt_le_trans with (k * feasible_size omega_posterior).
+  - exact Hk_bound.
+  - apply Nat.mul_le_mono_r. exact Hpow.
+Qed.
+
+(** Combined: given that the trace paid enough μ to realize the constructed
+    covering tree, the log2_up entropy bound follows automatically.
+    The tree is chosen as the minimal complete binary tree covering the
+    reduction — the user supplies only the μ payment and the set sizes. *)
+Theorem info_priced_reduction_no_tree_hypothesis :
+  forall (fuel : nat) (trace : list vm_instruction) (s : VMState)
+         (omega_prior omega_posterior : FeasibleSet),
+    feasible_size omega_posterior > 0 ->
+    decision_tree_realized_by_trace fuel trace s
+      (complete_tree (Nat.log2_up
+        (feasible_size omega_prior / feasible_size omega_posterior + 1))) ->
+    Nat.log2_up (feasible_size omega_prior) -
+      Nat.log2_up (feasible_size omega_posterior) <=
+      (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
+Proof.
+  intros fuel trace s omega_prior omega_posterior Hpos Hrealized.
+  set (d := Nat.log2_up (feasible_size omega_prior / feasible_size omega_posterior + 1)).
+  apply info_priced_arbitrary_feasible_reduction_bound with
+    (tree := complete_tree d).
+  - exact Hrealized.
+  - exact Hpos.
+  - (* complete_tree d covers the reduction *)
+    apply complete_tree_covers_reduction.
+    set (k := feasible_size omega_prior / feasible_size omega_posterior + 1).
+    assert (Hkpos : 0 < k) by (unfold k; lia).
+    assert (Hpos' : feasible_size omega_posterior <> 0) by lia.
+    assert (Hk_bound : feasible_size omega_prior < k * feasible_size omega_posterior).
+    { unfold k.
+      pose proof (Nat.div_mod (feasible_size omega_prior) (feasible_size omega_posterior) Hpos') as Hmod.
+      pose proof (Nat.mod_upper_bound (feasible_size omega_prior) (feasible_size omega_posterior) Hpos') as Hlt.
+      nia. }
+    assert (Hpow : k <= 2 ^ d).
+    { unfold d, k. apply (proj2 (Nat.log2_up_le_pow2 k (Nat.log2_up k) Hkpos)).
+      apply Nat.le_refl. }
+    apply Nat.lt_le_incl.
+    apply Nat.lt_le_trans with (k * feasible_size omega_posterior).
+    + exact Hk_bound.
+    + apply Nat.mul_le_mono_r. exact Hpow.
+Qed.
+
 (** End of MuShannonBridge.
-    Open work:
-  - Define an expectation-level feasible-set semantics over input distributions
+    Remaining open work:
   - Connect consistent_reduction / decision-tree structure to Bayesian belief update
-  - Prove the expected certification cost bound against the Shannon target *)
+  - Full expectation-level bound for arbitrary input distributions (expectation
+    over prior states, not just uniform or nat-weighted priors) *)

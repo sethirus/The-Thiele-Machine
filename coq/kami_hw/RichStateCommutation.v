@@ -469,7 +469,8 @@ Lemma morph_add_commutation :
                    | Some desc => coupling_desc_label desc
                    | None => coupling_label empty_coupling_data
                    end |};
-          morph_is_identity := is_id |})
+          morph_is_identity := is_id;
+               morph_cert_cost := 0 |})
       :: snapshot_morphisms_of_rich_state rs.
 Proof.
   intros rs src dst coupling_desc is_id.
@@ -556,7 +557,8 @@ Lemma morph_get_selector_commutation :
                    morph_target := morph_entry_target entry;
                    morph_coupling :=
                      normalize_coupling empty_coupling_data;
-                   morph_is_identity := morph_entry_is_identity entry |} in
+                   morph_is_identity := morph_entry_is_identity entry;
+               morph_cert_cost := 0 |} in
       morphism_selector_value ms selector =
       match selector with
       | 0 => morph_entry_source entry

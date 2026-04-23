@@ -1,0 +1,1802 @@
+DIGEST 42730b0e0d3f0ef2d57814f7f8f01378
+FKernel.DiscreteSimplicialGeometry
+R1907:1911 Coq.Reals.Reals <> <> lib
+R1913:1915 Coq.micromega.Lra <> <> lib
+R1917:1919 Coq.micromega.Lia <> <> lib
+R1921:1924 Coq.Lists.List <> <> lib
+R1926:1929 Coq.Bool.Bool <> <> lib
+R1939:1951 Coq.Lists.List ListNotations <> mod
+R1982:1988 Kernel.VMState <> <> lib
+R1990:1995 Kernel.VMStep <> <> lib
+R2025:2046 Kernel.FourDSimplicialComplex <> <> lib
+R2076:2090 Kernel.RiemannTensor4D <> <> lib
+R2120:2136 Kernel.MetricFromMuCosts <> <> lib
+R2166:2185 Kernel.CurvedTensorPipeline <> <> lib
+R2215:2233 Kernel.EinsteinEquations4D <> <> lib
+R2263:2283 Kernel.EinsteinEquationsFull <> <> lib
+def 2839:2864 <> combinatorially_orthogonal
+R2872:2890 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 2867:2868 <> sc:1
+R2898:2904 Kernel.VMState <> VMState rec
+binder 2894:2894 <> s:2
+R2916:2923 Kernel.VMState <> ModuleID def
+binder 2912:2912 <> v:3
+R2953:2955 Coq.Init.Datatypes <> nat ind
+binder 2945:2946 <> mu:4
+binder 2948:2949 <> nu:5
+R2974:2977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2965:2967 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2963:2964 Kernel.DiscreteSimplicialGeometry <> mu:4 var
+R2990:2993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2981:2983 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2979:2980 Kernel.DiscreteSimplicialGeometry <> nu:5 var
+R3002:3009 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2996:2999 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2994:2995 Kernel.DiscreteSimplicialGeometry <> mu:4 var
+R3000:3001 Kernel.DiscreteSimplicialGeometry <> nu:5 var
+R3035:3037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3010:3021 Kernel.CurvedTensorPipeline <> curved_ricci def
+R3023:3023 Kernel.DiscreteSimplicialGeometry <> s:2 var
+R3025:3026 Kernel.DiscreteSimplicialGeometry <> sc:1 var
+R3028:3029 Kernel.DiscreteSimplicialGeometry <> mu:4 var
+R3031:3032 Kernel.DiscreteSimplicialGeometry <> nu:5 var
+R3034:3034 Kernel.DiscreteSimplicialGeometry <> v:3 var
+prf 3293:3345 <> combinatorially_orthogonal_implies_off_diagonal_ricci
+R3364:3382 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 3359:3360 <> sc:6
+R3390:3396 Kernel.VMState <> VMState rec
+binder 3386:3386 <> s:7
+R3410:3417 Kernel.VMState <> ModuleID def
+binder 3400:3400 <> v:8
+binder 3402:3406 <> kappa:9
+R3458:3465 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3425:3450 Kernel.DiscreteSimplicialGeometry <> combinatorially_orthogonal def
+R3452:3453 Kernel.DiscreteSimplicialGeometry <> sc:6 var
+R3455:3455 Kernel.DiscreteSimplicialGeometry <> s:7 var
+R3457:3457 Kernel.DiscreteSimplicialGeometry <> v:8 var
+R3481:3483 Coq.Init.Datatypes <> nat ind
+binder 3473:3474 <> mu:10
+binder 3476:3477 <> nu:11
+R3504:3507 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3495:3497 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3493:3494 Kernel.DiscreteSimplicialGeometry <> mu:10 var
+R3520:3523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3511:3513 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3509:3510 Kernel.DiscreteSimplicialGeometry <> nu:11 var
+R3532:3541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3526:3529 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3524:3525 Kernel.DiscreteSimplicialGeometry <> mu:10 var
+R3530:3531 Kernel.DiscreteSimplicialGeometry <> nu:11 var
+R3567:3569 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3542:3553 Kernel.CurvedTensorPipeline <> curved_ricci def
+R3555:3555 Kernel.DiscreteSimplicialGeometry <> s:7 var
+R3557:3558 Kernel.DiscreteSimplicialGeometry <> sc:6 var
+R3560:3561 Kernel.DiscreteSimplicialGeometry <> mu:10 var
+R3563:3564 Kernel.DiscreteSimplicialGeometry <> nu:11 var
+R3566:3566 Kernel.DiscreteSimplicialGeometry <> v:8 var
+R3767:3780 Kernel.MatrixAlgebra4 <> <> lib
+prf 3929:3968 <> two_vertex_sc_combinatorially_orthogonal
+R3986:3992 Kernel.VMState <> VMState rec
+binder 3982:3982 <> s:12
+R4002:4009 Kernel.VMState <> ModuleID def
+binder 3996:3996 <> v:13
+binder 3998:3998 <> w:14
+R4023:4030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4018:4021 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4017:4017 Kernel.DiscreteSimplicialGeometry <> v:13 var
+R4022:4022 Kernel.DiscreteSimplicialGeometry <> w:14 var
+R4031:4031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4105:4113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 4039:4039 <> i:15
+binder 4041:4041 <> j:16
+R4073:4075 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4044:4064 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R4066:4066 Kernel.DiscreteSimplicialGeometry <> s:12 var
+R4068:4068 Kernel.DiscreteSimplicialGeometry <> v:13 var
+R4070:4070 Kernel.DiscreteSimplicialGeometry <> i:15 var
+R4072:4072 Kernel.DiscreteSimplicialGeometry <> j:16 var
+R4076:4096 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R4098:4098 Kernel.DiscreteSimplicialGeometry <> s:12 var
+R4100:4100 Kernel.DiscreteSimplicialGeometry <> w:14 var
+R4102:4102 Kernel.DiscreteSimplicialGeometry <> i:15 var
+R4104:4104 Kernel.DiscreteSimplicialGeometry <> j:16 var
+R4114:4139 Kernel.DiscreteSimplicialGeometry <> combinatorially_orthogonal def
+R4142:4154 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R4156:4156 Kernel.DiscreteSimplicialGeometry <> v:13 var
+R4158:4158 Kernel.DiscreteSimplicialGeometry <> w:14 var
+R4161:4161 Kernel.DiscreteSimplicialGeometry <> s:12 var
+R4163:4163 Kernel.DiscreteSimplicialGeometry <> v:13 var
+R4211:4236 Kernel.DiscreteSimplicialGeometry <> combinatorially_orthogonal def
+R4269:4299 Kernel.EinsteinEquationsFull <> curved_ricci_uniform_two_vertex thm
+R4269:4299 Kernel.EinsteinEquationsFull <> curved_ricci_uniform_two_vertex thm
+def 5376:5382 <> b4_edge
+R5391:5393 Coq.Init.Datatypes <> nat ind
+binder 5385:5385 <> i:17
+binder 5387:5387 <> j:18
+R5398:5403 Kernel.FourDSimplicialComplex <> Edge1D rec
+R5413:5424 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R5413:5424 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R5413:5424 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R5442:5454 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R5442:5454 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R5429:5429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5431:5432 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5434:5434 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5430:5430 Kernel.DiscreteSimplicialGeometry <> i:17 var
+R5433:5433 Kernel.DiscreteSimplicialGeometry <> j:18 var
+R5459:5462 Coq.Init.Datatypes <> None constr
+def 5536:5542 <> b4_face
+R5553:5555 Coq.Init.Datatypes <> nat ind
+binder 5545:5545 <> i:19
+binder 5547:5547 <> j:20
+binder 5549:5549 <> k:21
+R5560:5565 Kernel.FourDSimplicialComplex <> Face2D rec
+R5575:5586 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R5575:5586 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R5575:5586 Kernel.FourDSimplicialComplex <> f2d_vertices proj
+R5591:5591 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5593:5594 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5596:5597 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5599:5599 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5592:5592 Kernel.DiscreteSimplicialGeometry <> i:19 var
+R5595:5595 Kernel.DiscreteSimplicialGeometry <> j:20 var
+R5598:5598 Kernel.DiscreteSimplicialGeometry <> k:21 var
+def 5669:5675 <> b4_cell
+R5688:5690 Coq.Init.Datatypes <> nat ind
+binder 5678:5678 <> i:22
+binder 5680:5680 <> j:23
+binder 5682:5682 <> k:24
+binder 5684:5684 <> l:25
+R5695:5700 Kernel.FourDSimplicialComplex <> Cell3D rec
+R5710:5721 Kernel.FourDSimplicialComplex <> c3d_vertices proj
+R5710:5721 Kernel.FourDSimplicialComplex <> c3d_vertices proj
+R5710:5721 Kernel.FourDSimplicialComplex <> c3d_vertices proj
+R5726:5726 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5728:5729 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5731:5732 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5734:5735 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5737:5737 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5727:5727 Kernel.DiscreteSimplicialGeometry <> i:22 var
+R5730:5730 Kernel.DiscreteSimplicialGeometry <> j:23 var
+R5733:5733 Kernel.DiscreteSimplicialGeometry <> k:24 var
+R5736:5736 Kernel.DiscreteSimplicialGeometry <> l:25 var
+def 5802:5818 <> boundary_4simplex
+R5822:5840 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+R5850:5862 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R5850:5862 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R5850:5862 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R5889:5898 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R5889:5898 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R6075:6084 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R6075:6084 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R6281:6290 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R6281:6290 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R6415:6429 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R6415:6429 Kernel.FourDSimplicialComplex <> sc4d_4simplices proj
+R5867:5867 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5869:5870 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5872:5873 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5875:5876 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5878:5879 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5881:5881 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5903:5911 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5923:5924 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5936:5937 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5949:5950 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5962:5970 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5982:5983 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5995:5996 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6008:6016 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6028:6029 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6041:6049 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6061:6067 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5912:5918 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R5925:5931 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R5938:5944 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R5951:5957 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R5971:5977 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R5984:5990 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R5997:6003 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R6017:6023 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R6030:6036 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R6050:6056 Kernel.DiscreteSimplicialGeometry <> b4_edge def
+R6089:6097 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6111:6112 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6126:6127 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6141:6149 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6163:6164 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6178:6179 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6193:6201 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6215:6216 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6230:6231 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6245:6253 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6267:6273 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6098:6104 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6113:6119 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6128:6134 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6150:6156 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6165:6171 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6180:6186 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6202:6208 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6217:6223 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6232:6238 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6254:6260 Kernel.DiscreteSimplicialGeometry <> b4_face def
+R6295:6303 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6319:6320 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6336:6344 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6360:6361 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6377:6385 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6401:6407 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R6304:6310 Kernel.DiscreteSimplicialGeometry <> b4_cell def
+R6321:6327 Kernel.DiscreteSimplicialGeometry <> b4_cell def
+R6345:6351 Kernel.DiscreteSimplicialGeometry <> b4_cell def
+R6362:6368 Kernel.DiscreteSimplicialGeometry <> b4_cell def
+R6386:6392 Kernel.DiscreteSimplicialGeometry <> b4_cell def
+R6434:6435 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 6474:6503 <> boundary_4simplex_vertex_count
+R6549:6551 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6509:6514 Coq.Init.Datatypes <> length def
+R6517:6529 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R6531:6547 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+prf 6619:6646 <> boundary_4simplex_edge_count
+R6689:6691 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6652:6657 Coq.Init.Datatypes <> length def
+R6660:6669 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R6671:6687 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+prf 6760:6787 <> boundary_4simplex_face_count
+R6830:6832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6793:6798 Coq.Init.Datatypes <> length def
+R6801:6810 Kernel.FourDSimplicialComplex <> sc4d_faces proj
+R6812:6828 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+prf 6902:6929 <> boundary_4simplex_cell_count
+R6972:6974 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6935:6940 Coq.Init.Datatypes <> length def
+R6943:6952 Kernel.FourDSimplicialComplex <> sc4d_cells proj
+R6954:6970 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+prf 7010:7034 <> boundary_4simplex_dd_at_0
+binder 7047:7047 <> s:26
+binder 7049:7049 <> f:27
+binder 7051:7052 <> mu:28
+R7105:7107 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7059:7077 Kernel.RiemannTensor4D <> discrete_derivative def
+R7079:7079 Kernel.DiscreteSimplicialGeometry <> s:26 var
+R7081:7097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R7099:7099 Kernel.DiscreteSimplicialGeometry <> f:27 var
+R7101:7102 Kernel.DiscreteSimplicialGeometry <> mu:28 var
+R7146:7164 Kernel.RiemannTensor4D <> discrete_derivative def
+R7167:7183 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R7193:7205 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R7207:7216 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R7218:7229 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R7231:7243 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R7256:7262 Coq.Lists.List <> existsb def
+R7265:7276 Kernel.VMState <> nat_list_mem def
+R7301:7304 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7330:7341 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7301:7304 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7330:7341 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7330:7341 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7330:7341 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7330:7341 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 7386:7410 <> boundary_4simplex_dd_at_1
+binder 7423:7423 <> s:29
+binder 7425:7425 <> f:30
+binder 7427:7428 <> mu:31
+R7481:7483 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7435:7453 Kernel.RiemannTensor4D <> discrete_derivative def
+R7455:7455 Kernel.DiscreteSimplicialGeometry <> s:29 var
+R7457:7473 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R7475:7475 Kernel.DiscreteSimplicialGeometry <> f:30 var
+R7477:7478 Kernel.DiscreteSimplicialGeometry <> mu:31 var
+R7492:7494 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R7485:7485 Kernel.DiscreteSimplicialGeometry <> f:30 var
+R7495:7495 Kernel.DiscreteSimplicialGeometry <> f:30 var
+R7540:7558 Kernel.RiemannTensor4D <> discrete_derivative def
+R7561:7577 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R7587:7599 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R7601:7610 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R7612:7623 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R7625:7637 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R7650:7656 Coq.Lists.List <> existsb def
+R7659:7670 Kernel.VMState <> nat_list_mem def
+R7695:7698 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7695:7698 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7721:7730 Coq.Arith.PeanoNat Nat eqb_eq thm
+R7721:7730 Coq.Arith.PeanoNat Nat eqb_eq thm
+R7760:7763 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7789:7800 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7760:7763 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7789:7800 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7789:7800 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7789:7800 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7789:7800 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7838:7841 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7867:7878 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7838:7841 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R7867:7878 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7867:7878 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7867:7878 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7867:7878 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 7930:7957 <> boundary_4simplex_dd_at_ge_2
+binder 7970:7970 <> s:32
+binder 7972:7972 <> f:33
+binder 7974:7975 <> mu:34
+binder 7977:7977 <> v:35
+R7998:8005 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7984:7985 Coq.Lists.List <> In def
+R7989:7989 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7991:7992 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7994:7995 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7997:7997 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7987:7987 Kernel.DiscreteSimplicialGeometry <> v:35 var
+R8052:8054 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8006:8024 Kernel.RiemannTensor4D <> discrete_derivative def
+R8026:8026 Kernel.DiscreteSimplicialGeometry <> s:32 var
+R8028:8044 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R8046:8046 Kernel.DiscreteSimplicialGeometry <> f:33 var
+R8048:8049 Kernel.DiscreteSimplicialGeometry <> mu:34 var
+R8051:8051 Kernel.DiscreteSimplicialGeometry <> v:35 var
+R8063:8065 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R8056:8056 Kernel.DiscreteSimplicialGeometry <> f:33 var
+R8066:8066 Kernel.DiscreteSimplicialGeometry <> f:33 var
+R8068:8068 Kernel.DiscreteSimplicialGeometry <> v:35 var
+R8165:8183 Kernel.RiemannTensor4D <> discrete_derivative def
+R8186:8202 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R8214:8226 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R8228:8237 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R8239:8250 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R8252:8264 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R8279:8285 Coq.Lists.List <> existsb def
+R8288:8299 Kernel.VMState <> nat_list_mem def
+R8324:8327 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8347:8356 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8324:8327 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8347:8356 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8388:8391 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8417:8428 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8388:8391 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8417:8428 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8417:8428 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8417:8428 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8417:8428 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8468:8471 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8491:8500 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8468:8471 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8491:8500 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8545:8563 Kernel.RiemannTensor4D <> discrete_derivative def
+R8566:8582 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R8594:8606 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R8608:8617 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R8619:8630 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R8632:8644 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R8659:8665 Coq.Lists.List <> existsb def
+R8668:8679 Kernel.VMState <> nat_list_mem def
+R8704:8707 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8727:8736 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8704:8707 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8727:8736 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8768:8771 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8797:8808 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8768:8771 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8797:8808 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8797:8808 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8797:8808 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8797:8808 Coq.Arith.PeanoNat Nat eqb_refl thm
+R8848:8851 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8871:8880 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8848:8851 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8871:8880 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8912:8915 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8935:8944 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8912:8915 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R8935:8944 Coq.Arith.PeanoNat Nat eqb_eq thm
+R8989:9007 Kernel.RiemannTensor4D <> discrete_derivative def
+R9010:9026 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R9038:9050 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R9052:9061 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R9063:9074 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R9076:9088 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R9103:9109 Coq.Lists.List <> existsb def
+R9112:9123 Kernel.VMState <> nat_list_mem def
+R9148:9151 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9171:9180 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9148:9151 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9171:9180 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9212:9215 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9241:9252 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9212:9215 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9241:9252 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9241:9252 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9241:9252 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9241:9252 Coq.Arith.PeanoNat Nat eqb_refl thm
+R9292:9295 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9315:9324 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9292:9295 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9315:9324 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9356:9359 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9379:9388 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9356:9359 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9379:9388 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9420:9423 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9443:9452 Coq.Arith.PeanoNat Nat eqb_eq thm
+R9420:9423 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R9443:9452 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 9498:9536 <> boundary_4simplex_dd_at_1_eq_two_vertex
+binder 9549:9549 <> s:36
+binder 9551:9551 <> f:37
+binder 9553:9554 <> mu:38
+R9607:9613 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9561:9579 Kernel.RiemannTensor4D <> discrete_derivative def
+R9581:9581 Kernel.DiscreteSimplicialGeometry <> s:36 var
+R9583:9599 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R9601:9601 Kernel.DiscreteSimplicialGeometry <> f:37 var
+R9603:9604 Kernel.DiscreteSimplicialGeometry <> mu:38 var
+R9614:9632 Kernel.RiemannTensor4D <> discrete_derivative def
+R9634:9634 Kernel.DiscreteSimplicialGeometry <> s:36 var
+R9637:9649 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R9656:9656 Kernel.DiscreteSimplicialGeometry <> f:37 var
+R9658:9659 Kernel.DiscreteSimplicialGeometry <> mu:38 var
+R9698:9722 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+R9698:9722 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+R9698:9722 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+R9745:9751 Kernel.EinsteinEquations4D <> dd_at_v thm
+R9745:9751 Kernel.EinsteinEquations4D <> dd_at_v thm
+prf 9775:9829 <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex
+binder 9842:9842 <> s:39
+binder 9844:9846 <> rho:40
+binder 9848:9849 <> mu:41
+binder 9851:9852 <> nu:42
+R9909:9915 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9859:9876 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R9878:9878 Kernel.DiscreteSimplicialGeometry <> s:39 var
+R9880:9896 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R9898:9900 Kernel.DiscreteSimplicialGeometry <> rho:40 var
+R9902:9903 Kernel.DiscreteSimplicialGeometry <> mu:41 var
+R9905:9906 Kernel.DiscreteSimplicialGeometry <> nu:42 var
+R9916:9933 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R9935:9935 Kernel.DiscreteSimplicialGeometry <> s:39 var
+R9938:9950 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R9957:9959 Kernel.DiscreteSimplicialGeometry <> rho:40 var
+R9961:9962 Kernel.DiscreteSimplicialGeometry <> mu:41 var
+R9964:9965 Kernel.DiscreteSimplicialGeometry <> nu:42 var
+R10008:10025 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R10028:10032 Kernel.MatrixAlgebra4 <> sum_4 def
+R10035:10039 Kernel.MatrixAlgebra4 <> sum_n def
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+R10059:10097 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1_eq_two_vertex thm
+prf 10129:10179 <> boundary_4simplex_curved_christoffel_at_1_isotropic
+binder 10192:10192 <> s:43
+R10201:10201 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 10195:10195 <> a:44
+binder 10197:10197 <> b:45
+R10217:10219 Coq.Init.Datatypes <> nat ind
+binder 10205:10207 <> rho:46
+binder 10209:10210 <> mu:47
+binder 10212:10213 <> nu:48
+R10236:10243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10229:10231 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R10228:10228 Kernel.DiscreteSimplicialGeometry <> a:44 var
+R10257:10260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10248:10250 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10245:10247 Kernel.DiscreteSimplicialGeometry <> rho:46 var
+R10273:10276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10264:10266 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10262:10263 Kernel.DiscreteSimplicialGeometry <> mu:47 var
+R10289:10296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10280:10282 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10278:10279 Kernel.DiscreteSimplicialGeometry <> nu:48 var
+R10297:10297 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10409:10417 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10305:10305 <> i:49
+binder 10307:10307 <> j:50
+R10321:10324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10312:10314 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10311:10311 Kernel.DiscreteSimplicialGeometry <> i:49 var
+R10336:10345 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10327:10329 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10326:10326 Kernel.DiscreteSimplicialGeometry <> j:50 var
+R10375:10377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10346:10366 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R10368:10368 Kernel.DiscreteSimplicialGeometry <> s:43 var
+R10372:10372 Kernel.DiscreteSimplicialGeometry <> i:49 var
+R10374:10374 Kernel.DiscreteSimplicialGeometry <> j:50 var
+R10383:10386 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R10382:10382 Kernel.DiscreteSimplicialGeometry <> i:49 var
+R10387:10387 Kernel.DiscreteSimplicialGeometry <> j:50 var
+R10399:10399 Kernel.DiscreteSimplicialGeometry <> a:44 var
+R10418:10418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10530:10538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 10426:10426 <> i:51
+binder 10428:10428 <> j:52
+R10442:10445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10433:10435 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10432:10432 Kernel.DiscreteSimplicialGeometry <> i:51 var
+R10457:10466 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10448:10450 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10447:10447 Kernel.DiscreteSimplicialGeometry <> j:52 var
+R10496:10498 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10467:10487 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R10489:10489 Kernel.DiscreteSimplicialGeometry <> s:43 var
+R10493:10493 Kernel.DiscreteSimplicialGeometry <> i:51 var
+R10495:10495 Kernel.DiscreteSimplicialGeometry <> j:52 var
+R10504:10507 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R10503:10503 Kernel.DiscreteSimplicialGeometry <> i:51 var
+R10508:10508 Kernel.DiscreteSimplicialGeometry <> j:52 var
+R10520:10520 Kernel.DiscreteSimplicialGeometry <> b:45 var
+R10589:10597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10539:10556 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R10558:10558 Kernel.DiscreteSimplicialGeometry <> s:43 var
+R10560:10576 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R10578:10580 Kernel.DiscreteSimplicialGeometry <> rho:46 var
+R10582:10583 Kernel.DiscreteSimplicialGeometry <> mu:47 var
+R10585:10586 Kernel.DiscreteSimplicialGeometry <> nu:48 var
+R10599:10599 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10619:10629 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10763:10763 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10600:10600 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10606:10610 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10618:10618 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10602:10604 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R10601:10601 Kernel.DiscreteSimplicialGeometry <> b:45 var
+R10605:10605 Kernel.DiscreteSimplicialGeometry <> a:44 var
+R10614:10616 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10617:10617 Kernel.DiscreteSimplicialGeometry <> a:44 var
+R10716:10726 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R10762:10762 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R10630:10630 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10667:10678 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10715:10715 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10637:10640 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R10635:10636 Kernel.DiscreteSimplicialGeometry <> nu:48 var
+R10641:10643 Kernel.DiscreteSimplicialGeometry <> rho:46 var
+R10685:10688 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R10683:10684 Kernel.DiscreteSimplicialGeometry <> mu:47 var
+R10689:10691 Kernel.DiscreteSimplicialGeometry <> rho:46 var
+R10733:10736 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R10731:10732 Kernel.DiscreteSimplicialGeometry <> mu:47 var
+R10737:10738 Kernel.DiscreteSimplicialGeometry <> nu:48 var
+R10840:10894 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R10840:10894 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R10840:10894 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R10906:10936 Kernel.CurvedTensorPipeline <> curved_christoffel_isotropic_2v thm
+R10906:10936 Kernel.CurvedTensorPipeline <> curved_christoffel_isotropic_2v thm
+prf 10993:11038 <> boundary_4simplex_curved_christoffel_at_0_zero
+binder 11051:11051 <> s:53
+binder 11053:11055 <> rho:54
+binder 11057:11058 <> mu:55
+binder 11060:11061 <> nu:56
+R11118:11120 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11068:11085 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R11087:11087 Kernel.DiscreteSimplicialGeometry <> s:53 var
+R11089:11105 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R11107:11109 Kernel.DiscreteSimplicialGeometry <> rho:54 var
+R11111:11112 Kernel.DiscreteSimplicialGeometry <> mu:55 var
+R11114:11115 Kernel.DiscreteSimplicialGeometry <> nu:56 var
+R11164:11181 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R11192:11201 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+R11192:11201 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+R11238:11262 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11271:11271 <> w:57
+R11276:11296 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11300:11300 Kernel.DiscreteSimplicialGeometry <> w:57 var
+R11238:11262 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11271:11271 <> w:58
+R11276:11296 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11300:11300 Kernel.DiscreteSimplicialGeometry <> w:58 var
+R11238:11262 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11271:11271 <> w:59
+R11276:11296 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11300:11300 Kernel.DiscreteSimplicialGeometry <> w:59 var
+R11328:11352 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11361:11361 <> w:60
+R11366:11386 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11390:11390 Kernel.DiscreteSimplicialGeometry <> w:60 var
+R11328:11352 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11361:11361 <> w:61
+R11366:11386 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11390:11390 Kernel.DiscreteSimplicialGeometry <> w:61 var
+R11328:11352 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11361:11361 <> w:62
+R11366:11386 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11390:11390 Kernel.DiscreteSimplicialGeometry <> w:62 var
+R11418:11442 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11451:11451 <> w:63
+R11456:11476 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11480:11480 Kernel.DiscreteSimplicialGeometry <> w:63 var
+R11418:11442 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11451:11451 <> w:64
+R11456:11476 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11480:11480 Kernel.DiscreteSimplicialGeometry <> w:64 var
+R11418:11442 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_0 thm
+binder 11451:11451 <> w:65
+R11456:11476 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R11480:11480 Kernel.DiscreteSimplicialGeometry <> w:65 var
+prf 11518:11568 <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex
+binder 11581:11581 <> s:66
+binder 11583:11585 <> rho:67
+binder 11587:11591 <> sigma:68
+binder 11593:11594 <> mu:69
+binder 11596:11597 <> nu:70
+R11656:11662 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11604:11617 Kernel.CurvedTensorPipeline <> curved_riemann def
+R11619:11619 Kernel.DiscreteSimplicialGeometry <> s:66 var
+R11621:11637 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R11639:11641 Kernel.DiscreteSimplicialGeometry <> rho:67 var
+R11643:11647 Kernel.DiscreteSimplicialGeometry <> sigma:68 var
+R11649:11650 Kernel.DiscreteSimplicialGeometry <> mu:69 var
+R11652:11653 Kernel.DiscreteSimplicialGeometry <> nu:70 var
+R11663:11676 Kernel.CurvedTensorPipeline <> curved_riemann def
+R11678:11678 Kernel.DiscreteSimplicialGeometry <> s:66 var
+R11681:11693 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R11700:11702 Kernel.DiscreteSimplicialGeometry <> rho:67 var
+R11704:11708 Kernel.DiscreteSimplicialGeometry <> sigma:68 var
+R11710:11711 Kernel.DiscreteSimplicialGeometry <> mu:69 var
+R11713:11714 Kernel.DiscreteSimplicialGeometry <> nu:70 var
+R11763:11776 Kernel.CurvedTensorPipeline <> curved_riemann def
+R11915:11921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11800:11818 Kernel.RiemannTensor4D <> discrete_derivative def
+R11822:11838 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 11851:11851 <> w:71
+R11856:11873 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R11877:11893 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R11908:11908 Kernel.DiscreteSimplicialGeometry <> w:71 var
+R11922:11940 Kernel.RiemannTensor4D <> discrete_derivative def
+R11945:11957 Kernel.EinsteinEquations4D <> two_vertex_sc def
+binder 11975:11975 <> w:72
+R11980:11997 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12002:12014 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12034:12034 Kernel.DiscreteSimplicialGeometry <> w:72 var
+R11915:11921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11800:11818 Kernel.RiemannTensor4D <> discrete_derivative def
+R11822:11838 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 11851:11851 <> w:73
+R11856:11873 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R11877:11893 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R11908:11908 Kernel.DiscreteSimplicialGeometry <> w:73 var
+R11922:11940 Kernel.RiemannTensor4D <> discrete_derivative def
+R11945:11957 Kernel.EinsteinEquations4D <> two_vertex_sc def
+binder 11975:11975 <> w:74
+R11980:11997 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12002:12014 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12034:12034 Kernel.DiscreteSimplicialGeometry <> w:74 var
+R12061:12085 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+binder 12094:12094 <> w:75
+R12099:12116 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12120:12136 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12151:12151 Kernel.DiscreteSimplicialGeometry <> w:75 var
+R12061:12085 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+binder 12094:12094 <> w:76
+R12099:12116 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12120:12136 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12151:12151 Kernel.DiscreteSimplicialGeometry <> w:76 var
+R12061:12085 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+binder 12094:12094 <> w:77
+R12099:12116 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12120:12136 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12151:12151 Kernel.DiscreteSimplicialGeometry <> w:77 var
+R12172:12178 Kernel.EinsteinEquations4D <> dd_at_v thm
+binder 12191:12191 <> w:78
+R12196:12213 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12218:12230 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12250:12250 Kernel.DiscreteSimplicialGeometry <> w:78 var
+R12172:12178 Kernel.EinsteinEquations4D <> dd_at_v thm
+binder 12191:12191 <> w:79
+R12196:12213 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12218:12230 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12250:12250 Kernel.DiscreteSimplicialGeometry <> w:79 var
+R12172:12178 Kernel.EinsteinEquations4D <> dd_at_v thm
+binder 12191:12191 <> w:80
+R12196:12213 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12218:12230 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12250:12250 Kernel.DiscreteSimplicialGeometry <> w:80 var
+R12281:12326 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_0_zero thm
+R12281:12326 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_0_zero thm
+R12281:12326 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_0_zero thm
+R12342:12369 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+R12342:12369 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+R12342:12369 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+R12415:12469 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R12415:12469 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R12415:12469 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R12629:12635 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12514:12532 Kernel.RiemannTensor4D <> discrete_derivative def
+R12536:12552 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 12565:12565 <> w:81
+R12570:12587 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12591:12607 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12622:12622 Kernel.DiscreteSimplicialGeometry <> w:81 var
+R12636:12654 Kernel.RiemannTensor4D <> discrete_derivative def
+R12659:12671 Kernel.EinsteinEquations4D <> two_vertex_sc def
+binder 12689:12689 <> w:82
+R12694:12711 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12716:12728 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12748:12748 Kernel.DiscreteSimplicialGeometry <> w:82 var
+R12629:12635 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12514:12532 Kernel.RiemannTensor4D <> discrete_derivative def
+R12536:12552 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 12565:12565 <> w:83
+R12570:12587 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12591:12607 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12622:12622 Kernel.DiscreteSimplicialGeometry <> w:83 var
+R12636:12654 Kernel.RiemannTensor4D <> discrete_derivative def
+R12659:12671 Kernel.EinsteinEquations4D <> two_vertex_sc def
+binder 12689:12689 <> w:84
+R12694:12711 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12716:12728 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12748:12748 Kernel.DiscreteSimplicialGeometry <> w:84 var
+R12775:12799 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+binder 12808:12808 <> w:85
+R12813:12830 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12834:12850 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12865:12865 Kernel.DiscreteSimplicialGeometry <> w:85 var
+R12775:12799 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+binder 12808:12808 <> w:86
+R12813:12830 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12834:12850 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12865:12865 Kernel.DiscreteSimplicialGeometry <> w:86 var
+R12775:12799 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_dd_at_1 thm
+binder 12808:12808 <> w:87
+R12813:12830 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12834:12850 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R12865:12865 Kernel.DiscreteSimplicialGeometry <> w:87 var
+R12886:12892 Kernel.EinsteinEquations4D <> dd_at_v thm
+binder 12905:12905 <> w:88
+R12910:12927 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12932:12944 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12964:12964 Kernel.DiscreteSimplicialGeometry <> w:88 var
+R12886:12892 Kernel.EinsteinEquations4D <> dd_at_v thm
+binder 12905:12905 <> w:89
+R12910:12927 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12932:12944 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12964:12964 Kernel.DiscreteSimplicialGeometry <> w:89 var
+R12886:12892 Kernel.EinsteinEquations4D <> dd_at_v thm
+binder 12905:12905 <> w:90
+R12910:12927 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R12932:12944 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R12964:12964 Kernel.DiscreteSimplicialGeometry <> w:90 var
+R12995:13040 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_0_zero thm
+R12995:13040 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_0_zero thm
+R12995:13040 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_0_zero thm
+R13056:13083 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+R13056:13083 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+R13056:13083 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+R13129:13183 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13129:13183 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13129:13183 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13389:13395 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13229:13233 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13240:13245 <> lambda:91
+R13315:13324 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13257:13274 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13278:13294 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13303:13308 Kernel.DiscreteSimplicialGeometry <> lambda:91 var
+R13325:13342 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13346:13362 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13364:13369 Kernel.DiscreteSimplicialGeometry <> lambda:91 var
+R13396:13400 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13407:13412 <> lambda:92
+R13484:13493 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13424:13441 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13446:13458 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R13472:13477 Kernel.DiscreteSimplicialGeometry <> lambda:92 var
+R13494:13511 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13516:13528 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R13535:13540 Kernel.DiscreteSimplicialGeometry <> lambda:92 var
+R13389:13395 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13229:13233 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13240:13245 <> lambda:93
+R13315:13324 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13257:13274 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13278:13294 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13303:13308 Kernel.DiscreteSimplicialGeometry <> lambda:93 var
+R13325:13342 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13346:13362 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13364:13369 Kernel.DiscreteSimplicialGeometry <> lambda:93 var
+R13396:13400 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13407:13412 <> lambda:94
+R13484:13493 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13424:13441 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13446:13458 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R13472:13477 Kernel.DiscreteSimplicialGeometry <> lambda:94 var
+R13494:13511 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13516:13528 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R13535:13540 Kernel.DiscreteSimplicialGeometry <> lambda:94 var
+R13578:13582 Kernel.MatrixAlgebra4 <> sum_4 def
+R13585:13589 Kernel.MatrixAlgebra4 <> sum_n def
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13611:13665 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R13872:13878 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13712:13716 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13723:13728 <> lambda:95
+R13798:13807 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13740:13757 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13761:13777 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13786:13791 Kernel.DiscreteSimplicialGeometry <> lambda:95 var
+R13808:13825 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13829:13845 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13847:13852 Kernel.DiscreteSimplicialGeometry <> lambda:95 var
+R13879:13883 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13890:13895 <> lambda:96
+R13967:13976 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13907:13924 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13929:13941 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R13955:13960 Kernel.DiscreteSimplicialGeometry <> lambda:96 var
+R13977:13994 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13999:14011 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R14018:14023 Kernel.DiscreteSimplicialGeometry <> lambda:96 var
+R13872:13878 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13712:13716 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13723:13728 <> lambda:97
+R13798:13807 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13740:13757 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13761:13777 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13786:13791 Kernel.DiscreteSimplicialGeometry <> lambda:97 var
+R13808:13825 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13829:13845 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R13847:13852 Kernel.DiscreteSimplicialGeometry <> lambda:97 var
+R13879:13883 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 13890:13895 <> lambda:98
+R13967:13976 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R13907:13924 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13929:13941 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R13955:13960 Kernel.DiscreteSimplicialGeometry <> lambda:98 var
+R13977:13994 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R13999:14011 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R14018:14023 Kernel.DiscreteSimplicialGeometry <> lambda:98 var
+R14061:14065 Kernel.MatrixAlgebra4 <> sum_4 def
+R14068:14072 Kernel.MatrixAlgebra4 <> sum_n def
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+R14094:14148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_at_1_eq_two_vertex thm
+prf 14238:14286 <> boundary_4simplex_curved_ricci_at_1_eq_two_vertex
+binder 14299:14299 <> s:99
+binder 14301:14302 <> mu:100
+binder 14304:14305 <> nu:101
+R14352:14358 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14312:14323 Kernel.CurvedTensorPipeline <> curved_ricci def
+R14325:14325 Kernel.DiscreteSimplicialGeometry <> s:99 var
+R14327:14343 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R14345:14346 Kernel.DiscreteSimplicialGeometry <> mu:100 var
+R14348:14349 Kernel.DiscreteSimplicialGeometry <> nu:101 var
+R14359:14370 Kernel.CurvedTensorPipeline <> curved_ricci def
+R14372:14372 Kernel.DiscreteSimplicialGeometry <> s:99 var
+R14375:14387 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R14394:14395 Kernel.DiscreteSimplicialGeometry <> mu:100 var
+R14397:14398 Kernel.DiscreteSimplicialGeometry <> nu:101 var
+R14437:14448 Kernel.CurvedTensorPipeline <> curved_ricci def
+R14451:14455 Kernel.MatrixAlgebra4 <> sum_4 def
+R14458:14462 Kernel.MatrixAlgebra4 <> sum_n def
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+R14482:14532 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_at_1_eq_two_vertex thm
+prf 14562:14593 <> curved_ricci_01_isotropic_2v_2_1
+binder 14606:14606 <> s:102
+binder 14608:14608 <> v:103
+binder 14610:14610 <> w:104
+R14629:14636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14619:14622 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R14618:14618 Kernel.DiscreteSimplicialGeometry <> v:103 var
+R14623:14623 Kernel.DiscreteSimplicialGeometry <> w:104 var
+R14637:14637 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14751:14759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 14645:14645 <> i:105
+binder 14647:14647 <> j:106
+R14661:14664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14652:14654 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14651:14651 Kernel.DiscreteSimplicialGeometry <> i:105 var
+R14676:14685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14667:14669 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14666:14666 Kernel.DiscreteSimplicialGeometry <> j:106 var
+R14715:14717 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14686:14706 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R14708:14708 Kernel.DiscreteSimplicialGeometry <> s:102 var
+R14710:14710 Kernel.DiscreteSimplicialGeometry <> v:103 var
+R14712:14712 Kernel.DiscreteSimplicialGeometry <> i:105 var
+R14714:14714 Kernel.DiscreteSimplicialGeometry <> j:106 var
+R14723:14726 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R14722:14722 Kernel.DiscreteSimplicialGeometry <> i:105 var
+R14727:14727 Kernel.DiscreteSimplicialGeometry <> j:106 var
+R14760:14760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14874:14882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 14768:14768 <> i:107
+binder 14770:14770 <> j:108
+R14784:14787 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14775:14777 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14774:14774 Kernel.DiscreteSimplicialGeometry <> i:107 var
+R14799:14808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14790:14792 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R14789:14789 Kernel.DiscreteSimplicialGeometry <> j:108 var
+R14838:14840 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14809:14829 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R14831:14831 Kernel.DiscreteSimplicialGeometry <> s:102 var
+R14833:14833 Kernel.DiscreteSimplicialGeometry <> w:104 var
+R14835:14835 Kernel.DiscreteSimplicialGeometry <> i:107 var
+R14837:14837 Kernel.DiscreteSimplicialGeometry <> j:108 var
+R14846:14849 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R14845:14845 Kernel.DiscreteSimplicialGeometry <> i:107 var
+R14850:14850 Kernel.DiscreteSimplicialGeometry <> j:108 var
+R14931:14933 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14883:14894 Kernel.CurvedTensorPipeline <> curved_ricci def
+R14896:14896 Kernel.DiscreteSimplicialGeometry <> s:102 var
+R14899:14911 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R14913:14913 Kernel.DiscreteSimplicialGeometry <> v:103 var
+R14915:14915 Kernel.DiscreteSimplicialGeometry <> w:104 var
+R14930:14930 Kernel.DiscreteSimplicialGeometry <> v:103 var
+R14937:14939 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R15002:15004 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R15002:15004 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+binder 15038:15040 <> rho:109
+binder 15042:15043 <> mu:110
+binder 15045:15046 <> nu:111
+R15066:15069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15057:15059 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15054:15056 Kernel.DiscreteSimplicialGeometry <> rho:109 var
+R15082:15085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15073:15075 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15071:15072 Kernel.DiscreteSimplicialGeometry <> mu:110 var
+R15098:15105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15089:15091 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15087:15088 Kernel.DiscreteSimplicialGeometry <> nu:111 var
+R15158:15166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15106:15123 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R15128:15140 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R15147:15149 Kernel.DiscreteSimplicialGeometry <> rho:109 var
+R15151:15152 Kernel.DiscreteSimplicialGeometry <> mu:110 var
+R15154:15155 Kernel.DiscreteSimplicialGeometry <> nu:111 var
+R15167:15175 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15179:15181 Kernel.DiscreteSimplicialGeometry <> rho:109 var
+R15183:15184 Kernel.DiscreteSimplicialGeometry <> mu:110 var
+R15186:15187 Kernel.DiscreteSimplicialGeometry <> nu:111 var
+binder 15038:15040 <> rho:112
+binder 15042:15043 <> mu:113
+binder 15045:15046 <> nu:114
+R15066:15069 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15057:15059 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15054:15056 Kernel.DiscreteSimplicialGeometry <> rho:112 var
+R15082:15085 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15073:15075 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15071:15072 Kernel.DiscreteSimplicialGeometry <> mu:113 var
+R15098:15105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15089:15091 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15087:15088 Kernel.DiscreteSimplicialGeometry <> nu:114 var
+R15158:15166 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15106:15123 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R15128:15140 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R15147:15149 Kernel.DiscreteSimplicialGeometry <> rho:112 var
+R15151:15152 Kernel.DiscreteSimplicialGeometry <> mu:113 var
+R15154:15155 Kernel.DiscreteSimplicialGeometry <> nu:114 var
+R15167:15175 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15179:15181 Kernel.DiscreteSimplicialGeometry <> rho:112 var
+R15183:15184 Kernel.DiscreteSimplicialGeometry <> mu:113 var
+R15186:15187 Kernel.DiscreteSimplicialGeometry <> nu:114 var
+R15243:15273 Kernel.CurvedTensorPipeline <> curved_christoffel_isotropic_2v thm
+R15243:15273 Kernel.CurvedTensorPipeline <> curved_christoffel_isotropic_2v thm
+R15243:15273 Kernel.CurvedTensorPipeline <> curved_christoffel_isotropic_2v thm
+R15357:15365 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15368:15372 Kernel.CurvedTensorPipeline <> delta def
+binder 15418:15420 <> rho:115
+binder 15422:15423 <> mu:116
+binder 15425:15426 <> nu:117
+R15485:15487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15433:15450 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R15455:15467 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R15474:15476 Kernel.DiscreteSimplicialGeometry <> rho:115 var
+R15478:15479 Kernel.DiscreteSimplicialGeometry <> mu:116 var
+R15481:15482 Kernel.DiscreteSimplicialGeometry <> nu:117 var
+binder 15418:15420 <> rho:118
+binder 15422:15423 <> mu:119
+binder 15425:15426 <> nu:120
+R15485:15487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15433:15450 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R15455:15467 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R15474:15476 Kernel.DiscreteSimplicialGeometry <> rho:118 var
+R15478:15479 Kernel.DiscreteSimplicialGeometry <> mu:119 var
+R15481:15482 Kernel.DiscreteSimplicialGeometry <> nu:120 var
+R15530:15557 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+R15530:15557 Kernel.CurvedTensorPipeline <> curved_christoffel_at_w_zero thm
+binder 15604:15606 <> rho:121
+binder 15608:15612 <> sigma:122
+binder 15614:15615 <> mu:123
+binder 15617:15618 <> nu:124
+R15638:15641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15629:15631 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15626:15628 Kernel.DiscreteSimplicialGeometry <> rho:121 var
+R15657:15660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15648:15650 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15643:15647 Kernel.DiscreteSimplicialGeometry <> sigma:122 var
+R15673:15676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15664:15666 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15662:15663 Kernel.DiscreteSimplicialGeometry <> mu:123 var
+R15689:15696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15680:15682 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15678:15679 Kernel.DiscreteSimplicialGeometry <> nu:124 var
+R15751:15759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15697:15710 Kernel.CurvedTensorPipeline <> curved_riemann def
+R15715:15727 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R15734:15736 Kernel.DiscreteSimplicialGeometry <> rho:121 var
+R15738:15742 Kernel.DiscreteSimplicialGeometry <> sigma:122 var
+R15744:15745 Kernel.DiscreteSimplicialGeometry <> mu:123 var
+R15747:15748 Kernel.DiscreteSimplicialGeometry <> nu:124 var
+R15914:15922 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R15761:15761 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15815:15824 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15788:15790 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15762:15763 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R15764:15772 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15776:15778 Kernel.DiscreteSimplicialGeometry <> rho:121 var
+R15780:15781 Kernel.DiscreteSimplicialGeometry <> nu:124 var
+R15783:15787 Kernel.DiscreteSimplicialGeometry <> sigma:122 var
+R15791:15799 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15803:15805 Kernel.DiscreteSimplicialGeometry <> rho:121 var
+R15807:15808 Kernel.DiscreteSimplicialGeometry <> mu:123 var
+R15810:15814 Kernel.DiscreteSimplicialGeometry <> sigma:122 var
+R15825:15829 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 15836:15841 <> lambda:125
+R15880:15882 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15855:15863 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15867:15869 Kernel.DiscreteSimplicialGeometry <> rho:121 var
+R15871:15872 Kernel.DiscreteSimplicialGeometry <> mu:123 var
+R15874:15879 Kernel.DiscreteSimplicialGeometry <> lambda:125 var
+R15883:15891 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15895:15900 Kernel.DiscreteSimplicialGeometry <> lambda:125 var
+R15902:15903 Kernel.DiscreteSimplicialGeometry <> nu:124 var
+R15905:15909 Kernel.DiscreteSimplicialGeometry <> sigma:122 var
+R15923:15927 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 15934:15939 <> lambda:126
+R15978:15980 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15953:15961 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15965:15967 Kernel.DiscreteSimplicialGeometry <> rho:121 var
+R15969:15970 Kernel.DiscreteSimplicialGeometry <> nu:124 var
+R15972:15977 Kernel.DiscreteSimplicialGeometry <> lambda:126 var
+R15981:15989 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15993:15998 Kernel.DiscreteSimplicialGeometry <> lambda:126 var
+R16000:16001 Kernel.DiscreteSimplicialGeometry <> mu:123 var
+R16003:16007 Kernel.DiscreteSimplicialGeometry <> sigma:122 var
+binder 15604:15606 <> rho:127
+binder 15608:15612 <> sigma:128
+binder 15614:15615 <> mu:129
+binder 15617:15618 <> nu:130
+R15638:15641 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15629:15631 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15626:15628 Kernel.DiscreteSimplicialGeometry <> rho:127 var
+R15657:15660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15648:15650 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15643:15647 Kernel.DiscreteSimplicialGeometry <> sigma:128 var
+R15673:15676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15664:15666 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15662:15663 Kernel.DiscreteSimplicialGeometry <> mu:129 var
+R15689:15696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15680:15682 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R15678:15679 Kernel.DiscreteSimplicialGeometry <> nu:130 var
+R15751:15759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15697:15710 Kernel.CurvedTensorPipeline <> curved_riemann def
+R15715:15727 Kernel.EinsteinEquations4D <> two_vertex_sc def
+R15734:15736 Kernel.DiscreteSimplicialGeometry <> rho:127 var
+R15738:15742 Kernel.DiscreteSimplicialGeometry <> sigma:128 var
+R15744:15745 Kernel.DiscreteSimplicialGeometry <> mu:129 var
+R15747:15748 Kernel.DiscreteSimplicialGeometry <> nu:130 var
+R15914:15922 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R15761:15761 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15815:15824 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15788:15790 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R15762:15763 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R15764:15772 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15776:15778 Kernel.DiscreteSimplicialGeometry <> rho:127 var
+R15780:15781 Kernel.DiscreteSimplicialGeometry <> nu:130 var
+R15783:15787 Kernel.DiscreteSimplicialGeometry <> sigma:128 var
+R15791:15799 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15803:15805 Kernel.DiscreteSimplicialGeometry <> rho:127 var
+R15807:15808 Kernel.DiscreteSimplicialGeometry <> mu:129 var
+R15810:15814 Kernel.DiscreteSimplicialGeometry <> sigma:128 var
+R15825:15829 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 15836:15841 <> lambda:131
+R15880:15882 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15855:15863 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15867:15869 Kernel.DiscreteSimplicialGeometry <> rho:127 var
+R15871:15872 Kernel.DiscreteSimplicialGeometry <> mu:129 var
+R15874:15879 Kernel.DiscreteSimplicialGeometry <> lambda:131 var
+R15883:15891 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15895:15900 Kernel.DiscreteSimplicialGeometry <> lambda:131 var
+R15902:15903 Kernel.DiscreteSimplicialGeometry <> nu:130 var
+R15905:15909 Kernel.DiscreteSimplicialGeometry <> sigma:128 var
+R15923:15927 Kernel.MatrixAlgebra4 <> sum_4 def
+binder 15934:15939 <> lambda:132
+R15978:15980 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R15953:15961 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15965:15967 Kernel.DiscreteSimplicialGeometry <> rho:127 var
+R15969:15970 Kernel.DiscreteSimplicialGeometry <> nu:130 var
+R15972:15977 Kernel.DiscreteSimplicialGeometry <> lambda:132 var
+R15981:15989 Kernel.CurvedTensorPipeline <> gamma_iso def
+R15993:15998 Kernel.DiscreteSimplicialGeometry <> lambda:132 var
+R16000:16001 Kernel.DiscreteSimplicialGeometry <> mu:129 var
+R16003:16007 Kernel.DiscreteSimplicialGeometry <> sigma:128 var
+R16081:16094 Kernel.CurvedTensorPipeline <> curved_riemann def
+R16110:16116 Kernel.EinsteinEquations4D <> dd_at_v thm
+R16110:16116 Kernel.EinsteinEquations4D <> dd_at_v thm
+R16110:16116 Kernel.EinsteinEquations4D <> dd_at_v thm
+R16148:16154 Kernel.EinsteinEquations4D <> dd_at_v thm
+R16148:16154 Kernel.EinsteinEquations4D <> dd_at_v thm
+R16148:16154 Kernel.EinsteinEquations4D <> dd_at_v thm
+R16318:16322 Kernel.MatrixAlgebra4 <> sum_4 def
+R16325:16329 Kernel.MatrixAlgebra4 <> sum_n def
+R16332:16340 Kernel.CurvedTensorPipeline <> gamma_iso def
+R16343:16347 Kernel.CurvedTensorPipeline <> delta def
+R17271:17275 Kernel.CurvedTensorPipeline <> delta def
+R17277:17285 Kernel.CurvedTensorPipeline <> gamma_iso def
+R17320:17331 Kernel.CurvedTensorPipeline <> curved_ricci def
+R17334:17338 Kernel.MatrixAlgebra4 <> sum_4 def
+R17341:17345 Kernel.MatrixAlgebra4 <> sum_n def
+R17705:17709 Kernel.MatrixAlgebra4 <> sum_4 def
+R17712:17716 Kernel.MatrixAlgebra4 <> sum_n def
+R17719:17727 Kernel.CurvedTensorPipeline <> gamma_iso def
+R17730:17734 Kernel.CurvedTensorPipeline <> delta def
+prf 17788:17837 <> boundary_4simplex_nonuniform_diagonal_refuted_at_1
+binder 17850:17850 <> s:133
+R17857:17857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17971:17979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 17865:17865 <> i:134
+binder 17867:17867 <> j:135
+R17881:17884 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17872:17874 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17871:17871 Kernel.DiscreteSimplicialGeometry <> i:134 var
+R17896:17905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17887:17889 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17886:17886 Kernel.DiscreteSimplicialGeometry <> j:135 var
+R17935:17937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17906:17926 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R17928:17928 Kernel.DiscreteSimplicialGeometry <> s:133 var
+R17932:17932 Kernel.DiscreteSimplicialGeometry <> i:134 var
+R17934:17934 Kernel.DiscreteSimplicialGeometry <> j:135 var
+R17943:17946 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R17942:17942 Kernel.DiscreteSimplicialGeometry <> i:134 var
+R17947:17947 Kernel.DiscreteSimplicialGeometry <> j:135 var
+R17980:17980 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18094:18102 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 17988:17988 <> i:136
+binder 17990:17990 <> j:137
+R18004:18007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17995:17997 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R17994:17994 Kernel.DiscreteSimplicialGeometry <> i:136 var
+R18019:18028 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18010:18012 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R18009:18009 Kernel.DiscreteSimplicialGeometry <> j:137 var
+R18058:18060 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18029:18049 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R18051:18051 Kernel.DiscreteSimplicialGeometry <> s:133 var
+R18055:18055 Kernel.DiscreteSimplicialGeometry <> i:136 var
+R18057:18057 Kernel.DiscreteSimplicialGeometry <> j:137 var
+R18066:18069 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R18065:18065 Kernel.DiscreteSimplicialGeometry <> i:136 var
+R18070:18070 Kernel.DiscreteSimplicialGeometry <> j:137 var
+R18103:18104 Coq.Init.Logic <> ::type_scope:'~'_x not
+R18105:18130 Kernel.DiscreteSimplicialGeometry <> combinatorially_orthogonal def
+R18132:18148 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R18150:18150 Kernel.DiscreteSimplicialGeometry <> s:133 var
+R18278:18326 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_ricci_at_1_eq_two_vertex thm
+R18278:18326 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_ricci_at_1_eq_two_vertex thm
+R18278:18326 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_ricci_at_1_eq_two_vertex thm
+R18349:18380 Kernel.DiscreteSimplicialGeometry <> curved_ricci_01_isotropic_2v_2_1 thm
+R18349:18380 Kernel.DiscreteSimplicialGeometry <> curved_ricci_01_isotropic_2v_2_1 thm
+R18349:18380 Kernel.DiscreteSimplicialGeometry <> curved_ricci_01_isotropic_2v_2_1 thm
+prf 18441:18476 <> discrete_derivative_constant_general
+R18494:18500 Kernel.VMState <> VMState rec
+binder 18490:18490 <> s:138
+R18509:18527 Kernel.FourDSimplicialComplex <> SimplicialComplex4D rec
+binder 18504:18505 <> sc:139
+R18552:18555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18544:18551 Kernel.VMState <> ModuleID def
+R18556:18556 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 18540:18540 <> f:140
+R18564:18564 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 18560:18560 <> c:141
+R18575:18582 Kernel.VMState <> ModuleID def
+binder 18568:18569 <> mu:142
+binder 18571:18571 <> v:143
+R18590:18590 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18635:18643 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 18598:18598 <> u:144
+R18624:18627 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18601:18602 Coq.Lists.List <> In def
+R18607:18619 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R18621:18622 Kernel.DiscreteSimplicialGeometry <> sc:139 var
+R18604:18604 Kernel.DiscreteSimplicialGeometry <> u:144 var
+R18631:18633 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18628:18628 Kernel.DiscreteSimplicialGeometry <> f:140 var
+R18630:18630 Kernel.DiscreteSimplicialGeometry <> u:144 var
+R18634:18634 Kernel.DiscreteSimplicialGeometry <> c:141 var
+R18667:18674 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18644:18645 Coq.Lists.List <> In def
+R18650:18662 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R18664:18665 Kernel.DiscreteSimplicialGeometry <> sc:139 var
+R18647:18647 Kernel.DiscreteSimplicialGeometry <> v:143 var
+R18706:18708 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18675:18693 Kernel.RiemannTensor4D <> discrete_derivative def
+R18695:18695 Kernel.DiscreteSimplicialGeometry <> s:138 var
+R18697:18698 Kernel.DiscreteSimplicialGeometry <> sc:139 var
+R18700:18700 Kernel.DiscreteSimplicialGeometry <> f:140 var
+R18702:18703 Kernel.DiscreteSimplicialGeometry <> mu:142 var
+R18705:18705 Kernel.DiscreteSimplicialGeometry <> v:143 var
+R18830:18836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18778:18796 Kernel.RiemannTensor4D <> discrete_derivative def
+binder 18808:18808 <> u:145
+R18817:18819 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R18816:18816 Kernel.DiscreteSimplicialGeometry <> u:145 var
+R18837:18855 Kernel.RiemannTensor4D <> discrete_derivative def
+R18830:18836 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18778:18796 Kernel.RiemannTensor4D <> discrete_derivative def
+binder 18808:18808 <> u:146
+R18817:18819 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R18816:18816 Kernel.DiscreteSimplicialGeometry <> u:146 var
+R18837:18855 Kernel.RiemannTensor4D <> discrete_derivative def
+R18886:18904 Kernel.RiemannTensor4D <> discrete_derivative def
+R18929:18934 Coq.Lists.List <> filter def
+R19255:19267 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R18945:18952 Kernel.VMState <> ModuleID def
+binder 18941:18941 <> w:147
+R18963:18969 Coq.Lists.List <> existsb def
+R19232:19241 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R18980:18985 Kernel.FourDSimplicialComplex <> Edge1D rec
+binder 18976:18976 <> e:148
+R19011:19022 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R19024:19024 Kernel.DiscreteSimplicialGeometry <> e:148 var
+binder 19002:19006 <> verts:149
+R19067:19079 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R19081:19081 Kernel.DiscreteSimplicialGeometry <> e:148 var
+R19100:19103 Coq.Init.Datatypes <> None constr
+R19108:19111 Coq.Init.Datatypes <> true constr
+R19125:19128 Coq.Init.Datatypes <> Some constr
+R19137:19140 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+binder 19041:19046 <> dir_ok:150
+R19205:19208 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R19181:19184 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R19175:19180 Kernel.DiscreteSimplicialGeometry <> dir_ok:150 var
+R19185:19196 Kernel.VMState <> nat_list_mem def
+R19200:19204 Kernel.DiscreteSimplicialGeometry <> verts:149 var
+R19209:19220 Kernel.VMState <> nat_list_mem def
+R19222:19222 Kernel.DiscreteSimplicialGeometry <> w:147 var
+R19224:19228 Kernel.DiscreteSimplicialGeometry <> verts:149 var
+R18929:18934 Coq.Lists.List <> filter def
+R19255:19267 Kernel.FourDSimplicialComplex <> sc4d_vertices proj
+R18945:18952 Kernel.VMState <> ModuleID def
+binder 18941:18941 <> w:151
+R18963:18969 Coq.Lists.List <> existsb def
+R19232:19241 Kernel.FourDSimplicialComplex <> sc4d_edges proj
+R18980:18985 Kernel.FourDSimplicialComplex <> Edge1D rec
+binder 18976:18976 <> e:152
+R19011:19022 Kernel.FourDSimplicialComplex <> e1d_vertices proj
+R19024:19024 Kernel.DiscreteSimplicialGeometry <> e:152 var
+binder 19002:19006 <> verts:153
+R19067:19079 Kernel.FourDSimplicialComplex <> e1d_direction proj
+R19081:19081 Kernel.DiscreteSimplicialGeometry <> e:152 var
+R19100:19103 Coq.Init.Datatypes <> None constr
+R19108:19111 Coq.Init.Datatypes <> true constr
+R19125:19128 Coq.Init.Datatypes <> Some constr
+R19137:19140 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+binder 19041:19046 <> dir_ok:154
+R19205:19208 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R19181:19184 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R19175:19180 Kernel.DiscreteSimplicialGeometry <> dir_ok:154 var
+R19185:19196 Kernel.VMState <> nat_list_mem def
+R19200:19204 Kernel.DiscreteSimplicialGeometry <> verts:153 var
+R19209:19220 Kernel.VMState <> nat_list_mem def
+R19222:19222 Kernel.DiscreteSimplicialGeometry <> w:151 var
+R19224:19228 Kernel.DiscreteSimplicialGeometry <> verts:153 var
+R19293:19293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19390:19401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19488:19488 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19325:19326 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19346:19349 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R19363:19366 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19374:19374 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19359:19361 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19370:19372 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19433:19434 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19454:19457 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R19467:19469 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19293:19293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19390:19401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19488:19488 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19325:19326 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19346:19349 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R19363:19366 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19374:19374 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19359:19361 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19370:19372 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19433:19434 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R19454:19457 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R19467:19469 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R19600:19614 Kernel.EinsteinEquationsFull <> dd_zero_general thm
+R19600:19614 Kernel.EinsteinEquationsFull <> dd_zero_general thm
+prf 19699:19739 <> boundary_4simplex_curved_christoffel_zero
+R19757:19763 Kernel.VMState <> VMState rec
+binder 19753:19753 <> s:159
+R19771:19778 Kernel.VMState <> ModuleID def
+binder 19767:19767 <> v:160
+R19794:19796 Coq.Init.Datatypes <> nat ind
+binder 19782:19784 <> rho:161
+binder 19786:19787 <> mu:162
+binder 19789:19790 <> nu:163
+R19804:19804 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 19800:19800 <> a:164
+R19832:19839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19812:19813 Coq.Lists.List <> In def
+R19817:19817 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19819:19820 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19822:19823 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19825:19826 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19828:19829 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19831:19831 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19815:19815 Kernel.DiscreteSimplicialGeometry <> v:160 var
+R19852:19855 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19843:19845 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R19841:19842 Kernel.DiscreteSimplicialGeometry <> mu:162 var
+R19868:19875 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19859:19861 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R19857:19858 Kernel.DiscreteSimplicialGeometry <> nu:163 var
+R19876:19876 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19990:19998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 19884:19884 <> u:165
+binder 19886:19886 <> i:166
+binder 19888:19888 <> j:167
+R19917:19926 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19897:19898 Coq.Lists.List <> In def
+R19902:19902 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19904:19905 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19907:19908 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19910:19911 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19913:19914 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19916:19916 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R19900:19900 Kernel.DiscreteSimplicialGeometry <> u:165 var
+R19956:19958 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19927:19947 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R19949:19949 Kernel.DiscreteSimplicialGeometry <> s:159 var
+R19951:19951 Kernel.DiscreteSimplicialGeometry <> u:165 var
+R19953:19953 Kernel.DiscreteSimplicialGeometry <> i:166 var
+R19955:19955 Kernel.DiscreteSimplicialGeometry <> j:167 var
+R19964:19967 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R19963:19963 Kernel.DiscreteSimplicialGeometry <> i:166 var
+R19968:19968 Kernel.DiscreteSimplicialGeometry <> j:167 var
+R19980:19980 Kernel.DiscreteSimplicialGeometry <> a:164 var
+R20049:20051 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19999:20016 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R20018:20018 Kernel.DiscreteSimplicialGeometry <> s:159 var
+R20020:20036 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R20038:20040 Kernel.DiscreteSimplicialGeometry <> rho:161 var
+R20042:20043 Kernel.DiscreteSimplicialGeometry <> mu:162 var
+R20045:20046 Kernel.DiscreteSimplicialGeometry <> nu:163 var
+R20048:20048 Kernel.DiscreteSimplicialGeometry <> v:160 var
+R20120:20137 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R20148:20157 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+R20148:20157 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+R20305:20307 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20198:20216 Kernel.RiemannTensor4D <> discrete_derivative def
+R20220:20236 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 20260:20260 <> w:168
+R20265:20285 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R20289:20289 Kernel.DiscreteSimplicialGeometry <> w:168 var
+R20305:20307 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20198:20216 Kernel.RiemannTensor4D <> discrete_derivative def
+R20220:20236 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 20260:20260 <> w:169
+R20265:20285 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R20289:20289 Kernel.DiscreteSimplicialGeometry <> w:169 var
+R20382:20385 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R20328:20363 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R20382:20385 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R20328:20363 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R20636:20638 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20529:20547 Kernel.RiemannTensor4D <> discrete_derivative def
+R20551:20567 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 20591:20591 <> w:170
+R20596:20616 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R20620:20620 Kernel.DiscreteSimplicialGeometry <> w:170 var
+R20636:20638 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20529:20547 Kernel.RiemannTensor4D <> discrete_derivative def
+R20551:20567 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 20591:20591 <> w:171
+R20596:20616 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R20620:20620 Kernel.DiscreteSimplicialGeometry <> w:171 var
+R20713:20716 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R20659:20694 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R20713:20716 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R20659:20694 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R20967:20969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20860:20878 Kernel.RiemannTensor4D <> discrete_derivative def
+R20882:20898 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 20922:20922 <> w:172
+R20927:20947 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R20951:20951 Kernel.DiscreteSimplicialGeometry <> w:172 var
+R20967:20969 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20860:20878 Kernel.RiemannTensor4D <> discrete_derivative def
+R20882:20898 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 20922:20922 <> w:173
+R20927:20947 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R20951:20951 Kernel.DiscreteSimplicialGeometry <> w:173 var
+R21044:21047 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R20990:21025 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R21044:21047 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R20990:21025 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+prf 21823:21859 <> boundary_4simplex_curved_riemann_zero
+R21877:21883 Kernel.VMState <> VMState rec
+binder 21873:21873 <> s:174
+R21891:21898 Kernel.VMState <> ModuleID def
+binder 21887:21887 <> v:175
+R21920:21922 Coq.Init.Datatypes <> nat ind
+binder 21902:21904 <> rho:176
+binder 21906:21910 <> sigma:177
+binder 21912:21913 <> mu:178
+binder 21915:21916 <> nu:179
+R21930:21930 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 21926:21926 <> a:180
+R21958:21965 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21938:21939 Coq.Lists.List <> In def
+R21943:21943 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R21945:21946 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R21948:21949 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R21951:21952 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R21954:21955 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R21957:21957 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R21941:21941 Kernel.DiscreteSimplicialGeometry <> v:175 var
+R21981:21984 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21972:21974 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21967:21971 Kernel.DiscreteSimplicialGeometry <> sigma:177 var
+R21997:22000 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21988:21990 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21986:21987 Kernel.DiscreteSimplicialGeometry <> mu:178 var
+R22013:22020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22004:22006 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R22002:22003 Kernel.DiscreteSimplicialGeometry <> nu:179 var
+R22021:22021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22135:22143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 22029:22029 <> u:181
+binder 22031:22031 <> i:182
+binder 22033:22033 <> j:183
+R22062:22071 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22042:22043 Coq.Lists.List <> In def
+R22047:22047 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R22049:22050 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R22052:22053 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R22055:22056 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R22058:22059 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R22061:22061 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R22045:22045 Kernel.DiscreteSimplicialGeometry <> u:181 var
+R22101:22103 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22072:22092 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R22094:22094 Kernel.DiscreteSimplicialGeometry <> s:174 var
+R22096:22096 Kernel.DiscreteSimplicialGeometry <> u:181 var
+R22098:22098 Kernel.DiscreteSimplicialGeometry <> i:182 var
+R22100:22100 Kernel.DiscreteSimplicialGeometry <> j:183 var
+R22109:22112 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R22108:22108 Kernel.DiscreteSimplicialGeometry <> i:182 var
+R22113:22113 Kernel.DiscreteSimplicialGeometry <> j:183 var
+R22125:22125 Kernel.DiscreteSimplicialGeometry <> a:180 var
+R22196:22198 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22144:22157 Kernel.CurvedTensorPipeline <> curved_riemann def
+R22159:22159 Kernel.DiscreteSimplicialGeometry <> s:174 var
+R22161:22177 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R22179:22181 Kernel.DiscreteSimplicialGeometry <> rho:176 var
+R22183:22187 Kernel.DiscreteSimplicialGeometry <> sigma:177 var
+R22189:22190 Kernel.DiscreteSimplicialGeometry <> mu:178 var
+R22192:22193 Kernel.DiscreteSimplicialGeometry <> nu:179 var
+R22195:22195 Kernel.DiscreteSimplicialGeometry <> v:175 var
+R22280:22293 Kernel.CurvedTensorPipeline <> curved_riemann def
+R22441:22443 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22313:22331 Kernel.RiemannTensor4D <> discrete_derivative def
+R22335:22351 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 22377:22377 <> w:184
+R22382:22399 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R22403:22419 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R22434:22434 Kernel.DiscreteSimplicialGeometry <> w:184 var
+R22441:22443 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22313:22331 Kernel.RiemannTensor4D <> discrete_derivative def
+R22335:22351 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 22377:22377 <> w:185
+R22382:22399 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R22403:22419 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R22434:22434 Kernel.DiscreteSimplicialGeometry <> w:185 var
+R22464:22499 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R22464:22499 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R22549:22589 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R22549:22589 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R22789:22791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22661:22679 Kernel.RiemannTensor4D <> discrete_derivative def
+R22683:22699 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 22725:22725 <> w:186
+R22730:22747 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R22751:22767 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R22782:22782 Kernel.DiscreteSimplicialGeometry <> w:186 var
+R22789:22791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22661:22679 Kernel.RiemannTensor4D <> discrete_derivative def
+R22683:22699 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+binder 22725:22725 <> w:187
+R22730:22747 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R22751:22767 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R22782:22782 Kernel.DiscreteSimplicialGeometry <> w:187 var
+R22812:22847 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R22812:22847 Kernel.DiscreteSimplicialGeometry <> discrete_derivative_constant_general thm
+R22897:22937 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R22897:22937 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R23025:23034 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23041:23046 <> lambda:188
+R23110:23117 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23056:23073 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23077:23093 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23102:23107 Kernel.DiscreteSimplicialGeometry <> lambda:188 var
+R23118:23135 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23139:23155 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23157:23162 Kernel.DiscreteSimplicialGeometry <> lambda:188 var
+R23025:23034 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23041:23046 <> lambda:189
+R23110:23117 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23056:23073 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23077:23093 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23102:23107 Kernel.DiscreteSimplicialGeometry <> lambda:189 var
+R23118:23135 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23139:23155 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23157:23162 Kernel.DiscreteSimplicialGeometry <> lambda:189 var
+R23025:23034 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23041:23046 <> lambda:190
+R23110:23117 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23056:23073 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23077:23093 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23102:23107 Kernel.DiscreteSimplicialGeometry <> lambda:190 var
+R23118:23135 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23139:23155 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23157:23162 Kernel.DiscreteSimplicialGeometry <> lambda:190 var
+R23025:23034 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23041:23046 <> lambda:191
+R23110:23117 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23056:23073 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23077:23093 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23102:23107 Kernel.DiscreteSimplicialGeometry <> lambda:191 var
+R23118:23135 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23139:23155 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23157:23162 Kernel.DiscreteSimplicialGeometry <> lambda:191 var
+R23227:23267 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R23227:23267 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R23227:23267 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R23341:23350 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23357:23362 <> lambda:192
+R23426:23433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23372:23389 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23393:23409 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23418:23423 Kernel.DiscreteSimplicialGeometry <> lambda:192 var
+R23434:23451 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23455:23471 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23473:23478 Kernel.DiscreteSimplicialGeometry <> lambda:192 var
+R23341:23350 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23357:23362 <> lambda:193
+R23426:23433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23372:23389 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23393:23409 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23418:23423 Kernel.DiscreteSimplicialGeometry <> lambda:193 var
+R23434:23451 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23455:23471 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23473:23478 Kernel.DiscreteSimplicialGeometry <> lambda:193 var
+R23341:23350 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23357:23362 <> lambda:194
+R23426:23433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23372:23389 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23393:23409 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23418:23423 Kernel.DiscreteSimplicialGeometry <> lambda:194 var
+R23434:23451 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23455:23471 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23473:23478 Kernel.DiscreteSimplicialGeometry <> lambda:194 var
+R23341:23350 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+binder 23357:23362 <> lambda:195
+R23426:23433 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R23372:23389 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23393:23409 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23418:23423 Kernel.DiscreteSimplicialGeometry <> lambda:195 var
+R23434:23451 Kernel.CurvedTensorPipeline <> curved_christoffel def
+R23455:23471 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23473:23478 Kernel.DiscreteSimplicialGeometry <> lambda:195 var
+R23543:23583 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R23543:23583 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+R23543:23583 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_christoffel_zero thm
+prf 23668:23700 <> boundary_4simplex_comb_orthogonal
+R23718:23724 Kernel.VMState <> VMState rec
+binder 23714:23714 <> s:196
+R23732:23739 Kernel.VMState <> ModuleID def
+binder 23728:23728 <> v:197
+R23747:23747 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 23743:23743 <> a:198
+R23775:23782 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23755:23756 Coq.Lists.List <> In def
+R23760:23760 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23762:23763 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23765:23766 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23768:23769 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23771:23772 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23774:23774 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23758:23758 Kernel.DiscreteSimplicialGeometry <> v:197 var
+R23783:23783 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23897:23905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 23791:23791 <> u:199
+binder 23793:23793 <> i:200
+binder 23795:23795 <> j:201
+R23824:23833 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23804:23805 Coq.Lists.List <> In def
+R23809:23809 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23811:23812 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23814:23815 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23817:23818 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23820:23821 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23823:23823 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R23807:23807 Kernel.DiscreteSimplicialGeometry <> u:199 var
+R23863:23865 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23834:23854 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R23856:23856 Kernel.DiscreteSimplicialGeometry <> s:196 var
+R23858:23858 Kernel.DiscreteSimplicialGeometry <> u:199 var
+R23860:23860 Kernel.DiscreteSimplicialGeometry <> i:200 var
+R23862:23862 Kernel.DiscreteSimplicialGeometry <> j:201 var
+R23871:23874 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R23870:23870 Kernel.DiscreteSimplicialGeometry <> i:200 var
+R23875:23875 Kernel.DiscreteSimplicialGeometry <> j:201 var
+R23887:23887 Kernel.DiscreteSimplicialGeometry <> a:198 var
+R23906:23931 Kernel.DiscreteSimplicialGeometry <> combinatorially_orthogonal def
+R23933:23949 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R23951:23951 Kernel.DiscreteSimplicialGeometry <> s:196 var
+R23953:23953 Kernel.DiscreteSimplicialGeometry <> v:197 var
+R24001:24026 Kernel.DiscreteSimplicialGeometry <> combinatorially_orthogonal def
+R24029:24040 Kernel.CurvedTensorPipeline <> curved_ricci def
+R24080:24089 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+R24080:24089 Kernel.MatrixAlgebra4 <> sum_4_zero thm
+R24122:24158 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_zero thm
+R24122:24158 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_zero thm
+R24122:24158 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_curved_riemann_zero thm
+prf 24230:24262 <> boundary_4simplex_full_tensor_efe
+R24280:24286 Kernel.VMState <> VMState rec
+binder 24276:24276 <> s:202
+R24294:24301 Kernel.VMState <> ModuleID def
+binder 24290:24290 <> v:203
+R24315:24315 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 24305:24309 <> kappa:204
+binder 24311:24311 <> a:205
+R24343:24350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24323:24324 Coq.Lists.List <> In def
+R24328:24328 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24330:24331 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24333:24334 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24336:24337 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24339:24340 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24342:24342 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24326:24326 Kernel.DiscreteSimplicialGeometry <> v:203 var
+R24351:24351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24465:24473 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 24359:24359 <> u:206
+binder 24361:24361 <> i:207
+binder 24363:24363 <> j:208
+R24392:24401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24372:24373 Coq.Lists.List <> In def
+R24377:24377 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24379:24380 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24382:24383 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24385:24386 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24388:24389 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24391:24391 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R24375:24375 Kernel.DiscreteSimplicialGeometry <> u:206 var
+R24431:24433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24402:24422 Kernel.MetricFromMuCosts <> full_metric_at_vertex def
+R24424:24424 Kernel.DiscreteSimplicialGeometry <> s:202 var
+R24426:24426 Kernel.DiscreteSimplicialGeometry <> u:206 var
+R24428:24428 Kernel.DiscreteSimplicialGeometry <> i:207 var
+R24430:24430 Kernel.DiscreteSimplicialGeometry <> j:208 var
+R24439:24442 Coq.Arith.PeanoNat <> ::nat_scope:x_'=?'_x not
+R24438:24438 Kernel.DiscreteSimplicialGeometry <> i:207 var
+R24443:24443 Kernel.DiscreteSimplicialGeometry <> j:208 var
+R24455:24455 Kernel.DiscreteSimplicialGeometry <> a:205 var
+R24474:24474 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24594:24602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24486:24488 Coq.Init.Datatypes <> nat ind
+binder 24482:24482 <> d:209
+R24502:24511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24493:24495 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R24492:24492 Kernel.DiscreteSimplicialGeometry <> d:209 var
+R24553:24555 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24512:24526 Kernel.CurvedTensorPipeline <> curved_einstein def
+R24528:24528 Kernel.DiscreteSimplicialGeometry <> s:202 var
+R24530:24546 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R24548:24548 Kernel.DiscreteSimplicialGeometry <> d:209 var
+R24550:24550 Kernel.DiscreteSimplicialGeometry <> d:209 var
+R24552:24552 Kernel.DiscreteSimplicialGeometry <> v:203 var
+R24562:24564 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R24557:24561 Kernel.DiscreteSimplicialGeometry <> kappa:204 var
+R24565:24582 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R24584:24584 Kernel.DiscreteSimplicialGeometry <> s:202 var
+R24586:24586 Kernel.DiscreteSimplicialGeometry <> d:209 var
+R24588:24588 Kernel.DiscreteSimplicialGeometry <> d:209 var
+R24590:24590 Kernel.DiscreteSimplicialGeometry <> v:203 var
+R24618:24620 Coq.Init.Datatypes <> nat ind
+binder 24610:24611 <> mu:210
+binder 24613:24614 <> nu:211
+R24641:24644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24632:24634 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R24630:24631 Kernel.DiscreteSimplicialGeometry <> mu:210 var
+R24657:24666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24648:24650 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R24646:24647 Kernel.DiscreteSimplicialGeometry <> nu:211 var
+R24710:24712 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24667:24681 Kernel.CurvedTensorPipeline <> curved_einstein def
+R24683:24683 Kernel.DiscreteSimplicialGeometry <> s:202 var
+R24685:24701 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R24703:24704 Kernel.DiscreteSimplicialGeometry <> mu:210 var
+R24706:24707 Kernel.DiscreteSimplicialGeometry <> nu:211 var
+R24709:24709 Kernel.DiscreteSimplicialGeometry <> v:203 var
+R24719:24721 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R24714:24718 Kernel.DiscreteSimplicialGeometry <> kappa:204 var
+R24722:24739 Kernel.CurvedTensorPipeline <> mass_stress_energy def
+R24741:24741 Kernel.DiscreteSimplicialGeometry <> s:202 var
+R24743:24744 Kernel.DiscreteSimplicialGeometry <> mu:210 var
+R24746:24747 Kernel.DiscreteSimplicialGeometry <> nu:211 var
+R24749:24749 Kernel.DiscreteSimplicialGeometry <> v:203 var
+R24830:24869 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
+R24873:24889 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R24830:24869 Kernel.EinsteinEquationsFull <> full_efe_from_diagonal_and_offdiag_ricci thm
+R24873:24889 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex def
+R24965:24975 Coq.Arith.PeanoNat Nat eqb_neq thm
+R24965:24975 Coq.Arith.PeanoNat Nat eqb_neq thm
+R25086:25118 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_comb_orthogonal thm
+R25086:25118 Kernel.DiscreteSimplicialGeometry <> boundary_4simplex_comb_orthogonal thm

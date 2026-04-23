@@ -1,16 +1,22 @@
 \documentclass[11pt, a4paper]{report}
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage{amsmath, amssymb, amsthm}
 \usepackage{geometry}
 \usepackage{enumerate}
 \usepackage{hyperref}
 \usepackage{mathtools}
+\usepackage{microtype}
 
 \geometry{margin=1in}
 
+\DeclareUnicodeCharacter{2014}{---}
+
 \title{\textbf{The Thiele Machine}\\ \large A Complete Mathematical Specification\\[6pt] \normalsize Derived from the Fully Machine-Checked Coq Corpus}
-\author{Formal Specification}
-\date{}
+\author{Devon Thiele}
+\date{April 2026}
 
 % Environments
 \theoremstyle{definition}
@@ -44,11 +50,11 @@
 \maketitle
 
 \begin{abstract}
-This document provides a complete, standalone mathematical specification of the Thiele Machine, a formal model of computation in which structural information carries an explicit, conserved cost $\mu$. The document is organized so that the machine can be reconstructed from first principles using only the mathematics herein.
+This is the complete mathematical specification of the Thiele Machine: a formal model of computation where structural information carries an explicit, conserved cost $\mu$. Everything here is built from the machine-checked Coq corpus. You can reconstruct the machine from what's in this document alone.
 
-Every logical inference has been verified by the machine-checked Coq source corpus comprising the formal verification suite. However, formal verification establishes that \emph{conclusions follow from axioms}---it does not validate that axioms model physical reality. This document is therefore careful to distinguish three epistemological categories: \textbf{(S)}~Structural theorems about the machine's own mathematics, \textbf{(C)}~Conditional derivations where physics conclusions follow from stated axioms that may or may not hold in nature, and \textbf{(R)}~Consistency relations that verify internal compatibility but do not constitute independent predictions.
+Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction matters and I keep it explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
-The specification covers: the state space and operational semantics; the core ``No Free Insight'' theorem; computational universality; gauge symmetry and Noether conservation; conditional derivations connecting $\mu$-accounting to quantum mechanics (Born rule, Tsirelson bound, no-cloning, unitarity, complex amplitudes, Schr\"odinger equation) under stated physical axioms; consistency relations (Planck's constant); emergent spacetime and thermodynamics; the Thiele Manifold and self-reference tower; and falsifiable predictions.
+The document covers: the full state space and operational semantics; No Free Insight; computational universality and Turing strictness; gauge symmetry and Noether conservation; conditional connections to quantum mechanics (Born rule, Tsirelson bound, no-cloning, unitarity, complex amplitudes, Schr\"odinger equation) under named physical axioms; spacetime emergence and the Landauer bridge; the Thiele Manifold and self-reference tower; and falsifiable predictions with concrete failure modes.
 \end{abstract}
 
 \tableofcontents
@@ -58,11 +64,11 @@ The specification covers: the state space and operational semantics; the core ``
 %=============================================================================
 
 \chapter{Introduction}
-The Thiele Machine is a computational model designed to make the thermodynamic cost of structure explicit. Unlike a Turing Machine, which treats all state transitions as cost-equivalent, the Thiele Machine assigns a specific cost $\mu$ to every operation that extracts or asserts structural information.
+The Thiele Machine makes the cost of structure explicit. A Turing Machine treats all state transitions as cost-equivalent. The Thiele Machine assigns a specific cost $\mu$ to every operation that extracts or asserts structural information. That's the design. Here is where it goes.
 
-The central claim, proven formally, is: \emph{one cannot gain structural insight about a system without paying $\mu$-cost}. This specification explores how this constraint, combined with explicit physical axioms (superposition, linearity, information conservation), yields structural results that parallel the laws of quantum mechanics, thermodynamics, and emergent spacetime. The epistemological status of each result---whether it is a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)}---is directly marked throughout.
+The central claim, proven formally: \emph{you cannot gain structural insight about a system without paying $\mu$-cost}. Combined with explicit physical axioms (superposition, linearity, information conservation), that constraint produces structural results that parallel quantum mechanics, thermodynamics, and emergent spacetime. Each result's status --- whether it is a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)} --- is marked directly. Nothing is hidden.
 
-This specification is organized into eight parts:
+Eight parts:
 \begin{enumerate}
     \item \textbf{Foundations}: State space, instruction set, operational semantics.
     \item \textbf{Core Theorems}: No Free Insight, $\mu$-Chaitin, cost = complexity.
@@ -987,19 +993,19 @@ The vacuum case is sufficient to demonstrate that spacetime curvature emerges fr
 This is a \textbf{(S) Structural} result: it proves a mathematical relationship between computational primitives (VM states, $\mu$-costs) and geometric quantities (curvature tensors) with no physical axioms. The theorem establishes that:
 \begin{enumerate}
     \item Spacetime geometry (metric, curvature) can be constructed from pure computation
-    \item The resulting geometry satisfies Einstein's field equations
-    \item This emergence is necessary, not contingent on physical assumptions
+    \item The resulting geometry satisfies the vacuum Einstein equation in the formally verified zero-mass regime
+    \item Beyond that vacuum regime, the repository contains a conditional full-tensor bridge with named premises, a proved uniform diagonal boundary witness in the active operator, and a separately proved non-uniform boundary witness in a concrete affine metric-scaled redesign branch rather than one universal unconditional theorem
 \end{enumerate}
 
-The result does \emph{not} claim that physical spacetime \emph{is} implemented by a Turing machine---that would be a \textbf{(C)} conditional claim requiring empirical validation. Rather, it demonstrates that \emph{if} a computational substrate exists with $\mu$-cost tracking, \emph{then} Einstein's equations necessarily emerge.
+The result does \emph{not} claim that physical spacetime \emph{is} implemented by a Turing machine---that would be a \textbf{(C)} conditional claim requiring empirical validation. More importantly, it does not justify the stronger statement that arbitrary computational substrates with $\mu$-cost tracking automatically satisfy the full Einstein equations in complete generality. The honest status is narrower: the vacuum theorem is unconditional; the full-tensor bridge in \texttt{EinsteinEquationsFull.v} remains conditional; the active first-neighbor operator proves the uniform diagonal boundary witness and formally refutes the stronger non-uniform diagonal extension; the broader nonnegative local weighted family containing the simple symmetric average also fails on the same shell; and \texttt{SymmetricDerivative4D.v} proves that a concrete signed affine metric-scaled redesign rescues that non-uniform boundary witness with off-diagonal Ricci vanishing, Einstein tensor $G_{\mu\nu} = 3\,\delta_{\mu\nu}$ at the critical vertex, and, under \texttt{module\_structural\_mass s 1 = 1}, the aligned full-tensor witness $G_{\mu\nu} = 3\,T_{\mu\nu}$ there.
 \end{remark}
 
-\begin{corollary}[Spacetime is Emergent]
-Spacetime geometry is not fundamental physics but an emergent property of information processing.
+\begin{corollary}[Discrete Vacuum Geometry is Emergent]
+Discrete vacuum spacetime geometry is an emergent property of the machine's information-processing structure.
 \end{corollary}
 
 \begin{proof}
-Theorem~\ref{thm:einstein_main} constructs spacetime (metric, curvature, field equations) from computational primitives (VM states, operations, $\mu$-costs) with no physical axioms. Therefore, spacetime is a derived concept, not a foundational one.
+Theorem~\ref{thm:einstein_main} constructs the discrete metric, curvature, and vacuum Einstein relation from computational primitives (VM states, operations, $\mu$-costs) with no physical axioms. Therefore, the repo's discrete vacuum geometry is a derived concept rather than a primitive one.
 \end{proof}
 
 \subsection{Empirical Validation}
@@ -1156,6 +1162,7 @@ Logical proof composition maps to physical relation composition. This is the for
 \end{theorem}
 
 \chapter{Categorical Structure}
+\label{ch:categorical}
 
 \section{The Morphism Layer}
 
@@ -1295,7 +1302,7 @@ This converges to 0, but the \emph{non-asymptotic} structure at physical scales 
 \appendix
 \chapter{Proof File Index}
 
-The following table maps each theorem in this specification to its Coq source file.
+The table below maps each theorem to its Coq source file. Entries marked \emph{--- reference-only} are theoretical results that belong to an extended corpus; the corresponding Coq files are not present in the active kernel tree and their proofs are not machine-checked in the current build. Everything unmarked lives in the active corpus and compiles clean.
 
 \begin{center}
 \small
@@ -1344,7 +1351,7 @@ Stress-Energy Tensor & \texttt{kernel/EinsteinEquations4D.v} \\
 Curvature from $\mu$-Gradients & \texttt{kernel/EinsteinEquations4D.v} \\
 Stress-Energy Conservation & \texttt{kernel/EinsteinEquations4D.v} \\
 Einstein Equations (Vacuum) & \texttt{kernel/EinsteinEquations4D.v} \\
-Einstein Equations (General) & \texttt{kernel/EinsteinEquations4D.v} \\
+Einstein Equations (General) & \texttt{kernel/EinsteinEquationsFull.v} \\
 Discrete Gaussian Curvature & \texttt{kernel/MetricFromMuCosts.v} \\
 Information Causality & \texttt{kernel/InformationCausality.v} \\
 Landauer & \texttt{thermodynamic/LandauerDerived.v} \\
@@ -1399,6 +1406,7 @@ Curry--Howard--Thiele & \textbf{(S)} & Interpretation map \\
 Curvature from $\mu$-Gradients & \textbf{(S)} & Lemma~\ref{lem:curvature_mu} \\
 Stress-Energy Conservation & \textbf{(S)} & Lemma~\ref{lem:stress_conservation} \\
 Einstein Equations (Vacuum) & \textbf{(S)} & Theorem~\ref{thm:einstein_main} \\
+Einstein Equations (General full tensor) & \textbf{(C)} & Named off-diagonal Ricci premise in \texttt{EinsteinEquationsFull.v} \\
 Discrete Differential Geometry & \textbf{(S)} & Definitions only \\
 \hline
 \multicolumn{3}{l}{\emph{Conditional derivations (valid given stated axioms)}} \\

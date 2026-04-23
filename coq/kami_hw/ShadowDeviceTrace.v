@@ -15,7 +15,7 @@ Import ListNotations.
 
 From Kernel  Require Import VMState VMStep SimulationProof ShadowProjection.
 From KamiHW  Require Import Abstraction HardwareShadowBridge ShadowDevice EmbedStep
-                             ShadowEmbedStep.
+                             ShadowEmbedStep FullAbstraction GraphReconstructionBridge.
 
 (** Single-step μ monotonicity
 
@@ -169,6 +169,24 @@ Proof.
   apply shadow_trace_compat_extended.
   exact Hhb.
   exact Hsupp.
+Qed.
+
+(** Full 46-opcode, PC-driven trace compatibility under the explicit
+    well-formed/driven precondition exported by GraphReconstructionBridge.
+
+    This theorem uses the stronger full-state bridge rather than the older
+    [abs_phase1]/fold_left path, so all remaining opcodes are covered by Qed
+    proofs with their exact side conditions named in [WFDrivenPrecondition]. *)
+Theorem rtl_shadow_trace_compat_wf :
+  forall fuel trace ks,
+    (forall ks' i, WFDrivenPrecondition ks' i) ->
+    rtl_classical_obs (kami_run_driven fuel trace ks) =
+    shadow_proj (run_vm fuel trace (abs_full_snapshot (full_snapshot_of_snapshot ks))).
+Proof.
+  intros fuel trace ks Hpre.
+  rewrite hardware_shadow_compat_full.
+  rewrite driven_trace_commutes by exact Hpre.
+  reflexivity.
 Qed.
 
 (** μ never decreases over a trace

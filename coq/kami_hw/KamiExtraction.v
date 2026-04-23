@@ -1,8 +1,9 @@
-(** KamiExtraction.v — Extracts Kami hardware modules to OCaml.
-    The OCaml code is then used by PP.ml to generate Bluespec,
+(** KamiExtraction.v — Extracts the canonical Coq-generated BModules AST to OCaml.
+    The OCaml code is then used by PP.ml to print Bluespec text,
     which bsc compiles to synthesizable Verilog.
 
-    Pipeline: Coq → OCaml extraction → Bluespec → Verilog *)
+    Pipeline: Coq module -> Kami synthesis in Coq -> BModules AST ->
+              OCaml extraction -> PP.ml text printing -> Verilog *)
 
 Require Import Kami.Kami.
 Require Import Kami.Synthesize.

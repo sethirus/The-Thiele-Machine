@@ -82,7 +82,7 @@ pushd "$ROOT/thielecpu/hardware" >/dev/null
 iverilog -g2012 -I./rtl -o "$ROOT/build/thiele_cpu_tb.out" \
   rtl/thiele_cpu_kami.v \
   rtl/RegFile.v \
-  testbench/thiele_cpu_kami_tb.v
+  ../../rtl_harness/testbench/thiele_cpu_kami_tb.v
 popd >/dev/null
 
 phase VERIFY "synthesizability check (yosys)"

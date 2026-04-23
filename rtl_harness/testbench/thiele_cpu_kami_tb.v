@@ -107,6 +107,8 @@ module thiele_cpu_kami_tb;
 
   reg [1023:0] program_hex_path;
   reg [1023:0] data_hex_path;
+  reg [1023:0] vcd_path;
+  integer vcd_en;
 
   reg [31:0] prev_mu;
   reg prev_mu_valid;
@@ -130,6 +132,7 @@ module thiele_cpu_kami_tb;
     shadow_found_dup = 0;
     prev_mu = 32'd0;
     prev_mu_valid = 1'b0;
+    vcd_en = 0;
 
     init_mu_en = 0; init_active_module_en = 0; init_pt_en = 0; init_tensor_en = 0;
     init_logic_acc_en = 0;
@@ -145,6 +148,11 @@ module thiele_cpu_kami_tb;
       $readmemh(program_hex_path, instr_memory);
     end else begin
       instr_memory[0] = 128'h020000000000000000000000FF000000;
+    end
+    if ($value$plusargs("VCD=%s", vcd_path)) begin
+      vcd_en = 1;
+      $dumpfile(vcd_path);
+      $dumpvars(0, thiele_cpu_kami_tb);
     end
     if ($value$plusargs("DATA=%s", data_hex_path)) begin
       $readmemh(data_hex_path, data_memory);

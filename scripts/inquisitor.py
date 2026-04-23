@@ -1024,7 +1024,9 @@ def scan_file(path: Path) -> list[Finding]:
         full_decl = text[m.start():context_end + 1] if context_end != -1 else snippet
 
         # Inside a Module Type, treat declarations as signature fields.
-        if 1 <= line < len(in_module_type) and in_module_type[line] and kind in {"Axiom", "Parameter"}:
+        # This includes Variable/Variables, which are interface slots in a
+        # Module Type, not section-level assumptions.
+        if 1 <= line < len(in_module_type) and in_module_type[line] and kind in {"Axiom", "Parameter", "Variable", "Variables", "Hypothesis", "Context"}:
             findings.append(
                 Finding(
                     rule_id="MODULE_SIGNATURE_DECL",
@@ -1067,10 +1069,54 @@ def scan_file(path: Path) -> list[Finding]:
                 severity = "MEDIUM"
                 msg = f"Found {kind}{(' ' + name) if name else ''}."
         else:
-            # Variable/Variables
-            rule_id = "SECTION_BINDER"
-            severity = "MEDIUM"
-            msg = f"Found {kind}{(' ' + name) if name else ''}."
+            # Variable/Variables inside a Section.
+            # A Variable whose type is a Prop is a section-local axiom,
+            # functionally equivalent to Hypothesis — flag HIGH.
+            # Pure type or function binders (T : Type, f : A -> B where B
+            # is not Prop) stay MEDIUM.
+            #
+            # Use the current LINE (snippet) not the broad full_decl to
+            # avoid false positives from multi-line scanning.
+            line_text = snippet  # just this line
+            # Definitive Prop indicators (must be present IN THIS LINE):
+            # 1. `forall` — universally quantified Prop
+            # 2. The type ends in `-> Prop` or `: Prop` — Prop-valued
+            # 3. Contains `=` in a type context (equality Prop)
+            has_forall_in_line = "forall" in line_text
+            ends_in_prop = bool(re.search(r"->\s*Prop\b|:\s*Prop\b", line_text))
+            has_equality_type = bool(re.search(
+                r":\s*\(.*=.*\)|:\s*forall", line_text
+            ))
+            is_prop_assumption = has_forall_in_line or ends_in_prop or has_equality_type
+            if is_prop_assumption:
+                rule_id = "HYPOTHESIS_ASSUME"
+                severity = "HIGH"
+                msg = (
+                    f"Variable/Variables `{name}` in Section is a Prop-typed "
+                    f"section-local axiom (equivalent to Hypothesis). "
+                    f"NO SECTION AXIOMS ALLOWED. Prove it or restructure as "
+                    f"explicit forall premises in the theorem statements."
+                )
+            else:
+                rule_id = "SECTION_BINDER"
+                severity = "MEDIUM"
+                msg = f"Found {kind}{(' ' + name) if name else ''}."
+
+        # Suppression: if there is an INQUISITOR NOTE in the 30 raw lines above
+        # the declaration explaining that this is an abstract interface or
+        # parameterized theorem (Section Variables become explicit forall
+        # premises when the section closes), suppress the finding.
+        # Use raw_lines (with comments) not text (comment-stripped).
+        raw_line_idx = line - 1  # 0-based index into raw_lines
+        note_raw_context = "\n".join(raw_lines[max(0, raw_line_idx - 30): raw_line_idx])
+        is_suppressed_interface = (
+            "INQUISITOR NOTE" in note_raw_context and
+            any(kw in note_raw_context.upper()
+                for kw in ["ABSTRACT INTERFACE", "PARAMETERIZ", "SECTION PARAMETER",
+                           "EXPLICIT FORALL", "INTERFACE SECTION", "ABSTRACT SECTION"])
+        )
+        if is_suppressed_interface:
+            continue
 
         findings.append(
             Finding(

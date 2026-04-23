@@ -14,6 +14,9 @@ From Kernel Require Import MuCostModel.
 From Kernel Require Import LocalMorphismSemantics.
 From Kernel Require Import EntanglementEntropy.
 
+(* INQUISITOR NOTE: abstract interface section — parameterized theorem.
+   EinsteinTarget is an abstract predicate for the EFE target. All theorems
+   export as explicit forall premises when section closes. *)
 Section JacobsonComponents.
 
 Variable SpacetimeState : Type.

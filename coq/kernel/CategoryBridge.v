@@ -39,7 +39,8 @@ Lemma graph_add_morphism_new_id_lookup :
     Some {| morph_source := src;
             morph_target := dst;
             morph_coupling := normalize_coupling c;
-            morph_is_identity := is_id |}.
+            morph_is_identity := is_id;
+               morph_cert_cost := 0 |}.
 Proof.
   intros g src dst c is_id.
   unfold graph_add_morphism. simpl.

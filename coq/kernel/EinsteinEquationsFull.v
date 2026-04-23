@@ -205,168 +205,24 @@ Proof.
 Qed.
 
 
-Record EinsteinFullScope := {
-  efs_diagonal_proved : Prop;
-  efs_offdiag_reduction : Prop;
-  efs_stress_diagonal : Prop;
-  efs_full_efe_conditional : Prop;
-}.
+(** Off-diagonal Ricci note:
 
-Definition einstein_scope_summary : EinsteinFullScope :=
-  {| efs_diagonal_proved :=
-       (* CurvedTensorPipeline.v: einstein_equation_from_mass *)
-       True;
-     efs_offdiag_reduction :=
-       (* This file: full_efe_from_diagonal_and_offdiag_ricci *)
-       True;
-     efs_stress_diagonal :=
-       (* This file: offdiag_stress_energy_zero *)
-       True;
-     efs_full_efe_conditional :=
-       (* Full EFE holds on any complex where off-diagonal Ricci = 0.
-          This is a computational property of specific complexes, not
-          a general theorem. On finite complexes with isotropic diagonal
-          metric, off-diagonal Ricci is generically nonzero. This is a known
-          discretization artifact. *)
-       True;
-  |}.
+    For isotropic diagonal metric on finite simplicial complexes, off-diagonal
+    discrete Ricci is generically nonzero. This is a property of the
+    first-neighbor discrete derivative operator: the Christoffel at leaf
+    vertices is 0, so all directional derivatives collapse to the same value
+    at the center vertex, making off-diagonal Ricci = 2c(1+c) for coupling c.
 
-(** Mathematical analysis:
-    For isotropic diagonal metric g = a*delta on a finite simplicial complex:
-    - The Christoffel at center v: Gamma^rho_{mu nu}(v] = c*(d_{nu rho}+d_{mu rho}-d_{mu nu})
-      where c = (b-a)/(2a)
-    - The Christoffel at leaf vertices is 0. Leaves have no outgoing derivatives:
-      they are their own first neighbor, giving derivative = 0)
-    - The derivative of Christoffel at v is -Gamma(v) for ALL directions
-      (because Gamma(leaf) = 0 for all leaves, regardless of which leaf)
-    - This makes the Riemann tensor direction-independent, and the off-diagonal
-      Ricci becomes 2c(1+c) which is generically nonzero
+    The conditional full tensor EFE (depending on off_diagonal_ricci_zero
+    as a section Variable) was removed. Section Variables are hidden
+    axioms. Off_diagonal_ricci_zero is formally refuted for non-uniform
+    diagonal metrics under the current operator
+    (DiscreteSimplicialGeometry.v: boundary_4simplex_nonuniform_diagonal_refuted_at_1).
 
-    CONSEQUENCE:
-    On this finite-complex analysis with isotropic diagonal metric,
-    the off-diagonal discrete Ricci is nonzero. This is NOT a bug.
-    It is a property of the discrete derivative on finite
-    graphs. The diagonal EFE is the maximal physically meaningful
-    statement at this discretization scale.
-
-    The REDUCTION THEOREM (full_efe_from_diagonal_and_offdiag_ricci)
-    is still valuable because:
-    1. It decomposes the full EFE into modular, independently verifiable pieces
-    2. The off-diagonal Ricci hypothesis is FALSIFIABLE (can be checked per complex)
-    3. It makes the scope limitation EXPLICIT rather than hidden
-    4. If a future discretization scheme produces off-diagonal Ricci = 0, the
-       reduction theorem immediately gives the full tensor EFE
-    *)
-
-(** Conditional closure for "4D Einstein field equations from computation."
-
-    The remaining gap is exactly off-diagonal Ricci = 0 on the relevant
-    simplicial complex. This section states that premise as an explicit
-    section variable, then derives the full tensor EFE from it
-    via full_efe_from_diagonal_and_offdiag_ricci (proven in Part 7 above).
-
-    - The diagonal EFE is proven (CurvedTensorPipeline.v / Part 7 above).
-    - The reduction theorem (Part 7) says: diagonal EFE plus off-diagonal
-      Ricci = 0 gives the full tensor EFE.
-    - We cannot prove off-diagonal Ricci = 0 for generic finite complexes.
-      Part 9 documents why it is generically nonzero.
-    - The honest closure is: state the premise explicitly, derive the
-      full tensor EFE conditionally, and name the remaining physical claim.
-
-    PHYSICAL JUSTIFICATION FOR THE HYPOTHESIS:
-    In continuum GR, off-diagonal Ricci vanishes for isotropic configurations
-    by symmetry.  In the discrete setting, this is a constraint on the
-    discretization scheme.  For fine enough discretizations that approximate
-    smooth isotropic spacetime, the hypothesis holds in the limit (Regge
-    calculus convergence).  Stating it as a named hypothesis makes this
-    physical assumption explicit and auditable.
-
-    Theorem type: CONDITIONAL / BRIDGE
-    - Depends on: off_diagonal_ricci_zero (named hypothesis)
-    - Proven from: full_efe_from_diagonal_and_offdiag_ricci (Part 7)
-    - Status: zero Admitted, one named premise
-*)
-Section FullTensorEFEConditional.
-
-Variables
-  (s  : VMState)
-  (sc : SimplicialComplex4D)
-  (v  : ModuleID)
-  (kappa : R).
-
-(** diagonal_metric_h: the metric at vertex v is diagonal.
-    This holds for isotropic configurations (uniform module tensors). *)
-Variable diagonal_metric_h :
-  forall i j : nat, i <> j ->
-    full_metric_at_vertex s v i j = 0%R.
-
-(** diagonal_efe_h: the Einstein field equation holds on the diagonal.
-    This is proven by einstein_equation_from_mass (CurvedTensorPipeline.v)
-    or by einstein_equation_isotropic_vacuum (EinsteinEquations4D.v)
-    for the vacuum + uniform tensor case.  Stated as a section variable here so
-    that the conditional theorem applies to any diagonal EFE proof. *)
-Variable diagonal_efe_h :
-  forall d : nat, (d < 4)%nat ->
-    curved_einstein s sc d d v = (kappa * mass_stress_energy s d d v)%R.
-
-(** off_diagonal_ricci_zero: the off-diagonal Ricci tensor vanishes.
-
-    THE NAMED PREMISE: the explicit remaining gap.
-
-    PHYSICAL BASIS:
-    In continuum GR, for an isotropic metric g_{mu nu} = a * delta_{mu nu},
-    off-diagonal Ricci = 0 by symmetry and coordinate choice.
-
-    DISCRETE STATUS:
-    On finite simplicial complexes, off-diagonal discrete Ricci is generically
-    nonzero (2c(1+c) for the star complex; see Part 9 analysis). This
-    variable captures the physical expectation that the relevant physical
-    complexes are either:
-    (a) Sufficiently symmetric that the off-diagonal terms cancel, OR
-    (b) Continuum limits of finer discretizations where the artifact vanishes.
-
-    To falsify: Compute curved_ricci on a specific complex and verify.
-    On the star complex in this file, it is NOT zero (Part 9 documents this). *)
-Variable off_diagonal_ricci_zero :
-  forall mu nu : nat,
-    (mu < 4)%nat -> (nu < 4)%nat -> mu <> nu ->
-    curved_ricci s sc mu nu v = 0%R.
-
-(** full_tensor_efe_conditional: G_{mu nu} = kappa T_{mu nu}
-    for ALL (mu, nu) in {0,1,2,3}^2.
-
-    Proof: apply full_efe_from_diagonal_and_offdiag_ricci to the three
-    premises above. The proof is complete, zero Admitted. The conditionality
-    is entirely in the named premises.
-
-    This is the full tensor reduction, conditional on the off-diagonal Ricci
-    premise. *)
-Theorem full_tensor_efe_conditional :
-  forall mu nu : nat,
-    (mu < 4)%nat -> (nu < 4)%nat ->
-    curved_einstein s sc mu nu v = (kappa * mass_stress_energy s mu nu v)%R.
-Proof.
-  exact (full_efe_from_diagonal_and_offdiag_ricci
-           s sc v kappa
-           diagonal_metric_h
-           diagonal_efe_h
-           off_diagonal_ricci_zero).
-Qed.
-
-End FullTensorEFEConditional.
-
-(** Status summary:
-
-    full_tensor_efe_conditional:
-    - PROVEN: zero Admitted
-    - CONDITIONAL ON: off_diagonal_ricci_zero, a named section premise
-    - RESULT: the exact remaining gap is explicit and named. If the gap is
-      discharged for a concrete complex, the full tensor EFE follows.
-
-    The path to unconditional proof: prove off_diagonal_ricci_zero for a
-    specific complex that models smooth isotropic spacetime.  The reduction
-    theorem (full_efe_from_diagonal_and_offdiag_ricci) then gives the result.
-    *)
+    The unconditional result below is the real theorem. The reduction theorem
+    full_efe_from_diagonal_and_offdiag_ricci is the honest implication: it
+    takes all three conditions as explicit forall premises and produces the
+    full tensor EFE. If a complex proves those conditions, it gets the result. *)
 
 (** ** Unconditional Closure: Full Tensor EFE for Flat (Uniform) Spacetime
 
@@ -440,24 +296,21 @@ Proof.
   - exact Hnu.
 Qed.
 
-(** Final status:
+(** What is proved in this file, exactly:
 
-    CLOSED (0 Admitted, 0 named open premises):
-    - full_efe_uniform_two_vertex: unconditional full tensor EFE for flat spacetime.
-      off_diagonal_ricci_zero is PROVED (curved_ricci_uniform_two_vertex) for
-      the uniform-metric case.
+    full_efe_uniform_two_vertex: zero Admitted, zero named open premises.
+    The full 4x4 Einstein field equation G_{mu nu} = 0 holds for flat
+    discrete spacetime (uniform metric, two-vertex complex). All conditions
+    are discharged directly from the machine's definitions. This is the
+    real theorem.
 
-    CONDITIONAL (0 Admitted, named premise):
-    - full_tensor_efe_conditional: full tensor EFE for curved spacetime on any
-      complex, conditional on off_diagonal_ricci_zero. This premise cannot be
-      proved for nonuniform isotropic metric on finite complexes (proven failure
-      in CurvedTensorPipeline.v:1085-1101), but holds in the physical continuum
-      limit (Regge calculus convergence, not formalized here).
+    full_efe_from_diagonal_and_offdiag_ricci: zero Admitted. Honest
+    implication — takes diagonal metric, diagonal EFE, and off-diagonal
+    Ricci = 0 as explicit forall premises and produces the full tensor EFE.
+    Any complex that proves those three conditions gets the full result.
 
-    The diagonal EFE for curved spacetime is proved unconditionally
-    (einstein_equation_from_mass, CurvedTensorPipeline.v:1117-1166).
-    The off-diagonal EFE is 0 = 0 for curved spacetime (T_{mu nu} = 0 for
-    mu != nu, proved here; G_{mu nu} = R_{mu nu} for diagonal metric, proved
-    here; so the off-diagonal EFE reduces to the curved case of off-diagonal
-    Ricci, which is the remaining open question for nonuniform complexes). *)
+    The conditional section (full_tensor_efe_conditional with Section
+    Variables) was removed. Section Variables are axioms, not proofs.
+    off_diagonal_ricci_zero is formally refuted in the general case
+    (DiscreteSimplicialGeometry.v). No theorem here assumes it. *)
 

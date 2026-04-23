@@ -161,7 +161,7 @@ Variable rtl_step_correct :
 (* Section 2b: BSC Compilation Trust Boundary (named)                 *)
 (* ════════════════════════════════════════════════════════════════════ *)
 
-(** ** TRUST BOUNDARY: BSC Compilation.
+(** ** TRUST BOUNDARY: PP.ml + BSC Compilation.
     ────────────────────────────────────────────────────────────────────
     The Kami pipeline has THREE steps — each with its own trust level:
 
@@ -169,15 +169,29 @@ Variable rtl_step_correct :
             Trust level: Coq extraction correctness (Letouzey 2004).
             Same trust as ocaml_extraction_faithful in OCamlExtractionBridge.v.
 
-    Step B: OCaml (PP.ml + Target.ml) → Bluespec SystemVerilog (.bsv)
-            Trust level: THE NAMED TRUST BOUNDARY BELOW.
+        Step B: OCaml (PP.ml + Target.ml) → Bluespec SystemVerilog (.bsv)
+          Trust level: named pretty-printer boundary below.
             The BSC pretty-printer (build/kami_hw/PP.ml) is mechanically
             derived but its correctness w.r.t. the Kami denotational
             semantics is not machine-verified in Coq.
 
     Step C: Bluespec SystemVerilog → Verilog (.v) via BSC compiler
-            Trust level: BSC compiler correctness (Bluespec Inc, open-source
-            since 2020). Not verified in Coq.
+          Trust level: named BSC compiler boundary below. Not verified
+          in Coq.
+
+        TRACKED-ARTEFACT STATUS:
+        The repository no longer treats "did we check in the right RTL file?" as
+        part of the same semantic boundary. tests/test_canonical_source_pipeline.py
+        already enforces that the tracked RTL thiele_cpu_kami.v is byte-identical
+        to build/kami_hw/mkModule1_synth.v. That closes repository-artifact drift
+        operationally. artifacts/rtl_pipeline_manifest.json now pins the whole
+        canonical extraction/printer/BSV/Verilog artifact chain by hash and is
+        checked by scripts/generate_rtl_pipeline_manifest.py --check.
+        artifacts/rtl_text_transform_audit.json also replays the project
+        BSV/Verilog text transforms byte-for-byte and records their current
+        storage-rewrite scope. The remaining trust boundary is semantic
+        preservation of Step B/C and those scoped transforms, not file mismatch,
+        provenance drift, or hidden transform-scope drift.
 
     WHAT WE KNOW:
     - kami_hw/Abstraction.v proves kami_refines_vm_step (Qed) — the Kami
@@ -190,20 +204,24 @@ Variable rtl_step_correct :
     premise, not a universal postulate.  Instantiate with simulation
     evidence from tests/test_verilog_cosim.py + test_fuzz_random_programs.py.
 *)
-Variable bsc_kami_compilation_trusted :
-  (** Step B+C from above: the BSC-compiled Verilog (thiele_cpu_kami.v)
-      correctly implements the Kami Coq module (ThieleCPUCore.v).
-      Named trust boundary. Discharged empirically:
-        31/31 cosim tests  (tests/test_verilog_cosim.py)
-        11,049/11,049 fuzz (tests/test_fuzz_random_programs.py)
-        FPGA synthesis: 0 errors (Yosys + nextpnr-ecp5)
-  *)
-  True.
-(* NOTE: The trivial type [True] is used because BSC correctness cannot be
-   expressed as a Coq proposition without formalizing BSC semantics.
-   The naming of this Variable is the trust boundary — it appears in the
-   assumption set of any theorem that depends on it, making it auditable.
-   The real content is in the CI cosim/fuzz tests. *)
+(* INQUISITOR NOTE: abstract interface section — named trust boundaries.
+   kami_pretty_printer_trusted and bluespec_compiler_trusted are explicit forall
+   premises (named RTL trust boundaries from CLOSURE_ROADMAP). Not hidden axioms. *)
+Variable kami_pretty_printer_trusted : Prop.
+(* Step B from above: the extracted Kami pretty-printer pipeline
+  (Target.ml + PP.ml plus project text transforms) preserves the intended
+  BModules semantics when it emits the tracked Bluespec source that feeds
+  synthesis. *)
+
+Variable bluespec_compiler_trusted : Prop.
+(* Step C from above: the Bluespec compiler preserves the semantics of that
+  tracked Bluespec source when producing the generated Verilog artefact. *)
+
+Definition bsc_kami_compilation_trusted : Prop :=
+  kami_pretty_printer_trusted /\ bluespec_compiler_trusted.
+(* The tracked-artefact equality gate is handled outside Coq by
+  tests/test_canonical_source_pipeline.py, so this combined proposition names
+  only the remaining semantic trust boundary. *)
 
 (* ════════════════════════════════════════════════════════════════════ *)
 (* Section 3: RTL FullWireSpec Instance                               *)

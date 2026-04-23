@@ -263,8 +263,8 @@ type couplingData = { coupling_pairs : (int*int) list;
 val empty_coupling_data : couplingData
 
 type morphismState = { morph_source : moduleID; morph_target : moduleID;
-                       morph_coupling : couplingData; morph_is_identity : 
-                       bool }
+                       morph_coupling : couplingData;
+                       morph_is_identity : bool; morph_cert_cost : int }
 
 val normalize_coupling : couplingData -> couplingData
 

@@ -281,7 +281,7 @@ module state_serializer (
 \end{itemize}
 
 
-The serializer logic is integrated into the RTL testbench (\texttt{rtl\_harness/testbench/thiele\_cpu\_kami\_tb.v}), which emits the Canonical Serialization Format (CSF). JSON snapshots used by the isomorphism harness come from the RTL testbench (\texttt{thielecpu/hardware/testbench/thiele\_cpu\_tb.v}), not from a standalone serializer module.
+The serializer logic is integrated into the RTL harness testbench (\texttt{rtl\_harness/testbench/thiele\_cpu\_kami\_tb.v}). That same testbench emits the JSON snapshots consumed by the isomorphism harness; there is no standalone serializer module.
 
 \subsection{Synthesis Results}
 
@@ -355,7 +355,7 @@ The testbench outputs JSON, parsed by the isomorphism harness for cross-layer ve
 
 \subsection{Fuzzing Harness}
 
-Representative fuzzing harness: random instruction sequences test robustness:
+Representative fuzzing harness: random instruction sequences stress the implementation:
 \begin{itemize}
     \item No crashes or undefined states
     \item $\mu$-monotonicity preserved under all inputs

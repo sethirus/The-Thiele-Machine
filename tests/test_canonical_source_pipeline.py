@@ -69,6 +69,7 @@ def test_kami_extraction_imports_canonical_source():
 def test_canonical_source_exports_entrypoints():
     text = CANONICAL_V.read_text(encoding="utf-8")
     assert "Definition canonical_cpu_module" in text
+    assert "Theorem canonical_cpu_module_from_source" in text
     assert "Definition targetB" in text
 
 
