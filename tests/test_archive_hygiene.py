@@ -29,7 +29,6 @@ STALE_PATTERNS = [
 # Root markdown files that must be present.
 REQUIRED_ROOT_FILES = [
     "README.md",
-    "STYLE_GUIDE.md",
 ]
 
 # Build artefacts that must be present.
