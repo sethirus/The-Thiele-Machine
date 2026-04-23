@@ -5,6 +5,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # Patch 1: left-recursive notation levels in Multiplier32/64
 # Coq 8.18+ requires explicit levels on left-recursive notations.
+# Without this, the bword_scope notations cause a hard build error.
 for rel in vendor/kami/Kami/Ex/Multiplier32.v vendor/kami/Kami/Ex/Multiplier64.v; do
   f="$ROOT/$rel"
   if [[ ! -f "$f" ]]; then
@@ -19,17 +20,10 @@ for rel in vendor/kami/Kami/Ex/Multiplier32.v vendor/kami/Kami/Ex/Multiplier64.v
   echo "[fix-kami-coq18] notation levels patched: $rel"
 done
 
-# Patch 2: Nat.div_0_l deprecated since Coq 8.17 — use Div0.div_0_l instead.
-for rel in vendor/kami/Kami/Ex/Divider32.v vendor/kami/Kami/Ex/Divider64.v; do
-  f="$ROOT/$rel"
-  if [[ ! -f "$f" ]]; then
-    echo "[fix-kami-coq18] skip missing $rel"
-    continue
-  fi
-
-  perl -0pi -e "s/Nat\.div_0_l/Div0.div_0_l/g" "$f"
-
-  echo "[fix-kami-coq18] Nat.div_0_l -> Div0.div_0_l patched: $rel"
-done
+# Note: Divider32.v and Divider64.v use Nat.div_0_l, which is deprecated since
+# Coq 8.17 but still compiles — it produces a warning, not an error. The
+# suggested replacement (Div0.div_0_l) requires the Div0 module to be in scope,
+# which it is not in these vendor files. Leave Nat.div_0_l as-is: the warning
+# is harmless and the alternative causes a build failure.
 
 echo "[fix-kami-coq18] all compatibility patches applied"
