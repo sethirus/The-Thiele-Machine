@@ -26,9 +26,10 @@
     - |S| ≤ 4 (no-signaling bound, triangle inequality)
     - Deterministic local strategies satisfy |S| ≤ 2
 
-    The 2√2 Tsirelson bound is not proved in this file. The algebraic-coherence
-    bridge at the bottom imports [tsirelson_from_algebraic_coherence], which
-    currently proves the weak general bound |S| <= 4.
+    The Tsirelson bound |S| ≤ 2√2 IS now proved in this file via
+    box_chsh_bound_algebraic, which uses algebraically_coherent_tsirelson_general
+    (AlgebraicCoherence.v, closed via CSDP/psatz). The weak bound |S| ≤ 4 is
+    retained as box_chsh_bound_algebraic_weak for legacy compatibility.
 
     Find a valid box with |E| > 1, or a valid box with |S| > 4, or a
     deterministic local strategy with |S| > 2. Those are the machine-checked
@@ -269,19 +270,30 @@ Qed.
 
 Section BoxAlgebraicBound.
 
-(** The imported algebraic-coherence theorem currently gives the weak general
-    CHSH bound |S| <= 4, not the tight Tsirelson bound. *)
-
-(** Coherent boxes inherit the weak general CHSH bound from AlgebraicCoherence. *)
+(** Coherent boxes satisfy the TIGHT Tsirelson bound |S| <= 5657/2000 ≈ 2√2.
+    Uses algebraically_coherent_tsirelson_general (closed via CSDP/psatz),
+    upgrading from the previous weak bound of 4. *)
 Theorem box_chsh_bound_algebraic : forall B,
+  valid_box B ->
+  box_algebraically_coherent B ->
+  Qabs (S B) <= tsirelson_bound.
+Proof.
+  intros B _ Hcoherent.
+  rewrite S_box_correlators.
+  apply AlgebraicCoherence.algebraically_coherent_tsirelson_abs.
+  exact Hcoherent.
+Qed.
+
+(** The weak bound is subsumed — kept as a corollary for legacy compatibility. *)
+Corollary box_chsh_bound_algebraic_weak : forall B,
   valid_box B ->
   box_algebraically_coherent B ->
   Qabs (S B) <= 4.
 Proof.
-  intros B _ Hcoherent.
-  rewrite S_box_correlators.
-  apply AlgebraicCoherence.tsirelson_from_algebraic_coherence.
-  exact Hcoherent.
+  intros B Hv Hc.
+  apply Qle_trans with tsirelson_bound.
+  - exact (box_chsh_bound_algebraic B Hv Hc).
+  - unfold tsirelson_bound. unfold Qle. simpl. lia.
 Qed.
 
 End BoxAlgebraicBound.

@@ -603,10 +603,9 @@ Qed.
     Any trace from zero CHSH trials to ≥1 CHSH trial contains at least
     one valid CHSH_TRIAL instruction.  Total CHSH_TRIAL count ≥ 1.
 
-    NEXT ITERATION — W2 proper:
-    Lift threshold to N_min (trials needed for Tsirelson violation detection).
-    Requires: A5 for N_min: witness_total ≥ N_min → violation certifiable.
-    Connection to Tsirelson bound via CHSHExtraction.v / CHSH.v. *)
+    W2 PROPER (N-parameterized): see chsh_qcs_n and chsh_trial_count_lower_bound
+    below.  N trials require N valid CHSH_TRIAL instructions.  The threshold-N
+    family is complete: chsh_qcs_n N has threshold = N, fully discharged. *)
 Definition chsh_qcs : QuantitativeCertificationSystem :=
   {|
     qcs_base                   := chsh_cert_system;
@@ -772,32 +771,96 @@ Proof.
   exact (chsh_trial_count_lower_bound 1 trace s0 Hinit Hcert).
 Qed.
 
+
+(** ═══════════════════════════════════════════════════════════════════════════
+    CERTIFY-d DIRECT LOWER BOUND
+
+    The QCS framework gives lower bounds via an abstract witness function.
+    This section adds a direct lower bound: any trace containing instr_certify d
+    accumulates total μ-cost ≥ S(d), because instruction_cost (instr_certify d)
+    = S(d) by definition, and the total cost is the sum of all instruction costs.
+
+    This closes the gap between the abstract threshold K and the concrete ISA:
+      - thiele_qcs_cert_addr gives: any certifying trace has total cost ≥ 1.
+      - certify_d_trace_cost_lower_bound gives: any trace containing CERTIFY d
+        has total cost ≥ S(d) — the exact ISA-declared cost.
+    ═══════════════════════════════════════════════════════════════════════════ *)
+
+(** The sum of all instruction costs is ≥ the cost of any element in the trace. *)
+Lemma thiele_total_cost_ge_element :
+  forall (trace : list vm_instruction) (i : vm_instruction),
+    In i trace ->
+    cs_total_cost thiele_cert_addr_system trace >= instruction_cost i.
+Proof.
+  intros trace i Hin.
+  induction trace as [|h t IH].
+  - contradiction.
+  - simpl in Hin. destruct Hin as [Heq | Hin'].
+    + subst. simpl. lia.
+    + simpl. pose proof (IH Hin'). lia.
+Qed.
+
+(** instruction_cost (instr_certify d) = S d: CERTIFY charges its declared cost. *)
+Lemma instruction_cost_certify :
+  forall d, instruction_cost (instr_certify d) = S d.
+Proof. intro d. reflexivity. Qed.
+
+(** Any trace containing instr_certify d has total μ-cost ≥ S(d).
+    The μ-ledger cannot be built up to S(d) without paying S(d) at the
+    CERTIFY step alone — no other trace prefix can offset this. *)
+Theorem certify_d_trace_cost_lower_bound :
+  forall (d : nat) (trace : list vm_instruction),
+    In (instr_certify d) trace ->
+    cs_total_cost thiele_cert_addr_system trace >= S d.
+Proof.
+  intros d trace Hin.
+  rewrite <- instruction_cost_certify.
+  exact (thiele_total_cost_ge_element trace (instr_certify d) Hin).
+Qed.
+
+(** Corollary: a one-instruction trace [instr_certify d] has total cost exactly S(d). *)
+Corollary certify_d_single_step_cost :
+  forall d, cs_total_cost thiele_cert_addr_system [instr_certify d] = S d.
+Proof.
+  intro d. simpl. lia.
+Qed.
+
+
 (**
-    SUMMARY: WHAT IS DONE AND WHAT COMES NEXT
+    SUMMARY: WHAT IS PROVEN IN THIS FILE
 
-    DONE (this file):
-    1. QCS record with A2/A3/A5, telescoping lemma, universal_nfi_quantitative.
-    2. Thiele trivial instantiation (threshold=1, cert_addr channel, mu-cost).
-    3. CHSH threshold=1 instantiation (one trial requires one instruction).
-    4. W2 PROPER: chsh_trial_count_lower_bound — N trials require N instructions.
-       - chsh_cert_n N: parameterized cert predicate (N <=? witness_total)
-       - chsh_a2_n: A2 for any N (same proof structure as threshold=1)
-       - chsh_a5_n: A5 for any N (trivial from Nat.leb_le)
-       - chsh_a3_n: A3 for any N (delegates to chsh_a3_obligation)
-       - chsh_qcs_n: family of QCS parameterized by threshold N
-       - chsh_trial_count_lower_bound: the W2 theorem for arbitrary N
-    The vm_witness field is an unforgeable trial counter.
-    Any state with witness_total ≥ N was reached via ≥ N valid CHSH_TRIALs.
-    Cost(N quantum measurements) ≥ N.
+    1. QCS FRAMEWORK: Record with A2/A3/A5, telescoping lemma,
+       universal_nfi_quantitative, universal_nfi_quantitative_witness.
 
-    COMPLETED: STATISTICAL CONNECTION (W2 statistical):
-    CHSHStatisticalBridge.v imports W2 and applies Hoeffding concentration
-    bounds to prove witness_total ≥ N_min → CHSH violation statistically
-    certified at confidence (1 - δ).
+    2. THIELE TRIVIAL INSTANTIATION (threshold = 1):
+       thiele_qcs_cert_addr — cert_addr channel, mu-cost, threshold = 1.
+       thiele_quantitative_nfi_cert_addr — any certifying trace costs ≥ 1.
+       This matches UniversalCertificationCost.v; proves the framework is wired.
 
-    LATER:
+    3. CHSH INSTANTIATION (threshold = 1):
+       chsh_qcs — one valid CHSH_TRIAL requires one instruction.
+
+    4. W2 PROPER (N-parameterized):
+       chsh_trial_count_lower_bound — N valid CHSH_TRIALs require N instructions.
+       The family chsh_qcs_n N covers all N simultaneously.
+       vm_witness is an unforgeable trial counter: no instruction other than
+       a valid CHSH_TRIAL can increment witness_total.
+       Cost(N quantum measurements) ≥ N.
+
+    5. CERTIFY-d DIRECT LOWER BOUND:
+       certify_d_trace_cost_lower_bound — any trace containing instr_certify d
+       accumulates total μ-cost ≥ S(d).  Connects abstract threshold to ISA.
+
+    STATISTICAL CONNECTION (external):
+    CHSHStatisticalBridge.v applies Hoeffding concentration bounds to W2:
+    witness_total ≥ N_min → CHSH violation statistically certified at (1-δ).
+
+    OPEN (require additional machinery):
     W1 (cert payload bits): cost ≥ |cert_content|_bits.
+      Requires formalizing the formula store and cert payload size.
     W4 (Shannon entropy): cost ≥ H(X) for certified distribution.
-    W5 (Kolmogorov): cost ≥ K(x) — requires oracle axiom (Chaitin-style).
+      Requires connecting cs_witness to MuShannonBridge.v entropy model.
+    W5 (Kolmogorov): cost ≥ K(x).
+      Requires a Chaitin-style oracle axiom for K(x).
 
 *)

@@ -236,7 +236,7 @@
 
 What if discovering that a problem decomposes---that variables are independent, that a graph has two components---were not free?
 
-Classical computers are ``blind'' to structure. A Turing machine can only see one tape cell at a time. When you give it a sorted list, it doesn't \textit{know} it's sorted---it has to check. This blindness costs time. The \textbf{Thiele Machine} makes that cost explicit through the \textbf{$\mu$-bit}, an atomic unit of structural information cost.
+The Turing machine is a complete model of computable functions. It is provably silent on computational epistemology. A Turing machine computes whether a list is sorted; it issues no unforgeable receipt for what that knowing cost. The \textbf{Thiele Machine} is the formal system that makes computation speak about its own epistemic cost. The \textbf{$\mu$-ledger} is the receipt: necessary, unique, and inaccessible to any classical observer.
 
 I'm a car salesman. I have no formal training in computer science, mathematics, or physics. I built this through LLM-directed development: I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. The proofs compile or they don't. They don't care who wrote them.
 
@@ -246,7 +246,8 @@ I'm a car salesman. I have no formal training in computer science, mathematics, 
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
     \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
     \item \textbf{Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
-    \item \textbf{Turing Subsumption}: A direct simulation proof shows Thiele strictly extends Turing, with cost certificates that Turing machines cannot produce---\path{coq/kernel/TuringStrictness.v} (\texttt{D5\_thiele\_strictly\_extends\_classical}).
+    \item \textbf{$\mu$-Ledger Necessity}: The ledger is not merely absent from classical computation---it is provably inaccessible. No function of (mem, regs, pc), no matter how much computation has run beforehand, can recover $\mu$, certification, or the categorical structure (vm\_graph). The separation holds from every reachable state, not just crafted witnesses. The full ledger shadow is the minimal complete extension of classical state. Three independent non-classical components are classified: $\mu$, certified, graph---\path{coq/NecessityOfMuLedger.v} and \path{coq/kernel/NecessityAbstract.v}.
+    \item \textbf{Turing Subsumption and Epistemological Gap}: Every Turing computation runs faithfully inside the Thiele Machine with the structural layer frozen. The Thiele Machine strictly extends the Turing model: there exist states reachable by one Thiele instruction that no classical program of any length can reach. The $\mu$-ledger lives in state space that is structurally opaque to classical computation---this is a proven impossibility, not a missing feature---\path{coq/kernel/TuringStrictness.v} (\texttt{D5\_thiele\_strictly\_extends\_classical}).
 \end{itemize}
 
 \textbf{What is built}:

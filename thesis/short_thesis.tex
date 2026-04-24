@@ -221,6 +221,29 @@ The four-field forgetful map from Thiele states to Turing-style snapshots is a m
 
 Plain version: if your machine state only records registers, memory, PC, error bit, and maybe $\mu$, you have already thrown away part of what matters. You have collapsed different epistemic states into one raw state. That is not a philosophical complaint. It is a theorem about a projection map.
 
+\begin{theorem}[$\mu$-ledger necessity, complete independence classification, \texttt{NecessityOfMuLedger.v} and \texttt{kernel/NecessityAbstract.v}, zero Admitted]
+Five independence results hold simultaneously:
+(1)~$\mu \perp (\texttt{mem}, \texttt{regs}, \texttt{pc})$;
+(2)~$\texttt{certified} \perp (\texttt{mem}, \texttt{regs}, \texttt{pc})$;
+(3)~$\texttt{certified} \perp (\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu)$;
+(4)~$\mu \perp (\texttt{mem}, \texttt{regs}, \texttt{pc}, \texttt{certified})$;
+(5)~$\texttt{vm\_graph} \perp (\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu, \texttt{certified})$.
+The three non-classical components---$\mu$, \texttt{vm\_certified}, \texttt{vm\_graph}---are each irrecoverable from any combination of the others plus classical state (\texttt{thiele\_state\_three\_component\_independence}). The projection $(\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu, \texttt{certified})$ is the minimal complete extension for ledger semantics. The separation holds from \emph{every} reachable VMState (\texttt{mu\_ledger\_necessity\_universal}), and no common prefix program of any length closes it (\texttt{po1\_trace\_necessity}).
+\end{theorem}
+
+Plain version: the ledger is not just a counter someone forgot to derive. There are explicit witness states with identical Turing/RAM-visible state and incompatible receipts---not just from one starting point, but from every state the machine can reach. Cost, certification, and graph structure are three independent bookkeeping dimensions. A model that drops any of them cannot determine the full structural semantics internally.
+
+\begin{theorem}[Latent $\mu$: the cost is intrinsic to computation, \texttt{NecessityOfMuLedger.v} §7, zero Admitted]
+\label{thm:latent_mu}
+The total $\mu$ accumulated by running any instruction sequence equals the sum of instruction costs, independent of every aspect of machine state (vm\_graph, vm\_regs, vm\_mem, vm\_pc, vm\_certified, starting $\mu$). Formally:
+\[
+(\texttt{run\_instrs}\ s\ \text{prog}).\mu = s.\mu + \texttt{trace\_total\_cost}(\text{prog})
+\]
+Two machines running the same program from any two starting states accumulate the same additional $\mu$ (\texttt{shadow\_mu\_delta\_universal}). Any instruction-consistent accounting system assigning zero to the starting state assigns exactly \texttt{trace\_total\_cost} to the result---there is no alternative accounting (\texttt{shadow\_mu\_unique\_accounting}). Any program containing a positive-cost instruction accumulates strictly positive $\mu$---there is no free computation (\texttt{shadow\_mu\_inevitable}).
+\end{theorem}
+
+Plain version: the $\mu$-cost is not a feature of the Thiele Machine. It is a property of the instruction sequence itself. Replace the Thiele Machine's $\mu$-counter with any other honest accounting and you get the same number. A Turing machine running the same program paid exactly this cost on every execution---it simply had no register to store the receipt. The ledger does not create the cost. It reveals what was always there.
+
 \begin{theorem}[Feasible narrowing becomes predicate strengthening, \texttt{InformationGainToStrengthening.v}, zero Admitted]
 If a posterior feasible set $\Omega'$ is a strict subset of a prior feasible set $\Omega$, and there is an observation that distinguishes a removed witness state from all posterior states, then the membership predicate for $\Omega'$ is strictly stronger than the membership predicate for $\Omega$.
 \end{theorem}
@@ -981,6 +1004,12 @@ WitnessCount configurations with $S > 2$ cannot be produced by any local hidden 
 If a trace is quantum-realizable in the zero-marginal NPA model, then its CHSH value satisfies $|S| \leq \sqrt{8} = 2\sqrt{2}$.
 \end{theorem}
 
+\begin{theorem}[General algebraic Tsirelson bound, \texttt{AlgebraicCoherence.v}, zero Admitted]
+\label{thm:general_algebraic_tsirelson}
+For every algebraically coherent correlator --- one satisfying $|E_{xy}| \leq 1$ and four $3 \times 3$ minor constraints with witness parameters $t, s$ --- the CHSH value satisfies $S^2 \leq 8$, i.e., $|S| \leq 5657/2000 \approx 2\sqrt{2}$.
+This is the \emph{general} case: all algebraically coherent correlators, not just the symmetric configuration. Proved via Positivstellensatz SOS certificate (\texttt{psatz Q 4}, CSDP solver). No physics premises. Pure polynomial arithmetic over $\mathbb{Q}$. The Tsirelson bound $2\sqrt{2}$ is computed from algebra, not assumed.
+\end{theorem}
+
 The coupling language version of Bell's theorem is proved in \texttt{CHSHCouplingBridge.v}: a WitnessCount-consistent locally deterministic strategy (a0, a1, b0, b1) produces a \emph{separable coupling} — one that maps each setting to exactly one outcome type. Any locally factorizable morphism coupling satisfying WCLocallyConsistent has $|S| \leq 2$. Contrapositively: $S > 2$ rules out every locally factorizable morphism coupling. The no-go is stated in the morphism coupling language, not just in the statistical layer.
 
 What does this have to do with computation? The connection is through the witness counters and the certification layer. If a Thiele Machine program accumulates CHSH trial results (via CHSH\_TRIAL) and then certifies that $S > 2$ (via CERTIFY or LASSERT), the certification is non-free. Certifying non-local statistics requires paying $\mu \geq 1$. The statistics themselves (raw CHSH trials) are free. Claiming you know what they mean is not. This is the witness insight taxonomy (Section~\ref{sec:insight}).
@@ -1216,6 +1245,10 @@ These are the kernel-tier claims (zero Admitted, zero named hypotheses):
 \item \textbf{blindness\_non\_injective}: distinct Thiele states can have the same classical snapshot.
 \item \textbf{certification\_is\_lost}: certification can be in the kernel of the classical forgetful map.
 \item \textbf{shadow\_strictly\_lossy}: the classical shadow forgets morphism structure.
+\item \textbf{mu\_ledger\_necessity}: no strict-classical oracle on $(\texttt{mem}, \texttt{regs}, \texttt{pc})$ recovers the pair $(\mu, \texttt{certified})$.
+\item \textbf{vm\_mu\_not\_classically\_determined / vm\_certified\_not\_classically\_determined}: neither ledger balance nor certification status is a function of strict classical state.
+\item \textbf{mu\_ledger\_mutual\_independence}: $\mu$ and \texttt{vm\_certified} are each independent of strict classical state and of each other under cost-only/cert-only projections.
+\item \textbf{mu\_ledger\_minimality / P\_full\_is\_minimal\_complete\_extension}: the full $(\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu, \texttt{certified})$ projection is complete, and dropping either $\mu$ or certification destroys the corresponding completeness.
 \item \textbf{thiele\_nfi\_pc\_indexed}: PC-indexed execution version.
 \item \textbf{mu\_is\_initial\_monotone}: $\mu$ is the unique canonical cost measure.
 \item \textbf{vm\_apply\_mu}: exact ledger identity $\mu' = \mu + \delta$.
