@@ -105,7 +105,7 @@ jobs:
 
       - name: Guard against Kami cheat axiom usage
         run: |
-          if grep -rn 'apply cheat\|exact cheat' coq/ --include='*.v' | grep -v vendor/; then
+          if grep -r --include='*.v' -n 'apply cheat\|exact cheat' coq/ | grep -v vendor/ | grep .; then
             echo "FATAL: cheat axiom used in Thiele proofs (outside vendor/)"
             exit 1
           fi
