@@ -94,7 +94,7 @@ Every result in this specification falls into one of three categories:
     \item[\textbf{(R) Consistency}] Algebraic identities or definitional equivalences that verify internal coherence but do not constitute independent predictions. \emph{Examples}: Planck consistency relation, Tsirelson cost definition.
 \end{description}
 
-Each major theorem in Parts~V--VIII is annotated with its category. A theorem marked \textbf{(C)} or \textbf{(R)} is not diminished---conditional derivations and consistency checks are valuable scientific tools---but the reader should not mistake them for derivations from first principles without stated assumptions. See Appendix~B for the complete classification table.
+Each major theorem in Parts~V--VIII is annotated with its category. A theorem marked \textbf{(C)} or \textbf{(R)} is not diminished. Conditional derivations and consistency checks are valuable scientific tools. But the reader should not mistake them for derivations from first principles without stated assumptions. See Appendix~B for the complete classification table.
 
 \chapter{The State Space}
 
@@ -123,13 +123,13 @@ $G$ is well-formed iff $\mathrm{dom}(\mathcal{T}) \subseteq \{0,\dots,N_{id}-1\}
 \begin{definition}[VM State]
 The complete state is a 12-tuple:
 \[ S = (G, C, R, \mathit{Mem}, \mathit{PC}, \mu, T_\mu, \mathit{err}, \ell, m, w, \mathit{cert}) \]
-where $G \in \Gspace$ is the partition graph, $C \in \N^4$ comprises the CSRs (certificate address, status, error code, heap base), $R \in \N^{32}$ is the register file, $\mathit{Mem} \in \N^{65536}$ is main memory, $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, $T_\mu \in \N^{16}$ is the flattened $4\times 4$ $\mu$-tensor (row-major), $\mathit{err} \in \B$ is the global error flag (latching), $\ell \in \N$ is the logic-engine accumulator, $m \in \N$ is the machine status register ($0$~=~Turing mode, $1$~=~Thiele mode), $w \in \N$ is the witness register (\texttt{vm\_witness}), and $\mathit{cert} \in \B$ is the certified flag (\texttt{vm\_certified}).
+where $G \in \Gspace$ is the partition graph, $C \in \N^4$ comprises the CSRs (certificate address, status, error code, heap base), $R \in \N^{32}$ is the register file, $\mathit{Mem} \in \N^{65536}$ is main memory, $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, $T_\mu \in \N^{16}$ is the flattened $4\times 4$ $\mu$-tensor (row-major), $\mathit{err} \in \B$ is the global error flag (latching), $\ell \in \N$ is the logic-engine accumulator, $m \in \N$ is the machine status register ($0$~=~Turing mode, $1$~=~Thiele mode), $w \in \N^8$ is the WitnessCount record (\texttt{vm\_witness}): eight natural-number counters \texttt{wc\_same\_ab} and \texttt{wc\_diff\_ab} for each setting pair $(a,b) \in \{00,01,10,11\}$, and $\mathit{cert} \in \B$ is the certified flag (\texttt{vm\_certified}).
 \end{definition}
 
 \chapter{Instruction Set and Cost Model}
 
 \section{Instruction Categories}
-The instruction set $\Ispace$ is partitioned into three categories. Every instruction $i$ carries an explicit cost parameter $\Delta\mu_i \in \N$.
+The instruction set $\Ispace$ is organized into six families. Every instruction $i$ carries an explicit cost parameter $\Delta\mu_i \in \N$.
 
 \subsection{Structural Operations}
 These modify the partition graph $G$:
@@ -137,7 +137,7 @@ These modify the partition graph $G$:
     \item $\texttt{PNEW}(R, \Delta\mu)$: Create module with region $R$.
     \item $\texttt{PSPLIT}(m, L, R, \Delta\mu)$: Split module $m$ into disjoint regions.
     \item $\texttt{PMERGE}(m_1, m_2, \Delta\mu)$: Merge two modules.
-    \item $\texttt{PDISCOVER}(m, E, \Delta\mu)$: Attach evidence $E$ (list of axioms) to module $m$.
+    \item $\texttt{PDISCOVER}(m, E, \Delta\mu)$: Discovery accounting for module $m$. The abstract specification attaches evidence $E$ (list of axioms) to the module; the current hardware-aligned step advances PC and charges $\Delta\mu$ without mutating the graph.
     \item $\texttt{MDLACC}(m, \Delta\mu)$: Minimum-description-length accumulate on module $m$.
 \end{itemize}
 
@@ -165,8 +165,8 @@ Reversible register/memory operations:
     \item $\texttt{LOAD\_IMM}(\mathit{dst}, \mathit{imm}, \Delta\mu)$: Load 32-bit immediate into register.
     \item $\texttt{LOAD}(\mathit{dst}, \mathit{addr}, \Delta\mu)$: Load from main memory.
     \item $\texttt{STORE}(\mathit{addr}, \mathit{src}, \Delta\mu)$: Store to main memory.
-    \item $\texttt{ADD}(\mathit{dst}, r_1, r_2, \Delta\mu)$: $\mathit{dst} \gets r_1 + r_2 \pmod{2^{32}}$.
-    \item $\texttt{SUB}(\mathit{dst}, r_1, r_2, \Delta\mu)$: $\mathit{dst} \gets r_1 - r_2 \pmod{2^{32}}$.
+    \item $\texttt{ADD}(\mathit{dst}, r_1, r_2, \Delta\mu)$: $\mathit{dst} \gets r_1 + r_2 \pmod{2^{64}}$.
+    \item $\texttt{SUB}(\mathit{dst}, r_1, r_2, \Delta\mu)$: $\mathit{dst} \gets r_1 - r_2 \pmod{2^{64}}$.
     \item $\texttt{JUMP}(\mathit{target}, \Delta\mu)$: Unconditional jump.
     \item $\texttt{JNEZ}(r, \mathit{target}, \Delta\mu)$: Jump if $R[r] \neq 0$.
     \item $\texttt{CALL}(\mathit{target}, \Delta\mu)$: Push return address, jump to target.
@@ -176,7 +176,6 @@ Reversible register/memory operations:
 \subsection{Auxiliary Operations}
 \begin{itemize}
     \item $\texttt{CHSH\_TRIAL}(x, y, a, b, \Delta\mu)$: Run a CHSH correlation trial; $x,y,a,b \in \{0,1\}$ required.
-    \item $\texttt{ORACLE\_HALTS}(\mathit{payload}, \Delta\mu)$: Query halting oracle (requires $\Delta\mu > 0$).
     \item $\texttt{CHECKPOINT}(\mathit{label}, \Delta\mu)$: Execution checkpoint (charges $\mu$).
     \item $\texttt{READ\_PORT}(\mathit{dst}, \mathit{ch}, \mathit{val}, \mathit{bits}, \Delta\mu)$: Read from I/O channel (cert-setter).
     \item $\texttt{WRITE\_PORT}(\mathit{ch}, \mathit{src}, \Delta\mu)$: Write to I/O channel.
@@ -202,14 +201,14 @@ The active implementation exposes a 46-opcode ISA (39 original + 7 categorical m
 \section{Cost Model}
 Every instruction $i$ carries an explicit cost parameter $\Delta\mu_i \in \N$. The function $\texttt{instruction\_cost}(i)$ extracts this parameter. The cost is applied via $\texttt{apply\_cost}(s, i) = s.\mu + \texttt{instruction\_cost}(i)$. Since $\Delta\mu_i : \N$, the $\mu$-ledger is monotonically non-decreasing by construction.
 
-Semantically, only $\texttt{REVEAL}$ and $\texttt{LASSERT}$ (when adding structure) constitute genuine information-theoretic cost. Other instructions may carry $\Delta\mu > 0$ as a bookkeeping charge, but in typical programs their cost is set to zero.
+The mandatory positive-cost class is: $\texttt{CERTIFY}$, $\texttt{MORPH\_ASSERT}$, and $\texttt{LJOIN}$ (each charges $S(\Delta\mu) \geq 1$); $\texttt{EMIT}$ ($|\mathit{payload}|_{\mathrm{bits}} + S(\Delta\mu)$); $\texttt{REVEAL}$ and $\texttt{READ\_PORT}$ ($\mathit{bits} + S(\Delta\mu)$); and $\texttt{LASSERT}$ ($\mathit{flen} \times 8 + S(\Delta\mu)$). These cannot be zero-cost even with $\Delta\mu = 0$. All other instructions charge exactly their encoded $\Delta\mu$, which is 0 in typical programs.
 
 \chapter{Operational Semantics}
 
 \section{Transition Function}
 The transition $\delta: \Sspace \times \Ispace \to \Sspace$ is defined by:
 \begin{enumerate}
-    \item $\mathit{PC}' = \mathit{PC} + 1$.
+    \item $\mathit{PC}' = \mathit{PC} + 1$ for non-control-flow instructions; JUMP, JNEZ, CALL, and RET set PC to the target address; HALT stops execution.
     \item $\mu' = \mu + \Delta\mu_i$.
     \item $\mathit{err}' = \mathit{err} \lor \mathrm{fail}(S, i)$.
 \end{enumerate}
@@ -229,7 +228,7 @@ $\mathrm{Run}([], S) = S$; \quad $\mathrm{Run}(i::\tau', S) = \mathrm{Run}(\tau'
 
 \textbf{REVEAL}: Update CSRs with checksum of certificate $\mathit{cert}$. Cost: $\mathit{bits} + S(\Delta\mu)$.
 
-\textbf{LASSERT}: Read formula from \texttt{vm\_mem}[\texttt{R[formula\_addr\_reg]}] (encoded-unit count \texttt{formula\_len}, eight concrete bits per unit) and witness package from \texttt{vm\_mem}[\texttt{R[cert\_addr\_reg]}]. Verify using \texttt{cert\_kind} (false = LRAT/UNSAT, true = satisfying model plus falsifying countermodel). If valid, append the formula to $A_m$; if invalid, set $\mathit{err} \gets \mathrm{true}$. Cost: $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$.
+\textbf{LASSERT}: Read formula from \texttt{vm\_mem}[\texttt{R[formula\_addr\_reg]}] (encoded-unit count \texttt{formula\_len}, eight concrete bits per unit) and witness package from \texttt{vm\_mem}[\texttt{R[cert\_addr\_reg]}]. Verify using \texttt{cert\_kind} (false = LRAT/UNSAT, true = satisfying model plus falsifying countermodel). If valid, the constraint is certified; if invalid, set $\mathit{err} \gets \mathrm{true}$. Note: in the current hardware-aligned semantics, LASSERT validates the constraint but does not directly mutate the partition graph's axiom set --- cert-channel activation happens through the subsequent CERTIFY or MORPH\_ASSERT. Cost: $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$.
 
 %=============================================================================
 % PART II: CORE THEOREMS
@@ -273,6 +272,27 @@ The proof is parametric: \texttt{NoFreeInsight\_Theorem.v} proves the theorem fo
 \begin{corollary}[Cost of Insight]
 Gaining insight (strengthening the predicate) implies $\Delta\mu > 0$.
 \end{corollary}
+
+\section{Partition Refinement and No Free Insight}
+
+\begin{theorem}[Partition Ops Are Free {\normalfont (kernel/PartitionRefinementNoFI.v)} --- \textbf{(S)}]
+PNEW, PSPLIT, and PMERGE are not cert-setters and can carry $\Delta\mu = 0$:
+\begin{itemize}
+    \item \texttt{partition\_structural\_ops\_not\_cert\_setters}: None of the three partition operations touch \texttt{csr\_cert\_addr} or \texttt{vm\_certified}.
+    \item \texttt{partition\_structural\_ops\_can\_be\_free}: All three can execute with $\Delta\mu = 0$.
+    \item \texttt{partition\_structural\_trace\_cannot\_certify}: A trace containing only PNEW, PSPLIT, and PMERGE (all at $\Delta\mu = 0$) cannot reach a certified state from an uncertified start.
+\end{itemize}
+Building partition structure costs nothing by itself. Certifying structural claims about that partition is what costs.
+\end{theorem}
+
+\begin{theorem}[Partition Free But Certification Non-Free {\normalfont (kernel/PartitionRefinementNoFI.v)} --- \textbf{(S)}]
+\label{thm:partition_nfi}
+\texttt{partition\_free\_but\_certification\_nonfree}: There exist traces where all partition-structural instructions carry $\Delta\mu = 0$ (so $\mu_{\mathrm{final}} = \mu_{\mathrm{init}} = 0$) yet the trace ends with a partition graph that a subsequent MORPH\_ASSERT or CERTIFY can certify --- but only at $\Delta\mu \ge 1$. Partition structure can be built at zero $\mu$-cost; certified partition knowledge cannot be acquired for free. Zero Admitted.
+\end{theorem}
+
+\begin{theorem}[Partition Refinement Non-Free {\normalfont (kernel/PartitionRefinementNoFI.v)} --- \textbf{(S)}]
+\texttt{partition\_refinement\_nonfree}: Any trace that starts with no cert evidence and ends with a certified claim about a partition structure paid at least 1 in $\mu$. This is the NoFI law specialized to partition refinement. Zero Admitted.
+\end{theorem}
 
 \chapter{The $\mu$-Chaitin Theorem}
 
@@ -386,6 +406,24 @@ For a batch of $T$ instances with discovery cost $D$ and operational cost $O$ pe
 where $B$ is batch count. As $T \to \infty$, average cost $\to O$ (discovery overhead amortizes away).
 \end{theorem}
 
+\section{$\mu$-Complexity Classes}
+
+\begin{definition}[$\mu$P and $\mu$NP {\normalfont (kernel/MuComplexity.v)}]
+Let $\mathrm{PolyBound}$ be a polynomial $p : \N \to \N$.
+\begin{itemize}
+    \item A decision problem $f$ is in \textbf{$\mu$P} iff there exists a polynomial $p$ and a trace family such that for every input state of size $n$, the trace solves $f$ with $\mu$-cost $\le p(n)$ and runs in polynomial time.
+    \item A decision problem $f$ is in \textbf{$\mu$NP} iff there exists a polynomial $p$ and a verifier trace family such that every YES instance of size $n$ has a certificate verifiable with $\mu$-cost $\le p(n)$ in polynomial time.
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Classical $P \subseteq \mu P$ {\normalfont (kernel/MuComplexity.v)} --- \textbf{(S)}]
+\texttt{classical\_in\_muP}: Any classically polynomial-time decision problem (using zero-cost instructions) is in $\mu$P with $\mu$-cost $= 0$ for all inputs. Classical computation is a degenerate case of $\mu$-computation with no structural cost. Zero Admitted.
+\end{theorem}
+
+\begin{remark}
+$\mu$P and $\mu$NP separate the time cost of computation from the structural cost of certification. Whether $\mu$P $\neq$ $\mu$NP — or whether there exist problems in $\mu$NP not in $\mu$P — is an open question. The factored-search witness in \texttt{StructuralAdvantage.v} gives a concrete example of a $\mu$-cost advantage (paying $\mu = 18$ to certify a decomposition and reduce search from $O(N^2)$ to $O(2N)$), but that is not a class separation.
+\end{remark}
+
 %=============================================================================
 % PART IV: SYMMETRY AND CONSERVATION
 %=============================================================================
@@ -422,8 +460,8 @@ A receipt $r = (\mathrm{step}, \mathrm{instr}, \mu_{\mathrm{pre}}, \mu_{\mathrm{
 A valid receipt or execution attestation proves $\mu_{\mathrm{final}} = \mu_{\mathrm{init}} + \sum \mathrm{costs}$ for the attested run. Any receipt claiming $\Delta\mu \neq \mathrm{cost}(\mathrm{instr})$ fails validation.
 \end{theorem}
 
-\begin{theorem}[Non-Forgeability]
-Forged receipts (claiming incorrect $\Delta\mu$) fail validation. Overflow values ($\mu > 2^{31}-1$) are rejected.
+\begin{theorem}[Non-Forgeability {\normalfont (ReceiptIntegrity.v)}]
+Forged receipts (claiming incorrect $\Delta\mu$) fail validation. Overflow values ($\mu > 2^{31}-1$) are rejected at the receipt layer.
 \end{theorem}
 
 \chapter{Gauge Symmetry and Noether's Theorem}
@@ -460,7 +498,7 @@ $\mathrm{Obs}(\sigma_\delta(S)) = \mathrm{Obs}(S)$. Shifting $\mu$ by a constant
     \item \textbf{Gauge Invariance}: \texttt{z\_gauge\_invariance} proves that shifting $\mu$ does not change \texttt{Observable\_partition}. This is definitional: \texttt{z\_gauge\_shift} only modifies the \texttt{vm\_mu} field, and \texttt{Observable\_partition} reads only \texttt{vm\_graph}.
     \item \textbf{Trace Preservation}: Gauge-equivalent states produce identical observable traces (same labels, same $\mu$-costs) for any finite horizon. Proven as \texttt{vm\_step\_orbit\_equiv}.
 \end{enumerate}
-The $\mu$-ledger is a gauge degree of freedom. Its \emph{absolute} value is unobservable; only \emph{differences} $\Delta\mu$ are physical. The ``Noether'' label is a deliberate analogy---the result follows from the record structure (separate fields for $\mu$ and graph), not from a deep symmetry principle.
+The $\mu$-ledger is a gauge degree of freedom. Its \emph{absolute} value is unobservable; only \emph{differences} $\Delta\mu$ are physical. The ``Noether'' label is a deliberate analogy: the result follows from the record structure (separate fields for $\mu$ and graph), not from a deep symmetry principle.
 \end{theorem}
 
 \begin{theorem}[$\mu$-Monotonicity {\normalfont (KernelNoether.v)}]
@@ -507,7 +545,7 @@ Zero-cost evolution must preserve the norm $a^2 + b^2 = 1$. The group of norm-pr
 \end{theorem}
 
 \begin{theorem}[Complex Necessity {\normalfont (ComplexNecessity.v --- reference-only)}]
-Complex multiplication by $e^{i\theta}$ is exactly 2D rotation. The norm-preserving maps on $S^1$ are exactly complex multiplications: $\mathrm{SO}(2) \cong U(1)$. Hence quantum amplitudes \emph{must} be complex numbers.
+Complex multiplication by $e^{i\theta}$ is exactly 2D rotation. The norm-preserving maps on $S^1$ are exactly complex multiplications: $\mathrm{SO}(2) \cong U(1)$. Hence complex amplitudes are the \emph{minimal} structure consistent with continuous 2D superposition; higher-dimensional extensions (quaternionic, etc.) are not ruled out by this argument alone.
 \end{theorem}
 
 \begin{corollary}[Euler's Formula]
@@ -533,7 +571,7 @@ The Born rule $P(|0\rangle) = (1+z)/2$ is the \textbf{unique} probability assign
 \begin{enumerate}
     \item Non-negativity and normalization: $P \ge 0$, $P(|0\rangle) + P(|1\rangle) = 1$.
     \item Eigenstate consistency: $P(0,0,1) = 1$, $P(0,0,-1) = 0$.
-    \item Linearity in $z$: $P(x,y,z,0) = az + b$ for some $a,b$.
+    \item Linearity in $z$: $P(x,y,z) = az + b$ for some $a,b$.
 \end{enumerate}
 Proof: Boundary conditions force $a = 1/2$, $b = 1/2$. No other solution exists.
 
@@ -551,10 +589,10 @@ Let $g: [0,1] \to [0,1]$ be any function satisfying:
 Then $g(x) = x$ for all $x \in [0,1]$.
 \end{theorem}
 
-\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation---Circularity Resolved]
+\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation — Circularity Resolved]
 The original proof (\texttt{BornRule.v}) depends on the linearity axiom (item~3): $P$ is affine in $z$. This assumption is equivalent to the Born rule restated, raising a circularity concern.
 
-The new derivation (\texttt{BornRuleFromSymmetry.v}) replaces linearity with \emph{tensor product consistency}: independent measurements yield independent outcomes, i.e., $g(xy) = g(x)g(y)$. This is a structural property of the machine, not a physics axiom---it follows from module independence proven in \texttt{ThieleUnificationTensor.v}. The proof proceeds: $g = \mathrm{id}$ on all dyadic rationals (by multiplicativity + normalization); then monotonicity + density of dyadics forces $g = \mathrm{id}$ everywhere (via the Archimedean property of $\mathbb{R}$). Zero admits.
+The new derivation (\texttt{BornRuleFromSymmetry.v}) replaces linearity with \emph{tensor product consistency}: independent measurements yield independent outcomes, i.e., $g(xy) = g(x)g(y)$. This is a structural property of the machine, not a physics axiom. It follows from module independence proven in \texttt{ThieleUnificationTensor.v}. The proof proceeds: $g = \mathrm{id}$ on all dyadic rationals (by multiplicativity + normalization); then monotonicity + density of dyadics forces $g = \mathrm{id}$ everywhere (via the Archimedean property of $\mathbb{R}$). Zero admits.
 \end{remark}
 
 \chapter{Unitarity}
@@ -568,7 +606,7 @@ An evolution $E$ maps Bloch vectors $(x,y,z) \mapsto (x',y',z')$ with associated
 \begin{enumerate}
     \item $\mu = 0 \implies r'^2 \ge r^2$ (purity cannot decrease at zero cost). Proven as \texttt{zero\_cost\_preserves\_purity}.
     \item Non-unitary evolution ($r'^2 < r^2$ for some state) requires $\mu > 0$. Proven as \texttt{nonunitary\_requires\_mu}: the proof specializes the conservation hypothesis at the witness, then \texttt{lra}.
-    \item $\mu = 0 \Rightarrow$ no info loss (one direction proven). The converse and the full equivalence $\mu = 0 \Leftrightarrow$ unitary $\Leftrightarrow$ reversible are \emph{stated} in the file but not proven as theorems---they appear as \texttt{Definition} declarations (propositional constants) rather than proven \texttt{Theorem}s.
+    \item $\mu = 0 \Rightarrow$ no info loss (one direction proven). The converse and the full equivalence $\mu = 0 \Leftrightarrow$ unitary $\Leftrightarrow$ reversible are \emph{stated} in the file but not proven as theorems: they appear as \texttt{Definition} declarations (propositional constants) rather than proven \texttt{Theorem}s.
 \end{enumerate}
 \end{theorem}
 
@@ -643,7 +681,7 @@ If bits revealed $= H(P_{\mathrm{before}})$ (maximum information), then $\dim(P_
 $\mu_{\mathrm{corr}}(S) = 0$ if $|S| \le 2\sqrt{2}$; otherwise $\mu_{\mathrm{corr}} = |S| - 2\sqrt{2}$.
 \end{definition}
 
-\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation---Circularity Resolved]
+\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation — Circularity Resolved]
 The original Coq proof (\texttt{TsirelsonDerivation.v} --- reference-only/replaced) encoded $2\sqrt{2}$ in the definition of $\mu_{\mathrm{corr}}$, making its derivation status \textbf{(R)}.
 
 This gap is now closed. \texttt{TsirelsonGeneral.v} derives $S^2 \le 8$ from pure algebra: a sum-of-squares identity proves each CHSH row contributes $\le 2(e_1^2 + e_2^2)$, then Cauchy--Schwarz bounds the sum by $4\sum e_i^2 \le 8$. \texttt{TsirelsonFromAlgebra.v} provides a self-contained algebraic derivation with achievability witness ($e = \pm 1/\sqrt{2}$, giving $S = 2\sqrt{2}$) and a verified rational bound ($\sqrt{8} < 5657/2000$). Zero admits in both files.
@@ -663,6 +701,52 @@ Strict numerical separation:
 \end{itemize}
 The Tsirelson bound $2\sqrt{2}$ is the maximum correlation purchasable at zero $\mu$-cost. Exceeding it requires paying for additional structural information.
 \end{theorem}
+
+\chapter{Witness Insight Taxonomy}
+
+\begin{theorem}[CHSH Trial Is Tier 0 {\normalfont (kernel/WitnessInsightGeneral.v)} --- \textbf{(S)}]
+\texttt{chsh\_trial\_is\_tier0}: The CHSH\_TRIAL instruction never touches either certification channel:
+\begin{itemize}
+    \item \texttt{chsh\_trial\_not\_cert\_addr\_setter}: CHSH\_TRIAL does not change \texttt{csr\_cert\_addr}.
+    \item \texttt{chsh\_trial\_preserves\_vm\_certified}: CHSH\_TRIAL does not change \texttt{vm\_certified}.
+\end{itemize}
+Recording CHSH trial outcomes is provably free of structural cost. The counters go up; the cert channels are untouched. Cost: 0. Zero Admitted.
+\end{theorem}
+
+\begin{theorem}[Three-Tier Observation Taxonomy {\normalfont (kernel/WitnessInsightGeneral.v)} --- \textbf{(S)}]
+\label{thm:taxonomy}
+\texttt{witness\_insight\_complete\_taxonomy}: Every observation the machine can make falls into exactly one of three tiers:
+
+\begin{description}
+    \item[\textbf{Tier 0}] Raw observation (always free): Records data without activating any certification channel. CHSH\_TRIAL is the canonical example. Cost: $\Delta\mu = 0$ is possible; no cert channel is touched.
+    \item[\textbf{Tier 1}] Certified structural insight (always costs $\ge 1$): Any instruction that activates \texttt{csr\_cert\_addr} or \texttt{vm\_certified} is in this tier. Proven: \texttt{certified\_witness\_insight\_nonfree} shows $\mu$ increases by at least 1.
+    \item[\textbf{Tier 2}] Certified non-local witness insight (always costs $\ge 1$): A certified execution whose WitnessCount statistics show $S > 2$. \texttt{nonlocal\_witness\_insight\_nonfree}: getting certified with non-local evidence requires $\mu \ge 1$.
+\end{description}
+
+\texttt{witness\_insight\_nonfree\_general}: For any instruction in Tier 1 or Tier 2, $\mu$ increases by at least 1. The only free observations are Tier 0. Zero Admitted.
+\end{theorem}
+
+\chapter{Bell's Theorem in Morphism Coupling Language}
+
+\begin{definition}[Setting-Outcome Coupling {\normalfont (kernel/CHSHCouplingBridge.v)}]
+The \texttt{chsh\_setting\_outcome\_coupling} maps a WitnessCount record to a coupling (list of $(nat \times nat)$ pairs). Each pair records a (setting-pair-index, outcome-type) observation. A coupling is \textbf{separable} (functional) when it maps each setting to at most one outcome type; \textbf{non-separable} otherwise.
+\end{definition}
+
+\begin{theorem}[Locally Consistent Strategy Gives Separable Coupling {\normalfont (kernel/CHSHCouplingBridge.v)} --- \textbf{(S)}]
+\texttt{locally\_consistent\_gives\_separable\_coupling}: Any WitnessCount configuration produced by a locally deterministic strategy $(a_0, a_1, b_0, b_1) \in \{0,1\}^4$ gives a separable (functional) coupling. Zero Admitted.
+\end{theorem}
+
+\begin{theorem}[Local Coupling Bound {\normalfont (kernel/CHSHCouplingBridge.v)} --- \textbf{(S)}]
+\texttt{locally\_consistent\_classical\_bound}: Any locally factorizable morphism coupling satisfying \texttt{WCLocallyConsistent} has $|S| \le 2$. Bell's theorem in the morphism coupling language: the separation between local and non-local correlations is not just a statistical fact but a structural property of the coupling predicate. Zero Admitted.
+\end{theorem}
+
+\begin{theorem}[CHSH Violation Rules Out Local Couplings {\normalfont (kernel/CHSHCouplingBridge.v)} --- \textbf{(S)}]
+\texttt{chsh\_violation\_rules\_out\_locally\_factorizable\_coupling}: If WitnessCount statistics satisfy $S > 2$, no locally factorizable morphism coupling is consistent with those counts. Contrapositively: non-local correlations cannot be produced by any local morphism coupling. The no-go is stated in the coupling language, not just the statistical layer. Zero Admitted.
+\end{theorem}
+
+\begin{remark}
+These results connect the categorical morphism layer directly to Bell nonlocality. A claim that two modules are entangled (via MORPH\_ASSERT on a non-separable coupling) cannot be locally faked: the NoFI law charges at least 1 for the MORPH\_ASSERT, and the coupling structure itself rules out any local hidden strategy that would produce $S > 2$ for free.
+\end{remark}
 
 \chapter{The Schr\"odinger Equation}
 
@@ -720,7 +804,7 @@ This is a one-dimensional projection, not a minimum over paths.
 \end{definition}
 
 \begin{theorem}[Pseudometric Properties {\normalfont (MuGeometry.v)}]
-$d_\mu$ satisfies non-negativity, reflexivity ($d(S,S)=0$), symmetry, and triangle inequality---all inherited from absolute value on $\mathbb{Z}$. Note: $d_\mu$ is a \textbf{pseudometric}, not a metric: $d(S_1,S_2)=0$ does \emph{not} imply $S_1=S_2$ (many distinct states share the same $\mu$-total). The ``geometry'' is a 1D projection onto the $\mu$ counter.
+$d_\mu$ satisfies non-negativity, reflexivity ($d(S,S)=0$), symmetry, and triangle inequality, all inherited from absolute value on $\mathbb{Z}$. Note: $d_\mu$ is a \textbf{pseudometric}, not a metric: $d(S_1,S_2)=0$ does \emph{not} imply $S_1=S_2$ (many distinct states share the same $\mu$-total). The ``geometry'' is a 1D projection onto the $\mu$ counter.
 \end{theorem}
 
 \section{Causal Cones}
@@ -729,7 +813,7 @@ $d_\mu$ satisfies non-negativity, reflexivity ($d(S,S)=0$), symmetry, and triang
 $C^+(S) = \{ S' \mid \exists \tau.\; S \xrightarrow{\tau} S' \wedge \mathrm{cost}(\tau) \le \mathrm{Budget} \}$.
 \end{definition}
 
-This is a structural analogy to causal cones: the set of reachable states given a finite $\mu$-budget plays a role analogous to a light cone. The analogy should not be over-read---there is no Lorentz invariance, no metric signature, and no boost transformations in the Coq formalization.
+This is a structural analogy to causal cones: the set of reachable states given a finite $\mu$-budget plays a role analogous to a light cone. The analogy should not be over-read: there is no Lorentz invariance, no metric signature, and no boost transformations in the Coq formalization.
 
 \section{No-Signaling}
 
@@ -743,7 +827,7 @@ This is a \textbf{data isolation} property: operations targeting module $A$ in t
 
 \section{Four-Dimensional Spacetime Geometry}
 
-The previous sections treated spacetime as a 1D projection via the $\mu$-metric. We now extend to full 4D geometry with discrete differential structure, demonstrating discrete differential geometry from computational primitives.
+The previous sections treated spacetime as a 1D projection via the $\mu$-metric. The next sections extend to full 4D geometry with discrete differential structure, building discrete differential geometry from computational primitives.
 
 \subsection{4D Simplicial Complex}
 
@@ -784,7 +868,7 @@ This metric is \textbf{position-dependent} for non-uniform mass distributions:
     \item \textbf{Uniform mass} $m$: $g_{\mu\mu}(v; w, w) = 2m$ (constant) $\implies$ flat spacetime
     \item \textbf{Non-uniform mass}: $g_{\mu\mu}(v; w, w)$ varies with $w$ $\implies$ curved spacetime
 \end{itemize}
-This is the key mechanism by which computation creates geometry.
+In this model, mass distributions create position-dependent geometry: uniform mass gives flat spacetime, non-uniform mass gives curved spacetime.
 \end{remark}
 
 \subsection{Discrete Differential Geometry}
@@ -802,7 +886,7 @@ The connection coefficients (Christoffel symbols of the second kind) are:
 \begin{equation}
 \Gamma^\rho_{\mu\nu}(v) = \frac{1}{2} \sum_\sigma g^{\rho\sigma}(v) \Bigl(\partial_\mu g_{\nu\sigma}(v) + \partial_\nu g_{\mu\sigma}(v) - \partial_\sigma g_{\mu\nu}(v)\Bigr)
 \end{equation}
-where $g^{\rho\sigma}$ is the inverse metric (diagonal for our construction).
+where $g^{\rho\sigma}$ is the inverse metric (diagonal in this construction).
 \end{definition}
 
 \begin{lemma}[Flat Spacetime Has Zero Connection {\normalfont (EinsteinEquations4D.v)} --- \textbf{(S)}]
@@ -923,7 +1007,7 @@ The proof chain is:
 All steps are proven constructively in \texttt{EinsteinEquations4D.v}.
 \end{proof}
 
-\begin{lemma}[Stress-Energy Conservation {\normalfont (EinsteinEquations4D.v)} --- \textbf{(S)}]
+\begin{lemma}[Vacuum Implies Zero Stress-Energy {\normalfont (EinsteinEquations4D.v)} --- \textbf{(S)}]
 \label{lem:stress_conservation}
 For vacuum states (zero mass everywhere):
 \begin{equation}
@@ -1005,7 +1089,7 @@ Discrete vacuum spacetime geometry is an emergent property of the machine's info
 \end{corollary}
 
 \begin{proof}
-Theorem~\ref{thm:einstein_main} constructs the discrete metric, curvature, and vacuum Einstein relation from computational primitives (VM states, operations, $\mu$-costs) with no physical axioms. Therefore, the repo's discrete vacuum geometry is a derived concept rather than a primitive one.
+Theorem~\ref{thm:einstein_main} constructs the discrete metric, curvature, and vacuum Einstein relation from computational primitives (VM states, operations, $\mu$-costs) with no physical axioms. Therefore, this model's discrete vacuum geometry is a derived concept rather than a primitive one.
 \end{proof}
 
 \subsection{Empirical Validation}
@@ -1037,6 +1121,36 @@ The theoretical results are validated numerically:
 
 These tests confirm that the discrete differential geometry correctly implements the theoretical predictions.
 
+\subsection{Affine Metric-Scaled Operator: Non-Uniform Boundary Results}
+
+The first-neighbor discrete operator refutes the non-uniform diagonal extension of the EFE. A signed affine metric-scaled redesign closes the gap at vertex 1 and fully characterizes the outer vertices.
+
+\begin{theorem}[Affine Off-Diagonal Ricci Zero {\normalfont (kernel/AffineEFEClosure.v)} --- \textbf{(S)}]
+\texttt{affine\_off\_diagonal\_ricci\_zero}: Under the affine metric-scaled symmetric operator, with the non-uniform isotropic boundary 4-simplex metric, off-diagonal Ricci vanishes at vertex 1: $R_{\mu\nu}(v_1) = 0$ for $\mu \neq \nu$. Zero Admitted. Zero Section Variables.
+\end{theorem}
+
+\begin{theorem}[Full Tensor EFE at Vertex 1 {\normalfont (kernel/AffineEFEClosure.v)} --- \textbf{(S)}]
+\texttt{affine\_full\_tensor\_efe}: Under \texttt{module\_structural\_mass s 1 = 1} (unit structural mass at vertex 1), the full tensor Einstein field equation holds:
+\[ G_{\mu\nu}(v_1) = 3 \cdot T_{\mu\nu}(v_1) \]
+for all $\mu, \nu \in \{0,1,2,3\}$. Zero Admitted.
+\end{theorem}
+
+\begin{theorem}[Outer Vertex Characterization {\normalfont (kernel/AffineEFEClosure.v)} --- \textbf{(S)}]
+At the outer vertices $v \in \{0,2,3,4\}$ of the boundary 4-simplex, the affine operator produces:
+\begin{itemize}
+    \item \texttt{affine\_ricci\_offdiag\_outer}: Off-diagonal Ricci $= 3/32$ (non-zero).
+    \item \texttt{affine\_ricci\_diag\_outer}: Diagonal Ricci $= -45/32$.
+    \item \texttt{affine\_ricci\_scalar\_outer}: Ricci scalar $= -45/8$.
+    \item \texttt{affine\_einstein\_outer}: Einstein tensor $= 45/32$ (diagonal) and $3/32$ (off-diagonal).
+    \item \texttt{affine\_efe\_fails\_outer\_offdiag}: The diagonal EFE form $G = 3T$ fails at outer vertices because $G$ has non-zero off-diagonal components.
+\end{itemize}
+The affine factor $8 - 5g_{00}$ is specifically tuned to the center vertex geometry; at outer vertices it produces a non-trivial off-diagonal Einstein tensor. Zero Admitted.
+\end{theorem}
+
+\begin{remark}[What Remains Open]
+The affine operator closes vertex 1 and characterizes the outer vertices. The remaining open question is whether the affine factor $8 - 5g_{00}$ is the correct physical discretization. That requires connecting the discrete operator to a physical substrate — not a Coq question, an empirical one.
+\end{remark}
+
 \chapter{Information Causality}
 
 \begin{theorem}[IC--$\mu$ Equivalence {\normalfont (InformationCausality.v)} --- \textbf{(R)}]
@@ -1044,7 +1158,7 @@ The file defines two record types (\texttt{ICScenario} and \texttt{MuScenario}) 
 \end{theorem}
 
 \begin{remark}
-The intended statement---that Bob's total information about Alice's data is bounded by the channel's $\mu$-capacity---is a reasonable physical claim but is \textbf{not formalized} in the Coq file. The current file is a placeholder that assumes the conclusion as a hypothesis and re-derives it. A future version would need to define entropy, mutual information, and prove the bound from the VM semantics.
+The intended statement — that Bob's total information about Alice's data is bounded by the channel's $\mu$-capacity — is a reasonable physical claim but is \textbf{not formalized} in the Coq file. The current file is a placeholder that assumes the conclusion as a hypothesis and re-derives it. A future version would need to define entropy, mutual information, and prove the bound from the VM semantics.
 \end{remark}
 
 \chapter{Thermodynamic Bridge}
@@ -1138,6 +1252,20 @@ unconditional claim that every current Python and RTL artifact is universally
 equal to Coq in all CI environments.
 \end{theorem}
 
+\section{RTL Coverage: Zero Gaps}
+
+\begin{theorem}[RTL Gap Registry Empty {\normalfont (kami\_hw/RTLGapRegistry.v)} --- \textbf{(S)}]
+\texttt{rtl\_gap\_count}: The RTL gap registry is empty. There are zero unresolved coverage gaps between the Kami hardware specification and the Coq kernel semantics:
+\[ \texttt{rtl\_gap\_count} = 0 \]
+\texttt{rtl\_coverage\_partition}: The 46-opcode ISA partitions as:
+\[ 36\ (\text{unconditional Qed}) + 10\ (\text{conditional Qed under inductive invariants}) + 0\ (\text{gaps}) = 46 \]
+This is a Coq theorem, not a comment. The partition equation is machine-checked. Zero Admitted.
+\end{theorem}
+
+\begin{remark}
+The 36 unconditional proofs cover opcodes through \texttt{SupportedOpcode}, plus CALL, RET, CHSH\_TRIAL (\texttt{EmbedStep\_WF.v}), TENSOR\_SET, TENSOR\_GET, LASSERT (\texttt{GraphReconstructionBridge.v}). The 10 conditional proofs cover the 4 partition opcodes and 7 morphism opcodes under \texttt{extended\_hw\_invariant} / \texttt{coupling\_wf}, which are proved inductive: they hold at initialization and are preserved by every instruction in the ISA.
+\end{remark}
+
 \chapter{The Curry--Howard--Thiele Correspondence}
 
 \begin{theorem}[Logic--Computation Isomorphism {\normalfont (LogicIsomorphism.v --- reference-only)}]
@@ -1203,7 +1331,7 @@ in the relational sense (coupling pairs of the composite). Zero Admitted.
 \label{thm:graph_compose_assoc}
 The operation $\texttt{graph\_compose\_morphisms}$ satisfies associativity and unitality. Additionally:
 \[ \texttt{categorical\_extension\_nofi\_consistent} \]
-Any chain of MORPH + COMPOSE operations yields $\mu \geq \text{number of operations}$ — the NoFI policy applies to morphism construction.
+MORPH and COMPOSE can carry $\Delta\mu = 0$ and are not in the mandatory-cost class. The NoFI policy enters through $\texttt{MORPH\_ASSERT}$: asserting that a built morphism chain exists and activating the cert channel always costs $S(\Delta\mu) \geq 1$. You can build the chain for free; you cannot certify it for free.
 \end{theorem}
 
 \begin{theorem}[Tensor Bifunctoriality {\normalfont (kernel/CategoryMonoidal.v)} --- \textbf{(S)}]
@@ -1373,6 +1501,22 @@ Physical Constants & \texttt{thiele\_manifold/PhysicalConstants.v} \\
 Halting Undecidability & \texttt{kernel/OracleImpossibility.v} \\
 Oracle Cost Bound & \texttt{kernel/OracleImpossibility.v} \\
 Hyper-Thiele Oracle & \texttt{thielemachine/coqproofs/HyperThiele\_Halting.v} \\
+\hline
+\multicolumn{2}{l}{\emph{New results (active corpus, all Qed, zero Admitted)}} \\
+\hline
+Partition Ops Free, Certification Non-Free & \texttt{kernel/PartitionRefinementNoFI.v} \\
+Partition Refinement Non-Free & \texttt{kernel/PartitionRefinementNoFI.v} \\
+$\mu$P / $\mu$NP definitions + Classical $\subseteq$ $\mu$P & \texttt{kernel/MuComplexity.v} \\
+CHSH Trial Is Tier 0 & \texttt{kernel/WitnessInsightGeneral.v} \\
+Three-Tier Observation Taxonomy & \texttt{kernel/WitnessInsightGeneral.v} \\
+Locally Consistent $\Rightarrow$ Separable Coupling & \texttt{kernel/CHSHCouplingBridge.v} \\
+Local Coupling Bound ($|S| \le 2$) & \texttt{kernel/CHSHCouplingBridge.v} \\
+$S > 2$ Rules Out Local Couplings & \texttt{kernel/CHSHCouplingBridge.v} \\
+Affine Off-Diagonal Ricci Zero (vertex 1) & \texttt{kernel/AffineEFEClosure.v} \\
+Full Tensor EFE at Vertex 1 ($G = 3T$) & \texttt{kernel/AffineEFEClosure.v} \\
+Outer Vertex Characterization (Ricci $= 3/32$) & \texttt{kernel/AffineEFEClosure.v} \\
+RTL Gap Count $= 0$ & \texttt{kami\_hw/RTLGapRegistry.v} \\
+RTL Coverage Partition ($36 + 10 + 0 = 46$) & \texttt{kami\_hw/RTLGapRegistry.v} \\
 \end{tabular}
 \end{center}
 
@@ -1404,10 +1548,21 @@ Genesis & \textbf{(S)} & Definitional isomorphism \\
 Three-Layer Isomorphism / comparison contract & \textbf{(C)} & Backend decoders satisfy the shared observable projection contract \\
 Curry--Howard--Thiele & \textbf{(S)} & Interpretation map \\
 Curvature from $\mu$-Gradients & \textbf{(S)} & Lemma~\ref{lem:curvature_mu} \\
-Stress-Energy Conservation & \textbf{(S)} & Lemma~\ref{lem:stress_conservation} \\
+Vacuum Implies Zero Stress-Energy & \textbf{(S)} & Lemma~\ref{lem:stress_conservation} \\
 Einstein Equations (Vacuum) & \textbf{(S)} & Theorem~\ref{thm:einstein_main} \\
 Einstein Equations (General full tensor) & \textbf{(C)} & Named off-diagonal Ricci premise in \texttt{EinsteinEquationsFull.v} \\
+Affine Off-Diagonal Ricci Zero (vertex 1) & \textbf{(S)} & Non-uniform isotropic boundary 4-simplex; affine operator \\
+Full Tensor EFE at Vertex 1 & \textbf{(S)} & \texttt{module\_structural\_mass s 1 = 1} \\
+Outer Vertex Characterization & \textbf{(S)} & Same affine operator, outer vertices $\{0,2,3,4\}$ \\
 Discrete Differential Geometry & \textbf{(S)} & Definitions only \\
+Partition Ops Free / Certification Non-Free & \textbf{(S)} & Machine semantics only \\
+CHSH Trial Is Tier 0 & \textbf{(S)} & Machine semantics only \\
+Three-Tier Observation Taxonomy & \textbf{(S)} & Machine semantics only \\
+Locally Consistent $\Rightarrow$ Separable Coupling & \textbf{(S)} & Coupling definition \\
+Local Coupling Bound ($|S| \le 2$) & \textbf{(S)} & Coupling definition \\
+$S > 2$ Rules Out Local Couplings & \textbf{(S)} & Coupling definition \\
+RTL Gap Count $= 0$ & \textbf{(S)} & Machine semantics + hardware spec \\
+Classical $P \subseteq \mu P$ & \textbf{(S)} & $\mu$-complexity definitions \\
 \hline
 \multicolumn{3}{l}{\emph{Conditional derivations (valid given stated axioms)}} \\
 \hline
@@ -1420,7 +1575,7 @@ Purification & \textbf{(C)} & Bloch sphere model \\
 Observation Irreversibility & \textbf{(C)} & REVEAL semantics \\
 Collapse Determination & \textbf{(C)} & Entropy = $\log \dim$ \\
 Emergent Schr\"odinger & \textbf{(C)} & 2D + antisymmetry \\
-Landauer & \textbf{(C)} & Second law \\emph{assumed} as record field \\
+Landauer & \textbf{(C)} & Second law \emph{assumed} as record field \\
 Dissipative Embedding & \textbf{(C)} & Irreversibility model \\
 Self-Reference & \textbf{(C)} & Dimension = complexity \\
 CHSH Separation & \textbf{(C)} & Numerical witnesses \\
