@@ -61,12 +61,30 @@ Key theorems include:
     \item \texttt{mu\_ledger\_bounds\_irreversible\_events} (MuLedgerConservation.v): Ledger bounds on irreversibility
     \item \texttt{mu\_is\_landauer\_valid} (MuNecessity.v, reference-only): $\mu$-cost satisfies Landauer's principle
     \item \texttt{mu\_distance\_triangle} (MuGeometry.v): $\mu$-distance metric inequality
+    \item \texttt{mu\_ledger\_minimality} (NecessityAbstract.v): named projection classification for $\mu$ and certification completeness
+    \item \texttt{P\_full\_is\_minimal\_complete\_extension} (NecessityAbstract.v): the full ledger shadow is complete, while projections that forget $\mu$ or certification lose the corresponding completeness
 \end{itemize}
 
 \subsection{Impossibility Results}
 
 Key theorems include:
 \begin{itemize}
+    \item \texttt{mu\_ledger\_necessity} (NecessityOfMuLedger.v): no strict-classical function recovers the pair $(\mu,\texttt{certified})$
+    \item \texttt{vm\_mu\_not\_classically\_determined} (NecessityOfMuLedger.v): $\mu$ is not a function of strict classical state
+    \item \texttt{vm\_certified\_not\_classically\_determined} (NecessityOfMuLedger.v): certification is not a function of strict classical state
+    \item \texttt{mu\_ledger\_necessity\_universal} (NecessityOfMuLedger.v): from \emph{any} VMState, CERTIFY and PNEW produce the same strict shadow but different $\mu$ and certification---the separation holds universally, not only from crafted witnesses
+    \item \texttt{po1\_trace\_necessity} (NecessityOfMuLedger.v): for any common prefix program of any length, the two witness extensions reach equal strict shadows but strictly different $\mu$---no classical computation accumulation closes the gap
+    \item \texttt{shadow\_mu\_is\_computation\_intrinsic} (NecessityOfMuLedger.v): the total $\mu$ accumulated by any program equals starting $\mu$ plus sum of instruction costs---determined entirely by the instruction sequence, independent of vm\_graph, vm\_regs, vm\_mem, or any other state
+    \item \texttt{shadow\_mu\_delta\_universal} (NecessityOfMuLedger.v): two machines running the same program from any two starting states accumulate the same additional $\mu$---the cost is written in the program before execution begins
+    \item \texttt{shadow\_mu\_unique\_accounting} (NecessityOfMuLedger.v): any instruction-consistent accounting system assigning zero to the starting state assigns exactly \texttt{trace\_total\_cost} to the result---the cost is forced, not chosen; the Turing machine paid it silently on every execution
+    \item \texttt{shadow\_mu\_inevitable} (NecessityOfMuLedger.v): any program containing an instruction with positive cost accumulates strictly positive $\mu$---there is no free computation
+    \item \texttt{turing\_ram\_mu\_necessity}, \texttt{turing\_ram\_cert\_necessity}, \texttt{turing\_ram\_pair\_necessity} (NecessityAbstract.v): Turing/RAM projections cannot determine ledger receipts
+    \item \texttt{cost\_model\_cert\_necessity} and \texttt{cert\_model\_mu\_necessity} (NecessityAbstract.v): cost-only and certification-only projections each lose the other half of the receipt
+    \item \texttt{graph\_not\_recoverable\_from\_P\_full} (NecessityAbstract.v): no function of the full $\mu$-ledger shadow (mem, regs, pc, $\mu$, certified) can recover \texttt{vm\_graph}---the categorical layer is a third independent non-classical component
+    \item \texttt{thiele\_state\_three\_component\_independence} (NecessityAbstract.v): complete independence classification---$\mu$, certified, and graph are each provably irrecoverable from any combination of the others together with classical state
+    \item \texttt{certify\_d\_trace\_cost\_lower\_bound} (QuantitativeNoFI.v): any trace containing \texttt{instr\_certify d} accumulates total $\mu$-cost $\ge S(d)$---connects the abstract threshold to the declared ISA cost
+    \item \texttt{algebraically\_coherent\_tsirelson\_general} (AlgebraicCoherence.v): $S^2 \le 8$ for \emph{every} algebraically coherent correlator (general case, not just symmetric)---closes the gap noted in the file header; proved via Positivstellensatz SOS certificate (CSDP)
+    \item \texttt{algebraically\_coherent\_tsirelson\_abs} (AlgebraicCoherence.v): $|S| \le 5657/2000 \approx 2\sqrt{2}$ for every algebraically coherent correlator
     \item \texttt{region\_equiv\_class\_infinite} (EntropyImpossibility.v): Region equivalence classes are infinite
     \item \texttt{Entropy\_From\_Observation\_Fails\_Without\_Finiteness} (EntropyImpossibility.v): Entropy requires finiteness
     \item \texttt{Lorentz\_Not\_Forced} (LorentzNotForced.v): Lorentz structure is underdetermined

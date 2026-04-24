@@ -30,8 +30,11 @@ The Thiele Machine contains classical computation as a fragment and strictly ext
 - every classical program embeds directly into the Thiele VM, leaving the structural layer untouched (`TuringClassicalEmbedding.v`, `ClassicalConservativity.v`)
 - there exist Thiele states reachable by structural instructions that no classical trace can reach from the same start (`TuringStrictness.v`, `ShadowProjection.v`)
 - `mu` is the unique canonical cost measure — any other instruction-consistent, zero-starting, monotone functional equals `mu` on every reachable state (`MuInitiality.v`)
+- the `mu` balance, certification flag, and partition graph are each provably independent of strict classical state `(mem, regs, pc)` and of each other — five independence results, complete classification, from every reachable state, for any prefix computation of any length (`NecessityOfMuLedger.v`, `NecessityAbstract.v`)
+- the `mu`-cost of any program is intrinsic to the instruction sequence: any instruction-consistent accounting system starting at zero assigns exactly `trace_total_cost` to the result — the Turing machine was always paying this cost, silently, on every execution (`NecessityOfMuLedger.v` §7)
 - certification requires positive `mu`, unconditionally, for both cert channels, over any trace of any length (`AbstractNoFI.v`, `NoFreeInsight.v`)
 - classical projection loses morphism structure — two states with identical registers, memory, mu, and PC can differ in ways no classical function can see (`PartitionSeparation.v`)
+- the Tsirelson bound |S| ≤ 2√2 is proven by two independent routes: (1) from PSD of the zero-marginal NPA moment matrix (`MuLedgerQuantumBridge.v`), and (2) from algebraic coherence alone via Positivstellensatz SOS certificate — pure polynomial arithmetic, no physics premises (`AlgebraicCoherence.v`)
 
 The full claim ledger is in `thesis/short_thesis.tex`, Section 12. Every claim there has a Coq file and a falsification condition.
 
@@ -160,6 +163,7 @@ python tools/verify_trs10.py path/to/receipt.json --trusted-pubkey <32-byte-hex>
 Every claim has a concrete falsification condition. The main ones:
 
 - **Falsify No Free Insight**: find a trace starting with `vm_certified = false`, `mu = 0`, ending with `vm_certified = true`, `mu = 0`. Add it as a Coq theorem — the proof of `certification_requires_positive_mu` won't compile.
+- **Falsify ledger necessity**: define a total function from strict classical state `(mem, regs, pc)` that recovers `vm_mu` or `vm_certified` for every VM state. This contradicts `mu_ledger_necessity`, `vm_mu_not_classically_determined`, or `vm_certified_not_classically_determined`.
 - **Falsify mu-monotonicity**: find a state `s` and instruction `i` where `(vm_apply s i).mu < s.mu`. `vm_apply_mu` fails.
 - **Falsify categorical separation**: prove all states with identical classical shadow produce identical behavior. Contradicts `categorical_separation`.
 - **Falsify the hardware bisimulation**: find an opcode where the Kami hardware step diverges from `vm_apply`. The bisimulation proof for that opcode won't close.

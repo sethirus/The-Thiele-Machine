@@ -34,6 +34,12 @@
     - Unavoidable: you cannot certify structural claims for free, and you
       cannot even ATTEMPT certification for free — S(0)=1 is charged
       even for failed assertions (No Free Insight, §6).
+    - Necessary: this file also proves that strict classical state
+      (mem, regs, pc) cannot determine μ or certification,
+      that cost-only and certification-only projections each miss the other
+      half, and that the full μ-ledger shadow is the minimal named complete
+      extension (mirrored in NecessityOfMuLedger.v and
+      kernel/NecessityAbstract.v).
     - Hardware-backed: the same μ-accounting runs in OCaml (extracted),
       Python (extracted), and synthesizable Verilog (Kami-derived).
       Three layers, one receipt, one proof.
@@ -100,6 +106,12 @@
         that sets vm_certified = true, and it charges at least 1.
         Starting uncertified with μ=0, reaching certification forces
         μ > 0. No exceptions.
+
+    (7a) LEDGER NECESSITY: μ and certification are independent of strict
+        classical projections, independent of each other under cost-only
+        and cert-only projections, and jointly necessary for determinate
+        certification semantics. This is proved below in the monolithic file
+        and mirrored in NecessityOfMuLedger.v / kernel/NecessityAbstract.v.
 
     (8) NO FREE INSIGHT: The culminating impossibility theorem.
         Strengthening a predicate — ruling out possibilities, gaining
@@ -3018,6 +3030,830 @@ Proof.
         -- apply (IH program s1 Hcert1 Hmu1z Hcert).
         -- pose proof (run_vm_mu_monotonic fuel' program s1). lia.
     + rewrite Huncert in Hcert. discriminate.
+Qed.
+
+(** =========================================================================
+    SECTION 6A: LEDGER NECESSITY — Why μ Cannot Be Projected Away
+    =========================================================================
+
+    This section internalizes the newer necessity proof work directly in
+    ThieleMachineComplete.v.
+
+    THE CLAIM:
+    A strict classical machine state (memory, registers, PC) cannot determine
+    either the μ-ledger balance or the certification flag. Even adding only μ
+    cannot determine certification; even adding only certification cannot
+    determine μ. The full ledger shadow (mem, regs, pc, μ, certified) is the
+    minimal named complete extension.
+
+    WITNESS SHAPE:
+      Trace A: CERTIFY 0   -> same mem/regs, pc+1, μ=1, certified=true.
+      Trace B: PNEW [] 0   -> same mem/regs, pc+1, μ=0, certified=false.
+
+    They are indistinguishable to a strict Turing/RAM observer but carry
+    incompatible structural receipts. Therefore no function of strict
+    classical state can recover the receipt.
+    ========================================================================= *)
+
+Record StrictClassicalState := mk_strict_classical {
+  scs_mem  : list nat;
+  scs_regs : list nat;
+  scs_pc   : nat
+}.
+
+Definition strict_shadow (s : VMState) : StrictClassicalState := {|
+  scs_mem  := s.(vm_mem);
+  scs_regs := s.(vm_regs);
+  scs_pc   := s.(vm_pc)
+|}.
+
+Definition strict_shadow_equal (s1 s2 : VMState) : Prop :=
+  strict_shadow s1 = strict_shadow s2.
+
+Lemma strict_shadow_equal_iff :
+  forall s1 s2,
+    strict_shadow_equal s1 s2 <->
+    s1.(vm_mem) = s2.(vm_mem) /\
+    s1.(vm_regs) = s2.(vm_regs) /\
+    s1.(vm_pc) = s2.(vm_pc).
+Proof.
+  intros s1 s2. split.
+  - intro H. unfold strict_shadow_equal, strict_shadow in H.
+    injection H. intros Hpc Hregs Hmem. repeat split; assumption.
+  - intros [Hmem [Hregs Hpc]].
+    unfold strict_shadow_equal, strict_shadow.
+    f_equal; assumption.
+Qed.
+
+Lemma strict_shadow_functional :
+  forall {A : Type} (f : StrictClassicalState -> A) (s1 s2 : VMState),
+    strict_shadow_equal s1 s2 ->
+    f (strict_shadow s1) = f (strict_shadow s2).
+Proof.
+  intros A f s1 s2 Heq.
+  unfold strict_shadow_equal in Heq.
+  rewrite Heq. reflexivity.
+Qed.
+
+Lemma advance_state_mem_eq :
+  forall s i g c e, (advance_state s i g c e).(vm_mem) = s.(vm_mem).
+Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
+
+Lemma advance_state_regs_eq :
+  forall s i g c e, (advance_state s i g c e).(vm_regs) = s.(vm_regs).
+Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
+
+Lemma advance_state_pc_eq :
+  forall s i g c e, (advance_state s i g c e).(vm_pc) = S s.(vm_pc).
+Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
+
+Lemma advance_state_certified_eq :
+  forall s i g c e, (advance_state s i g c e).(vm_certified) = s.(vm_certified).
+Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
+
+Lemma vm_apply_pnew_mem_preserved :
+  forall s r c, (vm_apply s (instr_pnew r c)).(vm_mem) = s.(vm_mem).
+Proof.
+  intros s r c. unfold vm_apply.
+  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
+  apply advance_state_mem_eq.
+Qed.
+
+Lemma vm_apply_pnew_regs_preserved :
+  forall s r c, (vm_apply s (instr_pnew r c)).(vm_regs) = s.(vm_regs).
+Proof.
+  intros s r c. unfold vm_apply.
+  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
+  apply advance_state_regs_eq.
+Qed.
+
+Lemma vm_apply_pnew_pc_advances :
+  forall s r c, (vm_apply s (instr_pnew r c)).(vm_pc) = S s.(vm_pc).
+Proof.
+  intros s r c. unfold vm_apply.
+  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
+  apply advance_state_pc_eq.
+Qed.
+
+Lemma vm_apply_pnew_certified_preserved :
+  forall s r c, (vm_apply s (instr_pnew r c)).(vm_certified) = s.(vm_certified).
+Proof.
+  intros s r c. unfold vm_apply.
+  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
+  apply advance_state_certified_eq.
+Qed.
+
+Lemma vm_apply_pnew_mu_charged :
+  forall s r c, (vm_apply s (instr_pnew r c)).(vm_mu) = s.(vm_mu) + c.
+Proof.
+  intros s r c. unfold vm_apply.
+  destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
+  unfold advance_state, apply_cost, instruction_cost. simpl. reflexivity.
+Qed.
+
+Lemma vm_apply_certify_mem_preserved :
+  forall s d, (vm_apply s (instr_certify d)).(vm_mem) = s.(vm_mem).
+Proof. intros. unfold vm_apply. simpl. reflexivity. Qed.
+
+Lemma vm_apply_certify_regs_preserved :
+  forall s d, (vm_apply s (instr_certify d)).(vm_regs) = s.(vm_regs).
+Proof. intros. unfold vm_apply. simpl. reflexivity. Qed.
+
+Lemma vm_apply_certify_pc_advances :
+  forall s d, (vm_apply s (instr_certify d)).(vm_pc) = S s.(vm_pc).
+Proof. intros. unfold vm_apply. simpl. reflexivity. Qed.
+
+Lemma vm_apply_certify_certified :
+  forall s d, (vm_apply s (instr_certify d)).(vm_certified) = true.
+Proof. intros. unfold vm_apply. simpl. reflexivity. Qed.
+
+Lemma vm_apply_certify_mu_charged :
+  forall s d, (vm_apply s (instr_certify d)).(vm_mu) = s.(vm_mu) + S d.
+Proof. intros. unfold vm_apply. simpl. reflexivity. Qed.
+
+Lemma vm_apply_certify_strict_shadow :
+  forall s d,
+    strict_shadow (vm_apply s (instr_certify d)) =
+    {| scs_mem := s.(vm_mem); scs_regs := s.(vm_regs); scs_pc := S s.(vm_pc) |}.
+Proof.
+  intros s d.
+  unfold strict_shadow.
+  rewrite vm_apply_certify_mem_preserved,
+          vm_apply_certify_regs_preserved,
+          vm_apply_certify_pc_advances.
+  reflexivity.
+Qed.
+
+Lemma vm_apply_pnew_strict_shadow :
+  forall s r c,
+    strict_shadow (vm_apply s (instr_pnew r c)) =
+    {| scs_mem := s.(vm_mem); scs_regs := s.(vm_regs); scs_pc := S s.(vm_pc) |}.
+Proof.
+  intros s r c.
+  unfold strict_shadow.
+  rewrite vm_apply_pnew_mem_preserved,
+          vm_apply_pnew_regs_preserved,
+          vm_apply_pnew_pc_advances.
+  reflexivity.
+Qed.
+
+Definition po1_empty_graph : PartitionGraph := empty_graph.
+
+Definition po1_empty_csrs : CSRState :=
+  {| csr_cert_addr := 0; csr_status := 0; csr_err := 0; csr_heap_base := 0 |}.
+
+Definition po1_init : VMState := {|
+  vm_graph     := po1_empty_graph;
+  vm_csrs      := po1_empty_csrs;
+  vm_regs      := [];
+  vm_mem       := [];
+  vm_pc        := 0;
+  vm_mu        := 0;
+  vm_mu_tensor := vm_mu_tensor_default;
+  vm_err       := false;
+  vm_logic_acc := 0;
+  vm_mstatus   := 0;
+  vm_witness   := witness_counts_zero;
+  vm_certified := false
+|}.
+
+Definition po1_instr_A : vm_instruction := instr_certify 0.
+Definition po1_state_A : VMState := vm_apply po1_init po1_instr_A.
+
+Definition po1_instr_B : vm_instruction := instr_pnew [] 0.
+Definition po1_state_B : VMState := vm_apply po1_init po1_instr_B.
+
+Definition po1_strict_trace_A : list StrictClassicalState :=
+  [strict_shadow po1_init; strict_shadow po1_state_A].
+
+Definition po1_strict_trace_B : list StrictClassicalState :=
+  [strict_shadow po1_init; strict_shadow po1_state_B].
+
+Theorem po1_cond1_identical_start :
+  nth_error po1_strict_trace_A 0 = Some (strict_shadow po1_init) /\
+  nth_error po1_strict_trace_B 0 = Some (strict_shadow po1_init).
+Proof. split; reflexivity. Qed.
+
+Theorem po1_cond2_step0 :
+  nth_error po1_strict_trace_A 0 = nth_error po1_strict_trace_B 0.
+Proof. reflexivity. Qed.
+
+Theorem po1_cond2_final_shadow_equal :
+  strict_shadow po1_state_A = strict_shadow po1_state_B.
+Proof.
+  unfold po1_state_A, po1_state_B, po1_instr_A, po1_instr_B.
+  rewrite vm_apply_certify_strict_shadow, vm_apply_pnew_strict_shadow.
+  unfold po1_init. simpl. reflexivity.
+Qed.
+
+Theorem po1_cond2_shadow_traces_equal :
+  po1_strict_trace_A = po1_strict_trace_B.
+Proof.
+  unfold po1_strict_trace_A, po1_strict_trace_B.
+  rewrite po1_cond2_final_shadow_equal.
+  reflexivity.
+Qed.
+
+Theorem po1_cond3_equal_trace_length :
+  List.length po1_strict_trace_A = List.length po1_strict_trace_B.
+Proof. reflexivity. Qed.
+
+Theorem po1_cond3_equal_mem_size :
+  List.length po1_state_A.(vm_mem) = List.length po1_state_B.(vm_mem).
+Proof.
+  unfold po1_state_A, po1_state_B, po1_instr_A, po1_instr_B.
+  rewrite vm_apply_certify_mem_preserved, vm_apply_pnew_mem_preserved.
+  unfold po1_init. reflexivity.
+Qed.
+
+Theorem po1_cond4_trace_A_certified :
+  po1_state_A.(vm_certified) = true.
+Proof.
+  unfold po1_state_A, po1_instr_A.
+  apply vm_apply_certify_certified.
+Qed.
+
+Theorem po1_cond4_trace_A_mu_paid :
+  po1_state_A.(vm_mu) = 1.
+Proof.
+  unfold po1_state_A, po1_instr_A.
+  rewrite vm_apply_certify_mu_charged.
+  unfold po1_init. simpl. reflexivity.
+Qed.
+
+Theorem po1_cond5_trace_B_not_certified :
+  po1_state_B.(vm_certified) = false.
+Proof.
+  unfold po1_state_B, po1_instr_B.
+  rewrite vm_apply_pnew_certified_preserved.
+  unfold po1_init. simpl. reflexivity.
+Qed.
+
+Theorem po1_cond5_trace_B_mu_zero :
+  po1_state_B.(vm_mu) = 0.
+Proof.
+  unfold po1_state_B, po1_instr_B.
+  rewrite vm_apply_pnew_mu_charged.
+  unfold po1_init. simpl. reflexivity.
+Qed.
+
+Definition Omega_pc1 (cs : StrictClassicalState) : bool :=
+  Nat.eqb cs.(scs_pc) 1.
+
+Theorem po1_cond6_any_strict_shadow_function_equal :
+  forall {A : Type} (f : StrictClassicalState -> A),
+    f (strict_shadow po1_state_A) = f (strict_shadow po1_state_B).
+Proof.
+  intro A. intro f.
+  apply strict_shadow_functional.
+  exact po1_cond2_final_shadow_equal.
+Qed.
+
+Theorem po1_cond6_omega_gives_equal_results :
+  Omega_pc1 (strict_shadow po1_state_A) =
+  Omega_pc1 (strict_shadow po1_state_B).
+Proof. apply po1_cond6_any_strict_shadow_function_equal. Qed.
+
+Theorem po1_cond7_contradiction_components :
+  forall (Omega : StrictClassicalState -> bool),
+    (forall s, Omega (strict_shadow s) = s.(vm_certified)) ->
+    Omega (strict_shadow po1_state_A) = true /\
+    Omega (strict_shadow po1_state_B) = false /\
+    strict_shadow po1_state_A = strict_shadow po1_state_B.
+Proof.
+  intros Omega HOmega.
+  split.
+  - rewrite HOmega. exact po1_cond4_trace_A_certified.
+  - split.
+    + rewrite HOmega. exact po1_cond5_trace_B_not_certified.
+    + exact po1_cond2_final_shadow_equal.
+Qed.
+
+Theorem po1_cond7_mu_contradiction_components :
+  forall (Omega : StrictClassicalState -> nat),
+    (forall s, Omega (strict_shadow s) = s.(vm_mu)) ->
+    Omega (strict_shadow po1_state_A) = 1 /\
+    Omega (strict_shadow po1_state_B) = 0 /\
+    strict_shadow po1_state_A = strict_shadow po1_state_B.
+Proof.
+  intros Omega HOmega.
+  split.
+  - rewrite HOmega. exact po1_cond4_trace_A_mu_paid.
+  - split.
+    + rewrite HOmega. exact po1_cond5_trace_B_mu_zero.
+    + exact po1_cond2_final_shadow_equal.
+Qed.
+
+Theorem mu_ledger_necessity :
+  ~ exists (Omega : StrictClassicalState -> nat * bool),
+      forall (s : VMState),
+        Omega (strict_shadow s) = (s.(vm_mu), s.(vm_certified)).
+Proof.
+  intros [Omega HOmega].
+  assert (HA : Omega (strict_shadow po1_state_A) = (1, true)).
+  { rewrite HOmega.
+    rewrite po1_cond4_trace_A_mu_paid, po1_cond4_trace_A_certified.
+    reflexivity. }
+  assert (HB : Omega (strict_shadow po1_state_B) = (0, false)).
+  { rewrite HOmega.
+    rewrite po1_cond5_trace_B_mu_zero, po1_cond5_trace_B_not_certified.
+    reflexivity. }
+  rewrite po1_cond2_final_shadow_equal in HA.
+  rewrite HA in HB.
+  discriminate HB.
+Qed.
+
+Theorem vm_mu_not_classically_determined :
+  ~ exists (Omega : StrictClassicalState -> nat),
+      forall (s : VMState), Omega (strict_shadow s) = s.(vm_mu).
+Proof.
+  intros [Omega HOmega].
+  pose proof (po1_cond7_mu_contradiction_components Omega HOmega)
+    as [HA [HB Heq]].
+  rewrite Heq in HA.
+  rewrite HA in HB.
+  discriminate HB.
+Qed.
+
+Theorem certification_necessity :
+  ~ exists (Omega : StrictClassicalState -> bool),
+      forall (s : VMState), Omega (strict_shadow s) = s.(vm_certified).
+Proof.
+  intros [Omega HOmega].
+  pose proof (po1_cond7_contradiction_components Omega HOmega) as [HA [HB Heq]].
+  rewrite Heq in HA.
+  rewrite HA in HB.
+  discriminate HB.
+Qed.
+
+Corollary mu_ledger_necessity_constructive :
+  forall (Omega : StrictClassicalState -> nat * bool),
+    ~ (forall (s : VMState),
+          Omega (strict_shadow s) = (s.(vm_mu), s.(vm_certified))).
+Proof.
+  intros Omega HOmega.
+  exact (mu_ledger_necessity (ex_intro _ Omega HOmega)).
+Qed.
+
+Theorem po1_separation_witnesses :
+  exists (s_init s_A s_B : VMState) (i_A i_B : vm_instruction),
+    strict_shadow s_init = strict_shadow s_init /\
+    s_A = vm_apply s_init i_A /\
+    s_B = vm_apply s_init i_B /\
+    strict_shadow s_A = strict_shadow s_B /\
+    s_A.(vm_mu) = 1 /\
+    s_B.(vm_mu) = 0 /\
+    s_A.(vm_certified) = true /\
+    s_B.(vm_certified) = false.
+Proof.
+  exists po1_init, po1_state_A, po1_state_B, po1_instr_A, po1_instr_B.
+  repeat split;
+    try reflexivity;
+    try exact po1_cond2_final_shadow_equal;
+    try exact po1_cond4_trace_A_mu_paid;
+    try exact po1_cond5_trace_B_mu_zero;
+    try exact po1_cond4_trace_A_certified;
+    try exact po1_cond5_trace_B_not_certified.
+Qed.
+
+Theorem vm_certified_not_classically_determined :
+  ~ exists (f : StrictClassicalState -> bool),
+      forall (s : VMState), f (strict_shadow s) = s.(vm_certified).
+Proof. exact certification_necessity. Qed.
+
+Corollary vm_mu_classical_oracle_fails :
+  forall (f : StrictClassicalState -> nat),
+    exists (s1 s2 : VMState),
+      strict_shadow s1 = strict_shadow s2 /\
+      (f (strict_shadow s1) <> s1.(vm_mu) \/
+       f (strict_shadow s2) <> s2.(vm_mu)).
+Proof.
+  intro f.
+  exists po1_state_A, po1_state_B.
+  split.
+  { exact po1_cond2_final_shadow_equal. }
+  destruct (Nat.eq_dec (f (strict_shadow po1_state_A)) 1) as [HfA | HfA].
+  - right.
+    rewrite po1_cond5_trace_B_mu_zero.
+    rewrite <- po1_cond2_final_shadow_equal.
+    rewrite HfA.
+    discriminate.
+  - left.
+    rewrite po1_cond4_trace_A_mu_paid.
+    exact HfA.
+Qed.
+
+Corollary vm_certified_classical_oracle_fails :
+  forall (f : StrictClassicalState -> bool),
+    exists (s1 s2 : VMState),
+      strict_shadow s1 = strict_shadow s2 /\
+      (f (strict_shadow s1) <> s1.(vm_certified) \/
+       f (strict_shadow s2) <> s2.(vm_certified)).
+Proof.
+  intro f.
+  exists po1_state_A, po1_state_B.
+  split.
+  { exact po1_cond2_final_shadow_equal. }
+  destruct (f (strict_shadow po1_state_A)) eqn:HfA.
+  - right.
+    rewrite po1_cond5_trace_B_not_certified.
+    rewrite <- po1_cond2_final_shadow_equal.
+    rewrite HfA.
+    discriminate.
+  - left.
+    rewrite po1_cond4_trace_A_certified.
+    discriminate.
+Qed.
+
+Theorem generic_mu_necessity :
+  forall {C : Type} (P : VMState -> C) (sA sB : VMState),
+    P sA = P sB ->
+    sA.(vm_mu) <> sB.(vm_mu) ->
+    ~ exists (Omega : C -> nat), forall s, Omega (P s) = s.(vm_mu).
+Proof.
+  intros C P sA sB Heq Hdiff [Omega HOmega].
+  assert (HA : Omega (P sA) = sA.(vm_mu)) by apply HOmega.
+  assert (HB : Omega (P sB) = sB.(vm_mu)) by apply HOmega.
+  rewrite Heq in HA.
+  rewrite HA in HB.
+  exact (Hdiff HB).
+Qed.
+
+Theorem generic_cert_necessity :
+  forall {C : Type} (P : VMState -> C) (sA sB : VMState),
+    P sA = P sB ->
+    sA.(vm_certified) <> sB.(vm_certified) ->
+    ~ exists (Omega : C -> bool), forall s, Omega (P s) = s.(vm_certified).
+Proof.
+  intros C P sA sB Heq Hdiff [Omega HOmega].
+  assert (HA : Omega (P sA) = sA.(vm_certified)) by apply HOmega.
+  assert (HB : Omega (P sB) = sB.(vm_certified)) by apply HOmega.
+  rewrite Heq in HA.
+  rewrite HA in HB.
+  exact (Hdiff HB).
+Qed.
+
+Theorem generic_pair_necessity :
+  forall {C : Type} (P : VMState -> C) (sA sB : VMState),
+    P sA = P sB ->
+    (sA.(vm_mu), sA.(vm_certified)) <> (sB.(vm_mu), sB.(vm_certified)) ->
+    ~ exists (Omega : C -> nat * bool),
+        forall s, Omega (P s) = (s.(vm_mu), s.(vm_certified)).
+Proof.
+  intros C P sA sB Heq Hdiff [Omega HOmega].
+  assert (HA : Omega (P sA) = (sA.(vm_mu), sA.(vm_certified))) by apply HOmega.
+  assert (HB : Omega (P sB) = (sB.(vm_mu), sB.(vm_certified))) by apply HOmega.
+  rewrite Heq in HA.
+  rewrite HA in HB.
+  exact (Hdiff HB).
+Qed.
+
+Record StrictShadow := mk_strict {
+  ss_mem  : list nat;
+  ss_regs : list nat;
+  ss_pc   : nat
+}.
+
+Definition P_strict (s : VMState) : StrictShadow := {|
+  ss_mem  := s.(vm_mem);
+  ss_regs := s.(vm_regs);
+  ss_pc   := s.(vm_pc)
+|}.
+
+Definition abs_zero : VMState := po1_init.
+Definition abs_A_strict : VMState := vm_apply abs_zero (instr_certify 0).
+Definition abs_B_strict : VMState := vm_apply abs_zero (instr_pnew [] 0).
+
+Lemma abs_strict_shadow_equal :
+  P_strict abs_A_strict = P_strict abs_B_strict.
+Proof.
+  unfold P_strict, abs_A_strict, abs_B_strict, abs_zero.
+  rewrite vm_apply_certify_mem_preserved, vm_apply_certify_regs_preserved,
+          vm_apply_certify_pc_advances.
+  rewrite vm_apply_pnew_mem_preserved, vm_apply_pnew_regs_preserved,
+          vm_apply_pnew_pc_advances.
+  unfold po1_init. simpl. reflexivity.
+Qed.
+
+Lemma abs_strict_mu_A : abs_A_strict.(vm_mu) = 1.
+Proof.
+  unfold abs_A_strict, abs_zero.
+  rewrite vm_apply_certify_mu_charged. unfold po1_init. simpl. reflexivity.
+Qed.
+
+Lemma abs_strict_mu_B : abs_B_strict.(vm_mu) = 0.
+Proof.
+  unfold abs_B_strict, abs_zero.
+  rewrite vm_apply_pnew_mu_charged. unfold po1_init. simpl. reflexivity.
+Qed.
+
+Lemma abs_strict_cert_A : abs_A_strict.(vm_certified) = true.
+Proof. unfold abs_A_strict. apply vm_apply_certify_certified. Qed.
+
+Lemma abs_strict_cert_B : abs_B_strict.(vm_certified) = false.
+Proof.
+  unfold abs_B_strict, abs_zero.
+  rewrite vm_apply_pnew_certified_preserved. unfold po1_init. simpl. reflexivity.
+Qed.
+
+Theorem turing_ram_mu_necessity :
+  ~ exists (Omega : StrictShadow -> nat),
+      forall s, Omega (P_strict s) = s.(vm_mu).
+Proof.
+  apply (generic_mu_necessity P_strict abs_A_strict abs_B_strict).
+  - exact abs_strict_shadow_equal.
+  - rewrite abs_strict_mu_A, abs_strict_mu_B. discriminate.
+Qed.
+
+Theorem turing_ram_cert_necessity :
+  ~ exists (Omega : StrictShadow -> bool),
+      forall s, Omega (P_strict s) = s.(vm_certified).
+Proof.
+  apply (generic_cert_necessity P_strict abs_A_strict abs_B_strict).
+  - exact abs_strict_shadow_equal.
+  - rewrite abs_strict_cert_A, abs_strict_cert_B. discriminate.
+Qed.
+
+Theorem turing_ram_pair_necessity :
+  ~ exists (Omega : StrictShadow -> nat * bool),
+      forall s, Omega (P_strict s) = (s.(vm_mu), s.(vm_certified)).
+Proof.
+  apply (generic_pair_necessity P_strict abs_A_strict abs_B_strict).
+  - exact abs_strict_shadow_equal.
+  - rewrite abs_strict_mu_A, abs_strict_mu_B, abs_strict_cert_A, abs_strict_cert_B.
+    discriminate.
+Qed.
+
+Record CostShadow := mk_cost {
+  cs_mem  : list nat;
+  cs_regs : list nat;
+  cs_pc   : nat;
+  cs_mu   : nat
+}.
+
+Definition P_cost (s : VMState) : CostShadow := {|
+  cs_mem  := s.(vm_mem);
+  cs_regs := s.(vm_regs);
+  cs_pc   := s.(vm_pc);
+  cs_mu   := s.(vm_mu)
+|}.
+
+Definition abs_A_cost : VMState := vm_apply abs_zero (instr_certify 2).
+Definition abs_B_cost : VMState := vm_apply abs_zero (instr_pnew [] 3).
+
+Lemma abs_cost_shadow_equal :
+  P_cost abs_A_cost = P_cost abs_B_cost.
+Proof.
+  unfold P_cost, abs_A_cost, abs_B_cost, abs_zero.
+  rewrite vm_apply_certify_mem_preserved, vm_apply_certify_regs_preserved,
+          vm_apply_certify_pc_advances, vm_apply_certify_mu_charged.
+  rewrite vm_apply_pnew_mem_preserved, vm_apply_pnew_regs_preserved,
+          vm_apply_pnew_pc_advances, vm_apply_pnew_mu_charged.
+  unfold po1_init. simpl. reflexivity.
+Qed.
+
+Lemma abs_cost_cert_A : abs_A_cost.(vm_certified) = true.
+Proof. unfold abs_A_cost. apply vm_apply_certify_certified. Qed.
+
+Lemma abs_cost_cert_B : abs_B_cost.(vm_certified) = false.
+Proof.
+  unfold abs_B_cost, abs_zero.
+  rewrite vm_apply_pnew_certified_preserved. unfold po1_init. simpl. reflexivity.
+Qed.
+
+Theorem cost_model_cert_necessity :
+  ~ exists (Omega : CostShadow -> bool),
+      forall s, Omega (P_cost s) = s.(vm_certified).
+Proof.
+  apply (generic_cert_necessity P_cost abs_A_cost abs_B_cost).
+  - exact abs_cost_shadow_equal.
+  - rewrite abs_cost_cert_A, abs_cost_cert_B. discriminate.
+Qed.
+
+Record CertAnnotatedShadow := mk_cert_ann {
+  cas_mem       : list nat;
+  cas_regs      : list nat;
+  cas_pc        : nat;
+  cas_certified : bool
+}.
+
+Definition P_cert (s : VMState) : CertAnnotatedShadow := {|
+  cas_mem       := s.(vm_mem);
+  cas_regs      := s.(vm_regs);
+  cas_pc        := s.(vm_pc);
+  cas_certified := s.(vm_certified)
+|}.
+
+Definition abs_A_cert : VMState := vm_apply abs_zero (instr_certify 0).
+Definition abs_B_cert : VMState := vm_apply abs_zero (instr_certify 1).
+
+Lemma abs_cert_shadow_equal :
+  P_cert abs_A_cert = P_cert abs_B_cert.
+Proof.
+  unfold P_cert, abs_A_cert, abs_B_cert, abs_zero.
+  rewrite vm_apply_certify_mem_preserved, vm_apply_certify_regs_preserved,
+          vm_apply_certify_pc_advances, vm_apply_certify_certified.
+  rewrite vm_apply_certify_mem_preserved, vm_apply_certify_regs_preserved,
+          vm_apply_certify_pc_advances, vm_apply_certify_certified.
+  unfold po1_init. simpl. reflexivity.
+Qed.
+
+Lemma abs_cert_mu_A : abs_A_cert.(vm_mu) = 1.
+Proof.
+  unfold abs_A_cert, abs_zero.
+  rewrite vm_apply_certify_mu_charged. unfold po1_init. simpl. reflexivity.
+Qed.
+
+Lemma abs_cert_mu_B : abs_B_cert.(vm_mu) = 2.
+Proof.
+  unfold abs_B_cert, abs_zero.
+  rewrite vm_apply_certify_mu_charged. unfold po1_init. simpl. reflexivity.
+Qed.
+
+Theorem cert_model_mu_necessity :
+  ~ exists (Omega : CertAnnotatedShadow -> nat),
+      forall s, Omega (P_cert s) = s.(vm_mu).
+Proof.
+  apply (generic_mu_necessity P_cert abs_A_cert abs_B_cert).
+  - exact abs_cert_shadow_equal.
+  - rewrite abs_cert_mu_A, abs_cert_mu_B. discriminate.
+Qed.
+
+Theorem mu_ledger_mutual_independence :
+  (~ exists (Omega : StrictShadow -> nat),
+       forall s, Omega (P_strict s) = s.(vm_mu)) /\
+  (~ exists (Omega : StrictShadow -> bool),
+       forall s, Omega (P_strict s) = s.(vm_certified)) /\
+  (~ exists (Omega : CostShadow -> bool),
+       forall s, Omega (P_cost s) = s.(vm_certified)) /\
+  (~ exists (Omega : CertAnnotatedShadow -> nat),
+       forall s, Omega (P_cert s) = s.(vm_mu)).
+Proof.
+  exact (conj turing_ram_mu_necessity
+        (conj turing_ram_cert_necessity
+        (conj cost_model_cert_necessity
+              cert_model_mu_necessity))).
+Qed.
+
+Definition P_turing_machine : VMState -> StrictShadow := P_strict.
+
+Theorem turing_machine_mu_necessity :
+  ~ exists (Omega : StrictShadow -> nat),
+      forall s, Omega (P_turing_machine s) = s.(vm_mu).
+Proof. exact turing_ram_mu_necessity. Qed.
+
+Theorem turing_machine_cert_necessity :
+  ~ exists (Omega : StrictShadow -> bool),
+      forall s, Omega (P_turing_machine s) = s.(vm_certified).
+Proof. exact turing_ram_cert_necessity. Qed.
+
+Definition P_cost_ram : VMState -> CostShadow := P_cost.
+
+Theorem cost_ram_cert_necessity :
+  ~ exists (Omega : CostShadow -> bool),
+      forall s, Omega (P_cost_ram s) = s.(vm_certified).
+Proof. exact cost_model_cert_necessity. Qed.
+
+Definition P_effect_system : VMState -> CertAnnotatedShadow := P_cert.
+
+Theorem effect_system_mu_necessity :
+  ~ exists (Omega : CertAnnotatedShadow -> nat),
+      forall s, Omega (P_effect_system s) = s.(vm_mu).
+Proof. exact cert_model_mu_necessity. Qed.
+
+Definition mu_complete {C : Type} (P : VMState -> C) : Prop :=
+  exists (Omega : C -> nat), forall s, Omega (P s) = s.(vm_mu).
+
+Definition cert_complete {C : Type} (P : VMState -> C) : Prop :=
+  exists (Omega : C -> bool), forall s, Omega (P s) = s.(vm_certified).
+
+Definition set_mu (s : VMState) (new_mu : nat) : VMState := {|
+  vm_graph     := s.(vm_graph);
+  vm_csrs      := s.(vm_csrs);
+  vm_regs      := s.(vm_regs);
+  vm_mem       := s.(vm_mem);
+  vm_pc        := s.(vm_pc);
+  vm_mu        := new_mu;
+  vm_mu_tensor := s.(vm_mu_tensor);
+  vm_err       := s.(vm_err);
+  vm_logic_acc := s.(vm_logic_acc);
+  vm_mstatus   := s.(vm_mstatus);
+  vm_witness   := s.(vm_witness);
+  vm_certified := s.(vm_certified)
+|}.
+
+Definition set_cert (s : VMState) (new_cert : bool) : VMState := {|
+  vm_graph     := s.(vm_graph);
+  vm_csrs      := s.(vm_csrs);
+  vm_regs      := s.(vm_regs);
+  vm_mem       := s.(vm_mem);
+  vm_pc        := s.(vm_pc);
+  vm_mu        := s.(vm_mu);
+  vm_mu_tensor := s.(vm_mu_tensor);
+  vm_err       := s.(vm_err);
+  vm_logic_acc := s.(vm_logic_acc);
+  vm_mstatus   := s.(vm_mstatus);
+  vm_witness   := s.(vm_witness);
+  vm_certified := new_cert
+|}.
+
+Definition proj_forgets_mu {C : Type} (P : VMState -> C) : Prop :=
+  forall (s : VMState) (m : nat), P (set_mu s m) = P s.
+
+Definition proj_forgets_cert {C : Type} (P : VMState -> C) : Prop :=
+  forall (s : VMState) (b : bool), P (set_cert s b) = P s.
+
+Theorem forgets_mu_not_mu_complete :
+  forall {C : Type} (P : VMState -> C),
+    proj_forgets_mu P -> ~ mu_complete P.
+Proof.
+  intros C P Hforg.
+  apply (generic_mu_necessity P (set_mu abs_zero 1) (set_mu abs_zero 2)).
+  - rewrite (Hforg abs_zero 1), (Hforg abs_zero 2). reflexivity.
+  - unfold set_mu, abs_zero, po1_init. simpl. discriminate.
+Qed.
+
+Theorem forgets_cert_not_cert_complete :
+  forall {C : Type} (P : VMState -> C),
+    proj_forgets_cert P -> ~ cert_complete P.
+Proof.
+  intros C P Hforg.
+  apply (generic_cert_necessity P (set_cert abs_zero true) (set_cert abs_zero false)).
+  - rewrite (Hforg abs_zero true), (Hforg abs_zero false). reflexivity.
+  - unfold set_cert, abs_zero, po1_init. simpl. discriminate.
+Qed.
+
+Lemma P_strict_forgets_mu : proj_forgets_mu P_strict.
+Proof. intros s m. unfold P_strict, set_mu. simpl. reflexivity. Qed.
+
+Lemma P_strict_forgets_cert : proj_forgets_cert P_strict.
+Proof. intros s b. unfold P_strict, set_cert. simpl. reflexivity. Qed.
+
+Lemma P_cost_forgets_cert : proj_forgets_cert P_cost.
+Proof. intros s b. unfold P_cost, set_cert. simpl. reflexivity. Qed.
+
+Lemma P_cert_forgets_mu : proj_forgets_mu P_cert.
+Proof. intros s m. unfold P_cert, set_mu. simpl. reflexivity. Qed.
+
+Record FullMuLedgerShadow := mk_full_mu_ledger {
+  fml_mem       : list nat;
+  fml_regs      : list nat;
+  fml_pc        : nat;
+  fml_mu        : nat;
+  fml_certified : bool
+}.
+
+Definition P_full (s : VMState) : FullMuLedgerShadow := {|
+  fml_mem       := s.(vm_mem);
+  fml_regs      := s.(vm_regs);
+  fml_pc        := s.(vm_pc);
+  fml_mu        := s.(vm_mu);
+  fml_certified := s.(vm_certified)
+|}.
+
+Lemma P_full_mu_complete : mu_complete P_full.
+Proof.
+  exists fml_mu. intro s. unfold P_full. simpl. reflexivity.
+Qed.
+
+Lemma P_full_cert_complete : cert_complete P_full.
+Proof.
+  exists fml_certified. intro s. unfold P_full. simpl. reflexivity.
+Qed.
+
+Lemma P_cost_mu_complete : mu_complete P_cost.
+Proof. exists cs_mu. intro s. unfold P_cost. simpl. reflexivity. Qed.
+
+Lemma P_cert_cert_complete : cert_complete P_cert.
+Proof. exists cas_certified. intro s. unfold P_cert. simpl. reflexivity. Qed.
+
+Theorem mu_ledger_minimality :
+  mu_complete P_full /\ cert_complete P_full /\
+  ~ mu_complete P_strict /\ ~ cert_complete P_strict /\
+  mu_complete P_cost /\ ~ cert_complete P_cost /\
+  cert_complete P_cert /\ ~ mu_complete P_cert.
+Proof.
+  refine (conj P_full_mu_complete
+         (conj P_full_cert_complete
+         (conj _ (conj _ (conj P_cost_mu_complete
+                         (conj _ (conj P_cert_cert_complete _))))))).
+  - exact (forgets_mu_not_mu_complete P_strict P_strict_forgets_mu).
+  - exact (forgets_cert_not_cert_complete P_strict P_strict_forgets_cert).
+  - exact (forgets_cert_not_cert_complete P_cost P_cost_forgets_cert).
+  - exact (forgets_mu_not_mu_complete P_cert P_cert_forgets_mu).
+Qed.
+
+Corollary P_full_is_minimal_complete_extension :
+  mu_complete P_full /\ cert_complete P_full /\
+  (forall {C : Type} (P : VMState -> C),
+     proj_forgets_mu P -> ~ mu_complete P) /\
+  (forall {C : Type} (P : VMState -> C),
+     proj_forgets_cert P -> ~ cert_complete P).
+Proof.
+  exact (conj P_full_mu_complete
+        (conj P_full_cert_complete
+        (conj (@forgets_mu_not_mu_complete)
+              (@forgets_cert_not_cert_complete)))).
 Qed.
 
 (** --- Part B: Revelation requirement --- *)
@@ -10152,6 +10988,14 @@ Print Assumptions vm_apply_certified.
 Print Assumptions single_step_certified_implies_positive_mu.
 Print Assumptions kernel_certified_implies_positive_mu.
 
+(* Ledger necessity / minimal complete projection *)
+Print Assumptions mu_ledger_necessity.
+Print Assumptions vm_mu_not_classically_determined.
+Print Assumptions vm_certified_not_classically_determined.
+Print Assumptions mu_ledger_mutual_independence.
+Print Assumptions mu_ledger_minimality.
+Print Assumptions P_full_is_minimal_complete_extension.
+
 (* No Free Insight *)
 Print Assumptions non_cert_setter_preserves_cert.
 Print Assumptions supra_cert_implies_structure_addition.
@@ -10167,7 +11011,8 @@ Print Assumptions physical_cost_equals_mu.
     [let _ := ...] bindings force Coq to verify each named theorem is well-typed.
     The [1 <> 0] goal is the trivial anchor — the real work is the type-check.
     If this compiles: vm_apply_mu, run_vm_mu_monotonic, vm_apply_certified,
-    kernel_certified_implies_positive_mu, strengthening_requires_structure_addition,
+    kernel_certified_implies_positive_mu, mu_ledger_necessity,
+    mu_ledger_minimality, strengthening_requires_structure_addition,
     mu_is_initial_monotone, mu_initiality, physical_cost_equals_mu — all proven.
     No admits. No gaps. This lemma is the machine's signature on its own proof. *)
 Lemma core_connectivity_check :
@@ -10175,6 +11020,8 @@ Lemma core_connectivity_check :
   let _ := run_vm_mu_monotonic in
   let _ := vm_apply_certified in
   let _ := kernel_certified_implies_positive_mu in
+  let _ := mu_ledger_necessity in
+  let _ := mu_ledger_minimality in
   let _ := strengthening_requires_structure_addition in
   let _ := mu_is_initial_monotone in
   let _ := mu_initiality in

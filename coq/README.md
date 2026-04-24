@@ -25,7 +25,8 @@ make -j4
 
 | Directory | Description |
 |-----------|-------------|
-| `kernel/` | Core kernel proofs (VMState, VMStep, NoFreeInsight, μ-accounting, CHSH / bounds work) |
+| top-level `NecessityOfMuLedger.v` | Strict classical projection cannot recover μ/certification receipts |
+| `kernel/` | Core kernel proofs (VMState, VMStep, NoFreeInsight, μ-accounting, necessity/minimality, CHSH / bounds work) |
 | `kami_hw/` | Kami hardware spec, extraction, and refinement-facing proofs |
 | `thielemachine/` | Main Thiele Machine proofs and verification layers |
 | `physics/` | Physics-model formalizations and embeddings |

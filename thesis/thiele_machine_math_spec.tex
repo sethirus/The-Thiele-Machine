@@ -54,7 +54,7 @@ This is the complete mathematical specification of the Thiele Machine: a formal 
 
 Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction matters and I keep it explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
-The document covers: the full state space and operational semantics; No Free Insight; computational universality and Turing strictness; gauge symmetry and Noether conservation; conditional connections to quantum mechanics (Born rule, Tsirelson bound, no-cloning, unitarity, complex amplitudes, Schr\"odinger equation) under named physical axioms; spacetime emergence and the Landauer bridge; the Thiele Manifold and self-reference tower; and falsifiable predictions with concrete failure modes.
+The document covers: the full state space and operational semantics; No Free Insight; $\mu$-ledger necessity and minimality; computational universality and Turing strictness; gauge symmetry and Noether conservation; conditional connections to quantum mechanics (Born rule, Tsirelson bound, no-cloning, unitarity, complex amplitudes, Schr\"odinger equation) under named physical axioms; spacetime emergence and the Landauer bridge; the Thiele Manifold and self-reference tower; and falsifiable predictions with concrete failure modes.
 \end{abstract}
 
 \tableofcontents
@@ -71,7 +71,7 @@ The central claim, proven formally: \emph{you cannot gain structural insight abo
 Eight parts:
 \begin{enumerate}
     \item \textbf{Foundations}: State space, instruction set, operational semantics.
-    \item \textbf{Core Theorems}: No Free Insight, $\mu$-Chaitin, cost = complexity.
+    \item \textbf{Core Theorems}: No Free Insight, $\mu$-ledger necessity, $\mu$-Chaitin, cost = complexity.
     \item \textbf{Computation}: Universality, strict subsumption, confluence, halting.
     \item \textbf{Symmetry \& Conservation}: $\mu$-conservation, Noether/gauge, receipts.
     \item \textbf{Quantum Mechanics}: Born rule, Tsirelson, no-cloning, unitarity, complex amplitudes, Schr\"odinger, Planck.
@@ -272,6 +272,52 @@ The proof is parametric: \texttt{NoFreeInsight\_Theorem.v} proves the theorem fo
 \begin{corollary}[Cost of Insight]
 Gaining insight (strengthening the predicate) implies $\Delta\mu > 0$.
 \end{corollary}
+
+\section{$\mu$-Ledger Necessity}
+
+\begin{theorem}[$\mu$-Ledger Necessity and Complete Independence Classification {\normalfont (NecessityOfMuLedger.v, kernel/NecessityAbstract.v)} --- \textbf{(S)}]
+\label{thm:mu_ledger_necessity}
+Five independence results are formally proven, zero Admitted:
+\begin{enumerate}
+\item $\mu \perp (\texttt{mem}, \texttt{regs}, \texttt{pc})$: no strict-classical oracle recovers $\mu$ \hfill \texttt{turing\_ram\_mu\_necessity}
+\item $\texttt{certified} \perp (\texttt{mem}, \texttt{regs}, \texttt{pc})$: no strict-classical oracle recovers certification \hfill \texttt{turing\_ram\_cert\_necessity}
+\item $\texttt{certified} \perp (\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu)$: knowing $\mu$ does not determine certification \hfill \texttt{cost\_model\_cert\_necessity}
+\item $\mu \perp (\texttt{mem}, \texttt{regs}, \texttt{pc}, \texttt{certified})$: knowing certification does not determine $\mu$ \hfill \texttt{cert\_model\_mu\_necessity}
+\item $\texttt{vm\_graph} \perp (\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu, \texttt{certified})$: the categorical layer is independent of the full $\mu$-ledger shadow \hfill \texttt{graph\_not\_recoverable\_from\_P\_full}
+\end{enumerate}
+\textbf{Three-component independence} (\texttt{thiele\_state\_three\_component\_independence}): $\mu$, \texttt{vm\_certified}, and \texttt{vm\_graph} are the three provably independent non-classical state components. Each is irrecoverable from any combination of the others plus $(\texttt{mem}, \texttt{regs}, \texttt{pc})$.
+
+\textbf{Minimality} (\texttt{P\_full\_is\_minimal\_complete\_extension}): $(\texttt{mem}, \texttt{regs}, \texttt{pc}, \mu, \texttt{certified})$ is the minimal complete extension of classical state for $\mu$ and certification. Graph structure is a third independent axis.
+
+\textbf{Universality} (\texttt{mu\_ledger\_necessity\_universal}): The separation holds from \emph{every} VMState, not only from crafted zero-state witnesses. From any reachable state, \texttt{CERTIFY 0} and \texttt{PNEW [] 0} produce identical strict classical shadows but different $\mu$ and certification.
+
+\textbf{Trace closure} (\texttt{po1\_trace\_necessity}): For any common prefix program of any length, the two witness extensions maintain equal strict shadows but strictly different $\mu$. No accumulation of classical computation closes the gap.
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+Each separation uses explicit witnesses where equal projected inputs force equal oracle outputs, while the witness states require unequal outputs---a contradiction. Strict shadow equality: both \texttt{CERTIFY 0} and \texttt{PNEW [] 0} advance \texttt{pc} by 1 and preserve \texttt{mem}/\texttt{regs}. $\mu$ divergence: CERTIFY charges $S(0)=1$; PNEW charges 0. Graph separation uses \texttt{categorical\_separation} from \texttt{PartitionSeparation.v}: two states with identical $P_{\text{full}}$ but different \texttt{pg\_morphisms}. Universality follows because \texttt{vm\_apply\_certify\_strict\_shadow} and \texttt{vm\_apply\_pnew\_strict\_shadow} hold for arbitrary source states.
+\end{proof}
+
+\begin{theorem}[Latent $\mu$: Cost is Intrinsic to Computation {\normalfont (NecessityOfMuLedger.v §7)} --- \textbf{(S)}]
+\label{thm:latent_mu}
+The $\mu$-cost accumulated by any computation is a property of the instruction sequence, not of any tracking system. Four results, all zero Admitted:
+
+\begin{enumerate}
+\item \texttt{shadow\_mu\_is\_computation\_intrinsic}: For any program \texttt{prog} and any starting state $s$:
+\[
+(\texttt{run\_instrs}\ s\ \texttt{prog}).\mu = s.\mu + \texttt{trace\_total\_cost}(\texttt{prog})
+\]
+The increment is determined entirely by the instruction sequence---independent of vm\_graph, vm\_regs, vm\_mem, vm\_certified, and the starting $\mu$.
+
+\item \texttt{shadow\_mu\_delta\_universal}: Two machines running the same program from any two starting states accumulate the same additional $\mu$. The cost is written in the program before execution begins.
+
+\item \texttt{shadow\_mu\_unique\_accounting}: Any instruction-consistent accounting system $M$ satisfying $M(s) = 0$ at the starting state assigns exactly \texttt{trace\_total\_cost} to the result. Replace the Thiele Machine's $\mu$-counter with any other honest accounting and you get the same number.
+
+\item \texttt{shadow\_mu\_inevitable}: Any program containing an instruction with positive declared cost accumulates strictly positive $\mu$ from any starting state. There is no free computation.
+\end{enumerate}
+
+\textbf{Interpretation.} A Turing machine executing a program pays exactly \texttt{trace\_total\_cost} in latent $\mu$ on every execution. The cost was always there---forced by the instruction sequence---but the Turing machine had no mechanism to record or expose it. The $\mu$-ledger does not create this cost. It reveals what every computation was already paying.
+\end{theorem}
 
 \section{Partition Refinement and No Free Insight}
 
@@ -1522,6 +1568,17 @@ Hyper-Thiele Oracle & \texttt{thielemachine/coqproofs/HyperThiele\_Halting.v} \\
 \hline
 Partition Ops Free, Certification Non-Free & \texttt{kernel/PartitionRefinementNoFI.v} \\
 Partition Refinement Non-Free & \texttt{kernel/PartitionRefinementNoFI.v} \\
+$\mu$-Ledger Necessity (5-way independence classification) & \texttt{NecessityOfMuLedger.v}, \texttt{kernel/NecessityAbstract.v} \\
+$\mu$-Ledger Universal Necessity (from any VMState) & \texttt{NecessityOfMuLedger.v}: \texttt{mu\_ledger\_necessity\_universal} \\
+$\mu$-Ledger Trace Closure (any prefix length) & \texttt{NecessityOfMuLedger.v}: \texttt{po1\_trace\_necessity} \\
+Latent $\mu$ Intrinsic to Computation & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_is\_computation\_intrinsic} \\
+$\mu$ Cost Universal Across Machines & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_delta\_universal} \\
+$\mu$ Cost Unique Across Accounting Systems & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_unique\_accounting} \\
+No Free Computation (inevitable $\mu$) & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_inevitable} \\
+Graph Independence from $P_{\text{full}}$ & \texttt{kernel/NecessityAbstract.v}: \texttt{graph\_not\_recoverable\_from\_P\_full} \\
+Three-Component Independence Classification & \texttt{kernel/NecessityAbstract.v}: \texttt{thiele\_state\_three\_component\_independence} \\
+CERTIFY-$d$ Trace Cost Lower Bound ($\ge S(d)$) & \texttt{kernel/QuantitativeNoFI.v}: \texttt{certify\_d\_trace\_cost\_lower\_bound} \\
+General Algebraic Tsirelson ($S^2 \le 8$, all coherent) & \texttt{kernel/AlgebraicCoherence.v}: \texttt{algebraically\_coherent\_tsirelson\_general} \\
 $\mu$P / $\mu$NP definitions + Classical $\subseteq$ $\mu$P & \texttt{kernel/MuComplexity.v} \\
 CHSH Trial Is Tier 0 & \texttt{kernel/WitnessInsightGeneral.v} \\
 Three-Tier Observation Taxonomy & \texttt{kernel/WitnessInsightGeneral.v} \\
@@ -1558,6 +1615,8 @@ Halting Undecidability & \textbf{(S)} & Diagonalization \\
 Oracle Cost & \textbf{(S)} & Definitional (soundness $:=$ cost $\ge 1$) \\
 Confluence & \textbf{(S)} & Module independence \\
 $\mu$-Conservation & \textbf{(S)} & Machine semantics only \\
+$\mu$-Ledger Necessity & \textbf{(S)} & Machine semantics + explicit witnesses \\
+$\mu$-Ledger Minimality & \textbf{(S)} & Named projection lattice in \texttt{NecessityAbstract.v} \\
 Receipt Integrity & \textbf{(S)} & Hash-chain model \\
 Gauge / Noether & \textbf{(S)} & Definitional (record structure) \\
 Genesis & \textbf{(S)} & Definitional isomorphism \\

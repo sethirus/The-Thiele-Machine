@@ -743,9 +743,10 @@ Qed.
   in physics literature). Quantum violations are stated as |S| = 2√2 > 2.
 
   COMPARISON TO QUANTUM BOUNDS: This proves |S_classical| ≤ 2 for deterministic
-  local strategies. AlgebraicCoherence.v proves only the symmetric rational
-  Tsirelson-style cap plus a weak general bound, so this file should not claim
-  the full quantum theorem.
+  local strategies. AlgebraicCoherence.v now proves the GENERAL Tsirelson bound
+  |S| ≤ 5657/2000 ≈ 2√2 for all algebraically coherent correlators
+  (algebraically_coherent_tsirelson_general, closed via CSDP/psatz).
+  This file covers the classical bound only.
 
   To falsify: Same as main theorem - find strategy where |S| > 2.
 

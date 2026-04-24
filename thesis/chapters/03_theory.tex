@@ -114,6 +114,30 @@ A \textbf{state projection} $\pi: S \to S'$ maps full machine state to a canonic
 \end{definition}
 \end{tcolorbox}
 
+\subsubsection{The Formal Epistemological Gap}
+
+The Turing model is a complete model of computable functions. It is provably silent on computational epistemology. This is not a philosophical claim---it is a machine-checked theorem.
+
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=\textbf{Complete Independence Classification (Proven in Coq, Zero Admits)}]
+Let $P_{\text{strict}} = (\texttt{vm\_mem}, \texttt{vm\_regs}, \texttt{vm\_pc})$ denote the strict classical projection---exactly what a Turing machine or RAM machine can observe. The following five independence results are formally proven:
+
+\begin{enumerate}
+    \item $\mu \perp P_{\text{strict}}$: no function of (mem, regs, pc) recovers $\mu$ \hfill \texttt{turing\_ram\_mu\_necessity}
+    \item $\texttt{certified} \perp P_{\text{strict}}$: no function of (mem, regs, pc) recovers certification \hfill \texttt{turing\_ram\_cert\_necessity}
+    \item $\texttt{certified} \perp (P_{\text{strict}}, \mu)$: knowing $\mu$ does not determine certification \hfill \texttt{cost\_model\_cert\_necessity}
+    \item $\mu \perp (P_{\text{strict}}, \texttt{certified})$: knowing certification does not determine $\mu$ \hfill \texttt{cert\_model\_mu\_necessity}
+    \item $\texttt{vm\_graph} \perp (P_{\text{strict}}, \mu, \texttt{certified})$: the categorical layer is independent of the full $\mu$-ledger shadow \hfill \texttt{graph\_not\_recoverable\_from\_P\_full}
+\end{enumerate}
+
+\textbf{Corollary} (\texttt{thiele\_state\_three\_component\_independence}): The Thiele Machine has exactly three independent non-classical state components---$\mu$, \texttt{vm\_certified}, and \texttt{vm\_graph}---each provably irrecoverable from any combination of the others together with $P_{\text{strict}}$.
+
+\textbf{Minimality} (\texttt{P\_full\_is\_minimal\_complete\_extension}): The projection $P_{\text{full}} = (P_{\text{strict}}, \mu, \texttt{certified})$ is the minimal extension of classical state that determines both $\mu$ and certification. Dropping either field destroys the corresponding completeness. Adding \texttt{vm\_graph} does not affect $\mu$ or certification completeness---graph structure is a third independent axis.
+\end{tcolorbox}
+
+\textbf{The separation is universal, not an artifact of crafted witnesses.} \texttt{mu\_ledger\_necessity\_universal} (\path{coq/NecessityOfMuLedger.v}) proves that from \emph{any} VMState---not only from a specially constructed starting point---the instructions \texttt{CERTIFY 0} and \texttt{PNEW [] 0} produce identical strict classical shadows but strictly different $\mu$ and certification. \texttt{po1\_trace\_necessity} proves that prepending any common prefix program of any length does not close the gap. No amount of classical computation makes the ledger visible to a classical observer.
+
+\textbf{Interpretation.} A Turing machine running inside the Thiele Machine computes the same functions it always could. What it cannot do---provably, not by design limitation---is issue or observe an unforgeable receipt for what those computations cost in structural knowledge. The $\mu$-ledger lives in a part of state space that is structurally opaque to any classical observer. This is the formal content of the claim that the Turing model is silent on computational epistemology.
+
 \section{The Formal Model: $T = (S, \Pi, A, R, L)$}
 
 The Thiele Machine is formally defined as a 5-tuple $T = (S, \Pi, A, R, L)$, representing a computational system that is explicitly aware of its own structural decomposition.
@@ -187,7 +211,7 @@ Each component serves a specific purpose:
     \item \textbf{vm\_mu\_tensor}: A flattened $4 \times 4$ cost tensor (16 entries, row-major). The \texttt{REVEAL} instruction charges specific tensor entries, and the Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is enforced every cycle in hardware. This connects $\mu$-accounting to metric-space geometry.
     \item \textbf{vm\_err}: Error flag (latching)
     \item \textbf{vm\_logic\_acc}: Logic engine accumulator. High-value operations (REVEAL, PDISCOVER, CHSH\_TRIAL) require this to hold the gate key \texttt{0xCAFEEACE}. Mirrors the RTL \texttt{logic\_acc} register.
-    \item \textbf{vm\_mstatus}: Mode selector: 0 = Turing mode (standard execution), 1 = Thiele mode (structure-aware with $\mu$-cost enforcement).
+    \item \textbf{vm\_mstatus}: Operational mode flag. Certain structural operations check this field. The $\mu$-ledger charges unconditionally regardless of this flag---the necessity proofs (\path{coq/NecessityOfMuLedger.v}) run from states with \texttt{vm\_mstatus = 0} and \texttt{CERTIFY} still charges $\mu$ by the definition of \texttt{vm\_apply}. The ledger is not a mode-dependent feature; it is part of the machine's formal semantics at all times.
     \item \textbf{vm\_witness}: Eight CHSH trial counters (same/different $\times$ four setting pairs). Updated by \texttt{CHSH\_TRIAL} and read by the certification path.
     \item \textbf{vm\_certified}: State-based certification flag, set by the \texttt{CERTIFY} instruction when the witness counters satisfy the CHSH threshold. Once set, it cannot be cleared---certification is irreversible.
 \end{itemize}
@@ -849,6 +873,20 @@ Definition apply_cost (s : VMState) (instr : vm_instruction) : nat :=
 \end{itemize}
 
 \textbf{Atomicity Guarantee:} When the step relation updates the state, the $\mu$-ledger update and all other state changes happen together—no partial updates are possible in the formal model.
+
+\subsubsection{Uniqueness of $\mu$: The Initiality Theorem}
+
+The $\mu$-ledger is not merely \emph{a} valid cost measure---it is \emph{the} cost measure. The proof has two parts with different statuses.
+
+\textbf{Part 1 (ISA declares costs; information theory bounds them below):} Instruction costs are declared in \path{coq/kernel/VMStep.v} as part of the ISA. \path{coq/kernel/MuCostDerivation.v} proves unconditionally that these costs satisfy information-theoretic lower bounds: any implementation paying both the Shannon entropy cost ($\ge \log_2(\Omega/\Omega')$ for state-space reduction) and the description complexity cost ($\ge |\phi|_{\text{bits}}$ for the certified formula) must pay at least \texttt{lassert\_total\_cost} (\texttt{cost\_necessity}). Reversible operations (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}) are proven to require zero cost (\texttt{partition\_ops\_zero\_cost}). These are structural results, zero Admitted. \emph{What is not claimed here:} that costs are forced to equal (not merely exceed) these minima from Coq semantics alone. The conversion of $\mu$-costs to physical energy requires the Landauer-Unruh calibration hypothesis, which is a \textbf{(C)}-tier conditional and explicitly tagged as such throughout the development.
+
+\textbf{Part 2 (Costs $\to$ Unique $\mu$, unconditional):} Given whatever costs the ISA declares, \path{coq/kernel/MuInitiality.v} proves:
+
+\begin{theorem}[$\mu$-Initiality, \texttt{mu\_is\_initial\_monotone} --- unconditional, zero Admitted]
+For any function $M : \texttt{VMState} \to \mathbb{N}$, if $M$ is instruction-consistent (advances by \texttt{instruction\_cost} at each step) and $M(\texttt{init\_state}) = 0$, then $M(s) = s.\texttt{vm\_mu}$ for every reachable state $s$.
+\end{theorem}
+
+This is unconditional. It does not depend on where the instruction costs came from. Any two instruction-consistent monotones starting at zero must agree everywhere on reachable states (\texttt{consistent\_monotones\_agree}). There is no alternative accounting. The bedrock claim is therefore: \emph{given the ISA cost declarations, $\mu$ is the unique cost functional. There is no design freedom in $\mu$ once the ISA is fixed.}
 
 \subsection{Conservation Laws}
 
