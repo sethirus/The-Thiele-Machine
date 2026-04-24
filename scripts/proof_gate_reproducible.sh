@@ -21,10 +21,10 @@ make -C "$COQ_DIR" -j"$(nproc)" > "$ART_DIR/make_build.log" 2>&1
 echo "[proof] zero Admitted gate"
 # Use ^\s*Admitted\. to match only actual proof-hole tactics, not comments that
 # say "Zero Admitted." (e.g., (* ... zero Admitted. *)) which are status notes.
-admitted_count=$(grep -Rnsp --include='*.v' '^\s*Admitted\.' "$COQ_DIR" | grep -v patches | wc -l || true)
+admitted_count=$(grep -Rns --include='*.v' '^\s*Admitted\.' "$COQ_DIR" | grep -v patches | wc -l || true)
 echo "admitted_count=$admitted_count" | tee "$ART_DIR/admitted_count.txt"
 if [[ "$admitted_count" != "0" ]]; then
-  grep -Rnsp --include='*.v' '^\s*Admitted\.' "$COQ_DIR" | grep -v patches > "$ART_DIR/admitted_hits.txt" || true
+  grep -Rns --include='*.v' '^\s*Admitted\.' "$COQ_DIR" | grep -v patches > "$ART_DIR/admitted_hits.txt" || true
   echo "FAIL: found Admitted proofs"
   exit 1
 fi
@@ -40,7 +40,7 @@ echo "[proof] coqchk reproducibility gate"
 ) > "$ART_DIR/coqchk_bisim.log" 2>&1
 (
   cd "$COQ_DIR"
-  coqchk -R kernel Kernel -R bridge Bridge Kernel.VMState Kernel.VMStep Bridge.PythonMuLedgerBisimulation
+  coqchk -R kernel Kernel Kernel.VMState Kernel.VMStep Kernel.PythonBisimulation
 ) > "$ART_DIR/coqchk_bridge.log" 2>&1
 
 sha256sum "$ART_DIR"/*.log "$ART_DIR"/*.txt > "$ART_DIR/checksums.sha256"
