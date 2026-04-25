@@ -658,7 +658,7 @@ Reveals $\mathit{bits}$ bits from module $m$ as part of a non-local revelation p
 
 \subsection{Group 7: Categorical morphism operations (7 opcodes)}
 
-These are the opcodes that make the Thiele Machine something a Turing machine cannot simulate without losing structure. I will explain what a morphism is before listing the opcodes.
+These are the opcodes that place a program outside the classical fragment (\texttt{is\_classical\_opcode} returns false for all of them). A Turing Machine can simulate programs using these opcodes by encoding the full Thiele state on its tape, but only by also implementing the $\mu$-ledger cost semantics --- any simulation that omits that accounting loses the structural entitlement guarantees. I will explain what a morphism is before listing the opcodes.
 
 A \emph{morphism} is a record saying: ``module $A$ is related to module $B$ in this specific, named way.'' Not just ``$A$ and $B$ exist.'' Not just ``$A$ and $B$ are connected by an edge.'' A morphism has a source module ID, a target module ID, coupling data (a list of (source-cell, target-cell) pairs plus a label string), and an is-identity flag.
 
@@ -797,7 +797,7 @@ No function of the classical shadow, the tuple $(\texttt{vm\_regs}, \texttt{vm\_
 
 \begin{corollary}[Thiele strictly extends classical, \texttt{TuringStrictness.v}, zero Admitted]
 \label{cor:strict}
-Every classical program leaves \texttt{pg\_next\_id} unchanged. There exist Thiele programs that change \texttt{pg\_next\_id} (via PNEW). Therefore Thiele strictly extends classical computation: not just in the sense that it can compute the same things, but in the sense that it can represent and probe states that classical programs cannot reach.
+Every program in the classical fragment --- programs restricted to \texttt{is\_classical\_opcode}, meaning no graph mutations, no cert-channel ops, no witness ops --- leaves \texttt{pg\_next\_id} unchanged. There exist Thiele programs that change \texttt{pg\_next\_id} (via PNEW). Therefore Thiele strictly extends the classical fragment: it can represent and probe states that no program in that fragment can reach. A Universal Turing Machine can simulate the full Thiele state by encoding it on tape; what it cannot do is produce that state without expending the equivalent structural work --- the $\mu$-ledger cost is preserved under any faithful simulation.
 \end{corollary}
 
 The classical machine simulates inside the Thiele Machine faithfully (every classical program runs correctly, no side effects on the structural layer). But the Thiele Machine has programs that escape the classical fragment. This is proven, not claimed. Zero Admitted.
