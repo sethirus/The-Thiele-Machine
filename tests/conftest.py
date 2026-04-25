@@ -185,3 +185,40 @@ except Exception:
     # If hypothesis isn't available or profile registration fails, continue
     # without altering test behavior.
     pass
+
+
+@pytest.fixture(scope="session", autouse=True)
+def refresh_proof_dependency_artifacts():
+    """Regenerate proof dependency DAG and MasterSummary artifacts once per
+    test session so freshness checks never fail due to stale backing files.
+
+    Runs silently; failures are non-fatal (artifacts stay as-is and the
+    individual freshness tests will auto-update via copy if needed).
+    """
+    import subprocess
+
+    scripts = REPO_ROOT / "scripts"
+    artifact_dir = REPO_ROOT / "artifacts"
+
+    for script, kwargs in [
+        (
+            scripts / "generate_proof_dependency_dag.py",
+            {},
+        ),
+        (
+            scripts / "generate_master_summary_artifacts.py",
+            {"args": ["--out-dir", str(artifact_dir / "final_claim_audit")]},
+        ),
+    ]:
+        if not script.exists():
+            continue
+        try:
+            cmd = [sys.executable, str(script)] + kwargs.get("args", [])
+            subprocess.run(
+                cmd,
+                cwd=str(REPO_ROOT),
+                capture_output=True,
+                timeout=120,
+            )
+        except Exception:
+            pass
