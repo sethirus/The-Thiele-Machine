@@ -208,14 +208,12 @@
 % ============================================================================
 \title{
     \textbf{\Huge The Thiele Machine}\\
-    \Large Computational Isomorphism and the Inevitability of Structure\\
+    \Large Structural Entitlement, Accountable Computation, and No Free Insight\\
     \large A Formal Model Built by Asking Questions
 }
 \author{
     \textbf{Devon Thiele}\\
-    \normalsize Self-taught developer\\
-    \small No formal training. Just persistence.\\
-    \normalsize February 2026
+    \normalsize April 2026
 }
 \date{}
 
@@ -243,21 +241,28 @@ I'm a car salesman. I have no formal training in computer science, mathematics, 
 \textbf{What is proven} (in Coq, zero admits, no project-local axioms in the active audited tree; standard library imports remain):
 \begin{itemize}
     \item \textbf{No Free Insight}: You cannot narrow the search space without paying for it. $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$.
-    \item \textbf{$\mu$-Conservation}: The ledger grows monotonically and bounds irreversible bit operations.
-    \item \textbf{Observational No-Signaling}: Operations on one module cannot affect observables of unrelated modules.
-    \item \textbf{Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
-    \item \textbf{$\mu$-Ledger Necessity}: The ledger is not merely absent from classical computation---it is provably inaccessible. No function of (mem, regs, pc), no matter how much computation has run beforehand, can recover $\mu$, certification, or the categorical structure (vm\_graph). The separation holds from every reachable state, not just crafted witnesses. The full ledger shadow is the minimal complete extension of classical state. Three independent non-classical components are classified: $\mu$, certified, graph---\path{coq/NecessityOfMuLedger.v} and \path{coq/kernel/NecessityAbstract.v}.
-    \item \textbf{Turing Subsumption and Epistemological Gap}: Every Turing computation runs faithfully inside the Thiele Machine with the structural layer frozen. The Thiele Machine strictly extends the Turing model: there exist states reachable by one Thiele instruction that no classical program of any length can reach. The $\mu$-ledger lives in state space that is structurally opaque to classical computation---this is a proven impossibility, not a missing feature---\path{coq/kernel/TuringStrictness.v} (\texttt{D5\_thiele\_strictly\_extends\_classical}).
+    \item \textbf{$\mu$-Conservation}: The ledger grows monotonically; every instruction adds exactly its declared cost, no exceptions.
+    \item \textbf{$\mu$-Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
+    \item \textbf{$\mu$-Hierarchy}: For every $k \ge 1$, level-$k$ certification costs exactly $k$. No shortcut closes the gap.
+    \item \textbf{$\mu$-Ledger Necessity}: The ledger is provably inaccessible to classical observers. No function of (mem, regs, pc) can recover $\mu$, certification, or the categorical structure (vm\_graph). The separation holds from every reachable state---\path{coq/NecessityOfMuLedger.v} and \path{coq/kernel/NecessityAbstract.v}.
+    \item \textbf{Categorical Separation}: Two states with identical classical shadow can differ in morphism structure. No classical probe sees the difference---\path{coq/kernel/PartitionSeparation.v}.
+    \item \textbf{Structural Entitlement Representation}: Strict feasible-set narrowing plus a distinguishing observation yields a strictly stronger predicate, a structure-addition event, and a $\Delta\mu$ lower bound.
+    \item \textbf{Classical CHSH Bound and Tsirelson bound}: $|S| \le 2$ for local strategies; $|S| \le 2\sqrt{2}$ for the zero-marginal NPA model. Both are pure algebraic results, no physics.
+    \item \textbf{Thiele honesty $\iff$ NPA realizability}: A zero-axiom biconditional. The machine's column-contractivity conditions are exactly the zero-marginal NPA polynomial realizability conditions---\path{coq/kernel/ThieleQuantumEquivalence.v}.
+    \item \textbf{Discrete Gauss-Bonnet}: For any well-formed triangulated partition graph in the equilateral angle model, the angle defect equals $5\pi \cdot \chi(g)$. That is the full extent of the geometry result.
+    \item \textbf{Turing Strictness}: The Thiele Machine strictly extends classical computation: states reachable by Thiele instructions cannot be reached by any classical program of any length---\path{coq/kernel/TuringStrictness.v}.
 \end{itemize}
 
 \textbf{What is built}:
 \begin{itemize}
     \item Coq formal kernel (active proof tree, zero admits, no project-local axioms in the active audited tree)
     \item Python reference VM with two-pass assembler (\path{scripts/thiele_asm.py})
-    \item Synthesizable Verilog RTL extracted from Coq through Kami, with ECP5 FPGA bitstream
+    \item Synthesizable Verilog RTL extracted from Coq through Kami
     \item Automated tests enforcing opcode completeness, certificate plumbing, and cross-layer comparison gates
-    \item Falsifiable predictions: linear $\mu$-cost scaling bounds for all 46 opcodes, plus the observation that the cost axiom re-derives known physics bounds (CHSH $\le 2$, Tsirelson $\le 2\sqrt{2}$, Landauer erasure)
+    \item 46 opcodes, all in hardware, all with formal correctness proofs: 30 fully unconditional, 6 requiring valid arguments, 7 unconditional for KamiReachable states, 3 with a semantic boundary. Zero structural gaps.
 \end{itemize}
+
+\textbf{What this project is not}: It is not a claim that I solved P vs NP. It is not a theory of everything. It is not a claim that computation is physics or that physics is computation. The CHSH algebraic result is pure math. The Landauer connection is motivation. That is the full extent of the physics content here.
 
 If you can find an error, find it. Everything is open source, documented, and testable.
 
@@ -304,7 +309,7 @@ If you can find an error, find it. Everything is open source, documented, and te
 \chapter{Experimental Validation Suite}
 \input{chapters/11_experiments}
 
-\chapter{Physics Models and Algorithmic Primitives}
+\chapter{Conditional Geometric Analogs}
 \input{chapters/12_physics_and_primitives}
 
 \chapter{Hardware Implementation and Demonstrations}
@@ -316,7 +321,7 @@ If you can find an error, find it. Everything is open source, documented, and te
 \chapter{Complete Theorem Index}
 \input{appendix/theorem_index}
 
-\chapter{Emergent Schrödinger Equation Proof}
+\chapter{Conditional Schr\"{o}dinger Analog (Reference Only)}
 \input{appendix/emergent_schrodinger}
 
 \bibliographystyle{plain}

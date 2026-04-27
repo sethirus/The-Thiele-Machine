@@ -207,7 +207,7 @@ Record VMState := {
 \paragraph{Understanding VMState Record:}
 
 \begin{quote}
-\textit{Author's Note (Devon): Look, I know what you're thinking. ``Twelve fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these twelve buckets. It's like a car---looks complicated under the hood, but at the end of the day it's just ``make explosions, turn wheels.'' Here it's ``move bits, track cost.''}
+\textit{Author's Note (Devon): Look, I know what you're thinking. ``Twelve fields? That's it?'' Yeah. That's it. Every computation this machine does boils down to shuffling values between these twelve buckets. It looks like a lot. But the whole thing is: move bits, track cost. That is all computation ever was. The ledger is just the part that was always there and nobody was writing down.}
 \end{quote}
 
 \textbf{This is the complete VM state} --- everything needed to simulate one step.
@@ -1136,7 +1136,7 @@ This says: read the current mu register, add the zero-extended cost field, write
 \subsection{Cost Accounting in Hardware}
 
 \begin{quote}
-\textit{Author's Note (Devon): This is where the magic happens, folks. The $\mu$-accumulator is like the odometer on your car---except instead of miles, it tracks information. Every time you ``look'' at something, every time you reveal structure, every time you make a decision---the odometer ticks up. And just like your car's odometer, it only goes one direction. No rolling back. That's the whole game.}
+\textit{Author's Note (Devon): This is the whole game, right here. Every time you look at something---reveal structure, certify a claim, make a decision that can't be unmade---$\mu$ goes up. One direction. Forever. No refunds. I spent months staring at that property before I understood why it was the right one. Monotonicity is not a feature. It is a consequence of what ``knowing something'' actually means.}
 \end{quote}
 
 In the Kami-generated hardware, $\mu$-accounting is handled by a 32-bit register (\texttt{mu}) that is incremented inline within the step rule. There is no separate $\mu$-ALU submodule. The cost field from the instruction word (bits [7:0]) is zero-extended and added to the current mu value on every cycle where an instruction executes.

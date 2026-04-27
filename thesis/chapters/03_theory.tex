@@ -451,7 +451,7 @@ When modules are split, axioms are copied to both children. When modules are mer
 
 \subsection{Transition Rules $R$}
 
-The transition rules define how state evolves. The active implementation exposes a 46-opcode ISA (39 original + 7 categorical morphism opcodes), defined in the formal step semantics.
+The transition rules define how state evolves. The active implementation exposes a 46-opcode ISA, defined in the formal step semantics.
 Each instruction constructor in \path{coq/kernel/VMStep.v} includes an explicit \texttt{mu\_delta} parameter so that the ledger change is part of the semantics, not an external annotation. This makes the cost model part of the operational meaning of each instruction rather than a separate accounting layer.
 
 \subsubsection{Instruction Set}

@@ -36,7 +36,7 @@
 \section{Why Formal Verification?}
 
 \begin{quote}
-\textit{Author's Note (Devon): Okay, confession time. When I first heard about ``formal verification'' I thought it was some academic flex---people writing math to prove their code works instead of, you know, actually running it. Sounds backwards, right? Like hiring a lawyer to prove your car can drive instead of just... driving it. But here's the thing I learned: testing can lie to you. Your tests pass, you feel great, then some edge case appears and your whole house of cards collapses. Formal verification is different. It's not about ``this worked 1000 times.'' It's about ``this works. Period. Forever. Math says so.'' And let me tell you---when Coq accepted the proofs as complete, it hit different than any green test suite ever did.}
+\textit{Author's Note (Devon): Okay, confession time. When I first heard about ``formal verification'' I thought it was some academic flex---people writing math to prove their code works instead of, you know, actually running it. Sounds backwards, right? But here's what I learned: testing can lie to you. Your tests pass, you feel great, then some edge case appears and everything collapses. Formal verification is different. It's not about ``this worked 1000 times.'' It's about ``this works. Period. Forever. Math says so.'' And let me tell you---when Coq accepted the proofs as complete, it hit different than any green test suite ever did.}
 \end{quote}
 
 \subsection{The Limits of Testing}
@@ -748,7 +748,7 @@ By case analysis on the instruction. For each instruction type:
 \node[draw, rounded corners=2pt, fill=yellow!15, minimum width=4.5cm, font=\tiny, align=center, inner sep=3pt] at (0,-4.3) {\textbf{Structural analogy:} $\mu$-shift leaves partition unchanged (fields independent)};
 \end{tikzpicture}
 \caption{Gauge symmetry visualization. Shifting the $\mu$-ledger by a constant $k$ leaves the partition graph $G$ unchanged. Absolute $\mu$ is arbitrary; only differences matter.}
-\label{fig:gauge-symmetry}
+\label{fig:gauge-symmetry-ch5}
 \end{figure}
 
 \begin{lstlisting}
