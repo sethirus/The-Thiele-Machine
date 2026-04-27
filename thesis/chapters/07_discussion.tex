@@ -67,12 +67,10 @@ The thermodynamic bridge hypothesis ($Q \ge k_B T \ln 2 \cdot \mu$) would be \te
 
 The Einstein side of the physics bridge now has a sharper status than earlier drafts of this thesis assumed. In the current repository, the uniform diagonal boundary-of-4-simplex regime is proved directly in Coq through the full tensor pipeline. The stronger statement that arbitrary non-uniform diagonal boundary assignments force off-diagonal Ricci to vanish is not merely unproved; it is formally refuted for the current discrete derivative operator. That means the remaining question is no longer ``can I push harder and prove it anyway?'' but ``is the present operator the right physical discretization?''
 
-\paragraph{QM-Divergent Predictions.}
-The model also produces six quantitative predictions (QD1--QD6) where it diverges from standard quantum mechanics. These include projections for measurement-time ratios, modified Tsirelson bounds under finite $\mu$-budgets, and temperature-dependent CHSH suppression. Each prediction names a concrete experimental observable, a numerical value, and the measurement that would falsify it. These predictions are \textbf{speculative}---they follow from the $\mu$-accounting framework's axioms but have not been experimentally tested. If future experiments confirm or refute any of these values, the theory's empirical standing changes accordingly. The point is that the model commits to numbers rather than hedging.
 
-\section{Broader Implications}
+\section{What the results actually imply}
 
-The Thiele Machine is more than a new computational model; it is a proposal for a new relationship between computation, information, and physical reality. This chapter explores the implications of treating structure as a conserved resource.
+Three kinds of claims live in this chapter and I'm going to be explicit about which is which. The first kind is proven: the $\mu$-hierarchy, No Free Insight, the Thiele-honesty biconditional with NPA realizability. These are theorems. The second kind is conditional: the Landauer thermodynamic bridge connects the ledger to physical energy, but only if you accept the bridge postulate; the postulate is stated explicitly and it is empirically falsifiable. The third kind is proposed but not proven: the structure-aware complexity classes ($\text{P}_\mu$, $\text{NP}_\mu$) are vocabulary for reasoning about the time/structure trade-off, not settled results in complexity theory. I am drawing implications of all three types in this chapter. I will not conflate them.
 
 \section{Connections to Physics}
 
@@ -662,7 +660,7 @@ The Thiele Machine offers:
     \item A new lens for understanding computational complexity, with concrete $\mu$-cost bounds for NP verification and a conservation law linking computation time to structural revelation cost
     \item Turing subsumption: a mechanized proof that the model is exactly Turing-complete (TM $\to$ Minsky $\to$ Thiele), anchoring the structure-aware complexity classes inside classical computability
     \item Oracle impossibility: three theorems bounding the model from above---halting is undecidable, partial oracles cost $\mu$, and hypercomputation is impossible at finite $\mu$
-    \item Six QM-divergent predictions (QD1--QD6) with named observables and numerical values, making the physics bridge empirically falsifiable
+    \item A Thiele-honesty $\iff$ NPA-realizability biconditional (zero axioms, proven in \path{coq/kernel/ThieleQuantumEquivalence.v}), making the quantum connection formally provable rather than merely analogical
 \end{enumerate}
 
 The limitations are real but surmountable. The foundational work---zero-admit proofs, 3-layer comparison discipline, receipt generation---provides a solid base for future research.
