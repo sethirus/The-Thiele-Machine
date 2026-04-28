@@ -63,7 +63,7 @@ EFFICIENT_NAT = r'''module Nat =
  end'''
 
 NAT_MODULE_RE = re.compile(
-    r'module Nat =\n struct\n.*? end\n(?=\nmodule Pos)',
+    r'module Nat =\n struct\n.*?\n end\n',
     re.DOTALL,
 )
 
