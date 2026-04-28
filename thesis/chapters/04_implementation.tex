@@ -218,7 +218,7 @@ Record VMState := {
     \begin{itemize}
         \item Tracks which modules own which memory/register addresses
         \item Contains axiom sets per module
-        \item \textbf{Type}: Defined earlier as \texttt{Record PartitionGraph := \{pg\_next\_id; pg\_modules\}}
+        \item \textbf{Type}: Defined earlier as \texttt{Record PartitionGraph := \{pg\_next\_id; pg\_modules; pg\_next\_morph\_id; pg\_morphisms\}}
     \end{itemize}
     \item \textbf{vm\_csrs : CSRState}: Control and Status Registers
     \begin{itemize}
@@ -292,13 +292,15 @@ In Coq, the register file and memory are lists, with indices masked by \texttt{r
 
 \begin{lstlisting}
 Record PartitionGraph := {
-  pg_next_id : ModuleID;
-  pg_modules : list (ModuleID * ModuleState)
+  pg_next_id       : ModuleID;
+  pg_modules       : list (ModuleID * ModuleState);
+  pg_next_morph_id : MorphismID;
+  pg_morphisms     : list (MorphismID * MorphismState)
 }.
 
 Record ModuleState := {
-  module_region : list nat;
-  module_axioms : AxiomSet;
+  module_region    : list nat;
+  module_axioms    : AxiomSet;
   module_mu_tensor : list nat
 }.
 \end{lstlisting}
@@ -317,6 +319,17 @@ Record ModuleState := {
         \item Type: \texttt{list (ModuleID * ModuleState)}
         \item Pairs: \texttt{(id, state)} entries
         \item Lookup: Linear search (O(n)) but simple and verifiable
+    \end{itemize}
+    \item \textbf{pg\_next\_morph\_id}: Monotonically increasing counter for assigning new MorphismIDs
+    \begin{itemize}
+        \item Same freshness guarantee as \texttt{pg\_next\_id}, applied to arrows
+        \item Type: \texttt{MorphismID} (alias for \texttt{nat})
+    \end{itemize}
+    \item \textbf{pg\_morphisms}: Association list mapping MorphismIDs to morphism states
+    \begin{itemize}
+        \item Type: \texttt{list (MorphismID * MorphismState)}
+        \item Each entry records source module, target module, cell-to-cell coupling, and certification status
+        \item Required for the MORPH, COMPOSE, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_TENSOR, MORPH\_GET opcodes
     \end{itemize}
 \end{itemize}
 

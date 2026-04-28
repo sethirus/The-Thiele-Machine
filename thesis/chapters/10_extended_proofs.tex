@@ -108,7 +108,7 @@ Record GlobalWitness := {
     \item \textbf{witness\_data : list nat} — The \textbf{local proof data}. This could be:
     \begin{itemize}
         \item A SAT witness package (one satisfying assignment plus one falsifying countermodel for local axioms)
-        \item An LRAT proof (proving local constraints are satisfiable)
+        \item A SAT/countermodel pair (the current live LASSERT path)
         \item Measurement outcomes (for experimental modules)
     \end{itemize}
     The witness is \textit{local}---it only proves properties about this module, not the entire partition.

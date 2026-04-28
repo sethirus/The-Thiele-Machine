@@ -54,6 +54,10 @@ The Thiele Machine has five components:
 \end{enumerate}
 Each component corresponds to a concrete artifact in the formal development. The state and partition graph are defined in \path{coq/kernel/VMState.v}; the instruction set and step relation are defined in \path{coq/kernel/VMStep.v}; and the logic engine is represented by certificate checkers in \path{coq/kernel/CertCheck.v}. The point of the 5-tuple is not cosmetic: it is a decomposition that forces every later proof to say which resource it uses (state, partitions, axioms, transitions, or certificates), so that any implementation layer can mirror the same structure without guessing.
 
+\begin{tcolorbox}[colback=blue!5!white,colframe=blue!40!black,title=\textbf{A note on tuple structure}]
+$\Pi$ and $A$ are not independent of $S$: in the Coq record, $\Pi$ is \texttt{S.vm\_graph} and $A$ is \texttt{module\_axioms} nested inside each \texttt{ModuleState} inside $\Pi$. The five components are therefore not orthogonal in the usual automata-theoretic sense. They are called out separately because each one generates a distinct class of proof obligations. $\Pi$ drives all partition-manipulation proofs; $A$ drives the logic-engine correctness proofs; $L$ is the certificate-checking oracle invoked exclusively by \texttt{LASSERT} in $R$. The decomposition is an analytical tool, not a claim that the five are disjoint sets.
+\end{tcolorbox}
+
 \subsection{The Central Innovation: $\mu$-bits}
 
 Here's the key: the \textit{$\mu$-bit currency}---a unit of computational action (thermodynamic cost). Every operation that either performs irreversible work or adds structural knowledge charges a cost in $\mu$-bits. This cost is:
@@ -276,14 +280,29 @@ The partition graph is the central innovation. It represents how state is decomp
 \subsubsection{Formal Definition}
 
 \begin{lstlisting}
+Record CouplingData := {
+  coupling_pairs : list (nat * nat);  (* (source_cell, target_cell) pairs *)
+  coupling_label : string
+}.
+
+Record MorphismState := {
+  morph_source     : ModuleID;
+  morph_target     : ModuleID;
+  morph_coupling   : CouplingData;
+  morph_is_identity : bool;
+  morph_cert_cost  : nat  (* mu paid when MORPH_ASSERT certified this; 0 = uncertified *)
+}.
+
 Record PartitionGraph := {
-  pg_next_id : ModuleID;
-  pg_modules : list (ModuleID * ModuleState)
+  pg_next_id       : ModuleID;
+  pg_modules       : list (ModuleID * ModuleState);
+  pg_next_morph_id : MorphismID;
+  pg_morphisms     : list (MorphismID * MorphismState)
 }.
 
 Record ModuleState := {
-  module_region : list nat;
-  module_axioms : AxiomSet;
+  module_region    : list nat;
+  module_axioms    : AxiomSet;
   module_mu_tensor : list nat  (* Per-module 4x4 metric tensor *)
 }.
 \end{lstlisting}
@@ -315,32 +334,37 @@ The graph is therefore a compact, explicit record of \emph{what has been structu
 
 \subsubsection{Well-Formedness Invariant}
 
-The partition graph must satisfy a well-formedness invariant focused on ID discipline:
+The partition graph must satisfy a three-part well-formedness invariant:
 \begin{lstlisting}
 Definition well_formed_graph (g : PartitionGraph) : Prop :=
-  all_ids_below g.(pg_modules) g.(pg_next_id).
+  all_ids_below g.(pg_modules) g.(pg_next_id) /\
+  all_morph_ids_below g.(pg_morphisms) g.(pg_next_morph_id) /\
+  all_morph_endpoints_valid g.(pg_modules) g.(pg_morphisms).
 \end{lstlisting}
 
-\paragraph{Understanding Well-Formedness:} This definition establishes a crucial invariant that must hold at all times.
+\paragraph{Understanding Well-Formedness:} Three conditions must hold simultaneously.
 
-\textbf{Breaking It Down:}
+\textbf{The Three Conditions:}
 \begin{itemize}
-    \item \textbf{Prop}: In Coq, \texttt{Prop} is the universe of logical propositions. This is not a computable function returning true/false; it's a mathematical statement that is either provable or not.
-    \item \textbf{all\_ids\_below}: A predicate (defined elsewhere) asserting that every \texttt{ModuleID} in the module list is strictly less than \texttt{pg\_next\_id}.
-    \item \textbf{g.(field)}: Coq syntax for accessing record fields. This is notation for \texttt{pg\_modules g} and \texttt{pg\_next\_id g}.
+    \item \textbf{all\_ids\_below}: Every \texttt{ModuleID} in \texttt{pg\_modules} is strictly less than \texttt{pg\_next\_id}. This keeps \texttt{pg\_next\_id} genuinely fresh—creating a new module can safely use it.
+    \item \textbf{all\_morph\_ids\_below}: Every \texttt{MorphismID} in \texttt{pg\_morphisms} is strictly less than \texttt{pg\_next\_morph\_id}. Same freshness guarantee for the morphism ID counter.
+    \item \textbf{all\_morph\_endpoints\_valid}: Every morphism's \texttt{morph\_source} and \texttt{morph\_target} IDs refer to modules that actually exist in \texttt{pg\_modules}. A dangling-endpoint morphism would make the categorical structure unsound.
+    \item \textbf{g.(field)}: Coq syntax for accessing record fields.
 \end{itemize}
 
-\textbf{Why This Invariant?} It ensures that \texttt{pg\_next\_id} is always a valid "fresh" ID. When creating a new module, the system can safely use \texttt{pg\_next\_id} knowing it doesn't conflict with existing IDs, then increment it. This is the standard technique for generating unique identifiers in functional programming.
+\textbf{Why Three Conditions?} Adding morphisms (the MORPH family) doubled the surface area of the invariant. The module-ID condition was not enough once arrows between modules entered the picture—you also need morphism IDs to be fresh and arrows to point at real endpoints. Without the endpoint condition, \texttt{MORPH\_ASSERT} could certify a morphism whose source or target had been deleted.
 
-\textbf{Logical Implication:} If this invariant holds, then the partition graph is internally consistent—no module has an ID greater than or equal to the next available ID. This prevents temporal paradoxes where a module appears to be created "in the future."
-
-This invariant is proven to be preserved by all operations:
+This invariant is proven to be preserved by all graph operations, including:
 \begin{itemize}
-    \item \texttt{graph\_add\_module\_preserves\_wf}
-    \item \texttt{graph\_remove\_preserves\_wf}
+    \item \texttt{graph\_add\_module\_preserves\_wf} — new module, increments \texttt{pg\_next\_id}
+    \item \texttt{graph\_remove\_preserves\_wf} — cascades morphism deletion first
+    \item \texttt{graph\_add\_morphism\_preserves\_wf} — new arrow, increments \texttt{pg\_next\_morph\_id}
+    \item \texttt{graph\_delete\_morphism\_preserves\_wf} — single arrow removal
+    \item \texttt{graph\_cascade\_delete\_morphisms\_preserves\_wf} — bulk deletion when a module is removed
+    \item \texttt{graph\_compose\_morphisms\_preserves\_wf}, \texttt{graph\_tensor\_morphisms\_preserves\_wf}
     \item \texttt{wf\_graph\_lookup\_beyond\_next\_id}
 \end{itemize}
-The well-formedness invariant is deliberately minimal. It does \emph{not} require disjointness or coverage; those properties are enforced locally by the specific graph operations that need them. By keeping the invariant small (all IDs are below \texttt{pg\_next\_id}), the proofs about step semantics and extraction become simpler and do not assume extra structure that is not actually needed to execute the machine.
+The well-formedness invariant is deliberately restricted to ID discipline and endpoint validity. It does \emph{not} require disjointness or coverage; those properties are enforced locally by the specific graph operations that need them. Keeping the invariant to these three conditions means every proof about step semantics has a small, fixed obligation to discharge.
 
 \subsubsection{Canonical Normalization}
 
@@ -491,7 +515,6 @@ Inductive vm_instruction :=
 (* Observation and revelation *)
 | instr_emit (module : ModuleID) (payload : string) (mu_delta : nat)
 | instr_reveal (module : ModuleID) (bits : nat) (cert : string) (mu_delta : nat)
-| instr_oracle_halts (payload : string) (mu_delta : nat)
 | instr_halt (mu_delta : nat)
 (* I/O and checkpoints *)
 | instr_checkpoint (label : string) (mu_delta : nat)
@@ -512,7 +535,15 @@ Inductive vm_instruction :=
 | instr_lui (dst : nat) (imm : nat) (mu_delta : nat)
 (* per-module tensor instructions *)
 | instr_tensor_set (module : ModuleID) (i j value : nat) (mu_delta : nat)
-| instr_tensor_get (dst : nat) (module : ModuleID) (i j : nat) (mu_delta : nat).
+| instr_tensor_get (dst : nat) (module : ModuleID) (i j : nat) (mu_delta : nat)
+(* categorical morphism operations *)
+| instr_morph (dst : nat) (src_mod dst_mod : ModuleID) (coupling_idx : nat) (mu_delta : nat)
+| instr_compose (dst : nat) (m1_id m2_id : MorphismID) (mu_delta : nat)
+| instr_morph_id (dst : nat) (module : ModuleID) (mu_delta : nat)
+| instr_morph_delete (morph_id : MorphismID) (mu_delta : nat)
+| instr_morph_assert (morph_id : MorphismID) (property cert : string) (mu_delta : nat)
+| instr_morph_tensor (dst : nat) (f_id g_id : MorphismID) (mu_delta : nat)
+| instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat).
 \end{lstlisting}
 
 \paragraph{Why the instruction type matters:} Coq forces you to list every possible instruction up front---there's no way to sneak in a new one later without updating every proof that pattern-matches on instructions. That was painful during development (every time I added an instruction, dozens of proofs broke), but it means the proofs cover \emph{every} instruction, proven.
@@ -533,7 +564,7 @@ The active 46 opcodes break into groups:
     \item \textbf{Data Transfer} (2): Register transfer and immediate loads (\texttt{XFER}, \texttt{LOAD\_IMM})
     \item \textbf{Certification} (1): Bell test trials (\texttt{CHSH\_TRIAL})
     \item \textbf{XOR Ops} (4): Reversible computation primitives (\texttt{XOR\_LOAD}, \texttt{XOR\_ADD}, \texttt{XOR\_SWAP}, \texttt{XOR\_RANK})
-    \item \textbf{Observation \& Revelation} (3): Output, information disclosure, oracle queries (\texttt{EMIT}, \texttt{REVEAL}, \texttt{ORACLE\_HALTS})
+    \item \textbf{Observation \& Revelation} (2): Output and information disclosure (\texttt{EMIT}, \texttt{REVEAL})
     \item \textbf{Memory \& ALU} (4): Load, store, addition, subtraction (\texttt{LOAD}, \texttt{STORE}, \texttt{ADD}, \texttt{SUB})
     \item \textbf{Control Flow} (5): Jumps, branches, subroutines, halt (\texttt{JUMP}, \texttt{JNEZ}, \texttt{CALL}, \texttt{RET}, \texttt{HALT})
     \item \textbf{I/O and Heap} (5): State snapshots, port access, and heap memory (\texttt{CHECKPOINT}, \texttt{READ\_PORT}, \texttt{WRITE\_PORT}, \texttt{HEAP\_LOAD}, \texttt{HEAP\_STORE})
@@ -565,7 +596,7 @@ The instructions fall into several categories:
 % Low-cost categories (bottom)
 \node[cat, fill=violet!10] (reg) at (-2.2, -1.4) {Register/Memory\\XFER, LOAD\_IMM\\LOAD, STORE, XOR\_*};
 \node[cat, fill=red!10] (ctrl) at (0, -1.8) {Control\\JUMP, JNEZ, CALL\\RET, HALT};
-\node[cat, fill=yellow!10] (meas) at (2.2, -1.4) {Compute\\ADD, SUB\\ORACLE\_HALTS};
+\node[cat, fill=yellow!10] (meas) at (2.2, -1.4) {Compute\\ADD, SUB\\MUL, AND, OR};
 
 % High-cost arrows (thick)
 \draw[->, thick, blue!60] (struct) -- (mu);
@@ -595,7 +626,7 @@ The instructions fall into several categories:
 
 \textbf{Logical Operations:}
 \begin{itemize}
-    \item \texttt{LASSERT}: Assert a formula, verified by certificate (LRAT proof or SAT model plus countermodel witness)
+    \item \texttt{LASSERT}: Assert a formula with a dual-witness certificate (one satisfying assignment + one falsifying assignment). SAT path (\texttt{kind=true}) checks both witnesses. UNSAT path (\texttt{kind=false}) always fails at the kernel level---this gap is documented in \path{coq/kernel/VMStep.v}.
     \item \texttt{LJOIN}: Join two certificates
 \end{itemize}
 
@@ -615,16 +646,17 @@ The instructions fall into several categories:
 
 \textbf{Compute Operations:}
 \begin{itemize}
-    \item \texttt{ADD}, \texttt{SUB}: Integer arithmetic
-    \item \texttt{ORACLE\_HALTS}: Query halting oracle
+    \item \texttt{ADD}, \texttt{SUB}: 64-bit modular arithmetic
+    \item \texttt{MUL}, \texttt{AND}, \texttt{OR}, \texttt{SHL}, \texttt{SHR}: Extended ALU
+    \item \texttt{LUI}: Load upper immediate ($r_d \leftarrow v \ll 8$)
 \end{itemize}
 
 \textbf{Control Flow Operations:}
 \begin{itemize}
     \item \texttt{JUMP}: Unconditional jump
     \item \texttt{JNEZ}: Jump if register is not equal to zero
-    \item \texttt{CALL}, \texttt{RET}: Subroutine call and return (push/pop return address)
-    \item \texttt{HALT}: Stop execution
+    \item \texttt{CALL}, \texttt{RET}: Subroutine call and return (\texttt{r31} = stack pointer)
+    \item \texttt{HALT}: Advances PC and charges $\delta$. Execution stops at the runner level when PC exceeds the program length; a HALT mid-program does not stop the kernel step relation.
 \end{itemize}
 
 \subsubsection{The Step Relation}
@@ -692,13 +724,14 @@ The Logic Engine is an on-chip FSM that verifies logical consistency by reading 
 
 \begin{itemize}
     \item \textbf{NOT trusted}: SMT solver outputs (Z3, CVC5, etc.) are \emph{not} assumed sound
-    \item \textbf{Trusted}: Certificate checkers (LRAT proof verifier, model validator, countermodel validator) in \path{coq/kernel/CertCheck.v}
+    \item \textbf{Trusted}: Certificate checkers (SAT model validator, countermodel validator) in \path{coq/kernel/CertCheck.v}
     \item \textbf{Soundness guarantee}: A false assertion cannot be accepted by the kernel, only fail to be proven
     \item \textbf{Completeness}: Not proven---the solver may fail to find proofs that exist
     \item \textbf{TCB addition}: Hash functions (SHA-256), certificate parsers, and the Coq extraction correctness
+    \item \textbf{UNSAT path status}: \texttt{kind=false} (UNSAT) always fails at the kernel level---\texttt{lassert\_check\_ok} returns \texttt{false} for this path. This is a documented gap in \path{coq/kernel/VMStep.v}. \texttt{check\_lrat} exists in \texttt{CertCheck.v} but is \emph{not} invoked by the step semantics.
 \end{itemize}
 
-\textbf{In practice}: Certificates are stored in \texttt{vm\_mem} by the program before executing \texttt{LASSERT}. For UNSAT this is an LRAT proof. For SAT it is a dual-witness package: one satisfying assignment and one falsifying assignment stored back-to-back. The instruction reads them via register-indexed base addresses (\texttt{freg}, \texttt{creg}). The kernel verifies the witnesses but does not search for solutions.
+\textbf{In practice}: Certificates are stored in \texttt{vm\_mem} by the program before executing \texttt{LASSERT}. For SAT (\texttt{kind=true}) this is a dual-witness package: one satisfying assignment and one falsifying assignment stored back-to-back. The instruction reads them via register-indexed base addresses (\texttt{freg}, \texttt{creg}). For UNSAT (\texttt{kind=false}) the kernel step always fails---there is no LRAT-checking path in the current step semantics, only in \texttt{CertCheck.v} as a library. The kernel verifies the certificate for SAT but does not search for solutions.
 \end{tcolorbox}
 
 \subsubsection{Certificate-Based Verification}
@@ -721,13 +754,13 @@ Definition check_countermodel_binary_fn : list nat -> (nat -> nat) -> bool := Ce
 \textbf{Memory-Resident Certificates:}
 \begin{itemize}
     \item \textbf{freg / creg}: The program stores the encoded formula and witness block anywhere in \texttt{vm\_mem} before executing \texttt{LASSERT}. The instruction holds only the register indices pointing to these locations---the actual bit payload is never in the instruction word.
-    \item \textbf{kind field}: Selects which checker to invoke---\texttt{lassert\_sat} runs both \texttt{check\_model\_binary\_fn} and \texttt{check\_countermodel\_binary\_fn}; \texttt{lassert\_unsat} calls \texttt{check\_lrat}.
+    \item \textbf{kind field}: \texttt{kind=true} (SAT) runs both \texttt{check\_model\_binary\_fn} and \texttt{check\_countermodel\_binary\_fn}. \texttt{kind=false} (UNSAT) always returns false---the UNSAT verification path is not implemented in the current kernel step function.
     \item \textbf{flen}: The encoded formula-unit count. This is the primary cost driver: $\Delta\mu = \mathtt{flen} \times 8 + S(\mathtt{cost})$, so longer formulas cost proportionally more in bits.
 \end{itemize}
 
 \textbf{The Checker Functions:}
 \begin{itemize}
-    \item \textbf{check\_lrat}: Takes two strings (formula and LRAT proof), returns bool. Verified implementation of LRAT proof checking—proves that if it returns true, the formula is genuinely UNSAT.
+    \item \textbf{check\_lrat}: Takes two strings (formula and LRAT proof), returns bool. Verified LRAT proof checker---proves that if it returns true, the formula is genuinely UNSAT. This function exists in \texttt{CertCheck.v} and is imported in \texttt{VMStep.v} but is \textbf{not invoked} by the current \texttt{lassert\_check\_ok} step function. UNSAT checking via LRAT is a documented future capability, not a live code path.
     \item \textbf{check\_model\_binary\_fn}: Takes binary formula words plus a memory-backed assignment function and returns bool. It confirms the satisfying witness.
     \item \textbf{check\_countermodel\_binary\_fn}: Takes the same formula plus a second assignment and returns bool iff at least one clause is falsified. This is the non-triviality witness that blocks tautology inflation.
     \item \textbf{:= CertCheck.\ldots}: These are definition bindings—the functions are implemented in the CertCheck module.
@@ -746,7 +779,7 @@ Definition check_countermodel_binary_fn : list nat -> (nat -> nat) -> bool := Ce
 An \texttt{LASSERT} instruction reads from \texttt{vm\_mem}:
 \begin{itemize}
     \item An encoded formula (at \texttt{R[freg]}, \texttt{flen} units, eight concrete bits per unit)
-    \item Either an LRAT proof (for UNSAT, \texttt{kind = lassert\_unsat}) or two assignments stored back-to-back (for SAT, \texttt{kind = lassert\_sat}): one satisfying model and one falsifying countermodel
+    \item For SAT (\texttt{kind = true}): two assignments stored back-to-back---one satisfying model and one falsifying countermodel. For UNSAT (\texttt{kind = false}): the current kernel step always fails; no certificate content is read.
 \end{itemize}
 
 The kernel verifies the certificate but does not search for solutions. This ensures:

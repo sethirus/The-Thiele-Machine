@@ -36,7 +36,7 @@ The Thiele Machine contains classical computation as a fragment and strictly ext
 - classical projection loses morphism structure — two states with identical registers, memory, mu, and PC can differ in ways no classical function can see (`PartitionSeparation.v`)
 - the Tsirelson bound |S| ≤ 2√2 is proven by two independent routes: (1) from PSD of the zero-marginal NPA moment matrix (`MuLedgerQuantumBridge.v`), and (2) from algebraic coherence alone via Positivstellensatz SOS certificate — pure polynomial arithmetic, no physics premises (`AlgebraicCoherence.v`)
 
-The full claim ledger is in `thesis/short_thesis.tex`, Section 12. Every claim there has a Coq file and a falsification condition.
+Every claim in the short thesis has a Coq file and a falsification condition. The short thesis is the fastest route to the full claim ledger.
 
 ## Repository layout
 
@@ -179,6 +179,28 @@ Every claim has a concrete falsification condition. The main ones:
   howpublished={\url{https://github.com/sethirus/The-Thiele-Machine}}
 }
 ```
+
+## Why I built this
+
+I was trying to make a 3D renderer.
+
+I had been reading about category theory and thought it was the right structure for a rendering pipeline that couldn't be wrong. January 2025, zero programming background. At 2:15 AM on January 22nd the morphisms were being applied correctly. That was supposed to be the end of the project.
+
+Sixteen days in I realized the categorical framework I had built for rendering also ran Newtonian physics without any changes. I plugged Newton's laws into the same category structure and it ran. I didn't plan that. I discovered it.
+
+I followed that thread for fifteen months. Rendering became physics became formal computation became Coq proofs became hardware. I didn't know what a Turing machine was when I started. I didn't know what Coq was. I learned each thing by needing it for the next step.
+
+I used large language models throughout. The tool was useless for the first several months because nothing like this existed — no reference implementation, no prior work to hand it. I had to build all the context myself before it became useful. The ideas, the architecture, the math, the direction: mine. The proofs compile or they don't.
+
+I don't have a CS degree. I don't have colleagues whose authority I can lean on. When I encounter a claim, I either find the proof or I don't believe it. That's not a methodology. It's how I think.
+
+## IP and prior art
+
+This work is published under Apache 2.0. The Apache license includes a patent grant (Section 3): any contributor grants users a perpetual, royalty-free patent license for their contributions.
+
+**`PATENT_PLEDGE.md`** — explicit non-assertion commitment covering all concepts in this repository.
+
+**`TECHNICAL_DISCLOSURE.md`** — structured prior art disclosure covering 12 core concepts (µ-ledger, No Free Insight, CERTIFY opcode, LASSERT dual-witness, partition graph as machine state, CHSH_TRIAL counters, three-layer isomorphism pipeline, and more). Published for indexing in IP.com and similar patent examiner databases. Every concept described there is prior art from the commit dates in this repository's public history.
 
 ## License
 
