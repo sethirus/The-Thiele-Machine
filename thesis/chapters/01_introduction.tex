@@ -143,7 +143,7 @@ This doesn't make all problems polynomial. It formalizes the trade-off: structur
 
 The Thiele Machine $T = (S, \Pi, A, R, L)$:
 \begin{itemize}
-    \item $S$: State space (registers, memory, PC)
+    \item $S$: Full machine state---registers, memory, program counter, $\mu$-ledger, partition graph ($\Pi$), certified flag, and witness counters
     \item $\Pi$: Partitions of $S$ into disjoint modules
     \item $A$: Axiom set---logical constraints attached to each module
     \item $R$: Transition rules, including structural operations (split, merge)

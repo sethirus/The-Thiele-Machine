@@ -600,7 +600,7 @@ instr_lassert (formula_addr_reg cert_addr_reg : nat)
 \begin{itemize}
     \item \textbf{formula\_addr\_reg : nat} — Register holding the base address of the encoded formula in \texttt{vm\_mem}.
     \item \textbf{cert\_addr\_reg : nat} — Register holding the base address of the witness block in \texttt{vm\_mem}.
-    \item \textbf{cert\_kind : bool} — Selects the checker: \texttt{false} = LRAT/UNSAT proof; \texttt{true} = SAT satisfying model plus falsifying countermodel.
+    \item \textbf{cert\_kind : bool} — \texttt{true} = SAT path: checks satisfying model plus falsifying countermodel. \texttt{false} = UNSAT path: always fails in the current kernel (LRAT checking exists in \texttt{CertCheck.v} but is not invoked by the step semantics).
     \item \textbf{formula\_len : nat} — Encoded formula-unit count in memory. Directly sets the formula-component of the $\mu$-cost.
     \item \textbf{mu\_delta : nat} — Explicit cost floor. The total $\mu$-cost charged is $\mathtt{formula\_len} \times 8 + S(\mathtt{mu\_delta})$, so cost is always at least 1.
 \end{itemize}

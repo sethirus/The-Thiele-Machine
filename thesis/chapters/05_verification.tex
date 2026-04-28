@@ -94,7 +94,7 @@ The guarantees come from the small, trusted kernel of Coq. Every lemma in the th
 \begin{enumerate}
     \item \textbf{Coq kernel} (8.18.x): The type-checker and proof-verification engine
     \item \textbf{Coq extraction correctness}: The OCaml code produced by extraction faithfully implements the semantics
-    \item \textbf{Certificate checkers}: LRAT proof verifier plus SAT model and countermodel validators in \path{coq/kernel/CertCheck.v}
+    \item \textbf{Certificate checkers}: SAT model validator and countermodel validator in \path{coq/kernel/CertCheck.v}. (\texttt{check\_lrat} also exists in \texttt{CertCheck.v} but is not invoked by the current LASSERT step semantics; the UNSAT path always fails at the kernel level.)
     \item \textbf{Hash primitives}: SHA-256 implementation for receipt digests (assumed collision-resistant)
     \item \textbf{Python interpreter}: CPython 3.12.x correctly implements Python semantics
     \item \textbf{Verilog simulator}: Icarus Verilog 12.x correctly simulates RTL behavior
@@ -264,7 +264,7 @@ Record VMState := {
 
 \textbf{Twelve immutable fields:}
 \begin{itemize}
-    \item \textbf{vm\_graph : PartitionGraph} — The complete partition structure (modules, regions, axioms). Every locality theorem quantifies over this graph.
+    \item \textbf{vm\_graph : PartitionGraph} — The complete partition structure (modules, regions, axioms, and categorical morphisms between modules). Every locality theorem quantifies over this graph.
     \item \textbf{vm\_csrs : CSRState} — Control and status registers. Proofs about error propagation read the error CSR from this field.
     \item \textbf{vm\_regs : list nat} — General-purpose registers. Proofs about register transfer (XFER) reference this list.
     \item \textbf{vm\_mem : list nat} — Main memory. Proofs about memory access quantify over this field.
@@ -351,29 +351,27 @@ This lemma is more than a tidying step. Observational equality depends on normal
 
 \begin{lstlisting}
 Definition well_formed_graph (g : PartitionGraph) : Prop :=
-  all_ids_below g.(pg_modules) g.(pg_next_id).
+  all_ids_below g.(pg_modules) g.(pg_next_id) /\
+  all_morph_ids_below g.(pg_morphisms) g.(pg_next_morph_id) /\
+  all_morph_endpoints_valid g.(pg_modules) g.(pg_morphisms).
 \end{lstlisting}
 
 \paragraph{Understanding well\_formed\_graph:}
 
-\textbf{What is this predicate?} This defines the \textbf{well-formedness invariant} for partition graphs: every module ID must be strictly less than the graph's \texttt{pg\_next\_id} counter. This prevents stale or out-of-bounds module references.
+\textbf{What is this predicate?} The well-formedness invariant for partition graphs has three conjuncts: (1) every module ID is below the module ID counter, (2) every morphism ID is below the morphism ID counter, and (3) every morphism's source and target are real modules. All three must hold simultaneously.
 
-\textbf{Syntax breakdown:}
+\textbf{The three conditions:}
 \begin{itemize}
-    \item \textbf{Definition well\_formed\_graph} — Declares a predicate (a boolean-valued function) named \texttt{well\_formed\_graph}.
-    \item \textbf{(g : PartitionGraph)} — Takes a PartitionGraph as input.
-    \item \textbf{: Prop} — Returns a \textit{proposition} (a logical statement that can be true or false). In Coq, \texttt{Prop} is the type of provable claims.
-    \item \textbf{all\_ids\_below g.(pg\_modules) g.(pg\_next\_id)} — Checks that every module in \texttt{pg\_modules} has an ID below \texttt{pg\_next\_id}. The helper predicate \texttt{all\_ids\_below} is defined elsewhere (in \path{coq/kernel/VMState.v}).
+    \item \textbf{all\_ids\_below} — Every \texttt{ModuleID} in \texttt{pg\_modules} is strictly less than \texttt{pg\_next\_id}. Ensures the module ID counter is genuinely fresh.
+    \item \textbf{all\_morph\_ids\_below} — Every \texttt{MorphismID} in \texttt{pg\_morphisms} is strictly less than \texttt{pg\_next\_morph\_id}. Same freshness guarantee for morphism IDs.
+    \item \textbf{all\_morph\_endpoints\_valid} — Every morphism's \texttt{morph\_source} and \texttt{morph\_target} exist in \texttt{pg\_modules}. Prevents dangling arrows after module deletion.
 \end{itemize}
 
-\textbf{What does ``all IDs below'' mean?} The PartitionGraph maintains a monotonic counter \texttt{pg\_next\_id} that increments each time a module is created. Every module is assigned an ID from this counter, so IDs form a dense sequence $0, 1, 2, \dots$. Well-formedness requires that no module has an ID $\geq$ \texttt{pg\_next\_id}, which would indicate a corrupted or uninitialized module.
+\textbf{Why three conditions?} Adding the MORPH family (categorical morphism instructions) required tracking arrows between modules. A single ID-counter condition is no longer sufficient: you also need to guarantee that morphisms don't refer to modules that were deleted, which requires the endpoint-validity check.
 
-\textbf{Why is this important?} Graph operations (PNEW, PSPLIT, PMERGE) all rely on unique module IDs. If a module could have an ID out of bounds, lookups would fail unpredictably. The well-formedness invariant guarantees that every module ID is valid.
+\textbf{Preservation under operations:} Every graph operation that touches modules or morphisms has a corresponding preservation lemma. This means that once you start with a well-formed graph (the empty graph is well-formed by \texttt{empty\_graph\_well\_formed}), all reachable graphs remain well-formed.
 
-\textbf{Preservation under operations:} The next two lemmas prove that \texttt{graph\_add\_module} and \texttt{graph\_remove} preserve well-formedness. This means that once you start with a well-formed graph (e.g., the empty graph), \textit{all} reachable graphs remain well-formed.
-
-
-\textbf{Physical interpretation:} Well-formedness is the ``identity discipline'' of the kernel. Just as physical systems require distinct particle labels, the kernel requires distinct module IDs. The invariant enforces this labeling scheme at the mathematical level.
+\textbf{Physical interpretation:} Well-formedness is the ``identity discipline'' of the kernel. Just as physical systems require distinct particle labels and interaction endpoints, the kernel requires distinct IDs and valid arrow endpoints. The invariant enforces this at the mathematical level.
 
 \begin{theorem}[Preservation Under Add]
 \begin{lstlisting}
@@ -471,7 +469,7 @@ Inductive vm_instruction :=
 (* Certification + control *)
 | instr_chsh_trial (x y a b : nat) (mu_delta:nat)
 | instr_emit ... | instr_reveal ...
-| instr_oracle_halts ... | instr_halt ...
+| instr_halt ...
 (* Memory + ALU *)
 | instr_load ... | instr_store ...
 | instr_add ... | instr_sub ...
@@ -507,7 +505,7 @@ Inductive vm_instruction :=
     \item \textbf{Memory \& ALU:} \texttt{instr\_load}, \texttt{instr\_store}, \texttt{instr\_add}, \texttt{instr\_sub}, \texttt{instr\_mul}, \texttt{instr\_and}, \texttt{instr\_or}, \texttt{instr\_shl}, \texttt{instr\_shr} — Memory access and arithmetic/bitwise operations.
     \item \textbf{Certification:} \texttt{instr\_chsh\_trial}, \texttt{instr\_emit}, \texttt{instr\_reveal}, \texttt{instr\_certify} — CHSH trials, receipt emission, state revelation, state-based certification.
     \item \textbf{Control:} \texttt{instr\_jump}, \texttt{instr\_jnez}, \texttt{instr\_call}, \texttt{instr\_ret}, \texttt{instr\_halt} — Branches, subroutines, termination.
-    \item \textbf{Oracle:} \texttt{instr\_oracle\_halts} — Halting oracle queries.
+    \item \textbf{Morphisms:} \texttt{instr\_morph}, \texttt{instr\_compose}, \texttt{instr\_morph\_id}, \texttt{instr\_morph\_delete}, \texttt{instr\_morph\_assert}, \texttt{instr\_morph\_tensor}, \texttt{instr\_morph\_get} — Categorical morphism operations.
     \item \textbf{I/O and Heap:} \texttt{instr\_checkpoint}, \texttt{instr\_read\_port}, \texttt{instr\_write\_port}, \texttt{instr\_heap\_load}, \texttt{instr\_heap\_store} — Port I/O, heap memory, checkpointing.
     \item \textbf{Tensor:} \texttt{instr\_tensor\_set}, \texttt{instr\_tensor\_get} — Per-module $\mu$-tensor read/write.
 \end{itemize}

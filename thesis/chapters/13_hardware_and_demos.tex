@@ -76,7 +76,7 @@ localparam [7:0] OPCODE_XOR_SWAP = 8'h0C;
 localparam [7:0] OPCODE_XOR_RANK = 8'h0D;
 localparam [7:0] OPCODE_EMIT = 8'h0E;
 localparam [7:0] OPCODE_REVEAL = 8'h0F;
-localparam [7:0] OPCODE_ORACLE_HALTS = 8'h10;
+// 8'h10 reserved (formerly ORACLE_HALTS)
 localparam [7:0] OPCODE_LOAD = 8'h11;
 localparam [7:0] OPCODE_STORE = 8'h12;
 localparam [7:0] OPCODE_ADD = 8'h13;
@@ -112,7 +112,7 @@ localparam [7:0] OPCODE_HALT = 8'hFF;
     \item \textbf{OPCODE\_XOR\_* (0x0A-0x0D):} Linear algebra operations (Gaussian elimination for partition discovery).
     \item \textbf{OPCODE\_EMIT (0x0E):} Emit receipt/certificate.
     \item \textbf{OPCODE\_REVEAL (0x0F):} Reveal structural information bits at $\mu$-cost.
-    \item \textbf{OPCODE\_ORACLE\_HALTS (0x10):} Query halting oracle.
+    \item \textbf{0x10 reserved} (formerly ORACLE\_HALTS; opcode was removed).
     \item \textbf{OPCODE\_LOAD/STORE (0x11-0x12):} Memory access operations.
     \item \textbf{OPCODE\_ADD/SUB (0x13-0x14):} Arithmetic operations.
     \item \textbf{OPCODE\_JUMP/JNEZ/CALL/RET (0x15-0x18):} Control flow.
