@@ -87,6 +87,17 @@ TB_DIR = Path(__file__).resolve().parent / "testbench"
 CACHED_VVP = REPO_ROOT / "build" / "thiele_kami_test.vvp"
 CACHED_VERILATOR_BIN = REPO_ROOT / "build" / "verilator" / "Vthiele_cpu_kami_tb"
 
+
+def _regfile_source() -> Optional[Path]:
+    """Locate RegFile.v. Prefer the BSC-installed copy on dev machines that
+    have Bluespec; fall back to the committed canonical copy under
+    thielecpu/hardware/rtl/ for CI / minimal-install environments. The two
+    copies are byte-identical (same Bluespec emission)."""
+    for candidate in (BSC_VERILOG_DIR / "RegFile.v", RTL_DIR / "RegFile.v"):
+        if candidate.exists():
+            return candidate
+    return None
+
 _vvp_ready = False
 _verilator_ready = False
 
@@ -580,8 +591,8 @@ def _ensure_vvp_current() -> Path:
     )
     if needs_compile:
         CACHED_VVP.parent.mkdir(parents=True, exist_ok=True)
-        bsc_regfile = BSC_VERILOG_DIR / "RegFile.v"
-        extra_srcs = [str(bsc_regfile)] if bsc_regfile.exists() else []
+        regfile = _regfile_source()
+        extra_srcs = [str(regfile)] if regfile is not None else []
         cmd = ["iverilog", "-g2012", "-o", str(CACHED_VVP), "-I", str(RTL_DIR), "-I", str(BSC_VERILOG_DIR), str(rtl), str(tb)] + extra_srcs
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if result.returncode != 0:
@@ -599,7 +610,7 @@ def _ensure_verilator_current() -> Path:
     rtl = RTL_DIR / "thiele_cpu_kami.v"
     tb = TB_DIR / "thiele_cpu_kami_tb.v"
     sim_main = TB_DIR / "sim_main.cpp"
-    bsc_regfile = BSC_VERILOG_DIR / "RegFile.v"
+    regfile = _regfile_source()
     for path in (rtl, tb, sim_main):
         if not path.exists():
             raise FileNotFoundError(f"RTL source missing: {path}")
@@ -621,7 +632,7 @@ def _ensure_verilator_current() -> Path:
             with tempfile.TemporaryDirectory(prefix="thiele-verilator-") as tmp_dir:
                 tmp_out_dir = Path(tmp_dir)
                 tmp_bin = tmp_out_dir / CACHED_VERILATOR_BIN.name
-                extra_srcs = [str(bsc_regfile)] if bsc_regfile.exists() else []
+                extra_srcs = [str(regfile)] if regfile is not None else []
                 cmd = [
                     "verilator", "--cc", "--timing", "--trace", "-Wno-fatal", "--build",
                     "--output-split", "0", "--output-split-cfuncs", "0",
@@ -651,9 +662,9 @@ def _ensure_verilator_current() -> Path:
 def compile_testbench_iverilog(work_dir: Path) -> Path:
     rtl = RTL_DIR / "thiele_cpu_kami.v"
     tb = TB_DIR / "thiele_cpu_kami_tb.v"
-    bsc_regfile = BSC_VERILOG_DIR / "RegFile.v"
+    regfile = _regfile_source()
     output = work_dir / "thiele_cpu_tb.vvp"
-    extra_srcs = [str(bsc_regfile)] if bsc_regfile.exists() else []
+    extra_srcs = [str(regfile)] if regfile is not None else []
     cmd = ["iverilog", "-g2012", "-o", str(output), "-I", str(RTL_DIR), "-I", str(BSC_VERILOG_DIR), str(rtl), str(tb)] + extra_srcs
     result = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
     if result.returncode != 0:
