@@ -32,9 +32,18 @@ jobs:
             coq coinor-csdp ocaml ocaml-findlib \
             iverilog verilator yosys
 
+      - name: Cache vendor builds (bbv + kami)
+        id: cache-vendor
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/bbv
+            vendor/kami
+          key: vendor-${{ runner.os }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+
       - name: Build vendored deps (bbv + kami)
+        if: steps.cache-vendor.outputs.cache-hit != 'true'
         run: |
-          git submodule update --init --recursive vendor/bbv vendor/kami
           cd vendor/bbv && make -j4
           cd ../..
           bash scripts/fix_kami_coq18.sh
@@ -44,6 +53,21 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+          key: coq-${{ runner.os }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', '.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
 
       - name: Install Python dependencies
         run: |
@@ -157,9 +181,18 @@ jobs:
             iverilog verilator yosys \
             nextpnr-ecp5 fpga-trellis ecppack
 
+      - name: Cache vendor builds (bbv + kami)
+        id: cache-vendor
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/bbv
+            vendor/kami
+          key: vendor-${{ runner.os }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+
       - name: Build vendored deps (bbv + kami)
+        if: steps.cache-vendor.outputs.cache-hit != 'true'
         run: |
-          git submodule update --init --recursive vendor/bbv vendor/kami
           cd vendor/bbv && make -j4
           cd ../..
           bash scripts/fix_kami_coq18.sh
@@ -169,6 +202,21 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+          key: coq-${{ runner.os }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', '.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
 
       - name: Install Python dependencies
         run: |
