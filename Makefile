@@ -283,8 +283,7 @@ inquisitor-visual-audit: atlas-audit
 generate-python: build/thiele_core.ml
 	python3 scripts/forge.py \
 		--input build/thiele_core.ml \
-		--out-python thielecpu/generated/generated_core.py \
-		--out-verilog /dev/null
+		--out-python thielecpu/generated/generated_core.py
 
 # Build the Coq-extracted OCaml VM runner.
 # Depends on coq/Extraction.vo so the runner is always built from the current proof tree.
