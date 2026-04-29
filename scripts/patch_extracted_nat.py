@@ -29,6 +29,10 @@ EFFICIENT_NAT = r'''module Nat =
 
   let rec sub n m = Stdlib.max 0 (n - m)
 
+  (** val eqb : int -> int -> bool **)
+
+  let eqb (n:int) (m:int) = n = m
+
   (** val ltb : int -> int -> bool **)
 
   let ltb n m = n < m
@@ -44,6 +48,10 @@ EFFICIENT_NAT = r'''module Nat =
     if x = 0 then (q, u)
     else if u = 0 then divmod (x - 1) y (q + 1) y
     else divmod (x - 1) y q (u - 1)
+
+  (** val div : int -> int -> int **)
+
+  let div x y = if y = 0 then 0 else x / y
 
   (** val modulo : int -> int -> int **)
 

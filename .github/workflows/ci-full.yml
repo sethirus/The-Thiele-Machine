@@ -61,7 +61,7 @@ jobs:
         run: |
           mkdir -p build
           yosys -p "
-            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v;
+            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_cpu_top.v;
             prep -top mkModule1;
             check;
             stat;
@@ -73,7 +73,7 @@ jobs:
           mkdir -p artifacts/synthesis_gate
           # Generate a hierarchy-level DOT diagram (module graph, not gate-level)
           yosys -p "
-            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v;
+            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_cpu_top.v;
             hierarchy -top mkModule1;
             show -format dot -prefix artifacts/synthesis_gate/circuit_hierarchy -notitle;
           " 2>/dev/null || true
@@ -134,8 +134,6 @@ jobs:
             build/simulation.log
             build/thiele_cpu_tb.vcd
             build/netlist.json
-            build/circuit_hierarchy.dot
-            build/circuit_hierarchy.svg
             artifacts/synthesis_gate/
           retention-days: 30
 

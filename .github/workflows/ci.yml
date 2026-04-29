@@ -12,64 +12,10 @@ permissions:
   contents: read
 
 jobs:
-  # Phase 1: Prepare common toolchain
-  toolchain:
-    name: Setup toolchain
-    runs-on: ubuntu-latest
-    outputs:
-      cache-key: ${{ steps.cache-key.outputs.key }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Generate cache key
-        id: cache-key
-        run: |
-          KEY="toolchain-${{ runner.os }}-coq-ocaml-$(date +%Y-%m)"
-          echo "key=$KEY" >> $GITHUB_OUTPUT
-
-      - name: Check tool cache
-        id: cache-check
-        uses: actions/cache@v4
-        with:
-          path: /tmp/thiele-tools-cache
-          key: ${{ steps.cache-key.outputs.key }}
-          lookup-only: true
-
-      - name: Install and cache toolchain (if not cached)
-        if: steps.cache-check.outputs.cache-hit != 'true'
-        run: |
-          set -euo pipefail
-          mkdir -p /tmp/thiele-tools-cache
-          
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml \
-            ocaml-findlib \
-            iverilog verilator yosys \
-            python3-pip
-          
-          # Verify installations
-          which coqc && coqc --version > /tmp/thiele-tools-cache/coq-version.txt
-          which ocamlc && ocamlc -vnum > /tmp/thiele-tools-cache/ocaml-version.txt
-          which ocamlrun > /tmp/thiele-tools-cache/ocamlrun-path.txt
-          which iverilog > /tmp/thiele-tools-cache/iverilog-path.txt
-          which verilator > /tmp/thiele-tools-cache/verilator-path.txt
-          which yosys > /tmp/thiele-tools-cache/yosys-path.txt
-
-      - name: Save tool cache
-        if: steps.cache-check.outputs.cache-hit != 'true'
-        uses: actions/cache@v4
-        with:
-          path: /tmp/thiele-tools-cache
-          key: ${{ steps.cache-key.outputs.key }}
-
-  # Phase 2: Proof verification (Coq + Inquisitor)
+  # Phase 1: Proof verification (Coq + Inquisitor)
   proof-check:
     name: Proof verification
     runs-on: ubuntu-latest
-    needs: toolchain
     env:
       OCAMLRUNPARAM: "l=64M"
     steps:
@@ -100,7 +46,7 @@ jobs:
       - name: Build Coq proof tree
         run: |
           cd coq
-          coq_makefile -f _CoqProject -o Makefile 2>&1 | grep -v "Warning:"
+          coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
           make -j4
 
       - name: Guard against Kami cheat axiom usage
@@ -131,7 +77,7 @@ jobs:
           path: INQUISITOR_REPORT.md
           retention-days: 7
 
-  # Phase 3: OCaml extraction (depends on proof passing)
+  # Phase 2: OCaml extraction (depends on proof passing)
   extraction:
     name: OCaml extraction & 3-layer bisimulation
     runs-on: ubuntu-latest
@@ -167,7 +113,7 @@ jobs:
       - name: Extract Coq to OCaml
         run: |
           cd coq
-          coq_makefile -f _CoqProject -o Makefile 2>&1 | grep -v "Warning:"
+          coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
           make -j4
           make Extraction.vo
 
@@ -186,11 +132,10 @@ jobs:
           pip install --quiet -e . --no-deps
           bash scripts/parity_extracted_only.sh
 
-  # Phase 4: Python tests (independent, can run in parallel with extraction)
+  # Phase 3: Python tests (independent, can run in parallel with extraction)
   python-tests:
     name: Python unit tests
     runs-on: ubuntu-latest
-    needs: toolchain
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
@@ -221,7 +166,6 @@ jobs:
   trs-receipts:
     name: TRS receipt tests
     runs-on: ubuntu-latest
-    needs: toolchain
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -269,7 +213,7 @@ jobs:
             tests/test_trs10_matrix_cases.py \
             -q --tb=short
 
-  # Phase 5: Dependency audit (independent)
+  # Phase 4: Dependency audit (independent)
   dependencies:
     name: Dependency security scan
     runs-on: ubuntu-latest
@@ -298,23 +242,24 @@ jobs:
   verify-summary:
     name: Verification Summary
     runs-on: ubuntu-latest
-    needs: [proof-check, extraction, python-tests, dependencies]
+    needs: [proof-check, extraction, python-tests, trs-receipts, dependencies]
     if: always()
     steps:
       - name: Check job results
         run: |
           cat > /tmp/summary.md << 'EOF'
           ## ✅ Verification Summary
-          
+
           | Component | Result |
           |-----------|--------|
           | Proof (Coq + Inquisitor) | ${{ needs.proof-check.result }} |
           | Extraction (OCaml + Bisimulation) | ${{ needs.extraction.result }} |
           | Python Tests | ${{ needs.python-tests.result }} |
+          | TRS Receipts | ${{ needs.trs-receipts.result }} |
           | Dependency Scan | ${{ needs.dependencies.result }} |
-          
+
           **Verification Status:** ${{ job.status }}
-          
+
           > **Note:** This is the fast verification path (proof + extraction + tests).
           > For full verification including hardware synthesis, see the nightly run or use:
           > ```
@@ -328,5 +273,6 @@ jobs:
           needs.proof-check.result == 'failure' ||
           needs.extraction.result == 'failure' ||
           needs.python-tests.result == 'failure' ||
+          needs.trs-receipts.result == 'failure' ||
           needs.dependencies.result == 'failure'
         run: exit 1
