@@ -78,9 +78,6 @@ jobs:
       - name: Run hardware forge pipeline
         run: bash scripts/forge_artifact.sh
 
-      - name: Install graphviz for circuit diagrams
-        run: sudo apt-get install -y --no-install-recommends graphviz
-
       - name: Synthesize with Yosys (stats + JSON netlist)
         run: |
           mkdir -p build
@@ -91,24 +88,6 @@ jobs:
             stat;
             write_json build/netlist.json;
           " 2>&1 | tee build/synthesis.log
-
-      - name: Generate circuit diagram (Yosys hierarchy → DOT → SVG)
-        run: |
-          mkdir -p artifacts/synthesis_gate
-          # Generate a hierarchy-level DOT diagram (module graph, not gate-level)
-          yosys -p "
-            read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v thielecpu/hardware/rtl/thiele_cpu_top.v;
-            hierarchy -top mkModule1;
-            show -format dot -prefix artifacts/synthesis_gate/circuit_hierarchy -notitle;
-          " 2>/dev/null || true
-          # Convert DOT to SVG if graphviz is available and DOT was generated
-          if [ -f artifacts/synthesis_gate/circuit_hierarchy.dot ]; then
-            dot -Tsvg artifacts/synthesis_gate/circuit_hierarchy.dot \
-              -o artifacts/synthesis_gate/circuit_hierarchy.svg 2>/dev/null || true
-            echo "✓ Circuit diagram: artifacts/synthesis_gate/circuit_hierarchy.svg"
-          else
-            echo "⚠ DOT not generated; JSON netlist available at build/netlist.json"
-          fi
 
       - name: Verify synthesis
         run: |
@@ -179,7 +158,7 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             coq coinor-csdp ocaml ocaml-findlib \
             iverilog verilator yosys \
-            nextpnr-ecp5 fpga-trellis ecppack
+            nextpnr-ecp5 fpga-trellis
 
       - name: Cache vendor builds (bbv + kami)
         id: cache-vendor
