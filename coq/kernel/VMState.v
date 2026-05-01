@@ -1745,9 +1745,11 @@ Proof.
   apply (all_ids_below_implies_lookup_none _ _ _ Hwf_mods Hge).
 Qed.
 
-(** Architecture constants — must match Kami RTL (ThieleCPUCore.v) and OCaml extraction. *)
-Definition REG_COUNT : nat := 32.
-Definition MEM_SIZE : nat := 65536.
+(** Architecture constants — must match Kami RTL (ThieleCPUCore.v) and OCaml
+    extraction. The kernel proofs are parametric in REG_COUNT and MEM_SIZE;
+    the values below match the silicon-side bounds of the synthesized RTL. *)
+Definition REG_COUNT : nat := 16.
+Definition MEM_SIZE : nat := 128.
 Definition NUM_MODULES : nat := 64.  (* Maximum number of concurrent modules *)
 Definition REGION_SIZE : nat := 16.  (* Maximum region size (YOSYS_LITE synthesis config) *)
 
@@ -1929,8 +1931,8 @@ Definition partitions (g : PartitionGraph) : list (ModuleID * ModuleState) := g.
     12 fields:
     vm_graph: the partition structure (modules and morphisms)
     vm_csrs: control/status registers (cert address, status, error code, heap base)
-    vm_regs: register file (REG_COUNT=32 registers, default 0)
-    vm_mem: data memory (MEM_SIZE=65536 words, default 0)
+    vm_regs: register file (REG_COUNT=16 registers, default 0)
+    vm_mem: data memory (MEM_SIZE=128 words, default 0)
     vm_pc: program counter
     vm_mu: THE μ-LEDGER. The cost counter that never goes down. Every instruction
       adds to it. This is what No Free Insight is about. If μ could decrease, the
@@ -2145,7 +2147,7 @@ Definition word64_mul (a b : nat) : nat := word64 (a * b).
 
 (** reg_index, mem_index: Wrap register and memory indices to stay in bounds.
     Modular addressing means out-of-range register/address references are never
-    undefined — they wrap around. REG_COUNT=32, MEM_SIZE=65536.
+    undefined — they wrap around. REG_COUNT=16, MEM_SIZE=128.
     This is deterministic: same index always maps to the same register/cell. *)
 Definition reg_index (r : nat) : nat := r mod REG_COUNT.
 Definition mem_index (a : nat) : nat := a mod MEM_SIZE.

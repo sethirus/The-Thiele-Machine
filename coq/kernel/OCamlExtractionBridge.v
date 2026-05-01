@@ -28,7 +28,7 @@ Record ExtractionObservable := {
   eo_err       : bool;
   eo_certified : bool;
   eo_mu_tensor : list nat;          (** 16-entry flat mu-tensor *)
-  eo_regs      : list nat;          (** 32 registers *)
+  eo_regs      : list nat;          (** 16 registers *)
   eo_mem       : list nat;          (** data memory *)
   eo_graph     : PartitionGraph;    (** partition graph *)
   eo_csrs      : CSRState;          (** control/status registers *)

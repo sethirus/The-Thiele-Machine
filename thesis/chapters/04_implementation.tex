@@ -67,7 +67,7 @@ This is not aspirational---it's enforced by automated tests. Any divergence is a
 
 \textbf{Honest scope caveat:} The Python layer is not an independent implementation. It delegates all execution to the Coq-extracted OCaml binary via subprocess, so $S_{\text{Python}}(\tau) = S_{\text{Coq}}(\tau)$ by construction. The genuine comparison is between the OCaml extraction pipeline and the Kami/Bluespec synthesis pipeline. The tests compare \textit{state projections} rather than full state identity. The project's own audit artifact at \path{artifacts/final_claim_audit/cross_layer_equivalence_scope.json} specifies \texttt{equivalence\_mode: "observable\_only"} and \texttt{full\_state\_identity\_status: "not claimed"}.
 
-Known divergences exist for several opcodes (MDLACC cost charging, ORACLE\_HALTS hardcoded RTL cost, CHECKPOINT no-op in hardware, CALL/RET init-directive format, PDISCOVER/READ\_PORT text format). The cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} document these exceptions explicitly. Of the 40 ISA opcodes, 30 have direct cross-layer mu/register comparison (including the bitwise ALU, LUI, TENSOR, and tightened LASSERT path), 8 have cross-layer tests with documented divergences where each layer is tested independently for its known behavior, and 2 (CERTIFY, WRITE\_PORT) are tested per-layer.
+Known divergences exist for several opcodes. The ones documented in \path{tests/test_cross_layer_bisimulation.py} as ``KNOWN DIVERGENCE'' are: MDLACC ($\mu$ charging differs --- the RTL does not charge $\mu$ for MDLACC), CHECKPOINT (NOP in hardware --- does not advance state in the RTL), and READ\_PORT (text-encoding format differs between the OCaml runner and the RTL testbench). Across the 46 active ISA opcodes, the bulk have direct cross-layer $\mu$/register comparison; a small documented set is exercised under per-layer assertions because of the divergences just listed.
 
 The tests compare \textit{state projections} rather than every internal variable. The projections are suite-specific: the compute gate in \path{tests/test_verilog_cosim.py} compares registers and memory, while the cross-layer bisimulation tests in \path{tests/test_cross_layer_bisimulation.py} compare canonicalized module regions from the partition graph. The extracted runner emits a full JSON snapshot (pc, $\mu$, err, regs, mem, CSRs, graph), but the RTL testbench exposes only the fields required by each gate.
 
@@ -128,7 +128,7 @@ One specification, three execution paths, one invariant:
 The binding constraint is a cross-layer comparison contract: for supported gates and available backends, the state projections must agree across all three layers. The projections are suite-specific (registers/memory for compute traces; module regions for partition traces), while the extracted runner provides a superset of observables that can be compared when a gate requires it.
 
 \begin{quote}
-\textit{Author's Note (Devon): I need to be straight about what ``three layers'' actually means here. The Python VM is not an independent implementation. It serializes state, calls the OCaml binary that was extracted from Coq, and deserializes the result. Zero opcode logic in Python. The Verilog is generated from Kami specifications written in Coq. So all three layers derive from the same Coq source. The genuine test is whether two different compilation pipelines---OCaml extraction and Kami/Bluespec synthesis---produce the same observable outputs. When they agree, that's meaningful. When they disagree (and they do, on about half the ISA), those divergences are documented. I originally called these ``independent implementations'' because that sounded better. But that was wrong. They are three views of one specification. The value is pipeline diversity, not implementation diversity.}
+\textit{Author's Note (Devon): I need to be straight about what ``three layers'' actually means here. The Python VM is not an independent implementation. It serializes state, calls the OCaml binary that was extracted from Coq, and deserializes the result. Zero opcode logic in Python. The Verilog is generated from Kami specifications written in Coq. So all three layers derive from the same Coq source. The genuine test is whether two different compilation pipelines---OCaml extraction and Kami/Bluespec synthesis---produce the same observable outputs. When they agree, that's meaningful. When they disagree, those divergences are documented; the live ``KNOWN DIVERGENCE'' set in \path{tests/test_cross_layer_bisimulation.py} is small (MDLACC $\mu$-charging, CHECKPOINT no-op in hardware, READ\_PORT text-format) rather than pervasive. I originally called these ``independent implementations'' because that sounded better. But that was wrong. They are three views of one specification. The value is pipeline diversity, not implementation diversity.}
 \end{quote}
 
 \section{Layer 1: The Formal Kernel (Coq)}
@@ -174,7 +174,7 @@ The goal is not to “encode” the implementation, but to define a minimal sema
 
 % Annotations
 \node[font=\scriptsize, anchor=west] at (4.3,2.8) {32 regs};
-\node[font=\scriptsize, anchor=west] at (4.3,2.25) {65536 words};
+\node[font=\scriptsize, anchor=west] at (4.3,2.25) {128 words};
 \node[font=\scriptsize, anchor=west, red!70] at (4.3,1.15) {$\mu$-ledger};
 \node[font=\scriptsize, anchor=west, red!50] at (4.3,0.6) {4$\times$4 cost};
 
@@ -228,13 +228,13 @@ Record VMState := {
     \end{itemize}
     \item \textbf{vm\_regs : list nat}: General-purpose register file
     \begin{itemize}
-        \item 32 registers (standard RISC-V count)
+        \item 16 general-purpose registers (canonical hardware bound)
         \item Each entry is a natural number (unbounded in Coq)
-        \item Hardware masks to 64 bits via \texttt{word64} function (RTL projects to 32 bits)
+        \item The Coq kernel applies a \texttt{word64} mask (64 bits) to register writes; the Kami hardware spec uses \texttt{WordSz := 32}, so the generated RTL register file is 32 bits per entry. Cross-layer comparison reduces kernel values modulo $2^{32}$.
     \end{itemize}
     \item \textbf{vm\_mem : list nat}: Data memory
     \begin{itemize}
-        \item 65,536 words (matching \texttt{MEM\_SIZE} in \path{coq/kernel/VMState.v})
+        \item $128$ words (matching \texttt{MEM\_SIZE} in \path{coq/kernel/VMState.v}; the kernel proofs are parametric in \texttt{MEM\_SIZE})
         \item Separate from instruction memory (Harvard architecture)
     \end{itemize}
     \item \textbf{vm\_pc : nat}: Program Counter
@@ -280,8 +280,8 @@ Record VMState := {
 
 Each component has canonical width and representation:
 \begin{itemize}
-    \item \textbf{vm\_regs}: 32 registers (matching RISC-V convention)
-    \item \textbf{vm\_mem}: 65,536 words of data memory
+    \item \textbf{vm\_regs}: 16 general-purpose registers (canonical hardware bound)
+    \item \textbf{vm\_mem}: $128$ words of data memory (the kernel proofs are parametric in \texttt{MEM\_SIZE})
     \item \textbf{vm\_pc}: Program counter (modeled as a natural in proofs; masked to a fixed width in hardware)
     \item \textbf{vm\_mu}: $\mu$-ledger accumulator (modeled as a natural; exported at fixed width in hardware)
     \item \textbf{vm\_err}: Boolean error latch
@@ -379,21 +379,22 @@ Key operations:
     \item \texttt{graph\_lookup}: Retrieve module by ID
     \item \texttt{graph\_add\_axiom}: Add logical constraint to module
 \end{itemize}
-In the Python reference VM (\path{thielecpu/vm.py}), these same operations are implemented on a \texttt{RegionGraph} plus a parallel bitmask representation (\texttt{partition\_masks}) to make the RTL mapping explicit. The graph methods enforce the same disjointness and ID discipline as the Coq definitions so that the projection used for cross-layer checks is identical.
+In the Python reference wrapper (\path{thielecpu/vm.py}), these operations are not re-implemented at all: the Python VMState dataclass mirrors the Coq record field-for-field (auto-generated by \path{scripts/forge_vm.py}), and every partition op is serialized to the OCaml extracted runner that performs the actual graph manipulation. Cross-layer parity is therefore between the OCaml extraction pipeline and the Kami/Bluespec synthesis pipeline; the Python layer is plumbing.
 
 \subsection{The Step Relation}
 
-The step relation is an inductive predicate with constructors covering the active opcode set. Several opcodes have both success and failure constructors (e.g., \texttt{step\_psplit} and \texttt{step\_psplit\_failure}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state:
+The step relation is an inductive predicate with constructors covering the active opcode set. Several opcodes have both success and failure constructors (e.g., \texttt{step\_chsh\_trial\_ok} and \texttt{step\_chsh\_trial\_badbits}), so the constructor count exceeds the opcode count. Each constructor states exact preconditions and the resulting next state. The live rules use hardware-aligned partition operations (\texttt{graph\_add\_module} with sequential indexing, \texttt{graph\_hw\_psplit} that splits modules into equal halves rather than honouring abstract \texttt{left}/\texttt{right} parameters). The conceptual partition contract \texttt{graph\_pnew}/\texttt{graph\_psplit} is retained in \path{coq/kernel/VMState.v} as the abstract specification and is what cross-layer parity checks compare against once observable projections are taken:
 \begin{lstlisting}
-Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := 
-| step_pnew : forall s region cost graph' mid,
-    graph_pnew s.(vm_graph) region = (graph', mid) ->
+Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
+| step_pnew : forall s region cost graph',
+    let sz := List.length (normalize_region region) in
+    graph' = fst (graph_add_module s.(vm_graph) (List.seq 0 sz) []) ->
     vm_step s (instr_pnew region cost)
       (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
-| step_psplit : forall s m left right cost g' l' r',
-    graph_psplit s.(vm_graph) m left right = Some (g', l', r') ->
+| step_psplit : forall s m left right cost graph',
+    graph' = graph_hw_psplit s.(vm_graph) (m mod 64) ->
     vm_step s (instr_psplit m left right cost)
-      (advance_state s (instr_psplit m left right cost) g' s.(vm_csrs) s.(vm_err))
+      (advance_state s (instr_psplit m left right cost) graph' s.(vm_csrs) s.(vm_err))
 ...
 \end{lstlisting}
 
@@ -408,34 +409,13 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
 
 \textbf{Constructor Anatomy (step\_pnew):}
 \begin{enumerate}
-    \item \textbf{forall s region cost graph' mid}: Universally quantified variables
-    \begin{itemize}
-        \item \texttt{s}: Current state (input)
-        \item \texttt{region, cost}: Instruction parameters
-        \item \texttt{graph', mid}: Outputs from graph operation (existential witnesses)
-    \end{itemize}
-    \item \textbf{Premise}: \texttt{graph\_pnew s.(vm\_graph) region = (graph', mid)}
-    \begin{itemize}
-        \item The graph operation must succeed
-        \item Produces new graph \texttt{graph'} and module ID \texttt{mid}
-    \end{itemize}
-    \item \textbf{Conclusion}: \texttt{vm\_step s (instr\_pnew ...) (advance\_state ...)}
-    \begin{itemize}
-        \item Transition from \texttt{s} to updated state
-        \item \texttt{advance\_state} helper increments PC and updates $\mu$
-    \end{itemize}
+    \item \textbf{forall s region cost graph'}: Universally quantified variables. \texttt{s}: current state. \texttt{region}, \texttt{cost}: instruction parameters. \texttt{graph'}: the output graph.
+    \item \textbf{Local definition}: $sz := \texttt{List.length (normalize\_region region)}$ --- the kernel takes only the size of the deduplicated input region, not its specific addresses.
+    \item \textbf{Premise}: \texttt{graph' = fst (graph\_add\_module s.(vm\_graph) (List.seq 0 sz) [])}. The kernel always allocates a fresh module whose region is \texttt{[0..sz-1]}, with empty axiom set, and lets the new module ID wrap mod 64. This is the form the RTL implements; the abstract idempotent \texttt{graph\_pnew} (in \path{coq/kernel/VMState.v}) is the conceptual spec the parity tests compare against under projection.
+    \item \textbf{Conclusion}: \texttt{vm\_step s (instr\_pnew ...) (advance\_state ...)}. \texttt{advance\_state} increments the PC and adds the instruction's $\mu$-cost to the ledger.
 \end{enumerate}
 
-\textbf{Constructor Anatomy (step\_psplit):}
-\begin{itemize}
-    \item \textbf{Option Type}: \texttt{graph\_psplit} returns \texttt{Option} (may fail)
-    \item \textbf{Some (g', l', r')}: Pattern match on success case
-    \begin{itemize}
-        \item \texttt{g'}: New graph after split
-        \item \texttt{l', r'}: IDs of left and right modules created
-    \end{itemize}
-    \item \textbf{Failure Case}: If \texttt{graph\_psplit} returns \texttt{None}, no rule fires (stuck state)
-\end{itemize}
+\textbf{Constructor Anatomy (step\_psplit):} The live rule consumes only the module ID and ignores the abstract \texttt{left}/\texttt{right} parameters: it calls \texttt{graph\_hw\_psplit s.(vm\_graph) (m mod 64)}, which deletes module \texttt{m mod 64} and replaces it with two new modules of sizes $\lfloor sz/2 \rfloor$ and $sz - \lfloor sz/2 \rfloor$, where $sz$ is the original module size. The abstract \texttt{graph\_psplit}, which checks \texttt{partition\_valid} and returns \texttt{None} on failure, lives in \path{coq/kernel/VMState.v} as the conceptual specification.
 
 \textbf{Why Inductive?} This isn't executable code—it's a \emph{specification}:
 \begin{itemize}
@@ -444,15 +424,16 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     \item \textbf{Proof Target}: Properties are proven about this relation (safety, progress)
 \end{itemize}
 
-\textbf{Step constructors} covering the active opcode set (some have success/failure variants):
+\textbf{Step constructors} covering the active opcode set (some have success/failure variants, e.g.\ \texttt{step\_chsh\_trial\_ok} and \texttt{step\_chsh\_trial\_badbits}):
 \begin{itemize}
     \item Partition ops: PNEW, PSPLIT, PMERGE, PDISCOVER
     \item Logic ops: LASSERT, LJOIN, REVEAL
     \item Transfer \& XOR ops: XFER, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK
     \item Scalar ops: LOAD, STORE, ADD, SUB, LOAD\_IMM
     \item Control flow: JUMP, JNEZ, CALL, RET, HALT
-    \item Measurement: MDLACC, CHSH\_TRIAL, EMIT, ORACLE\_HALTS
-    \item Each constructor specifies exact preconditions (when instruction can execute) and postconditions (resulting state)
+    \item Measurement \& I/O: MDLACC, CHSH\_TRIAL, EMIT, CHECKPOINT, READ\_PORT, WRITE\_PORT
+    \item Categorical morphisms: MORPH, COMPOSE, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_TENSOR, MORPH\_GET
+    \item Each constructor specifies exact preconditions (when the instruction can execute) and postconditions (resulting state)
 \end{itemize}
 
 The \texttt{advance\_state} helper atomically updates PC and $\mu$:
@@ -497,7 +478,7 @@ Definition advance_state (s : VMState) (instr : vm_instruction)
     \item \textbf{vm\_err := err'}: Set error flag (used for undefined behavior)
     \item \textbf{vm\_logic\_acc := s.(vm\_logic\_acc)}: Preserve logic accumulator
     \item \textbf{vm\_mstatus := s.(vm\_mstatus)}: Preserve machine status
-    \item \textbf{vm\_witness := s.(vm\_witness)}: Preserve CHSH witness counters (\texttt{step\_chsh\_trial} updates these separately)
+    \item \textbf{vm\_witness := s.(vm\_witness)}: Preserve CHSH witness counters (\texttt{step\_chsh\_trial\_ok} updates these separately)
     \item \textbf{vm\_certified := s.(vm\_certified)}: Preserve certification flag (\texttt{step\_certify} sets this separately)
 \end{enumerate}
 
@@ -520,7 +501,7 @@ The existence of \texttt{advance\_state\_rm} in \texttt{coq/kernel/VMStep.v} is 
 
 \subsection{Extraction}
 
-The formal definitions are extracted to a functional evaluator to create a reference semantics. The extraction entrypoint \path{coq/Extraction.v} imports 26 modules (23 from the kernel, 3 from \texttt{KamiHW}) and extracts 21 named symbols covering core VM semantics, simulation proof infrastructure, and the Kami hardware abstraction layer:
+The formal definitions are extracted to a functional evaluator to create a reference semantics. The extraction entrypoint \path{coq/Extraction.v} imports 30 modules (25 from \texttt{Kernel}, 5 from \texttt{KamiHW}) and uses two \texttt{Extraction} blocks: one extracts the canonical hardware module to \path{build/kami_hw/Target.ml}, and one extracts 23 named symbols covering core VM semantics, the bus-top interface, and the simulation-proof entry points to \path{build/thiele_core.ml}. The listing below is illustrative of the second block:
 \begin{lstlisting}
 From Coq Require Import Extraction.
 From Coq Require Import ExtrOcamlBasic ExtrOcamlString
@@ -570,12 +551,12 @@ Extraction "../build/thiele_core.ml"
     \item \textbf{From Coq Require Import Extraction}: Load the extraction plugin
     \item \textbf{ExtrOcamlBasic, ExtrOcamlNatInt}: Map Coq types to native OCaml types---\texttt{bool} to \texttt{bool}, \texttt{nat} to \texttt{int}, \texttt{list} to OCaml lists
     \item \textbf{Extract Constant Nat.*}: Override Peano-recursive arithmetic with native \texttt{int} operations (\texttt{(+)}, \texttt{( * )}, etc.) to prevent stack overflows from unary recursion at runtime. Additional overrides map the \texttt{word64\_*} family to \texttt{Int64} operations for 63-bit operational fidelity.
-    \item \textbf{From Kernel Require Import ...}: Pull in 23 kernel modules and 3 KamiHW modules covering formal VM semantics, NoFI, $\mu$-cost, Tsirelson bounds, Born rule, Shannon bridges, and the hardware abstraction layer
-    \item \textbf{Extraction "../build/thiele\_core.ml" names}: Extract 21 named definitions to a single OCaml file
+    \item \textbf{From Kernel Require Import ...}: Pull in 25 kernel modules and 5 KamiHW modules covering formal VM semantics, NoFI, $\mu$-cost, Tsirelson bounds, Born rule, Shannon bridges, the categorical-laws layer, and the hardware abstraction layer (\texttt{Abstraction}, \texttt{ThieleCPUBusTop}, \texttt{CanonicalCPUProof}, \texttt{GraphReconstructionBridge}, \texttt{FullAbstraction}).
+    \item \textbf{Extraction blocks}: 23 named definitions are extracted to \path{build/thiele_core.ml}; the canonical hardware module is extracted separately to \path{build/kami_hw/Target.ml}.
     \begin{itemize}
         \item \texttt{vm\_apply}, \texttt{vm\_apply\_nofi}, \texttt{vm\_apply\_runtime}: The executable step evaluators
-        \item \texttt{KamiSnapshot}, \texttt{bus\_step}, \texttt{coreViewOfSnapshot}: Kami hardware abstraction interface
-        \item Output: \path{build/thiele\_core.ml} ($\sim$4,050 lines of OCaml)
+        \item \texttt{KamiSnapshot}, \texttt{BusReg}, \texttt{BusCoreView}, \texttt{bus\_step}, \texttt{coreViewOfSnapshot}: Kami hardware abstraction interface
+        \item Output: \path{build/thiele_core.ml} ($\sim$4{,}390 lines of OCaml as of this writing)
     \end{itemize}
 \end{enumerate}
 
@@ -702,8 +683,8 @@ class VMState:
 \textbf{Twelve fields, one-to-one with Coq:}
 \begin{itemize}
     \item \textbf{vm\_pc, vm\_mu, vm\_err}: Program counter, $\mu$-ledger accumulator, error flag
-    \item \textbf{vm\_regs}: 32 registers (\texttt{REG\_COUNT = 32})
-    \item \textbf{vm\_mem}: 65,536 words of data memory (\texttt{MEM\_SIZE = 65536})
+    \item \textbf{vm\_regs}: 16 general-purpose registers (\texttt{REG\_COUNT = 16})
+    \item \textbf{vm\_mem}: $128$ words of data memory (\texttt{MEM\_SIZE = 128}; parametric)
     \item \textbf{vm\_csrs}: Control and status registers (\texttt{CSRState} sub-dataclass)
     \item \textbf{vm\_graph}: Partition graph (\texttt{partitionGraph} sub-dataclass, containing \texttt{pg\_next\_id} and \texttt{pg\_modules})
     \item \textbf{vm\_mu\_tensor}: Flattened 4$\times$4 cost tensor (\texttt{TENSOR\_SIZE = 16})
@@ -714,8 +695,8 @@ class VMState:
 
 \textbf{Constants (top of file):}
 \begin{lstlisting}
-REG_COUNT: int = 32
-MEM_SIZE: int = 65536
+REG_COUNT: int = 16
+MEM_SIZE: int = 128
 TENSOR_SIZE: int = 16
 WORD64_MASK: int = 0xFFFFFFFFFFFFFFFF
 \end{lstlisting}
@@ -745,7 +726,7 @@ The Python VM also carries \texttt{vm\_mu\_tensor}, a 16-entry list representing
 WORD64_MASK: int = 0xFFFFFFFFFFFFFFFF
 \end{lstlisting}
 
-The 64-bit mask matches the Coq kernel's \texttt{word64} function. The Verilog RTL operates on 32-bit words (\texttt{WordSz := 32} in \texttt{ThieleTypes.v}), so cross-layer comparison masks to the intersection width.
+This constant is declared for documentation but is not applied anywhere in the Python wrapper---Python's \texttt{int} is unbounded, and the OCaml runner performs all width enforcement internally (the \texttt{Extract Constant word64\_*} directives in \path{coq/Extraction.v} route 64-bit operations through OCaml's \texttt{Int64} module). The Verilog RTL uses 32-bit words throughout (\texttt{WordSz := 32} in \texttt{ThieleTypes.v}); both \texttt{regs} and \texttt{mu} are 32-bit registers in the generated hardware, internally consistent at that width. Cross-layer comparison reduces the kernel's 64-bit values modulo $2^{32}$ to compare against RTL state.
 
 \textbf{Why a single integer instead of a ledger class?}
 \begin{enumerate}
@@ -932,7 +913,7 @@ self.witness_state = post_state
 
 \subsection{Kami-Generated Architecture}
 
-The hardware is not hand-written Verilog. It is generated through a formally verified pipeline: Coq Kami specifications in \path{coq/kami\_hw/ThieleCPUCore.v} are extracted to OCaml, pretty-printed to Bluespec SystemVerilog, and compiled by the BSC compiler into synthesizable Verilog at \path{thielecpu/hardware/rtl/thiele\_cpu\_kami.v} (7,278 lines).
+The hardware is not hand-written Verilog. It is generated through a formally verified pipeline: Coq Kami specifications in \path{coq/kami_hw/ThieleCPUCore.v} are extracted to OCaml, pretty-printed to Bluespec SystemVerilog, and compiled by the BSC compiler into synthesizable Verilog at \path{thielecpu/hardware/rtl/thiele_cpu_kami.v} (about $12{,}600$ lines).
 
 This means the hardware inherits correctness from the Coq proofs. The key property is that the generated Verilog implements the same step relation as the Coq kernel---not by testing, but by construction.
 
@@ -994,7 +975,7 @@ module mkModule1(CLK,
 
 \textbf{Internal Registers (from Kami):}
 \begin{itemize}
-    \item \textbf{regs}: 1024-bit flat register file (32 $\times$ 32-bit words)
+    \item \textbf{regs}: $512$-bit flat register file ($16 \times 32$-bit words)
     \item \textbf{mem}: 4096-entry data memory (BSC RegFile submodule)
     \item \textbf{imem}: 4096-entry instruction memory (BSC RegFile submodule)
     \item \textbf{ptTable}: 2048-bit partition table
@@ -1103,9 +1084,10 @@ wire [7:0] operand_cost = current_instr[7:0];
 
 \textbf{Isomorphism Guarantee:} This same bit layout is defined in:
 \begin{itemize}
-    \item \textbf{Coq}: Via \texttt{decode\_instruction} function with explicit bit masking
-    \item \textbf{Python}: Using struct unpacking or bitwise operations
-    \item \textbf{Verilog}: This code
+    \item \textbf{Coq kernel}: Instructions are an inductive type (\texttt{vm\_instruction} in \texttt{coq/kernel/VMStep.v}); they are not bit-decoded at the kernel layer at all. The bit layout is consumed downstream.
+    \item \textbf{Kami hardware spec}: Opcode dispatch on bits [31:24] via case analysis in \texttt{coq/kami\_hw/ThieleCPUCore.v}; the same source generates the Verilog below.
+    \item \textbf{Python}: The wrapper in \texttt{thielecpu/vm.py} serializes instructions to text and delegates execution to the OCaml runner; no independent bit-level decode.
+    \item \textbf{Verilog}: This code (extracted from the Kami spec).
 \end{itemize}
 All three must produce identical field values given the same 32-bit instruction, so encoding stays consistent across compilation pipelines.
 
@@ -1154,7 +1136,7 @@ This says: read the current mu register, add the zero-extended cost field, write
 
 In the Kami-generated hardware, $\mu$-accounting is handled by a 32-bit register (\texttt{mu}) that is incremented inline within the step rule. There is no separate $\mu$-ALU submodule. The cost field from the instruction word (bits [7:0]) is zero-extended and added to the current mu value on every cycle where an instruction executes.
 
-\textbf{Q16.16 Fixed-Point Concept:} While the Coq kernel formalizes a Q16.16 fixed-point representation in \texttt{VMState.v} (with \texttt{Q16\_SHIFT = 16}, \texttt{Q16\_ONE = 65536}, \texttt{Q16\_MAX = 4294967295}), the actual hardware uses simple integer addition for mu. The Q16.16 formalization appears in \texttt{HardwareBisimulation.v}, which proves correspondence between the Coq model and the RTL's 32-bit arithmetic.
+\textbf{Q16.16 Fixed-Point Concept:} While the Coq kernel formalizes a Q16.16 fixed-point representation in \texttt{VMState.v} (with \texttt{Q16\_SHIFT = 16}, \texttt{Q16\_ONE = 65536}, \texttt{Q16\_MAX = 2147483647} = $2^{31}-1$), the actual hardware uses simple integer addition for \texttt{mu}. The Q16.16 formalization appears in \texttt{HardwareBisimulation.v}, which proves correspondence between the Coq model and the RTL's 32-bit arithmetic.
 
 \textbf{Information-Theoretic Operations:} Entropy calculations ($-p \log_2 p$) and mutual information computations are performed in the Coq proofs and the OCaml extracted runner, not in the RTL. The hardware's job is to faithfully execute the ISA and accumulate cost. The proofs connecting mu-cost to information-theoretic quantities live in files like \texttt{MuShannonBridge.v} and \texttt{MuShannonQuantitative.v}.
 
@@ -1248,8 +1230,8 @@ def project_state_full(state):
         "pc": state.pc,
         "mu": state.mu,
         "err": state.err,
-        "regs": list(state.regs[:32]),
-        "mem": list(state.mem[:65536]),
+        "regs": list(state.regs[:16]),
+        "mem": list(state.mem[:128]),
         "csrs": state.csrs.to_dict(),
         "graph": state.graph.to_canonical(),
     }
@@ -1263,12 +1245,12 @@ def project_state_full(state):
     \item \textbf{"pc": state.pc}: Program counter value (integer)
     \item \textbf{"mu": state.mu}: $\mu$-ledger total (integer or float)
     \item \textbf{"err": state.err}: Error flag (boolean)
-    \item \textbf{"regs": list(state.regs[:32])}: First 32 registers as list
+    \item \textbf{"regs": list(state.regs[:16])}: First 16 registers as list
     \begin{itemize}
         \item Slice \texttt{[:32]} ensures fixed size
         \item \texttt{list(...)} converts from internal representation
     \end{itemize}
-    \item \textbf{"mem": list(state.mem[:65536])}: Full 65,536-word memory
+    \item \textbf{"mem": list(state.mem[:128])}: Full $128$-word memory
     \begin{itemize}
         \item Full data memory snapshot
     \end{itemize}
@@ -1386,11 +1368,7 @@ The Inquisitor (\path{scripts/inquisitor.py}, $\sim$7,400 lines) is a heuristic 
     \item \texttt{AXIOM\_DOCUMENTED}: Assumptions marked with \texttt{INQUISITOR NOTE} comments---tracked but accepted.
 \end{itemize}
 
-\textbf{Critical file escalation.} The Inquisitor maintains two protection tiers:
-\begin{itemize}
-    \item \textbf{Protected files}: \texttt{CoreSemantics.v}, \texttt{BridgeDefinitions.v}---MEDIUM findings escalate to HIGH.
-    \item \textbf{Critical kernel files}: \texttt{VMState.v}, \texttt{VMStep.v}, \texttt{NoFreeInsight.v}, \texttt{MuCostModel.v}, \texttt{TsirelsonUpperBound.v}, and 5 others---extra scrutiny applied.
-\end{itemize}
+\textbf{Critical file escalation.} The Inquisitor applies extra scrutiny to a fixed set of critical kernel files: \texttt{VMState.v}, \texttt{VMStep.v}, \texttt{NoFreeInsight.v}, \texttt{MuCostModel.v}, \texttt{TsirelsonUpperBound.v}, and a few others. MEDIUM findings in those files escalate to HIGH.
 
 \textbf{Documentation mechanisms.} Two comment conventions let developers explicitly whitelist findings:
 \begin{itemize}
@@ -1412,9 +1390,12 @@ The CI gate enforces a single rule: \textbf{zero HIGH findings}. If a single HIG
 
 \subsection{FPGA Targeting}
 
-The RTL can be synthesized for Lattice ECP5 FPGAs:
+The RTL is synthesized for the Xilinx Artix-7 family via the
+$100\%$ open-source openXC7 toolchain:
 \begin{lstlisting}
-$ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top mkModule1"
+$ yosys -p "read_verilog -sv thiele_cpu_kami.v thiele_cpu_top_min.v; \
+            synth_xilinx -family xc7 -abc9 -nodsp -top thiele_cpu_top; \
+            write_json thiele_xc7a35t.json"
 \end{lstlisting}
 
 \paragraph{Understanding Yosys Synthesis:}
@@ -1424,34 +1405,33 @@ $ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top mkModule1"
 \begin{itemize}
     \item \textbf{yosys}: The synthesizer executable
     \item \textbf{-p "..."}: Pass string (execute commands)
-    \item \textbf{read\_verilog thiele\_cpu\_kami.v}: Load Kami-generated Verilog source
+    \item \textbf{read\_verilog -sv}: Load the Kami-generated SystemVerilog
+      sources for the wrapper top.
+    \item \textbf{synth\_xilinx -family xc7}: Run the Xilinx 7-Series synthesis flow.
     \begin{itemize}
-        \item Parses file, builds abstract syntax tree
-        \item Checks basic syntax errors
+        \item Maps to LUT1--LUT6, FDRE/FDSE flip-flops, CARRY4 carry chains, RAMB36E1 BRAMs.
+        \item \texttt{-abc9} factors wide multiplexers efficiently.
+        \item \texttt{-nodsp} keeps multipliers in LUTs (nextpnr-xilinx
+              cannot route DSP48E1 cascade-carry ground ties; the
+              LUT-mapped multiplier is functionally identical).
     \end{itemize}
-    \item \textbf{synth\_ecp5}: Run Lattice ECP5 synthesis flow
-    \begin{itemize}
-        \item Optimizes for Lattice ECP5 primitives
-        \item Maps to LUTs, FFs, BRAM, DSP blocks
-    \end{itemize}
-    \item \textbf{-top mkModule1}: Specify top-level module name
-    \begin{itemize}
-        \item Entry point for synthesis (Kami-generated module)
-        \item All internal logic is instantiated within this
-    \end{itemize}
+    \item \textbf{-top thiele\_cpu\_top}: Synthesize the minimal wrapper that
+      exposes only the five board-visible pins.
 \end{itemize}
 
 \textbf{Synthesis Steps (Internal):}
 \begin{enumerate}
     \item \textbf{Elaboration}: Flatten hierarchy, expand parameters
     \item \textbf{Optimization}: Remove dead code, constant propagation
-    \item \textbf{Technology Mapping}: Convert to FPGA primitives
+    \item \textbf{Technology Mapping}: Convert to Xilinx 7-Series primitives
     \begin{itemize}
         \item \texttt{always @(posedge clk)} $\rightarrow$ FDRE (D flip-flop)
-        \item \texttt{case} statements $\rightarrow$ LUT6 (6-input LUT)
+        \item \texttt{case} statements $\rightarrow$ LUT5/LUT6 + MUXF7/MUXF8 wide muxes
         \item \texttt{+} operator $\rightarrow$ CARRY4 (fast carry chain)
+        \item Distributed RAM for partition tables $\rightarrow$ RAM64M
+        \item Block RAM for instruction/data memory $\rightarrow$ RAMB36E1
     \end{itemize}
-    \item \textbf{Output}: JSON netlist or EDIF for place-and-route
+    \item \textbf{Output}: JSON netlist consumed by \texttt{nextpnr-xilinx}
 \end{enumerate}
 
 \textbf{Output Reports:}
@@ -1461,37 +1441,46 @@ $ yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top mkModule1"
     \item \textbf{Warnings}: Latches inferred, unconnected signals
 \end{itemize}
 
-\textbf{Next Steps After Synthesis:}
+\textbf{Next Steps After Synthesis (open-source openXC7 flow):}
 \begin{enumerate}
-    \item \textbf{Place \& Route}: Vivado/ISE assigns physical locations
-    \item \textbf{Bitstream Generation}: Creates FPGA configuration file
-    \item \textbf{Programming}: Load bitstream onto FPGA via JTAG
+    \item \textbf{Place \& Route}: \texttt{nextpnr-xilinx} (HeAP analytical
+          placer + simulated-annealing refinement, negotiation-based
+          pathfinder router) assigns physical locations and routes nets.
+    \item \textbf{FASM emission}: \texttt{nextpnr-xilinx --fasm} writes a
+          textual FPGA-assembly description of the placed-and-routed design.
+    \item \textbf{Frame expansion}: Project X-Ray's
+          \texttt{utils/fasm2frames.py} expands FASM into device frames.
+    \item \textbf{Bitstream packaging}: Project X-Ray's
+          \texttt{xc7frames2bit} converts the frames into the binary
+          bitstream loadable on real silicon (\texttt{openFPGALoader -b
+          arty\_35t thiele\_xc7a35t.bit}).
 \end{enumerate}
 
 \textbf{Alternative Targets:}
 \begin{itemize}
-    \item \textbf{synth\_ice40}: For Lattice iCE40 FPGAs (smaller, cheaper)
-    \item \textbf{synth\_ecp5}: For Lattice ECP5
-    \item \textbf{synth\_intel}: For Intel/Altera devices
-    \item \textbf{synth}: Generic synthesis (not vendor-specific)
+    \item \textbf{synth\_xilinx -family xc7}: Xilinx 7-Series (Artix-7, Kintex-7,
+          Zynq-7) — used here.
+    \item \textbf{synth\_xilinx -family xcup}: UltraScale+ via the same
+          \texttt{nextpnr-xilinx} backend with a RapidWright-derived chipdb.
+    \item \textbf{synth\_ice40}: Lattice iCE40 (smaller, cheaper).
+    \item \textbf{synth\_ecp5}: Lattice ECP5.
+    \item \textbf{synth}: Generic synthesis (no vendor primitives).
 \end{itemize}
 
 \subsection{Resource Utilization}
 
-Under a reduced configuration (fewer modules, smaller regions):
+The synthesized RTL targets a Digilent Arty A7-35T (\texttt{xc7a35tcsg324-1})
+with the canonical bounded-state configuration:
 \begin{itemize}
-    \item NUM\_MODULES = 4
-    \item REGION\_SIZE = 16
-    \item Estimated LUTs: $\sim$2,500
-    \item Estimated FFs: $\sim$1,200
-\end{itemize}
-
-Full configuration:
-\begin{itemize}
-    \item NUM\_MODULES = 64
-    \item REGION\_SIZE = 1024
-    \item Estimated LUTs: $\sim$45,000
-    \item Estimated FFs: $\sim$35,000
+    \item REG\_COUNT = 16, MEM\_SIZE = 128, PTableSz = 64, descriptor tables = 16
+    \item Logic cells (LUT1--LUT6 + INV): $\sim$13{,}648 ($\sim 66\%$ of
+          xc7a35t's 20{,}800-LUT budget)
+    \item FFs (FDRE/FDSE): $\sim$3{,}580 ($\sim 9\%$ of 41{,}600)
+    \item Distributed RAM: 64 RAM64M cells (partition / descriptor tables)
+    \item Block RAM: 2 RAMB36E1 (instruction / data memories)
+    \item Total cells: 18{,}546
+    \item \texttt{nextpnr-xilinx} reports max clock frequency $\sim 39$ MHz
+          at the 12 MHz target ($\sim 3\times$ headroom)
 \end{itemize}
 
 \section{Toolchain}
@@ -1553,11 +1542,13 @@ vvp thiele_cpu_tb
 
     \item \textbf{Run Full Synthesis}:
     \begin{verbatim}
-yosys -p "read_verilog thiele_cpu_kami.v; synth_ecp5 -top mkModule1; write_json netlist.json"
+yosys -p "read_verilog -sv thiele_cpu_kami.v thiele_cpu_top_min.v; \
+          synth_xilinx -family xc7 -abc9 -nodsp -top thiele_cpu_top; \
+          write_json thiele_xc7a35t.json"
     \end{verbatim}
     \begin{itemize}
-        \item Synthesizes to ECP5 netlist
-        \item Outputs JSON for inspection/analysis
+        \item Synthesizes to Xilinx 7-Series netlist
+        \item Outputs JSON consumed by \texttt{nextpnr-xilinx}
     \end{itemize}
 \end{enumerate}
 

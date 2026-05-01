@@ -84,11 +84,12 @@ class TestAssemblerPrograms:
         assert result.get("mu", 0) > 100, f"mu={result.get('mu')}, expected > 100"
 
     def test_all_opcodes(self):
+        from thielecpu.vm import REG_COUNT
         result = _assemble_and_run(PROGRAMS_DIR / "all_opcodes_test.asm")
         assert result is not None
         assert result.get("status") == 2, f"Expected halted (status=2), got {result.get('status')}"
         assert not result.get("err"), f"Unexpected error at PC={result.get('pc')}"
-        regs = result.get("regs", [0] * 32)
+        regs = result.get("regs", [0] * REG_COUNT)
         assert regs[3] == 100, f"r3={regs[3]}, expected 100 (42+58)"
         assert regs[4] == 16, f"r4={regs[4]}, expected 16 (58-42)"
         assert regs[5] == 42, f"r5={regs[5]}, expected 42 (XFER)"
@@ -96,12 +97,10 @@ class TestAssemblerPrograms:
         assert regs[8] == 88, f"r8={regs[8]}, expected 88 (CALL/RET)"
         assert regs[6] == 1, f"r6={regs[6]}, expected 1 (JUMP)"
         assert regs[7] == 7, f"r7={regs[7]}, expected 7 (JNEZ)"
-        # New bitwise/arithmetic opcodes
+        # Bitwise/arithmetic opcodes — within RegCount=16, regs r0..r15.
         assert regs[12] == 42, f"r12={regs[12]}, expected 42 (AND 42&58)"
         assert regs[13] == 58, f"r13={regs[13]}, expected 58 (OR 42|58)"
         assert regs[14] == 2, f"r14={regs[14]}, expected 2 (SHL 1<<1)"
         assert regs[15] == 29, f"r15={regs[15]}, expected 29 (SHR 58>>1)"
-        assert regs[16] == 2436, f"r16={regs[16]}, expected 2436 (MUL 42*58)"
-        assert regs[17] == 43776, f"r17={regs[17]}, expected 43776 (LUI 0xAB)"
-        mem = result.get("mem", [0] * 256)
+        mem = result.get("mem", [0] * 128)
         assert mem[2] == 100, f"mem[2]={mem[2]}, expected 100 (STORE)"

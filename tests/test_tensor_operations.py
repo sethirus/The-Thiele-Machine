@@ -152,8 +152,9 @@ class TestTensorMetric:
             for j in range(4):
                 val = i * 4 + j + 1
                 lines.append(f"TENSOR_SET 1 {i} {j} {val} 1")
-        # Read them back into registers 1-16
-        reg = 1
+        # Read them back into registers 0-15 (uses all RegCount=16 registers)
+        from thielecpu.vm import REG_COUNT
+        reg = 0
         for i in range(4):
             for j in range(4):
                 lines.append(f"TENSOR_GET {reg} 1 {i} {j} 1")
@@ -162,7 +163,7 @@ class TestTensorMetric:
 
         final = _run(lines)
         assert not final.err
-        for idx in range(16):
+        for idx in range(min(16, REG_COUNT)):
             expected = idx + 1
-            assert final.regs[idx + 1] == expected, \
-                f"r{idx+1}={final.regs[idx+1]}, expected {expected}"
+            assert final.regs[idx] == expected, \
+                f"r{idx}={final.regs[idx]}, expected {expected}"

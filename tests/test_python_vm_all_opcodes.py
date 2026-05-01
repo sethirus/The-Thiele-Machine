@@ -256,7 +256,7 @@ class TestControlFlow:
             {"op": "halt", "cost": 1},                  # PC=1 -> halt (reached after RET)
             {"op": "ret", "cost": 1},                   # PC=2 -> return
         ])
-        assert s.vm_regs[31] == 0  # SP restored after CALL+RET pair
+        assert s.vm_regs[15] == 0  # SP restored after CALL+RET pair
 
     def test_simple_loop(self):
         """A simple counted loop using JNEZ."""
@@ -600,7 +600,7 @@ class TestIntegration:
         assert s.vm_regs[1] == 30, "sub1 should overwrite r1 after sub2 returns"
         assert s.vm_regs[2] == 20, "sub2 should have set r2"
         assert s.vm_regs[3] == 99, "main should continue after sub1 returns"
-        assert s.vm_regs[31] == 0, "SP should be 0 after balanced calls"
+        assert s.vm_regs[15] == 0, "SP should be 0 after balanced calls"
 
     def test_all_46_opcodes_counted(self):
         """Verify build/thiele_core.ml (Coq extraction) contains all 46 opcodes."""

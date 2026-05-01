@@ -42,6 +42,7 @@ Import ListNotations.
 
 Require Import Kernel.VMState.
 Require Import Kernel.VMStep.
+From KamiHW Require Import ThieleTypes.
 Import VMStep.VMStep.
 
 (** ORACLE_HALTS_HW_COST preserved for use in cost-ceiling lemmas.
@@ -191,7 +192,7 @@ Record KamiSnapshot := {
 (** Conversion: function-based registers/memory -> list (VMState expects list nat) *)
 
 Definition snapshot_regs_to_list (f : nat -> nat) : list nat :=
-  List.map f (List.seq 0 32).
+  List.map f (List.seq 0 RegCount).
 
 Definition snapshot_mem_to_list (f : nat -> nat) : list nat :=
   List.map f (List.seq 0 MEM_SIZE).
@@ -364,7 +365,7 @@ Definition kami_advance_rich_morph (hs : KamiSnapshot)
      snap_mu           := snap_mu hs + cost;
      snap_err          := snap_err hs;
      snap_halted       := snap_halted hs;
-     snap_regs         := fun i => if Nat.eqb i (dst mod 32) then word64 new_id
+     snap_regs         := fun i => if Nat.eqb i (dst mod RegCount) then word64 new_id
                                    else snap_regs hs i;
      snap_mem          := snap_mem hs;
      snap_partition_ops := snap_partition_ops hs;
@@ -523,16 +524,16 @@ Definition abs_full := abs_phase1.
    Maps a KamiSnapshot through one vm_instruction, mirroring
    the RTL rule bodies in ThieleCPUCore.v.
 
-   Stack-pointer register: register r31 (= kami_sp_reg) is reserved
+   Stack-pointer register: register r(RegCount-1) (= kami_sp_reg) is reserved
    for CALL/RET, matching SP_IDX in ThieleCPUCore.v.
    *)
 
 (** Stack-pointer register index — mirrors SP_IDX in ThieleCPUCore.v.
-    RegIdxSz = 5 bits → max register index 31 is kami_sp_reg. *)
-Definition kami_sp_reg : nat := 31.
+    RegIdxSz bits → max register index RegCount-1 is kami_sp_reg. *)
+Definition kami_sp_reg : nat := RegCount - 1.
 
-Lemma kami_sp_reg_lt_32 : kami_sp_reg < 32.
-Proof. unfold kami_sp_reg. lia. Qed.
+Lemma kami_sp_reg_lt_RegCount : kami_sp_reg < RegCount.
+Proof. unfold kami_sp_reg, RegCount. lia. Qed.
 
 (** Default hardware advance: increment PC by 1, add cost to mu.
     All other KamiSnapshot fields are preserved unchanged. *)
@@ -568,9 +569,9 @@ Definition kami_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot 
      snap_logic_acc     := snap_logic_acc hs;
      snap_mstatus       := snap_mstatus hs |}.
 
-(** Write register [r mod 32] with value word64(v). *)
+(** Write register [r mod RegCount] with value word64(v). *)
 Definition kami_write_reg (hs : KamiSnapshot) (r v : nat) : nat -> nat :=
-  fun j => if Nat.eqb j (r mod 32) then word64 v else snap_regs hs j.
+  fun j => if Nat.eqb j (r mod RegCount) then word64 v else snap_regs hs j.
 
 (** Write memory[a mod MEM_SIZE] with value word64(v). *)
 Definition kami_write_mem (hs : KamiSnapshot) (a v : nat) : nat -> nat :=
@@ -723,7 +724,7 @@ Definition kami_advance_cert_addr (hs : KamiSnapshot) (addr cost : nat) : KamiSn
     at the software/driver layer; the snapshot only records the mu-tensor
     charge (for REVEAL) and mu/pc advances (for others).
 
-    CALL/RET use kami_sp_reg (r31) as the stack pointer, matching SP_IDX
+    CALL/RET use kami_sp_reg (r15) as the stack pointer, matching SP_IDX
     in ThieleCPUCore.v. *)
 Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
   match i with
@@ -762,10 +763,10 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_psplit module left_region right_region cost =>
-      (* PSPLIT: mirrors graph_hw_psplit — half-split module (module mod 64),
+      (* PSPLIT: mirrors graph_hw_psplit — half-split module (module mod PTableSz),
          allocate two new partition table slots, remove original.
          Always succeeds (matching SimulationProof.vm_apply). *)
-      let mid := module mod 64 in
+      let mid := module mod PTableSz in
       let orig_sz := snap_pt_sizes hs mid in
       let left_sz := Nat.div orig_sz 2 in
       let right_sz := orig_sz - left_sz in
@@ -804,11 +805,11 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_pmerge m1 m2 cost =>
-      (* PMERGE: mirrors graph_hw_pmerge — sum sizes of m1 mod 64 and m2 mod 64,
+      (* PMERGE: mirrors graph_hw_pmerge — sum sizes of m1 mod PTableSz and m2 mod PTableSz,
          remove both, allocate one new partition table slot.
          Always succeeds (matching SimulationProof.vm_apply). *)
-      let mid1 := m1 mod 64 in
-      let mid2 := m2 mod 64 in
+      let mid1 := m1 mod PTableSz in
+      let mid2 := m2 mod PTableSz in
       let sz1 := snap_pt_sizes hs mid1 in
       let sz2 := snap_pt_sizes hs mid2 in
       let merged_sz := sz1 + sz2 in
@@ -925,7 +926,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (snap_regs hs (src mod 32));
+         snap_regs  := kami_write_reg hs dst (snap_regs hs (src mod RegCount));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -987,7 +988,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (snap_mem hs (snap_regs hs (rs_addr mod 32) mod MEM_SIZE));
+         snap_regs  := kami_write_reg hs dst (snap_mem hs (snap_regs hs (rs_addr mod RegCount) mod MEM_SIZE));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1019,7 +1020,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
-         snap_mem   := kami_write_mem hs (snap_regs hs (rs_addr mod 32)) (snap_regs hs (src mod 32));
+         snap_mem   := kami_write_mem hs (snap_regs hs (rs_addr mod RegCount)) (snap_regs hs (src mod RegCount));
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
@@ -1050,7 +1051,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (snap_regs hs (rs1 mod 32) + snap_regs hs (rs2 mod 32));
+                         (snap_regs hs (rs1 mod RegCount) + snap_regs hs (rs2 mod RegCount));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1077,8 +1078,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_sub dst rs1 rs2 cost =>
-      let v1 := snap_regs hs (rs1 mod 32) in
-      let v2 := snap_regs hs (rs2 mod 32) in
+      let v1 := snap_regs hs (rs1 mod RegCount) in
+      let v2 := snap_regs hs (rs2 mod RegCount) in
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
@@ -1142,7 +1143,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_jnez rs target cost =>
-      let v := snap_regs hs (rs mod 32) in
+      let v := snap_regs hs (rs mod RegCount) in
       {| snap_pc    := if Nat.eqb v 0 then S (snap_pc hs) else target;
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
@@ -1173,7 +1174,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
-  (* CALL/RET use kami_sp_reg (r31) as the stack pointer.
+  (* CALL/RET use kami_sp_reg (r15) as the stack pointer.
      Mirrors SP_IDX (WO~1~1~1~1~1 = 31) in ThieleCPUCore.v.
      Stack convention: ASCENDING (matches vm_apply_unsafe and RTL).
      CALL: write ret_addr at OLD sp, then increment sp.
@@ -1325,8 +1326,8 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word64_xor (snap_regs hs (dst mod 32))
-                                     (snap_regs hs (src mod 32)));
+                         (word64_xor (snap_regs hs (dst mod RegCount))
+                                     (snap_regs hs (src mod RegCount)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1353,15 +1354,15 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
   | instr_xor_swap a b cost =>
-      let va := snap_regs hs (a mod 32) in
-      let vb := snap_regs hs (b mod 32) in
+      let va := snap_regs hs (a mod RegCount) in
+      let vb := snap_regs hs (b mod RegCount) in
       {| snap_pc    := S (snap_pc hs);
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := fun j =>
-           if Nat.eqb j (a mod 32) then vb
-           else if Nat.eqb j (b mod 32) then va
+           if Nat.eqb j (a mod RegCount) then vb
+           else if Nat.eqb j (b mod RegCount) then va
            else snap_regs hs j;
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
@@ -1393,7 +1394,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (word64_popcount (snap_regs hs (src mod 32)));  (* popcount — matches vm_apply_unsafe *)
+         snap_regs  := kami_write_reg hs dst (word64_popcount (snap_regs hs (src mod RegCount)));  (* popcount — matches vm_apply_unsafe *)
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1530,7 +1531,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_mu    := snap_mu hs + cost;
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
-         snap_regs  := kami_write_reg hs dst (snap_mem hs ((snap_csr_heap_base hs + snap_regs hs (rs_addr mod 32)) mod MEM_SIZE));
+         snap_regs  := kami_write_reg hs dst (snap_mem hs ((snap_csr_heap_base hs + snap_regs hs (rs_addr mod RegCount)) mod MEM_SIZE));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1562,7 +1563,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := snap_regs hs;
-         snap_mem   := kami_write_mem hs (snap_csr_heap_base hs + snap_regs hs (rs_addr mod 32)) (snap_regs hs (src mod 32));
+         snap_mem   := kami_write_mem hs (snap_csr_heap_base hs + snap_regs hs (rs_addr mod RegCount)) (snap_regs hs (src mod RegCount));
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
          snap_info_gain := snap_info_gain hs;
@@ -1626,7 +1627,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word64_and (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_and (snap_regs hs (rs1 mod RegCount)) (snap_regs hs (rs2 mod RegCount)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1658,7 +1659,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word64_or (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_or (snap_regs hs (rs1 mod RegCount)) (snap_regs hs (rs2 mod RegCount)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1690,7 +1691,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word64_shl (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_shl (snap_regs hs (rs1 mod RegCount)) (snap_regs hs (rs2 mod RegCount)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1722,7 +1723,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word64_shr (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_shr (snap_regs hs (rs1 mod RegCount)) (snap_regs hs (rs2 mod RegCount)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -1754,7 +1755,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_err   := snap_err hs;
          snap_halted := snap_halted hs;
          snap_regs  := kami_write_reg hs dst
-                         (word64_mul (snap_regs hs (rs1 mod 32)) (snap_regs hs (rs2 mod 32)));
+                         (word64_mul (snap_regs hs (rs1 mod RegCount)) (snap_regs hs (rs2 mod RegCount)));
          snap_mem   := snap_mem hs;
          snap_partition_ops := snap_partition_ops hs;
          snap_mdl_ops := snap_mdl_ops hs;
@@ -2059,12 +2060,12 @@ Definition cpu_preconditions (s : KamiSnapshot) : Prop :=
   snap_mu         s < 2^31   /\
   snap_err        s = false  /\
   snap_halted     s = false  /\
-  snap_pt_next_id s < 64.    (* partition table not full: room for at least one more allocation *)
+  snap_pt_next_id s < PTableSz.    (* partition table not full: room for at least one more allocation *)
 
 (** Length invariants *)
 
 Lemma snapshot_regs_to_list_length : forall f,
-    length (snapshot_regs_to_list f) = 32.
+    length (snapshot_regs_to_list f) = RegCount.
 Proof.
   intro f. unfold snapshot_regs_to_list. rewrite map_length, seq_length. reflexivity.
 Qed.
@@ -2227,7 +2228,7 @@ Qed.
 Theorem snap_pt_to_graph_pnew :
     forall (next_id region_size : nat) (sizes : nat -> nat),
       next_id >= 1 ->
-      next_id < 64 ->
+      next_id < PTableSz ->
       region_size > 0 ->
       sizes next_id = 0 ->
       snap_pt_to_graph (S next_id)
@@ -2261,7 +2262,7 @@ Proof.
 Qed.
 
 (** snap_pt_to_graph_pnew_minimal: same as snap_pt_to_graph_pnew but without
-    the vestigial preconditions next_id >= 1, next_id < 64, and sizes next_id = 0.
+    the vestigial preconditions next_id >= 1, next_id < PTableSz, and sizes next_id = 0.
     The proof never uses those hypotheses; they were added conservatively. *)
 Theorem snap_pt_to_graph_pnew_minimal :
     forall (next_id region_size : nat) (sizes : nat -> nat),
@@ -2296,7 +2297,7 @@ Qed.
     After hardware PNEW, pg_next_id advances by 1. *)
 Corollary snap_pt_to_graph_pnew_next_id :
     forall (next_id region_size : nat) (sizes : nat -> nat),
-      next_id >= 1 -> next_id < 64 -> region_size > 0 -> sizes next_id = 0 ->
+      next_id >= 1 -> next_id < PTableSz -> region_size > 0 -> sizes next_id = 0 ->
       (snap_pt_to_graph (S next_id)
          (fun j => if Nat.eqb j next_id then region_size else sizes j)).(pg_next_id) =
       S (snap_pt_to_graph next_id sizes).(pg_next_id).
@@ -2309,7 +2310,7 @@ Qed.
     the total region-size sum across all allocated modules is conserved. *)
 Theorem snap_pt_to_graph_pmerge_size_conserved :
     forall (m1 m2 slot3 : nat) (sizes : nat -> nat),
-      m1 < 64 -> m2 < 64 -> slot3 < 64 ->
+      m1 < PTableSz -> m2 < PTableSz -> slot3 < PTableSz ->
       m1 <> m2 -> m1 <> slot3 -> m2 <> slot3 ->
       sizes slot3 = 0 ->  (* slot3 is fresh *)
       let merged_sz := sizes m1 + sizes m2 in
@@ -2389,7 +2390,7 @@ Qed.
 (** Register and memory read equivalence *)
 
 Lemma snapshot_reg_read : forall f i,
-    i < 32 ->
+    i < RegCount ->
     List.nth i (snapshot_regs_to_list f) 0 = f i.
 Proof.
   intros f i Hi. unfold snapshot_regs_to_list.
@@ -2421,14 +2422,14 @@ Definition mk_snap_vmstate (s : KamiSnapshot) : VMState :=
   abs_phase1 s.
 
 Lemma snapshot_reg_write : forall (s : KamiSnapshot) (dst v : nat),
-    dst < 32 ->
+    dst < RegCount ->
     snapshot_regs_to_list (fun j => if Nat.eqb j dst then word64 v else snap_regs s j) =
     write_reg (abs_phase1 s) dst v.
 Proof.
   intros s dst v Hdst.
   cbv [write_reg reg_index REG_COUNT abs_phase1 snapshot_regs_to_list].
-  replace (dst mod 32) with dst by (symmetry; apply Nat.mod_small; exact Hdst).
-  apply map_update_zero. exact Hdst.
+  replace (dst mod 16) with dst by (symmetry; apply Nat.mod_small; unfold RegCount in Hdst; exact Hdst).
+  apply map_update_zero. unfold RegCount in Hdst. exact Hdst.
 Qed.
 
 Lemma snapshot_mem_write : forall (s : KamiSnapshot) (addr v : nat),
@@ -2543,7 +2544,7 @@ Qed.
     hardware implements VM semantics under the abstraction map. *)
 Theorem kami_refines_vm_step :
     forall (s : KamiSnapshot) (dst v : nat),
-      dst < 32 ->
+      dst < RegCount ->
       snapshot_regs_to_list (fun j => if Nat.eqb j dst then word64 v else snap_regs s j) =
       write_reg (abs_phase1 s) dst v.
 Proof.

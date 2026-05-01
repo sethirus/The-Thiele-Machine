@@ -44,6 +44,7 @@ Local Open Scope list_scope.
 
 From Kernel  Require Import VMState VMStep SimulationProof CertCheck.
 From KamiHW  Require Import Abstraction.
+From KamiHW Require Import ThieleTypes.
 Local Open Scope list_scope.
 
 (* Pull VMStep definitions into scope *)
@@ -142,17 +143,17 @@ Qed.
    §3  Register and memory read/write helpers
    *)
 
-(** Reading register r via abs_phase1 equals reading snap_regs at r mod 32. *)
+(** Reading register r via abs_phase1 equals reading snap_regs at r mod RegCount. *)
 Lemma abs_phase1_read_reg : forall (ks : KamiSnapshot) (r : nat),
-    read_reg (abs_phase1 ks) r = snap_regs ks (r mod 32).
+    read_reg (abs_phase1 ks) r = snap_regs ks (r mod RegCount).
 Proof.
   intros ks r.
-  cbv [read_reg reg_index REG_COUNT abs_phase1].
+  cbv [read_reg reg_index REG_COUNT RegCount abs_phase1].
   apply snapshot_reg_read.
-  apply Nat.mod_upper_bound. lia.
+  apply Nat.mod_upper_bound. unfold RegCount. lia.
 Qed.
 
-(** MEM_SIZE = 65536 is nonzero.  We cannot use [lia] because Coq 8.18
+(** MEM_SIZE is nonzero.  We cannot use [lia] because Coq 8.18
     represents large nat literals via Init.Nat.of_num_uint which is opaque
     to the lia decision procedure.  [intro H; inversion H] works because
     it evaluates the constructors directly. *)
@@ -176,10 +177,10 @@ Lemma abs_phase1_kami_reg_write : forall (ks : KamiSnapshot) (r v : nat),
     write_reg (abs_phase1 ks) r v.
 Proof.
   intros ks r v.
-  cbv [snapshot_regs_to_list kami_write_reg write_reg reg_index REG_COUNT abs_phase1].
+  cbv [snapshot_regs_to_list kami_write_reg write_reg reg_index REG_COUNT RegCount abs_phase1].
   rewrite map_update_at_seq.
   - reflexivity.
-  - apply Nat.mod_upper_bound. lia.
+  - apply Nat.mod_upper_bound. unfold RegCount. lia.
 Qed.
 
 (** Variant: the hardware write matches write_reg applied to a word64-truncated
@@ -217,8 +218,8 @@ Qed.
     j = bmod, or neither. *)
 Lemma abs_phase1_kami_xor_swap :
   forall (ks : KamiSnapshot) (a b : nat),
-    let amod := a mod 32 in
-    let bmod := b mod 32 in
+    let amod := a mod RegCount in
+    let bmod := b mod RegCount in
     let va := snap_regs ks amod in
     let vb := snap_regs ks bmod in
     snapshot_regs_to_list
@@ -228,29 +229,29 @@ Lemma abs_phase1_kami_xor_swap :
     swap_regs (snapshot_regs_to_list (snap_regs ks)) a b.
 Proof.
   intros ks a b. cbv zeta.
-  unfold swap_regs, snapshot_regs_to_list, REG_COUNT.
+  unfold swap_regs, snapshot_regs_to_list, REG_COUNT, RegCount.
   set (f  := snap_regs ks).
-  set (am := a mod 32).
-  assert (Ham : am < 32) by (unfold am; apply Nat.mod_upper_bound; lia).
-  assert (Hbm : b mod 32 < 32) by (apply Nat.mod_upper_bound; lia).
-  rewrite (nth_map_seq f 32 am Ham).
-  rewrite (nth_map_seq f 32 (b mod 32) Hbm).
+  set (am := a mod 16).
+  assert (Ham : am < 16) by (unfold am; apply Nat.mod_upper_bound; lia).
+  assert (Hbm : b mod 16 < 16) by (apply Nat.mod_upper_bound; lia).
+  rewrite (nth_map_seq f 16 am Ham).
+  rewrite (nth_map_seq f 16 (b mod 16) Hbm).
   (* Convert the inner firstn/skipn write (at am) to a map *)
-  rewrite <- (map_update_at_seq 32 am (f (b mod 32)) f Ham).
-  (* Convert the outer firstn/skipn write (at b mod 32) to a map *)
-  set (g := fun j => if Nat.eqb j am then f (b mod 32) else f j).
-  rewrite <- (map_update_at_seq 32 (b mod 32) (f am) g Hbm).
-  (* Both sides are now (map _ (seq 0 32)); prove pointwise equality *)
+  rewrite <- (map_update_at_seq 16 am (f (b mod 16)) f Ham).
+  (* Convert the outer firstn/skipn write (at b mod 16) to a map *)
+  set (g := fun j => if Nat.eqb j am then f (b mod 16) else f j).
+  rewrite <- (map_update_at_seq 16 (b mod 16) (f am) g Hbm).
+  (* Both sides are now (map _ (seq 0 16)); prove pointwise equality *)
   apply List.map_ext; intro j.
   unfold g.
-  destruct (Nat.eqb j am) eqn:Hja; destruct (Nat.eqb j (b mod 32)) eqn:Hjb.
-  - (* j = am = b mod 32: rewrite both sides to j, then reflexivity *)
+  destruct (Nat.eqb j am) eqn:Hja; destruct (Nat.eqb j (b mod 16)) eqn:Hjb.
+  - (* j = am = b mod 16: rewrite both sides to j, then reflexivity *)
     apply Nat.eqb_eq in Hja, Hjb. rewrite <- Hjb, <- Hja. reflexivity.
-  - (* j = am, j ≠ b mod 32: both give f (b mod 32) *)
+  - (* j = am, j ≠ b mod 16: both give f (b mod 16) *)
     reflexivity.
-  - (* j ≠ am, j = b mod 32: both give f am *)
+  - (* j ≠ am, j = b mod 16: both give f am *)
     reflexivity.
-  - (* j ≠ am, j ≠ b mod 32: both give f j *)
+  - (* j ≠ am, j ≠ b mod 16: both give f j *)
     reflexivity.
 Qed.
 
@@ -695,7 +696,7 @@ Qed.
 (** WellFormedPT: the partition table is in a valid state for graph ops. *)
 Definition WellFormedPT (ks : KamiSnapshot) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  snap_pt_next_id ks < 64 /\
+  snap_pt_next_id ks < PTableSz /\
   snap_pt_sizes ks (snap_pt_next_id ks) = 0.
 
 (** --- PNEW --- *)
@@ -801,8 +802,8 @@ Qed.
 (** Helper: hardware dual-witness check matches kernel lassert_check_ok via abs_phase1 *)
 Lemma abs_phase1_lassert_check :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool),
-    let fbase_hw := snap_regs ks (freg mod 32) in
-    let cbase_hw := snap_regs ks (creg mod 32) in
+    let fbase_hw := snap_regs ks (freg mod RegCount) in
+    let cbase_hw := snap_regs ks (creg mod RegCount) in
     let hw_flen := snap_mem ks (fbase_hw mod MEM_SIZE) in
     let formula_words_hw := List.map (fun i => snap_mem ks ((fbase_hw + i) mod MEM_SIZE))
                                      (List.seq 0 (3 + hw_flen)) in
@@ -822,9 +823,9 @@ Proof.
   intros ks freg creg kind.
   unfold lassert_check_ok.
   rewrite abs_phase1_read_reg.
-  set (fbase := snap_regs ks (freg mod 32)).
+  set (fbase := snap_regs ks (freg mod RegCount)).
   rewrite abs_phase1_read_reg.
-  set (cbase := snap_regs ks (creg mod 32)).
+  set (cbase := snap_regs ks (creg mod RegCount)).
   rewrite abs_phase1_read_mem.
   set (hw_flen := snap_mem ks (fbase mod MEM_SIZE)).
   (* formula_words: both sides map read-at-fbase+i over seq *)
@@ -842,9 +843,9 @@ Qed.
 (** Helper: lassert_exec_ok on abs_phase1 equals the hardware length+check combination *)
 Lemma abs_phase1_lassert_exec_ok :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen : nat),
-    let fbase := snap_regs ks (freg mod 32) in
+    let fbase := snap_regs ks (freg mod RegCount) in
     let hw_flen := snap_mem ks (fbase mod MEM_SIZE) in
-    let cbase := snap_regs ks (creg mod 32) in
+    let cbase := snap_regs ks (creg mod RegCount) in
     let formula_words := List.map (fun i => snap_mem ks ((fbase + i) mod MEM_SIZE))
                                    (List.seq 0 (3 + hw_flen)) in
     let num_vars :=
@@ -873,9 +874,9 @@ Qed.
     full field-by-field equality. *)
 Theorem embed_step_lassert :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool) (flen cost : nat),
-    let fbase := snap_regs ks (freg mod 32) in
+    let fbase := snap_regs ks (freg mod RegCount) in
     let hw_flen := snap_mem ks (fbase mod MEM_SIZE) in
-    let cbase := snap_regs ks (creg mod 32) in
+    let cbase := snap_regs ks (creg mod RegCount) in
     let formula_words := List.map (fun i => snap_mem ks ((fbase + i) mod MEM_SIZE))
                                    (List.seq 0 (3 + hw_flen)) in
     let num_vars :=

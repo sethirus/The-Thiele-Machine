@@ -134,7 +134,7 @@ These definitions are generated in \texttt{artifacts/synthesis\_gate/generated\_
 
 \subsection{$\mu$-ALU Design}
 
-The $\mu$-ALU is a specialized arithmetic unit for cost accounting. \textbf{Note:} The module listing below is illustrative/conceptual. No standalone \texttt{mu\_alu.v} file exists; the actual $\mu$-accounting logic is integrated within the Kami-generated RTL (\texttt{thiele\_cpu\_kami.v}).
+The $\mu$-ALU is a specialized arithmetic unit for cost accounting. \textbf{Note:} The module listing below is illustrative/conceptual. There is no standalone $\mu$-ALU file in the build; the actual $\mu$-accounting logic is integrated within the Kami-generated RTL (\texttt{coq/kami\_hw/ThieleCPUCore.v} extracts to \texttt{thielecpu/hardware/rtl/thiele\_cpu\_kami.v}).
 \begin{lstlisting}
 module mu_alu (
     input wire clk,
@@ -196,12 +196,12 @@ endmodule
 
 \textbf{Overflow detection:} The $\mu$-ALU enforces monotonicity:
 \begin{itemize}
-    \item If \\texttt{op = sub} and $\text{operand\_a} < \text{operand\_b}$, set \\texttt{overflow = 1} (reject operation).
-    \item The $\mu$-core checks \\texttt{overflow} and halts execution with error \\texttt{MU\_VIOLATION}.
+    \item If \texttt{op = sub} and $\text{operand\_a} < \text{operand\_b}$, set the overflow flag and reject the operation.
+    \item The $\mu$-core checks the overflow flag and halts execution. (Note: the actual hardware does not expose a single named ``MU\_VIOLATION'' error code; the trap path uses the same write-protected-CSR / NoFI guards as other monotonicity faults, with \texttt{ERR\_LOGIC\_VAL} or the \texttt{vm\_err} latch raised in the relevant arm.)
 \end{itemize}
 
 
-Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU logic is integrated within the Kami-generated RTL (\texttt{thiele\_cpu\_kami.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected. (Note: There is no standalone \texttt{mu\_alu.v} file; the description above is conceptual.)
+Key property: \textbf{$\mu$ only increases} at the ledger boundary. The $\mu$-ALU logic is integrated within the Kami-generated RTL (\texttt{thielecpu/hardware/rtl/thiele\_cpu\_kami.v}), while the $\mu$-core enforces the monotonicity policy by gating ledger updates so that any decreasing update is rejected.
 
 \subsection{State Serialization}
 
@@ -285,17 +285,70 @@ The serializer logic is integrated into the RTL harness testbench (\texttt{rtl\_
 
 \subsection{Synthesis Results}
 
-Target: Lattice ECP5 (ULX3S board), synthesized with Yosys + nextpnr-ecp5
+Target: Xilinx Artix-7 (Digilent Arty A7-35T, \texttt{xc7a35tcsg324-1}),
+synthesized with \texttt{yosys synth\_xilinx -family xc7 -abc9 -nodsp}
+on the canonical RTL. The synthesized machine has $16$ general-purpose
+registers, $128$ words of data memory and $128$ words of instruction
+memory, $64$ partition module slots, $16$ slots per auxiliary descriptor
+table, and $64$-entry inlined LASSERT FSM buffers. The wrapper
+\texttt{thiele\_cpu\_top} ties off the unused mkModule1 method I/Os
+internally so only five board-visible pins are routed.
+
 \begin{center}
 \begin{tabular}{|l|r|}
 \hline
-\textbf{Resource} & \textbf{Usage} \\
+\textbf{Resource} & \textbf{Cell count} \\
 \hline
-LUT4 & 31,228 / 83,640 (37\%) \\
-Block RAM (18Kb) & 8 \\
+LUT2              &     995 \\
+LUT3              & 3{,}133 \\
+LUT4              & 2{,}192 \\
+LUT5              & 5{,}504 \\
+LUT6              & 2{,}819 \\
+INV               &      76 \\
+LUT1              &       1 \\
+CARRY4            &     173 \\
+FDRE              & 3{,}580 \\
+FDSE              &       2 \\
+RAM64M            &      64 \\
+RAMB36E1 (BRAM)   &       2 \\
+IBUF / OBUF       &       2 / 3 \\
+BUFG              &       1 \\
+\hline
+\textbf{Estimated logic cells} & $\sim 13{,}648$ \\
+\textbf{Total cells}           & $18{,}546$ \\
 \hline
 \end{tabular}
 \end{center}
+
+\noindent
+The yosys \texttt{-abc9} tech-mapping pass factors the wide write-back
+muxes efficiently: every register write picks among only the live opcodes
+that produce a value rather than maintaining a $46$-way mux for every bit
+of every register. Together with the bounded register/memory/descriptor
+budget above, the design occupies roughly $66\%$ of the xc7a35t's
+$\sim 20{,}800$-LUT budget --- comfortable headroom for the open-source
+place-and-route flow. The \texttt{-nodsp} flag keeps the multiplier in
+LUTs because nextpnr-xilinx (openXC7) cannot route DSP48E1 cascade-carry
+ground ties; the LUT-mapped multiplier is functionally identical and
+adds only $\sim 700$ LUTs.
+
+\noindent\textbf{Place-and-route.} \texttt{nextpnr-xilinx} (the openXC7
+fork of the YosysHQ \texttt{nextpnr} framework) runs the
+\texttt{synth\_xilinx -abc9} JSON through placement (HeAP analytical placer
+followed by simulated-annealing refinement) and routes the result with
+the negotiation-based pathfinder. Routing converges in a single main-loop
+pass with no overuse, producing a placed-and-routed FPGA assembly file
+(\texttt{thiele\_xc7a35t.fasm}) that \texttt{fasm2frames} (Project X-Ray)
+expands into device frames and \texttt{xc7frames2bit} packages into the
+binary bitstream \texttt{thiele\_xc7a35t.bit}, loadable on the Arty A7-35T
+via \texttt{openFPGALoader -b arty\_35t}. The flow is bit-deterministic
+given a fixed seed; CI runs it end-to-end on every push to the canonical
+RTL.
+
+\noindent\textbf{Timing.} \texttt{nextpnr-xilinx} reports a maximum clock
+frequency of $\sim 39$ MHz on the synthesized design --- about $3\times$
+the $12$ MHz target the testbench drives, leaving ample slack for a
+single-cycle deployment.
 
 \section{Testbench Infrastructure}
 
@@ -325,13 +378,13 @@ endmodule
 \begin{itemize}
     \item \textbf{initial block:} Executes once at simulation start:
     \begin{itemize}
-        \item \textbf{\$readmemh(\"test\_compute\_data.hex\", cpu.mem.memory):} Loads a hex-encoded program into the CPU's memory. Example: \\texttt{test\_compute\_data.hex} contains opcodes and operands for a test computation.
+        \item \textbf{\$readmemh(\"test\_compute\_data.hex\", cpu.mem.memory):} Loads a hex-encoded program into the CPU's memory. Example: \texttt{test\_compute\_data.hex} contains opcodes and operands for a test computation.
     \end{itemize}
     
     \item \textbf{always @(posedge done) block:} Triggers when CPU signals completion:
     \begin{itemize}
         \item \textbf{done:} CPU output signal indicating execution finished (all instructions executed or HALT encountered).
-        \item \textbf{\$display(...):} Prints JSON-formatted state to console. Example output: \\texttt{\\{\"pc\":100,\"mu\":500,\"regs\":[...],...\\}}.
+        \item \textbf{\$display(...):} Prints JSON-formatted state to console. Example output: \texttt{\{\"pc\":100,\"mu\":500,\"regs\":[...],...\}}.
         \item \textbf{\$finish:} Terminates simulation.
     \end{itemize}
 \end{itemize}
@@ -340,14 +393,14 @@ endmodule
 \begin{itemize}
     \item \textbf{Structured:} JSON is machine-parsable (no regex needed).
     \item \textbf{Human-readable:} Easy to debug mismatches.
-    \item \textbf{Standard:} Works with any JSON parser (Python's \\texttt{json} module, OCaml's \\texttt{Yojson}).
+    \item \textbf{Standard:} Works with any JSON parser (Python's \texttt{json} module, OCaml's \texttt{Yojson}).
 \end{itemize}
 
 \textbf{Example workflow:}
 \begin{enumerate}
-    \item Compile Verilog: \\texttt{iverilog -o sim thiele\_cpu\_tb.v thiele\_cpu.v}
-    \item Run simulation: \\texttt{vvp sim > rtl\_output.json}
-    \item Parse output: Python harness reads \\texttt{rtl\_output.json}, compares to Python/OCaml results.
+    \item Compile Verilog: \texttt{iverilog -o sim thiele\_cpu\_tb.v thiele\_cpu.v}
+    \item Run simulation: \texttt{vvp sim > rtl\_output.json}
+    \item Parse output: Python harness reads \texttt{rtl\_output.json}, compares to Python/OCaml results.
 \end{enumerate}
 
 
@@ -630,11 +683,11 @@ The RTL testbench reads hex programs and outputs JSON:
     \item \textbf{mu:} $\mu$-ledger from RTL (\texttt{cpu.mu\_ledger} register, 32-bit value, e.g., 500).
     \item \textbf{err:} Error flag from RTL (\texttt{cpu.error\_code} register: 0 = no error, 1 = MU\_VIOLATION, 2 = INVALID\_OPCODE).
     \item \textbf{regs:} Register file from RTL (\texttt{cpu.regfile[0:31]} array, 32 entries $\times$ 32 bits each).
-    \item \textbf{mem:} Memory contents from RTL (\texttt{cpu.mem.memory[0:65535]} array, 65,536 words $\times$ 32 bits each).
+    \item \textbf{mem:} Memory contents from RTL (\texttt{cpu.mem.memory[0:127]} array, $128$ words $\times$ $32$ bits each).
     \item \textbf{csrs:} Control/status registers from RTL (\texttt{cpu.csr\_mode}, \texttt{cpu.csr\_status}, etc.).
 \end{itemize}
 
-\textbf{How is JSON generated?} The RTL testbench (\texttt{thiele\_cpu\_tb.v}) uses \texttt{\$display} to emit JSON on \texttt{@(posedge done)}:
+\textbf{How is JSON generated?} The RTL testbench (\texttt{rtl\_harness/testbench/thiele\_cpu\_kami\_tb.v}) uses \texttt{\$display} to emit JSON on \texttt{@(posedge done)}:
 \begin{verbatim}
 always @(posedge done) begin
     $display("{\"pc\":%d,\"mu\":%d,...}", cpu.pc, cpu.mu_ledger);

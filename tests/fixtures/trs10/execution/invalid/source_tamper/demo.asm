@@ -1,8 +1,11 @@
 FUEL 64
-INIT_PT 0 256
+INIT_PT 0 128
 INIT_ACTIVE_MODULE 0
-PNEW {0,256} 1
+PNEW {0,128} 1
 LOAD_IMM r1 42 1
 LOAD_IMM r2 59 1
 ADD r3 r1 r2 1
 HALT 0
+; tampered
+; tampered
+; tampered

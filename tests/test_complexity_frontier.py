@@ -431,9 +431,10 @@ class TestMuBudgetThreshold:
         for i in range(n_emit):
             setup.append({"op": "load_imm", "dst": COUNTER_REGS[i], "imm": 0,         "cost": 0})
             setup.append({"op": "load_imm", "dst": TARGET_REGS[i],  "imm": targets[i], "cost": 0})
-        # Blind-tail uses r1b=r20, r2b=r21 to avoid clobbering setup regs
-        BLIND_CTR = 20
-        BLIND_TGT = 21
+        # Blind-tail uses spare registers (r11/r12) — chosen above the certified-dim
+        # COUNTER/TARGET layout (r1..r6) and below SP (r15) so they survive the loop.
+        BLIND_CTR = 11
+        BLIND_TGT = 12
         setup.append({"op": "load_imm", "dst": BLIND_CTR, "imm": 0,             "cost": 0})
         setup.append({"op": "load_imm", "dst": BLIND_TGT, "imm": remaining_idx, "cost": 0})
         setup.append({"op": "load_imm", "dst": 10, "imm": 1, "cost": 0})

@@ -31,6 +31,7 @@ Require Import KamiHW.EmbedStep.
 Require Import KamiHW.EmbedStep_WF.
 Require Import KamiHW.FullEmbedStep.
 Require Import KamiHW.RichStateCommutation.
+From KamiHW Require Import ThieleTypes.
 
 (* ======================================================================
    §1  Representation Invariant
@@ -38,7 +39,7 @@ Require Import KamiHW.RichStateCommutation.
 
 Definition pt_well_formed (ks : KamiSnapshot) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  snap_pt_next_id ks < 64.
+  snap_pt_next_id ks < PTableSz.
 
 Definition hw_repr_invariant (ks : KamiSnapshot) : Prop :=
   pt_well_formed ks.
@@ -84,7 +85,7 @@ Lemma snap_full_graph_pnew :
   forall (ks : KamiSnapshot) (region : list nat) (cost : nat),
     let id := snap_pt_next_id ks in
     let sz := length (normalize_region region) in
-    id >= 1 -> id < 64 -> sz > 0 ->
+    id >= 1 -> id < PTableSz -> sz > 0 ->
     snap_pt_sizes ks id = 0 ->
     (forall n, snap_module_tensors ks id n = 0) ->
     snap_full_graph (kami_step ks (instr_pnew region cost)) =
@@ -114,7 +115,7 @@ Proof.
 Qed.
 
 (** snap_full_graph_pnew_minimal: same as snap_full_graph_pnew but without
-    the vestigial preconditions id >= 1, id < 64, and snap_pt_sizes ks id = 0. *)
+    the vestigial preconditions id >= 1, id < PTableSz, and snap_pt_sizes ks id = 0. *)
 Lemma snap_full_graph_pnew_minimal :
   forall (ks : KamiSnapshot) (region : list nat) (cost : nat),
     let id := snap_pt_next_id ks in
@@ -797,7 +798,7 @@ Qed.
 Theorem hw_repr_invariant_pnew :
   forall ks region cost,
     hw_repr_invariant ks ->
-    S (snap_pt_next_id ks) < 64 ->
+    S (snap_pt_next_id ks) < PTableSz ->
     hw_repr_invariant (kami_step ks (instr_pnew region cost)).
 Proof.
   intros ks region cost [Hge Hlt] Hroom.
@@ -2793,18 +2794,18 @@ Qed.
 Lemma snap_full_graph_psplit :
   forall ks module left_region right_region cost,
     pt_well_formed ks ->
-    module mod 64 < snap_pt_next_id ks ->
-    snap_pt_sizes ks (module mod 64) >= 2 ->
+    module mod PTableSz < snap_pt_next_id ks ->
+    snap_pt_sizes ks (module mod PTableSz) >= 2 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
     snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 ->
-    S (S (snap_pt_next_id ks)) <= 64 ->
+    S (S (snap_pt_next_id ks)) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0) ->
     snap_full_graph (kami_step ks (instr_psplit module left_region right_region cost)) =
-    graph_hw_psplit (snap_full_graph ks) (module mod 64).
+    graph_hw_psplit (snap_full_graph ks) (module mod PTableSz).
 Proof.
   intros ks module left_region right_region cost [Hge Hlt] Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2.
-  set (mid := module mod 64).
+  set (mid := module mod PTableSz).
   set (nid := snap_pt_next_id ks).
   set (sizes := snap_pt_sizes ks).
   set (tensors := snap_module_tensors ks).
@@ -2874,11 +2875,11 @@ Theorem driven_step_psplit :
   forall ks module left_region right_region cost,
     pt_well_formed ks ->
     morph_table_wf (snap_rich_state ks) ->
-    module mod 64 < snap_pt_next_id ks ->
-    snap_pt_sizes ks (module mod 64) >= 2 ->
+    module mod PTableSz < snap_pt_next_id ks ->
+    snap_pt_sizes ks (module mod PTableSz) >= 2 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
     snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 ->
-    S (S (snap_pt_next_id ks)) <= 64 ->
+    S (S (snap_pt_next_id ks)) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
@@ -2890,7 +2891,7 @@ Proof.
     Hpt Hmwf Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2.
   assert (Hgeq : snap_full_graph
     (kami_step ks (instr_psplit module left_region right_region cost))
-    = graph_hw_psplit (snap_full_graph ks) (module mod 64)).
+    = graph_hw_psplit (snap_full_graph ks) (module mod PTableSz)).
   { exact (snap_full_graph_psplit ks module left_region right_region cost
              Hpt Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2). }
   rewrite !abs_full_snapshot_of_snapshot. rewrite Hgeq.
@@ -2903,11 +2904,11 @@ Qed.
 Theorem driven_step_psplit_full :
   forall ks module left_region right_region cost,
     pt_well_formed ks ->
-    module mod 64 < snap_pt_next_id ks ->
-    snap_pt_sizes ks (module mod 64) >= 2 ->
+    module mod PTableSz < snap_pt_next_id ks ->
+    snap_pt_sizes ks (module mod PTableSz) >= 2 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
     snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 ->
-    S (S (snap_pt_next_id ks)) <= 64 ->
+    S (S (snap_pt_next_id ks)) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
@@ -2919,7 +2920,7 @@ Proof.
     Hpt Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2.
   assert (Hgeq : snap_full_graph
     (kami_step ks (instr_psplit module left_region right_region cost))
-    = graph_hw_psplit (snap_full_graph ks) (module mod 64)).
+    = graph_hw_psplit (snap_full_graph ks) (module mod PTableSz)).
   { exact (snap_full_graph_psplit ks module left_region right_region cost
              Hpt Hmid Hsize Hn0 Hsn0 Hroom Hf1 Hf2). }
   rewrite !abs_full_snapshot_of_snapshot. rewrite Hgeq.
@@ -3049,19 +3050,19 @@ Qed.
 Lemma snap_full_graph_pmerge :
   forall ks m1 m2 cost,
     pt_well_formed ks ->
-    m1 mod 64 < snap_pt_next_id ks ->
-    m2 mod 64 < snap_pt_next_id ks ->
-    m1 mod 64 <> m2 mod 64 ->
-    snap_pt_sizes ks (m1 mod 64) > 0 ->
-    snap_pt_sizes ks (m2 mod 64) > 0 ->
+    m1 mod PTableSz < snap_pt_next_id ks ->
+    m2 mod PTableSz < snap_pt_next_id ks ->
+    m1 mod PTableSz <> m2 mod PTableSz ->
+    snap_pt_sizes ks (m1 mod PTableSz) > 0 ->
+    snap_pt_sizes ks (m2 mod PTableSz) > 0 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
-    S (snap_pt_next_id ks) <= 64 ->
+    S (snap_pt_next_id ks) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     snap_full_graph (kami_step ks (instr_pmerge m1 m2 cost)) =
-    graph_hw_pmerge (snap_full_graph ks) (m1 mod 64) (m2 mod 64).
+    graph_hw_pmerge (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz).
 Proof.
   intros ks m1 m2 cost [Hge Hlt] Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1.
-  set (mid1 := m1 mod 64). set (mid2 := m2 mod 64).
+  set (mid1 := m1 mod PTableSz). set (mid2 := m2 mod PTableSz).
   set (nid := snap_pt_next_id ks).
   set (sizes := snap_pt_sizes ks).
   set (tensors := snap_module_tensors ks).
@@ -3128,13 +3129,13 @@ Theorem driven_step_pmerge :
   forall ks m1 m2 cost,
     pt_well_formed ks ->
     morph_table_wf (snap_rich_state ks) ->
-    m1 mod 64 < snap_pt_next_id ks ->
-    m2 mod 64 < snap_pt_next_id ks ->
-    m1 mod 64 <> m2 mod 64 ->
-    snap_pt_sizes ks (m1 mod 64) > 0 ->
-    snap_pt_sizes ks (m2 mod 64) > 0 ->
+    m1 mod PTableSz < snap_pt_next_id ks ->
+    m2 mod PTableSz < snap_pt_next_id ks ->
+    m1 mod PTableSz <> m2 mod PTableSz ->
+    snap_pt_sizes ks (m1 mod PTableSz) > 0 ->
+    snap_pt_sizes ks (m2 mod PTableSz) > 0 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
-    S (snap_pt_next_id ks) <= 64 ->
+    S (snap_pt_next_id ks) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
       (kami_step ks (instr_pmerge m1 m2 cost))) =
@@ -3144,7 +3145,7 @@ Proof.
   intros ks m1 m2 cost [Hge Hlt] Hmwf Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1.
   assert (Hgeq : snap_full_graph
     (kami_step ks (instr_pmerge m1 m2 cost))
-    = graph_hw_pmerge (snap_full_graph ks) (m1 mod 64) (m2 mod 64)).
+    = graph_hw_pmerge (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz)).
   { exact (snap_full_graph_pmerge ks m1 m2 cost
       (conj Hge Hlt) Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1). }
   rewrite !abs_full_snapshot_of_snapshot. rewrite Hgeq.
@@ -3157,13 +3158,13 @@ Qed.
 Theorem driven_step_pmerge_full :
   forall ks m1 m2 cost,
     pt_well_formed ks ->
-    m1 mod 64 < snap_pt_next_id ks ->
-    m2 mod 64 < snap_pt_next_id ks ->
-    m1 mod 64 <> m2 mod 64 ->
-    snap_pt_sizes ks (m1 mod 64) > 0 ->
-    snap_pt_sizes ks (m2 mod 64) > 0 ->
+    m1 mod PTableSz < snap_pt_next_id ks ->
+    m2 mod PTableSz < snap_pt_next_id ks ->
+    m1 mod PTableSz <> m2 mod PTableSz ->
+    snap_pt_sizes ks (m1 mod PTableSz) > 0 ->
+    snap_pt_sizes ks (m2 mod PTableSz) > 0 ->
     snap_pt_sizes ks (snap_pt_next_id ks) = 0 ->
-    S (snap_pt_next_id ks) <= 64 ->
+    S (snap_pt_next_id ks) <= PTableSz ->
     (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) ->
     abs_full_snapshot (full_snapshot_of_snapshot
       (kami_step ks (instr_pmerge m1 m2 cost))) =
@@ -3173,7 +3174,7 @@ Proof.
   intros ks m1 m2 cost [Hge Hlt] Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1.
   assert (Hgeq : snap_full_graph
     (kami_step ks (instr_pmerge m1 m2 cost))
-    = graph_hw_pmerge (snap_full_graph ks) (m1 mod 64) (m2 mod 64)).
+    = graph_hw_pmerge (snap_full_graph ks) (m1 mod PTableSz) (m2 mod PTableSz)).
   { exact (snap_full_graph_pmerge ks m1 m2 cost
       (conj Hge Hlt) Hm1 Hm2 Hne Hs1 Hs2 Hn0 Hroom Hf1). }
   rewrite !abs_full_snapshot_of_snapshot. rewrite Hgeq.
@@ -3842,22 +3843,22 @@ Definition WFDrivenPrecondition (ks : KamiSnapshot) (i : vm_instruction) : Prop 
       chsh_bits_ok x y a b = true
   | instr_psplit module _ _ _ =>
       pt_well_formed ks /\
-      module mod 64 < snap_pt_next_id ks /\
-      snap_pt_sizes ks (module mod 64) >= 2 /\
+      module mod PTableSz < snap_pt_next_id ks /\
+      snap_pt_sizes ks (module mod PTableSz) >= 2 /\
       snap_pt_sizes ks (snap_pt_next_id ks) = 0 /\
       snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0 /\
-      S (S (snap_pt_next_id ks)) <= 64 /\
+      S (S (snap_pt_next_id ks)) <= PTableSz /\
       (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0) /\
       (forall n, snap_module_tensors ks (S (snap_pt_next_id ks)) n = 0)
   | instr_pmerge m1 m2 _ =>
       pt_well_formed ks /\
-      m1 mod 64 < snap_pt_next_id ks /\
-      m2 mod 64 < snap_pt_next_id ks /\
-      m1 mod 64 <> m2 mod 64 /\
-      snap_pt_sizes ks (m1 mod 64) > 0 /\
-      snap_pt_sizes ks (m2 mod 64) > 0 /\
+      m1 mod PTableSz < snap_pt_next_id ks /\
+      m2 mod PTableSz < snap_pt_next_id ks /\
+      m1 mod PTableSz <> m2 mod PTableSz /\
+      snap_pt_sizes ks (m1 mod PTableSz) > 0 /\
+      snap_pt_sizes ks (m2 mod PTableSz) > 0 /\
       snap_pt_sizes ks (snap_pt_next_id ks) = 0 /\
-      S (snap_pt_next_id ks) <= 64 /\
+      S (snap_pt_next_id ks) <= PTableSz /\
       (forall n, snap_module_tensors ks (snap_pt_next_id ks) n = 0)
   | instr_morph _ src_mod dst_mod _ _ =>
       coupling_zero_empty (snap_rich_state ks) /\
@@ -4013,7 +4014,7 @@ Qed.
 
     Invariant preservation:
       - [hw_repr_invariant_supported_step]: Qed for SupportedOpcodes.
-      - [hw_repr_invariant_pnew]: Qed under S(next_id) < 64.
+      - [hw_repr_invariant_pnew]: Qed under S(next_id) < PTableSz.
 
     Multi-step:
       - [driven_step_wf]: Qed under WFDrivenPrecondition for exact cases above.

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Edge-case boundary tests for the Thiele Machine.
 
-Tests boundary conditions that the fuzzer misses: register 0, register 31 (SP),
+Tests boundary conditions that the fuzzer misses: register 0, register 15 (SP),
 address boundaries, cost boundaries, arithmetic overflow/underflow, and
 check_model parity with more formula patterns.
 
@@ -51,7 +51,7 @@ def _run_both(program: List[str]):
 
 PREAMBLE = [
     "INIT_LOGIC_ACC 0xCAFEEACE",
-    "INIT_PT 0 256",
+    "INIT_PT 0 128",
     "INIT_ACTIVE_MODULE 0",
 ]
 
@@ -73,24 +73,24 @@ class TestRegisterBoundaries:
         assert rtl is not None
         assert (vm.regs[0] & 0xFFFFFFFF) == (rtl["regs"][0] & 0xFFFFFFFF)
 
-    def test_register_31_write_read(self):
-        """Writing to r31 (stack pointer) and reading it back."""
+    def test_register_15_write_read(self):
+        """Writing to r15 (stack pointer) and reading it back."""
         program = PREAMBLE + [
-            "LOAD_IMM 31 200 1",
+            "LOAD_IMM 15 200 1",
             "HALT 0",
         ]
         vm, rtl = _run_both(program)
         assert rtl is not None
-        assert (vm.regs[31] & 0xFFFFFFFF) == (rtl["regs"][31] & 0xFFFFFFFF)
+        assert (vm.regs[15] & 0xFFFFFFFF) == (rtl["regs"][15] & 0xFFFFFFFF)
 
-    def test_all_32_registers_independent(self):
-        """Write unique values to all 32 registers, verify none clobber each other."""
+    def test_all_16_registers_independent(self):
+        """Write unique values to all 16 registers, verify none clobber each other."""
         program = PREAMBLE + [
-            f"LOAD_IMM {i} {i + 100} 1" for i in range(32)
+            f"LOAD_IMM {i} {i + 100} 1" for i in range(16)
         ] + ["HALT 0"]
         vm, rtl = _run_both(program)
         assert rtl is not None
-        for i in range(32):
+        for i in range(16):
             expected = i + 100
             assert (rtl["regs"][i] & 0xFF) == expected, (
                 f"r{i} clobbered: expected {expected}, got {rtl['regs'][i]}"
@@ -185,12 +185,12 @@ class TestMemoryBoundaries:
         assert rtl is not None
         assert (vm.regs[2] & 0xFFFFFFFF) == (rtl["regs"][2] & 0xFFFFFFFF)
 
-    def test_store_load_addr_255(self):
-        """Store and load at address 255 (max single-byte)."""
+    def test_store_load_addr_127(self):
+        """Store and load at address 127 (max addressable, MEM_SIZE=128)."""
         program = PREAMBLE + [
             "LOAD_IMM 1 99 1",
-            "STORE 255 1 1",
-            "LOAD 2 255 1",
+            "STORE 127 1 1",
+            "LOAD 2 127 1",
             "HALT 0",
         ]
         vm, rtl = _run_both(program)

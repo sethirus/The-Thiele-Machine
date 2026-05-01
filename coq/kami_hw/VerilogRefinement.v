@@ -10,7 +10,7 @@
 From Coq Require Import Arith.PeanoNat Lia Strings.String List.
 Import ListNotations.
 From Kernel Require Import VMState VMStep.
-From KamiHW Require Import Abstraction.
+From KamiHW Require Import Abstraction ThieleTypes.
 
 (** Simulation relation: hardware snapshot and VM state are related when
     the abstraction map computes that VM state exactly. *)
@@ -27,7 +27,7 @@ Qed.
 (** Core constructive commutation lemma reused from Abstraction.v. *)
 Theorem verilog_refines_register_write :
   forall (hs : KamiSnapshot) (dst v : nat),
-    dst < 32 ->
+    dst < RegCount ->
     snapshot_regs_to_list
       (fun j => if Nat.eqb j dst then word64 v else snap_regs hs j) =
     write_reg (abs_phase1 hs) dst v.

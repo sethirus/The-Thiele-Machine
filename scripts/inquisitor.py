@@ -6738,8 +6738,8 @@ def _scan_opcode_parity(repo_root: Path) -> list[Finding]:
         # RTL uses localparam for opcode encoding
         rtl_opcodes = set(re.findall(r"localparam\s+\w*(?:OP|INSTR|op_)\w*", rtl_text, re.IGNORECASE))
         if not rtl_opcodes:
-            # Check for case statements with opcode values
-            rtl_opcodes = set(re.findall(r"(?:5'd|8'd)\d+\s*:", rtl_text))
+            # Check for case statements with opcode values (decimal or hex literals)
+            rtl_opcodes = set(re.findall(r"(?:5'd|8'd|8'h)[0-9a-fA-F]+\s*:", rtl_text))
         if len(rtl_opcodes) < 20:
             findings.append(Finding(
                 rule_id="OPCODE_PARITY_VIOLATION",

@@ -7,6 +7,7 @@ import pytest
 from thielecpu.vm import (
     CSRState,
     CouplingData,
+    MEM_SIZE,
     MorphismState,
     VMState,
     _runner_available,
@@ -24,7 +25,7 @@ def _rich_state() -> VMState:
     regs[1] = 17
     regs[2] = 99
 
-    mem = [0] * 65536
+    mem = [0] * MEM_SIZE
     mem[3] = 1234
     mem[19] = 5678
 

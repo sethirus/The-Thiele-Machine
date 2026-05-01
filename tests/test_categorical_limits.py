@@ -99,14 +99,14 @@ class TestDeepComposition:
             "COMPOSE 7 6 3 0",        # morph 7: A→D  (f;g;h)
             "COMPOSE 8 7 4 0",        # morph 8: A→E  (f;g;h;k)
             "COMPOSE 9 8 5 0",        # morph 9: A→F  (f;g;h;k;m)
-            "MORPH_GET 20 9 0 0",     # reg[20] = source of composed = mod 1 (A)
-            "MORPH_GET 21 9 1 0",     # reg[21] = target of composed = mod 6 (F)
+            "MORPH_GET 10 9 0 0",     # reg[10] = source of composed = mod 1 (A)
+            "MORPH_GET 11 9 1 0",     # reg[11] = target of composed = mod 6 (F)
             "HALT 0",
         ])
         assert not state.err, f"Unexpected error: mu={state.mu}"
         assert state.regs[9] == 9,  f"Expected composed morph ID=9, got {state.regs[9]}"
-        assert state.regs[20] == 1, f"Expected source=1 (A), got {state.regs[20]}"
-        assert state.regs[21] == 6, f"Expected target=6 (F), got {state.regs[21]}"
+        assert state.regs[10] == 1, f"Expected source=1 (A), got {state.regs[10]}"
+        assert state.regs[11] == 6, f"Expected target=6 (F), got {state.regs[11]}"
 
     def test_chain_mu_accounting(self):
         """μ accumulates exactly: 6 PNEWs(cost=1 each) + 5 MORPHs + 4 COMPOSEs."""
@@ -196,17 +196,17 @@ class TestCategoryLawsExecutable:
             "COMPOSE 6 2 3 0",        # morph 6: g;h: B→D
             "COMPOSE 7 1 6 0",        # morph 7: f;(g;h): A→D
             # Compare
-            "MORPH_GET 20 5 0 0",     # src of (f;g);h
-            "MORPH_GET 21 5 1 0",     # tgt of (f;g);h
-            "MORPH_GET 22 7 0 0",     # src of f;(g;h)
-            "MORPH_GET 23 7 1 0",     # tgt of f;(g;h)
+            "MORPH_GET 8 5 0 0",      # src of (f;g);h
+            "MORPH_GET 9 5 1 0",      # tgt of (f;g);h
+            "MORPH_GET 10 7 0 0",     # src of f;(g;h)
+            "MORPH_GET 11 7 1 0",     # tgt of f;(g;h)
             "HALT 0",
         ])
         assert not state.err
-        assert state.regs[20] == state.regs[22], \
-            f"Assoc: src mismatch {state.regs[20]} != {state.regs[22]}"
-        assert state.regs[21] == state.regs[23], \
-            f"Assoc: tgt mismatch {state.regs[21]} != {state.regs[23]}"
+        assert state.regs[8] == state.regs[10], \
+            f"Assoc: src mismatch {state.regs[8]} != {state.regs[10]}"
+        assert state.regs[9] == state.regs[11], \
+            f"Assoc: tgt mismatch {state.regs[9]} != {state.regs[11]}"
 
     def test_double_identity_composition(self):
         """id_A ; id_A == id_A (same source and target, both are A)."""
@@ -436,14 +436,14 @@ class TestMorphismStress:
         program.append("COMPOSE 11 10 5 0") # morph 11
         program.append("COMPOSE 12 11 6 0") # morph 12
         program.append("COMPOSE 13 12 7 0") # morph 13: A→H
-        program.append("MORPH_GET 20 13 0 0")  # src
-        program.append("MORPH_GET 21 13 1 0")  # tgt
+        program.append("MORPH_GET 14 13 0 0")  # src
+        program.append("MORPH_GET 15 13 1 0")  # tgt
         program.append("HALT 0")
 
         state = vm.run_vm(program)
         assert not state.err, f"8-chain errored: mu={state.mu}"
-        assert state.regs[20] == 1, f"Expected src=1 (A), got {state.regs[20]}"
-        assert state.regs[21] == 8, f"Expected tgt=8 (H), got {state.regs[21]}"
+        assert state.regs[14] == 1, f"Expected src=1 (A), got {state.regs[14]}"
+        assert state.regs[15] == 8, f"Expected tgt=8 (H), got {state.regs[15]}"
 
     def test_delete_and_reuse_slot(self):
         """

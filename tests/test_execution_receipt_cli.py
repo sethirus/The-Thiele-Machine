@@ -7,6 +7,10 @@ import sys
 import tempfile
 from pathlib import Path
 
+import pytest
+
+pytestmark = pytest.mark.trs
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 CREATE_EXECUTION_RECEIPT = PROJECT_ROOT / "scripts" / "create_execution_receipt.py"
@@ -20,7 +24,7 @@ def _write_program(path: Path) -> None:
         "\n".join(
             [
                 "FUEL 64",
-                "INIT_PT 0 256",
+                "INIT_PT 0 128",
                 "INIT_ACTIVE_MODULE 0",
                 "PNEW {0,256} 1",
                 "LOAD_IMM r1 42 1",

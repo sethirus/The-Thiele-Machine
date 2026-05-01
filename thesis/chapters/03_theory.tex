@@ -164,7 +164,7 @@ The state space $S$ is the complete instantaneous description of the machine. Un
 \node[field, fill=green!15] (g) at (0, 0) {\texttt{vm\_graph} : PartitionGraph};
 \node[field, fill=blue!10] (c) at (0, -0.5) {\texttt{vm\_csrs} : CSRState};
 \node[field, fill=blue!10] (r) at (0, -1.0) {\texttt{vm\_regs} : list nat (32)};
-\node[field, fill=blue!10] (m) at (0, -1.5) {\texttt{vm\_mem} : list nat (65536)};
+\node[field, fill=blue!10] (m) at (0, -1.5) {\texttt{vm\_mem} : list nat (128)};
 \node[field, fill=orange!10] (p) at (0, -2.0) {\texttt{vm\_pc} : nat};
 \node[field, fill=yellow!25, line width=1.2pt, draw=red!70] (mu) at (0, -2.5) {\texttt{vm\_mu} : nat \textbf{(\textmu-ledger)}};
 \node[field, fill=yellow!15] (mut) at (0, -3.0) {\texttt{vm\_mu\_tensor} : list nat (4$\times$4)};
@@ -208,8 +208,8 @@ Each component serves a specific purpose:
 \begin{itemize}
     \item \textbf{vm\_graph}: The partition graph $\Pi$, encoding the current decomposition of the state into modules
     \item \textbf{vm\_csrs}: Control Status Registers including certification address, status flags, and error codes
-    \item \textbf{vm\_regs}: A register file of 32 registers (matching RISC-V conventions)
-    \item \textbf{vm\_mem}: Data memory of 65,536 words
+    \item \textbf{vm\_regs}: A register file of 16 general-purpose registers (canonical hardware bound)
+    \item \textbf{vm\_mem}: Data memory of $128$ words (the \texttt{MEM\_SIZE} parameter; the kernel proofs are parametric in this constant, so the same machinery scales up linearly to any target)
     \item \textbf{vm\_pc}: The program counter
     \item \textbf{vm\_mu}: The $\mu$-ledger accumulator
     \item \textbf{vm\_mu\_tensor}: A flattened $4 \times 4$ cost tensor (16 entries, row-major). The \texttt{REVEAL} instruction charges specific tensor entries, and the Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is enforced every cycle in hardware. This connects $\mu$-accounting to metric-space geometry.
@@ -230,7 +230,7 @@ Definition word64 (x : nat) : nat :=
   N.to_nat (N.land (N.of_nat x) word64_mask).
 \end{lstlisting}
 
-\paragraph{What word masking does:} The \texttt{word64} function masks any number down to 64 bits---bitwise AND with \texttt{0xFFFFFFFFFFFFFFFF}. This exists for cross-layer fidelity: Coq's \texttt{nat} type is unbounded, but hardware registers are 64 bits. Without the mask, the Coq model and the hardware disagree on what happens at overflow.
+\paragraph{What word masking does:} The \texttt{word64} function masks any number down to 64 bits---bitwise AND with \texttt{0xFFFFFFFFFFFFFFFF}. This gives the kernel a well-defined finite-width semantics: Coq's \texttt{nat} type is unbounded, so without an explicit mask, kernel arithmetic would have no overflow point. The Kami hardware specification narrows further to 32 bits (\texttt{WordSz := 32} in \path{coq/kami_hw/ThieleTypes.v}); cross-layer comparison reduces the kernel's 64-bit values modulo $2^{32}$ when checking against the RTL.
 
 \textbf{Step by step:}
 \begin{enumerate}
@@ -240,8 +240,8 @@ Definition word64 (x : nat) : nat :=
     \item \textbf{\texttt{N.to\_nat}}: Converts back to \texttt{nat} for the rest of the formal model.
 \end{enumerate}
 
-\textbf{Why this matters:} Coq's \texttt{nat} is unbounded---\texttt{0xFFFFFFFFFFFFFFFF + 1} would be \texttt{0x10000000000000000} in Coq but \texttt{0x0000000000000000} in hardware (wraparound). By applying \texttt{word64} after every operation, the mathematical model matches register behavior exactly. When I prove something about the model, I'm proving it about the actual hardware, not some idealized version.
-In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}) mask values through \texttt{word64}, so every stored word is explicitly truncated rather than implicitly relying on the host language. This makes the arithmetic model match the RTL and avoids ambiguities where a high-level language might use unbounded integers.
+\textbf{Why this matters:} Coq's \texttt{nat} is unbounded---\texttt{0xFFFFFFFFFFFFFFFF + 1} would be \texttt{0x10000000000000000} in Coq, but the kernel needs a finite overflow point so its arithmetic matches what executable backends produce. By applying \texttt{word64} after every register write, the kernel pins itself to 64-bit modular semantics. The RTL further narrows this to 32-bit modular arithmetic; the bisimulation in \path{coq/kernel/HardwareBisimulation.v} establishes correspondence between the kernel's 64-bit values and the RTL's 32-bit registers within the tested range.
+In the Coq kernel, write operations (\texttt{write\_reg} and \texttt{write\_mem}) mask values through \texttt{word64}, so every stored word is explicitly truncated rather than implicitly relying on the host language. This pins down the kernel's overflow behavior and avoids ambiguities where a high-level language might use unbounded integers.
 
 \subsection{Partition Graph $\Pi$}
 
@@ -322,7 +322,7 @@ Record ModuleState := {
     \item \textbf{module\_mu\_tensor}: A per-module $4 \times 4$ metric tensor (16 entries, row-major). Defaults to all zeros (flat space). The \texttt{TENSOR\_SET} instruction writes entries; \texttt{TENSOR\_GET} reads them. This connects partition-level geometry to the global $\mu$-tensor in \texttt{VMState}.
 \end{itemize}
 
-\textbf{Design Rationale:} Why lists instead of sets or arrays? Because Coq's list type has extensive proven libraries (\texttt{List.v}), making verification easier. The O(n) lookup cost is acceptable---the number of modules is typically small ($<$100), and this is a \emph{specification}, not an optimized implementation.
+\textbf{Design Rationale:} Why lists instead of sets or arrays? Because Coq's standard library has extensive list-handling lemmas, making verification easier. The O(n) lookup cost is acceptable---the number of modules is typically small ($<$100), and this is a \emph{specification}, not an optimized implementation.
 
 Key properties and intended semantics:
 \begin{itemize}
@@ -655,7 +655,7 @@ The instructions fall into several categories:
 \begin{itemize}
     \item \texttt{JUMP}: Unconditional jump
     \item \texttt{JNEZ}: Jump if register is not equal to zero
-    \item \texttt{CALL}, \texttt{RET}: Subroutine call and return (\texttt{r31} = stack pointer)
+    \item \texttt{CALL}, \texttt{RET}: Subroutine call and return (\texttt{r15} = stack pointer)
     \item \texttt{HALT}: Advances PC and charges $\delta$. Execution stops at the runner level when PC exceeds the program length; a HALT mid-program does not stop the kernel step relation.
 \end{itemize}
 
@@ -690,28 +690,14 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 
 Each instruction has one or more step rules. For example, \texttt{PNEW}:
 \begin{lstlisting}
-| step_pnew : forall s region cost graph' mid,
-    graph_pnew s.(vm_graph) region = (graph', mid) ->
+| step_pnew : forall s region cost graph',
+    let sz := List.length (normalize_region region) in
+    graph' = fst (graph_add_module s.(vm_graph) (List.seq 0 sz) []) ->
     vm_step s (instr_pnew region cost)
       (advance_state s (instr_pnew region cost) graph' s.(vm_csrs) s.(vm_err))
 \end{lstlisting}
 
-\paragraph{Understanding the step\_pnew Rule:}
-\textbf{Forall Quantification:} This rule applies for \emph{any} values of \texttt{s}, \texttt{region}, \texttt{cost}, \texttt{graph'}, \texttt{mid} that satisfy the premises.
-
-\textbf{Premise (Before the Arrow):}
-\begin{itemize}
-    \item \texttt{graph\_pnew s.(vm\_graph) region = (graph', mid)}: Running the pure function \texttt{graph\_pnew} on the current partition graph with the given region produces a new graph \texttt{graph'} and module ID \texttt{mid}
-    \item This premise ensures the partition operation succeeds before allowing the transition
-\end{itemize}
-
-\textbf{Conclusion (After the Arrow):}
-\begin{itemize}
-    \item \texttt{vm\_step s (instr\_pnew region cost) (new\_state)}: If the premise holds, then stepping from state \texttt{s} via \texttt{instr\_pnew} produces \texttt{new\_state}
-    \item \texttt{advance\_state}: A helper function that updates the graph, increments PC, adds cost to $\mu$-ledger, etc.
-\end{itemize}
-
-\textbf{Logical Interpretation:} "For all states and regions, if graph\_pnew succeeds, then the PNEW instruction validly transitions to a state with the updated graph."
+\paragraph{Understanding the step\_pnew rule:} The kernel's step relation uses hardware-aligned semantics rather than the more abstract \texttt{graph\_pnew} (which still exists in \path{coq/kernel/VMState.v} as the conceptual specification). Concretely, \texttt{step\_pnew} takes the size $sz$ of the normalized input region, allocates a fresh module whose region is \texttt{List.seq 0 sz} (sequential addresses 0..$sz-1$), and lets the new module ID wrap modulo 64 to stay within the hardware's \texttt{NUM\_MODULES} bound. The original abstract semantics---``return the existing module if the same region was previously allocated''---is therefore implemented by \texttt{graph\_pnew} in \path{coq/kernel/VMState.v} but bypassed by the live step relation in favour of the form the RTL can actually realize. Cross-layer parity is what motivated this rewrite.
 
 \subsection{Logic Engine $L$}
 
@@ -953,7 +939,7 @@ Theorem mu_conservation_kernel : forall s s' instr,
     \item \textbf{No Rewinds}: Can't ``undo'' structural knowledge by stepping backward
 \end{enumerate}
 
-Coq handles this proof by structural induction on the step relation: you do structural induction on the step relation, which means Coq generates one sub-goal per step constructor. Some instructions have multiple step rules for success and failure branches, so 46 opcodes expand into roughly 57 cases. Each one boils down to showing that \texttt{advance\_state} adds a non-negative nat. It's tedious but airtight.
+Coq handles this proof by structural induction on the step relation: one sub-goal per step constructor. Some instructions have multiple step rules for success and failure branches, so 46 opcodes expand into 58 step cases (verified by \texttt{grep -c "\^| step\_" VMStep.v}). Each case boils down to showing that the \texttt{advance\_state} family adds a non-negative \texttt{nat} via \texttt{apply\_cost}. It is tedious but airtight.
 
 \subsubsection{Multi-Step Conservation}
 
@@ -1206,14 +1192,13 @@ Definition graph_psplit (g : PartitionGraph) (mid : ModuleID)
     \item \textbf{Reversibility}: PSPLIT then PMERGE recovers the original structure, but the $\mu$-cost isn't refunded.
 \end{itemize}
 
-\texttt{PSPLIT} replaces a module with two sub-modules. Preconditions:
+\texttt{PSPLIT} replaces a module with two sub-modules. Two layers exist:
 \begin{itemize}
-    \item \texttt{left} and \texttt{right} must partition the original region
-    \item Neither can be empty
-    \item They must be disjoint
+    \item \textbf{Abstract specification} (\texttt{graph\_psplit} in \path{coq/kernel/VMState.v}): the chapter's listing above. Requires \texttt{partition\_valid original left right} (left and right partition the original region: subset, disjoint, union).
+    \item \textbf{Live step relation} (\texttt{step\_psplit} via \texttt{graph\_hw\_psplit} in \path{coq/kernel/VMStep.v}): the abstract \texttt{left}/\texttt{right} parameters are accepted but \emph{ignored}. The split is always equal halves --- $\texttt{left\_sz} = \texttt{orig\_sz}/2$, $\texttt{right\_sz} = \texttt{orig\_sz} - \texttt{left\_sz}$. This is what the RTL actually does, and the cross-layer parity proofs establish refinement against this hardware-aligned form, not the abstract one.
 \end{itemize}
 
-\textit{Intuition:} \texttt{PSPLIT} takes a module and slices it in two. You must prove the slice is clean (disjoint) and complete (covers the original). This lets you refine your structural view---realizing that a large array is actually two independent halves.
+\textit{Intuition:} \texttt{PSPLIT} takes a module and slices it in two. The abstract specification documents the conceptual partition contract; the kernel step relation implements the hardware behaviour and lets the program-supplied split parameters be discarded.
 
 \subsubsection{PMERGE: Module Merging}
 
@@ -1619,7 +1604,10 @@ Theorem nonlocal_correlation_requires_revelation :
     uses_revelation trace \/
     (exists n m p mu, nth_error trace n = Some (instr_emit m p mu)) \/
     (exists n c1 c2 mu, nth_error trace n = Some (instr_ljoin c1 c2 mu)) \/
-    (exists n m f c mu, nth_error trace n = Some (instr_lassert m f c mu)).
+    (exists n fa ca k fl mu,
+       nth_error trace n = Some (instr_lassert fa ca k fl mu)) \/
+    (exists n mid p c mu,
+       nth_error trace n = Some (instr_morph_assert mid p c mu)).
 \end{lstlisting}
 
 \paragraph{Understanding the Revelation Requirement:}
@@ -1637,6 +1625,7 @@ Theorem nonlocal_correlation_requires_revelation :
         \item \texttt{(exists ... instr\_emit ...)}: Contains EMIT (information output)
         \item \texttt{(exists ... instr\_ljoin ...)}: Contains LJOIN (certificate composition)
         \item \texttt{(exists ... instr\_lassert ...)}: Contains LASSERT (axiom assertion)
+        \item \texttt{(exists ... instr\_morph\_assert ...)}: Contains MORPH\_ASSERT (categorical-morphism certification)
     \end{enumerate}
 \end{itemize}
 
@@ -1660,6 +1649,7 @@ Theorem nonlocal_correlation_requires_revelation :
     \item \textbf{EMIT}: Output information (equivalent to revealing)
     \item \textbf{LJOIN}: Combine certificates (requires prior structure addition)
     \item \textbf{LASSERT}: Assert logical constraints (adds axiom structure)
+    \item \textbf{MORPH\_ASSERT}: Certify a categorical morphism between modules (adds structural arrow with certificate cost)
 \end{itemize}
 
 \textbf{Falsification Criterion:} If someone claims "I achieved supra-quantum correlations without paying computational cost," inspect their trace. This theorem proves you'll find at least one high-cost instruction. If not, the claim is provably false.
@@ -1879,20 +1869,21 @@ The Born rule $P(i) = |a_i|^2$ is the unique probability assignment satisfying:
 \end{enumerate}
 \end{theorem}
 
-A note of honesty: the linearity assumption (\texttt{is\_linear\_in\_z}) is doing most of the work here. If you already accept that measurement probabilities depend linearly on the Bloch vector's $z$-component, the Born rule is the unique solution satisfying the boundary conditions. The proof solves the system $a + b = 1$, $-a + b = 0$ to get $a = b = 1/2$, hence $P = (1+z)/2$. The theorem includes a \texttt{mu\_consistent} hypothesis, but this is unused in the actual proof---it reduces to the Bloch ball constraint already given. This is less ``deriving the Born rule from accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.''
+A note of honesty: the linearity assumption (\texttt{is\_linear\_in\_z}) is doing most of the work here. If you already accept that measurement probabilities depend linearly on the Bloch vector's $z$-component, the Born rule is the unique solution satisfying the boundary conditions. The proof solves the system $a + b = 1$, $-a + b = 0$ to get $a = b = 1/2$, hence $P = (1+z)/2$. The full statement \texttt{valid\_linear\_rule\_is\_born\_with\_cost\_side\_condition} also takes a \texttt{measurement\_cost\_nonnegative} hypothesis, but it is unused in the actual proof---it reduces to the Bloch ball constraint already given. This is less ``deriving the Born rule from accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.''
 
-Proven in \path{coq/kernel/BornRule.v}:
+Proven in \path{coq/kernel/BornRule.v} as \texttt{valid\_linear\_rule\_is\_born\_with\_cost\_side\_condition}:
 \begin{lstlisting}
-Theorem born_rule_from_accounting :
+Theorem valid_linear_rule_is_born_with_cost_side_condition :
   forall P : ProbRule,
     valid_prob_rule P ->
     is_linear_in_z P ->
-    mu_consistent P ->
+    measurement_cost_nonnegative P ->
     forall x y z,
       x*x + y*y + z*z <= 1 ->
       P x y z 0 = prob_zero x y z /\
       P x y z 1 = prob_one x y z.
 \end{lstlisting}
+The companion lemma \texttt{linear\_implies\_born} drops the cost-side hypothesis entirely; the file's own comment notes that \texttt{measurement\_cost\_nonnegative} is kept for compatibility with the surrounding development but is unused inside the proof.
 
 \paragraph{Why Not Some Other Rule?}
 Given the linearity assumption, other rules fail the boundary conditions:
@@ -1969,17 +1960,17 @@ Each proof takes a conservation constraint---motivated by $\mu$-accounting---and
 The Tsirelson bound is the strongest result: genuine algebra from row-norm constraints, with a real sum-of-squares identity. The others are lighter---arithmetic consequences of their hypotheses. That is still useful. It tells you the $\mu$-accounting framework is consistent with quantum mechanics, and it shows where the quantum content actually lives (in the conservation constraints, not in separate postulates).
 
 \begin{tcolorbox}[colback=green!5!white,colframe=green!75!black,title=\textbf{Coq-Verified Quantum Axioms}]
-All theorems in this section are machine-checked in Coq 8.18 with zero Admitted statements:
+All theorems in this section are machine-checked in Coq with zero \texttt{Admitted} statements. Line counts (\texttt{wc -l}) as of this writing:
 \begin{itemize}
-    \item \path{coq/kernel/NoCloning.v}: 1,036 lines, 19 definitions/theorems
-    \item \path{coq/kernel/Unitarity.v}: 657 lines, 25 definitions/theorems
-    \item \path{coq/kernel/BornRule.v}: 341 lines, 21 definitions/theorems
-    \item \path{coq/kernel/BornRuleLinearity.v}: Born rule as unique affine interpolation
-    \item \path{coq/kernel/Purification.v}: 290 lines, 11 definitions/theorems
-    \item \path{coq/kernel/TsirelsonGeneral.v}: 329 lines, 19 definitions/theorems
-    \item \path{coq/kernel/AlgebraicCoherence.v}: Tsirelson from algebraic constraints
+    \item \path{coq/kernel/NoCloning.v}: 969 lines
+    \item \path{coq/kernel/Unitarity.v}: 585 lines
+    \item \path{coq/kernel/BornRule.v}: 313 lines
+    \item \path{coq/kernel/BornRuleLinearity.v}: 871 lines (Born rule as unique affine interpolation)
+    \item \path{coq/kernel/Purification.v}: 251 lines
+    \item \path{coq/kernel/TsirelsonGeneral.v}: 313 lines
+    \item \path{coq/kernel/AlgebraicCoherence.v}: 775 lines (Tsirelson from algebraic constraints)
 \end{itemize}
-Total: machine-verified proofs across seven files showing quantum axioms follow from conservation-shaped hypotheses.
+Total: 4,077 lines of machine-verified proof across seven files showing quantum axioms follow from conservation-shaped hypotheses.
 \end{tcolorbox}
 
 \section{Chapter Summary}
@@ -2045,4 +2036,4 @@ This chapter defined the Thiele Machine as a formal 5-tuple $T = (S, \Pi, A, R, 
     \end{itemize}
 \end{enumerate}
 
-These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (4,015 lines of Coq across seven files with zero Admitted statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Key point: under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.
+These formal foundations enable the implementation (Chapter 4), verification (Chapter 5), and evaluation (Chapter 6). The quantum axiom proofs (4,077 lines of Coq across seven files with zero \texttt{Admitted} statements) show that quantum mechanics is consistent with the $\mu$-accounting framework: each axiom follows from a conservation-shaped hypothesis. The physics is in the assumptions, but the structural connection between axioms---all flowing from conservation---is genuine and machine-verified. Key point: under \emph{Total $\mu$-Accounting}, setting $\mu_{\text{total}} = 0$ requires all components ($\mu_{\text{inst}}$ and $\mu_{\text{corr}}$) to be zero, where $\mu_{\text{corr}} = 0$ is exactly the condition of \emph{Algebraic Coherence} required to recover the Tsirelson bound $S \le 2.8284...$. Without enforcing $\mu_{\text{corr}} = 0$, the system is only bounded by the algebraic limit $S \le 4$.

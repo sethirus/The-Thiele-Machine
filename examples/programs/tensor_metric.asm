@@ -8,10 +8,10 @@
 
 FUEL 100
 
-INIT_PT 0 256
+INIT_PT 0 128
 INIT_ACTIVE_MODULE 0
 
-PNEW {0,256} 1               # creates module 1
+PNEW {0,128} 1               # creates module 1
 
 # Set diagonal metric entries
 TENSOR_SET 1 0 0 5 1          # g_00 = 5

@@ -251,11 +251,11 @@ The proof lives in \path{coq/kernel/KernelPhysics.v}, where the \texttt{mu\_gaug
 
 The bridge from a formally verified $\mu$-ledger to a physical claim requires an explicit translation dictionary and at least one measurement that could prove the bridge wrong.
 
-\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The Coq kernel proves $\mu \ge |\phi|_{\text{bits}}$ (description length). The Python VM \emph{proves} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ using a conservative bound ($\text{before} = 2^{n}$, $\text{after} = 1$); may overcharge when multiple solutions exist, avoiding \#P-complete model counting. The system adopts the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
+\paragraph{Translation dictionary.} Let $|\Omega|$ be the admissible microstate count of an $n$-bit device ($|\Omega| = 2^n$ at fixed resolution). A revelation step $\Omega \to \Omega'$ (e.g., \texttt{PNEW}, \texttt{PSPLIT}, \texttt{MDLACC}, \texttt{REVEAL}) shrinks the space by $|\Omega|/|\Omega'|$. The Coq kernel proves $\mu \ge |\phi|_{\text{bits}}$ (description length). The ISA charging rule for \texttt{LASSERT}, $\Delta\mu = \texttt{flen} \times 8 + S(\texttt{cost})$, dominates the conservative reading $|\Omega|=2^n$, $|\Omega'|=1$; the rule may overcharge when multiple solutions exist, avoiding \#P-complete model counting. The Python wrapper consumes that ledger from the OCaml runner without re-deriving it. The system adopts the bridge postulate that charging $\mu$ bits lower-bounds dissipated heat/work: $Q_{\min} = k_B T \ln 2 \cdot \mu$, with an explicit inefficiency factor $\epsilon \ge 1$ for real devices. This postulate is external to the kernel and is presented as an empirical claim.
 
 \paragraph{Bridge theorem (sanity anchor).} Combining No Free Insight (proved: $\mu$ is monotone non-decreasing) with the postulate above yields a Landauer-style inequality: any trace implementing $\Omega \to \Omega'$ must dissipate at least $k_B T \ln 2 \cdot \log_2(|\Omega|/|\Omega'|)$, because the ledger charges at least that many bits for the reduction. The thermodynamic term is an assumption; the $\mu$ inequality is proved in Coq.
 \paragraph{Falsifiable prediction.} Consider four paired workloads that differ only in which singleton module is revealed from a fixed pool (sizes 2, 4, 16, 64). The measured energy/heat must scale with $\mu$ at slope $k_B T \ln 2$ (within the stated $\epsilon$). A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies implementation overhead. Genesis-only traces remain the lone zero-$\mu$ case.
-\paragraph{Executed bridge runs.} The evaluation in Chapter 6 reports the four workloads (singleton pools of 2/4/16/64 elements). Python reports $\mu=\{2,3,5,7\}$; the extracted runner and RTL report the same $\mu_{\text{raw}}$ because the μ-delta is explicitly encoded in the trace and instruction word, and the reference VM consumes that same μ-delta (disabling implicit MDLACC) for these workloads. With this encoding in place, \texttt{EVIDENCE\_STRICT} succeeds without normalization. The ledger still enforces $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each run; the $\mu/\log_2$ ratios (2.0, 1.5, 1.25, 1.167) quantify the slack now surfaced to reviewers.
+\paragraph{Executed bridge runs.} The evaluation in Chapter 6 reports the four workloads (singleton pools of 2/4/16/64 elements). Python reports $\mu=\{2,3,5,7\}$; the extracted runner and RTL report the same $\mu_{\text{raw}}$ because the μ-delta is explicitly encoded in the trace and instruction word, and the reference VM consumes that same μ-delta (disabling implicit MDLACC) for these workloads. With this encoding in place, the strict-evidence test surface succeeds without renormalization. The ledger still enforces $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each run; the $\mu/\log_2$ ratios (2.0, 1.5, 1.25, 1.167) quantify the slack now surfaced to reviewers.
 \subsection{The Physics-Computation Isomorphism}
 
 \begin{center}
@@ -336,7 +336,7 @@ The relationship $\text{P} \subseteq \text{P}_\mu \subseteq \text{NP}_\mu$ is st
 
 \subsection{Turing Subsumption}
 
-A complexity-theoretic framework is vacuous if it cannot express ordinary computation. The Coq formalization proves that the Thiele Machine is at least Turing-complete via a two-step embedding chain: every Turing Machine reduces to a Minsky Machine, and every Minsky Machine reduces to a Thiele Machine trace. The final theorem, \texttt{thiele\_subsumes\_tm\_complete}, composes both reductions.
+A complexity-theoretic framework is vacuous if it cannot express ordinary computation. The Coq formalization proves that the Thiele Machine is at least Turing-complete via a two-step embedding chain: every Turing Machine reduces to a Minsky Machine, and every Minsky Machine reduces to a Thiele Machine trace. The composed result is \texttt{thiele\_turing\_complete\_via\_minsky\_tc} (and its ISA variant \texttt{thiele\_isa\_turing\_complete\_via\_minsky\_tc}) in \texttt{coq/ThieleMachineComplete.v}.
 
 This matters for the $\text{P}_\mu$ / $\text{NP}_\mu$ definitions above: because the model subsumes Turing computation, any existing complexity class (P, NP, PSPACE, etc.) embeds faithfully into its $\mu$-enriched counterpart. The structure-aware classes are genuine refinements of the classical hierarchy, not parallel constructions that happen to share names.
 
@@ -538,44 +538,35 @@ The ledger charges for the structure that is \textit{found}, not necessarily the
 
 \subsection{Hardware Scalability}
 
-Current hardware parameters:
+The synthesized RTL exposes the following bounded resource budget:
 \begin{lstlisting}
-NUM_MODULES = 64       (* PTableSz in ThieleTypes.v *)
-DATA_MEMORY = 65536    (* MemSize in ThieleTypes.v *)
+REG_COUNT   = 16  (* RegCount   in ThieleTypes.v *)
+NUM_MODULES = 64  (* PTableSz   in ThieleTypes.v *)
+DATA_MEMORY = 128 (* MemSize    in ThieleTypes.v *)
+DESC_TABLES = 16  (* MorphTableSz, CouplingDescSz,
+                     FormulaDescSz, CertDescSz, DescMetaSz,
+                     CouplingPairSz: each capped at 16 slots. *)
 \end{lstlisting}
 
-\paragraph{Understanding Current Hardware Limitations:}
-
-\textbf{What are these parameters?} These define the \textbf{capacity constraints} of the current Thiele Machine hardware implementation (Verilog RTL synthesized to FPGA).
-
-\textbf{Parameter meanings:}
+\paragraph{Parameter meanings:}
 \begin{itemize}
-    \item \textbf{NUM\_MODULES = 64} — Maximum number of partition modules the hardware can track simultaneously. Each module has:
-    \begin{itemize}
-        \item A unique ID (0--63)
-        \item A region (set of element indices)
-        \item An axiom list (logical constraints)
-        \item A bitmask representation (64 bits)
-    \end{itemize}
-    \textbf{Implication:} Complex partition graphs requiring $>64$ modules cannot be represented. For example, a partition tree with 100 leaf nodes requires 100 module IDs.
+    \item \textbf{REG\_COUNT = 16} — Per \path{coq/kami_hw/ThieleTypes.v}, \texttt{RegCount := 16} general-purpose registers indexed by a $4$-bit field (\texttt{RegIdxSz := 4}). The hardware-side \texttt{regs} register is therefore $16 \times 32 = 512$ bits wide; register indices above $15$ wrap via \texttt{r mod RegCount} in the live step relation.
 
-    \item \textbf{DATA\_MEMORY = 65536} — Total data memory words. Partition regions are bounded by data memory depth, so the maximum practical region size is 4096 elements. Regions are stored as (base, size) pairs in the 64-slot partition table.
+    \item \textbf{NUM\_MODULES = 64} — \texttt{PTableSz := 64} partition slots indexed by a $6$-bit field (\texttt{PTableIdxSz := 6}). Each slot is one \texttt{WordSz}-bit word (\texttt{WordSz := 32}) inside the on-chip \texttt{ptTable} register; module IDs above $63$ wrap via \texttt{m mod 64} in the live step relation.
+
+    \item \textbf{DATA\_MEMORY = 128} — Total data memory words in the synthesized RTL. The kernel's \texttt{MEM\_SIZE} is parametric, so kernel proofs hold at any depth; the synthesized RTL fixes it to keep the read-port mux logic small. Partition regions are bounded by data memory depth.
+
+    \item \textbf{DESC\_TABLES = 16} — Each auxiliary descriptor table (morphism, coupling, formula, certificate, descriptor-metadata, coupling-pair) is bounded to $16$ slots in the synthesized RTL. The kernel ISA is unchanged but synthesized programs trap on the $17$th allocation in any one table.
 \end{itemize}
 
-\textbf{Why these limits?} Hardware constraints:
-\begin{itemize}
-    \item \textbf{FPGA resources:} The current synthesized design uses ${\sim}31{,}228$ LUT4 (37\% of ECP5 capacity). Scaling \texttt{NUM\_MODULES} beyond 64 would increase the partition table storage and disjointness-checking logic proportionally.
-    \item \textbf{Memory bandwidth:} Checking partition disjointness requires comparing all pairs of regions. 64 modules = $64 \times 63 / 2 = 2016$ comparisons per step. 256 modules = 32,640 comparisons.
-\end{itemize}
+\paragraph{FPGA resources.}
+On the synthesized RTL, \texttt{yosys synth\_xilinx -family xc7 -abc9 -nodsp} reports approximately $13{,}648$ logic cells (sum of LUT1--LUT6 and INV) plus $173$ \texttt{CARRY4}, $3{,}580$ \texttt{FDRE} flip-flops, $64$ \texttt{RAM64M} distributed-RAM primitives, $2$ \texttt{RAMB36E1} block RAMs, $1$ \texttt{BUFG}, and the I/O buffers for the five wrapper pins, totalling $18{,}546$ cells on the wrapper top \texttt{thiele\_cpu\_top}. This corresponds to roughly $66\%$ of the xc7a35t's $\sim 20{,}800$ LUT budget. The locality-checking logic guards every partition-table access through the active module slot.
 
-\textbf{Comparison to software:} The Python reference VM has no hard limits---it uses dynamic data structures (\texttt{dict}, \texttt{set}) that grow as needed. The hardware must pre-allocate resources, leading to fixed capacity.
+\paragraph{Comparison to software.}
+The Python reference VM has no hard limits---it uses dynamic data structures (\texttt{dict}, \texttt{set}) that grow as needed. The hardware must pre-allocate resources, leading to fixed capacity.
 
-\textbf{Real-world adequacy:} For many experiments (CHSH, Grover, Shor), 64 modules with 65,536-word data memory are sufficient. For example:
-\begin{itemize}
-    \item Grover search on $N = 1024$ elements: 1 module, region $\{0, \ldots, 1023\}$.
-    \item Shor factorization of $N = 3233$: $\sim$10 modules for intermediate partitions.
-\end{itemize}
-However, industrial applications (e.g., SAT solving on 10,000-variable formulas) would exceed these limits.
+\paragraph{Scaling.}
+The Coq kernel proofs are parametric over \texttt{REG\_COUNT}, \texttt{MEM\_SIZE}, and \texttt{PTableSz}; rebuilding with larger values produces a faithfully larger machine, the same OCaml extraction shape, and a re-extracted RTL whose silicon footprint scales linearly. Industrial workloads (large SAT instances, deep Shor factorizations) live above the current hardware budget but inside the kernel's mathematical envelope.
 
 Scaling to millions of dynamic partitions requires:
 \begin{itemize}
@@ -660,7 +651,7 @@ The Thiele Machine offers:
     \item A new lens for understanding computational complexity, with concrete $\mu$-cost bounds for NP verification and a conservation law linking computation time to structural revelation cost
     \item Turing subsumption: a mechanized proof that the model is exactly Turing-complete (TM $\to$ Minsky $\to$ Thiele), anchoring the structure-aware complexity classes inside classical computability
     \item Oracle impossibility: three theorems bounding the model from above---halting is undecidable, partial oracles cost $\mu$, and hypercomputation is impossible at finite $\mu$
-    \item A Thiele-honesty $\iff$ NPA-realizability biconditional (zero axioms, proven in \path{coq/kernel/ThieleQuantumEquivalence.v}), making the quantum connection formally provable rather than merely analogical
+    \item A Thiele-honesty $\iff$ NPA-realizability biconditional (zero axioms, proven as \texttt{column\_contractive\_iff\_quantum\_realizable} in \path{coq/kernel/QuantumPartitionPSD.v}), making the quantum connection formally provable rather than merely analogical
 \end{enumerate}
 
 The limitations are real but surmountable. The foundational work---zero-admit proofs, 3-layer comparison discipline, receipt generation---provides a solid base for future research.

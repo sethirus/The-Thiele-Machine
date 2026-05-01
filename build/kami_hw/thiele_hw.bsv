@@ -6,7 +6,7 @@ import FIFO::*;
 import FIFOF::*;
 import MulDiv::*;
 import SpecialFIFOs::*;
-typedef struct { Bit#(16) addr; Bit#(128) data;  } Struct1 deriving(Eq, Bits);
+typedef struct { Bit#(7) addr; Bit#(128) data;  } Struct1 deriving(Eq, Bits);
 typedef struct { Bit#(32) addr; Bit#(128) data;  } Struct2 deriving(Eq, Bits);
 
 interface Module1;
@@ -48,32 +48,32 @@ interface Module1;
     method ActionValue#(Bit#(32)) getPtNextId ();
     method ActionValue#(Bit#(32)) getPtSize (Bit#(6) x_0);
     method ActionValue#(Bit#(32)) getMorphNextId ();
-    method ActionValue#(Bit#(32)) getMorphSrc (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getMorphDst (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getMorphCouplingDesc (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getMorphValid (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getMorphIdentity (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getCouplingDescBase (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getCouplingDescCount (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getCouplingDescValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getMorphSrc (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getMorphDst (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getMorphCouplingDesc (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getMorphValid (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getMorphIdentity (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getCouplingDescBase (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getCouplingDescCount (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getCouplingDescValid (Bit#(4) x_0);
     method ActionValue#(Bit#(32)) getCouplingDescNextId ();
-    method ActionValue#(Bit#(32)) getCouplingPairSrc (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getCouplingPairDst (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getCouplingPairValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCouplingPairSrc (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getCouplingPairDst (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getCouplingPairValid (Bit#(4) x_0);
     method ActionValue#(Bit#(32)) getCouplingPairNextId ();
-    method ActionValue#(Bit#(32)) getFormulaDescBase (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getFormulaDescCount (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getFormulaDescValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getFormulaDescBase (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getFormulaDescCount (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getFormulaDescValid (Bit#(4) x_0);
     method ActionValue#(Bit#(32)) getFormulaDescNextId ();
-    method ActionValue#(Bit#(32)) getCertDescBase (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getCertDescCount (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getCertDescValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCertDescBase (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getCertDescCount (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getCertDescValid (Bit#(4) x_0);
     method ActionValue#(Bit#(32)) getCertDescNextId ();
-    method ActionValue#(Bit#(32)) getDescMetaSubtype (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getDescMetaKind (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getDescMetaInlineLen (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getDescMetaAux (Bit#(6) x_0);
-    method ActionValue#(Bit#(32)) getDescMetaValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaSubtype (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaKind (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaInlineLen (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaAux (Bit#(4) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaValid (Bit#(4) x_0);
     method ActionValue#(Bit#(32)) getDescMetaNextId ();
     method ActionValue#(Bit#(32)) getLassertPhase ();
     method ActionValue#(Bit#(32)) getLassertKind ();
@@ -84,8 +84,8 @@ interface Module1;
     method ActionValue#(Bit#(32)) getLassertFPtr ();
     method ActionValue#(Bit#(32)) getLassertCPtr ();
     method ActionValue#(Bit#(32)) getLassertClauseSat ();
-    method ActionValue#(Bit#(32)) getLassertFbufWord (Bit#(8) x_0);
-    method ActionValue#(Bit#(32)) getLassertCbufWord (Bit#(9) x_0);
+    method ActionValue#(Bit#(32)) getLassertFbufWord (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getLassertCbufWord (Bit#(6) x_0);
     
 endinterface
 
@@ -93,9 +93,9 @@ module mkModule1 (Module1);
     Reg#(Bit#(32)) pc <- mkReg(unpack(0));
     Reg#(Bit#(32)) mu <- mkReg(unpack(0));Reg#(Bool) err <- mkReg(False);
     Reg#(Bool) halted <- mkReg(False);
-    Reg#(Vector#(32, Bit#(32))) regs <- mkReg(unpack(0));
-    Reg#(Vector#(65536, Bit#(32))) mem <- mkReg(unpack(0));
-    Reg#(Vector#(65536, Bit#(128))) imem <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(32))) regs <- mkReg(unpack(0));
+    Reg#(Vector#(128, Bit#(32))) mem <- mkReg(unpack(0));
+    Reg#(Vector#(128, Bit#(128))) imem <- mkReg(unpack(0));
     Reg#(Bit#(32)) partition_ops <- mkReg(unpack(0));
     Reg#(Bit#(32)) mdl_ops <- mkReg(unpack(0));
     Reg#(Bit#(32)) info_gain <- mkReg(unpack(0));
@@ -119,45 +119,45 @@ module mkModule1 (Module1);
     Reg#(Bit#(32)) lassert_nvars <- mkReg(unpack(0));
     Reg#(Bit#(32)) lassert_fptr <- mkReg(unpack(0));
     Reg#(Bit#(32)) lassert_cptr <- mkReg(unpack(0));
-    Reg#(Vector#(256, Bit#(32))) lassert_fbuf <- mkReg(unpack(0));
-    Reg#(Vector#(512, Bit#(32))) lassert_cbuf <- mkReg(unpack(0));
+    Reg#(Vector#(64, Bit#(32))) lassert_fbuf <- mkReg(unpack(0));
+    Reg#(Vector#(64, Bit#(32))) lassert_cbuf <- mkReg(unpack(0));
     Reg#(Bool) lassert_clause_sat <- mkReg(False);
     Reg#(Bool) lassert_counter_clause_sat <- mkReg(False);
     Reg#(Bool) lassert_counter_seen_fail <- mkReg(False);
-    Reg#(Bit#(16)) bus_load_instr_addr <- mkReg(unpack(0));
+    Reg#(Bit#(7)) bus_load_instr_addr <- mkReg(unpack(0));
     Reg#(Bit#(128)) bus_load_instr_data <- mkReg(unpack(0));
     Reg#(Bool) bus_load_instr_kick <- mkReg(False);
     Reg#(Vector#(16, Bit#(32))) mu_tensor <- mkReg(unpack(0));
     Reg#(Vector#(64, Bit#(32))) ptTable <- mkReg(unpack(0));
     Reg#(Bit#(7)) pt_next_id <- mkReg(7'h1);
-    Reg#(Vector#(64, Bit#(6))) morph_src_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(6))) morph_dst_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(6))) morph_coupling_desc_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bool)) morph_valid_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bool)) morph_identity_table <- mkReg(unpack(0));
-    Reg#(Bit#(7)) morph_next_id <- mkReg(7'h1);
-    Reg#(Vector#(64, Bit#(6))) coupling_desc_base_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(7))) coupling_desc_count_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bool)) coupling_desc_valid_table <- mkReg(unpack(0));
-    Reg#(Bit#(7)) coupling_desc_next_id <- mkReg(7'h0);
-    Reg#(Vector#(64, Bit#(32))) coupling_pair_src_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(32))) coupling_pair_dst_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bool)) coupling_pair_valid_table <- mkReg(unpack(0));
-    Reg#(Bit#(7)) coupling_pair_next_id <- mkReg(7'h0);
-    Reg#(Vector#(64, Bit#(32))) formula_desc_base_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(32))) formula_desc_count_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bool)) formula_desc_valid_table <- mkReg(unpack(0));
-    Reg#(Bit#(7)) formula_desc_next_id <- mkReg(7'h0);
-    Reg#(Vector#(64, Bit#(32))) cert_desc_base_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(32))) cert_desc_count_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bool)) cert_desc_valid_table <- mkReg(unpack(0));
-    Reg#(Bit#(7)) cert_desc_next_id <- mkReg(7'h0);
-    Reg#(Vector#(64, Bit#(4))) desc_meta_subtype_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(4))) desc_meta_kind_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(8))) desc_meta_inline_len_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bit#(32))) desc_meta_aux_table <- mkReg(unpack(0));
-    Reg#(Vector#(64, Bool)) desc_meta_valid_table <- mkReg(unpack(0));
-    Reg#(Bit#(7)) desc_meta_next_id <- mkReg(7'h0);
+    Reg#(Vector#(16, Bit#(6))) morph_src_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(6))) morph_dst_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(4))) morph_coupling_desc_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bool)) morph_valid_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bool)) morph_identity_table <- mkReg(unpack(0));
+    Reg#(Bit#(5)) morph_next_id <- mkReg(5'h1);
+    Reg#(Vector#(16, Bit#(4))) coupling_desc_base_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(5))) coupling_desc_count_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bool)) coupling_desc_valid_table <- mkReg(unpack(0));
+    Reg#(Bit#(5)) coupling_desc_next_id <- mkReg(5'h0);
+    Reg#(Vector#(16, Bit#(32))) coupling_pair_src_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(32))) coupling_pair_dst_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bool)) coupling_pair_valid_table <- mkReg(unpack(0));
+    Reg#(Bit#(5)) coupling_pair_next_id <- mkReg(5'h0);
+    Reg#(Vector#(16, Bit#(32))) formula_desc_base_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(32))) formula_desc_count_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bool)) formula_desc_valid_table <- mkReg(unpack(0));
+    Reg#(Bit#(5)) formula_desc_next_id <- mkReg(5'h0);
+    Reg#(Vector#(16, Bit#(32))) cert_desc_base_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(32))) cert_desc_count_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bool)) cert_desc_valid_table <- mkReg(unpack(0));
+    Reg#(Bit#(5)) cert_desc_next_id <- mkReg(5'h0);
+    Reg#(Vector#(16, Bit#(4))) desc_meta_subtype_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(4))) desc_meta_kind_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(8))) desc_meta_inline_len_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bit#(32))) desc_meta_aux_table <- mkReg(unpack(0));
+    Reg#(Vector#(16, Bool)) desc_meta_valid_table <- mkReg(unpack(0));
+    Reg#(Bit#(5)) desc_meta_next_id <- mkReg(5'h0);
     Reg#(Bit#(32)) wc_same_00 <- mkReg(unpack(0));
     Reg#(Bit#(32)) wc_diff_00 <- mkReg(unpack(0));
     Reg#(Bit#(32)) wc_same_01 <- mkReg(unpack(0));
@@ -240,7 +240,7 @@ module mkModule1 (Module1);
         (x_53)) + (x_54)) + (x_55)) + (x_56)) + (x_57)) + (x_58)) + (x_59)) +
         (x_60)) + (x_61)) + (x_62)) + (x_63)) + (x_64));
         Bool x_66 = ((x_4) < (x_65));
-        Bit#(16) x_67 = ((x_3)[15:0]);
+        Bit#(7) x_67 = ((x_3)[6:0]);
         Bit#(128) x_68 = ((x_7)[x_67]);
         Bit#(32) x_69 = ((x_68)[31:0]);
         Bit#(8) x_70 = ((x_68)[127:120]);
@@ -254,11 +254,11 @@ module mkModule1 (Module1);
         Bit#(4) x_78 = ((x_72)[15:12]);
         Bit#(4) x_79 = ((x_72)[11:8]);
         Bit#(8) x_80 = ((x_72)[7:0]);
-        Bit#(6) x_81 = ((x_73)[5:0]);
-        Bit#(6) x_82 = ((x_73)[11:6]);
-        Bit#(7) x_83 = (zeroExtend(x_81));
-        Bit#(7) x_84 = (zeroExtend(x_82));
-        Bool x_85 = (! ((x_82) == ((Bit#(6))'(6'h0))));
+        Bit#(4) x_81 = ((x_73)[3:0]);
+        Bit#(4) x_82 = ((x_73)[9:6]);
+        Bit#(5) x_83 = (zeroExtend(x_81));
+        Bit#(5) x_84 = (zeroExtend(x_82));
+        Bool x_85 = (! ((x_82) == ((Bit#(4))'(4'h0))));
         Bool x_86 = ((((((((x_74) == ((Bit#(8))'(8'h27))) || ((x_74) ==
         ((Bit#(8))'(8'h28)))) || ((x_74) == ((Bit#(8))'(8'h29)))) || ((x_74)
         == ((Bit#(8))'(8'h2a)))) || ((x_74) == ((Bit#(8))'(8'h2b)))) ||
@@ -326,10 +326,10 @@ module mkModule1 (Module1);
         Bool x_119 = (((((x_74) == ((Bit#(8))'(8'h27))) || ((x_74) ==
         ((Bit#(8))'(8'h28)))) || ((x_74) == ((Bit#(8))'(8'h29)))) || ((x_74)
         == ((Bit#(8))'(8'h2c))));
-        Bool x_120 = (((x_119) && (! ((x_30) < ((Bit#(7))'(7'h40))))) ||
+        Bool x_120 = (((x_119) && (! ((x_30) < ((Bit#(5))'(5'h10))))) ||
         (((((x_71) == ((Bit#(8))'(8'h3))) || ((x_71) == ((Bit#(8))'(8'h4))))
         && ((x_74) == ((Bit#(8))'(8'h27)))) && ((! ((x_33) <
-        ((Bit#(7))'(7'h40)))) || (! ((x_34) < ((Bit#(7))'(7'h40)))))));
+        ((Bit#(5))'(5'h10)))) || (! ((x_34) < ((Bit#(5))'(5'h10)))))));
         Bool x_121 = (! ((x_70) == ((Bit#(8))'(8'h2))));
         Bool x_122 = (((! (x_90)) || (! (x_91))) || (x_117));
         Bool x_123 = (((x_102) || (x_103)) || (x_104));
@@ -353,27 +353,27 @@ module mkModule1 (Module1);
         Bool x_133 = ((x_132) && (! (x_131)));
         Bit#(32) x_134 = ((x_4) + (x_126));
         Bit#(32) x_135 = ((x_3) + ((Bit#(32))'(32'h1)));
-        Bit#(5) x_136 = ((x_75)[4:0]);
-        Bit#(5) x_137 = ((x_76)[4:0]);
+        Bit#(4) x_136 = ((x_75)[3:0]);
+        Bit#(4) x_137 = ((x_76)[3:0]);
         Bit#(4) x_138 = ((x_76)[7:4]);
         Bit#(4) x_139 = ((x_76)[3:0]);
-        Bit#(5) x_140 = (zeroExtend(x_138));
-        Bit#(5) x_141 = (zeroExtend(x_139));
+        Bit#(4) x_140 = (truncate(x_138));
+        Bit#(4) x_141 = (truncate(x_139));
         Bit#(32) x_142 = ((x_5)[x_140]);
         Bit#(32) x_143 = ((x_5)[x_141]);
         Bit#(32) x_144 = ((x_5)[x_136]);
         Bit#(32) x_145 = ((x_5)[x_137]);
         Bit#(32) x_146 = (zeroExtend(x_76));
-        Bit#(16) x_147 = ((x_145)[15:0]);
-        Bit#(16) x_148 = ((x_144)[15:0]);
-        Bit#(16) x_149 = (zeroExtend(x_76));
+        Bit#(7) x_147 = ((x_145)[6:0]);
+        Bit#(7) x_148 = ((x_144)[6:0]);
+        Bit#(7) x_149 = (truncate(x_76));
         Bit#(32) x_150 = ((x_6)[x_147]);
         Bit#(32) x_151 = ((x_6)[x_149]);
-        Bit#(32) x_152 = ((x_5)[(Bit#(5))'(5'h1f)]);
-        Bit#(16) x_153 = ((x_152)[15:0]);
+        Bit#(32) x_152 = ((x_5)[(Bit#(4))'(4'hf)]);
+        Bit#(7) x_153 = ((x_152)[6:0]);
         Bit#(32) x_154 = ((x_152) + ((Bit#(32))'(32'h1)));
         Bit#(32) x_155 = ((x_152) - ((Bit#(32))'(32'h1)));
-        Bit#(16) x_156 = ((x_155)[15:0]);
+        Bit#(7) x_156 = ((x_155)[6:0]);
         Bit#(32) x_157 = ((x_22)[x_14]);
         Bool x_158 = ((zeroExtend(x_147)) < (x_157));
         Bool x_159 = ((zeroExtend(x_148)) < (x_157));
@@ -428,27 +428,27 @@ module mkModule1 (Module1);
         Bool x_201 = (((x_74) == ((Bit#(8))'(8'h2c))) && (! (x_187)));
         Bool x_202 = ((x_74) == ((Bit#(8))'(8'h2c)));
         Bit#(6) x_203 = ((x_73)[5:0]);
-        Bit#(6) x_204 = ((x_73)[11:6]);
-        Bit#(6) x_205 = ((x_73)[5:0]);
+        Bit#(4) x_204 = ((x_73)[9:6]);
+        Bit#(4) x_205 = ((x_73)[3:0]);
         Bit#(2) x_206 = ((x_73)[1:0]);
         Bit#(32) x_207 = (x_73);
         Bit#(6) x_208 = ((x_76)[5:0]);
         Bit#(6) x_209 = ((x_76)[5:0]);
-        Bit#(6) x_210 = ((x_76)[5:0]);
-        Bit#(6) x_211 = ((x_75)[5:0]);
-        Bit#(6) x_212 = ((x_75)[5:0]);
-        Bit#(6) x_213 = ((x_30)[5:0]);
+        Bit#(4) x_210 = ((x_76)[3:0]);
+        Bit#(4) x_211 = ((x_75)[3:0]);
+        Bit#(4) x_212 = ((x_75)[3:0]);
+        Bit#(4) x_213 = ((x_30)[3:0]);
         Bit#(32) x_214 = (zeroExtend(x_213));
-        Bit#(7) x_215 = (zeroExtend(x_204));
-        Bit#(7) x_216 = (zeroExtend(x_205));
-        Bit#(7) x_217 = (zeroExtend(x_210));
-        Bit#(7) x_218 = (zeroExtend(x_211));
-        Bit#(7) x_219 = (zeroExtend(x_212));
-        Bool x_220 = ((x_30) < ((Bit#(7))'(7'h40)));
+        Bit#(5) x_215 = (zeroExtend(x_204));
+        Bit#(5) x_216 = (zeroExtend(x_205));
+        Bit#(5) x_217 = (zeroExtend(x_210));
+        Bit#(5) x_218 = (zeroExtend(x_211));
+        Bit#(5) x_219 = (zeroExtend(x_212));
+        Bool x_220 = ((x_30) < ((Bit#(5))'(5'h10)));
         Bool x_221 = (! (((x_22)[x_208]) == ((Bit#(32))'(32'h0))));
         Bool x_222 = (! (((x_22)[x_203]) == ((Bit#(32))'(32'h0))));
         Bool x_223 = (! (((x_22)[x_209]) == ((Bit#(32))'(32'h0))));
-        Bool x_224 = ((x_204) == ((Bit#(6))'(6'h0)));
+        Bool x_224 = ((x_204) == ((Bit#(4))'(4'h0)));
         Bool x_225 = (((x_215) < (x_33)) && ((x_31)[x_204]));
         Bool x_226 = ((x_224) || (x_225));
         Bool x_227 = (((x_217) < (x_30)) && ((x_27)[x_210]));
@@ -458,14 +458,14 @@ module mkModule1 (Module1);
         Bit#(6) x_231 = ((x_25)[x_205]);
         Bit#(6) x_232 = ((x_26)[x_205]);
         Bool x_233 = ((x_230) == (x_231));
-        Bit#(6) x_234 = ((Bit#(6))'(6'h0));
-        Bit#(7) x_235 = ((Bit#(7))'(7'h0));
+        Bit#(4) x_234 = ((Bit#(4))'(4'h0));
+        Bit#(5) x_235 = ((Bit#(5))'(5'h0));
         Bool x_236 = (((x_235) < (x_30)) && ((x_27)[x_234]));
         Bit#(6) x_237 = ((x_25)[x_234]);
         Bit#(6) x_238 = ((x_26)[x_234]);
         Bool x_239 = ((x_230) == (x_237));
-        Bit#(6) x_240 = ((x_200 ? (x_205) : ((Bit#(6))'(6'h0))));
-        Bit#(7) x_241 = ((x_200 ? (x_216) : ((Bit#(7))'(7'h0))));
+        Bit#(4) x_240 = ((x_200 ? (x_205) : ((Bit#(4))'(4'h0))));
+        Bit#(5) x_241 = ((x_200 ? (x_216) : ((Bit#(5))'(5'h0))));
         Bool x_242 = (((x_241) < (x_30)) && ((x_27)[x_240]));
         Bit#(6) x_243 = ((x_26)[x_240]);
         Bool x_244 = (((x_217) < (x_30)) && ((x_27)[x_210]));
@@ -474,13 +474,13 @@ module mkModule1 (Module1);
         Bit#(6) x_247 = ((x_25)[x_210]);
         Bit#(6) x_248 = ((x_26)[x_210]);
         Bool x_249 = ((x_29)[x_210]);
-        Bit#(6) x_250 = ((x_28)[x_210]);
-        Bit#(7) x_251 = (zeroExtend(x_250));
-        Bool x_252 = ((x_250) == ((Bit#(6))'(6'h0)));
+        Bit#(4) x_250 = ((x_28)[x_210]);
+        Bit#(5) x_251 = (zeroExtend(x_250));
+        Bool x_252 = ((x_250) == ((Bit#(4))'(4'h0)));
         Bool x_253 = (((x_251) < (x_33)) && ((x_31)[x_250]));
         Bool x_254 = ((((x_192) && (x_244)) && (! (x_252))) && (! (x_253)));
         
-        Bit#(7) x_255 = ((x_252 ? ((Bit#(7))'(7'h0)) : ((x_32)[x_250])));
+        Bit#(5) x_255 = ((x_252 ? ((Bit#(5))'(5'h0)) : ((x_32)[x_250])));
         
         Bit#(32) x_256 = (zeroExtend(x_247));
         Bit#(32) x_257 = (zeroExtend(x_248));
@@ -532,7 +532,7 @@ module mkModule1 (Module1);
         Bit#(6) x_285 = ((x_273 ? (x_203) : ((x_274 ? (x_208) : (((x_275) ||
         (x_276) ? (x_209) : ((x_277 ? (x_232) : ((x_278 ? (x_238) : ((x_279 ?
         (x_243) : (x_209)))))))))))));
-        Bit#(6) x_286 = ((x_273 ? (x_204) : ((Bit#(6))'(6'h0))));
+        Bit#(4) x_286 = ((x_273 ? (x_204) : ((Bit#(4))'(4'h0))));
         Bool x_287 = ((x_275) || (x_276));
         Bit#(32) x_288 = ((x_142) + (x_143));
         Bit#(32) x_289 = ((x_142) - (x_143));
@@ -599,12 +599,12 @@ module mkModule1 (Module1);
         ((Bit#(8))'(8'h18)) ? (x_186) : ((((x_74) == ((Bit#(8))'(8'h16))) &&
         (x_298) ? (x_183) : (((x_74) == ((Bit#(8))'(8'h3)) ? ((x_131 ? (x_3)
         : (x_20))) : (x_135)))))))))))))));
-        Vector#(32, Bit#(32)) x_341 = (update (update (x_5, x_136, x_145),
+        Vector#(16, Bit#(32)) x_341 = (update (update (x_5, x_136, x_145),
         x_137, x_144));
-        Vector#(32, Bit#(32)) x_342 = ((x_283 ? (update (x_5, x_136, x_214))
+        Vector#(16, Bit#(32)) x_342 = ((x_283 ? (update (x_5, x_136, x_214))
         : ((x_280 ? (update (x_5, x_136, x_261)) : (x_5)))));
         
-        Vector#(32, Bit#(32)) x_343 = ((((((((x_66) || (x_170)) || (x_180))
+        Vector#(16, Bit#(32)) x_343 = ((((((((x_66) || (x_170)) || (x_180))
         || (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_5) : (((x_74) ==
         ((Bit#(8))'(8'h8)) ? (update (x_5, x_136, x_146)) : (((x_74) ==
         ((Bit#(8))'(8'h13)) ? (update (x_5, x_136, x_288)) : (((x_74) ==
@@ -615,8 +615,8 @@ module mkModule1 (Module1);
         ((Bit#(8))'(8'hb)) ? (update (x_5, x_136, x_297)) : (((x_74) ==
         ((Bit#(8))'(8'hc)) ? (x_341) : (((x_74) == ((Bit#(8))'(8'hd)) ?
         (update (x_5, x_136, x_319)) : (((x_74) == ((Bit#(8))'(8'h17)) ?
-        (update (x_5, (Bit#(5))'(5'h1f), x_154)) : (((x_74) ==
-        ((Bit#(8))'(8'h18)) ? (update (x_5, (Bit#(5))'(5'h1f), x_155)) :
+        (update (x_5, (Bit#(4))'(4'hf), x_154)) : (((x_74) ==
+        ((Bit#(8))'(8'h18)) ? (update (x_5, (Bit#(4))'(4'hf), x_155)) :
         (((x_74) == ((Bit#(8))'(8'h6)) ? (update (x_5, x_136, x_182)) :
         (((x_74) == ((Bit#(8))'(8'h1c)) ? (update (x_5, x_136, x_150)) :
         (((x_74) == ((Bit#(8))'(8'h1a)) ? (update (x_5, x_136,
@@ -630,12 +630,12 @@ module mkModule1 (Module1);
         (x_5, x_136, x_338)) :
         (x_342)))))))))))))))))))))))))))))))))))))))))))));
         
-        Vector#(65536, Bit#(32)) x_344 = ((((((((x_66) || (x_170)) ||
-        (x_180)) || (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_6) :
-        (((x_74) == ((Bit#(8))'(8'h12)) ? (update (x_6, x_148, x_145)) :
-        (((x_74) == ((Bit#(8))'(8'h17)) ? (update (x_6, x_153, x_135)) :
-        (((x_74) == ((Bit#(8))'(8'h1d)) ? (update (x_6, x_148, x_145)) :
-        (x_6)))))))));
+        Vector#(128, Bit#(32)) x_344 = ((((((((x_66) || (x_170)) || (x_180))
+        || (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_6) : (((x_74) ==
+        ((Bit#(8))'(8'h12)) ? (update (x_6, x_148, x_145)) : (((x_74) ==
+        ((Bit#(8))'(8'h17)) ? (update (x_6, x_153, x_135)) : (((x_74) ==
+        ((Bit#(8))'(8'h1d)) ? (update (x_6, x_148, x_145)) : (x_6)))))))));
+        
         Bool x_345 = (((((x_170) || (x_180)) || (x_173)) || (x_333)) ||
         ((x_74) == ((Bit#(8))'(8'hff))));
         Bool x_346 = ((((((((x_170) || (x_180)) || (x_173)) || (x_333)) ||
@@ -731,25 +731,25 @@ module mkModule1 (Module1);
         (x_21, x_337, x_339)) : ((((((x_74) == ((Bit#(8))'(8'h25))) && (!
         (x_66))) && (! (x_124))) && (! (x_271)) ? (update (x_21, x_337,
         x_145)) : (x_21)))));
-        Vector#(64, Bit#(6)) x_387 = ((((((((x_66) || (x_170)) || (x_180)) ||
+        Vector#(16, Bit#(6)) x_387 = ((((((((x_66) || (x_170)) || (x_180)) ||
         (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_25) : ((x_283 ?
         (update (x_25, x_213, x_284)) : (x_25)))));
-        Vector#(64, Bit#(6)) x_388 = ((((((((x_66) || (x_170)) || (x_180)) ||
+        Vector#(16, Bit#(6)) x_388 = ((((((((x_66) || (x_170)) || (x_180)) ||
         (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_26) : ((x_283 ?
         (update (x_26, x_213, x_285)) : (x_26)))));
-        Vector#(64, Bit#(6)) x_389 = ((((((((x_66) || (x_170)) || (x_180)) ||
+        Vector#(16, Bit#(4)) x_389 = ((((((((x_66) || (x_170)) || (x_180)) ||
         (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_28) : ((x_283 ?
         (update (x_28, x_213, x_286)) : (x_28)))));
-        Vector#(64, Bool) x_390 = ((((((((x_66) || (x_170)) || (x_180)) ||
+        Vector#(16, Bool) x_390 = ((((((((x_66) || (x_170)) || (x_180)) ||
         (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_29) : ((x_283 ?
         (update (x_29, x_213, x_287)) : (x_29)))));
-        Vector#(64, Bool) x_391 = ((((((((x_66) || (x_170)) || (x_180)) ||
+        Vector#(16, Bool) x_391 = ((((((((x_66) || (x_170)) || (x_180)) ||
         (x_173)) || (x_333)) || (x_124)) || (x_271) ? (x_27) : ((x_283 ?
         (update (x_27, x_213, (Bool)'(True))) : ((x_281 ? (update (x_27,
         x_211, (Bool)'(False))) : (x_27)))))));
-        Bit#(7) x_392 = ((((((((x_66) || (x_170)) || (x_180)) || (x_173)) ||
+        Bit#(5) x_392 = ((((((((x_66) || (x_170)) || (x_180)) || (x_173)) ||
         (x_333)) || (x_124)) || (x_271) ? (x_30) : ((x_283 ? ((x_30) +
-        ((Bit#(7))'(7'h1))) : (x_30)))));
+        ((Bit#(5))'(5'h1))) : (x_30)))));
         Bit#(32) x_393 = (((((x_66) || (x_170)) || (x_124)) || (x_271) ?
         (x_12) : (((x_74) == ((Bit#(8))'(8'h3)) ? ((x_12) ^
         ((Bit#(32))'(32'hcafeeace))) : (x_12)))));
@@ -832,9 +832,9 @@ module mkModule1 (Module1);
         when ((x_0) == ((Bit#(3))'(3'h1)), noAction);
         let x_1 = (mem);
         let x_2 = (lassert_fbase);
-        Bit#(16) x_3 = ((x_2)[15:0]);
-        Bit#(16) x_4 = (((x_2) + ((Bit#(32))'(32'h1)))[15:0]);
-        Bit#(16) x_5 = (((x_2) + ((Bit#(32))'(32'h2)))[15:0]);
+        Bit#(7) x_3 = ((x_2)[6:0]);
+        Bit#(7) x_4 = (((x_2) + ((Bit#(32))'(32'h1)))[6:0]);
+        Bit#(7) x_5 = (((x_2) + ((Bit#(32))'(32'h2)))[6:0]);
         Bit#(32) x_6 = ((x_1)[x_3]);
         Bit#(32) x_7 = ((x_1)[x_4]);
         Bit#(32) x_8 = ((x_1)[x_5]);
@@ -868,15 +868,15 @@ module mkModule1 (Module1);
         let x_13 = (lassert_clause_sat);
         let x_14 = (lassert_counter_clause_sat);
         let x_15 = (lassert_counter_seen_fail);
-        Bit#(16) x_16 = ((x_11)[15:0]);
+        Bit#(7) x_16 = ((x_11)[6:0]);
         Bit#(32) x_17 = ((x_1)[x_16]);
         Bit#(1) x_18 = ((x_17)[31:31]);
         Bool x_19 = ((x_17) == ((Bit#(32))'(32'h0)));
         Bool x_20 = (((x_18) == ((Bit#(1))'(1'h1))) && (! (x_19)));
         Bit#(32) x_21 = ((x_20 ? (((Bit#(32))'(32'h0)) - (x_17)) : (x_17)));
         
-        Bit#(16) x_22 = (((x_7) + (x_21))[15:0]);
-        Bit#(16) x_23 = ((((x_7) + (x_10)) + (x_21))[15:0]);
+        Bit#(7) x_22 = (((x_7) + (x_21))[6:0]);
+        Bit#(7) x_23 = ((((x_7) + (x_10)) + (x_21))[6:0]);
         Bit#(32) x_24 = ((x_1)[x_22]);
         Bit#(32) x_25 = ((x_1)[x_23]);
         Bool x_26 = (! ((x_24) == ((Bit#(32))'(32'h0))));
@@ -930,7 +930,7 @@ module mkModule1 (Module1);
     
     method Action loadInstr (Struct1 x_0);
         let x_1 = (imem);
-        Bit#(16) x_2 = ((x_0).addr);
+        Bit#(7) x_2 = ((x_0).addr);
         Bit#(128) x_3 = ((x_0).data);
         imem <= update (x_1, x_2, x_3);
         
@@ -1186,15 +1186,15 @@ module mkModule1 (Module1);
         Bool x_14 = ((x_7) == ((Bit#(32))'(32'h9c)));
         Bool x_15 = (((((x_10) || (x_11)) || (x_12)) || (x_13)) || (x_14));
         
-        Bit#(16) x_16 = ((x_9)[15:0]);
+        Bit#(7) x_16 = ((x_9)[6:0]);
         Bit#(128) x_17 = (x_8);
         Bool x_18 = (! ((x_8) == ((Bit#(128))'(128'h0))));
-        Bit#(16) x_19 = ((x_10 ? (x_16) : (x_4)));
+        Bit#(7) x_19 = ((x_10 ? (x_16) : (x_4)));
         Bit#(128) x_20 = ((x_11 ? (x_17) : (x_5)));
         Bool x_21 = ((x_12 ? (x_18) : (x_6)));
         Bool x_22 = ((x_12) && (x_18));
-        Vector#(65536, Bit#(128)) x_23 = ((x_22 ? (update (x_1, x_19, x_20))
-        : (x_1)));
+        Vector#(128, Bit#(128)) x_23 = ((x_22 ? (update (x_1, x_19, x_20)) :
+        (x_1)));
         Bit#(6) x_24 = ((x_13 ? ((x_9)[5:0]) : (x_2)));
         Bit#(32) x_25 = ((x_14 ? (x_9) : (x_3)));
         imem <= x_23;
@@ -1238,49 +1238,49 @@ module mkModule1 (Module1);
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getMorphSrc (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getMorphSrc (Bit#(4) x_0);
         let x_1 = (morph_src_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getMorphDst (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getMorphDst (Bit#(4) x_0);
         let x_1 = (morph_dst_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getMorphCouplingDesc (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getMorphCouplingDesc (Bit#(4) x_0);
         let x_1 = (morph_coupling_desc_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getMorphValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getMorphValid (Bit#(4) x_0);
         let x_1 = (morph_valid_table);
         return ((x_1)[x_0] ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
 
     endmethod
     
-    method ActionValue#(Bit#(32)) getMorphIdentity (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getMorphIdentity (Bit#(4) x_0);
         let x_1 = (morph_identity_table);
         return ((x_1)[x_0] ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
 
     endmethod
     
-    method ActionValue#(Bit#(32)) getCouplingDescBase (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCouplingDescBase (Bit#(4) x_0);
         let x_1 = (coupling_desc_base_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getCouplingDescCount (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCouplingDescCount (Bit#(4) x_0);
         let x_1 = (coupling_desc_count_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getCouplingDescValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCouplingDescValid (Bit#(4) x_0);
         let x_1 = (coupling_desc_valid_table);
         return ((x_1)[x_0] ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
 
@@ -1292,17 +1292,17 @@ module mkModule1 (Module1);
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getCouplingPairSrc (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCouplingPairSrc (Bit#(4) x_0);
         let x_1 = (coupling_pair_src_table);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getCouplingPairDst (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCouplingPairDst (Bit#(4) x_0);
         let x_1 = (coupling_pair_dst_table);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getCouplingPairValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCouplingPairValid (Bit#(4) x_0);
         let x_1 = (coupling_pair_valid_table);
         return ((x_1)[x_0] ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
 
@@ -1314,17 +1314,17 @@ module mkModule1 (Module1);
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getFormulaDescBase (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getFormulaDescBase (Bit#(4) x_0);
         let x_1 = (formula_desc_base_table);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getFormulaDescCount (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getFormulaDescCount (Bit#(4) x_0);
         let x_1 = (formula_desc_count_table);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getFormulaDescValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getFormulaDescValid (Bit#(4) x_0);
         let x_1 = (formula_desc_valid_table);
         return ((x_1)[x_0] ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
 
@@ -1336,17 +1336,17 @@ module mkModule1 (Module1);
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getCertDescBase (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCertDescBase (Bit#(4) x_0);
         let x_1 = (cert_desc_base_table);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getCertDescCount (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCertDescCount (Bit#(4) x_0);
         let x_1 = (cert_desc_count_table);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getCertDescValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getCertDescValid (Bit#(4) x_0);
         let x_1 = (cert_desc_valid_table);
         return ((x_1)[x_0] ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
 
@@ -1358,30 +1358,30 @@ module mkModule1 (Module1);
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getDescMetaSubtype (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaSubtype (Bit#(4) x_0);
         let x_1 = (desc_meta_subtype_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getDescMetaKind (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaKind (Bit#(4) x_0);
         let x_1 = (desc_meta_kind_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getDescMetaInlineLen (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaInlineLen (Bit#(4) x_0);
         let x_1 = (desc_meta_inline_len_table);
         Bit#(32) x_2 = (zeroExtend((x_1)[x_0]));
         return x_2;
     endmethod
     
-    method ActionValue#(Bit#(32)) getDescMetaAux (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaAux (Bit#(4) x_0);
         let x_1 = (desc_meta_aux_table);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getDescMetaValid (Bit#(6) x_0);
+    method ActionValue#(Bit#(32)) getDescMetaValid (Bit#(4) x_0);
         let x_1 = (desc_meta_valid_table);
         return ((x_1)[x_0] ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
 
@@ -1439,12 +1439,12 @@ module mkModule1 (Module1);
         return (x_1 ? ((Bit#(32))'(32'h1)) : ((Bit#(32))'(32'h0)));
     endmethod
     
-    method ActionValue#(Bit#(32)) getLassertFbufWord (Bit#(8) x_0);
+    method ActionValue#(Bit#(32)) getLassertFbufWord (Bit#(6) x_0);
         let x_1 = (lassert_fbuf);
         return (x_1)[x_0];
     endmethod
     
-    method ActionValue#(Bit#(32)) getLassertCbufWord (Bit#(9) x_0);
+    method ActionValue#(Bit#(32)) getLassertCbufWord (Bit#(6) x_0);
         let x_1 = (lassert_cbuf);
         return (x_1)[x_0];
     endmethod

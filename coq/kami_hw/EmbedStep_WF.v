@@ -14,7 +14,7 @@
     - WellFormedSnapshot: sp < MEM_SIZE, word64_sub sp 1 < MEM_SIZE
     - snap_pc ks < MEM_SIZE (for CALL only — ensures S(pc) fits in word64)
     - chsh_bits_ok x y a b = true (for CHSH_TRIAL — all four values are bits)
-    - WellFormedPartitionTable: next_id >= 1 /\ next_id < 64 /\ fresh slot
+    - WellFormedPartitionTable: next_id >= 1 /\ next_id < PTableSz /\ fresh slot
     - LASSERT: check_ok = true /\ flen = hw_flen (success-path match)
     - PSPLIT/PMERGE: partition table well-formedness
 
@@ -26,6 +26,7 @@ Import ListNotations.
 From Kernel  Require Import VMState VMStep SimulationProof CertCheck.
 From KamiHW  Require Import Abstraction EmbedStep.
 Require Import KamiHW.RichStateCommutation.
+From KamiHW Require Import ThieleTypes.
 
 Import VMStep.VMStep.
 
@@ -45,7 +46,7 @@ Proof.
   apply Nat2N.id.
 Qed.
 
-(** Corollary: word64 is the identity for nats <= MEM_SIZE (65536 << 2^64). *)
+(** Corollary: word64 is the identity for nats <= MEM_SIZE (MemSize \<< 2^64). *)
 Lemma word64_id_le_mem : forall (x : nat),
     x <= MEM_SIZE ->
     word64 x = x.
@@ -84,7 +85,7 @@ Proof.
      Since word64 v = v, they agree. *)
   rewrite <- abs_phase1_kami_reg_write.
   unfold kami_write_reg, kami_sp_reg.
-  change (31 mod 32) with 31.
+  change ((RegCount - 1) mod RegCount) with (RegCount - 1).
   rewrite Hv.
   reflexivity.
 Qed.
@@ -127,7 +128,7 @@ Proof.
   unfold vm_apply.
   rewrite abs_phase1_read_reg.
   unfold kami_sp_reg in Hsp_lt.
-  change (31 mod 32) with 31.
+  change (kami_sp_reg mod RegCount) with kami_sp_reg.
   (* Unfold the hardware side *)
   unfold abs_phase1 at 1, kami_step.
   unfold jump_state_rm, apply_cost, instruction_cost.
@@ -158,9 +159,12 @@ Proof.
   unfold vm_apply.
   rewrite abs_phase1_read_reg.
   unfold kami_sp_reg in Hsp_decr, Hsp_lt.
-  change (31 mod 32) with 31.
+  (* read_reg ... 31 reduces to snap_regs ks (31 mod RegCount).
+     With RegCount=16, 31 mod 16 = 15 = RegCount - 1 = kami_sp_reg.
+     Compute the modulo and match the hardware-side index. *)
+  cbv [RegCount] in *. simpl ((31 mod 16)%nat).
   rewrite abs_phase1_read_mem.
-  rewrite Nat.mod_small by lia.
+  rewrite (Nat.mod_small (word64_sub (snap_regs ks 15) 1) MEM_SIZE) by exact Hsp_decr.
   (* Now both sides are concrete record constructors *)
   unfold abs_phase1, kami_step,
          jump_state_rm, apply_cost, instruction_cost.
@@ -258,8 +262,8 @@ Qed.
     same boolean when applied through abs_phase1. *)
 Lemma lassert_check_ok_hw_compat :
   forall (ks : KamiSnapshot) (freg creg : nat) (kind : bool),
-    let fbase := snap_regs ks (freg mod 32) in
-    let cbase := snap_regs ks (creg mod 32) in
+    let fbase := snap_regs ks (freg mod RegCount) in
+    let cbase := snap_regs ks (creg mod RegCount) in
     let hw_flen := snap_mem ks (fbase mod MEM_SIZE) in
     let formula_words := List.map (fun i => snap_mem ks ((fbase + i) mod MEM_SIZE))
                                   (List.seq 0 (3 + hw_flen)) in
@@ -279,8 +283,8 @@ Proof.
   intros ks freg creg kind.
   unfold lassert_check_ok.
   rewrite abs_phase1_read_reg, abs_phase1_read_reg.
-  set (fbase := snap_regs ks (freg mod 32)).
-  set (cbase := snap_regs ks (creg mod 32)).
+  set (fbase := snap_regs ks (freg mod RegCount)).
+  set (cbase := snap_regs ks (creg mod RegCount)).
   rewrite abs_phase1_read_mem.
   set (hw_flen := snap_mem ks (fbase mod MEM_SIZE)).
   assert (Hfw : List.map (fun i => read_mem (abs_phase1 ks) (fbase + i))
@@ -343,7 +347,7 @@ Qed.
 (** Partition table well-formedness for PNEW. *)
 Definition WellFormedPT_PNEW (ks : KamiSnapshot) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  snap_pt_next_id ks < 64 /\
+  snap_pt_next_id ks < PTableSz /\
   snap_pt_sizes ks (snap_pt_next_id ks) = 0.
 
 Theorem embed_step_pnew :
@@ -384,9 +388,9 @@ Qed.
     Mirrors the 6 preconditions of snap_pt_to_graph_psplit (RichStateCommutation.v). *)
 Definition WellFormedPT_PSPLIT (ks : KamiSnapshot) (module : nat) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  S (S (snap_pt_next_id ks)) <= 64 /\
-  module mod 64 < snap_pt_next_id ks /\
-  snap_pt_sizes ks (module mod 64) >= 2 /\
+  S (S (snap_pt_next_id ks)) <= PTableSz /\
+  module mod PTableSz < snap_pt_next_id ks /\
+  snap_pt_sizes ks (module mod PTableSz) >= 2 /\
   snap_pt_sizes ks (snap_pt_next_id ks) = 0 /\
   snap_pt_sizes ks (S (snap_pt_next_id ks)) = 0.
 
@@ -399,7 +403,7 @@ Proof.
   intros ks module0 left_region right_region cost
          [Hge [Hle [Hmid [Hsize [Hn0 Hsn0]]]]].
   set (nid   := snap_pt_next_id ks).
-  set (mid   := module0 mod 64).
+  set (mid   := module0 mod PTableSz).
   set (sizes := snap_pt_sizes ks).
   (* Prove the graph commutation first. kami_step uses S nid-first ordering;
      snap_pt_to_graph_psplit (RichStateCommutation.v) uses mid-first ordering.
@@ -463,12 +467,12 @@ Qed.
     Mirrors the 8 preconditions of snap_pt_to_graph_pmerge (RichStateCommutation.v). *)
 Definition WellFormedPT_PMERGE (ks : KamiSnapshot) (m1 m2 : nat) : Prop :=
   snap_pt_next_id ks >= 1 /\
-  S (snap_pt_next_id ks) <= 64 /\
-  m1 mod 64 < snap_pt_next_id ks /\
-  m2 mod 64 < snap_pt_next_id ks /\
-  m1 mod 64 <> m2 mod 64 /\
-  snap_pt_sizes ks (m1 mod 64) > 0 /\
-  snap_pt_sizes ks (m2 mod 64) > 0 /\
+  S (snap_pt_next_id ks) <= PTableSz /\
+  m1 mod PTableSz < snap_pt_next_id ks /\
+  m2 mod PTableSz < snap_pt_next_id ks /\
+  m1 mod PTableSz <> m2 mod PTableSz /\
+  snap_pt_sizes ks (m1 mod PTableSz) > 0 /\
+  snap_pt_sizes ks (m2 mod PTableSz) > 0 /\
   snap_pt_sizes ks (snap_pt_next_id ks) = 0.
 
 Theorem embed_step_pmerge :
@@ -480,8 +484,8 @@ Proof.
   intros ks m1 m2 cost
          [Hge [Hle [Hm1 [Hm2 [Hne [Hs1 [Hs2 Hn0]]]]]]].
   set (nid    := snap_pt_next_id ks).
-  set (mid1   := m1 mod 64).
-  set (mid2   := m2 mod 64).
+  set (mid1   := m1 mod PTableSz).
+  set (mid2   := m2 mod PTableSz).
   set (sizes  := snap_pt_sizes ks).
   (* Prove the graph commutation first. kami_step uses nid-first ordering;
      snap_pt_to_graph_pmerge uses mid1-first ordering. *)

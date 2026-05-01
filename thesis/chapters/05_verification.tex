@@ -162,11 +162,11 @@ The kernel also includes machine-verified proofs connecting fundamental quantum 
     
     \item \textbf{Unitarity} (\path{coq/kernel/Unitarity.v}): The theorem \texttt{nonunitary\_requires\_mu} proves: if information loss is bounded by $\mu$-cost (the hypothesis \texttt{respects\_info\_conservation}), and some evolution loses information (\texttt{info\_loss > 0}), then $\mu$-cost must be positive. This is one step of real arithmetic: $x > 0 \wedge x \leq y \Rightarrow y > 0$. The actual physics---that non-unitary evolution loses information---is the \textit{hypothesis}, not the conclusion. The proof just chains the inequality. CPTP map characterization and Lindblad bounds follow the same pattern.
     
-    \item \textbf{Born Rule} (\path{coq/kernel/BornRule.v}): The theorem \texttt{born\_rule\_from\_accounting} proves that any probability rule satisfying normalization, eigenstate conditions ($P(0,0,1,0)=1$, $P(0,0,-1,0)=0$), and linearity in the Bloch $z$-component must equal $(1+z)/2$. That is the Born rule for qubit measurements along $z$. The key assumption doing all the work is \texttt{is\_linear\_in\_z}---linearity of probabilities in the Bloch parameter. The \texttt{mu\_consistent} hypothesis is present but unused in the proof; it reduces to the Bloch ball constraint already given. This is less ``deriving the Born rule from accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.''
+    \item \textbf{Born Rule} (\path{coq/kernel/BornRule.v}): The theorem \texttt{valid\_linear\_rule\_is\_born\_with\_cost\_side\_condition} (and the simpler \texttt{linear\_implies\_born} that does the actual work) proves that any probability rule satisfying normalization, eigenstate conditions ($P(0,0,1,0)=1$, $P(0,0,-1,0)=0$), and linearity in the Bloch $z$-component must equal $(1+z)/2$. That is the Born rule for qubit measurements along $z$. The key assumption doing all the work is \texttt{is\_linear\_in\_z}---linearity of probabilities in the Bloch parameter. The \texttt{measurement\_cost\_nonnegative} hypothesis is present but unused in the proof; it reduces to the Bloch ball constraint already given. This is less ``deriving the Born rule from accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.''
     
     \item \textbf{Purification} (\path{coq/kernel/Purification.v}): The theorem \texttt{purification\_principle} proves that for any Bloch sphere point with $x^2 + y^2 + z^2 < 1$ (a mixed state), there exists a reference system such that the combined state is pure. The purification deficit equals $1 - \gamma$ where $\gamma$ is the purity.
     
-    \item \textbf{Tsirelson Bound} (\path{coq/kernel/TsirelsonGeneral.v}): The theorem \texttt{tsirelson\_from\_minors} proves: if four correlation values satisfy row-norm constraints ($e_{00}^2 + e_{01}^2 \leq 1$ and $e_{10}^2 + e_{11}^2 \leq 1$), then $S^2 \leq 8$. This is legitimate algebra, proven via a sum-of-squares decomposition identity. The result is correct and the proof is real. The row-norm constraints themselves come from the NPA-1 moment matrix (a quantum-mechanical object), so the physics is in the hypotheses, but the algebraic bound is genuinely derived.
+    \item \textbf{Tsirelson Bound} (\path{coq/kernel/TsirelsonGeneral.v}): The theorem \texttt{tsirelson\_from\_row\_bounds} proves: if four correlation values satisfy row-norm constraints ($e_{00}^2 + e_{01}^2 \leq 1$ and $e_{10}^2 + e_{11}^2 \leq 1$), then $S^2 \leq 8$. This is legitimate algebra, proven via a sum-of-squares decomposition identity. The result is correct and the proof is real. The row-norm constraints themselves come from the NPA-1 moment matrix (a quantum-mechanical object), so the physics is in the hypotheses, but the algebraic bound is genuinely derived.
     
     \item \textbf{Born Rule from No-Signaling} (\path{coq/kernel/BornRuleLinearity.v}): The theorem \texttt{born\_rule\_from\_no\_signaling} derives $P(z) = (1+z)/2$ as the unique affine rule consistent with no-signaling (mixture compatibility) and boundary conditions ($P(1)=1$, $P(-1)=0$).
 
@@ -186,10 +186,10 @@ The kernel also includes machine-verified proofs connecting fundamental quantum 
 \hline
 NoCloning.v & \texttt{no\_cloning\_from\_conservation} \checkmark & Conservation hypothesis $\Rightarrow$ arithmetic \\
 Unitarity.v & \texttt{nonunitary\_requires\_mu} \checkmark & Info-loss hypothesis $\Rightarrow$ arithmetic \\
-BornRule.v & \texttt{born\_rule\_from\_accounting} \checkmark & Linearity + boundary $\Rightarrow$ unique rule \\
+BornRule.v & \texttt{linear\_implies\_born} \checkmark & Linearity + boundary $\Rightarrow$ unique rule \\
 BornRuleLinearity.v & \texttt{born\_rule\_from\_no\_signaling} \checkmark & No-signaling + boundary $\Rightarrow$ affine rule \\
 Purification.v & \texttt{purification\_principle} \checkmark & Bloch sphere geometry \\
-TsirelsonGeneral.v & \texttt{tsirelson\_from\_minors} \checkmark & Genuine algebraic bound \\
+TsirelsonGeneral.v & \texttt{tsirelson\_from\_row\_bounds} \checkmark & Genuine algebraic bound \\
 TsirelsonFromAlgebra.v & \texttt{tsirelson\_squared} \checkmark & Sum-of-squares identity \\
 \end{tabular}}
 
@@ -492,7 +492,7 @@ Inductive vm_instruction :=
 
 \textbf{What is this?} This is the \textbf{same} instruction type from Chapter 3, repeated in Chapter 5 to establish the verification context. Every theorem about instruction semantics quantifies over this type.
 
-\textbf{Inductive type:} In Coq, an \texttt{Inductive} type defines a set of constructors. \texttt{vm\_instruction} has 40 constructors, each representing one instruction. No other instructions exist---the type is closed.
+\textbf{Inductive type:} In Coq, an \texttt{Inductive} type defines a set of constructors. \texttt{vm\_instruction} has 46 constructors, each representing one instruction. No other instructions exist---the type is closed.
 
 \textbf{Why does every instruction have mu\_delta?} Every instruction costs $\mu$. The \texttt{mu\_delta : nat} argument encodes the declared cost. The step semantics verifies this cost is non-negative and adds it to \texttt{s.vm\_mu}. Conservation proofs quantify over arbitrary \texttt{mu\_delta} values to show that $\mu$ never decreases.
 
@@ -529,7 +529,7 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop := ...
 \begin{itemize}
     \item \textbf{Inductive vm\_step} — Declares an inductive relation (a set of inference rules).
     \item \textbf{VMState -> vm\_instruction -> VMState -> Prop} — The relation takes three arguments: initial state, instruction, final state. It returns a \texttt{Prop} (a provable claim).
-    \item \textbf{:= ...} — The body (not shown) contains 50 step rules, one or more per instruction constructor (success and failure branches), defining exactly how each instruction transforms state.
+    \item \textbf{:= ...} — The body (not shown) contains 58 step rules, one or more per instruction constructor (success and failure branches), defining exactly how each instruction transforms state.
 \end{itemize}
 
 \textbf{What does the relation express?} The relation \texttt{vm\_step s instr s'} can be read as ``executing \texttt{instr} in state \texttt{s} results in state \texttt{s'}.'' Not all triples \texttt{(s, instr, s')} satisfy the relation---only those where the instruction's preconditions hold and the state transition follows the defined semantics.
@@ -804,7 +804,7 @@ Theorem kernel_conservation_mu_gauge : forall s k,
 
 \textbf{What this proves:} Partition structure is unchanged when the $\mu$-ledger is shifted by a constant. This is true by construction: \texttt{mu\_gauge\_shift} only modifies \texttt{vm\_mu}, leaving \texttt{vm\_graph} untouched. The proof is structural---it unfolds the definitions and confirms the graph field is identical.
 
-\textbf{Why this matters:} The result is trivial in isolation, but it formalizes an important design property: the absolute $\mu$ value carries no physical meaning. Only $\mu$ \textit{differences} matter for the partition structure. This is the sense in which I call it ``gauge invariance''---the zero point of $\mu$ is arbitrary, analogous to the arbitrary zero of potential energy in physics.
+\textbf{Why this matters:} The result formalizes an important design property of the state record: the absolute $\mu$ value carries no semantic content for the partition structure. Only $\mu$ \textit{differences} matter. This is the sense in which I call it ``gauge invariance''---the zero point of $\mu$ is arbitrary, analogous to the arbitrary zero of potential energy in physics. Stating it as a theorem makes it available as a lemma for downstream reasoning, including the cross-layer comparison gates that compare $\mu$-deltas rather than absolute values.
 
 \textbf{Noether analogy:} I draw a parallel to Noether's theorem: gauge symmetry ($\mu$-shift freedom) ``corresponds to'' conservation of partition structure. The analogy is deliberate but should not be over-read. In physics, Noether's theorem is a deep result connecting continuous symmetries to conservation laws. Here, it is a definitional property: the graph does not depend on $\mu$ because it is stored in a separate field. The value of stating it as a theorem is that it becomes available for mechanized reasoning in downstream proofs.
 
@@ -908,18 +908,18 @@ Fixpoint run_vm (fuel : nat) (trace : Trace) (s : VMState) : VMState :=
     \item \textbf{| S fuel' =>} — Recursive case: if fuel is $n+1$, there are $n$ steps remaining.
     \item \textbf{nth\_error trace s.(vm\_pc)} — Fetch the instruction at index \texttt{vm\_pc} from the trace. Returns \texttt{Some instr} if found, \texttt{None} if out of bounds.
     \item \textbf{| None => s} — If PC is out of bounds, halt (return current state).
-    \item \textbf{| Some instr => run\_vm fuel' trace (step\_vm s instr)} — If instruction found, execute it via \texttt{step\_vm}, then recurse with decremented fuel.
+    \item \textbf{| Some instr => run\_vm fuel' trace (vm\_apply s instr)} — If instruction found, execute it via \texttt{vm\_apply} (the executable function in \texttt{coq/kernel/SimulationProof.v} that matches the \texttt{vm\_step} relation), then recurse with decremented fuel.
 \end{itemize}
 
 \textbf{Why fuel?} Coq requires all functions to terminate. Without fuel, \texttt{run\_vm} could loop forever (e.g., if the trace contains an infinite loop). Fuel bounds the recursion depth, making the function structurally recursive on \texttt{fuel}. In proofs, you quantify over arbitrary fuel: \texttt{forall fuel, ...}.
 
-\textbf{What is step\_vm?} This is a deterministic wrapper around \texttt{vm\_step}: given \texttt{(s, instr)}, it returns the unique \texttt{s'} such that \texttt{vm\_step s instr s'}, or returns \texttt{s} unchanged if the step is undefined.
+\textbf{What is \texttt{vm\_apply}?} This is the executable, deterministic counterpart of the \texttt{vm\_step} inductive relation: given \texttt{(s, instr)}, it returns the unique \texttt{s'} such that \texttt{vm\_step s instr s'}, or returns \texttt{s} unchanged if the step is undefined. The agreement between the two is established by \texttt{vm\_step\_vm\_apply} in \texttt{SimulationProof.v}.
 
 \textbf{Halting conditions:}
 \begin{itemize}
     \item Fuel exhausted: \texttt{fuel = O}.
     \item PC out of bounds: \texttt{nth\_error trace s.vm\_pc = None}.
-    \item Implicit: If an instruction sets \texttt{vm\_err = true}, subsequent steps likely become no-ops (depends on \texttt{step\_vm} implementation).
+    \item Implicit: If an instruction sets \texttt{vm\_err = true}, subsequent steps likely become no-ops (depends on \texttt{vm\_apply} implementation).
 \end{itemize}
 
 
@@ -1473,7 +1473,7 @@ Every theorem includes a falsifier specification:
     \item \textbf{Exhibit a system satisfying A1-A4} — The falsifying system must satisfy the theorem's assumptions (axioms A1-A4, which define the Thiele Machine's operational semantics).
     \item \textbf{Two predicates P\_weak, P\_strong with P\_strong strictly stronger} — The predicates must satisfy the strength ordering (as defined in \texttt{strictly\_stronger}).
     \item \textbf{A trace certifying P\_strong} — The trace must produce \texttt{Certified(..., P\_strong, ...)}.
-    \item \textbf{No revelation events in the trace} — The trace must \textit{not} contain REVEAL, EMIT, LJOIN, or LASSERT instructions.
+    \item \textbf{No revelation events in the trace} — The trace must \textit{not} contain REVEAL, EMIT, LJOIN, LASSERT, or MORPH\_ASSERT instructions.
 \end{itemize}
 
 \textbf{Why include this?} This makes the theorem \textit{falsifiable} in Popper's sense. If someone claims to have a counterexample, this specification defines exactly what they must provide. Without such a specification, the theorem would be unfalsifiable (and therefore unscientific).
@@ -1485,7 +1485,7 @@ Every theorem includes a falsifier specification:
 \begin{enumerate}
     \item A weak predicate \texttt{P\_weak} (e.g., ``accepts any non-empty list'').
     \item A strong predicate \texttt{P\_strong} (e.g., ``accepts only $[42]$'').
-    \item A Thiele Machine trace that starts with \texttt{csr\_cert\_addr = 0}, ends with \texttt{Certified(..., P\_strong, ...)}, but contains \textit{no} REVEAL, EMIT, LJOIN, or LASSERT instructions.
+    \item A Thiele Machine trace that starts with \texttt{csr\_cert\_addr = 0}, ends with \texttt{Certified(..., P\_strong, ...)}, but contains \textit{none} of REVEAL, EMIT, LJOIN, LASSERT, or MORPH\_ASSERT.
 \end{enumerate}
 The theorem proves this is impossible: you cannot certify $[42]$ without explicitly producing it via a revelation event.
 
@@ -1540,4 +1540,4 @@ The formal verification campaign establishes:
     \item \textbf{Completeness}: Zero admits, no project-local axioms---all proofs are machine-checked
 \end{enumerate}
 
-\textbf{A note on proof depth:} Some of these results are deeper than others. The no-signaling theorem requires genuine case analysis across 40 step constructors. The Tsirelson algebraic bound uses a real sum-of-squares identity. The Turing subsumption chain is a substantive compilation correctness proof. Other results---$\mu$-conservation, gauge invariance, oracle cost bounds---are closer to design consistency checks: they verify that properties the system was \textit{built to have} are indeed present. This is not a criticism. Engineering a system so that its key properties hold by construction is good design. But the thesis should be honest about which results are deep and which are definitional.
+\textbf{A note on proof character:} These results have different shapes, and the difference is intentional. The no-signaling theorem is genuine case analysis across 58 step rules covering all 46 opcodes. The Tsirelson algebraic bound is a real sum-of-squares identity in $\mathbb{R}$. The Turing subsumption chain is a substantive compilation-correctness proof. The conservation and gauge results---$\mu$-monotonicity, gauge invariance, oracle cost bounds---are true by construction: the semantics was engineered so cost monotonicity falls out of the unsigned-\texttt{nat} type, partition structure is independent of the $\mu$ field by record layout, and oracle queries carry $\mu \ge 1$ in their declared cost. The proofs make those design invariants machine-checkable rather than aspirational. Engineering a system so its key properties hold by construction is the point, not a shortcut.

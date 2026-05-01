@@ -99,7 +99,7 @@ def fixed_programs() -> List[List[str]]:
         ["PNEW {0,256} 3", "HALT 0"],
         ["PNEW {0,256} 1", "LOAD_IMM 1 42 0", "HALT 0"],
         [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 77 0",
@@ -127,7 +127,7 @@ def fixed_programs() -> List[List[str]]:
 def seeded_program(seed: int) -> List[str]:
     rng = random.Random(seed)
     prog: List[str] = [
-        "INIT_PT 0 256",
+        "INIT_PT 0 128",
         "INIT_ACTIVE_MODULE 0",
         "PNEW {0,256} 1",
         f"LOAD_IMM 15 {rng.randint(0, 63)} 0",

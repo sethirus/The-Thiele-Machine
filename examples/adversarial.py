@@ -461,7 +461,7 @@ def f_attacks():
 
     # F5: TENSOR_GET before TENSOR_SET — should return 0, not garbage
     s = run_vm([
-        "PNEW {0,256} 1",
+        "PNEW {0,128} 1",
         "TENSOR_GET 1 1 0 0 1",   # read before any write
         "HALT 0",
     ], fuel=100)

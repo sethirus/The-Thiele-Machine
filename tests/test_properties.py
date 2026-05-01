@@ -19,7 +19,7 @@ from pathlib import Path
 import pytest
 from hypothesis import given, strategies as st, settings, HealthCheck, assume
 
-pytestmark = pytest.mark.slow
+pytestmark = [pytest.mark.slow, pytest.mark.trs]
 
 # Add project root to path
 PROJECT_ROOT = Path(__file__).parent.parent

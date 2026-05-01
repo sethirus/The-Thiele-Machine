@@ -45,13 +45,13 @@ def _require_simulation_result(result: Dict[str, Any] | None, context: str) -> D
 
 # Legacy 40-opcode RTL fuzz subset with valid random operands
 def rand_reg() -> int:
-    return random.randint(0, 31)
+    return random.randint(0, 15)
 
 def rand_reg5() -> int:
-    return random.randint(0, 31)
+    return random.randint(0, 15)
 
 def rand_addr() -> int:
-    return random.randint(0, 255)
+    return random.randint(0, 127)
 
 def rand_cost(min_cost: int = 0) -> int:
     return random.randint(min_cost, 15)
@@ -167,9 +167,9 @@ def generate_random_program(length: int) -> str:
 
     RTL prerequisites:
     - INIT_LOGIC_ACC 0xCAFEEACE: unlocks high-value ops (REVEAL, PDISCOVER, CHSH_TRIAL)
-    - INIT_PT 0 256: sets module 0 region size so LOAD/STORE pass locality wall
+    - INIT_PT 0 128: sets module 0 region size so LOAD/STORE pass locality wall
     """
-    preamble = ["INIT_LOGIC_ACC 0xCAFEEACE", "INIT_PT 0 256", "INIT_ACTIVE_MODULE 0"]
+    preamble = ["INIT_LOGIC_ACC 0xCAFEEACE", "INIT_PT 0 128", "INIT_ACTIVE_MODULE 0"]
     instrs = preamble + [generate_random_instruction() for _ in range(length)]
     instrs.append("HALT 0")
     return "\n".join(instrs)
@@ -198,12 +198,12 @@ def check_invariants(result: Dict[str, Any], program: str) -> List[str]:
         violations.append(f"Invalid status: {status}")
 
     # Register count
-    if len(result.get("regs", [])) != 32:
+    if len(result.get("regs", [])) != 16:
         violations.append(f"Wrong register count: {len(result.get('regs', []))}")
 
-    # PC within bounds: 0-255 for instruction memory, or 0xF00 (trap vector)
+    # PC within bounds: 0-127 for instruction memory, or 0xF00 (trap vector)
     pc = result.get("pc", -1)
-    if pc < 0 or (pc > 255 and pc != 0xF00):
+    if pc < 0 or (pc > 127 and pc != 0xF00):
         violations.append(f"PC out of bounds: {pc}")
 
     # Error code should be 0 for clean execution, or a known error code
@@ -259,19 +259,19 @@ class TestEdgeCases:
     """Test specific edge cases and boundary conditions."""
 
     def test_all_registers(self):
-        """Write to all 32 registers and verify."""
-        instrs = [f"LOAD_IMM {i} {i+1} 1" for i in range(32)]
+        """Write to all 16 registers and verify."""
+        instrs = [f"LOAD_IMM {i} {i+1} 1" for i in range(16)]
         instrs.append("HALT")
         result = _require_simulation_result(run_verilog("\n".join(instrs), timeout=30), "all-registers case")
-        for i in range(31):  # r31 is SP, may be modified
+        for i in range(15):  # r15 is SP, may be modified
             assert result["regs"][i] == i + 1, \
                 f"Register r{i} expected {i+1}, got {result['regs'][i]}"
 
     def test_all_memory_addresses(self):
-        """Write to memory addresses 0-255 and read back."""
+        """Write to memory addresses 0-127 and read back."""
         instrs = []
         # Locality wall: active module 0 needs a region size >= addresses used
-        instrs.append("INIT_PT 0 256")
+        instrs.append("INIT_PT 0 128")
         instrs.append("INIT_ACTIVE_MODULE 0")
         # Write value 42 to address 10
         instrs.append("LOAD_IMM 0 42 1")

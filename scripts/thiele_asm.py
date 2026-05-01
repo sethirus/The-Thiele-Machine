@@ -14,7 +14,7 @@ Usage:
 Syntax:
     # Comments start with #, ;, or //
     LABEL:                      # label definition (resolved in pass 2)
-    LOAD_IMM r1 42 1            # register names: r0-r31, sp (=r31), zero (=r0)
+    LOAD_IMM r1 42 1            # register names: r0-r15, sp (=r15), zero (=r0)
     ADD r3 r1 r2 1              # dst src1 src2 cost  (also: AND, OR, SHL, SHR, MUL)
     JUMP LABEL 0                # labels resolve to instruction addresses
     HALT 0
@@ -120,8 +120,8 @@ FMT_MORPH_INLINE = 0x03
 FMT_CERT_INLINE = 0x05
 
 REGISTER_NAMES: dict[str, int] = {
-    "zero": 0, "sp": 31,
-    **{f"r{i}": i for i in range(32)},
+    "zero": 0, "sp": 15,
+    **{f"r{i}": i for i in range(16)},
 }
 
 MACROS: dict[str, str] = {
@@ -510,7 +510,7 @@ def assemble(source: str) -> tuple[list[int], dict[int, int], dict[str, Any]]:
 
             elif op == "TENSOR_GET":
                 # TENSOR_GET rd mid i j cost
-                # Binary encoding: op_a = rd & 0x1F
+                # Binary encoding: op_a = rd & 0x0F (RegIdxSz=4)
                 #                  op_b = (mid & 0xF) << 4 | (i & 0x3) << 2 | (j & 0x3)
                 #                  cost = cost & 0xFF
                 tg = arg.split()
@@ -520,7 +520,7 @@ def assemble(source: str) -> tuple[list[int], dict[int, int], dict[str, Any]]:
                 tj = _parse_int(tg[3], labels) if len(tg) > 3 else 0
                 cost = _parse_int(tg[4], labels) if len(tg) > 4 else 0
                 op_b = ((mid & 0xF) << 4) | ((ti & 0x3) << 2) | (tj & 0x3)
-                instructions.append(_encode(opcode, rd & 0x1F, op_b, cost))
+                instructions.append(_encode(opcode, rd & 0x0F, op_b, cost))
 
             elif op == "MORPH":
                 morph = arg.split()
@@ -633,7 +633,7 @@ def to_trace(instructions: list[int], data_memory: dict[int, int],
             tj = op_a & 0x3
             lines.append(f"TENSOR_SET {mid} {ti} {tj} {op_b} {cost}")
         elif name == "TENSOR_GET":
-            rd = op_a & 0x1F
+            rd = op_a & 0x0F
             mid = (op_b >> 4) & 0xF
             ti = (op_b >> 2) & 0x3
             tj = op_b & 0x3
@@ -888,8 +888,8 @@ def _run_ocaml(source_text, metadata):
             halted = result.returncode == 0 and not err
             print(f"PC={state.get('pc', '?')}  mu={state.get('mu', '?')}  "
                   f"halted={halted}  err={err}")
-            for i in range(32):
-                val = state.get("regs", [0] * 32)[i]
+            for i in range(16):
+                val = state.get("regs", [0] * 16)[i]
                 if val != 0:
                     print(f"  r{i} = {val}")
         if result.returncode != 0:

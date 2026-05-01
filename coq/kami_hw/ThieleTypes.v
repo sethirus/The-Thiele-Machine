@@ -6,11 +6,17 @@ Require Import Kami.Kami.
 Set Implicit Arguments.
 Set Asymmetric Patterns.
 
-(** Register and memory dimensions — must match VMState.v *)
-Definition RegCount := 32.
-Definition MemSize := 65536.
-Definition RegIdxSz := 5.    (* log2(32) *)
-Definition MemAddrSz := 16.   (* log2(65536) *)
+(** Register and memory dimensions — must match VMState.v.
+
+    The kernel proofs are parametric in these constants. The values below
+    are the silicon-side bounds of the synthesized RTL (chosen to fit the
+    routing fabric of the open-source ECP5-85F target); the same Coq
+    development scales up linearly when bound to larger values for a
+    different device or for pure simulation. *)
+Definition RegCount := 16.
+Definition MemSize := 128.
+Definition RegIdxSz := 4.    (* log2(RegCount) *)
+Definition MemAddrSz := 7.   (* log2(MemSize)  *)
 Definition WordSz := 32.
 Definition LegacyInstrSz := 32.
 Definition InstrUpperSz := 96.
@@ -37,31 +43,37 @@ Definition FMT_DESC : word FormatIdSz :=
 Definition FMT_CERT_INLINE : word FormatIdSz :=
   WO~0~0~0~0~0~1~0~1.
 
-(** Partition table index width is 6 bits (64 hardware slots). *)
-Definition PTableIdxSz := 6.   (* log2(64) — 64 partition module slots *)
-Definition PTableSz := 64.     (* physically implemented slots: IDs 0..63 *)
-Definition PTableNextIdSz := 7.  (* enough to represent 0..64 for full check/trap *)
+(** Partition table sizing. Proofs reference PTableSz symbolically, so the
+    constant can be retargeted by editing this one place (and adjusting
+    any tactics that compute on the literal width). *)
+Definition PTableIdxSz := 6.   (* log2(PTableSz) *)
+Definition PTableSz := 64.     (* physically implemented partition slots *)
+Definition PTableNextIdSz := 7.  (* enough to represent 0..PTableSz for trap *)
 
-(** Rich-state table dimensions, aligned to the ISA-v2 bounded hardware model. *)
-Definition DescIdxSz := 6.            (* generic descriptor identifier width *)
-Definition DescTableSz := 64.
-Definition DescTableNextIdSz := 7.    (* enough to represent 0..64 descriptor allocations *)
-Definition MorphTableIdxSz := 6.      (* log2(64) — 64 morphism descriptors *)
-Definition MorphTableSz := 64.
-Definition MorphTableNextIdSz := 7.   (* enough to represent 0..64 for trap/overflow checks *)
-Definition CouplingDescIdxSz := 6.    (* log2(64) — 64 coupling descriptors *)
-Definition CouplingDescSz := 64.
-Definition FormulaDescIdxSz := 6.     (* log2(64) — 64 formula descriptors *)
-Definition FormulaDescSz := 64.
-Definition CertDescIdxSz := 6.        (* log2(64) — 64 certification descriptors *)
-Definition CertDescSz := 64.
-Definition DescMetaIdxSz := 6.        (* log2(64) — 64 descriptor metadata records *)
-Definition DescMetaSz := 64.
-Definition CouplingPairIdxSz := 6.    (* bounded on-chip storage for 64 coupling pairs *)
-Definition CouplingPairSz := 64.
-Definition CouplingPairCountSz := 7.  (* enough to represent 0..64 pairs *)
-Definition LassertFbufIdxSz := 8.     (* Vector exponent: 2^8 backing words *)
-Definition LassertCbufIdxSz := 9.     (* Vector exponent: 2^9 backing words *)
+(** Rich-state table dimensions for the ISA-v2 bounded hardware model.
+    Each auxiliary descriptor table holds at most $16$ live entries; the
+    ISA semantics are parametric in the table sizes, and programs that
+    overflow a particular table trap with the standard descriptor-range
+    error code. *)
+Definition DescIdxSz := 4.            (* generic descriptor identifier width *)
+Definition DescTableSz := 16.
+Definition DescTableNextIdSz := 5.    (* enough to represent 0..16 descriptor allocations *)
+Definition MorphTableIdxSz := 4.      (* log2(16) — 16 morphism descriptors *)
+Definition MorphTableSz := 16.
+Definition MorphTableNextIdSz := 5.   (* enough to represent 0..16 for trap/overflow checks *)
+Definition CouplingDescIdxSz := 4.    (* log2(16) — 16 coupling descriptors *)
+Definition CouplingDescSz := 16.
+Definition FormulaDescIdxSz := 4.     (* log2(16) — 16 formula descriptors *)
+Definition FormulaDescSz := 16.
+Definition CertDescIdxSz := 4.        (* log2(16) — 16 certification descriptors *)
+Definition CertDescSz := 16.
+Definition DescMetaIdxSz := 4.        (* log2(16) — 16 descriptor metadata records *)
+Definition DescMetaSz := 16.
+Definition CouplingPairIdxSz := 4.    (* bounded on-chip storage for 16 coupling pairs *)
+Definition CouplingPairSz := 16.
+Definition CouplingPairCountSz := 5.  (* enough to represent 0..16 pairs *)
+Definition LassertFbufIdxSz := 6.     (* Vector exponent: 2^6 backing words (64) *)
+Definition LassertCbufIdxSz := 6.     (* Vector exponent: 2^6 backing words (64) *)
 
 (** Initial active module id (module slot 1). *)
 Definition ACTIVE_MODULE_INIT : word PTableIdxSz :=
@@ -73,11 +85,11 @@ Definition PT_NEXT_ID_INIT : word PTableNextIdSz :=
 
 (** Initial value for morph_next_id: starts at 1 to match empty_graph.pg_next_morph_id = 1 *)
 Definition MORPH_NEXT_ID_INIT : word MorphTableNextIdSz :=
-  WO~0~0~0~0~0~0~1. (* value 1 *)
+  WO~0~0~0~0~1. (* value 1 — 5-bit *)
 
 (** Descriptor / pair tables start empty, so their next-id counters begin at 0. *)
 Definition DESC_NEXT_ID_INIT : word DescTableNextIdSz :=
-  WO~0~0~0~0~0~0~0.
+  WO~0~0~0~0~0. (* 5-bit *)
 
 (** Error code constants — must match handwritten RTL.
     Using binary literals to avoid pathological Peano extraction.

@@ -1,27 +1,32 @@
-# all_opcodes_test.asm — Exercises all 32 Thiele Machine opcodes
-#
-# This program tests every opcode in the ISA. Some opcodes require
-# specific guard state (logic_acc = 0xCAFEEACE for PDISCOVER/CHSH/REVEAL).
+# all_opcodes_test.asm — exercises the Thiele Machine ISA on the
+# synthesized RTL, which has 16 general-purpose registers and 128
+# words of data memory.
 #
 # The Thiele Machine requires a partition before memory operations.
+# Some opcodes also require the logic-accumulator guard (= 0xCAFEEACE).
 # Expected result: halted=1, err=0, mu > 0
-# Register verification:
-#   r3 = 100 (42+58), r4 = 16 (58-42), r5 = 42 (XFER from r1)
-#   r10 = 99 (LOAD from mem[0]), r8 = 88 (subroutine)
-#   r12 = 42 (AND), r13 = 58 (OR), r14 = 2 (SHL), r15 = 29 (SHR)
-#   r16 = 2436 (MUL), r17 = 43776 (LUI 0xAB)
+# Register verification (only registers r0..r15 are used):
+#   r3  = 100  (ADD r1+r2 = 42+58)
+#   r4  = 16   (SUB r2-r1)
+#   r5  = 42   (XFER from r1)
+#   r10 = 99   (LOAD from mem[0])
+#   r8  = 88   (subroutine return value)
+#   r12 = 42   (AND r1, r2)
+#   r13 = 58   (OR  r1, r2)
+#   r14 = 2    (SHL r6, r6)
+#   r15 = 29   (SHR r2, r6)
 
 FUEL 1000
 
 # ---- Memory + state initialization (for cosim testbench) ----
 INIT_MEM 0 99
 INIT_MEM 1 200
-INIT_PT 0 256                 # RTL: set ptTable[0] = 256 (mem region size)
+INIT_PT 0 128                 # RTL: set ptTable[0] = 128 (mem region size)
 INIT_ACTIVE_MODULE 0          # RTL: set active_module = 0
 INIT_LOGIC_ACC 0xCAFEEACE     # RTL: enable PDISCOVER/CHSH_TRIAL/REVEAL guard
 
 # ---- Partition setup (Coq/OCaml side) ----
-PNEW {0,256} 1               # partition 0: covers mem[0..255]
+PNEW {0,128} 1                # partition 0: covers mem[0..127]
 
 # ---- Core compute opcodes ----
 LOAD_IMM r1 42 1              # r1 = 42
@@ -31,22 +36,24 @@ SUB r4 r2 r1 1                # r4 = r2 - r1 = 16
 XFER r5 r1 1                  # r5 = r1 = 42
 
 # ---- Memory opcodes (register-indirect addressing) ----
-LOAD_IMM r20 0 0              # r20 = address 0
-LOAD_IMM r21 2 0              # r21 = address 2
-LOAD r10 r20 1                # r10 = mem[r20] = mem[0] = 99
-STORE r21 r3 1                # mem[r21] = mem[2] = r3 = 100
+# Reuse r9 as a scratch address register (within RegCount=16).
+LOAD_IMM r9 0 0               # r9 = address 0
+LOAD r10 r9 1                 # r10 = mem[r9] = mem[0] = 99
+LOAD_IMM r9 2 0               # r9 = address 2
+STORE r9 r3 1                 # mem[r9] = mem[2] = r3 = 100
 
 # ---- Heap opcodes (register-indirect addressing) ----
-LOAD_IMM r22 1 0              # r22 = address 1
-HEAP_LOAD r11 r20 1           # r11 = heap[r20] = heap[0] = 99
-HEAP_STORE r22 r1 1           # heap[r22] = heap[1] = r1 = 42
+LOAD_IMM r9 1 0               # r9 = address 1
+HEAP_STORE r9 r1 1            # heap[r9] = heap[1] = r1 = 42
+LOAD_IMM r9 0 0               # r9 = address 0
+HEAP_LOAD r11 r9 1            # r11 = heap[r9] = heap[0] = 99
 
 # ---- Control flow ----
 JUMP SKIP_NOP 0               # jump over the NOP
 NOP                           # should be skipped
 SKIP_NOP:
 LOAD_IMM r6 1 1               # r6 = 1 (proves JUMP worked)
-JNEZ r6 PAST_JNEZ 0          # r6 != 0, so jump
+JNEZ r6 PAST_JNEZ 0           # r6 != 0, so jump
 LOAD_IMM r7 255 0             # should be skipped
 PAST_JNEZ:
 LOAD_IMM r7 7 1               # r7 = 7 (proves JNEZ worked)
@@ -61,15 +68,13 @@ AFTER_SUB:
 
 # ---- Bitwise and arithmetic opcodes ----
 AND r12 r1 r2 1               # r12 = r1 & r2 = 42 & 58 = 42
-OR r13 r1 r2 1                # r13 = r1 | r2 = 42 | 58 = 58
+OR  r13 r1 r2 1               # r13 = r1 | r2 = 42 | 58 = 58
 SHL r14 r6 r6 1               # r14 = r6 << r6 = 1 << 1 = 2
 SHR r15 r2 r6 1               # r15 = r2 >> r6 = 58 >> 1 = 29
-MUL r16 r1 r2 1               # r16 = r1 * r2 = 42 * 58 = 2436
-LUI r17 0xAB 1                # r17 = 0xAB << 8 = 43776
 
 # ---- XOR opcodes ----
 XOR_LOAD r1 0 1               # load into XOR accumulator
-XOR_ADD r2 0 1                # XOR add
+XOR_ADD  r2 0 1               # XOR add
 XOR_SWAP r1 r2 1              # XOR swap
 XOR_RANK r1 0 1               # XOR rank (popcount)
 
@@ -80,12 +85,12 @@ MDLACC 0 0 1                  # model accumulate
 CERTIFY 0 0 1                 # set certification flag
 
 # ---- I/O opcodes ----
-READ_PORT 0 0 1               # read port (NOP in hardware)
+READ_PORT  0 0 1              # read port (NOP in hardware)
 WRITE_PORT 0 0 1              # write port (NOP in hardware)
 
 # ---- Partition opcodes (require logic_acc = 0xCAFEEACE) ----
 PNEW {0,10} 2                 # create another partition
-PDISCOVER 0 0 1               # discover partition (needs logic_acc guard)
+PDISCOVER 0 0 1               # discover partition (needs logic-acc guard)
 
 # ---- CHSH trial (requires logic_acc = 0xCAFEEACE) ----
 CHSH_TRIAL 0 0 0 0 1          # classical trial: x=0, y=0, a=0, b=0

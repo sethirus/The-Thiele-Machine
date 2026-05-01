@@ -378,9 +378,25 @@ rtl-verify: rtl-check rtl-synth rtl-cosim
 	@echo "║  ✓ accelerator cosim        (22+ tests)         ║"
 	@echo "╚══════════════════════════════════════════════════╝"
 
+# Full Xilinx Artix-7 (xc7a35t / Arty A7-35T) deployment flow:
+# yosys synth_xilinx → nextpnr-xilinx → fasm2frames → xc7frames2bit.
+# Lets engineers reproduce the FPGA build locally without going through CI.
+# Top is the minimal wrapper (thiele_cpu_top in thiele_cpu_top_min.v) so
+# only the 5 board-visible pins need routing.
+.PHONY: rtl-synth-xc7
+rtl-synth-xc7: $(RTL_CANONICAL)
+	@echo "=== Xilinx Artix-7 (xc7a35t) deployment flow ==="
+	@command -v yosys             >/dev/null || { echo "ERROR: yosys not found"; exit 1; }
+	@command -v nextpnr-xilinx    >/dev/null || { echo "ERROR: nextpnr-xilinx not found (build from openXC7/nextpnr-xilinx)"; exit 1; }
+	@command -v xc7frames2bit     >/dev/null || { echo "ERROR: xc7frames2bit not found (build from SymbiFlow/prjxray tools)"; exit 1; }
+	@bash fpga/run_synthesis_xc7.sh
+
 # Clean synthesis artifacts
 rtl-clean:
 	@rm -f $(RTL_DIR)/synth*.log $(RTL_DIR)/synth*_out.v
+	@rm -f build/thiele_xc7a35t.json build/thiele_xc7a35t.fasm
+	@rm -f build/thiele_xc7a35t.frames build/thiele_xc7a35t.bit
+	@rm -f build/yosys_xc7.log build/nextpnr_xc7.log
 	@echo "✓ Synthesis artifacts cleaned"
 
 # Archive generated VM/Verilog byproducts out of active folders.

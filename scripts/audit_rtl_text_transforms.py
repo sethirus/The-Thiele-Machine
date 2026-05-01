@@ -89,7 +89,9 @@ def _bsv_large_vector_decls(text: str) -> list[dict[str, Any]]:
     decls = []
     for match in pattern.finditer(text):
         n_elems = int(match.group(1))
-        if n_elems >= 256:
+        # Threshold tracks MemSize: any backing vector at or above the data/imem
+        # size is treated as a "large" vector that gets the RegFile rewrite.
+        if n_elems >= 128:
             decls.append(
                 {
                     "name": match.group(3),
@@ -153,10 +155,13 @@ def build_audit() -> dict[str, Any]:
     bsv_regfiles = _bsv_regfile_decls(clean_bsv)
 
     expected_regfiles = {
-        "imem": {"address_bits": 16, "element_type": "Bit#(128)"},
-        "lassert_cbuf": {"address_bits": 9, "element_type": "Bit#(32)"},
-        "lassert_fbuf": {"address_bits": 8, "element_type": "Bit#(32)"},
-        "mem": {"address_bits": 16, "element_type": "Bit#(32)"},
+        # MemAddrSz=7 (128 words) — silicon-side bound on imem/mem.
+        # lassert_cbuf/lassert_fbuf are 64-entry RegFiles (addr_width=6) per
+        # ThieleTypes.LassertCbufIdxSz/LassertFbufIdxSz=6.
+        "imem": {"address_bits": 7, "element_type": "Bit#(128)"},
+        "mem": {"address_bits": 7, "element_type": "Bit#(32)"},
+        "lassert_cbuf": {"address_bits": 6, "element_type": "Bit#(32)"},
+        "lassert_fbuf": {"address_bits": 6, "element_type": "Bit#(32)"},
     }
     observed_regfiles = {
         item["name"]: {
