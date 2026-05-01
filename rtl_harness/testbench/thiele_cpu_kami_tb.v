@@ -358,7 +358,7 @@ module thiele_cpu_kami_tb;
     // Dump data memory from mem RegFile submodule (RTL has 128 words, hi=127)
     $display("  \"mem\": [");
     for (i = 0; i < 128; i = i + 1) begin
-      if (i < 255) $display("    %0d,", dut.mem.arr[i]);
+      if (i < 127) $display("    %0d,", dut.mem.arr[i]);
       else $display("    %0d", dut.mem.arr[i]);
     end
     $display("  ],");
