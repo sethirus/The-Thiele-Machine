@@ -36,6 +36,16 @@ jobs:
             coq coinor-csdp ocaml ocaml-findlib \
             iverilog verilator yosys
 
+      - name: Capture toolchain version
+        # Coq updates from apt can silently produce .vo files incompatible
+        # with previously-cached ones. Including the exact coqc version in
+        # all cache keys forces a clean rebuild whenever Coq changes.
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+          echo "Coq: ${coq_version}"
+
       - name: Cache vendor builds (bbv + kami)
         id: cache-vendor
         uses: actions/cache@v4
@@ -43,7 +53,7 @@ jobs:
           path: |
             vendor/bbv
             vendor/kami
-          key: vendor-${{ runner.os }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
 
       - name: Build vendored deps (bbv + kami)
         if: steps.cache-vendor.outputs.cache-hit != 'true'
@@ -53,12 +63,38 @@ jobs:
           bash scripts/fix_kami_coq18.sh
           cd vendor/kami && make -j4
 
+      - name: Compute vendor build digest
+        # Hash all vendor .vo files so the coq cache key tracks the actual
+        # vendor binary state — not just .v sources. Two vendor builds with
+        # identical sources can still produce .vo files with different
+        # module digests, which then make tracked coq/.vo files inconsistent.
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+          echo "Vendor .vo digest: ${digest}"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements.txt
+
+      - name: Purge stale tracked Coq .vo files
+        # coq/**/*.vo are TRACKED in git (.gitignore: "coq/*.vo and coq/*.glob
+        # are tracked"). After git checkout they're on disk with timestamps
+        # that make `make` skip recompilation — but they reference whatever
+        # vendor/kami digests were current when the .vo was committed. If
+        # vendor was rebuilt, those digests no longer match and we get
+        # "inconsistent assumptions over library Kami.Semantics". Forcing a
+        # clean coq/ tree before the cache restore (or fresh build) is the
+        # only reliable fix without untracking the .vo files.
+        run: make coq-clean
 
       - name: Cache Coq build
         id: cache-coq
@@ -71,7 +107,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
-          key: coq-${{ runner.os }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', '.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
 
       - name: Build Coq proof tree
         run: |
@@ -134,6 +170,13 @@ jobs:
             coq coinor-csdp ocaml ocaml-findlib \
             iverilog verilator yosys
 
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+          echo "Coq: ${coq_version}"
+
       - name: Cache vendor builds (bbv + kami)
         id: cache-vendor
         uses: actions/cache@v4
@@ -141,7 +184,7 @@ jobs:
           path: |
             vendor/bbv
             vendor/kami
-          key: vendor-${{ runner.os }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
 
       - name: Build vendored deps (bbv + kami)
         if: steps.cache-vendor.outputs.cache-hit != 'true'
@@ -151,12 +194,26 @@ jobs:
           bash scripts/fix_kami_coq18.sh
           cd vendor/kami && make -j4
 
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+          echo "Vendor .vo digest: ${digest}"
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: requirements.txt
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
 
       - name: Cache Coq build
         id: cache-coq
@@ -169,7 +226,7 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
-          key: coq-${{ runner.os }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject', '.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
 
       - name: Extract Coq to OCaml
         run: |
