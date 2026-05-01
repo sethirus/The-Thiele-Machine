@@ -31,7 +31,7 @@ REG_COUNT: int = 16
 MEM_SIZE: int = 128
 TENSOR_SIZE: int = 16
 WORD64_MASK: int = 0xFFFFFFFFFFFFFFFF
-SP_REG: int = 31
+SP_REG: int = 15
 
 # State integrity MAC constants (must match build/extracted_vm_runner.ml)
 _STATE_INTEGRITY_SALT = "thiele_mu_guard_v1_2026"
