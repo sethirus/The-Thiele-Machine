@@ -626,6 +626,17 @@ coq-kami-reset:
 	@find coq/kami_hw -maxdepth 1 -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' \) -delete
 	@echo "[coq-kami-reset] done"
 
+.PHONY: coq-clean
+# Purge ONLY the project's Coq build artefacts under coq/ — leaves vendor/
+# alone so vendor caches stay valid. Use this in CI before invoking the Coq
+# build to drop tracked-but-stale .vo files (which `make` would otherwise
+# treat as up-to-date and skip rebuilding, causing "inconsistent assumptions
+# over library Kami.Semantics" when vendor/kami has been rebuilt).
+coq-clean:
+	@echo "[coq-clean] purging coq/**/*.{vo,vos,vok,glob,aux} (vendor/ untouched)"
+	@find coq -type f \( -name '*.vo' -o -name '*.vos' -o -name '*.vok' -o -name '*.glob' -o -name '*.aux' \) -delete
+	@echo "[coq-clean] done"
+
 .PHONY: vendor-bbv-build
 vendor-bbv-build:
 	@git submodule update --init --recursive vendor/bbv
