@@ -77,7 +77,7 @@ I started building this in January 2025. I had no CS degree. I was trying to mak
 
 The central idea is simple. A Turing machine tracks registers, memory, and time. It cannot see whether a computation has become \emph{entitled} to use a structural shortcut --- a decomposition, a verified invariant, a certified fact about its own state. The Thiele Machine makes that entitlement first-class and cost-bearing. There is a global counter called $\mu$ that starts at zero and never goes down. Any computation that ends in a certified structural claim must have paid at least 1 into $\mu$. That is No Free Insight. It is a conservation law, proved in Coq from the machine's own step function.
 
-46 opcodes. All in hardware. All with formal correctness proofs --- 30 fully unconditional, 6 requiring valid arguments, 7 unconditional for any state reachable from hardware reset, 3 with a semantic boundary. A conservation law. A unique canonical cost measure. A complexity hierarchy. A biconditional between the machine's honesty condition and the zero-marginal NPA polynomial realizability condition. Every proof compiles or it doesn't. That is the point.
+46 opcodes. All in hardware. All with formal correctness proofs --- 36 unconditional and 10 carrying Qed bisimulation proofs under structural invariants (\texttt{coupling\_wf}, \texttt{morph\_table\_wf}) that hold inductively from hardware reset, zero structural gaps. A conservation law. A unique canonical cost measure. A complexity hierarchy. A biconditional between the machine's honesty condition and the zero-marginal NPA polynomial realizability condition. Every proof compiles or it doesn't. That is the point.
 \end{abstract}
 
 \tableofcontents
@@ -552,8 +552,8 @@ A Thiele Machine state $s$ is a record with 12 fields:
   \item \texttt{csr\_err}: error code. Nonzero means an instruction failed (bad argument, missing morphism, locality violation, etc.).
   \item \texttt{csr\_heap\_base}: base address for HEAP\_LOAD and HEAP\_STORE. Heap-relative memory access adds this base to the register-specified offset.
   \end{itemize}
-\item $s.\texttt{vm\_regs}$: a list of register values. The kernel fixes \texttt{REG\_COUNT = 32}; register reads and writes wrap indices modulo 32.
-\item $s.\texttt{vm\_mem}$: a list of data-memory words. The kernel fixes \texttt{MEM\_SIZE = 65536}; memory reads and writes wrap indices modulo 65536.
+\item $s.\texttt{vm\_regs}$: a list of register values. The kernel fixes \texttt{REG\_COUNT = 16}; register reads and writes wrap indices modulo \texttt{REG\_COUNT}. The kernel proofs are parametric in \texttt{REG\_COUNT}.
+\item $s.\texttt{vm\_mem}$: a list of data-memory words. The kernel fixes \texttt{MEM\_SIZE = 128}; memory reads and writes wrap indices modulo \texttt{MEM\_SIZE}. The kernel proofs are parametric in \texttt{MEM\_SIZE}.
 \item $s.\texttt{vm\_pc} \in \mathbb{N}$: the program counter.
 \item $s.\texttt{vm\_mu} \in \mathbb{N}$: the structural cost ledger. Starts at 0. Never decreases.
 \item $s.\texttt{vm\_mu\_tensor}$: a 4$\times$4 array of cost values (16 entries), indexed by direction pairs $(i,j)$. TENSOR\_SET writes an entry, TENSOR\_GET reads one. REVEAL records disclosure costs at the direction index encoded in the instruction, so the machine can track \emph{where} a cost was paid across directions, not just how much. In the kernel model these are natural numbers; in the hardware, 32-bit words. If you don't use the tensor tracking, ignore all 16 entries.
@@ -565,7 +565,7 @@ A Thiele Machine state $s$ is a record with 12 fields:
 \end{itemize}
 \end{definition}
 
-The Coq kernel (the mathematical ground truth) and the physical hardware are intentionally not the same shape at every bit. The Coq kernel stores register and memory values as natural numbers, but truncates writes through 64-bit word helpers to keep the math clean. The hardware layer (explained in Section~\ref{sec:hardware}) is finite: 32-bit data registers, 65536 memory words, bounded tables. The bridge proofs in the hardware section state exactly where those finite hardware representations match the kernel step.
+The Coq kernel (the mathematical ground truth) and the physical hardware are intentionally not the same shape at every bit. The Coq kernel stores register and memory values as natural numbers, but truncates writes through $64$-bit word helpers to keep the math clean. The hardware layer (explained in Section~\ref{sec:hardware}) is finite: $16$ general-purpose registers, $128$ memory words, bounded tables. The bridge proofs in the hardware section state exactly where those finite hardware representations match the kernel step; the size constants are parametric so the same proofs apply at any bound.
 
 \begin{definition}[Partition Graph]
 The partition graph $s.\texttt{vm\_graph}$ is a record:
@@ -680,8 +680,8 @@ Opcode & What it does & Note \\
 \texttt{STORE}($r_a$, $r_s$, $\delta$) & Store register $r_s$ into $\texttt{vm\_mem}[r_a]$ & Kernel register-indirect store \\
 \texttt{JUMP}($\text{addr}$, $\delta$) & Set PC to addr unconditionally & none \\
 \texttt{JNEZ}($r$, $\text{addr}$, $\delta$) & Jump to addr if $r \neq 0$ & none \\
-\texttt{CALL}($\text{addr}$, $\delta$) & Push return address via stack pointer r31, jump to addr & Qed coverage \\
-\texttt{RET}($\delta$) & Pop return address via stack pointer r31, jump there & Qed coverage \\
+\texttt{CALL}($\text{addr}$, $\delta$) & Push return address via stack pointer r15, jump to addr & Qed coverage \\
+\texttt{RET}($\delta$) & Pop return address via stack pointer r15, jump there & Qed coverage \\
 \texttt{HALT}($\delta$) & Advances PC, charges $\delta$. Stops when PC exceeds program length. HALT in the middle does not stop execution. & runner-level \\
 \texttt{CHECKPOINT}($\ell$, $\delta$) & Accept label $\ell$, advance PC & label outside kernel \\
 \bottomrule
@@ -948,7 +948,7 @@ This is the mathematical ground truth. The Coq kernel defines:
 \item All the theorems: NoFI, $\mu$-monotonicity, $\mu$-initiality, categorical separation, Turing strictness, etc.
 \end{itemize}
 
-The Coq kernel operates mostly over natural numbers, but the machine state is not an unbounded fantasy object. It fixes 32 registers and 65536 memory words, and its accessors wrap indices through those sizes. Register and memory writes are truncated by the kernel's 64-bit word helpers. $\mu$ itself is a natural number and can grow without a fixed machine-word ceiling in the kernel. The RTL target then instantiates a finite 32-bit datapath and bounded tables.
+The Coq kernel operates mostly over natural numbers, but the machine state is not an unbounded fantasy object. It fixes \texttt{REG\_COUNT = 16} registers and \texttt{MEM\_SIZE = 128} memory words in the synthesized RTL, and its accessors wrap indices through those sizes. Both constants are parametric in the proofs --- nothing in the formal chain depends on these specific numbers. Register and memory writes are truncated by the kernel's $64$-bit word helpers. $\mu$ itself is a natural number and can grow without a fixed machine-word ceiling in the kernel. The RTL target then instantiates a finite $32$-bit datapath and bounded tables.
 
 Zero Admitted means: no step in any theorem proof was asserted without derivation. The machine checked everything. I did not.
 
@@ -964,13 +964,13 @@ The Kami framework lets you write hardware specifications in Coq and extract the
 
 The hardware has:
 \begin{itemize}
-\item 32 registers, each 32 bits wide (data registers)
-\item 128-bit instruction encoding (\texttt{InstrSz = 128})
-\item 65536 words of data memory
+\item $16$ registers, each $32$ bits wide (\texttt{RegCount = 16}; kernel proofs parametric)
+\item $128$-bit instruction encoding (\texttt{InstrSz = 128})
+\item $128$ words of data memory and $128$ instruction words (\texttt{MemSize = 128}; kernel proofs parametric in \texttt{MEM\_SIZE})
 \item bounded instruction transport and execution state
-\item 64 partition module slots (\texttt{PTableSz = 64})
-\item 64 morphism descriptor slots (\texttt{MorphTableSz = 64})
-\item An on-chip LASSERT FSM for formula verification
+\item $64$ partition module slots (\texttt{PTableSz = 64})
+\item $16$ slots in each of the morphism, coupling, formula, certificate, descriptor-metadata, and coupling-pair tables
+\item An on-chip LASSERT FSM for formula verification (with $64$-entry inlined backing buffers)
 \item A $\mu$-ALU running in parallel with main execution
 \end{itemize}
 
@@ -984,7 +984,7 @@ Formal bisimulation proofs exist for all 46 opcodes (zero Admitted, all Qed). He
 
 \item \textbf{6 opcodes require valid instruction arguments.} The hardware and Coq model AGREE on the error path for invalid arguments, so no semantic disagreement exists --- but the success-path proof requires the argument to be in range:
   \begin{itemize}
-  \item CALL: stack pointer must be in bounds (\texttt{WellFormedSnapshot}), and $\texttt{pc} < 65536$.
+  \item CALL: stack pointer must be in bounds (\texttt{WellFormedSnapshot}), and $\texttt{pc} < \texttt{MEM\_SIZE}$.
   \item RET: stack pointer must be in bounds (\texttt{WellFormedSnapshot}).
   \item CHSH\_TRIAL: all four values $x,y,a,b$ must be in $\{0,1\}$. Passing 5 as an outcome value triggers the bad-bits error path --- on which both hardware and VM agree.
   \item TENSOR\_SET: indices $i,j$ must both be $< 4$ (valid for a 4$\times$4 tensor).
@@ -993,12 +993,10 @@ Formal bisimulation proofs exist for all 46 opcodes (zero Admitted, all Qed). He
   \end{itemize}
   Covered in \texttt{EmbedStep\_WF.v} (CALL, RET, CHSH\_TRIAL) and \texttt{GraphReconstructionBridge.v} (TENSOR\_SET, TENSOR\_GET, LASSERT).
 
-\item \textbf{7 opcodes are unconditional for KamiReachable hardware states.} MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR, MORPH, and MORPH\_ID are proved unconditional for any state reachable from hardware reset via the \texttt{KamiReachable} inductive predicate (\texttt{HardwareReachability.v}). The invariants morph\_table\_wf, coupling\_wf, sizes\_nonzero\_bounded hold inductively from reset and are sufficient to close both success and error paths.
-
-\item \textbf{3 opcodes have a semantic-level disagreement between hardware and VM for certain inputs.} PNEW requires a non-empty region; PSPLIT and PMERGE require existing modules with sufficient size and available table slots. The distinction from the 6 argument-validity group: for PNEW/PSPLIT/PMERGE with invalid inputs, the hardware and abstract VM produce DIFFERENT graph structures (snap\_pt\_to\_graph filters size-0 modules; graph\_add\_module includes them). No conditions close this gap without changing the semantics.
+\item \textbf{10 opcodes carry Qed proofs under structural invariants that hold inductively from hardware reset.} Seven from the morphism group (MORPH, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR) and three graph-shaping opcodes (PNEW, PSPLIT, PMERGE). The preconditions are \texttt{coupling\_wf} (= \texttt{coupling\_desc\_bounded $\wedge$ coupling\_pairs\_in\_range $\wedge$ coupling\_pairs\_fully\_populated}) and \texttt{morph\_table\_wf}. Both invariants are proved to hold at hardware reset and to be preserved by every \texttt{kami\_step} operation: \texttt{coupling\_wf\_kami\_step\_preserved} and \texttt{morph\_table\_wf\_kami\_step\_preserved}. So the precondition is discharged in practice for any state reachable by machine execution; no unreachable-state caveat applies. PNEW/PSPLIT/PMERGE additionally need \texttt{pt\_well\_formed} and arithmetic side conditions that are likewise inductive.
 \end{itemize}
 
-The project classification (documented in \texttt{CloseoutVerification.v}) groups the 30+6 as ``36 unconditional'' on the grounds that the 6 argument-validity conditions represent valid-use constraints rather than machine-state invariants. The full breakdown is $30 + 6 + 7 + 3 + 0 = 46$, all Qed, zero structural gaps. \texttt{RTLGapRegistry.v} records \texttt{rtl\_gap\_count = 0}.
+The official classification (\texttt{coq/kami\_hw/RTLGapRegistry.v}, theorem \texttt{rtl\_coverage\_partition}) records the partition $36 + 10 + 0 = 46$, all Qed, zero structural gaps. \texttt{rtl\_gap\_count = 0} witnesses the empty gap registry.
 
 The 46/46 proof coverage (all Qed) is the correct relationship between an abstract ISA and its physical instantiation. The abstract model defines what is correct; the hardware implements all of it; all 46 opcodes have formal bisimulation proofs. This is not a deficiency. It is honest proof accounting.
 
@@ -1200,7 +1198,7 @@ That is the complete derivation. Three conditions. Two from 3×3 submatrices. On
 
 \medskip
 \noindent\textbf{Why this equals quantum realizability.}
-The forward direction is the derivation above: if the correlators are column-contractive, the matrix $M$ is PSD by construction. The reverse direction (proved in \texttt{ThieleQuantumEquivalence.v}) is that if $M$ is PSD, the correlators must be column-contractive. The proof: take any PSD matrix $M$ and feed it the specific vector $v = (0,\, -(E_{00}y_0 + E_{01}y_1),\, -(E_{10}y_0 + E_{11}y_1),\, y_0,\, y_1)$. The PSD condition $v^T M v \geq 0$ gives the quadratic form $Ay_0^2 - 2By_0y_1 + Cy_1^2 \geq 0$ for all real $y_0, y_1$. A quadratic $ay^2 + 2by + c \geq 0$ for all $y$ if and only if $ac \geq b^2$ (non-negative discriminant). That closes condition 3. The diagonal conditions come from setting $y_1 = 0$ and $y_0 = 0$ separately.
+The forward direction is the derivation above: if the correlators are column-contractive, the matrix $M$ is PSD by construction. The reverse direction (proved as \texttt{npa\_psd\_implies\_column\_contractive} in \texttt{coq/kernel/QuantumPartitionPSD.v}) is that if $M$ is PSD, the correlators must be column-contractive. The proof: take any PSD matrix $M$ and feed it the specific vector $v = (0,\, -(E_{00}y_0 + E_{01}y_1),\, -(E_{10}y_0 + E_{11}y_1),\, y_0,\, y_1)$. The PSD condition $v^T M v \geq 0$ gives the quadratic form $Ay_0^2 - 2By_0y_1 + Cy_1^2 \geq 0$ for all real $y_0, y_1$. A quadratic $ay^2 + 2by + c \geq 0$ for all $y$ if and only if $ac \geq b^2$ (non-negative discriminant). That closes condition 3. The diagonal conditions come from setting $y_1 = 0$ and $y_0 = 0$ separately.
 
 A correlation $(E_{00}, E_{01}, E_{10}, E_{11})$ is \emph{Thiele-honest} if and only if it is zero-marginal NPA realizable. Exactly. Not approximately. Not ``consistent with some physics axiom.'' The biconditional is pure polynomial arithmetic, zero axioms:
 
@@ -1222,21 +1220,21 @@ The left side is three polynomial inequalities (column contractivity of the zero
 AC \geq B^2 \quad \text{(condition 3)}
 \]
 where $A = 1-E_{00}^2-E_{10}^2$, $B = E_{00}E_{01}+E_{10}E_{11}$, $C = 1-E_{01}^2-E_{11}^2$.
-These are the three conditions of \texttt{column\_contractive}: column 0 norm $\leq 1$, column 1 norm $\leq 1$, determinant $AC - B^2 \geq 0$.
+These are the three conditions of \texttt{zero\_marginal\_column\_contractive} (defined in \texttt{coq/kernel/MuLedgerQuantumBridge.v}): column 0 norm $\leq 1$, column 1 norm $\leq 1$, determinant $AC - B^2 \geq 0$.
 The right side says the NPA moment matrix is positive semidefinite --- the standard mathematical characterization of quantum realizability.
 
-The forward direction (\texttt{A\_QM\_thiele}) was proved first. The reverse direction is new: given a PSD NPA matrix, specialize it at the vector $(0, -(E_{00}y_0 + E_{01}y_1), -(E_{10}y_0 + E_{11}y_1), y_0, y_1)$. The PSD condition gives a quadratic-in-$y_0/y_1$ that is everywhere non-negative. Then \texttt{quadratic\_nonneg\_discriminant} ($\forall t, a + 2bt + ct^2 \geq 0 \Rightarrow b^2 \leq ac$) closes the determinant condition. The diagonal conditions come from $y_0 = 1, y_1 = 0$ and $y_0 = 0, y_1 = 1$.
+The forward direction (\texttt{zero\_marginal\_npa\_column\_contractive\_implies\_psd} in \texttt{MuLedgerQuantumBridge.v}) was proved first. The reverse direction is new: given a PSD NPA matrix, specialize it at the vector $(0, -(E_{00}y_0 + E_{01}y_1), -(E_{10}y_0 + E_{11}y_1), y_0, y_1)$. The PSD condition gives a quadratic-in-$y_0/y_1$ that is everywhere non-negative. Then \texttt{quadratic\_nonneg\_discriminant} ($\forall t, a + 2bt + ct^2 \geq 0 \Rightarrow b^2 \leq ac$) closes the determinant condition. The diagonal conditions come from $y_0 = 1, y_1 = 0$ and $y_0 = 0, y_1 = 1$. Both directions are packaged as the biconditional \texttt{column\_contractive\_iff\_quantum\_realizable} in \texttt{coq/kernel/QuantumPartitionPSD.v}.
 
 What this means for the hierarchy of correlations:
 \begin{itemize}
 \item Classical local hidden variables: $|S| \leq 2$.
 \item Thiele-honest = zero-marginal NPA realizable (biconditional, both directions, zero axioms). Every Thiele-honest correlation satisfies $|S| \leq 2\sqrt{2}$, but NOT every correlation with $|S| \leq 2\sqrt{2}$ is Thiele-honest: $(1,0,1,0)$ has $|S|=2$ but fails condition 1.
 \item No-signaling: no constraint beyond $|E_{ab}| \leq 1$.
-\item PR box ($E_{00} = E_{01} = E_{10} = 1$, $E_{11} = -1$): condition 1 gives $1 - E_{00}^2 - E_{10}^2 = 1 - 1 - 1 = -1 < 0$. Fails immediately. Proved in \texttt{pr\_box\_not\_thiele\_honest}.
-\item Tsirelson bound: \texttt{tsirelson\_from\_thiele\_honesty} proves Thiele-honest $\Rightarrow$ $|S| \leq 2\sqrt{2}$. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not Thiele-honest) is also proved. The converse is false and not proved.
+\item PR box ($E_{00} = E_{01} = E_{10} = 1$, $E_{11} = -1$): condition 1 gives $1 - E_{00}^2 - E_{10}^2 = 1 - 1 - 1 = -1 < 0$. Fails immediately by direct arithmetic.
+\item Tsirelson bound: \texttt{state\_column\_contractive\_implies\_tsirelson} (\texttt{coq/kernel/MuLedgerQuantumBridge.v}) proves Thiele-honest $\Rightarrow$ $|S|^2 \leq 8$ (i.e., $|S| \leq 2\sqrt{2}$) directly from column-contractivity. The chain factors through PSD: column-contractive $\Rightarrow$ NPA-PSD $\Rightarrow$ row bounds $\Rightarrow$ Tsirelson, and the row-bounds step is \texttt{tsirelson\_from\_row\_bounds} in \texttt{coq/kernel/TsirelsonGeneral.v}. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not Thiele-honest) follows immediately. The converse is false and not proved.
 \end{itemize}
 
-A Turing machine can output the correlations $(1, 0, 1, 0)$. These are not Thiele-honest: condition 1 gives $1 - 1^2 - 1^2 = -1 < 0$. The proof in Coq (\texttt{turing\_machine\_has\_free\_correlations}, \texttt{ThieleQuantumEquivalence.v}) destructs on condition 1 and closes by \texttt{lra}. The $\mu$-ledger's column-contractivity conditions are what make the quantum boundary real for computation: there exist correlations a Turing machine certifies but no Thiele Machine certifies as honest.
+A Turing machine can output the correlations $(1, 0, 1, 0)$. These are not Thiele-honest: condition 1 gives $1 - 1^2 - 1^2 = -1 < 0$. The arithmetic closes by \texttt{lra} once \texttt{column\_contractive\_iff\_quantum\_realizable} is destructed on condition 1. The $\mu$-ledger's column-contractivity conditions are what make the quantum boundary real for computation: there exist correlations a Turing machine certifies but no Thiele Machine certifies as honest.
 
 To falsify: exhibit $E_{00}, E_{01}, E_{10}, E_{11}$ satisfying the three polynomial inequalities but with a non-PSD NPA matrix. No such example exists; the theorem proves it impossible. Or exhibit a quantum experiment producing a non-PSD NPA matrix. That would break quantum mechanics, not this theorem.
 
@@ -1342,7 +1340,7 @@ Beyond Coq's type checker, the project has a custom proof auditor called the Inq
 \item \textbf{Comment hygiene.} No TODO/FIXME/WIP markers in active proof comments.
 \end{itemize}
 
-Current Inquisitor status: zero HIGH/MEDIUM/LOW findings across all 208 Coq files in the active tree.
+Current Inquisitor status: zero HIGH/MEDIUM/LOW findings across all 205 Coq files in the active tree.
 
 %===========================================================================
 \section{Zero Admitted: what it actually means}
@@ -1357,7 +1355,7 @@ This is what it does NOT mean:
 \item It does not mean the Coq axioms themselves are consistent. Coq is built on a formal foundation called the Calculus of Inductive Constructions. The key idea underlying it is the Curry-Howard correspondence: proofs and programs are the same thing. A proof that $P$ is true is literally a program of type $P$. Checking the proof is the same as type-checking the program. The ``inductive'' part means you can define your own recursive types --- natural numbers, lists, trees --- inside the system instead of having them as magical primitives. This matters because it makes the foundation explicit and auditable.
 
 Now here is the honest limitation. We believe this foundation is logically consistent --- that you cannot derive a contradiction from it --- but this has not been proven within Coq itself. That is not a weakness in Coq specifically; it is a fundamental theorem by Kurt Gödel from 1931. Gödel proved that any formal system powerful enough to do arithmetic cannot prove its own consistency from within itself. If it could, it would be contradictory. So Coq's foundation is trusted, not proved-from-within, which is the honest state of affairs for any powerful formal system. The Coq community has studied the foundation extensively and found no inconsistencies. But ``zero Admitted'' means every theorem follows from those axioms. It does not mean those axioms are themselves in-system guaranteed.
-\item It does not mean the hardware implements exactly the Coq semantics in all cases. All 46 opcodes have Qed bisimulation proofs (30 fully unconditional, 6 with argument-validity conditions, 7 unconditional for KamiReachable states, 3 with semantic-level conditions, zero structural gaps); documented in \texttt{RTLGapRegistry.v} and \texttt{CloseoutVerification.v}.
+\item It does not mean the hardware implements exactly the Coq semantics in all cases. All 46 opcodes have Qed bisimulation proofs (36 unconditional, 10 under structural invariants \texttt{coupling\_wf} and \texttt{morph\_table\_wf} that hold inductively from hardware reset, zero structural gaps); documented in \texttt{RTLGapRegistry.v} and \texttt{CloseoutVerification.v}.
 \item It does not mean the OCaml runner binary is proven inside Coq to be bitwise identical to the Coq semantics. \texttt{OCamlExtractionBridge.v} proves Coq-side observable facts and the parity suite checks the extracted binary empirically.
 \end{itemize}
 
@@ -1470,24 +1468,19 @@ These are the kernel-tier claims (machine-checked, no named hypotheses):
 \item \textit{\small info\_priced\_reduction\_no\_tree\_hypothesis}: entropy bound without requiring the tree as an explicit input.
 \item \textit{\small sound\_shortcut\_from\_components}: assembly lemma for SoundStructuralShortcut from its component witnesses.
 \item \textit{\small in\_muP / in\_muNP / classical\_in\_muP}: $\mu$-complexity class definitions and basic inclusion.
-\item \textit{\small thiele\_honest\_iff\_quantum\_realizable} (\texttt{ThieleQuantumEquivalence.v}): Thiele honesty $\iff$ zero-marginal NPA realizability. A zero-axiom biconditional. Forward: column-contractive → NPA PSD. Reverse: NPA PSD → column-contractive (new; proved by vector specialization + quadratic discriminant). Zero-marginal NPA realizability is the orthogonal-observables slice of the quantum elliptope ($\rho_{AA}=\rho_{BB}=0$), not the full elliptope. Classical correlations like $(1,0,1,0)$ have $|S| \leq 2$ but fail column contractivity — the classical polytope and the Thiele-honest set intersect but neither contains the other.
-\item \textit{\small tsirelson\_is\_thiele\_boundary}: Thiele-honest $\Rightarrow$ $|S| \leq 2\sqrt{2}$ (forward direction), and $|S| > 2\sqrt{2}$ $\Rightarrow$ not Thiele-honest (the contrapositive). These are the same implication, stated both ways. The converse ($|S| \leq 2\sqrt{2}$ $\Rightarrow$ Thiele-honest) is false and is not claimed.
-\item \textit{\small pr\_box\_not\_thiele\_honest}: PR box ($E_{00}=E_{01}=E_{10}=1$, $E_{11}=-1$) fails the first column-contractivity condition: $1 - E_{00}^2 - E_{10}^2 = 1 - 1 - 1 = -1 < 0$. Direct arithmetic.
-\item \textit{\small super\_quantum\_not\_thiele\_honest}: $|S| > 2\sqrt{2}$ implies not Thiele-honest. Proved from the Tsirelson boundary.
-\item \textit{\small turing\_machine\_has\_free\_correlations}: Turing machines produce correlations Thiele Machines reject as dishonest. The $\mu$-cost structure is what makes the quantum boundary computationally real.
-\item \textit{\small A\_QM\_thiele}: Thiele honesty implies quantum realizability. Proves $A_{QM}$ from first principles, not assumed.
-\item \textit{\small tsirelson\_from\_thiele\_honesty}: $|S| \leq 2\sqrt{2}$ follows from column contractivity. Zero axioms.
+\item \textit{\small column\_contractive\_iff\_quantum\_realizable} (\texttt{coq/kernel/QuantumPartitionPSD.v}): Thiele honesty $\iff$ zero-marginal NPA realizability. A zero-axiom biconditional. Forward (\texttt{zero\_marginal\_npa\_column\_contractive\_implies\_psd} in \texttt{MuLedgerQuantumBridge.v}): column-contractive → NPA PSD. Reverse (\texttt{npa\_psd\_implies\_column\_contractive} in \texttt{QuantumPartitionPSD.v}): NPA PSD → column-contractive, proved by vector specialization plus the \texttt{quadratic\_nonneg\_discriminant} lemma from \texttt{ConstructivePSD.v}. Zero-marginal NPA realizability is the orthogonal-observables slice of the quantum elliptope ($\rho_{AA}=\rho_{BB}=0$), not the full elliptope. Classical correlations like $(1,0,1,0)$ have $|S| \leq 2$ but fail column contractivity — the classical polytope and the Thiele-honest set intersect but neither contains the other.
+\item \textit{\small state\_column\_contractive\_implies\_tsirelson} (\texttt{coq/kernel/MuLedgerQuantumBridge.v}): Thiele-honest $\Rightarrow$ $|S|^2 \leq 8$, i.e., $|S| \leq 2\sqrt{2}$. The proof factors through quantum realizability: \texttt{state\_column\_contractive\_implies\_quantum\_gram} composes with \texttt{quantum\_realizable\_implies\_tsirelson\_bound} (in the same file). The row-bounds lemma \texttt{tsirelson\_from\_row\_bounds} in \texttt{coq/kernel/TsirelsonGeneral.v} is the algebraic Cauchy--Schwarz step inside this chain. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not Thiele-honest) follows immediately. The converse ($|S| \leq 2\sqrt{2}$ $\Rightarrow$ Thiele-honest) is false and is not claimed.
+\item \textit{\small Concrete falsifications by direct arithmetic.} The PR box ($E_{00}=E_{01}=E_{10}=1$, $E_{11}=-1$) fails the first column-contractivity condition: $1 - E_{00}^2 - E_{10}^2 = 1 - 1 - 1 = -1 < 0$. Any super-quantum value $|S| > 2\sqrt{2}$ falls outside the Thiele-honest set by the contrapositive of \texttt{state\_column\_contractive\_implies\_tsirelson}. The Turing-classical correlation $(1,0,1,0)$ also fails condition 1. None of these require new theorem statements; they are immediate by \texttt{lra} once the biconditional is destructed.
 \item \textit{\small mu\_hierarchy\_theorem} (\texttt{MuHierarchyTheorem.v}): for every $k \geq 1$, there exists a certified trace with cost exactly $k$, and every certified trace with $\texttt{vm\_mu} \geq k$ has cost $\geq k$. Infinite strict $\mu$-complexity separation.
 \item \textit{\small mu\_hierarchy\_no\_upper\_bound}: no fixed $\mu$-budget suffices for all levels.
-\item \textit{\small KamiReachable invariants} (\texttt{HardwareReachability.v}): four hardware coupling/morph invariants proved inductive from hardware reset: \texttt{KamiReachable\_morph\_table\_wf}, \texttt{KamiReachable\_coupling\_wf}, \texttt{KamiReachable\_coupling\_zero\_empty}, \texttt{KamiReachable\_coupling\_desc\_safe}.
-\item \textit{\small KamiReachable unconditional group} (\texttt{HardwareReachability.v}): MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR, MORPH, MORPH\_ID unconditional for any KamiReachable state. Key supporting lemmas: \texttt{KamiReachable\_sizes\_nonzero\_bounded}, \texttt{snap\_pt\_sizes\_zero\_graph\_none}.
-\item \textit{\small end\_to\_end\_rtl\_kernel\_correctness} (\texttt{VerilogSemantics.v}): physical RTL implements Kami step semantics for KamiReachable states, given the named trust boundary \texttt{physical\_rtl\_matches\_kami\_step} (backed by 31/31 cosim + 11,049 fuzz tests).
+\item \textit{\small Structural-invariant Qed group} (\texttt{coq/kami\_hw/RTLGapRegistry.v}, \texttt{coq/kami\_hw/EmbedStep.v}, \texttt{coq/kernel/GraphReconstructionBridge.v}): the 10 opcodes PNEW, PSPLIT, PMERGE, MORPH, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR carry Qed bisimulation proofs under the inductive invariant \texttt{coupling\_wf} (= \texttt{coupling\_desc\_bounded $\wedge$ coupling\_pairs\_in\_range $\wedge$ coupling\_pairs\_fully\_populated}) and \texttt{morph\_table\_wf}. The preservation theorems \texttt{coupling\_wf\_kami\_step\_preserved} and \texttt{morph\_table\_wf\_kami\_step\_preserved} show these invariants hold inductively at hardware reset and through every \texttt{kami\_step} operation, so the precondition is discharged in practice for any state reachable by machine execution.
+\item \textit{\small RTL trust boundary} (\texttt{coq/kernel/VerilogRTLCorrespondence.v}): the Section Variable \texttt{rtl\_step\_correct} states that the synthesised RTL implements the Kami step function. It is backed empirically by the cosim suite (\texttt{tests/test\_verilog\_cosim.py}, 38 tests including \texttt{test\_all\_46\_opcodes\_in\_cosim} which checks coverage of every opcode) and the parametrized cross-layer fuzz suite (\texttt{tests/test\_fuzz\_random\_programs.py}, \texttt{tests/test\_cross\_layer\_adversarial\_fuzz.py}). \texttt{coq/kami\_hw/VerilogSemantics.v} proves \texttt{rtl\_step\_correct} for the COQKAMI model and names \texttt{bsc\_kami\_compilation\_trusted} as the residual trust boundary covering the BSC compiler / pretty-printer pipeline.
 \end{enumerate}
 }
 
 Bridge-tier claims (machine-checked, with named hypotheses or documented trust boundaries):
 \begin{itemize}
-\item \textbf{Hardware bisimulation}: 46/46 opcodes with Qed proofs (30 fully unconditional + 6 argument-validity conditional + 7 unconditional for KamiReachable states + 3 semantic-boundary conditional, 0 structural gaps); documented in \texttt{RTLGapRegistry.v} (\texttt{rtl\_gap\_count = 0}) and \texttt{CloseoutVerification.v}.
+\item \textbf{Hardware bisimulation}: 46/46 opcodes with Qed proofs (36 unconditional + 10 under structural invariants \texttt{coupling\_wf} / \texttt{morph\_table\_wf}, 0 structural gaps); documented in \texttt{RTLGapRegistry.v} (\texttt{rtl\_gap\_count = 0} and \texttt{rtl\_coverage\_partition} witnessing $36 + 10 + 0 = 46$) and \texttt{CloseoutVerification.v}.
 \item \textbf{OCaml extraction}: \texttt{ocaml\_bisimulation\_closure} proves NoFI, $\mu$-monotonicity, and totality for the Coq-side extracted observable. The external OCaml binary equivalence is a parity-test trust boundary, not a kernel theorem.
 \item \textbf{Structural advantage}: \texttt{StructuralAdvantage.v} proves exact $\mu$ costs and the arithmetic time-tax facts for the factored-search witness; executable tests check the measured VM behavior.
 \item \textbf{Cost formula forcing}: \texttt{cost\_necessity} + \texttt{cost\_uniqueness}, conditional on Landauer-Unruh calibration for physical interpretation.
@@ -1508,7 +1501,7 @@ Here is what I don't know.
 
 \textbf{Shannon-style lower bound.} Claude Shannon proved in 1948 that you need at least $\log_2 n$ binary questions to identify one item from a set of $n$ items. That is the information-theoretic lower bound on search. Anything that compresses a set of $n$ possibilities to a smaller set must gather at least that much information. The Thiele Machine analog: any feasible-set reduction (narrowing $\Omega$ to $\Omega'$) requires at least $\log_2^{\uparrow}|\Omega / |\Omega'|$ bits worth of certified structural work. \texttt{MuShannonBridge.v} proves that for any feasible-set reduction, a covering decision tree EXISTS constructively (\texttt{exists\_covering\_tree}). The \texttt{info\_priced\_reduction\_no\_tree\_hypothesis} theorem proves the entropy bound without requiring the tree as an explicit input --- the tree is chosen automatically from the reduction sizes. The remaining open step: derive the realization condition (\texttt{decision\_tree\_realized\_by\_trace}) from arbitrary VM trace behavior without requiring the user to verify the leaf count explicitly. The naive single-trace claim is false in general and the file records that explicitly.
 
-\textbf{Quantum mechanics connection.} The mathematical equivalence between Thiele honesty and zero-marginal NPA realizability is now a kernel-tier theorem (\texttt{thiele\_honest\_iff\_quantum\_realizable}, zero axioms). The zero-marginal NPA framework is the orthogonal-observables slice ($\rho_{AA}=\rho_{BB}=0$) — a proper subset of the full quantum elliptope. Whether this restriction maps to a physically privileged class of experiments, and whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware, are open empirical questions outside the scope of this project.
+\textbf{Quantum mechanics connection.} The mathematical equivalence between Thiele honesty and zero-marginal NPA realizability is now a kernel-tier theorem (\texttt{column\_contractive\_iff\_quantum\_realizable} in \texttt{coq/kernel/QuantumPartitionPSD.v}, zero axioms). The zero-marginal NPA framework is the orthogonal-observables slice ($\rho_{AA}=\rho_{BB}=0$) — a proper subset of the full quantum elliptope. Whether this restriction maps to a physically privileged class of experiments, and whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware, are open empirical questions outside the scope of this project.
 
 I could pretend these are answered. I could wave at them vaguely and say ``future work.'' I don't know. These are real open questions.
 
@@ -1526,11 +1519,11 @@ The machine has 46 opcodes. Most of them are ordinary compute operations that ca
 
 The categorical morphism layer is strictly richer than any classical equivalent. Two programs with identical registers, memory, $\mu$, and error flag can differ in morphism structure, and no classical observer can see that difference. The Coq proof checks it.
 
-The hardware design implements all 46 opcodes in RTL. All 46 have formal bisimulation proofs --- Coq proofs that the hardware step function matches the Coq spec step-for-step (zero Admitted). 30 have fully unconditional proofs (the SupportedOpcode group). 6 more require valid instruction arguments (CALL/RET need stack-in-bounds; CHSH\_TRIAL needs bit-values $\in \{0,1\}$; TENSOR\_SET/GET need valid indices; LASSERT needs declared length to match actual). 7 (the morphism group) are unconditional for any state reachable from hardware reset. 3 (PNEW, PSPLIT, PMERGE) have a semantic-level boundary where the hardware and VM represent zero-size modules differently. The gap registry is empty (\texttt{rtl\_gap\_count = 0}), documented in \texttt{RTLGapRegistry.v}.
+The hardware design implements all 46 opcodes in RTL. All 46 have formal bisimulation proofs --- Coq proofs that the hardware step function matches the Coq spec step-for-step (zero Admitted). The official partition is $36 + 10 + 0 = 46$ (theorem \texttt{rtl\_coverage\_partition} in \texttt{coq/kami\_hw/RTLGapRegistry.v}). 36 are unconditional Qed: 30 from the SupportedOpcode group plus CALL, RET, CHSH\_TRIAL, TENSOR\_SET, TENSOR\_GET, LASSERT (the last six handled in \texttt{EmbedStep\_WF.v} and \texttt{GraphReconstructionBridge.v}). The remaining 10 (PNEW, PSPLIT, PMERGE, MORPH, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR) carry Qed proofs under the joint structural invariant \texttt{morph\_table\_wf} $\wedge$ \texttt{coupling\_wf} $\wedge$ \texttt{coupling\_desc\_safe}. Each component is preserved by every \texttt{kami\_step}: \texttt{morph\_table\_wf\_kami\_step\_preserved}, \texttt{coupling\_desc\_safe\_kami\_step\_preserved}, and \texttt{coupling\_wf\_kami\_step\_preserved} (the latter takes \texttt{coupling\_desc\_safe} as a side hypothesis, which is why the conjunction is the actual inductive invariant). The gap registry is empty (\texttt{rtl\_gap\_count = 0}).
 
 The Landauer connection and the CHSH/Tsirelson result are real: one motivates the cost schedule, one is a pure algebraic theorem. Neither requires physical claims.
 
-Thiele honesty is exactly zero-marginal NPA realizability. That biconditional is zero-axiom, zero-physics, pure polynomial arithmetic. The zero-marginal NPA framework is the orthogonal-observables slice of the quantum elliptope; the qualification is documented in \texttt{ThieleQuantumEquivalence.v} and is not a gap — it is a precise scope statement. The $\mu$-cost hierarchy is an infinite strict separation. Every level costs what it costs, and no level can be reached for less. These are kernel-tier results that I didn't plan for and did not expect. The machine told me. Zero Inquisitor findings. Every claim has a falsification condition. If this is wrong, it will fail visibly, and that is exactly how it should be.
+Thiele honesty is exactly zero-marginal NPA realizability. That biconditional is zero-axiom, zero-physics, pure polynomial arithmetic. The zero-marginal NPA framework is the orthogonal-observables slice of the quantum elliptope; the qualification is documented in \texttt{coq/kernel/QuantumPartitionPSD.v} and is not a gap — it is a precise scope statement. The $\mu$-cost hierarchy is an infinite strict separation. Every level costs what it costs, and no level can be reached for less. These are kernel-tier results that I didn't plan for and did not expect. The machine told me. Zero Inquisitor findings. Every claim has a falsification condition. If this is wrong, it will fail visibly, and that is exactly how it should be.
 
 I built this. Read the proofs.
 

@@ -565,11 +565,13 @@ def program_to_hex(program, **_kwargs) -> Tuple[List[str], List[str], Dict[str, 
         generic = arg.split()
         instructions.append(_encode_instruction(op, int(generic[0], 0) if len(generic) > 0 else 0, int(generic[1], 0) if len(generic) > 1 else 0, int(generic[2], 0) if len(generic) > 2 else 0))
 
+    # Pad to MEM_SIZE; the RTL is parametric (currently 128 words).
+    from thielecpu.vm import MEM_SIZE as _MEM_SIZE
     instruction_hex = [f"{word:032X}" for word in instructions]
-    while len(instruction_hex) < 256:
+    while len(instruction_hex) < _MEM_SIZE:
         instruction_hex.append("00000000000000000000000000000000")
 
-    data_hex = [f"{data_memory.get(index, 0):08X}" for index in range(256)]
+    data_hex = [f"{data_memory.get(index, 0):08X}" for index in range(_MEM_SIZE)]
     return instruction_hex, data_hex, init_state
 
 
@@ -685,6 +687,9 @@ def run_simulation_iverilog(vvp_binary: Path, program_hex: Path, data_hex: Optio
         for key, value in init_state.items():
             plusargs.append(f"+{key}={int(value)}")
     if trace_file is not None:
+        # Testbench reads `+VCD=<path>` (see thiele_cpu_kami_tb.v); +TRACE_FILE
+        # is kept for legacy verilator harnesses.
+        plusargs.append(f"+VCD={trace_file}")
         plusargs.append(f"+TRACE_FILE={trace_file}")
     if force_logic_error:
         plusargs.append("+LOGIC_FORCE_ERROR=1")

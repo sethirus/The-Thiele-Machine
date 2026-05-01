@@ -172,24 +172,26 @@ Both \emph{what} is asserted ($\Phi$) and \emph{how the state is modularized} ($
 The central result of this thesis is:
 
 \begin{theorem}[No Free Insight]
-\textbf{Proven in Coq (StateSpaceCounting.v):} For any LASSERT operation adding formula $\phi$:
+For any LASSERT operation adding formula $\phi$:
 \begin{enumerate}
-    \item \textbf{Qualitative bound:} If an execution trace strengthens an accepted predicate from $P_{\text{weak}}$ to $P_{\text{strong}}$ (strictly), then the trace must contain structure-adding operations that charge $\mu > 0$.
-    \item \textbf{Quantitative bound:} The $\mu$-cost satisfies $\Delta\mu \ge |\phi|_{\text{bits}}$, where $|\phi|_{\text{bits}}$ is the bit-length of the formula.
-    \item \textbf{Semantic enforcement (VM):} The Python VM uses a conservative bound: $\text{before} = 2^{n}$, $\text{after} = 1$ (single solution assumption). This charges $\mu = |\phi|_{\text{bits}} + n$, \emph{guaranteeing} $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ without computing the \#P-complete model count. May overcharge when multiple solutions exist.
+    \item \textbf{Qualitative bound} (proven in \path{coq/kernel/NoFreeInsight.v}, theorem \texttt{no\_free\_insight\_general}): If an execution trace strengthens an accepted predicate from $P_{\text{weak}}$ to $P_{\text{strong}}$ (strictly), then the trace must contain structure-adding operations that charge $\mu > 0$.
+    \item \textbf{Quantitative bound} (proven in \path{coq/kernel/MuNoFreeInsightQuantitative.v} and \path{coq/kernel/StateSpaceCounting.v}): The $\mu$-cost satisfies $\Delta\mu \ge |\phi|_{\text{bits}}$, where $|\phi|_{\text{bits}}$ is the bit-length of the formula.
+    \item \textbf{Operational charging policy} (declared in the ISA, not a separate theorem): every \texttt{LASSERT} carries an explicit \texttt{mu\_delta}; the kernel formula \texttt{flen * 8 + S(cost)} guarantees $\Delta\mu \ge \log_2(|\Omega|) - \log_2(|\Omega'|)$ for the conservative $|\Omega|=2^n$, $|\Omega'|=1$ reading, without ever computing the \#P-complete model count. The policy may overcharge when multiple solutions exist; that overhead is by design.
 \end{enumerate}
 \end{theorem}
 
 
-The mechanized proofs in \path{coq/kernel/MuNoFreeInsightQuantitative.v} and \path{coq/kernel/StateSpaceCounting.v} establish both the qualitative necessity (no free insight) and the quantitative bound ($\Delta\mu \ge |\phi|_{\text{bits}}$). The logarithmic relationship to state space reduction follows from information theory: if each bit of formula optimally constrains the solution space by eliminating half the possibilities, then $k$ bits reduce the space by $2^k$, establishing $\Delta\mu \ge \log_2(\text{reduction})$.
+Two mechanized files carry the chain. \path{coq/kernel/MuNoFreeInsightQuantitative.v} proves the per-instruction lower bound \texttt{supra\_cert\_implies\_mu\_lower\_bound\_trace\_run}: any trace producing a supra-certified state must charge $\Delta\mu \ge |\phi|_{\text{bits}}$. \path{coq/kernel/StateSpaceCounting.v} lifts this to the search-space form via \texttt{mu\_increase\_bounds\_axiom\_bits}, \texttt{mu\_increase\_bounds\_actual\_formula\_bits}, \texttt{nofreeinsight\_information\_theoretic\_bound}, and \texttt{no\_free\_insight\_quantitative}. Information-theoretically: each bit of formula optimally constrains the solution space by at most a factor of two, so $k$ bits reduce $|\Omega|$ by at most $2^k$, establishing $\Delta\mu \ge \log_2(\text{reduction})$.
 
 The three proven principles are: (i) $\mu$-monotonicity (\path{coq/kernel/MuLedgerConservation.v}), (ii) revelation requirements for strengthening (\path{coq/kernel/NoFreeInsight.v}), and (iii) observational locality (\path{coq/kernel/ObserverDerivation.v}).
 
-Beyond these, the Coq development proves that $\mu$ is not just \emph{a} valid cost measure---it is \emph{the} cost measure. The initiality theorem in \path{coq/kernel/MuInitiality.v} establishes that any instruction-consistent monotone functional starting at zero must equal $\mu$. There is no alternative. The six hard mathematical facts (correlation bounds, algebraic CHSH, classical CHSH, no-signaling, symmetric coherence bound, and Tsirelson from coherence) are mechanically proven from first principles across the active kernel files \path{coq/kernel/ClassicalBound.v}, \path{coq/kernel/BoxCHSH.v}, \path{coq/kernel/AlgebraicCoherence.v}, and \path{coq/kernel/MinorConstraints.v}. The tight Tsirelson bound $|S| \le 2\sqrt{2}$ is proven rigorously for the symmetric configuration; the general case is proven as $|S| \le 4$ with the tight bound conditional on a sum-of-squares hypothesis that the files document explicitly. The active project-local assumption surface is zero.
+Beyond these, the Coq development proves that $\mu$ is not just \emph{a} valid cost measure---it is \emph{the} cost measure. The initiality theorem in \path{coq/kernel/MuInitiality.v} establishes that any instruction-consistent monotone functional starting at zero must equal $\mu$. There is no alternative.
+
+The six hard CHSH-related mathematical facts (correlation bounds, algebraic CHSH, classical CHSH, observational no-signaling, symmetric coherence bound, and Tsirelson from coherence) are mechanically proven from first principles across the active kernel files \path{coq/kernel/ClassicalBound.v}, \path{coq/kernel/BoxCHSH.v}, \path{coq/kernel/AlgebraicCoherence.v}, \path{coq/kernel/MinorConstraints.v}, and \path{coq/kernel/KernelPhysics.v} (\texttt{observational\_no\_signaling}). The tight Tsirelson bound $|S| \le 2\sqrt{2}$ is proven rigorously for the symmetric configuration (\path{coq/kernel/AlgebraicCoherence.v}, \texttt{symmetric\_tsirelson\_bound}); the general case is proven as $|S| \le 4$ (\texttt{chsh\_bound\_4}), with the tight bound recovered from explicit row-bound hypotheses in \path{coq/kernel/TsirelsonGeneral.v} (\texttt{tsirelson\_bound\_abs}). The biconditional \texttt{column\_contractive\_iff\_quantum\_realizable} in \path{coq/kernel/QuantumPartitionPSD.v} discharges those hypotheses unconditionally on the kernel side. There are zero global \texttt{Axiom} or \texttt{Parameter} declarations in the active audited tree; the named Section Variables (e.g., the bridge axiom $A_{QM}$ in \path{coq/PhysicsConditionalClosure.v}) become explicit hypotheses on the theorems they appear in.
 
 \section{Methodology: The 3-Layer Comparison}
 
-The model isn't just described---it's built three times, in three different languages. Simulation proofs in Coq establish a refinement relation between the VM layer and the kernel TM specification. Automated test suites enforce observable equivalence empirically on every commit.
+The model has one source of truth (the Coq kernel) and two compilation pipelines off that source: OCaml extraction (consumed by the Python wrapper) and Kami$\to$Bluespec$\to$Verilog synthesis (consumed by the RTL testbench). The cross-layer comparison gates therefore stress \emph{pipeline diversity}, not implementation diversity --- when the OCaml-extracted runner and the BSC-synthesized RTL agree on observable projections of the same trace, that agreement catches extraction bugs, synthesis errors, and serialization mismatches. Simulation proofs in Coq establish a refinement relation between the kernel and the Kami specification. Automated test suites enforce observable equivalence empirically on every commit.
 
 \subsection{Layer 1: Coq (The Proofs)}
 
@@ -223,23 +225,23 @@ Implementation: \path{coq/kernel/VMState.v} and \path{coq/kernel/VMStep.v} (kern
 
 \textbf{The Inquisitor Standard:} Zero tolerance. No \texttt{Admitted}. No \texttt{admit}. No project-local axioms in active code. The \path{scripts/inquisitor.py} tool runs in CI on every commit, scanning every Coq file for forbidden proof shortcuts, hidden assumptions, circular definitions, tautological proofs, and smuggled constraints. If a theorem says ``Proven,'' it compiles to \texttt{Qed}.
 
-\subsection{Layer 2: Python VM (The Implementation)}
+\subsection{Layer 2: Python Reference Wrapper}
 
-Executable semantics. Code you can run. Receipts you can verify:
+A protocol wrapper around the OCaml binary extracted from Coq, plus the assembler and tooling. Code you can read and trace; receipts you can verify:
 
 \begin{itemize}
-    \item \textbf{State}: canonical structure with bitmask partition storage (hardware-isomorphic representation in \path{thielecpu/vm.py})
+    \item \textbf{State}: a Python dataclass mirroring the Coq \texttt{VMState} record field-for-field, generated by \path{scripts/forge_vm.py} (\path{thielecpu/vm.py}). No hand-written opcode bodies.
 
-    \item \textbf{Execution}: the active 46-opcode ISA, including partition operations, logic/certification, memory and ALU, bitwise extensions, heap/I/O operations, categorical morphism operations, and control flow
+    \item \textbf{Execution}: every instruction is serialized to text and dispatched to the Coq-extracted OCaml runner (\path{build/extracted_vm_runner}) via subprocess; the runner returns a JSON state snapshot that Python parses back into the dataclass. Semantics for all 46 opcodes therefore live in \path{coq/kernel/VMStep.v} and the extracted OCaml, not in Python.
 
     \item \textbf{Tooling}: a two-pass assembler (\path{scripts/thiele_asm.py}) producing 32-bit instruction words with label resolution and macro expansion, with \texttt{-{}-run} and \texttt{-{}-sim} modes for integrated OCaml and RTL co-simulation execution
 
     \item \textbf{Receipts}: active TRS-1.0 file-set and execution receipts, plus historical prototype receipt/verifier designs discussed in Chapter~9
 
-    \item \textbf{$\mu$-ledger}: canonical cost accounting with Bianchi tensor enforcement
+    \item \textbf{$\mu$-ledger}: read from the OCaml runner's JSON output; the Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is enforced in the kernel/RTL, not in the Python wrapper.
 \end{itemize}
 
-Implementation: \path{thielecpu/vm.py} (state and engine), \path{scripts/thiele_asm.py} (assembler).
+Implementation: \path{thielecpu/vm.py} (state record + runner protocol), \path{scripts/thiele_asm.py} (assembler).
 
 \subsection{Layer 3: Verilog RTL (The Hardware)}
 
@@ -248,16 +250,16 @@ This isn't theoretical. The abstract $\mu$-costs map to real physical resources:
 \begin{itemize}
     \item \textbf{CPU core}: Kami-extracted Verilog implementing the fetch-decode-execute pipeline, formally derived from the Coq specification in \path{coq/kami_hw/ThieleCPUCore.v}. The extraction pipeline runs through Kami to Bluespec SystemVerilog to synthesizable Verilog.
 
-    \item \textbf{$\mu$-ALU}: a dedicated arithmetic unit for $\mu$-cost calculation, running in parallel with main execution.
+    \item \textbf{$\mu$-accumulator}: a 32-bit register incremented inline within the single Kami step rule (no separate $\mu$-ALU submodule); the cost field of each instruction is zero-extended and added to \texttt{mu} on every cycle when an instruction executes.
 
     \item \textbf{Logic engine interface}: reads formula and certificate data from \texttt{vm\_mem} via register-indexed addressing; certificate verification is fully on-chip with no external solver needed at runtime.
 
     \item \textbf{Accounting unit}: computes $\mu$-costs with hardware-enforced monotonicity. The Bianchi invariant ($\sum\text{tensor}[i] \le \mu$) is checked every cycle---violation freezes the CPU.
 \end{itemize}
 
-The RTL runs on Icarus Verilog and Verilator simulation with Yosys-compatible synthesis defines. The CI pipeline uses an entirely open-source FPGA flow: Yosys for logic synthesis, nextpnr for place-and-route, and ecppack for bitstream generation when those tools are available. The primary target is the Lattice ECP5-85k. Synthesis artifacts and bitstream generation are therefore best described as tested build targets rather than unconditional correctness proves.
+The RTL runs on Icarus Verilog and Verilator simulation with Yosys-compatible synthesis defines, and the CI pipeline uses an entirely open-source FPGA flow: \texttt{yosys synth\_xilinx} for logic synthesis, \texttt{nextpnr-xilinx} (the openXC7 fork) for place-and-route, and Project X-Ray's \texttt{xc7frames2bit} for bitstream packaging. The deployment target is the Xilinx Artix-7 (Digilent Arty A7-35T, \texttt{xc7a35tcsg324-1}); the silicon-side bounds are $16$ general-purpose registers, $128$ words of data memory and $128$ instruction words, $64$ partition module slots, and $16$ slots per auxiliary descriptor table. Post-\texttt{abc9} synthesis on the wrapper top \texttt{thiele\_cpu\_top} produces $\sim 18{,}500$ cells with $\sim 13{,}600$ logic cells (about $66\%$ of the xc7a35t's $\sim 20{,}800$ LUT budget), and \texttt{nextpnr-xilinx} routes the design in a single main-loop pass with no overuse, reporting a maximum clock frequency of $\sim 39$ MHz at a $12$ MHz target. The kernel ISA is parametric in these sizes --- the same Coq proofs and OCaml extraction scale up linearly when targeting a larger device or running purely in simulation; the only thing that changes is which Coq constants are bound where the silicon is instantiated.
 
-The hardware abstraction layer is proven correct in \path{coq/kami_hw/Abstraction.v} (1,546 lines, 34 Qed, 0 Admitted), which establishes that hardware steps preserve $\mu$-monotonicity, maintain the Bianchi invariant, and refine the VM semantics: \texttt{kami\_refines\_vm\_step}.
+The hardware abstraction layer is proven correct in \path{coq/kami_hw/Abstraction.v} (2,637 lines, 36 \texttt{Qed}, 0 \texttt{Admitted}), which establishes that hardware steps preserve $\mu$-monotonicity, maintain the Bianchi invariant, and refine the VM semantics: \texttt{kami\_refines\_vm\_step}.
 
 \subsection{The Isomorphism Guarantee}
 
@@ -308,7 +310,7 @@ Every claim is falsifiable. Find a counterexample. Break the proofs. I dare you.
 
     \item \textbf{Conditional Geometric Analogs:} The $\mu$-accounting system has structural parallels with physical conservation laws. Chapter 12 documents discrete wave conservation laws, the $\mu$-monotonicity arrow of time, and the discrete Gauss-Bonnet result (a combinatorics theorem about triangulated partition graphs). Where the analogy requires a bridge postulate (Landauer thermodynamics), that postulate is stated explicitly and the claim is presented as falsifiable rather than derived.
 
-    \item \textbf{Turing Completeness:} The Thiele Machine is Turing-complete, proven via direct simulation in \path{coq/kernel/ProperSubsumption.v}: every Turing computation has a faithful Thiele simulation, and Thiele strictly extends Turing through cost certificates and partition separation (\path{coq/kernel/PartitionSeparation.v}).
+    \item \textbf{Turing Completeness and Strict Extension:} The Thiele Machine is Turing-complete, proven via direct simulation in \path{coq/kernel/ProperSubsumption.v} (theorem \texttt{thiele\_simulates\_turing}): every Turing computation has a faithful Thiele simulation. Strict extension is proved twice from independent angles: \texttt{thiele\_strictly\_extends\_turing} in \path{coq/kernel/ProperSubsumption.v} (cost-certificate witness) and \texttt{D5\_thiele\_strictly\_extends\_classical} in \path{coq/kernel/TuringStrictness.v} (partition-state witness, supported by the categorical separation theorems in \path{coq/kernel/PartitionSeparation.v}).
 
     \item \textbf{Complete Toolchain and Empirical Artifacts:} A two-pass assembler (\path{scripts/thiele_asm.py}) with integrated \texttt{-{}-run} and \texttt{-{}-sim} execution modes, an example-program corpus, Coq-to-Verilog extraction through Kami, FPGA synthesis targets, active TRS-1.0 receipt tooling, and reproducible demos including Verilog co-simulation.
 \end{enumerate}

@@ -5,9 +5,10 @@ stays bit-for-bit isomorphic.  Every gap ever found gets a test here so
 it can never regress.
 
 Guards enforce:
-  1. MEM_SIZE=65536 across all four representations
+  1. MEM_SIZE=128 across all four representations
+     (kernel proofs are parametric in MEM_SIZE)
   2. VerilogRefinement.v covers all 46 opcodes (including CERTIFY and categorical morphisms)
-  3. RTL addr_width=12 in generated Verilog
+  3. RTL addr_width=7 in generated Verilog (log2(128))
   4. RTL Verilator binary is never stale vs source RTL
   5. CERTIFY opcode works in RTL cosim (behavioral)
   6. Opcode count consistency across Coq, OCaml, Python, RTL
@@ -39,40 +40,53 @@ def _read(path: Path) -> str:
 
 
 # ===========================================================================
-# 1. MEM_SIZE = 65536 everywhere
+# 1. MEM_SIZE = 128 everywhere (silicon-side bound; kernel proofs parametric)
 # ===========================================================================
+EXPECTED_MEM_SIZE = 128
+EXPECTED_MEM_ADDR_SZ = 7  # log2(128)
+
+
 class TestMemSizeUnified:
-    """MEM_SIZE must be 65536 in Coq, Python, OCaml runner, RTL, and Abstraction."""
+    """MEM_SIZE must agree across Coq, Python, OCaml runner, RTL, and Abstraction."""
 
     def test_coq_vmstate_mem_size(self):
         text = _read(COQ / "kernel" / "VMState.v")
         m = re.search(r"Definition MEM_SIZE\s*:.*:=\s*(\d+)", text)
         assert m, "MEM_SIZE not found in VMState.v"
-        assert int(m.group(1)) == 65536, f"VMState.v MEM_SIZE={m.group(1)}, expected 65536"
+        assert int(m.group(1)) == EXPECTED_MEM_SIZE, (
+            f"VMState.v MEM_SIZE={m.group(1)}, expected {EXPECTED_MEM_SIZE}"
+        )
 
     def test_kami_thiele_types_mem_size(self):
         text = _read(COQ / "kami_hw" / "ThieleTypes.v")
         m = re.search(r"Definition MemSize\s*:=\s*(\d+)", text)
         assert m, "MemSize not found in ThieleTypes.v"
-        assert int(m.group(1)) == 65536, f"ThieleTypes.v MemSize={m.group(1)}, expected 65536"
+        assert int(m.group(1)) == EXPECTED_MEM_SIZE, (
+            f"ThieleTypes.v MemSize={m.group(1)}, expected {EXPECTED_MEM_SIZE}"
+        )
 
     def test_kami_thiele_types_addr_sz(self):
         text = _read(COQ / "kami_hw" / "ThieleTypes.v")
         m = re.search(r"Definition MemAddrSz\s*:=\s*(\d+)", text)
         assert m, "MemAddrSz not found in ThieleTypes.v"
-        assert int(m.group(1)) == 16, f"ThieleTypes.v MemAddrSz={m.group(1)}, expected 16"
+        assert int(m.group(1)) == EXPECTED_MEM_ADDR_SZ, (
+            f"ThieleTypes.v MemAddrSz={m.group(1)}, expected {EXPECTED_MEM_ADDR_SZ}"
+        )
 
     def test_ocaml_runner_mem_size(self):
         text = _read(BUILD / "extracted_vm_runner.ml")
         # The default mem_size ref in parse_program
         m = re.search(r"let mem_size = ref (\d+)", text)
         assert m, "mem_size ref not found in extracted_vm_runner.ml"
-        assert int(m.group(1)) == 65536, f"OCaml runner mem_size={m.group(1)}, expected 65536"
+        assert int(m.group(1)) == EXPECTED_MEM_SIZE, (
+            f"OCaml runner mem_size={m.group(1)}, expected {EXPECTED_MEM_SIZE}"
+        )
 
     def test_ocaml_runner_initial_state_mem(self):
         text = _read(BUILD / "extracted_vm_runner.ml")
-        # initial_state makes vm_mem = make_list 65536
-        assert "make_list 65536" in text, "initial_state should use make_list 65536"
+        # initial_state makes vm_mem = make_list MEM_SIZE
+        marker = f"make_list {EXPECTED_MEM_SIZE}"
+        assert marker in text, f"initial_state should use {marker}"
 
     def test_abstraction_uses_mem_size_symbolic(self):
         """Abstraction.v must NOT hardcode 256 or 65536 for memory size."""
@@ -83,35 +97,44 @@ class TestMemSizeUnified:
 
     def test_isomorphism_map_mem_size(self):
         iso_map = json.loads(_read(BUILD / "isomorphism_map.json"))
-        assert iso_map.get("memory_words") == 65536, (
-            f"isomorphism_map.json memory_words={iso_map.get('memory_words')}, expected 65536"
+        assert iso_map.get("memory_words") == EXPECTED_MEM_SIZE, (
+            f"isomorphism_map.json memory_words={iso_map.get('memory_words')}, "
+            f"expected {EXPECTED_MEM_SIZE}"
         )
 
-    def test_rtl_regfile_addr_width_16(self):
-        """Generated Verilog must use addr_width=16 for main data/instruction memory RegFiles.
-        LASSERT FSM buffer RegFiles (lassert_fbuf, lassert_cbuf) may use smaller widths."""
+    def test_rtl_regfile_addr_width_matches(self):
+        """Generated Verilog must use addr_width=MemAddrSz for main data/instruction
+        memory RegFiles. LASSERT FSM buffer RegFiles (lassert_fbuf, lassert_cbuf)
+        may use smaller widths."""
         text = _read(RTL / "thiele_cpu_kami.v")
         # Main memory RegFiles (mem, imem) are identified by their comment header
-        # and must have addr_width=16.  LASSERT buffer RegFiles use smaller widths.
+        # and must have addr_width=EXPECTED_MEM_ADDR_SZ.
         for submod_name in ("imem", "mem"):
             pattern = re.compile(
                 rf"submodule {re.escape(submod_name)}\s*\n\s*RegFile\s*#\(\.addr_width\(32'd(\d+)\)",
             )
             m = pattern.search(text)
             assert m is not None, f"RegFile submodule '{submod_name}' not found in RTL"
-            assert m.group(1) == "16", (
-                f"RegFile '{submod_name}' addr_width={m.group(1)}, expected 16"
+            assert m.group(1) == str(EXPECTED_MEM_ADDR_SZ), (
+                f"RegFile '{submod_name}' addr_width={m.group(1)}, "
+                f"expected {EXPECTED_MEM_ADDR_SZ}"
             )
-        # Sanity: at least 4 RegFile instances total (mem, imem, lassert_fbuf, lassert_cbuf)
+        # mem and imem are RegFile instances. The 64-entry lassert_cbuf/fbuf
+        # buffers are inlined as flat registers when they are this small.
         all_matches = re.findall(r"RegFile\s*#\(\.addr_width\(32'd(\d+)\)", text)
-        assert len(all_matches) >= 4, f"Expected >= 4 RegFile instantiations, found {len(all_matches)}"
+        assert len(all_matches) >= 2, (
+            f"Expected >= 2 RegFile instantiations (mem, imem), found {len(all_matches)}"
+        )
 
-    def test_testbench_arrays_65536(self):
-        """RTL testbench memory arrays must be [0:65535]."""
+    def test_testbench_arrays_match_mem_size(self):
+        """RTL testbench memory loops must iterate over MEM_SIZE entries."""
         text = _read(REPO / "rtl_harness" / "testbench" / "thiele_cpu_kami_tb.v")
-        assert "[0:65535]" in text, "Testbench memory arrays not sized to 65536"
-        assert "[0:255]" not in text, "Testbench still has old 256-entry arrays"
-        assert "[0:4095]" not in text, "Testbench still has old 4096-entry arrays"
+        # Pre-zero loop bound and DUT-side data load loop must use MEM_SIZE.
+        marker = f"i < {EXPECTED_MEM_SIZE};"
+        assert marker in text, (
+            f"Testbench DUT memory load loop missing '{marker}' "
+            f"(must iterate {EXPECTED_MEM_SIZE} entries)"
+        )
 
 
 # ===========================================================================
@@ -400,7 +423,7 @@ class TestINITDirectiveHandling:
             "FUEL 5\n"
             "INIT_REG 0 0\n"
             "INIT_MEM 0 42\n"
-            "INIT_PT 0 256\n"
+            "INIT_PT 0 128\n"
             "INIT_ACTIVE_MODULE 0\n"
             "INIT_LOGIC_ACC 3405643470\n"
             "INIT_TENSOR 0 99\n"

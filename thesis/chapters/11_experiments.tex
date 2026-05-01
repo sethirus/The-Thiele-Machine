@@ -129,7 +129,7 @@ The Thiele Machine enforces this via $\mu$-conservation: erasing bits (destroyin
 
 \textbf{Results summary:} Across 1,000 runs at temperatures from 1K to 1000K, \textit{all} erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision ($< 1\%$ error). No violations detected. This confirms that the Thiele Machine's $\mu$-tracking correctly implements thermodynamic constraints.
 
-\textbf{Falsification attempt:} A red-team test attempted to erase bits \textit{without} increasing $\mu$ by exploiting a hypothetical bypass of the register-zeroing path. The kernel rejected all such attempts---any operation that destroys information must charge $\mu$, enforced by the NoFreeInsight guard (error code \texttt{ERR\_NOFI}, \texttt{0x4E4F4649}). The theory remains unfalsified.
+\textbf{Falsification attempt:} A red-team test attempted to erase bits \textit{without} increasing $\mu$ by exploiting a hypothetical bypass of the register-zeroing path. The kernel rejected all such attempts---any operation that destroys information must charge $\mu$, enforced by the NoFreeInsight guard in \texttt{coq/kernel/NoFreeInsight.v}. The theory remains unfalsified.
 
 
 \textbf{Results:} Across 1,000 runs at temperatures from 1K to 1000K, all erasure operations showed $\mu$-increase consistent with Landauer's bound within measurement precision.
@@ -208,7 +208,7 @@ Suppose Alice and Bob share a Bell state $|\Phi^+\rangle = \frac{1}{\sqrt{2}}(|0
 \end{itemize}
 No-signaling holds: Bob's statistics are independent of Alice's choice. The experiment verifies this to $10^{-6}$ precision.
 
-\textbf{Falsification attempt:} A red-team test attempted to create a ``signaling box'' that violates no-signaling by exploiting a hypothetical bug in partition boundary enforcement. The verifier rejected all traces with $|P(b|x=0,y) - P(b|x=1,y)| > 10^{-6}$---partition locality enforcement (\texttt{ERR\_LOCALITY}, \texttt{0x0BADC0DE}) prevents cross-module signaling. The theory remains unfalsified.
+\textbf{Falsification attempt:} A red-team test attempted to create a ``signaling box'' that violates no-signaling by exploiting a hypothetical bug in partition boundary enforcement. The verifier rejected all traces with $|P(b|x=0,y) - P(b|x=1,y)| > 10^{-6}$---partition locality enforcement (\texttt{ERR\_LOCALITY\_VAL} = \texttt{0x0BADC0DE} in \texttt{coq/kami\_hw/ThieleTypes.v}) prevents cross-module signaling. The theory remains unfalsified.
 
 \textbf{Connection to kernel proofs:} This experiment is the empirical verification of Theorem 5.1 (observational\_no\_signaling) from Chapter 5. The theorem \textit{proves} no-signaling must hold for all valid traces; the experiment \textit{checks} it holds in the implementation.
 
@@ -362,7 +362,7 @@ The Thiele Machine models this as $\mu$-increase: observation \textit{reveals st
 \end{itemize}
 This validates that $\mu$-cost tracks \textit{information gain}, not just the act of measurement.
 
-\textbf{Falsification attempt:} A red-team test attempted to measure a quantum state \textit{without} increasing $\mu$ by exploiting a hypothetical bypass of the \texttt{REVEAL} instruction's cost-charging path. The kernel rejected all traces with $\Delta\mu < 1$ for non-eigenstate measurements, enforced by the NoFreeInsight guard (\texttt{ERR\_NOFI}, \texttt{0x4E4F4649}). The theory remains unfalsified.
+\textbf{Falsification attempt:} A red-team test attempted to measure a quantum state \textit{without} increasing $\mu$ by exploiting a hypothetical bypass of the \texttt{REVEAL} instruction's cost-charging path. The kernel rejected all traces with $\Delta\mu < 1$ for non-eigenstate measurements, enforced by the NoFreeInsight guard in \texttt{coq/kernel/NoFreeInsight.v}. The theory remains unfalsified.
 
 \textbf{Connection to kernel proofs:} This experiment validates the $\mu$-conservation theorem (Theorem 3.2), which proves that observations increase $\mu$ monotonically. The proof \textit{proves} $\Delta\mu \geq 1$; the experiment \textit{checks} it holds in practice.
 
@@ -458,7 +458,7 @@ def run_chsh_game(n_rounds: int) -> CHSHResults:
     
     \item \textbf{Quantum strategy:} 100,000 rounds, win rate = $85.3\% \pm 0.1\%$ (matches Tsirelson $\cos^2(\pi/8) \approx 85.35\%$). CHSH value $S = 2.827 \pm 0.002$ (matches $2\sqrt{2} \approx 2.828$).
     
-    \item \textbf{Supra-quantum attempt:} Red-team test claimed win rate = $90\%$ without increasing $\mu$. Verifier rejected trace with \texttt{CHSH\_VIOLATION}: CHSH value $S > 2.8285$ (conservative rational bound) but no certificate provided. The theory remains unfalsified.
+    \item \textbf{Supra-quantum attempt:} Red-team test claimed win rate = $90\%$ without increasing $\mu$. Verifier rejected the trace because the CHSH value $S > 2.8285$ (conservative rational bound from \texttt{coq/kernel/AlgebraicCoherence.v}: \texttt{tsirelson\_bound\_tight}) but no certificate was provided. The theory remains unfalsified.
 \end{itemize}
 
 \textbf{Why use exact rational arithmetic?} The Tsirelson bound $2\sqrt{2}$ is irrational. Coq cannot represent irrational numbers exactly, so the kernel uses a conservative rational approximation: $\frac{5657}{2000} = 2.8285 > 2\sqrt{2}$. This ensures:
@@ -686,7 +686,7 @@ The Thiele Machine's partition discovery mirrors these algorithms: it refines pa
         \item \textbf{SAT:} Generate a SAT instance with $n$ variables and hidden modular structure.
     \end{itemize}
     
-    \item \textbf{Run discovery:} Execute the partition discovery algorithm (e.g., \texttt{DISCOVER\_PARTITION} instruction).
+    \item \textbf{Run discovery:} Execute the partition discovery algorithm (the \texttt{PDISCOVER} instruction; constructor \texttt{instr\_pdiscover}).
     
     \item \textbf{Measure $\mu$-cost:} Record $\mu_0$ before discovery, $\mu_f$ after. Compute $\Delta\mu = \mu_f - \mu_0$.
     
@@ -705,7 +705,7 @@ The Thiele Machine's partition discovery mirrors these algorithms: it refines pa
 \end{itemize}
 Fitted curve: $\mu \approx 1.002 \cdot n \log_2 n - 3.1$ (coefficient $a \approx 1$, tiny offset $b \approx -3$). $R^2 = 0.998$ (excellent fit).
 
-\textbf{Connection to kernel proofs:} This experiment validates the partition discovery algorithm's correctness (it finds the \textit{correct} partition) and efficiency (it does so in $O(n \log n)$ time). The kernel proofs (e.g., partition\_well\_formed in PartitionLogic.v) guarantee correctness; this experiment measures efficiency.
+\textbf{Connection to kernel proofs:} This experiment validates the partition discovery algorithm's correctness (it finds the \textit{correct} partition) and efficiency (it does so in $O(n \log n)$ time). The kernel proofs (e.g., the \texttt{well\_formed\_graph} predicate in \texttt{coq/kernel/VMState.v}) guarantee correctness; this experiment measures efficiency.
 
 
 \textbf{Results:} Discovery costs matched $O(n \log n)$ prediction for sizes 100--10,000. Fitted curve: $\mu \approx 1.002 \cdot n \log_2 n - 3.1$, $R^2 = 0.998$.
@@ -818,7 +818,7 @@ def attempt_receipt_forgery():
 
 \textbf{Attack vectors tested:}
 \begin{enumerate}
-    \item \textbf{Direct CSR manipulation:} Attempt to directly write to the Certificate Storage Register (CSR) bypassing the $\mu$-charging logic. Expected defense: CSR is write-protected, modifications trigger \texttt{ERR\_LOGIC} (\texttt{0xC43471A1}).
+    \item \textbf{Direct CSR manipulation:} Attempt to directly write to the Certificate Storage Register (CSR) bypassing the $\mu$-charging logic. Expected defense: CSR is write-protected, modifications trigger \texttt{ERR\_LOGIC\_VAL} (\texttt{0xC43471A1} in \texttt{coq/kami\_hw/ThieleTypes.v}).
     
     \item \textbf{Buffer overflow:} Overflow a stack buffer to overwrite receipt data structures in memory. Expected defense: Stack canaries, bounds checking, memory isolation prevent overflow.
     
@@ -840,8 +840,8 @@ def attempt_receipt_forgery():
 
 \textbf{Intended outcome:} All forgery attempts should be detected. This section documents an adversarial protocol the project aims to satisfy.
 \begin{itemize}
-    \item \textbf{CSR manipulation:} Trapped by hardware write-protection, \texttt{ERR\_LOGIC} raised.
-    \item \textbf{Buffer overflow:} Caught by partition locality wall, execution aborted with \texttt{ERR\_LOCALITY}.
+    \item \textbf{CSR manipulation:} Trapped by hardware write-protection, \texttt{ERR\_LOGIC\_VAL} raised.
+    \item \textbf{Buffer overflow:} Caught by partition locality wall, execution aborted with \texttt{ERR\_LOCALITY\_VAL}.
     \item \textbf{TOCTOU:} Receipt hash mismatch detected, verifier rejects the certificate.
     \item \textbf{Replay:} State hash check fails, verifier rejects (certificate state does not match current state).
 \end{itemize}
@@ -915,7 +915,7 @@ def attempt_supra_quantum_box():
 
 \textbf{Attack strategy:} Construct a PR box, claim quantum-admissibility, request certification without a certificate or $\mu$-cost.
 
-\textbf{Expected defense:} The verifier computes the CHSH value and checks $S \leq \frac{5657}{2000} \approx 2.8285$. If $S > 2.8285$, the verifier classifies the box as \textit{supra-quantum}, requiring a certificate and $\mu$-cost. Without a certificate, the verifier rejects with \texttt{ERR\_CHSH} (\texttt{0x0BADC45C}).
+\textbf{Expected defense:} The verifier computes the CHSH value and checks $S \leq \frac{5657}{2000} \approx 2.8285$. If $S > 2.8285$, the verifier classifies the box as \textit{supra-quantum}, requiring a certificate and $\mu$-cost. Without a certificate, the verifier rejects with \texttt{ERR\_CHSH\_VAL} (\texttt{0x0BADC45C} in \texttt{coq/kami\_hw/ThieleTypes.v}).
 
 \textbf{Theoretical implications:} This experiment validates the quantum admissibility theorem (Chapter 10): quantum-admissible boxes \textit{must} satisfy $S \leq 2.8285$. The theorem is \textit{enforced} by the verifier.
 

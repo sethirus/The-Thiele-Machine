@@ -256,7 +256,7 @@ In the Thiele Machine, MDL serves as the basis for $\mu$-cost:
 \end{itemize}
 
 The total $\mu$-cost is thus analogous to the MDL of the computation, with the partition description and its axioms charged explicitly as a model of structure. This separates the cost of \emph{describing} structure from the cost of \emph{using} it.
-This is reflected directly in the Python and Coq implementations: the $\mu$-ledger is updated by explicit per-instruction costs, and structural operations (like partition creation or split) carry their own explicit charges.
+This is reflected directly in the Coq kernel and the OCaml runner extracted from it: every instruction declares an explicit \texttt{mu\_delta}, and structural operations (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{LASSERT}) carry their own per-instruction charges. The Python wrapper consumes the runner's JSON output rather than re-implementing the cost rule.
 
 \section{The Physics of Computation}
 
@@ -398,13 +398,13 @@ where $E(x,y)$ is the correlation between Alice and Bob's outcomes for settings 
 Three bounds matter:
 \begin{itemize}
     \item \textbf{Classical bound} ($S \le 2$): If Alice and Bob share only classical correlations---local hidden variables---then $|S| \le 2$. This is Bell's inequality, provable by enumerating all 16 deterministic strategies. The upper bound is formalized via Fine's theorem in \path{coq/kernel/MinorConstraints.v}; the achievability of $S = 2$ at $\mu = 0$ is proven constructively in \path{coq/kernel/ClassicalBound.v}.
-    \item \textbf{Quantum bound} ($S \le 2\sqrt{2} \approx 2.828$): If they share quantum entanglement, the maximum is the Tsirelson bound. This requires Tsirelson's 1980 theorem \cite{tsirelson1980quantum}, proven in the Coq kernel via NPA moment-matrix minor constraints (positive semidefiniteness of the $3\times3$ correlation matrix) in \path{coq/kernel/AlgebraicCoherence.v}. The tight $2\sqrt{2}$ bound is proven for the symmetric configuration ($E_{00}=E_{01}=E_{10}=e$, $E_{11}=-e$); the general case is proven as $|S| \le 4$ with the tight bound conditional on a sum-of-squares hypothesis.
+    \item \textbf{Quantum bound} ($S \le 2\sqrt{2} \approx 2.828$): If they share quantum entanglement, the maximum is the Tsirelson bound \cite{tsirelson1980quantum}. The kernel proves this through three complementary results. \path{coq/kernel/AlgebraicCoherence.v} proves a rational over-approximation $4e \le 5657/2000$ for the symmetric configuration ($E_{00}=E_{01}=E_{10}=e$, $E_{11}=-e$) using $3\times 3$ NPA moment-matrix minor constraints (\texttt{symmetric\_tsirelson\_bound}). \path{coq/kernel/TsirelsonGeneral.v} proves the exact real-arithmetic bound $|S| \le 2\sqrt{2}$ from row-norm hypotheses ($e_{00}^2 + e_{01}^2 \le 1$, $e_{10}^2 + e_{11}^2 \le 1$) via Cauchy--Schwarz (\texttt{tsirelson\_bound\_abs}). \path{coq/kernel/QuantumPartitionPSD.v} closes the chain: the biconditional \texttt{column\_contractive\_iff\_quantum\_realizable} shows that Thiele honesty (column-contractivity) coincides exactly with zero-marginal NPA realizability, discharging the row-norm hypotheses on the kernel side. The general algebraic case (without row-norm hypotheses) is proven only as $|S| \le 4$ (\texttt{chsh\_bound\_4}); recovering the tight bound there requires a sum-of-squares hypothesis that the file documents explicitly.
     \item \textbf{Algebraic bound} ($S \le 4$): The absolute maximum from triangle inequality alone, achievable only by hypothetical ``PR-box'' correlations that violate quantum mechanics. Formalized as \texttt{valid\_box\_S\_le\_4} in \path{coq/kernel/BoxCHSH.v} and \texttt{chsh\_bound\_4} in \path{coq/kernel/AlgebraicCoherence.v}.
 \end{itemize}
 
 The gap between 2 and $2\sqrt{2}$ is why quantum computers can do things classical computers cannot. The gap between $2\sqrt{2}$ and 4 is why nature stops at quantum---it does not go all the way to the no-signaling limit.
 
-These three bounds are proven from first principles in the active kernel files \path{coq/kernel/ClassicalBound.v} and \path{coq/kernel/AlgebraicCoherence.v} with zero project-local axioms and zero admits. Run \texttt{Print Assumptions} on any downstream result and Coq reports only standard library axioms.
+These three bounds are proven from first principles in the active kernel files \path{coq/kernel/ClassicalBound.v}, \path{coq/kernel/BoxCHSH.v}, \path{coq/kernel/AlgebraicCoherence.v}, \path{coq/kernel/MinorConstraints.v}, \path{coq/kernel/TsirelsonGeneral.v}, and \path{coq/kernel/QuantumPartitionPSD.v}, with zero global \texttt{Axiom} or \texttt{Parameter} declarations and zero \texttt{Admitted} proofs. Running \texttt{Print Assumptions} on the downstream theorems reports only Coq's standard-library axioms (the Reals development pulls in \texttt{ClassicalDedekindReals.sig\_forall\_dec} and \texttt{FunctionalExtensionality.functional\_extensionality\_dep}); \texttt{ClassicalBound.classical\_bound\_achieved}, \texttt{AlgebraicCoherence.symmetric\_tsirelson\_bound}, and \texttt{BoxCHSH.box\_chsh\_bound\_algebraic} are reported as ``Closed under the global context.''
 
 \subsection{Decoherence, Measurement, and Informational Cost}
 
@@ -443,7 +443,7 @@ For the Thiele Machine, the project enforces a strict methodology. No wiggle roo
 \begin{enumerate}
     \item \textbf{No \texttt{Admitted}}: Every lemma must be fully proven
     \item \textbf{No \texttt{admit} tactics}: No shortcuts inside proofs
-    \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are proven from first principles in the kernel. These are not Coq \texttt{Axiom} declarations; the active project-local assumption surface is zero.
+    \item \textbf{Documented assumptions}: External mathematical results (e.g., Tsirelson's theorem, Fine's theorem, Bell's inequality) are proven from first principles in the kernel rather than postulated. The active audited tree (\path{coq/kernel/}, \path{coq/kami_hw/}) contains zero global \texttt{Axiom} or \texttt{Parameter} declarations. The two named gaps that remain---the bridge axiom $A_{QM}$ in \path{coq/PhysicsConditionalClosure.v} and \texttt{bsc\_kami\_compilation\_trusted} in \path{coq/kernel/VerilogRTLCorrespondence.v}---are kept as Section Variables, so they appear as explicit hypotheses on any theorem that consumes them rather than as silent global postulates.
 \end{enumerate}
 
 This is enforced by \path{scripts/inquisitor.py}---a static analyzer that scans the active Coq tree in CI. It checks for \texttt{Admitted}, \texttt{admit}, project-local axioms, circular definitions, tautological proofs, smuggled constraints, mu-cost consistency, CHSH bounds, axiom dependencies, and more. If a theorem says ``Proven,'' it compiles to \texttt{Qed}.
@@ -523,7 +523,7 @@ This chapter established the foundation. Four interconnected areas:
 
 \item \textbf{Physics of Computation} (\S2.4): Landauer's principle and Maxwell's demon establish that information has physical consequences. The $\mu$-ledger is the computational analog of thermodynamic entropy---monotonically increasing, tracking irreversible commitments.
 
-\item \textbf{Quantum Correlations} (\S2.5): Bell's theorem and the CHSH inequality reveal that quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine connects this bound to $\mu$-accounting---these bounds are mechanically proven from first principles in \path{coq/kernel/ClassicalBound.v} and \path{coq/kernel/AlgebraicCoherence.v}, with zero remaining assumptions.
+\item \textbf{Quantum Correlations} (\S2.5): Bell's theorem and the CHSH inequality reveal that quantum mechanics permits correlations up to $2\sqrt{2}$ but no higher. The Thiele Machine connects this bound to $\mu$-accounting---these bounds are mechanically proven from first principles across \path{coq/kernel/ClassicalBound.v}, \path{coq/kernel/BoxCHSH.v}, \path{coq/kernel/AlgebraicCoherence.v}, \path{coq/kernel/MinorConstraints.v}, \path{coq/kernel/TsirelsonGeneral.v}, and \path{coq/kernel/QuantumPartitionPSD.v}, with no project-local global axioms.
 \end{enumerate}
 
 \noindent
@@ -534,5 +534,5 @@ The formal verification infrastructure (\S2.6) ensures all claims are machine-ch
     \item The \textit{blindness problem} motivates explicit structural accounting
     \item The $\mu$-cost is MDL-based and computable
     \item The classical bound ($S \le 2$) characterizes the $\mu=0$ class, while the Tsirelson bound ($2\sqrt{2}$) requires $\mu > 0$ investment
-    \item All proofs satisfy the Inquisitor Standard---zero admits, no project-local axioms in the active audited tree, and hard mathematical dependencies made explicit
+    \item All proofs satisfy the Inquisitor Standard---zero admits, zero global \texttt{Axiom}/\texttt{Parameter} declarations in the active audited tree, named Section-Variable trust boundaries ($A_{QM}$, BSC compilation), and hard mathematical dependencies made explicit
 \end{itemize}

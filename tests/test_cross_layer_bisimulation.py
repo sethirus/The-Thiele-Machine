@@ -125,7 +125,7 @@ class TestCrossLayerBisimulationAllOpcodes:
 
     def test_store_load_bisim(self):
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 77 0",
@@ -140,7 +140,7 @@ class TestCrossLayerBisimulationAllOpcodes:
 
     def test_xor_load_bisim(self):
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "INIT_MEM 10 42",
@@ -236,7 +236,7 @@ class TestCrossLayerBisimulationAllOpcodes:
         from build.thiele_vm import run_vm
         # RTL test: CALL and RET execute and halt normally
         rtl = run_verilog([
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 31 200 0",
@@ -741,7 +741,7 @@ class TestHeapOpcodeRTL:
     def test_heap_store_load_roundtrip(self):
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog([
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 99 0",
@@ -754,7 +754,7 @@ class TestHeapOpcodeRTL:
 
     def test_heap_store_load_bisim(self):
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 77 0",
@@ -804,7 +804,7 @@ class TestBianchiFreeze:
     def test_bianchi_freezes_store(self):
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog(self._bianchi_program([
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "LOAD_IMM 1 55 0",
             "STORE 10 1 0",
@@ -870,7 +870,7 @@ class TestStackOverflow:
         """Many nested CALLs exhaust stack space but RTL doesn't crash."""
         from thielecpu.hardware.cosim import run_verilog
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 31 200 0",  # SP = 200

@@ -40,7 +40,7 @@ Three fundamental questions get answered empirically here:
     The theory claims that partition geometry alone, without explicit revelation, remains local. CHSH experiments verify that the manifold projection mechanism respects the classical bound ($S \le 2$) in the absence of signaling, keeping the geometry causally isolated.
     
     \item \textbf{Is the implementation practical?} \\
-    A beautiful theory that runs too slowly is useless. Performance and resource utilization are benchmarked to assess practicality, verifying that the hardware fits within standard FPGA constraints (Lattice ECP5).
+    A beautiful theory that runs too slowly is useless. Performance and resource utilization are benchmarked to assess practicality, verifying that the hardware places-and-routes cleanly on a commodity open-source FPGA target (Xilinx Artix-7 / Arty A7-35T via the openXC7 toolchain).
 
     \item \textbf{Do the ledger-level predictions behave as derived?} \\
     Some of the most important claims in this thesis are not about any particular workload, but about unavoidable trade-offs induced by the $\mu$ rules themselves. The evaluation therefore includes two ``physics-without-physics'' harnesses that run on any machine: (i) a structural-heat certificate benchmark derived from $\mu=\lceil\log_2(n!)\rceil$, and (ii) a fixed-budget time-dilation benchmark derived from $r=\lfloor(B-C)/c\rfloor$.
@@ -101,7 +101,7 @@ def _run_both(program: List[str]):
 
 def test_add_bisim(self):
     program = [
-        "PNEW {0,256} 1",
+        "PNEW {0,128} 1",
         "LOAD_IMM 1 10 0",
         "LOAD_IMM 2 7 0",
         "ADD 0 1 2 0",
@@ -124,8 +124,8 @@ Final states are projected to canonical form:
   "pc": <int>,
   "mu": <int>,
   "err": <bool>,
-  "regs": [<32 integers>],
-  "mem": [<65536 integers>],
+  "regs": [<16 integers>],
+  "mem": [<128 integers>],
   "csrs": {"cert_addr": ..., "status": ..., "error": ...},
   "graph": {"modules": [...]}
 }
@@ -140,8 +140,8 @@ Final states are projected to canonical form:
     \item \textbf{"pc": <int>} — Program counter (current instruction index). Should match after executing the same trace.
     \item \textbf{"mu": <int>} — Operational $\mu$ ledger value. Should match since $\mu$-updates are part of the formal semantics.
     \item \textbf{"err": <bool>} — Error latch (true if VM encountered an error). Should match for valid traces.
-    \item \textbf{"regs": [<32 integers>]} — All 32 general-purpose registers. The isomorphism test compares these element-by-element.
-    \item \textbf{"mem": [<65536 integers>]} --- All 65,536 memory words. Element-by-element comparison.
+    \item \textbf{"regs": [<16 integers>]} — All 16 general-purpose registers. The isomorphism test compares these element-by-element.
+    \item \textbf{"mem": [<128 integers>]} --- All $128$ memory words. Element-by-element comparison.
     \item \textbf{"csrs": \{...\}} — Control and status registers: \texttt{cert\_addr} (certificate address), \texttt{status} (status flags), \texttt{error} (error code). These are compared when relevant to the test.
     \item \textbf{"graph": \{"modules": [...]\}} — Partition graph structure (list of modules with regions and axioms). This is compared for partition operation tests (PNEW, PSPLIT, PMERGE), canonicalized to ignore ordering.
 \end{itemize}
@@ -168,15 +168,15 @@ This avoids false negatives where irrelevant fields differ.
 From \path{tests/test_cross_layer_bisimulation.py}:
 \begin{lstlisting}
 def test_pnew_bisim(self):
-    program = ["PNEW {0,256} 5", "HALT 0"]
+    program = ["PNEW {0,128} 5", "HALT 0"]
     vm, rtl = _run_both(program)
     assert rtl is not None
     assert vm.mu == rtl["mu"], f"mu: VM={vm.mu} RTL={rtl['mu']}"
 
 def test_psplit_bisim(self):
     program = [
-        "PNEW {0,256} 3",
-        "PSPLIT 0 {0,128} {128,256} 2",
+        "PNEW {0,128} 3",
+        "PSPLIT 0 {0,64} {64,128} 2",
         "HALT 0",
     ]
     vm, rtl = _run_both(program)
@@ -186,7 +186,7 @@ def test_psplit_bisim(self):
 def test_pmerge_bisim(self):
     program = [
         "PNEW {0,128} 2",
-        "PNEW {128,256} 2",
+        "PNEW {64,128} 2",
         "PMERGE 0 1 3",
         "HALT 0",
     ]
@@ -331,7 +331,7 @@ def test_chsh_trial_bisim(self):
     """CHSH_TRIAL with valid bit operands charges mu identically."""
     program = [
         "INIT_LOGIC_ACC 0xCAFEEACE",
-        "PNEW {0,256} 1",
+        "PNEW {0,128} 1",
         "CHSH_TRIAL 0 0 0 0 3",
         "HALT 0",
     ]
@@ -342,7 +342,7 @@ def test_chsh_trial_bisim(self):
 
 \paragraph{What do these tests verify?}
 
-\textbf{Gate-key enforcement:} The first test confirms that CHSH\_TRIAL without the logic gate key (\texttt{0xCAFEEACE}) is rejected with \texttt{ERR\_LOGIC} (\texttt{0xC43471A1}). The second confirms that with the gate key, the trial succeeds and charges the declared $\mu$.
+\textbf{Gate-key enforcement:} The first test confirms that CHSH\_TRIAL without the logic gate key (\texttt{0xCAFEEACE}) is rejected with \texttt{ERR\_LOGIC\_VAL} (\texttt{0xC43471A1} in \texttt{coq/kami\_hw/ThieleTypes.v}). The second confirms that with the gate key, the trial succeeds and charges the declared $\mu$.
 
 \textbf{Cross-layer agreement:} The bisimulation test confirms that the Python VM and RTL charge identical $\mu$ for the same CHSH trial, verifying that CHSH semantics are consistent across layers.
 
@@ -563,7 +563,7 @@ The VM \emph{guarantees} $\mu \ge \log_2(|\Omega|/|\Omega'|)$ for each trace usi
 Run the three traces on instrumented hardware (or a calibrated switching-energy simulator) at fixed temperature $T$. Record per-run energy and environmental metadata. Fit measured energy against $k_B T \ln 2 \cdot \mu$ and report residuals. A sustained sub-linear slope falsifies the bridge; a super-linear slope quantifies overhead. Publish both ledger outputs and raw measurements so reviewers can recompute the bound.
 
 \subsection{Executed thermodynamic bundle (Dec 2025)}
-The four $\Omega \to \Omega'$ traces were executed with the bridge harness, exporting a JSON artifact. The runs charge $\mu$ via partition discovery only (explicit \texttt{MDLACC} omitted to mirror the hardware harness) and capture normalization flags and \texttt{evidence\_strict} for $\mu$ propagation across layers. Each scenario fails fast if the requested region is not representable by the hardware encoding. These runs are intended to validate that the ledger and trace machinery produce consistent, reproducible $\mu$ values that a future physical experiment can bind to energy.
+The four $\Omega \to \Omega'$ traces were executed with the bridge harness, exporting a JSON artifact. The runs charge $\mu$ via partition discovery only (explicit \texttt{MDLACC} omitted to mirror the hardware harness) and capture normalization flags plus the strict-evidence acceptance condition for $\mu$ propagation across layers. Each scenario fails fast if the requested region is not representable by the hardware encoding. These runs are intended to validate that the ledger and trace machinery produce consistent, reproducible $\mu$ values that a future physical experiment can bind to energy.
 
 {\tiny
 \begin{center}
@@ -580,7 +580,7 @@ from\_64 & 7 & 7/7 & 6 & $2.01\!\times\!10^{-20}$ & 1.17 \\
 \end{center}
 }
 
-All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ (guaranteed by VM conservative bound) and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, \texttt{EVIDENCE\_STRICT} runs succeed for these workloads.
+All four traces satisfy $\mu \ge \log_2(|\Omega|/|\Omega'|)$ (guaranteed by VM conservative bound) and align on regs/mem/$\mu$ without normalization. The harness encodes an explicit $\mu$-delta into the formal trace and hardware instruction word, and the reference VM consumes the same $\mu$-delta (disabling implicit MDLACC) so that $\mu_{\text{raw}}$ matches across layers. With this encoding in place, the strict-evidence acceptance condition is met for these workloads.
 
 \subsection{The Conservation of Difficulty Experiment}
 This experiment directly tests the Landauer patch on the \textit{Blind Sort} vs \textit{Sighted Sort} micro-programs. The setup runs two traces that both sort the same buffer: (i) a blind trace that uses only XOR/XFER data movement, and (ii) a sighted trace that uses PNEW/LASSERT to reveal structure before moving data. The purpose is to show that the total $\mu$ is conserved even when the cost shifts between heat and stored structure.
@@ -610,7 +610,7 @@ Now impose the structure claim: ``the records are sorted.'' Without changing the
 \[
 \log_2\left(\frac{|\Omega|}{|\Omega'|}\right)=\log_2(n!).
 \]
-The implementation enforces the revelation rule by charging an explicit information cost via \texttt{info\_charge}, which rounds up to the next integer bit:
+The implementation enforces the revelation rule by charging an explicit information cost (rounded up to the next integer bit) at the partition-discovery step:
 \[
 \mu = \lceil \log_2(n!) \rceil.
 \]
@@ -692,9 +692,19 @@ REGION_SIZE = 16
 
 \textbf{Resource usage:}
 \begin{itemize}
-    \item \textbf{LUTs: $\sim$2,500} — Look-Up Tables (combinational logic). The partition graph, ALU, and control logic fit in 2,500 6-input LUTs.
-    \item \textbf{Flip-Flops: $\sim$1,200} — Sequential storage elements. Registers, PC, $\mu$-accumulator, CSRs require $\sim$1,200 flip-flops.
-    \item \textbf{Target: Lattice ECP5} --- Mid-range open-source-friendly FPGA family (e.g., LFE5U-25F, LFE5U-85F). Total device capacity: $\sim$24,000--85,000 LUTs, so this configuration uses $\sim$3--10\% of an ECP5 device.
+    \item \textbf{Logic cells (LUT1--LUT6 + INV): $\sim$13{,}648} on the
+          canonical RTL with REG\_COUNT=16, MEM\_SIZE=128, PTableSz=64.
+          The partition graph, ALU, instruction decoder, $\mu$-ledger,
+          and locality logic all fit inside that budget.
+    \item \textbf{Flip-Flops: $\sim$3{,}580} (FDRE/FDSE).
+    \item \textbf{Distributed RAM: 64 RAM64M cells} (partition / descriptor tables).
+    \item \textbf{Block RAM: 2 RAMB36E1} (instruction / data memories).
+    \item \textbf{Target: Xilinx Artix-7 (Digilent Arty A7-35T,
+          \texttt{xc7a35tcsg324-1})}. Total device capacity:
+          $\sim$20{,}800 LUTs, $\sim$41{,}600 FFs, $90$ BRAMs, $90$ DSPs.
+          The synthesized design uses $\sim 66\%$ of the LUT budget,
+          leaving the rest of the chip free for board peripherals,
+          debug logic, or scaling the kernel constants up.
 \end{itemize}
 
 \textbf{Use case:} This configuration is ideal for:
@@ -707,9 +717,9 @@ REGION_SIZE = 16
 \textbf{Limitations:} With only 4 modules and 16-element regions, the hardware cannot handle large-scale partition graphs. For experiments requiring 64+ modules, the full configuration is needed.
 
 \begin{itemize}
-    \item LUTs: $\sim$2,500
-    \item Flip-Flops: $\sim$1,200
-    \item Target: Lattice ECP5
+    \item Logic cells: $\sim$2{,}500
+    \item Flip-Flops: $\sim$1{,}200
+    \item Target: Xilinx Artix-7 (Arty A7-35T) via openXC7
 \end{itemize}
 
 \textbf{Full Configuration:}
@@ -724,7 +734,7 @@ REGION_SIZE = 1024
 
 \textbf{Parameters:}
 \begin{itemize}
-    \item \textbf{NUM\_MODULES = 64} — Maximum number of partition modules. With 64 modules, the bitmask encoding requires 64 bits (8 bytes per bitmask). This matches the Python VM's \texttt{MASK\_WIDTH=64} configuration.
+    \item \textbf{NUM\_MODULES = 64} — Maximum number of partition modules in the Kami specification. With 64 modules, the on-chip module-ID field uses 6 bits and module wraparound (\texttt{m mod 64}) keeps the live ID space bounded. The Python wrapper carries no parallel bitmask field; cross-layer comparison happens at the runner-output level, not at this hardware-internal encoding.
     \item \textbf{REGION\_SIZE = 1024} — Maximum elements per partition region. Each region can contain up to 1024 module IDs (10-bit addressing).
 \end{itemize}
 
@@ -732,7 +742,7 @@ REGION_SIZE = 1024
 \begin{itemize}
     \item \textbf{LUTs: $\sim$45,000} — The full partition graph with 64 modules and 1024-element regions requires $\sim$45,000 LUTs ($18\times$ more than LITE).
     \item \textbf{Flip-Flops: $\sim$35,000} — Storing 64 bitmasks, larger CSR files, and deeper pipeline registers requires $\sim$35,000 flip-flops ($29\times$ more than LITE).
-    \item \textbf{Target: Lattice ECP5 (large)} --- Largest ECP5 variant (LFE5UM5G-85F). Total device capacity: $\sim$85,000 LUTs, so a scaled-up configuration would use a larger percentage but remain within a single device.
+    \item \textbf{Target: Xilinx Artix-7 (large) — \texttt{xc7a100t}} ($\sim$63{,}400 LUTs) or \texttt{xc7a200t} ($\sim$215{,}000 LUTs) via the same \texttt{nextpnr-xilinx} backend; the chip-database step is the only thing that retargets when scaling to a bigger device.
 \end{itemize}
 
 \textbf{Use case:} This configuration supports:
@@ -745,9 +755,9 @@ REGION_SIZE = 1024
 \textbf{Isomorphism validation:} The full configuration is intended to preserve the same observable behavior as the LITE configuration on the exercised gates. In practice this remains a tested comparison claim, not a standalone unconditional theorem about every operation in every environment.
 
 \begin{itemize}
-    \item LUTs: $\sim$45,000
-    \item Flip-Flops: $\sim$35,000
-    \item Target: Lattice ECP5 (large)
+    \item LUTs: $\sim$45{,}000
+    \item Flip-Flops: $\sim$35{,}000
+    \item Target: Xilinx Artix-7 (large, e.g., \texttt{xc7a100t} / \texttt{xc7a200t}) via openXC7
 \end{itemize}
 
 \section{Validation Coverage}
@@ -763,7 +773,7 @@ The evaluation suite is organized by the kinds of claims it is meant to stress:
     \item \textbf{CHSH/Bell tests}: enforcement of correlation bounds and revelation requirements.
     \item \textbf{Falsifiable $\mu$-cost predictions}: linear scaling bounds for all VM operations, Landauer erasure consistency tests, CHSH bound enforcement, and red-team adversarial falsification protocols (Chapter~11).
     \item \textbf{Cross-layer bisimulation}: end-to-end validation spanning Python VM and Verilog RTL across the active opcode set, plus OCaml-vs-Python state identity, I/O ports, heap ops, Bianchi freeze, and trap routing. Some of this evidence is conditional on RTL backend availability.
-    \item \textbf{Verilog co-simulation}: direct Python-to-RTL comparison via Icarus Verilog testbenches, covering compute, partition, and error-handling paths (\path{tests/test_verilog_cosim.py}, 29 tests).
+    \item \textbf{Verilog co-simulation}: direct Python-to-RTL comparison via Icarus Verilog testbenches, covering compute, partition, and error-handling paths (\path{tests/test_verilog_cosim.py}, 38 tests as of this writing).
     \item \textbf{Receipt verification}: signature integrity and replay for the active TRS-1.0 receipt kinds.
     \item \textbf{Adversarial tests}: malformed traces and invalid certificates.
     \item \textbf{Performance benchmarks}: throughput and overhead measurements for selected harnesses, with receipt overhead treated as implementation-specific rather than a theorem.

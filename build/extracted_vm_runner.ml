@@ -308,11 +308,11 @@ type program_element =
 
 let parse_program (lines : string list) : int * int list * int list * int * int list * (int * int) list * (int * int) list * program_element list =
     let fuel = ref 256 in
-    let mem_size = ref 65536 in
+    let mem_size = ref 128 in
     let rec make_list n acc =
       if n <= 0 then acc else make_list (n - 1) (0 :: acc)
     in
-    let init_regs = ref (make_list 32 []) in
+    let init_regs = ref (make_list 16 []) in
     let init_mem = ref None in  (* deferred until mem_size is known *)
     let init_logic_acc = ref 0 in
     let init_tensor = ref (make_list 16 []) in
@@ -334,7 +334,7 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         None
       | [ "INIT_REG"; r; v ] ->
         let ri = safe_int r and vi = safe_int v in
-        init_regs := list_set_mod 32 !init_regs ri vi;
+        init_regs := list_set_mod 16 !init_regs ri vi;
         reg_patches := (ri, vi) :: !reg_patches;
         None
       | [ "INIT_MEM"; a; v ] ->
@@ -514,8 +514,8 @@ let initial_state () : vMState =
   {
     vm_graph = { pg_next_id = 1; pg_modules = []; pg_next_morph_id = 1; pg_morphisms = [] };
     vm_csrs = { csr_cert_addr = 0; csr_status = 0; csr_err = 0; csr_heap_base = 0 };
-    vm_regs = make_list 32 [];
-    vm_mem = make_list 65536 [];
+    vm_regs = make_list 16 [];
+    vm_mem = make_list 128 [];
     vm_pc = 0;
     vm_mu = 0;
     vm_mu_tensor = make_list 16 [];
@@ -598,7 +598,7 @@ let run_vm_with_checkpoints (max_fuel : int) (prog : program_element list) (init
           let s' = { s with vm_pc = s.vm_pc + 1 } in
           loop fuel s'  (* checkpoints don't consume fuel *)
       | Some (WritePort (channel, src_reg)) ->
-          let value = List.nth s.vm_regs (src_reg mod 32) in
+          let value = List.nth s.vm_regs (src_reg mod 16) in
           let oc = get_output_channel channel in
           fprintf oc "%d\n" value;
           flush oc;
@@ -609,7 +609,7 @@ let run_vm_with_checkpoints (max_fuel : int) (prog : program_element list) (init
           let value = read_next_int ic in
           let s' = { s with
             vm_pc = s.vm_pc + 1;
-            vm_regs = list_set_mod 32 s.vm_regs (dst_reg mod 32) value
+            vm_regs = list_set_mod 16 s.vm_regs (dst_reg mod 16) value
           } in
           loop fuel s'  (* directives don't consume fuel *)
       | Some (Instr instr) ->
@@ -942,10 +942,10 @@ let load_resume_state (path : string) : vMState =
       csr_heap_base = parse_json_int json "heap_base";
     };
     vm_regs = (let r = parse_json_int_array json "regs" in
-               if r = [] then make_list 32 [] else r);
+               if r = [] then make_list 16 [] else r);
     vm_mem = (let m = parse_json_int_array json "mem" in
               let len = List.length m in
-              if len >= 65536 then m else m @ make_list (65536 - len) []);
+              if len >= 128 then m else m @ make_list (128 - len) []);
     vm_pc        = parse_json_int json "pc";
     vm_mu        = parse_json_int json "mu";
     vm_mu_tensor = (let t = parse_json_int_array json "mu_tensor" in
@@ -995,7 +995,7 @@ let () =
           (fun m (a, v) -> list_set_mod (List.length m) m a v)
           base.vm_mem mem_patches in
         let r = List.fold_left
-          (fun r (i, v) -> list_set_mod 32 r i v)
+          (fun r (i, v) -> list_set_mod 16 r i v)
           base.vm_regs reg_patches in
         { base with vm_mem = m; vm_regs = r }
       | None ->

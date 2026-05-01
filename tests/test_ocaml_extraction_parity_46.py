@@ -159,12 +159,12 @@ class TestDataOpcodesParity:
 
     def test_load_charges_cost(self):
         # LOAD requires locality (INIT_PT + INIT_ACTIVE_MODULE)
-        r = run(["INIT_PT 0 256", "INIT_ACTIVE_MODULE 0", "LOAD 0 5 3", "HALT 0"])
+        r = run(["INIT_PT 0 128", "INIT_ACTIVE_MODULE 0", "LOAD 0 5 3", "HALT 0"])
         assert_mu_at_least(r, 3, "LOAD")
 
     def test_store_charges_cost(self):
         # STORE requires locality
-        r = run(["INIT_PT 0 256", "INIT_ACTIVE_MODULE 0",
+        r = run(["INIT_PT 0 128", "INIT_ACTIVE_MODULE 0",
                  "LOAD_IMM 0 77 1", "STORE 5 0 3", "HALT 0"])
         assert_mu_at_least(r, 4, "STORE")
 
@@ -270,7 +270,7 @@ class TestXorLayerOpcodesParity:
     """XOR_LOAD XOR_ADD XOR_SWAP XOR_RANK"""
 
     LOGIC_INIT = "INIT_LOGIC_ACC -889263410"
-    LOC_INIT = ["INIT_PT 0 256", "INIT_ACTIVE_MODULE 0"]
+    LOC_INIT = ["INIT_PT 0 128", "INIT_ACTIVE_MODULE 0"]
 
     def test_xor_add_charges_cost(self):
         r = run([self.LOGIC_INIT, "LOAD_IMM 0 5 1", "XOR_ADD 1 0 3", "HALT 0"])
@@ -351,7 +351,7 @@ class TestCertifyOpcodesParity:
 class TestMemoryExtensionOpcodesParity:
     """CHECKPOINT READ_PORT WRITE_PORT HEAP_LOAD HEAP_STORE"""
 
-    LOC_INIT = ["INIT_PT 0 256", "INIT_ACTIVE_MODULE 0"]
+    LOC_INIT = ["INIT_PT 0 128", "INIT_ACTIVE_MODULE 0"]
 
     def test_checkpoint_charges_cost(self):
         r = run(["CHECKPOINT lbl123 3", "HALT 0"])

@@ -10,6 +10,7 @@
 *)
 
 From KamiHW Require Import ThieleCPUCore.
+From KamiHW Require Import ThieleTypes.
 From KamiHW Require Import ThieleCPUBusTop.
 From KamiHW Require Import Abstraction.
 From KamiHW Require Import VerilogRefinement.
@@ -64,7 +65,7 @@ Definition canonical_refinement_relation := verilog_sim_rel.
 Record CanonicalCPUProofBundle : Prop := {
   canonical_register_write_refines :
     forall (hs : KamiSnapshot) (dst v : nat),
-      dst < 32 ->
+      dst < RegCount ->
       snapshot_regs_to_list
         (fun j => if Nat.eqb j dst then word64 v else snap_regs hs j) =
       write_reg (abs_phase1 hs) dst v;

@@ -54,9 +54,9 @@ This is the complete mathematical specification of the Thiele Machine: a formal 
 
 Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction matters and I keep it explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
-The core claims are structural (S): No Free Insight; $\mu$-conservation and initiality; $\mu$-hierarchy; $\mu$-ledger necessity; categorical separation; Turing strictness; the classical CHSH bound ($|S| \leq 2$); the algebraic Tsirelson bound ($|S| \leq 2\sqrt{2}$); and the zero-axiom biconditional \texttt{thiele\_honest\_iff\_quantum\_realizable}. The CHSH algebraic result is pure math. The Landauer connection is motivation. Geometry: only the Discrete Gauss-Bonnet theorem. That is the full extent of the physics content.
+The core claims are structural (S): No Free Insight; $\mu$-conservation; $\mu$-hierarchy; $\mu$-ledger necessity (five-way independence classification); categorical separation; strict Turing subsumption; the classical CHSH bound ($|S| \leq 2$); the algebraic Tsirelson bound ($|S| \leq 2\sqrt{2}$); and the zero-axiom biconditional \texttt{column\_contractive\_iff\_quantum\_realizable}. The CHSH algebraic result is pure math. The Landauer connection is motivation. Geometry: only the discrete angle-defect identity for planar triangulations.
 
-The document also covers, with explicit epistemological tags, conditional derivations under named physical axioms (Born rule, no-cloning, unitarity, Schr\"odinger analog) and reference explorations (discrete spacetime geometry, self-reference tower). These are marked (C) or (R) and do not form part of the primary claim ledger. There are exactly two named trust boundaries: \texttt{bsc\_kami\_compilation\_trusted} (Layer 2 Verilog semantics gap) and \texttt{A\_QM\_physical} (physical quantum axiom).
+The document also covers, with explicit epistemological tags, conditional derivations under named physical axioms (Born rule under linearity, no-cloning, unitarity) and reference explorations (4D simplicial-complex differential geometry, self-reference tower). These are marked (C) or (R) and do not form part of the primary claim ledger. There are exactly two named trust boundaries: \texttt{bsc\_kami\_compilation\_trusted} (Layer 2 Verilog semantics gap) and \texttt{A\_QM} (physical quantum axiom).
 \end{abstract}
 
 \tableofcontents
@@ -68,17 +68,18 @@ The document also covers, with explicit epistemological tags, conditional deriva
 \chapter{Introduction}
 The Thiele Machine makes the cost of structure explicit. A Turing Machine treats all state transitions as cost-equivalent. The Thiele Machine assigns a specific cost $\mu$ to every operation that extracts or asserts structural information. That's the design. Here is where it goes.
 
-The central claim, proven formally: \emph{you cannot gain structural insight about a system without paying $\mu$-cost}. Combined with explicit physical axioms (superposition, linearity, information conservation), that constraint produces structural results that parallel quantum mechanics, thermodynamics, and emergent spacetime. Each result's status --- whether it is a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)} --- is marked directly. Nothing is hidden.
+The central claim, proven formally: \emph{you cannot gain structural insight about a system without paying $\mu$-cost}. Combined with explicit physical axioms (linearity, information conservation), that constraint produces structural results that parallel quantum mechanics and thermodynamics. Each result's status --- whether it is a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)} --- is marked directly. Nothing is hidden.
 
-Eight parts:
+The document is organized as:
 \begin{enumerate}
     \item \textbf{Foundations}: State space, instruction set, operational semantics.
-    \item \textbf{Core Theorems}: No Free Insight, $\mu$-ledger necessity, $\mu$-Chaitin, cost = complexity.
-    \item \textbf{Computation}: Universality, strict subsumption, confluence, halting.
-    \item \textbf{Symmetry \& Conservation}: $\mu$-conservation, Noether/gauge, receipts.
-    \item \textbf{Conditional Quantum Analogs}: Tsirelson bound (algebraic), CHSH classical bound, biconditional honesty theorem, and further results that are conditional on stated physical axioms (Born rule, no-cloning, unitarity, Schr\"odinger). These are marked \textbf{(C)} or \textbf{(R)} throughout. The CHSH algebraic result and the Tsirelson bound are pure math. The Landauer connection is motivation. That is the full extent of the physics content.
-    \item \textbf{Discrete Geometry}: Gauss-Bonnet for partition graphs (unconditional); Landauer bridge; emergent spacetime as analogy (not derivation).
-    \item \textbf{Meta-Theory}: Three-layer isomorphism, Curry--Howard--Thiele, categorical structure.
+    \item \textbf{Core Theorems}: No Free Insight, $\mu$-ledger necessity, $\mu$-Chaitin, $\mu$-conservation.
+    \item \textbf{Computation}: Strict Turing subsumption, oracle pricing as instantiation of universal NFI, $\mu$-complexity classes, $\mu$-cost hierarchy.
+    \item \textbf{Symmetry \& Conservation}: Gauge action, Noether's theorem, receipts.
+    \item \textbf{Quantum / CHSH algebra}: Tsirelson bound (algebraic), CHSH classical bound, biconditional column-contractive $\iff$ NPA-realizable, three-tier observation taxonomy. Pure polynomial arithmetic, zero physics axioms.
+    \item \textbf{Conditional physics}: Born rule (under linearity), unitarity, no-cloning, purification, Landauer (with second-law assumed as a record field), affine EFE family. Each is conditional on stated axioms in its own file.
+    \item \textbf{Discrete Geometry}: Discrete angle-defect identity for planar triangulations (not classical Gauss-Bonnet); 4D simplicial complex and Einstein-tensor definitions (reference exploration only, vacuum case is a $0=0$ consistency check).
+    \item \textbf{Meta-Theory}: Three-layer Coq/Python/RTL observable contract, categorical structure.
     \item \textbf{Predictions}: Falsifiable predictions tied to specific Coq-verifiable claims.
 \end{enumerate}
 
@@ -125,7 +126,7 @@ $G$ is well-formed iff $\mathrm{dom}(\mathcal{T}) \subseteq \{0,\dots,N_{id}-1\}
 \begin{definition}[VM State]
 The complete state is a 12-tuple:
 \[ S = (G, C, R, \mathit{Mem}, \mathit{PC}, \mu, T_\mu, \mathit{err}, \ell, m, w, \mathit{cert}) \]
-where $G \in \Gspace$ is the partition graph, $C \in \N^4$ comprises the CSRs (certificate address, status, error code, heap base), $R \in \N^{32}$ is the register file, $\mathit{Mem} \in \N^{65536}$ is main memory, $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, $T_\mu \in \N^{16}$ is the flattened $4\times 4$ $\mu$-tensor (row-major), $\mathit{err} \in \B$ is the global error flag (latching), $\ell \in \N$ is the logic-engine accumulator, $m \in \N$ is the machine status register ($0$~=~Turing mode, $1$~=~Thiele mode), $w \in \N^8$ is the WitnessCount record (\texttt{vm\_witness}): eight natural-number counters \texttt{wc\_same\_ab} and \texttt{wc\_diff\_ab} for each setting pair $(a,b) \in \{00,01,10,11\}$, and $\mathit{cert} \in \B$ is the certified flag (\texttt{vm\_certified}).
+where $G \in \Gspace$ is the partition graph, $C \in \N^4$ comprises the CSRs (certificate address, status, error code, heap base), $R \in \N^{\texttt{REG\_COUNT}}$ is the register file, $\mathit{Mem} \in \N^{\texttt{MEM\_SIZE}}$ is main memory (the kernel constants \texttt{REG\_COUNT} and \texttt{MEM\_SIZE} are parametric; the synthesized RTL fixes \texttt{REG\_COUNT}~$=16$ and \texttt{MEM\_SIZE}~$=128$), $\mathit{PC} \in \N$ is the program counter, $\mu \in \N$ is the $\mu$-ledger, $T_\mu \in \N^{16}$ is the flattened $4\times 4$ $\mu$-tensor (row-major), $\mathit{err} \in \B$ is the global error flag (latching), $\ell \in \N$ is the logic-engine accumulator, $m \in \N$ is the machine status register ($0$~=~Turing mode, $1$~=~Thiele mode), $w \in \N^8$ is the WitnessCount record (\texttt{vm\_witness}): eight natural-number counters \texttt{wc\_same\_ab} and \texttt{wc\_diff\_ab} for each setting pair $(a,b) \in \{00,01,10,11\}$, and $\mathit{cert} \in \B$ is the certified flag (\texttt{vm\_certified}).
 \end{definition}
 
 \chapter{Instruction Set and Cost Model}
@@ -351,61 +352,7 @@ For any formal theory system $T$ satisfying the $\mu$-Chaitin interface, the num
 \[ k \le |T| + c \]
 where $|T|$ is the description length of the theory and $c$ is a fixed overhead constant. The proof chain: $k \le \mathrm{payload} \le \mu\text{-info} \le \mathrm{budget} \le |T| + c$.
 \end{theorem}
-
-\chapter{Cost Equals Kolmogorov Complexity}
-
-\begin{theorem}[$\mu$-Bits = Prefix-Free Complexity {\normalfont (CostIsComplexity.v --- reference-only)}]
-Let $K(\mathrm{spec})$ denote the prefix-free Kolmogorov complexity of specification $\mathrm{spec}$. Then:
-\[ \mu(\mathrm{spec}) = K(\mathrm{spec}) \]
-Specifically, $\mu(\mathrm{spec}) = |\mathrm{spec}| + 1$ (the terminating bit), which equals the minimum description length over all prefix-free programs producing $\mathrm{spec}$.
-\end{theorem}
-
-\begin{proof}
-The canonical compiler maps $\mathrm{spec} \mapsto \mathrm{spec} \| [\mathrm{true}]$. Any producing program has the form $p = \mathrm{spec} \| [\mathrm{true}]$ with $|p| = |\mathrm{spec}| + 1$. The compiler achieves the minimum, and $\mu$ counts exactly these bits.
-\end{proof}
-
-\chapter{No Free Lunch and No Arbitrage}
-
-\section{No Free Lunch (Ghosts Are Impossible)}
-
-\begin{theorem}[No Free Lunch {\normalfont (NoFreeLunch.v --- reference-only)}]
-A ``ghost'' is defined as two distinct propositions $p \neq q$ represented by the same physical state. Ghosts are impossible:
-\[ \forall\, p \neq q, \;\nexists\, s \text{ s.t.\ } s \text{ faithfully represents both } p \text{ and } q \]
-Information cannot exist without physical distinction.
-\end{theorem}
-
-\section{No Arbitrage Implies Potential Function}
-
-\begin{theorem}[Potential from No-Arbitrage {\normalfont (NoArbitrage.v --- reference-only)}]
-Let $w: \Ispace^* \to \Z$ be a cost function satisfying:
-\begin{enumerate}
-    \item \textbf{Additivity}: $w([]) = 0$ and $w(\tau_1 \cdot \tau_2) = w(\tau_1) + w(\tau_2)$.
-    \item \textbf{No-Arbitrage}: For every closed cycle $\tau$ (returning to the starting state), $w(\tau) \ge 0$.
-\end{enumerate}
-Then there exists a potential function $\phi: \Sspace \to \Z$ such that:
-\[ w(\tau) \ge \phi(\mathrm{apply}(\tau, s)) - \phi(s) \]
-for every state $s$ and trace $\tau$.
-\end{theorem}
-
-\begin{remark}
-This is structurally analogous to the Second Law of Thermodynamics: consistent cost accounting implies a potential function bounding all transitions. The concrete Coq model is a toy (increment/decrement on nat with asymmetric costs). No temperature, entropy, or thermodynamic system appears in the formalization. The connection to thermodynamics is an analogy, not a derivation.
-\end{remark}
-
-%=============================================================================
-% PART III: COMPUTATION
-%=============================================================================
-
 \chapter{Computational Universality and Subsumption}
-
-\section{Turing Machine Embedding}
-
-\begin{theorem}[Abstract Simulation {\normalfont (Embedding\_TM.v --- reference-only, modular\_proofs/TM\_to\_Minsky.v --- reference-only)}]
-For every Turing Machine $T$, there exists a Minsky counter machine $M$ and a simulation relation $R$ such that $M$ simulates $T$ step-by-step, encoding the tape into two integers:
-\[ \mathrm{Left} = \sum_{i=0}^{h-1} t[h{-}1{-}i]\, 2^i, \qquad \mathrm{Right} = \sum_{i=0}^{n-h-1} t[h{+}i]\, 2^i \]
-The Thiele Machine simulates Minsky using its reversible ALU. Hence:
-\[ \mathrm{TM} \preceq \mathrm{Minsky} \preceq \mathrm{Thiele} \]
-\end{theorem}
-
 \section{Strict Containment}
 
 \begin{theorem}[Turing $\subsetneq$ Thiele {\normalfont (kernel/Subsumption.v)}]
@@ -413,47 +360,10 @@ Classical Turing computation is \textbf{properly extended} by sighted Thiele com
 \[ \exists\, p.\; \mathrm{sighted}(p) \wedge \neg\mathrm{turing}(p) \]
 There exist programs that are Thiele-computable (using partition structure and $\mu$-accounting) but are not classical Turing programs. The extra structure is genuine new content.
 \end{theorem}
-
-\begin{theorem}[Semantic Strictness {\normalfont (ThieleFoundations.v --- reference-only)}]
-There exist Thiele traces with identical Turing shadows but non-isomorphic Thiele-level behavior. The partition and $\mu$ layers carry information not present in the Turing skeleton.
-\end{theorem}
-
-\section{Halting Undecidability}
-\begin{theorem}[Diagonal Argument {\normalfont (kernel/OracleImpossibility.v --- reference-only)}]
-No total computable function decides the halting problem for the Thiele Machine.
-\end{theorem}
-
 \section{Oracle Cost Lower Bound}
-\begin{theorem}[Oracle Impossibility {\normalfont (kernel/OracleImpossibility.v --- reference-only)}]
-The formalization defines a \emph{sound} oracle as one charging $\Delta\mu \ge 1$ per query (\texttt{sound\_oracle\_cost}). Given this definition:
-\begin{enumerate}
-    \item \texttt{oracle\_halts\_costs\_mu}: A zero-cost oracle violates the soundness definition ($0 \ge 1 \Rightarrow \bot$).
-    \item \texttt{oracle\_cost\_linear}: Given \texttt{sound\_oracle\_cost}, $n$ queries cost $\ge n$.
-\end{enumerate}
-These results verify the \emph{internal consistency} of the pricing definition. The physical justification for why oracle queries should cost $\mu > 0$ comes from the No Free Insight framework (gaining information about undecidable propositions should cost something), but the Coq proofs verify the narrower claim that the pricing is self-consistent.
+\begin{theorem}[Oracle pricing self-consistency (conceptual; not separately formalized)]
+Inside the No Free Insight framework, the universal lower bound on certification cost (\texttt{universal\_nfi\_any\_substrate} in \texttt{coq/kernel/UniversalCertificationCost.v}) immediately implies that any sound oracle satisfying the one-step rule \texttt{cs\_cert\_costs} (cost $\ge 1$ on any uncertified-to-certified transition) charges $\ge n$ for $n$ certifying queries. There is no separate oracle-impossibility file in the codebase; the oracle case is a direct instantiation of the universal theorem at a \texttt{CertificationSystem} whose state encodes oracle responses. The physical justification for charging $\mu > 0$ on oracle queries comes from NoFI: gaining certified information about undecidable propositions has positive $\mu$-cost.
 \end{theorem}
-
-\section{Confluence}
-\begin{theorem}[Church--Rosser {\normalfont (Confluence.v --- reference-only)}]
-For any state $s$ and two independent certificates $c_1, c_2$ (targeting distinct CNF formulas), applying them in either order yields the same $\mu$-cost:
-\[ \mu(s_{12}) = \mu(s_{21}) \]
-Independent structural operations commute.
-\end{theorem}
-
-\section{Tensoriality}
-\begin{theorem}[Module Independence {\normalfont (ThieleUnificationTensor.v --- reference-only)}]
-For distinct modules $m_1 \neq m_2$, recording discoveries commutes:
-\[ \mathrm{record}(\mathrm{record}(G, m_1, e_1), m_2, e_2) \equiv_{\mathrm{ext}} \mathrm{record}(\mathrm{record}(G, m_2, e_2), m_1, e_1) \]
-Local per-module operations are tensorial.
-\end{theorem}
-
-\section{Amortized Analysis}
-\begin{theorem}[Amortization {\normalfont (AmortizedAnalysis.v --- reference-only)}]
-For a batch of $T$ instances with discovery cost $D$ and operational cost $O$ per instance:
-\[ \mathrm{total\_cost} = B \cdot D + T \cdot O \ge T \cdot O \]
-where $B$ is batch count. As $T \to \infty$, average cost $\to O$ (discovery overhead amortizes away).
-\end{theorem}
-
 \section{$\mu$-Complexity Classes}
 
 \begin{definition}[$\mu$P and $\mu$NP {\normalfont (kernel/MuComplexity.v)}]
@@ -479,7 +389,7 @@ For every $k \geq 1$, the $\mu$-dimension admits a strict hierarchy:
   \item \textbf{Achievability}: there exists a trace from \texttt{init\_state} with $\mu$-cost exactly $k$ that achieves \texttt{vm\_certified = true} and \texttt{vm\_mu} $= k$.
   \item \textbf{Lower bound}: any trace from \texttt{init\_state} achieving \texttt{vm\_mu} $\geq k$ must have spent at least $k$ units of $\mu$-cost.
 \end{enumerate}
-Formally (\texttt{mu\_hierarchy\_theorem}): for every $k \geq 1$, the witness trace $[\texttt{instr\_certify}(k{-}1)]$ (cost $= S(k{-}1) = k$) certifies \texttt{init\_state} at level $k$, while no trace of $\mu$-cost $< k$ can reach $\texttt{vm\_mu} \geq k$ from \texttt{init\_state} (since $\texttt{trace\_mu\_cost} = \texttt{vm\_mu\_final} - 0 \geq k$).
+Formally (\texttt{mu\_hierarchy\_theorem}): for every $k \geq 1$, the witness trace $[\texttt{instr\_certify}(k{-}1)]$ (cost $= S(k{-}1) = k$) certifies \texttt{init\_state} at level $k$, while no trace of $\mu$-cost $< k$ can reach $\texttt{vm\_mu} \geq k$ from \texttt{init\_state} (since $\texttt{trace\_mu\_cost} = \texttt{vm\_mu}~\textit{final} - 0 \geq k$).
 
 \textbf{Corollary} (\texttt{mu\_hierarchy\_no\_upper\_bound}): no fixed $\mu$-budget suffices for all levels. The $\mu$-dimension is unbounded and non-collapsible. Zero Admitted.
 \end{theorem}
@@ -555,7 +465,7 @@ $\mathrm{Obs}(S)$ extracts the partition region structure, ignoring $\mu$.
 $\mathrm{Obs}(\sigma_\delta(S)) = \mathrm{Obs}(S)$. Shifting $\mu$ by a constant does not affect observables.
 \end{theorem}
 
-\begin{theorem}[Noether's Theorem {\normalfont (KernelNoether.v, RepresentationTheorem.v --- reference-only)}]
+\begin{theorem}[Noether's Theorem {\normalfont (\texttt{coq/kernel/KernelNoether.v})}]
 \leavevmode
 \begin{enumerate}
     \item \textbf{Forward}: States identical except for $\mu$ lie on the same gauge orbit. (This is direct from the definition: if all other fields match, the $\mu$ difference is the gauge shift.)
@@ -574,55 +484,10 @@ $\mathrm{vm\_step}(S, i, S') \implies \mu(S) \le \mu(S')$. The $\mu$-ledger neve
 %=============================================================================
 
 \begin{remark}[Part V Scope: Conditional Results and Named Axioms]
-The chapters in this part present results conditional on named physical axioms (primarily Axiom~\ref{ax:superposition}). They are marked \textbf{(C)} or \textbf{(R)} throughout. The primary unconditional quantum results — the classical CHSH bound, the algebraic Tsirelson bound, and the biconditional \texttt{thiele\_honest\_iff\_quantum\_realizable} — appear earlier (Chapters 12--13). Those are pure algebra, no physics axioms.
+The chapters in this part present results conditional on named physical axioms (linearity in the Bloch parameter for the Born rule, the second law for Landauer, and the \texttt{A\_QM} bridge for quantum realizability). They are marked \textbf{(C)} or \textbf{(R)} throughout. The primary unconditional quantum results — the classical CHSH bound, the algebraic Tsirelson bound, and the biconditional \texttt{column\_contractive\_iff\_quantum\_realizable} — appear earlier (Chapters 12--13). Those are pure algebra, no physics axioms.
 
 The results in this part are not primary claims of the project. They are explorations of what follows \emph{if} you add specific physical axioms. They demonstrate the machine's scope without making physical claims the proofs do not support.
 \end{remark}
-
-\chapter{Two-Dimensional Amplitude Space (Conditional)}
-
-\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation]
-The following derivation assumes that partition states admit \emph{amplitude} representations (superpositions), not merely classical probability distributions. This is stated as Axiom~\ref{ax:superposition}. Without it, classical probability theory ($p \in [0,1]$, one-dimensional, continuous) suffices and the 2D argument does not apply. The passage from a discrete binary partition to the continuum $S^1$ also requires a limiting process not formalized in the Coq suite. The argument does not rule out quaternionic (4D) amplitudes; it establishes 2D as the \emph{minimum} dimension for continuous superposition.
-\end{remark}
-
-\begin{axiom}[Superposition Principle]
-\label{ax:superposition}
-Partition module states admit amplitude representations: a state with $n$ classical configurations is described by $n$ real amplitudes $(a_1, \ldots, a_n)$ satisfying $\sum_i a_i^2 = 1$, where $a_i^2$ gives the probability of configuration~$i$.
-\end{axiom}
-
-Given this axiom, binary partition structure forces quantum amplitudes to live in at least two dimensions.
-
-\begin{theorem}[1D Is Insufficient {\normalfont (TwoDimensionalNecessity.v --- reference-only)}]
-A one-dimensional normalized amplitude satisfies $x^2 = 1$, hence $x \in \{+1, -1\}$. No intermediate superpositions exist.
-\end{theorem}
-
-\begin{theorem}[2D Is Necessary and Sufficient {\normalfont (TwoDimensionalNecessity.v --- reference-only)}]
-Binary partition structure requires exactly 2D amplitude space. Two-dimensional amplitudes $(a,b)$ with $a^2 + b^2 = 1$ admit a continuous family via $a = \cos\theta$, $b = \sin\theta$: the unit circle $S^1$.
-\end{theorem}
-
-\chapter{Complex Amplitudes from Norm Preservation}
-
-Zero-cost evolution must preserve the norm $a^2 + b^2 = 1$. The group of norm-preserving maps on $S^1$ is $\mathrm{SO}(2) \cong U(1)$, forcing amplitudes to be complex numbers.
-
-\begin{theorem}[Rotation Group {\normalfont (ComplexNecessity.v --- reference-only)}]
-2D rotations $R_\theta(a,b) = (a\cos\theta - b\sin\theta,\; a\sin\theta + b\cos\theta)$ satisfy:
-\begin{enumerate}
-    \item $|R_\theta(a,b)|^2 = a^2 + b^2$ (norm preservation).
-    \item $R_0 = \mathrm{id}$ (identity).
-    \item $R_{\theta_1} \circ R_{\theta_2} = R_{\theta_1 + \theta_2}$ (composition = addition).
-    \item $R_\theta^{-1} = R_{-\theta}$ (invertibility).
-\end{enumerate}
-\end{theorem}
-
-\begin{theorem}[Complex Necessity {\normalfont (ComplexNecessity.v --- reference-only)}]
-Complex multiplication by $e^{i\theta}$ is exactly 2D rotation. The norm-preserving maps on $S^1$ are exactly complex multiplications: $\mathrm{SO}(2) \cong U(1)$. Hence complex amplitudes are the \emph{minimal} structure consistent with continuous 2D superposition; higher-dimensional extensions (quaternionic, etc.) are not ruled out by this argument alone.
-\end{theorem}
-
-\begin{corollary}[Euler's Formula]
-$e^{i\theta_1} \cdot e^{i\theta_2} = e^{i(\theta_1 + \theta_2)}$.
-\end{corollary}
-
-\textbf{Derivation chain}: Binary partition $\to$ 2D amplitudes $\to$ normalization ($S^1$) $\to$ zero-cost $\Rightarrow$ norm-preserving $\Rightarrow$ $\mathrm{SO}(2) \cong U(1)$ $\Rightarrow$ complex numbers.
 
 \chapter{The Born Rule}
 
@@ -645,25 +510,8 @@ The Born rule $P(|0\rangle) = (1+z)/2$ is the \textbf{unique} probability assign
 \end{enumerate}
 Proof: Boundary conditions force $a = 1/2$, $b = 1/2$. No other solution exists.
 
-\textbf{Note:} The Coq theorem also lists a \texttt{mu\_consistent} hypothesis, but it is \textbf{unused} in the proof. The hypothesis \texttt{mu\_consistent P} unfolds to ``measurement cost $\ge 0$ for valid Bloch vectors,'' which is directly from the definition true for all states and does not constrain $P$. The linearity assumption (item~3) does all the work---it assumes the functional form $P = az+b$ and solves a 2-equation system. This is less ``deriving the Born rule from $\mu$-accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.'' The non-circular derivation from tensor consistency (\texttt{BornRuleFromSymmetry.v}, below) is the stronger result.
+\textbf{Note:} The Coq theorem also lists a \texttt{receipt\_mu\_consistent} hypothesis, but it is \textbf{unused} in the proof. The hypothesis $\texttt{receipt\_mu\_consistent}~P$ unfolds to ``measurement cost $\ge 0$ for valid Bloch vectors,'' which is directly from the definition true for all states and does not constrain $P$. The linearity assumption (item~3) does all the work---it assumes the functional form $P = az+b$ and solves a 2-equation system. This is less ``deriving the Born rule from $\mu$-accounting'' and more ``the Born rule is the unique linear rule consistent with eigenstates.''
 \end{theorem}
-
-\begin{theorem}[Born Rule from Tensor Consistency {\normalfont (BornRuleFromSymmetry.v --- reference-only/replaced; active derivation in \texttt{kernel/BornRuleLinearity.v})}]
-Let $g: [0,1] \to [0,1]$ be any function satisfying:
-\begin{enumerate}
-    \item Eigenstate consistency: $g(0) = 0$, $g(1) = 1$.
-    \item Normalization: $g(x) + g(1-x) = 1$ for all $x \in [0,1]$.
-    \item Tensor product consistency: $g(xy) = g(x) \cdot g(y)$ for $x,y \in [0,1]$.
-    \item Range: $0 \le g(x) \le 1$ for $x \in [0,1]$.
-\end{enumerate}
-Then $g(x) = x$ for all $x \in [0,1]$.
-\end{theorem}
-
-\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation — Circularity Resolved]
-The original proof (\texttt{BornRule.v}) depends on the linearity axiom (item~3): $P$ is affine in $z$. This assumption is equivalent to the Born rule restated, raising a circularity concern.
-
-The new derivation (\texttt{BornRuleFromSymmetry.v}) replaces linearity with \emph{tensor product consistency}: independent measurements yield independent outcomes, i.e., $g(xy) = g(x)g(y)$. This is a structural property of the machine, not a physics axiom. It follows from module independence proven in \texttt{ThieleUnificationTensor.v}. The proof proceeds: $g = \mathrm{id}$ on all dyadic rationals (by multiplicativity + normalization); then monotonicity + density of dyadics forces $g = \mathrm{id}$ everywhere (via the Archimedean property of $\mathbb{R}$). Zero admits.
-\end{remark}
 
 \chapter{Unitarity}
 
@@ -707,18 +555,6 @@ Let $I = x^2 + y^2 + z^2$ be the information content (purity). For a cloning ope
 \[ I_1 + I_2 \le I + \mu \]
 \end{theorem}
 
-\begin{theorem}[No-Cloning from $\mu$-Monotonicity {\normalfont (NoCloningFromMuMonotonicity.v --- reference-only/replaced; active proof in \texttt{kernel/NoCloning.v})}]
-Machine-native no-cloning using nat-valued structural content (MDL complexity). If cloning duplicates $n$ bits of structural content while producing zero new bits: $2n \le n + 0$ implies $n \le 0$. The entire proof is a single \texttt{lia} step (linear integer arithmetic). No Bloch sphere, no Hilbert space, no real analysis. Zero admits.
-\end{theorem}
-
-\begin{corollary}[Perfect Cloning Is Impossible at Zero Cost]
-$I_1 = I_2 = I$ and $\mu = 0$ implies $2I \le I$, hence $I \le 0$. Only the trivial state can be cloned for free.
-\end{corollary}
-
-\begin{corollary}[Cloning Cost]
-Perfect cloning requires $\mu \ge I$. For pure states: $\mu \ge 1$.
-\end{corollary}
-
 \begin{theorem}[Approximate Cloning {\normalfont (NoCloning.v)}]
 For fidelities $f_1, f_2$: $f_1 + f_2 \le 1 + \mu/I$. At zero cost: $f_1 + f_2 \le 1$.
 \end{theorem}
@@ -727,51 +563,16 @@ For fidelities $f_1, f_2$: $f_1 + f_2 \le 1 + \mu/I$. At zero cost: $f_1 + f_2 \
 Perfect deletion also requires $\mu \ge I$ (dual of no-cloning).
 \end{theorem}
 
-\chapter{Observation and Collapse}
-
-\section{Observation Irreversibility}
-
-\begin{theorem}[REVEAL Is Irreversible {\normalfont (ObservationIrreversibility.v --- reference-only)}]
-For $\mathrm{bits} > 0$: $\mu_{\mathrm{after}} > \mu_{\mathrm{before}}$, and the post-REVEAL state $\neq$ the pre-REVEAL state. Observation prevents recovery of the pre-measurement superposition.
-\end{theorem}
-
-\section{Collapse Determination}
-
-\begin{definition}[Partition Entropy]
-$H(P) = \log_2(\dim(P))$ where $\dim$ is the partition state dimension.
-\end{definition}
-
-\begin{theorem}[Maximum Information Implies Unique State {\normalfont (CollapseDetermination.v --- reference-only)}]
-If bits revealed $= H(P_{\mathrm{before}})$ (maximum information), then $\dim(P_{\mathrm{after}}) = 1$. The measurement fully collapses the state to a unique outcome. This is the \textbf{projection postulate}, derived rather than assumed.
-\end{theorem}
-
 \chapter{The Tsirelson Bound}
 
-\begin{definition}[Correlation $\mu$-Cost]
-$\mu_{\mathrm{corr}}(S) = 0$ if $|S| \le 2\sqrt{2}$; otherwise $\mu_{\mathrm{corr}} = |S| - 2\sqrt{2}$.
-\end{definition}
-
-\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation — Circularity Resolved]
-The original Coq proof (\texttt{TsirelsonDerivation.v} --- reference-only/replaced) encoded $2\sqrt{2}$ in the definition of $\mu_{\mathrm{corr}}$, making its derivation status \textbf{(R)}.
-
-This gap is now closed. \texttt{TsirelsonGeneral.v} derives $S^2 \le 8$ from pure algebra: a sum-of-squares identity proves each CHSH row contributes $\le 2(e_1^2 + e_2^2)$, then Cauchy--Schwarz bounds the sum by $4\sum e_i^2 \le 8$. \texttt{TsirelsonFromAlgebra.v} provides a self-contained algebraic derivation with achievability witness ($e = \pm 1/\sqrt{2}$, giving $S = 2\sqrt{2}$) and a verified rational bound ($\sqrt{8} < 5657/2000$). Zero admits in both files.
+\begin{remark}[Epistemological Status: \textbf{(S)} algebraic, no physics axioms]
+The active-corpus derivation lives in \texttt{coq/kernel/TsirelsonGeneral.v} (\texttt{tsirelson\_from\_row\_bounds}) and \texttt{coq/kernel/AlgebraicCoherence.v} (\texttt{tsirelson\_bound\_tight}); both prove the bound algebraically without encoding $2\sqrt{2}$ into any definition. \texttt{TsirelsonGeneral.v} derives $S^2 \le 8$ from pure algebra: a sum-of-squares identity proves each CHSH row contributes $\le 2(e_1^2 + e_2^2)$, then Cauchy--Schwarz bounds the sum by $4\sum e_i^2 \le 8$. \texttt{TsirelsonFromAlgebra.v} provides a self-contained algebraic derivation with achievability witness ($e = \pm 1/\sqrt{2}$, giving $S = 2\sqrt{2}$) and a verified rational bound ($\sqrt{8} < 5657/2000$). Zero admits in both files.
 \end{remark}
 
 \begin{theorem}[Tsirelson Upper Bound for the Zero-Marginal NPA Model {\normalfont (TsirelsonQuantumModel.v, TsirelsonFromAlgebra.v)} --- \textbf{(S)}]
 If a trace is quantum-realizable in the zero-marginal NPA model (i.e., is Thiele-honest / column-contractive), then $|S_{\mathrm{CHSH}}| \le 2\sqrt{2}$.
 
 The algebraic derivation (\texttt{TsirelsonFromAlgebra.v}) proves $S^2 \le 8$ for all algebraically coherent correlators satisfying the three column-contractivity conditions, using a sum-of-squares identity and psatz. No physics premises. Pure polynomial arithmetic.
-\end{theorem}
-
-\begin{theorem}[CHSH Separation {\normalfont (Deliverable\_CHSHSeparation.v --- reference-only)} --- \textbf{(C)}]
-Strict numerical separation:
-\[ 2 \quad < \quad 2\sqrt{2} \approx 2.828 \]
-\begin{itemize}
-    \item \textbf{Classical} (local strategies, locally factorizable): $|S| \le 2$ (classical CHSH bound, proved algebraically --- \textbf{(S)}).
-    \item \textbf{Thiele-honest / zero-marginal NPA realizable}: $|S| \le 2\sqrt{2}$ (Tsirelson bound, proved algebraically --- \textbf{(S)}). The biconditional \texttt{thiele\_honest\_iff\_quantum\_realizable} is the kernel-tier characterization of this boundary.
-    \item \textbf{Supra-quantum} ($|S| > 2\sqrt{2}$): not Thiele-honest (proved by contrapositive of Tsirelson boundary). The PR box achieves $|S|=4$ but fails column contractivity. No physical Thiele Machine experiment is claimed to have achieved $|S| > 2\sqrt{2}$; that would be a named A\_QM\_physical hypothesis.
-\end{itemize}
-The gap between 2 and $2\sqrt{2}$ is real. No locally factorizable strategy can bridge it. That is a theorem. Whether quantum hardware bridges it is an empirical question outside the scope of this document.
 \end{theorem}
 
 \chapter{Witness Insight Taxonomy}
@@ -834,70 +635,28 @@ A correlation tuple $(E_{00}, E_{01}, E_{10}, E_{11})$ is \textbf{Thiele-honest}
 These are exactly the PSD conditions on the $5 \times 5$ zero-marginal NPA moment matrix.
 \end{definition}
 
-\begin{theorem}[Thiele Honesty $\iff$ NPA Realizability {\normalfont (kernel/ThieleQuantumEquivalence.v)} --- \textbf{(S)}]
+\begin{theorem}[Thiele Honesty $\iff$ NPA Realizability {\normalfont (\texttt{coq/kernel/QuantumPartitionPSD.v}, corollary \texttt{column\_contractive\_iff\_quantum\_realizable})} --- \textbf{(S)}]
 \label{thm:thiele_honest_iff_qr}
-\texttt{thiele\_honest\_iff\_quantum\_realizable}:
+\texttt{column\_contractive\_iff\_quantum\_realizable}:
 \[
 \text{thiele\_honest}(\mathbf{E}) \iff \text{quantum\_realizable}(\mathbf{E})
 \]
 where \emph{thiele\_honest} means the three column-contractivity conditions hold, and \emph{quantum\_realizable} means the $5\times5$ zero-marginal NPA moment matrix is positive semidefinite.
 
-\textbf{Forward direction} (\texttt{A\_QM\_thiele}): column-contractive $\Rightarrow$ NPA PSD. Proved by constructing the Cholesky decomposition of the $5\times5$ matrix from the three conditions.
+\textbf{Forward direction} (\texttt{zero\_marginal\_npa\_column\_contractive\_implies\_psd} in \texttt{coq/kernel/MuLedgerQuantumBridge.v}): column-contractive $\Rightarrow$ NPA PSD. Proved by constructing the Cholesky decomposition of the $5\times5$ matrix from the three conditions.
 
-\textbf{Reverse direction} (\texttt{quantum\_realizable\_implies\_thiele\_honest}): NPA PSD $\Rightarrow$ column-contractive. Proved by specializing the PSD condition at the vector $(0, -(E_{00}y_0+E_{01}y_1), -(E_{10}y_0+E_{11}y_1), y_0, y_1)$, obtaining a non-negative quadratic in $y_0, y_1$, then closing via \texttt{quadratic\_nonneg\_discriminant}.
+\textbf{Reverse direction} (\texttt{npa\_psd\_implies\_column\_contractive} in \texttt{coq/kernel/QuantumPartitionPSD.v}): NPA PSD $\Rightarrow$ column-contractive. Proved by specializing the PSD condition at the vector $(0, -(E_{00}y_0+E_{01}y_1), -(E_{10}y_0+E_{11}y_1), y_0, y_1)$, obtaining a non-negative quadratic in $y_0, y_1$, then closing via \texttt{quadratic\_nonneg\_discriminant}.
 
 This is a zero-axiom biconditional. No physics assumptions. Pure polynomial arithmetic. The zero-marginal NPA framework is the orthogonal-observables slice of the quantum elliptope ($\rho_{AA}=\rho_{BB}=0$), not the full elliptope.
 
 Key consequences:
 \begin{itemize}
-\item \texttt{pr\_box\_not\_thiele\_honest}: PR box $(E_{00}=E_{01}=E_{10}=1, E_{11}=-1)$ fails condition 1 immediately ($1-1-1=-1<0$).
-\item \texttt{tsirelson\_is\_thiele\_boundary}: Thiele-honest $\Rightarrow$ $|S| \leq 2\sqrt{2}$; and $|S| > 2\sqrt{2}$ $\Rightarrow$ not Thiele-honest. The converse is false and is not claimed.
-\item \texttt{turing\_machine\_has\_free\_correlations}: $(1,0,1,0)$ satisfies $|S|=2$ but fails condition 1. A Turing machine can output this correlation; the Thiele Machine rejects it as dishonest.
+\item PR box $(E_{00}=E_{01}=E_{10}=1, E_{11}=-1)$ fails condition 1 immediately ($1-1-1=-1<0$). Direct arithmetic; no separate theorem needed.
+\item \texttt{state\_column\_contractive\_implies\_tsirelson} (\texttt{coq/kernel/MuLedgerQuantumBridge.v}) directly proves Thiele-honest $\Rightarrow$ $|S|^2 \leq 8$ (equivalently $|S| \leq 2\sqrt{2}$); its proof composes \texttt{state\_column\_contractive\_implies\_quantum\_gram} with \texttt{quantum\_realizable\_implies\_tsirelson\_bound}. The Cauchy--Schwarz inner step (PSD $\Rightarrow$ row bounds $\Rightarrow$ $|S|^2 \leq 8$) is \texttt{tsirelson\_from\_row\_bounds} in \texttt{coq/kernel/TsirelsonGeneral.v}. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not Thiele-honest) follows immediately. The converse is false and is not claimed.
+\item Turing-classical correlations $(1,0,1,0)$ satisfy $|S|=2$ but fail condition 1: $1-1-1=-1<0$. A Turing machine can output this correlation; the Thiele Machine rejects it as dishonest. Direct arithmetic from \texttt{column\_contractive\_iff\_quantum\_realizable}.
 \end{itemize}
 Zero Admitted. Zero named hypotheses.
 \end{theorem}
-
-\chapter{The Schr\"odinger Equation (Conditional)}
-
-\begin{theorem}[Emergent Schr\"odinger {\normalfont (EmergentSchrodinger.v --- reference-only)}]
-The finite-difference Schr\"odinger equation emerges from the partition update rules. For a two-component amplitude state $(a,b)$ with mass $m$, potential $V$, and time step $\Delta t$:
-\begin{align}
-    a(t+\Delta t) &= a - \frac{\Delta t}{2m} \nabla^2 b + \Delta t \cdot Vb \\
-    b(t+\Delta t) &= b + \frac{\Delta t}{2m} \nabla^2 a - \Delta t \cdot Va
-\end{align}
-The coupling is \textbf{antisymmetric}: $c_{a,\nabla^2 b} = -c_{b,\nabla^2 a}$ and $c_{a,Vb} = -c_{b,Va}$, which is necessary and sufficient for probability conservation $\partial_t(a^2 + b^2) = 0$.
-\end{theorem}
-
-\begin{remark}[Epistemological Status: \textbf{(C)} Conditional Derivation]
-This is exactly the finite-difference discretization of $i\hbar \partial_t \psi = -\frac{\hbar^2}{2m}\nabla^2\psi + V\psi$ with $\psi = a + ib$. The Schr\"odinger form emerges \emph{conditionally}: given Axiom~\ref{ax:superposition} (which entails 2D amplitudes) and the requirement that zero-cost evolution preserves probability ($\partial_t(a^2+b^2)=0$), the antisymmetric coupling structure is the unique linear solution. The mass $m$ and potential $V$ are parameters, not derived.
-\end{remark}
-
-\chapter{Planck's Constant}
-
-\begin{remark}[Epistemological Status: \textbf{(R)} Consistency Relation]
-The following is \textbf{not} a derivation of Planck's constant from first principles. It is a consistency relation that gives $h$ a physical interpretation within the $\mu$-framework. The Coq proof verifies an algebraic identity; the physics is in the definitions.
-\end{remark}
-
-\begin{definition}[Physical Constants (Normalized Units)]
-$k_B = 1/100$, \; $T = 1$, \; $h = 1$. Landauer energy: $E_L := k_B T \ln 2$.
-\end{definition}
-
-\begin{definition}[Computational Time Step]
-$\tau_\mu := h / (4 E_L)$, the Margolus--Levitin time at Landauer energy.
-\end{definition}
-
-\begin{theorem}[Planck Consistency Relation {\normalfont (PlanckDerivation.v --- reference-only)} --- \textbf{(R)}]
-\[ h = 4 \cdot E_L \cdot \tau_\mu \]
-\end{theorem}
-
-\begin{remark}[Why This Is Circular]
-Substituting $\tau_\mu = h/(4E_L)$ yields $h = 4 E_L \cdot h/(4E_L) = h$. The Coq proof reduces to the \texttt{field} tactic (pure algebra). This does \emph{not} predict~$h$; it defines $\tau_\mu$ in terms of $h$ and verifies consistency.
-
-\textbf{What the relation does provide}: a physical interpretation of Planck's constant as $4\times$ the action (energy $\times$ time) of one $\mu$-bit operation at Landauer cost. If taken as a physical claim, the testable content is the predicted time step $\tau_\mu = h/(4 k_B T \ln 2)$, which at room temperature yields $\tau_\mu \approx 5.7 \times 10^{-14}\,\mathrm{s}$ (femtosecond range, consistent with molecular vibration timescales).
-
-\textbf{What would make this non-circular}: defining $\tau_\mu$ as an independent primitive (measured experimentally) and then \emph{deriving} $h = 4 E_L \tau_\mu$ as a \emph{prediction}. The current formalization does not do this.
-\end{remark}
-
 %=============================================================================
 % PART VI: EMERGENT STRUCTURE
 %=============================================================================
@@ -931,7 +690,7 @@ If module $M_B$ is not in the target set of any instruction in a trace, then $M_
 \end{theorem}
 
 \begin{remark}
-This is a \textbf{data isolation} property: operations targeting module $A$ in the partition graph do not affect the lookup of module $B$. The proof is structural (list operations on disjoint keys), non-trivial mainly for \texttt{psplit}/\texttt{pmerge} which restructure the graph. The label ``no-signaling'' is an analogy---there is no spatial metric or speed limit between modules.
+This is a \textbf{data isolation} property: operations targeting module $A$ in the partition graph do not affect the lookup of module $B$. The proof is structural (list operations on disjoint keys), non-trivial mainly for \texttt{instr\_psplit}/\texttt{instr\_pmerge} which restructure the graph. The label ``no-signaling'' is an analogy---there is no spatial metric or speed limit between modules.
 \end{remark}
 
 \section{Discrete Geometry: The Gauss-Bonnet Result}
@@ -939,13 +698,21 @@ This is a \textbf{data isolation} property: operations targeting module $A$ in t
 
 The partition graph is a discrete geometric object. One unconditional result falls out, requiring no physics axioms.
 
-\begin{theorem}[Discrete Gauss-Bonnet {\normalfont (DiscreteCurvatureGaussBonnet.v)} --- \textbf{(S)}]
+\begin{theorem}[Discrete Angle-Defect Identity (Planar Triangulations) {\normalfont (\texttt{coq/kernel/DiscreteGaussBonnet.v})} --- \textbf{(S)}]
 For any \texttt{well\_formed\_triangulated} partition graph $g$ in the equilateral angle model (each triangle corner contributes $\pi/3$):
 \[
 \mathrm{angle\_defect}(g) = 5\pi \cdot \chi(g)
 \]
-where $\chi(g) = V - E + F$ is the Euler characteristic (vertices minus edges plus faces), and $\mathrm{angle\_defect}(g)$ is the sum over all vertices of $2\pi$ minus the total incident angle. This is a fully proven combinatorics result about the discrete triangulation model. It is not the continuum Gauss-Bonnet theorem and it is not a derivation of angles from $\mu$-cost. Zero Admitted. This is the full extent of the geometry result in the project.
+where $\chi(g) = V - E + F$ is the Euler characteristic (vertices minus edges plus faces), and $\mathrm{angle\_defect}(g)$ is the sum over all vertices of $2\pi$ minus the total incident angle. This is a fully proven combinatorics result about the discrete triangulation model. It is not the continuum Gauss-Bonnet theorem and it is not a derivation of angles from $\mu$-cost. Zero Admitted.
 \end{theorem}
+
+\begin{remark}[How this differs from classical Gauss-Bonnet]
+\textbf{The factor $5\pi$ is not a typo and not the classical Gauss-Bonnet constant.} For a closed triangulated 2-manifold (like the surface of a tetrahedron), the standard derivation gives $D = 2\pi\chi$: every interior edge is shared by exactly two faces, so $3F = 2E$, and substituting that into $D = 2\pi V - \pi F$ together with $\chi = V - E + F$ yields $D = 2\pi\chi$. The Coq predicate \texttt{well\_formed\_triangulated} does \emph{not} include $3F = 2E$. It instead requires \texttt{satisfies\_boundary\_euler\_relation} ($B = 3\chi$, where $B$ is the boundary edge count) together with $E = I + B$ and $3F = 2I + B$. From these the file derives the combinatorial identity $3V = 5E - 6F$, which in turn forces $D = 5\pi\chi$.
+
+That identity holds for \textbf{planar triangulations with boundary} (the canonical example: a planar disk with $V=7$, $E=15$, $F=9$, $\chi=1$, satisfying $3V = 21 = 5E - 6F$ and $D = 5\pi$). It \textbf{fails} for closed surfaces (the tetrahedron has $V=4$, $E=6$, $F=4$, but $3V = 12 \neq 6 = 5E - 6F$, so it is excluded from the predicate). The theorem is therefore not a discrete Gauss-Bonnet theorem in the classical sense — it is a different combinatorial identity for a different family of complexes. The two coexist: classical Gauss-Bonnet at $2\pi\chi$ for closed 2-manifolds, the file's identity at $5\pi\chi$ for planar disks satisfying its well-formedness predicate.
+
+This is the full extent of the geometry result in the project.
+\end{remark}
 
 \section{Four-Dimensional Spacetime Geometry (Reference Only, Not a Main Claim)}
 
@@ -1150,7 +917,7 @@ Direct computation:
 \end{itemize}
 \end{proof}
 
-\begin{theorem}[Vacuum Case: Both Sides Are Zero {\normalfont (EinsteinEquations4D.v, reference-only)} --- \textbf{(R)}]
+\begin{theorem}[Vacuum Case: Both Sides Are Zero {\normalfont (\texttt{coq/kernel/EinsteinEquations4D.v})} --- \textbf{(R)}]
 \label{thm:einstein_main}
 For any VM state $s$, 4D simplicial complex $\mathcal{K}$, spacetime indices $\mu, \nu$, and vertex $v$:
 \begin{equation}
@@ -1200,11 +967,11 @@ The vacuum case is sufficient to demonstrate that spacetime curvature emerges fr
 \end{remark}
 
 \begin{remark}[Epistemological Status: \textbf{(R)} Consistency Relation]
-This is a \textbf{(R)} result: the vacuum theorem reduces to $0 = 0$ (both sides vanish when all masses are zero; the gravitational constant is a definition). It establishes that the discrete geometric objects are internally consistent in the zero-mass case. It does \emph{not} establish that spacetime geometry emerges from computation in any physically meaningful sense; that would require the A\_QM\_physical named hypothesis and is an open empirical question. The non-vacuum case (the full Einstein field equations for arbitrary mass distributions) is not proved and is not a claim of this project.
+This is a \textbf{(R)} result: the vacuum theorem reduces to $0 = 0$ (both sides vanish when all masses are zero; the gravitational constant is a definition). It establishes that the discrete geometric objects are internally consistent in the zero-mass case. It does \emph{not} establish that spacetime geometry emerges from computation in any physically meaningful sense; that would require the A\_QM named hypothesis and is an open empirical question. The non-vacuum case (the full Einstein field equations for arbitrary mass distributions) is not proved and is not a claim of this project.
 \end{remark}
 
 \begin{remark}
-The discrete geometric objects (metric, curvature, Einstein tensor) are defined from computational primitives. In the vacuum case (all masses zero) they all reduce to zero. This is a consistency check, not a derivation of spacetime emergence. The claim that spacetime geometry is an emergent property of computation would require more: a non-trivial non-vacuum case, a connection to physical observations, and the named A\_QM\_physical bridge. None of those are present here.
+The discrete geometric objects (metric, curvature, Einstein tensor) are defined from computational primitives. In the vacuum case (all masses zero) they all reduce to zero. This is a consistency check, not a derivation of spacetime emergence. The claim that spacetime geometry is an emergent property of computation would require more: a non-trivial non-vacuum case, a connection to physical observations, and the named A\_QM bridge. None of those are present here.
 \end{remark}
 
 \subsection{Empirical Validation}
@@ -1291,21 +1058,6 @@ The intended statement — that Bob's total information about Alice's data is bo
 
 \textbf{Caveat on item~3}: The \texttt{PhysicalErasure} record has \texttt{second\_law\_satisfied} as a \textbf{field}, not a derived property. The theorem \texttt{landauer\_information\_bound} simply extracts this field, making the bound an \emph{input assumption} rather than a derivation. The physical energy bound $Q \ge k_B T \ln 2 \cdot n$ is \textbf{explicitly not proven} (the file itself notes the conversion factor is not formalized). Also, the \texttt{mu} in this file is a standalone synonym for \texttt{bits\_erased}---it has no formal connection to \texttt{vm\_mu} in \texttt{VMState.v}.
 \end{theorem}
-
-\section{Dissipative Embedding}
-
-\begin{theorem}[Dissipative Model {\normalfont (DissipativeEmbedding.v --- reference-only)}]
-Irreversible (dissipative) physics embeds into the Thiele VM with $\Delta\mu \ge 1$ per irreversible step. Reversible physics embeds with $\Delta\mu = 0$.
-\end{theorem}
-
-\begin{theorem}[Reversible Physics {\normalfont (PhysicsEmbedding.v --- reference-only, WaveEmbedding.v --- reference-only)}]
-Reversible lattice gas and wave models embed with $\mu_{\mathrm{final}} = \mu_{\mathrm{init}}$ (zero cost). Particle count, momentum, wave energy, and wave momentum are conserved by the VM.
-\end{theorem}
-
-%=============================================================================
-% PART VII: META-THEORY
-%=============================================================================
-
 \chapter{Self-Reference and the Thiele Manifold}
 
 \section{Self-Reference Escalation}
@@ -1336,18 +1088,6 @@ The projection $\pi_4$ collapses the tower to dimension 4 (spacetime). For $n > 
 \end{itemize}
 Spacetime is the ``shadow'' of the full manifold.
 \end{theorem}
-
-\section{Genesis: Process--Machine Isomorphism}
-
-\begin{theorem}[Genesis {\normalfont (Genesis.v --- reference-only)}]
-There is a definitional isomorphism $\mathrm{Proc} \cong \mathrm{Thiele}$ between coherent processes (step + admissibility proof) and Thiele machines:
-\begin{align}
-    \mathrm{thiele\_to\_proc}(\mathrm{proc\_to\_thiele}(P)) &= P \\
-    \mathrm{proc\_to\_thiele}(\mathrm{thiele\_to\_proc}(T, H)) &= T
-\end{align}
-Any coherent process \emph{is} a Thiele machine, and vice versa.
-\end{theorem}
-
 \chapter{Three-Layer Isomorphism}
 
 \begin{theorem}[Observable Comparison Contract {\normalfont (ThreeLayerIsomorphism.v)}]
@@ -1373,12 +1113,12 @@ equal to Coq in all CI environments.
 \texttt{rtl\_gap\_count}: The RTL gap registry is empty. There are zero unresolved coverage gaps between the Kami hardware specification and the Coq kernel semantics:
 \[ \texttt{rtl\_gap\_count} = 0 \]
 \texttt{rtl\_coverage\_partition}: The 46-opcode ISA partitions as:
-\[ 30\ (\text{fully unconditional}) + 6\ (\text{argument-validity conditional}) + 7\ (\text{unconditional for KamiReachable}) + 3\ (\text{semantic-boundary}) + 0\ (\text{gaps}) = 46 \]
-This is a Coq theorem, not a comment. The partition equation is machine-checked. Zero Admitted.
+\[ 36\ (\text{unconditional Qed}) + 10\ (\text{Qed under inductive invariants } \texttt{coupling\_wf},~\texttt{morph\_table\_wf}) + 0\ (\text{gaps}) = 46 \]
+This is a Coq theorem (\texttt{rtl\_coverage\_partition} in \texttt{coq/kami\_hw/RTLGapRegistry.v}), not a comment. The partition equation is machine-checked. Zero Admitted.
 \end{theorem}
 
 \begin{remark}
-The 30 fully unconditional proofs cover the SupportedOpcode group. The 6 argument-validity conditionals are CALL, RET, CHSH\_TRIAL (\texttt{EmbedStep\_WF.v}), TENSOR\_SET, TENSOR\_GET, LASSERT (\texttt{GraphReconstructionBridge.v}). The 7 KamiReachable-unconditional proofs cover MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR, MORPH, MORPH\_ID (\texttt{HardwareReachability.v}): these are unconditional for any state reachable from hardware reset. The 3 semantic-boundary opcodes are PNEW, PSPLIT, PMERGE, where hardware and VM differ on zero-size modules in ways no condition closes without changing semantics.
+The official partition (\texttt{rtl\_coverage\_partition} in \texttt{coq/kami\_hw/RTLGapRegistry.v}) is $36 + 10 + 0 = 46$. The 36 unconditional proofs are: 30 from the SupportedOpcode group (\texttt{coq/kami\_hw/EmbedStep.v}: \texttt{embed\_step\_compute}) plus CALL, RET, CHSH\_TRIAL (\texttt{coq/kami\_hw/EmbedStep\_WF.v}) and TENSOR\_SET, TENSOR\_GET, LASSERT (\texttt{coq/kernel/GraphReconstructionBridge.v}). The remaining 10 (PNEW, PSPLIT, PMERGE, MORPH, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR) carry Qed proofs under the joint structural invariant \texttt{morph\_table\_wf} $\wedge$ \texttt{coupling\_wf} $\wedge$ \texttt{coupling\_desc\_safe}. Each component is preserved by every \texttt{kami\_step}: \texttt{morph\_table\_wf\_kami\_step\_preserved}, \texttt{coupling\_desc\_safe\_kami\_step\_preserved}, and \texttt{coupling\_wf\_kami\_step\_preserved}. The last takes \texttt{coupling\_desc\_safe} as a side hypothesis (in addition to \texttt{coupling\_wf}), which is why the conjunction is the actual inductive invariant. So the precondition is discharged for any state reachable by machine execution. PNEW/PSPLIT/PMERGE additionally need \texttt{pt\_well\_formed} and arithmetic side conditions that are likewise inductive.
 \end{remark}
 
 \section{Named Trust Boundaries}
@@ -1386,34 +1126,10 @@ The 30 fully unconditional proofs cover the SupportedOpcode group. The 6 argumen
 The project has exactly two named trust boundaries. They are not Admitted proofs. They are explicit, auditable limits of the formal claim.
 
 \begin{description}
-\item[\texttt{bsc\_kami\_compilation\_trusted} (Layer 2, Verilog semantics gap).] The Bluespec SystemVerilog compiler generates Verilog from the Kami hardware specification. The correctness of the BSC compilation step — that the generated Verilog implements exactly the Kami spec — is trusted, not proved in Coq. This is documented in \texttt{VerilogSemantics.v} under the \texttt{BSCTrustBoundary} section. The theorem \texttt{end\_to\_end\_rtl\_kernel\_correctness} holds for KamiReachable states under this named boundary. The boundary is empirically backed by 31/31 cosim tests and 11,049 fuzz tests.
+\item[\texttt{bsc\_kami\_compilation\_trusted} (Layer 2, Verilog semantics gap).] The Bluespec SystemVerilog compiler generates Verilog from the Kami hardware specification. The correctness of the BSC compilation step — that the generated Verilog implements exactly the Kami spec — is trusted, not proved in Coq. This is documented in \texttt{coq/kernel/VerilogRTLCorrespondence.v} (Section~2b, ``BSC Compilation Trust Boundary'') and the matching \texttt{Definition bsc\_kami\_compilation\_trusted}. The Section Variable \texttt{rtl\_step\_correct} states that the synthesised RTL implements the Kami step function; this is the residual hypothesis that every theorem in the section quantifies over. The boundary is empirically backed by the cosim suite (\texttt{tests/test\_verilog\_cosim.py}, 38 tests, including \texttt{test\_all\_46\_opcodes\_in\_cosim} which checks that every opcode appears) and the parametrized cross-layer fuzz suites (\texttt{tests/test\_fuzz\_random\_programs.py} and \texttt{tests/test\_cross\_layer\_adversarial\_fuzz.py}).
 
-\item[\texttt{A\_QM\_physical} (physical quantum axiom).] Whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware is an open empirical question. The \texttt{thiele\_honest\_iff\_quantum\_realizable} biconditional (Theorem~\ref{thm:thiele_honest_iff_qr}) requires no physical axiom — it is pure algebra. The physical quantum axiom A\_QM\_physical is the separate named hypothesis that the quantum experiments described by the NPA model are physically realizable. It does not appear in the kernel-tier proof of the biconditional.
+\item[\texttt{A\_QM} (physical quantum axiom).] Whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware is an open empirical question. The \texttt{column\_contractive\_iff\_quantum\_realizable} biconditional (Theorem~\ref{thm:thiele_honest_iff_qr}) requires no physical axiom — it is pure algebra. The physical quantum axiom \texttt{A\_QM} (declared as a \texttt{Context} parameter in \texttt{coq/PhysicsConditionalClosure.v}) is the separate named hypothesis that quantum CHSH experiments produce PSD NPA matrices. It does not appear in the kernel-tier proof of the biconditional; it is the bridge used in conditional theorems such as \texttt{master\_tsirelson\_conditional}.
 \end{description}
-
-\chapter{The Curry--Howard--Thiele Correspondence}
-
-\begin{theorem}[Logic--Computation Isomorphism {\normalfont (LogicIsomorphism.v --- reference-only)}]
-The Thiele Machine extends the Curry--Howard correspondence:
-\begin{center}
-\begin{tabular}{lll}
-\textbf{Logic} & \textbf{Computation} & \textbf{Thiele} \\
-\hline
-Proposition & Type & Partition \\
-Proof & Program (term) & Trace \\
-Cut elimination & $\beta$-reduction & Execution ($\mathrm{Run}$) \\
-Proof equivalence & $=_\beta$ & Execution equivalence \\
-\end{tabular}
-\end{center}
-A valid proof corresponds to a terminating execution. Proof equivalence $\Leftrightarrow$ execution equivalence.
-\end{theorem}
-
-\begin{theorem}[Logic Is Physics {\normalfont (LogicToPhysics.v --- reference-only)}]
-Cut elimination in logic = relational composition in physics:
-\[ \mathrm{interp}(\mathrm{cut}(\pi_1, \pi_2)) = \mathrm{rel\_comp}(\mathrm{interp}(\pi_1), \mathrm{interp}(\pi_2)) \]
-Logical proof composition maps to physical relation composition. This is the formal nucleus of the claim that logic and physics share the same categorical structure.
-\end{theorem}
-
 \chapter{Categorical Structure}
 \label{ch:categorical}
 
@@ -1489,30 +1205,6 @@ A classical machine (exposing only registers, memory, and a cost counter) cannot
 
 This is the machine's claim to being a \emph{knowledge auditor}: any party claiming to have verified a structural relation must carry a $\mu$-receipt $\geq$ the minimum construction cost. The receipt is unforgeable by the NoFI theorem applied to $\texttt{MORPH\_ASSERT}$.
 \end{remark}
-
-\section{The Conservation as Functor (Archived)}
-
-\begin{theorem}[Conservation as Functor {\normalfont (Universe.v --- reference-only)}]
-Define two categories:
-\begin{itemize}
-    \item $\mathbf{C}_{\mathrm{phys}}$: Objects $=$ universe states (particle momenta lists). Morphisms $=$ paths of momentum-conserving interactions.
-    \item $\mathbf{C}_{\mathrm{logic}}$: Objects $=$ total momentum values. Morphisms $=$ equality proofs.
-\end{itemize}
-The functor $F: \mathbf{C}_{\mathrm{phys}} \to \mathbf{C}_{\mathrm{logic}}$ maps $F(s) = \sum s$ (total momentum). Then:
-\[ \mathrm{Path}(s_1, s_2) \implies \sum s_1 = \sum s_2 \]
-Conservation of momentum emerges as the functorial image. Observation is a structure-preserving map from physics to logic.
-\end{theorem}
-
-\chapter{Audit Infrastructure}
-
-\begin{theorem}[CatNet Integrity {\normalfont (CatNet.v --- reference-only)}]
-Adding a new entry to a valid hash-chain audit log produces a valid chain. If the logic oracle detects inconsistency, execution halts and no further entries are written (paradox halting).
-\end{theorem}
-
-%=============================================================================
-% PART VIII: PREDICTIONS
-%=============================================================================
-
 \chapter{Falsifiable Predictions}
 
 The honest falsifiable predictions are the structural theorems that compile or fail. The claims below identify specific mathematical conditions that would constitute counterexamples to the machine's core theorems.
@@ -1527,7 +1219,7 @@ Exhibit a locally factorizable strategy achieving $|S| > 2$. This contradicts \t
 
 \section{Falsify the Biconditional}
 
-Exhibit $E_{00}, E_{01}, E_{10}, E_{11}$ satisfying the three column-contractivity conditions but with a non-PSD NPA moment matrix. The theorem \texttt{thiele\_honest\_iff\_quantum\_realizable} says no such example exists.
+Exhibit $E_{00}, E_{01}, E_{10}, E_{11}$ satisfying the three column-contractivity conditions but with a non-PSD NPA moment matrix. The theorem \texttt{column\_contractive\_iff\_quantum\_realizable} says no such example exists.
 
 \section{Falsify the $\mu$-Hierarchy}
 
@@ -1549,108 +1241,90 @@ Find $k \geq 1$ and a trace reaching \texttt{vm\_certified = true} and $\texttt{
 \appendix
 \chapter{Proof File Index}
 
-The table below maps each theorem to its Coq source file. Entries marked \emph{--- reference-only} are theoretical results that belong to an extended corpus; the corresponding Coq files are not present in the active kernel tree and their proofs are not machine-checked in the current build. Everything unmarked lives in the active corpus and compiles clean.
+The table below maps each theorem to its Coq source file. Every path listed is a file that exists in the active kernel tree (\texttt{coq/}) and compiles to a \texttt{.vo} on the current build. Concepts that previously appeared here under speculative paths (e.g.\ \texttt{theory/}, \texttt{thielemachine/coqproofs/}, \texttt{quantum\_derivation/}, \texttt{physics\_exploration/}) have been removed: they were aspirational citations from an earlier project layout that never made it into the active corpus, and the audit script (\texttt{scripts/audit\_thesis\_citations.py}) now flags such citations on every commit.
 
 \begin{center}
 \small
 \begin{tabular}{ll}
 \textbf{Result} & \textbf{Coq Source} \\
 \hline
-No Free Insight (Thm.~\ref{thm:nfi}) & \texttt{nofi/NoFreeInsight\_Theorem.v} \\
-$\mu$-Chaitin & \texttt{nofi/MuChaitinTheory\_Theorem.v} \\
-Cost = Complexity & \texttt{theory/CostIsComplexity.v} \\
-No Free Lunch & \texttt{theory/NoFreeLunch.v} \\
-No Arbitrage & \texttt{kernel/NoArbitrage.v} \\
-TM Embedding & \texttt{thielemachine/coqproofs/Embedding\_TM.v} \\
-TM $\to$ Minsky & \texttt{modular\_proofs/TM\_to\_Minsky.v} \\
-Strict Subsumption & \texttt{thielemachine/coqproofs/Subsumption.v} \\
-Semantic Strictness & \texttt{thielemachine/coqproofs/ThieleFoundations.v} \\
-Confluence & \texttt{thielemachine/coqproofs/Confluence.v} \\
-Tensoriality & \texttt{thielemachine/coqproofs/ThieleUnificationTensor.v} \\
-$\mu$-Conservation & \texttt{kernel/MuLedgerConservation.v} \\
-Receipt Integrity & \texttt{kernel/ReceiptIntegrity.v} \\
-Noether / Gauge & \texttt{kernel/KernelNoether.v} \\
-Gauge Trace Preservation & \texttt{thielemachine/coqproofs/RepresentationTheorem.v} \\
-2D Necessity & \texttt{quantum\_derivation/TwoDimensionalNecessity.v} \\
-Complex Necessity & \texttt{quantum\_derivation/ComplexNecessity.v} \\
-Born Rule & \texttt{kernel/BornRule.v} \\
-Born Rule (Tensor) & \texttt{kernel/BornRuleFromSymmetry.v} \\
-Unitarity & \texttt{kernel/Unitarity.v} \\
-Purification & \texttt{kernel/Purification.v} \\
-No-Cloning & \texttt{kernel/NoCloning.v} \\
-No-Cloning (Machine-Native) & \texttt{kernel/NoCloningFromMuMonotonicity.v} \\
-Observation Irreversibility & \texttt{quantum\_derivation/ObservationIrreversibility.v} \\
-Collapse Determination & \texttt{quantum\_derivation/CollapseDetermination.v} \\
-Tsirelson Derivation & \texttt{kernel/TsirelsonDerivation.v} \\
-Tsirelson (Algebraic) & \texttt{kernel/TsirelsonFromAlgebra.v} \\
-Tsirelson (General) & \texttt{kernel/TsirelsonGeneral.v} \\
-CHSH Separation & \texttt{thielemachine/verification/Deliverable\_CHSHSeparation.v} \\
-Emergent Schr\"odinger & \texttt{physics\_exploration/EmergentSchrodinger.v} \\
-Planck Consistency & \texttt{physics\_exploration/PlanckDerivation.v} \\
-Spacetime Emergence & \texttt{kernel/SpacetimeEmergence.v} \\
-$\mu$-Geometry & \texttt{kernel/MuGeometry.v} \\
-4D Simplicial Complex & \texttt{kernel/FourDSimplicialComplex.v} \\
-Metric from $\mu$-Costs & \texttt{kernel/MetricFromMuCosts.v} \\
-Riemann Curvature Tensor & \texttt{kernel/RiemannTensor4D.v} \\
-Christoffel Symbols & \texttt{kernel/RiemannTensor4D.v} \\
-Einstein Tensor & \texttt{kernel/RiemannTensor4D.v} \\
-Stress-Energy Tensor & \texttt{kernel/EinsteinEquations4D.v} \\
-Curvature from $\mu$-Gradients & \texttt{kernel/EinsteinEquations4D.v} \\
-Stress-Energy Conservation & \texttt{kernel/EinsteinEquations4D.v} \\
-Einstein Equations (Vacuum) & \texttt{kernel/EinsteinEquations4D.v} \\
-Einstein Equations (General) & \texttt{kernel/EinsteinEquationsFull.v} \\
-Discrete Gauss-Bonnet & \texttt{kernel/DiscreteCurvatureGaussBonnet.v} \\
-Discrete Gaussian Curvature (reference) & \texttt{kernel/MetricFromMuCosts.v} \\
-Information Causality & \texttt{kernel/InformationCausality.v} \\
-Landauer & \texttt{thermodynamic/LandauerDerived.v} \\
-Dissipative Embedding & \texttt{thielemachine/coqproofs/DissipativeEmbedding.v} \\
-Physics Embedding & \texttt{thielemachine/coqproofs/PhysicsEmbedding.v} \\
-Wave Embedding & \texttt{thielemachine/coqproofs/WaveEmbedding.v} \\
-Self-Reference & \texttt{self\_reference/SelfReference.v} \\
-Thiele Manifold & \texttt{thiele\_manifold/ThieleManifold.v} \\
-Genesis & \texttt{theory/Genesis.v} \\
-Full Isomorphism & \texttt{kernel/ThreeLayerIsomorphism.v} \\
-Curry--Howard--Thiele & \texttt{thielemachine/coqproofs/LogicIsomorphism.v} \\
-Logic Is Physics & \texttt{theory/LogicToPhysics.v} \\
-Functor Soundness & \texttt{isomorphism/coqproofs/Universe.v} \\
-CatNet Integrity & \texttt{catnet/coqproofs/CatNet.v} \\
-Amortization & \texttt{thielemachine/coqproofs/AmortizedAnalysis.v} \\
-Optimal Quartet & \texttt{theory/ArchTheorem.v} \\
-Falsifiable Prediction & \texttt{kernel/FalsifiablePrediction.v} \\
-Physical Constants & \texttt{thiele\_manifold/PhysicalConstants.v} \\
-Halting Undecidability & \texttt{kernel/OracleImpossibility.v} \\
-Oracle Cost Bound & \texttt{kernel/OracleImpossibility.v} \\
-Hyper-Thiele Oracle & \texttt{thielemachine/coqproofs/HyperThiele\_Halting.v} \\
+\multicolumn{2}{l}{\emph{Cost ledger and No Free Insight}} \\
 \hline
-\multicolumn{2}{l}{\emph{New results (active corpus, all Qed, zero Admitted)}} \\
+No Free Insight (Thm.~\ref{thm:nfi}) & \texttt{coq/nofi/NoFreeInsight\_Theorem.v} \\
+$\mu$-Chaitin & \texttt{coq/nofi/MuChaitinTheory\_Theorem.v} \\
+$\mu$-Conservation & \texttt{coq/kernel/MuLedgerConservation.v} \\
+Receipt Integrity & \texttt{coq/kernel/ReceiptIntegrity.v} \\
+Noether / Gauge & \texttt{coq/kernel/KernelNoether.v} \\
+Strict Subsumption & \texttt{coq/kernel/Subsumption.v} \\
+Universal NFI (any substrate) & \texttt{coq/kernel/UniversalCertificationCost.v}: \texttt{universal\_nfi\_any\_substrate} \\
+Quantitative NFI ($\ge S(d)$ trace bound) & \texttt{coq/kernel/QuantitativeNoFI.v} \\
+$\mu$-Hierarchy & \texttt{coq/kernel/MuHierarchyTheorem.v}: \texttt{mu\_hierarchy\_theorem} \\
+Partition Ops Free, Certification Non-Free & \texttt{coq/kernel/PartitionRefinementNoFI.v} \\
+$\mu$-Ledger Necessity (5-way classification) & \texttt{coq/NecessityOfMuLedger.v}, \texttt{coq/kernel/NecessityAbstract.v} \\
+Latent $\mu$ Intrinsic to Computation & \texttt{coq/NecessityOfMuLedger.v}: \texttt{shadow\_mu\_is\_computation\_intrinsic} \\
+$\mu$ Cost Universal Across Machines & \texttt{coq/NecessityOfMuLedger.v}: \texttt{shadow\_mu\_delta\_universal} \\
+$\mu$ Cost Unique Across Accounting Systems & \texttt{coq/NecessityOfMuLedger.v}: \texttt{shadow\_mu\_unique\_accounting} \\
+No Free Computation (inevitable $\mu$) & \texttt{coq/NecessityOfMuLedger.v}: \texttt{shadow\_mu\_inevitable} \\
+$\mu$P / $\mu$NP definitions + Classical $\subseteq$ $\mu$P & \texttt{coq/kernel/MuComplexity.v} \\
 \hline
-Partition Ops Free, Certification Non-Free & \texttt{kernel/PartitionRefinementNoFI.v} \\
-Partition Refinement Non-Free & \texttt{kernel/PartitionRefinementNoFI.v} \\
-$\mu$-Ledger Necessity (5-way independence classification) & \texttt{NecessityOfMuLedger.v}, \texttt{kernel/NecessityAbstract.v} \\
-$\mu$-Ledger Universal Necessity (from any VMState) & \texttt{NecessityOfMuLedger.v}: \texttt{mu\_ledger\_necessity\_universal} \\
-$\mu$-Ledger Trace Closure (any prefix length) & \texttt{NecessityOfMuLedger.v}: \texttt{po1\_trace\_necessity} \\
-Latent $\mu$ Intrinsic to Computation & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_is\_computation\_intrinsic} \\
-$\mu$ Cost Universal Across Machines & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_delta\_universal} \\
-$\mu$ Cost Unique Across Accounting Systems & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_unique\_accounting} \\
-No Free Computation (inevitable $\mu$) & \texttt{NecessityOfMuLedger.v}: \texttt{shadow\_mu\_inevitable} \\
-Graph Independence from $P_{\text{full}}$ & \texttt{kernel/NecessityAbstract.v}: \texttt{graph\_not\_recoverable\_from\_P\_full} \\
-Three-Component Independence Classification & \texttt{kernel/NecessityAbstract.v}: \texttt{thiele\_state\_three\_component\_independence} \\
-CERTIFY-$d$ Trace Cost Lower Bound ($\ge S(d)$) & \texttt{kernel/QuantitativeNoFI.v}: \texttt{certify\_d\_trace\_cost\_lower\_bound} \\
-General Algebraic Tsirelson ($S^2 \le 8$, all coherent) & \texttt{kernel/AlgebraicCoherence.v}: \texttt{algebraically\_coherent\_tsirelson\_general} \\
-$\mu$P / $\mu$NP definitions + Classical $\subseteq$ $\mu$P & \texttt{kernel/MuComplexity.v} \\
-CHSH Trial Is Tier 0 & \texttt{kernel/WitnessInsightGeneral.v} \\
-Three-Tier Observation Taxonomy & \texttt{kernel/WitnessInsightGeneral.v} \\
-Locally Consistent $\Rightarrow$ Separable Coupling & \texttt{kernel/CHSHCouplingBridge.v} \\
-Local Coupling Bound ($|S| \le 2$) & \texttt{kernel/CHSHCouplingBridge.v} \\
-$S > 2$ Rules Out Local Couplings & \texttt{kernel/CHSHCouplingBridge.v} \\
-Affine Off-Diagonal Ricci Zero (vertex 1) & \texttt{kernel/AffineEFEClosure.v} \\
-Full Tensor EFE at Vertex 1 ($G = 3T$) & \texttt{kernel/AffineEFEClosure.v} \\
-Outer Vertex Characterization (Ricci $= 3/32$) & \texttt{kernel/AffineEFEClosure.v} \\
-Thiele Honest $\iff$ NPA Realizable (biconditional) & \texttt{kernel/ThieleQuantumEquivalence.v} \\
-PR Box Not Thiele-Honest & \texttt{kernel/ThieleQuantumEquivalence.v} \\
-Tsirelson Is Thiele Boundary & \texttt{kernel/ThieleQuantumEquivalence.v} \\
-RTL Gap Count $= 0$ & \texttt{kami\_hw/RTLGapRegistry.v} \\
-RTL Coverage Partition ($30 + 6 + 7 + 3 + 0 = 46$) & \texttt{kami\_hw/RTLGapRegistry.v} \\
+\multicolumn{2}{l}{\emph{Categorical and shadow-projection layer}} \\
+\hline
+Categorical Separation / Category Laws & \texttt{coq/kernel/CategoryLaws.v}, \texttt{coq/kernel/CategoryBridge.v} \\
+Shadow Strictly Lossy & \texttt{coq/kernel/ShadowProjection.v}: \texttt{shadow\_strictly\_lossy} \\
+Turing Strictness ($D5$) & \texttt{coq/kernel/TuringStrictness.v} \\
+CHSH Coupling Bridge ($S \le 2$ from local coupling, $S > 2$ rules it out) & \texttt{coq/kernel/CHSHCouplingBridge.v} \\
+Witness Insight Three-Tier Taxonomy & \texttt{coq/kernel/WitnessInsightGeneral.v} \\
+\hline
+\multicolumn{2}{l}{\emph{Quantum / CHSH algebra (zero-axiom)}} \\
+\hline
+Thiele honest $\iff$ NPA realizable (biconditional) & \texttt{coq/kernel/QuantumPartitionPSD.v}: \texttt{column\_contractive\_iff\_quantum\_realizable} \\
+Forward: column-contractive $\Rightarrow$ NPA PSD & \texttt{coq/kernel/MuLedgerQuantumBridge.v}: \texttt{zero\_marginal\_npa\_column\_contractive\_implies\_psd} \\
+Reverse: NPA PSD $\Rightarrow$ column-contractive & \texttt{coq/kernel/QuantumPartitionPSD.v}: \texttt{npa\_psd\_implies\_column\_contractive} \\
+Quadratic-form discriminant lemma & \texttt{coq/kernel/ConstructivePSD.v}: \texttt{quadratic\_nonneg\_discriminant} \\
+Tsirelson from column contractivity ($|S| \le 2\sqrt{2}$) & \texttt{coq/kernel/MuLedgerQuantumBridge.v}: \texttt{state\_column\_contractive\_implies\_tsirelson} (\texttt{tsirelson\_from\_row\_bounds} in \texttt{TsirelsonGeneral.v} is the inner Cauchy--Schwarz step) \\
+Tsirelson (algebraic, tight) & \texttt{coq/kernel/AlgebraicCoherence.v}: \texttt{tsirelson\_bound\_tight} \\
+Tsirelson (algebraic from coherence) & \texttt{coq/kernel/TsirelsonFromAlgebra.v} \\
+General Algebraic Tsirelson ($S^2 \le 8$) & \texttt{coq/kernel/AlgebraicCoherence.v}: \texttt{algebraically\_coherent\_tsirelson\_general} \\
+\hline
+\multicolumn{2}{l}{\emph{Conditional physics derivations (under named axioms; (C) tier)}} \\
+\hline
+Born Rule & \texttt{coq/kernel/BornRule.v} \\
+Unitarity & \texttt{coq/kernel/Unitarity.v} \\
+Purification & \texttt{coq/kernel/Purification.v} \\
+No-Cloning & \texttt{coq/kernel/NoCloning.v} \\
+Information Causality & \texttt{coq/kernel/InformationCausality.v} \\
+Landauer derivation & \texttt{coq/thermodynamic/LandauerDerived.v} \\
+Affine Off-Diagonal Ricci Zero (vertex 1) & \texttt{coq/kernel/AffineEFEClosure.v} \\
+Full Tensor EFE at Vertex 1 ($G = 3T$) & \texttt{coq/kernel/AffineEFEClosure.v} \\
+Outer Vertex Characterization (Ricci $= 3/32$) & \texttt{coq/kernel/AffineEFEClosure.v} \\
+Spacetime Emergence (consistency check) & \texttt{coq/kernel/SpacetimeEmergence.v} \\
+$\mu$-Geometry (pseudometric) & \texttt{coq/kernel/MuGeometry.v} \\
+4D Simplicial Complex & \texttt{coq/kernel/FourDSimplicialComplex.v} \\
+Metric from $\mu$-Costs & \texttt{coq/kernel/MetricFromMuCosts.v} \\
+Riemann / Christoffel / Einstein tensors & \texttt{coq/kernel/RiemannTensor4D.v} \\
+Stress-Energy Tensor / Conservation / Vacuum EFE & \texttt{coq/kernel/EinsteinEquations4D.v} \\
+Einstein Equations (general, full diagonal-and-offdiag chain) & \texttt{coq/kernel/EinsteinEquationsFull.v} \\
+\texttt{A\_QM} bridge axiom + master Tsirelson conditional & \texttt{coq/PhysicsConditionalClosure.v} \\
+\hline
+\multicolumn{2}{l}{\emph{Self-reference, falsifiability, isomorphism}} \\
+\hline
+Self-Reference Tower & \texttt{coq/self\_reference/SelfReference.v} \\
+Thiele Manifold & \texttt{coq/thiele\_manifold/ThieleManifold.v} \\
+Physical Constants (definitions only) & \texttt{coq/thiele\_manifold/PhysicalConstants.v} \\
+Falsifiable Prediction record & \texttt{coq/kernel/FalsifiablePrediction.v} \\
+Three-Layer (Coq $\leftrightarrow$ Python $\leftrightarrow$ RTL) Isomorphism & \texttt{coq/kernel/ThreeLayerIsomorphism.v} \\
+\hline
+\multicolumn{2}{l}{\emph{Hardware / RTL / extraction}} \\
+\hline
+RTL Gap Count $= 0$ & \texttt{coq/kami\_hw/RTLGapRegistry.v}: \texttt{rtl\_gap\_count} \\
+RTL Coverage Partition ($36 + 10 + 0 = 46$) & \texttt{coq/kami\_hw/RTLGapRegistry.v}: \texttt{rtl\_coverage\_partition} \\
+RTL Trust Boundary (Section Variable) & \texttt{coq/kernel/VerilogRTLCorrespondence.v}: \texttt{rtl\_step\_correct} \\
+BSC Compilation Trust Boundary & \texttt{coq/kernel/VerilogRTLCorrespondence.v}: \texttt{bsc\_kami\_compilation\_trusted} \\
+Coq-Kami refinement (proves \texttt{rtl\_step\_correct} for COQKAMI) & \texttt{coq/kami\_hw/VerilogSemantics.v} \\
+EmbedStep / EmbedStep\_WF (per-opcode bisimulation) & \texttt{coq/kami\_hw/EmbedStep.v}, \texttt{coq/kami\_hw/EmbedStep\_WF.v} \\
+GraphReconstructionBridge (TENSOR\_*, LASSERT) & \texttt{coq/kami\_hw/GraphReconstructionBridge.v} \\
+ThieleCPU Kami specification & \texttt{coq/kami\_hw/ThieleCPUCore.v} \\
+OCaml extraction observable surface & \texttt{coq/kernel/OCamlExtractionBridge.v}: \texttt{ocaml\_bisimulation\_closure} \\
 \end{tabular}
 \end{center}
 
@@ -1667,23 +1341,15 @@ The following table classifies every major result by its epistemological status.
 \hline
 No Free Insight & \textbf{(S)} & Module type contract \\
 $\mu$-Chaitin & \textbf{(S)} & Module type contract \\
-Cost = Complexity & \textbf{(S)} & Prefix-free coding \\
-No Free Lunch & \textbf{(S)} & Faithful representation \\
-No Arbitrage $\Rightarrow$ Potential & \textbf{(S)} & Additivity + no-arbitrage (toy model) \\
-TM Embedding & \textbf{(S)} & Standard simulation \\
 Strict Subsumption & \textbf{(S)} & Partition structure \\
-Halting Undecidability & \textbf{(S)} & Diagonalization \\
-Oracle Cost & \textbf{(S)} & Definitional (soundness $:=$ cost $\ge 1$) \\
-Confluence & \textbf{(S)} & Module independence \\
+Oracle Cost (instantiation of universal NFI) & \textbf{(S)} & Definitional (soundness $:=$ cost $\ge 1$) \\
 $\mu$-Conservation & \textbf{(S)} & Machine semantics only \\
 $\mu$-Ledger Necessity & \textbf{(S)} & Machine semantics + explicit witnesses \\
 $\mu$-Ledger Minimality & \textbf{(S)} & Named projection lattice in \texttt{NecessityAbstract.v} \\
 Receipt Integrity & \textbf{(S)} & Hash-chain model \\
 Gauge / Noether & \textbf{(S)} & Definitional (record structure) \\
-Genesis & \textbf{(S)} & Definitional isomorphism \\
 Three-Layer Isomorphism / comparison contract & \textbf{(C)} & Backend decoders satisfy the shared observable projection contract \\
-Curry--Howard--Thiele & \textbf{(S)} & Interpretation map \\
-Discrete Gauss-Bonnet & \textbf{(S)} & Well-formed triangulated partition graph; equilateral model \\
+Discrete Angle-Defect Identity (planar triangulations) & \textbf{(S)} & Well-formed triangulated partition graph; equilateral model; not classical Gauss-Bonnet \\
 Curvature from $\mu$-Gradients (uniform mass $\Rightarrow$ $G_{\mu\nu}=0$) & \textbf{(R)} & Reference only; $0=0$ in vacuum \\
 Vacuum Implies Zero Stress-Energy & \textbf{(R)} & Reference only; $0=0$ in vacuum \\
 Einstein Equations (Vacuum) & \textbf{(R)} & Reference only; not a claim about physics; $G=1/(8\pi)$ is a definition \\
@@ -1706,24 +1372,16 @@ Classical $P \subseteq \mu P$ & \textbf{(S)} & $\mu$-complexity definitions \\
 \hline
 \multicolumn{3}{l}{\emph{Conditional derivations (valid given stated axioms)}} \\
 \hline
-2D Necessity & \textbf{(C)} & Superposition axiom (Axiom~\ref{ax:superposition}) \\
-Complex Necessity & \textbf{(C)} & 2D + norm preservation \\
-Born Rule Uniqueness & \textbf{(C)} & Tensor product consistency (\texttt{BornRuleFromSymmetry.v}) \\
+Born Rule Uniqueness & \textbf{(C)} & Linearity assumption (\texttt{coq/kernel/BornRule.v}, \texttt{BornRuleLinearity.v}) \\
 Unitarity from $\mu=0$ & \textbf{(C)} & Info conservation (one direction only) \\
 No-Cloning & \textbf{(C)} & Purity = information \\
 Purification & \textbf{(C)} & Bloch sphere model \\
-Observation Irreversibility & \textbf{(C)} & REVEAL semantics \\
-Collapse Determination & \textbf{(C)} & Entropy = $\log \dim$ \\
-Emergent Schr\"odinger & \textbf{(C)} & 2D + antisymmetry \\
 Landauer & \textbf{(C)} & Second law \emph{assumed} as record field \\
-Dissipative Embedding & \textbf{(C)} & Irreversibility model \\
 Self-Reference & \textbf{(C)} & Dimension = complexity \\
-CHSH Separation & \textbf{(C)} & Numerical witnesses \\
-Tsirelson Bound & \textbf{(C)} & Algebraic derivation (\texttt{TsirelsonFromAlgebra.v}) \\
+Tsirelson Bound (algebraic) & \textbf{(C)} & Algebraic derivation (\texttt{TsirelsonFromAlgebra.v}, \texttt{TsirelsonGeneral.v}, \texttt{AlgebraicCoherence.v}) \\
 \hline
 \multicolumn{3}{l}{\emph{Consistency relations (definitions verified, not predictions)}} \\
 \hline
-Planck's Constant & \textbf{(R)} & $\tau_\mu := h/(4E_L)$ \\
 Information Causality & \textbf{(R)} & Circular: equivalence assumed as hypothesis \\
 $\mu$-Geometry & \textbf{(R)} & Pseudometric (absolute value on $\mathbb{Z}$) \\
 Spacetime Locality & \textbf{(R)} & Data isolation in partition graph \\

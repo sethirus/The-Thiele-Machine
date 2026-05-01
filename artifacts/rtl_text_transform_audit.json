@@ -3,27 +3,15 @@
   "bsv_transform": {
     "large_vector_sources": [
       {
-        "address_bits": 16,
+        "address_bits": 7,
         "element_type": "Bit#(128)",
-        "elements": 65536,
+        "elements": 128,
         "name": "imem"
       },
       {
-        "address_bits": 9,
+        "address_bits": 7,
         "element_type": "Bit#(32)",
-        "elements": 512,
-        "name": "lassert_cbuf"
-      },
-      {
-        "address_bits": 8,
-        "element_type": "Bit#(32)",
-        "elements": 256,
-        "name": "lassert_fbuf"
-      },
-      {
-        "address_bits": 16,
-        "element_type": "Bit#(32)",
-        "elements": 65536,
+        "elements": 128,
         "name": "mem"
       }
     ],
@@ -34,22 +22,22 @@
     ],
     "regfile_targets": [
       {
-        "address_bits": 16,
+        "address_bits": 7,
         "element_type": "Bit#(128)",
         "name": "imem"
       },
       {
-        "address_bits": 9,
+        "address_bits": 6,
         "element_type": "Bit#(32)",
         "name": "lassert_cbuf"
       },
       {
-        "address_bits": 8,
+        "address_bits": 6,
         "element_type": "Bit#(32)",
         "name": "lassert_fbuf"
       },
       {
-        "address_bits": 16,
+        "address_bits": 7,
         "element_type": "Bit#(32)",
         "name": "mem"
       }
@@ -59,40 +47,40 @@
   },
   "files": {
     "bsv_transform_script": {
-      "bytes": 13187,
-      "lines": 422,
+      "bytes": 13951,
+      "lines": 436,
       "path": "scripts/bsv_regfile_transform.py",
-      "sha256": "3e1a52bc2b99f86ab6545fd22ec1e70f1eb7721f506de18640e2b2007bef8c33"
+      "sha256": "30c36d829f2d1b2aba48fed024b07f76a4f3ff78e237d5c5299352f0681a8a8b"
     },
     "clean_bsv": {
-      "bytes": 65095,
+      "bytes": 65053,
       "lines": 1445,
       "path": "build/kami_hw/thiele_hw_clean.bsv",
-      "sha256": "dd2941962cf49dee3f99b7aaf58385d6cb0163019edee8d536f8142800a2e8b8"
+      "sha256": "35230a82943e8c85531fcf4499d7662a852137186cb4eb3245a965ecf302d012"
     },
     "raw_bsv": {
-      "bytes": 65374,
+      "bytes": 65325,
       "lines": 1456,
       "path": "build/kami_hw/thiele_hw.bsv",
-      "sha256": "86edefdcce92652c6b715a8fb9e8358c2e01b3da944bb757ef8f5aa0f0aa717a"
+      "sha256": "15656b4635f39f7dcbdf1647bdbd59ff640cdb1d9755b7dfd6bf1ea316f7d365"
     },
     "raw_verilog": {
-      "bytes": 783955,
-      "lines": 18331,
+      "bytes": 448213,
+      "lines": 10783,
       "path": "build/kami_hw/mkModule1.v",
-      "sha256": "c9281df3596024966a8032ca9aeaf564619749083ad0971da6f5b604fdfdaa05"
+      "sha256": "c630ddf3d6981eca62ad0d8fd16a545291a864cfca3eec6caf64e302fb1801f2"
     },
     "synth_verilog": {
-      "bytes": 785679,
-      "lines": 18378,
+      "bytes": 449938,
+      "lines": 10830,
       "path": "build/kami_hw/mkModule1_synth.v",
-      "sha256": "821f27a8b747582520081475f50b5889aa0cc871f42d895f564d09059aaf7bd6"
+      "sha256": "8bf020e3b9199b93c1dad304f11de3411235afd678636636e3b5bbc74616355e"
     },
     "tracked_rtl": {
-      "bytes": 785679,
-      "lines": 18378,
+      "bytes": 449938,
+      "lines": 10830,
       "path": "thielecpu/hardware/rtl/thiele_cpu_kami.v",
-      "sha256": "821f27a8b747582520081475f50b5889aa0cc871f42d895f564d09059aaf7bd6"
+      "sha256": "8bf020e3b9199b93c1dad304f11de3411235afd678636636e3b5bbc74616355e"
     },
     "verilog_transform_script": {
       "bytes": 23586,

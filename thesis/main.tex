@@ -238,9 +238,9 @@ The Turing machine is a complete model of computable functions. It is provably s
 
 I'm a car salesman. I have no formal training in computer science, mathematics, or physics. I built this through LLM-directed development: I specify the ideas, the invariants, and the falsification conditions, then direct AI tools to implement them. The proofs compile or they don't. They don't care who wrote them.
 
-\textbf{What is proven} (in Coq, zero admits, no project-local axioms in the active audited tree; standard library imports remain):
+\textbf{What is proven} (in Coq, zero admits, zero global axioms in the active audited tree; two unavoidable gaps are named explicitly as Section Variables rather than hidden as global postulates: \texttt{A\_QM} in \path{coq/PhysicsConditionalClosure.v} (the physical claim that honest quantum experiments produce PSD correlations) and \texttt{bsc\_kami\_compilation\_trusted} in \path{coq/kernel/VerilogRTLCorrespondence.v} (the BSC pretty-printer and Bluespec$\to$Verilog compilation step); standard library imports remain):
 \begin{itemize}
-    \item \textbf{No Free Insight}: You cannot narrow the search space without paying for it. $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$.
+    \item \textbf{No Free Insight}: A trace that produces a certified final state must contain at least one cost-paying instruction (\path{coq/kernel/NoFreeInsight.v}, theorem \texttt{no\_free\_insight\_general}). The quantitative companion $\Delta\mu \ge \log_2(\Omega) - \log_2(\Omega')$ is the Shannon-bridge bound in \path{coq/kernel/MuShannonBridge.v}.
     \item \textbf{$\mu$-Conservation}: The ledger grows monotonically; every instruction adds exactly its declared cost, no exceptions.
     \item \textbf{$\mu$-Initiality}: $\mu$ is \textit{the} unique instruction-consistent cost measure, not just one of many.
     \item \textbf{$\mu$-Hierarchy}: For every $k \ge 1$, level-$k$ certification costs exactly $k$. No shortcut closes the gap.
@@ -248,18 +248,18 @@ I'm a car salesman. I have no formal training in computer science, mathematics, 
     \item \textbf{Categorical Separation}: Two states with identical classical shadow can differ in morphism structure. No classical probe sees the difference---\path{coq/kernel/PartitionSeparation.v}.
     \item \textbf{Structural Entitlement Representation}: Strict feasible-set narrowing plus a distinguishing observation yields a strictly stronger predicate, a structure-addition event, and a $\Delta\mu$ lower bound.
     \item \textbf{Classical CHSH Bound and Tsirelson bound}: $|S| \le 2$ for local strategies; $|S| \le 2\sqrt{2}$ for the zero-marginal NPA model. Both are pure algebraic results, no physics.
-    \item \textbf{Thiele honesty $\iff$ NPA realizability}: A zero-axiom biconditional. The machine's column-contractivity conditions are exactly the zero-marginal NPA polynomial realizability conditions---\path{coq/kernel/ThieleQuantumEquivalence.v}.
-    \item \textbf{Discrete Gauss-Bonnet}: For any well-formed triangulated partition graph in the equilateral angle model, the angle defect equals $5\pi \cdot \chi(g)$. That is the full extent of the geometry result.
+    \item \textbf{Thiele honesty $\iff$ NPA realizability}: A zero-axiom biconditional. The machine's column-contractivity conditions are exactly the zero-marginal NPA polynomial realizability conditions---\path{coq/kernel/QuantumPartitionPSD.v}, corollary \texttt{column\_contractive\_iff\_quantum\_realizable}.
+    \item \textbf{Discrete angle-defect identity (planar triangulations)}: Under the predicate \texttt{well\_formed\_triangulated} (defined in \path{coq/kernel/DiscreteTopology.v} and used by \path{coq/kernel/DiscreteGaussBonnet.v}), the angle defect of an equilateral triangulation equals $5\pi \cdot \chi(g)$. This is \emph{not} classical Gauss-Bonnet (which is $2\pi\chi$ for closed surfaces); the predicate restricts to a planar-disk family.
     \item \textbf{Turing Strictness}: The Thiele Machine strictly extends classical computation: states reachable by Thiele instructions cannot be reached by any classical program of any length---\path{coq/kernel/TuringStrictness.v}.
 \end{itemize}
 
 \textbf{What is built}:
 \begin{itemize}
-    \item Coq formal kernel (active proof tree, zero admits, no project-local axioms in the active audited tree)
+    \item Coq formal kernel (active proof tree, zero admits, zero global \texttt{Axiom}/\texttt{Parameter} declarations in the active audited tree; the two named Section-Variable trust boundaries are listed in the ``What is proven'' parenthetical above)
     \item Python reference VM with two-pass assembler (\path{scripts/thiele_asm.py})
     \item Synthesizable Verilog RTL extracted from Coq through Kami
     \item Automated tests enforcing opcode completeness, certificate plumbing, and cross-layer comparison gates
-    \item 46 opcodes, all in hardware, all with formal correctness proofs: 30 fully unconditional, 6 requiring valid arguments, 7 unconditional for KamiReachable states, 3 with a semantic boundary. Zero structural gaps.
+    \item 46 opcodes, all in hardware, all with formal correctness proofs: 36 unconditional and 10 carrying Qed bisimulation proofs under inductive structural invariants --- 3 (PNEW, PSPLIT, PMERGE) under partition-table well-formedness plus arithmetic preconditions, and 7 (MORPH, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_GET, COMPOSE, MORPH\_TENSOR) under the five-conjunct \texttt{extended\_hw\_invariant} ($\texttt{pt\_well\_formed} \wedge \texttt{morph\_table\_wf} \wedge \texttt{coupling\_zero\_empty} \wedge \texttt{coupling\_wf} \wedge \texttt{coupling\_desc\_safe}$), proven preserved by every \texttt{kami\_step}. Zero structural gaps (\path{coq/kami_hw/RTLGapRegistry.v}, theorem \texttt{rtl\_coverage\_partition}).
 \end{itemize}
 
 \textbf{What this project is not}: It is not a claim that I solved P vs NP. It is not a theory of everything. It is not a claim that computation is physics or that physics is computation. The CHSH algebraic result is pure math. The Landauer connection is motivation. That is the full extent of the physics content here.
@@ -303,26 +303,14 @@ If you can find an error, find it. Everything is open source, documented, and te
 \chapter{The Verifier System}
 \input{chapters/09_verifier_system}
 
-\chapter{Extended Proof Architecture}
-\input{chapters/10_extended_proofs}
-
 \chapter{Experimental Validation Suite}
 \input{chapters/11_experiments}
-
-\chapter{Conditional Geometric Analogs}
-\input{chapters/12_physics_and_primitives}
 
 \chapter{Hardware Implementation and Demonstrations}
 \input{chapters/13_hardware_and_demos}
 
 \chapter{Glossary of Terms}
 \input{appendix/glossary}
-
-\chapter{Complete Theorem Index}
-\input{appendix/theorem_index}
-
-\chapter{Conditional Schr\"{o}dinger Analog (Reference Only)}
-\input{appendix/emergent_schrodinger}
 
 \bibliographystyle{plain}
 \bibliography{references}

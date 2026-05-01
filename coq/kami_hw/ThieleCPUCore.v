@@ -39,9 +39,9 @@
 
 
     Kami Vector notes: Vector K n stores 2^n elements, indexed by Bit n.
-    So "regs" is Vector (Bit 32) 5 = 2^5 = 32 registers, indexed by Bit 5.
-    And "mem" is Vector (Bit 32) 16 = 2^16 = 65536 memory words, indexed by Bit 16.
-    And "imem" is Vector (Bit InstrSz) 16 = 2^16 = 65536 instruction words.
+    So "regs" is Vector (Bit 32) 4 = 2^4 = 16 registers, indexed by Bit 4 (RegIdxSz).
+    And "mem" is Vector (Bit 32) 7 = 2^7 = 128 memory words, indexed by Bit 7 (MemAddrSz).
+    And "imem" is Vector (Bit InstrSz) 7 = 2^7 = 128 instruction words.
     And "mu_tensor" is Vector (Bit 32) 4 = 2^4 = 16 tensor entries.
 
     LASSERT/LJOIN ON-CHIP MODEL:
@@ -76,7 +76,7 @@ Section ThieleCPU.
     }.
 
   (** Stack pointer register index (r31) *)
-  Definition SP_IDX : word RegIdxSz := WO~1~1~1~1~1.
+  Definition SP_IDX : word RegIdxSz := WO~1~1~1~1.   (* RegIdxSz=4, SP=15 *)
 
   (** Physical locality helper: address must stay within active partition size. *)
   Definition check_bounds
@@ -88,9 +88,7 @@ Section ThieleCPU.
 
 
   (** Direct vector read: memv[addr].
-      Uses Kami's native ReadIndex which BSC compiles to a simple array index.
-      Previous implementation used a depth-N binary search tree that generated
-      2^N Kami nodes — untenable at MemAddrSz=16 (65536 elements). *)
+      Uses Kami's native ReadIndex which BSC compiles to a simple array index. *)
   Definition read_mem
              {ty}
              (addr : Expr ty (SyntaxKind (Bit MemAddrSz)))
@@ -117,7 +115,7 @@ Section ThieleCPU.
       with Register "halted" : Bool <- false
       with Register "regs"  : Vector (Bit WordSz) RegIdxSz <- Default
       with Register "mem"   : Vector (Bit WordSz) MemAddrSz <- Default
-      with Register "imem"   : Vector (Bit InstrSz) MemAddrSz <- Default (* 2^16=65536 instrs *)
+      with Register "imem"   : Vector (Bit InstrSz) MemAddrSz <- Default (* 2^MemAddrSz=128 instrs *)
 
       (* Diagnostic counters — needed for test parity with handwritten RTL *)
       with Register "partition_ops" : Bit WordSz <- Default
@@ -161,8 +159,9 @@ Section ThieleCPU.
       with Register "lassert_nvars" : Bit WordSz <- Default
       with Register "lassert_fptr"  : Bit WordSz <- Default
       with Register "lassert_cptr"  : Bit WordSz <- Default
-      with Register "lassert_fbuf"  : Vector (Bit WordSz) 8 <- Default
-      with Register "lassert_cbuf"  : Vector (Bit WordSz) 9 <- Default
+      (* fbuf/cbuf reduced to 2^6 = 64 backing words for ECP5-85F fit *)
+      with Register "lassert_fbuf"  : Vector (Bit WordSz) 6 <- Default
+      with Register "lassert_cbuf"  : Vector (Bit WordSz) 6 <- Default
       (* Scratch flag: has any literal in the current clause been satisfied? *)
       with Register "lassert_clause_sat" : Bool <- false
       with Register "lassert_counter_clause_sat" : Bool <- false
@@ -329,8 +328,8 @@ Section ThieleCPU.
         LET subtype : Bit FormatSubtypeSz <- UniBit (ConstExtract 12 FormatSubtypeSz 0) #flags;
         LET desc_kind : Bit DescKindFieldSz <- UniBit (ConstExtract 8 DescKindFieldSz 4) #flags;
         LET inline_len : Bit InlineLenSz <- UniBit (Trunc InlineLenSz 8) #flags;
-        LET primary_desc_id : Bit DescIdxSz <- UniBit (Trunc DescIdxSz 26) #ext0;
-        LET secondary_desc_id : Bit DescIdxSz <- UniBit (ConstExtract 6 DescIdxSz 20) #ext0;
+        LET primary_desc_id : Bit DescIdxSz <- UniBit (Trunc DescIdxSz 28) #ext0;
+        LET secondary_desc_id : Bit DescIdxSz <- UniBit (ConstExtract 6 DescIdxSz 22) #ext0;
         LET primary_desc_id_7 : Bit DescTableNextIdSz <- UniBit (ZeroExtendTrunc _ _) #primary_desc_id;
         LET secondary_desc_id_7 : Bit DescTableNextIdSz <- UniBit (ZeroExtendTrunc _ _) #secondary_desc_id;
         LET secondary_desc_present <- #secondary_desc_id != $0;
@@ -437,10 +436,10 @@ Section ThieleCPU.
           (#opcode == $$(OP_MORPH)) || (#opcode == $$(OP_COMPOSE)) ||
           (#opcode == $$(OP_MORPH_ID)) || (#opcode == $$(OP_MORPH_TENSOR));
         LET rich_table_overflow <-
-          (#morph_alloc_opcode && (#morph_next_id_v >= $64)) ||
+          (#morph_alloc_opcode && (#morph_next_id_v >= $16)) ||
           (((#format_id == $$(FMT_MORPH_INLINE)) || (#format_id == $$(FMT_DESC))) &&
            (#opcode == $$(OP_MORPH)) &&
-           ((#coupling_desc_next_id_v >= $64) || (#coupling_pair_next_id_v >= $64)));
+           ((#coupling_desc_next_id_v >= $16) || (#coupling_pair_next_id_v >= $16)));
         LET isa_version_invalid <- #isa_version != $$(WO~0~0~0~0~0~0~1~0);
         LET format_invalid <- !#format_known || !#format_allowed_for_opcode || #morph_desc_kind_mismatch;
         LET inline_malformed <- #reserved_flag_fault || #inline_payload_fault || #desc_flag_fault;
@@ -601,16 +600,16 @@ Section ThieleCPU.
         LET is_morph_tensor <- (#opcode == $$(OP_MORPH_TENSOR));
 
         LET ext_morph_dst_mod : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz 26) #ext0;
-        LET ext_coupling_desc : Bit DescIdxSz <- UniBit (ConstExtract 6 DescIdxSz 20) #ext0;
-        LET ext_compose_m2 : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 26) #ext0;
+        LET ext_coupling_desc : Bit DescIdxSz <- UniBit (ConstExtract 6 DescIdxSz 22) #ext0;
+        LET ext_compose_m2 : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 28) #ext0;
         LET ext_get_selector : Bit 2 <- UniBit (Trunc 2 30) #ext0;
         LET ext_assert_property_checksum : Bit WordSz <- #ext0;
 
         LET morph_src_mod_idx : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz 2) #op_b;
         LET morph_identity_mod_idx : Bit PTableIdxSz <- UniBit (Trunc PTableIdxSz 2) #op_b;
-        LET morph_lookup_idx : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 2) #op_b;
-        LET morph_delete_idx : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 2) #op_a;
-        LET morph_assert_idx : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 2) #op_a;
+        LET morph_lookup_idx : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 4) #op_b;
+        LET morph_delete_idx : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 4) #op_a;
+        LET morph_assert_idx : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 4) #op_a;
         LET morph_slot : Bit MorphTableIdxSz <- UniBit (Trunc MorphTableIdxSz 1) #morph_next_id_v;
         LET morph_slot_word : Bit WordSz <- UniBit (ZeroExtendTrunc _ _) #morph_slot;
 
@@ -619,7 +618,7 @@ Section ThieleCPU.
         LET morph_lookup_idx_7 : Bit MorphTableNextIdSz <- UniBit (ZeroExtendTrunc _ _) #morph_lookup_idx;
         LET morph_delete_idx_7 : Bit MorphTableNextIdSz <- UniBit (ZeroExtendTrunc _ _) #morph_delete_idx;
         LET morph_assert_idx_7 : Bit MorphTableNextIdSz <- UniBit (ZeroExtendTrunc _ _) #morph_assert_idx;
-        LET morph_alloc_room <- #morph_next_id_v < $64;
+        LET morph_alloc_room <- #morph_next_id_v < $16;
 
         LET morph_src_mod_exists <- #pt_sizes_v@[#morph_src_mod_idx] != $0;
         LET morph_dst_mod_exists <- #pt_sizes_v@[#ext_morph_dst_mod] != $0;
@@ -1910,12 +1909,12 @@ Section ThieleCPU.
         Read v : Bool <- "lassert_clause_sat";
         Ret (IF #v then $1 else $0)
 
-      with Method "getLassertFbufWord" (idx : Bit 8) : Bit WordSz :=
-        Read tbl : Vector (Bit WordSz) 8 <- "lassert_fbuf";
+      with Method "getLassertFbufWord" (idx : Bit 6) : Bit WordSz :=
+        Read tbl : Vector (Bit WordSz) 6 <- "lassert_fbuf";
         Ret (#tbl@[#idx])
 
-      with Method "getLassertCbufWord" (idx : Bit 9) : Bit WordSz :=
-        Read tbl : Vector (Bit WordSz) 9 <- "lassert_cbuf";
+      with Method "getLassertCbufWord" (idx : Bit 6) : Bit WordSz :=
+        Read tbl : Vector (Bit WordSz) 6 <- "lassert_cbuf";
         Ret (#tbl@[#idx])
     }.
 

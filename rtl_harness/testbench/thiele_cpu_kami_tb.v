@@ -4,10 +4,11 @@
 // After halt, dumps all state as JSON.
 //
 // Signal naming matches BSC-generated RTL:
-//   - regs:  reg [1023:0] — 32 x 32-bit registers, reg[i] = regs[i*32 +: 32]
-//   - imem:  RegFile submodule — imem.arr[0:65535] (128-bit words)
-//   - mem:   RegFile submodule — mem.arr[0:65535] (32-bit words)
-//   - loadInstr_x_0: 144-bit (16-bit addr [143:128] + 128-bit data [127:0])
+//   - regs:  reg [511:0] — 16 x 32-bit registers, reg[i] = regs[i*32 +: 32]
+//   - imem:  RegFile submodule — imem.arr[0:127] (128-bit words)
+//   - mem:   RegFile submodule — mem.arr[0:127] (32-bit words)
+//   - loadInstr_x_0: 135-bit (7-bit addr [134:128] + 128-bit data [127:0])
+//     (was 144-bit; addr width tracks MemAddrSz=7 in ThieleTypes.v)
 
 `timescale 1ns/1ps
 
@@ -19,7 +20,7 @@ module thiele_cpu_kami_tb;
   reg rst_n = 0;
   always #5 clk = ~clk;
 
-  reg [143:0] load_data;
+  reg [134:0] load_data;
   reg load_en;
 
 
@@ -79,8 +80,8 @@ module thiele_cpu_kami_tb;
     .EN_getWcDiff11(1'b1), .getWcDiff11(wc_diff_11_out), .RDY_getWcDiff11()
   );
 
-  reg [127:0] instr_memory [0:65535];
-  reg [31:0] data_memory [0:65535];
+  reg [127:0] instr_memory [0:127];
+  reg [31:0] data_memory [0:127];
 
   integer i;
   integer cycle_count;
@@ -120,7 +121,7 @@ module thiele_cpu_kami_tb;
   reg [7:0] current_opcode;
 
   initial begin
-    for (i = 0; i < 65536; i = i + 1) begin
+    for (i = 0; i < 128; i = i + 1) begin
       instr_memory[i] = 128'h00000000000000000000000000000000;
       data_memory[i] = 32'h00000000;
     end
@@ -159,11 +160,11 @@ module thiele_cpu_kami_tb;
     end
 
     if (!$value$plusargs("N_INSTRS=%d", num_instrs))
-      num_instrs = 65536;
+      num_instrs = 128;
 
     rst_n = 0;
     load_en = 0;
-    load_data = 144'd0;
+    load_data = 135'd0;
     @(posedge clk);
     @(posedge clk);
 
@@ -181,18 +182,21 @@ module thiele_cpu_kami_tb;
     // Also hold halted=1 during loadInstr to prevent RL_step from
     // executing garbage while instructions are being loaded.
     force dut.halted = 1'b1;
-    for (i = 0; i < 4096; i = i + 1) begin
+    // Memory sizes track ThieleTypes.v: imem/mem = 2^MemAddrSz = 256.
+    // lassert_cbuf/lassert_fbuf are 64-entry RegFiles
+    // (LassertCbufIdxSz=LassertFbufIdxSz=6 in ThieleTypes.v).
+    for (i = 0; i < 128; i = i + 1) begin
       dut.imem.arr[i] = 128'd0;
       dut.mem.arr[i] = 32'd0;
     end
-    for (i = 0; i < 512; i = i + 1)
+    for (i = 0; i < 64; i = i + 1) begin
       dut.lassert_cbuf.arr[i] = 32'd0;
-    for (i = 0; i < 256; i = i + 1)
       dut.lassert_fbuf.arr[i] = 32'd0;
+    end
 
-    // loadInstr port is 144-bit: {addr[15:0], data[127:0]}
+    // loadInstr port is 135-bit: {addr[6:0], data[127:0]} (MemAddrSz=7)
     for (i = 0; i < num_instrs; i = i + 1) begin
-      load_data = {i[15:0], instr_memory[i]};
+      load_data = {i[6:0], instr_memory[i]};
       load_en = 1;
       @(posedge clk);
     end
@@ -205,10 +209,10 @@ module thiele_cpu_kami_tb;
     force dut.err = 1'b0;
     force dut.halted = 1'b0;
     force dut.lassert_phase = 3'd0;
-    force dut.regs = {1024{1'b0}};
+    force dut.regs = {512{1'b0}};   // RegCount=16 × WordSz=32 = 512 bits
     // Data memory: direct assignment to RegFile arr (per BSC convention)
-    // NOTE: RTL RegFile has hi=4095 (4096 words); limit loop to avoid C++ UB
-    for (i = 0; i < 4096; i = i + 1) begin
+    // RTL mem has hi=127 (128 words); limit loop to match
+    for (i = 0; i < 128; i = i + 1) begin
       dut.mem.arr[i] = data_memory[i];
     end
     force dut.partition_ops = 32'd0; force dut.mdl_ops = 32'd0; force dut.info_gain = 32'd0; force dut.error_code = 32'd0;
@@ -243,7 +247,7 @@ module thiele_cpu_kami_tb;
     current_instr = 128'd0;
     current_opcode = 8'd0;
     while (!halted_out && !err_out && cycle_count < 10000) begin
-      exec_word = dut.imem.arr[pc_out[15:0]];
+      exec_word = dut.imem.arr[pc_out[6:0]];
       current_instr = exec_word;
       current_opcode = exec_word[31:24];
 
@@ -299,7 +303,7 @@ module thiele_cpu_kami_tb;
     end
 
     // Update current_instr for the final state (used by assertions)
-    current_instr = dut.imem.arr[pc_out[15:0]];
+    current_instr = dut.imem.arr[pc_out[6:0]];
     current_opcode = current_instr[31:24];
 
     #1;
@@ -346,15 +350,15 @@ module thiele_cpu_kami_tb;
     $display("  \"pt_next_id\": %0d,", pt_next_id_out);
     // Dump registers from flat regs[1023:0] — reg[i] = regs[i*32 +: 32]
     $display("  \"regs\": [");
-    for (i = 0; i < 32; i = i + 1) begin
-      if (i < 31) $display("    %0d,", dut.regs[i*32 +: 32]);
+    for (i = 0; i < 16; i = i + 1) begin
+      if (i < 15) $display("    %0d,", dut.regs[i*32 +: 32]);
       else $display("    %0d", dut.regs[i*32 +: 32]);
     end
     $display("  ],");
-    // Dump data memory from mem RegFile submodule (RTL has 4096 words, hi=4095)
+    // Dump data memory from mem RegFile submodule (RTL has 128 words, hi=127)
     $display("  \"mem\": [");
-    for (i = 0; i < 4096; i = i + 1) begin
-      if (i < 4095) $display("    %0d,", dut.mem.arr[i]);
+    for (i = 0; i < 128; i = i + 1) begin
+      if (i < 255) $display("    %0d,", dut.mem.arr[i]);
       else $display("    %0d", dut.mem.arr[i]);
     end
     $display("  ],");
@@ -380,7 +384,9 @@ module thiele_cpu_kami_tb;
     $display("  \"morph_next_id\": %0d,", dut.morph_next_id);
     $write("  \"morphisms\": [");
     first_morph = 1;
-    for (morph_j = 0; morph_j < 64; morph_j = morph_j + 1) begin
+    // MorphTableSz=16 after May 2026 ECP5-85F fit reduction; slot index width
+    // is MorphTableIdxSz=4 but each src/dst entry is PTableIdxSz=6 bits.
+    for (morph_j = 0; morph_j < 16; morph_j = morph_j + 1) begin
       if (dut.morph_valid_table[morph_j]) begin
         if (!first_morph) $write(", ");
         $write(
@@ -432,7 +438,7 @@ module thiele_cpu_kami_tb;
       end
       if (halted_out) begin
         // Read opcode directly from imem RegFile — avoids race with initial block
-        assert (bianchi_alarm_out || (dut.imem.arr[pc_out[15:0]][31:24] == 8'hFF))
+        assert (bianchi_alarm_out || (dut.imem.arr[pc_out[6:0]][31:24] == 8'hFF))
           else $fatal(1, "PHYS_ASSERT_FAIL: halted without HALT opcode or bianchi alarm");
       end
       prev_mu <= mu_out;

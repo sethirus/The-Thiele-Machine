@@ -6,7 +6,11 @@ import sys
 import tempfile
 from pathlib import Path
 
+import pytest
+
 from tools.trs10_standalone.execution import StandaloneProgramCanonicalizer
+
+pytestmark = pytest.mark.trs
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent

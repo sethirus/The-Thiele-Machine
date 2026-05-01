@@ -40,11 +40,15 @@ def test_transform_audit_core_invariants_hold() -> None:
 
 def test_bsv_transform_scope_is_storage_only_regfile_rewrite() -> None:
     data = _load_manifest()
+    # MEM_SIZE=128 → MemAddrSz=7 (silicon-side bound).
+    # imem and mem are the only large vectors (>=256 entries) that get the
+    # explicit RegFile rewrite treatment via the BSV transform script.
+    # lassert_cbuf/lassert_fbuf at 64 entries (addr_width=6) are below the
+    # large-vector threshold so they appear in regfile_targets but not in
+    # large_vector_sources.
     expected_sources = {
-        "imem": (65536, 16, "Bit#(128)"),
-        "lassert_cbuf": (512, 9, "Bit#(32)"),
-        "lassert_fbuf": (256, 8, "Bit#(32)"),
-        "mem": (65536, 16, "Bit#(32)"),
+        "imem": (128, 7, "Bit#(128)"),
+        "mem": (128, 7, "Bit#(32)"),
     }
     sources = {
         item["name"]: (item["elements"], item["address_bits"], item["element_type"])
@@ -52,14 +56,17 @@ def test_bsv_transform_scope_is_storage_only_regfile_rewrite() -> None:
     }
     assert sources == expected_sources
 
+    expected_targets = {
+        "imem": (7, "Bit#(128)"),
+        "mem": (7, "Bit#(32)"),
+        "lassert_cbuf": (6, "Bit#(32)"),
+        "lassert_fbuf": (6, "Bit#(32)"),
+    }
     targets = {
         item["name"]: (item["address_bits"], item["element_type"])
         for item in data["bsv_transform"]["regfile_targets"]
     }
-    assert targets == {
-        name: (address_bits, element_type)
-        for name, (_elements, address_bits, element_type) in expected_sources.items()
-    }
+    assert targets == expected_targets
     assert data["bsv_transform"]["sub_reads"] > 0
     assert data["bsv_transform"]["upd_writes"] > 0
 

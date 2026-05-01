@@ -8,6 +8,8 @@ from cryptography.exceptions import InvalidSignature
 
 from tools.trs10_standalone import verify_receipt_dict
 
+pytestmark = pytest.mark.trs
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FIXTURE_ROOT = PROJECT_ROOT / "tests" / "fixtures" / "trs10"

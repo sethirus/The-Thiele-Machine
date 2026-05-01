@@ -64,11 +64,12 @@ class TestStateShape:
         result = run_verilog(["PNEW {0,1} 2", "HALT 0"])
         assert isinstance(result["mu"], int)
 
-    def test_regs_is_list_of_32(self):
+    def test_regs_is_list_of_REG_COUNT(self):
         from thielecpu.hardware.cosim import run_verilog
+        from thielecpu.vm import REG_COUNT
         result = run_verilog(["HALT 0"])
         assert isinstance(result["regs"], list)
-        assert len(result["regs"]) == 32
+        assert len(result["regs"]) == REG_COUNT
 
     def test_mem_is_list(self):
         from thielecpu.hardware.cosim import run_verilog
@@ -104,7 +105,7 @@ class TestOpcodeAlignment:
         """LOAD_IMM, ADD, SUB execute and advance PC."""
         from thielecpu.hardware.cosim import run_verilog
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 10 0",
@@ -123,7 +124,7 @@ class TestOpcodeAlignment:
         """LOAD and STORE execute correctly within partition bounds."""
         from thielecpu.hardware.cosim import run_verilog
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 42 0",
@@ -139,7 +140,7 @@ class TestOpcodeAlignment:
         """XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK execute without error."""
         from thielecpu.hardware.cosim import run_verilog
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 255 0",
@@ -208,10 +209,10 @@ class TestOpcodeAlignment:
     def test_call_saves_return_and_jumps(self):
         """CALL saves return address via stack and jumps to target."""
         from thielecpu.hardware.cosim import run_verilog
-        # CALL uses memory for the return address (r31 = stack pointer), so
+        # CALL uses memory for the return address (r15 = stack pointer), so
         # a partition must be set up first. CALL target cost: target is 16-bit.
         program = [
-            "INIT_PT 0 256",     # partition 0: base=0, size=256
+            "INIT_PT 0 128",     # partition 0: base=0, size=256
             "INIT_ACTIVE_MODULE 0",
             "CALL 2 1",         # PC=0: call sub at PC=2
             "HALT 0",           # PC=1: return point
@@ -226,16 +227,16 @@ class TestOpcodeAlignment:
     def test_ret_returns_to_caller(self):
         """RET reads return address from stack and restores PC to caller."""
         from thielecpu.hardware.cosim import run_verilog
-        # CALL/RET use memory-based stack (r31 = stack pointer). Need active partition.
+        # CALL/RET use memory-based stack (r15 = stack pointer). Need active partition.
         # CALL target cost: target is 16-bit. RET cost: single argument.
         program = [
-            "INIT_PT 0 256",     # partition 0: base=0, size=256
+            "INIT_PT 0 128",     # partition 0: base=0, size=256
             "INIT_ACTIVE_MODULE 0",
-            "CALL 3 1",         # PC=0: call sub at PC=3; saves ret_addr=1 to mem[r31=0]
+            "CALL 3 1",         # PC=0: call sub at PC=3; saves ret_addr=1 to mem[r15=0]
             "LOAD_IMM 2 55 1",  # PC=1: after return
             "HALT 0",           # PC=2
             "LOAD_IMM 1 44 1",  # PC=3: sub body
-            "RET 1",            # PC=4: return (reads mem[r31-1]=1, jumps to PC=1)
+            "RET 1",            # PC=4: return (reads mem[r15-1]=1, jumps to PC=1)
         ]
         result = run_verilog(program)
         assert result is not None
@@ -472,7 +473,7 @@ class TestCrossLayerBisim:
     def test_store_load_agrees(self):
         """Python VM and RTL agree on memory values after STORE + LOAD."""
         program = [
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "PNEW {0,256} 1",
             "LOAD_IMM 1 99 0",

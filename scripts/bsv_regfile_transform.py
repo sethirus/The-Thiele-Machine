@@ -19,8 +19,20 @@ import re
 import sys
 
 
-# Threshold: vectors with >= this many elements get converted to RegFile
-REGFILE_THRESHOLD = 256
+# Threshold: vectors with >= this many elements get converted to RegFile.
+# Set to 64 to catch lassert_fbuf/lassert_cbuf (64 entries each) in
+# addition to the larger memories. The `regs` and `ptTable` flat registers
+# are intentionally left in flat form because their write patterns include
+# nested update() expressions (XOR_SWAP for regs, PSPLIT/PMERGE for
+# ptTable) that the regex-based rewriter cannot handle correctly; they
+# stay as flat broadcasts unless a future per-opcode Kami rule split or
+# AST-level rewriter is added.
+REGFILE_THRESHOLD = 64
+
+# Names explicitly excluded from the transform even if they meet the threshold,
+# because their write patterns include nested update() expressions that the
+# transform's regex-based rewriter cannot handle correctly.
+REGFILE_EXCLUDE = {"ptTable"}
 
 
 def transform_bsv(bsv: str) -> str:
@@ -35,6 +47,8 @@ def transform_bsv(bsv: str) -> str:
         n_elems = int(m.group(1))
         elem_type = m.group(2)
         name = m.group(3)
+        if name in REGFILE_EXCLUDE:
+            continue
         if n_elems >= REGFILE_THRESHOLD:
             addr_bits = (n_elems - 1).bit_length()
             regfile_regs[name] = {

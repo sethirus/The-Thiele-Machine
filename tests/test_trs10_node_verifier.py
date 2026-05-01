@@ -5,6 +5,8 @@ from pathlib import Path
 
 import pytest
 
+pytestmark = pytest.mark.trs
+
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FIXTURE_ROOT = PROJECT_ROOT / "tests" / "fixtures" / "trs10"

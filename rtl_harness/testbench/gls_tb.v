@@ -76,8 +76,8 @@ module gls_tb;
     .EN_getWcDiff11(1'b1), .getWcDiff11(wc_diff_11_out), .RDY_getWcDiff11()
   );
 
-  // Instruction storage (128-bit words, up to 64k entries)
-  reg [127:0] instr_memory [0:65535];
+  // Instruction storage (128-bit words, sized to MemSize=128 entries)
+  reg [127:0] instr_memory [0:127];
 
   reg [1023:0] program_hex_path;
   integer      num_instrs;

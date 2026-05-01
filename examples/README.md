@@ -21,7 +21,7 @@ Top-level legacy examples:
 | [bianchi_violation.asm](bianchi_violation.asm) | Triggers Bianchi conservation violation by REVEALing more than μ — CPU halts with error |
 | [chsh_full.asm](chsh_full.asm) | All 4 CHSH (x,a) measurement combinations with op_a, op_b ∈ {0,1} |
 | [conditional.asm](conditional.asm) | JNEZ branching demo — counts down from 10, accumulates sum 10+…+1 |
-| [edge_cases.asm](edge_cases.asm) | Tests boundary registers (r0, r31) and maximum cost field (255) |
+| [edge_cases.asm](edge_cases.asm) | Tests boundary registers (r0, r15) and maximum cost field (255) |
 | [emit_discover.asm](emit_discover.asm) | EMIT + PDISCOVER — observable events and information-gain accumulation |
 | [fibonacci.asm](fibonacci.asm) | First 8 Fibonacci numbers, stored in mem[0..7] |
 | [hello_world.asm](hello_world.asm) | Hello World via EMIT opcodes, then HALT |

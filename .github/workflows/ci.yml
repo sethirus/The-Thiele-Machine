@@ -11,6 +11,12 @@ on:
 permissions:
   contents: read
 
+env:
+  # Opt v4-era JS actions into Node.js 24. Removes the deprecation warning
+  # without bumping action major versions (which can introduce breaking
+  # behavior, e.g. upload-artifact@v5 makes artifacts immutable).
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   # Phase 1: Proof verification (Coq + Inquisitor)
   proof-check:
@@ -218,7 +224,9 @@ jobs:
           pip install --quiet -e . --no-deps
 
       - name: Run pytest
-        run: python -m pytest tests/ -q --tb=short -m "not coq and not strict_rtl"
+        # Exclude `trs` — those tests run in the dedicated trs-receipts job
+        # (which sets up Node.js 24 + the OCaml extracted runner binary).
+        run: python -m pytest tests/ -q --tb=short -m "not coq and not strict_rtl and not trs"
 
   trs-receipts:
     name: TRS receipt tests

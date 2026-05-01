@@ -27,8 +27,8 @@ from typing import Any, Dict, List, Optional, Tuple
 # ---------------------------------------------------------------------------
 # Constants (extracted from Coq via Peano tower collapse)
 # ---------------------------------------------------------------------------
-REG_COUNT: int = 32
-MEM_SIZE: int = 65536
+REG_COUNT: int = 16
+MEM_SIZE: int = 128
 TENSOR_SIZE: int = 16
 WORD64_MASK: int = 0xFFFFFFFFFFFFFFFF
 SP_REG: int = 31
@@ -712,19 +712,17 @@ _LIST_FIELDS: frozenset = frozenset({'region', 'left', 'right', 'evidence'})
 _STR_FIELDS: frozenset = frozenset({'payload', 'label'})
 
 # On-chip LASSERT: formula/cert written to reserved memory; freg/creg point there.
-# Addresses must be LOW (< ~1000) to avoid stack overflow in the OCaml extracted
-# code: nth/firstn/list_set_mod are O(n) recursive; high addresses (0xE000=57344)
-# exceed OCaml's default stack depth.
+# Reserved regions sit inside MEM_SIZE=128 and reserved registers fit REG_COUNT=16.
 _LASSERT_FORMULA_ADDR: int = 0x10   # 16 — formula binary starts here
-_LASSERT_CERT_ADDR:    int = 0x60   # 96 — cert binary starts here (64-word gap)
-_LASSERT_FREG:         int = 28
-_LASSERT_CREG:         int = 29
+_LASSERT_CERT_ADDR:    int = 0x50   # 80 — cert binary starts here
+_LASSERT_FREG:         int = 13
+_LASSERT_CREG:         int = 14
 
 # On-chip LJOIN: cert1/cert2 written to reserved memory when provided as strings.
-_LJOIN_CERT1_ADDR: int = 0xA0   # 160
-_LJOIN_CERT2_ADDR: int = 0xD0   # 208
-_LJOIN_C1REG:      int = 26
-_LJOIN_C2REG:      int = 27
+_LJOIN_CERT1_ADDR: int = 0x60   # 96
+_LJOIN_CERT2_ADDR: int = 0x70   # 112
+_LJOIN_C1REG:      int = 11
+_LJOIN_C2REG:      int = 12
 
 def _decode_formula(s: str) -> str:
     """Decode underscore-encoded formula: __ -> newline, _ -> space."""

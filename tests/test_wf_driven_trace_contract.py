@@ -70,7 +70,7 @@ class TestWFDrivenTraceContract:
 
     def test_call_ret_family_trace_executes_cleanly(self) -> None:
         state = _run([
-            "INIT_PT 0 256",
+            "INIT_PT 0 128",
             "INIT_ACTIVE_MODULE 0",
             "CALL 3 1",
             "LOAD_IMM 2 55 1",

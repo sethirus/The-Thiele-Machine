@@ -139,7 +139,7 @@ def _normalize_vm_state(state: Any) -> dict[str, Any]:
         "pc": int(getattr(state, "pc", 0)),
         "mu": int(getattr(state, "mu", 0)),
         "err": bool(getattr(state, "err", False)),
-        "regs": [int(value) for value in getattr(state, "regs", [])[:32]],
+        "regs": [int(value) for value in getattr(state, "regs", [])[:16]],
         "mem": _strip_trailing_zeros([int(value) for value in getattr(state, "mem", [])]),
         "csrs": _json_canonical_value(getattr(state, "csrs", {})),
         "modules": modules,

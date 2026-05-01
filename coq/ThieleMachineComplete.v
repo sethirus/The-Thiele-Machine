@@ -826,7 +826,7 @@ Module CertCheck.
 
       Instead of taking a list of cert words, takes a function get_cert : nat -> nat
       that maps variable indices to assignment values.  This avoids materialising a
-      65536-element list when the cert is implicitly stored in hardware data memory.
+      MEM_SIZE-bounded list when the cert is implicitly stored in hardware data memory.
 
       Semantically equivalent to check_model_binary when
         get_cert k = nth k cert_words 0. *)
@@ -920,7 +920,7 @@ Open Scope list_scope.
        - csr_heap_base: Base address for heap operations.
 
     3. REGISTER FILE & MEMORY: Standard computational substrate.
-       32 registers (64-bit words, masked via word64), 65536-word data memory.
+       16 registers (64-bit words, masked via word64), 128-word data memory.
 
     4. PROGRAM COUNTER: Current instruction address.
 
@@ -1697,8 +1697,8 @@ Definition word64_mul (a b : nat) : nat := word64 (a * b).
 
 (* --- Register / Memory access --- *)
 
-Definition REG_COUNT : nat := 32.
-Definition MEM_SIZE : nat := 65536.
+Definition REG_COUNT : nat := 16.
+Definition MEM_SIZE : nat := 128.
 
 Definition reg_index (r : nat) : nat := r mod REG_COUNT.
 Definition mem_index (a : nat) : nat := a mod MEM_SIZE.
@@ -1897,16 +1897,16 @@ Proof.
     apply nat_lt_to_N_lt. exact Hx.
 Qed.
 
-(** MEM_SIZE fits in 64 bits: 65536 = 2^16 < 2^64 = word64_modulus.
+(** MEM_SIZE fits in 64 bits: $\texttt{MEM\_SIZE} = 128 = 2^7 < 2^{64} = \texttt{word64\_modulus}$.
     Proved via N (binary) arithmetic where lia handles power comparisons. *)
 Lemma MEM_SIZE_lt_word64_modulus : MEM_SIZE < word64_modulus.
 Proof.
   unfold MEM_SIZE, word64_modulus.
   apply N_lt_to_nat_lt.
-  change (N.of_nat (2 ^ 16) < N.of_nat (2 ^ 64))%N.
+  change (N.of_nat (2 ^ 7) < N.of_nat (2 ^ 64))%N.
   rewrite 2 Nat2N.inj_pow.
   change (N.of_nat 2) with 2%N.
-  change (N.of_nat 16) with 16%N.
+  change (N.of_nat 7) with 7%N.
   change (N.of_nat 64) with 64%N.
   lia.
 Qed.
@@ -6629,9 +6629,9 @@ Open Scope nat_scope.
     The modular version lives in coq/kami_hw/ThieleCPUCore.v. They are the same.
 
     HARDWARE PARAMETERS (canonical sizes):
-    — 32 registers (RegCount), 64-bit words (WordSz)
-    — 65,536-word instruction memory (MemSize)
-    — 65,536-word data memory (MemSize)
+    — 16 registers (RegCount), 64-bit words (WordSz)
+    — 128-word instruction memory (MemSize)
+    — 128-word data memory (MemSize)
     — 64 partition slots
     — 8 CHSH witness-count registers (wc_same_00 through wc_diff_11)
 
@@ -6652,10 +6652,10 @@ Set Asymmetric Patterns.
 
 (** ** Hardware Type Definitions *)
 
-Definition RegCount := 32.
-Definition MemSize := 65536.
-Definition RegIdxSz := 5.   (* log2(32) *)
-Definition MemAddrSz := 16.  (* log2(65536) *)
+Definition RegCount := 16.
+Definition MemSize := 128.
+Definition RegIdxSz := 4.   (* log2(16) *)
+Definition MemAddrSz := 7.  (* log2(128) *)
 Definition WordSz := 64.
 Definition OpcodeSz := 8.
 Definition CostSz := 8.
@@ -6755,7 +6755,7 @@ Section ThieleCPU.
       "data" :: Bit WordSz
     }.
 
-  Definition SP_IDX : word RegIdxSz := WO~1~1~1~1~1.
+  Definition SP_IDX : word RegIdxSz := WO~1~1~1~1.   (* RegIdxSz=4, SP=15 *)
 
   Definition kami_check_bounds
              {ty}
@@ -7522,10 +7522,6 @@ Section ThieleCPU.
         Ret (#pt_sizes_v@[#idx])
     }.
 
-  (** Extraction targets *)
-  Definition thieleCoreS := getModuleS thieleCore.
-  Definition thieleCoreB := ModulesSToBModules thieleCoreS.
-
 End ThieleCPU.
 
 (** Restore default argument inference: Set Implicit Arguments was needed
@@ -7538,10 +7534,8 @@ Global Opaque ORACLE_HALTS_HW_COST.
 
 #[global] Hint Unfold thieleCore : ModuleDefs.
 
-(** ** Canonical CPU Module for Extraction *)
-Definition thieleBusTopB := thieleCoreB.
-Definition canonical_cpu_module := thieleBusTopB.
-Definition targetB (_ : nat) := canonical_cpu_module.
+(** Canonical CPU Module for Extraction lives in CanonicalCPUProof; this file
+    re-uses the imported root via qualified names at the extraction site. *)
 
 (** =========================================================================
     SECTION 6H: HARDWARE ABSTRACTION + μ-REFINEMENT
@@ -7555,7 +7549,7 @@ Definition targetB (_ : nat) := canonical_cpu_module.
     it commutes correctly with every operation.
 
     THE ABSTRACTION (abs_phase1):
-    A KamiSnapshot has 22 fields: pc, μ, err, 32 registers, 64K memory,
+    A KamiSnapshot has 22 fields: pc, μ, err, 16 registers, 128-word memory,
     partition table, tensor state, 8 CHSH witness counters, certified flag.
     abs_phase1 maps each field faithfully to its VMState counterpart.
 
@@ -7596,8 +7590,8 @@ Record KamiSnapshot := {
   snap_mu            : nat;
   snap_err           : bool;
   snap_halted        : bool;
-  snap_regs          : nat -> nat;  (* 32 registers *)
-  snap_mem           : nat -> nat;  (* 64K memory *)
+  snap_regs          : nat -> nat;  (* 16 registers *)
+  snap_mem           : nat -> nat;  (* 128-word memory *)
   snap_partition_ops : nat;
   snap_mdl_ops       : nat;
   snap_info_gain     : nat;
@@ -7670,11 +7664,12 @@ Definition default_csrs : CSRState :=
 Definition kami_sim_rel (ks : KamiSnapshot) (vs : VMState) : Prop :=
   abs_phase1 ks = vs.
 
-(** Stack-pointer register index. *)
-Definition kami_sp_reg : nat := 31.
+(** Stack-pointer register index: r(RegCount-1) = r15 by convention,
+    matching coq/kami_hw/Abstraction.v's parametric definition. *)
+Definition kami_sp_reg : nat := RegCount - 1.
 
-Lemma kami_sp_reg_lt_32 : kami_sp_reg < 32.
-Proof. unfold kami_sp_reg. lia. Qed.
+Lemma kami_sp_reg_lt_RegCount : kami_sp_reg < RegCount.
+Proof. unfold kami_sp_reg, RegCount. lia. Qed.
 
 (** Default hardware advance: increment PC by 1, add cost to mu. *)
 Definition snap_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
@@ -7739,7 +7734,7 @@ Definition snap_write_mem (hs : KamiSnapshot) (a v : nat) : nat -> nat :=
     at the software/driver layer; the snapshot only records the mu-tensor
     charge (for REVEAL) and mu/pc advances (for others).
 
-    CALL/RET use kami_sp_reg (r31) as the stack pointer. *)
+    CALL/RET use kami_sp_reg (r15) as the stack pointer. *)
 Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
   match i with
   | instr_pnew region cost =>
@@ -8050,7 +8045,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_wc_diff_10 := snap_wc_diff_10 hs;
          snap_wc_same_11 := snap_wc_same_11 hs;
          snap_wc_diff_11 := snap_wc_diff_11 hs |}
-  (* CALL/RET use kami_sp_reg (r31) as the stack pointer.
+  (* CALL/RET use kami_sp_reg (r15) as the stack pointer.
      Stack convention: ASCENDING (matches vm_apply_unsafe and RTL).
      CALL: write ret_addr at OLD sp, then increment sp.
      RET:  decrement sp first, then read ret_pc from new sp. *)

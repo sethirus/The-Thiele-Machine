@@ -1,0 +1,17 @@
+# Yosys synthesis script for Xilinx Artix-7 (xc7a35t target).
+# Invoked by fpga/run_synthesis_xc7.sh and the fpga-bitstream CI job.
+#
+# Top is thiele_cpu_top — a minimal wrapper that exposes only CLK, RST_N,
+# and three status LEDs while tying off mkModule1's 250+ Bluespec method
+# I/Os internally. Synthesizing the wrapper (not mkModule1 standalone)
+# leaves the same internal logic but exposes only 5 device pins.
+#
+# `-abc9` enables the abc9 tech-mapping pass for tighter wide-mux factoring.
+# `-nodsp` keeps the multiplier in LUTs because nextpnr-xilinx (openXC7)
+# cannot route DSP48E1 cascade-carry ground ties; the LUT-mapped multiplier
+# is functionally identical and stays well within the device's LUT budget.
+
+read_verilog -sv -DSYNTHESIS RegFile.v thiele_cpu_kami.v thiele_cpu_top_min.v
+
+synth_xilinx -family xc7 -flatten -abc9 -nodsp -top thiele_cpu_top
+write_json ../../../build/thiele_xc7a35t.json

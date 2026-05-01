@@ -57,11 +57,11 @@ def _run_both(program: List[str]):
 # Hypothesis strategies for instruction generation
 # ---------------------------------------------------------------------------
 
-st_register = st.integers(min_value=0, max_value=31)
+st_register = st.integers(min_value=0, max_value=15)
 st_imm = st.integers(min_value=0, max_value=255)
 st_cost = st.integers(min_value=0, max_value=15)
 st_cost_nonzero = st.integers(min_value=1, max_value=15)
-st_addr = st.integers(min_value=0, max_value=255)
+st_addr = st.integers(min_value=0, max_value=127)
 st_tensor_idx = st.integers(min_value=0, max_value=15)
 st_bit = st.integers(min_value=0, max_value=1)
 st_partition_id = st.integers(min_value=0, max_value=7)
@@ -182,7 +182,7 @@ def st_program(draw, max_length=15):
     n = draw(st.integers(min_value=1, max_value=max_length))
     preamble = [
         "INIT_LOGIC_ACC 0xCAFEEACE",
-        "INIT_PT 0 256",
+        "INIT_PT 0 128",
         "INIT_ACTIVE_MODULE 0",
     ]
     instrs = [draw(st_any_instr) for _ in range(n)]
@@ -214,8 +214,8 @@ def st_rtl_only_instr(draw):
     elif opcode == "MDLACC":
         return f"MDLACC {draw(st.integers(min_value=0, max_value=3))} {cost}"
     elif opcode == "LASSERT":
-        freg = draw(st.integers(min_value=0, max_value=31))
-        creg = draw(st.integers(min_value=0, max_value=31))
+        freg = draw(st.integers(min_value=0, max_value=15))
+        creg = draw(st.integers(min_value=0, max_value=15))
         kind = draw(st.integers(min_value=0, max_value=1))
         flen = draw(st.integers(min_value=1, max_value=8))
         return f"LASSERT {freg} {creg} {kind} {flen} {cost}"
@@ -235,7 +235,7 @@ def st_rtl_program(draw, max_length=15):
     n = draw(st.integers(min_value=1, max_value=max_length))
     preamble = [
         "INIT_LOGIC_ACC 0xCAFEEACE",
-        "INIT_PT 0 256",
+        "INIT_PT 0 128",
         "INIT_ACTIVE_MODULE 0",
     ]
     instr_strategy = st.one_of(st_any_instr, st_rtl_only_instr())
@@ -268,11 +268,11 @@ class TestHypothesisCrossLayer:
     @settings(max_examples=4, deadline=None,
               suppress_health_check=[HealthCheck.too_slow, HealthCheck.function_scoped_fixture])
     def test_registers_match(self, program):
-        """All 32 registers must match between Python VM and RTL."""
+        """All 16 registers must match between Python VM and RTL."""
         vm, rtl = _run_both(program)
         if rtl is None:
             return
-        for i in range(32):
+        for i in range(16):
             vm_val = vm.regs[i] if hasattr(vm, 'regs') else 0
             rtl_val = rtl["regs"][i]
             # Mask to 32-bit for comparison (RTL is 32-bit)
@@ -337,23 +337,23 @@ class TestHypothesisInvariants:
     @settings(max_examples=4, deadline=None,
               suppress_health_check=[HealthCheck.too_slow, HealthCheck.function_scoped_fixture])
     def test_register_count(self, program):
-        """RTL must always report exactly 32 registers."""
+        """RTL must always report exactly 16 registers."""
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog(program)
         if result is None:
             return
-        assert len(result["regs"]) == 32, f"Expected 32 regs, got {len(result['regs'])}"
+        assert len(result["regs"]) == 16, f"Expected 16 regs, got {len(result['regs'])}"
 
     @given(program=st_rtl_program())
     @settings(max_examples=4, deadline=None,
               suppress_health_check=[HealthCheck.too_slow, HealthCheck.function_scoped_fixture])
     def test_pc_in_bounds(self, program):
-        """PC must be in valid range [0,255] or at trap vector 0xF00."""
+        """PC must be in valid range [0,127] or at trap vector 0xF00."""
         from thielecpu.hardware.cosim import run_verilog
         result = run_verilog(program)
         if result is None:
             return
         pc = result.get("pc", 0)
-        assert (0 <= pc <= 255) or pc == 0xF00, (
+        assert (0 <= pc <= 127) or pc == 0xF00, (
             f"PC out of bounds: {pc:#x}\nProgram: {program}"
         )

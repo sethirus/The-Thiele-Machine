@@ -109,7 +109,7 @@ def _random_instruction(rng: random.Random) -> str:
 def _program_prefixes(seed: int) -> list[list[str]]:
     rng = random.Random(seed)
     preamble = [
-        "INIT_PT 0 256",
+        "INIT_PT 0 128",
         "INIT_ACTIVE_MODULE 0",
         "INIT_MEM 0 11",
         "INIT_MEM 1 22",

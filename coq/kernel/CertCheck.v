@@ -749,7 +749,7 @@ Module CertCheck.
 
       Instead of taking a list of cert words, takes a function get_cert : nat -> nat
       that maps variable indices to assignment values.  This avoids materialising a
-      65536-element list when the cert is implicitly stored in hardware data memory.
+      MEM_SIZE-element list when the cert is implicitly stored in hardware data memory.
 
       Semantically equivalent to check_model_binary when
         get_cert k = nth k cert_words 0. *)

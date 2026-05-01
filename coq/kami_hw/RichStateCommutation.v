@@ -19,6 +19,7 @@ Require Import Kernel.VMStep.
 Require Import Kernel.MuCostModel.
 Import VMStep.VMStep.
 Require Import KamiHW.Abstraction.
+From KamiHW Require Import ThieleTypes.
 
 (* *)
 (** 0. Generic helpers                                                   *)
@@ -251,7 +252,7 @@ Qed.
 Theorem snap_pt_to_graph_psplit :
     forall (next_id : nat) (sizes : nat -> nat) (mid : nat),
       next_id >= 1 ->
-      S (S next_id) <= 64 ->
+      S (S next_id) <= PTableSz ->
       mid < next_id ->
       sizes mid >= 2 ->
       sizes next_id = 0 ->
@@ -328,7 +329,7 @@ Qed.
 Theorem snap_pt_to_graph_pmerge :
     forall (next_id : nat) (sizes : nat -> nat) (m1 m2 : nat),
       next_id >= 1 ->
-      S next_id <= 64 ->
+      S next_id <= PTableSz ->
       m1 < next_id ->
       m2 < next_id ->
       m1 <> m2 ->

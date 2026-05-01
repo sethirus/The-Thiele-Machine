@@ -13,8 +13,8 @@ const EXECUTION_STATE_MODEL = "thiele.vmstate.v1";
 const ED25519_SPKI_PREFIX = Buffer.from("302a300506032b6570032100", "hex");
 const REGISTER_NAMES = new Map([
   ["zero", 0],
-  ["sp", 31],
-  ...Array.from({ length: 32 }, (_, index) => [`r${index}`, index]),
+  ["sp", 15],
+  ...Array.from({ length: 16 }, (_, index) => [`r${index}`, index]),
 ]);
 
 function fail(message) {
@@ -379,6 +379,14 @@ function normalizeValue(value) {
   return String(value);
 }
 
+function stripTrailingZeros(values) {
+  let end = values.length;
+  while (end > 0 && values[end - 1] === 0) {
+    end -= 1;
+  }
+  return values.slice(0, end);
+}
+
 function normalizeVmState(state) {
   const modulesSource = Array.isArray(state.modules) ? state.modules : (state.graph?.modules ?? []);
   const modules = modulesSource
@@ -389,12 +397,13 @@ function normalizeVmState(state) {
     }))
     .sort((left, right) => left.id - right.id);
 
+  const memValues = Array.isArray(state.mem) ? state.mem.map((value) => Number(value)) : [];
   return {
     pc: Number(state.pc ?? 0),
     mu: Number(state.mu ?? 0),
     err: Boolean(state.err ?? false),
-    regs: Array.isArray(state.regs) ? state.regs.slice(0, 32).map((value) => Number(value)) : [],
-    mem: Array.isArray(state.mem) ? state.mem.map((value) => Number(value)) : [],
+    regs: Array.isArray(state.regs) ? state.regs.slice(0, 16).map((value) => Number(value)) : [],
+    mem: stripTrailingZeros(memValues),
     csrs: normalizeValue(state.csrs ?? {}),
     modules,
     mu_tensor: Array.isArray(state.mu_tensor) ? state.mu_tensor.map((value) => Number(value)) : [],

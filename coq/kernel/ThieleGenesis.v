@@ -57,8 +57,8 @@ Check turing_instruction.
     CHAPTER 1: THE THIELE MACHINE
 
     The Thiele Machine is a register machine with:
-    - 32 general-purpose registers (vm_regs)
-    - 65536-word flat memory (vm_mem)
+    - REG_COUNT general-purpose registers (vm_regs)
+    - MEM_SIZE-word flat memory (vm_mem)
     - A partition graph for information-theoretic bookkeeping (vm_graph)
     - Control/status registers (vm_csrs)
     - A program counter (vm_pc)

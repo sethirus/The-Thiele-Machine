@@ -132,18 +132,18 @@ def run_five_module_chain():
         "MORPH 11 2 3 0 1",     # f23: M2→M3  (morph 2)
         "MORPH 12 3 4 0 1",     # f34: M3→M4  (morph 3)
         "MORPH 13 4 5 0 1",     # f45: M4→M5  (morph 4)
-        "COMPOSE 20 1 2 1",     # f12∘f23  (morph 5): M1→M3
-        "COMPOSE 21 3 4 1",     # f34∘f45  (morph 6): M3→M5
-        "COMPOSE 22 5 6 1",     # full path (morph 7): M1→M5
-        "MORPH_GET 28 7 0 0",   # r28 = source of full path
-        "MORPH_GET 29 7 1 0",   # r29 = target of full path
+        "COMPOSE 4 1 2 1",      # f12∘f23  (morph 5): M1→M3
+        "COMPOSE 5 3 4 1",      # f34∘f45  (morph 6): M3→M5
+        "COMPOSE 6 5 6 1",      # full path (morph 7): M1→M5
+        "MORPH_GET 7 7 0 0",    # r7 = source of full path
+        "MORPH_GET 8 7 1 0",    # r8 = target of full path
         "HALT 0",
     ]
     state = run_vm(prog, fuel=5000)
     return {
         "err": state.vm_err,
-        "path_source": state.vm_regs[28],
-        "path_target": state.vm_regs[29],
+        "path_source": state.vm_regs[7],
+        "path_target": state.vm_regs[8],
         "mu": state.vm_mu,
         # μ breakdown: 5 PNEWs×1 + 4 MORPHs×1 + 3 COMPOSEs×1 = 12
         "mu_expected": 5 + 4 + 3,
@@ -158,8 +158,8 @@ def run_cost_additivity():
             f"MORPH 10 1 2 0 {step_cost}",
             f"MORPH 11 2 3 0 {step_cost}",
             f"MORPH 12 3 4 0 {step_cost}",
-            f"COMPOSE 20 1 2 {step_cost}",
-            f"COMPOSE 21 4 3 {step_cost}",
+            f"COMPOSE 4 1 2 {step_cost}",
+            f"COMPOSE 5 4 3 {step_cost}",
             "HALT 0",
         ]
         state = run_vm(prog, fuel=5000)
@@ -188,23 +188,23 @@ def run_lassert_sat():
       mem[19]=1  literal +x₁
       mem[20]=0  end-of-clause
 
-    Certificate block at address 96:
-      mem[97]=1  satisfying assignment: x₁=true
-      mem[98]=0  falsifying countermodel: x₁=false
+    Certificate block at canonical LASSERT_CERT_ADDR=0x50 (80):
+      mem[81]=1  satisfying assignment: x₁=true
+      mem[82]=0  falsifying countermodel: x₁=false
 
     μ = flen×8 + S(cost) = 2×8 + (1+1) = 18
     """
     prog = [
-        "INIT_MEM 16 2",    # formula header: flen=2
+        "INIT_MEM 16 2",    # formula header at canonical LASSERT_FORMULA_ADDR=0x10: flen=2
         "INIT_MEM 17 1",    # num_vars=1
         "INIT_MEM 18 1",    # num_clauses=1
         "INIT_MEM 19 1",    # +x₁
         "INIT_MEM 20 0",    # end-of-clause
-        "INIT_MEM 97 1",    # model: x₁=true
-        "INIT_MEM 98 0",    # countermodel: x₁=false
-        "LOAD_IMM 28 16 0", # r28 = formula base address
-        "LOAD_IMM 29 96 0", # r29 = witness block base address
-        "LASSERT 28 29 1 2 1",  # kind=SAT, flen=2, cost=1
+        "INIT_MEM 81 1",    # model: x₁=true (cert base = 80, payload at +1)
+        "INIT_MEM 82 0",    # countermodel: x₁=false (payload at +2)
+        "LOAD_IMM 13 16 0", # r13 = formula base address (canonical LASSERT_FREG)
+        "LOAD_IMM 14 80 0", # r14 = witness block base address (canonical LASSERT_CREG)
+        "LASSERT 13 14 1 2 1",  # kind=SAT, flen=2, cost=1
         "HALT 0",
     ]
     flen, cost = 2, 1
@@ -360,7 +360,7 @@ def run_tensor_roundtrip():
     """
     test_value = 42
     prog = [
-        "PNEW {0,256} 1",              # module 1, 256 tensor slots
+        "PNEW {0,128} 1",              # module 1, MEM_SIZE-bounded slots
         f"TENSOR_SET 1 0 0 {test_value} 1",   # write 42 to module=1, row=0, col=0
         "TENSOR_GET 1 1 0 0 1",        # read back into r1
         "HALT 0",
