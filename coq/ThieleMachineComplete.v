@@ -2668,11 +2668,11 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       else
         jump_state s (instr_jnez rs target cost) target
   | instr_call target cost =>
-      let sp := read_reg s 31 in
-      jump_state_rm s (instr_call target cost) target (write_reg s 31 (word64_add sp 1)) (write_mem s sp (S s.(vm_pc)))
+      let sp := read_reg s 15 in
+      jump_state_rm s (instr_call target cost) target (write_reg s 15 (word64_add sp 1)) (write_mem s sp (S s.(vm_pc)))
   | instr_ret cost =>
-      let sp := word64_sub (read_reg s 31) 1 in
-      jump_state_rm s (instr_ret cost) (read_mem s sp) (write_reg s 31 sp) s.(vm_mem)
+      let sp := word64_sub (read_reg s 15) 1 in
+      jump_state_rm s (instr_ret cost) (read_mem s sp) (write_reg s 15 sp) s.(vm_mem)
   | instr_xor_load dst addr cost =>
       advance_state_rm s (instr_xor_load dst addr cost) s.(vm_graph) s.(vm_csrs) (write_reg s dst (read_mem s addr)) s.(vm_mem) s.(vm_err)
   | instr_xor_add dst src cost =>

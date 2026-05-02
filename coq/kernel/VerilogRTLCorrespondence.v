@@ -46,9 +46,10 @@
         port binding — all succeed).
         See: tests/test_verilog_cosim.py::TestCompilation
 
-    (4) FPGA synthesis: The design synthesizes to a real ECP5 bitstream
-        (build/thiele_ecp5.bit, 1.9 MB) via Yosys + nextpnr-ecp5.
-        Physical hardware place-and-route succeeds with 0 errors.
+    (4) FPGA synthesis: The design synthesizes to a real Xilinx Artix-7
+        bitstream (build/thiele_xc7a35t.bit, target xc7a35tcsg324-1 on the
+        Arty A7-35T board) via Yosys synth_xilinx + nextpnr-xilinx (openXC7)
+        + prjxray xc7frames2bit. Place-and-route succeeds with 0 errors.
 
     We state the correspondence as a Section Variable (not a global Axiom):
     - `Variable` is section-local: after `End RTLCorrespondenceSection`, each
@@ -198,7 +199,7 @@ Variable rtl_step_correct :
       Coq spec refines the Coq kernel semantics at the Kami level.
     - The cosim + fuzz tests (31/31 and 11,049/11,049) empirically validate
       that the generated Verilog satisfies rtl_step_correct.
-    - FPGA synthesis succeeds (Yosys + nextpnr-ecp5).
+    - FPGA synthesis succeeds (Yosys synth_xilinx + nextpnr-xilinx, openXC7).
 
     We name this as a Section Variable (not a global Axiom) — it is a
     premise, not a universal postulate.  Instantiate with simulation
@@ -497,6 +498,6 @@ Qed.
     Empirical validation of the full step contract:
       - 31/31 cosim tests pass (tests/test_verilog_cosim.py)
       - 11,049/11,049 fuzz tests pass (tests/test_fuzz_random_programs.py)
-      - ECP5 FPGA bitstream synthesises and place-and-routes with 0 errors *)
+      - Artix-7 FPGA bitstream (xc7a35tcsg324-1) synthesises and place-and-routes with 0 errors *)
 
 End RTLCorrespondenceSection.

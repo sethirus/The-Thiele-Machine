@@ -10,9 +10,10 @@ Set Asymmetric Patterns.
 
     The kernel proofs are parametric in these constants. The values below
     are the silicon-side bounds of the synthesized RTL (chosen to fit the
-    routing fabric of the open-source ECP5-85F target); the same Coq
-    development scales up linearly when bound to larger values for a
-    different device or for pure simulation. *)
+    Xilinx Artix-7 xc7a35tcsg324-1 / Arty A7-35T target through the
+    open-source yosys + openXC7 toolchain); the same Coq development scales
+    up linearly when bound to larger values for a different device or for
+    pure simulation. *)
 Definition RegCount := 16.
 Definition MemSize := 128.
 Definition RegIdxSz := 4.    (* log2(RegCount) *)
@@ -141,7 +142,7 @@ Definition ERR_CERT_DESC_INVALID : word WordSz :=
   WO~1~0~1~1~1~0~1~0~1~1~0~1~1~1~0~0~0~0~0~0~0~0~0~0~0~0~0~1~0~1~0~1.
 
 (** Logic-gated physics key required for REVEAL/CHSH_TRIAL unlock.
-    LOGIC_GATE_KEY = 0xCAFEEACE = 3405691598 - binary literal for fast extraction *)
+    LOGIC_GATE_KEY = 0xCAFEEACE = 3405703886 - binary literal for fast extraction *)
 Definition LOGIC_GATE_KEY : word WordSz :=
   WO~1~1~0~0~1~0~1~0~1~1~1~1~1~1~1~0~1~1~1~0~1~0~1~0~1~1~0~0~1~1~1~0.
 

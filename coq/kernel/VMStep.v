@@ -816,20 +816,20 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     vm_step s (instr_jnez rs target cost)
       (advance_state s (instr_jnez rs target cost)
         s.(vm_graph) s.(vm_csrs) s.(vm_err))
-(** CALL: push return address to stack (r31 = SP, ascending) then jump.
-    Stack convention: r31 is SP; mem[SP] = return addr; SP = SP + 1. *)
+(** CALL: push return address to stack (r15 = SP, ascending) then jump.
+    Stack convention: r15 = REG_COUNT - 1 is SP; mem[SP] = return addr; SP = SP + 1. *)
 | step_call : forall s target cost sp ret_addr mem' regs',
-    sp = read_reg s 31 ->
+    sp = read_reg s 15 ->
     ret_addr = S s.(vm_pc) ->
     mem' = write_mem s sp ret_addr ->
-    regs' = write_reg s 31 (word64_add sp 1) ->
+    regs' = write_reg s 15 (word64_add sp 1) ->
     vm_step s (instr_call target cost)
       (jump_state_rm s (instr_call target cost) target regs' mem')
 (** RET: pop return address from stack; SP = SP - 1; PC = mem[SP]. *)
 | step_ret : forall s cost sp ret_pc regs',
-    sp = word64_sub (read_reg s 31) 1 ->
+    sp = word64_sub (read_reg s 15) 1 ->
     ret_pc = read_mem s sp ->
-    regs' = write_reg s 31 sp ->
+    regs' = write_reg s 15 sp ->
     vm_step s (instr_ret cost)
       (jump_state_rm s (instr_ret cost) ret_pc regs' s.(vm_mem))
 (** ---------------------------------------------------------------

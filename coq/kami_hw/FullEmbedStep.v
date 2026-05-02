@@ -32,17 +32,18 @@
        by showing that swapping the graph before or after [vm_apply]
        produces the same result.
 
-    SCOPE:
-    - 31 SupportedOpcode instructions: unconditional full-state commutation.
-    - PNEW, CALL, RET, CHSH_TRIAL, LASSERT: conditional full-state
-      commutation (same preconditions as EmbedStep.v / EmbedStep_WF.v).
-    - PSPLIT, PMERGE: irreducible gap (hardware does not implement graph
-      mutation; documented as design constraint).
-    - TENSOR_SET/GET: irreducible gap (per-module tensor state is
-      driver-managed, not hardware-tracked).
-    - MORPH family: representation gap (rich-state tables vs partition
-      graph operations; bridged at the [FullAbstraction.v] level but
-      not instruction-by-instruction through [kami_step]).
+    SCOPE (current as of 2026-05; verified against RTLGapRegistry.v):
+    - 30 SupportedOpcode instructions: unconditional full-state commutation.
+    - 6 valid-args opcodes (CALL, RET, CHSH_TRIAL, TENSOR_SET, TENSOR_GET, LASSERT):
+      Qed under WellFormedSnapshot / index-in-range / flen-match preconditions
+      (handled in EmbedStep_WF.v and GraphReconstructionBridge.v).
+    - 10 structural-invariant opcodes (PNEW, PSPLIT, PMERGE, MORPH, MORPH_ID,
+      MORPH_DELETE, MORPH_ASSERT, MORPH_GET, COMPOSE, MORPH_TENSOR):
+      Qed under the joint inductive invariant
+      morph_table_wf /\ coupling_wf /\ coupling_desc_safe; each component is
+      preserved by every kami_step (morph_table_wf_kami_step_preserved,
+      coupling_wf_kami_step_preserved, coupling_desc_safe_kami_step_preserved).
+    - rtl_gap_registry is empty: rtl_coverage_partition: 36 + 10 + 0 = 46.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia.

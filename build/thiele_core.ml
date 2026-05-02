@@ -3887,11 +3887,7 @@ let vm_apply s = function
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      0)))))))))))))))))))))))))))))))
+      0)))))))))))))))
   in
   let ret_addr = (fun x -> x + 1) s.vm_pc in
   let mem' = write_mem s sp ret_addr in
@@ -3900,11 +3896,7 @@ let vm_apply s = function
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      0))))))))))))))))))))))))))))))) (word64_add sp ((fun x -> x + 1) 0))
+      0))))))))))))))) (word64_add sp ((fun x -> x + 1) 0))
   in
   VMStep.jump_state_rm s (VMStep.Coq_instr_call (target, cost)) target regs'
     mem'
@@ -3916,13 +3908,7 @@ let vm_apply s = function
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-        ((fun x -> x + 1) 0)))))))))))))))))))))))))))))))) ((fun x -> x + 1)
-      0)
+        0)))))))))))))))) ((fun x -> x + 1) 0)
   in
   let ret_pc = read_mem s sp in
   let regs' =
@@ -3930,11 +3916,7 @@ let vm_apply s = function
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
-      0))))))))))))))))))))))))))))))) sp
+      0))))))))))))))) sp
   in
   VMStep.jump_state_rm s (VMStep.Coq_instr_ret cost) ret_pc regs' s.vm_mem
 | VMStep.Coq_instr_chsh_trial (x, y, a, b, cost) ->

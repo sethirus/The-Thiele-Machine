@@ -379,15 +379,15 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       else
         jump_state s (instr_jnez rs target cost) target
     | instr_call target cost =>
-      let sp := read_reg s 31 in
+      let sp := read_reg s 15 in
       let ret_addr := S s.(vm_pc) in
       let mem' := write_mem s sp ret_addr in
-      let regs' := write_reg s 31 (word64_add sp 1) in
+      let regs' := write_reg s 15 (word64_add sp 1) in
       jump_state_rm s (instr_call target cost) target regs' mem'
     | instr_ret cost =>
-      let sp := word64_sub (read_reg s 31) 1 in
+      let sp := word64_sub (read_reg s 15) 1 in
       let ret_pc := read_mem s sp in
-      let regs' := write_reg s 31 sp in
+      let regs' := write_reg s 15 sp in
       jump_state_rm s (instr_ret cost) ret_pc regs' s.(vm_mem)
     | instr_xor_load dst addr cost =>
       let value := read_mem s addr in

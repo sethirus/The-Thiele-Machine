@@ -1,4 +1,4 @@
-// thiele_cpu_top_min.v — auto-generated minimal ECP5 deployment wrapper
+// thiele_cpu_top_min.v — minimal Artix-7 deployment wrapper (xc7a35t / Arty A7-35T)
 module thiele_cpu_top (
     input  CLK,
     input  RST_N,

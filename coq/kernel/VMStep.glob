@@ -1,4 +1,4 @@
-DIGEST 9e3e3637c87fd76c7c1ef522a26a949c
+DIGEST 6f8baa7e2c6fcdb06d8d4aa9b822acef
 FKernel.VMStep
 R24:27 Coq.Lists.List <> <> lib
 R29:32 Coq.Bool.Bool <> <> lib
@@ -1469,44 +1469,44 @@ constr 38841:38848 VMStep step_sub
 constr 39230:39238 VMStep step_jump
 constr 39431:39445 VMStep step_jnez_taken
 constr 39676:39694 VMStep step_jnez_not_taken
-constr 40032:40040 VMStep step_call
-constr 40409:40416 VMStep step_ret
-constr 41065:41077 VMStep step_xor_load
-constr 41432:41443 VMStep step_xor_add
-constr 41893:41905 VMStep step_xor_swap
-constr 42343:42355 VMStep step_xor_rank
-constr 42851:42865 VMStep step_checkpoint
-constr 43356:43369 VMStep step_read_port
-constr 43802:43816 VMStep step_write_port
-constr 44245:44258 VMStep step_heap_load
-constr 44777:44791 VMStep step_heap_store
-constr 45493:45500 VMStep step_and
-constr 45875:45881 VMStep step_or
-constr 46258:46265 VMStep step_shl
-constr 46646:46653 VMStep step_shr
-constr 47044:47051 VMStep step_mul
-constr 47580:47587 VMStep step_lui
-constr 47965:47973 VMStep step_halt
-constr 48268:48279 VMStep step_certify
-constr 49138:49155 VMStep step_tensor_set_ok
-constr 49532:49550 VMStep step_tensor_set_bad
-constr 49889:49906 VMStep step_tensor_get_ok
-constr 50300:50318 VMStep step_tensor_get_bad
-constr 51382:51394 VMStep step_morph_ok
-constr 51995:52012 VMStep step_morph_bad_src
-constr 52451:52468 VMStep step_morph_bad_dst
-constr 52925:52939 VMStep step_compose_ok
-constr 53361:53376 VMStep step_compose_bad
-constr 53733:53748 VMStep step_morph_id_ok
-constr 54140:54156 VMStep step_morph_id_bad
-constr 54486:54505 VMStep step_morph_delete_ok
-constr 54851:54871 VMStep step_morph_delete_bad
-constr 55294:55313 VMStep step_morph_assert_ok
-constr 55741:55761 VMStep step_morph_assert_bad
-constr 56156:56175 VMStep step_morph_tensor_ok
-constr 56606:56626 VMStep step_morph_tensor_bad
-constr 57072:57088 VMStep step_morph_get_ok
-constr 57541:57558 VMStep step_morph_get_bad
+constr 40048:40056 VMStep step_call
+constr 40425:40432 VMStep step_ret
+constr 41081:41093 VMStep step_xor_load
+constr 41448:41459 VMStep step_xor_add
+constr 41909:41921 VMStep step_xor_swap
+constr 42359:42371 VMStep step_xor_rank
+constr 42867:42881 VMStep step_checkpoint
+constr 43372:43385 VMStep step_read_port
+constr 43818:43832 VMStep step_write_port
+constr 44261:44274 VMStep step_heap_load
+constr 44793:44807 VMStep step_heap_store
+constr 45509:45516 VMStep step_and
+constr 45891:45897 VMStep step_or
+constr 46274:46281 VMStep step_shl
+constr 46662:46669 VMStep step_shr
+constr 47060:47067 VMStep step_mul
+constr 47596:47603 VMStep step_lui
+constr 47981:47989 VMStep step_halt
+constr 48284:48295 VMStep step_certify
+constr 49154:49171 VMStep step_tensor_set_ok
+constr 49548:49566 VMStep step_tensor_set_bad
+constr 49905:49922 VMStep step_tensor_get_ok
+constr 50316:50334 VMStep step_tensor_get_bad
+constr 51398:51410 VMStep step_morph_ok
+constr 52011:52028 VMStep step_morph_bad_src
+constr 52467:52484 VMStep step_morph_bad_dst
+constr 52941:52955 VMStep step_compose_ok
+constr 53377:53392 VMStep step_compose_bad
+constr 53749:53764 VMStep step_morph_id_ok
+constr 54156:54172 VMStep step_morph_id_bad
+constr 54502:54521 VMStep step_morph_delete_ok
+constr 54867:54887 VMStep step_morph_delete_bad
+constr 55310:55329 VMStep step_morph_assert_ok
+constr 55757:55777 VMStep step_morph_assert_bad
+constr 56172:56191 VMStep step_morph_tensor_ok
+constr 56622:56642 VMStep step_morph_tensor_bad
+constr 57088:57104 VMStep step_morph_get_ok
+constr 57557:57574 VMStep step_morph_get_bad
 R29267:29270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R29260:29266 Kernel.VMState <> VMState rec
 R29285:29288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
@@ -2265,1618 +2265,1618 @@ R39774:39775 Kernel.VMStep <> rs:370 var
 R39777:39782 Kernel.VMStep <> target:371 var
 R39784:39787 Kernel.VMStep <> cost:372 var
 R39760:39760 Kernel.VMStep <> s:369 var
-binder 40051:40051 <> s:373
-binder 40053:40058 <> target:374
-binder 40060:40063 <> cost:375
-binder 40065:40066 <> sp:376
-binder 40068:40075 <> ret_addr:377
-binder 40077:40080 <> mem':378
-binder 40082:40086 <> regs':379
-R40111:40118 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R40095:40097 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40093:40094 Kernel.VMStep <> sp:376 var
-R40098:40105 Kernel.VMState <> read_reg def
-R40107:40107 Kernel.VMStep <> s:373 var
-R40141:40148 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R40127:40129 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40119:40126 Kernel.VMStep <> ret_addr:377 var
-R40130:40130 Coq.Init.Datatypes <> S constr
-R40135:40139 Kernel.VMState <> vm_pc proj
-R40132:40132 Kernel.VMStep <> s:373 var
-R40179:40186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R40153:40155 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40149:40152 Kernel.VMStep <> mem':378 var
-R40156:40164 Kernel.VMState <> write_mem def
-R40166:40166 Kernel.VMStep <> s:373 var
-R40168:40169 Kernel.VMStep <> sp:376 var
-R40171:40178 Kernel.VMStep <> ret_addr:377 var
-R40227:40234 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R40192:40194 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40187:40191 Kernel.VMStep <> regs':379 var
-R40195:40203 Kernel.VMState <> write_reg def
-R40205:40205 Kernel.VMStep <> s:373 var
-R40211:40220 Kernel.VMState <> word64_add def
-R40222:40223 Kernel.VMStep <> sp:376 var
-R40235:40241 Kernel.VMStep <> vm_step:262 ind
-R40277:40289 Kernel.VMStep VMStep jump_state_rm def
-R40291:40291 Kernel.VMStep <> s:373 var
-R40294:40303 Kernel.VMStep VMStep instr_call constr
-R40305:40310 Kernel.VMStep <> target:374 var
-R40312:40315 Kernel.VMStep <> cost:375 var
-R40318:40323 Kernel.VMStep <> target:374 var
-R40325:40329 Kernel.VMStep <> regs':379 var
-R40331:40334 Kernel.VMStep <> mem':378 var
-R40246:40255 Kernel.VMStep VMStep instr_call constr
-R40257:40262 Kernel.VMStep <> target:374 var
-R40264:40267 Kernel.VMStep <> cost:375 var
-R40243:40243 Kernel.VMStep <> s:373 var
-binder 40427:40427 <> s:380
-binder 40429:40432 <> cost:381
-binder 40434:40435 <> sp:382
-binder 40437:40442 <> ret_pc:383
-binder 40444:40448 <> regs':384
-R40488:40495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R40457:40459 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40455:40456 Kernel.VMStep <> sp:382 var
-R40460:40469 Kernel.VMState <> word64_sub def
-R40472:40479 Kernel.VMState <> read_reg def
-R40481:40481 Kernel.VMStep <> s:380 var
-R40518:40525 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R40502:40504 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40496:40501 Kernel.VMStep <> ret_pc:383 var
-R40505:40512 Kernel.VMState <> read_mem def
-R40514:40514 Kernel.VMStep <> s:380 var
-R40516:40517 Kernel.VMStep <> sp:382 var
-R40551:40558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R40531:40533 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R40526:40530 Kernel.VMStep <> regs':384 var
-R40534:40542 Kernel.VMState <> write_reg def
-R40544:40544 Kernel.VMStep <> s:380 var
-R40549:40550 Kernel.VMStep <> sp:382 var
-R40559:40565 Kernel.VMStep <> vm_step:262 ind
-R40593:40605 Kernel.VMStep VMStep jump_state_rm def
-R40607:40607 Kernel.VMStep <> s:380 var
-R40610:40618 Kernel.VMStep VMStep instr_ret constr
-R40620:40623 Kernel.VMStep <> cost:381 var
-R40626:40631 Kernel.VMStep <> ret_pc:383 var
-R40633:40637 Kernel.VMStep <> regs':384 var
-R40642:40647 Kernel.VMState <> vm_mem proj
-R40639:40639 Kernel.VMStep <> s:380 var
-R40570:40578 Kernel.VMStep VMStep instr_ret constr
-R40580:40583 Kernel.VMStep <> cost:381 var
-R40567:40567 Kernel.VMStep <> s:380 var
-binder 41088:41088 <> s:385
-binder 41090:41092 <> dst:386
-binder 41094:41097 <> addr:387
-binder 41099:41102 <> cost:388
-binder 41104:41108 <> regs':389
-binder 41110:41114 <> value:390
-R41144:41151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41126:41128 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41121:41125 Kernel.VMStep <> value:390 var
-R41129:41136 Kernel.VMState <> read_mem def
-R41138:41138 Kernel.VMStep <> s:385 var
-R41140:41143 Kernel.VMStep <> addr:387 var
-R41181:41188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41157:41159 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41152:41156 Kernel.VMStep <> regs':389 var
-R41160:41168 Kernel.VMState <> write_reg def
-R41170:41170 Kernel.VMStep <> s:385 var
-R41172:41174 Kernel.VMStep <> dst:386 var
-R41176:41180 Kernel.VMStep <> value:390 var
-R41189:41195 Kernel.VMStep <> vm_step:262 ind
-R41237:41252 Kernel.VMStep VMStep advance_state_rm def
-R41254:41254 Kernel.VMStep <> s:385 var
-R41257:41270 Kernel.VMStep VMStep instr_xor_load constr
-R41272:41274 Kernel.VMStep <> dst:386 var
-R41276:41279 Kernel.VMStep <> addr:387 var
-R41281:41284 Kernel.VMStep <> cost:388 var
-R41298:41305 Kernel.VMState <> vm_graph proj
-R41295:41295 Kernel.VMStep <> s:385 var
-R41311:41317 Kernel.VMState <> vm_csrs proj
-R41308:41308 Kernel.VMStep <> s:385 var
-R41320:41324 Kernel.VMStep <> regs':389 var
-R41329:41334 Kernel.VMState <> vm_mem proj
-R41326:41326 Kernel.VMStep <> s:385 var
-R41340:41345 Kernel.VMState <> vm_err proj
-R41337:41337 Kernel.VMStep <> s:385 var
-R41200:41213 Kernel.VMStep VMStep instr_xor_load constr
-R41215:41217 Kernel.VMStep <> dst:386 var
-R41219:41222 Kernel.VMStep <> addr:387 var
-R41224:41227 Kernel.VMStep <> cost:388 var
-R41197:41197 Kernel.VMStep <> s:385 var
-binder 41454:41454 <> s:391
-binder 41456:41458 <> dst:392
-binder 41460:41462 <> src:393
-binder 41464:41467 <> cost:394
-binder 41469:41473 <> regs':395
-binder 41475:41478 <> vdst:396
-binder 41480:41483 <> vsrc:397
-R41511:41518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41494:41496 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41490:41493 Kernel.VMStep <> vdst:396 var
-R41497:41504 Kernel.VMState <> read_reg def
-R41506:41506 Kernel.VMStep <> s:391 var
-R41508:41510 Kernel.VMStep <> dst:392 var
-R41540:41547 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41523:41525 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41519:41522 Kernel.VMStep <> vsrc:397 var
-R41526:41533 Kernel.VMState <> read_reg def
-R41535:41535 Kernel.VMStep <> s:391 var
-R41537:41539 Kernel.VMStep <> src:393 var
-R41594:41601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41553:41555 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41548:41552 Kernel.VMStep <> regs':395 var
-R41556:41564 Kernel.VMState <> write_reg def
-R41566:41566 Kernel.VMStep <> s:391 var
-R41568:41570 Kernel.VMStep <> dst:392 var
-R41573:41582 Kernel.VMState <> word64_xor def
-R41584:41587 Kernel.VMStep <> vdst:396 var
-R41589:41592 Kernel.VMStep <> vsrc:397 var
-R41602:41608 Kernel.VMStep <> vm_step:262 ind
-R41648:41663 Kernel.VMStep VMStep advance_state_rm def
-R41665:41665 Kernel.VMStep <> s:391 var
-R41668:41680 Kernel.VMStep VMStep instr_xor_add constr
-R41682:41684 Kernel.VMStep <> dst:392 var
-R41686:41688 Kernel.VMStep <> src:393 var
-R41690:41693 Kernel.VMStep <> cost:394 var
-R41707:41714 Kernel.VMState <> vm_graph proj
-R41704:41704 Kernel.VMStep <> s:391 var
-R41720:41726 Kernel.VMState <> vm_csrs proj
-R41717:41717 Kernel.VMStep <> s:391 var
-R41729:41733 Kernel.VMStep <> regs':395 var
-R41738:41743 Kernel.VMState <> vm_mem proj
-R41735:41735 Kernel.VMStep <> s:391 var
-R41749:41754 Kernel.VMState <> vm_err proj
-R41746:41746 Kernel.VMStep <> s:391 var
-R41613:41625 Kernel.VMStep VMStep instr_xor_add constr
-R41627:41629 Kernel.VMStep <> dst:392 var
-R41631:41633 Kernel.VMStep <> src:393 var
-R41635:41638 Kernel.VMStep <> cost:394 var
-R41610:41610 Kernel.VMStep <> s:391 var
-binder 41916:41916 <> s:398
-binder 41918:41918 <> a:399
-binder 41920:41920 <> b:400
-binder 41922:41925 <> cost:401
-binder 41927:41931 <> regs':402
-R41971:41978 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R41943:41945 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R41938:41942 Kernel.VMStep <> regs':402 var
-R41946:41954 Kernel.VMState <> swap_regs def
-R41959:41965 Kernel.VMState <> vm_regs proj
-R41956:41956 Kernel.VMStep <> s:398 var
-R41968:41968 Kernel.VMStep <> a:399 var
-R41970:41970 Kernel.VMStep <> b:400 var
-R41979:41985 Kernel.VMStep <> vm_step:262 ind
-R42022:42037 Kernel.VMStep VMStep advance_state_rm def
-R42039:42039 Kernel.VMStep <> s:398 var
-R42042:42055 Kernel.VMStep VMStep instr_xor_swap constr
-R42057:42057 Kernel.VMStep <> a:399 var
-R42059:42059 Kernel.VMStep <> b:400 var
-R42061:42064 Kernel.VMStep <> cost:401 var
-R42078:42085 Kernel.VMState <> vm_graph proj
-R42075:42075 Kernel.VMStep <> s:398 var
-R42091:42097 Kernel.VMState <> vm_csrs proj
-R42088:42088 Kernel.VMStep <> s:398 var
-R42100:42104 Kernel.VMStep <> regs':402 var
-R42109:42114 Kernel.VMState <> vm_mem proj
-R42106:42106 Kernel.VMStep <> s:398 var
-R42120:42125 Kernel.VMState <> vm_err proj
-R42117:42117 Kernel.VMStep <> s:398 var
-R41990:42003 Kernel.VMStep VMStep instr_xor_swap constr
-R42005:42005 Kernel.VMStep <> a:399 var
-R42007:42007 Kernel.VMStep <> b:400 var
-R42009:42012 Kernel.VMStep <> cost:401 var
-R41987:41987 Kernel.VMStep <> s:398 var
-binder 42366:42366 <> s:403
-binder 42368:42370 <> dst:404
-binder 42372:42374 <> src:405
-binder 42376:42379 <> cost:406
-binder 42381:42385 <> regs':407
-binder 42387:42390 <> vsrc:408
-R42418:42425 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R42401:42403 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R42397:42400 Kernel.VMStep <> vsrc:408 var
-R42404:42411 Kernel.VMState <> read_reg def
-R42413:42413 Kernel.VMStep <> s:403 var
-R42415:42417 Kernel.VMStep <> src:405 var
-R42472:42479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R42431:42433 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R42426:42430 Kernel.VMStep <> regs':407 var
-R42434:42442 Kernel.VMState <> write_reg def
-R42444:42444 Kernel.VMStep <> s:403 var
-R42446:42448 Kernel.VMStep <> dst:404 var
-R42451:42465 Kernel.VMState <> word64_popcount def
-R42467:42470 Kernel.VMStep <> vsrc:408 var
-R42480:42486 Kernel.VMStep <> vm_step:262 ind
-R42527:42542 Kernel.VMStep VMStep advance_state_rm def
-R42544:42544 Kernel.VMStep <> s:403 var
-R42547:42560 Kernel.VMStep VMStep instr_xor_rank constr
-R42562:42564 Kernel.VMStep <> dst:404 var
-R42566:42568 Kernel.VMStep <> src:405 var
-R42570:42573 Kernel.VMStep <> cost:406 var
-R42587:42594 Kernel.VMState <> vm_graph proj
-R42584:42584 Kernel.VMStep <> s:403 var
-R42600:42606 Kernel.VMState <> vm_csrs proj
-R42597:42597 Kernel.VMStep <> s:403 var
-R42609:42613 Kernel.VMStep <> regs':407 var
-R42618:42623 Kernel.VMState <> vm_mem proj
-R42615:42615 Kernel.VMStep <> s:403 var
-R42629:42634 Kernel.VMState <> vm_err proj
-R42626:42626 Kernel.VMStep <> s:403 var
-R42491:42504 Kernel.VMStep VMStep instr_xor_rank constr
-R42506:42508 Kernel.VMStep <> dst:404 var
-R42510:42512 Kernel.VMStep <> src:405 var
-R42514:42517 Kernel.VMStep <> cost:406 var
-R42488:42488 Kernel.VMStep <> s:403 var
-binder 42876:42876 <> s:409
-binder 42878:42882 <> label:410
-binder 42884:42887 <> cost:411
-R42894:42900 Kernel.VMStep <> vm_step:262 ind
-R42941:42953 Kernel.VMStep VMStep advance_state def
-R42955:42955 Kernel.VMStep <> s:409 var
-R42958:42973 Kernel.VMStep VMStep instr_checkpoint constr
-R42975:42979 Kernel.VMStep <> label:410 var
-R42981:42984 Kernel.VMStep <> cost:411 var
-R42998:43005 Kernel.VMState <> vm_graph proj
-R42995:42995 Kernel.VMStep <> s:409 var
-R43011:43017 Kernel.VMState <> vm_csrs proj
-R43008:43008 Kernel.VMStep <> s:409 var
-R43023:43028 Kernel.VMState <> vm_err proj
-R43020:43020 Kernel.VMStep <> s:409 var
-R42905:42920 Kernel.VMStep VMStep instr_checkpoint constr
-R42922:42926 Kernel.VMStep <> label:410 var
-R42928:42931 Kernel.VMStep <> cost:411 var
-R42902:42902 Kernel.VMStep <> s:409 var
-binder 43380:43380 <> s:412
-binder 43382:43384 <> dst:413
-binder 43386:43396 <> channel_idx:414
-binder 43398:43402 <> value:415
-binder 43404:43407 <> bits:416
-binder 43409:43412 <> cost:417
-binder 43414:43418 <> regs':418
-R43454:43461 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R43430:43432 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R43425:43429 Kernel.VMStep <> regs':418 var
-R43433:43441 Kernel.VMState <> write_reg def
-R43443:43443 Kernel.VMStep <> s:412 var
-R43445:43447 Kernel.VMStep <> dst:413 var
-R43449:43453 Kernel.VMStep <> value:415 var
-R43462:43468 Kernel.VMStep <> vm_step:262 ind
-R43529:43544 Kernel.VMStep VMStep advance_state_rm def
-R43546:43546 Kernel.VMStep <> s:412 var
-R43549:43563 Kernel.VMStep VMStep instr_read_port constr
-R43565:43567 Kernel.VMStep <> dst:413 var
-R43569:43579 Kernel.VMStep <> channel_idx:414 var
-R43581:43585 Kernel.VMStep <> value:415 var
-R43587:43590 Kernel.VMStep <> bits:416 var
-R43592:43595 Kernel.VMStep <> cost:417 var
-R43609:43616 Kernel.VMState <> vm_graph proj
-R43606:43606 Kernel.VMStep <> s:412 var
-R43622:43628 Kernel.VMState <> vm_csrs proj
-R43619:43619 Kernel.VMStep <> s:412 var
-R43631:43635 Kernel.VMStep <> regs':418 var
-R43640:43645 Kernel.VMState <> vm_mem proj
-R43637:43637 Kernel.VMStep <> s:412 var
-R43651:43656 Kernel.VMState <> vm_err proj
-R43648:43648 Kernel.VMStep <> s:412 var
-R43473:43487 Kernel.VMStep VMStep instr_read_port constr
-R43489:43491 Kernel.VMStep <> dst:413 var
-R43493:43503 Kernel.VMStep <> channel_idx:414 var
-R43505:43509 Kernel.VMStep <> value:415 var
-R43511:43514 Kernel.VMStep <> bits:416 var
-R43516:43519 Kernel.VMStep <> cost:417 var
-R43470:43470 Kernel.VMStep <> s:412 var
-binder 43827:43827 <> s:419
-binder 43829:43839 <> channel_idx:420
-binder 43841:43843 <> src:421
-binder 43845:43848 <> cost:422
-R43855:43861 Kernel.VMStep <> vm_step:262 ind
-R43912:43924 Kernel.VMStep VMStep advance_state def
-R43926:43926 Kernel.VMStep <> s:419 var
-R43929:43944 Kernel.VMStep VMStep instr_write_port constr
-R43946:43956 Kernel.VMStep <> channel_idx:420 var
-R43958:43960 Kernel.VMStep <> src:421 var
-R43962:43965 Kernel.VMStep <> cost:422 var
-R43979:43986 Kernel.VMState <> vm_graph proj
-R43976:43976 Kernel.VMStep <> s:419 var
-R43992:43998 Kernel.VMState <> vm_csrs proj
-R43989:43989 Kernel.VMStep <> s:419 var
-R44004:44009 Kernel.VMState <> vm_err proj
-R44001:44001 Kernel.VMStep <> s:419 var
-R43866:43881 Kernel.VMStep VMStep instr_write_port constr
-R43883:43893 Kernel.VMStep <> channel_idx:420 var
-R43895:43897 Kernel.VMStep <> src:421 var
-R43899:43902 Kernel.VMStep <> cost:422 var
-R43863:43863 Kernel.VMStep <> s:419 var
-binder 44269:44269 <> s:423
-binder 44271:44273 <> dst:424
-binder 44275:44281 <> rs_addr:425
-binder 44283:44286 <> cost:426
-binder 44288:44292 <> regs':427
-binder 44294:44298 <> value:428
-binder 44300:44303 <> addr:429
-R44335:44342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R44314:44316 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R44310:44313 Kernel.VMStep <> addr:429 var
-R44317:44324 Kernel.VMState <> read_reg def
-R44326:44326 Kernel.VMStep <> s:423 var
-R44328:44334 Kernel.VMStep <> rs_addr:425 var
-R44398:44405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R44348:44350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R44343:44347 Kernel.VMStep <> value:428 var
-R44351:44358 Kernel.VMState <> read_mem def
-R44360:44360 Kernel.VMStep <> s:423 var
-R44390:44392 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R44376:44388 Kernel.VMState <> csr_heap_base proj
-R44366:44372 Kernel.VMState <> vm_csrs proj
-R44363:44363 Kernel.VMStep <> s:423 var
-R44393:44396 Kernel.VMStep <> addr:429 var
-R44435:44442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R44411:44413 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R44406:44410 Kernel.VMStep <> regs':427 var
-R44414:44422 Kernel.VMState <> write_reg def
-R44424:44424 Kernel.VMStep <> s:423 var
-R44426:44428 Kernel.VMStep <> dst:424 var
-R44430:44434 Kernel.VMStep <> value:428 var
-R44443:44449 Kernel.VMStep <> vm_step:262 ind
-R44495:44510 Kernel.VMStep VMStep advance_state_rm def
-R44512:44512 Kernel.VMStep <> s:423 var
-R44515:44529 Kernel.VMStep VMStep instr_heap_load constr
-R44531:44533 Kernel.VMStep <> dst:424 var
-R44535:44541 Kernel.VMStep <> rs_addr:425 var
-R44543:44546 Kernel.VMStep <> cost:426 var
-R44560:44567 Kernel.VMState <> vm_graph proj
-R44557:44557 Kernel.VMStep <> s:423 var
-R44573:44579 Kernel.VMState <> vm_csrs proj
-R44570:44570 Kernel.VMStep <> s:423 var
-R44582:44586 Kernel.VMStep <> regs':427 var
-R44591:44596 Kernel.VMState <> vm_mem proj
-R44588:44588 Kernel.VMStep <> s:423 var
-R44602:44607 Kernel.VMState <> vm_err proj
-R44599:44599 Kernel.VMStep <> s:423 var
-R44454:44468 Kernel.VMStep VMStep instr_heap_load constr
-R44470:44472 Kernel.VMStep <> dst:424 var
-R44474:44480 Kernel.VMStep <> rs_addr:425 var
-R44482:44485 Kernel.VMStep <> cost:426 var
-R44451:44451 Kernel.VMStep <> s:423 var
-binder 44802:44802 <> s:430
-binder 44804:44810 <> rs_addr:431
-binder 44812:44814 <> src:432
-binder 44816:44819 <> cost:433
-binder 44821:44824 <> mem':434
-binder 44826:44830 <> value:435
-binder 44832:44835 <> addr:436
-R44867:44874 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R44846:44848 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R44842:44845 Kernel.VMStep <> addr:436 var
-R44849:44856 Kernel.VMState <> read_reg def
-R44858:44858 Kernel.VMStep <> s:430 var
-R44860:44866 Kernel.VMStep <> rs_addr:431 var
-R44897:44904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R44880:44882 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R44875:44879 Kernel.VMStep <> value:435 var
-R44883:44890 Kernel.VMState <> read_reg def
-R44892:44892 Kernel.VMStep <> s:430 var
-R44894:44896 Kernel.VMStep <> src:432 var
-R44966:44973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R44909:44911 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R44905:44908 Kernel.VMStep <> mem':434 var
-R44912:44920 Kernel.VMState <> write_mem def
-R44922:44922 Kernel.VMStep <> s:430 var
-R44952:44954 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R44938:44950 Kernel.VMState <> csr_heap_base proj
-R44928:44934 Kernel.VMState <> vm_csrs proj
-R44925:44925 Kernel.VMStep <> s:430 var
-R44955:44958 Kernel.VMStep <> addr:436 var
-R44961:44965 Kernel.VMStep <> value:435 var
-R44974:44980 Kernel.VMStep <> vm_step:262 ind
-R45027:45042 Kernel.VMStep VMStep advance_state_rm def
-R45044:45044 Kernel.VMStep <> s:430 var
-R45047:45062 Kernel.VMStep VMStep instr_heap_store constr
-R45064:45070 Kernel.VMStep <> rs_addr:431 var
-R45072:45074 Kernel.VMStep <> src:432 var
-R45076:45079 Kernel.VMStep <> cost:433 var
-R45093:45100 Kernel.VMState <> vm_graph proj
-R45090:45090 Kernel.VMStep <> s:430 var
-R45106:45112 Kernel.VMState <> vm_csrs proj
-R45103:45103 Kernel.VMStep <> s:430 var
-R45118:45124 Kernel.VMState <> vm_regs proj
-R45115:45115 Kernel.VMStep <> s:430 var
-R45127:45130 Kernel.VMStep <> mem':434 var
-R45135:45140 Kernel.VMState <> vm_err proj
-R45132:45132 Kernel.VMStep <> s:430 var
-R44985:45000 Kernel.VMStep VMStep instr_heap_store constr
-R45002:45008 Kernel.VMStep <> rs_addr:431 var
-R45010:45012 Kernel.VMStep <> src:432 var
-R45014:45017 Kernel.VMStep <> cost:433 var
-R44982:44982 Kernel.VMStep <> s:430 var
-binder 45511:45511 <> s:437
-binder 45513:45515 <> dst:438
-binder 45517:45519 <> rs1:439
-binder 45521:45523 <> rs2:440
-binder 45525:45528 <> cost:441
-binder 45530:45534 <> regs':442
-binder 45536:45537 <> v1:443
-binder 45539:45540 <> v2:444
-R45566:45573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R45549:45551 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R45547:45548 Kernel.VMStep <> v1:443 var
-R45552:45559 Kernel.VMState <> read_reg def
-R45561:45561 Kernel.VMStep <> s:437 var
-R45563:45565 Kernel.VMStep <> rs1:439 var
-R45593:45600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R45576:45578 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R45574:45575 Kernel.VMStep <> v2:444 var
-R45579:45586 Kernel.VMState <> read_reg def
-R45588:45588 Kernel.VMStep <> s:437 var
-R45590:45592 Kernel.VMStep <> rs2:440 var
-R45643:45650 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R45606:45608 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R45601:45605 Kernel.VMStep <> regs':442 var
-R45609:45617 Kernel.VMState <> write_reg def
-R45619:45619 Kernel.VMStep <> s:437 var
-R45621:45623 Kernel.VMStep <> dst:438 var
-R45626:45635 Kernel.VMState <> word64_and def
-R45637:45638 Kernel.VMStep <> v1:443 var
-R45640:45641 Kernel.VMStep <> v2:444 var
-R45651:45657 Kernel.VMStep <> vm_step:262 ind
-R45697:45712 Kernel.VMStep VMStep advance_state_rm def
-R45714:45714 Kernel.VMStep <> s:437 var
-R45717:45725 Kernel.VMStep VMStep instr_and constr
-R45727:45729 Kernel.VMStep <> dst:438 var
-R45731:45733 Kernel.VMStep <> rs1:439 var
-R45735:45737 Kernel.VMStep <> rs2:440 var
-R45739:45742 Kernel.VMStep <> cost:441 var
-R45756:45763 Kernel.VMState <> vm_graph proj
-R45753:45753 Kernel.VMStep <> s:437 var
-R45769:45775 Kernel.VMState <> vm_csrs proj
-R45766:45766 Kernel.VMStep <> s:437 var
-R45778:45782 Kernel.VMStep <> regs':442 var
-R45787:45792 Kernel.VMState <> vm_mem proj
-R45784:45784 Kernel.VMStep <> s:437 var
-R45798:45803 Kernel.VMState <> vm_err proj
-R45795:45795 Kernel.VMStep <> s:437 var
-R45662:45670 Kernel.VMStep VMStep instr_and constr
-R45672:45674 Kernel.VMStep <> dst:438 var
-R45676:45678 Kernel.VMStep <> rs1:439 var
-R45680:45682 Kernel.VMStep <> rs2:440 var
-R45684:45687 Kernel.VMStep <> cost:441 var
-R45659:45659 Kernel.VMStep <> s:437 var
-binder 45892:45892 <> s:445
-binder 45894:45896 <> dst:446
-binder 45898:45900 <> rs1:447
-binder 45902:45904 <> rs2:448
-binder 45906:45909 <> cost:449
-binder 45911:45915 <> regs':450
-binder 45917:45918 <> v1:451
-binder 45920:45921 <> v2:452
-R45947:45954 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R45930:45932 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R45928:45929 Kernel.VMStep <> v1:451 var
-R45933:45940 Kernel.VMState <> read_reg def
-R45942:45942 Kernel.VMStep <> s:445 var
-R45944:45946 Kernel.VMStep <> rs1:447 var
-R45974:45981 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R45957:45959 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R45955:45956 Kernel.VMStep <> v2:452 var
-R45960:45967 Kernel.VMState <> read_reg def
-R45969:45969 Kernel.VMStep <> s:445 var
-R45971:45973 Kernel.VMStep <> rs2:448 var
-R46023:46030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R45987:45989 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R45982:45986 Kernel.VMStep <> regs':450 var
-R45990:45998 Kernel.VMState <> write_reg def
-R46000:46000 Kernel.VMStep <> s:445 var
-R46002:46004 Kernel.VMStep <> dst:446 var
-R46007:46015 Kernel.VMState <> word64_or def
-R46017:46018 Kernel.VMStep <> v1:451 var
-R46020:46021 Kernel.VMStep <> v2:452 var
-R46031:46037 Kernel.VMStep <> vm_step:262 ind
-R46076:46091 Kernel.VMStep VMStep advance_state_rm def
-R46093:46093 Kernel.VMStep <> s:445 var
-R46096:46103 Kernel.VMStep VMStep instr_or constr
-R46105:46107 Kernel.VMStep <> dst:446 var
-R46109:46111 Kernel.VMStep <> rs1:447 var
-R46113:46115 Kernel.VMStep <> rs2:448 var
-R46117:46120 Kernel.VMStep <> cost:449 var
-R46134:46141 Kernel.VMState <> vm_graph proj
-R46131:46131 Kernel.VMStep <> s:445 var
-R46147:46153 Kernel.VMState <> vm_csrs proj
-R46144:46144 Kernel.VMStep <> s:445 var
-R46156:46160 Kernel.VMStep <> regs':450 var
-R46165:46170 Kernel.VMState <> vm_mem proj
-R46162:46162 Kernel.VMStep <> s:445 var
-R46176:46181 Kernel.VMState <> vm_err proj
-R46173:46173 Kernel.VMStep <> s:445 var
-R46042:46049 Kernel.VMStep VMStep instr_or constr
-R46051:46053 Kernel.VMStep <> dst:446 var
-R46055:46057 Kernel.VMStep <> rs1:447 var
-R46059:46061 Kernel.VMStep <> rs2:448 var
-R46063:46066 Kernel.VMStep <> cost:449 var
-R46039:46039 Kernel.VMStep <> s:445 var
-binder 46276:46276 <> s:453
-binder 46278:46280 <> dst:454
-binder 46282:46284 <> rs1:455
-binder 46286:46288 <> rs2:456
-binder 46290:46293 <> cost:457
-binder 46295:46299 <> regs':458
-binder 46301:46302 <> v1:459
-binder 46304:46305 <> v2:460
-R46331:46338 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R46314:46316 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R46312:46313 Kernel.VMStep <> v1:459 var
-R46317:46324 Kernel.VMState <> read_reg def
-R46326:46326 Kernel.VMStep <> s:453 var
-R46328:46330 Kernel.VMStep <> rs1:455 var
-R46358:46365 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R46341:46343 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R46339:46340 Kernel.VMStep <> v2:460 var
-R46344:46351 Kernel.VMState <> read_reg def
-R46353:46353 Kernel.VMStep <> s:453 var
-R46355:46357 Kernel.VMStep <> rs2:456 var
-R46408:46415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R46371:46373 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R46366:46370 Kernel.VMStep <> regs':458 var
-R46374:46382 Kernel.VMState <> write_reg def
-R46384:46384 Kernel.VMStep <> s:453 var
-R46386:46388 Kernel.VMStep <> dst:454 var
-R46391:46400 Kernel.VMState <> word64_shl def
-R46402:46403 Kernel.VMStep <> v1:459 var
-R46405:46406 Kernel.VMStep <> v2:460 var
-R46416:46422 Kernel.VMStep <> vm_step:262 ind
-R46462:46477 Kernel.VMStep VMStep advance_state_rm def
-R46479:46479 Kernel.VMStep <> s:453 var
-R46482:46490 Kernel.VMStep VMStep instr_shl constr
-R46492:46494 Kernel.VMStep <> dst:454 var
-R46496:46498 Kernel.VMStep <> rs1:455 var
-R46500:46502 Kernel.VMStep <> rs2:456 var
-R46504:46507 Kernel.VMStep <> cost:457 var
-R46521:46528 Kernel.VMState <> vm_graph proj
-R46518:46518 Kernel.VMStep <> s:453 var
-R46534:46540 Kernel.VMState <> vm_csrs proj
-R46531:46531 Kernel.VMStep <> s:453 var
-R46543:46547 Kernel.VMStep <> regs':458 var
-R46552:46557 Kernel.VMState <> vm_mem proj
-R46549:46549 Kernel.VMStep <> s:453 var
-R46563:46568 Kernel.VMState <> vm_err proj
-R46560:46560 Kernel.VMStep <> s:453 var
-R46427:46435 Kernel.VMStep VMStep instr_shl constr
-R46437:46439 Kernel.VMStep <> dst:454 var
-R46441:46443 Kernel.VMStep <> rs1:455 var
-R46445:46447 Kernel.VMStep <> rs2:456 var
-R46449:46452 Kernel.VMStep <> cost:457 var
-R46424:46424 Kernel.VMStep <> s:453 var
-binder 46664:46664 <> s:461
-binder 46666:46668 <> dst:462
-binder 46670:46672 <> rs1:463
-binder 46674:46676 <> rs2:464
-binder 46678:46681 <> cost:465
-binder 46683:46687 <> regs':466
-binder 46689:46690 <> v1:467
-binder 46692:46693 <> v2:468
-R46719:46726 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R46702:46704 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R46700:46701 Kernel.VMStep <> v1:467 var
-R46705:46712 Kernel.VMState <> read_reg def
-R46714:46714 Kernel.VMStep <> s:461 var
-R46716:46718 Kernel.VMStep <> rs1:463 var
-R46746:46753 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R46729:46731 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R46727:46728 Kernel.VMStep <> v2:468 var
-R46732:46739 Kernel.VMState <> read_reg def
-R46741:46741 Kernel.VMStep <> s:461 var
-R46743:46745 Kernel.VMStep <> rs2:464 var
-R46796:46803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R46759:46761 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R46754:46758 Kernel.VMStep <> regs':466 var
-R46762:46770 Kernel.VMState <> write_reg def
-R46772:46772 Kernel.VMStep <> s:461 var
-R46774:46776 Kernel.VMStep <> dst:462 var
-R46779:46788 Kernel.VMState <> word64_shr def
-R46790:46791 Kernel.VMStep <> v1:467 var
-R46793:46794 Kernel.VMStep <> v2:468 var
-R46804:46810 Kernel.VMStep <> vm_step:262 ind
-R46850:46865 Kernel.VMStep VMStep advance_state_rm def
-R46867:46867 Kernel.VMStep <> s:461 var
-R46870:46878 Kernel.VMStep VMStep instr_shr constr
-R46880:46882 Kernel.VMStep <> dst:462 var
-R46884:46886 Kernel.VMStep <> rs1:463 var
-R46888:46890 Kernel.VMStep <> rs2:464 var
-R46892:46895 Kernel.VMStep <> cost:465 var
-R46909:46916 Kernel.VMState <> vm_graph proj
-R46906:46906 Kernel.VMStep <> s:461 var
-R46922:46928 Kernel.VMState <> vm_csrs proj
-R46919:46919 Kernel.VMStep <> s:461 var
-R46931:46935 Kernel.VMStep <> regs':466 var
-R46940:46945 Kernel.VMState <> vm_mem proj
-R46937:46937 Kernel.VMStep <> s:461 var
-R46951:46956 Kernel.VMState <> vm_err proj
-R46948:46948 Kernel.VMStep <> s:461 var
-R46815:46823 Kernel.VMStep VMStep instr_shr constr
-R46825:46827 Kernel.VMStep <> dst:462 var
-R46829:46831 Kernel.VMStep <> rs1:463 var
-R46833:46835 Kernel.VMStep <> rs2:464 var
-R46837:46840 Kernel.VMStep <> cost:465 var
-R46812:46812 Kernel.VMStep <> s:461 var
-binder 47062:47062 <> s:469
-binder 47064:47066 <> dst:470
-binder 47068:47070 <> rs1:471
-binder 47072:47074 <> rs2:472
-binder 47076:47079 <> cost:473
-binder 47081:47085 <> regs':474
-binder 47087:47088 <> v1:475
-binder 47090:47091 <> v2:476
-R47117:47124 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R47100:47102 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R47098:47099 Kernel.VMStep <> v1:475 var
-R47103:47110 Kernel.VMState <> read_reg def
-R47112:47112 Kernel.VMStep <> s:469 var
-R47114:47116 Kernel.VMStep <> rs1:471 var
-R47144:47151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R47127:47129 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R47125:47126 Kernel.VMStep <> v2:476 var
-R47130:47137 Kernel.VMState <> read_reg def
-R47139:47139 Kernel.VMStep <> s:469 var
-R47141:47143 Kernel.VMStep <> rs2:472 var
-R47194:47201 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R47157:47159 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R47152:47156 Kernel.VMStep <> regs':474 var
-R47160:47168 Kernel.VMState <> write_reg def
-R47170:47170 Kernel.VMStep <> s:469 var
-R47172:47174 Kernel.VMStep <> dst:470 var
-R47177:47186 Kernel.VMState <> word64_mul def
-R47188:47189 Kernel.VMStep <> v1:475 var
-R47191:47192 Kernel.VMStep <> v2:476 var
-R47202:47208 Kernel.VMStep <> vm_step:262 ind
-R47248:47263 Kernel.VMStep VMStep advance_state_rm def
-R47265:47265 Kernel.VMStep <> s:469 var
-R47268:47276 Kernel.VMStep VMStep instr_mul constr
-R47278:47280 Kernel.VMStep <> dst:470 var
-R47282:47284 Kernel.VMStep <> rs1:471 var
-R47286:47288 Kernel.VMStep <> rs2:472 var
-R47290:47293 Kernel.VMStep <> cost:473 var
-R47307:47314 Kernel.VMState <> vm_graph proj
-R47304:47304 Kernel.VMStep <> s:469 var
-R47320:47326 Kernel.VMState <> vm_csrs proj
-R47317:47317 Kernel.VMStep <> s:469 var
-R47329:47333 Kernel.VMStep <> regs':474 var
-R47338:47343 Kernel.VMState <> vm_mem proj
-R47335:47335 Kernel.VMStep <> s:469 var
-R47349:47354 Kernel.VMState <> vm_err proj
-R47346:47346 Kernel.VMStep <> s:469 var
-R47213:47221 Kernel.VMStep VMStep instr_mul constr
-R47223:47225 Kernel.VMStep <> dst:470 var
-R47227:47229 Kernel.VMStep <> rs1:471 var
-R47231:47233 Kernel.VMStep <> rs2:472 var
-R47235:47238 Kernel.VMStep <> cost:473 var
-R47210:47210 Kernel.VMStep <> s:469 var
-binder 47598:47598 <> s:477
-binder 47600:47602 <> dst:478
-binder 47604:47606 <> imm:479
-binder 47608:47611 <> cost:480
-binder 47613:47617 <> regs':481
-R47666:47673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R47629:47631 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R47624:47628 Kernel.VMStep <> regs':481 var
-R47632:47640 Kernel.VMState <> write_reg def
-R47642:47642 Kernel.VMStep <> s:477 var
-R47644:47646 Kernel.VMStep <> dst:478 var
-R47649:47658 Kernel.VMState <> word64_shl def
-R47660:47662 Kernel.VMStep <> imm:479 var
-R47674:47680 Kernel.VMStep <> vm_step:262 ind
-R47716:47731 Kernel.VMStep VMStep advance_state_rm def
-R47733:47733 Kernel.VMStep <> s:477 var
-R47736:47744 Kernel.VMStep VMStep instr_lui constr
-R47746:47748 Kernel.VMStep <> dst:478 var
-R47750:47752 Kernel.VMStep <> imm:479 var
-R47754:47757 Kernel.VMStep <> cost:480 var
-R47771:47778 Kernel.VMState <> vm_graph proj
-R47768:47768 Kernel.VMStep <> s:477 var
-R47784:47790 Kernel.VMState <> vm_csrs proj
-R47781:47781 Kernel.VMStep <> s:477 var
-R47793:47797 Kernel.VMStep <> regs':481 var
-R47802:47807 Kernel.VMState <> vm_mem proj
-R47799:47799 Kernel.VMStep <> s:477 var
-R47813:47818 Kernel.VMState <> vm_err proj
-R47810:47810 Kernel.VMStep <> s:477 var
-R47685:47693 Kernel.VMStep VMStep instr_lui constr
-R47695:47697 Kernel.VMStep <> dst:478 var
-R47699:47701 Kernel.VMStep <> imm:479 var
-R47703:47706 Kernel.VMStep <> cost:480 var
-R47682:47682 Kernel.VMStep <> s:477 var
-binder 47984:47984 <> s:482
-binder 47986:47989 <> cost:483
-R47996:48002 Kernel.VMStep <> vm_step:262 ind
-R48031:48043 Kernel.VMStep VMStep advance_state def
-R48045:48045 Kernel.VMStep <> s:482 var
-R48048:48057 Kernel.VMStep VMStep instr_halt constr
-R48059:48062 Kernel.VMStep <> cost:483 var
-R48076:48083 Kernel.VMState <> vm_graph proj
-R48073:48073 Kernel.VMStep <> s:482 var
-R48089:48095 Kernel.VMState <> vm_csrs proj
-R48086:48086 Kernel.VMStep <> s:482 var
-R48101:48106 Kernel.VMState <> vm_err proj
-R48098:48098 Kernel.VMStep <> s:482 var
-R48007:48016 Kernel.VMStep VMStep instr_halt constr
-R48018:48021 Kernel.VMStep <> cost:483 var
-R48004:48004 Kernel.VMStep <> s:482 var
-binder 48290:48290 <> s:484
-binder 48292:48299 <> mu_delta:485
-R48306:48312 Kernel.VMStep <> vm_step:262 ind
-R48351:48358 Kernel.VMState <> vm_graph proj
-R48351:48358 Kernel.VMState <> vm_graph proj
-R48351:48358 Kernel.VMState <> vm_graph proj
-R48387:48393 Kernel.VMState <> vm_csrs proj
-R48387:48393 Kernel.VMState <> vm_csrs proj
-R48421:48427 Kernel.VMState <> vm_regs proj
-R48421:48427 Kernel.VMState <> vm_regs proj
-R48455:48460 Kernel.VMState <> vm_mem proj
-R48455:48460 Kernel.VMState <> vm_mem proj
-R48487:48491 Kernel.VMState <> vm_pc proj
-R48487:48491 Kernel.VMState <> vm_pc proj
-R48519:48523 Kernel.VMState <> vm_mu proj
-R48519:48523 Kernel.VMState <> vm_mu proj
-R48562:48573 Kernel.VMState <> vm_mu_tensor proj
-R48562:48573 Kernel.VMState <> vm_mu_tensor proj
-R48606:48611 Kernel.VMState <> vm_err proj
-R48606:48611 Kernel.VMState <> vm_err proj
-R48638:48649 Kernel.VMState <> vm_logic_acc proj
-R48638:48649 Kernel.VMState <> vm_logic_acc proj
-R48682:48691 Kernel.VMState <> vm_mstatus proj
-R48682:48691 Kernel.VMState <> vm_mstatus proj
-R48722:48731 Kernel.VMState <> vm_witness proj
-R48722:48731 Kernel.VMState <> vm_witness proj
-R48762:48773 Kernel.VMState <> vm_certified proj
-R48762:48773 Kernel.VMState <> vm_certified proj
-R48366:48373 Kernel.VMState <> vm_graph proj
-R48363:48363 Kernel.VMStep <> s:484 var
-R48401:48407 Kernel.VMState <> vm_csrs proj
-R48398:48398 Kernel.VMStep <> s:484 var
-R48435:48441 Kernel.VMState <> vm_regs proj
-R48432:48432 Kernel.VMStep <> s:484 var
-R48468:48473 Kernel.VMState <> vm_mem proj
-R48465:48465 Kernel.VMStep <> s:484 var
-R48496:48496 Coq.Init.Datatypes <> S constr
-R48501:48505 Kernel.VMState <> vm_pc proj
-R48498:48498 Kernel.VMStep <> s:484 var
-R48537:48539 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R48531:48535 Kernel.VMState <> vm_mu proj
-R48528:48528 Kernel.VMStep <> s:484 var
-R48540:48540 Coq.Init.Datatypes <> S constr
-R48542:48549 Kernel.VMStep <> mu_delta:485 var
-R48581:48592 Kernel.VMState <> vm_mu_tensor proj
-R48578:48578 Kernel.VMStep <> s:484 var
-R48619:48624 Kernel.VMState <> vm_err proj
-R48616:48616 Kernel.VMStep <> s:484 var
-R48657:48668 Kernel.VMState <> vm_logic_acc proj
-R48654:48654 Kernel.VMStep <> s:484 var
-R48699:48708 Kernel.VMState <> vm_mstatus proj
-R48696:48696 Kernel.VMStep <> s:484 var
-R48739:48748 Kernel.VMState <> vm_witness proj
-R48736:48736 Kernel.VMStep <> s:484 var
-R48778:48781 Coq.Init.Datatypes <> true constr
-R48317:48329 Kernel.VMStep VMStep instr_certify constr
-R48331:48338 Kernel.VMStep <> mu_delta:485 var
-R48314:48314 Kernel.VMStep <> s:484 var
-binder 49166:49166 <> s:486
-binder 49168:49170 <> mid:487
-binder 49172:49172 <> i:488
-binder 49174:49174 <> j:489
-binder 49176:49180 <> value:490
-binder 49182:49185 <> cost:491
-R49220:49227 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R49213:49215 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R49192:49208 Kernel.VMStep VMStep tensor_indices_ok def
-R49210:49210 Kernel.VMStep <> i:488 var
-R49212:49212 Kernel.VMStep <> j:489 var
-R49216:49219 Coq.Init.Datatypes <> true constr
-R49228:49234 Kernel.VMStep <> vm_step:262 ind
-R49283:49295 Kernel.VMStep VMStep advance_state def
-R49297:49297 Kernel.VMStep <> s:486 var
-R49300:49315 Kernel.VMStep VMStep instr_tensor_set constr
-R49317:49319 Kernel.VMStep <> mid:487 var
-R49321:49321 Kernel.VMStep <> i:488 var
-R49323:49323 Kernel.VMStep <> j:489 var
-R49325:49329 Kernel.VMStep <> value:490 var
-R49331:49334 Kernel.VMStep <> cost:491 var
-R49346:49371 Kernel.VMState <> graph_update_module_tensor def
-R49376:49383 Kernel.VMState <> vm_graph proj
-R49373:49373 Kernel.VMStep <> s:486 var
-R49386:49388 Kernel.VMStep <> mid:487 var
-R49396:49398 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R49392:49394 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R49391:49391 Kernel.VMStep <> i:488 var
-R49399:49399 Kernel.VMStep <> j:489 var
-R49402:49406 Kernel.VMStep <> value:490 var
-R49420:49426 Kernel.VMState <> vm_csrs proj
-R49417:49417 Kernel.VMStep <> s:486 var
-R49432:49437 Kernel.VMState <> vm_err proj
-R49429:49429 Kernel.VMStep <> s:486 var
-R49239:49254 Kernel.VMStep VMStep instr_tensor_set constr
-R49256:49258 Kernel.VMStep <> mid:487 var
-R49260:49260 Kernel.VMStep <> i:488 var
-R49262:49262 Kernel.VMStep <> j:489 var
-R49264:49268 Kernel.VMStep <> value:490 var
-R49270:49273 Kernel.VMStep <> cost:491 var
-R49236:49236 Kernel.VMStep <> s:486 var
-binder 49561:49561 <> s:492
-binder 49563:49565 <> mid:493
-binder 49567:49567 <> i:494
-binder 49569:49569 <> j:495
-binder 49571:49575 <> value:496
-binder 49577:49580 <> cost:497
-R49616:49623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R49608:49610 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R49587:49603 Kernel.VMStep VMStep tensor_indices_ok def
-R49605:49605 Kernel.VMStep <> i:494 var
-R49607:49607 Kernel.VMStep <> j:495 var
-R49611:49615 Coq.Init.Datatypes <> false constr
-R49624:49630 Kernel.VMStep <> vm_step:262 ind
-R49679:49691 Kernel.VMStep VMStep advance_state def
-R49693:49693 Kernel.VMStep <> s:492 var
-R49696:49711 Kernel.VMStep VMStep instr_tensor_set constr
-R49713:49715 Kernel.VMStep <> mid:493 var
-R49717:49717 Kernel.VMStep <> i:494 var
-R49719:49719 Kernel.VMStep <> j:495 var
-R49721:49725 Kernel.VMStep <> value:496 var
-R49727:49730 Kernel.VMStep <> cost:497 var
-R49744:49751 Kernel.VMState <> vm_graph proj
-R49741:49741 Kernel.VMStep <> s:492 var
-R49755:49765 Kernel.VMState <> csr_set_err def
-R49770:49776 Kernel.VMState <> vm_csrs proj
-R49767:49767 Kernel.VMStep <> s:492 var
-R49783:49791 Kernel.VMStep VMStep latch_err def
-R49793:49793 Kernel.VMStep <> s:492 var
-R49795:49798 Coq.Init.Datatypes <> true constr
-R49635:49650 Kernel.VMStep VMStep instr_tensor_set constr
-R49652:49654 Kernel.VMStep <> mid:493 var
-R49656:49656 Kernel.VMStep <> i:494 var
-R49658:49658 Kernel.VMStep <> j:495 var
-R49660:49664 Kernel.VMStep <> value:496 var
-R49666:49669 Kernel.VMStep <> cost:497 var
-R49632:49632 Kernel.VMStep <> s:492 var
-binder 49917:49917 <> s:498
-binder 49919:49921 <> dst:499
-binder 49923:49925 <> mid:500
-binder 49927:49927 <> i:501
-binder 49929:49929 <> j:502
-binder 49931:49934 <> cost:503
-binder 49936:49940 <> regs':504
-R49975:49982 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R49968:49970 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R49947:49963 Kernel.VMStep VMStep tensor_indices_ok def
-R49965:49965 Kernel.VMStep <> i:501 var
-R49967:49967 Kernel.VMStep <> j:502 var
-R49971:49974 Coq.Init.Datatypes <> true constr
-R50038:50045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R49988:49990 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R49983:49987 Kernel.VMStep <> regs':504 var
-R49991:49999 Kernel.VMState <> write_reg def
-R50001:50001 Kernel.VMStep <> s:498 var
-R50003:50005 Kernel.VMStep <> dst:499 var
-R50008:50026 Kernel.VMState <> module_tensor_entry def
-R50028:50028 Kernel.VMStep <> s:498 var
-R50030:50032 Kernel.VMStep <> mid:500 var
-R50034:50034 Kernel.VMStep <> i:501 var
-R50036:50036 Kernel.VMStep <> j:502 var
-R50046:50052 Kernel.VMStep <> vm_step:262 ind
-R50099:50114 Kernel.VMStep VMStep advance_state_rm def
-R50116:50116 Kernel.VMStep <> s:498 var
-R50119:50134 Kernel.VMStep VMStep instr_tensor_get constr
-R50136:50138 Kernel.VMStep <> dst:499 var
-R50140:50142 Kernel.VMStep <> mid:500 var
-R50144:50144 Kernel.VMStep <> i:501 var
-R50146:50146 Kernel.VMStep <> j:502 var
-R50148:50151 Kernel.VMStep <> cost:503 var
-R50165:50172 Kernel.VMState <> vm_graph proj
-R50162:50162 Kernel.VMStep <> s:498 var
-R50178:50184 Kernel.VMState <> vm_csrs proj
-R50175:50175 Kernel.VMStep <> s:498 var
-R50187:50191 Kernel.VMStep <> regs':504 var
-R50196:50201 Kernel.VMState <> vm_mem proj
-R50193:50193 Kernel.VMStep <> s:498 var
-R50207:50212 Kernel.VMState <> vm_err proj
-R50204:50204 Kernel.VMStep <> s:498 var
-R50057:50072 Kernel.VMStep VMStep instr_tensor_get constr
-R50074:50076 Kernel.VMStep <> dst:499 var
-R50078:50080 Kernel.VMStep <> mid:500 var
-R50082:50082 Kernel.VMStep <> i:501 var
-R50084:50084 Kernel.VMStep <> j:502 var
-R50086:50089 Kernel.VMStep <> cost:503 var
-R50054:50054 Kernel.VMStep <> s:498 var
-binder 50329:50329 <> s:505
-binder 50331:50333 <> dst:506
-binder 50335:50337 <> mid:507
-binder 50339:50339 <> i:508
-binder 50341:50341 <> j:509
-binder 50343:50346 <> cost:510
-R50382:50389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R50374:50376 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R50353:50369 Kernel.VMStep VMStep tensor_indices_ok def
-R50371:50371 Kernel.VMStep <> i:508 var
-R50373:50373 Kernel.VMStep <> j:509 var
-R50377:50381 Coq.Init.Datatypes <> false constr
-R50390:50396 Kernel.VMStep <> vm_step:262 ind
-R50443:50455 Kernel.VMStep VMStep advance_state def
-R50457:50457 Kernel.VMStep <> s:505 var
-R50460:50475 Kernel.VMStep VMStep instr_tensor_get constr
-R50477:50479 Kernel.VMStep <> dst:506 var
-R50481:50483 Kernel.VMStep <> mid:507 var
-R50485:50485 Kernel.VMStep <> i:508 var
-R50487:50487 Kernel.VMStep <> j:509 var
-R50489:50492 Kernel.VMStep <> cost:510 var
-R50506:50513 Kernel.VMState <> vm_graph proj
-R50503:50503 Kernel.VMStep <> s:505 var
-R50517:50527 Kernel.VMState <> csr_set_err def
-R50532:50538 Kernel.VMState <> vm_csrs proj
-R50529:50529 Kernel.VMStep <> s:505 var
-R50545:50553 Kernel.VMStep VMStep latch_err def
-R50555:50555 Kernel.VMStep <> s:505 var
-R50557:50560 Coq.Init.Datatypes <> true constr
-R50401:50416 Kernel.VMStep VMStep instr_tensor_get constr
-R50418:50420 Kernel.VMStep <> dst:506 var
-R50422:50424 Kernel.VMStep <> mid:507 var
-R50426:50426 Kernel.VMStep <> i:508 var
-R50428:50428 Kernel.VMStep <> j:509 var
-R50430:50433 Kernel.VMStep <> cost:510 var
-R50398:50398 Kernel.VMStep <> s:505 var
-binder 51405:51405 <> s:511
-binder 51407:51409 <> dst:512
-binder 51411:51417 <> src_mod:513
-binder 51419:51425 <> dst_mod:514
-binder 51427:51438 <> coupling_idx:515
-binder 51440:51443 <> cost:516
-binder 51445:51450 <> src_ms:517
-binder 51452:51457 <> dst_ms:518
-binder 51459:51464 <> graph':519
-binder 51466:51473 <> morph_id:520
-R51527:51534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R51513:51515 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R51480:51491 Kernel.VMState <> graph_lookup def
-R51496:51503 Kernel.VMState <> vm_graph proj
-R51493:51493 Kernel.VMStep <> s:511 var
-R51506:51512 Kernel.VMStep <> src_mod:513 var
-R51516:51519 Coq.Init.Datatypes <> Some constr
-R51521:51526 Kernel.VMStep <> src_ms:517 var
-R51582:51589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R51568:51570 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R51535:51546 Kernel.VMState <> graph_lookup def
-R51551:51558 Kernel.VMState <> vm_graph proj
-R51548:51548 Kernel.VMStep <> s:511 var
-R51561:51567 Kernel.VMStep <> dst_mod:514 var
-R51571:51574 Coq.Init.Datatypes <> Some constr
-R51576:51581 Kernel.VMStep <> dst_ms:518 var
-R51684:51691 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R51608:51610 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R51590:51590 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R51597:51598 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R51607:51607 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R51591:51596 Kernel.VMStep <> graph':519 var
-R51599:51606 Kernel.VMStep <> morph_id:520 var
-R51611:51628 Kernel.VMState <> graph_add_morphism def
-R51633:51640 Kernel.VMState <> vm_graph proj
-R51630:51630 Kernel.VMStep <> s:511 var
-R51643:51649 Kernel.VMStep <> src_mod:513 var
-R51651:51657 Kernel.VMStep <> dst_mod:514 var
-R51659:51677 Kernel.VMState <> empty_coupling_data def
-R51679:51683 Coq.Init.Datatypes <> false constr
-R51692:51698 Kernel.VMStep <> vm_step:262 ind
-R51761:51776 Kernel.VMStep VMStep advance_state_rm def
-R51778:51778 Kernel.VMStep <> s:511 var
-R51781:51791 Kernel.VMStep VMStep instr_morph constr
-R51793:51795 Kernel.VMStep <> dst:512 var
-R51797:51803 Kernel.VMStep <> src_mod:513 var
-R51805:51811 Kernel.VMStep <> dst_mod:514 var
-R51813:51824 Kernel.VMStep <> coupling_idx:515 var
-R51826:51829 Kernel.VMStep <> cost:516 var
-R51840:51845 Kernel.VMStep <> graph':519 var
-R51850:51856 Kernel.VMState <> vm_csrs proj
-R51847:51847 Kernel.VMStep <> s:511 var
-R51860:51868 Kernel.VMState <> write_reg def
-R51870:51870 Kernel.VMStep <> s:511 var
-R51872:51874 Kernel.VMStep <> dst:512 var
-R51876:51883 Kernel.VMStep <> morph_id:520 var
-R51889:51894 Kernel.VMState <> vm_mem proj
+binder 40067:40067 <> s:373
+binder 40069:40074 <> target:374
+binder 40076:40079 <> cost:375
+binder 40081:40082 <> sp:376
+binder 40084:40091 <> ret_addr:377
+binder 40093:40096 <> mem':378
+binder 40098:40102 <> regs':379
+R40127:40134 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40111:40113 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40109:40110 Kernel.VMStep <> sp:376 var
+R40114:40121 Kernel.VMState <> read_reg def
+R40123:40123 Kernel.VMStep <> s:373 var
+R40157:40164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40143:40145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40135:40142 Kernel.VMStep <> ret_addr:377 var
+R40146:40146 Coq.Init.Datatypes <> S constr
+R40151:40155 Kernel.VMState <> vm_pc proj
+R40148:40148 Kernel.VMStep <> s:373 var
+R40195:40202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40169:40171 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40165:40168 Kernel.VMStep <> mem':378 var
+R40172:40180 Kernel.VMState <> write_mem def
+R40182:40182 Kernel.VMStep <> s:373 var
+R40184:40185 Kernel.VMStep <> sp:376 var
+R40187:40194 Kernel.VMStep <> ret_addr:377 var
+R40243:40250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40208:40210 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40203:40207 Kernel.VMStep <> regs':379 var
+R40211:40219 Kernel.VMState <> write_reg def
+R40221:40221 Kernel.VMStep <> s:373 var
+R40227:40236 Kernel.VMState <> word64_add def
+R40238:40239 Kernel.VMStep <> sp:376 var
+R40251:40257 Kernel.VMStep <> vm_step:262 ind
+R40293:40305 Kernel.VMStep VMStep jump_state_rm def
+R40307:40307 Kernel.VMStep <> s:373 var
+R40310:40319 Kernel.VMStep VMStep instr_call constr
+R40321:40326 Kernel.VMStep <> target:374 var
+R40328:40331 Kernel.VMStep <> cost:375 var
+R40334:40339 Kernel.VMStep <> target:374 var
+R40341:40345 Kernel.VMStep <> regs':379 var
+R40347:40350 Kernel.VMStep <> mem':378 var
+R40262:40271 Kernel.VMStep VMStep instr_call constr
+R40273:40278 Kernel.VMStep <> target:374 var
+R40280:40283 Kernel.VMStep <> cost:375 var
+R40259:40259 Kernel.VMStep <> s:373 var
+binder 40443:40443 <> s:380
+binder 40445:40448 <> cost:381
+binder 40450:40451 <> sp:382
+binder 40453:40458 <> ret_pc:383
+binder 40460:40464 <> regs':384
+R40504:40511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40473:40475 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40471:40472 Kernel.VMStep <> sp:382 var
+R40476:40485 Kernel.VMState <> word64_sub def
+R40488:40495 Kernel.VMState <> read_reg def
+R40497:40497 Kernel.VMStep <> s:380 var
+R40534:40541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40518:40520 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40512:40517 Kernel.VMStep <> ret_pc:383 var
+R40521:40528 Kernel.VMState <> read_mem def
+R40530:40530 Kernel.VMStep <> s:380 var
+R40532:40533 Kernel.VMStep <> sp:382 var
+R40567:40574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R40547:40549 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R40542:40546 Kernel.VMStep <> regs':384 var
+R40550:40558 Kernel.VMState <> write_reg def
+R40560:40560 Kernel.VMStep <> s:380 var
+R40565:40566 Kernel.VMStep <> sp:382 var
+R40575:40581 Kernel.VMStep <> vm_step:262 ind
+R40609:40621 Kernel.VMStep VMStep jump_state_rm def
+R40623:40623 Kernel.VMStep <> s:380 var
+R40626:40634 Kernel.VMStep VMStep instr_ret constr
+R40636:40639 Kernel.VMStep <> cost:381 var
+R40642:40647 Kernel.VMStep <> ret_pc:383 var
+R40649:40653 Kernel.VMStep <> regs':384 var
+R40658:40663 Kernel.VMState <> vm_mem proj
+R40655:40655 Kernel.VMStep <> s:380 var
+R40586:40594 Kernel.VMStep VMStep instr_ret constr
+R40596:40599 Kernel.VMStep <> cost:381 var
+R40583:40583 Kernel.VMStep <> s:380 var
+binder 41104:41104 <> s:385
+binder 41106:41108 <> dst:386
+binder 41110:41113 <> addr:387
+binder 41115:41118 <> cost:388
+binder 41120:41124 <> regs':389
+binder 41126:41130 <> value:390
+R41160:41167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41142:41144 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41137:41141 Kernel.VMStep <> value:390 var
+R41145:41152 Kernel.VMState <> read_mem def
+R41154:41154 Kernel.VMStep <> s:385 var
+R41156:41159 Kernel.VMStep <> addr:387 var
+R41197:41204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41173:41175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41168:41172 Kernel.VMStep <> regs':389 var
+R41176:41184 Kernel.VMState <> write_reg def
+R41186:41186 Kernel.VMStep <> s:385 var
+R41188:41190 Kernel.VMStep <> dst:386 var
+R41192:41196 Kernel.VMStep <> value:390 var
+R41205:41211 Kernel.VMStep <> vm_step:262 ind
+R41253:41268 Kernel.VMStep VMStep advance_state_rm def
+R41270:41270 Kernel.VMStep <> s:385 var
+R41273:41286 Kernel.VMStep VMStep instr_xor_load constr
+R41288:41290 Kernel.VMStep <> dst:386 var
+R41292:41295 Kernel.VMStep <> addr:387 var
+R41297:41300 Kernel.VMStep <> cost:388 var
+R41314:41321 Kernel.VMState <> vm_graph proj
+R41311:41311 Kernel.VMStep <> s:385 var
+R41327:41333 Kernel.VMState <> vm_csrs proj
+R41324:41324 Kernel.VMStep <> s:385 var
+R41336:41340 Kernel.VMStep <> regs':389 var
+R41345:41350 Kernel.VMState <> vm_mem proj
+R41342:41342 Kernel.VMStep <> s:385 var
+R41356:41361 Kernel.VMState <> vm_err proj
+R41353:41353 Kernel.VMStep <> s:385 var
+R41216:41229 Kernel.VMStep VMStep instr_xor_load constr
+R41231:41233 Kernel.VMStep <> dst:386 var
+R41235:41238 Kernel.VMStep <> addr:387 var
+R41240:41243 Kernel.VMStep <> cost:388 var
+R41213:41213 Kernel.VMStep <> s:385 var
+binder 41470:41470 <> s:391
+binder 41472:41474 <> dst:392
+binder 41476:41478 <> src:393
+binder 41480:41483 <> cost:394
+binder 41485:41489 <> regs':395
+binder 41491:41494 <> vdst:396
+binder 41496:41499 <> vsrc:397
+R41527:41534 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41510:41512 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41506:41509 Kernel.VMStep <> vdst:396 var
+R41513:41520 Kernel.VMState <> read_reg def
+R41522:41522 Kernel.VMStep <> s:391 var
+R41524:41526 Kernel.VMStep <> dst:392 var
+R41556:41563 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41539:41541 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41535:41538 Kernel.VMStep <> vsrc:397 var
+R41542:41549 Kernel.VMState <> read_reg def
+R41551:41551 Kernel.VMStep <> s:391 var
+R41553:41555 Kernel.VMStep <> src:393 var
+R41610:41617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41569:41571 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41564:41568 Kernel.VMStep <> regs':395 var
+R41572:41580 Kernel.VMState <> write_reg def
+R41582:41582 Kernel.VMStep <> s:391 var
+R41584:41586 Kernel.VMStep <> dst:392 var
+R41589:41598 Kernel.VMState <> word64_xor def
+R41600:41603 Kernel.VMStep <> vdst:396 var
+R41605:41608 Kernel.VMStep <> vsrc:397 var
+R41618:41624 Kernel.VMStep <> vm_step:262 ind
+R41664:41679 Kernel.VMStep VMStep advance_state_rm def
+R41681:41681 Kernel.VMStep <> s:391 var
+R41684:41696 Kernel.VMStep VMStep instr_xor_add constr
+R41698:41700 Kernel.VMStep <> dst:392 var
+R41702:41704 Kernel.VMStep <> src:393 var
+R41706:41709 Kernel.VMStep <> cost:394 var
+R41723:41730 Kernel.VMState <> vm_graph proj
+R41720:41720 Kernel.VMStep <> s:391 var
+R41736:41742 Kernel.VMState <> vm_csrs proj
+R41733:41733 Kernel.VMStep <> s:391 var
+R41745:41749 Kernel.VMStep <> regs':395 var
+R41754:41759 Kernel.VMState <> vm_mem proj
+R41751:41751 Kernel.VMStep <> s:391 var
+R41765:41770 Kernel.VMState <> vm_err proj
+R41762:41762 Kernel.VMStep <> s:391 var
+R41629:41641 Kernel.VMStep VMStep instr_xor_add constr
+R41643:41645 Kernel.VMStep <> dst:392 var
+R41647:41649 Kernel.VMStep <> src:393 var
+R41651:41654 Kernel.VMStep <> cost:394 var
+R41626:41626 Kernel.VMStep <> s:391 var
+binder 41932:41932 <> s:398
+binder 41934:41934 <> a:399
+binder 41936:41936 <> b:400
+binder 41938:41941 <> cost:401
+binder 41943:41947 <> regs':402
+R41987:41994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R41959:41961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R41954:41958 Kernel.VMStep <> regs':402 var
+R41962:41970 Kernel.VMState <> swap_regs def
+R41975:41981 Kernel.VMState <> vm_regs proj
+R41972:41972 Kernel.VMStep <> s:398 var
+R41984:41984 Kernel.VMStep <> a:399 var
+R41986:41986 Kernel.VMStep <> b:400 var
+R41995:42001 Kernel.VMStep <> vm_step:262 ind
+R42038:42053 Kernel.VMStep VMStep advance_state_rm def
+R42055:42055 Kernel.VMStep <> s:398 var
+R42058:42071 Kernel.VMStep VMStep instr_xor_swap constr
+R42073:42073 Kernel.VMStep <> a:399 var
+R42075:42075 Kernel.VMStep <> b:400 var
+R42077:42080 Kernel.VMStep <> cost:401 var
+R42094:42101 Kernel.VMState <> vm_graph proj
+R42091:42091 Kernel.VMStep <> s:398 var
+R42107:42113 Kernel.VMState <> vm_csrs proj
+R42104:42104 Kernel.VMStep <> s:398 var
+R42116:42120 Kernel.VMStep <> regs':402 var
+R42125:42130 Kernel.VMState <> vm_mem proj
+R42122:42122 Kernel.VMStep <> s:398 var
+R42136:42141 Kernel.VMState <> vm_err proj
+R42133:42133 Kernel.VMStep <> s:398 var
+R42006:42019 Kernel.VMStep VMStep instr_xor_swap constr
+R42021:42021 Kernel.VMStep <> a:399 var
+R42023:42023 Kernel.VMStep <> b:400 var
+R42025:42028 Kernel.VMStep <> cost:401 var
+R42003:42003 Kernel.VMStep <> s:398 var
+binder 42382:42382 <> s:403
+binder 42384:42386 <> dst:404
+binder 42388:42390 <> src:405
+binder 42392:42395 <> cost:406
+binder 42397:42401 <> regs':407
+binder 42403:42406 <> vsrc:408
+R42434:42441 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R42417:42419 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42413:42416 Kernel.VMStep <> vsrc:408 var
+R42420:42427 Kernel.VMState <> read_reg def
+R42429:42429 Kernel.VMStep <> s:403 var
+R42431:42433 Kernel.VMStep <> src:405 var
+R42488:42495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R42447:42449 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R42442:42446 Kernel.VMStep <> regs':407 var
+R42450:42458 Kernel.VMState <> write_reg def
+R42460:42460 Kernel.VMStep <> s:403 var
+R42462:42464 Kernel.VMStep <> dst:404 var
+R42467:42481 Kernel.VMState <> word64_popcount def
+R42483:42486 Kernel.VMStep <> vsrc:408 var
+R42496:42502 Kernel.VMStep <> vm_step:262 ind
+R42543:42558 Kernel.VMStep VMStep advance_state_rm def
+R42560:42560 Kernel.VMStep <> s:403 var
+R42563:42576 Kernel.VMStep VMStep instr_xor_rank constr
+R42578:42580 Kernel.VMStep <> dst:404 var
+R42582:42584 Kernel.VMStep <> src:405 var
+R42586:42589 Kernel.VMStep <> cost:406 var
+R42603:42610 Kernel.VMState <> vm_graph proj
+R42600:42600 Kernel.VMStep <> s:403 var
+R42616:42622 Kernel.VMState <> vm_csrs proj
+R42613:42613 Kernel.VMStep <> s:403 var
+R42625:42629 Kernel.VMStep <> regs':407 var
+R42634:42639 Kernel.VMState <> vm_mem proj
+R42631:42631 Kernel.VMStep <> s:403 var
+R42645:42650 Kernel.VMState <> vm_err proj
+R42642:42642 Kernel.VMStep <> s:403 var
+R42507:42520 Kernel.VMStep VMStep instr_xor_rank constr
+R42522:42524 Kernel.VMStep <> dst:404 var
+R42526:42528 Kernel.VMStep <> src:405 var
+R42530:42533 Kernel.VMStep <> cost:406 var
+R42504:42504 Kernel.VMStep <> s:403 var
+binder 42892:42892 <> s:409
+binder 42894:42898 <> label:410
+binder 42900:42903 <> cost:411
+R42910:42916 Kernel.VMStep <> vm_step:262 ind
+R42957:42969 Kernel.VMStep VMStep advance_state def
+R42971:42971 Kernel.VMStep <> s:409 var
+R42974:42989 Kernel.VMStep VMStep instr_checkpoint constr
+R42991:42995 Kernel.VMStep <> label:410 var
+R42997:43000 Kernel.VMStep <> cost:411 var
+R43014:43021 Kernel.VMState <> vm_graph proj
+R43011:43011 Kernel.VMStep <> s:409 var
+R43027:43033 Kernel.VMState <> vm_csrs proj
+R43024:43024 Kernel.VMStep <> s:409 var
+R43039:43044 Kernel.VMState <> vm_err proj
+R43036:43036 Kernel.VMStep <> s:409 var
+R42921:42936 Kernel.VMStep VMStep instr_checkpoint constr
+R42938:42942 Kernel.VMStep <> label:410 var
+R42944:42947 Kernel.VMStep <> cost:411 var
+R42918:42918 Kernel.VMStep <> s:409 var
+binder 43396:43396 <> s:412
+binder 43398:43400 <> dst:413
+binder 43402:43412 <> channel_idx:414
+binder 43414:43418 <> value:415
+binder 43420:43423 <> bits:416
+binder 43425:43428 <> cost:417
+binder 43430:43434 <> regs':418
+R43470:43477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R43446:43448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R43441:43445 Kernel.VMStep <> regs':418 var
+R43449:43457 Kernel.VMState <> write_reg def
+R43459:43459 Kernel.VMStep <> s:412 var
+R43461:43463 Kernel.VMStep <> dst:413 var
+R43465:43469 Kernel.VMStep <> value:415 var
+R43478:43484 Kernel.VMStep <> vm_step:262 ind
+R43545:43560 Kernel.VMStep VMStep advance_state_rm def
+R43562:43562 Kernel.VMStep <> s:412 var
+R43565:43579 Kernel.VMStep VMStep instr_read_port constr
+R43581:43583 Kernel.VMStep <> dst:413 var
+R43585:43595 Kernel.VMStep <> channel_idx:414 var
+R43597:43601 Kernel.VMStep <> value:415 var
+R43603:43606 Kernel.VMStep <> bits:416 var
+R43608:43611 Kernel.VMStep <> cost:417 var
+R43625:43632 Kernel.VMState <> vm_graph proj
+R43622:43622 Kernel.VMStep <> s:412 var
+R43638:43644 Kernel.VMState <> vm_csrs proj
+R43635:43635 Kernel.VMStep <> s:412 var
+R43647:43651 Kernel.VMStep <> regs':418 var
+R43656:43661 Kernel.VMState <> vm_mem proj
+R43653:43653 Kernel.VMStep <> s:412 var
+R43667:43672 Kernel.VMState <> vm_err proj
+R43664:43664 Kernel.VMStep <> s:412 var
+R43489:43503 Kernel.VMStep VMStep instr_read_port constr
+R43505:43507 Kernel.VMStep <> dst:413 var
+R43509:43519 Kernel.VMStep <> channel_idx:414 var
+R43521:43525 Kernel.VMStep <> value:415 var
+R43527:43530 Kernel.VMStep <> bits:416 var
+R43532:43535 Kernel.VMStep <> cost:417 var
+R43486:43486 Kernel.VMStep <> s:412 var
+binder 43843:43843 <> s:419
+binder 43845:43855 <> channel_idx:420
+binder 43857:43859 <> src:421
+binder 43861:43864 <> cost:422
+R43871:43877 Kernel.VMStep <> vm_step:262 ind
+R43928:43940 Kernel.VMStep VMStep advance_state def
+R43942:43942 Kernel.VMStep <> s:419 var
+R43945:43960 Kernel.VMStep VMStep instr_write_port constr
+R43962:43972 Kernel.VMStep <> channel_idx:420 var
+R43974:43976 Kernel.VMStep <> src:421 var
+R43978:43981 Kernel.VMStep <> cost:422 var
+R43995:44002 Kernel.VMState <> vm_graph proj
+R43992:43992 Kernel.VMStep <> s:419 var
+R44008:44014 Kernel.VMState <> vm_csrs proj
+R44005:44005 Kernel.VMStep <> s:419 var
+R44020:44025 Kernel.VMState <> vm_err proj
+R44017:44017 Kernel.VMStep <> s:419 var
+R43882:43897 Kernel.VMStep VMStep instr_write_port constr
+R43899:43909 Kernel.VMStep <> channel_idx:420 var
+R43911:43913 Kernel.VMStep <> src:421 var
+R43915:43918 Kernel.VMStep <> cost:422 var
+R43879:43879 Kernel.VMStep <> s:419 var
+binder 44285:44285 <> s:423
+binder 44287:44289 <> dst:424
+binder 44291:44297 <> rs_addr:425
+binder 44299:44302 <> cost:426
+binder 44304:44308 <> regs':427
+binder 44310:44314 <> value:428
+binder 44316:44319 <> addr:429
+R44351:44358 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44330:44332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44326:44329 Kernel.VMStep <> addr:429 var
+R44333:44340 Kernel.VMState <> read_reg def
+R44342:44342 Kernel.VMStep <> s:423 var
+R44344:44350 Kernel.VMStep <> rs_addr:425 var
+R44414:44421 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44364:44366 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44359:44363 Kernel.VMStep <> value:428 var
+R44367:44374 Kernel.VMState <> read_mem def
+R44376:44376 Kernel.VMStep <> s:423 var
+R44406:44408 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R44392:44404 Kernel.VMState <> csr_heap_base proj
+R44382:44388 Kernel.VMState <> vm_csrs proj
+R44379:44379 Kernel.VMStep <> s:423 var
+R44409:44412 Kernel.VMStep <> addr:429 var
+R44451:44458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44427:44429 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44422:44426 Kernel.VMStep <> regs':427 var
+R44430:44438 Kernel.VMState <> write_reg def
+R44440:44440 Kernel.VMStep <> s:423 var
+R44442:44444 Kernel.VMStep <> dst:424 var
+R44446:44450 Kernel.VMStep <> value:428 var
+R44459:44465 Kernel.VMStep <> vm_step:262 ind
+R44511:44526 Kernel.VMStep VMStep advance_state_rm def
+R44528:44528 Kernel.VMStep <> s:423 var
+R44531:44545 Kernel.VMStep VMStep instr_heap_load constr
+R44547:44549 Kernel.VMStep <> dst:424 var
+R44551:44557 Kernel.VMStep <> rs_addr:425 var
+R44559:44562 Kernel.VMStep <> cost:426 var
+R44576:44583 Kernel.VMState <> vm_graph proj
+R44573:44573 Kernel.VMStep <> s:423 var
+R44589:44595 Kernel.VMState <> vm_csrs proj
+R44586:44586 Kernel.VMStep <> s:423 var
+R44598:44602 Kernel.VMStep <> regs':427 var
+R44607:44612 Kernel.VMState <> vm_mem proj
+R44604:44604 Kernel.VMStep <> s:423 var
+R44618:44623 Kernel.VMState <> vm_err proj
+R44615:44615 Kernel.VMStep <> s:423 var
+R44470:44484 Kernel.VMStep VMStep instr_heap_load constr
+R44486:44488 Kernel.VMStep <> dst:424 var
+R44490:44496 Kernel.VMStep <> rs_addr:425 var
+R44498:44501 Kernel.VMStep <> cost:426 var
+R44467:44467 Kernel.VMStep <> s:423 var
+binder 44818:44818 <> s:430
+binder 44820:44826 <> rs_addr:431
+binder 44828:44830 <> src:432
+binder 44832:44835 <> cost:433
+binder 44837:44840 <> mem':434
+binder 44842:44846 <> value:435
+binder 44848:44851 <> addr:436
+R44883:44890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44862:44864 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44858:44861 Kernel.VMStep <> addr:436 var
+R44865:44872 Kernel.VMState <> read_reg def
+R44874:44874 Kernel.VMStep <> s:430 var
+R44876:44882 Kernel.VMStep <> rs_addr:431 var
+R44913:44920 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44896:44898 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44891:44895 Kernel.VMStep <> value:435 var
+R44899:44906 Kernel.VMState <> read_reg def
+R44908:44908 Kernel.VMStep <> s:430 var
+R44910:44912 Kernel.VMStep <> src:432 var
+R44982:44989 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R44925:44927 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R44921:44924 Kernel.VMStep <> mem':434 var
+R44928:44936 Kernel.VMState <> write_mem def
+R44938:44938 Kernel.VMStep <> s:430 var
+R44968:44970 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R44954:44966 Kernel.VMState <> csr_heap_base proj
+R44944:44950 Kernel.VMState <> vm_csrs proj
+R44941:44941 Kernel.VMStep <> s:430 var
+R44971:44974 Kernel.VMStep <> addr:436 var
+R44977:44981 Kernel.VMStep <> value:435 var
+R44990:44996 Kernel.VMStep <> vm_step:262 ind
+R45043:45058 Kernel.VMStep VMStep advance_state_rm def
+R45060:45060 Kernel.VMStep <> s:430 var
+R45063:45078 Kernel.VMStep VMStep instr_heap_store constr
+R45080:45086 Kernel.VMStep <> rs_addr:431 var
+R45088:45090 Kernel.VMStep <> src:432 var
+R45092:45095 Kernel.VMStep <> cost:433 var
+R45109:45116 Kernel.VMState <> vm_graph proj
+R45106:45106 Kernel.VMStep <> s:430 var
+R45122:45128 Kernel.VMState <> vm_csrs proj
+R45119:45119 Kernel.VMStep <> s:430 var
+R45134:45140 Kernel.VMState <> vm_regs proj
+R45131:45131 Kernel.VMStep <> s:430 var
+R45143:45146 Kernel.VMStep <> mem':434 var
+R45151:45156 Kernel.VMState <> vm_err proj
+R45148:45148 Kernel.VMStep <> s:430 var
+R45001:45016 Kernel.VMStep VMStep instr_heap_store constr
+R45018:45024 Kernel.VMStep <> rs_addr:431 var
+R45026:45028 Kernel.VMStep <> src:432 var
+R45030:45033 Kernel.VMStep <> cost:433 var
+R44998:44998 Kernel.VMStep <> s:430 var
+binder 45527:45527 <> s:437
+binder 45529:45531 <> dst:438
+binder 45533:45535 <> rs1:439
+binder 45537:45539 <> rs2:440
+binder 45541:45544 <> cost:441
+binder 45546:45550 <> regs':442
+binder 45552:45553 <> v1:443
+binder 45555:45556 <> v2:444
+R45582:45589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R45565:45567 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45563:45564 Kernel.VMStep <> v1:443 var
+R45568:45575 Kernel.VMState <> read_reg def
+R45577:45577 Kernel.VMStep <> s:437 var
+R45579:45581 Kernel.VMStep <> rs1:439 var
+R45609:45616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R45592:45594 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45590:45591 Kernel.VMStep <> v2:444 var
+R45595:45602 Kernel.VMState <> read_reg def
+R45604:45604 Kernel.VMStep <> s:437 var
+R45606:45608 Kernel.VMStep <> rs2:440 var
+R45659:45666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R45622:45624 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45617:45621 Kernel.VMStep <> regs':442 var
+R45625:45633 Kernel.VMState <> write_reg def
+R45635:45635 Kernel.VMStep <> s:437 var
+R45637:45639 Kernel.VMStep <> dst:438 var
+R45642:45651 Kernel.VMState <> word64_and def
+R45653:45654 Kernel.VMStep <> v1:443 var
+R45656:45657 Kernel.VMStep <> v2:444 var
+R45667:45673 Kernel.VMStep <> vm_step:262 ind
+R45713:45728 Kernel.VMStep VMStep advance_state_rm def
+R45730:45730 Kernel.VMStep <> s:437 var
+R45733:45741 Kernel.VMStep VMStep instr_and constr
+R45743:45745 Kernel.VMStep <> dst:438 var
+R45747:45749 Kernel.VMStep <> rs1:439 var
+R45751:45753 Kernel.VMStep <> rs2:440 var
+R45755:45758 Kernel.VMStep <> cost:441 var
+R45772:45779 Kernel.VMState <> vm_graph proj
+R45769:45769 Kernel.VMStep <> s:437 var
+R45785:45791 Kernel.VMState <> vm_csrs proj
+R45782:45782 Kernel.VMStep <> s:437 var
+R45794:45798 Kernel.VMStep <> regs':442 var
+R45803:45808 Kernel.VMState <> vm_mem proj
+R45800:45800 Kernel.VMStep <> s:437 var
+R45814:45819 Kernel.VMState <> vm_err proj
+R45811:45811 Kernel.VMStep <> s:437 var
+R45678:45686 Kernel.VMStep VMStep instr_and constr
+R45688:45690 Kernel.VMStep <> dst:438 var
+R45692:45694 Kernel.VMStep <> rs1:439 var
+R45696:45698 Kernel.VMStep <> rs2:440 var
+R45700:45703 Kernel.VMStep <> cost:441 var
+R45675:45675 Kernel.VMStep <> s:437 var
+binder 45908:45908 <> s:445
+binder 45910:45912 <> dst:446
+binder 45914:45916 <> rs1:447
+binder 45918:45920 <> rs2:448
+binder 45922:45925 <> cost:449
+binder 45927:45931 <> regs':450
+binder 45933:45934 <> v1:451
+binder 45936:45937 <> v2:452
+R45963:45970 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R45946:45948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45944:45945 Kernel.VMStep <> v1:451 var
+R45949:45956 Kernel.VMState <> read_reg def
+R45958:45958 Kernel.VMStep <> s:445 var
+R45960:45962 Kernel.VMStep <> rs1:447 var
+R45990:45997 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R45973:45975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45971:45972 Kernel.VMStep <> v2:452 var
+R45976:45983 Kernel.VMState <> read_reg def
+R45985:45985 Kernel.VMStep <> s:445 var
+R45987:45989 Kernel.VMStep <> rs2:448 var
+R46039:46046 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R46003:46005 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R45998:46002 Kernel.VMStep <> regs':450 var
+R46006:46014 Kernel.VMState <> write_reg def
+R46016:46016 Kernel.VMStep <> s:445 var
+R46018:46020 Kernel.VMStep <> dst:446 var
+R46023:46031 Kernel.VMState <> word64_or def
+R46033:46034 Kernel.VMStep <> v1:451 var
+R46036:46037 Kernel.VMStep <> v2:452 var
+R46047:46053 Kernel.VMStep <> vm_step:262 ind
+R46092:46107 Kernel.VMStep VMStep advance_state_rm def
+R46109:46109 Kernel.VMStep <> s:445 var
+R46112:46119 Kernel.VMStep VMStep instr_or constr
+R46121:46123 Kernel.VMStep <> dst:446 var
+R46125:46127 Kernel.VMStep <> rs1:447 var
+R46129:46131 Kernel.VMStep <> rs2:448 var
+R46133:46136 Kernel.VMStep <> cost:449 var
+R46150:46157 Kernel.VMState <> vm_graph proj
+R46147:46147 Kernel.VMStep <> s:445 var
+R46163:46169 Kernel.VMState <> vm_csrs proj
+R46160:46160 Kernel.VMStep <> s:445 var
+R46172:46176 Kernel.VMStep <> regs':450 var
+R46181:46186 Kernel.VMState <> vm_mem proj
+R46178:46178 Kernel.VMStep <> s:445 var
+R46192:46197 Kernel.VMState <> vm_err proj
+R46189:46189 Kernel.VMStep <> s:445 var
+R46058:46065 Kernel.VMStep VMStep instr_or constr
+R46067:46069 Kernel.VMStep <> dst:446 var
+R46071:46073 Kernel.VMStep <> rs1:447 var
+R46075:46077 Kernel.VMStep <> rs2:448 var
+R46079:46082 Kernel.VMStep <> cost:449 var
+R46055:46055 Kernel.VMStep <> s:445 var
+binder 46292:46292 <> s:453
+binder 46294:46296 <> dst:454
+binder 46298:46300 <> rs1:455
+binder 46302:46304 <> rs2:456
+binder 46306:46309 <> cost:457
+binder 46311:46315 <> regs':458
+binder 46317:46318 <> v1:459
+binder 46320:46321 <> v2:460
+R46347:46354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R46330:46332 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46328:46329 Kernel.VMStep <> v1:459 var
+R46333:46340 Kernel.VMState <> read_reg def
+R46342:46342 Kernel.VMStep <> s:453 var
+R46344:46346 Kernel.VMStep <> rs1:455 var
+R46374:46381 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R46357:46359 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46355:46356 Kernel.VMStep <> v2:460 var
+R46360:46367 Kernel.VMState <> read_reg def
+R46369:46369 Kernel.VMStep <> s:453 var
+R46371:46373 Kernel.VMStep <> rs2:456 var
+R46424:46431 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R46387:46389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46382:46386 Kernel.VMStep <> regs':458 var
+R46390:46398 Kernel.VMState <> write_reg def
+R46400:46400 Kernel.VMStep <> s:453 var
+R46402:46404 Kernel.VMStep <> dst:454 var
+R46407:46416 Kernel.VMState <> word64_shl def
+R46418:46419 Kernel.VMStep <> v1:459 var
+R46421:46422 Kernel.VMStep <> v2:460 var
+R46432:46438 Kernel.VMStep <> vm_step:262 ind
+R46478:46493 Kernel.VMStep VMStep advance_state_rm def
+R46495:46495 Kernel.VMStep <> s:453 var
+R46498:46506 Kernel.VMStep VMStep instr_shl constr
+R46508:46510 Kernel.VMStep <> dst:454 var
+R46512:46514 Kernel.VMStep <> rs1:455 var
+R46516:46518 Kernel.VMStep <> rs2:456 var
+R46520:46523 Kernel.VMStep <> cost:457 var
+R46537:46544 Kernel.VMState <> vm_graph proj
+R46534:46534 Kernel.VMStep <> s:453 var
+R46550:46556 Kernel.VMState <> vm_csrs proj
+R46547:46547 Kernel.VMStep <> s:453 var
+R46559:46563 Kernel.VMStep <> regs':458 var
+R46568:46573 Kernel.VMState <> vm_mem proj
+R46565:46565 Kernel.VMStep <> s:453 var
+R46579:46584 Kernel.VMState <> vm_err proj
+R46576:46576 Kernel.VMStep <> s:453 var
+R46443:46451 Kernel.VMStep VMStep instr_shl constr
+R46453:46455 Kernel.VMStep <> dst:454 var
+R46457:46459 Kernel.VMStep <> rs1:455 var
+R46461:46463 Kernel.VMStep <> rs2:456 var
+R46465:46468 Kernel.VMStep <> cost:457 var
+R46440:46440 Kernel.VMStep <> s:453 var
+binder 46680:46680 <> s:461
+binder 46682:46684 <> dst:462
+binder 46686:46688 <> rs1:463
+binder 46690:46692 <> rs2:464
+binder 46694:46697 <> cost:465
+binder 46699:46703 <> regs':466
+binder 46705:46706 <> v1:467
+binder 46708:46709 <> v2:468
+R46735:46742 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R46718:46720 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46716:46717 Kernel.VMStep <> v1:467 var
+R46721:46728 Kernel.VMState <> read_reg def
+R46730:46730 Kernel.VMStep <> s:461 var
+R46732:46734 Kernel.VMStep <> rs1:463 var
+R46762:46769 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R46745:46747 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46743:46744 Kernel.VMStep <> v2:468 var
+R46748:46755 Kernel.VMState <> read_reg def
+R46757:46757 Kernel.VMStep <> s:461 var
+R46759:46761 Kernel.VMStep <> rs2:464 var
+R46812:46819 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R46775:46777 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R46770:46774 Kernel.VMStep <> regs':466 var
+R46778:46786 Kernel.VMState <> write_reg def
+R46788:46788 Kernel.VMStep <> s:461 var
+R46790:46792 Kernel.VMStep <> dst:462 var
+R46795:46804 Kernel.VMState <> word64_shr def
+R46806:46807 Kernel.VMStep <> v1:467 var
+R46809:46810 Kernel.VMStep <> v2:468 var
+R46820:46826 Kernel.VMStep <> vm_step:262 ind
+R46866:46881 Kernel.VMStep VMStep advance_state_rm def
+R46883:46883 Kernel.VMStep <> s:461 var
+R46886:46894 Kernel.VMStep VMStep instr_shr constr
+R46896:46898 Kernel.VMStep <> dst:462 var
+R46900:46902 Kernel.VMStep <> rs1:463 var
+R46904:46906 Kernel.VMStep <> rs2:464 var
+R46908:46911 Kernel.VMStep <> cost:465 var
+R46925:46932 Kernel.VMState <> vm_graph proj
+R46922:46922 Kernel.VMStep <> s:461 var
+R46938:46944 Kernel.VMState <> vm_csrs proj
+R46935:46935 Kernel.VMStep <> s:461 var
+R46947:46951 Kernel.VMStep <> regs':466 var
+R46956:46961 Kernel.VMState <> vm_mem proj
+R46953:46953 Kernel.VMStep <> s:461 var
+R46967:46972 Kernel.VMState <> vm_err proj
+R46964:46964 Kernel.VMStep <> s:461 var
+R46831:46839 Kernel.VMStep VMStep instr_shr constr
+R46841:46843 Kernel.VMStep <> dst:462 var
+R46845:46847 Kernel.VMStep <> rs1:463 var
+R46849:46851 Kernel.VMStep <> rs2:464 var
+R46853:46856 Kernel.VMStep <> cost:465 var
+R46828:46828 Kernel.VMStep <> s:461 var
+binder 47078:47078 <> s:469
+binder 47080:47082 <> dst:470
+binder 47084:47086 <> rs1:471
+binder 47088:47090 <> rs2:472
+binder 47092:47095 <> cost:473
+binder 47097:47101 <> regs':474
+binder 47103:47104 <> v1:475
+binder 47106:47107 <> v2:476
+R47133:47140 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R47116:47118 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47114:47115 Kernel.VMStep <> v1:475 var
+R47119:47126 Kernel.VMState <> read_reg def
+R47128:47128 Kernel.VMStep <> s:469 var
+R47130:47132 Kernel.VMStep <> rs1:471 var
+R47160:47167 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R47143:47145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47141:47142 Kernel.VMStep <> v2:476 var
+R47146:47153 Kernel.VMState <> read_reg def
+R47155:47155 Kernel.VMStep <> s:469 var
+R47157:47159 Kernel.VMStep <> rs2:472 var
+R47210:47217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R47173:47175 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47168:47172 Kernel.VMStep <> regs':474 var
+R47176:47184 Kernel.VMState <> write_reg def
+R47186:47186 Kernel.VMStep <> s:469 var
+R47188:47190 Kernel.VMStep <> dst:470 var
+R47193:47202 Kernel.VMState <> word64_mul def
+R47204:47205 Kernel.VMStep <> v1:475 var
+R47207:47208 Kernel.VMStep <> v2:476 var
+R47218:47224 Kernel.VMStep <> vm_step:262 ind
+R47264:47279 Kernel.VMStep VMStep advance_state_rm def
+R47281:47281 Kernel.VMStep <> s:469 var
+R47284:47292 Kernel.VMStep VMStep instr_mul constr
+R47294:47296 Kernel.VMStep <> dst:470 var
+R47298:47300 Kernel.VMStep <> rs1:471 var
+R47302:47304 Kernel.VMStep <> rs2:472 var
+R47306:47309 Kernel.VMStep <> cost:473 var
+R47323:47330 Kernel.VMState <> vm_graph proj
+R47320:47320 Kernel.VMStep <> s:469 var
+R47336:47342 Kernel.VMState <> vm_csrs proj
+R47333:47333 Kernel.VMStep <> s:469 var
+R47345:47349 Kernel.VMStep <> regs':474 var
+R47354:47359 Kernel.VMState <> vm_mem proj
+R47351:47351 Kernel.VMStep <> s:469 var
+R47365:47370 Kernel.VMState <> vm_err proj
+R47362:47362 Kernel.VMStep <> s:469 var
+R47229:47237 Kernel.VMStep VMStep instr_mul constr
+R47239:47241 Kernel.VMStep <> dst:470 var
+R47243:47245 Kernel.VMStep <> rs1:471 var
+R47247:47249 Kernel.VMStep <> rs2:472 var
+R47251:47254 Kernel.VMStep <> cost:473 var
+R47226:47226 Kernel.VMStep <> s:469 var
+binder 47614:47614 <> s:477
+binder 47616:47618 <> dst:478
+binder 47620:47622 <> imm:479
+binder 47624:47627 <> cost:480
+binder 47629:47633 <> regs':481
+R47682:47689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R47645:47647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R47640:47644 Kernel.VMStep <> regs':481 var
+R47648:47656 Kernel.VMState <> write_reg def
+R47658:47658 Kernel.VMStep <> s:477 var
+R47660:47662 Kernel.VMStep <> dst:478 var
+R47665:47674 Kernel.VMState <> word64_shl def
+R47676:47678 Kernel.VMStep <> imm:479 var
+R47690:47696 Kernel.VMStep <> vm_step:262 ind
+R47732:47747 Kernel.VMStep VMStep advance_state_rm def
+R47749:47749 Kernel.VMStep <> s:477 var
+R47752:47760 Kernel.VMStep VMStep instr_lui constr
+R47762:47764 Kernel.VMStep <> dst:478 var
+R47766:47768 Kernel.VMStep <> imm:479 var
+R47770:47773 Kernel.VMStep <> cost:480 var
+R47787:47794 Kernel.VMState <> vm_graph proj
+R47784:47784 Kernel.VMStep <> s:477 var
+R47800:47806 Kernel.VMState <> vm_csrs proj
+R47797:47797 Kernel.VMStep <> s:477 var
+R47809:47813 Kernel.VMStep <> regs':481 var
+R47818:47823 Kernel.VMState <> vm_mem proj
+R47815:47815 Kernel.VMStep <> s:477 var
+R47829:47834 Kernel.VMState <> vm_err proj
+R47826:47826 Kernel.VMStep <> s:477 var
+R47701:47709 Kernel.VMStep VMStep instr_lui constr
+R47711:47713 Kernel.VMStep <> dst:478 var
+R47715:47717 Kernel.VMStep <> imm:479 var
+R47719:47722 Kernel.VMStep <> cost:480 var
+R47698:47698 Kernel.VMStep <> s:477 var
+binder 48000:48000 <> s:482
+binder 48002:48005 <> cost:483
+R48012:48018 Kernel.VMStep <> vm_step:262 ind
+R48047:48059 Kernel.VMStep VMStep advance_state def
+R48061:48061 Kernel.VMStep <> s:482 var
+R48064:48073 Kernel.VMStep VMStep instr_halt constr
+R48075:48078 Kernel.VMStep <> cost:483 var
+R48092:48099 Kernel.VMState <> vm_graph proj
+R48089:48089 Kernel.VMStep <> s:482 var
+R48105:48111 Kernel.VMState <> vm_csrs proj
+R48102:48102 Kernel.VMStep <> s:482 var
+R48117:48122 Kernel.VMState <> vm_err proj
+R48114:48114 Kernel.VMStep <> s:482 var
+R48023:48032 Kernel.VMStep VMStep instr_halt constr
+R48034:48037 Kernel.VMStep <> cost:483 var
+R48020:48020 Kernel.VMStep <> s:482 var
+binder 48306:48306 <> s:484
+binder 48308:48315 <> mu_delta:485
+R48322:48328 Kernel.VMStep <> vm_step:262 ind
+R48367:48374 Kernel.VMState <> vm_graph proj
+R48367:48374 Kernel.VMState <> vm_graph proj
+R48367:48374 Kernel.VMState <> vm_graph proj
+R48403:48409 Kernel.VMState <> vm_csrs proj
+R48403:48409 Kernel.VMState <> vm_csrs proj
+R48437:48443 Kernel.VMState <> vm_regs proj
+R48437:48443 Kernel.VMState <> vm_regs proj
+R48471:48476 Kernel.VMState <> vm_mem proj
+R48471:48476 Kernel.VMState <> vm_mem proj
+R48503:48507 Kernel.VMState <> vm_pc proj
+R48503:48507 Kernel.VMState <> vm_pc proj
+R48535:48539 Kernel.VMState <> vm_mu proj
+R48535:48539 Kernel.VMState <> vm_mu proj
+R48578:48589 Kernel.VMState <> vm_mu_tensor proj
+R48578:48589 Kernel.VMState <> vm_mu_tensor proj
+R48622:48627 Kernel.VMState <> vm_err proj
+R48622:48627 Kernel.VMState <> vm_err proj
+R48654:48665 Kernel.VMState <> vm_logic_acc proj
+R48654:48665 Kernel.VMState <> vm_logic_acc proj
+R48698:48707 Kernel.VMState <> vm_mstatus proj
+R48698:48707 Kernel.VMState <> vm_mstatus proj
+R48738:48747 Kernel.VMState <> vm_witness proj
+R48738:48747 Kernel.VMState <> vm_witness proj
+R48778:48789 Kernel.VMState <> vm_certified proj
+R48778:48789 Kernel.VMState <> vm_certified proj
+R48382:48389 Kernel.VMState <> vm_graph proj
+R48379:48379 Kernel.VMStep <> s:484 var
+R48417:48423 Kernel.VMState <> vm_csrs proj
+R48414:48414 Kernel.VMStep <> s:484 var
+R48451:48457 Kernel.VMState <> vm_regs proj
+R48448:48448 Kernel.VMStep <> s:484 var
+R48484:48489 Kernel.VMState <> vm_mem proj
+R48481:48481 Kernel.VMStep <> s:484 var
+R48512:48512 Coq.Init.Datatypes <> S constr
+R48517:48521 Kernel.VMState <> vm_pc proj
+R48514:48514 Kernel.VMStep <> s:484 var
+R48553:48555 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R48547:48551 Kernel.VMState <> vm_mu proj
+R48544:48544 Kernel.VMStep <> s:484 var
+R48556:48556 Coq.Init.Datatypes <> S constr
+R48558:48565 Kernel.VMStep <> mu_delta:485 var
+R48597:48608 Kernel.VMState <> vm_mu_tensor proj
+R48594:48594 Kernel.VMStep <> s:484 var
+R48635:48640 Kernel.VMState <> vm_err proj
+R48632:48632 Kernel.VMStep <> s:484 var
+R48673:48684 Kernel.VMState <> vm_logic_acc proj
+R48670:48670 Kernel.VMStep <> s:484 var
+R48715:48724 Kernel.VMState <> vm_mstatus proj
+R48712:48712 Kernel.VMStep <> s:484 var
+R48755:48764 Kernel.VMState <> vm_witness proj
+R48752:48752 Kernel.VMStep <> s:484 var
+R48794:48797 Coq.Init.Datatypes <> true constr
+R48333:48345 Kernel.VMStep VMStep instr_certify constr
+R48347:48354 Kernel.VMStep <> mu_delta:485 var
+R48330:48330 Kernel.VMStep <> s:484 var
+binder 49182:49182 <> s:486
+binder 49184:49186 <> mid:487
+binder 49188:49188 <> i:488
+binder 49190:49190 <> j:489
+binder 49192:49196 <> value:490
+binder 49198:49201 <> cost:491
+R49236:49243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49229:49231 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49208:49224 Kernel.VMStep VMStep tensor_indices_ok def
+R49226:49226 Kernel.VMStep <> i:488 var
+R49228:49228 Kernel.VMStep <> j:489 var
+R49232:49235 Coq.Init.Datatypes <> true constr
+R49244:49250 Kernel.VMStep <> vm_step:262 ind
+R49299:49311 Kernel.VMStep VMStep advance_state def
+R49313:49313 Kernel.VMStep <> s:486 var
+R49316:49331 Kernel.VMStep VMStep instr_tensor_set constr
+R49333:49335 Kernel.VMStep <> mid:487 var
+R49337:49337 Kernel.VMStep <> i:488 var
+R49339:49339 Kernel.VMStep <> j:489 var
+R49341:49345 Kernel.VMStep <> value:490 var
+R49347:49350 Kernel.VMStep <> cost:491 var
+R49362:49387 Kernel.VMState <> graph_update_module_tensor def
+R49392:49399 Kernel.VMState <> vm_graph proj
+R49389:49389 Kernel.VMStep <> s:486 var
+R49402:49404 Kernel.VMStep <> mid:487 var
+R49412:49414 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R49408:49410 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R49407:49407 Kernel.VMStep <> i:488 var
+R49415:49415 Kernel.VMStep <> j:489 var
+R49418:49422 Kernel.VMStep <> value:490 var
+R49436:49442 Kernel.VMState <> vm_csrs proj
+R49433:49433 Kernel.VMStep <> s:486 var
+R49448:49453 Kernel.VMState <> vm_err proj
+R49445:49445 Kernel.VMStep <> s:486 var
+R49255:49270 Kernel.VMStep VMStep instr_tensor_set constr
+R49272:49274 Kernel.VMStep <> mid:487 var
+R49276:49276 Kernel.VMStep <> i:488 var
+R49278:49278 Kernel.VMStep <> j:489 var
+R49280:49284 Kernel.VMStep <> value:490 var
+R49286:49289 Kernel.VMStep <> cost:491 var
+R49252:49252 Kernel.VMStep <> s:486 var
+binder 49577:49577 <> s:492
+binder 49579:49581 <> mid:493
+binder 49583:49583 <> i:494
+binder 49585:49585 <> j:495
+binder 49587:49591 <> value:496
+binder 49593:49596 <> cost:497
+R49632:49639 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49624:49626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49603:49619 Kernel.VMStep VMStep tensor_indices_ok def
+R49621:49621 Kernel.VMStep <> i:494 var
+R49623:49623 Kernel.VMStep <> j:495 var
+R49627:49631 Coq.Init.Datatypes <> false constr
+R49640:49646 Kernel.VMStep <> vm_step:262 ind
+R49695:49707 Kernel.VMStep VMStep advance_state def
+R49709:49709 Kernel.VMStep <> s:492 var
+R49712:49727 Kernel.VMStep VMStep instr_tensor_set constr
+R49729:49731 Kernel.VMStep <> mid:493 var
+R49733:49733 Kernel.VMStep <> i:494 var
+R49735:49735 Kernel.VMStep <> j:495 var
+R49737:49741 Kernel.VMStep <> value:496 var
+R49743:49746 Kernel.VMStep <> cost:497 var
+R49760:49767 Kernel.VMState <> vm_graph proj
+R49757:49757 Kernel.VMStep <> s:492 var
+R49771:49781 Kernel.VMState <> csr_set_err def
+R49786:49792 Kernel.VMState <> vm_csrs proj
+R49783:49783 Kernel.VMStep <> s:492 var
+R49799:49807 Kernel.VMStep VMStep latch_err def
+R49809:49809 Kernel.VMStep <> s:492 var
+R49811:49814 Coq.Init.Datatypes <> true constr
+R49651:49666 Kernel.VMStep VMStep instr_tensor_set constr
+R49668:49670 Kernel.VMStep <> mid:493 var
+R49672:49672 Kernel.VMStep <> i:494 var
+R49674:49674 Kernel.VMStep <> j:495 var
+R49676:49680 Kernel.VMStep <> value:496 var
+R49682:49685 Kernel.VMStep <> cost:497 var
+R49648:49648 Kernel.VMStep <> s:492 var
+binder 49933:49933 <> s:498
+binder 49935:49937 <> dst:499
+binder 49939:49941 <> mid:500
+binder 49943:49943 <> i:501
+binder 49945:49945 <> j:502
+binder 49947:49950 <> cost:503
+binder 49952:49956 <> regs':504
+R49991:49998 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R49984:49986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49963:49979 Kernel.VMStep VMStep tensor_indices_ok def
+R49981:49981 Kernel.VMStep <> i:501 var
+R49983:49983 Kernel.VMStep <> j:502 var
+R49987:49990 Coq.Init.Datatypes <> true constr
+R50054:50061 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50004:50006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R49999:50003 Kernel.VMStep <> regs':504 var
+R50007:50015 Kernel.VMState <> write_reg def
+R50017:50017 Kernel.VMStep <> s:498 var
+R50019:50021 Kernel.VMStep <> dst:499 var
+R50024:50042 Kernel.VMState <> module_tensor_entry def
+R50044:50044 Kernel.VMStep <> s:498 var
+R50046:50048 Kernel.VMStep <> mid:500 var
+R50050:50050 Kernel.VMStep <> i:501 var
+R50052:50052 Kernel.VMStep <> j:502 var
+R50062:50068 Kernel.VMStep <> vm_step:262 ind
+R50115:50130 Kernel.VMStep VMStep advance_state_rm def
+R50132:50132 Kernel.VMStep <> s:498 var
+R50135:50150 Kernel.VMStep VMStep instr_tensor_get constr
+R50152:50154 Kernel.VMStep <> dst:499 var
+R50156:50158 Kernel.VMStep <> mid:500 var
+R50160:50160 Kernel.VMStep <> i:501 var
+R50162:50162 Kernel.VMStep <> j:502 var
+R50164:50167 Kernel.VMStep <> cost:503 var
+R50181:50188 Kernel.VMState <> vm_graph proj
+R50178:50178 Kernel.VMStep <> s:498 var
+R50194:50200 Kernel.VMState <> vm_csrs proj
+R50191:50191 Kernel.VMStep <> s:498 var
+R50203:50207 Kernel.VMStep <> regs':504 var
+R50212:50217 Kernel.VMState <> vm_mem proj
+R50209:50209 Kernel.VMStep <> s:498 var
+R50223:50228 Kernel.VMState <> vm_err proj
+R50220:50220 Kernel.VMStep <> s:498 var
+R50073:50088 Kernel.VMStep VMStep instr_tensor_get constr
+R50090:50092 Kernel.VMStep <> dst:499 var
+R50094:50096 Kernel.VMStep <> mid:500 var
+R50098:50098 Kernel.VMStep <> i:501 var
+R50100:50100 Kernel.VMStep <> j:502 var
+R50102:50105 Kernel.VMStep <> cost:503 var
+R50070:50070 Kernel.VMStep <> s:498 var
+binder 50345:50345 <> s:505
+binder 50347:50349 <> dst:506
+binder 50351:50353 <> mid:507
+binder 50355:50355 <> i:508
+binder 50357:50357 <> j:509
+binder 50359:50362 <> cost:510
+R50398:50405 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R50390:50392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R50369:50385 Kernel.VMStep VMStep tensor_indices_ok def
+R50387:50387 Kernel.VMStep <> i:508 var
+R50389:50389 Kernel.VMStep <> j:509 var
+R50393:50397 Coq.Init.Datatypes <> false constr
+R50406:50412 Kernel.VMStep <> vm_step:262 ind
+R50459:50471 Kernel.VMStep VMStep advance_state def
+R50473:50473 Kernel.VMStep <> s:505 var
+R50476:50491 Kernel.VMStep VMStep instr_tensor_get constr
+R50493:50495 Kernel.VMStep <> dst:506 var
+R50497:50499 Kernel.VMStep <> mid:507 var
+R50501:50501 Kernel.VMStep <> i:508 var
+R50503:50503 Kernel.VMStep <> j:509 var
+R50505:50508 Kernel.VMStep <> cost:510 var
+R50522:50529 Kernel.VMState <> vm_graph proj
+R50519:50519 Kernel.VMStep <> s:505 var
+R50533:50543 Kernel.VMState <> csr_set_err def
+R50548:50554 Kernel.VMState <> vm_csrs proj
+R50545:50545 Kernel.VMStep <> s:505 var
+R50561:50569 Kernel.VMStep VMStep latch_err def
+R50571:50571 Kernel.VMStep <> s:505 var
+R50573:50576 Coq.Init.Datatypes <> true constr
+R50417:50432 Kernel.VMStep VMStep instr_tensor_get constr
+R50434:50436 Kernel.VMStep <> dst:506 var
+R50438:50440 Kernel.VMStep <> mid:507 var
+R50442:50442 Kernel.VMStep <> i:508 var
+R50444:50444 Kernel.VMStep <> j:509 var
+R50446:50449 Kernel.VMStep <> cost:510 var
+R50414:50414 Kernel.VMStep <> s:505 var
+binder 51421:51421 <> s:511
+binder 51423:51425 <> dst:512
+binder 51427:51433 <> src_mod:513
+binder 51435:51441 <> dst_mod:514
+binder 51443:51454 <> coupling_idx:515
+binder 51456:51459 <> cost:516
+binder 51461:51466 <> src_ms:517
+binder 51468:51473 <> dst_ms:518
+binder 51475:51480 <> graph':519
+binder 51482:51489 <> morph_id:520
+R51543:51550 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R51529:51531 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51496:51507 Kernel.VMState <> graph_lookup def
+R51512:51519 Kernel.VMState <> vm_graph proj
+R51509:51509 Kernel.VMStep <> s:511 var
+R51522:51528 Kernel.VMStep <> src_mod:513 var
+R51532:51535 Coq.Init.Datatypes <> Some constr
+R51537:51542 Kernel.VMStep <> src_ms:517 var
+R51598:51605 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R51584:51586 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51551:51562 Kernel.VMState <> graph_lookup def
+R51567:51574 Kernel.VMState <> vm_graph proj
+R51564:51564 Kernel.VMStep <> s:511 var
+R51577:51583 Kernel.VMStep <> dst_mod:514 var
+R51587:51590 Coq.Init.Datatypes <> Some constr
+R51592:51597 Kernel.VMStep <> dst_ms:518 var
+R51700:51707 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R51624:51626 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R51606:51606 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R51613:51614 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R51623:51623 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R51607:51612 Kernel.VMStep <> graph':519 var
+R51615:51622 Kernel.VMStep <> morph_id:520 var
+R51627:51644 Kernel.VMState <> graph_add_morphism def
+R51649:51656 Kernel.VMState <> vm_graph proj
+R51646:51646 Kernel.VMStep <> s:511 var
+R51659:51665 Kernel.VMStep <> src_mod:513 var
+R51667:51673 Kernel.VMStep <> dst_mod:514 var
+R51675:51693 Kernel.VMState <> empty_coupling_data def
+R51695:51699 Coq.Init.Datatypes <> false constr
+R51708:51714 Kernel.VMStep <> vm_step:262 ind
+R51777:51792 Kernel.VMStep VMStep advance_state_rm def
+R51794:51794 Kernel.VMStep <> s:511 var
+R51797:51807 Kernel.VMStep VMStep instr_morph constr
+R51809:51811 Kernel.VMStep <> dst:512 var
+R51813:51819 Kernel.VMStep <> src_mod:513 var
+R51821:51827 Kernel.VMStep <> dst_mod:514 var
+R51829:51840 Kernel.VMStep <> coupling_idx:515 var
+R51842:51845 Kernel.VMStep <> cost:516 var
+R51856:51861 Kernel.VMStep <> graph':519 var
+R51866:51872 Kernel.VMState <> vm_csrs proj
+R51863:51863 Kernel.VMStep <> s:511 var
+R51876:51884 Kernel.VMState <> write_reg def
 R51886:51886 Kernel.VMStep <> s:511 var
-R51900:51905 Kernel.VMState <> vm_err proj
-R51897:51897 Kernel.VMStep <> s:511 var
-R51703:51713 Kernel.VMStep VMStep instr_morph constr
-R51715:51717 Kernel.VMStep <> dst:512 var
-R51719:51725 Kernel.VMStep <> src_mod:513 var
-R51727:51733 Kernel.VMStep <> dst_mod:514 var
-R51735:51746 Kernel.VMStep <> coupling_idx:515 var
-R51748:51751 Kernel.VMStep <> cost:516 var
-R51700:51700 Kernel.VMStep <> s:511 var
-binder 52023:52023 <> s:521
-binder 52025:52027 <> dst:522
-binder 52029:52035 <> src_mod:523
-binder 52037:52043 <> dst_mod:524
-binder 52045:52056 <> coupling_idx:525
-binder 52058:52061 <> cost:526
-R52108:52115 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R52101:52103 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R52068:52079 Kernel.VMState <> graph_lookup def
-R52084:52091 Kernel.VMState <> vm_graph proj
-R52081:52081 Kernel.VMStep <> s:521 var
-R52094:52100 Kernel.VMStep <> src_mod:523 var
-R52104:52107 Coq.Init.Datatypes <> None constr
-R52116:52122 Kernel.VMStep <> vm_step:262 ind
-R52185:52197 Kernel.VMStep VMStep advance_state def
-R52199:52199 Kernel.VMStep <> s:521 var
-R52202:52212 Kernel.VMStep VMStep instr_morph constr
-R52214:52216 Kernel.VMStep <> dst:522 var
-R52218:52224 Kernel.VMStep <> src_mod:523 var
-R52226:52232 Kernel.VMStep <> dst_mod:524 var
-R52234:52245 Kernel.VMStep <> coupling_idx:525 var
-R52247:52250 Kernel.VMStep <> cost:526 var
-R52264:52271 Kernel.VMState <> vm_graph proj
-R52261:52261 Kernel.VMStep <> s:521 var
-R52275:52285 Kernel.VMState <> csr_set_err def
-R52290:52296 Kernel.VMState <> vm_csrs proj
-R52287:52287 Kernel.VMStep <> s:521 var
-R52303:52311 Kernel.VMStep VMStep latch_err def
-R52313:52313 Kernel.VMStep <> s:521 var
-R52315:52318 Coq.Init.Datatypes <> true constr
-R52127:52137 Kernel.VMStep VMStep instr_morph constr
-R52139:52141 Kernel.VMStep <> dst:522 var
-R52143:52149 Kernel.VMStep <> src_mod:523 var
-R52151:52157 Kernel.VMStep <> dst_mod:524 var
-R52159:52170 Kernel.VMStep <> coupling_idx:525 var
-R52172:52175 Kernel.VMStep <> cost:526 var
-R52124:52124 Kernel.VMStep <> s:521 var
-binder 52479:52479 <> s:527
-binder 52481:52483 <> dst:528
-binder 52485:52491 <> src_mod:529
-binder 52493:52499 <> dst_mod:530
-binder 52501:52512 <> coupling_idx:531
-binder 52514:52517 <> cost:532
-binder 52519:52524 <> src_ms:533
-R52578:52585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R52564:52566 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R52531:52542 Kernel.VMState <> graph_lookup def
-R52547:52554 Kernel.VMState <> vm_graph proj
-R52544:52544 Kernel.VMStep <> s:527 var
-R52557:52563 Kernel.VMStep <> src_mod:529 var
-R52567:52570 Coq.Init.Datatypes <> Some constr
-R52572:52577 Kernel.VMStep <> src_ms:533 var
-R52626:52633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R52619:52621 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R52586:52597 Kernel.VMState <> graph_lookup def
-R52602:52609 Kernel.VMState <> vm_graph proj
-R52599:52599 Kernel.VMStep <> s:527 var
-R52612:52618 Kernel.VMStep <> dst_mod:530 var
-R52622:52625 Coq.Init.Datatypes <> None constr
-R52634:52640 Kernel.VMStep <> vm_step:262 ind
-R52703:52715 Kernel.VMStep VMStep advance_state def
-R52717:52717 Kernel.VMStep <> s:527 var
-R52720:52730 Kernel.VMStep VMStep instr_morph constr
-R52732:52734 Kernel.VMStep <> dst:528 var
-R52736:52742 Kernel.VMStep <> src_mod:529 var
-R52744:52750 Kernel.VMStep <> dst_mod:530 var
-R52752:52763 Kernel.VMStep <> coupling_idx:531 var
-R52765:52768 Kernel.VMStep <> cost:532 var
-R52782:52789 Kernel.VMState <> vm_graph proj
-R52779:52779 Kernel.VMStep <> s:527 var
-R52793:52803 Kernel.VMState <> csr_set_err def
-R52808:52814 Kernel.VMState <> vm_csrs proj
-R52805:52805 Kernel.VMStep <> s:527 var
-R52821:52829 Kernel.VMStep VMStep latch_err def
-R52831:52831 Kernel.VMStep <> s:527 var
-R52833:52836 Coq.Init.Datatypes <> true constr
-R52645:52655 Kernel.VMStep VMStep instr_morph constr
-R52657:52659 Kernel.VMStep <> dst:528 var
-R52661:52667 Kernel.VMStep <> src_mod:529 var
-R52669:52675 Kernel.VMStep <> dst_mod:530 var
-R52677:52688 Kernel.VMStep <> coupling_idx:531 var
-R52690:52693 Kernel.VMStep <> cost:532 var
-R52642:52642 Kernel.VMStep <> s:527 var
-binder 52950:52950 <> s:534
-binder 52952:52954 <> dst:535
-binder 52956:52960 <> m1_id:536
-binder 52962:52966 <> m2_id:537
-binder 52968:52971 <> cost:538
-binder 52973:52978 <> graph':539
-binder 52980:52987 <> morph_id:540
-R53068:53075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R53042:53044 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R52994:53016 Kernel.VMState <> graph_compose_morphisms def
-R53021:53028 Kernel.VMState <> vm_graph proj
-R53018:53018 Kernel.VMStep <> s:534 var
-R53031:53035 Kernel.VMStep <> m1_id:536 var
-R53037:53041 Kernel.VMStep <> m2_id:537 var
-R53045:53048 Coq.Init.Datatypes <> Some constr
-R53050:53050 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R53057:53058 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R53067:53067 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R53051:53056 Kernel.VMStep <> graph':539 var
-R53059:53066 Kernel.VMStep <> morph_id:540 var
-R53076:53082 Kernel.VMStep <> vm_step:262 ind
-R53130:53145 Kernel.VMStep VMStep advance_state_rm def
-R53147:53147 Kernel.VMStep <> s:534 var
-R53150:53162 Kernel.VMStep VMStep instr_compose constr
-R53164:53166 Kernel.VMStep <> dst:535 var
-R53168:53172 Kernel.VMStep <> m1_id:536 var
-R53174:53178 Kernel.VMStep <> m2_id:537 var
-R53180:53183 Kernel.VMStep <> cost:538 var
-R53194:53199 Kernel.VMStep <> graph':539 var
-R53204:53210 Kernel.VMState <> vm_csrs proj
-R53201:53201 Kernel.VMStep <> s:534 var
-R53214:53222 Kernel.VMState <> write_reg def
-R53224:53224 Kernel.VMStep <> s:534 var
-R53226:53228 Kernel.VMStep <> dst:535 var
-R53230:53237 Kernel.VMStep <> morph_id:540 var
-R53243:53248 Kernel.VMState <> vm_mem proj
+R51888:51890 Kernel.VMStep <> dst:512 var
+R51892:51899 Kernel.VMStep <> morph_id:520 var
+R51905:51910 Kernel.VMState <> vm_mem proj
+R51902:51902 Kernel.VMStep <> s:511 var
+R51916:51921 Kernel.VMState <> vm_err proj
+R51913:51913 Kernel.VMStep <> s:511 var
+R51719:51729 Kernel.VMStep VMStep instr_morph constr
+R51731:51733 Kernel.VMStep <> dst:512 var
+R51735:51741 Kernel.VMStep <> src_mod:513 var
+R51743:51749 Kernel.VMStep <> dst_mod:514 var
+R51751:51762 Kernel.VMStep <> coupling_idx:515 var
+R51764:51767 Kernel.VMStep <> cost:516 var
+R51716:51716 Kernel.VMStep <> s:511 var
+binder 52039:52039 <> s:521
+binder 52041:52043 <> dst:522
+binder 52045:52051 <> src_mod:523
+binder 52053:52059 <> dst_mod:524
+binder 52061:52072 <> coupling_idx:525
+binder 52074:52077 <> cost:526
+R52124:52131 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52117:52119 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52084:52095 Kernel.VMState <> graph_lookup def
+R52100:52107 Kernel.VMState <> vm_graph proj
+R52097:52097 Kernel.VMStep <> s:521 var
+R52110:52116 Kernel.VMStep <> src_mod:523 var
+R52120:52123 Coq.Init.Datatypes <> None constr
+R52132:52138 Kernel.VMStep <> vm_step:262 ind
+R52201:52213 Kernel.VMStep VMStep advance_state def
+R52215:52215 Kernel.VMStep <> s:521 var
+R52218:52228 Kernel.VMStep VMStep instr_morph constr
+R52230:52232 Kernel.VMStep <> dst:522 var
+R52234:52240 Kernel.VMStep <> src_mod:523 var
+R52242:52248 Kernel.VMStep <> dst_mod:524 var
+R52250:52261 Kernel.VMStep <> coupling_idx:525 var
+R52263:52266 Kernel.VMStep <> cost:526 var
+R52280:52287 Kernel.VMState <> vm_graph proj
+R52277:52277 Kernel.VMStep <> s:521 var
+R52291:52301 Kernel.VMState <> csr_set_err def
+R52306:52312 Kernel.VMState <> vm_csrs proj
+R52303:52303 Kernel.VMStep <> s:521 var
+R52319:52327 Kernel.VMStep VMStep latch_err def
+R52329:52329 Kernel.VMStep <> s:521 var
+R52331:52334 Coq.Init.Datatypes <> true constr
+R52143:52153 Kernel.VMStep VMStep instr_morph constr
+R52155:52157 Kernel.VMStep <> dst:522 var
+R52159:52165 Kernel.VMStep <> src_mod:523 var
+R52167:52173 Kernel.VMStep <> dst_mod:524 var
+R52175:52186 Kernel.VMStep <> coupling_idx:525 var
+R52188:52191 Kernel.VMStep <> cost:526 var
+R52140:52140 Kernel.VMStep <> s:521 var
+binder 52495:52495 <> s:527
+binder 52497:52499 <> dst:528
+binder 52501:52507 <> src_mod:529
+binder 52509:52515 <> dst_mod:530
+binder 52517:52528 <> coupling_idx:531
+binder 52530:52533 <> cost:532
+binder 52535:52540 <> src_ms:533
+R52594:52601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52580:52582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52547:52558 Kernel.VMState <> graph_lookup def
+R52563:52570 Kernel.VMState <> vm_graph proj
+R52560:52560 Kernel.VMStep <> s:527 var
+R52573:52579 Kernel.VMStep <> src_mod:529 var
+R52583:52586 Coq.Init.Datatypes <> Some constr
+R52588:52593 Kernel.VMStep <> src_ms:533 var
+R52642:52649 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R52635:52637 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R52602:52613 Kernel.VMState <> graph_lookup def
+R52618:52625 Kernel.VMState <> vm_graph proj
+R52615:52615 Kernel.VMStep <> s:527 var
+R52628:52634 Kernel.VMStep <> dst_mod:530 var
+R52638:52641 Coq.Init.Datatypes <> None constr
+R52650:52656 Kernel.VMStep <> vm_step:262 ind
+R52719:52731 Kernel.VMStep VMStep advance_state def
+R52733:52733 Kernel.VMStep <> s:527 var
+R52736:52746 Kernel.VMStep VMStep instr_morph constr
+R52748:52750 Kernel.VMStep <> dst:528 var
+R52752:52758 Kernel.VMStep <> src_mod:529 var
+R52760:52766 Kernel.VMStep <> dst_mod:530 var
+R52768:52779 Kernel.VMStep <> coupling_idx:531 var
+R52781:52784 Kernel.VMStep <> cost:532 var
+R52798:52805 Kernel.VMState <> vm_graph proj
+R52795:52795 Kernel.VMStep <> s:527 var
+R52809:52819 Kernel.VMState <> csr_set_err def
+R52824:52830 Kernel.VMState <> vm_csrs proj
+R52821:52821 Kernel.VMStep <> s:527 var
+R52837:52845 Kernel.VMStep VMStep latch_err def
+R52847:52847 Kernel.VMStep <> s:527 var
+R52849:52852 Coq.Init.Datatypes <> true constr
+R52661:52671 Kernel.VMStep VMStep instr_morph constr
+R52673:52675 Kernel.VMStep <> dst:528 var
+R52677:52683 Kernel.VMStep <> src_mod:529 var
+R52685:52691 Kernel.VMStep <> dst_mod:530 var
+R52693:52704 Kernel.VMStep <> coupling_idx:531 var
+R52706:52709 Kernel.VMStep <> cost:532 var
+R52658:52658 Kernel.VMStep <> s:527 var
+binder 52966:52966 <> s:534
+binder 52968:52970 <> dst:535
+binder 52972:52976 <> m1_id:536
+binder 52978:52982 <> m2_id:537
+binder 52984:52987 <> cost:538
+binder 52989:52994 <> graph':539
+binder 52996:53003 <> morph_id:540
+R53084:53091 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53058:53060 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53010:53032 Kernel.VMState <> graph_compose_morphisms def
+R53037:53044 Kernel.VMState <> vm_graph proj
+R53034:53034 Kernel.VMStep <> s:534 var
+R53047:53051 Kernel.VMStep <> m1_id:536 var
+R53053:53057 Kernel.VMStep <> m2_id:537 var
+R53061:53064 Coq.Init.Datatypes <> Some constr
+R53066:53066 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R53073:53074 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R53083:53083 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R53067:53072 Kernel.VMStep <> graph':539 var
+R53075:53082 Kernel.VMStep <> morph_id:540 var
+R53092:53098 Kernel.VMStep <> vm_step:262 ind
+R53146:53161 Kernel.VMStep VMStep advance_state_rm def
+R53163:53163 Kernel.VMStep <> s:534 var
+R53166:53178 Kernel.VMStep VMStep instr_compose constr
+R53180:53182 Kernel.VMStep <> dst:535 var
+R53184:53188 Kernel.VMStep <> m1_id:536 var
+R53190:53194 Kernel.VMStep <> m2_id:537 var
+R53196:53199 Kernel.VMStep <> cost:538 var
+R53210:53215 Kernel.VMStep <> graph':539 var
+R53220:53226 Kernel.VMState <> vm_csrs proj
+R53217:53217 Kernel.VMStep <> s:534 var
+R53230:53238 Kernel.VMState <> write_reg def
 R53240:53240 Kernel.VMStep <> s:534 var
-R53254:53259 Kernel.VMState <> vm_err proj
-R53251:53251 Kernel.VMStep <> s:534 var
-R53087:53099 Kernel.VMStep VMStep instr_compose constr
-R53101:53103 Kernel.VMStep <> dst:535 var
-R53105:53109 Kernel.VMStep <> m1_id:536 var
-R53111:53115 Kernel.VMStep <> m2_id:537 var
-R53117:53120 Kernel.VMStep <> cost:538 var
-R53084:53084 Kernel.VMStep <> s:534 var
-binder 53387:53387 <> s:541
-binder 53389:53391 <> dst:542
-binder 53393:53397 <> m1_id:543
-binder 53399:53403 <> m2_id:544
-binder 53405:53408 <> cost:545
-R53470:53477 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R53463:53465 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R53415:53437 Kernel.VMState <> graph_compose_morphisms def
-R53442:53449 Kernel.VMState <> vm_graph proj
-R53439:53439 Kernel.VMStep <> s:541 var
-R53452:53456 Kernel.VMStep <> m1_id:543 var
-R53458:53462 Kernel.VMStep <> m2_id:544 var
-R53466:53469 Coq.Init.Datatypes <> None constr
-R53478:53484 Kernel.VMStep <> vm_step:262 ind
-R53532:53544 Kernel.VMStep VMStep advance_state def
-R53546:53546 Kernel.VMStep <> s:541 var
-R53549:53561 Kernel.VMStep VMStep instr_compose constr
-R53563:53565 Kernel.VMStep <> dst:542 var
-R53567:53571 Kernel.VMStep <> m1_id:543 var
-R53573:53577 Kernel.VMStep <> m2_id:544 var
-R53579:53582 Kernel.VMStep <> cost:545 var
-R53596:53603 Kernel.VMState <> vm_graph proj
-R53593:53593 Kernel.VMStep <> s:541 var
-R53607:53617 Kernel.VMState <> csr_set_err def
-R53622:53628 Kernel.VMState <> vm_csrs proj
-R53619:53619 Kernel.VMStep <> s:541 var
-R53635:53643 Kernel.VMStep VMStep latch_err def
-R53645:53645 Kernel.VMStep <> s:541 var
-R53647:53650 Coq.Init.Datatypes <> true constr
-R53489:53501 Kernel.VMStep VMStep instr_compose constr
-R53503:53505 Kernel.VMStep <> dst:542 var
-R53507:53511 Kernel.VMStep <> m1_id:543 var
-R53513:53517 Kernel.VMStep <> m2_id:544 var
-R53519:53522 Kernel.VMStep <> cost:545 var
-R53486:53486 Kernel.VMStep <> s:541 var
-binder 53759:53759 <> s:546
-binder 53761:53763 <> dst:547
-binder 53765:53770 <> module:548
-binder 53772:53775 <> cost:549
-binder 53777:53782 <> graph':550
-binder 53784:53791 <> morph_id:551
-R53862:53869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R53836:53838 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R53798:53815 Kernel.VMState <> graph_add_identity def
-R53820:53827 Kernel.VMState <> vm_graph proj
-R53817:53817 Kernel.VMStep <> s:546 var
-R53830:53835 Kernel.VMStep <> module:548 var
-R53839:53842 Coq.Init.Datatypes <> Some constr
-R53844:53844 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R53851:53852 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R53861:53861 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R53845:53850 Kernel.VMStep <> graph':550 var
-R53853:53860 Kernel.VMStep <> morph_id:551 var
-R53870:53876 Kernel.VMStep <> vm_step:262 ind
-R53920:53935 Kernel.VMStep VMStep advance_state_rm def
-R53937:53937 Kernel.VMStep <> s:546 var
-R53940:53953 Kernel.VMStep VMStep instr_morph_id constr
-R53955:53957 Kernel.VMStep <> dst:547 var
-R53959:53964 Kernel.VMStep <> module:548 var
-R53966:53969 Kernel.VMStep <> cost:549 var
-R53980:53985 Kernel.VMStep <> graph':550 var
-R53990:53996 Kernel.VMState <> vm_csrs proj
-R53987:53987 Kernel.VMStep <> s:546 var
-R54000:54008 Kernel.VMState <> write_reg def
-R54010:54010 Kernel.VMStep <> s:546 var
-R54012:54014 Kernel.VMStep <> dst:547 var
-R54016:54023 Kernel.VMStep <> morph_id:551 var
-R54029:54034 Kernel.VMState <> vm_mem proj
+R53242:53244 Kernel.VMStep <> dst:535 var
+R53246:53253 Kernel.VMStep <> morph_id:540 var
+R53259:53264 Kernel.VMState <> vm_mem proj
+R53256:53256 Kernel.VMStep <> s:534 var
+R53270:53275 Kernel.VMState <> vm_err proj
+R53267:53267 Kernel.VMStep <> s:534 var
+R53103:53115 Kernel.VMStep VMStep instr_compose constr
+R53117:53119 Kernel.VMStep <> dst:535 var
+R53121:53125 Kernel.VMStep <> m1_id:536 var
+R53127:53131 Kernel.VMStep <> m2_id:537 var
+R53133:53136 Kernel.VMStep <> cost:538 var
+R53100:53100 Kernel.VMStep <> s:534 var
+binder 53403:53403 <> s:541
+binder 53405:53407 <> dst:542
+binder 53409:53413 <> m1_id:543
+binder 53415:53419 <> m2_id:544
+binder 53421:53424 <> cost:545
+R53486:53493 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53479:53481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53431:53453 Kernel.VMState <> graph_compose_morphisms def
+R53458:53465 Kernel.VMState <> vm_graph proj
+R53455:53455 Kernel.VMStep <> s:541 var
+R53468:53472 Kernel.VMStep <> m1_id:543 var
+R53474:53478 Kernel.VMStep <> m2_id:544 var
+R53482:53485 Coq.Init.Datatypes <> None constr
+R53494:53500 Kernel.VMStep <> vm_step:262 ind
+R53548:53560 Kernel.VMStep VMStep advance_state def
+R53562:53562 Kernel.VMStep <> s:541 var
+R53565:53577 Kernel.VMStep VMStep instr_compose constr
+R53579:53581 Kernel.VMStep <> dst:542 var
+R53583:53587 Kernel.VMStep <> m1_id:543 var
+R53589:53593 Kernel.VMStep <> m2_id:544 var
+R53595:53598 Kernel.VMStep <> cost:545 var
+R53612:53619 Kernel.VMState <> vm_graph proj
+R53609:53609 Kernel.VMStep <> s:541 var
+R53623:53633 Kernel.VMState <> csr_set_err def
+R53638:53644 Kernel.VMState <> vm_csrs proj
+R53635:53635 Kernel.VMStep <> s:541 var
+R53651:53659 Kernel.VMStep VMStep latch_err def
+R53661:53661 Kernel.VMStep <> s:541 var
+R53663:53666 Coq.Init.Datatypes <> true constr
+R53505:53517 Kernel.VMStep VMStep instr_compose constr
+R53519:53521 Kernel.VMStep <> dst:542 var
+R53523:53527 Kernel.VMStep <> m1_id:543 var
+R53529:53533 Kernel.VMStep <> m2_id:544 var
+R53535:53538 Kernel.VMStep <> cost:545 var
+R53502:53502 Kernel.VMStep <> s:541 var
+binder 53775:53775 <> s:546
+binder 53777:53779 <> dst:547
+binder 53781:53786 <> module:548
+binder 53788:53791 <> cost:549
+binder 53793:53798 <> graph':550
+binder 53800:53807 <> morph_id:551
+R53878:53885 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R53852:53854 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R53814:53831 Kernel.VMState <> graph_add_identity def
+R53836:53843 Kernel.VMState <> vm_graph proj
+R53833:53833 Kernel.VMStep <> s:546 var
+R53846:53851 Kernel.VMStep <> module:548 var
+R53855:53858 Coq.Init.Datatypes <> Some constr
+R53860:53860 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R53867:53868 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R53877:53877 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R53861:53866 Kernel.VMStep <> graph':550 var
+R53869:53876 Kernel.VMStep <> morph_id:551 var
+R53886:53892 Kernel.VMStep <> vm_step:262 ind
+R53936:53951 Kernel.VMStep VMStep advance_state_rm def
+R53953:53953 Kernel.VMStep <> s:546 var
+R53956:53969 Kernel.VMStep VMStep instr_morph_id constr
+R53971:53973 Kernel.VMStep <> dst:547 var
+R53975:53980 Kernel.VMStep <> module:548 var
+R53982:53985 Kernel.VMStep <> cost:549 var
+R53996:54001 Kernel.VMStep <> graph':550 var
+R54006:54012 Kernel.VMState <> vm_csrs proj
+R54003:54003 Kernel.VMStep <> s:546 var
+R54016:54024 Kernel.VMState <> write_reg def
 R54026:54026 Kernel.VMStep <> s:546 var
-R54040:54045 Kernel.VMState <> vm_err proj
-R54037:54037 Kernel.VMStep <> s:546 var
-R53881:53894 Kernel.VMStep VMStep instr_morph_id constr
-R53896:53898 Kernel.VMStep <> dst:547 var
-R53900:53905 Kernel.VMStep <> module:548 var
-R53907:53910 Kernel.VMStep <> cost:549 var
-R53878:53878 Kernel.VMStep <> s:546 var
-binder 54167:54167 <> s:552
-binder 54169:54171 <> dst:553
-binder 54173:54178 <> module:554
-binder 54180:54183 <> cost:555
-R54235:54242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R54228:54230 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R54190:54207 Kernel.VMState <> graph_add_identity def
-R54212:54219 Kernel.VMState <> vm_graph proj
-R54209:54209 Kernel.VMStep <> s:552 var
-R54222:54227 Kernel.VMStep <> module:554 var
-R54231:54234 Coq.Init.Datatypes <> None constr
-R54243:54249 Kernel.VMStep <> vm_step:262 ind
-R54293:54305 Kernel.VMStep VMStep advance_state def
-R54307:54307 Kernel.VMStep <> s:552 var
-R54310:54323 Kernel.VMStep VMStep instr_morph_id constr
-R54325:54327 Kernel.VMStep <> dst:553 var
-R54329:54334 Kernel.VMStep <> module:554 var
-R54336:54339 Kernel.VMStep <> cost:555 var
-R54353:54360 Kernel.VMState <> vm_graph proj
-R54350:54350 Kernel.VMStep <> s:552 var
-R54364:54374 Kernel.VMState <> csr_set_err def
-R54379:54385 Kernel.VMState <> vm_csrs proj
-R54376:54376 Kernel.VMStep <> s:552 var
-R54392:54400 Kernel.VMStep VMStep latch_err def
-R54402:54402 Kernel.VMStep <> s:552 var
-R54404:54407 Coq.Init.Datatypes <> true constr
-R54254:54267 Kernel.VMStep VMStep instr_morph_id constr
-R54269:54271 Kernel.VMStep <> dst:553 var
-R54273:54278 Kernel.VMStep <> module:554 var
-R54280:54283 Kernel.VMStep <> cost:555 var
-R54251:54251 Kernel.VMStep <> s:552 var
-binder 54516:54516 <> s:556
-binder 54518:54525 <> morph_id:557
-binder 54527:54530 <> cost:558
-binder 54532:54537 <> graph':559
-R54601:54608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R54587:54589 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R54544:54564 Kernel.VMState <> graph_delete_morphism def
-R54569:54576 Kernel.VMState <> vm_graph proj
-R54566:54566 Kernel.VMStep <> s:556 var
-R54579:54586 Kernel.VMStep <> morph_id:557 var
-R54590:54593 Coq.Init.Datatypes <> Some constr
-R54595:54600 Kernel.VMStep <> graph':559 var
-R54609:54615 Kernel.VMStep <> vm_step:262 ind
-R54661:54673 Kernel.VMStep VMStep advance_state def
-R54675:54675 Kernel.VMStep <> s:556 var
-R54678:54695 Kernel.VMStep VMStep instr_morph_delete constr
-R54697:54704 Kernel.VMStep <> morph_id:557 var
-R54706:54709 Kernel.VMStep <> cost:558 var
-R54720:54725 Kernel.VMStep <> graph':559 var
-R54730:54736 Kernel.VMState <> vm_csrs proj
-R54727:54727 Kernel.VMStep <> s:556 var
-R54742:54747 Kernel.VMState <> vm_err proj
-R54739:54739 Kernel.VMStep <> s:556 var
-R54620:54637 Kernel.VMStep VMStep instr_morph_delete constr
-R54639:54646 Kernel.VMStep <> morph_id:557 var
-R54648:54651 Kernel.VMStep <> cost:558 var
-R54617:54617 Kernel.VMStep <> s:556 var
-binder 54882:54882 <> s:560
-binder 54884:54891 <> morph_id:561
-binder 54893:54896 <> cost:562
-R54953:54960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R54946:54948 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R54903:54923 Kernel.VMState <> graph_delete_morphism def
-R54928:54935 Kernel.VMState <> vm_graph proj
-R54925:54925 Kernel.VMStep <> s:560 var
-R54938:54945 Kernel.VMStep <> morph_id:561 var
-R54949:54952 Coq.Init.Datatypes <> None constr
-R54961:54967 Kernel.VMStep <> vm_step:262 ind
-R55013:55025 Kernel.VMStep VMStep advance_state def
-R55027:55027 Kernel.VMStep <> s:560 var
-R55030:55047 Kernel.VMStep VMStep instr_morph_delete constr
-R55049:55056 Kernel.VMStep <> morph_id:561 var
-R55058:55061 Kernel.VMStep <> cost:562 var
-R55075:55082 Kernel.VMState <> vm_graph proj
-R55072:55072 Kernel.VMStep <> s:560 var
-R55086:55096 Kernel.VMState <> csr_set_err def
-R55101:55107 Kernel.VMState <> vm_csrs proj
-R55098:55098 Kernel.VMStep <> s:560 var
-R55114:55122 Kernel.VMStep VMStep latch_err def
-R55124:55124 Kernel.VMStep <> s:560 var
-R55126:55129 Coq.Init.Datatypes <> true constr
-R54972:54989 Kernel.VMStep VMStep instr_morph_delete constr
-R54991:54998 Kernel.VMStep <> morph_id:561 var
-R55000:55003 Kernel.VMStep <> cost:562 var
-R54969:54969 Kernel.VMStep <> s:560 var
-binder 55324:55324 <> s:563
-binder 55326:55333 <> morph_id:564
-binder 55335:55342 <> property:565
-binder 55344:55347 <> cert:566
-binder 55349:55352 <> cost:567
-binder 55354:55355 <> ms:568
-R55415:55422 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R55405:55407 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R55362:55382 Kernel.VMState <> graph_lookup_morphism def
-R55387:55394 Kernel.VMState <> vm_graph proj
-R55384:55384 Kernel.VMStep <> s:563 var
-R55397:55404 Kernel.VMStep <> morph_id:564 var
-R55408:55411 Coq.Init.Datatypes <> Some constr
-R55413:55414 Kernel.VMStep <> ms:568 var
-R55423:55429 Kernel.VMStep <> vm_step:262 ind
-R55489:55501 Kernel.VMStep VMStep advance_state def
-R55503:55503 Kernel.VMStep <> s:563 var
-R55506:55523 Kernel.VMStep VMStep instr_morph_assert constr
-R55525:55532 Kernel.VMStep <> morph_id:564 var
-R55534:55541 Kernel.VMStep <> property:565 var
-R55543:55546 Kernel.VMStep <> cert:566 var
-R55548:55551 Kernel.VMStep <> cost:567 var
-R55565:55572 Kernel.VMState <> vm_graph proj
-R55562:55562 Kernel.VMStep <> s:563 var
-R55576:55592 Kernel.VMState <> csr_set_cert_addr def
-R55597:55603 Kernel.VMState <> vm_csrs proj
-R55594:55594 Kernel.VMStep <> s:563 var
-R55607:55620 Kernel.VMState <> ascii_checksum def
-R55622:55629 Kernel.VMStep <> property:565 var
-R55636:55641 Kernel.VMState <> vm_err proj
-R55633:55633 Kernel.VMStep <> s:563 var
-R55434:55451 Kernel.VMStep VMStep instr_morph_assert constr
-R55453:55460 Kernel.VMStep <> morph_id:564 var
-R55462:55469 Kernel.VMStep <> property:565 var
-R55471:55474 Kernel.VMStep <> cert:566 var
-R55476:55479 Kernel.VMStep <> cost:567 var
-R55431:55431 Kernel.VMStep <> s:563 var
-binder 55772:55772 <> s:569
-binder 55774:55781 <> morph_id:570
-binder 55783:55790 <> property:571
-binder 55792:55795 <> cert:572
-binder 55797:55800 <> cost:573
-R55857:55864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R55850:55852 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R55807:55827 Kernel.VMState <> graph_lookup_morphism def
-R55832:55839 Kernel.VMState <> vm_graph proj
-R55829:55829 Kernel.VMStep <> s:569 var
-R55842:55849 Kernel.VMStep <> morph_id:570 var
-R55853:55856 Coq.Init.Datatypes <> None constr
-R55865:55871 Kernel.VMStep <> vm_step:262 ind
-R55931:55943 Kernel.VMStep VMStep advance_state def
-R55945:55945 Kernel.VMStep <> s:569 var
-R55948:55965 Kernel.VMStep VMStep instr_morph_assert constr
-R55967:55974 Kernel.VMStep <> morph_id:570 var
-R55976:55983 Kernel.VMStep <> property:571 var
-R55985:55988 Kernel.VMStep <> cert:572 var
-R55990:55993 Kernel.VMStep <> cost:573 var
-R56007:56014 Kernel.VMState <> vm_graph proj
-R56004:56004 Kernel.VMStep <> s:569 var
-R56018:56028 Kernel.VMState <> csr_set_err def
-R56033:56039 Kernel.VMState <> vm_csrs proj
-R56030:56030 Kernel.VMStep <> s:569 var
-R56046:56054 Kernel.VMStep VMStep latch_err def
-R56056:56056 Kernel.VMStep <> s:569 var
-R56058:56061 Coq.Init.Datatypes <> true constr
-R55876:55893 Kernel.VMStep VMStep instr_morph_assert constr
-R55895:55902 Kernel.VMStep <> morph_id:570 var
-R55904:55911 Kernel.VMStep <> property:571 var
-R55913:55916 Kernel.VMStep <> cert:572 var
-R55918:55921 Kernel.VMStep <> cost:573 var
-R55873:55873 Kernel.VMStep <> s:569 var
-binder 56186:56186 <> s:574
-binder 56188:56190 <> dst:575
-binder 56192:56195 <> f_id:576
-binder 56197:56200 <> g_id:577
-binder 56202:56205 <> cost:578
-binder 56207:56212 <> graph':579
-binder 56214:56221 <> morph_id:580
-R56299:56306 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R56273:56275 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R56228:56249 Kernel.VMState <> graph_tensor_morphisms def
-R56254:56261 Kernel.VMState <> vm_graph proj
-R56251:56251 Kernel.VMStep <> s:574 var
-R56264:56267 Kernel.VMStep <> f_id:576 var
-R56269:56272 Kernel.VMStep <> g_id:577 var
-R56276:56279 Coq.Init.Datatypes <> Some constr
-R56281:56281 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R56288:56289 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R56298:56298 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R56282:56287 Kernel.VMStep <> graph':579 var
-R56290:56297 Kernel.VMStep <> morph_id:580 var
-R56307:56313 Kernel.VMStep <> vm_step:262 ind
-R56364:56379 Kernel.VMStep VMStep advance_state_rm def
-R56381:56381 Kernel.VMStep <> s:574 var
-R56384:56401 Kernel.VMStep VMStep instr_morph_tensor constr
-R56403:56405 Kernel.VMStep <> dst:575 var
-R56407:56410 Kernel.VMStep <> f_id:576 var
-R56412:56415 Kernel.VMStep <> g_id:577 var
-R56417:56420 Kernel.VMStep <> cost:578 var
-R56431:56436 Kernel.VMStep <> graph':579 var
-R56441:56447 Kernel.VMState <> vm_csrs proj
-R56438:56438 Kernel.VMStep <> s:574 var
-R56451:56459 Kernel.VMState <> write_reg def
-R56461:56461 Kernel.VMStep <> s:574 var
-R56463:56465 Kernel.VMStep <> dst:575 var
-R56467:56474 Kernel.VMStep <> morph_id:580 var
-R56480:56485 Kernel.VMState <> vm_mem proj
+R54028:54030 Kernel.VMStep <> dst:547 var
+R54032:54039 Kernel.VMStep <> morph_id:551 var
+R54045:54050 Kernel.VMState <> vm_mem proj
+R54042:54042 Kernel.VMStep <> s:546 var
+R54056:54061 Kernel.VMState <> vm_err proj
+R54053:54053 Kernel.VMStep <> s:546 var
+R53897:53910 Kernel.VMStep VMStep instr_morph_id constr
+R53912:53914 Kernel.VMStep <> dst:547 var
+R53916:53921 Kernel.VMStep <> module:548 var
+R53923:53926 Kernel.VMStep <> cost:549 var
+R53894:53894 Kernel.VMStep <> s:546 var
+binder 54183:54183 <> s:552
+binder 54185:54187 <> dst:553
+binder 54189:54194 <> module:554
+binder 54196:54199 <> cost:555
+R54251:54258 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R54244:54246 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54206:54223 Kernel.VMState <> graph_add_identity def
+R54228:54235 Kernel.VMState <> vm_graph proj
+R54225:54225 Kernel.VMStep <> s:552 var
+R54238:54243 Kernel.VMStep <> module:554 var
+R54247:54250 Coq.Init.Datatypes <> None constr
+R54259:54265 Kernel.VMStep <> vm_step:262 ind
+R54309:54321 Kernel.VMStep VMStep advance_state def
+R54323:54323 Kernel.VMStep <> s:552 var
+R54326:54339 Kernel.VMStep VMStep instr_morph_id constr
+R54341:54343 Kernel.VMStep <> dst:553 var
+R54345:54350 Kernel.VMStep <> module:554 var
+R54352:54355 Kernel.VMStep <> cost:555 var
+R54369:54376 Kernel.VMState <> vm_graph proj
+R54366:54366 Kernel.VMStep <> s:552 var
+R54380:54390 Kernel.VMState <> csr_set_err def
+R54395:54401 Kernel.VMState <> vm_csrs proj
+R54392:54392 Kernel.VMStep <> s:552 var
+R54408:54416 Kernel.VMStep VMStep latch_err def
+R54418:54418 Kernel.VMStep <> s:552 var
+R54420:54423 Coq.Init.Datatypes <> true constr
+R54270:54283 Kernel.VMStep VMStep instr_morph_id constr
+R54285:54287 Kernel.VMStep <> dst:553 var
+R54289:54294 Kernel.VMStep <> module:554 var
+R54296:54299 Kernel.VMStep <> cost:555 var
+R54267:54267 Kernel.VMStep <> s:552 var
+binder 54532:54532 <> s:556
+binder 54534:54541 <> morph_id:557
+binder 54543:54546 <> cost:558
+binder 54548:54553 <> graph':559
+R54617:54624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R54603:54605 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54560:54580 Kernel.VMState <> graph_delete_morphism def
+R54585:54592 Kernel.VMState <> vm_graph proj
+R54582:54582 Kernel.VMStep <> s:556 var
+R54595:54602 Kernel.VMStep <> morph_id:557 var
+R54606:54609 Coq.Init.Datatypes <> Some constr
+R54611:54616 Kernel.VMStep <> graph':559 var
+R54625:54631 Kernel.VMStep <> vm_step:262 ind
+R54677:54689 Kernel.VMStep VMStep advance_state def
+R54691:54691 Kernel.VMStep <> s:556 var
+R54694:54711 Kernel.VMStep VMStep instr_morph_delete constr
+R54713:54720 Kernel.VMStep <> morph_id:557 var
+R54722:54725 Kernel.VMStep <> cost:558 var
+R54736:54741 Kernel.VMStep <> graph':559 var
+R54746:54752 Kernel.VMState <> vm_csrs proj
+R54743:54743 Kernel.VMStep <> s:556 var
+R54758:54763 Kernel.VMState <> vm_err proj
+R54755:54755 Kernel.VMStep <> s:556 var
+R54636:54653 Kernel.VMStep VMStep instr_morph_delete constr
+R54655:54662 Kernel.VMStep <> morph_id:557 var
+R54664:54667 Kernel.VMStep <> cost:558 var
+R54633:54633 Kernel.VMStep <> s:556 var
+binder 54898:54898 <> s:560
+binder 54900:54907 <> morph_id:561
+binder 54909:54912 <> cost:562
+R54969:54976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R54962:54964 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R54919:54939 Kernel.VMState <> graph_delete_morphism def
+R54944:54951 Kernel.VMState <> vm_graph proj
+R54941:54941 Kernel.VMStep <> s:560 var
+R54954:54961 Kernel.VMStep <> morph_id:561 var
+R54965:54968 Coq.Init.Datatypes <> None constr
+R54977:54983 Kernel.VMStep <> vm_step:262 ind
+R55029:55041 Kernel.VMStep VMStep advance_state def
+R55043:55043 Kernel.VMStep <> s:560 var
+R55046:55063 Kernel.VMStep VMStep instr_morph_delete constr
+R55065:55072 Kernel.VMStep <> morph_id:561 var
+R55074:55077 Kernel.VMStep <> cost:562 var
+R55091:55098 Kernel.VMState <> vm_graph proj
+R55088:55088 Kernel.VMStep <> s:560 var
+R55102:55112 Kernel.VMState <> csr_set_err def
+R55117:55123 Kernel.VMState <> vm_csrs proj
+R55114:55114 Kernel.VMStep <> s:560 var
+R55130:55138 Kernel.VMStep VMStep latch_err def
+R55140:55140 Kernel.VMStep <> s:560 var
+R55142:55145 Coq.Init.Datatypes <> true constr
+R54988:55005 Kernel.VMStep VMStep instr_morph_delete constr
+R55007:55014 Kernel.VMStep <> morph_id:561 var
+R55016:55019 Kernel.VMStep <> cost:562 var
+R54985:54985 Kernel.VMStep <> s:560 var
+binder 55340:55340 <> s:563
+binder 55342:55349 <> morph_id:564
+binder 55351:55358 <> property:565
+binder 55360:55363 <> cert:566
+binder 55365:55368 <> cost:567
+binder 55370:55371 <> ms:568
+R55431:55438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R55421:55423 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R55378:55398 Kernel.VMState <> graph_lookup_morphism def
+R55403:55410 Kernel.VMState <> vm_graph proj
+R55400:55400 Kernel.VMStep <> s:563 var
+R55413:55420 Kernel.VMStep <> morph_id:564 var
+R55424:55427 Coq.Init.Datatypes <> Some constr
+R55429:55430 Kernel.VMStep <> ms:568 var
+R55439:55445 Kernel.VMStep <> vm_step:262 ind
+R55505:55517 Kernel.VMStep VMStep advance_state def
+R55519:55519 Kernel.VMStep <> s:563 var
+R55522:55539 Kernel.VMStep VMStep instr_morph_assert constr
+R55541:55548 Kernel.VMStep <> morph_id:564 var
+R55550:55557 Kernel.VMStep <> property:565 var
+R55559:55562 Kernel.VMStep <> cert:566 var
+R55564:55567 Kernel.VMStep <> cost:567 var
+R55581:55588 Kernel.VMState <> vm_graph proj
+R55578:55578 Kernel.VMStep <> s:563 var
+R55592:55608 Kernel.VMState <> csr_set_cert_addr def
+R55613:55619 Kernel.VMState <> vm_csrs proj
+R55610:55610 Kernel.VMStep <> s:563 var
+R55623:55636 Kernel.VMState <> ascii_checksum def
+R55638:55645 Kernel.VMStep <> property:565 var
+R55652:55657 Kernel.VMState <> vm_err proj
+R55649:55649 Kernel.VMStep <> s:563 var
+R55450:55467 Kernel.VMStep VMStep instr_morph_assert constr
+R55469:55476 Kernel.VMStep <> morph_id:564 var
+R55478:55485 Kernel.VMStep <> property:565 var
+R55487:55490 Kernel.VMStep <> cert:566 var
+R55492:55495 Kernel.VMStep <> cost:567 var
+R55447:55447 Kernel.VMStep <> s:563 var
+binder 55788:55788 <> s:569
+binder 55790:55797 <> morph_id:570
+binder 55799:55806 <> property:571
+binder 55808:55811 <> cert:572
+binder 55813:55816 <> cost:573
+R55873:55880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R55866:55868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R55823:55843 Kernel.VMState <> graph_lookup_morphism def
+R55848:55855 Kernel.VMState <> vm_graph proj
+R55845:55845 Kernel.VMStep <> s:569 var
+R55858:55865 Kernel.VMStep <> morph_id:570 var
+R55869:55872 Coq.Init.Datatypes <> None constr
+R55881:55887 Kernel.VMStep <> vm_step:262 ind
+R55947:55959 Kernel.VMStep VMStep advance_state def
+R55961:55961 Kernel.VMStep <> s:569 var
+R55964:55981 Kernel.VMStep VMStep instr_morph_assert constr
+R55983:55990 Kernel.VMStep <> morph_id:570 var
+R55992:55999 Kernel.VMStep <> property:571 var
+R56001:56004 Kernel.VMStep <> cert:572 var
+R56006:56009 Kernel.VMStep <> cost:573 var
+R56023:56030 Kernel.VMState <> vm_graph proj
+R56020:56020 Kernel.VMStep <> s:569 var
+R56034:56044 Kernel.VMState <> csr_set_err def
+R56049:56055 Kernel.VMState <> vm_csrs proj
+R56046:56046 Kernel.VMStep <> s:569 var
+R56062:56070 Kernel.VMStep VMStep latch_err def
+R56072:56072 Kernel.VMStep <> s:569 var
+R56074:56077 Coq.Init.Datatypes <> true constr
+R55892:55909 Kernel.VMStep VMStep instr_morph_assert constr
+R55911:55918 Kernel.VMStep <> morph_id:570 var
+R55920:55927 Kernel.VMStep <> property:571 var
+R55929:55932 Kernel.VMStep <> cert:572 var
+R55934:55937 Kernel.VMStep <> cost:573 var
+R55889:55889 Kernel.VMStep <> s:569 var
+binder 56202:56202 <> s:574
+binder 56204:56206 <> dst:575
+binder 56208:56211 <> f_id:576
+binder 56213:56216 <> g_id:577
+binder 56218:56221 <> cost:578
+binder 56223:56228 <> graph':579
+binder 56230:56237 <> morph_id:580
+R56315:56322 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R56289:56291 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56244:56265 Kernel.VMState <> graph_tensor_morphisms def
+R56270:56277 Kernel.VMState <> vm_graph proj
+R56267:56267 Kernel.VMStep <> s:574 var
+R56280:56283 Kernel.VMStep <> f_id:576 var
+R56285:56288 Kernel.VMStep <> g_id:577 var
+R56292:56295 Coq.Init.Datatypes <> Some constr
+R56297:56297 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R56304:56305 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R56314:56314 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R56298:56303 Kernel.VMStep <> graph':579 var
+R56306:56313 Kernel.VMStep <> morph_id:580 var
+R56323:56329 Kernel.VMStep <> vm_step:262 ind
+R56380:56395 Kernel.VMStep VMStep advance_state_rm def
+R56397:56397 Kernel.VMStep <> s:574 var
+R56400:56417 Kernel.VMStep VMStep instr_morph_tensor constr
+R56419:56421 Kernel.VMStep <> dst:575 var
+R56423:56426 Kernel.VMStep <> f_id:576 var
+R56428:56431 Kernel.VMStep <> g_id:577 var
+R56433:56436 Kernel.VMStep <> cost:578 var
+R56447:56452 Kernel.VMStep <> graph':579 var
+R56457:56463 Kernel.VMState <> vm_csrs proj
+R56454:56454 Kernel.VMStep <> s:574 var
+R56467:56475 Kernel.VMState <> write_reg def
 R56477:56477 Kernel.VMStep <> s:574 var
-R56491:56496 Kernel.VMState <> vm_err proj
-R56488:56488 Kernel.VMStep <> s:574 var
-R56318:56335 Kernel.VMStep VMStep instr_morph_tensor constr
-R56337:56339 Kernel.VMStep <> dst:575 var
-R56341:56344 Kernel.VMStep <> f_id:576 var
-R56346:56349 Kernel.VMStep <> g_id:577 var
-R56351:56354 Kernel.VMStep <> cost:578 var
-R56315:56315 Kernel.VMStep <> s:574 var
-binder 56637:56637 <> s:581
-binder 56639:56641 <> dst:582
-binder 56643:56646 <> f_id:583
-binder 56648:56651 <> g_id:584
-binder 56653:56656 <> cost:585
-R56715:56722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R56708:56710 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R56663:56684 Kernel.VMState <> graph_tensor_morphisms def
-R56689:56696 Kernel.VMState <> vm_graph proj
-R56686:56686 Kernel.VMStep <> s:581 var
-R56699:56702 Kernel.VMStep <> f_id:583 var
-R56704:56707 Kernel.VMStep <> g_id:584 var
-R56711:56714 Coq.Init.Datatypes <> None constr
-R56723:56729 Kernel.VMStep <> vm_step:262 ind
-R56780:56792 Kernel.VMStep VMStep advance_state def
-R56794:56794 Kernel.VMStep <> s:581 var
-R56797:56814 Kernel.VMStep VMStep instr_morph_tensor constr
-R56816:56818 Kernel.VMStep <> dst:582 var
-R56820:56823 Kernel.VMStep <> f_id:583 var
-R56825:56828 Kernel.VMStep <> g_id:584 var
-R56830:56833 Kernel.VMStep <> cost:585 var
-R56847:56854 Kernel.VMState <> vm_graph proj
-R56844:56844 Kernel.VMStep <> s:581 var
-R56858:56868 Kernel.VMState <> csr_set_err def
-R56873:56879 Kernel.VMState <> vm_csrs proj
-R56870:56870 Kernel.VMStep <> s:581 var
-R56886:56894 Kernel.VMStep VMStep latch_err def
-R56896:56896 Kernel.VMStep <> s:581 var
-R56898:56901 Coq.Init.Datatypes <> true constr
-R56734:56751 Kernel.VMStep VMStep instr_morph_tensor constr
-R56753:56755 Kernel.VMStep <> dst:582 var
-R56757:56760 Kernel.VMStep <> f_id:583 var
-R56762:56765 Kernel.VMStep <> g_id:584 var
-R56767:56770 Kernel.VMStep <> cost:585 var
-R56731:56731 Kernel.VMStep <> s:581 var
-binder 57099:57099 <> s:586
-binder 57101:57103 <> dst:587
-binder 57105:57112 <> morph_id:588
-binder 57114:57121 <> selector:589
-binder 57123:57126 <> cost:590
-binder 57128:57129 <> ms:591
-binder 57131:57135 <> regs':592
-R57195:57202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R57185:57187 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R57142:57162 Kernel.VMState <> graph_lookup_morphism def
-R57167:57174 Kernel.VMState <> vm_graph proj
-R57164:57164 Kernel.VMStep <> s:586 var
-R57177:57184 Kernel.VMStep <> morph_id:588 var
-R57188:57191 Coq.Init.Datatypes <> Some constr
-R57193:57194 Kernel.VMStep <> ms:591 var
-R57264:57271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R57208:57210 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R57203:57207 Kernel.VMStep <> regs':592 var
-R57211:57219 Kernel.VMState <> write_reg def
-R57221:57221 Kernel.VMStep <> s:586 var
-R57223:57225 Kernel.VMStep <> dst:587 var
-R57228:57250 Kernel.VMStep VMStep morphism_selector_value def
-R57252:57253 Kernel.VMStep <> ms:591 var
-R57255:57262 Kernel.VMStep <> selector:589 var
-R57272:57278 Kernel.VMStep <> vm_step:262 ind
-R57334:57349 Kernel.VMStep VMStep advance_state_rm def
-R57351:57351 Kernel.VMStep <> s:586 var
-R57354:57368 Kernel.VMStep VMStep instr_morph_get constr
-R57370:57372 Kernel.VMStep <> dst:587 var
-R57374:57381 Kernel.VMStep <> morph_id:588 var
-R57383:57390 Kernel.VMStep <> selector:589 var
-R57392:57395 Kernel.VMStep <> cost:590 var
-R57409:57416 Kernel.VMState <> vm_graph proj
-R57406:57406 Kernel.VMStep <> s:586 var
-R57422:57428 Kernel.VMState <> vm_csrs proj
-R57419:57419 Kernel.VMStep <> s:586 var
-R57431:57435 Kernel.VMStep <> regs':592 var
-R57440:57445 Kernel.VMState <> vm_mem proj
-R57437:57437 Kernel.VMStep <> s:586 var
-R57451:57456 Kernel.VMState <> vm_err proj
-R57448:57448 Kernel.VMStep <> s:586 var
-R57283:57297 Kernel.VMStep VMStep instr_morph_get constr
-R57299:57301 Kernel.VMStep <> dst:587 var
-R57303:57310 Kernel.VMStep <> morph_id:588 var
-R57312:57319 Kernel.VMStep <> selector:589 var
-R57321:57324 Kernel.VMStep <> cost:590 var
-R57280:57280 Kernel.VMStep <> s:586 var
-binder 57569:57569 <> s:593
-binder 57571:57573 <> dst:594
-binder 57575:57582 <> morph_id:595
-binder 57584:57591 <> selector:596
-binder 57593:57596 <> cost:597
-R57653:57660 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R57646:57648 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R57603:57623 Kernel.VMState <> graph_lookup_morphism def
-R57628:57635 Kernel.VMState <> vm_graph proj
-R57625:57625 Kernel.VMStep <> s:593 var
-R57638:57645 Kernel.VMStep <> morph_id:595 var
-R57649:57652 Coq.Init.Datatypes <> None constr
-R57661:57667 Kernel.VMStep <> vm_step:262 ind
-R57723:57735 Kernel.VMStep VMStep advance_state def
-R57737:57737 Kernel.VMStep <> s:593 var
-R57740:57754 Kernel.VMStep VMStep instr_morph_get constr
-R57756:57758 Kernel.VMStep <> dst:594 var
-R57760:57767 Kernel.VMStep <> morph_id:595 var
-R57769:57776 Kernel.VMStep <> selector:596 var
-R57778:57781 Kernel.VMStep <> cost:597 var
-R57795:57802 Kernel.VMState <> vm_graph proj
-R57792:57792 Kernel.VMStep <> s:593 var
-R57806:57816 Kernel.VMState <> csr_set_err def
-R57821:57827 Kernel.VMState <> vm_csrs proj
-R57818:57818 Kernel.VMStep <> s:593 var
-R57834:57842 Kernel.VMStep VMStep latch_err def
-R57844:57844 Kernel.VMStep <> s:593 var
-R57846:57849 Coq.Init.Datatypes <> true constr
-R57672:57686 Kernel.VMStep VMStep instr_morph_get constr
-R57688:57690 Kernel.VMStep <> dst:594 var
-R57692:57699 Kernel.VMStep <> morph_id:595 var
-R57701:57708 Kernel.VMStep <> selector:596 var
-R57710:57713 Kernel.VMStep <> cost:597 var
-R57669:57669 Kernel.VMStep <> s:593 var
+R56479:56481 Kernel.VMStep <> dst:575 var
+R56483:56490 Kernel.VMStep <> morph_id:580 var
+R56496:56501 Kernel.VMState <> vm_mem proj
+R56493:56493 Kernel.VMStep <> s:574 var
+R56507:56512 Kernel.VMState <> vm_err proj
+R56504:56504 Kernel.VMStep <> s:574 var
+R56334:56351 Kernel.VMStep VMStep instr_morph_tensor constr
+R56353:56355 Kernel.VMStep <> dst:575 var
+R56357:56360 Kernel.VMStep <> f_id:576 var
+R56362:56365 Kernel.VMStep <> g_id:577 var
+R56367:56370 Kernel.VMStep <> cost:578 var
+R56331:56331 Kernel.VMStep <> s:574 var
+binder 56653:56653 <> s:581
+binder 56655:56657 <> dst:582
+binder 56659:56662 <> f_id:583
+binder 56664:56667 <> g_id:584
+binder 56669:56672 <> cost:585
+R56731:56738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R56724:56726 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R56679:56700 Kernel.VMState <> graph_tensor_morphisms def
+R56705:56712 Kernel.VMState <> vm_graph proj
+R56702:56702 Kernel.VMStep <> s:581 var
+R56715:56718 Kernel.VMStep <> f_id:583 var
+R56720:56723 Kernel.VMStep <> g_id:584 var
+R56727:56730 Coq.Init.Datatypes <> None constr
+R56739:56745 Kernel.VMStep <> vm_step:262 ind
+R56796:56808 Kernel.VMStep VMStep advance_state def
+R56810:56810 Kernel.VMStep <> s:581 var
+R56813:56830 Kernel.VMStep VMStep instr_morph_tensor constr
+R56832:56834 Kernel.VMStep <> dst:582 var
+R56836:56839 Kernel.VMStep <> f_id:583 var
+R56841:56844 Kernel.VMStep <> g_id:584 var
+R56846:56849 Kernel.VMStep <> cost:585 var
+R56863:56870 Kernel.VMState <> vm_graph proj
+R56860:56860 Kernel.VMStep <> s:581 var
+R56874:56884 Kernel.VMState <> csr_set_err def
+R56889:56895 Kernel.VMState <> vm_csrs proj
+R56886:56886 Kernel.VMStep <> s:581 var
+R56902:56910 Kernel.VMStep VMStep latch_err def
+R56912:56912 Kernel.VMStep <> s:581 var
+R56914:56917 Coq.Init.Datatypes <> true constr
+R56750:56767 Kernel.VMStep VMStep instr_morph_tensor constr
+R56769:56771 Kernel.VMStep <> dst:582 var
+R56773:56776 Kernel.VMStep <> f_id:583 var
+R56778:56781 Kernel.VMStep <> g_id:584 var
+R56783:56786 Kernel.VMStep <> cost:585 var
+R56747:56747 Kernel.VMStep <> s:581 var
+binder 57115:57115 <> s:586
+binder 57117:57119 <> dst:587
+binder 57121:57128 <> morph_id:588
+binder 57130:57137 <> selector:589
+binder 57139:57142 <> cost:590
+binder 57144:57145 <> ms:591
+binder 57147:57151 <> regs':592
+R57211:57218 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R57201:57203 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R57158:57178 Kernel.VMState <> graph_lookup_morphism def
+R57183:57190 Kernel.VMState <> vm_graph proj
+R57180:57180 Kernel.VMStep <> s:586 var
+R57193:57200 Kernel.VMStep <> morph_id:588 var
+R57204:57207 Coq.Init.Datatypes <> Some constr
+R57209:57210 Kernel.VMStep <> ms:591 var
+R57280:57287 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R57224:57226 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R57219:57223 Kernel.VMStep <> regs':592 var
+R57227:57235 Kernel.VMState <> write_reg def
+R57237:57237 Kernel.VMStep <> s:586 var
+R57239:57241 Kernel.VMStep <> dst:587 var
+R57244:57266 Kernel.VMStep VMStep morphism_selector_value def
+R57268:57269 Kernel.VMStep <> ms:591 var
+R57271:57278 Kernel.VMStep <> selector:589 var
+R57288:57294 Kernel.VMStep <> vm_step:262 ind
+R57350:57365 Kernel.VMStep VMStep advance_state_rm def
+R57367:57367 Kernel.VMStep <> s:586 var
+R57370:57384 Kernel.VMStep VMStep instr_morph_get constr
+R57386:57388 Kernel.VMStep <> dst:587 var
+R57390:57397 Kernel.VMStep <> morph_id:588 var
+R57399:57406 Kernel.VMStep <> selector:589 var
+R57408:57411 Kernel.VMStep <> cost:590 var
+R57425:57432 Kernel.VMState <> vm_graph proj
+R57422:57422 Kernel.VMStep <> s:586 var
+R57438:57444 Kernel.VMState <> vm_csrs proj
+R57435:57435 Kernel.VMStep <> s:586 var
+R57447:57451 Kernel.VMStep <> regs':592 var
+R57456:57461 Kernel.VMState <> vm_mem proj
+R57453:57453 Kernel.VMStep <> s:586 var
+R57467:57472 Kernel.VMState <> vm_err proj
+R57464:57464 Kernel.VMStep <> s:586 var
+R57299:57313 Kernel.VMStep VMStep instr_morph_get constr
+R57315:57317 Kernel.VMStep <> dst:587 var
+R57319:57326 Kernel.VMStep <> morph_id:588 var
+R57328:57335 Kernel.VMStep <> selector:589 var
+R57337:57340 Kernel.VMStep <> cost:590 var
+R57296:57296 Kernel.VMStep <> s:586 var
+binder 57585:57585 <> s:593
+binder 57587:57589 <> dst:594
+binder 57591:57598 <> morph_id:595
+binder 57600:57607 <> selector:596
+binder 57609:57612 <> cost:597
+R57669:57676 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R57662:57664 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R57619:57639 Kernel.VMState <> graph_lookup_morphism def
+R57644:57651 Kernel.VMState <> vm_graph proj
+R57641:57641 Kernel.VMStep <> s:593 var
+R57654:57661 Kernel.VMStep <> morph_id:595 var
+R57665:57668 Coq.Init.Datatypes <> None constr
+R57677:57683 Kernel.VMStep <> vm_step:262 ind
+R57739:57751 Kernel.VMStep VMStep advance_state def
+R57753:57753 Kernel.VMStep <> s:593 var
+R57756:57770 Kernel.VMStep VMStep instr_morph_get constr
+R57772:57774 Kernel.VMStep <> dst:594 var
+R57776:57783 Kernel.VMStep <> morph_id:595 var
+R57785:57792 Kernel.VMStep <> selector:596 var
+R57794:57797 Kernel.VMStep <> cost:597 var
+R57811:57818 Kernel.VMState <> vm_graph proj
+R57808:57808 Kernel.VMStep <> s:593 var
+R57822:57832 Kernel.VMState <> csr_set_err def
+R57837:57843 Kernel.VMState <> vm_csrs proj
+R57834:57834 Kernel.VMStep <> s:593 var
+R57850:57858 Kernel.VMStep VMStep latch_err def
+R57860:57860 Kernel.VMStep <> s:593 var
+R57862:57865 Coq.Init.Datatypes <> true constr
+R57688:57702 Kernel.VMStep VMStep instr_morph_get constr
+R57704:57706 Kernel.VMStep <> dst:594 var
+R57708:57715 Kernel.VMStep <> morph_id:595 var
+R57717:57724 Kernel.VMStep <> selector:596 var
+R57726:57729 Kernel.VMStep <> cost:597 var
+R57685:57685 Kernel.VMStep <> s:593 var
 scheme 29250:29256 VMStep vm_step_ind
 scheme 29250:29256 VMStep vm_step_sind
-def 58428:58440 VMStep IOEnvironment
-R58448:58451 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R58445:58447 Coq.Init.Datatypes <> nat ind
-R58452:58454 Coq.Init.Datatypes <> nat ind
-prf 58705:58730 VMStep io_env_mu_cost_independent
-binder 58743:58745 <> dst:598
-binder 58747:58748 <> ch:599
-binder 58750:58753 <> bits:600
-binder 58755:58762 <> mu_delta:601
-R58772:58774 Coq.Init.Datatypes <> nat ind
-binder 58765:58765 <> v:602
-binder 58767:58768 <> v':603
-R58840:58846 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R58782:58797 Kernel.VMStep VMStep instruction_cost def
-R58800:58814 Kernel.VMStep VMStep instr_read_port constr
-R58816:58818 Kernel.VMStep <> dst:598 var
-R58820:58821 Kernel.VMStep <> ch:599 var
-R58823:58823 Kernel.VMStep <> v:602 var
-R58826:58829 Kernel.VMStep <> bits:600 var
-R58831:58838 Kernel.VMStep <> mu_delta:601 var
-R58847:58862 Kernel.VMStep VMStep instruction_cost def
-R58865:58879 Kernel.VMStep VMStep instr_read_port constr
-R58881:58883 Kernel.VMStep <> dst:598 var
-R58885:58886 Kernel.VMStep <> ch:599 var
-R58888:58889 Kernel.VMStep <> v':603 var
-R58891:58894 Kernel.VMStep <> bits:600 var
-R58896:58903 Kernel.VMStep <> mu_delta:601 var
-prf 59146:59172 VMStep io_env_mu_cost_env_agnostic
-R59198:59210 Kernel.VMStep VMStep IOEnvironment def
-binder 59186:59189 <> env1:604
-binder 59191:59194 <> env2:605
-binder 59213:59215 <> dst:606
-binder 59217:59218 <> ch:607
-binder 59220:59223 <> bits:608
-binder 59225:59232 <> mu_delta:609
-R59304:59310 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R59239:59254 Kernel.VMStep VMStep instruction_cost def
-R59257:59271 Kernel.VMStep VMStep instr_read_port constr
-R59273:59275 Kernel.VMStep <> dst:606 var
-R59277:59278 Kernel.VMStep <> ch:607 var
-R59281:59284 Kernel.VMStep <> env1:604 var
-R59286:59287 Kernel.VMStep <> ch:607 var
-R59290:59293 Kernel.VMStep <> bits:608 var
-R59295:59302 Kernel.VMStep <> mu_delta:609 var
-R59311:59326 Kernel.VMStep VMStep instruction_cost def
-R59329:59343 Kernel.VMStep VMStep instr_read_port constr
-R59345:59347 Kernel.VMStep <> dst:606 var
-R59349:59350 Kernel.VMStep <> ch:607 var
-R59353:59356 Kernel.VMStep <> env2:605 var
-R59358:59359 Kernel.VMStep <> ch:607 var
-R59362:59365 Kernel.VMStep <> bits:608 var
-R59367:59374 Kernel.VMStep <> mu_delta:609 var
-prf 59645:59665 VMStep io_read_cost_positive
-binder 59678:59680 <> dst:610
-binder 59682:59683 <> ch:611
-binder 59685:59685 <> v:612
-binder 59687:59690 <> bits:613
-binder 59692:59699 <> mu_delta:614
-R59764:59766 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R59707:59722 Kernel.VMStep VMStep instruction_cost def
-R59725:59739 Kernel.VMStep VMStep instr_read_port constr
-R59741:59743 Kernel.VMStep <> dst:610 var
-R59745:59746 Kernel.VMStep <> ch:611 var
-R59748:59748 Kernel.VMStep <> v:612 var
-R59750:59753 Kernel.VMStep <> bits:613 var
-R59755:59762 Kernel.VMStep <> mu_delta:614 var
-R59814:59819 Kernel.VMStep VMStep <> mod
+def 58444:58456 VMStep IOEnvironment
+R58464:58467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R58461:58463 Coq.Init.Datatypes <> nat ind
+R58468:58470 Coq.Init.Datatypes <> nat ind
+prf 58721:58746 VMStep io_env_mu_cost_independent
+binder 58759:58761 <> dst:598
+binder 58763:58764 <> ch:599
+binder 58766:58769 <> bits:600
+binder 58771:58778 <> mu_delta:601
+R58788:58790 Coq.Init.Datatypes <> nat ind
+binder 58781:58781 <> v:602
+binder 58783:58784 <> v':603
+R58856:58862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R58798:58813 Kernel.VMStep VMStep instruction_cost def
+R58816:58830 Kernel.VMStep VMStep instr_read_port constr
+R58832:58834 Kernel.VMStep <> dst:598 var
+R58836:58837 Kernel.VMStep <> ch:599 var
+R58839:58839 Kernel.VMStep <> v:602 var
+R58842:58845 Kernel.VMStep <> bits:600 var
+R58847:58854 Kernel.VMStep <> mu_delta:601 var
+R58863:58878 Kernel.VMStep VMStep instruction_cost def
+R58881:58895 Kernel.VMStep VMStep instr_read_port constr
+R58897:58899 Kernel.VMStep <> dst:598 var
+R58901:58902 Kernel.VMStep <> ch:599 var
+R58904:58905 Kernel.VMStep <> v':603 var
+R58907:58910 Kernel.VMStep <> bits:600 var
+R58912:58919 Kernel.VMStep <> mu_delta:601 var
+prf 59162:59188 VMStep io_env_mu_cost_env_agnostic
+R59214:59226 Kernel.VMStep VMStep IOEnvironment def
+binder 59202:59205 <> env1:604
+binder 59207:59210 <> env2:605
+binder 59229:59231 <> dst:606
+binder 59233:59234 <> ch:607
+binder 59236:59239 <> bits:608
+binder 59241:59248 <> mu_delta:609
+R59320:59326 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R59255:59270 Kernel.VMStep VMStep instruction_cost def
+R59273:59287 Kernel.VMStep VMStep instr_read_port constr
+R59289:59291 Kernel.VMStep <> dst:606 var
+R59293:59294 Kernel.VMStep <> ch:607 var
+R59297:59300 Kernel.VMStep <> env1:604 var
+R59302:59303 Kernel.VMStep <> ch:607 var
+R59306:59309 Kernel.VMStep <> bits:608 var
+R59311:59318 Kernel.VMStep <> mu_delta:609 var
+R59327:59342 Kernel.VMStep VMStep instruction_cost def
+R59345:59359 Kernel.VMStep VMStep instr_read_port constr
+R59361:59363 Kernel.VMStep <> dst:606 var
+R59365:59366 Kernel.VMStep <> ch:607 var
+R59369:59372 Kernel.VMStep <> env2:605 var
+R59374:59375 Kernel.VMStep <> ch:607 var
+R59378:59381 Kernel.VMStep <> bits:608 var
+R59383:59390 Kernel.VMStep <> mu_delta:609 var
+prf 59661:59681 VMStep io_read_cost_positive
+binder 59694:59696 <> dst:610
+binder 59698:59699 <> ch:611
+binder 59701:59701 <> v:612
+binder 59703:59706 <> bits:613
+binder 59708:59715 <> mu_delta:614
+R59780:59782 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R59723:59738 Kernel.VMStep VMStep instruction_cost def
+R59741:59755 Kernel.VMStep VMStep instr_read_port constr
+R59757:59759 Kernel.VMStep <> dst:610 var
+R59761:59762 Kernel.VMStep <> ch:611 var
+R59764:59764 Kernel.VMStep <> v:612 var
+R59766:59769 Kernel.VMStep <> bits:613 var
+R59771:59778 Kernel.VMStep <> mu_delta:614 var
 R59830:59835 Kernel.VMStep VMStep <> mod
+R59846:59851 Kernel.VMStep VMStep <> mod
