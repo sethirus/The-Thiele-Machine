@@ -26,7 +26,19 @@ def test_rtl_pipeline_manifest_matches_committed(tmp_path: Path) -> None:
     )
     assert result.returncode == 0, result.stderr or result.stdout
     assert MANIFEST.exists(), f"Missing committed manifest: {MANIFEST}"
-    assert MANIFEST.read_text(encoding="utf-8") == fresh.read_text(encoding="utf-8")
+    if MANIFEST.read_text(encoding="utf-8") != fresh.read_text(encoding="utf-8"):
+        raise AssertionError(
+            "Committed RTL pipeline manifest is stale (a tracked source has been edited "
+            "without regenerating the manifest).\n\n"
+            "Fix it with one command:\n"
+            "    make refresh-manifests\n"
+            "or directly:\n"
+            "    python3 scripts/generate_rtl_pipeline_manifest.py "
+            "--out artifacts/rtl_pipeline_manifest.json\n\n"
+            "Then `git add artifacts/rtl_pipeline_manifest.json` and re-commit.\n"
+            "To prevent this in the future, install the pre-commit hook once:\n"
+            "    make install-hooks\n"
+        )
 
 
 def test_rtl_pipeline_manifest_invariants() -> None:
@@ -50,12 +62,19 @@ def test_rtl_pipeline_manifest_invariants() -> None:
 
 def test_rtl_pipeline_manifest_hashes_are_fresh() -> None:
     payload = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    fix_hint = (
+        "\n\nFix: `make refresh-manifests` "
+        "(or install the pre-commit hook with `make install-hooks` "
+        "to prevent this in future commits)."
+    )
     for record in payload["files"]:
         path = REPO_ROOT / record["path"]
-        assert path.exists(), f"Manifest file missing: {record['path']}"
-        assert path.stat().st_size == record["size_bytes"], f"Stale size for {record['path']}"
+        assert path.exists(), f"Manifest file missing: {record['path']}{fix_hint}"
+        assert path.stat().st_size == record["size_bytes"], (
+            f"Stale size for {record['path']}{fix_hint}"
+        )
 
         import hashlib
 
         current = hashlib.sha256(path.read_bytes()).hexdigest()
-        assert current == record["sha256"], f"Stale hash for {record['path']}"
+        assert current == record["sha256"], f"Stale hash for {record['path']}{fix_hint}"
