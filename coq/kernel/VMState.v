@@ -1990,7 +1990,7 @@ Definition vm_mu_tensor_default : list nat := repeat 0 16.
 
 (** Logic gate key: 0xCAFEEACE as a natural number.
     When vm_logic_acc = LOGIC_GATE_KEY_NAT, high-value ops are unlocked. *)
-Definition LOGIC_GATE_KEY_NAT : nat := 3405685454.
+Definition LOGIC_GATE_KEY_NAT : nat := 3405703886.
 
 (** Helper: access a flattened mu-tensor entry (row-major). *)
 Definition vm_mu_tensor_entry (s : VMState) (i j : nat) : nat :=

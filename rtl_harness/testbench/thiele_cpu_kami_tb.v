@@ -384,7 +384,7 @@ module thiele_cpu_kami_tb;
     $display("  \"morph_next_id\": %0d,", dut.morph_next_id);
     $write("  \"morphisms\": [");
     first_morph = 1;
-    // MorphTableSz=16 after May 2026 ECP5-85F fit reduction; slot index width
+    // MorphTableSz=16 after May 2026 xc7a35t (Artix-7) fit reduction; slot index width
     // is MorphTableIdxSz=4 but each src/dst entry is PTableIdxSz=6 bits.
     for (morph_j = 0; morph_j < 16; morph_j = morph_j + 1) begin
       if (dut.morph_valid_table[morph_j]) begin

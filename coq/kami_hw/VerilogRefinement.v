@@ -189,9 +189,9 @@ Theorem verilog_simulates_vm_step_call :
     exists vs',
       vm_step (abs_phase1 hs) (instr_call target cost) vs' /\
       vs' = jump_state_rm (abs_phase1 hs) (instr_call target cost) target
-              (write_reg (abs_phase1 hs) 31
-                (word64_add (read_reg (abs_phase1 hs) 31) 1))
-              (write_mem (abs_phase1 hs) (read_reg (abs_phase1 hs) 31)
+              (write_reg (abs_phase1 hs) 15
+                (word64_add (read_reg (abs_phase1 hs) 15) 1))
+              (write_mem (abs_phase1 hs) (read_reg (abs_phase1 hs) 15)
                 (S (abs_phase1 hs).(vm_pc))).
 Proof.
   intros. eexists. split.
@@ -204,8 +204,8 @@ Theorem verilog_simulates_vm_step_ret :
     exists vs',
       vm_step (abs_phase1 hs) (instr_ret cost) vs' /\
       vs' = jump_state_rm (abs_phase1 hs) (instr_ret cost)
-              (read_mem (abs_phase1 hs) (word64_sub (read_reg (abs_phase1 hs) 31) 1))
-              (write_reg (abs_phase1 hs) 31 (word64_sub (read_reg (abs_phase1 hs) 31) 1))
+              (read_mem (abs_phase1 hs) (word64_sub (read_reg (abs_phase1 hs) 15) 1))
+              (write_reg (abs_phase1 hs) 15 (word64_sub (read_reg (abs_phase1 hs) 15) 1))
               (abs_phase1 hs).(vm_mem).
 Proof.
   intros. eexists. split.

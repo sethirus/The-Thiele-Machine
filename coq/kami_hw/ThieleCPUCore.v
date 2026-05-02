@@ -159,7 +159,7 @@ Section ThieleCPU.
       with Register "lassert_nvars" : Bit WordSz <- Default
       with Register "lassert_fptr"  : Bit WordSz <- Default
       with Register "lassert_cptr"  : Bit WordSz <- Default
-      (* fbuf/cbuf reduced to 2^6 = 64 backing words for ECP5-85F fit *)
+      (* fbuf/cbuf reduced to 2^6 = 64 backing words for xc7a35t (Artix-7) fit *)
       with Register "lassert_fbuf"  : Vector (Bit WordSz) 6 <- Default
       with Register "lassert_cbuf"  : Vector (Bit WordSz) 6 <- Default
       (* Scratch flag: has any literal in the current clause been satisfied? *)

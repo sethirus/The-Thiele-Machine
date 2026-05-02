@@ -159,10 +159,10 @@ Proof.
   unfold vm_apply.
   rewrite abs_phase1_read_reg.
   unfold kami_sp_reg in Hsp_decr, Hsp_lt.
-  (* read_reg ... 31 reduces to snap_regs ks (31 mod RegCount).
-     With RegCount=16, 31 mod 16 = 15 = RegCount - 1 = kami_sp_reg.
+  (* read_reg ... 15 reduces to snap_regs ks (15 mod RegCount).
+     With RegCount=16, 15 mod 16 = 15 = RegCount - 1 = kami_sp_reg.
      Compute the modulo and match the hardware-side index. *)
-  cbv [RegCount] in *. simpl ((31 mod 16)%nat).
+  cbv [RegCount] in *. simpl ((15 mod 16)%nat).
   rewrite abs_phase1_read_mem.
   rewrite (Nat.mod_small (word64_sub (snap_regs ks 15) 1) MEM_SIZE) by exact Hsp_decr.
   (* Now both sides are concrete record constructors *)
