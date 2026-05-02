@@ -11,6 +11,7 @@
 .PHONY: bitlock-proof-vm-cpu bitlock-manifest
 .PHONY: canonical-source-gate canonical-extract canonical-e2e rtl-pipeline-manifest-check rtl-text-transform-audit-check
 .PHONY: bitlock-stable stack-audit
+.PHONY: install-hooks refresh-manifests
 
 # ============================================================================
 # E1.1: DEMO TARGETS - One-Command Reproducibility
@@ -232,6 +233,20 @@ rtl-pipeline-manifest-check: canonical-extract
 	@python3 scripts/generate_rtl_pipeline_manifest.py --check
 	@pytest tests/test_rtl_pipeline_manifest.py -q --tb=short
 	@echo "[rtl-pipeline-manifest] PASS"
+
+# Refresh the RTL pipeline manifest (and any future manifests added here).
+# Run this after editing tracked Coq sources before committing — or rely on
+# the pre-commit hook installed by `make install-hooks` to do it for you.
+refresh-manifests:
+	@echo "[refresh-manifests] Regenerating artifacts/rtl_pipeline_manifest.json..."
+	@python3 scripts/generate_rtl_pipeline_manifest.py --out artifacts/rtl_pipeline_manifest.json
+	@echo "[refresh-manifests] Done. Stage the updated manifest with your changes."
+
+# Install the Thiele Machine git hooks (one-time per checkout).
+# After this, commits that touch tracked manifest sources will auto-regenerate
+# and stage the manifest, eliminating the most common CI failure.
+install-hooks:
+	@bash scripts/install-git-hooks.sh
 
 rtl-text-transform-audit-check: canonical-extract
 	@echo "[rtl-text-transform-audit] Checking BSV/Verilog text transform audit..."
