@@ -1,0 +1,304 @@
+{
+  "schema": "thiele-print-assumptions-probe-v1",
+  "generated": "2026-05-03T19:50:44.345771+00:00",
+  "coq_version": "8.18.0",
+  "probe_file": "coq/AssumptionsProbe.v",
+  "raw_output_file": "artifacts/print_assumptions_master_summary.txt",
+  "raw_output_sha256": "3b54a8ed6517cc035e52a9e53bad1d8cb4291b970160ca83994bba66e4dc25d3",
+  "queries_probed": 40,
+  "blocks_parsed": 40,
+  "summary": {
+    "theorems_closed_under_global_context": 27,
+    "theorems_with_axioms": 13,
+    "unique_axioms_used": [
+      "ClassicalDedekindReals.sig_forall_dec",
+      "ClassicalDedekindReals.sig_not_dec",
+      "Classical_Prop.classic",
+      "FunctionalExtensionality.functional_extensionality_dep"
+    ],
+    "uses_excluded_middle_directly": true,
+    "theorems_using_excluded_middle_directly": [
+      "master_nofi_to_discrete_einstein_from_bekenstein_calibration"
+    ]
+  },
+  "declared_vs_observed": {
+    "declared": {
+      "uses_classical_logic": true,
+      "uses_functional_extensionality": true,
+      "uses_choice_principles": false,
+      "uses_proof_irrelevance": false,
+      "uses_real_number_completeness": true
+    },
+    "observed": {
+      "uses_classical_logic": true,
+      "uses_functional_extensionality": true,
+      "uses_real_number_completeness": true,
+      "uses_choice_principles": false,
+      "uses_proof_irrelevance": false
+    },
+    "match": {
+      "uses_classical_logic": true,
+      "uses_functional_extensionality": true,
+      "uses_choice_principles": true,
+      "uses_proof_irrelevance": true,
+      "uses_real_number_completeness": true
+    },
+    "all_match": true
+  },
+  "inquisitor_artifact_pin": {
+    "path": "coq/INQUISITOR_ASSUMPTIONS.json",
+    "sha256_declared_in_master_summary": "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7",
+    "sha256_actual_on_disk": "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7",
+    "match": true
+  },
+  "per_theorem": [
+    {
+      "theorem": "master_summary_project_local_axioms_count_zero",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_summary_project_local_admits_count_zero",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_summary_no_hidden_project_assumptions_verified",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_assumption_artifact_path_pinned",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_assumption_artifact_sha256_pinned",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_assumption_artifact_is_pinned",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_assumption_boundary_explicit",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_mu_zero_witness_sound",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_mu_zero_algebraic_bound",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_classical_bound",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_quantum_violation_proves_nonclassicality",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_algebraic_tsirelson",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_algebraic_tsirelson_tight",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_quantum_foundations",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_tsirelson_conditional",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_non_circularity",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_non_circular_mu_cost_primitives",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_non_circular_chsh_formula",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_non_circular_classical_witness",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_non_circular_mu_zero_locc",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_psd_iff_column_contractive",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_trace_column_contractive_iff_quantum_model",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_trace_quantum_model_unfolds",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_trace_quantum_bridge_forces_psd",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_honest_nofi_structure_requirement",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_honest_nofi_trace_separation",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_honest_nofi_conditional_shannon",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_honest_nofi_quantitative_state_space",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_honest_nofi_posterior_representative_reduction",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_nofi_to_discrete_einstein",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_nofi_to_discrete_einstein_from_bekenstein_calibration",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "master_verification_chain",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "master_verification_preserved_observables",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "exposed_zero_marginal_psd_contractivity",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "exposed_trace_bridge_content",
+      "status": "depends_on_axioms",
+      "axioms": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    {
+      "theorem": "exposed_non_circularity_content",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "exposed_verification_surface_content",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "exposed_honest_nofi_structure_content",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "thiele_machine_core_summary_verified",
+      "status": "closed_under_global_context",
+      "axioms": []
+    },
+    {
+      "theorem": "thiele_machine_is_complete",
+      "status": "closed_under_global_context",
+      "axioms": []
+    }
+  ]
+}
