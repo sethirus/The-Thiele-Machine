@@ -261,6 +261,8 @@ def test_coqproject_count_matches_v_files():
         "kernel/Test.v",  # trivial `Check einstein_tensor.` scratch file
         "archive/ProofBedrocStrengthening.v",  # archived, not part of active build
         "archive/PhysicsConditionalClosure.v",  # archived physics bridge draft, compilation errors, not part of active build
+        "AssumptionsProbe.v",  # Print Assumptions probe over MasterSummary; not a proof obligation, header explicitly excludes from canonical build
+        "AssumptionsProbeAll.v",  # comprehensive Print Assumptions probe; generated, not a proof obligation
     }
     # Patterns whose entries in _CoqProject are excluded from the disk scan
     # (the corresponding directories are also excluded from on_disk above).

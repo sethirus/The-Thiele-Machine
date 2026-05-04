@@ -1226,7 +1226,7 @@ Qed.
 
 Definition master_inquisitor_assumption_artifact : external_artifact_reference :=
   {| artifact_path := "coq/INQUISITOR_ASSUMPTIONS.json";
-     artifact_sha256 := "d63ebb5a15a423fe7103128602b1796fe33e74bf773323ed1ac5ace3eedf6e0e";
+     artifact_sha256 := "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7";
      artifact_role := "machine-generated Inquisitor assumption-surface artifact" |}.
 
 Definition master_assumption_manifest_boundary : list manifest_boundary_entry :=
@@ -1250,7 +1250,7 @@ Definition master_assumption_manifest_boundary : list manifest_boundary_entry :=
 Definition master_assumption_artifact_pinned : Prop :=
   artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json" /\
   artifact_sha256 master_inquisitor_assumption_artifact =
-    "d63ebb5a15a423fe7103128602b1796fe33e74bf773323ed1ac5ace3eedf6e0e".
+    "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7".
 
 Lemma master_assumption_artifact_path_pinned :
   artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json".
@@ -1260,7 +1260,7 @@ Qed.
 
 Lemma master_assumption_artifact_sha256_pinned :
   artifact_sha256 master_inquisitor_assumption_artifact =
-    "d63ebb5a15a423fe7103128602b1796fe33e74bf773323ed1ac5ace3eedf6e0e".
+    "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7".
 Proof.
   reflexivity.
 Qed.
@@ -1271,7 +1271,7 @@ Proof.
   change
     (artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json" /\
      artifact_sha256 master_inquisitor_assumption_artifact =
-       "d63ebb5a15a423fe7103128602b1796fe33e74bf773323ed1ac5ace3eedf6e0e").
+       "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7").
   split.
   - exact master_assumption_artifact_path_pinned.
   - exact master_assumption_artifact_sha256_pinned.
