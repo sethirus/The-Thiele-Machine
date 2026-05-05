@@ -40,6 +40,10 @@ from pathlib import Path
 from typing import Iterable, Iterator
 
 from inquisitor_rules import summarize_text
+from coq_proof_scope import (
+    NON_PROOF_BEARING_FILES,
+    coqproject_v_files,
+)
 
 
 # STRICT MODE: Core kernel files that must have ZERO high/medium findings
@@ -486,10 +490,25 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
 
 
 def _check_coq_compilation_coverage(repo_root: Path) -> list[Finding]:
-    """Fail if any active Coq .v source lacks its compiled .vo artifact.
+    """Fail if the proof corpus is not fully built.
 
-    A successful `make -C coq` may still skip files not wired into the build graph.
-    This check prevents false confidence by enforcing source-to-artifact coverage.
+    The proof corpus is defined as the .v files declared in coq/_CoqProject
+    minus the files explicitly marked out-of-scope in
+    scripts/coq_proof_scope.py:NON_PROOF_BEARING_FILES.
+
+    Two failure modes:
+
+    1. COMPILATION_COVERAGE_GAP — a file in the proof corpus has no .vo
+       after build. `make -C coq` either failed silently for it, or it was
+       never wired into the build graph.
+
+    2. PROOF_SCOPE_DRIFT — a file declared out-of-scope leaked into
+       _CoqProject, or a disk .v file is in neither set. Enforced
+       structurally so that no stale local .vo can mask a divergence
+       between the inquisitor and the canonical build (the prior failure
+       mode was: probe .v files were not in _CoqProject, but local stale
+       .vo artifacts left the inquisitor satisfied while a clean CI
+       checkout failed).
     """
 
     findings: list[Finding] = []
@@ -497,23 +516,13 @@ def _check_coq_compilation_coverage(repo_root: Path) -> list[Finding]:
     if not coq_root.exists():
         return findings
 
-    # Files intentionally outside proof-bearing scope.
-    # Keep this list explicit and minimal to avoid accidental gate weakening.
-    excluded_test_files = {
-        "coq/kernel/Test.v",
-    }
+    project_files = coqproject_v_files(coq_root / "_CoqProject")
 
-    for vf in sorted(coq_root.rglob("*.v")):
-        if not vf.is_file():
-            continue
-        rel_posix = vf.relative_to(repo_root).as_posix()
-        rel = "/" + rel_posix
-        if "/archive/" in rel or "/vendor/" in rel:
-            continue
-        if rel_posix in excluded_test_files:
-            continue
-        vo = vf.with_suffix(".vo")
-        if vo.exists():
+    # Mode 1: every in-scope file must have its .vo.
+    in_scope = sorted(project_files - NON_PROOF_BEARING_FILES)
+    for rel in in_scope:
+        vf = repo_root / rel
+        if (vf.with_suffix(".vo")).exists():
             continue
         findings.append(
             Finding(
@@ -523,9 +532,59 @@ def _check_coq_compilation_coverage(repo_root: Path) -> list[Finding]:
                 line=1,
                 snippet="",
                 message=(
-                    "Coq source file has no compiled .vo artifact after build. "
-                    "This file is outside effective proof-gate coverage; wire it into Coq build or "
-                    "formally exclude it from proof-bearing scope."
+                    "Coq source file is in the canonical proof corpus "
+                    "(coq/_CoqProject) but no .vo artifact exists after build. "
+                    "This means `make -C coq` did not produce the expected "
+                    "object — investigate the build, do not silence this gate."
+                ),
+            )
+        )
+
+    # Mode 2a: NON_PROOF_BEARING_FILES must not appear in _CoqProject.
+    leaked = sorted(NON_PROOF_BEARING_FILES & project_files)
+    for rel in leaked:
+        findings.append(
+            Finding(
+                rule_id="PROOF_SCOPE_DRIFT",
+                severity="HIGH",
+                file=repo_root / rel,
+                line=1,
+                snippet="",
+                message=(
+                    "File is marked NON_PROOF_BEARING in "
+                    "scripts/coq_proof_scope.py but is also listed in "
+                    "coq/_CoqProject. A file cannot simultaneously be "
+                    "out-of-scope and a canonical compile target — pick one."
+                ),
+            )
+        )
+
+    # Mode 2b: every active disk .v file must be classified.
+    disk_excluded = {"archive", "patches", "test_vscoq", "_build"}
+    for vf in sorted(coq_root.rglob("*.v")):
+        if not vf.is_file():
+            continue
+        if set(vf.relative_to(coq_root).parts) & disk_excluded:
+            continue
+        rel_posix = vf.relative_to(repo_root).as_posix()
+        if "/vendor/" in ("/" + rel_posix):
+            continue
+        if rel_posix in project_files:
+            continue
+        if rel_posix in NON_PROOF_BEARING_FILES:
+            continue
+        findings.append(
+            Finding(
+                rule_id="PROOF_SCOPE_DRIFT",
+                severity="HIGH",
+                file=vf,
+                line=1,
+                snippet="",
+                message=(
+                    "Disk .v file is neither in coq/_CoqProject nor in "
+                    "scripts/coq_proof_scope.py:NON_PROOF_BEARING_FILES. "
+                    "Add it to the canonical build, mark it explicitly "
+                    "out-of-scope, or delete it."
                 ),
             )
         )

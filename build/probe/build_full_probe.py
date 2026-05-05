@@ -17,11 +17,18 @@ the file containing the instantiation.)
 """
 import re
 import json
+import sys
 from pathlib import Path
 
 ROOT = Path("/workspaces/The-Thiele-Machine")
 BUILD = ROOT / "build" / "probe"
 BUILD.mkdir(parents=True, exist_ok=True)
+
+# Use the canonical proof-scope module so this generator cannot drift
+# from the inquisitor / compile-gate test about which .v files are
+# probes vs proof obligations.
+sys.path.insert(0, str(ROOT / "scripts"))
+from coq_proof_scope import NON_PROOF_BEARING_FILES  # noqa: E402
 
 NS_MAP = [
     ("kernel", "Kernel"),
@@ -156,7 +163,7 @@ def main():
         s = str(rel)
         if s.startswith("vendor/") or s.startswith("build/") or s.startswith("coq/archive/"):
             continue
-        if s in ("coq/AssumptionsProbe.v", "coq/AssumptionsProbeAll.v"):
+        if s in NON_PROOF_BEARING_FILES:
             continue
         if not vfile.with_suffix(".vo").exists():
             continue
