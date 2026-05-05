@@ -250,53 +250,16 @@ def test_full_coq_build_succeeds():
 @pytest.mark.coq
 def test_coqproject_count_matches_v_files():
     """
-    Number of .v files in _CoqProject == number of .v files on disk
-    (excluding patches/ and test_vscoq/).
+    coq/_CoqProject ⊕ NON_PROOF_BEARING_FILES partitions the active disk .v set.
 
-    This catches files added to disk but forgotten in _CoqProject (or vice versa).
+    Catches files added to disk but forgotten in _CoqProject (or vice versa)
+    by delegating to the canonical scope module
+    (scripts/coq_proof_scope.py) so this gate cannot drift from the
+    inquisitor's compilation-coverage check or any other consumer.
     """
-    # Intentionally-excluded disk files: scratch/non-production .v files that
-    # are legitimately absent from _CoqProject.
-    DISK_EXCLUDE: set[str] = {
-        "kernel/Test.v",  # trivial `Check einstein_tensor.` scratch file
-        "archive/ProofBedrocStrengthening.v",  # archived, not part of active build
-        "archive/PhysicsConditionalClosure.v",  # archived physics bridge draft, compilation errors, not part of active build
-        "AssumptionsProbe.v",  # Print Assumptions probe over MasterSummary; not a proof obligation, header explicitly excludes from canonical build
-        "AssumptionsProbeAll.v",  # comprehensive Print Assumptions probe; generated, not a proof obligation
-    }
-    # Patterns whose entries in _CoqProject are excluded from the disk scan
-    # (the corresponding directories are also excluded from on_disk above).
-    PROJECT_EXCLUDE_SUBSTR: tuple[str, ...] = ("test_vscoq",)
+    import sys
+    sys.path.insert(0, str(REPO_ROOT / "scripts"))
+    from coq_proof_scope import validate_alignment  # type: ignore
 
-    on_disk = (
-        set(
-            str(f.relative_to(COQ_DIR))
-            for f in COQ_DIR.rglob("*.v")
-            if "patches" not in f.parts
-               and "test_vscoq" not in f.parts
-               and "_build" not in f.parts
-        )
-        - DISK_EXCLUDE
-    )
-    in_project = set(
-        line.strip()
-        for line in _coqproject_lines()
-        if line.strip().endswith(".v")
-           and not line.strip().startswith("#")
-           and not any(excl in line for excl in PROJECT_EXCLUDE_SUBSTR)
-    )
-    only_on_disk = on_disk - in_project
-    only_in_project = in_project - on_disk
-
-    problems: list[str] = []
-    if only_on_disk:
-        problems.append(
-            "Files on disk but NOT in _CoqProject (add to _CoqProject or remove from active tree):\n"
-            + "\n".join(f"  {f}" for f in sorted(only_on_disk))
-        )
-    if only_in_project:
-        problems.append(
-            "Files in _CoqProject but NOT on disk (delete or restore):\n"
-            + "\n".join(f"  {f}" for f in sorted(only_in_project))
-        )
+    problems = validate_alignment()
     assert not problems, "\n\n".join(problems)

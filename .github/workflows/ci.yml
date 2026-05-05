@@ -127,6 +127,12 @@ jobs:
         run: |
           python -m pip install --quiet --upgrade pip
           pip install --quiet -r requirements.txt
+          # Proof-scope drift gate runs first: it's the same invariant
+          # the pre-commit hook enforces locally, so any divergence
+          # between coq/_CoqProject, on-disk .v files, and the canonical
+          # NON_PROOF_BEARING_FILES list shows up here with a clear
+          # diagnostic before the heavier audits run.
+          python -m pytest tests/test_coq_proof_scope.py -v
           python scripts/inquisitor.py --report INQUISITOR_REPORT.md
 
       - name: Forge surface smoke test
