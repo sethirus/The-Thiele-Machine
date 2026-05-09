@@ -9,15 +9,16 @@
     full-refinement work has an exact target to build on without disturbing the
     existing weaker theorems.
 
-    This file does not yet define a full [kami_step].  It establishes the data
-    model and its exact abstraction/reification laws:
+    This file is the data-type half of the full-state path. It establishes
+    the snapshot record and its exact abstraction/reification laws:
 
       abs_full_snapshot (full_snapshot_repr s) = s
 
-    and shows how the legacy [KamiSnapshot] embeds into the new full snapshot.
-    After M3 storage work, this embedding now carries the richer bounded graph
-    state available in the hardware-facing snapshot instead of forcing the
-    full-state path through the older module-only projection.
+    and shows how the legacy [KamiSnapshot] embeds into the new full
+    snapshot. The companion [FullStep.v] defines [kami_step_full] over the
+    same record. The bounded-graph embedding here carries the richer
+    hardware-facing state directly, avoiding the older module-only
+    projection.
 *)
 
 From Coq Require Import List.
@@ -71,6 +72,17 @@ Definition full_snapshot_repr (s : VMState) : KamiSnapshotFull :=
 
 Theorem abs_full_snapshot_repr :
   forall s, abs_full_snapshot (full_snapshot_repr s) = s.
+Proof.
+  intros [graph csrs regs mem pc mu mu_tensor err logic_acc mstatus witness certified].
+  reflexivity.
+Qed.
+
+(** The other round-trip law: representing the abstraction of any
+    [KamiSnapshotFull] back as a [KamiSnapshotFull] returns the same
+    record. The two operations are field-by-field inverses, so the
+    proof is [reflexivity] after destructing. *)
+Theorem full_snapshot_repr_abs :
+  forall ks, full_snapshot_repr (abs_full_snapshot ks) = ks.
 Proof.
   intros [graph csrs regs mem pc mu mu_tensor err logic_acc mstatus witness certified].
   reflexivity.

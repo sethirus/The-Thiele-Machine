@@ -139,7 +139,7 @@ Section ThieleCPU.
       with Register "minstret_hi"   : Bit WordSz <- Default
       with Register "trap_vector"   : Bit WordSz <- TRAP_VEC_INIT
 
-      (* Certification flag — set by CERTIFY opcode (Phase 4 state-based cert) *)
+      (* Certification flag — set by the CERTIFY opcode (state-based certification). *)
       with Register "certified" : Bool <- false
 
       (* On-chip LASSERT FSM state — replaces external coprocessor interface.
@@ -1347,7 +1347,7 @@ Section ThieleCPU.
         Read mem_v         : Vector (Bit WordSz) MemAddrSz <- "mem";
         Read lassert_fbase_v     : Bit WordSz <- "lassert_fbase";
 
-        (* Phase 1: read formula header. *)
+        (* Read formula header. *)
         LET fbase_a0 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #lassert_fbase_v;
         LET fbase_a1 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) (#lassert_fbase_v + $1);
         LET fbase_a2 : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) (#lassert_fbase_v + $2);
@@ -1386,7 +1386,7 @@ Section ThieleCPU.
         Read lassert_counter_clause_sat_v : Bool <- "lassert_counter_clause_sat";
         Read lassert_counter_seen_fail_v : Bool <- "lassert_counter_seen_fail";
 
-        (* Phase 2: current literal from formula *)
+        (* Current literal from formula *)
         LET fptr_a : Bit MemAddrSz <- UniBit (Trunc MemAddrSz _) #lassert_fptr_v;
         LET literal : Bit WordSz <- read_mem #fptr_a #mem_v;
 

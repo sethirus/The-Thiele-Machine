@@ -12,14 +12,15 @@
     All 46 instructions are covered:
     - Compute: LOAD_IMM, ADD, SUB, XFER, LOAD, STORE, JUMP, JNEZ, CALL, RET
     - XOR ALU: XOR_LOAD, XOR_ADD, XOR_SWAP, XOR_RANK
-    - Partition/Logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
+    - Partition / logic: PNEW, PSPLIT, PMERGE, PDISCOVER, LASSERT, LJOIN,
       MDLACC, EMIT, REVEAL (partition graph managed at higher layer)
     - Special: CHSH_TRIAL, HALT
-    - Phase 2/3B: CHECKPOINT, READ_PORT, WRITE_PORT, HEAP_LOAD, HEAP_STORE
-    - Phase 4: CERTIFY (state-based certification)
-    - Phase 6: TENSOR_SET, TENSOR_GET (per-module tensor, software-managed)
-    - Phase 7: MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, MORPH_ASSERT,
-      MORPH_TENSOR, MORPH_GET (categorical shadow opcodes)
+    - Checkpoint / I/O / heap: CHECKPOINT, READ_PORT, WRITE_PORT,
+      HEAP_LOAD, HEAP_STORE
+    - State-based certification: CERTIFY
+    - Per-module tensor (software-managed): TENSOR_SET, TENSOR_GET
+    - Categorical / morphism opcodes: MORPH, COMPOSE, MORPH_ID,
+      MORPH_DELETE, MORPH_ASSERT, MORPH_TENSOR, MORPH_GET
 
     On-chip logic-engine model (LASSERT/LJOIN):
     The current Kami core models LASSERT/LJOIN with on-chip logic-engine state,
@@ -252,8 +253,9 @@ Definition snapshot_morphisms_of_rich_state
 
 (** Rich morph state helper operations
 
-    These functions implement the morph-table mutations that [kami_step] needs
-    to maintain full-state correspondence for the Phase 7 categorical opcodes. *)
+    These functions implement the morph-table mutations that
+    [kami_step] needs to maintain full-state correspondence for the
+    morphism opcodes. *)
 
 (** Add a new morphism entry.  Returns (updated_state, new_morph_id). *)
 Definition rich_state_add_morph (rs : RichSnapshotState)
@@ -1887,7 +1889,7 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
            snap_mstatus       := snap_mstatus hs |}
       else
         kami_advance_err hs cost
-  (* Phase 7 categorical instructions — full rich-state mutations.
+  (* Categorical / morphism instructions — full rich-state mutations.
      The hardware maintains bounded morph tables (max 64 entries) and
      performs real allocations / lookups / deletions.
      Error paths set snap_csr_err := 1 and snap_err := true,

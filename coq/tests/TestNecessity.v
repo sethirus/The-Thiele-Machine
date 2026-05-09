@@ -1,11 +1,28 @@
-(** TestNecessity: try to build counterexamples to the claimed necessity laws.
+(** * TestNecessity: adversarial counterexample search for the necessity laws
 
-  This file is deliberately adversarial. It attempts to construct weight
-  functions that would violate the thermodynamics-style constraints while
-  still satisfying the abstract Definitions.v interface. If one of those
-  constructions went through, the necessity claim would fail. If each attempt
-  breaks one of the required laws, the claim survives this round of testing.
-*)
+    This file is deliberately adversarial. It attempts to construct
+    weight functions that would violate the thermodynamics-style
+    constraints in [Definitions.v] while still satisfying the abstract
+    interface there. If any such construction went through, the
+    necessity claim would fail. If every attempt breaks one of the
+    required laws, the claim survives this round of testing.
+
+    Three attacks are tried below:
+
+      - [w_decreasing] — a non-monotone weight. Fails [weight_empty]
+        because additivity forces the empty trace to have cost zero.
+      - [w_privileged] — a weight that privileges [instr_halt]. Fails
+        [weight_sequential] because the cost depends on the head
+        instruction, not on the trace as a multiset.
+      - [w_free_read] — a weight that counts only [instr_xfer]
+        instructions. Satisfies [weight_laws] but fails
+        [singleton_uniform], so the necessity claim that uniformity is
+        load-bearing is preserved.
+
+    The conclusion of [test_summary] packages the three results: the
+    only consistent cost function under additivity, uniformity, and
+    normalisation is length, and length forces monotonicity and
+    conservation. *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.

@@ -49,7 +49,7 @@ The machine has a complete hardware implementation (synthesizable Verilog RTL ex
 
 Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No other instruction touches either channel. This is verified by case analysis over all 46 opcodes. Therefore any trace that activates either channel paid at least 1. `AbstractNoFI.v`, `NoFreeInsight.v`.
 
-**Abstract version.** The theorem holds for any abstract certification system satisfying: (a) a certification predicate, (b) a step function, (c) a cost function where every single-step uncertified→certified transition costs ≥ 1. The Thiele Machine is an instance. `coq/kernel/AbstractNoFI.v`, theorem `no_free_certification`. The substrate-agnostic version is `universal_nfi_any_substrate` in `coq/kernel/UniversalCertificationCost.v`.
+**Abstract version.** The theorem holds for any abstract certification system satisfying: (a) a certification predicate, (b) a step function, (c) a cost function where every single-step uncertified→certified transition costs ≥ 1. The Thiele Machine is an instance. `coq/kernel/nfi/AbstractNoFI.v`, theorem `no_free_certification`. The substrate-agnostic version is `universal_nfi_any_substrate` in `coq/kernel/nfi/UniversalCertificationCost.v`.
 
 **Variants disclosed.** No Free Insight as a conservation law applies to any computational system, hardware or software, that (a) distinguishes certified from uncertified structural claims in its state, and (b) charges a positive cost for the certification transition. This includes formal verification co-processors, hardware security modules, trusted execution environments, and any system implementing proof-carrying code or certificate-validated computation.
 
@@ -65,7 +65,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 ## Concept 4: The µ-Hierarchy Theorem
 
-**Statement.** For every k ≥ 1, a level-k certification event costs exactly k in µ. There is no shortcut that achieves level-k certification at cost < k. The hierarchy is strict: no finite trace collapses two adjacent levels. `coq/kernel/MuHierarchyTheorem.v`, theorem `mu_hierarchy_theorem`.
+**Statement.** For every k ≥ 1, a level-k certification event costs exactly k in µ. There is no shortcut that achieves level-k certification at cost < k. The hierarchy is strict: no finite trace collapses two adjacent levels. `coq/kernel/mu_calculus/MuHierarchyTheorem.v`, theorem `mu_hierarchy_theorem`.
 
 ---
 
@@ -115,7 +115,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **Tsirelson bound.** |S| ≤ 2√2 for the zero-marginal NPA polynomial model. Proven algebraically in `AlgebraicCoherence.v`.
 
-**Thiele-honesty biconditional.** The machine's internal column-contractivity conditions (the conditions under which the machine is "honest" about its CHSH statistics) are exactly equivalent to the zero-marginal NPA polynomial realizability conditions. This is a zero-axiom biconditional proven in Coq: `coq/kernel/QuantumPartitionPSD.v`, corollary `column_contractive_iff_quantum_realizable`. The forward direction (`zero_marginal_npa_column_contractive_implies_psd`) lives in `coq/kernel/MuLedgerQuantumBridge.v`; the reverse direction (`npa_psd_implies_column_contractive`) is proved by vector specialization plus `quadratic_nonneg_discriminant` from `coq/kernel/ConstructivePSD.v`.
+**Thiele-honesty biconditional.** The machine's internal column-contractivity conditions (the conditions under which the machine is "honest" about its CHSH statistics) are exactly equivalent to the zero-marginal NPA polynomial realizability conditions. This is a zero-axiom biconditional proven in Coq: `coq/kernel/quantum/QuantumPartitionPSD.v`, corollary `column_contractive_iff_quantum_realizable`. The forward direction (`zero_marginal_npa_column_contractive_implies_psd`) lives in `coq/kernel/nfi/MuLedgerQuantumBridge.v`; the reverse direction (`npa_psd_implies_column_contractive`) is proved by vector specialization plus `quadratic_nonneg_discriminant` from `coq/kernel/quantum/ConstructivePSD.v`.
 
 **Variants disclosed.** Any ISA instruction, microcode operation, or hardware counter array that: (a) records outcomes of two-party binary games by (settings, outcome) tuple, (b) maintains per-setting-pair same/different counts as architectural state, and (c) supports computation of CHSH-style correlation statistics from those counts — is a variant of this concept.
 
@@ -123,7 +123,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 ## Concept 9: The Three-Layer Isomorphism (Coq → OCaml → Verilog)
 
-**What it is.** The Thiele Machine is specified once in Coq and instantiated in three forms: (1) the Coq kernel itself (`coq/kernel/VMState.v`, `VMStep.v`), (2) an OCaml runner extracted from Coq via Coq's standard extraction mechanism (`build/thiele_core.ml`), and (3) synthesizable Verilog RTL extracted from Coq through the Kami hardware description framework (`thielecpu/hardware/rtl/thiele_cpu_kami.v`).
+**What it is.** The Thiele Machine is specified once in Coq and instantiated in three forms: (1) the Coq kernel itself (`coq/kernel/foundation/VMState.v`, `VMStep.v`), (2) an OCaml runner extracted from Coq via Coq's standard extraction mechanism (`build/thiele_core.ml`), and (3) synthesizable Verilog RTL extracted from Coq through the Kami hardware description framework (`thielecpu/hardware/rtl/thiele_cpu_kami.v`).
 
 **What is proven.** `coq/kami_hw/Abstraction.v` establishes that the hardware step relation refines the kernel step relation: `kami_refines_vm_step`. This is proven for all 46 opcodes; the official partition (`rtl_coverage_partition` in `coq/kami_hw/RTLGapRegistry.v`) is 36 unconditional + 10 under the joint structural invariant `morph_table_wf ∧ coupling_wf ∧ coupling_desc_safe` + 0 gaps = 46. Each component of the joint invariant is preserved by every `kami_step` (`morph_table_wf_kami_step_preserved`, `coupling_desc_safe_kami_step_preserved`, `coupling_wf_kami_step_preserved`); the latter takes `coupling_desc_safe` as a side hypothesis, which is why the conjunction is the actual inductive invariant. Zero structural gaps: `coq/kami_hw/RTLGapRegistry.v`, theorem `rtl_gap_count`.
 
@@ -139,7 +139,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
     ⌈log₂|Ω|⌉ − ⌈log₂|Ω'|⌉ ≤ Δµ
 
-**Decision tree witness.** The trace must provide an explicit decision tree realized by the trace's actual sequence of observations. The posterior-representative reduction must tie every prior state to a posterior representative. Without both, the narrowing is not admissible as sound structural entitlement. `coq/kernel/HonestNoFI_TheoremsWithoutAssumptions.v`, record `SoundStructuralShortcut` and theorem `structural_entitlement_representation`.
+**Decision tree witness.** The trace must provide an explicit decision tree realized by the trace's actual sequence of observations. The posterior-representative reduction must tie every prior state to a posterior representative. Without both, the narrowing is not admissible as sound structural entitlement. `coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v`, record `SoundStructuralShortcut` and theorem `structural_entitlement_representation`.
 
 ---
 

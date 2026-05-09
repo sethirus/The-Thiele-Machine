@@ -1,12 +1,15 @@
-(** verify_zero_admits: inspect the assumption surface of the cited theorem set
+(** * verify_zero_admits: assumption-surface report
 
-    This file is a reporting script around [Print Assumptions]. It checks the
-    active theorem set cited by the paper and master summary so the visible
-    assumption surface stays inspectable rather than implicit.
+    This file is a reporting script wrapped around [Print Assumptions].
+    It enumerates the live theorems cited by the paper and the master
+    summary, so the visible assumption surface stays inspectable rather
+    than implicit.
 
-    The output is not expected to be uniformly empty. The point is to expose
-    what remains in the global context, especially any project-local baggage.
-    *)
+    The expected output is not uniformly empty: standard-library facts
+    (functional extensionality, classical reals, etc.) reach into the
+    proofs from below. The contract is narrower — the script exposes
+    exactly what the assumption surface is, and any newly introduced
+    project-local axiom or [Admitted] would show up here immediately. *)
 
 From Kernel Require Import NoFreeInsight KernelPhysics MuLedgerConservation.
 From Kernel Require Import RevelationRequirement.
@@ -51,8 +54,7 @@ Print Assumptions NoFreeInsight.strengthening_requires_structure_addition.
 (* Theorem: Supra-quantum certification requires revelation events *)
 Print Assumptions RevelationProof.nonlocal_correlation_requires_revelation.
 
-(**
-    *)
+(** ** μ-conservation, monotonicity, and irreversibility checks *)
 
 (* Theorem: Single-step μ-monotonicity *)
 Print Assumptions mu_conservation_kernel.
@@ -107,22 +109,15 @@ Print Assumptions StateSpaceCounting.no_free_insight_quantitative.
 (* Summary export: conservative state-space-counting wrapper in the master theorem index *)
 Print Assumptions master_honest_nofi_quantitative_state_space.
 
-(**
-    *)
+(** ** Region-equivalence and quantum-bridge checks *)
 
 (* Theorem: Region equivalence classes are infinite *)
 Print Assumptions region_equiv_class_infinite.
 
-(* NoGo.v and TOEDecision.v archived — MuInitiality.v proves mu uniqueness,
-   superseding the abstract weight non-uniqueness result. *)
-
-(**
-
-    The key algebraic closure theorem: PSD of the NPA moment matrix is
-    EQUIVALENT to column contractivity (zero_marginal_column_contractive).
-    This closes the bidirectional bridge between quantum realizability and
-    the algebraic Tsirelson bound.
-    *)
+(** The key algebraic closure theorem: PSD of the NPA moment matrix is
+    equivalent to column contractivity ([zero_marginal_column_contractive]).
+    This closes the bidirectional bridge between quantum realizability
+    and the algebraic Tsirelson bound. *)
 
 (* Theorem: NPA PSD → column contractive (reverse direction) *)
 Print Assumptions npa_psd_implies_column_contractive.
@@ -142,9 +137,7 @@ Print Assumptions master_psd_iff_column_contractive.
 (* Summary export: coherent trace bridge forces PSD of the extracted NPA matrix *)
 Print Assumptions master_trace_quantum_bridge_forces_psd.
 
-(**
-    APPENDIX: Subsumption Theorems
-    *)
+(** ** Subsumption theorems *)
 
 (* Theorem: Thiele simulates Turing exactly *)
 Print Assumptions ProperSubsumption.thiele_simulates_turing.
@@ -155,18 +148,14 @@ Print Assumptions ProperSubsumption.cost_certificate_valid.
 (* Main Theorem: Thiele strictly extends Turing *)
 Print Assumptions ProperSubsumption.thiele_strictly_extends_turing.
 
-(**
+(** ** Structural connectivity anchor
 
-    This lemma serves as a structural cross-layer anchor, ensuring that
-    this test file has at least one proof symbol with edges to the
-    production kernel layer.  All symbol names cited in the proof comment
-    below are production Kernel theorems verified by the Print Assumptions
-    checks above.
-    *)
-
-(** Structural connectivity lemma: confirms that key mu-conservation,
-    monotonicity, and no-signaling theorems are accessible and properly
-    defined in the Kernel module without admitted axioms. *)
+    A trivial lemma whose [let _ := ...] preamble forces every cited
+    theorem to type-check. Its job is to give this audit script at
+    least one proof symbol with dependencies on the production kernel,
+    so the dependency graph carries it. The conclusion [1 <> 0] is a
+    placeholder; what matters is that all the names in scope refer to
+    real, [Qed]-closed theorems. *)
 Lemma zero_admit_connectivity_check :
   let _ := mu_conservation_kernel in
   let _ := run_vm_mu_monotonic in
@@ -179,13 +168,15 @@ Proof.
   discriminate.
 Qed.
 
-(**
-    VERIFICATION SUMMARY
+(** ** Verification summary
 
-    If the checks above succeed, then:
-    - Zero admits
-    - Zero project-local axioms
-    - Standard-library assumptions, if any, are exposed rather than hidden
-    - All paper theorems are fully machine-checked
-    *)
+    If every [Print Assumptions] above reports either
+    [Closed under the global context] or only standard-library
+    assumptions (e.g. functional extensionality, classical reals,
+    [propositional_extensionality]), then:
+
+      - No [Admitted] proofs are reachable from the cited theorems.
+      - No project-local axioms have been introduced.
+      - The standard-library reach is explicit rather than implicit.
+      - Every paper theorem is fully machine-checked. *)
 

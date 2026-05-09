@@ -1,16 +1,22 @@
-(** ReceiptTheorem.v — The Receipt Theorem in twelve lines.
+(** * ReceiptTheorem: the Receipt Theorem in twelve lines
 
-    Statement: there is no total function from the strict classical
-    shadow (mem, regs, pc) that recovers vm_mu on every reachable VM
-    state.
+    Statement: no total function from the strict classical shadow
+    [(mem, regs, pc)] can recover [vm_mu] on every reachable VM state.
 
-    Proof: instantiate at the two witness states from
-    NecessityOfMuLedger.v.  Their shadows are equal (cond 2), Trace A
-    has mu = 1 (cond 4), Trace B has mu = 0 (cond 5).  Any total f
-    would have to return both 1 and 0 on the same input.  Done by
-    [congruence].
+    Proof outline. Instantiate the would-be function [f] at the two
+    witness states constructed in [NecessityOfMuLedger.v]:
 
-    Build (from coq/, after `make`):
+      - [po1_cond2_final_shadow_equal] gives [strict_shadow po1_state_A
+        = strict_shadow po1_state_B].
+      - [po1_cond4_trace_A_mu_paid] gives [vm_mu po1_state_A = 1].
+      - [po1_cond5_trace_B_mu_zero] gives [vm_mu po1_state_B = 0].
+
+    Any [f] satisfying [f (strict_shadow s) = vm_mu s] for both states
+    would have to return both 1 and 0 on the same input. The
+    contradiction is discharged by [congruence].
+
+    Standalone build (from [coq/], after [make]):
+
         coqc -Q kernel Kernel -Q nofi NoFI ReceiptTheorem.v
 *)
 

@@ -30,6 +30,7 @@ Require Import KamiHW.FullAbstraction.
 Require Import KamiHW.EmbedStep.
 Require Import KamiHW.EmbedStep_WF.
 Require Import KamiHW.FullEmbedStep.
+Require Import KamiHW.FullStep.
 Require Import KamiHW.RichStateCommutation.
 From KamiHW Require Import ThieleTypes.
 
@@ -3977,7 +3978,7 @@ Qed.
    §18  Coverage Summary
    *)
 
-(** STATUS SUMMARY (updated 2026-04-15, 0 Admitted — all Qed):
+(** Coverage summary (0 Admitted, all Qed):
 
     Full-state commutation (abs_full_snapshot ∘ full_snapshot_of_snapshot
     ∘ kami_step = vm_apply ∘ abs_full_snapshot ∘ full_snapshot_of_snapshot):
@@ -4026,3 +4027,41 @@ Qed.
     AND full-equality theorems (driven_step_compose, driven_step_morph_tensor) under extended_hw_invariant.
     No open gaps remain.
 *)
+
+(** ** Connecting [kami_step] to [kami_step_full]
+
+    [kami_step_full] in [FullStep.v] is defined definitionally through
+    [vm_apply], so its abstraction round-trips trivially. The
+    instruction-by-instruction agreement between the low-level
+    hardware-mimicking [kami_step] (in [Abstraction.v]) and
+    [kami_step_full] is the substantive content of
+    [driven_step_supported] (and the [WFDrivenPrecondition] companions
+    for the remaining 16 opcodes).
+
+    The theorem below packages the SupportedOpcode case as a single
+    equation between the lifted [kami_step] result and the full step:
+
+      full_snapshot_of_snapshot (kami_step ks i)
+        = kami_step_full (full_snapshot_of_snapshot ks) i.
+
+    Combined with [driven_step_supported], [driven_step_lassert],
+    [driven_step_pnew], [driven_step_psplit], [driven_step_pmerge],
+    [driven_step_call], [driven_step_ret], [driven_step_chsh_trial],
+    [driven_step_tensor_set_full], [driven_step_tensor_get_full],
+    [driven_step_compose], [driven_step_morph_tensor], and the seven
+    morphism opcodes proved earlier in this file under
+    [extended_hw_invariant], every opcode is covered. *)
+
+Theorem kami_step_full_agrees_with_kami_step_supported :
+  forall ks i,
+    SupportedOpcode i ->
+    full_snapshot_of_snapshot (kami_step ks i) =
+    kami_step_full (full_snapshot_of_snapshot ks) i.
+Proof.
+  intros ks i Hsup.
+  unfold kami_step_full.
+  pose proof (driven_step_supported ks i Hsup) as Hd.
+  rewrite <- Hd.
+  rewrite full_snapshot_repr_abs.
+  reflexivity.
+Qed.

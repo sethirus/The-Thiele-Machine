@@ -1,0 +1,344 @@
+DIGEST fa9a4724634239be830c8f1389ada849
+FKernel.InformationTopology
+R1728:1731 Coq.Lists.List <> <> lib
+R1733:1746 Coq.Arith.PeanoNat <> <> lib
+R1748:1750 Coq.micromega.Lia <> <> lib
+R1760:1772 Coq.Lists.List ListNotations <> mod
+R1803:1809 Kernel.VMState <> <> lib
+R1811:1816 Kernel.VMStep <> <> lib
+R1818:1832 Kernel.SimulationProof <> <> lib
+R1862:1881 Kernel.MuLedgerConservation <> <> lib
+R1911:1922 Kernel.MuInitiality <> <> lib
+R1952:1970 Kernel.StructuralAdvantage <> <> lib
+def 2144:2155 <> mu_path_cost
+R2165:2167 Coq.Init.Datatypes <> nat ind
+binder 2158:2161 <> fuel:1
+R2179:2182 Coq.Init.Datatypes <> list ind
+R2184:2197 Kernel.VMStep VMStep vm_instruction ind
+binder 2171:2175 <> trace:2
+R2205:2211 Kernel.VMState <> VMState rec
+binder 2201:2201 <> s:3
+R2216:2218 Coq.Init.Datatypes <> nat ind
+R2254:2256 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R2248:2252 Kernel.VMState <> vm_mu proj
+R2226:2231 Kernel.SimulationProof <> run_vm def
+R2233:2236 Kernel.InformationTopology <> fuel:1 var
+R2238:2242 Kernel.InformationTopology <> trace:2 var
+R2244:2244 Kernel.InformationTopology <> s:3 var
+R2260:2264 Kernel.VMState <> vm_mu proj
+R2257:2257 Kernel.InformationTopology <> s:3 var
+prf 2275:2293 <> mu_path_cost_nonneg
+binder 2306:2309 <> fuel:4
+binder 2311:2315 <> trace:5
+binder 2317:2317 <> s:6
+R2349:2352 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2324:2335 Kernel.InformationTopology <> mu_path_cost def
+R2337:2340 Kernel.InformationTopology <> fuel:4 var
+R2342:2346 Kernel.InformationTopology <> trace:5 var
+R2348:2348 Kernel.InformationTopology <> s:6 var
+prf 2403:2420 <> mu_path_cost_empty
+binder 2433:2433 <> s:7
+R2459:2461 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2440:2451 Kernel.InformationTopology <> mu_path_cost def
+R2455:2456 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2458:2458 Kernel.InformationTopology <> s:7 var
+R2509:2511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2496:2501 Kernel.SimulationProof <> run_vm def
+R2505:2506 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2509:2511 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2496:2501 Kernel.SimulationProof <> run_vm def
+R2505:2506 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2540:2551 Kernel.InformationTopology <> mu_path_cost def
+prf 2710:2735 <> mu_path_cost_bounded_by_mu
+binder 2748:2751 <> fuel:8
+binder 2753:2757 <> trace:9
+binder 2759:2759 <> s:10
+R2803:2805 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2775:2777 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2769:2773 Kernel.VMState <> vm_mu proj
+R2766:2766 Kernel.InformationTopology <> s:10 var
+R2778:2789 Kernel.InformationTopology <> mu_path_cost def
+R2791:2794 Kernel.InformationTopology <> fuel:8 var
+R2796:2800 Kernel.InformationTopology <> trace:9 var
+R2802:2802 Kernel.InformationTopology <> s:10 var
+R2829:2833 Kernel.VMState <> vm_mu proj
+R2807:2812 Kernel.SimulationProof <> run_vm def
+R2814:2817 Kernel.InformationTopology <> fuel:8 var
+R2819:2823 Kernel.InformationTopology <> trace:9 var
+R2825:2825 Kernel.InformationTopology <> s:10 var
+R2876:2887 Kernel.InformationTopology <> mu_path_cost def
+R2905:2923 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R2905:2923 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+def 3192:3201 <> mu_reaches
+R3212:3218 Kernel.VMState <> VMState rec
+binder 3204:3205 <> s1:11
+binder 3207:3208 <> s2:12
+R3229:3231 Coq.Init.Datatypes <> nat ind
+binder 3222:3225 <> fuel:13
+R3243:3246 Coq.Init.Datatypes <> list ind
+R3248:3261 Kernel.VMStep VMStep vm_instruction ind
+binder 3235:3239 <> trace:14
+R3296:3298 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3276:3281 Kernel.SimulationProof <> run_vm def
+R3283:3286 Kernel.InformationTopology <> fuel:13 var
+R3288:3292 Kernel.InformationTopology <> trace:14 var
+R3294:3295 Kernel.InformationTopology <> s1:11 var
+R3299:3300 Kernel.InformationTopology <> s2:12 var
+def 3315:3328 <> mu_distance_le
+R3339:3345 Kernel.VMState <> VMState rec
+binder 3331:3332 <> s1:15
+binder 3334:3335 <> s2:16
+R3357:3359 Coq.Init.Datatypes <> nat ind
+binder 3349:3353 <> bound:17
+R3374:3380 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3391:3396 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3381:3384 <> fuel:18
+binder 3386:3390 <> trace:19
+R3424:3431 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3397:3406 Kernel.InformationTopology <> mu_reaches def
+R3408:3409 Kernel.InformationTopology <> s1:15 var
+R3411:3412 Kernel.InformationTopology <> s2:16 var
+R3414:3417 Kernel.InformationTopology <> fuel:18 var
+R3419:3423 Kernel.InformationTopology <> trace:19 var
+R3458:3461 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3432:3443 Kernel.InformationTopology <> mu_path_cost def
+R3445:3448 Kernel.InformationTopology <> fuel:18 var
+R3450:3454 Kernel.InformationTopology <> trace:19 var
+R3456:3457 Kernel.InformationTopology <> s1:15 var
+R3462:3466 Kernel.InformationTopology <> bound:17 var
+def 3481:3496 <> mu_distance_zero
+R3503:3509 Kernel.VMState <> VMState rec
+binder 3499:3499 <> s:20
+R3524:3537 Kernel.InformationTopology <> mu_distance_le def
+R3539:3539 Kernel.InformationTopology <> s:20 var
+R3541:3541 Kernel.InformationTopology <> s:20 var
+prf 3626:3646 <> mu_distance_self_zero
+binder 3659:3659 <> s:21
+R3662:3677 Kernel.InformationTopology <> mu_distance_zero def
+R3679:3679 Kernel.InformationTopology <> s:21 var
+R3709:3724 Kernel.InformationTopology <> mu_distance_zero def
+R3727:3740 Kernel.InformationTopology <> mu_distance_le def
+R3743:3752 Kernel.InformationTopology <> mu_reaches def
+R3767:3768 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3767:3768 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3808:3819 Kernel.InformationTopology <> mu_path_cost def
+prf 3890:3907 <> mu_distance_nonneg
+binder 3920:3921 <> s1:22
+binder 3923:3924 <> s2:23
+binder 3926:3930 <> bound:24
+R3963:3966 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3937:3950 Kernel.InformationTopology <> mu_distance_le def
+R3952:3953 Kernel.InformationTopology <> s1:22 var
+R3955:3956 Kernel.InformationTopology <> s2:23 var
+R3958:3962 Kernel.InformationTopology <> bound:24 var
+R3972:3975 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3967:3971 Kernel.InformationTopology <> bound:24 var
+prf 4776:4796 <> mu_path_cost_triangle
+R4824:4830 Kernel.VMState <> VMState rec
+binder 4810:4811 <> s1:25
+binder 4813:4817 <> s_mid:26
+binder 4819:4820 <> s3:27
+R4842:4844 Coq.Init.Datatypes <> nat ind
+binder 4834:4835 <> f1:28
+binder 4837:4838 <> f2:29
+R4865:4868 Coq.Init.Datatypes <> list ind
+R4870:4883 Kernel.VMStep VMStep vm_instruction ind
+binder 4857:4861 <> trace:30
+R4895:4897 Coq.Init.Datatypes <> nat ind
+binder 4887:4888 <> b1:31
+binder 4890:4891 <> b2:32
+R4931:4938 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4923:4925 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4905:4910 Kernel.SimulationProof <> run_vm def
+R4912:4913 Kernel.InformationTopology <> f1:28 var
+R4915:4919 Kernel.InformationTopology <> trace:30 var
+R4921:4922 Kernel.InformationTopology <> s1:25 var
+R4926:4930 Kernel.InformationTopology <> s_mid:26 var
+R4965:4972 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4960:4962 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4939:4944 Kernel.SimulationProof <> run_vm def
+R4946:4947 Kernel.InformationTopology <> f2:29 var
+R4949:4953 Kernel.InformationTopology <> trace:30 var
+R4955:4959 Kernel.InformationTopology <> s_mid:26 var
+R4963:4964 Kernel.InformationTopology <> s3:27 var
+R5003:5010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4997:5000 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4973:4984 Kernel.InformationTopology <> mu_path_cost def
+R4986:4987 Kernel.InformationTopology <> f1:28 var
+R4989:4993 Kernel.InformationTopology <> trace:30 var
+R4995:4996 Kernel.InformationTopology <> s1:25 var
+R5001:5002 Kernel.InformationTopology <> b1:31 var
+R5044:5051 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5038:5041 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5011:5022 Kernel.InformationTopology <> mu_path_cost def
+R5024:5025 Kernel.InformationTopology <> f2:29 var
+R5027:5031 Kernel.InformationTopology <> trace:30 var
+R5033:5037 Kernel.InformationTopology <> s_mid:26 var
+R5042:5043 Kernel.InformationTopology <> b2:32 var
+R5082:5089 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5077:5079 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5052:5057 Kernel.SimulationProof <> run_vm def
+R5062:5064 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5060:5061 Kernel.InformationTopology <> f1:28 var
+R5065:5066 Kernel.InformationTopology <> f2:29 var
+R5069:5073 Kernel.InformationTopology <> trace:30 var
+R5075:5076 Kernel.InformationTopology <> s1:25 var
+R5080:5081 Kernel.InformationTopology <> s3:27 var
+R5121:5124 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5090:5101 Kernel.InformationTopology <> mu_path_cost def
+R5106:5108 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5104:5105 Kernel.InformationTopology <> f1:28 var
+R5109:5110 Kernel.InformationTopology <> f2:29 var
+R5113:5117 Kernel.InformationTopology <> trace:30 var
+R5119:5120 Kernel.InformationTopology <> s1:25 var
+R5127:5129 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5125:5126 Kernel.InformationTopology <> b1:31 var
+R5130:5131 Kernel.InformationTopology <> b2:32 var
+R5209:5242 Kernel.StructuralAdvantage <> run_vm_compose thm
+R5209:5242 Kernel.StructuralAdvantage <> run_vm_compose thm
+R5321:5339 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R5321:5339 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R5379:5397 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R5379:5397 Kernel.MuLedgerConservation <> run_vm_mu_monotonic thm
+R5483:5494 Kernel.InformationTopology <> mu_path_cost def
+prf 5966:6001 <> mu_distance_le_single_trace_triangle
+R6029:6035 Kernel.VMState <> VMState rec
+binder 6015:6016 <> s1:33
+binder 6018:6022 <> s_mid:34
+binder 6024:6025 <> s3:35
+R6053:6055 Coq.Init.Datatypes <> nat ind
+binder 6039:6040 <> b1:36
+binder 6042:6043 <> b2:37
+binder 6045:6046 <> f1:38
+binder 6048:6049 <> f2:39
+R6076:6079 Coq.Init.Datatypes <> list ind
+R6081:6094 Kernel.VMStep VMStep vm_instruction ind
+binder 6068:6072 <> trace:40
+R6128:6135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6120:6122 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6102:6107 Kernel.SimulationProof <> run_vm def
+R6109:6110 Kernel.InformationTopology <> f1:38 var
+R6112:6116 Kernel.InformationTopology <> trace:40 var
+R6118:6119 Kernel.InformationTopology <> s1:33 var
+R6123:6127 Kernel.InformationTopology <> s_mid:34 var
+R6162:6169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6157:6159 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6136:6141 Kernel.SimulationProof <> run_vm def
+R6143:6144 Kernel.InformationTopology <> f2:39 var
+R6146:6150 Kernel.InformationTopology <> trace:40 var
+R6152:6156 Kernel.InformationTopology <> s_mid:34 var
+R6160:6161 Kernel.InformationTopology <> s3:35 var
+R6200:6207 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6194:6197 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6170:6181 Kernel.InformationTopology <> mu_path_cost def
+R6183:6184 Kernel.InformationTopology <> f1:38 var
+R6186:6190 Kernel.InformationTopology <> trace:40 var
+R6192:6193 Kernel.InformationTopology <> s1:33 var
+R6198:6199 Kernel.InformationTopology <> b1:36 var
+R6241:6248 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6235:6238 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6208:6219 Kernel.InformationTopology <> mu_path_cost def
+R6221:6222 Kernel.InformationTopology <> f2:39 var
+R6224:6228 Kernel.InformationTopology <> trace:40 var
+R6230:6234 Kernel.InformationTopology <> s_mid:34 var
+R6239:6240 Kernel.InformationTopology <> b2:37 var
+R6249:6262 Kernel.InformationTopology <> mu_distance_le def
+R6264:6265 Kernel.InformationTopology <> s1:33 var
+R6267:6268 Kernel.InformationTopology <> s3:35 var
+R6273:6275 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6271:6272 Kernel.InformationTopology <> b1:36 var
+R6276:6277 Kernel.InformationTopology <> b2:37 var
+R6351:6364 Kernel.InformationTopology <> mu_distance_le def
+R6367:6376 Kernel.InformationTopology <> mu_reaches def
+R6391:6393 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6391:6393 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6418:6438 Kernel.InformationTopology <> mu_path_cost_triangle thm
+R6418:6438 Kernel.InformationTopology <> mu_path_cost_triangle thm
+prf 7252:7279 <> sighted_is_mu_geodesic_at_N1
+R7294:7299 Kernel.SimulationProof <> run_vm def
+R7305:7319 Kernel.StructuralAdvantage <> sighted_program def
+R7326:7335 Kernel.MuInitiality <> init_state def
+binder 7289:7289 <> s:41
+R7351:7353 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7345:7349 Kernel.VMState <> vm_mu proj
+R7342:7342 Kernel.InformationTopology <> s:41 var
+R7444:7448 Coq.Init.Logic <> proj1 thm
+R7451:7455 Coq.Init.Logic <> proj2 thm
+R7458:7479 Kernel.StructuralAdvantage <> sighted_halts_in_two_n thm
+R7444:7448 Coq.Init.Logic <> proj1 thm
+R7451:7455 Coq.Init.Logic <> proj2 thm
+R7458:7479 Kernel.StructuralAdvantage <> sighted_halts_in_two_n thm
+prf 7667:7682 <> blind_is_mu_zero
+R7697:7702 Kernel.SimulationProof <> run_vm def
+R7707:7719 Kernel.StructuralAdvantage <> blind_program def
+R7724:7733 Kernel.MuInitiality <> init_state def
+binder 7692:7692 <> s:42
+R7749:7751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7743:7747 Kernel.VMState <> vm_mu proj
+R7740:7740 Kernel.InformationTopology <> s:42 var
+R7771:7775 Coq.Init.Logic <> proj1 thm
+R7778:7782 Coq.Init.Logic <> proj2 thm
+R7785:7808 Kernel.StructuralAdvantage <> blind_halts_in_n_squared thm
+R7771:7775 Coq.Init.Logic <> proj1 thm
+R7778:7782 Coq.Init.Logic <> proj2 thm
+R7785:7808 Kernel.StructuralAdvantage <> blind_halts_in_n_squared thm
+prf 8578:8596 <> geodesic_efficiency
+R8613:8615 Coq.Init.Datatypes <> nat ind
+binder 8609:8609 <> N:43
+R8628:8635 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8623:8626 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8622:8622 Kernel.InformationTopology <> N:43 var
+R8641:8643 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8637:8639 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8636:8636 Kernel.InformationTopology <> N:43 var
+R8640:8640 Kernel.InformationTopology <> N:43 var
+R8649:8651 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8645:8647 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8648:8648 Kernel.InformationTopology <> N:43 var
+R8671:8702 Kernel.StructuralAdvantage <> iteration_savings_dwarfs_mu_cost thm
+R8671:8702 Kernel.StructuralAdvantage <> iteration_savings_dwarfs_mu_cost thm
+prf 9803:9831 <> geodesic_routing_k_dimensions
+R9850:9852 Coq.Init.Datatypes <> nat ind
+binder 9844:9844 <> N:44
+binder 9846:9846 <> k:45
+R9865:9868 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9860:9863 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9859:9859 Kernel.InformationTopology <> N:44 var
+R9875:9882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9870:9873 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9869:9869 Kernel.InformationTopology <> k:45 var
+R9888:9890 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9884:9886 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R9883:9883 Kernel.InformationTopology <> N:44 var
+R9887:9887 Kernel.InformationTopology <> k:45 var
+R9896:9898 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9892:9894 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9891:9891 Kernel.InformationTopology <> k:45 var
+R9895:9895 Kernel.InformationTopology <> N:44 var
+R9899:9899 Kernel.InformationTopology <> k:45 var
+R9917:9947 Kernel.StructuralAdvantage <> k_factor_savings_exceed_mu_cost thm
+R9917:9947 Kernel.StructuralAdvantage <> k_factor_savings_exceed_mu_cost thm
+prf 10090:10113 <> geodesic_dominates_blind
+R10134:10136 Coq.Init.Datatypes <> nat ind
+binder 10126:10126 <> N:46
+binder 10128:10128 <> L:47
+binder 10130:10130 <> R:48
+R10149:10152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10144:10147 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10143:10143 Kernel.InformationTopology <> N:46 var
+R10159:10166 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10154:10157 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10153:10153 Kernel.InformationTopology <> L:47 var
+R10180:10182 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R10176:10178 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10172:10174 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10168:10170 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10167:10167 Kernel.InformationTopology <> L:47 var
+R10171:10171 Kernel.InformationTopology <> N:46 var
+R10175:10175 Kernel.InformationTopology <> R:48 var
+R10188:10190 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10184:10186 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10183:10183 Kernel.InformationTopology <> L:47 var
+R10187:10187 Kernel.InformationTopology <> R:48 var
+R10209:10240 Kernel.StructuralAdvantage <> sighted_wins_for_nontrivial_left thm
+R10209:10240 Kernel.StructuralAdvantage <> sighted_wins_for_nontrivial_left thm

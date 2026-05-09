@@ -183,7 +183,7 @@ Definition OP_XOR_SWAP      : word OpcodeSz := WO~0~0~0~0~1~1~0~0. (* 0x0C *)
 Definition OP_XOR_RANK      : word OpcodeSz := WO~0~0~0~0~1~1~0~1. (* 0x0D *)
 Definition OP_EMIT          : word OpcodeSz := WO~0~0~0~0~1~1~1~0. (* 0x0E *)
 Definition OP_REVEAL        : word OpcodeSz := WO~0~0~0~0~1~1~1~1. (* 0x0F *)
-(* 0x10 reserved (formerly ORACLE_HALTS) *)
+(* 0x10 reserved *)
 Definition OP_LOAD          : word OpcodeSz := WO~0~0~0~1~0~0~0~1. (* 0x11 *)
 Definition OP_STORE         : word OpcodeSz := WO~0~0~0~1~0~0~1~0. (* 0x12 *)
 Definition OP_ADD           : word OpcodeSz := WO~0~0~0~1~0~0~1~1. (* 0x13 *)
@@ -206,9 +206,9 @@ Definition OP_MUL           : word OpcodeSz := WO~0~0~1~0~0~0~1~1. (* 0x23 *)
 Definition OP_LUI           : word OpcodeSz := WO~0~0~1~0~0~1~0~0. (* 0x24 *)
 Definition OP_TENSOR_SET    : word OpcodeSz := WO~0~0~1~0~0~1~0~1. (* 0x25 *)
 Definition OP_TENSOR_GET    : word OpcodeSz := WO~0~0~1~0~0~1~1~0. (* 0x26 *)
-(** Categorical morphism opcodes (Phase 6 / M3-M4):
-    bounded on-chip morph/coupling tables now exist; M4 completes the step
-    semantics that actively mutate them. *)
+(** Categorical / morphism opcodes. The on-chip morph and coupling
+    tables are bounded; the step semantics that mutate them are
+    defined in [Abstraction.v]. *)
 Definition OP_MORPH         : word OpcodeSz := WO~0~0~1~0~0~1~1~1. (* 0x27 *)
 Definition OP_COMPOSE       : word OpcodeSz := WO~0~0~1~0~1~0~0~0. (* 0x28 *)
 Definition OP_MORPH_ID      : word OpcodeSz := WO~0~0~1~0~1~0~0~1. (* 0x29 *)

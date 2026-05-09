@@ -16,17 +16,17 @@ DECL_RE = re.compile(
     r"(Lemma|Theorem|Corollary|Proposition|Fact|Remark|Definition|Fixpoint|Inductive|Record|CoFixpoint)\s+"
     r"([A-Za-z_][A-Za-z0-9_']*)\b"
 )
-END_RE = re.compile(r"^\s*(Qed\.|Defined\.|Admitted\.)\s*$")
+END_RE = re.compile(r"\b(Qed|Defined|Admitted)\.\s*$")
 TOKEN_RE = re.compile(r"\b[A-Za-z_][A-Za-z0-9_']*\b")
 THEOREM_KINDS = {"Lemma", "Theorem", "Corollary", "Proposition", "Fact", "Remark"}
 
 FOUNDATION_FILES: Tuple[str, ...] = (
-    "coq/kernel/VMState.v",
-    "coq/kernel/VMStep.v",
-    "coq/kernel/MuCostModel.v",
-    "coq/kernel/MuLedgerConservation.v",
-    "coq/kernel/NoFreeInsight.v",
-    "coq/kernel/MuInitiality.v",
+    "coq/kernel/foundation/VMState.v",
+    "coq/kernel/foundation/VMStep.v",
+    "coq/kernel/foundation/MuCostModel.v",
+    "coq/kernel/foundation/MuLedgerConservation.v",
+    "coq/kernel/nfi/NoFreeInsight.v",
+    "coq/kernel/mu_calculus/MuInitiality.v",
 )
 
 
@@ -89,7 +89,7 @@ def _extract_decls(path: Path, coq_root: Path) -> List[Decl]:
         if kind in THEOREM_KINDS:
             while i < len(lines):
                 body_lines.append(lines[i])
-                if END_RE.match(lines[i]):
+                if END_RE.search(lines[i]):
                     i += 1
                     break
                 i += 1

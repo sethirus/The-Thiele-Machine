@@ -1,15 +1,22 @@
-(** LandauerDerived: an information-theoretic Landauer derivation.
+(** * LandauerDerived: an information-theoretic Landauer derivation
 
-  This file stays on the information side of Landauer's principle. The core
-  claim is simple: erasing n bits collapses a 2^n-sized distinguishable state
-  space, so the operation is many-to-one and carries an irreversibility budget
-  of exactly n bits. That is the part this file proves constructively.
+    This file proves the information-side half of Landauer's principle:
+    erasing n bits collapses a 2^n-element distinguishable state space, so
+    the operation is many-to-one with an irreversibility budget of exactly
+    n bits. That part is proved constructively, axiom-free.
 
-  The thermodynamic factor k_B T ln 2 is not derived here from nothing. It is
-  the external conversion between information entropy and physical energy. So
-  the honest scope is: this file proves the information loss, and a later
-  thermodynamic interpretation can map that loss into an energy lower bound.
-*)
+    What this file does NOT derive: the physical conversion factor
+    k_B · T · ln 2 between bits and joules. That conversion is the external
+    bridge between Shannon entropy and Boltzmann entropy. The honest scope
+    is therefore:
+
+      - This file proves information loss in n-bit erasures.
+      - A separate thermodynamic interpretation maps that loss to an
+        energy lower bound at temperature T.
+
+    The two are joined cleanly by the bridge theorem
+    [thermodynamic_bridge]: in Landauer units (k_B · T · ln 2 per bit),
+    environmental entropy increase is bounded below by μ-cost. *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -23,18 +30,16 @@ Require Import Coq.micromega.Lia.
 Require Import Coq.Logic.FunctionalExtensionality.
 Import ListNotations.
 
-(* ------------------------------------------------------------------------ *)
+(** ** State spaces
 
-(* A computational state is a bitstring of fixed length n *)
-(* We represent this as nat (interpreting as binary) with a bound *)
-
+    A computational state is a bitstring of fixed length [n]. We represent
+    it as a [nat] interpreted in binary, refined by the bound [< 2^n]. *)
 Definition Bitstring (n : nat) := { x : nat | x < 2^n }.
 
-(* Number of distinct states for n bits *)
+(** Total number of distinct states for [n] bits. *)
 Definition num_states (n : nat) : nat := 2^n.
 
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
+(** Positivity of [num_states]: 2^n > 0 for every [n]. Direct induction. *)
 Lemma num_states_pos : forall n, num_states n > 0.
 Proof.
   intro n. unfold num_states.
@@ -43,16 +48,15 @@ Proof.
   - simpl. lia.
 Qed.
 
-(* ------------------------------------------------------------------------ *)
+(** ** Information content
 
-(* Information content of a uniform distribution over N states is log2(N) bits *)
-(* We work with integers: info(2^n states) = n bits *)
-
-(* The information content (in bits) of a state space with 2^n elements *)
+    The Shannon information content (in bits) of a state space with [2^n]
+    elements is exactly [n]. We work entirely in integers: there are no
+    real-number approximations and no logarithm definitions to verify. *)
 Definition info_bits (n : nat) : nat := n.
 
-(* Key property: 2^n states contain exactly n bits of information *)
-(* DEFINITIONAL — info_bits n = n, num_states n = 2^n, so 2^n = 2^n *)
+(** Sanity check: [num_states (info_bits n) = 2^n] holds by definition. *)
+(* ARITHMETIC: helper proving the basic property of a defined constant. *)
 (* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
 Lemma info_bits_correct : forall n,
   num_states (info_bits n) = 2^n.
@@ -60,146 +64,128 @@ Proof.
   intro n. unfold info_bits, num_states. reflexivity.
 Qed.
 
-(* ------------------------------------------------------------------------ *)
+(** ** Erasure operations
 
-(* An erasure operation maps many states to one *)
-(* If we go from 2^n states to 2^m states (m < n), we erase (n-m) bits *)
-
+    An [Erasure] reduces an [input_bits]-bit state space to an
+    [output_bits]-bit one, with [output_bits ≤ input_bits]. The number of
+    bits erased is the difference. *)
 Record Erasure := mkErasure {
   input_bits : nat;
   output_bits : nat;
   output_leq : output_bits <= input_bits
 }.
 
+(** Bits lost to the erasure: [input_bits - output_bits]. *)
 Definition bits_erased (e : Erasure) : nat :=
   input_bits e - output_bits e.
 
-(* The number of input states that map to each output state *)
+(** Fan-in: how many input states map to each output state. By a counting
+    argument this is exactly [2^(bits_erased e)]. *)
 Definition fan_in (e : Erasure) : nat :=
   2^(bits_erased e).
-(** HELPER: Non-negativity property *)
 
-(** HELPER: Non-negativity property *)
+(** Fan-in is always positive — there is always at least one preimage. *)
 Lemma fan_in_pos : forall e, fan_in e > 0.
 Proof.
   intro e. unfold fan_in.
   apply num_states_pos.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Reversibility
 
-(* A function is reversible if it's injective (one-to-one) *)
-(* Erasure is NOT reversible when fan_in > 1 *)
-
+    A function is reversible iff it is injective; for an erasure this
+    happens exactly when the fan-in equals one. Anything heavier than
+    one preimage per output is by definition many-to-one. *)
 Definition is_reversible (e : Erasure) : Prop :=
   fan_in e = 1.
 
 Definition is_irreversible (e : Erasure) : Prop :=
   fan_in e > 1.
 
-(* Key theorem: Erasure of at least 1 bit is irreversible *)
-
-(* Helper lemma: 2^n >= 1 for all n *)
+(** Powers of two are at least one — used as a step lemma below. *)
 Lemma pow2_ge_1 : forall n, 2^n >= 1.
 Proof.
   induction n as [|n' IH].
   - simpl. auto.
-  - simpl. (* Goal: 2^n' + (2^n' + 0) >= 1 *)
+  - simpl.
     pose proof (IH) as H.
-    (* 2^n' >= 1, so 2 * 2^n' >= 2 >= 1 *)
     assert (Hpos: 2^n' >= 1) by exact H.
-    (* 2^n' + (2^n' + 0) = 2 * 2^n' *)
     rewrite Nat.add_0_r.
-    (* Now goal is 2^n' + 2^n' >= 1 *)
-    (* Since 2^n' >= 1, we have 2^n' + 2^n' >= 1 + 0 = 1 *)
     apply Nat.le_trans with (2^n'); auto.
     apply Nat.le_add_r.
 Qed.
 
-(* Helper lemma: 2^(S n) >= 2 *)
+(** Strict step: 2^(S n) ≥ 2. Used to upgrade [pow2_ge_1] into the strict
+    inequality required for irreversibility. *)
 Lemma pow2_S_ge_2 : forall n, 2^(S n) >= 2.
 Proof.
   intro n.
   simpl. rewrite Nat.add_0_r.
-  (* Goal: 2^n + 2^n >= 2 *)
   pose proof (pow2_ge_1 n) as H.
-  (* 2^n >= 1, so 2^n + 2^n >= 1 + 1 = 2 *)
   replace 2 with (1 + 1) by reflexivity.
   apply Nat.add_le_mono; exact H.
 Qed.
 
+(** Headline: erasing at least one bit is irreversible. The case split on
+    [bits_erased] sends the zero-difference case to a contradiction with
+    the [≥ 1] hypothesis and discharges the successor case via
+    [pow2_S_ge_2]. *)
 Theorem erasure_irreversible : forall e,
   bits_erased e >= 1 -> is_irreversible e.
 Proof.
   intros e He.
   unfold is_irreversible, fan_in, bits_erased.
-  (* 2^(input_bits - output_bits) > 1 when input_bits - output_bits >= 1 *)
   destruct (input_bits e - output_bits e) as [|k] eqn:Hdiff.
-  - (* Case: difference = 0, but we assumed >= 1 - contradiction *)
-    exfalso. 
+  - exfalso.
     unfold bits_erased in He. rewrite Hdiff in He.
     inversion He.
-  - (* Case: difference = S k, so 2^(S k) >= 2 > 1 *)
-    pose proof (pow2_S_ge_2 k) as Hpow.
-    (* Hpow: 2^(S k) >= 2 *)
-    (* Goal: 2^(S k) > 1 *)
-    (* Since 2 > 1 and 2^(S k) >= 2, we have 2^(S k) > 1 *)
+  - pose proof (pow2_S_ge_2 k) as Hpow.
     unfold gt. unfold lt.
-    (* Goal: S 1 <= 2^(S k), i.e., 2 <= 2^(S k) *)
     exact Hpow.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Entropy bookkeeping
 
-(* Shannon entropy of uniform distribution over 2^n states = n bits *)
-(* When we erase k bits, we reduce entropy by k bits *)
-
+    Shannon entropy of a uniform distribution over [2^n] states equals
+    [n] bits. Erasing [k] bits reduces entropy by [k]. *)
 Definition entropy_bits (n : nat) : nat := n.
 
-(* Entropy change from erasure *)
+(** Signed entropy change of an erasure (negative for genuine erasures). *)
 Definition delta_entropy (e : Erasure) : Z :=
   Z.of_nat (output_bits e) - Z.of_nat (input_bits e).
 
-(* Erasure decreases system entropy *)
+(** Erasing at least one bit strictly decreases system entropy. *)
 Lemma erasure_decreases_entropy : forall e,
   bits_erased e >= 1 ->
   (delta_entropy e < 0)%Z.
 Proof.
   intros e He.
-  (* Destruct Erasure record to engage with structure *)
   destruct e as [in_bits out_bits].
-  (* Unfold definitions in terms of record fields *)
   unfold delta_entropy, bits_erased in *.
   unfold output_bits, input_bits in *.
-  simpl in *. (* Simplify record projections *)
-  (* Structural relationship: erasing ≥1 bit means out_bits < in_bits *)
+  simpl in *.
   lia.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Physical erasure and the second law
 
-(* The Second Law says total entropy cannot decrease *)
-(* If system entropy decreases by k bits, environment must increase by >= k bits *)
-
-(* This is a LOGICAL constraint, not a physical assumption *)
+    A [PhysicalErasure] bundles an erasure with the environmental entropy
+    increase that accompanies it, plus the second-law constraint that
+    total entropy not decrease. The constraint is logical, not a physical
+    assumption: it is the contract any candidate physical realisation
+    must meet. *)
 Record PhysicalErasure := mkPhysicalErasure {
   erasure_op : Erasure;
-  env_entropy_increase : nat;  (* in bits *)
-  
-  (* Second law: total entropy doesn't decrease *)
-  second_law_satisfied : 
+  env_entropy_increase : nat;
+  second_law_satisfied :
     env_entropy_increase >= bits_erased erasure_op
 }.
 
-(* ========================================================================
-   *)
+(** ** Headline: Landauer's information bound
 
-(* MAIN For any physical erasure operation that erases n bits,
-   the environment entropy must increase by at least n bits *)
-
+    For any physical erasure that erases [n] bits, environmental entropy
+    must increase by at least [n] bits. The proof reads off the
+    [second_law_satisfied] field. *)
 (* INQUISITOR NOTE: Record field extraction — exposes constraint for downstream use. *)
 Theorem landauer_information_bound : forall pe : PhysicalErasure,
   env_entropy_increase pe >= bits_erased (erasure_op pe).
@@ -207,52 +193,36 @@ Proof.
   intro pe.
   destruct pe as [e env_inc H_second].
   simpl.
-  (* This follows directly from the second_law_satisfied constraint *)
   lia.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** From bits to joules — the physical bridge
 
-(* The PHYSICAL Landauer bound is:
-   Q >= k_B * T * ln(2) * n
-   
-   where:
-   - Q is heat dissipated (Joules)
-   - k_B is Boltzmann constant (1.380649e-23 J/K)
-   - T is temperature (Kelvin)
-   - n is bits erased
-   
-   The conversion factor k_B * T * ln(2) has units of [Joules/bit].
-   This is NOT something we prove - it's the DEFINITION of how
-   information maps to thermodynamic entropy.
-   
-   Boltzmann entropy: S_thermo = k_B * ln(Ω)
-   Shannon entropy:   S_info = log2(Ω) = ln(Ω) / ln(2)
-   
-   Therefore: S_thermo = k_B * ln(2) * S_info
-   
-   And for isothermal process: Q = T * ΔS_thermo = T * k_B * ln(2) * ΔS_info
-*)
+    The full physical Landauer bound reads
 
-(* We can express the Landauer bound in terms of ratios without real numbers *)
+        Q ≥ k_B · T · ln 2 · n,
 
-(* If we want heat in units of (k_B * T * ln(2)), then:
-   Q / (k_B * T * ln(2)) >= bits_erased *)
+    with Q the heat dissipated, k_B Boltzmann's constant, T the
+    temperature, and n the number of bits erased. The conversion factor
+    k_B · T · ln 2 carries units of joules per bit and is fixed by the
+    relationship
 
-(* This is exactly what we proved in landauer_information_bound! *)
+        S_thermo = k_B · ln Ω,        S_info = log_2 Ω,
 
-(* ========================================================================
-   *)
+    so that S_thermo = k_B · ln 2 · S_info. For an isothermal process
+    Q = T · ΔS_thermo = T · k_B · ln 2 · ΔS_info.
 
-(* The Thiele Machine uses μ (mu) to count erased bits *)
-(* This section connects our derivation to that formulation *)
+    None of that conversion is proved here. It is the definition of how
+    information entropy maps into thermodynamic entropy. What this file
+    provides is the inequality in Landauer units (Q / (k_B · T · ln 2) ≥
+    bits_erased), which is exactly [landauer_information_bound]. *)
 
-(* μ is defined as the count of irreversible bit operations *)
+(** ** Connection to the Thiele Machine's μ-ledger
+
+    [μ] counts irreversible bit operations. Identifying it with
+    [bits_erased] gives the bridge theorem: in Landauer units,
+    environmental entropy increase is bounded below by μ. *)
 Definition mu (e : Erasure) : nat := bits_erased e.
-
-(* The thermodynamic bridge theorem: *)
-(* Energy dissipation (in Landauer units) >= μ *)
 
 Theorem thermodynamic_bridge : forall pe : PhysicalErasure,
   env_entropy_increase pe >= mu (erasure_op pe).
@@ -262,10 +232,9 @@ Proof.
   apply landauer_information_bound.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Worked example: a single-bit reset *)
 
-(* Example: Reset a single bit to 0 *)
+(** Reset of one bit: input space [{0,1}], output space [{0}]. *)
 Definition one_bit_reset : Erasure := {|
   input_bits := 1;
   output_bits := 0;
@@ -281,29 +250,30 @@ Proof.
   rewrite one_bit_erased. auto.
 Qed.
 
-(* Helper: 1 >= 1 *)
+(** Trivial helper used to populate the [second_law_satisfied] field. *)
 Lemma one_ge_one : 1 >= 1.
 Proof. auto. Qed.
 
-(* A physical realization of one-bit reset *)
+(** A minimum-cost physical realisation of [one_bit_reset]: dump exactly
+    one bit of entropy to the environment. *)
 Definition physical_one_bit_reset : PhysicalErasure := {|
   erasure_op := one_bit_reset;
-  env_entropy_increase := 1;  (* At least 1 bit to environment *)
+  env_entropy_increase := 1;
   second_law_satisfied := one_ge_one
 |}.
 
-(* Verify Landauer bound for this example *)
-Lemma one_bit_landauer : 
+(** Landauer bound for the worked example. *)
+Lemma one_bit_landauer :
   env_entropy_increase physical_one_bit_reset >= 1.
 Proof.
   pose proof (landauer_information_bound physical_one_bit_reset).
   simpl in *. exact H.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Worked example: an n-bit reset
 
-(* Erasing n bits requires n Landauer units of energy *)
+    Generalises the one-bit case: input space [2^n], output space
+    [{0}]. The minimum environmental cost is [n] bits. *)
 Definition n_bit_reset (n : nat) : Erasure := {|
   input_bits := n;
   output_bits := 0;
@@ -313,17 +283,15 @@ Definition n_bit_reset (n : nat) : Erasure := {|
 Lemma n_bits_erased : forall n, bits_erased (n_bit_reset n) = n.
 Proof. intro n. unfold bits_erased, n_bit_reset. simpl. apply Nat.sub_0_r. Qed.
 
-(* Helper: n >= n *)
 Lemma n_ge_n : forall n, n >= n.
 Proof. intro n. auto. Qed.
 
-(* Note: We need bits_erased (n_bit_reset n) = n - 0 = n *)
 Lemma n_bit_second_law : forall n, n >= bits_erased (n_bit_reset n).
 Proof.
   intro n. rewrite n_bits_erased. apply n_ge_n.
 Qed.
 
-(* Minimum physical realization *)
+(** Minimum-cost physical realisation of an [n]-bit reset. *)
 Definition physical_n_bit_reset (n : nat) : PhysicalErasure := {|
   erasure_op := n_bit_reset n;
   env_entropy_increase := n;
@@ -335,66 +303,58 @@ Theorem n_bit_landauer : forall n,
 Proof.
   intro n.
   pose proof (landauer_information_bound (physical_n_bit_reset n)).
-  simpl in *. 
+  simpl in *.
   rewrite n_bits_erased in H. exact H.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Composition: erasures chain additively
 
-(* Sequential erasures add up *)
+    Sequential erasures add their bit costs. The hypothesis
+    [output_bits e1 = input_bits e2] is the chaining condition. *)
 Lemma erasure_additive : forall e1 e2,
   output_bits e1 = input_bits e2 ->
-  bits_erased e1 + bits_erased e2 = 
+  bits_erased e1 + bits_erased e2 =
   (input_bits e1 - output_bits e2).
 Proof.
   intros e1 e2 Hchain.
   unfold bits_erased.
   rewrite Hchain.
-  (* input_bits e1 - output_bits e1 + (input_bits e2 - output_bits e2) *)
-  (* = input_bits e1 - output_bits e1 + (output_bits e1 - output_bits e2) *)
-  (* = input_bits e1 - output_bits e2 *)
   destruct e1 as [in1 out1 H1].
   destruct e2 as [in2 out2 H2].
   simpl in *. subst in2.
   lia.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Summary of what is proved
 
-(*
-   PROVEN (with no axioms, no admits):
-   
-   1. DEFINITION: Erasure = operation reducing distinguishable states
-   2. DEFINITION: bits_erased = log2(input_states / output_states)
-   3. Erasure of ≥1 bit is irreversible (erasure_irreversible)
-   4. Erasure decreases system entropy (erasure_decreases_entropy)
-   5. CONSTRAINT: Second law requires env entropy increase ≥ bits erased
-   6. Landauer bound in information units (landauer_information_bound)
-   7. Thermodynamic bridge: E ≥ μ in Landauer units (thermodynamic_bridge)
-   
-   WHAT THE PHYSICS ADDS (not provable in pure math):
-   
-   - The conversion factor k_B * T * ln(2) between bits and Joules
-   - That physical systems actually obey the second law
-   - That computational bits map to phase space regions
-   
-   These physical facts are DEFINITIONS/OBSERVATIONS, not theorems.
-   The mathematics of Landauer's principle is self-contained in the above.
-*)
+    The following hold with no axioms and no [Admitted]:
 
-(* ========================================================================
-   *)
+      - Erasure of at least one bit is irreversible
+        ([erasure_irreversible]).
+      - Erasure strictly decreases system entropy
+        ([erasure_decreases_entropy]).
+      - The second law forces environmental entropy increase to dominate
+        bits erased ([landauer_information_bound]).
+      - The information-side bridge to μ-accounting
+        ([thermodynamic_bridge]).
+      - Worked one-bit and n-bit examples ([one_bit_landauer],
+        [n_bit_landauer]).
 
+    What the physics adds — and is not provable here — is the
+    bits-to-joules conversion factor k_B · T · ln 2, the fact that
+    physical systems obey the second law, and the identification of
+    computational bits with phase-space regions. Those are bridges, not
+    theorems. *)
+
+(** Assumption-printing checks: the named theorems below should report
+    [Closed under the global context]. *)
 Print Assumptions landauer_information_bound.
 Print Assumptions thermodynamic_bridge.
 Print Assumptions erasure_irreversible.
 
-(* Final verification: all our main theorems are axiom-free *)
 Check landauer_information_bound.
 Check thermodynamic_bridge.
 Check erasure_irreversible.
 
+(** Re-export of [Bitstring] under a stable alias for downstream files. *)
 Definition Bitstring_anchor := Bitstring.
-

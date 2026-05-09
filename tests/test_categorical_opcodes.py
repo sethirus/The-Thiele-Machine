@@ -5,9 +5,9 @@ and MORPH_GET instructions end-to-end through the Coq-extracted OCaml runner.
 
 Each test verifies end-to-end execution of categorical opcodes.
 All invariants verified here follow from formally proven theorems in:
-  - coq/kernel/CategoryLaws.v    (relational compose laws)
-  - coq/kernel/CategoryBridge.v  (graph-level laws + NoFI consistency)
-  - coq/kernel/CategoryMonoidal.v (tensor bifunctor + monoidal coherence)
+  - coq/kernel/category/CategoryLaws.v    (relational compose laws)
+  - coq/kernel/category/CategoryBridge.v  (graph-level laws + NoFI consistency)
+  - coq/kernel/category/CategoryMonoidal.v (tensor bifunctor + monoidal coherence)
 
 NOTE: Module IDs start from 1 (pg_next_id initializes to 1 in the kernel).
       Morphism IDs start from 1 (pg_next_morph_id initializes to 1).
@@ -320,7 +320,7 @@ class TestCascadeDelete:
     def test_pmerge_does_not_cascade_delete_morphisms(self):
         """PMERGE removes modules but does NOT cascade-delete referencing morphisms.
 
-        Per graph_hw_pmerge in coq/kernel/VMStep.v, PMERGE calls graph_remove
+        Per graph_hw_pmerge in coq/kernel/foundation/VMStep.v, PMERGE calls graph_remove
         on the two input modules and graph_add_module for the merged result, but
         never calls graph_cascade_delete_morphisms. Orphaned morphisms therefore
         remain in the morphism table after PMERGE, and MORPH_DELETE on them

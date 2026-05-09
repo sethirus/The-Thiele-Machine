@@ -43,7 +43,7 @@ YOSYS_SIMCELLS = Path("/usr/share/yosys/simcells.v")
 # ---------------------------------------------------------------------------
 # Test programs: structural advantage benchmark
 # ---------------------------------------------------------------------------
-# These mirror the programs defined in coq/kernel/StructuralAdvantage.v.
+# These mirror the programs defined in coq/kernel/nfi/StructuralAdvantage.v.
 # Both programs encode a 2D factored search (N=4, targets L=3, R=3).
 #
 # blind_program(3): searches linearly, 0 mu, stores iteration count in r15.

@@ -1,0 +1,371 @@
+DIGEST b69aaff1690378b0423e32a1f8a619c7
+FKernel.StateSpaceCounting
+R1422:1425 Coq.Lists.List <> <> lib
+R1427:1429 Coq.micromega.Lia <> <> lib
+R1431:1444 Coq.Arith.PeanoNat <> <> lib
+R1446:1449 Coq.Bool.Bool <> <> lib
+R1451:1456 Coq.Strings.String <> <> lib
+R1483:1485 Coq.Init.Nat <> <> lib
+R1512:1534 Coq.Classes.RelationClasses <> <> lib
+R1544:1556 Coq.Lists.List ListNotations <> mod
+R1587:1593 Kernel.VMState <> <> lib
+R1595:1600 Kernel.VMStep <> <> lib
+R1630:1649 Kernel.MuLedgerConservation <> <> lib
+R1651:1677 Kernel.MuNoFreeInsightQuantitative <> <> lib
+R1707:1721 Kernel.SimulationProof <> <> lib
+mod 1732:1749 <> StateSpaceCounting
+R1760:1766 Kernel.VMState <> <> mod
+R1776:1788 Kernel.VMStep VMStep <> mod
+R1798:1817 Kernel.MuLedgerConservation <> <> mod
+R1827:1881 Kernel.MuNoFreeInsightQuantitative MuNoFreeInsightQuantitative <> mod
+def 1931:1938 StateSpaceCounting log2_nat
+R1945:1947 Coq.Init.Datatypes <> nat ind
+binder 1941:1941 <> n:1
+R1952:1954 Coq.Init.Datatypes <> nat ind
+R1967:1967 Kernel.StateSpaceCounting <> n:1 var
+R1989:1989 Coq.Init.Datatypes <> S constr
+R2006:2009 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2054:2054 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R1996:2003 Coq.Arith.PeanoNat Nat log2 def
+R2005:2005 Kernel.StateSpaceCounting <> n:1 var
+R2035:2038 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R2013:2019 Coq.Arith.PeanoNat Nat pow def
+R2024:2031 Coq.Arith.PeanoNat Nat log2 def
+R2033:2033 Kernel.StateSpaceCounting <> n:1 var
+R2039:2039 Kernel.StateSpaceCounting <> n:1 var
+def 2150:2164 StateSpaceCounting axiom_bitlength
+R2172:2178 Kernel.VMState <> VMAxiom def
+binder 2167:2168 <> ax:3
+R2183:2185 Coq.Init.Datatypes <> nat ind
+R2192:2209 Kernel.VMStep VMStep payload_bit_length def
+R2211:2212 Kernel.StateSpaceCounting <> ax:3 var
+def 2265:2281 StateSpaceCounting module_axiom_bits
+R2288:2298 Kernel.VMState <> ModuleState rec
+binder 2284:2284 <> m:4
+R2303:2305 Coq.Init.Datatypes <> nat ind
+R2312:2325 Coq.Lists.List <> fold_left def
+R2336:2343 Coq.Lists.List <> map def
+R2364:2376 Kernel.VMState <> module_axioms proj
+R2361:2361 Kernel.StateSpaceCounting <> m:4 var
+R2345:2359 Kernel.StateSpaceCounting StateSpaceCounting axiom_bitlength def
+R2327:2333 Coq.Arith.PeanoNat Nat add def
+def 2440:2455 StateSpaceCounting graph_axiom_bits
+R2462:2475 Kernel.VMState <> PartitionGraph rec
+binder 2458:2458 <> g:5
+R2480:2482 Coq.Init.Datatypes <> nat ind
+R2489:2502 Coq.Lists.List <> fold_left def
+R2513:2520 Coq.Lists.List <> map def
+R2562:2571 Kernel.VMState <> pg_modules proj
+R2559:2559 Kernel.StateSpaceCounting <> g:5 var
+R2528:2528 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2530:2531 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R2533:2533 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+binder 2532:2532 <> m:6
+binder 2528:2533 <> pat:7
+R2538:2554 Kernel.StateSpaceCounting StateSpaceCounting module_axiom_bits def
+R2556:2556 Kernel.StateSpaceCounting <> m:6 var
+R2504:2510 Coq.Arith.PeanoNat Nat add def
+prf 2837:2872 StateSpaceCounting lassert_cost_includes_formula_length
+binder 2885:2886 <> fa:8
+binder 2888:2889 <> ca:9
+binder 2891:2891 <> k:10
+binder 2893:2896 <> flen:11
+binder 2898:2901 <> cost:12
+R2958:2960 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2908:2923 Kernel.VMStep VMStep instruction_cost def
+R2926:2938 Kernel.VMStep VMStep instr_lassert constr
+R2940:2941 Kernel.StateSpaceCounting <> fa:8 var
+R2943:2944 Kernel.StateSpaceCounting <> ca:9 var
+R2946:2946 Kernel.StateSpaceCounting <> k:10 var
+R2948:2951 Kernel.StateSpaceCounting <> flen:11 var
+R2953:2956 Kernel.StateSpaceCounting <> cost:12 var
+R2969:2971 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R2965:2967 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R2961:2964 Kernel.StateSpaceCounting <> flen:11 var
+R2972:2972 Coq.Init.Datatypes <> S constr
+R2974:2977 Kernel.StateSpaceCounting <> cost:12 var
+prf 4352:4380 StateSpaceCounting mu_increase_bounds_axiom_bits
+binder 4393:4393 <> s:13
+binder 4395:4396 <> s':14
+binder 4398:4399 <> fa:15
+binder 4401:4402 <> ca:16
+binder 4404:4405 <> ck:17
+binder 4407:4410 <> flen:18
+binder 4412:4415 <> cost:19
+R4469:4476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4422:4428 Kernel.VMStep VMStep vm_step ind
+R4430:4430 Kernel.StateSpaceCounting <> s:13 var
+R4433:4445 Kernel.VMStep VMStep instr_lassert constr
+R4447:4448 Kernel.StateSpaceCounting <> fa:15 var
+R4450:4451 Kernel.StateSpaceCounting <> ca:16 var
+R4453:4454 Kernel.StateSpaceCounting <> ck:17 var
+R4456:4459 Kernel.StateSpaceCounting <> flen:18 var
+R4461:4464 Kernel.StateSpaceCounting <> cost:19 var
+R4467:4468 Kernel.StateSpaceCounting <> s':14 var
+R4499:4502 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4487:4489 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R4481:4485 Kernel.VMState <> vm_mu proj
+R4477:4478 Kernel.StateSpaceCounting <> s':14 var
+R4493:4497 Kernel.VMState <> vm_mu proj
+R4490:4490 Kernel.StateSpaceCounting <> s:13 var
+R4507:4509 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R4503:4506 Kernel.StateSpaceCounting <> flen:18 var
+R4574:4583 Kernel.SimulationProof <> vm_step_mu thm
+R4574:4583 Kernel.SimulationProof <> vm_step_mu thm
+prf 4706:4743 StateSpaceCounting nofreeinsight_quantitative_lower_bound
+binder 4756:4756 <> s:20
+binder 4758:4759 <> s':21
+binder 4761:4762 <> fa:22
+binder 4764:4765 <> ca:23
+binder 4767:4768 <> ck:24
+binder 4770:4773 <> flen:25
+binder 4775:4778 <> cost:26
+R4832:4839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4785:4791 Kernel.VMStep VMStep vm_step ind
+R4793:4793 Kernel.StateSpaceCounting <> s:20 var
+R4796:4808 Kernel.VMStep VMStep instr_lassert constr
+R4810:4811 Kernel.StateSpaceCounting <> fa:22 var
+R4813:4814 Kernel.StateSpaceCounting <> ca:23 var
+R4816:4817 Kernel.StateSpaceCounting <> ck:24 var
+R4819:4822 Kernel.StateSpaceCounting <> flen:25 var
+R4824:4827 Kernel.StateSpaceCounting <> cost:26 var
+R4830:4831 Kernel.StateSpaceCounting <> s':21 var
+R4862:4865 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4850:4852 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R4844:4848 Kernel.VMState <> vm_mu proj
+R4840:4841 Kernel.StateSpaceCounting <> s':21 var
+R4856:4860 Kernel.VMState <> vm_mu proj
+R4853:4853 Kernel.StateSpaceCounting <> s:20 var
+R4870:4872 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R4866:4869 Kernel.StateSpaceCounting <> flen:25 var
+R4932:4960 Kernel.StateSpaceCounting StateSpaceCounting mu_increase_bounds_axiom_bits thm
+R4932:4960 Kernel.StateSpaceCounting StateSpaceCounting mu_increase_bounds_axiom_bits thm
+prf 5197:5234 StateSpaceCounting mu_increase_bounds_actual_formula_bits
+binder 5247:5247 <> s:27
+binder 5249:5250 <> s':28
+binder 5252:5253 <> fa:29
+binder 5255:5256 <> ca:30
+binder 5258:5259 <> ck:31
+binder 5261:5264 <> flen:32
+binder 5266:5269 <> cost:33
+R5323:5330 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5276:5282 Kernel.VMStep VMStep vm_step ind
+R5284:5284 Kernel.StateSpaceCounting <> s:27 var
+R5287:5299 Kernel.VMStep VMStep instr_lassert constr
+R5301:5302 Kernel.StateSpaceCounting <> fa:29 var
+R5304:5305 Kernel.StateSpaceCounting <> ca:30 var
+R5307:5308 Kernel.StateSpaceCounting <> ck:31 var
+R5310:5313 Kernel.StateSpaceCounting <> flen:32 var
+R5315:5318 Kernel.StateSpaceCounting <> cost:33 var
+R5321:5322 Kernel.StateSpaceCounting <> s':28 var
+R5369:5376 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5362:5364 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5331:5345 Kernel.VMStep VMStep lassert_exec_ok def
+R5347:5347 Kernel.StateSpaceCounting <> s:27 var
+R5349:5350 Kernel.StateSpaceCounting <> fa:29 var
+R5352:5353 Kernel.StateSpaceCounting <> ca:30 var
+R5355:5356 Kernel.StateSpaceCounting <> ck:31 var
+R5358:5361 Kernel.StateSpaceCounting <> flen:32 var
+R5365:5368 Coq.Init.Datatypes <> true constr
+R5399:5402 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5387:5389 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R5381:5385 Kernel.VMState <> vm_mu proj
+R5377:5378 Kernel.StateSpaceCounting <> s':28 var
+R5393:5397 Kernel.VMState <> vm_mu proj
+R5390:5390 Kernel.StateSpaceCounting <> s:27 var
+R5423:5425 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R5403:5417 Kernel.VMStep VMStep lassert_hw_flen def
+R5419:5419 Kernel.StateSpaceCounting <> s:27 var
+R5421:5422 Kernel.StateSpaceCounting <> fa:29 var
+R5496:5524 Kernel.StateSpaceCounting StateSpaceCounting mu_increase_bounds_axiom_bits thm
+R5496:5524 Kernel.StateSpaceCounting StateSpaceCounting mu_increase_bounds_axiom_bits thm
+R5574:5588 Kernel.VMStep VMStep lassert_exec_ok def
+R5608:5620 Coq.Bool.Bool <> andb_true_iff thm
+R5608:5620 Coq.Bool.Bool <> andb_true_iff thm
+R5652:5661 Coq.Arith.PeanoNat Nat eqb_eq thm
+R5652:5661 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 5733:5741 StateSpaceCounting pow2_ge_1
+binder 5752:5752 <> k:34
+R5760:5763 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5756:5758 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R5759:5759 Kernel.StateSpaceCounting <> k:34 var
+prf 5850:5858 StateSpaceCounting log2_pow2
+binder 5869:5869 <> k:35
+R5888:5890 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5872:5879 Coq.Arith.PeanoNat Nat log2 def
+R5883:5885 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R5886:5886 Kernel.StateSpaceCounting <> k:35 var
+R5891:5891 Kernel.StateSpaceCounting <> k:35 var
+R6035:6037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6029:6031 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R6032:6032 Coq.Init.Datatypes <> S constr
+R6039:6041 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6043:6045 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R6035:6037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6029:6031 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R6032:6032 Coq.Init.Datatypes <> S constr
+R6039:6041 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R6043:6045 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R6175:6183 Kernel.StateSpaceCounting StateSpaceCounting pow2_ge_1 thm
+R6175:6183 Kernel.StateSpaceCounting StateSpaceCounting pow2_ge_1 thm
+R6208:6222 Coq.Arith.PeanoNat Nat log2_double thm
+R6208:6222 Coq.Arith.PeanoNat Nat log2_double thm
+R6208:6222 Coq.Arith.PeanoNat Nat log2_double thm
+prf 7498:7538 StateSpaceCounting nofreeinsight_information_theoretic_bound
+R7555:7557 Coq.Init.Datatypes <> nat ind
+binder 7551:7551 <> k:36
+R7569:7806 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7565:7567 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7564:7564 Kernel.StateSpaceCounting <> k:36 var
+R7808:7811 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7807:7807 Kernel.StateSpaceCounting <> k:36 var
+R7812:7819 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
+R7822:7828 Coq.Arith.PeanoNat Nat pow def
+R7832:7832 Kernel.StateSpaceCounting <> k:36 var
+R7866:7873 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
+R7886:7894 Kernel.StateSpaceCounting StateSpaceCounting log2_pow2 thm
+R7886:7894 Kernel.StateSpaceCounting StateSpaceCounting log2_pow2 thm
+R7886:7894 Kernel.StateSpaceCounting StateSpaceCounting log2_pow2 thm
+R7907:7918 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7907:7918 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7907:7918 Coq.Arith.PeanoNat Nat eqb_refl thm
+R7968:7970 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R7968:7970 Coq.Init.Nat <> ::nat_scope:x_'^'_x not
+R7992:8001 Coq.Arith.PeanoNat Nat le_0_l thm
+R7992:8001 Coq.Arith.PeanoNat Nat le_0_l thm
+R8023:8033 Coq.Arith.PeanoNat Nat add_0_r thm
+R8023:8033 Coq.Arith.PeanoNat Nat add_0_r thm
+R8023:8033 Coq.Arith.PeanoNat Nat add_0_r thm
+R8042:8052 Coq.Arith.PeanoNat Nat le_refl thm
+R8042:8052 Coq.Arith.PeanoNat Nat le_refl thm
+prf 8925:8952 StateSpaceCounting no_free_insight_quantitative
+binder 8965:8965 <> s:37
+binder 8967:8968 <> s':38
+binder 8970:8971 <> fa:39
+binder 8973:8974 <> ca:40
+binder 8976:8977 <> ck:41
+binder 8979:8982 <> flen:42
+binder 8984:8987 <> cost:43
+R9041:9048 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8994:9000 Kernel.VMStep VMStep vm_step ind
+R9002:9002 Kernel.StateSpaceCounting <> s:37 var
+R9005:9017 Kernel.VMStep VMStep instr_lassert constr
+R9019:9020 Kernel.StateSpaceCounting <> fa:39 var
+R9022:9023 Kernel.StateSpaceCounting <> ca:40 var
+R9025:9026 Kernel.StateSpaceCounting <> ck:41 var
+R9028:9031 Kernel.StateSpaceCounting <> flen:42 var
+R9033:9036 Kernel.StateSpaceCounting <> cost:43 var
+R9039:9040 Kernel.StateSpaceCounting <> s':38 var
+R9062:9064 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R9058:9061 Kernel.StateSpaceCounting <> flen:42 var
+binder 9053:9053 <> k:44
+R9157:9245 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9152:9155 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9140:9142 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R9134:9138 Kernel.VMState <> vm_mu proj
+R9130:9131 Kernel.StateSpaceCounting <> s':38 var
+R9146:9150 Kernel.VMState <> vm_mu proj
+R9143:9143 Kernel.StateSpaceCounting <> s:37 var
+R9156:9156 Kernel.StateSpaceCounting <> k:44 var
+R9247:9250 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9246:9246 Kernel.StateSpaceCounting <> k:44 var
+R9251:9258 Kernel.StateSpaceCounting StateSpaceCounting log2_nat def
+R9261:9267 Coq.Arith.PeanoNat Nat pow def
+R9271:9271 Kernel.StateSpaceCounting <> k:44 var
+R9344:9381 Kernel.StateSpaceCounting StateSpaceCounting nofreeinsight_quantitative_lower_bound thm
+R9344:9381 Kernel.StateSpaceCounting StateSpaceCounting nofreeinsight_quantitative_lower_bound thm
+R9437:9477 Kernel.StateSpaceCounting StateSpaceCounting nofreeinsight_information_theoretic_bound thm
+R9437:9477 Kernel.StateSpaceCounting StateSpaceCounting nofreeinsight_information_theoretic_bound thm
+prf 10125:10143 StateSpaceCounting lassert_honest_cost
+R10164:10170 Kernel.VMState <> VMState rec
+binder 10157:10157 <> s:45
+binder 10159:10160 <> s':46
+R10182:10184 Coq.Init.Datatypes <> nat ind
+binder 10174:10175 <> fa:47
+binder 10177:10178 <> ca:48
+R10193:10196 Coq.Init.Datatypes <> bool ind
+binder 10188:10189 <> ck:49
+R10212:10214 Coq.Init.Datatypes <> nat ind
+binder 10200:10203 <> flen:50
+binder 10205:10208 <> cost:51
+R10269:10276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10222:10228 Kernel.VMStep VMStep vm_step ind
+R10230:10230 Kernel.StateSpaceCounting <> s:45 var
+R10233:10245 Kernel.VMStep VMStep instr_lassert constr
+R10247:10248 Kernel.StateSpaceCounting <> fa:47 var
+R10250:10251 Kernel.StateSpaceCounting <> ca:48 var
+R10253:10254 Kernel.StateSpaceCounting <> ck:49 var
+R10256:10259 Kernel.StateSpaceCounting <> flen:50 var
+R10261:10264 Kernel.StateSpaceCounting <> cost:51 var
+R10267:10268 Kernel.StateSpaceCounting <> s':46 var
+R10306:10313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10287:10290 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10281:10285 Kernel.VMState <> vm_pc proj
+R10277:10278 Kernel.StateSpaceCounting <> s':46 var
+R10291:10305 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R10318:10320 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10314:10317 Kernel.StateSpaceCounting <> flen:50 var
+R10321:10335 Kernel.VMStep VMStep lassert_hw_flen def
+R10337:10337 Kernel.StateSpaceCounting <> s:45 var
+R10339:10340 Kernel.StateSpaceCounting <> fa:47 var
+R10433:10447 Kernel.VMStep VMStep lassert_exec_ok def
+R10467:10470 Coq.Init.Datatypes <> andb def
+R10528:10543 Kernel.VMStep VMStep lassert_check_ok def
+R10473:10479 Coq.Arith.PeanoNat Nat eqb def
+R10482:10496 Kernel.VMStep VMStep lassert_hw_flen def
+R10467:10470 Coq.Init.Datatypes <> andb def
+R10528:10543 Kernel.VMStep VMStep lassert_check_ok def
+R10473:10479 Coq.Arith.PeanoNat Nat eqb def
+R10482:10496 Kernel.VMStep VMStep lassert_hw_flen def
+R10579:10591 Coq.Bool.Bool <> andb_true_iff thm
+R10579:10591 Coq.Bool.Bool <> andb_true_iff thm
+R10641:10650 Coq.Arith.PeanoNat Nat eqb_eq thm
+R10641:10650 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 10838:10859 StateSpaceCounting lassert_honest_mu_cost
+R10880:10886 Kernel.VMState <> VMState rec
+binder 10873:10873 <> s:52
+binder 10875:10876 <> s':53
+R10898:10900 Coq.Init.Datatypes <> nat ind
+binder 10890:10891 <> fa:54
+binder 10893:10894 <> ca:55
+R10909:10912 Coq.Init.Datatypes <> bool ind
+binder 10904:10905 <> ck:56
+R10928:10930 Coq.Init.Datatypes <> nat ind
+binder 10916:10919 <> flen:57
+binder 10921:10924 <> cost:58
+R10985:10992 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10938:10944 Kernel.VMStep VMStep vm_step ind
+R10946:10946 Kernel.StateSpaceCounting <> s:52 var
+R10949:10961 Kernel.VMStep VMStep instr_lassert constr
+R10963:10964 Kernel.StateSpaceCounting <> fa:54 var
+R10966:10967 Kernel.StateSpaceCounting <> ca:55 var
+R10969:10970 Kernel.StateSpaceCounting <> ck:56 var
+R10972:10975 Kernel.StateSpaceCounting <> flen:57 var
+R10977:10980 Kernel.StateSpaceCounting <> cost:58 var
+R10983:10984 Kernel.StateSpaceCounting <> s':53 var
+R11022:11029 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11003:11006 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10997:11001 Kernel.VMState <> vm_pc proj
+R10993:10994 Kernel.StateSpaceCounting <> s':53 var
+R11007:11021 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R11040:11042 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11034:11038 Kernel.VMState <> vm_mu proj
+R11030:11031 Kernel.StateSpaceCounting <> s':53 var
+R11081:11083 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R11052:11054 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R11046:11050 Kernel.VMState <> vm_mu proj
+R11043:11043 Kernel.StateSpaceCounting <> s:52 var
+R11055:11055 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11076:11079 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R11056:11070 Kernel.VMStep VMStep lassert_hw_flen def
+R11072:11072 Kernel.StateSpaceCounting <> s:52 var
+R11074:11075 Kernel.StateSpaceCounting <> fa:54 var
+R11084:11084 Coq.Init.Datatypes <> S constr
+R11086:11089 Kernel.StateSpaceCounting <> cost:58 var
+R11161:11179 Kernel.StateSpaceCounting StateSpaceCounting lassert_honest_cost thm
+R11161:11179 Kernel.StateSpaceCounting StateSpaceCounting lassert_honest_cost thm
+R11243:11252 Kernel.SimulationProof <> vm_step_mu thm
+R11257:11269 Kernel.VMStep VMStep instr_lassert constr
+R11243:11252 Kernel.SimulationProof <> vm_step_mu thm
+R11257:11269 Kernel.VMStep VMStep instr_lassert constr
+R11346:11363 Kernel.StateSpaceCounting StateSpaceCounting <> mod

@@ -1,0 +1,564 @@
+DIGEST cc949d5538540b509eda96543d83a5c7
+FKernel.VerificationCostSeparation
+R2828:2834 Kernel.VMState <> <> lib
+R2864:2869 Kernel.VMStep <> <> lib
+R2899:2909 Kernel.MuCostModel <> <> lib
+R2939:2953 Kernel.SimulationProof <> <> lib
+R2983:2994 Kernel.AbstractNoFI <> <> lib
+R3024:3041 Kernel.HonestCostTracking <> <> lib
+R3060:3073 Coq.Lists.List <> <> lib
+R3091:3108 Coq.Arith.PeanoNat <> <> lib
+R3126:3142 Coq.micromega.Lia <> <> lib
+R3152:3164 Coq.Lists.List ListNotations <> mod
+rec 3766:3779 <> FreeStepRecord
+proj 3801:3814 <> fs_before_cert
+proj 3826:3838 <> fs_after_cert
+proj 3851:3857 <> fs_cost
+R3818:3821 Coq.Init.Datatypes <> bool ind
+R3843:3846 Coq.Init.Datatypes <> bool ind
+R3868:3870 Coq.Init.Datatypes <> nat ind
+def 3887:3895 <> FreeTrace
+R3900:3903 Coq.Init.Datatypes <> list ind
+R3905:3918 Kernel.VerificationCostSeparation <> FreeStepRecord rec
+def 4001:4012 <> is_cert_flip
+R4019:4032 Kernel.VerificationCostSeparation <> FreeStepRecord rec
+binder 4015:4015 <> r:5
+R4037:4040 Coq.Init.Datatypes <> bool ind
+R4047:4050 Coq.Init.Datatypes <> andb def
+R4081:4093 Kernel.VerificationCostSeparation <> fs_after_cert proj
+R4078:4078 Kernel.VerificationCostSeparation <> r:5 var
+R4053:4056 Coq.Init.Datatypes <> negb def
+R4061:4074 Kernel.VerificationCostSeparation <> fs_before_cert proj
+R4058:4058 Kernel.VerificationCostSeparation <> r:5 var
+def 4184:4194 <> step_honest
+R4201:4214 Kernel.VerificationCostSeparation <> FreeStepRecord rec
+binder 4197:4197 <> r:6
+R4250:4253 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4243:4245 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4229:4240 Kernel.VerificationCostSeparation <> is_cert_flip def
+R4242:4242 Kernel.VerificationCostSeparation <> r:6 var
+R4246:4249 Coq.Init.Datatypes <> true constr
+R4265:4268 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4257:4263 Kernel.VerificationCostSeparation <> fs_cost proj
+R4254:4254 Kernel.VerificationCostSeparation <> r:6 var
+def 4334:4345 <> trace_honest
+R4352:4360 Kernel.VerificationCostSeparation <> FreeTrace def
+binder 4348:4348 <> t:7
+R4375:4380 Coq.Lists.List <> Forall ind
+R4394:4394 Kernel.VerificationCostSeparation <> t:7 var
+R4382:4392 Kernel.VerificationCostSeparation <> step_honest def
+def 5065:5083 <> encode_thiele_trace
+R5099:5105 Kernel.VMState <> VMState rec
+binder 5095:5095 <> s:8
+R5118:5121 Coq.Init.Datatypes <> list ind
+R5123:5136 Kernel.VMStep VMStep vm_instruction ind
+binder 5109:5114 <> instrs:9
+R5141:5149 Kernel.VerificationCostSeparation <> FreeTrace def
+R5162:5167 Kernel.VerificationCostSeparation <> instrs:9 var
+R5178:5179 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5191:5192 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5199:5202 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5227:5234 Kernel.SimulationProof <> vm_apply def
+R5236:5236 Kernel.VerificationCostSeparation <> s:8 var
+binder 5221:5222 <> s':12
+R5317:5326 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5249:5260 Kernel.VerificationCostSeparation <> mk_free_step constr
+R5265:5276 Kernel.VMState <> vm_certified proj
+R5262:5262 Kernel.VerificationCostSeparation <> s:8 var
+R5283:5294 Kernel.VMState <> vm_certified proj
+R5279:5280 Kernel.VerificationCostSeparation <> s':12 var
+R5298:5313 Kernel.VMStep VMStep instruction_cost def
+R5327:5345 Kernel.VerificationCostSeparation <> encode_thiele_trace:10 def
+R5347:5348 Kernel.VerificationCostSeparation <> s':12 var
+prf 5496:5525 <> thiele_encoded_trace_is_honest
+R5543:5549 Kernel.VMState <> VMState rec
+binder 5539:5539 <> s:13
+R5562:5565 Coq.Init.Datatypes <> list ind
+R5567:5580 Kernel.VMStep VMStep vm_instruction ind
+binder 5553:5558 <> instrs:14
+R5588:5599 Kernel.VerificationCostSeparation <> trace_honest def
+R5602:5620 Kernel.VerificationCostSeparation <> encode_thiele_trace def
+R5622:5622 Kernel.VerificationCostSeparation <> s:13 var
+R5624:5629 Kernel.VerificationCostSeparation <> instrs:14 var
+R5809:5819 Kernel.VerificationCostSeparation <> step_honest def
+R5855:5866 Kernel.VerificationCostSeparation <> is_cert_flip def
+R5912:5929 Coq.Bool.Bool <> andb_true_iff thm
+R5912:5929 Coq.Bool.Bool <> andb_true_iff thm
+R5995:6012 Coq.Bool.Bool <> negb_true_iff thm
+R5995:6012 Coq.Bool.Bool <> negb_true_iff thm
+R6038:6068 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R6038:6068 Kernel.AbstractNoFI <> no_free_certification_certified thm
+prf 6588:6613 <> thiele_honesty_O_1_witness
+R6631:6637 Kernel.VMState <> VMState rec
+binder 6627:6627 <> s:15
+R6650:6653 Coq.Init.Datatypes <> list ind
+R6655:6668 Kernel.VMStep VMStep vm_instruction ind
+binder 6641:6646 <> instrs:16
+R6780:6783 Coq.Init.Datatypes <> true constr
+binder 6747:6775 <> verdict_without_reading_trace:17
+R6792:6792 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6829:6838 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6822:6824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6793:6821 Kernel.VerificationCostSeparation <> verdict_without_reading_trace:17 var
+R6825:6828 Coq.Init.Datatypes <> true constr
+R6839:6850 Kernel.VerificationCostSeparation <> trace_honest def
+R6853:6871 Kernel.VerificationCostSeparation <> encode_thiele_trace def
+R6873:6873 Kernel.VerificationCostSeparation <> s:15 var
+R6875:6880 Kernel.VerificationCostSeparation <> instrs:16 var
+R6946:6975 Kernel.VerificationCostSeparation <> thiele_encoded_trace_is_honest thm
+R6946:6975 Kernel.VerificationCostSeparation <> thiele_encoded_trace_is_honest thm
+def 7767:7778 <> trivial_step
+R7782:7795 Kernel.VerificationCostSeparation <> FreeStepRecord rec
+R7800:7811 Kernel.VerificationCostSeparation <> mk_free_step constr
+R7813:7817 Coq.Init.Datatypes <> false constr
+R7819:7823 Coq.Init.Datatypes <> false constr
+prf 7835:7853 <> trivial_step_honest
+R7857:7867 Kernel.VerificationCostSeparation <> step_honest def
+R7869:7880 Kernel.VerificationCostSeparation <> trivial_step def
+R7899:7909 Kernel.VerificationCostSeparation <> step_honest def
+R7912:7923 Kernel.VerificationCostSeparation <> trivial_step def
+R7926:7937 Kernel.VerificationCostSeparation <> is_cert_flip def
+def 7989:8002 <> baseline_trace
+R8009:8011 Coq.Init.Datatypes <> nat ind
+binder 8005:8005 <> n:18
+R8016:8024 Kernel.VerificationCostSeparation <> FreeTrace def
+R8029:8034 Coq.Lists.List <> repeat def
+R8049:8049 Kernel.VerificationCostSeparation <> n:18 var
+R8036:8047 Kernel.VerificationCostSeparation <> trivial_step def
+prf 8059:8079 <> baseline_trace_honest
+binder 8090:8090 <> n:19
+R8093:8104 Kernel.VerificationCostSeparation <> trace_honest def
+R8107:8120 Kernel.VerificationCostSeparation <> baseline_trace def
+R8122:8122 Kernel.VerificationCostSeparation <> n:19 var
+R8221:8239 Kernel.VerificationCostSeparation <> trivial_step_honest thm
+R8221:8239 Kernel.VerificationCostSeparation <> trivial_step_honest thm
+def 8433:8443 <> forged_step
+R8447:8460 Kernel.VerificationCostSeparation <> FreeStepRecord rec
+R8465:8476 Kernel.VerificationCostSeparation <> mk_free_step constr
+R8478:8482 Coq.Init.Datatypes <> false constr
+R8484:8487 Coq.Init.Datatypes <> true constr
+prf 8499:8519 <> forged_step_dishonest
+R8523:8524 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8525:8535 Kernel.VerificationCostSeparation <> step_honest def
+R8537:8547 Kernel.VerificationCostSeparation <> forged_step def
+R8566:8576 Kernel.VerificationCostSeparation <> step_honest def
+R8579:8589 Kernel.VerificationCostSeparation <> forged_step def
+R8592:8603 Kernel.VerificationCostSeparation <> is_cert_flip def
+R8638:8644 Coq.Init.Logic <> eq_refl constr
+R8638:8644 Coq.Init.Logic <> eq_refl constr
+def 8837:8851 <> adversary_trace
+R8862:8864 Coq.Init.Datatypes <> nat ind
+binder 8854:8856 <> pos:20
+binder 8858:8858 <> n:21
+R8869:8877 Kernel.VerificationCostSeparation <> FreeTrace def
+R8890:8890 Kernel.VerificationCostSeparation <> n:21 var
+R8909:8910 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8916:8916 Coq.Init.Datatypes <> S constr
+R8934:8936 Kernel.VerificationCostSeparation <> pos:20 var
+R8970:8973 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8959:8969 Kernel.VerificationCostSeparation <> forged_step def
+R8974:8987 Kernel.VerificationCostSeparation <> baseline_trace def
+R8998:8998 Coq.Init.Datatypes <> S constr
+R9020:9023 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9008:9019 Kernel.VerificationCostSeparation <> trivial_step def
+R9024:9038 Kernel.VerificationCostSeparation <> adversary_trace:22 def
+prf 9189:9213 <> adversary_trace_dishonest
+binder 9226:9226 <> n:25
+binder 9228:9230 <> pos:26
+R9240:9243 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9236:9238 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9233:9235 Kernel.VerificationCostSeparation <> pos:26 var
+R9239:9239 Kernel.VerificationCostSeparation <> n:25 var
+R9244:9245 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9246:9257 Kernel.VerificationCostSeparation <> trace_honest def
+R9260:9274 Kernel.VerificationCostSeparation <> adversary_trace def
+R9276:9278 Kernel.VerificationCostSeparation <> pos:26 var
+R9280:9280 Kernel.VerificationCostSeparation <> n:25 var
+R9456:9476 Kernel.VerificationCostSeparation <> forged_step_dishonest thm
+R9456:9476 Kernel.VerificationCostSeparation <> forged_step_dishonest thm
+prf 9728:9745 <> nth_baseline_trace
+binder 9758:9758 <> n:27
+binder 9760:9760 <> i:28
+R9768:9775 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9764:9766 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R9763:9763 Kernel.VerificationCostSeparation <> i:28 var
+R9767:9767 Kernel.VerificationCostSeparation <> n:27 var
+R9813:9815 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9776:9778 Coq.Lists.List <> nth def
+R9801:9812 Kernel.VerificationCostSeparation <> trivial_step def
+R9783:9796 Kernel.VerificationCostSeparation <> baseline_trace def
+R9798:9798 Kernel.VerificationCostSeparation <> n:27 var
+R9780:9780 Kernel.VerificationCostSeparation <> i:28 var
+R9816:9827 Kernel.VerificationCostSeparation <> trivial_step def
+prf 10069:10095 <> nth_adversary_trace_off_pos
+binder 10108:10108 <> n:29
+binder 10110:10112 <> pos:30
+binder 10114:10114 <> i:31
+R10128:10135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10124:10126 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10121:10123 Kernel.VerificationCostSeparation <> pos:30 var
+R10127:10127 Kernel.VerificationCostSeparation <> n:29 var
+R10144:10151 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10137:10140 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10136:10136 Kernel.VerificationCostSeparation <> i:31 var
+R10141:10143 Kernel.VerificationCostSeparation <> pos:30 var
+R10157:10164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10153:10155 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10152:10152 Kernel.VerificationCostSeparation <> i:31 var
+R10156:10156 Kernel.VerificationCostSeparation <> n:29 var
+R10207:10209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10165:10167 Coq.Lists.List <> nth def
+R10195:10206 Kernel.VerificationCostSeparation <> trivial_step def
+R10172:10186 Kernel.VerificationCostSeparation <> adversary_trace def
+R10188:10190 Kernel.VerificationCostSeparation <> pos:30 var
+R10192:10192 Kernel.VerificationCostSeparation <> n:29 var
+R10169:10169 Kernel.VerificationCostSeparation <> i:31 var
+R10210:10221 Kernel.VerificationCostSeparation <> trivial_step def
+R10500:10517 Kernel.VerificationCostSeparation <> nth_baseline_trace thm
+R10500:10517 Kernel.VerificationCostSeparation <> nth_baseline_trace thm
+prf 10869:10903 <> adversary_trace_differs_only_at_pos
+binder 10916:10916 <> n:32
+binder 10918:10920 <> pos:33
+binder 10922:10922 <> i:34
+R10936:10943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10932:10934 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10929:10931 Kernel.VerificationCostSeparation <> pos:33 var
+R10935:10935 Kernel.VerificationCostSeparation <> n:32 var
+R10952:10959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10945:10948 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R10944:10944 Kernel.VerificationCostSeparation <> i:34 var
+R10949:10951 Kernel.VerificationCostSeparation <> pos:33 var
+R10965:10972 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10961:10963 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10960:10960 Kernel.VerificationCostSeparation <> i:34 var
+R10964:10964 Kernel.VerificationCostSeparation <> n:32 var
+R11015:11021 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10973:10975 Coq.Lists.List <> nth def
+R11003:11014 Kernel.VerificationCostSeparation <> trivial_step def
+R10980:10994 Kernel.VerificationCostSeparation <> adversary_trace def
+R10996:10998 Kernel.VerificationCostSeparation <> pos:33 var
+R11000:11000 Kernel.VerificationCostSeparation <> n:32 var
+R10977:10977 Kernel.VerificationCostSeparation <> i:34 var
+R11022:11024 Coq.Lists.List <> nth def
+R11047:11058 Kernel.VerificationCostSeparation <> trivial_step def
+R11029:11042 Kernel.VerificationCostSeparation <> baseline_trace def
+R11044:11044 Kernel.VerificationCostSeparation <> n:32 var
+R11026:11026 Kernel.VerificationCostSeparation <> i:34 var
+R11108:11134 Kernel.VerificationCostSeparation <> nth_adversary_trace_off_pos thm
+R11108:11134 Kernel.VerificationCostSeparation <> nth_adversary_trace_off_pos thm
+R11108:11134 Kernel.VerificationCostSeparation <> nth_adversary_trace_off_pos thm
+R11161:11178 Kernel.VerificationCostSeparation <> nth_baseline_trace thm
+R11161:11178 Kernel.VerificationCostSeparation <> nth_baseline_trace thm
+R11161:11178 Kernel.VerificationCostSeparation <> nth_baseline_trace thm
+rec 11754:11771 <> PositionalVerifier
+proj 11786:11797 <> pv_positions
+proj 11872:11880 <> pv_decide
+R11804:11807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11801:11803 Coq.Init.Datatypes <> nat ind
+R11808:11811 Coq.Init.Datatypes <> list ind
+R11813:11815 Coq.Init.Datatypes <> nat ind
+R11906:11909 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11887:11890 Coq.Init.Datatypes <> list ind
+R11892:11905 Kernel.VerificationCostSeparation <> FreeStepRecord rec
+R11910:11913 Coq.Init.Datatypes <> bool ind
+def 12119:12144 <> operates_on_inspected_only
+R12162:12179 Kernel.VerificationCostSeparation <> PositionalVerifier rec
+binder 12158:12158 <> V:38
+R12187:12189 Coq.Init.Datatypes <> nat ind
+binder 12183:12183 <> n:39
+R12220:12228 Kernel.VerificationCostSeparation <> FreeTrace def
+binder 12212:12213 <> t1:40
+binder 12215:12216 <> t2:41
+R12249:12252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12245:12247 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12236:12241 Coq.Init.Datatypes <> length def
+R12243:12244 Kernel.VerificationCostSeparation <> t1:40 var
+R12248:12248 Kernel.VerificationCostSeparation <> n:39 var
+R12266:12273 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12262:12264 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12253:12258 Coq.Init.Datatypes <> length def
+R12260:12261 Kernel.VerificationCostSeparation <> t2:41 var
+R12265:12265 Kernel.VerificationCostSeparation <> n:39 var
+R12274:12274 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12374:12382 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 12282:12282 <> i:42
+R12310:12328 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12285:12286 Coq.Lists.List <> In def
+R12294:12305 Kernel.VerificationCostSeparation <> pv_positions proj
+R12291:12291 Kernel.VerificationCostSeparation <> V:38 var
+R12308:12308 Kernel.VerificationCostSeparation <> n:39 var
+R12288:12288 Kernel.VerificationCostSeparation <> i:42 var
+R12350:12352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12329:12331 Coq.Lists.List <> nth def
+R12338:12349 Kernel.VerificationCostSeparation <> trivial_step def
+R12335:12336 Kernel.VerificationCostSeparation <> t1:40 var
+R12333:12333 Kernel.VerificationCostSeparation <> i:42 var
+R12353:12355 Coq.Lists.List <> nth def
+R12362:12373 Kernel.VerificationCostSeparation <> trivial_step def
+R12359:12360 Kernel.VerificationCostSeparation <> t2:41 var
+R12357:12357 Kernel.VerificationCostSeparation <> i:42 var
+R12399:12401 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12386:12394 Kernel.VerificationCostSeparation <> pv_decide proj
+R12383:12383 Kernel.VerificationCostSeparation <> V:38 var
+R12397:12398 Kernel.VerificationCostSeparation <> t1:40 var
+R12405:12413 Kernel.VerificationCostSeparation <> pv_decide proj
+R12402:12402 Kernel.VerificationCostSeparation <> V:38 var
+R12416:12417 Kernel.VerificationCostSeparation <> t2:41 var
+def 12530:12545 <> verifier_correct
+R12552:12569 Kernel.VerificationCostSeparation <> PositionalVerifier rec
+binder 12548:12548 <> V:43
+R12577:12579 Coq.Init.Datatypes <> nat ind
+binder 12573:12573 <> n:44
+R12606:12614 Kernel.VerificationCostSeparation <> FreeTrace def
+binder 12602:12602 <> t:45
+R12634:12642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12684:12684 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12630:12632 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12622:12627 Coq.Init.Datatypes <> length def
+R12629:12629 Kernel.VerificationCostSeparation <> t:45 var
+R12633:12633 Kernel.VerificationCostSeparation <> n:44 var
+R12665:12669 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R12658:12660 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12646:12654 Kernel.VerificationCostSeparation <> pv_decide proj
+R12643:12643 Kernel.VerificationCostSeparation <> V:43 var
+R12657:12657 Kernel.VerificationCostSeparation <> t:45 var
+R12661:12664 Coq.Init.Datatypes <> true constr
+R12670:12681 Kernel.VerificationCostSeparation <> trace_honest def
+R12683:12683 Kernel.VerificationCostSeparation <> t:45 var
+prf 12734:12754 <> baseline_trace_length
+binder 12765:12765 <> n:46
+R12793:12795 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12768:12773 Coq.Init.Datatypes <> length def
+R12776:12789 Kernel.VerificationCostSeparation <> baseline_trace def
+R12791:12791 Kernel.VerificationCostSeparation <> n:46 var
+R12796:12796 Kernel.VerificationCostSeparation <> n:46 var
+R12825:12838 Kernel.VerificationCostSeparation <> baseline_trace def
+R12847:12859 Coq.Lists.List <> repeat_length thm
+R12847:12859 Coq.Lists.List <> repeat_length thm
+prf 12935:12956 <> adversary_trace_length
+binder 12969:12969 <> n:47
+binder 12971:12973 <> pos:48
+R12983:12986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12979:12981 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12976:12978 Kernel.VerificationCostSeparation <> pos:48 var
+R12982:12982 Kernel.VerificationCostSeparation <> n:47 var
+R13017:13019 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12987:12992 Coq.Init.Datatypes <> length def
+R12995:13009 Kernel.VerificationCostSeparation <> adversary_trace def
+R13011:13013 Kernel.VerificationCostSeparation <> pos:48 var
+R13015:13015 Kernel.VerificationCostSeparation <> n:47 var
+R13020:13020 Kernel.VerificationCostSeparation <> n:47 var
+R13148:13168 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R13148:13168 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+prf 13393:13452 <> free_world_honesty_verifier_must_inspect_every_cert_position
+R13470:13487 Kernel.VerificationCostSeparation <> PositionalVerifier rec
+binder 13466:13466 <> V:49
+R13495:13497 Coq.Init.Datatypes <> nat ind
+binder 13491:13491 <> n:50
+R13525:13532 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13505:13520 Kernel.VerificationCostSeparation <> verifier_correct def
+R13522:13522 Kernel.VerificationCostSeparation <> V:49 var
+R13524:13524 Kernel.VerificationCostSeparation <> n:50 var
+R13563:13570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13533:13558 Kernel.VerificationCostSeparation <> operates_on_inspected_only def
+R13560:13560 Kernel.VerificationCostSeparation <> V:49 var
+R13562:13562 Kernel.VerificationCostSeparation <> n:50 var
+binder 13578:13580 <> pos:51
+R13590:13593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13586:13588 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R13583:13585 Kernel.VerificationCostSeparation <> pos:51 var
+R13589:13589 Kernel.VerificationCostSeparation <> n:50 var
+R13594:13595 Coq.Lists.List <> In def
+R13605:13616 Kernel.VerificationCostSeparation <> pv_positions proj
+R13602:13602 Kernel.VerificationCostSeparation <> V:49 var
+R13619:13619 Kernel.VerificationCostSeparation <> n:50 var
+R13597:13599 Kernel.VerificationCostSeparation <> pos:51 var
+R13678:13683 Coq.Lists.List <> in_dec thm
+R13704:13715 Kernel.VerificationCostSeparation <> pv_positions proj
+R13685:13694 Coq.Arith.PeanoNat Nat eq_dec thm
+R13678:13683 Coq.Lists.List <> in_dec thm
+R13704:13715 Kernel.VerificationCostSeparation <> pv_positions proj
+R13685:13694 Coq.Arith.PeanoNat Nat eq_dec thm
+R13782:13795 Kernel.VerificationCostSeparation <> baseline_trace def
+R13801:13821 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R13782:13795 Kernel.VerificationCostSeparation <> baseline_trace def
+R13801:13821 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R13877:13891 Kernel.VerificationCostSeparation <> adversary_trace def
+R13924:13945 Kernel.VerificationCostSeparation <> adversary_trace_length thm
+R13877:13891 Kernel.VerificationCostSeparation <> adversary_trace def
+R13924:13945 Kernel.VerificationCostSeparation <> adversary_trace_length thm
+R14051:14053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14022:14030 Kernel.VerificationCostSeparation <> pv_decide proj
+R14034:14047 Kernel.VerificationCostSeparation <> baseline_trace def
+R14054:14057 Coq.Init.Datatypes <> true constr
+R14051:14053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14022:14030 Kernel.VerificationCostSeparation <> pv_decide proj
+R14034:14047 Kernel.VerificationCostSeparation <> baseline_trace def
+R14054:14057 Coq.Init.Datatypes <> true constr
+R14093:14113 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R14093:14113 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R14128:14148 Kernel.VerificationCostSeparation <> baseline_trace_honest thm
+R14128:14148 Kernel.VerificationCostSeparation <> baseline_trace_honest thm
+R14209:14228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14175:14183 Kernel.VerificationCostSeparation <> pv_decide proj
+R14187:14201 Kernel.VerificationCostSeparation <> adversary_trace def
+R14232:14240 Kernel.VerificationCostSeparation <> pv_decide proj
+R14244:14257 Kernel.VerificationCostSeparation <> baseline_trace def
+R14209:14228 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14175:14183 Kernel.VerificationCostSeparation <> pv_decide proj
+R14187:14201 Kernel.VerificationCostSeparation <> adversary_trace def
+R14232:14240 Kernel.VerificationCostSeparation <> pv_decide proj
+R14244:14257 Kernel.VerificationCostSeparation <> baseline_trace def
+R14291:14312 Kernel.VerificationCostSeparation <> adversary_trace_length thm
+R14291:14312 Kernel.VerificationCostSeparation <> adversary_trace_length thm
+R14339:14359 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R14339:14359 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R14397:14414 Coq.Arith.Compare_dec <> lt_dec thm
+R14397:14414 Coq.Arith.Compare_dec <> lt_dec thm
+R14462:14496 Kernel.VerificationCostSeparation <> adversary_trace_differs_only_at_pos thm
+R14462:14496 Kernel.VerificationCostSeparation <> adversary_trace_differs_only_at_pos thm
+R14795:14816 Kernel.VerificationCostSeparation <> adversary_trace_length thm
+R14735:14746 Coq.Lists.List <> nth_overflow thm
+R14749:14763 Kernel.VerificationCostSeparation <> adversary_trace def
+R14735:14746 Coq.Lists.List <> nth_overflow thm
+R14749:14763 Kernel.VerificationCostSeparation <> adversary_trace def
+R14795:14816 Kernel.VerificationCostSeparation <> adversary_trace_length thm
+R14795:14816 Kernel.VerificationCostSeparation <> adversary_trace_length thm
+R14735:14746 Coq.Lists.List <> nth_overflow thm
+R14749:14763 Kernel.VerificationCostSeparation <> adversary_trace def
+R14911:14931 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R14856:14867 Coq.Lists.List <> nth_overflow thm
+R14870:14883 Kernel.VerificationCostSeparation <> baseline_trace def
+R14856:14867 Coq.Lists.List <> nth_overflow thm
+R14870:14883 Kernel.VerificationCostSeparation <> baseline_trace def
+R14911:14931 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R14911:14931 Kernel.VerificationCostSeparation <> baseline_trace_length thm
+R14856:14867 Coq.Lists.List <> nth_overflow thm
+R14870:14883 Kernel.VerificationCostSeparation <> baseline_trace def
+R15066:15090 Kernel.VerificationCostSeparation <> adversary_trace_dishonest thm
+R15066:15090 Kernel.VerificationCostSeparation <> adversary_trace_dishonest thm
+prf 15669:15709 <> free_world_verification_reads_T_positions
+R15727:15744 Kernel.VerificationCostSeparation <> PositionalVerifier rec
+binder 15723:15723 <> V:52
+R15752:15754 Coq.Init.Datatypes <> nat ind
+binder 15748:15748 <> n:53
+R15782:15789 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15762:15777 Kernel.VerificationCostSeparation <> verifier_correct def
+R15779:15779 Kernel.VerificationCostSeparation <> V:52 var
+R15781:15781 Kernel.VerificationCostSeparation <> n:53 var
+R15820:15827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15790:15815 Kernel.VerificationCostSeparation <> operates_on_inspected_only def
+R15817:15817 Kernel.VerificationCostSeparation <> V:52 var
+R15819:15819 Kernel.VerificationCostSeparation <> n:53 var
+R15874:15877 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R15828:15833 Coq.Init.Datatypes <> length def
+R15836:15840 Coq.Lists.List <> nodup def
+R15857:15868 Kernel.VerificationCostSeparation <> pv_positions proj
+R15854:15854 Kernel.VerificationCostSeparation <> V:52 var
+R15871:15871 Kernel.VerificationCostSeparation <> n:53 var
+R15842:15851 Coq.Arith.PeanoNat Nat eq_dec thm
+R15878:15878 Kernel.VerificationCostSeparation <> n:53 var
+binder 15940:15940 <> x:54
+R15957:15988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15943:15944 Coq.Lists.List <> In def
+R15949:15951 Coq.Lists.List <> seq def
+R15946:15946 Kernel.VerificationCostSeparation <> x:54 var
+R15989:15990 Coq.Lists.List <> In def
+R15995:15999 Coq.Lists.List <> nodup def
+R16016:16027 Kernel.VerificationCostSeparation <> pv_positions proj
+R16001:16010 Coq.Arith.PeanoNat Nat eq_dec thm
+R15992:15992 Kernel.VerificationCostSeparation <> x:54 var
+binder 15940:15940 <> x:55
+R15957:15988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15943:15944 Coq.Lists.List <> In def
+R15949:15951 Coq.Lists.List <> seq def
+R15946:15946 Kernel.VerificationCostSeparation <> x:55 var
+R15989:15990 Coq.Lists.List <> In def
+R15995:15999 Coq.Lists.List <> nodup def
+R16016:16027 Kernel.VerificationCostSeparation <> pv_positions proj
+R16001:16010 Coq.Arith.PeanoNat Nat eq_dec thm
+R15992:15992 Kernel.VerificationCostSeparation <> x:55 var
+R16059:16066 Coq.Lists.List <> nodup_In thm
+R16059:16066 Coq.Lists.List <> nodup_In thm
+R16079:16084 Coq.Lists.List <> in_seq thm
+R16079:16084 Coq.Lists.List <> in_seq thm
+R16104:16163 Kernel.VerificationCostSeparation <> free_world_honesty_verifier_must_inspect_every_cert_position thm
+R16104:16163 Kernel.VerificationCostSeparation <> free_world_honesty_verifier_must_inspect_every_cert_position thm
+R16228:16244 Coq.Lists.List <> NoDup_incl_length thm
+R16247:16255 Coq.Lists.List <> seq_NoDup thm
+R16228:16244 Coq.Lists.List <> NoDup_incl_length thm
+R16247:16255 Coq.Lists.List <> seq_NoDup thm
+R16288:16297 Coq.Lists.List <> seq_length thm
+R16288:16297 Coq.Lists.List <> seq_length thm
+R16288:16297 Coq.Lists.List <> seq_length thm
+prf 16396:16434 <> free_world_verification_raw_length_ge_T
+R16452:16469 Kernel.VerificationCostSeparation <> PositionalVerifier rec
+binder 16448:16448 <> V:56
+R16477:16479 Coq.Init.Datatypes <> nat ind
+binder 16473:16473 <> n:57
+R16507:16514 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16487:16502 Kernel.VerificationCostSeparation <> verifier_correct def
+R16504:16504 Kernel.VerificationCostSeparation <> V:56 var
+R16506:16506 Kernel.VerificationCostSeparation <> n:57 var
+R16545:16552 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16515:16540 Kernel.VerificationCostSeparation <> operates_on_inspected_only def
+R16542:16542 Kernel.VerificationCostSeparation <> V:56 var
+R16544:16544 Kernel.VerificationCostSeparation <> n:57 var
+R16580:16583 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R16553:16558 Coq.Init.Datatypes <> length def
+R16564:16575 Kernel.VerificationCostSeparation <> pv_positions proj
+R16561:16561 Kernel.VerificationCostSeparation <> V:56 var
+R16578:16578 Kernel.VerificationCostSeparation <> n:57 var
+R16584:16584 Kernel.VerificationCostSeparation <> n:57 var
+R16657:16662 Coq.Init.Datatypes <> length def
+R16665:16669 Coq.Lists.List <> nodup def
+R16686:16697 Kernel.VerificationCostSeparation <> pv_positions proj
+R16671:16680 Coq.Arith.PeanoNat Nat eq_dec thm
+R16629:16640 Coq.Arith.PeanoNat Nat le_trans thm
+R16657:16662 Coq.Init.Datatypes <> length def
+R16665:16669 Coq.Lists.List <> nodup def
+R16686:16697 Kernel.VerificationCostSeparation <> pv_positions proj
+R16671:16680 Coq.Arith.PeanoNat Nat eq_dec thm
+R16629:16640 Coq.Arith.PeanoNat Nat le_trans thm
+R16716:16756 Kernel.VerificationCostSeparation <> free_world_verification_reads_T_positions thm
+R16716:16756 Kernel.VerificationCostSeparation <> free_world_verification_reads_T_positions thm
+R16789:16800 Kernel.VerificationCostSeparation <> pv_positions proj
+R16789:16800 Kernel.VerificationCostSeparation <> pv_positions proj
+R16849:16854 Coq.Lists.List <> in_dec thm
+R16856:16865 Coq.Arith.PeanoNat Nat eq_dec thm
+R16849:16854 Coq.Lists.List <> in_dec thm
+R16856:16865 Coq.Arith.PeanoNat Nat eq_dec thm
+prf 17263:17291 <> verification_cost_gap_omega_T
+R17309:17326 Kernel.VerificationCostSeparation <> PositionalVerifier rec
+binder 17305:17305 <> V:58
+R17334:17336 Coq.Init.Datatypes <> nat ind
+binder 17330:17330 <> n:59
+R17364:17371 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17344:17359 Kernel.VerificationCostSeparation <> verifier_correct def
+R17361:17361 Kernel.VerificationCostSeparation <> V:58 var
+R17363:17363 Kernel.VerificationCostSeparation <> n:59 var
+R17402:17472 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17372:17397 Kernel.VerificationCostSeparation <> operates_on_inspected_only def
+R17399:17399 Kernel.VerificationCostSeparation <> V:58 var
+R17401:17401 Kernel.VerificationCostSeparation <> n:59 var
+R17505:17649 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17756:17756 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17500:17503 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R17473:17478 Coq.Init.Datatypes <> length def
+R17484:17495 Kernel.VerificationCostSeparation <> pv_positions proj
+R17481:17481 Kernel.VerificationCostSeparation <> V:58 var
+R17498:17498 Kernel.VerificationCostSeparation <> n:59 var
+R17504:17504 Kernel.VerificationCostSeparation <> n:59 var
+R17662:17668 Kernel.VMState <> VMState rec
+binder 17658:17658 <> s:60
+R17681:17684 Coq.Init.Datatypes <> list ind
+R17686:17699 Kernel.VMStep VMStep vm_instruction ind
+binder 17672:17677 <> instrs:61
+R17713:17724 Kernel.VerificationCostSeparation <> trace_honest def
+R17727:17745 Kernel.VerificationCostSeparation <> encode_thiele_trace def
+R17747:17747 Kernel.VerificationCostSeparation <> s:60 var
+R17749:17754 Kernel.VerificationCostSeparation <> instrs:61 var
+R17810:17848 Kernel.VerificationCostSeparation <> free_world_verification_raw_length_ge_T thm
+R17810:17848 Kernel.VerificationCostSeparation <> free_world_verification_raw_length_ge_T thm
+R17873:17902 Kernel.VerificationCostSeparation <> thiele_encoded_trace_is_honest thm
+R17873:17902 Kernel.VerificationCostSeparation <> thiele_encoded_trace_is_honest thm

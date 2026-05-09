@@ -3036,8 +3036,8 @@ Qed.
     SECTION 6A: LEDGER NECESSITY — Why μ Cannot Be Projected Away
     =========================================================================
 
-    This section internalizes the newer necessity proof work directly in
-    ThieleMachineComplete.v.
+    This section internalises the necessity proof directly in this
+    standalone build.
 
     THE CLAIM:
     A strict classical machine state (memory, registers, PC) cannot determine
@@ -6705,7 +6705,7 @@ Definition OP_XOR_SWAP : word OpcodeSz := WO~0~0~0~0~1~1~0~0.
 Definition OP_XOR_RANK : word OpcodeSz := WO~0~0~0~0~1~1~0~1.
 Definition OP_EMIT : word OpcodeSz := WO~0~0~0~0~1~1~1~0.
 Definition OP_REVEAL : word OpcodeSz := WO~0~0~0~0~1~1~1~1.
-(* 0x10 reserved (formerly ORACLE_HALTS) *)
+(* 0x10 reserved *)
 Definition OP_LOAD : word OpcodeSz := WO~0~0~0~1~0~0~0~1.
 Definition OP_STORE : word OpcodeSz := WO~0~0~0~1~0~0~1~0.
 Definition OP_ADD : word OpcodeSz := WO~0~0~0~1~0~0~1~1.
@@ -7036,8 +7036,8 @@ Section ThieleCPU.
         LET is_bucket_10 <- #chsh_settings == $$(WO~1~0);
         LET is_bucket_11 <- #chsh_settings == $$(WO~1~1);
 
-        (* No-Free-Insight guard. EMIT pays op_b bits directly in μ, so the
-           legacy cost>=op_b guard remains only for PDISCOVER. *)
+        (* No-Free-Insight guard. EMIT pays [op_b] bits directly in μ, so
+           the [cost >= op_b] guard is needed only for PDISCOVER. *)
         LET is_info_gain_op <- (#opcode == $$(OP_PDISCOVER)) || (#opcode == $$(OP_EMIT));
         LET is_declared_bound_op <- #opcode == $$(OP_PDISCOVER);
         LET nfi_violation <- #is_declared_bound_op && (#cost32 < #op_b_32);
@@ -11025,7 +11025,6 @@ Lemma core_connectivity_check :
 Proof. discriminate. Qed.
 
 (* CHSH / Tsirelson *)
-(* chsh_algebraic_bound removed to avoid QArith/Kami notation conflicts *)
 Print Assumptions local_strategy_chsh_le_2.
 Print Assumptions tsirelson_from_row_bounds.
 Print Assumptions tsirelson_bound_abs.
@@ -15203,7 +15202,8 @@ Qed.
         (MORPH_ID 0 0 0) reaches a state inaccessible to any classical program
         of any length. The witness is concrete, computational, and machine-checked.
 
-    28. chsh_stat_violation_not_local: CHSH STATISTICAL BRIDGE.
+    28. violation_wc_not_local_tc (kernel: chsh_stat_violation_not_local in
+        coq/kernel/quantum/CHSHStatisticalBridge.v): CHSH STATISTICAL BRIDGE.
         The violation witness violation_wc_tc is inconsistent with ANY local
         hidden-variable strategy. Pure logical contradiction. No floating-point.
         Bell's theorem, machine-checked in the Thiele Machine.

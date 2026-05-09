@@ -1,0 +1,177 @@
+DIGEST 9b28c7d44d062e4ac18ce4f0ad0ad4b3
+FKernel.F3_CrossLink
+R2112:2115 Coq.Lists.List <> <> lib
+R2117:2130 Coq.Arith.PeanoNat <> <> lib
+R2132:2134 Coq.micromega.Lia <> <> lib
+R2136:2141 Coq.ZArith.ZArith <> <> lib
+R2143:2148 Coq.QArith.QArith <> <> lib
+R2150:2152 Coq.micromega.Lqa <> <> lib
+R2170:2174 Coq.micromega.Psatz <> <> lib
+R2184:2196 Coq.Lists.List ListNotations <> mod
+R2253:2259 Kernel.VMState <> <> lib
+R2261:2266 Kernel.VMStep <> <> lib
+R2296:2313 Kernel.AlgebraicCoherence <> <> lib
+def 2362:2367 <> cost_q
+R2374:2387 Kernel.VMStep VMStep vm_instruction ind
+binder 2370:2370 <> i:1
+R2392:2392 Coq.QArith.QArith_base <> Q rec
+R2399:2406 Coq.QArith.QArith_base <> inject_Z def
+R2409:2416 Coq.ZArith.BinInt Z of_nat def
+R2419:2434 Kernel.VMStep VMStep instruction_cost def
+R2436:2436 Kernel.F3_CrossLink <> i:1 var
+def 2498:2511 <> lassert_flen_q
+R2521:2523 Coq.Init.Datatypes <> nat ind
+binder 2514:2517 <> flen:2
+R2528:2528 Coq.QArith.QArith_base <> Q rec
+R2535:2542 Coq.QArith.QArith_base <> inject_Z def
+R2545:2552 Coq.ZArith.BinInt Z of_nat def
+R2563:2565 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2559:2561 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R2555:2558 Kernel.F3_CrossLink <> flen:2 var
+prf 2790:2811 <> cost_q_lassert_ge_flen
+R2837:2839 Coq.Init.Datatypes <> nat ind
+binder 2825:2828 <> freg:3
+binder 2830:2833 <> creg:4
+R2850:2853 Coq.Init.Datatypes <> bool ind
+binder 2843:2846 <> kind:5
+R2873:2875 Coq.Init.Datatypes <> nat ind
+binder 2857:2860 <> flen:6
+binder 2862:2869 <> mu_delta:7
+R2934:2937 Coq.QArith.QArith_base <> ::Q_scope:x_'>='_x not
+R2938:2951 Kernel.F3_CrossLink <> lassert_flen_q def
+R2953:2956 Kernel.F3_CrossLink <> flen:6 var
+R2883:2888 Kernel.F3_CrossLink <> cost_q def
+R2891:2903 Kernel.VMStep VMStep instr_lassert constr
+R2905:2908 Kernel.F3_CrossLink <> freg:3 var
+R2910:2913 Kernel.F3_CrossLink <> creg:4 var
+R2915:2918 Kernel.F3_CrossLink <> kind:5 var
+R2920:2923 Kernel.F3_CrossLink <> flen:6 var
+R2925:2932 Kernel.F3_CrossLink <> mu_delta:7 var
+R2985:2990 Kernel.F3_CrossLink <> cost_q def
+R2993:3006 Kernel.F3_CrossLink <> lassert_flen_q def
+R3025:3027 Coq.QArith.QArith_base <> Qle def
+R3048:3056 Coq.ZArith.BinInt Z mul_1_r thm
+R3048:3056 Coq.ZArith.BinInt Z mul_1_r thm
+R3048:3056 Coq.ZArith.BinInt Z mul_1_r thm
+R3048:3056 Coq.ZArith.BinInt Z mul_1_r thm
+R3048:3056 Coq.ZArith.BinInt Z mul_1_r thm
+R3067:3072 Coq.ZArith.Znat <> inj_le def
+R3067:3072 Coq.ZArith.Znat <> inj_le def
+prf 3138:3160 <> lassert_flen_q_positive
+binder 3173:3176 <> flen:8
+R3198:3200 Coq.QArith.QArith_base <> ::Q_scope:x_'>'_x not
+R3179:3192 Kernel.F3_CrossLink <> lassert_flen_q def
+R3194:3197 Kernel.F3_CrossLink <> flen:8 var
+R3233:3246 Kernel.F3_CrossLink <> lassert_flen_q def
+R3258:3260 Coq.QArith.QArith_base <> Qlt def
+R3278:3286 Coq.ZArith.BinInt Z mul_1_r thm
+R3278:3286 Coq.ZArith.BinInt Z mul_1_r thm
+R3278:3286 Coq.ZArith.BinInt Z mul_1_r thm
+prf 3791:3821 <> F3_cross_link_lassert_tsirelson
+R3839:3849 Kernel.AlgebraicCoherence <> Correlators rec
+binder 3835:3835 <> c:9
+R3879:3881 Coq.Init.Datatypes <> nat ind
+binder 3853:3856 <> freg:10
+binder 3858:3861 <> creg:11
+binder 3863:3866 <> flen:12
+binder 3868:3875 <> mu_delta:13
+R3892:3895 Coq.Init.Datatypes <> bool ind
+binder 3885:3888 <> kind:14
+R3927:3934 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3903:3924 Kernel.AlgebraicCoherence <> algebraically_coherent def
+R3926:3926 Kernel.F3_CrossLink <> c:9 var
+R3990:3997 Coq.QArith.QArith_base <> ::Q_scope:x_'>='_x not
+R4045:4047 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3998:3998 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R4019:4023 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R4044:4044 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3999:4016 Kernel.AlgebraicCoherence <> S_from_correlators def
+R4018:4018 Kernel.F3_CrossLink <> c:9 var
+R4024:4041 Kernel.AlgebraicCoherence <> S_from_correlators def
+R4043:4043 Kernel.F3_CrossLink <> c:9 var
+R4048:4061 Kernel.F3_CrossLink <> lassert_flen_q def
+R4063:4066 Kernel.F3_CrossLink <> flen:12 var
+R3986:3988 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R3935:3940 Kernel.F3_CrossLink <> cost_q def
+R3943:3955 Kernel.VMStep VMStep instr_lassert constr
+R3957:3960 Kernel.F3_CrossLink <> freg:10 var
+R3962:3965 Kernel.F3_CrossLink <> creg:11 var
+R3967:3970 Kernel.F3_CrossLink <> kind:14 var
+R3972:3975 Kernel.F3_CrossLink <> flen:12 var
+R3977:3984 Kernel.F3_CrossLink <> mu_delta:13 var
+R4182:4203 Kernel.F3_CrossLink <> cost_q_lassert_ge_flen thm
+R4182:4203 Kernel.F3_CrossLink <> cost_q_lassert_ge_flen thm
+R4386:4425 Kernel.AlgebraicCoherence <> algebraically_coherent_tsirelson_general thm
+R4386:4425 Kernel.AlgebraicCoherence <> algebraically_coherent_tsirelson_general thm
+R4508:4530 Kernel.F3_CrossLink <> lassert_flen_q_positive thm
+R4508:4530 Kernel.F3_CrossLink <> lassert_flen_q_positive thm
+R4580:4587 Coq.QArith.QArith_base <> Qle_lteq thm
+R4580:4587 Coq.QArith.QArith_base <> Qle_lteq thm
+R4688:4701 Kernel.F3_CrossLink <> lassert_flen_q def
+R4666:4675 Coq.QArith.QArith_base <> Qmult_lt_l thm
+R4688:4701 Kernel.F3_CrossLink <> lassert_flen_q def
+R4666:4675 Coq.QArith.QArith_base <> Qmult_lt_l thm
+prf 5440:5472 <> example_lassert_flen_q_value_at_8
+R5494:5497 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R5478:5491 Kernel.F3_CrossLink <> lassert_flen_q def
+prf 5546:5574 <> example_lassert_min_cost_at_8
+R5616:5619 Coq.QArith.QArith_base <> ::Q_scope:x_'=='_x not
+R5580:5585 Kernel.F3_CrossLink <> cost_q def
+R5588:5600 Kernel.VMStep VMStep instr_lassert constr
+R5606:5610 Coq.Init.Datatypes <> false constr
+prf 5668:5693 <> example_F3_bound_at_flen_8
+R5710:5720 Kernel.AlgebraicCoherence <> Correlators rec
+binder 5706:5706 <> c:15
+R5751:5758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5727:5748 Kernel.AlgebraicCoherence <> algebraically_coherent def
+R5750:5750 Kernel.F3_CrossLink <> c:15 var
+R5799:5806 Coq.QArith.QArith_base <> ::Q_scope:x_'>='_x not
+R5854:5856 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R5807:5807 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R5828:5832 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R5853:5853 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R5808:5825 Kernel.AlgebraicCoherence <> S_from_correlators def
+R5827:5827 Kernel.F3_CrossLink <> c:15 var
+R5833:5850 Kernel.AlgebraicCoherence <> S_from_correlators def
+R5852:5852 Kernel.F3_CrossLink <> c:15 var
+R5795:5797 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R5759:5764 Kernel.F3_CrossLink <> cost_q def
+R5767:5779 Kernel.VMStep VMStep instr_lassert constr
+R5785:5789 Coq.Init.Datatypes <> false constr
+R5899:5929 Kernel.F3_CrossLink <> F3_cross_link_lassert_tsirelson thm
+R5957:5961 Coq.Init.Datatypes <> false constr
+R5899:5929 Kernel.F3_CrossLink <> F3_cross_link_lassert_tsirelson thm
+R5957:5961 Coq.Init.Datatypes <> false constr
+R5985:6017 Kernel.F3_CrossLink <> example_lassert_flen_q_value_at_8 thm
+R5985:6017 Kernel.F3_CrossLink <> example_lassert_flen_q_value_at_8 thm
+R5985:6017 Kernel.F3_CrossLink <> example_lassert_flen_q_value_at_8 thm
+prf 6591:6619 <> F3_adversarial_drop_tsirelson
+R6665:6667 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R6661:6663 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R6625:6630 Kernel.F3_CrossLink <> cost_q def
+R6633:6645 Kernel.VMStep VMStep instr_lassert constr
+R6651:6655 Coq.Init.Datatypes <> false constr
+R6670:6672 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R6673:6686 Kernel.F3_CrossLink <> lassert_flen_q def
+prf 7206:7232 <> F3_adversarial_drop_lassert
+R7238:7244 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7260:7265 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7249:7259 Kernel.AlgebraicCoherence <> Correlators rec
+binder 7245:7245 <> c:16
+R7290:7297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7266:7287 Kernel.AlgebraicCoherence <> algebraically_coherent def
+R7289:7289 Kernel.F3_CrossLink <> c:16 var
+R7299:7301 Coq.QArith.QArith_base <> ::Q_scope:x_'<'_x not
+R7349:7351 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R7302:7302 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R7323:7327 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R7348:7348 Coq.QArith.QArith_base <> ::Q_scope:x_'*'_x not
+R7303:7320 Kernel.AlgebraicCoherence <> S_from_correlators def
+R7322:7322 Kernel.F3_CrossLink <> c:16 var
+R7328:7345 Kernel.AlgebraicCoherence <> S_from_correlators def
+R7347:7347 Kernel.F3_CrossLink <> c:16 var
+R7352:7365 Kernel.F3_CrossLink <> lassert_flen_q def
+R7386:7404 Kernel.AlgebraicCoherence <> tsirelson_achieving def
+R7386:7404 Kernel.AlgebraicCoherence <> tsirelson_achieving def
+R7424:7451 Kernel.AlgebraicCoherence <> tsirelson_achieving_coherent thm
+R7424:7451 Kernel.AlgebraicCoherence <> tsirelson_achieving_coherent thm

@@ -1,0 +1,537 @@
+DIGEST f5d41f47c03152e28700c90483844bce
+FKernel.NoFreeInsight
+R24:27 Coq.Lists.List <> <> lib
+R29:31 Coq.micromega.Lia <> <> lib
+R33:46 Coq.Arith.PeanoNat <> <> lib
+R48:51 Coq.Bool.Bool <> <> lib
+R78:91 Coq.Strings.String <> <> lib
+R101:113 Coq.Lists.List ListNotations <> mod
+R144:150 Kernel.VMState <> <> lib
+R152:157 Kernel.VMStep <> <> lib
+R159:171 Kernel.KernelPhysics <> <> lib
+R201:220 Kernel.MuLedgerConservation <> <> lib
+R222:242 Kernel.RevelationRequirement <> <> lib
+R272:286 Kernel.SimulationProof <> <> lib
+R316:335 Kernel.EntropyImpossibility <> <> lib
+mod 2400:2412 <> NoFreeInsight
+R2423:2435 Kernel.VMStep VMStep <> mod
+R2445:2459 Kernel.RevelationRequirement RevelationProof <> mod
+def 2817:2823 NoFreeInsight Receipt
+R2828:2841 Kernel.VMStep VMStep vm_instruction ind
+def 2855:2862 NoFreeInsight Receipts
+R2867:2871 Kernel.RevelationRequirement RevelationProof Trace def
+def 2942:2956 NoFreeInsight receipt_decoder
+binder 2959:2959 <> A:1
+R2980:2983 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2972:2979 Kernel.NoFreeInsight NoFreeInsight Receipts def
+R2984:2987 Coq.Init.Datatypes <> list ind
+R2989:2989 Kernel.NoFreeInsight <> A:1 var
+def 3277:3283 NoFreeInsight mu_cost
+R3290:3303 Kernel.VMStep VMStep vm_instruction ind
+binder 3286:3286 <> i:2
+R3308:3310 Coq.Init.Datatypes <> nat ind
+R3323:3323 Kernel.NoFreeInsight <> i:2 var
+R3334:3345 Kernel.VMStep VMStep instr_reveal constr
+R3370:3379 Kernel.VMStep VMStep instr_emit constr
+R3402:3412 Kernel.VMStep VMStep instr_ljoin constr
+R3435:3447 Kernel.VMStep VMStep instr_lassert constr
+R3474:3486 Kernel.VMStep VMStep instr_certify constr
+def 3531:3543 NoFreeInsight total_mu_cost
+R3554:3561 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 3546:3550 <> trace:4
+R3566:3568 Coq.Init.Datatypes <> nat ind
+R3575:3583 Coq.Lists.List <> fold_left def
+R3616:3620 Kernel.NoFreeInsight <> trace:4 var
+binder 3590:3592 <> acc:5
+binder 3594:3594 <> i:6
+R3602:3604 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3599:3601 Kernel.NoFreeInsight <> acc:5 var
+R3605:3611 Kernel.NoFreeInsight NoFreeInsight mu_cost def
+R3613:3613 Kernel.NoFreeInsight <> i:6 var
+abbrev 4835:4863 NoFreeInsight A3_observational_no_signaling
+R4868:4907 Kernel.KernelPhysics <> observational_no_signaling thm
+abbrev 6061:6090 NoFreeInsight A4_region_equiv_class_infinite
+R6097:6144 Kernel.EntropyImpossibility <> region_equiv_class_infinite thm
+def 6352:6367 NoFreeInsight ReceiptPredicate
+binder 6370:6370 <> A:7
+R6389:6392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6383:6386 Coq.Init.Datatypes <> list ind
+R6388:6388 Kernel.NoFreeInsight <> A:7 var
+R6393:6396 Coq.Init.Datatypes <> bool ind
+def 7856:7863 NoFreeInsight stronger
+binder 7866:7866 <> A:8
+R7885:7900 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R7902:7902 Kernel.NoFreeInsight <> A:8 var
+binder 7877:7878 <> P1:9
+binder 7880:7881 <> P2:10
+binder 7924:7926 <> obs:11
+R7942:7945 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7935:7937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7929:7930 Kernel.NoFreeInsight <> P1:9 var
+R7932:7934 Kernel.NoFreeInsight <> obs:11 var
+R7938:7941 Coq.Init.Datatypes <> true constr
+R7952:7954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7946:7947 Kernel.NoFreeInsight <> P2:10 var
+R7949:7951 Kernel.NoFreeInsight <> obs:11 var
+R7955:7958 Coq.Init.Datatypes <> true constr
+R7987:7994 Kernel.NoFreeInsight NoFreeInsight stronger def
+not 7971:7971 NoFreeInsight :::x_'≤'_x
+def 8289:8305 NoFreeInsight strictly_stronger
+binder 8308:8308 <> A:12
+R8327:8342 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R8344:8344 Kernel.NoFreeInsight <> A:12 var
+binder 8319:8320 <> P1:13
+binder 8322:8323 <> P2:14
+R8359:8359 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8369:8374 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8418:8418 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8362:8366 Kernel.NoFreeInsight NoFreeInsight :::x_'≤'_x not
+R8360:8361 Kernel.NoFreeInsight <> P1:13 var
+R8367:8368 Kernel.NoFreeInsight <> P2:14 var
+R8375:8381 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8385:8386 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8382:8384 <> obs:15
+R8401:8404 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8393:8395 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8387:8388 Kernel.NoFreeInsight <> P1:13 var
+R8390:8392 Kernel.NoFreeInsight <> obs:15 var
+R8396:8400 Coq.Init.Datatypes <> false constr
+R8411:8413 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8405:8406 Kernel.NoFreeInsight <> P2:14 var
+R8408:8410 Kernel.NoFreeInsight <> obs:15 var
+R8414:8417 Coq.Init.Datatypes <> true constr
+R8445:8461 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+not 8431:8431 NoFreeInsight :::x_'<'_x
+def 8930:8941 NoFreeInsight CertifiedObs
+binder 8944:8944 <> A:16
+R8988:8994 Kernel.VMState <> VMState rec
+binder 8978:8984 <> s_final:17
+R9031:9045 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R9047:9047 Kernel.NoFreeInsight <> A:16 var
+binder 9021:9027 <> decoder:18
+R9078:9093 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R9095:9095 Kernel.NoFreeInsight <> A:16 var
+binder 9074:9074 <> P:19
+R9133:9140 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 9122:9129 <> receipts:20
+R9179:9182 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9171:9173 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9164:9169 Kernel.VMState <> vm_err proj
+R9155:9161 Kernel.NoFreeInsight <> s_final:17 var
+R9174:9178 Coq.Init.Datatypes <> false constr
+R9203:9205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9183:9183 Kernel.NoFreeInsight <> P:19 var
+R9186:9192 Kernel.NoFreeInsight <> decoder:18 var
+R9194:9201 Kernel.NoFreeInsight <> receipts:20 var
+R9206:9209 Coq.Init.Datatypes <> true constr
+def 9224:9241 NoFreeInsight CertifiedWithSupra
+binder 9244:9244 <> A:21
+R9294:9300 Kernel.VMState <> VMState rec
+binder 9284:9290 <> s_final:22
+R9343:9357 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R9359:9359 Kernel.NoFreeInsight <> A:21 var
+binder 9333:9339 <> decoder:23
+R9396:9411 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R9413:9413 Kernel.NoFreeInsight <> A:21 var
+binder 9392:9392 <> P:24
+R9457:9464 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 9446:9453 <> receipts:25
+R9518:9521 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9479:9490 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R9510:9517 Kernel.NoFreeInsight <> receipts:25 var
+R9508:9508 Kernel.NoFreeInsight <> P:24 var
+R9500:9506 Kernel.NoFreeInsight <> decoder:23 var
+R9492:9498 Kernel.NoFreeInsight <> s_final:22 var
+R9522:9535 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R9537:9543 Kernel.NoFreeInsight <> s_final:22 var
+def 9558:9566 NoFreeInsight Certified
+binder 9569:9569 <> A:26
+R9611:9617 Kernel.VMState <> VMState rec
+binder 9601:9607 <> s_final:27
+R9652:9666 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R9668:9668 Kernel.NoFreeInsight <> A:26 var
+binder 9642:9648 <> decoder:28
+R9697:9712 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R9714:9714 Kernel.NoFreeInsight <> A:26 var
+binder 9693:9693 <> P:29
+R9750:9757 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 9739:9746 <> receipts:30
+R9772:9789 Kernel.NoFreeInsight NoFreeInsight CertifiedWithSupra def
+R9809:9816 Kernel.NoFreeInsight <> receipts:30 var
+R9807:9807 Kernel.NoFreeInsight <> P:29 var
+R9799:9805 Kernel.NoFreeInsight <> decoder:28 var
+R9791:9797 Kernel.NoFreeInsight <> s_final:27 var
+def 9963:9994 NoFreeInsight certified_with_supra_implies_obs
+binder 9999:9999 <> A:31
+R10020:10026 Kernel.VMState <> VMState rec
+binder 10010:10016 <> s_final:32
+R10040:10054 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R10056:10056 Kernel.NoFreeInsight <> A:31 var
+binder 10030:10036 <> decoder:33
+R10066:10081 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R10083:10083 Kernel.NoFreeInsight <> A:31 var
+binder 10062:10062 <> P:34
+R10098:10105 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 10087:10094 <> receipts:35
+R10119:10136 Kernel.NoFreeInsight NoFreeInsight CertifiedWithSupra def
+R10156:10163 Kernel.NoFreeInsight <> receipts:35 var
+R10154:10154 Kernel.NoFreeInsight <> P:34 var
+R10146:10152 Kernel.NoFreeInsight <> decoder:33 var
+R10138:10144 Kernel.NoFreeInsight <> s_final:32 var
+binder 10111:10115 <> Hcert:36
+R10170:10181 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R10201:10208 Kernel.NoFreeInsight <> receipts:35 var
+R10199:10199 Kernel.NoFreeInsight <> P:34 var
+R10191:10197 Kernel.NoFreeInsight <> decoder:33 var
+R10183:10189 Kernel.NoFreeInsight <> s_final:32 var
+R10215:10219 Coq.Init.Logic <> proj1 thm
+R10221:10225 Kernel.NoFreeInsight <> Hcert:36 var
+prf 10235:10257 NoFreeInsight certified_implies_supra
+binder 10271:10271 <> A:37
+R10292:10298 Kernel.VMState <> VMState rec
+binder 10282:10288 <> s_final:38
+R10312:10326 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R10328:10328 Kernel.NoFreeInsight <> A:37 var
+binder 10302:10308 <> decoder:39
+R10345:10360 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R10362:10362 Kernel.NoFreeInsight <> A:37 var
+binder 10341:10341 <> P:40
+R10377:10384 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 10366:10373 <> receipts:41
+R10428:10435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10392:10400 Kernel.NoFreeInsight NoFreeInsight Certified def
+R10420:10427 Kernel.NoFreeInsight <> receipts:41 var
+R10418:10418 Kernel.NoFreeInsight <> P:40 var
+R10410:10416 Kernel.NoFreeInsight <> decoder:39 var
+R10402:10408 Kernel.NoFreeInsight <> s_final:38 var
+R10436:10449 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R10451:10457 Kernel.NoFreeInsight <> s_final:38 var
+R10521:10525 Coq.Init.Logic <> proj2 thm
+R10521:10525 Coq.Init.Logic <> proj2 thm
+def 11022:11043 NoFreeInsight has_structure_addition
+R11053:11055 Coq.Init.Datatypes <> nat ind
+binder 11046:11049 <> fuel:42
+R11067:11074 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 11059:11063 <> trace:43
+R11087:11093 Kernel.VMState <> VMState rec
+binder 11078:11083 <> s_init:44
+R11108:11132 Kernel.RevelationRequirement RevelationProof structure_addition_in_run def
+R11134:11137 Kernel.NoFreeInsight <> fuel:42 var
+R11139:11143 Kernel.NoFreeInsight <> trace:43 var
+R11145:11150 Kernel.NoFreeInsight <> s_init:44 var
+prf 11358:11373 NoFreeInsight trace_run_run_vm
+binder 11386:11389 <> fuel:45
+binder 11391:11395 <> trace:46
+binder 11397:11397 <> s:47
+R11426:11428 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11404:11412 Kernel.RevelationRequirement RevelationProof trace_run def
+R11414:11417 Kernel.NoFreeInsight <> fuel:45 var
+R11419:11423 Kernel.NoFreeInsight <> trace:46 var
+R11425:11425 Kernel.NoFreeInsight <> s:47 var
+R11429:11432 Coq.Init.Datatypes <> Some constr
+R11435:11440 Kernel.SimulationProof <> run_vm def
+R11442:11445 Kernel.NoFreeInsight <> fuel:45 var
+R11447:11451 Kernel.NoFreeInsight <> trace:46 var
+R11453:11453 Kernel.NoFreeInsight <> s:47 var
+R11550:11558 Coq.Lists.List <> nth_error def
+R11567:11571 Kernel.VMState <> vm_pc proj
+R11550:11558 Coq.Lists.List <> nth_error def
+R11567:11571 Kernel.VMState <> vm_pc proj
+prf 13530:13552 NoFreeInsight no_free_insight_general
+R13574:13578 Kernel.RevelationRequirement RevelationProof Trace def
+binder 13566:13570 <> trace:48
+R13599:13605 Kernel.VMState <> VMState rec
+binder 13582:13587 <> s_init:49
+binder 13589:13595 <> s_final:50
+R13616:13618 Coq.Init.Datatypes <> nat ind
+binder 13609:13612 <> fuel:51
+R13668:13675 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13653:13655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13626:13634 Kernel.RevelationRequirement RevelationProof trace_run def
+R13636:13639 Kernel.NoFreeInsight <> fuel:51 var
+R13641:13645 Kernel.NoFreeInsight <> trace:48 var
+R13647:13652 Kernel.NoFreeInsight <> s_init:49 var
+R13656:13659 Coq.Init.Datatypes <> Some constr
+R13661:13667 Kernel.NoFreeInsight <> s_final:50 var
+R13712:13719 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13708:13710 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13694:13706 Kernel.VMState <> csr_cert_addr proj
+R13684:13690 Kernel.VMState <> vm_csrs proj
+R13676:13681 Kernel.NoFreeInsight <> s_init:49 var
+R13742:13749 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13720:13733 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R13735:13741 Kernel.NoFreeInsight <> s_final:50 var
+R13771:13778 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13750:13764 Kernel.RevelationRequirement RevelationProof uses_revelation def
+R13766:13770 Kernel.NoFreeInsight <> trace:48 var
+R13779:13779 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13841:13849 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13780:13786 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13795:13796 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13787:13787 <> n:52
+binder 13789:13789 <> m:53
+binder 13791:13791 <> p:54
+binder 13793:13794 <> mu:55
+R13814:13816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13797:13805 Coq.Lists.List <> nth_error def
+R13813:13813 Kernel.NoFreeInsight <> n:52 var
+R13807:13811 Kernel.NoFreeInsight <> trace:48 var
+R13817:13820 Coq.Init.Datatypes <> Some constr
+R13823:13832 Kernel.VMStep VMStep instr_emit constr
+R13834:13834 Kernel.NoFreeInsight <> m:53 var
+R13836:13836 Kernel.NoFreeInsight <> p:54 var
+R13838:13839 Kernel.NoFreeInsight <> mu:55 var
+R13850:13850 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13917:13925 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13851:13857 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13868:13869 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13858:13858 <> n:56
+binder 13860:13861 <> c1:57
+binder 13863:13864 <> c2:58
+binder 13866:13867 <> mu:59
+R13887:13889 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13870:13878 Coq.Lists.List <> nth_error def
+R13886:13886 Kernel.NoFreeInsight <> n:56 var
+R13880:13884 Kernel.NoFreeInsight <> trace:48 var
+R13890:13893 Coq.Init.Datatypes <> Some constr
+R13896:13906 Kernel.VMStep VMStep instr_ljoin constr
+R13908:13909 Kernel.NoFreeInsight <> c1:57 var
+R13911:13912 Kernel.NoFreeInsight <> c2:58 var
+R13914:13915 Kernel.NoFreeInsight <> mu:59 var
+R13926:13926 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14005:14014 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14092:14092 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13927:13933 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13949:13950 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 13934:13934 <> n:60
+binder 13936:13937 <> fa:61
+binder 13939:13940 <> ca:62
+binder 13942:13942 <> k:63
+binder 13944:13945 <> fl:64
+binder 13947:13948 <> mu:65
+R13968:13970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13951:13959 Coq.Lists.List <> nth_error def
+R13967:13967 Kernel.NoFreeInsight <> n:60 var
+R13961:13965 Kernel.NoFreeInsight <> trace:48 var
+R13971:13974 Coq.Init.Datatypes <> Some constr
+R13977:13989 Kernel.VMStep VMStep instr_lassert constr
+R13991:13992 Kernel.NoFreeInsight <> fa:61 var
+R13994:13995 Kernel.NoFreeInsight <> ca:62 var
+R13997:13997 Kernel.NoFreeInsight <> k:63 var
+R13999:14000 Kernel.NoFreeInsight <> fl:64 var
+R14002:14003 Kernel.NoFreeInsight <> mu:65 var
+R14015:14021 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14034:14035 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14022:14022 <> n:66
+binder 14024:14026 <> mid:67
+binder 14028:14028 <> p:68
+binder 14030:14030 <> c:69
+binder 14032:14033 <> mu:70
+R14053:14055 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14036:14044 Coq.Lists.List <> nth_error def
+R14052:14052 Kernel.NoFreeInsight <> n:66 var
+R14046:14050 Kernel.NoFreeInsight <> trace:48 var
+R14056:14059 Coq.Init.Datatypes <> Some constr
+R14062:14079 Kernel.VMStep VMStep instr_morph_assert constr
+R14081:14083 Kernel.NoFreeInsight <> mid:67 var
+R14085:14085 Kernel.NoFreeInsight <> p:68 var
+R14087:14087 Kernel.NoFreeInsight <> c:69 var
+R14089:14090 Kernel.NoFreeInsight <> mu:70 var
+R14110:14149 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
+R14110:14149 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
+prf 14470:14514 NoFreeInsight strengthening_obs_requires_structure_addition
+binder 14528:14528 <> A:71
+R14558:14572 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R14574:14574 Kernel.NoFreeInsight <> A:71 var
+binder 14548:14554 <> decoder:72
+R14605:14620 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R14622:14622 Kernel.NoFreeInsight <> A:71 var
+binder 14587:14592 <> P_weak:73
+binder 14594:14601 <> P_strong:74
+R14643:14650 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 14635:14639 <> trace:75
+R14672:14678 Kernel.VMState <> VMState rec
+binder 14663:14668 <> s_init:76
+R14698:14700 Coq.Init.Datatypes <> nat ind
+binder 14691:14694 <> fuel:77
+R14741:14748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14708:14724 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R14735:14740 Kernel.NoFreeInsight <> P_weak:73 var
+R14726:14733 Kernel.NoFreeInsight <> P_strong:74 var
+R14785:14792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14781:14783 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14767:14779 Kernel.VMState <> csr_cert_addr proj
+R14757:14763 Kernel.VMState <> vm_csrs proj
+R14749:14754 Kernel.NoFreeInsight <> s_init:76 var
+R14793:14793 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14982:14990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 14801:14807 <> s_final:78
+R14852:14863 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14825:14827 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14818:14824 Kernel.NoFreeInsight <> s_final:78 var
+R14828:14833 Kernel.SimulationProof <> run_vm def
+R14835:14838 Kernel.NoFreeInsight <> fuel:77 var
+R14840:14844 Kernel.NoFreeInsight <> trace:75 var
+R14846:14851 Kernel.NoFreeInsight <> s_init:76 var
+R14893:14904 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14886:14888 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14864:14869 Kernel.NoFreeInsight <> P_weak:73 var
+R14872:14878 Kernel.NoFreeInsight <> decoder:72 var
+R14880:14884 Kernel.NoFreeInsight <> trace:75 var
+R14889:14892 Coq.Init.Datatypes <> true constr
+R14948:14959 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14905:14916 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R14943:14947 Kernel.NoFreeInsight <> trace:75 var
+R14934:14941 Kernel.NoFreeInsight <> P_strong:74 var
+R14926:14932 Kernel.NoFreeInsight <> decoder:72 var
+R14918:14924 Kernel.NoFreeInsight <> s_final:78 var
+R14960:14973 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R14975:14981 Kernel.NoFreeInsight <> s_final:78 var
+R15053:15060 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14991:15002 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R15048:15052 Kernel.NoFreeInsight <> trace:75 var
+R15039:15046 Kernel.NoFreeInsight <> P_strong:74 var
+R15031:15037 Kernel.NoFreeInsight <> decoder:72 var
+R15005:15010 Kernel.SimulationProof <> run_vm def
+R15012:15015 Kernel.NoFreeInsight <> fuel:77 var
+R15017:15021 Kernel.NoFreeInsight <> trace:75 var
+R15023:15028 Kernel.NoFreeInsight <> s_init:76 var
+R15061:15082 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R15084:15087 Kernel.NoFreeInsight <> fuel:77 var
+R15089:15093 Kernel.NoFreeInsight <> trace:75 var
+R15095:15100 Kernel.NoFreeInsight <> s_init:76 var
+R15272:15274 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15275:15278 Coq.Init.Datatypes <> true constr
+R15272:15274 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15275:15278 Coq.Init.Datatypes <> true constr
+R15332:15336 Coq.Init.Logic <> proj2 thm
+R15332:15336 Coq.Init.Logic <> proj2 thm
+R15372:15385 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R15388:15393 Kernel.SimulationProof <> run_vm def
+R15372:15385 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R15388:15393 Kernel.SimulationProof <> run_vm def
+R15454:15475 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R15487:15530 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
+R15487:15530 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
+R15548:15563 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+R15548:15563 Kernel.NoFreeInsight NoFreeInsight trace_run_run_vm thm
+prf 15832:15872 NoFreeInsight strengthening_requires_structure_addition
+binder 15886:15886 <> A:79
+R15916:15930 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R15932:15932 Kernel.NoFreeInsight <> A:79 var
+binder 15906:15912 <> decoder:80
+R15963:15978 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R15980:15980 Kernel.NoFreeInsight <> A:79 var
+binder 15945:15950 <> P_weak:81
+binder 15952:15959 <> P_strong:82
+R16001:16008 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 15993:15997 <> trace:83
+R16030:16036 Kernel.VMState <> VMState rec
+binder 16021:16026 <> s_init:84
+R16056:16058 Coq.Init.Datatypes <> nat ind
+binder 16049:16052 <> fuel:85
+R16099:16106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16066:16082 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R16093:16098 Kernel.NoFreeInsight <> P_weak:81 var
+R16084:16091 Kernel.NoFreeInsight <> P_strong:82 var
+R16143:16150 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16139:16141 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16125:16137 Kernel.VMState <> csr_cert_addr proj
+R16115:16121 Kernel.VMState <> vm_csrs proj
+R16107:16112 Kernel.NoFreeInsight <> s_init:84 var
+R16210:16217 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16151:16159 Kernel.NoFreeInsight NoFreeInsight Certified def
+R16205:16209 Kernel.NoFreeInsight <> trace:83 var
+R16196:16203 Kernel.NoFreeInsight <> P_strong:82 var
+R16188:16194 Kernel.NoFreeInsight <> decoder:80 var
+R16162:16167 Kernel.SimulationProof <> run_vm def
+R16169:16172 Kernel.NoFreeInsight <> fuel:85 var
+R16174:16178 Kernel.NoFreeInsight <> trace:83 var
+R16180:16185 Kernel.NoFreeInsight <> s_init:84 var
+R16218:16239 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R16241:16244 Kernel.NoFreeInsight <> fuel:85 var
+R16246:16250 Kernel.NoFreeInsight <> trace:83 var
+R16252:16257 Kernel.NoFreeInsight <> s_init:84 var
+R16350:16394 Kernel.NoFreeInsight NoFreeInsight strengthening_obs_requires_structure_addition thm
+R16350:16394 Kernel.NoFreeInsight NoFreeInsight strengthening_obs_requires_structure_addition thm
+R16466:16488 Kernel.NoFreeInsight NoFreeInsight certified_implies_supra thm
+R16493:16498 Kernel.SimulationProof <> run_vm def
+R16466:16488 Kernel.NoFreeInsight NoFreeInsight certified_implies_supra thm
+R16493:16498 Kernel.SimulationProof <> run_vm def
+R16560:16591 Kernel.NoFreeInsight NoFreeInsight certified_with_supra_implies_obs def
+R16560:16591 Kernel.NoFreeInsight NoFreeInsight certified_with_supra_implies_obs def
+prf 17019:17059 NoFreeInsight supra_bridge_free_trace_has_no_supra_cert
+R17081:17088 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 17073:17077 <> trace:86
+R17109:17115 Kernel.VMState <> VMState rec
+binder 17092:17097 <> s_init:87
+binder 17099:17105 <> s_final:88
+R17126:17128 Coq.Init.Datatypes <> nat ind
+binder 17119:17122 <> fuel:89
+R17178:17185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17163:17165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17136:17144 Kernel.RevelationRequirement RevelationProof trace_run def
+R17146:17149 Kernel.NoFreeInsight <> fuel:89 var
+R17151:17155 Kernel.NoFreeInsight <> trace:86 var
+R17157:17162 Kernel.NoFreeInsight <> s_init:87 var
+R17166:17169 Coq.Init.Datatypes <> Some constr
+R17171:17177 Kernel.NoFreeInsight <> s_final:88 var
+R17222:17229 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17218:17220 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17204:17216 Kernel.VMState <> csr_cert_addr proj
+R17194:17200 Kernel.VMState <> vm_csrs proj
+R17186:17191 Kernel.NoFreeInsight <> s_init:87 var
+R17265:17272 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17230:17235 Coq.Lists.List <> Forall ind
+R17260:17264 Kernel.NoFreeInsight <> trace:86 var
+R17237:17258 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R17273:17274 Coq.Init.Logic <> ::type_scope:'~'_x not
+R17275:17288 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R17290:17296 Kernel.NoFreeInsight <> s_final:88 var
+R17368:17412 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_cannot_gain_supra_cert thm
+R17368:17412 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_cannot_gain_supra_cert thm
+prf 17436:17480 NoFreeInsight supra_bridge_free_trace_never_fully_certified
+binder 17494:17494 <> A:90
+R17524:17538 Kernel.NoFreeInsight NoFreeInsight receipt_decoder def
+R17540:17540 Kernel.NoFreeInsight <> A:90 var
+binder 17514:17520 <> decoder:91
+R17557:17572 Kernel.NoFreeInsight NoFreeInsight ReceiptPredicate def
+R17574:17574 Kernel.NoFreeInsight <> A:90 var
+binder 17553:17553 <> P:92
+R17598:17605 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 17587:17594 <> receipts:93
+R17626:17633 Kernel.NoFreeInsight NoFreeInsight Receipts def
+binder 17618:17622 <> trace:94
+R17663:17669 Kernel.VMState <> VMState rec
+binder 17646:17651 <> s_init:95
+binder 17653:17659 <> s_final:96
+R17689:17691 Coq.Init.Datatypes <> nat ind
+binder 17682:17685 <> fuel:97
+R17741:17748 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17726:17728 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17699:17707 Kernel.RevelationRequirement RevelationProof trace_run def
+R17709:17712 Kernel.NoFreeInsight <> fuel:97 var
+R17714:17718 Kernel.NoFreeInsight <> trace:94 var
+R17720:17725 Kernel.NoFreeInsight <> s_init:95 var
+R17729:17732 Coq.Init.Datatypes <> Some constr
+R17734:17740 Kernel.NoFreeInsight <> s_final:96 var
+R17785:17792 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17781:17783 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17767:17779 Kernel.VMState <> csr_cert_addr proj
+R17757:17763 Kernel.VMState <> vm_csrs proj
+R17749:17754 Kernel.NoFreeInsight <> s_init:95 var
+R17828:17835 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17793:17798 Coq.Lists.List <> Forall ind
+R17823:17827 Kernel.NoFreeInsight <> trace:94 var
+R17800:17821 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R17836:17837 Coq.Init.Logic <> ::type_scope:'~'_x not
+R17838:17846 Kernel.NoFreeInsight NoFreeInsight Certified def
+R17866:17873 Kernel.NoFreeInsight <> receipts:93 var
+R17864:17864 Kernel.NoFreeInsight <> P:92 var
+R17856:17862 Kernel.NoFreeInsight <> decoder:91 var
+R17848:17854 Kernel.NoFreeInsight <> s_final:96 var
+R17972:18012 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm
+R17972:18012 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm
+R18031:18053 Kernel.NoFreeInsight NoFreeInsight certified_implies_supra thm
+R18031:18053 Kernel.NoFreeInsight NoFreeInsight certified_implies_supra thm
+R18775:18787 Kernel.NoFreeInsight NoFreeInsight <> mod

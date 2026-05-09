@@ -1,823 +1,823 @@
-DIGEST 36496f46ea6013476e6bf6f86f564003
+DIGEST b7125f07b4ae079a182b91739ddecf16
 FThieleManifold.PhysicsIsomorphism
-R427:432 Coq.Strings.String <> <> lib
-R434:439 Coq.ZArith.ZArith <> <> lib
-R441:443 Coq.micromega.Lia <> <> lib
-R445:448 Coq.Lists.List <> <> lib
-R450:457 Coq.Arith.PeanoNat <> <> lib
-R487:493 Kernel.VMState <> <> lib
-R495:500 Kernel.VMStep <> <> lib
-R502:521 Kernel.MuLedgerConservation <> <> lib
-R523:537 Kernel.SimulationProof <> <> lib
-R575:594 ThieleManifold.ThieleManifoldBridge <> <> lib
-R625:637 Physics.DiscreteModel <> <> lib
-R639:654 Physics.DissipativeModel <> <> lib
-R656:664 Physics.WaveModel <> <> lib
-R706:718 Coq.Lists.List ListNotations <> mod
-rec 1027:1041 <> DiscretePhysics
-proj 1050:1059 <> phys_state
-proj 1077:1085 <> phys_step
-proj 1124:1136 <> phys_locality
-proj 1151:1165 <> phys_finiteness
-proj 1178:1188 <> phys_energy
-proj 1218:1230 <> phys_momentum
-proj 1256:1270 <> phys_energy_law
-proj 1387:1401 <> phys_reversible
-R1106:1109 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1096:1105 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
-R1110:1119 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
-R1207:1210 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1197:1206 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
-R1211:1213 Coq.Init.Datatypes <> nat ind
-R1247:1250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1237:1246 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
-R1251:1251 Coq.Numbers.BinNums <> Z ind
-binder 1282:1282 <> s:8
-R1332:1341 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R1316:1318 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1291:1301 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
-R1304:1312 ThieleManifold.PhysicsIsomorphism <> phys_step:3 meth
-R1314:1314 ThieleManifold.PhysicsIsomorphism <> s:8 var
-R1319:1329 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
-R1331:1331 ThieleManifold.PhysicsIsomorphism <> s:8 var
-R1367:1369 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1342:1352 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
-R1355:1363 ThieleManifold.PhysicsIsomorphism <> phys_step:3 meth
-R1365:1365 ThieleManifold.PhysicsIsomorphism <> s:8 var
-R1370:1380 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
-R1382:1382 ThieleManifold.PhysicsIsomorphism <> s:8 var
-rec 1718:1732 <> ThieleEmbedding
-proj 1764:1772 <> emb_trace
-proj 1806:1815 <> emb_encode
-proj 1853:1862 <> emb_decode
-proj 1900:1912 <> emb_roundtrip
-proj 1962:1973 <> emb_step_sim
-proj 2064:2076 <> emb_cost_free
-proj 2226:2242 <> emb_cost_positive
-R1740:1754 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
-binder 1735:1736 <> DP:11
-R1783:1786 Coq.Init.Datatypes <> list ind
-R1788:1801 Kernel.VMStep VMStep vm_instruction ind
-R1838:1841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1825:1834 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R1836:1837 ThieleManifold.PhysicsIsomorphism <> DP:11 var
-R1842:1848 Kernel.VMState <> VMState rec
-R1879:1882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1872:1878 Kernel.VMState <> VMState rec
-R1883:1892 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R1894:1895 ThieleManifold.PhysicsIsomorphism <> DP:11 var
-binder 1926:1926 <> s:16
-R1954:1956 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1929:1938 ThieleManifold.PhysicsIsomorphism <> emb_decode:15 meth
-R1941:1950 ThieleManifold.PhysicsIsomorphism <> emb_encode:14 meth
-R1952:1952 ThieleManifold.PhysicsIsomorphism <> s:16 var
-R1957:1957 ThieleManifold.PhysicsIsomorphism <> s:16 var
-binder 1988:1988 <> s:18
-R2043:2045 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1997:2006 ThieleManifold.PhysicsIsomorphism <> emb_decode:15 meth
-R2009:2014 Kernel.SimulationProof <> run_vm def
-R2018:2026 ThieleManifold.PhysicsIsomorphism <> emb_trace:13 meth
-R2029:2038 ThieleManifold.PhysicsIsomorphism <> emb_encode:14 meth
-R2040:2040 ThieleManifold.PhysicsIsomorphism <> s:18 var
-R2046:2054 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R2056:2057 ThieleManifold.PhysicsIsomorphism <> DP:11 var
-R2059:2059 ThieleManifold.PhysicsIsomorphism <> s:18 var
-R2083:2088 Coq.Init.Datatypes <> option ind
-binder 2098:2099 <> pc:20
-binder 2101:2105 <> instr:21
-R2167:2194 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2154:2156 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2132:2140 Coq.Lists.List <> nth_error def
-R2152:2153 ThieleManifold.PhysicsIsomorphism <> pc:20 var
-R2142:2150 ThieleManifold.PhysicsIsomorphism <> emb_trace:13 meth
-R2157:2160 Coq.Init.Datatypes <> Some constr
-R2162:2166 ThieleManifold.PhysicsIsomorphism <> instr:21 var
-R2217:2219 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2195:2210 Kernel.VMStep VMStep instruction_cost def
-R2212:2216 ThieleManifold.PhysicsIsomorphism <> instr:21 var
-R2245:2250 Coq.Init.Datatypes <> option ind
-binder 2260:2261 <> pc:23
-binder 2263:2267 <> instr:24
-R2329:2356 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2316:2318 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2294:2302 Coq.Lists.List <> nth_error def
-R2314:2315 ThieleManifold.PhysicsIsomorphism <> pc:23 var
-R2304:2312 ThieleManifold.PhysicsIsomorphism <> emb_trace:13 meth
-R2319:2322 Coq.Init.Datatypes <> Some constr
-R2324:2328 ThieleManifold.PhysicsIsomorphism <> instr:24 var
-R2379:2382 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R2357:2372 Kernel.VMStep VMStep instruction_cost def
-R2374:2378 ThieleManifold.PhysicsIsomorphism <> instr:24 var
-def 2401:2425 <> embedding_trace_cost_free
-binder 2428:2429 <> DP:26
-R2437:2451 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
-R2453:2454 ThieleManifold.PhysicsIsomorphism <> DP:26 var
-binder 2433:2433 <> E:27
-R2469:2475 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2478:2479 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2476:2477 <> pf:28
-R2498:2500 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2480:2492 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
-R2494:2495 ThieleManifold.PhysicsIsomorphism <> DP:26 var
-R2497:2497 ThieleManifold.PhysicsIsomorphism <> E:27 var
-R2501:2504 Coq.Init.Datatypes <> Some constr
-R2506:2507 ThieleManifold.PhysicsIsomorphism <> pf:28 var
-def 2522:2550 <> embedding_trace_cost_positive
-binder 2553:2554 <> DP:29
-R2562:2576 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
-R2578:2579 ThieleManifold.PhysicsIsomorphism <> DP:29 var
-binder 2558:2558 <> E:30
-R2594:2600 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2603:2604 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 2601:2602 <> pf:31
-R2627:2629 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2605:2621 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
-R2623:2624 ThieleManifold.PhysicsIsomorphism <> DP:29 var
-R2626:2626 ThieleManifold.PhysicsIsomorphism <> E:30 var
-R2630:2633 Coq.Init.Datatypes <> Some constr
-R2635:2636 ThieleManifold.PhysicsIsomorphism <> pf:31 var
-sec 2719:2733 <> EmbeddingLemmas
-R2752:2766 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
-binder 2747:2748 <> DP:32
-R2774:2788 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
-R2790:2791 ThieleManifold.PhysicsIsomorphism <> DP:32 var
-binder 2770:2770 <> E:33
-abbrev 2807:2811 <> trace
-R2817:2825 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
-R2827:2828 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
-R2830:2830 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-abbrev 2845:2850 <> encode
-R2856:2865 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
-R2867:2868 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
-R2870:2870 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-abbrev 2885:2890 <> decode
-R2896:2905 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
-R2907:2908 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
-R2910:2910 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-prf 2921:2963 <> reversible_trace_irreversibility_count_zero
-R2996:3001 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2969:2993 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
-R2995:2995 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-binder 3009:3012 <> fuel:34
-binder 3014:3017 <> s_vm:35
-R3054:3056 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3020:3037 Kernel.MuLedgerConservation <> irreversible_count def
-R3039:3042 ThieleManifold.PhysicsIsomorphism <> fuel:34 var
-R3044:3048 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R3050:3053 ThieleManifold.PhysicsIsomorphism <> s_vm:35 var
-R3193:3201 Coq.Lists.List <> nth_error def
-R3210:3214 Kernel.VMState <> vm_pc proj
-R3203:3207 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R3193:3201 Coq.Lists.List <> nth_error def
-R3210:3214 Kernel.VMState <> vm_pc proj
-R3203:3207 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R3320:3344 Kernel.MuLedgerConservation <> irreversible_bits_le_cost thm
-R3320:3344 Kernel.MuLedgerConservation <> irreversible_bits_le_cost thm
-R3397:3399 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3374:3390 Kernel.MuLedgerConservation <> irreversible_bits def
-R3397:3399 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3374:3390 Kernel.MuLedgerConservation <> irreversible_bits def
-prf 3480:3511 <> reversible_trace_ledger_sum_zero
-R3544:3549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3517:3541 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
-R3543:3543 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-binder 3557:3560 <> fuel:36
-binder 3562:3565 <> s_vm:37
-R3611:3613 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3568:3577 Kernel.MuLedgerConservation <> ledger_sum def
-R3580:3593 Kernel.MuLedgerConservation <> ledger_entries def
-R3595:3598 ThieleManifold.PhysicsIsomorphism <> fuel:36 var
-R3600:3604 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R3606:3609 ThieleManifold.PhysicsIsomorphism <> s_vm:37 var
-R3750:3758 Coq.Lists.List <> nth_error def
-R3767:3771 Kernel.VMState <> vm_pc proj
-R3760:3764 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R3750:3758 Coq.Lists.List <> nth_error def
-R3767:3771 Kernel.VMState <> vm_pc proj
-R3760:3764 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R3905:3912 Kernel.SimulationProof <> vm_apply def
-R3905:3912 Kernel.SimulationProof <> vm_apply def
-prf 3945:3985 <> reversible_embedding_zero_irreversibility
-R4009:4012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3991:4005 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R4007:4008 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
-R4040:4047 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4013:4037 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
-R4039:4039 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-binder 4055:4058 <> fuel:38
-R4068:4074 Kernel.VMState <> VMState rec
-binder 4061:4064 <> s_vm:39
-R4122:4131 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4118:4120 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4084:4101 Kernel.MuLedgerConservation <> irreversible_count def
-R4103:4106 ThieleManifold.PhysicsIsomorphism <> fuel:38 var
-R4108:4112 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R4114:4117 ThieleManifold.PhysicsIsomorphism <> s_vm:39 var
-R4164:4166 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4158:4162 Kernel.VMState <> vm_mu proj
-R4133:4138 Kernel.SimulationProof <> run_vm def
-R4140:4143 ThieleManifold.PhysicsIsomorphism <> fuel:38 var
-R4145:4149 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R4151:4154 ThieleManifold.PhysicsIsomorphism <> s_vm:39 var
-R4173:4177 Kernel.VMState <> vm_mu proj
-R4167:4170 ThieleManifold.PhysicsIsomorphism <> s_vm:39 var
-R4235:4277 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
-R4235:4277 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
-R4304:4325 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R4304:4325 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R4304:4325 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R4344:4375 ThieleManifold.PhysicsIsomorphism <> reversible_trace_ledger_sum_zero thm
-R4344:4375 ThieleManifold.PhysicsIsomorphism <> reversible_trace_ledger_sum_zero thm
-prf 4424:4460 <> irreversible_count_positive_from_cost
-R4497:4502 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4466:4494 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
-R4496:4496 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-binder 4510:4513 <> fuel:40
-binder 4515:4518 <> s_vm:41
-binder 4520:4524 <> instr:42
-R4539:4542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4535:4537 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R4531:4534 ThieleManifold.PhysicsIsomorphism <> fuel:40 var
-R4584:4591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4571:4573 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4543:4551 Coq.Lists.List <> nth_error def
-R4565:4569 Kernel.VMState <> vm_pc proj
-R4559:4562 ThieleManifold.PhysicsIsomorphism <> s_vm:41 var
-R4553:4557 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R4574:4577 Coq.Init.Datatypes <> Some constr
-R4579:4583 ThieleManifold.PhysicsIsomorphism <> instr:42 var
-R4626:4629 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4592:4609 Kernel.MuLedgerConservation <> irreversible_count def
-R4611:4614 ThieleManifold.PhysicsIsomorphism <> fuel:40 var
-R4616:4620 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R4622:4625 ThieleManifold.PhysicsIsomorphism <> s_vm:41 var
-R4839:4855 Kernel.MuLedgerConservation <> irreversible_bits def
-R4870:4876 Coq.Arith.PeanoNat Nat eqb def
-R4879:4894 Kernel.VMStep VMStep instruction_cost def
-R4870:4876 Coq.Arith.PeanoNat Nat eqb def
-R4879:4894 Kernel.VMStep VMStep instruction_cost def
-R4927:4936 Coq.Arith.PeanoNat Nat eqb_eq thm
-R4927:4936 Coq.Arith.PeanoNat Nat eqb_eq thm
-prf 4974:5001 <> dissipative_embedding_mu_gap
-R5038:5043 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5007:5035 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
-R5037:5037 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-binder 5051:5054 <> fuel:43
-binder 5056:5059 <> s_vm:44
-binder 5061:5065 <> instr:45
-R5080:5083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5076:5078 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5072:5075 ThieleManifold.PhysicsIsomorphism <> fuel:43 var
-R5125:5132 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5112:5114 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5084:5092 Coq.Lists.List <> nth_error def
-R5106:5110 Kernel.VMState <> vm_pc proj
-R5100:5103 ThieleManifold.PhysicsIsomorphism <> s_vm:44 var
-R5094:5098 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R5115:5118 Coq.Init.Datatypes <> Some constr
-R5120:5124 ThieleManifold.PhysicsIsomorphism <> instr:45 var
-R5165:5168 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5159:5163 Kernel.VMState <> vm_mu proj
-R5134:5139 Kernel.SimulationProof <> run_vm def
-R5141:5144 ThieleManifold.PhysicsIsomorphism <> fuel:43 var
-R5146:5150 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R5152:5155 ThieleManifold.PhysicsIsomorphism <> s_vm:44 var
-R5181:5183 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R5175:5179 Kernel.VMState <> vm_mu proj
-R5169:5172 ThieleManifold.PhysicsIsomorphism <> s_vm:44 var
-R5253:5278 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-R5285:5289 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R5253:5278 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
-R5285:5289 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R5320:5356 ThieleManifold.PhysicsIsomorphism <> irreversible_count_positive_from_cost thm
-R5320:5356 ThieleManifold.PhysicsIsomorphism <> irreversible_count_positive_from_cost thm
-prf 5422:5465 <> reversible_embedding_zero_irreversibility_hw
-R5489:5492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5471:5485 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R5487:5488 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
-R5520:5525 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5493:5517 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
-R5519:5519 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-R5541:5562 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
-binder 5534:5537 <> Impl:46
-binder 5565:5568 <> fuel:47
-binder 5570:5573 <> s_hw:48
-R5603:5610 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5595:5597 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5586:5593 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
-R5580:5583 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
-R5598:5602 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R5678:5685 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5674:5676 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5611:5628 Kernel.MuLedgerConservation <> irreversible_count def
-R5630:5633 ThieleManifold.PhysicsIsomorphism <> fuel:47 var
-R5641:5648 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
-R5635:5638 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
-R5658:5666 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R5652:5655 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
-R5669:5672 ThieleManifold.PhysicsIsomorphism <> s_hw:48 var
-R5749:5755 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5743:5747 Kernel.VMState <> vm_mu proj
-R5693:5701 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R5687:5690 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
-R5705:5713 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R5735:5738 ThieleManifold.PhysicsIsomorphism <> s_hw:48 var
-R5730:5733 ThieleManifold.PhysicsIsomorphism <> fuel:47 var
-R5721:5727 ThieleManifold.ThieleManifoldBridge <> hw_step proj
-R5715:5718 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
-R5781:5785 Kernel.VMState <> vm_mu proj
-R5763:5771 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R5757:5760 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
-R5774:5777 ThieleManifold.PhysicsIsomorphism <> s_hw:48 var
-R5874:5916 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
-R5874:5916 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
-R5947:5959 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R5947:5959 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R6057:6097 ThieleManifold.PhysicsIsomorphism <> reversible_embedding_zero_irreversibility thm
-R6116:6124 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R6057:6097 ThieleManifold.PhysicsIsomorphism <> reversible_embedding_zero_irreversibility thm
-R6116:6124 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-prf 6169:6199 <> dissipative_embedding_mu_gap_hw
-R6236:6241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6205:6233 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
-R6235:6235 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
-R6257:6278 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
-binder 6250:6253 <> Impl:49
-binder 6281:6284 <> fuel:50
-binder 6286:6289 <> s_hw:51
-binder 6291:6295 <> instr:52
-R6310:6313 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6306:6308 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6302:6305 ThieleManifold.PhysicsIsomorphism <> fuel:50 var
-R6337:6344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6329:6331 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6320:6327 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
-R6314:6317 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
-R6332:6336 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R6403:6410 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6390:6392 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6345:6353 Coq.Lists.List <> nth_error def
-R6384:6388 Kernel.VMState <> vm_pc proj
-R6362:6370 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R6372:6375 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
-R6377:6380 ThieleManifold.PhysicsIsomorphism <> s_hw:51 var
-R6355:6359 ThieleManifold.PhysicsIsomorphism <> trace abbrev
-R6393:6396 Coq.Init.Datatypes <> Some constr
-R6398:6402 ThieleManifold.PhysicsIsomorphism <> instr:52 var
-R6474:6483 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6468:6472 Kernel.VMState <> vm_mu proj
-R6418:6426 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R6412:6415 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
-R6430:6438 ThieleManifold.ThieleManifoldBridge <> impl_iter def
-R6460:6463 ThieleManifold.PhysicsIsomorphism <> s_hw:51 var
-R6455:6458 ThieleManifold.PhysicsIsomorphism <> fuel:50 var
-R6446:6452 ThieleManifold.ThieleManifoldBridge <> hw_step proj
-R6440:6443 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
-R6515:6517 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6509:6513 Kernel.VMState <> vm_mu proj
-R6491:6499 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
-R6485:6488 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
-R6502:6505 ThieleManifold.PhysicsIsomorphism <> s_hw:51 var
-R6599:6611 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R6599:6611 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
-R6698:6725 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
-R6698:6725 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
-R6744:6758 ThieleManifold.PhysicsIsomorphism EmbeddingLemmas <> sec
-def 6825:6841 <> lattice_gas_model
-R6845:6859 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
-R6881:6890 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R6881:6890 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R6881:6890 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R6930:6938 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R6930:6938 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R6983:6995 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R6983:6995 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R7072:7086 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R7072:7086 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R7163:7173 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R7163:7173 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R7220:7232 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R7220:7232 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R7273:7287 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R7273:7287 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R7307:7321 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R7307:7321 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R6895:6915 Physics.DiscreteModel <> Lattice def
-R6943:6968 Physics.DiscreteModel <> physics_step def
-binder 7007:7007 <> l:53
-R7047:7049 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7010:7015 Coq.Lists.List <> length abbrev
-R7018:7043 Physics.DiscreteModel <> physics_step def
-R7045:7045 ThieleManifold.PhysicsIsomorphism <> l:53 var
-R7050:7055 Coq.Lists.List <> length abbrev
-R7057:7057 ThieleManifold.PhysicsIsomorphism <> l:53 var
-binder 7098:7098 <> l:54
-R7138:7140 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7101:7106 Coq.Lists.List <> length abbrev
-R7109:7134 Physics.DiscreteModel <> physics_step def
-R7136:7136 ThieleManifold.PhysicsIsomorphism <> l:54 var
-R7141:7146 Coq.Lists.List <> length abbrev
-R7148:7148 ThieleManifold.PhysicsIsomorphism <> l:54 var
-R7178:7205 Physics.DiscreteModel <> particle_count def
-R7237:7258 Physics.DiscreteModel <> momentum def
-binder 7333:7333 <> l:55
-R7393:7395 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7336:7361 Physics.DiscreteModel <> physics_step def
-R7364:7389 Physics.DiscreteModel <> physics_step def
-R7391:7391 ThieleManifold.PhysicsIsomorphism <> l:55 var
-R7396:7396 ThieleManifold.PhysicsIsomorphism <> l:55 var
-R6881:6890 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R6881:6890 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R6881:6890 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R6930:6938 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R6930:6938 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R6983:6995 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R6983:6995 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R7072:7086 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R7072:7086 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R7163:7173 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R7163:7173 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R7220:7232 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R7220:7232 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R7273:7287 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R7273:7287 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R7307:7321 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R7307:7321 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R6895:6915 Physics.DiscreteModel <> Lattice def
-R6943:6968 Physics.DiscreteModel <> physics_step def
-binder 7007:7007 <> l:56
-R7047:7049 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7010:7015 Coq.Lists.List <> length abbrev
-R7018:7043 Physics.DiscreteModel <> physics_step def
-R7045:7045 ThieleManifold.PhysicsIsomorphism <> l:56 var
-R7050:7055 Coq.Lists.List <> length abbrev
-R7057:7057 ThieleManifold.PhysicsIsomorphism <> l:56 var
-binder 7098:7098 <> l:57
-R7138:7140 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7101:7106 Coq.Lists.List <> length abbrev
-R7109:7134 Physics.DiscreteModel <> physics_step def
-R7136:7136 ThieleManifold.PhysicsIsomorphism <> l:57 var
-R7141:7146 Coq.Lists.List <> length abbrev
-R7148:7148 ThieleManifold.PhysicsIsomorphism <> l:57 var
-R7178:7205 Physics.DiscreteModel <> particle_count def
-R7237:7258 Physics.DiscreteModel <> momentum def
-binder 7333:7333 <> l:58
-R7393:7395 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7336:7361 Physics.DiscreteModel <> physics_step def
-R7364:7389 Physics.DiscreteModel <> physics_step def
-R7391:7391 ThieleManifold.PhysicsIsomorphism <> l:58 var
-R7396:7396 ThieleManifold.PhysicsIsomorphism <> l:58 var
-R7429:7474 Physics.DiscreteModel <> physics_preserves_particle_count thm
-R7429:7474 Physics.DiscreteModel <> physics_preserves_particle_count thm
-prf 7493:7509 <> lattice_gas_local
-R7513:7525 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R7527:7543 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
-R7559:7591 Physics.DiscreteModel <> physics_step_length thm
-R7559:7591 Physics.DiscreteModel <> physics_step_length thm
-prf 7606:7623 <> lattice_gas_finite
-R7627:7641 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R7643:7659 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
-R7675:7707 Physics.DiscreteModel <> physics_step_length thm
-R7675:7707 Physics.DiscreteModel <> physics_step_length thm
-prf 7722:7743 <> lattice_gas_reversible
-R7747:7761 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R7763:7779 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
-R7795:7831 Physics.DiscreteModel <> physics_step_involutive thm
-R7795:7831 Physics.DiscreteModel <> physics_step_involutive thm
-def 7853:7869 <> dissipative_model
-R7873:7887 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
-R7913:7922 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R7913:7922 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R7913:7922 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R7967:7975 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R7967:7975 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R8029:8041 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R8029:8041 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R8127:8141 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R8127:8141 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R8227:8237 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R8227:8237 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R8281:8293 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R8281:8293 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R8326:8340 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R8326:8340 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R8362:8376 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R8362:8376 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R7927:7950 Physics.DissipativeModel <> Lattice def
-R7980:8012 Physics.DissipativeModel <> dissipative_step def
-binder 8053:8053 <> l:59
-R8100:8102 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8056:8061 Coq.Lists.List <> length abbrev
-R8064:8096 Physics.DissipativeModel <> dissipative_step def
-R8098:8098 ThieleManifold.PhysicsIsomorphism <> l:59 var
-R8103:8108 Coq.Lists.List <> length abbrev
-R8110:8110 ThieleManifold.PhysicsIsomorphism <> l:59 var
-binder 8153:8153 <> l:60
-R8200:8202 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8156:8161 Coq.Lists.List <> length abbrev
-R8164:8196 Physics.DissipativeModel <> dissipative_step def
-R8198:8198 ThieleManifold.PhysicsIsomorphism <> l:60 var
-R8203:8208 Coq.Lists.List <> length abbrev
-R8210:8210 ThieleManifold.PhysicsIsomorphism <> l:60 var
-R8242:8264 Physics.DissipativeModel <> energy def
-R8381:8385 Coq.Init.Logic <> False ind
-R7913:7922 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R7913:7922 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R7913:7922 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R7967:7975 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R7967:7975 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R8029:8041 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R8029:8041 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R8127:8141 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R8127:8141 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R8227:8237 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R8227:8237 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R8281:8293 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R8281:8293 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R8326:8340 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R8326:8340 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R8362:8376 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R8362:8376 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R7927:7950 Physics.DissipativeModel <> Lattice def
-R7980:8012 Physics.DissipativeModel <> dissipative_step def
-binder 8053:8053 <> l:61
-R8100:8102 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8056:8061 Coq.Lists.List <> length abbrev
-R8064:8096 Physics.DissipativeModel <> dissipative_step def
-R8098:8098 ThieleManifold.PhysicsIsomorphism <> l:61 var
-R8103:8108 Coq.Lists.List <> length abbrev
-R8110:8110 ThieleManifold.PhysicsIsomorphism <> l:61 var
-binder 8153:8153 <> l:62
-R8200:8202 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8156:8161 Coq.Lists.List <> length abbrev
-R8164:8196 Physics.DissipativeModel <> dissipative_step def
-R8198:8198 ThieleManifold.PhysicsIsomorphism <> l:62 var
-R8203:8208 Coq.Lists.List <> length abbrev
-R8210:8210 ThieleManifold.PhysicsIsomorphism <> l:62 var
-R8242:8264 Physics.DissipativeModel <> energy def
-R8381:8385 Coq.Init.Logic <> False ind
-R8418:8427 Coq.Arith.PeanoNat Nat eq_dec thm
-R8430:8452 Physics.DissipativeModel <> energy def
-R8418:8427 Coq.Arith.PeanoNat Nat eq_dec thm
-R8430:8452 Physics.DissipativeModel <> energy def
-R8497:8541 Physics.DissipativeModel <> dissipative_step_energy_zero thm
-R8497:8541 Physics.DissipativeModel <> dissipative_step_energy_zero thm
-R8497:8541 Physics.DissipativeModel <> dissipative_step_energy_zero thm
-R8576:8626 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
-R8576:8626 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
-prf 8652:8668 <> dissipative_local
-R8672:8684 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R8686:8702 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R8718:8757 Physics.DissipativeModel <> dissipative_step_length thm
-R8718:8757 Physics.DissipativeModel <> dissipative_step_length thm
-prf 8772:8789 <> dissipative_finite
-R8793:8807 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R8809:8825 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R8841:8880 Physics.DissipativeModel <> dissipative_step_length thm
-R8841:8880 Physics.DissipativeModel <> dissipative_step_length thm
-def 8900:8909 <> wave_model
-R8913:8927 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
-R8949:8958 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R8949:8958 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R8949:8958 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R8996:9004 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R8996:9004 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R9042:9054 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R9042:9054 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R9124:9138 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R9124:9138 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R9208:9218 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R9208:9218 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R9258:9270 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R9258:9270 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R9312:9326 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R9312:9326 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R9346:9360 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R9346:9360 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R8963:8981 Physics.WaveModel <> WaveState def
-R9009:9027 Physics.WaveModel <> wave_step def
-binder 9066:9066 <> s:63
-R9099:9101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9069:9074 Coq.Lists.List <> length abbrev
-R9077:9095 Physics.WaveModel <> wave_step def
-R9097:9097 ThieleManifold.PhysicsIsomorphism <> s:63 var
-R9102:9107 Coq.Lists.List <> length abbrev
-R9109:9109 ThieleManifold.PhysicsIsomorphism <> s:63 var
-binder 9150:9150 <> s:64
-R9183:9185 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9153:9158 Coq.Lists.List <> length abbrev
-R9161:9179 Physics.WaveModel <> wave_step def
-R9181:9181 ThieleManifold.PhysicsIsomorphism <> s:64 var
-R9186:9191 Coq.Lists.List <> length abbrev
-R9193:9193 ThieleManifold.PhysicsIsomorphism <> s:64 var
-R9223:9243 Physics.WaveModel <> wave_energy def
-R9275:9297 Physics.WaveModel <> wave_momentum def
-binder 9372:9372 <> s:65
-R9422:9424 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9375:9397 Physics.WaveModel <> wave_step_inv def
-R9400:9418 Physics.WaveModel <> wave_step def
-R9420:9420 ThieleManifold.PhysicsIsomorphism <> s:65 var
-R9425:9425 ThieleManifold.PhysicsIsomorphism <> s:65 var
-R8949:8958 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R8949:8958 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R8949:8958 ThieleManifold.PhysicsIsomorphism <> phys_state proj
-R8996:9004 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R8996:9004 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R9042:9054 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R9042:9054 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R9124:9138 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R9124:9138 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R9208:9218 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R9208:9218 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R9258:9270 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R9258:9270 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
-R9312:9326 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R9312:9326 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
-R9346:9360 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R9346:9360 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R8963:8981 Physics.WaveModel <> WaveState def
-R9009:9027 Physics.WaveModel <> wave_step def
-binder 9066:9066 <> s:66
-R9099:9101 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9069:9074 Coq.Lists.List <> length abbrev
-R9077:9095 Physics.WaveModel <> wave_step def
-R9097:9097 ThieleManifold.PhysicsIsomorphism <> s:66 var
-R9102:9107 Coq.Lists.List <> length abbrev
-R9109:9109 ThieleManifold.PhysicsIsomorphism <> s:66 var
-binder 9150:9150 <> s:67
-R9183:9185 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9153:9158 Coq.Lists.List <> length abbrev
-R9161:9179 Physics.WaveModel <> wave_step def
-R9181:9181 ThieleManifold.PhysicsIsomorphism <> s:67 var
-R9186:9191 Coq.Lists.List <> length abbrev
-R9193:9193 ThieleManifold.PhysicsIsomorphism <> s:67 var
-R9223:9243 Physics.WaveModel <> wave_energy def
-R9275:9297 Physics.WaveModel <> wave_momentum def
-binder 9372:9372 <> s:68
-R9422:9424 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9375:9397 Physics.WaveModel <> wave_step_inv def
-R9400:9418 Physics.WaveModel <> wave_step def
-R9420:9420 ThieleManifold.PhysicsIsomorphism <> s:68 var
-R9425:9425 ThieleManifold.PhysicsIsomorphism <> s:68 var
-R9458:9488 Physics.WaveModel <> wave_energy_conserved thm
-R9458:9488 Physics.WaveModel <> wave_energy_conserved thm
-prf 9507:9516 <> wave_local
-R9520:9532 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R9534:9543 ThieleManifold.PhysicsIsomorphism <> wave_model def
-R9559:9584 Physics.WaveModel <> wave_step_length thm
-R9559:9584 Physics.WaveModel <> wave_step_length thm
-prf 9599:9609 <> wave_finite
-R9613:9627 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
-R9629:9638 ThieleManifold.PhysicsIsomorphism <> wave_model def
-R9654:9679 Physics.WaveModel <> wave_step_length thm
-R9654:9679 Physics.WaveModel <> wave_step_length thm
-prf 9694:9708 <> wave_reversible
-R9712:9726 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R9728:9737 ThieleManifold.PhysicsIsomorphism <> wave_model def
-R9753:9779 Physics.WaveModel <> wave_step_inverse thm
-R9753:9779 Physics.WaveModel <> wave_step_inverse thm
-rec 9849:9866 <> EmbeddingCaseStudy
-proj 9875:9884 <> study_name
-proj 9903:9913 <> study_model
-proj 9940:9955 <> study_invariants
-proj 9968:9980 <> study_entropy
-proj 9996:10007 <> study_status
-R9893:9898 Coq.Strings.String <> string ind
-R9921:9935 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
-R9958:9963 Coq.Strings.String <> string ind
-R9986:9991 Coq.Strings.String <> string ind
-R10014:10019 Coq.Strings.String <> string ind
-def 10036:10051 <> lattice_gas_case
-R10055:10072 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
-R10094:10103 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10094:10103 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10094:10103 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10146:10156 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10146:10156 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10192:10207 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10192:10207 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10288:10300 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10288:10300 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10381:10392 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10381:10392 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10161:10177 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
-R10094:10103 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10094:10103 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10094:10103 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10146:10156 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10146:10156 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10192:10207 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10192:10207 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10288:10300 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10288:10300 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10381:10392 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10381:10392 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10161:10177 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
-def 10536:10551 <> dissipative_case
-R10555:10572 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
-R10594:10603 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10594:10603 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10594:10603 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10643:10653 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10643:10653 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10689:10704 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10689:10704 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10771:10783 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10771:10783 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10863:10874 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10863:10874 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10658:10674 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-R10594:10603 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10594:10603 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10594:10603 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R10643:10653 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10643:10653 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R10689:10704 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10689:10704 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R10771:10783 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10771:10783 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R10863:10874 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10863:10874 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R10658:10674 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-def 11021:11029 <> wave_case
-R11033:11050 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
-R11072:11081 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R11072:11081 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R11072:11081 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R11118:11128 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R11118:11128 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R11157:11172 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R11157:11172 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R11242:11254 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R11242:11254 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R11337:11348 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R11337:11348 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R11133:11142 ThieleManifold.PhysicsIsomorphism <> wave_model def
-R11072:11081 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R11072:11081 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R11072:11081 ThieleManifold.PhysicsIsomorphism <> study_name proj
-R11118:11128 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R11118:11128 ThieleManifold.PhysicsIsomorphism <> study_model proj
-R11157:11172 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R11157:11172 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
-R11242:11254 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R11242:11254 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
-R11337:11348 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R11337:11348 ThieleManifold.PhysicsIsomorphism <> study_status proj
-R11133:11142 ThieleManifold.PhysicsIsomorphism <> wave_model def
-def 11474:11494 <> embedded_case_studies
-R11498:11501 Coq.Init.Datatypes <> list ind
-R11503:11520 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
-R11543:11546 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R11527:11542 ThieleManifold.PhysicsIsomorphism <> lattice_gas_case def
-R11563:11566 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R11547:11562 ThieleManifold.PhysicsIsomorphism <> dissipative_case def
-R11576:11579 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R11567:11575 ThieleManifold.PhysicsIsomorphism <> wave_case def
-R11580:11582 Coq.Init.Datatypes <> nil constr
-def 11639:11648 <> embeddable
-R11656:11670 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
-binder 11651:11652 <> DP:75
-R11685:11692 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11715:11717 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11697:11711 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
-R11713:11714 ThieleManifold.PhysicsIsomorphism <> DP:75 var
-binder 11693:11693 <> E:76
-R11718:11721 Coq.Init.Logic <> True ind
-def 11736:11754 <> reversible_complete
-binder 11775:11776 <> DP:77
-R11797:11800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11779:11793 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
-R11795:11796 ThieleManifold.PhysicsIsomorphism <> DP:77 var
-R11817:11820 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11801:11813 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
-R11815:11816 ThieleManifold.PhysicsIsomorphism <> DP:77 var
-R11821:11830 ThieleManifold.PhysicsIsomorphism <> embeddable def
-R11832:11833 ThieleManifold.PhysicsIsomorphism <> DP:77 var
-def 11848:11877 <> dissipative_entropy_compatible
-binder 11898:11899 <> DP:78
-R11906:11906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11967:11975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11907:11913 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11915:11916 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 11914:11914 <> s:79
-R11948:11950 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R11917:11927 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R11929:11930 ThieleManifold.PhysicsIsomorphism <> DP:78 var
-R11933:11941 ThieleManifold.PhysicsIsomorphism <> phys_step proj
-R11943:11944 ThieleManifold.PhysicsIsomorphism <> DP:78 var
-R11946:11946 ThieleManifold.PhysicsIsomorphism <> s:79 var
-R11951:11961 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
-R11963:11964 ThieleManifold.PhysicsIsomorphism <> DP:78 var
-R11966:11966 ThieleManifold.PhysicsIsomorphism <> s:79 var
-R11976:11985 ThieleManifold.PhysicsIsomorphism <> embeddable def
-R11987:11988 ThieleManifold.PhysicsIsomorphism <> DP:78 var
-def 12003:12028 <> lattice_gas_embedding_goal
-R12040:12049 ThieleManifold.PhysicsIsomorphism <> embeddable def
-R12051:12067 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
-def 12081:12106 <> dissipative_embedding_goal
-R12118:12127 ThieleManifold.PhysicsIsomorphism <> embeddable def
-R12129:12145 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
-def 12159:12177 <> wave_embedding_goal
-R12189:12198 ThieleManifold.PhysicsIsomorphism <> embeddable def
-R12200:12209 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R1509:1514 Coq.Strings.String <> <> lib
+R1516:1521 Coq.ZArith.ZArith <> <> lib
+R1523:1525 Coq.micromega.Lia <> <> lib
+R1527:1530 Coq.Lists.List <> <> lib
+R1532:1539 Coq.Arith.PeanoNat <> <> lib
+R1569:1575 Kernel.VMState <> <> lib
+R1577:1582 Kernel.VMStep <> <> lib
+R1584:1603 Kernel.MuLedgerConservation <> <> lib
+R1605:1619 Kernel.SimulationProof <> <> lib
+R1657:1676 ThieleManifold.ThieleManifoldBridge <> <> lib
+R1707:1719 Physics.DiscreteModel <> <> lib
+R1721:1736 Physics.DissipativeModel <> <> lib
+R1738:1746 Physics.WaveModel <> <> lib
+R1788:1800 Coq.Lists.List ListNotations <> mod
+rec 2109:2123 <> DiscretePhysics
+proj 2132:2141 <> phys_state
+proj 2159:2167 <> phys_step
+proj 2206:2218 <> phys_locality
+proj 2233:2247 <> phys_finiteness
+proj 2260:2270 <> phys_energy
+proj 2300:2312 <> phys_momentum
+proj 2338:2352 <> phys_energy_law
+proj 2469:2483 <> phys_reversible
+R2188:2191 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2178:2187 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
+R2192:2201 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
+R2289:2292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2279:2288 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
+R2293:2295 Coq.Init.Datatypes <> nat ind
+R2329:2332 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2319:2328 ThieleManifold.PhysicsIsomorphism <> phys_state:2 meth
+R2333:2333 Coq.Numbers.BinNums <> Z ind
+binder 2364:2364 <> s:8
+R2414:2423 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R2398:2400 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2373:2383 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
+R2386:2394 ThieleManifold.PhysicsIsomorphism <> phys_step:3 meth
+R2396:2396 ThieleManifold.PhysicsIsomorphism <> s:8 var
+R2401:2411 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
+R2413:2413 ThieleManifold.PhysicsIsomorphism <> s:8 var
+R2449:2451 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R2424:2434 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
+R2437:2445 ThieleManifold.PhysicsIsomorphism <> phys_step:3 meth
+R2447:2447 ThieleManifold.PhysicsIsomorphism <> s:8 var
+R2452:2462 ThieleManifold.PhysicsIsomorphism <> phys_energy:6 meth
+R2464:2464 ThieleManifold.PhysicsIsomorphism <> s:8 var
+rec 2800:2814 <> ThieleEmbedding
+proj 2846:2854 <> emb_trace
+proj 2888:2897 <> emb_encode
+proj 2935:2944 <> emb_decode
+proj 2982:2994 <> emb_roundtrip
+proj 3044:3055 <> emb_step_sim
+proj 3146:3158 <> emb_cost_free
+proj 3308:3324 <> emb_cost_positive
+R2822:2836 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
+binder 2817:2818 <> DP:11
+R2865:2868 Coq.Init.Datatypes <> list ind
+R2870:2883 Kernel.VMStep VMStep vm_instruction ind
+R2920:2923 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2907:2916 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R2918:2919 ThieleManifold.PhysicsIsomorphism <> DP:11 var
+R2924:2930 Kernel.VMState <> VMState rec
+R2961:2964 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2954:2960 Kernel.VMState <> VMState rec
+R2965:2974 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R2976:2977 ThieleManifold.PhysicsIsomorphism <> DP:11 var
+binder 3008:3008 <> s:16
+R3036:3038 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3011:3020 ThieleManifold.PhysicsIsomorphism <> emb_decode:15 meth
+R3023:3032 ThieleManifold.PhysicsIsomorphism <> emb_encode:14 meth
+R3034:3034 ThieleManifold.PhysicsIsomorphism <> s:16 var
+R3039:3039 ThieleManifold.PhysicsIsomorphism <> s:16 var
+binder 3070:3070 <> s:18
+R3125:3127 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3079:3088 ThieleManifold.PhysicsIsomorphism <> emb_decode:15 meth
+R3091:3096 Kernel.SimulationProof <> run_vm def
+R3100:3108 ThieleManifold.PhysicsIsomorphism <> emb_trace:13 meth
+R3111:3120 ThieleManifold.PhysicsIsomorphism <> emb_encode:14 meth
+R3122:3122 ThieleManifold.PhysicsIsomorphism <> s:18 var
+R3128:3136 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R3138:3139 ThieleManifold.PhysicsIsomorphism <> DP:11 var
+R3141:3141 ThieleManifold.PhysicsIsomorphism <> s:18 var
+R3165:3170 Coq.Init.Datatypes <> option ind
+binder 3180:3181 <> pc:20
+binder 3183:3187 <> instr:21
+R3249:3276 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3236:3238 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3214:3222 Coq.Lists.List <> nth_error def
+R3234:3235 ThieleManifold.PhysicsIsomorphism <> pc:20 var
+R3224:3232 ThieleManifold.PhysicsIsomorphism <> emb_trace:13 meth
+R3239:3242 Coq.Init.Datatypes <> Some constr
+R3244:3248 ThieleManifold.PhysicsIsomorphism <> instr:21 var
+R3299:3301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3277:3292 Kernel.VMStep VMStep instruction_cost def
+R3294:3298 ThieleManifold.PhysicsIsomorphism <> instr:21 var
+R3327:3332 Coq.Init.Datatypes <> option ind
+binder 3342:3343 <> pc:23
+binder 3345:3349 <> instr:24
+R3411:3438 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3398:3400 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3376:3384 Coq.Lists.List <> nth_error def
+R3396:3397 ThieleManifold.PhysicsIsomorphism <> pc:23 var
+R3386:3394 ThieleManifold.PhysicsIsomorphism <> emb_trace:13 meth
+R3401:3404 Coq.Init.Datatypes <> Some constr
+R3406:3410 ThieleManifold.PhysicsIsomorphism <> instr:24 var
+R3461:3464 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3439:3454 Kernel.VMStep VMStep instruction_cost def
+R3456:3460 ThieleManifold.PhysicsIsomorphism <> instr:24 var
+def 3483:3507 <> embedding_trace_cost_free
+binder 3510:3511 <> DP:26
+R3519:3533 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R3535:3536 ThieleManifold.PhysicsIsomorphism <> DP:26 var
+binder 3515:3515 <> E:27
+R3551:3557 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3560:3561 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3558:3559 <> pf:28
+R3580:3582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3562:3574 ThieleManifold.PhysicsIsomorphism <> emb_cost_free proj
+R3576:3577 ThieleManifold.PhysicsIsomorphism <> DP:26 var
+R3579:3579 ThieleManifold.PhysicsIsomorphism <> E:27 var
+R3583:3586 Coq.Init.Datatypes <> Some constr
+R3588:3589 ThieleManifold.PhysicsIsomorphism <> pf:28 var
+def 3604:3632 <> embedding_trace_cost_positive
+binder 3635:3636 <> DP:29
+R3644:3658 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R3660:3661 ThieleManifold.PhysicsIsomorphism <> DP:29 var
+binder 3640:3640 <> E:30
+R3676:3682 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3685:3686 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3683:3684 <> pf:31
+R3709:3711 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3687:3703 ThieleManifold.PhysicsIsomorphism <> emb_cost_positive proj
+R3705:3706 ThieleManifold.PhysicsIsomorphism <> DP:29 var
+R3708:3708 ThieleManifold.PhysicsIsomorphism <> E:30 var
+R3712:3715 Coq.Init.Datatypes <> Some constr
+R3717:3718 ThieleManifold.PhysicsIsomorphism <> pf:31 var
+sec 3801:3815 <> EmbeddingLemmas
+R3834:3848 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
+binder 3829:3830 <> DP:32
+R3856:3870 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R3872:3873 ThieleManifold.PhysicsIsomorphism <> DP:32 var
+binder 3852:3852 <> E:33
+abbrev 3889:3893 <> trace
+R3899:3907 ThieleManifold.PhysicsIsomorphism <> emb_trace proj
+R3909:3910 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
+R3912:3912 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+abbrev 3927:3932 <> encode
+R3938:3947 ThieleManifold.PhysicsIsomorphism <> emb_encode proj
+R3949:3950 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
+R3952:3952 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+abbrev 3967:3972 <> decode
+R3978:3987 ThieleManifold.PhysicsIsomorphism <> emb_decode proj
+R3989:3990 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
+R3992:3992 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+prf 4003:4045 <> reversible_trace_irreversibility_count_zero
+R4078:4083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4051:4075 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
+R4077:4077 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+binder 4091:4094 <> fuel:34
+binder 4096:4099 <> s_vm:35
+R4136:4138 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4102:4119 Kernel.MuLedgerConservation <> irreversible_count def
+R4121:4124 ThieleManifold.PhysicsIsomorphism <> fuel:34 var
+R4126:4130 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R4132:4135 ThieleManifold.PhysicsIsomorphism <> s_vm:35 var
+R4275:4283 Coq.Lists.List <> nth_error def
+R4292:4296 Kernel.VMState <> vm_pc proj
+R4285:4289 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R4275:4283 Coq.Lists.List <> nth_error def
+R4292:4296 Kernel.VMState <> vm_pc proj
+R4285:4289 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R4402:4426 Kernel.MuLedgerConservation <> irreversible_bits_le_cost thm
+R4402:4426 Kernel.MuLedgerConservation <> irreversible_bits_le_cost thm
+R4479:4481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4456:4472 Kernel.MuLedgerConservation <> irreversible_bits def
+R4479:4481 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4456:4472 Kernel.MuLedgerConservation <> irreversible_bits def
+prf 4562:4593 <> reversible_trace_ledger_sum_zero
+R4626:4631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4599:4623 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
+R4625:4625 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+binder 4639:4642 <> fuel:36
+binder 4644:4647 <> s_vm:37
+R4693:4695 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4650:4659 Kernel.MuLedgerConservation <> ledger_sum def
+R4662:4675 Kernel.MuLedgerConservation <> ledger_entries def
+R4677:4680 ThieleManifold.PhysicsIsomorphism <> fuel:36 var
+R4682:4686 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R4688:4691 ThieleManifold.PhysicsIsomorphism <> s_vm:37 var
+R4832:4840 Coq.Lists.List <> nth_error def
+R4849:4853 Kernel.VMState <> vm_pc proj
+R4842:4846 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R4832:4840 Coq.Lists.List <> nth_error def
+R4849:4853 Kernel.VMState <> vm_pc proj
+R4842:4846 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R4987:4994 Kernel.SimulationProof <> vm_apply def
+R4987:4994 Kernel.SimulationProof <> vm_apply def
+prf 5027:5067 <> reversible_embedding_zero_irreversibility
+R5091:5094 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5073:5087 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R5089:5090 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
+R5122:5129 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5095:5119 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
+R5121:5121 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+binder 5137:5140 <> fuel:38
+R5150:5156 Kernel.VMState <> VMState rec
+binder 5143:5146 <> s_vm:39
+R5204:5213 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5200:5202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5166:5183 Kernel.MuLedgerConservation <> irreversible_count def
+R5185:5188 ThieleManifold.PhysicsIsomorphism <> fuel:38 var
+R5190:5194 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R5196:5199 ThieleManifold.PhysicsIsomorphism <> s_vm:39 var
+R5246:5248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5240:5244 Kernel.VMState <> vm_mu proj
+R5215:5220 Kernel.SimulationProof <> run_vm def
+R5222:5225 ThieleManifold.PhysicsIsomorphism <> fuel:38 var
+R5227:5231 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R5233:5236 ThieleManifold.PhysicsIsomorphism <> s_vm:39 var
+R5255:5259 Kernel.VMState <> vm_mu proj
+R5249:5252 ThieleManifold.PhysicsIsomorphism <> s_vm:39 var
+R5317:5359 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R5317:5359 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R5386:5407 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R5386:5407 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R5386:5407 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R5426:5457 ThieleManifold.PhysicsIsomorphism <> reversible_trace_ledger_sum_zero thm
+R5426:5457 ThieleManifold.PhysicsIsomorphism <> reversible_trace_ledger_sum_zero thm
+prf 5506:5542 <> irreversible_count_positive_from_cost
+R5579:5584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5548:5576 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
+R5578:5578 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+binder 5592:5595 <> fuel:40
+binder 5597:5600 <> s_vm:41
+binder 5602:5606 <> instr:42
+R5621:5624 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5617:5619 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R5613:5616 ThieleManifold.PhysicsIsomorphism <> fuel:40 var
+R5666:5673 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5653:5655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5625:5633 Coq.Lists.List <> nth_error def
+R5647:5651 Kernel.VMState <> vm_pc proj
+R5641:5644 ThieleManifold.PhysicsIsomorphism <> s_vm:41 var
+R5635:5639 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R5656:5659 Coq.Init.Datatypes <> Some constr
+R5661:5665 ThieleManifold.PhysicsIsomorphism <> instr:42 var
+R5708:5711 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5674:5691 Kernel.MuLedgerConservation <> irreversible_count def
+R5693:5696 ThieleManifold.PhysicsIsomorphism <> fuel:40 var
+R5698:5702 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R5704:5707 ThieleManifold.PhysicsIsomorphism <> s_vm:41 var
+R5921:5937 Kernel.MuLedgerConservation <> irreversible_bits def
+R5952:5958 Coq.Arith.PeanoNat Nat eqb def
+R5961:5976 Kernel.VMStep VMStep instruction_cost def
+R5952:5958 Coq.Arith.PeanoNat Nat eqb def
+R5961:5976 Kernel.VMStep VMStep instruction_cost def
+R6009:6018 Coq.Arith.PeanoNat Nat eqb_eq thm
+R6009:6018 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 6056:6083 <> dissipative_embedding_mu_gap
+R6120:6125 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6089:6117 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
+R6119:6119 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+binder 6133:6136 <> fuel:43
+binder 6138:6141 <> s_vm:44
+binder 6143:6147 <> instr:45
+R6162:6165 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6158:6160 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6154:6157 ThieleManifold.PhysicsIsomorphism <> fuel:43 var
+R6207:6214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6194:6196 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6166:6174 Coq.Lists.List <> nth_error def
+R6188:6192 Kernel.VMState <> vm_pc proj
+R6182:6185 ThieleManifold.PhysicsIsomorphism <> s_vm:44 var
+R6176:6180 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R6197:6200 Coq.Init.Datatypes <> Some constr
+R6202:6206 ThieleManifold.PhysicsIsomorphism <> instr:45 var
+R6247:6250 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6241:6245 Kernel.VMState <> vm_mu proj
+R6216:6221 Kernel.SimulationProof <> run_vm def
+R6223:6226 ThieleManifold.PhysicsIsomorphism <> fuel:43 var
+R6228:6232 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R6234:6237 ThieleManifold.PhysicsIsomorphism <> s_vm:44 var
+R6263:6265 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6257:6261 Kernel.VMState <> vm_mu proj
+R6251:6254 ThieleManifold.PhysicsIsomorphism <> s_vm:44 var
+R6335:6360 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+R6367:6371 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R6335:6360 Kernel.MuLedgerConservation <> run_vm_irreversibility_gap thm
+R6367:6371 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R6402:6438 ThieleManifold.PhysicsIsomorphism <> irreversible_count_positive_from_cost thm
+R6402:6438 ThieleManifold.PhysicsIsomorphism <> irreversible_count_positive_from_cost thm
+prf 6504:6547 <> reversible_embedding_zero_irreversibility_hw
+R6571:6574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6553:6567 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R6569:6570 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.DP var
+R6602:6607 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6575:6599 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_free def
+R6601:6601 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+R6623:6644 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
+binder 6616:6619 <> Impl:46
+binder 6647:6650 <> fuel:47
+binder 6652:6655 <> s_hw:48
+R6685:6692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6677:6679 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6668:6675 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R6662:6665 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
+R6680:6684 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R6760:6767 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6756:6758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6693:6710 Kernel.MuLedgerConservation <> irreversible_count def
+R6712:6715 ThieleManifold.PhysicsIsomorphism <> fuel:47 var
+R6723:6730 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R6717:6720 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
+R6740:6748 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R6734:6737 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
+R6751:6754 ThieleManifold.PhysicsIsomorphism <> s_hw:48 var
+R6831:6837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6825:6829 Kernel.VMState <> vm_mu proj
+R6775:6783 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R6769:6772 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
+R6787:6795 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R6817:6820 ThieleManifold.PhysicsIsomorphism <> s_hw:48 var
+R6812:6815 ThieleManifold.PhysicsIsomorphism <> fuel:47 var
+R6803:6809 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R6797:6800 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
+R6863:6867 Kernel.VMState <> vm_mu proj
+R6845:6853 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R6839:6842 ThieleManifold.PhysicsIsomorphism <> Impl:46 var
+R6856:6859 ThieleManifold.PhysicsIsomorphism <> s_hw:48 var
+R6956:6998 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R6956:6998 ThieleManifold.PhysicsIsomorphism <> reversible_trace_irreversibility_count_zero thm
+R7029:7041 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R7029:7041 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R7139:7179 ThieleManifold.PhysicsIsomorphism <> reversible_embedding_zero_irreversibility thm
+R7198:7206 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R7139:7179 ThieleManifold.PhysicsIsomorphism <> reversible_embedding_zero_irreversibility thm
+R7198:7206 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+prf 7251:7281 <> dissipative_embedding_mu_gap_hw
+R7318:7323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7287:7315 ThieleManifold.PhysicsIsomorphism <> embedding_trace_cost_positive def
+R7317:7317 ThieleManifold.PhysicsIsomorphism <> EmbeddingLemmas.E var
+R7339:7360 ThieleManifold.ThieleManifoldBridge <> FaithfulImplementation rec
+binder 7332:7335 <> Impl:49
+binder 7363:7366 <> fuel:50
+binder 7368:7371 <> s_hw:51
+binder 7373:7377 <> instr:52
+R7392:7395 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7388:7390 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R7384:7387 ThieleManifold.PhysicsIsomorphism <> fuel:50 var
+R7419:7426 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7411:7413 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7402:7409 ThieleManifold.ThieleManifoldBridge <> hw_trace proj
+R7396:7399 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
+R7414:7418 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R7485:7492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7472:7474 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7427:7435 Coq.Lists.List <> nth_error def
+R7466:7470 Kernel.VMState <> vm_pc proj
+R7444:7452 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R7454:7457 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
+R7459:7462 ThieleManifold.PhysicsIsomorphism <> s_hw:51 var
+R7437:7441 ThieleManifold.PhysicsIsomorphism <> trace abbrev
+R7475:7478 Coq.Init.Datatypes <> Some constr
+R7480:7484 ThieleManifold.PhysicsIsomorphism <> instr:52 var
+R7556:7565 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7550:7554 Kernel.VMState <> vm_mu proj
+R7500:7508 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R7494:7497 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
+R7512:7520 ThieleManifold.ThieleManifoldBridge <> impl_iter def
+R7542:7545 ThieleManifold.PhysicsIsomorphism <> s_hw:51 var
+R7537:7540 ThieleManifold.PhysicsIsomorphism <> fuel:50 var
+R7528:7534 ThieleManifold.ThieleManifoldBridge <> hw_step proj
+R7522:7525 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
+R7597:7599 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7591:7595 Kernel.VMState <> vm_mu proj
+R7573:7581 ThieleManifold.ThieleManifoldBridge <> hw_decode proj
+R7567:7570 ThieleManifold.PhysicsIsomorphism <> Impl:49 var
+R7584:7587 ThieleManifold.PhysicsIsomorphism <> s_hw:51 var
+R7681:7693 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R7681:7693 ThieleManifold.ThieleManifoldBridge <> hw_refines_vm proj
+R7780:7807 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
+R7780:7807 ThieleManifold.PhysicsIsomorphism <> dissipative_embedding_mu_gap thm
+R7826:7840 ThieleManifold.PhysicsIsomorphism EmbeddingLemmas <> sec
+def 7907:7923 <> lattice_gas_model
+R7927:7941 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
+R7963:7972 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R7963:7972 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R7963:7972 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R8012:8020 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R8012:8020 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R8065:8077 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R8065:8077 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R8154:8168 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R8154:8168 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R8245:8255 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R8245:8255 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R8302:8314 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R8302:8314 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R8355:8369 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R8355:8369 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R8389:8403 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R8389:8403 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R7977:7997 Physics.DiscreteModel <> Lattice def
+R8025:8050 Physics.DiscreteModel <> physics_step def
+binder 8089:8089 <> l:53
+R8129:8131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8092:8097 Coq.Lists.List <> length abbrev
+R8100:8125 Physics.DiscreteModel <> physics_step def
+R8127:8127 ThieleManifold.PhysicsIsomorphism <> l:53 var
+R8132:8137 Coq.Lists.List <> length abbrev
+R8139:8139 ThieleManifold.PhysicsIsomorphism <> l:53 var
+binder 8180:8180 <> l:54
+R8220:8222 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8183:8188 Coq.Lists.List <> length abbrev
+R8191:8216 Physics.DiscreteModel <> physics_step def
+R8218:8218 ThieleManifold.PhysicsIsomorphism <> l:54 var
+R8223:8228 Coq.Lists.List <> length abbrev
+R8230:8230 ThieleManifold.PhysicsIsomorphism <> l:54 var
+R8260:8287 Physics.DiscreteModel <> particle_count def
+R8319:8340 Physics.DiscreteModel <> momentum def
+binder 8415:8415 <> l:55
+R8475:8477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8418:8443 Physics.DiscreteModel <> physics_step def
+R8446:8471 Physics.DiscreteModel <> physics_step def
+R8473:8473 ThieleManifold.PhysicsIsomorphism <> l:55 var
+R8478:8478 ThieleManifold.PhysicsIsomorphism <> l:55 var
+R7963:7972 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R7963:7972 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R7963:7972 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R8012:8020 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R8012:8020 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R8065:8077 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R8065:8077 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R8154:8168 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R8154:8168 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R8245:8255 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R8245:8255 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R8302:8314 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R8302:8314 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R8355:8369 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R8355:8369 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R8389:8403 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R8389:8403 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R7977:7997 Physics.DiscreteModel <> Lattice def
+R8025:8050 Physics.DiscreteModel <> physics_step def
+binder 8089:8089 <> l:56
+R8129:8131 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8092:8097 Coq.Lists.List <> length abbrev
+R8100:8125 Physics.DiscreteModel <> physics_step def
+R8127:8127 ThieleManifold.PhysicsIsomorphism <> l:56 var
+R8132:8137 Coq.Lists.List <> length abbrev
+R8139:8139 ThieleManifold.PhysicsIsomorphism <> l:56 var
+binder 8180:8180 <> l:57
+R8220:8222 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8183:8188 Coq.Lists.List <> length abbrev
+R8191:8216 Physics.DiscreteModel <> physics_step def
+R8218:8218 ThieleManifold.PhysicsIsomorphism <> l:57 var
+R8223:8228 Coq.Lists.List <> length abbrev
+R8230:8230 ThieleManifold.PhysicsIsomorphism <> l:57 var
+R8260:8287 Physics.DiscreteModel <> particle_count def
+R8319:8340 Physics.DiscreteModel <> momentum def
+binder 8415:8415 <> l:58
+R8475:8477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8418:8443 Physics.DiscreteModel <> physics_step def
+R8446:8471 Physics.DiscreteModel <> physics_step def
+R8473:8473 ThieleManifold.PhysicsIsomorphism <> l:58 var
+R8478:8478 ThieleManifold.PhysicsIsomorphism <> l:58 var
+R8511:8556 Physics.DiscreteModel <> physics_preserves_particle_count thm
+R8511:8556 Physics.DiscreteModel <> physics_preserves_particle_count thm
+prf 8575:8591 <> lattice_gas_local
+R8595:8607 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R8609:8625 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+R8641:8673 Physics.DiscreteModel <> physics_step_length thm
+R8641:8673 Physics.DiscreteModel <> physics_step_length thm
+prf 8688:8705 <> lattice_gas_finite
+R8709:8723 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R8725:8741 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+R8757:8789 Physics.DiscreteModel <> physics_step_length thm
+R8757:8789 Physics.DiscreteModel <> physics_step_length thm
+prf 8804:8825 <> lattice_gas_reversible
+R8829:8843 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R8845:8861 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+R8877:8913 Physics.DiscreteModel <> physics_step_involutive thm
+R8877:8913 Physics.DiscreteModel <> physics_step_involutive thm
+def 8935:8951 <> dissipative_model
+R8955:8969 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
+R8995:9004 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R8995:9004 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R8995:9004 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R9049:9057 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R9049:9057 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R9111:9123 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R9111:9123 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R9209:9223 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R9209:9223 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R9309:9319 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R9309:9319 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R9363:9375 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R9363:9375 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R9408:9422 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R9408:9422 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R9444:9458 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R9444:9458 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R9009:9032 Physics.DissipativeModel <> Lattice def
+R9062:9094 Physics.DissipativeModel <> dissipative_step def
+binder 9135:9135 <> l:59
+R9182:9184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9138:9143 Coq.Lists.List <> length abbrev
+R9146:9178 Physics.DissipativeModel <> dissipative_step def
+R9180:9180 ThieleManifold.PhysicsIsomorphism <> l:59 var
+R9185:9190 Coq.Lists.List <> length abbrev
+R9192:9192 ThieleManifold.PhysicsIsomorphism <> l:59 var
+binder 9235:9235 <> l:60
+R9282:9284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9238:9243 Coq.Lists.List <> length abbrev
+R9246:9278 Physics.DissipativeModel <> dissipative_step def
+R9280:9280 ThieleManifold.PhysicsIsomorphism <> l:60 var
+R9285:9290 Coq.Lists.List <> length abbrev
+R9292:9292 ThieleManifold.PhysicsIsomorphism <> l:60 var
+R9324:9346 Physics.DissipativeModel <> energy def
+R9463:9467 Coq.Init.Logic <> False ind
+R8995:9004 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R8995:9004 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R8995:9004 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R9049:9057 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R9049:9057 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R9111:9123 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R9111:9123 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R9209:9223 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R9209:9223 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R9309:9319 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R9309:9319 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R9363:9375 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R9363:9375 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R9408:9422 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R9408:9422 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R9444:9458 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R9444:9458 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R9009:9032 Physics.DissipativeModel <> Lattice def
+R9062:9094 Physics.DissipativeModel <> dissipative_step def
+binder 9135:9135 <> l:61
+R9182:9184 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9138:9143 Coq.Lists.List <> length abbrev
+R9146:9178 Physics.DissipativeModel <> dissipative_step def
+R9180:9180 ThieleManifold.PhysicsIsomorphism <> l:61 var
+R9185:9190 Coq.Lists.List <> length abbrev
+R9192:9192 ThieleManifold.PhysicsIsomorphism <> l:61 var
+binder 9235:9235 <> l:62
+R9282:9284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9238:9243 Coq.Lists.List <> length abbrev
+R9246:9278 Physics.DissipativeModel <> dissipative_step def
+R9280:9280 ThieleManifold.PhysicsIsomorphism <> l:62 var
+R9285:9290 Coq.Lists.List <> length abbrev
+R9292:9292 ThieleManifold.PhysicsIsomorphism <> l:62 var
+R9324:9346 Physics.DissipativeModel <> energy def
+R9463:9467 Coq.Init.Logic <> False ind
+R9500:9509 Coq.Arith.PeanoNat Nat eq_dec thm
+R9512:9534 Physics.DissipativeModel <> energy def
+R9500:9509 Coq.Arith.PeanoNat Nat eq_dec thm
+R9512:9534 Physics.DissipativeModel <> energy def
+R9579:9623 Physics.DissipativeModel <> dissipative_step_energy_zero thm
+R9579:9623 Physics.DissipativeModel <> dissipative_step_energy_zero thm
+R9579:9623 Physics.DissipativeModel <> dissipative_step_energy_zero thm
+R9658:9708 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
+R9658:9708 Physics.DissipativeModel <> dissipative_energy_strict_when_hot thm
+prf 9734:9750 <> dissipative_local
+R9754:9766 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R9768:9784 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R9800:9839 Physics.DissipativeModel <> dissipative_step_length thm
+R9800:9839 Physics.DissipativeModel <> dissipative_step_length thm
+prf 9854:9871 <> dissipative_finite
+R9875:9889 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R9891:9907 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R9923:9962 Physics.DissipativeModel <> dissipative_step_length thm
+R9923:9962 Physics.DissipativeModel <> dissipative_step_length thm
+def 9982:9991 <> wave_model
+R9995:10009 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
+R10031:10040 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R10031:10040 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R10031:10040 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R10078:10086 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R10078:10086 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R10124:10136 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R10124:10136 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R10206:10220 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R10206:10220 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R10290:10300 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R10290:10300 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R10340:10352 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R10340:10352 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R10394:10408 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R10394:10408 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R10428:10442 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R10428:10442 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R10045:10063 Physics.WaveModel <> WaveState def
+R10091:10109 Physics.WaveModel <> wave_step def
+binder 10148:10148 <> s:63
+R10181:10183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10151:10156 Coq.Lists.List <> length abbrev
+R10159:10177 Physics.WaveModel <> wave_step def
+R10179:10179 ThieleManifold.PhysicsIsomorphism <> s:63 var
+R10184:10189 Coq.Lists.List <> length abbrev
+R10191:10191 ThieleManifold.PhysicsIsomorphism <> s:63 var
+binder 10232:10232 <> s:64
+R10265:10267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10235:10240 Coq.Lists.List <> length abbrev
+R10243:10261 Physics.WaveModel <> wave_step def
+R10263:10263 ThieleManifold.PhysicsIsomorphism <> s:64 var
+R10268:10273 Coq.Lists.List <> length abbrev
+R10275:10275 ThieleManifold.PhysicsIsomorphism <> s:64 var
+R10305:10325 Physics.WaveModel <> wave_energy def
+R10357:10379 Physics.WaveModel <> wave_momentum def
+binder 10454:10454 <> s:65
+R10504:10506 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10457:10479 Physics.WaveModel <> wave_step_inv def
+R10482:10500 Physics.WaveModel <> wave_step def
+R10502:10502 ThieleManifold.PhysicsIsomorphism <> s:65 var
+R10507:10507 ThieleManifold.PhysicsIsomorphism <> s:65 var
+R10031:10040 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R10031:10040 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R10031:10040 ThieleManifold.PhysicsIsomorphism <> phys_state proj
+R10078:10086 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R10078:10086 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R10124:10136 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R10124:10136 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R10206:10220 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R10206:10220 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R10290:10300 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R10290:10300 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R10340:10352 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R10340:10352 ThieleManifold.PhysicsIsomorphism <> phys_momentum proj
+R10394:10408 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R10394:10408 ThieleManifold.PhysicsIsomorphism <> phys_energy_law proj
+R10428:10442 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R10428:10442 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R10045:10063 Physics.WaveModel <> WaveState def
+R10091:10109 Physics.WaveModel <> wave_step def
+binder 10148:10148 <> s:66
+R10181:10183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10151:10156 Coq.Lists.List <> length abbrev
+R10159:10177 Physics.WaveModel <> wave_step def
+R10179:10179 ThieleManifold.PhysicsIsomorphism <> s:66 var
+R10184:10189 Coq.Lists.List <> length abbrev
+R10191:10191 ThieleManifold.PhysicsIsomorphism <> s:66 var
+binder 10232:10232 <> s:67
+R10265:10267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10235:10240 Coq.Lists.List <> length abbrev
+R10243:10261 Physics.WaveModel <> wave_step def
+R10263:10263 ThieleManifold.PhysicsIsomorphism <> s:67 var
+R10268:10273 Coq.Lists.List <> length abbrev
+R10275:10275 ThieleManifold.PhysicsIsomorphism <> s:67 var
+R10305:10325 Physics.WaveModel <> wave_energy def
+R10357:10379 Physics.WaveModel <> wave_momentum def
+binder 10454:10454 <> s:68
+R10504:10506 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10457:10479 Physics.WaveModel <> wave_step_inv def
+R10482:10500 Physics.WaveModel <> wave_step def
+R10502:10502 ThieleManifold.PhysicsIsomorphism <> s:68 var
+R10507:10507 ThieleManifold.PhysicsIsomorphism <> s:68 var
+R10540:10570 Physics.WaveModel <> wave_energy_conserved thm
+R10540:10570 Physics.WaveModel <> wave_energy_conserved thm
+prf 10589:10598 <> wave_local
+R10602:10614 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R10616:10625 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R10641:10666 Physics.WaveModel <> wave_step_length thm
+R10641:10666 Physics.WaveModel <> wave_step_length thm
+prf 10681:10691 <> wave_finite
+R10695:10709 ThieleManifold.PhysicsIsomorphism <> phys_finiteness proj
+R10711:10720 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R10736:10761 Physics.WaveModel <> wave_step_length thm
+R10736:10761 Physics.WaveModel <> wave_step_length thm
+prf 10776:10790 <> wave_reversible
+R10794:10808 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R10810:10819 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R10835:10861 Physics.WaveModel <> wave_step_inverse thm
+R10835:10861 Physics.WaveModel <> wave_step_inverse thm
+rec 10931:10948 <> EmbeddingCaseStudy
+proj 10957:10966 <> study_name
+proj 10985:10995 <> study_model
+proj 11022:11037 <> study_invariants
+proj 11050:11062 <> study_entropy
+proj 11078:11089 <> study_status
+R10975:10980 Coq.Strings.String <> string ind
+R11003:11017 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
+R11040:11045 Coq.Strings.String <> string ind
+R11068:11073 Coq.Strings.String <> string ind
+R11096:11101 Coq.Strings.String <> string ind
+def 11118:11133 <> lattice_gas_case
+R11137:11154 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
+R11176:11185 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11176:11185 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11176:11185 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11228:11238 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11228:11238 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11274:11289 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11274:11289 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11370:11382 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11370:11382 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11463:11474 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11463:11474 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11243:11259 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+R11176:11185 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11176:11185 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11176:11185 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11228:11238 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11228:11238 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11274:11289 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11274:11289 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11370:11382 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11370:11382 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11463:11474 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11463:11474 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11243:11259 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+def 11618:11633 <> dissipative_case
+R11637:11654 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
+R11676:11685 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11676:11685 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11676:11685 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11725:11735 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11725:11735 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11771:11786 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11771:11786 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11853:11865 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11853:11865 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11945:11956 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11945:11956 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11740:11756 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+R11676:11685 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11676:11685 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11676:11685 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R11725:11735 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11725:11735 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R11771:11786 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11771:11786 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R11853:11865 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11853:11865 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R11945:11956 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11945:11956 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R11740:11756 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+def 12103:12111 <> wave_case
+R12115:12132 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
+R12154:12163 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R12154:12163 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R12154:12163 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R12200:12210 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R12200:12210 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R12239:12254 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R12239:12254 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R12324:12336 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R12324:12336 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R12419:12430 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R12419:12430 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R12215:12224 ThieleManifold.PhysicsIsomorphism <> wave_model def
+R12154:12163 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R12154:12163 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R12154:12163 ThieleManifold.PhysicsIsomorphism <> study_name proj
+R12200:12210 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R12200:12210 ThieleManifold.PhysicsIsomorphism <> study_model proj
+R12239:12254 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R12239:12254 ThieleManifold.PhysicsIsomorphism <> study_invariants proj
+R12324:12336 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R12324:12336 ThieleManifold.PhysicsIsomorphism <> study_entropy proj
+R12419:12430 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R12419:12430 ThieleManifold.PhysicsIsomorphism <> study_status proj
+R12215:12224 ThieleManifold.PhysicsIsomorphism <> wave_model def
+def 12556:12576 <> embedded_case_studies
+R12580:12583 Coq.Init.Datatypes <> list ind
+R12585:12602 ThieleManifold.PhysicsIsomorphism <> EmbeddingCaseStudy rec
+R12625:12628 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12609:12624 ThieleManifold.PhysicsIsomorphism <> lattice_gas_case def
+R12645:12648 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12629:12644 ThieleManifold.PhysicsIsomorphism <> dissipative_case def
+R12658:12661 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R12649:12657 ThieleManifold.PhysicsIsomorphism <> wave_case def
+R12662:12664 Coq.Init.Datatypes <> nil constr
+def 12721:12730 <> embeddable
+R12738:12752 ThieleManifold.PhysicsIsomorphism <> DiscretePhysics rec
+binder 12733:12734 <> DP:75
+R12767:12774 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12797:12799 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12779:12793 ThieleManifold.PhysicsIsomorphism <> ThieleEmbedding rec
+R12795:12796 ThieleManifold.PhysicsIsomorphism <> DP:75 var
+binder 12775:12775 <> E:76
+R12800:12803 Coq.Init.Logic <> True ind
+def 12818:12836 <> reversible_complete
+binder 12857:12858 <> DP:77
+R12879:12882 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12861:12875 ThieleManifold.PhysicsIsomorphism <> phys_reversible proj
+R12877:12878 ThieleManifold.PhysicsIsomorphism <> DP:77 var
+R12899:12902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12883:12895 ThieleManifold.PhysicsIsomorphism <> phys_locality proj
+R12897:12898 ThieleManifold.PhysicsIsomorphism <> DP:77 var
+R12903:12912 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R12914:12915 ThieleManifold.PhysicsIsomorphism <> DP:77 var
+def 12930:12959 <> dissipative_entropy_compatible
+binder 12980:12981 <> DP:78
+R12988:12988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13049:13057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12989:12995 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12997:12998 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12996:12996 <> s:79
+R13030:13032 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R12999:13009 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R13011:13012 ThieleManifold.PhysicsIsomorphism <> DP:78 var
+R13015:13023 ThieleManifold.PhysicsIsomorphism <> phys_step proj
+R13025:13026 ThieleManifold.PhysicsIsomorphism <> DP:78 var
+R13028:13028 ThieleManifold.PhysicsIsomorphism <> s:79 var
+R13033:13043 ThieleManifold.PhysicsIsomorphism <> phys_energy proj
+R13045:13046 ThieleManifold.PhysicsIsomorphism <> DP:78 var
+R13048:13048 ThieleManifold.PhysicsIsomorphism <> s:79 var
+R13058:13067 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R13069:13070 ThieleManifold.PhysicsIsomorphism <> DP:78 var
+def 13085:13110 <> lattice_gas_embedding_goal
+R13122:13131 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R13133:13149 ThieleManifold.PhysicsIsomorphism <> lattice_gas_model def
+def 13163:13188 <> dissipative_embedding_goal
+R13200:13209 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R13211:13227 ThieleManifold.PhysicsIsomorphism <> dissipative_model def
+def 13241:13259 <> wave_embedding_goal
+R13271:13280 ThieleManifold.PhysicsIsomorphism <> embeddable def
+R13282:13291 ThieleManifold.PhysicsIsomorphism <> wave_model def

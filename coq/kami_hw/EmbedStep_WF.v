@@ -180,10 +180,9 @@ Qed.
    §4  CHSH_TRIAL: full-state embed_step under chsh_bits_ok
    *)
 
-(** After fixing the dispatch-swap bug in kami_step (2026-04-01),
-    kami_step now uses the same convention as the kernel's record_trial:
-    same := Nat.eqb a b, bucket := match x, y.  Under chsh_bits_ok,
-    both sides agree on all 11 VMState fields. *)
+(** [kami_step] uses the same dispatch convention as the kernel's
+    [record_trial]: [same := Nat.eqb a b], bucket := match on [x,y].
+    Under [chsh_bits_ok], both sides agree on all 11 [VMState] fields. *)
 Theorem embed_step_chsh_trial :
   forall (ks : KamiSnapshot) (x y a b cost : nat),
     chsh_bits_ok x y a b = true ->

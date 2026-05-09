@@ -8,7 +8,7 @@ The canonical 12-field set:
   vm_graph, vm_csrs, vm_regs, vm_mem, vm_pc, vm_mu,
   vm_mu_tensor, vm_err, vm_logic_acc, vm_mstatus, vm_witness, vm_certified
 
-Coq source: coq/kernel/VMState.v (Record VMState)
+Coq source: coq/kernel/foundation/VMState.v (Record VMState)
 Python source: thielecpu/vm.py (class VMState)
 Bridge: coq/kami_hw/FullAbstraction.v (abs_full_snapshot)
 """
@@ -74,9 +74,15 @@ def test_python_vmstate_no_extra_vm_prefixed_fields() -> None:
 
 def test_coq_vmstate_record_fields() -> None:
     """Coq VMState record contains exactly the 12 canonical fields."""
-    vmstate_v = ROOT / "coq" / "kernel" / "VMState.v"
-    if not vmstate_v.exists():
-        pytest.skip("VMState.v not found")
+    flat = ROOT / "coq" / "kernel" / "VMState.v"
+    if flat.exists():
+        vmstate_v = flat
+    else:
+        kernel_root = ROOT / "coq" / "kernel"
+        candidates = list(kernel_root.rglob("VMState.v")) if kernel_root.exists() else []
+        if not candidates:
+            pytest.skip("VMState.v not found")
+        vmstate_v = candidates[0]
 
     text = vmstate_v.read_text()
 

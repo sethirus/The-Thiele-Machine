@@ -9,7 +9,23 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-MASTER_SUMMARY = REPO_ROOT / "coq" / "kernel" / "MasterSummary.v"
+
+
+def _resolve_kernel_v(name: str) -> Path:
+    """Resolve a coq/kernel/<name> file across the current subdirectory layout
+    (foundation/, aggregators/, mu_calculus/, nfi/, hardware_bridge/, ...);
+    falls back to the legacy flat coq/kernel/<name> path."""
+    flat = REPO_ROOT / "coq" / "kernel" / name
+    if flat.exists():
+        return flat
+    kernel_root = REPO_ROOT / "coq" / "kernel"
+    if kernel_root.exists():
+        for candidate in kernel_root.rglob(name):
+            return candidate
+    return flat
+
+
+MASTER_SUMMARY = _resolve_kernel_v("MasterSummary.v")
 DEFAULT_OUT_DIR = REPO_ROOT / "artifacts" / "final_claim_audit"
 
 OBLIGATION_RE = re.compile(r'obligation_name := "([^"]+)"')
@@ -19,7 +35,7 @@ OPEN_OBLIGATION_ARTIFACTS = {
         "artifact": "repository_non_circularity_scope.json",
         "summary": "Tracks the current repo-wide non-circularity boundary and the existing dependency evidence surfaces.",
         "backing_files": [
-            "coq/kernel/NonCircularityAudit.v",
+            "coq/kernel/aggregators/NonCircularityAudit.v",
             "artifacts/proof_dependency_connectivity.json",
             "coq/INQUISITOR_ASSUMPTIONS.json",
         ],
@@ -40,7 +56,7 @@ OPEN_OBLIGATION_ARTIFACTS = {
         "artifact": "semantic_partition_inventory.json",
         "summary": "Enumerates the current semantic boundary inventory and records that the completeness theorem remains open.",
         "backing_files": [
-            "coq/kernel/MasterSummary.v",
+            "coq/kernel/aggregators/MasterSummary.v",
             "README.md",
         ],
     },
@@ -48,7 +64,7 @@ OPEN_OBLIGATION_ARTIFACTS = {
         "artifact": "cross_layer_equivalence_scope.json",
         "summary": "Makes the current repo decision explicit: verification transfer is observable-only, not full-state identity.",
         "backing_files": [
-            "coq/kernel/MasterSummary.v",
+            "coq/kernel/aggregators/MasterSummary.v",
             "README.md",
             "tests/test_cross_layer_bisimulation.py",
             "tests/test_no_shortcuts_proof_connectivity.py",
@@ -59,16 +75,16 @@ OPEN_OBLIGATION_ARTIFACTS = {
         "summary": "Captures which gravity/physics/constant-reading files remain research-layer material rather than core kernel guarantees.",
         "backing_files": [
             "README.md",
-            "coq/kernel/EinsteinEmergence.v",
-            "coq/kernel/EinsteinEquations4D.v",
-            "coq/kernel/MuGravity.v",
+            "coq/kernel/curvature/EinsteinEmergence.v",
+            "coq/kernel/curvature/EinsteinEquations4D.v",
+            "coq/kernel/curvature/MuGravity.v",
         ],
     },
     "Single-file proof-spine inlining or equivalence reduction": {
         "artifact": "proof_spine_reduction_status.json",
         "summary": "Records that the current trust surface is still an indexed proof bundle, not a one-file proof object.",
         "backing_files": [
-            "coq/kernel/MasterSummary.v",
+            "coq/kernel/aggregators/MasterSummary.v",
             "artifacts/proof_dependency_dag.json",
         ],
     },
@@ -76,10 +92,10 @@ OPEN_OBLIGATION_ARTIFACTS = {
         "artifact": "raychaudhuri_einstein_closure.json",
         "summary": "Records that the generic corridor theorem abstracts over EinsteinTarget; discrete target is discharged but standalone geometry refinement is open.",
         "backing_files": [
-            "coq/kernel/MasterSummary.v",
-            "coq/kernel/EinsteinEmergence.v",
-            "coq/kernel/DiscreteRaychaudhuri.v",
-            "coq/kernel/NoFIToEinstein.v",
+            "coq/kernel/aggregators/MasterSummary.v",
+            "coq/kernel/curvature/EinsteinEmergence.v",
+            "coq/kernel/curvature/DiscreteRaychaudhuri.v",
+            "coq/kernel/curvature/NoFIToEinstein.v",
         ],
     },
 }
@@ -145,7 +161,7 @@ def main() -> int:
         {
             "closure_status": "closed",
             "obligations": obligation_entries,
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )
@@ -154,13 +170,13 @@ def main() -> int:
         out_dir / "repository_non_circularity_scope.json",
         {
             "backing_files": [
-                _rel_file_record("coq/kernel/NonCircularityAudit.v"),
+                _rel_file_record("coq/kernel/aggregators/NonCircularityAudit.v"),
                 _rel_file_record("artifacts/proof_dependency_connectivity.json"),
                 _rel_file_record("coq/INQUISITOR_ASSUMPTIONS.json"),
             ],
             "claim_status": "demoted-nonclaim-boundary-pinned",
             "obligation": "Repository-wide non-circularity theorem",
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )
@@ -172,7 +188,7 @@ def main() -> int:
             "certificate_status": "current-surfaces-pinned",
             "inputs": [_rel_file_record(rel_path) for rel_path in dependency_inputs],
             "obligation": "Tool-linked dependency manifest certificate",
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )
@@ -187,7 +203,7 @@ def main() -> int:
             ],
             "completeness_theorem_status": "demoted-nonclaim-boundary-pinned",
             "obligation": "Formal completeness theorem for the semantic partition",
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )
@@ -216,7 +232,7 @@ def main() -> int:
                 "vm_certified",
             ],
             "obligation": "Repository decision on full cross-layer state identity",
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )
@@ -226,13 +242,13 @@ def main() -> int:
         {
             "obligation": "Physics-reading theorem suite",
             "research_layer_files": [
-                "coq/kernel/EinsteinEmergence.v",
-                "coq/kernel/EinsteinEquations4D.v",
-                "coq/kernel/MuGravity.v",
+                "coq/kernel/curvature/EinsteinEmergence.v",
+                "coq/kernel/curvature/EinsteinEquations4D.v",
+                "coq/kernel/curvature/MuGravity.v",
             ],
             "status": "demoted-nonclaim-boundary-pinned",
             "summary": "These files are formal modeling or conjectural work, not part of the core verified execution contract.",
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )
@@ -244,7 +260,7 @@ def main() -> int:
             "obligation": "Single-file proof-spine inlining or equivalence reduction",
             "status": "demoted-nonclaim-boundary-pinned",
             "summary": "The repo still exposes imported theorem content rather than a single-file proof object.",
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )
@@ -255,7 +271,7 @@ def main() -> int:
             "obligation": "Raychaudhuri-to-Einstein closure from independent geometry",
             "status": "demoted-nonclaim-boundary-pinned",
             "summary": "The generic corridor theorem abstracts over EinsteinTarget and LocalHorizon. The discrete target is discharged by discrete_einstein_emergence_component; a standalone independent-geometry refinement of that interface remains open.",
-            "source_file": "coq/kernel/MasterSummary.v",
+            "source_file": "coq/kernel/aggregators/MasterSummary.v",
             "source_sha256": master_summary_hash,
         },
     )

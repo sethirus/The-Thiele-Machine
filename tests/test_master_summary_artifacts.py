@@ -9,7 +9,20 @@ from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-MASTER_SUMMARY = REPO_ROOT / "coq" / "kernel" / "MasterSummary.v"
+
+
+def _resolve_kernel_v(name: str) -> Path:
+    flat = REPO_ROOT / "coq" / "kernel" / name
+    if flat.exists():
+        return flat
+    kernel_root = REPO_ROOT / "coq" / "kernel"
+    if kernel_root.exists():
+        for p in kernel_root.rglob(name):
+            return p
+    return flat
+
+
+MASTER_SUMMARY = _resolve_kernel_v("MasterSummary.v")
 ARTIFACT_DIR = REPO_ROOT / "artifacts" / "final_claim_audit"
 GENERATOR = REPO_ROOT / "scripts" / "generate_master_summary_artifacts.py"
 
@@ -89,7 +102,7 @@ def test_obligation_inventory_matches_master_summary() -> None:
     master_summary_obligations = _load_master_summary_obligations()
     payload = json.loads((ARTIFACT_DIR / "master_summary_open_obligations.json").read_text(encoding="utf-8"))
 
-    assert payload["source_file"] == "coq/kernel/MasterSummary.v"
+    assert payload["source_file"] == "coq/kernel/aggregators/MasterSummary.v"
     assert payload["source_sha256"] == _sha256(MASTER_SUMMARY)
     assert payload["closure_status"] == "closed"
 

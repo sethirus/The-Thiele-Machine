@@ -14,12 +14,15 @@
       abs_full_snapshot (kami_step_full ks i) = vm_apply (abs_full_snapshot ks) i
       abs_full_snapshot (kami_run_full fuel tr ks) = run_vm fuel tr (abs_full_snapshot ks)
 
-    This is stronger than the legacy projected [abs_phase1]/[kami_step] story:
-    no VM fields are dropped.  It is also deliberately honest about scope: this
-    file proves a full-state local snapshot model, not yet that the existing
-    lower-level hardware-oriented [kami_step] implementation computes the same
-    thing instruction by instruction.
-*)
+    This is stronger than the legacy projected [abs_phase1]/[kami_step]
+    story: no VM fields are dropped. The instruction-by-instruction
+    agreement between the lower-level [kami_step] in [Abstraction.v]
+    and [kami_step_full] is itself a theorem:
+    [kami_step_full_agrees_with_kami_step_supported] in
+    [GraphReconstructionBridge.v] discharges the [SupportedOpcode]
+    case as a single equation, and the per-opcode [driven_step_*]
+    theorems alongside it cover the remaining 16 opcodes under their
+    structural preconditions. *)
 
 From Coq Require Import List.
 Import ListNotations.

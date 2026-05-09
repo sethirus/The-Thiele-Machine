@@ -1,3 +1,29 @@
+(** * Instance_Kernel: kernel-VM instantiation of the NoFreeInsight interface
+
+    This file instantiates the abstract [NO_FREE_INSIGHT_SYSTEM] module
+    type from [NoFreeInsight_Interface.v] with the concrete kernel VM
+    semantics from [VMState], [VMStep], [SimulationProof],
+    [MuLedgerConservation], and [RevelationRequirement]. The bindings:
+
+      - [run] is bounded execution via [RevelationProof.trace_run] with
+        fuel [S (length tr)].
+      - [ok] is [vm_err = false].
+      - [mu] is the VM μ-ledger field.
+      - [observe] is the certification address [csr_cert_addr].
+      - [strictly_stronger a b] is [b < a] on a certification-strength
+        threshold.
+      - [structure_event] is
+        [RevelationProof.structure_addition_in_run].
+
+    The two non-trivial obligations ([mu_monotone],
+    [no_free_insight_contract]) are discharged by
+    [trace_run_mu_monotone] (proved here) and
+    [RevelationProof.supra_cert_implies_structure_addition_in_run].
+
+    The functor application at the end of the file produces
+    [KernelNoFI_Theorem], a [Qed]-closed kernel-level No-Free-Insight
+    statement specialised to the VM. *)
+
 From Coq Require Import List Lia Arith.PeanoNat.
 Import ListNotations.
 

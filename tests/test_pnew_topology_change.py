@@ -6,7 +6,7 @@ This empirically validates Phase 3 of the gravity proof:
 - Changes in V, E, F → changes in χ
 - Changes in χ → changes in curvature (via Gauss-Bonnet)
 
-REF: coq/kernel/PNEWTopologyChange.v
+REF: coq/kernel/curvature/PNEWTopologyChange.v
      GRAVITY_PROOF_PLAN.md Phase 3
 """
 

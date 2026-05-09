@@ -64,14 +64,13 @@ From Kernel Require Import VMState VMStep SimulationProof
                            MuInitiality.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    §1.  STRICT CLASSICAL SHADOW
+(** ** §1. Strict classical shadow
 
-    The ClassicalState defined in ShadowProjection.v includes vm_mu and
-    vm_certified.  For this proof we require the STRICTLY Turing-classical
-    shadow: only (mem, regs, pc).  This matches what any RAM or Turing machine
-    can observe.  There is no μ-ledger, no certification flag, no graph.
-    ═══════════════════════════════════════════════════════════════════════════ *)
+    The [ClassicalState] defined in [ShadowProjection.v] includes
+    [vm_mu] and [vm_certified]. For this proof we need the strictly
+    Turing-classical shadow: just [(mem, regs, pc)], matching what any
+    RAM or Turing machine can observe. There is no μ-ledger, no
+    certification flag, and no partition graph. *)
 
 Record StrictClassicalState := mk_strict_classical {
   scs_mem  : list nat;
@@ -120,15 +119,14 @@ Proof.
 Qed.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    §2.  HELPER LEMMAS FOR advance_state FIELDS
+(** ** §2. Helper lemmas for [advance_state] fields
 
-    advance_state is the standard state builder for structural instructions
-    (PNEW, PSPLIT, PMERGE, EMIT, etc.).  Its vm_mem, vm_regs, vm_pc, and
-    vm_certified fields are determined solely by the source state s — they
-    do not depend on the graph' argument.  These lemmas let us reason about
-    PNEW steps without evaluating graph_add_module.
-    ═══════════════════════════════════════════════════════════════════════════ *)
+    [advance_state] is the state builder for structural instructions
+    (PNEW, PSPLIT, PMERGE, EMIT, …). Its [vm_mem], [vm_regs], [vm_pc],
+    and [vm_certified] fields are determined solely by the source
+    state [s]; they do not depend on the [graph'] argument. The
+    lemmas below expose this so PNEW steps can be reasoned about
+    without evaluating [graph_add_module]. *)
 
 Lemma advance_state_mem_eq :
   forall s i g c e, (advance_state s i g c e).(vm_mem) = s.(vm_mem).
@@ -248,15 +246,17 @@ Proof.
 Qed.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    §3.  WITNESS STATE DEFINITIONS
+(** ** §3. Witness state definitions
 
-    po1_init   : the common initial state for both traces
-    po1_instr_A: the single instruction in Trace A (CERTIFY)
-    po1_state_A: the final state of Trace A
-    po1_instr_B: the single instruction in Trace B (PNEW [] 0)
-    po1_state_B: the final state of Trace B
-    ═══════════════════════════════════════════════════════════════════════════ *)
+    Five names defined in this section:
+
+      - [po1_init]: the common initial state for both traces.
+      - [po1_instr_A]: the single instruction in Trace A
+        ([instr_certify 0]).
+      - [po1_state_A]: the final state of Trace A.
+      - [po1_instr_B]: the single instruction in Trace B
+        ([instr_pnew [] 0]).
+      - [po1_state_B]: the final state of Trace B. *)
 
 Definition po1_empty_graph : PartitionGraph := {|
   pg_next_id       := 0;
@@ -312,11 +312,9 @@ Definition po1_strict_trace_B : list StrictClassicalState :=
   [strict_shadow po1_init; strict_shadow po1_state_B].
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    §4.  THE SEVEN CONDITIONS
+(** ** §4. The seven conditions
 
-    Each condition is stated and proved as a named theorem.
-    ═══════════════════════════════════════════════════════════════════════════ *)
+    Each condition is stated and proved as a named theorem. *)
 
 (** CONDITION (1): Identical starting point.
     Both traces begin at po1_init.  Its strict classical shadow is concretely
@@ -465,25 +463,24 @@ Proof.
 Qed.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    §5.  THE NECESSITY THEOREM
+(** ** §5. The necessity theorem
 
     Main result: there is no function of the strict classical state
-    (mem, regs, pc) that correctly predicts the μ-ledger and vm_certified for
-    all Thiele Machine states.
+    [(mem, regs, pc)] that correctly predicts both the μ-ledger and
+    [vm_certified] for all Thiele Machine states.
 
-    Proof: by contradiction.  Assume such an Omega exists.
-    Apply it to po1_state_A and po1_state_B:
-      - Omega predicts (1, true) for A
-      - Omega predicts (0, false) for B
+    The proof is by contradiction. Assume such an Omega exists. Apply
+    it to [po1_state_A] and [po1_state_B]:
+
+      - Omega predicts [(1, true)] for A.
+      - Omega predicts [(0, false)] for B.
     But both states have identical strict shadows  (cond 2).
-    Since Omega is a function, it must return the same value for equal inputs.
-    Therefore (1, true) = (0, false) — a contradiction.
+    Since Omega is a function, equal inputs must give equal outputs.
+    Therefore [(1, true) = (0, false)] — a contradiction.
 
-    This establishes the μ-ledger as a logically necessary additional state
-    variable: it cannot be recovered from, or reduced to, the classical
-    computational state.
-    ═══════════════════════════════════════════════════════════════════════════ *)
+    This establishes the μ-ledger as a logically necessary additional
+    state variable: it cannot be recovered from, or reduced to, the
+    classical computational state. *)
 
 (** The main necessity theorem.
     No classical observer on (mem, regs, pc) can predict the structural receipt
@@ -635,26 +632,25 @@ Proof.
 Qed.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    §6.  TRACE-LEVEL NECESSITY AND UNIVERSALITY
+(** ** §6. Trace-level necessity and universality
 
-    §5 proves necessity using witnesses rooted at po1_init.  This section
-    strengthens the result in two directions:
+    §5 proves necessity using witnesses rooted at [po1_init]. This
+    section strengthens the result in two directions:
 
-      (A) UNIVERSALITY: The divergence holds from ANY state, not only po1_init.
-          For any VMState s, CERTIFY 0 and PNEW [] 0 produce the same strict
-          shadow but different μ and certification.  No matter what prefix
-          program has run, the next-step separation remains intact.
+      - (A) Universality: the divergence holds from any state, not
+        only [po1_init]. For any [VMState] [s], CERTIFY 0 and PNEW [] 0
+        produce the same strict shadow but different μ and
+        certification. No matter what prefix program has run, the
+        next-step separation remains intact.
+      - (B) Trace-level: for any common prefix program, extending with
+        CERTIFY 0 versus PNEW [] 0 yields two programs with equal
+        final strict shadows but strictly different μ-ledgers. The
+        separation cannot be closed by accumulating more classical
+        computation before the diverging step.
 
-      (B) TRACE-LEVEL: For any common prefix program, extending with CERTIFY 0
-          vs. PNEW [] 0 yields two programs with equal final strict shadows but
-          strictly different μ-ledgers.  The separation cannot be closed by
-          accumulating more classical computation before the diverging step.
-
-    Together these say: the μ-ledger independence is not an artifact of a
-    single crafted witness — it is a structural property of every reachable
-    state of the Thiele Machine.
-    ═══════════════════════════════════════════════════════════════════════════ *)
+    Together these say that μ-ledger independence is not an artefact
+    of a single crafted witness; it is a structural property of every
+    reachable state of the Thiele Machine. *)
 
 (** Multi-step execution: apply a list of instructions in sequence. *)
 Fixpoint run_instrs (s : VMState) (instrs : list vm_instruction) : VMState :=
@@ -737,40 +733,49 @@ Proof.
 Qed.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    §7.  THE LATENT MU THEOREM: μ-COST IS INTRINSIC TO COMPUTATION
+(** ** §7. The latent-μ theorem: μ-cost is intrinsic to computation
 
-    §4–§6 prove that the μ-ledger is inaccessible to classical observers.
-    This section proves the converse direction: the μ-cost is not just
-    hidden from classical machines — it is latent in every computation,
-    present whether or not any ledger exists to record it.
+    §§4–6 prove that the μ-ledger is inaccessible to classical
+    observers. This section proves the converse direction: the μ-cost
+    is not just hidden from classical machines, it is latent in every
+    computation, present whether or not any ledger exists to record
+    it.
 
-    CORE RESULT (shadow_mu_is_computation_intrinsic):
-      The total μ accumulated by running any instruction sequence equals
-      the sum of instruction costs.  This sum is determined entirely by
-      the instruction sequence — it does not depend on the starting μ,
-      vm_graph, vm_regs, vm_mem, or any other aspect of machine state.
+    Three named results in this section:
 
-    UNIVERSALITY (shadow_mu_delta_universal):
-      Two machines running the same instruction sequence, from any two
-      starting states, will accumulate the same additional μ.  The cost
-      is written into the program before the machine starts.  Whether the
-      machine has a μ-register or not, it paid that cost.
+      - [shadow_mu_is_computation_intrinsic]: total μ accumulated by
+        running any instruction sequence equals the sum of instruction
+        costs. The sum is determined entirely by the instruction
+        sequence and does not depend on starting μ, [vm_graph],
+        [vm_regs], [vm_mem], or any other state.
+      - [shadow_mu_delta_universal]: any two Thiele VM states running
+        the same instruction sequence accumulate the same additional
+        μ. The δ is written into the program; the starting state does
+        not change it. This is universality across starting states,
+        not across substrates — the substrate-independent claim lives
+        in [UniversalCertificationCost.v].
+      - [shadow_mu_inevitable]: for any non-empty program containing
+        at least one instruction with positive cost, the accumulated
+        δ-μ on the Thiele VM is strictly positive. There is no free
+        certification under the cost law.
 
-    INEVITABILITY (shadow_mu_inevitable):
-      For any non-empty program containing at least one instruction with
-      positive cost, the accumulated δ-μ is strictly positive.  There is
-      no free computation that charges the machine.  The cost is paid
-      whether or not the machine can see it.
+    The cost is in the instruction sequence, not in the machine. Any
+    system running this trace under the Thiele cost law accumulates
+    exactly [trace_total_cost]. The substrate-independent layer that
+    gives this teeth is [universal_nfi_any_substrate] in
+    [UniversalCertificationCost.v]: under A2 (cert-flip costs ≥ 1),
+    every uncertified-to-certified trace pays ≥ 1 in total on any
+    substrate. A Turing machine that satisfies A2 — for example by
+    mapping μ to an address and incrementing on cert-flip — is a
+    witness for that theorem, not a counterexample.
+    [thiele_morphism_exists] then makes the Thiele VM the initial
+    cost-preserving simulation.
 
-    INTERPRETATION:
-      A Turing machine running a program pays exactly trace_total_cost in
-      latent μ.  It has no mechanism to record this — no μ-register, no
-      certification flag — so the receipt is discarded.  The Thiele
-      Machine running the same program records the same cost, making
-      visible what was always there.  The ledger does not create the cost.
-      It reveals it.
-    ═══════════════════════════════════════════════════════════════════════════ *)
+    Read together: honest cost-tracking on any substrate forces the
+    receipt to exist; the strict-classical shadow [(mem, regs, pc)]
+    by construction cannot host it; the Thiele VM is the canonical
+    instance that exposes it. The ledger does not create the cost,
+    it reveals what A2 forces on every honest implementation. *)
 
 (** Bridge: run_instrs and exec_trace_from (MuInitiality.v) are the same
     function.  Both are left-folds of vm_apply over an instruction list. *)

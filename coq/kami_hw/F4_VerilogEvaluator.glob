@@ -1,0 +1,656 @@
+DIGEST 80ae3d7b939d4ed1812140716d354b07
+FKamiHW.F4_VerilogEvaluator
+R1653:1658 Coq.Strings.String <> <> lib
+R1660:1663 Coq.Lists.List <> <> lib
+R1665:1670 Coq.ZArith.ZArith <> <> lib
+R1672:1685 Coq.Arith.PeanoNat <> <> lib
+R1687:1689 Coq.micromega.Lia <> <> lib
+R1691:1694 Coq.Bool.Bool <> <> lib
+R1704:1716 Coq.Lists.List ListNotations <> mod
+R1735:1750 Kami.Ext.BSyntax <> <> lib
+R1768:1778 Kami.Syntax <> <> lib
+R1796:1810 Kami.Lib.Struct <> <> lib
+R1841:1847 Kernel.VMState <> <> lib
+R1849:1854 Kernel.VMStep <> <> lib
+R1856:1866 Kernel.MuCostModel <> <> lib
+R1896:1917 KamiHW.F4_BModulesTranslation <> <> lib
+def 2159:2169 <> SimpleState
+R2180:2183 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2174:2179 Coq.Strings.String <> string ind
+R2184:2186 Coq.Init.Datatypes <> nat ind
+def 2201:2211 <> empty_state
+R2215:2225 KamiHW.F4_VerilogEvaluator <> SimpleState def
+def 2258:2266 <> state_set
+R2273:2283 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 2269:2269 <> s:1
+R2294:2299 Coq.Strings.String <> string ind
+binder 2287:2290 <> name:2
+R2307:2309 Coq.Init.Datatypes <> nat ind
+binder 2303:2303 <> v:3
+R2314:2324 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 2335:2335 <> n:4
+R2343:2352 Coq.Strings.String <> eqb def
+R2354:2354 KamiHW.F4_VerilogEvaluator <> n:4 var
+R2356:2359 KamiHW.F4_VerilogEvaluator <> name:2 var
+R2373:2373 KamiHW.F4_VerilogEvaluator <> s:1 var
+R2375:2375 KamiHW.F4_VerilogEvaluator <> n:4 var
+R2366:2366 KamiHW.F4_VerilogEvaluator <> v:3 var
+prf 2385:2400 <> state_set_get_eq
+binder 2413:2413 <> s:5
+binder 2415:2415 <> n:6
+binder 2417:2417 <> v:7
+R2437:2439 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2420:2428 KamiHW.F4_VerilogEvaluator <> state_set def
+R2430:2430 KamiHW.F4_VerilogEvaluator <> s:5 var
+R2432:2432 KamiHW.F4_VerilogEvaluator <> n:6 var
+R2434:2434 KamiHW.F4_VerilogEvaluator <> v:7 var
+R2436:2436 KamiHW.F4_VerilogEvaluator <> n:6 var
+R2440:2440 KamiHW.F4_VerilogEvaluator <> v:7 var
+R2467:2475 KamiHW.F4_VerilogEvaluator <> state_set def
+R2488:2502 Coq.Strings.String <> eqb_refl thm
+R2488:2502 Coq.Strings.String <> eqb_refl thm
+R2488:2502 Coq.Strings.String <> eqb_refl thm
+prf 2530:2546 <> state_set_get_neq
+binder 2559:2559 <> s:8
+binder 2561:2561 <> n:9
+binder 2563:2563 <> m:10
+binder 2565:2565 <> v:11
+R2574:2577 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2569:2572 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R2568:2568 KamiHW.F4_VerilogEvaluator <> n:9 var
+R2573:2573 KamiHW.F4_VerilogEvaluator <> m:10 var
+R2595:2597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2578:2586 KamiHW.F4_VerilogEvaluator <> state_set def
+R2588:2588 KamiHW.F4_VerilogEvaluator <> s:8 var
+R2590:2590 KamiHW.F4_VerilogEvaluator <> n:9 var
+R2592:2592 KamiHW.F4_VerilogEvaluator <> v:11 var
+R2594:2594 KamiHW.F4_VerilogEvaluator <> m:10 var
+R2598:2598 KamiHW.F4_VerilogEvaluator <> s:8 var
+R2600:2600 KamiHW.F4_VerilogEvaluator <> m:10 var
+R2639:2647 KamiHW.F4_VerilogEvaluator <> state_set def
+R2662:2671 Coq.Strings.String <> eqb def
+R2662:2671 Coq.Strings.String <> eqb def
+R2695:2707 Coq.Strings.String <> eqb_eq thm
+R2695:2707 Coq.Strings.String <> eqb_eq thm
+def 2929:2945 <> vexpr_eval_simple
+R2952:2956 KamiHW.F4_BModulesTranslation <> VExpr ind
+binder 2948:2948 <> e:12
+R2964:2974 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 2960:2960 <> s:13
+R2979:2981 Coq.Init.Datatypes <> nat ind
+R2994:2994 KamiHW.F4_VerilogEvaluator <> e:12 var
+R3005:3008 KamiHW.F4_BModulesTranslation <> VTmp constr
+R3086:3092 KamiHW.F4_BModulesTranslation <> VRegRef constr
+R3109:3109 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3120:3123 KamiHW.F4_BModulesTranslation <> VLit constr
+R3149:3154 KamiHW.F4_BModulesTranslation <> VUnary constr
+R3172:3188 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3193:3193 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3248:3254 KamiHW.F4_BModulesTranslation <> VBinary constr
+R3293:3295 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3271:3287 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3292:3292 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3296:3312 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3317:3317 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3362:3365 KamiHW.F4_BModulesTranslation <> VITE constr
+R3394:3400 Coq.Arith.PeanoNat Nat eqb def
+R3403:3419 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3423:3423 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3476:3492 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3496:3496 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3443:3459 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3463:3463 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3502:3504 KamiHW.F4_BModulesTranslation <> VEq constr
+R3534:3540 Coq.Arith.PeanoNat Nat eqb def
+R3543:3559 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3564:3564 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3568:3584 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3589:3589 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3624:3632 KamiHW.F4_BModulesTranslation <> VFieldRef constr
+R3647:3663 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3668:3668 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3674:3682 KamiHW.F4_BModulesTranslation <> VIndexRef constr
+R3697:3713 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple:14 def
+R3718:3718 KamiHW.F4_VerilogEvaluator <> s:13 var
+R3724:3731 KamiHW.F4_BModulesTranslation <> VUnknown constr
+def 3934:3950 <> vstmt_eval_simple
+R3958:3962 KamiHW.F4_BModulesTranslation <> VStmt ind
+binder 3953:3954 <> st:16
+R3970:3980 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 3966:3966 <> s:17
+R3985:3995 KamiHW.F4_VerilogEvaluator <> SimpleState def
+R4008:4009 KamiHW.F4_VerilogEvaluator <> st:16 var
+R4020:4029 KamiHW.F4_BModulesTranslation <> VAssignReg constr
+R4043:4051 KamiHW.F4_VerilogEvaluator <> state_set def
+R4053:4053 KamiHW.F4_VerilogEvaluator <> s:17 var
+R4061:4077 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple def
+R4081:4081 KamiHW.F4_VerilogEvaluator <> s:17 var
+R4088:4091 KamiHW.F4_BModulesTranslation <> VLet constr
+R4111:4111 KamiHW.F4_VerilogEvaluator <> s:17 var
+R4173:4179 KamiHW.F4_BModulesTranslation <> VIfElse constr
+R4209:4215 Coq.Arith.PeanoNat Nat eqb def
+R4218:4234 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple def
+R4238:4238 KamiHW.F4_VerilogEvaluator <> s:17 var
+R4336:4349 Coq.Lists.List <> fold_left def
+R4401:4401 KamiHW.F4_VerilogEvaluator <> s:17 var
+binder 4356:4358 <> acc:20
+binder 4360:4362 <> st':21
+R4367:4383 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple:18 def
+R4389:4391 KamiHW.F4_VerilogEvaluator <> acc:20 var
+R4385:4387 KamiHW.F4_VerilogEvaluator <> st':21 var
+R4258:4271 Coq.Lists.List <> fold_left def
+R4323:4323 KamiHW.F4_VerilogEvaluator <> s:17 var
+binder 4278:4280 <> acc:22
+binder 4282:4284 <> st':23
+R4289:4305 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple:18 def
+R4311:4313 KamiHW.F4_VerilogEvaluator <> acc:22 var
+R4307:4309 KamiHW.F4_VerilogEvaluator <> st':23 var
+R4407:4412 KamiHW.F4_BModulesTranslation <> VGuard constr
+R4430:4430 KamiHW.F4_VerilogEvaluator <> s:17 var
+R4484:4490 KamiHW.F4_BModulesTranslation <> VReturn constr
+R4507:4507 KamiHW.F4_VerilogEvaluator <> s:17 var
+R4561:4571 KamiHW.F4_BModulesTranslation <> VMethodCall constr
+R4584:4584 KamiHW.F4_VerilogEvaluator <> s:17 var
+R4623:4634 KamiHW.F4_BModulesTranslation <> VUnsupported constr
+R4646:4646 KamiHW.F4_VerilogEvaluator <> s:17 var
+def 4667:4684 <> vstmts_eval_simple
+R4693:4696 Coq.Init.Datatypes <> list ind
+R4698:4702 KamiHW.F4_BModulesTranslation <> VStmt ind
+binder 4687:4689 <> sts:24
+R4710:4720 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 4706:4706 <> s:25
+R4725:4735 KamiHW.F4_VerilogEvaluator <> SimpleState def
+R4742:4755 Coq.Lists.List <> fold_left def
+R4802:4802 KamiHW.F4_VerilogEvaluator <> s:25 var
+R4798:4800 KamiHW.F4_VerilogEvaluator <> sts:24 var
+binder 4762:4764 <> acc:26
+binder 4766:4767 <> st:27
+R4772:4788 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R4790:4791 KamiHW.F4_VerilogEvaluator <> st:27 var
+R4793:4795 KamiHW.F4_VerilogEvaluator <> acc:26 var
+def 4909:4925 <> bexpr_eval_simple
+R4932:4936 Kami.Ext.BSyntax <> BExpr ind
+binder 4928:4928 <> e:28
+R4944:4954 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 4940:4940 <> s:29
+R4959:4961 Coq.Init.Datatypes <> nat ind
+R4974:4974 KamiHW.F4_VerilogEvaluator <> e:28 var
+R4985:4988 Kami.Ext.BSyntax <> BVar constr
+R5018:5023 Kami.Ext.BSyntax <> BConst constr
+R5082:5089 Kami.Ext.BSyntax <> BUniBool constr
+R5105:5121 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5126:5126 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5132:5139 Kami.Ext.BSyntax <> BBinBool constr
+R5177:5179 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5155:5171 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5176:5176 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5180:5196 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5201:5201 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5207:5213 Kami.Ext.BSyntax <> BUniBit constr
+R5230:5246 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5251:5251 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5257:5263 Kami.Ext.BSyntax <> BBinBit constr
+R5302:5304 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5280:5296 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5301:5301 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5305:5321 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5326:5326 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5332:5342 Kami.Ext.BSyntax <> BBinBitBool constr
+R5377:5379 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R5355:5371 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5376:5376 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5380:5396 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5401:5401 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5407:5410 Kami.Ext.BSyntax <> BITE constr
+R5439:5445 Coq.Arith.PeanoNat Nat eqb def
+R5448:5464 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5468:5468 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5521:5537 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5541:5541 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5488:5504 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5508:5508 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5547:5549 Kami.Ext.BSyntax <> BEq constr
+R5579:5585 Coq.Arith.PeanoNat Nat eqb def
+R5588:5604 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5609:5609 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5613:5629 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5634:5634 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5669:5678 Kami.Ext.BSyntax <> BReadIndex constr
+R5692:5708 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5714:5714 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5720:5729 Kami.Ext.BSyntax <> BReadField constr
+R5743:5759 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5764:5764 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5770:5777 Kami.Ext.BSyntax <> BReadReg constr
+R5793:5793 KamiHW.F4_VerilogEvaluator <> s:29 var
+R5804:5818 Kami.Ext.BSyntax <> BReadArrayIndex constr
+R5831:5847 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple:30 def
+R5853:5853 KamiHW.F4_VerilogEvaluator <> s:29 var
+def 5905:5923 <> baction_eval_simple
+R5930:5936 Kami.Ext.BSyntax <> BAction ind
+binder 5926:5926 <> a:32
+R5944:5954 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 5940:5940 <> s:33
+R5959:5969 KamiHW.F4_VerilogEvaluator <> SimpleState def
+R5982:5982 KamiHW.F4_VerilogEvaluator <> a:32 var
+R5993:5998 Kami.Ext.BSyntax <> BMCall constr
+R6016:6016 KamiHW.F4_VerilogEvaluator <> s:33 var
+R6022:6027 Kami.Ext.BSyntax <> BBCall constr
+R6045:6045 KamiHW.F4_VerilogEvaluator <> s:33 var
+R6051:6054 Kami.Ext.BSyntax <> BLet constr
+R6074:6074 KamiHW.F4_VerilogEvaluator <> s:33 var
+R6080:6088 Kami.Ext.BSyntax <> BWriteReg constr
+R6103:6111 KamiHW.F4_VerilogEvaluator <> state_set def
+R6113:6113 KamiHW.F4_VerilogEvaluator <> s:33 var
+R6121:6137 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple def
+R6141:6141 KamiHW.F4_VerilogEvaluator <> s:33 var
+R6148:6154 Kami.Ext.BSyntax <> BIfElse constr
+R6188:6194 Coq.Arith.PeanoNat Nat eqb def
+R6197:6213 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple def
+R6217:6217 KamiHW.F4_VerilogEvaluator <> s:33 var
+R6315:6328 Coq.Lists.List <> fold_left def
+R6380:6380 KamiHW.F4_VerilogEvaluator <> s:33 var
+binder 6335:6337 <> acc:36
+binder 6339:6340 <> a':37
+R6345:6363 KamiHW.F4_VerilogEvaluator <> baction_eval_simple:34 def
+R6368:6370 KamiHW.F4_VerilogEvaluator <> acc:36 var
+R6365:6366 KamiHW.F4_VerilogEvaluator <> a':37 var
+R6237:6250 Coq.Lists.List <> fold_left def
+R6302:6302 KamiHW.F4_VerilogEvaluator <> s:33 var
+binder 6257:6259 <> acc:38
+binder 6261:6262 <> a':39
+R6267:6285 KamiHW.F4_VerilogEvaluator <> baction_eval_simple:34 def
+R6290:6292 KamiHW.F4_VerilogEvaluator <> acc:38 var
+R6287:6288 KamiHW.F4_VerilogEvaluator <> a':39 var
+R6386:6392 Kami.Ext.BSyntax <> BAssert constr
+R6409:6409 KamiHW.F4_VerilogEvaluator <> s:33 var
+R6415:6421 Kami.Ext.BSyntax <> BReturn constr
+R6438:6438 KamiHW.F4_VerilogEvaluator <> s:33 var
+def 6459:6478 <> bactions_eval_simple
+R6488:6491 Coq.Init.Datatypes <> list ind
+R6493:6499 Kami.Ext.BSyntax <> BAction ind
+binder 6481:6484 <> acts:40
+R6507:6517 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 6503:6503 <> s:41
+R6522:6532 KamiHW.F4_VerilogEvaluator <> SimpleState def
+R6539:6552 Coq.Lists.List <> fold_left def
+R6600:6600 KamiHW.F4_VerilogEvaluator <> s:41 var
+R6595:6598 KamiHW.F4_VerilogEvaluator <> acts:40 var
+binder 6559:6561 <> acc:42
+binder 6563:6563 <> a:43
+R6568:6586 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R6588:6588 KamiHW.F4_VerilogEvaluator <> a:43 var
+R6590:6592 KamiHW.F4_VerilogEvaluator <> acc:42 var
+prf 6856:6880 <> bexpr_eval_correspondence
+R6898:6902 Kami.Ext.BSyntax <> BExpr ind
+binder 6894:6894 <> e:44
+R6911:6921 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 6906:6907 <> st:45
+R6968:6970 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6929:6945 KamiHW.F4_VerilogEvaluator <> vexpr_eval_simple def
+R6948:6961 KamiHW.F4_BModulesTranslation <> bexpr_to_vexpr def
+R6963:6963 KamiHW.F4_VerilogEvaluator <> e:44 var
+R6966:6967 KamiHW.F4_VerilogEvaluator <> st:45 var
+R6971:6987 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple def
+R6989:6989 KamiHW.F4_VerilogEvaluator <> e:44 var
+R6991:6992 KamiHW.F4_VerilogEvaluator <> st:45 var
+R7259:7265 Coq.Arith.PeanoNat Nat eqb def
+R7259:7265 Coq.Arith.PeanoNat Nat eqb def
+prf 7663:7693 <> writereg_readreg_correspondence
+R7717:7722 Coq.Strings.String <> string ind
+binder 7707:7709 <> dst:46
+binder 7711:7713 <> src:47
+R7730:7740 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 7726:7726 <> s:48
+R7817:7823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7748:7764 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R7767:7782 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R7785:7793 Kami.Ext.BSyntax <> BWriteReg constr
+R7800:7807 Kami.Ext.BSyntax <> BReadReg constr
+R7809:7811 KamiHW.F4_VerilogEvaluator <> src:47 var
+R7795:7797 KamiHW.F4_VerilogEvaluator <> dst:46 var
+R7816:7816 KamiHW.F4_VerilogEvaluator <> s:48 var
+R7824:7842 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R7845:7853 Kami.Ext.BSyntax <> BWriteReg constr
+R7860:7867 Kami.Ext.BSyntax <> BReadReg constr
+R7869:7871 KamiHW.F4_VerilogEvaluator <> src:47 var
+R7855:7857 KamiHW.F4_VerilogEvaluator <> dst:46 var
+R7875:7875 KamiHW.F4_VerilogEvaluator <> s:48 var
+prf 8074:8103 <> writereg_readreg_concrete_test
+R8118:8126 KamiHW.F4_VerilogEvaluator <> state_set def
+R8128:8138 KamiHW.F4_VerilogEvaluator <> empty_state def
+binder 8113:8113 <> s:49
+R8165:8181 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R8184:8199 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R8202:8210 Kami.Ext.BSyntax <> BWriteReg constr
+R8219:8226 Kami.Ext.BSyntax <> BReadReg constr
+R8237:8237 KamiHW.F4_VerilogEvaluator <> s:49 var
+binder 8158:8160 <> s_v:50
+R8255:8273 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R8276:8284 Kami.Ext.BSyntax <> BWriteReg constr
+R8293:8300 Kami.Ext.BSyntax <> BReadReg constr
+R8310:8310 KamiHW.F4_VerilogEvaluator <> s:49 var
+binder 8248:8250 <> s_k:51
+R8331:8334 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8326:8328 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8317:8319 KamiHW.F4_VerilogEvaluator <> s_v:50 var
+R8349:8352 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8344:8346 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8335:8337 KamiHW.F4_VerilogEvaluator <> s_k:51 var
+R8362:8364 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8353:8355 KamiHW.F4_VerilogEvaluator <> s_v:50 var
+R8365:8367 KamiHW.F4_VerilogEvaluator <> s_k:51 var
+R8397:8405 KamiHW.F4_VerilogEvaluator <> state_set def
+prf 8680:8702 <> writereg_correspondence
+R8723:8728 Coq.Strings.String <> string ind
+binder 8716:8719 <> name:52
+R8736:8740 Kami.Ext.BSyntax <> BExpr ind
+binder 8732:8732 <> e:53
+R8748:8758 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 8744:8744 <> s:54
+R8823:8829 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8766:8782 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R8785:8800 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R8803:8811 Kami.Ext.BSyntax <> BWriteReg constr
+R8818:8818 KamiHW.F4_VerilogEvaluator <> e:53 var
+R8813:8816 KamiHW.F4_VerilogEvaluator <> name:52 var
+R8822:8822 KamiHW.F4_VerilogEvaluator <> s:54 var
+R8830:8848 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R8851:8859 Kami.Ext.BSyntax <> BWriteReg constr
+R8866:8866 KamiHW.F4_VerilogEvaluator <> e:53 var
+R8861:8864 KamiHW.F4_VerilogEvaluator <> name:52 var
+R8869:8869 KamiHW.F4_VerilogEvaluator <> s:54 var
+R8904:8928 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+R8904:8928 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+R8904:8928 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+prf 8956:8976 <> assert_correspondence
+R8994:8998 Kami.Ext.BSyntax <> BExpr ind
+binder 8990:8990 <> e:55
+R9006:9016 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 9002:9002 <> s:56
+R9074:9080 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9024:9040 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R9043:9058 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R9061:9067 Kami.Ext.BSyntax <> BAssert constr
+R9069:9069 KamiHW.F4_VerilogEvaluator <> e:55 var
+R9073:9073 KamiHW.F4_VerilogEvaluator <> s:56 var
+R9081:9099 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R9102:9108 Kami.Ext.BSyntax <> BAssert constr
+R9110:9110 KamiHW.F4_VerilogEvaluator <> e:55 var
+R9113:9113 KamiHW.F4_VerilogEvaluator <> s:56 var
+prf 9163:9183 <> return_correspondence
+R9201:9205 Kami.Ext.BSyntax <> BExpr ind
+binder 9197:9197 <> e:57
+R9213:9223 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 9209:9209 <> s:58
+R9281:9287 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9231:9247 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R9250:9265 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R9268:9274 Kami.Ext.BSyntax <> BReturn constr
+R9276:9276 KamiHW.F4_VerilogEvaluator <> e:57 var
+R9280:9280 KamiHW.F4_VerilogEvaluator <> s:58 var
+R9288:9306 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R9309:9315 Kami.Ext.BSyntax <> BReturn constr
+R9317:9317 KamiHW.F4_VerilogEvaluator <> e:57 var
+R9320:9320 KamiHW.F4_VerilogEvaluator <> s:58 var
+prf 9370:9387 <> let_correspondence
+R9405:9407 Coq.Init.Datatypes <> nat ind
+binder 9401:9401 <> n:59
+R9415:9420 Coq.Init.Datatypes <> option ind
+R9422:9425 Kami.Syntax <> Kind ind
+binder 9411:9411 <> k:60
+R9433:9437 Kami.Ext.BSyntax <> BExpr ind
+binder 9429:9429 <> e:61
+R9445:9455 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 9441:9441 <> s:62
+R9514:9520 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9463:9479 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R9482:9497 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R9500:9503 Kami.Ext.BSyntax <> BLet constr
+R9509:9509 KamiHW.F4_VerilogEvaluator <> e:61 var
+R9507:9507 KamiHW.F4_VerilogEvaluator <> k:60 var
+R9505:9505 KamiHW.F4_VerilogEvaluator <> n:59 var
+R9513:9513 KamiHW.F4_VerilogEvaluator <> s:62 var
+R9521:9539 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R9542:9545 Kami.Ext.BSyntax <> BLet constr
+R9551:9551 KamiHW.F4_VerilogEvaluator <> e:61 var
+R9549:9549 KamiHW.F4_VerilogEvaluator <> k:60 var
+R9547:9547 KamiHW.F4_VerilogEvaluator <> n:59 var
+R9554:9554 KamiHW.F4_VerilogEvaluator <> s:62 var
+def 9881:9896 <> test_baction_seq
+R9900:9903 Coq.Init.Datatypes <> list ind
+R9905:9911 Kami.Ext.BSyntax <> BAction ind
+R9916:9919 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9950:9953 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9982:9985 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R10014:10015 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R9920:9928 Kami.Ext.BSyntax <> BWriteReg constr
+R9935:9942 Kami.Ext.BSyntax <> BReadReg constr
+R9954:9962 Kami.Ext.BSyntax <> BWriteReg constr
+R9969:9976 Kami.Ext.BSyntax <> BReadReg constr
+R9986:9994 Kami.Ext.BSyntax <> BWriteReg constr
+R10001:10008 Kami.Ext.BSyntax <> BReadReg constr
+prf 10025:10055 <> test_baction_seq_correspondence
+binder 10068:10068 <> s:63
+R10133:10139 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10075:10092 KamiHW.F4_VerilogEvaluator <> vstmts_eval_simple def
+R10095:10112 KamiHW.F4_BModulesTranslation <> bactions_to_vstmts def
+R10114:10129 KamiHW.F4_VerilogEvaluator <> test_baction_seq def
+R10132:10132 KamiHW.F4_VerilogEvaluator <> s:63 var
+R10140:10159 KamiHW.F4_VerilogEvaluator <> bactions_eval_simple def
+R10161:10176 KamiHW.F4_VerilogEvaluator <> test_baction_seq def
+R10178:10178 KamiHW.F4_VerilogEvaluator <> s:63 var
+R10207:10224 KamiHW.F4_BModulesTranslation <> bactions_to_vstmts def
+R10227:10244 KamiHW.F4_VerilogEvaluator <> vstmts_eval_simple def
+R10261:10280 KamiHW.F4_VerilogEvaluator <> bactions_eval_simple def
+R10283:10298 KamiHW.F4_VerilogEvaluator <> test_baction_seq def
+prf 10335:10359 <> test_baction_seq_concrete
+R10375:10383 KamiHW.F4_VerilogEvaluator <> state_set def
+R10385:10395 KamiHW.F4_VerilogEvaluator <> empty_state def
+binder 10369:10370 <> s0:64
+R10427:10444 KamiHW.F4_VerilogEvaluator <> vstmts_eval_simple def
+R10447:10464 KamiHW.F4_BModulesTranslation <> bactions_to_vstmts def
+R10466:10481 KamiHW.F4_VerilogEvaluator <> test_baction_seq def
+R10484:10485 KamiHW.F4_VerilogEvaluator <> s0:64 var
+binder 10414:10422 <> s_final_v:65
+R10509:10528 KamiHW.F4_VerilogEvaluator <> bactions_eval_simple def
+R10530:10545 KamiHW.F4_VerilogEvaluator <> test_baction_seq def
+R10547:10548 KamiHW.F4_VerilogEvaluator <> s0:64 var
+binder 10496:10504 <> s_final_k:66
+R10572:10575 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10568:10570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10555:10563 KamiHW.F4_VerilogEvaluator <> s_final_v:65 var
+R10593:10596 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10589:10591 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10576:10584 KamiHW.F4_VerilogEvaluator <> s_final_k:66 var
+R10610:10612 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10597:10605 KamiHW.F4_VerilogEvaluator <> s_final_v:65 var
+R10613:10621 KamiHW.F4_VerilogEvaluator <> s_final_k:66 var
+R10649:10657 KamiHW.F4_VerilogEvaluator <> state_set def
+R10660:10669 Coq.Strings.String <> eqb def
+R10672:10680 Coq.Strings.Ascii <> eqb def
+R10683:10690 Coq.Bool.Bool <> eqb def
+def 11078:11094 <> baction_is_simple
+R11101:11107 Kami.Ext.BSyntax <> BAction ind
+binder 11097:11097 <> a:67
+R11128:11128 KamiHW.F4_VerilogEvaluator <> a:67 var
+R11139:11147 Kami.Ext.BSyntax <> BWriteReg constr
+R11156:11159 Coq.Init.Logic <> True ind
+R11165:11171 Kami.Ext.BSyntax <> BAssert constr
+R11182:11185 Coq.Init.Logic <> True ind
+R11191:11197 Kami.Ext.BSyntax <> BReturn constr
+R11208:11211 Coq.Init.Logic <> True ind
+R11217:11220 Kami.Ext.BSyntax <> BLet constr
+R11234:11237 Coq.Init.Logic <> True ind
+R11260:11264 Coq.Init.Logic <> False ind
+prf 11282:11322 <> baction_translation_simple_correspondence
+binder 11335:11335 <> a:69
+binder 11337:11337 <> s:70
+R11363:11370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11344:11360 KamiHW.F4_VerilogEvaluator <> baction_is_simple def
+R11362:11362 KamiHW.F4_VerilogEvaluator <> a:69 var
+R11411:11417 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11371:11387 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R11390:11405 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R11407:11407 KamiHW.F4_VerilogEvaluator <> a:69 var
+R11410:11410 KamiHW.F4_VerilogEvaluator <> s:70 var
+R11418:11436 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R11438:11438 KamiHW.F4_VerilogEvaluator <> a:69 var
+R11440:11440 KamiHW.F4_VerilogEvaluator <> s:70 var
+R11559:11583 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+R11559:11583 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+R11559:11583 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+def 12390:12429 <> baction_one_level_ifelse_branches_simple
+R12436:12442 Kami.Ext.BSyntax <> BAction ind
+binder 12432:12432 <> a:71
+R12463:12463 KamiHW.F4_VerilogEvaluator <> a:71 var
+R12474:12480 Kami.Ext.BSyntax <> BIfElse constr
+R12547:12556 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12511:12521 Coq.Lists.List <> Forall ind
+R12523:12539 KamiHW.F4_VerilogEvaluator <> baction_is_simple def
+R12557:12567 Coq.Lists.List <> Forall ind
+R12569:12585 KamiHW.F4_VerilogEvaluator <> baction_is_simple def
+R12603:12619 KamiHW.F4_VerilogEvaluator <> baction_is_simple def
+R12621:12621 KamiHW.F4_VerilogEvaluator <> a:71 var
+prf 12736:12769 <> simple_bactions_seq_correspondence
+R12790:12793 Coq.Init.Datatypes <> list ind
+R12795:12801 Kami.Ext.BSyntax <> BAction ind
+binder 12783:12786 <> acts:73
+R12809:12819 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 12805:12805 <> s:74
+R12861:12868 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12827:12837 Coq.Lists.List <> Forall ind
+R12857:12860 KamiHW.F4_VerilogEvaluator <> acts:73 var
+R12839:12855 KamiHW.F4_VerilogEvaluator <> baction_is_simple def
+R12915:12921 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12869:12886 KamiHW.F4_VerilogEvaluator <> vstmts_eval_simple def
+R12889:12906 KamiHW.F4_BModulesTranslation <> bactions_to_vstmts def
+R12908:12911 KamiHW.F4_VerilogEvaluator <> acts:73 var
+R12914:12914 KamiHW.F4_VerilogEvaluator <> s:74 var
+R12922:12941 KamiHW.F4_VerilogEvaluator <> bactions_eval_simple def
+R12943:12946 KamiHW.F4_VerilogEvaluator <> acts:73 var
+R12948:12948 KamiHW.F4_VerilogEvaluator <> s:74 var
+R13116:13156 KamiHW.F4_VerilogEvaluator <> baction_translation_simple_correspondence thm
+R13116:13156 KamiHW.F4_VerilogEvaluator <> baction_translation_simple_correspondence thm
+R13116:13156 KamiHW.F4_VerilogEvaluator <> baction_translation_simple_correspondence thm
+prf 13276:13317 <> ifelse_with_simple_branches_correspondence
+R13338:13342 Kami.Ext.BSyntax <> BExpr ind
+binder 13331:13334 <> cond:75
+R13351:13353 Coq.Init.Datatypes <> nat ind
+binder 13346:13347 <> rn:76
+R13361:13364 Kami.Syntax <> Kind ind
+binder 13357:13357 <> k:77
+R13393:13396 Coq.Init.Datatypes <> list ind
+R13398:13404 Kami.Ext.BSyntax <> BAction ind
+binder 13377:13382 <> then_b:78
+binder 13384:13389 <> else_b:79
+R13412:13422 KamiHW.F4_VerilogEvaluator <> SimpleState def
+binder 13408:13408 <> s:80
+R13466:13473 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13430:13440 Coq.Lists.List <> Forall ind
+R13460:13465 KamiHW.F4_VerilogEvaluator <> then_b:78 var
+R13442:13458 KamiHW.F4_VerilogEvaluator <> baction_is_simple def
+R13510:13517 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13474:13484 Coq.Lists.List <> Forall ind
+R13504:13509 KamiHW.F4_VerilogEvaluator <> else_b:79 var
+R13486:13502 KamiHW.F4_VerilogEvaluator <> baction_is_simple def
+R13616:13622 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13518:13534 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R13537:13552 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R13581:13587 Kami.Ext.BSyntax <> BIfElse constr
+R13606:13611 KamiHW.F4_VerilogEvaluator <> else_b:79 var
+R13599:13604 KamiHW.F4_VerilogEvaluator <> then_b:78 var
+R13597:13597 KamiHW.F4_VerilogEvaluator <> k:77 var
+R13594:13595 KamiHW.F4_VerilogEvaluator <> rn:76 var
+R13589:13592 KamiHW.F4_VerilogEvaluator <> cond:75 var
+R13615:13615 KamiHW.F4_VerilogEvaluator <> s:80 var
+R13623:13641 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R13644:13650 Kami.Ext.BSyntax <> BIfElse constr
+R13669:13674 KamiHW.F4_VerilogEvaluator <> else_b:79 var
+R13662:13667 KamiHW.F4_VerilogEvaluator <> then_b:78 var
+R13660:13660 KamiHW.F4_VerilogEvaluator <> k:77 var
+R13657:13658 KamiHW.F4_VerilogEvaluator <> rn:76 var
+R13652:13655 KamiHW.F4_VerilogEvaluator <> cond:75 var
+R13677:13677 KamiHW.F4_VerilogEvaluator <> s:80 var
+R13754:13778 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+R13754:13778 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+R13754:13778 KamiHW.F4_VerilogEvaluator <> bexpr_eval_correspondence thm
+R13793:13799 Coq.Arith.PeanoNat Nat eqb def
+R13802:13818 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple def
+R13793:13799 Coq.Arith.PeanoNat Nat eqb def
+R13802:13818 KamiHW.F4_VerilogEvaluator <> bexpr_eval_simple def
+R13869:13886 KamiHW.F4_BModulesTranslation <> bactions_to_vstmts def
+R13901:13918 KamiHW.F4_VerilogEvaluator <> vstmts_eval_simple def
+R13936:13969 KamiHW.F4_VerilogEvaluator <> simple_bactions_seq_correspondence thm
+R13936:13969 KamiHW.F4_VerilogEvaluator <> simple_bactions_seq_correspondence thm
+R14018:14035 KamiHW.F4_BModulesTranslation <> bactions_to_vstmts def
+R14050:14067 KamiHW.F4_VerilogEvaluator <> vstmts_eval_simple def
+R14085:14118 KamiHW.F4_VerilogEvaluator <> simple_bactions_seq_correspondence thm
+R14085:14118 KamiHW.F4_VerilogEvaluator <> simple_bactions_seq_correspondence thm
+def 14591:14601 <> test_ifelse
+R14607:14613 Kami.Ext.BSyntax <> BAction ind
+R14620:14626 Kami.Ext.BSyntax <> BIfElse constr
+R14699:14699 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14732:14732 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14700:14708 Kami.Ext.BSyntax <> BWriteReg constr
+R14717:14724 Kami.Ext.BSyntax <> BReadReg constr
+R14660:14660 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14693:14693 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14661:14669 Kami.Ext.BSyntax <> BWriteReg constr
+R14678:14685 Kami.Ext.BSyntax <> BReadReg constr
+R14649:14651 Kami.Syntax <> Bit constr
+R14629:14636 Kami.Ext.BSyntax <> BReadReg constr
+prf 14771:14796 <> test_ifelse_correspondence
+binder 14809:14809 <> s:81
+R14862:14876 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14812:14828 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R14831:14846 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R14848:14858 KamiHW.F4_VerilogEvaluator <> test_ifelse def
+R14861:14861 KamiHW.F4_VerilogEvaluator <> s:81 var
+R14877:14895 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R14897:14907 KamiHW.F4_VerilogEvaluator <> test_ifelse def
+R14909:14909 KamiHW.F4_VerilogEvaluator <> s:81 var
+R14937:14978 KamiHW.F4_VerilogEvaluator <> ifelse_with_simple_branches_correspondence thm
+R14937:14978 KamiHW.F4_VerilogEvaluator <> ifelse_with_simple_branches_correspondence thm
+prf 15041:15065 <> test_ifelse_concrete_then
+R15080:15088 KamiHW.F4_VerilogEvaluator <> state_set def
+R15091:15099 KamiHW.F4_VerilogEvaluator <> state_set def
+R15101:15111 KamiHW.F4_VerilogEvaluator <> empty_state def
+binder 15075:15075 <> s:82
+R15148:15164 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R15167:15182 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R15184:15194 KamiHW.F4_VerilogEvaluator <> test_ifelse def
+R15197:15197 KamiHW.F4_VerilogEvaluator <> s:82 var
+binder 15141:15143 <> s_v:83
+R15215:15233 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R15235:15245 KamiHW.F4_VerilogEvaluator <> test_ifelse def
+R15247:15247 KamiHW.F4_VerilogEvaluator <> s:82 var
+binder 15208:15210 <> s_k:84
+R15268:15271 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15263:15265 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15254:15256 KamiHW.F4_VerilogEvaluator <> s_v:83 var
+R15286:15289 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15281:15283 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15272:15274 KamiHW.F4_VerilogEvaluator <> s_k:84 var
+R15299:15301 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15290:15292 KamiHW.F4_VerilogEvaluator <> s_v:83 var
+R15302:15304 KamiHW.F4_VerilogEvaluator <> s_k:84 var
+R15332:15340 KamiHW.F4_VerilogEvaluator <> state_set def
+prf 15376:15400 <> test_ifelse_concrete_else
+R15415:15423 KamiHW.F4_VerilogEvaluator <> state_set def
+R15426:15434 KamiHW.F4_VerilogEvaluator <> state_set def
+R15436:15446 KamiHW.F4_VerilogEvaluator <> empty_state def
+binder 15410:15410 <> s:85
+R15483:15499 KamiHW.F4_VerilogEvaluator <> vstmt_eval_simple def
+R15502:15517 KamiHW.F4_BModulesTranslation <> baction_to_vstmt def
+R15519:15529 KamiHW.F4_VerilogEvaluator <> test_ifelse def
+R15532:15532 KamiHW.F4_VerilogEvaluator <> s:85 var
+binder 15476:15478 <> s_v:86
+R15550:15568 KamiHW.F4_VerilogEvaluator <> baction_eval_simple def
+R15570:15580 KamiHW.F4_VerilogEvaluator <> test_ifelse def
+R15582:15582 KamiHW.F4_VerilogEvaluator <> s:85 var
+binder 15543:15545 <> s_k:87
+R15598:15600 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15589:15591 KamiHW.F4_VerilogEvaluator <> s_v:86 var
+R15601:15603 KamiHW.F4_VerilogEvaluator <> s_k:87 var
+R15631:15639 KamiHW.F4_VerilogEvaluator <> state_set def

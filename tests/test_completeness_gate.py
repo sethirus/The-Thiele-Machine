@@ -26,6 +26,25 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 
+
+def _kernel_v(name: str) -> Path:
+    """Resolve a kernel .v / .vo / .glob source by name across the
+    coq/kernel/ subdirectories used by the current layout
+    (foundation/, mu_calculus/, nfi/, hardware_bridge/, quantum/, etc.).
+
+    Falls back to the legacy flat path so existing assertion messages
+    that quote `coq/kernel/<name>` still report a sensible location
+    when a file genuinely is missing.
+    """
+    flat = ROOT / "coq" / "kernel" / name
+    if flat.exists():
+        return flat
+    kernel_root = ROOT / "coq" / "kernel"
+    if kernel_root.exists():
+        for candidate in kernel_root.rglob(name):
+            return candidate
+    return flat
+
 # The canonical set of 46 opcode names (lowercase)
 # 39 original + 7 categorical morphism extension (morph, compose, morph_id,
 # morph_delete, morph_assert, morph_tensor, morph_get)
@@ -58,13 +77,13 @@ class TestSourceBlockerClassification:
 
     def test_reopened_source_blockers_are_classified(self):
         checks = {
-            ROOT / "coq" / "kernel" / "ConstructivePSD.v": [
+            _kernel_v("ConstructivePSD.v"): [
                 "Currently not implemented",
             ],
-            ROOT / "coq" / "kernel" / "VMStep.v": [
+            _kernel_v("VMStep.v"): [
                 "Formal placeholder (undecidable)",
             ],
-            ROOT / "coq" / "kernel" / "CHSHStatisticalBridge.v": [
+            _kernel_v("CHSHStatisticalBridge.v"): [
                 "local_bound_for_wc (Axiom)",
                 "hoeffding_chsh_concentration (Axiom)",
                 "one Axiom per named hypothesis",
@@ -77,10 +96,10 @@ class TestSourceBlockerClassification:
                 assert phrase not in text, f"{path.relative_to(ROOT)} still contains {phrase!r}"
 
         assert "demoted research extension, not an active closeout claim" in (
-            ROOT / "coq" / "kernel" / "ConstructivePSD.v"
+            _kernel_v("ConstructivePSD.v")
         ).read_text(encoding="utf-8")
         assert "outside the closeout claim" in (
-            ROOT / "coq" / "kernel" / "CHSHStatisticalBridge.v"
+            _kernel_v("CHSHStatisticalBridge.v")
         ).read_text(encoding="utf-8")
 
     def test_full_state_rtl_lockstep_classification_is_explicit(self):
@@ -128,11 +147,11 @@ class TestCoqLayer:
     """Coq source of truth is complete and admit-free."""
 
     COQ_DIR = ROOT / "coq"
-    VMSTEP = COQ_DIR / "kernel" / "VMStep.v"
+    VMSTEP = _kernel_v("VMStep.v")
     EXTRACTION = COQ_DIR / "Extraction.v"
 
     def test_vmstep_exists(self):
-        assert self.VMSTEP.exists(), "coq/kernel/VMStep.v missing"
+        assert self.VMSTEP.exists(), "coq/kernel/foundation/VMStep.v missing"
 
     def test_extraction_exists(self):
         assert self.EXTRACTION.exists(), "coq/Extraction.v missing"
@@ -196,8 +215,8 @@ class TestCoqLayer:
         required_vos = [
             self.VMSTEP.with_suffix(".vo"),
             self.EXTRACTION.with_suffix(".vo"),
-            self.COQ_DIR / "kernel" / "MuCostModel.vo",
-            self.COQ_DIR / "kernel" / "NoFreeInsight.vo",
+            _kernel_v("MuCostModel.vo"),
+            _kernel_v("NoFreeInsight.vo"),
         ]
         missing = [vo for vo in required_vos if not vo.exists()]
         assert not missing, (
@@ -502,7 +521,7 @@ class TestCrossLayerConsistency:
 
     def test_coq_ocaml_opcode_parity(self):
         """Coq VMStep.v constructors == OCaml thiele_core.ml constructors."""
-        vmstep = ROOT / "coq" / "kernel" / "VMStep.v"
+        vmstep = _kernel_v("VMStep.v")
         ml = ROOT / "build" / "thiele_core.ml"
 
         coq_ops = set(re.findall(r"\|\s+instr_(\w+)", vmstep.read_text()))
@@ -556,7 +575,7 @@ class TestCrossLayerConsistency:
 
     def test_all_four_layers_identical_set(self):
         """The grand unification test: Coq == OCaml == CANONICAL_46."""
-        vmstep = ROOT / "coq" / "kernel" / "VMStep.v"
+        vmstep = _kernel_v("VMStep.v")
         ml = ROOT / "build" / "thiele_core.ml"
 
         coq_ops = frozenset(re.findall(r"\|\s+instr_(\w+)", vmstep.read_text()))

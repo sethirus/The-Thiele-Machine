@@ -1,0 +1,324 @@
+DIGEST e41ca00526ac304294992450fc23c4ac
+FKernel.StressEnergyDynamics
+R24:28 Coq.Reals.Reals <> <> lib
+R30:33 Coq.Lists.List <> <> lib
+R35:37 Coq.micromega.Lia <> <> lib
+R39:41 Coq.micromega.Lra <> <> lib
+R51:63 Coq.Lists.List ListNotations <> mod
+R94:100 Kernel.VMState <> <> lib
+R130:135 Kernel.VMStep <> <> lib
+R165:173 Kernel.MuGravity <> <> lib
+R203:217 Kernel.SimulationProof <> <> lib
+R247:254 Kernel.Locality <> <> lib
+R284:296 Kernel.KernelPhysics <> <> lib
+def 1578:1602 <> high_stress_energy_module
+R1609:1615 Kernel.VMState <> VMState rec
+binder 1605:1605 <> s:1
+R1623:1630 Kernel.VMState <> ModuleID def
+binder 1619:1619 <> m:2
+R1646:1646 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1634:1642 <> threshold:3
+R1678:1680 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R1661:1673 Kernel.MuGravity <> stress_energy def
+R1675:1675 Kernel.StressEnergyDynamics <> s:1 var
+R1677:1677 Kernel.StressEnergyDynamics <> m:2 var
+R1681:1689 Kernel.StressEnergyDynamics <> threshold:3 var
+prf 1873:1894 <> pnew_increases_mu_cost
+binder 1905:1905 <> s:4
+binder 1907:1908 <> s':5
+binder 1910:1915 <> region:6
+binder 1917:1920 <> cost:7
+R1962:1967 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1925:1931 Kernel.VMStep VMStep vm_step ind
+R1933:1933 Kernel.StressEnergyDynamics <> s:4 var
+R1936:1945 Kernel.VMStep VMStep instr_pnew constr
+R1947:1952 Kernel.StressEnergyDynamics <> region:6 var
+R1954:1957 Kernel.StressEnergyDynamics <> cost:7 var
+R1960:1961 Kernel.StressEnergyDynamics <> s':5 var
+R1982:1987 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1973:1975 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1969:1972 Kernel.StressEnergyDynamics <> cost:7 var
+R1997:1999 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1989:1993 Kernel.VMState <> vm_mu proj
+R1995:1996 Kernel.StressEnergyDynamics <> s':5 var
+R2007:2009 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2000:2004 Kernel.VMState <> vm_mu proj
+R2006:2006 Kernel.StressEnergyDynamics <> s:4 var
+R2010:2013 Kernel.StressEnergyDynamics <> cost:7 var
+R2131:2140 Kernel.VMStep VMStep apply_cost def
+def 2401:2419 <> count_pnew_in_trace
+R2430:2433 Coq.Init.Datatypes <> list ind
+R2435:2448 Kernel.VMStep VMStep vm_instruction ind
+binder 2422:2426 <> trace:8
+R2453:2455 Coq.Init.Datatypes <> nat ind
+R2468:2472 Kernel.StressEnergyDynamics <> trace:8 var
+R2483:2484 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2500:2503 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2543:2552 Kernel.VMStep VMStep instr_pnew constr
+R2561:2561 Coq.Init.Datatypes <> S constr
+R2564:2582 Kernel.StressEnergyDynamics <> count_pnew_in_trace:9 def
+R2603:2621 Kernel.StressEnergyDynamics <> count_pnew_in_trace:9 def
+prf 2777:2804 <> pnew_trace_length_correlates
+binder 2815:2819 <> trace:12
+R2850:2853 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2825:2843 Kernel.StressEnergyDynamics <> count_pnew_in_trace def
+R2845:2849 Kernel.StressEnergyDynamics <> trace:12 var
+R2854:2864 Coq.Lists.List <> length abbrev
+R2866:2870 Kernel.StressEnergyDynamics <> trace:12 var
+prf 3745:3779 <> stress_energy_drives_pnew_frequency
+binder 3790:3790 <> s:13
+binder 3792:3792 <> m:14
+binder 3794:3802 <> threshold:15
+R3846:3925 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3807:3831 Kernel.StressEnergyDynamics <> high_stress_energy_module def
+R3833:3833 Kernel.StressEnergyDynamics <> s:13 var
+R3835:3835 Kernel.StressEnergyDynamics <> m:14 var
+R3837:3845 Kernel.StressEnergyDynamics <> threshold:15 var
+R3926:3932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3950:3955 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 3933:3940 <> n_axioms:16
+binder 3942:3949 <> n_region:17
+R4000:4007 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3983:3986 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3957:3978 Kernel.MuGravity <> module_encoding_length def
+R3980:3980 Kernel.StressEnergyDynamics <> s:13 var
+R3982:3982 Kernel.StressEnergyDynamics <> m:14 var
+R3987:3994 Kernel.StressEnergyDynamics <> n_axioms:16 var
+R4048:4056 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4094:4094 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4031:4034 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4009:4026 Kernel.MuGravity <> module_region_size def
+R4028:4028 Kernel.StressEnergyDynamics <> s:13 var
+R4030:4030 Kernel.StressEnergyDynamics <> m:14 var
+R4035:4042 Kernel.StressEnergyDynamics <> n_region:17 var
+R4082:4084 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R4057:4059 Coq.Reals.Raxioms <> INR def
+R4070:4072 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4062:4069 Kernel.StressEnergyDynamics <> n_axioms:16 var
+R4073:4080 Kernel.StressEnergyDynamics <> n_region:17 var
+R4085:4093 Kernel.StressEnergyDynamics <> threshold:15 var
+R4143:4167 Kernel.StressEnergyDynamics <> high_stress_energy_module def
+R4188:4200 Kernel.MuGravity <> stress_energy def
+R4203:4217 Kernel.MuGravity <> mu_cost_density def
+R4239:4260 Kernel.MuGravity <> module_encoding_length def
+R4239:4260 Kernel.MuGravity <> module_encoding_length def
+R4278:4295 Kernel.MuGravity <> module_region_size def
+R4278:4295 Kernel.MuGravity <> module_region_size def
+R4320:4339 Coq.Arith.PeanoNat Nat le_refl thm
+R4320:4339 Coq.Arith.PeanoNat Nat le_refl thm
+R4361:4380 Coq.Arith.PeanoNat Nat le_refl thm
+R4361:4380 Coq.Arith.PeanoNat Nat le_refl thm
+def 4462:4478 <> graph_all_modules
+R4485:4498 Kernel.VMState <> PartitionGraph rec
+binder 4481:4481 <> g:18
+R4503:4506 Coq.Init.Datatypes <> list ind
+R4508:4515 Kernel.VMState <> ModuleID def
+R4522:4529 Coq.Lists.List <> map def
+R4536:4545 Kernel.VMState <> pg_modules proj
+R4547:4547 Kernel.StressEnergyDynamics <> g:18 var
+R4531:4533 Coq.Init.Datatypes <> fst def
+def 4723:4743 <> average_stress_energy
+R4750:4756 Kernel.VMState <> VMState rec
+binder 4746:4746 <> s:19
+R4761:4761 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4787:4803 Kernel.StressEnergyDynamics <> graph_all_modules def
+R4806:4813 Kernel.VMState <> vm_graph proj
+R4815:4815 Kernel.StressEnergyDynamics <> s:19 var
+binder 4772:4782 <> all_modules:20
+R4843:4851 Coq.Lists.List <> fold_left def
+R4928:4938 Kernel.StressEnergyDynamics <> all_modules:20 var
+binder 4858:4860 <> acc:21
+binder 4862:4862 <> m:22
+R4871:4873 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4868:4870 Kernel.StressEnergyDynamics <> acc:21 var
+R4874:4886 Kernel.MuGravity <> stress_energy def
+R4888:4888 Kernel.StressEnergyDynamics <> s:19 var
+R4890:4890 Kernel.StressEnergyDynamics <> m:22 var
+binder 4827:4838 <> total_stress:23
+R4955:4965 Coq.Lists.List <> length abbrev
+R4967:4977 Kernel.StressEnergyDynamics <> all_modules:20 var
+R4988:4988 Coq.Init.Datatypes <> O constr
+R5001:5001 Coq.Init.Datatypes <> S constr
+R5021:5023 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5009:5020 Kernel.StressEnergyDynamics <> total_stress:23 var
+R5024:5026 Coq.Reals.Raxioms <> INR def
+R5029:5029 Coq.Init.Datatypes <> S constr
+ind 5088:5102 <> execution_trace
+constr 5168:5176 <> exec_done
+constr 5221:5229 <> exec_step
+R5109:5112 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5106:5108 Coq.Init.Datatypes <> nat ind
+R5120:5123 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5113:5119 Kernel.VMState <> VMState rec
+R5143:5146 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5124:5127 Coq.Init.Datatypes <> list ind
+R5129:5142 Kernel.VMStep VMStep vm_instruction ind
+R5154:5157 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5147:5153 Kernel.VMState <> VMState rec
+binder 5187:5187 <> s:26
+R5194:5208 Kernel.StressEnergyDynamics <> execution_trace:24 ind
+R5217:5217 Kernel.StressEnergyDynamics <> s:26 var
+R5214:5215 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5212:5212 Kernel.StressEnergyDynamics <> s:26 var
+binder 5240:5240 <> n:27
+binder 5242:5242 <> s:28
+binder 5244:5245 <> s':29
+binder 5247:5249 <> s'':30
+binder 5251:5255 <> instr:31
+binder 5257:5260 <> rest:32
+R5285:5292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5267:5273 Kernel.VMStep VMStep vm_step ind
+R5275:5275 Kernel.StressEnergyDynamics <> s:28 var
+R5277:5281 Kernel.StressEnergyDynamics <> instr:31 var
+R5283:5284 Kernel.StressEnergyDynamics <> s':29 var
+R5322:5329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5293:5307 Kernel.StressEnergyDynamics <> execution_trace:24 ind
+R5319:5321 Kernel.StressEnergyDynamics <> s'':30 var
+R5314:5317 Kernel.StressEnergyDynamics <> rest:32 var
+R5311:5312 Kernel.StressEnergyDynamics <> s':29 var
+R5309:5309 Kernel.StressEnergyDynamics <> n:27 var
+R5330:5344 Kernel.StressEnergyDynamics <> execution_trace:24 ind
+R5370:5372 Kernel.StressEnergyDynamics <> s'':30 var
+R5360:5363 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5355:5359 Kernel.StressEnergyDynamics <> instr:31 var
+R5364:5367 Kernel.StressEnergyDynamics <> rest:32 var
+R5352:5352 Kernel.StressEnergyDynamics <> s:28 var
+R5347:5347 Coq.Init.Datatypes <> S constr
+R5349:5349 Kernel.StressEnergyDynamics <> n:27 var
+scheme 5088:5102 <> execution_trace_ind
+scheme 5088:5102 <> execution_trace_sind
+def 5711:5724 <> pnew_frequency
+R5735:5738 Coq.Init.Datatypes <> list ind
+R5740:5753 Kernel.VMStep VMStep vm_instruction ind
+binder 5727:5731 <> trace:33
+R5758:5758 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5779:5797 Kernel.StressEnergyDynamics <> count_pnew_in_trace def
+R5799:5803 Kernel.StressEnergyDynamics <> trace:33 var
+binder 5769:5774 <> n_pnew:34
+R5825:5835 Coq.Lists.List <> length abbrev
+R5837:5841 Kernel.StressEnergyDynamics <> trace:33 var
+binder 5814:5820 <> n_total:35
+R5854:5860 Kernel.StressEnergyDynamics <> n_total:35 var
+R5871:5871 Coq.Init.Datatypes <> O constr
+R5884:5884 Coq.Init.Datatypes <> S constr
+R5902:5904 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R5892:5894 Coq.Reals.Raxioms <> INR def
+R5896:5901 Kernel.StressEnergyDynamics <> n_pnew:34 var
+R5905:5907 Coq.Reals.Raxioms <> INR def
+R5909:5915 Kernel.StressEnergyDynamics <> n_total:35 var
+prf 6008:6029 <> pnew_frequency_bounded
+binder 6040:6044 <> trace:37
+R6069:6072 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6049:6062 Kernel.StressEnergyDynamics <> pnew_frequency def
+R6064:6068 Kernel.StressEnergyDynamics <> trace:37 var
+R6108:6121 Kernel.StressEnergyDynamics <> pnew_frequency def
+R6136:6146 Coq.Lists.List <> length abbrev
+R6136:6146 Coq.Lists.List <> length abbrev
+R6256:6259 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6231:6249 Kernel.StressEnergyDynamics <> count_pnew_in_trace def
+R6260:6270 Coq.Lists.List <> length abbrev
+R6256:6259 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6231:6249 Kernel.StressEnergyDynamics <> count_pnew_in_trace def
+R6260:6270 Coq.Lists.List <> length abbrev
+R6297:6324 Kernel.StressEnergyDynamics <> pnew_trace_length_correlates thm
+R6297:6324 Kernel.StressEnergyDynamics <> pnew_trace_length_correlates thm
+R6359:6364 Coq.Reals.RIneq <> le_INR thm
+R6359:6364 Coq.Reals.RIneq <> le_INR thm
+R6521:6524 Coq.Reals.Rdefinitions <> Rdiv def
+R6546:6548 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6549:6551 Coq.Reals.Raxioms <> INR def
+R6554:6554 Coq.Init.Datatypes <> S constr
+R6546:6548 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6549:6551 Coq.Reals.Raxioms <> INR def
+R6554:6554 Coq.Init.Datatypes <> S constr
+R6573:6580 Coq.Reals.RIneq <> lt_0_INR thm
+R6573:6580 Coq.Reals.RIneq <> lt_0_INR thm
+R6609:6611 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6612:6613 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R6614:6616 Coq.Reals.Raxioms <> INR def
+R6619:6619 Coq.Init.Datatypes <> S constr
+R6609:6611 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6612:6613 Coq.Reals.Rdefinitions <> ::R_scope:'/'_x not
+R6614:6616 Coq.Reals.Raxioms <> INR def
+R6619:6619 Coq.Init.Datatypes <> S constr
+R6638:6653 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+R6638:6653 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+R6706:6708 Coq.Reals.Raxioms <> INR def
+R6711:6711 Coq.Init.Datatypes <> S constr
+R6680:6693 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+R6706:6708 Coq.Reals.Raxioms <> INR def
+R6711:6711 Coq.Init.Datatypes <> S constr
+R6680:6693 Coq.Reals.RIneq <> Rmult_le_reg_r thm
+R6750:6758 Coq.Reals.Raxioms <> Rmult_1_l thm
+R6750:6758 Coq.Reals.Raxioms <> Rmult_1_l thm
+R6750:6758 Coq.Reals.Raxioms <> Rmult_1_l thm
+R6775:6785 Coq.Reals.Raxioms <> Rmult_assoc thm
+R6775:6785 Coq.Reals.Raxioms <> Rmult_assoc thm
+R6775:6785 Coq.Reals.Raxioms <> Rmult_assoc thm
+R6802:6807 Coq.Reals.Raxioms <> Rinv_l thm
+R6802:6807 Coq.Reals.Raxioms <> Rinv_l thm
+R6802:6807 Coq.Reals.Raxioms <> Rinv_l thm
+R6802:6807 Coq.Reals.Raxioms <> Rinv_l thm
+R6826:6834 Coq.Reals.RIneq <> Rmult_1_r thm
+R6826:6834 Coq.Reals.RIneq <> Rmult_1_r thm
+R6826:6834 Coq.Reals.RIneq <> Rmult_1_r thm
+R6860:6868 Coq.Reals.RIneq <> not_0_INR thm
+R6860:6868 Coq.Reals.RIneq <> not_0_INR thm
+def 7631:7646 <> module_region_of
+R7653:7659 Kernel.VMState <> VMState rec
+binder 7649:7649 <> s:38
+R7667:7674 Kernel.VMState <> ModuleID def
+binder 7663:7663 <> m:39
+R7679:7682 Coq.Init.Datatypes <> list ind
+R7684:7686 Coq.Init.Datatypes <> nat ind
+R7699:7710 Kernel.VMState <> graph_lookup def
+R7713:7720 Kernel.VMState <> vm_graph proj
+R7722:7722 Kernel.StressEnergyDynamics <> s:38 var
+R7725:7725 Kernel.StressEnergyDynamics <> m:39 var
+R7736:7739 Coq.Init.Datatypes <> None constr
+R7744:7745 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7751:7754 Coq.Init.Datatypes <> Some constr
+R7769:7781 Kernel.VMState <> module_region proj
+prf 8441:8468 <> information_gravity_coupling
+binder 8479:8479 <> s:40
+binder 8481:8481 <> m:41
+binder 8483:8491 <> threshold:42
+R8535:8600 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8496:8520 Kernel.StressEnergyDynamics <> high_stress_energy_module def
+R8522:8522 Kernel.StressEnergyDynamics <> s:40 var
+R8524:8524 Kernel.StressEnergyDynamics <> m:41 var
+R8526:8534 Kernel.StressEnergyDynamics <> threshold:42 var
+R8601:8607 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8622:8627 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 8608:8621 <> encoding_bound:43
+R8678:8725 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9070:9127 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8655:8658 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8629:8650 Kernel.MuGravity <> module_encoding_length def
+R8652:8652 Kernel.StressEnergyDynamics <> s:40 var
+R8654:8654 Kernel.StressEnergyDynamics <> m:41 var
+R8659:8672 Kernel.StressEnergyDynamics <> encoding_bound:43 var
+R8742:8745 Coq.Init.Datatypes <> list ind
+R8747:8760 Kernel.VMStep VMStep vm_instruction ind
+binder 8734:8738 <> trace:44
+R8769:8775 Kernel.VMState <> VMState rec
+binder 8764:8765 <> s':45
+R8785:8785 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8870:9065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8786:8793 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8808:8810 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8800:8807 Kernel.VMState <> ModuleID def
+binder 8794:8796 <> mid:46
+R8811:8812 Coq.Lists.List <> In def
+R8865:8869 Kernel.StressEnergyDynamics <> trace:44 var
+R8815:8824 Kernel.VMStep VMStep instr_pnew constr
+R8827:8842 Kernel.StressEnergyDynamics <> module_region_of def
+R8844:8844 Kernel.StressEnergyDynamics <> s:40 var
+R8846:8846 Kernel.StressEnergyDynamics <> m:41 var
+R8849:8862 Kernel.StressEnergyDynamics <> encoding_bound:43 var
+R9066:9069 Coq.Init.Logic <> True ind
+R9176:9200 Kernel.StressEnergyDynamics <> high_stress_energy_module def
+R9222:9243 Kernel.MuGravity <> module_encoding_length def
+R9222:9243 Kernel.MuGravity <> module_encoding_length def
+R9270:9289 Coq.Arith.PeanoNat Nat le_refl thm
+R9270:9289 Coq.Arith.PeanoNat Nat le_refl thm

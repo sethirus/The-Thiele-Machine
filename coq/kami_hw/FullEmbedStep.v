@@ -32,7 +32,7 @@
        by showing that swapping the graph before or after [vm_apply]
        produces the same result.
 
-    SCOPE (current as of 2026-05; verified against RTLGapRegistry.v):
+    Coverage (verified against [RTLGapRegistry.v]):
     - 30 SupportedOpcode instructions: unconditional full-state commutation.
     - 6 valid-args opcodes (CALL, RET, CHSH_TRIAL, TENSOR_SET, TENSOR_GET, LASSERT):
       Qed under WellFormedSnapshot / index-in-range / flen-match preconditions
