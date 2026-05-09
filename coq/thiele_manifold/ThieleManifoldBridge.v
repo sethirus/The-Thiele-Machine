@@ -1,12 +1,27 @@
-(** Bridging the abstract Thiele manifold to the verified Thiele machine stack.
+(** * ThieleManifoldBridge: instantiating the manifold on the Thiele VM
 
-    This module instantiates the abstract [System] notion from
-    [SelfReference] with the concrete Thiele programs and receipts from
-    the core machine development.  It then lifts that base system into the
-    infinite-dimensional manifold from [ThieleManifold], providing a
-    constructive projection back to 4D spacetime and reusing the
-    ledger/cost vocabulary established in the existing proofs.
- *)
+    This file packages the verified Thiele machine stack as a [System] in
+    the [SelfReference] framework, lifts that base system into a
+    [ThieleManifold] tower, and reuses [pi4] / [meta_system] to obtain a
+    constructive 4D projection. On top of that abstract scaffold it
+    transports the kernel's μ-ledger and irreversibility-count results
+    from [MuLedgerConservation] into a faithful-implementation
+    interface ([FaithfulImplementation]) suitable for hardware/RTL
+    refinement statements.
+
+    Three layers of content:
+
+      - A minimal [Prog] type and a trivial observational equivalence
+        [obs_equiv] used to put a [System] structure on Thiele programs
+        ([thiele_system], [thiele_system_self_referential]).
+      - A concrete tower [thiele_machine_manifold] whose level [n]
+        applies [meta_system] iteratively, with explicit dimension
+        formulae and μ-cost bounds.
+      - Ledger/irreversibility transport theorems
+        ([thiele_run_mu_bounds_irreversibility],
+        [thiele_manifold_irreversibility_gap]) and the
+        [FaithfulImplementation] record carrying a hardware-side
+        refinement contract. *)
 
 From Coq Require Import Arith Lia.
 From SelfReference Require Import SelfReference.
@@ -16,15 +31,25 @@ From Coq Require Import List.
 From Kernel Require Import MuLedgerConservation VMState VMStep SimulationProof.
 Import ListNotations.
 
-(** Minimal program type — replacement for archived ThieleMachine/ThieleProc. *)
+(** ** Minimal program type for the bridge
+
+    A program is a list of VM instructions; observational equivalence
+    is the trivial syntactic equality. The bridge does not need a
+    finer notion: the only role [Prog] plays here is to act as a
+    sentence-bearing carrier for the [System] structure. *)
 Definition Prog := list vm_instruction.
 Definition empty_prog : Prog := nil.
 Definition obs_equiv (P Q : Prog) : Prop := P = Q.
+
+(** Reflexivity of [obs_equiv]. *)
 Lemma obs_equiv_refl : forall P, obs_equiv P P.
 Proof. intros P. unfold obs_equiv. exact eq_refl. Qed.
 
-(** ** A System instance driven by Thiele programs and receipts *)
+(** ** A [System] instance driven by Thiele programs and receipts *)
 
+(** The self-reference predicate at this level is the existence of a
+    program observationally equivalent to itself — trivially populated
+    by [empty_prog]. *)
 Definition thiele_self_reference : Prop :=
   exists P : Prog, obs_equiv P P.
 
@@ -33,18 +58,25 @@ Proof.
   exists empty_prog. apply obs_equiv_refl.
 Qed.
 
+(** [thiele_sentences Q] says that [Q] holds and witnesses its holding by
+    pointing to some self-equivalent program. The conjunction enforces
+    that every sentence is locally grounded in a Thiele program. *)
 Definition thiele_sentences (Q : Prop) : Prop :=
   exists P : Prog, Q /\ obs_equiv P P.
 
+(** True propositions are [thiele_sentences] via the empty program. *)
 Lemma thiele_sentence_of_true : forall Q, Q -> thiele_sentences Q.
 Proof.
   intros Q HQ. exists empty_prog. split; [assumption|apply obs_equiv_refl].
 Qed.
 
+(** The Thiele [System]: 4-dimensional, with sentences as defined above. *)
 Definition thiele_system : System :=
   {| dimension := 4;
      sentences := thiele_sentences |}.
 
+(** [thiele_system] is self-referential: its sentence "there is a
+    self-equivalent program" is itself one of its sentences and is true. *)
 Lemma thiele_system_self_referential : contains_self_reference thiele_system.
 Proof.
   exists thiele_self_reference.
@@ -54,25 +86,30 @@ Proof.
   - apply thiele_self_reference_true.
 Qed.
 
-(* CREATIVE FIX: Extract P from spacetime_sentences, then witness via empty_prog *)
+(** [thiele_system] can reason about [spacetime_system]: it absorbs every
+    spacetime sentence by witnessing it through the empty program. The
+    proof unwinds [spacetime_sentences] to extract a witness event and
+    licenses [P] via the local entailment at that event. *)
 Lemma thiele_system_reasons_about_spacetime :
   can_reason_about thiele_system spacetime_system.
 Proof.
   unfold can_reason_about. intros P HP.
   unfold thiele_system. simpl.
-  (* Goal : thiele_sentences P *)
   unfold spacetime_system in HP. simpl in HP.
   unfold spacetime_sentences in HP.
   destruct HP as [Q [e [He Himpl]]].
   unfold at_event in He.
   unfold thiele_sentences.
   exists empty_prog. split.
-  - exact (Himpl e He). (* Extract P from spacetime witness *)
+  - exact (Himpl e He).
   - apply obs_equiv_refl.
 Qed.
 
-(** ** Building a concrete Thiele manifold tower *)
+(** ** Building a concrete Thiele manifold tower
 
+    Level 0 is [thiele_system]; each successor level applies
+    [meta_system]. The tower-laws below all reduce to properties of
+    [meta_system]. *)
 Fixpoint thiele_level (n : nat) : System :=
   match n with
   | 0 => thiele_system
@@ -144,13 +181,14 @@ Proof.
   apply mu_cost_positive_for_projection; lia.
 Qed.
 
-(* CREATIVE FIX: Extract P from spacetime_sentences, then witness via thiele_sentences *)
+(** The shadow of the Thiele manifold can reason about spacetime: it
+    absorbs spacetime sentences into [thiele_sentences] by witnessing
+    them through the empty program. *)
 Lemma thiele_manifold_supports_spacetime_shadow :
   can_reason_about (spacetime_shadow thiele_machine_manifold) spacetime_system.
 Proof.
   unfold can_reason_about. intros P HP.
   unfold spacetime_shadow, pi4, thiele_machine_manifold. simpl.
-  (* Goal : sentences (thiele_level 0) P, which is thiele_sentences P *)
   unfold spacetime_system in HP. simpl in HP.
   unfold spacetime_sentences in HP.
   destruct HP as [Q [e [He Himpl]]].

@@ -1,57 +1,57 @@
-(** PhysicsConditionalClosure.v — The Complete Physics Connection
+(** * PhysicsConditionalClosure: the complete physics connection
 
-    This file assembles the full relationship between the Thiele Machine's
-    cost structure and physical laws.  All proofs are zero Admitted.
-    Physical bridge axioms are named, scoped, and explicitly falsifiable.
+    This file assembles the relationship between the Thiele Machine's
+    cost structure and physical laws. All proofs are zero-[Admitted].
+    Physical bridge axioms are named, scoped, and explicitly
+    falsifiable.
 
-    ─────────────────────────────────────────────────────────────────────────
-    PART I  UNCONDITIONAL STRUCTURAL THEOREMS (no physical assumptions)
-    ─────────────────────────────────────────────────────────────────────────
+    ** Part I: unconditional structural theorems
 
-      U1. Classical CHSH bound ≤ 2: factorizable (LHV) correlations satisfy
-          −2 ≤ S ≤ 2.  (fine_theorem, MinorConstraints.v)
+    These hold with no physical assumptions:
 
-      U2. No Free Certification: any single certification step requires
-          positive μ-cost.  (certification_requires_positive_mu, AbstractNoFI.v)
+      - U1. Classical CHSH bound ≤ 2: factorisable (LHV) correlations
+        satisfy −2 ≤ S ≤ 2 ([fine_theorem],
+        [MinorConstraints.v]).
+      - U2. No Free Certification: any single certification step
+        requires positive μ-cost
+        ([certification_requires_positive_mu], [AbstractNoFI.v]).
+      - U3. Trial authenticity: [N] CHSH trials require [N]
+        CHSH_TRIAL instructions ([chsh_trial_count_lower_bound],
+        [QuantitativeNoFI.v]).
+      - U4. Cost intrinsic: [δ-μ] equals [trace_total_cost],
+        independent of machine state ([mu_accumulates_trace_cost],
+        [MuInitiality.v]).
+      - U5. Tsirelson from PSD: [quantum_realizable → |S| ≤ 2√2],
+        pure mathematics with no physical assumptions
+        ([quantum_realizable_implies_tsirelson_bound_abs],
+        [MuLedgerQuantumBridge.v]).
 
-      U3. Trial authenticity: N CHSH trials require N CHSH_TRIAL instructions.
-          (chsh_trial_count_lower_bound, QuantitativeNoFI.v)
+    ** Part II: the physical bridge axiom (A_QM)
 
-      U4. Cost intrinsic: δ-μ = trace_total_cost, independent of machine state.
-          (mu_accumulates_trace_cost, MuInitiality.v)
+    A_QM: honest quantum CHSH experiments produce correlations whose
+    zero-marginal NPA moment matrix is [quantum_realizable] (PSD and
+    symmetric). Physically this is the Born rule together with the
+    quantum observable algebra: for any quantum state ρ and ±1
+    observables [A_x ⊗ B_y], the Gram matrix of
+    [E_xy = Tr(ρ · A_x ⊗ B_y)] is PSD.
 
-      U5. Tsirelson from PSD: quantum_realizable → |S| ≤ 2√2.
-          Pure mathematics, no physical assumptions.
-          (quantum_realizable_implies_tsirelson_bound_abs, MuLedgerQuantumBridge.v)
+    A_QM is not derivable in Coq alone; it is an empirical fact about
+    quantum mechanics. Falsification: find a quantum experiment whose
+    NPA moment matrix is not PSD.
 
-    ─────────────────────────────────────────────────────────────────────────
-    PART II  THE PHYSICAL BRIDGE AXIOM (A_QM)
-    ─────────────────────────────────────────────────────────────────────────
+    ** Part III: the master conditional theorem
 
-      A_QM: Honest quantum CHSH experiments produce correlations whose
-      zero-marginal NPA moment matrix is quantum_realizable (PSD + symmetric).
+    Under A_QM, [master_tsirelson_conditional] gives the complete
+    physics chain.
 
-      Physical content: Born rule + quantum observable algebra.  For any
-      quantum state ρ and ±1 observables A_x ⊗ B_y, the Gram matrix of
-      (E_xy = Tr(ρ · A_x ⊗ B_y)) satisfies PSD.
+    ** Part IV: the open problem (OP-QM)
 
-      NOT derivable from Coq: empirical fact about quantum mechanics.
-      Falsification: find a quantum experiment where the NPA matrix is not PSD.
-
-    ─────────────────────────────────────────────────────────────────────────
-    PART III  MASTER CONDITIONAL (under A_QM, the complete physics chain)
-    ─────────────────────────────────────────────────────────────────────────
-
-    ─────────────────────────────────────────────────────────────────────────
-    PART IV  THE OPEN PROBLEM (OP-QM)
-    ─────────────────────────────────────────────────────────────────────────
-
-      Why do physical quantum correlations satisfy PSD?
-      Deriving A_QM from the μ-cost structure alone — without assuming the
-      Born rule as a physical axiom — is the remaining open problem.
-      It is related to Tsirelson's original question (1980) in quantum
-      information theory and requires formalizing quantum mechanics in Coq.
-*)
+    Why do physical quantum correlations satisfy PSD? Deriving A_QM
+    from the μ-cost structure alone — without assuming the Born rule
+    as a physical axiom — is the remaining open problem. It is
+    related to Tsirelson's original question (1980) in quantum
+    information theory and would require formalising quantum
+    mechanics in Coq. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Reals Psatz.
 Import ListNotations.
@@ -68,9 +68,7 @@ From Kernel Require Import VMState VMStep SimulationProof
 From Coq Require Import Reals.Rbasic_fun.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    PART I: UNCONDITIONAL STRUCTURAL THEOREMS
-    ═══════════════════════════════════════════════════════════════════════════ *)
+(** ** Part I: Unconditional structural theorems *)
 
 (** U1: Classical CHSH bound — fine_theorem from MinorConstraints.v.
     Factorizable (local hidden variable) correlations satisfy −2 ≤ S ≤ 2.
@@ -111,9 +109,7 @@ Qed.
 Definition U5_tsirelson_from_psd := quantum_realizable_implies_tsirelson_bound_abs.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    PART II + III: THE PHYSICAL BRIDGE AND MASTER CONDITIONAL THEOREM
-    ═══════════════════════════════════════════════════════════════════════════ *)
+(** ** Parts II + III: the physical bridge and master conditional theorem *)
 
 Section PhysicsBridge.
 
@@ -186,9 +182,7 @@ Qed.
 End PhysicsBridge.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    PART IV: THE OPEN PROBLEM (OP-QM) — FORMALLY NAMED AND BOUNDED
-    ═══════════════════════════════════════════════════════════════════════════ *)
+(** ** Part IV: the open problem (OP-QM) — formally named and bounded *)
 
 (**
     OP-QM: Derive A_QM from the Thiele Machine's cost structure alone.

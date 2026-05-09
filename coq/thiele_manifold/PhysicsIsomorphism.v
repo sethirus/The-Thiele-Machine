@@ -1,11 +1,31 @@
-(** Physics-as-computation scaffold and conjectures
+(** * PhysicsIsomorphism: physics-as-computation scaffold and conjectures
 
-    This optional study packages a shared interface for discrete physics
-    models, a single embedding contract into the verified VM, and the
-    conjectures that drive the "physics ≅ computation" programme.  Concrete
-    witnesses live in the embedding modules for the reversible lattice gas, the
-    dissipative lattice, and the wave model.
-*)
+    This file packages three things:
+
+      - [DiscretePhysics] — a shared interface for discrete physics
+        models. The interface is deliberately small: a state type, a
+        deterministic step, locality and finiteness markers, energy and
+        momentum observables, an energy law (either conserving or
+        strictly decreasing), and a [phys_reversible] flag.
+
+      - [ThieleEmbedding] — the embedding contract from a discrete
+        physics into the verified VM. An embedding is an
+        encode/decode pair plus a one-step bisimulation
+        ([emb_step_sim]) showing that one physics step is realised by
+        running the compiled [emb_trace] for one VM step. The
+        [emb_cost_free] / [emb_cost_positive] options carry the
+        certificate that the embedding is reversible (zero μ-cost) or
+        dissipative (≥ 1 μ-cost per step).
+
+      - Generic embedding lemmas — irreversibility-count and μ-bound
+        consequences that hold for any embedding satisfying the
+        cost-free or cost-positive certificate. The generic lemmas are
+        then specialised for hardware faithfulness via
+        [FaithfulImplementation] from [ThieleManifoldBridge].
+
+    Concrete witnesses live in the embedding modules for the reversible
+    lattice gas, the dissipative lattice, and the wave model. The
+    [embedded_case_studies] list collects them for paper-appendix use. *)
 
 From Coq Require Import String ZArith Lia List PeanoNat.
 From Kernel Require Import VMState VMStep MuLedgerConservation SimulationProof.

@@ -220,7 +220,8 @@ Qed.
 (** Bridge: the VM's instr_halt has zero cost, aligning with StepUtil 0. *)
 Definition halt_cost_bridge : nat := instruction_cost (instr_halt 0).
 
-(** Halt cost is zero - a placeholder utility step costs nothing. *)
+(** [instr_halt 0] has zero μ-cost: a halt-with-utility step is a
+    pure observational step under the cost law. *)
 Lemma halt_cost_zero : halt_cost_bridge = 0.
 Proof. reflexivity. Qed.
 

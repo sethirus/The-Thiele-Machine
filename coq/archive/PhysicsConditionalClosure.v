@@ -1,59 +1,62 @@
-(** PhysicsConditionalClosure.v — The Complete Physics Connection
+(** * ARCHIVED — Physics conditional closure (early draft)
 
-    This file assembles the full relationship between the Thiele Machine's
-    cost structure and the laws of physics.  Every theorem is zero Admitted.
+    STATUS: Superseded by the live [PhysicsConditionalClosure.v] at the coq/
+    root and the surrounding kernel modules. Retained because it carried a
+    cleaner end-to-end exposition of the CHSH bridge than any single live
+    file.
+
+    This file assembles the relationship between the Thiele Machine's cost
+    structure and the laws of physics. Every theorem is zero-Admitted.
     Physical axioms are named, scoped, and falsifiable.
 
-    ═══════════════════════════════════════════════════════════════════════════
-    PART I: UNCONDITIONAL STRUCTURAL THEOREMS
-    These hold with no physical assumptions.  They are consequences of the
+    ** Part I: Unconditional structural theorems
+    These hold with no physical assumptions. They are consequences of the
     machine's operational semantics and the mathematical proof apparatus.
 
-      U1. Classical CHSH bound: no local hidden-variable model exceeds |S|=2.
-      U2. No Free Insight: certification requires positive μ-cost.
-      U3. Trial authenticity: N CHSH trials require N CHSH_TRIAL instructions.
-      U4. Cost intrinsic: δ-μ is determined by the instruction sequence alone.
-      U5. Tsirelson from PSD: any quantum-realizable correlation satisfies |S|≤2√2.
+      - U1. Classical CHSH bound: no local hidden-variable model exceeds |S|=2.
+      - U2. No Free Insight: certification requires positive μ-cost.
+      - U3. Trial authenticity: N CHSH trials require N CHSH_TRIAL instructions.
+      - U4. Cost intrinsic: δ-μ is determined by the instruction sequence alone.
+      - U5. Tsirelson from PSD: any quantum-realizable correlation satisfies |S| ≤ 2√2.
 
-    PART II: THE PHYSICAL BRIDGE AXIOM
-    One physical fact is required to connect Part I to the observable world.
+    ** Part II: The physical bridge axiom
 
-      A_QM: CHSH trial outcomes from honest quantum experiments produce
-            correlations whose zero-marginal NPA moment matrix is PSD
-            (quantum_realizable).
+    One physical fact connects Part I to the observable world.
 
-    Physical content of A_QM: When Alice and Bob measure an entangled
+      - A_QM: CHSH trial outcomes from honest quantum experiments produce
+              correlations whose zero-marginal NPA moment matrix is PSD
+              (quantum_realizable).
+
+    Physical content of A_QM: when Alice and Bob measure an entangled
     quantum state with observables A_x ⊗ B_y, the resulting correlation
-    matrix Gram(E_xy) satisfies the PSD condition.  This is the Born rule
-    plus the algebraic structure of quantum observables.  It is an empirical
-    fact verified by every Bell test experiment, not derivable from Coq.
+    matrix Gram(E_xy) satisfies the PSD condition. This is the Born rule
+    plus the algebraic structure of quantum observables. It is an empirical
+    fact verified by every Bell test experiment; it is not derivable from
+    Coq alone.
 
     Falsification of A_QM: find a quantum experiment where the correlation
-    matrix is NOT PSD.  That would refute quantum mechanics.
+    matrix is not PSD.
 
-    PART III: MASTER CONDITIONAL THEOREM
-    Under A_QM, the full CHSH hierarchy follows from the cost structure.
-    This is the honest closed form of the physics connection.
+    ** Part III: Master conditional theorem
 
-      Under A_QM:
-        - Quantum correlations satisfy |S| ≤ 2√2  (Tsirelson, U5 + A_QM)
-        - Classical correlations satisfy |S| ≤ 2   (U1, unconditional)
-        - Supra-quantum (|S| > 2√2) is non-realizable under A_QM
-        - Certifying any structural claim requires positive μ  (U2)
-        - Every CHSH trial is authentic — unforgeable  (U3)
-        - Every computation was always paying its μ-cost  (U4)
+    Under A_QM, the full CHSH hierarchy follows from the cost structure:
 
-    PART IV: THE OPEN PROBLEM
+      - Quantum correlations satisfy |S| ≤ 2√2 (Tsirelson, U5 + A_QM).
+      - Classical correlations satisfy |S| ≤ 2 (U1, unconditional).
+      - Supra-quantum (|S| > 2√2) is non-realizable under A_QM.
+      - Certifying any structural claim requires positive μ (U2).
+      - Every CHSH trial is authentic and unforgeable (U3).
+      - Every computation was paying its μ-cost (U4).
+
+    ** Part IV: The open problem
+
     What is NOT proven here (and is genuinely open):
 
-      OP-QM: Why do physical quantum correlations satisfy PSD?
-             Equivalently: why is the Tsirelson bound 2√2 and not some
-             other value?  Deriving the quantum bound from the μ-cost
-             structure alone — without assuming the Born rule as a
-             physical axiom — remains an open problem.  It is related
-             to Tsirelson's original question in quantum information theory.
-
-    ═══════════════════════════════════════════════════════════════════════════
+      - OP-QM. Why do physical quantum correlations satisfy PSD?
+        Equivalently: why is the Tsirelson bound 2√2 and not some other
+        value? Deriving the quantum bound from the μ-cost structure alone,
+        without assuming the Born rule as a physical axiom, remains open
+        and is related to Tsirelson's original problem.
 *)
 
 From Coq Require Import List Arith.PeanoNat Lia Reals.
@@ -74,9 +77,7 @@ From Kernel Require Import VMState VMStep SimulationProof
 From Coq Require Import Reals.Rbasic_fun.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    PART I: UNCONDITIONAL STRUCTURAL THEOREMS
-    ═══════════════════════════════════════════════════════════════════════════ *)
+(** ** Part I: Unconditional structural theorems *)
 
 (** U2 (re-export): Certification requires positive μ-cost.
     Any trace from uncertified to certified has total instruction_cost ≥ 1.
@@ -118,9 +119,8 @@ Qed.
 (** U5: Any quantum-realizable correlation satisfies the Tsirelson bound.
     This is a pure mathematical theorem about real numbers satisfying the
     PSD condition.  No physical assumptions.
-    Source: quantum_realizable_implies_tsirelson_bound_abs (MuLedgerQuantumBridge.v). *)
-(* definitional lemma: direct re-export of quantum_realizable_implies_tsirelson_bound_abs
-   as a named physics bridge theorem.  Physical content is in the PSD premise. *)
+    Source: quantum_realizable_implies_tsirelson_bound_abs (MuLedgerQuantumBridge.v).
+    The physical content is entirely in the PSD premise. *)
 Theorem U5_tsirelson_from_psd :
   forall E00 E01 E10 E11 : RealNumber,
     quantum_realizable (zero_marginal_npa E00 E01 E10 E11) ->
@@ -131,9 +131,7 @@ Proof.
 Qed.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    PART II: THE PHYSICAL BRIDGE SECTION
-    ═══════════════════════════════════════════════════════════════════════════ *)
+(** ** Part II: The physical bridge section *)
 
 Section PhysicsBridge.
 
@@ -173,9 +171,7 @@ Context (A_QM : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMSt
     (trace_e11 fuel trace s_init))).
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    PART III: MASTER CONDITIONAL THEOREM
-    ═══════════════════════════════════════════════════════════════════════════ *)
+(** ** Part III: Master conditional theorem *)
 
 (** MASTER THEOREM: Under A_QM, any honest quantum CHSH execution satisfies
     the Tsirelson bound.  The complete chain:
@@ -186,10 +182,9 @@ Context (A_QM : forall (fuel : nat) (trace : list vm_instruction) (s_init : VMSt
         → Tsirelson bound holds
 
     This is the honest closed form of the physics connection.
-    The mathematical proof is complete.  The physical axiom is explicit
-    and falsifiable.  This is what all good physics looks like. *)
-(* definitional lemma: bundles A_QM + U5 into the named master conditional.
-   No new mathematical content; all proof steps are direct applications. *)
+    The mathematical proof is complete; the physical axiom is explicit and
+    falsifiable. This bundles A_QM + U5 into the named master conditional;
+    every proof step is a direct application. *)
 Theorem master_tsirelson_conditional :
   forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
     honest_quantum_chsh_execution fuel trace s_init ->
@@ -208,9 +203,9 @@ Qed.
 (** COROLLARY: Under A_QM, the full CHSH hierarchy is:
     Classical (|S| ≤ 2) < Quantum (|S| ≤ 2√2) < Supra-quantum (impossible).
     The quantum regime is exactly what honest measurements can produce.
-    Supra-quantum correlations are provably non-realizable under A_QM. *)
-(* definitional lemma: bundles classical bound (U1) and quantum bound (master_tsirelson)
-   into one summary statement.  Each conjunct is proved by direct application. *)
+    Supra-quantum correlations are provably non-realizable under A_QM.
+    Each conjunct below is proved by a direct application of an already
+    finished theorem. *)
 Theorem master_chsh_hierarchy_conditional :
   (** Classical bound holds unconditionally *)
   (forall E00 E01 E10 E11 : RealNumber,
@@ -246,9 +241,7 @@ Qed.
 End PhysicsBridge.
 
 
-(** ═══════════════════════════════════════════════════════════════════════════
-    PART IV: EXPLICIT STATEMENT OF THE OPEN PROBLEM
-    ═══════════════════════════════════════════════════════════════════════════ *)
+(** ** Part IV: Explicit statement of the open problem *)
 
 (** The open problem is formally named and bounded.
 
@@ -287,6 +280,5 @@ End PhysicsBridge.
     does not constrain PSD by itself.  The missing ingredient is that
     honest physical measurements ARE PSD — which is A_QM.
 
-    STATUS: OP-QM is open.  The rest is proven. *)
+    STATUS: OP-QM is open. The rest is proven. *)
 
-End PhysicsConditionalClosure.

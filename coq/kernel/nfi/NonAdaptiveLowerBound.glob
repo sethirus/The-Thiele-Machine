@@ -1,0 +1,402 @@
+DIGEST f1c5e79c3e1385e69f303fe68fde0dbd
+FKernel.NonAdaptiveLowerBound
+R1663:1679 Kernel.FiniteInformation <> <> lib
+R1709:1720 Kernel.MuComplexity <> <> lib
+R1750:1760 Kernel.MuCostModel <> <> lib
+R1779:1792 Coq.Lists.List <> <> lib
+R1810:1827 Coq.Arith.PeanoNat <> <> lib
+R1845:1861 Coq.micromega.Lia <> <> lib
+R1871:1883 Coq.Lists.List ListNotations <> mod
+def 2451:2459 <> Predicate
+R2467:2470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2464:2466 Coq.Init.Datatypes <> nat ind
+R2471:2474 Coq.Init.Datatypes <> bool ind
+def 2567:2572 <> is_sat
+R2579:2581 Coq.Init.Datatypes <> nat ind
+binder 2575:2575 <> n:1
+R2591:2599 Kernel.NonAdaptiveLowerBound <> Predicate def
+binder 2585:2587 <> phi:2
+R2604:2607 Coq.Init.Datatypes <> bool ind
+R2614:2620 Coq.Lists.List <> existsb def
+R2627:2629 Coq.Lists.List <> seq def
+R2635:2637 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2638:2638 Kernel.NonAdaptiveLowerBound <> n:1 var
+R2622:2624 Kernel.NonAdaptiveLowerBound <> phi:2 var
+rec 2805:2822 <> NonAdaptiveDecider
+proj 2838:2847 <> nad_probes
+proj 2863:2872 <> nad_decide
+R2851:2854 Coq.Init.Datatypes <> list ind
+R2856:2858 Coq.Init.Datatypes <> nat ind
+R2885:2888 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2876:2879 Coq.Init.Datatypes <> list ind
+R2881:2884 Coq.Init.Datatypes <> bool ind
+R2889:2892 Coq.Init.Datatypes <> bool ind
+def 2981:2987 <> nad_run
+R2994:3011 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 2990:2990 <> D:6
+R3021:3029 Kernel.NonAdaptiveLowerBound <> Predicate def
+binder 3015:3017 <> phi:7
+R3034:3037 Coq.Init.Datatypes <> bool ind
+R3044:3053 Kernel.NonAdaptiveLowerBound <> nad_decide proj
+R3055:3055 Kernel.NonAdaptiveLowerBound <> D:6 var
+R3058:3060 Coq.Lists.List <> map def
+R3067:3076 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R3078:3078 Kernel.NonAdaptiveLowerBound <> D:6 var
+R3062:3064 Kernel.NonAdaptiveLowerBound <> phi:7 var
+def 3169:3179 <> nad_correct
+R3186:3188 Coq.Init.Datatypes <> nat ind
+binder 3182:3182 <> n:8
+R3196:3213 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 3192:3192 <> D:9
+R3241:3249 Kernel.NonAdaptiveLowerBound <> Predicate def
+binder 3235:3237 <> phi:10
+R3265:3267 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3252:3258 Kernel.NonAdaptiveLowerBound <> nad_run def
+R3260:3260 Kernel.NonAdaptiveLowerBound <> D:9 var
+R3262:3264 Kernel.NonAdaptiveLowerBound <> phi:10 var
+R3268:3273 Kernel.NonAdaptiveLowerBound <> is_sat def
+R3275:3275 Kernel.NonAdaptiveLowerBound <> n:8 var
+R3277:3279 Kernel.NonAdaptiveLowerBound <> phi:10 var
+def 3583:3595 <> phi_singleton
+R3602:3604 Coq.Init.Datatypes <> nat ind
+binder 3598:3598 <> a:11
+R3609:3617 Kernel.NonAdaptiveLowerBound <> Predicate def
+binder 3628:3628 <> v:12
+R3633:3639 Coq.Arith.PeanoNat Nat eqb def
+R3641:3641 Kernel.NonAdaptiveLowerBound <> v:12 var
+R3643:3643 Kernel.NonAdaptiveLowerBound <> a:11 var
+prf 3653:3674 <> phi_singleton_sat_self
+binder 3685:3685 <> a:13
+R3705:3707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3688:3700 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R3702:3702 Kernel.NonAdaptiveLowerBound <> a:13 var
+R3704:3704 Kernel.NonAdaptiveLowerBound <> a:13 var
+R3708:3711 Coq.Init.Datatypes <> true constr
+R3740:3752 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R3761:3770 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3761:3770 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 3798:3823 <> phi_singleton_others_false
+binder 3836:3836 <> a:14
+binder 3838:3838 <> v:15
+R3847:3850 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3842:3845 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3841:3841 Kernel.NonAdaptiveLowerBound <> v:15 var
+R3846:3846 Kernel.NonAdaptiveLowerBound <> a:14 var
+R3868:3870 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3851:3863 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R3865:3865 Kernel.NonAdaptiveLowerBound <> a:14 var
+R3867:3867 Kernel.NonAdaptiveLowerBound <> v:15 var
+R3871:3875 Coq.Init.Datatypes <> false constr
+R3910:3922 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R3933:3943 Coq.Arith.PeanoNat Nat eqb_neq thm
+R3933:3943 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 3969:3988 <> is_sat_phi_singleton
+binder 4001:4001 <> n:16
+binder 4003:4003 <> a:17
+R4015:4018 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4007:4009 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4006:4006 Kernel.NonAdaptiveLowerBound <> a:17 var
+R4011:4013 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4014:4014 Kernel.NonAdaptiveLowerBound <> n:16 var
+R4045:4047 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4019:4024 Kernel.NonAdaptiveLowerBound <> is_sat def
+R4026:4026 Kernel.NonAdaptiveLowerBound <> n:16 var
+R4029:4041 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R4043:4043 Kernel.NonAdaptiveLowerBound <> a:17 var
+R4048:4051 Coq.Init.Datatypes <> true constr
+R4086:4091 Kernel.NonAdaptiveLowerBound <> is_sat def
+R4102:4115 Coq.Lists.List <> existsb_exists thm
+R4102:4115 Coq.Lists.List <> existsb_exists thm
+R4145:4150 Coq.Lists.List <> in_seq thm
+R4145:4150 Coq.Lists.List <> in_seq thm
+R4168:4189 Kernel.NonAdaptiveLowerBound <> phi_singleton_sat_self thm
+R4168:4189 Kernel.NonAdaptiveLowerBound <> phi_singleton_sat_self thm
+def 4241:4248 <> phi_zero
+R4252:4260 Kernel.NonAdaptiveLowerBound <> Predicate def
+R4274:4278 Coq.Init.Datatypes <> false constr
+prf 4288:4302 <> is_sat_phi_zero
+binder 4313:4313 <> n:18
+R4333:4335 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4316:4321 Kernel.NonAdaptiveLowerBound <> is_sat def
+R4323:4323 Kernel.NonAdaptiveLowerBound <> n:18 var
+R4325:4332 Kernel.NonAdaptiveLowerBound <> phi_zero def
+R4336:4340 Coq.Init.Datatypes <> false constr
+R4369:4374 Kernel.NonAdaptiveLowerBound <> is_sat def
+R4377:4384 Kernel.NonAdaptiveLowerBound <> phi_zero def
+R4400:4402 Coq.Lists.List <> seq def
+R4408:4410 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4400:4402 Coq.Lists.List <> seq def
+R4408:4410 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+prf 4936:4975 <> non_adaptive_must_probe_every_assignment
+R4993:4995 Coq.Init.Datatypes <> nat ind
+binder 4989:4989 <> n:19
+R5003:5020 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 4999:4999 <> D:20
+R5043:5050 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5028:5038 Kernel.NonAdaptiveLowerBound <> nad_correct def
+R5040:5040 Kernel.NonAdaptiveLowerBound <> n:19 var
+R5042:5042 Kernel.NonAdaptiveLowerBound <> D:20 var
+binder 5058:5058 <> a:21
+R5070:5073 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5062:5064 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5061:5061 Kernel.NonAdaptiveLowerBound <> a:21 var
+R5066:5068 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R5069:5069 Kernel.NonAdaptiveLowerBound <> n:19 var
+R5074:5075 Coq.Lists.List <> In def
+R5080:5089 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R5091:5091 Kernel.NonAdaptiveLowerBound <> D:20 var
+R5077:5077 Kernel.NonAdaptiveLowerBound <> a:21 var
+R5143:5148 Coq.Lists.List <> in_dec thm
+R5164:5173 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R5150:5159 Coq.Arith.PeanoNat Nat eq_dec thm
+R5143:5148 Coq.Lists.List <> in_dec thm
+R5164:5173 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R5150:5159 Coq.Arith.PeanoNat Nat eq_dec thm
+R5239:5251 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R5239:5251 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R5292:5299 Kernel.NonAdaptiveLowerBound <> phi_zero def
+R5292:5299 Kernel.NonAdaptiveLowerBound <> phi_zero def
+R5337:5356 Kernel.NonAdaptiveLowerBound <> is_sat_phi_singleton thm
+R5337:5356 Kernel.NonAdaptiveLowerBound <> is_sat_phi_singleton thm
+R5337:5356 Kernel.NonAdaptiveLowerBound <> is_sat_phi_singleton thm
+R5393:5407 Kernel.NonAdaptiveLowerBound <> is_sat_phi_zero thm
+R5393:5407 Kernel.NonAdaptiveLowerBound <> is_sat_phi_zero thm
+R5393:5407 Kernel.NonAdaptiveLowerBound <> is_sat_phi_zero thm
+R5436:5442 Kernel.NonAdaptiveLowerBound <> nad_run def
+R5523:5544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5487:5489 Coq.Lists.List <> map def
+R5510:5519 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R5492:5504 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R5545:5547 Coq.Lists.List <> map def
+R5568:5577 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R5549:5556 Kernel.NonAdaptiveLowerBound <> phi_zero def
+R5523:5544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5487:5489 Coq.Lists.List <> map def
+R5510:5519 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R5492:5504 Kernel.NonAdaptiveLowerBound <> phi_singleton def
+R5545:5547 Coq.Lists.List <> map def
+R5568:5577 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R5549:5556 Kernel.NonAdaptiveLowerBound <> phi_zero def
+R5594:5603 Coq.Lists.List <> map_ext_in thm
+R5594:5603 Coq.Lists.List <> map_ext_in thm
+R5642:5645 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5642:5645 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5706:5731 Kernel.NonAdaptiveLowerBound <> phi_singleton_others_false thm
+R5706:5731 Kernel.NonAdaptiveLowerBound <> phi_singleton_others_false thm
+R5706:5731 Kernel.NonAdaptiveLowerBound <> phi_singleton_others_false thm
+prf 6162:6189 <> non_adaptive_sat_lower_bound
+R6207:6209 Coq.Init.Datatypes <> nat ind
+binder 6203:6203 <> n:22
+R6217:6234 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 6213:6213 <> D:23
+R6257:6264 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6242:6252 Kernel.NonAdaptiveLowerBound <> nad_correct def
+R6254:6254 Kernel.NonAdaptiveLowerBound <> n:22 var
+R6256:6256 Kernel.NonAdaptiveLowerBound <> D:23 var
+R6305:6308 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6265:6270 Coq.Init.Datatypes <> length def
+R6273:6277 Coq.Lists.List <> nodup def
+R6291:6300 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R6302:6302 Kernel.NonAdaptiveLowerBound <> D:23 var
+R6279:6288 Coq.Arith.PeanoNat Nat eq_dec thm
+R6310:6312 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6313:6313 Kernel.NonAdaptiveLowerBound <> n:22 var
+R6375:6377 Coq.Init.Datatypes <> nat ind
+binder 6371:6371 <> a:24
+R6412:6427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6392:6393 Coq.Lists.List <> In def
+R6398:6400 Coq.Lists.List <> seq def
+R6406:6408 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6395:6395 Kernel.NonAdaptiveLowerBound <> a:24 var
+R6428:6429 Coq.Lists.List <> In def
+R6434:6438 Coq.Lists.List <> nodup def
+R6452:6461 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R6440:6449 Coq.Arith.PeanoNat Nat eq_dec thm
+R6431:6431 Kernel.NonAdaptiveLowerBound <> a:24 var
+R6375:6377 Coq.Init.Datatypes <> nat ind
+binder 6371:6371 <> a:25
+R6412:6427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6392:6393 Coq.Lists.List <> In def
+R6398:6400 Coq.Lists.List <> seq def
+R6406:6408 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6395:6395 Kernel.NonAdaptiveLowerBound <> a:25 var
+R6428:6429 Coq.Lists.List <> In def
+R6434:6438 Coq.Lists.List <> nodup def
+R6452:6461 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R6440:6449 Coq.Arith.PeanoNat Nat eq_dec thm
+R6431:6431 Kernel.NonAdaptiveLowerBound <> a:25 var
+R6496:6503 Coq.Lists.List <> nodup_In thm
+R6496:6503 Coq.Lists.List <> nodup_In thm
+R6516:6521 Coq.Lists.List <> in_seq thm
+R6516:6521 Coq.Lists.List <> in_seq thm
+R6541:6580 Kernel.NonAdaptiveLowerBound <> non_adaptive_must_probe_every_assignment thm
+R6541:6580 Kernel.NonAdaptiveLowerBound <> non_adaptive_must_probe_every_assignment thm
+R6630:6633 Coq.Lists.List <> incl def
+R6652:6656 Coq.Lists.List <> nodup def
+R6670:6679 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R6658:6667 Coq.Arith.PeanoNat Nat eq_dec thm
+R6636:6638 Coq.Lists.List <> seq def
+R6644:6646 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6630:6633 Coq.Lists.List <> incl def
+R6652:6656 Coq.Lists.List <> nodup def
+R6670:6679 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R6658:6667 Coq.Arith.PeanoNat Nat eq_dec thm
+R6636:6638 Coq.Lists.List <> seq def
+R6644:6646 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6747:6763 Coq.Lists.List <> NoDup_incl_length thm
+R6766:6774 Coq.Lists.List <> seq_NoDup thm
+R6778:6780 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6747:6763 Coq.Lists.List <> NoDup_incl_length thm
+R6766:6774 Coq.Lists.List <> seq_NoDup thm
+R6778:6780 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R6815:6824 Coq.Lists.List <> seq_length thm
+R6815:6824 Coq.Lists.List <> seq_length thm
+R6815:6824 Coq.Lists.List <> seq_length thm
+prf 6994:7032 <> non_adaptive_sat_raw_length_lower_bound
+R7050:7052 Coq.Init.Datatypes <> nat ind
+binder 7046:7046 <> n:26
+R7060:7077 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 7056:7056 <> D:27
+R7100:7107 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7085:7095 Kernel.NonAdaptiveLowerBound <> nad_correct def
+R7097:7097 Kernel.NonAdaptiveLowerBound <> n:26 var
+R7099:7099 Kernel.NonAdaptiveLowerBound <> D:27 var
+R7129:7132 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7108:7113 Coq.Init.Datatypes <> length def
+R7116:7125 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R7127:7127 Kernel.NonAdaptiveLowerBound <> D:27 var
+R7134:7136 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7137:7137 Kernel.NonAdaptiveLowerBound <> n:26 var
+R7206:7211 Coq.Init.Datatypes <> length def
+R7214:7218 Coq.Lists.List <> nodup def
+R7232:7241 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R7220:7229 Coq.Arith.PeanoNat Nat eq_dec thm
+R7178:7189 Coq.Arith.PeanoNat Nat le_trans thm
+R7206:7211 Coq.Init.Datatypes <> length def
+R7214:7218 Coq.Lists.List <> nodup def
+R7232:7241 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R7220:7229 Coq.Arith.PeanoNat Nat eq_dec thm
+R7178:7189 Coq.Arith.PeanoNat Nat le_trans thm
+R7259:7286 Kernel.NonAdaptiveLowerBound <> non_adaptive_sat_lower_bound thm
+R7259:7286 Kernel.NonAdaptiveLowerBound <> non_adaptive_sat_lower_bound thm
+R7320:7329 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R7320:7329 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R7377:7382 Coq.Lists.List <> in_dec thm
+R7384:7393 Coq.Arith.PeanoNat Nat eq_dec thm
+R7377:7382 Coq.Lists.List <> in_dec thm
+R7384:7393 Coq.Arith.PeanoNat Nat eq_dec thm
+prf 7846:7866 <> two_pow_2k_eq_4_pow_k
+R7881:7883 Coq.Init.Datatypes <> nat ind
+binder 7877:7877 <> k:28
+R7897:7899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7887:7890 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7896:7896 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7892:7894 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7895:7895 Kernel.NonAdaptiveLowerBound <> k:28 var
+R7901:7903 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R7904:7904 Kernel.NonAdaptiveLowerBound <> k:28 var
+R7973:7975 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7976:7976 Coq.Init.Datatypes <> S constr
+R7988:7988 Coq.Init.Datatypes <> S constr
+R7991:7991 Coq.Init.Datatypes <> S constr
+R7995:7997 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7973:7975 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R7976:7976 Coq.Init.Datatypes <> S constr
+R7988:7988 Coq.Init.Datatypes <> S constr
+R7991:7991 Coq.Init.Datatypes <> S constr
+R7995:7997 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8025:8027 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8028:8028 Coq.Init.Datatypes <> S constr
+R8031:8031 Coq.Init.Datatypes <> S constr
+R8035:8037 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8051:8054 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8071:8071 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8056:8058 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8060:8063 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8070:8070 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8065:8067 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8025:8027 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8028:8028 Coq.Init.Datatypes <> S constr
+R8031:8031 Coq.Init.Datatypes <> S constr
+R8035:8037 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8051:8054 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8071:8071 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8056:8058 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8060:8063 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8070:8070 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8065:8067 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8088:8090 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8091:8091 Coq.Init.Datatypes <> S constr
+R8104:8106 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8108:8110 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8088:8090 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8091:8091 Coq.Init.Datatypes <> S constr
+R8104:8106 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8108:8110 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+prf 8154:8194 <> non_adaptive_factored_sat_4_k_lower_bound
+R8212:8214 Coq.Init.Datatypes <> nat ind
+binder 8208:8208 <> k:29
+R8222:8239 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 8218:8218 <> D:30
+R8268:8275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8247:8257 Kernel.NonAdaptiveLowerBound <> nad_correct def
+R8261:8263 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8264:8264 Kernel.NonAdaptiveLowerBound <> k:29 var
+R8267:8267 Kernel.NonAdaptiveLowerBound <> D:30 var
+R8297:8300 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8276:8281 Coq.Init.Datatypes <> length def
+R8284:8293 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R8295:8295 Kernel.NonAdaptiveLowerBound <> D:30 var
+R8302:8304 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8305:8305 Kernel.NonAdaptiveLowerBound <> k:29 var
+R8352:8390 Kernel.NonAdaptiveLowerBound <> non_adaptive_sat_raw_length_lower_bound thm
+R8394:8396 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8352:8390 Kernel.NonAdaptiveLowerBound <> non_adaptive_sat_raw_length_lower_bound thm
+R8394:8396 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R8433:8453 Kernel.NonAdaptiveLowerBound <> two_pow_2k_eq_4_pow_k thm
+R8433:8453 Kernel.NonAdaptiveLowerBound <> two_pow_2k_eq_4_pow_k thm
+R8433:8453 Kernel.NonAdaptiveLowerBound <> two_pow_2k_eq_4_pow_k thm
+prf 8980:9015 <> non_adaptive_matches_blind_sat_steps
+R9033:9035 Coq.Init.Datatypes <> nat ind
+binder 9029:9029 <> k:31
+R9043:9060 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 9039:9039 <> D:32
+R9089:9096 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9068:9078 Kernel.NonAdaptiveLowerBound <> nad_correct def
+R9082:9084 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9085:9085 Kernel.NonAdaptiveLowerBound <> k:31 var
+R9088:9088 Kernel.NonAdaptiveLowerBound <> D:32 var
+R9118:9121 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9097:9102 Coq.Init.Datatypes <> length def
+R9105:9114 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R9116:9116 Kernel.NonAdaptiveLowerBound <> D:32 var
+R9122:9149 Kernel.MuComplexity <> blind_sat_steps def
+R9151:9151 Kernel.NonAdaptiveLowerBound <> k:31 var
+R9193:9220 Kernel.MuComplexity <> blind_sat_steps def
+R9231:9271 Kernel.NonAdaptiveLowerBound <> non_adaptive_factored_sat_4_k_lower_bound thm
+R9231:9271 Kernel.NonAdaptiveLowerBound <> non_adaptive_factored_sat_4_k_lower_bound thm
+prf 9736:9779 <> non_adaptive_thiele_program_cost_lower_bound
+R9797:9799 Coq.Init.Datatypes <> nat ind
+binder 9793:9793 <> k:33
+R9807:9824 Kernel.NonAdaptiveLowerBound <> NonAdaptiveDecider rec
+binder 9803:9803 <> D:34
+R9853:9960 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9832:9842 Kernel.NonAdaptiveLowerBound <> nad_correct def
+R9846:9848 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9849:9849 Kernel.NonAdaptiveLowerBound <> k:33 var
+R9852:9852 Kernel.NonAdaptiveLowerBound <> D:34 var
+R9986:9988 Coq.Init.Datatypes <> nat ind
+binder 9969:9982 <> cost_per_probe:35
+R10017:10026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10012:10015 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9998:10011 Kernel.NonAdaptiveLowerBound <> cost_per_probe:35 var
+R10065:10068 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10041:10043 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10027:10040 Kernel.NonAdaptiveLowerBound <> cost_per_probe:35 var
+R10044:10049 Coq.Init.Datatypes <> length def
+R10052:10061 Kernel.NonAdaptiveLowerBound <> nad_probes proj
+R10063:10063 Kernel.NonAdaptiveLowerBound <> D:34 var
+R10070:10072 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R10073:10073 Kernel.NonAdaptiveLowerBound <> k:33 var
+R10131:10171 Kernel.NonAdaptiveLowerBound <> non_adaptive_factored_sat_4_k_lower_bound thm
+R10131:10171 Kernel.NonAdaptiveLowerBound <> non_adaptive_factored_sat_4_k_lower_bound thm

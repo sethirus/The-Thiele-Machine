@@ -13,13 +13,24 @@ import pytest
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _kernel_v(name: str) -> Path:
+    flat = ROOT / "coq" / "kernel" / name
+    if flat.exists():
+        return flat
+    kernel_root = ROOT / "coq" / "kernel"
+    if kernel_root.exists():
+        for p in kernel_root.rglob(name):
+            return p
+    return flat
+
+
 # ---------------------------------------------------------------------------
 # Python bridge theorem guards
 # ---------------------------------------------------------------------------
 
 def test_python_full_state_bridge_theorems_exist() -> None:
     """Guard: PythonBisimulation.v must contain full-state step+run refinement."""
-    text = (ROOT / "coq" / "kernel" / "PythonBisimulation.v").read_text(encoding="utf-8")
+    text = _kernel_v("PythonBisimulation.v").read_text(encoding="utf-8")
     required = [
         "Record PythonStateFull",
         "Definition python_full_abs",
@@ -76,7 +87,7 @@ def test_extraction_targets_simulation_proof_vm_apply() -> None:
 # ---------------------------------------------------------------------------
 
 FULL_REFINEMENT_FILES = [
-    "coq/kernel/PythonBisimulation.v",
+    "coq/kernel/hardware_bridge/PythonBisimulation.v",
     "coq/kami_hw/FullAbstraction.v",
     "coq/kami_hw/FullStep.v",
     "coq/kami_hw/FullEmbedStep.v",

@@ -20,6 +20,17 @@ from thielecpu.vm import (
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def _kernel_v(name: str) -> Path:
+    flat = ROOT / "coq" / "kernel" / name
+    if flat.exists():
+        return flat
+    kernel_root = ROOT / "coq" / "kernel"
+    if kernel_root.exists():
+        for p in kernel_root.rglob(name):
+            return p
+    return flat
+
+
 def _rich_state() -> VMState:
     regs = [0] * 32
     regs[1] = 17
@@ -130,7 +141,7 @@ def test_extracted_runner_zero_fuel_preserves_full_state_surface() -> None:
 
 
 def test_coq_full_state_bridge_theorems_are_present() -> None:
-    text = (ROOT / "coq" / "kernel" / "PythonBisimulation.v").read_text(encoding="utf-8")
+    text = _kernel_v("PythonBisimulation.v").read_text(encoding="utf-8")
 
     assert "Record PythonStateFull :=" in text
     assert "Definition python_full_abs" in text

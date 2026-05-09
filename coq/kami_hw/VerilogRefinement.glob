@@ -1,4 +1,4 @@
-DIGEST 735bc7b99b26856b7fbb2ed5fdbdab44
+DIGEST 967983426828172ff05fa755e4c9d417
 FKamiHW.VerilogRefinement
 R330:343 Coq.Arith.PeanoNat <> <> lib
 R345:347 Coq.micromega.Lia <> <> lib
@@ -1104,1167 +1104,1167 @@ R13868:13877 KamiHW.Abstraction <> abs_phase1 def
 R13879:13880 KamiHW.VerilogRefinement <> hs:145 var
 R13907:13934 KamiHW.Abstraction <> hw_step_preserves_invariants thm
 R13907:13934 KamiHW.Abstraction <> hw_step_preserves_invariants thm
-prf 14000:14035 <> verilog_simulates_vm_step_checkpoint
-R14054:14065 KamiHW.Abstraction <> KamiSnapshot rec
-binder 14049:14050 <> hs:147
-R14077:14082 Coq.Strings.String <> string ind
-binder 14069:14073 <> label:148
-R14093:14095 Coq.Init.Datatypes <> nat ind
-binder 14086:14089 <> cost:149
-R14103:14109 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R14113:14120 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 14110:14112 <> vs':150
-R14178:14187 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R14121:14127 Kernel.VMStep VMStep vm_step ind
-R14130:14139 KamiHW.Abstraction <> abs_phase1 def
-R14141:14142 KamiHW.VerilogRefinement <> hs:147 var
-R14146:14161 Kernel.VMStep VMStep instr_checkpoint constr
-R14163:14167 KamiHW.VerilogRefinement <> label:148 var
-R14169:14172 KamiHW.VerilogRefinement <> cost:149 var
-R14175:14177 KamiHW.VerilogRefinement <> vs':150 var
-R14191:14193 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14188:14190 KamiHW.VerilogRefinement <> vs':150 var
-R14194:14206 Kernel.VMStep VMStep advance_state def
-R14209:14218 KamiHW.Abstraction <> abs_phase1 def
-R14220:14221 KamiHW.VerilogRefinement <> hs:147 var
-R14225:14240 Kernel.VMStep VMStep instr_checkpoint constr
-R14242:14246 KamiHW.VerilogRefinement <> label:148 var
-R14248:14251 KamiHW.VerilogRefinement <> cost:149 var
-R14285:14292 Kernel.VMState <> vm_graph proj
-R14269:14278 KamiHW.Abstraction <> abs_phase1 def
-R14280:14281 KamiHW.VerilogRefinement <> hs:147 var
-R14312:14318 Kernel.VMState <> vm_csrs proj
-R14296:14305 KamiHW.Abstraction <> abs_phase1 def
-R14307:14308 KamiHW.VerilogRefinement <> hs:147 var
-R14338:14343 Kernel.VMState <> vm_err proj
-R14322:14331 KamiHW.Abstraction <> abs_phase1 def
-R14333:14334 KamiHW.VerilogRefinement <> hs:147 var
-R14391:14405 Kernel.VMStep VMStep step_checkpoint constr
-R14391:14405 Kernel.VMStep VMStep step_checkpoint constr
-prf 14439:14473 <> verilog_simulates_vm_step_read_port
-R14492:14503 KamiHW.Abstraction <> KamiSnapshot rec
-binder 14487:14488 <> hs:151
-R14541:14543 Coq.Init.Datatypes <> nat ind
-binder 14507:14509 <> dst:152
-binder 14511:14521 <> channel_idx:153
-binder 14523:14527 <> value:154
-binder 14529:14532 <> bits:155
-binder 14534:14537 <> cost:156
-R14551:14557 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R14561:14568 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 14558:14560 <> vs':157
-R14646:14655 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R14569:14575 Kernel.VMStep VMStep vm_step ind
-R14578:14587 KamiHW.Abstraction <> abs_phase1 def
-R14589:14590 KamiHW.VerilogRefinement <> hs:151 var
-R14594:14608 Kernel.VMStep VMStep instr_read_port constr
-R14610:14612 KamiHW.VerilogRefinement <> dst:152 var
-R14614:14624 KamiHW.VerilogRefinement <> channel_idx:153 var
-R14626:14630 KamiHW.VerilogRefinement <> value:154 var
-R14632:14635 KamiHW.VerilogRefinement <> bits:155 var
-R14637:14640 KamiHW.VerilogRefinement <> cost:156 var
-R14643:14645 KamiHW.VerilogRefinement <> vs':157 var
-R14659:14669 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14656:14658 KamiHW.VerilogRefinement <> vs':157 var
-R14670:14685 Kernel.VMStep VMStep advance_state_rm def
-R14688:14697 KamiHW.Abstraction <> abs_phase1 def
-R14699:14700 KamiHW.VerilogRefinement <> hs:151 var
-R14704:14718 Kernel.VMStep VMStep instr_read_port constr
-R14720:14722 KamiHW.VerilogRefinement <> dst:152 var
-R14724:14734 KamiHW.VerilogRefinement <> channel_idx:153 var
-R14736:14740 KamiHW.VerilogRefinement <> value:154 var
-R14742:14745 KamiHW.VerilogRefinement <> bits:155 var
-R14747:14750 KamiHW.VerilogRefinement <> cost:156 var
-R14780:14787 Kernel.VMState <> vm_graph proj
-R14764:14773 KamiHW.Abstraction <> abs_phase1 def
-R14775:14776 KamiHW.VerilogRefinement <> hs:151 var
-R14807:14813 Kernel.VMState <> vm_csrs proj
-R14791:14800 KamiHW.Abstraction <> abs_phase1 def
-R14802:14803 KamiHW.VerilogRefinement <> hs:151 var
-R14827:14835 Kernel.VMState <> write_reg def
-R14838:14847 KamiHW.Abstraction <> abs_phase1 def
-R14849:14850 KamiHW.VerilogRefinement <> hs:151 var
-R14853:14855 KamiHW.VerilogRefinement <> dst:152 var
-R14857:14861 KamiHW.VerilogRefinement <> value:154 var
-R14891:14896 Kernel.VMState <> vm_mem proj
-R14875:14884 KamiHW.Abstraction <> abs_phase1 def
-R14886:14887 KamiHW.VerilogRefinement <> hs:151 var
-R14916:14921 Kernel.VMState <> vm_err proj
-R14900:14909 KamiHW.Abstraction <> abs_phase1 def
-R14911:14912 KamiHW.VerilogRefinement <> hs:151 var
-R14969:14982 Kernel.VMStep VMStep step_read_port constr
-R14969:14982 Kernel.VMStep VMStep step_read_port constr
-prf 15029:15064 <> verilog_simulates_vm_step_write_port
-R15083:15094 KamiHW.Abstraction <> KamiSnapshot rec
-binder 15078:15079 <> hs:158
-R15121:15123 Coq.Init.Datatypes <> nat ind
-binder 15098:15108 <> channel_idx:159
-binder 15110:15112 <> src:160
-binder 15114:15117 <> cost:161
-R15131:15137 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R15141:15148 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 15138:15140 <> vs':162
-R15216:15225 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15149:15155 Kernel.VMStep VMStep vm_step ind
-R15158:15167 KamiHW.Abstraction <> abs_phase1 def
-R15169:15170 KamiHW.VerilogRefinement <> hs:158 var
-R15174:15189 Kernel.VMStep VMStep instr_write_port constr
-R15191:15201 KamiHW.VerilogRefinement <> channel_idx:159 var
-R15203:15205 KamiHW.VerilogRefinement <> src:160 var
-R15207:15210 KamiHW.VerilogRefinement <> cost:161 var
-R15213:15215 KamiHW.VerilogRefinement <> vs':162 var
-R15229:15231 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15226:15228 KamiHW.VerilogRefinement <> vs':162 var
-R15232:15244 Kernel.VMStep VMStep advance_state def
-R15247:15256 KamiHW.Abstraction <> abs_phase1 def
-R15258:15259 KamiHW.VerilogRefinement <> hs:158 var
-R15263:15278 Kernel.VMStep VMStep instr_write_port constr
-R15280:15290 KamiHW.VerilogRefinement <> channel_idx:159 var
-R15292:15294 KamiHW.VerilogRefinement <> src:160 var
-R15296:15299 KamiHW.VerilogRefinement <> cost:161 var
-R15333:15340 Kernel.VMState <> vm_graph proj
-R15317:15326 KamiHW.Abstraction <> abs_phase1 def
-R15328:15329 KamiHW.VerilogRefinement <> hs:158 var
-R15360:15366 Kernel.VMState <> vm_csrs proj
-R15344:15353 KamiHW.Abstraction <> abs_phase1 def
-R15355:15356 KamiHW.VerilogRefinement <> hs:158 var
-R15386:15391 Kernel.VMState <> vm_err proj
-R15370:15379 KamiHW.Abstraction <> abs_phase1 def
-R15381:15382 KamiHW.VerilogRefinement <> hs:158 var
-R15439:15453 Kernel.VMStep VMStep step_write_port constr
-R15439:15453 Kernel.VMStep VMStep step_write_port constr
-prf 15487:15521 <> verilog_simulates_vm_step_heap_load
-R15540:15551 KamiHW.Abstraction <> KamiSnapshot rec
-binder 15535:15536 <> hs:163
-R15574:15576 Coq.Init.Datatypes <> nat ind
-binder 15555:15557 <> dst:164
-binder 15559:15565 <> rs_addr:165
-binder 15567:15570 <> cost:166
-R15584:15590 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R15594:15601 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 15591:15593 <> vs':167
-R15664:15673 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15602:15608 Kernel.VMStep VMStep vm_step ind
-R15611:15620 KamiHW.Abstraction <> abs_phase1 def
-R15622:15623 KamiHW.VerilogRefinement <> hs:163 var
-R15627:15641 Kernel.VMStep VMStep instr_heap_load constr
-R15643:15645 KamiHW.VerilogRefinement <> dst:164 var
-R15647:15653 KamiHW.VerilogRefinement <> rs_addr:165 var
-R15655:15658 KamiHW.VerilogRefinement <> cost:166 var
-R15661:15663 KamiHW.VerilogRefinement <> vs':167 var
-R15677:15687 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15674:15676 KamiHW.VerilogRefinement <> vs':167 var
-R15688:15703 Kernel.VMStep VMStep advance_state_rm def
-R15706:15715 KamiHW.Abstraction <> abs_phase1 def
-R15717:15718 KamiHW.VerilogRefinement <> hs:163 var
-R15722:15736 Kernel.VMStep VMStep instr_heap_load constr
-R15738:15740 KamiHW.VerilogRefinement <> dst:164 var
-R15742:15748 KamiHW.VerilogRefinement <> rs_addr:165 var
-R15750:15753 KamiHW.VerilogRefinement <> cost:166 var
-R15783:15790 Kernel.VMState <> vm_graph proj
-R15767:15776 KamiHW.Abstraction <> abs_phase1 def
-R15778:15779 KamiHW.VerilogRefinement <> hs:163 var
-R15810:15816 Kernel.VMState <> vm_csrs proj
-R15794:15803 KamiHW.Abstraction <> abs_phase1 def
-R15805:15806 KamiHW.VerilogRefinement <> hs:163 var
-R15830:15838 Kernel.VMState <> write_reg def
-R15841:15850 KamiHW.Abstraction <> abs_phase1 def
-R15852:15853 KamiHW.VerilogRefinement <> hs:163 var
-R15856:15858 KamiHW.VerilogRefinement <> dst:164 var
-R15873:15880 Kernel.VMState <> read_mem def
-R15883:15892 KamiHW.Abstraction <> abs_phase1 def
-R15894:15895 KamiHW.VerilogRefinement <> hs:163 var
-R15954:15956 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R15940:15952 Kernel.VMState <> csr_heap_base proj
-R15930:15936 Kernel.VMState <> vm_csrs proj
-R15914:15923 KamiHW.Abstraction <> abs_phase1 def
-R15925:15926 KamiHW.VerilogRefinement <> hs:163 var
-R15957:15964 Kernel.VMState <> read_reg def
-R15967:15976 KamiHW.Abstraction <> abs_phase1 def
-R15978:15979 KamiHW.VerilogRefinement <> hs:163 var
-R15982:15988 KamiHW.VerilogRefinement <> rs_addr:165 var
-R16020:16025 Kernel.VMState <> vm_mem proj
-R16004:16013 KamiHW.Abstraction <> abs_phase1 def
-R16015:16016 KamiHW.VerilogRefinement <> hs:163 var
-R16045:16050 Kernel.VMState <> vm_err proj
-R16029:16038 KamiHW.Abstraction <> abs_phase1 def
-R16040:16041 KamiHW.VerilogRefinement <> hs:163 var
-R16098:16111 Kernel.VMStep VMStep step_heap_load constr
-R16098:16111 Kernel.VMStep VMStep step_heap_load constr
-prf 16158:16193 <> verilog_simulates_vm_step_heap_store
-R16212:16223 KamiHW.Abstraction <> KamiSnapshot rec
-binder 16207:16208 <> hs:168
-R16246:16248 Coq.Init.Datatypes <> nat ind
-binder 16227:16233 <> rs_addr:169
-binder 16235:16237 <> src:170
-binder 16239:16242 <> cost:171
-R16256:16262 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16266:16273 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16263:16265 <> vs':172
-R16337:16346 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16274:16280 Kernel.VMStep VMStep vm_step ind
-R16283:16292 KamiHW.Abstraction <> abs_phase1 def
-R16294:16295 KamiHW.VerilogRefinement <> hs:168 var
-R16299:16314 Kernel.VMStep VMStep instr_heap_store constr
-R16316:16322 KamiHW.VerilogRefinement <> rs_addr:169 var
-R16324:16326 KamiHW.VerilogRefinement <> src:170 var
-R16328:16331 KamiHW.VerilogRefinement <> cost:171 var
-R16334:16336 KamiHW.VerilogRefinement <> vs':172 var
-R16350:16360 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16347:16349 KamiHW.VerilogRefinement <> vs':172 var
-R16361:16376 Kernel.VMStep VMStep advance_state_rm def
-R16379:16388 KamiHW.Abstraction <> abs_phase1 def
-R16390:16391 KamiHW.VerilogRefinement <> hs:168 var
-R16395:16410 Kernel.VMStep VMStep instr_heap_store constr
-R16412:16418 KamiHW.VerilogRefinement <> rs_addr:169 var
-R16420:16422 KamiHW.VerilogRefinement <> src:170 var
-R16424:16427 KamiHW.VerilogRefinement <> cost:171 var
-R16457:16464 Kernel.VMState <> vm_graph proj
-R16441:16450 KamiHW.Abstraction <> abs_phase1 def
-R16452:16453 KamiHW.VerilogRefinement <> hs:168 var
-R16484:16490 Kernel.VMState <> vm_csrs proj
-R16468:16477 KamiHW.Abstraction <> abs_phase1 def
-R16479:16480 KamiHW.VerilogRefinement <> hs:168 var
-R16520:16526 Kernel.VMState <> vm_regs proj
-R16504:16513 KamiHW.Abstraction <> abs_phase1 def
-R16515:16516 KamiHW.VerilogRefinement <> hs:168 var
-R16540:16548 Kernel.VMState <> write_mem def
-R16551:16560 KamiHW.Abstraction <> abs_phase1 def
-R16562:16563 KamiHW.VerilogRefinement <> hs:168 var
-R16620:16622 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R16606:16618 Kernel.VMState <> csr_heap_base proj
-R16596:16602 Kernel.VMState <> vm_csrs proj
-R16580:16589 KamiHW.Abstraction <> abs_phase1 def
-R16591:16592 KamiHW.VerilogRefinement <> hs:168 var
-R16623:16630 Kernel.VMState <> read_reg def
-R16633:16642 KamiHW.Abstraction <> abs_phase1 def
-R16644:16645 KamiHW.VerilogRefinement <> hs:168 var
-R16648:16654 KamiHW.VerilogRefinement <> rs_addr:169 var
-R16670:16677 Kernel.VMState <> read_reg def
-R16680:16689 KamiHW.Abstraction <> abs_phase1 def
-R16691:16692 KamiHW.VerilogRefinement <> hs:168 var
-R16695:16697 KamiHW.VerilogRefinement <> src:170 var
-R16728:16733 Kernel.VMState <> vm_err proj
+prf 14032:14067 <> verilog_simulates_vm_step_checkpoint
+R14086:14097 KamiHW.Abstraction <> KamiSnapshot rec
+binder 14081:14082 <> hs:147
+R14109:14114 Coq.Strings.String <> string ind
+binder 14101:14105 <> label:148
+R14125:14127 Coq.Init.Datatypes <> nat ind
+binder 14118:14121 <> cost:149
+R14135:14141 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14145:14152 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14142:14144 <> vs':150
+R14210:14219 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14153:14159 Kernel.VMStep VMStep vm_step ind
+R14162:14171 KamiHW.Abstraction <> abs_phase1 def
+R14173:14174 KamiHW.VerilogRefinement <> hs:147 var
+R14178:14193 Kernel.VMStep VMStep instr_checkpoint constr
+R14195:14199 KamiHW.VerilogRefinement <> label:148 var
+R14201:14204 KamiHW.VerilogRefinement <> cost:149 var
+R14207:14209 KamiHW.VerilogRefinement <> vs':150 var
+R14223:14225 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14220:14222 KamiHW.VerilogRefinement <> vs':150 var
+R14226:14238 Kernel.VMStep VMStep advance_state def
+R14241:14250 KamiHW.Abstraction <> abs_phase1 def
+R14252:14253 KamiHW.VerilogRefinement <> hs:147 var
+R14257:14272 Kernel.VMStep VMStep instr_checkpoint constr
+R14274:14278 KamiHW.VerilogRefinement <> label:148 var
+R14280:14283 KamiHW.VerilogRefinement <> cost:149 var
+R14317:14324 Kernel.VMState <> vm_graph proj
+R14301:14310 KamiHW.Abstraction <> abs_phase1 def
+R14312:14313 KamiHW.VerilogRefinement <> hs:147 var
+R14344:14350 Kernel.VMState <> vm_csrs proj
+R14328:14337 KamiHW.Abstraction <> abs_phase1 def
+R14339:14340 KamiHW.VerilogRefinement <> hs:147 var
+R14370:14375 Kernel.VMState <> vm_err proj
+R14354:14363 KamiHW.Abstraction <> abs_phase1 def
+R14365:14366 KamiHW.VerilogRefinement <> hs:147 var
+R14423:14437 Kernel.VMStep VMStep step_checkpoint constr
+R14423:14437 Kernel.VMStep VMStep step_checkpoint constr
+prf 14471:14505 <> verilog_simulates_vm_step_read_port
+R14524:14535 KamiHW.Abstraction <> KamiSnapshot rec
+binder 14519:14520 <> hs:151
+R14573:14575 Coq.Init.Datatypes <> nat ind
+binder 14539:14541 <> dst:152
+binder 14543:14553 <> channel_idx:153
+binder 14555:14559 <> value:154
+binder 14561:14564 <> bits:155
+binder 14566:14569 <> cost:156
+R14583:14589 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R14593:14600 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 14590:14592 <> vs':157
+R14678:14687 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R14601:14607 Kernel.VMStep VMStep vm_step ind
+R14610:14619 KamiHW.Abstraction <> abs_phase1 def
+R14621:14622 KamiHW.VerilogRefinement <> hs:151 var
+R14626:14640 Kernel.VMStep VMStep instr_read_port constr
+R14642:14644 KamiHW.VerilogRefinement <> dst:152 var
+R14646:14656 KamiHW.VerilogRefinement <> channel_idx:153 var
+R14658:14662 KamiHW.VerilogRefinement <> value:154 var
+R14664:14667 KamiHW.VerilogRefinement <> bits:155 var
+R14669:14672 KamiHW.VerilogRefinement <> cost:156 var
+R14675:14677 KamiHW.VerilogRefinement <> vs':157 var
+R14691:14701 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14688:14690 KamiHW.VerilogRefinement <> vs':157 var
+R14702:14717 Kernel.VMStep VMStep advance_state_rm def
+R14720:14729 KamiHW.Abstraction <> abs_phase1 def
+R14731:14732 KamiHW.VerilogRefinement <> hs:151 var
+R14736:14750 Kernel.VMStep VMStep instr_read_port constr
+R14752:14754 KamiHW.VerilogRefinement <> dst:152 var
+R14756:14766 KamiHW.VerilogRefinement <> channel_idx:153 var
+R14768:14772 KamiHW.VerilogRefinement <> value:154 var
+R14774:14777 KamiHW.VerilogRefinement <> bits:155 var
+R14779:14782 KamiHW.VerilogRefinement <> cost:156 var
+R14812:14819 Kernel.VMState <> vm_graph proj
+R14796:14805 KamiHW.Abstraction <> abs_phase1 def
+R14807:14808 KamiHW.VerilogRefinement <> hs:151 var
+R14839:14845 Kernel.VMState <> vm_csrs proj
+R14823:14832 KamiHW.Abstraction <> abs_phase1 def
+R14834:14835 KamiHW.VerilogRefinement <> hs:151 var
+R14859:14867 Kernel.VMState <> write_reg def
+R14870:14879 KamiHW.Abstraction <> abs_phase1 def
+R14881:14882 KamiHW.VerilogRefinement <> hs:151 var
+R14885:14887 KamiHW.VerilogRefinement <> dst:152 var
+R14889:14893 KamiHW.VerilogRefinement <> value:154 var
+R14923:14928 Kernel.VMState <> vm_mem proj
+R14907:14916 KamiHW.Abstraction <> abs_phase1 def
+R14918:14919 KamiHW.VerilogRefinement <> hs:151 var
+R14948:14953 Kernel.VMState <> vm_err proj
+R14932:14941 KamiHW.Abstraction <> abs_phase1 def
+R14943:14944 KamiHW.VerilogRefinement <> hs:151 var
+R15001:15014 Kernel.VMStep VMStep step_read_port constr
+R15001:15014 Kernel.VMStep VMStep step_read_port constr
+prf 15061:15096 <> verilog_simulates_vm_step_write_port
+R15115:15126 KamiHW.Abstraction <> KamiSnapshot rec
+binder 15110:15111 <> hs:158
+R15153:15155 Coq.Init.Datatypes <> nat ind
+binder 15130:15140 <> channel_idx:159
+binder 15142:15144 <> src:160
+binder 15146:15149 <> cost:161
+R15163:15169 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15173:15180 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15170:15172 <> vs':162
+R15248:15257 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15181:15187 Kernel.VMStep VMStep vm_step ind
+R15190:15199 KamiHW.Abstraction <> abs_phase1 def
+R15201:15202 KamiHW.VerilogRefinement <> hs:158 var
+R15206:15221 Kernel.VMStep VMStep instr_write_port constr
+R15223:15233 KamiHW.VerilogRefinement <> channel_idx:159 var
+R15235:15237 KamiHW.VerilogRefinement <> src:160 var
+R15239:15242 KamiHW.VerilogRefinement <> cost:161 var
+R15245:15247 KamiHW.VerilogRefinement <> vs':162 var
+R15261:15263 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15258:15260 KamiHW.VerilogRefinement <> vs':162 var
+R15264:15276 Kernel.VMStep VMStep advance_state def
+R15279:15288 KamiHW.Abstraction <> abs_phase1 def
+R15290:15291 KamiHW.VerilogRefinement <> hs:158 var
+R15295:15310 Kernel.VMStep VMStep instr_write_port constr
+R15312:15322 KamiHW.VerilogRefinement <> channel_idx:159 var
+R15324:15326 KamiHW.VerilogRefinement <> src:160 var
+R15328:15331 KamiHW.VerilogRefinement <> cost:161 var
+R15365:15372 Kernel.VMState <> vm_graph proj
+R15349:15358 KamiHW.Abstraction <> abs_phase1 def
+R15360:15361 KamiHW.VerilogRefinement <> hs:158 var
+R15392:15398 Kernel.VMState <> vm_csrs proj
+R15376:15385 KamiHW.Abstraction <> abs_phase1 def
+R15387:15388 KamiHW.VerilogRefinement <> hs:158 var
+R15418:15423 Kernel.VMState <> vm_err proj
+R15402:15411 KamiHW.Abstraction <> abs_phase1 def
+R15413:15414 KamiHW.VerilogRefinement <> hs:158 var
+R15471:15485 Kernel.VMStep VMStep step_write_port constr
+R15471:15485 Kernel.VMStep VMStep step_write_port constr
+prf 15519:15553 <> verilog_simulates_vm_step_heap_load
+R15572:15583 KamiHW.Abstraction <> KamiSnapshot rec
+binder 15567:15568 <> hs:163
+R15606:15608 Coq.Init.Datatypes <> nat ind
+binder 15587:15589 <> dst:164
+binder 15591:15597 <> rs_addr:165
+binder 15599:15602 <> cost:166
+R15616:15622 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R15626:15633 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 15623:15625 <> vs':167
+R15696:15705 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15634:15640 Kernel.VMStep VMStep vm_step ind
+R15643:15652 KamiHW.Abstraction <> abs_phase1 def
+R15654:15655 KamiHW.VerilogRefinement <> hs:163 var
+R15659:15673 Kernel.VMStep VMStep instr_heap_load constr
+R15675:15677 KamiHW.VerilogRefinement <> dst:164 var
+R15679:15685 KamiHW.VerilogRefinement <> rs_addr:165 var
+R15687:15690 KamiHW.VerilogRefinement <> cost:166 var
+R15693:15695 KamiHW.VerilogRefinement <> vs':167 var
+R15709:15719 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15706:15708 KamiHW.VerilogRefinement <> vs':167 var
+R15720:15735 Kernel.VMStep VMStep advance_state_rm def
+R15738:15747 KamiHW.Abstraction <> abs_phase1 def
+R15749:15750 KamiHW.VerilogRefinement <> hs:163 var
+R15754:15768 Kernel.VMStep VMStep instr_heap_load constr
+R15770:15772 KamiHW.VerilogRefinement <> dst:164 var
+R15774:15780 KamiHW.VerilogRefinement <> rs_addr:165 var
+R15782:15785 KamiHW.VerilogRefinement <> cost:166 var
+R15815:15822 Kernel.VMState <> vm_graph proj
+R15799:15808 KamiHW.Abstraction <> abs_phase1 def
+R15810:15811 KamiHW.VerilogRefinement <> hs:163 var
+R15842:15848 Kernel.VMState <> vm_csrs proj
+R15826:15835 KamiHW.Abstraction <> abs_phase1 def
+R15837:15838 KamiHW.VerilogRefinement <> hs:163 var
+R15862:15870 Kernel.VMState <> write_reg def
+R15873:15882 KamiHW.Abstraction <> abs_phase1 def
+R15884:15885 KamiHW.VerilogRefinement <> hs:163 var
+R15888:15890 KamiHW.VerilogRefinement <> dst:164 var
+R15905:15912 Kernel.VMState <> read_mem def
+R15915:15924 KamiHW.Abstraction <> abs_phase1 def
+R15926:15927 KamiHW.VerilogRefinement <> hs:163 var
+R15986:15988 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15972:15984 Kernel.VMState <> csr_heap_base proj
+R15962:15968 Kernel.VMState <> vm_csrs proj
+R15946:15955 KamiHW.Abstraction <> abs_phase1 def
+R15957:15958 KamiHW.VerilogRefinement <> hs:163 var
+R15989:15996 Kernel.VMState <> read_reg def
+R15999:16008 KamiHW.Abstraction <> abs_phase1 def
+R16010:16011 KamiHW.VerilogRefinement <> hs:163 var
+R16014:16020 KamiHW.VerilogRefinement <> rs_addr:165 var
+R16052:16057 Kernel.VMState <> vm_mem proj
+R16036:16045 KamiHW.Abstraction <> abs_phase1 def
+R16047:16048 KamiHW.VerilogRefinement <> hs:163 var
+R16077:16082 Kernel.VMState <> vm_err proj
+R16061:16070 KamiHW.Abstraction <> abs_phase1 def
+R16072:16073 KamiHW.VerilogRefinement <> hs:163 var
+R16130:16143 Kernel.VMStep VMStep step_heap_load constr
+R16130:16143 Kernel.VMStep VMStep step_heap_load constr
+prf 16190:16225 <> verilog_simulates_vm_step_heap_store
+R16244:16255 KamiHW.Abstraction <> KamiSnapshot rec
+binder 16239:16240 <> hs:168
+R16278:16280 Coq.Init.Datatypes <> nat ind
+binder 16259:16265 <> rs_addr:169
+binder 16267:16269 <> src:170
+binder 16271:16274 <> cost:171
+R16288:16294 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R16298:16305 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 16295:16297 <> vs':172
+R16369:16378 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R16306:16312 Kernel.VMStep VMStep vm_step ind
+R16315:16324 KamiHW.Abstraction <> abs_phase1 def
+R16326:16327 KamiHW.VerilogRefinement <> hs:168 var
+R16331:16346 Kernel.VMStep VMStep instr_heap_store constr
+R16348:16354 KamiHW.VerilogRefinement <> rs_addr:169 var
+R16356:16358 KamiHW.VerilogRefinement <> src:170 var
+R16360:16363 KamiHW.VerilogRefinement <> cost:171 var
+R16366:16368 KamiHW.VerilogRefinement <> vs':172 var
+R16382:16392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16379:16381 KamiHW.VerilogRefinement <> vs':172 var
+R16393:16408 Kernel.VMStep VMStep advance_state_rm def
+R16411:16420 KamiHW.Abstraction <> abs_phase1 def
+R16422:16423 KamiHW.VerilogRefinement <> hs:168 var
+R16427:16442 Kernel.VMStep VMStep instr_heap_store constr
+R16444:16450 KamiHW.VerilogRefinement <> rs_addr:169 var
+R16452:16454 KamiHW.VerilogRefinement <> src:170 var
+R16456:16459 KamiHW.VerilogRefinement <> cost:171 var
+R16489:16496 Kernel.VMState <> vm_graph proj
+R16473:16482 KamiHW.Abstraction <> abs_phase1 def
+R16484:16485 KamiHW.VerilogRefinement <> hs:168 var
+R16516:16522 Kernel.VMState <> vm_csrs proj
+R16500:16509 KamiHW.Abstraction <> abs_phase1 def
+R16511:16512 KamiHW.VerilogRefinement <> hs:168 var
+R16552:16558 Kernel.VMState <> vm_regs proj
+R16536:16545 KamiHW.Abstraction <> abs_phase1 def
+R16547:16548 KamiHW.VerilogRefinement <> hs:168 var
+R16572:16580 Kernel.VMState <> write_mem def
+R16583:16592 KamiHW.Abstraction <> abs_phase1 def
+R16594:16595 KamiHW.VerilogRefinement <> hs:168 var
+R16652:16654 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R16638:16650 Kernel.VMState <> csr_heap_base proj
+R16628:16634 Kernel.VMState <> vm_csrs proj
+R16612:16621 KamiHW.Abstraction <> abs_phase1 def
+R16623:16624 KamiHW.VerilogRefinement <> hs:168 var
+R16655:16662 Kernel.VMState <> read_reg def
+R16665:16674 KamiHW.Abstraction <> abs_phase1 def
+R16676:16677 KamiHW.VerilogRefinement <> hs:168 var
+R16680:16686 KamiHW.VerilogRefinement <> rs_addr:169 var
+R16702:16709 Kernel.VMState <> read_reg def
 R16712:16721 KamiHW.Abstraction <> abs_phase1 def
 R16723:16724 KamiHW.VerilogRefinement <> hs:168 var
-R16781:16795 Kernel.VMStep VMStep step_heap_store constr
-R16781:16795 Kernel.VMStep VMStep step_heap_store constr
-prf 16874:16902 <> verilog_simulates_vm_step_and
-R16921:16932 KamiHW.Abstraction <> KamiSnapshot rec
-binder 16916:16917 <> hs:173
-R16955:16957 Coq.Init.Datatypes <> nat ind
-binder 16936:16938 <> dst:174
-binder 16940:16942 <> rs1:175
-binder 16944:16946 <> rs2:176
-binder 16948:16951 <> cost:177
-R16965:16971 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16975:16982 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16972:16974 <> vs':178
-R17039:17048 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16983:16989 Kernel.VMStep VMStep vm_step ind
-R16992:17001 KamiHW.Abstraction <> abs_phase1 def
-R17003:17004 KamiHW.VerilogRefinement <> hs:173 var
-R17008:17016 Kernel.VMStep VMStep instr_and constr
-R17018:17020 KamiHW.VerilogRefinement <> dst:174 var
-R17022:17024 KamiHW.VerilogRefinement <> rs1:175 var
-R17026:17028 KamiHW.VerilogRefinement <> rs2:176 var
-R17030:17033 KamiHW.VerilogRefinement <> cost:177 var
-R17036:17038 KamiHW.VerilogRefinement <> vs':178 var
-R17052:17062 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17049:17051 KamiHW.VerilogRefinement <> vs':178 var
-R17063:17078 Kernel.VMStep VMStep advance_state_rm def
-R17081:17090 KamiHW.Abstraction <> abs_phase1 def
-R17092:17093 KamiHW.VerilogRefinement <> hs:173 var
-R17097:17105 Kernel.VMStep VMStep instr_and constr
-R17107:17109 KamiHW.VerilogRefinement <> dst:174 var
-R17111:17113 KamiHW.VerilogRefinement <> rs1:175 var
-R17115:17117 KamiHW.VerilogRefinement <> rs2:176 var
-R17119:17122 KamiHW.VerilogRefinement <> cost:177 var
-R17152:17159 Kernel.VMState <> vm_graph proj
-R17136:17145 KamiHW.Abstraction <> abs_phase1 def
-R17147:17148 KamiHW.VerilogRefinement <> hs:173 var
-R17189:17195 Kernel.VMState <> vm_csrs proj
-R17173:17182 KamiHW.Abstraction <> abs_phase1 def
-R17184:17185 KamiHW.VerilogRefinement <> hs:173 var
-R17209:17217 Kernel.VMState <> write_reg def
-R17220:17229 KamiHW.Abstraction <> abs_phase1 def
-R17231:17232 KamiHW.VerilogRefinement <> hs:173 var
-R17235:17237 KamiHW.VerilogRefinement <> dst:174 var
-R17252:17261 Kernel.VMState <> word64_and def
-R17264:17271 Kernel.VMState <> read_reg def
-R17274:17283 KamiHW.Abstraction <> abs_phase1 def
-R17285:17286 KamiHW.VerilogRefinement <> hs:173 var
-R17289:17291 KamiHW.VerilogRefinement <> rs1:175 var
-R17295:17302 Kernel.VMState <> read_reg def
-R17305:17314 KamiHW.Abstraction <> abs_phase1 def
-R17316:17317 KamiHW.VerilogRefinement <> hs:173 var
-R17320:17322 KamiHW.VerilogRefinement <> rs2:176 var
-R17354:17359 Kernel.VMState <> vm_mem proj
-R17338:17347 KamiHW.Abstraction <> abs_phase1 def
-R17349:17350 KamiHW.VerilogRefinement <> hs:173 var
-R17389:17394 Kernel.VMState <> vm_err proj
-R17373:17382 KamiHW.Abstraction <> abs_phase1 def
-R17384:17385 KamiHW.VerilogRefinement <> hs:173 var
-R17442:17449 Kernel.VMStep VMStep step_and constr
-R17442:17449 Kernel.VMStep VMStep step_and constr
-prf 17496:17523 <> verilog_simulates_vm_step_or
-R17542:17553 KamiHW.Abstraction <> KamiSnapshot rec
-binder 17537:17538 <> hs:179
-R17576:17578 Coq.Init.Datatypes <> nat ind
-binder 17557:17559 <> dst:180
-binder 17561:17563 <> rs1:181
-binder 17565:17567 <> rs2:182
-binder 17569:17572 <> cost:183
-R17586:17592 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R17596:17603 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 17593:17595 <> vs':184
-R17659:17668 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R17604:17610 Kernel.VMStep VMStep vm_step ind
-R17613:17622 KamiHW.Abstraction <> abs_phase1 def
-R17624:17625 KamiHW.VerilogRefinement <> hs:179 var
-R17629:17636 Kernel.VMStep VMStep instr_or constr
-R17638:17640 KamiHW.VerilogRefinement <> dst:180 var
-R17642:17644 KamiHW.VerilogRefinement <> rs1:181 var
-R17646:17648 KamiHW.VerilogRefinement <> rs2:182 var
-R17650:17653 KamiHW.VerilogRefinement <> cost:183 var
-R17656:17658 KamiHW.VerilogRefinement <> vs':184 var
-R17672:17682 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17669:17671 KamiHW.VerilogRefinement <> vs':184 var
-R17683:17698 Kernel.VMStep VMStep advance_state_rm def
-R17701:17710 KamiHW.Abstraction <> abs_phase1 def
-R17712:17713 KamiHW.VerilogRefinement <> hs:179 var
-R17717:17724 Kernel.VMStep VMStep instr_or constr
-R17726:17728 KamiHW.VerilogRefinement <> dst:180 var
-R17730:17732 KamiHW.VerilogRefinement <> rs1:181 var
-R17734:17736 KamiHW.VerilogRefinement <> rs2:182 var
-R17738:17741 KamiHW.VerilogRefinement <> cost:183 var
-R17771:17778 Kernel.VMState <> vm_graph proj
-R17755:17764 KamiHW.Abstraction <> abs_phase1 def
-R17766:17767 KamiHW.VerilogRefinement <> hs:179 var
-R17808:17814 Kernel.VMState <> vm_csrs proj
-R17792:17801 KamiHW.Abstraction <> abs_phase1 def
-R17803:17804 KamiHW.VerilogRefinement <> hs:179 var
-R17828:17836 Kernel.VMState <> write_reg def
-R17839:17848 KamiHW.Abstraction <> abs_phase1 def
-R17850:17851 KamiHW.VerilogRefinement <> hs:179 var
-R17854:17856 KamiHW.VerilogRefinement <> dst:180 var
-R17871:17879 Kernel.VMState <> word64_or def
-R17882:17889 Kernel.VMState <> read_reg def
-R17892:17901 KamiHW.Abstraction <> abs_phase1 def
-R17903:17904 KamiHW.VerilogRefinement <> hs:179 var
-R17907:17909 KamiHW.VerilogRefinement <> rs1:181 var
-R17913:17920 Kernel.VMState <> read_reg def
-R17923:17932 KamiHW.Abstraction <> abs_phase1 def
-R17934:17935 KamiHW.VerilogRefinement <> hs:179 var
-R17938:17940 KamiHW.VerilogRefinement <> rs2:182 var
-R17972:17977 Kernel.VMState <> vm_mem proj
-R17956:17965 KamiHW.Abstraction <> abs_phase1 def
-R17967:17968 KamiHW.VerilogRefinement <> hs:179 var
-R18007:18012 Kernel.VMState <> vm_err proj
-R17991:18000 KamiHW.Abstraction <> abs_phase1 def
-R18002:18003 KamiHW.VerilogRefinement <> hs:179 var
-R18060:18066 Kernel.VMStep VMStep step_or constr
-R18060:18066 Kernel.VMStep VMStep step_or constr
-prf 18113:18141 <> verilog_simulates_vm_step_shl
-R18160:18171 KamiHW.Abstraction <> KamiSnapshot rec
-binder 18155:18156 <> hs:185
-R18194:18196 Coq.Init.Datatypes <> nat ind
-binder 18175:18177 <> dst:186
-binder 18179:18181 <> rs1:187
-binder 18183:18185 <> rs2:188
-binder 18187:18190 <> cost:189
-R18204:18210 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R18214:18221 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 18211:18213 <> vs':190
-R18278:18287 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18222:18228 Kernel.VMStep VMStep vm_step ind
-R18231:18240 KamiHW.Abstraction <> abs_phase1 def
-R18242:18243 KamiHW.VerilogRefinement <> hs:185 var
-R18247:18255 Kernel.VMStep VMStep instr_shl constr
-R18257:18259 KamiHW.VerilogRefinement <> dst:186 var
-R18261:18263 KamiHW.VerilogRefinement <> rs1:187 var
-R18265:18267 KamiHW.VerilogRefinement <> rs2:188 var
-R18269:18272 KamiHW.VerilogRefinement <> cost:189 var
-R18275:18277 KamiHW.VerilogRefinement <> vs':190 var
-R18291:18301 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18288:18290 KamiHW.VerilogRefinement <> vs':190 var
-R18302:18317 Kernel.VMStep VMStep advance_state_rm def
-R18320:18329 KamiHW.Abstraction <> abs_phase1 def
-R18331:18332 KamiHW.VerilogRefinement <> hs:185 var
-R18336:18344 Kernel.VMStep VMStep instr_shl constr
-R18346:18348 KamiHW.VerilogRefinement <> dst:186 var
-R18350:18352 KamiHW.VerilogRefinement <> rs1:187 var
-R18354:18356 KamiHW.VerilogRefinement <> rs2:188 var
-R18358:18361 KamiHW.VerilogRefinement <> cost:189 var
-R18391:18398 Kernel.VMState <> vm_graph proj
-R18375:18384 KamiHW.Abstraction <> abs_phase1 def
-R18386:18387 KamiHW.VerilogRefinement <> hs:185 var
-R18428:18434 Kernel.VMState <> vm_csrs proj
-R18412:18421 KamiHW.Abstraction <> abs_phase1 def
-R18423:18424 KamiHW.VerilogRefinement <> hs:185 var
-R18448:18456 Kernel.VMState <> write_reg def
-R18459:18468 KamiHW.Abstraction <> abs_phase1 def
-R18470:18471 KamiHW.VerilogRefinement <> hs:185 var
-R18474:18476 KamiHW.VerilogRefinement <> dst:186 var
-R18491:18500 Kernel.VMState <> word64_shl def
-R18503:18510 Kernel.VMState <> read_reg def
-R18513:18522 KamiHW.Abstraction <> abs_phase1 def
-R18524:18525 KamiHW.VerilogRefinement <> hs:185 var
-R18528:18530 KamiHW.VerilogRefinement <> rs1:187 var
-R18534:18541 Kernel.VMState <> read_reg def
-R18544:18553 KamiHW.Abstraction <> abs_phase1 def
-R18555:18556 KamiHW.VerilogRefinement <> hs:185 var
-R18559:18561 KamiHW.VerilogRefinement <> rs2:188 var
-R18593:18598 Kernel.VMState <> vm_mem proj
-R18577:18586 KamiHW.Abstraction <> abs_phase1 def
-R18588:18589 KamiHW.VerilogRefinement <> hs:185 var
-R18628:18633 Kernel.VMState <> vm_err proj
-R18612:18621 KamiHW.Abstraction <> abs_phase1 def
-R18623:18624 KamiHW.VerilogRefinement <> hs:185 var
-R18681:18688 Kernel.VMStep VMStep step_shl constr
-R18681:18688 Kernel.VMStep VMStep step_shl constr
-prf 18735:18763 <> verilog_simulates_vm_step_shr
-R18782:18793 KamiHW.Abstraction <> KamiSnapshot rec
-binder 18777:18778 <> hs:191
-R18816:18818 Coq.Init.Datatypes <> nat ind
-binder 18797:18799 <> dst:192
-binder 18801:18803 <> rs1:193
-binder 18805:18807 <> rs2:194
-binder 18809:18812 <> cost:195
-R18826:18832 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R18836:18843 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 18833:18835 <> vs':196
-R18900:18909 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18844:18850 Kernel.VMStep VMStep vm_step ind
-R18853:18862 KamiHW.Abstraction <> abs_phase1 def
-R18864:18865 KamiHW.VerilogRefinement <> hs:191 var
-R18869:18877 Kernel.VMStep VMStep instr_shr constr
-R18879:18881 KamiHW.VerilogRefinement <> dst:192 var
-R18883:18885 KamiHW.VerilogRefinement <> rs1:193 var
-R18887:18889 KamiHW.VerilogRefinement <> rs2:194 var
-R18891:18894 KamiHW.VerilogRefinement <> cost:195 var
-R18897:18899 KamiHW.VerilogRefinement <> vs':196 var
-R18913:18923 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18910:18912 KamiHW.VerilogRefinement <> vs':196 var
-R18924:18939 Kernel.VMStep VMStep advance_state_rm def
-R18942:18951 KamiHW.Abstraction <> abs_phase1 def
-R18953:18954 KamiHW.VerilogRefinement <> hs:191 var
-R18958:18966 Kernel.VMStep VMStep instr_shr constr
-R18968:18970 KamiHW.VerilogRefinement <> dst:192 var
-R18972:18974 KamiHW.VerilogRefinement <> rs1:193 var
-R18976:18978 KamiHW.VerilogRefinement <> rs2:194 var
-R18980:18983 KamiHW.VerilogRefinement <> cost:195 var
-R19013:19020 Kernel.VMState <> vm_graph proj
-R18997:19006 KamiHW.Abstraction <> abs_phase1 def
-R19008:19009 KamiHW.VerilogRefinement <> hs:191 var
-R19050:19056 Kernel.VMState <> vm_csrs proj
-R19034:19043 KamiHW.Abstraction <> abs_phase1 def
-R19045:19046 KamiHW.VerilogRefinement <> hs:191 var
-R19070:19078 Kernel.VMState <> write_reg def
-R19081:19090 KamiHW.Abstraction <> abs_phase1 def
-R19092:19093 KamiHW.VerilogRefinement <> hs:191 var
-R19096:19098 KamiHW.VerilogRefinement <> dst:192 var
-R19113:19122 Kernel.VMState <> word64_shr def
-R19125:19132 Kernel.VMState <> read_reg def
-R19135:19144 KamiHW.Abstraction <> abs_phase1 def
-R19146:19147 KamiHW.VerilogRefinement <> hs:191 var
-R19150:19152 KamiHW.VerilogRefinement <> rs1:193 var
-R19156:19163 Kernel.VMState <> read_reg def
-R19166:19175 KamiHW.Abstraction <> abs_phase1 def
-R19177:19178 KamiHW.VerilogRefinement <> hs:191 var
-R19181:19183 KamiHW.VerilogRefinement <> rs2:194 var
-R19215:19220 Kernel.VMState <> vm_mem proj
-R19199:19208 KamiHW.Abstraction <> abs_phase1 def
-R19210:19211 KamiHW.VerilogRefinement <> hs:191 var
-R19250:19255 Kernel.VMState <> vm_err proj
-R19234:19243 KamiHW.Abstraction <> abs_phase1 def
-R19245:19246 KamiHW.VerilogRefinement <> hs:191 var
-R19303:19310 Kernel.VMStep VMStep step_shr constr
-R19303:19310 Kernel.VMStep VMStep step_shr constr
-prf 19357:19385 <> verilog_simulates_vm_step_mul
-R19404:19415 KamiHW.Abstraction <> KamiSnapshot rec
-binder 19399:19400 <> hs:197
-R19438:19440 Coq.Init.Datatypes <> nat ind
-binder 19419:19421 <> dst:198
-binder 19423:19425 <> rs1:199
-binder 19427:19429 <> rs2:200
-binder 19431:19434 <> cost:201
-R19448:19454 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R19458:19465 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 19455:19457 <> vs':202
-R19522:19531 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19466:19472 Kernel.VMStep VMStep vm_step ind
-R19475:19484 KamiHW.Abstraction <> abs_phase1 def
-R19486:19487 KamiHW.VerilogRefinement <> hs:197 var
-R19491:19499 Kernel.VMStep VMStep instr_mul constr
-R19501:19503 KamiHW.VerilogRefinement <> dst:198 var
-R19505:19507 KamiHW.VerilogRefinement <> rs1:199 var
-R19509:19511 KamiHW.VerilogRefinement <> rs2:200 var
-R19513:19516 KamiHW.VerilogRefinement <> cost:201 var
-R19519:19521 KamiHW.VerilogRefinement <> vs':202 var
-R19535:19545 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19532:19534 KamiHW.VerilogRefinement <> vs':202 var
-R19546:19561 Kernel.VMStep VMStep advance_state_rm def
-R19564:19573 KamiHW.Abstraction <> abs_phase1 def
-R19575:19576 KamiHW.VerilogRefinement <> hs:197 var
-R19580:19588 Kernel.VMStep VMStep instr_mul constr
-R19590:19592 KamiHW.VerilogRefinement <> dst:198 var
-R19594:19596 KamiHW.VerilogRefinement <> rs1:199 var
-R19598:19600 KamiHW.VerilogRefinement <> rs2:200 var
-R19602:19605 KamiHW.VerilogRefinement <> cost:201 var
-R19635:19642 Kernel.VMState <> vm_graph proj
-R19619:19628 KamiHW.Abstraction <> abs_phase1 def
-R19630:19631 KamiHW.VerilogRefinement <> hs:197 var
-R19672:19678 Kernel.VMState <> vm_csrs proj
-R19656:19665 KamiHW.Abstraction <> abs_phase1 def
-R19667:19668 KamiHW.VerilogRefinement <> hs:197 var
-R19692:19700 Kernel.VMState <> write_reg def
-R19703:19712 KamiHW.Abstraction <> abs_phase1 def
-R19714:19715 KamiHW.VerilogRefinement <> hs:197 var
-R19718:19720 KamiHW.VerilogRefinement <> dst:198 var
-R19735:19744 Kernel.VMState <> word64_mul def
-R19747:19754 Kernel.VMState <> read_reg def
-R19757:19766 KamiHW.Abstraction <> abs_phase1 def
-R19768:19769 KamiHW.VerilogRefinement <> hs:197 var
-R19772:19774 KamiHW.VerilogRefinement <> rs1:199 var
-R19778:19785 Kernel.VMState <> read_reg def
-R19788:19797 KamiHW.Abstraction <> abs_phase1 def
-R19799:19800 KamiHW.VerilogRefinement <> hs:197 var
-R19803:19805 KamiHW.VerilogRefinement <> rs2:200 var
-R19837:19842 Kernel.VMState <> vm_mem proj
-R19821:19830 KamiHW.Abstraction <> abs_phase1 def
-R19832:19833 KamiHW.VerilogRefinement <> hs:197 var
-R19872:19877 Kernel.VMState <> vm_err proj
-R19856:19865 KamiHW.Abstraction <> abs_phase1 def
-R19867:19868 KamiHW.VerilogRefinement <> hs:197 var
-R19925:19932 Kernel.VMStep VMStep step_mul constr
-R19925:19932 Kernel.VMStep VMStep step_mul constr
-prf 19979:20007 <> verilog_simulates_vm_step_lui
-R20026:20037 KamiHW.Abstraction <> KamiSnapshot rec
-binder 20021:20022 <> hs:203
-R20056:20058 Coq.Init.Datatypes <> nat ind
-binder 20041:20043 <> dst:204
-binder 20045:20047 <> imm:205
-binder 20049:20052 <> cost:206
-R20066:20072 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20076:20083 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 20073:20075 <> vs':207
-R20136:20145 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20084:20090 Kernel.VMStep VMStep vm_step ind
-R20093:20102 KamiHW.Abstraction <> abs_phase1 def
-R20104:20105 KamiHW.VerilogRefinement <> hs:203 var
-R20109:20117 Kernel.VMStep VMStep instr_lui constr
-R20119:20121 KamiHW.VerilogRefinement <> dst:204 var
-R20123:20125 KamiHW.VerilogRefinement <> imm:205 var
-R20127:20130 KamiHW.VerilogRefinement <> cost:206 var
-R20133:20135 KamiHW.VerilogRefinement <> vs':207 var
-R20149:20159 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20146:20148 KamiHW.VerilogRefinement <> vs':207 var
-R20160:20175 Kernel.VMStep VMStep advance_state_rm def
-R20178:20187 KamiHW.Abstraction <> abs_phase1 def
-R20189:20190 KamiHW.VerilogRefinement <> hs:203 var
-R20194:20202 Kernel.VMStep VMStep instr_lui constr
-R20204:20206 KamiHW.VerilogRefinement <> dst:204 var
-R20208:20210 KamiHW.VerilogRefinement <> imm:205 var
-R20212:20215 KamiHW.VerilogRefinement <> cost:206 var
-R20245:20252 Kernel.VMState <> vm_graph proj
-R20229:20238 KamiHW.Abstraction <> abs_phase1 def
-R20240:20241 KamiHW.VerilogRefinement <> hs:203 var
-R20282:20288 Kernel.VMState <> vm_csrs proj
-R20266:20275 KamiHW.Abstraction <> abs_phase1 def
-R20277:20278 KamiHW.VerilogRefinement <> hs:203 var
-R20302:20310 Kernel.VMState <> write_reg def
-R20313:20322 KamiHW.Abstraction <> abs_phase1 def
-R20324:20325 KamiHW.VerilogRefinement <> hs:203 var
-R20328:20330 KamiHW.VerilogRefinement <> dst:204 var
-R20333:20342 Kernel.VMState <> word64_shl def
-R20344:20346 KamiHW.VerilogRefinement <> imm:205 var
-R20379:20384 Kernel.VMState <> vm_mem proj
-R20363:20372 KamiHW.Abstraction <> abs_phase1 def
-R20374:20375 KamiHW.VerilogRefinement <> hs:203 var
-R20414:20419 Kernel.VMState <> vm_err proj
-R20398:20407 KamiHW.Abstraction <> abs_phase1 def
-R20409:20410 KamiHW.VerilogRefinement <> hs:203 var
-R20467:20474 Kernel.VMStep VMStep step_lui constr
-R20467:20474 Kernel.VMStep VMStep step_lui constr
-prf 20744:20776 <> verilog_simulates_vm_step_certify
-R20795:20806 KamiHW.Abstraction <> KamiSnapshot rec
-binder 20790:20791 <> hs:208
-R20821:20823 Coq.Init.Datatypes <> nat ind
-binder 20810:20817 <> mu_delta:209
-R20831:20837 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R20841:20848 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 20838:20840 <> vs':210
-R20901:20910 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20849:20855 Kernel.VMStep VMStep vm_step ind
-R20858:20867 KamiHW.Abstraction <> abs_phase1 def
-R20869:20870 KamiHW.VerilogRefinement <> hs:208 var
-R20874:20886 Kernel.VMStep VMStep instr_certify constr
-R20888:20895 KamiHW.VerilogRefinement <> mu_delta:209 var
-R20898:20900 KamiHW.VerilogRefinement <> vs':210 var
-R20914:20927 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21524:21526 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20911:20913 KamiHW.VerilogRefinement <> vs':210 var
-R20928:20935 Kernel.VMState <> vm_graph proj
-R20928:20935 Kernel.VMState <> vm_graph proj
-R20928:20935 Kernel.VMState <> vm_graph proj
-R20979:20985 Kernel.VMState <> vm_csrs proj
-R20979:20985 Kernel.VMState <> vm_csrs proj
-R21028:21034 Kernel.VMState <> vm_regs proj
-R21028:21034 Kernel.VMState <> vm_regs proj
-R21077:21082 Kernel.VMState <> vm_mem proj
-R21077:21082 Kernel.VMState <> vm_mem proj
-R21124:21128 Kernel.VMState <> vm_pc proj
-R21124:21128 Kernel.VMState <> vm_pc proj
-R21171:21175 Kernel.VMState <> vm_mu proj
-R21171:21175 Kernel.VMState <> vm_mu proj
-R21229:21240 Kernel.VMState <> vm_mu_tensor proj
-R21229:21240 Kernel.VMState <> vm_mu_tensor proj
-R21288:21293 Kernel.VMState <> vm_err proj
-R21288:21293 Kernel.VMState <> vm_err proj
-R21335:21346 Kernel.VMState <> vm_logic_acc proj
-R21335:21346 Kernel.VMState <> vm_logic_acc proj
-R21394:21403 Kernel.VMState <> vm_mstatus proj
-R21394:21403 Kernel.VMState <> vm_mstatus proj
-R21449:21458 Kernel.VMState <> vm_witness proj
-R21449:21458 Kernel.VMState <> vm_witness proj
-R21504:21515 Kernel.VMState <> vm_certified proj
-R21504:21515 Kernel.VMState <> vm_certified proj
-R20957:20964 Kernel.VMState <> vm_graph proj
-R20941:20950 KamiHW.Abstraction <> abs_phase1 def
-R20952:20953 KamiHW.VerilogRefinement <> hs:208 var
-R21007:21013 Kernel.VMState <> vm_csrs proj
-R20991:21000 KamiHW.Abstraction <> abs_phase1 def
-R21002:21003 KamiHW.VerilogRefinement <> hs:208 var
-R21056:21062 Kernel.VMState <> vm_regs proj
-R21040:21049 KamiHW.Abstraction <> abs_phase1 def
-R21051:21052 KamiHW.VerilogRefinement <> hs:208 var
-R21104:21109 Kernel.VMState <> vm_mem proj
-R21088:21097 KamiHW.Abstraction <> abs_phase1 def
-R21099:21100 KamiHW.VerilogRefinement <> hs:208 var
-R21133:21133 Coq.Init.Datatypes <> S constr
-R21152:21156 Kernel.VMState <> vm_pc proj
-R21136:21145 KamiHW.Abstraction <> abs_phase1 def
-R21147:21148 KamiHW.VerilogRefinement <> hs:208 var
-R21203:21205 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R21197:21201 Kernel.VMState <> vm_mu proj
-R21181:21190 KamiHW.Abstraction <> abs_phase1 def
-R21192:21193 KamiHW.VerilogRefinement <> hs:208 var
-R21206:21206 Coq.Init.Datatypes <> S constr
-R21208:21215 KamiHW.VerilogRefinement <> mu_delta:209 var
-R21262:21273 Kernel.VMState <> vm_mu_tensor proj
-R21246:21255 KamiHW.Abstraction <> abs_phase1 def
-R21257:21258 KamiHW.VerilogRefinement <> hs:208 var
-R21315:21320 Kernel.VMState <> vm_err proj
-R21299:21308 KamiHW.Abstraction <> abs_phase1 def
-R21310:21311 KamiHW.VerilogRefinement <> hs:208 var
-R21368:21379 Kernel.VMState <> vm_logic_acc proj
-R21352:21361 KamiHW.Abstraction <> abs_phase1 def
-R21363:21364 KamiHW.VerilogRefinement <> hs:208 var
-R21425:21434 Kernel.VMState <> vm_mstatus proj
-R21409:21418 KamiHW.Abstraction <> abs_phase1 def
-R21420:21421 KamiHW.VerilogRefinement <> hs:208 var
-R21480:21489 Kernel.VMState <> vm_witness proj
-R21464:21473 KamiHW.Abstraction <> abs_phase1 def
-R21475:21476 KamiHW.VerilogRefinement <> hs:208 var
-R21520:21523 Coq.Init.Datatypes <> true constr
-R21573:21584 Kernel.VMStep VMStep step_certify constr
-R21573:21584 Kernel.VMStep VMStep step_certify constr
-prf 22008:22031 <> kami_step_mu_commutation
-R22050:22061 KamiHW.Abstraction <> KamiSnapshot rec
-binder 22045:22046 <> hs:211
-R22069:22082 Kernel.VMStep VMStep vm_instruction ind
-binder 22065:22065 <> i:212
-R22127:22133 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22121:22125 Kernel.VMState <> vm_mu proj
-R22091:22100 KamiHW.Abstraction <> abs_phase1 def
-R22103:22111 KamiHW.Abstraction <> kami_step def
-R22113:22114 KamiHW.VerilogRefinement <> hs:211 var
-R22116:22116 KamiHW.VerilogRefinement <> i:212 var
-R22157:22159 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R22151:22155 Kernel.VMState <> vm_mu proj
-R22135:22144 KamiHW.Abstraction <> abs_phase1 def
-R22146:22147 KamiHW.VerilogRefinement <> hs:211 var
-R22160:22180 KamiHW.Abstraction <> kami_instruction_cost def
-R22182:22182 KamiHW.VerilogRefinement <> i:212 var
-R22216:22225 KamiHW.Abstraction <> abs_phase1 def
-R22243:22259 KamiHW.Abstraction <> kami_step_mu_cost thm
-R22243:22259 KamiHW.Abstraction <> kami_step_mu_cost thm
-prf 22501:22518 <> kami_vm_mu_diamond
-R22537:22548 KamiHW.Abstraction <> KamiSnapshot rec
-binder 22532:22533 <> hs:213
-R22556:22569 Kernel.VMStep VMStep vm_instruction ind
-binder 22552:22552 <> i:214
-R22579:22585 Kernel.VMState <> VMState rec
-binder 22573:22575 <> vs':215
-R22622:22629 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22593:22599 Kernel.VMStep VMStep vm_step ind
-R22602:22611 KamiHW.Abstraction <> abs_phase1 def
-R22613:22614 KamiHW.VerilogRefinement <> hs:213 var
-R22617:22617 KamiHW.VerilogRefinement <> i:214 var
-R22619:22621 KamiHW.VerilogRefinement <> vs':215 var
-R22641:22643 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22635:22639 Kernel.VMState <> vm_mu proj
-R22630:22632 KamiHW.VerilogRefinement <> vs':215 var
-R22675:22679 Kernel.VMState <> vm_mu proj
-R22645:22654 KamiHW.Abstraction <> abs_phase1 def
-R22657:22665 KamiHW.Abstraction <> kami_step def
-R22667:22668 KamiHW.VerilogRefinement <> hs:213 var
-R22670:22670 KamiHW.VerilogRefinement <> i:214 var
-R22725:22748 KamiHW.VerilogRefinement <> kami_step_mu_commutation thm
-R22725:22748 KamiHW.VerilogRefinement <> kami_step_mu_commutation thm
-R22725:22748 KamiHW.VerilogRefinement <> kami_step_mu_commutation thm
-R23086:23095 Kernel.VMStep VMStep apply_cost def
-R23098:23118 KamiHW.Abstraction <> kami_instruction_cost def
-prf 23550:23572 <> kami_vm_mu_conservative
-R23591:23602 KamiHW.Abstraction <> KamiSnapshot rec
-binder 23586:23587 <> hs:216
-R23610:23623 Kernel.VMStep VMStep vm_instruction ind
-binder 23606:23606 <> i:217
-R23633:23639 Kernel.VMState <> VMState rec
-binder 23627:23629 <> vs':218
-R23689:23696 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R23665:23668 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R23647:23662 Kernel.VMStep VMStep instruction_cost def
-R23664:23664 KamiHW.VerilogRefinement <> i:217 var
-R23669:23688 KamiHW.ThieleTypes <> ORACLE_HALTS_HW_COST def
-R23726:23733 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R23697:23703 Kernel.VMStep VMStep vm_step ind
-R23706:23715 KamiHW.Abstraction <> abs_phase1 def
-R23717:23718 KamiHW.VerilogRefinement <> hs:216 var
-R23721:23721 KamiHW.VerilogRefinement <> i:217 var
-R23723:23725 KamiHW.VerilogRefinement <> vs':218 var
-R23771:23774 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R23765:23769 Kernel.VMState <> vm_mu proj
-R23735:23744 KamiHW.Abstraction <> abs_phase1 def
-R23747:23755 KamiHW.Abstraction <> kami_step def
-R23757:23758 KamiHW.VerilogRefinement <> hs:216 var
-R23760:23760 KamiHW.VerilogRefinement <> i:217 var
-R23780:23784 Kernel.VMState <> vm_mu proj
-R23775:23777 KamiHW.VerilogRefinement <> vs':218 var
-R23866:23869 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R23843:23863 KamiHW.Abstraction <> kami_instruction_cost def
-R23870:23885 Kernel.VMStep VMStep instruction_cost def
-R23866:23869 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R23843:23863 KamiHW.Abstraction <> kami_instruction_cost def
-R23870:23885 Kernel.VMStep VMStep instruction_cost def
-R23901:23929 KamiHW.Abstraction <> kami_cost_ge_instruction_cost thm
-R23901:23929 KamiHW.Abstraction <> kami_cost_ge_instruction_cost thm
-R23983:23992 KamiHW.Abstraction <> abs_phase1 def
-R23995:24003 KamiHW.Abstraction <> kami_step def
-R24006:24025 KamiHW.Abstraction <> kami_advance_default def
-R24037:24049 Kernel.VMStep VMStep advance_state def
-R24052:24067 Kernel.VMStep VMStep advance_state_rm def
-R24070:24089 Kernel.VMStep VMStep advance_state_reveal def
-R24101:24110 Kernel.VMStep VMStep jump_state def
-R24113:24125 Kernel.VMStep VMStep jump_state_rm def
-R24137:24146 Kernel.VMStep VMStep apply_cost def
-R24149:24169 KamiHW.Abstraction <> kami_instruction_cost def
-R24172:24187 Kernel.VMStep VMStep instruction_cost def
-R24199:24218 KamiHW.ThieleTypes <> ORACLE_HALTS_HW_COST def
-prf 24534:24555 <> kami_vm_mu_lassert_gap
-R24574:24585 KamiHW.Abstraction <> KamiSnapshot rec
-binder 24569:24570 <> hs:219
-R24601:24603 Coq.Init.Datatypes <> nat ind
-binder 24589:24592 <> freg:220
-binder 24594:24597 <> creg:221
-R24614:24617 Coq.Init.Datatypes <> bool ind
-binder 24607:24610 <> kind:222
+R16727:16729 KamiHW.VerilogRefinement <> src:170 var
+R16760:16765 Kernel.VMState <> vm_err proj
+R16744:16753 KamiHW.Abstraction <> abs_phase1 def
+R16755:16756 KamiHW.VerilogRefinement <> hs:168 var
+R16813:16827 Kernel.VMStep VMStep step_heap_store constr
+R16813:16827 Kernel.VMStep VMStep step_heap_store constr
+prf 16906:16934 <> verilog_simulates_vm_step_and
+R16953:16964 KamiHW.Abstraction <> KamiSnapshot rec
+binder 16948:16949 <> hs:173
+R16987:16989 Coq.Init.Datatypes <> nat ind
+binder 16968:16970 <> dst:174
+binder 16972:16974 <> rs1:175
+binder 16976:16978 <> rs2:176
+binder 16980:16983 <> cost:177
+R16997:17003 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17007:17014 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17004:17006 <> vs':178
+R17071:17080 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17015:17021 Kernel.VMStep VMStep vm_step ind
+R17024:17033 KamiHW.Abstraction <> abs_phase1 def
+R17035:17036 KamiHW.VerilogRefinement <> hs:173 var
+R17040:17048 Kernel.VMStep VMStep instr_and constr
+R17050:17052 KamiHW.VerilogRefinement <> dst:174 var
+R17054:17056 KamiHW.VerilogRefinement <> rs1:175 var
+R17058:17060 KamiHW.VerilogRefinement <> rs2:176 var
+R17062:17065 KamiHW.VerilogRefinement <> cost:177 var
+R17068:17070 KamiHW.VerilogRefinement <> vs':178 var
+R17084:17094 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17081:17083 KamiHW.VerilogRefinement <> vs':178 var
+R17095:17110 Kernel.VMStep VMStep advance_state_rm def
+R17113:17122 KamiHW.Abstraction <> abs_phase1 def
+R17124:17125 KamiHW.VerilogRefinement <> hs:173 var
+R17129:17137 Kernel.VMStep VMStep instr_and constr
+R17139:17141 KamiHW.VerilogRefinement <> dst:174 var
+R17143:17145 KamiHW.VerilogRefinement <> rs1:175 var
+R17147:17149 KamiHW.VerilogRefinement <> rs2:176 var
+R17151:17154 KamiHW.VerilogRefinement <> cost:177 var
+R17184:17191 Kernel.VMState <> vm_graph proj
+R17168:17177 KamiHW.Abstraction <> abs_phase1 def
+R17179:17180 KamiHW.VerilogRefinement <> hs:173 var
+R17221:17227 Kernel.VMState <> vm_csrs proj
+R17205:17214 KamiHW.Abstraction <> abs_phase1 def
+R17216:17217 KamiHW.VerilogRefinement <> hs:173 var
+R17241:17249 Kernel.VMState <> write_reg def
+R17252:17261 KamiHW.Abstraction <> abs_phase1 def
+R17263:17264 KamiHW.VerilogRefinement <> hs:173 var
+R17267:17269 KamiHW.VerilogRefinement <> dst:174 var
+R17284:17293 Kernel.VMState <> word64_and def
+R17296:17303 Kernel.VMState <> read_reg def
+R17306:17315 KamiHW.Abstraction <> abs_phase1 def
+R17317:17318 KamiHW.VerilogRefinement <> hs:173 var
+R17321:17323 KamiHW.VerilogRefinement <> rs1:175 var
+R17327:17334 Kernel.VMState <> read_reg def
+R17337:17346 KamiHW.Abstraction <> abs_phase1 def
+R17348:17349 KamiHW.VerilogRefinement <> hs:173 var
+R17352:17354 KamiHW.VerilogRefinement <> rs2:176 var
+R17386:17391 Kernel.VMState <> vm_mem proj
+R17370:17379 KamiHW.Abstraction <> abs_phase1 def
+R17381:17382 KamiHW.VerilogRefinement <> hs:173 var
+R17421:17426 Kernel.VMState <> vm_err proj
+R17405:17414 KamiHW.Abstraction <> abs_phase1 def
+R17416:17417 KamiHW.VerilogRefinement <> hs:173 var
+R17474:17481 Kernel.VMStep VMStep step_and constr
+R17474:17481 Kernel.VMStep VMStep step_and constr
+prf 17528:17555 <> verilog_simulates_vm_step_or
+R17574:17585 KamiHW.Abstraction <> KamiSnapshot rec
+binder 17569:17570 <> hs:179
+R17608:17610 Coq.Init.Datatypes <> nat ind
+binder 17589:17591 <> dst:180
+binder 17593:17595 <> rs1:181
+binder 17597:17599 <> rs2:182
+binder 17601:17604 <> cost:183
+R17618:17624 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17628:17635 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17625:17627 <> vs':184
+R17691:17700 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17636:17642 Kernel.VMStep VMStep vm_step ind
+R17645:17654 KamiHW.Abstraction <> abs_phase1 def
+R17656:17657 KamiHW.VerilogRefinement <> hs:179 var
+R17661:17668 Kernel.VMStep VMStep instr_or constr
+R17670:17672 KamiHW.VerilogRefinement <> dst:180 var
+R17674:17676 KamiHW.VerilogRefinement <> rs1:181 var
+R17678:17680 KamiHW.VerilogRefinement <> rs2:182 var
+R17682:17685 KamiHW.VerilogRefinement <> cost:183 var
+R17688:17690 KamiHW.VerilogRefinement <> vs':184 var
+R17704:17714 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17701:17703 KamiHW.VerilogRefinement <> vs':184 var
+R17715:17730 Kernel.VMStep VMStep advance_state_rm def
+R17733:17742 KamiHW.Abstraction <> abs_phase1 def
+R17744:17745 KamiHW.VerilogRefinement <> hs:179 var
+R17749:17756 Kernel.VMStep VMStep instr_or constr
+R17758:17760 KamiHW.VerilogRefinement <> dst:180 var
+R17762:17764 KamiHW.VerilogRefinement <> rs1:181 var
+R17766:17768 KamiHW.VerilogRefinement <> rs2:182 var
+R17770:17773 KamiHW.VerilogRefinement <> cost:183 var
+R17803:17810 Kernel.VMState <> vm_graph proj
+R17787:17796 KamiHW.Abstraction <> abs_phase1 def
+R17798:17799 KamiHW.VerilogRefinement <> hs:179 var
+R17840:17846 Kernel.VMState <> vm_csrs proj
+R17824:17833 KamiHW.Abstraction <> abs_phase1 def
+R17835:17836 KamiHW.VerilogRefinement <> hs:179 var
+R17860:17868 Kernel.VMState <> write_reg def
+R17871:17880 KamiHW.Abstraction <> abs_phase1 def
+R17882:17883 KamiHW.VerilogRefinement <> hs:179 var
+R17886:17888 KamiHW.VerilogRefinement <> dst:180 var
+R17903:17911 Kernel.VMState <> word64_or def
+R17914:17921 Kernel.VMState <> read_reg def
+R17924:17933 KamiHW.Abstraction <> abs_phase1 def
+R17935:17936 KamiHW.VerilogRefinement <> hs:179 var
+R17939:17941 KamiHW.VerilogRefinement <> rs1:181 var
+R17945:17952 Kernel.VMState <> read_reg def
+R17955:17964 KamiHW.Abstraction <> abs_phase1 def
+R17966:17967 KamiHW.VerilogRefinement <> hs:179 var
+R17970:17972 KamiHW.VerilogRefinement <> rs2:182 var
+R18004:18009 Kernel.VMState <> vm_mem proj
+R17988:17997 KamiHW.Abstraction <> abs_phase1 def
+R17999:18000 KamiHW.VerilogRefinement <> hs:179 var
+R18039:18044 Kernel.VMState <> vm_err proj
+R18023:18032 KamiHW.Abstraction <> abs_phase1 def
+R18034:18035 KamiHW.VerilogRefinement <> hs:179 var
+R18092:18098 Kernel.VMStep VMStep step_or constr
+R18092:18098 Kernel.VMStep VMStep step_or constr
+prf 18145:18173 <> verilog_simulates_vm_step_shl
+R18192:18203 KamiHW.Abstraction <> KamiSnapshot rec
+binder 18187:18188 <> hs:185
+R18226:18228 Coq.Init.Datatypes <> nat ind
+binder 18207:18209 <> dst:186
+binder 18211:18213 <> rs1:187
+binder 18215:18217 <> rs2:188
+binder 18219:18222 <> cost:189
+R18236:18242 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18246:18253 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18243:18245 <> vs':190
+R18310:18319 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18254:18260 Kernel.VMStep VMStep vm_step ind
+R18263:18272 KamiHW.Abstraction <> abs_phase1 def
+R18274:18275 KamiHW.VerilogRefinement <> hs:185 var
+R18279:18287 Kernel.VMStep VMStep instr_shl constr
+R18289:18291 KamiHW.VerilogRefinement <> dst:186 var
+R18293:18295 KamiHW.VerilogRefinement <> rs1:187 var
+R18297:18299 KamiHW.VerilogRefinement <> rs2:188 var
+R18301:18304 KamiHW.VerilogRefinement <> cost:189 var
+R18307:18309 KamiHW.VerilogRefinement <> vs':190 var
+R18323:18333 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18320:18322 KamiHW.VerilogRefinement <> vs':190 var
+R18334:18349 Kernel.VMStep VMStep advance_state_rm def
+R18352:18361 KamiHW.Abstraction <> abs_phase1 def
+R18363:18364 KamiHW.VerilogRefinement <> hs:185 var
+R18368:18376 Kernel.VMStep VMStep instr_shl constr
+R18378:18380 KamiHW.VerilogRefinement <> dst:186 var
+R18382:18384 KamiHW.VerilogRefinement <> rs1:187 var
+R18386:18388 KamiHW.VerilogRefinement <> rs2:188 var
+R18390:18393 KamiHW.VerilogRefinement <> cost:189 var
+R18423:18430 Kernel.VMState <> vm_graph proj
+R18407:18416 KamiHW.Abstraction <> abs_phase1 def
+R18418:18419 KamiHW.VerilogRefinement <> hs:185 var
+R18460:18466 Kernel.VMState <> vm_csrs proj
+R18444:18453 KamiHW.Abstraction <> abs_phase1 def
+R18455:18456 KamiHW.VerilogRefinement <> hs:185 var
+R18480:18488 Kernel.VMState <> write_reg def
+R18491:18500 KamiHW.Abstraction <> abs_phase1 def
+R18502:18503 KamiHW.VerilogRefinement <> hs:185 var
+R18506:18508 KamiHW.VerilogRefinement <> dst:186 var
+R18523:18532 Kernel.VMState <> word64_shl def
+R18535:18542 Kernel.VMState <> read_reg def
+R18545:18554 KamiHW.Abstraction <> abs_phase1 def
+R18556:18557 KamiHW.VerilogRefinement <> hs:185 var
+R18560:18562 KamiHW.VerilogRefinement <> rs1:187 var
+R18566:18573 Kernel.VMState <> read_reg def
+R18576:18585 KamiHW.Abstraction <> abs_phase1 def
+R18587:18588 KamiHW.VerilogRefinement <> hs:185 var
+R18591:18593 KamiHW.VerilogRefinement <> rs2:188 var
+R18625:18630 Kernel.VMState <> vm_mem proj
+R18609:18618 KamiHW.Abstraction <> abs_phase1 def
+R18620:18621 KamiHW.VerilogRefinement <> hs:185 var
+R18660:18665 Kernel.VMState <> vm_err proj
+R18644:18653 KamiHW.Abstraction <> abs_phase1 def
+R18655:18656 KamiHW.VerilogRefinement <> hs:185 var
+R18713:18720 Kernel.VMStep VMStep step_shl constr
+R18713:18720 Kernel.VMStep VMStep step_shl constr
+prf 18767:18795 <> verilog_simulates_vm_step_shr
+R18814:18825 KamiHW.Abstraction <> KamiSnapshot rec
+binder 18809:18810 <> hs:191
+R18848:18850 Coq.Init.Datatypes <> nat ind
+binder 18829:18831 <> dst:192
+binder 18833:18835 <> rs1:193
+binder 18837:18839 <> rs2:194
+binder 18841:18844 <> cost:195
+R18858:18864 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18868:18875 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 18865:18867 <> vs':196
+R18932:18941 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18876:18882 Kernel.VMStep VMStep vm_step ind
+R18885:18894 KamiHW.Abstraction <> abs_phase1 def
+R18896:18897 KamiHW.VerilogRefinement <> hs:191 var
+R18901:18909 Kernel.VMStep VMStep instr_shr constr
+R18911:18913 KamiHW.VerilogRefinement <> dst:192 var
+R18915:18917 KamiHW.VerilogRefinement <> rs1:193 var
+R18919:18921 KamiHW.VerilogRefinement <> rs2:194 var
+R18923:18926 KamiHW.VerilogRefinement <> cost:195 var
+R18929:18931 KamiHW.VerilogRefinement <> vs':196 var
+R18945:18955 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18942:18944 KamiHW.VerilogRefinement <> vs':196 var
+R18956:18971 Kernel.VMStep VMStep advance_state_rm def
+R18974:18983 KamiHW.Abstraction <> abs_phase1 def
+R18985:18986 KamiHW.VerilogRefinement <> hs:191 var
+R18990:18998 Kernel.VMStep VMStep instr_shr constr
+R19000:19002 KamiHW.VerilogRefinement <> dst:192 var
+R19004:19006 KamiHW.VerilogRefinement <> rs1:193 var
+R19008:19010 KamiHW.VerilogRefinement <> rs2:194 var
+R19012:19015 KamiHW.VerilogRefinement <> cost:195 var
+R19045:19052 Kernel.VMState <> vm_graph proj
+R19029:19038 KamiHW.Abstraction <> abs_phase1 def
+R19040:19041 KamiHW.VerilogRefinement <> hs:191 var
+R19082:19088 Kernel.VMState <> vm_csrs proj
+R19066:19075 KamiHW.Abstraction <> abs_phase1 def
+R19077:19078 KamiHW.VerilogRefinement <> hs:191 var
+R19102:19110 Kernel.VMState <> write_reg def
+R19113:19122 KamiHW.Abstraction <> abs_phase1 def
+R19124:19125 KamiHW.VerilogRefinement <> hs:191 var
+R19128:19130 KamiHW.VerilogRefinement <> dst:192 var
+R19145:19154 Kernel.VMState <> word64_shr def
+R19157:19164 Kernel.VMState <> read_reg def
+R19167:19176 KamiHW.Abstraction <> abs_phase1 def
+R19178:19179 KamiHW.VerilogRefinement <> hs:191 var
+R19182:19184 KamiHW.VerilogRefinement <> rs1:193 var
+R19188:19195 Kernel.VMState <> read_reg def
+R19198:19207 KamiHW.Abstraction <> abs_phase1 def
+R19209:19210 KamiHW.VerilogRefinement <> hs:191 var
+R19213:19215 KamiHW.VerilogRefinement <> rs2:194 var
+R19247:19252 Kernel.VMState <> vm_mem proj
+R19231:19240 KamiHW.Abstraction <> abs_phase1 def
+R19242:19243 KamiHW.VerilogRefinement <> hs:191 var
+R19282:19287 Kernel.VMState <> vm_err proj
+R19266:19275 KamiHW.Abstraction <> abs_phase1 def
+R19277:19278 KamiHW.VerilogRefinement <> hs:191 var
+R19335:19342 Kernel.VMStep VMStep step_shr constr
+R19335:19342 Kernel.VMStep VMStep step_shr constr
+prf 19389:19417 <> verilog_simulates_vm_step_mul
+R19436:19447 KamiHW.Abstraction <> KamiSnapshot rec
+binder 19431:19432 <> hs:197
+R19470:19472 Coq.Init.Datatypes <> nat ind
+binder 19451:19453 <> dst:198
+binder 19455:19457 <> rs1:199
+binder 19459:19461 <> rs2:200
+binder 19463:19466 <> cost:201
+R19480:19486 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19490:19497 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 19487:19489 <> vs':202
+R19554:19563 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19498:19504 Kernel.VMStep VMStep vm_step ind
+R19507:19516 KamiHW.Abstraction <> abs_phase1 def
+R19518:19519 KamiHW.VerilogRefinement <> hs:197 var
+R19523:19531 Kernel.VMStep VMStep instr_mul constr
+R19533:19535 KamiHW.VerilogRefinement <> dst:198 var
+R19537:19539 KamiHW.VerilogRefinement <> rs1:199 var
+R19541:19543 KamiHW.VerilogRefinement <> rs2:200 var
+R19545:19548 KamiHW.VerilogRefinement <> cost:201 var
+R19551:19553 KamiHW.VerilogRefinement <> vs':202 var
+R19567:19577 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19564:19566 KamiHW.VerilogRefinement <> vs':202 var
+R19578:19593 Kernel.VMStep VMStep advance_state_rm def
+R19596:19605 KamiHW.Abstraction <> abs_phase1 def
+R19607:19608 KamiHW.VerilogRefinement <> hs:197 var
+R19612:19620 Kernel.VMStep VMStep instr_mul constr
+R19622:19624 KamiHW.VerilogRefinement <> dst:198 var
+R19626:19628 KamiHW.VerilogRefinement <> rs1:199 var
+R19630:19632 KamiHW.VerilogRefinement <> rs2:200 var
+R19634:19637 KamiHW.VerilogRefinement <> cost:201 var
+R19667:19674 Kernel.VMState <> vm_graph proj
+R19651:19660 KamiHW.Abstraction <> abs_phase1 def
+R19662:19663 KamiHW.VerilogRefinement <> hs:197 var
+R19704:19710 Kernel.VMState <> vm_csrs proj
+R19688:19697 KamiHW.Abstraction <> abs_phase1 def
+R19699:19700 KamiHW.VerilogRefinement <> hs:197 var
+R19724:19732 Kernel.VMState <> write_reg def
+R19735:19744 KamiHW.Abstraction <> abs_phase1 def
+R19746:19747 KamiHW.VerilogRefinement <> hs:197 var
+R19750:19752 KamiHW.VerilogRefinement <> dst:198 var
+R19767:19776 Kernel.VMState <> word64_mul def
+R19779:19786 Kernel.VMState <> read_reg def
+R19789:19798 KamiHW.Abstraction <> abs_phase1 def
+R19800:19801 KamiHW.VerilogRefinement <> hs:197 var
+R19804:19806 KamiHW.VerilogRefinement <> rs1:199 var
+R19810:19817 Kernel.VMState <> read_reg def
+R19820:19829 KamiHW.Abstraction <> abs_phase1 def
+R19831:19832 KamiHW.VerilogRefinement <> hs:197 var
+R19835:19837 KamiHW.VerilogRefinement <> rs2:200 var
+R19869:19874 Kernel.VMState <> vm_mem proj
+R19853:19862 KamiHW.Abstraction <> abs_phase1 def
+R19864:19865 KamiHW.VerilogRefinement <> hs:197 var
+R19904:19909 Kernel.VMState <> vm_err proj
+R19888:19897 KamiHW.Abstraction <> abs_phase1 def
+R19899:19900 KamiHW.VerilogRefinement <> hs:197 var
+R19957:19964 Kernel.VMStep VMStep step_mul constr
+R19957:19964 Kernel.VMStep VMStep step_mul constr
+prf 20011:20039 <> verilog_simulates_vm_step_lui
+R20058:20069 KamiHW.Abstraction <> KamiSnapshot rec
+binder 20053:20054 <> hs:203
+R20088:20090 Coq.Init.Datatypes <> nat ind
+binder 20073:20075 <> dst:204
+binder 20077:20079 <> imm:205
+binder 20081:20084 <> cost:206
+R20098:20104 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20108:20115 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20105:20107 <> vs':207
+R20168:20177 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20116:20122 Kernel.VMStep VMStep vm_step ind
+R20125:20134 KamiHW.Abstraction <> abs_phase1 def
+R20136:20137 KamiHW.VerilogRefinement <> hs:203 var
+R20141:20149 Kernel.VMStep VMStep instr_lui constr
+R20151:20153 KamiHW.VerilogRefinement <> dst:204 var
+R20155:20157 KamiHW.VerilogRefinement <> imm:205 var
+R20159:20162 KamiHW.VerilogRefinement <> cost:206 var
+R20165:20167 KamiHW.VerilogRefinement <> vs':207 var
+R20181:20191 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20178:20180 KamiHW.VerilogRefinement <> vs':207 var
+R20192:20207 Kernel.VMStep VMStep advance_state_rm def
+R20210:20219 KamiHW.Abstraction <> abs_phase1 def
+R20221:20222 KamiHW.VerilogRefinement <> hs:203 var
+R20226:20234 Kernel.VMStep VMStep instr_lui constr
+R20236:20238 KamiHW.VerilogRefinement <> dst:204 var
+R20240:20242 KamiHW.VerilogRefinement <> imm:205 var
+R20244:20247 KamiHW.VerilogRefinement <> cost:206 var
+R20277:20284 Kernel.VMState <> vm_graph proj
+R20261:20270 KamiHW.Abstraction <> abs_phase1 def
+R20272:20273 KamiHW.VerilogRefinement <> hs:203 var
+R20314:20320 Kernel.VMState <> vm_csrs proj
+R20298:20307 KamiHW.Abstraction <> abs_phase1 def
+R20309:20310 KamiHW.VerilogRefinement <> hs:203 var
+R20334:20342 Kernel.VMState <> write_reg def
+R20345:20354 KamiHW.Abstraction <> abs_phase1 def
+R20356:20357 KamiHW.VerilogRefinement <> hs:203 var
+R20360:20362 KamiHW.VerilogRefinement <> dst:204 var
+R20365:20374 Kernel.VMState <> word64_shl def
+R20376:20378 KamiHW.VerilogRefinement <> imm:205 var
+R20411:20416 Kernel.VMState <> vm_mem proj
+R20395:20404 KamiHW.Abstraction <> abs_phase1 def
+R20406:20407 KamiHW.VerilogRefinement <> hs:203 var
+R20446:20451 Kernel.VMState <> vm_err proj
+R20430:20439 KamiHW.Abstraction <> abs_phase1 def
+R20441:20442 KamiHW.VerilogRefinement <> hs:203 var
+R20499:20506 Kernel.VMStep VMStep step_lui constr
+R20499:20506 Kernel.VMStep VMStep step_lui constr
+prf 20776:20808 <> verilog_simulates_vm_step_certify
+R20827:20838 KamiHW.Abstraction <> KamiSnapshot rec
+binder 20822:20823 <> hs:208
+R20853:20855 Coq.Init.Datatypes <> nat ind
+binder 20842:20849 <> mu_delta:209
+R20863:20869 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20873:20880 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20870:20872 <> vs':210
+R20933:20942 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20881:20887 Kernel.VMStep VMStep vm_step ind
+R20890:20899 KamiHW.Abstraction <> abs_phase1 def
+R20901:20902 KamiHW.VerilogRefinement <> hs:208 var
+R20906:20918 Kernel.VMStep VMStep instr_certify constr
+R20920:20927 KamiHW.VerilogRefinement <> mu_delta:209 var
+R20930:20932 KamiHW.VerilogRefinement <> vs':210 var
+R20946:20959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21556:21558 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20943:20945 KamiHW.VerilogRefinement <> vs':210 var
+R20960:20967 Kernel.VMState <> vm_graph proj
+R20960:20967 Kernel.VMState <> vm_graph proj
+R20960:20967 Kernel.VMState <> vm_graph proj
+R21011:21017 Kernel.VMState <> vm_csrs proj
+R21011:21017 Kernel.VMState <> vm_csrs proj
+R21060:21066 Kernel.VMState <> vm_regs proj
+R21060:21066 Kernel.VMState <> vm_regs proj
+R21109:21114 Kernel.VMState <> vm_mem proj
+R21109:21114 Kernel.VMState <> vm_mem proj
+R21156:21160 Kernel.VMState <> vm_pc proj
+R21156:21160 Kernel.VMState <> vm_pc proj
+R21203:21207 Kernel.VMState <> vm_mu proj
+R21203:21207 Kernel.VMState <> vm_mu proj
+R21261:21272 Kernel.VMState <> vm_mu_tensor proj
+R21261:21272 Kernel.VMState <> vm_mu_tensor proj
+R21320:21325 Kernel.VMState <> vm_err proj
+R21320:21325 Kernel.VMState <> vm_err proj
+R21367:21378 Kernel.VMState <> vm_logic_acc proj
+R21367:21378 Kernel.VMState <> vm_logic_acc proj
+R21426:21435 Kernel.VMState <> vm_mstatus proj
+R21426:21435 Kernel.VMState <> vm_mstatus proj
+R21481:21490 Kernel.VMState <> vm_witness proj
+R21481:21490 Kernel.VMState <> vm_witness proj
+R21536:21547 Kernel.VMState <> vm_certified proj
+R21536:21547 Kernel.VMState <> vm_certified proj
+R20989:20996 Kernel.VMState <> vm_graph proj
+R20973:20982 KamiHW.Abstraction <> abs_phase1 def
+R20984:20985 KamiHW.VerilogRefinement <> hs:208 var
+R21039:21045 Kernel.VMState <> vm_csrs proj
+R21023:21032 KamiHW.Abstraction <> abs_phase1 def
+R21034:21035 KamiHW.VerilogRefinement <> hs:208 var
+R21088:21094 Kernel.VMState <> vm_regs proj
+R21072:21081 KamiHW.Abstraction <> abs_phase1 def
+R21083:21084 KamiHW.VerilogRefinement <> hs:208 var
+R21136:21141 Kernel.VMState <> vm_mem proj
+R21120:21129 KamiHW.Abstraction <> abs_phase1 def
+R21131:21132 KamiHW.VerilogRefinement <> hs:208 var
+R21165:21165 Coq.Init.Datatypes <> S constr
+R21184:21188 Kernel.VMState <> vm_pc proj
+R21168:21177 KamiHW.Abstraction <> abs_phase1 def
+R21179:21180 KamiHW.VerilogRefinement <> hs:208 var
+R21235:21237 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21229:21233 Kernel.VMState <> vm_mu proj
+R21213:21222 KamiHW.Abstraction <> abs_phase1 def
+R21224:21225 KamiHW.VerilogRefinement <> hs:208 var
+R21238:21238 Coq.Init.Datatypes <> S constr
+R21240:21247 KamiHW.VerilogRefinement <> mu_delta:209 var
+R21294:21305 Kernel.VMState <> vm_mu_tensor proj
+R21278:21287 KamiHW.Abstraction <> abs_phase1 def
+R21289:21290 KamiHW.VerilogRefinement <> hs:208 var
+R21347:21352 Kernel.VMState <> vm_err proj
+R21331:21340 KamiHW.Abstraction <> abs_phase1 def
+R21342:21343 KamiHW.VerilogRefinement <> hs:208 var
+R21400:21411 Kernel.VMState <> vm_logic_acc proj
+R21384:21393 KamiHW.Abstraction <> abs_phase1 def
+R21395:21396 KamiHW.VerilogRefinement <> hs:208 var
+R21457:21466 Kernel.VMState <> vm_mstatus proj
+R21441:21450 KamiHW.Abstraction <> abs_phase1 def
+R21452:21453 KamiHW.VerilogRefinement <> hs:208 var
+R21512:21521 Kernel.VMState <> vm_witness proj
+R21496:21505 KamiHW.Abstraction <> abs_phase1 def
+R21507:21508 KamiHW.VerilogRefinement <> hs:208 var
+R21552:21555 Coq.Init.Datatypes <> true constr
+R21605:21616 Kernel.VMStep VMStep step_certify constr
+R21605:21616 Kernel.VMStep VMStep step_certify constr
+prf 22040:22063 <> kami_step_mu_commutation
+R22082:22093 KamiHW.Abstraction <> KamiSnapshot rec
+binder 22077:22078 <> hs:211
+R22101:22114 Kernel.VMStep VMStep vm_instruction ind
+binder 22097:22097 <> i:212
+R22159:22165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22153:22157 Kernel.VMState <> vm_mu proj
+R22123:22132 KamiHW.Abstraction <> abs_phase1 def
+R22135:22143 KamiHW.Abstraction <> kami_step def
+R22145:22146 KamiHW.VerilogRefinement <> hs:211 var
+R22148:22148 KamiHW.VerilogRefinement <> i:212 var
+R22189:22191 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22183:22187 Kernel.VMState <> vm_mu proj
+R22167:22176 KamiHW.Abstraction <> abs_phase1 def
+R22178:22179 KamiHW.VerilogRefinement <> hs:211 var
+R22192:22212 KamiHW.Abstraction <> kami_instruction_cost def
+R22214:22214 KamiHW.VerilogRefinement <> i:212 var
+R22248:22257 KamiHW.Abstraction <> abs_phase1 def
+R22275:22291 KamiHW.Abstraction <> kami_step_mu_cost thm
+R22275:22291 KamiHW.Abstraction <> kami_step_mu_cost thm
+prf 22533:22550 <> kami_vm_mu_diamond
+R22569:22580 KamiHW.Abstraction <> KamiSnapshot rec
+binder 22564:22565 <> hs:213
+R22588:22601 Kernel.VMStep VMStep vm_instruction ind
+binder 22584:22584 <> i:214
+R22611:22617 Kernel.VMState <> VMState rec
+binder 22605:22607 <> vs':215
+R22654:22661 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22625:22631 Kernel.VMStep VMStep vm_step ind
+R22634:22643 KamiHW.Abstraction <> abs_phase1 def
+R22645:22646 KamiHW.VerilogRefinement <> hs:213 var
+R22649:22649 KamiHW.VerilogRefinement <> i:214 var
+R22651:22653 KamiHW.VerilogRefinement <> vs':215 var
+R22673:22675 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22667:22671 Kernel.VMState <> vm_mu proj
+R22662:22664 KamiHW.VerilogRefinement <> vs':215 var
+R22707:22711 Kernel.VMState <> vm_mu proj
+R22677:22686 KamiHW.Abstraction <> abs_phase1 def
+R22689:22697 KamiHW.Abstraction <> kami_step def
+R22699:22700 KamiHW.VerilogRefinement <> hs:213 var
+R22702:22702 KamiHW.VerilogRefinement <> i:214 var
+R22757:22780 KamiHW.VerilogRefinement <> kami_step_mu_commutation thm
+R22757:22780 KamiHW.VerilogRefinement <> kami_step_mu_commutation thm
+R22757:22780 KamiHW.VerilogRefinement <> kami_step_mu_commutation thm
+R23118:23127 Kernel.VMStep VMStep apply_cost def
+R23130:23150 KamiHW.Abstraction <> kami_instruction_cost def
+prf 23582:23604 <> kami_vm_mu_conservative
+R23623:23634 KamiHW.Abstraction <> KamiSnapshot rec
+binder 23618:23619 <> hs:216
+R23642:23655 Kernel.VMStep VMStep vm_instruction ind
+binder 23638:23638 <> i:217
+R23665:23671 Kernel.VMState <> VMState rec
+binder 23659:23661 <> vs':218
+R23721:23728 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23697:23700 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R23679:23694 Kernel.VMStep VMStep instruction_cost def
+R23696:23696 KamiHW.VerilogRefinement <> i:217 var
+R23701:23720 KamiHW.ThieleTypes <> ORACLE_HALTS_HW_COST def
+R23758:23765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23729:23735 Kernel.VMStep VMStep vm_step ind
+R23738:23747 KamiHW.Abstraction <> abs_phase1 def
+R23749:23750 KamiHW.VerilogRefinement <> hs:216 var
+R23753:23753 KamiHW.VerilogRefinement <> i:217 var
+R23755:23757 KamiHW.VerilogRefinement <> vs':218 var
+R23803:23806 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23797:23801 Kernel.VMState <> vm_mu proj
+R23767:23776 KamiHW.Abstraction <> abs_phase1 def
+R23779:23787 KamiHW.Abstraction <> kami_step def
+R23789:23790 KamiHW.VerilogRefinement <> hs:216 var
+R23792:23792 KamiHW.VerilogRefinement <> i:217 var
+R23812:23816 Kernel.VMState <> vm_mu proj
+R23807:23809 KamiHW.VerilogRefinement <> vs':218 var
+R23898:23901 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23875:23895 KamiHW.Abstraction <> kami_instruction_cost def
+R23902:23917 Kernel.VMStep VMStep instruction_cost def
+R23898:23901 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R23875:23895 KamiHW.Abstraction <> kami_instruction_cost def
+R23902:23917 Kernel.VMStep VMStep instruction_cost def
+R23933:23961 KamiHW.Abstraction <> kami_cost_ge_instruction_cost thm
+R23933:23961 KamiHW.Abstraction <> kami_cost_ge_instruction_cost thm
+R24015:24024 KamiHW.Abstraction <> abs_phase1 def
+R24027:24035 KamiHW.Abstraction <> kami_step def
+R24038:24057 KamiHW.Abstraction <> kami_advance_default def
+R24069:24081 Kernel.VMStep VMStep advance_state def
+R24084:24099 Kernel.VMStep VMStep advance_state_rm def
+R24102:24121 Kernel.VMStep VMStep advance_state_reveal def
+R24133:24142 Kernel.VMStep VMStep jump_state def
+R24145:24157 Kernel.VMStep VMStep jump_state_rm def
+R24169:24178 Kernel.VMStep VMStep apply_cost def
+R24181:24201 KamiHW.Abstraction <> kami_instruction_cost def
+R24204:24219 Kernel.VMStep VMStep instruction_cost def
+R24231:24250 KamiHW.ThieleTypes <> ORACLE_HALTS_HW_COST def
+prf 24566:24587 <> kami_vm_mu_lassert_gap
+R24606:24617 KamiHW.Abstraction <> KamiSnapshot rec
+binder 24601:24602 <> hs:219
 R24633:24635 Coq.Init.Datatypes <> nat ind
-binder 24621:24624 <> flen:223
-binder 24626:24629 <> cost:224
-R24645:24651 Kernel.VMState <> VMState rec
-binder 24639:24641 <> vs':225
-R24727:24734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24659:24665 Kernel.VMStep VMStep vm_step ind
-R24668:24677 KamiHW.Abstraction <> abs_phase1 def
-R24679:24680 KamiHW.VerilogRefinement <> hs:219 var
-R24684:24696 Kernel.VMStep VMStep instr_lassert constr
-R24698:24701 KamiHW.VerilogRefinement <> freg:220 var
-R24703:24706 KamiHW.VerilogRefinement <> creg:221 var
-R24708:24711 KamiHW.VerilogRefinement <> kind:222 var
-R24713:24716 KamiHW.VerilogRefinement <> flen:223 var
-R24718:24721 KamiHW.VerilogRefinement <> cost:224 var
-R24724:24726 KamiHW.VerilogRefinement <> vs':225 var
-R24746:24748 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24740:24744 Kernel.VMState <> vm_mu proj
-R24735:24737 KamiHW.VerilogRefinement <> vs':225 var
-R24819:24823 Kernel.VMState <> vm_mu proj
-R24750:24759 KamiHW.Abstraction <> abs_phase1 def
-R24762:24770 KamiHW.Abstraction <> kami_step def
-R24772:24773 KamiHW.VerilogRefinement <> hs:219 var
-R24776:24788 Kernel.VMStep VMStep instr_lassert constr
-R24790:24793 KamiHW.VerilogRefinement <> freg:220 var
-R24795:24798 KamiHW.VerilogRefinement <> creg:221 var
-R24800:24803 KamiHW.VerilogRefinement <> kind:222 var
-R24805:24808 KamiHW.VerilogRefinement <> flen:223 var
-R24810:24813 KamiHW.VerilogRefinement <> cost:224 var
-R24917:24926 KamiHW.Abstraction <> abs_phase1 def
-R24929:24937 KamiHW.Abstraction <> kami_step def
-R24940:24959 KamiHW.Abstraction <> kami_advance_default def
-R24971:24983 Kernel.VMStep VMStep advance_state def
-R24986:24995 Kernel.VMStep VMStep apply_cost def
-R24998:25013 Kernel.VMStep VMStep instruction_cost def
-prf 25096:25131 <> verilog_simulates_vm_step_tensor_set
-R25150:25161 KamiHW.Abstraction <> KamiSnapshot rec
-binder 25145:25146 <> hs:226
-R25186:25188 Coq.Init.Datatypes <> nat ind
-binder 25165:25167 <> mid:227
-binder 25169:25169 <> i:228
-binder 25171:25171 <> j:229
-binder 25173:25177 <> value:230
-binder 25179:25182 <> cost:231
-R25196:25202 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R25206:25213 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 25203:25205 <> vs':232
-R25214:25220 Kernel.VMStep VMStep vm_step ind
-R25223:25232 KamiHW.Abstraction <> abs_phase1 def
-R25234:25235 KamiHW.VerilogRefinement <> hs:226 var
-R25239:25254 Kernel.VMStep VMStep instr_tensor_set constr
-R25256:25258 KamiHW.VerilogRefinement <> mid:227 var
-R25260:25260 KamiHW.VerilogRefinement <> i:228 var
-R25262:25262 KamiHW.VerilogRefinement <> j:229 var
-R25264:25268 KamiHW.VerilogRefinement <> value:230 var
-R25270:25273 KamiHW.VerilogRefinement <> cost:231 var
-R25276:25278 KamiHW.VerilogRefinement <> vs':232 var
-R25332:25348 Kernel.VMStep VMStep tensor_indices_ok def
-R25332:25348 Kernel.VMStep VMStep tensor_indices_ok def
-R25384:25401 Kernel.VMStep VMStep step_tensor_set_ok constr
-R25384:25401 Kernel.VMStep VMStep step_tensor_set_ok constr
-R25435:25453 Kernel.VMStep VMStep step_tensor_set_bad constr
-R25435:25453 Kernel.VMStep VMStep step_tensor_set_bad constr
-prf 25548:25583 <> verilog_simulates_vm_step_tensor_get
-R25602:25613 KamiHW.Abstraction <> KamiSnapshot rec
-binder 25597:25598 <> hs:233
-R25636:25638 Coq.Init.Datatypes <> nat ind
-binder 25617:25619 <> dst:234
-binder 25621:25623 <> mid:235
-binder 25625:25625 <> i:236
-binder 25627:25627 <> j:237
-binder 25629:25632 <> cost:238
-R25646:25652 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R25656:25663 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 25653:25655 <> vs':239
-R25664:25670 Kernel.VMStep VMStep vm_step ind
-R25673:25682 KamiHW.Abstraction <> abs_phase1 def
-R25684:25685 KamiHW.VerilogRefinement <> hs:233 var
-R25689:25704 Kernel.VMStep VMStep instr_tensor_get constr
-R25706:25708 KamiHW.VerilogRefinement <> dst:234 var
-R25710:25712 KamiHW.VerilogRefinement <> mid:235 var
-R25714:25714 KamiHW.VerilogRefinement <> i:236 var
-R25716:25716 KamiHW.VerilogRefinement <> j:237 var
-R25718:25721 KamiHW.VerilogRefinement <> cost:238 var
-R25724:25726 KamiHW.VerilogRefinement <> vs':239 var
-R25778:25794 Kernel.VMStep VMStep tensor_indices_ok def
-R25778:25794 Kernel.VMStep VMStep tensor_indices_ok def
-R25830:25847 Kernel.VMStep VMStep step_tensor_get_ok constr
-R25830:25847 Kernel.VMStep VMStep step_tensor_get_ok constr
-R25906:25924 Kernel.VMStep VMStep step_tensor_get_bad constr
-R25906:25924 Kernel.VMStep VMStep step_tensor_get_bad constr
-def 26120:26140 <> verilog_increments_pc
-R26147:26160 Kernel.VMStep VMStep vm_instruction ind
-binder 26143:26143 <> i:240
-R26165:26168 Coq.Init.Datatypes <> bool ind
-R26181:26181 KamiHW.VerilogRefinement <> i:240 var
-R26192:26201 Kernel.VMStep VMStep instr_jump constr
-R26210:26214 Coq.Init.Datatypes <> false constr
-R26220:26229 Kernel.VMStep VMStep instr_jnez constr
-R26240:26244 Coq.Init.Datatypes <> false constr
-R26250:26259 Kernel.VMStep VMStep instr_call constr
-R26268:26272 Coq.Init.Datatypes <> false constr
-R26278:26286 Kernel.VMStep VMStep instr_ret constr
-R26293:26297 Coq.Init.Datatypes <> false constr
-R26303:26315 Kernel.VMStep VMStep instr_lassert constr
-R26330:26334 Coq.Init.Datatypes <> false constr
-R26345:26348 Coq.Init.Datatypes <> true constr
-prf 26463:26497 <> kami_step_pc_commutation_sequential
-R26516:26527 KamiHW.Abstraction <> KamiSnapshot rec
-binder 26511:26512 <> hs:242
-R26535:26548 Kernel.VMStep VMStep vm_instruction ind
-binder 26531:26531 <> i:243
-R26586:26593 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26579:26581 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R26556:26576 KamiHW.VerilogRefinement <> verilog_increments_pc def
-R26578:26578 KamiHW.VerilogRefinement <> i:243 var
-R26582:26585 Coq.Init.Datatypes <> true constr
-R26631:26633 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R26625:26629 Kernel.VMState <> vm_pc proj
-R26595:26604 KamiHW.Abstraction <> abs_phase1 def
-R26607:26615 KamiHW.Abstraction <> kami_step def
-R26617:26618 KamiHW.VerilogRefinement <> hs:242 var
-R26620:26620 KamiHW.VerilogRefinement <> i:243 var
-R26634:26634 Coq.Init.Datatypes <> S constr
-R26653:26657 Kernel.VMState <> vm_pc proj
-R26637:26646 KamiHW.Abstraction <> abs_phase1 def
-R26648:26649 KamiHW.VerilogRefinement <> hs:242 var
-R26744:26753 KamiHW.Abstraction <> abs_phase1 def
-R26756:26764 KamiHW.Abstraction <> kami_step def
-R26767:26786 KamiHW.Abstraction <> kami_advance_default def
-R26789:26804 KamiHW.Abstraction <> kami_advance_err def
-R26816:26831 KamiHW.Abstraction <> kami_advance_reg def
-R26834:26856 KamiHW.Abstraction <> kami_advance_rich_morph def
-R26859:26881 KamiHW.Abstraction <> kami_advance_rich_noret def
-R26893:26913 KamiHW.Abstraction <> kami_advance_err_rich def
-R26916:26937 KamiHW.Abstraction <> kami_advance_cert_addr def
-prf 28237:28260 <> abs_phase1_morphism_none
-R28279:28290 KamiHW.Abstraction <> KamiSnapshot rec
-binder 28274:28275 <> hs:244
-R28300:28302 Coq.Init.Datatypes <> nat ind
-binder 28294:28296 <> mid:245
-R28362:28364 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28310:28330 Kernel.VMState <> graph_lookup_morphism def
-R28349:28356 Kernel.VMState <> vm_graph proj
-R28333:28342 KamiHW.Abstraction <> abs_phase1 def
-R28344:28345 KamiHW.VerilogRefinement <> hs:244 var
-R28359:28361 KamiHW.VerilogRefinement <> mid:245 var
-R28365:28368 Coq.Init.Datatypes <> None constr
-R28404:28413 KamiHW.Abstraction <> abs_phase1 def
-R28416:28431 KamiHW.Abstraction <> snap_pt_to_graph def
-R28443:28463 Kernel.VMState <> graph_lookup_morphism def
-R28482:28507 Kernel.VMState <> graph_lookup_morphism_list def
-prf 28655:28677 <> abs_phase1_compose_none
-R28696:28707 KamiHW.Abstraction <> KamiSnapshot rec
-binder 28691:28692 <> hs:246
-R28719:28721 Coq.Init.Datatypes <> nat ind
-binder 28711:28712 <> m1:247
-binder 28714:28715 <> m2:248
-R28785:28787 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28729:28751 Kernel.VMState <> graph_compose_morphisms def
-R28770:28777 Kernel.VMState <> vm_graph proj
-R28754:28763 KamiHW.Abstraction <> abs_phase1 def
-R28765:28766 KamiHW.VerilogRefinement <> hs:246 var
-R28780:28781 KamiHW.VerilogRefinement <> m1:247 var
-R28783:28784 KamiHW.VerilogRefinement <> m2:248 var
-R28788:28791 Coq.Init.Datatypes <> None constr
-R28829:28851 Kernel.VMState <> graph_compose_morphisms def
-R28864:28887 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-R28864:28887 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-R28864:28887 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-prf 29036:29066 <> abs_phase1_delete_morphism_none
-R29085:29096 KamiHW.Abstraction <> KamiSnapshot rec
-binder 29080:29081 <> hs:249
-R29106:29108 Coq.Init.Datatypes <> nat ind
-binder 29100:29102 <> mid:250
-R29168:29170 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29116:29136 Kernel.VMState <> graph_delete_morphism def
-R29155:29162 Kernel.VMState <> vm_graph proj
-R29139:29148 KamiHW.Abstraction <> abs_phase1 def
-R29150:29151 KamiHW.VerilogRefinement <> hs:249 var
-R29165:29167 KamiHW.VerilogRefinement <> mid:250 var
-R29171:29174 Coq.Init.Datatypes <> None constr
-R29210:29230 Kernel.VMState <> graph_delete_morphism def
-R29233:29242 KamiHW.Abstraction <> abs_phase1 def
-R29245:29260 KamiHW.Abstraction <> snap_pt_to_graph def
-prf 29416:29447 <> abs_phase1_tensor_morphisms_none
-R29466:29477 KamiHW.Abstraction <> KamiSnapshot rec
-binder 29461:29462 <> hs:251
-R29487:29489 Coq.Init.Datatypes <> nat ind
-binder 29481:29481 <> f:252
-binder 29483:29483 <> g:253
-R29550:29552 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29497:29518 Kernel.VMState <> graph_tensor_morphisms def
-R29537:29544 Kernel.VMState <> vm_graph proj
-R29521:29530 KamiHW.Abstraction <> abs_phase1 def
-R29532:29533 KamiHW.VerilogRefinement <> hs:251 var
-R29547:29547 KamiHW.VerilogRefinement <> f:252 var
-R29549:29549 KamiHW.VerilogRefinement <> g:253 var
-R29553:29556 Coq.Init.Datatypes <> None constr
-R29592:29613 Kernel.VMState <> graph_tensor_morphisms def
-R29626:29649 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-R29626:29649 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-R29626:29649 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-prf 29761:29793 <> verilog_simulates_vm_step_compose
-R29812:29823 KamiHW.Abstraction <> KamiSnapshot rec
-binder 29807:29808 <> hs:254
-R29844:29846 Coq.Init.Datatypes <> nat ind
-binder 29827:29829 <> dst:255
-binder 29831:29832 <> m1:256
-binder 29834:29835 <> m2:257
-binder 29837:29840 <> cost:258
-R29854:29860 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R29864:29871 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 29861:29863 <> vs':259
-R29872:29878 Kernel.VMStep VMStep vm_step ind
-R29881:29890 KamiHW.Abstraction <> abs_phase1 def
-R29892:29893 KamiHW.VerilogRefinement <> hs:254 var
-R29897:29909 Kernel.VMStep VMStep instr_compose constr
-R29911:29913 KamiHW.VerilogRefinement <> dst:255 var
-R29915:29916 KamiHW.VerilogRefinement <> m1:256 var
-R29918:29919 KamiHW.VerilogRefinement <> m2:257 var
-R29921:29924 KamiHW.VerilogRefinement <> cost:258 var
-R29927:29929 KamiHW.VerilogRefinement <> vs':259 var
-R29985:30000 Kernel.VMStep VMStep step_compose_bad constr
-R29985:30000 Kernel.VMStep VMStep step_compose_bad constr
-R30011:30033 KamiHW.VerilogRefinement <> abs_phase1_compose_none thm
-R30011:30033 KamiHW.VerilogRefinement <> abs_phase1_compose_none thm
-prf 30134:30171 <> verilog_simulates_vm_step_morph_delete
-R30190:30201 KamiHW.Abstraction <> KamiSnapshot rec
-binder 30185:30186 <> hs:260
-R30221:30223 Coq.Init.Datatypes <> nat ind
-binder 30205:30212 <> morph_id:261
-binder 30214:30217 <> cost:262
-R30231:30237 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R30241:30248 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 30238:30240 <> vs':263
-R30249:30255 Kernel.VMStep VMStep vm_step ind
-R30258:30267 KamiHW.Abstraction <> abs_phase1 def
-R30269:30270 KamiHW.VerilogRefinement <> hs:260 var
-R30274:30291 Kernel.VMStep VMStep instr_morph_delete constr
-R30293:30300 KamiHW.VerilogRefinement <> morph_id:261 var
-R30302:30305 KamiHW.VerilogRefinement <> cost:262 var
-R30308:30310 KamiHW.VerilogRefinement <> vs':263 var
-R30365:30385 Kernel.VMStep VMStep step_morph_delete_bad constr
-R30365:30385 Kernel.VMStep VMStep step_morph_delete_bad constr
-R30396:30426 KamiHW.VerilogRefinement <> abs_phase1_delete_morphism_none thm
-R30396:30426 KamiHW.VerilogRefinement <> abs_phase1_delete_morphism_none thm
-prf 30528:30565 <> verilog_simulates_vm_step_morph_assert
-R30584:30595 KamiHW.Abstraction <> KamiSnapshot rec
-binder 30579:30580 <> hs:264
-R30615:30617 Coq.Init.Datatypes <> nat ind
-binder 30599:30606 <> morph_id:265
-binder 30608:30611 <> cost:266
-R30637:30642 Coq.Strings.String <> string ind
-binder 30621:30628 <> property:267
-binder 30630:30633 <> cert:268
-R30650:30656 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R30660:30667 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 30657:30659 <> vs':269
-R30668:30674 Kernel.VMStep VMStep vm_step ind
-R30677:30686 KamiHW.Abstraction <> abs_phase1 def
-R30688:30689 KamiHW.VerilogRefinement <> hs:264 var
-R30693:30710 Kernel.VMStep VMStep instr_morph_assert constr
-R30712:30719 KamiHW.VerilogRefinement <> morph_id:265 var
-R30721:30728 KamiHW.VerilogRefinement <> property:267 var
-R30730:30733 KamiHW.VerilogRefinement <> cert:268 var
-R30735:30738 KamiHW.VerilogRefinement <> cost:266 var
-R30741:30743 KamiHW.VerilogRefinement <> vs':269 var
-R30812:30832 Kernel.VMStep VMStep step_morph_assert_bad constr
-R30812:30832 Kernel.VMStep VMStep step_morph_assert_bad constr
-R30843:30866 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-R30843:30866 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-prf 30968:31005 <> verilog_simulates_vm_step_morph_tensor
-R31024:31035 KamiHW.Abstraction <> KamiSnapshot rec
-binder 31019:31020 <> hs:270
-R31054:31056 Coq.Init.Datatypes <> nat ind
-binder 31039:31041 <> dst:271
-binder 31043:31043 <> f:272
-binder 31045:31045 <> g:273
-binder 31047:31050 <> cost:274
-R31064:31070 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R31074:31081 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 31071:31073 <> vs':275
-R31082:31088 Kernel.VMStep VMStep vm_step ind
-R31091:31100 KamiHW.Abstraction <> abs_phase1 def
-R31102:31103 KamiHW.VerilogRefinement <> hs:270 var
-R31107:31124 Kernel.VMStep VMStep instr_morph_tensor constr
-R31126:31128 KamiHW.VerilogRefinement <> dst:271 var
-R31130:31130 KamiHW.VerilogRefinement <> f:272 var
-R31132:31132 KamiHW.VerilogRefinement <> g:273 var
-R31134:31137 KamiHW.VerilogRefinement <> cost:274 var
-R31140:31142 KamiHW.VerilogRefinement <> vs':275 var
-R31196:31216 Kernel.VMStep VMStep step_morph_tensor_bad constr
-R31196:31216 Kernel.VMStep VMStep step_morph_tensor_bad constr
-R31227:31258 KamiHW.VerilogRefinement <> abs_phase1_tensor_morphisms_none thm
-R31227:31258 KamiHW.VerilogRefinement <> abs_phase1_tensor_morphisms_none thm
-prf 31352:31386 <> verilog_simulates_vm_step_morph_get
-R31405:31416 KamiHW.Abstraction <> KamiSnapshot rec
-binder 31400:31401 <> hs:276
-R31449:31451 Coq.Init.Datatypes <> nat ind
-binder 31420:31422 <> dst:277
-binder 31424:31431 <> morph_id:278
-binder 31433:31440 <> selector:279
-binder 31442:31445 <> cost:280
-R31459:31465 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R31469:31476 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 31466:31468 <> vs':281
-R31477:31483 Kernel.VMStep VMStep vm_step ind
-R31486:31495 KamiHW.Abstraction <> abs_phase1 def
-R31497:31498 KamiHW.VerilogRefinement <> hs:276 var
-R31502:31516 Kernel.VMStep VMStep instr_morph_get constr
-R31518:31520 KamiHW.VerilogRefinement <> dst:277 var
-R31522:31529 KamiHW.VerilogRefinement <> morph_id:278 var
-R31531:31538 KamiHW.VerilogRefinement <> selector:279 var
-R31540:31543 KamiHW.VerilogRefinement <> cost:280 var
-R31546:31548 KamiHW.VerilogRefinement <> vs':281 var
-R31616:31633 Kernel.VMStep VMStep step_morph_get_bad constr
-R31616:31633 Kernel.VMStep VMStep step_morph_get_bad constr
-R31644:31667 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-R31644:31667 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
-prf 31760:31790 <> verilog_simulates_vm_step_morph
-R31809:31820 KamiHW.Abstraction <> KamiSnapshot rec
-binder 31804:31805 <> hs:282
-R31864:31866 Coq.Init.Datatypes <> nat ind
-binder 31824:31826 <> dst:283
-binder 31828:31834 <> src_mod:284
-binder 31836:31842 <> dst_mod:285
-binder 31844:31855 <> coupling_idx:286
-binder 31857:31860 <> cost:287
-R31874:31880 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R31884:31891 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 31881:31883 <> vs':288
-R31892:31898 Kernel.VMStep VMStep vm_step ind
-R31901:31910 KamiHW.Abstraction <> abs_phase1 def
-R31912:31913 KamiHW.VerilogRefinement <> hs:282 var
-R31917:31927 Kernel.VMStep VMStep instr_morph constr
-R31929:31931 KamiHW.VerilogRefinement <> dst:283 var
-R31933:31939 KamiHW.VerilogRefinement <> src_mod:284 var
-R31941:31947 KamiHW.VerilogRefinement <> dst_mod:285 var
-R31949:31960 KamiHW.VerilogRefinement <> coupling_idx:286 var
-R31962:31965 KamiHW.VerilogRefinement <> cost:287 var
-R31968:31970 KamiHW.VerilogRefinement <> vs':288 var
-R32043:32054 Kernel.VMState <> graph_lookup def
-R32073:32080 Kernel.VMState <> vm_graph proj
-R32057:32066 KamiHW.Abstraction <> abs_phase1 def
-R32043:32054 Kernel.VMState <> graph_lookup def
-R32073:32080 Kernel.VMState <> vm_graph proj
-R32057:32066 KamiHW.Abstraction <> abs_phase1 def
-R32129:32140 Kernel.VMState <> graph_lookup def
-R32159:32166 Kernel.VMState <> vm_graph proj
-R32143:32152 KamiHW.Abstraction <> abs_phase1 def
-R32129:32140 Kernel.VMState <> graph_lookup def
-R32159:32166 Kernel.VMState <> vm_graph proj
-R32143:32152 KamiHW.Abstraction <> abs_phase1 def
-R32217:32234 Kernel.VMState <> graph_add_morphism def
-R32253:32260 Kernel.VMState <> vm_graph proj
-R32237:32246 KamiHW.Abstraction <> abs_phase1 def
-R32279:32297 Kernel.VMState <> empty_coupling_data def
-R32299:32303 Coq.Init.Datatypes <> false constr
-R32217:32234 Kernel.VMState <> graph_add_morphism def
-R32253:32260 Kernel.VMState <> vm_graph proj
-R32237:32246 KamiHW.Abstraction <> abs_phase1 def
-R32279:32297 Kernel.VMState <> empty_coupling_data def
-R32299:32303 Coq.Init.Datatypes <> false constr
-R32367:32379 Kernel.VMStep VMStep step_morph_ok constr
-R32367:32379 Kernel.VMStep VMStep step_morph_ok constr
-R32474:32491 Kernel.VMStep VMStep step_morph_bad_dst constr
-R32474:32491 Kernel.VMStep VMStep step_morph_bad_dst constr
-R32554:32571 Kernel.VMStep VMStep step_morph_bad_src constr
-R32554:32571 Kernel.VMStep VMStep step_morph_bad_src constr
-prf 32671:32704 <> verilog_simulates_vm_step_morph_id
-R32723:32734 KamiHW.Abstraction <> KamiSnapshot rec
-binder 32718:32719 <> hs:289
-R32756:32758 Coq.Init.Datatypes <> nat ind
-binder 32738:32740 <> dst:290
-binder 32742:32747 <> module:291
-binder 32749:32752 <> cost:292
-R32766:32772 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R32776:32783 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 32773:32775 <> vs':293
-R32784:32790 Kernel.VMStep VMStep vm_step ind
-R32793:32802 KamiHW.Abstraction <> abs_phase1 def
-R32804:32805 KamiHW.VerilogRefinement <> hs:289 var
-R32809:32822 Kernel.VMStep VMStep instr_morph_id constr
-R32824:32826 KamiHW.VerilogRefinement <> dst:290 var
-R32828:32833 KamiHW.VerilogRefinement <> module:291 var
-R32835:32838 KamiHW.VerilogRefinement <> cost:292 var
-R32841:32843 KamiHW.VerilogRefinement <> vs':293 var
-R32894:32911 Kernel.VMState <> graph_add_identity def
-R32930:32937 Kernel.VMState <> vm_graph proj
-R32914:32923 KamiHW.Abstraction <> abs_phase1 def
-R32894:32911 Kernel.VMState <> graph_add_identity def
-R32930:32937 Kernel.VMState <> vm_graph proj
-R32914:32923 KamiHW.Abstraction <> abs_phase1 def
-R33001:33016 Kernel.VMStep VMStep step_morph_id_ok constr
-R33001:33016 Kernel.VMStep VMStep step_morph_id_ok constr
-R33050:33066 Kernel.VMStep VMStep step_morph_id_bad constr
-R33050:33066 Kernel.VMStep VMStep step_morph_id_bad constr
+binder 24621:24624 <> freg:220
+binder 24626:24629 <> creg:221
+R24646:24649 Coq.Init.Datatypes <> bool ind
+binder 24639:24642 <> kind:222
+R24665:24667 Coq.Init.Datatypes <> nat ind
+binder 24653:24656 <> flen:223
+binder 24658:24661 <> cost:224
+R24677:24683 Kernel.VMState <> VMState rec
+binder 24671:24673 <> vs':225
+R24759:24766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R24691:24697 Kernel.VMStep VMStep vm_step ind
+R24700:24709 KamiHW.Abstraction <> abs_phase1 def
+R24711:24712 KamiHW.VerilogRefinement <> hs:219 var
+R24716:24728 Kernel.VMStep VMStep instr_lassert constr
+R24730:24733 KamiHW.VerilogRefinement <> freg:220 var
+R24735:24738 KamiHW.VerilogRefinement <> creg:221 var
+R24740:24743 KamiHW.VerilogRefinement <> kind:222 var
+R24745:24748 KamiHW.VerilogRefinement <> flen:223 var
+R24750:24753 KamiHW.VerilogRefinement <> cost:224 var
+R24756:24758 KamiHW.VerilogRefinement <> vs':225 var
+R24778:24780 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24772:24776 Kernel.VMState <> vm_mu proj
+R24767:24769 KamiHW.VerilogRefinement <> vs':225 var
+R24851:24855 Kernel.VMState <> vm_mu proj
+R24782:24791 KamiHW.Abstraction <> abs_phase1 def
+R24794:24802 KamiHW.Abstraction <> kami_step def
+R24804:24805 KamiHW.VerilogRefinement <> hs:219 var
+R24808:24820 Kernel.VMStep VMStep instr_lassert constr
+R24822:24825 KamiHW.VerilogRefinement <> freg:220 var
+R24827:24830 KamiHW.VerilogRefinement <> creg:221 var
+R24832:24835 KamiHW.VerilogRefinement <> kind:222 var
+R24837:24840 KamiHW.VerilogRefinement <> flen:223 var
+R24842:24845 KamiHW.VerilogRefinement <> cost:224 var
+R24949:24958 KamiHW.Abstraction <> abs_phase1 def
+R24961:24969 KamiHW.Abstraction <> kami_step def
+R24972:24991 KamiHW.Abstraction <> kami_advance_default def
+R25003:25015 Kernel.VMStep VMStep advance_state def
+R25018:25027 Kernel.VMStep VMStep apply_cost def
+R25030:25045 Kernel.VMStep VMStep instruction_cost def
+prf 25128:25163 <> verilog_simulates_vm_step_tensor_set
+R25182:25193 KamiHW.Abstraction <> KamiSnapshot rec
+binder 25177:25178 <> hs:226
+R25218:25220 Coq.Init.Datatypes <> nat ind
+binder 25197:25199 <> mid:227
+binder 25201:25201 <> i:228
+binder 25203:25203 <> j:229
+binder 25205:25209 <> value:230
+binder 25211:25214 <> cost:231
+R25228:25234 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25238:25245 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 25235:25237 <> vs':232
+R25246:25252 Kernel.VMStep VMStep vm_step ind
+R25255:25264 KamiHW.Abstraction <> abs_phase1 def
+R25266:25267 KamiHW.VerilogRefinement <> hs:226 var
+R25271:25286 Kernel.VMStep VMStep instr_tensor_set constr
+R25288:25290 KamiHW.VerilogRefinement <> mid:227 var
+R25292:25292 KamiHW.VerilogRefinement <> i:228 var
+R25294:25294 KamiHW.VerilogRefinement <> j:229 var
+R25296:25300 KamiHW.VerilogRefinement <> value:230 var
+R25302:25305 KamiHW.VerilogRefinement <> cost:231 var
+R25308:25310 KamiHW.VerilogRefinement <> vs':232 var
+R25364:25380 Kernel.VMStep VMStep tensor_indices_ok def
+R25364:25380 Kernel.VMStep VMStep tensor_indices_ok def
+R25416:25433 Kernel.VMStep VMStep step_tensor_set_ok constr
+R25416:25433 Kernel.VMStep VMStep step_tensor_set_ok constr
+R25467:25485 Kernel.VMStep VMStep step_tensor_set_bad constr
+R25467:25485 Kernel.VMStep VMStep step_tensor_set_bad constr
+prf 25580:25615 <> verilog_simulates_vm_step_tensor_get
+R25634:25645 KamiHW.Abstraction <> KamiSnapshot rec
+binder 25629:25630 <> hs:233
+R25668:25670 Coq.Init.Datatypes <> nat ind
+binder 25649:25651 <> dst:234
+binder 25653:25655 <> mid:235
+binder 25657:25657 <> i:236
+binder 25659:25659 <> j:237
+binder 25661:25664 <> cost:238
+R25678:25684 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R25688:25695 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 25685:25687 <> vs':239
+R25696:25702 Kernel.VMStep VMStep vm_step ind
+R25705:25714 KamiHW.Abstraction <> abs_phase1 def
+R25716:25717 KamiHW.VerilogRefinement <> hs:233 var
+R25721:25736 Kernel.VMStep VMStep instr_tensor_get constr
+R25738:25740 KamiHW.VerilogRefinement <> dst:234 var
+R25742:25744 KamiHW.VerilogRefinement <> mid:235 var
+R25746:25746 KamiHW.VerilogRefinement <> i:236 var
+R25748:25748 KamiHW.VerilogRefinement <> j:237 var
+R25750:25753 KamiHW.VerilogRefinement <> cost:238 var
+R25756:25758 KamiHW.VerilogRefinement <> vs':239 var
+R25810:25826 Kernel.VMStep VMStep tensor_indices_ok def
+R25810:25826 Kernel.VMStep VMStep tensor_indices_ok def
+R25862:25879 Kernel.VMStep VMStep step_tensor_get_ok constr
+R25862:25879 Kernel.VMStep VMStep step_tensor_get_ok constr
+R25938:25956 Kernel.VMStep VMStep step_tensor_get_bad constr
+R25938:25956 Kernel.VMStep VMStep step_tensor_get_bad constr
+def 26152:26172 <> verilog_increments_pc
+R26179:26192 Kernel.VMStep VMStep vm_instruction ind
+binder 26175:26175 <> i:240
+R26197:26200 Coq.Init.Datatypes <> bool ind
+R26213:26213 KamiHW.VerilogRefinement <> i:240 var
+R26224:26233 Kernel.VMStep VMStep instr_jump constr
+R26242:26246 Coq.Init.Datatypes <> false constr
+R26252:26261 Kernel.VMStep VMStep instr_jnez constr
+R26272:26276 Coq.Init.Datatypes <> false constr
+R26282:26291 Kernel.VMStep VMStep instr_call constr
+R26300:26304 Coq.Init.Datatypes <> false constr
+R26310:26318 Kernel.VMStep VMStep instr_ret constr
+R26325:26329 Coq.Init.Datatypes <> false constr
+R26335:26347 Kernel.VMStep VMStep instr_lassert constr
+R26362:26366 Coq.Init.Datatypes <> false constr
+R26377:26380 Coq.Init.Datatypes <> true constr
+prf 26495:26529 <> kami_step_pc_commutation_sequential
+R26548:26559 KamiHW.Abstraction <> KamiSnapshot rec
+binder 26543:26544 <> hs:242
+R26567:26580 Kernel.VMStep VMStep vm_instruction ind
+binder 26563:26563 <> i:243
+R26618:26625 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26611:26613 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26588:26608 KamiHW.VerilogRefinement <> verilog_increments_pc def
+R26610:26610 KamiHW.VerilogRefinement <> i:243 var
+R26614:26617 Coq.Init.Datatypes <> true constr
+R26663:26665 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26657:26661 Kernel.VMState <> vm_pc proj
+R26627:26636 KamiHW.Abstraction <> abs_phase1 def
+R26639:26647 KamiHW.Abstraction <> kami_step def
+R26649:26650 KamiHW.VerilogRefinement <> hs:242 var
+R26652:26652 KamiHW.VerilogRefinement <> i:243 var
+R26666:26666 Coq.Init.Datatypes <> S constr
+R26685:26689 Kernel.VMState <> vm_pc proj
+R26669:26678 KamiHW.Abstraction <> abs_phase1 def
+R26680:26681 KamiHW.VerilogRefinement <> hs:242 var
+R26776:26785 KamiHW.Abstraction <> abs_phase1 def
+R26788:26796 KamiHW.Abstraction <> kami_step def
+R26799:26818 KamiHW.Abstraction <> kami_advance_default def
+R26821:26836 KamiHW.Abstraction <> kami_advance_err def
+R26848:26863 KamiHW.Abstraction <> kami_advance_reg def
+R26866:26888 KamiHW.Abstraction <> kami_advance_rich_morph def
+R26891:26913 KamiHW.Abstraction <> kami_advance_rich_noret def
+R26925:26945 KamiHW.Abstraction <> kami_advance_err_rich def
+R26948:26969 KamiHW.Abstraction <> kami_advance_cert_addr def
+prf 28261:28284 <> abs_phase1_morphism_none
+R28303:28314 KamiHW.Abstraction <> KamiSnapshot rec
+binder 28298:28299 <> hs:244
+R28324:28326 Coq.Init.Datatypes <> nat ind
+binder 28318:28320 <> mid:245
+R28386:28388 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28334:28354 Kernel.VMState <> graph_lookup_morphism def
+R28373:28380 Kernel.VMState <> vm_graph proj
+R28357:28366 KamiHW.Abstraction <> abs_phase1 def
+R28368:28369 KamiHW.VerilogRefinement <> hs:244 var
+R28383:28385 KamiHW.VerilogRefinement <> mid:245 var
+R28389:28392 Coq.Init.Datatypes <> None constr
+R28428:28437 KamiHW.Abstraction <> abs_phase1 def
+R28440:28455 KamiHW.Abstraction <> snap_pt_to_graph def
+R28467:28487 Kernel.VMState <> graph_lookup_morphism def
+R28506:28531 Kernel.VMState <> graph_lookup_morphism_list def
+prf 28679:28701 <> abs_phase1_compose_none
+R28720:28731 KamiHW.Abstraction <> KamiSnapshot rec
+binder 28715:28716 <> hs:246
+R28743:28745 Coq.Init.Datatypes <> nat ind
+binder 28735:28736 <> m1:247
+binder 28738:28739 <> m2:248
+R28809:28811 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28753:28775 Kernel.VMState <> graph_compose_morphisms def
+R28794:28801 Kernel.VMState <> vm_graph proj
+R28778:28787 KamiHW.Abstraction <> abs_phase1 def
+R28789:28790 KamiHW.VerilogRefinement <> hs:246 var
+R28804:28805 KamiHW.VerilogRefinement <> m1:247 var
+R28807:28808 KamiHW.VerilogRefinement <> m2:248 var
+R28812:28815 Coq.Init.Datatypes <> None constr
+R28853:28875 Kernel.VMState <> graph_compose_morphisms def
+R28888:28911 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+R28888:28911 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+R28888:28911 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+prf 29060:29090 <> abs_phase1_delete_morphism_none
+R29109:29120 KamiHW.Abstraction <> KamiSnapshot rec
+binder 29104:29105 <> hs:249
+R29130:29132 Coq.Init.Datatypes <> nat ind
+binder 29124:29126 <> mid:250
+R29192:29194 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29140:29160 Kernel.VMState <> graph_delete_morphism def
+R29179:29186 Kernel.VMState <> vm_graph proj
+R29163:29172 KamiHW.Abstraction <> abs_phase1 def
+R29174:29175 KamiHW.VerilogRefinement <> hs:249 var
+R29189:29191 KamiHW.VerilogRefinement <> mid:250 var
+R29195:29198 Coq.Init.Datatypes <> None constr
+R29234:29254 Kernel.VMState <> graph_delete_morphism def
+R29257:29266 KamiHW.Abstraction <> abs_phase1 def
+R29269:29284 KamiHW.Abstraction <> snap_pt_to_graph def
+prf 29440:29471 <> abs_phase1_tensor_morphisms_none
+R29490:29501 KamiHW.Abstraction <> KamiSnapshot rec
+binder 29485:29486 <> hs:251
+R29511:29513 Coq.Init.Datatypes <> nat ind
+binder 29505:29505 <> f:252
+binder 29507:29507 <> g:253
+R29574:29576 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R29521:29542 Kernel.VMState <> graph_tensor_morphisms def
+R29561:29568 Kernel.VMState <> vm_graph proj
+R29545:29554 KamiHW.Abstraction <> abs_phase1 def
+R29556:29557 KamiHW.VerilogRefinement <> hs:251 var
+R29571:29571 KamiHW.VerilogRefinement <> f:252 var
+R29573:29573 KamiHW.VerilogRefinement <> g:253 var
+R29577:29580 Coq.Init.Datatypes <> None constr
+R29616:29637 Kernel.VMState <> graph_tensor_morphisms def
+R29650:29673 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+R29650:29673 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+R29650:29673 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+prf 29785:29817 <> verilog_simulates_vm_step_compose
+R29836:29847 KamiHW.Abstraction <> KamiSnapshot rec
+binder 29831:29832 <> hs:254
+R29868:29870 Coq.Init.Datatypes <> nat ind
+binder 29851:29853 <> dst:255
+binder 29855:29856 <> m1:256
+binder 29858:29859 <> m2:257
+binder 29861:29864 <> cost:258
+R29878:29884 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R29888:29895 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 29885:29887 <> vs':259
+R29896:29902 Kernel.VMStep VMStep vm_step ind
+R29905:29914 KamiHW.Abstraction <> abs_phase1 def
+R29916:29917 KamiHW.VerilogRefinement <> hs:254 var
+R29921:29933 Kernel.VMStep VMStep instr_compose constr
+R29935:29937 KamiHW.VerilogRefinement <> dst:255 var
+R29939:29940 KamiHW.VerilogRefinement <> m1:256 var
+R29942:29943 KamiHW.VerilogRefinement <> m2:257 var
+R29945:29948 KamiHW.VerilogRefinement <> cost:258 var
+R29951:29953 KamiHW.VerilogRefinement <> vs':259 var
+R30009:30024 Kernel.VMStep VMStep step_compose_bad constr
+R30009:30024 Kernel.VMStep VMStep step_compose_bad constr
+R30035:30057 KamiHW.VerilogRefinement <> abs_phase1_compose_none thm
+R30035:30057 KamiHW.VerilogRefinement <> abs_phase1_compose_none thm
+prf 30158:30195 <> verilog_simulates_vm_step_morph_delete
+R30214:30225 KamiHW.Abstraction <> KamiSnapshot rec
+binder 30209:30210 <> hs:260
+R30245:30247 Coq.Init.Datatypes <> nat ind
+binder 30229:30236 <> morph_id:261
+binder 30238:30241 <> cost:262
+R30255:30261 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R30265:30272 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 30262:30264 <> vs':263
+R30273:30279 Kernel.VMStep VMStep vm_step ind
+R30282:30291 KamiHW.Abstraction <> abs_phase1 def
+R30293:30294 KamiHW.VerilogRefinement <> hs:260 var
+R30298:30315 Kernel.VMStep VMStep instr_morph_delete constr
+R30317:30324 KamiHW.VerilogRefinement <> morph_id:261 var
+R30326:30329 KamiHW.VerilogRefinement <> cost:262 var
+R30332:30334 KamiHW.VerilogRefinement <> vs':263 var
+R30389:30409 Kernel.VMStep VMStep step_morph_delete_bad constr
+R30389:30409 Kernel.VMStep VMStep step_morph_delete_bad constr
+R30420:30450 KamiHW.VerilogRefinement <> abs_phase1_delete_morphism_none thm
+R30420:30450 KamiHW.VerilogRefinement <> abs_phase1_delete_morphism_none thm
+prf 30552:30589 <> verilog_simulates_vm_step_morph_assert
+R30608:30619 KamiHW.Abstraction <> KamiSnapshot rec
+binder 30603:30604 <> hs:264
+R30639:30641 Coq.Init.Datatypes <> nat ind
+binder 30623:30630 <> morph_id:265
+binder 30632:30635 <> cost:266
+R30661:30666 Coq.Strings.String <> string ind
+binder 30645:30652 <> property:267
+binder 30654:30657 <> cert:268
+R30674:30680 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R30684:30691 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 30681:30683 <> vs':269
+R30692:30698 Kernel.VMStep VMStep vm_step ind
+R30701:30710 KamiHW.Abstraction <> abs_phase1 def
+R30712:30713 KamiHW.VerilogRefinement <> hs:264 var
+R30717:30734 Kernel.VMStep VMStep instr_morph_assert constr
+R30736:30743 KamiHW.VerilogRefinement <> morph_id:265 var
+R30745:30752 KamiHW.VerilogRefinement <> property:267 var
+R30754:30757 KamiHW.VerilogRefinement <> cert:268 var
+R30759:30762 KamiHW.VerilogRefinement <> cost:266 var
+R30765:30767 KamiHW.VerilogRefinement <> vs':269 var
+R30836:30856 Kernel.VMStep VMStep step_morph_assert_bad constr
+R30836:30856 Kernel.VMStep VMStep step_morph_assert_bad constr
+R30867:30890 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+R30867:30890 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+prf 30992:31029 <> verilog_simulates_vm_step_morph_tensor
+R31048:31059 KamiHW.Abstraction <> KamiSnapshot rec
+binder 31043:31044 <> hs:270
+R31078:31080 Coq.Init.Datatypes <> nat ind
+binder 31063:31065 <> dst:271
+binder 31067:31067 <> f:272
+binder 31069:31069 <> g:273
+binder 31071:31074 <> cost:274
+R31088:31094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R31098:31105 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 31095:31097 <> vs':275
+R31106:31112 Kernel.VMStep VMStep vm_step ind
+R31115:31124 KamiHW.Abstraction <> abs_phase1 def
+R31126:31127 KamiHW.VerilogRefinement <> hs:270 var
+R31131:31148 Kernel.VMStep VMStep instr_morph_tensor constr
+R31150:31152 KamiHW.VerilogRefinement <> dst:271 var
+R31154:31154 KamiHW.VerilogRefinement <> f:272 var
+R31156:31156 KamiHW.VerilogRefinement <> g:273 var
+R31158:31161 KamiHW.VerilogRefinement <> cost:274 var
+R31164:31166 KamiHW.VerilogRefinement <> vs':275 var
+R31220:31240 Kernel.VMStep VMStep step_morph_tensor_bad constr
+R31220:31240 Kernel.VMStep VMStep step_morph_tensor_bad constr
+R31251:31282 KamiHW.VerilogRefinement <> abs_phase1_tensor_morphisms_none thm
+R31251:31282 KamiHW.VerilogRefinement <> abs_phase1_tensor_morphisms_none thm
+prf 31376:31410 <> verilog_simulates_vm_step_morph_get
+R31429:31440 KamiHW.Abstraction <> KamiSnapshot rec
+binder 31424:31425 <> hs:276
+R31473:31475 Coq.Init.Datatypes <> nat ind
+binder 31444:31446 <> dst:277
+binder 31448:31455 <> morph_id:278
+binder 31457:31464 <> selector:279
+binder 31466:31469 <> cost:280
+R31483:31489 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R31493:31500 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 31490:31492 <> vs':281
+R31501:31507 Kernel.VMStep VMStep vm_step ind
+R31510:31519 KamiHW.Abstraction <> abs_phase1 def
+R31521:31522 KamiHW.VerilogRefinement <> hs:276 var
+R31526:31540 Kernel.VMStep VMStep instr_morph_get constr
+R31542:31544 KamiHW.VerilogRefinement <> dst:277 var
+R31546:31553 KamiHW.VerilogRefinement <> morph_id:278 var
+R31555:31562 KamiHW.VerilogRefinement <> selector:279 var
+R31564:31567 KamiHW.VerilogRefinement <> cost:280 var
+R31570:31572 KamiHW.VerilogRefinement <> vs':281 var
+R31640:31657 Kernel.VMStep VMStep step_morph_get_bad constr
+R31640:31657 Kernel.VMStep VMStep step_morph_get_bad constr
+R31668:31691 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+R31668:31691 KamiHW.VerilogRefinement <> abs_phase1_morphism_none thm
+prf 31784:31814 <> verilog_simulates_vm_step_morph
+R31833:31844 KamiHW.Abstraction <> KamiSnapshot rec
+binder 31828:31829 <> hs:282
+R31888:31890 Coq.Init.Datatypes <> nat ind
+binder 31848:31850 <> dst:283
+binder 31852:31858 <> src_mod:284
+binder 31860:31866 <> dst_mod:285
+binder 31868:31879 <> coupling_idx:286
+binder 31881:31884 <> cost:287
+R31898:31904 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R31908:31915 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 31905:31907 <> vs':288
+R31916:31922 Kernel.VMStep VMStep vm_step ind
+R31925:31934 KamiHW.Abstraction <> abs_phase1 def
+R31936:31937 KamiHW.VerilogRefinement <> hs:282 var
+R31941:31951 Kernel.VMStep VMStep instr_morph constr
+R31953:31955 KamiHW.VerilogRefinement <> dst:283 var
+R31957:31963 KamiHW.VerilogRefinement <> src_mod:284 var
+R31965:31971 KamiHW.VerilogRefinement <> dst_mod:285 var
+R31973:31984 KamiHW.VerilogRefinement <> coupling_idx:286 var
+R31986:31989 KamiHW.VerilogRefinement <> cost:287 var
+R31992:31994 KamiHW.VerilogRefinement <> vs':288 var
+R32067:32078 Kernel.VMState <> graph_lookup def
+R32097:32104 Kernel.VMState <> vm_graph proj
+R32081:32090 KamiHW.Abstraction <> abs_phase1 def
+R32067:32078 Kernel.VMState <> graph_lookup def
+R32097:32104 Kernel.VMState <> vm_graph proj
+R32081:32090 KamiHW.Abstraction <> abs_phase1 def
+R32153:32164 Kernel.VMState <> graph_lookup def
+R32183:32190 Kernel.VMState <> vm_graph proj
+R32167:32176 KamiHW.Abstraction <> abs_phase1 def
+R32153:32164 Kernel.VMState <> graph_lookup def
+R32183:32190 Kernel.VMState <> vm_graph proj
+R32167:32176 KamiHW.Abstraction <> abs_phase1 def
+R32241:32258 Kernel.VMState <> graph_add_morphism def
+R32277:32284 Kernel.VMState <> vm_graph proj
+R32261:32270 KamiHW.Abstraction <> abs_phase1 def
+R32303:32321 Kernel.VMState <> empty_coupling_data def
+R32323:32327 Coq.Init.Datatypes <> false constr
+R32241:32258 Kernel.VMState <> graph_add_morphism def
+R32277:32284 Kernel.VMState <> vm_graph proj
+R32261:32270 KamiHW.Abstraction <> abs_phase1 def
+R32303:32321 Kernel.VMState <> empty_coupling_data def
+R32323:32327 Coq.Init.Datatypes <> false constr
+R32391:32403 Kernel.VMStep VMStep step_morph_ok constr
+R32391:32403 Kernel.VMStep VMStep step_morph_ok constr
+R32498:32515 Kernel.VMStep VMStep step_morph_bad_dst constr
+R32498:32515 Kernel.VMStep VMStep step_morph_bad_dst constr
+R32578:32595 Kernel.VMStep VMStep step_morph_bad_src constr
+R32578:32595 Kernel.VMStep VMStep step_morph_bad_src constr
+prf 32695:32728 <> verilog_simulates_vm_step_morph_id
+R32747:32758 KamiHW.Abstraction <> KamiSnapshot rec
+binder 32742:32743 <> hs:289
+R32780:32782 Coq.Init.Datatypes <> nat ind
+binder 32762:32764 <> dst:290
+binder 32766:32771 <> module:291
+binder 32773:32776 <> cost:292
+R32790:32796 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R32800:32807 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 32797:32799 <> vs':293
+R32808:32814 Kernel.VMStep VMStep vm_step ind
+R32817:32826 KamiHW.Abstraction <> abs_phase1 def
+R32828:32829 KamiHW.VerilogRefinement <> hs:289 var
+R32833:32846 Kernel.VMStep VMStep instr_morph_id constr
+R32848:32850 KamiHW.VerilogRefinement <> dst:290 var
+R32852:32857 KamiHW.VerilogRefinement <> module:291 var
+R32859:32862 KamiHW.VerilogRefinement <> cost:292 var
+R32865:32867 KamiHW.VerilogRefinement <> vs':293 var
+R32918:32935 Kernel.VMState <> graph_add_identity def
+R32954:32961 Kernel.VMState <> vm_graph proj
+R32938:32947 KamiHW.Abstraction <> abs_phase1 def
+R32918:32935 Kernel.VMState <> graph_add_identity def
+R32954:32961 Kernel.VMState <> vm_graph proj
+R32938:32947 KamiHW.Abstraction <> abs_phase1 def
+R33025:33040 Kernel.VMStep VMStep step_morph_id_ok constr
+R33025:33040 Kernel.VMStep VMStep step_morph_id_ok constr
+R33074:33090 Kernel.VMStep VMStep step_morph_id_bad constr
+R33074:33090 Kernel.VMStep VMStep step_morph_id_bad constr

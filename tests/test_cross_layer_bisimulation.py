@@ -1278,7 +1278,7 @@ class TestCategoricalSeparation:
         Program B: morph_id=1 never existed → DELETE errors (err=True)
 
         Same classical fingerprint before the probe; different err after.
-        This is coq/kernel/PartitionSeparation.v §10 made executable.
+        This is coq/kernel/foundation/PartitionSeparation.v §10 made executable.
         """
         state_a = self._run(self._PROG_A_BASE + ["MORPH_DELETE 1 0", "HALT 0"])
         state_b = self._run(self._PROG_B_BASE + ["MORPH_DELETE 1 0", "HALT 0"])

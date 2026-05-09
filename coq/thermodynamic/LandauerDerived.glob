@@ -1,365 +1,365 @@
-DIGEST a0c4a26addb07b54ca7012e5b0f00c28
+DIGEST 626d2a932cf1f3d8036f2f008a5c354a
 FThermodynamic.LandauerDerived
-R795:801 Kernel.VMState <> <> lib
-R803:808 Kernel.VMStep <> <> lib
-R838:848 Kernel.MuCostModel <> <> lib
-R867:881 Coq.Arith.Arith <> <> lib
-R899:915 Coq.NArith.NArith <> <> lib
-R933:949 Coq.ZArith.ZArith <> <> lib
-R967:980 Coq.Lists.List <> <> lib
-R998:1014 Coq.micromega.Lia <> <> lib
-R1032:1065 Coq.Logic.FunctionalExtensionality <> <> lib
-R1075:1087 Coq.Lists.List ListNotations <> mod
-def 1313:1321 <> Bitstring
-R1328:1330 Coq.Init.Datatypes <> nat ind
-binder 1324:1324 <> n:1
-R1336:1337 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1339:1341 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1345:1347 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1355:1356 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
-R1342:1344 Coq.Init.Datatypes <> nat ind
-binder 1338:1338 <> x:2
-R1349:1351 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R1348:1348 Thermodynamic.LandauerDerived <> x:2 var
-R1353:1353 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R1354:1354 Thermodynamic.LandauerDerived <> n:1 var
-def 1414:1423 <> num_states
-R1430:1432 Coq.Init.Datatypes <> nat ind
-binder 1426:1426 <> n:3
-R1437:1439 Coq.Init.Datatypes <> nat ind
-R1445:1445 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R1446:1446 Thermodynamic.LandauerDerived <> n:3 var
-prf 1534:1547 <> num_states_pos
-binder 1558:1558 <> n:4
-R1573:1575 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R1561:1570 Thermodynamic.LandauerDerived <> num_states def
-R1572:1572 Thermodynamic.LandauerDerived <> n:4 var
-R1604:1613 Thermodynamic.LandauerDerived <> num_states def
-def 1985:1993 <> info_bits
-R2000:2002 Coq.Init.Datatypes <> nat ind
-binder 1996:1996 <> n:5
-R2007:2009 Coq.Init.Datatypes <> nat ind
-R2014:2014 Thermodynamic.LandauerDerived <> n:5 var
-prf 2251:2267 <> info_bits_correct
-binder 2278:2278 <> n:6
-R2307:2309 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2283:2292 Thermodynamic.LandauerDerived <> num_states def
-R2295:2303 Thermodynamic.LandauerDerived <> info_bits def
-R2305:2305 Thermodynamic.LandauerDerived <> n:6 var
-R2311:2311 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R2312:2312 Thermodynamic.LandauerDerived <> n:6 var
-R2340:2348 Thermodynamic.LandauerDerived <> info_bits def
-R2351:2360 Thermodynamic.LandauerDerived <> num_states def
-rec 2595:2601 <> Erasure
-proj 2620:2629 <> input_bits
-proj 2640:2650 <> output_bits
-proj 2661:2670 <> output_leq
-R2633:2635 Coq.Init.Datatypes <> nat ind
-R2654:2656 Coq.Init.Datatypes <> nat ind
-R2685:2688 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2674:2684 Thermodynamic.LandauerDerived <> output_bits:9 meth
-R2689:2698 Thermodynamic.LandauerDerived <> input_bits:8 meth
-def 2715:2725 <> bits_erased
-R2732:2738 Thermodynamic.LandauerDerived <> Erasure rec
-binder 2728:2728 <> e:11
-R2743:2745 Coq.Init.Datatypes <> nat ind
-R2764:2766 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R2752:2761 Thermodynamic.LandauerDerived <> input_bits proj
-R2763:2763 Thermodynamic.LandauerDerived <> e:11 var
-R2767:2777 Thermodynamic.LandauerDerived <> output_bits proj
-R2779:2779 Thermodynamic.LandauerDerived <> e:11 var
-def 2857:2862 <> fan_in
-R2869:2875 Thermodynamic.LandauerDerived <> Erasure rec
-binder 2865:2865 <> e:12
-R2880:2882 Coq.Init.Datatypes <> nat ind
-R2890:2891 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R2905:2905 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R2892:2902 Thermodynamic.LandauerDerived <> bits_erased def
-R2904:2904 Thermodynamic.LandauerDerived <> e:12 var
-prf 2993:3002 <> fan_in_pos
-binder 3013:3013 <> e:13
-R3024:3026 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R3016:3021 Thermodynamic.LandauerDerived <> fan_in def
-R3023:3023 Thermodynamic.LandauerDerived <> e:13 var
-R3055:3060 Thermodynamic.LandauerDerived <> fan_in def
-R3071:3084 Thermodynamic.LandauerDerived <> num_states_pos thm
-R3071:3084 Thermodynamic.LandauerDerived <> num_states_pos thm
-def 3298:3310 <> is_reversible
-R3317:3323 Thermodynamic.LandauerDerived <> Erasure rec
-binder 3313:3313 <> e:14
-R3346:3348 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3338:3343 Thermodynamic.LandauerDerived <> fan_in def
-R3345:3345 Thermodynamic.LandauerDerived <> e:14 var
-def 3364:3378 <> is_irreversible
-R3385:3391 Thermodynamic.LandauerDerived <> Erasure rec
-binder 3381:3381 <> e:15
-R3414:3416 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R3406:3411 Thermodynamic.LandauerDerived <> fan_in def
-R3413:3413 Thermodynamic.LandauerDerived <> e:15 var
-prf 3528:3536 <> pow2_ge_1
-binder 3547:3547 <> n:16
-R3553:3556 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3551:3551 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R3552:3552 Thermodynamic.LandauerDerived <> n:16 var
-R3748:3751 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3745:3745 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R3748:3751 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3745:3745 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R3818:3828 Coq.Arith.PeanoNat Nat add_0_r thm
-R3818:3828 Coq.Arith.PeanoNat Nat add_0_r thm
-R3818:3828 Coq.Arith.PeanoNat Nat add_0_r thm
-R3960:3960 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R3940:3951 Coq.Arith.PeanoNat Nat le_trans thm
-R3960:3960 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R3940:3951 Coq.Arith.PeanoNat Nat le_trans thm
-R3982:3993 Coq.Arith.PeanoNat Nat le_add_r thm
-R3982:3993 Coq.Arith.PeanoNat Nat le_add_r thm
-prf 4041:4051 <> pow2_S_ge_2
-binder 4062:4062 <> n:17
-R4072:4075 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4066:4067 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1073:1079 Kernel.VMState <> <> lib
+R1081:1086 Kernel.VMStep <> <> lib
+R1116:1126 Kernel.MuCostModel <> <> lib
+R1145:1159 Coq.Arith.Arith <> <> lib
+R1177:1193 Coq.NArith.NArith <> <> lib
+R1211:1227 Coq.ZArith.ZArith <> <> lib
+R1245:1258 Coq.Lists.List <> <> lib
+R1276:1292 Coq.micromega.Lia <> <> lib
+R1310:1343 Coq.Logic.FunctionalExtensionality <> <> lib
+R1353:1365 Coq.Lists.List ListNotations <> mod
+def 1550:1558 <> Bitstring
+R1565:1567 Coq.Init.Datatypes <> nat ind
+binder 1561:1561 <> n:1
+R1573:1574 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1576:1578 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1582:1584 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1592:1593 Coq.Init.Specif <> ::type_scope:'{'_x_':'_x_'|'_x_'}' not
+R1579:1581 Coq.Init.Datatypes <> nat ind
+binder 1575:1575 <> x:2
+R1586:1588 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R1585:1585 Thermodynamic.LandauerDerived <> x:2 var
+R1590:1590 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1591:1591 Thermodynamic.LandauerDerived <> n:1 var
+def 1661:1670 <> num_states
+R1677:1679 Coq.Init.Datatypes <> nat ind
+binder 1673:1673 <> n:3
+R1684:1686 Coq.Init.Datatypes <> nat ind
+R1692:1692 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R1693:1693 Thermodynamic.LandauerDerived <> n:3 var
+prf 1779:1792 <> num_states_pos
+binder 1803:1803 <> n:4
+R1818:1820 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R1806:1815 Thermodynamic.LandauerDerived <> num_states def
+R1817:1817 Thermodynamic.LandauerDerived <> n:4 var
+R1849:1858 Thermodynamic.LandauerDerived <> num_states def
+def 2185:2193 <> info_bits
+R2200:2202 Coq.Init.Datatypes <> nat ind
+binder 2196:2196 <> n:5
+R2207:2209 Coq.Init.Datatypes <> nat ind
+R2214:2214 Thermodynamic.LandauerDerived <> n:5 var
+prf 2459:2475 <> info_bits_correct
+binder 2486:2486 <> n:6
+R2515:2517 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2491:2500 Thermodynamic.LandauerDerived <> num_states def
+R2503:2511 Thermodynamic.LandauerDerived <> info_bits def
+R2513:2513 Thermodynamic.LandauerDerived <> n:6 var
+R2519:2519 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R2520:2520 Thermodynamic.LandauerDerived <> n:6 var
+R2548:2556 Thermodynamic.LandauerDerived <> info_bits def
+R2559:2568 Thermodynamic.LandauerDerived <> num_states def
+rec 2801:2807 <> Erasure
+proj 2826:2835 <> input_bits
+proj 2846:2856 <> output_bits
+proj 2867:2876 <> output_leq
+R2839:2841 Coq.Init.Datatypes <> nat ind
+R2860:2862 Coq.Init.Datatypes <> nat ind
+R2891:2894 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2880:2890 Thermodynamic.LandauerDerived <> output_bits:9 meth
+R2895:2904 Thermodynamic.LandauerDerived <> input_bits:8 meth
+def 2982:2992 <> bits_erased
+R2999:3005 Thermodynamic.LandauerDerived <> Erasure rec
+binder 2995:2995 <> e:11
+R3010:3012 Coq.Init.Datatypes <> nat ind
+R3031:3033 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3019:3028 Thermodynamic.LandauerDerived <> input_bits proj
+R3030:3030 Thermodynamic.LandauerDerived <> e:11 var
+R3034:3044 Thermodynamic.LandauerDerived <> output_bits proj
+R3046:3046 Thermodynamic.LandauerDerived <> e:11 var
+def 3188:3193 <> fan_in
+R3200:3206 Thermodynamic.LandauerDerived <> Erasure rec
+binder 3196:3196 <> e:12
+R3211:3213 Coq.Init.Datatypes <> nat ind
+R3221:3222 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3236:3236 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3223:3233 Thermodynamic.LandauerDerived <> bits_erased def
+R3235:3235 Thermodynamic.LandauerDerived <> e:12 var
+prf 3322:3331 <> fan_in_pos
+binder 3342:3342 <> e:13
+R3353:3355 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3345:3350 Thermodynamic.LandauerDerived <> fan_in def
+R3352:3352 Thermodynamic.LandauerDerived <> e:13 var
+R3384:3389 Thermodynamic.LandauerDerived <> fan_in def
+R3400:3413 Thermodynamic.LandauerDerived <> num_states_pos thm
+R3400:3413 Thermodynamic.LandauerDerived <> num_states_pos thm
+def 3656:3668 <> is_reversible
+R3675:3681 Thermodynamic.LandauerDerived <> Erasure rec
+binder 3671:3671 <> e:14
+R3704:3706 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3696:3701 Thermodynamic.LandauerDerived <> fan_in def
+R3703:3703 Thermodynamic.LandauerDerived <> e:14 var
+def 3722:3736 <> is_irreversible
+R3743:3749 Thermodynamic.LandauerDerived <> Erasure rec
+binder 3739:3739 <> e:15
+R3772:3774 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R3764:3769 Thermodynamic.LandauerDerived <> fan_in def
+R3771:3771 Thermodynamic.LandauerDerived <> e:15 var
+prf 3855:3863 <> pow2_ge_1
+binder 3874:3874 <> n:16
+R3880:3883 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3878:3878 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3879:3879 Thermodynamic.LandauerDerived <> n:16 var
+R3997:4000 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3994:3994 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R3997:4000 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3994:3994 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4028:4038 Coq.Arith.PeanoNat Nat add_0_r thm
+R4028:4038 Coq.Arith.PeanoNat Nat add_0_r thm
+R4028:4038 Coq.Arith.PeanoNat Nat add_0_r thm
 R4071:4071 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
-R4068:4068 Coq.Init.Datatypes <> S constr
-R4070:4070 Thermodynamic.LandauerDerived <> n:17 var
-R4114:4124 Coq.Arith.PeanoNat Nat add_0_r thm
-R4114:4124 Coq.Arith.PeanoNat Nat add_0_r thm
-R4114:4124 Coq.Arith.PeanoNat Nat add_0_r thm
-R4170:4178 Thermodynamic.LandauerDerived <> pow2_ge_1 thm
-R4170:4178 Thermodynamic.LandauerDerived <> pow2_ge_1 thm
-R4252:4254 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4252:4254 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R4282:4296 Coq.Arith.PeanoNat Nat add_le_mono thm
-R4282:4296 Coq.Arith.PeanoNat Nat add_le_mono thm
-prf 4322:4341 <> erasure_irreversible
-binder 4352:4352 <> e:18
-R4375:4378 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4370:4373 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4357:4367 Thermodynamic.LandauerDerived <> bits_erased def
-R4369:4369 Thermodynamic.LandauerDerived <> e:18 var
-R4379:4393 Thermodynamic.LandauerDerived <> is_irreversible def
-R4395:4395 Thermodynamic.LandauerDerived <> e:18 var
-R4429:4443 Thermodynamic.LandauerDerived <> is_irreversible def
-R4446:4451 Thermodynamic.LandauerDerived <> fan_in def
-R4454:4464 Thermodynamic.LandauerDerived <> bits_erased def
-R4567:4569 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R4555:4564 Thermodynamic.LandauerDerived <> input_bits proj
-R4570:4580 Thermodynamic.LandauerDerived <> output_bits proj
-R4567:4569 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R4555:4564 Thermodynamic.LandauerDerived <> input_bits proj
-R4570:4580 Thermodynamic.LandauerDerived <> output_bits proj
-R4697:4707 Thermodynamic.LandauerDerived <> bits_erased def
-R4825:4835 Thermodynamic.LandauerDerived <> pow2_S_ge_2 thm
-R4825:4835 Thermodynamic.LandauerDerived <> pow2_S_ge_2 thm
-R4977:4978 Coq.Init.Peano <> gt def
-R4988:4989 Coq.Init.Peano <> lt def
-def 5287:5298 <> entropy_bits
-R5305:5307 Coq.Init.Datatypes <> nat ind
-binder 5301:5301 <> n:19
-R5312:5314 Coq.Init.Datatypes <> nat ind
-R5319:5319 Thermodynamic.LandauerDerived <> n:19 var
-def 5368:5380 <> delta_entropy
-R5387:5393 Thermodynamic.LandauerDerived <> Erasure rec
-binder 5383:5383 <> e:20
-R5398:5398 Coq.Numbers.BinNums <> Z ind
-R5429:5431 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
-R5405:5412 Coq.ZArith.BinInt Z of_nat def
-R5415:5425 Thermodynamic.LandauerDerived <> output_bits proj
-R5427:5427 Thermodynamic.LandauerDerived <> e:20 var
-R5432:5439 Coq.ZArith.BinInt Z of_nat def
-R5442:5451 Thermodynamic.LandauerDerived <> input_bits proj
-R5453:5453 Thermodynamic.LandauerDerived <> e:20 var
-prf 5503:5527 <> erasure_decreases_entropy
-binder 5538:5538 <> e:21
-R5561:5566 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5556:5559 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5543:5553 Thermodynamic.LandauerDerived <> bits_erased def
-R5555:5555 Thermodynamic.LandauerDerived <> e:21 var
-R5583:5585 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
-R5568:5580 Thermodynamic.LandauerDerived <> delta_entropy def
-R5582:5582 Thermodynamic.LandauerDerived <> e:21 var
-R5769:5781 Thermodynamic.LandauerDerived <> delta_entropy def
-R5784:5794 Thermodynamic.LandauerDerived <> bits_erased def
-R5811:5821 Thermodynamic.LandauerDerived <> output_bits proj
-R5824:5833 Thermodynamic.LandauerDerived <> input_bits proj
-rec 6270:6284 <> PhysicalErasure
-proj 6311:6320 <> erasure_op
-proj 6335:6354 <> env_entropy_increase
-proj 6434:6453 <> second_law_satisfied
-R6324:6330 Thermodynamic.LandauerDerived <> Erasure rec
-R6358:6360 Coq.Init.Datatypes <> nat ind
-R6482:6485 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6462:6481 Thermodynamic.LandauerDerived <> env_entropy_increase:24 meth
-R6486:6496 Thermodynamic.LandauerDerived <> bits_erased def
-R6498:6507 Thermodynamic.LandauerDerived <> erasure_op:23 meth
-prf 6821:6846 <> landauer_information_bound
-R6862:6876 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 6857:6858 <> pe:26
-R6904:6907 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6881:6900 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R6902:6903 Thermodynamic.LandauerDerived <> pe:26 var
-R6908:6918 Thermodynamic.LandauerDerived <> bits_erased def
-R6921:6930 Thermodynamic.LandauerDerived <> erasure_op proj
-R6932:6933 Thermodynamic.LandauerDerived <> pe:26 var
-def 8342:8343 <> mu
-R8350:8356 Thermodynamic.LandauerDerived <> Erasure rec
-binder 8346:8346 <> e:27
-R8361:8363 Coq.Init.Datatypes <> nat ind
-R8368:8378 Thermodynamic.LandauerDerived <> bits_erased def
-R8380:8380 Thermodynamic.LandauerDerived <> e:27 var
-prf 8484:8503 <> thermodynamic_bridge
-R8519:8533 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-binder 8514:8515 <> pe:28
-R8561:8564 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8538:8557 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R8559:8560 Thermodynamic.LandauerDerived <> pe:28 var
-R8565:8566 Thermodynamic.LandauerDerived <> mu def
-R8569:8578 Thermodynamic.LandauerDerived <> erasure_op proj
-R8580:8581 Thermodynamic.LandauerDerived <> pe:28 var
-R8613:8614 Thermodynamic.LandauerDerived <> mu def
-R8625:8650 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R8625:8650 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-def 8792:8804 <> one_bit_reset
-R8808:8814 Thermodynamic.LandauerDerived <> Erasure rec
-R8824:8833 Thermodynamic.LandauerDerived <> input_bits proj
-R8824:8833 Thermodynamic.LandauerDerived <> input_bits proj
-R8824:8833 Thermodynamic.LandauerDerived <> input_bits proj
-R8843:8853 Thermodynamic.LandauerDerived <> output_bits proj
-R8843:8853 Thermodynamic.LandauerDerived <> output_bits proj
-R8863:8872 Thermodynamic.LandauerDerived <> output_leq proj
-R8863:8872 Thermodynamic.LandauerDerived <> output_leq proj
-R8877:8886 Coq.Arith.PeanoNat Nat le_0_l thm
-prf 8901:8914 <> one_bit_erased
-R8943:8945 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8918:8928 Thermodynamic.LandauerDerived <> bits_erased def
-R8930:8942 Thermodynamic.LandauerDerived <> one_bit_reset def
-prf 8981:9000 <> one_bit_irreversible
-R9004:9018 Thermodynamic.LandauerDerived <> is_irreversible def
-R9020:9032 Thermodynamic.LandauerDerived <> one_bit_reset def
-R9050:9069 Thermodynamic.LandauerDerived <> erasure_irreversible thm
-R9050:9069 Thermodynamic.LandauerDerived <> erasure_irreversible thm
-R9082:9095 Thermodynamic.LandauerDerived <> one_bit_erased thm
-R9082:9095 Thermodynamic.LandauerDerived <> one_bit_erased thm
-R9082:9095 Thermodynamic.LandauerDerived <> one_bit_erased thm
-prf 9137:9146 <> one_ge_one
-R9151:9154 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-def 9234:9255 <> physical_one_bit_reset
-R9259:9273 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-R9283:9292 Thermodynamic.LandauerDerived <> erasure_op proj
-R9283:9292 Thermodynamic.LandauerDerived <> erasure_op proj
-R9283:9292 Thermodynamic.LandauerDerived <> erasure_op proj
-R9314:9333 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R9314:9333 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R9380:9399 Thermodynamic.LandauerDerived <> second_law_satisfied proj
-R9380:9399 Thermodynamic.LandauerDerived <> second_law_satisfied proj
-R9297:9309 Thermodynamic.LandauerDerived <> one_bit_reset def
-R9404:9413 Thermodynamic.LandauerDerived <> one_ge_one thm
-prf 9471:9486 <> one_bit_landauer
-R9536:9539 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9493:9512 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R9514:9535 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-R9564:9589 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R9591:9612 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-R9564:9589 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R9591:9612 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
-def 9796:9806 <> n_bit_reset
-R9813:9815 Coq.Init.Datatypes <> nat ind
-binder 9809:9809 <> n:29
-R9820:9826 Thermodynamic.LandauerDerived <> Erasure rec
-R9836:9845 Thermodynamic.LandauerDerived <> input_bits proj
-R9836:9845 Thermodynamic.LandauerDerived <> input_bits proj
-R9836:9845 Thermodynamic.LandauerDerived <> input_bits proj
-R9855:9865 Thermodynamic.LandauerDerived <> output_bits proj
-R9855:9865 Thermodynamic.LandauerDerived <> output_bits proj
-R9875:9884 Thermodynamic.LandauerDerived <> output_leq proj
-R9875:9884 Thermodynamic.LandauerDerived <> output_leq proj
-R9850:9850 Thermodynamic.LandauerDerived <> n:29 var
-R9889:9898 Coq.Arith.PeanoNat Nat le_0_l thm
-R9900:9900 Thermodynamic.LandauerDerived <> n:29 var
-prf 9913:9925 <> n_bits_erased
-binder 9936:9936 <> n:30
-R9966:9968 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9939:9949 Thermodynamic.LandauerDerived <> bits_erased def
-R9952:9962 Thermodynamic.LandauerDerived <> n_bit_reset def
-R9964:9964 Thermodynamic.LandauerDerived <> n:30 var
-R9969:9969 Thermodynamic.LandauerDerived <> n:30 var
-R9995:10005 Thermodynamic.LandauerDerived <> bits_erased def
-R10008:10018 Thermodynamic.LandauerDerived <> n_bit_reset def
-R10034:10044 Coq.Arith.PeanoNat Nat sub_0_r thm
-R10034:10044 Coq.Arith.PeanoNat Nat sub_0_r thm
-prf 10080:10085 <> n_ge_n
-binder 10096:10096 <> n:31
-R10100:10103 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10099:10099 Thermodynamic.LandauerDerived <> n:31 var
-R10104:10104 Thermodynamic.LandauerDerived <> n:31 var
-prf 10201:10216 <> n_bit_second_law
-binder 10227:10227 <> n:32
-R10231:10234 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10230:10230 Thermodynamic.LandauerDerived <> n:32 var
-R10235:10245 Thermodynamic.LandauerDerived <> bits_erased def
-R10248:10258 Thermodynamic.LandauerDerived <> n_bit_reset def
-R10260:10260 Thermodynamic.LandauerDerived <> n:32 var
-R10290:10302 Thermodynamic.LandauerDerived <> n_bits_erased thm
-R10290:10302 Thermodynamic.LandauerDerived <> n_bits_erased thm
-R10290:10302 Thermodynamic.LandauerDerived <> n_bits_erased thm
-R10311:10316 Thermodynamic.LandauerDerived <> n_ge_n thm
-R10311:10316 Thermodynamic.LandauerDerived <> n_ge_n thm
-def 10371:10390 <> physical_n_bit_reset
-R10397:10399 Coq.Init.Datatypes <> nat ind
-binder 10393:10393 <> n:33
-R10404:10418 Thermodynamic.LandauerDerived <> PhysicalErasure rec
-R10428:10437 Thermodynamic.LandauerDerived <> erasure_op proj
-R10428:10437 Thermodynamic.LandauerDerived <> erasure_op proj
-R10428:10437 Thermodynamic.LandauerDerived <> erasure_op proj
-R10459:10478 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R10459:10478 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R10488:10507 Thermodynamic.LandauerDerived <> second_law_satisfied proj
-R10488:10507 Thermodynamic.LandauerDerived <> second_law_satisfied proj
-R10442:10452 Thermodynamic.LandauerDerived <> n_bit_reset def
-R10454:10454 Thermodynamic.LandauerDerived <> n:33 var
-R10483:10483 Thermodynamic.LandauerDerived <> n:33 var
-R10512:10527 Thermodynamic.LandauerDerived <> n_bit_second_law thm
-R10529:10529 Thermodynamic.LandauerDerived <> n:33 var
-prf 10544:10557 <> n_bit_landauer
-binder 10568:10568 <> n:34
-R10618:10621 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10573:10592 Thermodynamic.LandauerDerived <> env_entropy_increase proj
-R10595:10614 Thermodynamic.LandauerDerived <> physical_n_bit_reset def
-R10616:10616 Thermodynamic.LandauerDerived <> n:34 var
-R10622:10622 Thermodynamic.LandauerDerived <> n:34 var
-R10657:10682 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R10685:10704 Thermodynamic.LandauerDerived <> physical_n_bit_reset def
-R10657:10682 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R10685:10704 Thermodynamic.LandauerDerived <> physical_n_bit_reset def
-R10736:10748 Thermodynamic.LandauerDerived <> n_bits_erased thm
-R10736:10748 Thermodynamic.LandauerDerived <> n_bits_erased thm
-R10736:10748 Thermodynamic.LandauerDerived <> n_bits_erased thm
-prf 10893:10908 <> erasure_additive
-binder 10919:10920 <> e1:35
-binder 10922:10923 <> e2:36
-R10958:10963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10942:10944 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10928:10938 Thermodynamic.LandauerDerived <> output_bits proj
-R10940:10941 Thermodynamic.LandauerDerived <> e1:35 var
-R10945:10954 Thermodynamic.LandauerDerived <> input_bits proj
-R10956:10957 Thermodynamic.LandauerDerived <> e2:36 var
-R10995:11001 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11032:11032 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10978:10980 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10964:10974 Thermodynamic.LandauerDerived <> bits_erased def
-R10976:10977 Thermodynamic.LandauerDerived <> e1:35 var
-R10981:10991 Thermodynamic.LandauerDerived <> bits_erased def
-R10993:10994 Thermodynamic.LandauerDerived <> e2:36 var
-R11015:11017 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R11002:11011 Thermodynamic.LandauerDerived <> input_bits proj
-R11013:11014 Thermodynamic.LandauerDerived <> e1:35 var
-R11018:11028 Thermodynamic.LandauerDerived <> output_bits proj
-R11030:11031 Thermodynamic.LandauerDerived <> e2:36 var
-R11074:11084 Thermodynamic.LandauerDerived <> bits_erased def
-R12514:12539 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R12560:12579 Thermodynamic.LandauerDerived <> thermodynamic_bridge thm
-R12600:12619 Thermodynamic.LandauerDerived <> erasure_irreversible thm
-R12692:12717 Thermodynamic.LandauerDerived <> landauer_information_bound thm
-R12726:12745 Thermodynamic.LandauerDerived <> thermodynamic_bridge thm
-R12754:12773 Thermodynamic.LandauerDerived <> erasure_irreversible thm
-def 12788:12803 <> Bitstring_anchor
-R12808:12816 Thermodynamic.LandauerDerived <> Bitstring def
+R4051:4062 Coq.Arith.PeanoNat Nat le_trans thm
+R4071:4071 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4051:4062 Coq.Arith.PeanoNat Nat le_trans thm
+R4093:4104 Coq.Arith.PeanoNat Nat le_add_r thm
+R4093:4104 Coq.Arith.PeanoNat Nat le_add_r thm
+prf 4243:4253 <> pow2_S_ge_2
+binder 4264:4264 <> n:17
+R4274:4277 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4268:4269 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4273:4273 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R4270:4270 Coq.Init.Datatypes <> S constr
+R4272:4272 Thermodynamic.LandauerDerived <> n:17 var
+R4316:4326 Coq.Arith.PeanoNat Nat add_0_r thm
+R4316:4326 Coq.Arith.PeanoNat Nat add_0_r thm
+R4316:4326 Coq.Arith.PeanoNat Nat add_0_r thm
+R4343:4351 Thermodynamic.LandauerDerived <> pow2_ge_1 thm
+R4343:4351 Thermodynamic.LandauerDerived <> pow2_ge_1 thm
+R4381:4383 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4381:4383 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4411:4425 Coq.Arith.PeanoNat Nat add_le_mono thm
+R4411:4425 Coq.Arith.PeanoNat Nat add_le_mono thm
+prf 4685:4704 <> erasure_irreversible
+binder 4715:4715 <> e:18
+R4738:4741 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4733:4736 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4720:4730 Thermodynamic.LandauerDerived <> bits_erased def
+R4732:4732 Thermodynamic.LandauerDerived <> e:18 var
+R4742:4756 Thermodynamic.LandauerDerived <> is_irreversible def
+R4758:4758 Thermodynamic.LandauerDerived <> e:18 var
+R4792:4806 Thermodynamic.LandauerDerived <> is_irreversible def
+R4809:4814 Thermodynamic.LandauerDerived <> fan_in def
+R4817:4827 Thermodynamic.LandauerDerived <> bits_erased def
+R4854:4856 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R4842:4851 Thermodynamic.LandauerDerived <> input_bits proj
+R4857:4867 Thermodynamic.LandauerDerived <> output_bits proj
+R4854:4856 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R4842:4851 Thermodynamic.LandauerDerived <> input_bits proj
+R4857:4867 Thermodynamic.LandauerDerived <> output_bits proj
+R4915:4925 Thermodynamic.LandauerDerived <> bits_erased def
+R4989:4999 Thermodynamic.LandauerDerived <> pow2_S_ge_2 thm
+R4989:4999 Thermodynamic.LandauerDerived <> pow2_S_ge_2 thm
+R5024:5025 Coq.Init.Peano <> gt def
+R5035:5036 Coq.Init.Peano <> lt def
+def 5229:5240 <> entropy_bits
+R5247:5249 Coq.Init.Datatypes <> nat ind
+binder 5243:5243 <> n:19
+R5254:5256 Coq.Init.Datatypes <> nat ind
+R5261:5261 Thermodynamic.LandauerDerived <> n:19 var
+def 5352:5364 <> delta_entropy
+R5371:5377 Thermodynamic.LandauerDerived <> Erasure rec
+binder 5367:5367 <> e:20
+R5382:5382 Coq.Numbers.BinNums <> Z ind
+R5413:5415 Coq.ZArith.BinInt <> ::Z_scope:x_'-'_x not
+R5389:5396 Coq.ZArith.BinInt Z of_nat def
+R5399:5409 Thermodynamic.LandauerDerived <> output_bits proj
+R5411:5411 Thermodynamic.LandauerDerived <> e:20 var
+R5416:5423 Coq.ZArith.BinInt Z of_nat def
+R5426:5435 Thermodynamic.LandauerDerived <> input_bits proj
+R5437:5437 Thermodynamic.LandauerDerived <> e:20 var
+prf 5515:5539 <> erasure_decreases_entropy
+binder 5550:5550 <> e:21
+R5573:5578 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5568:5571 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5555:5565 Thermodynamic.LandauerDerived <> bits_erased def
+R5567:5567 Thermodynamic.LandauerDerived <> e:21 var
+R5595:5597 Coq.ZArith.BinInt <> ::Z_scope:x_'<'_x not
+R5580:5592 Thermodynamic.LandauerDerived <> delta_entropy def
+R5594:5594 Thermodynamic.LandauerDerived <> e:21 var
+R5671:5683 Thermodynamic.LandauerDerived <> delta_entropy def
+R5686:5696 Thermodynamic.LandauerDerived <> bits_erased def
+R5713:5723 Thermodynamic.LandauerDerived <> output_bits proj
+R5726:5735 Thermodynamic.LandauerDerived <> input_bits proj
+rec 6127:6141 <> PhysicalErasure
+proj 6168:6177 <> erasure_op
+proj 6192:6211 <> env_entropy_increase
+proj 6222:6241 <> second_law_satisfied
+R6181:6187 Thermodynamic.LandauerDerived <> Erasure rec
+R6215:6217 Coq.Init.Datatypes <> nat ind
+R6269:6272 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6249:6268 Thermodynamic.LandauerDerived <> env_entropy_increase:24 meth
+R6273:6283 Thermodynamic.LandauerDerived <> bits_erased def
+R6285:6294 Thermodynamic.LandauerDerived <> erasure_op:23 meth
+prf 6619:6644 <> landauer_information_bound
+R6660:6674 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 6655:6656 <> pe:26
+R6702:6705 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6679:6698 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R6700:6701 Thermodynamic.LandauerDerived <> pe:26 var
+R6706:6716 Thermodynamic.LandauerDerived <> bits_erased def
+R6719:6728 Thermodynamic.LandauerDerived <> erasure_op proj
+R6730:6731 Thermodynamic.LandauerDerived <> pe:26 var
+def 7909:7910 <> mu
+R7917:7923 Thermodynamic.LandauerDerived <> Erasure rec
+binder 7913:7913 <> e:27
+R7928:7930 Coq.Init.Datatypes <> nat ind
+R7935:7945 Thermodynamic.LandauerDerived <> bits_erased def
+R7947:7947 Thermodynamic.LandauerDerived <> e:27 var
+prf 7959:7978 <> thermodynamic_bridge
+R7994:8008 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 7989:7990 <> pe:28
+R8036:8039 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8013:8032 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R8034:8035 Thermodynamic.LandauerDerived <> pe:28 var
+R8040:8041 Thermodynamic.LandauerDerived <> mu def
+R8044:8053 Thermodynamic.LandauerDerived <> erasure_op proj
+R8055:8056 Thermodynamic.LandauerDerived <> pe:28 var
+R8088:8089 Thermodynamic.LandauerDerived <> mu def
+R8100:8125 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R8100:8125 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+def 8257:8269 <> one_bit_reset
+R8273:8279 Thermodynamic.LandauerDerived <> Erasure rec
+R8289:8298 Thermodynamic.LandauerDerived <> input_bits proj
+R8289:8298 Thermodynamic.LandauerDerived <> input_bits proj
+R8289:8298 Thermodynamic.LandauerDerived <> input_bits proj
+R8308:8318 Thermodynamic.LandauerDerived <> output_bits proj
+R8308:8318 Thermodynamic.LandauerDerived <> output_bits proj
+R8328:8337 Thermodynamic.LandauerDerived <> output_leq proj
+R8328:8337 Thermodynamic.LandauerDerived <> output_leq proj
+R8342:8351 Coq.Arith.PeanoNat Nat le_0_l thm
+prf 8366:8379 <> one_bit_erased
+R8408:8410 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8383:8393 Thermodynamic.LandauerDerived <> bits_erased def
+R8395:8407 Thermodynamic.LandauerDerived <> one_bit_reset def
+prf 8446:8465 <> one_bit_irreversible
+R8469:8483 Thermodynamic.LandauerDerived <> is_irreversible def
+R8485:8497 Thermodynamic.LandauerDerived <> one_bit_reset def
+R8515:8534 Thermodynamic.LandauerDerived <> erasure_irreversible thm
+R8515:8534 Thermodynamic.LandauerDerived <> erasure_irreversible thm
+R8547:8560 Thermodynamic.LandauerDerived <> one_bit_erased thm
+R8547:8560 Thermodynamic.LandauerDerived <> one_bit_erased thm
+R8547:8560 Thermodynamic.LandauerDerived <> one_bit_erased thm
+prf 8654:8663 <> one_ge_one
+R8668:8671 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+def 8824:8845 <> physical_one_bit_reset
+R8849:8863 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+R8873:8882 Thermodynamic.LandauerDerived <> erasure_op proj
+R8873:8882 Thermodynamic.LandauerDerived <> erasure_op proj
+R8873:8882 Thermodynamic.LandauerDerived <> erasure_op proj
+R8904:8923 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R8904:8923 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R8933:8952 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R8933:8952 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R8887:8899 Thermodynamic.LandauerDerived <> one_bit_reset def
+R8957:8966 Thermodynamic.LandauerDerived <> one_ge_one thm
+prf 9025:9040 <> one_bit_landauer
+R9089:9092 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9046:9065 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R9067:9088 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+R9117:9142 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R9144:9165 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+R9117:9142 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R9144:9165 Thermodynamic.LandauerDerived <> physical_one_bit_reset def
+def 9372:9382 <> n_bit_reset
+R9389:9391 Coq.Init.Datatypes <> nat ind
+binder 9385:9385 <> n:29
+R9396:9402 Thermodynamic.LandauerDerived <> Erasure rec
+R9412:9421 Thermodynamic.LandauerDerived <> input_bits proj
+R9412:9421 Thermodynamic.LandauerDerived <> input_bits proj
+R9412:9421 Thermodynamic.LandauerDerived <> input_bits proj
+R9431:9441 Thermodynamic.LandauerDerived <> output_bits proj
+R9431:9441 Thermodynamic.LandauerDerived <> output_bits proj
+R9451:9460 Thermodynamic.LandauerDerived <> output_leq proj
+R9451:9460 Thermodynamic.LandauerDerived <> output_leq proj
+R9426:9426 Thermodynamic.LandauerDerived <> n:29 var
+R9465:9474 Coq.Arith.PeanoNat Nat le_0_l thm
+R9476:9476 Thermodynamic.LandauerDerived <> n:29 var
+prf 9489:9501 <> n_bits_erased
+binder 9512:9512 <> n:30
+R9542:9544 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9515:9525 Thermodynamic.LandauerDerived <> bits_erased def
+R9528:9538 Thermodynamic.LandauerDerived <> n_bit_reset def
+R9540:9540 Thermodynamic.LandauerDerived <> n:30 var
+R9545:9545 Thermodynamic.LandauerDerived <> n:30 var
+R9571:9581 Thermodynamic.LandauerDerived <> bits_erased def
+R9584:9594 Thermodynamic.LandauerDerived <> n_bit_reset def
+R9610:9620 Coq.Arith.PeanoNat Nat sub_0_r thm
+R9610:9620 Coq.Arith.PeanoNat Nat sub_0_r thm
+prf 9635:9640 <> n_ge_n
+binder 9651:9651 <> n:31
+R9655:9658 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9654:9654 Thermodynamic.LandauerDerived <> n:31 var
+R9659:9659 Thermodynamic.LandauerDerived <> n:31 var
+prf 9696:9711 <> n_bit_second_law
+binder 9722:9722 <> n:32
+R9726:9729 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9725:9725 Thermodynamic.LandauerDerived <> n:32 var
+R9730:9740 Thermodynamic.LandauerDerived <> bits_erased def
+R9743:9753 Thermodynamic.LandauerDerived <> n_bit_reset def
+R9755:9755 Thermodynamic.LandauerDerived <> n:32 var
+R9785:9797 Thermodynamic.LandauerDerived <> n_bits_erased thm
+R9785:9797 Thermodynamic.LandauerDerived <> n_bits_erased thm
+R9785:9797 Thermodynamic.LandauerDerived <> n_bits_erased thm
+R9806:9811 Thermodynamic.LandauerDerived <> n_ge_n thm
+R9806:9811 Thermodynamic.LandauerDerived <> n_ge_n thm
+def 9893:9912 <> physical_n_bit_reset
+R9919:9921 Coq.Init.Datatypes <> nat ind
+binder 9915:9915 <> n:33
+R9926:9940 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+R9950:9959 Thermodynamic.LandauerDerived <> erasure_op proj
+R9950:9959 Thermodynamic.LandauerDerived <> erasure_op proj
+R9950:9959 Thermodynamic.LandauerDerived <> erasure_op proj
+R9981:10000 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R9981:10000 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R10010:10029 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R10010:10029 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R9964:9974 Thermodynamic.LandauerDerived <> n_bit_reset def
+R9976:9976 Thermodynamic.LandauerDerived <> n:33 var
+R10005:10005 Thermodynamic.LandauerDerived <> n:33 var
+R10034:10049 Thermodynamic.LandauerDerived <> n_bit_second_law thm
+R10051:10051 Thermodynamic.LandauerDerived <> n:33 var
+prf 10066:10079 <> n_bit_landauer
+binder 10090:10090 <> n:34
+R10140:10143 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10095:10114 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R10117:10136 Thermodynamic.LandauerDerived <> physical_n_bit_reset def
+R10138:10138 Thermodynamic.LandauerDerived <> n:34 var
+R10144:10144 Thermodynamic.LandauerDerived <> n:34 var
+R10179:10204 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R10207:10226 Thermodynamic.LandauerDerived <> physical_n_bit_reset def
+R10179:10204 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R10207:10226 Thermodynamic.LandauerDerived <> physical_n_bit_reset def
+R10257:10269 Thermodynamic.LandauerDerived <> n_bits_erased thm
+R10257:10269 Thermodynamic.LandauerDerived <> n_bits_erased thm
+R10257:10269 Thermodynamic.LandauerDerived <> n_bits_erased thm
+prf 10472:10487 <> erasure_additive
+binder 10498:10499 <> e1:35
+binder 10501:10502 <> e2:36
+R10537:10542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10521:10523 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10507:10517 Thermodynamic.LandauerDerived <> output_bits proj
+R10519:10520 Thermodynamic.LandauerDerived <> e1:35 var
+R10524:10533 Thermodynamic.LandauerDerived <> input_bits proj
+R10535:10536 Thermodynamic.LandauerDerived <> e2:36 var
+R10574:10579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10610:10610 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10557:10559 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10543:10553 Thermodynamic.LandauerDerived <> bits_erased def
+R10555:10556 Thermodynamic.LandauerDerived <> e1:35 var
+R10560:10570 Thermodynamic.LandauerDerived <> bits_erased def
+R10572:10573 Thermodynamic.LandauerDerived <> e2:36 var
+R10593:10595 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10580:10589 Thermodynamic.LandauerDerived <> input_bits proj
+R10591:10592 Thermodynamic.LandauerDerived <> e1:35 var
+R10596:10606 Thermodynamic.LandauerDerived <> output_bits proj
+R10608:10609 Thermodynamic.LandauerDerived <> e2:36 var
+R10652:10662 Thermodynamic.LandauerDerived <> bits_erased def
+R11779:11804 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R11825:11844 Thermodynamic.LandauerDerived <> thermodynamic_bridge thm
+R11865:11884 Thermodynamic.LandauerDerived <> erasure_irreversible thm
+R11894:11919 Thermodynamic.LandauerDerived <> landauer_information_bound thm
+R11928:11947 Thermodynamic.LandauerDerived <> thermodynamic_bridge thm
+R11956:11975 Thermodynamic.LandauerDerived <> erasure_irreversible thm
+def 12065:12080 <> Bitstring_anchor
+R12085:12093 Thermodynamic.LandauerDerived <> Bitstring def

@@ -1,3 +1,15 @@
+(** * PreregSplit: pre-registered chronological train/test split
+
+    This file formalises the chronological "tail" split used by the
+    pre-registration policy: given a list and a test size [test_n],
+    take all but the last [test_n] elements as the training set and
+    the last [test_n] as the test set.
+
+    The lemma [split_tail_app] confirms that the split reassembles
+    the original list, and [foundation_chain_witness_prereg_split]
+    exposes the resulting train/test pair as a foundation-chain
+    artefact for the master summary to reference. *)
+
 From Coq Require Import List Arith Lia.
 
 Import ListNotations.

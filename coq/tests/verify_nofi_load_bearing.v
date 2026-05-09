@@ -1,12 +1,15 @@
-(**
-    NO-FREE-INSIGHT LOAD-BEARING DEPENDENCY GUARD
+(** * verify_nofi_load_bearing: dependency guard for the NoFreeInsight bridge
 
-    This file ensures downstream proofs can depend on the strengthened
-    NoFreeInsight theorem in a nontrivial way.
+    This file ensures the strengthened NoFreeInsight theorem actually
+    carries weight downstream by applying it concretely.
 
-    Unlike a mere symbol-presence check, this proof applies
-    [NoFreeInsight.strengthening_obs_requires_structure_addition] directly.
-    *)
+    The lemma below is not new mathematics: it states a thin alias of
+    [NoFreeInsight.strengthening_obs_requires_structure_addition] and
+    discharges that statement by exact application. The point is to
+    force the strengthened theorem into the dependency graph so any
+    accidental loosening of its assumptions or removal of its body would
+    break this build artefact. The trailing [Print Assumptions]
+    documents the closure status. *)
 
 From Kernel Require Import VMState SimulationProof RevelationRequirement NoFreeInsight.
 

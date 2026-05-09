@@ -32,6 +32,18 @@ BUILD = REPO / "build"
 RTL = REPO / "thielecpu" / "hardware" / "rtl"
 
 
+def _kernel_v(name: str) -> Path:
+    """Resolve coq/kernel/<name> across the current subdirectory layout."""
+    flat = COQ / "kernel" / name
+    if flat.exists():
+        return flat
+    kernel_root = COQ / "kernel"
+    if kernel_root.exists():
+        for p in kernel_root.rglob(name):
+            return p
+    return flat
+
+
 # ---------------------------------------------------------------------------
 # Helper: read file text
 # ---------------------------------------------------------------------------
@@ -50,7 +62,7 @@ class TestMemSizeUnified:
     """MEM_SIZE must agree across Coq, Python, OCaml runner, RTL, and Abstraction."""
 
     def test_coq_vmstate_mem_size(self):
-        text = _read(COQ / "kernel" / "VMState.v")
+        text = _read(_kernel_v("VMState.v"))
         m = re.search(r"Definition MEM_SIZE\s*:.*:=\s*(\d+)", text)
         assert m, "MEM_SIZE not found in VMState.v"
         assert int(m.group(1)) == EXPECTED_MEM_SIZE, (
@@ -243,7 +255,7 @@ class TestOpcodeCountConsistency:
     """All layers must agree on 46 opcodes."""
 
     def test_coq_vmstep_has_46_constructors(self):
-        text = _read(COQ / "kernel" / "VMStep.v")
+        text = _read(_kernel_v("VMStep.v"))
         constructors = re.findall(r"Coq_instr_\w+|instr_\w+\s*:", text)
         # Count unique opcode names from step constructors
         step_ctors = re.findall(r"\|\s*step_(\w+)\s*:", text)

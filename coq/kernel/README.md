@@ -1,144 +1,84 @@
 # Kernel
 
-**Mission:** Core structural constraint proofs, optimization bounds, and bisimulation results for the Thiele Machine kernel.
+Core structural-constraint proofs, optimization bounds, and bisimulation
+results for the Thiele Machine kernel. **161 files, zero admits.**
 
-**130 files, zero admits.**
+The directory was reorganized into 12 topical subdirectories on
+2026-05-09 (audit:
+[`artifacts/COQ_NECESSITY_AUDIT.md`](../../artifacts/COQ_NECESSITY_AUDIT.md)).
+The `Kernel` namespace is preserved across all subdirectories via multi-line
+`-R kernel/<subdir> Kernel` mappings in [`_CoqProject`](../_CoqProject), so
+existing imports `From Kernel Require Import VMState` still work unchanged.
 
-**Research-layer note:** Physics-reading files such as `EinsteinEmergence.v`, `EinsteinEquations4D.v`, `MuGravity.v`, and spacetime/curvature files are formal modeling or exploratory work. They are not part of the repository's core verified execution contract unless separately called out in the claim-boundary docs.
+## Subdirectory map
 
-## Verification Status
+| Directory | Files | Role |
+|---|---:|---|
+| [`foundation/`](foundation/) | 22 | VM model, simulation, classical/Turing fragment |
+| [`mu_calculus/`](mu_calculus/) | 12 | μ initiality, cost derivation, Shannon bridges, hierarchy |
+| [`nfi/`](nfi/) | 25 | No Free Insight chain — A2 substrate-independence, structural advantage |
+| [`frontier/`](frontier/) | 12 | F1, F2, F3 closure files (per `FRONTIER_PLAN.md`) |
+| [`category/`](category/) | 5 | Categorical bridge laws and algebraic Tsirelson |
+| [`quantum/`](quantum/) | 26 | CHSH, Tsirelson, NPA-PSD, Born rule, no-cloning, unitarity |
+| [`curvature/`](curvature/) | 30 | Einstein, Riemann, simplicial geometry, μ-gravity, Lorentzian |
+| [`thermodynamic/`](thermodynamic/) | 6 | Bekenstein, Clausius, finite-information |
+| [`witness/`](witness/) | 8 | Shadow projection, blindness, witness preservation |
+| [`hardware_bridge/`](hardware_bridge/) | 5 | Three-layer iso, RTL correspondence, Python/OCaml bisim |
+| [`aggregators/`](aggregators/) | 7 | TOE, ThieleGenesis, MasterSummary, audits |
+| [`misc/`](misc/) | 3 | Cone algebra/derivation, semantic μ-cost |
 
-| File | Admits | Status |
-|:---|:---:|:---:|
-| `AbstractNoFI.v` | 0 | ✅ |
-| `AlgebraicCoherence.v` | 0 | ✅ |
-| `BekensteinCalibration.v` | 0 | ✅ |
-| `BlindnessRepresentation.v` | 0 | ✅ |
-| `BornRule.v` | 0 | ✅ |
-| `BornRuleLinearity.v` | 0 | ✅ |
-| `BoxCHSH.v` | 0 | ✅ |
-| `CHSH.v` | 0 | ✅ |
-| `CHSHExtraction.v` | 0 | ✅ |
-| `CHSHStatisticalBridge.v` | 0 | ✅ |
-| `CategoryBridge.v` | 0 | ✅ |
-| `CategoryLaws.v` | 0 | ✅ |
-| `CategoryMonoidal.v` | 0 | ✅ |
-| `CertCheck.v` | 0 | ✅ |
-| `Certification.v` | 0 | ✅ |
-| `ClassicalBound.v` | 0 | ✅ |
-| `ClassicalConservativity.v` | 0 | ✅ |
-| `ClausiusFromEntropyArea.v` | 0 | ✅ |
-| `Closure.v` | 0 | ✅ |
-| `ConeAlgebra.v` | 0 | ✅ |
-| `ConeDerivation.v` | 0 | ✅ |
-| `ConstantUnification.v` | 0 | ✅ |
-| `ConstructivePSD.v` | 0 | ✅ |
-| `CurvedTensorPipeline.v` | 0 | ✅ |
-| `Definitions.v` | 0 | ✅ |
-| `DerivedTime.v` | 0 | ✅ |
-| `DiscreteGaussBonnet.v` | 0 | ✅ |
-| `DiscreteRaychaudhuri.v` | 0 | ✅ |
-| `DiscreteTopology.v` | 0 | ✅ |
-| `EinsteinEmergence.v` | 0 | ✅ |
-| `EinsteinEquations4D.v` | 0 | ✅ |
-| `EinsteinEquationsFull.v` | 0 | ✅ |
-| `EntanglementEntropy.v` | 0 | ✅ |
-| `EntropyImpossibility.v` | 0 | ✅ |
-| `FalsifiablePrediction.v` | 0 | ✅ |
-| `FiniteInformation.v` | 0 | ✅ |
-| `FourDSimplicialComplex.v` | 0 | ✅ |
-| `HardwareBisimulation.v` | 0 | ✅ |
-| `HonestNoFI.v` | 0 | ✅ |
-| `HonestNoFI_TheoremsWithoutAssumptions.v` | 0 | ✅ |
-| `InformationCausality.v` | 0 | ✅ |
-| `InformationGainToStrengthening.v` | 0 | ✅ |
-| `InsightTaxonomy.v` | 0 | ✅ |
-| `JacobsonBridgeComponents.v` | 0 | ✅ |
-| `Kernel.v` | 0 | ✅ |
-| `KernelBenchmarks.v` | 0 | ✅ |
-| `KernelNoether.v` | 0 | ✅ |
-| `KernelPhysics.v` | 0 | ✅ |
-| `KernelTM.v` | 0 | ✅ |
-| `KernelThiele.v` | 0 | ✅ |
-| `LandauerDerivation.v` | 0 | ✅ |
-| `LocalInfoLoss.v` | 0 | ✅ |
-| `LocalMorphismSemantics.v` | 0 | ✅ |
-| `Locality.v` | 0 | ✅ |
-| `LorentzNotForced.v` | 0 | ✅ |
-| `LorentzianTensorPipeline.v` | 0 | ✅ |
-| `MasterSummary.v` | 0 | ✅ |
-| `MatrixAlgebra4.v` | 0 | ✅ |
-| `MetricForcing.v` | 0 | ✅ |
-| `MetricFromMuCosts.v` | 0 | ✅ |
-| `MinorConstraints.v` | 0 | ✅ |
-| `MuChaitin.v` | 0 | ✅ |
-| `MuCostDerivation.v` | 0 | ✅ |
-| `MuCostModel.v` | 0 | ✅ |
-| `MuGeometry.v` | 0 | ✅ |
-| `MuGravity.v` | 0 | ✅ |
-| `MuInformation.v` | 0 | ✅ |
-| `MuInitiality.v` | 0 | ✅ |
-| `MuLedgerConservation.v` | 0 | ✅ |
-| `MuLedgerQuantumBridge.v` | 0 | ✅ |
-| `MuNoFreeInsightQuantitative.v` | 0 | ✅ |
-| `MuShannonBridge.v` | 0 | ✅ |
-| `MuShannonQuantitative.v` | 0 | ✅ |
-| `NPAMomentMatrix.v` | 0 | ✅ |
-| `NoCloning.v` | 0 | ✅ |
-| `NoFIToEinstein.v` | 0 | ✅ |
-| `NoFreeInsight.v` | 0 | ✅ |
-| `NonCircularityAudit.v` | 0 | ✅ |
-| `OCamlExtractionBridge.v` | 0 | ✅ |
-| `ObserverDerivation.v` | 0 | ✅ |
-| `PDISCOVERIntegration.v` | 0 | ✅ |
-| `PNEWTopologyChange.v` | 0 | ✅ |
-| `PartitionSeparation.v` | 0 | ✅ |
-| `Persistence.v` | 0 | ✅ |
-| `PhysicsClosure.v` | 0 | ✅ |
-| `PrimeAxiom.v` | 0 | ✅ |
-| `ProbabilityImpossibility.v` | 0 | ✅ |
-| `ProperSubsumption.v` | 0 | ✅ |
-| `Purification.v` | 0 | ✅ |
-| `PythonBisimulation.v` | 0 | ✅ |
-| `QuantitativeNoFI.v` | 0 | ✅ |
-| `QuantumBound.v` | 0 | ✅ |
-| `QuantumEquivalence.v` | 0 | ✅ |
-| `QuantumPartitionPSD.v` | 0 | ✅ |
-| `RaychaudhuriFluxBridge.v` | 0 | ✅ |
-| `ReceiptCore.v` | 0 | ✅ |
-| `ReceiptIntegrity.v` | 0 | ✅ |
-| `RevelationRequirement.v` | 0 | ✅ |
-| `RiemannTensor4D.v` | 0 | ✅ |
-| `SemanticMuCost.v` | 0 | ✅ |
-| `SemidefiniteProgramming.v` | 0 | ✅ |
-| `ShadowProjection.v` | 0 | ✅ |
-| `SimulationProof.v` | 0 | ✅ |
-| `SpacetimeEmergence.v` | 0 | ✅ |
-| `StateSpaceCounting.v` | 0 | ✅ |
-| `StressEnergyDynamics.v` | 0 | ✅ |
-| `StructuralAdvantage.v` | 0 | ✅ |
-| `Subsumption.v` | 0 | ✅ |
-| `TOE.v` | 0 | ✅ |
-| `ThermoEinsteinBridge.v` | 0 | ✅ |
-| `ThieleGenesis.v` | 0 | ✅ |
-| `ThieleTraceProjection.v` | 0 | ✅ |
-| `ThreeLayerIsomorphism.v` | 0 | ✅ |
-| `TopologyCurvatureBridge.v` | 0 | ✅ |
-| `TsirelsonFromAlgebra.v` | 0 | ✅ |
-| `TsirelsonGeneral.v` | 0 | ✅ |
-| `TsirelsonQuantumModel.v` | 0 | ✅ |
-| `TsirelsonUniqueness.v` | 0 | ✅ |
-| `TsirelsonUpperBound.v` | 0 | ✅ |
-| `TuringClassicalEmbedding.v` | 0 | ✅ |
-| `TuringCompletenessISA.v` | 0 | ✅ |
-| `TuringStrictness.v` | 0 | ✅ |
-| `Unitarity.v` | 0 | ✅ |
-| `UniversalCertificationCost.v` | 0 | ✅ |
-| `VMEncoding.v` | 0 | ✅ |
-| `VMState.v` | 0 | ✅ |
-| `VMStep.v` | 0 | ✅ |
-| `ValidCorrelation.v` | 0 | ✅ |
-| `VerilogRTLCorrespondence.v` | 0 | ✅ |
-| `WitnessPreservationImpossibility.v` | 0 | ✅ |
+Each subdirectory has its own `README.md` describing its files, dependencies,
+and load-bearing exports.
 
-**Result:** All 130 active kernel files verified with 0 admits.
+## Dependency order (typical build path)
+
+```
+foundation/ → mu_calculus/ → nfi/ → witness/
+                ↓                    ↓
+             quantum/         frontier/ (cross-link composites)
+                ↓                    ↓
+            category/         hardware_bridge/
+                ↓                    ↓
+          thermodynamic/      aggregators/
+                ↓
+            curvature/
+```
+
+## Verification status
+
+All 161 files build with **zero `Admitted.` declarations** and **zero
+project-local axioms** beyond the named bridge premises documented in the
+README §"What is and isn't forced":
+
+- `mu_landauer_unruh_calibrated` (in [`curvature/PhysicalSubstrate.v`](curvature/PhysicalSubstrate.v))
+- `bsc_kami_compilation_trusted` (in [`hardware_bridge/`](hardware_bridge/) — BSC compiler trust)
+- Standard Coq axioms: `ClassicalDedekindReals.sig_forall_dec`, `FunctionalExtensionality.functional_extensionality_dep`
+
+Reproduce with `make -C coq` from the repo root, then
+`Print Assumptions ReceiptTheorem.` to inspect the closure.
+
+## Load-bearing exports
+
+The README's [five formal claims](../../README.md#the-five-formal-claims) and
+[chain of claims](../../README.md#the-chain-of-claims) point into specific
+files inside this tree. The full audit, including which files are
+load-bearing, support, exposition, or removal candidates, is at:
+
+- [`artifacts/COQ_NECESSITY_AUDIT.md`](../../artifacts/COQ_NECESSITY_AUDIT.md)
+- [`artifacts/coq_necessity_audit.csv`](../../artifacts/coq_necessity_audit.csv)
+- [`artifacts/coq_chain_diagram.mmd`](../../artifacts/coq_chain_diagram.mmd)
+
+## Removal candidates from the audit
+
+Five files flagged for removal as analogy/scaffold (see audit for rationale):
+
+- [`curvature/KernelNoether.v`](curvature/KernelNoether.v) — Z-shifts as
+  bookkeeping symmetry; analogy file
+- [`witness/DerivedTime.v`](witness/DerivedTime.v) — time as derived
+  trace-equivalence; analogy
+- [`witness/ObserverDerivation.v`](witness/ObserverDerivation.v) —
+  observational-equivalence scaffold; no consumers
+- [`coq/archive/ProofBedrocStrengthening.v`](../archive/ProofBedrocStrengthening.v) — already archived
+- [`coq/physics/PreregSplit.v`](../physics/PreregSplit.v) — pre-registration tooling
+
+Decision pending; nothing has been deleted.

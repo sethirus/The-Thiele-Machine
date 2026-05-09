@@ -3,11 +3,19 @@ Import ListNotations.
 
 From Kernel Require Import VMState MuGravity.
 
-(** Finite triangular lattice encoding for partition graphs.
+(** * TriangularLattice: finite triangular lattice encoding for partition graphs
 
-    This provides a concrete, bounded graph class that we can use as the
-    first testbed for geometric calibration proofs.
-*)
+    This file packages a concrete, bounded graph class — the [n × n]
+    triangular lattice — for use as the first testbed of the geometric
+    calibration proofs in [MuGravity.v]. Each lattice site has a unique
+    [nat] identifier given by [lattice_id n x y = x + n * y]; the inverse
+    [coord_of_id] reads coordinates back via integer division and modulo.
+
+    The arithmetic helper [div_mul_add_small] establishes the
+    quotient/remainder identity used throughout the encoding. The
+    neighbour list [neighbor_coords] is the canonical six-neighbour
+    triangular template; out-of-bounds entries are filtered by
+    [in_bounds]. *)
 
 (** Local copy of div_mul_add_small (was in modular_proofs/EncodingBounds.v). *)
 Lemma div_mul_add_small :

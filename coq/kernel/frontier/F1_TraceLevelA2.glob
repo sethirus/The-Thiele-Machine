@@ -1,0 +1,176 @@
+DIGEST be83dfd8487cca1a27fb66e9052f3798
+FKernel.F1_TraceLevelA2
+R855:858 Coq.Lists.List <> <> lib
+R860:873 Coq.Arith.PeanoNat <> <> lib
+R875:877 Coq.micromega.Lia <> <> lib
+R879:882 Coq.Bool.Bool <> <> lib
+R892:904 Coq.Lists.List ListNotations <> mod
+R935:941 Kernel.VMState <> <> lib
+R943:948 Kernel.VMStep <> <> lib
+R950:964 Kernel.SimulationProof <> <> lib
+R994:1003 Kernel.PrimeAxiom <> <> lib
+R1005:1016 Kernel.AbstractNoFI <> <> lib
+R1046:1071 Kernel.UniversalCertificationCost <> <> lib
+R1101:1117 Kernel.F1_LogicalErasure <> <> lib
+def 1751:1776 <> thiele_cert_system_from_F1
+R1803:1805 Coq.Init.Datatypes <> nat ind
+binder 1781:1799 <> mu_per_landauer_bit:1
+R1837:1840 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1818:1836 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:1 var
+binder 1811:1814 <> Hcal:2
+R1871:1889 Kernel.F1_LogicalErasure <> bool_macro_property def
+binder 1867:1867 <> P:3
+R1897:1910 Kernel.VMStep VMStep vm_instruction ind
+binder 1893:1893 <> i:4
+R1952:1962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1921:1947 Kernel.F1_LogicalErasure <> step_collapses_bool_classes def
+R1949:1949 Kernel.F1_TraceLevelA2 <> P:3 var
+R1951:1951 Kernel.F1_TraceLevelA2 <> i:4 var
+R1981:1984 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R1963:1978 Kernel.VMStep VMStep instruction_cost def
+R1980:1980 Kernel.F1_TraceLevelA2 <> i:4 var
+R1985:2003 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:1 var
+binder 1847:1855 <> HLandauer:5
+R2010:2028 Kernel.UniversalCertificationCost <> CertificationSystem rec
+R2042:2049 Kernel.UniversalCertificationCost <> cs_state proj
+R2042:2049 Kernel.UniversalCertificationCost <> cs_state proj
+R2042:2049 Kernel.UniversalCertificationCost <> cs_state proj
+R2067:2074 Kernel.UniversalCertificationCost <> cs_instr proj
+R2067:2074 Kernel.UniversalCertificationCost <> cs_instr proj
+R2099:2105 Kernel.UniversalCertificationCost <> cs_step proj
+R2099:2105 Kernel.UniversalCertificationCost <> cs_step proj
+R2125:2131 Kernel.UniversalCertificationCost <> cs_cost proj
+R2125:2131 Kernel.UniversalCertificationCost <> cs_cost proj
+R2159:2165 Kernel.UniversalCertificationCost <> cs_cert proj
+R2159:2165 Kernel.UniversalCertificationCost <> cs_cert proj
+R2204:2216 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R2204:2216 Kernel.UniversalCertificationCost <> cs_cert_costs proj
+R2054:2060 Kernel.VMState <> VMState rec
+R2079:2092 Kernel.VMStep VMStep vm_instruction ind
+R2111:2118 Kernel.SimulationProof <> vm_apply def
+R2137:2152 Kernel.VMStep VMStep instruction_cost def
+binder 2176:2176 <> s:6
+R2184:2195 Kernel.VMState <> vm_certified proj
+R2181:2181 Kernel.F1_TraceLevelA2 <> s:6 var
+R2227:2261 Kernel.F1_LogicalErasure <> A2_from_physical_reversibility_real thm
+R2271:2289 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:1 var
+R2291:2294 Kernel.F1_TraceLevelA2 <> Hcal:2 var
+R2296:2304 Kernel.F1_TraceLevelA2 <> HLandauer:5 var
+prf 2651:2667 <> F1_trace_level_A2
+R2703:2705 Coq.Init.Datatypes <> nat ind
+binder 2681:2699 <> mu_per_landauer_bit:7
+R2735:2738 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2716:2734 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:7 var
+binder 2709:2712 <> Hcal:8
+R2776:2794 Kernel.F1_LogicalErasure <> bool_macro_property def
+binder 2772:2772 <> P:9
+R2802:2815 Kernel.VMStep VMStep vm_instruction ind
+binder 2798:2798 <> i:10
+R2864:2881 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2833:2859 Kernel.F1_LogicalErasure <> step_collapses_bool_classes def
+R2861:2861 Kernel.F1_TraceLevelA2 <> P:9 var
+R2863:2863 Kernel.F1_TraceLevelA2 <> i:10 var
+R2900:2903 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2882:2897 Kernel.VMStep VMStep instruction_cost def
+R2899:2899 Kernel.F1_TraceLevelA2 <> i:10 var
+R2904:2922 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:7 var
+binder 2752:2760 <> HLandauer:11
+R2946:2949 Coq.Init.Datatypes <> list ind
+R2951:2964 Kernel.VMStep VMStep vm_instruction ind
+binder 2938:2942 <> trace:12
+R2973:2979 Kernel.VMState <> VMState rec
+binder 2968:2969 <> s0:13
+R3012:3021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3004:3006 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2989:3000 Kernel.VMState <> vm_certified proj
+R3002:3003 Kernel.F1_TraceLevelA2 <> s0:13 var
+R3007:3011 Coq.Init.Datatypes <> false constr
+R3150:3159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3143:3145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3022:3033 Kernel.VMState <> vm_certified proj
+R3044:3049 Kernel.UniversalCertificationCost <> cs_run def
+R3052:3077 Kernel.F1_TraceLevelA2 <> thiele_cert_system_from_F1 def
+R3098:3116 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:7 var
+R3118:3121 Kernel.F1_TraceLevelA2 <> Hcal:8 var
+R3123:3131 Kernel.F1_TraceLevelA2 <> HLandauer:11 var
+R3134:3138 Kernel.F1_TraceLevelA2 <> trace:12 var
+R3140:3141 Kernel.F1_TraceLevelA2 <> s0:13 var
+R3146:3149 Coq.Init.Datatypes <> true constr
+R3262:3265 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3160:3172 Kernel.UniversalCertificationCost <> cs_total_cost def
+R3183:3208 Kernel.F1_TraceLevelA2 <> thiele_cert_system_from_F1 def
+R3221:3239 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:7 var
+R3241:3244 Kernel.F1_TraceLevelA2 <> Hcal:8 var
+R3246:3254 Kernel.F1_TraceLevelA2 <> HLandauer:11 var
+R3257:3261 Kernel.F1_TraceLevelA2 <> trace:12 var
+R3328:3354 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R3368:3393 Kernel.F1_TraceLevelA2 <> thiele_cert_system_from_F1 def
+R3328:3354 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R3368:3393 Kernel.F1_TraceLevelA2 <> thiele_cert_system_from_F1 def
+prf 3609:3629 <> F1_singleton_trace_A2
+R3665:3667 Coq.Init.Datatypes <> nat ind
+binder 3643:3661 <> mu_per_landauer_bit:14
+R3697:3700 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3678:3696 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:14 var
+binder 3671:3674 <> Hcal:15
+R3738:3756 Kernel.F1_LogicalErasure <> bool_macro_property def
+binder 3734:3734 <> P:16
+R3764:3777 Kernel.VMStep VMStep vm_instruction ind
+binder 3760:3760 <> i:17
+R3826:3843 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3795:3821 Kernel.F1_LogicalErasure <> step_collapses_bool_classes def
+R3823:3823 Kernel.F1_TraceLevelA2 <> P:16 var
+R3825:3825 Kernel.F1_TraceLevelA2 <> i:17 var
+R3862:3865 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3844:3859 Kernel.VMStep VMStep instruction_cost def
+R3861:3861 Kernel.F1_TraceLevelA2 <> i:17 var
+R3866:3884 Kernel.F1_TraceLevelA2 <> mu_per_landauer_bit:14 var
+binder 3714:3722 <> HLandauer:18
+R3904:3917 Kernel.VMStep VMStep vm_instruction ind
+binder 3900:3900 <> i:19
+R3926:3932 Kernel.VMState <> VMState rec
+binder 3921:3922 <> s0:20
+R3965:3974 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3957:3959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3942:3953 Kernel.VMState <> vm_certified proj
+R3955:3956 Kernel.F1_TraceLevelA2 <> s0:20 var
+R3960:3964 Coq.Init.Datatypes <> false constr
+R4010:4019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4003:4005 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3975:3986 Kernel.VMState <> vm_certified proj
+R3989:3996 Kernel.SimulationProof <> vm_apply def
+R3998:3999 Kernel.F1_TraceLevelA2 <> s0:20 var
+R4001:4001 Kernel.F1_TraceLevelA2 <> i:19 var
+R4006:4009 Coq.Init.Datatypes <> true constr
+R4038:4041 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4020:4035 Kernel.VMStep VMStep instruction_cost def
+R4037:4037 Kernel.F1_TraceLevelA2 <> i:19 var
+R4100:4134 Kernel.F1_LogicalErasure <> A2_from_physical_reversibility_real thm
+R4100:4134 Kernel.F1_LogicalErasure <> A2_from_physical_reversibility_real thm
+prf 4542:4565 <> F1_thiele_trace_level_A2
+R4587:4590 Coq.Init.Datatypes <> list ind
+R4592:4605 Kernel.VMStep VMStep vm_instruction ind
+binder 4579:4583 <> trace:21
+R4614:4620 Kernel.VMState <> VMState rec
+binder 4609:4610 <> s0:22
+R4651:4658 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4643:4645 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4628:4639 Kernel.VMState <> vm_certified proj
+R4641:4642 Kernel.F1_TraceLevelA2 <> s0:22 var
+R4646:4650 Coq.Init.Datatypes <> false constr
+R4720:4727 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4713:4715 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4659:4670 Kernel.VMState <> vm_certified proj
+R4673:4678 Kernel.UniversalCertificationCost <> cs_run def
+R4680:4702 Kernel.UniversalCertificationCost <> thiele_certified_system def
+R4704:4708 Kernel.F1_TraceLevelA2 <> trace:21 var
+R4710:4711 Kernel.F1_TraceLevelA2 <> s0:22 var
+R4716:4719 Coq.Init.Datatypes <> true constr
+R4771:4774 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4728:4740 Kernel.UniversalCertificationCost <> cs_total_cost def
+R4742:4764 Kernel.UniversalCertificationCost <> thiele_certified_system def
+R4766:4770 Kernel.F1_TraceLevelA2 <> trace:21 var
+R4819:4845 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R4847:4869 Kernel.UniversalCertificationCost <> thiele_certified_system def
+R4819:4845 Kernel.UniversalCertificationCost <> universal_nfi_any_substrate thm
+R4847:4869 Kernel.UniversalCertificationCost <> thiele_certified_system def

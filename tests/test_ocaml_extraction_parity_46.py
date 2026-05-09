@@ -2,7 +2,7 @@
 """Exhaustive OCaml extraction parity test — all 46 opcodes.
 
 WHAT THIS TESTS:
-  For each of the 46 vm_instruction constructors in coq/kernel/VMStep.v:
+  For each of the 46 vm_instruction constructors in coq/kernel/foundation/VMStep.v:
   1. The OCaml extracted runner (build/extracted_vm_runner) handles the
      instruction without crashing.
   2. The μ-cost invariant holds: mu >= initial_mu + instruction_cost.
@@ -15,7 +15,7 @@ WHAT THIS DOES NOT TEST:
 
 TRUST BOUNDARY CONNECTION:
   This test provides the empirical content for the `ocaml_extraction_faithful`
-  named axiom in coq/kernel/OCamlExtractionBridge.v:
+  named axiom in coq/kernel/hardware_bridge/OCamlExtractionBridge.v:
     - Every opcode arm in build/thiele_core.ml is reachable.
     - μ-cost theorem (eo_mu_is_apply_cost) is validated for each opcode.
     - No opcode causes an undefined/missing-arm failure.

@@ -1,271 +1,271 @@
-DIGEST 5a701fbd20971d7971ef334a08b5c789
+DIGEST 7385bf8b497cd13236977ac9270242f7
 FSpacetime.Spacetime
-R748:754 Kernel.VMState <> <> lib
-R756:761 Kernel.VMStep <> <> lib
-R791:801 Kernel.MuCostModel <> <> lib
-R829:839 Coq.Arith.Arith <> <> lib
-R841:844 Coq.Bool.Bool <> <> lib
-R846:848 Coq.micromega.Lia <> <> lib
-R885:897 SelfReference.SelfReference <> <> lib
-rec 939:943 <> Event
-proj 952:952 <> x
-proj 963:963 <> y
-proj 974:974 <> z
-proj 985:985 <> t
-R956:958 Coq.Init.Datatypes <> nat ind
-R967:969 Coq.Init.Datatypes <> nat ind
-R978:980 Coq.Init.Datatypes <> nat ind
-R989:991 Coq.Init.Datatypes <> nat ind
-def 1008:1016 <> worldline
-R1024:1027 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1021:1023 Coq.Init.Datatypes <> nat ind
-R1028:1032 Spacetime.Spacetime <> Event rec
-def 1245:1258 <> spatial_radius
-R1269:1273 Spacetime.Spacetime <> Event rec
-binder 1261:1262 <> e1:6
-binder 1264:1265 <> e2:7
-R1278:1280 Coq.Init.Datatypes <> nat ind
-R1287:1287 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1312:1316 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1341:1341 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1303:1305 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1294:1296 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1292:1292 Spacetime.Spacetime <> x proj
-R1288:1289 Spacetime.Spacetime <> e1:6 var
-R1301:1301 Spacetime.Spacetime <> y proj
-R1297:1298 Spacetime.Spacetime <> e1:6 var
-R1310:1310 Spacetime.Spacetime <> z proj
-R1306:1307 Spacetime.Spacetime <> e1:6 var
-R1332:1334 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1323:1325 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1321:1321 Spacetime.Spacetime <> x proj
-R1317:1318 Spacetime.Spacetime <> e2:7 var
-R1330:1330 Spacetime.Spacetime <> y proj
-R1326:1327 Spacetime.Spacetime <> e2:7 var
-R1339:1339 Spacetime.Spacetime <> z proj
-R1335:1336 Spacetime.Spacetime <> e2:7 var
-def 1356:1370 <> time_separation
-R1381:1385 Spacetime.Spacetime <> Event rec
-binder 1373:1374 <> e1:8
-binder 1376:1377 <> e2:9
-R1390:1392 Coq.Init.Datatypes <> nat ind
-R1402:1408 Coq.Arith.PeanoNat Nat leb def
-R1414:1414 Spacetime.Spacetime <> t proj
-R1410:1411 Spacetime.Spacetime <> e1:8 var
-R1421:1421 Spacetime.Spacetime <> t proj
-R1417:1418 Spacetime.Spacetime <> e2:9 var
-R1456:1458 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1454:1454 Spacetime.Spacetime <> t proj
-R1450:1451 Spacetime.Spacetime <> e1:8 var
-R1463:1463 Spacetime.Spacetime <> t proj
-R1459:1460 Spacetime.Spacetime <> e2:9 var
-R1435:1437 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R1433:1433 Spacetime.Spacetime <> t proj
-R1429:1430 Spacetime.Spacetime <> e2:9 var
-R1442:1442 Spacetime.Spacetime <> t proj
-R1438:1439 Spacetime.Spacetime <> e1:8 var
-def 1479:1495 <> inside_light_cone
-R1506:1510 Spacetime.Spacetime <> Event rec
-binder 1498:1499 <> e1:10
-binder 1501:1502 <> e2:11
-R1545:1548 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R1525:1538 Spacetime.Spacetime <> spatial_radius def
-R1540:1541 Spacetime.Spacetime <> e1:10 var
-R1543:1544 Spacetime.Spacetime <> e2:11 var
-R1549:1563 Spacetime.Spacetime <> time_separation def
-R1565:1566 Spacetime.Spacetime <> e1:10 var
-R1568:1569 Spacetime.Spacetime <> e2:11 var
-rec 1683:1687 <> Frame
-proj 1696:1705 <> trajectory
-proj 1722:1732 <> observation
-R1709:1717 Spacetime.Spacetime <> worldline def
-R1741:1744 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1736:1740 Spacetime.Spacetime <> Event rec
-R1749:1752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-def 1773:1780 <> observes
-R1787:1791 Spacetime.Spacetime <> Frame rec
-binder 1783:1783 <> F:15
-R1804:1807 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1799:1803 Spacetime.Spacetime <> Event rec
-binder 1795:1795 <> P:16
-R1826:1832 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R1836:1837 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 1833:1835 <> tau:17
-R1838:1838 Spacetime.Spacetime <> P:16 var
-R1841:1850 Spacetime.Spacetime <> trajectory proj
-R1852:1852 Spacetime.Spacetime <> F:15 var
-R1854:1856 Spacetime.Spacetime <> tau:17 var
-def 1936:1949 <> LocalPredicate
-R1959:1962 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1954:1958 Spacetime.Spacetime <> Event rec
-R1963:1966 Coq.Init.Datatypes <> bool ind
-def 2239:2246 <> at_event
-R2253:2257 Spacetime.Spacetime <> Event rec
-binder 2249:2249 <> e:18
-R2265:2278 Spacetime.Spacetime <> LocalPredicate def
-binder 2261:2261 <> Q:19
-R2294:2296 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2291:2291 Spacetime.Spacetime <> Q:19 var
-R2293:2293 Spacetime.Spacetime <> e:18 var
-R2297:2300 Coq.Init.Datatypes <> true constr
-def 2315:2333 <> spacetime_sentences
-binder 2336:2336 <> P:20
-R2358:2365 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2396:2398 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2370:2383 Spacetime.Spacetime <> LocalPredicate def
-binder 2366:2366 <> Q:21
-R2391:2395 Spacetime.Spacetime <> Event rec
-binder 2387:2387 <> e:22
-R2411:2415 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2441:2441 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2399:2406 Spacetime.Spacetime <> at_event def
-R2408:2408 Spacetime.Spacetime <> e:22 var
-R2410:2410 Spacetime.Spacetime <> Q:21 var
-binder 2423:2423 <> e:23
-R2436:2439 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2429:2431 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2426:2426 Spacetime.Spacetime <> Q:21 var
-R2428:2428 Spacetime.Spacetime <> e:23 var
-R2432:2435 Coq.Init.Datatypes <> true constr
-R2440:2440 Spacetime.Spacetime <> P:20 var
-def 2456:2471 <> spacetime_system
-R2475:2480 SelfReference.SelfReference <> System rec
-R2490:2498 SelfReference.SelfReference <> dimension proj
-R2490:2498 SelfReference.SelfReference <> dimension proj
-R2490:2498 SelfReference.SelfReference <> dimension proj
-R2511:2519 SelfReference.SelfReference <> sentences proj
-R2511:2519 SelfReference.SelfReference <> sentences proj
-R2524:2542 Spacetime.Spacetime <> spacetime_sentences def
-def 2703:2726 <> spacetime_self_reference
-R2740:2747 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2768:2770 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R2752:2756 Spacetime.Spacetime <> Frame rec
-binder 2748:2748 <> F:24
-binder 2760:2760 <> P:25
-R2772:2775 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2771:2771 Spacetime.Spacetime <> P:25 var
-R2776:2783 Spacetime.Spacetime <> observes def
-R2785:2785 Spacetime.Spacetime <> F:24 var
-R2797:2797 Spacetime.Spacetime <> P:25 var
-prf 2808:2836 <> spacetime_is_self_referential
-R2866:2869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2842:2865 Spacetime.Spacetime <> spacetime_self_reference def
-R2870:2892 SelfReference.SelfReference <> contains_self_reference def
-R2894:2909 Spacetime.Spacetime <> spacetime_system def
-R3128:3131 Coq.Init.Datatypes <> true constr
-R3136:3145 Spacetime.Spacetime <> trajectory proj
-R3128:3131 Coq.Init.Datatypes <> true constr
-R3136:3145 Spacetime.Spacetime <> trajectory proj
-R3173:3180 Spacetime.Spacetime <> at_event def
-prf 3373:3400 <> spacetime_requires_metalevel
-R3430:3435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3406:3429 Spacetime.Spacetime <> spacetime_self_reference def
-R3436:3442 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R3447:3448 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 3443:3446 <> Meta:26
-R3487:3490 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3449:3464 SelfReference.SelfReference <> can_reason_about def
-R3466:3469 Spacetime.Spacetime <> Meta:26 var
-R3471:3486 Spacetime.Spacetime <> spacetime_system def
-R3491:3510 SelfReference.SelfReference <> dimensionally_richer def
-R3512:3515 Spacetime.Spacetime <> Meta:26 var
-R3517:3532 Spacetime.Spacetime <> spacetime_system def
-R3567:3599 SelfReference.SelfReference <> self_reference_requires_metalevel thm
-R3604:3632 Spacetime.Spacetime <> spacetime_is_self_referential thm
-R3567:3599 SelfReference.SelfReference <> self_reference_requires_metalevel thm
-R3604:3632 Spacetime.Spacetime <> spacetime_is_self_referential thm
-prf 3841:3867 <> meta_level_not_in_spacetime
-R3897:3902 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3873:3896 Spacetime.Spacetime <> spacetime_self_reference def
-binder 3910:3913 <> Meta:27
-R4000:4007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3954:3957 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3916:3931 SelfReference.SelfReference <> can_reason_about def
-R3933:3936 Spacetime.Spacetime <> Meta:27 var
-R3938:3953 Spacetime.Spacetime <> spacetime_system def
-R3958:3977 SelfReference.SelfReference <> dimensionally_richer def
-R3979:3982 Spacetime.Spacetime <> Meta:27 var
-R3984:3999 Spacetime.Spacetime <> spacetime_system def
-R4022:4025 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4008:4016 SelfReference.SelfReference <> dimension proj
-R4018:4021 Spacetime.Spacetime <> Meta:27 var
-R4072:4091 SelfReference.SelfReference <> dimensionally_richer def
-R4127:4136 Coq.Arith.PeanoNat Nat lt_neq thm
-R4127:4136 Coq.Arith.PeanoNat Nat lt_neq thm
-R4160:4169 Coq.Init.Logic <> not_eq_sym thm
-R4160:4169 Coq.Init.Logic <> not_eq_sym thm
-def 4270:4283 <> spacetime_meta
-R4287:4292 SelfReference.SelfReference <> System rec
-R4297:4307 SelfReference.SelfReference <> meta_system def
-R4309:4324 Spacetime.Spacetime <> spacetime_system def
-prf 4334:4358 <> spacetime_meta_properties
-R4412:4415 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4364:4379 SelfReference.SelfReference <> can_reason_about def
-R4381:4394 Spacetime.Spacetime <> spacetime_meta def
-R4396:4411 Spacetime.Spacetime <> spacetime_system def
-R4416:4435 SelfReference.SelfReference <> dimensionally_richer def
-R4437:4450 Spacetime.Spacetime <> spacetime_meta def
-R4452:4467 Spacetime.Spacetime <> spacetime_system def
-R4493:4520 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R4530:4547 SelfReference.SelfReference <> meta_system_richer thm
-R4493:4520 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R4530:4547 SelfReference.SelfReference <> meta_system_richer thm
-prf 4563:4592 <> spacetime_meta_dimensional_gap
-R4622:4624 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4596:4604 SelfReference.SelfReference <> dimension proj
-R4606:4621 Spacetime.Spacetime <> spacetime_system def
-prf 4732:4756 <> spacetime_meta_exceeds_4d
-R4784:4786 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R4760:4768 SelfReference.SelfReference <> dimension proj
-R4770:4783 Spacetime.Spacetime <> spacetime_meta def
-R4806:4819 Spacetime.Spacetime <> spacetime_meta def
-R4822:4832 SelfReference.SelfReference <> meta_system def
-R4835:4854 SelfReference.SelfReference <> dimensionally_richer def
-def 5044:5063 <> spacetime_global_gap
-R5089:5102 Spacetime.Spacetime <> LocalPredicate def
-binder 5085:5085 <> Q:28
-R5106:5106 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5129:5133 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5107:5113 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5115:5116 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 5114:5114 <> e:29
-R5117:5124 Spacetime.Spacetime <> at_event def
-R5126:5126 Spacetime.Spacetime <> e:29 var
-R5128:5128 Spacetime.Spacetime <> Q:28 var
-R5134:5136 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5201:5201 Coq.Init.Logic <> ::type_scope:'~'_x not
-binder 5144:5144 <> e:30
-R5157:5160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5150:5152 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5147:5147 Spacetime.Spacetime <> Q:28 var
-R5149:5149 Spacetime.Spacetime <> e:30 var
-R5153:5156 Coq.Init.Datatypes <> true constr
-R5161:5183 SelfReference.SelfReference <> contains_self_reference def
-R5185:5200 Spacetime.Spacetime <> spacetime_system def
-prf 5211:5230 <> global_truth_escapes
-R5256:5261 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5236:5255 Spacetime.Spacetime <> spacetime_global_gap def
-R5262:5268 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5273:5278 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 5269:5272 <> Meta:31
-R5317:5324 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5279:5294 SelfReference.SelfReference <> can_reason_about def
-R5296:5299 Spacetime.Spacetime <> Meta:31 var
-R5301:5316 Spacetime.Spacetime <> spacetime_system def
-R5367:5374 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5325:5344 SelfReference.SelfReference <> dimensionally_richer def
-R5346:5349 Spacetime.Spacetime <> Meta:31 var
-R5351:5366 Spacetime.Spacetime <> spacetime_system def
-R5375:5383 SelfReference.SelfReference <> sentences proj
-R5385:5388 Spacetime.Spacetime <> Meta:31 var
-R5391:5413 SelfReference.SelfReference <> contains_self_reference def
-R5415:5430 Spacetime.Spacetime <> spacetime_system def
-R5465:5475 SelfReference.SelfReference <> meta_system def
-R5477:5492 Spacetime.Spacetime <> spacetime_system def
-R5465:5475 SelfReference.SelfReference <> meta_system def
-R5477:5492 Spacetime.Spacetime <> spacetime_system def
-R5522:5549 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R5522:5549 SelfReference.SelfReference <> meta_system_can_reason_about thm
-R5562:5579 SelfReference.SelfReference <> meta_system_richer thm
-R5562:5579 SelfReference.SelfReference <> meta_system_richer thm
-R5593:5603 SelfReference.SelfReference <> meta_system def
+R1651:1657 Kernel.VMState <> <> lib
+R1659:1664 Kernel.VMStep <> <> lib
+R1694:1704 Kernel.MuCostModel <> <> lib
+R1732:1742 Coq.Arith.Arith <> <> lib
+R1744:1747 Coq.Bool.Bool <> <> lib
+R1749:1751 Coq.micromega.Lia <> <> lib
+R1788:1800 SelfReference.SelfReference <> <> lib
+rec 2095:2099 <> Event
+proj 2108:2108 <> x
+proj 2119:2119 <> y
+proj 2130:2130 <> z
+proj 2141:2141 <> t
+R2112:2114 Coq.Init.Datatypes <> nat ind
+R2123:2125 Coq.Init.Datatypes <> nat ind
+R2134:2136 Coq.Init.Datatypes <> nat ind
+R2145:2147 Coq.Init.Datatypes <> nat ind
+def 2397:2405 <> worldline
+R2413:2416 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2410:2412 Coq.Init.Datatypes <> nat ind
+R2417:2421 Spacetime.Spacetime <> Event rec
+def 2882:2895 <> spatial_radius
+R2906:2910 Spacetime.Spacetime <> Event rec
+binder 2898:2899 <> e1:6
+binder 2901:2902 <> e2:7
+R2915:2917 Coq.Init.Datatypes <> nat ind
+R2924:2924 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2949:2953 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2978:2978 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2940:2942 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2931:2933 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2929:2929 Spacetime.Spacetime <> x proj
+R2925:2926 Spacetime.Spacetime <> e1:6 var
+R2938:2938 Spacetime.Spacetime <> y proj
+R2934:2935 Spacetime.Spacetime <> e1:6 var
+R2947:2947 Spacetime.Spacetime <> z proj
+R2943:2944 Spacetime.Spacetime <> e1:6 var
+R2969:2971 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2960:2962 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2958:2958 Spacetime.Spacetime <> x proj
+R2954:2955 Spacetime.Spacetime <> e2:7 var
+R2967:2967 Spacetime.Spacetime <> y proj
+R2963:2964 Spacetime.Spacetime <> e2:7 var
+R2976:2976 Spacetime.Spacetime <> z proj
+R2972:2973 Spacetime.Spacetime <> e2:7 var
+def 3171:3185 <> time_separation
+R3196:3200 Spacetime.Spacetime <> Event rec
+binder 3188:3189 <> e1:8
+binder 3191:3192 <> e2:9
+R3205:3207 Coq.Init.Datatypes <> nat ind
+R3217:3223 Coq.Arith.PeanoNat Nat leb def
+R3229:3229 Spacetime.Spacetime <> t proj
+R3225:3226 Spacetime.Spacetime <> e1:8 var
+R3236:3236 Spacetime.Spacetime <> t proj
+R3232:3233 Spacetime.Spacetime <> e2:9 var
+R3271:3273 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3269:3269 Spacetime.Spacetime <> t proj
+R3265:3266 Spacetime.Spacetime <> e1:8 var
+R3278:3278 Spacetime.Spacetime <> t proj
+R3274:3275 Spacetime.Spacetime <> e2:9 var
+R3250:3252 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3248:3248 Spacetime.Spacetime <> t proj
+R3244:3245 Spacetime.Spacetime <> e2:9 var
+R3257:3257 Spacetime.Spacetime <> t proj
+R3253:3254 Spacetime.Spacetime <> e1:8 var
+def 3589:3605 <> inside_light_cone
+R3616:3620 Spacetime.Spacetime <> Event rec
+binder 3608:3609 <> e1:10
+binder 3611:3612 <> e2:11
+R3655:3658 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3635:3648 Spacetime.Spacetime <> spatial_radius def
+R3650:3651 Spacetime.Spacetime <> e1:10 var
+R3653:3654 Spacetime.Spacetime <> e2:11 var
+R3659:3673 Spacetime.Spacetime <> time_separation def
+R3675:3676 Spacetime.Spacetime <> e1:10 var
+R3678:3679 Spacetime.Spacetime <> e2:11 var
+rec 4014:4018 <> Frame
+proj 4027:4036 <> trajectory
+proj 4053:4063 <> observation
+R4040:4048 Spacetime.Spacetime <> worldline def
+R4072:4075 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4067:4071 Spacetime.Spacetime <> Event rec
+R4080:4083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+def 4344:4351 <> observes
+R4358:4362 Spacetime.Spacetime <> Frame rec
+binder 4354:4354 <> F:15
+R4375:4378 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4370:4374 Spacetime.Spacetime <> Event rec
+binder 4366:4366 <> P:16
+R4397:4403 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4407:4408 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4404:4406 <> tau:17
+R4409:4409 Spacetime.Spacetime <> P:16 var
+R4412:4421 Spacetime.Spacetime <> trajectory proj
+R4423:4423 Spacetime.Spacetime <> F:15 var
+R4425:4427 Spacetime.Spacetime <> tau:17 var
+def 4654:4667 <> LocalPredicate
+R4677:4680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4672:4676 Spacetime.Spacetime <> Event rec
+R4681:4684 Coq.Init.Datatypes <> bool ind
+def 4777:4784 <> at_event
+R4791:4795 Spacetime.Spacetime <> Event rec
+binder 4787:4787 <> e:18
+R4803:4816 Spacetime.Spacetime <> LocalPredicate def
+binder 4799:4799 <> Q:19
+R4832:4834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4829:4829 Spacetime.Spacetime <> Q:19 var
+R4831:4831 Spacetime.Spacetime <> e:18 var
+R4835:4838 Coq.Init.Datatypes <> true constr
+def 5265:5283 <> spacetime_sentences
+binder 5286:5286 <> P:20
+R5308:5315 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5346:5348 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5320:5333 Spacetime.Spacetime <> LocalPredicate def
+binder 5316:5316 <> Q:21
+R5341:5345 Spacetime.Spacetime <> Event rec
+binder 5337:5337 <> e:22
+R5361:5365 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5391:5391 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5349:5356 Spacetime.Spacetime <> at_event def
+R5358:5358 Spacetime.Spacetime <> e:22 var
+R5360:5360 Spacetime.Spacetime <> Q:21 var
+binder 5373:5373 <> e:23
+R5386:5389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5379:5381 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5376:5376 Spacetime.Spacetime <> Q:21 var
+R5378:5378 Spacetime.Spacetime <> e:23 var
+R5382:5385 Coq.Init.Datatypes <> true constr
+R5390:5390 Spacetime.Spacetime <> P:20 var
+def 5604:5619 <> spacetime_system
+R5623:5628 SelfReference.SelfReference <> System rec
+R5638:5646 SelfReference.SelfReference <> dimension proj
+R5638:5646 SelfReference.SelfReference <> dimension proj
+R5638:5646 SelfReference.SelfReference <> dimension proj
+R5659:5667 SelfReference.SelfReference <> sentences proj
+R5659:5667 SelfReference.SelfReference <> sentences proj
+R5672:5690 Spacetime.Spacetime <> spacetime_sentences def
+def 6023:6046 <> spacetime_self_reference
+R6060:6067 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6088:6090 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6072:6076 Spacetime.Spacetime <> Frame rec
+binder 6068:6068 <> F:24
+binder 6080:6080 <> P:25
+R6092:6095 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6091:6091 Spacetime.Spacetime <> P:25 var
+R6096:6103 Spacetime.Spacetime <> observes def
+R6105:6105 Spacetime.Spacetime <> F:24 var
+R6117:6117 Spacetime.Spacetime <> P:25 var
+prf 6397:6425 <> spacetime_is_self_referential
+R6455:6458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6431:6454 Spacetime.Spacetime <> spacetime_self_reference def
+R6459:6481 SelfReference.SelfReference <> contains_self_reference def
+R6483:6498 Spacetime.Spacetime <> spacetime_system def
+R6918:6921 Coq.Init.Datatypes <> true constr
+R6926:6935 Spacetime.Spacetime <> trajectory proj
+R6918:6921 Coq.Init.Datatypes <> true constr
+R6926:6935 Spacetime.Spacetime <> trajectory proj
+R6963:6970 Spacetime.Spacetime <> at_event def
+prf 7304:7331 <> spacetime_requires_metalevel
+R7361:7366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7337:7360 Spacetime.Spacetime <> spacetime_self_reference def
+R7367:7373 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7378:7379 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 7374:7377 <> Meta:26
+R7418:7421 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7380:7395 SelfReference.SelfReference <> can_reason_about def
+R7397:7400 Spacetime.Spacetime <> Meta:26 var
+R7402:7417 Spacetime.Spacetime <> spacetime_system def
+R7422:7441 SelfReference.SelfReference <> dimensionally_richer def
+R7443:7446 Spacetime.Spacetime <> Meta:26 var
+R7448:7463 Spacetime.Spacetime <> spacetime_system def
+R7498:7530 SelfReference.SelfReference <> self_reference_requires_metalevel thm
+R7535:7563 Spacetime.Spacetime <> spacetime_is_self_referential thm
+R7498:7530 SelfReference.SelfReference <> self_reference_requires_metalevel thm
+R7535:7563 Spacetime.Spacetime <> spacetime_is_self_referential thm
+prf 7896:7922 <> meta_level_not_in_spacetime
+R7952:7957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7928:7951 Spacetime.Spacetime <> spacetime_self_reference def
+binder 7965:7968 <> Meta:27
+R8055:8062 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8009:8012 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7971:7986 SelfReference.SelfReference <> can_reason_about def
+R7988:7991 Spacetime.Spacetime <> Meta:27 var
+R7993:8008 Spacetime.Spacetime <> spacetime_system def
+R8013:8032 SelfReference.SelfReference <> dimensionally_richer def
+R8034:8037 Spacetime.Spacetime <> Meta:27 var
+R8039:8054 Spacetime.Spacetime <> spacetime_system def
+R8077:8080 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8063:8071 SelfReference.SelfReference <> dimension proj
+R8073:8076 Spacetime.Spacetime <> Meta:27 var
+R8127:8146 SelfReference.SelfReference <> dimensionally_richer def
+R8182:8191 Coq.Arith.PeanoNat Nat lt_neq thm
+R8182:8191 Coq.Arith.PeanoNat Nat lt_neq thm
+R8215:8224 Coq.Init.Logic <> not_eq_sym thm
+R8215:8224 Coq.Init.Logic <> not_eq_sym thm
+def 8479:8492 <> spacetime_meta
+R8496:8501 SelfReference.SelfReference <> System rec
+R8506:8516 SelfReference.SelfReference <> meta_system def
+R8518:8533 Spacetime.Spacetime <> spacetime_system def
+prf 8683:8707 <> spacetime_meta_properties
+R8761:8764 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8713:8728 SelfReference.SelfReference <> can_reason_about def
+R8730:8743 Spacetime.Spacetime <> spacetime_meta def
+R8745:8760 Spacetime.Spacetime <> spacetime_system def
+R8765:8784 SelfReference.SelfReference <> dimensionally_richer def
+R8786:8799 Spacetime.Spacetime <> spacetime_meta def
+R8801:8816 Spacetime.Spacetime <> spacetime_system def
+R8842:8869 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R8879:8896 SelfReference.SelfReference <> meta_system_richer thm
+R8842:8869 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R8879:8896 SelfReference.SelfReference <> meta_system_richer thm
+prf 8975:9004 <> spacetime_meta_dimensional_gap
+R9034:9036 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9008:9016 SelfReference.SelfReference <> dimension proj
+R9018:9033 Spacetime.Spacetime <> spacetime_system def
+prf 9210:9234 <> spacetime_meta_exceeds_4d
+R9262:9264 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9238:9246 SelfReference.SelfReference <> dimension proj
+R9248:9261 Spacetime.Spacetime <> spacetime_meta def
+R9284:9297 Spacetime.Spacetime <> spacetime_meta def
+R9300:9310 SelfReference.SelfReference <> meta_system def
+R9313:9332 SelfReference.SelfReference <> dimensionally_richer def
+def 9824:9843 <> spacetime_global_gap
+R9869:9882 Spacetime.Spacetime <> LocalPredicate def
+binder 9865:9865 <> Q:28
+R9886:9886 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9909:9913 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9887:9893 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9895:9896 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9894:9894 <> e:29
+R9897:9904 Spacetime.Spacetime <> at_event def
+R9906:9906 Spacetime.Spacetime <> e:29 var
+R9908:9908 Spacetime.Spacetime <> Q:28 var
+R9914:9916 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9981:9981 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 9924:9924 <> e:30
+R9937:9940 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9930:9932 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9927:9927 Spacetime.Spacetime <> Q:28 var
+R9929:9929 Spacetime.Spacetime <> e:30 var
+R9933:9936 Coq.Init.Datatypes <> true constr
+R9941:9963 SelfReference.SelfReference <> contains_self_reference def
+R9965:9980 Spacetime.Spacetime <> spacetime_system def
+prf 10188:10207 <> global_truth_escapes
+R10233:10238 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10213:10232 Spacetime.Spacetime <> spacetime_global_gap def
+R10239:10245 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10250:10255 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 10246:10249 <> Meta:31
+R10294:10301 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10256:10271 SelfReference.SelfReference <> can_reason_about def
+R10273:10276 Spacetime.Spacetime <> Meta:31 var
+R10278:10293 Spacetime.Spacetime <> spacetime_system def
+R10344:10351 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10302:10321 SelfReference.SelfReference <> dimensionally_richer def
+R10323:10326 Spacetime.Spacetime <> Meta:31 var
+R10328:10343 Spacetime.Spacetime <> spacetime_system def
+R10352:10360 SelfReference.SelfReference <> sentences proj
+R10362:10365 Spacetime.Spacetime <> Meta:31 var
+R10368:10390 SelfReference.SelfReference <> contains_self_reference def
+R10392:10407 Spacetime.Spacetime <> spacetime_system def
+R10442:10452 SelfReference.SelfReference <> meta_system def
+R10454:10469 Spacetime.Spacetime <> spacetime_system def
+R10442:10452 SelfReference.SelfReference <> meta_system def
+R10454:10469 Spacetime.Spacetime <> spacetime_system def
+R10499:10526 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R10499:10526 SelfReference.SelfReference <> meta_system_can_reason_about thm
+R10539:10556 SelfReference.SelfReference <> meta_system_richer thm
+R10539:10556 SelfReference.SelfReference <> meta_system_richer thm
+R10570:10580 SelfReference.SelfReference <> meta_system def

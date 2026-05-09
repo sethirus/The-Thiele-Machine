@@ -1,4 +1,4 @@
-DIGEST af4b28ecb65015db1198919cd6494165
+DIGEST b17104f50c4d0388d09f72ed290c7c0b
 FNecessityOfMuLedger
 R2941:2944 Coq.Lists.List <> <> lib
 R2946:2959 Coq.Arith.PeanoNat <> <> lib
@@ -11,1509 +11,1509 @@ R3036:3050 Kernel.SimulationProof <> <> lib
 R3079:3094 Kernel.ShadowProjection <> <> lib
 R3096:3118 Kernel.ClassicalConservativity <> <> lib
 R3147:3158 Kernel.MuInitiality <> <> lib
-rec 3969:3988 <> StrictClassicalState
-proj 4017:4023 <> scs_mem
-proj 4040:4047 <> scs_regs
-proj 4063:4068 <> scs_pc
-R4028:4031 Coq.Init.Datatypes <> list ind
-R4033:4035 Coq.Init.Datatypes <> nat ind
-R4051:4054 Coq.Init.Datatypes <> list ind
-R4056:4058 Coq.Init.Datatypes <> nat ind
-R4074:4076 Coq.Init.Datatypes <> nat ind
-def 4296:4308 <> strict_shadow
-R4315:4321 Kernel.VMState <> VMState rec
-binder 4311:4311 <> s:5
-R4326:4345 NecessityOfMuLedger <> StrictClassicalState rec
-R4355:4361 NecessityOfMuLedger <> scs_mem proj
-R4355:4361 NecessityOfMuLedger <> scs_mem proj
-R4355:4361 NecessityOfMuLedger <> scs_mem proj
-R4381:4388 NecessityOfMuLedger <> scs_regs proj
-R4381:4388 NecessityOfMuLedger <> scs_regs proj
-R4408:4413 NecessityOfMuLedger <> scs_pc proj
-R4408:4413 NecessityOfMuLedger <> scs_pc proj
-R4370:4375 Kernel.VMState <> vm_mem proj
-R4367:4367 NecessityOfMuLedger <> s:5 var
-R4396:4402 Kernel.VMState <> vm_regs proj
-R4393:4393 NecessityOfMuLedger <> s:5 var
-R4423:4427 Kernel.VMState <> vm_pc proj
-R4420:4420 NecessityOfMuLedger <> s:5 var
-def 4529:4547 <> strict_shadow_equal
-R4558:4564 Kernel.VMState <> VMState rec
-binder 4550:4551 <> s1:6
-binder 4553:4554 <> s2:7
-R4595:4597 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4579:4591 NecessityOfMuLedger <> strict_shadow def
-R4593:4594 NecessityOfMuLedger <> s1:6 var
-R4598:4610 NecessityOfMuLedger <> strict_shadow def
-R4612:4613 NecessityOfMuLedger <> s2:7 var
-prf 4623:4645 <> strict_shadow_equal_iff
-binder 4658:4659 <> s1:8
-binder 4661:4662 <> s2:9
-R4694:4702 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R4669:4687 NecessityOfMuLedger <> strict_shadow_equal def
-R4689:4690 NecessityOfMuLedger <> s1:8 var
-R4692:4693 NecessityOfMuLedger <> s2:9 var
-R4728:4735 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4714:4716 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4707:4712 Kernel.VMState <> vm_mem proj
-R4703:4704 NecessityOfMuLedger <> s1:8 var
-R4721:4726 Kernel.VMState <> vm_mem proj
-R4717:4718 NecessityOfMuLedger <> s2:9 var
-R4763:4770 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4748:4750 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4740:4746 Kernel.VMState <> vm_regs proj
-R4736:4737 NecessityOfMuLedger <> s1:8 var
-R4755:4761 Kernel.VMState <> vm_regs proj
-R4751:4752 NecessityOfMuLedger <> s2:9 var
-R4781:4783 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4775:4779 Kernel.VMState <> vm_pc proj
-R4771:4772 NecessityOfMuLedger <> s1:8 var
-R4788:4792 Kernel.VMState <> vm_pc proj
-R4784:4785 NecessityOfMuLedger <> s2:9 var
-R4846:4864 NecessityOfMuLedger <> strict_shadow_equal def
-R4867:4879 NecessityOfMuLedger <> strict_shadow def
-R4995:5013 NecessityOfMuLedger <> strict_shadow_equal def
-R5016:5028 NecessityOfMuLedger <> strict_shadow def
-prf 5213:5236 <> strict_shadow_functional
-binder 5250:5250 <> A:10
-R5285:5288 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5265:5284 NecessityOfMuLedger <> StrictClassicalState rec
-R5289:5289 NecessityOfMuLedger <> A:10 var
-binder 5261:5261 <> f:11
-R5301:5307 Kernel.VMState <> VMState rec
-binder 5293:5294 <> s1:12
-binder 5296:5297 <> s2:13
-R5340:5347 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5315:5333 NecessityOfMuLedger <> strict_shadow_equal def
-R5335:5336 NecessityOfMuLedger <> s1:12 var
-R5338:5339 NecessityOfMuLedger <> s2:13 var
-R5368:5370 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5348:5348 NecessityOfMuLedger <> f:11 var
-R5351:5363 NecessityOfMuLedger <> strict_shadow def
-R5365:5366 NecessityOfMuLedger <> s1:12 var
-R5371:5371 NecessityOfMuLedger <> f:11 var
-R5374:5386 NecessityOfMuLedger <> strict_shadow def
-R5388:5389 NecessityOfMuLedger <> s2:13 var
-R5433:5451 NecessityOfMuLedger <> strict_shadow_equal def
-prf 6370:6389 <> advance_state_mem_eq
-binder 6402:6402 <> s:14
-binder 6404:6404 <> i:15
-binder 6406:6406 <> g:16
-binder 6408:6408 <> c:17
-binder 6410:6410 <> e:18
-R6447:6449 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6440:6445 Kernel.VMState <> vm_mem proj
-R6414:6426 Kernel.VMStep VMStep advance_state def
-R6428:6428 NecessityOfMuLedger <> s:14 var
-R6430:6430 NecessityOfMuLedger <> i:15 var
-R6432:6432 NecessityOfMuLedger <> g:16 var
-R6434:6434 NecessityOfMuLedger <> c:17 var
-R6436:6436 NecessityOfMuLedger <> e:18 var
-R6453:6458 Kernel.VMState <> vm_mem proj
-R6450:6450 NecessityOfMuLedger <> s:14 var
-R6484:6496 Kernel.VMStep VMStep advance_state def
-prf 6531:6551 <> advance_state_regs_eq
-binder 6564:6564 <> s:19
-binder 6566:6566 <> i:20
-binder 6568:6568 <> g:21
-binder 6570:6570 <> c:22
-binder 6572:6572 <> e:23
-R6610:6612 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6602:6608 Kernel.VMState <> vm_regs proj
-R6576:6588 Kernel.VMStep VMStep advance_state def
-R6590:6590 NecessityOfMuLedger <> s:19 var
-R6592:6592 NecessityOfMuLedger <> i:20 var
-R6594:6594 NecessityOfMuLedger <> g:21 var
-R6596:6596 NecessityOfMuLedger <> c:22 var
-R6598:6598 NecessityOfMuLedger <> e:23 var
-R6616:6622 Kernel.VMState <> vm_regs proj
-R6613:6613 NecessityOfMuLedger <> s:19 var
-R6648:6660 Kernel.VMStep VMStep advance_state def
-prf 6695:6713 <> advance_state_pc_eq
-binder 6726:6726 <> s:24
-binder 6728:6728 <> i:25
-binder 6730:6730 <> g:26
-binder 6732:6732 <> c:27
-binder 6734:6734 <> e:28
-R6770:6772 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6764:6768 Kernel.VMState <> vm_pc proj
-R6738:6750 Kernel.VMStep VMStep advance_state def
-R6752:6752 NecessityOfMuLedger <> s:24 var
-R6754:6754 NecessityOfMuLedger <> i:25 var
-R6756:6756 NecessityOfMuLedger <> g:26 var
-R6758:6758 NecessityOfMuLedger <> c:27 var
-R6760:6760 NecessityOfMuLedger <> e:28 var
-R6773:6773 Coq.Init.Datatypes <> S constr
-R6778:6782 Kernel.VMState <> vm_pc proj
-R6775:6775 NecessityOfMuLedger <> s:24 var
-R6808:6820 Kernel.VMStep VMStep advance_state def
-prf 6855:6880 <> advance_state_certified_eq
-binder 6893:6893 <> s:29
-binder 6895:6895 <> i:30
-binder 6897:6897 <> g:31
-binder 6899:6899 <> c:32
-binder 6901:6901 <> e:33
-R6944:6946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6931:6942 Kernel.VMState <> vm_certified proj
-R6905:6917 Kernel.VMStep VMStep advance_state def
-R6919:6919 NecessityOfMuLedger <> s:29 var
-R6921:6921 NecessityOfMuLedger <> i:30 var
-R6923:6923 NecessityOfMuLedger <> g:31 var
-R6925:6925 NecessityOfMuLedger <> c:32 var
-R6927:6927 NecessityOfMuLedger <> e:33 var
-R6950:6961 Kernel.VMState <> vm_certified proj
-R6947:6947 NecessityOfMuLedger <> s:29 var
-R6987:6999 Kernel.VMStep VMStep advance_state def
-prf 7034:7052 <> advance_state_mu_eq
-binder 7065:7065 <> s:34
-binder 7067:7067 <> i:35
-binder 7069:7069 <> g:36
-binder 7071:7071 <> c:37
-binder 7073:7073 <> e:38
-R7109:7111 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7103:7107 Kernel.VMState <> vm_mu proj
-R7077:7089 Kernel.VMStep VMStep advance_state def
-R7091:7091 NecessityOfMuLedger <> s:34 var
-R7093:7093 NecessityOfMuLedger <> i:35 var
-R7095:7095 NecessityOfMuLedger <> g:36 var
-R7097:7097 NecessityOfMuLedger <> c:37 var
-R7099:7099 NecessityOfMuLedger <> e:38 var
-R7112:7121 Kernel.VMStep VMStep apply_cost def
-R7123:7123 NecessityOfMuLedger <> s:34 var
-R7125:7125 NecessityOfMuLedger <> i:35 var
-R7150:7162 Kernel.VMStep VMStep advance_state def
-prf 7434:7460 <> vm_apply_pnew_mem_preserved
-binder 7473:7473 <> s:39
-binder 7475:7475 <> r:40
-binder 7477:7477 <> c:41
-R7518:7520 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7511:7516 Kernel.VMState <> vm_mem proj
-R7481:7488 Kernel.SimulationProof <> vm_apply def
-R7490:7490 NecessityOfMuLedger <> s:39 var
-R7493:7502 Kernel.VMStep VMStep instr_pnew constr
-R7504:7504 NecessityOfMuLedger <> r:40 var
-R7506:7506 NecessityOfMuLedger <> c:41 var
-R7524:7529 Kernel.VMState <> vm_mem proj
-R7521:7521 NecessityOfMuLedger <> s:39 var
-R7563:7570 Kernel.SimulationProof <> vm_apply def
-R7585:7600 Kernel.VMState <> graph_add_module def
-R7605:7612 Kernel.VMState <> vm_graph proj
-R7616:7623 Coq.Lists.List <> seq def
-R7630:7631 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7585:7600 Kernel.VMState <> graph_add_module def
-R7605:7612 Kernel.VMState <> vm_graph proj
-R7616:7623 Coq.Lists.List <> seq def
-R7630:7631 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7653:7672 NecessityOfMuLedger <> advance_state_mem_eq thm
-R7653:7672 NecessityOfMuLedger <> advance_state_mem_eq thm
-prf 7687:7714 <> vm_apply_pnew_regs_preserved
-binder 7727:7727 <> s:42
-binder 7729:7729 <> r:43
-binder 7731:7731 <> c:44
-R7773:7775 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7765:7771 Kernel.VMState <> vm_regs proj
-R7735:7742 Kernel.SimulationProof <> vm_apply def
-R7744:7744 NecessityOfMuLedger <> s:42 var
-R7747:7756 Kernel.VMStep VMStep instr_pnew constr
-R7758:7758 NecessityOfMuLedger <> r:43 var
-R7760:7760 NecessityOfMuLedger <> c:44 var
-R7779:7785 Kernel.VMState <> vm_regs proj
-R7776:7776 NecessityOfMuLedger <> s:42 var
-R7819:7826 Kernel.SimulationProof <> vm_apply def
-R7841:7856 Kernel.VMState <> graph_add_module def
-R7861:7868 Kernel.VMState <> vm_graph proj
-R7872:7879 Coq.Lists.List <> seq def
-R7886:7887 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7841:7856 Kernel.VMState <> graph_add_module def
-R7861:7868 Kernel.VMState <> vm_graph proj
-R7872:7879 Coq.Lists.List <> seq def
-R7886:7887 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7909:7929 NecessityOfMuLedger <> advance_state_regs_eq thm
-R7909:7929 NecessityOfMuLedger <> advance_state_regs_eq thm
-prf 7944:7968 <> vm_apply_pnew_pc_advances
-binder 7981:7981 <> s:45
-binder 7983:7983 <> r:46
-binder 7985:7985 <> c:47
-R8025:8027 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8019:8023 Kernel.VMState <> vm_pc proj
-R7989:7996 Kernel.SimulationProof <> vm_apply def
-R7998:7998 NecessityOfMuLedger <> s:45 var
-R8001:8010 Kernel.VMStep VMStep instr_pnew constr
-R8012:8012 NecessityOfMuLedger <> r:46 var
-R8014:8014 NecessityOfMuLedger <> c:47 var
-R8028:8028 Coq.Init.Datatypes <> S constr
-R8033:8037 Kernel.VMState <> vm_pc proj
-R8030:8030 NecessityOfMuLedger <> s:45 var
-R8071:8078 Kernel.SimulationProof <> vm_apply def
-R8093:8108 Kernel.VMState <> graph_add_module def
-R8113:8120 Kernel.VMState <> vm_graph proj
-R8124:8131 Coq.Lists.List <> seq def
-R8138:8139 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8093:8108 Kernel.VMState <> graph_add_module def
-R8113:8120 Kernel.VMState <> vm_graph proj
-R8124:8131 Coq.Lists.List <> seq def
-R8138:8139 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8161:8179 NecessityOfMuLedger <> advance_state_pc_eq thm
-R8161:8179 NecessityOfMuLedger <> advance_state_pc_eq thm
-prf 8194:8226 <> vm_apply_pnew_certified_preserved
-binder 8239:8239 <> s:48
-binder 8241:8241 <> r:49
-binder 8243:8243 <> c:50
-R8290:8292 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8277:8288 Kernel.VMState <> vm_certified proj
-R8247:8254 Kernel.SimulationProof <> vm_apply def
-R8256:8256 NecessityOfMuLedger <> s:48 var
-R8259:8268 Kernel.VMStep VMStep instr_pnew constr
-R8270:8270 NecessityOfMuLedger <> r:49 var
-R8272:8272 NecessityOfMuLedger <> c:50 var
-R8296:8307 Kernel.VMState <> vm_certified proj
-R8293:8293 NecessityOfMuLedger <> s:48 var
+rec 3529:3548 <> StrictClassicalState
+proj 3577:3583 <> scs_mem
+proj 3600:3607 <> scs_regs
+proj 3623:3628 <> scs_pc
+R3588:3591 Coq.Init.Datatypes <> list ind
+R3593:3595 Coq.Init.Datatypes <> nat ind
+R3611:3614 Coq.Init.Datatypes <> list ind
+R3616:3618 Coq.Init.Datatypes <> nat ind
+R3634:3636 Coq.Init.Datatypes <> nat ind
+def 3856:3868 <> strict_shadow
+R3875:3881 Kernel.VMState <> VMState rec
+binder 3871:3871 <> s:5
+R3886:3905 NecessityOfMuLedger <> StrictClassicalState rec
+R3915:3921 NecessityOfMuLedger <> scs_mem proj
+R3915:3921 NecessityOfMuLedger <> scs_mem proj
+R3915:3921 NecessityOfMuLedger <> scs_mem proj
+R3941:3948 NecessityOfMuLedger <> scs_regs proj
+R3941:3948 NecessityOfMuLedger <> scs_regs proj
+R3968:3973 NecessityOfMuLedger <> scs_pc proj
+R3968:3973 NecessityOfMuLedger <> scs_pc proj
+R3930:3935 Kernel.VMState <> vm_mem proj
+R3927:3927 NecessityOfMuLedger <> s:5 var
+R3956:3962 Kernel.VMState <> vm_regs proj
+R3953:3953 NecessityOfMuLedger <> s:5 var
+R3983:3987 Kernel.VMState <> vm_pc proj
+R3980:3980 NecessityOfMuLedger <> s:5 var
+def 4089:4107 <> strict_shadow_equal
+R4118:4124 Kernel.VMState <> VMState rec
+binder 4110:4111 <> s1:6
+binder 4113:4114 <> s2:7
+R4155:4157 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4139:4151 NecessityOfMuLedger <> strict_shadow def
+R4153:4154 NecessityOfMuLedger <> s1:6 var
+R4158:4170 NecessityOfMuLedger <> strict_shadow def
+R4172:4173 NecessityOfMuLedger <> s2:7 var
+prf 4183:4205 <> strict_shadow_equal_iff
+binder 4218:4219 <> s1:8
+binder 4221:4222 <> s2:9
+R4254:4262 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4229:4247 NecessityOfMuLedger <> strict_shadow_equal def
+R4249:4250 NecessityOfMuLedger <> s1:8 var
+R4252:4253 NecessityOfMuLedger <> s2:9 var
+R4288:4295 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4274:4276 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4267:4272 Kernel.VMState <> vm_mem proj
+R4263:4264 NecessityOfMuLedger <> s1:8 var
+R4281:4286 Kernel.VMState <> vm_mem proj
+R4277:4278 NecessityOfMuLedger <> s2:9 var
+R4323:4330 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4308:4310 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4300:4306 Kernel.VMState <> vm_regs proj
+R4296:4297 NecessityOfMuLedger <> s1:8 var
+R4315:4321 Kernel.VMState <> vm_regs proj
+R4311:4312 NecessityOfMuLedger <> s2:9 var
+R4341:4343 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4335:4339 Kernel.VMState <> vm_pc proj
+R4331:4332 NecessityOfMuLedger <> s1:8 var
+R4348:4352 Kernel.VMState <> vm_pc proj
+R4344:4345 NecessityOfMuLedger <> s2:9 var
+R4406:4424 NecessityOfMuLedger <> strict_shadow_equal def
+R4427:4439 NecessityOfMuLedger <> strict_shadow def
+R4555:4573 NecessityOfMuLedger <> strict_shadow_equal def
+R4576:4588 NecessityOfMuLedger <> strict_shadow def
+prf 4773:4796 <> strict_shadow_functional
+binder 4810:4810 <> A:10
+R4845:4848 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4825:4844 NecessityOfMuLedger <> StrictClassicalState rec
+R4849:4849 NecessityOfMuLedger <> A:10 var
+binder 4821:4821 <> f:11
+R4861:4867 Kernel.VMState <> VMState rec
+binder 4853:4854 <> s1:12
+binder 4856:4857 <> s2:13
+R4900:4907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4875:4893 NecessityOfMuLedger <> strict_shadow_equal def
+R4895:4896 NecessityOfMuLedger <> s1:12 var
+R4898:4899 NecessityOfMuLedger <> s2:13 var
+R4928:4930 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4908:4908 NecessityOfMuLedger <> f:11 var
+R4911:4923 NecessityOfMuLedger <> strict_shadow def
+R4925:4926 NecessityOfMuLedger <> s1:12 var
+R4931:4931 NecessityOfMuLedger <> f:11 var
+R4934:4946 NecessityOfMuLedger <> strict_shadow def
+R4948:4949 NecessityOfMuLedger <> s2:13 var
+R4993:5011 NecessityOfMuLedger <> strict_shadow_equal def
+prf 5500:5519 <> advance_state_mem_eq
+binder 5532:5532 <> s:14
+binder 5534:5534 <> i:15
+binder 5536:5536 <> g:16
+binder 5538:5538 <> c:17
+binder 5540:5540 <> e:18
+R5577:5579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5570:5575 Kernel.VMState <> vm_mem proj
+R5544:5556 Kernel.VMStep VMStep advance_state def
+R5558:5558 NecessityOfMuLedger <> s:14 var
+R5560:5560 NecessityOfMuLedger <> i:15 var
+R5562:5562 NecessityOfMuLedger <> g:16 var
+R5564:5564 NecessityOfMuLedger <> c:17 var
+R5566:5566 NecessityOfMuLedger <> e:18 var
+R5583:5588 Kernel.VMState <> vm_mem proj
+R5580:5580 NecessityOfMuLedger <> s:14 var
+R5614:5626 Kernel.VMStep VMStep advance_state def
+prf 5661:5681 <> advance_state_regs_eq
+binder 5694:5694 <> s:19
+binder 5696:5696 <> i:20
+binder 5698:5698 <> g:21
+binder 5700:5700 <> c:22
+binder 5702:5702 <> e:23
+R5740:5742 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5732:5738 Kernel.VMState <> vm_regs proj
+R5706:5718 Kernel.VMStep VMStep advance_state def
+R5720:5720 NecessityOfMuLedger <> s:19 var
+R5722:5722 NecessityOfMuLedger <> i:20 var
+R5724:5724 NecessityOfMuLedger <> g:21 var
+R5726:5726 NecessityOfMuLedger <> c:22 var
+R5728:5728 NecessityOfMuLedger <> e:23 var
+R5746:5752 Kernel.VMState <> vm_regs proj
+R5743:5743 NecessityOfMuLedger <> s:19 var
+R5778:5790 Kernel.VMStep VMStep advance_state def
+prf 5825:5843 <> advance_state_pc_eq
+binder 5856:5856 <> s:24
+binder 5858:5858 <> i:25
+binder 5860:5860 <> g:26
+binder 5862:5862 <> c:27
+binder 5864:5864 <> e:28
+R5900:5902 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5894:5898 Kernel.VMState <> vm_pc proj
+R5868:5880 Kernel.VMStep VMStep advance_state def
+R5882:5882 NecessityOfMuLedger <> s:24 var
+R5884:5884 NecessityOfMuLedger <> i:25 var
+R5886:5886 NecessityOfMuLedger <> g:26 var
+R5888:5888 NecessityOfMuLedger <> c:27 var
+R5890:5890 NecessityOfMuLedger <> e:28 var
+R5903:5903 Coq.Init.Datatypes <> S constr
+R5908:5912 Kernel.VMState <> vm_pc proj
+R5905:5905 NecessityOfMuLedger <> s:24 var
+R5938:5950 Kernel.VMStep VMStep advance_state def
+prf 5985:6010 <> advance_state_certified_eq
+binder 6023:6023 <> s:29
+binder 6025:6025 <> i:30
+binder 6027:6027 <> g:31
+binder 6029:6029 <> c:32
+binder 6031:6031 <> e:33
+R6074:6076 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6061:6072 Kernel.VMState <> vm_certified proj
+R6035:6047 Kernel.VMStep VMStep advance_state def
+R6049:6049 NecessityOfMuLedger <> s:29 var
+R6051:6051 NecessityOfMuLedger <> i:30 var
+R6053:6053 NecessityOfMuLedger <> g:31 var
+R6055:6055 NecessityOfMuLedger <> c:32 var
+R6057:6057 NecessityOfMuLedger <> e:33 var
+R6080:6091 Kernel.VMState <> vm_certified proj
+R6077:6077 NecessityOfMuLedger <> s:29 var
+R6117:6129 Kernel.VMStep VMStep advance_state def
+prf 6164:6182 <> advance_state_mu_eq
+binder 6195:6195 <> s:34
+binder 6197:6197 <> i:35
+binder 6199:6199 <> g:36
+binder 6201:6201 <> c:37
+binder 6203:6203 <> e:38
+R6239:6241 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6233:6237 Kernel.VMState <> vm_mu proj
+R6207:6219 Kernel.VMStep VMStep advance_state def
+R6221:6221 NecessityOfMuLedger <> s:34 var
+R6223:6223 NecessityOfMuLedger <> i:35 var
+R6225:6225 NecessityOfMuLedger <> g:36 var
+R6227:6227 NecessityOfMuLedger <> c:37 var
+R6229:6229 NecessityOfMuLedger <> e:38 var
+R6242:6251 Kernel.VMStep VMStep apply_cost def
+R6253:6253 NecessityOfMuLedger <> s:34 var
+R6255:6255 NecessityOfMuLedger <> i:35 var
+R6280:6292 Kernel.VMStep VMStep advance_state def
+prf 6564:6590 <> vm_apply_pnew_mem_preserved
+binder 6603:6603 <> s:39
+binder 6605:6605 <> r:40
+binder 6607:6607 <> c:41
+R6648:6650 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6641:6646 Kernel.VMState <> vm_mem proj
+R6611:6618 Kernel.SimulationProof <> vm_apply def
+R6620:6620 NecessityOfMuLedger <> s:39 var
+R6623:6632 Kernel.VMStep VMStep instr_pnew constr
+R6634:6634 NecessityOfMuLedger <> r:40 var
+R6636:6636 NecessityOfMuLedger <> c:41 var
+R6654:6659 Kernel.VMState <> vm_mem proj
+R6651:6651 NecessityOfMuLedger <> s:39 var
+R6693:6700 Kernel.SimulationProof <> vm_apply def
+R6715:6730 Kernel.VMState <> graph_add_module def
+R6735:6742 Kernel.VMState <> vm_graph proj
+R6746:6753 Coq.Lists.List <> seq def
+R6760:6761 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6715:6730 Kernel.VMState <> graph_add_module def
+R6735:6742 Kernel.VMState <> vm_graph proj
+R6746:6753 Coq.Lists.List <> seq def
+R6760:6761 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6783:6802 NecessityOfMuLedger <> advance_state_mem_eq thm
+R6783:6802 NecessityOfMuLedger <> advance_state_mem_eq thm
+prf 6817:6844 <> vm_apply_pnew_regs_preserved
+binder 6857:6857 <> s:42
+binder 6859:6859 <> r:43
+binder 6861:6861 <> c:44
+R6903:6905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6895:6901 Kernel.VMState <> vm_regs proj
+R6865:6872 Kernel.SimulationProof <> vm_apply def
+R6874:6874 NecessityOfMuLedger <> s:42 var
+R6877:6886 Kernel.VMStep VMStep instr_pnew constr
+R6888:6888 NecessityOfMuLedger <> r:43 var
+R6890:6890 NecessityOfMuLedger <> c:44 var
+R6909:6915 Kernel.VMState <> vm_regs proj
+R6906:6906 NecessityOfMuLedger <> s:42 var
+R6949:6956 Kernel.SimulationProof <> vm_apply def
+R6971:6986 Kernel.VMState <> graph_add_module def
+R6991:6998 Kernel.VMState <> vm_graph proj
+R7002:7009 Coq.Lists.List <> seq def
+R7016:7017 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6971:6986 Kernel.VMState <> graph_add_module def
+R6991:6998 Kernel.VMState <> vm_graph proj
+R7002:7009 Coq.Lists.List <> seq def
+R7016:7017 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7039:7059 NecessityOfMuLedger <> advance_state_regs_eq thm
+R7039:7059 NecessityOfMuLedger <> advance_state_regs_eq thm
+prf 7074:7098 <> vm_apply_pnew_pc_advances
+binder 7111:7111 <> s:45
+binder 7113:7113 <> r:46
+binder 7115:7115 <> c:47
+R7155:7157 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7149:7153 Kernel.VMState <> vm_pc proj
+R7119:7126 Kernel.SimulationProof <> vm_apply def
+R7128:7128 NecessityOfMuLedger <> s:45 var
+R7131:7140 Kernel.VMStep VMStep instr_pnew constr
+R7142:7142 NecessityOfMuLedger <> r:46 var
+R7144:7144 NecessityOfMuLedger <> c:47 var
+R7158:7158 Coq.Init.Datatypes <> S constr
+R7163:7167 Kernel.VMState <> vm_pc proj
+R7160:7160 NecessityOfMuLedger <> s:45 var
+R7201:7208 Kernel.SimulationProof <> vm_apply def
+R7223:7238 Kernel.VMState <> graph_add_module def
+R7243:7250 Kernel.VMState <> vm_graph proj
+R7254:7261 Coq.Lists.List <> seq def
+R7268:7269 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7223:7238 Kernel.VMState <> graph_add_module def
+R7243:7250 Kernel.VMState <> vm_graph proj
+R7254:7261 Coq.Lists.List <> seq def
+R7268:7269 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7291:7309 NecessityOfMuLedger <> advance_state_pc_eq thm
+R7291:7309 NecessityOfMuLedger <> advance_state_pc_eq thm
+prf 7324:7356 <> vm_apply_pnew_certified_preserved
+binder 7369:7369 <> s:48
+binder 7371:7371 <> r:49
+binder 7373:7373 <> c:50
+R7420:7422 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7407:7418 Kernel.VMState <> vm_certified proj
+R7377:7384 Kernel.SimulationProof <> vm_apply def
+R7386:7386 NecessityOfMuLedger <> s:48 var
+R7389:7398 Kernel.VMStep VMStep instr_pnew constr
+R7400:7400 NecessityOfMuLedger <> r:49 var
+R7402:7402 NecessityOfMuLedger <> c:50 var
+R7426:7437 Kernel.VMState <> vm_certified proj
+R7423:7423 NecessityOfMuLedger <> s:48 var
+R7471:7478 Kernel.SimulationProof <> vm_apply def
+R7493:7508 Kernel.VMState <> graph_add_module def
+R7513:7520 Kernel.VMState <> vm_graph proj
+R7524:7531 Coq.Lists.List <> seq def
+R7538:7539 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7493:7508 Kernel.VMState <> graph_add_module def
+R7513:7520 Kernel.VMState <> vm_graph proj
+R7524:7531 Coq.Lists.List <> seq def
+R7538:7539 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7561:7586 NecessityOfMuLedger <> advance_state_certified_eq thm
+R7561:7586 NecessityOfMuLedger <> advance_state_certified_eq thm
+prf 7601:7624 <> vm_apply_pnew_mu_charged
+binder 7637:7637 <> s:51
+binder 7639:7639 <> r:52
+binder 7641:7641 <> c:53
+R7681:7683 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7675:7679 Kernel.VMState <> vm_mu proj
+R7645:7652 Kernel.SimulationProof <> vm_apply def
+R7654:7654 NecessityOfMuLedger <> s:51 var
+R7657:7666 Kernel.VMStep VMStep instr_pnew constr
+R7668:7668 NecessityOfMuLedger <> r:52 var
+R7670:7670 NecessityOfMuLedger <> c:53 var
+R7693:7695 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7687:7691 Kernel.VMState <> vm_mu proj
+R7684:7684 NecessityOfMuLedger <> s:51 var
+R7696:7696 NecessityOfMuLedger <> c:53 var
+R7729:7736 Kernel.SimulationProof <> vm_apply def
+R7751:7766 Kernel.VMState <> graph_add_module def
+R7771:7778 Kernel.VMState <> vm_graph proj
+R7782:7789 Coq.Lists.List <> seq def
+R7796:7797 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7751:7766 Kernel.VMState <> graph_add_module def
+R7771:7778 Kernel.VMState <> vm_graph proj
+R7782:7789 Coq.Lists.List <> seq def
+R7796:7797 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7820:7832 Kernel.VMStep VMStep advance_state def
+R7835:7844 Kernel.VMStep VMStep apply_cost def
+R7847:7862 Kernel.VMStep VMStep instruction_cost def
+prf 8127:8156 <> vm_apply_certify_mem_preserved
+binder 8169:8169 <> s:54
+binder 8171:8171 <> d:55
+R8213:8215 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8206:8211 Kernel.VMState <> vm_mem proj
+R8175:8182 Kernel.SimulationProof <> vm_apply def
+R8184:8184 NecessityOfMuLedger <> s:54 var
+R8187:8199 Kernel.VMStep VMStep instr_certify constr
+R8201:8201 NecessityOfMuLedger <> d:55 var
+R8219:8224 Kernel.VMState <> vm_mem proj
+R8216:8216 NecessityOfMuLedger <> s:54 var
+R8250:8257 Kernel.SimulationProof <> vm_apply def
+prf 8292:8322 <> vm_apply_certify_regs_preserved
+binder 8335:8335 <> s:56
+binder 8337:8337 <> d:57
+R8380:8382 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8372:8378 Kernel.VMState <> vm_regs proj
 R8341:8348 Kernel.SimulationProof <> vm_apply def
-R8363:8378 Kernel.VMState <> graph_add_module def
-R8383:8390 Kernel.VMState <> vm_graph proj
-R8394:8401 Coq.Lists.List <> seq def
-R8408:8409 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8363:8378 Kernel.VMState <> graph_add_module def
-R8383:8390 Kernel.VMState <> vm_graph proj
-R8394:8401 Coq.Lists.List <> seq def
-R8408:8409 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8431:8456 NecessityOfMuLedger <> advance_state_certified_eq thm
-R8431:8456 NecessityOfMuLedger <> advance_state_certified_eq thm
-prf 8471:8494 <> vm_apply_pnew_mu_charged
-binder 8507:8507 <> s:51
-binder 8509:8509 <> r:52
-binder 8511:8511 <> c:53
-R8551:8553 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8545:8549 Kernel.VMState <> vm_mu proj
-R8515:8522 Kernel.SimulationProof <> vm_apply def
-R8524:8524 NecessityOfMuLedger <> s:51 var
-R8527:8536 Kernel.VMStep VMStep instr_pnew constr
-R8538:8538 NecessityOfMuLedger <> r:52 var
-R8540:8540 NecessityOfMuLedger <> c:53 var
-R8563:8565 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8557:8561 Kernel.VMState <> vm_mu proj
-R8554:8554 NecessityOfMuLedger <> s:51 var
-R8566:8566 NecessityOfMuLedger <> c:53 var
-R8599:8606 Kernel.SimulationProof <> vm_apply def
-R8621:8636 Kernel.VMState <> graph_add_module def
-R8641:8648 Kernel.VMState <> vm_graph proj
-R8652:8659 Coq.Lists.List <> seq def
-R8666:8667 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8621:8636 Kernel.VMState <> graph_add_module def
-R8641:8648 Kernel.VMState <> vm_graph proj
-R8652:8659 Coq.Lists.List <> seq def
-R8666:8667 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8690:8702 Kernel.VMStep VMStep advance_state def
-R8705:8714 Kernel.VMStep VMStep apply_cost def
-R8717:8732 Kernel.VMStep VMStep instruction_cost def
-prf 8997:9026 <> vm_apply_certify_mem_preserved
-binder 9039:9039 <> s:54
-binder 9041:9041 <> d:55
-R9083:9085 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9076:9081 Kernel.VMState <> vm_mem proj
-R9045:9052 Kernel.SimulationProof <> vm_apply def
-R9054:9054 NecessityOfMuLedger <> s:54 var
-R9057:9069 Kernel.VMStep VMStep instr_certify constr
-R9071:9071 NecessityOfMuLedger <> d:55 var
-R9089:9094 Kernel.VMState <> vm_mem proj
-R9086:9086 NecessityOfMuLedger <> s:54 var
-R9120:9127 Kernel.SimulationProof <> vm_apply def
-prf 9162:9192 <> vm_apply_certify_regs_preserved
-binder 9205:9205 <> s:56
-binder 9207:9207 <> d:57
-R9250:9252 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9242:9248 Kernel.VMState <> vm_regs proj
-R9211:9218 Kernel.SimulationProof <> vm_apply def
-R9220:9220 NecessityOfMuLedger <> s:56 var
-R9223:9235 Kernel.VMStep VMStep instr_certify constr
-R9237:9237 NecessityOfMuLedger <> d:57 var
-R9256:9262 Kernel.VMState <> vm_regs proj
-R9253:9253 NecessityOfMuLedger <> s:56 var
-R9288:9295 Kernel.SimulationProof <> vm_apply def
-prf 9330:9357 <> vm_apply_certify_pc_advances
-binder 9370:9370 <> s:58
-binder 9372:9372 <> d:59
-R9413:9415 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9407:9411 Kernel.VMState <> vm_pc proj
-R9376:9383 Kernel.SimulationProof <> vm_apply def
-R9385:9385 NecessityOfMuLedger <> s:58 var
-R9388:9400 Kernel.VMStep VMStep instr_certify constr
-R9402:9402 NecessityOfMuLedger <> d:59 var
-R9416:9416 Coq.Init.Datatypes <> S constr
-R9421:9425 Kernel.VMState <> vm_pc proj
-R9418:9418 NecessityOfMuLedger <> s:58 var
-R9451:9458 Kernel.SimulationProof <> vm_apply def
-prf 9493:9518 <> vm_apply_certify_certified
-binder 9531:9531 <> s:60
-binder 9533:9533 <> d:61
-R9581:9583 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9568:9579 Kernel.VMState <> vm_certified proj
-R9537:9544 Kernel.SimulationProof <> vm_apply def
-R9546:9546 NecessityOfMuLedger <> s:60 var
-R9549:9561 Kernel.VMStep VMStep instr_certify constr
-R9563:9563 NecessityOfMuLedger <> d:61 var
-R9584:9587 Coq.Init.Datatypes <> true constr
-R9612:9619 Kernel.SimulationProof <> vm_apply def
-prf 9654:9680 <> vm_apply_certify_mu_charged
-binder 9693:9693 <> s:62
-binder 9695:9695 <> d:63
-R9736:9738 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9730:9734 Kernel.VMState <> vm_mu proj
-R9699:9706 Kernel.SimulationProof <> vm_apply def
-R9708:9708 NecessityOfMuLedger <> s:62 var
-R9711:9723 Kernel.VMStep VMStep instr_certify constr
-R9725:9725 NecessityOfMuLedger <> d:63 var
-R9748:9750 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9742:9746 Kernel.VMState <> vm_mu proj
-R9739:9739 NecessityOfMuLedger <> s:62 var
-R9751:9751 Coq.Init.Datatypes <> S constr
-R9753:9753 NecessityOfMuLedger <> d:63 var
-R9778:9785 Kernel.SimulationProof <> vm_apply def
-prf 10043:10072 <> vm_apply_certify_strict_shadow
-binder 10085:10085 <> s:64
-binder 10087:10087 <> d:65
-R10138:10147 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10217:10219 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10094:10106 NecessityOfMuLedger <> strict_shadow def
-R10109:10116 Kernel.SimulationProof <> vm_apply def
-R10118:10118 NecessityOfMuLedger <> s:64 var
-R10121:10133 Kernel.VMStep VMStep instr_certify constr
-R10135:10135 NecessityOfMuLedger <> d:65 var
-R10148:10154 NecessityOfMuLedger <> scs_mem proj
-R10148:10154 NecessityOfMuLedger <> scs_mem proj
-R10148:10154 NecessityOfMuLedger <> scs_mem proj
-R10171:10178 NecessityOfMuLedger <> scs_regs proj
-R10171:10178 NecessityOfMuLedger <> scs_regs proj
-R10196:10201 NecessityOfMuLedger <> scs_pc proj
-R10196:10201 NecessityOfMuLedger <> scs_pc proj
-R10162:10167 Kernel.VMState <> vm_mem proj
-R10159:10159 NecessityOfMuLedger <> s:64 var
-R10186:10192 Kernel.VMState <> vm_regs proj
-R10183:10183 NecessityOfMuLedger <> s:64 var
-R10206:10206 Coq.Init.Datatypes <> S constr
-R10211:10215 Kernel.VMState <> vm_pc proj
-R10208:10208 NecessityOfMuLedger <> s:64 var
-R10252:10264 NecessityOfMuLedger <> strict_shadow def
-R10277:10306 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
-R10319:10349 NecessityOfMuLedger <> vm_apply_certify_regs_preserved thm
-R10362:10389 NecessityOfMuLedger <> vm_apply_certify_pc_advances thm
-R10277:10306 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
-R10277:10306 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
-R10319:10349 NecessityOfMuLedger <> vm_apply_certify_regs_preserved thm
-R10319:10349 NecessityOfMuLedger <> vm_apply_certify_regs_preserved thm
-R10362:10389 NecessityOfMuLedger <> vm_apply_certify_pc_advances thm
-R10362:10389 NecessityOfMuLedger <> vm_apply_certify_pc_advances thm
-prf 10419:10445 <> vm_apply_pnew_strict_shadow
-binder 10458:10458 <> s:66
-binder 10460:10460 <> r:67
-binder 10462:10462 <> c:68
-R10512:10521 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10591:10593 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10469:10481 NecessityOfMuLedger <> strict_shadow def
-R10484:10491 Kernel.SimulationProof <> vm_apply def
-R10493:10493 NecessityOfMuLedger <> s:66 var
-R10496:10505 Kernel.VMStep VMStep instr_pnew constr
-R10507:10507 NecessityOfMuLedger <> r:67 var
-R10509:10509 NecessityOfMuLedger <> c:68 var
-R10522:10528 NecessityOfMuLedger <> scs_mem proj
-R10522:10528 NecessityOfMuLedger <> scs_mem proj
-R10522:10528 NecessityOfMuLedger <> scs_mem proj
-R10545:10552 NecessityOfMuLedger <> scs_regs proj
-R10545:10552 NecessityOfMuLedger <> scs_regs proj
-R10570:10575 NecessityOfMuLedger <> scs_pc proj
-R10570:10575 NecessityOfMuLedger <> scs_pc proj
-R10536:10541 Kernel.VMState <> vm_mem proj
-R10533:10533 NecessityOfMuLedger <> s:66 var
-R10560:10566 Kernel.VMState <> vm_regs proj
-R10557:10557 NecessityOfMuLedger <> s:66 var
-R10580:10580 Coq.Init.Datatypes <> S constr
-R10585:10589 Kernel.VMState <> vm_pc proj
-R10582:10582 NecessityOfMuLedger <> s:66 var
-R10628:10640 NecessityOfMuLedger <> strict_shadow def
-R10653:10679 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
-R10692:10719 NecessityOfMuLedger <> vm_apply_pnew_regs_preserved thm
-R10732:10756 NecessityOfMuLedger <> vm_apply_pnew_pc_advances thm
-R10653:10679 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
-R10653:10679 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
-R10692:10719 NecessityOfMuLedger <> vm_apply_pnew_regs_preserved thm
-R10692:10719 NecessityOfMuLedger <> vm_apply_pnew_regs_preserved thm
-R10732:10756 NecessityOfMuLedger <> vm_apply_pnew_pc_advances thm
-R10732:10756 NecessityOfMuLedger <> vm_apply_pnew_pc_advances thm
-def 11563:11577 <> po1_empty_graph
-R11581:11594 Kernel.VMState <> PartitionGraph rec
-R11604:11613 Kernel.VMState <> pg_next_id proj
-R11604:11613 Kernel.VMState <> pg_next_id proj
-R11604:11613 Kernel.VMState <> pg_next_id proj
-R11629:11638 Kernel.VMState <> pg_modules proj
-R11629:11638 Kernel.VMState <> pg_modules proj
-R11655:11670 Kernel.VMState <> pg_next_morph_id proj
-R11655:11670 Kernel.VMState <> pg_next_morph_id proj
-R11680:11691 Kernel.VMState <> pg_morphisms proj
-R11680:11691 Kernel.VMState <> pg_morphisms proj
-R11649:11650 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R11700:11701 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 11719:11732 <> po1_empty_csrs
-R11736:11743 Kernel.VMState <> CSRState rec
-R11753:11765 Kernel.VMState <> csr_cert_addr proj
-R11753:11765 Kernel.VMState <> csr_cert_addr proj
-R11753:11765 Kernel.VMState <> csr_cert_addr proj
-R11773:11782 Kernel.VMState <> csr_status proj
-R11773:11782 Kernel.VMState <> csr_status proj
-R11790:11796 Kernel.VMState <> csr_err proj
-R11790:11796 Kernel.VMState <> csr_err proj
-R11804:11816 Kernel.VMState <> csr_heap_base proj
-R11804:11816 Kernel.VMState <> csr_heap_base proj
-def 11839:11855 <> po1_empty_witness
-R11859:11871 Kernel.VMState <> WitnessCounts rec
-R11881:11890 Kernel.VMState <> wc_same_00 proj
-R11881:11890 Kernel.VMState <> wc_same_00 proj
-R11881:11890 Kernel.VMState <> wc_same_00 proj
-R11898:11907 Kernel.VMState <> wc_diff_00 proj
-R11898:11907 Kernel.VMState <> wc_diff_00 proj
-R11920:11929 Kernel.VMState <> wc_same_01 proj
-R11920:11929 Kernel.VMState <> wc_same_01 proj
-R11937:11946 Kernel.VMState <> wc_diff_01 proj
-R11937:11946 Kernel.VMState <> wc_diff_01 proj
-R11959:11968 Kernel.VMState <> wc_same_10 proj
-R11959:11968 Kernel.VMState <> wc_same_10 proj
-R11976:11985 Kernel.VMState <> wc_diff_10 proj
-R11976:11985 Kernel.VMState <> wc_diff_10 proj
-R11998:12007 Kernel.VMState <> wc_same_11 proj
-R11998:12007 Kernel.VMState <> wc_same_11 proj
-R12015:12024 Kernel.VMState <> wc_diff_11 proj
-R12015:12024 Kernel.VMState <> wc_diff_11 proj
-def 12259:12266 <> po1_init
-R12270:12276 Kernel.VMState <> VMState rec
-R12286:12293 Kernel.VMState <> vm_graph proj
-R12286:12293 Kernel.VMState <> vm_graph proj
-R12286:12293 Kernel.VMState <> vm_graph proj
-R12321:12327 Kernel.VMState <> vm_csrs proj
-R12321:12327 Kernel.VMState <> vm_csrs proj
-R12355:12361 Kernel.VMState <> vm_regs proj
-R12355:12361 Kernel.VMState <> vm_regs proj
-R12377:12382 Kernel.VMState <> vm_mem proj
-R12377:12382 Kernel.VMState <> vm_mem proj
-R12399:12403 Kernel.VMState <> vm_pc proj
-R12399:12403 Kernel.VMState <> vm_pc proj
-R12420:12424 Kernel.VMState <> vm_mu proj
-R12420:12424 Kernel.VMState <> vm_mu proj
-R12441:12452 Kernel.VMState <> vm_mu_tensor proj
-R12441:12452 Kernel.VMState <> vm_mu_tensor proj
-R12472:12477 Kernel.VMState <> vm_err proj
-R12472:12477 Kernel.VMState <> vm_err proj
-R12497:12508 Kernel.VMState <> vm_logic_acc proj
-R12497:12508 Kernel.VMState <> vm_logic_acc proj
-R12518:12527 Kernel.VMState <> vm_mstatus proj
-R12518:12527 Kernel.VMState <> vm_mstatus proj
-R12539:12548 Kernel.VMState <> vm_witness proj
-R12539:12548 Kernel.VMState <> vm_witness proj
-R12576:12587 Kernel.VMState <> vm_certified proj
-R12576:12587 Kernel.VMState <> vm_certified proj
-R12302:12316 NecessityOfMuLedger <> po1_empty_graph def
-R12337:12350 NecessityOfMuLedger <> po1_empty_csrs def
-R12371:12372 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R12393:12394 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R12457:12462 Coq.Lists.List <> repeat def
-R12488:12492 Coq.Init.Datatypes <> false constr
-R12555:12571 NecessityOfMuLedger <> po1_empty_witness def
-R12592:12596 Coq.Init.Datatypes <> false constr
-def 12723:12733 <> po1_instr_A
-R12737:12750 Kernel.VMStep VMStep vm_instruction ind
-R12755:12767 Kernel.VMStep VMStep instr_certify constr
-def 12783:12793 <> po1_state_A
-R12797:12803 Kernel.VMState <> VMState rec
-R12808:12815 Kernel.SimulationProof <> vm_apply def
-R12817:12824 NecessityOfMuLedger <> po1_init def
-R12826:12836 NecessityOfMuLedger <> po1_instr_A def
-def 13108:13118 <> po1_instr_B
-R13122:13135 Kernel.VMStep VMStep vm_instruction ind
-R13140:13149 Kernel.VMStep VMStep instr_pnew constr
-R13151:13152 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 13168:13178 <> po1_state_B
-R13182:13188 Kernel.VMState <> VMState rec
-R13193:13200 Kernel.SimulationProof <> vm_apply def
-R13202:13209 NecessityOfMuLedger <> po1_init def
-R13211:13221 NecessityOfMuLedger <> po1_instr_B def
-def 13236:13253 <> po1_strict_trace_A
-R13257:13260 Coq.Init.Datatypes <> list ind
-R13262:13281 NecessityOfMuLedger <> StrictClassicalState rec
-R13288:13288 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R13311:13312 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R13338:13338 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R13289:13301 NecessityOfMuLedger <> strict_shadow def
-R13303:13310 NecessityOfMuLedger <> po1_init def
-R13313:13325 NecessityOfMuLedger <> strict_shadow def
-R13327:13337 NecessityOfMuLedger <> po1_state_A def
-def 13353:13370 <> po1_strict_trace_B
-R13374:13377 Coq.Init.Datatypes <> list ind
-R13379:13398 NecessityOfMuLedger <> StrictClassicalState rec
-R13405:13405 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R13428:13429 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R13455:13455 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R13406:13418 NecessityOfMuLedger <> strict_shadow def
-R13420:13427 NecessityOfMuLedger <> po1_init def
-R13430:13442 NecessityOfMuLedger <> strict_shadow def
-R13444:13454 NecessityOfMuLedger <> po1_state_B def
-prf 14298:14322 <> po1_cond1_identical_start
-R14350:14355 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14398:14400 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14328:14340 NecessityOfMuLedger <> strict_shadow def
-R14342:14349 NecessityOfMuLedger <> po1_init def
-R14356:14362 NecessityOfMuLedger <> scs_mem proj
-R14356:14362 NecessityOfMuLedger <> scs_mem proj
-R14356:14362 NecessityOfMuLedger <> scs_mem proj
-R14371:14378 NecessityOfMuLedger <> scs_regs proj
-R14371:14378 NecessityOfMuLedger <> scs_regs proj
-R14387:14392 NecessityOfMuLedger <> scs_pc proj
-R14387:14392 NecessityOfMuLedger <> scs_pc proj
-R14367:14368 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14383:14384 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14417:14429 NecessityOfMuLedger <> strict_shadow def
-R14432:14439 NecessityOfMuLedger <> po1_init def
-prf 14561:14575 <> po1_cond2_step0
-R14603:14608 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14651:14653 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14581:14593 NecessityOfMuLedger <> strict_shadow def
-R14595:14602 NecessityOfMuLedger <> po1_init def
-R14609:14615 NecessityOfMuLedger <> scs_mem proj
-R14609:14615 NecessityOfMuLedger <> scs_mem proj
-R14609:14615 NecessityOfMuLedger <> scs_mem proj
-R14624:14631 NecessityOfMuLedger <> scs_regs proj
-R14624:14631 NecessityOfMuLedger <> scs_regs proj
-R14640:14645 NecessityOfMuLedger <> scs_pc proj
-R14640:14645 NecessityOfMuLedger <> scs_pc proj
-R14620:14621 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14636:14637 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R14669:14693 NecessityOfMuLedger <> po1_cond1_identical_start thm
-R14669:14693 NecessityOfMuLedger <> po1_cond1_identical_start thm
-prf 14961:14988 <> po1_cond2_final_shadow_equal
-R15019:15021 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14994:15006 NecessityOfMuLedger <> strict_shadow def
-R15008:15018 NecessityOfMuLedger <> po1_state_A def
-R15022:15034 NecessityOfMuLedger <> strict_shadow def
-R15036:15046 NecessityOfMuLedger <> po1_state_B def
-R15065:15075 NecessityOfMuLedger <> po1_state_A def
-R15078:15088 NecessityOfMuLedger <> po1_state_B def
-R15091:15101 NecessityOfMuLedger <> po1_instr_A def
-R15104:15114 NecessityOfMuLedger <> po1_instr_B def
-R15127:15156 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
-R15169:15195 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
-R15127:15156 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
-R15127:15156 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
-R15169:15195 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
-R15169:15195 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
-R15207:15214 NecessityOfMuLedger <> po1_init def
-prf 15415:15443 <> po1_cond2_shadow_traces_equal
-R15467:15469 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15449:15466 NecessityOfMuLedger <> po1_strict_trace_A def
-R15470:15487 NecessityOfMuLedger <> po1_strict_trace_B def
-R15506:15523 NecessityOfMuLedger <> po1_strict_trace_A def
-R15526:15543 NecessityOfMuLedger <> po1_strict_trace_B def
-R15556:15583 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R15556:15583 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R15556:15583 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-prf 15870:15897 <> po1_cond3_equal_trace_length
-R15923:15925 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15903:15908 Coq.Init.Datatypes <> length def
-R15910:15910 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R15922:15922 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R15911:15921 NecessityOfMuLedger <> po1_instr_A def
-R15926:15931 Coq.Init.Datatypes <> length def
-R15933:15933 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R15945:15945 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R15934:15944 NecessityOfMuLedger <> po1_instr_B def
-prf 15989:16012 <> po1_cond3_equal_mem_size
-R16045:16047 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16018:16023 Coq.Init.Datatypes <> length def
-R16038:16043 Kernel.VMState <> vm_mem proj
-R16025:16035 NecessityOfMuLedger <> po1_state_A def
-R16048:16053 Coq.Init.Datatypes <> length def
-R16068:16073 Kernel.VMState <> vm_mem proj
-R16055:16065 NecessityOfMuLedger <> po1_state_B def
-R16093:16103 NecessityOfMuLedger <> po1_state_A def
-R16106:16116 NecessityOfMuLedger <> po1_state_B def
-R16119:16129 NecessityOfMuLedger <> po1_instr_A def
-R16132:16142 NecessityOfMuLedger <> po1_instr_B def
-R16155:16184 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
-R16197:16223 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
-R16155:16184 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
-R16155:16184 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
-R16197:16223 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
-R16197:16223 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
-prf 16377:16403 <> po1_cond4_trace_A_certified
-R16435:16437 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16422:16433 Kernel.VMState <> vm_certified proj
-R16409:16419 NecessityOfMuLedger <> po1_state_A def
-R16438:16441 Coq.Init.Datatypes <> true constr
-R16460:16470 NecessityOfMuLedger <> po1_state_A def
-R16473:16483 NecessityOfMuLedger <> po1_instr_A def
-R16494:16519 NecessityOfMuLedger <> vm_apply_certify_certified thm
-R16494:16519 NecessityOfMuLedger <> vm_apply_certify_certified thm
-prf 16536:16560 <> po1_cond4_trace_A_mu_paid
-R16585:16587 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16579:16583 Kernel.VMState <> vm_mu proj
-R16566:16576 NecessityOfMuLedger <> po1_state_A def
-R16607:16617 NecessityOfMuLedger <> po1_state_A def
-R16620:16630 NecessityOfMuLedger <> po1_instr_A def
-R16643:16669 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
-R16643:16669 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
-R16643:16669 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
-R16681:16688 NecessityOfMuLedger <> po1_init def
-prf 16879:16909 <> po1_cond5_trace_B_not_certified
-R16941:16943 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16928:16939 Kernel.VMState <> vm_certified proj
-R16915:16925 NecessityOfMuLedger <> po1_state_B def
-R16944:16948 Coq.Init.Datatypes <> false constr
-R16967:16977 NecessityOfMuLedger <> po1_state_B def
-R16980:16990 NecessityOfMuLedger <> po1_instr_B def
-R17003:17035 NecessityOfMuLedger <> vm_apply_pnew_certified_preserved thm
-R17003:17035 NecessityOfMuLedger <> vm_apply_pnew_certified_preserved thm
-R17003:17035 NecessityOfMuLedger <> vm_apply_pnew_certified_preserved thm
-R17047:17054 NecessityOfMuLedger <> po1_init def
-prf 17091:17115 <> po1_cond5_trace_B_mu_zero
-R17140:17142 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17134:17138 Kernel.VMState <> vm_mu proj
-R17121:17131 NecessityOfMuLedger <> po1_state_B def
-R17162:17172 NecessityOfMuLedger <> po1_state_B def
-R17175:17185 NecessityOfMuLedger <> po1_instr_B def
-R17198:17221 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
-R17198:17221 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
-R17198:17221 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
-R17233:17240 NecessityOfMuLedger <> po1_init def
-def 17563:17571 <> Omega_pc1
-R17579:17598 NecessityOfMuLedger <> StrictClassicalState rec
-binder 17574:17575 <> cs:69
-R17603:17606 Coq.Init.Datatypes <> bool ind
-R17613:17619 Coq.Arith.PeanoNat Nat eqb def
-R17625:17630 NecessityOfMuLedger <> scs_pc proj
-R17621:17622 NecessityOfMuLedger <> cs:69 var
-prf 17645:17686 <> po1_cond6_any_strict_shadow_function_equal
-binder 17700:17700 <> A:70
-R17735:17738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17715:17734 NecessityOfMuLedger <> StrictClassicalState rec
-R17739:17739 NecessityOfMuLedger <> A:70 var
-binder 17711:17711 <> f:71
-R17776:17778 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17747:17747 NecessityOfMuLedger <> f:71 var
-R17750:17762 NecessityOfMuLedger <> strict_shadow def
-R17764:17774 NecessityOfMuLedger <> po1_state_A def
-R17779:17779 NecessityOfMuLedger <> f:71 var
-R17782:17794 NecessityOfMuLedger <> strict_shadow def
-R17796:17806 NecessityOfMuLedger <> po1_state_B def
-R17841:17868 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R17841:17868 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R17841:17868 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-prf 17900:17934 <> po1_cond6_omega_gives_equal_results
-R17977:17979 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17940:17948 NecessityOfMuLedger <> Omega_pc1 def
-R17951:17963 NecessityOfMuLedger <> strict_shadow def
-R17965:17975 NecessityOfMuLedger <> po1_state_A def
-R17980:17988 NecessityOfMuLedger <> Omega_pc1 def
-R17991:18003 NecessityOfMuLedger <> strict_shadow def
-R18005:18015 NecessityOfMuLedger <> po1_state_B def
-R18034:18075 NecessityOfMuLedger <> po1_cond6_any_strict_shadow_function_equal thm
-R18034:18075 NecessityOfMuLedger <> po1_cond6_any_strict_shadow_function_equal thm
-prf 18536:18569 <> po1_cond7_contradiction_components
-R18611:18614 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18591:18610 NecessityOfMuLedger <> StrictClassicalState rec
-R18615:18618 Coq.Init.Datatypes <> bool ind
-binder 18583:18587 <> Omega:72
-R18626:18626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18691:18699 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18639:18645 Kernel.VMState <> VMState rec
-binder 18635:18635 <> s:73
-R18672:18674 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18649:18653 NecessityOfMuLedger <> Omega:72 var
-R18656:18668 NecessityOfMuLedger <> strict_shadow def
-R18670:18670 NecessityOfMuLedger <> s:73 var
-R18678:18689 Kernel.VMState <> vm_certified proj
-R18675:18675 NecessityOfMuLedger <> s:73 var
-R18740:18747 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18733:18735 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18700:18704 NecessityOfMuLedger <> Omega:72 var
-R18707:18719 NecessityOfMuLedger <> strict_shadow def
-R18721:18731 NecessityOfMuLedger <> po1_state_A def
-R18736:18739 Coq.Init.Datatypes <> true constr
-R18789:18796 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R18781:18783 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18748:18752 NecessityOfMuLedger <> Omega:72 var
-R18755:18767 NecessityOfMuLedger <> strict_shadow def
-R18769:18779 NecessityOfMuLedger <> po1_state_B def
-R18784:18788 Coq.Init.Datatypes <> false constr
-R18822:18824 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18797:18809 NecessityOfMuLedger <> strict_shadow def
-R18811:18821 NecessityOfMuLedger <> po1_state_A def
-R18825:18837 NecessityOfMuLedger <> strict_shadow def
-R18839:18849 NecessityOfMuLedger <> po1_state_B def
-R18892:18895 Coq.Init.Logic <> conj constr
-R18900:18903 Coq.Init.Logic <> conj constr
-R18907:18934 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R18892:18895 Coq.Init.Logic <> conj constr
-R18900:18903 Coq.Init.Logic <> conj constr
-R18907:18934 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R18965:18991 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R18965:18991 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R19020:19050 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R19020:19050 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-prf 19067:19103 <> po1_cond7_mu_contradiction_components
-R19145:19148 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19125:19144 NecessityOfMuLedger <> StrictClassicalState rec
-R19149:19151 Coq.Init.Datatypes <> nat ind
-binder 19117:19121 <> Omega:74
-R19159:19159 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19217:19225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19172:19178 Kernel.VMState <> VMState rec
-binder 19168:19168 <> s:75
-R19205:19207 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19182:19186 NecessityOfMuLedger <> Omega:74 var
-R19189:19201 NecessityOfMuLedger <> strict_shadow def
-R19203:19203 NecessityOfMuLedger <> s:75 var
-R19211:19215 Kernel.VMState <> vm_mu proj
-R19208:19208 NecessityOfMuLedger <> s:75 var
-R19263:19270 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19259:19261 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19226:19230 NecessityOfMuLedger <> Omega:74 var
-R19233:19245 NecessityOfMuLedger <> strict_shadow def
-R19247:19257 NecessityOfMuLedger <> po1_state_A def
-R19308:19315 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19304:19306 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19271:19275 NecessityOfMuLedger <> Omega:74 var
-R19278:19290 NecessityOfMuLedger <> strict_shadow def
-R19292:19302 NecessityOfMuLedger <> po1_state_B def
-R19341:19343 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19316:19328 NecessityOfMuLedger <> strict_shadow def
-R19330:19340 NecessityOfMuLedger <> po1_state_A def
-R19344:19356 NecessityOfMuLedger <> strict_shadow def
-R19358:19368 NecessityOfMuLedger <> po1_state_B def
-R19411:19414 Coq.Init.Logic <> conj constr
-R19419:19422 Coq.Init.Logic <> conj constr
+R8350:8350 NecessityOfMuLedger <> s:56 var
+R8353:8365 Kernel.VMStep VMStep instr_certify constr
+R8367:8367 NecessityOfMuLedger <> d:57 var
+R8386:8392 Kernel.VMState <> vm_regs proj
+R8383:8383 NecessityOfMuLedger <> s:56 var
+R8418:8425 Kernel.SimulationProof <> vm_apply def
+prf 8460:8487 <> vm_apply_certify_pc_advances
+binder 8500:8500 <> s:58
+binder 8502:8502 <> d:59
+R8543:8545 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8537:8541 Kernel.VMState <> vm_pc proj
+R8506:8513 Kernel.SimulationProof <> vm_apply def
+R8515:8515 NecessityOfMuLedger <> s:58 var
+R8518:8530 Kernel.VMStep VMStep instr_certify constr
+R8532:8532 NecessityOfMuLedger <> d:59 var
+R8546:8546 Coq.Init.Datatypes <> S constr
+R8551:8555 Kernel.VMState <> vm_pc proj
+R8548:8548 NecessityOfMuLedger <> s:58 var
+R8581:8588 Kernel.SimulationProof <> vm_apply def
+prf 8623:8648 <> vm_apply_certify_certified
+binder 8661:8661 <> s:60
+binder 8663:8663 <> d:61
+R8711:8713 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8698:8709 Kernel.VMState <> vm_certified proj
+R8667:8674 Kernel.SimulationProof <> vm_apply def
+R8676:8676 NecessityOfMuLedger <> s:60 var
+R8679:8691 Kernel.VMStep VMStep instr_certify constr
+R8693:8693 NecessityOfMuLedger <> d:61 var
+R8714:8717 Coq.Init.Datatypes <> true constr
+R8742:8749 Kernel.SimulationProof <> vm_apply def
+prf 8784:8810 <> vm_apply_certify_mu_charged
+binder 8823:8823 <> s:62
+binder 8825:8825 <> d:63
+R8866:8868 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8860:8864 Kernel.VMState <> vm_mu proj
+R8829:8836 Kernel.SimulationProof <> vm_apply def
+R8838:8838 NecessityOfMuLedger <> s:62 var
+R8841:8853 Kernel.VMStep VMStep instr_certify constr
+R8855:8855 NecessityOfMuLedger <> d:63 var
+R8878:8880 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8872:8876 Kernel.VMState <> vm_mu proj
+R8869:8869 NecessityOfMuLedger <> s:62 var
+R8881:8881 Coq.Init.Datatypes <> S constr
+R8883:8883 NecessityOfMuLedger <> d:63 var
+R8908:8915 Kernel.SimulationProof <> vm_apply def
+prf 9173:9202 <> vm_apply_certify_strict_shadow
+binder 9215:9215 <> s:64
+binder 9217:9217 <> d:65
+R9268:9277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9347:9349 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9224:9236 NecessityOfMuLedger <> strict_shadow def
+R9239:9246 Kernel.SimulationProof <> vm_apply def
+R9248:9248 NecessityOfMuLedger <> s:64 var
+R9251:9263 Kernel.VMStep VMStep instr_certify constr
+R9265:9265 NecessityOfMuLedger <> d:65 var
+R9278:9284 NecessityOfMuLedger <> scs_mem proj
+R9278:9284 NecessityOfMuLedger <> scs_mem proj
+R9278:9284 NecessityOfMuLedger <> scs_mem proj
+R9301:9308 NecessityOfMuLedger <> scs_regs proj
+R9301:9308 NecessityOfMuLedger <> scs_regs proj
+R9326:9331 NecessityOfMuLedger <> scs_pc proj
+R9326:9331 NecessityOfMuLedger <> scs_pc proj
+R9292:9297 Kernel.VMState <> vm_mem proj
+R9289:9289 NecessityOfMuLedger <> s:64 var
+R9316:9322 Kernel.VMState <> vm_regs proj
+R9313:9313 NecessityOfMuLedger <> s:64 var
+R9336:9336 Coq.Init.Datatypes <> S constr
+R9341:9345 Kernel.VMState <> vm_pc proj
+R9338:9338 NecessityOfMuLedger <> s:64 var
+R9382:9394 NecessityOfMuLedger <> strict_shadow def
+R9407:9436 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
+R9449:9479 NecessityOfMuLedger <> vm_apply_certify_regs_preserved thm
+R9492:9519 NecessityOfMuLedger <> vm_apply_certify_pc_advances thm
+R9407:9436 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
+R9407:9436 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
+R9449:9479 NecessityOfMuLedger <> vm_apply_certify_regs_preserved thm
+R9449:9479 NecessityOfMuLedger <> vm_apply_certify_regs_preserved thm
+R9492:9519 NecessityOfMuLedger <> vm_apply_certify_pc_advances thm
+R9492:9519 NecessityOfMuLedger <> vm_apply_certify_pc_advances thm
+prf 9549:9575 <> vm_apply_pnew_strict_shadow
+binder 9588:9588 <> s:66
+binder 9590:9590 <> r:67
+binder 9592:9592 <> c:68
+R9642:9651 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9721:9723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9599:9611 NecessityOfMuLedger <> strict_shadow def
+R9614:9621 Kernel.SimulationProof <> vm_apply def
+R9623:9623 NecessityOfMuLedger <> s:66 var
+R9626:9635 Kernel.VMStep VMStep instr_pnew constr
+R9637:9637 NecessityOfMuLedger <> r:67 var
+R9639:9639 NecessityOfMuLedger <> c:68 var
+R9652:9658 NecessityOfMuLedger <> scs_mem proj
+R9652:9658 NecessityOfMuLedger <> scs_mem proj
+R9652:9658 NecessityOfMuLedger <> scs_mem proj
+R9675:9682 NecessityOfMuLedger <> scs_regs proj
+R9675:9682 NecessityOfMuLedger <> scs_regs proj
+R9700:9705 NecessityOfMuLedger <> scs_pc proj
+R9700:9705 NecessityOfMuLedger <> scs_pc proj
+R9666:9671 Kernel.VMState <> vm_mem proj
+R9663:9663 NecessityOfMuLedger <> s:66 var
+R9690:9696 Kernel.VMState <> vm_regs proj
+R9687:9687 NecessityOfMuLedger <> s:66 var
+R9710:9710 Coq.Init.Datatypes <> S constr
+R9715:9719 Kernel.VMState <> vm_pc proj
+R9712:9712 NecessityOfMuLedger <> s:66 var
+R9758:9770 NecessityOfMuLedger <> strict_shadow def
+R9783:9809 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
+R9822:9849 NecessityOfMuLedger <> vm_apply_pnew_regs_preserved thm
+R9862:9886 NecessityOfMuLedger <> vm_apply_pnew_pc_advances thm
+R9783:9809 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
+R9783:9809 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
+R9822:9849 NecessityOfMuLedger <> vm_apply_pnew_regs_preserved thm
+R9822:9849 NecessityOfMuLedger <> vm_apply_pnew_regs_preserved thm
+R9862:9886 NecessityOfMuLedger <> vm_apply_pnew_pc_advances thm
+R9862:9886 NecessityOfMuLedger <> vm_apply_pnew_pc_advances thm
+def 10342:10356 <> po1_empty_graph
+R10360:10373 Kernel.VMState <> PartitionGraph rec
+R10383:10392 Kernel.VMState <> pg_next_id proj
+R10383:10392 Kernel.VMState <> pg_next_id proj
+R10383:10392 Kernel.VMState <> pg_next_id proj
+R10408:10417 Kernel.VMState <> pg_modules proj
+R10408:10417 Kernel.VMState <> pg_modules proj
+R10434:10449 Kernel.VMState <> pg_next_morph_id proj
+R10434:10449 Kernel.VMState <> pg_next_morph_id proj
+R10459:10470 Kernel.VMState <> pg_morphisms proj
+R10459:10470 Kernel.VMState <> pg_morphisms proj
+R10428:10429 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R10479:10480 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 10498:10511 <> po1_empty_csrs
+R10515:10522 Kernel.VMState <> CSRState rec
+R10532:10544 Kernel.VMState <> csr_cert_addr proj
+R10532:10544 Kernel.VMState <> csr_cert_addr proj
+R10532:10544 Kernel.VMState <> csr_cert_addr proj
+R10552:10561 Kernel.VMState <> csr_status proj
+R10552:10561 Kernel.VMState <> csr_status proj
+R10569:10575 Kernel.VMState <> csr_err proj
+R10569:10575 Kernel.VMState <> csr_err proj
+R10583:10595 Kernel.VMState <> csr_heap_base proj
+R10583:10595 Kernel.VMState <> csr_heap_base proj
+def 10618:10634 <> po1_empty_witness
+R10638:10650 Kernel.VMState <> WitnessCounts rec
+R10660:10669 Kernel.VMState <> wc_same_00 proj
+R10660:10669 Kernel.VMState <> wc_same_00 proj
+R10660:10669 Kernel.VMState <> wc_same_00 proj
+R10677:10686 Kernel.VMState <> wc_diff_00 proj
+R10677:10686 Kernel.VMState <> wc_diff_00 proj
+R10699:10708 Kernel.VMState <> wc_same_01 proj
+R10699:10708 Kernel.VMState <> wc_same_01 proj
+R10716:10725 Kernel.VMState <> wc_diff_01 proj
+R10716:10725 Kernel.VMState <> wc_diff_01 proj
+R10738:10747 Kernel.VMState <> wc_same_10 proj
+R10738:10747 Kernel.VMState <> wc_same_10 proj
+R10755:10764 Kernel.VMState <> wc_diff_10 proj
+R10755:10764 Kernel.VMState <> wc_diff_10 proj
+R10777:10786 Kernel.VMState <> wc_same_11 proj
+R10777:10786 Kernel.VMState <> wc_same_11 proj
+R10794:10803 Kernel.VMState <> wc_diff_11 proj
+R10794:10803 Kernel.VMState <> wc_diff_11 proj
+def 11038:11045 <> po1_init
+R11049:11055 Kernel.VMState <> VMState rec
+R11065:11072 Kernel.VMState <> vm_graph proj
+R11065:11072 Kernel.VMState <> vm_graph proj
+R11065:11072 Kernel.VMState <> vm_graph proj
+R11100:11106 Kernel.VMState <> vm_csrs proj
+R11100:11106 Kernel.VMState <> vm_csrs proj
+R11134:11140 Kernel.VMState <> vm_regs proj
+R11134:11140 Kernel.VMState <> vm_regs proj
+R11156:11161 Kernel.VMState <> vm_mem proj
+R11156:11161 Kernel.VMState <> vm_mem proj
+R11178:11182 Kernel.VMState <> vm_pc proj
+R11178:11182 Kernel.VMState <> vm_pc proj
+R11199:11203 Kernel.VMState <> vm_mu proj
+R11199:11203 Kernel.VMState <> vm_mu proj
+R11220:11231 Kernel.VMState <> vm_mu_tensor proj
+R11220:11231 Kernel.VMState <> vm_mu_tensor proj
+R11251:11256 Kernel.VMState <> vm_err proj
+R11251:11256 Kernel.VMState <> vm_err proj
+R11276:11287 Kernel.VMState <> vm_logic_acc proj
+R11276:11287 Kernel.VMState <> vm_logic_acc proj
+R11297:11306 Kernel.VMState <> vm_mstatus proj
+R11297:11306 Kernel.VMState <> vm_mstatus proj
+R11318:11327 Kernel.VMState <> vm_witness proj
+R11318:11327 Kernel.VMState <> vm_witness proj
+R11355:11366 Kernel.VMState <> vm_certified proj
+R11355:11366 Kernel.VMState <> vm_certified proj
+R11081:11095 NecessityOfMuLedger <> po1_empty_graph def
+R11116:11129 NecessityOfMuLedger <> po1_empty_csrs def
+R11150:11151 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11172:11173 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R11236:11241 Coq.Lists.List <> repeat def
+R11267:11271 Coq.Init.Datatypes <> false constr
+R11334:11350 NecessityOfMuLedger <> po1_empty_witness def
+R11371:11375 Coq.Init.Datatypes <> false constr
+def 11502:11512 <> po1_instr_A
+R11516:11529 Kernel.VMStep VMStep vm_instruction ind
+R11534:11546 Kernel.VMStep VMStep instr_certify constr
+def 11562:11572 <> po1_state_A
+R11576:11582 Kernel.VMState <> VMState rec
+R11587:11594 Kernel.SimulationProof <> vm_apply def
+R11596:11603 NecessityOfMuLedger <> po1_init def
+R11605:11615 NecessityOfMuLedger <> po1_instr_A def
+def 11887:11897 <> po1_instr_B
+R11901:11914 Kernel.VMStep VMStep vm_instruction ind
+R11919:11928 Kernel.VMStep VMStep instr_pnew constr
+R11930:11931 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 11947:11957 <> po1_state_B
+R11961:11967 Kernel.VMState <> VMState rec
+R11972:11979 Kernel.SimulationProof <> vm_apply def
+R11981:11988 NecessityOfMuLedger <> po1_init def
+R11990:12000 NecessityOfMuLedger <> po1_instr_B def
+def 12015:12032 <> po1_strict_trace_A
+R12036:12039 Coq.Init.Datatypes <> list ind
+R12041:12060 NecessityOfMuLedger <> StrictClassicalState rec
+R12067:12067 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12090:12091 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12117:12117 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12068:12080 NecessityOfMuLedger <> strict_shadow def
+R12082:12089 NecessityOfMuLedger <> po1_init def
+R12092:12104 NecessityOfMuLedger <> strict_shadow def
+R12106:12116 NecessityOfMuLedger <> po1_state_A def
+def 12132:12149 <> po1_strict_trace_B
+R12153:12156 Coq.Init.Datatypes <> list ind
+R12158:12177 NecessityOfMuLedger <> StrictClassicalState rec
+R12184:12184 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12207:12208 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12234:12234 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R12185:12197 NecessityOfMuLedger <> strict_shadow def
+R12199:12206 NecessityOfMuLedger <> po1_init def
+R12209:12221 NecessityOfMuLedger <> strict_shadow def
+R12223:12233 NecessityOfMuLedger <> po1_state_B def
+prf 12619:12643 <> po1_cond1_identical_start
+R12671:12676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12719:12721 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12649:12661 NecessityOfMuLedger <> strict_shadow def
+R12663:12670 NecessityOfMuLedger <> po1_init def
+R12677:12683 NecessityOfMuLedger <> scs_mem proj
+R12677:12683 NecessityOfMuLedger <> scs_mem proj
+R12677:12683 NecessityOfMuLedger <> scs_mem proj
+R12692:12699 NecessityOfMuLedger <> scs_regs proj
+R12692:12699 NecessityOfMuLedger <> scs_regs proj
+R12708:12713 NecessityOfMuLedger <> scs_pc proj
+R12708:12713 NecessityOfMuLedger <> scs_pc proj
+R12688:12689 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12704:12705 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12738:12750 NecessityOfMuLedger <> strict_shadow def
+R12753:12760 NecessityOfMuLedger <> po1_init def
+prf 12882:12896 <> po1_cond2_step0
+R12924:12929 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12972:12974 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12902:12914 NecessityOfMuLedger <> strict_shadow def
+R12916:12923 NecessityOfMuLedger <> po1_init def
+R12930:12936 NecessityOfMuLedger <> scs_mem proj
+R12930:12936 NecessityOfMuLedger <> scs_mem proj
+R12930:12936 NecessityOfMuLedger <> scs_mem proj
+R12945:12952 NecessityOfMuLedger <> scs_regs proj
+R12945:12952 NecessityOfMuLedger <> scs_regs proj
+R12961:12966 NecessityOfMuLedger <> scs_pc proj
+R12961:12966 NecessityOfMuLedger <> scs_pc proj
+R12941:12942 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12957:12958 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R12990:13014 NecessityOfMuLedger <> po1_cond1_identical_start thm
+R12990:13014 NecessityOfMuLedger <> po1_cond1_identical_start thm
+prf 13282:13309 <> po1_cond2_final_shadow_equal
+R13340:13342 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13315:13327 NecessityOfMuLedger <> strict_shadow def
+R13329:13339 NecessityOfMuLedger <> po1_state_A def
+R13343:13355 NecessityOfMuLedger <> strict_shadow def
+R13357:13367 NecessityOfMuLedger <> po1_state_B def
+R13386:13396 NecessityOfMuLedger <> po1_state_A def
+R13399:13409 NecessityOfMuLedger <> po1_state_B def
+R13412:13422 NecessityOfMuLedger <> po1_instr_A def
+R13425:13435 NecessityOfMuLedger <> po1_instr_B def
+R13448:13477 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
+R13490:13516 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
+R13448:13477 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
+R13448:13477 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
+R13490:13516 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
+R13490:13516 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
+R13528:13535 NecessityOfMuLedger <> po1_init def
+prf 13736:13764 <> po1_cond2_shadow_traces_equal
+R13788:13790 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13770:13787 NecessityOfMuLedger <> po1_strict_trace_A def
+R13791:13808 NecessityOfMuLedger <> po1_strict_trace_B def
+R13827:13844 NecessityOfMuLedger <> po1_strict_trace_A def
+R13847:13864 NecessityOfMuLedger <> po1_strict_trace_B def
+R13877:13904 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R13877:13904 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R13877:13904 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+prf 14191:14218 <> po1_cond3_equal_trace_length
+R14244:14246 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14224:14229 Coq.Init.Datatypes <> length def
+R14231:14231 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14243:14243 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14232:14242 NecessityOfMuLedger <> po1_instr_A def
+R14247:14252 Coq.Init.Datatypes <> length def
+R14254:14254 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14266:14266 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14255:14265 NecessityOfMuLedger <> po1_instr_B def
+prf 14310:14333 <> po1_cond3_equal_mem_size
+R14366:14368 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14339:14344 Coq.Init.Datatypes <> length def
+R14359:14364 Kernel.VMState <> vm_mem proj
+R14346:14356 NecessityOfMuLedger <> po1_state_A def
+R14369:14374 Coq.Init.Datatypes <> length def
+R14389:14394 Kernel.VMState <> vm_mem proj
+R14376:14386 NecessityOfMuLedger <> po1_state_B def
+R14414:14424 NecessityOfMuLedger <> po1_state_A def
+R14427:14437 NecessityOfMuLedger <> po1_state_B def
+R14440:14450 NecessityOfMuLedger <> po1_instr_A def
+R14453:14463 NecessityOfMuLedger <> po1_instr_B def
+R14476:14505 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
+R14518:14544 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
+R14476:14505 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
+R14476:14505 NecessityOfMuLedger <> vm_apply_certify_mem_preserved thm
+R14518:14544 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
+R14518:14544 NecessityOfMuLedger <> vm_apply_pnew_mem_preserved thm
+prf 14698:14724 <> po1_cond4_trace_A_certified
+R14756:14758 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14743:14754 Kernel.VMState <> vm_certified proj
+R14730:14740 NecessityOfMuLedger <> po1_state_A def
+R14759:14762 Coq.Init.Datatypes <> true constr
+R14781:14791 NecessityOfMuLedger <> po1_state_A def
+R14794:14804 NecessityOfMuLedger <> po1_instr_A def
+R14815:14840 NecessityOfMuLedger <> vm_apply_certify_certified thm
+R14815:14840 NecessityOfMuLedger <> vm_apply_certify_certified thm
+prf 14857:14881 <> po1_cond4_trace_A_mu_paid
+R14906:14908 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14900:14904 Kernel.VMState <> vm_mu proj
+R14887:14897 NecessityOfMuLedger <> po1_state_A def
+R14928:14938 NecessityOfMuLedger <> po1_state_A def
+R14941:14951 NecessityOfMuLedger <> po1_instr_A def
+R14964:14990 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
+R14964:14990 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
+R14964:14990 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
+R15002:15009 NecessityOfMuLedger <> po1_init def
+prf 15200:15230 <> po1_cond5_trace_B_not_certified
+R15262:15264 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15249:15260 Kernel.VMState <> vm_certified proj
+R15236:15246 NecessityOfMuLedger <> po1_state_B def
+R15265:15269 Coq.Init.Datatypes <> false constr
+R15288:15298 NecessityOfMuLedger <> po1_state_B def
+R15301:15311 NecessityOfMuLedger <> po1_instr_B def
+R15324:15356 NecessityOfMuLedger <> vm_apply_pnew_certified_preserved thm
+R15324:15356 NecessityOfMuLedger <> vm_apply_pnew_certified_preserved thm
+R15324:15356 NecessityOfMuLedger <> vm_apply_pnew_certified_preserved thm
+R15368:15375 NecessityOfMuLedger <> po1_init def
+prf 15412:15436 <> po1_cond5_trace_B_mu_zero
+R15461:15463 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15455:15459 Kernel.VMState <> vm_mu proj
+R15442:15452 NecessityOfMuLedger <> po1_state_B def
+R15483:15493 NecessityOfMuLedger <> po1_state_B def
+R15496:15506 NecessityOfMuLedger <> po1_instr_B def
+R15519:15542 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
+R15519:15542 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
+R15519:15542 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
+R15554:15561 NecessityOfMuLedger <> po1_init def
+def 15884:15892 <> Omega_pc1
+R15900:15919 NecessityOfMuLedger <> StrictClassicalState rec
+binder 15895:15896 <> cs:69
+R15924:15927 Coq.Init.Datatypes <> bool ind
+R15934:15940 Coq.Arith.PeanoNat Nat eqb def
+R15946:15951 NecessityOfMuLedger <> scs_pc proj
+R15942:15943 NecessityOfMuLedger <> cs:69 var
+prf 15966:16007 <> po1_cond6_any_strict_shadow_function_equal
+binder 16021:16021 <> A:70
+R16056:16059 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16036:16055 NecessityOfMuLedger <> StrictClassicalState rec
+R16060:16060 NecessityOfMuLedger <> A:70 var
+binder 16032:16032 <> f:71
+R16097:16099 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16068:16068 NecessityOfMuLedger <> f:71 var
+R16071:16083 NecessityOfMuLedger <> strict_shadow def
+R16085:16095 NecessityOfMuLedger <> po1_state_A def
+R16100:16100 NecessityOfMuLedger <> f:71 var
+R16103:16115 NecessityOfMuLedger <> strict_shadow def
+R16117:16127 NecessityOfMuLedger <> po1_state_B def
+R16162:16189 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R16162:16189 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R16162:16189 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+prf 16221:16255 <> po1_cond6_omega_gives_equal_results
+R16298:16300 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16261:16269 NecessityOfMuLedger <> Omega_pc1 def
+R16272:16284 NecessityOfMuLedger <> strict_shadow def
+R16286:16296 NecessityOfMuLedger <> po1_state_A def
+R16301:16309 NecessityOfMuLedger <> Omega_pc1 def
+R16312:16324 NecessityOfMuLedger <> strict_shadow def
+R16326:16336 NecessityOfMuLedger <> po1_state_B def
+R16355:16396 NecessityOfMuLedger <> po1_cond6_any_strict_shadow_function_equal thm
+R16355:16396 NecessityOfMuLedger <> po1_cond6_any_strict_shadow_function_equal thm
+prf 16857:16890 <> po1_cond7_contradiction_components
+R16932:16935 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16912:16931 NecessityOfMuLedger <> StrictClassicalState rec
+R16936:16939 Coq.Init.Datatypes <> bool ind
+binder 16904:16908 <> Omega:72
+R16947:16947 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17012:17020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16960:16966 Kernel.VMState <> VMState rec
+binder 16956:16956 <> s:73
+R16993:16995 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16970:16974 NecessityOfMuLedger <> Omega:72 var
+R16977:16989 NecessityOfMuLedger <> strict_shadow def
+R16991:16991 NecessityOfMuLedger <> s:73 var
+R16999:17010 Kernel.VMState <> vm_certified proj
+R16996:16996 NecessityOfMuLedger <> s:73 var
+R17061:17068 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17054:17056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17021:17025 NecessityOfMuLedger <> Omega:72 var
+R17028:17040 NecessityOfMuLedger <> strict_shadow def
+R17042:17052 NecessityOfMuLedger <> po1_state_A def
+R17057:17060 Coq.Init.Datatypes <> true constr
+R17110:17117 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17102:17104 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17069:17073 NecessityOfMuLedger <> Omega:72 var
+R17076:17088 NecessityOfMuLedger <> strict_shadow def
+R17090:17100 NecessityOfMuLedger <> po1_state_B def
+R17105:17109 Coq.Init.Datatypes <> false constr
+R17143:17145 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17118:17130 NecessityOfMuLedger <> strict_shadow def
+R17132:17142 NecessityOfMuLedger <> po1_state_A def
+R17146:17158 NecessityOfMuLedger <> strict_shadow def
+R17160:17170 NecessityOfMuLedger <> po1_state_B def
+R17213:17216 Coq.Init.Logic <> conj constr
+R17221:17224 Coq.Init.Logic <> conj constr
+R17228:17255 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R17213:17216 Coq.Init.Logic <> conj constr
+R17221:17224 Coq.Init.Logic <> conj constr
+R17228:17255 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R17286:17312 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R17286:17312 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R17341:17371 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R17341:17371 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+prf 17388:17424 <> po1_cond7_mu_contradiction_components
+R17466:17469 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17446:17465 NecessityOfMuLedger <> StrictClassicalState rec
+R17470:17472 Coq.Init.Datatypes <> nat ind
+binder 17438:17442 <> Omega:74
+R17480:17480 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17538:17546 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17493:17499 Kernel.VMState <> VMState rec
+binder 17489:17489 <> s:75
+R17526:17528 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17503:17507 NecessityOfMuLedger <> Omega:74 var
+R17510:17522 NecessityOfMuLedger <> strict_shadow def
+R17524:17524 NecessityOfMuLedger <> s:75 var
+R17532:17536 Kernel.VMState <> vm_mu proj
+R17529:17529 NecessityOfMuLedger <> s:75 var
+R17584:17591 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17580:17582 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17547:17551 NecessityOfMuLedger <> Omega:74 var
+R17554:17566 NecessityOfMuLedger <> strict_shadow def
+R17568:17578 NecessityOfMuLedger <> po1_state_A def
+R17629:17636 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17625:17627 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17592:17596 NecessityOfMuLedger <> Omega:74 var
+R17599:17611 NecessityOfMuLedger <> strict_shadow def
+R17613:17623 NecessityOfMuLedger <> po1_state_B def
+R17662:17664 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17637:17649 NecessityOfMuLedger <> strict_shadow def
+R17651:17661 NecessityOfMuLedger <> po1_state_A def
+R17665:17677 NecessityOfMuLedger <> strict_shadow def
+R17679:17689 NecessityOfMuLedger <> po1_state_B def
+R17732:17735 Coq.Init.Logic <> conj constr
+R17740:17743 Coq.Init.Logic <> conj constr
+R17747:17774 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R17732:17735 Coq.Init.Logic <> conj constr
+R17740:17743 Coq.Init.Logic <> conj constr
+R17747:17774 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R17805:17829 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R17805:17829 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R17858:17882 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R17858:17882 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+prf 18867:18885 <> mu_ledger_necessity
+R18891:18892 Coq.Init.Logic <> ::type_scope:'~'_x not
+R18893:18900 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18943:18951 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R18929:18932 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18909:18928 NecessityOfMuLedger <> StrictClassicalState rec
+R18936:18938 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R18933:18935 Coq.Init.Datatypes <> nat ind
+R18939:18942 Coq.Init.Datatypes <> bool ind
+binder 18901:18905 <> Omega:76
+R18964:18970 Kernel.VMState <> VMState rec
+binder 18960:18960 <> s:77
+R19005:19007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18982:18986 NecessityOfMuLedger <> Omega:76 var
+R18989:19001 NecessityOfMuLedger <> strict_shadow def
+R19003:19003 NecessityOfMuLedger <> s:77 var
+R19008:19008 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19018:19019 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19036:19036 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19012:19016 Kernel.VMState <> vm_mu proj
+R19009:19009 NecessityOfMuLedger <> s:77 var
+R19023:19034 Kernel.VMState <> vm_certified proj
+R19020:19020 NecessityOfMuLedger <> s:77 var
+R19119:19121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19093:19105 NecessityOfMuLedger <> strict_shadow def
+R19107:19117 NecessityOfMuLedger <> po1_state_A def
+R19122:19122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19124:19125 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19130:19130 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19126:19129 Coq.Init.Datatypes <> true constr
+R19119:19121 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19093:19105 NecessityOfMuLedger <> strict_shadow def
+R19107:19117 NecessityOfMuLedger <> po1_state_A def
+R19122:19122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19124:19125 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19130:19130 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19126:19129 Coq.Init.Datatypes <> true constr
+R19166:19190 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R19193:19219 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R19166:19190 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R19166:19190 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R19193:19219 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R19193:19219 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R19289:19291 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19263:19275 NecessityOfMuLedger <> strict_shadow def
+R19277:19287 NecessityOfMuLedger <> po1_state_B def
+R19292:19292 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19294:19295 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19301:19301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19296:19300 Coq.Init.Datatypes <> false constr
+R19289:19291 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19263:19275 NecessityOfMuLedger <> strict_shadow def
+R19277:19287 NecessityOfMuLedger <> po1_state_B def
+R19292:19292 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19294:19295 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19301:19301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R19296:19300 Coq.Init.Datatypes <> false constr
+R19337:19361 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R19364:19394 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R19337:19361 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R19337:19361 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R19364:19394 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R19364:19394 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
 R19426:19453 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R19411:19414 Coq.Init.Logic <> conj constr
-R19419:19422 Coq.Init.Logic <> conj constr
 R19426:19453 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R19484:19508 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R19484:19508 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R19537:19561 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R19537:19561 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-prf 20987:21005 <> mu_ledger_necessity
-R21011:21012 Coq.Init.Logic <> ::type_scope:'~'_x not
-R21013:21020 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R21063:21071 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R21049:21052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21029:21048 NecessityOfMuLedger <> StrictClassicalState rec
-R21056:21058 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R21053:21055 Coq.Init.Datatypes <> nat ind
-R21059:21062 Coq.Init.Datatypes <> bool ind
-binder 21021:21025 <> Omega:76
-R21084:21090 Kernel.VMState <> VMState rec
-binder 21080:21080 <> s:77
-R21125:21127 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21102:21106 NecessityOfMuLedger <> Omega:76 var
-R21109:21121 NecessityOfMuLedger <> strict_shadow def
-R21123:21123 NecessityOfMuLedger <> s:77 var
-R21128:21128 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21138:21139 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21156:21156 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21132:21136 Kernel.VMState <> vm_mu proj
-R21129:21129 NecessityOfMuLedger <> s:77 var
-R21143:21154 Kernel.VMState <> vm_certified proj
-R21140:21140 NecessityOfMuLedger <> s:77 var
-R21239:21241 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21213:21225 NecessityOfMuLedger <> strict_shadow def
-R21227:21237 NecessityOfMuLedger <> po1_state_A def
-R21242:21242 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21244:21245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21250:21250 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21246:21249 Coq.Init.Datatypes <> true constr
-R21239:21241 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21213:21225 NecessityOfMuLedger <> strict_shadow def
-R21227:21237 NecessityOfMuLedger <> po1_state_A def
-R21242:21242 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21244:21245 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21250:21250 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21246:21249 Coq.Init.Datatypes <> true constr
-R21286:21310 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R21313:21339 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R21286:21310 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R21286:21310 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R21313:21339 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R21313:21339 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R21409:21411 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21383:21395 NecessityOfMuLedger <> strict_shadow def
-R21397:21407 NecessityOfMuLedger <> po1_state_B def
-R21412:21412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21414:21415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21421:21421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21416:21420 Coq.Init.Datatypes <> false constr
-R21409:21411 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21383:21395 NecessityOfMuLedger <> strict_shadow def
-R21397:21407 NecessityOfMuLedger <> po1_state_B def
-R21412:21412 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21414:21415 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21421:21421 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R21416:21420 Coq.Init.Datatypes <> false constr
-R21457:21481 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R21484:21514 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R21457:21481 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R21457:21481 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R21484:21514 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R21484:21514 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R21546:21573 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R21546:21573 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R21546:21573 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-prf 21706:21737 <> vm_mu_not_classically_determined
-R21743:21744 Coq.Init.Logic <> ::type_scope:'~'_x not
-R21745:21752 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R21788:21796 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R21781:21784 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21761:21780 NecessityOfMuLedger <> StrictClassicalState rec
-R21785:21787 Coq.Init.Datatypes <> nat ind
-binder 21753:21757 <> Omega:78
-R21809:21815 Kernel.VMState <> VMState rec
-binder 21805:21805 <> s:79
-R21842:21844 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21819:21823 NecessityOfMuLedger <> Omega:78 var
-R21826:21838 NecessityOfMuLedger <> strict_shadow def
-R21840:21840 NecessityOfMuLedger <> s:79 var
-R21848:21852 Kernel.VMState <> vm_mu proj
-R21845:21845 NecessityOfMuLedger <> s:79 var
-R21902:21938 NecessityOfMuLedger <> po1_cond7_mu_contradiction_components thm
-R21902:21938 NecessityOfMuLedger <> po1_cond7_mu_contradiction_components thm
-prf 22133:22155 <> certification_necessity
-R22161:22162 Coq.Init.Logic <> ::type_scope:'~'_x not
-R22163:22170 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22207:22215 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22199:22202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22179:22198 NecessityOfMuLedger <> StrictClassicalState rec
-R22203:22206 Coq.Init.Datatypes <> bool ind
-binder 22171:22175 <> Omega:80
-R22228:22234 Kernel.VMState <> VMState rec
-binder 22224:22224 <> s:81
-R22261:22263 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22238:22242 NecessityOfMuLedger <> Omega:80 var
-R22245:22257 NecessityOfMuLedger <> strict_shadow def
-R22259:22259 NecessityOfMuLedger <> s:81 var
-R22267:22278 Kernel.VMState <> vm_certified proj
-R22264:22264 NecessityOfMuLedger <> s:81 var
-R22328:22361 NecessityOfMuLedger <> po1_cond7_contradiction_components thm
-R22328:22361 NecessityOfMuLedger <> po1_cond7_contradiction_components thm
-prf 22733:22764 <> mu_ledger_necessity_constructive
-R22806:22809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22786:22805 NecessityOfMuLedger <> StrictClassicalState rec
-R22813:22815 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R22810:22812 Coq.Init.Datatypes <> nat ind
-R22816:22819 Coq.Init.Datatypes <> bool ind
-binder 22778:22782 <> Omega:82
-R22827:22829 Coq.Init.Logic <> ::type_scope:'~'_x not
-R22917:22917 Coq.Init.Logic <> ::type_scope:'~'_x not
-R22842:22848 Kernel.VMState <> VMState rec
-binder 22838:22838 <> s:83
-R22885:22887 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22862:22866 NecessityOfMuLedger <> Omega:82 var
-R22869:22881 NecessityOfMuLedger <> strict_shadow def
-R22883:22883 NecessityOfMuLedger <> s:83 var
-R22888:22888 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22898:22899 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22916:22916 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R22892:22896 Kernel.VMState <> vm_mu proj
-R22889:22889 NecessityOfMuLedger <> s:83 var
-R22903:22914 Kernel.VMState <> vm_certified proj
-R22900:22900 NecessityOfMuLedger <> s:83 var
-R22959:22977 NecessityOfMuLedger <> mu_ledger_necessity thm
-R22980:22987 Coq.Init.Logic <> ex_intro constr
-R22959:22977 NecessityOfMuLedger <> mu_ledger_necessity thm
-R22980:22987 Coq.Init.Logic <> ex_intro constr
-prf 23241:23264 <> po1_separation_witnesses
-R23270:23277 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R23329:23335 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R23295:23301 Kernel.VMState <> VMState rec
-binder 23278:23283 <> s_init:84
-R23295:23301 Kernel.VMState <> VMState rec
-binder 23285:23287 <> s_A:85
-R23295:23301 Kernel.VMState <> VMState rec
-binder 23289:23291 <> s_B:86
-R23315:23328 Kernel.VMStep VMStep vm_instruction ind
-binder 23305:23307 <> i_A:87
-R23315:23328 Kernel.VMStep VMStep vm_instruction ind
-binder 23309:23311 <> i_B:88
-R23379:23386 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23356:23358 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23336:23348 NecessityOfMuLedger <> strict_shadow def
-R23350:23355 NecessityOfMuLedger <> s_init:84 var
-R23359:23371 NecessityOfMuLedger <> strict_shadow def
-R23373:23378 NecessityOfMuLedger <> s_init:84 var
-R23412:23419 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23390:23392 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23387:23389 NecessityOfMuLedger <> s_A:85 var
-R23393:23400 Kernel.SimulationProof <> vm_apply def
-R23402:23407 NecessityOfMuLedger <> s_init:84 var
-R23409:23411 NecessityOfMuLedger <> i_A:87 var
-R23445:23452 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23423:23425 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23420:23422 NecessityOfMuLedger <> s_B:86 var
-R23426:23433 Kernel.SimulationProof <> vm_apply def
-R23435:23440 NecessityOfMuLedger <> s_init:84 var
-R23442:23444 NecessityOfMuLedger <> i_B:88 var
-R23490:23497 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23470:23472 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23453:23465 NecessityOfMuLedger <> strict_shadow def
-R23467:23469 NecessityOfMuLedger <> s_A:85 var
-R23473:23485 NecessityOfMuLedger <> strict_shadow def
-R23487:23489 NecessityOfMuLedger <> s_B:86 var
-R23513:23520 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23509:23511 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23503:23507 Kernel.VMState <> vm_mu proj
-R23498:23500 NecessityOfMuLedger <> s_A:85 var
-R23536:23543 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23532:23534 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23526:23530 Kernel.VMState <> vm_mu proj
-R23521:23523 NecessityOfMuLedger <> s_B:86 var
-R23569:23576 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R23562:23564 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23549:23560 Kernel.VMState <> vm_certified proj
-R23544:23546 NecessityOfMuLedger <> s_A:85 var
-R23565:23568 Coq.Init.Datatypes <> true constr
-R23595:23597 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23582:23593 Kernel.VMState <> vm_certified proj
-R23577:23579 NecessityOfMuLedger <> s_B:86 var
-R23598:23602 Coq.Init.Datatypes <> false constr
-R23621:23628 NecessityOfMuLedger <> po1_init def
-R23631:23641 NecessityOfMuLedger <> po1_state_A def
-R23644:23654 NecessityOfMuLedger <> po1_state_B def
-R23657:23667 NecessityOfMuLedger <> po1_instr_A def
-R23670:23680 NecessityOfMuLedger <> po1_instr_B def
-R23621:23628 NecessityOfMuLedger <> po1_init def
-R23631:23641 NecessityOfMuLedger <> po1_state_A def
-R23644:23654 NecessityOfMuLedger <> po1_state_B def
-R23657:23667 NecessityOfMuLedger <> po1_instr_A def
-R23670:23680 NecessityOfMuLedger <> po1_instr_B def
-R23692:23695 Coq.Init.Logic <> conj constr
-R23718:23721 Coq.Init.Logic <> conj constr
-R23744:23747 Coq.Init.Logic <> conj constr
-R23770:23773 Coq.Init.Logic <> conj constr
-R23813:23816 Coq.Init.Logic <> conj constr
-R23853:23856 Coq.Init.Logic <> conj constr
-R23893:23896 Coq.Init.Logic <> conj constr
-R23940:23970 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R23898:23924 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R23858:23882 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R23818:23842 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R23775:23802 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R23750:23756 Coq.Init.Logic <> eq_refl constr
-R23724:23730 Coq.Init.Logic <> eq_refl constr
-R23698:23704 Coq.Init.Logic <> eq_refl constr
-R23692:23695 Coq.Init.Logic <> conj constr
-R23718:23721 Coq.Init.Logic <> conj constr
-R23744:23747 Coq.Init.Logic <> conj constr
-R23770:23773 Coq.Init.Logic <> conj constr
-R23813:23816 Coq.Init.Logic <> conj constr
-R23853:23856 Coq.Init.Logic <> conj constr
-R23893:23896 Coq.Init.Logic <> conj constr
-R23940:23970 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R23898:23924 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R23858:23882 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R23818:23842 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R23775:23802 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R23750:23756 Coq.Init.Logic <> eq_refl constr
-R23724:23730 Coq.Init.Logic <> eq_refl constr
-R23698:23704 Coq.Init.Logic <> eq_refl constr
-prf 24291:24329 <> vm_certified_not_classically_determined
-R24335:24336 Coq.Init.Logic <> ::type_scope:'~'_x not
-R24337:24344 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R24377:24385 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R24369:24372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24349:24368 NecessityOfMuLedger <> StrictClassicalState rec
-R24373:24376 Coq.Init.Datatypes <> bool ind
-binder 24345:24345 <> f:89
-R24398:24404 Kernel.VMState <> VMState rec
-binder 24394:24394 <> s:90
-R24427:24429 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24408:24408 NecessityOfMuLedger <> f:89 var
-R24411:24423 NecessityOfMuLedger <> strict_shadow def
-R24425:24425 NecessityOfMuLedger <> s:90 var
-R24433:24444 Kernel.VMState <> vm_certified proj
-R24430:24430 NecessityOfMuLedger <> s:90 var
-R24461:24483 NecessityOfMuLedger <> certification_necessity thm
-R24461:24483 NecessityOfMuLedger <> certification_necessity thm
-prf 24658:24685 <> vm_mu_classical_oracle_fails
-R24723:24726 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R24703:24722 NecessityOfMuLedger <> StrictClassicalState rec
-R24727:24729 Coq.Init.Datatypes <> nat ind
-binder 24699:24699 <> f:91
-R24737:24744 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R24760:24768 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R24753:24759 Kernel.VMState <> VMState rec
-binder 24745:24746 <> s1:92
-R24753:24759 Kernel.VMState <> VMState rec
-binder 24748:24749 <> s2:93
-R24804:24814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R24894:24894 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R24785:24787 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24769:24781 NecessityOfMuLedger <> strict_shadow def
-R24783:24784 NecessityOfMuLedger <> s1:92 var
-R24788:24800 NecessityOfMuLedger <> strict_shadow def
-R24802:24803 NecessityOfMuLedger <> s2:93 var
-R24849:24859 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R24835:24838 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R24815:24815 NecessityOfMuLedger <> f:91 var
-R24818:24830 NecessityOfMuLedger <> strict_shadow def
-R24832:24833 NecessityOfMuLedger <> s1:92 var
-R24843:24847 Kernel.VMState <> vm_mu proj
-R24839:24840 NecessityOfMuLedger <> s1:92 var
-R24880:24883 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R24860:24860 NecessityOfMuLedger <> f:91 var
-R24863:24875 NecessityOfMuLedger <> strict_shadow def
-R24877:24878 NecessityOfMuLedger <> s2:93 var
-R24888:24892 Kernel.VMState <> vm_mu proj
-R24884:24885 NecessityOfMuLedger <> s2:93 var
-R24924:24934 NecessityOfMuLedger <> po1_state_A def
-R24937:24947 NecessityOfMuLedger <> po1_state_B def
-R24924:24934 NecessityOfMuLedger <> po1_state_A def
-R24937:24947 NecessityOfMuLedger <> po1_state_B def
-R24969:24996 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R24969:24996 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R25013:25022 Coq.Arith.PeanoNat Nat eq_dec thm
-R25028:25040 NecessityOfMuLedger <> strict_shadow def
-R25042:25052 NecessityOfMuLedger <> po1_state_A def
-R25013:25022 Coq.Arith.PeanoNat Nat eq_dec thm
-R25028:25040 NecessityOfMuLedger <> strict_shadow def
-R25042:25052 NecessityOfMuLedger <> po1_state_A def
-R25098:25122 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R25098:25122 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R25098:25122 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
-R25140:25167 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R25140:25167 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R25140:25167 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R25227:25251 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R25227:25251 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-R25227:25251 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
-prf 25438:25472 <> vm_certified_classical_oracle_fails
-R25510:25513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R25490:25509 NecessityOfMuLedger <> StrictClassicalState rec
-R25514:25517 Coq.Init.Datatypes <> bool ind
-binder 25486:25486 <> f:94
-R25525:25532 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R25548:25556 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R25541:25547 Kernel.VMState <> VMState rec
-binder 25533:25534 <> s1:95
-R25541:25547 Kernel.VMState <> VMState rec
-binder 25536:25537 <> s2:96
-R25592:25602 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R25696:25696 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R25573:25575 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R25557:25569 NecessityOfMuLedger <> strict_shadow def
-R25571:25572 NecessityOfMuLedger <> s1:95 var
-R25576:25588 NecessityOfMuLedger <> strict_shadow def
-R25590:25591 NecessityOfMuLedger <> s2:96 var
-R25644:25654 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R25623:25626 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R25603:25603 NecessityOfMuLedger <> f:94 var
-R25606:25618 NecessityOfMuLedger <> strict_shadow def
-R25620:25621 NecessityOfMuLedger <> s1:95 var
-R25631:25642 Kernel.VMState <> vm_certified proj
-R25627:25628 NecessityOfMuLedger <> s1:95 var
-R25675:25678 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R25655:25655 NecessityOfMuLedger <> f:94 var
-R25658:25670 NecessityOfMuLedger <> strict_shadow def
-R25672:25673 NecessityOfMuLedger <> s2:96 var
-R25683:25694 Kernel.VMState <> vm_certified proj
-R25679:25680 NecessityOfMuLedger <> s2:96 var
-R25726:25736 NecessityOfMuLedger <> po1_state_A def
-R25739:25749 NecessityOfMuLedger <> po1_state_B def
-R25726:25736 NecessityOfMuLedger <> po1_state_A def
-R25739:25749 NecessityOfMuLedger <> po1_state_B def
-R25771:25798 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R25771:25798 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R26026:26038 NecessityOfMuLedger <> strict_shadow def
-R26040:26050 NecessityOfMuLedger <> po1_state_A def
-R26026:26038 NecessityOfMuLedger <> strict_shadow def
-R26040:26050 NecessityOfMuLedger <> po1_state_A def
-R26165:26195 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R26165:26195 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R26165:26195 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
-R26213:26240 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R26213:26240 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R26213:26240 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
-R26527:26553 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R26527:26553 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-R26527:26553 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
-def 28099:28108 <> run_instrs
-R28115:28121 Kernel.VMState <> VMState rec
-binder 28111:28111 <> s:97
-R28134:28137 Coq.Init.Datatypes <> list ind
-R28139:28152 Kernel.VMStep VMStep vm_instruction ind
-binder 28125:28130 <> instrs:98
-R28157:28163 Kernel.VMState <> VMState rec
-R28176:28181 NecessityOfMuLedger <> instrs:98 var
-R28192:28193 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R28198:28198 NecessityOfMuLedger <> s:97 var
-R28205:28208 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R28217:28226 NecessityOfMuLedger <> run_instrs:99 def
-R28229:28236 Kernel.SimulationProof <> vm_apply def
-R28238:28238 NecessityOfMuLedger <> s:97 var
-prf 28262:28278 <> run_instrs_append
-R28296:28302 Kernel.VMState <> VMState rec
-binder 28292:28292 <> s:101
-R28312:28315 Coq.Init.Datatypes <> list ind
-R28317:28330 Kernel.VMStep VMStep vm_instruction ind
-binder 28306:28306 <> p:102
-binder 28308:28308 <> q:103
+R19426:19453 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+prf 19586:19617 <> vm_mu_not_classically_determined
+R19623:19624 Coq.Init.Logic <> ::type_scope:'~'_x not
+R19625:19632 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19668:19676 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R19661:19664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19641:19660 NecessityOfMuLedger <> StrictClassicalState rec
+R19665:19667 Coq.Init.Datatypes <> nat ind
+binder 19633:19637 <> Omega:78
+R19689:19695 Kernel.VMState <> VMState rec
+binder 19685:19685 <> s:79
+R19722:19724 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19699:19703 NecessityOfMuLedger <> Omega:78 var
+R19706:19718 NecessityOfMuLedger <> strict_shadow def
+R19720:19720 NecessityOfMuLedger <> s:79 var
+R19728:19732 Kernel.VMState <> vm_mu proj
+R19725:19725 NecessityOfMuLedger <> s:79 var
+R19782:19818 NecessityOfMuLedger <> po1_cond7_mu_contradiction_components thm
+R19782:19818 NecessityOfMuLedger <> po1_cond7_mu_contradiction_components thm
+prf 20013:20035 <> certification_necessity
+R20041:20042 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20043:20050 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20087:20095 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20079:20082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20059:20078 NecessityOfMuLedger <> StrictClassicalState rec
+R20083:20086 Coq.Init.Datatypes <> bool ind
+binder 20051:20055 <> Omega:80
+R20108:20114 Kernel.VMState <> VMState rec
+binder 20104:20104 <> s:81
+R20141:20143 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20118:20122 NecessityOfMuLedger <> Omega:80 var
+R20125:20137 NecessityOfMuLedger <> strict_shadow def
+R20139:20139 NecessityOfMuLedger <> s:81 var
+R20147:20158 Kernel.VMState <> vm_certified proj
+R20144:20144 NecessityOfMuLedger <> s:81 var
+R20208:20241 NecessityOfMuLedger <> po1_cond7_contradiction_components thm
+R20208:20241 NecessityOfMuLedger <> po1_cond7_contradiction_components thm
+prf 20613:20644 <> mu_ledger_necessity_constructive
+R20686:20689 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20666:20685 NecessityOfMuLedger <> StrictClassicalState rec
+R20693:20695 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R20690:20692 Coq.Init.Datatypes <> nat ind
+R20696:20699 Coq.Init.Datatypes <> bool ind
+binder 20658:20662 <> Omega:82
+R20707:20709 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20797:20797 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20722:20728 Kernel.VMState <> VMState rec
+binder 20718:20718 <> s:83
+R20765:20767 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20742:20746 NecessityOfMuLedger <> Omega:82 var
+R20749:20761 NecessityOfMuLedger <> strict_shadow def
+R20763:20763 NecessityOfMuLedger <> s:83 var
+R20768:20768 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20778:20779 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20796:20796 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R20772:20776 Kernel.VMState <> vm_mu proj
+R20769:20769 NecessityOfMuLedger <> s:83 var
+R20783:20794 Kernel.VMState <> vm_certified proj
+R20780:20780 NecessityOfMuLedger <> s:83 var
+R20839:20857 NecessityOfMuLedger <> mu_ledger_necessity thm
+R20860:20867 Coq.Init.Logic <> ex_intro constr
+R20839:20857 NecessityOfMuLedger <> mu_ledger_necessity thm
+R20860:20867 Coq.Init.Logic <> ex_intro constr
+prf 21121:21144 <> po1_separation_witnesses
+R21150:21157 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21209:21215 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R21175:21181 Kernel.VMState <> VMState rec
+binder 21158:21163 <> s_init:84
+R21175:21181 Kernel.VMState <> VMState rec
+binder 21165:21167 <> s_A:85
+R21175:21181 Kernel.VMState <> VMState rec
+binder 21169:21171 <> s_B:86
+R21195:21208 Kernel.VMStep VMStep vm_instruction ind
+binder 21185:21187 <> i_A:87
+R21195:21208 Kernel.VMStep VMStep vm_instruction ind
+binder 21189:21191 <> i_B:88
+R21259:21266 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21236:21238 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21216:21228 NecessityOfMuLedger <> strict_shadow def
+R21230:21235 NecessityOfMuLedger <> s_init:84 var
+R21239:21251 NecessityOfMuLedger <> strict_shadow def
+R21253:21258 NecessityOfMuLedger <> s_init:84 var
+R21292:21299 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21270:21272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21267:21269 NecessityOfMuLedger <> s_A:85 var
+R21273:21280 Kernel.SimulationProof <> vm_apply def
+R21282:21287 NecessityOfMuLedger <> s_init:84 var
+R21289:21291 NecessityOfMuLedger <> i_A:87 var
+R21325:21332 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21303:21305 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21300:21302 NecessityOfMuLedger <> s_B:86 var
+R21306:21313 Kernel.SimulationProof <> vm_apply def
+R21315:21320 NecessityOfMuLedger <> s_init:84 var
+R21322:21324 NecessityOfMuLedger <> i_B:88 var
+R21370:21377 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21350:21352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21333:21345 NecessityOfMuLedger <> strict_shadow def
+R21347:21349 NecessityOfMuLedger <> s_A:85 var
+R21353:21365 NecessityOfMuLedger <> strict_shadow def
+R21367:21369 NecessityOfMuLedger <> s_B:86 var
+R21393:21400 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21389:21391 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21383:21387 Kernel.VMState <> vm_mu proj
+R21378:21380 NecessityOfMuLedger <> s_A:85 var
+R21416:21423 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21412:21414 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21406:21410 Kernel.VMState <> vm_mu proj
+R21401:21403 NecessityOfMuLedger <> s_B:86 var
+R21449:21456 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R21442:21444 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21429:21440 Kernel.VMState <> vm_certified proj
+R21424:21426 NecessityOfMuLedger <> s_A:85 var
+R21445:21448 Coq.Init.Datatypes <> true constr
+R21475:21477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21462:21473 Kernel.VMState <> vm_certified proj
+R21457:21459 NecessityOfMuLedger <> s_B:86 var
+R21478:21482 Coq.Init.Datatypes <> false constr
+R21501:21508 NecessityOfMuLedger <> po1_init def
+R21511:21521 NecessityOfMuLedger <> po1_state_A def
+R21524:21534 NecessityOfMuLedger <> po1_state_B def
+R21537:21547 NecessityOfMuLedger <> po1_instr_A def
+R21550:21560 NecessityOfMuLedger <> po1_instr_B def
+R21501:21508 NecessityOfMuLedger <> po1_init def
+R21511:21521 NecessityOfMuLedger <> po1_state_A def
+R21524:21534 NecessityOfMuLedger <> po1_state_B def
+R21537:21547 NecessityOfMuLedger <> po1_instr_A def
+R21550:21560 NecessityOfMuLedger <> po1_instr_B def
+R21572:21575 Coq.Init.Logic <> conj constr
+R21598:21601 Coq.Init.Logic <> conj constr
+R21624:21627 Coq.Init.Logic <> conj constr
+R21650:21653 Coq.Init.Logic <> conj constr
+R21693:21696 Coq.Init.Logic <> conj constr
+R21733:21736 Coq.Init.Logic <> conj constr
+R21773:21776 Coq.Init.Logic <> conj constr
+R21820:21850 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R21778:21804 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R21738:21762 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R21698:21722 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R21655:21682 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R21630:21636 Coq.Init.Logic <> eq_refl constr
+R21604:21610 Coq.Init.Logic <> eq_refl constr
+R21578:21584 Coq.Init.Logic <> eq_refl constr
+R21572:21575 Coq.Init.Logic <> conj constr
+R21598:21601 Coq.Init.Logic <> conj constr
+R21624:21627 Coq.Init.Logic <> conj constr
+R21650:21653 Coq.Init.Logic <> conj constr
+R21693:21696 Coq.Init.Logic <> conj constr
+R21733:21736 Coq.Init.Logic <> conj constr
+R21773:21776 Coq.Init.Logic <> conj constr
+R21820:21850 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R21778:21804 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R21738:21762 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R21698:21722 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R21655:21682 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R21630:21636 Coq.Init.Logic <> eq_refl constr
+R21604:21610 Coq.Init.Logic <> eq_refl constr
+R21578:21584 Coq.Init.Logic <> eq_refl constr
+prf 22171:22209 <> vm_certified_not_classically_determined
+R22215:22216 Coq.Init.Logic <> ::type_scope:'~'_x not
+R22217:22224 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22257:22265 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22249:22252 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22229:22248 NecessityOfMuLedger <> StrictClassicalState rec
+R22253:22256 Coq.Init.Datatypes <> bool ind
+binder 22225:22225 <> f:89
+R22278:22284 Kernel.VMState <> VMState rec
+binder 22274:22274 <> s:90
+R22307:22309 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22288:22288 NecessityOfMuLedger <> f:89 var
+R22291:22303 NecessityOfMuLedger <> strict_shadow def
+R22305:22305 NecessityOfMuLedger <> s:90 var
+R22313:22324 Kernel.VMState <> vm_certified proj
+R22310:22310 NecessityOfMuLedger <> s:90 var
+R22341:22363 NecessityOfMuLedger <> certification_necessity thm
+R22341:22363 NecessityOfMuLedger <> certification_necessity thm
+prf 22538:22565 <> vm_mu_classical_oracle_fails
+R22603:22606 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22583:22602 NecessityOfMuLedger <> StrictClassicalState rec
+R22607:22609 Coq.Init.Datatypes <> nat ind
+binder 22579:22579 <> f:91
+R22617:22624 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22640:22648 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22633:22639 Kernel.VMState <> VMState rec
+binder 22625:22626 <> s1:92
+R22633:22639 Kernel.VMState <> VMState rec
+binder 22628:22629 <> s2:93
+R22684:22694 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22774:22774 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R22665:22667 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22649:22661 NecessityOfMuLedger <> strict_shadow def
+R22663:22664 NecessityOfMuLedger <> s1:92 var
+R22668:22680 NecessityOfMuLedger <> strict_shadow def
+R22682:22683 NecessityOfMuLedger <> s2:93 var
+R22729:22739 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R22715:22718 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R22695:22695 NecessityOfMuLedger <> f:91 var
+R22698:22710 NecessityOfMuLedger <> strict_shadow def
+R22712:22713 NecessityOfMuLedger <> s1:92 var
+R22723:22727 Kernel.VMState <> vm_mu proj
+R22719:22720 NecessityOfMuLedger <> s1:92 var
+R22760:22763 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R22740:22740 NecessityOfMuLedger <> f:91 var
+R22743:22755 NecessityOfMuLedger <> strict_shadow def
+R22757:22758 NecessityOfMuLedger <> s2:93 var
+R22768:22772 Kernel.VMState <> vm_mu proj
+R22764:22765 NecessityOfMuLedger <> s2:93 var
+R22804:22814 NecessityOfMuLedger <> po1_state_A def
+R22817:22827 NecessityOfMuLedger <> po1_state_B def
+R22804:22814 NecessityOfMuLedger <> po1_state_A def
+R22817:22827 NecessityOfMuLedger <> po1_state_B def
+R22849:22876 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R22849:22876 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R22893:22902 Coq.Arith.PeanoNat Nat eq_dec thm
+R22908:22920 NecessityOfMuLedger <> strict_shadow def
+R22922:22932 NecessityOfMuLedger <> po1_state_A def
+R22893:22902 Coq.Arith.PeanoNat Nat eq_dec thm
+R22908:22920 NecessityOfMuLedger <> strict_shadow def
+R22922:22932 NecessityOfMuLedger <> po1_state_A def
+R22978:23002 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R22978:23002 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R22978:23002 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R23020:23047 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R23020:23047 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R23020:23047 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R23107:23131 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R23107:23131 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R23107:23131 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+prf 23318:23352 <> vm_certified_classical_oracle_fails
+R23390:23393 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R23370:23389 NecessityOfMuLedger <> StrictClassicalState rec
+R23394:23397 Coq.Init.Datatypes <> bool ind
+binder 23366:23366 <> f:94
+R23405:23412 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23428:23436 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23421:23427 Kernel.VMState <> VMState rec
+binder 23413:23414 <> s1:95
+R23421:23427 Kernel.VMState <> VMState rec
+binder 23416:23417 <> s2:96
+R23472:23482 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23576:23576 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R23453:23455 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23437:23449 NecessityOfMuLedger <> strict_shadow def
+R23451:23452 NecessityOfMuLedger <> s1:95 var
+R23456:23468 NecessityOfMuLedger <> strict_shadow def
+R23470:23471 NecessityOfMuLedger <> s2:96 var
+R23524:23534 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R23503:23506 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R23483:23483 NecessityOfMuLedger <> f:94 var
+R23486:23498 NecessityOfMuLedger <> strict_shadow def
+R23500:23501 NecessityOfMuLedger <> s1:95 var
+R23511:23522 Kernel.VMState <> vm_certified proj
+R23507:23508 NecessityOfMuLedger <> s1:95 var
+R23555:23558 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R23535:23535 NecessityOfMuLedger <> f:94 var
+R23538:23550 NecessityOfMuLedger <> strict_shadow def
+R23552:23553 NecessityOfMuLedger <> s2:96 var
+R23563:23574 Kernel.VMState <> vm_certified proj
+R23559:23560 NecessityOfMuLedger <> s2:96 var
+R23606:23616 NecessityOfMuLedger <> po1_state_A def
+R23619:23629 NecessityOfMuLedger <> po1_state_B def
+R23606:23616 NecessityOfMuLedger <> po1_state_A def
+R23619:23629 NecessityOfMuLedger <> po1_state_B def
+R23651:23678 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R23651:23678 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R23906:23918 NecessityOfMuLedger <> strict_shadow def
+R23920:23930 NecessityOfMuLedger <> po1_state_A def
+R23906:23918 NecessityOfMuLedger <> strict_shadow def
+R23920:23930 NecessityOfMuLedger <> po1_state_A def
+R24045:24075 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R24045:24075 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R24045:24075 NecessityOfMuLedger <> po1_cond5_trace_B_not_certified thm
+R24093:24120 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R24093:24120 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R24093:24120 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R24407:24433 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R24407:24433 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+R24407:24433 NecessityOfMuLedger <> po1_cond4_trace_A_certified thm
+def 25533:25542 <> run_instrs
+R25549:25555 Kernel.VMState <> VMState rec
+binder 25545:25545 <> s:97
+R25568:25571 Coq.Init.Datatypes <> list ind
+R25573:25586 Kernel.VMStep VMStep vm_instruction ind
+binder 25559:25564 <> instrs:98
+R25591:25597 Kernel.VMState <> VMState rec
+R25610:25615 NecessityOfMuLedger <> instrs:98 var
+R25626:25627 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R25632:25632 NecessityOfMuLedger <> s:97 var
+R25639:25642 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R25651:25660 NecessityOfMuLedger <> run_instrs:99 def
+R25663:25670 Kernel.SimulationProof <> vm_apply def
+R25672:25672 NecessityOfMuLedger <> s:97 var
+prf 25696:25712 <> run_instrs_append
+R25730:25736 Kernel.VMState <> VMState rec
+binder 25726:25726 <> s:101
+R25746:25749 Coq.Init.Datatypes <> list ind
+R25751:25764 Kernel.VMStep VMStep vm_instruction ind
+binder 25740:25740 <> p:102
+binder 25742:25742 <> q:103
+R25793:25795 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R25772:25781 NecessityOfMuLedger <> run_instrs def
+R25783:25783 NecessityOfMuLedger <> s:101 var
+R25787:25790 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R25786:25786 NecessityOfMuLedger <> p:102 var
+R25791:25791 NecessityOfMuLedger <> q:103 var
+R25796:25805 NecessityOfMuLedger <> run_instrs def
+R25808:25817 NecessityOfMuLedger <> run_instrs def
+R25819:25819 NecessityOfMuLedger <> s:101 var
+R25821:25821 NecessityOfMuLedger <> p:102 var
+R25824:25824 NecessityOfMuLedger <> q:103 var
+R25938:25945 Kernel.SimulationProof <> vm_apply def
+R25938:25945 Kernel.SimulationProof <> vm_apply def
+prf 25966:25982 <> run_instrs_single
+R26000:26006 Kernel.VMState <> VMState rec
+binder 25996:25996 <> s:104
+R26014:26027 Kernel.VMStep VMStep vm_instruction ind
+binder 26010:26010 <> i:105
+R26051:26053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26035:26044 NecessityOfMuLedger <> run_instrs def
+R26046:26046 NecessityOfMuLedger <> s:104 var
+R26048:26048 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26050:26050 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R26049:26049 NecessityOfMuLedger <> i:105 var
+R26054:26061 Kernel.SimulationProof <> vm_apply def
+R26063:26063 NecessityOfMuLedger <> s:104 var
+R26065:26065 NecessityOfMuLedger <> i:105 var
+R26094:26103 NecessityOfMuLedger <> run_instrs def
+prf 26504:26532 <> mu_ledger_necessity_universal
+R26550:26556 Kernel.VMState <> VMState rec
+binder 26546:26546 <> s:106
+R26659:26666 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26608:26614 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26564:26576 NecessityOfMuLedger <> strict_shadow def
+R26579:26586 Kernel.SimulationProof <> vm_apply def
+R26588:26588 NecessityOfMuLedger <> s:106 var
+R26591:26603 Kernel.VMStep VMStep instr_certify constr
+R26615:26627 NecessityOfMuLedger <> strict_shadow def
+R26630:26637 Kernel.SimulationProof <> vm_apply def
+R26639:26639 NecessityOfMuLedger <> s:106 var
+R26642:26651 Kernel.VMStep VMStep instr_pnew constr
+R26653:26654 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26721:26728 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26705:26707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26699:26703 Kernel.VMState <> vm_mu proj
+R26668:26675 Kernel.SimulationProof <> vm_apply def
+R26677:26677 NecessityOfMuLedger <> s:106 var
+R26680:26692 Kernel.VMStep VMStep instr_certify constr
+R26717:26719 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R26711:26715 Kernel.VMState <> vm_mu proj
+R26708:26708 NecessityOfMuLedger <> s:106 var
+R26779:26786 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R26767:26769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26761:26765 Kernel.VMState <> vm_mu proj
+R26730:26737 Kernel.SimulationProof <> vm_apply def
+R26739:26739 NecessityOfMuLedger <> s:106 var
+R26742:26751 Kernel.VMStep VMStep instr_pnew constr
+R26753:26754 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R26773:26777 Kernel.VMState <> vm_mu proj
+R26770:26770 NecessityOfMuLedger <> s:106 var
+R26832:26834 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R26819:26830 Kernel.VMState <> vm_certified proj
+R26788:26795 Kernel.SimulationProof <> vm_apply def
+R26797:26797 NecessityOfMuLedger <> s:106 var
+R26800:26812 Kernel.VMStep VMStep instr_certify constr
+R26835:26838 Coq.Init.Datatypes <> true constr
+R26869:26872 Coq.Init.Logic <> conj constr
+R26877:26880 Coq.Init.Logic <> conj constr
+R26885:26888 Coq.Init.Logic <> conj constr
+R26869:26872 Coq.Init.Logic <> conj constr
+R26877:26880 Coq.Init.Logic <> conj constr
+R26885:26888 Coq.Init.Logic <> conj constr
+R26910:26939 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
+R26942:26968 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
+R26910:26939 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
+R26910:26939 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
+R26942:26968 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
+R26942:26968 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
+R27000:27026 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
+R27000:27026 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
+R27000:27026 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
+R27053:27076 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
+R27053:27076 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
+R27053:27076 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
+R27101:27126 NecessityOfMuLedger <> vm_apply_certify_certified thm
+R27101:27126 NecessityOfMuLedger <> vm_apply_certify_certified thm
+prf 27450:27468 <> po1_trace_necessity
+R27491:27494 Coq.Init.Datatypes <> list ind
+R27496:27509 Kernel.VMStep VMStep vm_instruction ind
+binder 27482:27487 <> prefix:107
+R27654:27661 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R27582:27588 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R27517:27529 NecessityOfMuLedger <> strict_shadow def
+R27532:27541 NecessityOfMuLedger <> run_instrs def
+R27543:27550 NecessityOfMuLedger <> po1_init def
+R27559:27562 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R27553:27558 NecessityOfMuLedger <> prefix:107 var
+R27563:27563 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27579:27579 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27564:27576 Kernel.VMStep VMStep instr_certify constr
+R27589:27601 NecessityOfMuLedger <> strict_shadow def
+R27604:27613 NecessityOfMuLedger <> run_instrs def
+R27615:27622 NecessityOfMuLedger <> po1_init def
+R27631:27634 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R27625:27630 NecessityOfMuLedger <> prefix:107 var
+R27635:27635 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27651:27651 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27636:27645 Kernel.VMStep VMStep instr_pnew constr
+R27647:27648 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27721:27727 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R27715:27719 Kernel.VMState <> vm_mu proj
+R27663:27672 NecessityOfMuLedger <> run_instrs def
+R27674:27681 NecessityOfMuLedger <> po1_init def
+R27690:27693 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R27684:27689 NecessityOfMuLedger <> prefix:107 var
+R27694:27694 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27710:27710 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27695:27707 Kernel.VMStep VMStep instr_certify constr
+R27781:27785 Kernel.VMState <> vm_mu proj
+R27729:27738 NecessityOfMuLedger <> run_instrs def
+R27740:27747 NecessityOfMuLedger <> po1_init def
+R27756:27759 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R27750:27755 NecessityOfMuLedger <> prefix:107 var
+R27760:27760 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27776:27776 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R27761:27770 Kernel.VMStep VMStep instr_pnew constr
+R27772:27773 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R27823:27839 NecessityOfMuLedger <> run_instrs_append thm
+R27843:27859 NecessityOfMuLedger <> run_instrs_single thm
+R27823:27839 NecessityOfMuLedger <> run_instrs_append thm
+R27823:27839 NecessityOfMuLedger <> run_instrs_append thm
+R27823:27839 NecessityOfMuLedger <> run_instrs_append thm
+R27823:27839 NecessityOfMuLedger <> run_instrs_append thm
+R27843:27859 NecessityOfMuLedger <> run_instrs_single thm
+R27843:27859 NecessityOfMuLedger <> run_instrs_single thm
+R27843:27859 NecessityOfMuLedger <> run_instrs_single thm
+R27843:27859 NecessityOfMuLedger <> run_instrs_single thm
+R27876:27904 NecessityOfMuLedger <> mu_ledger_necessity_universal thm
+R27907:27916 NecessityOfMuLedger <> run_instrs def
+R27918:27925 NecessityOfMuLedger <> po1_init def
+R27876:27904 NecessityOfMuLedger <> mu_ledger_necessity_universal thm
+R27907:27916 NecessityOfMuLedger <> run_instrs def
+R27918:27925 NecessityOfMuLedger <> po1_init def
+prf 28258:28287 <> po1_trace_necessity_any_length
+R28305:28307 Coq.Init.Datatypes <> nat ind
+binder 28301:28301 <> n:108
+R28320:28323 Coq.Init.Datatypes <> list ind
+R28325:28338 Kernel.VMStep VMStep vm_instruction ind
+binder 28311:28316 <> prefix:109
+R28363:28370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R28359:28361 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28338:28347 NecessityOfMuLedger <> run_instrs def
-R28349:28349 NecessityOfMuLedger <> s:101 var
-R28353:28356 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R28352:28352 NecessityOfMuLedger <> p:102 var
-R28357:28357 NecessityOfMuLedger <> q:103 var
-R28362:28371 NecessityOfMuLedger <> run_instrs def
-R28374:28383 NecessityOfMuLedger <> run_instrs def
-R28385:28385 NecessityOfMuLedger <> s:101 var
-R28387:28387 NecessityOfMuLedger <> p:102 var
-R28390:28390 NecessityOfMuLedger <> q:103 var
-R28504:28511 Kernel.SimulationProof <> vm_apply def
-R28504:28511 Kernel.SimulationProof <> vm_apply def
-prf 28532:28548 <> run_instrs_single
-R28566:28572 Kernel.VMState <> VMState rec
-binder 28562:28562 <> s:104
-R28580:28593 Kernel.VMStep VMStep vm_instruction ind
-binder 28576:28576 <> i:105
-R28617:28619 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R28601:28610 NecessityOfMuLedger <> run_instrs def
-R28612:28612 NecessityOfMuLedger <> s:104 var
+R28346:28351 Coq.Init.Datatypes <> length def
+R28353:28358 NecessityOfMuLedger <> prefix:109 var
+R28362:28362 NecessityOfMuLedger <> n:108 var
+R28508:28515 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R28436:28442 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R28371:28383 NecessityOfMuLedger <> strict_shadow def
+R28386:28395 NecessityOfMuLedger <> run_instrs def
+R28397:28404 NecessityOfMuLedger <> po1_init def
+R28413:28416 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R28407:28412 NecessityOfMuLedger <> prefix:109 var
+R28417:28417 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R28433:28433 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R28418:28430 Kernel.VMStep VMStep instr_certify constr
+R28443:28455 NecessityOfMuLedger <> strict_shadow def
+R28458:28467 NecessityOfMuLedger <> run_instrs def
+R28469:28476 NecessityOfMuLedger <> po1_init def
+R28485:28488 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R28479:28484 NecessityOfMuLedger <> prefix:109 var
+R28489:28489 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R28505:28505 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R28490:28499 Kernel.VMStep VMStep instr_pnew constr
+R28501:28502 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R28575:28581 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R28569:28573 Kernel.VMState <> vm_mu proj
+R28517:28526 NecessityOfMuLedger <> run_instrs def
+R28528:28535 NecessityOfMuLedger <> po1_init def
+R28544:28547 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R28538:28543 NecessityOfMuLedger <> prefix:109 var
+R28548:28548 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R28564:28564 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R28549:28561 Kernel.VMStep VMStep instr_certify constr
+R28635:28639 Kernel.VMState <> vm_mu proj
+R28583:28592 NecessityOfMuLedger <> run_instrs def
+R28594:28601 NecessityOfMuLedger <> po1_init def
+R28610:28613 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R28604:28609 NecessityOfMuLedger <> prefix:109 var
 R28614:28614 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R28616:28616 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R28615:28615 NecessityOfMuLedger <> i:105 var
-R28620:28627 Kernel.SimulationProof <> vm_apply def
-R28629:28629 NecessityOfMuLedger <> s:104 var
-R28631:28631 NecessityOfMuLedger <> i:105 var
-R28660:28669 NecessityOfMuLedger <> run_instrs def
-prf 29070:29098 <> mu_ledger_necessity_universal
-R29116:29122 Kernel.VMState <> VMState rec
-binder 29112:29112 <> s:106
-R29225:29232 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R29174:29180 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29130:29142 NecessityOfMuLedger <> strict_shadow def
-R29145:29152 Kernel.SimulationProof <> vm_apply def
-R29154:29154 NecessityOfMuLedger <> s:106 var
-R29157:29169 Kernel.VMStep VMStep instr_certify constr
-R29181:29193 NecessityOfMuLedger <> strict_shadow def
-R29196:29203 Kernel.SimulationProof <> vm_apply def
-R29205:29205 NecessityOfMuLedger <> s:106 var
-R29208:29217 Kernel.VMStep VMStep instr_pnew constr
-R29219:29220 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R29287:29294 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R29271:29273 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29265:29269 Kernel.VMState <> vm_mu proj
-R29234:29241 Kernel.SimulationProof <> vm_apply def
-R29243:29243 NecessityOfMuLedger <> s:106 var
-R29246:29258 Kernel.VMStep VMStep instr_certify constr
-R29283:29285 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R29277:29281 Kernel.VMState <> vm_mu proj
-R29274:29274 NecessityOfMuLedger <> s:106 var
-R29345:29352 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R29333:29335 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29327:29331 Kernel.VMState <> vm_mu proj
-R29296:29303 Kernel.SimulationProof <> vm_apply def
-R29305:29305 NecessityOfMuLedger <> s:106 var
-R29308:29317 Kernel.VMStep VMStep instr_pnew constr
-R29319:29320 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R29339:29343 Kernel.VMState <> vm_mu proj
-R29336:29336 NecessityOfMuLedger <> s:106 var
-R29398:29400 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R29385:29396 Kernel.VMState <> vm_certified proj
-R29354:29361 Kernel.SimulationProof <> vm_apply def
-R29363:29363 NecessityOfMuLedger <> s:106 var
-R29366:29378 Kernel.VMStep VMStep instr_certify constr
-R29401:29404 Coq.Init.Datatypes <> true constr
-R29435:29438 Coq.Init.Logic <> conj constr
-R29443:29446 Coq.Init.Logic <> conj constr
-R29451:29454 Coq.Init.Logic <> conj constr
-R29435:29438 Coq.Init.Logic <> conj constr
-R29443:29446 Coq.Init.Logic <> conj constr
-R29451:29454 Coq.Init.Logic <> conj constr
-R29476:29505 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
-R29508:29534 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
-R29476:29505 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
-R29476:29505 NecessityOfMuLedger <> vm_apply_certify_strict_shadow thm
-R29508:29534 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
-R29508:29534 NecessityOfMuLedger <> vm_apply_pnew_strict_shadow thm
-R29566:29592 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
-R29566:29592 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
-R29566:29592 NecessityOfMuLedger <> vm_apply_certify_mu_charged thm
-R29619:29642 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
-R29619:29642 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
-R29619:29642 NecessityOfMuLedger <> vm_apply_pnew_mu_charged thm
-R29667:29692 NecessityOfMuLedger <> vm_apply_certify_certified thm
-R29667:29692 NecessityOfMuLedger <> vm_apply_certify_certified thm
-prf 30016:30034 <> po1_trace_necessity
-R30057:30060 Coq.Init.Datatypes <> list ind
-R30062:30075 Kernel.VMStep VMStep vm_instruction ind
-binder 30048:30053 <> prefix:107
-R30220:30227 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R30148:30154 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R30083:30095 NecessityOfMuLedger <> strict_shadow def
-R30098:30107 NecessityOfMuLedger <> run_instrs def
-R30109:30116 NecessityOfMuLedger <> po1_init def
-R30125:30128 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R30119:30124 NecessityOfMuLedger <> prefix:107 var
-R30129:30129 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30145:30145 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30130:30142 Kernel.VMStep VMStep instr_certify constr
-R30155:30167 NecessityOfMuLedger <> strict_shadow def
-R30170:30179 NecessityOfMuLedger <> run_instrs def
-R30181:30188 NecessityOfMuLedger <> po1_init def
-R30197:30200 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R30191:30196 NecessityOfMuLedger <> prefix:107 var
-R30201:30201 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30217:30217 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30202:30211 Kernel.VMStep VMStep instr_pnew constr
-R30213:30214 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R30287:30293 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R30281:30285 Kernel.VMState <> vm_mu proj
-R30229:30238 NecessityOfMuLedger <> run_instrs def
-R30240:30247 NecessityOfMuLedger <> po1_init def
-R30256:30259 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R30250:30255 NecessityOfMuLedger <> prefix:107 var
-R30260:30260 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30276:30276 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30261:30273 Kernel.VMStep VMStep instr_certify constr
-R30347:30351 Kernel.VMState <> vm_mu proj
-R30295:30304 NecessityOfMuLedger <> run_instrs def
-R30306:30313 NecessityOfMuLedger <> po1_init def
-R30322:30325 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R30316:30321 NecessityOfMuLedger <> prefix:107 var
-R30326:30326 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30342:30342 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30327:30336 Kernel.VMStep VMStep instr_pnew constr
-R30338:30339 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R30389:30405 NecessityOfMuLedger <> run_instrs_append thm
-R30409:30425 NecessityOfMuLedger <> run_instrs_single thm
-R30389:30405 NecessityOfMuLedger <> run_instrs_append thm
-R30389:30405 NecessityOfMuLedger <> run_instrs_append thm
-R30389:30405 NecessityOfMuLedger <> run_instrs_append thm
-R30389:30405 NecessityOfMuLedger <> run_instrs_append thm
-R30409:30425 NecessityOfMuLedger <> run_instrs_single thm
-R30409:30425 NecessityOfMuLedger <> run_instrs_single thm
-R30409:30425 NecessityOfMuLedger <> run_instrs_single thm
-R30409:30425 NecessityOfMuLedger <> run_instrs_single thm
-R30442:30470 NecessityOfMuLedger <> mu_ledger_necessity_universal thm
-R30473:30482 NecessityOfMuLedger <> run_instrs def
-R30484:30491 NecessityOfMuLedger <> po1_init def
-R30442:30470 NecessityOfMuLedger <> mu_ledger_necessity_universal thm
-R30473:30482 NecessityOfMuLedger <> run_instrs def
-R30484:30491 NecessityOfMuLedger <> po1_init def
-prf 30824:30853 <> po1_trace_necessity_any_length
-R30871:30873 Coq.Init.Datatypes <> nat ind
-binder 30867:30867 <> n:108
-R30886:30889 Coq.Init.Datatypes <> list ind
-R30891:30904 Kernel.VMStep VMStep vm_instruction ind
-binder 30877:30882 <> prefix:109
-R30929:30936 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R30925:30927 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R30912:30917 Coq.Init.Datatypes <> length def
-R30919:30924 NecessityOfMuLedger <> prefix:109 var
-R30928:30928 NecessityOfMuLedger <> n:108 var
-R31074:31081 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31002:31008 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R30937:30949 NecessityOfMuLedger <> strict_shadow def
-R30952:30961 NecessityOfMuLedger <> run_instrs def
-R30963:30970 NecessityOfMuLedger <> po1_init def
-R30979:30982 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R30973:30978 NecessityOfMuLedger <> prefix:109 var
-R30983:30983 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30999:30999 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R30984:30996 Kernel.VMStep VMStep instr_certify constr
-R31009:31021 NecessityOfMuLedger <> strict_shadow def
-R31024:31033 NecessityOfMuLedger <> run_instrs def
-R31035:31042 NecessityOfMuLedger <> po1_init def
-R31051:31054 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R31045:31050 NecessityOfMuLedger <> prefix:109 var
-R31055:31055 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R31071:31071 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R31056:31065 Kernel.VMStep VMStep instr_pnew constr
-R31067:31068 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R31141:31147 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R31135:31139 Kernel.VMState <> vm_mu proj
-R31083:31092 NecessityOfMuLedger <> run_instrs def
-R31094:31101 NecessityOfMuLedger <> po1_init def
-R31110:31113 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R31104:31109 NecessityOfMuLedger <> prefix:109 var
-R31114:31114 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R31130:31130 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R31115:31127 Kernel.VMStep VMStep instr_certify constr
-R31201:31205 Kernel.VMState <> vm_mu proj
-R31149:31158 NecessityOfMuLedger <> run_instrs def
-R31160:31167 NecessityOfMuLedger <> po1_init def
-R31176:31179 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
-R31170:31175 NecessityOfMuLedger <> prefix:109 var
-R31180:31180 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R31196:31196 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R31181:31190 Kernel.VMStep VMStep instr_pnew constr
-R31192:31193 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R31244:31262 NecessityOfMuLedger <> po1_trace_necessity thm
-R31244:31262 NecessityOfMuLedger <> po1_trace_necessity thm
-prf 33635:33663 <> run_instrs_eq_exec_trace_from
-R33681:33687 Kernel.VMState <> VMState rec
-binder 33677:33677 <> s:110
-R33698:33701 Coq.Init.Datatypes <> list ind
-R33703:33716 Kernel.VMStep VMStep vm_instruction ind
-binder 33691:33694 <> prog:111
-R33741:33743 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33724:33733 NecessityOfMuLedger <> run_instrs def
-R33735:33735 NecessityOfMuLedger <> s:110 var
-R33737:33740 NecessityOfMuLedger <> prog:111 var
-R33744:33758 Kernel.MuInitiality <> exec_trace_from def
-R33760:33760 NecessityOfMuLedger <> s:110 var
-R33762:33765 NecessityOfMuLedger <> prog:111 var
-prf 34195:34228 <> shadow_mu_is_computation_intrinsic
-R34249:34252 Coq.Init.Datatypes <> list ind
-R34254:34267 Kernel.VMStep VMStep vm_instruction ind
-binder 34242:34245 <> prog:112
-R34275:34281 Kernel.VMState <> VMState rec
-binder 34271:34271 <> s:113
-R34316:34318 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R34310:34314 Kernel.VMState <> vm_mu proj
-R34290:34299 NecessityOfMuLedger <> run_instrs def
-R34301:34301 NecessityOfMuLedger <> s:113 var
-R34303:34306 NecessityOfMuLedger <> prog:112 var
-R34328:34330 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R34322:34326 Kernel.VMState <> vm_mu proj
-R34319:34319 NecessityOfMuLedger <> s:113 var
-R34331:34346 Kernel.MuInitiality <> trace_total_cost def
-R34348:34351 NecessityOfMuLedger <> prog:112 var
-R34388:34416 NecessityOfMuLedger <> run_instrs_eq_exec_trace_from thm
-R34388:34416 NecessityOfMuLedger <> run_instrs_eq_exec_trace_from thm
-R34388:34416 NecessityOfMuLedger <> run_instrs_eq_exec_trace_from thm
-R34427:34451 Kernel.MuInitiality <> mu_accumulates_trace_cost thm
-R34427:34451 Kernel.MuInitiality <> mu_accumulates_trace_cost thm
-prf 34702:34726 <> shadow_mu_delta_universal
-R34747:34750 Coq.Init.Datatypes <> list ind
-R34752:34765 Kernel.VMStep VMStep vm_instruction ind
-binder 34740:34743 <> prog:114
-R34777:34783 Kernel.VMState <> VMState rec
-binder 34769:34770 <> s1:115
-binder 34772:34773 <> s2:116
-R34832:34838 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R34819:34821 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R34813:34817 Kernel.VMState <> vm_mu proj
-R34792:34801 NecessityOfMuLedger <> run_instrs def
-R34803:34804 NecessityOfMuLedger <> s1:115 var
-R34806:34809 NecessityOfMuLedger <> prog:114 var
-R34826:34830 Kernel.VMState <> vm_mu proj
-R34822:34823 NecessityOfMuLedger <> s2:116 var
-R34867:34869 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R34861:34865 Kernel.VMState <> vm_mu proj
-R34840:34849 NecessityOfMuLedger <> run_instrs def
-R34851:34852 NecessityOfMuLedger <> s2:116 var
-R34854:34857 NecessityOfMuLedger <> prog:114 var
-R34874:34878 Kernel.VMState <> vm_mu proj
-R34870:34871 NecessityOfMuLedger <> s1:115 var
-R34921:34954 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R34921:34954 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R34921:34954 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R34921:34954 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R34921:34954 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-prf 35171:35185 <> M_run_instrs_eq
-R35210:35213 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R35203:35209 Kernel.VMState <> VMState rec
-R35214:35216 Coq.Init.Datatypes <> nat ind
-binder 35199:35199 <> M:117
-R35263:35270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R35224:35245 Kernel.MuInitiality <> instruction_consistent def
-R35247:35247 NecessityOfMuLedger <> M:117 var
-R35249:35262 Kernel.MuInitiality <> canonical_cost def
-R35286:35289 Coq.Init.Datatypes <> list ind
-R35291:35304 Kernel.VMStep VMStep vm_instruction ind
-binder 35279:35282 <> prog:118
-R35312:35318 Kernel.VMState <> VMState rec
-binder 35308:35308 <> s:119
-R35349:35351 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35328:35328 NecessityOfMuLedger <> M:117 var
-R35331:35340 NecessityOfMuLedger <> run_instrs def
-R35342:35342 NecessityOfMuLedger <> s:119 var
-R35344:35347 NecessityOfMuLedger <> prog:118 var
-R35355:35357 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R35352:35352 NecessityOfMuLedger <> M:117 var
-R35354:35354 NecessityOfMuLedger <> s:119 var
-R35358:35373 Kernel.MuInitiality <> trace_total_cost def
-R35375:35378 NecessityOfMuLedger <> prog:118 var
-R35480:35489 NecessityOfMuLedger <> run_instrs def
-R35498:35513 Kernel.MuInitiality <> trace_total_cost def
-R35543:35564 Kernel.MuInitiality <> instruction_consistent def
-R35612:35625 Kernel.MuInitiality <> canonical_cost def
-prf 36175:36201 <> shadow_mu_unique_accounting
-R36222:36225 Coq.Init.Datatypes <> list ind
-R36227:36240 Kernel.VMStep VMStep vm_instruction ind
-binder 36215:36218 <> prog:120
-R36248:36254 Kernel.VMState <> VMState rec
-binder 36244:36244 <> s:121
-R36281:36284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R36274:36280 Kernel.VMState <> VMState rec
-R36285:36287 Coq.Init.Datatypes <> nat ind
-binder 36270:36270 <> M:122
-R36336:36345 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R36297:36318 Kernel.MuInitiality <> instruction_consistent def
-R36320:36320 NecessityOfMuLedger <> M:122 var
-R36322:36335 Kernel.MuInitiality <> canonical_cost def
-R36353:36362 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R36349:36351 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36346:36346 NecessityOfMuLedger <> M:122 var
-R36348:36348 NecessityOfMuLedger <> s:121 var
-R36384:36386 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36363:36363 NecessityOfMuLedger <> M:122 var
-R36366:36375 NecessityOfMuLedger <> run_instrs def
-R36377:36377 NecessityOfMuLedger <> s:121 var
-R36379:36382 NecessityOfMuLedger <> prog:120 var
-R36387:36402 Kernel.MuInitiality <> trace_total_cost def
-R36404:36407 NecessityOfMuLedger <> prog:120 var
-R36457:36471 NecessityOfMuLedger <> M_run_instrs_eq thm
-R36457:36471 NecessityOfMuLedger <> M_run_instrs_eq thm
-R36457:36471 NecessityOfMuLedger <> M_run_instrs_eq thm
-prf 36739:36757 <> shadow_mu_from_init
-R36778:36781 Coq.Init.Datatypes <> list ind
-R36783:36796 Kernel.VMStep VMStep vm_instruction ind
-binder 36771:36774 <> prog:123
-R36840:36842 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36834:36838 Kernel.VMState <> vm_mu proj
-R36805:36814 NecessityOfMuLedger <> run_instrs def
-R36816:36825 Kernel.MuInitiality <> init_state def
-R36827:36830 NecessityOfMuLedger <> prog:123 var
-R36843:36858 Kernel.MuInitiality <> trace_total_cost def
-R36860:36863 NecessityOfMuLedger <> prog:123 var
-R36897:36930 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R36897:36930 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R36897:36930 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R36943:36960 Kernel.MuInitiality <> init_state_mu_zero thm
-R36943:36960 Kernel.MuInitiality <> init_state_mu_zero thm
-R36943:36960 Kernel.MuInitiality <> init_state_mu_zero thm
-prf 37177:37196 <> shadow_mu_inevitable
-R37217:37220 Coq.Init.Datatypes <> list ind
-R37222:37235 Kernel.VMStep VMStep vm_instruction ind
-binder 37210:37213 <> prog:124
-R37243:37249 Kernel.VMState <> VMState rec
-binder 37239:37239 <> s:125
-R37257:37270 Kernel.VMStep VMStep vm_instruction ind
-binder 37253:37253 <> i:126
-R37287:37294 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R37278:37279 Coq.Lists.List <> In def
-R37283:37286 NecessityOfMuLedger <> prog:124 var
-R37281:37281 NecessityOfMuLedger <> i:126 var
-R37317:37324 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R37313:37315 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R37295:37310 Kernel.VMStep VMStep instruction_cost def
-R37312:37312 NecessityOfMuLedger <> i:126 var
-R37352:37354 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R37346:37350 Kernel.VMState <> vm_mu proj
-R37326:37335 NecessityOfMuLedger <> run_instrs def
-R37337:37337 NecessityOfMuLedger <> s:125 var
-R37339:37342 NecessityOfMuLedger <> prog:124 var
-R37358:37362 Kernel.VMState <> vm_mu proj
-R37355:37355 NecessityOfMuLedger <> s:125 var
-R37412:37445 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R37412:37445 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R37412:37445 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
-R37483:37486 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R37462:37477 Kernel.MuInitiality <> trace_total_cost def
-R37487:37502 Kernel.VMStep VMStep instruction_cost def
-R37483:37486 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R37462:37477 Kernel.MuInitiality <> trace_total_cost def
-R37487:37502 Kernel.VMStep VMStep instruction_cost def
+R28630:28630 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R28615:28624 Kernel.VMStep VMStep instr_pnew constr
+R28626:28627 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R28678:28696 NecessityOfMuLedger <> po1_trace_necessity thm
+R28678:28696 NecessityOfMuLedger <> po1_trace_necessity thm
+prf 31259:31287 <> run_instrs_eq_exec_trace_from
+R31305:31311 Kernel.VMState <> VMState rec
+binder 31301:31301 <> s:110
+R31322:31325 Coq.Init.Datatypes <> list ind
+R31327:31340 Kernel.VMStep VMStep vm_instruction ind
+binder 31315:31318 <> prog:111
+R31365:31367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31348:31357 NecessityOfMuLedger <> run_instrs def
+R31359:31359 NecessityOfMuLedger <> s:110 var
+R31361:31364 NecessityOfMuLedger <> prog:111 var
+R31368:31382 Kernel.MuInitiality <> exec_trace_from def
+R31384:31384 NecessityOfMuLedger <> s:110 var
+R31386:31389 NecessityOfMuLedger <> prog:111 var
+prf 31819:31852 <> shadow_mu_is_computation_intrinsic
+R31873:31876 Coq.Init.Datatypes <> list ind
+R31878:31891 Kernel.VMStep VMStep vm_instruction ind
+binder 31866:31869 <> prog:112
+R31899:31905 Kernel.VMState <> VMState rec
+binder 31895:31895 <> s:113
+R31940:31942 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R31934:31938 Kernel.VMState <> vm_mu proj
+R31914:31923 NecessityOfMuLedger <> run_instrs def
+R31925:31925 NecessityOfMuLedger <> s:113 var
+R31927:31930 NecessityOfMuLedger <> prog:112 var
+R31952:31954 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R31946:31950 Kernel.VMState <> vm_mu proj
+R31943:31943 NecessityOfMuLedger <> s:113 var
+R31955:31970 Kernel.MuInitiality <> trace_total_cost def
+R31972:31975 NecessityOfMuLedger <> prog:112 var
+R32012:32040 NecessityOfMuLedger <> run_instrs_eq_exec_trace_from thm
+R32012:32040 NecessityOfMuLedger <> run_instrs_eq_exec_trace_from thm
+R32012:32040 NecessityOfMuLedger <> run_instrs_eq_exec_trace_from thm
+R32051:32075 Kernel.MuInitiality <> mu_accumulates_trace_cost thm
+R32051:32075 Kernel.MuInitiality <> mu_accumulates_trace_cost thm
+prf 32326:32350 <> shadow_mu_delta_universal
+R32371:32374 Coq.Init.Datatypes <> list ind
+R32376:32389 Kernel.VMStep VMStep vm_instruction ind
+binder 32364:32367 <> prog:114
+R32401:32407 Kernel.VMState <> VMState rec
+binder 32393:32394 <> s1:115
+binder 32396:32397 <> s2:116
+R32456:32462 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32443:32445 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R32437:32441 Kernel.VMState <> vm_mu proj
+R32416:32425 NecessityOfMuLedger <> run_instrs def
+R32427:32428 NecessityOfMuLedger <> s1:115 var
+R32430:32433 NecessityOfMuLedger <> prog:114 var
+R32450:32454 Kernel.VMState <> vm_mu proj
+R32446:32447 NecessityOfMuLedger <> s2:116 var
+R32491:32493 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R32485:32489 Kernel.VMState <> vm_mu proj
+R32464:32473 NecessityOfMuLedger <> run_instrs def
+R32475:32476 NecessityOfMuLedger <> s2:116 var
+R32478:32481 NecessityOfMuLedger <> prog:114 var
+R32498:32502 Kernel.VMState <> vm_mu proj
+R32494:32495 NecessityOfMuLedger <> s1:115 var
+R32545:32578 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R32545:32578 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R32545:32578 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R32545:32578 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R32545:32578 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+prf 32795:32809 <> M_run_instrs_eq
+R32834:32837 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32827:32833 Kernel.VMState <> VMState rec
+R32838:32840 Coq.Init.Datatypes <> nat ind
+binder 32823:32823 <> M:117
+R32887:32894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32848:32869 Kernel.MuInitiality <> instruction_consistent def
+R32871:32871 NecessityOfMuLedger <> M:117 var
+R32873:32886 Kernel.MuInitiality <> canonical_cost def
+R32910:32913 Coq.Init.Datatypes <> list ind
+R32915:32928 Kernel.VMStep VMStep vm_instruction ind
+binder 32903:32906 <> prog:118
+R32936:32942 Kernel.VMState <> VMState rec
+binder 32932:32932 <> s:119
+R32973:32975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R32952:32952 NecessityOfMuLedger <> M:117 var
+R32955:32964 NecessityOfMuLedger <> run_instrs def
+R32966:32966 NecessityOfMuLedger <> s:119 var
+R32968:32971 NecessityOfMuLedger <> prog:118 var
+R32979:32981 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R32976:32976 NecessityOfMuLedger <> M:117 var
+R32978:32978 NecessityOfMuLedger <> s:119 var
+R32982:32997 Kernel.MuInitiality <> trace_total_cost def
+R32999:33002 NecessityOfMuLedger <> prog:118 var
+R33104:33113 NecessityOfMuLedger <> run_instrs def
+R33122:33137 Kernel.MuInitiality <> trace_total_cost def
+R33167:33188 Kernel.MuInitiality <> instruction_consistent def
+R33236:33249 Kernel.MuInitiality <> canonical_cost def
+prf 33799:33825 <> shadow_mu_unique_accounting
+R33846:33849 Coq.Init.Datatypes <> list ind
+R33851:33864 Kernel.VMStep VMStep vm_instruction ind
+binder 33839:33842 <> prog:120
+R33872:33878 Kernel.VMState <> VMState rec
+binder 33868:33868 <> s:121
+R33905:33908 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R33898:33904 Kernel.VMState <> VMState rec
+R33909:33911 Coq.Init.Datatypes <> nat ind
+binder 33894:33894 <> M:122
+R33960:33969 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R33921:33942 Kernel.MuInitiality <> instruction_consistent def
+R33944:33944 NecessityOfMuLedger <> M:122 var
+R33946:33959 Kernel.MuInitiality <> canonical_cost def
+R33977:33986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R33973:33975 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33970:33970 NecessityOfMuLedger <> M:122 var
+R33972:33972 NecessityOfMuLedger <> s:121 var
+R34008:34010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R33987:33987 NecessityOfMuLedger <> M:122 var
+R33990:33999 NecessityOfMuLedger <> run_instrs def
+R34001:34001 NecessityOfMuLedger <> s:121 var
+R34003:34006 NecessityOfMuLedger <> prog:120 var
+R34011:34026 Kernel.MuInitiality <> trace_total_cost def
+R34028:34031 NecessityOfMuLedger <> prog:120 var
+R34081:34095 NecessityOfMuLedger <> M_run_instrs_eq thm
+R34081:34095 NecessityOfMuLedger <> M_run_instrs_eq thm
+R34081:34095 NecessityOfMuLedger <> M_run_instrs_eq thm
+prf 34363:34381 <> shadow_mu_from_init
+R34402:34405 Coq.Init.Datatypes <> list ind
+R34407:34420 Kernel.VMStep VMStep vm_instruction ind
+binder 34395:34398 <> prog:123
+R34464:34466 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34458:34462 Kernel.VMState <> vm_mu proj
+R34429:34438 NecessityOfMuLedger <> run_instrs def
+R34440:34449 Kernel.MuInitiality <> init_state def
+R34451:34454 NecessityOfMuLedger <> prog:123 var
+R34467:34482 Kernel.MuInitiality <> trace_total_cost def
+R34484:34487 NecessityOfMuLedger <> prog:123 var
+R34521:34554 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R34521:34554 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R34521:34554 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R34567:34584 Kernel.MuInitiality <> init_state_mu_zero thm
+R34567:34584 Kernel.MuInitiality <> init_state_mu_zero thm
+R34567:34584 Kernel.MuInitiality <> init_state_mu_zero thm
+prf 34801:34820 <> shadow_mu_inevitable
+R34841:34844 Coq.Init.Datatypes <> list ind
+R34846:34859 Kernel.VMStep VMStep vm_instruction ind
+binder 34834:34837 <> prog:124
+R34867:34873 Kernel.VMState <> VMState rec
+binder 34863:34863 <> s:125
+R34881:34894 Kernel.VMStep VMStep vm_instruction ind
+binder 34877:34877 <> i:126
+R34911:34918 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34902:34903 Coq.Lists.List <> In def
+R34907:34910 NecessityOfMuLedger <> prog:124 var
+R34905:34905 NecessityOfMuLedger <> i:126 var
+R34941:34948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34937:34939 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R34919:34934 Kernel.VMStep VMStep instruction_cost def
+R34936:34936 NecessityOfMuLedger <> i:126 var
+R34976:34978 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R34970:34974 Kernel.VMState <> vm_mu proj
+R34950:34959 NecessityOfMuLedger <> run_instrs def
+R34961:34961 NecessityOfMuLedger <> s:125 var
+R34963:34966 NecessityOfMuLedger <> prog:124 var
+R34982:34986 Kernel.VMState <> vm_mu proj
+R34979:34979 NecessityOfMuLedger <> s:125 var
+R35036:35069 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R35036:35069 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R35036:35069 NecessityOfMuLedger <> shadow_mu_is_computation_intrinsic thm
+R35107:35110 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R35086:35101 Kernel.MuInitiality <> trace_total_cost def
+R35111:35126 Kernel.VMStep VMStep instruction_cost def
+R35107:35110 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R35086:35101 Kernel.MuInitiality <> trace_total_cost def
+R35111:35126 Kernel.VMStep VMStep instruction_cost def

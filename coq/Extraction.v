@@ -67,7 +67,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for canonical-source wiring in extraction root. *)
-(* definitional lemma *)
+
 Theorem extraction_canonical_source_anchor :
   canonical_cpu_module = thieleBusTopB.
 Proof.
@@ -75,7 +75,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_c3_born_rule_anchor :
   forall (P : ProbabilityRule),
     valid_born_rule P ->
@@ -84,8 +84,9 @@ Proof.
   exact born_rule_unique.
 Qed.
 
+(* definitional lemma: re-exports the trace_quantum_model + Tsirelson bound
+   conclusion under a shorter name; no new mathematical content. *)
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
 Theorem extraction_c4_tsirelson_model_anchor :
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
@@ -100,7 +101,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_honest_nofi_anchor :
   forall (fuel : nat) (trace : list vm_instruction)
          (s_init s_final : VMState)
@@ -120,7 +121,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_honest_nofi_trace_separation_anchor :
   forall fuel trace omega,
     (forall s, In s omega -> s.(vm_csrs).(csr_cert_addr) = 0) ->
@@ -132,7 +133,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_honest_nofi_general_feasible_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree,
     MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree ->
@@ -146,7 +147,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_honest_nofi_fibered_feasible_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree,
     MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree ->
@@ -160,7 +161,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_honest_nofi_posterior_representative_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree
          (obs_fn : MuShannonBridge.ObservationFunction),
@@ -175,7 +176,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_honest_nofi_conditional_shannon_anchor :
   forall fuel trace s n,
     Forall (fun i => is_cert_setterb i = true -> instruction_cost i >= 1) trace ->
@@ -186,7 +187,7 @@ Proof.
 Qed.
 
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
-(* definitional lemma *)
+
 Theorem extraction_honest_nofi_quantitative_state_space_anchor :
   forall (s s' : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
     vm_step s (instr_lassert freg creg kind flen cost) s' ->

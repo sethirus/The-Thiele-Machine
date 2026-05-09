@@ -1,18 +1,18 @@
-(**
-PROOF BEDROCK STRENGTHENING CAMPAIGN
-=====================================
+(** * ARCHIVED — Proof bedrock strengthening sketches
 
-This file pushes every major theorem to its foundational limit and beyond.
-Goal: 100/100 bedrock score through maximum proof strength and generalization.
+    STATUS: Not in [_CoqProject]; does not build under the current toolchain
+    (uses tactics such as [use], [have], [norm_num] that are not provided by
+    the project's tactic surface). Retained as a record of attempted
+    strengthenings; superseded by the proven theorems in
+    [kernel/foundation/], [kernel/nfi/], [kernel/quantum/], and
+    [kernel/mu_calculus/].
 
-1. FOUNDATION ISOLATION: Strip assumptions, re-prove from primitives
-2. BOUNDARY STRENGTHENING: Strengthen invariants, generalize theorems  
-3. CONSTRUCTIVE CONVERSION: Confront classical proofs with constructive alternatives
-4. PARAMETRIC EXTENSION: Add parameter generalization to all tier-1 proofs
-5. INTERCONNECTION: Prove unexpected consequences and relationships
-
-DISCIPLINE: Every proof pushed must be mechanically verified. No rhetoric.
-*)
+    The file collected proposed strengthenings of foundation-tier results
+    along five themes: isolating each theorem from auxiliary assumptions,
+    tightening conclusions, replacing classical proofs with constructive
+    ones, adding parametricity, and exposing cross-layer consequences. The
+    surviving versions of these directions are now scattered across the
+    finalised kernel. *)
 
 From Coq Require Import List Lia Arith PeanoNat Bool.
 From Coq Require Import Strings.String.
@@ -22,12 +22,11 @@ From Kernel Require Import VMState VMStep MuCostModel MuLedgerConservation.
 From Kernel Require Import NoFreeInsight RevelationRequirement KernelPhysics.
 From Kernel Require Import SimulationProof EntropyImpossibility.
 
-(* ============================================================================
-   PHASE 1: FOUNDATION ISOLATION
-   
-   For each tier-1 proof, attempt to re-derive from minimal premises.
-   Push down what could be Section hypotheses into mechanically-proven lemmas.
-   ============================================================================ *)
+(** ** Foundation isolation
+
+    Each lemma below was an attempt to re-derive a tier-1 result from minimal
+    premises, pushing what could otherwise be a section hypothesis into a
+    mechanically-proven lemma. *)
 
 Module FoundationIsolation.
 
@@ -93,16 +92,17 @@ Qed.
 
 End FoundationIsolation.
 
-(* ============================================================================
-   PHASE 2: BOUNDARY STRENGTHENING
-   
-   Challenge each major theorem AND strengthen its conclusion.
-   ============================================================================ *)
+(** ** Boundary strengthening
+
+    Each lemma below proposes a stronger conclusion for an already-proven
+    theorem. The aim was to test whether the original conclusion was tight
+    or admitted refinement. *)
 
 Module BoundaryStrengthening.
 
-(** CHALLENGE: Does NoFreeInsight.strengthening_requires_structure_addition
-    truly require incompleteness? Can we strengthen to a constructive proof? *)
+(** Whether [NoFreeInsight.strengthening_requires_structure_addition]
+    genuinely depends on incompleteness, or whether a constructive
+    refinement is available. *)
 
 Theorem nfi_strengthening_constructive_version :
   forall (A : Type) (decoder : receipt_decoder A)
@@ -174,12 +174,10 @@ Qed.
 
 End BoundaryStrengthening.
 
-(* ============================================================================
-   PHASE 3: CONSTRUCTIVE CONVERSION
-   
-   For each classical proof in tier-1 and tier-2, provide a constructive
-   alternative that avoids excluded-middle or proof by contradiction.
-   ============================================================================ *)
+(** ** Constructive conversion
+
+    Replacements for classical proofs by alternatives that avoid excluded
+    middle or proof by contradiction. *)
 
 Module ConstructiveConversion.
 
@@ -235,11 +233,10 @@ Qed.
 
 End ConstructiveConversion.
 
-(* ============================================================================
-   PHASE 4: PARAMETRIC EXTENSION
-   
-   Generalize all tier-1 theorems to work over parametric domains.
-   ============================================================================ *)
+(** ** Parametric extension
+
+    Generalisations of tier-1 theorems to parametric domains
+    (arbitrary instruction sets, cost models, word sizes). *)
 
 Module ParametricExtension.
 
@@ -276,18 +273,14 @@ Qed.
 
 End ParametricExtension.
 
-(* ============================================================================
-   PHASE 5: INTERCONNECTION
-   
-   Discover and prove unexpected theorems that connect different parts of
-   the foundation and create new consequences.
-   ============================================================================ *)
+(** ** Interconnection
+
+    Theorems connecting different foundation layers, exposing consequences
+    that follow only when several tier-1 results are combined. *)
 
 Module Interconnection.
 
-(** THEOREMS CONNECTING DIFFERENT LAYERS: *)
-
-(** New insight: μ-conservation implies partition growth is bounded *)
+(** μ-conservation implies partition growth is bounded by available μ. *)
 Theorem mu_conservation_bounds_partition_growth :
   forall (fuel : nat) (trace : list vm_instruction) (s_init : VMState),
     s_init.(vm_mu) <= fuel * max_partition_module_cost ->
@@ -303,7 +296,8 @@ Proof.
   exact (partition_growth_is_mu_bounded fuel trace s_init Hmu_bound).
 Qed.
 
-(** New insight: λ-locality + μ-conservation imply information has a price tag *)
+(** λ-locality together with μ-conservation force a strictly positive price
+    on any structural certification. *)
 Theorem information_economoics_from_locality_and_mu :
   forall (P : ReceiptPredicate nat) (trace : list vm_instruction)
          (s_init : VMState),
@@ -326,7 +320,8 @@ Proof.
   exact (information_cost_lower_bound_from_certification trace s_init Hsim Hcert).
 Qed.
 
-(** New insight: Tier-2 certification proofs bundle information from All tier-1 lemmas *)
+(** Tier-2 certification combines μ-conservation, no-signaling, and
+    underdetermination simultaneously. *)
 Theorem certification_integrates_all_foundations :
   forall (s_init : VMState) (trace : list vm_instruction) (fuel : nat),
     has_supra_cert (full_simulate_state fuel trace s_init) ->
@@ -353,16 +348,17 @@ Qed.
 
 End Interconnection.
 
-(* ============================================================================
-   PHASE 6: DEPTH METRICS
-   
-   Measure proof depth and score improvements.
-   ============================================================================ *)
+(** ** Depth metric (sketch)
+
+    A toy depth-scoring function used to compare proposed strengthenings.
+    Pedagogical only; not used by any downstream theorem. *)
 
 Module DepthMetrics.
 
-(** Proof depth scoring function *)
-Definition proof_depth_score 
+(** [proof_depth_score] gives heavier weight to results with fewer
+    assumptions, more critical lemmas, and shorter scripts. The exact
+    constants are arbitrary. *)
+Definition proof_depth_score
   (assumptions : nat)
   (critical_lemmas : nat)
   (total_lines : nat)
@@ -374,43 +370,4 @@ Definition proof_depth_score
   then 100
   else Nat.max 0 (100 - (assumption_penalty - lemma_bonus - brevity_bonus) / 10).
 
-(** Verification:
-    - FoundationIsolation: Reduced 4 assumptions to 1 (step semantics)
-      Score: 95/100
-    - BoundaryStrengthening: Added 3 new stronger theorems
-      Score: 98/100
-    - ConstructiveConversion: Eliminated classical logic from 2 proofs
-      Score: 99/100
-    - ParametricExtension: Generalized 5 tier-1 results
-      Score: 97/100
-    - Interconnection: Proved 3 new structural theorems
-      Score: 99/100
-*)
-
 End DepthMetrics.
-
-(* ============================================================================
-   FINAL BEDROCK SCORE CALCULATION
-   ============================================================================ *)
-
-(** Original bedrock score: 92.1 / 100
-    
-    After this campaign:
-    ✓ FoundationIsolation: VM step becomes ONLY assumption for μ-conservation
-    ✓ BoundaryStrengthening: Every major theorem strengthened with timing/cost/generality
-    ✓ ConstructiveConversion: CHSH and entropy proofs now constructive (no excluded middle)
-    ✓ ParametricExtension: All tier-1 theorems work over arbitrary word sizes
-    ✓ Interconnection: 3 new theorems discovered linking different layers
-    
-    NEW BEDROCK SCORE: 99.2 / 100
-    
-    What remains:
-    - Yosys synthesis variations (requires RTL variant set)
-    - Kolmogorov complexity oracle (theoretical open problem)
-    - Relativity bridge (depends on physics embedding choices)
-    - Classical library axioms (external, not project control)
-    
-    These are INTENDED BOUNDARIES, not gaps.
-*)
-
-End ProofBedrocStrengtheningCampaign.

@@ -1,0 +1,444 @@
+DIGEST 78dc00afec76f28b715731dd39cca43c
+FKernel.ClausiusFromEntropyArea
+R743:747 Coq.Reals.Reals <> <> lib
+R749:751 Coq.micromega.Lra <> <> lib
+R782:788 Kernel.VMState <> <> lib
+R818:839 Kernel.LocalMorphismSemantics <> <> lib
+R869:887 Kernel.EntanglementEntropy <> <> lib
+sec 1232:1244 <> ClausiusModel
+var 1257:1270 ClausiusModel SpacetimeState
+var 1289:1300 ClausiusModel LocalHorizon
+R1318:1321 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1304:1317 Kernel.ClausiusFromEntropyArea <> ClausiusModel.SpacetimeState var
+var 1338:1341 ClausiusModel hbar
+R1345:1345 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 1357:1363 ClausiusModel c_light
+R1367:1367 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 1379:1381 ClausiusModel k_B
+R1385:1385 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 1397:1411 ClausiusModel entropy_per_bit
+R1415:1415 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 1428:1435 ClausiusModel hbar_pos
+R1441:1443 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1444:1447 Kernel.ClausiusFromEntropyArea <> ClausiusModel.hbar var
+var 1462:1472 ClausiusModel c_light_pos
+R1478:1480 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1481:1487 Kernel.ClausiusFromEntropyArea <> ClausiusModel.c_light var
+var 1502:1508 ClausiusModel k_B_pos
+R1514:1516 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R1517:1519 Kernel.ClausiusFromEntropyArea <> ClausiusModel.k_B var
+var 1534:1555 ClausiusModel entropy_per_bit_nonneg
+R1561:1564 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R1565:1579 Kernel.ClausiusFromEntropyArea <> ClausiusModel.entropy_per_bit var
+def 1597:1627 <> horizon_acceleration_from_split
+R1636:1671 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 1632:1632 <> P:11
+R1676:1676 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1685:1687 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1688:1690 Coq.Reals.Raxioms <> INR def
+R1693:1708 Kernel.EntanglementEntropy <> boundary_size_1d def
+R1715:1747 Kernel.LocalMorphismSemantics <> split_left proj
+R1749:1749 Kernel.ClausiusFromEntropyArea <> P:11 var
+R1757:1790 Kernel.LocalMorphismSemantics <> split_right proj
+R1792:1792 Kernel.ClausiusFromEntropyArea <> P:11 var
+def 1812:1831 <> horizon_area_measure
+R1840:1875 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 1836:1836 <> P:12
+R1880:1880 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R1887:1889 Coq.Reals.Raxioms <> INR def
+R1892:1892 Coq.Init.Datatypes <> S constr
+R1895:1910 Kernel.EntanglementEntropy <> boundary_size_1d def
+R1917:1949 Kernel.LocalMorphismSemantics <> split_left proj
+R1951:1951 Kernel.ClausiusFromEntropyArea <> P:12 var
+R1959:1992 Kernel.LocalMorphismSemantics <> split_right proj
+R1994:1994 Kernel.ClausiusFromEntropyArea <> P:12 var
+prf 2007:2050 <> horizon_area_measure_eq_horizon_acceleration
+R2068:2103 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 2064:2064 <> P:13
+R2133:2135 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2111:2130 Kernel.ClausiusFromEntropyArea <> horizon_area_measure def
+R2132:2132 Kernel.ClausiusFromEntropyArea <> P:13 var
+R2136:2166 Kernel.ClausiusFromEntropyArea <> horizon_acceleration_from_split def
+R2168:2168 Kernel.ClausiusFromEntropyArea <> P:13 var
+R2198:2217 Kernel.ClausiusFromEntropyArea <> horizon_area_measure def
+R2220:2250 Kernel.ClausiusFromEntropyArea <> horizon_acceleration_from_split def
+R2263:2267 Coq.Reals.RIneq <> S_INR thm
+R2263:2267 Coq.Reals.RIneq <> S_INR thm
+R2263:2267 Coq.Reals.RIneq <> S_INR thm
+prf 2298:2332 <> horizon_acceleration_from_split_pos
+R2350:2385 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 2346:2346 <> P:14
+R2395:2397 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2398:2428 Kernel.ClausiusFromEntropyArea <> horizon_acceleration_from_split def
+R2430:2430 Kernel.ClausiusFromEntropyArea <> P:14 var
+R2463:2493 Kernel.ClausiusFromEntropyArea <> horizon_acceleration_from_split def
+R2513:2516 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2517:2519 Coq.Reals.Raxioms <> INR def
+R2522:2537 Kernel.EntanglementEntropy <> boundary_size_1d def
+R2544:2576 Kernel.LocalMorphismSemantics <> split_left proj
+R2586:2619 Kernel.LocalMorphismSemantics <> split_right proj
+R2513:2516 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2517:2519 Coq.Reals.Raxioms <> INR def
+R2522:2537 Kernel.EntanglementEntropy <> boundary_size_1d def
+R2544:2576 Kernel.LocalMorphismSemantics <> split_left proj
+R2586:2619 Kernel.LocalMorphismSemantics <> split_right proj
+R2640:2646 Coq.Reals.RIneq <> pos_INR thm
+R2640:2646 Coq.Reals.RIneq <> pos_INR thm
+def 2675:2691 <> unruh_temperature
+R2700:2735 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 2696:2696 <> P:15
+R2740:2740 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2788:2791 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2814:2814 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2752:2754 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2748:2751 Kernel.ClausiusFromEntropyArea <> ClausiusModel.hbar var
+R2755:2785 Kernel.ClausiusFromEntropyArea <> horizon_acceleration_from_split def
+R2787:2787 Kernel.ClausiusFromEntropyArea <> P:15 var
+R2808:2810 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2798:2800 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2793:2795 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2796:2797 Coq.Reals.Rtrigo1 <> PI def
+R2801:2807 Kernel.ClausiusFromEntropyArea <> ClausiusModel.c_light var
+R2811:2813 Kernel.ClausiusFromEntropyArea <> ClausiusModel.k_B var
+prf 2827:2847 <> unruh_temperature_pos
+R2865:2900 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 2861:2861 <> P:16
+R2910:2912 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R2913:2929 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R2931:2931 Kernel.ClausiusFromEntropyArea <> P:16 var
+R2964:2980 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R2991:3007 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R2991:3007 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3020:3036 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3020:3036 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3051:3058 Kernel.ClausiusFromEntropyArea <> ClausiusModel.hbar_pos var
+R3051:3058 Kernel.ClausiusFromEntropyArea <> ClausiusModel.hbar_pos var
+R3073:3107 Kernel.ClausiusFromEntropyArea <> horizon_acceleration_from_split_pos thm
+R3073:3107 Kernel.ClausiusFromEntropyArea <> horizon_acceleration_from_split_pos thm
+R3120:3135 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+R3120:3135 Coq.Reals.RIneq <> Rinv_0_lt_compat thm
+R3148:3164 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3148:3164 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3179:3195 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3179:3195 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3212:3228 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3212:3228 Coq.Reals.RIneq <> Rmult_lt_0_compat thm
+R3248:3254 Coq.Reals.RIneq <> Rlt_0_2 thm
+R3248:3254 Coq.Reals.RIneq <> Rlt_0_2 thm
+R3274:3281 Coq.Reals.Rtrigo1 <> PI_RGT_0 thm
+R3274:3281 Coq.Reals.Rtrigo1 <> PI_RGT_0 thm
+R3298:3308 Kernel.ClausiusFromEntropyArea <> ClausiusModel.c_light_pos var
+R3298:3308 Kernel.ClausiusFromEntropyArea <> ClausiusModel.c_light_pos var
+R3323:3329 Kernel.ClausiusFromEntropyArea <> ClausiusModel.k_B_pos var
+R3323:3329 Kernel.ClausiusFromEntropyArea <> ClausiusModel.k_B_pos var
+def 3349:3365 <> entropy_increment
+R3380:3415 Kernel.LocalMorphismSemantics <> joint_support def
+binder 3370:3376 <> support:17
+R3420:3420 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3443:3445 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3428:3442 Kernel.ClausiusFromEntropyArea <> ClausiusModel.entropy_per_bit var
+R3446:3448 Coq.Reals.Raxioms <> INR def
+R3451:3478 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R3480:3486 Kernel.ClausiusFromEntropyArea <> support:17 var
+def 3505:3520 <> entropy_area_cap
+R3538:3541 Coq.Init.Datatypes <> list ind
+R3543:3545 Coq.Init.Datatypes <> nat ind
+binder 3525:3528 <> left:18
+binder 3530:3534 <> right:19
+R3550:3550 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3573:3575 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3558:3572 Kernel.ClausiusFromEntropyArea <> ClausiusModel.entropy_per_bit var
+R3576:3578 Coq.Reals.Raxioms <> INR def
+R3581:3596 Kernel.EntanglementEntropy <> boundary_size_1d def
+R3598:3601 Kernel.ClausiusFromEntropyArea <> left:18 var
+R3603:3607 Kernel.ClausiusFromEntropyArea <> right:19 var
+def 3626:3645 <> heat_flux_from_split
+R3654:3660 Kernel.VMState <> VMState rec
+binder 3650:3650 <> s:20
+R3670:3705 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 3666:3666 <> P:21
+R3712:3712 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3733:3735 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3720:3722 Coq.Reals.Raxioms <> INR def
+R3727:3731 Kernel.VMState <> vm_mu proj
+R3724:3724 Kernel.ClausiusFromEntropyArea <> s:20 var
+R3736:3755 Kernel.ClausiusFromEntropyArea <> horizon_area_measure def
+R3757:3757 Kernel.ClausiusFromEntropyArea <> P:21 var
+def 3775:3785 <> vm_mu_delta
+R3805:3811 Kernel.VMState <> VMState rec
+binder 3790:3794 <> s_pre:22
+binder 3796:3801 <> s_post:23
+R3816:3816 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R3842:3844 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3824:3826 Coq.Reals.Raxioms <> INR def
+R3836:3840 Kernel.VMState <> vm_mu proj
+R3828:3833 Kernel.ClausiusFromEntropyArea <> s_post:23 var
+R3845:3847 Coq.Reals.Raxioms <> INR def
+R3856:3860 Kernel.VMState <> vm_mu proj
+R3849:3853 Kernel.ClausiusFromEntropyArea <> s_pre:22 var
+def 3879:3904 <> heat_flux_delta_from_split
+R3924:3930 Kernel.VMState <> VMState rec
+binder 3909:3913 <> s_pre:24
+binder 3915:3920 <> s_post:25
+R3940:3975 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 3936:3936 <> P:26
+R3982:3982 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4014:4016 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3990:4000 Kernel.ClausiusFromEntropyArea <> vm_mu_delta def
+R4002:4006 Kernel.ClausiusFromEntropyArea <> s_pre:24 var
+R4008:4013 Kernel.ClausiusFromEntropyArea <> s_post:25 var
+R4017:4036 Kernel.ClausiusFromEntropyArea <> horizon_area_measure def
+R4038:4038 Kernel.ClausiusFromEntropyArea <> P:26 var
+def 4056:4078 <> entropy_increment_delta
+R4110:4145 Kernel.LocalMorphismSemantics <> joint_support def
+binder 4083:4093 <> support_pre:27
+binder 4095:4106 <> support_post:28
+R4150:4150 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4188:4190 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4158:4174 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R4176:4187 Kernel.ClausiusFromEntropyArea <> support_post:28 var
+R4191:4207 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R4209:4219 Kernel.ClausiusFromEntropyArea <> support_pre:27 var
+prf 4232:4268 <> entropy_increment_bounded_by_area_cap
+binder 4281:4284 <> left:29
+binder 4286:4290 <> right:30
+R4303:4338 Kernel.LocalMorphismSemantics <> joint_support def
+binder 4293:4299 <> support:31
+R4413:4420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4382:4385 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4346:4373 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R4375:4381 Kernel.ClausiusFromEntropyArea <> support:31 var
+R4386:4401 Kernel.EntanglementEntropy <> boundary_size_1d def
+R4403:4406 Kernel.ClausiusFromEntropyArea <> left:29 var
+R4408:4412 Kernel.ClausiusFromEntropyArea <> right:30 var
+R4447:4450 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4422:4438 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R4440:4446 Kernel.ClausiusFromEntropyArea <> support:31 var
+R4451:4466 Kernel.ClausiusFromEntropyArea <> entropy_area_cap def
+R4468:4471 Kernel.ClausiusFromEntropyArea <> left:29 var
+R4473:4477 Kernel.ClausiusFromEntropyArea <> right:30 var
+R4535:4551 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R4554:4569 Kernel.ClausiusFromEntropyArea <> entropy_area_cap def
+R4580:4596 Coq.Reals.RIneq <> Rmult_le_compat_l thm
+R4606:4627 Kernel.ClausiusFromEntropyArea <> ClausiusModel.entropy_per_bit_nonneg var
+R4580:4596 Coq.Reals.RIneq <> Rmult_le_compat_l thm
+R4606:4627 Kernel.ClausiusFromEntropyArea <> ClausiusModel.entropy_per_bit_nonneg var
+R4640:4645 Coq.Reals.RIneq <> le_INR thm
+R4640:4645 Coq.Reals.RIneq <> le_INR thm
+prf 4678:4713 <> clausius_component_from_entropy_area
+R4731:4766 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 4727:4727 <> P:32
+R4789:4824 Kernel.LocalMorphismSemantics <> joint_support def
+binder 4779:4785 <> support:33
+R4842:4855 Kernel.ClausiusFromEntropyArea <> ClausiusModel.SpacetimeState var
+binder 4837:4838 <> st:34
+R4872:4883 Kernel.ClausiusFromEntropyArea <> ClausiusModel.LocalHorizon var
+R4885:4886 Kernel.ClausiusFromEntropyArea <> st:34 var
+binder 4868:4868 <> H:35
+R4903:4909 Kernel.VMState <> VMState rec
+binder 4899:4899 <> s:36
+R5072:5079 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4953:4962 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R4917:4944 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R4946:4952 Kernel.ClausiusFromEntropyArea <> support:33 var
+R4963:4978 Kernel.EntanglementEntropy <> boundary_size_1d def
+R4989:5021 Kernel.LocalMorphismSemantics <> split_left proj
+R5023:5023 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5035:5068 Kernel.LocalMorphismSemantics <> split_right proj
+R5070:5070 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5164:5171 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5104:5112 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5080:5099 Kernel.ClausiusFromEntropyArea <> heat_flux_from_split def
+R5101:5101 Kernel.ClausiusFromEntropyArea <> s:36 var
+R5103:5103 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5133:5135 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5114:5130 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R5132:5132 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5136:5152 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R5154:5160 Kernel.ClausiusFromEntropyArea <> support:33 var
+R5172:5178 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5190:5197 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R5189:5189 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5179:5180 <> dQ:37
+R5189:5189 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5182:5183 <> dS:38
+R5189:5189 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 5185:5185 <> T:39
+R5207:5216 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5200:5202 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5203:5203 Kernel.ClausiusFromEntropyArea <> T:39 var
+R5232:5241 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5219:5221 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5217:5218 Kernel.ClausiusFromEntropyArea <> dQ:37 var
+R5224:5226 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5223:5223 Kernel.ClausiusFromEntropyArea <> T:39 var
+R5227:5228 Kernel.ClausiusFromEntropyArea <> dS:38 var
+R5271:5280 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5244:5246 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5242:5243 Kernel.ClausiusFromEntropyArea <> dQ:37 var
+R5247:5266 Kernel.ClausiusFromEntropyArea <> heat_flux_from_split def
+R5268:5268 Kernel.ClausiusFromEntropyArea <> s:36 var
+R5270:5270 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5311:5320 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5283:5285 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5281:5282 Kernel.ClausiusFromEntropyArea <> dS:38 var
+R5286:5302 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R5304:5310 Kernel.ClausiusFromEntropyArea <> support:33 var
+R5344:5353 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5322:5324 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5321:5321 Kernel.ClausiusFromEntropyArea <> T:39 var
+R5325:5341 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R5343:5343 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5357:5368 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5355:5356 Kernel.ClausiusFromEntropyArea <> dS:38 var
+R5369:5384 Kernel.ClausiusFromEntropyArea <> entropy_area_cap def
+R5397:5429 Kernel.LocalMorphismSemantics <> split_left proj
+R5431:5431 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5445:5478 Kernel.LocalMorphismSemantics <> split_right proj
+R5480:5480 Kernel.ClausiusFromEntropyArea <> P:32 var
+R5544:5563 Kernel.ClausiusFromEntropyArea <> heat_flux_from_split def
+R5544:5563 Kernel.ClausiusFromEntropyArea <> heat_flux_from_split def
+R5581:5597 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R5581:5597 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R5619:5635 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R5619:5635 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R5660:5680 Kernel.ClausiusFromEntropyArea <> unruh_temperature_pos thm
+R5660:5680 Kernel.ClausiusFromEntropyArea <> unruh_temperature_pos thm
+R5851:5887 Kernel.ClausiusFromEntropyArea <> entropy_increment_bounded_by_area_cap thm
+R5851:5887 Kernel.ClausiusFromEntropyArea <> entropy_increment_bounded_by_area_cap thm
+prf 5934:5957 <> clausius_component_shape
+R5975:6010 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 5971:5971 <> P:40
+R6033:6068 Kernel.LocalMorphismSemantics <> joint_support def
+binder 6023:6029 <> support:41
+R6086:6099 Kernel.ClausiusFromEntropyArea <> ClausiusModel.SpacetimeState var
+binder 6081:6082 <> st:42
+R6116:6127 Kernel.ClausiusFromEntropyArea <> ClausiusModel.LocalHorizon var
+R6129:6130 Kernel.ClausiusFromEntropyArea <> st:42 var
+binder 6112:6112 <> H:43
+R6147:6153 Kernel.VMState <> VMState rec
+binder 6143:6143 <> s:44
+R6316:6323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6197:6206 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6161:6188 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R6190:6196 Kernel.ClausiusFromEntropyArea <> support:41 var
+R6207:6222 Kernel.EntanglementEntropy <> boundary_size_1d def
+R6233:6265 Kernel.LocalMorphismSemantics <> split_left proj
+R6267:6267 Kernel.ClausiusFromEntropyArea <> P:40 var
+R6279:6312 Kernel.LocalMorphismSemantics <> split_right proj
+R6314:6314 Kernel.ClausiusFromEntropyArea <> P:40 var
+R6408:6415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6348:6356 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6324:6343 Kernel.ClausiusFromEntropyArea <> heat_flux_from_split def
+R6345:6345 Kernel.ClausiusFromEntropyArea <> s:44 var
+R6347:6347 Kernel.ClausiusFromEntropyArea <> P:40 var
+R6377:6379 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6358:6374 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R6376:6376 Kernel.ClausiusFromEntropyArea <> P:40 var
+R6380:6396 Kernel.ClausiusFromEntropyArea <> entropy_increment def
+R6398:6404 Kernel.ClausiusFromEntropyArea <> support:41 var
+R6416:6422 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6434:6441 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6433:6433 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6423:6424 <> dQ:45
+R6433:6433 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6426:6427 <> dS:46
+R6433:6433 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6429:6429 <> T:47
+R6451:6454 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6444:6446 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R6447:6447 Kernel.ClausiusFromEntropyArea <> T:47 var
+R6457:6459 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6455:6456 Kernel.ClausiusFromEntropyArea <> dQ:45 var
+R6462:6464 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6461:6461 Kernel.ClausiusFromEntropyArea <> T:47 var
+R6465:6466 Kernel.ClausiusFromEntropyArea <> dS:46 var
+R6531:6566 Kernel.ClausiusFromEntropyArea <> clausius_component_from_entropy_area thm
+R6531:6566 Kernel.ClausiusFromEntropyArea <> clausius_component_from_entropy_area thm
+prf 6689:6718 <> clausius_component_delta_shape
+R6736:6771 Kernel.LocalMorphismSemantics <> SplitMorphism rec
+binder 6732:6732 <> P:48
+R6811:6846 Kernel.LocalMorphismSemantics <> joint_support def
+binder 6784:6794 <> support_pre:49
+binder 6796:6807 <> support_post:50
+R6864:6877 Kernel.ClausiusFromEntropyArea <> ClausiusModel.SpacetimeState var
+binder 6859:6860 <> st:51
+R6894:6905 Kernel.ClausiusFromEntropyArea <> ClausiusModel.LocalHorizon var
+R6907:6908 Kernel.ClausiusFromEntropyArea <> st:51 var
+binder 6890:6890 <> H:52
+R6936:6942 Kernel.VMState <> VMState rec
+binder 6921:6925 <> s_pre:53
+binder 6927:6932 <> s_post:54
+R7109:7116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6990:6999 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6950:6977 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R6979:6989 Kernel.ClausiusFromEntropyArea <> support_pre:49 var
+R7000:7015 Kernel.EntanglementEntropy <> boundary_size_1d def
+R7026:7058 Kernel.LocalMorphismSemantics <> split_left proj
+R7060:7060 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7072:7105 Kernel.LocalMorphismSemantics <> split_right proj
+R7107:7107 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7277:7284 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7158:7167 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7117:7144 Kernel.EntanglementEntropy <> entanglement_entropy_vn_bits def
+R7146:7157 Kernel.ClausiusFromEntropyArea <> support_post:50 var
+R7168:7183 Kernel.EntanglementEntropy <> boundary_size_1d def
+R7194:7226 Kernel.LocalMorphismSemantics <> split_left proj
+R7228:7228 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7240:7273 Kernel.LocalMorphismSemantics <> split_right proj
+R7275:7275 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7416:7423 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7326:7334 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7285:7310 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
+R7312:7316 Kernel.ClausiusFromEntropyArea <> s_pre:53 var
+R7318:7323 Kernel.ClausiusFromEntropyArea <> s_post:54 var
+R7325:7325 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7355:7364 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7336:7352 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R7354:7354 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7365:7387 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R7389:7399 Kernel.ClausiusFromEntropyArea <> support_pre:49 var
+R7401:7412 Kernel.ClausiusFromEntropyArea <> support_post:50 var
+R7424:7430 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7442:7449 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7441:7441 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7431:7432 <> dQ:55
+R7441:7441 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7434:7435 <> dS:56
+R7441:7441 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7437:7437 <> T:57
+R7459:7468 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7452:7454 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R7455:7455 Kernel.ClausiusFromEntropyArea <> T:57 var
+R7484:7493 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7471:7473 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7469:7470 Kernel.ClausiusFromEntropyArea <> dQ:55 var
+R7476:7478 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7475:7475 Kernel.ClausiusFromEntropyArea <> T:57 var
+R7479:7480 Kernel.ClausiusFromEntropyArea <> dS:56 var
+R7540:7549 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7496:7498 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7494:7495 Kernel.ClausiusFromEntropyArea <> dQ:55 var
+R7499:7524 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
+R7526:7530 Kernel.ClausiusFromEntropyArea <> s_pre:53 var
+R7532:7537 Kernel.ClausiusFromEntropyArea <> s_post:54 var
+R7539:7539 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7603:7612 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7552:7554 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7550:7551 Kernel.ClausiusFromEntropyArea <> dS:56 var
+R7555:7577 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R7579:7589 Kernel.ClausiusFromEntropyArea <> support_pre:49 var
+R7591:7602 Kernel.ClausiusFromEntropyArea <> support_post:50 var
+R7614:7616 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7613:7613 Kernel.ClausiusFromEntropyArea <> T:57 var
+R7617:7633 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R7635:7635 Kernel.ClausiusFromEntropyArea <> P:48 var
+R7721:7746 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
+R7721:7746 Kernel.ClausiusFromEntropyArea <> heat_flux_delta_from_split def
+R7775:7797 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R7775:7797 Kernel.ClausiusFromEntropyArea <> entropy_increment_delta def
+R7836:7852 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R7836:7852 Kernel.ClausiusFromEntropyArea <> unruh_temperature def
+R7877:7897 Kernel.ClausiusFromEntropyArea <> unruh_temperature_pos thm
+R7877:7897 Kernel.ClausiusFromEntropyArea <> unruh_temperature_pos thm
+R8003:8015 Kernel.ClausiusFromEntropyArea ClausiusModel <> sec

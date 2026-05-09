@@ -30,17 +30,22 @@ if [[ "$admitted_count" != "0" ]]; then
 fi
 
 echo "[proof] coqchk reproducibility gate"
+# Build the -R/-Q load-path arguments from _CoqProject so the gate stays in
+# sync with the project layout (kernel sources live under
+# coq/kernel/{foundation,nfi,mu_calculus,...}, all mapped to logical
+# namespace Kernel; see _CoqProject for the canonical mapping).
+COQCHK_LOADPATH=$(awk '/^-(R|Q)[ \t]/ {print $1, $2, $3}' "$COQ_DIR/_CoqProject" | tr '\n' ' ')
 (
   cd "$COQ_DIR"
-  coqchk -R kernel Kernel Kernel.Kernel Kernel.KernelTM Kernel.KernelThiele
+  coqchk $COQCHK_LOADPATH Kernel.Kernel Kernel.KernelTM Kernel.KernelThiele
 ) > "$ART_DIR/coqchk_kernel.log" 2>&1
 (
   cd "$COQ_DIR"
-  coqchk -R kernel Kernel Kernel.PythonBisimulation Kernel.HardwareBisimulation Kernel.ThreeLayerIsomorphism
+  coqchk $COQCHK_LOADPATH Kernel.PythonBisimulation Kernel.HardwareBisimulation Kernel.ThreeLayerIsomorphism
 ) > "$ART_DIR/coqchk_bisim.log" 2>&1
 (
   cd "$COQ_DIR"
-  coqchk -R kernel Kernel Kernel.VMState Kernel.VMStep Kernel.PythonBisimulation
+  coqchk $COQCHK_LOADPATH Kernel.VMState Kernel.VMStep Kernel.PythonBisimulation
 ) > "$ART_DIR/coqchk_bridge.log" 2>&1
 
 sha256sum "$ART_DIR"/*.log "$ART_DIR"/*.txt > "$ART_DIR/checksums.sha256"

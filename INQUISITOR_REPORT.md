@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-05-02 00:17:08Z (UTC)
-Scanned: 205 Coq files across the repo
+Generated: 2026-05-09 16:04:20Z (UTC)
+Scanned: 226 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
-- LOW: 0
+- LOW: 1
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -95,7 +95,17 @@ Scanned: 205 Coq files across the repo
 - `EXTRACT_CONSTANT`: `Extract Constant` bypasses Coq extraction with hand-written OCaml (trust boundary)
 
 ## Vacuity Ranking (file-level)
-(no files scored above zero — no trivially-true or placeholder patterns detected)
+Files scored by trivially-true / placeholder / definitional-proof heuristics.
+Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
+
+| score | tags | file |
+|---:|---|---|
+| 65 | const-fun | `coq/kami_hw/F4_VerilogEvaluator.v` |
 
 ## Findings
-(none)
+### LOW
+
+#### `coq/kami_hw/F4_VerilogEvaluator.v`
+- L1: **VACUITY_SCORE** — Vacuity score 65 ≥ LOW threshold 50. Tags: const-fun. Review for trivially-true/placeholder/definitional proofs that don't advance the thesis goal.
+  - `(file-level vacuity scan)`
+

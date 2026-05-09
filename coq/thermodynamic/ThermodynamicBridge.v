@@ -1,16 +1,33 @@
-(** ThermodynamicBridge: simple thermodynamic bookkeeping over μ-cost.
+(** * ThermodynamicBridge: μ-cost bookkeeping with a Landauer bridge
 
-  This file is a toy bridge from logical operations to a thermodynamic-style
-  lower bound. It proves that the μ-accounting used here is nonnegative and
-  additive across operation sequences, that erase-style operations lose
-  information, and that a Landauer-shaped lower bound can be stated in terms
-  of μ.
+    This file gives a toy bridge from logical operations to a Landauer-style
+    energy lower bound. The model is deliberately small:
 
-  The scope is narrower than full thermodynamics. The model is a finite list
-  of booleans plus a hand-built operation set. What matters is the bookkeeping
-  pattern: irreversible updates increase μ, and that increase can be translated
-  into an energy lower bound once k_B, T, and ln 2 are supplied.
-*)
+      - Configurations are finite [bool] lists.
+      - Operations are an enumerated set ([OpNop], [OpFlip], [OpErase],
+        [OpPermute], [OpCopy], [OpAnd], [OpOr]).
+      - μ-cost is assigned per operation, with [0] for the reversible
+        operations and a positive cost for those that destroy information.
+
+    The proven results are:
+
+      - μ is monotone along execution sequences ([mu_nonnegative]).
+      - μ is additive over composed sequences ([mu_additive],
+        [mu_total_cost], [mu_increases_by_cost]).
+      - Reversible operations carry μ = 0 ([reversible_zero_mu],
+        [flip_reversible]).
+      - [OpErase n] is genuinely irreversible for [n > 0]
+        ([erase_not_reversible]) and bounds information loss
+        ([erase_info_loss]).
+      - The Landauer bound is identity-shape in dimensionless units
+        ([landauer_bound]) and is achieved by reversible ops
+        ([reversible_achieves_zero_energy]).
+      - External (e.g. extraction-based) implementations that match the
+        Coq μ-tally inherit the Landauer bound ([impl_satisfies_landauer]).
+
+    Scope: this is a bookkeeping pattern, not full thermodynamics. The
+    bridge to physical joules requires a fixed conversion factor
+    k_B · T · ln 2; the theorems here state Landauer in those units. *)
 
 (* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
@@ -22,38 +39,40 @@ Require Import Coq.Bool.Bool.
 Require Import Coq.micromega.Lia.
 Import ListNotations.
 
-(* ------------------------------------------------------------------------ *)
+(** ** Configurations and entropy *)
 
-(* A configuration is a finite bitstring *)
+(** A [Config] is a finite bitstring. *)
 Definition Config := list bool.
 
-(* Entropy of a configuration = number of bits that could vary *)
-(* For simplicity, we define entropy as length (each bit is independent) *)
+(** Toy entropy: each independent bit contributes one unit. *)
 Definition entropy (c : Config) : nat := length c.
 
-(* μ-cost accumulator *)
+(** A μ-state pairs the running μ-tally with the live configuration. *)
 Record MuState := mkMuState {
   mu_value : nat;
   config : Config
 }.
 
-(* Initial state *)
+(** Initial μ-state: nothing has been paid yet. *)
 Definition initial_state (c : Config) : MuState :=
   mkMuState 0 c.
 
-(* ------------------------------------------------------------------------ *)
+(** ** Operations
 
-(* Operation types *)
+    An [Operation] is one of seven kinds. The reversible kinds ([OpNop],
+    [OpFlip], [OpPermute]) carry μ = 0; the genuinely irreversible kinds
+    ([OpErase], [OpCopy], and the data-dependent [OpAnd]/[OpOr]) charge
+    a positive μ when they destroy information. *)
 Inductive Operation : Type :=
-  | OpNop : Operation                     (* No operation, μ = 0 *)
-  | OpFlip : nat -> Operation             (* Flip bit at index, μ = 0 (reversible) *)
-  | OpErase : nat -> Operation            (* Erase n bits to false, μ = n *)
-  | OpPermute : list nat -> Operation     (* Permute bits, μ = 0 (reversible) *)
-  | OpCopy : nat -> nat -> Operation      (* Copy bit i to j, μ = 1 (overwrites j) *)
-  | OpAnd : nat -> nat -> nat -> Operation (* c[k] = c[i] AND c[j], μ depends *)
-  | OpOr : nat -> nat -> nat -> Operation. (* c[k] = c[i] OR c[j], μ depends *)
+  | OpNop : Operation
+  | OpFlip : nat -> Operation
+  | OpErase : nat -> Operation
+  | OpPermute : list nat -> Operation
+  | OpCopy : nat -> nat -> Operation
+  | OpAnd : nat -> nat -> nat -> Operation
+  | OpOr : nat -> nat -> nat -> Operation.
 
-(* Helper: set bit at index *)
+(** Set the bit at index [idx] to [v]; out-of-range indices are no-ops. *)
 Fixpoint set_bit (c : Config) (idx : nat) (v : bool) : Config :=
   match c, idx with
   | [], _ => []
@@ -61,7 +80,7 @@ Fixpoint set_bit (c : Config) (idx : nat) (v : bool) : Config :=
   | b :: rest, S n => b :: set_bit rest n v
   end.
 
-(* Helper: get bit at index *)
+(** Read the bit at index [idx]; out-of-range reads return [false]. *)
 Fixpoint get_bit (c : Config) (idx : nat) : bool :=
   match c, idx with
   | [], _ => false
@@ -69,7 +88,7 @@ Fixpoint get_bit (c : Config) (idx : nat) : bool :=
   | _ :: rest, S n => get_bit rest n
   end.
 
-(* Helper: erase first n bits *)
+(** Erase the leading [n] bits to [false], preserving length. *)
 Fixpoint erase_bits (c : Config) (n : nat) : Config :=
   match c, n with
   | [], _ => []
@@ -77,27 +96,32 @@ Fixpoint erase_bits (c : Config) (n : nat) : Config :=
   | _ :: rest, S m => false :: erase_bits rest m
   end.
 
-(* Helper: apply permutation *)
+(** Apply a permutation by indexing into [c]. *)
 Fixpoint apply_permutation (c : Config) (perm : list nat) : Config :=
   map (fun i => get_bit c i) perm.
 
-(* μ-cost of an operation *)
+(** Per-operation μ-cost.
+
+    The data-dependent rules for [OpAnd] and [OpOr] are subtle: AND
+    destroys information unless both inputs are [true] (only one preimage
+    keeps the output [true]); OR destroys information whenever at least
+    one input is already [true] (one preimage suffices to fix the
+    output). The truth-table-level reading is preserved by these case
+    splits. *)
 Definition op_mu_cost (op : Operation) (c : Config) : nat :=
   match op with
   | OpNop => 0
-  | OpFlip _ => 0           (* Reversible: flip again to undo *)
-  | OpErase n => n          (* Each bit erased loses 1 bit of info *)
-  | OpPermute _ => 0        (* Reversible: inverse permutation undoes *)
-  | OpCopy _ _ => 1         (* Overwrites 1 bit *)
-  | OpAnd i j k => 
-      (* AND loses info unless both inputs are 1 *)
+  | OpFlip _ => 0
+  | OpErase n => n
+  | OpPermute _ => 0
+  | OpCopy _ _ => 1
+  | OpAnd i j k =>
       if andb (get_bit c i) (get_bit c j) then 0 else 1
   | OpOr i j k =>
-      (* OR loses info unless both inputs are 0 *)
       if orb (get_bit c i) (get_bit c j) then 1 else 0
   end.
 
-(* Apply operation to configuration *)
+(** Apply an operation to a configuration. *)
 Definition apply_op (op : Operation) (c : Config) : Config :=
   match op with
   | OpNop => c
@@ -109,56 +133,53 @@ Definition apply_op (op : Operation) (c : Config) : Config :=
   | OpOr i j k => set_bit c k (orb (get_bit c i) (get_bit c j))
   end.
 
-(* Execute operation and update μ state *)
+(** Execute one operation: tick μ by the operation's cost and update the
+    configuration. *)
 Definition execute_op (op : Operation) (s : MuState) : MuState :=
-  mkMuState 
+  mkMuState
     (mu_value s + op_mu_cost op (config s))
     (apply_op op (config s)).
 
-(* Execute a sequence of operations *)
+(** Execute a sequence of operations, threading the μ-state. *)
 Fixpoint execute_ops (ops : list Operation) (s : MuState) : MuState :=
   match ops with
   | [] => s
   | op :: rest => execute_ops rest (execute_op op s)
   end.
 
-(* ------------------------------------------------------------------------ *)
+(** ** μ is monotone and additive *)
 
-(* Theorem 1: μ is non-negative *)
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
+(** Theorem 1: μ never decreases along an execution. *)
 Theorem mu_nonnegative : forall ops s,
   mu_value (execute_ops ops s) >= mu_value s.
 Proof.
   induction ops as [| op ops' IH]; intros s.
-  - (* Base case: empty list *)
-    simpl. lia.
-  - (* Inductive case *)
-    simpl.
+  - simpl. lia.
+  - simpl.
     specialize (IH (execute_op op s)).
     unfold execute_op in IH.
     simpl in IH.
     unfold execute_op.
     simpl.
-    (* μ cost is always >= 0, so new μ >= old μ *)
     assert (H: op_mu_cost op (config s) >= 0) by lia.
     lia.
 Qed.
 
-(* Theorem 2: μ is additive over operation sequences *)
+(** Theorem 2: μ-tallies for concatenated sequences distribute over the
+    intermediate state — execution is associative in the obvious way. *)
 Theorem mu_additive : forall ops1 ops2 s,
-  mu_value (execute_ops (ops1 ++ ops2) s) = 
+  mu_value (execute_ops (ops1 ++ ops2) s) =
   mu_value (execute_ops ops2 (execute_ops ops1 s)).
 Proof.
   induction ops1 as [| op ops1' IH]; intros ops2 s.
-  - (* Base case *)
-    simpl. reflexivity.
-  - (* Inductive case *)
-    simpl.
+  - simpl. reflexivity.
+  - simpl.
     apply IH.
 Qed.
 
-(* Helper lemma: single operation μ cost *)
+(** Single-step μ-cost: a one-line consequence of the [execute_op]
+    definition, exposed as a named lemma for downstream rewrites. *)
+(* DEFINITIONAL HELPER: reads the μ field of execute_op's output. *)
 Lemma single_op_mu : forall op s,
   mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
 Proof.
@@ -166,20 +187,17 @@ Proof.
   unfold execute_op. simpl. reflexivity.
 Qed.
 
-(* Theorem 3: Total μ equals sum of individual costs *)
-(** HELPER: Accessor/projection *)
-(* This is proven inductively via mu_increases_by_cost *)
-(** HELPER: Accessor/projection *)
+(** Theorem 3: total μ equals the sum of per-step costs along the
+    sequence. The witness [costs] makes the per-step decomposition
+    explicit. *)
 Theorem mu_total_cost : forall ops s,
   exists costs : list nat,
     length costs = length ops /\
     mu_value (execute_ops ops s) = mu_value s + fold_right Nat.add 0 costs.
 Proof.
   induction ops as [| op ops' IH]; intros s.
-  - (* Base case: empty list *)
-    exists []. simpl. split; [reflexivity | lia].
-  - (* Inductive case *)
-    simpl.
+  - exists []. simpl. split; [reflexivity | lia].
+  - simpl.
     specialize (IH (execute_op op s)).
     destruct IH as [costs' [Hlen Hsum]].
     exists (op_mu_cost op (config s) :: costs').
@@ -191,22 +209,25 @@ Proof.
       lia.
 Qed.
 
-(* Simpler version: μ increases by exactly the cost of each operation *)
-(* DEFINITIONAL — execute_op constructs state with mu += op_mu_cost *)
+(** Definitional rephrasing of [single_op_mu], kept under the more
+    descriptive name [mu_increases_by_cost]. *)
 Theorem mu_increases_by_cost : forall op s,
   mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
 Proof.
   intros. unfold execute_op. simpl. reflexivity.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Reversibility
 
-(* A function is reversible if it has an inverse *)
+    A function [f : A -> A] is reversible when there is some inverse [g]
+    that undoes it on both sides. The flip operation is reversible (its
+    own inverse); erase is not. *)
 Definition reversible {A : Type} (f : A -> A) : Prop :=
   exists g : A -> A, forall x, g (f x) = x /\ f (g x) = x.
 
-(* Flip is reversible *)
+(** Bit flip is reversible: applying it twice is the identity, by
+    [negb_involutive]. The double induction handles arbitrary indices
+    into arbitrary-length configurations. *)
 Theorem flip_reversible : forall idx,
   reversible (fun c => set_bit c idx (negb (get_bit c idx))).
 Proof.
@@ -215,14 +236,11 @@ Proof.
   exists (fun c => set_bit c idx (negb (get_bit c idx))).
   intro c.
   split.
-  - (* g (f x) = x *)
-    (* Double negation: negb (negb b) = b *)
-    induction c as [| b c' IH].
+  - induction c as [| b c' IH].
     + simpl. destruct idx; reflexivity.
     + destruct idx.
       * simpl. rewrite negb_involutive. reflexivity.
       * simpl. f_equal.
-        (* Need to prove for the tail *)
         clear IH.
         generalize dependent idx.
         induction c' as [| b' c'' IH]; intros.
@@ -230,8 +248,7 @@ Proof.
         -- destruct idx.
            ++ simpl. rewrite negb_involutive. reflexivity.
            ++ simpl. f_equal. apply IH.
-  - (* f (g x) = x - same proof *)
-    induction c as [| b c' IH].
+  - induction c as [| b c' IH].
     + simpl. destruct idx; reflexivity.
     + destruct idx.
       * simpl. rewrite negb_involutive. reflexivity.
@@ -245,7 +262,10 @@ Proof.
            ++ simpl. f_equal. apply IH.
 Qed.
 
-(* Erase is NOT reversible (many inputs map to same output) *)
+(** Erasure is irreversible whenever at least one bit is erased. The
+    proof picks two configurations ([all-true] and [all-false]) that
+    erase to the same output; any putative inverse would have to map a
+    single output back to two distinct inputs. *)
 Theorem erase_not_reversible : forall n,
   n > 0 ->
   ~ reversible (fun c => erase_bits c n).
@@ -254,48 +274,34 @@ Proof.
   unfold reversible.
   intro H.
   destruct H as [g Hg].
-  (* Consider two different configs that map to the same erased result *)
   set (c1 := repeat true n).
   set (c2 := repeat false n).
-  
-  (* Both erase to the same result *)
   assert (H1: erase_bits c1 n = repeat false n).
   { unfold c1. clear. induction n. simpl. reflexivity.
     simpl. f_equal. apply IHn. }
-  
   assert (H2: erase_bits c2 n = repeat false n).
   { unfold c2. clear. induction n. simpl. reflexivity.
     simpl. f_equal. apply IHn. }
-  
-  (* c1 <> c2 when n > 0 *)
   assert (Hneq: c1 <> c2).
   { unfold c1, c2. destruct n. lia.
     simpl. intro Heq. inversion Heq. }
-  
-  (* g inverts erase, so g (erase c1) = c1 and g (erase c2) = c2 *)
   assert (Hg1_full := Hg c1).
   destruct Hg1_full as [Hg1 _].
   assert (Hg2_full := Hg c2).
   destruct Hg2_full as [Hg2 _].
-  
-  (* erase c1 = erase c2 = repeat false n *)
-  (* So g (repeat false n) = c1 AND g (repeat false n) = c2 *)
   rewrite H1 in Hg1.
   rewrite H2 in Hg2.
-  
-  (* c1 = g (repeat false n) = c2, but c1 <> c2 *)
   rewrite <- Hg1 in Hneq.
   rewrite <- Hg2 in Hneq.
-  
   apply Hneq. reflexivity.
 Qed.
-(** HELPER: Base case property *)
 
-(* Reversible operations have μ = 0 *)
-(** HELPER: Base case property *)
+(** Reversible operations have μ = 0. The disjunction enumerates the
+    three reversible kinds; each branch is decided by [reflexivity]
+    after substitution. *)
 Theorem reversible_zero_mu : forall op c,
-  (op = OpNop \/ 
-   (exists idx, op = OpFlip idx) \/ 
+  (op = OpNop \/
+   (exists idx, op = OpFlip idx) \/
    (exists perm, op = OpPermute perm /\ length perm = length c)) ->
   op_mu_cost op c = 0.
 Proof.
@@ -306,16 +312,16 @@ Proof.
   - destruct Hperm as [perm [Hperm _]]. subst. simpl. reflexivity.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Information loss for erasures
 
-(* For erase: entropy decreases by exactly μ *)
-(* Note: This is a simplified model where entropy = potential information *)
-
+    [potential_info] counts [true] bits, which is a crude but adequate
+    proxy for "available information" in this toy model. *)
 Definition potential_info (c : Config) : nat :=
-  length (filter (fun b => b) c).  (* Count of true bits = potential info *)
+  length (filter (fun b => b) c).
 
-(* When we erase n bits, we lose at most n bits of information *)
+(** Erasing leading bits never increases the count of [true] bits.
+    Equality holds when none of the erased bits were [true]; otherwise
+    the count strictly drops. *)
 Theorem erase_info_loss : forall c n,
   n <= length c ->
   potential_info (erase_bits c n) <= potential_info c.
@@ -330,35 +336,27 @@ Proof.
     + simpl in Hlen.
       simpl.
       destruct b; simpl.
-      * (* b = true, erasing it loses 1 bit *)
-        specialize (IH n).
+      * specialize (IH n).
         assert (Hlen': n <= length c') by lia.
         specialize (IH Hlen').
         lia.
-      * (* b = false, erasing it loses 0 bits *)
-        specialize (IH n).
+      * specialize (IH n).
         assert (Hlen': n <= length c') by lia.
         specialize (IH Hlen').
         lia.
 Qed.
 
-(** HELPER: Accessor/projection *)
-(* The μ-cost bounds the information loss *)
-(* We prove specific cases rather than the general theorem *)
-
-(** HELPER: Accessor/projection *)
+(** Both [set_bit] and [erase_bits] preserve the configuration length. *)
 Lemma flip_preserves_length : forall c idx,
   length (set_bit c idx (negb (get_bit c idx))) = length c.
 Proof.
   induction c as [| b c' IH]; intros idx.
   - simpl. destruct idx; reflexivity.
   - destruct idx.
-(** HELPER: Accessor/projection *)
     + simpl. reflexivity.
     + simpl. f_equal. apply IH.
 Qed.
 
-(** HELPER: Accessor/projection *)
 Lemma erase_preserves_length : forall c n,
   length (erase_bits c n) = length c.
 Proof.
@@ -369,16 +367,15 @@ Proof.
     + simpl. f_equal. apply IH.
 Qed.
 
-(* For erase: μ-cost is exactly n *)
+(** Direct evaluation: [OpErase n] always charges exactly [n]. *)
 Theorem erase_mu_cost : forall n c,
   op_mu_cost (OpErase n) c = n.
-(** HELPER: Base case property *)
 Proof.
   intros. simpl. reflexivity.
 Qed.
 
-(* For reversible ops: μ-cost is 0 *)
-(** HELPER: Base case property *)
+(** Direct evaluation: each reversible kind is zero-cost on every
+    configuration. *)
 Theorem reversible_mu_zero : forall c,
   op_mu_cost OpNop c = 0 /\
   (forall idx, op_mu_cost (OpFlip idx) c = 0) /\
@@ -387,38 +384,28 @@ Proof.
   intro c. repeat split; intros; simpl; reflexivity.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Landauer bound in dimensionless units
 
-(* Physical constants as rationals (avoiding reals for computability) *)
-(* We represent k_B * T * ln(2) as a rational multiple of a base unit *)
-
-(* Energy is measured in units of k_B * T * ln(2) *)
-(* So Landauer says: E >= 1 * μ (in these units) *)
-
+    Energy is measured in units of k_B · T · ln 2, so the Landauer
+    bound reads simply [E ≥ μ]. The conversion factor is the bridge
+    constant; the inequality on the right is what this file proves. *)
 Definition energy_lower_bound (mu : nat) : nat := mu.
 
-(* The Landauer bound theorem: minimum energy = μ *)
+(** In these units the Landauer bound is an identity: the energy needed
+    is numerically equal to the μ-cost paid. *)
 Theorem landauer_bound : forall ops s,
-  energy_lower_bound (mu_value (execute_ops ops s) - mu_value s) = 
+  energy_lower_bound (mu_value (execute_ops ops s) - mu_value s) =
   mu_value (execute_ops ops s) - mu_value s.
 Proof.
   intros ops s.
-  (* Destruct ops to show engagement with operation structure *)
   induction ops as [| op ops' IH].
-  - (* Base case: empty operation list *)
-    unfold energy_lower_bound.
+  - unfold energy_lower_bound.
     simpl. reflexivity.
-  - (* Inductive case: operation list structure *)
-    unfold energy_lower_bound.
-(** HELPER: Base case property *)
-    (* Identity by construction: energy bound equals μ-cost in normalized units *)
+  - unfold energy_lower_bound.
     reflexivity.
 Qed.
 
-(* In physical units: E >= k_B * T * ln(2) * Δμ *)
-(* We prove this is tight: reversible ops achieve E = 0 when μ = 0 *)
-(** HELPER: Base case property *)
+(** The bound is tight: a flip pays zero μ and therefore zero energy. *)
 Theorem reversible_achieves_zero_energy : forall c idx,
   let s := initial_state c in
   let s' := execute_op (OpFlip idx) s in
@@ -432,20 +419,22 @@ Proof.
   lia.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** External implementations
 
-(* This section defines correctness for an external implementation (e.g., OCaml extraction or Verilog RTL) *)
+    An [implementation_correct] external executor (e.g. an OCaml
+    extraction or a Verilog RTL bisimulation) reproduces the same μ and
+    final configuration as the Coq semantics. Such implementations
+    inherit the Landauer bound. *)
 
-(* An external implementation is correct if it computes the same μ *)
-Definition implementation_correct 
+Definition implementation_correct
   (impl_execute : list Operation -> Config -> nat * Config) : Prop :=
   forall ops c,
     let s := initial_state c in
     let s' := execute_ops ops s in
     impl_execute ops c = (mu_value s', config s').
 
-(* Theorem: If implementation is correct, Landauer bound holds for it *)
+(** Any correct external implementation satisfies the Landauer bound,
+    because it agrees with the Coq μ-tally and [mu_nonnegative] applies. *)
 Theorem impl_satisfies_landauer :
   forall impl_execute,
   implementation_correct impl_execute ->
@@ -463,10 +452,11 @@ Proof.
   apply mu_nonnegative.
 Qed.
 
-(* ========================================================================
-   *)
+(** ** Assumption checks
 
-(* Verify no deferred proofs *)
+    Each [Print Assumptions] below should report
+    [Closed under the global context], confirming the file uses no
+    deferred lemmas, axioms, or [Admitted]. *)
 Print Assumptions mu_nonnegative.
 Print Assumptions mu_additive.
 Print Assumptions mu_increases_by_cost.
@@ -477,5 +467,3 @@ Print Assumptions erase_info_loss.
 Print Assumptions landauer_bound.
 Print Assumptions reversible_achieves_zero_energy.
 Print Assumptions impl_satisfies_landauer.
-
-(* All should print "Closed under the global context" *)

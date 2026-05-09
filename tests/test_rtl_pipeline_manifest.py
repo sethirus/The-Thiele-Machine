@@ -82,7 +82,7 @@ def test_rtl_pipeline_manifest_invariants() -> None:
     assert invariants["main_ml_drives_pp_through_targetB"]
     assert invariants["canonical_cpu_module_generated_in_coq"]
     assert payload["boundary_statement"]["trusted_boundary"] == (
-        "coq/kernel/VerilogRTLCorrespondence.v:bsc_kami_compilation_trusted"
+        "coq/kernel/hardware_bridge/VerilogRTLCorrespondence.v:bsc_kami_compilation_trusted"
     )
 
 

@@ -27,7 +27,7 @@ PIPELINE_FILES = [
     "coq/kami_hw/ThieleCPUCore.v",
     "coq/kami_hw/ThieleCPUBusTop.v",
     "coq/kami_hw/ThieleTypes.v",
-    "coq/kernel/VerilogRTLCorrespondence.v",
+    "coq/kernel/hardware_bridge/VerilogRTLCorrespondence.v",
     "scripts/kami_extract.sh",
     "scripts/bsv_regfile_transform.py",
     "scripts/verilog_synth_transform.py",
@@ -161,7 +161,7 @@ def build_manifest() -> dict[str, Any]:
                 "and the generated Verilog backend remains outside Coq."
             ),
             "trusted_boundary": (
-                "coq/kernel/VerilogRTLCorrespondence.v:bsc_kami_compilation_trusted"
+                "coq/kernel/hardware_bridge/VerilogRTLCorrespondence.v:bsc_kami_compilation_trusted"
             ),
         },
     }

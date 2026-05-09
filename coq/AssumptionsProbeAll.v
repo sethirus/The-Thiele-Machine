@@ -10,6 +10,18 @@ Require ThieleMachineComplete.
 Require KamiHW.Abstraction.
 Require KamiHW.CanonicalCPUProof.
 Require KamiHW.Compatibility.
+Require KamiHW.F4_BModulesTranslation.
+Require KamiHW.F4_VerilogEvaluator.
+Require Kernel.F1_LogicalErasure.
+Require Kernel.F1_TraceLevelA2.
+Require Kernel.F1_AbstractedBridge.
+Require Kernel.F1_StrongForm.
+Require Kernel.F2_MinorIndependence.
+Require Kernel.F2_MinorFromWitnessLocality.
+Require Kernel.F2_PerMinorFromCostCoherent.
+Require Kernel.F3_CrossLink.
+Require Kernel.F3_TripleCrossLink.
+Require Kernel.F3_PartitionTopologyCrossLink.
 Require KamiHW.EmbedStep.
 Require KamiHW.EmbedStep_WF.
 Require KamiHW.FullAbstraction.
@@ -701,6 +713,38 @@ Print Assumptions ThieleMachineComplete.witness_states_same_classical_projection
 Print Assumptions ThieleMachineComplete.classical_observer_cannot_separate.
 Print Assumptions ThieleMachineComplete.violation_wc_not_local_tc.
 Print Assumptions ThieleMachineComplete.chsh_violation_exceeds_classical_bound_tc.
+(* === KamiHW.F4_BModulesTranslation : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_var.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readreg.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_eq.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_ite.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readfield.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_writereg.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_assert.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_return.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_let.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_ifelse.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_behavioural.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_primitive.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodules_to_verilog_length.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodules_to_verilog_singleton.
+(* === KamiHW.F4_VerilogEvaluator : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.F4_VerilogEvaluator.state_set_get_eq.
+Print Assumptions KamiHW.F4_VerilogEvaluator.bexpr_eval_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_readreg_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_readreg_concrete_test.
+Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.assert_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.return_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.let_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_baction_seq_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_baction_seq_concrete.
+Print Assumptions KamiHW.F4_VerilogEvaluator.baction_translation_simple_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.simple_bactions_seq_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.ifelse_with_simple_branches_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_then.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_else.
 (* === KamiHW.Abstraction : 37 addressable theorems (unaddressable: 0) === *)
 Print Assumptions KamiHW.Abstraction.kami_sp_reg_lt_RegCount.
 Print Assumptions KamiHW.Abstraction.kami_step_mu_cost.
@@ -3208,6 +3252,95 @@ Print Assumptions Kernel.UniversalCertificationCost.thiele_represents_simulating
 Print Assumptions Kernel.UniversalCertificationCost.thiele_morphism_exists.
 Print Assumptions Kernel.UniversalCertificationCost.thiele_morphism_unique_on_traces.
 Print Assumptions Kernel.UniversalCertificationCost.ccm_universal_nfi.
+(* === Kernel.F1_LogicalErasure : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F1_LogicalErasure.cert_flip_collapses_cert_classes.
+Print Assumptions Kernel.F1_LogicalErasure.thiele_cost_law_satisfies_landauer_for_cert.
+Print Assumptions Kernel.F1_LogicalErasure.A2_from_physical_reversibility_real.
+Print Assumptions Kernel.F1_LogicalErasure.A2_consistency_check.
+(* === Kernel.F1_TraceLevelA2 : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F1_TraceLevelA2.F1_trace_level_A2.
+Print Assumptions Kernel.F1_TraceLevelA2.F1_singleton_trace_A2.
+Print Assumptions Kernel.F1_TraceLevelA2.F1_thiele_trace_level_A2.
+(* === Kernel.F1_AbstractedBridge : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F1_AbstractedBridge.F1_factored_through_abstract_cost.
+Print Assumptions Kernel.F1_AbstractedBridge.A2_via_abstract_landauer_universal_bridge.
+(* === Kernel.F1_StrongForm : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F1_StrongForm.F1_strong_form_universal.
+Print Assumptions Kernel.F1_StrongForm.A2_via_physical_landauer.
+(* === Kernel.F2_PerMinorFromCostCoherent : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F2_PerMinorFromCostCoherent.minor_3x3_at_product.
+Print Assumptions Kernel.F2_PerMinorFromCostCoherent.minor_nonneg_at_product.
+Print Assumptions Kernel.F2_PerMinorFromCostCoherent.cost_coherent_implies_per_minor_nonneg.
+Print Assumptions Kernel.F2_PerMinorFromCostCoherent.per_minor_strictly_weaker_than_algebraic_coherence.
+Print Assumptions Kernel.F2_PerMinorFromCostCoherent.pr_box_minor_2_fails_at_minor_1_witness.
+Print Assumptions Kernel.F2_PerMinorFromCostCoherent.max_trace_cost_coherent.
+(* === Kernel.F3_TripleCrossLink : 6 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_cross_link.
+Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_specialises_to_F3_R1.
+Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_at_k_pos_with_tsirelson.
+Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_fails_without_tsirelson.
+Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_adversarial_drop_tsirelson.
+Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_worked_example_pin.
+(* === Kernel.F3_PartitionTopologyCrossLink : 3 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F3_PartitionTopologyCrossLink.F3_partition_topology_mu_cross_link.
+Print Assumptions Kernel.F3_PartitionTopologyCrossLink.F3_drop_sum_zero_breaks_prediction.
+Print Assumptions Kernel.F3_PartitionTopologyCrossLink.F3_drop_calibration_breaks_prediction.
+(* === Kernel.F3_CrossLink : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F3_CrossLink.cost_q_lassert_ge_flen.
+Print Assumptions Kernel.F3_CrossLink.lassert_flen_q_positive.
+Print Assumptions Kernel.F3_CrossLink.F3_cross_link_lassert_tsirelson.
+Print Assumptions Kernel.F3_CrossLink.example_lassert_flen_q_value_at_8.
+Print Assumptions Kernel.F3_CrossLink.example_lassert_min_cost_at_8.
+Print Assumptions Kernel.F3_CrossLink.example_F3_bound_at_flen_8.
+Print Assumptions Kernel.F3_CrossLink.F3_adversarial_drop_tsirelson.
+Print Assumptions Kernel.F3_CrossLink.F3_adversarial_drop_lassert.
+(* === Kernel.F2_MinorFromWitnessLocality : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.q_sign_eq_squared.
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.correlator_from_local_strategy_00.
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.local_strategy_t_E00_E10_eq_one.
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.minor_vanishes_local_strategy.
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.minor_3x3_proper.
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.correlator_from_counts_abs_le_1.
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.WCLocallyConsistent_implies_algebraically_coherent.
+Print Assumptions Kernel.F2_MinorFromWitnessLocality.WCLocallyConsistent_implies_tsirelson.
+(* === Kernel.F2_MinorIndependence : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.F2_MinorIndependence.pr_box_state_mu_zero.
+Print Assumptions Kernel.F2_MinorIndependence.pr_box_state_certified_false.
+Print Assumptions Kernel.F2_MinorIndependence.pr_box_correlators_eq_max_trace.
+Print Assumptions Kernel.F2_MinorIndependence.pr_box_correlators_match_max_trace_q.
+Print Assumptions Kernel.F2_MinorIndependence.algebraically_coherent_proper.
+Print Assumptions Kernel.F2_MinorIndependence.pr_box_correlators_not_coherent.
+Print Assumptions Kernel.F2_MinorIndependence.cost_axioms_do_not_entail_algebraic_coherence.
+Print Assumptions Kernel.F2_MinorIndependence.F2_independence.
+(* === Kernel.HonestCostTracking : 4 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.HonestCostTracking.dishonest_free_certification.
+Print Assumptions Kernel.HonestCostTracking.honest_cost_tracking_strict_restriction.
+Print Assumptions Kernel.HonestCostTracking.free_forgery_violates_A2.
+Print Assumptions Kernel.HonestCostTracking.dishonest_forge_system_violates_A2.
+(* === Kernel.NonAdaptiveLowerBound : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.NonAdaptiveLowerBound.non_adaptive_must_probe_every_assignment.
+Print Assumptions Kernel.NonAdaptiveLowerBound.non_adaptive_sat_lower_bound.
+Print Assumptions Kernel.NonAdaptiveLowerBound.non_adaptive_sat_raw_length_lower_bound.
+Print Assumptions Kernel.NonAdaptiveLowerBound.non_adaptive_factored_sat_4_k_lower_bound.
+Print Assumptions Kernel.NonAdaptiveLowerBound.two_pow_2k_eq_4_pow_k.
+(* === Kernel.VerificationCostSeparation : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.VerificationCostSeparation.thiele_encoded_trace_is_honest.
+Print Assumptions Kernel.VerificationCostSeparation.thiele_honesty_O_1_witness.
+Print Assumptions Kernel.VerificationCostSeparation.adversary_trace_dishonest.
+Print Assumptions Kernel.VerificationCostSeparation.adversary_trace_differs_only_at_pos.
+Print Assumptions Kernel.VerificationCostSeparation.free_world_honesty_verifier_must_inspect_every_cert_position.
+Print Assumptions Kernel.VerificationCostSeparation.free_world_verification_reads_T_positions.
+Print Assumptions Kernel.VerificationCostSeparation.free_world_verification_raw_length_ge_T.
+Print Assumptions Kernel.VerificationCostSeparation.verification_cost_gap_omega_T.
+(* === Kernel.ThermodynamicStructuralAdvantage : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.struct_property_baseline.
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.struct_property_adversary_false.
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.adversary_formula_differs_only_at_pos.
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.byte_inspector_must_read_every_byte.
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.byte_inspector_reads_omega_n.
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.byte_inspector_raw_length_ge_n.
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.thermodynamic_structural_advantage.
+Print Assumptions Kernel.ThermodynamicStructuralAdvantage.irreversible_structural_inspection_cost_lower_bound.
 (* === Kernel.VMEncoding : 19 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMEncoding.decode_nat_correct.
 Print Assumptions Kernel.VMEncoding.decode_bool_correct.

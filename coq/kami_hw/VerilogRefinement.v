@@ -403,7 +403,7 @@ Proof.
   exact hw_step_preserves_invariants.
 Qed.
 
-(** Phase 2/3B hardware simulation witnesses *)
+(** Hardware-simulation witnesses for the checkpoint, port, and heap opcodes *)
 
 Theorem verilog_simulates_vm_step_checkpoint :
   forall (hs : KamiSnapshot) (label : string) (cost : nat),
@@ -751,7 +751,7 @@ Proof.
   end.
 Qed.
 (** ---------------------------------------------------------------
-    Categorical morphism instruction simulation proofs (Phase 6).
+    Categorical / morphism-instruction simulation proofs.
 
     The hardware layer (kami_step) models morph opcodes as pure
     cost-charge + PC-advance (kami_advance_default), since the

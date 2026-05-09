@@ -22,6 +22,17 @@ REPO = Path(__file__).resolve().parents[1]
 COQ = REPO / "coq"
 BUILD = REPO / "build"
 RUNNER = BUILD / "extracted_vm_runner"
+
+
+def _kernel_v(name: str) -> Path:
+    flat = COQ / "kernel" / name
+    if flat.exists():
+        return flat
+    kernel_root = COQ / "kernel"
+    if kernel_root.exists():
+        for p in kernel_root.rglob(name):
+            return p
+    return flat
 THIELE_CORE = BUILD / "thiele_core.ml"
 
 
@@ -153,7 +164,7 @@ def test_runner_multi_pnew():
 @pytest.mark.coq
 def test_simulation_proof_vm_apply_is_axiom_free():
     """SimulationProof.v must not use Axiom or admit for vm_apply."""
-    text = (COQ / "kernel" / "SimulationProof.v").read_text(encoding="utf-8")
+    text = (_kernel_v("SimulationProof.v")).read_text(encoding="utf-8")
     # Find the vm_apply definition section
     idx = text.find("Definition vm_apply")
     assert idx >= 0, "SimulationProof.v must define vm_apply"
@@ -167,7 +178,7 @@ def test_simulation_proof_vm_apply_is_axiom_free():
 @pytest.mark.coq
 def test_simulation_proof_has_run_vm():
     """SimulationProof.v must define run_vm (fuel-bounded execution)."""
-    text = (COQ / "kernel" / "SimulationProof.v").read_text(encoding="utf-8")
+    text = (_kernel_v("SimulationProof.v")).read_text(encoding="utf-8")
     assert "Fixpoint run_vm" in text or "Definition run_vm" in text
 
 

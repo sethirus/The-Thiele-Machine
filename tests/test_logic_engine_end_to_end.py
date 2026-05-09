@@ -268,7 +268,7 @@ class TestLjoinEndToEnd:
     def test_ocaml_vm_ljoin_unequal_certs(self):
         """OCaml VM: LJOIN with unequal certificates does not set error.
 
-        Per coq/kernel/VMStep.v step_ljoin proof, LJOIN never sets vm_err —
+        Per coq/kernel/foundation/VMStep.v step_ljoin proof, LJOIN never sets vm_err —
         it only advances the program counter regardless of cert equality.
         """
         s0 = VMState.default()
