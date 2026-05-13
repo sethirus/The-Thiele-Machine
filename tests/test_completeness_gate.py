@@ -45,9 +45,10 @@ def _kernel_v(name: str) -> Path:
             return candidate
     return flat
 
-# The canonical set of 46 opcode names (lowercase)
-# 39 original + 7 categorical morphism extension (morph, compose, morph_id,
-# morph_delete, morph_assert, morph_tensor, morph_get)
+# The canonical set of 47 opcode names (lowercase)
+# 39 original + 7 categorical morphism extension + 1 CHSH-aware cert opcode
+# (chsh_lassert, added 2026-05-11 as the kernel-level enforcement of
+# column-contractivity on the CHSH WitnessCounts).
 CANONICAL_39 = frozenset({
     "pnew", "psplit", "pmerge", "lassert", "ljoin", "mdlacc", "pdiscover",
     "xfer", "load_imm", "load", "store", "add", "sub",
@@ -66,10 +67,14 @@ CANONICAL_MORPH_7 = frozenset({
     "morph_assert", "morph_tensor", "morph_get",
 })
 
-CANONICAL_46 = CANONICAL_39 | CANONICAL_MORPH_7
+CANONICAL_CHSH_1 = frozenset({
+    "chsh_lassert",
+})
+
+CANONICAL_46 = CANONICAL_39 | CANONICAL_MORPH_7 | CANONICAL_CHSH_1
 
 assert len(CANONICAL_39) == 39, f"CANONICAL_39 has {len(CANONICAL_39)} items, expected 39"
-assert len(CANONICAL_46) == 46, f"CANONICAL_46 has {len(CANONICAL_46)} items, expected 46"
+assert len(CANONICAL_46) == 47, f"CANONICAL_46 has {len(CANONICAL_46)} items, expected 47"
 
 
 class TestSourceBlockerClassification:
@@ -156,13 +161,13 @@ class TestCoqLayer:
     def test_extraction_exists(self):
         assert self.EXTRACTION.exists(), "coq/Extraction.v missing"
 
-    def test_vmstep_has_46_constructors(self):
+    def test_vmstep_has_47_constructors(self):
         """VMStep.v must define exactly 46 vm_instruction constructors
         (39 original + 7 categorical morphism extension)."""
         text = self.VMSTEP.read_text(encoding="utf-8")
         constructors = set(re.findall(r"\|\s+instr_(\w+)", text))
-        assert len(constructors) == 46, (
-            f"VMStep.v has {len(constructors)} constructors, expected 46.\n"
+        assert len(constructors) == 47, (
+            f"VMStep.v has {len(constructors)} constructors, expected 47.\n"
             f"Found: {sorted(constructors)}\n"
             f"Missing: {CANONICAL_46 - constructors}\n"
             f"Extra: {constructors - CANONICAL_46}"
@@ -455,6 +460,11 @@ class TestPythonVMLayer:
             "morph_get":    [{"op": "pnew", "region": [0], "cost": 1},
                              {"op": "morph_id", "dst": 1, "module": 1, "mu_delta": 1},
                              {"op": "morph_get", "dst": 2, "morph_id": 1, "selector": 0, "mu_delta": 1}],
+            # CHSH_LASSERT: cert-setter, witness counters at default (all 0)
+            # produce all-zero correlators, which fail the positivity precondition.
+            # We accept either success or failure; either way the opcode is
+            # parsed and dispatched, which is what this test verifies.
+            "chsh_lassert": [{"op": "chsh_lassert", "mu_delta": 1}],
         }
 
         assert set(programs.keys()) == CANONICAL_46, (

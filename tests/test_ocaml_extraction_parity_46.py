@@ -493,11 +493,13 @@ class TestCoverageCompleteness:
         "tensor_set", "tensor_get",
         "morph", "compose", "morph_id", "morph_delete",
         "morph_assert", "morph_tensor", "morph_get",
+        # 47th opcode: CHSH-aware kernel-level certification
+        "chsh_lassert",
     })
 
     def test_canonical_46_count(self) -> None:
-        assert len(self.CANONICAL_46) == 46, (
-            f"CANONICAL_46 has {len(self.CANONICAL_46)} entries, expected 46"
+        assert len(self.CANONICAL_46) == 47, (
+            f"CANONICAL_46 has {len(self.CANONICAL_46)} entries, expected 47"
         )
 
     def test_ocaml_runner_recognizes_all_46(self) -> None:

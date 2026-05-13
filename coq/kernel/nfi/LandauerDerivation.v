@@ -89,7 +89,10 @@ Proof.
   (* morph_tensor: match on graph_tensor_morphisms *)
   try (destruct (graph_tensor_morphisms _ _ _) as [[? ?]|];
        [unfold advance_state_rm; simpl; reflexivity
-       | unfold advance_state; simpl; reflexivity]).
+       | unfold advance_state; simpl; reflexivity]);
+  (* chsh_lassert: both branches preserve vm_certified (success: state record
+     copies s.(vm_certified); failure: same). *)
+  try (destruct (column_contractive_check_witness _); simpl; reflexivity).
   (* instr_certify: contradicts hypothesis *)
   - exfalso. eapply Hnotcert. reflexivity.
 Qed.
@@ -189,7 +192,10 @@ Proof.
        [unfold advance_state_rm in Hpost; simpl in Hpost;
         rewrite Hpre in Hpost; discriminate
        | unfold advance_state in Hpost; simpl in Hpost;
-         rewrite Hpre in Hpost; discriminate]).
+         rewrite Hpre in Hpost; discriminate]);
+  (* chsh_lassert: vm_certified preserved in both branches. *)
+  try (destruct (column_contractive_check_witness _) in Hpost;
+       simpl in Hpost; rewrite Hpre in Hpost; discriminate).
   (* instr_certify: cost = S mu_delta >= 1. QED. *)
   - simpl. lia.
 Qed.
@@ -310,7 +316,10 @@ Proof.
     (* morph_tensor *)
     try (destruct (graph_tensor_morphisms _ _ _) as [[? ?]|];
          [unfold advance_state_rm; simpl; reflexivity
-         | unfold advance_state; simpl; reflexivity]). }
+         | unfold advance_state; simpl; reflexivity]);
+    (* chsh_lassert: both branches charge apply_cost = S mu_delta *)
+    try (destruct (column_contractive_check_witness _);
+         simpl; unfold apply_cost; simpl; reflexivity). }
   rewrite Hmu.
   assert (Hle: irreversible_bits instr <= instruction_cost instr)
     by apply irreversible_bits_le_cost.
@@ -442,7 +451,10 @@ Proof.
     (* morph_tensor *)
     try (destruct (graph_tensor_morphisms _ _ _) as [[? ?]|];
          [unfold advance_state_rm; simpl; reflexivity
-         | unfold advance_state; simpl; reflexivity]). }
+         | unfold advance_state; simpl; reflexivity]);
+    (* chsh_lassert: both branches charge apply_cost = S mu_delta *)
+    try (destruct (column_contractive_check_witness _);
+         simpl; unfold apply_cost; simpl; reflexivity). }
   lia.
 Qed.
 

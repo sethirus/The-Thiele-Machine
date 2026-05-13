@@ -1057,6 +1057,9 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
       [T_Halt]
   | instr_morph_get _ _ _ _ =>
       [T_Halt]
+  | instr_chsh_lassert _ =>
+      (* CHSH-aware certification: column-contractivity check on witness counters. *)
+      [T_Halt]
   end.
 
 (** ** Layout bounds proof *)

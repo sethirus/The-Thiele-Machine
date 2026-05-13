@@ -59,6 +59,7 @@ Definition is_dag_instr_at (pc trace_len : nat) (instr : vm_instruction) : bool 
   | instr_call _ _          => false
   | instr_ret _             => false
   | instr_lassert _ _ _ _ _ => Nat.leb trace_len LASSERT_TRAP_PC
+  | instr_chsh_lassert _    => Nat.leb trace_len LASSERT_TRAP_PC
   | _                       => true
   end.
 
@@ -115,6 +116,16 @@ Lemma vm_apply_lassert_pc :
       then S s.(vm_pc)
       else LASSERT_TRAP_PC.
 Proof. intros. unfold vm_apply. simpl. reflexivity. Qed.
+
+(** vm_apply on instr_chsh_lassert sets pc to S(pc) on success,
+    LASSERT_TRAP_PC on failure (parallel to lassert). *)
+Lemma vm_apply_chsh_lassert_pc :
+  forall (s : VMState) (mu_delta : nat),
+    (vm_apply s (instr_chsh_lassert mu_delta)).(vm_pc) =
+      if column_contractive_check_witness s.(vm_witness)
+      then S s.(vm_pc)
+      else LASSERT_TRAP_PC.
+Proof. intros. unfold vm_apply. simpl. destruct (column_contractive_check_witness _); reflexivity. Qed.
 
 Lemma dag_instr_advances_pc :
   forall (s : VMState) (instr : vm_instruction) (trace : list vm_instruction),
@@ -182,6 +193,10 @@ Proof.
     destruct (Nat.eqb (read_reg s rs) 0) eqn:?.
     + unfold advance_state; simpl; lia.
     + unfold jump_state; simpl. apply Nat.ltb_lt in Hdag. lia.
+  - (* CHSH_LASSERT: success → S(pc), failure → LASSERT_TRAP_PC *)
+    rewrite vm_apply_chsh_lassert_pc.
+    apply Nat.leb_le in Hdag.
+    case (column_contractive_check_witness _); simpl; lia.
 Qed.
 
 (** ** PC Monotone Growth Under DAG Execution

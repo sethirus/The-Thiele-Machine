@@ -436,6 +436,10 @@ Proof.
      while RHS has write_reg (abs_phase1 ks) dst 0; other fields are
      definitionally equal once f_equal decomposes the record. *)
   all: try (rewrite abs_phase1_kami_reg_write; f_equal; reflexivity).
+  (* CHSH_LASSERT: both sides use [column_contractive_check_witness (vm_witness
+     (abs_phase1 hs))]. Destructing the boolean discharges both branches by
+     reflexivity (records line up after the unfolds above). *)
+  all: try (destruct (column_contractive_check_witness _); reflexivity).
   (* Catch-all: any arm where reflexivity alone suffices after f_equal *)
   all: try (f_equal; reflexivity).
 Qed.

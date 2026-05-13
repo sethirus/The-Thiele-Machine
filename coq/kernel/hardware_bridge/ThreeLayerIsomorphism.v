@@ -40,7 +40,7 @@ Proof.
   intros s i. eexists. reflexivity.
 Qed.
 
-(* Section 2: The 46-Opcode Completeness Proof                        *)
+(* Section 2: The 47-Opcode Completeness Proof                        *)
 
 Lemma instruction_exhaustive : forall (i : vm_instruction),
   match i with
@@ -90,6 +90,7 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   | instr_morph_assert _ _ _ _ => True
   | instr_morph_tensor _ _ _ _ => True
   | instr_morph_get _ _ _ _    => True
+  | instr_chsh_lassert _       => True
   end.
 Proof. destruct i; exact I. Qed.
 
@@ -140,6 +141,7 @@ Definition increments_pc_by_one (instr : vm_instruction) : bool :=
   | instr_call _ _ => false
   | instr_ret _ => false
   | instr_lassert _ _ _ _ _ => false
+  | instr_chsh_lassert _ => false  (* can trap to LASSERT_TRAP_PC on column-contractivity failure *)
   | _ => true
   end.
 

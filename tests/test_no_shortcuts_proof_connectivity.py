@@ -40,6 +40,21 @@ CONNECTIVITY_EXEMPT = {
     "ThieleCPUCore", "ThieleTypes",
     "GraphReconstructionBridge", "RichStateCommutation",
     "RTLGapRegistry",
+    # Unification-probe math files: substrate-free real analysis, matrix
+    # algebra, correlator algebra, and generic-cost-ledger theorems.
+    # Connected to the VM via the aggregator files (UnificationProbeBridges,
+    # UnificationProbePattern), not by direct imports of VMState/VMStep.
+    "MeasurementExtraction",
+    "HolevoGeneralD", "HolevoTwoQubit", "OperatorAlgebra",
+    "TsirelsonFromIC", "TsirelsonFromMu",
+    "AdditionalProbes", "BekensteinBound", "DimensionalGapTheorem",
+    # Substrate.v is the abstract A2-respecting substrate typeclass that the
+    # 47-opcode VM instantiates via VMSubstrateInstance.v. It is
+    # foundation-tier (more foundational than VMState, which is one
+    # realization of it), so it cannot connect "down" to VMState without
+    # inverting the substrate-vs-scaffolding dependency direction. The
+    # inquisitor exempts it for the same reason (scripts/inquisitor.py:119).
+    "Substrate",
 }
 
 _FROM_IMPORT_RE = re.compile(r"From\s+([A-Za-z0-9_\.]+)\s+Require\s+Import\s+([^\.]+)\.")

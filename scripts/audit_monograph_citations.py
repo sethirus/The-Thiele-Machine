@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Audit every \texttt{...} citation in a LaTeX thesis against the live Coq tree.
+"""Audit every \texttt{...} citation in the LaTeX monograph against the live Coq tree.
 
 For each \texttt{...}:
   - if it looks like a path ending in .v: the file must exist on disk
@@ -24,7 +24,7 @@ COQ_ROOTS = [REPO / "coq"]
 # keywords, tactics, English words, punctuation that LaTeX wraps in \texttt{}.
 NON_COQ_TOKENS = {
     # tactics / keywords
-    "Admitted", "admit", "give_up", "lra", "tauto", "trivial", "reflexivity",
+    "Admitted", "admit", "give_up", "lra", "nra", "tauto", "trivial", "reflexivity",
     "psatz", "lia", "nia", "omega", "ring", "field", "auto", "intuition",
     "destruct", "induction", "rewrite", "apply", "exact", "assumption",
     "Qed", "Proof", "Theorem", "Lemma", "Corollary", "Definition", "Inductive",
@@ -67,9 +67,9 @@ NON_COQ_TOKENS = {
     "error", "graph",
     # Python helper functions in tests/ (not Coq identifiers)
     "_run_both",
-    # Identifiers explicitly described as NON-existent fields/opcodes in the thesis
-    # (the thesis discusses these to clarify they are NOT in the Coq kernel).
-    # The thesis is correct that they don't exist; the audit shouldn't flag them.
+    # Identifiers explicitly described as NON-existent fields/opcodes in the monograph
+    # (the monograph discusses these to clarify they are NOT in the Coq kernel).
+    # The monograph is correct that they don't exist; the audit shouldn't flag them.
     "vm_heap", "vm_output", "vm_imem",  # explicitly disclaimed at line 581
     "INIT_PT", "INIT_ACTIVE_MODULE",     # explicitly described as harness commands, not VM ops
     "ThieleVM",                          # explicitly disclaimed in chapter 13: "There is no ThieleVM class"
@@ -255,7 +255,7 @@ def find_top_level_decls(coq_roots):
 
 
 def find_files_by_basename(coq_roots):
-    """Return dict {basename: [path, ...]} for every .v file the thesis can
+    """Return dict {basename: [path, ...]} for every .v file the monograph can
     cite — both Coq sources under coq/ AND Verilog sources under
     thielecpu/hardware/rtl/ and rtl_harness/. Vendor and archive trees are
     excluded."""
@@ -279,7 +279,7 @@ def extract_texttt_citations(tex_text):
     """Pull every LaTeX citation token: \\texttt{...}, \\path{...}, and any
     bare `Foo.v` / `bar/Foo.v` filename appearing in plain text.
 
-    Bare-filename catch is needed because the thesis sometimes places file
+    Bare-filename catch is needed because the monograph sometimes places file
     names inside \\normalfont (e.g. inside a theorem title) where they are
     not wrapped in \\texttt{}. Without this, the auditor missed citations
     like \\begin{theorem}[X {\\normalfont (Foo.v --- reference-only)}].
@@ -404,7 +404,7 @@ def classify(token: str) -> str:
         return "skip"
     # Coq-style primed proof variables (s', g', graph', regs') — these are
     # local quantifier variables copied verbatim from inductive constructor
-    # signatures into thesis prose; they are not standalone declarations.
+    # signatures into the monograph prose; they are not standalone declarations.
     if token.endswith("'") and re.fullmatch(r"[a-z_][A-Za-z0-9_]*'+", token):
         return "skip"
     # Python pytest test function references (e.g. test_all_46_opcodes_in_cosim)
@@ -483,7 +483,7 @@ def audit(tex_path: Path, decls, files_by_name):
 
 def main():
     targets = [Path(p).resolve() for p in sys.argv[1:]] if len(sys.argv) > 1 else [
-        REPO / "thesis" / "short_thesis.tex",
+        REPO / "monograph" / "monograph.tex",
     ]
 
     print(f"Indexing Coq declarations under {[str(r) for r in COQ_ROOTS]}...")

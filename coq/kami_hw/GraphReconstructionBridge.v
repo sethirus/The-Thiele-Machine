@@ -3889,7 +3889,7 @@ Definition WFDrivenPrecondition (ks : KamiSnapshot) (i : vm_instruction) : Prop 
       extended_hw_invariant ks
   | instr_morph_tensor _ _ _ _ =>
       extended_hw_invariant ks
-  | _ => True  (* SupportedOpcode *)
+  | _ => True  (* SupportedOpcode, includes CHSH_LASSERT (kami_step does the column-contractive check on snap_wc_* mirroring vm_apply) *)
   end.
 
 Theorem driven_step_wf :

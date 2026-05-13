@@ -1,0 +1,250 @@
+DIGEST d8095e5318ba625156c7b4b11d0cd736
+FKernel.UniversalShortcutLifting
+R1544:1547 Coq.Lists.List <> <> lib
+R1549:1562 Coq.Arith.PeanoNat <> <> lib
+R1564:1566 Coq.micromega.Lia <> <> lib
+R1568:1571 Coq.Bool.Bool <> <> lib
+R1573:1578 Coq.Strings.String <> <> lib
+R1588:1600 Coq.Lists.List ListNotations <> mod
+R1631:1637 Kernel.VMState <> <> lib
+R1639:1644 Kernel.VMStep <> <> lib
+R1674:1694 Kernel.RevelationRequirement <> <> lib
+R1724:1738 Kernel.SimulationProof <> <> lib
+R1768:1780 Kernel.NoFreeInsight <> <> lib
+R1782:1811 Kernel.InformationGainToStrengthening <> <> lib
+R1813:1827 Kernel.MuShannonBridge <> <> lib
+R1857:1893 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> <> lib
+R1923:1957 Kernel.StructuralAdvantageObservedShortcut <> <> lib
+R1968:1982 Kernel.RevelationRequirement RevelationProof <> mod
+prf 2195:2207 <> run_vm_nil_id
+R2228:2230 Coq.Init.Datatypes <> nat ind
+binder 2221:2224 <> fuel:1
+R2238:2244 Kernel.VMState <> VMState rec
+binder 2234:2234 <> s:2
+R2264:2266 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2248:2253 Kernel.SimulationProof <> run_vm def
+R2255:2258 Kernel.UniversalShortcutLifting <> fuel:1 var
+R2260:2261 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2263:2263 Kernel.UniversalShortcutLifting <> s:2 var
+R2267:2267 Kernel.UniversalShortcutLifting <> s:2 var
+R2362:2366 Kernel.VMState <> vm_pc proj
+R2362:2366 Kernel.VMState <> vm_pc proj
+def 2665:2680 <> cert_addr_obs_fn
+R2691:2694 Coq.Init.Datatypes <> list ind
+R2696:2709 Kernel.VMStep VMStep vm_instruction ind
+binder 2683:2687 <> trace:3
+R2721:2727 Kernel.VMState <> VMState rec
+binder 2717:2717 <> s:4
+R2732:2735 Coq.Init.Datatypes <> list ind
+R2737:2750 Kernel.VMStep VMStep vm_instruction ind
+R2776:2788 Kernel.VMState <> csr_cert_addr proj
+R2766:2772 Kernel.VMState <> vm_csrs proj
+R2763:2763 Kernel.UniversalShortcutLifting <> s:4 var
+R2805:2806 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2817:2821 Kernel.UniversalShortcutLifting <> trace:3 var
+def 3239:3257 <> trivial_repr_obs_fn
+R3264:3270 Kernel.VMState <> VMState rec
+R3275:3278 Coq.Init.Datatypes <> list ind
+R3280:3293 Kernel.VMStep VMStep vm_instruction ind
+R3300:3300 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3313:3313 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R3301:3310 Kernel.VMStep VMStep instr_halt constr
+prf 3836:3869 <> any_supra_cert_run_yields_shortcut
+R3890:3892 Coq.Init.Datatypes <> nat ind
+binder 3883:3886 <> fuel:5
+R3904:3907 Coq.Init.Datatypes <> list ind
+R3909:3922 Kernel.VMStep VMStep vm_instruction ind
+binder 3896:3900 <> trace:6
+R3935:3941 Kernel.VMState <> VMState rec
+binder 3926:3931 <> s_init:7
+R3985:3992 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3981:3983 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3967:3979 Kernel.VMState <> csr_cert_addr proj
+R3957:3963 Kernel.VMState <> vm_csrs proj
+R3949:3954 Kernel.UniversalShortcutLifting <> s_init:7 var
+R4034:4041 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3993:4006 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R4009:4014 Kernel.SimulationProof <> run_vm def
+R4016:4019 Kernel.UniversalShortcutLifting <> fuel:5 var
+R4021:4025 Kernel.UniversalShortcutLifting <> trace:6 var
+R4027:4032 Kernel.UniversalShortcutLifting <> s_init:7 var
+R4085:4092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4077:4079 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4070:4075 Kernel.VMState <> vm_err proj
+R4043:4048 Kernel.SimulationProof <> run_vm def
+R4050:4053 Kernel.UniversalShortcutLifting <> fuel:5 var
+R4055:4059 Kernel.UniversalShortcutLifting <> trace:6 var
+R4061:4066 Kernel.UniversalShortcutLifting <> s_init:7 var
+R4080:4084 Coq.Init.Datatypes <> false constr
+R4154:4161 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4149:4152 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4093:4130 Kernel.MuShannonBridge <> cert_setter_executions def
+R4132:4135 Kernel.UniversalShortcutLifting <> fuel:5 var
+R4137:4141 Kernel.UniversalShortcutLifting <> trace:6 var
+R4143:4148 Kernel.UniversalShortcutLifting <> s_init:7 var
+R4162:4184 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> SoundStructuralShortcut rec
+R4186:4189 Kernel.UniversalShortcutLifting <> fuel:5 var
+R4191:4195 Kernel.UniversalShortcutLifting <> trace:6 var
+R4197:4202 Kernel.UniversalShortcutLifting <> s_init:7 var
+R4289:4294 Kernel.SimulationProof <> run_vm def
+R4289:4294 Kernel.SimulationProof <> run_vm def
+R4401:4404 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4401:4404 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4439:4452 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R4727:4730 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4731:4732 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4727:4730 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4731:4732 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4807:4819 Kernel.UniversalShortcutLifting <> run_vm_nil_id thm
+R4807:4819 Kernel.UniversalShortcutLifting <> run_vm_nil_id thm
+R4807:4819 Kernel.UniversalShortcutLifting <> run_vm_nil_id thm
+R4843:4856 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+binder 4996:5003 <> receipts:8
+R5008:5015 Kernel.UniversalShortcutLifting <> receipts:8 var
+R5033:5048 Kernel.UniversalShortcutLifting <> cert_addr_obs_fn def
+R5077:5095 Kernel.UniversalShortcutLifting <> trivial_repr_obs_fn def
+R5114:5129 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R5152:5152 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5159:5160 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5166:5166 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5193:5193 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5199:5199 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5215:5239 Kernel.MuShannonBridge <> dt_branch constr
+R5241:5263 Kernel.MuShannonBridge <> dt_leaf constr
+R5265:5287 Kernel.MuShannonBridge <> dt_leaf constr
+R4940:4969 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> sound_shortcut_from_components thm
+binder 4996:5003 <> receipts:9
+R5008:5015 Kernel.UniversalShortcutLifting <> receipts:9 var
+R5033:5048 Kernel.UniversalShortcutLifting <> cert_addr_obs_fn def
+R5077:5095 Kernel.UniversalShortcutLifting <> trivial_repr_obs_fn def
+R5114:5129 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R5152:5152 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5159:5160 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5166:5166 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R5193:5193 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5199:5199 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5215:5239 Kernel.MuShannonBridge <> dt_branch constr
+R5241:5263 Kernel.MuShannonBridge <> dt_leaf constr
+R5265:5287 Kernel.MuShannonBridge <> dt_leaf constr
+R4940:4969 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> sound_shortcut_from_components thm
+R5328:5348 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R5328:5348 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R5929:5944 Kernel.UniversalShortcutLifting <> cert_addr_obs_fn def
+R5986:5999 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R6047:6059 Kernel.VMState <> csr_cert_addr proj
+R6037:6043 Kernel.VMState <> vm_csrs proj
+R6047:6059 Kernel.VMState <> csr_cert_addr proj
+R6037:6043 Kernel.VMState <> vm_csrs proj
+R6280:6302 Kernel.NoFreeInsight NoFreeInsight Certified def
+R6316:6347 Kernel.NoFreeInsight NoFreeInsight CertifiedWithSupra def
+R6399:6424 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R6477:6522 Kernel.InformationGainToStrengthening <> omega_predicate def
+R6541:6586 Kernel.InformationGainToStrengthening <> existsb_In_true thm
+R6623:6643 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R6606:6621 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R6541:6586 Kernel.InformationGainToStrengthening <> existsb_In_true thm
+R6623:6643 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R6606:6621 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R6689:6704 Kernel.UniversalShortcutLifting <> cert_addr_obs_fn def
+R6748:6761 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R6812:6824 Kernel.VMState <> csr_cert_addr proj
+R6802:6808 Kernel.VMState <> vm_csrs proj
+R6812:6824 Kernel.VMState <> csr_cert_addr proj
+R6802:6808 Kernel.VMState <> vm_csrs proj
+R7003:7049 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R7230:7277 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R7301:7301 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7308:7309 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7315:7315 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7301:7301 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7308:7309 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7315:7315 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7471:7503 Kernel.MuShannonBridge <> observation_equiv def
+R7524:7542 Kernel.UniversalShortcutLifting <> trivial_repr_obs_fn def
+prf 8046:8087 <> any_supra_cert_run_lands_in_representation
+R8108:8110 Coq.Init.Datatypes <> nat ind
+binder 8101:8104 <> fuel:10
+R8122:8125 Coq.Init.Datatypes <> list ind
+R8127:8140 Kernel.VMStep VMStep vm_instruction ind
+binder 8114:8118 <> trace:11
+R8153:8159 Kernel.VMState <> VMState rec
+binder 8144:8149 <> s_init:12
+R8213:8215 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8199:8211 Kernel.VMState <> csr_cert_addr proj
+R8189:8195 Kernel.VMState <> vm_csrs proj
+R8181:8186 Kernel.UniversalShortcutLifting <> s_init:12 var
+binder 8172:8177 <> Hclean:13
+R8238:8251 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R8254:8259 Kernel.SimulationProof <> run_vm def
+R8261:8264 Kernel.UniversalShortcutLifting <> fuel:10 var
+R8266:8270 Kernel.UniversalShortcutLifting <> trace:11 var
+R8272:8277 Kernel.UniversalShortcutLifting <> s_init:12 var
+binder 8229:8234 <> Hsupra:14
+R8335:8337 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8328:8333 Kernel.VMState <> vm_err proj
+R8301:8306 Kernel.SimulationProof <> run_vm def
+R8308:8311 Kernel.UniversalShortcutLifting <> fuel:10 var
+R8313:8317 Kernel.UniversalShortcutLifting <> trace:11 var
+R8319:8324 Kernel.UniversalShortcutLifting <> s_init:12 var
+R8338:8342 Coq.Init.Datatypes <> false constr
+binder 8291:8296 <> Hnoerr:15
+R8425:8428 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8369:8406 Kernel.MuShannonBridge <> cert_setter_executions def
+R8408:8411 Kernel.UniversalShortcutLifting <> fuel:10 var
+R8413:8417 Kernel.UniversalShortcutLifting <> trace:11 var
+R8419:8424 Kernel.UniversalShortcutLifting <> s_init:12 var
+binder 8355:8365 <> Hcert_count:16
+R8453:8486 Kernel.UniversalShortcutLifting <> any_supra_cert_run_yields_shortcut thm
+R8510:8513 Kernel.UniversalShortcutLifting <> fuel:10 var
+R8515:8519 Kernel.UniversalShortcutLifting <> trace:11 var
+R8521:8526 Kernel.UniversalShortcutLifting <> s_init:12 var
+R8528:8533 Kernel.UniversalShortcutLifting <> Hclean:13 var
+R8535:8540 Kernel.UniversalShortcutLifting <> Hsupra:14 var
+R8542:8547 Kernel.UniversalShortcutLifting <> Hnoerr:15 var
+R8549:8559 Kernel.UniversalShortcutLifting <> Hcert_count:16 var
+binder 8441:8448 <> shortcut:17
+R8589:8634 Kernel.InformationGainToStrengthening <> omega_predicate def
+R8687:8706 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior proj
+R8714:8721 Kernel.UniversalShortcutLifting <> shortcut:17 var
+R8733:8747 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn proj
+R8755:8762 Kernel.UniversalShortcutLifting <> shortcut:17 var
+R8645:8660 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb proj
+R8668:8675 Kernel.UniversalShortcutLifting <> shortcut:17 var
+binder 8572:8578 <> P_prior:18
+R8797:8842 Kernel.InformationGainToStrengthening <> omega_predicate def
+R8895:8918 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior proj
+R8926:8933 Kernel.UniversalShortcutLifting <> shortcut:17 var
+R8945:8959 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn proj
+R8967:8974 Kernel.UniversalShortcutLifting <> shortcut:17 var
+R8853:8868 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb proj
+R8876:8883 Kernel.UniversalShortcutLifting <> shortcut:17 var
+binder 8776:8786 <> P_posterior:19
+R9035:9042 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8984:9014 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R9028:9034 Kernel.UniversalShortcutLifting <> P_prior:18 var
+R9016:9026 Kernel.UniversalShortcutLifting <> P_posterior:19 var
+R9097:9104 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9043:9078 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R9080:9083 Kernel.UniversalShortcutLifting <> fuel:10 var
+R9085:9089 Kernel.UniversalShortcutLifting <> trace:11 var
+R9091:9096 Kernel.UniversalShortcutLifting <> s_init:12 var
+R9306:9315 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9200:9206 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9105:9115 Coq.Arith.PeanoNat Nat log2_up def
+R9124:9152 Kernel.MuShannonBridge <> feasible_size def
+R9163:9182 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior proj
+R9190:9197 Kernel.UniversalShortcutLifting <> shortcut:17 var
+R9207:9217 Coq.Arith.PeanoNat Nat log2_up def
+R9226:9254 Kernel.MuShannonBridge <> feasible_size def
+R9265:9288 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior proj
+R9296:9303 Kernel.UniversalShortcutLifting <> shortcut:17 var
+R9350:9352 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9344:9348 Kernel.VMState <> vm_mu proj
+R9317:9322 Kernel.SimulationProof <> run_vm def
+R9324:9327 Kernel.UniversalShortcutLifting <> fuel:10 var
+R9329:9333 Kernel.UniversalShortcutLifting <> trace:11 var
+R9335:9340 Kernel.UniversalShortcutLifting <> s_init:12 var
+R9361:9365 Kernel.VMState <> vm_mu proj
+R9353:9358 Kernel.UniversalShortcutLifting <> s_init:12 var
+R9446:9487 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> every_sound_structural_shortcut_lands_here thm
+R9446:9487 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> every_sound_structural_shortcut_lands_here thm

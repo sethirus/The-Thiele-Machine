@@ -1,8 +1,15 @@
 From Coq Require Import List Bool Arith.PeanoNat Lia.
 From Coq Require Import Strings.String Strings.Ascii.
+From Coq Require Import BinInt.   (* Z type and arithmetic *)
 Import ListNotations.
 
 From Kernel Require Import CertCheck VMState.
+
+(* Force nat default scope locally: BinInt opens Z_scope which would reinterpret
+   literals like [8] in [ascii_payload_bits_length] as Z. Marked [Local] so the
+   scope choice does NOT propagate to importers; downstream files (like
+   F3_CrossLink.v) keep their own scope discipline. *)
+Local Open Scope nat_scope.
 
 (** VMStep: How the machine actually runs.
 
@@ -181,7 +188,17 @@ Inductive vm_instruction :=
 | instr_morph_delete (morph_id : MorphismID) (mu_delta : nat)
 | instr_morph_assert (morph_id : MorphismID) (property cert : string) (mu_delta : nat)
 | instr_morph_tensor (dst : nat) (f_id g_id : MorphismID) (mu_delta : nat)
-| instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat).
+| instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat)
+(** instr_chsh_lassert: CHSH-aware certification. Reads the WitnessCounts
+    buckets directly, computes the four CHSH correlators, checks the three
+    integer-arithmetic column-contractivity conditions, and only activates
+    the cert channel when all three hold. On failure, traps to
+    LASSERT_TRAP_PC and latches vm_err. μ-cost is S mu_delta (≥ 1)
+    regardless of success, matching the cert-setter cost discipline of CERTIFY,
+    LJOIN, and MORPH_ASSERT. This is the kernel-level enforcement that closes
+    the bridge from `vm_certified` channel activation to column-contractivity
+    of the CHSH correlators. *)
+| instr_chsh_lassert (mu_delta : nat).
 
 
 (** instruction_cost: Extract the μ-cost from an instruction.
@@ -247,6 +264,7 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_morph_assert _ _ _ cost => S cost  (* cert-setter *)
   | instr_morph_tensor _ _ _ cost => cost
   | instr_morph_get _ _ _ cost => cost
+  | instr_chsh_lassert cost => S cost  (* cert-setter: column-contractive check *)
   end.
 
 (** is_cert_setterb: Positive-cost policy predicate.
@@ -272,6 +290,7 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   | instr_read_port _ _ _ _ _ => true
   | instr_certify _ => true
   | instr_morph_assert _ _ _ _ => true
+  | instr_chsh_lassert _ => true
   | _ => false
   end.
 
@@ -568,6 +587,75 @@ Definition graph_hw_pmerge (g : PartitionGraph) (m1 m2 : nat) : PartitionGraph :
   g3.
 
 (** Helper for LASSERT: compute whether the binary SAT check passes. *)
+(** ** Column-contractivity check on the CHSH WitnessCounts buckets
+
+    For each setting pair (x,y) ∈ {0,1}² the WitnessCounts hold a [same] and a
+    [diff] bucket. The signed difference [d_xy = same_xy - diff_xy] and the
+    sum [n_xy = same_xy + diff_xy] (both interpreted in Z) determine the
+    correlator [E_xy = d_xy / n_xy] (in R). The three column-contractivity
+    conditions on the correlators
+       1 - E_00^2 - E_10^2 >= 0
+       1 - E_01^2 - E_11^2 >= 0
+       (1 - E_00^2 - E_10^2)(1 - E_01^2 - E_11^2) >= (E_00*E_01 + E_10*E_11)^2
+    are equivalent (after clearing denominators by the positive
+    [n_00^2*n_01^2*n_10^2*n_11^2]) to three Z-arithmetic inequalities
+       A := n_00^2 * n_10^2 - d_00^2 * n_10^2 - d_10^2 * n_00^2 >= 0
+       B := n_01^2 * n_11^2 - d_01^2 * n_11^2 - d_11^2 * n_01^2 >= 0
+       A * B >= C^2,  where C := d_00*d_01*n_10*n_11 + d_10*d_11*n_00*n_01
+    Each n_xy must also be strictly positive (we need at least one trial per
+    setting pair to compute a correlator at all). The check function below is
+    decidable and runs at kernel-step time using only integer arithmetic.
+
+    The bridge theorem (proven in MuLedgerQuantumBridge.v after we wire this
+    into the step relation) is:
+        column_contractive_check_witness wc = true
+          -> zero_marginal_column_contractive (E_00 wc) (E_01 wc) (E_10 wc) (E_11 wc)
+    which combined with [column_contractive_iff_quantum_realizable]
+    (QuantumPartitionPSD.v) gives NPA-PSD on the witness-derived correlators
+    whenever the check passes.
+*)
+
+Definition chsh_d_z (same diff : nat) : Z :=
+  (Z.of_nat same - Z.of_nat diff)%Z.
+
+Definition chsh_n_z (same diff : nat) : Z :=
+  (Z.of_nat same + Z.of_nat diff)%Z.
+
+Definition column_contractive_check_witness (wc : WitnessCounts) : bool :=
+  let d00 := chsh_d_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let n00 := chsh_n_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let d01 := chsh_d_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let n01 := chsh_n_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let d10 := chsh_d_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let n10 := chsh_n_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let d11 := chsh_d_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let n11 := chsh_n_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let n00sq := (n00 * n00)%Z in
+  let n01sq := (n01 * n01)%Z in
+  let n10sq := (n10 * n10)%Z in
+  let n11sq := (n11 * n11)%Z in
+  let d00sq := (d00 * d00)%Z in
+  let d01sq := (d01 * d01)%Z in
+  let d10sq := (d10 * d10)%Z in
+  let d11sq := (d11 * d11)%Z in
+  let A := (n00sq * n10sq - d00sq * n10sq - d10sq * n00sq)%Z in
+  let B := (n01sq * n11sq - d01sq * n11sq - d11sq * n01sq)%Z in
+  let C := (d00 * d01 * n10 * n11 + d10 * d11 * n00 * n01)%Z in
+  andb (Z.ltb 0 n00)
+  (andb (Z.ltb 0 n01)
+  (andb (Z.ltb 0 n10)
+  (andb (Z.ltb 0 n11)
+  (andb (Z.leb 0 A)
+  (andb (Z.leb 0 B)
+        (Z.leb (C * C) (A * B))))))).
+
+(** [CHSH_HONEST_MARKER]: distinguished value written to [csr_cert_addr] when
+    CHSH_LASSERT successfully verifies column-contractivity of the witness
+    counters. Use [ascii_checksum] of a fixed property string for
+    consistency with the [MORPH_ASSERT] cert-address discipline. *)
+Definition CHSH_HONEST_MARKER : nat :=
+  ascii_checksum "CHSH:column_contractive".
+
 Definition lassert_check_ok (s : VMState) (freg creg : nat) (kind : bool) : bool :=
   let fbase := read_reg s freg in
   let cbase := read_reg s creg in
@@ -1123,7 +1211,53 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
     graph_lookup_morphism s.(vm_graph) morph_id = None ->
     vm_step s (instr_morph_get dst morph_id selector cost)
       (advance_state s (instr_morph_get dst morph_id selector cost)
-        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)).
+        s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true))
+(** step_chsh_lassert_ok: CHSH-aware certification succeeds.
+    Inspects the WitnessCounts buckets and decides
+    [column_contractive_check_witness] in pure Z arithmetic. If the check
+    passes, advances PC normally; csr_cert_addr is left intact (the
+    cert-channel theory in RevelationRequirement.v treats MORPH_ASSERT as
+    the sole cert_addr writer; CHSH_LASSERT signals its success via PC
+    advance + vm_err staying false, which is exactly the same trap discipline
+    LASSERT uses). μ-cost is [S mu_delta] regardless of outcome (cert-setter
+    discipline). The bridge theorem
+    [chsh_lassert_no_trap_implies_column_contractive] (see
+    MuLedgerQuantumBridge.v) operates on this observable signature. *)
+| step_chsh_lassert_ok : forall s mu_delta,
+    column_contractive_check_witness s.(vm_witness) = true ->
+    vm_step s (instr_chsh_lassert mu_delta)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := s.(vm_csrs);
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := S s.(vm_pc);
+         vm_mu := apply_cost s (instr_chsh_lassert mu_delta);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := s.(vm_err);
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_bad: CHSH-aware certification fails. The witness
+    counters do not satisfy column-contractivity. Trap to LASSERT_TRAP_PC,
+    latch vm_err. μ-cost is charged regardless (you pay to check, even to
+    fail).
+*)
+| step_chsh_lassert_bad : forall s mu_delta,
+    column_contractive_check_witness s.(vm_witness) = false ->
+    vm_step s (instr_chsh_lassert mu_delta)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := csr_set_err s.(vm_csrs) 1;
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := LASSERT_TRAP_PC;
+         vm_mu := apply_cost s (instr_chsh_lassert mu_delta);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := true;
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}.
 
 (** I/O PORT ENVIRONMENT ORACLE
 

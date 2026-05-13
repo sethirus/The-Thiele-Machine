@@ -216,6 +216,7 @@ Definition OP_MORPH_DELETE  : word OpcodeSz := WO~0~0~1~0~1~0~1~0. (* 0x2A *)
 Definition OP_MORPH_ASSERT  : word OpcodeSz := WO~0~0~1~0~1~0~1~1. (* 0x2B cert-setter *)
 Definition OP_MORPH_TENSOR  : word OpcodeSz := WO~0~0~1~0~1~1~0~0. (* 0x2C *)
 Definition OP_MORPH_GET     : word OpcodeSz := WO~0~0~1~0~1~1~0~1. (* 0x2D *)
+Definition OP_CHSH_LASSERT  : word OpcodeSz := WO~0~0~1~0~1~1~1~0. (* 0x2E cert-setter: column-contractivity check on vm_witness buckets *)
 Definition OP_HALT          : word OpcodeSz := WO~1~1~1~1~1~1~1~1. (* 0xFF *)
 
 (** ISA v2 instruction transport is 128 bits wide.

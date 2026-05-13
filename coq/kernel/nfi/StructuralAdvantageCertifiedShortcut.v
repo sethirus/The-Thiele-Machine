@@ -289,3 +289,70 @@ Proof.
   - exact sighted_n1_supra_posterior_nonempty.
   - exact sighted_n1_supra_representatives.
 Qed.
+
+(** ** Closed [SoundStructuralShortcut] term for the n=1 factored search.
+
+    Until now no file in the corpus produced a closed inhabitant of the
+    [SoundStructuralShortcut] class. Section 4.2 of the thesis explicitly
+    flagged this as the open piece: the eight component witnesses existed,
+    [sound_shortcut_from_components] existed, but the wired-up record term
+    did not.
+
+    Below is the wired-up term. All eight components are existing lemmas
+    proven in this file (or [receipt_list_eqb_spec] from
+    [StructuralAdvantageObservedShortcut.v]). The construction goes through
+    [sound_shortcut_from_components] with no new mathematical content;
+    every hypothesis is discharged by a named lemma already accepted by the
+    checker.
+
+    Falsifier: change any of the named lemmas so the type no longer matches,
+    and the [Definition] below fails to type-check. *)
+Definition factored_n1_shortcut
+  : SoundStructuralShortcut 33 sighted_n1_supra_trace init_state :=
+  sound_shortcut_from_components
+    33 sighted_n1_supra_trace init_state
+    (fun receipts => receipts)
+    sighted_n1_supra_obs_fn
+    sighted_n1_supra_repr_obs_fn
+    receipt_list_eqb
+    sighted_n1_supra_prior
+    sighted_n1_supra_posterior
+    sighted_n1_tree
+    receipt_list_eqb_spec
+    sighted_n1_supra_strict_subset
+    sighted_n1_supra_distinguishing_witness
+    eq_refl
+    sighted_n1_supra_certified_run_vm
+    sighted_n1_supra_tree_realized
+    sighted_n1_supra_posterior_nonempty
+    sighted_n1_supra_representatives.
+
+(** Downstream sanity: the closed term lands in the abstract representation
+    theorem. This is not a tautology; it requires [factored_n1_shortcut] to
+    actually be a SoundStructuralShortcut record (not, say, a placeholder
+    matching the type alias). If the record above were vacuous the chain
+    below would not close. *)
+Theorem factored_n1_shortcut_lands_in_representation :
+  let P_prior :=
+    InformationGainToStrengthening.omega_predicate
+      (shortcut_obs_eqb _ _ _ factored_n1_shortcut)
+      (shortcut_omega_prior _ _ _ factored_n1_shortcut)
+      (shortcut_obs_fn _ _ _ factored_n1_shortcut) in
+  let P_posterior :=
+    InformationGainToStrengthening.omega_predicate
+      (shortcut_obs_eqb _ _ _ factored_n1_shortcut)
+      (shortcut_omega_posterior _ _ _ factored_n1_shortcut)
+      (shortcut_obs_fn _ _ _ factored_n1_shortcut) in
+  NoFreeInsight.strictly_stronger P_posterior P_prior /\
+  NoFreeInsight.has_structure_addition 33 sighted_n1_supra_trace init_state /\
+  Nat.log2_up
+    (MuShannonBridge.feasible_size
+      (shortcut_omega_prior _ _ _ factored_n1_shortcut)) -
+  Nat.log2_up
+    (MuShannonBridge.feasible_size
+      (shortcut_omega_posterior _ _ _ factored_n1_shortcut)) <=
+    (run_vm 33 sighted_n1_supra_trace init_state).(vm_mu) - init_state.(vm_mu).
+Proof.
+  exact (every_sound_structural_shortcut_lands_here
+           33 sighted_n1_supra_trace init_state factored_n1_shortcut).
+Qed.

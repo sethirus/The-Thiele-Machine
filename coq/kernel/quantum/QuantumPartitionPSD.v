@@ -15,6 +15,7 @@
 (* INQUISITOR NOTE: proof-connectivity — closes PSD ↔ column_contractive gap. *)
 
 From Kernel Require Import VMState VMStep.
+From Kernel Require Import SimulationProof.
 From Kernel Require Import NPAMomentMatrix.
 From Kernel Require Import ConstructivePSD.
 From Kernel Require Import MuLedgerQuantumBridge.
@@ -309,4 +310,48 @@ Proof.
   unfold trace_zero_marginal_npa in Hqr.
   apply quantum_realizable_implies_tsirelson_bound.
   exact Hqr.
+Qed.
+
+(** =========================================================================
+    The chsh_lassert quantum-realizability chain.
+
+    Combines [state_column_contractive_check_witness_sound] (in
+    MuLedgerQuantumBridge.v) with [column_contractive_iff_quantum_realizable]
+    (this file) to give the load-bearing kernel-level bridge: a successfully
+    executed [instr_chsh_lassert] step implies the witness-derived NPA moment
+    matrix is quantum-realizable (PSD).
+*)
+
+Theorem chsh_lassert_check_implies_quantum_realizable :
+  forall (s : VMState),
+    column_contractive_check_witness s.(vm_witness) = true ->
+    quantum_realizable (state_zero_marginal_npa s).
+Proof.
+  intros s Hchk.
+  apply column_contractive_iff_quantum_realizable.
+  apply state_column_contractive_check_witness_sound.
+  exact Hchk.
+Qed.
+
+(** Final kernel-level bridge theorem: a no-trap, no-err-flip execution of
+    [instr_chsh_lassert] entails NPA-realizability of the witness-derived
+    correlators. This is the operational closure of the gap that was
+    previously open via the counterexample lemmas in MuLedgerQuantumBridge.v;
+    the new opcode introduces a kernel mechanism that decidably enforces
+    column-contractivity at certification time. *)
+Theorem chsh_lassert_no_trap_implies_quantum_realizable :
+  forall s mu_delta,
+    let s' := vm_apply s (instr_chsh_lassert mu_delta) in
+    s'.(vm_pc) = S s.(vm_pc) ->
+    s'.(vm_err) = s.(vm_err) ->
+    s.(vm_err) = false ->
+    quantum_realizable (state_zero_marginal_npa s).
+Proof.
+  intros s mu_delta s' Hpc Herr Herr0.
+  assert (Hchk : column_contractive_check_witness s.(vm_witness) = true).
+  { unfold s' in Herr. unfold vm_apply in Herr.
+    destruct (column_contractive_check_witness s.(vm_witness)) eqn:Echk.
+    - reflexivity.
+    - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
+  apply chsh_lassert_check_implies_quantum_realizable. exact Hchk.
 Qed.

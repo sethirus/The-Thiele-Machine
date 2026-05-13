@@ -80,6 +80,7 @@ Definition increments_pc (instr : vm_instruction) : bool :=
   | instr_call _ _ => false
   | instr_ret _ => false
   | instr_lassert _ _ _ _ _ => false
+  | instr_chsh_lassert _ => false  (* can trap to LASSERT_TRAP_PC on column-contractivity failure *)
   | _ => true
   end.
 

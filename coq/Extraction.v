@@ -19,6 +19,7 @@ From Coq Require Import Reals.
 
 From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
+From Kernel Require CertCheck.
 From Kernel Require Import VMEncoding KernelTM.
 From KamiHW Require Import Abstraction ThieleCPUBusTop CanonicalCPUProof.
 From KamiHW Require Import GraphReconstructionBridge.
@@ -355,6 +356,19 @@ Extract Constant VMState.word64_mask => "(-1)".
 (* SAFE: Truncate to word64 — identity; word64_add and other operations
    already handle truncation via Int64 internally *)
 Extract Constant VMState.word64 => "(fun x -> x)".
+
+(* word32_to_signed: two's complement interpretation of a 32-bit word as a
+   signed Z. The Coq definition routes through Z.of_nat, which the default
+   extraction implements with Pos.of_succ_nat, a Peano succ chain. On the
+   wrap-around values used to encode negative DIMACS literals (e.g.
+   4294967295 for -1) that chain has 2^32 steps and overflows the OCaml
+   stack. Both nat and Z extract to plain OCaml int in this build (see the
+   Z module's `let add = (+)` etc.), so a direct int-level conditional
+   gives an identical result without the Peano walk. Regression test:
+   tests/test_lassert_negative_literals.py. *)
+(* SAFE: int-level two's complement equivalent of Z.of_nat path; see above. *)
+Extract Constant Kernel.CertCheck.CertCheck.word32_to_signed =>
+  "(fun w -> if w < 2147483648 then w else w - 4294967296)".
 
 (* All three are aliases for the same function; extract them all and let
    OCaml's sequential let-bindings resolve the references. *)

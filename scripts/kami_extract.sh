@@ -101,7 +101,7 @@ else
     echo "=== Phase 1: Compiling Kami modules in Coq ==="
     cd "$COQ_DIR"
     # Compile each kami_hw file from COQ_DIR (coqc writes .vo next to .v)
-    for f in ThieleTypes ThieleCPUCore Compatibility Abstraction ThieleCPUBusTop VerilogRefinement CanonicalCPUProof; do
+    for f in ThieleTypes ThieleCPUCore Compatibility Abstraction ThieleCPUBusTop VerilogRefinement FullAbstraction FullStep EmbedStep RichStateCommutation EmbedStep_WF FullEmbedStep GraphReconstructionBridge CanonicalCPUProof; do
         eval "coqc $COQFLAGS kami_hw/${f}.v"
     done
 
@@ -201,7 +201,7 @@ else
 REGFILE_ZERO_DIR="$VENDOR_KAMI/Kami/Ext/BluespecFrontEnd/verilog"
 for mod in $(grep -oP 'module (mk\w+)' thiele_hw_clean.bsv | awk '{print $2}'); do
     echo "  Compiling $mod..."
-    "$BSC" +RTS -K64M -RTS -verilog -g "$mod" -p "$BLUESPECDIR/Libraries:$REGFILE_ZERO_DIR:." thiele_hw_clean.bsv 2>&1
+    "$BSC" +RTS -K64M -RTS -verilog -g "$mod" -p ".:$BLUESPECDIR/Libraries:$REGFILE_ZERO_DIR" thiele_hw_clean.bsv 2>&1
 done
 fi
 

@@ -4,16 +4,26 @@
 **First public disclosure:** August 15, 2025 (repository creation; development began January 2025)  
 **Current date:** April 2026  
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
-**License:** Apache 2.0 (software), CC-BY-SA-4.0 (thesis/documentation)  
+**License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
 **Purpose of this document:** Defensive publication. Every concept described here is publicly disclosed prior art under 35 U.S.C. § 102 (US) and Article 54 EPC (Europe) as of the dates above. This document is submitted for indexing to IP.com and similar prior art databases.
 
 ---
 
 ## Summary
 
-The Thiele Machine is a model of computation in which **structural entitlement** — the right to use a verified decomposition, invariant, or certified fact as part of a computation — is a first-class, cost-bearing component of machine state. A global monotone counter called **µ (mu)** tracks structural cost. Any computation that produces certified structural knowledge must have paid into µ. This is No Free Insight: a conservation law proven from the machine's own step function in the Coq proof assistant.
+The classical theory of computation has two axes: time and space. The Thiele Machine adds a third — certification cost — and proves the classical models are its structural-axis projection. The argument is four steps; to dismiss it, name the step you reject.
 
-The machine has a complete hardware implementation (synthesizable Verilog RTL extracted from Coq through the Kami framework), a Python reference VM, a formal Coq kernel, and a 46-opcode ISA. All theorems described here have been machine-checked in Coq with zero admitted lemmas.
+**1. A2 cannot be written on a classical step relation.** A2 is the rule that any step flipping certification from false to true costs at least 1. A Turing machine, a register machine, a lambda reducer carries no certification flag for A2 to constrain. The rule is unformulable on classical state, not merely unenforced. See `cs_cert_costs` in `coq/kernel/nfi/UniversalCertificationCost.v`.
+
+**2. Therefore the substrate is forced.** Any model that formalises certification cost at the step rule must carry state classical models do not have. The structural axis (`vm_mu`, `vm_certified`) is the minimum state for A2 to be a sentence in the first place. The substrate is not an extension of classical computation; it is what is required for the classical models' silent omission to be representable at all.
+
+**3. Classical computation is the projection.** `lift_config`, `thiele_simulates_turing`, and `degenerate_projection_theorem` (in `coq/kernel/foundation/`) mechanise that classical computation is exactly the image of substrate computation under the projection that forgets the structural axis. `D4_strictness` witnesses substrate states with no classical preimage. Every Turing machine, every register machine, every lambda-calculus reducer, every CPU on every desk: a Thiele Machine running with the structural axis sidelined.
+
+**4. Every concept disclosed below is downstream of these four steps.** The foundational claim does not require 47 opcodes, an FPGA, or any of the specific instruction semantics enumerated in this document. The minimum instruction set that witnesses the substrate is two opcodes: any classical compute primitive (so subsumption has something to project to) and one opcode that flips certification (so A2 has something to enforce). `instr_certify` is the load-bearing opcode for A2; everything else is engineering exploration of what the substrate can express.
+
+**The standard misread.** The trained reflex is: A2 can be enforced in software on a TM, so the substrate distinction is a hardware/software boundary, not a fundamental one. The falsifier is one sentence. A Turing machine cannot refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one. Load a Thiele simulator onto a TM with a bug — a program that certifies without incrementing μ. The TM runs it faithfully, because its step rule has no field for A2 and cannot detect the bug. Load the same buggy program onto a Thiele substrate; the step rule traps. A2 is not interpreted by the simulator and could be skipped; it is the transition law itself. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true and is not the question. "Thiele's step rule can be written down on a TM" is the question, and the answer is no.
+
+The concrete realisation disclosed in the remainder of this document is a Coq kernel formalisation of µ (a monotone cost ledger), No Free Insight (a conservation law proven from the kernel's step function), a 47-opcode instruction set architecture, an extracted OCaml reference runner, and synthesizable Verilog RTL extracted from Coq through the Kami framework. All theorems described here have been machine-checked in Coq with zero admitted lemmas in the active proof tree.
 
 ---
 
@@ -174,7 +184,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 | August 15, 2025 | First public commit to this repository. All concepts above are present in some form. |
 | August–December 2025 | Coq kernel developed. No Free Insight proven. µ-initiality proven. LASSERT dual-witness requirement formalized. |
 | January–April 2026 | Hardware proofs completed (Abstraction.v). Thiele-honesty ↔ NPA biconditional proven. µ-hierarchy proven. Zero admits confirmed across 205 files. |
-| April 2026 | This disclosure published. Thesis submitted. |
+| April 2026 | This disclosure published. Monograph published. |
 
 ---
 

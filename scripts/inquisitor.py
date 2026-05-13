@@ -66,7 +66,7 @@ CRITICAL_KERNEL_FILES = {
 # Tier system — from coq/_CoqProject (-R directory Namespace mappings)
 # Tier 1: Extraction-critical. Gets extracted to OCaml/Python VM + RTL CPU.
 #         Must ONLY import Kernel + Coq stdlib. Zero tolerance for outside deps.
-# Tier 2: Thesis-essential theory. Proofs ABOUT the machine, not extracted.
+# Tier 2: Core theory. Proofs ABOUT the machine, not extracted.
 #         May import Tier 1 + Tier 2. Must NOT import Tier 3 (exploratory).
 # Tier 3: Exploratory/speculative. Free to import from anywhere.
 # ---------------------------------------------------------------------------
@@ -110,6 +110,13 @@ _FOUNDATION_SEMANTICS_MODULES: frozenset[str] = frozenset(
         "BridgeDefinitions",
         "PythonBisimulation",
         "HardwareBisimulation",
+        # Substrate.v is the abstract A2-respecting substrate that the
+        # 47-opcode VM instantiates. It is foundation-tier (more
+        # foundational than VMState, which is one realization of it),
+        # so it is its own foundation module — it cannot connect "down"
+        # to VMState without inverting the substrate-vs-scaffolding
+        # dependency direction.
+        "Substrate",
     }
 )
 
@@ -1996,7 +2003,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
         Gets extracted to OCaml/Python VM and RTL CPU.
         Must ONLY use ``Kernel`` + Coq stdlib imports.
         Any import of a Tier-2 or Tier-3 namespace contaminates the extraction.
-      Tier 2 — Thesis-essential theory (nofi/, bridge/, thielemachine/, ...):
+      Tier 2 — Core theory (nofi/, bridge/, thielemachine/, ...):
         Proofs ABOUT the machine — not extracted.
         May import Tier-1 and Tier-2 namespaces.
         Must NOT import Tier-3 (exploratory/speculative) namespaces.
@@ -2040,7 +2047,7 @@ def scan_scope_drift(path: Path) -> list[Finding]:
             continue
 
         if file_tier == 1 and import_tier >= 2:
-            tier_label = "Tier 2 (thesis theory)" if import_tier == 2 else "Tier 3 (exploratory/speculative)"
+            tier_label = "Tier 2 (core theory)" if import_tier == 2 else "Tier 3 (exploratory/speculative)"
             findings.append(
                 Finding(
                     rule_id="SCOPE_DRIFT_TIER1",
@@ -2066,8 +2073,8 @@ def scan_scope_drift(path: Path) -> list[Finding]:
                     line=i,
                     snippet=line.strip(),
                     message=(
-                        f"Thesis-essential Tier-2 file imports `{ns}` (Tier 3 exploratory). "
-                        "Speculative/exploratory modules should not be imported into thesis-essential proofs. "
+                        f"Core Tier-2 file imports `{ns}` (Tier 3 exploratory). "
+                        "Speculative/exploratory modules should not be imported into core proofs. "
                         "Move the needed lemma into the Kernel or a shared Tier-2 module. "
                         "Suppress with: (* INQUISITOR NOTE: cross-tier import for <reason> *)"
                     ),
@@ -3171,7 +3178,11 @@ def scan_circular_definitions(path: Path) -> list[Finding]:
             continue
         stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end + 1]).strip()
         
-        # Check for exemption marker in preceding 3 lines
+        # Check for exemption marker in preceding 3 lines.
+        # Note: in this function, [clean_lines] is actually [raw.splitlines()]
+        # (raw text with comments preserved) — see initialization above.
+        # The exemption marker is itself a Coq comment "(* DEFINITIONAL HELPER *)",
+        # so the raw-with-comments view is the right one.
         line_num = line_of[tm.start()]
         preceding_text = "\n".join(clean_lines[max(0, line_num-4):line_num])
         if exemption_re.search(preceding_text):
@@ -6594,6 +6605,12 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         "KamiExtraction", "Compatibility", "CanonicalCPUProof",
         # Registry/documentation modules — connect indirectly through KamiHW
         "RTLGapRegistry", "CloseoutVerification",
+        # Substrate.v is the abstract A2-respecting substrate that the
+        # 47-opcode VM (VMState etc.) is one instance of. It is a
+        # foundation file that the kernel implements; it cannot
+        # connect "down" to VMState without inverting the
+        # substrate-vs-scaffolding dependency direction.
+        "Substrate",
     }
 
     for vf in v_files:
@@ -7149,7 +7166,7 @@ def write_report(
     lines.append("- `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons\n")
     lines.append("- `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics\n")
     lines.append("- `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement\n")
-    lines.append("- `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace\n")
+    lines.append("- `SCOPE_DRIFT_TIER2`: Core Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace\n")
     lines.append("- `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof\n")
     lines.append("- `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`\n")
     lines.append("- `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`\n")
@@ -7526,7 +7543,7 @@ def main(argv: list[str]) -> int:
                     f"{VACUITY_MEDIUM_THRESHOLD if sev == 'MEDIUM' else VACUITY_LOW_THRESHOLD}. "
                     f"Tags: {', '.join(v_tags)}. "
                     "Review for trivially-true/placeholder/definitional proofs that don't "
-                    "advance the thesis goal."
+                    "advance the core goal."
                 ),
             )
         )

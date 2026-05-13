@@ -622,9 +622,20 @@ module Z =
 
   let sub = (-)
 
+  (** val mul : int -> int -> int **)
+
+  let mul = ( * )
+
   (** val compare : int -> int -> comparison **)
 
   let compare = fun x y -> if x=y then Eq else if x<y then Lt else Gt
+
+  (** val leb : int -> int -> bool **)
+
+  let leb x y =
+    match compare x y with
+    | Gt -> false
+    | _ -> true
 
   (** val ltb : int -> int -> bool **)
 
@@ -1278,27 +1289,7 @@ module CertCheck =
  struct
   (** val word32_to_signed : int -> int **)
 
-  let word32_to_signed w =
-    let w' = Z.of_nat w in
-    if Z.ltb w' ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-         1)))))))))))))))))))))))))))))))
-    then w'
-    else Z.sub w' ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           ((fun p->2*p) ((fun p->2*p) ((fun p->2*p) ((fun p->2*p)
-           1))))))))))))))))))))))))))))))))
+  let word32_to_signed = (fun w -> if w < 2147483648 then w else w - 4294967296)
 
   (** val check_model_binary_fn : int list -> (int -> int) -> bool **)
 
@@ -1419,6 +1410,7 @@ module VMStep =
   | Coq_instr_morph_assert of morphismID * char list * char list * int
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
+  | Coq_instr_chsh_lassert of int
 
   (** val instruction_cost : vm_instruction -> int **)
 
@@ -1475,6 +1467,7 @@ module VMStep =
   | Coq_instr_morph_assert (_, _, _, cost) -> (fun x -> x + 1) cost
   | Coq_instr_morph_tensor (_, _, _, cost) -> cost
   | Coq_instr_morph_get (_, _, _, cost) -> cost
+  | Coq_instr_chsh_lassert cost -> (fun x -> x + 1) cost
 
   (** val is_cert_setterb : vm_instruction -> bool **)
 
@@ -1486,6 +1479,7 @@ module VMStep =
   | Coq_instr_read_port (_, _, _, _, _) -> true
   | Coq_instr_certify _ -> true
   | Coq_instr_morph_assert (_, _, _, _) -> true
+  | Coq_instr_chsh_lassert _ -> true
   | _ -> false
 
   (** val nofi_step_cost_okb : vm_instruction -> bool **)
@@ -2674,6 +2668,54 @@ module VMStep =
       | None -> g1
     in
     let g3,_ = graph_add_module g2 (seq 0 merged_sz) [] in g3
+
+  (** val chsh_d_z : int -> int -> int **)
+
+  let chsh_d_z same diff =
+    Z.sub (Z.of_nat same) (Z.of_nat diff)
+
+  (** val chsh_n_z : int -> int -> int **)
+
+  let chsh_n_z same diff =
+    Z.add (Z.of_nat same) (Z.of_nat diff)
+
+  (** val column_contractive_check_witness : witnessCounts -> bool **)
+
+  let column_contractive_check_witness wc =
+    let d00 = chsh_d_z wc.wc_same_00 wc.wc_diff_00 in
+    let n00 = chsh_n_z wc.wc_same_00 wc.wc_diff_00 in
+    let d01 = chsh_d_z wc.wc_same_01 wc.wc_diff_01 in
+    let n01 = chsh_n_z wc.wc_same_01 wc.wc_diff_01 in
+    let d10 = chsh_d_z wc.wc_same_10 wc.wc_diff_10 in
+    let n10 = chsh_n_z wc.wc_same_10 wc.wc_diff_10 in
+    let d11 = chsh_d_z wc.wc_same_11 wc.wc_diff_11 in
+    let n11 = chsh_n_z wc.wc_same_11 wc.wc_diff_11 in
+    let n00sq = Z.mul n00 n00 in
+    let n01sq = Z.mul n01 n01 in
+    let n10sq = Z.mul n10 n10 in
+    let n11sq = Z.mul n11 n11 in
+    let d00sq = Z.mul d00 d00 in
+    let d01sq = Z.mul d01 d01 in
+    let d10sq = Z.mul d10 d10 in
+    let d11sq = Z.mul d11 d11 in
+    let a =
+      Z.sub (Z.sub (Z.mul n00sq n10sq) (Z.mul d00sq n10sq))
+        (Z.mul d10sq n00sq)
+    in
+    let b =
+      Z.sub (Z.sub (Z.mul n01sq n11sq) (Z.mul d01sq n11sq))
+        (Z.mul d11sq n01sq)
+    in
+    let c =
+      Z.add (Z.mul (Z.mul (Z.mul d00 d01) n10) n11)
+        (Z.mul (Z.mul (Z.mul d10 d11) n00) n01)
+    in
+    (&&) (Z.ltb 0 n00)
+      ((&&) (Z.ltb 0 n01)
+        ((&&) (Z.ltb 0 n10)
+          ((&&) (Z.ltb 0 n11)
+            ((&&) (Z.leb 0 a)
+              ((&&) (Z.leb 0 b) (Z.leb (Z.mul c c) (Z.mul a b)))))))
 
   (** val lassert_check_ok : vMState -> int -> int -> bool -> bool **)
 
@@ -4121,6 +4163,21 @@ let vm_apply s = function
      VMStep.advance_state s (VMStep.Coq_instr_morph_get (dst, morph_id,
        selector, cost)) s.vm_graph
        (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)) (VMStep.latch_err s true))
+| VMStep.Coq_instr_chsh_lassert mu_delta ->
+  if VMStep.column_contractive_check_witness s.vm_witness
+  then { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert mu_delta));
+         vm_mu_tensor = s.vm_mu_tensor; vm_err = s.vm_err; vm_logic_acc =
+         s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness =
+         s.vm_witness; vm_certified = s.vm_certified }
+  else { vm_graph = s.vm_graph; vm_csrs =
+         (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)); vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = VMStep.coq_LASSERT_TRAP_PC; vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert mu_delta));
+         vm_mu_tensor = s.vm_mu_tensor; vm_err = true; vm_logic_acc =
+         s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness =
+         s.vm_witness; vm_certified = s.vm_certified }
 | x -> VMStep.advance_state s x s.vm_graph s.vm_csrs s.vm_err
 
 (** val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState **)

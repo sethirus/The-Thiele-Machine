@@ -829,6 +829,255 @@ Definition state_column_contractive (s : VMState) : Prop :=
   zero_marginal_column_contractive
     (state_e00 s) (state_e01 s) (state_e10 s) (state_e11 s).
 
+(** ** Bridge: the integer-arithmetic column-contractive check on
+       WitnessCounts is sound w.r.t. the real-valued column-contractivity
+       predicate on the bucket-derived correlators.
+
+    This is the load-bearing theorem that closes the gap from kernel-level
+    [instr_chsh_lassert] success (which decides the Z-arithmetic check on
+    [vm_witness]) to the NPA-realizability condition on the correlator matrix
+    via [column_contractive_iff_quantum_realizable] (QuantumPartitionPSD.v).
+
+    The Z check requires (1) each [n_xy = same_xy + diff_xy] is strictly
+    positive (at least one trial recorded for each setting pair), (2) two
+    column-norm conditions [n_00^2*n_10^2 >= d_00^2*n_10^2 + d_10^2*n_00^2]
+    and parallel for 01/11, (3) a determinant condition [A*B >= C^2]. After
+    dividing each inequality by the appropriate positive [n_xy^2] product, the
+    three R-valued column-contractivity inequalities follow.
+*)
+
+Lemma column_contractive_check_witness_sound :
+  forall (wc : WitnessCounts),
+    column_contractive_check_witness wc = true ->
+    zero_marginal_column_contractive
+      (state_bucket_correlation wc.(wc_same_00) wc.(wc_diff_00))
+      (state_bucket_correlation wc.(wc_same_01) wc.(wc_diff_01))
+      (state_bucket_correlation wc.(wc_same_10) wc.(wc_diff_10))
+      (state_bucket_correlation wc.(wc_same_11) wc.(wc_diff_11)).
+Proof.
+  intros wc Hchk.
+  unfold column_contractive_check_witness in Hchk.
+  (* Destructure the seven boolean conjuncts. *)
+  apply Bool.andb_true_iff in Hchk; destruct Hchk as [Hn00 Hchk].
+  apply Bool.andb_true_iff in Hchk; destruct Hchk as [Hn01 Hchk].
+  apply Bool.andb_true_iff in Hchk; destruct Hchk as [Hn10 Hchk].
+  apply Bool.andb_true_iff in Hchk; destruct Hchk as [Hn11 Hchk].
+  apply Bool.andb_true_iff in Hchk; destruct Hchk as [HA Hchk].
+  apply Bool.andb_true_iff in Hchk; destruct Hchk as [HB HC2].
+  (* Convert booleans to Z-arithmetic propositions. *)
+  apply Z.ltb_lt in Hn00, Hn01, Hn10, Hn11.
+  apply Z.leb_le in HA, HB, HC2.
+  (* Name the Z values and their R liftings. *)
+  set (s00 := wc.(wc_same_00)) in *. set (d00 := wc.(wc_diff_00)) in *.
+  set (s01 := wc.(wc_same_01)) in *. set (d01 := wc.(wc_diff_01)) in *.
+  set (s10 := wc.(wc_same_10)) in *. set (d10 := wc.(wc_diff_10)) in *.
+  set (s11 := wc.(wc_same_11)) in *. set (d11 := wc.(wc_diff_11)) in *.
+  set (N00 := (Z.of_nat s00 + Z.of_nat d00)%Z) in *.
+  set (N01 := (Z.of_nat s01 + Z.of_nat d01)%Z) in *.
+  set (N10 := (Z.of_nat s10 + Z.of_nat d10)%Z) in *.
+  set (N11 := (Z.of_nat s11 + Z.of_nat d11)%Z) in *.
+  set (D00 := (Z.of_nat s00 - Z.of_nat d00)%Z) in *.
+  set (D01 := (Z.of_nat s01 - Z.of_nat d01)%Z) in *.
+  set (D10 := (Z.of_nat s10 - Z.of_nat d10)%Z) in *.
+  set (D11 := (Z.of_nat s11 - Z.of_nat d11)%Z) in *.
+  unfold chsh_d_z, chsh_n_z in Hn00, Hn01, Hn10, Hn11, HA, HB, HC2.
+  fold N00 D00 N01 D01 N10 D10 N11 D11 in Hn00, Hn01, Hn10, Hn11, HA, HB, HC2.
+  (* n_xy > 0 in Z lifts to (s_xy + d_xy) > 0 in nat. *)
+  assert (HsumN00 : (s00 + d00)%nat <> 0%nat).
+  { intro Heq. apply (f_equal Z.of_nat) in Heq. rewrite Nat2Z.inj_add in Heq.
+    unfold N00 in Hn00. lia. }
+  assert (HsumN01 : (s01 + d01)%nat <> 0%nat).
+  { intro Heq. apply (f_equal Z.of_nat) in Heq. rewrite Nat2Z.inj_add in Heq.
+    unfold N01 in Hn01. lia. }
+  assert (HsumN10 : (s10 + d10)%nat <> 0%nat).
+  { intro Heq. apply (f_equal Z.of_nat) in Heq. rewrite Nat2Z.inj_add in Heq.
+    unfold N10 in Hn10. lia. }
+  assert (HsumN11 : (s11 + d11)%nat <> 0%nat).
+  { intro Heq. apply (f_equal Z.of_nat) in Heq. rewrite Nat2Z.inj_add in Heq.
+    unfold N11 in Hn11. lia. }
+  (* Real-valued versions of N_xy > 0 and D_xy. *)
+  set (rN00 := IZR N00). set (rN01 := IZR N01).
+  set (rN10 := IZR N10). set (rN11 := IZR N11).
+  set (rD00 := IZR D00). set (rD01 := IZR D01).
+  set (rD10 := IZR D10). set (rD11 := IZR D11).
+  assert (HrN00pos : (0 < rN00)%R) by (apply IZR_lt; exact Hn00).
+  assert (HrN01pos : (0 < rN01)%R) by (apply IZR_lt; exact Hn01).
+  assert (HrN10pos : (0 < rN10)%R) by (apply IZR_lt; exact Hn10).
+  assert (HrN11pos : (0 < rN11)%R) by (apply IZR_lt; exact Hn11).
+  (* state_bucket_correlation values, unfolded under the positive precondition. *)
+  unfold state_bucket_correlation.
+  destruct (Nat.eqb (s00 + d00) 0) eqn:E00; [apply Nat.eqb_eq in E00; contradiction|].
+  destruct (Nat.eqb (s01 + d01) 0) eqn:E01; [apply Nat.eqb_eq in E01; contradiction|].
+  destruct (Nat.eqb (s10 + d10) 0) eqn:E10; [apply Nat.eqb_eq in E10; contradiction|].
+  destruct (Nat.eqb (s11 + d11) 0) eqn:E11; [apply Nat.eqb_eq in E11; contradiction|].
+  clear E00 E01 E10 E11.
+  (* Rewrite (INR s - INR d) and INR (s + d) using IZR. *)
+  assert (Hr_eqN00 : INR (s00 + d00) = rN00).
+  { unfold rN00, N00. rewrite INR_IZR_INZ. rewrite Nat2Z.inj_add. reflexivity. }
+  assert (Hr_eqN01 : INR (s01 + d01) = rN01).
+  { unfold rN01, N01. rewrite INR_IZR_INZ. rewrite Nat2Z.inj_add. reflexivity. }
+  assert (Hr_eqN10 : INR (s10 + d10) = rN10).
+  { unfold rN10, N10. rewrite INR_IZR_INZ. rewrite Nat2Z.inj_add. reflexivity. }
+  assert (Hr_eqN11 : INR (s11 + d11) = rN11).
+  { unfold rN11, N11. rewrite INR_IZR_INZ. rewrite Nat2Z.inj_add. reflexivity. }
+  assert (Hr_eqD00 : (INR s00 - INR d00)%R = rD00).
+  { unfold rD00, D00. rewrite !INR_IZR_INZ. rewrite <- minus_IZR. reflexivity. }
+  assert (Hr_eqD01 : (INR s01 - INR d01)%R = rD01).
+  { unfold rD01, D01. rewrite !INR_IZR_INZ. rewrite <- minus_IZR. reflexivity. }
+  assert (Hr_eqD10 : (INR s10 - INR d10)%R = rD10).
+  { unfold rD10, D10. rewrite !INR_IZR_INZ. rewrite <- minus_IZR. reflexivity. }
+  assert (Hr_eqD11 : (INR s11 - INR d11)%R = rD11).
+  { unfold rD11, D11. rewrite !INR_IZR_INZ. rewrite <- minus_IZR. reflexivity. }
+  rewrite Hr_eqN00, Hr_eqN01, Hr_eqN10, Hr_eqN11.
+  rewrite Hr_eqD00, Hr_eqD01, Hr_eqD10, Hr_eqD11.
+  (* Bring the Z arithmetic into R via IZR distribution. *)
+  assert (HrA_iz : (0 <= IZR (N00 * N00 * (N10 * N10)
+                              - D00 * D00 * (N10 * N10)
+                              - D10 * D10 * (N00 * N00)))%R).
+  { apply IZR_le. exact HA. }
+  rewrite !minus_IZR, !mult_IZR in HrA_iz.
+  assert (HrA : (rN00 * rN00 * (rN10 * rN10)
+                 - rD00 * rD00 * (rN10 * rN10)
+                 - rD10 * rD10 * (rN00 * rN00) >= 0)%R).
+  { unfold rN00, rN10, rD00, rD10. apply Rle_ge. exact HrA_iz. }
+  assert (HrB_iz : (0 <= IZR (N01 * N01 * (N11 * N11)
+                              - D01 * D01 * (N11 * N11)
+                              - D11 * D11 * (N01 * N01)))%R).
+  { apply IZR_le. exact HB. }
+  rewrite !minus_IZR, !mult_IZR in HrB_iz.
+  assert (HrB : (rN01 * rN01 * (rN11 * rN11)
+                 - rD01 * rD01 * (rN11 * rN11)
+                 - rD11 * rD11 * (rN01 * rN01) >= 0)%R).
+  { unfold rN01, rN11, rD01, rD11. apply Rle_ge. exact HrB_iz. }
+  assert (HrAB_iz : (IZR ((D00 * D01 * N10 * N11 + D10 * D11 * N00 * N01)
+                          * (D00 * D01 * N10 * N11 + D10 * D11 * N00 * N01))
+                     <= IZR ((N00 * N00 * (N10 * N10)
+                              - D00 * D00 * (N10 * N10)
+                              - D10 * D10 * (N00 * N00))
+                             * (N01 * N01 * (N11 * N11)
+                                - D01 * D01 * (N11 * N11)
+                                - D11 * D11 * (N01 * N01))))%R).
+  { apply IZR_le. exact HC2. }
+  rewrite !mult_IZR, !plus_IZR, !minus_IZR, !mult_IZR in HrAB_iz.
+  assert (HrAB :
+            ((rN00 * rN00 * (rN10 * rN10)
+              - rD00 * rD00 * (rN10 * rN10)
+              - rD10 * rD10 * (rN00 * rN00))
+             * (rN01 * rN01 * (rN11 * rN11)
+                - rD01 * rD01 * (rN11 * rN11)
+                - rD11 * rD11 * (rN01 * rN01))
+             >=
+             (rD00 * rD01 * rN10 * rN11 + rD10 * rD11 * rN00 * rN01)
+             * (rD00 * rD01 * rN10 * rN11 + rD10 * rD11 * rN00 * rN01))%R).
+  { unfold rN00, rN01, rN10, rN11, rD00, rD01, rD10, rD11.
+    apply Rle_ge. exact HrAB_iz. }
+  (* Goal: zero_marginal_column_contractive (rD00/rN00) (rD01/rN01)
+                                            (rD10/rN10) (rD11/rN11) *)
+  unfold zero_marginal_column_contractive.
+  assert (Hrn00sq : (0 < rN00 * rN00)%R) by nra.
+  assert (Hrn01sq : (0 < rN01 * rN01)%R) by nra.
+  assert (Hrn10sq : (0 < rN10 * rN10)%R) by nra.
+  assert (Hrn11sq : (0 < rN11 * rN11)%R) by nra.
+  (* The R-level conditions follow by clearing the n_xy denominators (positive)
+     and applying the Z-arithmetic facts HrA, HrB, HrAB. We clear denominators
+     by asserting a polynomial form of each goal and closing it with nra. *)
+  assert (HrN00ne : rN00 <> 0%R) by lra.
+  assert (HrN01ne : rN01 <> 0%R) by lra.
+  assert (HrN10ne : rN10 <> 0%R) by lra.
+  assert (HrN11ne : rN11 <> 0%R) by lra.
+  apply Rge_le in HrA, HrB, HrAB.
+  split; [|split].
+  - (* 1 - (rD00/rN00)^2 - (rD10/rN10)^2 >= 0 *)
+    assert (Heqv :
+      (1 - rD00 / rN00 * (rD00 / rN00) - rD10 / rN10 * (rD10 / rN10)
+         = (rN00 * rN00 * (rN10 * rN10)
+              - rD00 * rD00 * (rN10 * rN10)
+              - rD10 * rD10 * (rN00 * rN00))
+           / (rN00 * rN00 * (rN10 * rN10)))%R).
+    { field. split; assumption. }
+    rewrite Heqv.
+    apply Rle_ge.
+    unfold Rdiv. apply Rmult_le_pos; [exact HrA | apply Rlt_le; apply Rinv_0_lt_compat; nra].
+  - (* 1 - (rD01/rN01)^2 - (rD11/rN11)^2 >= 0 *)
+    assert (Heqv :
+      (1 - rD01 / rN01 * (rD01 / rN01) - rD11 / rN11 * (rD11 / rN11)
+         = (rN01 * rN01 * (rN11 * rN11)
+              - rD01 * rD01 * (rN11 * rN11)
+              - rD11 * rD11 * (rN01 * rN01))
+           / (rN01 * rN01 * (rN11 * rN11)))%R).
+    { field. split; assumption. }
+    rewrite Heqv.
+    apply Rle_ge.
+    unfold Rdiv. apply Rmult_le_pos; [exact HrB | apply Rlt_le; apply Rinv_0_lt_compat; nra].
+  - (* Schur-complement determinant. *)
+    assert (Heqv :
+      ((1 - rD00 / rN00 * (rD00 / rN00) - rD10 / rN10 * (rD10 / rN10))
+         * (1 - rD01 / rN01 * (rD01 / rN01) - rD11 / rN11 * (rD11 / rN11))
+       - (rD00 / rN00 * (rD01 / rN01) + rD10 / rN10 * (rD11 / rN11))
+         * (rD00 / rN00 * (rD01 / rN01) + rD10 / rN10 * (rD11 / rN11))
+         = ((rN00 * rN00 * (rN10 * rN10)
+              - rD00 * rD00 * (rN10 * rN10)
+              - rD10 * rD10 * (rN00 * rN00))
+            * (rN01 * rN01 * (rN11 * rN11)
+                - rD01 * rD01 * (rN11 * rN11)
+                - rD11 * rD11 * (rN01 * rN01))
+            - (rD00 * rD01 * rN10 * rN11 + rD10 * rD11 * rN00 * rN01)
+              * (rD00 * rD01 * rN10 * rN11 + rD10 * rD11 * rN00 * rN01))
+           / (rN00 * rN00 * (rN01 * rN01) * (rN10 * rN10) * (rN11 * rN11)))%R).
+    { field. repeat split; assumption. }
+    rewrite Heqv.
+    apply Rle_ge.
+    unfold Rdiv. apply Rmult_le_pos.
+    + (* 0 <= RHS_of_HrAB - LHS_of_HrAB, by HrAB which says LHS <= RHS. *)
+      lra.
+    + apply Rlt_le. apply Rinv_0_lt_compat.
+      (* denominator: rN00^2 * rN01^2 * rN10^2 * rN11^2 > 0 *)
+      repeat (apply Rmult_lt_0_compat); nra.
+Qed.
+
+(** State-level corollary: if the column-contractivity check passes on the
+    witness counters at a state s, then s's induced correlators satisfy the
+    column-contractive predicate. *)
+Lemma state_column_contractive_check_witness_sound :
+  forall (s : VMState),
+    column_contractive_check_witness s.(vm_witness) = true ->
+    state_column_contractive s.
+Proof.
+  intros s Hchk.
+  unfold state_column_contractive, state_e00, state_e01, state_e10, state_e11.
+  apply column_contractive_check_witness_sound. exact Hchk.
+Qed.
+
+(** Final bridge: a successfully executed [instr_chsh_lassert] step entails
+    that the pre-step witness counters yield NPA-realizable correlators.
+
+    The "successful execution" signature: PC advances by 1 (no trap) AND
+    vm_err is preserved (no failure latch). The success branch produces
+    exactly these two effects; the failure branch traps to LASSERT_TRAP_PC
+    AND latches vm_err = true. So the conjunction of [pc = S pc] and
+    [err' = err] is satisfied only on the success branch, regardless of
+    where LASSERT_TRAP_PC happens to land. *)
+(** Convenience form: a successful CHSH_LASSERT step from any state with
+    vm_err=false yields a column-contractive set of correlators.
+    The chain to NPA-realizability via [column_contractive_iff_quantum_realizable]
+    lives in [QuantumPartitionPSD.v] (which imports this file). *)
+Theorem chsh_lassert_no_trap_implies_state_column_contractive :
+  forall s mu_delta,
+    let s' := vm_apply s (instr_chsh_lassert mu_delta) in
+    s'.(vm_pc) = S s.(vm_pc) ->
+    s'.(vm_err) = s.(vm_err) ->
+    s.(vm_err) = false ->
+    state_column_contractive s.
+Proof.
+  intros s mu_delta s' Hpc Herr Herr0.
+  assert (Hchk : column_contractive_check_witness s.(vm_witness) = true).
+  { unfold s' in Herr. unfold vm_apply in Herr.
+    destruct (column_contractive_check_witness s.(vm_witness)) eqn:Echk.
+    - reflexivity.
+    - simpl in Herr. rewrite Herr0 in Herr. discriminate. }
+  apply state_column_contractive_check_witness_sound. exact Hchk.
+Qed.
+
 (** State quantum Gram: the NPA matrix from state is symmetric and PSD. *)
 Definition state_quantum_gram (s : VMState) : Prop :=
   let M := nat_matrix_to_fin5 (npa_to_matrix (state_zero_marginal_npa s)) in

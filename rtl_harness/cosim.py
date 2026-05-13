@@ -57,6 +57,7 @@ OPCODES: Dict[str, int] = {
     "MORPH_ASSERT": 0x2B,
     "MORPH_TENSOR": 0x2C,
     "MORPH_GET": 0x2D,
+    "CHSH_LASSERT": 0x2E,
     "HALT": 0xFF,
 }
 
