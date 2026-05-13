@@ -3,24 +3,51 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-The Thiele Machine is a Coq-verified model of computation with explicit
-structural state. Its central object is `mu`: a monotone cost ledger for
-certified computation.
+## Read this before anything else
 
-Classical machine state is usually the triple `(memory, registers, program
-counter)`. The Receipt Theorem proves that certified computation has a receipt
-that this triple cannot recover. The receipt is not an implementation detail:
-inside the Thiele VM it is unique, trace-determined, monotone, and required for
-certification.
+The classical theory of computation has two axes: time and space. The Thiele Machine adds a third — certification cost — and proves the classical models are its structural-axis projection. The argument is four steps. If you want to dismiss it, name the step you reject. A wave-off is not a response.
 
-The same semantics extract to an OCaml runner and to Kami/Verilog hardware.
+**1. A2 cannot be written on a classical step relation.**
 
-## Read This First
+A2 is the rule: every step that flips certification from false to true costs at least 1. A Turing machine, a register machine, a lambda reducer — none of them has a certification flag in its step relation. There is no field for A2 to constrain. The rule is unformulable on classical state, not merely unenforced. See `CertificationSystem` and the `cs_cert_costs` field at [coq/kernel/nfi/UniversalCertificationCost.v:30-65](coq/kernel/nfi/UniversalCertificationCost.v#L30-L65).
 
-This README is the compact entry point: what the project claims, where the
-proofs live, and how to run it.
+**2. Therefore the substrate is forced.**
 
-In one minute:
+Any model that formalizes certification cost at the step rule must carry state that classical models do not have. There is no "TM plus A2" — there is no A2 on a TM. The structural axis (`vm_mu`, `vm_certified`) is the minimum state for A2 to be a sentence in the first place. The substrate is not an extension of classical computation; it is what is required for the classical models' silent omission to be representable at all.
+
+**3. Classical computation is the structural-axis projection.**
+
+[`lift_config`](coq/kernel/foundation/ProperSubsumption.v#L153) sends every Turing-machine configuration to a Thiele configuration. [`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v#L172) runs every Turing-machine trace inside the substrate, same tape, same state. [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v) closes the loop: classical computation is exactly the image of substrate computation under the projection that forgets the structural axis. The projection is strictly lossy — [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v) witnesses substrate states with no classical preimage. Every classical computer is the substrate viewed with the structural axis idle, whether or not the operator knew there was an axis there.
+
+**4. If you disagree, name the step.**
+
+Step 1 is a sentence about what a classical step relation can carry. Step 2 follows from step 1. Step 3 is mechanized in Coq, with theorem names above. Point at the line you reject. "This sounds like a metaphor" is not a rejection; it is a refusal to read.
+
+The four steps above are the entire foundational claim. They do not need 47 opcodes. They do not need an FPGA. They do not need CHSH. The minimum instruction set that witnesses the substrate is small: any classical compute primitive (so subsumption has something to project to) plus one opcode that can flip certification (so A2 has something to enforce). That is it. Two opcodes in principle; a handful in practice. `instr_certify` is the load-bearing opcode for A2; the rest of the ISA is exploration of what the substrate can express, not what the substrate requires.
+
+Everything else in this repository is downstream and optional:
+
+- The 47-opcode ISA is one realization, expanded for experimentation in categorical structure, partition graphs, and CHSH enforcement. The substrate claim does not depend on any of the non-`CERTIFY` opcodes.
+- The CHSH↔NPA equivalence at the opcode level is a separate mathematical result that happens to compose with the substrate. It is not part of the substrate proof.
+- The Coq → OCaml → Kami → Verilog → FPGA pipeline is engineering evidence that the substrate is realizable in silicon, not part of the substrate proof.
+- The Bekenstein/Landauer bridges are motivation, explicitly labeled as such in the monograph.
+
+Read the four steps. The rest is what I built around them.
+
+## The standard misread
+
+The most common reflex from a trained reader is: *"A2 can be enforced in software on a TM, so the substrate distinction is just a hardware/software boundary, not a fundamental one."* This conflates simulation with substrate. The falsifier is one sentence.
+
+**A Turing machine cannot refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one.**
+
+Load a Thiele simulator onto a TM with a bug — a program that certifies without incrementing μ. The TM runs it faithfully. Its step rule has no field for A2, so it cannot detect the bug; it computes whatever you wrote, A2-respecting or not. Load the same buggy program onto a Thiele substrate. The step rule traps. A2 is not "interpreted by the simulator and could be skipped" — it is the transition law itself. The TM is structurally incapable of refusal because its step rule has nothing to refuse on. The substrate is structurally incapable of execution because its step rule has A2 built in.
+
+That is the difference between simulating a substrate and being a substrate. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true and not the question; "Thiele's step rule can be written down on a TM" is the question, and the answer is no.
+
+## In one minute
+
+The four steps above are mechanized by the following operational facts about
+the substrate:
 
 - `mu` starts at zero and never decreases.
 - Certification instructions increase `mu`.
