@@ -2,7 +2,7 @@
 
 **Author:** Devon Thiele  
 **First public disclosure:** August 15, 2025 (repository creation; development began January 2025)  
-**Current date:** April 2026  
+**Current date:** May 2026  
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
 **License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
 **Purpose of this document:** Defensive publication. Every concept described here is publicly disclosed prior art under 35 U.S.C. § 102 (US) and Article 54 EPC (Europe) as of the dates above. This document is submitted for indexing to IP.com and similar prior art databases.
@@ -206,4 +206,4 @@ The Coq proof compilation is the ground truth. If a proof does not compile, the 
 
 This disclosure covers the concepts as implemented. It does not claim to cover all conceivable implementations of structural cost accounting in computation — only the specific inventive concepts described above, as first publicly disclosed in this repository. The goal of this document is defensive: to ensure that the public record contains a clear, searchable, dated description of these concepts so that no third party can obtain a patent on them.
 
-*Devon Thiele, April 2026*
+*Devon Thiele, May 2026*
