@@ -48,6 +48,13 @@ CONNECTIVITY_EXEMPT = {
     "HolevoGeneralD", "HolevoTwoQubit", "OperatorAlgebra",
     "TsirelsonFromIC", "TsirelsonFromMu",
     "AdditionalProbes", "BekensteinBound", "DimensionalGapTheorem",
+    # Substrate.v is the abstract A2-respecting substrate typeclass that the
+    # 47-opcode VM instantiates via VMSubstrateInstance.v. It is
+    # foundation-tier (more foundational than VMState, which is one
+    # realization of it), so it cannot connect "down" to VMState without
+    # inverting the substrate-vs-scaffolding dependency direction. The
+    # inquisitor exempts it for the same reason (scripts/inquisitor.py:119).
+    "Substrate",
 }
 
 _FROM_IMPORT_RE = re.compile(r"From\s+([A-Za-z0-9_\.]+)\s+Require\s+Import\s+([^\.]+)\.")
