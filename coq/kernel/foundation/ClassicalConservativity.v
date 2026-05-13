@@ -55,6 +55,7 @@ Definition is_classical_opcode (i : vm_instruction) : bool :=
   | instr_morph_delete _ _     => false  (* modifies graph *)
   | instr_morph_assert _ _ _ _ => false  (* modifies cert_addr *)
   | instr_morph_tensor _ _ _ _ => false  (* modifies graph *)
+  | instr_chsh_lassert _       => false  (* cert-setter: column-contractivity check on witness counters *)
   | _                          => true
   end.
 

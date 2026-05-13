@@ -499,6 +499,8 @@ val oP_MORPH_TENSOR : word
 
 val oP_MORPH_GET : word
 
+val oP_CHSH_LASSERT : word
+
 val oP_HALT : word
 
 val loadInstrPort : kind attribute t0

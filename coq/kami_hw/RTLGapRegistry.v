@@ -88,8 +88,13 @@ Theorem rtl_gap_count :
   List.length rtl_gap_registry = 0.
 Proof. reflexivity. Qed.
 
-(** Coverage-partition arithmetic: 36 unconditional + 10
-    structural-invariant + 0 gaps = 46 opcodes. *)
+(** Coverage-partition arithmetic: 37 unconditional + 10
+    structural-invariant + 0 gaps = 47 opcodes. The 37th
+    unconditional opcode is CHSH_LASSERT, added 2026-05-11. Its
+    kami_step inspects the snapshot [snap_wc_*] buckets through
+    [column_contractive_check_witness] (the same function called
+    by [vm_apply] via [abs_phase1]), so [abs_phase1] commutes
+    unconditionally with no precondition. *)
 Theorem rtl_coverage_partition :
-  36 + 10 + 0 = 46.
+  37 + 10 + 0 = 47.
 Proof. reflexivity. Qed.

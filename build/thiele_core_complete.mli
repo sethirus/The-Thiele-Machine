@@ -151,7 +151,11 @@ module Z :
 
   val sub : int -> int -> int
 
+  val mul : int -> int -> int
+
   val compare : int -> int -> comparison
+
+  val leb : int -> int -> bool
 
   val ltb : int -> int -> bool
 
@@ -416,6 +420,7 @@ module VMStep :
   | Coq_instr_morph_assert of morphismID * char list * char list * int
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
+  | Coq_instr_chsh_lassert of int
 
   val instruction_cost : vm_instruction -> int
 
@@ -465,6 +470,12 @@ module VMStep :
   val graph_hw_psplit : partitionGraph -> int -> partitionGraph
 
   val graph_hw_pmerge : partitionGraph -> int -> int -> partitionGraph
+
+  val chsh_d_z : int -> int -> int
+
+  val chsh_n_z : int -> int -> int
+
+  val column_contractive_check_witness : witnessCounts -> bool
 
   val lassert_check_ok : vMState -> int -> int -> bool -> bool
 

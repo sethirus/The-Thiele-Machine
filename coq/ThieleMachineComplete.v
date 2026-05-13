@@ -2280,7 +2280,12 @@ Inductive vm_instruction :=
 | instr_morph_delete (morph_id : MorphismID) (mu_delta : nat)
 | instr_morph_assert (morph_id : MorphismID) (property cert : string) (mu_delta : nat)
 | instr_morph_tensor (dst : nat) (f_id g_id : MorphismID) (mu_delta : nat)
-| instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat).
+| instr_morph_get (dst : nat) (morph_id : MorphismID) (selector : nat) (mu_delta : nat)
+(** instr_chsh_lassert: CHSH-aware certification. Mirrors the modular-kernel
+    definition in kernel/foundation/VMStep.v. Reads the WitnessCounts buckets,
+    decides column-contractivity via the integer-arithmetic check, advances PC
+    on success (with cert-setter cost discipline) or traps on failure. *)
+| instr_chsh_lassert (mu_delta : nat).
 
 Definition ascii_payload_bits (a : ascii) : list bool :=
   match a with
@@ -2365,6 +2370,7 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_morph_assert _ _ _ cost => S cost
   | instr_morph_tensor _ _ _ cost => cost
   | instr_morph_get _ _ _ cost => cost
+  | instr_chsh_lassert cost => S cost  (* cert-setter: column-contractivity check *)
   end.
 
 (* --- Cert-setter predicate --- *)
@@ -2378,6 +2384,7 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   | instr_read_port _ _ _ _ _ => true
   | instr_certify _ => true
   | instr_morph_assert _ _ _ _ => true
+  | instr_chsh_lassert _ => true
   | _ => false
   end.
 
@@ -2500,6 +2507,52 @@ Definition lassert_hw_flen (s : VMState) (freg : nat) : nat :=
 Definition lassert_exec_ok (s : VMState) (freg creg : nat) (kind : bool) (flen : nat) : bool :=
   andb (Nat.eqb (lassert_hw_flen s freg) flen)
        (lassert_check_ok s freg creg kind).
+
+(** Helpers for CHSH_LASSERT: column-contractivity check on WitnessCounts
+    buckets in pure Z arithmetic. Mirrors the modular-kernel definition in
+    kernel/foundation/VMStep.v. Each (x,y) ∈ {0,1}^2 setting pair has
+    [same_xy] and [diff_xy] buckets; let [d_xy = same - diff] (signed) and
+    [n_xy = same + diff]. The correlator [E_xy = d_xy / n_xy]. The three
+    column-contractivity conditions on the correlators
+       1 - E_00^2 - E_10^2 >= 0
+       1 - E_01^2 - E_11^2 >= 0
+       (1 - E_00^2 - E_10^2)*(1 - E_01^2 - E_11^2) >= (E_00*E_01 + E_10*E_11)^2
+    become three Z-arithmetic inequalities after clearing denominators by
+    [n_00^2 * n_01^2 * n_10^2 * n_11^2]. *)
+
+Definition chsh_d_z (same diff : nat) : Z :=
+  (Z.of_nat same - Z.of_nat diff)%Z.
+
+Definition chsh_n_z (same diff : nat) : Z :=
+  (Z.of_nat same + Z.of_nat diff)%Z.
+
+Definition column_contractive_check_witness (wc : WitnessCounts) : bool :=
+  let d00 := chsh_d_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let n00 := chsh_n_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let d01 := chsh_d_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let n01 := chsh_n_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let d10 := chsh_d_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let n10 := chsh_n_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let d11 := chsh_d_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let n11 := chsh_n_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let n00sq := (n00 * n00)%Z in
+  let n01sq := (n01 * n01)%Z in
+  let n10sq := (n10 * n10)%Z in
+  let n11sq := (n11 * n11)%Z in
+  let d00sq := (d00 * d00)%Z in
+  let d01sq := (d01 * d01)%Z in
+  let d10sq := (d10 * d10)%Z in
+  let d11sq := (d11 * d11)%Z in
+  let A := (n00sq * n10sq - d00sq * n10sq - d10sq * n00sq)%Z in
+  let B := (n01sq * n11sq - d01sq * n11sq - d11sq * n01sq)%Z in
+  let C := (d00 * d01 * n10 * n11 + d10 * d11 * n00 * n01)%Z in
+  andb (Z.ltb 0 n00)
+  (andb (Z.ltb 0 n01)
+  (andb (Z.ltb 0 n10)
+  (andb (Z.ltb 0 n11)
+  (andb (Z.leb 0 A)
+  (andb (Z.leb 0 B)
+        (Z.leb (C * C) (A * B))))))).
 
 Definition advance_state (s : VMState) (instr : vm_instruction)
   (graph : PartitionGraph) (csrs : CSRState) (err_flag : bool) : VMState :=
@@ -2793,6 +2846,37 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
           advance_state s (instr_morph_get dst morph_id selector cost)
             s.(vm_graph) (csr_set_err s.(vm_csrs) 1) (latch_err s true)
       end
+  | instr_chsh_lassert mu_delta =>
+      (* CHSH-aware certification: column-contractivity check on the
+         WitnessCounts buckets. On pass: advance PC, leave cert_addr intact,
+         leave vm_err intact. On fail: trap to LASSERT_TRAP_PC, latch err.
+         Cost is S mu_delta either way (cert-setter discipline). *)
+      if column_contractive_check_witness s.(vm_witness) then
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := s.(vm_csrs);
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := S s.(vm_pc);
+           vm_mu := apply_cost s (instr_chsh_lassert mu_delta);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := s.(vm_err);
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+      else
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := csr_set_err s.(vm_csrs) 1;
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := LASSERT_TRAP_PC;
+           vm_mu := apply_cost s (instr_chsh_lassert mu_delta);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := true;
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
   end.
 
 Fixpoint run_vm (fuel : nat) (trace : list vm_instruction) (s : VMState) : VMState :=
@@ -3987,6 +4071,10 @@ Proof.
   - destruct (graph_lookup_morphism (vm_graph s) morph_id) as [?|];
     [unfold advance_state_rm; simpl; reflexivity |
      unfold advance_state, csr_set_err; simpl; reflexivity].
+  (* instr_chsh_lassert: both branches preserve cert_addr (success: csrs
+     unchanged; failure: only csr_set_err which touches csr_err not
+     csr_cert_addr). *)
+  - destruct (column_contractive_check_witness _); simpl; reflexivity.
 Qed.
 
 (** If certification appears, structure addition occurred somewhere. *)
@@ -5777,7 +5865,10 @@ Proof.
   (* morph_tensor *)
   try (left; simpl; destruct (graph_tensor_morphisms _ _ _) as [[??]|]; reflexivity);
   (* morph_get *)
-  try (left; simpl; destruct (graph_lookup_morphism _ _) as [?|]; reflexivity).
+  try (left; simpl; destruct (graph_lookup_morphism _ _) as [?|]; reflexivity);
+  (* chsh_lassert: both branches preserve cert_addr (success: csrs unchanged;
+     failure: only csr_set_err touches csr_err not csr_cert_addr) *)
+  try (left; simpl; destruct (column_contractive_check_witness _); reflexivity).
 Qed.
 
 (* ---- Multi-step cert_addr range ---- *)
@@ -8578,6 +8669,13 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       snap_advance_reg hs dst 0 cost
   | instr_morph_get dst _ _ cost =>
       snap_advance_reg hs dst 0 cost
+  | instr_chsh_lassert cost =>
+      (* CHSH-aware certification: snapshot layer charges S cost (cert-setter
+         discipline). The column-contractivity check on witness counters is
+         placed at the VM-step level; bisimulation for this opcode is
+         established separately and the SupportedOpcode predicate excludes it
+         from the embed_step_compute lemma. *)
+      snap_advance_default hs (S cost)
   end.
 
 (** kami_instruction_cost: the cost that the hardware charges for each opcode.
@@ -12347,6 +12445,7 @@ Definition is_classical_opcode_tc (i : vm_instruction) : bool :=
   | instr_morph_delete _ _     => false  (* modifies graph *)
   | instr_morph_assert _ _ _ _ => false  (* modifies cert_addr *)
   | instr_morph_tensor _ _ _ _ => false  (* modifies graph *)
+  | instr_chsh_lassert _       => false  (* cert-setter: column-contractivity check on witness counters *)
   | _                          => true
   end.
 
@@ -13608,6 +13707,19 @@ Extract Constant VMState.word64_mul =>
 Extract Constant VMState.word64_mask => "(-1)".
 (* SAFE: word64 identity function — truncation handled internally by word64 operations *)
 Extract Constant VMState.word64 => "(fun x -> x)".
+
+(* word32_to_signed: two's complement interpretation of a 32-bit word as a
+   signed Z. The Coq definition routes through Z.of_nat, which the default
+   extraction implements with Pos.of_succ_nat, a Peano succ chain. On the
+   wrap-around values used to encode negative DIMACS literals (e.g.
+   4294967295 for -1) that chain has 2^32 steps and overflows the OCaml
+   stack. Both nat and Z extract to plain OCaml int in this build (see the
+   Z module's `let add = (+)` etc.), so a direct int-level conditional
+   gives an identical result without the Peano walk. Regression test:
+   tests/test_lassert_negative_literals.py. *)
+(* SAFE: int-level two's complement equivalent of Z.of_nat path; see above. *)
+Extract Constant Kernel.CertCheck.CertCheck.word32_to_signed =>
+  "(fun w -> if w < 2147483648 then w else w - 4294967296)".
 
 (** CORE EXTRACTION: this file extracts thiele_core_complete.ml directly.
 

@@ -552,6 +552,40 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
       end
   | instr_halt cost =>
       advance_state s (instr_halt cost) s.(vm_graph) s.(vm_csrs) s.(vm_err)
+  | instr_chsh_lassert mu_delta =>
+      (* CHSH-aware certification: column-contractivity check on the WitnessCounts
+         buckets. On pass: advance PC, leave cert_addr intact, leave vm_err
+         intact. On fail: trap to LASSERT_TRAP_PC, latch err. Cost is S mu_delta
+         either way (cert-setter discipline). Matches step_chsh_lassert_ok and
+         step_chsh_lassert_bad in VMStep.v. The success branch is observable as
+         "ran chsh_lassert without trap" (PC advanced by 1 and vm_err unchanged);
+         the bridge theorem operates on that signature. *)
+      if column_contractive_check_witness s.(vm_witness) then
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := s.(vm_csrs);
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := S s.(vm_pc);
+           vm_mu := apply_cost s (instr_chsh_lassert mu_delta);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := s.(vm_err);
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+      else
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := csr_set_err s.(vm_csrs) 1;
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := LASSERT_TRAP_PC;
+           vm_mu := apply_cost s (instr_chsh_lassert mu_delta);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := true;
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
   end.
 
 Definition vm_apply_unsafe : VMState -> vm_instruction -> VMState := vm_apply.
@@ -627,7 +661,7 @@ Lemma vm_step_pc_advance :
     vm_step s instr s' ->
     (match instr with
      | instr_jump _ _ | instr_jnez _ _ _ | instr_call _ _ | instr_ret _
-     | instr_lassert _ _ _ _ _ => True
+     | instr_lassert _ _ _ _ _ | instr_chsh_lassert _ => True
      | _ => s'.(vm_pc) = S s.(vm_pc)
      end).
 Proof.

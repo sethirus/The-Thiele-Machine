@@ -279,6 +279,12 @@ Proof.
            rewrite advance_state_rm_cert_addr; reflexivity
          | rewrite advance_state_cert_addr; rewrite csr_set_err_cert_addr; reflexivity ]
        | rewrite advance_state_cert_addr; rewrite csr_set_err_cert_addr; reflexivity ]);
+  (* chsh_lassert: both branches preserve cert_addr (success: csrs unchanged;
+     failure: only err latched via csr_set_err). *)
+  try (left; cbv zeta beta iota;
+       destruct (column_contractive_check_witness _);
+       simpl;
+       first [reflexivity | rewrite csr_set_err_cert_addr; reflexivity]);
   (* final safety net for lassert/ljoin *)
   try (left; cbv zeta beta iota;
        repeat first

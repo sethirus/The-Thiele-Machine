@@ -364,22 +364,22 @@ There exist programs that are Thiele-computable (using partition structure and $
 \begin{theorem}[Oracle pricing self-consistency (conceptual; not separately formalized)]
 Inside the No Free Insight framework, the universal lower bound on certification cost (\texttt{universal\_nfi\_any\_substrate} in \texttt{coq/kernel/nfi/UniversalCertificationCost.v}) immediately implies that any sound oracle satisfying the one-step rule \texttt{cs\_cert\_costs} (cost $\ge 1$ on any uncertified-to-certified transition) charges $\ge n$ for $n$ certifying queries. There is no separate oracle-impossibility file in the codebase; the oracle case is a direct instantiation of the universal theorem at a \texttt{CertificationSystem} whose state encodes oracle responses. The physical justification for charging $\mu > 0$ on oracle queries comes from NoFI: gaining certified information about undecidable propositions has positive $\mu$-cost.
 \end{theorem}
-\section{$\mu$-Complexity Classes}
+\section{$\mu$-budget predicates}
 
-\begin{definition}[$\mu$P and $\mu$NP {\normalfont (kernel/MuComplexity.v)}]
-Let $\mathrm{PolyBound}$ be a polynomial $p : \N \to \N$.
+\begin{definition}[$\mu$-budget predicates {\normalfont (kernel/MuComplexity.v)}]
+Let $p_{\mathrm{fuel}}, p_{\mu} : \N \to \N$ be polynomial bounds and $\mathrm{size} : \mathrm{VMState} \to \N$ a size function.
 \begin{itemize}
-    \item A decision problem $f$ is in \textbf{$\mu$P} iff there exists a polynomial $p$ and a trace family such that for every input state of size $n$, the trace solves $f$ with $\mu$-cost $\le p(n)$ and runs in polynomial time.
-    \item A decision problem $f$ is in \textbf{$\mu$NP} iff there exists a polynomial $p$ and a verifier trace family such that every YES instance of size $n$ has a certificate verifiable with $\mu$-cost $\le p(n)$ in polynomial time.
+    \item A decision problem $f$ is \textbf{\texttt{mu\_budget\_decidable}} (with respect to $p_{\mathrm{fuel}}$ and $p_{\mu}$) iff a solver trace exists for every input: a trace of length $\le p_{\mathrm{fuel}}(\mathrm{size}(s))$ using at most $p_{\mu}(\mathrm{size}(s))$ units of $\mu$-cost that runs without error.
+    \item A decision problem $f$ is \textbf{\texttt{mu\_budget\_verifiable}} iff every positive instance has a certificate trace verifiable within the same fuel and $\mu$-cost bounds, ending with \texttt{vm\_certified = true}.
 \end{itemize}
 \end{definition}
 
-\begin{theorem}[Classical $P \subseteq \mu P$ {\normalfont (kernel/MuComplexity.v)} --- \textbf{(S)}]
-\texttt{classical\_in\_muP}: Any classically polynomial-time decision problem (using zero-cost instructions) is in $\mu$P with $\mu$-cost $= 0$ for all inputs. Classical computation is a degenerate case of $\mu$-computation with no structural cost. Zero Admitted.
+\begin{theorem}[Zero-$\mu$ classical solvers are $\mu$-budget decidable {\normalfont (kernel/MuComplexity.v)} --- \textbf{(S)}]
+\texttt{classical\_mu\_budget\_decidable}: any decision problem solved by a zero-$\mu$ classical program within polynomial fuel is \texttt{mu\_budget\_decidable} with $\mu$-bound 0. Classical computation is a degenerate case of $\mu$-computation. Zero Admitted.
 \end{theorem}
 
 \begin{remark}
-$\mu$P and $\mu$NP separate the time cost of computation from the structural cost of certification. Whether $\mu$P $\neq$ $\mu$NP — or whether there exist problems in $\mu$NP not in $\mu$P — is an open question. The factored-search witness in \texttt{StructuralAdvantage.v} gives a concrete example of a $\mu$-cost advantage (paying $\mu = 18$ to certify a decomposition and reduce search from $O(N^2)$ to $O(2N)$), but that is not a class separation.
+\texttt{mu\_budget\_decidable} and \texttt{mu\_budget\_verifiable} are predicates classifying decision problems by their polynomial-$\mu$ envelope, not classical complexity classes. The Coq file proves the basic inclusion (every decidable problem is verifiable, by re-running the solver and certifying). It does not prove a class separation. The factored-search witness in \texttt{StructuralAdvantage.v} gives a concrete program-level $\mu$-cost advantage (paying $\mu = 18$ to certify a decomposition and reduce search from $O(N^2)$ to $O(2N)$), but that is not a class separation. Earlier versions of this section named these predicates \texttt{in\_muP} and \texttt{in\_muNP}; the names were misleading because they evoked the classical P-versus-NP question, which this file does not address.
 \end{remark}
 
 \begin{theorem}[$\mu$-Cost Hierarchy {\normalfont (kernel/MuHierarchyTheorem.v)} --- \textbf{(S)}]
@@ -1309,7 +1309,7 @@ Latent $\mu$ Intrinsic to Computation & \texttt{coq/NecessityOfMuLedger.v}: \tex
 $\mu$ Cost Universal Across Machines & \texttt{coq/NecessityOfMuLedger.v}: \texttt{shadow\_mu\_delta\_universal} \\
 $\mu$ Cost Unique Across Accounting Systems & \texttt{coq/NecessityOfMuLedger.v}: \texttt{shadow\_mu\_unique\_accounting} \\
 No Free Computation (inevitable $\mu$) & \texttt{coq/NecessityOfMuLedger.v}: \texttt{shadow\_mu\_inevitable} \\
-$\mu$P / $\mu$NP definitions + Classical $\subseteq$ $\mu$P & \texttt{coq/kernel/mu\_calculus/MuComplexity.v} \\
+$\mu$-budget predicates + zero-$\mu$ inclusion & \texttt{coq/kernel/mu\_calculus/MuComplexity.v} \\
 \hline
 \multicolumn{2}{l}{\emph{Categorical and shadow-projection layer}} \\
 \hline

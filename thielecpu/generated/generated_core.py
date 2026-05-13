@@ -51,6 +51,7 @@ COQ_INSTRUCTION_TAGS: tuple[str, ...] = (
     'Coq_instr_morph_assert',
     'Coq_instr_morph_tensor',
     'Coq_instr_morph_get',
+    'Coq_instr_chsh_lassert',
 )
 
 COQ_TAG_TO_MNEMONIC: dict[str, str] = {
@@ -100,6 +101,7 @@ COQ_TAG_TO_MNEMONIC: dict[str, str] = {
     'Coq_instr_morph_assert': 'MORPH_ASSERT',
     'Coq_instr_morph_tensor': 'MORPH_TENSOR',
     'Coq_instr_morph_get': 'MORPH_GET',
+    'Coq_instr_chsh_lassert': 'CHSH_LASSERT',
 }
 
 MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
@@ -108,6 +110,7 @@ MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
     'CALL': 23,
     'CERTIFY': 30,
     'CHECKPOINT': 25,
+    'CHSH_LASSERT': 46,
     'CHSH_TRIAL': 9,
     'COMPOSE': 40,
     'EMIT': 14,
@@ -198,6 +201,7 @@ COQ_TAG_TO_OPCODE_BYTE: dict[str, int] = {
     'Coq_instr_morph_assert': 43,
     'Coq_instr_morph_tensor': 44,
     'Coq_instr_morph_get': 45,
+    'Coq_instr_chsh_lassert': 46,
 }
 
 def sanity_check() -> None:

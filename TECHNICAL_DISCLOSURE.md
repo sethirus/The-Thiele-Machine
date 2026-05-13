@@ -4,7 +4,7 @@
 **First public disclosure:** August 15, 2025 (repository creation; development began January 2025)  
 **Current date:** April 2026  
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
-**License:** Apache 2.0 (software), CC-BY-SA-4.0 (thesis/documentation)  
+**License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
 **Purpose of this document:** Defensive publication. Every concept described here is publicly disclosed prior art under 35 U.S.C. § 102 (US) and Article 54 EPC (Europe) as of the dates above. This document is submitted for indexing to IP.com and similar prior art databases.
 
 ---
@@ -174,7 +174,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 | August 15, 2025 | First public commit to this repository. All concepts above are present in some form. |
 | August–December 2025 | Coq kernel developed. No Free Insight proven. µ-initiality proven. LASSERT dual-witness requirement formalized. |
 | January–April 2026 | Hardware proofs completed (Abstraction.v). Thiele-honesty ↔ NPA biconditional proven. µ-hierarchy proven. Zero admits confirmed across 205 files. |
-| April 2026 | This disclosure published. Thesis submitted. |
+| April 2026 | This disclosure published. Monograph published. |
 
 ---
 

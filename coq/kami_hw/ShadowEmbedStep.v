@@ -109,12 +109,24 @@ Definition ShadowSupportedOpcode (i : vm_instruction) : Prop :=
   | instr_pdiscover _ _ _       => True
   | instr_emit _ _ _            => True
   | instr_reveal _ _ _ _        => True
+  (* CHSH_LASSERT branches on [vm_witness], which is NOT in the six-field
+     shadow projection. Two states with equal shadows can still differ on
+     [vm_witness] and therefore produce different outcomes (advance vs trap),
+     so the shadow-compat lemma is structurally false for this opcode.
+     Excluding it here keeps the shadow theory precise. *)
+  | instr_chsh_lassert _        => False
   | other                       => SupportedOpcode other
   end.
 
+(** Every non-CHSH_LASSERT SupportedOpcode is ShadowSupported. CHSH_LASSERT
+    is the sole exception: it branches on [vm_witness] which is not in the
+    shadow projection, so shadow-compat is structurally inapplicable. *)
 Lemma SupportedOpcode_implies_ShadowSupported :
-  forall i, SupportedOpcode i -> ShadowSupportedOpcode i.
-Proof. intros i Hi. destruct i; simpl in *; tauto. Qed.
+  forall i, SupportedOpcode i ->
+            (forall mu, i <> instr_chsh_lassert mu) ->
+            ShadowSupportedOpcode i.
+Proof. intros i Hi Hne. destruct i; simpl in *; try tauto.
+  exfalso. eapply Hne. reflexivity. Qed.
 
 (** Main per-step shadow theorem for all 30 opcodes. *)
 Theorem shadow_embed_step_supported :

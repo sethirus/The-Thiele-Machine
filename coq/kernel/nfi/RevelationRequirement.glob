@@ -1,4 +1,4 @@
-DIGEST 72236403e58b16d1c0399981406a951c
+DIGEST c21099b6295ac7a23a5436a72b1dc7d7
 FKernel.RevelationRequirement
 R778:781 Coq.Lists.List <> <> lib
 R783:785 Coq.micromega.Lia <> <> lib
@@ -30,6 +30,7 @@ R1350:1360 Coq.Lists.List <> list_eq_dec thm
 R1373:1382 Coq.Arith.PeanoNat Nat eq_dec thm
 R1395:1404 Coq.Strings.String <> string_dec def
 R1440:1449 Coq.Strings.String <> string_dec def
+R1297:1306 Coq.Arith.PeanoNat Nat eq_dec thm
 R1297:1306 Coq.Arith.PeanoNat Nat eq_dec thm
 R1297:1306 Coq.Arith.PeanoNat Nat eq_dec thm
 R1297:1306 Coq.Arith.PeanoNat Nat eq_dec thm
@@ -346,989 +347,999 @@ R4761:4770 Coq.Arith.PeanoNat Nat eq_dec thm
 R4787:4799 Kernel.VMState <> csr_cert_addr proj
 R4777:4783 Kernel.VMState <> vm_csrs proj
 R5157:5170 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-prf 5308:5337 RevelationProof non_cert_setter_preserves_cert
-binder 5350:5350 <> s:28
-binder 5352:5352 <> i:29
-R5359:5359 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5403:5411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5367:5367 <> m:30
-binder 5369:5369 <> b:31
-binder 5371:5371 <> c:32
-binder 5373:5374 <> mu:33
-R5378:5381 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5377:5377 Kernel.RevelationRequirement <> i:29 var
-R5382:5393 Kernel.VMStep VMStep instr_reveal constr
-R5395:5395 Kernel.RevelationRequirement <> m:30 var
-R5397:5397 Kernel.RevelationRequirement <> b:31 var
-R5399:5399 Kernel.RevelationRequirement <> c:32 var
-R5401:5402 Kernel.RevelationRequirement <> mu:33 var
-R5412:5412 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5450:5458 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5420:5420 <> m:34
-binder 5422:5422 <> p:35
-binder 5424:5425 <> mu:36
-R5429:5432 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5428:5428 Kernel.RevelationRequirement <> i:29 var
-R5433:5442 Kernel.VMStep VMStep instr_emit constr
-R5444:5444 Kernel.RevelationRequirement <> m:34 var
-R5446:5446 Kernel.RevelationRequirement <> p:35 var
-R5448:5449 Kernel.RevelationRequirement <> mu:36 var
-R5459:5459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5502:5510 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5467:5468 <> c1:37
-binder 5470:5471 <> c2:38
-binder 5473:5474 <> mu:39
-R5478:5481 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5477:5477 Kernel.RevelationRequirement <> i:29 var
-R5482:5492 Kernel.VMStep VMStep instr_ljoin constr
-R5494:5495 Kernel.RevelationRequirement <> c1:37 var
-R5497:5498 Kernel.RevelationRequirement <> c2:38 var
-R5500:5501 Kernel.RevelationRequirement <> mu:39 var
-R5511:5511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5566:5574 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5519:5520 <> fa:40
-binder 5522:5523 <> ca:41
-binder 5525:5525 <> k:42
-binder 5527:5528 <> fl:43
-binder 5530:5531 <> mu:44
-R5535:5538 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5534:5534 Kernel.RevelationRequirement <> i:29 var
-R5539:5551 Kernel.VMStep VMStep instr_lassert constr
-R5553:5554 Kernel.RevelationRequirement <> fa:40 var
-R5556:5557 Kernel.RevelationRequirement <> ca:41 var
-R5559:5559 Kernel.RevelationRequirement <> k:42 var
-R5561:5562 Kernel.RevelationRequirement <> fl:43 var
-R5564:5565 Kernel.RevelationRequirement <> mu:44 var
-R5575:5575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5608:5616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5583:5584 <> mu:45
-R5588:5591 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5587:5587 Kernel.RevelationRequirement <> i:29 var
-R5592:5604 Kernel.VMStep VMStep instr_certify constr
-R5606:5607 Kernel.RevelationRequirement <> mu:45 var
-R5617:5617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5671:5679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 5625:5627 <> mid:46
-binder 5629:5629 <> p:47
-binder 5631:5631 <> c:48
-binder 5633:5634 <> mu:49
-R5638:5641 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R5637:5637 Kernel.RevelationRequirement <> i:29 var
-R5642:5659 Kernel.VMStep VMStep instr_morph_assert constr
-R5661:5663 Kernel.RevelationRequirement <> mid:46 var
-R5665:5665 Kernel.RevelationRequirement <> p:47 var
-R5667:5667 Kernel.RevelationRequirement <> c:48 var
-R5669:5670 Kernel.RevelationRequirement <> mu:49 var
-R5720:5722 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5706:5718 Kernel.VMState <> csr_cert_addr proj
-R5696:5702 Kernel.VMState <> vm_csrs proj
-R5681:5688 Kernel.SimulationProof <> vm_apply def
-R5690:5690 Kernel.RevelationRequirement <> s:28 var
-R5692:5692 Kernel.RevelationRequirement <> i:29 var
-R5736:5748 Kernel.VMState <> csr_cert_addr proj
-R5726:5732 Kernel.VMState <> vm_csrs proj
-R5723:5723 Kernel.RevelationRequirement <> s:28 var
-R5844:5851 Kernel.SimulationProof <> vm_apply def
-R5854:5868 Kernel.SimulationProof <> vm_apply_unsafe def
-R5924:5939 Kernel.VMState <> graph_add_module def
-R5924:5939 Kernel.VMState <> graph_add_module def
-R5964:5979 Kernel.VMState <> graph_add_module def
-R5964:5979 Kernel.VMState <> graph_add_module def
-R6017:6029 Kernel.VMStep VMStep advance_state def
-R6080:6092 Kernel.VMStep VMStep advance_state def
-R6143:6155 Kernel.VMStep VMStep advance_state def
-R6312:6324 Kernel.VMStep VMStep advance_state def
-R6374:6386 Kernel.VMStep VMStep advance_state def
-R6431:6446 Kernel.VMStep VMStep advance_state_rm def
-R6495:6510 Kernel.VMStep VMStep advance_state_rm def
-R6555:6570 Kernel.VMStep VMStep advance_state_rm def
-R6616:6631 Kernel.VMStep VMStep advance_state_rm def
-R6675:6690 Kernel.VMStep VMStep advance_state_rm def
-R6734:6749 Kernel.VMStep VMStep advance_state_rm def
-R6794:6803 Kernel.VMStep VMStep jump_state def
-R6879:6885 Coq.Arith.PeanoNat Nat eqb def
-R6888:6895 Kernel.VMState <> read_reg def
-R6879:6885 Coq.Arith.PeanoNat Nat eqb def
-R6888:6895 Kernel.VMState <> read_reg def
-R6930:6936 Coq.Arith.PeanoNat Nat eqb def
-R6939:6946 Kernel.VMState <> read_reg def
-R6987:6999 Kernel.VMStep VMStep advance_state def
-R7010:7019 Kernel.VMStep VMStep jump_state def
-R6930:6936 Coq.Arith.PeanoNat Nat eqb def
-R6939:6946 Kernel.VMState <> read_reg def
-R7065:7077 Kernel.VMStep VMStep jump_state_rm def
-R7121:7133 Kernel.VMStep VMStep jump_state_rm def
-R7215:7226 Kernel.VMStep VMStep chsh_bits_ok def
-R7215:7226 Kernel.VMStep VMStep chsh_bits_ok def
-R7262:7273 Kernel.VMStep VMStep chsh_bits_ok def
-R7312:7324 Kernel.VMStep VMStep advance_state def
-R7327:7337 Kernel.VMState <> csr_set_err def
-R7262:7273 Kernel.VMStep VMStep chsh_bits_ok def
-R7386:7401 Kernel.VMStep VMStep advance_state_rm def
-R7449:7464 Kernel.VMStep VMStep advance_state_rm def
-R7513:7528 Kernel.VMStep VMStep advance_state_rm def
-R7577:7592 Kernel.VMStep VMStep advance_state_rm def
-R7740:7752 Kernel.VMStep VMStep advance_state def
-R7803:7815 Kernel.VMStep VMStep advance_state def
-R7865:7880 Kernel.VMStep VMStep advance_state_rm def
-R7931:7943 Kernel.VMStep VMStep advance_state def
-R7993:8008 Kernel.VMStep VMStep advance_state_rm def
-R8059:8074 Kernel.VMStep VMStep advance_state_rm def
-R8175:8190 Kernel.VMStep VMStep advance_state_rm def
-R8233:8248 Kernel.VMStep VMStep advance_state_rm def
-R8292:8307 Kernel.VMStep VMStep advance_state_rm def
-R8351:8366 Kernel.VMStep VMStep advance_state_rm def
-R8410:8425 Kernel.VMStep VMStep advance_state_rm def
-R8469:8484 Kernel.VMStep VMStep advance_state_rm def
-R8569:8592 Kernel.VMStep VMStep tensor_indices_ok def
-R8569:8592 Kernel.VMStep VMStep tensor_indices_ok def
-R8636:8659 Kernel.VMStep VMStep tensor_indices_ok def
-R8636:8659 Kernel.VMStep VMStep tensor_indices_ok def
-R8694:8706 Kernel.VMStep VMStep advance_state def
-R8742:8754 Kernel.VMStep VMStep advance_state def
-R8757:8767 Kernel.VMState <> csr_set_err def
-R8852:8875 Kernel.VMStep VMStep tensor_indices_ok def
-R8852:8875 Kernel.VMStep VMStep tensor_indices_ok def
-R8919:8942 Kernel.VMStep VMStep tensor_indices_ok def
-R8919:8942 Kernel.VMStep VMStep tensor_indices_ok def
-R8977:8992 Kernel.VMStep VMStep advance_state_rm def
-R9028:9040 Kernel.VMStep VMStep advance_state def
-R9043:9053 Kernel.VMState <> csr_set_err def
-R9112:9123 Kernel.VMState <> graph_lookup def
-R9128:9135 Kernel.VMState <> vm_graph proj
-R9112:9123 Kernel.VMState <> graph_lookup def
-R9128:9135 Kernel.VMState <> vm_graph proj
-R9178:9189 Kernel.VMState <> graph_lookup def
-R9194:9201 Kernel.VMState <> vm_graph proj
-R9178:9189 Kernel.VMState <> graph_lookup def
-R9194:9201 Kernel.VMState <> vm_graph proj
-R9246:9263 Kernel.VMState <> graph_add_morphism def
-R9268:9275 Kernel.VMState <> vm_graph proj
-R9294:9312 Kernel.VMState <> empty_coupling_data def
-R9314:9318 Coq.Init.Datatypes <> false constr
-R9246:9263 Kernel.VMState <> graph_add_morphism def
-R9268:9275 Kernel.VMState <> vm_graph proj
-R9294:9312 Kernel.VMState <> empty_coupling_data def
-R9314:9318 Coq.Init.Datatypes <> false constr
-R9346:9361 Kernel.VMStep VMStep advance_state_rm def
-R9399:9411 Kernel.VMStep VMStep advance_state def
-R9414:9424 Kernel.VMState <> csr_set_err def
-R9460:9472 Kernel.VMStep VMStep advance_state def
-R9475:9485 Kernel.VMState <> csr_set_err def
-R9546:9568 Kernel.VMState <> graph_compose_morphisms def
-R9573:9580 Kernel.VMState <> vm_graph proj
-R9546:9568 Kernel.VMState <> graph_compose_morphisms def
-R9573:9580 Kernel.VMState <> vm_graph proj
-R9628:9643 Kernel.VMStep VMStep advance_state_rm def
-R9679:9691 Kernel.VMStep VMStep advance_state def
-R9694:9704 Kernel.VMState <> csr_set_err def
-R9766:9783 Kernel.VMState <> graph_add_identity def
-R9788:9795 Kernel.VMState <> vm_graph proj
-R9766:9783 Kernel.VMState <> graph_add_identity def
-R9788:9795 Kernel.VMState <> vm_graph proj
-R9838:9853 Kernel.VMStep VMStep advance_state_rm def
-R9889:9901 Kernel.VMStep VMStep advance_state def
-R9904:9914 Kernel.VMState <> csr_set_err def
-R9980:10000 Kernel.VMState <> graph_delete_morphism def
-R10005:10012 Kernel.VMState <> vm_graph proj
-R9980:10000 Kernel.VMState <> graph_delete_morphism def
-R10005:10012 Kernel.VMState <> vm_graph proj
-R10053:10065 Kernel.VMStep VMStep advance_state def
-R10101:10113 Kernel.VMStep VMStep advance_state def
-R10116:10126 Kernel.VMState <> csr_set_err def
-R10309:10330 Kernel.VMState <> graph_tensor_morphisms def
-R10335:10342 Kernel.VMState <> vm_graph proj
-R10309:10330 Kernel.VMState <> graph_tensor_morphisms def
-R10335:10342 Kernel.VMState <> vm_graph proj
-R10388:10403 Kernel.VMStep VMStep advance_state_rm def
-R10439:10451 Kernel.VMStep VMStep advance_state def
-R10454:10464 Kernel.VMState <> csr_set_err def
-R10527:10547 Kernel.VMState <> graph_lookup_morphism def
-R10552:10559 Kernel.VMState <> vm_graph proj
-R10527:10547 Kernel.VMState <> graph_lookup_morphism def
-R10552:10559 Kernel.VMState <> vm_graph proj
-R10600:10615 Kernel.VMStep VMStep advance_state_rm def
-R10651:10663 Kernel.VMStep VMStep advance_state def
-R10666:10676 Kernel.VMState <> csr_set_err def
-def 11002:11023 RevelationProof non_morph_assert_instr
-R11030:11043 Kernel.VMStep VMStep vm_instruction ind
-binder 11026:11026 <> i:50
-R11064:11064 Kernel.RevelationRequirement <> i:50 var
-R11075:11092 Kernel.VMStep VMStep instr_morph_assert constr
-R11105:11109 Coq.Init.Logic <> False ind
-R11120:11123 Coq.Init.Logic <> True ind
-prf 11139:11174 RevelationProof non_morph_assert_preserves_cert_addr
-binder 11187:11187 <> s:52
-binder 11189:11189 <> i:53
-R11220:11227 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11196:11217 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
-R11219:11219 Kernel.RevelationRequirement <> i:53 var
-R11268:11270 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11254:11266 Kernel.VMState <> csr_cert_addr proj
-R11244:11250 Kernel.VMState <> vm_csrs proj
-R11229:11236 Kernel.SimulationProof <> vm_apply def
-R11238:11238 Kernel.RevelationRequirement <> s:52 var
-R11240:11240 Kernel.RevelationRequirement <> i:53 var
-R11284:11296 Kernel.VMState <> csr_cert_addr proj
-R11274:11280 Kernel.VMState <> vm_csrs proj
-R11271:11271 Kernel.RevelationRequirement <> s:52 var
-R11366:11373 Kernel.SimulationProof <> vm_apply def
-R11376:11390 Kernel.SimulationProof <> vm_apply_unsafe def
-R11446:11461 Kernel.VMState <> graph_add_module def
-R11446:11461 Kernel.VMState <> graph_add_module def
-R11486:11501 Kernel.VMState <> graph_add_module def
-R11486:11501 Kernel.VMState <> graph_add_module def
-R11539:11551 Kernel.VMStep VMStep advance_state def
-R11602:11614 Kernel.VMStep VMStep advance_state def
-R11665:11677 Kernel.VMStep VMStep advance_state def
-R11769:11781 Kernel.VMStep VMStep advance_state def
-R11832:11844 Kernel.VMStep VMStep advance_state def
-R11898:11910 Kernel.VMStep VMStep advance_state def
-R11959:11974 Kernel.VMStep VMStep advance_state_rm def
-R12027:12042 Kernel.VMStep VMStep advance_state_rm def
-R12091:12106 Kernel.VMStep VMStep advance_state_rm def
-R12156:12171 Kernel.VMStep VMStep advance_state_rm def
-R12219:12234 Kernel.VMStep VMStep advance_state_rm def
-R12282:12297 Kernel.VMStep VMStep advance_state_rm def
-R12346:12355 Kernel.VMStep VMStep jump_state def
-R12431:12437 Coq.Arith.PeanoNat Nat eqb def
-R12440:12447 Kernel.VMState <> read_reg def
-R12431:12437 Coq.Arith.PeanoNat Nat eqb def
-R12440:12447 Kernel.VMState <> read_reg def
-R12482:12488 Coq.Arith.PeanoNat Nat eqb def
-R12491:12498 Kernel.VMState <> read_reg def
-R12539:12551 Kernel.VMStep VMStep advance_state def
-R12562:12571 Kernel.VMStep VMStep jump_state def
-R12482:12488 Coq.Arith.PeanoNat Nat eqb def
-R12491:12498 Kernel.VMState <> read_reg def
-R12621:12633 Kernel.VMStep VMStep jump_state_rm def
-R12681:12693 Kernel.VMStep VMStep jump_state_rm def
-R12775:12786 Kernel.VMStep VMStep chsh_bits_ok def
-R12775:12786 Kernel.VMStep VMStep chsh_bits_ok def
-R12822:12833 Kernel.VMStep VMStep chsh_bits_ok def
-R12872:12884 Kernel.VMStep VMStep advance_state def
-R12887:12897 Kernel.VMState <> csr_set_err def
-R12822:12833 Kernel.VMStep VMStep chsh_bits_ok def
-R12950:12965 Kernel.VMStep VMStep advance_state_rm def
-R13017:13032 Kernel.VMStep VMStep advance_state_rm def
-R13085:13100 Kernel.VMStep VMStep advance_state_rm def
-R13153:13168 Kernel.VMStep VMStep advance_state_rm def
-R13217:13229 Kernel.VMStep VMStep advance_state def
-R13280:13299 Kernel.VMStep VMStep advance_state_reveal def
-R13348:13360 Kernel.VMStep VMStep advance_state def
-R13415:13427 Kernel.VMStep VMStep advance_state def
-R13481:13496 Kernel.VMStep VMStep advance_state_rm def
-R13551:13563 Kernel.VMStep VMStep advance_state def
-R13617:13632 Kernel.VMStep VMStep advance_state_rm def
-R13687:13702 Kernel.VMStep VMStep advance_state_rm def
-R13792:13807 Kernel.VMStep VMStep advance_state_rm def
-R13854:13869 Kernel.VMStep VMStep advance_state_rm def
-R13917:13932 Kernel.VMStep VMStep advance_state_rm def
-R13980:13995 Kernel.VMStep VMStep advance_state_rm def
-R14043:14058 Kernel.VMStep VMStep advance_state_rm def
-R14106:14121 Kernel.VMStep VMStep advance_state_rm def
-R14179:14195 Kernel.VMStep VMStep tensor_indices_ok def
-R14179:14195 Kernel.VMStep VMStep tensor_indices_ok def
-R14222:14234 Kernel.VMStep VMStep advance_state def
-R14270:14282 Kernel.VMStep VMStep advance_state def
-R14285:14295 Kernel.VMState <> csr_set_err def
-R14353:14369 Kernel.VMStep VMStep tensor_indices_ok def
-R14353:14369 Kernel.VMStep VMStep tensor_indices_ok def
-R14396:14411 Kernel.VMStep VMStep advance_state_rm def
-R14447:14459 Kernel.VMStep VMStep advance_state def
-R14462:14472 Kernel.VMState <> csr_set_err def
-R14525:14536 Kernel.VMState <> graph_lookup def
-R14541:14548 Kernel.VMState <> vm_graph proj
-R14525:14536 Kernel.VMState <> graph_lookup def
-R14541:14548 Kernel.VMState <> vm_graph proj
-R14591:14602 Kernel.VMState <> graph_lookup def
-R14607:14614 Kernel.VMState <> vm_graph proj
-R14591:14602 Kernel.VMState <> graph_lookup def
-R14607:14614 Kernel.VMState <> vm_graph proj
-R14659:14676 Kernel.VMState <> graph_add_morphism def
-R14681:14688 Kernel.VMState <> vm_graph proj
-R14707:14725 Kernel.VMState <> empty_coupling_data def
-R14727:14731 Coq.Init.Datatypes <> false constr
-R14659:14676 Kernel.VMState <> graph_add_morphism def
-R14681:14688 Kernel.VMState <> vm_graph proj
-R14707:14725 Kernel.VMState <> empty_coupling_data def
-R14727:14731 Coq.Init.Datatypes <> false constr
-R14759:14774 Kernel.VMStep VMStep advance_state_rm def
-R14812:14824 Kernel.VMStep VMStep advance_state def
-R14827:14837 Kernel.VMState <> csr_set_err def
-R14873:14885 Kernel.VMStep VMStep advance_state def
-R14888:14898 Kernel.VMState <> csr_set_err def
-R14953:14975 Kernel.VMState <> graph_compose_morphisms def
-R14980:14987 Kernel.VMState <> vm_graph proj
-R14953:14975 Kernel.VMState <> graph_compose_morphisms def
-R14980:14987 Kernel.VMState <> vm_graph proj
-R15035:15050 Kernel.VMStep VMStep advance_state_rm def
-R15086:15098 Kernel.VMStep VMStep advance_state def
-R15101:15111 Kernel.VMState <> csr_set_err def
-R15167:15184 Kernel.VMState <> graph_add_identity def
-R15189:15196 Kernel.VMState <> vm_graph proj
-R15167:15184 Kernel.VMState <> graph_add_identity def
-R15189:15196 Kernel.VMState <> vm_graph proj
-R15239:15254 Kernel.VMStep VMStep advance_state_rm def
-R15290:15302 Kernel.VMStep VMStep advance_state def
-R15305:15315 Kernel.VMState <> csr_set_err def
-R15375:15395 Kernel.VMState <> graph_delete_morphism def
-R15400:15407 Kernel.VMState <> vm_graph proj
-R15375:15395 Kernel.VMState <> graph_delete_morphism def
-R15400:15407 Kernel.VMState <> vm_graph proj
-R15448:15460 Kernel.VMStep VMStep advance_state def
-R15496:15508 Kernel.VMStep VMStep advance_state def
-R15511:15521 Kernel.VMState <> csr_set_err def
-R15578:15599 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
-R15695:15716 Kernel.VMState <> graph_tensor_morphisms def
-R15721:15728 Kernel.VMState <> vm_graph proj
-R15695:15716 Kernel.VMState <> graph_tensor_morphisms def
-R15721:15728 Kernel.VMState <> vm_graph proj
-R15774:15789 Kernel.VMStep VMStep advance_state_rm def
-R15825:15837 Kernel.VMStep VMStep advance_state def
-R15840:15850 Kernel.VMState <> csr_set_err def
-R15907:15927 Kernel.VMState <> graph_lookup_morphism def
-R15932:15939 Kernel.VMState <> vm_graph proj
-R15907:15927 Kernel.VMState <> graph_lookup_morphism def
-R15932:15939 Kernel.VMState <> vm_graph proj
-R15980:15995 Kernel.VMStep VMStep advance_state_rm def
-R16031:16043 Kernel.VMStep VMStep advance_state def
-R16046:16056 Kernel.VMState <> csr_set_err def
-prf 16091:16122 RevelationProof morph_assert_or_non_morph_assert
-binder 16135:16135 <> i:54
-R16142:16142 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16237:16245 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16143:16149 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16177:16186 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16150:16157 <> morph_id:55
-binder 16159:16166 <> property:56
-binder 16168:16171 <> cert:57
-binder 16173:16176 <> cost:58
-R16188:16190 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16187:16187 Kernel.RevelationRequirement <> i:54 var
-R16191:16208 Kernel.VMStep VMStep instr_morph_assert constr
-R16210:16217 Kernel.RevelationRequirement <> morph_id:55 var
-R16219:16226 Kernel.RevelationRequirement <> property:56 var
-R16228:16231 Kernel.RevelationRequirement <> cert:57 var
-R16233:16236 Kernel.RevelationRequirement <> cost:58 var
-R16246:16267 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
-R16269:16269 Kernel.RevelationRequirement <> i:54 var
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-R16330:16330 Coq.Init.Logic <> I constr
-prf 16515:16551 RevelationProof morph_assert_step_sets_supra_cert_iff
-binder 16564:16564 <> s:59
-binder 16566:16566 <> i:60
-R16604:16612 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16867:16867 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16600:16602 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16586:16598 Kernel.VMState <> csr_cert_addr proj
-R16576:16582 Kernel.VMState <> vm_csrs proj
-R16573:16573 Kernel.RevelationRequirement <> s:59 var
-R16658:16667 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R16653:16656 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R16639:16651 Kernel.VMState <> csr_cert_addr proj
-R16629:16635 Kernel.VMState <> vm_csrs proj
-R16614:16621 Kernel.SimulationProof <> vm_apply def
-R16623:16623 Kernel.RevelationRequirement <> s:59 var
-R16625:16625 Kernel.RevelationRequirement <> i:60 var
-R16668:16674 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16705:16713 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16675:16682 <> morph_id:61
-binder 16684:16691 <> property:62
-binder 16693:16696 <> cert:63
-binder 16698:16701 <> cost:64
-binder 16703:16704 <> ms:65
-R16764:16774 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16715:16717 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16714:16714 Kernel.RevelationRequirement <> i:60 var
-R16718:16735 Kernel.VMStep VMStep instr_morph_assert constr
-R16737:16744 Kernel.RevelationRequirement <> morph_id:61 var
-R16746:16753 Kernel.RevelationRequirement <> property:62 var
-R16755:16758 Kernel.RevelationRequirement <> cert:63 var
-R16760:16763 Kernel.RevelationRequirement <> cost:64 var
-R16828:16838 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R16818:16820 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16775:16795 Kernel.VMState <> graph_lookup_morphism def
-R16800:16807 Kernel.VMState <> vm_graph proj
-R16797:16797 Kernel.RevelationRequirement <> s:59 var
-R16810:16817 Kernel.RevelationRequirement <> morph_id:61 var
-R16821:16824 Coq.Init.Datatypes <> Some constr
-R16826:16827 Kernel.RevelationRequirement <> ms:65 var
-R16862:16865 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R16839:16852 Kernel.VMState <> ascii_checksum def
-R16854:16861 Kernel.RevelationRequirement <> property:62 var
-R16935:16966 Kernel.RevelationRequirement RevelationProof morph_assert_or_non_morph_assert thm
-R16935:16966 Kernel.RevelationRequirement RevelationProof morph_assert_or_non_morph_assert thm
-R17062:17082 Kernel.VMState <> graph_lookup_morphism def
-R17087:17094 Kernel.VMState <> vm_graph proj
-R17062:17082 Kernel.VMState <> graph_lookup_morphism def
-R17087:17094 Kernel.VMState <> vm_graph proj
-R17259:17266 Kernel.SimulationProof <> vm_apply def
-R17269:17283 Kernel.SimulationProof <> vm_apply_unsafe def
-R17379:17386 Kernel.SimulationProof <> vm_apply def
-R17389:17403 Kernel.SimulationProof <> vm_apply_unsafe def
-R17533:17568 Kernel.RevelationRequirement RevelationProof non_morph_assert_preserves_cert_addr thm
-R17533:17568 Kernel.RevelationRequirement RevelationProof non_morph_assert_preserves_cert_addr thm
-R17533:17568 Kernel.RevelationRequirement RevelationProof non_morph_assert_preserves_cert_addr thm
-R17741:17748 Kernel.SimulationProof <> vm_apply def
-R17751:17765 Kernel.SimulationProof <> vm_apply_unsafe def
-ind 17835:17861 RevelationProof morph_assert_bridge_pattern
-constr 17902:17925 RevelationProof morph_assert_bridge_here
-constr 18271:18295 RevelationProof morph_assert_bridge_later
-R17868:17871 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17865:17867 Coq.Init.Datatypes <> nat ind
-R17877:17880 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17872:17876 Kernel.RevelationRequirement RevelationProof Trace def
-R17888:17891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17881:17887 Kernel.VMState <> VMState rec
-binder 17940:17943 <> fuel:68
-binder 17945:17949 <> trace:69
-binder 17951:17951 <> s:70
-binder 17953:17960 <> morph_id:71
-binder 17962:17969 <> property:72
-binder 17971:17974 <> cert:73
-binder 17976:17979 <> cost:74
-binder 17981:17982 <> ms:75
-R18072:18081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18016:18018 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17991:17999 Coq.Lists.List <> nth_error def
-R18008:18012 Kernel.VMState <> vm_pc proj
-R18014:18014 Kernel.RevelationRequirement <> s:70 var
-R18001:18005 Kernel.RevelationRequirement <> trace:69 var
-R18019:18022 Coq.Init.Datatypes <> Some constr
-R18025:18042 Kernel.VMStep VMStep instr_morph_assert constr
-R18044:18051 Kernel.RevelationRequirement <> morph_id:71 var
-R18053:18060 Kernel.RevelationRequirement <> property:72 var
-R18062:18065 Kernel.RevelationRequirement <> cert:73 var
-R18067:18070 Kernel.RevelationRequirement <> cost:74 var
-R18113:18122 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18109:18111 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18095:18107 Kernel.VMState <> csr_cert_addr proj
-R18085:18091 Kernel.VMState <> vm_csrs proj
-R18082:18082 Kernel.RevelationRequirement <> s:70 var
-R18176:18185 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18166:18168 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18123:18143 Kernel.VMState <> graph_lookup_morphism def
-R18148:18155 Kernel.VMState <> vm_graph proj
-R18145:18145 Kernel.RevelationRequirement <> s:70 var
-R18158:18165 Kernel.RevelationRequirement <> morph_id:71 var
-R18169:18172 Coq.Init.Datatypes <> Some constr
-R18174:18175 Kernel.RevelationRequirement <> ms:75 var
-R18214:18223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18209:18212 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R18186:18199 Kernel.VMState <> ascii_checksum def
-R18201:18208 Kernel.RevelationRequirement <> property:72 var
-R18224:18250 Kernel.RevelationRequirement <> morph_assert_bridge_pattern:66 ind
-R18267:18267 Kernel.RevelationRequirement <> s:70 var
-R18261:18265 Kernel.RevelationRequirement <> trace:69 var
-R18253:18253 Coq.Init.Datatypes <> S constr
-R18255:18258 Kernel.RevelationRequirement <> fuel:68 var
-binder 18310:18313 <> fuel:76
-binder 18315:18319 <> trace:77
-binder 18321:18321 <> s:78
-binder 18323:18327 <> instr:79
-R18374:18383 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18361:18363 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18336:18344 Coq.Lists.List <> nth_error def
-R18353:18357 Kernel.VMState <> vm_pc proj
-R18359:18359 Kernel.RevelationRequirement <> s:78 var
-R18346:18350 Kernel.RevelationRequirement <> trace:77 var
-R18364:18367 Coq.Init.Datatypes <> Some constr
-R18369:18373 Kernel.RevelationRequirement <> instr:79 var
-R18441:18450 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18384:18410 Kernel.RevelationRequirement <> morph_assert_bridge_pattern:66 ind
-R18424:18431 Kernel.SimulationProof <> vm_apply def
-R18433:18433 Kernel.RevelationRequirement <> s:78 var
-R18435:18439 Kernel.RevelationRequirement <> instr:79 var
-R18417:18421 Kernel.RevelationRequirement <> trace:77 var
-R18412:18415 Kernel.RevelationRequirement <> fuel:76 var
-R18451:18477 Kernel.RevelationRequirement <> morph_assert_bridge_pattern:66 ind
-R18494:18494 Kernel.RevelationRequirement <> s:78 var
-R18488:18492 Kernel.RevelationRequirement <> trace:77 var
-R18480:18480 Coq.Init.Datatypes <> S constr
-R18482:18485 Kernel.RevelationRequirement <> fuel:76 var
-scheme 17835:17861 RevelationProof morph_assert_bridge_pattern_ind
-scheme 17835:17861 RevelationProof morph_assert_bridge_pattern_sind
-prf 18506:18562 RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern
-binder 18575:18578 <> fuel:80
-binder 18580:18584 <> trace:81
-binder 18586:18586 <> s:82
-R18631:18639 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R18593:18617 Kernel.RevelationRequirement RevelationProof structure_addition_in_run def
-R18619:18622 Kernel.RevelationRequirement <> fuel:80 var
-R18624:18628 Kernel.RevelationRequirement <> trace:81 var
-R18630:18630 Kernel.RevelationRequirement <> s:82 var
-R18640:18666 Kernel.RevelationRequirement RevelationProof morph_assert_bridge_pattern ind
-R18668:18671 Kernel.RevelationRequirement <> fuel:80 var
-R18673:18677 Kernel.RevelationRequirement <> trace:81 var
-R18679:18679 Kernel.RevelationRequirement <> s:82 var
-R18831:18839 Coq.Lists.List <> nth_error def
-R18848:18852 Kernel.VMState <> vm_pc proj
-R18831:18839 Coq.Lists.List <> nth_error def
-R18848:18852 Kernel.VMState <> vm_pc proj
-R18962:18966 Coq.Init.Logic <> proj1 thm
-R18969:19005 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
-R18962:18966 Coq.Init.Logic <> proj1 thm
-R18969:19005 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
-R19245:19249 Coq.Init.Logic <> proj1 thm
-R19262:19269 Kernel.SimulationProof <> vm_apply def
-R19245:19249 Coq.Init.Logic <> proj1 thm
-R19262:19269 Kernel.SimulationProof <> vm_apply def
-R19560:19564 Coq.Init.Logic <> proj2 thm
-R19567:19603 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
-R19623:19640 Kernel.VMStep VMStep instr_morph_assert constr
-R19560:19564 Coq.Init.Logic <> proj2 thm
-R19567:19603 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
-R19623:19640 Kernel.VMStep VMStep instr_morph_assert constr
-R19810:19814 Coq.Init.Logic <> proj2 thm
-R19827:19834 Kernel.SimulationProof <> vm_apply def
-R19810:19814 Coq.Init.Logic <> proj2 thm
-R19827:19834 Kernel.SimulationProof <> vm_apply def
-prf 19881:19939 RevelationProof non_morph_assert_trace_excludes_morph_assert_bridge_pattern
-binder 19952:19955 <> fuel:83
-binder 19957:19961 <> trace:84
-binder 19963:19963 <> s:85
-R20005:20012 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19970:19975 Coq.Lists.List <> Forall ind
-R20000:20004 Kernel.RevelationRequirement <> trace:84 var
-R19977:19998 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
-R20013:20014 Coq.Init.Logic <> ::type_scope:'~'_x not
-R20015:20041 Kernel.RevelationRequirement RevelationProof morph_assert_bridge_pattern ind
-R20043:20046 Kernel.RevelationRequirement <> fuel:83 var
-R20048:20052 Kernel.RevelationRequirement <> trace:84 var
-R20054:20054 Kernel.RevelationRequirement <> s:85 var
-R20193:20204 Coq.Lists.List <> nth_error_In thm
-R20193:20204 Coq.Lists.List <> nth_error_In thm
-R20227:20239 Coq.Lists.List <> Forall_forall thm
-R20227:20239 Coq.Lists.List <> Forall_forall thm
-R20227:20239 Coq.Lists.List <> Forall_forall thm
-prf 20376:20423 RevelationProof non_morph_assert_trace_has_no_structure_addition
-binder 20436:20439 <> fuel:86
-binder 20441:20445 <> trace:87
-binder 20447:20447 <> s:88
-R20489:20496 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20454:20459 Coq.Lists.List <> Forall ind
-R20484:20488 Kernel.RevelationRequirement <> trace:87 var
-R20461:20482 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
-R20497:20498 Coq.Init.Logic <> ::type_scope:'~'_x not
-R20499:20523 Kernel.RevelationRequirement RevelationProof structure_addition_in_run def
-R20525:20528 Kernel.RevelationRequirement <> fuel:86 var
-R20530:20534 Kernel.RevelationRequirement <> trace:87 var
-R20536:20536 Kernel.RevelationRequirement <> s:88 var
-R20594:20652 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_excludes_morph_assert_bridge_pattern thm
-R20594:20652 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_excludes_morph_assert_bridge_pattern thm
-R20697:20701 Coq.Init.Logic <> proj1 thm
-R20704:20760 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
-R20697:20701 Coq.Init.Logic <> proj1 thm
-R20704:20760 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
-prf 20827:20871 RevelationProof non_morph_assert_trace_cannot_gain_supra_cert
-R20893:20897 Kernel.RevelationRequirement RevelationProof Trace def
-binder 20885:20889 <> trace:89
-R20918:20924 Kernel.VMState <> VMState rec
-binder 20901:20906 <> s_init:90
-binder 20908:20914 <> s_final:91
-R20935:20937 Coq.Init.Datatypes <> nat ind
-binder 20928:20931 <> fuel:92
-R20987:20994 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20972:20974 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20945:20953 Kernel.RevelationRequirement RevelationProof trace_run def
-R20955:20958 Kernel.RevelationRequirement <> fuel:92 var
-R20960:20964 Kernel.RevelationRequirement <> trace:89 var
-R20966:20971 Kernel.RevelationRequirement <> s_init:90 var
-R20975:20978 Coq.Init.Datatypes <> Some constr
-R20980:20986 Kernel.RevelationRequirement <> s_final:91 var
-R21031:21038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21027:21029 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21013:21025 Kernel.VMState <> csr_cert_addr proj
-R21003:21009 Kernel.VMState <> vm_csrs proj
-R20995:21000 Kernel.RevelationRequirement <> s_init:90 var
-R21074:21081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21039:21044 Coq.Lists.List <> Forall ind
-R21069:21073 Kernel.RevelationRequirement <> trace:89 var
-R21046:21067 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
-R21082:21083 Coq.Init.Logic <> ::type_scope:'~'_x not
-R21084:21097 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R21099:21105 Kernel.RevelationRequirement <> s_final:91 var
-R21186:21233 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_has_no_structure_addition thm
-R21186:21233 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_has_no_structure_addition thm
-R21272:21315 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
-R21272:21315 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
-prf 21741:21780 RevelationProof nonlocal_correlation_requires_revelation
-R21802:21806 Kernel.RevelationRequirement RevelationProof Trace def
-binder 21794:21798 <> trace:93
-R21827:21833 Kernel.VMState <> VMState rec
-binder 21810:21815 <> s_init:94
-binder 21817:21823 <> s_final:95
-R21844:21846 Coq.Init.Datatypes <> nat ind
-binder 21837:21840 <> fuel:96
-R21896:21903 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21881:21883 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21854:21862 Kernel.RevelationRequirement RevelationProof trace_run def
-R21864:21867 Kernel.RevelationRequirement <> fuel:96 var
-R21869:21873 Kernel.RevelationRequirement <> trace:93 var
-R21875:21880 Kernel.RevelationRequirement <> s_init:94 var
-R21884:21887 Coq.Init.Datatypes <> Some constr
-R21889:21895 Kernel.RevelationRequirement <> s_final:95 var
-R21940:21947 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21936:21938 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R21922:21934 Kernel.VMState <> csr_cert_addr proj
-R21912:21918 Kernel.VMState <> vm_csrs proj
-R21904:21909 Kernel.RevelationRequirement <> s_init:94 var
-R21970:21977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21948:21961 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R21963:21969 Kernel.RevelationRequirement <> s_final:95 var
-R21999:22006 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R21978:21992 Kernel.RevelationRequirement RevelationProof uses_revelation def
-R21994:21998 Kernel.RevelationRequirement <> trace:93 var
-R22007:22007 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R22069:22077 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R22008:22014 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22023:22024 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 22015:22015 <> n:97
-binder 22017:22017 <> m:98
-binder 22019:22019 <> p:99
-binder 22021:22022 <> mu:100
-R22042:22044 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22025:22033 Coq.Lists.List <> nth_error def
-R22041:22041 Kernel.RevelationRequirement <> n:97 var
-R22035:22039 Kernel.RevelationRequirement <> trace:93 var
-R22045:22048 Coq.Init.Datatypes <> Some constr
-R22051:22060 Kernel.VMStep VMStep instr_emit constr
-R22062:22062 Kernel.RevelationRequirement <> m:98 var
-R22064:22064 Kernel.RevelationRequirement <> p:99 var
-R22066:22067 Kernel.RevelationRequirement <> mu:100 var
-R22078:22078 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R22145:22153 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R22079:22085 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22096:22097 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 22086:22086 <> n:101
-binder 22088:22089 <> c1:102
-binder 22091:22092 <> c2:103
-binder 22094:22095 <> mu:104
-R22115:22117 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22098:22106 Coq.Lists.List <> nth_error def
-R22114:22114 Kernel.RevelationRequirement <> n:101 var
-R22108:22112 Kernel.RevelationRequirement <> trace:93 var
-R22118:22121 Coq.Init.Datatypes <> Some constr
-R22124:22134 Kernel.VMStep VMStep instr_ljoin constr
-R22136:22137 Kernel.RevelationRequirement <> c1:102 var
-R22139:22140 Kernel.RevelationRequirement <> c2:103 var
-R22142:22143 Kernel.RevelationRequirement <> mu:104 var
-R22154:22154 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R22233:22242 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R22320:22320 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R22155:22161 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22177:22178 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 22162:22162 <> n:105
-binder 22164:22165 <> fa:106
-binder 22167:22168 <> ca:107
-binder 22170:22170 <> k:108
-binder 22172:22173 <> fl:109
-binder 22175:22176 <> mu:110
-R22196:22198 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22179:22187 Coq.Lists.List <> nth_error def
-R22195:22195 Kernel.RevelationRequirement <> n:105 var
-R22189:22193 Kernel.RevelationRequirement <> trace:93 var
-R22199:22202 Coq.Init.Datatypes <> Some constr
-R22205:22217 Kernel.VMStep VMStep instr_lassert constr
-R22219:22220 Kernel.RevelationRequirement <> fa:106 var
-R22222:22223 Kernel.RevelationRequirement <> ca:107 var
-R22225:22225 Kernel.RevelationRequirement <> k:108 var
-R22227:22228 Kernel.RevelationRequirement <> fl:109 var
-R22230:22231 Kernel.RevelationRequirement <> mu:110 var
-R22243:22249 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R22262:22263 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 22250:22250 <> n:111
-binder 22252:22254 <> mid:112
-binder 22256:22256 <> p:113
-binder 22258:22258 <> c:114
-binder 22260:22261 <> mu:115
-R22281:22283 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22264:22272 Coq.Lists.List <> nth_error def
-R22280:22280 Kernel.RevelationRequirement <> n:111 var
-R22274:22278 Kernel.RevelationRequirement <> trace:93 var
-R22284:22287 Coq.Init.Datatypes <> Some constr
-R22290:22307 Kernel.VMStep VMStep instr_morph_assert constr
-R22309:22311 Kernel.RevelationRequirement <> mid:112 var
-R22313:22313 Kernel.RevelationRequirement <> p:113 var
-R22315:22315 Kernel.RevelationRequirement <> c:114 var
-R22317:22318 Kernel.RevelationRequirement <> mu:115 var
-R22555:22568 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R22629:22637 Coq.Lists.List <> nth_error def
-R22646:22650 Kernel.VMState <> vm_pc proj
-R22629:22637 Coq.Lists.List <> nth_error def
-R22646:22650 Kernel.VMState <> vm_pc proj
-R22712:22719 Kernel.SimulationProof <> vm_apply def
-R22722:22736 Kernel.SimulationProof <> vm_apply_unsafe def
-R22817:22832 Kernel.VMState <> graph_add_module def
-R22817:22832 Kernel.VMState <> graph_add_module def
-R22857:22872 Kernel.VMState <> graph_add_module def
-R22857:22872 Kernel.VMState <> graph_add_module def
-R22970:22982 Kernel.VMStep VMStep advance_state def
-R23118:23130 Kernel.VMStep VMStep advance_state def
-R23266:23278 Kernel.VMStep VMStep advance_state def
-R23565:23577 Kernel.VMStep VMStep advance_state def
-R23708:23720 Kernel.VMStep VMStep advance_state def
-R23846:23861 Kernel.VMStep VMStep advance_state_rm def
-R23991:24006 Kernel.VMStep VMStep advance_state_rm def
-R24132:24147 Kernel.VMStep VMStep advance_state_rm def
-R24274:24289 Kernel.VMStep VMStep advance_state_rm def
-R24414:24429 Kernel.VMStep VMStep advance_state_rm def
-R24554:24569 Kernel.VMStep VMStep advance_state_rm def
-R24695:24704 Kernel.VMStep VMStep jump_state def
-R24864:24870 Coq.Arith.PeanoNat Nat eqb def
-R24873:24880 Kernel.VMState <> read_reg def
-R24864:24870 Coq.Arith.PeanoNat Nat eqb def
-R24873:24880 Kernel.VMState <> read_reg def
-R24917:24923 Coq.Arith.PeanoNat Nat eqb def
-R24926:24933 Kernel.VMState <> read_reg def
-R24986:24998 Kernel.VMStep VMStep advance_state def
-R25009:25018 Kernel.VMStep VMStep jump_state def
-R24917:24923 Coq.Arith.PeanoNat Nat eqb def
-R24926:24933 Kernel.VMState <> read_reg def
-R25145:25157 Kernel.VMStep VMStep jump_state_rm def
-R25282:25294 Kernel.VMStep VMStep jump_state_rm def
-R25460:25471 Kernel.VMStep VMStep chsh_bits_ok def
-R25460:25471 Kernel.VMStep VMStep chsh_bits_ok def
-R25509:25520 Kernel.VMStep VMStep chsh_bits_ok def
-R25571:25583 Kernel.VMStep VMStep advance_state def
-R25586:25596 Kernel.VMState <> csr_set_err def
-R25509:25520 Kernel.VMStep VMStep chsh_bits_ok def
-R25726:25741 Kernel.VMStep VMStep advance_state_rm def
-R25870:25885 Kernel.VMStep VMStep advance_state_rm def
-R26015:26030 Kernel.VMStep VMStep advance_state_rm def
-R26160:26175 Kernel.VMStep VMStep advance_state_rm def
-R26383:26387 Kernel.VMState <> vm_pc proj
-R26383:26387 Kernel.VMState <> vm_pc proj
-R27277:27297 Kernel.RevelationRequirement <> vm_instruction_eq_dec def
-R27303:27314 Kernel.VMStep VMStep instr_reveal constr
-R27277:27297 Kernel.RevelationRequirement <> vm_instruction_eq_dec def
-R27303:27314 Kernel.VMStep VMStep instr_reveal constr
-R27390:27390 Coq.Init.Logic <> I constr
-R27390:27390 Coq.Init.Logic <> I constr
-R27617:27617 Coq.Init.Logic <> I constr
-R27617:27617 Coq.Init.Logic <> I constr
-R27698:27710 Kernel.VMStep VMStep advance_state def
-R27842:27854 Kernel.VMStep VMStep advance_state def
-R27985:28000 Kernel.VMStep VMStep advance_state_rm def
-R28132:28144 Kernel.VMStep VMStep advance_state def
-R28275:28290 Kernel.VMStep VMStep advance_state_rm def
-R28422:28437 Kernel.VMStep VMStep advance_state_rm def
-R28681:28696 Kernel.VMStep VMStep advance_state_rm def
-R28820:28835 Kernel.VMStep VMStep advance_state_rm def
-R28960:28975 Kernel.VMStep VMStep advance_state_rm def
-R29100:29115 Kernel.VMStep VMStep advance_state_rm def
-R29240:29255 Kernel.VMStep VMStep advance_state_rm def
-R29380:29395 Kernel.VMStep VMStep advance_state_rm def
-R29486:29502 Kernel.VMStep VMStep tensor_indices_ok def
-R29486:29502 Kernel.VMStep VMStep tensor_indices_ok def
-R29592:29604 Kernel.VMStep VMStep advance_state def
-R29731:29743 Kernel.VMStep VMStep advance_state def
-R29746:29756 Kernel.VMState <> csr_set_err def
-R29850:29866 Kernel.VMStep VMStep tensor_indices_ok def
-R29850:29866 Kernel.VMStep VMStep tensor_indices_ok def
-R29956:29971 Kernel.VMStep VMStep advance_state_rm def
-R30098:30110 Kernel.VMStep VMStep advance_state def
-R30113:30123 Kernel.VMState <> csr_set_err def
-R30218:30229 Kernel.VMState <> graph_lookup def
-R30239:30246 Kernel.VMState <> vm_graph proj
-R30218:30229 Kernel.VMState <> graph_lookup def
-R30239:30246 Kernel.VMState <> vm_graph proj
-R30294:30305 Kernel.VMState <> graph_lookup def
-R30315:30322 Kernel.VMState <> vm_graph proj
-R30294:30305 Kernel.VMState <> graph_lookup def
-R30315:30322 Kernel.VMState <> vm_graph proj
-R30437:30454 Kernel.VMState <> graph_add_morphism def
-R30464:30471 Kernel.VMState <> vm_graph proj
-R30490:30508 Kernel.VMState <> empty_coupling_data def
-R30510:30514 Coq.Init.Datatypes <> false constr
-R30437:30454 Kernel.VMState <> graph_add_morphism def
-R30464:30471 Kernel.VMState <> vm_graph proj
-R30490:30508 Kernel.VMState <> empty_coupling_data def
-R30510:30514 Coq.Init.Datatypes <> false constr
-R30551:30566 Kernel.VMStep VMStep advance_state_rm def
-R30705:30717 Kernel.VMStep VMStep advance_state def
-R30720:30730 Kernel.VMState <> csr_set_err def
-R30860:30872 Kernel.VMStep VMStep advance_state def
-R30875:30885 Kernel.VMState <> csr_set_err def
-R30982:31004 Kernel.VMState <> graph_compose_morphisms def
-R31014:31021 Kernel.VMState <> vm_graph proj
-R30982:31004 Kernel.VMState <> graph_compose_morphisms def
-R31014:31021 Kernel.VMState <> vm_graph proj
-R31132:31147 Kernel.VMStep VMStep advance_state_rm def
-R31274:31286 Kernel.VMStep VMStep advance_state def
-R31289:31299 Kernel.VMState <> csr_set_err def
-R31397:31414 Kernel.VMState <> graph_add_identity def
-R31424:31431 Kernel.VMState <> vm_graph proj
-R31397:31414 Kernel.VMState <> graph_add_identity def
-R31424:31431 Kernel.VMState <> vm_graph proj
-R31537:31552 Kernel.VMStep VMStep advance_state_rm def
-R31679:31691 Kernel.VMStep VMStep advance_state def
-R31694:31704 Kernel.VMState <> csr_set_err def
-R31806:31826 Kernel.VMState <> graph_delete_morphism def
-R31836:31843 Kernel.VMState <> vm_graph proj
-R31806:31826 Kernel.VMState <> graph_delete_morphism def
-R31836:31843 Kernel.VMState <> vm_graph proj
-R31947:31959 Kernel.VMStep VMStep advance_state def
-R32086:32098 Kernel.VMStep VMStep advance_state def
-R32101:32111 Kernel.VMState <> csr_set_err def
-R32378:32399 Kernel.VMState <> graph_tensor_morphisms def
-R32409:32416 Kernel.VMState <> vm_graph proj
-R32378:32399 Kernel.VMState <> graph_tensor_morphisms def
-R32409:32416 Kernel.VMState <> vm_graph proj
-R32525:32540 Kernel.VMStep VMStep advance_state_rm def
-R32667:32679 Kernel.VMStep VMStep advance_state def
-R32682:32692 Kernel.VMState <> csr_set_err def
-R32791:32811 Kernel.VMState <> graph_lookup_morphism def
-R32821:32828 Kernel.VMState <> vm_graph proj
-R32791:32811 Kernel.VMState <> graph_lookup_morphism def
-R32821:32828 Kernel.VMState <> vm_graph proj
-R32932:32947 Kernel.VMStep VMStep advance_state_rm def
-R33074:33086 Kernel.VMStep VMStep advance_state def
-R33089:33099 Kernel.VMState <> csr_set_err def
-R33233:33246 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-prf 33352:33382 RevelationProof cert_setter_necessary_for_supra
-binder 33395:33399 <> trace:116
-binder 33401:33406 <> s_init:117
-binder 33408:33414 <> s_final:118
-binder 33416:33419 <> fuel:119
-R33468:33475 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R33453:33455 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33426:33434 Kernel.RevelationRequirement RevelationProof trace_run def
-R33436:33439 Kernel.RevelationRequirement <> fuel:119 var
-R33441:33445 Kernel.RevelationRequirement <> trace:116 var
-R33447:33452 Kernel.RevelationRequirement <> s_init:117 var
-R33456:33459 Coq.Init.Datatypes <> Some constr
-R33461:33467 Kernel.RevelationRequirement <> s_final:118 var
-R33512:33519 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R33508:33510 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33494:33506 Kernel.VMState <> csr_cert_addr proj
-R33484:33490 Kernel.VMState <> vm_csrs proj
-R33476:33481 Kernel.RevelationRequirement <> s_init:117 var
-R33542:33549 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R33520:33533 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R33535:33541 Kernel.RevelationRequirement <> s_final:118 var
-R33571:33578 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33550:33564 Kernel.RevelationRequirement RevelationProof uses_revelation def
-R33566:33570 Kernel.RevelationRequirement <> trace:116 var
-R33579:33579 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33641:33649 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33580:33586 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R33595:33596 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 33587:33587 <> n:120
-binder 33589:33589 <> m:121
-binder 33591:33591 <> p:122
-binder 33593:33594 <> mu:123
-R33614:33616 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33597:33605 Coq.Lists.List <> nth_error def
-R33613:33613 Kernel.RevelationRequirement <> n:120 var
-R33607:33611 Kernel.RevelationRequirement <> trace:116 var
-R33617:33620 Coq.Init.Datatypes <> Some constr
-R33623:33632 Kernel.VMStep VMStep instr_emit constr
-R33634:33634 Kernel.RevelationRequirement <> m:121 var
-R33636:33636 Kernel.RevelationRequirement <> p:122 var
-R33638:33639 Kernel.RevelationRequirement <> mu:123 var
-R33650:33650 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33717:33725 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33651:33657 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R33668:33669 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 33658:33658 <> n:124
-binder 33660:33661 <> c1:125
-binder 33663:33664 <> c2:126
-binder 33666:33667 <> mu:127
-R33687:33689 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33670:33678 Coq.Lists.List <> nth_error def
-R33686:33686 Kernel.RevelationRequirement <> n:124 var
-R33680:33684 Kernel.RevelationRequirement <> trace:116 var
-R33690:33693 Coq.Init.Datatypes <> Some constr
-R33696:33706 Kernel.VMStep VMStep instr_ljoin constr
-R33708:33709 Kernel.RevelationRequirement <> c1:125 var
-R33711:33712 Kernel.RevelationRequirement <> c2:126 var
-R33714:33715 Kernel.RevelationRequirement <> mu:127 var
-R33726:33726 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33805:33814 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33892:33892 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R33727:33733 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R33749:33750 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 33734:33734 <> n:128
-binder 33736:33737 <> fa:129
-binder 33739:33740 <> ca:130
-binder 33742:33742 <> k:131
-binder 33744:33745 <> fl:132
-binder 33747:33748 <> mu:133
-R33768:33770 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33751:33759 Coq.Lists.List <> nth_error def
-R33767:33767 Kernel.RevelationRequirement <> n:128 var
-R33761:33765 Kernel.RevelationRequirement <> trace:116 var
-R33771:33774 Coq.Init.Datatypes <> Some constr
-R33777:33789 Kernel.VMStep VMStep instr_lassert constr
-R33791:33792 Kernel.RevelationRequirement <> fa:129 var
-R33794:33795 Kernel.RevelationRequirement <> ca:130 var
-R33797:33797 Kernel.RevelationRequirement <> k:131 var
-R33799:33800 Kernel.RevelationRequirement <> fl:132 var
-R33802:33803 Kernel.RevelationRequirement <> mu:133 var
-R33815:33821 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R33834:33835 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 33822:33822 <> n:134
-binder 33824:33826 <> mid:135
-binder 33828:33828 <> p:136
-binder 33830:33830 <> c:137
-binder 33832:33833 <> mu:138
-R33853:33855 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R33836:33844 Coq.Lists.List <> nth_error def
-R33852:33852 Kernel.RevelationRequirement <> n:134 var
-R33846:33850 Kernel.RevelationRequirement <> trace:116 var
-R33856:33859 Coq.Init.Datatypes <> Some constr
-R33862:33879 Kernel.VMStep VMStep instr_morph_assert constr
-R33881:33883 Kernel.RevelationRequirement <> mid:135 var
-R33885:33885 Kernel.RevelationRequirement <> p:136 var
-R33887:33887 Kernel.RevelationRequirement <> c:137 var
-R33889:33890 Kernel.RevelationRequirement <> mu:138 var
-R33910:33949 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
-R33910:33949 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
-R33962:33976 Kernel.RevelationRequirement RevelationProof <> mod
+prf 5309:5338 RevelationProof non_cert_setter_preserves_cert
+binder 5351:5351 <> s:28
+binder 5353:5353 <> i:29
+R5360:5360 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5404:5412 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5368:5368 <> m:30
+binder 5370:5370 <> b:31
+binder 5372:5372 <> c:32
+binder 5374:5375 <> mu:33
+R5379:5382 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5378:5378 Kernel.RevelationRequirement <> i:29 var
+R5383:5394 Kernel.VMStep VMStep instr_reveal constr
+R5396:5396 Kernel.RevelationRequirement <> m:30 var
+R5398:5398 Kernel.RevelationRequirement <> b:31 var
+R5400:5400 Kernel.RevelationRequirement <> c:32 var
+R5402:5403 Kernel.RevelationRequirement <> mu:33 var
+R5413:5413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5451:5459 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5421:5421 <> m:34
+binder 5423:5423 <> p:35
+binder 5425:5426 <> mu:36
+R5430:5433 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5429:5429 Kernel.RevelationRequirement <> i:29 var
+R5434:5443 Kernel.VMStep VMStep instr_emit constr
+R5445:5445 Kernel.RevelationRequirement <> m:34 var
+R5447:5447 Kernel.RevelationRequirement <> p:35 var
+R5449:5450 Kernel.RevelationRequirement <> mu:36 var
+R5460:5460 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5503:5511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5468:5469 <> c1:37
+binder 5471:5472 <> c2:38
+binder 5474:5475 <> mu:39
+R5479:5482 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5478:5478 Kernel.RevelationRequirement <> i:29 var
+R5483:5493 Kernel.VMStep VMStep instr_ljoin constr
+R5495:5496 Kernel.RevelationRequirement <> c1:37 var
+R5498:5499 Kernel.RevelationRequirement <> c2:38 var
+R5501:5502 Kernel.RevelationRequirement <> mu:39 var
+R5512:5512 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5567:5575 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5520:5521 <> fa:40
+binder 5523:5524 <> ca:41
+binder 5526:5526 <> k:42
+binder 5528:5529 <> fl:43
+binder 5531:5532 <> mu:44
+R5536:5539 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5535:5535 Kernel.RevelationRequirement <> i:29 var
+R5540:5552 Kernel.VMStep VMStep instr_lassert constr
+R5554:5555 Kernel.RevelationRequirement <> fa:40 var
+R5557:5558 Kernel.RevelationRequirement <> ca:41 var
+R5560:5560 Kernel.RevelationRequirement <> k:42 var
+R5562:5563 Kernel.RevelationRequirement <> fl:43 var
+R5565:5566 Kernel.RevelationRequirement <> mu:44 var
+R5576:5576 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5609:5617 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5584:5585 <> mu:45
+R5589:5592 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5588:5588 Kernel.RevelationRequirement <> i:29 var
+R5593:5605 Kernel.VMStep VMStep instr_certify constr
+R5607:5608 Kernel.RevelationRequirement <> mu:45 var
+R5618:5618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5672:5680 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 5626:5628 <> mid:46
+binder 5630:5630 <> p:47
+binder 5632:5632 <> c:48
+binder 5634:5635 <> mu:49
+R5639:5642 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R5638:5638 Kernel.RevelationRequirement <> i:29 var
+R5643:5660 Kernel.VMStep VMStep instr_morph_assert constr
+R5662:5664 Kernel.RevelationRequirement <> mid:46 var
+R5666:5666 Kernel.RevelationRequirement <> p:47 var
+R5668:5668 Kernel.RevelationRequirement <> c:48 var
+R5670:5671 Kernel.RevelationRequirement <> mu:49 var
+R5721:5723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5707:5719 Kernel.VMState <> csr_cert_addr proj
+R5697:5703 Kernel.VMState <> vm_csrs proj
+R5682:5689 Kernel.SimulationProof <> vm_apply def
+R5691:5691 Kernel.RevelationRequirement <> s:28 var
+R5693:5693 Kernel.RevelationRequirement <> i:29 var
+R5737:5749 Kernel.VMState <> csr_cert_addr proj
+R5727:5733 Kernel.VMState <> vm_csrs proj
+R5724:5724 Kernel.RevelationRequirement <> s:28 var
+R5845:5852 Kernel.SimulationProof <> vm_apply def
+R5855:5869 Kernel.SimulationProof <> vm_apply_unsafe def
+R5925:5940 Kernel.VMState <> graph_add_module def
+R5925:5940 Kernel.VMState <> graph_add_module def
+R5965:5980 Kernel.VMState <> graph_add_module def
+R5965:5980 Kernel.VMState <> graph_add_module def
+R6018:6030 Kernel.VMStep VMStep advance_state def
+R6081:6093 Kernel.VMStep VMStep advance_state def
+R6144:6156 Kernel.VMStep VMStep advance_state def
+R6313:6325 Kernel.VMStep VMStep advance_state def
+R6375:6387 Kernel.VMStep VMStep advance_state def
+R6432:6447 Kernel.VMStep VMStep advance_state_rm def
+R6496:6511 Kernel.VMStep VMStep advance_state_rm def
+R6556:6571 Kernel.VMStep VMStep advance_state_rm def
+R6617:6632 Kernel.VMStep VMStep advance_state_rm def
+R6676:6691 Kernel.VMStep VMStep advance_state_rm def
+R6735:6750 Kernel.VMStep VMStep advance_state_rm def
+R6795:6804 Kernel.VMStep VMStep jump_state def
+R6880:6886 Coq.Arith.PeanoNat Nat eqb def
+R6889:6896 Kernel.VMState <> read_reg def
+R6880:6886 Coq.Arith.PeanoNat Nat eqb def
+R6889:6896 Kernel.VMState <> read_reg def
+R6931:6937 Coq.Arith.PeanoNat Nat eqb def
+R6940:6947 Kernel.VMState <> read_reg def
+R6988:7000 Kernel.VMStep VMStep advance_state def
+R7011:7020 Kernel.VMStep VMStep jump_state def
+R6931:6937 Coq.Arith.PeanoNat Nat eqb def
+R6940:6947 Kernel.VMState <> read_reg def
+R7066:7078 Kernel.VMStep VMStep jump_state_rm def
+R7122:7134 Kernel.VMStep VMStep jump_state_rm def
+R7216:7227 Kernel.VMStep VMStep chsh_bits_ok def
+R7216:7227 Kernel.VMStep VMStep chsh_bits_ok def
+R7263:7274 Kernel.VMStep VMStep chsh_bits_ok def
+R7313:7325 Kernel.VMStep VMStep advance_state def
+R7328:7338 Kernel.VMState <> csr_set_err def
+R7263:7274 Kernel.VMStep VMStep chsh_bits_ok def
+R7387:7402 Kernel.VMStep VMStep advance_state_rm def
+R7450:7465 Kernel.VMStep VMStep advance_state_rm def
+R7514:7529 Kernel.VMStep VMStep advance_state_rm def
+R7578:7593 Kernel.VMStep VMStep advance_state_rm def
+R7741:7753 Kernel.VMStep VMStep advance_state def
+R7804:7816 Kernel.VMStep VMStep advance_state def
+R7866:7881 Kernel.VMStep VMStep advance_state_rm def
+R7932:7944 Kernel.VMStep VMStep advance_state def
+R7994:8009 Kernel.VMStep VMStep advance_state_rm def
+R8060:8075 Kernel.VMStep VMStep advance_state_rm def
+R8176:8191 Kernel.VMStep VMStep advance_state_rm def
+R8234:8249 Kernel.VMStep VMStep advance_state_rm def
+R8293:8308 Kernel.VMStep VMStep advance_state_rm def
+R8352:8367 Kernel.VMStep VMStep advance_state_rm def
+R8411:8426 Kernel.VMStep VMStep advance_state_rm def
+R8470:8485 Kernel.VMStep VMStep advance_state_rm def
+R8570:8593 Kernel.VMStep VMStep tensor_indices_ok def
+R8570:8593 Kernel.VMStep VMStep tensor_indices_ok def
+R8637:8660 Kernel.VMStep VMStep tensor_indices_ok def
+R8637:8660 Kernel.VMStep VMStep tensor_indices_ok def
+R8695:8707 Kernel.VMStep VMStep advance_state def
+R8743:8755 Kernel.VMStep VMStep advance_state def
+R8758:8768 Kernel.VMState <> csr_set_err def
+R8853:8876 Kernel.VMStep VMStep tensor_indices_ok def
+R8853:8876 Kernel.VMStep VMStep tensor_indices_ok def
+R8920:8943 Kernel.VMStep VMStep tensor_indices_ok def
+R8920:8943 Kernel.VMStep VMStep tensor_indices_ok def
+R8978:8993 Kernel.VMStep VMStep advance_state_rm def
+R9029:9041 Kernel.VMStep VMStep advance_state def
+R9044:9054 Kernel.VMState <> csr_set_err def
+R9113:9124 Kernel.VMState <> graph_lookup def
+R9129:9136 Kernel.VMState <> vm_graph proj
+R9113:9124 Kernel.VMState <> graph_lookup def
+R9129:9136 Kernel.VMState <> vm_graph proj
+R9179:9190 Kernel.VMState <> graph_lookup def
+R9195:9202 Kernel.VMState <> vm_graph proj
+R9179:9190 Kernel.VMState <> graph_lookup def
+R9195:9202 Kernel.VMState <> vm_graph proj
+R9247:9264 Kernel.VMState <> graph_add_morphism def
+R9269:9276 Kernel.VMState <> vm_graph proj
+R9295:9313 Kernel.VMState <> empty_coupling_data def
+R9315:9319 Coq.Init.Datatypes <> false constr
+R9247:9264 Kernel.VMState <> graph_add_morphism def
+R9269:9276 Kernel.VMState <> vm_graph proj
+R9295:9313 Kernel.VMState <> empty_coupling_data def
+R9315:9319 Coq.Init.Datatypes <> false constr
+R9347:9362 Kernel.VMStep VMStep advance_state_rm def
+R9400:9412 Kernel.VMStep VMStep advance_state def
+R9415:9425 Kernel.VMState <> csr_set_err def
+R9461:9473 Kernel.VMStep VMStep advance_state def
+R9476:9486 Kernel.VMState <> csr_set_err def
+R9547:9569 Kernel.VMState <> graph_compose_morphisms def
+R9574:9581 Kernel.VMState <> vm_graph proj
+R9547:9569 Kernel.VMState <> graph_compose_morphisms def
+R9574:9581 Kernel.VMState <> vm_graph proj
+R9629:9644 Kernel.VMStep VMStep advance_state_rm def
+R9680:9692 Kernel.VMStep VMStep advance_state def
+R9695:9705 Kernel.VMState <> csr_set_err def
+R9767:9784 Kernel.VMState <> graph_add_identity def
+R9789:9796 Kernel.VMState <> vm_graph proj
+R9767:9784 Kernel.VMState <> graph_add_identity def
+R9789:9796 Kernel.VMState <> vm_graph proj
+R9839:9854 Kernel.VMStep VMStep advance_state_rm def
+R9890:9902 Kernel.VMStep VMStep advance_state def
+R9905:9915 Kernel.VMState <> csr_set_err def
+R9981:10001 Kernel.VMState <> graph_delete_morphism def
+R10006:10013 Kernel.VMState <> vm_graph proj
+R9981:10001 Kernel.VMState <> graph_delete_morphism def
+R10006:10013 Kernel.VMState <> vm_graph proj
+R10054:10066 Kernel.VMStep VMStep advance_state def
+R10102:10114 Kernel.VMStep VMStep advance_state def
+R10117:10127 Kernel.VMState <> csr_set_err def
+R10310:10331 Kernel.VMState <> graph_tensor_morphisms def
+R10336:10343 Kernel.VMState <> vm_graph proj
+R10310:10331 Kernel.VMState <> graph_tensor_morphisms def
+R10336:10343 Kernel.VMState <> vm_graph proj
+R10389:10404 Kernel.VMStep VMStep advance_state_rm def
+R10440:10452 Kernel.VMStep VMStep advance_state def
+R10455:10465 Kernel.VMState <> csr_set_err def
+R10528:10548 Kernel.VMState <> graph_lookup_morphism def
+R10553:10560 Kernel.VMState <> vm_graph proj
+R10528:10548 Kernel.VMState <> graph_lookup_morphism def
+R10553:10560 Kernel.VMState <> vm_graph proj
+R10601:10616 Kernel.VMStep VMStep advance_state_rm def
+R10652:10664 Kernel.VMStep VMStep advance_state def
+R10667:10677 Kernel.VMState <> csr_set_err def
+R10952:10983 Kernel.VMStep VMStep column_contractive_check_witness def
+R10952:10983 Kernel.VMStep VMStep column_contractive_check_witness def
+def 11538:11559 RevelationProof non_morph_assert_instr
+R11566:11579 Kernel.VMStep VMStep vm_instruction ind
+binder 11562:11562 <> i:50
+R11600:11600 Kernel.RevelationRequirement <> i:50 var
+R11611:11628 Kernel.VMStep VMStep instr_morph_assert constr
+R11641:11645 Coq.Init.Logic <> False ind
+R11656:11659 Coq.Init.Logic <> True ind
+prf 11675:11710 RevelationProof non_morph_assert_preserves_cert_addr
+binder 11723:11723 <> s:52
+binder 11725:11725 <> i:53
+R11756:11763 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11732:11753 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R11755:11755 Kernel.RevelationRequirement <> i:53 var
+R11804:11806 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11790:11802 Kernel.VMState <> csr_cert_addr proj
+R11780:11786 Kernel.VMState <> vm_csrs proj
+R11765:11772 Kernel.SimulationProof <> vm_apply def
+R11774:11774 Kernel.RevelationRequirement <> s:52 var
+R11776:11776 Kernel.RevelationRequirement <> i:53 var
+R11820:11832 Kernel.VMState <> csr_cert_addr proj
+R11810:11816 Kernel.VMState <> vm_csrs proj
+R11807:11807 Kernel.RevelationRequirement <> s:52 var
+R11902:11909 Kernel.SimulationProof <> vm_apply def
+R11912:11926 Kernel.SimulationProof <> vm_apply_unsafe def
+R11982:11997 Kernel.VMState <> graph_add_module def
+R11982:11997 Kernel.VMState <> graph_add_module def
+R12022:12037 Kernel.VMState <> graph_add_module def
+R12022:12037 Kernel.VMState <> graph_add_module def
+R12075:12087 Kernel.VMStep VMStep advance_state def
+R12138:12150 Kernel.VMStep VMStep advance_state def
+R12201:12213 Kernel.VMStep VMStep advance_state def
+R12305:12317 Kernel.VMStep VMStep advance_state def
+R12368:12380 Kernel.VMStep VMStep advance_state def
+R12434:12446 Kernel.VMStep VMStep advance_state def
+R12495:12510 Kernel.VMStep VMStep advance_state_rm def
+R12563:12578 Kernel.VMStep VMStep advance_state_rm def
+R12627:12642 Kernel.VMStep VMStep advance_state_rm def
+R12692:12707 Kernel.VMStep VMStep advance_state_rm def
+R12755:12770 Kernel.VMStep VMStep advance_state_rm def
+R12818:12833 Kernel.VMStep VMStep advance_state_rm def
+R12882:12891 Kernel.VMStep VMStep jump_state def
+R12967:12973 Coq.Arith.PeanoNat Nat eqb def
+R12976:12983 Kernel.VMState <> read_reg def
+R12967:12973 Coq.Arith.PeanoNat Nat eqb def
+R12976:12983 Kernel.VMState <> read_reg def
+R13018:13024 Coq.Arith.PeanoNat Nat eqb def
+R13027:13034 Kernel.VMState <> read_reg def
+R13075:13087 Kernel.VMStep VMStep advance_state def
+R13098:13107 Kernel.VMStep VMStep jump_state def
+R13018:13024 Coq.Arith.PeanoNat Nat eqb def
+R13027:13034 Kernel.VMState <> read_reg def
+R13157:13169 Kernel.VMStep VMStep jump_state_rm def
+R13217:13229 Kernel.VMStep VMStep jump_state_rm def
+R13311:13322 Kernel.VMStep VMStep chsh_bits_ok def
+R13311:13322 Kernel.VMStep VMStep chsh_bits_ok def
+R13358:13369 Kernel.VMStep VMStep chsh_bits_ok def
+R13408:13420 Kernel.VMStep VMStep advance_state def
+R13423:13433 Kernel.VMState <> csr_set_err def
+R13358:13369 Kernel.VMStep VMStep chsh_bits_ok def
+R13486:13501 Kernel.VMStep VMStep advance_state_rm def
+R13553:13568 Kernel.VMStep VMStep advance_state_rm def
+R13621:13636 Kernel.VMStep VMStep advance_state_rm def
+R13689:13704 Kernel.VMStep VMStep advance_state_rm def
+R13753:13765 Kernel.VMStep VMStep advance_state def
+R13816:13835 Kernel.VMStep VMStep advance_state_reveal def
+R13884:13896 Kernel.VMStep VMStep advance_state def
+R13951:13963 Kernel.VMStep VMStep advance_state def
+R14017:14032 Kernel.VMStep VMStep advance_state_rm def
+R14087:14099 Kernel.VMStep VMStep advance_state def
+R14153:14168 Kernel.VMStep VMStep advance_state_rm def
+R14223:14238 Kernel.VMStep VMStep advance_state_rm def
+R14328:14343 Kernel.VMStep VMStep advance_state_rm def
+R14390:14405 Kernel.VMStep VMStep advance_state_rm def
+R14453:14468 Kernel.VMStep VMStep advance_state_rm def
+R14516:14531 Kernel.VMStep VMStep advance_state_rm def
+R14579:14594 Kernel.VMStep VMStep advance_state_rm def
+R14642:14657 Kernel.VMStep VMStep advance_state_rm def
+R14715:14731 Kernel.VMStep VMStep tensor_indices_ok def
+R14715:14731 Kernel.VMStep VMStep tensor_indices_ok def
+R14758:14770 Kernel.VMStep VMStep advance_state def
+R14806:14818 Kernel.VMStep VMStep advance_state def
+R14821:14831 Kernel.VMState <> csr_set_err def
+R14889:14905 Kernel.VMStep VMStep tensor_indices_ok def
+R14889:14905 Kernel.VMStep VMStep tensor_indices_ok def
+R14932:14947 Kernel.VMStep VMStep advance_state_rm def
+R14983:14995 Kernel.VMStep VMStep advance_state def
+R14998:15008 Kernel.VMState <> csr_set_err def
+R15061:15072 Kernel.VMState <> graph_lookup def
+R15077:15084 Kernel.VMState <> vm_graph proj
+R15061:15072 Kernel.VMState <> graph_lookup def
+R15077:15084 Kernel.VMState <> vm_graph proj
+R15127:15138 Kernel.VMState <> graph_lookup def
+R15143:15150 Kernel.VMState <> vm_graph proj
+R15127:15138 Kernel.VMState <> graph_lookup def
+R15143:15150 Kernel.VMState <> vm_graph proj
+R15195:15212 Kernel.VMState <> graph_add_morphism def
+R15217:15224 Kernel.VMState <> vm_graph proj
+R15243:15261 Kernel.VMState <> empty_coupling_data def
+R15263:15267 Coq.Init.Datatypes <> false constr
+R15195:15212 Kernel.VMState <> graph_add_morphism def
+R15217:15224 Kernel.VMState <> vm_graph proj
+R15243:15261 Kernel.VMState <> empty_coupling_data def
+R15263:15267 Coq.Init.Datatypes <> false constr
+R15295:15310 Kernel.VMStep VMStep advance_state_rm def
+R15348:15360 Kernel.VMStep VMStep advance_state def
+R15363:15373 Kernel.VMState <> csr_set_err def
+R15409:15421 Kernel.VMStep VMStep advance_state def
+R15424:15434 Kernel.VMState <> csr_set_err def
+R15489:15511 Kernel.VMState <> graph_compose_morphisms def
+R15516:15523 Kernel.VMState <> vm_graph proj
+R15489:15511 Kernel.VMState <> graph_compose_morphisms def
+R15516:15523 Kernel.VMState <> vm_graph proj
+R15571:15586 Kernel.VMStep VMStep advance_state_rm def
+R15622:15634 Kernel.VMStep VMStep advance_state def
+R15637:15647 Kernel.VMState <> csr_set_err def
+R15703:15720 Kernel.VMState <> graph_add_identity def
+R15725:15732 Kernel.VMState <> vm_graph proj
+R15703:15720 Kernel.VMState <> graph_add_identity def
+R15725:15732 Kernel.VMState <> vm_graph proj
+R15775:15790 Kernel.VMStep VMStep advance_state_rm def
+R15826:15838 Kernel.VMStep VMStep advance_state def
+R15841:15851 Kernel.VMState <> csr_set_err def
+R15911:15931 Kernel.VMState <> graph_delete_morphism def
+R15936:15943 Kernel.VMState <> vm_graph proj
+R15911:15931 Kernel.VMState <> graph_delete_morphism def
+R15936:15943 Kernel.VMState <> vm_graph proj
+R15984:15996 Kernel.VMStep VMStep advance_state def
+R16032:16044 Kernel.VMStep VMStep advance_state def
+R16047:16057 Kernel.VMState <> csr_set_err def
+R16114:16135 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R16231:16252 Kernel.VMState <> graph_tensor_morphisms def
+R16257:16264 Kernel.VMState <> vm_graph proj
+R16231:16252 Kernel.VMState <> graph_tensor_morphisms def
+R16257:16264 Kernel.VMState <> vm_graph proj
+R16310:16325 Kernel.VMStep VMStep advance_state_rm def
+R16361:16373 Kernel.VMStep VMStep advance_state def
+R16376:16386 Kernel.VMState <> csr_set_err def
+R16443:16463 Kernel.VMState <> graph_lookup_morphism def
+R16468:16475 Kernel.VMState <> vm_graph proj
+R16443:16463 Kernel.VMState <> graph_lookup_morphism def
+R16468:16475 Kernel.VMState <> vm_graph proj
+R16516:16531 Kernel.VMStep VMStep advance_state_rm def
+R16567:16579 Kernel.VMStep VMStep advance_state def
+R16582:16592 Kernel.VMState <> csr_set_err def
+R16883:16914 Kernel.VMStep VMStep column_contractive_check_witness def
+R16883:16914 Kernel.VMStep VMStep column_contractive_check_witness def
+prf 16958:16989 RevelationProof morph_assert_or_non_morph_assert
+binder 17002:17002 <> i:54
+R17009:17009 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17104:17112 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R17010:17016 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17044:17053 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17017:17024 <> morph_id:55
+binder 17026:17033 <> property:56
+binder 17035:17038 <> cert:57
+binder 17040:17043 <> cost:58
+R17055:17057 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17054:17054 Kernel.RevelationRequirement <> i:54 var
+R17058:17075 Kernel.VMStep VMStep instr_morph_assert constr
+R17077:17084 Kernel.RevelationRequirement <> morph_id:55 var
+R17086:17093 Kernel.RevelationRequirement <> property:56 var
+R17095:17098 Kernel.RevelationRequirement <> cert:57 var
+R17100:17103 Kernel.RevelationRequirement <> cost:58 var
+R17113:17134 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R17136:17136 Kernel.RevelationRequirement <> i:54 var
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+R17197:17197 Coq.Init.Logic <> I constr
+prf 17382:17418 RevelationProof morph_assert_step_sets_supra_cert_iff
+binder 17431:17431 <> s:59
+binder 17433:17433 <> i:60
+R17471:17479 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17734:17734 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17467:17469 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17453:17465 Kernel.VMState <> csr_cert_addr proj
+R17443:17449 Kernel.VMState <> vm_csrs proj
+R17440:17440 Kernel.RevelationRequirement <> s:59 var
+R17525:17534 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R17520:17523 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17506:17518 Kernel.VMState <> csr_cert_addr proj
+R17496:17502 Kernel.VMState <> vm_csrs proj
+R17481:17488 Kernel.SimulationProof <> vm_apply def
+R17490:17490 Kernel.RevelationRequirement <> s:59 var
+R17492:17492 Kernel.RevelationRequirement <> i:60 var
+R17535:17541 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17572:17580 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17542:17549 <> morph_id:61
+binder 17551:17558 <> property:62
+binder 17560:17563 <> cert:63
+binder 17565:17568 <> cost:64
+binder 17570:17571 <> ms:65
+R17631:17641 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17582:17584 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17581:17581 Kernel.RevelationRequirement <> i:60 var
+R17585:17602 Kernel.VMStep VMStep instr_morph_assert constr
+R17604:17611 Kernel.RevelationRequirement <> morph_id:61 var
+R17613:17620 Kernel.RevelationRequirement <> property:62 var
+R17622:17625 Kernel.RevelationRequirement <> cert:63 var
+R17627:17630 Kernel.RevelationRequirement <> cost:64 var
+R17695:17705 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R17685:17687 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17642:17662 Kernel.VMState <> graph_lookup_morphism def
+R17667:17674 Kernel.VMState <> vm_graph proj
+R17664:17664 Kernel.RevelationRequirement <> s:59 var
+R17677:17684 Kernel.RevelationRequirement <> morph_id:61 var
+R17688:17691 Coq.Init.Datatypes <> Some constr
+R17693:17694 Kernel.RevelationRequirement <> ms:65 var
+R17729:17732 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R17706:17719 Kernel.VMState <> ascii_checksum def
+R17721:17728 Kernel.RevelationRequirement <> property:62 var
+R17802:17833 Kernel.RevelationRequirement RevelationProof morph_assert_or_non_morph_assert thm
+R17802:17833 Kernel.RevelationRequirement RevelationProof morph_assert_or_non_morph_assert thm
+R17929:17949 Kernel.VMState <> graph_lookup_morphism def
+R17954:17961 Kernel.VMState <> vm_graph proj
+R17929:17949 Kernel.VMState <> graph_lookup_morphism def
+R17954:17961 Kernel.VMState <> vm_graph proj
+R18126:18133 Kernel.SimulationProof <> vm_apply def
+R18136:18150 Kernel.SimulationProof <> vm_apply_unsafe def
+R18246:18253 Kernel.SimulationProof <> vm_apply def
+R18256:18270 Kernel.SimulationProof <> vm_apply_unsafe def
+R18400:18435 Kernel.RevelationRequirement RevelationProof non_morph_assert_preserves_cert_addr thm
+R18400:18435 Kernel.RevelationRequirement RevelationProof non_morph_assert_preserves_cert_addr thm
+R18400:18435 Kernel.RevelationRequirement RevelationProof non_morph_assert_preserves_cert_addr thm
+R18608:18615 Kernel.SimulationProof <> vm_apply def
+R18618:18632 Kernel.SimulationProof <> vm_apply_unsafe def
+ind 18702:18728 RevelationProof morph_assert_bridge_pattern
+constr 18769:18792 RevelationProof morph_assert_bridge_here
+constr 19138:19162 RevelationProof morph_assert_bridge_later
+R18735:18738 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18732:18734 Coq.Init.Datatypes <> nat ind
+R18744:18747 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18739:18743 Kernel.RevelationRequirement RevelationProof Trace def
+R18755:18758 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18748:18754 Kernel.VMState <> VMState rec
+binder 18807:18810 <> fuel:68
+binder 18812:18816 <> trace:69
+binder 18818:18818 <> s:70
+binder 18820:18827 <> morph_id:71
+binder 18829:18836 <> property:72
+binder 18838:18841 <> cert:73
+binder 18843:18846 <> cost:74
+binder 18848:18849 <> ms:75
+R18939:18948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18883:18885 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18858:18866 Coq.Lists.List <> nth_error def
+R18875:18879 Kernel.VMState <> vm_pc proj
+R18881:18881 Kernel.RevelationRequirement <> s:70 var
+R18868:18872 Kernel.RevelationRequirement <> trace:69 var
+R18886:18889 Coq.Init.Datatypes <> Some constr
+R18892:18909 Kernel.VMStep VMStep instr_morph_assert constr
+R18911:18918 Kernel.RevelationRequirement <> morph_id:71 var
+R18920:18927 Kernel.RevelationRequirement <> property:72 var
+R18929:18932 Kernel.RevelationRequirement <> cert:73 var
+R18934:18937 Kernel.RevelationRequirement <> cost:74 var
+R18980:18989 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18976:18978 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18962:18974 Kernel.VMState <> csr_cert_addr proj
+R18952:18958 Kernel.VMState <> vm_csrs proj
+R18949:18949 Kernel.RevelationRequirement <> s:70 var
+R19043:19052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19033:19035 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18990:19010 Kernel.VMState <> graph_lookup_morphism def
+R19015:19022 Kernel.VMState <> vm_graph proj
+R19012:19012 Kernel.RevelationRequirement <> s:70 var
+R19025:19032 Kernel.RevelationRequirement <> morph_id:71 var
+R19036:19039 Coq.Init.Datatypes <> Some constr
+R19041:19042 Kernel.RevelationRequirement <> ms:75 var
+R19081:19090 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19076:19079 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R19053:19066 Kernel.VMState <> ascii_checksum def
+R19068:19075 Kernel.RevelationRequirement <> property:72 var
+R19091:19117 Kernel.RevelationRequirement <> morph_assert_bridge_pattern:66 ind
+R19134:19134 Kernel.RevelationRequirement <> s:70 var
+R19128:19132 Kernel.RevelationRequirement <> trace:69 var
+R19120:19120 Coq.Init.Datatypes <> S constr
+R19122:19125 Kernel.RevelationRequirement <> fuel:68 var
+binder 19177:19180 <> fuel:76
+binder 19182:19186 <> trace:77
+binder 19188:19188 <> s:78
+binder 19190:19194 <> instr:79
+R19241:19250 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19228:19230 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19203:19211 Coq.Lists.List <> nth_error def
+R19220:19224 Kernel.VMState <> vm_pc proj
+R19226:19226 Kernel.RevelationRequirement <> s:78 var
+R19213:19217 Kernel.RevelationRequirement <> trace:77 var
+R19231:19234 Coq.Init.Datatypes <> Some constr
+R19236:19240 Kernel.RevelationRequirement <> instr:79 var
+R19308:19317 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19251:19277 Kernel.RevelationRequirement <> morph_assert_bridge_pattern:66 ind
+R19291:19298 Kernel.SimulationProof <> vm_apply def
+R19300:19300 Kernel.RevelationRequirement <> s:78 var
+R19302:19306 Kernel.RevelationRequirement <> instr:79 var
+R19284:19288 Kernel.RevelationRequirement <> trace:77 var
+R19279:19282 Kernel.RevelationRequirement <> fuel:76 var
+R19318:19344 Kernel.RevelationRequirement <> morph_assert_bridge_pattern:66 ind
+R19361:19361 Kernel.RevelationRequirement <> s:78 var
+R19355:19359 Kernel.RevelationRequirement <> trace:77 var
+R19347:19347 Coq.Init.Datatypes <> S constr
+R19349:19352 Kernel.RevelationRequirement <> fuel:76 var
+scheme 18702:18728 RevelationProof morph_assert_bridge_pattern_ind
+scheme 18702:18728 RevelationProof morph_assert_bridge_pattern_sind
+prf 19373:19429 RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern
+binder 19442:19445 <> fuel:80
+binder 19447:19451 <> trace:81
+binder 19453:19453 <> s:82
+R19498:19506 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R19460:19484 Kernel.RevelationRequirement RevelationProof structure_addition_in_run def
+R19486:19489 Kernel.RevelationRequirement <> fuel:80 var
+R19491:19495 Kernel.RevelationRequirement <> trace:81 var
+R19497:19497 Kernel.RevelationRequirement <> s:82 var
+R19507:19533 Kernel.RevelationRequirement RevelationProof morph_assert_bridge_pattern ind
+R19535:19538 Kernel.RevelationRequirement <> fuel:80 var
+R19540:19544 Kernel.RevelationRequirement <> trace:81 var
+R19546:19546 Kernel.RevelationRequirement <> s:82 var
+R19698:19706 Coq.Lists.List <> nth_error def
+R19715:19719 Kernel.VMState <> vm_pc proj
+R19698:19706 Coq.Lists.List <> nth_error def
+R19715:19719 Kernel.VMState <> vm_pc proj
+R19829:19833 Coq.Init.Logic <> proj1 thm
+R19836:19872 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
+R19829:19833 Coq.Init.Logic <> proj1 thm
+R19836:19872 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
+R20112:20116 Coq.Init.Logic <> proj1 thm
+R20129:20136 Kernel.SimulationProof <> vm_apply def
+R20112:20116 Coq.Init.Logic <> proj1 thm
+R20129:20136 Kernel.SimulationProof <> vm_apply def
+R20427:20431 Coq.Init.Logic <> proj2 thm
+R20434:20470 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
+R20490:20507 Kernel.VMStep VMStep instr_morph_assert constr
+R20427:20431 Coq.Init.Logic <> proj2 thm
+R20434:20470 Kernel.RevelationRequirement RevelationProof morph_assert_step_sets_supra_cert_iff thm
+R20490:20507 Kernel.VMStep VMStep instr_morph_assert constr
+R20677:20681 Coq.Init.Logic <> proj2 thm
+R20694:20701 Kernel.SimulationProof <> vm_apply def
+R20677:20681 Coq.Init.Logic <> proj2 thm
+R20694:20701 Kernel.SimulationProof <> vm_apply def
+prf 20748:20806 RevelationProof non_morph_assert_trace_excludes_morph_assert_bridge_pattern
+binder 20819:20822 <> fuel:83
+binder 20824:20828 <> trace:84
+binder 20830:20830 <> s:85
+R20872:20879 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20837:20842 Coq.Lists.List <> Forall ind
+R20867:20871 Kernel.RevelationRequirement <> trace:84 var
+R20844:20865 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R20880:20881 Coq.Init.Logic <> ::type_scope:'~'_x not
+R20882:20908 Kernel.RevelationRequirement RevelationProof morph_assert_bridge_pattern ind
+R20910:20913 Kernel.RevelationRequirement <> fuel:83 var
+R20915:20919 Kernel.RevelationRequirement <> trace:84 var
+R20921:20921 Kernel.RevelationRequirement <> s:85 var
+R21060:21071 Coq.Lists.List <> nth_error_In thm
+R21060:21071 Coq.Lists.List <> nth_error_In thm
+R21094:21106 Coq.Lists.List <> Forall_forall thm
+R21094:21106 Coq.Lists.List <> Forall_forall thm
+R21094:21106 Coq.Lists.List <> Forall_forall thm
+prf 21243:21290 RevelationProof non_morph_assert_trace_has_no_structure_addition
+binder 21303:21306 <> fuel:86
+binder 21308:21312 <> trace:87
+binder 21314:21314 <> s:88
+R21356:21363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21321:21326 Coq.Lists.List <> Forall ind
+R21351:21355 Kernel.RevelationRequirement <> trace:87 var
+R21328:21349 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R21364:21365 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21366:21390 Kernel.RevelationRequirement RevelationProof structure_addition_in_run def
+R21392:21395 Kernel.RevelationRequirement <> fuel:86 var
+R21397:21401 Kernel.RevelationRequirement <> trace:87 var
+R21403:21403 Kernel.RevelationRequirement <> s:88 var
+R21461:21519 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_excludes_morph_assert_bridge_pattern thm
+R21461:21519 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_excludes_morph_assert_bridge_pattern thm
+R21564:21568 Coq.Init.Logic <> proj1 thm
+R21571:21627 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
+R21564:21568 Coq.Init.Logic <> proj1 thm
+R21571:21627 Kernel.RevelationRequirement RevelationProof structure_addition_in_run_iff_morph_assert_bridge_pattern thm
+prf 21694:21738 RevelationProof non_morph_assert_trace_cannot_gain_supra_cert
+R21760:21764 Kernel.RevelationRequirement RevelationProof Trace def
+binder 21752:21756 <> trace:89
+R21785:21791 Kernel.VMState <> VMState rec
+binder 21768:21773 <> s_init:90
+binder 21775:21781 <> s_final:91
+R21802:21804 Coq.Init.Datatypes <> nat ind
+binder 21795:21798 <> fuel:92
+R21854:21861 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21839:21841 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21812:21820 Kernel.RevelationRequirement RevelationProof trace_run def
+R21822:21825 Kernel.RevelationRequirement <> fuel:92 var
+R21827:21831 Kernel.RevelationRequirement <> trace:89 var
+R21833:21838 Kernel.RevelationRequirement <> s_init:90 var
+R21842:21845 Coq.Init.Datatypes <> Some constr
+R21847:21853 Kernel.RevelationRequirement <> s_final:91 var
+R21898:21905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21894:21896 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21880:21892 Kernel.VMState <> csr_cert_addr proj
+R21870:21876 Kernel.VMState <> vm_csrs proj
+R21862:21867 Kernel.RevelationRequirement <> s_init:90 var
+R21941:21948 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21906:21911 Coq.Lists.List <> Forall ind
+R21936:21940 Kernel.RevelationRequirement <> trace:89 var
+R21913:21934 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R21949:21950 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21951:21964 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R21966:21972 Kernel.RevelationRequirement <> s_final:91 var
+R22053:22100 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_has_no_structure_addition thm
+R22053:22100 Kernel.RevelationRequirement RevelationProof non_morph_assert_trace_has_no_structure_addition thm
+R22139:22182 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
+R22139:22182 Kernel.RevelationRequirement RevelationProof supra_cert_implies_structure_addition_in_run thm
+prf 22608:22647 RevelationProof nonlocal_correlation_requires_revelation
+R22669:22673 Kernel.RevelationRequirement RevelationProof Trace def
+binder 22661:22665 <> trace:93
+R22694:22700 Kernel.VMState <> VMState rec
+binder 22677:22682 <> s_init:94
+binder 22684:22690 <> s_final:95
+R22711:22713 Coq.Init.Datatypes <> nat ind
+binder 22704:22707 <> fuel:96
+R22763:22770 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22748:22750 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22721:22729 Kernel.RevelationRequirement RevelationProof trace_run def
+R22731:22734 Kernel.RevelationRequirement <> fuel:96 var
+R22736:22740 Kernel.RevelationRequirement <> trace:93 var
+R22742:22747 Kernel.RevelationRequirement <> s_init:94 var
+R22751:22754 Coq.Init.Datatypes <> Some constr
+R22756:22762 Kernel.RevelationRequirement <> s_final:95 var
+R22807:22814 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22803:22805 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22789:22801 Kernel.VMState <> csr_cert_addr proj
+R22779:22785 Kernel.VMState <> vm_csrs proj
+R22771:22776 Kernel.RevelationRequirement <> s_init:94 var
+R22837:22844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R22815:22828 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R22830:22836 Kernel.RevelationRequirement <> s_final:95 var
+R22866:22873 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R22845:22859 Kernel.RevelationRequirement RevelationProof uses_revelation def
+R22861:22865 Kernel.RevelationRequirement <> trace:93 var
+R22874:22874 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R22936:22944 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R22875:22881 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22890:22891 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22882:22882 <> n:97
+binder 22884:22884 <> m:98
+binder 22886:22886 <> p:99
+binder 22888:22889 <> mu:100
+R22909:22911 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22892:22900 Coq.Lists.List <> nth_error def
+R22908:22908 Kernel.RevelationRequirement <> n:97 var
+R22902:22906 Kernel.RevelationRequirement <> trace:93 var
+R22912:22915 Coq.Init.Datatypes <> Some constr
+R22918:22927 Kernel.VMStep VMStep instr_emit constr
+R22929:22929 Kernel.RevelationRequirement <> m:98 var
+R22931:22931 Kernel.RevelationRequirement <> p:99 var
+R22933:22934 Kernel.RevelationRequirement <> mu:100 var
+R22945:22945 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R23012:23020 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R22946:22952 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R22963:22964 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 22953:22953 <> n:101
+binder 22955:22956 <> c1:102
+binder 22958:22959 <> c2:103
+binder 22961:22962 <> mu:104
+R22982:22984 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22965:22973 Coq.Lists.List <> nth_error def
+R22981:22981 Kernel.RevelationRequirement <> n:101 var
+R22975:22979 Kernel.RevelationRequirement <> trace:93 var
+R22985:22988 Coq.Init.Datatypes <> Some constr
+R22991:23001 Kernel.VMStep VMStep instr_ljoin constr
+R23003:23004 Kernel.RevelationRequirement <> c1:102 var
+R23006:23007 Kernel.RevelationRequirement <> c2:103 var
+R23009:23010 Kernel.RevelationRequirement <> mu:104 var
+R23021:23021 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R23100:23109 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R23187:23187 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R23022:23028 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23044:23045 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 23029:23029 <> n:105
+binder 23031:23032 <> fa:106
+binder 23034:23035 <> ca:107
+binder 23037:23037 <> k:108
+binder 23039:23040 <> fl:109
+binder 23042:23043 <> mu:110
+R23063:23065 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23046:23054 Coq.Lists.List <> nth_error def
+R23062:23062 Kernel.RevelationRequirement <> n:105 var
+R23056:23060 Kernel.RevelationRequirement <> trace:93 var
+R23066:23069 Coq.Init.Datatypes <> Some constr
+R23072:23084 Kernel.VMStep VMStep instr_lassert constr
+R23086:23087 Kernel.RevelationRequirement <> fa:106 var
+R23089:23090 Kernel.RevelationRequirement <> ca:107 var
+R23092:23092 Kernel.RevelationRequirement <> k:108 var
+R23094:23095 Kernel.RevelationRequirement <> fl:109 var
+R23097:23098 Kernel.RevelationRequirement <> mu:110 var
+R23110:23116 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R23129:23130 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 23117:23117 <> n:111
+binder 23119:23121 <> mid:112
+binder 23123:23123 <> p:113
+binder 23125:23125 <> c:114
+binder 23127:23128 <> mu:115
+R23148:23150 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R23131:23139 Coq.Lists.List <> nth_error def
+R23147:23147 Kernel.RevelationRequirement <> n:111 var
+R23141:23145 Kernel.RevelationRequirement <> trace:93 var
+R23151:23154 Coq.Init.Datatypes <> Some constr
+R23157:23174 Kernel.VMStep VMStep instr_morph_assert constr
+R23176:23178 Kernel.RevelationRequirement <> mid:112 var
+R23180:23180 Kernel.RevelationRequirement <> p:113 var
+R23182:23182 Kernel.RevelationRequirement <> c:114 var
+R23184:23185 Kernel.RevelationRequirement <> mu:115 var
+R23422:23435 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R23496:23504 Coq.Lists.List <> nth_error def
+R23513:23517 Kernel.VMState <> vm_pc proj
+R23496:23504 Coq.Lists.List <> nth_error def
+R23513:23517 Kernel.VMState <> vm_pc proj
+R23579:23586 Kernel.SimulationProof <> vm_apply def
+R23589:23603 Kernel.SimulationProof <> vm_apply_unsafe def
+R23684:23699 Kernel.VMState <> graph_add_module def
+R23684:23699 Kernel.VMState <> graph_add_module def
+R23724:23739 Kernel.VMState <> graph_add_module def
+R23724:23739 Kernel.VMState <> graph_add_module def
+R23837:23849 Kernel.VMStep VMStep advance_state def
+R23985:23997 Kernel.VMStep VMStep advance_state def
+R24133:24145 Kernel.VMStep VMStep advance_state def
+R24432:24444 Kernel.VMStep VMStep advance_state def
+R24575:24587 Kernel.VMStep VMStep advance_state def
+R24713:24728 Kernel.VMStep VMStep advance_state_rm def
+R24858:24873 Kernel.VMStep VMStep advance_state_rm def
+R24999:25014 Kernel.VMStep VMStep advance_state_rm def
+R25141:25156 Kernel.VMStep VMStep advance_state_rm def
+R25281:25296 Kernel.VMStep VMStep advance_state_rm def
+R25421:25436 Kernel.VMStep VMStep advance_state_rm def
+R25562:25571 Kernel.VMStep VMStep jump_state def
+R25731:25737 Coq.Arith.PeanoNat Nat eqb def
+R25740:25747 Kernel.VMState <> read_reg def
+R25731:25737 Coq.Arith.PeanoNat Nat eqb def
+R25740:25747 Kernel.VMState <> read_reg def
+R25784:25790 Coq.Arith.PeanoNat Nat eqb def
+R25793:25800 Kernel.VMState <> read_reg def
+R25853:25865 Kernel.VMStep VMStep advance_state def
+R25876:25885 Kernel.VMStep VMStep jump_state def
+R25784:25790 Coq.Arith.PeanoNat Nat eqb def
+R25793:25800 Kernel.VMState <> read_reg def
+R26012:26024 Kernel.VMStep VMStep jump_state_rm def
+R26149:26161 Kernel.VMStep VMStep jump_state_rm def
+R26327:26338 Kernel.VMStep VMStep chsh_bits_ok def
+R26327:26338 Kernel.VMStep VMStep chsh_bits_ok def
+R26376:26387 Kernel.VMStep VMStep chsh_bits_ok def
+R26438:26450 Kernel.VMStep VMStep advance_state def
+R26453:26463 Kernel.VMState <> csr_set_err def
+R26376:26387 Kernel.VMStep VMStep chsh_bits_ok def
+R26593:26608 Kernel.VMStep VMStep advance_state_rm def
+R26737:26752 Kernel.VMStep VMStep advance_state_rm def
+R26882:26897 Kernel.VMStep VMStep advance_state_rm def
+R27027:27042 Kernel.VMStep VMStep advance_state_rm def
+R27250:27254 Kernel.VMState <> vm_pc proj
+R27250:27254 Kernel.VMState <> vm_pc proj
+R28144:28164 Kernel.RevelationRequirement <> vm_instruction_eq_dec def
+R28170:28181 Kernel.VMStep VMStep instr_reveal constr
+R28144:28164 Kernel.RevelationRequirement <> vm_instruction_eq_dec def
+R28170:28181 Kernel.VMStep VMStep instr_reveal constr
+R28257:28257 Coq.Init.Logic <> I constr
+R28257:28257 Coq.Init.Logic <> I constr
+R28484:28484 Coq.Init.Logic <> I constr
+R28484:28484 Coq.Init.Logic <> I constr
+R28565:28577 Kernel.VMStep VMStep advance_state def
+R28709:28721 Kernel.VMStep VMStep advance_state def
+R28852:28867 Kernel.VMStep VMStep advance_state_rm def
+R28999:29011 Kernel.VMStep VMStep advance_state def
+R29142:29157 Kernel.VMStep VMStep advance_state_rm def
+R29289:29304 Kernel.VMStep VMStep advance_state_rm def
+R29548:29563 Kernel.VMStep VMStep advance_state_rm def
+R29687:29702 Kernel.VMStep VMStep advance_state_rm def
+R29827:29842 Kernel.VMStep VMStep advance_state_rm def
+R29967:29982 Kernel.VMStep VMStep advance_state_rm def
+R30107:30122 Kernel.VMStep VMStep advance_state_rm def
+R30247:30262 Kernel.VMStep VMStep advance_state_rm def
+R30353:30369 Kernel.VMStep VMStep tensor_indices_ok def
+R30353:30369 Kernel.VMStep VMStep tensor_indices_ok def
+R30459:30471 Kernel.VMStep VMStep advance_state def
+R30598:30610 Kernel.VMStep VMStep advance_state def
+R30613:30623 Kernel.VMState <> csr_set_err def
+R30717:30733 Kernel.VMStep VMStep tensor_indices_ok def
+R30717:30733 Kernel.VMStep VMStep tensor_indices_ok def
+R30823:30838 Kernel.VMStep VMStep advance_state_rm def
+R30965:30977 Kernel.VMStep VMStep advance_state def
+R30980:30990 Kernel.VMState <> csr_set_err def
+R31085:31096 Kernel.VMState <> graph_lookup def
+R31106:31113 Kernel.VMState <> vm_graph proj
+R31085:31096 Kernel.VMState <> graph_lookup def
+R31106:31113 Kernel.VMState <> vm_graph proj
+R31161:31172 Kernel.VMState <> graph_lookup def
+R31182:31189 Kernel.VMState <> vm_graph proj
+R31161:31172 Kernel.VMState <> graph_lookup def
+R31182:31189 Kernel.VMState <> vm_graph proj
+R31304:31321 Kernel.VMState <> graph_add_morphism def
+R31331:31338 Kernel.VMState <> vm_graph proj
+R31357:31375 Kernel.VMState <> empty_coupling_data def
+R31377:31381 Coq.Init.Datatypes <> false constr
+R31304:31321 Kernel.VMState <> graph_add_morphism def
+R31331:31338 Kernel.VMState <> vm_graph proj
+R31357:31375 Kernel.VMState <> empty_coupling_data def
+R31377:31381 Coq.Init.Datatypes <> false constr
+R31418:31433 Kernel.VMStep VMStep advance_state_rm def
+R31572:31584 Kernel.VMStep VMStep advance_state def
+R31587:31597 Kernel.VMState <> csr_set_err def
+R31727:31739 Kernel.VMStep VMStep advance_state def
+R31742:31752 Kernel.VMState <> csr_set_err def
+R31849:31871 Kernel.VMState <> graph_compose_morphisms def
+R31881:31888 Kernel.VMState <> vm_graph proj
+R31849:31871 Kernel.VMState <> graph_compose_morphisms def
+R31881:31888 Kernel.VMState <> vm_graph proj
+R31999:32014 Kernel.VMStep VMStep advance_state_rm def
+R32141:32153 Kernel.VMStep VMStep advance_state def
+R32156:32166 Kernel.VMState <> csr_set_err def
+R32264:32281 Kernel.VMState <> graph_add_identity def
+R32291:32298 Kernel.VMState <> vm_graph proj
+R32264:32281 Kernel.VMState <> graph_add_identity def
+R32291:32298 Kernel.VMState <> vm_graph proj
+R32404:32419 Kernel.VMStep VMStep advance_state_rm def
+R32546:32558 Kernel.VMStep VMStep advance_state def
+R32561:32571 Kernel.VMState <> csr_set_err def
+R32673:32693 Kernel.VMState <> graph_delete_morphism def
+R32703:32710 Kernel.VMState <> vm_graph proj
+R32673:32693 Kernel.VMState <> graph_delete_morphism def
+R32703:32710 Kernel.VMState <> vm_graph proj
+R32814:32826 Kernel.VMStep VMStep advance_state def
+R32953:32965 Kernel.VMStep VMStep advance_state def
+R32968:32978 Kernel.VMState <> csr_set_err def
+R33245:33266 Kernel.VMState <> graph_tensor_morphisms def
+R33276:33283 Kernel.VMState <> vm_graph proj
+R33245:33266 Kernel.VMState <> graph_tensor_morphisms def
+R33276:33283 Kernel.VMState <> vm_graph proj
+R33392:33407 Kernel.VMStep VMStep advance_state_rm def
+R33534:33546 Kernel.VMStep VMStep advance_state def
+R33549:33559 Kernel.VMState <> csr_set_err def
+R33658:33678 Kernel.VMState <> graph_lookup_morphism def
+R33688:33695 Kernel.VMState <> vm_graph proj
+R33658:33678 Kernel.VMState <> graph_lookup_morphism def
+R33688:33695 Kernel.VMState <> vm_graph proj
+R33799:33814 Kernel.VMStep VMStep advance_state_rm def
+R33941:33953 Kernel.VMStep VMStep advance_state def
+R33956:33966 Kernel.VMState <> csr_set_err def
+R34310:34341 Kernel.VMStep VMStep column_contractive_check_witness def
+R34344:34353 Kernel.VMState <> vm_witness proj
+R34310:34341 Kernel.VMStep VMStep column_contractive_check_witness def
+R34344:34353 Kernel.VMState <> vm_witness proj
+R34730:34740 Kernel.VMState <> csr_set_err def
+R34874:34887 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+prf 34993:35023 RevelationProof cert_setter_necessary_for_supra
+binder 35036:35040 <> trace:116
+binder 35042:35047 <> s_init:117
+binder 35049:35055 <> s_final:118
+binder 35057:35060 <> fuel:119
+R35109:35116 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35094:35096 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35067:35075 Kernel.RevelationRequirement RevelationProof trace_run def
+R35077:35080 Kernel.RevelationRequirement <> fuel:119 var
+R35082:35086 Kernel.RevelationRequirement <> trace:116 var
+R35088:35093 Kernel.RevelationRequirement <> s_init:117 var
+R35097:35100 Coq.Init.Datatypes <> Some constr
+R35102:35108 Kernel.RevelationRequirement <> s_final:118 var
+R35153:35160 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35149:35151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35135:35147 Kernel.VMState <> csr_cert_addr proj
+R35125:35131 Kernel.VMState <> vm_csrs proj
+R35117:35122 Kernel.RevelationRequirement <> s_init:117 var
+R35183:35190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35161:35174 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R35176:35182 Kernel.RevelationRequirement <> s_final:118 var
+R35212:35219 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35191:35205 Kernel.RevelationRequirement RevelationProof uses_revelation def
+R35207:35211 Kernel.RevelationRequirement <> trace:116 var
+R35220:35220 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35282:35290 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35221:35227 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R35236:35237 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 35228:35228 <> n:120
+binder 35230:35230 <> m:121
+binder 35232:35232 <> p:122
+binder 35234:35235 <> mu:123
+R35255:35257 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35238:35246 Coq.Lists.List <> nth_error def
+R35254:35254 Kernel.RevelationRequirement <> n:120 var
+R35248:35252 Kernel.RevelationRequirement <> trace:116 var
+R35258:35261 Coq.Init.Datatypes <> Some constr
+R35264:35273 Kernel.VMStep VMStep instr_emit constr
+R35275:35275 Kernel.RevelationRequirement <> m:121 var
+R35277:35277 Kernel.RevelationRequirement <> p:122 var
+R35279:35280 Kernel.RevelationRequirement <> mu:123 var
+R35291:35291 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35358:35366 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35292:35298 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R35309:35310 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 35299:35299 <> n:124
+binder 35301:35302 <> c1:125
+binder 35304:35305 <> c2:126
+binder 35307:35308 <> mu:127
+R35328:35330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35311:35319 Coq.Lists.List <> nth_error def
+R35327:35327 Kernel.RevelationRequirement <> n:124 var
+R35321:35325 Kernel.RevelationRequirement <> trace:116 var
+R35331:35334 Coq.Init.Datatypes <> Some constr
+R35337:35347 Kernel.VMStep VMStep instr_ljoin constr
+R35349:35350 Kernel.RevelationRequirement <> c1:125 var
+R35352:35353 Kernel.RevelationRequirement <> c2:126 var
+R35355:35356 Kernel.RevelationRequirement <> mu:127 var
+R35367:35367 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35446:35455 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35533:35533 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R35368:35374 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R35390:35391 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 35375:35375 <> n:128
+binder 35377:35378 <> fa:129
+binder 35380:35381 <> ca:130
+binder 35383:35383 <> k:131
+binder 35385:35386 <> fl:132
+binder 35388:35389 <> mu:133
+R35409:35411 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35392:35400 Coq.Lists.List <> nth_error def
+R35408:35408 Kernel.RevelationRequirement <> n:128 var
+R35402:35406 Kernel.RevelationRequirement <> trace:116 var
+R35412:35415 Coq.Init.Datatypes <> Some constr
+R35418:35430 Kernel.VMStep VMStep instr_lassert constr
+R35432:35433 Kernel.RevelationRequirement <> fa:129 var
+R35435:35436 Kernel.RevelationRequirement <> ca:130 var
+R35438:35438 Kernel.RevelationRequirement <> k:131 var
+R35440:35441 Kernel.RevelationRequirement <> fl:132 var
+R35443:35444 Kernel.RevelationRequirement <> mu:133 var
+R35456:35462 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R35475:35476 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 35463:35463 <> n:134
+binder 35465:35467 <> mid:135
+binder 35469:35469 <> p:136
+binder 35471:35471 <> c:137
+binder 35473:35474 <> mu:138
+R35494:35496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35477:35485 Coq.Lists.List <> nth_error def
+R35493:35493 Kernel.RevelationRequirement <> n:134 var
+R35487:35491 Kernel.RevelationRequirement <> trace:116 var
+R35497:35500 Coq.Init.Datatypes <> Some constr
+R35503:35520 Kernel.VMStep VMStep instr_morph_assert constr
+R35522:35524 Kernel.RevelationRequirement <> mid:135 var
+R35526:35526 Kernel.RevelationRequirement <> p:136 var
+R35528:35528 Kernel.RevelationRequirement <> c:137 var
+R35530:35531 Kernel.RevelationRequirement <> mu:138 var
+R35551:35590 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
+R35551:35590 Kernel.RevelationRequirement RevelationProof nonlocal_correlation_requires_revelation thm
+R35603:35617 Kernel.RevelationRequirement RevelationProof <> mod

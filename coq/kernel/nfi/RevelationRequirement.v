@@ -153,7 +153,7 @@ Qed.
 
 (** Graph Preservation Lemmas *)
 
-(** Non-reveal instructions preserve the certification state *)
+(** Non-reveal instructions preserve the certification state. *)
 Lemma non_cert_setter_preserves_cert :
   forall s i,
     (forall m b c mu, i <> instr_reveal m b c mu) ->
@@ -262,11 +262,19 @@ Proof.
     destruct (graph_lookup_morphism s.(vm_graph) morph_id) as [?|] eqn:?.
     + unfold advance_state_rm. simpl. reflexivity.
     + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* instr_chsh_lassert: does NOT write csr_cert_addr; the column-contractive
+       check yields either a PC advance (success) or a trap to LASSERT_TRAP_PC
+       with err latch (failure). cert_addr is left intact in both branches. *)
+    destruct (column_contractive_check_witness _);
+      simpl; reflexivity.
 Qed.
 
 (** Under the current kernel semantics, every instruction except MORPH_ASSERT
     preserves csr_cert_addr exactly. MORPH_ASSERT is the only opcode whose
-    success branch writes a new cert address. This is the precise bridge
+    success branch writes a new cert address. CHSH_LASSERT (the
+    column-contractivity check) does not write to csr_cert_addr; its success
+    is observable only via PC advancement and vm_err remaining unset, so the
+    cert-channel theory is preserved unchanged. This is the precise bridge
     boundary for the structural shortcut upgrade story. *)
 
 Definition non_morph_assert_instr (i : vm_instruction) : Prop :=
@@ -408,6 +416,12 @@ Proof.
     destruct (graph_lookup_morphism s.(vm_graph) morph_id) as [?|] eqn:?.
     + unfold advance_state_rm. simpl. reflexivity.
     + unfold advance_state, csr_set_err. simpl. reflexivity.
+  - (* chsh_lassert: does NOT write csr_cert_addr (the column-contractive
+       check yields PC-advance on success or trap+err on failure; neither
+       branch touches the cert_addr channel). cert_addr passes through both
+       branches unchanged. *)
+    destruct (column_contractive_check_witness _);
+      simpl; reflexivity.
 Qed.
 
 Lemma morph_assert_or_non_morph_assert :
@@ -835,6 +849,22 @@ Proof.
         -- apply IH in Hrun.
            ++ exact Hrun.
            ++ unfold advance_state, csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
+      * (* instr_chsh_lassert: column-contractive check on witness counters.
+           Both success and failure branches preserve csr_cert_addr (neither
+           branch writes to that channel); the only differences from the
+           current state are PC, mu, vm_err. *)
+        destruct (column_contractive_check_witness (vm_witness s_init)) eqn:?.
+        -- (* success: PC advances, cert_addr unchanged. *)
+           apply IH in Hrun.
+           ++ exact Hrun.
+           ++ simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- (* failure: PC traps to LASSERT_TRAP_PC, vm_err latches,
+              cert_addr unchanged. *)
+           apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold csr_set_err. simpl. exact Hinit.
            ++ exact Hfinal.
     + simpl in Hrun. injection Hrun as Heq. rewrite <- Heq in Hfinal.
       unfold has_supra_cert in Hfinal. contradiction.

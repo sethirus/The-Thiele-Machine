@@ -275,7 +275,7 @@ class VMState:
 # Cert-setter opcodes (from is_cert_setterb in thiele_core.ml)
 # These require positive cost (NoFI enforcement).
 # ---------------------------------------------------------------------------
-_CERT_SETTERS: frozenset = frozenset({"certify", "emit", "lassert", "ljoin", "morph_assert", "read_port", "reveal"})
+_CERT_SETTERS: frozenset = frozenset({"certify", "chsh_lassert", "emit", "lassert", "ljoin", "morph_assert", "read_port", "reveal"})
 
 # ---------------------------------------------------------------------------
 # _parse_instruction_dict: parses text tokens to instruction dict.
@@ -689,6 +689,12 @@ def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
             "cost": _parse_int(toks[4]),
         }
 
+    if op == "CHSH_LASSERT" and len(toks) >= 2:
+        return {
+            "op": "chsh_lassert",
+            "mu_delta": _parse_int(toks[1]),
+        }
+
     if op == "REVEAL" and len(toks) >= 4:
         ti = _parse_int(toks[1])
         tj = _parse_int(toks[2])
@@ -885,6 +891,8 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
         return "MORPH_TENSOR" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("f", 0))) + " " + str(int(instr.get("g", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "morph_get":
         return "MORPH_GET" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("selector", 0))) + " " + str(int(instr.get("mu_delta", 0)))
+    if op == "chsh_lassert":
+        return "CHSH_LASSERT" + " " + str(int(instr.get("mu_delta", 0)))
     if op == "lassert":
         if "freg" in instr or "creg" in instr or "flen" in instr:
             freg = int(instr.get("freg", 0))

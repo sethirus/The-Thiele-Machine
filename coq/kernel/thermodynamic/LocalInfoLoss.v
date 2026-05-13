@@ -103,6 +103,7 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_morph_assert _ _ _ cost => cost
   | instr_morph_tensor _ _ _ cost => cost
   | instr_morph_get _ _ _ cost => cost
+  | instr_chsh_lassert cost => cost
   end.
 
 
@@ -431,6 +432,9 @@ Proof.
 
   (* morph_get: graph unchanged in both branches *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* chsh_lassert: graph unchanged in both branches *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 Qed.
 
 
@@ -602,6 +606,9 @@ Proof.
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
   (* morph_get *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* chsh_lassert *)
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
 Qed.

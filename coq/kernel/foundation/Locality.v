@@ -230,6 +230,7 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_morph_assert _ _ _ _ => []
   | instr_morph_tensor _ _ _ _ => []
   | instr_morph_get _ _ _ _ => []
+  | instr_chsh_lassert _ => []  (* CHSH-aware certification: reads witness counters, no module targets *)
   end.
 
 
@@ -645,6 +646,10 @@ Proof.
       unfold states_agree_on_module, module_region_obs.
     + rewrite advance_state_rm_graph. reflexivity.
     + rewrite advance_state_graph. reflexivity.
+  - (* instr_chsh_lassert: graph and module observations unchanged on both
+       success (csr update only) and failure (err latch only). *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs; reflexivity.
 Qed.
 
 (**

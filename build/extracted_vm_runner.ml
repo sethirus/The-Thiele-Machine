@@ -501,6 +501,8 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         Some (Instr (Coq_instr_morph_tensor (safe_int dst, safe_int f, safe_int g, safe_int cost)))
       | [ "MORPH_GET"; dst; morph_id; selector; cost ] ->
         Some (Instr (Coq_instr_morph_get (safe_int dst, safe_int morph_id, safe_int selector, safe_int cost)))
+      | [ "CHSH_LASSERT"; cost ] ->
+        Some (Instr (Coq_instr_chsh_lassert (safe_int cost)))
       | _ -> failwith ("unrecognized instruction line: " ^ t)
   in
   let elements = lines |> List.filter_map parse_line in

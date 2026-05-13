@@ -382,11 +382,12 @@ class TestOpcodeEncoding:
         assert legacy & 0xFF == 4
 
     def test_all_opcodes_have_entries(self):
-        """All 46 opcodes in cosim.OPCODES match isa.py."""
+        """All 47 opcodes in cosim.OPCODES match isa.py (CHSH_LASSERT at 0x2E)."""
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 46
+        assert len(OPCODES) == 47
         assert OPCODES["HALT"] == 0xFF
         assert OPCODES["PNEW"] == 0x00
+        assert OPCODES["CHSH_LASSERT"] == 0x2E
 
     def test_chsh_trial_encoding_full_args(self):
         """CHSH_TRIAL x y a b cost packs bits into operand_a/operand_b."""
@@ -525,9 +526,9 @@ class TestISAAlignment:
         rtl = REPO_ROOT / "thielecpu" / "hardware" / "rtl" / "thiele_cpu_kami.v"
         assert rtl.exists(), "thiele_cpu_kami.v not found"
 
-    def test_all_46_opcodes_in_cosim(self):
+    def test_all_47_opcodes_in_cosim(self):
         from thielecpu.hardware.cosim import OPCODES
-        assert len(OPCODES) == 46
+        assert len(OPCODES) == 47
         expected_names = {
             "PNEW", "PSPLIT", "PMERGE", "LASSERT", "LJOIN",
             "MDLACC", "PDISCOVER", "XFER", "LOAD_IMM", "CHSH_TRIAL",
@@ -540,5 +541,6 @@ class TestISAAlignment:
             "TENSOR_SET", "TENSOR_GET",
             "MORPH", "COMPOSE", "MORPH_ID", "MORPH_DELETE",
             "MORPH_ASSERT", "MORPH_TENSOR", "MORPH_GET",
+            "CHSH_LASSERT",
         }
         assert set(OPCODES.keys()) == expected_names

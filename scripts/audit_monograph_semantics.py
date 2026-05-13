@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Audit thesis prose against Coq theorem TYPES (not just names).
+"""Audit monograph prose against Coq theorem TYPES (not just names).
 
-For each \texttt{name} citation in a thesis file, look up the Coq theorem's
+For each \texttt{name} citation in the monograph, look up the Coq theorem's
 type signature (parsed from the .v source) and run heuristic checks against
 the surrounding prose. Reports mismatches the human should review.
 
@@ -24,7 +24,7 @@ Limitation: this is a heuristic auditor. It will produce false positives
 and miss subtler issues. The output is a punch list for human review, not
 a Qed-style verification.
 
-Usage: scripts/audit_thesis_semantics.py thesis/short_thesis.tex [...]
+Usage: scripts/audit_monograph_semantics.py monograph/monograph.tex [...]
 """
 from __future__ import annotations
 
@@ -418,7 +418,7 @@ def render(tex_path: Path, theorems: dict[str, list[CoqTheorem]]):
 
 def main():
     targets = [Path(p).resolve() for p in sys.argv[1:]] if len(sys.argv) > 1 else [
-        REPO / "thesis" / "short_thesis.tex",
+        REPO / "monograph" / "monograph.tex",
     ]
     print(f"Indexing Coq theorems under {COQ}...")
     theorems = index_coq_theorems(COQ)

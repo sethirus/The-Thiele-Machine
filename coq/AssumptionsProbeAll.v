@@ -2168,15 +2168,15 @@ Print Assumptions Kernel.MuChaitin.MuChaitin.mu_info_nat_ge_from_mu_total.
 Print Assumptions Kernel.MuChaitin.MuChaitin.supra_cert_implies_mu_info_nat_lower_bound.
 Print Assumptions Kernel.MuChaitin.MuChaitin.supra_cert_implies_mu_bounds_cert_payload.
 (* === Kernel.MuComplexity : 10 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.MuComplexity.classical_in_muP.
+Print Assumptions Kernel.MuComplexity.classical_mu_budget_decidable.
 Print Assumptions Kernel.MuComplexity.mu_time_tradeoff_witness.
 Print Assumptions Kernel.MuComplexity.four_pow_is_sq.
-Print Assumptions Kernel.MuComplexity.mup_ratio_exact.
+Print Assumptions Kernel.MuComplexity.sat_blind_sighted_ratio_exact.
 Print Assumptions Kernel.MuComplexity.sat_separation.
 Print Assumptions Kernel.MuComplexity.two_pow_gt.
 Print Assumptions Kernel.MuComplexity.sat_separation_ratio_unbounded.
 Print Assumptions Kernel.MuComplexity.sat_mu_is_constant.
-Print Assumptions Kernel.MuComplexity.mup_dominates_p_on_structured_sat.
+Print Assumptions Kernel.MuComplexity.structured_sat_blind_sighted_separation.
 Print Assumptions Kernel.MuComplexity.sat_savings_unbounded.
 (* === Kernel.MuCostDerivation : 13 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.MuCostDerivation.log2_subtraction_valid.

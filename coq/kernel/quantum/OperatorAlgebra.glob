@@ -1,0 +1,413 @@
+DIGEST 31da3bd9f57a2c9d1aa2963e89137f2e
+FKernel.OperatorAlgebra
+R1363:1367 Coq.Reals.Reals <> <> lib
+R1369:1371 Coq.micromega.Lra <> <> lib
+R1373:1375 Coq.micromega.Lia <> <> lib
+R1377:1380 Coq.Lists.List <> <> lib
+R1382:1386 Coq.Arith.Arith <> <> lib
+R1396:1408 Coq.Lists.List ListNotations <> mod
+def 1699:1704 <> Matrix
+R1719:1722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1716:1718 Coq.Init.Datatypes <> nat ind
+R1726:1729 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1723:1725 Coq.Init.Datatypes <> nat ind
+R1730:1730 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1744:1749 <> Vector
+R1764:1767 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1761:1763 Coq.Init.Datatypes <> nat ind
+R1768:1768 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 1813:1820 <> mat_scal
+R1827:1827 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 1823:1823 <> c:1
+R1835:1840 Kernel.OperatorAlgebra <> Matrix def
+binder 1831:1831 <> A:2
+R1845:1850 Kernel.OperatorAlgebra <> Matrix def
+binder 1861:1861 <> i:3
+binder 1863:1863 <> j:4
+R1869:1871 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R1868:1868 Kernel.OperatorAlgebra <> c:1 var
+R1872:1872 Kernel.OperatorAlgebra <> A:2 var
+R1874:1874 Kernel.OperatorAlgebra <> i:3 var
+R1876:1876 Kernel.OperatorAlgebra <> j:4 var
+def 1921:1927 <> mat_add
+R1936:1941 Kernel.OperatorAlgebra <> Matrix def
+binder 1930:1930 <> A:5
+binder 1932:1932 <> B:6
+R1946:1951 Kernel.OperatorAlgebra <> Matrix def
+binder 1962:1962 <> i:7
+binder 1964:1964 <> j:8
+R1974:1976 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R1969:1969 Kernel.OperatorAlgebra <> A:5 var
+R1971:1971 Kernel.OperatorAlgebra <> i:7 var
+R1973:1973 Kernel.OperatorAlgebra <> j:8 var
+R1977:1977 Kernel.OperatorAlgebra <> B:6 var
+R1979:1979 Kernel.OperatorAlgebra <> i:7 var
+R1981:1981 Kernel.OperatorAlgebra <> j:8 var
+def 2037:2042 <> sum_to
+R2049:2051 Coq.Init.Datatypes <> nat ind
+binder 2045:2045 <> n:9
+R2062:2065 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2059:2061 Coq.Init.Datatypes <> nat ind
+R2066:2066 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2055:2055 <> f:10
+R2071:2071 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2084:2084 Kernel.OperatorAlgebra <> n:9 var
+R2106:2106 Coq.Init.Datatypes <> S constr
+R2123:2125 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2113:2118 Kernel.OperatorAlgebra <> sum_to:11 def
+R2122:2122 Kernel.OperatorAlgebra <> f:10 var
+R2126:2126 Kernel.OperatorAlgebra <> f:10 var
+def 2204:2211 <> mat_mult
+R2218:2220 Coq.Init.Datatypes <> nat ind
+binder 2214:2214 <> d:13
+R2230:2235 Kernel.OperatorAlgebra <> Matrix def
+binder 2224:2224 <> A:14
+binder 2226:2226 <> B:15
+R2240:2245 Kernel.OperatorAlgebra <> Matrix def
+binder 2256:2256 <> i:16
+binder 2258:2258 <> j:17
+R2263:2268 Kernel.OperatorAlgebra <> sum_to def
+R2270:2270 Kernel.OperatorAlgebra <> d:13 var
+binder 2277:2277 <> k:18
+R2287:2289 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2282:2282 Kernel.OperatorAlgebra <> A:14 var
+R2284:2284 Kernel.OperatorAlgebra <> i:16 var
+R2286:2286 Kernel.OperatorAlgebra <> k:18 var
+R2290:2290 Kernel.OperatorAlgebra <> B:15 var
+R2292:2292 Kernel.OperatorAlgebra <> k:18 var
+R2294:2294 Kernel.OperatorAlgebra <> j:17 var
+def 2328:2340 <> mat_transpose
+R2347:2352 Kernel.OperatorAlgebra <> Matrix def
+binder 2343:2343 <> A:19
+R2357:2362 Kernel.OperatorAlgebra <> Matrix def
+binder 2373:2373 <> i:20
+binder 2375:2375 <> j:21
+R2380:2380 Kernel.OperatorAlgebra <> A:19 var
+R2382:2382 Kernel.OperatorAlgebra <> j:21 var
+R2384:2384 Kernel.OperatorAlgebra <> i:20 var
+def 2438:2446 <> mat_trace
+R2453:2455 Coq.Init.Datatypes <> nat ind
+binder 2449:2449 <> d:22
+R2463:2468 Kernel.OperatorAlgebra <> Matrix def
+binder 2459:2459 <> A:23
+R2473:2473 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2480:2485 Kernel.OperatorAlgebra <> sum_to def
+R2487:2487 Kernel.OperatorAlgebra <> d:22 var
+binder 2494:2494 <> i:24
+R2499:2499 Kernel.OperatorAlgebra <> A:23 var
+R2501:2501 Kernel.OperatorAlgebra <> i:24 var
+R2503:2503 Kernel.OperatorAlgebra <> i:24 var
+def 2543:2548 <> mat_id
+R2552:2557 Kernel.OperatorAlgebra <> Matrix def
+binder 2568:2568 <> i:25
+binder 2570:2570 <> j:26
+R2578:2584 Coq.Arith.PeanoNat Nat eqb def
+R2586:2586 Kernel.OperatorAlgebra <> i:25 var
+R2588:2588 Kernel.OperatorAlgebra <> j:26 var
+prf 2747:2756 <> sum_to_add
+binder 2767:2767 <> n:27
+binder 2769:2769 <> f:28
+binder 2771:2771 <> g:29
+R2805:2807 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2776:2781 Kernel.OperatorAlgebra <> sum_to def
+R2783:2783 Kernel.OperatorAlgebra <> n:27 var
+binder 2790:2790 <> i:30
+R2798:2800 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2795:2795 Kernel.OperatorAlgebra <> f:28 var
+R2797:2797 Kernel.OperatorAlgebra <> i:30 var
+R2801:2801 Kernel.OperatorAlgebra <> g:29 var
+R2803:2803 Kernel.OperatorAlgebra <> i:30 var
+R2818:2820 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2808:2813 Kernel.OperatorAlgebra <> sum_to def
+R2815:2815 Kernel.OperatorAlgebra <> n:27 var
+R2817:2817 Kernel.OperatorAlgebra <> f:28 var
+R2821:2826 Kernel.OperatorAlgebra <> sum_to def
+R2828:2828 Kernel.OperatorAlgebra <> n:27 var
+R2830:2830 Kernel.OperatorAlgebra <> g:29 var
+prf 2927:2937 <> sum_to_scal
+binder 2948:2948 <> n:31
+binder 2950:2950 <> c:32
+binder 2952:2952 <> f:33
+R2984:2986 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2957:2962 Kernel.OperatorAlgebra <> sum_to def
+R2964:2964 Kernel.OperatorAlgebra <> n:31 var
+binder 2971:2971 <> i:34
+R2977:2979 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2976:2976 Kernel.OperatorAlgebra <> c:32 var
+R2980:2980 Kernel.OperatorAlgebra <> f:33 var
+R2982:2982 Kernel.OperatorAlgebra <> i:34 var
+R2988:2990 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2987:2987 Kernel.OperatorAlgebra <> c:32 var
+R2991:2996 Kernel.OperatorAlgebra <> sum_to def
+R2998:2998 Kernel.OperatorAlgebra <> n:31 var
+R3000:3000 Kernel.OperatorAlgebra <> f:33 var
+prf 3097:3113 <> sum_to_const_zero
+binder 3124:3124 <> n:35
+R3150:3152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3129:3134 Kernel.OperatorAlgebra <> sum_to def
+R3136:3136 Kernel.OperatorAlgebra <> n:35 var
+prf 3241:3253 <> sum_to_nonneg
+binder 3264:3264 <> n:36
+binder 3266:3266 <> f:37
+R3271:3271 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3305:3311 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 3279:3279 <> i:38
+R3293:3296 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3284:3286 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3283:3283 Kernel.OperatorAlgebra <> i:38 var
+R3287:3287 Kernel.OperatorAlgebra <> n:36 var
+R3298:3301 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3302:3302 Kernel.OperatorAlgebra <> f:37 var
+R3304:3304 Kernel.OperatorAlgebra <> i:38 var
+R3313:3316 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3317:3322 Kernel.OperatorAlgebra <> sum_to def
+R3324:3324 Kernel.OperatorAlgebra <> n:36 var
+R3326:3326 Kernel.OperatorAlgebra <> f:37 var
+R3409:3412 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3409:3412 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3459:3462 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3463:3468 Kernel.OperatorAlgebra <> sum_to def
+R3459:3462 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3463:3468 Kernel.OperatorAlgebra <> sum_to def
+prf 3582:3594 <> mat_trace_add
+binder 3605:3605 <> d:39
+binder 3607:3607 <> A:40
+binder 3609:3609 <> B:41
+R3639:3641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3614:3622 Kernel.OperatorAlgebra <> mat_trace def
+R3624:3624 Kernel.OperatorAlgebra <> d:39 var
+R3627:3633 Kernel.OperatorAlgebra <> mat_add def
+R3635:3635 Kernel.OperatorAlgebra <> A:40 var
+R3637:3637 Kernel.OperatorAlgebra <> B:41 var
+R3655:3657 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3642:3650 Kernel.OperatorAlgebra <> mat_trace def
+R3652:3652 Kernel.OperatorAlgebra <> d:39 var
+R3654:3654 Kernel.OperatorAlgebra <> A:40 var
+R3658:3666 Kernel.OperatorAlgebra <> mat_trace def
+R3668:3668 Kernel.OperatorAlgebra <> d:39 var
+R3670:3670 Kernel.OperatorAlgebra <> B:41 var
+R3703:3711 Kernel.OperatorAlgebra <> mat_trace def
+R3714:3720 Kernel.OperatorAlgebra <> mat_add def
+R3731:3740 Kernel.OperatorAlgebra <> sum_to_add thm
+R3731:3740 Kernel.OperatorAlgebra <> sum_to_add thm
+prf 3755:3768 <> mat_trace_scal
+binder 3779:3779 <> d:42
+binder 3781:3781 <> c:43
+binder 3783:3783 <> A:44
+R3814:3816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3788:3796 Kernel.OperatorAlgebra <> mat_trace def
+R3798:3798 Kernel.OperatorAlgebra <> d:42 var
+R3801:3808 Kernel.OperatorAlgebra <> mat_scal def
+R3810:3810 Kernel.OperatorAlgebra <> c:43 var
+R3812:3812 Kernel.OperatorAlgebra <> A:44 var
+R3818:3820 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3817:3817 Kernel.OperatorAlgebra <> c:43 var
+R3821:3829 Kernel.OperatorAlgebra <> mat_trace def
+R3831:3831 Kernel.OperatorAlgebra <> d:42 var
+R3833:3833 Kernel.OperatorAlgebra <> A:44 var
+R3866:3874 Kernel.OperatorAlgebra <> mat_trace def
+R3877:3884 Kernel.OperatorAlgebra <> mat_scal def
+R3895:3905 Kernel.OperatorAlgebra <> sum_to_scal thm
+R3895:3905 Kernel.OperatorAlgebra <> sum_to_scal thm
+def 4039:4045 <> vec_dot
+R4052:4054 Coq.Init.Datatypes <> nat ind
+binder 4048:4048 <> d:45
+R4064:4069 Kernel.OperatorAlgebra <> Vector def
+binder 4058:4058 <> u:46
+binder 4060:4060 <> v:47
+R4074:4074 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4081:4086 Kernel.OperatorAlgebra <> sum_to def
+R4088:4088 Kernel.OperatorAlgebra <> d:45 var
+binder 4095:4095 <> i:48
+R4103:4105 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4100:4100 Kernel.OperatorAlgebra <> u:46 var
+R4102:4102 Kernel.OperatorAlgebra <> i:48 var
+R4106:4106 Kernel.OperatorAlgebra <> v:47 var
+R4108:4108 Kernel.OperatorAlgebra <> i:48 var
+def 4124:4134 <> vec_norm_sq
+R4141:4143 Coq.Init.Datatypes <> nat ind
+binder 4137:4137 <> d:49
+R4151:4156 Kernel.OperatorAlgebra <> Vector def
+binder 4147:4147 <> v:50
+R4161:4161 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4166:4172 Kernel.OperatorAlgebra <> vec_dot def
+R4174:4174 Kernel.OperatorAlgebra <> d:49 var
+R4176:4176 Kernel.OperatorAlgebra <> v:50 var
+R4178:4178 Kernel.OperatorAlgebra <> v:50 var
+prf 4188:4205 <> vec_norm_sq_nonneg
+binder 4216:4216 <> d:51
+binder 4218:4218 <> v:52
+R4222:4225 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4226:4236 Kernel.OperatorAlgebra <> vec_norm_sq def
+R4238:4238 Kernel.OperatorAlgebra <> d:51 var
+R4240:4240 Kernel.OperatorAlgebra <> v:52 var
+R4271:4281 Kernel.OperatorAlgebra <> vec_norm_sq def
+R4284:4290 Kernel.OperatorAlgebra <> vec_dot def
+R4301:4313 Kernel.OperatorAlgebra <> sum_to_nonneg thm
+R4301:4313 Kernel.OperatorAlgebra <> sum_to_nonneg thm
+def 4380:4386 <> mat_vec
+R4393:4395 Coq.Init.Datatypes <> nat ind
+binder 4389:4389 <> d:53
+R4403:4408 Kernel.OperatorAlgebra <> Matrix def
+binder 4399:4399 <> A:54
+R4416:4421 Kernel.OperatorAlgebra <> Vector def
+binder 4412:4412 <> v:55
+R4426:4431 Kernel.OperatorAlgebra <> Vector def
+binder 4442:4442 <> i:56
+R4447:4452 Kernel.OperatorAlgebra <> sum_to def
+R4454:4454 Kernel.OperatorAlgebra <> d:53 var
+binder 4461:4461 <> j:57
+R4471:4473 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4466:4466 Kernel.OperatorAlgebra <> A:54 var
+R4468:4468 Kernel.OperatorAlgebra <> i:56 var
+R4470:4470 Kernel.OperatorAlgebra <> j:57 var
+R4474:4474 Kernel.OperatorAlgebra <> v:55 var
+R4476:4476 Kernel.OperatorAlgebra <> j:57 var
+def 4759:4771 <> mat_symmetric
+R4778:4780 Coq.Init.Datatypes <> nat ind
+binder 4774:4774 <> d:58
+R4788:4793 Kernel.OperatorAlgebra <> Matrix def
+binder 4784:4784 <> A:59
+binder 4815:4815 <> i:60
+binder 4817:4817 <> j:61
+R4831:4834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4822:4824 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4821:4821 Kernel.OperatorAlgebra <> i:60 var
+R4825:4825 Kernel.OperatorAlgebra <> d:58 var
+R4846:4849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4837:4839 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4836:4836 Kernel.OperatorAlgebra <> j:61 var
+R4840:4840 Kernel.OperatorAlgebra <> d:58 var
+R4855:4857 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4850:4850 Kernel.OperatorAlgebra <> A:59 var
+R4852:4852 Kernel.OperatorAlgebra <> i:60 var
+R4854:4854 Kernel.OperatorAlgebra <> j:61 var
+R4858:4858 Kernel.OperatorAlgebra <> A:59 var
+R4860:4860 Kernel.OperatorAlgebra <> j:61 var
+R4862:4862 Kernel.OperatorAlgebra <> i:60 var
+def 4877:4883 <> mat_psd
+R4890:4892 Coq.Init.Datatypes <> nat ind
+binder 4886:4886 <> d:62
+R4900:4905 Kernel.OperatorAlgebra <> Matrix def
+binder 4896:4896 <> A:63
+R4931:4936 Kernel.OperatorAlgebra <> Vector def
+binder 4927:4927 <> v:64
+R4940:4943 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4944:4950 Kernel.OperatorAlgebra <> vec_dot def
+R4952:4952 Kernel.OperatorAlgebra <> d:62 var
+R4954:4954 Kernel.OperatorAlgebra <> v:64 var
+R4957:4963 Kernel.OperatorAlgebra <> mat_vec def
+R4965:4965 Kernel.OperatorAlgebra <> d:62 var
+R4967:4967 Kernel.OperatorAlgebra <> A:63 var
+R4969:4969 Kernel.OperatorAlgebra <> v:64 var
+rec 5159:5171 <> DensityMatrix
+proj 5197:5202 <> dm_mat
+proj 5216:5227 <> dm_symmetric
+proj 5257:5268 <> dm_trace_one
+proj 5298:5303 <> dm_psd
+R5178:5180 Coq.Init.Datatypes <> nat ind
+binder 5174:5174 <> d:65
+R5206:5211 Kernel.OperatorAlgebra <> Matrix def
+R5231:5243 Kernel.OperatorAlgebra <> mat_symmetric def
+R5245:5245 Kernel.OperatorAlgebra <> d:65 var
+R5247:5252 Kernel.OperatorAlgebra <> dm_mat:67 meth
+R5290:5292 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5272:5280 Kernel.OperatorAlgebra <> mat_trace def
+R5282:5282 Kernel.OperatorAlgebra <> d:65 var
+R5284:5289 Kernel.OperatorAlgebra <> dm_mat:67 meth
+R5307:5313 Kernel.OperatorAlgebra <> mat_psd def
+R5315:5315 Kernel.OperatorAlgebra <> d:65 var
+R5317:5322 Kernel.OperatorAlgebra <> dm_mat:67 meth
+R5339:5344 Kernel.OperatorAlgebra <> dm_mat proj
+R5339:5344 Kernel.OperatorAlgebra <> dm_mat proj
+R5361:5372 Kernel.OperatorAlgebra <> dm_symmetric proj
+R5361:5372 Kernel.OperatorAlgebra <> dm_symmetric proj
+R5389:5400 Kernel.OperatorAlgebra <> dm_trace_one proj
+R5389:5400 Kernel.OperatorAlgebra <> dm_trace_one proj
+R5417:5422 Kernel.OperatorAlgebra <> dm_psd proj
+R5417:5422 Kernel.OperatorAlgebra <> dm_psd proj
+def 6136:6143 <> Spectrum
+R6150:6152 Coq.Init.Datatypes <> nat ind
+binder 6146:6146 <> d:71
+R6168:6171 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6165:6167 Coq.Init.Datatypes <> nat ind
+R6172:6172 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 6281:6303 <> is_probability_spectrum
+R6310:6312 Coq.Init.Datatypes <> nat ind
+binder 6306:6306 <> d:72
+R6326:6333 Kernel.OperatorAlgebra <> Spectrum def
+R6335:6335 Kernel.OperatorAlgebra <> d:72 var
+binder 6316:6322 <> lambdas:73
+R6350:6350 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6395:6401 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 6358:6358 <> i:74
+R6372:6375 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6363:6365 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R6362:6362 Kernel.OperatorAlgebra <> i:74 var
+R6366:6366 Kernel.OperatorAlgebra <> d:72 var
+R6377:6380 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6390:6393 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R6381:6387 Kernel.OperatorAlgebra <> lambdas:73 var
+R6389:6389 Kernel.OperatorAlgebra <> i:74 var
+R6381:6387 Kernel.OperatorAlgebra <> lambdas:73 var
+R6389:6389 Kernel.OperatorAlgebra <> i:74 var
+R6418:6420 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6402:6407 Kernel.OperatorAlgebra <> sum_to def
+R6409:6409 Kernel.OperatorAlgebra <> d:72 var
+R6411:6417 Kernel.OperatorAlgebra <> lambdas:73 var
+def 6629:6640 <> has_spectrum
+R6647:6649 Coq.Init.Datatypes <> nat ind
+binder 6643:6643 <> d:75
+R6659:6671 Kernel.OperatorAlgebra <> DensityMatrix rec
+R6673:6673 Kernel.OperatorAlgebra <> d:75 var
+binder 6653:6655 <> rho:76
+R6687:6694 Kernel.OperatorAlgebra <> Spectrum def
+R6696:6696 Kernel.OperatorAlgebra <> d:75 var
+binder 6677:6683 <> lambdas:77
+R6744:6749 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6711:6733 Kernel.OperatorAlgebra <> is_probability_spectrum def
+R6735:6735 Kernel.OperatorAlgebra <> d:75 var
+R6737:6743 Kernel.OperatorAlgebra <> lambdas:77 var
+R6766:6768 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6750:6755 Kernel.OperatorAlgebra <> sum_to def
+R6757:6757 Kernel.OperatorAlgebra <> d:75 var
+R6759:6765 Kernel.OperatorAlgebra <> lambdas:77 var
+R6769:6777 Kernel.OperatorAlgebra <> mat_trace def
+R6779:6779 Kernel.OperatorAlgebra <> d:75 var
+R6786:6791 Kernel.OperatorAlgebra <> dm_mat proj
+R6781:6783 Kernel.OperatorAlgebra <> rho:76 var
+prf 6870:6887 <> has_spectrum_trace
+binder 6898:6898 <> d:78
+binder 6900:6902 <> rho:79
+binder 6904:6910 <> lambdas:80
+R6948:6953 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6915:6937 Kernel.OperatorAlgebra <> is_probability_spectrum def
+R6939:6939 Kernel.OperatorAlgebra <> d:78 var
+R6941:6947 Kernel.OperatorAlgebra <> lambdas:80 var
+R6974:6979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6970:6972 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6954:6959 Kernel.OperatorAlgebra <> sum_to def
+R6961:6961 Kernel.OperatorAlgebra <> d:78 var
+R6963:6969 Kernel.OperatorAlgebra <> lambdas:80 var
+R7006:7010 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6980:6991 Kernel.OperatorAlgebra <> has_spectrum def
+R6993:6993 Kernel.OperatorAlgebra <> d:78 var
+R6995:6997 Kernel.OperatorAlgebra <> rho:79 var
+R6999:7005 Kernel.OperatorAlgebra <> lambdas:80 var
+R7035:7037 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7011:7019 Kernel.OperatorAlgebra <> mat_trace def
+R7021:7021 Kernel.OperatorAlgebra <> d:78 var
+R7028:7033 Kernel.OperatorAlgebra <> dm_mat proj
+R7023:7025 Kernel.OperatorAlgebra <> rho:79 var
+R7090:7101 Kernel.OperatorAlgebra <> has_spectrum def
+R7801:7813 Kernel.OperatorAlgebra <> mat_trace_add thm
+R7834:7847 Kernel.OperatorAlgebra <> mat_trace_scal thm
+R7868:7885 Kernel.OperatorAlgebra <> vec_norm_sq_nonneg thm
+R8153:8159 Kernel.VMState <> <> lib
+R8161:8171 Kernel.MuCostModel <> <> lib
+def 8186:8211 <> operator_algebra_vm_anchor
+R8218:8224 Kernel.VMState <> VMState rec
+binder 8214:8214 <> s:81
+R8229:8231 Coq.Init.Datatypes <> nat ind
+R8236:8240 Kernel.VMState <> vm_mu proj
+R8242:8242 Kernel.OperatorAlgebra <> s:81 var

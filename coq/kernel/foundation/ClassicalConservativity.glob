@@ -1,4 +1,4 @@
-DIGEST 9826ef80be811f40a6520bbd83c274ae
+DIGEST a0683904f41d68a8ea4ff7db447ceebd
 FKernel.ClassicalConservativity
 R1235:1238 Coq.Lists.List <> <> lib
 R1240:1253 Coq.Arith.PeanoNat <> <> lib
@@ -48,289 +48,291 @@ R2954:2971 Kernel.VMStep VMStep instr_morph_assert constr
 R2984:2988 Coq.Init.Datatypes <> false constr
 R3020:3037 Kernel.VMStep VMStep instr_morph_tensor constr
 R3050:3054 Coq.Init.Datatypes <> false constr
-R3112:3115 Coq.Init.Datatypes <> true constr
-prf 3210:3241 <> classical_opcode_preserves_graph
-R3259:3265 Kernel.VMState <> VMState rec
-binder 3255:3255 <> s:3
-R3273:3286 Kernel.VMStep VMStep vm_instruction ind
-binder 3269:3269 <> i:4
-R3322:3329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3315:3317 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3294:3312 Kernel.ClassicalConservativity <> is_classical_opcode def
-R3314:3314 Kernel.ClassicalConservativity <> i:4 var
-R3318:3321 Coq.Init.Datatypes <> true constr
-R3355:3357 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3346:3353 Kernel.VMState <> vm_graph proj
-R3331:3338 Kernel.SimulationProof <> vm_apply def
-R3340:3340 Kernel.ClassicalConservativity <> s:3 var
-R3342:3342 Kernel.ClassicalConservativity <> i:4 var
-R3361:3368 Kernel.VMState <> vm_graph proj
-R3358:3358 Kernel.ClassicalConservativity <> s:3 var
-R3450:3457 Kernel.SimulationProof <> vm_apply def
-R3557:3572 Kernel.VMStep VMStep advance_state_rm def
-R3610:3622 Kernel.VMStep VMStep advance_state def
-R3660:3669 Kernel.VMStep VMStep jump_state def
-R3707:3719 Kernel.VMStep VMStep jump_state_rm def
-R3831:3847 Kernel.VMStep VMStep tensor_indices_ok def
-R3870:3885 Kernel.VMStep VMStep advance_state_rm def
-R3923:3935 Kernel.VMStep VMStep advance_state def
-R4054:4074 Kernel.VMState <> graph_lookup_morphism def
-R4097:4112 Kernel.VMStep VMStep advance_state_rm def
-R4150:4162 Kernel.VMStep VMStep advance_state def
-R3831:3847 Kernel.VMStep VMStep tensor_indices_ok def
-R3831:3847 Kernel.VMStep VMStep tensor_indices_ok def
-R3831:3847 Kernel.VMStep VMStep tensor_indices_ok def
-R4054:4074 Kernel.VMState <> graph_lookup_morphism def
-R4054:4074 Kernel.VMState <> graph_lookup_morphism def
-R4298:4304 Coq.Arith.PeanoNat Nat eqb def
-R4307:4314 Kernel.VMState <> read_reg def
-R4298:4304 Coq.Arith.PeanoNat Nat eqb def
-R4307:4314 Kernel.VMState <> read_reg def
-R4349:4355 Coq.Arith.PeanoNat Nat eqb def
-R4358:4365 Kernel.VMState <> read_reg def
-R4398:4410 Kernel.VMStep VMStep advance_state def
-R4421:4430 Kernel.VMStep VMStep jump_state def
-R4349:4355 Coq.Arith.PeanoNat Nat eqb def
-R4358:4365 Kernel.VMState <> read_reg def
-prf 4613:4647 <> classical_opcode_is_not_cert_setter
-R4665:4678 Kernel.VMStep VMStep vm_instruction ind
-binder 4661:4661 <> i:5
-R4714:4721 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4707:4709 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4686:4704 Kernel.ClassicalConservativity <> is_classical_opcode def
-R4706:4706 Kernel.ClassicalConservativity <> i:5 var
-R4710:4713 Coq.Init.Datatypes <> true constr
-R4741:4743 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4722:4738 Kernel.AbstractNoFI <> cert_addr_setterb def
-R4740:4740 Kernel.ClassicalConservativity <> i:5 var
-R4744:4748 Coq.Init.Datatypes <> false constr
-prf 4850:4885 <> classical_opcode_preserves_cert_addr
-R4903:4909 Kernel.VMState <> VMState rec
-binder 4899:4899 <> s:6
-R4917:4930 Kernel.VMStep VMStep vm_instruction ind
-binder 4913:4913 <> i:7
-R4966:4973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4959:4961 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4938:4956 Kernel.ClassicalConservativity <> is_classical_opcode def
-R4958:4958 Kernel.ClassicalConservativity <> i:7 var
-R4962:4965 Coq.Init.Datatypes <> true constr
-R5014:5016 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5000:5012 Kernel.VMState <> csr_cert_addr proj
-R4990:4996 Kernel.VMState <> vm_csrs proj
-R4975:4982 Kernel.SimulationProof <> vm_apply def
-R4984:4984 Kernel.ClassicalConservativity <> s:6 var
-R4986:4986 Kernel.ClassicalConservativity <> i:7 var
-R5030:5042 Kernel.VMState <> csr_cert_addr proj
-R5020:5026 Kernel.VMState <> vm_csrs proj
-R5017:5017 Kernel.ClassicalConservativity <> s:6 var
-R5078:5114 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-R5078:5114 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
-R5126:5160 Kernel.ClassicalConservativity <> classical_opcode_is_not_cert_setter thm
-R5126:5160 Kernel.ClassicalConservativity <> classical_opcode_is_not_cert_setter thm
-prf 5317:5352 <> classical_opcode_preserves_certified
-R5370:5376 Kernel.VMState <> VMState rec
-binder 5366:5366 <> s:8
-R5384:5397 Kernel.VMStep VMStep vm_instruction ind
-binder 5380:5380 <> i:9
-R5433:5440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5426:5428 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5405:5423 Kernel.ClassicalConservativity <> is_classical_opcode def
-R5425:5425 Kernel.ClassicalConservativity <> i:9 var
-R5429:5432 Coq.Init.Datatypes <> true constr
-R5470:5472 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5457:5468 Kernel.VMState <> vm_certified proj
-R5442:5449 Kernel.SimulationProof <> vm_apply def
-R5451:5451 Kernel.ClassicalConservativity <> s:8 var
-R5453:5453 Kernel.ClassicalConservativity <> i:9 var
-R5476:5487 Kernel.VMState <> vm_certified proj
-R5473:5473 Kernel.ClassicalConservativity <> s:8 var
-R5569:5576 Kernel.SimulationProof <> vm_apply def
-R5593:5608 Kernel.VMStep VMStep advance_state_rm def
-R5646:5658 Kernel.VMStep VMStep advance_state def
-R5696:5705 Kernel.VMStep VMStep jump_state def
-R5743:5755 Kernel.VMStep VMStep jump_state_rm def
-R5796:5812 Kernel.VMStep VMStep tensor_indices_ok def
-R5835:5850 Kernel.VMStep VMStep advance_state_rm def
-R5888:5900 Kernel.VMStep VMStep advance_state def
-R5942:5962 Kernel.VMState <> graph_lookup_morphism def
-R5985:6000 Kernel.VMStep VMStep advance_state_rm def
-R6038:6050 Kernel.VMStep VMStep advance_state def
-R5796:5812 Kernel.VMStep VMStep tensor_indices_ok def
-R5796:5812 Kernel.VMStep VMStep tensor_indices_ok def
-R5796:5812 Kernel.VMStep VMStep tensor_indices_ok def
-R5942:5962 Kernel.VMState <> graph_lookup_morphism def
-R5942:5962 Kernel.VMState <> graph_lookup_morphism def
-R6128:6134 Coq.Arith.PeanoNat Nat eqb def
-R6137:6144 Kernel.VMState <> read_reg def
-R6128:6134 Coq.Arith.PeanoNat Nat eqb def
-R6137:6144 Kernel.VMState <> read_reg def
-R6179:6185 Coq.Arith.PeanoNat Nat eqb def
-R6188:6195 Kernel.VMState <> read_reg def
-R6228:6240 Kernel.VMStep VMStep advance_state def
-R6251:6260 Kernel.VMStep VMStep jump_state def
-R6179:6185 Coq.Arith.PeanoNat Nat eqb def
-R6188:6195 Kernel.VMState <> read_reg def
-prf 6512:6542 <> classical_trace_preserves_graph
-R6564:6567 Coq.Init.Datatypes <> list ind
-R6569:6582 Kernel.VMStep VMStep vm_instruction ind
-binder 6556:6560 <> trace:10
-R6591:6597 Kernel.VMState <> VMState rec
-binder 6586:6587 <> s0:11
-R6657:6664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6605:6610 Coq.Lists.List <> Forall ind
-R6652:6656 Kernel.ClassicalConservativity <> trace:10 var
-binder 6617:6617 <> i:12
-R6643:6645 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6622:6640 Kernel.ClassicalConservativity <> is_classical_opcode def
-R6642:6642 Kernel.ClassicalConservativity <> i:12 var
-R6646:6649 Coq.Init.Datatypes <> true constr
-R6714:6716 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6705:6712 Kernel.VMState <> vm_graph proj
-R6666:6672 Kernel.AbstractNoFI <> acm_run def
-R6700:6701 Kernel.ClassicalConservativity <> s0:11 var
-R6694:6698 Kernel.ClassicalConservativity <> trace:10 var
-R6674:6692 Kernel.AbstractNoFI <> thiele_cert_machine def
-R6721:6728 Kernel.VMState <> vm_graph proj
-R6717:6718 Kernel.ClassicalConservativity <> s0:11 var
-R6896:6903 Kernel.SimulationProof <> vm_apply def
-R6896:6903 Kernel.SimulationProof <> vm_apply def
-R6896:6903 Kernel.SimulationProof <> vm_apply def
-R6930:6961 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
-R6930:6961 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
-prf 7086:7120 <> classical_trace_preserves_cert_addr
-R7142:7145 Coq.Init.Datatypes <> list ind
-R7147:7160 Kernel.VMStep VMStep vm_instruction ind
-binder 7134:7138 <> trace:13
-R7169:7175 Kernel.VMState <> VMState rec
-binder 7164:7165 <> s0:14
-R7235:7242 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7183:7188 Coq.Lists.List <> Forall ind
-R7230:7234 Kernel.ClassicalConservativity <> trace:13 var
-binder 7195:7195 <> i:15
-R7221:7223 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7200:7218 Kernel.ClassicalConservativity <> is_classical_opcode def
-R7220:7220 Kernel.ClassicalConservativity <> i:15 var
-R7224:7227 Coq.Init.Datatypes <> true constr
-R7307:7313 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7293:7305 Kernel.VMState <> csr_cert_addr proj
-R7283:7289 Kernel.VMState <> vm_csrs proj
-R7244:7250 Kernel.AbstractNoFI <> acm_run def
-R7278:7279 Kernel.ClassicalConservativity <> s0:14 var
-R7272:7276 Kernel.ClassicalConservativity <> trace:13 var
-R7252:7270 Kernel.AbstractNoFI <> thiele_cert_machine def
-R7328:7340 Kernel.VMState <> csr_cert_addr proj
-R7318:7324 Kernel.VMState <> vm_csrs proj
-R7314:7315 Kernel.ClassicalConservativity <> s0:14 var
-R7508:7515 Kernel.SimulationProof <> vm_apply def
-R7508:7515 Kernel.SimulationProof <> vm_apply def
-R7508:7515 Kernel.SimulationProof <> vm_apply def
-R7542:7577 Kernel.ClassicalConservativity <> classical_opcode_preserves_cert_addr thm
-R7542:7577 Kernel.ClassicalConservativity <> classical_opcode_preserves_cert_addr thm
-prf 7701:7735 <> classical_trace_preserves_certified
-R7757:7760 Coq.Init.Datatypes <> list ind
-R7762:7775 Kernel.VMStep VMStep vm_instruction ind
-binder 7749:7753 <> trace:16
-R7784:7790 Kernel.VMState <> VMState rec
-binder 7779:7780 <> s0:17
-R7850:7857 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7798:7803 Coq.Lists.List <> Forall ind
-R7845:7849 Kernel.ClassicalConservativity <> trace:16 var
-binder 7810:7810 <> i:18
-R7836:7838 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7815:7833 Kernel.ClassicalConservativity <> is_classical_opcode def
-R7835:7835 Kernel.ClassicalConservativity <> i:18 var
-R7839:7842 Coq.Init.Datatypes <> true constr
-R7911:7913 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7898:7909 Kernel.VMState <> vm_certified proj
-R7859:7865 Kernel.AbstractNoFI <> acm_run def
-R7893:7894 Kernel.ClassicalConservativity <> s0:17 var
-R7887:7891 Kernel.ClassicalConservativity <> trace:16 var
-R7867:7885 Kernel.AbstractNoFI <> thiele_cert_machine def
-R7918:7929 Kernel.VMState <> vm_certified proj
-R7914:7915 Kernel.ClassicalConservativity <> s0:17 var
-R8097:8104 Kernel.SimulationProof <> vm_apply def
-R8097:8104 Kernel.SimulationProof <> vm_apply def
-R8097:8104 Kernel.SimulationProof <> vm_apply def
-R8131:8166 Kernel.ClassicalConservativity <> classical_opcode_preserves_certified thm
-R8131:8166 Kernel.ClassicalConservativity <> classical_opcode_preserves_certified thm
-prf 8827:8843 <> D3_conservativity
-R8865:8868 Coq.Init.Datatypes <> list ind
-R8870:8883 Kernel.VMStep VMStep vm_instruction ind
-binder 8857:8861 <> trace:19
-R8892:8898 Kernel.VMState <> VMState rec
-binder 8887:8888 <> s0:20
-R8958:9006 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8906:8911 Coq.Lists.List <> Forall ind
-R8953:8957 Kernel.ClassicalConservativity <> trace:19 var
-binder 8918:8918 <> i:21
-R8944:8946 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8923:8941 Kernel.ClassicalConservativity <> is_classical_opcode def
-R8943:8943 Kernel.ClassicalConservativity <> i:21 var
-R8947:8950 Coq.Init.Datatypes <> true constr
-R9072:9129 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9056:9058 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9047:9054 Kernel.VMState <> vm_graph proj
-R9008:9014 Kernel.AbstractNoFI <> acm_run def
-R9042:9043 Kernel.ClassicalConservativity <> s0:20 var
-R9036:9040 Kernel.ClassicalConservativity <> trace:19 var
-R9016:9034 Kernel.AbstractNoFI <> thiele_cert_machine def
-R9063:9070 Kernel.VMState <> vm_graph proj
-R9059:9060 Kernel.ClassicalConservativity <> s0:20 var
-R9231:9279 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9194:9202 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9180:9192 Kernel.VMState <> csr_cert_addr proj
-R9170:9176 Kernel.VMState <> vm_csrs proj
-R9131:9137 Kernel.AbstractNoFI <> acm_run def
-R9165:9166 Kernel.ClassicalConservativity <> s0:20 var
-R9159:9163 Kernel.ClassicalConservativity <> trace:19 var
-R9139:9157 Kernel.AbstractNoFI <> thiele_cert_machine def
-R9217:9229 Kernel.VMState <> csr_cert_addr proj
-R9207:9213 Kernel.VMState <> vm_csrs proj
-R9203:9204 Kernel.ClassicalConservativity <> s0:20 var
-R9333:9335 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9320:9331 Kernel.VMState <> vm_certified proj
-R9281:9287 Kernel.AbstractNoFI <> acm_run def
-R9315:9316 Kernel.ClassicalConservativity <> s0:20 var
-R9309:9313 Kernel.ClassicalConservativity <> trace:19 var
-R9289:9307 Kernel.AbstractNoFI <> thiele_cert_machine def
-R9340:9351 Kernel.VMState <> vm_certified proj
-R9336:9337 Kernel.ClassicalConservativity <> s0:20 var
-R9402:9405 Coq.Init.Logic <> conj constr
-R9410:9413 Coq.Init.Logic <> conj constr
-R9402:9405 Coq.Init.Logic <> conj constr
-R9410:9413 Coq.Init.Logic <> conj constr
-R9433:9463 Kernel.ClassicalConservativity <> classical_trace_preserves_graph thm
-R9433:9463 Kernel.ClassicalConservativity <> classical_trace_preserves_graph thm
-R9498:9532 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
-R9498:9532 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
-R9567:9601 Kernel.ClassicalConservativity <> classical_trace_preserves_certified thm
-R9567:9601 Kernel.ClassicalConservativity <> classical_trace_preserves_certified thm
-prf 9845:9874 <> classical_trace_cannot_certify
-R9896:9899 Coq.Init.Datatypes <> list ind
-R9901:9914 Kernel.VMStep VMStep vm_instruction ind
-binder 9888:9892 <> trace:22
-R9923:9929 Kernel.VMState <> VMState rec
-binder 9918:9919 <> s0:23
-R9969:9976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9965:9967 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9951:9963 Kernel.VMState <> csr_cert_addr proj
-R9941:9947 Kernel.VMState <> vm_csrs proj
-R9937:9938 Kernel.ClassicalConservativity <> s0:23 var
-R10029:10036 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9977:9982 Coq.Lists.List <> Forall ind
-R10024:10028 Kernel.ClassicalConservativity <> trace:22 var
-binder 9989:9989 <> i:24
-R10015:10017 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9994:10012 Kernel.ClassicalConservativity <> is_classical_opcode def
-R10014:10014 Kernel.ClassicalConservativity <> i:24 var
-R10018:10021 Coq.Init.Datatypes <> true constr
-R10101:10103 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10087:10099 Kernel.VMState <> csr_cert_addr proj
-R10077:10083 Kernel.VMState <> vm_csrs proj
-R10038:10044 Kernel.AbstractNoFI <> acm_run def
-R10072:10073 Kernel.ClassicalConservativity <> s0:23 var
-R10066:10070 Kernel.ClassicalConservativity <> trace:22 var
-R10046:10064 Kernel.AbstractNoFI <> thiele_cert_machine def
-R10160:10194 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
-R10160:10194 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
-R10160:10194 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
+R3082:3099 Kernel.VMStep VMStep instr_chsh_lassert constr
+R3112:3116 Coq.Init.Datatypes <> false constr
+R3219:3222 Coq.Init.Datatypes <> true constr
+prf 3317:3348 <> classical_opcode_preserves_graph
+R3366:3372 Kernel.VMState <> VMState rec
+binder 3362:3362 <> s:3
+R3380:3393 Kernel.VMStep VMStep vm_instruction ind
+binder 3376:3376 <> i:4
+R3429:3436 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3422:3424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3401:3419 Kernel.ClassicalConservativity <> is_classical_opcode def
+R3421:3421 Kernel.ClassicalConservativity <> i:4 var
+R3425:3428 Coq.Init.Datatypes <> true constr
+R3462:3464 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3453:3460 Kernel.VMState <> vm_graph proj
+R3438:3445 Kernel.SimulationProof <> vm_apply def
+R3447:3447 Kernel.ClassicalConservativity <> s:3 var
+R3449:3449 Kernel.ClassicalConservativity <> i:4 var
+R3468:3475 Kernel.VMState <> vm_graph proj
+R3465:3465 Kernel.ClassicalConservativity <> s:3 var
+R3557:3564 Kernel.SimulationProof <> vm_apply def
+R3664:3679 Kernel.VMStep VMStep advance_state_rm def
+R3717:3729 Kernel.VMStep VMStep advance_state def
+R3767:3776 Kernel.VMStep VMStep jump_state def
+R3814:3826 Kernel.VMStep VMStep jump_state_rm def
+R3938:3954 Kernel.VMStep VMStep tensor_indices_ok def
+R3977:3992 Kernel.VMStep VMStep advance_state_rm def
+R4030:4042 Kernel.VMStep VMStep advance_state def
+R4161:4181 Kernel.VMState <> graph_lookup_morphism def
+R4204:4219 Kernel.VMStep VMStep advance_state_rm def
+R4257:4269 Kernel.VMStep VMStep advance_state def
+R3938:3954 Kernel.VMStep VMStep tensor_indices_ok def
+R3938:3954 Kernel.VMStep VMStep tensor_indices_ok def
+R3938:3954 Kernel.VMStep VMStep tensor_indices_ok def
+R4161:4181 Kernel.VMState <> graph_lookup_morphism def
+R4161:4181 Kernel.VMState <> graph_lookup_morphism def
+R4405:4411 Coq.Arith.PeanoNat Nat eqb def
+R4414:4421 Kernel.VMState <> read_reg def
+R4405:4411 Coq.Arith.PeanoNat Nat eqb def
+R4414:4421 Kernel.VMState <> read_reg def
+R4456:4462 Coq.Arith.PeanoNat Nat eqb def
+R4465:4472 Kernel.VMState <> read_reg def
+R4505:4517 Kernel.VMStep VMStep advance_state def
+R4528:4537 Kernel.VMStep VMStep jump_state def
+R4456:4462 Coq.Arith.PeanoNat Nat eqb def
+R4465:4472 Kernel.VMState <> read_reg def
+prf 4720:4754 <> classical_opcode_is_not_cert_setter
+R4772:4785 Kernel.VMStep VMStep vm_instruction ind
+binder 4768:4768 <> i:5
+R4821:4828 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4814:4816 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4793:4811 Kernel.ClassicalConservativity <> is_classical_opcode def
+R4813:4813 Kernel.ClassicalConservativity <> i:5 var
+R4817:4820 Coq.Init.Datatypes <> true constr
+R4848:4850 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4829:4845 Kernel.AbstractNoFI <> cert_addr_setterb def
+R4847:4847 Kernel.ClassicalConservativity <> i:5 var
+R4851:4855 Coq.Init.Datatypes <> false constr
+prf 4957:4992 <> classical_opcode_preserves_cert_addr
+R5010:5016 Kernel.VMState <> VMState rec
+binder 5006:5006 <> s:6
+R5024:5037 Kernel.VMStep VMStep vm_instruction ind
+binder 5020:5020 <> i:7
+R5073:5080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5066:5068 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5045:5063 Kernel.ClassicalConservativity <> is_classical_opcode def
+R5065:5065 Kernel.ClassicalConservativity <> i:7 var
+R5069:5072 Coq.Init.Datatypes <> true constr
+R5121:5123 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5107:5119 Kernel.VMState <> csr_cert_addr proj
+R5097:5103 Kernel.VMState <> vm_csrs proj
+R5082:5089 Kernel.SimulationProof <> vm_apply def
+R5091:5091 Kernel.ClassicalConservativity <> s:6 var
+R5093:5093 Kernel.ClassicalConservativity <> i:7 var
+R5137:5149 Kernel.VMState <> csr_cert_addr proj
+R5127:5133 Kernel.VMState <> vm_csrs proj
+R5124:5124 Kernel.ClassicalConservativity <> s:6 var
+R5185:5221 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R5185:5221 Kernel.AbstractNoFI <> thiele_non_cert_addr_setter_preserves thm
+R5233:5267 Kernel.ClassicalConservativity <> classical_opcode_is_not_cert_setter thm
+R5233:5267 Kernel.ClassicalConservativity <> classical_opcode_is_not_cert_setter thm
+prf 5424:5459 <> classical_opcode_preserves_certified
+R5477:5483 Kernel.VMState <> VMState rec
+binder 5473:5473 <> s:8
+R5491:5504 Kernel.VMStep VMStep vm_instruction ind
+binder 5487:5487 <> i:9
+R5540:5547 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5533:5535 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5512:5530 Kernel.ClassicalConservativity <> is_classical_opcode def
+R5532:5532 Kernel.ClassicalConservativity <> i:9 var
+R5536:5539 Coq.Init.Datatypes <> true constr
+R5577:5579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5564:5575 Kernel.VMState <> vm_certified proj
+R5549:5556 Kernel.SimulationProof <> vm_apply def
+R5558:5558 Kernel.ClassicalConservativity <> s:8 var
+R5560:5560 Kernel.ClassicalConservativity <> i:9 var
+R5583:5594 Kernel.VMState <> vm_certified proj
+R5580:5580 Kernel.ClassicalConservativity <> s:8 var
+R5676:5683 Kernel.SimulationProof <> vm_apply def
+R5700:5715 Kernel.VMStep VMStep advance_state_rm def
+R5753:5765 Kernel.VMStep VMStep advance_state def
+R5803:5812 Kernel.VMStep VMStep jump_state def
+R5850:5862 Kernel.VMStep VMStep jump_state_rm def
+R5903:5919 Kernel.VMStep VMStep tensor_indices_ok def
+R5942:5957 Kernel.VMStep VMStep advance_state_rm def
+R5995:6007 Kernel.VMStep VMStep advance_state def
+R6049:6069 Kernel.VMState <> graph_lookup_morphism def
+R6092:6107 Kernel.VMStep VMStep advance_state_rm def
+R6145:6157 Kernel.VMStep VMStep advance_state def
+R5903:5919 Kernel.VMStep VMStep tensor_indices_ok def
+R5903:5919 Kernel.VMStep VMStep tensor_indices_ok def
+R5903:5919 Kernel.VMStep VMStep tensor_indices_ok def
+R6049:6069 Kernel.VMState <> graph_lookup_morphism def
+R6049:6069 Kernel.VMState <> graph_lookup_morphism def
+R6235:6241 Coq.Arith.PeanoNat Nat eqb def
+R6244:6251 Kernel.VMState <> read_reg def
+R6235:6241 Coq.Arith.PeanoNat Nat eqb def
+R6244:6251 Kernel.VMState <> read_reg def
+R6286:6292 Coq.Arith.PeanoNat Nat eqb def
+R6295:6302 Kernel.VMState <> read_reg def
+R6335:6347 Kernel.VMStep VMStep advance_state def
+R6358:6367 Kernel.VMStep VMStep jump_state def
+R6286:6292 Coq.Arith.PeanoNat Nat eqb def
+R6295:6302 Kernel.VMState <> read_reg def
+prf 6619:6649 <> classical_trace_preserves_graph
+R6671:6674 Coq.Init.Datatypes <> list ind
+R6676:6689 Kernel.VMStep VMStep vm_instruction ind
+binder 6663:6667 <> trace:10
+R6698:6704 Kernel.VMState <> VMState rec
+binder 6693:6694 <> s0:11
+R6764:6771 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6712:6717 Coq.Lists.List <> Forall ind
+R6759:6763 Kernel.ClassicalConservativity <> trace:10 var
+binder 6724:6724 <> i:12
+R6750:6752 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6729:6747 Kernel.ClassicalConservativity <> is_classical_opcode def
+R6749:6749 Kernel.ClassicalConservativity <> i:12 var
+R6753:6756 Coq.Init.Datatypes <> true constr
+R6821:6823 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6812:6819 Kernel.VMState <> vm_graph proj
+R6773:6779 Kernel.AbstractNoFI <> acm_run def
+R6807:6808 Kernel.ClassicalConservativity <> s0:11 var
+R6801:6805 Kernel.ClassicalConservativity <> trace:10 var
+R6781:6799 Kernel.AbstractNoFI <> thiele_cert_machine def
+R6828:6835 Kernel.VMState <> vm_graph proj
+R6824:6825 Kernel.ClassicalConservativity <> s0:11 var
+R7003:7010 Kernel.SimulationProof <> vm_apply def
+R7003:7010 Kernel.SimulationProof <> vm_apply def
+R7003:7010 Kernel.SimulationProof <> vm_apply def
+R7037:7068 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+R7037:7068 Kernel.ClassicalConservativity <> classical_opcode_preserves_graph thm
+prf 7193:7227 <> classical_trace_preserves_cert_addr
+R7249:7252 Coq.Init.Datatypes <> list ind
+R7254:7267 Kernel.VMStep VMStep vm_instruction ind
+binder 7241:7245 <> trace:13
+R7276:7282 Kernel.VMState <> VMState rec
+binder 7271:7272 <> s0:14
+R7342:7349 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7290:7295 Coq.Lists.List <> Forall ind
+R7337:7341 Kernel.ClassicalConservativity <> trace:13 var
+binder 7302:7302 <> i:15
+R7328:7330 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7307:7325 Kernel.ClassicalConservativity <> is_classical_opcode def
+R7327:7327 Kernel.ClassicalConservativity <> i:15 var
+R7331:7334 Coq.Init.Datatypes <> true constr
+R7414:7420 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7400:7412 Kernel.VMState <> csr_cert_addr proj
+R7390:7396 Kernel.VMState <> vm_csrs proj
+R7351:7357 Kernel.AbstractNoFI <> acm_run def
+R7385:7386 Kernel.ClassicalConservativity <> s0:14 var
+R7379:7383 Kernel.ClassicalConservativity <> trace:13 var
+R7359:7377 Kernel.AbstractNoFI <> thiele_cert_machine def
+R7435:7447 Kernel.VMState <> csr_cert_addr proj
+R7425:7431 Kernel.VMState <> vm_csrs proj
+R7421:7422 Kernel.ClassicalConservativity <> s0:14 var
+R7615:7622 Kernel.SimulationProof <> vm_apply def
+R7615:7622 Kernel.SimulationProof <> vm_apply def
+R7615:7622 Kernel.SimulationProof <> vm_apply def
+R7649:7684 Kernel.ClassicalConservativity <> classical_opcode_preserves_cert_addr thm
+R7649:7684 Kernel.ClassicalConservativity <> classical_opcode_preserves_cert_addr thm
+prf 7808:7842 <> classical_trace_preserves_certified
+R7864:7867 Coq.Init.Datatypes <> list ind
+R7869:7882 Kernel.VMStep VMStep vm_instruction ind
+binder 7856:7860 <> trace:16
+R7891:7897 Kernel.VMState <> VMState rec
+binder 7886:7887 <> s0:17
+R7957:7964 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7905:7910 Coq.Lists.List <> Forall ind
+R7952:7956 Kernel.ClassicalConservativity <> trace:16 var
+binder 7917:7917 <> i:18
+R7943:7945 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7922:7940 Kernel.ClassicalConservativity <> is_classical_opcode def
+R7942:7942 Kernel.ClassicalConservativity <> i:18 var
+R7946:7949 Coq.Init.Datatypes <> true constr
+R8018:8020 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8005:8016 Kernel.VMState <> vm_certified proj
+R7966:7972 Kernel.AbstractNoFI <> acm_run def
+R8000:8001 Kernel.ClassicalConservativity <> s0:17 var
+R7994:7998 Kernel.ClassicalConservativity <> trace:16 var
+R7974:7992 Kernel.AbstractNoFI <> thiele_cert_machine def
+R8025:8036 Kernel.VMState <> vm_certified proj
+R8021:8022 Kernel.ClassicalConservativity <> s0:17 var
+R8204:8211 Kernel.SimulationProof <> vm_apply def
+R8204:8211 Kernel.SimulationProof <> vm_apply def
+R8204:8211 Kernel.SimulationProof <> vm_apply def
+R8238:8273 Kernel.ClassicalConservativity <> classical_opcode_preserves_certified thm
+R8238:8273 Kernel.ClassicalConservativity <> classical_opcode_preserves_certified thm
+prf 8934:8950 <> D3_conservativity
+R8972:8975 Coq.Init.Datatypes <> list ind
+R8977:8990 Kernel.VMStep VMStep vm_instruction ind
+binder 8964:8968 <> trace:19
+R8999:9005 Kernel.VMState <> VMState rec
+binder 8994:8995 <> s0:20
+R9065:9113 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9013:9018 Coq.Lists.List <> Forall ind
+R9060:9064 Kernel.ClassicalConservativity <> trace:19 var
+binder 9025:9025 <> i:21
+R9051:9053 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9030:9048 Kernel.ClassicalConservativity <> is_classical_opcode def
+R9050:9050 Kernel.ClassicalConservativity <> i:21 var
+R9054:9057 Coq.Init.Datatypes <> true constr
+R9179:9236 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9163:9165 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9154:9161 Kernel.VMState <> vm_graph proj
+R9115:9121 Kernel.AbstractNoFI <> acm_run def
+R9149:9150 Kernel.ClassicalConservativity <> s0:20 var
+R9143:9147 Kernel.ClassicalConservativity <> trace:19 var
+R9123:9141 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9170:9177 Kernel.VMState <> vm_graph proj
+R9166:9167 Kernel.ClassicalConservativity <> s0:20 var
+R9338:9386 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9301:9309 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9287:9299 Kernel.VMState <> csr_cert_addr proj
+R9277:9283 Kernel.VMState <> vm_csrs proj
+R9238:9244 Kernel.AbstractNoFI <> acm_run def
+R9272:9273 Kernel.ClassicalConservativity <> s0:20 var
+R9266:9270 Kernel.ClassicalConservativity <> trace:19 var
+R9246:9264 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9324:9336 Kernel.VMState <> csr_cert_addr proj
+R9314:9320 Kernel.VMState <> vm_csrs proj
+R9310:9311 Kernel.ClassicalConservativity <> s0:20 var
+R9440:9442 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9427:9438 Kernel.VMState <> vm_certified proj
+R9388:9394 Kernel.AbstractNoFI <> acm_run def
+R9422:9423 Kernel.ClassicalConservativity <> s0:20 var
+R9416:9420 Kernel.ClassicalConservativity <> trace:19 var
+R9396:9414 Kernel.AbstractNoFI <> thiele_cert_machine def
+R9447:9458 Kernel.VMState <> vm_certified proj
+R9443:9444 Kernel.ClassicalConservativity <> s0:20 var
+R9509:9512 Coq.Init.Logic <> conj constr
+R9517:9520 Coq.Init.Logic <> conj constr
+R9509:9512 Coq.Init.Logic <> conj constr
+R9517:9520 Coq.Init.Logic <> conj constr
+R9540:9570 Kernel.ClassicalConservativity <> classical_trace_preserves_graph thm
+R9540:9570 Kernel.ClassicalConservativity <> classical_trace_preserves_graph thm
+R9605:9639 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
+R9605:9639 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
+R9674:9708 Kernel.ClassicalConservativity <> classical_trace_preserves_certified thm
+R9674:9708 Kernel.ClassicalConservativity <> classical_trace_preserves_certified thm
+prf 9952:9981 <> classical_trace_cannot_certify
+R10003:10006 Coq.Init.Datatypes <> list ind
+R10008:10021 Kernel.VMStep VMStep vm_instruction ind
+binder 9995:9999 <> trace:22
+R10030:10036 Kernel.VMState <> VMState rec
+binder 10025:10026 <> s0:23
+R10076:10083 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10072:10074 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10058:10070 Kernel.VMState <> csr_cert_addr proj
+R10048:10054 Kernel.VMState <> vm_csrs proj
+R10044:10045 Kernel.ClassicalConservativity <> s0:23 var
+R10136:10143 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10084:10089 Coq.Lists.List <> Forall ind
+R10131:10135 Kernel.ClassicalConservativity <> trace:22 var
+binder 10096:10096 <> i:24
+R10122:10124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10101:10119 Kernel.ClassicalConservativity <> is_classical_opcode def
+R10121:10121 Kernel.ClassicalConservativity <> i:24 var
+R10125:10128 Coq.Init.Datatypes <> true constr
+R10208:10210 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10194:10206 Kernel.VMState <> csr_cert_addr proj
+R10184:10190 Kernel.VMState <> vm_csrs proj
+R10145:10151 Kernel.AbstractNoFI <> acm_run def
+R10179:10180 Kernel.ClassicalConservativity <> s0:23 var
+R10173:10177 Kernel.ClassicalConservativity <> trace:22 var
+R10153:10171 Kernel.AbstractNoFI <> thiele_cert_machine def
+R10267:10301 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
+R10267:10301 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm
+R10267:10301 Kernel.ClassicalConservativity <> classical_trace_preserves_cert_addr thm

@@ -209,6 +209,7 @@ CONSTRUCTOR_FIELD_MAP: dict[str, list[tuple[str, str]]] = {
                            ("mu_delta", "mu_delta")],
     "Instr_morph_get":    [("dst", "dst"), ("morph_id", "morph_id"),
                            ("selector", "selector"), ("mu_delta", "mu_delta")],
+    "Instr_chsh_lassert": [("mu_delta", "mu_delta")],
 }
 
 

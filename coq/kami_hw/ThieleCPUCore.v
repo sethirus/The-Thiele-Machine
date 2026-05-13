@@ -342,7 +342,8 @@ Section ThieleCPU.
         LET is_cert_opcode <-
           (#opcode == $$(OP_LASSERT)) || (#opcode == $$(OP_LJOIN)) ||
           (#opcode == $$(OP_EMIT)) || (#opcode == $$(OP_REVEAL)) ||
-          (#opcode == $$(OP_CERTIFY)) || (#opcode == $$(OP_MORPH_ASSERT));
+          (#opcode == $$(OP_CERTIFY)) || (#opcode == $$(OP_MORPH_ASSERT)) ||
+          (#opcode == $$(OP_CHSH_LASSERT));
         LET is_branch_ext_capable <-
           (#opcode == $$(OP_JUMP)) || (#opcode == $$(OP_JNEZ)) || (#opcode == $$(OP_CALL));
         LET is_tensor_ext_capable <-
@@ -866,6 +867,160 @@ Section ThieleCPU.
           !#bianchi_violation && !#locality_violation && !#ptable_overflow_violation &&
           !#high_value_locked && !#nfi_violation && !#rich_fault;
 
+        (* ============================================================
+           CHSH_LASSERT column-contractivity check (combinational).
+
+           Hardware mirror of [column_contractive_check_witness] in VMStep.v.
+           For each (x,y) ∈ {00,01,10,11} pair we have:
+             n_xy = wc_same_xy + wc_diff_xy  (unsigned)
+             d_xy = wc_same_xy - wc_diff_xy  (signed; we track |d| and sign)
+           The Z-arithmetic check
+             A := n00²·n10² - d00²·n10² - d10²·n00² >= 0
+             B := n01²·n11² - d01²·n11² - d11²·n01² >= 0
+             C := d00·d01·n10·n11 + d10·d11·n00·n01
+             0 < n_xy  for all xy
+             C² ≤ A·B
+           is implemented below using fixed-width wide-bit unsigned arithmetic
+           with explicit sign tracking. Bit widths chosen so that with 32-bit
+           counters the check is exact: max |C|² and |A·B| are ≤ 2^264, hence
+           384-bit final values.
+
+           Widths:
+             64  bits: n_xy and |d_xy| (zero-extended from 32 bits)
+             128 bits: n_xy², |d_xy|² (each input ≤ 2^33, product ≤ 2^66)
+             256 bits: n²·n², |d|²·n² (each ≤ 2^132)
+             384 bits: A·B and C² (each ≤ 2^264)
+
+           Result: [chsh_lassert_check_ok] is true iff every condition holds. *)
+        LET is_chsh_lassert <- (#opcode == $$(OP_CHSH_LASSERT));
+
+        (* Zero-extend the 8 counter registers to 64 bits. *)
+        LET ll_s00_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_same_00_v;
+        LET ll_d00_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_diff_00_v;
+        LET ll_s01_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_same_01_v;
+        LET ll_d01_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_diff_01_v;
+        LET ll_s10_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_same_10_v;
+        LET ll_d10_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_diff_10_v;
+        LET ll_s11_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_same_11_v;
+        LET ll_d11_64 : Bit 64 <- UniBit (ZeroExtendTrunc WordSz 64) #wc_diff_11_v;
+
+        (* Compute n_xy = same + diff (unsigned, 64-bit fits 33-bit sum). *)
+        LET ll_n00 : Bit 64 <- #ll_s00_64 + #ll_d00_64;
+        LET ll_n01 : Bit 64 <- #ll_s01_64 + #ll_d01_64;
+        LET ll_n10 : Bit 64 <- #ll_s10_64 + #ll_d10_64;
+        LET ll_n11 : Bit 64 <- #ll_s11_64 + #ll_d11_64;
+
+        (* Compute |d_xy| and sign_xy (sign=true means same < diff, i.e. d<0). *)
+        LET ll_sign00 <- #ll_s00_64 < #ll_d00_64;
+        LET ll_sign01 <- #ll_s01_64 < #ll_d01_64;
+        LET ll_sign10 <- #ll_s10_64 < #ll_d10_64;
+        LET ll_sign11 <- #ll_s11_64 < #ll_d11_64;
+        LET ll_abs_d00 : Bit 64 <-
+          IF #ll_sign00 then (#ll_d00_64 - #ll_s00_64) else (#ll_s00_64 - #ll_d00_64);
+        LET ll_abs_d01 : Bit 64 <-
+          IF #ll_sign01 then (#ll_d01_64 - #ll_s01_64) else (#ll_s01_64 - #ll_d01_64);
+        LET ll_abs_d10 : Bit 64 <-
+          IF #ll_sign10 then (#ll_d10_64 - #ll_s10_64) else (#ll_s10_64 - #ll_d10_64);
+        LET ll_abs_d11 : Bit 64 <-
+          IF #ll_sign11 then (#ll_d11_64 - #ll_s11_64) else (#ll_s11_64 - #ll_d11_64);
+
+        (* All n_xy must be strictly positive. *)
+        LET ll_all_n_pos <-
+          (#ll_n00 != $0) && (#ll_n01 != $0) && (#ll_n10 != $0) && (#ll_n11 != $0);
+
+        (* Compute squares at 128 bits.  Zero-extend operands then multiply. *)
+        LET ll_n00_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n00;
+        LET ll_n01_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n01;
+        LET ll_n10_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n10;
+        LET ll_n11_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n11;
+        LET ll_d00_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d00;
+        LET ll_d01_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d01;
+        LET ll_d10_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d10;
+        LET ll_d11_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d11;
+
+        LET ll_n00_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n00_128 #ll_n00_128;
+        LET ll_n01_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n01_128 #ll_n01_128;
+        LET ll_n10_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n10_128 #ll_n10_128;
+        LET ll_n11_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n11_128 #ll_n11_128;
+        LET ll_d00_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d00_128 #ll_d00_128;
+        LET ll_d01_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d01_128 #ll_d01_128;
+        LET ll_d10_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d10_128 #ll_d10_128;
+        LET ll_d11_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d11_128 #ll_d11_128;
+
+        (* Promote squares to 256 bits for the next level of products. *)
+        LET ll_n00sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n00_sq;
+        LET ll_n01sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n01_sq;
+        LET ll_n10sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n10_sq;
+        LET ll_n11sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n11_sq;
+        LET ll_d00sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d00_sq;
+        LET ll_d01sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d01_sq;
+        LET ll_d10sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d10_sq;
+        LET ll_d11sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d11_sq;
+
+        (* A = n00²·n10² - d00²·n10² - d10²·n00². *)
+        LET ll_A_pos    : Bit 256 <- BinBit (Mul 256 SignUU) #ll_n00sq_256 #ll_n10sq_256;
+        LET ll_A_neg_a  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d00sq_256 #ll_n10sq_256;
+        LET ll_A_neg_b  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d10sq_256 #ll_n00sq_256;
+        LET ll_A_neg    : Bit 256 <- #ll_A_neg_a + #ll_A_neg_b;
+        LET ll_A_ge0    <- #ll_A_pos >= #ll_A_neg;
+        LET ll_abs_A    : Bit 256 <-
+          IF #ll_A_ge0 then (#ll_A_pos - #ll_A_neg) else (#ll_A_neg - #ll_A_pos);
+
+        (* B = n01²·n11² - d01²·n11² - d11²·n01². *)
+        LET ll_B_pos    : Bit 256 <- BinBit (Mul 256 SignUU) #ll_n01sq_256 #ll_n11sq_256;
+        LET ll_B_neg_a  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d01sq_256 #ll_n11sq_256;
+        LET ll_B_neg_b  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d11sq_256 #ll_n01sq_256;
+        LET ll_B_neg    : Bit 256 <- #ll_B_neg_a + #ll_B_neg_b;
+        LET ll_B_ge0    <- #ll_B_pos >= #ll_B_neg;
+        LET ll_abs_B    : Bit 256 <-
+          IF #ll_B_ge0 then (#ll_B_pos - #ll_B_neg) else (#ll_B_neg - #ll_B_pos);
+
+        (* C = d00·d01·n10·n11 + d10·d11·n00·n01. Compute each term's
+           absolute value and sign separately. *)
+        LET ll_d00d01_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d00_128 #ll_d01_128;
+        LET ll_n10n11_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n10_128 #ll_n11_128;
+        LET ll_d10d11_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d10_128 #ll_d11_128;
+        LET ll_n00n01_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n00_128 #ll_n01_128;
+
+        LET ll_d00d01_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d00d01_128;
+        LET ll_n10n11_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n10n11_128;
+        LET ll_d10d11_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d10d11_128;
+        LET ll_n00n01_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n00n01_128;
+
+        LET ll_abs_C1 : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d00d01_256 #ll_n10n11_256;
+        LET ll_abs_C2 : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d10d11_256 #ll_n00n01_256;
+
+        (* sign(C_term1) = sign_d00 XOR sign_d01 (n's are positive).
+           Similarly for C_term2.  In Kami, Bool XOR can be expressed as != . *)
+        LET ll_signC1 <- #ll_sign00 != #ll_sign01;
+        LET ll_signC2 <- #ll_sign10 != #ll_sign11;
+
+        (* |C| = |C_term1 + C_term2|.  If signs agree (or one term is zero),
+           |C| = |C_term1| + |C_term2|.  If signs disagree, |C| = ||C_term1| − |C_term2||. *)
+        LET ll_signs_agree <- #ll_signC1 == #ll_signC2;
+        LET ll_C_terms_sum : Bit 256 <- #ll_abs_C1 + #ll_abs_C2;
+        LET ll_C1_ge_C2   <- #ll_abs_C1 >= #ll_abs_C2;
+        LET ll_C_terms_diff : Bit 256 <-
+          IF #ll_C1_ge_C2 then (#ll_abs_C1 - #ll_abs_C2) else (#ll_abs_C2 - #ll_abs_C1);
+        LET ll_abs_C : Bit 256 <- IF #ll_signs_agree then #ll_C_terms_sum else #ll_C_terms_diff;
+
+        (* Compute C² and A·B at 384 bits to avoid overflow. *)
+        LET ll_absC_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #ll_abs_C;
+        LET ll_absA_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #ll_abs_A;
+        LET ll_absB_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #ll_abs_B;
+        LET ll_C_sq    : Bit 384 <- BinBit (Mul 384 SignUU) #ll_absC_384 #ll_absC_384;
+        LET ll_A_times_B : Bit 384 <- BinBit (Mul 384 SignUU) #ll_absA_384 #ll_absB_384;
+
+        (* A·B ≥ C²  ↔  C² ≤ A·B. *)
+        LET ll_ab_ge_csq <- #ll_C_sq <= #ll_A_times_B;
+
+        (* All four sub-conditions must hold for the check to pass. *)
+        LET chsh_lassert_check_ok <-
+          #ll_all_n_pos && #ll_A_ge0 && #ll_B_ge0 && #ll_ab_ge_csq;
+
+        (* Trap when CHSH_LASSERT executes and the check fails. *)
+        LET chsh_lassert_trap <- #is_chsh_lassert && !#chsh_lassert_check_ok;
+
         (* REVEAL: legacy tensor index is op_a[3:0].
            FMT_TENSOR_EXT overrides it with ext0[3:0], providing the first
            live upper-lane execution path in hardware. *)
@@ -896,7 +1051,9 @@ Section ThieleCPU.
                                         then #jnez_target
                                         else (IF (#opcode == $$(OP_LASSERT))
                                               then (IF #lassert_is_sat then #pc_v else #trap_vector_v)
-                                              else #pc_plus_1))))));
+                                              else (IF #chsh_lassert_trap
+                                                    then #trap_vector_v
+                                                    else #pc_plus_1)))))));
 
         (* Pre-compute XOR_SWAP result: write both dst<-src and src<-dst *)
         LET swap_regs : Vector (Bit WordSz) RegIdxSz <-
@@ -981,7 +1138,7 @@ Section ThieleCPU.
           #locality_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation ||
           #rich_fault || #morph_runtime_fault ||
           ((#opcode == $$(OP_CHSH_TRIAL)) && #chsh_bits_bad) ||
-          #lassert_unsat_trap;
+          #lassert_unsat_trap || #chsh_lassert_trap;
 
         (* Determine error code *)
         LET new_error_code : Bit WordSz <-
@@ -1003,7 +1160,9 @@ Section ThieleCPU.
                                         then $$(ERR_CHSH_VAL)
                                         else (IF #lassert_unsat_trap
                                               then $$(ERR_LOGIC_VAL)
-                                              else #error_code_v))))))));
+                                              else (IF #chsh_lassert_trap
+                                                    then $$(ERR_CHSH_VAL)
+                                                    else #error_code_v)))))))));
 
         (* Determine new mu — only charge if not a bianchi violation. *)
         LET rich_fault_mu : Bit WordSz <-
@@ -1011,6 +1170,8 @@ Section ThieleCPU.
           then #mu_v + #cost32 + $1
           else (IF (#opcode == $$(OP_MORPH_ASSERT))
                 then #mu_v + #cost32 + $1
+                else (IF (#opcode == $$(OP_CHSH_LASSERT))
+                      then #mu_v + #cost32 + $1
                 else (IF (#opcode == $$(OP_LASSERT))
                       then #new_mu + $1
                       else (IF ((#opcode == $$(OP_EMIT)) ||
@@ -1019,7 +1180,7 @@ Section ThieleCPU.
                             then #bit_priced_mu
                             else (IF (#opcode == $$(OP_LJOIN))
                                   then #new_mu + $1
-                                  else #new_mu))));
+                                  else #new_mu)))));
         LET normal_step_mu : Bit WordSz <-
           IF ((#opcode == $$(OP_CHSH_TRIAL)) && (#is_x1_trial))
                 then #new_mu + $$(CHSH_X1_SURCHARGE)
@@ -1027,6 +1188,8 @@ Section ThieleCPU.
                       then #mu_v + #cost32 + $1
                       else (IF (#opcode == $$(OP_MORPH_ASSERT))
                             then #mu_v + #cost32 + $1
+                            else (IF (#opcode == $$(OP_CHSH_LASSERT))
+                                  then #mu_v + #cost32 + $1
                             else (IF (#opcode == $$(OP_LASSERT))
                                   then (IF #lassert_is_sat then #mu_v else #new_mu + $1)
                                   else (IF ((#opcode == $$(OP_EMIT)) ||
@@ -1035,7 +1198,7 @@ Section ThieleCPU.
                                         then #bit_priced_mu
                                         else (IF (#opcode == $$(OP_LJOIN))
                                               then #new_mu + $1
-                                              else #new_mu)))));
+                                              else #new_mu))))));
         LET final_mu : Bit WordSz <-
           IF (#bianchi_violation || #ptable_overflow_violation || #high_value_locked || #nfi_violation)
           then #mu_v

@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2026-05-09 16:04:20Z (UTC)
-Scanned: 226 Coq files across the repo
+Generated: 2026-05-13 02:42:48Z (UTC)
+Scanned: 250 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
@@ -32,7 +32,7 @@ Scanned: 226 Coq files across the repo
 - `TEST_PROOF_LOCKSTEP_VIOLATION`: A test claiming isomorphism does not actually execute cross-layer comparisons
 - `EXTRACTION_SEMANTIC_UNFAITHFUL`: Extracted artifacts do not faithfully preserve Coq VM semantics
 - `FOUNDATION_UTILIZATION_GAP`: Tier-1 kernel proof does not reference VM foundation types in any theorem statement
-- `SCOPE_DRIFT_TIER2`: Thesis-essential Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace
+- `SCOPE_DRIFT_TIER2`: Core Tier-2 file (nofi/, bridge/, etc.) imports a Tier-3 exploratory namespace
 - `TRIVIAL_EQUALITY`: theorem of form `X = X` with reflexivity-ish proof
 - `CONST_Q_FUN`: `Definition ... := fun _ => 0%Q` / `1%Q`
 - `EXISTS_CONST_Q`: `exists (fun _ => 0%Q)` / `exists (fun _ => 1%Q)`
@@ -106,6 +106,6 @@ Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
 ### LOW
 
 #### `coq/kami_hw/F4_VerilogEvaluator.v`
-- L1: **VACUITY_SCORE** — Vacuity score 65 ≥ LOW threshold 50. Tags: const-fun. Review for trivially-true/placeholder/definitional proofs that don't advance the thesis goal.
+- L1: **VACUITY_SCORE** — Vacuity score 65 ≥ LOW threshold 50. Tags: const-fun. Review for trivially-true/placeholder/definitional proofs that don't advance the core goal.
   - `(file-level vacuity scan)`
 

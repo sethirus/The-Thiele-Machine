@@ -17,9 +17,8 @@ The same semantics extract to an OCaml runner and to Kami/Verilog hardware.
 
 ## Read This First
 
-For a full informal walkthrough, read [OVERVIEW.md](OVERVIEW.md). This README is
-the compact entry point: what the project claims, where the proofs live, and how
-to run it.
+This README is the compact entry point: what the project claims, where the
+proofs live, and how to run it.
 
 In one minute:
 
@@ -142,7 +141,8 @@ These are the load-bearing formal claims.
 | Structural advantage | The factored-SAT lower bound is proved for the non-adaptive model; the thermodynamic parsing gap is proved separately. | [NonAdaptiveLowerBound.v](coq/kernel/nfi/NonAdaptiveLowerBound.v), [ThermodynamicStructuralAdvantage.v](coq/kernel/nfi/ThermodynamicStructuralAdvantage.v) |
 | Algebraic Tsirelson | The CHSH bound follows from rational polynomial constraints by Coq arithmetic. | [AlgebraicCoherence.v](coq/kernel/category/AlgebraicCoherence.v), [QuantumPartitionPSD.v](coq/kernel/quantum/QuantumPartitionPSD.v) |
 | Physics closure | Locality, `mu` conservation, causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) |
-| Hardware bisimulation | The 46-opcode RTL surface is covered by formal Kami/Coq correspondence. | [coq/kami_hw](coq/kami_hw), [RTLGapRegistry.v](coq/kami_hw/RTLGapRegistry.v) |
+| Hardware bisimulation | The full 47-opcode RTL surface is covered by formal Kami/Coq correspondence; CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. The official partition is `37 + 10 + 0 = 47` (theorem `rtl_coverage_partition`). | [coq/kami_hw](coq/kami_hw), [RTLGapRegistry.v](coq/kami_hw/RTLGapRegistry.v) |
+| CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_quantum_realizable](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) |
 
 The audited claim ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
 Its generated closure receipt is
@@ -161,12 +161,24 @@ The project separates theorem content from modeling choices.
 | Conversion from `mu` counts to physical units | Named physical bridge, not part of the bare computation theorem. See [NoFIToEinstein.v](coq/kernel/curvature/NoFIToEinstein.v). |
 | Quantum experimental interpretation | Named bridge through PSD/NPA-style conditions. See [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v). |
 
-Computability is conservative: classical programs embed into the Thiele VM, and
-the classical compute surface remains intact. The difference is state: Thiele
-exposes structural and certified-cost state that the classical projection
-forgets. See [TuringClassicalEmbedding.v](coq/kernel/foundation/TuringClassicalEmbedding.v),
-[ClassicalConservativity.v](coq/kernel/foundation/ClassicalConservativity.v), and
-[TuringStrictness.v](coq/kernel/foundation/TuringStrictness.v).
+Every classical computer IS a Thiele Machine. Not metaphor, not analogy:
+subsumption. The Turing machine, the register machine, lambda calculus, the
+von Neumann CPU, the silicon on your desk --- each names one thing, viewed
+with the structural axis hidden. The thing the label is naming is a Thiele
+Machine running in the degenerate fragment of its own state space where the
+structural axis stays dormant.
+
+[`lift_config`](coq/kernel/foundation/ProperSubsumption.v) maps any
+Turing-machine configuration to a Thiele configuration (set `mu = 0`).
+[`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v)
+executes every Turing-machine run inside Thiele, same tape, same state.
+[`D2_faithfulness`](coq/kernel/foundation/TuringClassicalEmbedding.v) and
+[`D3_conservativity`](coq/kernel/foundation/ClassicalConservativity.v)
+show the structural axis stays idle under classical programs. The four-part
+[`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v)
+closes the loop: classical computation is exactly the image of Thiele
+computation under the structural-axis projection. Strict extension is
+witnessed by [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v).
 
 ## Architecture
 
@@ -202,7 +214,7 @@ tests/                   parity, extraction, RTL, receipt, and regression tests
 tools/                   verification and audit utilities
 scripts/                 build, extraction, audit, and assembler scripts
 artifacts/               committed receipts and generated audit outputs
-thesis/                  narrative thesis and mathematical specification
+monograph/               narrative monograph and mathematical specification
 ```
 
 ## Quick Start
@@ -286,7 +298,7 @@ make proof-undeniable
 
 ## ISA Summary
 
-The VM currently exposes 46 opcodes in five families.
+The VM currently exposes 47 opcodes in six families.
 
 | Family | Examples | Cost behavior |
 |---|---|---|
@@ -295,6 +307,7 @@ The VM currently exposes 46 opcodes in five families.
 | Memory, ALU, control flow | `LOAD`, `STORE`, `ADD`, `JUMP`, `HALT` | Classical compute surface. |
 | Witness, tensor, cert flags | `CHSH_TRIAL`, `CERTIFY`, `REVEAL`, `TENSOR_SET`, `TENSOR_GET` | Certification/revelation instructions carry positive cost floors. |
 | Categorical morphisms | `MORPH`, `COMPOSE`, `MORPH_ID`, `MORPH_ASSERT` | Morphism assertions are certification-bearing. |
+| CHSH-aware certification | `CHSH_LASSERT` | Kernel-level column-contractivity check on `vm_witness` buckets. Decidable integer-arithmetic check; success ⇒ NPA-PSD via the bridge theorem [`chsh_lassert_no_trap_implies_quantum_realizable`](coq/kernel/quantum/QuantumPartitionPSD.v). Cost `S(mu_delta) ≥ 1` regardless of outcome (cert-setter discipline). |
 
 Single-step semantics live in
 [coq/kernel/foundation/VMStep.v](coq/kernel/foundation/VMStep.v).
@@ -303,9 +316,8 @@ Single-step semantics live in
 
 | Document | Role |
 |---|---|
-| [OVERVIEW.md](OVERVIEW.md) | Best informal explanation of the project and its theorem chain. |
-| [thesis/short_thesis.pdf](thesis/short_thesis.pdf) | Narrative thesis: full informal walkthrough with theorems tagged to Coq files. |
-| [thesis/thiele_machine_math_spec.tex](thesis/thiele_machine_math_spec.tex) | Mathematical specification. |
+| [monograph/monograph.pdf](monograph/monograph.pdf) | Narrative monograph: full informal walkthrough with theorems tagged to Coq files. |
+| [monograph/thiele_machine_math_spec.tex](monograph/thiele_machine_math_spec.tex) | Mathematical specification. |
 | [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v) | Audited theorem ledger. |
 | [coq/README.md](coq/README.md) | Map of the active Coq proof tree. |
 | [coq/PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | Clean statement of unconditional physics results, named bridges, and open scope. |
@@ -333,6 +345,11 @@ pipeline.
   howpublished={\url{https://github.com/sethirus/The-Thiele-Machine}}
 }
 ```
+
+## Contact
+
+To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.com,
+or open an issue at [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine).
 
 ## License
 

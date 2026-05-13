@@ -1,0 +1,313 @@
+DIGEST 53910de42e160638e871975f511db459
+FKernel.SimpleMorphShortcut
+R773:776 Coq.Lists.List <> <> lib
+R778:791 Coq.Arith.PeanoNat <> <> lib
+R793:795 Coq.micromega.Lia <> <> lib
+R797:800 Coq.Bool.Bool <> <> lib
+R802:807 Coq.Strings.String <> <> lib
+R817:829 Coq.Lists.List ListNotations <> mod
+R885:891 Kernel.VMState <> <> lib
+R893:898 Kernel.VMStep <> <> lib
+R928:939 Kernel.MuInitiality <> <> lib
+R969:989 Kernel.RevelationRequirement <> <> lib
+R1019:1033 Kernel.SimulationProof <> <> lib
+R1063:1075 Kernel.NoFreeInsight <> <> lib
+R1077:1106 Kernel.InformationGainToStrengthening <> <> lib
+R1108:1122 Kernel.MuShannonBridge <> <> lib
+R1152:1188 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> <> lib
+R1218:1252 Kernel.StructuralAdvantageObservedShortcut <> <> lib
+R1263:1277 Kernel.RevelationRequirement RevelationProof <> mod
+def 1348:1365 <> simple_morph_trace
+R1369:1372 Coq.Init.Datatypes <> list ind
+R1374:1387 Kernel.VMStep VMStep vm_instruction ind
+R1392:1395 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1412:1415 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1436:1439 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1478:1479 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1396:1405 Kernel.VMStep VMStep instr_pnew constr
+R1407:1407 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1409:1409 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1416:1429 Kernel.VMStep VMStep instr_morph_id constr
+R1440:1457 Kernel.VMStep VMStep instr_morph_assert constr
+def 1494:1511 <> simple_morph_final
+R1515:1521 Kernel.VMState <> VMState rec
+R1528:1533 Kernel.SimulationProof <> run_vm def
+R1537:1554 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R1556:1565 Kernel.MuInitiality <> init_state def
+def 1728:1746 <> simple_morph_obs_fn
+R1753:1759 Kernel.VMState <> VMState rec
+binder 1749:1749 <> s:1
+R1764:1767 Coq.Init.Datatypes <> list ind
+R1769:1782 Kernel.VMStep VMStep vm_instruction ind
+R1808:1820 Kernel.VMState <> csr_cert_addr proj
+R1798:1804 Kernel.VMState <> vm_csrs proj
+R1795:1795 Kernel.SimpleMorphShortcut <> s:1 var
+R1837:1838 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1849:1866 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+def 2438:2461 <> simple_morph_repr_obs_fn
+R2468:2474 Kernel.VMState <> VMState rec
+R2479:2482 Coq.Init.Datatypes <> list ind
+R2484:2497 Kernel.VMStep VMStep vm_instruction ind
+R2504:2504 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2517:2517 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2505:2514 Kernel.VMStep VMStep instr_halt constr
+def 2532:2549 <> simple_morph_prior
+R2553:2556 Coq.Init.Datatypes <> list ind
+R2558:2564 Kernel.VMState <> VMState rec
+R2571:2571 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2582:2583 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2602:2602 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2572:2581 Kernel.MuInitiality <> init_state def
+R2584:2601 Kernel.SimpleMorphShortcut <> simple_morph_final def
+def 2617:2638 <> simple_morph_posterior
+R2642:2645 Coq.Init.Datatypes <> list ind
+R2647:2653 Kernel.VMState <> VMState rec
+R2660:2660 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2679:2679 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2661:2678 Kernel.SimpleMorphShortcut <> simple_morph_final def
+def 2751:2767 <> simple_morph_tree
+R2771:2798 Kernel.MuShannonBridge <> DecisionTree ind
+R2805:2829 Kernel.MuShannonBridge <> dt_branch constr
+R2831:2853 Kernel.MuShannonBridge <> dt_leaf constr
+R2855:2877 Kernel.MuShannonBridge <> dt_leaf constr
+prf 2887:2919 <> simple_morph_final_has_supra_cert
+R2925:2938 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R2940:2957 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R2976:2989 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R2992:3009 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R3012:3029 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+prf 3074:3101 <> simple_morph_final_err_false
+R3134:3136 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3127:3132 Kernel.VMState <> vm_err proj
+R3107:3124 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R3137:3141 Coq.Init.Datatypes <> false constr
+R3160:3177 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R3180:3197 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+prf 3239:3265 <> simple_morph_final_neq_init
+R3289:3292 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R3271:3288 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R3293:3302 Kernel.MuInitiality <> init_state def
+R3338:3370 Kernel.SimpleMorphShortcut <> simple_morph_final_has_supra_cert thm
+R3338:3370 Kernel.SimpleMorphShortcut <> simple_morph_final_has_supra_cert thm
+R3387:3400 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+prf 3478:3498 <> simple_morph_obs_init
+R3534:3536 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3504:3522 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R3524:3533 Kernel.MuInitiality <> init_state def
+R3537:3538 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+prf 3573:3594 <> simple_morph_obs_final
+R3638:3640 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3600:3618 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R3620:3637 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R3641:3658 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R3677:3695 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R3711:3743 Kernel.SimpleMorphShortcut <> simple_morph_final_has_supra_cert thm
+R3711:3743 Kernel.SimpleMorphShortcut <> simple_morph_final_has_supra_cert thm
+R3760:3773 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R3822:3834 Kernel.VMState <> csr_cert_addr proj
+R3812:3818 Kernel.VMState <> vm_csrs proj
+R3792:3809 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R3822:3834 Kernel.VMState <> csr_cert_addr proj
+R3812:3818 Kernel.VMState <> vm_csrs proj
+R3792:3809 Kernel.SimpleMorphShortcut <> simple_morph_final def
+prf 3908:3930 <> simple_morph_obs_run_vm
+R3996:4000 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3936:3954 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R3957:3962 Kernel.SimulationProof <> run_vm def
+R3966:3983 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R3985:3994 Kernel.MuInitiality <> init_state def
+R4001:4018 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R4037:4055 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R4058:4075 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+prf 4117:4142 <> simple_morph_strict_subset
+R4148:4194 Kernel.InformationGainToStrengthening <> is_strict_subset def
+R4200:4221 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R4223:4240 Kernel.SimpleMorphShortcut <> simple_morph_prior def
+R4354:4363 Kernel.MuInitiality <> init_state def
+R4354:4363 Kernel.MuInitiality <> init_state def
+R4466:4492 Kernel.SimpleMorphShortcut <> simple_morph_final_neq_init thm
+R4466:4492 Kernel.SimpleMorphShortcut <> simple_morph_final_neq_init thm
+prf 4524:4558 <> simple_morph_distinguishing_witness
+R4564:4570 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R4580:4585 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 4571:4579 <> s_witness:2
+R4617:4624 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4586:4587 Coq.Lists.List <> In def
+R4599:4616 Kernel.SimpleMorphShortcut <> simple_morph_prior def
+R4589:4597 Kernel.SimpleMorphShortcut <> s_witness:2 var
+R4662:4669 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4625:4626 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4627:4628 Coq.Lists.List <> In def
+R4640:4661 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R4630:4638 Kernel.SimpleMorphShortcut <> s_witness:2 var
+R4670:4725 Kernel.InformationGainToStrengthening <> observation_distinguishes def
+R4733:4751 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R4753:4761 Kernel.SimpleMorphShortcut <> s_witness:2 var
+R4763:4784 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R4803:4812 Kernel.MuInitiality <> init_state def
+R4803:4812 Kernel.MuInitiality <> init_state def
+R4922:4948 Kernel.SimpleMorphShortcut <> simple_morph_final_neq_init thm
+R4922:4948 Kernel.SimpleMorphShortcut <> simple_morph_final_neq_init thm
+R5059:5079 Kernel.SimpleMorphShortcut <> simple_morph_obs_init thm
+R5059:5079 Kernel.SimpleMorphShortcut <> simple_morph_obs_init thm
+R5059:5079 Kernel.SimpleMorphShortcut <> simple_morph_obs_init thm
+R5096:5117 Kernel.SimpleMorphShortcut <> simple_morph_obs_final thm
+R5096:5117 Kernel.SimpleMorphShortcut <> simple_morph_obs_final thm
+R5096:5117 Kernel.SimpleMorphShortcut <> simple_morph_obs_final thm
+prf 5152:5184 <> simple_morph_certified_obs_run_vm
+R5190:5215 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R5416:5433 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R5298:5343 Kernel.InformationGainToStrengthening <> omega_predicate def
+R5368:5389 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R5391:5409 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R5351:5366 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+binder 5271:5278 <> receipts:3
+R5283:5290 Kernel.SimpleMorphShortcut <> receipts:3 var
+R5222:5227 Kernel.SimulationProof <> run_vm def
+R5231:5248 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R5250:5259 Kernel.MuInitiality <> init_state def
+R5452:5477 Kernel.NoFreeInsight NoFreeInsight CertifiedObs def
+R5500:5517 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R5560:5605 Kernel.InformationGainToStrengthening <> omega_predicate def
+R5620:5665 Kernel.InformationGainToStrengthening <> existsb_In_true thm
+R5698:5718 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R5681:5696 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R5620:5665 Kernel.InformationGainToStrengthening <> existsb_In_true thm
+R5698:5718 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R5681:5696 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R5753:5775 Kernel.SimpleMorphShortcut <> simple_morph_obs_run_vm thm
+R5753:5775 Kernel.SimpleMorphShortcut <> simple_morph_obs_run_vm thm
+prf 5790:5823 <> simple_morph_has_supra_cert_run_vm
+R5829:5842 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R5845:5850 Kernel.SimulationProof <> run_vm def
+R5854:5871 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R5873:5882 Kernel.MuInitiality <> init_state def
+R5902:5915 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R5918:5935 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+prf 5980:6008 <> simple_morph_certified_run_vm
+R6014:6036 Kernel.NoFreeInsight NoFreeInsight Certified def
+R6237:6254 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R6119:6164 Kernel.InformationGainToStrengthening <> omega_predicate def
+R6189:6210 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R6212:6230 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R6172:6187 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+binder 6092:6099 <> receipts:4
+R6104:6111 Kernel.SimpleMorphShortcut <> receipts:4 var
+R6043:6048 Kernel.SimulationProof <> run_vm def
+R6052:6069 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R6071:6080 Kernel.MuInitiality <> init_state def
+R6273:6295 Kernel.NoFreeInsight NoFreeInsight Certified def
+R6307:6338 Kernel.NoFreeInsight NoFreeInsight CertifiedWithSupra def
+R6360:6392 Kernel.SimpleMorphShortcut <> simple_morph_certified_obs_run_vm thm
+R6360:6392 Kernel.SimpleMorphShortcut <> simple_morph_certified_obs_run_vm thm
+R6405:6438 Kernel.SimpleMorphShortcut <> simple_morph_has_supra_cert_run_vm thm
+R6405:6438 Kernel.SimpleMorphShortcut <> simple_morph_has_supra_cert_run_vm thm
+prf 6453:6478 <> simple_morph_tree_realized
+R6484:6530 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R6538:6555 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R6557:6566 Kernel.MuInitiality <> init_state def
+R6568:6584 Kernel.SimpleMorphShortcut <> simple_morph_tree def
+R6603:6649 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R6661:6678 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R6681:6697 Kernel.SimpleMorphShortcut <> simple_morph_tree def
+prf 6733:6763 <> simple_morph_posterior_nonempty
+R6821:6823 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6769:6797 Kernel.MuShannonBridge <> feasible_size def
+R6799:6820 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+prf 6858:6885 <> simple_morph_representatives
+R6891:6938 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R6944:6967 Kernel.SimpleMorphShortcut <> simple_morph_repr_obs_fn def
+R6973:6989 Kernel.SimpleMorphShortcut <> simple_morph_tree def
+R6995:7012 Kernel.SimpleMorphShortcut <> simple_morph_prior def
+R7018:7039 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R7058:7105 Kernel.MuShannonBridge <> PosteriorRepresentativeReduction def
+R7117:7134 Kernel.SimpleMorphShortcut <> simple_morph_prior def
+R7137:7158 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R7170:7193 Kernel.SimpleMorphShortcut <> simple_morph_repr_obs_fn def
+R7196:7212 Kernel.SimpleMorphShortcut <> simple_morph_tree def
+R7234:7234 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7245:7246 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7265:7265 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7235:7244 Kernel.MuInitiality <> init_state def
+R7247:7264 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R7234:7234 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7245:7246 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7265:7265 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R7235:7244 Kernel.MuInitiality <> init_state def
+R7247:7264 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R7319:7336 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R7319:7336 Kernel.SimpleMorphShortcut <> simple_morph_final def
+R7422:7454 Kernel.MuShannonBridge <> observation_equiv def
+def 7974:7994 <> simple_morph_shortcut
+R8000:8022 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> SoundStructuralShortcut rec
+R8026:8043 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R8045:8054 Kernel.MuInitiality <> init_state def
+R8061:8090 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> sound_shortcut_from_components thm
+R8098:8115 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R8117:8126 Kernel.MuInitiality <> init_state def
+binder 8137:8144 <> receipts:5
+R8149:8156 Kernel.SimpleMorphShortcut <> receipts:5 var
+R8163:8181 Kernel.SimpleMorphShortcut <> simple_morph_obs_fn def
+R8187:8210 Kernel.SimpleMorphShortcut <> simple_morph_repr_obs_fn def
+R8216:8231 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb def
+R8237:8254 Kernel.SimpleMorphShortcut <> simple_morph_prior def
+R8260:8281 Kernel.SimpleMorphShortcut <> simple_morph_posterior def
+R8287:8303 Kernel.SimpleMorphShortcut <> simple_morph_tree def
+R8309:8329 Kernel.StructuralAdvantageObservedShortcut <> receipt_list_eqb_spec thm
+R8335:8360 Kernel.SimpleMorphShortcut <> simple_morph_strict_subset thm
+R8366:8400 Kernel.SimpleMorphShortcut <> simple_morph_distinguishing_witness thm
+R8406:8412 Coq.Init.Logic <> eq_refl constr
+R8418:8446 Kernel.SimpleMorphShortcut <> simple_morph_certified_run_vm thm
+R8452:8477 Kernel.SimpleMorphShortcut <> simple_morph_tree_realized thm
+R8483:8513 Kernel.SimpleMorphShortcut <> simple_morph_posterior_nonempty thm
+R8519:8546 Kernel.SimpleMorphShortcut <> simple_morph_representatives thm
+prf 8685:8729 <> simple_morph_shortcut_lands_in_representation
+R8754:8799 Kernel.InformationGainToStrengthening <> omega_predicate def
+R8861:8880 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior proj
+R8888:8908 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+R8918:8932 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn proj
+R8940:8960 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+R8808:8823 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb proj
+R8831:8851 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+binder 8739:8745 <> P_prior:6
+R8991:9036 Kernel.InformationGainToStrengthening <> omega_predicate def
+R9098:9121 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior proj
+R9129:9149 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+R9159:9173 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_fn proj
+R9181:9201 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+R9045:9060 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_obs_eqb proj
+R9068:9088 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+binder 8972:8982 <> P_posterior:7
+R9260:9265 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9209:9239 Kernel.NoFreeInsight NoFreeInsight strictly_stronger def
+R9253:9259 Kernel.SimpleMorphShortcut <> P_prior:6 var
+R9241:9251 Kernel.SimpleMorphShortcut <> P_posterior:7 var
+R9334:9339 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9266:9301 Kernel.NoFreeInsight NoFreeInsight has_structure_addition def
+R9305:9322 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R9324:9333 Kernel.MuInitiality <> init_state def
+R9557:9564 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R9444:9448 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9340:9350 Coq.Arith.PeanoNat Nat log2_up def
+R9357:9385 Kernel.MuShannonBridge <> feasible_size def
+R9394:9413 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_prior proj
+R9421:9441 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+R9449:9459 Coq.Arith.PeanoNat Nat log2_up def
+R9466:9494 Kernel.MuShannonBridge <> feasible_size def
+R9503:9526 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> shortcut_omega_posterior proj
+R9534:9554 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+R9613:9615 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9607:9611 Kernel.VMState <> vm_mu proj
+R9566:9571 Kernel.SimulationProof <> run_vm def
+R9575:9592 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R9594:9603 Kernel.MuInitiality <> init_state def
+R9628:9632 Kernel.VMState <> vm_mu proj
+R9616:9625 Kernel.MuInitiality <> init_state def
+R9652:9693 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> every_sound_structural_shortcut_lands_here thm
+R9708:9725 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R9727:9736 Kernel.MuInitiality <> init_state def
+R9738:9758 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def
+R9652:9693 Kernel.HonestNoFI_TheoremsWithoutAssumptions <> every_sound_structural_shortcut_lands_here thm
+R9708:9725 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R9727:9736 Kernel.MuInitiality <> init_state def
+R9738:9758 Kernel.SimpleMorphShortcut <> simple_morph_shortcut def

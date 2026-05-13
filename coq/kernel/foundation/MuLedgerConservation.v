@@ -128,7 +128,10 @@ Proof.
   try (destruct (graph_tensor_morphisms _ _ _) as [[? ?]|] eqn:?; simpl;
        [unfold advance_state_rm; simpl; reflexivity
        |unfold advance_state; simpl; reflexivity]);
-  try (destruct (lassert_check_ok _ _ _ _); simpl; unfold apply_cost; simpl; reflexivity).
+  try (destruct (lassert_check_ok _ _ _ _); simpl; unfold apply_cost; simpl; reflexivity);
+  (* CHSH_LASSERT: two branches on column_contractive_check_witness,
+     both charge S mu_delta via apply_cost *)
+  try (destruct (column_contractive_check_witness _); simpl; unfold apply_cost; simpl; reflexivity).
   (* JNEZ: two branches, both use apply_cost *)
   destruct (read_reg _ _ =? 0); simpl;
     [unfold advance_state; simpl; reflexivity

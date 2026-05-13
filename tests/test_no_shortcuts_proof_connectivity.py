@@ -40,6 +40,14 @@ CONNECTIVITY_EXEMPT = {
     "ThieleCPUCore", "ThieleTypes",
     "GraphReconstructionBridge", "RichStateCommutation",
     "RTLGapRegistry",
+    # Unification-probe math files: substrate-free real analysis, matrix
+    # algebra, correlator algebra, and generic-cost-ledger theorems.
+    # Connected to the VM via the aggregator files (UnificationProbeBridges,
+    # UnificationProbePattern), not by direct imports of VMState/VMStep.
+    "MeasurementExtraction",
+    "HolevoGeneralD", "HolevoTwoQubit", "OperatorAlgebra",
+    "TsirelsonFromIC", "TsirelsonFromMu",
+    "AdditionalProbes", "BekensteinBound", "DimensionalGapTheorem",
 }
 
 _FROM_IMPORT_RE = re.compile(r"From\s+([A-Za-z0-9_\.]+)\s+Require\s+Import\s+([^\.]+)\.")

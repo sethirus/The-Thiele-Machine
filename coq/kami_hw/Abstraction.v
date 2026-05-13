@@ -1995,6 +1995,47 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
           kami_advance_reg hs dst value cost
       | None => kami_advance_err hs cost  (* morph not found → error *)
       end
+  | instr_chsh_lassert cost =>
+      (* CHSH-aware certification: hardware computes column-contractivity
+         from snap_wc_* buckets directly (abs_phase1 projects these into
+         vm_witness, so the snapshot-level check and the VM-level check
+         agree by definition). On success: PC := S pc, err preserved,
+         csr_csr_* preserved. On failure: PC := LASSERT_TRAP_PC, err := true.
+         Cost: S cost regardless (cert-setter discipline). Matches
+         step_chsh_lassert_ok / step_chsh_lassert_bad in VMStep.v. *)
+      let check_ok := column_contractive_check_witness (vm_witness (abs_phase1 hs)) in
+      let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
+      let new_err  := if check_ok then snap_err hs else true in
+      {| snap_pc    := new_pc;
+         snap_mu    := snap_mu hs + (S cost);
+         snap_err   := new_err;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs;
+         snap_module_tensors := snap_module_tensors hs;
+         snap_rich_state    := snap_rich_state hs;
+         snap_csr_cert_addr := snap_csr_cert_addr hs;
+         snap_csr_status    := snap_csr_status hs;
+         snap_csr_err       := if check_ok then snap_csr_err hs else 1;
+         snap_csr_heap_base := snap_csr_heap_base hs;
+         snap_logic_acc     := snap_logic_acc hs;
+         snap_mstatus       := snap_mstatus hs |}
   end.
 
 (** kami_instruction_cost: the cost that the hardware charges for each opcode.

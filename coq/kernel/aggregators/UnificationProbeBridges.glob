@@ -1,0 +1,463 @@
+DIGEST 46043f3e665bc619d3cddb10cc274ec4
+FKernel.UnificationProbeBridges
+R1645:1648 Coq.Lists.List <> <> lib
+R1650:1663 Coq.Arith.PeanoNat <> <> lib
+R1665:1667 Coq.micromega.Lia <> <> lib
+R1669:1673 Coq.Reals.Reals <> <> lib
+R1675:1677 Coq.micromega.Lra <> <> lib
+R1687:1699 Coq.Lists.List ListNotations <> mod
+R1730:1736 Kernel.VMState <> <> lib
+R1738:1743 Kernel.VMStep <> <> lib
+R1745:1759 Kernel.SimulationProof <> <> lib
+R1789:1799 Kernel.MuCostModel <> <> lib
+R1829:1848 Kernel.MuLedgerConservation <> <> lib
+R1878:1889 Kernel.AbstractNoFI <> <> lib
+R1919:1933 Kernel.MuShannonBridge <> <> lib
+R2360:2374 Thermodynamic.LandauerDerived <> <> lib
+R2485:2498 Thermodynamic.LandauerJoules <> <> lib
+R2529:2545 Kernel.HolevoDimensional <> <> lib
+R2575:2589 Kernel.BekensteinBound <> <> lib
+def 2957:2985 <> cert_flip_to_physical_erasure
+R2994:3000 Kernel.VMState <> VMState rec
+binder 2990:2990 <> s:1
+R3008:3021 Kernel.VMStep VMStep vm_instruction ind
+binder 3004:3004 <> i:2
+R3048:3050 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3034:3045 Kernel.VMState <> vm_certified proj
+R3047:3047 Kernel.UnificationProbeBridges <> s:1 var
+R3051:3055 Coq.Init.Datatypes <> false constr
+binder 3027:3030 <> Hpre:3
+R3096:3098 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3069:3080 Kernel.VMState <> vm_certified proj
+R3083:3090 Kernel.SimulationProof <> vm_apply def
+R3092:3092 Kernel.UnificationProbeBridges <> s:1 var
+R3094:3094 Kernel.UnificationProbeBridges <> i:2 var
+R3099:3102 Coq.Init.Datatypes <> true constr
+binder 3061:3065 <> Hpost:4
+R3109:3123 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+R3159:3168 Thermodynamic.LandauerDerived <> erasure_op proj
+R3159:3168 Thermodynamic.LandauerDerived <> erasure_op proj
+R3159:3168 Thermodynamic.LandauerDerived <> erasure_op proj
+R3235:3254 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R3235:3254 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R3283:3302 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R3283:3302 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R3176:3185 Thermodynamic.LandauerDerived <> input_bits proj
+R3176:3185 Thermodynamic.LandauerDerived <> input_bits proj
+R3176:3185 Thermodynamic.LandauerDerived <> input_bits proj
+R3193:3203 Thermodynamic.LandauerDerived <> output_bits proj
+R3193:3203 Thermodynamic.LandauerDerived <> output_bits proj
+R3211:3220 Thermodynamic.LandauerDerived <> output_leq proj
+R3211:3220 Thermodynamic.LandauerDerived <> output_leq proj
+R3259:3274 Kernel.VMStep VMStep instruction_cost def
+R3159:3168 Thermodynamic.LandauerDerived <> erasure_op proj
+R3159:3168 Thermodynamic.LandauerDerived <> erasure_op proj
+R3159:3168 Thermodynamic.LandauerDerived <> erasure_op proj
+R3235:3254 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R3235:3254 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R3283:3302 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R3283:3302 Thermodynamic.LandauerDerived <> second_law_satisfied proj
+R3176:3185 Thermodynamic.LandauerDerived <> input_bits proj
+R3176:3185 Thermodynamic.LandauerDerived <> input_bits proj
+R3176:3185 Thermodynamic.LandauerDerived <> input_bits proj
+R3193:3203 Thermodynamic.LandauerDerived <> output_bits proj
+R3193:3203 Thermodynamic.LandauerDerived <> output_bits proj
+R3211:3220 Thermodynamic.LandauerDerived <> output_leq proj
+R3211:3220 Thermodynamic.LandauerDerived <> output_leq proj
+R3259:3274 Kernel.VMStep VMStep instruction_cost def
+R3327:3336 Coq.Arith.PeanoNat Nat le_0_l thm
+R3327:3336 Coq.Arith.PeanoNat Nat le_0_l thm
+R3360:3370 Thermodynamic.LandauerDerived <> bits_erased def
+R3396:3426 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R3396:3426 Kernel.AbstractNoFI <> no_free_certification_certified thm
+prf 3533:3563 <> cert_flip_physical_erasure_bits
+binder 3576:3576 <> s:5
+binder 3578:3578 <> i:6
+binder 3580:3583 <> Hpre:7
+binder 3585:3589 <> Hpost:8
+R3667:3669 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3596:3606 Thermodynamic.LandauerDerived <> bits_erased def
+R3609:3618 Thermodynamic.LandauerDerived <> erasure_op proj
+R3621:3649 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+R3651:3651 Kernel.UnificationProbeBridges <> s:5 var
+R3653:3653 Kernel.UnificationProbeBridges <> i:6 var
+R3655:3658 Kernel.UnificationProbeBridges <> Hpre:7 var
+R3660:3664 Kernel.UnificationProbeBridges <> Hpost:8 var
+R3697:3725 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+R3744:3754 Thermodynamic.LandauerDerived <> bits_erased def
+prf 4323:4352 <> cert_flip_physical_erasure_env
+binder 4365:4365 <> s:9
+binder 4367:4367 <> i:10
+binder 4369:4372 <> Hpre:11
+binder 4374:4378 <> Hpost:12
+R4452:4458 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4385:4404 Thermodynamic.LandauerDerived <> env_entropy_increase proj
+R4407:4435 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+R4437:4437 Kernel.UnificationProbeBridges <> s:9 var
+R4439:4439 Kernel.UnificationProbeBridges <> i:10 var
+R4441:4444 Kernel.UnificationProbeBridges <> Hpre:11 var
+R4446:4450 Kernel.UnificationProbeBridges <> Hpost:12 var
+R4459:4474 Kernel.VMStep VMStep instruction_cost def
+R4476:4476 Kernel.UnificationProbeBridges <> i:10 var
+R4503:4531 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+sec 5404:5422 <> ThermalBathCertFlip
+var 5438:5438 ThermalBathCertFlip T
+var 5440:5442 ThermalBathCertFlip k_B
+R5446:5446 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 5462:5468 ThermalBathCertFlip k_B_pos
+R5474:5476 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R5477:5479 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B var
+var 5497:5526 ThermalBathCertFlip system_thermo_entropy_decrease
+R5545:5548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5530:5544 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+R5549:5549 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 5563:5586 ThermalBathCertFlip heat_to_bath_per_erasure
+R5605:5608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5590:5604 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+R5609:5609 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 5626:5641 ThermalBathCertFlip boltzmann_bridge
+R5661:5675 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 5656:5657 <> pe:18
+R5717:5725 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5684:5713 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.system_thermo_entropy_decrease var
+R5715:5716 Kernel.UnificationProbeBridges <> pe:18 var
+R5730:5732 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5727:5729 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B var
+R5733:5758 Thermodynamic.LandauerJoules <> info_entropy_decrease_nats def
+R5760:5761 Kernel.UnificationProbeBridges <> pe:18 var
+var 5781:5803 ThermalBathCertFlip second_law_thermal_bath
+R5823:5837 Thermodynamic.LandauerDerived <> PhysicalErasure rec
+binder 5818:5819 <> pe:20
+R5888:5897 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5848:5851 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5852:5881 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.system_thermo_entropy_decrease var
+R5883:5884 Kernel.UnificationProbeBridges <> pe:20 var
+R5936:5939 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5900:5902 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5899:5899 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.T var
+R5903:5932 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.system_thermo_entropy_decrease var
+R5934:5935 Kernel.UnificationProbeBridges <> pe:20 var
+R5940:5963 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.heat_to_bath_per_erasure var
+R5965:5966 Kernel.UnificationProbeBridges <> pe:20 var
+prf 5983:6014 <> cert_flip_releases_landauer_heat
+R6034:6040 Kernel.VMState <> VMState rec
+binder 6030:6030 <> s:22
+R6048:6061 Kernel.VMStep VMStep vm_instruction ind
+binder 6044:6044 <> i:23
+R6097:6099 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6083:6094 Kernel.VMState <> vm_certified proj
+R6096:6096 Kernel.UnificationProbeBridges <> s:22 var
+R6100:6104 Coq.Init.Datatypes <> false constr
+binder 6076:6079 <> Hpre:24
+R6154:6156 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6127:6138 Kernel.VMState <> vm_certified proj
+R6141:6148 Kernel.SimulationProof <> vm_apply def
+R6150:6150 Kernel.UnificationProbeBridges <> s:22 var
+R6152:6152 Kernel.UnificationProbeBridges <> i:23 var
+R6157:6160 Coq.Init.Datatypes <> true constr
+binder 6119:6123 <> Hpost:25
+R6185:6195 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6178:6180 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6174:6176 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6171:6173 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B var
+R6177:6177 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.T var
+R6181:6182 Coq.Reals.Rpower <> ln def
+R6196:6219 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.heat_to_bath_per_erasure var
+R6231:6259 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+R6261:6261 Kernel.UnificationProbeBridges <> s:22 var
+R6263:6263 Kernel.UnificationProbeBridges <> i:23 var
+R6265:6268 Kernel.UnificationProbeBridges <> Hpre:24 var
+R6270:6274 Kernel.UnificationProbeBridges <> Hpost:25 var
+R6333:6361 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+R6333:6361 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+R6434:6436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6401:6403 Coq.Reals.Raxioms <> INR def
+R6406:6416 Thermodynamic.LandauerDerived <> bits_erased def
+R6419:6428 Thermodynamic.LandauerDerived <> erasure_op proj
+R6434:6436 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6401:6403 Coq.Reals.Raxioms <> INR def
+R6406:6416 Thermodynamic.LandauerDerived <> bits_erased def
+R6419:6428 Thermodynamic.LandauerDerived <> erasure_op proj
+R6469:6499 Kernel.UnificationProbeBridges <> cert_flip_physical_erasure_bits thm
+R6469:6499 Kernel.UnificationProbeBridges <> cert_flip_physical_erasure_bits thm
+R6469:6499 Kernel.UnificationProbeBridges <> cert_flip_physical_erasure_bits thm
+R6540:6554 Thermodynamic.LandauerJoules <> landauer_joules thm
+R6679:6701 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.second_law_thermal_bath var
+R6654:6677 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.heat_to_bath_per_erasure var
+R6619:6634 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.boltzmann_bridge var
+R6588:6617 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.system_thermo_entropy_decrease var
+R6562:6568 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B_pos var
+R6558:6560 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B var
+R6556:6556 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.T var
+R6540:6554 Thermodynamic.LandauerJoules <> landauer_joules thm
+R6679:6701 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.second_law_thermal_bath var
+R6654:6677 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.heat_to_bath_per_erasure var
+R6619:6634 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.boltzmann_bridge var
+R6588:6617 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.system_thermo_entropy_decrease var
+R6562:6568 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B_pos var
+R6558:6560 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B var
+R6556:6556 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.T var
+R6780:6782 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6776:6778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6772:6774 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6769:6771 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B var
+R6775:6775 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.T var
+R6783:6784 Coq.Reals.Rpower <> ln def
+R6753:6761 Coq.Reals.RIneq <> Rle_trans thm
+R6805:6810 Coq.Reals.RIneq <> Req_le thm
+R6780:6782 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6776:6778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6772:6774 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6769:6771 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.k_B var
+R6775:6775 Kernel.UnificationProbeBridges <> ThermalBathCertFlip.T var
+R6783:6784 Coq.Reals.Rpower <> ln def
+R6753:6761 Coq.Reals.RIneq <> Rle_trans thm
+R6805:6810 Coq.Reals.RIneq <> Req_le thm
+R6845:6863 Kernel.UnificationProbeBridges ThermalBathCertFlip <> sec
+prf 7227:7251 <> vm_trace_classical_holevo
+R7272:7274 Coq.Init.Datatypes <> nat ind
+binder 7265:7268 <> fuel:26
+R7286:7289 Coq.Init.Datatypes <> list ind
+R7291:7304 Kernel.VMStep VMStep vm_instruction ind
+binder 7278:7282 <> trace:27
+R7312:7318 Kernel.VMState <> VMState rec
+binder 7308:7308 <> s:28
+R7339:7349 Kernel.MuShannonBridge <> FeasibleSet def
+binder 7331:7335 <> omega:29
+R7360:7371 Kernel.MuShannonBridge <> DecisionTree ind
+binder 7353:7356 <> tree:30
+R7428:7435 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7379:7409 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R7411:7414 Kernel.UnificationProbeBridges <> fuel:26 var
+R7416:7420 Kernel.UnificationProbeBridges <> trace:27 var
+R7422:7422 Kernel.UnificationProbeBridges <> s:28 var
+R7424:7427 Kernel.UnificationProbeBridges <> tree:30 var
+R7494:7501 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7461:7464 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7436:7454 Kernel.HolevoDimensional <> substrate_dimension def
+R7456:7460 Kernel.UnificationProbeBridges <> omega:29 var
+R7465:7488 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R7490:7493 Kernel.UnificationProbeBridges <> tree:30 var
+R7532:7539 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R7502:7509 Coq.Arith.PeanoNat Nat log2 def
+R7512:7524 Kernel.MuShannonBridge <> feasible_size def
+R7526:7530 Kernel.UnificationProbeBridges <> omega:29 var
+R7569:7571 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R7563:7567 Kernel.VMState <> vm_mu proj
+R7541:7546 Kernel.SimulationProof <> run_vm def
+R7548:7551 Kernel.UnificationProbeBridges <> fuel:26 var
+R7553:7557 Kernel.UnificationProbeBridges <> trace:27 var
+R7559:7559 Kernel.UnificationProbeBridges <> s:28 var
+R7575:7579 Kernel.VMState <> vm_mu proj
+R7572:7572 Kernel.UnificationProbeBridges <> s:28 var
+R7655:7676 Kernel.HolevoDimensional <> classical_holevo_bound thm
+R7655:7676 Kernel.HolevoDimensional <> classical_holevo_bound thm
+R7744:7775 Kernel.HolevoDimensional <> accessible_classical_information def
+R7778:7796 Kernel.HolevoDimensional <> substrate_dimension def
+prf 7985:8018 <> vm_trace_n_qubits_classical_holevo
+R8039:8041 Coq.Init.Datatypes <> nat ind
+binder 8032:8035 <> fuel:31
+R8053:8056 Coq.Init.Datatypes <> list ind
+R8058:8071 Kernel.VMStep VMStep vm_instruction ind
+binder 8045:8049 <> trace:32
+R8079:8085 Kernel.VMState <> VMState rec
+binder 8075:8075 <> s:33
+R8106:8116 Kernel.MuShannonBridge <> FeasibleSet def
+binder 8098:8102 <> omega:34
+R8127:8138 Kernel.MuShannonBridge <> DecisionTree ind
+binder 8120:8123 <> tree:35
+R8146:8148 Coq.Init.Datatypes <> nat ind
+binder 8142:8142 <> n:36
+R8189:8196 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8181:8183 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8156:8174 Kernel.HolevoDimensional <> substrate_dimension def
+R8176:8180 Kernel.UnificationProbeBridges <> omega:34 var
+R8185:8187 Coq.Arith.PeanoNat <> ::nat_scope:x_'^'_x not
+R8188:8188 Kernel.UnificationProbeBridges <> n:36 var
+R8246:8253 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8197:8227 Kernel.MuShannonBridge <> decision_tree_realized_by_trace def
+R8229:8232 Kernel.UnificationProbeBridges <> fuel:31 var
+R8234:8238 Kernel.UnificationProbeBridges <> trace:32 var
+R8240:8240 Kernel.UnificationProbeBridges <> s:33 var
+R8242:8245 Kernel.UnificationProbeBridges <> tree:35 var
+R8312:8319 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8279:8282 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8254:8272 Kernel.HolevoDimensional <> substrate_dimension def
+R8274:8278 Kernel.UnificationProbeBridges <> omega:34 var
+R8283:8306 Kernel.MuShannonBridge <> decision_tree_leaf_count def
+R8308:8311 Kernel.UnificationProbeBridges <> tree:35 var
+R8321:8324 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R8320:8320 Kernel.UnificationProbeBridges <> n:36 var
+R8354:8356 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R8348:8352 Kernel.VMState <> vm_mu proj
+R8326:8331 Kernel.SimulationProof <> run_vm def
+R8333:8336 Kernel.UnificationProbeBridges <> fuel:31 var
+R8338:8342 Kernel.UnificationProbeBridges <> trace:32 var
+R8344:8344 Kernel.UnificationProbeBridges <> s:33 var
+R8360:8364 Kernel.VMState <> vm_mu proj
+R8357:8357 Kernel.UnificationProbeBridges <> s:33 var
+R8442:8466 Kernel.HolevoDimensional <> classical_holevo_n_qubits thm
+R8442:8466 Kernel.HolevoDimensional <> classical_holevo_n_qubits thm
+sec 9407:9424 <> BekensteinVMBridge
+var 9440:9443 BekensteinVMBridge hbar
+var 9445:9451 BekensteinVMBridge c_light
+var 9453:9455 BekensteinVMBridge k_B
+var 9457:9464 BekensteinVMBridge R_radius
+var 9466:9472 BekensteinVMBridge E_total
+R9476:9476 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+var 9492:9499 BekensteinVMBridge hbar_pos
+R9505:9507 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9508:9511 Kernel.UnificationProbeBridges <> BekensteinVMBridge.hbar var
+var 9530:9540 BekensteinVMBridge c_light_pos
+R9546:9548 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9549:9555 Kernel.UnificationProbeBridges <> BekensteinVMBridge.c_light var
+var 9574:9580 BekensteinVMBridge k_B_pos
+R9586:9588 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9589:9591 Kernel.UnificationProbeBridges <> BekensteinVMBridge.k_B var
+var 9610:9614 BekensteinVMBridge R_pos
+R9620:9622 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R9623:9630 Kernel.UnificationProbeBridges <> BekensteinVMBridge.R_radius var
+def 9988:10003 <> vm_mu_delta_nats
+R10017:10019 Coq.Init.Datatypes <> nat ind
+binder 10010:10013 <> fuel:46
+R10031:10034 Coq.Init.Datatypes <> list ind
+R10036:10049 Kernel.VMStep VMStep vm_instruction ind
+binder 10023:10027 <> trace:47
+R10057:10063 Kernel.VMState <> VMState rec
+binder 10053:10053 <> s:48
+R10068:10068 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R10125:10127 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10078:10080 Coq.Reals.Raxioms <> INR def
+R10112:10114 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10106:10110 Kernel.VMState <> vm_mu proj
+R10084:10089 Kernel.SimulationProof <> run_vm def
+R10091:10094 Kernel.UnificationProbeBridges <> fuel:46 var
+R10096:10100 Kernel.UnificationProbeBridges <> trace:47 var
+R10102:10102 Kernel.UnificationProbeBridges <> s:48 var
+R10118:10122 Kernel.VMState <> vm_mu proj
+R10115:10115 Kernel.UnificationProbeBridges <> s:48 var
+R10128:10129 Coq.Reals.Rpower <> ln def
+var 10151:10168 BekensteinVMBridge vm_mu_delta_nonneg
+binder 10183:10186 <> fuel:49
+binder 10188:10192 <> trace:50
+binder 10194:10194 <> s:51
+R10205:10208 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10209:10224 Kernel.UnificationProbeBridges <> vm_mu_delta_nats def
+R10226:10229 Kernel.UnificationProbeBridges <> fuel:49 var
+R10231:10235 Kernel.UnificationProbeBridges <> trace:50 var
+R10237:10237 Kernel.UnificationProbeBridges <> s:51 var
+var 10257:10287 BekensteinVMBridge vm_thermo_second_law_bekenstein
+binder 10302:10305 <> fuel:53
+binder 10307:10311 <> trace:54
+binder 10313:10313 <> s:55
+R10422:10425 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10382:10392 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10376:10378 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10323:10349 Kernel.BekensteinBound <> unruh_temperature_of_radius def
+R10368:10375 Kernel.UnificationProbeBridges <> BekensteinVMBridge.R_radius var
+R10364:10366 Kernel.UnificationProbeBridges <> BekensteinVMBridge.k_B var
+R10356:10362 Kernel.UnificationProbeBridges <> BekensteinVMBridge.c_light var
+R10351:10354 Kernel.UnificationProbeBridges <> BekensteinVMBridge.hbar var
+R10379:10381 Kernel.UnificationProbeBridges <> BekensteinVMBridge.k_B var
+R10393:10408 Kernel.UnificationProbeBridges <> vm_mu_delta_nats def
+R10410:10413 Kernel.UnificationProbeBridges <> fuel:53 var
+R10415:10419 Kernel.UnificationProbeBridges <> trace:54 var
+R10421:10421 Kernel.UnificationProbeBridges <> s:55 var
+R10426:10432 Kernel.UnificationProbeBridges <> BekensteinVMBridge.E_total var
+prf 10449:10470 <> vm_mu_bekenstein_bound
+binder 10485:10488 <> fuel:57
+binder 10490:10494 <> trace:58
+binder 10496:10496 <> s:59
+R10553:10563 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10506:10508 Coq.Reals.Raxioms <> INR def
+R10540:10542 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10534:10538 Kernel.VMState <> vm_mu proj
+R10512:10517 Kernel.SimulationProof <> run_vm def
+R10519:10522 Kernel.UnificationProbeBridges <> fuel:57 var
+R10524:10528 Kernel.UnificationProbeBridges <> trace:58 var
+R10530:10530 Kernel.UnificationProbeBridges <> s:59 var
+R10546:10550 Kernel.VMState <> vm_mu proj
+R10543:10543 Kernel.UnificationProbeBridges <> s:59 var
+R10591:10594 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10616:10616 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R10580:10582 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10570:10572 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10565:10567 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10568:10569 Coq.Reals.Rtrigo1 <> PI def
+R10573:10579 Kernel.UnificationProbeBridges <> BekensteinVMBridge.E_total var
+R10583:10590 Kernel.UnificationProbeBridges <> BekensteinVMBridge.R_radius var
+R10609:10611 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10599:10601 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10595:10598 Kernel.UnificationProbeBridges <> BekensteinVMBridge.hbar var
+R10602:10608 Kernel.UnificationProbeBridges <> BekensteinVMBridge.c_light var
+R10612:10613 Coq.Reals.Rpower <> ln def
+R10672:10687 Kernel.BekensteinBound <> bekenstein_bound thm
+R10845:10875 Kernel.UnificationProbeBridges <> BekensteinVMBridge.vm_thermo_second_law_bekenstein var
+R10795:10810 Kernel.UnificationProbeBridges <> vm_mu_delta_nats def
+R10770:10774 Kernel.UnificationProbeBridges <> BekensteinVMBridge.R_pos var
+R10762:10768 Kernel.UnificationProbeBridges <> BekensteinVMBridge.k_B_pos var
+R10750:10760 Kernel.UnificationProbeBridges <> BekensteinVMBridge.c_light_pos var
+R10741:10748 Kernel.UnificationProbeBridges <> BekensteinVMBridge.hbar_pos var
+R10715:10721 Kernel.UnificationProbeBridges <> BekensteinVMBridge.E_total var
+R10706:10713 Kernel.UnificationProbeBridges <> BekensteinVMBridge.R_radius var
+R10702:10704 Kernel.UnificationProbeBridges <> BekensteinVMBridge.k_B var
+R10694:10700 Kernel.UnificationProbeBridges <> BekensteinVMBridge.c_light var
+R10689:10692 Kernel.UnificationProbeBridges <> BekensteinVMBridge.hbar var
+R10672:10687 Kernel.BekensteinBound <> bekenstein_bound thm
+R10845:10875 Kernel.UnificationProbeBridges <> BekensteinVMBridge.vm_thermo_second_law_bekenstein var
+R10795:10810 Kernel.UnificationProbeBridges <> vm_mu_delta_nats def
+R10770:10774 Kernel.UnificationProbeBridges <> BekensteinVMBridge.R_pos var
+R10762:10768 Kernel.UnificationProbeBridges <> BekensteinVMBridge.k_B_pos var
+R10750:10760 Kernel.UnificationProbeBridges <> BekensteinVMBridge.c_light_pos var
+R10741:10748 Kernel.UnificationProbeBridges <> BekensteinVMBridge.hbar_pos var
+R10715:10721 Kernel.UnificationProbeBridges <> BekensteinVMBridge.E_total var
+R10706:10713 Kernel.UnificationProbeBridges <> BekensteinVMBridge.R_radius var
+R10702:10704 Kernel.UnificationProbeBridges <> BekensteinVMBridge.k_B var
+R10694:10700 Kernel.UnificationProbeBridges <> BekensteinVMBridge.c_light var
+R10689:10692 Kernel.UnificationProbeBridges <> BekensteinVMBridge.hbar var
+R11049:11067 Kernel.BekensteinBound <> system_entropy_bits def
+R11070:11085 Kernel.UnificationProbeBridges <> vm_mu_delta_nats def
+R11170:11172 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R11173:11174 Coq.Reals.Rpower <> ln def
+R11197:11200 Coq.Reals.Rpower <> ln_1 thm
+R11209:11221 Coq.Reals.Rpower <> ln_increasing thm
+R11170:11172 Coq.Reals.Rdefinitions <> ::R_scope:x_'<'_x not
+R11173:11174 Coq.Reals.Rpower <> ln def
+R11197:11200 Coq.Reals.Rpower <> ln_1 thm
+R11197:11200 Coq.Reals.Rpower <> ln_1 thm
+R11209:11221 Coq.Reals.Rpower <> ln_increasing thm
+R11318:11327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11311:11313 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11304:11306 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11257:11259 Coq.Reals.Raxioms <> INR def
+R11291:11293 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11285:11289 Kernel.VMState <> vm_mu proj
+R11263:11268 Kernel.SimulationProof <> run_vm def
+R11297:11301 Kernel.VMState <> vm_mu proj
+R11307:11308 Coq.Reals.Rpower <> ln def
+R11314:11315 Coq.Reals.Rpower <> ln def
+R11328:11330 Coq.Reals.Raxioms <> INR def
+R11362:11364 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11356:11360 Kernel.VMState <> vm_mu proj
+R11334:11339 Kernel.SimulationProof <> run_vm def
+R11368:11372 Kernel.VMState <> vm_mu proj
+R11318:11327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11311:11313 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R11304:11306 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11257:11259 Coq.Reals.Raxioms <> INR def
+R11291:11293 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11285:11289 Kernel.VMState <> vm_mu proj
+R11263:11268 Kernel.SimulationProof <> run_vm def
+R11297:11301 Kernel.VMState <> vm_mu proj
+R11307:11308 Coq.Reals.Rpower <> ln def
+R11314:11315 Coq.Reals.Rpower <> ln def
+R11328:11330 Coq.Reals.Raxioms <> INR def
+R11362:11364 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R11356:11360 Kernel.VMState <> vm_mu proj
+R11334:11339 Kernel.SimulationProof <> run_vm def
+R11368:11372 Kernel.VMState <> vm_mu proj
+R11460:11477 Kernel.UnificationProbeBridges BekensteinVMBridge <> sec
+R11635:11663 Kernel.UnificationProbeBridges <> cert_flip_to_physical_erasure def
+R11684:11715 Kernel.UnificationProbeBridges <> cert_flip_releases_landauer_heat thm
+R11736:11760 Kernel.UnificationProbeBridges <> vm_trace_classical_holevo thm
+R11781:11802 Kernel.UnificationProbeBridges <> vm_mu_bekenstein_bound thm
