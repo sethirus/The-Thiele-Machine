@@ -260,16 +260,27 @@ jobs:
   python-tests:
     name: Python unit tests
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
       - name: Install runtime toolchain for Python tests
+        # Full toolchain so EVERY test pytest collects can actually run —
+        # no marker exclusion, no toolchain-missing skips. Specifically:
+        #   coq + coinor-csdp  → coq-marked tests (test_coq_compile_gate,
+        #                        test_extraction_freshness, test_coq_available)
+        #   ocaml + ocaml-findlib → build/extracted_vm_runner binary so
+        #                            test_quantitative_nfi's OCaml-runner
+        #                            agreement test stops skipping
+        #   iverilog + verilator + yosys → strict_rtl-marked cross-layer
+        #                                  bisimulation, RTL structural
+        #                                  coverage, hypothesis cross-layer
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
+            coq coinor-csdp \
             ocaml ocaml-findlib \
             iverilog verilator yosys
 
@@ -280,16 +291,33 @@ jobs:
           cache: pip
           cache-dependency-path: requirements.txt
 
+      - name: Set up Node.js
+        # trs-marked tests use a Node verifier (tests/test_trs10_node_verifier.py
+        # and friends). Node 24 matches the dedicated trs-receipts job.
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
       - name: Install dependencies
         run: |
           python -m pip install --quiet --upgrade pip
           pip install --quiet -r requirements.txt
           pip install --quiet -e . --no-deps
 
-      - name: Run pytest
-        # Exclude `trs` — those tests run in the dedicated trs-receipts job
-        # (which sets up Node.js 24 + the OCaml extracted runner binary).
-        run: python -m pytest tests/ -q --tb=short -m "not coq and not strict_rtl and not trs"
+      - name: Build OCaml extracted VM runner
+        # build/thiele_core.{ml,mli} and build/extracted_vm_runner.ml are
+        # tracked in git (extraction outputs committed alongside the spec
+        # change that produced them), so the runner is a pure ocamlc build
+        # — no coqc invocation needed here. This is what trs-receipts does.
+        run: |
+          ocamlfind ocamlc -I build -package str -linkpkg \
+            -o build/extracted_vm_runner \
+            build/thiele_core.mli \
+            build/thiele_core.ml \
+            build/extracted_vm_runner.ml
+
+      - name: Run pytest (FULL suite — no marker filter, no skips)
+        run: python -m pytest tests/ -q --tb=short
 
   trs-receipts:
     name: TRS receipt tests

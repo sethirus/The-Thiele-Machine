@@ -10,10 +10,14 @@ flen = hw_flen, not decoded source-text length.
 """
 
 import os
+from pathlib import Path
 
 import pytest
 
 from thielecpu.vm import VMState, vm_run
+
+_REPO_ROOT = Path(__file__).resolve().parent.parent
+EXTRACTED_VM_RUNNER = _REPO_ROOT / "build" / "extracted_vm_runner"
 
 
 def _run(instrs):
@@ -89,8 +93,7 @@ class TestFormulaLengthMonotonicity:
 
 class TestOcamlRunnerAgreement:
     def test_ocaml_charges_hw_flen(self):
-        runner = "/workspaces/The-Thiele-Machine/build/extracted_vm_runner"
-        if not os.path.exists(runner):
+        if not EXTRACTED_VM_RUNNER.exists():
             pytest.skip("OCaml runner not built")
 
         s = vm_run(VMState.default(), [
