@@ -1,7 +1,7 @@
 #!/bin/sh
 # Thiele Machine pre-commit hook (marker: thiele-machine-pre-commit)
 # ==================================================================
-# Two responsibilities:
+# Three responsibilities:
 #
 # 1. Coq proof-scope drift gate (scripts/coq_proof_scope.py).
 #    Runs validate_alignment() whenever a .v file or _CoqProject is
@@ -10,10 +10,21 @@
 #    fail CI's proof-scope drift gate cannot be created in the first
 #    place. Cost: tens of milliseconds, no Coq build.
 #
-# 2. RTL manifest auto-refresh.
-#    Detects when a tracked manifest source file is staged and
-#    auto-regenerates artifacts/rtl_pipeline_manifest.json, staging the
-#    refreshed manifest so the commit stays internally consistent.
+# 2. RTL pipeline manifest auto-refresh
+#    (artifacts/rtl_pipeline_manifest.json,
+#     generator: scripts/generate_rtl_pipeline_manifest.py).
+#
+# 3. RTL transform audit manifest auto-refresh
+#    (artifacts/rtl_text_transform_audit.json,
+#     generator: scripts/audit_rtl_text_transforms.py).
+#
+# Both (2) and (3) hash + record paths under the manifest's `files`
+# section. Whenever a staged file matches one of those tracked paths,
+# the manifest is regenerated, staged, and the commit proceeds with
+# the refreshed snapshot baked in. The two manifests have different
+# `files` shapes (pipeline = list of {path, ...}, audit = dict of
+# name → {path, ...}), so the path-extractor expression differs but
+# the surrounding flow is shared via refresh_manifest().
 #
 # To install:
 #   make install-hooks            (or: bash scripts/install-git-hooks.sh)
@@ -55,46 +66,82 @@ if problems:
     fi
 fi
 
-MANIFEST="artifacts/rtl_pipeline_manifest.json"
-GENERATOR="scripts/generate_rtl_pipeline_manifest.py"
+# ---------------------------------------------------------------------------
+# Shared helper: regenerate a manifest if any of its tracked source files
+# is staged for this commit.
+#
+# Args:
+#   $1 — manifest JSON path
+#   $2 — generator command (whitespace-split; should write to $1)
+#   $3 — python expression that, given a dict `data` already loaded from
+#        the manifest JSON, prints one tracked path per line to stdout
+#
+# No `local` (POSIX sh portability — /bin/sh is dash on Debian/Ubuntu).
+# Variables are prefixed `_rm_` to avoid clobbering caller state.
+# ---------------------------------------------------------------------------
 
-if [ ! -f "$MANIFEST" ] || [ ! -f "$GENERATOR" ]; then
-    exit 0
-fi
+refresh_manifest() {
+    _rm_manifest="$1"
+    _rm_generator="$2"
+    _rm_extractor="$3"
 
-# Read paths the manifest tracks.
-TRACKED=$(python3 -c "
+    [ -f "$_rm_manifest" ] || return 0
+
+    _rm_tracked=$(python3 -c "
 import json, sys
 try:
-    data = json.load(open('$MANIFEST'))
-    for f in data.get('files', []):
-        print(f['path'])
+    data = json.load(open('$_rm_manifest'))
 except Exception:
     sys.exit(0)
-")
+$_rm_extractor
+" 2>/dev/null) || return 0
 
-[ -z "$TRACKED" ] && exit 0
+    [ -z "$_rm_tracked" ] && return 0
 
-# Files staged for this commit.
-STAGED=$(git diff --cached --name-only --diff-filter=ACMR || true)
-[ -z "$STAGED" ] && exit 0
+    _rm_staged=$(git diff --cached --name-only --diff-filter=ACMR || true)
+    [ -z "$_rm_staged" ] && return 0
 
-# Did any tracked source change?
-needs_refresh=0
-for f in $STAGED; do
-    for t in $TRACKED; do
-        if [ "$f" = "$t" ]; then
-            needs_refresh=1
-            break 2
-        fi
+    _rm_needs=0
+    for f in $_rm_staged; do
+        for t in $_rm_tracked; do
+            if [ "$f" = "$t" ]; then
+                _rm_needs=1
+                break 2
+            fi
+        done
     done
-done
 
-if [ "$needs_refresh" = "1" ]; then
-    echo "[pre-commit] RTL manifest source changed — regenerating $MANIFEST..."
-    python3 "$GENERATOR" --out "$MANIFEST"
-    git add "$MANIFEST"
-    echo "[pre-commit] $MANIFEST refreshed and staged."
-fi
+    if [ "$_rm_needs" = "1" ]; then
+        echo "[pre-commit] Source changed for $_rm_manifest — regenerating..."
+        # Run the generator. Word-splitting is intentional so callers can pass
+        # `python3 scripts/foo.py --out path` as one string.
+        eval "$_rm_generator"
+        git add "$_rm_manifest"
+        echo "[pre-commit] $_rm_manifest refreshed and staged."
+    fi
+}
+
+# ---------------------------------------------------------------------------
+# (2) RTL pipeline manifest (artifacts/rtl_pipeline_manifest.json).
+# `files` is a list of {path, sha256, size_bytes}.
+# ---------------------------------------------------------------------------
+
+refresh_manifest \
+    "artifacts/rtl_pipeline_manifest.json" \
+    "python3 scripts/generate_rtl_pipeline_manifest.py --out artifacts/rtl_pipeline_manifest.json" \
+    "for f in data.get('files', []):
+    print(f['path'])"
+
+# ---------------------------------------------------------------------------
+# (3) RTL transform audit manifest (artifacts/rtl_text_transform_audit.json).
+# `files` is a dict { name: {path, sha256, bytes, lines} }.
+# ---------------------------------------------------------------------------
+
+refresh_manifest \
+    "artifacts/rtl_text_transform_audit.json" \
+    "python3 scripts/audit_rtl_text_transforms.py --out artifacts/rtl_text_transform_audit.json" \
+    "for v in data.get('files', {}).values():
+    if isinstance(v, dict) and 'path' in v:
+        print(v['path'])"
 
 exit 0
