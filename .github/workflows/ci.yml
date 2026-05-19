@@ -260,7 +260,7 @@ jobs:
   python-tests:
     name: Python unit tests
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
         with:
@@ -269,8 +269,8 @@ jobs:
       - name: Install runtime toolchain for Python tests
         # Full toolchain so EVERY test pytest collects can actually run —
         # no marker exclusion, no toolchain-missing skips. Specifically:
-        #   coq + coinor-csdp  → coq-marked tests (test_coq_compile_gate,
-        #                        test_extraction_freshness, test_coq_available)
+        #   coq + coinor-csdp     → coq-marked tests (test_coq_compile_gate,
+        #                            test_extraction_freshness, test_coq_available)
         #   ocaml + ocaml-findlib → build/extracted_vm_runner binary so
         #                            test_quantitative_nfi's OCaml-runner
         #                            agreement test stops skipping
@@ -283,6 +283,47 @@ jobs:
             coq coinor-csdp \
             ocaml ocaml-findlib \
             iverilog verilator yosys
+
+      - name: Capture toolchain version
+        # Match the cache-key construction used by proof-check / extraction
+        # so all three jobs share the same vendor + Coq build caches.
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+          echo "Coq: ${coq_version}"
+
+      - name: Cache vendor builds (bbv + kami)
+        # test_extraction_freshness::test_full_extraction_matches_committed
+        # invokes `make Extraction.vo` inside coq/, which transitively needs
+        # vendor/kami/Kami/Kami.vo. Same cache key as proof-check means this
+        # job is a cache HIT after proof-check populates it.
+        id: cache-vendor
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/bbv
+            vendor/kami
+          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+
+      - name: Build vendored deps (bbv + kami)
+        if: steps.cache-vendor.outputs.cache-hit != 'true'
+        run: |
+          cd vendor/bbv && make -j4
+          cd ../..
+          bash scripts/fix_kami_coq18.sh
+          cd vendor/kami && make -j4
+
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+          echo "Vendor .vo digest: ${digest}"
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -297,6 +338,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "24"
+
+      - name: Purge stale tracked Coq .vo files
+        # Same pre-build cleanup proof-check uses.
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+
+      - name: Build Coq proof tree
+        # test_full_extraction_matches_committed runs `make Extraction.vo`
+        # which depends on the whole proof tree. Build it once here (cache
+        # hits on the second+ run since proof-check shares the same key).
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        run: |
+          cd coq
+          coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
+          make -j4
 
       - name: Install dependencies
         run: |

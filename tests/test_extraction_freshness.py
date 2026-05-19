@@ -161,31 +161,13 @@ def test_extraction_vo_exists():
     )
 
 
-@pytest.mark.coq
-def test_ml_newer_than_v_source():
-    """
-    The .ml artefact must be at least as new as the .v source.
-
-    This detects the case where a proof was modified but extraction was not
-    re-run (the .ml would then be OLDER than the .v).  Skipped when mtimes
-    are unreliable (e.g. fresh git clone sets everything to the same time).
-    """
-    all_same_mtime = len({int(p.stat().st_mtime)
-                          for v, ml in EXTRACTION_PAIRS for p in [v, ml]
-                          if v.exists() and ml.exists()}) == 1
-    if all_same_mtime:
-        pytest.skip("All file mtimes identical (fresh clone) — skipping mtime gate")
-
-    stale: list[str] = []
-    for v_file, ml_file in EXTRACTION_PAIRS:
-        if not (v_file.exists() and ml_file.exists()):
-            continue
-        if ml_file.stat().st_mtime < v_file.stat().st_mtime:
-            stale.append(
-                f"{ml_file.name} is OLDER than {v_file.name} — "
-                "re-run `make -C coq`"
-            )
-    assert not stale, "\n".join(stale)
+# Removed: test_ml_newer_than_v_source was an mtime-based proxy for staleness
+# that gave false positives on CI fresh-clone checkouts (mtimes cluster but
+# aren't strictly equal, so the existing skip-bypass missed). The semantic
+# it tried to enforce — committed .ml matches what extraction would produce
+# from current .v — is covered authoritatively (and without mtime brittleness)
+# by test_full_extraction_matches_committed below, which actually re-runs
+# `make Extraction.vo` and byte-compares the output to the tracked .ml.
 
 
 @pytest.mark.coq
