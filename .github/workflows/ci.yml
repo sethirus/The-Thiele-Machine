@@ -368,6 +368,36 @@ jobs:
           coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
           make -j4
 
+      - name: Restore tracked Coq-extracted artefacts
+        # `make -j4` above transitively builds the Coq files whose
+        # `Extraction "..."` directives write build/ as a side effect:
+        #   coq/kami_hw/KamiExtraction.v → build/kami_hw/Target.{ml,mli}
+        #   coq/Extraction.v             → build/thiele_core.{ml,mli}
+        #   coq/ThieleMachineComplete.v  → build/thiele_core_complete.{ml,mli}
+        #                                  + build/kami_hw/Target_complete.{ml,mli}
+        #
+        # All four outputs are tracked in git. The downstream BSV/Verilog
+        # pipeline (mkModule1_synth.v, thiele_cpu_kami.v) and the OCaml
+        # extracted-runner binary are byte-pinned to the committed
+        # versions via artifacts/rtl_pipeline_manifest.json. CI's
+        # vendor-cache state can produce subtly different extraction
+        # bytes than the developer machine at commit time even at the
+        # same Coq version (the Kami .vo state is part of the closure
+        # KamiExtraction sees), which makes the manifest test fail on
+        # a clean rebuild.
+        #
+        # Restore the tracked versions before any downstream step reads
+        # build/ so every test sees the same content the manifest pins.
+        # If extraction goes stale relative to the .v sources, the
+        # *committed* version is wrong — that's a pre-commit-hook
+        # concern, not a CI-job concern.
+        run: |
+          git checkout HEAD -- \
+            build/kami_hw/Target.ml build/kami_hw/Target.mli \
+            build/kami_hw/Target_complete.ml build/kami_hw/Target_complete.mli \
+            build/thiele_core.ml build/thiele_core.mli \
+            build/thiele_core_complete.ml build/thiele_core_complete.mli
+
       - name: Install dependencies
         run: |
           python -m pip install --quiet --upgrade pip
