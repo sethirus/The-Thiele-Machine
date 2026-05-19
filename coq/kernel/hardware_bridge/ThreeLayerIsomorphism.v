@@ -91,6 +91,10 @@ Lemma instruction_exhaustive : forall (i : vm_instruction),
   | instr_morph_tensor _ _ _ _ => True
   | instr_morph_get _ _ _ _    => True
   | instr_chsh_lassert _       => True
+  | instr_chsh_lassert_1ab _   => True
+  | instr_chsh_lassert_1ab_g5 _ _ _ => True
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => True
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => True
   end.
 Proof. destruct i; exact I. Qed.
 
@@ -142,6 +146,10 @@ Definition increments_pc_by_one (instr : vm_instruction) : bool :=
   | instr_ret _ => false
   | instr_lassert _ _ _ _ _ => false
   | instr_chsh_lassert _ => false  (* can trap to LASSERT_TRAP_PC on column-contractivity failure *)
+  | instr_chsh_lassert_1ab _ => false  (* can trap to LASSERT_TRAP_PC on Q_{1+AB} failure *)
+  | instr_chsh_lassert_1ab_g5 _ _ _ => false  (* can trap to LASSERT_TRAP_PC on γ_5-aware Q_{1+AB} failure *)
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => false  (* can trap on γ_{3,4,5}-aware Q_{1+AB} failure *)
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => false  (* can trap on γ_{1..5}-aware Q_{1+AB} failure *)
   | _ => true
   end.
 

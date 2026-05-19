@@ -23,17 +23,6 @@ type comparison =
 | Lt
 | Gt
 
-module Coq__1 = struct
- (** val add : int -> int -> int **)
-
- let rec add = (+)
-end
-include Coq__1
-
-(** val mul : int -> int -> int **)
-
-let rec mul = ( * )
-
 (** val sub : int -> int -> int **)
 
 let rec sub = fun n m -> Stdlib.max 0 (n-m)
@@ -408,7 +397,7 @@ module Pos =
   (** val to_nat : int -> int **)
 
   let to_nat x =
-    iter_op Coq__1.add x ((fun x -> x + 1) 0)
+    iter_op (+) x ((fun x -> x + 1) 0)
 
   (** val of_succ_nat : int -> int **)
 
@@ -1117,8 +1106,8 @@ let module_tensor_entry s m i j =
   match graph_lookup s.vm_graph m with
   | Some ms ->
     nth
-      (add
-        (mul i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+      ((+)
+        (( * ) i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
           ((fun x -> x + 1) 0))))) j) ms.module_mu_tensor 0
   | None -> 0
 
@@ -1213,7 +1202,7 @@ let swap_regs regs a b =
 (** val ascii_checksum : char list -> int **)
 
 let ascii_checksum s =
-  fold_right (fun ch acc -> add (nat_of_ascii ch) acc) 0
+  fold_right (fun ch acc -> (+) (nat_of_ascii ch) acc) 0
     (list_ascii_of_string s)
 
 (** val bytes_to_word_4 : int -> int -> int -> int -> int **)
@@ -1275,12 +1264,12 @@ let mem_to_string mem base =
   let len = list_read_at mem base in
   let n_words =
     Nat.div
-      (add len ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) 0))))
+      ((+) len ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) 0))))
       ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
       0))))
   in
   let words =
-    map (fun i -> list_read_at mem (add ((fun x -> x + 1) base) i))
+    map (fun i -> list_read_at mem ((+) ((fun x -> x + 1) base) i))
       (seq 0 n_words)
   in
   string_of_list_ascii (words_to_bytes words len)
@@ -1411,6 +1400,11 @@ module VMStep =
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
   | Coq_instr_chsh_lassert of int
+  | Coq_instr_chsh_lassert_1ab of int
+  | Coq_instr_chsh_lassert_1ab_g5 of int * int * int
+  | Coq_instr_chsh_lassert_1ab_g345 of int * int * int * int * int * int * int
+  | Coq_instr_chsh_lassert_1ab_g12345 of int * int * int * int * int * 
+     int * int * int * int * int * int
 
   (** val instruction_cost : vm_instruction -> int **)
 
@@ -1419,8 +1413,8 @@ module VMStep =
   | Coq_instr_psplit (_, _, _, cost) -> cost
   | Coq_instr_pmerge (_, _, cost) -> cost
   | Coq_instr_lassert (_, _, _, flen, cost) ->
-    add
-      (mul flen ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+    (+)
+      (( * ) flen ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
         ((fun x -> x + 1) ((fun x -> x + 1) 0))))))))) ((fun x -> x + 1) cost)
   | Coq_instr_ljoin (_, _, cost) -> (fun x -> x + 1) cost
@@ -1442,12 +1436,12 @@ module VMStep =
   | Coq_instr_xor_swap (_, _, cost) -> cost
   | Coq_instr_xor_rank (_, _, cost) -> cost
   | Coq_instr_emit (_, payload, cost) ->
-    add (payload_bit_length payload) ((fun x -> x + 1) cost)
-  | Coq_instr_reveal (_, bits, _, cost) -> add bits ((fun x -> x + 1) cost)
+    (+) (payload_bit_length payload) ((fun x -> x + 1) cost)
+  | Coq_instr_reveal (_, bits, _, cost) -> (+) bits ((fun x -> x + 1) cost)
   | Coq_instr_halt cost -> cost
   | Coq_instr_checkpoint (_, cost) -> cost
   | Coq_instr_read_port (_, _, _, bits, cost) ->
-    add bits ((fun x -> x + 1) cost)
+    (+) bits ((fun x -> x + 1) cost)
   | Coq_instr_write_port (_, _, cost) -> cost
   | Coq_instr_heap_load (_, _, cost) -> cost
   | Coq_instr_heap_store (_, _, cost) -> cost
@@ -1468,6 +1462,12 @@ module VMStep =
   | Coq_instr_morph_tensor (_, _, _, cost) -> cost
   | Coq_instr_morph_get (_, _, _, cost) -> cost
   | Coq_instr_chsh_lassert cost -> (fun x -> x + 1) cost
+  | Coq_instr_chsh_lassert_1ab cost -> (fun x -> x + 1) cost
+  | Coq_instr_chsh_lassert_1ab_g5 (cost, _, _) -> (fun x -> x + 1) cost
+  | Coq_instr_chsh_lassert_1ab_g345 (cost, _, _, _, _, _, _) ->
+    (fun x -> x + 1) cost
+  | Coq_instr_chsh_lassert_1ab_g12345 (cost, _, _, _, _, _, _, _, _, _, _) ->
+    (fun x -> x + 1) cost
 
   (** val is_cert_setterb : vm_instruction -> bool **)
 
@@ -1480,6 +1480,11 @@ module VMStep =
   | Coq_instr_certify _ -> true
   | Coq_instr_morph_assert (_, _, _, _) -> true
   | Coq_instr_chsh_lassert _ -> true
+  | Coq_instr_chsh_lassert_1ab _ -> true
+  | Coq_instr_chsh_lassert_1ab_g5 (_, _, _) -> true
+  | Coq_instr_chsh_lassert_1ab_g345 (_, _, _, _, _, _, _) -> true
+  | Coq_instr_chsh_lassert_1ab_g12345 (_, _, _, _, _, _, _, _, _, _, _) ->
+    true
   | _ -> false
 
   (** val nofi_step_cost_okb : vm_instruction -> bool **)
@@ -1507,7 +1512,7 @@ module VMStep =
   (** val apply_cost : vMState -> vm_instruction -> int **)
 
   let apply_cost s instr =
-    add s.vm_mu (instruction_cost instr)
+    (+) s.vm_mu (instruction_cost instr)
 
   (** val latch_err : vMState -> bool -> bool **)
 
@@ -1518,7 +1523,7 @@ module VMStep =
 
   let vm_mu_tensor_add_at s k delta =
     let old = nth k s.vm_mu_tensor 0 in
-    list_update_at s.vm_mu_tensor k (add old delta)
+    list_update_at s.vm_mu_tensor k ((+) old delta)
 
   (** val tensor_indices_ok : int -> int -> bool **)
 
@@ -2656,7 +2661,7 @@ module VMStep =
   let graph_hw_pmerge g m1 m2 =
     let sz1 = graph_module_size g m1 in
     let sz2 = graph_module_size g m2 in
-    let merged_sz = add sz1 sz2 in
+    let merged_sz = (+) sz1 sz2 in
     let g1 =
       match graph_remove g m1 with
       | Some p -> let g',_ = p in g'
@@ -2717,6 +2722,1559 @@ module VMStep =
             ((&&) (Z.leb 0 a)
               ((&&) (Z.leb 0 b) (Z.leb (Z.mul c c) (Z.mul a b)))))))
 
+  (** val sum_E_sq_check_witness : witnessCounts -> bool **)
+
+  let sum_E_sq_check_witness wc =
+    let d00 = chsh_d_z wc.wc_same_00 wc.wc_diff_00 in
+    let n00 = chsh_n_z wc.wc_same_00 wc.wc_diff_00 in
+    let d01 = chsh_d_z wc.wc_same_01 wc.wc_diff_01 in
+    let n01 = chsh_n_z wc.wc_same_01 wc.wc_diff_01 in
+    let d10 = chsh_d_z wc.wc_same_10 wc.wc_diff_10 in
+    let n10 = chsh_n_z wc.wc_same_10 wc.wc_diff_10 in
+    let d11 = chsh_d_z wc.wc_same_11 wc.wc_diff_11 in
+    let n11 = chsh_n_z wc.wc_same_11 wc.wc_diff_11 in
+    let den = Z.mul (Z.mul (Z.mul n00 n01) n10) n11 in
+    let den_sq = Z.mul den den in
+    let term00 =
+      Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul d00 d00) n01) n01) n10) n10) n11)
+        n11
+    in
+    let term01 =
+      Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) d01) d01) n10) n10) n11)
+        n11
+    in
+    let term10 =
+      Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) d10) d10) n11)
+        n11
+    in
+    let term11 =
+      Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) n10) n10) d11)
+        d11
+    in
+    Z.leb (Z.add (Z.add (Z.add term00 term01) term10) term11) den_sq
+
+  (** val column_contractive_check_q1ab_kernel : witnessCounts -> bool **)
+
+  let column_contractive_check_q1ab_kernel wc =
+    (&&) (column_contractive_check_witness wc) (sum_E_sq_check_witness wc)
+
+  (** val q1ab_g5_check_z_kernel :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      bool **)
+
+  let q1ab_g5_check_z_kernel d00 n00 d01 n01 d10 n10 d11 n11 ng5 dg5 =
+    (&&)
+      ((&&)
+        ((&&)
+          ((&&)
+            ((&&) ((&&) ((&&) (Z.ltb 0 n00) (Z.ltb 0 n01)) (Z.ltb 0 n10))
+              (Z.ltb 0 n11)) (Z.ltb 0 dg5)) (Z.ltb (Z.opp dg5) ng5))
+        (Z.ltb ng5 dg5))
+      (let apos = Z.add (Z.mul d00 n11) (Z.mul d11 n00) in
+       let aneg = Z.sub (Z.mul d00 n11) (Z.mul d11 n00) in
+       let cpos = Z.add (Z.mul d01 n10) (Z.mul d10 n01) in
+       let cneg = Z.sub (Z.mul d01 n10) (Z.mul d10 n01) in
+       let n01n10sq = Z.mul (Z.mul n01 n01) (Z.mul n10 n10) in
+       let n00n11sq = Z.mul (Z.mul n00 n00) (Z.mul n11 n11) in
+       let xint =
+         Z.add (Z.mul (Z.mul apos apos) n01n10sq)
+           (Z.mul (Z.mul cpos cpos) n00n11sq)
+       in
+       let yint =
+         Z.add (Z.mul (Z.mul aneg aneg) n01n10sq)
+           (Z.mul (Z.mul cneg cneg) n00n11sq)
+       in
+       let den2 = Z.mul n00n11sq n01n10sq in
+       Z.leb
+         (Z.add (Z.mul (Z.mul dg5 (Z.sub dg5 ng5)) xint)
+           (Z.mul (Z.mul dg5 (Z.add dg5 ng5)) yint))
+         (Z.mul
+           (Z.mul ((fun p->2*p) 1) (Z.sub (Z.mul dg5 dg5) (Z.mul ng5 ng5)))
+           den2))
+
+  (** val q1ab_g5_full_integer_check_kernel :
+      witnessCounts -> int -> int -> bool **)
+
+  let q1ab_g5_full_integer_check_kernel wc same_g5 diff_g5 =
+    let ng5 = chsh_d_z same_g5 diff_g5 in
+    let dg5 = chsh_n_z same_g5 diff_g5 in
+    (&&) (column_contractive_check_witness wc)
+      (q1ab_g5_check_z_kernel (chsh_d_z wc.wc_same_00 wc.wc_diff_00)
+        (chsh_n_z wc.wc_same_00 wc.wc_diff_00)
+        (chsh_d_z wc.wc_same_01 wc.wc_diff_01)
+        (chsh_n_z wc.wc_same_01 wc.wc_diff_01)
+        (chsh_d_z wc.wc_same_10 wc.wc_diff_10)
+        (chsh_n_z wc.wc_same_10 wc.wc_diff_10)
+        (chsh_d_z wc.wc_same_11 wc.wc_diff_11)
+        (chsh_n_z wc.wc_same_11 wc.wc_diff_11) ng5 dg5)
+
+  (** val cleared_A_num : int -> int -> int -> int -> int **)
+
+  let cleared_A_num d00 n00 d10 n10 =
+    Z.sub
+      (Z.sub (Z.mul (Z.mul (Z.mul n00 n00) n10) n10)
+        (Z.mul (Z.mul (Z.mul d00 d00) n10) n10))
+      (Z.mul (Z.mul (Z.mul d10 d10) n00) n00)
+
+  (** val cleared_C_M_num : int -> int -> int -> int -> int **)
+
+  let cleared_C_M_num d01 n01 d11 n11 =
+    Z.sub
+      (Z.sub (Z.mul (Z.mul (Z.mul n01 n01) n11) n11)
+        (Z.mul (Z.mul (Z.mul d01 d01) n11) n11))
+      (Z.mul (Z.mul (Z.mul d11 d11) n01) n01)
+
+  (** val cleared_B_num :
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11 =
+    Z.opp
+      (Z.add (Z.mul (Z.mul (Z.mul d00 d01) n10) n11)
+        (Z.mul (Z.mul (Z.mul d10 d11) n00) n01))
+
+  (** val cleared_det_M_num :
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 =
+    Z.sub
+      (Z.mul (cleared_A_num d00 n00 d10 n10)
+        (cleared_C_M_num d01 n01 d11 n11))
+      (Z.mul (cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11)
+        (cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11))
+
+  (** val cH11_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let cH11_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let a_n = cleared_A_num d00 n00 d10 n10 in
+    Z.sub
+      (Z.mul (Z.mul (Z.mul dg3 dg3) detM)
+        (Z.sub (Z.mul n00 n00) (Z.mul d00 d00)))
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) n11) n11) a_n)
+        (Z.mul ng3 ng3))
+
+  (** val cH22_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let cH22_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let cM_n = cleared_C_M_num d01 n01 d11 n11 in
+    Z.sub
+      (Z.mul (Z.mul (Z.mul dg3 dg3) detM)
+        (Z.sub (Z.mul n01 n01) (Z.mul d01 d01)))
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) n10) n10)
+          cM_n) (Z.mul ng3 ng3))
+
+  (** val cH33_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let cH33_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng4 dg4 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let a_n = cleared_A_num d00 n00 d10 n10 in
+    Z.sub
+      (Z.mul (Z.mul (Z.mul dg4 dg4) detM)
+        (Z.sub (Z.mul n10 n10) (Z.mul d10 d10)))
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n01) n10) n10) n11) n11) a_n)
+        (Z.mul ng4 ng4))
+
+  (** val cH44_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let cH44_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng4 dg4 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let cM_n = cleared_C_M_num d01 n01 d11 n11 in
+    Z.sub
+      (Z.mul (Z.mul (Z.mul dg4 dg4) detM)
+        (Z.sub (Z.mul n11 n11) (Z.mul d11 d11)))
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n10) n10) n11) n11)
+          cM_n) (Z.mul ng4 ng4))
+
+  (** val cH12_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let cH12_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let b_n = cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    Z.add (Z.opp (Z.mul (Z.mul (Z.mul (Z.mul dg3 dg3) detM) d00) d01))
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) n10) n11) b_n)
+        (Z.mul ng3 ng3))
+
+  (** val cH13_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int **)
+
+  let cH13_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let a_n = cleared_A_num d00 n00 d10 n10 in
+    Z.sub (Z.opp (Z.mul (Z.mul (Z.mul (Z.mul dg3 dg4) detM) d00) d10))
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n01) n10) n11) n11)
+            a_n) ng3) ng4)
+
+  (** val cH14_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cH14_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let b_n = cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    Z.add
+      (Z.sub (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n11) dg3) dg4) detM) ng5)
+        (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul dg3 dg4) dg5) detM) d00) d11))
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10) n11) n11)
+              dg5) b_n) ng3) ng4)
+
+  (** val cH23_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cH23_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let b_n = cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    Z.add
+      (Z.sub (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n10) dg3) dg4) detM) ng5)
+        (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul dg3 dg4) dg5) detM) d01) d10))
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n01) n10) n10) n11)
+              dg5) b_n) ng3) ng4)
+
+  (** val cH24_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int **)
+
+  let cH24_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let cM_n = cleared_C_M_num d01 n01 d11 n11 in
+    Z.sub (Z.opp (Z.mul (Z.mul (Z.mul (Z.mul dg3 dg4) detM) d01) d11))
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10) n10) n11)
+            cM_n) ng3) ng4)
+
+  (** val cH34_per_entry :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let cH34_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng4 dg4 =
+    let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    let b_n = cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11 in
+    Z.add (Z.opp (Z.mul (Z.mul (Z.mul (Z.mul dg4 dg4) detM) d10) d11))
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n10) n10) n11) n11) b_n)
+        (Z.mul ng4 ng4))
+
+  (** val mult_for_H11 : int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H11 n01 n10 n11 dg4 dg5 =
+    Z.mul
+      (Z.mul (Z.mul (Z.mul (Z.mul n01 n01) (Z.mul n10 n10)) (Z.mul n11 n11))
+        (Z.mul dg4 dg4)) (Z.mul dg5 dg5)
+
+  (** val mult_for_H22 : int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H22 n00 n10 n11 dg4 dg5 =
+    Z.mul
+      (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) (Z.mul n10 n10)) (Z.mul n11 n11))
+        (Z.mul dg4 dg4)) (Z.mul dg5 dg5)
+
+  (** val mult_for_H33 : int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H33 n00 n01 n11 dg3 dg5 =
+    Z.mul
+      (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) (Z.mul n01 n01)) (Z.mul n11 n11))
+        (Z.mul dg3 dg3)) (Z.mul dg5 dg5)
+
+  (** val mult_for_H44 : int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H44 n00 n01 n10 dg3 dg5 =
+    Z.mul
+      (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) (Z.mul n01 n01)) (Z.mul n10 n10))
+        (Z.mul dg3 dg3)) (Z.mul dg5 dg5)
+
+  (** val mult_for_H12 : int -> int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H12 n00 n01 n10 n11 dg4 dg5 =
+    Z.mul
+      (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) (Z.mul n10 n10)) (Z.mul n11 n11))
+        (Z.mul dg4 dg4)) (Z.mul dg5 dg5)
+
+  (** val mult_for_H13 :
+      int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H13 n00 n01 n10 n11 dg3 dg4 dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul n00 (Z.mul n01 n01)) n10) (Z.mul n11 n11)) dg3)
+        dg4) (Z.mul dg5 dg5)
+
+  (** val mult_for_H14 :
+      int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H14 n00 n01 n10 n11 dg3 dg4 dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul n00 (Z.mul n01 n01)) (Z.mul n10 n10)) n11) dg3)
+        dg4) dg5
+
+  (** val mult_for_H23 :
+      int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H23 n00 n01 n10 n11 dg3 dg4 dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10) (Z.mul n11 n11)) dg3)
+        dg4) dg5
+
+  (** val mult_for_H24 :
+      int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H24 n00 n01 n10 n11 dg3 dg4 dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) (Z.mul n10 n10)) n11) dg3)
+        dg4) (Z.mul dg5 dg5)
+
+  (** val mult_for_H34 : int -> int -> int -> int -> int -> int -> int **)
+
+  let mult_for_H34 n00 n01 n10 n11 dg3 dg5 =
+    Z.mul
+      (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) (Z.mul n01 n01)) n10) n11)
+        (Z.mul dg3 dg3)) (Z.mul dg5 dg5)
+
+  (** val cleared_H11_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 _ dg4 _ dg5 =
+    Z.mul (mult_for_H11 n01 n10 n11 dg4 dg5)
+      (cH11_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3)
+
+  (** val cleared_H22_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 _ dg4 _ dg5 =
+    Z.mul (mult_for_H22 n00 n10 n11 dg4 dg5)
+      (cH22_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3)
+
+  (** val cleared_H33_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H33_Z d00 n00 d01 n01 d10 n10 d11 n11 _ dg3 ng4 dg4 _ dg5 =
+    Z.mul (mult_for_H33 n00 n01 n11 dg3 dg5)
+      (cH33_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng4 dg4)
+
+  (** val cleared_H44_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H44_Z d00 n00 d01 n01 d10 n10 d11 n11 _ dg3 ng4 dg4 _ dg5 =
+    Z.mul (mult_for_H44 n00 n01 n10 dg3 dg5)
+      (cH44_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng4 dg4)
+
+  (** val cleared_H12_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 _ dg4 _ dg5 =
+    Z.mul (mult_for_H12 n00 n01 n10 n11 dg4 dg5)
+      (cH12_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3)
+
+  (** val cleared_H13_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 _ dg5 =
+    Z.mul (mult_for_H13 n00 n01 n10 n11 dg3 dg4 dg5)
+      (cH13_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4)
+
+  (** val cleared_H14_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    Z.mul (mult_for_H14 n00 n01 n10 n11 dg3 dg4 dg5)
+      (cH14_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_H23_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    Z.mul (mult_for_H23 n00 n01 n10 n11 dg3 dg4 dg5)
+      (cH23_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_H24_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 _ dg5 =
+    Z.mul (mult_for_H24 n00 n01 n10 n11 dg3 dg4 dg5)
+      (cH24_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4)
+
+  (** val cleared_H34_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_H34_Z d00 n00 d01 n01 d10 n10 d11 n11 _ dg3 ng4 dg4 _ dg5 =
+    Z.mul (mult_for_H34 n00 n01 n10 n11 dg3 dg5)
+      (cH34_per_entry d00 n00 d01 n01 d10 n10 d11 n11 ng4 dg4)
+
+  (** val sym4_d1_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let sym4_d1_Z h11 _ _ _ _ _ _ _ _ _ =
+    h11
+
+  (** val sym4_d2_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let sym4_d2_Z h11 h12 _ _ h22 _ _ _ _ _ =
+    Z.sub (Z.mul h11 h22) (Z.mul h12 h12)
+
+  (** val sym4_d3_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let sym4_d3_Z h11 h12 h13 _ h22 h23 _ h33 _ _ =
+    Z.add
+      (Z.sub (Z.mul h11 (Z.sub (Z.mul h22 h33) (Z.mul h23 h23)))
+        (Z.mul h12 (Z.sub (Z.mul h12 h33) (Z.mul h13 h23))))
+      (Z.mul h13 (Z.sub (Z.mul h12 h23) (Z.mul h13 h22)))
+
+  (** val sym4_d4_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int **)
+
+  let sym4_d4_Z h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 =
+    Z.sub
+      (Z.add
+        (Z.sub
+          (Z.mul h11
+            (Z.add
+              (Z.sub (Z.mul h22 (Z.sub (Z.mul h33 h44) (Z.mul h34 h34)))
+                (Z.mul h23 (Z.sub (Z.mul h23 h44) (Z.mul h24 h34))))
+              (Z.mul h24 (Z.sub (Z.mul h23 h34) (Z.mul h24 h33)))))
+          (Z.mul h12
+            (Z.add
+              (Z.sub (Z.mul h12 (Z.sub (Z.mul h33 h44) (Z.mul h34 h34)))
+                (Z.mul h23 (Z.sub (Z.mul h13 h44) (Z.mul h14 h34))))
+              (Z.mul h24 (Z.sub (Z.mul h13 h34) (Z.mul h14 h33))))))
+        (Z.mul h13
+          (Z.add
+            (Z.sub (Z.mul h12 (Z.sub (Z.mul h23 h44) (Z.mul h24 h34)))
+              (Z.mul h22 (Z.sub (Z.mul h13 h44) (Z.mul h14 h34))))
+            (Z.mul h24 (Z.sub (Z.mul h13 h24) (Z.mul h14 h23))))))
+      (Z.mul h14
+        (Z.add
+          (Z.sub (Z.mul h12 (Z.sub (Z.mul h23 h34) (Z.mul h24 h33)))
+            (Z.mul h22 (Z.sub (Z.mul h13 h34) (Z.mul h14 h33))))
+          (Z.mul h23 (Z.sub (Z.mul h13 h24) (Z.mul h14 h23)))))
+
+  (** val cleared_d1 :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_d1 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    sym4_d1_Z
+      (cleared_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_d2 :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_d2 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    sym4_d2_Z
+      (cleared_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_d3 :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_d3 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    sym4_d3_Z
+      (cleared_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_d4 :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int **)
+
+  let cleared_d4 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    sym4_d4_Z
+      (cleared_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_H44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val q1ab_g345_check_z_kernel :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> bool **)
+
+  let q1ab_g345_check_z_kernel d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5 =
+    (&&)
+      ((&&)
+        ((&&)
+          ((&&)
+            ((&&)
+              ((&&)
+                ((&&)
+                  ((&&)
+                    ((&&)
+                      ((&&)
+                        ((&&)
+                          ((&&)
+                            ((&&)
+                              ((&&)
+                                ((&&)
+                                  ((&&)
+                                    ((&&)
+                                      ((&&)
+                                        ((&&) (Z.ltb 0 n00) (Z.ltb 0 n01))
+                                        (Z.ltb 0 n10)) (Z.ltb 0 n11))
+                                    (Z.ltb 0 dg3)) (Z.ltb 0 dg4))
+                                (Z.ltb 0 dg5)) (Z.ltb (Z.opp dg3) ng3))
+                            (Z.ltb ng3 dg3)) (Z.ltb (Z.opp dg4) ng4))
+                        (Z.ltb ng4 dg4)) (Z.ltb (Z.opp dg5) ng5))
+                    (Z.ltb ng5 dg5))
+                  (Z.ltb 0 (cleared_A_num d00 n00 d10 n10)))
+                (Z.ltb 0 (cleared_C_M_num d01 n01 d11 n11)))
+              (Z.ltb 0 (cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11)))
+            (Z.ltb 0
+              (cleared_d1 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5
+                dg5)))
+          (Z.ltb 0
+            (cleared_d2 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5
+              dg5)))
+        (Z.ltb 0
+          (cleared_d3 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5)))
+      (Z.ltb 0
+        (cleared_d4 d00 n00 d01 n01 d10 n10 d11 n11 ng3 dg3 ng4 dg4 ng5 dg5))
+
+  (** val q1ab_g345_full_integer_check_kernel :
+      witnessCounts -> int -> int -> int -> int -> int -> int -> bool **)
+
+  let q1ab_g345_full_integer_check_kernel wc same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =
+    let ng3 = chsh_d_z same_g3 diff_g3 in
+    let dg3 = chsh_n_z same_g3 diff_g3 in
+    let ng4 = chsh_d_z same_g4 diff_g4 in
+    let dg4 = chsh_n_z same_g4 diff_g4 in
+    let ng5 = chsh_d_z same_g5 diff_g5 in
+    let dg5 = chsh_n_z same_g5 diff_g5 in
+    (&&) (column_contractive_check_witness wc)
+      (q1ab_g345_check_z_kernel (chsh_d_z wc.wc_same_00 wc.wc_diff_00)
+        (chsh_n_z wc.wc_same_00 wc.wc_diff_00)
+        (chsh_d_z wc.wc_same_01 wc.wc_diff_01)
+        (chsh_n_z wc.wc_same_01 wc.wc_diff_01)
+        (chsh_d_z wc.wc_same_10 wc.wc_diff_10)
+        (chsh_n_z wc.wc_same_10 wc.wc_diff_10)
+        (chsh_d_z wc.wc_same_11 wc.wc_diff_11)
+        (chsh_n_z wc.wc_same_11 wc.wc_diff_11) ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_H11_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H11_Z d00 n00 _ n01 d10 n10 _ n11 _ dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n11) dg1) dg2) dg3) dg4) dg5)
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n11) dg1) dg2) dg3) dg4) dg5))
+      (Z.sub
+        (Z.sub (Z.mul (Z.mul (Z.mul n00 n00) n10) n10)
+          (Z.mul (Z.mul (Z.mul d00 d00) n10) n10))
+        (Z.mul (Z.mul (Z.mul d10 d10) n00) n00))
+
+  (** val cleared_g12345_H22_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H22_Z _ n00 d01 n01 _ n10 d11 n11 _ dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n10) dg1) dg2) dg3) dg4) dg5)
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n10) dg1) dg2) dg3) dg4) dg5))
+      (Z.sub
+        (Z.sub (Z.mul (Z.mul (Z.mul n01 n01) n11) n11)
+          (Z.mul (Z.mul (Z.mul d01 d01) n11) n11))
+        (Z.mul (Z.mul (Z.mul d11 d11) n01) n01))
+
+  (** val cleared_g12345_H33_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H33_Z d00 n00 _ n01 _ n10 _ n11 ng1 dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n10) n11) dg2) dg3) dg4) dg5)
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n10) n11) dg2) dg3) dg4) dg5))
+      (Z.sub (Z.mul (Z.mul dg1 dg1) (Z.sub (Z.mul n00 n00) (Z.mul d00 d00)))
+        (Z.mul (Z.mul (Z.mul ng1 ng1) n00) n00))
+
+  (** val cleared_g12345_H44_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H44_Z _ n00 d01 n01 _ n10 _ n11 _ dg1 ng2 dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n10) n11) dg1) dg3) dg4) dg5)
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n10) n11) dg1) dg3) dg4) dg5))
+      (Z.sub (Z.mul (Z.mul dg2 dg2) (Z.sub (Z.mul n01 n01) (Z.mul d01 d01)))
+        (Z.mul (Z.mul (Z.mul ng2 ng2) n01) n01))
+
+  (** val cleared_g12345_H55_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H55_Z _ n00 _ n01 d10 n10 _ n11 ng1 dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n11) dg2) dg3) dg4) dg5)
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n11) dg2) dg3) dg4) dg5))
+      (Z.sub (Z.mul (Z.mul dg1 dg1) (Z.sub (Z.mul n10 n10) (Z.mul d10 d10)))
+        (Z.mul (Z.mul (Z.mul ng1 ng1) n10) n10))
+
+  (** val cleared_g12345_H66_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H66_Z _ n00 _ n01 _ n10 d11 n11 _ dg1 ng2 dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n10) dg1) dg3) dg4) dg5)
+        (Z.mul
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n10) dg1) dg3) dg4) dg5))
+      (Z.sub (Z.mul (Z.mul dg2 dg2) (Z.sub (Z.mul n11 n11) (Z.mul d11 d11)))
+        (Z.mul (Z.mul (Z.mul ng2 ng2) n11) n11))
+
+  (** val cleared_g12345_H12_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 _ dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n10) n11)
+          (Z.mul (Z.mul (Z.mul (Z.mul dg1 dg2) dg3) dg4) dg5))
+        (Z.mul (Z.mul (Z.mul (Z.mul dg1 dg2) dg3) dg4) dg5))
+      (Z.opp
+        (Z.add (Z.mul (Z.mul (Z.mul d00 d01) n10) n11)
+          (Z.mul (Z.mul (Z.mul d10 d11) n00) n01)))
+
+  (** val cleared_g12345_H13_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H13_Z _ n00 _ n01 d10 n10 _ n11 ng1 dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul
+                            (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01)
+                              n10) n11) n11) dg1) dg2) dg2) dg3) dg3) dg4)
+            dg4) dg5) dg5) (Z.opp (Z.mul d10 ng1))
+
+  (** val cleared_g12345_H14_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H14_Z _ n00 _ n01 d10 n10 _ n11 _ dg1 ng2 dg2 ng3 dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) n10)
+                          n11) n11) dg1) dg1) dg2) dg3) dg4) dg4) dg5) dg5)
+      (Z.sub (Z.mul (Z.mul ng3 n10) dg2) (Z.mul (Z.mul d10 ng2) dg3))
+
+  (** val cleared_g12345_H15_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H15_Z d00 n00 _ n01 _ n10 _ n11 ng1 dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul
+                            (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n01) n10)
+                              n10) n11) n11) dg1) dg2) dg2) dg3) dg3) dg4)
+            dg4) dg5) dg5) (Z.opp (Z.mul d00 ng1))
+
+  (** val cleared_g12345_H16_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H16_Z d00 n00 _ n01 _ n10 _ n11 _ dg1 ng2 dg2 _ dg3 ng4 dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n01) n10) n10)
+                          n11) n11) dg1) dg1) dg2) dg3) dg3) dg4) dg5) dg5)
+      (Z.sub (Z.mul (Z.mul ng4 n00) dg2) (Z.mul (Z.mul d00 ng2) dg4))
+
+  (** val cleared_g12345_H23_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H23_Z _ n00 _ n01 _ n10 d11 n11 ng1 dg1 _ dg2 ng3 dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) n10)
+                          n10) n11) dg1) dg2) dg2) dg3) dg4) dg4) dg5) dg5)
+      (Z.sub (Z.mul (Z.mul ng3 n11) dg1) (Z.mul (Z.mul d11 ng1) dg3))
+
+  (** val cleared_g12345_H24_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H24_Z _ n00 _ n01 _ n10 d11 n11 _ dg1 ng2 dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul
+                            (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01)
+                              n10) n10) n11) dg1) dg1) dg2) dg3) dg3) dg4)
+            dg4) dg5) dg5) (Z.opp (Z.mul d11 ng2))
+
+  (** val cleared_g12345_H25_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H25_Z _ n00 d01 n01 _ n10 _ n11 ng1 dg1 _ dg2 _ dg3 ng4 dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10) n10)
+                          n11) n11) dg1) dg2) dg2) dg3) dg3) dg4) dg5) dg5)
+      (Z.sub (Z.mul (Z.mul ng4 n01) dg1) (Z.mul (Z.mul d01 ng1) dg4))
+
+  (** val cleared_g12345_H26_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H26_Z _ n00 d01 n01 _ n10 _ n11 _ dg1 ng2 dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul
+                            (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10)
+                              n10) n11) n11) dg1) dg1) dg2) dg3) dg3) dg4)
+            dg4) dg5) dg5) (Z.opp (Z.mul d01 ng2))
+
+  (** val cleared_g12345_H34_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H34_Z d00 n00 d01 n01 _ n10 _ n11 ng1 dg1 ng2 dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n10) n10) n11)
+                        n11) dg1) dg2) dg3) dg3) dg4) dg4) dg5) dg5)
+      (Z.opp
+        (Z.add (Z.mul (Z.mul (Z.mul d00 d01) dg1) dg2)
+          (Z.mul (Z.mul (Z.mul ng1 ng2) n00) n01)))
+
+  (** val cleared_g12345_H35_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H35_Z d00 n00 _ n01 d10 n10 _ n11 _ dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul
+                            (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n01) n10)
+                              n11) n11) dg1) dg1) dg2) dg2) dg3) dg3) dg4)
+            dg4) dg5) dg5) (Z.opp (Z.mul d00 d10))
+
+  (** val cleared_g12345_H36_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H36_Z d00 n00 _ n01 _ n10 d11 n11 _ dg1 _ dg2 _ dg3 _ dg4 ng5 dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul (Z.mul (Z.mul (Z.mul n00 n01) n01) n10) n10)
+                          n11) dg1) dg1) dg2) dg2) dg3) dg3) dg4) dg4) dg5)
+      (Z.sub (Z.mul (Z.mul ng5 n00) n11) (Z.mul (Z.mul d00 d11) dg5))
+
+  (** val cleared_g12345_H45_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H45_Z _ n00 d01 n01 d10 n10 _ n11 _ dg1 _ dg2 _ dg3 _ dg4 ng5 dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10) n11)
+                          n11) dg1) dg1) dg2) dg2) dg3) dg3) dg4) dg4) dg5)
+      (Z.sub (Z.mul (Z.mul ng5 n01) n10) (Z.mul (Z.mul d01 d10) dg5))
+
+  (** val cleared_g12345_H46_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H46_Z _ n00 d01 n01 _ n10 d11 n11 _ dg1 _ dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul
+                          (Z.mul
+                            (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10)
+                              n10) n11) dg1) dg1) dg2) dg2) dg3) dg3) dg4)
+            dg4) dg5) dg5) (Z.opp (Z.mul d01 d11))
+
+  (** val cleared_g12345_H56_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_H56_Z _ n00 _ n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 _ dg3 _ dg4 _ dg5 =
+    Z.mul
+      (Z.mul
+        (Z.mul
+          (Z.mul
+            (Z.mul
+              (Z.mul
+                (Z.mul
+                  (Z.mul
+                    (Z.mul
+                      (Z.mul
+                        (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n01) n10)
+                        n11) dg1) dg2) dg3) dg3) dg4) dg4) dg5) dg5)
+      (Z.opp
+        (Z.add (Z.mul (Z.mul (Z.mul d10 d11) dg1) dg2)
+          (Z.mul (Z.mul (Z.mul ng1 ng2) n10) n11)))
+
+  (** val schur_step_Z : int -> int -> int -> int -> int **)
+
+  let schur_step_Z h11 hij h1i h1j =
+    Z.sub (Z.mul h11 hij) (Z.mul h1i h1j)
+
+  (** val cleared_g12345_S6_22_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_23_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_24_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_25_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H15_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_26_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_26_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H26_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H12_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H16_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_33_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_34_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_35_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H15_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_36_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_36_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H36_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H13_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H16_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_44_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_45_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H15_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_46_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_46_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H46_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H14_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H16_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_55_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H15_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H15_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_56_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_56_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H56_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H15_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H16_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S6_66_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S6_66_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H66_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H16_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_H16_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_22_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_23_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_24_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_25_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_36_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_26_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_33_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_34_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_35_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_46_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_26_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_44_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_45_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_56_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_26_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val cleared_g12345_S5_55_Z :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> int **)
+
+  let cleared_g12345_S5_55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    schur_step_Z
+      (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_66_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_26_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+      (cleared_g12345_S6_26_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2
+        ng3 dg3 ng4 dg4 ng5 dg5)
+
+  (** val q1ab_g12345_check_z_kernel :
+      int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->
+      int -> int -> int -> int -> int -> int -> int -> int -> bool **)
+
+  let q1ab_g12345_check_z_kernel d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5 =
+    (&&)
+      ((&&)
+        ((&&)
+          ((&&)
+            ((&&)
+              ((&&)
+                ((&&)
+                  ((&&)
+                    ((&&)
+                      ((&&)
+                        ((&&)
+                          ((&&)
+                            ((&&)
+                              ((&&)
+                                ((&&)
+                                  ((&&)
+                                    ((&&)
+                                      ((&&)
+                                        ((&&)
+                                          ((&&)
+                                            ((&&)
+                                              ((&&)
+                                                ((&&)
+                                                  ((&&) (Z.ltb 0 n00)
+                                                    (Z.ltb 0 n01))
+                                                  (Z.ltb 0 n10))
+                                                (Z.ltb 0 n11)) (Z.ltb 0 dg1))
+                                            (Z.ltb 0 dg2)) (Z.ltb 0 dg3))
+                                        (Z.ltb 0 dg4)) (Z.ltb 0 dg5))
+                                    (Z.ltb (Z.opp dg1) ng1)) (Z.ltb ng1 dg1))
+                                (Z.ltb (Z.opp dg2) ng2)) (Z.ltb ng2 dg2))
+                            (Z.ltb (Z.opp dg3) ng3)) (Z.ltb ng3 dg3))
+                        (Z.ltb (Z.opp dg4) ng4)) (Z.ltb ng4 dg4))
+                    (Z.ltb (Z.opp dg5) ng5)) (Z.ltb ng5 dg5))
+                (Z.ltb 0
+                  (cleared_g12345_H11_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                    dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)))
+              (Z.ltb 0
+                (cleared_g12345_S6_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)))
+            (Z.ltb 0
+              (sym4_d1_Z
+                (cleared_g12345_S5_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+                (cleared_g12345_S5_55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1
+                  dg1 ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5))))
+          (Z.ltb 0
+            (sym4_d2_Z
+              (cleared_g12345_S5_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+              (cleared_g12345_S5_55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+                ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5))))
+        (Z.ltb 0
+          (sym4_d3_Z
+            (cleared_g12345_S5_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+            (cleared_g12345_S5_55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1
+              ng2 dg2 ng3 dg3 ng4 dg4 ng5 dg5))))
+      (Z.ltb 0
+        (sym4_d4_Z
+          (cleared_g12345_S5_22_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_23_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_24_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_25_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_33_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_34_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_35_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_44_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_45_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)
+          (cleared_g12345_S5_55_Z d00 n00 d01 n01 d10 n10 d11 n11 ng1 dg1 ng2
+            dg2 ng3 dg3 ng4 dg4 ng5 dg5)))
+
+  (** val q1ab_g12345_full_integer_check_kernel :
+      witnessCounts -> int -> int -> int -> int -> int -> int -> int -> int
+      -> int -> int -> bool **)
+
+  let q1ab_g12345_full_integer_check_kernel wc same_g1 diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =
+    let ng1 = chsh_d_z same_g1 diff_g1 in
+    let dg1 = chsh_n_z same_g1 diff_g1 in
+    let ng2 = chsh_d_z same_g2 diff_g2 in
+    let dg2 = chsh_n_z same_g2 diff_g2 in
+    let ng3 = chsh_d_z same_g3 diff_g3 in
+    let dg3 = chsh_n_z same_g3 diff_g3 in
+    let ng4 = chsh_d_z same_g4 diff_g4 in
+    let dg4 = chsh_n_z same_g4 diff_g4 in
+    let ng5 = chsh_d_z same_g5 diff_g5 in
+    let dg5 = chsh_n_z same_g5 diff_g5 in
+    (&&) (column_contractive_check_witness wc)
+      (q1ab_g12345_check_z_kernel (chsh_d_z wc.wc_same_00 wc.wc_diff_00)
+        (chsh_n_z wc.wc_same_00 wc.wc_diff_00)
+        (chsh_d_z wc.wc_same_01 wc.wc_diff_01)
+        (chsh_n_z wc.wc_same_01 wc.wc_diff_01)
+        (chsh_d_z wc.wc_same_10 wc.wc_diff_10)
+        (chsh_n_z wc.wc_same_10 wc.wc_diff_10)
+        (chsh_d_z wc.wc_same_11 wc.wc_diff_11)
+        (chsh_n_z wc.wc_same_11 wc.wc_diff_11) ng1 dg1 ng2 dg2 ng3 dg3 ng4
+        dg4 ng5 dg5)
+
   (** val lassert_check_ok : vMState -> int -> int -> bool -> bool **)
 
   let lassert_check_ok s freg creg kind =
@@ -2724,9 +4282,9 @@ module VMStep =
     let cbase = read_reg s creg in
     let hw_flen = read_mem s fbase in
     let formula_words =
-      map (fun i -> read_mem s (add fbase i))
+      map (fun i -> read_mem s ((+) fbase i))
         (seq 0
-          (add ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) 0)))
+          ((+) ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1) 0)))
             hw_flen))
     in
     let num_vars =
@@ -2736,9 +4294,9 @@ module VMStep =
                  | [] -> 0
                  | nv::_ -> nv)
     in
-    let get_model = fun var -> read_mem s (add cbase var) in
+    let get_model = fun var -> read_mem s ((+) cbase var) in
     let get_countermodel = fun var ->
-      read_mem s (add (add cbase num_vars) var)
+      read_mem s ((+) ((+) cbase num_vars) var)
     in
     if kind
     then (&&) (CertCheck.check_model_binary_fn formula_words get_model)
@@ -4007,20 +5565,20 @@ let vm_apply s = function
     value, bits, cost)) s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
 | VMStep.Coq_instr_heap_load (dst, rs_addr, cost) ->
   let addr = read_reg s rs_addr in
-  let value = read_mem s (add s.vm_csrs.csr_heap_base addr) in
+  let value = read_mem s ((+) s.vm_csrs.csr_heap_base addr) in
   let regs' = write_reg s dst value in
   VMStep.advance_state_rm s (VMStep.Coq_instr_heap_load (dst, rs_addr, cost))
     s.vm_graph s.vm_csrs regs' s.vm_mem s.vm_err
 | VMStep.Coq_instr_heap_store (rs_addr, src, cost) ->
   let addr = read_reg s rs_addr in
   let value = read_reg s src in
-  let mem' = write_mem s (add s.vm_csrs.csr_heap_base addr) value in
+  let mem' = write_mem s ((+) s.vm_csrs.csr_heap_base addr) value in
   VMStep.advance_state_rm s (VMStep.Coq_instr_heap_store (rs_addr, src,
     cost)) s.vm_graph s.vm_csrs s.vm_regs mem' s.vm_err
 | VMStep.Coq_instr_certify delta_mu ->
   { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs; vm_mem =
     s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
-    (add s.vm_mu ((fun x -> x + 1) delta_mu)); vm_mu_tensor = s.vm_mu_tensor;
+    ((+) s.vm_mu ((fun x -> x + 1) delta_mu)); vm_mu_tensor = s.vm_mu_tensor;
     vm_err = s.vm_err; vm_logic_acc = s.vm_logic_acc; vm_mstatus =
     s.vm_mstatus; vm_witness = s.vm_witness; vm_certified = true }
 | VMStep.Coq_instr_and (dst, rs1, rs2, cost) ->
@@ -4067,8 +5625,8 @@ let vm_apply s = function
   then VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
          cost))
          (graph_update_module_tensor s.vm_graph mid
-           (add
-             (mul i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
+           ((+)
+             (( * ) i ((fun x -> x + 1) ((fun x -> x + 1) ((fun x -> x + 1)
                ((fun x -> x + 1) 0))))) j) value) s.vm_csrs s.vm_err
   else VMStep.advance_state s (VMStep.Coq_instr_tensor_set (mid, i, j, value,
          cost)) s.vm_graph (csr_set_err s.vm_csrs ((fun x -> x + 1) 0))
@@ -4178,6 +5736,80 @@ let vm_apply s = function
          vm_mu_tensor = s.vm_mu_tensor; vm_err = true; vm_logic_acc =
          s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness =
          s.vm_witness; vm_certified = s.vm_certified }
+| VMStep.Coq_instr_chsh_lassert_1ab mu_delta ->
+  if VMStep.column_contractive_check_q1ab_kernel s.vm_witness
+  then { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab mu_delta));
+         vm_mu_tensor = s.vm_mu_tensor; vm_err = s.vm_err; vm_logic_acc =
+         s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness =
+         s.vm_witness; vm_certified = s.vm_certified }
+  else { vm_graph = s.vm_graph; vm_csrs =
+         (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)); vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = VMStep.coq_LASSERT_TRAP_PC; vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab mu_delta));
+         vm_mu_tensor = s.vm_mu_tensor; vm_err = true; vm_logic_acc =
+         s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness =
+         s.vm_witness; vm_certified = s.vm_certified }
+| VMStep.Coq_instr_chsh_lassert_1ab_g5 (mu_delta, same_g5, diff_g5) ->
+  if VMStep.q1ab_g5_full_integer_check_kernel s.vm_witness same_g5 diff_g5
+  then { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab_g5
+           (mu_delta, same_g5, diff_g5))); vm_mu_tensor = s.vm_mu_tensor;
+         vm_err = s.vm_err; vm_logic_acc = s.vm_logic_acc; vm_mstatus =
+         s.vm_mstatus; vm_witness = s.vm_witness; vm_certified =
+         s.vm_certified }
+  else { vm_graph = s.vm_graph; vm_csrs =
+         (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)); vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = VMStep.coq_LASSERT_TRAP_PC; vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab_g5
+           (mu_delta, same_g5, diff_g5))); vm_mu_tensor = s.vm_mu_tensor;
+         vm_err = true; vm_logic_acc = s.vm_logic_acc; vm_mstatus =
+         s.vm_mstatus; vm_witness = s.vm_witness; vm_certified =
+         s.vm_certified }
+| VMStep.Coq_instr_chsh_lassert_1ab_g345 (mu_delta, same_g3, diff_g3,
+                                          same_g4, diff_g4, same_g5, diff_g5) ->
+  if VMStep.q1ab_g345_full_integer_check_kernel s.vm_witness same_g3 diff_g3
+       same_g4 diff_g4 same_g5 diff_g5
+  then { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab_g345
+           (mu_delta, same_g3, diff_g3, same_g4, diff_g4, same_g5, diff_g5)));
+         vm_mu_tensor = s.vm_mu_tensor; vm_err = s.vm_err; vm_logic_acc =
+         s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness =
+         s.vm_witness; vm_certified = s.vm_certified }
+  else { vm_graph = s.vm_graph; vm_csrs =
+         (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)); vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = VMStep.coq_LASSERT_TRAP_PC; vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab_g345
+           (mu_delta, same_g3, diff_g3, same_g4, diff_g4, same_g5, diff_g5)));
+         vm_mu_tensor = s.vm_mu_tensor; vm_err = true; vm_logic_acc =
+         s.vm_logic_acc; vm_mstatus = s.vm_mstatus; vm_witness =
+         s.vm_witness; vm_certified = s.vm_certified }
+| VMStep.Coq_instr_chsh_lassert_1ab_g12345 (mu_delta, same_g1, diff_g1,
+                                            same_g2, diff_g2, same_g3,
+                                            diff_g3, same_g4, diff_g4,
+                                            same_g5, diff_g5) ->
+  if VMStep.q1ab_g12345_full_integer_check_kernel s.vm_witness same_g1
+       diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5
+  then { vm_graph = s.vm_graph; vm_csrs = s.vm_csrs; vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = ((fun x -> x + 1) s.vm_pc); vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab_g12345
+           (mu_delta, same_g1, diff_g1, same_g2, diff_g2, same_g3, diff_g3,
+           same_g4, diff_g4, same_g5, diff_g5))); vm_mu_tensor =
+         s.vm_mu_tensor; vm_err = s.vm_err; vm_logic_acc = s.vm_logic_acc;
+         vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness; vm_certified =
+         s.vm_certified }
+  else { vm_graph = s.vm_graph; vm_csrs =
+         (csr_set_err s.vm_csrs ((fun x -> x + 1) 0)); vm_regs = s.vm_regs;
+         vm_mem = s.vm_mem; vm_pc = VMStep.coq_LASSERT_TRAP_PC; vm_mu =
+         (VMStep.apply_cost s (VMStep.Coq_instr_chsh_lassert_1ab_g12345
+           (mu_delta, same_g1, diff_g1, same_g2, diff_g2, same_g3, diff_g3,
+           same_g4, diff_g4, same_g5, diff_g5))); vm_mu_tensor =
+         s.vm_mu_tensor; vm_err = true; vm_logic_acc = s.vm_logic_acc;
+         vm_mstatus = s.vm_mstatus; vm_witness = s.vm_witness; vm_certified =
+         s.vm_certified }
 | x -> VMStep.advance_state s x s.vm_graph s.vm_csrs s.vm_err
 
 (** val vm_apply_nofi : vMState -> VMStep.vm_instruction -> vMState **)

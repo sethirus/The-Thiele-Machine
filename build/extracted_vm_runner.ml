@@ -503,6 +503,28 @@ let parse_program (lines : string list) : int * int list * int list * int * int 
         Some (Instr (Coq_instr_morph_get (safe_int dst, safe_int morph_id, safe_int selector, safe_int cost)))
       | [ "CHSH_LASSERT"; cost ] ->
         Some (Instr (Coq_instr_chsh_lassert (safe_int cost)))
+      | [ "CHSH_LASSERT_1AB"; cost ] ->
+        Some (Instr (Coq_instr_chsh_lassert_1ab (safe_int cost)))
+      | [ "CHSH_LASSERT_1AB_G5"; cost; same_g5; diff_g5 ] ->
+        Some (Instr (Coq_instr_chsh_lassert_1ab_g5
+                       (safe_int cost, safe_int same_g5, safe_int diff_g5)))
+      | [ "CHSH_LASSERT_1AB_G345"; cost;
+          same_g3; diff_g3; same_g4; diff_g4; same_g5; diff_g5 ] ->
+        Some (Instr (Coq_instr_chsh_lassert_1ab_g345
+                       (safe_int cost,
+                        safe_int same_g3, safe_int diff_g3,
+                        safe_int same_g4, safe_int diff_g4,
+                        safe_int same_g5, safe_int diff_g5)))
+      | [ "CHSH_LASSERT_1AB_G12345"; cost;
+          same_g1; diff_g1; same_g2; diff_g2;
+          same_g3; diff_g3; same_g4; diff_g4; same_g5; diff_g5 ] ->
+        Some (Instr (Coq_instr_chsh_lassert_1ab_g12345
+                       (safe_int cost,
+                        safe_int same_g1, safe_int diff_g1,
+                        safe_int same_g2, safe_int diff_g2,
+                        safe_int same_g3, safe_int diff_g3,
+                        safe_int same_g4, safe_int diff_g4,
+                        safe_int same_g5, safe_int diff_g5)))
       | _ -> failwith ("unrecognized instruction line: " ^ t)
   in
   let elements = lines |> List.filter_map parse_line in

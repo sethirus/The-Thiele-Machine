@@ -13721,6 +13721,11 @@ Extract Constant VMState.word64 => "(fun x -> x)".
 Extract Constant Kernel.CertCheck.CertCheck.word32_to_signed =>
   "(fun w -> if w < 2147483648 then w else w - 4294967296)".
 
+(* Mirror Extraction.v's Extraction Inline directives so both extractions
+   suppress emission of unused Nat helpers and stay byte-identical. *)
+Extraction Inline Coq.Init.Nat.pred Coq.Init.Nat.add Coq.Init.Nat.mul
+                  Coq.Init.Nat.pow Coq.Init.Nat.log2 Coq.Init.Nat.log2_iter.
+
 (** CORE EXTRACTION: this file extracts thiele_core_complete.ml directly.
 
     The Extract Constant directives above target the SAME kernel-qualified

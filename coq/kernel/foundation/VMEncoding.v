@@ -1060,6 +1060,23 @@ Definition compile_vm_operation (instr : vm_instruction) : program :=
   | instr_chsh_lassert _ =>
       (* CHSH-aware certification: column-contractivity check on witness counters. *)
       [T_Halt]
+  | instr_chsh_lassert_1ab _ =>
+      (* Q_{1+AB}-aware certification: extends CHSH_LASSERT with the integer
+         sum-of-squares condition. Same encoding shape (cert-setter, no operands
+         other than mu_delta). *)
+      [T_Halt]
+  | instr_chsh_lassert_1ab_g5 _ _ _ =>
+      (* Q_{1+AB}-aware γ_5 certification: carries a γ_5 nat bucket pair
+         (same_g5, diff_g5) in addition to mu_delta. *)
+      [T_Halt]
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ =>
+      (* Q_{1+AB}-aware γ_{3,4,5} certification: carries three γ-bucket
+         pairs (same_g_k, diff_g_k) for k=3,4,5 in addition to mu_delta. *)
+      [T_Halt]
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ =>
+      (* Full Q_{1+AB}-aware γ_{1..5} certification: carries five γ-bucket
+         pairs (same_g_k, diff_g_k) for k=1..5 in addition to mu_delta. *)
+      [T_Halt]
   end.
 
 (** ** Layout bounds proof *)

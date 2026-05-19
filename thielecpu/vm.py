@@ -275,7 +275,7 @@ class VMState:
 # Cert-setter opcodes (from is_cert_setterb in thiele_core.ml)
 # These require positive cost (NoFI enforcement).
 # ---------------------------------------------------------------------------
-_CERT_SETTERS: frozenset = frozenset({"certify", "chsh_lassert", "emit", "lassert", "ljoin", "morph_assert", "read_port", "reveal"})
+_CERT_SETTERS: frozenset = frozenset({"certify", "chsh_lassert", "chsh_lassert_1ab", "chsh_lassert_1ab_g12345", "chsh_lassert_1ab_g345", "chsh_lassert_1ab_g5", "emit", "lassert", "ljoin", "morph_assert", "read_port", "reveal"})
 
 # ---------------------------------------------------------------------------
 # _parse_instruction_dict: parses text tokens to instruction dict.
@@ -695,6 +695,48 @@ def _parse_instruction_dict(toks: List[str]) -> Optional[Dict[str, Any]]:
             "mu_delta": _parse_int(toks[1]),
         }
 
+    if op == "CHSH_LASSERT_1AB" and len(toks) >= 2:
+        return {
+            "op": "chsh_lassert_1ab",
+            "mu_delta": _parse_int(toks[1]),
+        }
+
+    if op == "CHSH_LASSERT_1AB_G5" and len(toks) >= 4:
+        return {
+            "op": "chsh_lassert_1ab_g5",
+            "mu_delta": _parse_int(toks[1]),
+            "same_g5": _parse_int(toks[2]),
+            "diff_g5": _parse_int(toks[3]),
+        }
+
+    if op == "CHSH_LASSERT_1AB_G345" and len(toks) >= 8:
+        return {
+            "op": "chsh_lassert_1ab_g345",
+            "mu_delta": _parse_int(toks[1]),
+            "same_g3": _parse_int(toks[2]),
+            "diff_g3": _parse_int(toks[3]),
+            "same_g4": _parse_int(toks[4]),
+            "diff_g4": _parse_int(toks[5]),
+            "same_g5": _parse_int(toks[6]),
+            "diff_g5": _parse_int(toks[7]),
+        }
+
+    if op == "CHSH_LASSERT_1AB_G12345" and len(toks) >= 12:
+        return {
+            "op": "chsh_lassert_1ab_g12345",
+            "mu_delta": _parse_int(toks[1]),
+            "same_g1": _parse_int(toks[2]),
+            "diff_g1": _parse_int(toks[3]),
+            "same_g2": _parse_int(toks[4]),
+            "diff_g2": _parse_int(toks[5]),
+            "same_g3": _parse_int(toks[6]),
+            "diff_g3": _parse_int(toks[7]),
+            "same_g4": _parse_int(toks[8]),
+            "diff_g4": _parse_int(toks[9]),
+            "same_g5": _parse_int(toks[10]),
+            "diff_g5": _parse_int(toks[11]),
+        }
+
     if op == "REVEAL" and len(toks) >= 4:
         ti = _parse_int(toks[1])
         tj = _parse_int(toks[2])
@@ -893,6 +935,14 @@ def instr_dict_to_text(instr: Dict[str, Any]) -> str:
         return "MORPH_GET" + " " + str(int(instr.get("dst", 0))) + " " + str(int(instr.get("morph_id", 0))) + " " + str(int(instr.get("selector", 0))) + " " + str(int(instr.get("mu_delta", 0)))
     if op == "chsh_lassert":
         return "CHSH_LASSERT" + " " + str(int(instr.get("mu_delta", 0)))
+    if op == "chsh_lassert_1ab":
+        return "CHSH_LASSERT_1AB" + " " + str(int(instr.get("mu_delta", 0)))
+    if op == "chsh_lassert_1ab_g5":
+        return "CHSH_LASSERT_1AB_G5" + " " + str(int(instr.get("mu_delta", 0))) + " " + str(int(instr.get("same_g5", 0))) + " " + str(int(instr.get("diff_g5", 0)))
+    if op == "chsh_lassert_1ab_g345":
+        return "CHSH_LASSERT_1AB_G345" + " " + str(int(instr.get("mu_delta", 0))) + " " + str(int(instr.get("same_g3", 0))) + " " + str(int(instr.get("diff_g3", 0))) + " " + str(int(instr.get("same_g4", 0))) + " " + str(int(instr.get("diff_g4", 0))) + " " + str(int(instr.get("same_g5", 0))) + " " + str(int(instr.get("diff_g5", 0)))
+    if op == "chsh_lassert_1ab_g12345":
+        return "CHSH_LASSERT_1AB_G12345" + " " + str(int(instr.get("mu_delta", 0))) + " " + str(int(instr.get("same_g1", 0))) + " " + str(int(instr.get("diff_g1", 0))) + " " + str(int(instr.get("same_g2", 0))) + " " + str(int(instr.get("diff_g2", 0))) + " " + str(int(instr.get("same_g3", 0))) + " " + str(int(instr.get("diff_g3", 0))) + " " + str(int(instr.get("same_g4", 0))) + " " + str(int(instr.get("diff_g4", 0))) + " " + str(int(instr.get("same_g5", 0))) + " " + str(int(instr.get("diff_g5", 0)))
     if op == "lassert":
         if "freg" in instr or "creg" in instr or "flen" in instr:
             freg = int(instr.get("freg", 0))

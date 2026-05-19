@@ -56,6 +56,10 @@ Definition is_classical_opcode (i : vm_instruction) : bool :=
   | instr_morph_assert _ _ _ _ => false  (* modifies cert_addr *)
   | instr_morph_tensor _ _ _ _ => false  (* modifies graph *)
   | instr_chsh_lassert _       => false  (* cert-setter: column-contractivity check on witness counters *)
+  | instr_chsh_lassert_1ab _   => false  (* cert-setter: Q_{1+AB} check on witness counters *)
+  | instr_chsh_lassert_1ab_g5 _ _ _ => false  (* cert-setter: γ_5-aware Q_{1+AB} check *)
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => false  (* cert-setter: γ_{3,4,5}-aware Q_{1+AB} 4×4 Sylvester check *)
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => false  (* cert-setter: full γ_{1..5}-aware Q_{1+AB} 6×6 Schur cascade *)
   | _                          => true
   end.
 

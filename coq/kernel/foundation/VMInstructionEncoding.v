@@ -130,6 +130,23 @@ Definition encode_vm_instruction (i : vm_instruction) : list bool :=
       encode_nat 45 ++ encode_nat d ++ encode_nat mid ++ encode_nat sel ++ encode_nat mu_delta
   | instr_chsh_lassert mu_delta =>
       encode_nat 46 ++ encode_nat mu_delta
+  | instr_chsh_lassert_1ab mu_delta =>
+      encode_nat 47 ++ encode_nat mu_delta
+  | instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5 =>
+      encode_nat 48 ++ encode_nat mu_delta ++ encode_nat same_g5 ++ encode_nat diff_g5
+  | instr_chsh_lassert_1ab_g345 mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =>
+      encode_nat 49 ++ encode_nat mu_delta
+        ++ encode_nat same_g3 ++ encode_nat diff_g3
+        ++ encode_nat same_g4 ++ encode_nat diff_g4
+        ++ encode_nat same_g5 ++ encode_nat diff_g5
+  | instr_chsh_lassert_1ab_g12345 mu_delta same_g1 diff_g1 same_g2 diff_g2
+                                     same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =>
+      encode_nat 50 ++ encode_nat mu_delta
+        ++ encode_nat same_g1 ++ encode_nat diff_g1
+        ++ encode_nat same_g2 ++ encode_nat diff_g2
+        ++ encode_nat same_g3 ++ encode_nat diff_g3
+        ++ encode_nat same_g4 ++ encode_nat diff_g4
+        ++ encode_nat same_g5 ++ encode_nat diff_g5
   end.
 
 (** Decoder. Reads the tag and dispatches; on tag mismatch returns None. *)
@@ -433,6 +450,43 @@ Definition decode_vm_instruction (bs : list bool)
       match decode_nat r0 with Some (d, r1) =>
         Some (instr_chsh_lassert d, r1)
       | _ => None end
+    | 47 =>
+      match decode_nat r0 with Some (d, r1) =>
+        Some (instr_chsh_lassert_1ab d, r1)
+      | _ => None end
+    | 48 =>
+      match decode_nat r0 with Some (d, r1) =>
+      match decode_nat r1 with Some (sg, r2) =>
+      match decode_nat r2 with Some (dg, r3) =>
+        Some (instr_chsh_lassert_1ab_g5 d sg dg, r3)
+      | _ => None end | _ => None end | _ => None end
+    | 49 =>
+      match decode_nat r0 with Some (d, r1) =>
+      match decode_nat r1 with Some (sg3, r2) =>
+      match decode_nat r2 with Some (dg3, r3) =>
+      match decode_nat r3 with Some (sg4, r4) =>
+      match decode_nat r4 with Some (dg4, r5) =>
+      match decode_nat r5 with Some (sg5, r6) =>
+      match decode_nat r6 with Some (dg5, r7) =>
+        Some (instr_chsh_lassert_1ab_g345 d sg3 dg3 sg4 dg4 sg5 dg5, r7)
+      | _ => None end | _ => None end | _ => None end
+      | _ => None end | _ => None end | _ => None end | _ => None end
+    | 50 =>
+      match decode_nat r0 with Some (d, r1) =>
+      match decode_nat r1 with Some (sg1, r2) =>
+      match decode_nat r2 with Some (dg1, r3) =>
+      match decode_nat r3 with Some (sg2, r4) =>
+      match decode_nat r4 with Some (dg2, r5) =>
+      match decode_nat r5 with Some (sg3, r6) =>
+      match decode_nat r6 with Some (dg3, r7) =>
+      match decode_nat r7 with Some (sg4, r8) =>
+      match decode_nat r8 with Some (dg4, r9) =>
+      match decode_nat r9 with Some (sg5, r10) =>
+      match decode_nat r10 with Some (dg5, r11) =>
+        Some (instr_chsh_lassert_1ab_g12345 d sg1 dg1 sg2 dg2 sg3 dg3 sg4 dg4 sg5 dg5, r11)
+      | _ => None end | _ => None end | _ => None end | _ => None end
+      | _ => None end | _ => None end | _ => None end | _ => None end
+      | _ => None end | _ => None end | _ => None end
     | _ => None
     end
   end.

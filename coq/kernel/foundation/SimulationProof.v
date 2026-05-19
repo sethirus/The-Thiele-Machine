@@ -586,6 +586,136 @@ Definition vm_apply (s : VMState) (instr : vm_instruction) : VMState :=
            vm_mstatus := s.(vm_mstatus);
            vm_witness := s.(vm_witness);
            vm_certified := s.(vm_certified) |}
+  | instr_chsh_lassert_1ab mu_delta =>
+      (* Q_{1+AB}-aware certification: combines column_contractive_check_witness
+         with the integer sum-of-squares condition E^2 <= 1.
+         Matches step_chsh_lassert_1ab_ok / _bad in VMStep.v. *)
+      if column_contractive_check_q1ab_kernel s.(vm_witness) then
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := s.(vm_csrs);
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := S s.(vm_pc);
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab mu_delta);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := s.(vm_err);
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+      else
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := csr_set_err s.(vm_csrs) 1;
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := LASSERT_TRAP_PC;
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab mu_delta);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := true;
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+  | instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5 =>
+      (* Q_{1+AB}-aware γ_5 certification: runs the full integer-witnessed
+         γ_5 check (Q_1 column-contractive + γ_5 SOS witness). Matches
+         step_chsh_lassert_1ab_g5_ok / _bad in VMStep.v. *)
+      if q1ab_g5_full_integer_check_kernel s.(vm_witness) same_g5 diff_g5 then
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := s.(vm_csrs);
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := S s.(vm_pc);
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := s.(vm_err);
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+      else
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := csr_set_err s.(vm_csrs) 1;
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := LASSERT_TRAP_PC;
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := true;
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+  | instr_chsh_lassert_1ab_g345 mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =>
+      (* Q_{1+AB}-aware γ_{3,4,5} certification: runs the full integer-witnessed
+         γ_{3,4,5} check (Q_1 column-contractive + 4×4 Sylvester PD on H_{γ_345}).
+         Matches step_chsh_lassert_1ab_g345_ok / _bad in VMStep.v. *)
+      if q1ab_g345_full_integer_check_kernel s.(vm_witness)
+           same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 then
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := s.(vm_csrs);
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := S s.(vm_pc);
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab_g345 mu_delta
+                                    same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := s.(vm_err);
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+      else
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := csr_set_err s.(vm_csrs) 1;
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := LASSERT_TRAP_PC;
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab_g345 mu_delta
+                                    same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := true;
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+  | instr_chsh_lassert_1ab_g12345 mu_delta same_g1 diff_g1 same_g2 diff_g2
+                                     same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =>
+      (* Full Q_{1+AB}-aware γ_{1..5} certification: runs the full integer
+         6×6 Schur-cascade check (Q_1 column-contractive + Schur cascade PD).
+         Matches step_chsh_lassert_1ab_g12345_ok / _bad in VMStep.v. *)
+      if q1ab_g12345_full_integer_check_kernel s.(vm_witness)
+           same_g1 diff_g1 same_g2 diff_g2
+           same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 then
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := s.(vm_csrs);
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := S s.(vm_pc);
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab_g12345 mu_delta
+                                    same_g1 diff_g1 same_g2 diff_g2
+                                    same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := s.(vm_err);
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
+      else
+        {| vm_graph := s.(vm_graph);
+           vm_csrs := csr_set_err s.(vm_csrs) 1;
+           vm_regs := s.(vm_regs);
+           vm_mem := s.(vm_mem);
+           vm_pc := LASSERT_TRAP_PC;
+           vm_mu := apply_cost s (instr_chsh_lassert_1ab_g12345 mu_delta
+                                    same_g1 diff_g1 same_g2 diff_g2
+                                    same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
+           vm_mu_tensor := s.(vm_mu_tensor);
+           vm_err := true;
+           vm_logic_acc := s.(vm_logic_acc);
+           vm_mstatus := s.(vm_mstatus);
+           vm_witness := s.(vm_witness);
+           vm_certified := s.(vm_certified) |}
   end.
 
 Definition vm_apply_unsafe : VMState -> vm_instruction -> VMState := vm_apply.
@@ -661,7 +791,10 @@ Lemma vm_step_pc_advance :
     vm_step s instr s' ->
     (match instr with
      | instr_jump _ _ | instr_jnez _ _ _ | instr_call _ _ | instr_ret _
-     | instr_lassert _ _ _ _ _ | instr_chsh_lassert _ => True
+     | instr_lassert _ _ _ _ _ | instr_chsh_lassert _
+     | instr_chsh_lassert_1ab _ | instr_chsh_lassert_1ab_g5 _ _ _
+     | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _
+     | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => True
      | _ => s'.(vm_pc) = S s.(vm_pc)
      end).
 Proof.

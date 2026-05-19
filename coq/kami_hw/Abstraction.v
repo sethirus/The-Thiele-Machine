@@ -2036,6 +2036,159 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
          snap_csr_heap_base := snap_csr_heap_base hs;
          snap_logic_acc     := snap_logic_acc hs;
          snap_mstatus       := snap_mstatus hs |}
+  | instr_chsh_lassert_1ab cost =>
+      (* Q_{1+AB}-aware certification: combines Q_1 column-contractivity with
+         the integer sum-of-squares condition. Same observable shape as
+         instr_chsh_lassert but a stricter check function. *)
+      let check_ok := column_contractive_check_q1ab_kernel (vm_witness (abs_phase1 hs)) in
+      let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
+      let new_err  := if check_ok then snap_err hs else true in
+      {| snap_pc    := new_pc;
+         snap_mu    := snap_mu hs + (S cost);
+         snap_err   := new_err;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs;
+         snap_module_tensors := snap_module_tensors hs;
+         snap_rich_state    := snap_rich_state hs;
+         snap_csr_cert_addr := snap_csr_cert_addr hs;
+         snap_csr_status    := snap_csr_status hs;
+         snap_csr_err       := if check_ok then snap_csr_err hs else 1;
+         snap_csr_heap_base := snap_csr_heap_base hs;
+         snap_logic_acc     := snap_logic_acc hs;
+         snap_mstatus       := snap_mstatus hs |}
+  | instr_chsh_lassert_1ab_g5 cost same_g5 diff_g5 =>
+      (* Q_{1+AB}-aware γ_5 certification: extends instr_chsh_lassert_1ab by
+         also verifying the γ_5 SOS witness against the caller-supplied γ_5
+         bucket pair (same_g5, diff_g5). *)
+      let check_ok := q1ab_g5_full_integer_check_kernel
+                        (vm_witness (abs_phase1 hs)) same_g5 diff_g5 in
+      let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
+      let new_err  := if check_ok then snap_err hs else true in
+      {| snap_pc    := new_pc;
+         snap_mu    := snap_mu hs + (S cost);
+         snap_err   := new_err;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs;
+         snap_module_tensors := snap_module_tensors hs;
+         snap_rich_state    := snap_rich_state hs;
+         snap_csr_cert_addr := snap_csr_cert_addr hs;
+         snap_csr_status    := snap_csr_status hs;
+         snap_csr_err       := if check_ok then snap_csr_err hs else 1;
+         snap_csr_heap_base := snap_csr_heap_base hs;
+         snap_logic_acc     := snap_logic_acc hs;
+         snap_mstatus       := snap_mstatus hs |}
+  | instr_chsh_lassert_1ab_g345 cost same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =>
+      (* Q_{1+AB}-aware γ_{3,4,5} certification: extends γ_5 by also verifying
+         γ_3, γ_4 buckets through the 4×4 Sylvester PD witness on H_{γ_345}. *)
+      let check_ok := q1ab_g345_full_integer_check_kernel
+                        (vm_witness (abs_phase1 hs))
+                        same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 in
+      let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
+      let new_err  := if check_ok then snap_err hs else true in
+      {| snap_pc    := new_pc;
+         snap_mu    := snap_mu hs + (S cost);
+         snap_err   := new_err;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs;
+         snap_module_tensors := snap_module_tensors hs;
+         snap_rich_state    := snap_rich_state hs;
+         snap_csr_cert_addr := snap_csr_cert_addr hs;
+         snap_csr_status    := snap_csr_status hs;
+         snap_csr_err       := if check_ok then snap_csr_err hs else 1;
+         snap_csr_heap_base := snap_csr_heap_base hs;
+         snap_logic_acc     := snap_logic_acc hs;
+         snap_mstatus       := snap_mstatus hs |}
+  | instr_chsh_lassert_1ab_g12345 cost same_g1 diff_g1 same_g2 diff_g2
+                                     same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 =>
+      (* Full Q_{1+AB}-aware γ_{1..5} certification: extends γ_{3,4,5} by also
+         verifying γ_1, γ_2 buckets through the 6×6 Schur cascade. *)
+      let check_ok := q1ab_g12345_full_integer_check_kernel
+                        (vm_witness (abs_phase1 hs))
+                        same_g1 diff_g1 same_g2 diff_g2
+                        same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 in
+      let new_pc   := if check_ok then S (snap_pc hs) else LASSERT_TRAP_PC in
+      let new_err  := if check_ok then snap_err hs else true in
+      {| snap_pc    := new_pc;
+         snap_mu    := snap_mu hs + (S cost);
+         snap_err   := new_err;
+         snap_halted := snap_halted hs;
+         snap_regs  := snap_regs hs;
+         snap_mem   := snap_mem hs;
+         snap_partition_ops := snap_partition_ops hs;
+         snap_mdl_ops := snap_mdl_ops hs;
+         snap_info_gain := snap_info_gain hs;
+         snap_error_code := snap_error_code hs;
+         snap_mu_tensor := snap_mu_tensor hs;
+         snap_pt_sizes := snap_pt_sizes hs;
+         snap_pt_next_id := snap_pt_next_id hs;
+         snap_certified := snap_certified hs;
+         snap_wc_same_00 := snap_wc_same_00 hs;
+         snap_wc_diff_00 := snap_wc_diff_00 hs;
+         snap_wc_same_01 := snap_wc_same_01 hs;
+         snap_wc_diff_01 := snap_wc_diff_01 hs;
+         snap_wc_same_10 := snap_wc_same_10 hs;
+         snap_wc_diff_10 := snap_wc_diff_10 hs;
+         snap_wc_same_11 := snap_wc_same_11 hs;
+         snap_wc_diff_11 := snap_wc_diff_11 hs;
+         snap_module_tensors := snap_module_tensors hs;
+         snap_rich_state    := snap_rich_state hs;
+         snap_csr_cert_addr := snap_csr_cert_addr hs;
+         snap_csr_status    := snap_csr_status hs;
+         snap_csr_err       := if check_ok then snap_csr_err hs else 1;
+         snap_csr_heap_base := snap_csr_heap_base hs;
+         snap_logic_acc     := snap_logic_acc hs;
+         snap_mstatus       := snap_mstatus hs |}
   end.
 
 (** kami_instruction_cost: the cost that the hardware charges for each opcode.

@@ -81,6 +81,10 @@ Definition increments_pc (instr : vm_instruction) : bool :=
   | instr_ret _ => false
   | instr_lassert _ _ _ _ _ => false
   | instr_chsh_lassert _ => false  (* can trap to LASSERT_TRAP_PC on column-contractivity failure *)
+  | instr_chsh_lassert_1ab _ => false  (* can trap to LASSERT_TRAP_PC on Q_{1+AB} check failure *)
+  | instr_chsh_lassert_1ab_g5 _ _ _ => false  (* can trap on γ_5-aware Q_{1+AB} check failure *)
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => false  (* can trap on γ_{3,4,5}-aware Q_{1+AB} check failure *)
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => false  (* can trap on γ_{1..5}-aware Q_{1+AB} check failure *)
   | _ => true
   end.
 

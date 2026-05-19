@@ -88,23 +88,43 @@ def parse_constructor_fields(ml_text: str) -> dict[str, list[str]]:
 
 
 def parse_cert_setters(ml_text: str) -> set[str]:
-    """Parse is_cert_setterb to find which constructors are cert-setters."""
+    """Parse is_cert_setterb to find which constructors are cert-setters.
+
+    Handles both single-line arms (``| Coq_instr_X (...) -> true``) and
+    multi-line arms where the OCaml formatter wrapped the result onto the
+    next line (``| Coq_instr_X (..., ..., ..., ..., ...) ->`` then
+    ``    true``)."""
     setters: set[str] = set()
     in_func = False
+    pending_ctor: str | None = None
     for line in ml_text.splitlines():
         if "let is_cert_setterb" in line:
             in_func = True
             continue
-        if in_func:
-            m = re.match(r"\s*\|\s*(\w+)\s+.*->\s*true", line)
-            if m:
-                name = m.group(1)
-                if name.startswith("Coq_instr_"):
-                    name = "Instr_" + name[len("Coq_instr_"):]
-                setters.add(name)
-            if "| _ -> false" in line:
-                break
+        if not in_func:
+            continue
+        if "| _ -> false" in line:
+            break
+        if pending_ctor is not None:
+            if line.strip() == "true":
+                setters.add(_normalize(pending_ctor))
+            pending_ctor = None
+            continue
+        m = re.match(r"\s*\|\s*(Coq_instr_\w+)\b", line)
+        if not m:
+            continue
+        ctor = m.group(1)
+        if re.search(r"->\s*true\s*$", line):
+            setters.add(_normalize(ctor))
+        elif re.search(r"->\s*$", line):
+            pending_ctor = ctor
     return setters
+
+
+def _normalize(ctor: str) -> str:
+    if ctor.startswith("Coq_instr_"):
+        return "Instr_" + ctor[len("Coq_instr_"):]
+    return ctor
 
 
 def extract_constants(ml_text: str) -> dict[str, int]:
@@ -210,6 +230,28 @@ CONSTRUCTOR_FIELD_MAP: dict[str, list[tuple[str, str]]] = {
     "Instr_morph_get":    [("dst", "dst"), ("morph_id", "morph_id"),
                            ("selector", "selector"), ("mu_delta", "mu_delta")],
     "Instr_chsh_lassert": [("mu_delta", "mu_delta")],
+    "Instr_chsh_lassert_1ab": [("mu_delta", "mu_delta")],
+    "Instr_chsh_lassert_1ab_g5": [("mu_delta", "mu_delta"),
+                                  ("same_g5", "same_g5"),
+                                  ("diff_g5", "diff_g5")],
+    "Instr_chsh_lassert_1ab_g345": [("mu_delta", "mu_delta"),
+                                    ("same_g3", "same_g3"),
+                                    ("diff_g3", "diff_g3"),
+                                    ("same_g4", "same_g4"),
+                                    ("diff_g4", "diff_g4"),
+                                    ("same_g5", "same_g5"),
+                                    ("diff_g5", "diff_g5")],
+    "Instr_chsh_lassert_1ab_g12345": [("mu_delta", "mu_delta"),
+                                      ("same_g1", "same_g1"),
+                                      ("diff_g1", "diff_g1"),
+                                      ("same_g2", "same_g2"),
+                                      ("diff_g2", "diff_g2"),
+                                      ("same_g3", "same_g3"),
+                                      ("diff_g3", "diff_g3"),
+                                      ("same_g4", "same_g4"),
+                                      ("diff_g4", "diff_g4"),
+                                      ("same_g5", "same_g5"),
+                                      ("diff_g5", "diff_g5")],
 }
 
 

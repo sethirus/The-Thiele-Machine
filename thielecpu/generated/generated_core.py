@@ -52,6 +52,10 @@ COQ_INSTRUCTION_TAGS: tuple[str, ...] = (
     'Coq_instr_morph_tensor',
     'Coq_instr_morph_get',
     'Coq_instr_chsh_lassert',
+    'Coq_instr_chsh_lassert_1ab',
+    'Coq_instr_chsh_lassert_1ab_g5',
+    'Coq_instr_chsh_lassert_1ab_g345',
+    'Coq_instr_chsh_lassert_1ab_g12345',
 )
 
 COQ_TAG_TO_MNEMONIC: dict[str, str] = {
@@ -102,6 +106,10 @@ COQ_TAG_TO_MNEMONIC: dict[str, str] = {
     'Coq_instr_morph_tensor': 'MORPH_TENSOR',
     'Coq_instr_morph_get': 'MORPH_GET',
     'Coq_instr_chsh_lassert': 'CHSH_LASSERT',
+    'Coq_instr_chsh_lassert_1ab': 'CHSH_LASSERT_1AB',
+    'Coq_instr_chsh_lassert_1ab_g5': 'CHSH_LASSERT_1AB_G5',
+    'Coq_instr_chsh_lassert_1ab_g345': 'CHSH_LASSERT_1AB_G345',
+    'Coq_instr_chsh_lassert_1ab_g12345': 'CHSH_LASSERT_1AB_G12345',
 }
 
 MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
@@ -111,6 +119,10 @@ MNEMONIC_TO_OPCODE_BYTE: dict[str, int] = {
     'CERTIFY': 30,
     'CHECKPOINT': 25,
     'CHSH_LASSERT': 46,
+    'CHSH_LASSERT_1AB': 47,
+    'CHSH_LASSERT_1AB_G12345': 50,
+    'CHSH_LASSERT_1AB_G345': 49,
+    'CHSH_LASSERT_1AB_G5': 48,
     'CHSH_TRIAL': 9,
     'COMPOSE': 40,
     'EMIT': 14,
@@ -202,6 +214,10 @@ COQ_TAG_TO_OPCODE_BYTE: dict[str, int] = {
     'Coq_instr_morph_tensor': 44,
     'Coq_instr_morph_get': 45,
     'Coq_instr_chsh_lassert': 46,
+    'Coq_instr_chsh_lassert_1ab': 47,
+    'Coq_instr_chsh_lassert_1ab_g5': 48,
+    'Coq_instr_chsh_lassert_1ab_g345': 49,
+    'Coq_instr_chsh_lassert_1ab_g12345': 50,
 }
 
 def sanity_check() -> None:

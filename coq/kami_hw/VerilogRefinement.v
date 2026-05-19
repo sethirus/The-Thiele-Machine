@@ -730,6 +730,10 @@ Definition verilog_increments_pc (i : vm_instruction) : bool :=
   | instr_ret _ => false
   | instr_lassert _ _ _ _ _ => false
   | instr_chsh_lassert _ => false
+  | instr_chsh_lassert_1ab _ => false
+  | instr_chsh_lassert_1ab_g5 _ _ _ => false
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => false
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => false
   | _ => true
   end.
 

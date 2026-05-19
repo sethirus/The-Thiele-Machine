@@ -267,6 +267,22 @@ Proof.
        with err latch (failure). cert_addr is left intact in both branches. *)
     destruct (column_contractive_check_witness _);
       simpl; reflexivity.
+  - (* instr_chsh_lassert_1ab: same cert-channel behaviour as instr_chsh_lassert
+       (no csr_cert_addr write in either success or trap branch). *)
+    destruct (column_contractive_check_q1ab_kernel _);
+      simpl; reflexivity.
+  - (* instr_chsh_lassert_1ab_g5: same cert-channel behaviour as the other
+       CHSH_LASSERT family — neither success nor trap branch writes csr_cert_addr. *)
+    destruct (q1ab_g5_full_integer_check_kernel _ _ _);
+      simpl; reflexivity.
+  - (* instr_chsh_lassert_1ab_g345: same cert-channel behaviour as the other
+       CHSH_LASSERT family — neither success nor trap branch writes csr_cert_addr. *)
+    destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _);
+      simpl; reflexivity.
+  - (* instr_chsh_lassert_1ab_g12345: full γ_{1..5} variant; same cert-channel
+       behaviour — neither branch writes csr_cert_addr. *)
+    destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _);
+      simpl; reflexivity.
 Qed.
 
 (** Under the current kernel semantics, every instruction except MORPH_ASSERT
@@ -421,6 +437,20 @@ Proof.
        branch touches the cert_addr channel). cert_addr passes through both
        branches unchanged. *)
     destruct (column_contractive_check_witness _);
+      simpl; reflexivity.
+  - (* chsh_lassert_1ab: same cert-channel behaviour as chsh_lassert. *)
+    destruct (column_contractive_check_q1ab_kernel _);
+      simpl; reflexivity.
+  - (* chsh_lassert_1ab_g5: same cert-channel behaviour as the other
+       CHSH_LASSERT family. *)
+    destruct (q1ab_g5_full_integer_check_kernel _ _ _);
+      simpl; reflexivity.
+  - (* chsh_lassert_1ab_g345: same cert-channel behaviour as the other
+       CHSH_LASSERT family. *)
+    destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _);
+      simpl; reflexivity.
+  - (* chsh_lassert_1ab_g12345: same cert-channel behaviour. *)
+    destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _);
       simpl; reflexivity.
 Qed.
 
@@ -863,6 +893,54 @@ Proof.
         -- (* failure: PC traps to LASSERT_TRAP_PC, vm_err latches,
               cert_addr unchanged. *)
            apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
+      * (* instr_chsh_lassert_1ab: Q_{1+AB} check on witness counters.
+           Same cert-channel behaviour as instr_chsh_lassert. *)
+        destruct (column_contractive_check_q1ab_kernel (vm_witness s_init)) eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
+      * (* instr_chsh_lassert_1ab_g5: γ_5-aware Q_{1+AB} check. Same cert-
+           channel behaviour as the rest of the CHSH_LASSERT family. *)
+        destruct (q1ab_g5_full_integer_check_kernel (vm_witness s_init) same_g5 diff_g5) eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
+      * (* instr_chsh_lassert_1ab_g345: γ_{3,4,5}-aware Q_{1+AB} check via
+           4×4 Sylvester PD. Same cert-channel behaviour as the rest of the
+           CHSH_LASSERT family. *)
+        destruct (q1ab_g345_full_integer_check_kernel (vm_witness s_init)
+                    same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5) eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ unfold csr_set_err. simpl. exact Hinit.
+           ++ exact Hfinal.
+      * (* instr_chsh_lassert_1ab_g12345: full γ_{1..5}-aware Q_{1+AB} check
+           via 6×6 Schur cascade. Same cert-channel behaviour. *)
+        destruct (q1ab_g12345_full_integer_check_kernel (vm_witness s_init)
+                    same_g1 diff_g1 same_g2 diff_g2
+                    same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5) eqn:?.
+        -- apply IH in Hrun.
+           ++ exact Hrun.
+           ++ simpl. exact Hinit.
+           ++ exact Hfinal.
+        -- apply IH in Hrun.
            ++ exact Hrun.
            ++ unfold csr_set_err. simpl. exact Hinit.
            ++ exact Hfinal.

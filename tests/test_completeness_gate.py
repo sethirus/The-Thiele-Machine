@@ -45,10 +45,22 @@ def _kernel_v(name: str) -> Path:
             return candidate
     return flat
 
-# The canonical set of 47 opcode names (lowercase)
+# The canonical set of 51 opcode names (lowercase)
 # 39 original + 7 categorical morphism extension + 1 CHSH-aware cert opcode
-# (chsh_lassert, added 2026-05-11 as the kernel-level enforcement of
-# column-contractivity on the CHSH WitnessCounts).
+# (chsh_lassert) + 1 Q_{1+AB}-aware cert opcode (chsh_lassert_1ab, runs the
+# composite check column_contractive_check_q1ab_kernel = Q_1 check ∧ ∑ E² ≤ 1
+# on the WitnessCounts, bridges to PSD9 of the 9×9 NPA matrix at γ = 0) +
+# 1 Q_{1+AB} γ_5-aware cert opcode (chsh_lassert_1ab_g5, runs
+# q1ab_g5_full_integer_check_kernel = Q_1 check ∧ γ_5 SOS witness on the
+# WitnessCounts + γ_5 bucket pair, bridges to PSD9 at γ_5 = (same_g5 -
+# diff_g5)/(same_g5 + diff_g5)) +
+# 1 Q_{1+AB} γ_{3,4,5}-aware cert opcode (chsh_lassert_1ab_g345, runs
+# q1ab_g345_full_integer_check_kernel = Q_1 check ∧ 4×4 Sylvester PD on the
+# difference matrix H_{γ_345} = det_M·M_M − M_N, bridges to PSD9 at
+# (γ_3, γ_4, γ_5) = ((s_k - d_k)/(s_k + d_k))_{k=3,4,5}) +
+# 1 full Q_{1+AB} γ_{1..5}-aware cert opcode (chsh_lassert_1ab_g12345, runs
+# q1ab_g12345_full_integer_check_kernel = Q_1 check ∧ 6×6 Schur cascade PD
+# on H_{γ_12345}, bridges to PSD9 at (γ_1..γ_5) = ((s_k - d_k)/(s_k + d_k))_{k=1..5}).
 CANONICAL_39 = frozenset({
     "pnew", "psplit", "pmerge", "lassert", "ljoin", "mdlacc", "pdiscover",
     "xfer", "load_imm", "load", "store", "add", "sub",
@@ -67,14 +79,26 @@ CANONICAL_MORPH_7 = frozenset({
     "morph_assert", "morph_tensor", "morph_get",
 })
 
-CANONICAL_CHSH_1 = frozenset({
+CANONICAL_CHSH_5 = frozenset({
     "chsh_lassert",
+    "chsh_lassert_1ab",
+    "chsh_lassert_1ab_g5",
+    "chsh_lassert_1ab_g345",
+    "chsh_lassert_1ab_g12345",
 })
 
-CANONICAL_46 = CANONICAL_39 | CANONICAL_MORPH_7 | CANONICAL_CHSH_1
+CANONICAL_51 = CANONICAL_39 | CANONICAL_MORPH_7 | CANONICAL_CHSH_5
+# Back-compat aliases.
+CANONICAL_CHSH_4 = frozenset({"chsh_lassert", "chsh_lassert_1ab", "chsh_lassert_1ab_g5", "chsh_lassert_1ab_g345"})
+CANONICAL_CHSH_3 = frozenset({"chsh_lassert", "chsh_lassert_1ab", "chsh_lassert_1ab_g5"})
+CANONICAL_CHSH_2 = frozenset({"chsh_lassert", "chsh_lassert_1ab"})
+CANONICAL_50 = CANONICAL_51
+CANONICAL_49 = CANONICAL_51
+CANONICAL_48 = CANONICAL_51
+CANONICAL_46 = CANONICAL_51
 
 assert len(CANONICAL_39) == 39, f"CANONICAL_39 has {len(CANONICAL_39)} items, expected 39"
-assert len(CANONICAL_46) == 47, f"CANONICAL_46 has {len(CANONICAL_46)} items, expected 47"
+assert len(CANONICAL_51) == 51, f"CANONICAL_51 has {len(CANONICAL_51)} items, expected 51"
 
 
 class TestSourceBlockerClassification:
@@ -161,21 +185,23 @@ class TestCoqLayer:
     def test_extraction_exists(self):
         assert self.EXTRACTION.exists(), "coq/Extraction.v missing"
 
-    def test_vmstep_has_47_constructors(self):
-        """VMStep.v must define exactly 46 vm_instruction constructors
-        (39 original + 7 categorical morphism extension)."""
+    def test_vmstep_has_51_constructors(self):
+        """VMStep.v must define exactly 51 vm_instruction constructors
+        (39 original + 7 categorical morphism extension + 5 CHSH cert
+        opcodes: chsh_lassert, chsh_lassert_1ab, chsh_lassert_1ab_g5,
+        chsh_lassert_1ab_g345, chsh_lassert_1ab_g12345)."""
         text = self.VMSTEP.read_text(encoding="utf-8")
         constructors = set(re.findall(r"\|\s+instr_(\w+)", text))
-        assert len(constructors) == 47, (
-            f"VMStep.v has {len(constructors)} constructors, expected 47.\n"
+        assert len(constructors) == 51, (
+            f"VMStep.v has {len(constructors)} constructors, expected 51.\n"
             f"Found: {sorted(constructors)}\n"
-            f"Missing: {CANONICAL_46 - constructors}\n"
-            f"Extra: {constructors - CANONICAL_46}"
+            f"Missing: {CANONICAL_51 - constructors}\n"
+            f"Extra: {constructors - CANONICAL_51}"
         )
-        assert constructors == CANONICAL_46, (
+        assert constructors == CANONICAL_51, (
             f"Constructor mismatch vs canonical set.\n"
-            f"Missing: {CANONICAL_46 - constructors}\n"
-            f"Extra: {constructors - CANONICAL_46}"
+            f"Missing: {CANONICAL_51 - constructors}\n"
+            f"Extra: {constructors - CANONICAL_51}"
         )
 
     def test_no_admitted_in_kernel(self):
@@ -465,10 +491,38 @@ class TestPythonVMLayer:
             # We accept either success or failure; either way the opcode is
             # parsed and dispatched, which is what this test verifies.
             "chsh_lassert": [{"op": "chsh_lassert", "mu_delta": 1}],
+            # CHSH_LASSERT_1AB: Q_{1+AB}-aware cert-setter. Same dispatch as
+            # chsh_lassert; check is stricter (composite Q_1 ∧ ∑E² ≤ 1).
+            "chsh_lassert_1ab": [{"op": "chsh_lassert_1ab", "mu_delta": 1}],
+            # CHSH_LASSERT_1AB_G5: γ_5-aware Q_{1+AB} cert-setter. Carries a
+            # γ_5 bucket pair (same_g5, diff_g5). Same dispatch shape as
+            # chsh_lassert_1ab; check is the composite γ_5 SOS witness.
+            "chsh_lassert_1ab_g5": [
+                {"op": "chsh_lassert_1ab_g5", "mu_delta": 1,
+                 "same_g5": 1, "diff_g5": 1}
+            ],
+            # CHSH_LASSERT_1AB_G345: γ_{3,4,5}-aware Q_{1+AB} cert-setter via
+            # 4×4 Sylvester PD on H_{γ_345}. Carries three γ-bucket pairs.
+            "chsh_lassert_1ab_g345": [
+                {"op": "chsh_lassert_1ab_g345", "mu_delta": 1,
+                 "same_g3": 1, "diff_g3": 1,
+                 "same_g4": 1, "diff_g4": 1,
+                 "same_g5": 1, "diff_g5": 1}
+            ],
+            # CHSH_LASSERT_1AB_G12345: full γ_{1..5}-aware Q_{1+AB} cert-setter
+            # via 6×6 Schur cascade PD on H_{γ_12345}. Carries five γ-bucket pairs.
+            "chsh_lassert_1ab_g12345": [
+                {"op": "chsh_lassert_1ab_g12345", "mu_delta": 1,
+                 "same_g1": 1, "diff_g1": 1,
+                 "same_g2": 1, "diff_g2": 1,
+                 "same_g3": 1, "diff_g3": 1,
+                 "same_g4": 1, "diff_g4": 1,
+                 "same_g5": 1, "diff_g5": 1}
+            ],
         }
 
-        assert set(programs.keys()) == CANONICAL_46, (
-            f"Test coverage mismatch: {CANONICAL_46 - set(programs.keys())} not tested"
+        assert set(programs.keys()) == CANONICAL_51, (
+            f"Test coverage mismatch: {CANONICAL_51 - set(programs.keys())} not tested"
         )
 
         failures = []
@@ -576,10 +630,13 @@ class TestCrossLayerConsistency:
             f"Phase 6 regression: MORPH opcodes missing from ThieleTypes.v RTL: {missing_morph}"
         )
 
-        # Check for unexpected OCaml-only opcodes (allow 2 slack for renamed ops).
+        # Check for unexpected OCaml-only opcodes (allow 4 slack for the
+        # CHSH_LASSERT_1AB family which lives at the OCaml/VM layer only:
+        # chsh_lassert_1ab, chsh_lassert_1ab_g5, chsh_lassert_1ab_g345,
+        # chsh_lassert_1ab_g12345).
         missing = ml_ops - coq_hw_ops
-        assert len(missing) <= 2, (
-            f"OCaml↔RTL opcode mismatch (expected at most 2 missing after Phase 6).\n"
+        assert len(missing) <= 4, (
+            f"OCaml↔RTL opcode mismatch (expected at most 4 missing after Phase 6).\n"
             f"In OCaml only: {missing}"
         )
 

@@ -373,6 +373,15 @@ Extract Constant Kernel.CertCheck.CertCheck.word32_to_signed =>
 (* All three are aliases for the same function; extract them all and let
    OCaml's sequential let-bindings resolve the references. *)
 
+(* Suppress emission of unused Nat helpers that get pulled into the elaboration
+   state by intermediate kernel imports (HonestNoFI, MuShannonQuantitative,
+   etc.) but are never reached from the thiele_core.ml extraction roots.
+   Inlining them at use sites (rather than emitting standalone top-level
+   bindings) keeps the extracted Nat module byte-identical to
+   thiele_core_complete.ml's, which is elaborated in a leaner context. *)
+Extraction Inline Coq.Init.Nat.pred Coq.Init.Nat.add Coq.Init.Nat.mul
+                  Coq.Init.Nat.pow Coq.Init.Nat.log2 Coq.Init.Nat.log2_iter.
+
 (* =========================================================================
    EXTRACTION: CANONICAL vm_apply FROM PROVEN MODULE SOURCES
 

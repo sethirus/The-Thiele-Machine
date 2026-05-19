@@ -131,7 +131,19 @@ Proof.
   try (destruct (lassert_check_ok _ _ _ _); simpl; unfold apply_cost; simpl; reflexivity);
   (* CHSH_LASSERT: two branches on column_contractive_check_witness,
      both charge S mu_delta via apply_cost *)
-  try (destruct (column_contractive_check_witness _); simpl; unfold apply_cost; simpl; reflexivity).
+  try (destruct (column_contractive_check_witness _); simpl; unfold apply_cost; simpl; reflexivity);
+  (* CHSH_LASSERT_1AB: two branches on column_contractive_check_q1ab_kernel,
+     both charge S mu_delta via apply_cost *)
+  try (destruct (column_contractive_check_q1ab_kernel _); simpl; unfold apply_cost; simpl; reflexivity);
+  (* CHSH_LASSERT_1AB_G5: two branches on q1ab_g5_full_integer_check_kernel,
+     both charge S mu_delta via apply_cost *)
+  try (destruct (q1ab_g5_full_integer_check_kernel _ _ _); simpl; unfold apply_cost; simpl; reflexivity);
+  (* CHSH_LASSERT_1AB_G345: two branches on q1ab_g345_full_integer_check_kernel,
+     both charge S mu_delta via apply_cost *)
+  try (destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _); simpl; unfold apply_cost; simpl; reflexivity);
+  (* CHSH_LASSERT_1AB_G12345: two branches on q1ab_g12345_full_integer_check_kernel,
+     both charge S mu_delta via apply_cost *)
+  try (destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _); simpl; unfold apply_cost; simpl; reflexivity).
   (* JNEZ: two branches, both use apply_cost *)
   destruct (read_reg _ _ =? 0); simpl;
     [unfold advance_state; simpl; reflexivity

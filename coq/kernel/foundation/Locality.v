@@ -231,6 +231,10 @@ Definition instr_targets (i : vm_instruction) : list ModuleID :=
   | instr_morph_tensor _ _ _ _ => []
   | instr_morph_get _ _ _ _ => []
   | instr_chsh_lassert _ => []  (* CHSH-aware certification: reads witness counters, no module targets *)
+  | instr_chsh_lassert_1ab _ => []  (* Q_{1+AB} certification: same — reads witness counters only *)
+  | instr_chsh_lassert_1ab_g5 _ _ _ => []  (* γ_5-aware Q_{1+AB} certification: reads witness counters + γ_5 buckets, no module targets *)
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => []  (* γ_{3,4,5}-aware Q_{1+AB} certification: reads witness counters + γ_3,4,5 buckets, no module targets *)
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => []  (* full γ_{1..5}-aware Q_{1+AB} certification: reads witness counters + γ_1..5 buckets, no module targets *)
   end.
 
 
@@ -648,6 +652,18 @@ Proof.
     + rewrite advance_state_graph. reflexivity.
   - (* instr_chsh_lassert: graph and module observations unchanged on both
        success (csr update only) and failure (err latch only). *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs; reflexivity.
+  - (* instr_chsh_lassert_1ab: same graph/observation behaviour. *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs; reflexivity.
+  - (* instr_chsh_lassert_1ab_g5: same graph/observation behaviour. *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs; reflexivity.
+  - (* instr_chsh_lassert_1ab_g345: same graph/observation behaviour. *)
+    inversion Hstep; subst;
+      unfold states_agree_on_module, module_region_obs; reflexivity.
+  - (* instr_chsh_lassert_1ab_g12345: same graph/observation behaviour. *)
     inversion Hstep; subst;
       unfold states_agree_on_module, module_region_obs; reflexivity.
 Qed.

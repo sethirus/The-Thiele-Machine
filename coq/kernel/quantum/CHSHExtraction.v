@@ -191,7 +191,11 @@ Proof.
     | morph_id property cert mu_delta
     | dst f_id g_id mu_delta
     | dst morph_id selector mu_delta
-    | mu_delta]; simpl in Hexec; try discriminate.
+    | mu_delta
+    | mu_delta
+    | mu_delta same_g5 diff_g5
+    | mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5
+    | mu_delta same_g1 diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5]; simpl in Hexec; try discriminate.
   destruct (chsh_bits_ok _ _ _ _) eqn:Hok; inversion Hexec; subst.
   unfold valid_chsh_trial. exact Hok.
 Qed.
@@ -259,7 +263,11 @@ Proof.
     | morph_id property cert mu_delta
     | dst f_id g_id mu_delta
     | dst morph_id selector mu_delta
-    | mu_delta]; simpl in Hexec; try discriminate.
+    | mu_delta
+    | mu_delta
+    | mu_delta same_g5 diff_g5
+    | mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5
+    | mu_delta same_g1 diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5]; simpl in Hexec; try discriminate.
   destruct (chsh_bits_ok _ _ _ _) eqn:Hok; inversion Hexec; subst; simpl.
   rewrite Hok.
   reflexivity.

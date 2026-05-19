@@ -115,6 +115,14 @@ Definition ShadowSupportedOpcode (i : vm_instruction) : Prop :=
      so the shadow-compat lemma is structurally false for this opcode.
      Excluding it here keeps the shadow theory precise. *)
   | instr_chsh_lassert _        => False
+  (* CHSH_LASSERT_1AB: same exclusion — also branches on [vm_witness]. *)
+  | instr_chsh_lassert_1ab _    => False
+  (* CHSH_LASSERT_1AB_G5: same exclusion as the rest of the family. *)
+  | instr_chsh_lassert_1ab_g5 _ _ _ => False
+  (* CHSH_LASSERT_1AB_G345: same exclusion — also branches on [vm_witness]. *)
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => False
+  (* CHSH_LASSERT_1AB_G12345: same exclusion — also branches on [vm_witness]. *)
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => False
   | other                       => SupportedOpcode other
   end.
 
@@ -124,9 +132,19 @@ Definition ShadowSupportedOpcode (i : vm_instruction) : Prop :=
 Lemma SupportedOpcode_implies_ShadowSupported :
   forall i, SupportedOpcode i ->
             (forall mu, i <> instr_chsh_lassert mu) ->
+            (forall mu, i <> instr_chsh_lassert_1ab mu) ->
+            (forall mu sg dg, i <> instr_chsh_lassert_1ab_g5 mu sg dg) ->
+            (forall mu sg3 dg3 sg4 dg4 sg5 dg5,
+                i <> instr_chsh_lassert_1ab_g345 mu sg3 dg3 sg4 dg4 sg5 dg5) ->
+            (forall mu sg1 dg1 sg2 dg2 sg3 dg3 sg4 dg4 sg5 dg5,
+                i <> instr_chsh_lassert_1ab_g12345 mu sg1 dg1 sg2 dg2 sg3 dg3 sg4 dg4 sg5 dg5) ->
             ShadowSupportedOpcode i.
-Proof. intros i Hi Hne. destruct i; simpl in *; try tauto.
-  exfalso. eapply Hne. reflexivity. Qed.
+Proof. intros i Hi Hne Hne1 Hne2 Hne345 Hne12345. destruct i; simpl in *; try tauto.
+  - exfalso. eapply Hne. reflexivity.
+  - exfalso. eapply Hne1. reflexivity.
+  - exfalso. eapply Hne2. reflexivity.
+  - exfalso. eapply Hne345. reflexivity.
+  - exfalso. eapply Hne12345. reflexivity. Qed.
 
 (** Main per-step shadow theorem for all 30 opcodes. *)
 Theorem shadow_embed_step_supported :

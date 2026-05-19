@@ -18,6 +18,8 @@ From Kernel Require Import ProperSubsumption.
 From Kernel Require Import HonestNoFI HonestNoFI_TheoremsWithoutAssumptions.
 From Kernel Require Import MuShannonBridge MuShannonQuantitative StateSpaceCounting.
 From Kernel Require Import QuantumPartitionPSD.
+From Kernel Require Import QuantumPartitionPSD_1AB.
+From Kernel Require Import A2LoadBearing.
 From Kernel Require Import MasterSummary.
 
 (** Master-summary audit hooks. *)
@@ -136,6 +138,89 @@ Print Assumptions master_psd_iff_column_contractive.
 
 (* Summary export: coherent trace bridge forces PSD of the extracted NPA matrix *)
 Print Assumptions master_trace_quantum_bridge_forces_psd.
+
+(** Q_{1+AB} extension audit (Section 9 of QuantumPartitionPSD_1AB.v).
+
+    These check that the new 9×9 NPA Q_{1+AB} bridge theorems —
+    extending the Q_1 (5×5) characterization to the next NPA level
+    via the bipartite operator set {I, A_i, B_j, A_i B_j} — close
+    under the same standard-library assumption surface as the rest
+    of the kernel. The final composed theorem is conditional on
+    Ishizaka 2025 (arXiv:2502.10746); the conditional surfaces as
+    a Coq hypothesis, not as an axiom. *)
+
+(* Theorem: 9×9 NPA Q_{1+AB} moment matrix is symmetric by construction. *)
+Print Assumptions q1ab_moment_matrix_symmetric.
+
+(* Theorem: PSD9 ↔ column_contractive at level 1+AB (full biconditional). *)
+Print Assumptions q1ab_psd_iff_column_contractive.
+
+(* Corollary: column_contractive_q1ab ↔ quantum_realizable_q1ab. *)
+Print Assumptions column_contractive_q1ab_iff_quantum_realizable.
+
+(* Theorem: integer-arithmetic check at γ = 0 implies the real-valued predicate. *)
+Print Assumptions column_contractive_check_q1ab_sound_at_g_zero.
+
+(* Theorem: kernel bridge from CHSH_LASSERT + sum_E check to Q_{1+AB} PSD. *)
+Print Assumptions chsh_lassert_no_trap_with_sum_E_check_implies_q1ab_psd.
+
+(* Theorem: kernel bridge wraps to quantum_realizable_q1ab. *)
+Print Assumptions chsh_lassert_no_trap_with_sum_E_check_implies_quantum_realizable_q1ab.
+
+(* Diagnostic: γ = 0 check forces correlators inside the unit ball
+   (strictly stronger than the classical bound |S| ≤ 2). *)
+Print Assumptions q1ab_check_at_gzero_forces_unit_ball.
+
+(* Diagnostic corollary: γ = 0 check implies the classical |S| ≤ 2 bound. *)
+Print Assumptions q1ab_check_at_gzero_implies_classical_bound.
+
+(* Re-exported bridge: γ-parameterized real-valued column-contractivity ⟹ PSD9. *)
+Print Assumptions q1ab_caller_supplied_gamma_real_check_implies_psd9.
+
+(* New ISA opcode bridge: instr_chsh_lassert_1ab no-trap ⟹ PSD9 (γ=0). *)
+Print Assumptions chsh_lassert_1ab_no_trap_implies_q1ab_psd.
+
+(* New ISA opcode bridge wrapped as quantum_realizable_q1ab. *)
+Print Assumptions chsh_lassert_1ab_no_trap_implies_quantum_realizable_q1ab.
+
+(** ** A2 load-bearing separation *)
+
+(* Lemma: A2 forces a positive cost on the certifying single-step trace. *)
+Print Assumptions trace_A_mu_ge_1_via_A2.
+
+(* Theorem: cost ledger is not classically observable, with A2 as the
+   load-bearing step in the proof. *)
+Print Assumptions vm_mu_not_classically_determined_via_A2.
+
+(* Counterfactual: without A2, the cost-ledger separation collapses. *)
+Print Assumptions cf_no_cost_separation.
+
+(* Lemma: every cert_addr-setter instruction has instruction_cost >= 1
+   (the static, instruction-only form of A2 for the cert_addr channel). *)
+Print Assumptions thiele_info_pricing_holds.
+
+(* Lemma: total trace cost dominates the sum of cert-setter costs. *)
+Print Assumptions cs_total_cost_ge_cert_setter_sum.
+
+(* Theorem: for any n-way certified-distinguishability problem on the
+   substrate's cert_addr channel, total substrate cost is at least n.
+   Exceeds the Shannon information-theoretic minimum log_2(n) by factor
+   n / log_2(n). *)
+Print Assumptions nway_separation_substrate_cost_ge_n.
+
+(* Lemma: a single-step LASSERT trace increases mu by at least
+   formula-bits + 1.  (Bit-scaling from LASSERT cost rule, +1 from A2.) *)
+Print Assumptions lassert_mu_increase_ge_bits_plus_one.
+
+(* Theorem: LASSERT-based certification of a B-bit formula has substrate
+   mu-cost at least B + 1, exceeding classical unit-cost RAM time (1 step
+   per instruction) by factor B + 1. *)
+Print Assumptions lassert_substrate_mu_exceeds_unit_cost.
+
+(* Theorem: A2 contributes exactly +1 to the LASSERT cost bound; without
+   A2 the bound drops by 1, exhibiting a strict separation at B = 0. *)
+Print Assumptions a2_contributes_exact_plus_one_to_lassert_bound.
+
 
 (** ** Subsumption theorems *)
 

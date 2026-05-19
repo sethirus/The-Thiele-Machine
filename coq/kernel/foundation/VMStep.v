@@ -198,7 +198,53 @@ Inductive vm_instruction :=
     LJOIN, and MORPH_ASSERT. This is the kernel-level enforcement that closes
     the bridge from `vm_certified` channel activation to column-contractivity
     of the CHSH correlators. *)
-| instr_chsh_lassert (mu_delta : nat).
+| instr_chsh_lassert (mu_delta : nat)
+(** instr_chsh_lassert_1ab: Q_{1+AB}-aware certification (NPA level 1+AB).
+    Like instr_chsh_lassert but additionally enforces the integer-arithmetic
+    sum-of-squares condition
+       E_{00}^2 + E_{01}^2 + E_{10}^2 + E_{11}^2 <= 1
+    on the witness correlators. Combined check is sound for the γ = 0
+    specialization of the column-contractivity-at-1+AB predicate; a
+    successful step implies PSD of the 9x9 NPA Q_{1+AB} moment matrix
+    at γ = 0 (bridge theorem in QuantumPartitionPSD_1AB.v).
+    Cost is S mu_delta, matching the cert-setter discipline. *)
+| instr_chsh_lassert_1ab (mu_delta : nat)
+(** instr_chsh_lassert_1ab_g5: Q_{1+AB}-aware certification with caller-
+    supplied 4-body moment γ_5. Carries a γ_5 bucket pair (same_g5, diff_g5)
+    where γ_5 = (same_g5 - diff_g5) / (same_g5 + diff_g5). Runs the
+    Z-arithmetic γ_5 SOS witness [q1ab_g5_full_integer_check_kernel] which
+    combines the existing Q_1 column-contractive check on the four CHSH
+    correlators with the γ_5 cleared polynomial inequality (see Section 12
+    + 13 of QuantumPartitionPSD_1AB.v). A successful step implies PSD9 of
+    the 9x9 NPA Q_{1+AB} moment matrix at (E, 0, 0, 0, 0, γ_5) for the
+    γ_5 derived from the bucket pair. Cost is S mu_delta. *)
+| instr_chsh_lassert_1ab_g5 (mu_delta same_g5 diff_g5 : nat)
+(** instr_chsh_lassert_1ab_g345: Q_{1+AB}-aware certification with caller-
+    supplied 3-body moments γ_3, γ_4 AND 4-body moment γ_5. Carries three
+    γ-bucket pairs (same_g3, diff_g3), (same_g4, diff_g4), (same_g5, diff_g5)
+    where γ_k = (same_g_k - diff_g_k) / (same_g_k + diff_g_k). Runs the
+    Z-arithmetic 4×4 Sylvester PD witness [q1ab_g345_full_integer_check_kernel]
+    which combines the Q_1 column-contractive check on the four CHSH
+    correlators with the four leading principal minors of the difference
+    matrix H_{γ_345} = det_M·M_M − M_N being positive (see Section 15 of
+    QuantumPartitionPSD_1AB.v). A successful step implies PSD9 of the 9×9
+    NPA Q_{1+AB} moment matrix at (E, 0, 0, γ_3, γ_4, γ_5) for the
+    γ_3, γ_4, γ_5 derived from the bucket pairs. Cost is S mu_delta. *)
+| instr_chsh_lassert_1ab_g345 (mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat)
+(** instr_chsh_lassert_1ab_g12345: Q_{1+AB}-aware certification with caller-
+    supplied 3-body moments γ_1, γ_2 AND γ_3, γ_4, AND 4-body moment γ_5.
+    Carries five γ-bucket pairs, one each for γ_1..γ_5, encoded as
+    (same_g_k, diff_g_k) with γ_k = (same_g_k − diff_g_k)/(same_g_k + diff_g_k).
+    Runs the Z-arithmetic 6×6 → 5×5 → 4×4 Schur cascade PD witness
+    [q1ab_g12345_full_integer_check_kernel] which combines the Q_1
+    column-contractive check on the four CHSH correlators with the six
+    Schur-cascade PD checks (H11, S6_22, sym4_d1..sym4_d4 of the cleared
+    S5 entries; see Section 16 of QuantumPartitionPSD_1AB.v). A successful
+    step implies PSD9 of the full 9×9 NPA Q_{1+AB} moment matrix at
+    (E, γ_1, γ_2, γ_3, γ_4, γ_5) for the rationals derived from the
+    bucket pairs — substrate-level Q_{1+AB} closure across all five γ
+    parameters simultaneously. Cost is S mu_delta. *)
+| instr_chsh_lassert_1ab_g12345 (mu_delta same_g1 diff_g1 same_g2 diff_g2 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat).
 
 
 (** instruction_cost: Extract the μ-cost from an instruction.
@@ -265,6 +311,10 @@ Definition instruction_cost (instr : vm_instruction) : nat :=
   | instr_morph_tensor _ _ _ cost => cost
   | instr_morph_get _ _ _ cost => cost
   | instr_chsh_lassert cost => S cost  (* cert-setter: column-contractive check *)
+  | instr_chsh_lassert_1ab cost => S cost  (* cert-setter: Q_{1+AB} column-contractive check *)
+  | instr_chsh_lassert_1ab_g5 cost _ _ => S cost  (* cert-setter: Q_{1+AB} γ_5-aware check *)
+  | instr_chsh_lassert_1ab_g345 cost _ _ _ _ _ _ => S cost  (* cert-setter: Q_{1+AB} γ_{3,4,5}-aware 4×4 Sylvester check *)
+  | instr_chsh_lassert_1ab_g12345 cost _ _ _ _ _ _ _ _ _ _ => S cost  (* cert-setter: full Q_{1+AB} γ_{1..5}-aware 6×6 Schur cascade *)
   end.
 
 (** is_cert_setterb: Positive-cost policy predicate.
@@ -291,6 +341,10 @@ Definition is_cert_setterb (instr : vm_instruction) : bool :=
   | instr_certify _ => true
   | instr_morph_assert _ _ _ _ => true
   | instr_chsh_lassert _ => true
+  | instr_chsh_lassert_1ab _ => true
+  | instr_chsh_lassert_1ab_g5 _ _ _ => true
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => true
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => true
   | _ => false
   end.
 
@@ -648,6 +702,907 @@ Definition column_contractive_check_witness (wc : WitnessCounts) : bool :=
   (andb (Z.leb 0 A)
   (andb (Z.leb 0 B)
         (Z.leb (C * C) (A * B))))))).
+
+(** ** Q_{1+AB} integer check: sum-of-squares bound on the four correlators
+
+    Verifies, in pure Z arithmetic, the additional condition
+       E_{00}^2 + E_{01}^2 + E_{10}^2 + E_{11}^2 <= 1
+    by clearing denominators. With N_xy = same+diff and D_xy = same-diff,
+    the cleared inequality is
+       D_00^2 * N_01^2 * N_10^2 * N_11^2
+       + N_00^2 * D_01^2 * N_10^2 * N_11^2
+       + N_00^2 * N_01^2 * D_10^2 * N_11^2
+       + N_00^2 * N_01^2 * N_10^2 * D_11^2
+       <=  N_00^2 * N_01^2 * N_10^2 * N_11^2.
+
+    The combined Q_{1+AB} check (used by [instr_chsh_lassert_1ab]) is
+    the conjunction of [column_contractive_check_witness] and
+    [sum_E_sq_check_witness]. Soundness for the column-contractive
+    predicate at γ = 0 is proved in QuantumPartitionPSD_1AB.v. *)
+
+Definition sum_E_sq_check_witness (wc : WitnessCounts) : bool :=
+  let d00 := chsh_d_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let n00 := chsh_n_z wc.(wc_same_00) wc.(wc_diff_00) in
+  let d01 := chsh_d_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let n01 := chsh_n_z wc.(wc_same_01) wc.(wc_diff_01) in
+  let d10 := chsh_d_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let n10 := chsh_n_z wc.(wc_same_10) wc.(wc_diff_10) in
+  let d11 := chsh_d_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let n11 := chsh_n_z wc.(wc_same_11) wc.(wc_diff_11) in
+  let den := (n00 * n01 * n10 * n11)%Z in
+  let den_sq := (den * den)%Z in
+  let term00 := (d00 * d00 * n01 * n01 * n10 * n10 * n11 * n11)%Z in
+  let term01 := (n00 * n00 * d01 * d01 * n10 * n10 * n11 * n11)%Z in
+  let term10 := (n00 * n00 * n01 * n01 * d10 * d10 * n11 * n11)%Z in
+  let term11 := (n00 * n00 * n01 * n01 * n10 * n10 * d11 * d11)%Z in
+  Z.leb (term00 + term01 + term10 + term11) den_sq.
+
+Definition column_contractive_check_q1ab_kernel (wc : WitnessCounts) : bool :=
+  andb (column_contractive_check_witness wc)
+       (sum_E_sq_check_witness wc).
+
+(** ** Q_{1+AB} γ_5-aware integer check (abstract on signed correlators).
+
+    Pure Z-arithmetic decider on (D_xy, N_xy, Ng5, Dg5) where:
+      D_xy = (same - diff) in Z, N_xy = (same + diff) in Z (Q_1 buckets)
+      g_5 = IZR Ng5 / IZR Dg5  with strict |Ng5| < Dg5
+
+    Verifies:
+      (a) every N_xy > 0,
+      (b) Dg5 > 0 and -Dg5 < Ng5 < Dg5 (so |g_5| < 1 strictly),
+      (c) the cleared SOS-witness polynomial inequality
+            Dg5*(Dg5 - Ng5)*X_int + Dg5*(Dg5 + Ng5)*Y_int
+            <= 2*(Dg5² - Ng5²)*Den2
+          where X_int, Y_int, Den2 are integer-built squared sums and
+          the denominator product.
+
+    Soundness (in QuantumPartitionPSD_1AB.v): passing this check implies
+    PSD9 of the 9x9 NPA Q_{1+AB} matrix at (E, 0, 0, 0, 0, g_5) when
+    combined with column_contractive_check_witness for the (E_ij) part. *)
+Definition q1ab_g5_check_z_kernel
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng5 Dg5 : Z) : bool :=
+  ((0 <? N00)%Z)
+  && ((0 <? N01)%Z)
+  && ((0 <? N10)%Z)
+  && ((0 <? N11)%Z)
+  && ((0 <? Dg5)%Z)
+  && ((-Dg5 <? Ng5)%Z)
+  && ((Ng5 <? Dg5)%Z)
+  && (let Apos := (D00 * N11 + D11 * N00)%Z in
+      let Aneg := (D00 * N11 - D11 * N00)%Z in
+      let Cpos := (D01 * N10 + D10 * N01)%Z in
+      let Cneg := (D01 * N10 - D10 * N01)%Z in
+      let n01n10sq := (N01 * N01 * (N10 * N10))%Z in
+      let n00n11sq := (N00 * N00 * (N11 * N11))%Z in
+      let Xint := (Apos * Apos * n01n10sq + Cpos * Cpos * n00n11sq)%Z in
+      let Yint := (Aneg * Aneg * n01n10sq + Cneg * Cneg * n00n11sq)%Z in
+      let Den2 := (n00n11sq * n01n10sq)%Z in
+      (Dg5 * (Dg5 - Ng5) * Xint + Dg5 * (Dg5 + Ng5) * Yint
+       <=? 2 * (Dg5 * Dg5 - Ng5 * Ng5) * Den2)%Z).
+
+(** Composite Q_{1+AB} γ_5 integer check on a [WitnessCounts] and a γ_5
+    nat bucket pair (same_g5, diff_g5). Reads the four CHSH correlator
+    buckets from wc, the γ_5 numerator/denominator from the bucket pair,
+    and conjoins the existing column_contractive_check_witness with the
+    γ_5 SOS check. Used by [instr_chsh_lassert_1ab_g5]. *)
+Definition q1ab_g5_full_integer_check_kernel
+  (wc : WitnessCounts) (same_g5 diff_g5 : nat) : bool :=
+  let Ng5 := chsh_d_z same_g5 diff_g5 in
+  let Dg5 := chsh_n_z same_g5 diff_g5 in
+  andb (column_contractive_check_witness wc)
+       (q1ab_g5_check_z_kernel
+          (chsh_d_z wc.(wc_same_00) wc.(wc_diff_00))
+          (chsh_n_z wc.(wc_same_00) wc.(wc_diff_00))
+          (chsh_d_z wc.(wc_same_01) wc.(wc_diff_01))
+          (chsh_n_z wc.(wc_same_01) wc.(wc_diff_01))
+          (chsh_d_z wc.(wc_same_10) wc.(wc_diff_10))
+          (chsh_n_z wc.(wc_same_10) wc.(wc_diff_10))
+          (chsh_d_z wc.(wc_same_11) wc.(wc_diff_11))
+          (chsh_n_z wc.(wc_same_11) wc.(wc_diff_11))
+          Ng5 Dg5).
+
+(** ** Q_{1+AB} γ_{3,4,5} integer check via 4×4 Sylvester PD.
+
+    Z-arithmetic decider on (D_xy, N_xy, Ng3, Dg3, Ng4, Dg4, Ng5, Dg5). The
+    extension over the γ_5-only check encodes the inner ∀v∈R^4 inequality
+    of the Section-14 caller witness as positive-definiteness of a 4×4
+    symmetric matrix H_{γ_345} = det_M·M_M − M_N. PD is verified by
+    Sylvester's criterion (4 leading principal minors > 0 in cleared-Z
+    form). Soundness in QuantumPartitionPSD_1AB.v Section 15. *)
+
+(** Cleared (integer-numerator) versions of A, B, C_M, det_M. *)
+
+Definition cleared_A_num (D00 N00 D10 N10 : Z) : Z :=
+  (N00*N00*N10*N10 - D00*D00*N10*N10 - D10*D10*N00*N00)%Z.
+
+Definition cleared_C_M_num (D01 N01 D11 N11 : Z) : Z :=
+  (N01*N01*N11*N11 - D01*D01*N11*N11 - D11*D11*N01*N01)%Z.
+
+Definition cleared_B_num (D00 N00 D01 N01 D10 N10 D11 N11 : Z) : Z :=
+  (- (D00*D01*N10*N11 + D10*D11*N00*N01))%Z.
+
+Definition cleared_det_M_num (D00 N00 D01 N01 D10 N10 D11 N11 : Z) : Z :=
+  (cleared_A_num D00 N00 D10 N10 * cleared_C_M_num D01 N01 D11 N11
+   - cleared_B_num D00 N00 D01 N01 D10 N10 D11 N11
+     * cleared_B_num D00 N00 D01 N01 D10 N10 D11 N11)%Z.
+
+(** Uniform common scaling factor: N_e^4 · D_g^2. *)
+Definition COMMON_Z
+  (N00 N01 N10 N11 Dg3 Dg4 Dg5 : Z) : Z :=
+  (N00*N00*N00*N00 * (N01*N01*N01*N01) * (N10*N10*N10*N10) * (N11*N11*N11*N11)
+   * (Dg3*Dg3) * (Dg4*Dg4) * (Dg5*Dg5))%Z.
+
+(** Per-entry cleared numerators (small Z polynomials, one per H_ij). *)
+
+Definition cH11_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let A_n := cleared_A_num D00 N00 D10 N10 in
+  (Dg3*Dg3 * detM * (N00*N00 - D00*D00)
+   - N00*N00 * N01*N01 * N11*N11 * A_n * (Ng3*Ng3))%Z.
+
+Definition cH22_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let CM_n := cleared_C_M_num D01 N01 D11 N11 in
+  (Dg3*Dg3 * detM * (N01*N01 - D01*D01)
+   - N00*N00 * N01*N01 * N10*N10 * CM_n * (Ng3*Ng3))%Z.
+
+Definition cH33_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng4 Dg4 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let A_n := cleared_A_num D00 N00 D10 N10 in
+  (Dg4*Dg4 * detM * (N10*N10 - D10*D10)
+   - N01*N01 * N10*N10 * N11*N11 * A_n * (Ng4*Ng4))%Z.
+
+Definition cH44_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng4 Dg4 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let CM_n := cleared_C_M_num D01 N01 D11 N11 in
+  (Dg4*Dg4 * detM * (N11*N11 - D11*D11)
+   - N00*N00 * N10*N10 * N11*N11 * CM_n * (Ng4*Ng4))%Z.
+
+Definition cH12_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let B_n := cleared_B_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  (- (Dg3*Dg3 * detM * D00 * D01)
+   + N00*N00 * N01*N01 * N10 * N11 * B_n * (Ng3*Ng3))%Z.
+
+Definition cH13_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let A_n := cleared_A_num D00 N00 D10 N10 in
+  (- (Dg3 * Dg4 * detM * D00 * D10)
+   - N00 * N01*N01 * N10 * N11*N11 * A_n * Ng3 * Ng4)%Z.
+
+Definition cH14_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let B_n := cleared_B_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  (N00 * N11 * Dg3 * Dg4 * detM * Ng5
+   - Dg3 * Dg4 * Dg5 * detM * D00 * D11
+   + N00*N00 * N01 * N10 * N11*N11 * Dg5 * B_n * Ng3 * Ng4)%Z.
+
+Definition cH23_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let B_n := cleared_B_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  (N01 * N10 * Dg3 * Dg4 * detM * Ng5
+   - Dg3 * Dg4 * Dg5 * detM * D01 * D10
+   + N00 * N01*N01 * N10*N10 * N11 * Dg5 * B_n * Ng3 * Ng4)%Z.
+
+Definition cH24_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let CM_n := cleared_C_M_num D01 N01 D11 N11 in
+  (- (Dg3 * Dg4 * detM * D01 * D11)
+   - N00*N00 * N01 * N10*N10 * N11 * CM_n * Ng3 * Ng4)%Z.
+
+Definition cH34_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng4 Dg4 : Z) : Z :=
+  let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  let B_n := cleared_B_num D00 N00 D01 N01 D10 N10 D11 N11 in
+  (- (Dg4*Dg4 * detM * D10 * D11)
+   + N00 * N01 * N10*N10 * N11*N11 * B_n * (Ng4*Ng4))%Z.
+
+(** Multipliers (COMMON/scale_ij) lifting per-entry cH to uniform COMMON. *)
+Definition mult_for_H11 (N01 N10 N11 Dg4 Dg5 : Z) : Z :=
+  (N01*N01 * (N10*N10) * (N11*N11) * (Dg4*Dg4) * (Dg5*Dg5))%Z.
+Definition mult_for_H22 (N00 N10 N11 Dg4 Dg5 : Z) : Z :=
+  (N00*N00 * (N10*N10) * (N11*N11) * (Dg4*Dg4) * (Dg5*Dg5))%Z.
+Definition mult_for_H33 (N00 N01 N11 Dg3 Dg5 : Z) : Z :=
+  (N00*N00 * (N01*N01) * (N11*N11) * (Dg3*Dg3) * (Dg5*Dg5))%Z.
+Definition mult_for_H44 (N00 N01 N10 Dg3 Dg5 : Z) : Z :=
+  (N00*N00 * (N01*N01) * (N10*N10) * (Dg3*Dg3) * (Dg5*Dg5))%Z.
+Definition mult_for_H12 (N00 N01 N10 N11 Dg4 Dg5 : Z) : Z :=
+  (N00 * N01 * (N10*N10) * (N11*N11) * (Dg4*Dg4) * (Dg5*Dg5))%Z.
+Definition mult_for_H13 (N00 N01 N10 N11 Dg3 Dg4 Dg5 : Z) : Z :=
+  (N00 * (N01*N01) * N10 * (N11*N11) * Dg3 * Dg4 * (Dg5*Dg5))%Z.
+Definition mult_for_H14 (N00 N01 N10 N11 Dg3 Dg4 Dg5 : Z) : Z :=
+  (N00 * (N01*N01) * (N10*N10) * N11 * Dg3 * Dg4 * Dg5)%Z.
+Definition mult_for_H23 (N00 N01 N10 N11 Dg3 Dg4 Dg5 : Z) : Z :=
+  (N00*N00 * N01 * N10 * (N11*N11) * Dg3 * Dg4 * Dg5)%Z.
+Definition mult_for_H24 (N00 N01 N10 N11 Dg3 Dg4 Dg5 : Z) : Z :=
+  (N00*N00 * N01 * (N10*N10) * N11 * Dg3 * Dg4 * (Dg5*Dg5))%Z.
+Definition mult_for_H34 (N00 N01 N10 N11 Dg3 Dg5 : Z) : Z :=
+  (N00*N00 * (N01*N01) * N10 * N11 * (Dg3*Dg3) * (Dg5*Dg5))%Z.
+
+(** Cleared H entries (uniform COMMON scaling). *)
+Definition cleared_H11_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H11 N01 N10 N11 Dg4 Dg5
+   * cH11_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3)%Z.
+Definition cleared_H22_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H22 N00 N10 N11 Dg4 Dg5
+   * cH22_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3)%Z.
+Definition cleared_H33_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H33 N00 N01 N11 Dg3 Dg5
+   * cH33_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng4 Dg4)%Z.
+Definition cleared_H44_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H44 N00 N01 N10 Dg3 Dg5
+   * cH44_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng4 Dg4)%Z.
+Definition cleared_H12_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H12 N00 N01 N10 N11 Dg4 Dg5
+   * cH12_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3)%Z.
+Definition cleared_H13_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H13 N00 N01 N10 N11 Dg3 Dg4 Dg5
+   * cH13_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4)%Z.
+Definition cleared_H14_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H14 N00 N01 N10 N11 Dg3 Dg4 Dg5
+   * cH14_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z.
+Definition cleared_H23_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H23 N00 N01 N10 N11 Dg3 Dg4 Dg5
+   * cH23_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z.
+Definition cleared_H24_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H24 N00 N01 N10 N11 Dg3 Dg4 Dg5
+   * cH24_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4)%Z.
+Definition cleared_H34_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (mult_for_H34 N00 N01 N10 N11 Dg3 Dg5
+   * cH34_per_entry D00 N00 D01 N01 D10 N10 D11 N11 Ng4 Dg4)%Z.
+
+(** Z-arithmetic 4×4 leading principal minors. *)
+Definition sym4_d1_Z (h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 : Z) : Z := h11.
+Definition sym4_d2_Z (h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 : Z) : Z :=
+  (h11*h22 - h12*h12)%Z.
+Definition sym4_d3_Z (h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 : Z) : Z :=
+  (h11*(h22*h33 - h23*h23)
+   - h12*(h12*h33 - h13*h23)
+   + h13*(h12*h23 - h13*h22))%Z.
+Definition sym4_d4_Z (h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 : Z) : Z :=
+  (h11*(h22*(h33*h44 - h34*h34) - h23*(h23*h44 - h24*h34) + h24*(h23*h34 - h24*h33))
+   - h12*(h12*(h33*h44 - h34*h34) - h23*(h13*h44 - h14*h34) + h24*(h13*h34 - h14*h33))
+   + h13*(h12*(h23*h44 - h24*h34) - h22*(h13*h44 - h14*h34) + h24*(h13*h24 - h14*h23))
+   - h14*(h12*(h23*h34 - h24*h33) - h22*(h13*h34 - h14*h33) + h23*(h13*h24 - h14*h23)))%Z.
+
+(** Composite cleared leading principal minors cd_k. *)
+Definition cleared_d1
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  sym4_d1_Z
+    (cleared_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+Definition cleared_d2
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  sym4_d2_Z
+    (cleared_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+Definition cleared_d3
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  sym4_d3_Z
+    (cleared_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+Definition cleared_d4
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  sym4_d4_Z
+    (cleared_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_H44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+(** Abstract Z-bool decider on 14 integer parameters. *)
+Definition q1ab_g345_check_z_kernel
+  (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : bool :=
+  ((0 <? N00)%Z)
+  && ((0 <? N01)%Z)
+  && ((0 <? N10)%Z)
+  && ((0 <? N11)%Z)
+  && ((0 <? Dg3)%Z)
+  && ((0 <? Dg4)%Z)
+  && ((0 <? Dg5)%Z)
+  && ((-Dg3 <? Ng3)%Z) && ((Ng3 <? Dg3)%Z)
+  && ((-Dg4 <? Ng4)%Z) && ((Ng4 <? Dg4)%Z)
+  && ((-Dg5 <? Ng5)%Z) && ((Ng5 <? Dg5)%Z)
+  && ((0 <? cleared_A_num D00 N00 D10 N10)%Z)
+  && ((0 <? cleared_C_M_num D01 N01 D11 N11)%Z)
+  && ((0 <? cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11)%Z)
+  && ((0 <? cleared_d1 D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
+  && ((0 <? cleared_d2 D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
+  && ((0 <? cleared_d3 D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
+  && ((0 <? cleared_d4 D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z).
+
+(** Composite Q_{1+AB} γ_{3,4,5} integer check on [WitnessCounts] plus three
+    γ-bucket pairs. Reads (D,N) for the 4 CHSH correlators from the witness
+    counters and (Ng,Dg) for γ_3, γ_4, γ_5 from the supplied bucket pairs. *)
+Definition q1ab_g345_full_integer_check_kernel
+  (wc : WitnessCounts)
+  (same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat) : bool :=
+  let Ng3 := chsh_d_z same_g3 diff_g3 in
+  let Dg3 := chsh_n_z same_g3 diff_g3 in
+  let Ng4 := chsh_d_z same_g4 diff_g4 in
+  let Dg4 := chsh_n_z same_g4 diff_g4 in
+  let Ng5 := chsh_d_z same_g5 diff_g5 in
+  let Dg5 := chsh_n_z same_g5 diff_g5 in
+  andb (column_contractive_check_witness wc)
+       (q1ab_g345_check_z_kernel
+          (chsh_d_z wc.(wc_same_00) wc.(wc_diff_00))
+          (chsh_n_z wc.(wc_same_00) wc.(wc_diff_00))
+          (chsh_d_z wc.(wc_same_01) wc.(wc_diff_01))
+          (chsh_n_z wc.(wc_same_01) wc.(wc_diff_01))
+          (chsh_d_z wc.(wc_same_10) wc.(wc_diff_10))
+          (chsh_n_z wc.(wc_same_10) wc.(wc_diff_10))
+          (chsh_d_z wc.(wc_same_11) wc.(wc_diff_11))
+          (chsh_n_z wc.(wc_same_11) wc.(wc_diff_11))
+          Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+(** ============================================================================
+    Section 15.6. γ_{1,2,3,4,5} cleared-Z integer kernel (sym6 + Schur cascade).
+
+    Lifts the real-valued [q1ab_g12345_minors_witness] (sym6_pd_interior at
+    H_{γ_12345}) to a pure Z-arithmetic decision procedure. The cascade
+    computes:
+
+      - 21 cleared H_{ij}-numerators at uniform scaling
+        [g12345_COMMON_Z] := (N00·N01·N10·N11·Dg1·Dg2·Dg3·Dg4·Dg5)²;
+      - 15 cleared scaled_S_6 entries (4×4 Schur complement of row 1 of
+        the sym6 H) at scaling g12345_COMMON_Z²;
+      - 10 cleared scaled_S_5 entries (Schur of Schur — 4×4 Schur of row 1
+        of the sym5 scaled_S_6) at scaling g12345_COMMON_Z⁴;
+      - 4 sym4 Sylvester leading minors of the scaled_S_5 cleared values,
+        at scaling g12345_COMMON_Z^(4·k) for k = 1..4.
+
+    The kernel decider [q1ab_g12345_check_z_kernel] tests six positivities:
+    cleared_H11 > 0, cleared_scaled_S_6_22 > 0, sym4_d_k of cleared
+    scaled_S_5 > 0 for k = 1..4. Soundness in QuantumPartitionPSD_1AB.v
+    Section 16.5. *)
+
+(** Uniform common scaling factor for the 21-entry H_{γ_12345} matrix.
+    All cleared H entries are at this scaling; cascade levels square it. *)
+Definition g12345_COMMON_Z
+  (N00 N01 N10 N11 Dg1 Dg2 Dg3 Dg4 Dg5 : Z) : Z :=
+  (let P := (N00*N01*N10*N11*Dg1*Dg2*Dg3*Dg4*Dg5)%Z in P*P)%Z.
+
+(** Cleared H_{ij}-numerators at scaling g12345_COMMON_Z. Each is
+    [g12345_COMMON_Z · q12345_HXX(D00/N00, ..., Ng5/Dg5)] expressed as a
+    pure Z polynomial. *)
+
+Definition cleared_g12345_H11_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* g12345_COMMON_Z · (1 - (D00/N00)² - (D10/N10)²)
+     = (N01·N11·Dg1·Dg2·Dg3·Dg4·Dg5)² · (N00²·N10² - D00²·N10² - D10²·N00²) *)
+  ((N01*N11*Dg1*Dg2*Dg3*Dg4*Dg5)
+   * (N01*N11*Dg1*Dg2*Dg3*Dg4*Dg5)
+   * (N00*N00*N10*N10 - D00*D00*N10*N10 - D10*D10*N00*N00))%Z.
+
+Definition cleared_g12345_H22_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  ((N00*N10*Dg1*Dg2*Dg3*Dg4*Dg5)
+   * (N00*N10*Dg1*Dg2*Dg3*Dg4*Dg5)
+   * (N01*N01*N11*N11 - D01*D01*N11*N11 - D11*D11*N01*N01))%Z.
+
+Definition cleared_g12345_H33_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_33 = 1 - e00² - g1² = (Dg1²·N00² - Dg1²·D00² - Ng1²·N00²)/(N00²·Dg1²)
+     COMMON·H_33 = (N01·N10·N11·Dg2·Dg3·Dg4·Dg5)² · (Dg1²·(N00² - D00²) - Ng1²·N00²) *)
+  ((N01*N10*N11*Dg2*Dg3*Dg4*Dg5)
+   * (N01*N10*N11*Dg2*Dg3*Dg4*Dg5)
+   * (Dg1*Dg1*(N00*N00 - D00*D00) - Ng1*Ng1*N00*N00))%Z.
+
+Definition cleared_g12345_H44_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  ((N00*N10*N11*Dg1*Dg3*Dg4*Dg5)
+   * (N00*N10*N11*Dg1*Dg3*Dg4*Dg5)
+   * (Dg2*Dg2*(N01*N01 - D01*D01) - Ng2*Ng2*N01*N01))%Z.
+
+Definition cleared_g12345_H55_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  ((N00*N01*N11*Dg2*Dg3*Dg4*Dg5)
+   * (N00*N01*N11*Dg2*Dg3*Dg4*Dg5)
+   * (Dg1*Dg1*(N10*N10 - D10*D10) - Ng1*Ng1*N10*N10))%Z.
+
+Definition cleared_g12345_H66_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  ((N00*N01*N10*Dg1*Dg3*Dg4*Dg5)
+   * (N00*N01*N10*Dg1*Dg3*Dg4*Dg5)
+   * (Dg2*Dg2*(N11*N11 - D11*D11) - Ng2*Ng2*N11*N11))%Z.
+
+Definition cleared_g12345_H12_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_12 = -(e00·e01 + e10·e11) = -(D00·D01·N10·N11 + D10·D11·N00·N01)/(N00·N01·N10·N11)
+     COMMON·H_12 = -(N00·N01·N10·N11)·(Dg1·Dg2·Dg3·Dg4·Dg5)² · (numerator) *)
+  ((N00*N01*N10*N11) * (Dg1*Dg2*Dg3*Dg4*Dg5) * (Dg1*Dg2*Dg3*Dg4*Dg5)
+   * (-(D00*D01*N10*N11 + D10*D11*N00*N01)))%Z.
+
+Definition cleared_g12345_H13_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_13 = -e10·g1 = -(D10·Ng1)/(N10·Dg1)
+     COMMON·H_13 = -(N10·Dg1)·(N00·N01·N11·Dg1·Dg2·Dg3·Dg4·Dg5)·(N00·N01·N10·N11·Dg2·Dg3·Dg4·Dg5)·(D10·Ng1)
+     Group: COMMON / (N10·Dg1) = N10·N00²·N01²·N11²·Dg1·Dg2²·Dg3²·Dg4²·Dg5² *)
+  ((N00*N00*N01*N01*N10*N11*N11*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D10*Ng1)))%Z.
+
+Definition cleared_g12345_H14_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_14 = g3 - e10·g2 = (Ng3·N10·Dg2 - D10·Ng2·Dg3)/(N10·Dg2·Dg3)
+     COMMON / (N10·Dg2·Dg3) = N10·N00²·N01²·N11²·Dg1²·Dg2·Dg3·Dg4²·Dg5² *)
+  ((N00*N00*N01*N01*N10*N11*N11*Dg1*Dg1*Dg2*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (Ng3*N10*Dg2 - D10*Ng2*Dg3))%Z.
+
+Definition cleared_g12345_H15_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_15 = -e00·g1 = -(D00·Ng1)/(N00·Dg1)
+     COMMON / (N00·Dg1) = N00·N01²·N10²·N11²·Dg1·Dg2²·Dg3²·Dg4²·Dg5² *)
+  ((N00*N01*N01*N10*N10*N11*N11*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D00*Ng1)))%Z.
+
+Definition cleared_g12345_H16_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_16 = g4 - e00·g2 = (Ng4·N00·Dg2 - D00·Ng2·Dg4)/(N00·Dg2·Dg4)
+     COMMON / (N00·Dg2·Dg4) = N00·N01²·N10²·N11²·Dg1²·Dg2·Dg3²·Dg4·Dg5² *)
+  ((N00*N01*N01*N10*N10*N11*N11*Dg1*Dg1*Dg2*Dg3*Dg3*Dg4*Dg5*Dg5)
+   * (Ng4*N00*Dg2 - D00*Ng2*Dg4))%Z.
+
+Definition cleared_g12345_H23_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_23 = g3 - e11·g1 = (Ng3·N11·Dg1 - D11·Ng1·Dg3)/(N11·Dg1·Dg3)
+     COMMON / (N11·Dg1·Dg3) = N11·N00²·N01²·N10²·Dg1·Dg2²·Dg3·Dg4²·Dg5² *)
+  ((N00*N00*N01*N01*N10*N10*N11*Dg1*Dg2*Dg2*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (Ng3*N11*Dg1 - D11*Ng1*Dg3))%Z.
+
+Definition cleared_g12345_H24_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_24 = -e11·g2 = -(D11·Ng2)/(N11·Dg2)
+     COMMON / (N11·Dg2) = N11·N00²·N01²·N10²·Dg1²·Dg2·Dg3²·Dg4²·Dg5² *)
+  ((N00*N00*N01*N01*N10*N10*N11*Dg1*Dg1*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D11*Ng2)))%Z.
+
+Definition cleared_g12345_H25_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_25 = g4 - e01·g1 = (Ng4·N01·Dg1 - D01·Ng1·Dg4)/(N01·Dg1·Dg4)
+     COMMON / (N01·Dg1·Dg4) = N01·N00²·N10²·N11²·Dg1·Dg2²·Dg3²·Dg4·Dg5² *)
+  ((N00*N00*N01*N10*N10*N11*N11*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg5*Dg5)
+   * (Ng4*N01*Dg1 - D01*Ng1*Dg4))%Z.
+
+Definition cleared_g12345_H26_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_26 = -e01·g2 = -(D01·Ng2)/(N01·Dg2)
+     COMMON / (N01·Dg2) = N01·N00²·N10²·N11²·Dg1²·Dg2·Dg3²·Dg4²·Dg5² *)
+  ((N00*N00*N01*N10*N10*N11*N11*Dg1*Dg1*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D01*Ng2)))%Z.
+
+Definition cleared_g12345_H34_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_34 = -(e00·e01 + g1·g2) = -(D00·D01·Dg1·Dg2 + Ng1·Ng2·N00·N01)/(N00·N01·Dg1·Dg2)
+     COMMON / (N00·N01·Dg1·Dg2) = N00·N01·N10²·N11²·Dg1·Dg2·Dg3²·Dg4²·Dg5² *)
+  ((N00*N01*N10*N10*N11*N11*Dg1*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D00*D01*Dg1*Dg2 + Ng1*Ng2*N00*N01)))%Z.
+
+Definition cleared_g12345_H35_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_35 = -e00·e10 = -(D00·D10)/(N00·N10)
+     COMMON / (N00·N10) = N00·N01²·N10·N11²·Dg1²·Dg2²·Dg3²·Dg4²·Dg5² *)
+  ((N00*N01*N01*N10*N11*N11*Dg1*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D00*D10)))%Z.
+
+Definition cleared_g12345_H36_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_36 = g5 - e00·e11 = (Ng5·N00·N11 - D00·D11·Dg5)/(N00·N11·Dg5)
+     COMMON / (N00·N11·Dg5) = N00·N01²·N10²·N11·Dg1²·Dg2²·Dg3²·Dg4²·Dg5 *)
+  ((N00*N01*N01*N10*N10*N11*Dg1*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5)
+   * (Ng5*N00*N11 - D00*D11*Dg5))%Z.
+
+Definition cleared_g12345_H45_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_45 = g5 - e01·e10 = (Ng5·N01·N10 - D01·D10·Dg5)/(N01·N10·Dg5)
+     COMMON / (N01·N10·Dg5) = N00²·N01·N10·N11²·Dg1²·Dg2²·Dg3²·Dg4²·Dg5 *)
+  ((N00*N00*N01*N10*N11*N11*Dg1*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5)
+   * (Ng5*N01*N10 - D01*D10*Dg5))%Z.
+
+Definition cleared_g12345_H46_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_46 = -e01·e11 = -(D01·D11)/(N01·N11)
+     COMMON / (N01·N11) = N00²·N01·N10²·N11·Dg1²·Dg2²·Dg3²·Dg4²·Dg5² *)
+  ((N00*N00*N01*N10*N10*N11*Dg1*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D01*D11)))%Z.
+
+Definition cleared_g12345_H56_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  (* H_56 = -(e10·e11 + g1·g2) = -(D10·D11·Dg1·Dg2 + Ng1·Ng2·N10·N11)/(N10·N11·Dg1·Dg2)
+     COMMON / (N10·N11·Dg1·Dg2) = N00²·N01²·N10·N11·Dg1·Dg2·Dg3²·Dg4²·Dg5² *)
+  ((N00*N00*N01*N01*N10*N11*Dg1*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5*Dg5)
+   * (-(D10*D11*Dg1*Dg2 + Ng1*Ng2*N10*N11)))%Z.
+
+(** Helper: integer Schur step [schur_step_Z h11 hij h1i h1j := h11·hij - h1i·h1j].
+    Used inline for each of the 15 scaled_S_6 entries and 10 scaled_S_5
+    entries below. *)
+Definition schur_step_Z (h11 hij h1i h1j : Z) : Z :=
+  (h11 * hij - h1i * h1j)%Z.
+
+(** 15 cleared scaled_S_6_{ij} numerators (4×4 Schur of row 1 of sym6 H),
+    each at scaling g12345_COMMON_Z². *)
+
+Definition cleared_g12345_S6_22_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_23_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_24_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_25_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H15_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_26_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H26_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H12_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H16_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_33_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_34_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_35_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H35_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H15_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_36_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H36_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H13_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H16_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_44_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_45_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H45_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H15_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_46_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H46_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H14_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H16_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_55_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H55_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H15_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H15_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_56_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H56_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H15_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H16_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S6_66_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H66_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H16_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_H16_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+(** 10 cleared scaled_S_5_{ij} numerators (4×4 Schur of row 1 of the 5×5
+    scaled_S_6), each at scaling g12345_COMMON_Z⁴. The "h11" of the 5×5
+    is scaled_S_6_22, and rows/cols 2..5 of the 5×5 are scaled_S_6 entries
+    indexed (3..6). *)
+
+Definition cleared_g12345_S5_22_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_23_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_24_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_35_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_25_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_36_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_26_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_33_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_34_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_45_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_35_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_46_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_26_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_44_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_55_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_45_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_56_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_26_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+Definition cleared_g12345_S5_55_Z
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
+  schur_step_Z
+    (cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_66_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_26_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+    (cleared_g12345_S6_26_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
+
+(** Abstract Z-bool decider on 18 integer parameters (4 (D,N) bucket pairs
+    for the CHSH correlators + 5 (Ng, Dg) bucket pairs for γ_1..γ_5). The
+    six positivity checks come from the sym6 → sym5 → sym4 Schur cascade. *)
+Definition q1ab_g12345_check_z_kernel
+  (D00 N00 D01 N01 D10 N10 D11 N11
+   Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : bool :=
+  ((0 <? N00)%Z)
+  && ((0 <? N01)%Z)
+  && ((0 <? N10)%Z)
+  && ((0 <? N11)%Z)
+  && ((0 <? Dg1)%Z) && ((0 <? Dg2)%Z)
+  && ((0 <? Dg3)%Z) && ((0 <? Dg4)%Z) && ((0 <? Dg5)%Z)
+  && ((-Dg1 <? Ng1)%Z) && ((Ng1 <? Dg1)%Z)
+  && ((-Dg2 <? Ng2)%Z) && ((Ng2 <? Dg2)%Z)
+  && ((-Dg3 <? Ng3)%Z) && ((Ng3 <? Dg3)%Z)
+  && ((-Dg4 <? Ng4)%Z) && ((Ng4 <? Dg4)%Z)
+  && ((-Dg5 <? Ng5)%Z) && ((Ng5 <? Dg5)%Z)
+  (* Schur cascade — six PD checks: *)
+  && ((0 <? cleared_g12345_H11_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
+  && ((0 <? cleared_g12345_S6_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)%Z)
+  && ((0 <? sym4_d1_Z
+              (cleared_g12345_S5_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_35_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_45_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_55_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5))%Z)
+  && ((0 <? sym4_d2_Z
+              (cleared_g12345_S5_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_35_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_45_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_55_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5))%Z)
+  && ((0 <? sym4_d3_Z
+              (cleared_g12345_S5_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_35_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_45_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_55_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5))%Z)
+  && ((0 <? sym4_d4_Z
+              (cleared_g12345_S5_22_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_23_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_24_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_25_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_33_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_34_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_35_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_44_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_45_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5)
+              (cleared_g12345_S5_55_Z D00 N00 D01 N01 D10 N10 D11 N11 Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5))%Z).
+
+(** Composite γ_12345 integer check on a WitnessCounts plus five γ-bucket
+    pairs. Reads (D, N) for the four CHSH correlators from the witness
+    counters and (Ng, Dg) for γ_1..γ_5 from the supplied bucket pairs. *)
+Definition q1ab_g12345_full_integer_check_kernel
+  (wc : WitnessCounts)
+  (same_g1 diff_g1 same_g2 diff_g2
+   same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat) : bool :=
+  let Ng1 := chsh_d_z same_g1 diff_g1 in
+  let Dg1 := chsh_n_z same_g1 diff_g1 in
+  let Ng2 := chsh_d_z same_g2 diff_g2 in
+  let Dg2 := chsh_n_z same_g2 diff_g2 in
+  let Ng3 := chsh_d_z same_g3 diff_g3 in
+  let Dg3 := chsh_n_z same_g3 diff_g3 in
+  let Ng4 := chsh_d_z same_g4 diff_g4 in
+  let Dg4 := chsh_n_z same_g4 diff_g4 in
+  let Ng5 := chsh_d_z same_g5 diff_g5 in
+  let Dg5 := chsh_n_z same_g5 diff_g5 in
+  andb (column_contractive_check_witness wc)
+       (q1ab_g12345_check_z_kernel
+          (chsh_d_z wc.(wc_same_00) wc.(wc_diff_00))
+          (chsh_n_z wc.(wc_same_00) wc.(wc_diff_00))
+          (chsh_d_z wc.(wc_same_01) wc.(wc_diff_01))
+          (chsh_n_z wc.(wc_same_01) wc.(wc_diff_01))
+          (chsh_d_z wc.(wc_same_10) wc.(wc_diff_10))
+          (chsh_n_z wc.(wc_same_10) wc.(wc_diff_10))
+          (chsh_d_z wc.(wc_same_11) wc.(wc_diff_11))
+          (chsh_n_z wc.(wc_same_11) wc.(wc_diff_11))
+          Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5).
 
 (** [CHSH_HONEST_MARKER]: distinguished value written to [csr_cert_addr] when
     CHSH_LASSERT successfully verifies column-contractivity of the witness
@@ -1252,6 +2207,180 @@ Inductive vm_step : VMState -> vm_instruction -> VMState -> Prop :=
          vm_mem := s.(vm_mem);
          vm_pc := LASSERT_TRAP_PC;
          vm_mu := apply_cost s (instr_chsh_lassert mu_delta);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := true;
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_ok: Q_{1+AB}-aware certification succeeds.
+    Runs [column_contractive_check_q1ab_kernel] which combines the Q_1
+    check with the integer sum-of-squares condition on the four CHSH
+    correlators. On pass: advance PC, leave cert state intact, leave
+    vm_err intact. Cost is S mu_delta. *)
+| step_chsh_lassert_1ab_ok : forall s mu_delta,
+    column_contractive_check_q1ab_kernel s.(vm_witness) = true ->
+    vm_step s (instr_chsh_lassert_1ab mu_delta)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := s.(vm_csrs);
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := S s.(vm_pc);
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab mu_delta);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := s.(vm_err);
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_bad: Q_{1+AB} check fails. Trap to
+    LASSERT_TRAP_PC, latch vm_err. Cost is charged regardless. *)
+| step_chsh_lassert_1ab_bad : forall s mu_delta,
+    column_contractive_check_q1ab_kernel s.(vm_witness) = false ->
+    vm_step s (instr_chsh_lassert_1ab mu_delta)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := csr_set_err s.(vm_csrs) 1;
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := LASSERT_TRAP_PC;
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab mu_delta);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := true;
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_g5_ok: Q_{1+AB}-aware γ_5 certification succeeds.
+    Runs [q1ab_g5_full_integer_check_kernel] which combines the Q_1
+    column-contractive check on the four CHSH correlators with the γ_5
+    SOS witness inequality. On pass: advance PC, leave cert state intact,
+    leave vm_err intact. Cost is S mu_delta. *)
+| step_chsh_lassert_1ab_g5_ok : forall s mu_delta same_g5 diff_g5,
+    q1ab_g5_full_integer_check_kernel s.(vm_witness) same_g5 diff_g5 = true ->
+    vm_step s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := s.(vm_csrs);
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := S s.(vm_pc);
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := s.(vm_err);
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_g5_bad: Q_{1+AB}-aware γ_5 check fails. Trap
+    to LASSERT_TRAP_PC, latch vm_err. Cost is charged regardless. *)
+| step_chsh_lassert_1ab_g5_bad : forall s mu_delta same_g5 diff_g5,
+    q1ab_g5_full_integer_check_kernel s.(vm_witness) same_g5 diff_g5 = false ->
+    vm_step s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := csr_set_err s.(vm_csrs) 1;
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := LASSERT_TRAP_PC;
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := true;
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_g345_ok: Q_{1+AB}-aware γ_{3,4,5} certification
+    succeeds. Runs [q1ab_g345_full_integer_check_kernel] which combines
+    the Q_1 column-contractive check on the four CHSH correlators with
+    the four leading principal minors of H_{γ_345} all > 0 (Sylvester PD
+    on the 4×4 difference matrix). On pass: advance PC, leave cert state
+    intact, leave vm_err intact. Cost is S mu_delta. *)
+| step_chsh_lassert_1ab_g345_ok :
+    forall s mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5,
+    q1ab_g345_full_integer_check_kernel s.(vm_witness)
+      same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 = true ->
+    vm_step s (instr_chsh_lassert_1ab_g345 mu_delta
+                 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := s.(vm_csrs);
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := S s.(vm_pc);
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab_g345 mu_delta
+                                  same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := s.(vm_err);
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_g345_bad: Q_{1+AB}-aware γ_{3,4,5} check fails.
+    Trap to LASSERT_TRAP_PC, latch vm_err. Cost is charged regardless. *)
+| step_chsh_lassert_1ab_g345_bad :
+    forall s mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5,
+    q1ab_g345_full_integer_check_kernel s.(vm_witness)
+      same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 = false ->
+    vm_step s (instr_chsh_lassert_1ab_g345 mu_delta
+                 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := csr_set_err s.(vm_csrs) 1;
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := LASSERT_TRAP_PC;
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab_g345 mu_delta
+                                  same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := true;
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_g12345_ok: full Q_{1+AB} γ_{1..5}-aware check passes.
+    Runs [q1ab_g12345_full_integer_check_kernel] on the witness counters
+    plus the five γ-bucket pairs (the column-contractive check on the
+    four CHSH correlators AND the six Schur-cascade PD checks on the
+    cleared 6×6 → 5×5 → 4×4 matrix). On pass: advance PC, leave cert
+    state intact, leave vm_err intact. Cost is S mu_delta. *)
+| step_chsh_lassert_1ab_g12345_ok :
+    forall s mu_delta same_g1 diff_g1 same_g2 diff_g2
+                       same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5,
+    q1ab_g12345_full_integer_check_kernel s.(vm_witness)
+      same_g1 diff_g1 same_g2 diff_g2
+      same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 = true ->
+    vm_step s (instr_chsh_lassert_1ab_g12345 mu_delta
+                 same_g1 diff_g1 same_g2 diff_g2
+                 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := s.(vm_csrs);
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := S s.(vm_pc);
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab_g12345 mu_delta
+                                  same_g1 diff_g1 same_g2 diff_g2
+                                  same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
+         vm_mu_tensor := s.(vm_mu_tensor);
+         vm_err := s.(vm_err);
+         vm_logic_acc := s.(vm_logic_acc);
+         vm_mstatus := s.(vm_mstatus);
+         vm_witness := s.(vm_witness);
+         vm_certified := s.(vm_certified) |}
+(** step_chsh_lassert_1ab_g12345_bad: full Q_{1+AB} γ_{1..5}-aware check
+    fails. Trap to LASSERT_TRAP_PC, latch vm_err. Cost is charged regardless. *)
+| step_chsh_lassert_1ab_g12345_bad :
+    forall s mu_delta same_g1 diff_g1 same_g2 diff_g2
+                       same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5,
+    q1ab_g12345_full_integer_check_kernel s.(vm_witness)
+      same_g1 diff_g1 same_g2 diff_g2
+      same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 = false ->
+    vm_step s (instr_chsh_lassert_1ab_g12345 mu_delta
+                 same_g1 diff_g1 same_g2 diff_g2
+                 same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5)
+      {| vm_graph := s.(vm_graph);
+         vm_csrs := csr_set_err s.(vm_csrs) 1;
+         vm_regs := s.(vm_regs);
+         vm_mem := s.(vm_mem);
+         vm_pc := LASSERT_TRAP_PC;
+         vm_mu := apply_cost s (instr_chsh_lassert_1ab_g12345 mu_delta
+                                  same_g1 diff_g1 same_g2 diff_g2
+                                  same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5);
          vm_mu_tensor := s.(vm_mu_tensor);
          vm_err := true;
          vm_logic_acc := s.(vm_logic_acc);

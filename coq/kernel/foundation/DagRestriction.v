@@ -60,6 +60,10 @@ Definition is_dag_instr_at (pc trace_len : nat) (instr : vm_instruction) : bool 
   | instr_ret _             => false
   | instr_lassert _ _ _ _ _ => Nat.leb trace_len LASSERT_TRAP_PC
   | instr_chsh_lassert _    => Nat.leb trace_len LASSERT_TRAP_PC
+  | instr_chsh_lassert_1ab _ => Nat.leb trace_len LASSERT_TRAP_PC
+  | instr_chsh_lassert_1ab_g5 _ _ _ => Nat.leb trace_len LASSERT_TRAP_PC
+  | instr_chsh_lassert_1ab_g345 _ _ _ _ _ _ _ => Nat.leb trace_len LASSERT_TRAP_PC
+  | instr_chsh_lassert_1ab_g12345 _ _ _ _ _ _ _ _ _ _ _ => Nat.leb trace_len LASSERT_TRAP_PC
   | _                       => true
   end.
 
@@ -126,6 +130,51 @@ Lemma vm_apply_chsh_lassert_pc :
       then S s.(vm_pc)
       else LASSERT_TRAP_PC.
 Proof. intros. unfold vm_apply. simpl. destruct (column_contractive_check_witness _); reflexivity. Qed.
+
+(** Same shape for chsh_lassert_1ab: pc advances on success, traps on failure. *)
+Lemma vm_apply_chsh_lassert_1ab_pc :
+  forall (s : VMState) (mu_delta : nat),
+    (vm_apply s (instr_chsh_lassert_1ab mu_delta)).(vm_pc) =
+      if column_contractive_check_q1ab_kernel s.(vm_witness)
+      then S s.(vm_pc)
+      else LASSERT_TRAP_PC.
+Proof. intros. unfold vm_apply. simpl. destruct (column_contractive_check_q1ab_kernel _); reflexivity. Qed.
+
+(** Same shape for chsh_lassert_1ab_g5: pc advances on success, traps on failure. *)
+Lemma vm_apply_chsh_lassert_1ab_g5_pc :
+  forall (s : VMState) (mu_delta same_g5 diff_g5 : nat),
+    (vm_apply s (instr_chsh_lassert_1ab_g5 mu_delta same_g5 diff_g5)).(vm_pc) =
+      if q1ab_g5_full_integer_check_kernel s.(vm_witness) same_g5 diff_g5
+      then S s.(vm_pc)
+      else LASSERT_TRAP_PC.
+Proof. intros. unfold vm_apply. simpl. destruct (q1ab_g5_full_integer_check_kernel _ _ _); reflexivity. Qed.
+
+(** Same shape for chsh_lassert_1ab_g345. *)
+Lemma vm_apply_chsh_lassert_1ab_g345_pc :
+  forall (s : VMState) (mu_delta same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat),
+    (vm_apply s (instr_chsh_lassert_1ab_g345 mu_delta
+                   same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5)).(vm_pc) =
+      if q1ab_g345_full_integer_check_kernel s.(vm_witness)
+           same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5
+      then S s.(vm_pc)
+      else LASSERT_TRAP_PC.
+Proof. intros. unfold vm_apply. simpl.
+       destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _); reflexivity. Qed.
+
+(** Same shape for chsh_lassert_1ab_g12345. *)
+Lemma vm_apply_chsh_lassert_1ab_g12345_pc :
+  forall (s : VMState) (mu_delta same_g1 diff_g1 same_g2 diff_g2
+                          same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5 : nat),
+    (vm_apply s (instr_chsh_lassert_1ab_g12345 mu_delta
+                   same_g1 diff_g1 same_g2 diff_g2
+                   same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5)).(vm_pc) =
+      if q1ab_g12345_full_integer_check_kernel s.(vm_witness)
+           same_g1 diff_g1 same_g2 diff_g2
+           same_g3 diff_g3 same_g4 diff_g4 same_g5 diff_g5
+      then S s.(vm_pc)
+      else LASSERT_TRAP_PC.
+Proof. intros. unfold vm_apply. simpl.
+       destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _); reflexivity. Qed.
 
 Lemma dag_instr_advances_pc :
   forall (s : VMState) (instr : vm_instruction) (trace : list vm_instruction),
@@ -197,6 +246,22 @@ Proof.
     rewrite vm_apply_chsh_lassert_pc.
     apply Nat.leb_le in Hdag.
     case (column_contractive_check_witness _); simpl; lia.
+  - (* CHSH_LASSERT_1AB: same structure. *)
+    rewrite vm_apply_chsh_lassert_1ab_pc.
+    apply Nat.leb_le in Hdag.
+    case (column_contractive_check_q1ab_kernel _); simpl; lia.
+  - (* CHSH_LASSERT_1AB_G5: same structure. *)
+    rewrite vm_apply_chsh_lassert_1ab_g5_pc.
+    apply Nat.leb_le in Hdag.
+    case (q1ab_g5_full_integer_check_kernel _ _ _); simpl; lia.
+  - (* CHSH_LASSERT_1AB_G345: same structure. *)
+    rewrite vm_apply_chsh_lassert_1ab_g345_pc.
+    apply Nat.leb_le in Hdag.
+    case (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _); simpl; lia.
+  - (* CHSH_LASSERT_1AB_G12345: same structure. *)
+    rewrite vm_apply_chsh_lassert_1ab_g12345_pc.
+    apply Nat.leb_le in Hdag.
+    case (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _); simpl; lia.
 Qed.
 
 (** ** PC Monotone Growth Under DAG Execution

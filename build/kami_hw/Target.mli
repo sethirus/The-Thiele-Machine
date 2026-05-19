@@ -222,6 +222,91 @@ val makeModule : inModule -> modules
 
 val makeConst : kind -> constT -> constFullT
 
+type tyS = int
+
+type exprS = tyS expr
+
+type actionS =
+| MCallS of char list * signatureT * exprS * int * actionS
+| LetS_ of fullKind * exprS * int * actionS
+| ReadNondetS of int * actionS
+| ReadRegS of char list * int * actionS
+| WriteRegS of char list * fullKind * exprS * actionS
+| IfElseS of exprS * kind * actionS * actionS * int * actionS
+| AssertS_ of exprS * actionS
+| ReturnS of exprS
+
+val getActionS : int -> kind -> tyS actionT -> int * actionS
+
+type methodTS = actionS
+
+type defMethTS = (signatureT, methodTS) sigT attribute
+
+type modulesS =
+| PrimModS of char list * signatureT attribute list
+| ModS of regInitT list * actionS attribute list * defMethTS list
+| ConcatModsS of modulesS * modulesS
+
+val getMethS : (signatureT, methodT) sigT -> (signatureT, methodTS) sigT
+
+val getModuleS : modules -> modulesS
+
+val mapVec : ('a1 -> 'a2) -> int -> 'a1 vec -> 'a2 vec
+
+type bExpr =
+| BVar of int
+| BConst of kind * constT
+| BUniBool of uniBoolOp * bExpr
+| BBinBool of binBoolOp * bExpr * bExpr
+| BUniBit of int * int * uniBitOp * bExpr
+| BBinBit of int * int * int * binBitOp * bExpr * bExpr
+| BBinBitBool of int * int * binBitBoolOp * bExpr * bExpr
+| BITE of bExpr * bExpr * bExpr
+| BEq of bExpr * bExpr
+| BReadIndex of bExpr * bExpr
+| BReadField of char list * bExpr
+| BBuildVector of int * bExpr vec
+| BBuildStruct of int * kind attribute t0 * bExpr attribute list
+| BUpdateVector of bExpr * bExpr * bExpr
+| BReadReg of char list
+| BReadArrayIndex of bExpr * bExpr
+| BBuildArray of int * bExpr t0
+| BUpdateArray of bExpr * bExpr * bExpr
+
+type bAction =
+| BMCall of int * char list * signatureT * bExpr
+| BBCall of int * char list * bool * bExpr list
+| BLet of int * kind option * bExpr
+| BWriteReg of char list * bExpr
+| BIfElse of bExpr * int * kind * bAction list * bAction list
+| BAssert of bExpr
+| BReturn of bExpr
+
+type bRule = bAction list attribute
+
+type bMethod = (signatureT * bAction list) attribute
+
+type bModule =
+| BModulePrim of char list * signatureT attribute list
+| BModuleB of regInitT list * bRule list * bMethod list
+
+val bind : 'a1 option -> ('a1 -> 'a2 option) -> 'a2 option
+
+val bindVec : int -> 'a1 option vec -> 'a1 vec option
+
+val bindVector : int -> 'a1 option t0 -> 'a1 t0 option
+
+val exprSToBExpr : fullKind -> exprS -> bExpr option
+
+val actionSToBAction : kind -> actionS -> bAction list option
+
+val rulesToBRules :
+  actionS attribute list -> bAction list attribute list option
+
+val methsToBMethods : defMethTS list -> bMethod list option
+
+val modulesSToBModules : modulesS -> bModule list option
+
 val regIdxSz : int
 
 val memAddrSz : int
@@ -417,91 +502,6 @@ val oP_MORPH_GET : word
 val oP_CHSH_LASSERT : word
 
 val oP_HALT : word
-
-type tyS = int
-
-type exprS = tyS expr
-
-type actionS =
-| MCallS of char list * signatureT * exprS * int * actionS
-| LetS_ of fullKind * exprS * int * actionS
-| ReadNondetS of int * actionS
-| ReadRegS of char list * int * actionS
-| WriteRegS of char list * fullKind * exprS * actionS
-| IfElseS of exprS * kind * actionS * actionS * int * actionS
-| AssertS_ of exprS * actionS
-| ReturnS of exprS
-
-val getActionS : int -> kind -> tyS actionT -> int * actionS
-
-type methodTS = actionS
-
-type defMethTS = (signatureT, methodTS) sigT attribute
-
-type modulesS =
-| PrimModS of char list * signatureT attribute list
-| ModS of regInitT list * actionS attribute list * defMethTS list
-| ConcatModsS of modulesS * modulesS
-
-val getMethS : (signatureT, methodT) sigT -> (signatureT, methodTS) sigT
-
-val getModuleS : modules -> modulesS
-
-val mapVec : ('a1 -> 'a2) -> int -> 'a1 vec -> 'a2 vec
-
-type bExpr =
-| BVar of int
-| BConst of kind * constT
-| BUniBool of uniBoolOp * bExpr
-| BBinBool of binBoolOp * bExpr * bExpr
-| BUniBit of int * int * uniBitOp * bExpr
-| BBinBit of int * int * int * binBitOp * bExpr * bExpr
-| BBinBitBool of int * int * binBitBoolOp * bExpr * bExpr
-| BITE of bExpr * bExpr * bExpr
-| BEq of bExpr * bExpr
-| BReadIndex of bExpr * bExpr
-| BReadField of char list * bExpr
-| BBuildVector of int * bExpr vec
-| BBuildStruct of int * kind attribute t0 * bExpr attribute list
-| BUpdateVector of bExpr * bExpr * bExpr
-| BReadReg of char list
-| BReadArrayIndex of bExpr * bExpr
-| BBuildArray of int * bExpr t0
-| BUpdateArray of bExpr * bExpr * bExpr
-
-type bAction =
-| BMCall of int * char list * signatureT * bExpr
-| BBCall of int * char list * bool * bExpr list
-| BLet of int * kind option * bExpr
-| BWriteReg of char list * bExpr
-| BIfElse of bExpr * int * kind * bAction list * bAction list
-| BAssert of bExpr
-| BReturn of bExpr
-
-type bRule = bAction list attribute
-
-type bMethod = (signatureT * bAction list) attribute
-
-type bModule =
-| BModulePrim of char list * signatureT attribute list
-| BModuleB of regInitT list * bRule list * bMethod list
-
-val bind : 'a1 option -> ('a1 -> 'a2 option) -> 'a2 option
-
-val bindVec : int -> 'a1 option vec -> 'a1 vec option
-
-val bindVector : int -> 'a1 option t0 -> 'a1 t0 option
-
-val exprSToBExpr : fullKind -> exprS -> bExpr option
-
-val actionSToBAction : kind -> actionS -> bAction list option
-
-val rulesToBRules :
-  actionS attribute list -> bAction list attribute list option
-
-val methsToBMethods : defMethTS list -> bMethod list option
-
-val modulesSToBModules : modulesS -> bModule list option
 
 val loadInstrPort : kind attribute t0
 

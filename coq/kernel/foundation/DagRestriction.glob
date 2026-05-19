@@ -1,4 +1,4 @@
-DIGEST 72005b81c0e3a30a3a65345d112fd7f4
+DIGEST c08c9d491c31e54caab78c956ca3b3d6
 FKernel.DagRestriction
 R1471:1474 Coq.Lists.List <> <> lib
 R1476:1489 Coq.Arith.PeanoNat <> <> lib
@@ -39,1054 +39,1276 @@ R2807:2824 Kernel.VMStep VMStep instr_chsh_lassert constr
 R2834:2840 Coq.Arith.PeanoNat Nat leb def
 R2842:2850 Kernel.DagRestriction <> trace_len:2 var
 R2852:2866 Kernel.VMStep VMStep LASSERT_TRAP_PC def
-R2899:2902 Coq.Init.Datatypes <> true constr
-def 2923:2934 <> dag_trace_wf
-R2945:2948 Coq.Init.Datatypes <> list ind
-R2950:2963 Kernel.VMStep VMStep vm_instruction ind
-binder 2937:2941 <> trace:5
-R2991:2993 Coq.Init.Datatypes <> nat ind
-binder 2986:2987 <> pc:6
-R3005:3018 Kernel.VMStep VMStep vm_instruction ind
-binder 2997:3001 <> instr:7
-R3057:3064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3044:3046 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3026:3034 Coq.Lists.List <> nth_error def
-R3042:3043 Kernel.DagRestriction <> pc:6 var
-R3036:3040 Kernel.DagRestriction <> trace:5 var
-R3047:3050 Coq.Init.Datatypes <> Some constr
-R3052:3056 Kernel.DagRestriction <> instr:7 var
-R3104:3106 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3065:3079 Kernel.DagRestriction <> is_dag_instr_at def
-R3081:3082 Kernel.DagRestriction <> pc:6 var
-R3085:3090 Coq.Init.Datatypes <> length def
-R3092:3096 Kernel.DagRestriction <> trace:5 var
-R3099:3103 Kernel.DagRestriction <> instr:7 var
-R3107:3110 Coq.Init.Datatypes <> true constr
-prf 3185:3202 <> advance_state_pc_S
-binder 3215:3215 <> s:8
-binder 3217:3221 <> instr:9
-binder 3223:3223 <> g:10
-binder 3225:3228 <> csrs:11
-binder 3230:3232 <> err:12
-R3281:3283 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3275:3279 Kernel.VMState <> vm_pc proj
-R3240:3252 Kernel.VMStep VMStep advance_state def
-R3254:3254 Kernel.DagRestriction <> s:8 var
-R3256:3260 Kernel.DagRestriction <> instr:9 var
-R3262:3262 Kernel.DagRestriction <> g:10 var
-R3264:3267 Kernel.DagRestriction <> csrs:11 var
-R3269:3271 Kernel.DagRestriction <> err:12 var
-R3284:3284 Coq.Init.Datatypes <> S constr
-R3289:3293 Kernel.VMState <> vm_pc proj
-R3286:3286 Kernel.DagRestriction <> s:8 var
-R3319:3331 Kernel.VMStep VMStep advance_state def
-prf 3366:3386 <> advance_state_rm_pc_S
-binder 3399:3399 <> s:13
-binder 3401:3405 <> instr:14
-binder 3407:3407 <> g:15
-binder 3409:3412 <> csrs:16
-binder 3414:3417 <> regs:17
-binder 3419:3421 <> mem:18
-binder 3423:3425 <> err:19
-R3486:3488 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3480:3484 Kernel.VMState <> vm_pc proj
-R3433:3448 Kernel.VMStep VMStep advance_state_rm def
-R3450:3450 Kernel.DagRestriction <> s:13 var
-R3452:3456 Kernel.DagRestriction <> instr:14 var
-R3458:3458 Kernel.DagRestriction <> g:15 var
-R3460:3463 Kernel.DagRestriction <> csrs:16 var
-R3465:3468 Kernel.DagRestriction <> regs:17 var
-R3470:3472 Kernel.DagRestriction <> mem:18 var
-R3474:3476 Kernel.DagRestriction <> err:19 var
-R3489:3489 Coq.Init.Datatypes <> S constr
-R3494:3498 Kernel.VMState <> vm_pc proj
-R3491:3491 Kernel.DagRestriction <> s:13 var
-R3524:3539 Kernel.VMStep VMStep advance_state_rm def
-prf 3574:3598 <> advance_state_reveal_pc_S
-binder 3611:3611 <> s:20
-binder 3613:3617 <> instr:21
-binder 3619:3626 <> flat_idx:22
-binder 3628:3632 <> delta:23
-binder 3634:3634 <> g:24
-binder 3636:3639 <> csrs:25
-binder 3641:3643 <> err:26
-R3714:3716 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3708:3712 Kernel.VMState <> vm_pc proj
-R3651:3670 Kernel.VMStep VMStep advance_state_reveal def
-R3672:3672 Kernel.DagRestriction <> s:20 var
-R3674:3678 Kernel.DagRestriction <> instr:21 var
-R3680:3687 Kernel.DagRestriction <> flat_idx:22 var
-R3689:3693 Kernel.DagRestriction <> delta:23 var
-R3695:3695 Kernel.DagRestriction <> g:24 var
-R3697:3700 Kernel.DagRestriction <> csrs:25 var
-R3702:3704 Kernel.DagRestriction <> err:26 var
-R3717:3717 Coq.Init.Datatypes <> S constr
-R3722:3726 Kernel.VMState <> vm_pc proj
-R3719:3719 Kernel.DagRestriction <> s:20 var
-R3752:3771 Kernel.VMStep VMStep advance_state_reveal def
-prf 3806:3818 <> jump_state_pc
-binder 3831:3831 <> s:27
-binder 3833:3837 <> instr:28
-binder 3839:3844 <> target:29
-R3886:3888 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3880:3884 Kernel.VMState <> vm_pc proj
-R3852:3861 Kernel.VMStep VMStep jump_state def
-R3863:3863 Kernel.DagRestriction <> s:27 var
-R3865:3869 Kernel.DagRestriction <> instr:28 var
-R3871:3876 Kernel.DagRestriction <> target:29 var
-R3889:3894 Kernel.DagRestriction <> target:29 var
-R3919:3928 Kernel.VMStep VMStep jump_state def
-prf 3963:3978 <> jump_state_rm_pc
-binder 3991:3991 <> s:30
-binder 3993:3997 <> instr:31
-binder 3999:4004 <> target:32
-binder 4006:4009 <> regs:33
-binder 4011:4013 <> mem:34
-R4067:4069 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4061:4065 Kernel.VMState <> vm_pc proj
-R4021:4033 Kernel.VMStep VMStep jump_state_rm def
-R4035:4035 Kernel.DagRestriction <> s:30 var
-R4037:4041 Kernel.DagRestriction <> instr:31 var
-R4043:4048 Kernel.DagRestriction <> target:32 var
-R4050:4053 Kernel.DagRestriction <> regs:33 var
-R4055:4057 Kernel.DagRestriction <> mem:34 var
-R4070:4075 Kernel.DagRestriction <> target:32 var
-R4100:4112 Kernel.VMStep VMStep jump_state_rm def
-prf 4205:4223 <> nth_error_in_bounds
-binder 4237:4237 <> A:35
-R4252:4255 Coq.Init.Datatypes <> list ind
-R4257:4257 Kernel.DagRestriction <> A:35 var
-binder 4248:4248 <> l:36
-R4265:4267 Coq.Init.Datatypes <> nat ind
-binder 4261:4261 <> i:37
-R4275:4275 Kernel.DagRestriction <> A:35 var
-binder 4271:4271 <> x:38
-R4305:4308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4296:4298 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4283:4291 Coq.Lists.List <> nth_error def
-R4295:4295 Kernel.DagRestriction <> i:37 var
-R4293:4293 Kernel.DagRestriction <> l:36 var
-R4299:4302 Coq.Init.Datatypes <> Some constr
-R4304:4304 Kernel.DagRestriction <> x:38 var
-R4310:4312 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4309:4309 Kernel.DagRestriction <> i:37 var
-R4313:4318 Coq.Init.Datatypes <> length def
-R4320:4320 Kernel.DagRestriction <> l:36 var
-R4358:4371 Coq.Lists.List <> nth_error_Some thm
-R4358:4371 Coq.Lists.List <> nth_error_Some thm
-prf 4715:4733 <> vm_apply_lassert_pc
-R4751:4757 Kernel.VMState <> VMState rec
-binder 4747:4747 <> s:39
-R4769:4771 Coq.Init.Datatypes <> nat ind
-binder 4761:4762 <> f0:40
-binder 4764:4765 <> f1:41
-R4780:4783 Coq.Init.Datatypes <> bool ind
-binder 4775:4776 <> b0:42
-R4795:4797 Coq.Init.Datatypes <> nat ind
-binder 4787:4788 <> f2:43
-binder 4790:4791 <> f3:44
-R4856:4864 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4850:4854 Kernel.VMState <> vm_pc proj
-R4806:4813 Kernel.SimulationProof <> vm_apply def
-R4815:4815 Kernel.DagRestriction <> s:39 var
-R4818:4830 Kernel.VMStep VMStep instr_lassert constr
-R4832:4833 Kernel.DagRestriction <> f0:40 var
-R4835:4836 Kernel.DagRestriction <> f1:41 var
-R4838:4839 Kernel.DagRestriction <> b0:42 var
-R4841:4842 Kernel.DagRestriction <> f2:43 var
-R4844:4845 Kernel.DagRestriction <> f3:44 var
-R4868:4882 Kernel.VMStep VMStep lassert_exec_ok def
-R4884:4884 Kernel.DagRestriction <> s:39 var
-R4886:4887 Kernel.DagRestriction <> f0:40 var
-R4889:4890 Kernel.DagRestriction <> f1:41 var
-R4892:4893 Kernel.DagRestriction <> b0:42 var
-R4895:4896 Kernel.DagRestriction <> f2:43 var
-R4932:4946 Kernel.VMStep VMStep LASSERT_TRAP_PC def
-R4909:4909 Coq.Init.Datatypes <> S constr
-R4914:4918 Kernel.VMState <> vm_pc proj
-R4911:4911 Kernel.DagRestriction <> s:39 var
-R4971:4978 Kernel.SimulationProof <> vm_apply def
-prf 5134:5157 <> vm_apply_chsh_lassert_pc
-R5175:5181 Kernel.VMState <> VMState rec
-binder 5171:5171 <> s:45
-R5196:5198 Coq.Init.Datatypes <> nat ind
-binder 5185:5192 <> mu_delta:46
-R5256:5264 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5250:5254 Kernel.VMState <> vm_pc proj
-R5207:5214 Kernel.SimulationProof <> vm_apply def
-R5216:5216 Kernel.DagRestriction <> s:45 var
-R5219:5236 Kernel.VMStep VMStep instr_chsh_lassert constr
-R5238:5245 Kernel.DagRestriction <> mu_delta:46 var
-R5268:5299 Kernel.VMStep VMStep column_contractive_check_witness def
-R5304:5313 Kernel.VMState <> vm_witness proj
-R5301:5301 Kernel.DagRestriction <> s:45 var
-R5350:5364 Kernel.VMStep VMStep LASSERT_TRAP_PC def
-R5327:5327 Coq.Init.Datatypes <> S constr
-R5332:5336 Kernel.VMState <> vm_pc proj
-R5329:5329 Kernel.DagRestriction <> s:45 var
-R5389:5396 Kernel.SimulationProof <> vm_apply def
-R5416:5447 Kernel.VMStep VMStep column_contractive_check_witness def
-R5416:5447 Kernel.VMStep VMStep column_contractive_check_witness def
-prf 5478:5498 <> dag_instr_advances_pc
-R5516:5522 Kernel.VMState <> VMState rec
-binder 5512:5512 <> s:47
-R5534:5547 Kernel.VMStep VMStep vm_instruction ind
-binder 5526:5530 <> instr:48
-R5559:5562 Coq.Init.Datatypes <> list ind
-R5564:5577 Kernel.VMStep VMStep vm_instruction ind
-binder 5551:5555 <> trace:49
-R5603:5610 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5585:5596 Kernel.DagRestriction <> dag_trace_wf def
-R5598:5602 Kernel.DagRestriction <> trace:49 var
-R5649:5656 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5636:5638 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5611:5619 Coq.Lists.List <> nth_error def
-R5630:5634 Kernel.VMState <> vm_pc proj
-R5627:5627 Kernel.DagRestriction <> s:47 var
-R5621:5625 Kernel.DagRestriction <> trace:49 var
-R5639:5642 Coq.Init.Datatypes <> Some constr
-R5644:5648 Kernel.DagRestriction <> instr:48 var
-R5683:5685 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R5677:5681 Kernel.VMState <> vm_pc proj
-R5658:5665 Kernel.SimulationProof <> vm_apply def
-R5667:5667 Kernel.DagRestriction <> s:47 var
-R5669:5673 Kernel.DagRestriction <> instr:48 var
-R5689:5693 Kernel.VMState <> vm_pc proj
-R5686:5686 Kernel.DagRestriction <> s:47 var
-R5798:5800 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5792:5796 Kernel.VMState <> vm_pc proj
-R5801:5806 Coq.Init.Datatypes <> length def
-R5798:5800 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R5792:5796 Kernel.VMState <> vm_pc proj
-R5801:5806 Coq.Init.Datatypes <> length def
-R5827:5845 Kernel.DagRestriction <> nth_error_in_bounds thm
-R5827:5845 Kernel.DagRestriction <> nth_error_in_bounds thm
-R6024:6038 Kernel.DagRestriction <> is_dag_instr_at def
-R6098:6105 Kernel.SimulationProof <> vm_apply def
-R6108:6120 Kernel.VMStep VMStep advance_state def
-R6152:6159 Kernel.SimulationProof <> vm_apply def
-R6162:6177 Kernel.VMStep VMStep advance_state_rm def
-R6209:6216 Kernel.SimulationProof <> vm_apply def
-R6219:6238 Kernel.VMStep VMStep advance_state_reveal def
-R6270:6277 Kernel.SimulationProof <> vm_apply def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6349:6361 Kernel.VMStep VMStep advance_state def
-R6393:6400 Kernel.SimulationProof <> vm_apply def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6467:6479 Kernel.VMStep VMStep advance_state def
-R6511:6518 Kernel.SimulationProof <> vm_apply def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6594:6609 Kernel.VMStep VMStep advance_state_rm def
-R6632:6644 Kernel.VMStep VMStep advance_state def
-R6677:6684 Kernel.SimulationProof <> vm_apply def
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6776:6787 Kernel.VMState <> graph_lookup def
-R6792:6799 Kernel.VMState <> vm_graph proj
-R6847:6864 Kernel.VMState <> graph_add_morphism def
-R6905:6920 Kernel.VMStep VMStep advance_state_rm def
-R6952:6964 Kernel.VMStep VMStep advance_state def
-R6996:7008 Kernel.VMStep VMStep advance_state def
-R7041:7048 Kernel.SimulationProof <> vm_apply def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7137:7152 Kernel.VMStep VMStep advance_state_rm def
-R7183:7195 Kernel.VMStep VMStep advance_state def
-R7228:7235 Kernel.SimulationProof <> vm_apply def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7317:7332 Kernel.VMStep VMStep advance_state_rm def
-R7363:7375 Kernel.VMStep VMStep advance_state def
-R7408:7415 Kernel.SimulationProof <> vm_apply def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7495:7507 Kernel.VMStep VMStep advance_state def
-R7539:7546 Kernel.SimulationProof <> vm_apply def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7627:7642 Kernel.VMStep VMStep advance_state_rm def
-R7673:7685 Kernel.VMStep VMStep advance_state def
-R7718:7725 Kernel.SimulationProof <> vm_apply def
-R7747:7768 Kernel.VMState <> graph_tensor_morphisms def
-R7813:7828 Kernel.VMStep VMStep advance_state_rm def
-R7859:7871 Kernel.VMStep VMStep advance_state def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6299:6314 Kernel.VMState <> graph_add_module def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6422:6433 Kernel.VMStep VMStep chsh_bits_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6540:6563 Kernel.VMStep VMStep tensor_indices_ok def
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6776:6787 Kernel.VMState <> graph_lookup def
-R6792:6799 Kernel.VMState <> vm_graph proj
-R6847:6864 Kernel.VMState <> graph_add_morphism def
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R6706:6717 Kernel.VMState <> graph_lookup def
-R6722:6729 Kernel.VMState <> vm_graph proj
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7070:7092 Kernel.VMState <> graph_compose_morphisms def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7257:7274 Kernel.VMState <> graph_add_identity def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7437:7457 Kernel.VMState <> graph_delete_morphism def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7568:7588 Kernel.VMState <> graph_lookup_morphism def
-R7747:7768 Kernel.VMState <> graph_tensor_morphisms def
-R7747:7768 Kernel.VMState <> graph_tensor_morphisms def
-R7747:7768 Kernel.VMState <> graph_tensor_morphisms def
-R7747:7768 Kernel.VMState <> graph_tensor_morphisms def
-R7747:7768 Kernel.VMState <> graph_tensor_morphisms def
-R8120:8138 Kernel.DagRestriction <> vm_apply_lassert_pc thm
-R8120:8138 Kernel.DagRestriction <> vm_apply_lassert_pc thm
-R8120:8138 Kernel.DagRestriction <> vm_apply_lassert_pc thm
-R8151:8160 Coq.Arith.PeanoNat Nat leb_le thm
-R8151:8160 Coq.Arith.PeanoNat Nat leb_le thm
-R8181:8195 Kernel.VMStep VMStep lassert_exec_ok def
-R8181:8195 Kernel.VMStep VMStep lassert_exec_ok def
-R8269:8276 Kernel.SimulationProof <> vm_apply def
-R8279:8288 Kernel.VMStep VMStep jump_state def
-R8308:8317 Coq.Arith.PeanoNat Nat ltb_lt thm
-R8308:8317 Coq.Arith.PeanoNat Nat ltb_lt thm
-R8408:8415 Kernel.SimulationProof <> vm_apply def
-R8432:8438 Coq.Arith.PeanoNat Nat eqb def
-R8441:8448 Kernel.VMState <> read_reg def
-R8432:8438 Coq.Arith.PeanoNat Nat eqb def
-R8441:8448 Kernel.VMState <> read_reg def
-R8479:8491 Kernel.VMStep VMStep advance_state def
-R8519:8528 Kernel.VMStep VMStep jump_state def
-R8544:8553 Coq.Arith.PeanoNat Nat ltb_lt thm
-R8544:8553 Coq.Arith.PeanoNat Nat ltb_lt thm
-R8652:8675 Kernel.DagRestriction <> vm_apply_chsh_lassert_pc thm
-R8652:8675 Kernel.DagRestriction <> vm_apply_chsh_lassert_pc thm
-R8652:8675 Kernel.DagRestriction <> vm_apply_chsh_lassert_pc thm
-R8688:8697 Coq.Arith.PeanoNat Nat leb_le thm
-R8688:8697 Coq.Arith.PeanoNat Nat leb_le thm
-R8718:8749 Kernel.VMStep VMStep column_contractive_check_witness def
-R8718:8749 Kernel.VMStep VMStep column_contractive_check_witness def
-prf 9032:9044 <> dag_pc_growth
-R9065:9067 Coq.Init.Datatypes <> nat ind
-binder 9058:9061 <> fuel:50
-R9079:9082 Coq.Init.Datatypes <> list ind
-R9084:9097 Kernel.VMStep VMStep vm_instruction ind
-binder 9071:9075 <> trace:51
-R9105:9111 Kernel.VMState <> VMState rec
-binder 9101:9101 <> s:52
-R9137:9144 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9119:9130 Kernel.DagRestriction <> dag_trace_wf def
-R9132:9136 Kernel.DagRestriction <> trace:51 var
-R9194:9201 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R9174:9177 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9168:9172 Kernel.VMState <> vm_pc proj
-R9146:9151 Kernel.SimulationProof <> run_vm def
-R9153:9156 Kernel.DagRestriction <> fuel:50 var
-R9158:9162 Kernel.DagRestriction <> trace:51 var
-R9164:9164 Kernel.DagRestriction <> s:52 var
-R9187:9189 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9181:9185 Kernel.VMState <> vm_pc proj
-R9178:9178 Kernel.DagRestriction <> s:52 var
-R9190:9193 Kernel.DagRestriction <> fuel:50 var
-R9231:9234 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9225:9229 Kernel.VMState <> vm_pc proj
-R9203:9208 Kernel.SimulationProof <> run_vm def
-R9210:9213 Kernel.DagRestriction <> fuel:50 var
-R9215:9219 Kernel.DagRestriction <> trace:51 var
-R9221:9221 Kernel.DagRestriction <> s:52 var
-R9235:9240 Coq.Init.Datatypes <> length def
-R9242:9246 Kernel.DagRestriction <> trace:51 var
-R9345:9353 Coq.Lists.List <> nth_error def
-R9364:9368 Kernel.VMState <> vm_pc proj
-R9345:9353 Coq.Lists.List <> nth_error def
-R9364:9368 Kernel.VMState <> vm_pc proj
-R9479:9486 Kernel.SimulationProof <> vm_apply def
-R9479:9486 Kernel.SimulationProof <> vm_apply def
-R9561:9581 Kernel.DagRestriction <> dag_instr_advances_pc thm
-R9561:9581 Kernel.DagRestriction <> dag_instr_advances_pc thm
-R9741:9750 Coq.Arith.PeanoNat Nat nlt_ge thm
-R9741:9750 Coq.Arith.PeanoNat Nat nlt_ge thm
-R9776:9789 Coq.Lists.List <> nth_error_Some thm
-R9776:9789 Coq.Lists.List <> nth_error_Some thm
-prf 10053:10066 <> dag_terminates
-R10088:10091 Coq.Init.Datatypes <> list ind
-R10093:10106 Kernel.VMStep VMStep vm_instruction ind
-binder 10080:10084 <> trace:53
-R10114:10120 Kernel.VMState <> VMState rec
-binder 10110:10110 <> s:54
-R10146:10153 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10128:10139 Kernel.DagRestriction <> dag_trace_wf def
-R10141:10145 Kernel.DagRestriction <> trace:53 var
-R10179:10186 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10163:10166 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10157:10161 Kernel.VMState <> vm_pc proj
-R10154:10154 Kernel.DagRestriction <> s:54 var
-R10167:10172 Coq.Init.Datatypes <> length def
-R10174:10178 Kernel.DagRestriction <> trace:53 var
-R10242:10245 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10236:10240 Kernel.VMState <> vm_pc proj
-R10188:10193 Kernel.SimulationProof <> run_vm def
-R10220:10222 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10208:10210 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R10196:10201 Coq.Init.Datatypes <> length def
-R10203:10207 Kernel.DagRestriction <> trace:53 var
-R10214:10218 Kernel.VMState <> vm_pc proj
-R10211:10211 Kernel.DagRestriction <> s:54 var
-R10226:10230 Kernel.DagRestriction <> trace:53 var
-R10232:10232 Kernel.DagRestriction <> s:54 var
-R10246:10251 Coq.Init.Datatypes <> length def
-R10253:10257 Kernel.DagRestriction <> trace:53 var
-R10305:10317 Kernel.DagRestriction <> dag_pc_growth thm
-R10344:10346 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10332:10334 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R10320:10325 Coq.Init.Datatypes <> length def
-R10338:10342 Kernel.VMState <> vm_pc proj
-R10305:10317 Kernel.DagRestriction <> dag_pc_growth thm
-R10344:10346 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10332:10334 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R10320:10325 Coq.Init.Datatypes <> length def
-R10338:10342 Kernel.VMState <> vm_pc proj
-prf 10508:10531 <> dag_terminates_from_zero
-R10553:10556 Coq.Init.Datatypes <> list ind
-R10558:10571 Kernel.VMStep VMStep vm_instruction ind
-binder 10545:10549 <> trace:55
-R10597:10604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10579:10590 Kernel.DagRestriction <> dag_trace_wf def
-R10592:10596 Kernel.DagRestriction <> trace:55 var
-R10657:10660 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10651:10655 Kernel.VMState <> vm_pc proj
-R10606:10611 Kernel.SimulationProof <> run_vm def
-R10626:10628 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10614:10619 Coq.Init.Datatypes <> length def
-R10621:10625 Kernel.DagRestriction <> trace:55 var
-R10632:10636 Kernel.DagRestriction <> trace:55 var
-R10638:10647 Kernel.MuInitiality <> init_state def
-R10661:10666 Coq.Init.Datatypes <> length def
-R10668:10672 Kernel.DagRestriction <> trace:55 var
-R10717:10730 Kernel.DagRestriction <> dag_terminates thm
-R10738:10747 Kernel.MuInitiality <> init_state def
-R10754:10763 Coq.Arith.PeanoNat Nat le_0_l thm
-R10717:10730 Kernel.DagRestriction <> dag_terminates thm
-R10738:10747 Kernel.MuInitiality <> init_state def
-R10754:10763 Coq.Arith.PeanoNat Nat le_0_l thm
-R10791:10795 Kernel.VMState <> vm_pc proj
-R10779:10788 Kernel.MuInitiality <> init_state def
-R10791:10795 Kernel.VMState <> vm_pc proj
-R10779:10788 Kernel.MuInitiality <> init_state def
-R10815:10825 Coq.Arith.PeanoNat Nat sub_0_r thm
-R10815:10825 Coq.Arith.PeanoNat Nat sub_0_r thm
-R10815:10825 Coq.Arith.PeanoNat Nat sub_0_r thm
-prf 10926:10944 <> run_vm_stuck_repeat
-R10962:10964 Coq.Init.Datatypes <> nat ind
-binder 10958:10958 <> k:56
-R10976:10979 Coq.Init.Datatypes <> list ind
-R10981:10994 Kernel.VMStep VMStep vm_instruction ind
-binder 10968:10972 <> trace:57
-R11002:11008 Kernel.VMState <> VMState rec
-binder 10998:10998 <> s:58
-R11048:11055 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11041:11043 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11016:11024 Coq.Lists.List <> nth_error def
-R11035:11039 Kernel.VMState <> vm_pc proj
-R11032:11032 Kernel.DagRestriction <> s:58 var
-R11026:11030 Kernel.DagRestriction <> trace:57 var
-R11044:11047 Coq.Init.Datatypes <> None constr
-R11072:11074 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11056:11061 Kernel.SimulationProof <> run_vm def
-R11063:11063 Kernel.DagRestriction <> k:56 var
-R11065:11069 Kernel.DagRestriction <> trace:57 var
-R11071:11071 Kernel.DagRestriction <> s:58 var
-R11075:11075 Kernel.DagRestriction <> s:58 var
-prf 11194:11211 <> run_vm_compose_dag
-binder 11224:11224 <> m:59
-binder 11226:11226 <> n:60
-binder 11228:11232 <> trace:61
-binder 11234:11234 <> s:62
-R11263:11265 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11241:11246 Kernel.SimulationProof <> run_vm def
-R11250:11252 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11249:11249 Kernel.DagRestriction <> m:59 var
-R11253:11253 Kernel.DagRestriction <> n:60 var
-R11256:11260 Kernel.DagRestriction <> trace:61 var
-R11262:11262 Kernel.DagRestriction <> s:62 var
-R11266:11271 Kernel.SimulationProof <> run_vm def
-R11273:11273 Kernel.DagRestriction <> n:60 var
-R11275:11279 Kernel.DagRestriction <> trace:61 var
-R11282:11287 Kernel.SimulationProof <> run_vm def
-R11289:11289 Kernel.DagRestriction <> m:59 var
-R11291:11295 Kernel.DagRestriction <> trace:61 var
-R11297:11297 Kernel.DagRestriction <> s:62 var
-R11391:11399 Coq.Lists.List <> nth_error def
-R11410:11414 Kernel.VMState <> vm_pc proj
-R11391:11399 Coq.Lists.List <> nth_error def
-R11410:11414 Kernel.VMState <> vm_pc proj
-R11475:11493 Kernel.DagRestriction <> run_vm_stuck_repeat thm
-R11475:11493 Kernel.DagRestriction <> run_vm_stuck_repeat thm
-prf 11517:11536 <> run_vm_halted_stable
-R11559:11561 Coq.Init.Datatypes <> nat ind
-binder 11550:11553 <> fuel:63
-binder 11555:11555 <> k:64
-R11573:11576 Coq.Init.Datatypes <> list ind
-R11578:11591 Kernel.VMStep VMStep vm_instruction ind
-binder 11565:11569 <> trace:65
-R11599:11605 Kernel.VMState <> VMState rec
-binder 11595:11595 <> s:66
-R11658:11665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11642:11645 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11636:11640 Kernel.VMState <> vm_pc proj
-R11614:11619 Kernel.SimulationProof <> run_vm def
-R11621:11624 Kernel.DagRestriction <> fuel:63 var
-R11626:11630 Kernel.DagRestriction <> trace:65 var
-R11632:11632 Kernel.DagRestriction <> s:66 var
-R11646:11651 Coq.Init.Datatypes <> length def
-R11653:11657 Kernel.DagRestriction <> trace:65 var
-R11691:11693 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11666:11671 Kernel.SimulationProof <> run_vm def
-R11678:11680 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11674:11677 Kernel.DagRestriction <> fuel:63 var
-R11681:11681 Kernel.DagRestriction <> k:64 var
-R11684:11688 Kernel.DagRestriction <> trace:65 var
-R11690:11690 Kernel.DagRestriction <> s:66 var
-R11694:11699 Kernel.SimulationProof <> run_vm def
-R11701:11704 Kernel.DagRestriction <> fuel:63 var
-R11706:11710 Kernel.DagRestriction <> trace:65 var
-R11712:11712 Kernel.DagRestriction <> s:66 var
-R11785:11795 Coq.Arith.PeanoNat Nat add_0_r thm
-R11785:11795 Coq.Arith.PeanoNat Nat add_0_r thm
-R11785:11795 Coq.Arith.PeanoNat Nat add_0_r thm
-R11949:11974 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11921:11926 Kernel.SimulationProof <> run_vm def
-R11933:11935 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11936:11936 Coq.Init.Datatypes <> S constr
-R11975:11980 Kernel.SimulationProof <> run_vm def
-R11983:11983 Coq.Init.Datatypes <> S constr
-R11996:12001 Kernel.SimulationProof <> run_vm def
-R12034:12051 Kernel.DagRestriction <> run_vm_compose_dag thm
-R12059:12059 Coq.Init.Datatypes <> S constr
-R11949:11974 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11921:11926 Kernel.SimulationProof <> run_vm def
-R11933:11935 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11936:11936 Coq.Init.Datatypes <> S constr
-R11975:11980 Kernel.SimulationProof <> run_vm def
-R11983:11983 Coq.Init.Datatypes <> S constr
-R11996:12001 Kernel.SimulationProof <> run_vm def
-R12034:12051 Kernel.DagRestriction <> run_vm_compose_dag thm
-R12059:12059 Coq.Init.Datatypes <> S constr
-R12112:12117 Kernel.SimulationProof <> run_vm def
-R12112:12117 Kernel.SimulationProof <> run_vm def
-R12180:12182 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12154:12162 Coq.Lists.List <> nth_error def
-R12174:12178 Kernel.VMState <> vm_pc proj
-R12183:12186 Coq.Init.Datatypes <> None constr
-R12205:12218 Coq.Lists.List <> nth_error_None thm
-R12180:12182 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12154:12162 Coq.Lists.List <> nth_error def
-R12174:12178 Kernel.VMState <> vm_pc proj
-R12183:12186 Coq.Init.Datatypes <> None constr
-R12205:12218 Coq.Lists.List <> nth_error_None thm
-R12248:12266 Kernel.DagRestriction <> run_vm_stuck_repeat thm
-R12269:12269 Coq.Init.Datatypes <> S constr
-R12248:12266 Kernel.DagRestriction <> run_vm_stuck_repeat thm
-R12269:12269 Coq.Init.Datatypes <> S constr
-prf 12779:12791 <> dag_safe_pnew
-binder 12804:12805 <> pc:67
-binder 12807:12807 <> n:68
-binder 12809:12814 <> region:69
-binder 12816:12819 <> cost:70
-R12867:12869 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12822:12836 Kernel.DagRestriction <> is_dag_instr_at def
-R12838:12839 Kernel.DagRestriction <> pc:67 var
-R12841:12841 Kernel.DagRestriction <> n:68 var
-R12844:12853 Kernel.VMStep VMStep instr_pnew constr
-R12855:12860 Kernel.DagRestriction <> region:69 var
-R12862:12865 Kernel.DagRestriction <> cost:70 var
-R12870:12873 Coq.Init.Datatypes <> true constr
-prf 12916:12928 <> dag_safe_emit
-binder 12941:12942 <> pc:71
-binder 12944:12944 <> n:72
-binder 12946:12951 <> module:73
-binder 12953:12959 <> payload:74
-binder 12961:12964 <> cost:75
-R13024:13026 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12971:12985 Kernel.DagRestriction <> is_dag_instr_at def
-R12987:12988 Kernel.DagRestriction <> pc:71 var
-R12990:12990 Kernel.DagRestriction <> n:72 var
-R12993:13002 Kernel.VMStep VMStep instr_emit constr
-R13004:13009 Kernel.DagRestriction <> module:73 var
-R13011:13017 Kernel.DagRestriction <> payload:74 var
-R13019:13022 Kernel.DagRestriction <> cost:75 var
-R13027:13030 Coq.Init.Datatypes <> true constr
-prf 13073:13088 <> dag_safe_certify
-binder 13101:13102 <> pc:76
-binder 13104:13104 <> n:77
-binder 13106:13109 <> cost:78
-R13153:13155 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13112:13126 Kernel.DagRestriction <> is_dag_instr_at def
-R13128:13129 Kernel.DagRestriction <> pc:76 var
-R13131:13131 Kernel.DagRestriction <> n:77 var
-R13134:13146 Kernel.VMStep VMStep instr_certify constr
-R13148:13151 Kernel.DagRestriction <> cost:78 var
-R13156:13159 Coq.Init.Datatypes <> true constr
-prf 13202:13215 <> dag_safe_morph
-binder 13228:13229 <> pc:79
-binder 13231:13231 <> n:80
-binder 13233:13235 <> dst:81
-binder 13237:13243 <> src_mod:82
-binder 13245:13251 <> dst_mod:83
-binder 13253:13264 <> coupling_idx:84
-binder 13266:13269 <> cost:85
-R13348:13350 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13276:13290 Kernel.DagRestriction <> is_dag_instr_at def
-R13292:13293 Kernel.DagRestriction <> pc:79 var
-R13295:13295 Kernel.DagRestriction <> n:80 var
-R13298:13308 Kernel.VMStep VMStep instr_morph constr
-R13310:13312 Kernel.DagRestriction <> dst:81 var
-R13314:13320 Kernel.DagRestriction <> src_mod:82 var
-R13322:13328 Kernel.DagRestriction <> dst_mod:83 var
-R13330:13341 Kernel.DagRestriction <> coupling_idx:84 var
-R13343:13346 Kernel.DagRestriction <> cost:85 var
-R13351:13354 Coq.Init.Datatypes <> true constr
-prf 13397:13413 <> dag_safe_morph_id
-binder 13426:13427 <> pc:86
-binder 13429:13429 <> n:87
-binder 13431:13433 <> dst:88
-binder 13435:13440 <> module:89
-binder 13442:13445 <> cost:90
-R13505:13507 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13452:13466 Kernel.DagRestriction <> is_dag_instr_at def
-R13468:13469 Kernel.DagRestriction <> pc:86 var
-R13471:13471 Kernel.DagRestriction <> n:87 var
-R13474:13487 Kernel.VMStep VMStep instr_morph_id constr
-R13489:13491 Kernel.DagRestriction <> dst:88 var
-R13493:13498 Kernel.DagRestriction <> module:89 var
-R13500:13503 Kernel.DagRestriction <> cost:90 var
-R13508:13511 Coq.Init.Datatypes <> true constr
-prf 13554:13574 <> dag_safe_morph_assert
-binder 13587:13588 <> pc:91
-binder 13590:13590 <> n:92
-binder 13592:13599 <> morph_id:93
-binder 13601:13608 <> property:94
-binder 13610:13613 <> cert:95
-binder 13615:13618 <> cost:96
-R13694:13696 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13625:13639 Kernel.DagRestriction <> is_dag_instr_at def
-R13641:13642 Kernel.DagRestriction <> pc:91 var
-R13644:13644 Kernel.DagRestriction <> n:92 var
-R13647:13664 Kernel.VMStep VMStep instr_morph_assert constr
-R13666:13673 Kernel.DagRestriction <> morph_id:93 var
-R13675:13682 Kernel.DagRestriction <> property:94 var
-R13684:13687 Kernel.DagRestriction <> cert:95 var
-R13689:13692 Kernel.DagRestriction <> cost:96 var
-R13697:13700 Coq.Init.Datatypes <> true constr
-prf 13743:13758 <> dag_safe_compose
-binder 13771:13772 <> pc:97
-binder 13774:13774 <> n:98
-binder 13776:13778 <> dst:99
-binder 13780:13781 <> m1:100
-binder 13783:13784 <> m2:101
-binder 13786:13789 <> cost:102
-R13847:13849 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13796:13810 Kernel.DagRestriction <> is_dag_instr_at def
-R13812:13813 Kernel.DagRestriction <> pc:97 var
-R13815:13815 Kernel.DagRestriction <> n:98 var
-R13818:13830 Kernel.VMStep VMStep instr_compose constr
-R13832:13834 Kernel.DagRestriction <> dst:99 var
-R13836:13837 Kernel.DagRestriction <> m1:100 var
-R13839:13840 Kernel.DagRestriction <> m2:101 var
-R13842:13845 Kernel.DagRestriction <> cost:102 var
-R13850:13853 Coq.Init.Datatypes <> true constr
-prf 13896:13911 <> dag_safe_lassert
-binder 13924:13925 <> pc:103
-binder 13927:13930 <> freg:104
-binder 13932:13935 <> creg:105
-binder 13937:13940 <> kind:106
-binder 13942:13945 <> flen:107
-binder 13947:13950 <> cost:108
-R14023:14030 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14004:14007 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R13957:13962 Coq.Init.Datatypes <> length def
-R13964:13964 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R14003:14003 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R13965:13977 Kernel.VMStep VMStep instr_lassert constr
-R13979:13982 Kernel.DagRestriction <> freg:104 var
-R13984:13987 Kernel.DagRestriction <> creg:105 var
-R13989:13992 Kernel.DagRestriction <> kind:106 var
-R13994:13997 Kernel.DagRestriction <> flen:107 var
-R13999:14002 Kernel.DagRestriction <> cost:108 var
-R14008:14022 Kernel.VMStep VMStep LASSERT_TRAP_PC def
-R14092:14094 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14031:14045 Kernel.DagRestriction <> is_dag_instr_at def
-R14047:14048 Kernel.DagRestriction <> pc:103 var
-R14053:14065 Kernel.VMStep VMStep instr_lassert constr
-R14067:14070 Kernel.DagRestriction <> freg:104 var
-R14072:14075 Kernel.DagRestriction <> creg:105 var
-R14077:14080 Kernel.DagRestriction <> kind:106 var
-R14082:14085 Kernel.DagRestriction <> flen:107 var
-R14087:14090 Kernel.DagRestriction <> cost:108 var
-R14095:14098 Coq.Init.Datatypes <> true constr
-R14125:14139 Kernel.DagRestriction <> is_dag_instr_at def
-R14148:14157 Coq.Arith.PeanoNat Nat leb_le thm
-R14148:14157 Coq.Arith.PeanoNat Nat leb_le thm
-prf 14341:14368 <> dag_safe_lassert_short_trace
-R14390:14393 Coq.Init.Datatypes <> list ind
-R14395:14408 Kernel.VMStep VMStep vm_instruction ind
-binder 14382:14386 <> trace:109
-R14424:14426 Coq.Init.Datatypes <> nat ind
-binder 14412:14415 <> freg:110
-binder 14417:14420 <> creg:111
-R14437:14440 Coq.Init.Datatypes <> bool ind
-binder 14430:14433 <> kind:112
-R14456:14458 Coq.Init.Datatypes <> nat ind
-binder 14444:14447 <> flen:113
-binder 14449:14452 <> cost:114
-R14497:14504 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14478:14481 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R14466:14471 Coq.Init.Datatypes <> length def
-R14473:14477 Kernel.DagRestriction <> trace:109 var
-R14482:14496 Kernel.VMStep VMStep LASSERT_TRAP_PC def
-R14578:14580 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14505:14519 Kernel.DagRestriction <> is_dag_instr_at def
-R14524:14529 Coq.Init.Datatypes <> length def
-R14531:14535 Kernel.DagRestriction <> trace:109 var
-R14539:14551 Kernel.VMStep VMStep instr_lassert constr
-R14553:14556 Kernel.DagRestriction <> freg:110 var
-R14558:14561 Kernel.DagRestriction <> creg:111 var
-R14563:14566 Kernel.DagRestriction <> kind:112 var
-R14568:14571 Kernel.DagRestriction <> flen:113 var
-R14573:14576 Kernel.DagRestriction <> cost:114 var
-R14581:14584 Coq.Init.Datatypes <> true constr
-R14611:14625 Kernel.DagRestriction <> is_dag_instr_at def
-R14634:14643 Coq.Arith.PeanoNat Nat leb_le thm
-R14634:14643 Coq.Arith.PeanoNat Nat leb_le thm
-prf 14907:14933 <> dag_structural_completeness
-R14951:14953 Coq.Init.Datatypes <> nat ind
-binder 14947:14947 <> n:115
-R14981:14988 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14962:14965 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R14961:14961 Kernel.DagRestriction <> n:115 var
-R14966:14980 Kernel.VMStep VMStep LASSERT_TRAP_PC def
-R14989:14989 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15072:15080 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 14997:14998 <> pc:116
-binder 15000:15005 <> region:117
-binder 15007:15010 <> cost:118
-R15065:15067 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15020:15034 Kernel.DagRestriction <> is_dag_instr_at def
-R15036:15037 Kernel.DagRestriction <> pc:116 var
-R15039:15039 Kernel.DagRestriction <> n:115 var
-R15042:15051 Kernel.VMStep VMStep instr_pnew constr
-R15053:15058 Kernel.DagRestriction <> region:117 var
-R15060:15063 Kernel.DagRestriction <> cost:118 var
-R15068:15071 Coq.Init.Datatypes <> true constr
-R15081:15081 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15180:15188 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 15089:15090 <> pc:119
-binder 15092:15097 <> module:120
-binder 15099:15105 <> payload:121
-binder 15107:15110 <> cost:122
-R15173:15175 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15120:15134 Kernel.DagRestriction <> is_dag_instr_at def
-R15136:15137 Kernel.DagRestriction <> pc:119 var
-R15139:15139 Kernel.DagRestriction <> n:115 var
-R15142:15151 Kernel.VMStep VMStep instr_emit constr
-R15153:15158 Kernel.DagRestriction <> module:120 var
-R15160:15166 Kernel.DagRestriction <> payload:121 var
-R15168:15171 Kernel.DagRestriction <> cost:122 var
-R15176:15179 Coq.Init.Datatypes <> true constr
-R15189:15189 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15261:15269 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 15197:15198 <> pc:123
-binder 15200:15203 <> cost:124
-R15254:15256 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15213:15227 Kernel.DagRestriction <> is_dag_instr_at def
-R15229:15230 Kernel.DagRestriction <> pc:123 var
-R15232:15232 Kernel.DagRestriction <> n:115 var
-R15235:15247 Kernel.VMStep VMStep instr_certify constr
-R15249:15252 Kernel.DagRestriction <> cost:124 var
-R15257:15260 Coq.Init.Datatypes <> true constr
-R15270:15270 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15382:15390 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 15278:15279 <> pc:125
-binder 15281:15284 <> freg:126
-binder 15286:15289 <> creg:127
-binder 15291:15294 <> kind:128
-binder 15296:15299 <> flen:129
-binder 15301:15304 <> cost:130
-R15375:15377 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15314:15328 Kernel.DagRestriction <> is_dag_instr_at def
-R15330:15331 Kernel.DagRestriction <> pc:125 var
-R15333:15333 Kernel.DagRestriction <> n:115 var
-R15336:15348 Kernel.VMStep VMStep instr_lassert constr
-R15350:15353 Kernel.DagRestriction <> freg:126 var
-R15355:15358 Kernel.DagRestriction <> creg:127 var
-R15360:15363 Kernel.DagRestriction <> kind:128 var
-R15365:15368 Kernel.DagRestriction <> flen:129 var
-R15370:15373 Kernel.DagRestriction <> cost:130 var
-R15378:15381 Coq.Init.Datatypes <> true constr
-R15391:15391 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15527:15535 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 15399:15400 <> pc:131
-binder 15402:15404 <> dst:132
-binder 15406:15412 <> src_mod:133
-binder 15414:15420 <> dst_mod:134
-binder 15422:15433 <> coupling_idx:135
-binder 15435:15438 <> cost:136
-R15520:15522 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15448:15462 Kernel.DagRestriction <> is_dag_instr_at def
-R15464:15465 Kernel.DagRestriction <> pc:131 var
-R15467:15467 Kernel.DagRestriction <> n:115 var
-R15470:15480 Kernel.VMStep VMStep instr_morph constr
-R15482:15484 Kernel.DagRestriction <> dst:132 var
-R15486:15492 Kernel.DagRestriction <> src_mod:133 var
-R15494:15500 Kernel.DagRestriction <> dst_mod:134 var
-R15502:15513 Kernel.DagRestriction <> coupling_idx:135 var
-R15515:15518 Kernel.DagRestriction <> cost:136 var
-R15523:15526 Coq.Init.Datatypes <> true constr
-R15536:15536 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15659:15668 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R15760:15760 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 15544:15545 <> pc:137
-binder 15547:15554 <> morph_id:138
-binder 15556:15563 <> property:139
-binder 15565:15568 <> cert:140
-binder 15570:15573 <> cost:141
-R15652:15654 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15583:15597 Kernel.DagRestriction <> is_dag_instr_at def
-R15599:15600 Kernel.DagRestriction <> pc:137 var
-R15602:15602 Kernel.DagRestriction <> n:115 var
-R15605:15622 Kernel.VMStep VMStep instr_morph_assert constr
-R15624:15631 Kernel.DagRestriction <> morph_id:138 var
-R15633:15640 Kernel.DagRestriction <> property:139 var
-R15642:15645 Kernel.DagRestriction <> cert:140 var
-R15647:15650 Kernel.DagRestriction <> cost:141 var
-R15655:15658 Coq.Init.Datatypes <> true constr
-binder 15676:15677 <> pc:142
-binder 15679:15681 <> dst:143
-binder 15683:15684 <> m1:144
-binder 15686:15687 <> m2:145
-binder 15689:15692 <> cost:146
-R15753:15755 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15702:15716 Kernel.DagRestriction <> is_dag_instr_at def
-R15718:15719 Kernel.DagRestriction <> pc:142 var
-R15721:15721 Kernel.DagRestriction <> n:115 var
-R15724:15736 Kernel.VMStep VMStep instr_compose constr
-R15738:15740 Kernel.DagRestriction <> dst:143 var
-R15742:15743 Kernel.DagRestriction <> m1:144 var
-R15745:15746 Kernel.DagRestriction <> m2:145 var
-R15748:15751 Kernel.DagRestriction <> cost:146 var
-R15756:15759 Coq.Init.Datatypes <> true constr
-R15886:15900 Kernel.DagRestriction <> is_dag_instr_at def
-R15909:15918 Coq.Arith.PeanoNat Nat leb_le thm
-R15909:15918 Coq.Arith.PeanoNat Nat leb_le thm
-prf 16413:16429 <> dag_nfi_preserved
-R16451:16454 Coq.Init.Datatypes <> list ind
-R16456:16469 Kernel.VMStep VMStep vm_instruction ind
-binder 16443:16447 <> trace:147
-R16490:16496 Kernel.VMState <> VMState rec
-binder 16473:16478 <> s_init:148
-binder 16480:16486 <> s_final:149
-R16507:16509 Coq.Init.Datatypes <> nat ind
-binder 16500:16503 <> fuel:150
-R16535:16542 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16517:16528 Kernel.DagRestriction <> dag_trace_wf def
-R16530:16534 Kernel.DagRestriction <> trace:147 var
-R16585:16592 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16570:16572 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16543:16551 Kernel.RevelationRequirement RevelationProof trace_run def
-R16553:16556 Kernel.DagRestriction <> fuel:150 var
-R16558:16562 Kernel.DagRestriction <> trace:147 var
-R16564:16569 Kernel.DagRestriction <> s_init:148 var
-R16573:16576 Coq.Init.Datatypes <> Some constr
-R16578:16584 Kernel.DagRestriction <> s_final:149 var
-R16629:16636 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16625:16627 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16611:16623 Kernel.VMState <> csr_cert_addr proj
-R16601:16607 Kernel.VMState <> vm_csrs proj
-R16593:16598 Kernel.DagRestriction <> s_init:148 var
-R16659:16666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16637:16650 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R16652:16658 Kernel.DagRestriction <> s_final:149 var
-R16688:16695 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16667:16681 Kernel.RevelationRequirement RevelationProof uses_revelation def
-R16683:16687 Kernel.DagRestriction <> trace:147 var
-R16696:16696 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16758:16766 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16697:16703 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16712:16713 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16704:16704 <> n:151
-binder 16706:16706 <> m:152
-binder 16708:16708 <> p:153
-binder 16710:16711 <> mu:154
-R16731:16733 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16714:16722 Coq.Lists.List <> nth_error def
-R16730:16730 Kernel.DagRestriction <> n:151 var
-R16724:16728 Kernel.DagRestriction <> trace:147 var
-R16734:16737 Coq.Init.Datatypes <> Some constr
-R16740:16749 Kernel.VMStep VMStep instr_emit constr
-R16751:16751 Kernel.DagRestriction <> m:152 var
-R16753:16753 Kernel.DagRestriction <> p:153 var
-R16755:16756 Kernel.DagRestriction <> mu:154 var
-R16767:16767 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16834:16842 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16768:16774 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16785:16786 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16775:16775 <> n:155
-binder 16777:16778 <> c1:156
-binder 16780:16781 <> c2:157
-binder 16783:16784 <> mu:158
-R16804:16806 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16787:16795 Coq.Lists.List <> nth_error def
-R16803:16803 Kernel.DagRestriction <> n:155 var
-R16797:16801 Kernel.DagRestriction <> trace:147 var
-R16807:16810 Coq.Init.Datatypes <> Some constr
-R16813:16823 Kernel.VMStep VMStep instr_ljoin constr
-R16825:16826 Kernel.DagRestriction <> c1:156 var
-R16828:16829 Kernel.DagRestriction <> c2:157 var
-R16831:16832 Kernel.DagRestriction <> mu:158 var
-R16843:16843 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16922:16931 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R17009:17009 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R16844:16850 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16866:16867 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16851:16851 <> n:159
-binder 16853:16854 <> fa:160
-binder 16856:16857 <> ca:161
-binder 16859:16859 <> k:162
-binder 16861:16862 <> fl:163
-binder 16864:16865 <> mu:164
-R16885:16887 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16868:16876 Coq.Lists.List <> nth_error def
-R16884:16884 Kernel.DagRestriction <> n:159 var
-R16878:16882 Kernel.DagRestriction <> trace:147 var
-R16888:16891 Coq.Init.Datatypes <> Some constr
-R16894:16906 Kernel.VMStep VMStep instr_lassert constr
-R16908:16909 Kernel.DagRestriction <> fa:160 var
-R16911:16912 Kernel.DagRestriction <> ca:161 var
-R16914:16914 Kernel.DagRestriction <> k:162 var
-R16916:16917 Kernel.DagRestriction <> fl:163 var
-R16919:16920 Kernel.DagRestriction <> mu:164 var
-R16932:16938 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R16951:16952 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 16939:16939 <> n:165
-binder 16941:16943 <> mid:166
-binder 16945:16945 <> p:167
-binder 16947:16947 <> c:168
-binder 16949:16950 <> mu:169
-R16970:16972 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16953:16961 Coq.Lists.List <> nth_error def
-R16969:16969 Kernel.DagRestriction <> n:165 var
-R16963:16967 Kernel.DagRestriction <> trace:147 var
-R16973:16976 Coq.Init.Datatypes <> Some constr
-R16979:16996 Kernel.VMStep VMStep instr_morph_assert constr
-R16998:17000 Kernel.DagRestriction <> mid:166 var
-R17002:17002 Kernel.DagRestriction <> p:167 var
-R17004:17004 Kernel.DagRestriction <> c:168 var
-R17006:17007 Kernel.DagRestriction <> mu:169 var
-R17084:17134 Kernel.NoFreeInsight NoFreeInsight no_free_insight_general thm
-R17084:17134 Kernel.NoFreeInsight NoFreeInsight no_free_insight_general thm
-prf 17407:17435 <> dag_no_free_insight_corollary
-R17457:17460 Coq.Init.Datatypes <> list ind
-R17462:17475 Kernel.VMStep VMStep vm_instruction ind
-binder 17449:17453 <> trace:170
-R17496:17502 Kernel.VMState <> VMState rec
-binder 17479:17484 <> s_init:171
-binder 17486:17492 <> s_final:172
-R17513:17515 Coq.Init.Datatypes <> nat ind
-binder 17506:17509 <> fuel:173
-R17541:17548 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17523:17534 Kernel.DagRestriction <> dag_trace_wf def
-R17536:17540 Kernel.DagRestriction <> trace:170 var
-R17591:17598 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17576:17578 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17549:17557 Kernel.RevelationRequirement RevelationProof trace_run def
-R17559:17562 Kernel.DagRestriction <> fuel:173 var
-R17564:17568 Kernel.DagRestriction <> trace:170 var
-R17570:17575 Kernel.DagRestriction <> s_init:171 var
-R17579:17582 Coq.Init.Datatypes <> Some constr
-R17584:17590 Kernel.DagRestriction <> s_final:172 var
-R17635:17642 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17631:17633 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17617:17629 Kernel.VMState <> csr_cert_addr proj
-R17607:17613 Kernel.VMState <> vm_csrs proj
-R17599:17604 Kernel.DagRestriction <> s_init:171 var
-R17683:17690 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17643:17653 Coq.Lists.List <> Forall ind
-R17678:17682 Kernel.DagRestriction <> trace:170 var
-R17655:17676 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
-R17691:17692 Coq.Init.Logic <> ::type_scope:'~'_x not
-R17693:17706 Kernel.RevelationRequirement RevelationProof has_supra_cert def
-R17708:17714 Kernel.DagRestriction <> s_final:172 var
-R17788:17856 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm
-R17788:17856 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm
+R2872:2893 Kernel.VMStep VMStep instr_chsh_lassert_1ab constr
+R2900:2906 Coq.Arith.PeanoNat Nat leb def
+R2908:2916 Kernel.DagRestriction <> trace_len:2 var
+R2918:2932 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R2938:2962 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g5 constr
+R2973:2979 Coq.Arith.PeanoNat Nat leb def
+R2981:2989 Kernel.DagRestriction <> trace_len:2 var
+R2991:3005 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R3011:3037 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g345 constr
+R3056:3062 Coq.Arith.PeanoNat Nat leb def
+R3064:3072 Kernel.DagRestriction <> trace_len:2 var
+R3074:3088 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R3094:3122 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g12345 constr
+R3149:3155 Coq.Arith.PeanoNat Nat leb def
+R3157:3165 Kernel.DagRestriction <> trace_len:2 var
+R3167:3181 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R3214:3217 Coq.Init.Datatypes <> true constr
+def 3238:3249 <> dag_trace_wf
+R3260:3263 Coq.Init.Datatypes <> list ind
+R3265:3278 Kernel.VMStep VMStep vm_instruction ind
+binder 3252:3256 <> trace:5
+R3306:3308 Coq.Init.Datatypes <> nat ind
+binder 3301:3302 <> pc:6
+R3320:3333 Kernel.VMStep VMStep vm_instruction ind
+binder 3312:3316 <> instr:7
+R3372:3379 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3359:3361 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3341:3349 Coq.Lists.List <> nth_error def
+R3357:3358 Kernel.DagRestriction <> pc:6 var
+R3351:3355 Kernel.DagRestriction <> trace:5 var
+R3362:3365 Coq.Init.Datatypes <> Some constr
+R3367:3371 Kernel.DagRestriction <> instr:7 var
+R3419:3421 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3380:3394 Kernel.DagRestriction <> is_dag_instr_at def
+R3396:3397 Kernel.DagRestriction <> pc:6 var
+R3400:3405 Coq.Init.Datatypes <> length def
+R3407:3411 Kernel.DagRestriction <> trace:5 var
+R3414:3418 Kernel.DagRestriction <> instr:7 var
+R3422:3425 Coq.Init.Datatypes <> true constr
+prf 3500:3517 <> advance_state_pc_S
+binder 3530:3530 <> s:8
+binder 3532:3536 <> instr:9
+binder 3538:3538 <> g:10
+binder 3540:3543 <> csrs:11
+binder 3545:3547 <> err:12
+R3596:3598 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3590:3594 Kernel.VMState <> vm_pc proj
+R3555:3567 Kernel.VMStep VMStep advance_state def
+R3569:3569 Kernel.DagRestriction <> s:8 var
+R3571:3575 Kernel.DagRestriction <> instr:9 var
+R3577:3577 Kernel.DagRestriction <> g:10 var
+R3579:3582 Kernel.DagRestriction <> csrs:11 var
+R3584:3586 Kernel.DagRestriction <> err:12 var
+R3599:3599 Coq.Init.Datatypes <> S constr
+R3604:3608 Kernel.VMState <> vm_pc proj
+R3601:3601 Kernel.DagRestriction <> s:8 var
+R3634:3646 Kernel.VMStep VMStep advance_state def
+prf 3681:3701 <> advance_state_rm_pc_S
+binder 3714:3714 <> s:13
+binder 3716:3720 <> instr:14
+binder 3722:3722 <> g:15
+binder 3724:3727 <> csrs:16
+binder 3729:3732 <> regs:17
+binder 3734:3736 <> mem:18
+binder 3738:3740 <> err:19
+R3801:3803 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3795:3799 Kernel.VMState <> vm_pc proj
+R3748:3763 Kernel.VMStep VMStep advance_state_rm def
+R3765:3765 Kernel.DagRestriction <> s:13 var
+R3767:3771 Kernel.DagRestriction <> instr:14 var
+R3773:3773 Kernel.DagRestriction <> g:15 var
+R3775:3778 Kernel.DagRestriction <> csrs:16 var
+R3780:3783 Kernel.DagRestriction <> regs:17 var
+R3785:3787 Kernel.DagRestriction <> mem:18 var
+R3789:3791 Kernel.DagRestriction <> err:19 var
+R3804:3804 Coq.Init.Datatypes <> S constr
+R3809:3813 Kernel.VMState <> vm_pc proj
+R3806:3806 Kernel.DagRestriction <> s:13 var
+R3839:3854 Kernel.VMStep VMStep advance_state_rm def
+prf 3889:3913 <> advance_state_reveal_pc_S
+binder 3926:3926 <> s:20
+binder 3928:3932 <> instr:21
+binder 3934:3941 <> flat_idx:22
+binder 3943:3947 <> delta:23
+binder 3949:3949 <> g:24
+binder 3951:3954 <> csrs:25
+binder 3956:3958 <> err:26
+R4029:4031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4023:4027 Kernel.VMState <> vm_pc proj
+R3966:3985 Kernel.VMStep VMStep advance_state_reveal def
+R3987:3987 Kernel.DagRestriction <> s:20 var
+R3989:3993 Kernel.DagRestriction <> instr:21 var
+R3995:4002 Kernel.DagRestriction <> flat_idx:22 var
+R4004:4008 Kernel.DagRestriction <> delta:23 var
+R4010:4010 Kernel.DagRestriction <> g:24 var
+R4012:4015 Kernel.DagRestriction <> csrs:25 var
+R4017:4019 Kernel.DagRestriction <> err:26 var
+R4032:4032 Coq.Init.Datatypes <> S constr
+R4037:4041 Kernel.VMState <> vm_pc proj
+R4034:4034 Kernel.DagRestriction <> s:20 var
+R4067:4086 Kernel.VMStep VMStep advance_state_reveal def
+prf 4121:4133 <> jump_state_pc
+binder 4146:4146 <> s:27
+binder 4148:4152 <> instr:28
+binder 4154:4159 <> target:29
+R4201:4203 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4195:4199 Kernel.VMState <> vm_pc proj
+R4167:4176 Kernel.VMStep VMStep jump_state def
+R4178:4178 Kernel.DagRestriction <> s:27 var
+R4180:4184 Kernel.DagRestriction <> instr:28 var
+R4186:4191 Kernel.DagRestriction <> target:29 var
+R4204:4209 Kernel.DagRestriction <> target:29 var
+R4234:4243 Kernel.VMStep VMStep jump_state def
+prf 4278:4293 <> jump_state_rm_pc
+binder 4306:4306 <> s:30
+binder 4308:4312 <> instr:31
+binder 4314:4319 <> target:32
+binder 4321:4324 <> regs:33
+binder 4326:4328 <> mem:34
+R4382:4384 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4376:4380 Kernel.VMState <> vm_pc proj
+R4336:4348 Kernel.VMStep VMStep jump_state_rm def
+R4350:4350 Kernel.DagRestriction <> s:30 var
+R4352:4356 Kernel.DagRestriction <> instr:31 var
+R4358:4363 Kernel.DagRestriction <> target:32 var
+R4365:4368 Kernel.DagRestriction <> regs:33 var
+R4370:4372 Kernel.DagRestriction <> mem:34 var
+R4385:4390 Kernel.DagRestriction <> target:32 var
+R4415:4427 Kernel.VMStep VMStep jump_state_rm def
+prf 4520:4538 <> nth_error_in_bounds
+binder 4552:4552 <> A:35
+R4567:4570 Coq.Init.Datatypes <> list ind
+R4572:4572 Kernel.DagRestriction <> A:35 var
+binder 4563:4563 <> l:36
+R4580:4582 Coq.Init.Datatypes <> nat ind
+binder 4576:4576 <> i:37
+R4590:4590 Kernel.DagRestriction <> A:35 var
+binder 4586:4586 <> x:38
+R4620:4623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4611:4613 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4598:4606 Coq.Lists.List <> nth_error def
+R4610:4610 Kernel.DagRestriction <> i:37 var
+R4608:4608 Kernel.DagRestriction <> l:36 var
+R4614:4617 Coq.Init.Datatypes <> Some constr
+R4619:4619 Kernel.DagRestriction <> x:38 var
+R4625:4627 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4624:4624 Kernel.DagRestriction <> i:37 var
+R4628:4633 Coq.Init.Datatypes <> length def
+R4635:4635 Kernel.DagRestriction <> l:36 var
+R4673:4686 Coq.Lists.List <> nth_error_Some thm
+R4673:4686 Coq.Lists.List <> nth_error_Some thm
+prf 5030:5048 <> vm_apply_lassert_pc
+R5066:5072 Kernel.VMState <> VMState rec
+binder 5062:5062 <> s:39
+R5084:5086 Coq.Init.Datatypes <> nat ind
+binder 5076:5077 <> f0:40
+binder 5079:5080 <> f1:41
+R5095:5098 Coq.Init.Datatypes <> bool ind
+binder 5090:5091 <> b0:42
+R5110:5112 Coq.Init.Datatypes <> nat ind
+binder 5102:5103 <> f2:43
+binder 5105:5106 <> f3:44
+R5171:5179 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5165:5169 Kernel.VMState <> vm_pc proj
+R5121:5128 Kernel.SimulationProof <> vm_apply def
+R5130:5130 Kernel.DagRestriction <> s:39 var
+R5133:5145 Kernel.VMStep VMStep instr_lassert constr
+R5147:5148 Kernel.DagRestriction <> f0:40 var
+R5150:5151 Kernel.DagRestriction <> f1:41 var
+R5153:5154 Kernel.DagRestriction <> b0:42 var
+R5156:5157 Kernel.DagRestriction <> f2:43 var
+R5159:5160 Kernel.DagRestriction <> f3:44 var
+R5183:5197 Kernel.VMStep VMStep lassert_exec_ok def
+R5199:5199 Kernel.DagRestriction <> s:39 var
+R5201:5202 Kernel.DagRestriction <> f0:40 var
+R5204:5205 Kernel.DagRestriction <> f1:41 var
+R5207:5208 Kernel.DagRestriction <> b0:42 var
+R5210:5211 Kernel.DagRestriction <> f2:43 var
+R5247:5261 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R5224:5224 Coq.Init.Datatypes <> S constr
+R5229:5233 Kernel.VMState <> vm_pc proj
+R5226:5226 Kernel.DagRestriction <> s:39 var
+R5286:5293 Kernel.SimulationProof <> vm_apply def
+prf 5449:5472 <> vm_apply_chsh_lassert_pc
+R5490:5496 Kernel.VMState <> VMState rec
+binder 5486:5486 <> s:45
+R5511:5513 Coq.Init.Datatypes <> nat ind
+binder 5500:5507 <> mu_delta:46
+R5571:5579 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5565:5569 Kernel.VMState <> vm_pc proj
+R5522:5529 Kernel.SimulationProof <> vm_apply def
+R5531:5531 Kernel.DagRestriction <> s:45 var
+R5534:5551 Kernel.VMStep VMStep instr_chsh_lassert constr
+R5553:5560 Kernel.DagRestriction <> mu_delta:46 var
+R5583:5614 Kernel.VMStep VMStep column_contractive_check_witness def
+R5619:5628 Kernel.VMState <> vm_witness proj
+R5616:5616 Kernel.DagRestriction <> s:45 var
+R5665:5679 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R5642:5642 Coq.Init.Datatypes <> S constr
+R5647:5651 Kernel.VMState <> vm_pc proj
+R5644:5644 Kernel.DagRestriction <> s:45 var
+R5704:5711 Kernel.SimulationProof <> vm_apply def
+R5731:5762 Kernel.VMStep VMStep column_contractive_check_witness def
+R5731:5762 Kernel.VMStep VMStep column_contractive_check_witness def
+prf 5875:5902 <> vm_apply_chsh_lassert_1ab_pc
+R5920:5926 Kernel.VMState <> VMState rec
+binder 5916:5916 <> s:47
+R5941:5943 Coq.Init.Datatypes <> nat ind
+binder 5930:5937 <> mu_delta:48
+R6005:6013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5999:6003 Kernel.VMState <> vm_pc proj
+R5952:5959 Kernel.SimulationProof <> vm_apply def
+R5961:5961 Kernel.DagRestriction <> s:47 var
+R5964:5985 Kernel.VMStep VMStep instr_chsh_lassert_1ab constr
+R5987:5994 Kernel.DagRestriction <> mu_delta:48 var
+R6017:6052 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R6057:6066 Kernel.VMState <> vm_witness proj
+R6054:6054 Kernel.DagRestriction <> s:47 var
+R6103:6117 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R6080:6080 Coq.Init.Datatypes <> S constr
+R6085:6089 Kernel.VMState <> vm_pc proj
+R6082:6082 Kernel.DagRestriction <> s:47 var
+R6142:6149 Kernel.SimulationProof <> vm_apply def
+R6169:6204 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R6169:6204 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+prf 6320:6350 <> vm_apply_chsh_lassert_1ab_g5_pc
+R6368:6374 Kernel.VMState <> VMState rec
+binder 6364:6364 <> s:49
+R6405:6407 Coq.Init.Datatypes <> nat ind
+binder 6378:6385 <> mu_delta:50
+binder 6387:6393 <> same_g5:51
+binder 6395:6401 <> diff_g5:52
+R6488:6496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6482:6486 Kernel.VMState <> vm_pc proj
+R6416:6423 Kernel.SimulationProof <> vm_apply def
+R6425:6425 Kernel.DagRestriction <> s:49 var
+R6428:6452 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g5 constr
+R6454:6461 Kernel.DagRestriction <> mu_delta:50 var
+R6463:6469 Kernel.DagRestriction <> same_g5:51 var
+R6471:6477 Kernel.DagRestriction <> diff_g5:52 var
+R6500:6532 Kernel.VMStep VMStep q1ab_g5_full_integer_check_kernel def
+R6537:6546 Kernel.VMState <> vm_witness proj
+R6534:6534 Kernel.DagRestriction <> s:49 var
+R6549:6555 Kernel.DagRestriction <> same_g5:51 var
+R6557:6563 Kernel.DagRestriction <> diff_g5:52 var
+R6599:6613 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R6576:6576 Coq.Init.Datatypes <> S constr
+R6581:6585 Kernel.VMState <> vm_pc proj
+R6578:6578 Kernel.DagRestriction <> s:49 var
+R6638:6645 Kernel.SimulationProof <> vm_apply def
+R6665:6697 Kernel.VMStep VMStep q1ab_g5_full_integer_check_kernel def
+R6665:6697 Kernel.VMStep VMStep q1ab_g5_full_integer_check_kernel def
+prf 6777:6809 <> vm_apply_chsh_lassert_1ab_g345_pc
+R6827:6833 Kernel.VMState <> VMState rec
+binder 6823:6823 <> s:53
+R6896:6898 Coq.Init.Datatypes <> nat ind
+binder 6837:6844 <> mu_delta:54
+binder 6846:6852 <> same_g3:55
+binder 6854:6860 <> diff_g3:56
+binder 6862:6868 <> same_g4:57
+binder 6870:6876 <> diff_g4:58
+binder 6878:6884 <> same_g5:59
+binder 6886:6892 <> diff_g5:60
+R7032:7040 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7026:7030 Kernel.VMState <> vm_pc proj
+R6907:6914 Kernel.SimulationProof <> vm_apply def
+R6916:6916 Kernel.DagRestriction <> s:53 var
+R6919:6945 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g345 constr
+R6947:6954 Kernel.DagRestriction <> mu_delta:54 var
+R6975:6981 Kernel.DagRestriction <> same_g3:55 var
+R6983:6989 Kernel.DagRestriction <> diff_g3:56 var
+R6991:6997 Kernel.DagRestriction <> same_g4:57 var
+R6999:7005 Kernel.DagRestriction <> diff_g4:58 var
+R7007:7013 Kernel.DagRestriction <> same_g5:59 var
+R7015:7021 Kernel.DagRestriction <> diff_g5:60 var
+R7044:7078 Kernel.VMStep VMStep q1ab_g345_full_integer_check_kernel def
+R7083:7092 Kernel.VMState <> vm_witness proj
+R7080:7080 Kernel.DagRestriction <> s:53 var
+R7106:7112 Kernel.DagRestriction <> same_g3:55 var
+R7114:7120 Kernel.DagRestriction <> diff_g3:56 var
+R7122:7128 Kernel.DagRestriction <> same_g4:57 var
+R7130:7136 Kernel.DagRestriction <> diff_g4:58 var
+R7138:7144 Kernel.DagRestriction <> same_g5:59 var
+R7146:7152 Kernel.DagRestriction <> diff_g5:60 var
+R7188:7202 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R7165:7165 Coq.Init.Datatypes <> S constr
+R7170:7174 Kernel.VMState <> vm_pc proj
+R7167:7167 Kernel.DagRestriction <> s:53 var
+R7227:7234 Kernel.SimulationProof <> vm_apply def
+R7261:7295 Kernel.VMStep VMStep q1ab_g345_full_integer_check_kernel def
+R7261:7295 Kernel.VMStep VMStep q1ab_g345_full_integer_check_kernel def
+prf 7385:7419 <> vm_apply_chsh_lassert_1ab_g12345_pc
+R7437:7443 Kernel.VMState <> VMState rec
+binder 7433:7433 <> s:61
+R7564:7566 Coq.Init.Datatypes <> nat ind
+binder 7447:7454 <> mu_delta:62
+binder 7456:7462 <> same_g1:63
+binder 7464:7470 <> diff_g1:64
+binder 7472:7478 <> same_g2:65
+binder 7480:7486 <> diff_g2:66
+binder 7514:7520 <> same_g3:67
+binder 7522:7528 <> diff_g3:68
+binder 7530:7536 <> same_g4:69
+binder 7538:7544 <> diff_g4:70
+binder 7546:7552 <> same_g5:71
+binder 7554:7560 <> diff_g5:72
+R7753:7761 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7747:7751 Kernel.VMState <> vm_pc proj
+R7575:7582 Kernel.SimulationProof <> vm_apply def
+R7584:7584 Kernel.DagRestriction <> s:61 var
+R7587:7615 Kernel.VMStep VMStep instr_chsh_lassert_1ab_g12345 constr
+R7617:7624 Kernel.DagRestriction <> mu_delta:62 var
+R7645:7651 Kernel.DagRestriction <> same_g1:63 var
+R7653:7659 Kernel.DagRestriction <> diff_g1:64 var
+R7661:7667 Kernel.DagRestriction <> same_g2:65 var
+R7669:7675 Kernel.DagRestriction <> diff_g2:66 var
+R7696:7702 Kernel.DagRestriction <> same_g3:67 var
+R7704:7710 Kernel.DagRestriction <> diff_g3:68 var
+R7712:7718 Kernel.DagRestriction <> same_g4:69 var
+R7720:7726 Kernel.DagRestriction <> diff_g4:70 var
+R7728:7734 Kernel.DagRestriction <> same_g5:71 var
+R7736:7742 Kernel.DagRestriction <> diff_g5:72 var
+R7765:7801 Kernel.VMStep VMStep q1ab_g12345_full_integer_check_kernel def
+R7806:7815 Kernel.VMState <> vm_witness proj
+R7803:7803 Kernel.DagRestriction <> s:61 var
+R7829:7835 Kernel.DagRestriction <> same_g1:63 var
+R7837:7843 Kernel.DagRestriction <> diff_g1:64 var
+R7845:7851 Kernel.DagRestriction <> same_g2:65 var
+R7853:7859 Kernel.DagRestriction <> diff_g2:66 var
+R7872:7878 Kernel.DagRestriction <> same_g3:67 var
+R7880:7886 Kernel.DagRestriction <> diff_g3:68 var
+R7888:7894 Kernel.DagRestriction <> same_g4:69 var
+R7896:7902 Kernel.DagRestriction <> diff_g4:70 var
+R7904:7910 Kernel.DagRestriction <> same_g5:71 var
+R7912:7918 Kernel.DagRestriction <> diff_g5:72 var
+R7954:7968 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R7931:7931 Coq.Init.Datatypes <> S constr
+R7936:7940 Kernel.VMState <> vm_pc proj
+R7933:7933 Kernel.DagRestriction <> s:61 var
+R7993:8000 Kernel.SimulationProof <> vm_apply def
+R8027:8063 Kernel.VMStep VMStep q1ab_g12345_full_integer_check_kernel def
+R8027:8063 Kernel.VMStep VMStep q1ab_g12345_full_integer_check_kernel def
+prf 8114:8134 <> dag_instr_advances_pc
+R8152:8158 Kernel.VMState <> VMState rec
+binder 8148:8148 <> s:73
+R8170:8183 Kernel.VMStep VMStep vm_instruction ind
+binder 8162:8166 <> instr:74
+R8195:8198 Coq.Init.Datatypes <> list ind
+R8200:8213 Kernel.VMStep VMStep vm_instruction ind
+binder 8187:8191 <> trace:75
+R8239:8246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8221:8232 Kernel.DagRestriction <> dag_trace_wf def
+R8234:8238 Kernel.DagRestriction <> trace:75 var
+R8285:8292 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8272:8274 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8247:8255 Coq.Lists.List <> nth_error def
+R8266:8270 Kernel.VMState <> vm_pc proj
+R8263:8263 Kernel.DagRestriction <> s:73 var
+R8257:8261 Kernel.DagRestriction <> trace:75 var
+R8275:8278 Coq.Init.Datatypes <> Some constr
+R8280:8284 Kernel.DagRestriction <> instr:74 var
+R8319:8321 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R8313:8317 Kernel.VMState <> vm_pc proj
+R8294:8301 Kernel.SimulationProof <> vm_apply def
+R8303:8303 Kernel.DagRestriction <> s:73 var
+R8305:8309 Kernel.DagRestriction <> instr:74 var
+R8325:8329 Kernel.VMState <> vm_pc proj
+R8322:8322 Kernel.DagRestriction <> s:73 var
+R8434:8436 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8428:8432 Kernel.VMState <> vm_pc proj
+R8437:8442 Coq.Init.Datatypes <> length def
+R8434:8436 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R8428:8432 Kernel.VMState <> vm_pc proj
+R8437:8442 Coq.Init.Datatypes <> length def
+R8463:8481 Kernel.DagRestriction <> nth_error_in_bounds thm
+R8463:8481 Kernel.DagRestriction <> nth_error_in_bounds thm
+R8660:8674 Kernel.DagRestriction <> is_dag_instr_at def
+R8734:8741 Kernel.SimulationProof <> vm_apply def
+R8744:8756 Kernel.VMStep VMStep advance_state def
+R8788:8795 Kernel.SimulationProof <> vm_apply def
+R8798:8813 Kernel.VMStep VMStep advance_state_rm def
+R8845:8852 Kernel.SimulationProof <> vm_apply def
+R8855:8874 Kernel.VMStep VMStep advance_state_reveal def
+R8906:8913 Kernel.SimulationProof <> vm_apply def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8985:8997 Kernel.VMStep VMStep advance_state def
+R9029:9036 Kernel.SimulationProof <> vm_apply def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9103:9115 Kernel.VMStep VMStep advance_state def
+R9147:9154 Kernel.SimulationProof <> vm_apply def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9230:9245 Kernel.VMStep VMStep advance_state_rm def
+R9268:9280 Kernel.VMStep VMStep advance_state def
+R9313:9320 Kernel.SimulationProof <> vm_apply def
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9412:9423 Kernel.VMState <> graph_lookup def
+R9428:9435 Kernel.VMState <> vm_graph proj
+R9483:9500 Kernel.VMState <> graph_add_morphism def
+R9541:9556 Kernel.VMStep VMStep advance_state_rm def
+R9588:9600 Kernel.VMStep VMStep advance_state def
+R9632:9644 Kernel.VMStep VMStep advance_state def
+R9677:9684 Kernel.SimulationProof <> vm_apply def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9773:9788 Kernel.VMStep VMStep advance_state_rm def
+R9819:9831 Kernel.VMStep VMStep advance_state def
+R9864:9871 Kernel.SimulationProof <> vm_apply def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9953:9968 Kernel.VMStep VMStep advance_state_rm def
+R9999:10011 Kernel.VMStep VMStep advance_state def
+R10044:10051 Kernel.SimulationProof <> vm_apply def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10131:10143 Kernel.VMStep VMStep advance_state def
+R10175:10182 Kernel.SimulationProof <> vm_apply def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10263:10278 Kernel.VMStep VMStep advance_state_rm def
+R10309:10321 Kernel.VMStep VMStep advance_state def
+R10354:10361 Kernel.SimulationProof <> vm_apply def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10449:10464 Kernel.VMStep VMStep advance_state_rm def
+R10495:10507 Kernel.VMStep VMStep advance_state def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R8935:8950 Kernel.VMState <> graph_add_module def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9058:9069 Kernel.VMStep VMStep chsh_bits_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9176:9199 Kernel.VMStep VMStep tensor_indices_ok def
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9412:9423 Kernel.VMState <> graph_lookup def
+R9428:9435 Kernel.VMState <> vm_graph proj
+R9483:9500 Kernel.VMState <> graph_add_morphism def
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9342:9353 Kernel.VMState <> graph_lookup def
+R9358:9365 Kernel.VMState <> vm_graph proj
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9706:9728 Kernel.VMState <> graph_compose_morphisms def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R9893:9910 Kernel.VMState <> graph_add_identity def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10073:10093 Kernel.VMState <> graph_delete_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10204:10224 Kernel.VMState <> graph_lookup_morphism def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10383:10404 Kernel.VMState <> graph_tensor_morphisms def
+R10756:10774 Kernel.DagRestriction <> vm_apply_lassert_pc thm
+R10756:10774 Kernel.DagRestriction <> vm_apply_lassert_pc thm
+R10756:10774 Kernel.DagRestriction <> vm_apply_lassert_pc thm
+R10787:10796 Coq.Arith.PeanoNat Nat leb_le thm
+R10787:10796 Coq.Arith.PeanoNat Nat leb_le thm
+R10817:10831 Kernel.VMStep VMStep lassert_exec_ok def
+R10817:10831 Kernel.VMStep VMStep lassert_exec_ok def
+R10905:10912 Kernel.SimulationProof <> vm_apply def
+R10915:10924 Kernel.VMStep VMStep jump_state def
+R10944:10953 Coq.Arith.PeanoNat Nat ltb_lt thm
+R10944:10953 Coq.Arith.PeanoNat Nat ltb_lt thm
+R11044:11051 Kernel.SimulationProof <> vm_apply def
+R11068:11074 Coq.Arith.PeanoNat Nat eqb def
+R11077:11084 Kernel.VMState <> read_reg def
+R11068:11074 Coq.Arith.PeanoNat Nat eqb def
+R11077:11084 Kernel.VMState <> read_reg def
+R11115:11127 Kernel.VMStep VMStep advance_state def
+R11155:11164 Kernel.VMStep VMStep jump_state def
+R11180:11189 Coq.Arith.PeanoNat Nat ltb_lt thm
+R11180:11189 Coq.Arith.PeanoNat Nat ltb_lt thm
+R11288:11311 Kernel.DagRestriction <> vm_apply_chsh_lassert_pc thm
+R11288:11311 Kernel.DagRestriction <> vm_apply_chsh_lassert_pc thm
+R11288:11311 Kernel.DagRestriction <> vm_apply_chsh_lassert_pc thm
+R11324:11333 Coq.Arith.PeanoNat Nat leb_le thm
+R11324:11333 Coq.Arith.PeanoNat Nat leb_le thm
+R11354:11385 Kernel.VMStep VMStep column_contractive_check_witness def
+R11354:11385 Kernel.VMStep VMStep column_contractive_check_witness def
+R11459:11486 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_pc thm
+R11459:11486 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_pc thm
+R11459:11486 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_pc thm
+R11499:11508 Coq.Arith.PeanoNat Nat leb_le thm
+R11499:11508 Coq.Arith.PeanoNat Nat leb_le thm
+R11529:11564 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R11529:11564 Kernel.VMStep VMStep column_contractive_check_q1ab_kernel def
+R11641:11671 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g5_pc thm
+R11641:11671 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g5_pc thm
+R11641:11671 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g5_pc thm
+R11684:11693 Coq.Arith.PeanoNat Nat leb_le thm
+R11684:11693 Coq.Arith.PeanoNat Nat leb_le thm
+R11714:11746 Kernel.VMStep VMStep q1ab_g5_full_integer_check_kernel def
+R11714:11746 Kernel.VMStep VMStep q1ab_g5_full_integer_check_kernel def
+R11829:11861 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g345_pc thm
+R11829:11861 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g345_pc thm
+R11829:11861 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g345_pc thm
+R11874:11883 Coq.Arith.PeanoNat Nat leb_le thm
+R11874:11883 Coq.Arith.PeanoNat Nat leb_le thm
+R11904:11938 Kernel.VMStep VMStep q1ab_g345_full_integer_check_kernel def
+R11904:11938 Kernel.VMStep VMStep q1ab_g345_full_integer_check_kernel def
+R12031:12065 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g12345_pc thm
+R12031:12065 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g12345_pc thm
+R12031:12065 Kernel.DagRestriction <> vm_apply_chsh_lassert_1ab_g12345_pc thm
+R12078:12087 Coq.Arith.PeanoNat Nat leb_le thm
+R12078:12087 Coq.Arith.PeanoNat Nat leb_le thm
+R12108:12144 Kernel.VMStep VMStep q1ab_g12345_full_integer_check_kernel def
+R12108:12144 Kernel.VMStep VMStep q1ab_g12345_full_integer_check_kernel def
+prf 12447:12459 <> dag_pc_growth
+R12480:12482 Coq.Init.Datatypes <> nat ind
+binder 12473:12476 <> fuel:76
+R12494:12497 Coq.Init.Datatypes <> list ind
+R12499:12512 Kernel.VMStep VMStep vm_instruction ind
+binder 12486:12490 <> trace:77
+R12520:12526 Kernel.VMState <> VMState rec
+binder 12516:12516 <> s:78
+R12552:12559 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12534:12545 Kernel.DagRestriction <> dag_trace_wf def
+R12547:12551 Kernel.DagRestriction <> trace:77 var
+R12609:12616 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R12589:12592 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12583:12587 Kernel.VMState <> vm_pc proj
+R12561:12566 Kernel.SimulationProof <> run_vm def
+R12568:12571 Kernel.DagRestriction <> fuel:76 var
+R12573:12577 Kernel.DagRestriction <> trace:77 var
+R12579:12579 Kernel.DagRestriction <> s:78 var
+R12602:12604 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R12596:12600 Kernel.VMState <> vm_pc proj
+R12593:12593 Kernel.DagRestriction <> s:78 var
+R12605:12608 Kernel.DagRestriction <> fuel:76 var
+R12646:12649 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R12640:12644 Kernel.VMState <> vm_pc proj
+R12618:12623 Kernel.SimulationProof <> run_vm def
+R12625:12628 Kernel.DagRestriction <> fuel:76 var
+R12630:12634 Kernel.DagRestriction <> trace:77 var
+R12636:12636 Kernel.DagRestriction <> s:78 var
+R12650:12655 Coq.Init.Datatypes <> length def
+R12657:12661 Kernel.DagRestriction <> trace:77 var
+R12760:12768 Coq.Lists.List <> nth_error def
+R12779:12783 Kernel.VMState <> vm_pc proj
+R12760:12768 Coq.Lists.List <> nth_error def
+R12779:12783 Kernel.VMState <> vm_pc proj
+R12894:12901 Kernel.SimulationProof <> vm_apply def
+R12894:12901 Kernel.SimulationProof <> vm_apply def
+R12976:12996 Kernel.DagRestriction <> dag_instr_advances_pc thm
+R12976:12996 Kernel.DagRestriction <> dag_instr_advances_pc thm
+R13156:13165 Coq.Arith.PeanoNat Nat nlt_ge thm
+R13156:13165 Coq.Arith.PeanoNat Nat nlt_ge thm
+R13191:13204 Coq.Lists.List <> nth_error_Some thm
+R13191:13204 Coq.Lists.List <> nth_error_Some thm
+prf 13468:13481 <> dag_terminates
+R13503:13506 Coq.Init.Datatypes <> list ind
+R13508:13521 Kernel.VMStep VMStep vm_instruction ind
+binder 13495:13499 <> trace:79
+R13529:13535 Kernel.VMState <> VMState rec
+binder 13525:13525 <> s:80
+R13561:13568 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13543:13554 Kernel.DagRestriction <> dag_trace_wf def
+R13556:13560 Kernel.DagRestriction <> trace:79 var
+R13594:13601 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13578:13581 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R13572:13576 Kernel.VMState <> vm_pc proj
+R13569:13569 Kernel.DagRestriction <> s:80 var
+R13582:13587 Coq.Init.Datatypes <> length def
+R13589:13593 Kernel.DagRestriction <> trace:79 var
+R13657:13660 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R13651:13655 Kernel.VMState <> vm_pc proj
+R13603:13608 Kernel.SimulationProof <> run_vm def
+R13635:13637 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13623:13625 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13611:13616 Coq.Init.Datatypes <> length def
+R13618:13622 Kernel.DagRestriction <> trace:79 var
+R13629:13633 Kernel.VMState <> vm_pc proj
+R13626:13626 Kernel.DagRestriction <> s:80 var
+R13641:13645 Kernel.DagRestriction <> trace:79 var
+R13647:13647 Kernel.DagRestriction <> s:80 var
+R13661:13666 Coq.Init.Datatypes <> length def
+R13668:13672 Kernel.DagRestriction <> trace:79 var
+R13720:13732 Kernel.DagRestriction <> dag_pc_growth thm
+R13759:13761 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13747:13749 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13735:13740 Coq.Init.Datatypes <> length def
+R13753:13757 Kernel.VMState <> vm_pc proj
+R13720:13732 Kernel.DagRestriction <> dag_pc_growth thm
+R13759:13761 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13747:13749 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R13735:13740 Coq.Init.Datatypes <> length def
+R13753:13757 Kernel.VMState <> vm_pc proj
+prf 13923:13946 <> dag_terminates_from_zero
+R13968:13971 Coq.Init.Datatypes <> list ind
+R13973:13986 Kernel.VMStep VMStep vm_instruction ind
+binder 13960:13964 <> trace:81
+R14012:14019 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13994:14005 Kernel.DagRestriction <> dag_trace_wf def
+R14007:14011 Kernel.DagRestriction <> trace:81 var
+R14072:14075 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R14066:14070 Kernel.VMState <> vm_pc proj
+R14021:14026 Kernel.SimulationProof <> run_vm def
+R14041:14043 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14029:14034 Coq.Init.Datatypes <> length def
+R14036:14040 Kernel.DagRestriction <> trace:81 var
+R14047:14051 Kernel.DagRestriction <> trace:81 var
+R14053:14062 Kernel.MuInitiality <> init_state def
+R14076:14081 Coq.Init.Datatypes <> length def
+R14083:14087 Kernel.DagRestriction <> trace:81 var
+R14132:14145 Kernel.DagRestriction <> dag_terminates thm
+R14153:14162 Kernel.MuInitiality <> init_state def
+R14169:14178 Coq.Arith.PeanoNat Nat le_0_l thm
+R14132:14145 Kernel.DagRestriction <> dag_terminates thm
+R14153:14162 Kernel.MuInitiality <> init_state def
+R14169:14178 Coq.Arith.PeanoNat Nat le_0_l thm
+R14206:14210 Kernel.VMState <> vm_pc proj
+R14194:14203 Kernel.MuInitiality <> init_state def
+R14206:14210 Kernel.VMState <> vm_pc proj
+R14194:14203 Kernel.MuInitiality <> init_state def
+R14230:14240 Coq.Arith.PeanoNat Nat sub_0_r thm
+R14230:14240 Coq.Arith.PeanoNat Nat sub_0_r thm
+R14230:14240 Coq.Arith.PeanoNat Nat sub_0_r thm
+prf 14341:14359 <> run_vm_stuck_repeat
+R14377:14379 Coq.Init.Datatypes <> nat ind
+binder 14373:14373 <> k:82
+R14391:14394 Coq.Init.Datatypes <> list ind
+R14396:14409 Kernel.VMStep VMStep vm_instruction ind
+binder 14383:14387 <> trace:83
+R14417:14423 Kernel.VMState <> VMState rec
+binder 14413:14413 <> s:84
+R14463:14470 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R14456:14458 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14431:14439 Coq.Lists.List <> nth_error def
+R14450:14454 Kernel.VMState <> vm_pc proj
+R14447:14447 Kernel.DagRestriction <> s:84 var
+R14441:14445 Kernel.DagRestriction <> trace:83 var
+R14459:14462 Coq.Init.Datatypes <> None constr
+R14487:14489 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14471:14476 Kernel.SimulationProof <> run_vm def
+R14478:14478 Kernel.DagRestriction <> k:82 var
+R14480:14484 Kernel.DagRestriction <> trace:83 var
+R14486:14486 Kernel.DagRestriction <> s:84 var
+R14490:14490 Kernel.DagRestriction <> s:84 var
+prf 14609:14626 <> run_vm_compose_dag
+binder 14639:14639 <> m:85
+binder 14641:14641 <> n:86
+binder 14643:14647 <> trace:87
+binder 14649:14649 <> s:88
+R14678:14680 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14656:14661 Kernel.SimulationProof <> run_vm def
+R14665:14667 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14664:14664 Kernel.DagRestriction <> m:85 var
+R14668:14668 Kernel.DagRestriction <> n:86 var
+R14671:14675 Kernel.DagRestriction <> trace:87 var
+R14677:14677 Kernel.DagRestriction <> s:88 var
+R14681:14686 Kernel.SimulationProof <> run_vm def
+R14688:14688 Kernel.DagRestriction <> n:86 var
+R14690:14694 Kernel.DagRestriction <> trace:87 var
+R14697:14702 Kernel.SimulationProof <> run_vm def
+R14704:14704 Kernel.DagRestriction <> m:85 var
+R14706:14710 Kernel.DagRestriction <> trace:87 var
+R14712:14712 Kernel.DagRestriction <> s:88 var
+R14806:14814 Coq.Lists.List <> nth_error def
+R14825:14829 Kernel.VMState <> vm_pc proj
+R14806:14814 Coq.Lists.List <> nth_error def
+R14825:14829 Kernel.VMState <> vm_pc proj
+R14890:14908 Kernel.DagRestriction <> run_vm_stuck_repeat thm
+R14890:14908 Kernel.DagRestriction <> run_vm_stuck_repeat thm
+prf 14932:14951 <> run_vm_halted_stable
+R14974:14976 Coq.Init.Datatypes <> nat ind
+binder 14965:14968 <> fuel:89
+binder 14970:14970 <> k:90
+R14988:14991 Coq.Init.Datatypes <> list ind
+R14993:15006 Kernel.VMStep VMStep vm_instruction ind
+binder 14980:14984 <> trace:91
+R15014:15020 Kernel.VMState <> VMState rec
+binder 15010:15010 <> s:92
+R15073:15080 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15057:15060 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R15051:15055 Kernel.VMState <> vm_pc proj
+R15029:15034 Kernel.SimulationProof <> run_vm def
+R15036:15039 Kernel.DagRestriction <> fuel:89 var
+R15041:15045 Kernel.DagRestriction <> trace:91 var
+R15047:15047 Kernel.DagRestriction <> s:92 var
+R15061:15066 Coq.Init.Datatypes <> length def
+R15068:15072 Kernel.DagRestriction <> trace:91 var
+R15106:15108 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15081:15086 Kernel.SimulationProof <> run_vm def
+R15093:15095 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15089:15092 Kernel.DagRestriction <> fuel:89 var
+R15096:15096 Kernel.DagRestriction <> k:90 var
+R15099:15103 Kernel.DagRestriction <> trace:91 var
+R15105:15105 Kernel.DagRestriction <> s:92 var
+R15109:15114 Kernel.SimulationProof <> run_vm def
+R15116:15119 Kernel.DagRestriction <> fuel:89 var
+R15121:15125 Kernel.DagRestriction <> trace:91 var
+R15127:15127 Kernel.DagRestriction <> s:92 var
+R15200:15210 Coq.Arith.PeanoNat Nat add_0_r thm
+R15200:15210 Coq.Arith.PeanoNat Nat add_0_r thm
+R15200:15210 Coq.Arith.PeanoNat Nat add_0_r thm
+R15364:15389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15336:15341 Kernel.SimulationProof <> run_vm def
+R15348:15350 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15351:15351 Coq.Init.Datatypes <> S constr
+R15390:15395 Kernel.SimulationProof <> run_vm def
+R15398:15398 Coq.Init.Datatypes <> S constr
+R15411:15416 Kernel.SimulationProof <> run_vm def
+R15449:15466 Kernel.DagRestriction <> run_vm_compose_dag thm
+R15474:15474 Coq.Init.Datatypes <> S constr
+R15364:15389 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15336:15341 Kernel.SimulationProof <> run_vm def
+R15348:15350 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15351:15351 Coq.Init.Datatypes <> S constr
+R15390:15395 Kernel.SimulationProof <> run_vm def
+R15398:15398 Coq.Init.Datatypes <> S constr
+R15411:15416 Kernel.SimulationProof <> run_vm def
+R15449:15466 Kernel.DagRestriction <> run_vm_compose_dag thm
+R15474:15474 Coq.Init.Datatypes <> S constr
+R15527:15532 Kernel.SimulationProof <> run_vm def
+R15527:15532 Kernel.SimulationProof <> run_vm def
+R15595:15597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15569:15577 Coq.Lists.List <> nth_error def
+R15589:15593 Kernel.VMState <> vm_pc proj
+R15598:15601 Coq.Init.Datatypes <> None constr
+R15620:15633 Coq.Lists.List <> nth_error_None thm
+R15595:15597 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15569:15577 Coq.Lists.List <> nth_error def
+R15589:15593 Kernel.VMState <> vm_pc proj
+R15598:15601 Coq.Init.Datatypes <> None constr
+R15620:15633 Coq.Lists.List <> nth_error_None thm
+R15663:15681 Kernel.DagRestriction <> run_vm_stuck_repeat thm
+R15684:15684 Coq.Init.Datatypes <> S constr
+R15663:15681 Kernel.DagRestriction <> run_vm_stuck_repeat thm
+R15684:15684 Coq.Init.Datatypes <> S constr
+prf 16194:16206 <> dag_safe_pnew
+binder 16219:16220 <> pc:93
+binder 16222:16222 <> n:94
+binder 16224:16229 <> region:95
+binder 16231:16234 <> cost:96
+R16282:16284 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16237:16251 Kernel.DagRestriction <> is_dag_instr_at def
+R16253:16254 Kernel.DagRestriction <> pc:93 var
+R16256:16256 Kernel.DagRestriction <> n:94 var
+R16259:16268 Kernel.VMStep VMStep instr_pnew constr
+R16270:16275 Kernel.DagRestriction <> region:95 var
+R16277:16280 Kernel.DagRestriction <> cost:96 var
+R16285:16288 Coq.Init.Datatypes <> true constr
+prf 16331:16343 <> dag_safe_emit
+binder 16356:16357 <> pc:97
+binder 16359:16359 <> n:98
+binder 16361:16366 <> module:99
+binder 16368:16374 <> payload:100
+binder 16376:16379 <> cost:101
+R16439:16441 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16386:16400 Kernel.DagRestriction <> is_dag_instr_at def
+R16402:16403 Kernel.DagRestriction <> pc:97 var
+R16405:16405 Kernel.DagRestriction <> n:98 var
+R16408:16417 Kernel.VMStep VMStep instr_emit constr
+R16419:16424 Kernel.DagRestriction <> module:99 var
+R16426:16432 Kernel.DagRestriction <> payload:100 var
+R16434:16437 Kernel.DagRestriction <> cost:101 var
+R16442:16445 Coq.Init.Datatypes <> true constr
+prf 16488:16503 <> dag_safe_certify
+binder 16516:16517 <> pc:102
+binder 16519:16519 <> n:103
+binder 16521:16524 <> cost:104
+R16568:16570 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16527:16541 Kernel.DagRestriction <> is_dag_instr_at def
+R16543:16544 Kernel.DagRestriction <> pc:102 var
+R16546:16546 Kernel.DagRestriction <> n:103 var
+R16549:16561 Kernel.VMStep VMStep instr_certify constr
+R16563:16566 Kernel.DagRestriction <> cost:104 var
+R16571:16574 Coq.Init.Datatypes <> true constr
+prf 16617:16630 <> dag_safe_morph
+binder 16643:16644 <> pc:105
+binder 16646:16646 <> n:106
+binder 16648:16650 <> dst:107
+binder 16652:16658 <> src_mod:108
+binder 16660:16666 <> dst_mod:109
+binder 16668:16679 <> coupling_idx:110
+binder 16681:16684 <> cost:111
+R16763:16765 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16691:16705 Kernel.DagRestriction <> is_dag_instr_at def
+R16707:16708 Kernel.DagRestriction <> pc:105 var
+R16710:16710 Kernel.DagRestriction <> n:106 var
+R16713:16723 Kernel.VMStep VMStep instr_morph constr
+R16725:16727 Kernel.DagRestriction <> dst:107 var
+R16729:16735 Kernel.DagRestriction <> src_mod:108 var
+R16737:16743 Kernel.DagRestriction <> dst_mod:109 var
+R16745:16756 Kernel.DagRestriction <> coupling_idx:110 var
+R16758:16761 Kernel.DagRestriction <> cost:111 var
+R16766:16769 Coq.Init.Datatypes <> true constr
+prf 16812:16828 <> dag_safe_morph_id
+binder 16841:16842 <> pc:112
+binder 16844:16844 <> n:113
+binder 16846:16848 <> dst:114
+binder 16850:16855 <> module:115
+binder 16857:16860 <> cost:116
+R16920:16922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16867:16881 Kernel.DagRestriction <> is_dag_instr_at def
+R16883:16884 Kernel.DagRestriction <> pc:112 var
+R16886:16886 Kernel.DagRestriction <> n:113 var
+R16889:16902 Kernel.VMStep VMStep instr_morph_id constr
+R16904:16906 Kernel.DagRestriction <> dst:114 var
+R16908:16913 Kernel.DagRestriction <> module:115 var
+R16915:16918 Kernel.DagRestriction <> cost:116 var
+R16923:16926 Coq.Init.Datatypes <> true constr
+prf 16969:16989 <> dag_safe_morph_assert
+binder 17002:17003 <> pc:117
+binder 17005:17005 <> n:118
+binder 17007:17014 <> morph_id:119
+binder 17016:17023 <> property:120
+binder 17025:17028 <> cert:121
+binder 17030:17033 <> cost:122
+R17109:17111 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17040:17054 Kernel.DagRestriction <> is_dag_instr_at def
+R17056:17057 Kernel.DagRestriction <> pc:117 var
+R17059:17059 Kernel.DagRestriction <> n:118 var
+R17062:17079 Kernel.VMStep VMStep instr_morph_assert constr
+R17081:17088 Kernel.DagRestriction <> morph_id:119 var
+R17090:17097 Kernel.DagRestriction <> property:120 var
+R17099:17102 Kernel.DagRestriction <> cert:121 var
+R17104:17107 Kernel.DagRestriction <> cost:122 var
+R17112:17115 Coq.Init.Datatypes <> true constr
+prf 17158:17173 <> dag_safe_compose
+binder 17186:17187 <> pc:123
+binder 17189:17189 <> n:124
+binder 17191:17193 <> dst:125
+binder 17195:17196 <> m1:126
+binder 17198:17199 <> m2:127
+binder 17201:17204 <> cost:128
+R17262:17264 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17211:17225 Kernel.DagRestriction <> is_dag_instr_at def
+R17227:17228 Kernel.DagRestriction <> pc:123 var
+R17230:17230 Kernel.DagRestriction <> n:124 var
+R17233:17245 Kernel.VMStep VMStep instr_compose constr
+R17247:17249 Kernel.DagRestriction <> dst:125 var
+R17251:17252 Kernel.DagRestriction <> m1:126 var
+R17254:17255 Kernel.DagRestriction <> m2:127 var
+R17257:17260 Kernel.DagRestriction <> cost:128 var
+R17265:17268 Coq.Init.Datatypes <> true constr
+prf 17311:17326 <> dag_safe_lassert
+binder 17339:17340 <> pc:129
+binder 17342:17345 <> freg:130
+binder 17347:17350 <> creg:131
+binder 17352:17355 <> kind:132
+binder 17357:17360 <> flen:133
+binder 17362:17365 <> cost:134
+R17438:17445 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17419:17422 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17372:17377 Coq.Init.Datatypes <> length def
+R17379:17379 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17418:17418 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17380:17392 Kernel.VMStep VMStep instr_lassert constr
+R17394:17397 Kernel.DagRestriction <> freg:130 var
+R17399:17402 Kernel.DagRestriction <> creg:131 var
+R17404:17407 Kernel.DagRestriction <> kind:132 var
+R17409:17412 Kernel.DagRestriction <> flen:133 var
+R17414:17417 Kernel.DagRestriction <> cost:134 var
+R17423:17437 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R17507:17509 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17446:17460 Kernel.DagRestriction <> is_dag_instr_at def
+R17462:17463 Kernel.DagRestriction <> pc:129 var
+R17468:17480 Kernel.VMStep VMStep instr_lassert constr
+R17482:17485 Kernel.DagRestriction <> freg:130 var
+R17487:17490 Kernel.DagRestriction <> creg:131 var
+R17492:17495 Kernel.DagRestriction <> kind:132 var
+R17497:17500 Kernel.DagRestriction <> flen:133 var
+R17502:17505 Kernel.DagRestriction <> cost:134 var
+R17510:17513 Coq.Init.Datatypes <> true constr
+R17540:17554 Kernel.DagRestriction <> is_dag_instr_at def
+R17563:17572 Coq.Arith.PeanoNat Nat leb_le thm
+R17563:17572 Coq.Arith.PeanoNat Nat leb_le thm
+prf 17756:17783 <> dag_safe_lassert_short_trace
+R17805:17808 Coq.Init.Datatypes <> list ind
+R17810:17823 Kernel.VMStep VMStep vm_instruction ind
+binder 17797:17801 <> trace:135
+R17839:17841 Coq.Init.Datatypes <> nat ind
+binder 17827:17830 <> freg:136
+binder 17832:17835 <> creg:137
+R17852:17855 Coq.Init.Datatypes <> bool ind
+binder 17845:17848 <> kind:138
+R17871:17873 Coq.Init.Datatypes <> nat ind
+binder 17859:17862 <> flen:139
+binder 17864:17867 <> cost:140
+R17912:17919 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17893:17896 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R17881:17886 Coq.Init.Datatypes <> length def
+R17888:17892 Kernel.DagRestriction <> trace:135 var
+R17897:17911 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R17993:17995 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17920:17934 Kernel.DagRestriction <> is_dag_instr_at def
+R17939:17944 Coq.Init.Datatypes <> length def
+R17946:17950 Kernel.DagRestriction <> trace:135 var
+R17954:17966 Kernel.VMStep VMStep instr_lassert constr
+R17968:17971 Kernel.DagRestriction <> freg:136 var
+R17973:17976 Kernel.DagRestriction <> creg:137 var
+R17978:17981 Kernel.DagRestriction <> kind:138 var
+R17983:17986 Kernel.DagRestriction <> flen:139 var
+R17988:17991 Kernel.DagRestriction <> cost:140 var
+R17996:17999 Coq.Init.Datatypes <> true constr
+R18026:18040 Kernel.DagRestriction <> is_dag_instr_at def
+R18049:18058 Coq.Arith.PeanoNat Nat leb_le thm
+R18049:18058 Coq.Arith.PeanoNat Nat leb_le thm
+prf 18322:18348 <> dag_structural_completeness
+R18366:18368 Coq.Init.Datatypes <> nat ind
+binder 18362:18362 <> n:141
+R18396:18403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18377:18380 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R18376:18376 Kernel.DagRestriction <> n:141 var
+R18381:18395 Kernel.VMStep VMStep LASSERT_TRAP_PC def
+R18404:18404 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18487:18495 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 18412:18413 <> pc:142
+binder 18415:18420 <> region:143
+binder 18422:18425 <> cost:144
+R18480:18482 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18435:18449 Kernel.DagRestriction <> is_dag_instr_at def
+R18451:18452 Kernel.DagRestriction <> pc:142 var
+R18454:18454 Kernel.DagRestriction <> n:141 var
+R18457:18466 Kernel.VMStep VMStep instr_pnew constr
+R18468:18473 Kernel.DagRestriction <> region:143 var
+R18475:18478 Kernel.DagRestriction <> cost:144 var
+R18483:18486 Coq.Init.Datatypes <> true constr
+R18496:18496 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18595:18603 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 18504:18505 <> pc:145
+binder 18507:18512 <> module:146
+binder 18514:18520 <> payload:147
+binder 18522:18525 <> cost:148
+R18588:18590 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18535:18549 Kernel.DagRestriction <> is_dag_instr_at def
+R18551:18552 Kernel.DagRestriction <> pc:145 var
+R18554:18554 Kernel.DagRestriction <> n:141 var
+R18557:18566 Kernel.VMStep VMStep instr_emit constr
+R18568:18573 Kernel.DagRestriction <> module:146 var
+R18575:18581 Kernel.DagRestriction <> payload:147 var
+R18583:18586 Kernel.DagRestriction <> cost:148 var
+R18591:18594 Coq.Init.Datatypes <> true constr
+R18604:18604 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18676:18684 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 18612:18613 <> pc:149
+binder 18615:18618 <> cost:150
+R18669:18671 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18628:18642 Kernel.DagRestriction <> is_dag_instr_at def
+R18644:18645 Kernel.DagRestriction <> pc:149 var
+R18647:18647 Kernel.DagRestriction <> n:141 var
+R18650:18662 Kernel.VMStep VMStep instr_certify constr
+R18664:18667 Kernel.DagRestriction <> cost:150 var
+R18672:18675 Coq.Init.Datatypes <> true constr
+R18685:18685 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18797:18805 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 18693:18694 <> pc:151
+binder 18696:18699 <> freg:152
+binder 18701:18704 <> creg:153
+binder 18706:18709 <> kind:154
+binder 18711:18714 <> flen:155
+binder 18716:18719 <> cost:156
+R18790:18792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18729:18743 Kernel.DagRestriction <> is_dag_instr_at def
+R18745:18746 Kernel.DagRestriction <> pc:151 var
+R18748:18748 Kernel.DagRestriction <> n:141 var
+R18751:18763 Kernel.VMStep VMStep instr_lassert constr
+R18765:18768 Kernel.DagRestriction <> freg:152 var
+R18770:18773 Kernel.DagRestriction <> creg:153 var
+R18775:18778 Kernel.DagRestriction <> kind:154 var
+R18780:18783 Kernel.DagRestriction <> flen:155 var
+R18785:18788 Kernel.DagRestriction <> cost:156 var
+R18793:18796 Coq.Init.Datatypes <> true constr
+R18806:18806 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18942:18950 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 18814:18815 <> pc:157
+binder 18817:18819 <> dst:158
+binder 18821:18827 <> src_mod:159
+binder 18829:18835 <> dst_mod:160
+binder 18837:18848 <> coupling_idx:161
+binder 18850:18853 <> cost:162
+R18935:18937 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18863:18877 Kernel.DagRestriction <> is_dag_instr_at def
+R18879:18880 Kernel.DagRestriction <> pc:157 var
+R18882:18882 Kernel.DagRestriction <> n:141 var
+R18885:18895 Kernel.VMStep VMStep instr_morph constr
+R18897:18899 Kernel.DagRestriction <> dst:158 var
+R18901:18907 Kernel.DagRestriction <> src_mod:159 var
+R18909:18915 Kernel.DagRestriction <> dst_mod:160 var
+R18917:18928 Kernel.DagRestriction <> coupling_idx:161 var
+R18930:18933 Kernel.DagRestriction <> cost:162 var
+R18938:18941 Coq.Init.Datatypes <> true constr
+R18951:18951 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19074:19083 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19175:19175 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 18959:18960 <> pc:163
+binder 18962:18969 <> morph_id:164
+binder 18971:18978 <> property:165
+binder 18980:18983 <> cert:166
+binder 18985:18988 <> cost:167
+R19067:19069 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18998:19012 Kernel.DagRestriction <> is_dag_instr_at def
+R19014:19015 Kernel.DagRestriction <> pc:163 var
+R19017:19017 Kernel.DagRestriction <> n:141 var
+R19020:19037 Kernel.VMStep VMStep instr_morph_assert constr
+R19039:19046 Kernel.DagRestriction <> morph_id:164 var
+R19048:19055 Kernel.DagRestriction <> property:165 var
+R19057:19060 Kernel.DagRestriction <> cert:166 var
+R19062:19065 Kernel.DagRestriction <> cost:167 var
+R19070:19073 Coq.Init.Datatypes <> true constr
+binder 19091:19092 <> pc:168
+binder 19094:19096 <> dst:169
+binder 19098:19099 <> m1:170
+binder 19101:19102 <> m2:171
+binder 19104:19107 <> cost:172
+R19168:19170 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19117:19131 Kernel.DagRestriction <> is_dag_instr_at def
+R19133:19134 Kernel.DagRestriction <> pc:168 var
+R19136:19136 Kernel.DagRestriction <> n:141 var
+R19139:19151 Kernel.VMStep VMStep instr_compose constr
+R19153:19155 Kernel.DagRestriction <> dst:169 var
+R19157:19158 Kernel.DagRestriction <> m1:170 var
+R19160:19161 Kernel.DagRestriction <> m2:171 var
+R19163:19166 Kernel.DagRestriction <> cost:172 var
+R19171:19174 Coq.Init.Datatypes <> true constr
+R19301:19315 Kernel.DagRestriction <> is_dag_instr_at def
+R19324:19333 Coq.Arith.PeanoNat Nat leb_le thm
+R19324:19333 Coq.Arith.PeanoNat Nat leb_le thm
+prf 19828:19844 <> dag_nfi_preserved
+R19866:19869 Coq.Init.Datatypes <> list ind
+R19871:19884 Kernel.VMStep VMStep vm_instruction ind
+binder 19858:19862 <> trace:173
+R19905:19911 Kernel.VMState <> VMState rec
+binder 19888:19893 <> s_init:174
+binder 19895:19901 <> s_final:175
+R19922:19924 Coq.Init.Datatypes <> nat ind
+binder 19915:19918 <> fuel:176
+R19950:19957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19932:19943 Kernel.DagRestriction <> dag_trace_wf def
+R19945:19949 Kernel.DagRestriction <> trace:173 var
+R20000:20007 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19985:19987 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19958:19966 Kernel.RevelationRequirement RevelationProof trace_run def
+R19968:19971 Kernel.DagRestriction <> fuel:176 var
+R19973:19977 Kernel.DagRestriction <> trace:173 var
+R19979:19984 Kernel.DagRestriction <> s_init:174 var
+R19988:19991 Coq.Init.Datatypes <> Some constr
+R19993:19999 Kernel.DagRestriction <> s_final:175 var
+R20044:20051 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20040:20042 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20026:20038 Kernel.VMState <> csr_cert_addr proj
+R20016:20022 Kernel.VMState <> vm_csrs proj
+R20008:20013 Kernel.DagRestriction <> s_init:174 var
+R20074:20081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20052:20065 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R20067:20073 Kernel.DagRestriction <> s_final:175 var
+R20103:20110 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20082:20096 Kernel.RevelationRequirement RevelationProof uses_revelation def
+R20098:20102 Kernel.DagRestriction <> trace:173 var
+R20111:20111 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20173:20181 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20112:20118 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20127:20128 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20119:20119 <> n:177
+binder 20121:20121 <> m:178
+binder 20123:20123 <> p:179
+binder 20125:20126 <> mu:180
+R20146:20148 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20129:20137 Coq.Lists.List <> nth_error def
+R20145:20145 Kernel.DagRestriction <> n:177 var
+R20139:20143 Kernel.DagRestriction <> trace:173 var
+R20149:20152 Coq.Init.Datatypes <> Some constr
+R20155:20164 Kernel.VMStep VMStep instr_emit constr
+R20166:20166 Kernel.DagRestriction <> m:178 var
+R20168:20168 Kernel.DagRestriction <> p:179 var
+R20170:20171 Kernel.DagRestriction <> mu:180 var
+R20182:20182 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20249:20257 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20183:20189 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20200:20201 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20190:20190 <> n:181
+binder 20192:20193 <> c1:182
+binder 20195:20196 <> c2:183
+binder 20198:20199 <> mu:184
+R20219:20221 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20202:20210 Coq.Lists.List <> nth_error def
+R20218:20218 Kernel.DagRestriction <> n:181 var
+R20212:20216 Kernel.DagRestriction <> trace:173 var
+R20222:20225 Coq.Init.Datatypes <> Some constr
+R20228:20238 Kernel.VMStep VMStep instr_ljoin constr
+R20240:20241 Kernel.DagRestriction <> c1:182 var
+R20243:20244 Kernel.DagRestriction <> c2:183 var
+R20246:20247 Kernel.DagRestriction <> mu:184 var
+R20258:20258 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20337:20346 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20424:20424 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R20259:20265 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20281:20282 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20266:20266 <> n:185
+binder 20268:20269 <> fa:186
+binder 20271:20272 <> ca:187
+binder 20274:20274 <> k:188
+binder 20276:20277 <> fl:189
+binder 20279:20280 <> mu:190
+R20300:20302 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20283:20291 Coq.Lists.List <> nth_error def
+R20299:20299 Kernel.DagRestriction <> n:185 var
+R20293:20297 Kernel.DagRestriction <> trace:173 var
+R20303:20306 Coq.Init.Datatypes <> Some constr
+R20309:20321 Kernel.VMStep VMStep instr_lassert constr
+R20323:20324 Kernel.DagRestriction <> fa:186 var
+R20326:20327 Kernel.DagRestriction <> ca:187 var
+R20329:20329 Kernel.DagRestriction <> k:188 var
+R20331:20332 Kernel.DagRestriction <> fl:189 var
+R20334:20335 Kernel.DagRestriction <> mu:190 var
+R20347:20353 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R20366:20367 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 20354:20354 <> n:191
+binder 20356:20358 <> mid:192
+binder 20360:20360 <> p:193
+binder 20362:20362 <> c:194
+binder 20364:20365 <> mu:195
+R20385:20387 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20368:20376 Coq.Lists.List <> nth_error def
+R20384:20384 Kernel.DagRestriction <> n:191 var
+R20378:20382 Kernel.DagRestriction <> trace:173 var
+R20388:20391 Coq.Init.Datatypes <> Some constr
+R20394:20411 Kernel.VMStep VMStep instr_morph_assert constr
+R20413:20415 Kernel.DagRestriction <> mid:192 var
+R20417:20417 Kernel.DagRestriction <> p:193 var
+R20419:20419 Kernel.DagRestriction <> c:194 var
+R20421:20422 Kernel.DagRestriction <> mu:195 var
+R20499:20549 Kernel.NoFreeInsight NoFreeInsight no_free_insight_general thm
+R20499:20549 Kernel.NoFreeInsight NoFreeInsight no_free_insight_general thm
+prf 20822:20850 <> dag_no_free_insight_corollary
+R20872:20875 Coq.Init.Datatypes <> list ind
+R20877:20890 Kernel.VMStep VMStep vm_instruction ind
+binder 20864:20868 <> trace:196
+R20911:20917 Kernel.VMState <> VMState rec
+binder 20894:20899 <> s_init:197
+binder 20901:20907 <> s_final:198
+R20928:20930 Coq.Init.Datatypes <> nat ind
+binder 20921:20924 <> fuel:199
+R20956:20963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20938:20949 Kernel.DagRestriction <> dag_trace_wf def
+R20951:20955 Kernel.DagRestriction <> trace:196 var
+R21006:21013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20991:20993 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20964:20972 Kernel.RevelationRequirement RevelationProof trace_run def
+R20974:20977 Kernel.DagRestriction <> fuel:199 var
+R20979:20983 Kernel.DagRestriction <> trace:196 var
+R20985:20990 Kernel.DagRestriction <> s_init:197 var
+R20994:20997 Coq.Init.Datatypes <> Some constr
+R20999:21005 Kernel.DagRestriction <> s_final:198 var
+R21050:21057 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21046:21048 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21032:21044 Kernel.VMState <> csr_cert_addr proj
+R21022:21028 Kernel.VMState <> vm_csrs proj
+R21014:21019 Kernel.DagRestriction <> s_init:197 var
+R21098:21105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21058:21068 Coq.Lists.List <> Forall ind
+R21093:21097 Kernel.DagRestriction <> trace:196 var
+R21070:21091 Kernel.RevelationRequirement RevelationProof non_morph_assert_instr def
+R21106:21107 Coq.Init.Logic <> ::type_scope:'~'_x not
+R21108:21121 Kernel.RevelationRequirement RevelationProof has_supra_cert def
+R21123:21129 Kernel.DagRestriction <> s_final:198 var
+R21203:21271 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm
+R21203:21271 Kernel.NoFreeInsight NoFreeInsight supra_bridge_free_trace_has_no_supra_cert thm

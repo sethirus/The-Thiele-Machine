@@ -285,6 +285,26 @@ Proof.
        destruct (column_contractive_check_witness _);
        simpl;
        first [reflexivity | rewrite csr_set_err_cert_addr; reflexivity]);
+  (* chsh_lassert_1ab: same cert_addr behaviour as chsh_lassert. *)
+  try (left; cbv zeta beta iota;
+       destruct (column_contractive_check_q1ab_kernel _);
+       simpl;
+       first [reflexivity | rewrite csr_set_err_cert_addr; reflexivity]);
+  (* chsh_lassert_1ab_g5: same cert_addr behaviour as the rest. *)
+  try (left; cbv zeta beta iota;
+       destruct (q1ab_g5_full_integer_check_kernel _ _ _);
+       simpl;
+       first [reflexivity | rewrite csr_set_err_cert_addr; reflexivity]);
+  (* chsh_lassert_1ab_g345: same cert_addr behaviour as the rest. *)
+  try (left; cbv zeta beta iota;
+       destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _);
+       simpl;
+       first [reflexivity | rewrite csr_set_err_cert_addr; reflexivity]);
+  (* chsh_lassert_1ab_g12345: same cert_addr behaviour. *)
+  try (left; cbv zeta beta iota;
+       destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _);
+       simpl;
+       first [reflexivity | rewrite csr_set_err_cert_addr; reflexivity]);
   (* final safety net for lassert/ljoin *)
   try (left; cbv zeta beta iota;
        repeat first

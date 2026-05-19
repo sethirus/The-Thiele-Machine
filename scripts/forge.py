@@ -55,6 +55,10 @@ OPCODES: dict[str, int] = {
     "MORPH_TENSOR": 0x2C,
     "MORPH_GET": 0x2D,
     "CHSH_LASSERT": 0x2E,
+    "CHSH_LASSERT_1AB": 0x2F,
+    "CHSH_LASSERT_1AB_G5": 0x30,
+    "CHSH_LASSERT_1AB_G345": 0x31,
+    "CHSH_LASSERT_1AB_G12345": 0x32,
     "HALT": 0xFF,
 }
 

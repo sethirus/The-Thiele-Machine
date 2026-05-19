@@ -10,10 +10,6 @@ type comparison =
 | Lt
 | Gt
 
-val add : int -> int -> int
-
-val mul : int -> int -> int
-
 val sub : int -> int -> int
 
 val eqb : int -> int -> bool
@@ -421,6 +417,11 @@ module VMStep :
   | Coq_instr_morph_tensor of int * morphismID * morphismID * int
   | Coq_instr_morph_get of int * morphismID * int * int
   | Coq_instr_chsh_lassert of int
+  | Coq_instr_chsh_lassert_1ab of int
+  | Coq_instr_chsh_lassert_1ab_g5 of int * int * int
+  | Coq_instr_chsh_lassert_1ab_g345 of int * int * int * int * int * int * int
+  | Coq_instr_chsh_lassert_1ab_g12345 of int * int * int * int * int * 
+     int * int * int * int * int * int
 
   val instruction_cost : vm_instruction -> int
 
@@ -476,6 +477,348 @@ module VMStep :
   val chsh_n_z : int -> int -> int
 
   val column_contractive_check_witness : witnessCounts -> bool
+
+  val sum_E_sq_check_witness : witnessCounts -> bool
+
+  val column_contractive_check_q1ab_kernel : witnessCounts -> bool
+
+  val q1ab_g5_check_z_kernel :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> bool
+
+  val q1ab_g5_full_integer_check_kernel : witnessCounts -> int -> int -> bool
+
+  val cleared_A_num : int -> int -> int -> int -> int
+
+  val cleared_C_M_num : int -> int -> int -> int -> int
+
+  val cleared_B_num :
+    int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_det_M_num :
+    int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cH11_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cH22_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cH33_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cH44_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cH12_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cH13_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int
+
+  val cH14_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cH23_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cH24_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int
+
+  val cH34_per_entry :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val mult_for_H11 : int -> int -> int -> int -> int -> int
+
+  val mult_for_H22 : int -> int -> int -> int -> int -> int
+
+  val mult_for_H33 : int -> int -> int -> int -> int -> int
+
+  val mult_for_H44 : int -> int -> int -> int -> int -> int
+
+  val mult_for_H12 : int -> int -> int -> int -> int -> int -> int
+
+  val mult_for_H13 : int -> int -> int -> int -> int -> int -> int -> int
+
+  val mult_for_H14 : int -> int -> int -> int -> int -> int -> int -> int
+
+  val mult_for_H23 : int -> int -> int -> int -> int -> int -> int -> int
+
+  val mult_for_H24 : int -> int -> int -> int -> int -> int -> int -> int
+
+  val mult_for_H34 : int -> int -> int -> int -> int -> int -> int
+
+  val cleared_H11_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H22_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H33_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H44_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H12_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H13_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H14_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H23_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H24_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_H34_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val sym4_d1_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val sym4_d2_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val sym4_d3_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val sym4_d4_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_d1 :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_d2 :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_d3 :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val cleared_d4 :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int
+
+  val q1ab_g345_check_z_kernel :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> bool
+
+  val q1ab_g345_full_integer_check_kernel :
+    witnessCounts -> int -> int -> int -> int -> int -> int -> bool
+
+  val cleared_g12345_H11_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H22_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H33_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H44_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H55_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H66_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H12_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H13_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H14_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H15_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H16_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H23_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H24_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H25_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H26_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H34_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H35_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H36_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H45_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H46_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_H56_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val schur_step_Z : int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_22_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_23_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_24_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_25_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_26_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_33_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_34_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_35_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_36_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_44_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_45_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_46_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_55_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_56_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S6_66_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_22_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_23_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_24_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_25_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_33_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_34_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_35_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_44_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_45_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val cleared_g12345_S5_55_Z :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> int
+
+  val q1ab_g12345_check_z_kernel :
+    int -> int -> int -> int -> int -> int -> int -> int -> int -> int -> int
+    -> int -> int -> int -> int -> int -> int -> int -> bool
+
+  val q1ab_g12345_full_integer_check_kernel :
+    witnessCounts -> int -> int -> int -> int -> int -> int -> int -> int ->
+    int -> int -> bool
 
   val lassert_check_ok : vMState -> int -> int -> bool -> bool
 

@@ -104,6 +104,10 @@ Definition instr_mu_cost (i : vm_instruction) : nat :=
   | instr_morph_tensor _ _ _ cost => cost
   | instr_morph_get _ _ _ cost => cost
   | instr_chsh_lassert cost => cost
+  | instr_chsh_lassert_1ab cost => cost
+  | instr_chsh_lassert_1ab_g5 cost _ _ => cost
+  | instr_chsh_lassert_1ab_g345 cost _ _ _ _ _ _ => cost
+  | instr_chsh_lassert_1ab_g12345 cost _ _ _ _ _ _ _ _ _ _ => cost
   end.
 
 
@@ -435,6 +439,18 @@ Proof.
 
   (* chsh_lassert: graph unchanged in both branches *)
   - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* chsh_lassert_1ab: graph unchanged in both branches *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* chsh_lassert_1ab_g5: graph unchanged in both branches *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* chsh_lassert_1ab_g345: graph unchanged in both branches *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
+
+  (* chsh_lassert_1ab_g12345: graph unchanged in both branches *)
+  - inversion Hstep; subst; unfold state_info; simpl; reflexivity.
 Qed.
 
 
@@ -609,6 +625,18 @@ Proof.
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
   (* chsh_lassert *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* chsh_lassert_1ab *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* chsh_lassert_1ab_g5 *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* chsh_lassert_1ab_g345 *)
+  - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
+    unfold state_info in H. simpl in H. lia.
+  (* chsh_lassert_1ab_g12345 *)
   - pose proof (other_instr_module_count_unchanged s _ s' Hstep) as H.
     unfold state_info in H. simpl in H. lia.
 Qed.

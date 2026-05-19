@@ -92,7 +92,15 @@ Proof.
        | unfold advance_state; simpl; reflexivity]);
   (* chsh_lassert: both branches preserve vm_certified (success: state record
      copies s.(vm_certified); failure: same). *)
-  try (destruct (column_contractive_check_witness _); simpl; reflexivity).
+  try (destruct (column_contractive_check_witness _); simpl; reflexivity);
+  (* chsh_lassert_1ab: same preservation behaviour. *)
+  try (destruct (column_contractive_check_q1ab_kernel _); simpl; reflexivity);
+  (* chsh_lassert_1ab_g5: same preservation behaviour. *)
+  try (destruct (q1ab_g5_full_integer_check_kernel _ _ _); simpl; reflexivity);
+  (* chsh_lassert_1ab_g345: same preservation behaviour. *)
+  try (destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _); simpl; reflexivity);
+  (* chsh_lassert_1ab_g12345: same preservation behaviour. *)
+  try (destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _); simpl; reflexivity).
   (* instr_certify: contradicts hypothesis *)
   - exfalso. eapply Hnotcert. reflexivity.
 Qed.
@@ -195,6 +203,18 @@ Proof.
          rewrite Hpre in Hpost; discriminate]);
   (* chsh_lassert: vm_certified preserved in both branches. *)
   try (destruct (column_contractive_check_witness _) in Hpost;
+       simpl in Hpost; rewrite Hpre in Hpost; discriminate);
+  (* chsh_lassert_1ab: same preservation. *)
+  try (destruct (column_contractive_check_q1ab_kernel _) in Hpost;
+       simpl in Hpost; rewrite Hpre in Hpost; discriminate);
+  (* chsh_lassert_1ab_g5: same preservation. *)
+  try (destruct (q1ab_g5_full_integer_check_kernel _ _ _) in Hpost;
+       simpl in Hpost; rewrite Hpre in Hpost; discriminate);
+  (* chsh_lassert_1ab_g345: same preservation. *)
+  try (destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _) in Hpost;
+       simpl in Hpost; rewrite Hpre in Hpost; discriminate);
+  (* chsh_lassert_1ab_g12345: same preservation. *)
+  try (destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _) in Hpost;
        simpl in Hpost; rewrite Hpre in Hpost; discriminate).
   (* instr_certify: cost = S mu_delta >= 1. QED. *)
   - simpl. lia.
@@ -319,6 +339,18 @@ Proof.
          | unfold advance_state; simpl; reflexivity]);
     (* chsh_lassert: both branches charge apply_cost = S mu_delta *)
     try (destruct (column_contractive_check_witness _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab: same. *)
+    try (destruct (column_contractive_check_q1ab_kernel _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab_g5: same. *)
+    try (destruct (q1ab_g5_full_integer_check_kernel _ _ _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab_g345: same. *)
+    try (destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab_g12345: same. *)
+    try (destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _);
          simpl; unfold apply_cost; simpl; reflexivity). }
   rewrite Hmu.
   assert (Hle: irreversible_bits instr <= instruction_cost instr)
@@ -454,6 +486,18 @@ Proof.
          | unfold advance_state; simpl; reflexivity]);
     (* chsh_lassert: both branches charge apply_cost = S mu_delta *)
     try (destruct (column_contractive_check_witness _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab: same. *)
+    try (destruct (column_contractive_check_q1ab_kernel _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab_g5: same. *)
+    try (destruct (q1ab_g5_full_integer_check_kernel _ _ _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab_g345: same. *)
+    try (destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _);
+         simpl; unfold apply_cost; simpl; reflexivity);
+    (* chsh_lassert_1ab_g12345: same. *)
+    try (destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _);
          simpl; unfold apply_cost; simpl; reflexivity). }
   lia.
 Qed.

@@ -1,0 +1,718 @@
+THIELE SUBSTRATE LOWER BOUND RESEARCH
+A research record. Goal, definitions, attempts, math, results.
+
+Devon Thiele -- working notes, May 2026
+
+
+===========================================================================
+0. GOAL
+===========================================================================
+
+Find a substrate-level lower bound theorem F with three properties:
+
+  G1. F is a fact about a known problem class, statable without
+      reference to the substrate framework. A working complexity
+      theorist must recognize the statement as a real claim about
+      computation.
+
+  G2. The proof of F invokes A2 essentially. Removing A2 from the
+      proof collapses the bound.
+
+  G3. F gives a substrate cost lower bound that strictly exceeds the
+      classical complexity of the problem class -- under a common
+      matched-unit comparison, not under a unit mismatch.
+
+This document is the working record of the attempt. The text reports
+every angle examined, the math for each, what holds, what fails,
+and what an honest assessment looks like at the end.
+
+
+===========================================================================
+1. DEFINITIONS
+===========================================================================
+
+1.1 Substrate.
+The five-piece object (S, I, step, c, P) where S is a set of states,
+I a set of instructions, step : S x I -> S the transition function,
+c : I -> N the cost function (non-negative integers), P : S -> {0,1}
+the certification predicate.
+
+1.2 A2.
+For every state s and every instruction i, if P(s) = 0 and
+P(step(s, i)) = 1, then c(i) >= 1.
+
+1.3 Substrate cost (mu).
+For a trace t = [i_1, ..., i_n] starting at s_0, the substrate cost
+is mu(t) = sum_{k=1}^n c(i_k). The mu-ledger conservation law
+states mu after the trace equals mu_initial + mu(t).
+
+1.4 Classical complexity models considered.
+  M1. Sequential Turing-machine time: number of head moves and
+      transitions.
+  M2. Unit-cost RAM time: number of instructions executed, each
+      counted as 1 unit regardless of payload size.
+  M3. Bit-cost RAM time: number of bits read or written, summed
+      across the trace.
+  M4. Circuit size: number of gates in a Boolean circuit computing
+      the function.
+  M5. Parallel time (PRAM, NC): wall-clock time given unbounded
+      processors with shared memory.
+  M6. Decision tree depth: worst-case number of input bits queried
+      to decide the function.
+  M7. Shannon information entropy: log_2 of the number of possible
+      outputs for n-way decisions.
+
+1.5 The Thiele Substrate (concrete instance).
+The 47-opcode VM defined in the kernel files. Important cost rules:
+  - Ordinary compute opcodes (ADD, LOAD, JUMP, etc.): c = delta,
+    can be 0.
+  - Certification setters (CERTIFY, MORPH_ASSERT, LJOIN): c = S(delta)
+    = delta + 1.
+  - EMIT, REVEAL: c = payload_bits + S(delta).
+  - LASSERT: c = flen * 8 + S(delta).
+
+1.6 The mu-ledger conservation law.
+For the concrete substrate, every step satisfies
+(vm_apply s i).vm_mu = s.vm_mu + instruction_cost(i). This is
+exact equality, not inequality. (Coq lemma: vm_apply_mu in
+MuLedgerConservation.v.)
+
+
+===========================================================================
+2. MATHEMATICAL LANDSCAPE
+===========================================================================
+
+2.1 Substrate cost is bounded above by trace length times maximum
+per-instruction cost.
+
+By 1.6, mu(t) = sum c(i_k) for each instruction i_k in t. With
+n = length(t) and C = max_k c(i_k), mu(t) <= n * C. So substrate
+cost cannot exceed trace length except by per-step cost
+multiplication.
+
+2.2 Maximum per-instruction cost depends on the cost rule.
+
+For ordinary compute, c = delta, where delta is the cost parameter
+declared in the instruction's encoding. delta is encoded in a
+fixed-width field, so delta <= 2^B where B is the field width;
+this bounds c by 2^B = constant for a fixed instruction set.
+
+For LASSERT (and other payload-bearing cert opcodes), c = flen * 8 +
+S(delta). flen is the formula byte-length declared in the
+instruction encoding; the formula bytes themselves live in memory,
+not in the instruction. flen is encoded in a fixed-width field
+of the instruction, so flen <= 2^F where F is the flen field width;
+for the Thiele VM's nat-encoded flen, this is effectively unbounded
+in principle (the encoding admits arbitrary nat), but in practice
+flen is bounded by the size of the memory region the formula lives
+in.
+
+For an n-bit input, the largest formula a polynomial-time program
+can construct in memory is O(poly(n)) bits long. So flen <= poly(n),
+and a single LASSERT step has c <= O(poly(n)).
+
+2.3 Substrate sequential cost vs classical sequential cost.
+
+For a trace of length T, substrate mu(t) <= T * C where C is the
+max per-step cost. In unit-cost RAM (M2), classical time = T.
+Substrate / classical = C, which can be > 1 for LASSERT-heavy traces.
+
+In bit-cost RAM (M3), classical time is sum of bits processed.
+Each LASSERT step processes flen * 8 bits (it reads the formula).
+So classical bit-cost time for a LASSERT step = flen * 8. Substrate
+mu for the step = flen * 8 + S(delta). Difference: S(delta), which
+is at most a constant per step in the field-width-bounded case.
+
+In Turing-machine time (M1), reading flen bytes requires flen head
+moves. Classical TM time for a LASSERT step = O(flen). Substrate
+mu for the step = flen * 8 + S(delta) = O(flen). Same asymptotic.
+
+2.4 Where can substrate cost strictly exceed classical?
+
+Two sources of strict exceedance:
+
+  (a) Per-step cost differential. For LASSERT, substrate mu per
+      step = flen * 8 + S(delta), classical per step under M2 = 1.
+      Ratio is per-step polynomial in flen.
+
+  (b) Per-event cost floor from A2. Each cert-flipping event has
+      c >= 1. Classical under M2 has c = 1 per instruction (any
+      kind). Ratio of A2's floor to M2's per-instruction cost is 1.
+
+(a) and (b) together give substrate cost growing with payload size
+while M2's classical cost grows only with instruction count. This
+is the only mechanical source of exceedance.
+
+2.5 Where can substrate cost NOT strictly exceed classical?
+
+  - M1 (TM time): substrate matches under any reasonable encoding
+    that requires reading the payload.
+  - M3 (bit-cost RAM): substrate matches because both pay per bit.
+  - M4 (circuit size): substrate is at least the circuit size for
+    its own computation but cannot exceed by a non-trivial factor.
+  - Sequential time in general: mu(t) <= T * C; if C is bounded by
+    the instruction encoding (poly in input), no exponential
+    exceedance is possible.
+
+2.6 Asymptotic bound on the strict exceedance.
+
+The cleanest strict exceedance over M2: ratio = max per-step c.
+This ratio is bounded by poly(input size) for poly-time programs,
+because flen and delta are themselves poly(input).
+
+So substrate cost = O(poly(n) * classical M2 time). The exceedance
+factor is at most polynomial in input size n.
+
+No exponential exceedance is possible under bounded-encoding
+substrates.
+
+
+===========================================================================
+3. APPROACHES ATTEMPTED
+===========================================================================
+
+3.1 Approach A: Sequential time exceedance.
+Goal: substrate mu(t) > classical sequential time T(t) for some
+problem class.
+
+Result: blocked. By 2.1 and 2.3, substrate mu(t) <= T * C where
+C is per-step max. For unit-cost classical (M2), substrate can
+exceed by factor C. For bit-cost classical (M3), substrate matches.
+
+If we accept M2 as the classical model: substrate cost exceeds by
+factor at most C = poly(n). This gives polynomial exceedance per
+step but not a clean asymptotic separation: substrate cost <=
+poly(n) * classical cost, not super-polynomial.
+
+If we require M3 as the classical model: substrate matches; no
+exceedance.
+
+3.2 Approach B: Shannon information entropy comparison.
+Goal: substrate cost > Shannon entropy for n-way decision.
+
+Result: holds but trivial. Shannon entropy log_2(n) is the minimum
+bits to specify which of n outcomes. Substrate cost for n-way
+separation is >= n. n > log_2(n) for n > 2.
+
+Problem: Shannon entropy is the information content of the OUTPUT,
+not the computational complexity of producing the output. A
+classical algorithm that writes n outputs takes >= n classical
+steps (under any cost model), matching the substrate. The "Shannon
+exceedance" is a unit mismatch: comparing process steps to output
+information.
+
+Reject as a real exceedance.
+
+3.3 Approach C: Unit-cost RAM exceedance.
+Goal: substrate cost > unit-cost RAM time for LASSERT-based
+certification.
+
+Result: holds. For a single-LASSERT trace certifying a B-bit
+formula:
+  - Substrate mu >= B + 1 (LASSERT cost rule + A2 floor).
+  - Unit-cost RAM time = 1 (one instruction).
+  - Ratio = B + 1.
+
+Problem: this is a per-step comparison and is sensitive to the
+classical model choice. Under bit-cost RAM (M3), classical also
+pays B per LASSERT step, matching substrate. Under Turing-machine
+time (M1), classical pays O(B) to read the formula, matching
+substrate.
+
+The "exceedance" exists only under M2, which is a weaker classical
+model than M1 or M3. Both M1 and M3 are widely used as the
+"standard" classical complexity model when payload matters.
+
+This is a real exceedance, but only against M2. Not a deep
+complexity-theoretic result.
+
+3.4 Approach D: Parallel time exceedance.
+Goal: substrate sequential cost > classical parallel (NC) time
+for a parallelizable problem.
+
+Result: holds, but compares different models. For functions in NC
+(parallel time poly(log n)), substrate sequential cost is at least
+the sequential time, which is poly(n). Substrate / classical
+parallel = poly(n) / poly(log n) = unbounded.
+
+Problem: substrate is intrinsically sequential. Comparing
+sequential substrate to parallel classical compares different
+machines. A sequential classical model (M1) gives the same result
+as substrate: sequential time >= poly(n) for NC problems too.
+
+The "exceedance" is sequential-vs-parallel, not substrate-vs-
+classical. Reject.
+
+3.5 Approach E: Succinct verification exceedance.
+Goal: substrate cost > classical succinct verification (Merkle
+trees, SNARKs).
+
+Result: hold for some encodings, blocked for others. Merkle tree
+verification for N items has verifier time O(log N). Substrate
+LASSERT for N items packaged as a conjunction: O(N) by LASSERT
+cost rule.
+
+Problem: a classical Merkle verifier processes a proof of size
+O(log N) bits and runs in O(log N) time. A substrate that wants
+to verify the same Merkle proof can do so via LASSERT of size
+O(log N). Substrate cost = O(log N), classical cost = O(log N).
+Match.
+
+The substrate can do succinct verification with LASSERT of size
+O(log N), same as classical. The "exceedance" only arises if we
+force the substrate to certify N items individually (one LASSERT
+per item, total O(N)) while classical uses Merkle. But that's
+comparing substrate's worst encoding to classical's best.
+
+Reject.
+
+3.6 Approach F: Decision tree depth exceedance.
+Goal: substrate cost > decision tree depth D(f) for f.
+
+Result: substrate cost can be >= n for n-way separation while
+D(f) is log_2(n). Substrate exceeds D(f) by factor n / log_2(n).
+
+Problem: D(f) is the depth of the decision tree (max path length),
+not total work. The decision tree's total work to write all n
+outputs is also >= n. Substrate matches classical total work.
+
+The "exceedance" is single-path-vs-total-work. Reject.
+
+3.7 Approach G: Honest-vs-dishonest classical exceedance.
+Goal: substrate cost > classical dishonest cost.
+
+Result: holds trivially. A classical machine running a buggy
+A2-simulator can flip cert at cost 0. The substrate cannot.
+Substrate cost > 0, classical dishonest cost = 0.
+
+Problem: tautological. The substrate is defined to enforce A2;
+the dishonest classical is defined to violate it. Of course
+substrate > dishonest.
+
+Reject.
+
+3.8 Approach H: Adversarial / interactive proof exceedance.
+Goal: substrate cost > classical interactive proof complexity for
+PSPACE problems.
+
+Result: open. Interactive proofs (IP = PSPACE) have verifier time
+poly(n) and prover time exponential. Substrate version of the same
+protocol has cost dependent on encoding.
+
+If substrate must do one cert event per protocol round, cost is
+linear in rounds. Classical interactive proof has poly(log n)
+rounds for some protocols. Substrate cost = poly(log n), classical
+verifier = poly(log n). Match.
+
+For non-uniform protocols with one shot: substrate cost = O(|proof|),
+classical verifier = O(|proof|). Match.
+
+Reject. Cannot find clean exceedance.
+
+3.9 Approach I: Computability class boundary.
+Goal: substrate computes something classical cannot, with infinite
+cost gap.
+
+Result: blocked. Substrate is Turing-equivalent. Every classical
+program embeds. Every substrate computation is classical-simulable.
+Same computability class. No exceedance possible at the
+computability boundary.
+
+3.10 Approach J: Information committed vs information needed.
+Goal: substrate forces commitment of more bits than the problem
+requires.
+
+Result: holds in some encodings. If a problem requires only 1 bit
+of output but the substrate certifies it via LASSERT of a longer
+formula, substrate mu > 1 = output bit count.
+
+Problem: this is the substrate's encoding choice, not a property
+of the problem. A different encoding (1-bit LASSERT) would match.
+
+Reject as a problem-class result.
+
+
+===========================================================================
+4. EXPERIMENTS
+===========================================================================
+
+Each experiment is an attempted Coq formalization or a worked
+example. Results are reported with the actual math.
+
+4.1 Experiment 1: Direct sequential exceedance.
+
+Claim: for some problem class, substrate mu > classical sequential
+time under M1.
+
+Attempt: take the program [instr_lassert fa ca true K 0] which
+certifies a K-byte formula. Compute substrate mu and classical M1
+time.
+
+Substrate mu = K * 8 + 1 (LASSERT cost rule + A2).
+Classical M1 time (Turing machine) = O(K) to read K bytes.
+Ratio = constant.
+
+Result: no asymptotic exceedance. Substrate matches classical M1
+to within constant factor.
+
+4.2 Experiment 2: Single-LASSERT under M2.
+
+Claim: substrate mu > unit-cost RAM time for one LASSERT.
+
+Coq theorem: lassert_substrate_mu_exceeds_unit_cost in
+A2LoadBearing.v. For any (s, fa, ca, ck, flen, cost):
+  vm_apply s (instr_lassert fa ca ck flen cost).vm_mu - s.vm_mu
+    >= flen * 8 + 1.
+
+Substrate mu = flen * 8 + 1. Classical M2 time for the one
+instruction = 1. Ratio = flen * 8 + 1.
+
+Result: real exceedance under M2. But M2 is the weakest classical
+model. The exceedance reflects M2's blindness to payload, not a
+substrate advantage.
+
+4.3 Experiment 3: n-way separation.
+
+Claim: substrate mu >= n for n-way certified separation.
+
+Coq theorem: nway_separation_substrate_cost_ge_n in A2LoadBearing.v.
+For any trace, omega: list VMState satisfying the separation
+hypotheses:
+  cs_total_cost thiele_cert_addr_system trace >= List.length omega.
+
+Result: substrate cost >= n. Comparison to classical:
+  - Shannon (M7): log_2(n). Substrate exceeds by factor n /
+    log_2(n). Unit mismatch.
+  - Sequential time (M1, M2, M3): also >= n (must write n outputs).
+    Substrate matches.
+
+Reject as exceedance; accept as match.
+
+4.4 Experiment 4: Cost ledger observability.
+
+Claim: there exist substrate states with identical classical
+shadow and different mu.
+
+Coq theorem: vm_mu_not_classically_determined_via_A2 in
+A2LoadBearing.v. Proven directly: states (po1_state_A, po1_state_B)
+have equal strict_shadow but mu differing by >= 1.
+
+Result: real observability separation. The cost ledger tracks
+information not present in the classical shadow. Not a complexity
+exceedance, but a real structural fact.
+
+4.5 Experiment 5: Counterfactual.
+
+Claim: without A2, the cost ledger observability collapses.
+
+Coq theorem: cf_no_cost_separation in A2LoadBearing.v. The
+dishonest_forge_system (a CostBearingSystem violating A2) exhibits
+a single-step trace flipping cert at total cost zero.
+
+Result: real counterfactual. A2 is essential for the observability
+separation.
+
+4.6 Experiment 6: Honest cost tracking is a proper restriction.
+
+Coq theorem: honest_cost_tracking_strict_restriction in
+HonestCostTracking.v (existing in the repo). Shows that
+CertificationSystem (with A2) is a proper subset of
+CostBearingSystem (without A2), witnessed by the dishonest forge.
+
+Result: A2 cuts something out of the cost-bearing world. Real
+restriction.
+
+4.7 Experiment 7: LASSERT information-theoretic bound.
+
+Coq theorem: mu_increase_bounds_axiom_bits in
+StateSpaceCounting.v (existing). LASSERT step increases mu by
+>= flen * 8.
+
+Result: substrate matches Shannon information-theoretic minimum
+for certifying flen * 8 bits.
+
+4.8 Experiment 8: Trying to construct an exponential exceedance.
+
+Attempt: construct a problem class and trace where substrate mu
+is exponential in input size while classical time is polynomial.
+
+Construction: encode an exponential-size formula and LASSERT it
+in one step. Substrate mu = (formula size) + 1 = exp(n).
+
+Classical M3 time for the same trace: also exp(n) (must read the
+formula). Classical M1 time: also exp(n) (must traverse the tape).
+
+For the formula to exist, the program must have constructed it.
+Constructing exp(n) bits in poly(n) program runs requires the bits
+to be already in input or expanded via specific patterns. In all
+cases, the SUBSTRATE'S TRACE that creates the formula also pays
+classical time exp(n).
+
+Result: no asymptotic separation. Substrate matches classical in
+the time required to build and certify the same payload.
+
+
+===========================================================================
+5. WHY G3 IS UNREACHABLE IN STRICT FORM
+===========================================================================
+
+The mu-ledger conservation law (1.6) is exact: substrate mu after
+any trace equals initial mu plus the sum of instruction costs.
+
+  mu(t) = sum_{i in t} c(i).
+
+Each c(i) is bounded by the instruction's encoded payload. The
+instruction's encoding has fixed width (in a typical instruction
+set) or grows with the payload (for variable-length encodings).
+
+In either case, processing the instruction in any reasonable
+classical model (M1, M3) requires time proportional to the
+instruction's payload. So classical time >= mu(t) modulo constants.
+
+  classical sequential time >= mu(t) / O(1).
+
+This gives the inequality
+
+  mu(t) <= O(classical time).
+
+In matched-unit comparisons (mu in cost-units, classical time in
+operations or bits processed per the relevant model), substrate
+cost is bounded above by classical complexity.
+
+To break this, we would need either:
+  (i) An instruction with bounded encoding but unbounded c. The
+      Thiele VM's instruction set does not have this -- c is
+      determined by encoded fields, which are bounded by encoding
+      width.
+  (ii) A classical model that does not charge for payload. M2
+      (unit-cost RAM) is such a model. Substrate exceeds M2; but
+      M2 is the weakest classical model and the exceedance is
+      polynomial, not super-polynomial.
+  (iii) A problem where the substrate is forced to do additional
+      work classical doesn't do. A2 forces certification cost;
+      classical machines without A2 do not pay this cost. But
+      classical machines with honest A2-style verification do
+      pay it (verifier cost = witness size). Substrate matches
+      honest classical; substrate exceeds dishonest classical
+      trivially.
+
+None of (i), (ii), (iii) gives a clean asymptotic exceedance over
+a standard classical complexity model.
+
+The conclusion is mathematical, not provisional: substrate mu is
+bounded by classical complexity in the strong models. G3 is
+unreachable.
+
+
+===========================================================================
+6. WHAT THE FRAMEWORK ACTUALLY ESTABLISHES
+===========================================================================
+
+Given that G3 is unreachable, the honest statement of the
+framework's contribution:
+
+6.1 The substrate matches classical complexity in matched units.
+This is not a defeat. It is a soundness result: the substrate is
+not paying any extra cost that classical complexity does not
+account for. Substrate cost tracks classical cost in bit-cost or
+TM time.
+
+6.2 A2 imposes a structural constraint that classical models do
+not have. A2 is in the substrate's step rule. It is NOT in the
+classical Turing machine's transition function. A classical TM
+can run a buggy A2-simulator that flips cert at cost zero. A
+substrate cannot execute the same program.
+
+The substrate-versus-classical distinction is structural, not
+numerical. It is a constraint on what step rules can do, not on
+how expensive the computations are.
+
+6.3 The cost ledger is observable on an axis classical computation
+projects away. Substrate states with identical classical shadow
+can have different mu. No classical function on classical shadow
+recovers mu. This is the cost-ledger observability separation
+proven in A2LoadBearing.v.
+
+6.4 A2 picks out a category of step rules with internal honest
+certification. The structural-axis undecidability theorem
+(StructuralUndecidability.v) shows this category has its own
+diagonal-shaped limitative results, native to its typeclass
+machinery.
+
+These are the framework's real contributions. They are structural
+characterizations, expressibility/observability facts, and category-
+theoretic results -- not complexity-theoretic exceedances.
+
+
+===========================================================================
+7. WHAT WOULD BE NEEDED FOR G3 TO BE ACHIEVABLE
+===========================================================================
+
+For G3 in its strict form to be achievable, the substrate's cost
+model would need to change.
+
+7.1 Allow unbounded per-step cost.
+If a single substrate step could have super-polynomial mu cost
+without corresponding super-polynomial work, then a single-step
+trace could have substrate mu much greater than classical time.
+The Thiele VM's cost rules do not permit this -- all cost rules
+charge proportional to encoded payload.
+
+A modified substrate with a "free amplifier" instruction (one step,
+arbitrary mu cost) would defeat 1.6's bounded ratio. But such an
+instruction would be a definitional cheat: declaring expensive
+cost without doing expensive work. Not a defensible model.
+
+7.2 Compare to a strictly weaker classical model.
+If the classical model is restricted (e.g., M2 unit-cost RAM,
+or classical decision-tree depth, or classical parallel time
+without unbounded fan-in), substrate can exceed it. The exceedance
+is real but reflects the classical model's restrictions, not the
+substrate's strength.
+
+7.3 Change the definition of "classical complexity."
+Define classical complexity as something other than time/space/
+circuits. For example, classical entropy of the output; classical
+witness size; classical decision-tree depth. Substrate cost
+exceeds some of these but the comparison is unit-mismatched.
+
+7.4 Find a problem class where the substrate has a structural
+restriction classical does not.
+For example, problems requiring "trusted setup" or "uniform
+certification" might have substrate-specific lower bounds. These
+are speculative and would require new theorems.
+
+7.5 Add new substrate axioms.
+A "uniform certification" axiom (every state requires re-certifying
+on every step) would force substrate mu to grow with trace length
+regardless of payload. Substrate mu would then exceed classical
+time under any reasonable classical model. But this is adding a
+new axiom, not deriving from A2.
+
+None of 7.1 through 7.5 gives G3 from the current Thiele substrate
+under reasonable comparison.
+
+
+===========================================================================
+8. CONCRETE COQ EXPERIMENTS AVAILABLE
+===========================================================================
+
+The following Coq theorems are machine-checked, zero-axiom, and
+documented in A2LoadBearing.v:
+
+  trace_A_mu_ge_1_via_A2
+    A2-routed bound on the certifying step's mu.
+
+  vm_mu_not_classically_determined_via_A2
+    Cost-ledger observability separation. A2 essential in proof.
+
+  cf_no_cost_separation
+    Counterfactual: without A2, the separation collapses.
+
+  thiele_info_pricing_holds
+    Static A2 over all cert-setter instructions in the Thiele VM.
+
+  cs_total_cost_ge_cert_setter_sum
+    Bound relating total trace cost to cert-setter cost sum.
+
+  nway_separation_substrate_cost_ge_n
+    Counting bound: n-way separation requires substrate cost >= n.
+
+  lassert_mu_increase_ge_bits_plus_one
+    LASSERT step mu-increase bound.
+
+  lassert_substrate_mu_exceeds_unit_cost
+    Per-step substrate vs unit-cost RAM exceedance.
+
+  a2_contributes_exact_plus_one_to_lassert_bound
+    A2's exact contribution to the LASSERT cost bound.
+
+All nine theorems compile, all return "Closed under the global
+context", all are in the standard verification suite
+(tests/verify_zero_admits.v).
+
+None of these is a strict G3 result. They are:
+  - Observability separations.
+  - Counting bounds matching classical bit-cost.
+  - Per-step exceedances over unit-cost RAM (M2).
+  - A2-essential proofs and counterfactuals.
+
+The strongest of these is the cost-ledger observability separation,
+which is a real structural result about the substrate's information
+content. It does not satisfy G3 because it is not a complexity
+exceedance.
+
+
+===========================================================================
+9. HONEST CONCLUSION
+===========================================================================
+
+G3 in its strict form is mathematically unreachable for any
+Turing-equivalent substrate whose cost rules charge proportional
+to encoded payload. The substrate's cost is bounded above by
+classical complexity in matched-unit models (M1, M3). Strict
+exceedance requires either changing the substrate's cost model
+(in ways that would be definitional cheats), restricting to a
+weaker classical model (M2, M7, decision-tree depth), or comparing
+unmatched units.
+
+The framework's actual contribution is structural and
+observational, not complexity-theoretic. A2 is the step-rule
+constraint that distinguishes honest from dishonest cost
+tracking. The cost ledger is an observable axis classical
+computation projects away. The substrate's category has its own
+limitative theorems on its own axis.
+
+To proceed honestly:
+  (a) The two-page distillation should claim observability and
+      structural separation, not complexity exceedance.
+  (b) The repo's existing theorems (the nine in A2LoadBearing.v)
+      stand as substantive results in their actual domain --
+      observability, structure, and matched-unit cost bounds.
+  (c) Any further "exceeds classical complexity" framing should
+      be retired or restricted to a specific weaker classical
+      model with the restriction stated explicitly.
+
+This is the honest answer. It does not satisfy the original goal
+(G1+G2+G3 in strict form), but it is the answer the mathematics
+gives.
+
+
+===========================================================================
+10. OPEN PROBLEMS
+===========================================================================
+
+10.1 Is there a substrate-specific complexity class with a known
+classical analog where the substrate is strictly stronger or
+strictly weaker? Open. Would require defining the class precisely
+and analyzing concrete problems.
+
+10.2 Can the framework be extended with a "uniform certification"
+axiom that forces substrate-specific lower bounds while remaining
+internally consistent? Open. The cost of adding such an axiom is
+that it would be additional to A2 and would need its own
+justification.
+
+10.3 Are there cryptographic problem classes (verifiable delay
+functions, zero-knowledge succinct arguments) where substrate
+cost can be proven strictly larger than classical verifier cost?
+Open. The conjectured exceedance would come from the substrate
+forcing explicit certification of every commitment step.
+
+10.4 What is the precise relationship between the substrate's
+A2-load-bearing theorems and existing complexity classes (P, NP,
+PSPACE, NC)? Open. The substrate is Turing-equivalent so all
+classes embed; whether the substrate offers new separations or
+matches existing ones requires per-class analysis.
+
+10.5 Is there a substrate-level Cook-Levin analog -- a single
+"complete" problem whose substrate-cost lower bound implies
+substrate-cost lower bounds for all problems in some class? Open.
+
+These open problems are real research directions. Each requires
+substantial work. None is solved by the current document.
+
+
+===========================================================================
+END OF RESEARCH RECORD
+===========================================================================

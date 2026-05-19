@@ -440,6 +440,14 @@ Proof.
      (abs_phase1 hs))]. Destructing the boolean discharges both branches by
      reflexivity (records line up after the unfolds above). *)
   all: try (destruct (column_contractive_check_witness _); reflexivity).
+  (* CHSH_LASSERT_1AB: same pattern as CHSH_LASSERT but a different check. *)
+  all: try (destruct (column_contractive_check_q1ab_kernel _); reflexivity).
+  (* CHSH_LASSERT_1AB_G5: γ_5-aware check, same dispatch pattern. *)
+  all: try (destruct (q1ab_g5_full_integer_check_kernel _ _ _); reflexivity).
+  (* CHSH_LASSERT_1AB_G345: γ_{3,4,5}-aware 4×4 Sylvester check. *)
+  all: try (destruct (q1ab_g345_full_integer_check_kernel _ _ _ _ _ _ _); reflexivity).
+  (* CHSH_LASSERT_1AB_G12345: full γ_{1..5}-aware 6×6 Schur cascade check. *)
+  all: try (destruct (q1ab_g12345_full_integer_check_kernel _ _ _ _ _ _ _ _ _ _ _); reflexivity).
   (* Catch-all: any arm where reflexivity alone suffices after f_equal *)
   all: try (f_equal; reflexivity).
 Qed.
