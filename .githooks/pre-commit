@@ -222,6 +222,67 @@ if [ -f scripts/audit_rtl_text_transforms.py ]; then
 fi
 
 # ---------------------------------------------------------------------------
+# (3b) Unconditional Coq extraction artefact refresh.
+#
+# build/kami_hw/Target.{ml,mli}, build/kami_hw/Target_complete.{ml,mli}, and
+# build/thiele_core{,_complete}.{ml,mli} are written as side effects of
+# compiling coq/kami_hw/KamiExtraction.v, coq/Extraction.v, and
+# coq/ThieleMachineComplete.v. They're tracked in git and pinned by the RTL
+# pipeline manifest — but they only get regenerated when someone explicitly
+# runs `make -C coq`. Doing it here means a stale committed Target.ml can
+# never slip through to CI (which is what happened: locally everyone had
+# the same stale bytes that matched the manifest, CI built fresh and the
+# manifest gate caught the divergence).
+#
+# `make` is no-op-cheap when everything is up-to-date. The first commit
+# after a vendor/kami source change pays a real Coq rebuild; subsequent
+# commits hit the .vo cache and finish in seconds.
+#
+# vendor/kami must be built for KamiExtraction to compile. If
+# vendor/kami/Kami/Kami.vo is missing, build it first — same one-time
+# cost CI's vendor-cache step pays.
+if command -v coqc >/dev/null 2>&1; then
+    if [ ! -f vendor/kami/Kami/Kami.vo ] && [ -d vendor/kami ]; then
+        echo "[pre-commit] Building vendor/kami (one-time, ~5m)..."
+        ( cd vendor/bbv && make -j4 >/dev/null 2>&1 ) || true
+        bash scripts/fix_kami_coq18.sh >/dev/null 2>&1 || true
+        ( cd vendor/kami && make -j4 >/dev/null 2>&1 ) || {
+            echo "[pre-commit] WARNING: vendor/kami build failed; Coq extraction refresh will be skipped." >&2
+        }
+    fi
+    if [ -f vendor/kami/Kami/Kami.vo ] && [ -f coq/_CoqProject ]; then
+        echo "[pre-commit] Refreshing Coq extraction artefacts..."
+        ( cd coq && \
+          coq_makefile -f _CoqProject -o Makefile >/dev/null 2>&1 && \
+          make -j4 kami_hw/KamiExtraction.vo Extraction.vo ThieleMachineComplete.vo >/dev/null 2>&1 ) || {
+            echo "[pre-commit] WARNING: Coq extraction refresh failed; leaving artefacts as-is." >&2
+            echo "             Reproduce with: cd coq && make -j4 kami_hw/KamiExtraction.vo Extraction.vo ThieleMachineComplete.vo" >&2
+        }
+        _pc_stage_if_changed build/kami_hw/Target.ml
+        _pc_stage_if_changed build/kami_hw/Target.mli
+        _pc_stage_if_changed build/kami_hw/Target_complete.ml
+        _pc_stage_if_changed build/kami_hw/Target_complete.mli
+        _pc_stage_if_changed build/thiele_core.ml
+        _pc_stage_if_changed build/thiele_core.mli
+        _pc_stage_if_changed build/thiele_core_complete.ml
+        _pc_stage_if_changed build/thiele_core_complete.mli
+    fi
+fi
+
+# Re-refresh the RTL pipeline manifest in case (3b) just changed any of the
+# Coq-extracted files it tracks (Target.{ml,mli}, etc.). The earlier
+# conditional refresh in (2a) only fires when a staged source matches the
+# manifest's tracked-paths list; this unconditional fallback catches the
+# case where (3b) re-extracted a tracked artefact that wasn't staged yet.
+if [ -f scripts/generate_rtl_pipeline_manifest.py ]; then
+    python3 scripts/generate_rtl_pipeline_manifest.py \
+        --out artifacts/rtl_pipeline_manifest.json >/dev/null 2>&1 || {
+        echo "[pre-commit] WARNING: generate_rtl_pipeline_manifest.py failed; leaving manifest as-is." >&2
+    }
+    _pc_stage_if_changed artifacts/rtl_pipeline_manifest.json
+fi
+
+# ---------------------------------------------------------------------------
 # (4) Hard test-suite gate — FULL SUITE, NO MARKER FILTER.
 #
 # Run every test pytest collects. Markers like coq/strict_rtl/trs are NOT

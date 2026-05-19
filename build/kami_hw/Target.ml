@@ -380,311 +380,6 @@ let makeModule im =
 let makeConst k c =
   SyntaxConst (k, c)
 
-type tyS = int
-
-type exprS = tyS expr
-
-type actionS =
-| MCallS of char list * signatureT * exprS * int * actionS
-| LetS_ of fullKind * exprS * int * actionS
-| ReadNondetS of int * actionS
-| ReadRegS of char list * int * actionS
-| WriteRegS of char list * fullKind * exprS * actionS
-| IfElseS of exprS * kind * actionS * actionS * int * actionS
-| AssertS_ of exprS * actionS
-| ReturnS of exprS
-
-(** val getActionS : int -> kind -> tyS actionT -> int * actionS **)
-
-let rec getActionS n lret = function
-| MCall (meth, s, e, c) ->
-  let (m, a') = getActionS (Stdlib.Int.succ n) lret (c n) in
-  (m, (MCallS (meth, s, e, n, a')))
-| Let_ (lret', e, cn) ->
-  let v =
-    getActionS (Stdlib.Int.succ n) lret
-      (Obj.magic cn
-        (match lret' with
-         | SyntaxKind _ -> n
-         | NativeKind c -> Obj.magic c))
-  in
-  (match lret' with
-   | SyntaxKind _ -> ((fst v), (LetS_ (lret', e, n, (snd v))))
-   | NativeKind _ -> (n, (ReturnS (Const (lret, (getDefaultConst lret))))))
-| ReadNondet (k, cn) ->
-  let v =
-    getActionS (Stdlib.Int.succ n) lret
-      (Obj.magic cn
-        (match k with
-         | SyntaxKind _ -> n
-         | NativeKind c -> Obj.magic c))
-  in
-  (match k with
-   | SyntaxKind _ -> ((fst v), (ReadNondetS (n, (snd v))))
-   | NativeKind _ -> (n, (ReturnS (Const (lret, (getDefaultConst lret))))))
-| ReadReg (r, k, cn) ->
-  let v =
-    getActionS (Stdlib.Int.succ n) lret
-      (Obj.magic cn
-        (match k with
-         | SyntaxKind _ -> n
-         | NativeKind c -> Obj.magic c))
-  in
-  (match k with
-   | SyntaxKind _ -> ((fst v), (ReadRegS (r, n, (snd v))))
-   | NativeKind _ -> (n, (ReturnS (Const (lret, (getDefaultConst lret))))))
-| WriteReg (r, k, e, c) ->
-  let (m, a') = getActionS n lret c in (m, (WriteRegS (r, k, e, a')))
-| IfElse (e, k, ta, fa, c) ->
-  let (tm, ta') = getActionS n k ta in
-  let (fm, fa') = getActionS tm k fa in
-  let (m, a') = getActionS (Stdlib.Int.succ fm) lret (c fm) in
-  (m, (IfElseS (e, k, ta', fa', fm, a')))
-| Assert_ (e, c) ->
-  let (m, a') = getActionS n lret c in (m, (AssertS_ (e, a')))
-| Displ (_, c) -> getActionS n lret c
-| Return e -> (n, (ReturnS e))
-
-type methodTS = actionS
-
-type defMethTS = (signatureT, methodTS) sigT attribute
-
-type modulesS =
-| PrimModS of char list * signatureT attribute list
-| ModS of regInitT list * actionS attribute list * defMethTS list
-| ConcatModsS of modulesS * modulesS
-
-(** val getMethS :
-    (signatureT, methodT) sigT -> (signatureT, methodTS) sigT **)
-
-let getMethS = function
-| ExistT (arg0, meth) ->
-  ExistT (arg0,
-    (snd (getActionS (Stdlib.Int.succ 0) arg0.ret (Obj.magic meth __ 0))))
-
-(** val getModuleS : modules -> modulesS **)
-
-let rec getModuleS = function
-| PrimMod prim ->
-  PrimModS (prim.pm_name,
-    (map (fun dm -> { attrName = dm.attrName; attrType =
-      (projT1 dm.attrType) }) prim.pm_methods))
-| Mod (regs, rules, dms) ->
-  ModS (regs,
-    (map (fun a -> { attrName = a.attrName; attrType =
-      (snd (getActionS 0 void ((Obj.magic a).attrType __))) }) rules),
-    (map (fun a -> { attrName = a.attrName; attrType =
-      (getMethS a.attrType) }) dms))
-| ConcatMod (m1, m2) -> ConcatModsS ((getModuleS m1), (getModuleS m2))
-
-(** val mapVec : ('a1 -> 'a2) -> int -> 'a1 vec -> 'a2 vec **)
-
-let rec mapVec map1 _ = function
-| Vec0 e -> Vec0 (map1 e)
-| VecNext (n', v1, v2) ->
-  VecNext (n', (mapVec map1 n' v1), (mapVec map1 n' v2))
-
-type bExpr =
-| BVar of int
-| BConst of kind * constT
-| BUniBool of uniBoolOp * bExpr
-| BBinBool of binBoolOp * bExpr * bExpr
-| BUniBit of int * int * uniBitOp * bExpr
-| BBinBit of int * int * int * binBitOp * bExpr * bExpr
-| BBinBitBool of int * int * binBitBoolOp * bExpr * bExpr
-| BITE of bExpr * bExpr * bExpr
-| BEq of bExpr * bExpr
-| BReadIndex of bExpr * bExpr
-| BReadField of char list * bExpr
-| BBuildVector of int * bExpr vec
-| BBuildStruct of int * kind attribute t0 * bExpr attribute list
-| BUpdateVector of bExpr * bExpr * bExpr
-| BReadReg of char list
-| BReadArrayIndex of bExpr * bExpr
-| BBuildArray of int * bExpr t0
-| BUpdateArray of bExpr * bExpr * bExpr
-
-type bAction =
-| BMCall of int * char list * signatureT * bExpr
-| BBCall of int * char list * bool * bExpr list
-| BLet of int * kind option * bExpr
-| BWriteReg of char list * bExpr
-| BIfElse of bExpr * int * kind * bAction list * bAction list
-| BAssert of bExpr
-| BReturn of bExpr
-
-type bRule = bAction list attribute
-
-type bMethod = (signatureT * bAction list) attribute
-
-type bModule =
-| BModulePrim of char list * signatureT attribute list
-| BModuleB of regInitT list * bRule list * bMethod list
-
-(** val bind : 'a1 option -> ('a1 -> 'a2 option) -> 'a2 option **)
-
-let bind oa f =
-  match oa with
-  | Some a -> f a
-  | None -> None
-
-(** val bindVec : int -> 'a1 option vec -> 'a1 vec option **)
-
-let rec bindVec _ = function
-| Vec0 oa -> bind oa (fun a -> Some (Vec0 a))
-| VecNext (n0, v1, v2) ->
-  bind (bindVec n0 v1) (fun bv1 ->
-    bind (bindVec n0 v2) (fun bv2 -> Some (VecNext (n0, bv1, bv2))))
-
-(** val bindVector : int -> 'a1 option t0 -> 'a1 t0 option **)
-
-let rec bindVector _ = function
-| Nil -> Some Nil
-| Cons (a, n, vs) ->
-  bind a (fun bv1 ->
-    bind (bindVector n vs) (fun bv2 -> Some (Cons (bv1, n, bv2))))
-
-(** val exprSToBExpr : fullKind -> exprS -> bExpr option **)
-
-let rec exprSToBExpr _ = function
-| Var (vk, i) ->
-  (match vk with
-   | SyntaxKind _ -> Some (BVar (Obj.magic i))
-   | NativeKind _ -> None)
-| Const (k, c) -> Some (BConst (k, c))
-| UniBool (op, se) ->
-  bind (exprSToBExpr (SyntaxKind Bool) se) (fun be -> Some (BUniBool (op,
-    be)))
-| BinBool (op, e1, e2) ->
-  bind (exprSToBExpr (SyntaxKind Bool) e1) (fun be1 ->
-    bind (exprSToBExpr (SyntaxKind Bool) e2) (fun be2 -> Some (BBinBool (op,
-      be1, be2))))
-| UniBit (n1, n2, op, e0) ->
-  bind (exprSToBExpr (SyntaxKind (Bit n1)) e0) (fun be -> Some (BUniBit (n1,
-    n2, op, be)))
-| BinBit (n1, n2, n3, op, e1, e2) ->
-  bind (exprSToBExpr (SyntaxKind (Bit n1)) e1) (fun be1 ->
-    bind (exprSToBExpr (SyntaxKind (Bit n2)) e2) (fun be2 -> Some (BBinBit
-      (n1, n2, n3, op, be1, be2))))
-| BinBitBool (n1, n2, op, e1, e2) ->
-  bind (exprSToBExpr (SyntaxKind (Bit n1)) e1) (fun be1 ->
-    bind (exprSToBExpr (SyntaxKind (Bit n2)) e2) (fun be2 -> Some
-      (BBinBitBool (n1, n2, op, be1, be2))))
-| ITE (k0, ce, te, fe) ->
-  bind (exprSToBExpr (SyntaxKind Bool) ce) (fun bce ->
-    bind (exprSToBExpr k0 te) (fun bte ->
-      bind (exprSToBExpr k0 fe) (fun bfe -> Some (BITE (bce, bte, bfe)))))
-| Eq (k0, e1, e2) ->
-  bind (exprSToBExpr (SyntaxKind k0) e1) (fun be1 ->
-    bind (exprSToBExpr (SyntaxKind k0) e2) (fun be2 -> Some (BEq (be1, be2))))
-| ReadIndex (i, k0, ie, ve) ->
-  bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
-    bind (exprSToBExpr (SyntaxKind (Vector (k0, i))) ve) (fun bve -> Some
-      (BReadIndex (bie, bve))))
-| ReadField (n, ls, i, e0) ->
-  bind (exprSToBExpr (SyntaxKind (Struct (n, ls))) e0) (fun be -> Some
-    (BReadField ((nth n (map0 (fun a -> a.attrName) n ls) i), be)))
-| BuildVector (n, lgn, v) ->
-  bind (bindVec lgn (mapVec (exprSToBExpr (SyntaxKind n)) lgn v)) (fun bv ->
-    Some (BBuildVector (lgn, bv)))
-| BuildStruct (n, attrs, st) ->
-  bind
-    (let rec help _ _ = function
-     | Inil -> Some []
-     | Icons (k, na, vs, h, t1) ->
-       (match exprSToBExpr (SyntaxKind k.attrType) h with
-        | Some v ->
-          bind (help na vs t1) (fun bl -> Some ({ attrName = k.attrName;
-            attrType = v } :: bl))
-        | None -> None)
-     in help n attrs st) (fun bl -> Some (BBuildStruct (n, attrs, bl)))
-| UpdateVector (i, k0, ve, ie, ke) ->
-  bind (exprSToBExpr (SyntaxKind (Vector (k0, i))) ve) (fun bve ->
-    bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
-      bind (exprSToBExpr (SyntaxKind k0) ke) (fun bke -> Some (BUpdateVector
-        (bve, bie, bke)))))
-| ReadArrayIndex (i, k0, sz, ie, ve) ->
-  bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
-    bind (exprSToBExpr (SyntaxKind (Array (k0, (Stdlib.Int.succ sz)))) ve)
-      (fun bve -> Some (BReadArrayIndex (bie, bve))))
-| BuildArray (n0, n, v) ->
-  bind (bindVector n (map0 (exprSToBExpr (SyntaxKind n0)) n v)) (fun bv ->
-    Some (BBuildArray (n, bv)))
-| UpdateArray (k0, sz, i, ve, ie, ke) ->
-  bind (exprSToBExpr (SyntaxKind (Array (k0, (Stdlib.Int.succ sz)))) ve)
-    (fun bve ->
-    bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
-      bind (exprSToBExpr (SyntaxKind k0) ke) (fun bke -> Some (BUpdateArray
-        (bve, bie, bke)))))
-
-(** val actionSToBAction : kind -> actionS -> bAction list option **)
-
-let rec actionSToBAction k = function
-| MCallS (name, msig, arge, idx, cont) ->
-  bind (actionSToBAction k cont) (fun bc ->
-    bind (exprSToBExpr (SyntaxKind msig.arg) arge) (fun be -> Some ((BMCall
-      (idx, name, msig, be)) :: bc)))
-| LetS_ (lretT', e0, idx, cont) ->
-  (match lretT' with
-   | SyntaxKind k0 ->
-     bind (actionSToBAction k cont) (fun bc ->
-       bind (exprSToBExpr (SyntaxKind k0) e0) (fun be -> Some ((BLet (idx,
-         (Some k0), be)) :: bc)))
-   | NativeKind _ -> None)
-| ReadNondetS (_, _) -> None
-| ReadRegS (reg, idx, cont) ->
-  bind (actionSToBAction k cont) (fun bc -> Some ((BLet (idx, None, (BReadReg
-    reg))) :: bc))
-| WriteRegS (reg, k0, e0, cont) ->
-  bind (actionSToBAction k cont) (fun bc ->
-    bind (exprSToBExpr k0 e0) (fun be -> Some ((BWriteReg (reg, be)) :: bc)))
-| IfElseS (ce, iretK, ta, fa, idx, cont) ->
-  bind (actionSToBAction k cont) (fun bc ->
-    bind (exprSToBExpr (SyntaxKind Bool) ce) (fun bce ->
-      bind (actionSToBAction iretK ta) (fun bta ->
-        bind (actionSToBAction iretK fa) (fun bfa -> Some ((BIfElse (bce,
-          idx, iretK, bta, bfa)) :: bc)))))
-| AssertS_ (e0, cont) ->
-  bind (actionSToBAction k cont) (fun bc ->
-    bind (exprSToBExpr (SyntaxKind Bool) e0) (fun be -> Some ((BAssert
-      be) :: bc)))
-| ReturnS e0 ->
-  bind (exprSToBExpr (SyntaxKind k) e0) (fun be -> Some ((BReturn be) :: []))
-
-(** val rulesToBRules :
-    actionS attribute list -> bAction list attribute list option **)
-
-let rec rulesToBRules = function
-| [] -> Some []
-| a :: rs ->
-  let { attrName = rn; attrType = rb } = a in
-  bind (rulesToBRules rs) (fun brs ->
-    bind (actionSToBAction void rb) (fun brb -> Some ({ attrName = rn;
-      attrType = brb } :: brs)))
-
-(** val methsToBMethods : defMethTS list -> bMethod list option **)
-
-let rec methsToBMethods = function
-| [] -> Some []
-| d :: ms ->
-  let { attrName = mn; attrType = attrType0 } = d in
-  let ExistT (sig0, mb) = attrType0 in
-  bind (methsToBMethods ms) (fun bms ->
-    bind (actionSToBAction sig0.ret mb) (fun bmb -> Some ({ attrName = mn;
-      attrType = (sig0, bmb) } :: bms)))
-
-(** val modulesSToBModules : modulesS -> bModule list option **)
-
-let rec modulesSToBModules = function
-| PrimModS (pname, ifc) -> Some ((BModulePrim (pname, ifc)) :: [])
-| ModS (regs, rules, dms) ->
-  bind (rulesToBRules rules) (fun brules ->
-    bind (methsToBMethods dms) (fun bdms -> Some ((BModuleB (regs, brules,
-      bdms)) :: [])))
-| ConcatModsS (m1, m2) ->
-  bind (modulesSToBModules m1) (fun bm1 ->
-    bind (modulesSToBModules m2) (fun bm2 -> Some (app bm1 bm2)))
-
 (** val regIdxSz : int **)
 
 let regIdxSz =
@@ -4389,6 +4084,311 @@ let oP_HALT =
     (Stdlib.Int.succ (Stdlib.Int.succ 0))), (WS (true, (Stdlib.Int.succ
     (Stdlib.Int.succ 0)), (WS (true, (Stdlib.Int.succ 0), (WS (true, 0,
     WO)))))))))))))))
+
+type tyS = int
+
+type exprS = tyS expr
+
+type actionS =
+| MCallS of char list * signatureT * exprS * int * actionS
+| LetS_ of fullKind * exprS * int * actionS
+| ReadNondetS of int * actionS
+| ReadRegS of char list * int * actionS
+| WriteRegS of char list * fullKind * exprS * actionS
+| IfElseS of exprS * kind * actionS * actionS * int * actionS
+| AssertS_ of exprS * actionS
+| ReturnS of exprS
+
+(** val getActionS : int -> kind -> tyS actionT -> int * actionS **)
+
+let rec getActionS n lret = function
+| MCall (meth, s, e, c) ->
+  let (m, a') = getActionS (Stdlib.Int.succ n) lret (c n) in
+  (m, (MCallS (meth, s, e, n, a')))
+| Let_ (lret', e, cn) ->
+  let v =
+    getActionS (Stdlib.Int.succ n) lret
+      (Obj.magic cn
+        (match lret' with
+         | SyntaxKind _ -> n
+         | NativeKind c -> Obj.magic c))
+  in
+  (match lret' with
+   | SyntaxKind _ -> ((fst v), (LetS_ (lret', e, n, (snd v))))
+   | NativeKind _ -> (n, (ReturnS (Const (lret, (getDefaultConst lret))))))
+| ReadNondet (k, cn) ->
+  let v =
+    getActionS (Stdlib.Int.succ n) lret
+      (Obj.magic cn
+        (match k with
+         | SyntaxKind _ -> n
+         | NativeKind c -> Obj.magic c))
+  in
+  (match k with
+   | SyntaxKind _ -> ((fst v), (ReadNondetS (n, (snd v))))
+   | NativeKind _ -> (n, (ReturnS (Const (lret, (getDefaultConst lret))))))
+| ReadReg (r, k, cn) ->
+  let v =
+    getActionS (Stdlib.Int.succ n) lret
+      (Obj.magic cn
+        (match k with
+         | SyntaxKind _ -> n
+         | NativeKind c -> Obj.magic c))
+  in
+  (match k with
+   | SyntaxKind _ -> ((fst v), (ReadRegS (r, n, (snd v))))
+   | NativeKind _ -> (n, (ReturnS (Const (lret, (getDefaultConst lret))))))
+| WriteReg (r, k, e, c) ->
+  let (m, a') = getActionS n lret c in (m, (WriteRegS (r, k, e, a')))
+| IfElse (e, k, ta, fa, c) ->
+  let (tm, ta') = getActionS n k ta in
+  let (fm, fa') = getActionS tm k fa in
+  let (m, a') = getActionS (Stdlib.Int.succ fm) lret (c fm) in
+  (m, (IfElseS (e, k, ta', fa', fm, a')))
+| Assert_ (e, c) ->
+  let (m, a') = getActionS n lret c in (m, (AssertS_ (e, a')))
+| Displ (_, c) -> getActionS n lret c
+| Return e -> (n, (ReturnS e))
+
+type methodTS = actionS
+
+type defMethTS = (signatureT, methodTS) sigT attribute
+
+type modulesS =
+| PrimModS of char list * signatureT attribute list
+| ModS of regInitT list * actionS attribute list * defMethTS list
+| ConcatModsS of modulesS * modulesS
+
+(** val getMethS :
+    (signatureT, methodT) sigT -> (signatureT, methodTS) sigT **)
+
+let getMethS = function
+| ExistT (arg0, meth) ->
+  ExistT (arg0,
+    (snd (getActionS (Stdlib.Int.succ 0) arg0.ret (Obj.magic meth __ 0))))
+
+(** val getModuleS : modules -> modulesS **)
+
+let rec getModuleS = function
+| PrimMod prim ->
+  PrimModS (prim.pm_name,
+    (map (fun dm -> { attrName = dm.attrName; attrType =
+      (projT1 dm.attrType) }) prim.pm_methods))
+| Mod (regs, rules, dms) ->
+  ModS (regs,
+    (map (fun a -> { attrName = a.attrName; attrType =
+      (snd (getActionS 0 void ((Obj.magic a).attrType __))) }) rules),
+    (map (fun a -> { attrName = a.attrName; attrType =
+      (getMethS a.attrType) }) dms))
+| ConcatMod (m1, m2) -> ConcatModsS ((getModuleS m1), (getModuleS m2))
+
+(** val mapVec : ('a1 -> 'a2) -> int -> 'a1 vec -> 'a2 vec **)
+
+let rec mapVec map1 _ = function
+| Vec0 e -> Vec0 (map1 e)
+| VecNext (n', v1, v2) ->
+  VecNext (n', (mapVec map1 n' v1), (mapVec map1 n' v2))
+
+type bExpr =
+| BVar of int
+| BConst of kind * constT
+| BUniBool of uniBoolOp * bExpr
+| BBinBool of binBoolOp * bExpr * bExpr
+| BUniBit of int * int * uniBitOp * bExpr
+| BBinBit of int * int * int * binBitOp * bExpr * bExpr
+| BBinBitBool of int * int * binBitBoolOp * bExpr * bExpr
+| BITE of bExpr * bExpr * bExpr
+| BEq of bExpr * bExpr
+| BReadIndex of bExpr * bExpr
+| BReadField of char list * bExpr
+| BBuildVector of int * bExpr vec
+| BBuildStruct of int * kind attribute t0 * bExpr attribute list
+| BUpdateVector of bExpr * bExpr * bExpr
+| BReadReg of char list
+| BReadArrayIndex of bExpr * bExpr
+| BBuildArray of int * bExpr t0
+| BUpdateArray of bExpr * bExpr * bExpr
+
+type bAction =
+| BMCall of int * char list * signatureT * bExpr
+| BBCall of int * char list * bool * bExpr list
+| BLet of int * kind option * bExpr
+| BWriteReg of char list * bExpr
+| BIfElse of bExpr * int * kind * bAction list * bAction list
+| BAssert of bExpr
+| BReturn of bExpr
+
+type bRule = bAction list attribute
+
+type bMethod = (signatureT * bAction list) attribute
+
+type bModule =
+| BModulePrim of char list * signatureT attribute list
+| BModuleB of regInitT list * bRule list * bMethod list
+
+(** val bind : 'a1 option -> ('a1 -> 'a2 option) -> 'a2 option **)
+
+let bind oa f =
+  match oa with
+  | Some a -> f a
+  | None -> None
+
+(** val bindVec : int -> 'a1 option vec -> 'a1 vec option **)
+
+let rec bindVec _ = function
+| Vec0 oa -> bind oa (fun a -> Some (Vec0 a))
+| VecNext (n0, v1, v2) ->
+  bind (bindVec n0 v1) (fun bv1 ->
+    bind (bindVec n0 v2) (fun bv2 -> Some (VecNext (n0, bv1, bv2))))
+
+(** val bindVector : int -> 'a1 option t0 -> 'a1 t0 option **)
+
+let rec bindVector _ = function
+| Nil -> Some Nil
+| Cons (a, n, vs) ->
+  bind a (fun bv1 ->
+    bind (bindVector n vs) (fun bv2 -> Some (Cons (bv1, n, bv2))))
+
+(** val exprSToBExpr : fullKind -> exprS -> bExpr option **)
+
+let rec exprSToBExpr _ = function
+| Var (vk, i) ->
+  (match vk with
+   | SyntaxKind _ -> Some (BVar (Obj.magic i))
+   | NativeKind _ -> None)
+| Const (k, c) -> Some (BConst (k, c))
+| UniBool (op, se) ->
+  bind (exprSToBExpr (SyntaxKind Bool) se) (fun be -> Some (BUniBool (op,
+    be)))
+| BinBool (op, e1, e2) ->
+  bind (exprSToBExpr (SyntaxKind Bool) e1) (fun be1 ->
+    bind (exprSToBExpr (SyntaxKind Bool) e2) (fun be2 -> Some (BBinBool (op,
+      be1, be2))))
+| UniBit (n1, n2, op, e0) ->
+  bind (exprSToBExpr (SyntaxKind (Bit n1)) e0) (fun be -> Some (BUniBit (n1,
+    n2, op, be)))
+| BinBit (n1, n2, n3, op, e1, e2) ->
+  bind (exprSToBExpr (SyntaxKind (Bit n1)) e1) (fun be1 ->
+    bind (exprSToBExpr (SyntaxKind (Bit n2)) e2) (fun be2 -> Some (BBinBit
+      (n1, n2, n3, op, be1, be2))))
+| BinBitBool (n1, n2, op, e1, e2) ->
+  bind (exprSToBExpr (SyntaxKind (Bit n1)) e1) (fun be1 ->
+    bind (exprSToBExpr (SyntaxKind (Bit n2)) e2) (fun be2 -> Some
+      (BBinBitBool (n1, n2, op, be1, be2))))
+| ITE (k0, ce, te, fe) ->
+  bind (exprSToBExpr (SyntaxKind Bool) ce) (fun bce ->
+    bind (exprSToBExpr k0 te) (fun bte ->
+      bind (exprSToBExpr k0 fe) (fun bfe -> Some (BITE (bce, bte, bfe)))))
+| Eq (k0, e1, e2) ->
+  bind (exprSToBExpr (SyntaxKind k0) e1) (fun be1 ->
+    bind (exprSToBExpr (SyntaxKind k0) e2) (fun be2 -> Some (BEq (be1, be2))))
+| ReadIndex (i, k0, ie, ve) ->
+  bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
+    bind (exprSToBExpr (SyntaxKind (Vector (k0, i))) ve) (fun bve -> Some
+      (BReadIndex (bie, bve))))
+| ReadField (n, ls, i, e0) ->
+  bind (exprSToBExpr (SyntaxKind (Struct (n, ls))) e0) (fun be -> Some
+    (BReadField ((nth n (map0 (fun a -> a.attrName) n ls) i), be)))
+| BuildVector (n, lgn, v) ->
+  bind (bindVec lgn (mapVec (exprSToBExpr (SyntaxKind n)) lgn v)) (fun bv ->
+    Some (BBuildVector (lgn, bv)))
+| BuildStruct (n, attrs, st) ->
+  bind
+    (let rec help _ _ = function
+     | Inil -> Some []
+     | Icons (k, na, vs, h, t1) ->
+       (match exprSToBExpr (SyntaxKind k.attrType) h with
+        | Some v ->
+          bind (help na vs t1) (fun bl -> Some ({ attrName = k.attrName;
+            attrType = v } :: bl))
+        | None -> None)
+     in help n attrs st) (fun bl -> Some (BBuildStruct (n, attrs, bl)))
+| UpdateVector (i, k0, ve, ie, ke) ->
+  bind (exprSToBExpr (SyntaxKind (Vector (k0, i))) ve) (fun bve ->
+    bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
+      bind (exprSToBExpr (SyntaxKind k0) ke) (fun bke -> Some (BUpdateVector
+        (bve, bie, bke)))))
+| ReadArrayIndex (i, k0, sz, ie, ve) ->
+  bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
+    bind (exprSToBExpr (SyntaxKind (Array (k0, (Stdlib.Int.succ sz)))) ve)
+      (fun bve -> Some (BReadArrayIndex (bie, bve))))
+| BuildArray (n0, n, v) ->
+  bind (bindVector n (map0 (exprSToBExpr (SyntaxKind n0)) n v)) (fun bv ->
+    Some (BBuildArray (n, bv)))
+| UpdateArray (k0, sz, i, ve, ie, ke) ->
+  bind (exprSToBExpr (SyntaxKind (Array (k0, (Stdlib.Int.succ sz)))) ve)
+    (fun bve ->
+    bind (exprSToBExpr (SyntaxKind (Bit i)) ie) (fun bie ->
+      bind (exprSToBExpr (SyntaxKind k0) ke) (fun bke -> Some (BUpdateArray
+        (bve, bie, bke)))))
+
+(** val actionSToBAction : kind -> actionS -> bAction list option **)
+
+let rec actionSToBAction k = function
+| MCallS (name, msig, arge, idx, cont) ->
+  bind (actionSToBAction k cont) (fun bc ->
+    bind (exprSToBExpr (SyntaxKind msig.arg) arge) (fun be -> Some ((BMCall
+      (idx, name, msig, be)) :: bc)))
+| LetS_ (lretT', e0, idx, cont) ->
+  (match lretT' with
+   | SyntaxKind k0 ->
+     bind (actionSToBAction k cont) (fun bc ->
+       bind (exprSToBExpr (SyntaxKind k0) e0) (fun be -> Some ((BLet (idx,
+         (Some k0), be)) :: bc)))
+   | NativeKind _ -> None)
+| ReadNondetS (_, _) -> None
+| ReadRegS (reg, idx, cont) ->
+  bind (actionSToBAction k cont) (fun bc -> Some ((BLet (idx, None, (BReadReg
+    reg))) :: bc))
+| WriteRegS (reg, k0, e0, cont) ->
+  bind (actionSToBAction k cont) (fun bc ->
+    bind (exprSToBExpr k0 e0) (fun be -> Some ((BWriteReg (reg, be)) :: bc)))
+| IfElseS (ce, iretK, ta, fa, idx, cont) ->
+  bind (actionSToBAction k cont) (fun bc ->
+    bind (exprSToBExpr (SyntaxKind Bool) ce) (fun bce ->
+      bind (actionSToBAction iretK ta) (fun bta ->
+        bind (actionSToBAction iretK fa) (fun bfa -> Some ((BIfElse (bce,
+          idx, iretK, bta, bfa)) :: bc)))))
+| AssertS_ (e0, cont) ->
+  bind (actionSToBAction k cont) (fun bc ->
+    bind (exprSToBExpr (SyntaxKind Bool) e0) (fun be -> Some ((BAssert
+      be) :: bc)))
+| ReturnS e0 ->
+  bind (exprSToBExpr (SyntaxKind k) e0) (fun be -> Some ((BReturn be) :: []))
+
+(** val rulesToBRules :
+    actionS attribute list -> bAction list attribute list option **)
+
+let rec rulesToBRules = function
+| [] -> Some []
+| a :: rs ->
+  let { attrName = rn; attrType = rb } = a in
+  bind (rulesToBRules rs) (fun brs ->
+    bind (actionSToBAction void rb) (fun brb -> Some ({ attrName = rn;
+      attrType = brb } :: brs)))
+
+(** val methsToBMethods : defMethTS list -> bMethod list option **)
+
+let rec methsToBMethods = function
+| [] -> Some []
+| d :: ms ->
+  let { attrName = mn; attrType = attrType0 } = d in
+  let ExistT (sig0, mb) = attrType0 in
+  bind (methsToBMethods ms) (fun bms ->
+    bind (actionSToBAction sig0.ret mb) (fun bmb -> Some ({ attrName = mn;
+      attrType = (sig0, bmb) } :: bms)))
+
+(** val modulesSToBModules : modulesS -> bModule list option **)
+
+let rec modulesSToBModules = function
+| PrimModS (pname, ifc) -> Some ((BModulePrim (pname, ifc)) :: [])
+| ModS (regs, rules, dms) ->
+  bind (rulesToBRules rules) (fun brules ->
+    bind (methsToBMethods dms) (fun bdms -> Some ((BModuleB (regs, brules,
+      bdms)) :: [])))
+| ConcatModsS (m1, m2) ->
+  bind (modulesSToBModules m1) (fun bm1 ->
+    bind (modulesSToBModules m2) (fun bm2 -> Some (app bm1 bm2)))
 
 (** val loadInstrPort : kind attribute t0 **)
 
