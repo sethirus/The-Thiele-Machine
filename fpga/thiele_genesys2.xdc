@@ -1,7 +1,15 @@
 # =============================================================================
-# Genesys 2 (Digilent, xc7k325t-ffg900-2) constraints for Thiele CPU.
+# Kintex-7 K420T (ffg900) constraints for Thiele CPU.
 # =============================================================================
-# Pin assignments per the Digilent Genesys 2 reference manual.
+# File name kept as thiele_genesys2.xdc to minimise churn vs. the prior K325T
+# iteration; the ffg900 package bonding is identical on K420T, so the same
+# pin assignments compile cleanly. The bigger DSP budget (1680 vs 840) is
+# what motivates the part change — see synth_xc7.ys for the DSP-fit rationale.
+#
+# Pin assignments below are the Digilent Genesys 2 K325T-ffg900 layout. They
+# remain valid at the package level on K420T-ffg900 for CI synthesis. A
+# physical K420T-ffg900 board may differ in routing — adjust here when there
+# is an actual board to target.
 # Clock: 200MHz LVDS sysclk on AD12 (P) / AD11 (N) — converted to single-ended
 #        via IBUFDS in thiele_cpu_top_genesys2.v.
 # Reset: CPU_RESETN button (R19), active-low with on-board pull-up.
