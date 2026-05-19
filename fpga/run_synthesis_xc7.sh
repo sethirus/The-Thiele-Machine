@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================================
-# Thiele CPU — Xilinx Kintex-7 K325T (Genesys 2) open-source synthesis driver.
+# Thiele CPU — Xilinx Kintex-7 K420T (ffg900) open-source synthesis driver.
 # ============================================================================
 #
 # Required tools:
@@ -17,20 +17,24 @@
 #   - thielecpu/hardware/rtl/synth_xc7.ys
 #   - fpga/thiele_genesys2.xdc
 #
-# Chipdb (xc7k325tffg900-2.bin) is generated at run-time via bbaexport +
+# Chipdb (xc7k420tffg900-2.bin) is generated at run-time via bbaexport +
 # bbasm — too large (~90MB) to commit per part.
 #
-# Why K325T (not Arty A7-35T): the spec's column_contractive_check_witness
-# requires ~771 DSP48E1 slices for its integer multipliers. xc7a35t has 90
-# DSPs; xc7k325t has 840. LUT count is ~33K on either part (well under
-# K325T's 203K and even xc7a35t's 65K) — DSPs are the binding constraint.
-# See synth_xc7.ys for the synth-flag rationale.
+# Why K420T (not K325T): yosys with DSP48E1 inference enabled maps
+# column_contractive_check_witness onto ~1131 DSP slices (the original
+# "~771 DSPs" estimate was off — actual synthesis lands higher). K325T
+# only has 840 DSPs (placer aborts with "Failed to expand region … of
+# 1131 DSP48E1_DSP48E1s"). K420T has 1680 DSPs and 1.34× the LUT count
+# of K325T (273K vs 203K) — fits both budgets with comfortable headroom.
+# Same ffg900 package as K325T, so the existing thiele_genesys2.xdc pin
+# assignments carry over (modulo board-level wiring, which is moot for
+# CI synthesis without a physical board).
 #
 # Outputs in build/:
-#   - thiele_xc7k325t.json     (yosys post-synthesis netlist)
-#   - thiele_xc7k325t.fasm     (placed-and-routed FPGA assembly)
-#   - thiele_xc7k325t.frames   (frame-level bit positions)
-#   - thiele_xc7k325t.bit      (binary bitstream loadable on Genesys 2)
+#   - thiele_xc7k420t.json     (yosys post-synthesis netlist)
+#   - thiele_xc7k420t.fasm     (placed-and-routed FPGA assembly)
+#   - thiele_xc7k420t.frames   (frame-level bit positions)
+#   - thiele_xc7k420t.bit      (binary bitstream)
 #
 # Usage:
 #   bash fpga/run_synthesis_xc7.sh
@@ -49,12 +53,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RTL_DIR="${ROOT}/thielecpu/hardware/rtl"
 BUILD_DIR="${ROOT}/build"
-PART="xc7k325tffg900-2"
+PART="xc7k420tffg900-2"
 TOP="thiele_cpu_top_genesys2"
-JSON="${BUILD_DIR}/thiele_xc7k325t.json"
-FASM="${BUILD_DIR}/thiele_xc7k325t.fasm"
-FRAMES="${BUILD_DIR}/thiele_xc7k325t.frames"
-BIT="${BUILD_DIR}/thiele_xc7k325t.bit"
+JSON="${BUILD_DIR}/thiele_xc7k420t.json"
+FASM="${BUILD_DIR}/thiele_xc7k420t.fasm"
+FRAMES="${BUILD_DIR}/thiele_xc7k420t.frames"
+BIT="${BUILD_DIR}/thiele_xc7k420t.bit"
 CHIPDB="${BUILD_DIR}/${PART}.bin"
 XDC="${ROOT}/fpga/thiele_genesys2.xdc"
 
