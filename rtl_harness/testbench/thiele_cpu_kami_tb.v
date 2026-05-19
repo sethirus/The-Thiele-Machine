@@ -404,22 +404,17 @@ module thiele_cpu_kami_tb;
     $finish;
   end
 
+  // dut.ptTable was a packed [2047:0] reg; verilog_synth_transform.py folded
+  // it into dut.ptTable_arr [0:63] (32-bit entries) so yosys can attempt
+  // BRAM/distributed-RAM inference. Direct array write is the simulation
+  // analog of the old force/release pair on the packed register.
   task force_pt_word(input integer idx, input [31:0] val);
-    reg [2047:0] pt_tmp;
     begin
-      pt_tmp = dut.ptTable;
-      case (idx)
-        0: pt_tmp[31:0] = val; 1: pt_tmp[63:32] = val; 2: pt_tmp[95:64] = val; 3: pt_tmp[127:96] = val;
-        4: pt_tmp[159:128] = val; 5: pt_tmp[191:160] = val; 6: pt_tmp[223:192] = val; 7: pt_tmp[255:224] = val;
-        8: pt_tmp[287:256] = val; 9: pt_tmp[319:288] = val; 10: pt_tmp[351:320] = val; 11: pt_tmp[383:352] = val;
-        12: pt_tmp[415:384] = val; 13: pt_tmp[447:416] = val; 14: pt_tmp[479:448] = val; 15: pt_tmp[511:480] = val;
-        default: ;
-      endcase
-      force dut.ptTable = pt_tmp;
+      dut.ptTable_arr[idx] = val;
     end
   endtask
 
-  task release_pt_word(input integer idx); begin release dut.ptTable; end endtask
+  task release_pt_word(input integer idx); begin end endtask
 
   task force_tensor_word(input integer idx, input [31:0] val);
     begin

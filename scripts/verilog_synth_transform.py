@@ -7,18 +7,34 @@ This script transforms that output into synthesis-friendly Verilog while
 preserving ALL logic exactly.
 
 Transformations:
-  1. reg [8191:0] imem         → reg [31:0] imem_arr [0:255]
-  2. reg [511:0] mu_tensor     → reg [31:0] mt_arr [0:15]
-  3. reg [31:0] mem0..mem255   → reg [31:0] dm [0:255]
-  4. reg [31:0] reg0..reg31    → reg [31:0] rf [0:31]
-  5. reg [31:0] pt0..pt15      → reg [31:0] pt [0:15]
-  6. All read/write references updated accordingly
-  7. imem$D_IN concatenation replaced with indexed write
-  8. Sequential block updated for array syntax
-  9. Reset block updated for array initialization
+  1. reg [8191:0] imem               → reg [31:0] imem_arr [0:255]
+  2. reg [511:0] mu_tensor           → reg [31:0] mt_arr [0:15]
+  3. reg [31:0] mem0..mem255         → reg [31:0] dm [0:255]
+  4. reg [31:0] reg0..reg31          → reg [31:0] rf [0:31]
+  5. reg [31:0] pt0..pt15            → reg [31:0] pt [0:15]
+  6. reg [2047:0] ptTable            → reg [31:0] ptTable_arr [0:63]   (Pass 11b)
+  7. reg [511:0] cert_desc_base_table       → cert_desc_base_table_arr [0:15]
+  8. reg [511:0] cert_desc_count_table      → cert_desc_count_table_arr [0:15]
+  9. reg [511:0] formula_desc_base_table    → formula_desc_base_table_arr [0:15]
+ 10. reg [511:0] formula_desc_count_table   → formula_desc_count_table_arr [0:15]
+ 11. reg [511:0] coupling_pair_src_table    → coupling_pair_src_table_arr [0:15]
+ 12. reg [511:0] coupling_pair_dst_table    → coupling_pair_dst_table_arr [0:15]
+ 13. reg [511:0] desc_meta_aux_table        → desc_meta_aux_table_arr [0:15]
+ 14. All read/write references updated accordingly (bit-slices → array index)
+ 15. imem$D_IN concatenation replaced with indexed write
+ 16. Sequential block / reset block updated for array syntax
 
 The proof chain is: Coq → OCaml → BSV → BSC → Verilog → THIS SCRIPT → Synth Verilog
 All logic is preserved; only storage representation changes.
+
+Why transformations 6–13 matter: BSC emits each Kami vector as a single flat
+`reg [W-1:0]` plus case-statement decoders, which yosys synthesises as giant
+pmux trees. Folding each into a real `reg [31:0] name_arr [0:N-1]` lets yosys
+optimise dead tables (in this top wrapper config all but ptTable have EN tied
+to 1'b0) via const-propagation and frees ~116K cells in OPT_MERGE. ptTable
+remains active but the array form is amenable to memory inference if the BSC
+write pattern can be recognised as addressed; otherwise it falls back to
+flip-flops with the same semantics as the original packed register.
 
 Usage:
     python3 scripts/verilog_synth_transform.py [input.v] [output.v]
@@ -561,11 +577,214 @@ def fix_standalone_mu_tensor(text: str) -> str:
 
 
 # ---------------------------------------------------------------------------
+# Pass 11b: Generic packed-table → array transform
+# ---------------------------------------------------------------------------
+#
+# BSC emits each fixed-size Kami vector as a single flat `reg [W-1:0]` plus
+# `case (idx) 4'dK: ... = name[K*32+31 : K*32]; ... endcase` read decoders
+# and `if (name$EN) name <= name$D_IN;` updates. With W in the 512–2048 bit
+# range and runtime indices, yosys cannot infer BRAM and instead materialises
+# tens of thousands of LUTs of mux logic per table. Folding each table into a
+# real `reg [31:0] name_arr [0:N-1]` lets yosys emit a register file (often
+# inferred as BRAM with the `ram_style = "block"` attribute) and collapses
+# the muxes.
+#
+# Pure storage-shape rewrite — semantics identical, byte-for-byte equivalent
+# on the BSC simulation testbench. Same trick imem / mu_tensor / mem*/reg*/pt*
+# already use; just generalised so we can do it once per (name, width).
+#
+# This transform must run AFTER mu_tensor's flat-reconstruction pass (so the
+# fix_standalone_mu_tensor wire is in place before we look for the anchor),
+# and BEFORE add_header so the new wire declarations sit inside the module.
+
+def transform_packed_table(text: str, name: str, width: int) -> str:
+    """Fold a packed BSC register `reg [width-1:0] <name>` into a 32-bit array.
+
+    Mirrors transform_imem / transform_mu_tensor for arbitrary (name, width).
+    Width must be a multiple of 32.
+
+    Steps (regex order matters — slice rewrite must precede the standalone
+    rename, sensitivity-list rewrite must precede the reset/seq rewrites
+    because those operate on the renamed `<name>_flat` identifier):
+
+      1. Rename `<name>$D_IN`  → `<name>_D_IN_flat`  (keep flat for BSC's
+         assigns that build it as a concat).
+      2. Rename `<name>$EN`    → `<name>_EN`.
+      3. Replace `reg [W-1:0] <name>;`  →  array decl with ram_style=block.
+      4. Rewrite 32-bit-aligned bit-slices `<name>[hi:lo]` → `<name>_arr[N]`.
+      5. Rename remaining standalone `<name>` → `<name>_flat` (only matches
+         tokens not adjacent to identifier chars or `$`, so we don't clobber
+         `<name>_arr`, `<name>_D_IN_flat`, etc).
+      6. Add a continuous-assign `<name>_flat` wire reconstructing the 512/
+         2048-bit view from the array — needed for any residual full-vector
+         reads (sensitivity-list usages and the D_IN concat).
+      7. Replace any `always@(... or <name>_flat ...)` with `always@(*)` —
+         simulator-friendly and synthesis-equivalent.
+      8. Replace reset `<name>_flat <= W'd0;` with a for-loop over the array.
+      9. Replace `if (<name>_EN) <name>_flat <= <name>_D_IN_flat;` with a
+         for-loop that copies each 32-bit slice of D_IN into the matching
+         array entry. Yosys recognises this pattern as a register-file
+         update and emits BRAM/distributed-RAM instead of a giant pmux.
+    """
+    assert width % 32 == 0, f"{name}: width {width} not a multiple of 32"
+    n = width // 32
+    arr = f"{name}_arr"
+    flat = f"{name}_flat"
+    din_flat = f"{name}_D_IN_flat"
+    en = f"{name}_EN"
+    esc = re.escape(name)
+
+    # Step 1: D_IN wire declaration and all references.
+    text = re.sub(
+        rf'wire\s+\[{width - 1}\s*:\s*0\]\s+{esc}\$D_IN\s*;',
+        f'wire [{width - 1}:0] {din_flat};  // was: {name}$D_IN',
+        text,
+    )
+    text = text.replace(f'{name}$D_IN', din_flat)
+
+    # Step 2: EN wire declaration and all references.
+    text = re.sub(
+        rf'wire\s+{esc}\$EN\s*;',
+        f'wire {en};  // was: {name}$EN',
+        text,
+    )
+    text = text.replace(f'{name}$EN', en)
+
+    # Step 3: storage declaration.
+    text = re.sub(
+        rf'reg\s+\[{width - 1}\s*:\s*0\]\s+{esc}\s*;',
+        f'(* ram_style = "block" *) reg [31:0] {arr} [0:{n - 1}];  '
+        f'// was: reg [{width - 1}:0] {name}',
+        text,
+    )
+
+    # Step 4: aligned 32-bit slice reads → array indices.
+    def _slice_repl(m):
+        hi = int(m.group(1))
+        lo = int(m.group(2))
+        if (hi - lo + 1) == 32 and lo % 32 == 0:
+            return f'{arr}[{lo // 32}]'
+        return m.group(0)
+
+    text = re.sub(
+        rf'(?<![a-zA-Z0-9_$]){esc}\[(\d+)\s*:\s*(\d+)\]',
+        _slice_repl,
+        text,
+    )
+
+    # Step 5: flat reconstruction wire, placed right after the array decl.
+    # Must run BEFORE the standalone rename — otherwise the rename appends
+    # `_flat` to the `// was: ... {name}` comment that ends the anchor line,
+    # which breaks our str.replace and produces stray tokens after the
+    # injected `};`.
+    concat_parts = ', '.join(f'{arr}[{i}]' for i in range(n - 1, -1, -1))
+    if n <= 16:
+        concat_text = '{ ' + concat_parts + ' }'
+    else:
+        # Wrap large concats so the line doesn't run several screens wide.
+        items = [f'{arr}[{i}]' for i in range(n - 1, -1, -1)]
+        lines = ['    ' + ', '.join(items[i:i + 8]) for i in range(0, n, 8)]
+        concat_text = '{\n' + ',\n'.join(lines) + '\n  }'
+
+    # Anchor on just the array declaration up to its semicolon — short, unique
+    # per (arr, n), and unchanged by any later pass.
+    anchor = f'reg [31:0] {arr} [0:{n - 1}];'
+    if anchor in text and f'wire [{width - 1}:0] {flat}' not in text:
+        injection = f'\n  wire [{width - 1}:0] {flat} = {concat_text};'
+        text = text.replace(anchor, anchor + injection, 1)
+
+    # Step 6: standalone name → flat reconstruction wire name.
+    # Negative lookbehind / lookahead exclude `_` and `$` so we don't touch
+    # `<name>_arr`, `<name>_D_IN_flat`, `<name>_EN`, or substrings of longer
+    # identifiers like `some_<name>_other`.
+    text = re.sub(
+        rf'(?<![a-zA-Z0-9_$]){esc}(?![a-zA-Z0-9_$])',
+        flat,
+        text,
+    )
+
+    # Step 7: sensitivity lists referencing the flat view → always@(*).
+    text = re.sub(
+        rf'always@\([^)]*{re.escape(flat)}[^)]*\)',
+        'always@(*)',
+        text,
+    )
+
+    # Step 8: reset → for-loop over the array.
+    text = re.sub(
+        rf'{re.escape(flat)}\s*<=\s*`BSV_ASSIGNMENT_DELAY\s+{width}\'d0\s*;',
+        f'begin : rst_{arr}\n'
+        f'\t  integer _rj_{name};\n'
+        f'\t  for (_rj_{name} = 0; _rj_{name} < {n}; _rj_{name} = _rj_{name} + 1)\n'
+        f'\t    {arr}[_rj_{name}] <= `BSV_ASSIGNMENT_DELAY 32\'d0;\n'
+        f'\tend',
+        text,
+    )
+
+    # Step 9: sequential write → for-loop indexed copy from the flat D_IN.
+    text = re.sub(
+        rf'if\s*\({re.escape(en)}\)\s+{re.escape(flat)}\s*<=\s*'
+        rf'`BSV_ASSIGNMENT_DELAY\s+{re.escape(din_flat)}\s*;',
+        f'if ({en}) begin : wr_{arr}\n'
+        f'\t    integer _wj_{name};\n'
+        f'\t    for (_wj_{name} = 0; _wj_{name} < {n}; _wj_{name} = _wj_{name} + 1)\n'
+        f'\t      {arr}[_wj_{name}] <= `BSV_ASSIGNMENT_DELAY '
+        f'{din_flat}[_wj_{name}*32 +: 32];\n'
+        f'\t  end',
+        text,
+    )
+
+    # Step 10: BSC `initial`-block (the one behind `translate_off`) writes
+    # each packed register to a sim-fingerprint constant via `name = W'h...;`
+    # using blocking assigns. After Step 6 renamed the lvalue to `{flat}`,
+    # this targets a wire — invalid. Rewrite to per-entry blocking assigns
+    # against the array.
+    text = re.sub(
+        rf'{re.escape(flat)}\s*=\s*{width}\'h[0-9a-fA-F]+\s*;',
+        f'begin : init_{arr}\n'
+        f'\t  integer _ij_{name};\n'
+        f'\t  for (_ij_{name} = 0; _ij_{name} < {n}; _ij_{name} = _ij_{name} + 1)\n'
+        f'\t    {arr}[_ij_{name}] = 32\'hAAAAAAAA;\n'
+        f'\tend',
+        text,
+    )
+
+    return text
+
+
+# Tables to fold. Each is `(BSC-emitted name, packed width in bits)`.
+# These are the LUT hogs identified by analysing the BSC raw output: every
+# entry is 32 bits, indexed at runtime by an opcode/decoder bit-field, so
+# yosys synthesises each one as a giant pmux tree without this rewrite.
+PACKED_TABLES = (
+    ('ptTable',                  2048),   # 64 entries — biggest single hog
+    ('cert_desc_base_table',      512),   # 16 entries
+    ('cert_desc_count_table',     512),   # 16 entries
+    ('formula_desc_base_table',   512),   # 16 entries
+    ('formula_desc_count_table',  512),   # 16 entries
+    ('coupling_pair_src_table',   512),   # 16 entries
+    ('coupling_pair_dst_table',   512),   # 16 entries
+    ('desc_meta_aux_table',       512),   # 16 entries
+)
+
+
+def transform_packed_tables(text: str) -> str:
+    """Apply transform_packed_table to every entry in PACKED_TABLES."""
+    for name, width in PACKED_TABLES:
+        text = transform_packed_table(text, name, width)
+    return text
+
+
+# ---------------------------------------------------------------------------
 # Pass 12: Add header comment
 # ---------------------------------------------------------------------------
 
 def add_header(text: str) -> str:
-    header = """\
+    table_lines = '\n'.join(
+        f'//   - {name}: reg [{w - 1}:0] → reg [31:0] {name}_arr [0:{w // 32 - 1}]'
+        for name, w in PACKED_TABLES
+    )
+    header = f"""\
 // ============================================================================
 // Thiele CPU — Synthesis-Transformed Verilog
 // ============================================================================
@@ -579,6 +798,7 @@ def add_header(text: str) -> str:
 //   - data memory: mem0..mem255 → reg [31:0] dm [0:255]
 //   - register file: reg0..reg31 → reg [31:0] rf [0:31]
 //   - partition table: pt0..pt15 → reg [31:0] pt_tbl [0:15]
+{table_lines}
 //
 // Proof chain: Coq → OCaml → Bluespec → BSC → verilog_synth_transform.py
 // ============================================================================
@@ -607,6 +827,7 @@ def transform(text: str) -> str:
     text = add_imem_indexed_write(text)    # Pass 9: imem indexed write
     text = transform_mu_tensor_seq(text)   # Pass 10: mu_tensor seq update
     text = fix_standalone_mu_tensor(text)  # Pass 11: mt_arr_flat reconstruction
+    text = transform_packed_tables(text)   # Pass 11b: ptTable + *_desc_*_table + coupling_pair_*
     text = add_header(text)                # Pass 12: header comment
 
     final_lines = text.count('\n')

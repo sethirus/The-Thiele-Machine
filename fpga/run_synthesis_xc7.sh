@@ -1,62 +1,87 @@
 #!/usr/bin/env bash
 # ============================================================================
-# Thiele CPU — Xilinx Artix-7 (xc7a35t) open-source synthesis driver.
+# Thiele CPU — Xilinx Kintex-7 K325T (Genesys 2) open-source synthesis driver.
 # ============================================================================
 #
 # Required tools:
 #   - yosys             (apt: yosys; provides synth_xilinx -family xc7)
 #   - nextpnr-xilinx    (built from github.com/openXC7/nextpnr-xilinx)
+#   - bbasm             (built alongside nextpnr-xilinx)
 #   - xc7frames2bit     (built from github.com/SymbiFlow/prjxray tools)
-#   - prjxray-db        (artix7 portion; submodule of nextpnr-xilinx)
+#   - prjxray-db        (kintex7 portion; submodule of nextpnr-xilinx)
 #   - python3 with: simplejson, intervaltree, fasm
 #
 # Inputs:
-#   - thielecpu/hardware/rtl/{RegFile.v, thiele_cpu_kami.v, thiele_cpu_top_min.v}
+#   - thielecpu/hardware/rtl/{RegFile.v, thiele_cpu_kami.v,
+#                             thiele_cpu_top_min.v, thiele_cpu_top_genesys2.v}
 #   - thielecpu/hardware/rtl/synth_xc7.ys
-#   - fpga/thiele_arty35.xdc
-#   - fpga/chipdb/xc7a35t.bin                 (committed chip database)
+#   - fpga/thiele_genesys2.xdc
+#
+# Chipdb (xc7k325tffg900-2.bin) is generated at run-time via bbaexport +
+# bbasm — too large (~90MB) to commit per part.
+#
+# Why K325T (not Arty A7-35T): the spec's column_contractive_check_witness
+# requires ~771 DSP48E1 slices for its integer multipliers. xc7a35t has 90
+# DSPs; xc7k325t has 840. LUT count is ~33K on either part (well under
+# K325T's 203K and even xc7a35t's 65K) — DSPs are the binding constraint.
+# See synth_xc7.ys for the synth-flag rationale.
 #
 # Outputs in build/:
-#   - thiele_xc7a35t.json     (yosys post-synthesis netlist)
-#   - thiele_xc7a35t.fasm     (placed-and-routed FPGA assembly)
-#   - thiele_xc7a35t.frames   (frame-level bit positions)
-#   - thiele_xc7a35t.bit      (binary bitstream loadable on Arty A7-35T)
+#   - thiele_xc7k325t.json     (yosys post-synthesis netlist)
+#   - thiele_xc7k325t.fasm     (placed-and-routed FPGA assembly)
+#   - thiele_xc7k325t.frames   (frame-level bit positions)
+#   - thiele_xc7k325t.bit      (binary bitstream loadable on Genesys 2)
 #
 # Usage:
 #   bash fpga/run_synthesis_xc7.sh
 #
 # Environment overrides:
 #   NEXTPNR_XILINX  — path to nextpnr-xilinx binary
+#   NEXTPNR_DIR     — root of the built openXC7 nextpnr-xilinx tree (needs
+#                     xilinx/python/bbaexport.py + build/bbasm)
+#   BBASM           — path to the bbasm binary
 #   XC7FRAMES2BIT   — path to xc7frames2bit binary
 #   PRJXRAY_DIR     — path to a prjxray checkout containing utils/fasm2frames.py
-#   PRJXRAY_DB      — path to the artix7 prjxray-db root
+#   PRJXRAY_DB      — path to the kintex7 prjxray-db root
 
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RTL_DIR="${ROOT}/thielecpu/hardware/rtl"
 BUILD_DIR="${ROOT}/build"
-PART="xc7a35tcsg324-1"
-TOP="thiele_cpu_top"
-JSON="${BUILD_DIR}/thiele_xc7a35t.json"
-FASM="${BUILD_DIR}/thiele_xc7a35t.fasm"
-FRAMES="${BUILD_DIR}/thiele_xc7a35t.frames"
-BIT="${BUILD_DIR}/thiele_xc7a35t.bit"
-CHIPDB="${ROOT}/fpga/chipdb/xc7a35t.bin"
-XDC="${ROOT}/fpga/thiele_arty35.xdc"
+PART="xc7k325tffg900-2"
+TOP="thiele_cpu_top_genesys2"
+JSON="${BUILD_DIR}/thiele_xc7k325t.json"
+FASM="${BUILD_DIR}/thiele_xc7k325t.fasm"
+FRAMES="${BUILD_DIR}/thiele_xc7k325t.frames"
+BIT="${BUILD_DIR}/thiele_xc7k325t.bit"
+CHIPDB="${BUILD_DIR}/${PART}.bin"
+XDC="${ROOT}/fpga/thiele_genesys2.xdc"
 
 NEXTPNR_XILINX="${NEXTPNR_XILINX:-nextpnr-xilinx}"
+NEXTPNR_DIR="${NEXTPNR_DIR:-/opt/nextpnr-xilinx}"
+BBASM="${BBASM:-${NEXTPNR_DIR}/bbasm}"
 XC7FRAMES2BIT="${XC7FRAMES2BIT:-xc7frames2bit}"
 PRJXRAY_DIR="${PRJXRAY_DIR:-/opt/prjxray}"
-PRJXRAY_DB="${PRJXRAY_DB:-${PRJXRAY_DIR}/prjxray-db/artix7}"
+PRJXRAY_DB="${PRJXRAY_DB:-${NEXTPNR_DIR}/xilinx/external/prjxray-db/kintex7}"
 
 mkdir -p "${BUILD_DIR}"
 
-echo "=== [1/4] yosys synth_xilinx -family xc7 (top=${TOP}) ==="
+echo "=== [1/5] Generate chipdb for ${PART} (bbaexport + bbasm) ==="
+if [ ! -s "${CHIPDB}" ]; then
+    ( cd "${NEXTPNR_DIR}" && \
+      python3 xilinx/python/bbaexport.py --device "${PART}" --bba "${BUILD_DIR}/${PART}.bba" && \
+      "${BBASM}" -l "${BUILD_DIR}/${PART}.bba" "${CHIPDB}" )
+    echo "    chipdb: ${CHIPDB} ($(wc -c < "${CHIPDB}") bytes)"
+else
+    echo "    chipdb already present, skipping regeneration"
+fi
+
+echo "=== [2/5] yosys synth_xilinx -family xc7 (top=${TOP}) ==="
 ( cd "${RTL_DIR}" && yosys -ql "${BUILD_DIR}/yosys_xc7.log" synth_xc7.ys )
 echo "    netlist: ${JSON}"
 
-echo "=== [2/4] nextpnr-xilinx place-and-route (${PART}) ==="
+echo "=== [3/5] nextpnr-xilinx place-and-route (${PART}) ==="
 "${NEXTPNR_XILINX}" \
     --chipdb "${CHIPDB}" \
     --xdc "${XDC}" \
@@ -66,7 +91,7 @@ echo "=== [2/4] nextpnr-xilinx place-and-route (${PART}) ==="
     2>&1 | tee "${BUILD_DIR}/nextpnr_xc7.log"
 echo "    fasm:   ${FASM}"
 
-echo "=== [3/4] fasm2frames (Project X-Ray) ==="
+echo "=== [4/5] fasm2frames (Project X-Ray, kintex7) ==="
 PYTHONPATH="${PRJXRAY_DIR}:${PYTHONPATH:-}" python3 \
     "${PRJXRAY_DIR}/utils/fasm2frames.py" \
     --part "${PART}" \
@@ -74,7 +99,7 @@ PYTHONPATH="${PRJXRAY_DIR}:${PYTHONPATH:-}" python3 \
     "${FASM}" > "${FRAMES}"
 echo "    frames: ${FRAMES}"
 
-echo "=== [4/4] xc7frames2bit (Project X-Ray) ==="
+echo "=== [5/5] xc7frames2bit (Project X-Ray) ==="
 "${XC7FRAMES2BIT}" \
     --part_file "${PRJXRAY_DB}/${PART}/part.yaml" \
     --part_name "${PART}" \
@@ -83,4 +108,4 @@ echo "=== [4/4] xc7frames2bit (Project X-Ray) ==="
 
 echo
 echo "✓ Bitstream: ${BIT} ($(wc -c < "${BIT}") bytes)"
-echo "  Program board: openFPGALoader -b arty_35t ${BIT}"
+echo "  Program board: openFPGALoader --board genesys2 ${BIT}"

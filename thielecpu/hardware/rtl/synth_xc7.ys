@@ -1,17 +1,27 @@
-# Yosys synthesis script for Xilinx Artix-7 (xc7a35t target).
+# Yosys synthesis script for Xilinx Kintex-7 K325T (Genesys 2 target).
 # Invoked by fpga/run_synthesis_xc7.sh and the fpga-bitstream CI job.
 #
-# Top is thiele_cpu_top — a minimal wrapper that exposes only CLK, RST_N,
-# and three status LEDs while tying off mkModule1's 250+ Bluespec method
-# I/Os internally. Synthesizing the wrapper (not mkModule1 standalone)
-# leaves the same internal logic but exposes only 5 device pins.
+# Top is thiele_cpu_top_genesys2 — a board-specific outer wrapper that takes
+# the Genesys 2's 200MHz LVDS sysclk, converts it via IBUFDS, and feeds the
+# canonical thiele_cpu_top (from thiele_cpu_top_min.v) which in turn ties off
+# mkModule1's 250+ Bluespec method I/Os internally. Only 5 board pins survive
+# (LVDS clk_p/clk_n, cpu_reset_n, 3 LEDs).
 #
-# `-abc9` enables the abc9 tech-mapping pass for tighter wide-mux factoring.
-# `-nodsp` keeps the multiplier in LUTs because nextpnr-xilinx (openXC7)
-# cannot route DSP48E1 cascade-carry ground ties; the LUT-mapped multiplier
-# is functionally identical and stays well within the device's LUT budget.
+# Target: xc7k325tffg900-2 (Genesys 2 board — 203,800 LUT6 + 840 DSP48E1).
+#
+# Why K325T and not the original Arty A7-35T (xc7a35t): `instr_chsh_lassert`'s
+# `column_contractive_check_witness` (in coq/kernel/foundation/VMStep.v) does
+# ~20 integer multiplications per cycle, including two 128×128 multiplies for
+# C*C and A*B. With DSP48E1 inference enabled (no `-nodsp`), yosys maps these
+# onto ~771 DSP48E1 slices. Arty A7-35T has only 90 DSPs; Kintex-7 K325T has
+# 840 (the actual binding constraint). LUT usage is comfortable on either
+# part (~33K) — DSPs are the limit, not LUTs.
+#
+# `-abc9` enables abc9 tech-mapping for tighter wide-mux factoring.
+# DSP48E1 inference is ENABLED (no `-nodsp`); openXC7 nextpnr-xilinx
+# supports DSP48E1 cascading on xc7 per the upstream README.
 
-read_verilog -sv -DSYNTHESIS RegFile.v thiele_cpu_kami.v thiele_cpu_top_min.v
+read_verilog -sv -DSYNTHESIS RegFile.v thiele_cpu_kami.v thiele_cpu_top_min.v thiele_cpu_top_genesys2.v
 
-synth_xilinx -family xc7 -flatten -abc9 -nodsp -top thiele_cpu_top
-write_json ../../../build/thiele_xc7a35t.json
+synth_xilinx -family xc7 -flatten -abc9 -top thiele_cpu_top_genesys2
+write_json ../../../build/thiele_xc7k325t.json

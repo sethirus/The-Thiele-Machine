@@ -3,46 +3,48 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-## Read this before anything else
+The Thiele Machine is a computational substrate where certification cost (μ) is tracked at the step relation rather than at the program layer. The principal structural result, Coq-verified, is asymmetric: every Thiele state has a canonical program projection onto a classical-equivalent state, and every classical state has multiple Thiele preimages with no canonical lift between them. The projection is the canonical map; the lift is not. The fields the projection drops — `vm_certified`, `csr_cert_addr`, μ — are provably not functions of the classical projection ([`cert_not_function_of_forget`](coq/kernel/witness/ProjectionNonExistence.v), [`mu_not_function_of_bare_observable`](coq/kernel/witness/ProjectionNonExistence.v)). Every Thiele machine has a Turing projection; no Turing machine has a canonical Thiele lift; and the directionality is proved, not stipulated.
 
-The classical theory of computation has two axes: time and space. The Thiele Machine adds a third — certification cost — and proves the classical models are its structural-axis projection. The argument is four steps. If you want to dismiss it, name the step you reject. A wave-off is not a response.
+Everything in this repository other than the substrate proof tree is a **realization** of the substrate — a particular instantiation in some computational medium. The OCaml runner extracted from the Coq kernel is a realization. The Kami RTL design synthesised through Bluespec and yosys is a realization. The FPGA bitstream is a realization. They are scaffolding for the substrate claim, not the claim itself. The substrate is the categorical object; its realizations are how you make contact with it.
 
-**1. A2 cannot be written on a classical step relation.**
+## The argument
 
-A2 is the rule: every step that flips certification from false to true costs at least 1. A Turing machine, a register machine, a lambda reducer — none of them has a certification flag in its step relation. There is no field for A2 to constrain. The rule is unformulable on classical state, not merely unenforced. See `CertificationSystem` and the `cs_cert_costs` field at [coq/kernel/nfi/UniversalCertificationCost.v:30-65](coq/kernel/nfi/UniversalCertificationCost.v#L30-L65).
+The classical theory of computation has two axes — time and space. The substrate adds a third, certification cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. The argument is four steps, each backed by a Coq theorem. If you find it unconvincing, the most useful response identifies which step is wrong — there's no step-zero objection that lands without engaging the structure.
+
+**1. A2 constrains state fields the bare classical signatures don't have.**
+
+A2 is the rule: every step that flips a certification predicate from false to true forces the executed instruction's cost ≥ 1. The certification predicate and the cost function are not in the bare Turing-machine signature (state, alphabet, transition table), nor in register machines or lambda calculi. If you extend a classical signature with cert and cost fields and a step rule that respects A2, you have moved to a different substrate — the `CertificationSystem` record at [coq/kernel/nfi/UniversalCertificationCost.v:30-65](coq/kernel/nfi/UniversalCertificationCost.v#L30-L65), over which `universal_nfi_any_substrate` concludes a trace-level cost floor of ≥ 1. [`cert_not_function_of_forget`](coq/kernel/witness/ProjectionNonExistence.v) sharpens the boundary: the certification flag is not a derived function of the bare classical projection, so A2's cert-predicate cannot be recovered from classical fields by any clever predicate. The claim is not that A2 is unwritable in the absolute sense — it is that A2 is a constraint on state fields the bare classical signatures lack, so any model carrying A2 is no longer the bare classical model.
 
 **2. Therefore the substrate is forced.**
 
-Any model that formalizes certification cost at the step rule must carry state that classical models do not have. There is no "TM plus A2" — there is no A2 on a TM. The structural axis (`vm_mu`, `vm_certified`) is the minimum state for A2 to be a sentence in the first place. The substrate is not an extension of classical computation; it is what is required for the classical models' silent omission to be representable at all.
+Any model that formalizes certification cost at the step rule must carry state that classical models do not. There is no "TM plus A2" — there is no A2 on a TM, by `cert_not_function_of_forget`. The structural axis (`vm_mu`, `vm_certified`, `csr_cert_addr`) is the minimum state for A2 to be a sentence in the first place. [`mu_not_function_of_bare_observable`](coq/kernel/witness/ProjectionNonExistence.v) proves the cost-ledger separation has no analog in the bare classical signature.
 
-**3. Classical computation is the structural-axis projection.**
+**3. Classical computation is the projection, and the projection is not invertible.**
 
-[`lift_config`](coq/kernel/foundation/ProperSubsumption.v#L153) sends every Turing-machine configuration to a Thiele configuration. [`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v#L172) runs every Turing-machine trace inside the substrate, same tape, same state. [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v) closes the loop: classical computation is exactly the image of substrate computation under the projection that forgets the structural axis. The projection is strictly lossy — [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v) witnesses substrate states with no classical preimage. Every classical computer is the substrate viewed with the structural axis idle, whether or not the operator knew there was an axis there.
+[`lift_config`](coq/kernel/foundation/ProperSubsumption.v#L153) sends every Turing-machine configuration to a Thiele configuration. [`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v#L172) runs every Turing-machine trace inside the substrate, same tape, same state. [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v) closes the loop in one direction: classical computation is the image of substrate computation under the projection that forgets the structural axis. [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v) closes the other direction: every classical state has multiple Thiele preimages, so any lift back is non-canonical and requires external choice of cost schedule, graph state, and certification flag. [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v) witnesses substrate states with no classical preimage. Same computable functions on both sides; classical machines aren't a parallel option, they are what the substrate looks like under the projection that hides the structural axis.
 
-**4. If you disagree, name the step.**
+**4. Name the step.**
 
-Step 1 is a sentence about what a classical step relation can carry. Step 2 follows from step 1. Step 3 is mechanized in Coq, with theorem names above. Point at the line you reject. "This sounds like a metaphor" is not a rejection; it is a refusal to read.
+Step 1 is a sentence about what a classical step relation can carry, witnessed by `cert_not_function_of_forget`. Step 2 follows, witnessed by `mu_not_function_of_bare_observable`. Step 3 is mechanized in Coq with the theorem names above; the projection/lift asymmetry is witnessed by `fiber_has_two_preimages`. Pattern-matching the argument to a metaphor is an alternative reading rather than a rebuttal — the proofs stand or fall on whether the cited theorems hold, not on what they sound like.
 
-The four steps above are the entire foundational claim. They do not need 47 opcodes. They do not need an FPGA. They do not need CHSH. The minimum instruction set that witnesses the substrate is small: any classical compute primitive (so subsumption has something to project to) plus one opcode that can flip certification (so A2 has something to enforce). That is it. Two opcodes in principle; a handful in practice. `instr_certify` is the load-bearing opcode for A2; the rest of the ISA is exploration of what the substrate can express, not what the substrate requires.
+The four steps are the entire foundational claim. They do not need 51 opcodes, do not need an FPGA, do not need CHSH. The minimum instruction set that witnesses the substrate is two opcodes: any classical compute primitive (so subsumption has something to project to) plus one opcode that flips certification (so A2 has something to enforce). `instr_certify` is the load-bearing opcode for A2; the rest of the ISA is exploration of what the substrate can express, not what it requires.
 
-Everything else in this repository is downstream and optional:
+Everything else in this repository is a realization of the substrate, not the substrate itself:
 
-- The 47-opcode ISA is one realization, expanded for experimentation in categorical structure, partition graphs, and CHSH enforcement. The substrate claim does not depend on any of the non-`CERTIFY` opcodes.
-- The CHSH↔NPA equivalence at the opcode level is a separate mathematical result that happens to compose with the substrate. It is not part of the substrate proof.
-- The Coq → OCaml → Kami → Verilog → FPGA pipeline is engineering evidence that the substrate is realizable in silicon, not part of the substrate proof.
+- The 51-opcode ISA is one realization (47 RTL-realized + 4 Q_{1+AB} cert-opcodes that are VM-only by design, contributing the OCaml/RTL parity tests' tolerated slack of 4). The substrate claim does not depend on any of the non-`CERTIFY` opcodes.
+- The CHSH↔NPA equivalence at the opcode level is a separate mathematical result that composes with the substrate. It is not part of the substrate proof.
+- The Coq → OCaml → Kami → Verilog → FPGA pipeline is a realization of the substrate in silicon. It is not part of the substrate proof. The current bitstream flow targets Kintex-7 K325T (Digilent Genesys 2); the binding constraint is DSP48E1 count, not LUTs (`column_contractive_check_witness` requires ~771 DSP slices for its integer multipliers — K325T has 840). See [fpga/run_synthesis_xc7.sh](fpga/run_synthesis_xc7.sh).
 - The Bekenstein/Landauer bridges are motivation, explicitly labeled as such in the monograph.
 
-Read the four steps. The rest is what I built around them.
+## Clarification: simulation vs. substrate
 
-## The standard misread
-
-The most common reflex from a trained reader is: *"A2 can be enforced in software on a TM, so the substrate distinction is just a hardware/software boundary, not a fundamental one."* This conflates simulation with substrate. The falsifier is one sentence.
+A common reading is that A2 can be enforced in software on a TM, so the substrate distinction is a hardware/software boundary rather than a fundamental one. That reading conflates simulation with substrate. The distinction is one sentence:
 
 **A Turing machine cannot refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one.**
 
-Load a Thiele simulator onto a TM with a bug — a program that certifies without incrementing μ. The TM runs it faithfully. Its step rule has no field for A2, so it cannot detect the bug; it computes whatever you wrote, A2-respecting or not. Load the same buggy program onto a Thiele substrate. The step rule traps. A2 is not "interpreted by the simulator and could be skipped" — it is the transition law itself. The TM is structurally incapable of refusal because its step rule has nothing to refuse on. The substrate is structurally incapable of execution because its step rule has A2 built in.
+Load a Thiele simulator onto a TM with a bug — a program that certifies without incrementing μ. The TM runs it faithfully. Its step rule has no field for A2, so it cannot detect the bug; it computes whatever you wrote, A2-respecting or not. Load the same buggy program onto a Thiele substrate. The step rule traps. A2 is not interpreted by the simulator and could be skipped — it is the transition law itself. The TM is structurally incapable of refusal because its step rule has nothing to refuse on. The substrate is structurally incapable of execution because its step rule has A2 built in.
 
-That is the difference between simulating a substrate and being a substrate. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true and not the question; "Thiele's step rule can be written down on a TM" is the question, and the answer is no.
+That is the difference between simulating a substrate and being a substrate. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true and is not the question. "Thiele's step rule can be written down on a TM" is the question, and the answer is no.
 
 ## In one minute
 
@@ -188,12 +190,12 @@ The project separates theorem content from modeling choices.
 | Conversion from `mu` counts to physical units | Named physical bridge, not part of the bare computation theorem. See [NoFIToEinstein.v](coq/kernel/curvature/NoFIToEinstein.v). |
 | Quantum experimental interpretation | Named bridge through PSD/NPA-style conditions. See [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v). |
 
-Every classical computer IS a Thiele Machine. Not metaphor, not analogy:
-subsumption. The Turing machine, the register machine, lambda calculus, the
-von Neumann CPU, the silicon on your desk --- each names one thing, viewed
-with the structural axis hidden. The thing the label is naming is a Thiele
-Machine running in the degenerate fragment of its own state space where the
-structural axis stays dormant.
+Every classical computer is a Thiele Machine in the sense made precise by
+subsumption: the Turing machine, the register machine, lambda calculus, the
+von Neumann CPU, every CPU on every desk --- each names one thing, viewed with
+the structural axis hidden. The thing the label is naming is a Thiele Machine
+running in the degenerate fragment of its own state space where the structural
+axis stays dormant.
 
 [`lift_config`](coq/kernel/foundation/ProperSubsumption.v) maps any
 Turing-machine configuration to a Thiele configuration (set `mu = 0`).
@@ -203,9 +205,12 @@ executes every Turing-machine run inside Thiele, same tape, same state.
 [`D3_conservativity`](coq/kernel/foundation/ClassicalConservativity.v)
 show the structural axis stays idle under classical programs. The four-part
 [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v)
-closes the loop: classical computation is exactly the image of Thiele
-computation under the structural-axis projection. Strict extension is
-witnessed by [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v).
+closes the loop in one direction: classical computation is the image of Thiele
+computation under the structural-axis projection. The other direction is closed
+by [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v) —
+every classical state has multiple Thiele preimages, so any lift back is
+non-canonical and requires external choice. Strict extension is witnessed by
+[`D4_strictness`](coq/kernel/foundation/TuringStrictness.v).
 
 ## Architecture
 
@@ -325,7 +330,7 @@ make proof-undeniable
 
 ## ISA Summary
 
-The VM currently exposes 47 opcodes in six families.
+The VM exposes 51 opcodes total: 47 are RTL-realized (bisimulation-proven against the Kami model) and 4 are Q_{1+AB} cert-opcodes that are VM-only by design — they contribute the OCaml/RTL parity tests' tolerated slack of 4 (theorem `rtl_coverage_partition`: 37 + 10 + 0 = 47). The 47 RTL opcodes fall into six families.
 
 | Family | Examples | Cost behavior |
 |---|---|---|
@@ -335,6 +340,8 @@ The VM currently exposes 47 opcodes in six families.
 | Witness, tensor, cert flags | `CHSH_TRIAL`, `CERTIFY`, `REVEAL`, `TENSOR_SET`, `TENSOR_GET` | Certification/revelation instructions carry positive cost floors. |
 | Categorical morphisms | `MORPH`, `COMPOSE`, `MORPH_ID`, `MORPH_ASSERT` | Morphism assertions are certification-bearing. |
 | CHSH-aware certification | `CHSH_LASSERT` | Kernel-level column-contractivity check on `vm_witness` buckets. Decidable integer-arithmetic check; success ⇒ NPA-PSD via the bridge theorem [`chsh_lassert_no_trap_implies_quantum_realizable`](coq/kernel/quantum/QuantumPartitionPSD.v). Cost `S(mu_delta) ≥ 1` regardless of outcome (cert-setter discipline). |
+
+The 4 VM-only Q_{1+AB} opcodes (`instr_chsh_lassert_1ab*`) extend `CHSH_LASSERT` with the Q_{1+AB} moment-matrix family. They run on the OCaml/Python VM but have no RTL counterpart in the current build; the substrate claim doesn't require them.
 
 Single-step semantics live in
 [coq/kernel/foundation/VMStep.v](coq/kernel/foundation/VMStep.v).

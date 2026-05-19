@@ -11,6 +11,14 @@
 //   - data memory: mem0..mem255 → reg [31:0] dm [0:255]
 //   - register file: reg0..reg31 → reg [31:0] rf [0:31]
 //   - partition table: pt0..pt15 → reg [31:0] pt_tbl [0:15]
+//   - ptTable: reg [2047:0] → reg [31:0] ptTable_arr [0:63]
+//   - cert_desc_base_table: reg [511:0] → reg [31:0] cert_desc_base_table_arr [0:15]
+//   - cert_desc_count_table: reg [511:0] → reg [31:0] cert_desc_count_table_arr [0:15]
+//   - formula_desc_base_table: reg [511:0] → reg [31:0] formula_desc_base_table_arr [0:15]
+//   - formula_desc_count_table: reg [511:0] → reg [31:0] formula_desc_count_table_arr [0:15]
+//   - coupling_pair_src_table: reg [511:0] → reg [31:0] coupling_pair_src_table_arr [0:15]
+//   - coupling_pair_dst_table: reg [511:0] → reg [31:0] coupling_pair_dst_table_arr [0:15]
+//   - desc_meta_aux_table: reg [511:0] → reg [31:0] desc_meta_aux_table_arr [0:15]
 //
 // Proof chain: Coq → OCaml → Bluespec → BSC → verilog_synth_transform.py
 // ============================================================================
@@ -1245,15 +1253,17 @@ module mkModule1(CLK,
   wire [31 : 0] cert_addr$D_IN;
   wire cert_addr$EN;
 
-  // register cert_desc_base_table
-  reg [511 : 0] cert_desc_base_table;
-  wire [511 : 0] cert_desc_base_table$D_IN;
-  wire cert_desc_base_table$EN;
+  // register cert_desc_base_table_flat
+  (* ram_style = "block" *) reg [31:0] cert_desc_base_table_arr [0:15];
+  wire [511:0] cert_desc_base_table_flat = { cert_desc_base_table_arr[15], cert_desc_base_table_arr[14], cert_desc_base_table_arr[13], cert_desc_base_table_arr[12], cert_desc_base_table_arr[11], cert_desc_base_table_arr[10], cert_desc_base_table_arr[9], cert_desc_base_table_arr[8], cert_desc_base_table_arr[7], cert_desc_base_table_arr[6], cert_desc_base_table_arr[5], cert_desc_base_table_arr[4], cert_desc_base_table_arr[3], cert_desc_base_table_arr[2], cert_desc_base_table_arr[1], cert_desc_base_table_arr[0] };  // was: reg [511:0] cert_desc_base_table_flat
+  wire [511:0] cert_desc_base_table_D_IN_flat;  // was: cert_desc_base_table_D_IN_flat
+  wire cert_desc_base_table_EN;  // was: cert_desc_base_table_EN
 
-  // register cert_desc_count_table
-  reg [511 : 0] cert_desc_count_table;
-  wire [511 : 0] cert_desc_count_table$D_IN;
-  wire cert_desc_count_table$EN;
+  // register cert_desc_count_table_flat
+  (* ram_style = "block" *) reg [31:0] cert_desc_count_table_arr [0:15];
+  wire [511:0] cert_desc_count_table_flat = { cert_desc_count_table_arr[15], cert_desc_count_table_arr[14], cert_desc_count_table_arr[13], cert_desc_count_table_arr[12], cert_desc_count_table_arr[11], cert_desc_count_table_arr[10], cert_desc_count_table_arr[9], cert_desc_count_table_arr[8], cert_desc_count_table_arr[7], cert_desc_count_table_arr[6], cert_desc_count_table_arr[5], cert_desc_count_table_arr[4], cert_desc_count_table_arr[3], cert_desc_count_table_arr[2], cert_desc_count_table_arr[1], cert_desc_count_table_arr[0] };  // was: reg [511:0] cert_desc_count_table_flat
+  wire [511:0] cert_desc_count_table_D_IN_flat;  // was: cert_desc_count_table_D_IN_flat
+  wire cert_desc_count_table_EN;  // was: cert_desc_count_table_EN
 
   // register cert_desc_next_id
   reg [4 : 0] cert_desc_next_id;
@@ -1289,30 +1299,33 @@ module mkModule1(CLK,
   wire [15 : 0] coupling_desc_valid_table$D_IN;
   wire coupling_desc_valid_table$EN;
 
-  // register coupling_pair_dst_table
-  reg [511 : 0] coupling_pair_dst_table;
-  wire [511 : 0] coupling_pair_dst_table$D_IN;
-  wire coupling_pair_dst_table$EN;
+  // register coupling_pair_dst_table_flat
+  (* ram_style = "block" *) reg [31:0] coupling_pair_dst_table_arr [0:15];
+  wire [511:0] coupling_pair_dst_table_flat = { coupling_pair_dst_table_arr[15], coupling_pair_dst_table_arr[14], coupling_pair_dst_table_arr[13], coupling_pair_dst_table_arr[12], coupling_pair_dst_table_arr[11], coupling_pair_dst_table_arr[10], coupling_pair_dst_table_arr[9], coupling_pair_dst_table_arr[8], coupling_pair_dst_table_arr[7], coupling_pair_dst_table_arr[6], coupling_pair_dst_table_arr[5], coupling_pair_dst_table_arr[4], coupling_pair_dst_table_arr[3], coupling_pair_dst_table_arr[2], coupling_pair_dst_table_arr[1], coupling_pair_dst_table_arr[0] };  // was: reg [511:0] coupling_pair_dst_table_flat
+  wire [511:0] coupling_pair_dst_table_D_IN_flat;  // was: coupling_pair_dst_table_D_IN_flat
+  wire coupling_pair_dst_table_EN;  // was: coupling_pair_dst_table_EN
 
   // register coupling_pair_next_id
   reg [4 : 0] coupling_pair_next_id;
   wire [4 : 0] coupling_pair_next_id$D_IN;
   wire coupling_pair_next_id$EN;
 
-  // register coupling_pair_src_table
-  reg [511 : 0] coupling_pair_src_table;
-  wire [511 : 0] coupling_pair_src_table$D_IN;
-  wire coupling_pair_src_table$EN;
+  // register coupling_pair_src_table_flat
+  (* ram_style = "block" *) reg [31:0] coupling_pair_src_table_arr [0:15];
+  wire [511:0] coupling_pair_src_table_flat = { coupling_pair_src_table_arr[15], coupling_pair_src_table_arr[14], coupling_pair_src_table_arr[13], coupling_pair_src_table_arr[12], coupling_pair_src_table_arr[11], coupling_pair_src_table_arr[10], coupling_pair_src_table_arr[9], coupling_pair_src_table_arr[8], coupling_pair_src_table_arr[7], coupling_pair_src_table_arr[6], coupling_pair_src_table_arr[5], coupling_pair_src_table_arr[4], coupling_pair_src_table_arr[3], coupling_pair_src_table_arr[2], coupling_pair_src_table_arr[1], coupling_pair_src_table_arr[0] };  // was: reg [511:0] coupling_pair_src_table_flat
+  wire [511:0] coupling_pair_src_table_D_IN_flat;  // was: coupling_pair_src_table_D_IN_flat
+  wire coupling_pair_src_table_EN;  // was: coupling_pair_src_table_EN
 
   // register coupling_pair_valid_table
   reg [15 : 0] coupling_pair_valid_table;
   wire [15 : 0] coupling_pair_valid_table$D_IN;
   wire coupling_pair_valid_table$EN;
 
-  // register desc_meta_aux_table
-  reg [511 : 0] desc_meta_aux_table;
-  wire [511 : 0] desc_meta_aux_table$D_IN;
-  wire desc_meta_aux_table$EN;
+  // register desc_meta_aux_table_flat
+  (* ram_style = "block" *) reg [31:0] desc_meta_aux_table_arr [0:15];
+  wire [511:0] desc_meta_aux_table_flat = { desc_meta_aux_table_arr[15], desc_meta_aux_table_arr[14], desc_meta_aux_table_arr[13], desc_meta_aux_table_arr[12], desc_meta_aux_table_arr[11], desc_meta_aux_table_arr[10], desc_meta_aux_table_arr[9], desc_meta_aux_table_arr[8], desc_meta_aux_table_arr[7], desc_meta_aux_table_arr[6], desc_meta_aux_table_arr[5], desc_meta_aux_table_arr[4], desc_meta_aux_table_arr[3], desc_meta_aux_table_arr[2], desc_meta_aux_table_arr[1], desc_meta_aux_table_arr[0] };  // was: reg [511:0] desc_meta_aux_table_flat
+  wire [511:0] desc_meta_aux_table_D_IN_flat;  // was: desc_meta_aux_table_D_IN_flat
+  wire desc_meta_aux_table_EN;  // was: desc_meta_aux_table_EN
 
   // register desc_meta_inline_len_table
   reg [127 : 0] desc_meta_inline_len_table;
@@ -1348,15 +1361,17 @@ module mkModule1(CLK,
   wire [31 : 0] error_code$D_IN;
   wire error_code$EN;
 
-  // register formula_desc_base_table
-  reg [511 : 0] formula_desc_base_table;
-  wire [511 : 0] formula_desc_base_table$D_IN;
-  wire formula_desc_base_table$EN;
+  // register formula_desc_base_table_flat
+  (* ram_style = "block" *) reg [31:0] formula_desc_base_table_arr [0:15];
+  wire [511:0] formula_desc_base_table_flat = { formula_desc_base_table_arr[15], formula_desc_base_table_arr[14], formula_desc_base_table_arr[13], formula_desc_base_table_arr[12], formula_desc_base_table_arr[11], formula_desc_base_table_arr[10], formula_desc_base_table_arr[9], formula_desc_base_table_arr[8], formula_desc_base_table_arr[7], formula_desc_base_table_arr[6], formula_desc_base_table_arr[5], formula_desc_base_table_arr[4], formula_desc_base_table_arr[3], formula_desc_base_table_arr[2], formula_desc_base_table_arr[1], formula_desc_base_table_arr[0] };  // was: reg [511:0] formula_desc_base_table_flat
+  wire [511:0] formula_desc_base_table_D_IN_flat;  // was: formula_desc_base_table_D_IN_flat
+  wire formula_desc_base_table_EN;  // was: formula_desc_base_table_EN
 
-  // register formula_desc_count_table
-  reg [511 : 0] formula_desc_count_table;
-  wire [511 : 0] formula_desc_count_table$D_IN;
-  wire formula_desc_count_table$EN;
+  // register formula_desc_count_table_flat
+  (* ram_style = "block" *) reg [31:0] formula_desc_count_table_arr [0:15];
+  wire [511:0] formula_desc_count_table_flat = { formula_desc_count_table_arr[15], formula_desc_count_table_arr[14], formula_desc_count_table_arr[13], formula_desc_count_table_arr[12], formula_desc_count_table_arr[11], formula_desc_count_table_arr[10], formula_desc_count_table_arr[9], formula_desc_count_table_arr[8], formula_desc_count_table_arr[7], formula_desc_count_table_arr[6], formula_desc_count_table_arr[5], formula_desc_count_table_arr[4], formula_desc_count_table_arr[3], formula_desc_count_table_arr[2], formula_desc_count_table_arr[1], formula_desc_count_table_arr[0] };  // was: reg [511:0] formula_desc_count_table_flat
+  wire [511:0] formula_desc_count_table_D_IN_flat;  // was: formula_desc_count_table_D_IN_flat
+  wire formula_desc_count_table_EN;  // was: formula_desc_count_table_EN
 
   // register formula_desc_next_id
   reg [4 : 0] formula_desc_next_id;
@@ -1560,10 +1575,20 @@ module mkModule1(CLK,
   wire [31 : 0] pc$D_IN;
   wire pc$EN;
 
-  // register ptTable
-  reg [2047 : 0] ptTable;
-  wire [2047 : 0] ptTable$D_IN;
-  wire ptTable$EN;
+  // register ptTable_flat
+  (* ram_style = "block" *) reg [31:0] ptTable_arr [0:63];
+  wire [2047:0] ptTable_flat = {
+    ptTable_arr[63], ptTable_arr[62], ptTable_arr[61], ptTable_arr[60], ptTable_arr[59], ptTable_arr[58], ptTable_arr[57], ptTable_arr[56],
+    ptTable_arr[55], ptTable_arr[54], ptTable_arr[53], ptTable_arr[52], ptTable_arr[51], ptTable_arr[50], ptTable_arr[49], ptTable_arr[48],
+    ptTable_arr[47], ptTable_arr[46], ptTable_arr[45], ptTable_arr[44], ptTable_arr[43], ptTable_arr[42], ptTable_arr[41], ptTable_arr[40],
+    ptTable_arr[39], ptTable_arr[38], ptTable_arr[37], ptTable_arr[36], ptTable_arr[35], ptTable_arr[34], ptTable_arr[33], ptTable_arr[32],
+    ptTable_arr[31], ptTable_arr[30], ptTable_arr[29], ptTable_arr[28], ptTable_arr[27], ptTable_arr[26], ptTable_arr[25], ptTable_arr[24],
+    ptTable_arr[23], ptTable_arr[22], ptTable_arr[21], ptTable_arr[20], ptTable_arr[19], ptTable_arr[18], ptTable_arr[17], ptTable_arr[16],
+    ptTable_arr[15], ptTable_arr[14], ptTable_arr[13], ptTable_arr[12], ptTable_arr[11], ptTable_arr[10], ptTable_arr[9], ptTable_arr[8],
+    ptTable_arr[7], ptTable_arr[6], ptTable_arr[5], ptTable_arr[4], ptTable_arr[3], ptTable_arr[2], ptTable_arr[1], ptTable_arr[0]
+  };  // was: reg [2047:0] ptTable_flat
+  wire [2047:0] ptTable_D_IN_flat;  // was: ptTable_D_IN_flat
+  wire ptTable_EN;  // was: ptTable_EN
 
   // register pt_next_id
   reg [6 : 0] pt_next_id;
@@ -2533,26 +2558,7 @@ module mkModule1(CLK,
   assign RDY_setTrapVector = 1'd1 ;
 
   // actionvalue method apbReadData
-  always@(apbReadData_x_0 or
-	  pc or
-	  mu or
-	  err or
-	  halted or
-	  partition_ops or
-	  mdl_ops or
-	  info_gain or
-	  error_code or
-	  mstatus or
-	  mcycle_lo or
-	  mcycle_hi or
-	  minstret_lo or
-	  minstret_hi or
-	  logic_acc or
-	  cert_addr or
-	  x_19__h93908 or
-	  x_20__h93909 or
-	  x_21__h93910 or
-	  x_22__h93911 or x_23__h93912 or x_25__h93914 or ptTable)
+  always@(*)
   begin
     case (apbReadData_x_0)
       32'h0: apbReadData = pc;
@@ -2576,7 +2582,7 @@ module mkModule1(CLK,
       32'h00000050: apbReadData = x_22__h93911;
       32'h00000054: apbReadData = (mu < x_23__h93912) ? 32'h00000001 : 32'h0;
       32'h00000058: apbReadData = x_25__h93914;
-      32'h0000005C: apbReadData = ptTable[31:0];
+      32'h0000005C: apbReadData = ptTable_arr[0];
       default: apbReadData = 32'h0;
     endcase
   end
@@ -2625,73 +2631,73 @@ module mkModule1(CLK,
   assign RDY_getPtNextId = 1'd1 ;
 
   // actionvalue method getPtSize
-  always@(getPtSize_x_0 or ptTable)
+  always@(*)
   begin
     case (getPtSize_x_0)
-      6'd0: getPtSize = ptTable[31:0];
-      6'd1: getPtSize = ptTable[63:32];
-      6'd2: getPtSize = ptTable[95:64];
-      6'd3: getPtSize = ptTable[127:96];
-      6'd4: getPtSize = ptTable[159:128];
-      6'd5: getPtSize = ptTable[191:160];
-      6'd6: getPtSize = ptTable[223:192];
-      6'd7: getPtSize = ptTable[255:224];
-      6'd8: getPtSize = ptTable[287:256];
-      6'd9: getPtSize = ptTable[319:288];
-      6'd10: getPtSize = ptTable[351:320];
-      6'd11: getPtSize = ptTable[383:352];
-      6'd12: getPtSize = ptTable[415:384];
-      6'd13: getPtSize = ptTable[447:416];
-      6'd14: getPtSize = ptTable[479:448];
-      6'd15: getPtSize = ptTable[511:480];
-      6'd16: getPtSize = ptTable[543:512];
-      6'd17: getPtSize = ptTable[575:544];
-      6'd18: getPtSize = ptTable[607:576];
-      6'd19: getPtSize = ptTable[639:608];
-      6'd20: getPtSize = ptTable[671:640];
-      6'd21: getPtSize = ptTable[703:672];
-      6'd22: getPtSize = ptTable[735:704];
-      6'd23: getPtSize = ptTable[767:736];
-      6'd24: getPtSize = ptTable[799:768];
-      6'd25: getPtSize = ptTable[831:800];
-      6'd26: getPtSize = ptTable[863:832];
-      6'd27: getPtSize = ptTable[895:864];
-      6'd28: getPtSize = ptTable[927:896];
-      6'd29: getPtSize = ptTable[959:928];
-      6'd30: getPtSize = ptTable[991:960];
-      6'd31: getPtSize = ptTable[1023:992];
-      6'd32: getPtSize = ptTable[1055:1024];
-      6'd33: getPtSize = ptTable[1087:1056];
-      6'd34: getPtSize = ptTable[1119:1088];
-      6'd35: getPtSize = ptTable[1151:1120];
-      6'd36: getPtSize = ptTable[1183:1152];
-      6'd37: getPtSize = ptTable[1215:1184];
-      6'd38: getPtSize = ptTable[1247:1216];
-      6'd39: getPtSize = ptTable[1279:1248];
-      6'd40: getPtSize = ptTable[1311:1280];
-      6'd41: getPtSize = ptTable[1343:1312];
-      6'd42: getPtSize = ptTable[1375:1344];
-      6'd43: getPtSize = ptTable[1407:1376];
-      6'd44: getPtSize = ptTable[1439:1408];
-      6'd45: getPtSize = ptTable[1471:1440];
-      6'd46: getPtSize = ptTable[1503:1472];
-      6'd47: getPtSize = ptTable[1535:1504];
-      6'd48: getPtSize = ptTable[1567:1536];
-      6'd49: getPtSize = ptTable[1599:1568];
-      6'd50: getPtSize = ptTable[1631:1600];
-      6'd51: getPtSize = ptTable[1663:1632];
-      6'd52: getPtSize = ptTable[1695:1664];
-      6'd53: getPtSize = ptTable[1727:1696];
-      6'd54: getPtSize = ptTable[1759:1728];
-      6'd55: getPtSize = ptTable[1791:1760];
-      6'd56: getPtSize = ptTable[1823:1792];
-      6'd57: getPtSize = ptTable[1855:1824];
-      6'd58: getPtSize = ptTable[1887:1856];
-      6'd59: getPtSize = ptTable[1919:1888];
-      6'd60: getPtSize = ptTable[1951:1920];
-      6'd61: getPtSize = ptTable[1983:1952];
-      6'd62: getPtSize = ptTable[2015:1984];
-      6'd63: getPtSize = ptTable[2047:2016];
+      6'd0: getPtSize = ptTable_arr[0];
+      6'd1: getPtSize = ptTable_arr[1];
+      6'd2: getPtSize = ptTable_arr[2];
+      6'd3: getPtSize = ptTable_arr[3];
+      6'd4: getPtSize = ptTable_arr[4];
+      6'd5: getPtSize = ptTable_arr[5];
+      6'd6: getPtSize = ptTable_arr[6];
+      6'd7: getPtSize = ptTable_arr[7];
+      6'd8: getPtSize = ptTable_arr[8];
+      6'd9: getPtSize = ptTable_arr[9];
+      6'd10: getPtSize = ptTable_arr[10];
+      6'd11: getPtSize = ptTable_arr[11];
+      6'd12: getPtSize = ptTable_arr[12];
+      6'd13: getPtSize = ptTable_arr[13];
+      6'd14: getPtSize = ptTable_arr[14];
+      6'd15: getPtSize = ptTable_arr[15];
+      6'd16: getPtSize = ptTable_arr[16];
+      6'd17: getPtSize = ptTable_arr[17];
+      6'd18: getPtSize = ptTable_arr[18];
+      6'd19: getPtSize = ptTable_arr[19];
+      6'd20: getPtSize = ptTable_arr[20];
+      6'd21: getPtSize = ptTable_arr[21];
+      6'd22: getPtSize = ptTable_arr[22];
+      6'd23: getPtSize = ptTable_arr[23];
+      6'd24: getPtSize = ptTable_arr[24];
+      6'd25: getPtSize = ptTable_arr[25];
+      6'd26: getPtSize = ptTable_arr[26];
+      6'd27: getPtSize = ptTable_arr[27];
+      6'd28: getPtSize = ptTable_arr[28];
+      6'd29: getPtSize = ptTable_arr[29];
+      6'd30: getPtSize = ptTable_arr[30];
+      6'd31: getPtSize = ptTable_arr[31];
+      6'd32: getPtSize = ptTable_arr[32];
+      6'd33: getPtSize = ptTable_arr[33];
+      6'd34: getPtSize = ptTable_arr[34];
+      6'd35: getPtSize = ptTable_arr[35];
+      6'd36: getPtSize = ptTable_arr[36];
+      6'd37: getPtSize = ptTable_arr[37];
+      6'd38: getPtSize = ptTable_arr[38];
+      6'd39: getPtSize = ptTable_arr[39];
+      6'd40: getPtSize = ptTable_arr[40];
+      6'd41: getPtSize = ptTable_arr[41];
+      6'd42: getPtSize = ptTable_arr[42];
+      6'd43: getPtSize = ptTable_arr[43];
+      6'd44: getPtSize = ptTable_arr[44];
+      6'd45: getPtSize = ptTable_arr[45];
+      6'd46: getPtSize = ptTable_arr[46];
+      6'd47: getPtSize = ptTable_arr[47];
+      6'd48: getPtSize = ptTable_arr[48];
+      6'd49: getPtSize = ptTable_arr[49];
+      6'd50: getPtSize = ptTable_arr[50];
+      6'd51: getPtSize = ptTable_arr[51];
+      6'd52: getPtSize = ptTable_arr[52];
+      6'd53: getPtSize = ptTable_arr[53];
+      6'd54: getPtSize = ptTable_arr[54];
+      6'd55: getPtSize = ptTable_arr[55];
+      6'd56: getPtSize = ptTable_arr[56];
+      6'd57: getPtSize = ptTable_arr[57];
+      6'd58: getPtSize = ptTable_arr[58];
+      6'd59: getPtSize = ptTable_arr[59];
+      6'd60: getPtSize = ptTable_arr[60];
+      6'd61: getPtSize = ptTable_arr[61];
+      6'd62: getPtSize = ptTable_arr[62];
+      6'd63: getPtSize = ptTable_arr[63];
     endcase
   end
   assign RDY_getPtSize = 1'd1 ;
@@ -2746,49 +2752,49 @@ module mkModule1(CLK,
   assign RDY_getCouplingDescNextId = 1'd1 ;
 
   // actionvalue method getCouplingPairSrc
-  always@(getCouplingPairSrc_x_0 or coupling_pair_src_table)
+  always@(*)
   begin
     case (getCouplingPairSrc_x_0)
-      4'd0: getCouplingPairSrc = coupling_pair_src_table[31:0];
-      4'd1: getCouplingPairSrc = coupling_pair_src_table[63:32];
-      4'd2: getCouplingPairSrc = coupling_pair_src_table[95:64];
-      4'd3: getCouplingPairSrc = coupling_pair_src_table[127:96];
-      4'd4: getCouplingPairSrc = coupling_pair_src_table[159:128];
-      4'd5: getCouplingPairSrc = coupling_pair_src_table[191:160];
-      4'd6: getCouplingPairSrc = coupling_pair_src_table[223:192];
-      4'd7: getCouplingPairSrc = coupling_pair_src_table[255:224];
-      4'd8: getCouplingPairSrc = coupling_pair_src_table[287:256];
-      4'd9: getCouplingPairSrc = coupling_pair_src_table[319:288];
-      4'd10: getCouplingPairSrc = coupling_pair_src_table[351:320];
-      4'd11: getCouplingPairSrc = coupling_pair_src_table[383:352];
-      4'd12: getCouplingPairSrc = coupling_pair_src_table[415:384];
-      4'd13: getCouplingPairSrc = coupling_pair_src_table[447:416];
-      4'd14: getCouplingPairSrc = coupling_pair_src_table[479:448];
-      4'd15: getCouplingPairSrc = coupling_pair_src_table[511:480];
+      4'd0: getCouplingPairSrc = coupling_pair_src_table_arr[0];
+      4'd1: getCouplingPairSrc = coupling_pair_src_table_arr[1];
+      4'd2: getCouplingPairSrc = coupling_pair_src_table_arr[2];
+      4'd3: getCouplingPairSrc = coupling_pair_src_table_arr[3];
+      4'd4: getCouplingPairSrc = coupling_pair_src_table_arr[4];
+      4'd5: getCouplingPairSrc = coupling_pair_src_table_arr[5];
+      4'd6: getCouplingPairSrc = coupling_pair_src_table_arr[6];
+      4'd7: getCouplingPairSrc = coupling_pair_src_table_arr[7];
+      4'd8: getCouplingPairSrc = coupling_pair_src_table_arr[8];
+      4'd9: getCouplingPairSrc = coupling_pair_src_table_arr[9];
+      4'd10: getCouplingPairSrc = coupling_pair_src_table_arr[10];
+      4'd11: getCouplingPairSrc = coupling_pair_src_table_arr[11];
+      4'd12: getCouplingPairSrc = coupling_pair_src_table_arr[12];
+      4'd13: getCouplingPairSrc = coupling_pair_src_table_arr[13];
+      4'd14: getCouplingPairSrc = coupling_pair_src_table_arr[14];
+      4'd15: getCouplingPairSrc = coupling_pair_src_table_arr[15];
     endcase
   end
   assign RDY_getCouplingPairSrc = 1'd1 ;
 
   // actionvalue method getCouplingPairDst
-  always@(getCouplingPairDst_x_0 or coupling_pair_dst_table)
+  always@(*)
   begin
     case (getCouplingPairDst_x_0)
-      4'd0: getCouplingPairDst = coupling_pair_dst_table[31:0];
-      4'd1: getCouplingPairDst = coupling_pair_dst_table[63:32];
-      4'd2: getCouplingPairDst = coupling_pair_dst_table[95:64];
-      4'd3: getCouplingPairDst = coupling_pair_dst_table[127:96];
-      4'd4: getCouplingPairDst = coupling_pair_dst_table[159:128];
-      4'd5: getCouplingPairDst = coupling_pair_dst_table[191:160];
-      4'd6: getCouplingPairDst = coupling_pair_dst_table[223:192];
-      4'd7: getCouplingPairDst = coupling_pair_dst_table[255:224];
-      4'd8: getCouplingPairDst = coupling_pair_dst_table[287:256];
-      4'd9: getCouplingPairDst = coupling_pair_dst_table[319:288];
-      4'd10: getCouplingPairDst = coupling_pair_dst_table[351:320];
-      4'd11: getCouplingPairDst = coupling_pair_dst_table[383:352];
-      4'd12: getCouplingPairDst = coupling_pair_dst_table[415:384];
-      4'd13: getCouplingPairDst = coupling_pair_dst_table[447:416];
-      4'd14: getCouplingPairDst = coupling_pair_dst_table[479:448];
-      4'd15: getCouplingPairDst = coupling_pair_dst_table[511:480];
+      4'd0: getCouplingPairDst = coupling_pair_dst_table_arr[0];
+      4'd1: getCouplingPairDst = coupling_pair_dst_table_arr[1];
+      4'd2: getCouplingPairDst = coupling_pair_dst_table_arr[2];
+      4'd3: getCouplingPairDst = coupling_pair_dst_table_arr[3];
+      4'd4: getCouplingPairDst = coupling_pair_dst_table_arr[4];
+      4'd5: getCouplingPairDst = coupling_pair_dst_table_arr[5];
+      4'd6: getCouplingPairDst = coupling_pair_dst_table_arr[6];
+      4'd7: getCouplingPairDst = coupling_pair_dst_table_arr[7];
+      4'd8: getCouplingPairDst = coupling_pair_dst_table_arr[8];
+      4'd9: getCouplingPairDst = coupling_pair_dst_table_arr[9];
+      4'd10: getCouplingPairDst = coupling_pair_dst_table_arr[10];
+      4'd11: getCouplingPairDst = coupling_pair_dst_table_arr[11];
+      4'd12: getCouplingPairDst = coupling_pair_dst_table_arr[12];
+      4'd13: getCouplingPairDst = coupling_pair_dst_table_arr[13];
+      4'd14: getCouplingPairDst = coupling_pair_dst_table_arr[14];
+      4'd15: getCouplingPairDst = coupling_pair_dst_table_arr[15];
     endcase
   end
   assign RDY_getCouplingPairDst = 1'd1 ;
@@ -2805,49 +2811,49 @@ module mkModule1(CLK,
   assign RDY_getCouplingPairNextId = 1'd1 ;
 
   // actionvalue method getFormulaDescBase
-  always@(getFormulaDescBase_x_0 or formula_desc_base_table)
+  always@(*)
   begin
     case (getFormulaDescBase_x_0)
-      4'd0: getFormulaDescBase = formula_desc_base_table[31:0];
-      4'd1: getFormulaDescBase = formula_desc_base_table[63:32];
-      4'd2: getFormulaDescBase = formula_desc_base_table[95:64];
-      4'd3: getFormulaDescBase = formula_desc_base_table[127:96];
-      4'd4: getFormulaDescBase = formula_desc_base_table[159:128];
-      4'd5: getFormulaDescBase = formula_desc_base_table[191:160];
-      4'd6: getFormulaDescBase = formula_desc_base_table[223:192];
-      4'd7: getFormulaDescBase = formula_desc_base_table[255:224];
-      4'd8: getFormulaDescBase = formula_desc_base_table[287:256];
-      4'd9: getFormulaDescBase = formula_desc_base_table[319:288];
-      4'd10: getFormulaDescBase = formula_desc_base_table[351:320];
-      4'd11: getFormulaDescBase = formula_desc_base_table[383:352];
-      4'd12: getFormulaDescBase = formula_desc_base_table[415:384];
-      4'd13: getFormulaDescBase = formula_desc_base_table[447:416];
-      4'd14: getFormulaDescBase = formula_desc_base_table[479:448];
-      4'd15: getFormulaDescBase = formula_desc_base_table[511:480];
+      4'd0: getFormulaDescBase = formula_desc_base_table_arr[0];
+      4'd1: getFormulaDescBase = formula_desc_base_table_arr[1];
+      4'd2: getFormulaDescBase = formula_desc_base_table_arr[2];
+      4'd3: getFormulaDescBase = formula_desc_base_table_arr[3];
+      4'd4: getFormulaDescBase = formula_desc_base_table_arr[4];
+      4'd5: getFormulaDescBase = formula_desc_base_table_arr[5];
+      4'd6: getFormulaDescBase = formula_desc_base_table_arr[6];
+      4'd7: getFormulaDescBase = formula_desc_base_table_arr[7];
+      4'd8: getFormulaDescBase = formula_desc_base_table_arr[8];
+      4'd9: getFormulaDescBase = formula_desc_base_table_arr[9];
+      4'd10: getFormulaDescBase = formula_desc_base_table_arr[10];
+      4'd11: getFormulaDescBase = formula_desc_base_table_arr[11];
+      4'd12: getFormulaDescBase = formula_desc_base_table_arr[12];
+      4'd13: getFormulaDescBase = formula_desc_base_table_arr[13];
+      4'd14: getFormulaDescBase = formula_desc_base_table_arr[14];
+      4'd15: getFormulaDescBase = formula_desc_base_table_arr[15];
     endcase
   end
   assign RDY_getFormulaDescBase = 1'd1 ;
 
   // actionvalue method getFormulaDescCount
-  always@(getFormulaDescCount_x_0 or formula_desc_count_table)
+  always@(*)
   begin
     case (getFormulaDescCount_x_0)
-      4'd0: getFormulaDescCount = formula_desc_count_table[31:0];
-      4'd1: getFormulaDescCount = formula_desc_count_table[63:32];
-      4'd2: getFormulaDescCount = formula_desc_count_table[95:64];
-      4'd3: getFormulaDescCount = formula_desc_count_table[127:96];
-      4'd4: getFormulaDescCount = formula_desc_count_table[159:128];
-      4'd5: getFormulaDescCount = formula_desc_count_table[191:160];
-      4'd6: getFormulaDescCount = formula_desc_count_table[223:192];
-      4'd7: getFormulaDescCount = formula_desc_count_table[255:224];
-      4'd8: getFormulaDescCount = formula_desc_count_table[287:256];
-      4'd9: getFormulaDescCount = formula_desc_count_table[319:288];
-      4'd10: getFormulaDescCount = formula_desc_count_table[351:320];
-      4'd11: getFormulaDescCount = formula_desc_count_table[383:352];
-      4'd12: getFormulaDescCount = formula_desc_count_table[415:384];
-      4'd13: getFormulaDescCount = formula_desc_count_table[447:416];
-      4'd14: getFormulaDescCount = formula_desc_count_table[479:448];
-      4'd15: getFormulaDescCount = formula_desc_count_table[511:480];
+      4'd0: getFormulaDescCount = formula_desc_count_table_arr[0];
+      4'd1: getFormulaDescCount = formula_desc_count_table_arr[1];
+      4'd2: getFormulaDescCount = formula_desc_count_table_arr[2];
+      4'd3: getFormulaDescCount = formula_desc_count_table_arr[3];
+      4'd4: getFormulaDescCount = formula_desc_count_table_arr[4];
+      4'd5: getFormulaDescCount = formula_desc_count_table_arr[5];
+      4'd6: getFormulaDescCount = formula_desc_count_table_arr[6];
+      4'd7: getFormulaDescCount = formula_desc_count_table_arr[7];
+      4'd8: getFormulaDescCount = formula_desc_count_table_arr[8];
+      4'd9: getFormulaDescCount = formula_desc_count_table_arr[9];
+      4'd10: getFormulaDescCount = formula_desc_count_table_arr[10];
+      4'd11: getFormulaDescCount = formula_desc_count_table_arr[11];
+      4'd12: getFormulaDescCount = formula_desc_count_table_arr[12];
+      4'd13: getFormulaDescCount = formula_desc_count_table_arr[13];
+      4'd14: getFormulaDescCount = formula_desc_count_table_arr[14];
+      4'd15: getFormulaDescCount = formula_desc_count_table_arr[15];
     endcase
   end
   assign RDY_getFormulaDescCount = 1'd1 ;
@@ -2864,49 +2870,49 @@ module mkModule1(CLK,
   assign RDY_getFormulaDescNextId = 1'd1 ;
 
   // actionvalue method getCertDescBase
-  always@(getCertDescBase_x_0 or cert_desc_base_table)
+  always@(*)
   begin
     case (getCertDescBase_x_0)
-      4'd0: getCertDescBase = cert_desc_base_table[31:0];
-      4'd1: getCertDescBase = cert_desc_base_table[63:32];
-      4'd2: getCertDescBase = cert_desc_base_table[95:64];
-      4'd3: getCertDescBase = cert_desc_base_table[127:96];
-      4'd4: getCertDescBase = cert_desc_base_table[159:128];
-      4'd5: getCertDescBase = cert_desc_base_table[191:160];
-      4'd6: getCertDescBase = cert_desc_base_table[223:192];
-      4'd7: getCertDescBase = cert_desc_base_table[255:224];
-      4'd8: getCertDescBase = cert_desc_base_table[287:256];
-      4'd9: getCertDescBase = cert_desc_base_table[319:288];
-      4'd10: getCertDescBase = cert_desc_base_table[351:320];
-      4'd11: getCertDescBase = cert_desc_base_table[383:352];
-      4'd12: getCertDescBase = cert_desc_base_table[415:384];
-      4'd13: getCertDescBase = cert_desc_base_table[447:416];
-      4'd14: getCertDescBase = cert_desc_base_table[479:448];
-      4'd15: getCertDescBase = cert_desc_base_table[511:480];
+      4'd0: getCertDescBase = cert_desc_base_table_arr[0];
+      4'd1: getCertDescBase = cert_desc_base_table_arr[1];
+      4'd2: getCertDescBase = cert_desc_base_table_arr[2];
+      4'd3: getCertDescBase = cert_desc_base_table_arr[3];
+      4'd4: getCertDescBase = cert_desc_base_table_arr[4];
+      4'd5: getCertDescBase = cert_desc_base_table_arr[5];
+      4'd6: getCertDescBase = cert_desc_base_table_arr[6];
+      4'd7: getCertDescBase = cert_desc_base_table_arr[7];
+      4'd8: getCertDescBase = cert_desc_base_table_arr[8];
+      4'd9: getCertDescBase = cert_desc_base_table_arr[9];
+      4'd10: getCertDescBase = cert_desc_base_table_arr[10];
+      4'd11: getCertDescBase = cert_desc_base_table_arr[11];
+      4'd12: getCertDescBase = cert_desc_base_table_arr[12];
+      4'd13: getCertDescBase = cert_desc_base_table_arr[13];
+      4'd14: getCertDescBase = cert_desc_base_table_arr[14];
+      4'd15: getCertDescBase = cert_desc_base_table_arr[15];
     endcase
   end
   assign RDY_getCertDescBase = 1'd1 ;
 
   // actionvalue method getCertDescCount
-  always@(getCertDescCount_x_0 or cert_desc_count_table)
+  always@(*)
   begin
     case (getCertDescCount_x_0)
-      4'd0: getCertDescCount = cert_desc_count_table[31:0];
-      4'd1: getCertDescCount = cert_desc_count_table[63:32];
-      4'd2: getCertDescCount = cert_desc_count_table[95:64];
-      4'd3: getCertDescCount = cert_desc_count_table[127:96];
-      4'd4: getCertDescCount = cert_desc_count_table[159:128];
-      4'd5: getCertDescCount = cert_desc_count_table[191:160];
-      4'd6: getCertDescCount = cert_desc_count_table[223:192];
-      4'd7: getCertDescCount = cert_desc_count_table[255:224];
-      4'd8: getCertDescCount = cert_desc_count_table[287:256];
-      4'd9: getCertDescCount = cert_desc_count_table[319:288];
-      4'd10: getCertDescCount = cert_desc_count_table[351:320];
-      4'd11: getCertDescCount = cert_desc_count_table[383:352];
-      4'd12: getCertDescCount = cert_desc_count_table[415:384];
-      4'd13: getCertDescCount = cert_desc_count_table[447:416];
-      4'd14: getCertDescCount = cert_desc_count_table[479:448];
-      4'd15: getCertDescCount = cert_desc_count_table[511:480];
+      4'd0: getCertDescCount = cert_desc_count_table_arr[0];
+      4'd1: getCertDescCount = cert_desc_count_table_arr[1];
+      4'd2: getCertDescCount = cert_desc_count_table_arr[2];
+      4'd3: getCertDescCount = cert_desc_count_table_arr[3];
+      4'd4: getCertDescCount = cert_desc_count_table_arr[4];
+      4'd5: getCertDescCount = cert_desc_count_table_arr[5];
+      4'd6: getCertDescCount = cert_desc_count_table_arr[6];
+      4'd7: getCertDescCount = cert_desc_count_table_arr[7];
+      4'd8: getCertDescCount = cert_desc_count_table_arr[8];
+      4'd9: getCertDescCount = cert_desc_count_table_arr[9];
+      4'd10: getCertDescCount = cert_desc_count_table_arr[10];
+      4'd11: getCertDescCount = cert_desc_count_table_arr[11];
+      4'd12: getCertDescCount = cert_desc_count_table_arr[12];
+      4'd13: getCertDescCount = cert_desc_count_table_arr[13];
+      4'd14: getCertDescCount = cert_desc_count_table_arr[14];
+      4'd15: getCertDescCount = cert_desc_count_table_arr[15];
     endcase
   end
   assign RDY_getCertDescCount = 1'd1 ;
@@ -2935,25 +2941,25 @@ module mkModule1(CLK,
   assign RDY_getDescMetaInlineLen = 1'd1 ;
 
   // actionvalue method getDescMetaAux
-  always@(getDescMetaAux_x_0 or desc_meta_aux_table)
+  always@(*)
   begin
     case (getDescMetaAux_x_0)
-      4'd0: getDescMetaAux = desc_meta_aux_table[31:0];
-      4'd1: getDescMetaAux = desc_meta_aux_table[63:32];
-      4'd2: getDescMetaAux = desc_meta_aux_table[95:64];
-      4'd3: getDescMetaAux = desc_meta_aux_table[127:96];
-      4'd4: getDescMetaAux = desc_meta_aux_table[159:128];
-      4'd5: getDescMetaAux = desc_meta_aux_table[191:160];
-      4'd6: getDescMetaAux = desc_meta_aux_table[223:192];
-      4'd7: getDescMetaAux = desc_meta_aux_table[255:224];
-      4'd8: getDescMetaAux = desc_meta_aux_table[287:256];
-      4'd9: getDescMetaAux = desc_meta_aux_table[319:288];
-      4'd10: getDescMetaAux = desc_meta_aux_table[351:320];
-      4'd11: getDescMetaAux = desc_meta_aux_table[383:352];
-      4'd12: getDescMetaAux = desc_meta_aux_table[415:384];
-      4'd13: getDescMetaAux = desc_meta_aux_table[447:416];
-      4'd14: getDescMetaAux = desc_meta_aux_table[479:448];
-      4'd15: getDescMetaAux = desc_meta_aux_table[511:480];
+      4'd0: getDescMetaAux = desc_meta_aux_table_arr[0];
+      4'd1: getDescMetaAux = desc_meta_aux_table_arr[1];
+      4'd2: getDescMetaAux = desc_meta_aux_table_arr[2];
+      4'd3: getDescMetaAux = desc_meta_aux_table_arr[3];
+      4'd4: getDescMetaAux = desc_meta_aux_table_arr[4];
+      4'd5: getDescMetaAux = desc_meta_aux_table_arr[5];
+      4'd6: getDescMetaAux = desc_meta_aux_table_arr[6];
+      4'd7: getDescMetaAux = desc_meta_aux_table_arr[7];
+      4'd8: getDescMetaAux = desc_meta_aux_table_arr[8];
+      4'd9: getDescMetaAux = desc_meta_aux_table_arr[9];
+      4'd10: getDescMetaAux = desc_meta_aux_table_arr[10];
+      4'd11: getDescMetaAux = desc_meta_aux_table_arr[11];
+      4'd12: getDescMetaAux = desc_meta_aux_table_arr[12];
+      4'd13: getDescMetaAux = desc_meta_aux_table_arr[13];
+      4'd14: getDescMetaAux = desc_meta_aux_table_arr[14];
+      4'd15: getDescMetaAux = desc_meta_aux_table_arr[15];
     endcase
   end
   assign RDY_getDescMetaAux = 1'd1 ;
@@ -3236,13 +3242,13 @@ module mkModule1(CLK,
 	       IF_imem_sub_pc_5_BITS_6_TO_0_6_7_BITS_31_TO_24_ETC___d2060 ;
   assign cert_addr$EN = WILL_FIRE_RL_step ;
 
-  // register cert_desc_base_table
-  assign cert_desc_base_table$D_IN = 512'h0 ;
-  assign cert_desc_base_table$EN = 1'b0 ;
+  // register cert_desc_base_table_flat
+  assign cert_desc_base_table_D_IN_flat = 512'h0 ;
+  assign cert_desc_base_table_EN = 1'b0 ;
 
-  // register cert_desc_count_table
-  assign cert_desc_count_table$D_IN = 512'h0 ;
-  assign cert_desc_count_table$EN = 1'b0 ;
+  // register cert_desc_count_table_flat
+  assign cert_desc_count_table_D_IN_flat = 512'h0 ;
+  assign cert_desc_count_table_EN = 1'b0 ;
 
   // register cert_desc_next_id
   assign cert_desc_next_id$D_IN = 5'h0 ;
@@ -3277,25 +3283,25 @@ module mkModule1(CLK,
   assign coupling_desc_valid_table$D_IN = 16'h0 ;
   assign coupling_desc_valid_table$EN = 1'b0 ;
 
-  // register coupling_pair_dst_table
-  assign coupling_pair_dst_table$D_IN = 512'h0 ;
-  assign coupling_pair_dst_table$EN = 1'b0 ;
+  // register coupling_pair_dst_table_flat
+  assign coupling_pair_dst_table_D_IN_flat = 512'h0 ;
+  assign coupling_pair_dst_table_EN = 1'b0 ;
 
   // register coupling_pair_next_id
   assign coupling_pair_next_id$D_IN = 5'h0 ;
   assign coupling_pair_next_id$EN = 1'b0 ;
 
-  // register coupling_pair_src_table
-  assign coupling_pair_src_table$D_IN = 512'h0 ;
-  assign coupling_pair_src_table$EN = 1'b0 ;
+  // register coupling_pair_src_table_flat
+  assign coupling_pair_src_table_D_IN_flat = 512'h0 ;
+  assign coupling_pair_src_table_EN = 1'b0 ;
 
   // register coupling_pair_valid_table
   assign coupling_pair_valid_table$D_IN = 16'h0 ;
   assign coupling_pair_valid_table$EN = 1'b0 ;
 
-  // register desc_meta_aux_table
-  assign desc_meta_aux_table$D_IN = 512'h0 ;
-  assign desc_meta_aux_table$EN = 1'b0 ;
+  // register desc_meta_aux_table_flat
+  assign desc_meta_aux_table_D_IN_flat = 512'h0 ;
+  assign desc_meta_aux_table_EN = 1'b0 ;
 
   // register desc_meta_inline_len_table
   assign desc_meta_inline_len_table$D_IN = 128'h0 ;
@@ -3331,13 +3337,13 @@ module mkModule1(CLK,
 	       MUX_error_code$write_1__VAL_2 ;
   assign error_code$EN = WILL_FIRE_RL_step || WILL_FIRE_RL_lassert_fsm_scan ;
 
-  // register formula_desc_base_table
-  assign formula_desc_base_table$D_IN = 512'h0 ;
-  assign formula_desc_base_table$EN = 1'b0 ;
+  // register formula_desc_base_table_flat
+  assign formula_desc_base_table_D_IN_flat = 512'h0 ;
+  assign formula_desc_base_table_EN = 1'b0 ;
 
-  // register formula_desc_count_table
-  assign formula_desc_count_table$D_IN = 512'h0 ;
-  assign formula_desc_count_table$EN = 1'b0 ;
+  // register formula_desc_count_table_flat
+  assign formula_desc_count_table_D_IN_flat = 512'h0 ;
+  assign formula_desc_count_table_EN = 1'b0 ;
 
   // register formula_desc_next_id
   assign formula_desc_next_id$D_IN = 5'h0 ;
@@ -3688,14 +3694,14 @@ module mkModule1(CLK,
 	       MUX_pc$write_1__VAL_2 ;
   assign pc$EN = WILL_FIRE_RL_step || WILL_FIRE_RL_lassert_fsm_scan ;
 
-  // register ptTable
-  assign ptTable$D_IN =
+  // register ptTable_flat
+  assign ptTable_D_IN_flat =
 	     (mu_1_ULT_mu_tensor_2_BITS_31_TO_0_3_PLUS_mu_te_ETC___d2285 ||
 	      imem_sub_pc_5_BITS_6_TO_0_6_7_BITS_31_TO_24_8__ETC___d762 ||
 	      imem_sub_pc_5_BITS_6_TO_0_6_7_BITS_31_TO_24_8__ETC___d772) ?
-	       ptTable :
+	       ptTable_flat :
 	       IF_imem_sub_pc_5_BITS_6_TO_0_6_7_BITS_31_TO_24_ETC___d3099 ;
-  assign ptTable$EN = WILL_FIRE_RL_step ;
+  assign ptTable_EN = WILL_FIRE_RL_step ;
 
   // register pt_next_id
   assign pt_next_id$D_IN =
@@ -4959,914 +4965,914 @@ module mkModule1(CLK,
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_0_446_THEN_ETC___d2805 =
 	     (pt_next_id[5:0] == 6'd0) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd0) ? 32'h0 : ptTable[31:0]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd0) ? 32'h0 : ptTable_arr[0]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_0_446_THEN_ETC___d3095 =
 	     (pt_next_id[5:0] == 6'd0) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd0 || imem$D_OUT_1[21:16] == 6'd0) ?
 		  32'h0 :
-		  ptTable[31:0]) ;
+		  ptTable_arr[0]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_10_421_THE_ETC___d2750 =
 	     (pt_next_id[5:0] == 6'd10) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd10) ? 32'h0 : ptTable[351:320]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd10) ? 32'h0 : ptTable_arr[10]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_10_421_THE_ETC___d3050 =
 	     (pt_next_id[5:0] == 6'd10) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd10 ||
 		 imem$D_OUT_1[21:16] == 6'd10) ?
 		  32'h0 :
-		  ptTable[351:320]) ;
+		  ptTable_arr[10]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_11_419_THE_ETC___d2745 =
 	     (pt_next_id[5:0] == 6'd11) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd11) ? 32'h0 : ptTable[383:352]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd11) ? 32'h0 : ptTable_arr[11]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_11_419_THE_ETC___d3046 =
 	     (pt_next_id[5:0] == 6'd11) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd11 ||
 		 imem$D_OUT_1[21:16] == 6'd11) ?
 		  32'h0 :
-		  ptTable[383:352]) ;
+		  ptTable_arr[11]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_12_416_THE_ETC___d2739 =
 	     (pt_next_id[5:0] == 6'd12) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd12) ? 32'h0 : ptTable[415:384]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd12) ? 32'h0 : ptTable_arr[12]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_12_416_THE_ETC___d3041 =
 	     (pt_next_id[5:0] == 6'd12) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd12 ||
 		 imem$D_OUT_1[21:16] == 6'd12) ?
 		  32'h0 :
-		  ptTable[415:384]) ;
+		  ptTable_arr[12]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_13_414_THE_ETC___d2734 =
 	     (pt_next_id[5:0] == 6'd13) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd13) ? 32'h0 : ptTable[447:416]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd13) ? 32'h0 : ptTable_arr[13]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_13_414_THE_ETC___d3037 =
 	     (pt_next_id[5:0] == 6'd13) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd13 ||
 		 imem$D_OUT_1[21:16] == 6'd13) ?
 		  32'h0 :
-		  ptTable[447:416]) ;
+		  ptTable_arr[13]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_14_411_THE_ETC___d2728 =
 	     (pt_next_id[5:0] == 6'd14) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd14) ? 32'h0 : ptTable[479:448]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd14) ? 32'h0 : ptTable_arr[14]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_14_411_THE_ETC___d3032 =
 	     (pt_next_id[5:0] == 6'd14) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd14 ||
 		 imem$D_OUT_1[21:16] == 6'd14) ?
 		  32'h0 :
-		  ptTable[479:448]) ;
+		  ptTable_arr[14]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_15_409_THE_ETC___d2723 =
 	     (pt_next_id[5:0] == 6'd15) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd15) ? 32'h0 : ptTable[511:480]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd15) ? 32'h0 : ptTable_arr[15]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_15_409_THE_ETC___d3028 =
 	     (pt_next_id[5:0] == 6'd15) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd15 ||
 		 imem$D_OUT_1[21:16] == 6'd15) ?
 		  32'h0 :
-		  ptTable[511:480]) ;
+		  ptTable_arr[15]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_16_406_THE_ETC___d2717 =
 	     (pt_next_id[5:0] == 6'd16) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd16) ? 32'h0 : ptTable[543:512]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd16) ? 32'h0 : ptTable_arr[16]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_16_406_THE_ETC___d3023 =
 	     (pt_next_id[5:0] == 6'd16) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd16 ||
 		 imem$D_OUT_1[21:16] == 6'd16) ?
 		  32'h0 :
-		  ptTable[543:512]) ;
+		  ptTable_arr[16]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_17_404_THE_ETC___d2712 =
 	     (pt_next_id[5:0] == 6'd17) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd17) ? 32'h0 : ptTable[575:544]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd17) ? 32'h0 : ptTable_arr[17]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_17_404_THE_ETC___d3019 =
 	     (pt_next_id[5:0] == 6'd17) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd17 ||
 		 imem$D_OUT_1[21:16] == 6'd17) ?
 		  32'h0 :
-		  ptTable[575:544]) ;
+		  ptTable_arr[17]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_18_401_THE_ETC___d2706 =
 	     (pt_next_id[5:0] == 6'd18) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd18) ? 32'h0 : ptTable[607:576]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd18) ? 32'h0 : ptTable_arr[18]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_18_401_THE_ETC___d3014 =
 	     (pt_next_id[5:0] == 6'd18) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd18 ||
 		 imem$D_OUT_1[21:16] == 6'd18) ?
 		  32'h0 :
-		  ptTable[607:576]) ;
+		  ptTable_arr[18]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_19_399_THE_ETC___d2701 =
 	     (pt_next_id[5:0] == 6'd19) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd19) ? 32'h0 : ptTable[639:608]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd19) ? 32'h0 : ptTable_arr[19]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_19_399_THE_ETC___d3010 =
 	     (pt_next_id[5:0] == 6'd19) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd19 ||
 		 imem$D_OUT_1[21:16] == 6'd19) ?
 		  32'h0 :
-		  ptTable[639:608]) ;
+		  ptTable_arr[19]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_1_444_THEN_ETC___d2800 =
 	     (pt_next_id[5:0] == 6'd1) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd1) ? 32'h0 : ptTable[63:32]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd1) ? 32'h0 : ptTable_arr[1]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_1_444_THEN_ETC___d3091 =
 	     (pt_next_id[5:0] == 6'd1) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd1 || imem$D_OUT_1[21:16] == 6'd1) ?
 		  32'h0 :
-		  ptTable[63:32]) ;
+		  ptTable_arr[1]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_20_396_THE_ETC___d2695 =
 	     (pt_next_id[5:0] == 6'd20) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd20) ? 32'h0 : ptTable[671:640]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd20) ? 32'h0 : ptTable_arr[20]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_20_396_THE_ETC___d3005 =
 	     (pt_next_id[5:0] == 6'd20) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd20 ||
 		 imem$D_OUT_1[21:16] == 6'd20) ?
 		  32'h0 :
-		  ptTable[671:640]) ;
+		  ptTable_arr[20]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_21_394_THE_ETC___d2690 =
 	     (pt_next_id[5:0] == 6'd21) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd21) ? 32'h0 : ptTable[703:672]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd21) ? 32'h0 : ptTable_arr[21]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_21_394_THE_ETC___d3001 =
 	     (pt_next_id[5:0] == 6'd21) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd21 ||
 		 imem$D_OUT_1[21:16] == 6'd21) ?
 		  32'h0 :
-		  ptTable[703:672]) ;
+		  ptTable_arr[21]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_22_391_THE_ETC___d2684 =
 	     (pt_next_id[5:0] == 6'd22) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd22) ? 32'h0 : ptTable[735:704]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd22) ? 32'h0 : ptTable_arr[22]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_22_391_THE_ETC___d2996 =
 	     (pt_next_id[5:0] == 6'd22) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd22 ||
 		 imem$D_OUT_1[21:16] == 6'd22) ?
 		  32'h0 :
-		  ptTable[735:704]) ;
+		  ptTable_arr[22]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_23_389_THE_ETC___d2679 =
 	     (pt_next_id[5:0] == 6'd23) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd23) ? 32'h0 : ptTable[767:736]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd23) ? 32'h0 : ptTable_arr[23]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_23_389_THE_ETC___d2992 =
 	     (pt_next_id[5:0] == 6'd23) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd23 ||
 		 imem$D_OUT_1[21:16] == 6'd23) ?
 		  32'h0 :
-		  ptTable[767:736]) ;
+		  ptTable_arr[23]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_24_386_THE_ETC___d2673 =
 	     (pt_next_id[5:0] == 6'd24) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd24) ? 32'h0 : ptTable[799:768]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd24) ? 32'h0 : ptTable_arr[24]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_24_386_THE_ETC___d2987 =
 	     (pt_next_id[5:0] == 6'd24) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd24 ||
 		 imem$D_OUT_1[21:16] == 6'd24) ?
 		  32'h0 :
-		  ptTable[799:768]) ;
+		  ptTable_arr[24]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_25_384_THE_ETC___d2668 =
 	     (pt_next_id[5:0] == 6'd25) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd25) ? 32'h0 : ptTable[831:800]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd25) ? 32'h0 : ptTable_arr[25]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_25_384_THE_ETC___d2983 =
 	     (pt_next_id[5:0] == 6'd25) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd25 ||
 		 imem$D_OUT_1[21:16] == 6'd25) ?
 		  32'h0 :
-		  ptTable[831:800]) ;
+		  ptTable_arr[25]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_26_381_THE_ETC___d2662 =
 	     (pt_next_id[5:0] == 6'd26) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd26) ? 32'h0 : ptTable[863:832]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd26) ? 32'h0 : ptTable_arr[26]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_26_381_THE_ETC___d2978 =
 	     (pt_next_id[5:0] == 6'd26) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd26 ||
 		 imem$D_OUT_1[21:16] == 6'd26) ?
 		  32'h0 :
-		  ptTable[863:832]) ;
+		  ptTable_arr[26]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_27_379_THE_ETC___d2657 =
 	     (pt_next_id[5:0] == 6'd27) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd27) ? 32'h0 : ptTable[895:864]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd27) ? 32'h0 : ptTable_arr[27]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_27_379_THE_ETC___d2974 =
 	     (pt_next_id[5:0] == 6'd27) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd27 ||
 		 imem$D_OUT_1[21:16] == 6'd27) ?
 		  32'h0 :
-		  ptTable[895:864]) ;
+		  ptTable_arr[27]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_28_376_THE_ETC___d2651 =
 	     (pt_next_id[5:0] == 6'd28) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd28) ? 32'h0 : ptTable[927:896]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd28) ? 32'h0 : ptTable_arr[28]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_28_376_THE_ETC___d2969 =
 	     (pt_next_id[5:0] == 6'd28) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd28 ||
 		 imem$D_OUT_1[21:16] == 6'd28) ?
 		  32'h0 :
-		  ptTable[927:896]) ;
+		  ptTable_arr[28]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_29_374_THE_ETC___d2646 =
 	     (pt_next_id[5:0] == 6'd29) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd29) ? 32'h0 : ptTable[959:928]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd29) ? 32'h0 : ptTable_arr[29]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_29_374_THE_ETC___d2965 =
 	     (pt_next_id[5:0] == 6'd29) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd29 ||
 		 imem$D_OUT_1[21:16] == 6'd29) ?
 		  32'h0 :
-		  ptTable[959:928]) ;
+		  ptTable_arr[29]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_2_441_THEN_ETC___d2794 =
 	     (pt_next_id[5:0] == 6'd2) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd2) ? 32'h0 : ptTable[95:64]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd2) ? 32'h0 : ptTable_arr[2]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_2_441_THEN_ETC___d3086 =
 	     (pt_next_id[5:0] == 6'd2) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd2 || imem$D_OUT_1[21:16] == 6'd2) ?
 		  32'h0 :
-		  ptTable[95:64]) ;
+		  ptTable_arr[2]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_30_371_THE_ETC___d2640 =
 	     (pt_next_id[5:0] == 6'd30) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd30) ? 32'h0 : ptTable[991:960]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd30) ? 32'h0 : ptTable_arr[30]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_30_371_THE_ETC___d2960 =
 	     (pt_next_id[5:0] == 6'd30) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd30 ||
 		 imem$D_OUT_1[21:16] == 6'd30) ?
 		  32'h0 :
-		  ptTable[991:960]) ;
+		  ptTable_arr[30]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_31_369_THE_ETC___d2635 =
 	     (pt_next_id[5:0] == 6'd31) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd31) ? 32'h0 : ptTable[1023:992]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd31) ? 32'h0 : ptTable_arr[31]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_31_369_THE_ETC___d2956 =
 	     (pt_next_id[5:0] == 6'd31) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd31 ||
 		 imem$D_OUT_1[21:16] == 6'd31) ?
 		  32'h0 :
-		  ptTable[1023:992]) ;
+		  ptTable_arr[31]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_32_366_THE_ETC___d2629 =
 	     (pt_next_id[5:0] == 6'd32) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd32) ? 32'h0 : ptTable[1055:1024]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd32) ? 32'h0 : ptTable_arr[32]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_32_366_THE_ETC___d2951 =
 	     (pt_next_id[5:0] == 6'd32) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd32 ||
 		 imem$D_OUT_1[21:16] == 6'd32) ?
 		  32'h0 :
-		  ptTable[1055:1024]) ;
+		  ptTable_arr[32]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_33_364_THE_ETC___d2624 =
 	     (pt_next_id[5:0] == 6'd33) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd33) ? 32'h0 : ptTable[1087:1056]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd33) ? 32'h0 : ptTable_arr[33]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_33_364_THE_ETC___d2947 =
 	     (pt_next_id[5:0] == 6'd33) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd33 ||
 		 imem$D_OUT_1[21:16] == 6'd33) ?
 		  32'h0 :
-		  ptTable[1087:1056]) ;
+		  ptTable_arr[33]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_34_361_THE_ETC___d2618 =
 	     (pt_next_id[5:0] == 6'd34) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd34) ? 32'h0 : ptTable[1119:1088]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd34) ? 32'h0 : ptTable_arr[34]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_34_361_THE_ETC___d2942 =
 	     (pt_next_id[5:0] == 6'd34) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd34 ||
 		 imem$D_OUT_1[21:16] == 6'd34) ?
 		  32'h0 :
-		  ptTable[1119:1088]) ;
+		  ptTable_arr[34]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_35_359_THE_ETC___d2613 =
 	     (pt_next_id[5:0] == 6'd35) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd35) ? 32'h0 : ptTable[1151:1120]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd35) ? 32'h0 : ptTable_arr[35]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_35_359_THE_ETC___d2938 =
 	     (pt_next_id[5:0] == 6'd35) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd35 ||
 		 imem$D_OUT_1[21:16] == 6'd35) ?
 		  32'h0 :
-		  ptTable[1151:1120]) ;
+		  ptTable_arr[35]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_36_356_THE_ETC___d2607 =
 	     (pt_next_id[5:0] == 6'd36) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd36) ? 32'h0 : ptTable[1183:1152]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd36) ? 32'h0 : ptTable_arr[36]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_36_356_THE_ETC___d2933 =
 	     (pt_next_id[5:0] == 6'd36) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd36 ||
 		 imem$D_OUT_1[21:16] == 6'd36) ?
 		  32'h0 :
-		  ptTable[1183:1152]) ;
+		  ptTable_arr[36]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_37_354_THE_ETC___d2602 =
 	     (pt_next_id[5:0] == 6'd37) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd37) ? 32'h0 : ptTable[1215:1184]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd37) ? 32'h0 : ptTable_arr[37]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_37_354_THE_ETC___d2929 =
 	     (pt_next_id[5:0] == 6'd37) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd37 ||
 		 imem$D_OUT_1[21:16] == 6'd37) ?
 		  32'h0 :
-		  ptTable[1215:1184]) ;
+		  ptTable_arr[37]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_38_351_THE_ETC___d2596 =
 	     (pt_next_id[5:0] == 6'd38) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd38) ? 32'h0 : ptTable[1247:1216]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd38) ? 32'h0 : ptTable_arr[38]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_38_351_THE_ETC___d2924 =
 	     (pt_next_id[5:0] == 6'd38) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd38 ||
 		 imem$D_OUT_1[21:16] == 6'd38) ?
 		  32'h0 :
-		  ptTable[1247:1216]) ;
+		  ptTable_arr[38]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_39_349_THE_ETC___d2591 =
 	     (pt_next_id[5:0] == 6'd39) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd39) ? 32'h0 : ptTable[1279:1248]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd39) ? 32'h0 : ptTable_arr[39]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_39_349_THE_ETC___d2920 =
 	     (pt_next_id[5:0] == 6'd39) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd39 ||
 		 imem$D_OUT_1[21:16] == 6'd39) ?
 		  32'h0 :
-		  ptTable[1279:1248]) ;
+		  ptTable_arr[39]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_3_439_THEN_ETC___d2789 =
 	     (pt_next_id[5:0] == 6'd3) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd3) ? 32'h0 : ptTable[127:96]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd3) ? 32'h0 : ptTable_arr[3]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_3_439_THEN_ETC___d3082 =
 	     (pt_next_id[5:0] == 6'd3) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd3 || imem$D_OUT_1[21:16] == 6'd3) ?
 		  32'h0 :
-		  ptTable[127:96]) ;
+		  ptTable_arr[3]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_40_346_THE_ETC___d2585 =
 	     (pt_next_id[5:0] == 6'd40) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd40) ? 32'h0 : ptTable[1311:1280]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd40) ? 32'h0 : ptTable_arr[40]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_40_346_THE_ETC___d2915 =
 	     (pt_next_id[5:0] == 6'd40) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd40 ||
 		 imem$D_OUT_1[21:16] == 6'd40) ?
 		  32'h0 :
-		  ptTable[1311:1280]) ;
+		  ptTable_arr[40]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_41_344_THE_ETC___d2580 =
 	     (pt_next_id[5:0] == 6'd41) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd41) ? 32'h0 : ptTable[1343:1312]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd41) ? 32'h0 : ptTable_arr[41]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_41_344_THE_ETC___d2911 =
 	     (pt_next_id[5:0] == 6'd41) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd41 ||
 		 imem$D_OUT_1[21:16] == 6'd41) ?
 		  32'h0 :
-		  ptTable[1343:1312]) ;
+		  ptTable_arr[41]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_42_341_THE_ETC___d2574 =
 	     (pt_next_id[5:0] == 6'd42) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd42) ? 32'h0 : ptTable[1375:1344]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd42) ? 32'h0 : ptTable_arr[42]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_42_341_THE_ETC___d2906 =
 	     (pt_next_id[5:0] == 6'd42) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd42 ||
 		 imem$D_OUT_1[21:16] == 6'd42) ?
 		  32'h0 :
-		  ptTable[1375:1344]) ;
+		  ptTable_arr[42]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_43_339_THE_ETC___d2569 =
 	     (pt_next_id[5:0] == 6'd43) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd43) ? 32'h0 : ptTable[1407:1376]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd43) ? 32'h0 : ptTable_arr[43]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_43_339_THE_ETC___d2902 =
 	     (pt_next_id[5:0] == 6'd43) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd43 ||
 		 imem$D_OUT_1[21:16] == 6'd43) ?
 		  32'h0 :
-		  ptTable[1407:1376]) ;
+		  ptTable_arr[43]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_44_336_THE_ETC___d2563 =
 	     (pt_next_id[5:0] == 6'd44) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd44) ? 32'h0 : ptTable[1439:1408]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd44) ? 32'h0 : ptTable_arr[44]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_44_336_THE_ETC___d2897 =
 	     (pt_next_id[5:0] == 6'd44) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd44 ||
 		 imem$D_OUT_1[21:16] == 6'd44) ?
 		  32'h0 :
-		  ptTable[1439:1408]) ;
+		  ptTable_arr[44]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_45_334_THE_ETC___d2558 =
 	     (pt_next_id[5:0] == 6'd45) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd45) ? 32'h0 : ptTable[1471:1440]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd45) ? 32'h0 : ptTable_arr[45]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_45_334_THE_ETC___d2893 =
 	     (pt_next_id[5:0] == 6'd45) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd45 ||
 		 imem$D_OUT_1[21:16] == 6'd45) ?
 		  32'h0 :
-		  ptTable[1471:1440]) ;
+		  ptTable_arr[45]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_46_331_THE_ETC___d2552 =
 	     (pt_next_id[5:0] == 6'd46) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd46) ? 32'h0 : ptTable[1503:1472]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd46) ? 32'h0 : ptTable_arr[46]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_46_331_THE_ETC___d2888 =
 	     (pt_next_id[5:0] == 6'd46) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd46 ||
 		 imem$D_OUT_1[21:16] == 6'd46) ?
 		  32'h0 :
-		  ptTable[1503:1472]) ;
+		  ptTable_arr[46]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_47_329_THE_ETC___d2547 =
 	     (pt_next_id[5:0] == 6'd47) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd47) ? 32'h0 : ptTable[1535:1504]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd47) ? 32'h0 : ptTable_arr[47]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_47_329_THE_ETC___d2884 =
 	     (pt_next_id[5:0] == 6'd47) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd47 ||
 		 imem$D_OUT_1[21:16] == 6'd47) ?
 		  32'h0 :
-		  ptTable[1535:1504]) ;
+		  ptTable_arr[47]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_48_326_THE_ETC___d2541 =
 	     (pt_next_id[5:0] == 6'd48) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd48) ? 32'h0 : ptTable[1567:1536]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd48) ? 32'h0 : ptTable_arr[48]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_48_326_THE_ETC___d2879 =
 	     (pt_next_id[5:0] == 6'd48) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd48 ||
 		 imem$D_OUT_1[21:16] == 6'd48) ?
 		  32'h0 :
-		  ptTable[1567:1536]) ;
+		  ptTable_arr[48]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_49_324_THE_ETC___d2536 =
 	     (pt_next_id[5:0] == 6'd49) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd49) ? 32'h0 : ptTable[1599:1568]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd49) ? 32'h0 : ptTable_arr[49]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_49_324_THE_ETC___d2875 =
 	     (pt_next_id[5:0] == 6'd49) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd49 ||
 		 imem$D_OUT_1[21:16] == 6'd49) ?
 		  32'h0 :
-		  ptTable[1599:1568]) ;
+		  ptTable_arr[49]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_4_436_THEN_ETC___d2783 =
 	     (pt_next_id[5:0] == 6'd4) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd4) ? 32'h0 : ptTable[159:128]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd4) ? 32'h0 : ptTable_arr[4]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_4_436_THEN_ETC___d3077 =
 	     (pt_next_id[5:0] == 6'd4) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd4 || imem$D_OUT_1[21:16] == 6'd4) ?
 		  32'h0 :
-		  ptTable[159:128]) ;
+		  ptTable_arr[4]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_50_321_THE_ETC___d2530 =
 	     (pt_next_id[5:0] == 6'd50) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd50) ? 32'h0 : ptTable[1631:1600]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd50) ? 32'h0 : ptTable_arr[50]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_50_321_THE_ETC___d2870 =
 	     (pt_next_id[5:0] == 6'd50) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd50 ||
 		 imem$D_OUT_1[21:16] == 6'd50) ?
 		  32'h0 :
-		  ptTable[1631:1600]) ;
+		  ptTable_arr[50]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_51_319_THE_ETC___d2525 =
 	     (pt_next_id[5:0] == 6'd51) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd51) ? 32'h0 : ptTable[1663:1632]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd51) ? 32'h0 : ptTable_arr[51]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_51_319_THE_ETC___d2866 =
 	     (pt_next_id[5:0] == 6'd51) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd51 ||
 		 imem$D_OUT_1[21:16] == 6'd51) ?
 		  32'h0 :
-		  ptTable[1663:1632]) ;
+		  ptTable_arr[51]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_52_316_THE_ETC___d2519 =
 	     (pt_next_id[5:0] == 6'd52) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd52) ? 32'h0 : ptTable[1695:1664]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd52) ? 32'h0 : ptTable_arr[52]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_52_316_THE_ETC___d2861 =
 	     (pt_next_id[5:0] == 6'd52) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd52 ||
 		 imem$D_OUT_1[21:16] == 6'd52) ?
 		  32'h0 :
-		  ptTable[1695:1664]) ;
+		  ptTable_arr[52]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_53_314_THE_ETC___d2514 =
 	     (pt_next_id[5:0] == 6'd53) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd53) ? 32'h0 : ptTable[1727:1696]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd53) ? 32'h0 : ptTable_arr[53]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_53_314_THE_ETC___d2857 =
 	     (pt_next_id[5:0] == 6'd53) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd53 ||
 		 imem$D_OUT_1[21:16] == 6'd53) ?
 		  32'h0 :
-		  ptTable[1727:1696]) ;
+		  ptTable_arr[53]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_54_311_THE_ETC___d2508 =
 	     (pt_next_id[5:0] == 6'd54) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd54) ? 32'h0 : ptTable[1759:1728]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd54) ? 32'h0 : ptTable_arr[54]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_54_311_THE_ETC___d2852 =
 	     (pt_next_id[5:0] == 6'd54) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd54 ||
 		 imem$D_OUT_1[21:16] == 6'd54) ?
 		  32'h0 :
-		  ptTable[1759:1728]) ;
+		  ptTable_arr[54]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_55_309_THE_ETC___d2503 =
 	     (pt_next_id[5:0] == 6'd55) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd55) ? 32'h0 : ptTable[1791:1760]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd55) ? 32'h0 : ptTable_arr[55]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_55_309_THE_ETC___d2848 =
 	     (pt_next_id[5:0] == 6'd55) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd55 ||
 		 imem$D_OUT_1[21:16] == 6'd55) ?
 		  32'h0 :
-		  ptTable[1791:1760]) ;
+		  ptTable_arr[55]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_56_306_THE_ETC___d2497 =
 	     (pt_next_id[5:0] == 6'd56) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd56) ? 32'h0 : ptTable[1823:1792]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd56) ? 32'h0 : ptTable_arr[56]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_56_306_THE_ETC___d2843 =
 	     (pt_next_id[5:0] == 6'd56) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd56 ||
 		 imem$D_OUT_1[21:16] == 6'd56) ?
 		  32'h0 :
-		  ptTable[1823:1792]) ;
+		  ptTable_arr[56]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_57_304_THE_ETC___d2492 =
 	     (pt_next_id[5:0] == 6'd57) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd57) ? 32'h0 : ptTable[1855:1824]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd57) ? 32'h0 : ptTable_arr[57]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_57_304_THE_ETC___d2839 =
 	     (pt_next_id[5:0] == 6'd57) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd57 ||
 		 imem$D_OUT_1[21:16] == 6'd57) ?
 		  32'h0 :
-		  ptTable[1855:1824]) ;
+		  ptTable_arr[57]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_58_301_THE_ETC___d2486 =
 	     (pt_next_id[5:0] == 6'd58) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd58) ? 32'h0 : ptTable[1887:1856]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd58) ? 32'h0 : ptTable_arr[58]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_58_301_THE_ETC___d2834 =
 	     (pt_next_id[5:0] == 6'd58) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd58 ||
 		 imem$D_OUT_1[21:16] == 6'd58) ?
 		  32'h0 :
-		  ptTable[1887:1856]) ;
+		  ptTable_arr[58]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_59_299_THE_ETC___d2481 =
 	     (pt_next_id[5:0] == 6'd59) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd59) ? 32'h0 : ptTable[1919:1888]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd59) ? 32'h0 : ptTable_arr[59]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_59_299_THE_ETC___d2830 =
 	     (pt_next_id[5:0] == 6'd59) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd59 ||
 		 imem$D_OUT_1[21:16] == 6'd59) ?
 		  32'h0 :
-		  ptTable[1919:1888]) ;
+		  ptTable_arr[59]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_5_434_THEN_ETC___d2778 =
 	     (pt_next_id[5:0] == 6'd5) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd5) ? 32'h0 : ptTable[191:160]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd5) ? 32'h0 : ptTable_arr[5]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_5_434_THEN_ETC___d3073 =
 	     (pt_next_id[5:0] == 6'd5) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd5 || imem$D_OUT_1[21:16] == 6'd5) ?
 		  32'h0 :
-		  ptTable[191:160]) ;
+		  ptTable_arr[5]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_60_296_THE_ETC___d2475 =
 	     (pt_next_id[5:0] == 6'd60) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd60) ? 32'h0 : ptTable[1951:1920]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd60) ? 32'h0 : ptTable_arr[60]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_60_296_THE_ETC___d2825 =
 	     (pt_next_id[5:0] == 6'd60) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd60 ||
 		 imem$D_OUT_1[21:16] == 6'd60) ?
 		  32'h0 :
-		  ptTable[1951:1920]) ;
+		  ptTable_arr[60]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_61_294_THE_ETC___d2470 =
 	     (pt_next_id[5:0] == 6'd61) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd61) ? 32'h0 : ptTable[1983:1952]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd61) ? 32'h0 : ptTable_arr[61]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_61_294_THE_ETC___d2821 =
 	     (pt_next_id[5:0] == 6'd61) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd61 ||
 		 imem$D_OUT_1[21:16] == 6'd61) ?
 		  32'h0 :
-		  ptTable[1983:1952]) ;
+		  ptTable_arr[61]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_62_291_THE_ETC___d2464 =
 	     (pt_next_id[5:0] == 6'd62) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd62) ? 32'h0 : ptTable[2015:1984]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd62) ? 32'h0 : ptTable_arr[62]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_62_291_THE_ETC___d2816 =
 	     (pt_next_id[5:0] == 6'd62) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd62 ||
 		 imem$D_OUT_1[21:16] == 6'd62) ?
 		  32'h0 :
-		  ptTable[2015:1984]) ;
+		  ptTable_arr[62]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2298 =
 	     { (pt_next_id[5:0] == 6'd63) ?
 		 x_436__h57805 :
-		 ptTable[2047:2016],
+		 ptTable_arr[63],
 	       (pt_next_id[5:0] == 6'd62) ?
 		 x_436__h57805 :
-		 ptTable[2015:1984],
+		 ptTable_arr[62],
 	       (pt_next_id[5:0] == 6'd61) ?
 		 x_436__h57805 :
-		 ptTable[1983:1952],
+		 ptTable_arr[61],
 	       (pt_next_id[5:0] == 6'd60) ?
 		 x_436__h57805 :
-		 ptTable[1951:1920] } ;
+		 ptTable_arr[60] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2303 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2298,
 	       (pt_next_id[5:0] == 6'd59) ?
 		 x_436__h57805 :
-		 ptTable[1919:1888],
+		 ptTable_arr[59],
 	       (pt_next_id[5:0] == 6'd58) ?
 		 x_436__h57805 :
-		 ptTable[1887:1856] } ;
+		 ptTable_arr[58] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2308 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2303,
 	       (pt_next_id[5:0] == 6'd57) ?
 		 x_436__h57805 :
-		 ptTable[1855:1824],
+		 ptTable_arr[57],
 	       (pt_next_id[5:0] == 6'd56) ?
 		 x_436__h57805 :
-		 ptTable[1823:1792] } ;
+		 ptTable_arr[56] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2313 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2308,
 	       (pt_next_id[5:0] == 6'd55) ?
 		 x_436__h57805 :
-		 ptTable[1791:1760],
+		 ptTable_arr[55],
 	       (pt_next_id[5:0] == 6'd54) ?
 		 x_436__h57805 :
-		 ptTable[1759:1728] } ;
+		 ptTable_arr[54] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2318 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2313,
 	       (pt_next_id[5:0] == 6'd53) ?
 		 x_436__h57805 :
-		 ptTable[1727:1696],
+		 ptTable_arr[53],
 	       (pt_next_id[5:0] == 6'd52) ?
 		 x_436__h57805 :
-		 ptTable[1695:1664] } ;
+		 ptTable_arr[52] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2323 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2318,
 	       (pt_next_id[5:0] == 6'd51) ?
 		 x_436__h57805 :
-		 ptTable[1663:1632],
+		 ptTable_arr[51],
 	       (pt_next_id[5:0] == 6'd50) ?
 		 x_436__h57805 :
-		 ptTable[1631:1600] } ;
+		 ptTable_arr[50] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2328 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2323,
 	       (pt_next_id[5:0] == 6'd49) ?
 		 x_436__h57805 :
-		 ptTable[1599:1568],
+		 ptTable_arr[49],
 	       (pt_next_id[5:0] == 6'd48) ?
 		 x_436__h57805 :
-		 ptTable[1567:1536] } ;
+		 ptTable_arr[48] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2333 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2328,
 	       (pt_next_id[5:0] == 6'd47) ?
 		 x_436__h57805 :
-		 ptTable[1535:1504],
+		 ptTable_arr[47],
 	       (pt_next_id[5:0] == 6'd46) ?
 		 x_436__h57805 :
-		 ptTable[1503:1472] } ;
+		 ptTable_arr[46] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2338 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2333,
 	       (pt_next_id[5:0] == 6'd45) ?
 		 x_436__h57805 :
-		 ptTable[1471:1440],
+		 ptTable_arr[45],
 	       (pt_next_id[5:0] == 6'd44) ?
 		 x_436__h57805 :
-		 ptTable[1439:1408] } ;
+		 ptTable_arr[44] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2343 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2338,
 	       (pt_next_id[5:0] == 6'd43) ?
 		 x_436__h57805 :
-		 ptTable[1407:1376],
+		 ptTable_arr[43],
 	       (pt_next_id[5:0] == 6'd42) ?
 		 x_436__h57805 :
-		 ptTable[1375:1344] } ;
+		 ptTable_arr[42] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2348 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2343,
 	       (pt_next_id[5:0] == 6'd41) ?
 		 x_436__h57805 :
-		 ptTable[1343:1312],
+		 ptTable_arr[41],
 	       (pt_next_id[5:0] == 6'd40) ?
 		 x_436__h57805 :
-		 ptTable[1311:1280] } ;
+		 ptTable_arr[40] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2353 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2348,
 	       (pt_next_id[5:0] == 6'd39) ?
 		 x_436__h57805 :
-		 ptTable[1279:1248],
+		 ptTable_arr[39],
 	       (pt_next_id[5:0] == 6'd38) ?
 		 x_436__h57805 :
-		 ptTable[1247:1216] } ;
+		 ptTable_arr[38] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2358 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2353,
 	       (pt_next_id[5:0] == 6'd37) ?
 		 x_436__h57805 :
-		 ptTable[1215:1184],
+		 ptTable_arr[37],
 	       (pt_next_id[5:0] == 6'd36) ?
 		 x_436__h57805 :
-		 ptTable[1183:1152] } ;
+		 ptTable_arr[36] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2363 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2358,
 	       (pt_next_id[5:0] == 6'd35) ?
 		 x_436__h57805 :
-		 ptTable[1151:1120],
+		 ptTable_arr[35],
 	       (pt_next_id[5:0] == 6'd34) ?
 		 x_436__h57805 :
-		 ptTable[1119:1088] } ;
+		 ptTable_arr[34] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2368 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2363,
 	       (pt_next_id[5:0] == 6'd33) ?
 		 x_436__h57805 :
-		 ptTable[1087:1056],
+		 ptTable_arr[33],
 	       (pt_next_id[5:0] == 6'd32) ?
 		 x_436__h57805 :
-		 ptTable[1055:1024] } ;
+		 ptTable_arr[32] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2373 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2368,
-	       (pt_next_id[5:0] == 6'd31) ? x_436__h57805 : ptTable[1023:992],
+	       (pt_next_id[5:0] == 6'd31) ? x_436__h57805 : ptTable_arr[31],
 	       (pt_next_id[5:0] == 6'd30) ?
 		 x_436__h57805 :
-		 ptTable[991:960] } ;
+		 ptTable_arr[30] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2378 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2373,
-	       (pt_next_id[5:0] == 6'd29) ? x_436__h57805 : ptTable[959:928],
+	       (pt_next_id[5:0] == 6'd29) ? x_436__h57805 : ptTable_arr[29],
 	       (pt_next_id[5:0] == 6'd28) ?
 		 x_436__h57805 :
-		 ptTable[927:896] } ;
+		 ptTable_arr[28] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2383 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2378,
-	       (pt_next_id[5:0] == 6'd27) ? x_436__h57805 : ptTable[895:864],
+	       (pt_next_id[5:0] == 6'd27) ? x_436__h57805 : ptTable_arr[27],
 	       (pt_next_id[5:0] == 6'd26) ?
 		 x_436__h57805 :
-		 ptTable[863:832] } ;
+		 ptTable_arr[26] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2388 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2383,
-	       (pt_next_id[5:0] == 6'd25) ? x_436__h57805 : ptTable[831:800],
+	       (pt_next_id[5:0] == 6'd25) ? x_436__h57805 : ptTable_arr[25],
 	       (pt_next_id[5:0] == 6'd24) ?
 		 x_436__h57805 :
-		 ptTable[799:768] } ;
+		 ptTable_arr[24] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2393 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2388,
-	       (pt_next_id[5:0] == 6'd23) ? x_436__h57805 : ptTable[767:736],
+	       (pt_next_id[5:0] == 6'd23) ? x_436__h57805 : ptTable_arr[23],
 	       (pt_next_id[5:0] == 6'd22) ?
 		 x_436__h57805 :
-		 ptTable[735:704] } ;
+		 ptTable_arr[22] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2398 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2393,
-	       (pt_next_id[5:0] == 6'd21) ? x_436__h57805 : ptTable[703:672],
+	       (pt_next_id[5:0] == 6'd21) ? x_436__h57805 : ptTable_arr[21],
 	       (pt_next_id[5:0] == 6'd20) ?
 		 x_436__h57805 :
-		 ptTable[671:640] } ;
+		 ptTable_arr[20] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2403 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2398,
-	       (pt_next_id[5:0] == 6'd19) ? x_436__h57805 : ptTable[639:608],
+	       (pt_next_id[5:0] == 6'd19) ? x_436__h57805 : ptTable_arr[19],
 	       (pt_next_id[5:0] == 6'd18) ?
 		 x_436__h57805 :
-		 ptTable[607:576] } ;
+		 ptTable_arr[18] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2408 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2403,
-	       (pt_next_id[5:0] == 6'd17) ? x_436__h57805 : ptTable[575:544],
+	       (pt_next_id[5:0] == 6'd17) ? x_436__h57805 : ptTable_arr[17],
 	       (pt_next_id[5:0] == 6'd16) ?
 		 x_436__h57805 :
-		 ptTable[543:512] } ;
+		 ptTable_arr[16] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2413 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2408,
-	       (pt_next_id[5:0] == 6'd15) ? x_436__h57805 : ptTable[511:480],
+	       (pt_next_id[5:0] == 6'd15) ? x_436__h57805 : ptTable_arr[15],
 	       (pt_next_id[5:0] == 6'd14) ?
 		 x_436__h57805 :
-		 ptTable[479:448] } ;
+		 ptTable_arr[14] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2418 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2413,
-	       (pt_next_id[5:0] == 6'd13) ? x_436__h57805 : ptTable[447:416],
+	       (pt_next_id[5:0] == 6'd13) ? x_436__h57805 : ptTable_arr[13],
 	       (pt_next_id[5:0] == 6'd12) ?
 		 x_436__h57805 :
-		 ptTable[415:384] } ;
+		 ptTable_arr[12] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2423 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2418,
-	       (pt_next_id[5:0] == 6'd11) ? x_436__h57805 : ptTable[383:352],
+	       (pt_next_id[5:0] == 6'd11) ? x_436__h57805 : ptTable_arr[11],
 	       (pt_next_id[5:0] == 6'd10) ?
 		 x_436__h57805 :
-		 ptTable[351:320] } ;
+		 ptTable_arr[10] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2428 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2423,
-	       (pt_next_id[5:0] == 6'd9) ? x_436__h57805 : ptTable[319:288],
+	       (pt_next_id[5:0] == 6'd9) ? x_436__h57805 : ptTable_arr[9],
 	       (pt_next_id[5:0] == 6'd8) ?
 		 x_436__h57805 :
-		 ptTable[287:256] } ;
+		 ptTable_arr[8] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2433 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2428,
-	       (pt_next_id[5:0] == 6'd7) ? x_436__h57805 : ptTable[255:224],
+	       (pt_next_id[5:0] == 6'd7) ? x_436__h57805 : ptTable_arr[7],
 	       (pt_next_id[5:0] == 6'd6) ?
 		 x_436__h57805 :
-		 ptTable[223:192] } ;
+		 ptTable_arr[6] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2438 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2433,
-	       (pt_next_id[5:0] == 6'd5) ? x_436__h57805 : ptTable[191:160],
+	       (pt_next_id[5:0] == 6'd5) ? x_436__h57805 : ptTable_arr[5],
 	       (pt_next_id[5:0] == 6'd4) ?
 		 x_436__h57805 :
-		 ptTable[159:128] } ;
+		 ptTable_arr[4] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2443 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2438,
-	       (pt_next_id[5:0] == 6'd3) ? x_436__h57805 : ptTable[127:96],
-	       (pt_next_id[5:0] == 6'd2) ? x_436__h57805 : ptTable[95:64] } ;
+	       (pt_next_id[5:0] == 6'd3) ? x_436__h57805 : ptTable_arr[3],
+	       (pt_next_id[5:0] == 6'd2) ? x_436__h57805 : ptTable_arr[2] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2448 =
 	     { IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2443,
-	       (pt_next_id[5:0] == 6'd1) ? x_436__h57805 : ptTable[63:32],
-	       (pt_next_id[5:0] == 6'd0) ? x_436__h57805 : ptTable[31:0] } ;
+	       (pt_next_id[5:0] == 6'd1) ? x_436__h57805 : ptTable_arr[1],
+	       (pt_next_id[5:0] == 6'd0) ? x_436__h57805 : ptTable_arr[0] } ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2459 =
 	     (pt_next_id[5:0] == 6'd63) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd63) ? 32'h0 : ptTable[2047:2016]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd63) ? 32'h0 : ptTable_arr[63]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2812 =
 	     (pt_next_id[5:0] == 6'd63) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd63 ||
 		 imem$D_OUT_1[21:16] == 6'd63) ?
 		  32'h0 :
-		  ptTable[2047:2016]) ;
+		  ptTable_arr[63]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_6_431_THEN_ETC___d2772 =
 	     (pt_next_id[5:0] == 6'd6) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd6) ? 32'h0 : ptTable[223:192]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd6) ? 32'h0 : ptTable_arr[6]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_6_431_THEN_ETC___d3068 =
 	     (pt_next_id[5:0] == 6'd6) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd6 || imem$D_OUT_1[21:16] == 6'd6) ?
 		  32'h0 :
-		  ptTable[223:192]) ;
+		  ptTable_arr[6]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_7_429_THEN_ETC___d2767 =
 	     (pt_next_id[5:0] == 6'd7) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd7) ? 32'h0 : ptTable[255:224]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd7) ? 32'h0 : ptTable_arr[7]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_7_429_THEN_ETC___d3064 =
 	     (pt_next_id[5:0] == 6'd7) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd7 || imem$D_OUT_1[21:16] == 6'd7) ?
 		  32'h0 :
-		  ptTable[255:224]) ;
+		  ptTable_arr[7]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_8_426_THEN_ETC___d2761 =
 	     (pt_next_id[5:0] == 6'd8) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd8) ? 32'h0 : ptTable[287:256]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd8) ? 32'h0 : ptTable_arr[8]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_8_426_THEN_ETC___d3059 =
 	     (pt_next_id[5:0] == 6'd8) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd8 || imem$D_OUT_1[21:16] == 6'd8) ?
 		  32'h0 :
-		  ptTable[287:256]) ;
+		  ptTable_arr[8]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_9_424_THEN_ETC___d2756 =
 	     (pt_next_id[5:0] == 6'd9) ?
 	       x_441__h57810 :
-	       ((imem$D_OUT_1[21:16] == 6'd9) ? 32'h0 : ptTable[319:288]) ;
+	       ((imem$D_OUT_1[21:16] == 6'd9) ? 32'h0 : ptTable_arr[9]) ;
   assign IF_pt_next_id_93_BITS_5_TO_0_287_EQ_9_424_THEN_ETC___d3055 =
 	     (pt_next_id[5:0] == 6'd9) ?
 	       x_451__h57820 :
 	       ((imem$D_OUT_1[13:8] == 6'd9 || imem$D_OUT_1[21:16] == 6'd9) ?
 		  32'h0 :
-		  ptTable[319:288]) ;
+		  ptTable_arr[9]) ;
   assign IF_pt_next_id_93_PLUS_0x1_449_BITS_5_TO_0_450__ETC___d2466 =
 	     { (x_438__h57807[5:0] == 6'd63) ?
 		 x_442__h57811 :
@@ -7797,142 +7803,142 @@ module mkModule1(CLK,
       4'd15: x_145__h57526 = regs[511:480];
     endcase
   end
-  always@(imem$D_OUT_1 or ptTable)
+  always@(*)
   begin
     case (imem$D_OUT_1[13:8])
-      6'd0: x_182__h57563 = ptTable[31:0];
-      6'd1: x_182__h57563 = ptTable[63:32];
-      6'd2: x_182__h57563 = ptTable[95:64];
-      6'd3: x_182__h57563 = ptTable[127:96];
-      6'd4: x_182__h57563 = ptTable[159:128];
-      6'd5: x_182__h57563 = ptTable[191:160];
-      6'd6: x_182__h57563 = ptTable[223:192];
-      6'd7: x_182__h57563 = ptTable[255:224];
-      6'd8: x_182__h57563 = ptTable[287:256];
-      6'd9: x_182__h57563 = ptTable[319:288];
-      6'd10: x_182__h57563 = ptTable[351:320];
-      6'd11: x_182__h57563 = ptTable[383:352];
-      6'd12: x_182__h57563 = ptTable[415:384];
-      6'd13: x_182__h57563 = ptTable[447:416];
-      6'd14: x_182__h57563 = ptTable[479:448];
-      6'd15: x_182__h57563 = ptTable[511:480];
-      6'd16: x_182__h57563 = ptTable[543:512];
-      6'd17: x_182__h57563 = ptTable[575:544];
-      6'd18: x_182__h57563 = ptTable[607:576];
-      6'd19: x_182__h57563 = ptTable[639:608];
-      6'd20: x_182__h57563 = ptTable[671:640];
-      6'd21: x_182__h57563 = ptTable[703:672];
-      6'd22: x_182__h57563 = ptTable[735:704];
-      6'd23: x_182__h57563 = ptTable[767:736];
-      6'd24: x_182__h57563 = ptTable[799:768];
-      6'd25: x_182__h57563 = ptTable[831:800];
-      6'd26: x_182__h57563 = ptTable[863:832];
-      6'd27: x_182__h57563 = ptTable[895:864];
-      6'd28: x_182__h57563 = ptTable[927:896];
-      6'd29: x_182__h57563 = ptTable[959:928];
-      6'd30: x_182__h57563 = ptTable[991:960];
-      6'd31: x_182__h57563 = ptTable[1023:992];
-      6'd32: x_182__h57563 = ptTable[1055:1024];
-      6'd33: x_182__h57563 = ptTable[1087:1056];
-      6'd34: x_182__h57563 = ptTable[1119:1088];
-      6'd35: x_182__h57563 = ptTable[1151:1120];
-      6'd36: x_182__h57563 = ptTable[1183:1152];
-      6'd37: x_182__h57563 = ptTable[1215:1184];
-      6'd38: x_182__h57563 = ptTable[1247:1216];
-      6'd39: x_182__h57563 = ptTable[1279:1248];
-      6'd40: x_182__h57563 = ptTable[1311:1280];
-      6'd41: x_182__h57563 = ptTable[1343:1312];
-      6'd42: x_182__h57563 = ptTable[1375:1344];
-      6'd43: x_182__h57563 = ptTable[1407:1376];
-      6'd44: x_182__h57563 = ptTable[1439:1408];
-      6'd45: x_182__h57563 = ptTable[1471:1440];
-      6'd46: x_182__h57563 = ptTable[1503:1472];
-      6'd47: x_182__h57563 = ptTable[1535:1504];
-      6'd48: x_182__h57563 = ptTable[1567:1536];
-      6'd49: x_182__h57563 = ptTable[1599:1568];
-      6'd50: x_182__h57563 = ptTable[1631:1600];
-      6'd51: x_182__h57563 = ptTable[1663:1632];
-      6'd52: x_182__h57563 = ptTable[1695:1664];
-      6'd53: x_182__h57563 = ptTable[1727:1696];
-      6'd54: x_182__h57563 = ptTable[1759:1728];
-      6'd55: x_182__h57563 = ptTable[1791:1760];
-      6'd56: x_182__h57563 = ptTable[1823:1792];
-      6'd57: x_182__h57563 = ptTable[1855:1824];
-      6'd58: x_182__h57563 = ptTable[1887:1856];
-      6'd59: x_182__h57563 = ptTable[1919:1888];
-      6'd60: x_182__h57563 = ptTable[1951:1920];
-      6'd61: x_182__h57563 = ptTable[1983:1952];
-      6'd62: x_182__h57563 = ptTable[2015:1984];
-      6'd63: x_182__h57563 = ptTable[2047:2016];
+      6'd0: x_182__h57563 = ptTable_arr[0];
+      6'd1: x_182__h57563 = ptTable_arr[1];
+      6'd2: x_182__h57563 = ptTable_arr[2];
+      6'd3: x_182__h57563 = ptTable_arr[3];
+      6'd4: x_182__h57563 = ptTable_arr[4];
+      6'd5: x_182__h57563 = ptTable_arr[5];
+      6'd6: x_182__h57563 = ptTable_arr[6];
+      6'd7: x_182__h57563 = ptTable_arr[7];
+      6'd8: x_182__h57563 = ptTable_arr[8];
+      6'd9: x_182__h57563 = ptTable_arr[9];
+      6'd10: x_182__h57563 = ptTable_arr[10];
+      6'd11: x_182__h57563 = ptTable_arr[11];
+      6'd12: x_182__h57563 = ptTable_arr[12];
+      6'd13: x_182__h57563 = ptTable_arr[13];
+      6'd14: x_182__h57563 = ptTable_arr[14];
+      6'd15: x_182__h57563 = ptTable_arr[15];
+      6'd16: x_182__h57563 = ptTable_arr[16];
+      6'd17: x_182__h57563 = ptTable_arr[17];
+      6'd18: x_182__h57563 = ptTable_arr[18];
+      6'd19: x_182__h57563 = ptTable_arr[19];
+      6'd20: x_182__h57563 = ptTable_arr[20];
+      6'd21: x_182__h57563 = ptTable_arr[21];
+      6'd22: x_182__h57563 = ptTable_arr[22];
+      6'd23: x_182__h57563 = ptTable_arr[23];
+      6'd24: x_182__h57563 = ptTable_arr[24];
+      6'd25: x_182__h57563 = ptTable_arr[25];
+      6'd26: x_182__h57563 = ptTable_arr[26];
+      6'd27: x_182__h57563 = ptTable_arr[27];
+      6'd28: x_182__h57563 = ptTable_arr[28];
+      6'd29: x_182__h57563 = ptTable_arr[29];
+      6'd30: x_182__h57563 = ptTable_arr[30];
+      6'd31: x_182__h57563 = ptTable_arr[31];
+      6'd32: x_182__h57563 = ptTable_arr[32];
+      6'd33: x_182__h57563 = ptTable_arr[33];
+      6'd34: x_182__h57563 = ptTable_arr[34];
+      6'd35: x_182__h57563 = ptTable_arr[35];
+      6'd36: x_182__h57563 = ptTable_arr[36];
+      6'd37: x_182__h57563 = ptTable_arr[37];
+      6'd38: x_182__h57563 = ptTable_arr[38];
+      6'd39: x_182__h57563 = ptTable_arr[39];
+      6'd40: x_182__h57563 = ptTable_arr[40];
+      6'd41: x_182__h57563 = ptTable_arr[41];
+      6'd42: x_182__h57563 = ptTable_arr[42];
+      6'd43: x_182__h57563 = ptTable_arr[43];
+      6'd44: x_182__h57563 = ptTable_arr[44];
+      6'd45: x_182__h57563 = ptTable_arr[45];
+      6'd46: x_182__h57563 = ptTable_arr[46];
+      6'd47: x_182__h57563 = ptTable_arr[47];
+      6'd48: x_182__h57563 = ptTable_arr[48];
+      6'd49: x_182__h57563 = ptTable_arr[49];
+      6'd50: x_182__h57563 = ptTable_arr[50];
+      6'd51: x_182__h57563 = ptTable_arr[51];
+      6'd52: x_182__h57563 = ptTable_arr[52];
+      6'd53: x_182__h57563 = ptTable_arr[53];
+      6'd54: x_182__h57563 = ptTable_arr[54];
+      6'd55: x_182__h57563 = ptTable_arr[55];
+      6'd56: x_182__h57563 = ptTable_arr[56];
+      6'd57: x_182__h57563 = ptTable_arr[57];
+      6'd58: x_182__h57563 = ptTable_arr[58];
+      6'd59: x_182__h57563 = ptTable_arr[59];
+      6'd60: x_182__h57563 = ptTable_arr[60];
+      6'd61: x_182__h57563 = ptTable_arr[61];
+      6'd62: x_182__h57563 = ptTable_arr[62];
+      6'd63: x_182__h57563 = ptTable_arr[63];
     endcase
   end
-  always@(imem$D_OUT_1 or ptTable)
+  always@(*)
   begin
     case (imem$D_OUT_1[21:16])
-      6'd0: x_440__h57809 = ptTable[31:0];
-      6'd1: x_440__h57809 = ptTable[63:32];
-      6'd2: x_440__h57809 = ptTable[95:64];
-      6'd3: x_440__h57809 = ptTable[127:96];
-      6'd4: x_440__h57809 = ptTable[159:128];
-      6'd5: x_440__h57809 = ptTable[191:160];
-      6'd6: x_440__h57809 = ptTable[223:192];
-      6'd7: x_440__h57809 = ptTable[255:224];
-      6'd8: x_440__h57809 = ptTable[287:256];
-      6'd9: x_440__h57809 = ptTable[319:288];
-      6'd10: x_440__h57809 = ptTable[351:320];
-      6'd11: x_440__h57809 = ptTable[383:352];
-      6'd12: x_440__h57809 = ptTable[415:384];
-      6'd13: x_440__h57809 = ptTable[447:416];
-      6'd14: x_440__h57809 = ptTable[479:448];
-      6'd15: x_440__h57809 = ptTable[511:480];
-      6'd16: x_440__h57809 = ptTable[543:512];
-      6'd17: x_440__h57809 = ptTable[575:544];
-      6'd18: x_440__h57809 = ptTable[607:576];
-      6'd19: x_440__h57809 = ptTable[639:608];
-      6'd20: x_440__h57809 = ptTable[671:640];
-      6'd21: x_440__h57809 = ptTable[703:672];
-      6'd22: x_440__h57809 = ptTable[735:704];
-      6'd23: x_440__h57809 = ptTable[767:736];
-      6'd24: x_440__h57809 = ptTable[799:768];
-      6'd25: x_440__h57809 = ptTable[831:800];
-      6'd26: x_440__h57809 = ptTable[863:832];
-      6'd27: x_440__h57809 = ptTable[895:864];
-      6'd28: x_440__h57809 = ptTable[927:896];
-      6'd29: x_440__h57809 = ptTable[959:928];
-      6'd30: x_440__h57809 = ptTable[991:960];
-      6'd31: x_440__h57809 = ptTable[1023:992];
-      6'd32: x_440__h57809 = ptTable[1055:1024];
-      6'd33: x_440__h57809 = ptTable[1087:1056];
-      6'd34: x_440__h57809 = ptTable[1119:1088];
-      6'd35: x_440__h57809 = ptTable[1151:1120];
-      6'd36: x_440__h57809 = ptTable[1183:1152];
-      6'd37: x_440__h57809 = ptTable[1215:1184];
-      6'd38: x_440__h57809 = ptTable[1247:1216];
-      6'd39: x_440__h57809 = ptTable[1279:1248];
-      6'd40: x_440__h57809 = ptTable[1311:1280];
-      6'd41: x_440__h57809 = ptTable[1343:1312];
-      6'd42: x_440__h57809 = ptTable[1375:1344];
-      6'd43: x_440__h57809 = ptTable[1407:1376];
-      6'd44: x_440__h57809 = ptTable[1439:1408];
-      6'd45: x_440__h57809 = ptTable[1471:1440];
-      6'd46: x_440__h57809 = ptTable[1503:1472];
-      6'd47: x_440__h57809 = ptTable[1535:1504];
-      6'd48: x_440__h57809 = ptTable[1567:1536];
-      6'd49: x_440__h57809 = ptTable[1599:1568];
-      6'd50: x_440__h57809 = ptTable[1631:1600];
-      6'd51: x_440__h57809 = ptTable[1663:1632];
-      6'd52: x_440__h57809 = ptTable[1695:1664];
-      6'd53: x_440__h57809 = ptTable[1727:1696];
-      6'd54: x_440__h57809 = ptTable[1759:1728];
-      6'd55: x_440__h57809 = ptTable[1791:1760];
-      6'd56: x_440__h57809 = ptTable[1823:1792];
-      6'd57: x_440__h57809 = ptTable[1855:1824];
-      6'd58: x_440__h57809 = ptTable[1887:1856];
-      6'd59: x_440__h57809 = ptTable[1919:1888];
-      6'd60: x_440__h57809 = ptTable[1951:1920];
-      6'd61: x_440__h57809 = ptTable[1983:1952];
-      6'd62: x_440__h57809 = ptTable[2015:1984];
-      6'd63: x_440__h57809 = ptTable[2047:2016];
+      6'd0: x_440__h57809 = ptTable_arr[0];
+      6'd1: x_440__h57809 = ptTable_arr[1];
+      6'd2: x_440__h57809 = ptTable_arr[2];
+      6'd3: x_440__h57809 = ptTable_arr[3];
+      6'd4: x_440__h57809 = ptTable_arr[4];
+      6'd5: x_440__h57809 = ptTable_arr[5];
+      6'd6: x_440__h57809 = ptTable_arr[6];
+      6'd7: x_440__h57809 = ptTable_arr[7];
+      6'd8: x_440__h57809 = ptTable_arr[8];
+      6'd9: x_440__h57809 = ptTable_arr[9];
+      6'd10: x_440__h57809 = ptTable_arr[10];
+      6'd11: x_440__h57809 = ptTable_arr[11];
+      6'd12: x_440__h57809 = ptTable_arr[12];
+      6'd13: x_440__h57809 = ptTable_arr[13];
+      6'd14: x_440__h57809 = ptTable_arr[14];
+      6'd15: x_440__h57809 = ptTable_arr[15];
+      6'd16: x_440__h57809 = ptTable_arr[16];
+      6'd17: x_440__h57809 = ptTable_arr[17];
+      6'd18: x_440__h57809 = ptTable_arr[18];
+      6'd19: x_440__h57809 = ptTable_arr[19];
+      6'd20: x_440__h57809 = ptTable_arr[20];
+      6'd21: x_440__h57809 = ptTable_arr[21];
+      6'd22: x_440__h57809 = ptTable_arr[22];
+      6'd23: x_440__h57809 = ptTable_arr[23];
+      6'd24: x_440__h57809 = ptTable_arr[24];
+      6'd25: x_440__h57809 = ptTable_arr[25];
+      6'd26: x_440__h57809 = ptTable_arr[26];
+      6'd27: x_440__h57809 = ptTable_arr[27];
+      6'd28: x_440__h57809 = ptTable_arr[28];
+      6'd29: x_440__h57809 = ptTable_arr[29];
+      6'd30: x_440__h57809 = ptTable_arr[30];
+      6'd31: x_440__h57809 = ptTable_arr[31];
+      6'd32: x_440__h57809 = ptTable_arr[32];
+      6'd33: x_440__h57809 = ptTable_arr[33];
+      6'd34: x_440__h57809 = ptTable_arr[34];
+      6'd35: x_440__h57809 = ptTable_arr[35];
+      6'd36: x_440__h57809 = ptTable_arr[36];
+      6'd37: x_440__h57809 = ptTable_arr[37];
+      6'd38: x_440__h57809 = ptTable_arr[38];
+      6'd39: x_440__h57809 = ptTable_arr[39];
+      6'd40: x_440__h57809 = ptTable_arr[40];
+      6'd41: x_440__h57809 = ptTable_arr[41];
+      6'd42: x_440__h57809 = ptTable_arr[42];
+      6'd43: x_440__h57809 = ptTable_arr[43];
+      6'd44: x_440__h57809 = ptTable_arr[44];
+      6'd45: x_440__h57809 = ptTable_arr[45];
+      6'd46: x_440__h57809 = ptTable_arr[46];
+      6'd47: x_440__h57809 = ptTable_arr[47];
+      6'd48: x_440__h57809 = ptTable_arr[48];
+      6'd49: x_440__h57809 = ptTable_arr[49];
+      6'd50: x_440__h57809 = ptTable_arr[50];
+      6'd51: x_440__h57809 = ptTable_arr[51];
+      6'd52: x_440__h57809 = ptTable_arr[52];
+      6'd53: x_440__h57809 = ptTable_arr[53];
+      6'd54: x_440__h57809 = ptTable_arr[54];
+      6'd55: x_440__h57809 = ptTable_arr[55];
+      6'd56: x_440__h57809 = ptTable_arr[56];
+      6'd57: x_440__h57809 = ptTable_arr[57];
+      6'd58: x_440__h57809 = ptTable_arr[58];
+      6'd59: x_440__h57809 = ptTable_arr[59];
+      6'd60: x_440__h57809 = ptTable_arr[60];
+      6'd61: x_440__h57809 = ptTable_arr[61];
+      6'd62: x_440__h57809 = ptTable_arr[62];
+      6'd63: x_440__h57809 = ptTable_arr[63];
     endcase
   end
   always@(imem$D_OUT_1 or x_127__h57508)
@@ -7963,73 +7969,73 @@ module mkModule1(CLK,
       4'd15: x_144__h57525 = regs[511:480];
     endcase
   end
-  always@(active_module or ptTable)
+  always@(*)
   begin
     case (active_module)
-      6'd0: x_157__h57538 = ptTable[31:0];
-      6'd1: x_157__h57538 = ptTable[63:32];
-      6'd2: x_157__h57538 = ptTable[95:64];
-      6'd3: x_157__h57538 = ptTable[127:96];
-      6'd4: x_157__h57538 = ptTable[159:128];
-      6'd5: x_157__h57538 = ptTable[191:160];
-      6'd6: x_157__h57538 = ptTable[223:192];
-      6'd7: x_157__h57538 = ptTable[255:224];
-      6'd8: x_157__h57538 = ptTable[287:256];
-      6'd9: x_157__h57538 = ptTable[319:288];
-      6'd10: x_157__h57538 = ptTable[351:320];
-      6'd11: x_157__h57538 = ptTable[383:352];
-      6'd12: x_157__h57538 = ptTable[415:384];
-      6'd13: x_157__h57538 = ptTable[447:416];
-      6'd14: x_157__h57538 = ptTable[479:448];
-      6'd15: x_157__h57538 = ptTable[511:480];
-      6'd16: x_157__h57538 = ptTable[543:512];
-      6'd17: x_157__h57538 = ptTable[575:544];
-      6'd18: x_157__h57538 = ptTable[607:576];
-      6'd19: x_157__h57538 = ptTable[639:608];
-      6'd20: x_157__h57538 = ptTable[671:640];
-      6'd21: x_157__h57538 = ptTable[703:672];
-      6'd22: x_157__h57538 = ptTable[735:704];
-      6'd23: x_157__h57538 = ptTable[767:736];
-      6'd24: x_157__h57538 = ptTable[799:768];
-      6'd25: x_157__h57538 = ptTable[831:800];
-      6'd26: x_157__h57538 = ptTable[863:832];
-      6'd27: x_157__h57538 = ptTable[895:864];
-      6'd28: x_157__h57538 = ptTable[927:896];
-      6'd29: x_157__h57538 = ptTable[959:928];
-      6'd30: x_157__h57538 = ptTable[991:960];
-      6'd31: x_157__h57538 = ptTable[1023:992];
-      6'd32: x_157__h57538 = ptTable[1055:1024];
-      6'd33: x_157__h57538 = ptTable[1087:1056];
-      6'd34: x_157__h57538 = ptTable[1119:1088];
-      6'd35: x_157__h57538 = ptTable[1151:1120];
-      6'd36: x_157__h57538 = ptTable[1183:1152];
-      6'd37: x_157__h57538 = ptTable[1215:1184];
-      6'd38: x_157__h57538 = ptTable[1247:1216];
-      6'd39: x_157__h57538 = ptTable[1279:1248];
-      6'd40: x_157__h57538 = ptTable[1311:1280];
-      6'd41: x_157__h57538 = ptTable[1343:1312];
-      6'd42: x_157__h57538 = ptTable[1375:1344];
-      6'd43: x_157__h57538 = ptTable[1407:1376];
-      6'd44: x_157__h57538 = ptTable[1439:1408];
-      6'd45: x_157__h57538 = ptTable[1471:1440];
-      6'd46: x_157__h57538 = ptTable[1503:1472];
-      6'd47: x_157__h57538 = ptTable[1535:1504];
-      6'd48: x_157__h57538 = ptTable[1567:1536];
-      6'd49: x_157__h57538 = ptTable[1599:1568];
-      6'd50: x_157__h57538 = ptTable[1631:1600];
-      6'd51: x_157__h57538 = ptTable[1663:1632];
-      6'd52: x_157__h57538 = ptTable[1695:1664];
-      6'd53: x_157__h57538 = ptTable[1727:1696];
-      6'd54: x_157__h57538 = ptTable[1759:1728];
-      6'd55: x_157__h57538 = ptTable[1791:1760];
-      6'd56: x_157__h57538 = ptTable[1823:1792];
-      6'd57: x_157__h57538 = ptTable[1855:1824];
-      6'd58: x_157__h57538 = ptTable[1887:1856];
-      6'd59: x_157__h57538 = ptTable[1919:1888];
-      6'd60: x_157__h57538 = ptTable[1951:1920];
-      6'd61: x_157__h57538 = ptTable[1983:1952];
-      6'd62: x_157__h57538 = ptTable[2015:1984];
-      6'd63: x_157__h57538 = ptTable[2047:2016];
+      6'd0: x_157__h57538 = ptTable_arr[0];
+      6'd1: x_157__h57538 = ptTable_arr[1];
+      6'd2: x_157__h57538 = ptTable_arr[2];
+      6'd3: x_157__h57538 = ptTable_arr[3];
+      6'd4: x_157__h57538 = ptTable_arr[4];
+      6'd5: x_157__h57538 = ptTable_arr[5];
+      6'd6: x_157__h57538 = ptTable_arr[6];
+      6'd7: x_157__h57538 = ptTable_arr[7];
+      6'd8: x_157__h57538 = ptTable_arr[8];
+      6'd9: x_157__h57538 = ptTable_arr[9];
+      6'd10: x_157__h57538 = ptTable_arr[10];
+      6'd11: x_157__h57538 = ptTable_arr[11];
+      6'd12: x_157__h57538 = ptTable_arr[12];
+      6'd13: x_157__h57538 = ptTable_arr[13];
+      6'd14: x_157__h57538 = ptTable_arr[14];
+      6'd15: x_157__h57538 = ptTable_arr[15];
+      6'd16: x_157__h57538 = ptTable_arr[16];
+      6'd17: x_157__h57538 = ptTable_arr[17];
+      6'd18: x_157__h57538 = ptTable_arr[18];
+      6'd19: x_157__h57538 = ptTable_arr[19];
+      6'd20: x_157__h57538 = ptTable_arr[20];
+      6'd21: x_157__h57538 = ptTable_arr[21];
+      6'd22: x_157__h57538 = ptTable_arr[22];
+      6'd23: x_157__h57538 = ptTable_arr[23];
+      6'd24: x_157__h57538 = ptTable_arr[24];
+      6'd25: x_157__h57538 = ptTable_arr[25];
+      6'd26: x_157__h57538 = ptTable_arr[26];
+      6'd27: x_157__h57538 = ptTable_arr[27];
+      6'd28: x_157__h57538 = ptTable_arr[28];
+      6'd29: x_157__h57538 = ptTable_arr[29];
+      6'd30: x_157__h57538 = ptTable_arr[30];
+      6'd31: x_157__h57538 = ptTable_arr[31];
+      6'd32: x_157__h57538 = ptTable_arr[32];
+      6'd33: x_157__h57538 = ptTable_arr[33];
+      6'd34: x_157__h57538 = ptTable_arr[34];
+      6'd35: x_157__h57538 = ptTable_arr[35];
+      6'd36: x_157__h57538 = ptTable_arr[36];
+      6'd37: x_157__h57538 = ptTable_arr[37];
+      6'd38: x_157__h57538 = ptTable_arr[38];
+      6'd39: x_157__h57538 = ptTable_arr[39];
+      6'd40: x_157__h57538 = ptTable_arr[40];
+      6'd41: x_157__h57538 = ptTable_arr[41];
+      6'd42: x_157__h57538 = ptTable_arr[42];
+      6'd43: x_157__h57538 = ptTable_arr[43];
+      6'd44: x_157__h57538 = ptTable_arr[44];
+      6'd45: x_157__h57538 = ptTable_arr[45];
+      6'd46: x_157__h57538 = ptTable_arr[46];
+      6'd47: x_157__h57538 = ptTable_arr[47];
+      6'd48: x_157__h57538 = ptTable_arr[48];
+      6'd49: x_157__h57538 = ptTable_arr[49];
+      6'd50: x_157__h57538 = ptTable_arr[50];
+      6'd51: x_157__h57538 = ptTable_arr[51];
+      6'd52: x_157__h57538 = ptTable_arr[52];
+      6'd53: x_157__h57538 = ptTable_arr[53];
+      6'd54: x_157__h57538 = ptTable_arr[54];
+      6'd55: x_157__h57538 = ptTable_arr[55];
+      6'd56: x_157__h57538 = ptTable_arr[56];
+      6'd57: x_157__h57538 = ptTable_arr[57];
+      6'd58: x_157__h57538 = ptTable_arr[58];
+      6'd59: x_157__h57538 = ptTable_arr[59];
+      6'd60: x_157__h57538 = ptTable_arr[60];
+      6'd61: x_157__h57538 = ptTable_arr[61];
+      6'd62: x_157__h57538 = ptTable_arr[62];
+      6'd63: x_157__h57538 = ptTable_arr[63];
     endcase
   end
   always@(imem$D_OUT_1 or morph_src_table)
@@ -8921,201 +8927,201 @@ module mkModule1(CLK,
 	      !cert_desc_valid_table[15];
     endcase
   end
-  always@(imem$D_OUT_1 or ptTable)
+  always@(*)
   begin
     case (imem$D_OUT_1[37:32])
       6'd0:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[31:0];
+	      ptTable_arr[0];
       6'd1:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[63:32];
+	      ptTable_arr[1];
       6'd2:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[95:64];
+	      ptTable_arr[2];
       6'd3:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[127:96];
+	      ptTable_arr[3];
       6'd4:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[159:128];
+	      ptTable_arr[4];
       6'd5:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[191:160];
+	      ptTable_arr[5];
       6'd6:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[223:192];
+	      ptTable_arr[6];
       6'd7:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[255:224];
+	      ptTable_arr[7];
       6'd8:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[287:256];
+	      ptTable_arr[8];
       6'd9:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[319:288];
+	      ptTable_arr[9];
       6'd10:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[351:320];
+	      ptTable_arr[10];
       6'd11:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[383:352];
+	      ptTable_arr[11];
       6'd12:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[415:384];
+	      ptTable_arr[12];
       6'd13:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[447:416];
+	      ptTable_arr[13];
       6'd14:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[479:448];
+	      ptTable_arr[14];
       6'd15:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[511:480];
+	      ptTable_arr[15];
       6'd16:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[543:512];
+	      ptTable_arr[16];
       6'd17:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[575:544];
+	      ptTable_arr[17];
       6'd18:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[607:576];
+	      ptTable_arr[18];
       6'd19:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[639:608];
+	      ptTable_arr[19];
       6'd20:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[671:640];
+	      ptTable_arr[20];
       6'd21:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[703:672];
+	      ptTable_arr[21];
       6'd22:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[735:704];
+	      ptTable_arr[22];
       6'd23:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[767:736];
+	      ptTable_arr[23];
       6'd24:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[799:768];
+	      ptTable_arr[24];
       6'd25:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[831:800];
+	      ptTable_arr[25];
       6'd26:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[863:832];
+	      ptTable_arr[26];
       6'd27:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[895:864];
+	      ptTable_arr[27];
       6'd28:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[927:896];
+	      ptTable_arr[28];
       6'd29:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[959:928];
+	      ptTable_arr[29];
       6'd30:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[991:960];
+	      ptTable_arr[30];
       6'd31:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1023:992];
+	      ptTable_arr[31];
       6'd32:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1055:1024];
+	      ptTable_arr[32];
       6'd33:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1087:1056];
+	      ptTable_arr[33];
       6'd34:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1119:1088];
+	      ptTable_arr[34];
       6'd35:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1151:1120];
+	      ptTable_arr[35];
       6'd36:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1183:1152];
+	      ptTable_arr[36];
       6'd37:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1215:1184];
+	      ptTable_arr[37];
       6'd38:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1247:1216];
+	      ptTable_arr[38];
       6'd39:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1279:1248];
+	      ptTable_arr[39];
       6'd40:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1311:1280];
+	      ptTable_arr[40];
       6'd41:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1343:1312];
+	      ptTable_arr[41];
       6'd42:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1375:1344];
+	      ptTable_arr[42];
       6'd43:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1407:1376];
+	      ptTable_arr[43];
       6'd44:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1439:1408];
+	      ptTable_arr[44];
       6'd45:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1471:1440];
+	      ptTable_arr[45];
       6'd46:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1503:1472];
+	      ptTable_arr[46];
       6'd47:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1535:1504];
+	      ptTable_arr[47];
       6'd48:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1567:1536];
+	      ptTable_arr[48];
       6'd49:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1599:1568];
+	      ptTable_arr[49];
       6'd50:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1631:1600];
+	      ptTable_arr[50];
       6'd51:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1663:1632];
+	      ptTable_arr[51];
       6'd52:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1695:1664];
+	      ptTable_arr[52];
       6'd53:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1727:1696];
+	      ptTable_arr[53];
       6'd54:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1759:1728];
+	      ptTable_arr[54];
       6'd55:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1791:1760];
+	      ptTable_arr[55];
       6'd56:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1823:1792];
+	      ptTable_arr[56];
       6'd57:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1855:1824];
+	      ptTable_arr[57];
       6'd58:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1887:1856];
+	      ptTable_arr[58];
       6'd59:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1919:1888];
+	      ptTable_arr[59];
       6'd60:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1951:1920];
+	      ptTable_arr[60];
       6'd61:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[1983:1952];
+	      ptTable_arr[61];
       6'd62:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[2015:1984];
+	      ptTable_arr[62];
       6'd63:
 	  SEL_ARR_ptTable_4_BITS_31_TO_0_5_ptTable_4_BIT_ETC___d626 =
-	      ptTable[2047:2016];
+	      ptTable_arr[63];
     endcase
   end
   always@(imem$D_OUT_1 or coupling_desc_valid_table)
@@ -10501,74 +10507,7 @@ module mkModule1(CLK,
 		     IF_imem_sub_pc_5_BITS_6_TO_0_6_7_BITS_31_TO_24_ETC___d1860 };
     endcase
   end
-  always@(imem$D_OUT_1 or
-	  ptTable or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2448 or
-	  IF_pt_next_id_93_PLUS_0x1_449_BITS_5_TO_0_450__ETC___d2807 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_63_288_THE_ETC___d2812 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_62_291_THE_ETC___d2816 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_61_294_THE_ETC___d2821 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_60_296_THE_ETC___d2825 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_59_299_THE_ETC___d2830 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_58_301_THE_ETC___d2834 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_57_304_THE_ETC___d2839 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_56_306_THE_ETC___d2843 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_55_309_THE_ETC___d2848 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_54_311_THE_ETC___d2852 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_53_314_THE_ETC___d2857 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_52_316_THE_ETC___d2861 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_51_319_THE_ETC___d2866 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_50_321_THE_ETC___d2870 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_49_324_THE_ETC___d2875 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_48_326_THE_ETC___d2879 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_47_329_THE_ETC___d2884 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_46_331_THE_ETC___d2888 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_45_334_THE_ETC___d2893 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_44_336_THE_ETC___d2897 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_43_339_THE_ETC___d2902 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_42_341_THE_ETC___d2906 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_41_344_THE_ETC___d2911 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_40_346_THE_ETC___d2915 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_39_349_THE_ETC___d2920 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_38_351_THE_ETC___d2924 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_37_354_THE_ETC___d2929 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_36_356_THE_ETC___d2933 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_35_359_THE_ETC___d2938 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_34_361_THE_ETC___d2942 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_33_364_THE_ETC___d2947 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_32_366_THE_ETC___d2951 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_31_369_THE_ETC___d2956 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_30_371_THE_ETC___d2960 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_29_374_THE_ETC___d2965 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_28_376_THE_ETC___d2969 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_27_379_THE_ETC___d2974 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_26_381_THE_ETC___d2978 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_25_384_THE_ETC___d2983 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_24_386_THE_ETC___d2987 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_23_389_THE_ETC___d2992 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_22_391_THE_ETC___d2996 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_21_394_THE_ETC___d3001 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_20_396_THE_ETC___d3005 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_19_399_THE_ETC___d3010 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_18_401_THE_ETC___d3014 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_17_404_THE_ETC___d3019 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_16_406_THE_ETC___d3023 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_15_409_THE_ETC___d3028 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_14_411_THE_ETC___d3032 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_13_414_THE_ETC___d3037 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_12_416_THE_ETC___d3041 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_11_419_THE_ETC___d3046 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_10_421_THE_ETC___d3050 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_9_424_THEN_ETC___d3055 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_8_426_THEN_ETC___d3059 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_7_429_THEN_ETC___d3064 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_6_431_THEN_ETC___d3068 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_5_434_THEN_ETC___d3073 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_4_436_THEN_ETC___d3077 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_3_439_THEN_ETC___d3082 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_2_441_THEN_ETC___d3086 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_1_444_THEN_ETC___d3091 or
-	  IF_pt_next_id_93_BITS_5_TO_0_287_EQ_0_446_THEN_ETC___d3095)
+  always@(*)
   begin
     case (imem$D_OUT_1[31:24])
       8'h0:
@@ -10644,7 +10583,7 @@ module mkModule1(CLK,
 		IF_pt_next_id_93_BITS_5_TO_0_287_EQ_1_444_THEN_ETC___d3091,
 		IF_pt_next_id_93_BITS_5_TO_0_287_EQ_0_446_THEN_ETC___d3095 };
       default: IF_imem_sub_pc_5_BITS_6_TO_0_6_7_BITS_31_TO_24_ETC___d3099 =
-		   ptTable;
+		   ptTable_flat;
     endcase
   end
   always@(imem$D_OUT_1 or pt_next_id or x_438__h57807 or x_446__h57815)
@@ -10672,8 +10611,16 @@ module mkModule1(CLK,
 	bus_load_instr_data <= `BSV_ASSIGNMENT_DELAY 128'd0;
 	bus_load_instr_kick <= `BSV_ASSIGNMENT_DELAY 1'd0;
 	cert_addr <= `BSV_ASSIGNMENT_DELAY 32'd0;
-	cert_desc_base_table <= `BSV_ASSIGNMENT_DELAY 512'd0;
-	cert_desc_count_table <= `BSV_ASSIGNMENT_DELAY 512'd0;
+	begin : rst_cert_desc_base_table_arr
+	  integer _rj_cert_desc_base_table;
+	  for (_rj_cert_desc_base_table = 0; _rj_cert_desc_base_table < 16; _rj_cert_desc_base_table = _rj_cert_desc_base_table + 1)
+	    cert_desc_base_table_arr[_rj_cert_desc_base_table] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
+	begin : rst_cert_desc_count_table_arr
+	  integer _rj_cert_desc_count_table;
+	  for (_rj_cert_desc_count_table = 0; _rj_cert_desc_count_table < 16; _rj_cert_desc_count_table = _rj_cert_desc_count_table + 1)
+	    cert_desc_count_table_arr[_rj_cert_desc_count_table] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
 	cert_desc_next_id <= `BSV_ASSIGNMENT_DELAY 5'h0;
 	cert_desc_valid_table <= `BSV_ASSIGNMENT_DELAY 16'd0;
 	certified <= `BSV_ASSIGNMENT_DELAY 1'd0;
@@ -10681,11 +10628,23 @@ module mkModule1(CLK,
 	coupling_desc_count_table <= `BSV_ASSIGNMENT_DELAY 80'd0;
 	coupling_desc_next_id <= `BSV_ASSIGNMENT_DELAY 5'h0;
 	coupling_desc_valid_table <= `BSV_ASSIGNMENT_DELAY 16'd0;
-	coupling_pair_dst_table <= `BSV_ASSIGNMENT_DELAY 512'd0;
+	begin : rst_coupling_pair_dst_table_arr
+	  integer _rj_coupling_pair_dst_table;
+	  for (_rj_coupling_pair_dst_table = 0; _rj_coupling_pair_dst_table < 16; _rj_coupling_pair_dst_table = _rj_coupling_pair_dst_table + 1)
+	    coupling_pair_dst_table_arr[_rj_coupling_pair_dst_table] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
 	coupling_pair_next_id <= `BSV_ASSIGNMENT_DELAY 5'h0;
-	coupling_pair_src_table <= `BSV_ASSIGNMENT_DELAY 512'd0;
+	begin : rst_coupling_pair_src_table_arr
+	  integer _rj_coupling_pair_src_table;
+	  for (_rj_coupling_pair_src_table = 0; _rj_coupling_pair_src_table < 16; _rj_coupling_pair_src_table = _rj_coupling_pair_src_table + 1)
+	    coupling_pair_src_table_arr[_rj_coupling_pair_src_table] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
 	coupling_pair_valid_table <= `BSV_ASSIGNMENT_DELAY 16'd0;
-	desc_meta_aux_table <= `BSV_ASSIGNMENT_DELAY 512'd0;
+	begin : rst_desc_meta_aux_table_arr
+	  integer _rj_desc_meta_aux_table;
+	  for (_rj_desc_meta_aux_table = 0; _rj_desc_meta_aux_table < 16; _rj_desc_meta_aux_table = _rj_desc_meta_aux_table + 1)
+	    desc_meta_aux_table_arr[_rj_desc_meta_aux_table] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
 	desc_meta_inline_len_table <= `BSV_ASSIGNMENT_DELAY 128'd0;
 	desc_meta_kind_table <= `BSV_ASSIGNMENT_DELAY 64'd0;
 	desc_meta_next_id <= `BSV_ASSIGNMENT_DELAY 5'h0;
@@ -10693,8 +10652,16 @@ module mkModule1(CLK,
 	desc_meta_valid_table <= `BSV_ASSIGNMENT_DELAY 16'd0;
 	err <= `BSV_ASSIGNMENT_DELAY 1'd0;
 	error_code <= `BSV_ASSIGNMENT_DELAY 32'd0;
-	formula_desc_base_table <= `BSV_ASSIGNMENT_DELAY 512'd0;
-	formula_desc_count_table <= `BSV_ASSIGNMENT_DELAY 512'd0;
+	begin : rst_formula_desc_base_table_arr
+	  integer _rj_formula_desc_base_table;
+	  for (_rj_formula_desc_base_table = 0; _rj_formula_desc_base_table < 16; _rj_formula_desc_base_table = _rj_formula_desc_base_table + 1)
+	    formula_desc_base_table_arr[_rj_formula_desc_base_table] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
+	begin : rst_formula_desc_count_table_arr
+	  integer _rj_formula_desc_count_table;
+	  for (_rj_formula_desc_count_table = 0; _rj_formula_desc_count_table < 16; _rj_formula_desc_count_table = _rj_formula_desc_count_table + 1)
+	    formula_desc_count_table_arr[_rj_formula_desc_count_table] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
 	formula_desc_next_id <= `BSV_ASSIGNMENT_DELAY 5'h0;
 	formula_desc_valid_table <= `BSV_ASSIGNMENT_DELAY 16'd0;
 	halted <= `BSV_ASSIGNMENT_DELAY 1'd0;
@@ -10740,7 +10707,11 @@ module mkModule1(CLK,
 	end
 	partition_ops <= `BSV_ASSIGNMENT_DELAY 32'd0;
 	pc <= `BSV_ASSIGNMENT_DELAY 32'd0;
-	ptTable <= `BSV_ASSIGNMENT_DELAY 2048'd0;
+	begin : rst_ptTable_arr
+	  integer _rj_ptTable;
+	  for (_rj_ptTable = 0; _rj_ptTable < 64; _rj_ptTable = _rj_ptTable + 1)
+	    ptTable_arr[_rj_ptTable] <= `BSV_ASSIGNMENT_DELAY 32'd0;
+	end
 	pt_next_id <= `BSV_ASSIGNMENT_DELAY 7'h01;
 	regs <= `BSV_ASSIGNMENT_DELAY 512'd0;
 	trap_vector <= `BSV_ASSIGNMENT_DELAY 32'h00000F00;
@@ -10767,12 +10738,16 @@ module mkModule1(CLK,
 	  bus_load_instr_kick <= `BSV_ASSIGNMENT_DELAY
 	      bus_load_instr_kick$D_IN;
 	if (cert_addr$EN) cert_addr <= `BSV_ASSIGNMENT_DELAY cert_addr$D_IN;
-	if (cert_desc_base_table$EN)
-	  cert_desc_base_table <= `BSV_ASSIGNMENT_DELAY
-	      cert_desc_base_table$D_IN;
-	if (cert_desc_count_table$EN)
-	  cert_desc_count_table <= `BSV_ASSIGNMENT_DELAY
-	      cert_desc_count_table$D_IN;
+	if (cert_desc_base_table_EN) begin : wr_cert_desc_base_table_arr
+	    integer _wj_cert_desc_base_table;
+	    for (_wj_cert_desc_base_table = 0; _wj_cert_desc_base_table < 16; _wj_cert_desc_base_table = _wj_cert_desc_base_table + 1)
+	      cert_desc_base_table_arr[_wj_cert_desc_base_table] <= `BSV_ASSIGNMENT_DELAY cert_desc_base_table_D_IN_flat[_wj_cert_desc_base_table*32 +: 32];
+	  end
+	if (cert_desc_count_table_EN) begin : wr_cert_desc_count_table_arr
+	    integer _wj_cert_desc_count_table;
+	    for (_wj_cert_desc_count_table = 0; _wj_cert_desc_count_table < 16; _wj_cert_desc_count_table = _wj_cert_desc_count_table + 1)
+	      cert_desc_count_table_arr[_wj_cert_desc_count_table] <= `BSV_ASSIGNMENT_DELAY cert_desc_count_table_D_IN_flat[_wj_cert_desc_count_table*32 +: 32];
+	  end
 	if (cert_desc_next_id$EN)
 	  cert_desc_next_id <= `BSV_ASSIGNMENT_DELAY cert_desc_next_id$D_IN;
 	if (cert_desc_valid_table$EN)
@@ -10791,21 +10766,27 @@ module mkModule1(CLK,
 	if (coupling_desc_valid_table$EN)
 	  coupling_desc_valid_table <= `BSV_ASSIGNMENT_DELAY
 	      coupling_desc_valid_table$D_IN;
-	if (coupling_pair_dst_table$EN)
-	  coupling_pair_dst_table <= `BSV_ASSIGNMENT_DELAY
-	      coupling_pair_dst_table$D_IN;
+	if (coupling_pair_dst_table_EN) begin : wr_coupling_pair_dst_table_arr
+	    integer _wj_coupling_pair_dst_table;
+	    for (_wj_coupling_pair_dst_table = 0; _wj_coupling_pair_dst_table < 16; _wj_coupling_pair_dst_table = _wj_coupling_pair_dst_table + 1)
+	      coupling_pair_dst_table_arr[_wj_coupling_pair_dst_table] <= `BSV_ASSIGNMENT_DELAY coupling_pair_dst_table_D_IN_flat[_wj_coupling_pair_dst_table*32 +: 32];
+	  end
 	if (coupling_pair_next_id$EN)
 	  coupling_pair_next_id <= `BSV_ASSIGNMENT_DELAY
 	      coupling_pair_next_id$D_IN;
-	if (coupling_pair_src_table$EN)
-	  coupling_pair_src_table <= `BSV_ASSIGNMENT_DELAY
-	      coupling_pair_src_table$D_IN;
+	if (coupling_pair_src_table_EN) begin : wr_coupling_pair_src_table_arr
+	    integer _wj_coupling_pair_src_table;
+	    for (_wj_coupling_pair_src_table = 0; _wj_coupling_pair_src_table < 16; _wj_coupling_pair_src_table = _wj_coupling_pair_src_table + 1)
+	      coupling_pair_src_table_arr[_wj_coupling_pair_src_table] <= `BSV_ASSIGNMENT_DELAY coupling_pair_src_table_D_IN_flat[_wj_coupling_pair_src_table*32 +: 32];
+	  end
 	if (coupling_pair_valid_table$EN)
 	  coupling_pair_valid_table <= `BSV_ASSIGNMENT_DELAY
 	      coupling_pair_valid_table$D_IN;
-	if (desc_meta_aux_table$EN)
-	  desc_meta_aux_table <= `BSV_ASSIGNMENT_DELAY
-	      desc_meta_aux_table$D_IN;
+	if (desc_meta_aux_table_EN) begin : wr_desc_meta_aux_table_arr
+	    integer _wj_desc_meta_aux_table;
+	    for (_wj_desc_meta_aux_table = 0; _wj_desc_meta_aux_table < 16; _wj_desc_meta_aux_table = _wj_desc_meta_aux_table + 1)
+	      desc_meta_aux_table_arr[_wj_desc_meta_aux_table] <= `BSV_ASSIGNMENT_DELAY desc_meta_aux_table_D_IN_flat[_wj_desc_meta_aux_table*32 +: 32];
+	  end
 	if (desc_meta_inline_len_table$EN)
 	  desc_meta_inline_len_table <= `BSV_ASSIGNMENT_DELAY
 	      desc_meta_inline_len_table$D_IN;
@@ -10823,12 +10804,16 @@ module mkModule1(CLK,
 	if (err$EN) err <= `BSV_ASSIGNMENT_DELAY err$D_IN;
 	if (error_code$EN)
 	  error_code <= `BSV_ASSIGNMENT_DELAY error_code$D_IN;
-	if (formula_desc_base_table$EN)
-	  formula_desc_base_table <= `BSV_ASSIGNMENT_DELAY
-	      formula_desc_base_table$D_IN;
-	if (formula_desc_count_table$EN)
-	  formula_desc_count_table <= `BSV_ASSIGNMENT_DELAY
-	      formula_desc_count_table$D_IN;
+	if (formula_desc_base_table_EN) begin : wr_formula_desc_base_table_arr
+	    integer _wj_formula_desc_base_table;
+	    for (_wj_formula_desc_base_table = 0; _wj_formula_desc_base_table < 16; _wj_formula_desc_base_table = _wj_formula_desc_base_table + 1)
+	      formula_desc_base_table_arr[_wj_formula_desc_base_table] <= `BSV_ASSIGNMENT_DELAY formula_desc_base_table_D_IN_flat[_wj_formula_desc_base_table*32 +: 32];
+	  end
+	if (formula_desc_count_table_EN) begin : wr_formula_desc_count_table_arr
+	    integer _wj_formula_desc_count_table;
+	    for (_wj_formula_desc_count_table = 0; _wj_formula_desc_count_table < 16; _wj_formula_desc_count_table = _wj_formula_desc_count_table + 1)
+	      formula_desc_count_table_arr[_wj_formula_desc_count_table] <= `BSV_ASSIGNMENT_DELAY formula_desc_count_table_D_IN_flat[_wj_formula_desc_count_table*32 +: 32];
+	  end
 	if (formula_desc_next_id$EN)
 	  formula_desc_next_id <= `BSV_ASSIGNMENT_DELAY
 	      formula_desc_next_id$D_IN;
@@ -10924,7 +10909,11 @@ module mkModule1(CLK,
 	if (partition_ops$EN)
 	  partition_ops <= `BSV_ASSIGNMENT_DELAY partition_ops$D_IN;
 	if (pc$EN) pc <= `BSV_ASSIGNMENT_DELAY pc$D_IN;
-	if (ptTable$EN) ptTable <= `BSV_ASSIGNMENT_DELAY ptTable$D_IN;
+	if (ptTable_EN) begin : wr_ptTable_arr
+	    integer _wj_ptTable;
+	    for (_wj_ptTable = 0; _wj_ptTable < 64; _wj_ptTable = _wj_ptTable + 1)
+	      ptTable_arr[_wj_ptTable] <= `BSV_ASSIGNMENT_DELAY ptTable_D_IN_flat[_wj_ptTable*32 +: 32];
+	  end
 	if (pt_next_id$EN)
 	  pt_next_id <= `BSV_ASSIGNMENT_DELAY pt_next_id$D_IN;
 	if (regs$EN) regs <= `BSV_ASSIGNMENT_DELAY regs$D_IN;
@@ -10959,10 +10948,16 @@ module mkModule1(CLK,
     bus_load_instr_data = 128'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
     bus_load_instr_kick = 1'h0;
     cert_addr = 32'hAAAAAAAA;
-    cert_desc_base_table =
-	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
-    cert_desc_count_table =
-	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
+    begin : init_cert_desc_base_table_arr
+	  integer _ij_cert_desc_base_table;
+	  for (_ij_cert_desc_base_table = 0; _ij_cert_desc_base_table < 16; _ij_cert_desc_base_table = _ij_cert_desc_base_table + 1)
+	    cert_desc_base_table_arr[_ij_cert_desc_base_table] = 32'hAAAAAAAA;
+	end
+    begin : init_cert_desc_count_table_arr
+	  integer _ij_cert_desc_count_table;
+	  for (_ij_cert_desc_count_table = 0; _ij_cert_desc_count_table < 16; _ij_cert_desc_count_table = _ij_cert_desc_count_table + 1)
+	    cert_desc_count_table_arr[_ij_cert_desc_count_table] = 32'hAAAAAAAA;
+	end
     cert_desc_next_id = 5'h0A;
     cert_desc_valid_table = 16'hAAAA;
     certified = 1'h0;
@@ -10970,14 +10965,23 @@ module mkModule1(CLK,
     coupling_desc_count_table = 80'hAAAAAAAAAAAAAAAAAAAA;
     coupling_desc_next_id = 5'h0A;
     coupling_desc_valid_table = 16'hAAAA;
-    coupling_pair_dst_table =
-	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
+    begin : init_coupling_pair_dst_table_arr
+	  integer _ij_coupling_pair_dst_table;
+	  for (_ij_coupling_pair_dst_table = 0; _ij_coupling_pair_dst_table < 16; _ij_coupling_pair_dst_table = _ij_coupling_pair_dst_table + 1)
+	    coupling_pair_dst_table_arr[_ij_coupling_pair_dst_table] = 32'hAAAAAAAA;
+	end
     coupling_pair_next_id = 5'h0A;
-    coupling_pair_src_table =
-	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
+    begin : init_coupling_pair_src_table_arr
+	  integer _ij_coupling_pair_src_table;
+	  for (_ij_coupling_pair_src_table = 0; _ij_coupling_pair_src_table < 16; _ij_coupling_pair_src_table = _ij_coupling_pair_src_table + 1)
+	    coupling_pair_src_table_arr[_ij_coupling_pair_src_table] = 32'hAAAAAAAA;
+	end
     coupling_pair_valid_table = 16'hAAAA;
-    desc_meta_aux_table =
-	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
+    begin : init_desc_meta_aux_table_arr
+	  integer _ij_desc_meta_aux_table;
+	  for (_ij_desc_meta_aux_table = 0; _ij_desc_meta_aux_table < 16; _ij_desc_meta_aux_table = _ij_desc_meta_aux_table + 1)
+	    desc_meta_aux_table_arr[_ij_desc_meta_aux_table] = 32'hAAAAAAAA;
+	end
     desc_meta_inline_len_table = 128'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
     desc_meta_kind_table = 64'hAAAAAAAAAAAAAAAA;
     desc_meta_next_id = 5'h0A;
@@ -10985,10 +10989,16 @@ module mkModule1(CLK,
     desc_meta_valid_table = 16'hAAAA;
     err = 1'h0;
     error_code = 32'hAAAAAAAA;
-    formula_desc_base_table =
-	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
-    formula_desc_count_table =
-	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
+    begin : init_formula_desc_base_table_arr
+	  integer _ij_formula_desc_base_table;
+	  for (_ij_formula_desc_base_table = 0; _ij_formula_desc_base_table < 16; _ij_formula_desc_base_table = _ij_formula_desc_base_table + 1)
+	    formula_desc_base_table_arr[_ij_formula_desc_base_table] = 32'hAAAAAAAA;
+	end
+    begin : init_formula_desc_count_table_arr
+	  integer _ij_formula_desc_count_table;
+	  for (_ij_formula_desc_count_table = 0; _ij_formula_desc_count_table < 16; _ij_formula_desc_count_table = _ij_formula_desc_count_table + 1)
+	    formula_desc_count_table_arr[_ij_formula_desc_count_table] = 32'hAAAAAAAA;
+	end
     formula_desc_next_id = 5'h0A;
     formula_desc_valid_table = 16'hAAAA;
     halted = 1'h0;
@@ -11034,8 +11044,11 @@ module mkModule1(CLK,
 	end
     partition_ops = 32'hAAAAAAAA;
     pc = 32'hAAAAAAAA;
-    ptTable =
-	2048'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
+    begin : init_ptTable_arr
+	  integer _ij_ptTable;
+	  for (_ij_ptTable = 0; _ij_ptTable < 64; _ij_ptTable = _ij_ptTable + 1)
+	    ptTable_arr[_ij_ptTable] = 32'hAAAAAAAA;
+	end
     pt_next_id = 7'h2A;
     regs =
 	512'hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA;
