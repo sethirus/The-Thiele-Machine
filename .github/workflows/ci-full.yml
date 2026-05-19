@@ -21,11 +21,14 @@ jobs:
     uses: ./.github/workflows/ci.yml
     secrets: inherit
 
-  # Hardware synthesis & simulation (only runs if fast checks passed)
+  # Hardware synthesis & simulation. Runs in PARALLEL with fast-verify —
+  # only consumes RTL files (.v) already in the repo at checkout, so it does
+  # not depend on any fast-verify output. Previously gated as
+  # `needs: fast-verify` for ordering, which serialized 17m + 15m = 32m of
+  # critical path for no real reason.
   hardware-synthesis:
     name: Hardware synthesis & simulation
     runs-on: ubuntu-latest
-    needs: fast-verify
     steps:
       - uses: actions/checkout@v4
         with:
@@ -176,7 +179,11 @@ jobs:
   fpga-bitstream:
     name: FPGA bitstream generation (Kintex-7 K420T / ffg900 / openXC7)
     runs-on: ubuntu-latest
-    needs: hardware-synthesis
+    # No `needs:` — this job only reads .v files from the repo at checkout
+    # and produces its own bitstream end-to-end. Previously gated as
+    # `needs: hardware-synthesis` for ordering, which serialized 15m + 21m
+    # of critical path on a dependency that wasn't there.
+    #
     # CHSH_LASSERT's column_contractive_check_witness does ~20 integer
     # multiplications per cycle (including two 128×128 for C*C and A*B).
     # With DSP48E1 inference enabled in synth_xc7.ys, yosys actually maps
@@ -258,34 +265,31 @@ jobs:
           retention-days: 90
           if-no-files-found: warn
 
-  # Final summary
+  # Final summary — waits for every parallel branch to finish so the rollup
+  # table reflects their actual outcomes. With fast-verify, hardware-synthesis,
+  # and fpga-bitstream all running in parallel, the critical path is now
+  # max(fast-verify, hardware-synthesis, fpga-bitstream) instead of their sum.
   verify-full:
     name: Full Verification Summary
     runs-on: ubuntu-latest
-    needs: [hardware-synthesis]
+    needs: [fast-verify, hardware-synthesis, fpga-bitstream]
     if: always()
     steps:
       - name: Generate summary
         run: |
-          cat > /tmp/summary.md << 'EOF'
-          ## ✅ Full Verification Summary
-          
+          cat > /tmp/summary.md << EOF
+          ## Full Verification Summary
+
           | Phase | Status |
           |-------|--------|
-          | Proof Verification | ✓ (from primary CI) |
-          | Extraction & Bisimulation | ✓ (from primary CI) |
-          | Python Tests | ✓ (from primary CI) |
-          | Dependencies | ✓ (from primary CI) |
+          | Fast verify (proof + extraction + tests) | ${{ needs.fast-verify.result }} |
           | Hardware Synthesis | ${{ needs.hardware-synthesis.result }} |
-          
-          **All verification phases completed!**
-          
-          Artifacts available:
-          - Inquisitor report
-          - Hardware synthesis logs
-          - Waveform analysis
+          | FPGA Bitstream (K420T) | ${{ needs.fpga-bitstream.result }} |
+
+          Critical path: max(fast-verify, hardware-synthesis, fpga-bitstream)
+          rather than fast-verify → hardware-synthesis → fpga-bitstream.
           EOF
-          cat /tmp/summary.md >> $GITHUB_STEP_SUMMARY
+          cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Fail if synthesis failed
         if: needs.hardware-synthesis.result == 'failure'
