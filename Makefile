@@ -63,11 +63,11 @@ install_deps:
 # ============================================================================
 
 # Default test: auto-parallel via conftest.py (4 xdist workers)
-test:
+test: install-hooks
 	pytest tests/ -q
 
 # Sequential test (disable xdist)
-test-seq:
+test-seq: install-hooks
 	pytest tests/ -p no:xdist -q
 
 COQTOP ?= coqtop
@@ -148,7 +148,7 @@ atlas-audit:
 # Steps 1–9 run unconditionally. Step 10 (isomorphism-bitlock) requires
 # the RTL toolchain (yosys + verilator); it is an explicit dependency so the
 # gate fails honestly when the toolchain is absent.
-closeout-gate: coq-gate canonical-extract check-sensitive-files-strict isa-proof-freshness-check isomorphism-bitlock
+closeout-gate: install-hooks coq-gate canonical-extract check-sensitive-files-strict isa-proof-freshness-check isomorphism-bitlock
 	@echo ""
 	@echo "============================================================"
 	@echo " CLOSEOUT GATE — running software/proof layer checks"
@@ -183,7 +183,7 @@ closeout-gate: coq-gate canonical-extract check-sensitive-files-strict isa-proof
 #   3. Extracted RTL synthesises with Yosys (non-empty design, top=mkModule1)
 #   4. Co-simulation testbench runs without fatal errors
 #   5. Atlas score/DOD gate recalculated with all real toolchain results
-proof-complete-gate: coq-gate extraction-gate rtl-gate
+proof-complete-gate: install-hooks coq-gate extraction-gate rtl-gate
 	pytest tests/test_coq_compile_gate.py tests/test_extraction_freshness.py -v -m "coq or hardware" --tb=short
 	@echo ""
 	@echo "Running completeness gate..."
@@ -199,7 +199,7 @@ canonical-source-gate:
 	@grep -q '^Definition targetB ' coq/kami_hw/CanonicalCPUProof.v
 	@echo "[canonical-source-gate] PASS: canonical source wiring is explicit"
 
-canonical-extract: canonical-source-gate
+canonical-extract: install-hooks canonical-source-gate
 	@echo "[canonical-extract] Rebuilding extraction artefacts from canonical source..."
 	@$(MAKE) -C coq -j4 Extraction.vo kami_hw/KamiExtraction.vo ThieleMachineComplete.vo
 	@if [ ! -s "build/thiele_core.ml" ]; then echo "FAIL: build/thiele_core.ml missing or empty"; exit 1; fi
@@ -254,7 +254,7 @@ rtl-text-transform-audit-check: canonical-extract
 	@pytest tests/test_rtl_text_transform_audit.py -q --tb=short
 	@echo "[rtl-text-transform-audit] PASS"
 
-coq-gate:
+coq-gate: install-hooks
 	@echo "[coq-gate] Building all Coq proofs..."
 	$(MAKE) -C coq -j4
 	@echo "[coq-gate] Checking for Admitted..."
@@ -269,7 +269,7 @@ coq-gate:
 extraction-gate: canonical-extract
 	@echo "[extraction-gate] PASS: extraction artefacts are canonical and fresh"
 
-rtl-gate:
+rtl-gate: install-hooks
 	@echo "[rtl-gate] Running Yosys synthesis on extracted Kami RTL..."
 	yosys -p "read_verilog -sv -DSYNTHESIS thielecpu/hardware/rtl/RegFile.v thielecpu/hardware/rtl/thiele_cpu_kami.v; prep -top mkModule1; check; stat" 2>&1 | tee /tmp/rtl_gate.log
 	@if grep -q 'ERROR\|error:' /tmp/rtl_gate.log; then echo "FAIL: Yosys errors found"; exit 1; fi
@@ -280,7 +280,7 @@ rtl-gate:
 	 if [ "$$cells" -eq 0 ]; then echo "FAIL: zero cells synthesised"; exit 1; fi
 	@echo "[rtl-gate] PASS: extracted RTL synthesises cleanly"
 
-cosim-gate:
+cosim-gate: install-hooks
 	@echo "[cosim-gate] Running iverilog/vvp co-simulation..."
 	pytest tests/test_verilog_cosim.py::TestCompilation::test_kami_rtl_compiles -v --tb=short
 	@echo "[cosim-gate] PASS"

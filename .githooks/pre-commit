@@ -1,33 +1,38 @@
 #!/bin/sh
 # Thiele Machine pre-commit hook (marker: thiele-machine-pre-commit)
 # ==================================================================
-# Three responsibilities:
+# This hook is the canonical commit-time refresh gate. It is wired in via
+# `core.hooksPath = .githooks` (set by scripts/install-git-hooks.sh, run
+# as a Makefile prerequisite of `test` and every gate so any developer
+# action installs it automatically). Edits here take effect on the next
+# commit — no `cp` step.
+#
+# Responsibilities:
 #
 # 1. Coq proof-scope drift gate (scripts/coq_proof_scope.py).
 #    Runs validate_alignment() whenever a .v file or _CoqProject is
-#    touched. This is the same invariant tests/test_coq_proof_scope.py
-#    enforces in CI; running it pre-commit means a commit that would
-#    fail CI's proof-scope drift gate cannot be created in the first
-#    place. Cost: tens of milliseconds, no Coq build.
+#    touched. Same invariant tests/test_coq_proof_scope.py enforces in
+#    CI; running pre-commit means a commit that would fail CI's
+#    proof-scope drift gate cannot be created in the first place.
+#    Cost: tens of milliseconds, no Coq build.
 #
-# 2. RTL pipeline manifest auto-refresh
-#    (artifacts/rtl_pipeline_manifest.json,
-#     generator: scripts/generate_rtl_pipeline_manifest.py).
+# 2. Source-triggered manifest auto-refresh (refresh_manifest helper).
+#    For each (manifest, generator, extractor) tuple: if any of the
+#    manifest's tracked source files is staged, regenerate the manifest
+#    and stage it. Two manifests today:
+#       artifacts/rtl_pipeline_manifest.json
+#       artifacts/rtl_text_transform_audit.json
 #
-# 3. RTL transform audit manifest auto-refresh
-#    (artifacts/rtl_text_transform_audit.json,
-#     generator: scripts/audit_rtl_text_transforms.py).
-#
-# Both (2) and (3) hash + record paths under the manifest's `files`
-# section. Whenever a staged file matches one of those tracked paths,
-# the manifest is regenerated, staged, and the commit proceeds with
-# the refreshed snapshot baked in. The two manifests have different
-# `files` shapes (pipeline = list of {path, ...}, audit = dict of
-# name → {path, ...}), so the path-extractor expression differs but
-# the surrounding flow is shared via refresh_manifest().
-#
-# To install:
-#   make install-hooks            (or: bash scripts/install-git-hooks.sh)
+# 3. Unconditional Coq-derived audit artifact refresh.
+#    Generators are <1s each, so we always regenerate on every commit and
+#    stage anything whose content changed. Outputs:
+#       artifacts/proof_dependency_dag.json
+#       artifacts/proof_dependency_connectivity.json
+#       artifacts/proof_dependency_file_graph.mmd
+#       artifacts/PROOF_FOUNDATION_AUDIT.md
+#       artifacts/final_claim_audit/*.json
+#    These mirror what tests/conftest.py refreshes at pytest start, so
+#    a pytest run and a commit produce the same artifact state.
 #
 # To bypass for one commit (use sparingly):
 #   git commit --no-verify
@@ -41,8 +46,8 @@ cd "$ROOT"
 # (1) Coq proof-scope drift gate.
 #
 # Always runs — the gate is fast (<100 ms) and the cost of skipping it is
-# what we just hit: a commit that passes locally but fails CI on a clean
-# checkout. The gate has zero external dependencies (stdlib only).
+# a commit that passes locally but fails CI on a clean checkout. Zero
+# external dependencies (stdlib only).
 # ---------------------------------------------------------------------------
 
 if [ -f scripts/coq_proof_scope.py ]; then
@@ -76,8 +81,8 @@ fi
 #   $3 — python expression that, given a dict `data` already loaded from
 #        the manifest JSON, prints one tracked path per line to stdout
 #
-# No `local` (POSIX sh portability — /bin/sh is dash on Debian/Ubuntu).
-# Variables are prefixed `_rm_` to avoid clobbering caller state.
+# POSIX sh: no `local` (dash compatibility). Variables prefixed `_rm_`
+# to avoid clobbering caller state.
 # ---------------------------------------------------------------------------
 
 refresh_manifest() {
@@ -113,8 +118,6 @@ $_rm_extractor
 
     if [ "$_rm_needs" = "1" ]; then
         echo "[pre-commit] Source changed for $_rm_manifest — regenerating..."
-        # Run the generator. Word-splitting is intentional so callers can pass
-        # `python3 scripts/foo.py --out path` as one string.
         eval "$_rm_generator"
         git add "$_rm_manifest"
         echo "[pre-commit] $_rm_manifest refreshed and staged."
@@ -122,7 +125,7 @@ $_rm_extractor
 }
 
 # ---------------------------------------------------------------------------
-# (2) RTL pipeline manifest (artifacts/rtl_pipeline_manifest.json).
+# (2a) RTL pipeline manifest (artifacts/rtl_pipeline_manifest.json).
 # `files` is a list of {path, sha256, size_bytes}.
 # ---------------------------------------------------------------------------
 
@@ -133,7 +136,7 @@ refresh_manifest \
     print(f['path'])"
 
 # ---------------------------------------------------------------------------
-# (3) RTL transform audit manifest (artifacts/rtl_text_transform_audit.json).
+# (2b) RTL transform audit manifest (artifacts/rtl_text_transform_audit.json).
 # `files` is a dict { name: {path, sha256, bytes, lines} }.
 # ---------------------------------------------------------------------------
 
@@ -143,5 +146,65 @@ refresh_manifest \
     "for v in data.get('files', {}).values():
     if isinstance(v, dict) and 'path' in v:
         print(v['path'])"
+
+# ---------------------------------------------------------------------------
+# (3) Unconditional Coq-derived audit artifact refresh.
+#
+# Both generators are <1s each and idempotent (byte-identical output for
+# identical inputs). We run them on every commit and stage anything whose
+# content actually changed. `git add` on an unchanged file is a no-op.
+#
+# Generators:
+#   scripts/generate_proof_dependency_dag.py
+#       writes artifacts/proof_dependency_dag.json,
+#       artifacts/proof_dependency_connectivity.json,
+#       artifacts/proof_dependency_file_graph.mmd,
+#       artifacts/PROOF_FOUNDATION_AUDIT.md.
+#   scripts/generate_master_summary_artifacts.py
+#       writes artifacts/final_claim_audit/*.json.
+#
+# These are auto-regenerated by tests/conftest.py at pytest start, so
+# this hook keeps commit state in sync with what tests/CI expect.
+# ---------------------------------------------------------------------------
+
+_pc_regen_staged=0
+_pc_stage_if_changed() {
+    # $1 = path to potentially-changed file
+    if [ -f "$1" ]; then
+        # `git status --porcelain $1` is empty iff the file matches the index
+        # and the working tree. If non-empty, content differs from index —
+        # stage it.
+        if [ -n "$(git status --porcelain -- "$1")" ]; then
+            git add "$1"
+            _pc_regen_staged=1
+        fi
+    fi
+}
+
+if [ -f scripts/generate_proof_dependency_dag.py ]; then
+    python3 scripts/generate_proof_dependency_dag.py >/dev/null 2>&1 || {
+        echo "[pre-commit] WARNING: generate_proof_dependency_dag.py failed; leaving artifacts as-is." >&2
+    }
+    _pc_stage_if_changed artifacts/proof_dependency_dag.json
+    _pc_stage_if_changed artifacts/proof_dependency_connectivity.json
+    _pc_stage_if_changed artifacts/proof_dependency_file_graph.mmd
+    _pc_stage_if_changed artifacts/PROOF_FOUNDATION_AUDIT.md
+fi
+
+if [ -f scripts/generate_master_summary_artifacts.py ]; then
+    python3 scripts/generate_master_summary_artifacts.py \
+        --out-dir artifacts/final_claim_audit >/dev/null 2>&1 || {
+        echo "[pre-commit] WARNING: generate_master_summary_artifacts.py failed; leaving artifacts as-is." >&2
+    }
+    # Stage every json in final_claim_audit/ that changed — the set is small
+    # and stable, and the script is the only thing that writes there.
+    for f in artifacts/final_claim_audit/*.json; do
+        [ -f "$f" ] && _pc_stage_if_changed "$f"
+    done
+fi
+
+if [ "$_pc_regen_staged" = "1" ]; then
+    echo "[pre-commit] Coq-derived audit artifacts refreshed and staged."
+fi
 
 exit 0
