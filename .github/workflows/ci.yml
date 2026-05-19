@@ -1,10 +1,12 @@
 name: CI
 
 on:
+  # Trigger on push to ANY branch — feature branches need the same gate as
+  # main, otherwise a "green locally + green PR" assumption gets to develop
+  # silently. workflow_dispatch is still here for manual re-runs, and
+  # workflow_call is used by ci-full.yml.
   push:
-    branches: [main, master]
   pull_request:
-    branches: [main, master]
   workflow_dispatch:
   workflow_call:
 
