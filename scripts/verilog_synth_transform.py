@@ -756,8 +756,22 @@ def transform_packed_table(text: str, name: str, width: int) -> str:
 # These are the LUT hogs identified by analysing the BSC raw output: every
 # entry is 32 bits, indexed at runtime by an opcode/decoder bit-field, so
 # yosys synthesises each one as a giant pmux tree without this rewrite.
+#
+# ptTable is intentionally EXCLUDED. ptTable is the only live table in this
+# top-wrapper config (EN = WILL_FIRE_RL_step, written every cycle through a
+# preserve-or-replace mux). The testbench needs to initialise ptTable[0] via
+# `force` to set the active-region size before the CPU starts executing
+# locality-guarded ops (LOAD/STORE/CALL/RET/HEAP_*). Verilog `force` works on
+# whole-register granularity; iverilog 12 explicitly does not support force
+# on an individual element of a packed array (`force arr[idx] = val` errors
+# with "cannot %force/vec4 to the word of a variable array"). Leaving
+# ptTable as the packed `reg [2047:0]` keeps the harness's force/release
+# semantics working. The other seven tables below have EN tied to 1'b0 in
+# this wrapper (dead state) — folding them lets yosys OPT_MERGE eliminate
+# the giant pmux decoders entirely, which is where the ~116K cell saving
+# comes from. ptTable, being live every cycle, would not benefit from
+# OPT_MERGE anyway and still synthesises as flip-flops in either form.
 PACKED_TABLES = (
-    ('ptTable',                  2048),   # 64 entries — biggest single hog
     ('cert_desc_base_table',      512),   # 16 entries
     ('cert_desc_count_table',     512),   # 16 entries
     ('formula_desc_base_table',   512),   # 16 entries

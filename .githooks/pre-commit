@@ -207,4 +207,72 @@ if [ "$_pc_regen_staged" = "1" ]; then
     echo "[pre-commit] Coq-derived audit artifacts refreshed and staged."
 fi
 
+# Also keep the rtl text-transform audit manifest in lock-step. Cheap to
+# regenerate (sub-second) and the dependency graph is broad enough — any
+# touched RTL source bleeds into its hashes — that gating on staged sources
+# misses real refreshes. Tests/test_rtl_text_transform_audit.py auto-refreshes
+# this too, but doing it here keeps a pure-Python commit (no pytest invocation)
+# in sync.
+if [ -f scripts/audit_rtl_text_transforms.py ]; then
+    python3 scripts/audit_rtl_text_transforms.py \
+        --out artifacts/rtl_text_transform_audit.json >/dev/null 2>&1 || {
+        echo "[pre-commit] WARNING: audit_rtl_text_transforms.py failed; leaving manifest as-is." >&2
+    }
+    _pc_stage_if_changed artifacts/rtl_text_transform_audit.json
+fi
+
+# ---------------------------------------------------------------------------
+# (4) Hard test-suite gate — FULL SUITE, NO MARKER FILTER.
+#
+# Run every test pytest collects. Markers like coq/strict_rtl/trs are NOT
+# used to deselect — if a tool genuinely isn't installed, the test's own
+# skipif() will skip, but no whole-marker exclusion is applied. Any failure
+# blocks the commit. ~50s locally on a machine with full toolchain.
+#
+# Cost note: pytest's session-autouse refresh_proof_dependency_artifacts
+# fixture regenerates the same audit artifacts that step (3) just produced.
+# Because both code paths are deterministic in their Coq inputs, the result
+# is byte-identical and no re-staging is needed.
+# ---------------------------------------------------------------------------
+
+echo "[pre-commit] Running FULL test suite (no marker filter)..."
+if ! python3 -m pytest tests/ -q --tb=short >/dev/null 2>&1; then
+    echo "" >&2
+    echo "[pre-commit] FAIL: test suite did not pass." >&2
+    echo "             Reproduce with:" >&2
+    echo "               python3 -m pytest tests/ -q --tb=short" >&2
+    echo "             Fix failures and re-stage before committing." >&2
+    exit 1
+fi
+echo "[pre-commit] Test suite: PASS"
+
+# ---------------------------------------------------------------------------
+# (5) Hard inquisitor proof-hygiene gate.
+#
+# Zero-tolerance Coq audit: no Admitted, no admit, no Hypothesis, no Axiom,
+# no Parameter, no Abort, no tautological proofs. ~90s locally (runs coqtop
+# batches). Skips gracefully if coqtop is not installed; otherwise any
+# finding blocks the commit.
+# ---------------------------------------------------------------------------
+
+if command -v coqtop >/dev/null 2>&1; then
+    echo "[pre-commit] Running inquisitor (~90s)..."
+    if ! python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md >/dev/null 2>&1; then
+        echo "" >&2
+        echo "[pre-commit] FAIL: inquisitor found proof-hygiene issues." >&2
+        echo "             Reproduce with:" >&2
+        echo "               python3 scripts/inquisitor.py --report INQUISITOR_REPORT.md" >&2
+        echo "             Read INQUISITOR_REPORT.md, fix findings, re-stage." >&2
+        exit 1
+    fi
+    # Inquisitor rewrites INQUISITOR_REPORT.md every run (timestamp +
+    # scanned-file count change). Stage the refreshed report so the committed
+    # snapshot matches what just passed the gate.
+    _pc_stage_if_changed INQUISITOR_REPORT.md
+    echo "[pre-commit] Inquisitor: PASS"
+else
+    echo "[pre-commit] WARNING: coqtop not installed — skipping inquisitor." >&2
+    echo "             CI will still run it; local skip is a coverage gap." >&2
+fi
+
 exit 0
