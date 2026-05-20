@@ -198,7 +198,10 @@ jobs:
     # specifies `-nodsp`, so the multiplier maps to LUTs and the design
     # fits in ~151K LUT6 of K325T's 203K (~74%). Placer finishes in
     # ~10 min.
-    continue-on-error: true
+    # `continue-on-error: false` (default): if bitstream generation fails,
+    # CI must fail too. The job previously had continue-on-error: true,
+    # which let packaging bugs (fasm2frames path errors, fasm pypi
+    # circular-import regressions, etc.) hide behind a green checkmark.
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
@@ -208,7 +211,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             yosys cmake g++ python3-pip libboost-all-dev libeigen3-dev libgflags-dev libyaml-cpp-dev
-          pip install --break-system-packages fasm intervaltree simplejson
+          # Pin fasm to 0.0.2 — the only pypi release that is import-clean
+          # under Python 3.12. Newer fasm wheels (0.0.3.post*) introduced a
+          # circular import between fasm.__init__ and fasm.parser that
+          # breaks prjxray's fasm2frames.py at import time. intervaltree
+          # and simplejson are unpinned (no known regressions).
+          pip install --break-system-packages 'fasm==0.0.2' intervaltree simplejson
 
       - name: Build nextpnr-xilinx (openXC7)
         run: |
@@ -247,7 +255,9 @@ jobs:
           BBASM:          /usr/local/bin/bbasm
           XC7FRAMES2BIT:  /usr/local/bin/xc7frames2bit
           PRJXRAY_DIR:    /opt/prjxray
-          PRJXRAY_DB:     /opt/nextpnr-xilinx/xilinx/external/prjxray-db/kintex7
+          # Use the SymbiFlow/prjxray submodule (has mapping/devices.yaml +
+          # full per-part part.yaml/segbits) — not openXC7's pruned bundle.
+          PRJXRAY_DB:     /opt/prjxray/database/kintex7
         run: bash fpga/run_synthesis_xc7.sh
 
       - name: Verify bitstream

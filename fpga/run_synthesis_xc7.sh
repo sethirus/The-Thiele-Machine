@@ -80,9 +80,60 @@ NEXTPNR_DIR="${NEXTPNR_DIR:-/opt/nextpnr-xilinx}"
 BBASM="${BBASM:-${NEXTPNR_DIR}/bbasm}"
 XC7FRAMES2BIT="${XC7FRAMES2BIT:-xc7frames2bit}"
 PRJXRAY_DIR="${PRJXRAY_DIR:-/opt/prjxray}"
-PRJXRAY_DB="${PRJXRAY_DB:-${NEXTPNR_DIR}/xilinx/external/prjxray-db/kintex7}"
+# IMPORTANT: openXC7/nextpnr-xilinx ships a pruned prjxray-db that lacks
+# mapping/devices.yaml — sufficient for chipdb generation but unusable for
+# fasm2frames packaging. Default to SymbiFlow/prjxray's submodule, which is
+# the complete database fasm2frames + xc7frames2bit require. Both tools
+# expect the *family* directory (with mapping/ + part subdirs inside), not
+# the prjxray-db root.
+PRJXRAY_DB="${PRJXRAY_DB:-${PRJXRAY_DIR}/database/kintex7}"
 
 mkdir -p "${BUILD_DIR}"
+
+# Always remove stale per-part outputs so a previously-failed bitstream
+# (which CI's `if: always()` upload would otherwise re-publish) cannot
+# masquerade as a fresh success. The chipdb is part-stable and expensive
+# to regenerate (~30s), so keep it.
+rm -f "${JSON}" "${FASM}" "${FRAMES}" "${BIT}" \
+      "${BUILD_DIR}/yosys_xc7.log" "${BUILD_DIR}/nextpnr_xc7.log"
+
+# Pre-flight: verify every external file the pipeline depends on exists
+# BEFORE we burn an hour on synth + place-and-route. The original failure
+# mode is finding a packaging-step bug after an hour of work.
+PART_BASE="${PART%-*}"
+preflight_missing=0
+for chk in \
+    "${RTL_DIR}/synth_xc7.ys                       (yosys synth script)" \
+    "${RTL_DIR}/thiele_cpu_kami.v                  (post-Bluespec Kami CPU RTL)" \
+    "${RTL_DIR}/thiele_cpu_top_genesys2.v          (Genesys 2 top wrapper)" \
+    "${XDC}                                          (Genesys 2 XDC pin constraints)" \
+    "${NEXTPNR_DIR}/xilinx/python/bbaexport.py     (chipdb generator)" \
+    "${PRJXRAY_DIR}/utils/fasm2frames.py           (FASM -> frames packager)" \
+    "${PRJXRAY_DB}/mapping/devices.yaml            (prjxray family mapping table)" \
+    "${PRJXRAY_DB}/${PART_BASE}/part.yaml          (prjxray per-part chip definition)" ; do
+    path="${chk%% *}"
+    if [ ! -e "${path}" ]; then
+        echo "✗ pre-flight: missing ${chk}" >&2
+        preflight_missing=$((preflight_missing + 1))
+    fi
+done
+for tool in "${NEXTPNR_XILINX}" "${BBASM}" "${XC7FRAMES2BIT}" yosys python3 ; do
+    if ! command -v "${tool}" >/dev/null 2>&1 && [ ! -x "${tool}" ]; then
+        echo "✗ pre-flight: tool not found / not executable: ${tool}" >&2
+        preflight_missing=$((preflight_missing + 1))
+    fi
+done
+if ! python3 -c "import fasm" >/dev/null 2>&1; then
+    echo "✗ pre-flight: python 'fasm' package not importable (try: pip install 'fasm==0.0.2')" >&2
+    preflight_missing=$((preflight_missing + 1))
+fi
+if [ "${preflight_missing}" -gt 0 ]; then
+    echo "" >&2
+    echo "✗ pre-flight failed: ${preflight_missing} missing prerequisite(s) above." >&2
+    echo "  Aborting before running expensive synth/PnR steps." >&2
+    exit 1
+fi
+echo "✓ pre-flight: all prerequisites present"
 
 echo "=== [1/5] Generate chipdb for ${PART} (bbaexport + bbasm) ==="
 if [ ! -s "${CHIPDB}" ]; then
@@ -117,8 +168,12 @@ PYTHONPATH="${PRJXRAY_DIR}:${PYTHONPATH:-}" python3 \
 echo "    frames: ${FRAMES}"
 
 echo "=== [5/5] xc7frames2bit (Project X-Ray) ==="
+# SymbiFlow's prjxray-db lays parts out by base name (xc7k325tffg900),
+# not by speed-graded name (xc7k325tffg900-2). part.yaml is shared across
+# speed grades, so we strip the -N suffix only when constructing the path.
+PART_BASE="${PART%-*}"
 "${XC7FRAMES2BIT}" \
-    --part_file "${PRJXRAY_DB}/${PART}/part.yaml" \
+    --part_file "${PRJXRAY_DB}/${PART_BASE}/part.yaml" \
     --part_name "${PART}" \
     --frm_file "${FRAMES}" \
     --output_file "${BIT}"
