@@ -165,6 +165,20 @@ jobs:
             coq/Makefile.conf
           key: coq-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
 
+      - name: Refresh Coq artefact mtimes
+        # actions/cache restores .vo files with their original build-time
+        # mtimes (a few minutes ago, when build-coq ran), but actions/checkout
+        # sets every .v file to "now". make would then see .vo < .v for every
+        # file and rebuild the entire proof tree — ~7m of redundant work for
+        # a no-op. Bumping .vo mtimes past .v mtimes lets make see the cache
+        # as fresh. The cache key already pins source+vendor hashes, so this
+        # is mtime-cosmetic, not a correctness gap.
+        run: |
+          find coq -name '*.vo' -exec touch {} +
+          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
+
       - name: Guard against Kami cheat axiom usage
         run: |
           if grep -r --include='*.v' -n -e 'apply cheat' -e 'exact cheat' coq/ | grep -v vendor/ | grep .; then
@@ -304,6 +318,18 @@ jobs:
             coq/Makefile
             coq/Makefile.conf
           key: coq-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+
+      - name: Refresh Coq artefact mtimes
+        # Same fix as in proof-check: actions/cache restores .vo files with
+        # their original build-time mtimes, but actions/checkout sets every
+        # .v file to "now". Without this, `make -j4` rebuilds the whole tree
+        # from scratch on cache hit (~7m of redundant work). Touching the
+        # cached files past the .v checkout time lets make see them as fresh.
+        run: |
+          find coq -name '*.vo' -exec touch {} +
+          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
 
       - name: Extract Coq to OCaml
         # The proof tree is already compiled (cache hit from build-coq); this
