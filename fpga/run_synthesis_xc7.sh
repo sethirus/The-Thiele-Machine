@@ -80,12 +80,13 @@ NEXTPNR_DIR="${NEXTPNR_DIR:-/opt/nextpnr-xilinx}"
 BBASM="${BBASM:-${NEXTPNR_DIR}/bbasm}"
 XC7FRAMES2BIT="${XC7FRAMES2BIT:-xc7frames2bit}"
 PRJXRAY_DIR="${PRJXRAY_DIR:-/opt/prjxray}"
-# IMPORTANT: openXC7/nextpnr-xilinx ships a pruned prjxray-db that lacks
-# mapping/devices.yaml — sufficient for chipdb generation but unusable for
-# fasm2frames packaging. SymbiFlow/prjxray itself does NOT bundle the
-# database (no `database/` submodule); the full bitstream database is a
-# separate repo (SymbiFlow/prjxray-db → f4pga/prjxray-db) that callers
-# must clone independently and point PRJXRAY_DB at its family directory.
+# The openXC7-bundled prjxray-db (under nextpnr-xilinx/xilinx/external/)
+# is pruned during the nextpnr build and loses mapping/devices.yaml.
+# SymbiFlow/prjxray-db doesn't have xc7k325t at all (only xc7k70t).
+# The upstream that supports our part is openxc7/prjxray-db (which
+# openXC7/nextpnr-xilinx submodules but mutates). Clone it separately
+# and point PRJXRAY_DB at its kintex7/ subdir. Part directories are
+# named with the speed-grade suffix (e.g., xc7k325tffg900-2/).
 PRJXRAY_DB="${PRJXRAY_DB:-/opt/prjxray-db/kintex7}"
 
 mkdir -p "${BUILD_DIR}"
@@ -100,7 +101,6 @@ rm -f "${JSON}" "${FASM}" "${FRAMES}" "${BIT}" \
 # Pre-flight: verify every external file the pipeline depends on exists
 # BEFORE we burn an hour on synth + place-and-route. The original failure
 # mode is finding a packaging-step bug after an hour of work.
-PART_BASE="${PART%-*}"
 preflight_missing=0
 for chk in \
     "${RTL_DIR}/synth_xc7.ys                       (yosys synth script)" \
@@ -110,7 +110,7 @@ for chk in \
     "${NEXTPNR_DIR}/xilinx/python/bbaexport.py     (chipdb generator)" \
     "${PRJXRAY_DIR}/utils/fasm2frames.py           (FASM -> frames packager)" \
     "${PRJXRAY_DB}/mapping/devices.yaml            (prjxray family mapping table)" \
-    "${PRJXRAY_DB}/${PART_BASE}/part.yaml          (prjxray per-part chip definition)" ; do
+    "${PRJXRAY_DB}/${PART}/part.yaml               (prjxray per-part chip definition)" ; do
     path="${chk%% *}"
     if [ ! -e "${path}" ]; then
         echo "✗ pre-flight: missing ${chk}" >&2
@@ -168,12 +168,8 @@ PYTHONPATH="${PRJXRAY_DIR}:${PYTHONPATH:-}" python3 \
 echo "    frames: ${FRAMES}"
 
 echo "=== [5/5] xc7frames2bit (Project X-Ray) ==="
-# SymbiFlow's prjxray-db lays parts out by base name (xc7k325tffg900),
-# not by speed-graded name (xc7k325tffg900-2). part.yaml is shared across
-# speed grades, so we strip the -N suffix only when constructing the path.
-PART_BASE="${PART%-*}"
 "${XC7FRAMES2BIT}" \
-    --part_file "${PRJXRAY_DB}/${PART_BASE}/part.yaml" \
+    --part_file "${PRJXRAY_DB}/${PART}/part.yaml" \
     --part_name "${PART}" \
     --frm_file "${FRAMES}" \
     --output_file "${BIT}"
