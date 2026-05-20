@@ -20,12 +20,18 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 jobs:
-  # Phase 1: Proof verification (Coq + Inquisitor)
-  proof-check:
-    name: Proof verification
+  # Phase 0: build Coq + Kami once, publish the cache, expose its keys as
+  # job outputs. Both proof-check and extraction depend on this — they used
+  # to each compile Coq themselves (~7m + ~7m sequential), now they share
+  # one build and run in parallel on top of it. proof-repro-gate is its
+  # own parallel branch because it requires an intentional clean rebuild
+  # and can't share the cache.
+  build-coq:
+    name: Build Coq + Kami (shared cache primer)
     runs-on: ubuntu-latest
-    env:
-      OCAMLRUNPARAM: "l=64M"
+    outputs:
+      coq-version: ${{ steps.toolchain.outputs.coq }}
+      vendor-digest: ${{ steps.vendor-digest.outputs.digest }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -35,8 +41,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib \
-            iverilog verilator yosys
+            coq coinor-csdp ocaml ocaml-findlib
 
       - name: Capture toolchain version
         # Coq updates from apt can silently produce .vo files incompatible
@@ -80,13 +85,6 @@ jobs:
           echo "digest=${digest}" >> "$GITHUB_OUTPUT"
           echo "Vendor .vo digest: ${digest}"
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-          cache: pip
-          cache-dependency-path: requirements.txt
-
       - name: Purge stale tracked Coq .vo files
         # coq/**/*.vo are TRACKED in git (.gitignore: "coq/*.vo and coq/*.glob
         # are tracked"). After git checkout they're on disk with timestamps
@@ -112,10 +110,60 @@ jobs:
           key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
 
       - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
         run: |
           cd coq
           coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
           make -j4
+
+  # Phase 1a: proof verification on top of the shared Coq build.
+  # No Coq rebuild here — restores the cache populated by build-coq.
+  proof-check:
+    name: Proof verification
+    runs-on: ubuntu-latest
+    needs: build-coq
+    env:
+      OCAMLRUNPARAM: "l=64M"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Coq + OCaml
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            coq coinor-csdp ocaml ocaml-findlib
+
+      - name: Restore vendor cache (built by build-coq)
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/bbv
+            vendor/kami
+          key: vendor-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
+
+      - name: Restore Coq build cache (built by build-coq)
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+          key: coq-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
 
       - name: Guard against Kami cheat axiom usage
         run: |
@@ -147,9 +195,6 @@ jobs:
       - name: Run bedrock assumption gate
         run: python scripts/inquisitor_assumption_gate.py
 
-      - name: Run reproducible proof gate
-        run: bash scripts/proof_gate_reproducible.sh
-
       - name: Upload Inquisitor report
         if: always()
         uses: actions/upload-artifact@v4
@@ -158,14 +203,15 @@ jobs:
           path: INQUISITOR_REPORT.md
           retention-days: 7
 
-  # Phase 2: OCaml extraction (depends on proof passing)
-  extraction:
-    name: OCaml extraction & 3-layer bisimulation
+  # Phase 1b: reproducibility gate — runs in PARALLEL with build-coq +
+  # proof-check. The repro gate (scripts/proof_gate_reproducible.sh) does
+  # its own `make clean && make` to verify deterministic compilation, so
+  # it intentionally cannot share the cache build-coq produces. Pulling it
+  # out of proof-check turns a previously serial 8-minute step into a
+  # parallel branch.
+  proof-repro-gate:
+    name: Proof reproducibility gate (clean rebuild + coqchk)
     runs-on: ubuntu-latest
-    needs: proof-check
-    env:
-      OCAMLRUNPARAM: "l=64M"
-      THIELE_EXTRACTION_FULL: "1"
     steps:
       - uses: actions/checkout@v4
         with:
@@ -175,15 +221,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
-            coq coinor-csdp ocaml ocaml-findlib \
-            iverilog verilator yosys
+            coq coinor-csdp ocaml ocaml-findlib
 
       - name: Capture toolchain version
         id: toolchain
         run: |
           coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
           echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
-          echo "Coq: ${coq_version}"
 
       - name: Cache vendor builds (bbv + kami)
         id: cache-vendor
@@ -202,16 +246,42 @@ jobs:
           bash scripts/fix_kami_coq18.sh
           cd vendor/kami && make -j4
 
-      - name: Compute vendor build digest
-        id: vendor-digest
+      - name: Run reproducible proof gate
+        # Clean rebuild + zero-Admitted check + coqchk. Internally calls
+        # `make -C coq clean && make -C coq -j$(nproc)` so the Coq cache
+        # is not (and cannot be) used here.
+        run: bash scripts/proof_gate_reproducible.sh
+
+  # Phase 2: OCaml extraction. Runs on top of the shared Coq cache from
+  # build-coq, in PARALLEL with proof-check (both restore the same cache,
+  # neither rebuilds Coq). Previously `needs: proof-check`, which serialised
+  # 17m + 8m = 25m of critical path for a dependency that only existed to
+  # share the Coq build.
+  extraction:
+    name: OCaml extraction & 3-layer bisimulation
+    runs-on: ubuntu-latest
+    needs: build-coq
+    env:
+      OCAMLRUNPARAM: "l=64M"
+      THIELE_EXTRACTION_FULL: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Coq + OCaml
         run: |
-          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
-            | sort -z \
-            | xargs -0 sha256sum 2>/dev/null \
-            | sha256sum \
-            | cut -c1-16)
-          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
-          echo "Vendor .vo digest: ${digest}"
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            coq coinor-csdp ocaml ocaml-findlib
+
+      - name: Restore vendor cache (built by build-coq)
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/bbv
+            vendor/kami
+          key: vendor-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -223,8 +293,7 @@ jobs:
       - name: Purge stale tracked Coq .vo files
         run: make coq-clean
 
-      - name: Cache Coq build
-        id: cache-coq
+      - name: Restore Coq build cache (built by build-coq)
         uses: actions/cache@v4
         with:
           path: |
@@ -234,9 +303,13 @@ jobs:
             coq/**/*.glob
             coq/Makefile
             coq/Makefile.conf
-          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+          key: coq-${{ runner.os }}-${{ needs.build-coq.outputs.coq-version }}-vendor-${{ needs.build-coq.outputs.vendor-digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
 
       - name: Extract Coq to OCaml
+        # The proof tree is already compiled (cache hit from build-coq); this
+        # step just triggers `Extraction "..."` side effects (writes the
+        # extracted .ml files into build/) and links the OCaml runner. The
+        # `make -j4` is a fast no-op since every .vo is already current.
         run: |
           cd coq
           coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
@@ -502,31 +575,31 @@ jobs:
   verify-summary:
     name: Verification Summary
     runs-on: ubuntu-latest
-    needs: [proof-check, extraction, python-tests, trs-receipts, dependencies]
+    needs: [build-coq, proof-check, proof-repro-gate, extraction, python-tests, trs-receipts, dependencies]
     if: always()
     steps:
       - name: Check job results
         run: |
-          cat > /tmp/summary.md << 'EOF'
-          ## ✅ Verification Summary
+          cat > /tmp/summary.md << EOF
+          ## Verification Summary
 
           | Component | Result |
           |-----------|--------|
-          | Proof (Coq + Inquisitor) | ${{ needs.proof-check.result }} |
+          | Build Coq + Kami (shared cache) | ${{ needs.build-coq.result }} |
+          | Proof verification (inquisitor + bedrock + forge) | ${{ needs.proof-check.result }} |
+          | Proof reproducibility gate (clean rebuild + coqchk) | ${{ needs.proof-repro-gate.result }} |
           | Extraction (OCaml + Bisimulation) | ${{ needs.extraction.result }} |
           | Python Tests | ${{ needs.python-tests.result }} |
           | TRS Receipts | ${{ needs.trs-receipts.result }} |
           | Dependency Scan | ${{ needs.dependencies.result }} |
 
-          **Verification Status:** ${{ job.status }}
+          Critical path: build-coq → max(proof-check, extraction) in parallel with
+          proof-repro-gate, python-tests, trs-receipts, dependencies.
 
-          > **Note:** This is the fast verification path (proof + extraction + tests).
-          > For full verification including hardware synthesis, see the nightly run or use:
-          > ```
-          > make closeout-gate
-          > ```
+          For full verification including hardware synthesis + FPGA bitstream,
+          see the nightly run or use \`make closeout-gate\`.
           EOF
-          cat /tmp/summary.md >> $GITHUB_STEP_SUMMARY
+          cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Fail if any check failed
         if: |
