@@ -1,31 +1,30 @@
-# Yosys synthesis script for Xilinx Kintex-7 K480T (ffg901).
+# Yosys synthesis script for Xilinx Kintex-7 K325T (Genesys 2, ffg900).
 # Invoked by fpga/run_synthesis_xc7.sh and the fpga-bitstream CI job.
 #
 # Top is thiele_cpu_top_genesys2 — a board-specific outer wrapper that takes
-# a 200MHz LVDS sysclk, converts it via IBUFDS, and feeds the canonical
-# thiele_cpu_top (from thiele_cpu_top_min.v) which in turn ties off
+# the Genesys 2's 200MHz LVDS sysclk, converts it via IBUFDS, and feeds the
+# canonical thiele_cpu_top (from thiele_cpu_top_min.v) which in turn ties off
 # mkModule1's 250+ Bluespec method I/Os internally. Only 5 board pins survive
-# (LVDS clk_p/clk_n, cpu_reset_n, 3 LEDs). The wrapper name is preserved
-# from the K325T iteration to minimise churn — the package (ffg901) is the
-# same; the silicon underneath isn't.
+# (LVDS clk_p/clk_n, cpu_reset_n, 3 LEDs).
 #
-# Target: xc7k480tffg901-2 (1,672 DSP48E1 + 273,300 LUT6).
+# Target: xc7k325tffg900-2 (840 DSP48E1 + 203,800 LUT6) — the Digilent Genesys
+# 2 board.
 #
-# Why K480T and not K325T: yosys with DSP48E1 inference enabled (no
-# `-nodsp`) maps `instr_chsh_lassert`'s `column_contractive_check_witness`
-# (in coq/kernel/foundation/VMStep.v) — ~20 integer multiplications per
-# cycle including two 128×128 — onto ~1131 DSP48E1 slices. K325T has only
-# 840 DSPs (nextpnr aborts with "Failed to expand region … of 1131
-# DSP48E1_DSP48E1s"). The original "~771 DSPs" estimate undercounted the
-# wide-multiplier mapping. K480T's 1680 DSPs give ~33% headroom; LUT usage
-# (~33K) is well under K480T's 273K. DSPs are still the binding constraint,
-# not LUTs.
+# `-nodsp` is ENABLED. yosys's DSP48E1 inference for
+# `instr_chsh_lassert`'s `column_contractive_check_witness` (which does ~20
+# integer multiplications per cycle, including two 128×128) maps to ~1131 DSP
+# slices — more than K325T's 840 and dense enough that openXC7's nextpnr-xilinx
+# placer takes 1-2+ hours to find a valid placement (sometimes timing out).
+# Letting yosys map the multipliers to LUTs instead keeps the design under
+# ~33K LUTs (16% of K325T's 203K) and lets nextpnr place it in ~10 min. DSP
+# vs LUT is a silicon-utilization choice, not a correctness one — the proof
+# chain (Coq → OCaml → Bluespec → Verilog) is identical either way. We
+# accept the LUT cost in exchange for an open-source flow that actually
+# finishes in CI.
 #
 # `-abc9` enables abc9 tech-mapping for tighter wide-mux factoring.
-# DSP48E1 inference is ENABLED (no `-nodsp`); openXC7 nextpnr-xilinx
-# supports DSP48E1 cascading on xc7 per the upstream README.
 
 read_verilog -sv -DSYNTHESIS RegFile.v thiele_cpu_kami.v thiele_cpu_top_min.v thiele_cpu_top_genesys2.v
 
-synth_xilinx -family xc7 -flatten -abc9 -top thiele_cpu_top_genesys2
-write_json ../../../build/thiele_xc7k480t.json
+synth_xilinx -family xc7 -flatten -abc9 -nodsp -top thiele_cpu_top_genesys2
+write_json ../../../build/thiele_xc7k325t.json

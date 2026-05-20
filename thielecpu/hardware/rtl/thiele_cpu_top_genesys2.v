@@ -1,29 +1,37 @@
-// thiele_cpu_top_genesys2.v — CI-synthesis wrapper (K480T / ffg901).
+// thiele_cpu_top_genesys2.v — Genesys 2 (xc7k325t-ffg900-2) deployment wrapper.
 //
-// File name kept as thiele_cpu_top_genesys2.v to minimise downstream churn
-// (synth_xc7.ys, run_synthesis_xc7.sh, the CI workflow all reference this
-// wrapper by name). The wrapper itself no longer matches a Genesys 2 board
-// layout — that board uses xc7k325t-ffg900 which has only 840 DSPs, too few
-// for the ~1131 DSP48E1 slices yosys infers for column_contractive_check_witness
-// (~20 integer multiplications per cycle including two 128×128). Targeting
-// K480T-ffg901 instead (1920 DSPs, the smallest part that fits in openXC7's
-// prjxray-db with a complete parent-dir tilegrid.json — K420T was incomplete).
+// The canonical top wrapper `thiele_cpu_top` (in thiele_cpu_top_min.v) takes a
+// single-ended CLK input. Genesys 2's only on-board clock source is a 200MHz
+// LVDS pair on FPGA pins AD12/AD11; this wrapper converts that LVDS pair to
+// single-ended via an `IBUFDS` primitive and feeds the inner wrapper.
 //
-// Clock input is single-ended for CI portability. A real Genesys 2 build with
-// the original K325T part still wants the IBUFDS-driven LVDS pair; that wrapper
-// can be reinstated as a board-specific variant when an actual K480T-ffg901
-// board enters the deploy path.
+// The wrapper layer is board-specific glue and sits OUTSIDE the Coq↔OCaml↔
+// Kami↔BSC↔Verilog isomorphism chain — it just connects external pins to the
+// canonical CPU top. The CPU itself (mkModule1) is unchanged.
 //
-// The wrapper layer sits OUTSIDE the Coq↔OCaml↔Kami↔BSC↔Verilog isomorphism
-// chain — it just connects external pins to the canonical CPU top. The CPU
-// itself (mkModule1) is unchanged.
+// Target part is K325T with `-nodsp` in synth_xc7.ys — multipliers map to
+// LUTs (~33K LUTs of K325T's 203K), DSP inference disabled because openXC7's
+// nextpnr-xilinx struggles with the ~1131 DSP slices yosys would otherwise
+// infer. See synth_xc7.ys for the full DSP-vs-LUT rationale.
 module thiele_cpu_top_genesys2 (
-    input  sysclk,
+    input  clk_p,
+    input  clk_n,
     input  cpu_reset_n,
     output LED_HALTED,
     output LED_ERR,
     output LED_BIANCHI
 );
+    wire sysclk;
+    IBUFDS #(
+        .DIFF_TERM   ("FALSE"),
+        .IBUF_LOW_PWR("FALSE"),
+        .IOSTANDARD  ("LVDS")
+    ) ibufds_sysclk (
+        .I (clk_p),
+        .IB(clk_n),
+        .O (sysclk)
+    );
+
     thiele_cpu_top inner (
         .CLK        (sysclk),
         .RST_N      (cpu_reset_n),

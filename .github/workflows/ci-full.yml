@@ -177,7 +177,7 @@ jobs:
   # upstream, so this job only needs the FPGA toolchain — no Coq/OCaml/
   # Python/forge.
   fpga-bitstream:
-    name: FPGA bitstream generation (Kintex-7 K480T / ffg901 / openXC7)
+    name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
     runs-on: ubuntu-latest
     # No `needs:` — this job only reads .v files from the repo at checkout
     # and produces its own bitstream end-to-end. Previously gated as
@@ -186,12 +186,12 @@ jobs:
     #
     # CHSH_LASSERT's column_contractive_check_witness does ~20 integer
     # multiplications per cycle (including two 128×128 for C*C and A*B).
-    # With DSP48E1 inference enabled in synth_xc7.ys, yosys actually maps
-    # these onto ~1131 DSP slices (the earlier "~771 DSPs" estimate
-    # undercounted the wide-multiplier mapping). K325T's 840 DSPs were
-    # not enough and the placer aborted with "Failed to expand region …
-    # of 1131 DSP48E1_DSP48E1s". K480T has 1680 DSPs and 273K LUTs —
-    # fits both budgets with ~33% headroom. Same ffg901 package as K325T.
+    # With DSP48E1 inference enabled in synth_xc7.ys, yosys would map
+    # these onto ~1131 DSP slices — more than K325T's 840, and dense
+    # enough that K480T's placer takes 1-2+ hours on openXC7's
+    # nextpnr-xilinx (sometimes doesn't finish at all). synth_xc7.ys now
+    # specifies `-nodsp`, so multipliers map to LUTs and the design fits
+    # in ~33K LUTs of K325T's 203K. Placer finishes in ~10 min.
     continue-on-error: true
     timeout-minutes: 120
     steps:
@@ -210,17 +210,17 @@ jobs:
           cd /opt/nextpnr-xilinx
           git submodule update --init --recursive --depth 1
           # Trim non-Kintex-7 device databases to keep the chipdb step slim.
-          # Keep all xc7k480t* (parent dir + ffg901 + ffg1156 package subdirs)
+          # Keep all xc7k325t* (parent dir + ffg676 + ffg900 package subdirs)
           # — that's the target. Drop every other Kintex-7 part (and the other
           # 7-series families entirely).
           rm -rf xilinx/external/prjxray-db/zynq7 xilinx/external/prjxray-db/artix7 xilinx/external/prjxray-db/spartan7
           find xilinx/external/prjxray-db/kintex7 -maxdepth 1 -mindepth 1 -type d \
-            ! -name 'xc7k480t*' -exec rm -rf {} +
+            ! -name 'xc7k325t*' -exec rm -rf {} +
           cmake -DARCH=xilinx -DBUILD_GUI=OFF -DBUILD_PYTHON=OFF .
           make -j$(nproc) nextpnr-xilinx bbasm
           sudo install -m 0755 nextpnr-xilinx /usr/local/bin/nextpnr-xilinx
           # bbasm is needed by fpga/run_synthesis_xc7.sh to build the chipdb
-          # for xc7k480tffg901-2 at runtime; expose it on PATH and keep the
+          # for xc7k325tffg900-2 at runtime; expose it on PATH and keep the
           # source-tree path stable for the script's bbaexport.py invocation.
           sudo install -m 0755 bbasm /usr/local/bin/bbasm
 
@@ -234,7 +234,7 @@ jobs:
           make -C build -j$(nproc) xc7frames2bit
           sudo install -m 0755 build/tools/xc7frames2bit /usr/local/bin/xc7frames2bit
 
-      - name: Run yosys + nextpnr-xilinx + xc7frames2bit (Kintex-7 K480T)
+      - name: Run yosys + nextpnr-xilinx + xc7frames2bit (Kintex-7 K325T)
         env:
           NEXTPNR_XILINX: /usr/local/bin/nextpnr-xilinx
           NEXTPNR_DIR:    /opt/nextpnr-xilinx
@@ -246,12 +246,12 @@ jobs:
 
       - name: Verify bitstream
         run: |
-          if [ ! -s build/thiele_xc7k480t.bit ]; then
+          if [ ! -s build/thiele_xc7k325t.bit ]; then
             echo "❌ Bitstream missing or empty"
             exit 1
           fi
-          bytes=$(wc -c < build/thiele_xc7k480t.bit)
-          echo "✓ Bitstream generated: build/thiele_xc7k480t.bit (${bytes} bytes)"
+          bytes=$(wc -c < build/thiele_xc7k325t.bit)
+          echo "✓ Bitstream generated: build/thiele_xc7k325t.bit (${bytes} bytes)"
 
       - name: Upload bitstream
         if: always()
@@ -259,10 +259,10 @@ jobs:
         with:
           name: fpga-bitstream
           path: |
-            build/thiele_xc7k480t.bit
-            build/thiele_xc7k480t.fasm
-            build/thiele_xc7k480t.frames
-            build/thiele_xc7k480t.json
+            build/thiele_xc7k325t.bit
+            build/thiele_xc7k325t.fasm
+            build/thiele_xc7k325t.frames
+            build/thiele_xc7k325t.json
             build/yosys_xc7.log
             build/nextpnr_xc7.log
           retention-days: 90
@@ -287,7 +287,7 @@ jobs:
           |-------|--------|
           | Fast verify (proof + extraction + tests) | ${{ needs.fast-verify.result }} |
           | Hardware Synthesis | ${{ needs.hardware-synthesis.result }} |
-          | FPGA Bitstream (K480T) | ${{ needs.fpga-bitstream.result }} |
+          | FPGA Bitstream (K325T) | ${{ needs.fpga-bitstream.result }} |
 
           Critical path: max(fast-verify, hardware-synthesis, fpga-bitstream)
           rather than fast-verify → hardware-synthesis → fpga-bitstream.

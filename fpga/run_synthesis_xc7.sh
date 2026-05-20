@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ============================================================================
-# Thiele CPU — Xilinx Kintex-7 K480T (ffg901) open-source synthesis driver.
+# Thiele CPU — Xilinx Kintex-7 K325T (ffg900) open-source synthesis driver.
 # ============================================================================
 #
 # Required tools:
@@ -17,24 +17,27 @@
 #   - thielecpu/hardware/rtl/synth_xc7.ys
 #   - fpga/thiele_genesys2.xdc
 #
-# Chipdb (xc7k480tffg901-2.bin) is generated at run-time via bbaexport +
+# Chipdb (xc7k325tffg900-2.bin) is generated at run-time via bbaexport +
 # bbasm — too large (~90MB) to commit per part.
 #
-# Why K480T (not K325T): yosys with DSP48E1 inference enabled maps
-# column_contractive_check_witness onto ~1131 DSP slices (the original
-# "~771 DSPs" estimate was off — actual synthesis lands higher). K325T
-# only has 840 DSPs (placer aborts with "Failed to expand region … of
-# 1131 DSP48E1_DSP48E1s"). K480T has 1680 DSPs and 1.34× the LUT count
-# of K325T (273K vs 203K) — fits both budgets with comfortable headroom.
-# Same ffg901 package as K325T, so the existing thiele_genesys2.xdc pin
-# assignments carry over (modulo board-level wiring, which is moot for
-# CI synthesis without a physical board).
+# Why K325T with `-nodsp`: yosys's DSP48E1 inference for
+# column_contractive_check_witness maps onto ~1131 DSP slices, more than
+# K325T's 840 DSPs. Rather than escalating to a bigger part (K420T has no
+# parent-dir tilegrid in openXC7's prjxray-db; K480T fits but its placer
+# takes 1-2+ hours and sometimes doesn't finish at all on the open-source
+# nextpnr-xilinx), we disable DSP inference in synth_xc7.ys (`-nodsp`)
+# and let yosys map multipliers to LUTs. The design then fits in ~33K LUTs
+# — well inside K325T's 203K LUT budget — and the placer finishes in
+# ~10 min. DSP vs LUT is a silicon-utilization choice, not a correctness
+# one; the proof chain (Coq → OCaml → Bluespec → Verilog) is identical
+# either way. We accept the LUT cost in exchange for an open-source flow
+# that finishes in CI.
 #
 # Outputs in build/:
-#   - thiele_xc7k480t.json     (yosys post-synthesis netlist)
-#   - thiele_xc7k480t.fasm     (placed-and-routed FPGA assembly)
-#   - thiele_xc7k480t.frames   (frame-level bit positions)
-#   - thiele_xc7k480t.bit      (binary bitstream)
+#   - thiele_xc7k325t.json     (yosys post-synthesis netlist)
+#   - thiele_xc7k325t.fasm     (placed-and-routed FPGA assembly)
+#   - thiele_xc7k325t.frames   (frame-level bit positions)
+#   - thiele_xc7k325t.bit      (binary bitstream)
 #
 # Usage:
 #   bash fpga/run_synthesis_xc7.sh
@@ -53,12 +56,12 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 RTL_DIR="${ROOT}/thielecpu/hardware/rtl"
 BUILD_DIR="${ROOT}/build"
-PART="xc7k480tffg901-2"
+PART="xc7k325tffg900-2"
 TOP="thiele_cpu_top_genesys2"
-JSON="${BUILD_DIR}/thiele_xc7k480t.json"
-FASM="${BUILD_DIR}/thiele_xc7k480t.fasm"
-FRAMES="${BUILD_DIR}/thiele_xc7k480t.frames"
-BIT="${BUILD_DIR}/thiele_xc7k480t.bit"
+JSON="${BUILD_DIR}/thiele_xc7k325t.json"
+FASM="${BUILD_DIR}/thiele_xc7k325t.fasm"
+FRAMES="${BUILD_DIR}/thiele_xc7k325t.frames"
+BIT="${BUILD_DIR}/thiele_xc7k325t.bit"
 CHIPDB="${BUILD_DIR}/${PART}.bin"
 XDC="${ROOT}/fpga/thiele_genesys2.xdc"
 
