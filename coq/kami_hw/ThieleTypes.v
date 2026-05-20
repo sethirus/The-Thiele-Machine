@@ -9,11 +9,12 @@ Set Asymmetric Patterns.
 (** Register and memory dimensions — must match VMState.v.
 
     The kernel proofs are parametric in these constants. The values below
-    are the silicon-side bounds of the synthesized RTL (chosen to fit the
-    Xilinx Artix-7 xc7a35tcsg324-1 / Arty A7-35T target through the
-    open-source yosys + openXC7 toolchain); the same Coq development scales
-    up linearly when bound to larger values for a different device or for
-    pure simulation. *)
+    are the silicon-side bounds of the synthesized RTL (originally chosen
+    to fit early Arty A7-35T fits; kept on the current Kintex-7
+    xc7k325tffg900-2 / Digilent Genesys 2 target through the open-source
+    yosys + openXC7 toolchain to preserve test/cosim parity). The same
+    Coq development scales up linearly when bound to larger values for a
+    different device or for pure simulation. *)
 Definition RegCount := 16.
 Definition MemSize := 128.
 Definition RegIdxSz := 4.    (* log2(RegCount) *)

@@ -95,7 +95,7 @@ def main() -> None:
                     help="Sweep flen from 1 to MAX-FLEN (default 16)")
     ap.add_argument("--narrowing", type=int, default=2,
                     help="Programmer-declared cost (Shannon entropy reduction term)")
-    ap.add_argument("--erasure-json", default="artifacts/erasure_trace_xc7a35t.json",
+    ap.add_argument("--erasure-json", default="artifacts/erasure_trace_xc7k325t.json",
                     help="erasure_trace.py JSON output for cross-reference")
     ap.add_argument("--json-out", default=None,
                     help="Write the sweep + slope to this JSON path")

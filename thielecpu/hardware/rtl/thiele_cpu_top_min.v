@@ -1,4 +1,6 @@
-// thiele_cpu_top_min.v — minimal Artix-7 deployment wrapper (xc7a35t / Arty A7-35T)
+// thiele_cpu_top_min.v — minimal, board-independent deployment wrapper
+//   (board-specific wrappers like thiele_cpu_top_genesys2.v instantiate this
+//    for the Kintex-7 xc7k325tffg900-2 on the Digilent Genesys 2)
 module thiele_cpu_top (
     input  CLK,
     input  RST_N,

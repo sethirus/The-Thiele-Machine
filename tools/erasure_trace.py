@@ -5,7 +5,7 @@ Thiele CPU netlist.
 
 What this tool does
 -------------------
-Loads the Yosys-synthesized netlist (`build/thiele_xc7a35t.json`), classifies
+Loads the Yosys-synthesized netlist (`build/thiele_xc7k325t.json`), classifies
 each combinational cell by its information-theoretic reversibility, and
 reports the total bit-erasure count for the LASSERT data path (and for the
 whole top module, for context).
@@ -262,7 +262,7 @@ def analyze(netlist_path: Path, json_out: Path | None = None) -> dict:
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[1])
     ap.add_argument("--netlist",
-                    default="build/thiele_xc7a35t.json",
+                    default="build/thiele_xc7k325t.json",
                     help="Path to Yosys JSON netlist")
     ap.add_argument("--json-out",
                     default=None,
