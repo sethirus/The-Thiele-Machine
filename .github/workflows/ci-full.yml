@@ -177,7 +177,7 @@ jobs:
   # upstream, so this job only needs the FPGA toolchain — no Coq/OCaml/
   # Python/forge.
   fpga-bitstream:
-    name: FPGA bitstream generation (Kintex-7 K420T / ffg900 / openXC7)
+    name: FPGA bitstream generation (Kintex-7 K480T / ffg901 / openXC7)
     runs-on: ubuntu-latest
     # No `needs:` — this job only reads .v files from the repo at checkout
     # and produces its own bitstream end-to-end. Previously gated as
@@ -190,8 +190,8 @@ jobs:
     # these onto ~1131 DSP slices (the earlier "~771 DSPs" estimate
     # undercounted the wide-multiplier mapping). K325T's 840 DSPs were
     # not enough and the placer aborted with "Failed to expand region …
-    # of 1131 DSP48E1_DSP48E1s". K420T has 1680 DSPs and 273K LUTs —
-    # fits both budgets with ~33% headroom. Same ffg900 package as K325T.
+    # of 1131 DSP48E1_DSP48E1s". K480T has 1680 DSPs and 273K LUTs —
+    # fits both budgets with ~33% headroom. Same ffg901 package as K325T.
     continue-on-error: true
     timeout-minutes: 120
     steps:
@@ -210,14 +210,17 @@ jobs:
           cd /opt/nextpnr-xilinx
           git submodule update --init --recursive --depth 1
           # Trim non-Kintex-7 device databases to keep the chipdb step slim.
-          # Keep kintex7/xc7k420t for the target; drop the rest.
+          # Keep all xc7k480t* (parent dir + ffg901 + ffg1156 package subdirs)
+          # — that's the target. Drop every other Kintex-7 part (and the other
+          # 7-series families entirely).
           rm -rf xilinx/external/prjxray-db/zynq7 xilinx/external/prjxray-db/artix7 xilinx/external/prjxray-db/spartan7
-          rm -rf xilinx/external/prjxray-db/kintex7/xc7k70t xilinx/external/prjxray-db/kintex7/xc7k160t xilinx/external/prjxray-db/kintex7/xc7k325t xilinx/external/prjxray-db/kintex7/xc7k410t xilinx/external/prjxray-db/kintex7/xc7k480t
+          find xilinx/external/prjxray-db/kintex7 -maxdepth 1 -mindepth 1 -type d \
+            ! -name 'xc7k480t*' -exec rm -rf {} +
           cmake -DARCH=xilinx -DBUILD_GUI=OFF -DBUILD_PYTHON=OFF .
           make -j$(nproc) nextpnr-xilinx bbasm
           sudo install -m 0755 nextpnr-xilinx /usr/local/bin/nextpnr-xilinx
           # bbasm is needed by fpga/run_synthesis_xc7.sh to build the chipdb
-          # for xc7k420tffg900-2 at runtime; expose it on PATH and keep the
+          # for xc7k480tffg901-2 at runtime; expose it on PATH and keep the
           # source-tree path stable for the script's bbaexport.py invocation.
           sudo install -m 0755 bbasm /usr/local/bin/bbasm
 
@@ -231,7 +234,7 @@ jobs:
           make -C build -j$(nproc) xc7frames2bit
           sudo install -m 0755 build/tools/xc7frames2bit /usr/local/bin/xc7frames2bit
 
-      - name: Run yosys + nextpnr-xilinx + xc7frames2bit (Kintex-7 K420T)
+      - name: Run yosys + nextpnr-xilinx + xc7frames2bit (Kintex-7 K480T)
         env:
           NEXTPNR_XILINX: /usr/local/bin/nextpnr-xilinx
           NEXTPNR_DIR:    /opt/nextpnr-xilinx
@@ -243,12 +246,12 @@ jobs:
 
       - name: Verify bitstream
         run: |
-          if [ ! -s build/thiele_xc7k420t.bit ]; then
+          if [ ! -s build/thiele_xc7k480t.bit ]; then
             echo "❌ Bitstream missing or empty"
             exit 1
           fi
-          bytes=$(wc -c < build/thiele_xc7k420t.bit)
-          echo "✓ Bitstream generated: build/thiele_xc7k420t.bit (${bytes} bytes)"
+          bytes=$(wc -c < build/thiele_xc7k480t.bit)
+          echo "✓ Bitstream generated: build/thiele_xc7k480t.bit (${bytes} bytes)"
 
       - name: Upload bitstream
         if: always()
@@ -256,10 +259,10 @@ jobs:
         with:
           name: fpga-bitstream
           path: |
-            build/thiele_xc7k420t.bit
-            build/thiele_xc7k420t.fasm
-            build/thiele_xc7k420t.frames
-            build/thiele_xc7k420t.json
+            build/thiele_xc7k480t.bit
+            build/thiele_xc7k480t.fasm
+            build/thiele_xc7k480t.frames
+            build/thiele_xc7k480t.json
             build/yosys_xc7.log
             build/nextpnr_xc7.log
           retention-days: 90
@@ -284,7 +287,7 @@ jobs:
           |-------|--------|
           | Fast verify (proof + extraction + tests) | ${{ needs.fast-verify.result }} |
           | Hardware Synthesis | ${{ needs.hardware-synthesis.result }} |
-          | FPGA Bitstream (K420T) | ${{ needs.fpga-bitstream.result }} |
+          | FPGA Bitstream (K480T) | ${{ needs.fpga-bitstream.result }} |
 
           Critical path: max(fast-verify, hardware-synthesis, fpga-bitstream)
           rather than fast-verify → hardware-synthesis → fpga-bitstream.
