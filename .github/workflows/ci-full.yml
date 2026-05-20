@@ -248,6 +248,18 @@ jobs:
           make -C build -j$(nproc) xc7frames2bit
           sudo install -m 0755 build/tools/xc7frames2bit /usr/local/bin/xc7frames2bit
 
+      - name: Clone full prjxray-db (kintex7 only)
+        # SymbiFlow/prjxray itself has no `database/` submodule; the bitstream
+        # database is a separate repo (SymbiFlow/prjxray-db → f4pga/prjxray-db)
+        # that openXC7 only ships a pruned subset of (no mapping/devices.yaml).
+        # Shallow-clone the full repo and trim non-kintex7 families to keep
+        # disk usage bounded.
+        run: |
+          git clone --depth 1 https://github.com/SymbiFlow/prjxray-db.git /opt/prjxray-db
+          rm -rf /opt/prjxray-db/artix7 /opt/prjxray-db/spartan7 /opt/prjxray-db/zynq7
+          test -f /opt/prjxray-db/kintex7/mapping/devices.yaml
+          test -f /opt/prjxray-db/kintex7/xc7k325tffg900/part.yaml
+
       - name: Run yosys + nextpnr-xilinx + xc7frames2bit (Kintex-7 K325T)
         env:
           NEXTPNR_XILINX: /usr/local/bin/nextpnr-xilinx
@@ -255,9 +267,10 @@ jobs:
           BBASM:          /usr/local/bin/bbasm
           XC7FRAMES2BIT:  /usr/local/bin/xc7frames2bit
           PRJXRAY_DIR:    /opt/prjxray
-          # Use the SymbiFlow/prjxray submodule (has mapping/devices.yaml +
-          # full per-part part.yaml/segbits) — not openXC7's pruned bundle.
-          PRJXRAY_DB:     /opt/prjxray/database/kintex7
+          # Full SymbiFlow/prjxray-db clone: has mapping/devices.yaml +
+          # per-part part.yaml + segbits_*.db. openXC7's nextpnr-xilinx
+          # ships a pruned subset (chipdb-export only) that lacks mapping/.
+          PRJXRAY_DB:     /opt/prjxray-db/kintex7
         run: bash fpga/run_synthesis_xc7.sh
 
       - name: Verify bitstream

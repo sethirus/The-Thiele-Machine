@@ -82,11 +82,11 @@ XC7FRAMES2BIT="${XC7FRAMES2BIT:-xc7frames2bit}"
 PRJXRAY_DIR="${PRJXRAY_DIR:-/opt/prjxray}"
 # IMPORTANT: openXC7/nextpnr-xilinx ships a pruned prjxray-db that lacks
 # mapping/devices.yaml — sufficient for chipdb generation but unusable for
-# fasm2frames packaging. Default to SymbiFlow/prjxray's submodule, which is
-# the complete database fasm2frames + xc7frames2bit require. Both tools
-# expect the *family* directory (with mapping/ + part subdirs inside), not
-# the prjxray-db root.
-PRJXRAY_DB="${PRJXRAY_DB:-${PRJXRAY_DIR}/database/kintex7}"
+# fasm2frames packaging. SymbiFlow/prjxray itself does NOT bundle the
+# database (no `database/` submodule); the full bitstream database is a
+# separate repo (SymbiFlow/prjxray-db → f4pga/prjxray-db) that callers
+# must clone independently and point PRJXRAY_DB at its family directory.
+PRJXRAY_DB="${PRJXRAY_DB:-/opt/prjxray-db/kintex7}"
 
 mkdir -p "${BUILD_DIR}"
 
