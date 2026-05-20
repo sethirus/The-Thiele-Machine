@@ -10,17 +10,20 @@
 # Target: xc7k325tffg900-2 (840 DSP48E1 + 203,800 LUT6) — the Digilent Genesys
 # 2 board.
 #
-# `-nodsp` is ENABLED. yosys's DSP48E1 inference for
-# `instr_chsh_lassert`'s `column_contractive_check_witness` (which does ~20
-# integer multiplications per cycle, including two 128×128) maps to ~1131 DSP
-# slices — more than K325T's 840 and dense enough that openXC7's nextpnr-xilinx
-# placer takes 1-2+ hours to find a valid placement (sometimes timing out).
-# Letting yosys map the multipliers to LUTs instead keeps the design under
-# ~33K LUTs (16% of K325T's 203K) and lets nextpnr place it in ~10 min. DSP
-# vs LUT is a silicon-utilization choice, not a correctness one — the proof
-# chain (Coq → OCaml → Bluespec → Verilog) is identical either way. We
-# accept the LUT cost in exchange for an open-source flow that actually
-# finishes in CI.
+# `-nodsp` is ENABLED. `instr_chsh_lassert`'s `column_contractive_check_witness`
+# performs 22 wide integer multiplications (widest two are 128×128 → 256).
+# In Kami the check is implemented as a 23-phase FSM (`chsh_lassert_fsm` rule
+# in coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
+# multiplier across the phases, so only one wide multiply is live per cycle.
+# Even with the FSM, yosys's DSP48E1 inference fans that single multiplier
+# out to more DSP slices than K325T's 840 (wide operand widths force several
+# chained DSPs each) and slows openXC7's nextpnr-xilinx placer to 1-2+ hours
+# (sometimes timing out). Letting yosys map the multiplier to LUTs instead
+# produces ~151K LUT6 against K325T's 203K (~74% utilisation) and lets
+# nextpnr place the design in ~10 min. DSP vs LUT is a silicon-utilisation
+# choice, not a correctness one — the proof chain (Coq → OCaml → Bluespec
+# → Verilog) is identical either way. We accept the LUT cost in exchange
+# for an open-source flow that actually finishes in CI.
 #
 # `-abc9` enables abc9 tech-mapping for tighter wide-mux factoring.
 

@@ -166,6 +166,89 @@ Section ThieleCPU.
       with Register "lassert_clause_sat" : Bool <- false
       with Register "lassert_counter_clause_sat" : Bool <- false
       with Register "lassert_counter_seen_fail" : Bool <- false
+
+      (* CHSH_LASSERT multi-cycle FSM registers.
+         The witness check (column-contractive) needs ~22 wide integer
+         multiplications. Doing them combinationally inside the step rule
+         maps to ~1131 DSP48E1 slices, which (a) overflows K325T's 840 DSP
+         budget and (b) takes openXC7's nextpnr-xilinx placer >2h. We
+         restructure the check as a 22-cycle FSM that shares ONE 384x384
+         multiplier across all phases, with the operand mux indexed by
+         `chsh_phase`. Total DSP cost drops to ~64.
+
+         chsh_phase encoding (Bit 5 = 32 values, use 0..23):
+           0  : idle (step rule may fire)
+           1  : compute n00² (witness already latched in step rule dispatch)
+           2  : compute n01²
+           3  : n10²
+           4  : n11²
+           5  : d00²        — chsh_d_xy values are pre-computed absolute diffs
+           6  : d01²
+           7  : d10²
+           8  : d11²
+           9  : A_pos     = n00²·n10²
+           10 : A_neg_a   = d00²·n10²
+           11 : A_neg_b   = d10²·n00²
+           12 : B_pos     = n01²·n11²
+           13 : B_neg_a   = d01²·n11²
+           14 : B_neg_b   = d11²·n01²
+           15 : d00d01    = d00·d01    (128-bit helper for C)
+           16 : n10n11    = n10·n11
+           17 : d10d11    = d10·d11
+           18 : n00n01    = n00·n01
+           19 : abs_C1    = d00d01·n10n11
+           20 : abs_C2    = d10d11·n00n01
+           21 : C_sq      = |C|²
+           22 : A_times_B = A·B
+           23 : commit (final compare + PC/mu/err writes)
+
+         While chsh_phase > 0 the main step rule is inhibited (Assert
+         chsh_phase == 0), same pattern as the LASSERT FSM. *)
+      with Register "chsh_phase"   : Bit 5  <- Default
+      (* Latched witness counters at dispatch (single source of truth for FSM) *)
+      with Register "chsh_n00"     : Bit 64 <- Default
+      with Register "chsh_n01"     : Bit 64 <- Default
+      with Register "chsh_n10"     : Bit 64 <- Default
+      with Register "chsh_n11"     : Bit 64 <- Default
+      with Register "chsh_d00"     : Bit 64 <- Default  (* |d_xy|, sign in chsh_sign_xy *)
+      with Register "chsh_d01"     : Bit 64 <- Default
+      with Register "chsh_d10"     : Bit 64 <- Default
+      with Register "chsh_d11"     : Bit 64 <- Default
+      with Register "chsh_sign00"  : Bool   <- false
+      with Register "chsh_sign01"  : Bool   <- false
+      with Register "chsh_sign10"  : Bool   <- false
+      with Register "chsh_sign11"  : Bool   <- false
+      (* Phase 1..8 outputs: 8 squarings at 128 bits each *)
+      with Register "chsh_n00sq"   : Bit 128 <- Default
+      with Register "chsh_n01sq"   : Bit 128 <- Default
+      with Register "chsh_n10sq"   : Bit 128 <- Default
+      with Register "chsh_n11sq"   : Bit 128 <- Default
+      with Register "chsh_d00sq"   : Bit 128 <- Default
+      with Register "chsh_d01sq"   : Bit 128 <- Default
+      with Register "chsh_d10sq"   : Bit 128 <- Default
+      with Register "chsh_d11sq"   : Bit 128 <- Default
+      (* Phase 9..14 outputs: A and B sub-products at 256 bits each *)
+      with Register "chsh_A_pos"   : Bit 256 <- Default
+      with Register "chsh_A_neg_a" : Bit 256 <- Default
+      with Register "chsh_A_neg_b" : Bit 256 <- Default
+      with Register "chsh_B_pos"   : Bit 256 <- Default
+      with Register "chsh_B_neg_a" : Bit 256 <- Default
+      with Register "chsh_B_neg_b" : Bit 256 <- Default
+      (* Phase 15..18 outputs: 4 narrow C-helper products at 128 bits each *)
+      with Register "chsh_d00d01"  : Bit 128 <- Default
+      with Register "chsh_n10n11"  : Bit 128 <- Default
+      with Register "chsh_d10d11"  : Bit 128 <- Default
+      with Register "chsh_n00n01"  : Bit 128 <- Default
+      (* Phase 19..20 outputs: 2 wide C-term magnitudes at 256 bits each *)
+      with Register "chsh_abs_C1"  : Bit 256 <- Default
+      with Register "chsh_abs_C2"  : Bit 256 <- Default
+      (* Phase 21..22 outputs: final 384-bit products for the comparison *)
+      with Register "chsh_C_sq"      : Bit 384 <- Default
+      with Register "chsh_A_times_B" : Bit 384 <- Default
+      (* Phase 23 output: final boolean result (true = check passed). Step rule
+         reads this after FSM completes to decide trap vs advance. *)
+      with Register "chsh_check_result" : Bool <- false
+
       with Register "bus_load_instr_addr" : Bit MemAddrSz <- Default
       with Register "bus_load_instr_data" : Bit InstrSz <- Default
       with Register "bus_load_instr_kick" : Bool <- false
@@ -238,6 +321,16 @@ Section ThieleCPU.
         (* LASSERT FSM: step rule fires only when FSM is idle (phase = 0). *)
         Read lassert_phase_v : Bit 3 <- "lassert_phase";
         Assert (#lassert_phase_v == $0);
+
+        (* CHSH_LASSERT FSM: step rule also inhibited when CHSH FSM is running.
+           The chsh check is multi-cycle (23 phases sharing one 384-bit mult),
+           and on phase 23 the FSM overrides PC/err/error_code if the check
+           failed. Until then the step rule sees a stale chsh_check_result;
+           the Assert below guarantees the step rule fires only between
+           CHSH_LASSERT invocations, never during a CHSH FSM run. *)
+        Read chsh_phase_v : Bit 5 <- "chsh_phase";
+        Assert (#chsh_phase_v == $0);
+        Read chsh_check_result_v : Bool <- "chsh_check_result";
 
         (* Fetch instruction from internal instruction memory *)
         Read pc_v : Bit WordSz <- "pc";
@@ -928,98 +1021,18 @@ Section ThieleCPU.
         LET ll_all_n_pos <-
           (#ll_n00 != $0) && (#ll_n01 != $0) && (#ll_n10 != $0) && (#ll_n11 != $0);
 
-        (* Compute squares at 128 bits.  Zero-extend operands then multiply. *)
-        LET ll_n00_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n00;
-        LET ll_n01_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n01;
-        LET ll_n10_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n10;
-        LET ll_n11_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_n11;
-        LET ll_d00_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d00;
-        LET ll_d01_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d01;
-        LET ll_d10_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d10;
-        LET ll_d11_128 : Bit 128 <- UniBit (ZeroExtendTrunc 64 128) #ll_abs_d11;
-
-        LET ll_n00_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n00_128 #ll_n00_128;
-        LET ll_n01_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n01_128 #ll_n01_128;
-        LET ll_n10_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n10_128 #ll_n10_128;
-        LET ll_n11_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n11_128 #ll_n11_128;
-        LET ll_d00_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d00_128 #ll_d00_128;
-        LET ll_d01_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d01_128 #ll_d01_128;
-        LET ll_d10_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d10_128 #ll_d10_128;
-        LET ll_d11_sq : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d11_128 #ll_d11_128;
-
-        (* Promote squares to 256 bits for the next level of products. *)
-        LET ll_n00sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n00_sq;
-        LET ll_n01sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n01_sq;
-        LET ll_n10sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n10_sq;
-        LET ll_n11sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n11_sq;
-        LET ll_d00sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d00_sq;
-        LET ll_d01sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d01_sq;
-        LET ll_d10sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d10_sq;
-        LET ll_d11sq_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d11_sq;
-
-        (* A = n00²·n10² - d00²·n10² - d10²·n00². *)
-        LET ll_A_pos    : Bit 256 <- BinBit (Mul 256 SignUU) #ll_n00sq_256 #ll_n10sq_256;
-        LET ll_A_neg_a  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d00sq_256 #ll_n10sq_256;
-        LET ll_A_neg_b  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d10sq_256 #ll_n00sq_256;
-        LET ll_A_neg    : Bit 256 <- #ll_A_neg_a + #ll_A_neg_b;
-        LET ll_A_ge0    <- #ll_A_pos >= #ll_A_neg;
-        LET ll_abs_A    : Bit 256 <-
-          IF #ll_A_ge0 then (#ll_A_pos - #ll_A_neg) else (#ll_A_neg - #ll_A_pos);
-
-        (* B = n01²·n11² - d01²·n11² - d11²·n01². *)
-        LET ll_B_pos    : Bit 256 <- BinBit (Mul 256 SignUU) #ll_n01sq_256 #ll_n11sq_256;
-        LET ll_B_neg_a  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d01sq_256 #ll_n11sq_256;
-        LET ll_B_neg_b  : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d11sq_256 #ll_n01sq_256;
-        LET ll_B_neg    : Bit 256 <- #ll_B_neg_a + #ll_B_neg_b;
-        LET ll_B_ge0    <- #ll_B_pos >= #ll_B_neg;
-        LET ll_abs_B    : Bit 256 <-
-          IF #ll_B_ge0 then (#ll_B_pos - #ll_B_neg) else (#ll_B_neg - #ll_B_pos);
-
-        (* C = d00·d01·n10·n11 + d10·d11·n00·n01. Compute each term's
-           absolute value and sign separately. *)
-        LET ll_d00d01_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d00_128 #ll_d01_128;
-        LET ll_n10n11_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n10_128 #ll_n11_128;
-        LET ll_d10d11_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_d10_128 #ll_d11_128;
-        LET ll_n00n01_128 : Bit 128 <- BinBit (Mul 128 SignUU) #ll_n00_128 #ll_n01_128;
-
-        LET ll_d00d01_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d00d01_128;
-        LET ll_n10n11_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n10n11_128;
-        LET ll_d10d11_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_d10d11_128;
-        LET ll_n00n01_256 : Bit 256 <- UniBit (ZeroExtendTrunc 128 256) #ll_n00n01_128;
-
-        LET ll_abs_C1 : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d00d01_256 #ll_n10n11_256;
-        LET ll_abs_C2 : Bit 256 <- BinBit (Mul 256 SignUU) #ll_d10d11_256 #ll_n00n01_256;
-
-        (* sign(C_term1) = sign_d00 XOR sign_d01 (n's are positive).
-           Similarly for C_term2.  In Kami, Bool XOR can be expressed as != . *)
-        LET ll_signC1 <- #ll_sign00 != #ll_sign01;
-        LET ll_signC2 <- #ll_sign10 != #ll_sign11;
-
-        (* |C| = |C_term1 + C_term2|.  If signs agree (or one term is zero),
-           |C| = |C_term1| + |C_term2|.  If signs disagree, |C| = ||C_term1| − |C_term2||. *)
-        LET ll_signs_agree <- #ll_signC1 == #ll_signC2;
-        LET ll_C_terms_sum : Bit 256 <- #ll_abs_C1 + #ll_abs_C2;
-        LET ll_C1_ge_C2   <- #ll_abs_C1 >= #ll_abs_C2;
-        LET ll_C_terms_diff : Bit 256 <-
-          IF #ll_C1_ge_C2 then (#ll_abs_C1 - #ll_abs_C2) else (#ll_abs_C2 - #ll_abs_C1);
-        LET ll_abs_C : Bit 256 <- IF #ll_signs_agree then #ll_C_terms_sum else #ll_C_terms_diff;
-
-        (* Compute C² and A·B at 384 bits to avoid overflow. *)
-        LET ll_absC_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #ll_abs_C;
-        LET ll_absA_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #ll_abs_A;
-        LET ll_absB_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #ll_abs_B;
-        LET ll_C_sq    : Bit 384 <- BinBit (Mul 384 SignUU) #ll_absC_384 #ll_absC_384;
-        LET ll_A_times_B : Bit 384 <- BinBit (Mul 384 SignUU) #ll_absA_384 #ll_absB_384;
-
-        (* A·B ≥ C²  ↔  C² ≤ A·B. *)
-        LET ll_ab_ge_csq <- #ll_C_sq <= #ll_A_times_B;
-
-        (* All four sub-conditions must hold for the check to pass. *)
-        LET chsh_lassert_check_ok <-
-          #ll_all_n_pos && #ll_A_ge0 && #ll_B_ge0 && #ll_ab_ge_csq;
-
-        (* Trap when CHSH_LASSERT executes and the check fails. *)
-        LET chsh_lassert_trap <- #is_chsh_lassert && !#chsh_lassert_check_ok;
+        (* CHSH_LASSERT check: the column-contractive check (8 squarings + 14
+           wide products + final compare) used to live combinationally here,
+           costing ~1131 DSP48E1 slices in synth (more than K325T's 840) and
+           ~353K LUTs in -nodsp mode (over K325T's 203K). The check now lives
+           in the multi-cycle FSM defined as Rule "chsh_lassert_fsm" below.
+           That rule shares ONE 384x384 multiplier across 22 phases, dropping
+           the steady-state DSP footprint by an order of magnitude. The step
+           rule below reads the FSM's committed boolean from a register and
+           treats the trap as never-firing from this rule (the FSM phase 23
+           commit overrides PC / err / error_code when the check fails). *)
+        LET chsh_lassert_check_ok <- #chsh_check_result_v;
+        LET chsh_lassert_trap     <- $$false;
 
         (* REVEAL: legacy tensor index is op_a[3:0].
            FMT_TENSOR_EXT overrides it with ext0[3:0], providing the first
@@ -1474,6 +1487,29 @@ Section ThieleCPU.
         Write "lassert_clause_sat" <- $$false;
         Write "lassert_counter_clause_sat" <- $$false;
         Write "lassert_counter_seen_fail" <- $$false;
+
+        (* CHSH_LASSERT FSM dispatch:
+           When the step rule sees instr_chsh_lassert (opcode == OP_CHSH_LASSERT),
+           latch the witness counters into the FSM-owned registers and set
+           chsh_phase = 1. The FSM rule then runs 22 cycles of one-multiply-
+           per-cycle arithmetic and on phase 23 commits the result (overriding
+           PC/err/error_code on trap). When the step rule sees any other
+           opcode, chsh_phase is held at 0 — the latches still update (cheap
+           additions over the witness counters, no DSPs) but the FSM stays
+           idle. *)
+        Write "chsh_phase"  <- IF #is_chsh_lassert then $$(WO~0~0~0~0~1) else $$(WO~0~0~0~0~0);
+        Write "chsh_n00"    <- #ll_n00;
+        Write "chsh_n01"    <- #ll_n01;
+        Write "chsh_n10"    <- #ll_n10;
+        Write "chsh_n11"    <- #ll_n11;
+        Write "chsh_d00"    <- #ll_abs_d00;
+        Write "chsh_d01"    <- #ll_abs_d01;
+        Write "chsh_d10"    <- #ll_abs_d10;
+        Write "chsh_d11"    <- #ll_abs_d11;
+        Write "chsh_sign00" <- #ll_sign00;
+        Write "chsh_sign01" <- #ll_sign01;
+        Write "chsh_sign10" <- #ll_sign10;
+        Write "chsh_sign11" <- #ll_sign11;
         Retv
 
 
@@ -1647,7 +1683,256 @@ Section ThieleCPU.
         Write "error_code"         <- #new_error_code_fsm;
         Retv
 
-      (** Method to load a program word into instruction memory.
+      (** CHSH_LASSERT multi-cycle FSM: pipelines the column-contractive
+          witness check across 23 cycles using one shared 384×384 multiplier.
+
+          Phase encoding (Bit 5):
+            0          : idle (step rule fires)
+            1..8       : compute n00² ... d11² (8 squarings)
+            9..14      : compute A_pos, A_neg_a, A_neg_b, B_pos, B_neg_a, B_neg_b
+            15..18     : compute d00·d01, n10·n11, d10·d11, n00·n01
+            19..20     : compute abs_C1, abs_C2
+            21         : compute |C|² (uses abs_C derived combinationally from
+                                       abs_C1, abs_C2 and the latched signs)
+            22         : compute A·B (uses abs_A, abs_B derived from regs)
+            23         : final compare + commit (writes chsh_check_result)
+
+          Step rule is inhibited (Assert chsh_phase == 0) while the FSM runs.
+
+          One BinBit (Mul 768 SignUU) instance lives in this rule; operands are
+          phase-muxed; result is phase-demuxed to the correct intermediate reg.
+          yosys synthesizes this as one shared multiplier rather than 22
+          combinational instances. *)
+      with Rule "chsh_lassert_fsm" :=
+        Read chsh_phase_v : Bit 5 <- "chsh_phase";
+        Assert (!(#chsh_phase_v == $$(WO~0~0~0~0~0)));
+
+        Read chsh_n00_v     : Bit 64  <- "chsh_n00";
+        Read chsh_n01_v     : Bit 64  <- "chsh_n01";
+        Read chsh_n10_v     : Bit 64  <- "chsh_n10";
+        Read chsh_n11_v     : Bit 64  <- "chsh_n11";
+        Read chsh_d00_v     : Bit 64  <- "chsh_d00";
+        Read chsh_d01_v     : Bit 64  <- "chsh_d01";
+        Read chsh_d10_v     : Bit 64  <- "chsh_d10";
+        Read chsh_d11_v     : Bit 64  <- "chsh_d11";
+        Read chsh_sign00_v  : Bool    <- "chsh_sign00";
+        Read chsh_sign01_v  : Bool    <- "chsh_sign01";
+        Read chsh_sign10_v  : Bool    <- "chsh_sign10";
+        Read chsh_sign11_v  : Bool    <- "chsh_sign11";
+        Read chsh_n00sq_v   : Bit 128 <- "chsh_n00sq";
+        Read chsh_n01sq_v   : Bit 128 <- "chsh_n01sq";
+        Read chsh_n10sq_v   : Bit 128 <- "chsh_n10sq";
+        Read chsh_n11sq_v   : Bit 128 <- "chsh_n11sq";
+        Read chsh_d00sq_v   : Bit 128 <- "chsh_d00sq";
+        Read chsh_d01sq_v   : Bit 128 <- "chsh_d01sq";
+        Read chsh_d10sq_v   : Bit 128 <- "chsh_d10sq";
+        Read chsh_d11sq_v   : Bit 128 <- "chsh_d11sq";
+        Read chsh_A_pos_v   : Bit 256 <- "chsh_A_pos";
+        Read chsh_A_neg_a_v : Bit 256 <- "chsh_A_neg_a";
+        Read chsh_A_neg_b_v : Bit 256 <- "chsh_A_neg_b";
+        Read chsh_B_pos_v   : Bit 256 <- "chsh_B_pos";
+        Read chsh_B_neg_a_v : Bit 256 <- "chsh_B_neg_a";
+        Read chsh_B_neg_b_v : Bit 256 <- "chsh_B_neg_b";
+        Read chsh_d00d01_v  : Bit 128 <- "chsh_d00d01";
+        Read chsh_n10n11_v  : Bit 128 <- "chsh_n10n11";
+        Read chsh_d10d11_v  : Bit 128 <- "chsh_d10d11";
+        Read chsh_n00n01_v  : Bit 128 <- "chsh_n00n01";
+        Read chsh_abs_C1_v  : Bit 256 <- "chsh_abs_C1";
+        Read chsh_abs_C2_v  : Bit 256 <- "chsh_abs_C2";
+        Read chsh_C_sq_v    : Bit 384 <- "chsh_C_sq";
+        Read chsh_A_times_B_v : Bit 384 <- "chsh_A_times_B";
+        Read chsh_check_result_v : Bool <- "chsh_check_result";
+
+        (* Zero-extend smaller operands to 384 bits so one shared multiplier
+           handles every phase. The shared multiplier is one BinBit Mul. *)
+        LET n00_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_n00_v;
+        LET n01_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_n01_v;
+        LET n10_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_n10_v;
+        LET n11_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_n11_v;
+        LET d00_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_d00_v;
+        LET d01_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_d01_v;
+        LET d10_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_d10_v;
+        LET d11_384 : Bit 384 <- UniBit (ZeroExtendTrunc 64  384) #chsh_d11_v;
+        LET n00sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_n00sq_v;
+        LET n01sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_n01sq_v;
+        LET n10sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_n10sq_v;
+        LET n11sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_n11sq_v;
+        LET d00sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_d00sq_v;
+        LET d01sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_d01sq_v;
+        LET d10sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_d10sq_v;
+        LET d11sq_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_d11sq_v;
+        LET d00d01_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_d00d01_v;
+        LET n10n11_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_n10n11_v;
+        LET d10d11_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_d10d11_v;
+        LET n00n01_384 : Bit 384 <- UniBit (ZeroExtendTrunc 128 384) #chsh_n00n01_v;
+
+        (* For phase 21 (|C|²) we need abs_C derived from abs_C1, abs_C2 and
+           the latched signs (signs are XOR of d-signs per term). *)
+        LET signC1_v   <- #chsh_sign00_v != #chsh_sign01_v;
+        LET signC2_v   <- #chsh_sign10_v != #chsh_sign11_v;
+        LET signs_agree_v <- #signC1_v == #signC2_v;
+        LET C_terms_sum   : Bit 256 <- #chsh_abs_C1_v + #chsh_abs_C2_v;
+        LET C1_ge_C2_v <- #chsh_abs_C1_v >= #chsh_abs_C2_v;
+        LET C_terms_diff  : Bit 256 <-
+          IF #C1_ge_C2_v then (#chsh_abs_C1_v - #chsh_abs_C2_v)
+          else (#chsh_abs_C2_v - #chsh_abs_C1_v);
+        LET abs_C_256 : Bit 256 <-
+          IF #signs_agree_v then #C_terms_sum else #C_terms_diff;
+        LET abs_C_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #abs_C_256;
+
+        (* For phase 22 (A·B) we need abs_A, abs_B derived from A_pos/neg, B_pos/neg. *)
+        LET A_neg_v   : Bit 256 <- #chsh_A_neg_a_v + #chsh_A_neg_b_v;
+        LET A_ge0_v   <- #chsh_A_pos_v >= #A_neg_v;
+        LET abs_A_256 : Bit 256 <-
+          IF #A_ge0_v then (#chsh_A_pos_v - #A_neg_v) else (#A_neg_v - #chsh_A_pos_v);
+        LET abs_A_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #abs_A_256;
+        LET B_neg_v   : Bit 256 <- #chsh_B_neg_a_v + #chsh_B_neg_b_v;
+        LET B_ge0_v   <- #chsh_B_pos_v >= #B_neg_v;
+        LET abs_B_256 : Bit 256 <-
+          IF #B_ge0_v then (#chsh_B_pos_v - #B_neg_v) else (#B_neg_v - #chsh_B_pos_v);
+        LET abs_B_384 : Bit 384 <- UniBit (ZeroExtendTrunc 256 384) #abs_B_256;
+
+        (* Phase-muxed operands for the single shared multiplier. *)
+        LET phase_eq_1  <- #chsh_phase_v == $$(WO~0~0~0~0~1);
+        LET phase_eq_2  <- #chsh_phase_v == $$(WO~0~0~0~1~0);
+        LET phase_eq_3  <- #chsh_phase_v == $$(WO~0~0~0~1~1);
+        LET phase_eq_4  <- #chsh_phase_v == $$(WO~0~0~1~0~0);
+        LET phase_eq_5  <- #chsh_phase_v == $$(WO~0~0~1~0~1);
+        LET phase_eq_6  <- #chsh_phase_v == $$(WO~0~0~1~1~0);
+        LET phase_eq_7  <- #chsh_phase_v == $$(WO~0~0~1~1~1);
+        LET phase_eq_8  <- #chsh_phase_v == $$(WO~0~1~0~0~0);
+        LET phase_eq_9  <- #chsh_phase_v == $$(WO~0~1~0~0~1);
+        LET phase_eq_10 <- #chsh_phase_v == $$(WO~0~1~0~1~0);
+        LET phase_eq_11 <- #chsh_phase_v == $$(WO~0~1~0~1~1);
+        LET phase_eq_12 <- #chsh_phase_v == $$(WO~0~1~1~0~0);
+        LET phase_eq_13 <- #chsh_phase_v == $$(WO~0~1~1~0~1);
+        LET phase_eq_14 <- #chsh_phase_v == $$(WO~0~1~1~1~0);
+        LET phase_eq_15 <- #chsh_phase_v == $$(WO~0~1~1~1~1);
+        LET phase_eq_16 <- #chsh_phase_v == $$(WO~1~0~0~0~0);
+        LET phase_eq_17 <- #chsh_phase_v == $$(WO~1~0~0~0~1);
+        LET phase_eq_18 <- #chsh_phase_v == $$(WO~1~0~0~1~0);
+        LET phase_eq_19 <- #chsh_phase_v == $$(WO~1~0~0~1~1);
+        LET phase_eq_20 <- #chsh_phase_v == $$(WO~1~0~1~0~0);
+        LET phase_eq_21 <- #chsh_phase_v == $$(WO~1~0~1~0~1);
+        LET phase_eq_22 <- #chsh_phase_v == $$(WO~1~0~1~1~0);
+        LET phase_eq_23 <- #chsh_phase_v == $$(WO~1~0~1~1~1);
+
+        LET op_a_384 : Bit 384 <-
+          IF #phase_eq_1  then #n00_384
+          else IF #phase_eq_2  then #n01_384
+          else IF #phase_eq_3  then #n10_384
+          else IF #phase_eq_4  then #n11_384
+          else IF #phase_eq_5  then #d00_384
+          else IF #phase_eq_6  then #d01_384
+          else IF #phase_eq_7  then #d10_384
+          else IF #phase_eq_8  then #d11_384
+          else IF #phase_eq_9  then #n00sq_384
+          else IF #phase_eq_10 then #d00sq_384
+          else IF #phase_eq_11 then #d10sq_384
+          else IF #phase_eq_12 then #n01sq_384
+          else IF #phase_eq_13 then #d01sq_384
+          else IF #phase_eq_14 then #d11sq_384
+          else IF #phase_eq_15 then #d00_384
+          else IF #phase_eq_16 then #n10_384
+          else IF #phase_eq_17 then #d10_384
+          else IF #phase_eq_18 then #n00_384
+          else IF #phase_eq_19 then #d00d01_384
+          else IF #phase_eq_20 then #d10d11_384
+          else IF #phase_eq_21 then #abs_C_384
+          else IF #phase_eq_22 then #abs_A_384
+          else $0;
+
+        LET op_b_384 : Bit 384 <-
+          IF #phase_eq_1  then #n00_384
+          else IF #phase_eq_2  then #n01_384
+          else IF #phase_eq_3  then #n10_384
+          else IF #phase_eq_4  then #n11_384
+          else IF #phase_eq_5  then #d00_384
+          else IF #phase_eq_6  then #d01_384
+          else IF #phase_eq_7  then #d10_384
+          else IF #phase_eq_8  then #d11_384
+          else IF #phase_eq_9  then #n10sq_384
+          else IF #phase_eq_10 then #n10sq_384
+          else IF #phase_eq_11 then #n00sq_384
+          else IF #phase_eq_12 then #n11sq_384
+          else IF #phase_eq_13 then #n11sq_384
+          else IF #phase_eq_14 then #n01sq_384
+          else IF #phase_eq_15 then #d01_384
+          else IF #phase_eq_16 then #n11_384
+          else IF #phase_eq_17 then #d11_384
+          else IF #phase_eq_18 then #n01_384
+          else IF #phase_eq_19 then #n10n11_384
+          else IF #phase_eq_20 then #n00n01_384
+          else IF #phase_eq_21 then #abs_C_384
+          else IF #phase_eq_22 then #abs_B_384
+          else $0;
+
+        (* THE single shared multiplier. yosys infers one mult instance. *)
+        LET mult_result_768 : Bit 768 <-
+          BinBit (Mul 768 SignUU)
+            (UniBit (ZeroExtendTrunc 384 768) #op_a_384)
+            (UniBit (ZeroExtendTrunc 384 768) #op_b_384);
+
+        LET mult_128 : Bit 128 <- UniBit (Trunc 128 _) #mult_result_768;
+        LET mult_256 : Bit 256 <- UniBit (Trunc 256 _) #mult_result_768;
+        LET mult_384 : Bit 384 <- UniBit (Trunc 384 _) #mult_result_768;
+
+        (* Final boolean for phase 23. *)
+        LET all_n_pos <- (#chsh_n00_v != $0) && (#chsh_n01_v != $0)
+                         && (#chsh_n10_v != $0) && (#chsh_n11_v != $0);
+        LET ab_ge_csq <- #chsh_C_sq_v <= #chsh_A_times_B_v;
+        LET final_ok  <- #all_n_pos && #A_ge0_v && #B_ge0_v && #ab_ge_csq;
+
+        (* Phase-demuxed writes to intermediate result registers. Each phase
+           updates exactly one register; others keep their current value. *)
+        Write "chsh_n00sq"   <- IF #phase_eq_1  then #mult_128 else #chsh_n00sq_v;
+        Write "chsh_n01sq"   <- IF #phase_eq_2  then #mult_128 else #chsh_n01sq_v;
+        Write "chsh_n10sq"   <- IF #phase_eq_3  then #mult_128 else #chsh_n10sq_v;
+        Write "chsh_n11sq"   <- IF #phase_eq_4  then #mult_128 else #chsh_n11sq_v;
+        Write "chsh_d00sq"   <- IF #phase_eq_5  then #mult_128 else #chsh_d00sq_v;
+        Write "chsh_d01sq"   <- IF #phase_eq_6  then #mult_128 else #chsh_d01sq_v;
+        Write "chsh_d10sq"   <- IF #phase_eq_7  then #mult_128 else #chsh_d10sq_v;
+        Write "chsh_d11sq"   <- IF #phase_eq_8  then #mult_128 else #chsh_d11sq_v;
+        Write "chsh_A_pos"   <- IF #phase_eq_9  then #mult_256 else #chsh_A_pos_v;
+        Write "chsh_A_neg_a" <- IF #phase_eq_10 then #mult_256 else #chsh_A_neg_a_v;
+        Write "chsh_A_neg_b" <- IF #phase_eq_11 then #mult_256 else #chsh_A_neg_b_v;
+        Write "chsh_B_pos"   <- IF #phase_eq_12 then #mult_256 else #chsh_B_pos_v;
+        Write "chsh_B_neg_a" <- IF #phase_eq_13 then #mult_256 else #chsh_B_neg_a_v;
+        Write "chsh_B_neg_b" <- IF #phase_eq_14 then #mult_256 else #chsh_B_neg_b_v;
+        Write "chsh_d00d01"  <- IF #phase_eq_15 then #mult_128 else #chsh_d00d01_v;
+        Write "chsh_n10n11"  <- IF #phase_eq_16 then #mult_128 else #chsh_n10n11_v;
+        Write "chsh_d10d11"  <- IF #phase_eq_17 then #mult_128 else #chsh_d10d11_v;
+        Write "chsh_n00n01"  <- IF #phase_eq_18 then #mult_128 else #chsh_n00n01_v;
+        Write "chsh_abs_C1"  <- IF #phase_eq_19 then #mult_256 else #chsh_abs_C1_v;
+        Write "chsh_abs_C2"  <- IF #phase_eq_20 then #mult_256 else #chsh_abs_C2_v;
+        Write "chsh_C_sq"    <- IF #phase_eq_21 then #mult_384 else #chsh_C_sq_v;
+        Write "chsh_A_times_B" <- IF #phase_eq_22 then #mult_384 else #chsh_A_times_B_v;
+
+        (* Phase 23: commit the final boolean. *)
+        Write "chsh_check_result" <- IF #phase_eq_23 then #final_ok else #chsh_check_result_v;
+
+        (* Phase 23: if the check failed, override PC / err / error_code to trap.
+           If the check passed, leave those fields alone — the step rule already
+           advanced PC by 1 and charged μ on the dispatch cycle (cert-setter
+           discipline charges μ regardless of outcome). The trap-on-fail path
+           mirrors what the original combinational chsh_lassert_trap branch
+           did when it lived in the step rule. *)
+        Read pc_v_fsm        : Bit WordSz <- "pc";
+        Read err_v_fsm       : Bool       <- "err";
+        Read error_code_v_fsm : Bit WordSz <- "error_code";
+        Read trap_vector_v_fsm : Bit WordSz <- "trap_vector";
+        LET commit_trap <- #phase_eq_23 && !#final_ok;
+        Write "pc"         <- IF #commit_trap then #trap_vector_v_fsm else #pc_v_fsm;
+        Write "err"        <- IF #commit_trap then $$true            else #err_v_fsm;
+        Write "error_code" <- IF #commit_trap then $$(ERR_LOGIC_VAL) else #error_code_v_fsm;
+
+        (* Advance phase, wrap to 0 after phase 23. *)
+        Write "chsh_phase" <-
+          IF #phase_eq_23 then $$(WO~0~0~0~0~0)
+          else (#chsh_phase_v + $$(WO~0~0~0~0~1));
+        Retv
+
+      (** Method to load a program word into instruction memory;
           This is the external interface for program loading. *)
       with Method "loadInstr" (arg : Struct LoadInstrPort) : Void :=
         Read imem_v : Vector (Bit InstrSz) MemAddrSz <- "imem";

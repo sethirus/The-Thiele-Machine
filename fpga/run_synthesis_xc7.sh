@@ -21,17 +21,27 @@
 # bbasm — too large (~90MB) to commit per part.
 #
 # Why K325T with `-nodsp`: yosys's DSP48E1 inference for
-# column_contractive_check_witness maps onto ~1131 DSP slices, more than
-# K325T's 840 DSPs. Rather than escalating to a bigger part (K420T has no
-# parent-dir tilegrid in openXC7's prjxray-db; K480T fits but its placer
-# takes 1-2+ hours and sometimes doesn't finish at all on the open-source
-# nextpnr-xilinx), we disable DSP inference in synth_xc7.ys (`-nodsp`)
-# and let yosys map multipliers to LUTs. The design then fits in ~33K LUTs
-# — well inside K325T's 203K LUT budget — and the placer finishes in
-# ~10 min. DSP vs LUT is a silicon-utilization choice, not a correctness
-# one; the proof chain (Coq → OCaml → Bluespec → Verilog) is identical
-# either way. We accept the LUT cost in exchange for an open-source flow
-# that finishes in CI.
+# column_contractive_check_witness maps onto more DSP slices than K325T's 840
+# (and the wider operand widths force chained DSPs that slow openXC7's
+# nextpnr-xilinx placer to 1-2+ hours, sometimes timing out). Rather than
+# escalating to a bigger part (K420T has no parent-dir tilegrid in openXC7's
+# prjxray-db; K480T fits but its placer takes 1-2+ hours and sometimes
+# doesn't finish at all on the open-source nextpnr-xilinx), we use two
+# complementary changes:
+#   (1) instr_chsh_lassert's witness check is implemented in Kami as a
+#       23-phase FSM (`chsh_lassert_fsm` rule in
+#       coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
+#       multiplier across the 22 wide multiplications it needs, so only one
+#       wide multiply is live per cycle (Coq spec is still single-step;
+#       multi-cycle execution is a Kami-implementation detail invisible to
+#       the spec — same pattern as instr_lassert).
+#   (2) DSP inference is disabled in synth_xc7.ys (`-nodsp`) so yosys maps
+#       the multiplier to LUTs.
+# The result fits in ~151K LUT6 (~74% of K325T's 203K LUT6 budget) and the
+# placer finishes in ~10 min. DSP vs LUT is a silicon-utilisation choice,
+# not a correctness one; the proof chain (Coq → OCaml → Bluespec → Verilog)
+# is identical either way. We accept the LUT cost in exchange for an
+# open-source flow that finishes in CI.
 #
 # Outputs in build/:
 #   - thiele_xc7k325t.json     (yosys post-synthesis netlist)

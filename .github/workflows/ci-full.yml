@@ -171,11 +171,11 @@ jobs:
           retention-days: 30
 
   # FPGA bitstream generation. yosys synth_xilinx + nextpnr-xilinx
-  # place-and-route + xc7frames2bit packaging on the Arty A7-35T target
-  # (Xilinx Artix-7, xc7a35tcsg324-1) using the 100% open-source openXC7
-  # toolchain. The RTL (.v) is committed and validated by hardware-synthesis
-  # upstream, so this job only needs the FPGA toolchain — no Coq/OCaml/
-  # Python/forge.
+  # place-and-route + xc7frames2bit packaging on the Digilent Genesys 2
+  # target (Xilinx Kintex-7, xc7k325tffg900-2) using the 100% open-source
+  # openXC7 toolchain. The RTL (.v) is committed and validated by
+  # hardware-synthesis upstream, so this job only needs the FPGA toolchain
+  # — no Coq/OCaml/Python/forge.
   fpga-bitstream:
     name: FPGA bitstream generation (Kintex-7 K325T / ffg900 / openXC7)
     runs-on: ubuntu-latest
@@ -184,14 +184,20 @@ jobs:
     # `needs: hardware-synthesis` for ordering, which serialized 15m + 21m
     # of critical path on a dependency that wasn't there.
     #
-    # CHSH_LASSERT's column_contractive_check_witness does ~20 integer
-    # multiplications per cycle (including two 128×128 for C*C and A*B).
-    # With DSP48E1 inference enabled in synth_xc7.ys, yosys would map
-    # these onto ~1131 DSP slices — more than K325T's 840, and dense
-    # enough that K480T's placer takes 1-2+ hours on openXC7's
-    # nextpnr-xilinx (sometimes doesn't finish at all). synth_xc7.ys now
-    # specifies `-nodsp`, so multipliers map to LUTs and the design fits
-    # in ~33K LUTs of K325T's 203K. Placer finishes in ~10 min.
+    # CHSH_LASSERT's column_contractive_check_witness performs 22 wide
+    # integer multiplications (widest two are 128×128 → 256). In Kami it's
+    # implemented as a 23-phase FSM (`chsh_lassert_fsm` rule in
+    # coq/kami_hw/ThieleCPUCore.v) that time-shares one 384×384 SignUU
+    # multiplier across the phases, so only one wide multiply is live per
+    # cycle. The Coq spec is still single-step — multi-cycle execution is
+    # a Kami-implementation detail invisible to the spec, same pattern as
+    # instr_lassert.  Even with the FSM, yosys's DSP48E1 inference would
+    # fan that single multiplier out to more DSP48E1 slices than K325T's
+    # 840 (wider operand widths force chained DSPs each) and slow
+    # openXC7's placer to 1-2+ hours (sometimes timing out). synth_xc7.ys
+    # specifies `-nodsp`, so the multiplier maps to LUTs and the design
+    # fits in ~151K LUT6 of K325T's 203K (~74%). Placer finishes in
+    # ~10 min.
     continue-on-error: true
     timeout-minutes: 120
     steps:

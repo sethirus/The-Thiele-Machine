@@ -209,6 +209,12 @@ module thiele_cpu_kami_tb;
     force dut.err = 1'b0;
     force dut.halted = 1'b0;
     force dut.lassert_phase = 3'd0;
+    // chsh_phase = 0 inhibits the chsh_lassert FSM during init. Without this
+    // force, the step rule would dispatch any CHSH_LASSERT at pc=0 during the
+    // init clock edge (mu/pc writes masked by their own forces, but the
+    // chsh_phase write isn't masked, so the FSM starts mid-init and the
+    // step rule never gets to re-execute the dispatch with correct mu/pc).
+    force dut.chsh_phase = 5'd0;
     force dut.regs = {512{1'b0}};   // RegCount=16 × WordSz=32 = 512 bits
     // Data memory: direct assignment to RegFile arr (per BSC convention)
     // RTL mem has hi=127 (128 words); limit loop to match
@@ -223,6 +229,7 @@ module thiele_cpu_kami_tb;
     @(posedge clk); @(negedge clk);
     release dut.pc; release dut.mu; release dut.err; release dut.halted;
     release dut.lassert_phase;
+    release dut.chsh_phase;
     release dut.regs;
     release dut.partition_ops; release dut.mdl_ops; release dut.info_gain; release dut.error_code; release dut.pt_next_id;
     release dut.logic_acc;
