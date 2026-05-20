@@ -211,12 +211,12 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             yosys cmake g++ python3-pip libboost-all-dev libeigen3-dev libgflags-dev libyaml-cpp-dev
-          # Pin fasm to 0.0.2 — the only pypi release that is import-clean
-          # under Python 3.12. Newer fasm wheels (0.0.3.post*) introduced a
-          # circular import between fasm.__init__ and fasm.parser that
-          # breaks prjxray's fasm2frames.py at import time. intervaltree
-          # and simplejson are unpinned (no known regressions).
-          pip install --break-system-packages 'fasm==0.0.2' intervaltree simplejson
+          # fasm pypi only ships 0.0.2.post* (no clean 0.0.2). The .post
+          # wheels print a noisy "circular import" RuntimeWarning under
+          # Python 3.12 and fall back to the slower textX parser — this
+          # is cosmetic, fasm2frames still runs correctly. We leave fasm
+          # unpinned so pip picks the latest .post that exists.
+          pip install --break-system-packages fasm intervaltree simplejson
 
       - name: Build nextpnr-xilinx (openXC7)
         run: |
@@ -310,6 +310,14 @@ jobs:
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Fail if synthesis failed
-        if: needs.hardware-synthesis.result == 'failure'
+      - name: Fail if any required job failed
+        # All three branches are required. Previously this only checked
+        # hardware-synthesis, which let fpga-bitstream failures roll up
+        # as a green "Full Verification Summary" — paired with the
+        # FPGA job's old `continue-on-error: true` this masked bitstream
+        # bugs entirely. Now every gate must pass.
+        if: |
+          needs.fast-verify.result == 'failure' ||
+          needs.hardware-synthesis.result == 'failure' ||
+          needs.fpga-bitstream.result == 'failure'
         run: exit 1
