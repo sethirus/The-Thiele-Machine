@@ -1,7 +1,18 @@
 # The Thiele Machine
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17316437.svg)](https://doi.org/10.5281/zenodo.17316437)
+[![Latest release](https://img.shields.io/github/v/release/sethirus/The-Thiele-Machine?label=release)](https://github.com/sethirus/The-Thiele-Machine/releases/latest)
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Coq](https://img.shields.io/badge/Coq-0%20project--local%20axioms-EF4135?logo=coq&logoColor=white)](coq/)
+[![Theorems](https://img.shields.io/badge/Theorems-2%2C539%2B%20Qed-brightgreen)](monograph/monograph.pdf)
+[![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20findings-brightgreen)](scripts/inquisitor.py)
+[![RTL bisimulation](https://img.shields.io/badge/RTL%20bisimulation-47%2F47%20Qed-orange)](coq/kami_hw/RTLGapRegistry.v)
+[![FPGA](https://img.shields.io/badge/FPGA-Kintex--7%20K325T-orange?logo=xilinx&logoColor=white)](https://github.com/sethirus/The-Thiele-Machine/releases/latest)
+[![Monograph](https://img.shields.io/badge/Monograph-131%20pages-8a5a44)](monograph/monograph.pdf)
+[![Build](https://img.shields.io/badge/Build-Reproducible-blueviolet)](Makefile)
+[![Top language](https://img.shields.io/github/languages/top/sethirus/The-Thiele-Machine)](https://github.com/sethirus/The-Thiele-Machine)
+[![Repo size](https://img.shields.io/github/repo-size/sethirus/The-Thiele-Machine)](https://github.com/sethirus/The-Thiele-Machine)
 
 The Thiele Machine is a computational substrate where certification cost (μ) is tracked at the step relation rather than at the program layer. The principal structural result, Coq-verified, is asymmetric: every Thiele state has a canonical program projection onto a classical-equivalent state, and every classical state has multiple Thiele preimages with no canonical lift between them. The projection is the canonical map; the lift is not. The fields the projection drops (`vm_certified`, `csr_cert_addr`, μ) are provably not functions of the classical projection ([`cert_not_function_of_forget`](coq/kernel/witness/ProjectionNonExistence.v), [`mu_not_function_of_bare_observable`](coq/kernel/witness/ProjectionNonExistence.v)). Every Thiele machine has a Turing projection; no Turing machine has a canonical Thiele lift; and the directionality is proved, not stipulated.
 
