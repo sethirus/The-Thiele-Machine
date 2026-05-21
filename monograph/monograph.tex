@@ -502,7 +502,7 @@ If $\texttt{is\_classical\_opcode}(i) = \mathrm{true}$ and $s' = \texttt{vm\_app
 \end{theorem}
 
 \begin{proof}
-Case analysis on the instruction $i$. The predicate \texttt{is\_classical\_opcode}$(i) = \mathrm{true}$ holds exactly for the compute, memory, control-flow, ordinary I/O, heap, and \texttt{MORPH\_GET} / \texttt{TENSOR\_GET} opcodes: the ones whose \texttt{vm\_apply} rule mutates only \texttt{vm\_regs}, \texttt{vm\_mem}, \texttt{vm\_pc}, \texttt{vm\_err}, \texttt{vm\_mu}, \texttt{vm\_logic\_acc}, \texttt{vm\_mu\_tensor}, or \texttt{vm\_mstatus}. Twenty-two opcodes return \texttt{false} from \texttt{is\_classical\_opcode} and are excluded by the premise: \texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDISCOVER}, \texttt{TENSOR\_SET}, \texttt{MORPH}, \texttt{COMPOSE}, \texttt{MORPH\_ID}, \texttt{MORPH\_DELETE}, \texttt{MORPH\_TENSOR} mutate \texttt{vm\_graph}; \texttt{LJOIN}, \texttt{EMIT}, \texttt{REVEAL}, \texttt{MORPH\_ASSERT}, \texttt{CERTIFY}, \texttt{CHSH\_LASSERT}, \texttt{CHSH\_LASSERT\_1AB}, \texttt{CHSH\_LASSERT\_1AB\_G5}, \texttt{CHSH\_LASSERT\_1AB\_G345}, \texttt{CHSH\_LASSERT\_1AB\_G12345} mutate the cert channel; \texttt{CHSH\_TRIAL} mutates the witness counters; \texttt{LASSERT} does both graph and cert. For each of the included opcodes, the apply rule by direct inspection leaves \texttt{vm\_graph}, \texttt{csr\_cert\_addr}, and \texttt{vm\_certified} fixed. Iterating over the program list by induction closes the trace-level preservation. \qed
+Case analysis on the instruction $i$. The predicate \texttt{is\_classical\_opcode}$(i) = \mathrm{true}$ holds exactly for the compute, memory, control-flow, ordinary I/O, heap, and \texttt{MORPH\_GET} / \texttt{TENSOR\_GET} opcodes: the ones whose \texttt{vm\_apply} rule mutates only \texttt{vm\_regs}, \texttt{vm\_mem}, \texttt{vm\_pc}, \texttt{vm\_err}, \texttt{vm\_mu}, \texttt{vm\_logic\_acc}, \texttt{vm\_mu\_tensor}, or \texttt{vm\_mstatus}. Twenty-two opcodes return \texttt{false} from \texttt{is\_classical\_opcode} and are excluded by the premise, but not all for the same reason. \texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{TENSOR\_SET}, \texttt{MORPH}, \texttt{COMPOSE}, \texttt{MORPH\_ID}, \texttt{MORPH\_DELETE}, and \texttt{MORPH\_TENSOR} mutate graph or module-tensor state. \texttt{MORPH\_ASSERT} can write the cert-address channel on success; \texttt{CERTIFY} writes the top-level certification flag; \texttt{CHSH\_TRIAL} mutates the witness counters. \texttt{LASSERT}, \texttt{LJOIN}, \texttt{EMIT}, \texttt{REVEAL}, \texttt{PDISCOVER}, \texttt{CHSH\_LASSERT}, and the four Q\textsubscript{1+AB} \texttt{CHSH\_LASSERT} variants are also outside the classical fragment because they carry validation, revelation, discovery, tensor-charge, or mandatory-floor semantics. The D3 proof only needs the forward direction: for each opcode that \texttt{is\_classical\_opcode} admits, direct inspection of the apply rule leaves \texttt{vm\_graph}, \texttt{csr\_cert\_addr}, and \texttt{vm\_certified} fixed. Iterating over the program list by induction closes the trace-level preservation. \qed
 \end{proof}
 
 \medskip
@@ -1422,33 +1422,33 @@ Sets \texttt{vm\_certified = true}, charges $S(\delta) \geq 1$ to $\mu$, advance
 Reveals $\mathit{bits}$ bits from module $m$ with certificate string $\mathit{cert}$. In the current kernel relation, the certificate string is carried but not checked; the priced event is the disclosure itself. A bit-commitment protocol is a two-phase scheme: first you commit to a value (seal it in an envelope), later you reveal it. The reveal step proves you didn't change your answer after seeing the other side's response. \texttt{REVEAL} is the disclosure half of that scheme. \texttt{REVEAL} charges $\text{bits} + S(\delta)$: the number of bits being disclosed, plus at least 1. The cost is also recorded in the $\mu$-tensor at flat index $(m \bmod 16)$, marking which bounded module slot paid for the disclosure. Revealing 0 bits still costs at least 1. Revealing 32 bits costs at least 33. You cannot disclose more for the same price as less. This is what makes the revelation requirement concrete: getting receipt-visible cross-correlations from binary game trials requires an explicit disclosure instruction, and that disclosure is priced by how much you reveal.
 
 \medskip
-\noindent\textbf{CHSH\_LASSERT\_1AB($\delta$)}: Q\textsubscript{1+AB}-aware certification at $\gamma = 0$.\\
-Extends CHSH\_LASSERT with the level-1+AB NPA condition. Reads the 8 \texttt{vm\_witness} buckets, runs an integer-arithmetic check (Q\textsubscript{1} column-contractivity plus the SOS sum-of-squares condition $E_{00}^2 + E_{01}^2 + E_{10}^2 + E_{11}^2 \leq 1$ at $\gamma_1 = \gamma_2 = \gamma_3 = \gamma_4 = \gamma_5 = 0$), advances PC on pass or traps to \texttt{LASSERT\_TRAP\_PC} on fail. Charges $S(\delta) \geq 1$ either way. The bridge theorem \texttt{chsh\_lassert\_1ab\_no\_trap\_implies\_quantum\_realizable\_q1ab} proves a non-trapping step entails \texttt{quantum\_realizable\_q1ab} = symmetric9 $\wedge$ PSD9 of the $9 \times 9$ NPA Q\textsubscript{1+AB} moment matrix at the witness-derived rationals.
+\noindent\textbf{CHSH\_LASSERT\_1AB($\delta$)}: Q\textsubscript{1+AB}-aware witness check at $\gamma = 0$.\\
+Extends \texttt{CHSH\_LASSERT} with the level-1+AB NPA condition. Reads the 8 \texttt{vm\_witness} buckets, runs an integer-arithmetic check (Q\textsubscript{1} column-contractivity plus the SOS sum-of-squares condition $E_{00}^2 + E_{01}^2 + E_{10}^2 + E_{11}^2 \leq 1$ at $\gamma_1 = \gamma_2 = \gamma_3 = \gamma_4 = \gamma_5 = 0$), advances PC on pass with cert state intact or traps to \texttt{LASSERT\_TRAP\_PC} on fail. Charges $S(\delta) \geq 1$ either way. The bridge theorem \texttt{chsh\_lassert\_1ab\_no\_trap\_implies\_quantum\_realizable\_q1ab} proves a non-trapping step entails \texttt{quantum\_realizable\_q1ab} = symmetric9 $\wedge$ PSD9 of the $9 \times 9$ NPA Q\textsubscript{1+AB} moment matrix at the witness-derived rationals.
 
 \medskip
-\noindent\textbf{CHSH\_LASSERT\_1AB\_G5($\delta$, $\mathit{same\_g5}$, $\mathit{diff\_g5}$)}: Q\textsubscript{1+AB} with the four-body moment $\gamma_5$ free.\\
+\noindent\textbf{CHSH\_LASSERT\_1AB\_G5($\delta$, $\mathit{same\_g5}$, $\mathit{diff\_g5}$)}: Q\textsubscript{1+AB} check with the four-body moment $\gamma_5$ free.\\
 Carries one $\gamma$-bucket pair $(\mathit{same\_g5}, \mathit{diff\_g5})$ for $\gamma_5 = (\mathit{same\_g5} - \mathit{diff\_g5}) / (\mathit{same\_g5} + \mathit{diff\_g5})$. Runs the $\gamma_5$ SOS check (a weighted 4-D Cauchy-Schwarz identity in cleared integer form), enforces $-Dg5 < Ng5 < Dg5$ as part of the bool decider. On pass, the bridge gives PSD9 at $(E, 0, 0, 0, 0, \gamma_5)$.
 
 \medskip
-\noindent\textbf{CHSH\_LASSERT\_1AB\_G345($\delta$, $\mathit{same\_g3}$, $\mathit{diff\_g3}$, $\mathit{same\_g4}$, $\mathit{diff\_g4}$, $\mathit{same\_g5}$, $\mathit{diff\_g5}$)}: Q\textsubscript{1+AB} with three-body and four-body moments $\gamma_3$, $\gamma_4$, $\gamma_5$ free.\\
+\noindent\textbf{CHSH\_LASSERT\_1AB\_G345($\delta$, $\mathit{same\_g3}$, $\mathit{diff\_g3}$, $\mathit{same\_g4}$, $\mathit{diff\_g4}$, $\mathit{same\_g5}$, $\mathit{diff\_g5}$)}: Q\textsubscript{1+AB} check with three-body and four-body moments $\gamma_3$, $\gamma_4$, $\gamma_5$ free.\\
 Carries three $\gamma$-bucket pairs. Runs the $\gamma_{345}$ check: an augmented $2\times2$ Schur-slack lemma plus a $4\times4$ Sylvester PD condition on the difference matrix $H_{\gamma_{345}} = \det_M \cdot M_M - M_N$. On pass, the bridge gives PSD9 at $(E, 0, 0, \gamma_3, \gamma_4, \gamma_5)$.
 
 \medskip
-\noindent\textbf{CHSH\_LASSERT\_1AB\_G12345($\delta$, $\mathit{same\_g_1}$, $\mathit{diff\_g_1}$, \ldots, $\mathit{same\_g_5}$, $\mathit{diff\_g_5}$)}: full Q\textsubscript{1+AB} with all five $\gamma$ moments free.\\
-Carries five $\gamma$-bucket pairs. Runs the compositional sym6 $\to$ sym5 $\to$ sym4 Schur-cascade check (21 cleared H-entry numerators, 15 cleared S6 Schur entries, 10 cleared S5 Schur entries, then four sym4-determinant minors of the cleared 4$\times$4). On pass, the bridge gives PSD9 at $(E, \gamma_1, \gamma_2, \gamma_3, \gamma_4, \gamma_5)$ for the bucket-derived rationals: the full Q\textsubscript{1+AB} cone the substrate certifies. By Ishizaka 2025 (cited externally), Q\textsubscript{1+AB} = Q in the CHSH scenario, so the certified region coincides with the Tsirelson set, though the equivalence is not formalised in Coq. The four cert-opcodes in this family are defined in the Kami HW abstraction with kernel-equivalence proven (\texttt{coq/kami\_hw/Abstraction.v}, \texttt{EmbedStep.v}), but are not synthesized into the Genesys 2 bitstream. The reason is silicon, not semantics: the base \texttt{CHSH\_LASSERT} 23-phase FSM already burns roughly 74\% of the K325T's LUTs after time-sharing a 384$\times$384 multiplier across phases, and the Q\textsubscript{1+AB} variants do strictly more wide arithmetic per check (\texttt{\_g12345} runs a 50-minor sym6 $\to$ sym5 $\to$ sym4 Schur cascade). The Kami proof chain covers all 51 opcodes; the bitstream covers the 47 simpler ones plus the base CHSH-LASSERT.
+\noindent\textbf{CHSH\_LASSERT\_1AB\_G12345($\delta$, $\mathit{same\_g_1}$, $\mathit{diff\_g_1}$, \ldots, $\mathit{same\_g_5}$, $\mathit{diff\_g_5}$)}: full Q\textsubscript{1+AB} check with all five $\gamma$ moments free.\\
+Carries five $\gamma$-bucket pairs. Runs the compositional sym6 $\to$ sym5 $\to$ sym4 Schur-cascade check (21 cleared H-entry numerators, 15 cleared S6 Schur entries, 10 cleared S5 Schur entries, then four sym4-determinant minors of the cleared 4$\times$4). On pass, the bridge gives PSD9 at $(E, \gamma_1, \gamma_2, \gamma_3, \gamma_4, \gamma_5)$ for the bucket-derived rationals: the full Q\textsubscript{1+AB} cone the substrate validates at the witness layer. By Ishizaka 2025 (cited externally), Q\textsubscript{1+AB} = Q in the CHSH scenario, so the validated region coincides with the Tsirelson set, though the equivalence is not formalised in Coq. The four cost-positive check opcodes in this family are defined in the Kami HW abstraction with kernel-equivalence proven (\texttt{coq/kami\_hw/Abstraction.v}, \texttt{EmbedStep.v}), but are not synthesized into the Genesys 2 bitstream. The reason is silicon, not semantics: the base \texttt{CHSH\_LASSERT} 23-phase FSM already burns roughly 74\% of the K325T's LUTs after time-sharing a 384$\times$384 multiplier across phases, and the Q\textsubscript{1+AB} variants do strictly more wide arithmetic per check (\texttt{\_g12345} runs a 50-minor sym6 $\to$ sym5 $\to$ sym4 Schur cascade). The Kami proof chain covers all 51 opcodes; the bitstream covers the 47-opcode synthesized subset, including the base \texttt{CHSH\_LASSERT}.
 
 \medskip
-\noindent\textbf{MORPH\_ASSERT} (see Group 7): it activates the cert channel and belongs conceptually here too, but is listed in the morphism group because it operates on a morphism ID.
+\noindent\textbf{MORPH\_ASSERT} (see Group 7): on success, it activates the cert-address channel and belongs conceptually here too, but is listed in the morphism group because it operates on a morphism ID.
 
 \subsection{Group 7: Categorical morphism operations (7 opcodes)}
 
-These are the opcodes that operate on the categorical morphism layer of the partition graph. Six of them (MORPH, COMPOSE, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_TENSOR) modify graph state and \texttt{is\_classical\_opcode} returns false on them. MORPH\_GET only reads graph state into a register and is classified as classical by that predicate, even though a Turing Machine still has to simulate the graph on its tape to evaluate it. A Turing Machine can simulate programs using these opcodes by encoding the full Thiele state on its tape. The simulation can be honest (maintaining the $\mu$-ledger cost semantics in the encoding) or dishonest (omitting that accounting). The TM substrate's transition relation is indifferent to which, which is exactly the substrate-versus-program distinction Section~\ref{sec:turing} names: A2 lives in the simulator program when the substrate runs the simulation, not in the substrate itself.
+These are the opcodes that operate on the categorical morphism layer of the partition graph. Six of them (\texttt{MORPH}, \texttt{COMPOSE}, \texttt{MORPH\_ID}, \texttt{MORPH\_DELETE}, \texttt{MORPH\_ASSERT}, \texttt{MORPH\_TENSOR}) modify graph state and \texttt{is\_classical\_opcode} returns false on them. \texttt{MORPH\_GET} only reads graph state into a register and is classified as classical by that predicate, even though a Turing machine still has to simulate the graph on its tape to evaluate it. A Turing machine can simulate programs using these opcodes by encoding the full Thiele state on its tape. The simulation can be honest (maintaining the $\mu$-ledger cost semantics in the encoding) or dishonest (omitting that accounting). The TM substrate's transition relation is indifferent to which, which is exactly the substrate-versus-program distinction Section~\ref{sec:turing} names: A2 lives in the simulator program when the substrate runs the simulation, not in the substrate itself.
 
 A \emph{morphism} is a record saying: ``module $A$ is related to module $B$ in this specific, named way.'' Not just ``$A$ and $B$ exist.'' Not just ``$A$ and $B$ are connected by an edge.'' A morphism has a source module ID, a target module ID, coupling data (a list of (source-cell, target-cell) pairs plus a label string), and an is-identity flag.
 
-The coupling data is actual relational content. MORPH creates a morphism with an empty coupling list initially. COMPOSE computes the relational composition of two morphisms' coupling lists: pair $(a, c)$ is included if and only if there exists $b$ such that $(a, b)$ is in the first coupling and $(b, c)$ is in the second. This is proven correct in \texttt{CategoryBridge.v}. MORPH\_TENSOR concatenates two coupling lists. The coupling is not a programmer tag. It is data the kernel builds and proves properties about. You can read back the number of coupling pairs via MORPH\_GET (selector 2), if you want to know.
+The coupling data is actual relational content. \texttt{MORPH} creates a morphism with an empty coupling list initially. \texttt{COMPOSE} computes the relational composition of two morphisms' coupling lists: pair $(a, c)$ is included if and only if there exists $b$ such that $(a, b)$ is in the first coupling and $(b, c)$ is in the second. This is proven correct in \texttt{CategoryBridge.v}. \texttt{MORPH\_TENSOR} concatenates two coupling lists. The coupling is not a programmer tag. It is data the kernel builds and proves properties about. You can read back the number of coupling pairs via \texttt{MORPH\_GET} (selector 2), if you want to know.
 
-Why does this matter? Because two programs can have identical classical state (same registers, same memory, same $\mu$) while having completely different morphism maps. A classical machine cannot distinguish them. The Thiele Machine can, via a single morphism probe. This is the Categorical Separation Theorem (Section~\ref{sec:categorical}).
+Why does this matter? Because two programs can have the same classical projection, and even the same $\mu$ balance if you expose the ledger, while having completely different morphism maps. A classical machine cannot distinguish them. The 51-opcode realisation can, via a single \texttt{MORPH\_GET} probe. This is the Categorical Separation Theorem (Section~\ref{sec:categorical}).
 
 \begin{center}
 \begin{tabular}{@{}p{0.30\linewidth}p{0.56\linewidth}p{0.09\linewidth}@{}}
@@ -1466,31 +1466,31 @@ Opcode & Effect & Cost \\
 \end{tabular}
 \end{center}
 
-MORPH\_ASSERT deserves special attention. It charges $S(\delta) \geq 1$ regardless of whether the assertion succeeds. This is the sharpest instance of No Free Insight: the \emph{attempt to claim structural knowledge costs something}, even when the claim is false. A failed assertion is not free. A machine without a structural ledger has no way to express this constraint. In the Thiele Machine it is enforced by the step semantics and proven in \texttt{AbstractNoFI.v}.
+\texttt{MORPH\_ASSERT} deserves special attention. It charges $S(\delta) \geq 1$ regardless of whether the assertion succeeds. This is the sharpest instance of No Free Insight: the \emph{attempt to claim structural knowledge costs something}, even when the claim is false. A failed assertion is not free. A machine without a structural ledger has no way to express this constraint. In the 51-opcode realisation it is enforced by the step semantics and tied back to the abstract theorem in \texttt{AbstractNoFI.v}.
 
 \subsection{Why 51 opcodes?}
 
 The number 51 comes from what the kernel needs to do:
 \begin{itemize}
-\item Compute arithmetic and data: 14 ops (LOAD\_IMM, XFER, ADD, SUB, MUL, AND, OR, SHL, SHR, LUI, XOR\_LOAD, XOR\_ADD, XOR\_SWAP, XOR\_RANK)
-\item Memory and control flow: 8 ops (LOAD, STORE, JUMP, JNEZ, CALL, RET, HALT, CHECKPOINT)
-\item I/O, heap, and tensor: 7 ops (READ\_PORT, WRITE\_PORT, EMIT, HEAP\_LOAD, HEAP\_STORE, TENSOR\_SET, TENSOR\_GET)
-\item Partition structure: 4 ops (PNEW, PSPLIT, PMERGE, PDISCOVER)
-\item Logic and certification: 3 ops (LASSERT, LJOIN, MDLACC)
-\item Witness and certification (general + Q\textsubscript{1+AB} family): 7 ops (CHSH\_TRIAL, CERTIFY, REVEAL, CHSH\_LASSERT\_1AB, CHSH\_LASSERT\_1AB\_G5, CHSH\_LASSERT\_1AB\_G345, CHSH\_LASSERT\_1AB\_G12345)
-\item Categorical morphisms: 7 ops (MORPH, COMPOSE, MORPH\_ID, MORPH\_DELETE, MORPH\_ASSERT, MORPH\_TENSOR, MORPH\_GET)
-\item CHSH-aware certification: 1 op (CHSH\_LASSERT)
+\item Compute arithmetic and data: 14 ops (\texttt{LOAD\_IMM}, \texttt{XFER}, \texttt{ADD}, \texttt{SUB}, \texttt{MUL}, \texttt{AND}, \texttt{OR}, \texttt{SHL}, \texttt{SHR}, \texttt{LUI}, \texttt{XOR\_LOAD}, \texttt{XOR\_ADD}, \texttt{XOR\_SWAP}, \texttt{XOR\_RANK})
+\item Memory and control flow: 8 ops (\texttt{LOAD}, \texttt{STORE}, \texttt{JUMP}, \texttt{JNEZ}, \texttt{CALL}, \texttt{RET}, \texttt{HALT}, \texttt{CHECKPOINT})
+\item I/O, heap, and tensor: 7 ops (\texttt{READ\_PORT}, \texttt{WRITE\_PORT}, \texttt{EMIT}, \texttt{HEAP\_LOAD}, \texttt{HEAP\_STORE}, \texttt{TENSOR\_SET}, \texttt{TENSOR\_GET})
+\item Partition structure: 4 ops (\texttt{PNEW}, \texttt{PSPLIT}, \texttt{PMERGE}, \texttt{PDISCOVER})
+\item Logic and certification: 3 ops (\texttt{LASSERT}, \texttt{LJOIN}, \texttt{MDLACC})
+\item Witness and certification (general + Q\textsubscript{1+AB} family): 7 ops (\texttt{CHSH\_TRIAL}, \texttt{CERTIFY}, \texttt{REVEAL}, \texttt{CHSH\_LASSERT\_1AB}, \texttt{CHSH\_LASSERT\_1AB\_G5}, \texttt{CHSH\_LASSERT\_1AB\_G345}, \texttt{CHSH\_LASSERT\_1AB\_G12345})
+\item Categorical morphisms: 7 ops (\texttt{MORPH}, \texttt{COMPOSE}, \texttt{MORPH\_ID}, \texttt{MORPH\_DELETE}, \texttt{MORPH\_ASSERT}, \texttt{MORPH\_TENSOR}, \texttt{MORPH\_GET})
+\item CHSH-aware certification: 1 op (\texttt{CHSH\_LASSERT})
 \end{itemize}
 
-$14 + 8 + 7 + 4 + 3 + 7 + 7 + 1 = 51$. Of the 51, 47 are synthesized into the FPGA bitstream; the four Q\textsubscript{1+AB} cert-opcodes (CHSH\_LASSERT\_1AB and its three $\gamma$-extended variants) live in the Kami HW abstraction with kernel-equivalence proven, but not in the synthesized bitstream (see the CHSH cert family note above for the silicon-budget reason).
+$14 + 8 + 7 + 4 + 3 + 7 + 7 + 1 = 51$. Of the 51, 47 are synthesized into the FPGA bitstream; the four Q\textsubscript{1+AB} check opcodes (\texttt{CHSH\_LASSERT\_1AB} and its three $\gamma$-extended variants) live in the Kami HW abstraction with kernel-equivalence proven, but not in the synthesized bitstream (see the CHSH cert family note above for the silicon-budget reason).
 
 \medskip
-\noindent\textbf{The CHSH cert family: CHSH\_LASSERT plus four Q\textsubscript{1+AB} extensions.}
-The base opcode \texttt{CHSH\_LASSERT mu\_delta} reads the eight buckets of \texttt{vm\_witness} directly, computes the integer-arithmetic check \texttt{column\_contractive\_check\_witness} (defined in \texttt{coq/kernel/foundation/VMStep.v} using only $\mathbb{Z}$ arithmetic on the same/diff counts), and either advances the program counter on success or traps to \texttt{LASSERT\_TRAP\_PC} and latches \texttt{vm\_err} on failure. The cost is $S(\mathit{mu\_delta}) \geq 1$ regardless of outcome (cert-setter discipline; you pay to check, even to fail). The bridge theorem \texttt{chsh\_lassert\_no\_trap\_implies\_quantum\_realizable} (\texttt{coq/kernel/quantum/QuantumPartitionPSD.v}) proves that any no-trap, no-err-flip execution of CHSH\_LASSERT implies the witness-derived $5\times5$ NPA moment matrix is PSD (i.e., quantum-realizable at NPA level 1). The chain in plain order: the integer check on the witness counters passes; that fact lifts to real-valued column-contractivity by \texttt{column\_contractive\_check\_witness\_sound} in \texttt{coq/kernel/nfi/MuLedgerQuantumBridge.v}; column-contractivity is biconditional with NPA-PSD by \texttt{column\_contractive\_iff\_quantum\_realizable}. Three theorems. No physics input. The opcode is the place in the kernel where the algebra of Section~\ref{sec:chsh} becomes something the VM actually refuses to do, not just declines to recommend.
+\noindent\textbf{The CHSH check family: \texttt{CHSH\_LASSERT} plus four Q\textsubscript{1+AB} extensions.}
+The base opcode \texttt{CHSH\_LASSERT mu\_delta} reads the eight buckets of \texttt{vm\_witness} directly, computes the integer-arithmetic check \texttt{column\_contractive\_check\_witness} (defined in \texttt{coq/kernel/foundation/VMStep.v} using only $\mathbb{Z}$ arithmetic on the same/diff counts), and either advances the program counter on success or traps to \texttt{LASSERT\_TRAP\_PC} and latches \texttt{vm\_err} on failure. The cost is $S(\mathit{mu\_delta}) \geq 1$ regardless of outcome. Mandatory-floor discipline: you pay to check, even to fail. The bridge theorem \texttt{chsh\_lassert\_no\_trap\_implies\_quantum\_realizable} (\texttt{coq/kernel/quantum/QuantumPartitionPSD.v}) proves that any no-trap, no-err-flip execution of \texttt{CHSH\_LASSERT} implies the witness-derived $5\times5$ NPA moment matrix is PSD (i.e., quantum-realizable at NPA level 1). The chain in plain order: the integer check on the witness counters passes; that fact lifts to real-valued column-contractivity by \texttt{column\_contractive\_check\_witness\_sound} in \texttt{coq/kernel/nfi/MuLedgerQuantumBridge.v}; column-contractivity is biconditional with NPA-PSD by \texttt{column\_contractive\_iff\_quantum\_realizable}. Three theorems. No physics input. The opcode is the place in the kernel where the algebra of Section~\ref{sec:chsh} becomes something the VM actually refuses to do, not just declines to recommend.
 
 The four Q\textsubscript{1+AB} extensions \texttt{CHSH\_LASSERT\_1AB} (tag 0x2F, $\gamma = 0$), \texttt{CHSH\_LASSERT\_1AB\_G5} (tag 0x30), \texttt{CHSH\_LASSERT\_1AB\_G345} (tag 0x31), and \texttt{CHSH\_LASSERT\_1AB\_G12345} (tag 0x32) lift the same discipline from the level-1 $5\times5$ matrix to the level-1+AB $9\times9$ NPA moment matrix. Each runs its own integer-arithmetic Schur-cascade check on \texttt{vm\_witness} plus the supplied $\gamma$-bucket pairs, advances on pass or traps on fail, charges $S(\mathit{mu\_delta}) \geq 1$. The four bridge theorems (one per slice, named \texttt{chsh\_lassert\_1ab\_*\_no\_trap\_implies\_quantum\_realizable\_q1ab} in \texttt{coq/kernel/quantum/QuantumPartitionPSD\_1AB.v}) deliver \texttt{quantum\_realizable\_q1ab} = symmetric9 $\wedge$ PSD9 on the witness-derived rationals. The mathematical detail of the four-slice Schur cascade is in \S\ref{sec:chsh}'s Q\textsubscript{1+AB} subsection below.
 
-Every opcode exists for a reason. None are redundant. If you removed CERTIFY, you could not activate \texttt{vm\_certified}. If you removed MORPH, you could not build morphism relationships. If you removed CHSH\_TRIAL, you could not track 2-player binary game statistics. If you removed CHSH\_LASSERT, the kernel would record CHSH trials but could not enforce that certified outcomes lie inside the level-1 NPA-PSD boundary. If you removed the Q\textsubscript{1+AB} family, the kernel could not certify the level-1+AB cone the Tsirelson set lives in (per Ishizaka 2025, Q\textsubscript{1+AB} = Q in CHSH). The ISA is designed, not grown.
+Every opcode exists for a reason. None are redundant. If you removed \texttt{CERTIFY}, you could not activate \texttt{vm\_certified}. If you removed \texttt{MORPH}, you could not build morphism relationships. If you removed \texttt{CHSH\_TRIAL}, you could not track 2-player binary game statistics. If you removed \texttt{CHSH\_LASSERT}, the kernel would record CHSH trials but could not enforce that validated outcomes lie inside the level-1 NPA-PSD boundary. If you removed the Q\textsubscript{1+AB} family, the kernel could not validate the level-1+AB cone the Tsirelson set lives in (per Ishizaka 2025, Q\textsubscript{1+AB} = Q in CHSH). The ISA is designed, not grown.
 
 %===========================================================================
 \section{What a categorical morphism is: the category theory, from scratch}
@@ -1503,14 +1503,14 @@ Category theory from scratch. I didn't know what it was when I started this proj
 
 A category is two things. Objects. Arrows between them.
 
-Objects can be anything you want. Sets. Vector spaces. Topological spaces. In the Thiele Machine they are modules: partitions of state, named pieces of the computation.
+Objects can be anything you want. Sets. Vector spaces. Topological spaces. In the 51-opcode realisation they are modules: partitions of state, named pieces of the computation.
 
-Arrows have a second name: morphisms. An arrow goes from object to object. $f : A \to B$ means ``arrow $f$ from $A$ to $B$.'' It does not have to be a function. People forget this. In the Thiele Machine, a morphism is a claim: these two modules are related, here is the type of the relationship.
+Arrows have a second name: morphisms. An arrow goes from object to object. $f : A \to B$ means ``arrow $f$ from $A$ to $B$.'' It does not have to be a function. People forget this. In the 51-opcode realisation, a morphism is a claim: these two modules are related, here is the type of the relationship.
 
 Two laws must hold:
 \begin{enumerate}
-\item \textbf{Composition}: If $f : A \to B$ and $g : B \to C$, there must exist a composite $g \circ f : A \to C$. This is what COMPOSE implements.
-\item \textbf{Identity}: For every object $A$, there must exist an identity arrow $\text{id}_A : A \to A$. This is what MORPH\_ID implements.
+\item \textbf{Composition}: If $f : A \to B$ and $g : B \to C$, there must exist a composite $g \circ f : A \to C$. This is what \texttt{COMPOSE} implements.
+\item \textbf{Identity}: For every object $A$, there must exist an identity arrow $\text{id}_A : A \to A$. This is what \texttt{MORPH\_ID} implements.
 \end{enumerate}
 
 And composition must be associative: $(h \circ g) \circ f = h \circ (g \circ f)$.
@@ -1519,18 +1519,18 @@ And composition must be associative: $(h \circ g) \circ f = h \circ (g \circ f)$
 \noindent\textbf{Why composition?} Because relationships have to chain. $A$ to $B$, $B$ to $C$, therefore $A$ to $C$. Without that, every multi-hop path has to be named individually, and the structure collapses into a pile of unconnected pairs. A category without composition is a phone book without a search function.
 
 \medskip
-\noindent\textbf{Why identity?} Every object needs a self-loop, even the boring ones. A module with no connections to anything else still has to exist somewhere in the framework. MORPH\_ID is the instruction for that: ``$A$ to itself, coupling empty.'' Drop it and isolated objects fall outside the framework entirely. The category does not see them.
+\noindent\textbf{Why identity?} Every object needs a self-loop, even the boring ones. A module with no connections to anything else still has to exist somewhere in the framework. \texttt{MORPH\_ID} is the instruction for that: ``$A$ to itself, coupling empty.'' Drop it and isolated objects fall outside the framework entirely. The category does not see them.
 
 \medskip
 \noindent\textbf{Why associativity?} Parenthesization should not matter. $(h \circ g) \circ f$ and $h \circ (g \circ f)$ both spell the same three-hop path $A \to B \to C \to D$. If they came out different, two programs that built the same chain in different orders would produce two different morphisms. That is a bug. The chain is the thing. How you assembled it is not.
 
-These laws are proven in Coq in \texttt{CategoryLaws.v}. Concretely: morphisms carry coupling data, a list of (source-cell, target-cell) pairs plus a label. A ``cell'' is a natural number indexing into a module's memory region. A coupling pair $(a, c)$ says: cell $a$ in the source module is related to cell $c$ in the target module. The coupling is the \emph{relational content} of the morphism, the actual evidence of which parts of one module correspond to which parts of another. COMPOSE produces a new morphism whose coupling pairs are the relational composition of the two inputs: $(a, c)$ is included when there exists an intermediate cell $b$ such that $(a, b)$ is in the first coupling and $(b, c)$ is in the second. Standard relational composition. Matrix multiplication for sets of pairs. This is proven in \texttt{CategoryBridge.v} (\texttt{graph\_compose\_morphisms\_coupling}). The Thiele Machine's categorical layer is not just called a category. It satisfies the actual axioms on the actual coupling data, with Coq watching.
+These laws are proven in Coq in \texttt{CategoryLaws.v}. Concretely: morphisms carry coupling data, a list of (source-cell, target-cell) pairs plus a label. A ``cell'' is a natural number indexing into a module's memory region. A coupling pair $(a, c)$ says: cell $a$ in the source module is related to cell $c$ in the target module. The coupling is the \emph{relational content} of the morphism, the actual evidence of which parts of one module correspond to which parts of another. \texttt{COMPOSE} produces a new morphism whose coupling pairs are the relational composition of the two inputs: $(a, c)$ is included when there exists an intermediate cell $b$ such that $(a, b)$ is in the first coupling and $(b, c)$ is in the second. Standard relational composition. Matrix multiplication for sets of pairs. This is proven in \texttt{CategoryBridge.v} (\texttt{graph\_compose\_morphisms\_coupling}). The categorical layer is not just called a category. It satisfies the actual axioms on the actual coupling data, with Coq watching.
 
 \subsection{Why modules as objects}
 
-In the Thiele Machine, the objects of the category are the modules of the partition graph. A module is a named piece of the computation. It owns a region of memory or state. It may carry certified axioms. It contributes a local $\mu$ cost. Modules are the bookkeeping unit. Everything structural hangs off them.
+In the concrete kernel, the objects of the category are the modules of the partition graph. A module is a named piece of the computation. It owns a region of memory or state. It may carry certified axioms. It carries a local 4$\times$4 $\mu$-tensor. Modules are the bookkeeping unit. Everything structural hangs off them.
 
-A morphism between two modules says: ``there is a named relationship between $A$ and $B$, with explicit coupling data.'' The coupling data is a list of (source-cell, target-cell) pairs. COMPOSE computes the relational composition: pair $(a, c)$ lands in the composed coupling exactly when there exists $b$ with $(a, b)$ in the first and $(b, c)$ in the second. Proven. Tracked. Via MORPH\_GET (selector 2), you can read back the coupling-pair count of any morphism.
+A morphism between two modules says: ``there is a named relationship between $A$ and $B$, with explicit coupling data.'' The coupling data is a list of (source-cell, target-cell) pairs. \texttt{COMPOSE} computes the relational composition: pair $(a, c)$ lands in the composed coupling exactly when there exists $b$ with $(a, b)$ in the first and $(b, c)$ in the second. Proven. Tracked. Via \texttt{MORPH\_GET} (selector 2), you can read back the coupling-pair count of any morphism.
 
 What the coupling pairs represent is up to the programmer. They could encode:
 \begin{itemize}
@@ -1539,26 +1539,26 @@ What the coupling pairs represent is up to the programmer. They could encode:
 \item Module $A$ simulates module $B$ (which transitions/outputs correspond)
 \end{itemize}
 
-The machine enforces the relational composition correctly. The interpretation is yours.
+The kernel enforces the relational composition correctly. The interpretation is yours.
 
 \subsection{Why this is not just ``extra state''}
 
 Here is the question I chewed on for a long time. If you can just bolt extra registers onto a classical machine and stash morphism IDs in them, why does the categorical layer matter at all?
 
-The answer is in the MORPH\_ASSERT opcode and in the Categorical Separation Theorem.
+The answer is in the \texttt{MORPH\_ASSERT} opcode and in the Categorical Separation Theorem.
 
-Extra registers do not have provenance. You can write anything into a register. You can write 42 into register 5 and claim it is a morphism ID. But the VM checks: did a MORPH instruction actually run that created morphism 42 with the source and target you claim? If not, MORPH\_ASSERT fails. And MORPH\_ASSERT costs $S(\delta) \geq 1$ even if it fails.
+Extra registers do not have provenance. You can write anything into a register. You can write 42 into register 5 and claim it is a morphism ID. But the VM checks: did a \texttt{MORPH} instruction actually run that created morphism 42 with the source and target you claim? If not, \texttt{MORPH\_ASSERT} fails. And \texttt{MORPH\_ASSERT} costs $S(\delta) \geq 1$ even if it fails.
 
-Building the morphism chain by calling MORPH, COMPOSE, and MORPH\_ID is free when those instructions carry $\delta = 0$. Those ops don't have a mandatory positive floor. What costs is MORPH\_ASSERT: the act of asserting that the morphism exists and activating the cert channel. That always costs $S(\delta) \geq 1$. You can build the chain for free, but you cannot certify it for free.
+Building the morphism chain by calling \texttt{MORPH}, \texttt{COMPOSE}, and \texttt{MORPH\_ID} is free when those instructions carry $\delta = 0$. Those ops don't have a mandatory positive floor. What costs is \texttt{MORPH\_ASSERT}: the act of asserting that the morphism exists and activating the cert-address channel. That always costs $S(\delta) \geq 1$. You can build the chain for free, but you cannot assert it into the cert-address channel for free.
 
-This is why the morphism layer is not ``extra state.'' It is \emph{provenance-bearing state}. The substrate knows where every morphism came from. A classical machine cannot fake that at the same cost. That is the Categorical Separation Theorem.
+This is why the morphism layer is not ``extra state.'' It is \emph{provenance-bearing state}. The trace records where every asserted morphism came from, and the substrate has a place to check that provenance. A classical machine cannot fake that at the same cost. That is the Categorical Separation Theorem.
 
 %===========================================================================
-\section{Categorical separation: the machine is strictly richer}
+\section{Categorical separation: what the classical shadow drops}
 \label{sec:categorical}
 %===========================================================================
 
-Section~\ref{sec:turing} established the substrate distinction. Thiele's step relation enforces A2 by construction. The Turing machine's transition table has no slot for it. That is the load-bearing result. This section gives the within-model illustration of it: a pair of Thiele states whose classical projection collides but whose morphism graphs differ. The witness alone is not load-bearing on its own. Any computational model with a non-identity projection produces an analogous within-model witness; the README at \emph{Why It Is Not Just A Toy Counter} flags this. What anchors the witness in the rest of the argument is the substrate-level claim from Section~\ref{sec:turing} plus the cost-floor theorem \texttt{universal\_nfi\_any\_substrate} and the uniqueness theorem \texttt{mu\_is\_initial\_monotone}. Read the construction below as: here is what the substrate distinction looks like inside the model, concrete enough that you can object to a specific piece. Read Section~\ref{sec:turing} first if you skipped it. The witness is downstream of the substrate distinction. It cannot replace it. Don't read it as if it could.
+Section~\ref{sec:turing} established the substrate distinction. The Thiele substrate enforces A2 in the step relation. The Turing machine's transition table has no slot for it. That is the load-bearing result. This section gives the within-model illustration: a pair of concrete VM states whose six-field shadow collides but whose morphism graphs differ. The witness is useful. It is not the foundation. Any computational model with a non-identity projection can produce an analogous shadow collision; the README at \emph{Why It Is Not Just A Toy Counter} flags this. What anchors the witness in the rest of the argument is the substrate-level claim from Section~\ref{sec:turing} plus the cost-floor theorem \texttt{universal\_nfi\_any\_substrate} and the uniqueness theorem \texttt{mu\_is\_initial\_monotone}. Read the construction below as: here is what the substrate distinction looks like inside the model, concrete enough that you can object to a specific piece. Read Section~\ref{sec:turing} first if you skipped it. The witness is downstream of the substrate distinction. It cannot replace it. Don't read it as if it could.
 
 \begin{theorem}[Categorical Separation]
 There exist states $s_1$ and $s_2$ such that:
@@ -1574,11 +1574,11 @@ yet their morphism graphs differ. In the concrete witness, one state has an iden
 \end{theorem}
 
 \begin{proof}[Construction]
-Build $s_1$ with \texttt{pg\_morphisms = [(0, id)]}. Build $s_2$ with \texttt{pg\_morphisms = []}. Set every classical field the same: registers, memory, $\mu$, PC, error flag, and \texttt{vm\_certified}. The equality proof is by reflexivity on those fields. The graph distinction is by list constructor mismatch: a one-element morphism list is not the empty list.
+Build $s_1$ with \texttt{pg\_morphisms = [(0, id)]}. Build $s_2$ with \texttt{pg\_morphisms = []}. Set every shadow field the same: registers, memory, $\mu$, PC, error flag, and \texttt{vm\_certified}. The equality proof is by reflexivity on those fields. The graph distinction is by list constructor mismatch: a one-element morphism list is not the empty list.
 \end{proof}
 
 \medskip
-\noindent\textbf{Two witness states, side by side.} What the classical observer sees. What the substrate actually holds.
+\noindent\textbf{Two witness states, side by side.} What the six-field shadow sees. What the graph state actually holds.
 
 \begin{center}
 \small
@@ -1599,7 +1599,7 @@ Build $s_1$ with \texttt{pg\_morphisms = [(0, id)]}. Build $s_2$ with \texttt{pg
 \end{center}
 
 \medskip
-\noindent\textbf{What this witness shows.} The two states above are not contrived. They are the simplest possible classical-shadow collision under the Thiele projection: identical registers, identical memory, identical PC, identical error flag, identical $\mu$, identical \texttt{vm\_certified}. Every observer restricted to the six-field projection says they are the same state. The morphism graph says they are not. This is a witness inside the model that the chosen projection drops information. It is not, on its own, a substrate-comparison theorem: an analogous projection on any other substrate reproduces the same shape. What anchors this in the rest of the argument is the cost floor and uniqueness theorems Section~\ref{sec:turing} subsection 2 lists.
+\noindent\textbf{What this witness shows.} The two states above are not contrived. They are the simplest possible six-field shadow collision under the Thiele projection: identical registers, identical memory, identical PC, identical error flag, identical $\mu$, identical \texttt{vm\_certified}. Every observer restricted to that projection says they are the same state. The morphism graph says they are not. This is a witness inside the model that the chosen projection drops information. It is not, on its own, a substrate-comparison theorem: an analogous projection on any other substrate reproduces the same shape. What anchors this in the rest of the argument is the cost floor and uniqueness theorems Section~\ref{sec:turing} subsection 2 lists.
 
 \medskip
 \noindent\textbf{What the witness does not prove on its own.} A reader who tries to escape this witness by adding a register, a tape region, or any auxiliary slot to a Turing machine reproduces the witness rather than escaping it. The augmented machine still has a non-identity projection (drop the added slot from the projected fields) and the same collision shape on the augmented states. The shadow lemma is collapsible by construction.
@@ -1610,7 +1610,7 @@ The deeper question (whether you can extend a Turing machine with a cost-trackin
 \noindent\textbf{Connecting to the universal NoFI.} Combine this within-model witness with \texttt{universal\_nfi\_any\_substrate} and \texttt{thiele\_represents\_simulating\_cert\_system} (both in \texttt{coq/kernel/nfi/UniversalCertificationCost.v}) and you get the substrate-level statement. Any certification system that satisfies A2 admits a faithful embedding into the Thiele VM. Its certifications become Thiele certifications. Its cost lower-bounds the embedded Thiele cost. The witness theorem shows what the Thiele projection drops within the model. The substrate-independent theorem shows that any honest substrate inherits the $\mu$-price on certification. Together they say: the cost floor is forced wherever A2 is accepted. Thiele is the canonical place where the dropped information sits as primitive state.
 
 \medskip
-\noindent\textbf{Falsifier.} If you produce a function on the classical fields $(\texttt{vm\_regs}, \texttt{vm\_mem}, \texttt{vm\_mu}, \texttt{vm\_pc}, \texttt{vm\_err}, \texttt{vm\_certified})$ that returns different values on $s_1$ and $s_2$ above, \texttt{shadow\_strictly\_lossy} is wrong and the Coq proof in \texttt{coq/kernel/witness/ShadowProjection.v} won't compile. That is what falsifies this section.
+\noindent\textbf{Falsifier.} If you produce a function on the six shadow fields $(\texttt{vm\_regs}, \texttt{vm\_mem}, \texttt{vm\_mu}, \texttt{vm\_pc}, \texttt{vm\_err}, \texttt{vm\_certified})$ that returns different values on $s_1$ and $s_2$ above, \texttt{shadow\_strictly\_lossy} is wrong and the Coq proof in \texttt{coq/kernel/witness/ShadowProjection.v} won't compile. That is what falsifies this section.
 
 \begin{theorem}[Shadow Separation]
 There exist two states with the same classical shadow but different morphism graphs, and a legitimate graph-preserving probe after which the morphism-level distinction remains.
@@ -1633,10 +1633,10 @@ No function of (registers, memory, $\mu$, PC, error, certified) can separate all
 
 \begin{corollary}[Thiele strictly extends classical, \texttt{TuringStrictness.v}]
 \label{cor:strict}
-Every program in the classical fragment, programs restricted to \texttt{is\_classical\_opcode}, meaning no graph mutations, no cert-channel ops, no witness ops, leaves \texttt{pg\_next\_id} unchanged. There exist Thiele programs that change \texttt{pg\_next\_id} (via PNEW). Therefore Thiele strictly extends the classical fragment: it can represent and probe states that no program in that fragment can reach. A Universal Turing Machine can simulate the full Thiele state by encoding it on tape; what it cannot do is produce that state without expending the equivalent structural work, the $\mu$-ledger cost is preserved under any faithful simulation.
+Every program in the classical fragment, meaning every program restricted to \texttt{is\_classical\_opcode}, leaves \texttt{pg\_next\_id} unchanged. There exist Thiele programs that change \texttt{pg\_next\_id} via \texttt{PNEW}. Therefore Thiele strictly extends the classical fragment: it can represent and probe states that no program in that fragment can reach. A universal Turing machine can simulate the full Thiele state by encoding it on tape, but a faithful simulation has to preserve the $\mu$-ledger cost. Drop the accounting and it is no longer simulating the substrate honestly.
 \end{corollary}
 
-The classical machine simulates inside the Thiele substrate faithfully. Every classical program runs correctly. No side effects on the structural layer. But the substrate has transitions the classical fragment cannot reach. The 51-opcode realisation surfaces them as PNEW, MORPH, MORPH\_ASSERT. Proven. Not claimed.
+The classical fragment embeds inside the Thiele substrate faithfully. Every classical program runs correctly. No side effects on the structural layer. But the substrate has transitions the classical fragment cannot reach. The 51-opcode realisation surfaces them as \texttt{PNEW}, \texttt{MORPH}, \texttt{MORPH\_ASSERT}. Proven. Not claimed.
 
 %===========================================================================
 \section{The knowledge receipt: what makes certification unforgeable}
@@ -1648,50 +1648,50 @@ Four facts. Four concrete ones. Why the $\mu$ ledger cannot be forged, in four a
 \medskip
 \noindent\textbf{Act 1: The attempt costs, even when it fails.}
 
-Run MORPH\_ASSERT($k$, ``test'', ``'', 0) where morphism $k$ does not exist. What happens:
+Run \texttt{MORPH\_ASSERT}($k$, ``test'', ``'', 0) where morphism $k$ does not exist. What happens:
 \begin{itemize}
 \item \texttt{vm\_err} becomes true (the assertion failed, morphism $k$ not found).
-\item \texttt{csr\_cert\_addr} stays 0, the cert channel is NOT activated on failure.
+\item \texttt{csr\_cert\_addr} stays 0, the cert-address channel is NOT activated on failure.
 \item $\mu$ increases by $S(0) = 1$ regardless (the attempt cost something).
 \end{itemize}
 
-The VM paid for a failed assertion. A machine without a structural ledger has no way to express this, let alone enforce it. In the Thiele Machine, the cost of claiming knowledge is charged whether or not the claim is true.
+The VM paid for a failed assertion. A machine without a structural ledger has no way to express this, let alone enforce it. In the 51-opcode realisation, the cost of asserting structural knowledge is charged whether or not the claim is true.
 
 \medskip
 \noindent\textbf{Act 2: Build the chain.}
 
 Run this sequence:
 \begin{gather*}
-\text{PNEW}(A),\ \text{PNEW}(B),\ \text{PNEW}(C) \\
-\text{MORPH}(f,A,B),\ \text{MORPH}(g,B,C) \\
-\text{COMPOSE}(h,f,g)
+\text{\texttt{PNEW}}(A),\ \text{\texttt{PNEW}}(B),\ \text{\texttt{PNEW}}(C) \\
+\text{\texttt{MORPH}}(f,A,B),\ \text{\texttt{MORPH}}(g,B,C) \\
+\text{\texttt{COMPOSE}}(h,f,g)
 \end{gather*}
-Then MORPH\_GET($r_0$, $h$, source) and MORPH\_GET($r_1$, $h$, target). The resulting state has $r_0 = A$, $r_1 = C$, and morphism $h : A \to C$ exists in the morphism map. With $\delta = 0$ on each build step, $\mu = 0$. The morphism exists, but no structural cost has been paid yet.
+Then \texttt{MORPH\_GET}($r_0$, $h$, source) and \texttt{MORPH\_GET}($r_1$, $h$, target). The resulting state has $r_0 = A$, $r_1 = C$, and morphism $h : A \to C$ exists in the morphism map. With $\delta = 0$ on each build step, $\mu = 0$. The morphism exists, but no cert-address commitment has been paid for yet.
 
 \medskip
-\noindent\textbf{Act 3: Certify.}
+\noindent\textbf{Act 3: Assert.}
 
-Run MORPH\_ASSERT($h$, ``composed'', ``'', 0). Morphism $h$ exists and the property string ``composed'' is non-empty. The assertion succeeds. \texttt{csr\_cert\_addr} goes to the ASCII checksum of ``composed'' (nonzero). Tier 1 cert channel activated. $\mu$ goes up by $S(0) = 1$.
+Run \texttt{MORPH\_ASSERT}($h$, ``composed'', ``'', 0). Morphism $h$ exists and the property string ``composed'' is non-empty. The assertion succeeds. \texttt{csr\_cert\_addr} goes to the ASCII checksum of ``composed'' (nonzero). Cert-address channel activated. $\mu$ goes up by $S(0) = 1$.
 
-(Why must the property string be non-empty? Because csr\_cert\_addr stores the ASCII checksum of the property string. If property = ``'', checksum = 0, and the channel stays at 0. Not activated. Any non-empty string works. ``Composed'' is just an example label.)
+(Why must the property string be non-empty? Because \texttt{csr\_cert\_addr} stores the ASCII checksum of the property string. If property = ``'', checksum = 0, and the channel stays at 0. Not activated. Any non-empty string works. ``composed'' is just an example label.)
 
-The machine now holds a $\mu$-ledger entry: at this point in the trace, a morphism assertion was made and paid for. The receipt is in the ledger. It cannot be removed. It cannot be backdated. $\mu$ never goes down.
+The VM now holds a $\mu$-ledger entry: at this point in the trace, a morphism assertion was made and paid for. The receipt is in the ledger. It cannot be removed. It cannot be backdated. $\mu$ never goes down.
 
 \medskip
 \noindent\textbf{Act 4: Classical programs cannot forge it.}
 
-Snapshot both programs at the end of Act 2, before Act 3's MORPH\_ASSERT. Program B takes a shortcut: it loads $r_0 = A$ and $r_1 = C$ via LOAD\_IMM. Classical state is identical: same registers, $\mu = 0$ on both sides (Program A hasn't asserted yet either). No morphism $h$ was ever created in Program B.
+Snapshot both programs at the end of Act 2, before Act 3's \texttt{MORPH\_ASSERT}. Program B takes a shortcut: it loads $r_0 = A$ and $r_1 = C$ via \texttt{LOAD\_IMM}. The six-field shadow is identical: same registers, $\mu = 0$ on both sides (Program A has not asserted yet either). No morphism $h$ was ever created in Program B.
 
-Apply MORPH\_DELETE($h$): Program A (Act 2) succeeds. Program B fails and sets err.
+Apply \texttt{MORPH\_DELETE}($h$): Program A (Act 2) succeeds. Program B fails and sets err.
 
-The $\mu$ ledger is not a counter that measures how much work was done. It is a record of which structural commitments were made. Program B did the same amount of ``work'' (in the $\mu$ sense) but did different work. The machine knows the difference.
+The $\mu$ ledger is not a counter that measures how much work was done. It is a record of which structural commitments were made. Program B did the same amount of ``work'' in the $\mu$ sense, but it did different work. The kernel state records the difference.
 
 %===========================================================================
 \section{The substrate, instantiated three times}
 \label{sec:hardware}
 %===========================================================================
 
-Three scaffolding layers wrap the substrate: a Coq kernel, an OCaml runner extracted from it, and Kami RTL extracted from it. None of them IS the substrate. They are how the substrate gets to live on a chip, on a laptop, and inside a proof checker. The kernel-to-RTL seam is closed by formal bisimulation proofs (Section~\ref{sec:vocab}: same input, same output, field by field). The kernel-to-OCaml seam is closed by audited parity tests (Section~\ref{sec:vocab}: run both on a battery of inputs, verify they agree). Proof on the hardware side. Tested correspondence on the runner side. Both seams are named in the source. Neither is a wave-off.
+Three scaffolding layers wrap the substrate: a Coq kernel, an OCaml runner extracted from it, and a Kami RTL design tied back to it. None of them IS the substrate. They are how the substrate gets to live on a chip, on a laptop, and inside a proof checker. The kernel-to-RTL boundary is closed by formal bisimulation proofs (Section~\ref{sec:vocab}: same input, same output, field by field). The kernel-to-OCaml boundary is closed by audited parity tests (Section~\ref{sec:vocab}: run both on a battery of inputs, verify they agree). Proof on the hardware side. Tested correspondence on the runner side. Both boundaries are named in the source. Neither is a wave-off.
 
 \subsection{Layer 1: The Coq kernel}
 
