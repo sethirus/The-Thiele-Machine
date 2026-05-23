@@ -5,22 +5,27 @@
 [![CI](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml/badge.svg)](https://github.com/sethirus/The-Thiele-Machine/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Coq](https://img.shields.io/badge/Coq-0%20project--local%20axioms-EF4135?logo=coq&logoColor=white)](coq/)
-[![Theorems](https://img.shields.io/badge/Theorems-2%2C539%2B%20Qed-brightgreen)](monograph/monograph.pdf)
 [![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20findings-brightgreen)](scripts/inquisitor.py)
 [![RTL bisimulation](https://img.shields.io/badge/RTL%20bisimulation-47%2F47%20Qed-orange)](coq/kami_hw/RTLGapRegistry.v)
-[![FPGA](https://img.shields.io/badge/FPGA-Kintex--7%20K325T-orange?logo=xilinx&logoColor=white)](https://github.com/sethirus/The-Thiele-Machine/releases/latest)
-[![Monograph](https://img.shields.io/badge/Monograph-131%20pages-8a5a44)](monograph/monograph.pdf)
-[![Build](https://img.shields.io/badge/Build-Reproducible-blueviolet)](Makefile)
-[![Top language](https://img.shields.io/github/languages/top/sethirus/The-Thiele-Machine)](https://github.com/sethirus/The-Thiele-Machine)
-[![Repo size](https://img.shields.io/github/repo-size/sethirus/The-Thiele-Machine)](https://github.com/sethirus/The-Thiele-Machine)
 
-The Thiele Machine is a computational substrate where certification cost (μ) is tracked at the step relation rather than at the program layer. The principal structural result, Coq-verified, is asymmetric: every Thiele state has a canonical program projection onto a classical-equivalent state, and every classical state has multiple Thiele preimages with no canonical lift between them. The projection is the canonical map; the lift is not. The fields the projection drops (`vm_certified`, `csr_cert_addr`, μ) are provably not functions of the classical projection ([`cert_not_function_of_forget`](coq/kernel/witness/ProjectionNonExistence.v), [`mu_not_function_of_bare_observable`](coq/kernel/witness/ProjectionNonExistence.v)). Every Thiele machine has a Turing projection; no Turing machine has a canonical Thiele lift; and the directionality is proved, not stipulated.
+A normal computer can stamp "verified" on anything. The stamp is just code, and code can be buggy, skipped, or lying. Nothing in the machine prevents a program from claiming a result it didn't earn.
 
-Everything in this repository other than the substrate proof tree is a **realization** of the substrate: a particular instantiation in some computational medium. The OCaml runner extracted from the Coq kernel is a realization. The Kami RTL design synthesised through Bluespec and yosys is a realization. The FPGA bitstream is a realization. They are scaffolding for the substrate claim, not the claim itself. The substrate is the categorical object; its realizations are how you make contact with it.
+This is a machine where that move is impossible. Not difficult, not unlikely — impossible at the level of the step rule. A transition from "unverified" to "verified" cannot happen unless that transition pays a positive cost. The check isn't in software; it's in the law of motion. There is no checker to bypass, because there is no checker.
 
-## The argument
+Every ordinary computer tracks time and memory. None of them track *proof*. Two programs that both end with `verified = true` are indistinguishable to the machine running them, even if one did the work and the other forged it. This machine adds one axis of state and one rule, and that asymmetry disappears.
 
-The classical theory of computation has two axes: time and space. The substrate adds a third, certification cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. The argument is four steps, each backed by a Coq theorem. If you find it unconvincing, the most useful response identifies which step is wrong. There's no step-zero objection that lands without engaging the structure.
+This is not faster computation. It is not new computable functions. It is the same set of things you can compute, with one new constraint on *how* you can claim to have computed them.
+
+I call it a Thiele machine. The name attaches me to the claim, if I'm wrong, I take the hit; if I'm right, the label is the least of it.
+
+**See it in code:** [examples/demo_knowledge_receipt.py](examples/demo_knowledge_receipt.py) — four acts: a forged claim refused, an earned path, a certified claim, and two classically-identical programs separated by one probe instruction.
+
+Everything in this repository other than the proof tree of the idea above is a **realization** of it: a particular instantiation in some computational medium. The OCaml runner extracted from the Coq kernel is a realization. The Kami RTL design synthesised through Bluespec and yosys is a realization. The FPGA bitstream is a realization. They are scaffolding for the claim, not the claim itself. The thing being claimed is the abstract object; the realizations are how you make contact with it.
+
+
+## The argument, formally
+
+The opener says it in plain English. Here it is as four steps for the technical reader, each backed by a Coq theorem. The classical theory of computation has two axes: time and space. This machine adds a third, certification cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. If you find this unconvincing, the most useful response identifies which step is wrong — there's no step-zero objection that lands without engaging the structure.
 
 **1. A2 constrains state fields the bare classical signatures don't have.**
 
@@ -59,15 +64,11 @@ That is the difference between simulating a substrate and being a substrate. Sub
 
 ## In one minute
 
-The four steps above are mechanized by the following operational facts about
-the substrate:
+The four steps above are mechanized by the following operational facts:
 
 - `mu` starts at zero and never decreases.
 - Certification instructions increase `mu`.
 - Reversible structural bookkeeping can be zero-cost in the Bennett model.
-- No trace can move from uncertified to certified without paying positive `mu`.
-- No total function of `(memory, registers, pc)` recovers `mu` for every VM
-  state.
 - The Coq VM step function is the source of truth for both software execution
   and hardware extraction.
 
