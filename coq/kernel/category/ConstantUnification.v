@@ -80,17 +80,13 @@ Definition T : R := 1.           (* Temperature (normalized) *)
     the definitions are supposed to mean anything physical. The proofs are the
     obvious real-arithmetic ones.
 *)
-Lemma tau_mu_pos : tau_mu > 0.
-Proof. unfold tau_mu. lra. Qed.
-
-Lemma d_mu_pos : d_mu > 0.
-Proof. unfold d_mu. lra. Qed.
+(* tau_mu_pos / d_mu_pos / T_pos removed: each was a definitional unfold-and-lra
+   shim over a normalized constant (= 1). Every former use site now inlines the
+   one-line proof [unfold X; lra]. k_B_pos is kept because k_B = / 100 needs
+   Rinv_0_lt_compat, so it is non-definitional. *)
 
 Lemma k_B_pos : k_B > 0.
 Proof. unfold k_B. apply Rinv_0_lt_compat. lra. Qed.
-
-Lemma T_pos : T > 0.
-Proof. unfold T. lra. Qed.
 
 (** Relational identities connecting computational and physical units. *)
 
@@ -155,7 +151,7 @@ Proof.
   intros. unfold derived_h, E_bit, nu_max.
   unfold Rdiv.
   rewrite Rmult_1_l.
-  rewrite Rinv_inv by (apply Rgt_not_eq; exact tau_mu_pos).
+  rewrite Rinv_inv by (apply Rgt_not_eq; unfold tau_mu; lra).
   reflexivity.
 Qed.
 

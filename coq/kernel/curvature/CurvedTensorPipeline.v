@@ -1217,17 +1217,11 @@ Proof.
   exact Hmass.
 Qed.
 
-(** Independence witness: mass_stress_energy does NOT depend on module_mu_tensor.
-  This is the non-circularity guarantee. *)
-(* DEFINITIONAL HELPER — INQUISITOR NOTE: independence of stress-energy from metric tensor is an intentional definitional boundary witness. *)
-Lemma mass_stress_energy_independent_of_tensor : forall s μ ν v,
-  mass_stress_energy s μ ν v =
-  if (μ mod 4 =? ν mod 4)%nat
-  then INR (module_structural_mass s v)
-  else 0.
-Proof.
-  intros. unfold mass_stress_energy. reflexivity.
-Qed.
+(* Independence of [mass_stress_energy] from [module_mu_tensor] is read off
+   the [Definition] body: the function never inspects the tensor argument.
+   The former alias-lemma [mass_stress_energy_independent_of_tensor] had no
+   callers, so the unfolded equation is left available via [unfold
+   mass_stress_energy] at any use site. *)
 
 (** Explicit field equation: G_{dd} = 8πG · κ · T_{dd}.
 

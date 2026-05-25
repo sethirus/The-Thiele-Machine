@@ -55,14 +55,9 @@ Qed.
     real-number approximations and no logarithm definitions to verify. *)
 Definition info_bits (n : nat) : nat := n.
 
-(** Sanity check: [num_states (info_bits n) = 2^n] holds by definition. *)
-(* ARITHMETIC: helper proving the basic property of a defined constant. *)
-(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-Lemma info_bits_correct : forall n,
-  num_states (info_bits n) = 2^n.
-Proof.
-  intro n. unfold info_bits, num_states. reflexivity.
-Qed.
+(** Note: [num_states (info_bits n) = 2^n] holds by [reflexivity] from
+    the two definitions above. The named sanity-check lemma had no
+    proof callers and is left to be discharged inline. *)
 
 (** ** Erasure operations
 

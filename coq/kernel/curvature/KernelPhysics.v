@@ -237,16 +237,13 @@ Qed.
 Definition conserved_partition_structure (s : VMState) : list (option (list nat)) :=
   fst (ObservableSignature s).
 
-(** DEFINITIONAL HELPER: mu_gauge_shift only modifies [vm_mu], not [vm_graph].
-    Since [conserved_partition_structure] reads partition data from [vm_graph]
-    via [ObservableSignature], the two sides are structurally identical. *)
-Theorem kernel_conservation_mu_gauge : forall s k,
-  conserved_partition_structure s = conserved_partition_structure (nat_action k s).
-Proof.
-  intros s k.
-  unfold conserved_partition_structure, ObservableSignature, nat_action, mu_gauge_shift.
-  simpl. reflexivity.
-Qed.
+(* The conservation property [conserved_partition_structure s =
+   conserved_partition_structure (nat_action k s)] holds by definition:
+   [nat_action] reduces to [mu_gauge_shift], which touches only [vm_mu], and
+   [conserved_partition_structure] reads only the [vm_graph] component via
+   [ObservableSignature]. The former theorem [kernel_conservation_mu_gauge]
+   had no callers and exposed nothing beyond this transparency, so it has
+   been dropped; downstream sites can chain the unfolds inline. *)
 
 (** --- No-Signaling / Locality ---
 

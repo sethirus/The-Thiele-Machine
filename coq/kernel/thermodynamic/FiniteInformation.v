@@ -447,19 +447,12 @@ Variable mu : nat.  (* Current ledger value *)
 
 Definition mu_after : nat := mu + info_destroyed.
 
-(** ARITHMETIC HELPER: mu_after = mu + info_destroyed >= mu because
-    info_destroyed is a nat (>= 0). The real non-trivial content is
-    in [info_nonincreasing] (pigeonhole argument), which ensures
-    [info_destroyed] is well-defined. *)
-(* INQUISITOR NOTE: ARITHMETIC — mu_after = mu + info_destroyed where
-   info_destroyed : nat, so monotonicity is closed by lia. The
-   information-theoretic content lives in info_nonincreasing above. *)
-(* ARITHMETIC HELPER *)
-(* INQUISITOR NOTE: arithmetic monotonicity wrapper; verified intentional. *)
-Theorem mu_monotonic : mu_after >= mu.
-Proof.
-  unfold mu_after. lia.
-Qed.
+(** Note: [mu_after = mu + info_destroyed >= mu] is immediate from
+    [info_destroyed : nat]. The non-trivial content lives in
+    [info_nonincreasing] above (the pigeonhole argument), which is what
+    makes [info_destroyed] well-defined in the first place. The
+    monotonicity wrapper was a [lia] one-liner with no proof callers
+    and is left inlined at any future use site. *)
 
 (**
     CONCLUSION

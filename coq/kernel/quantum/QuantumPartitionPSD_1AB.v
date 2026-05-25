@@ -2562,13 +2562,9 @@ Qed.
 (** Scaling property of sym4_d_k: scaling all matrix entries by c scales
     the k-th leading principal minor by c^k (determinant of c·M = c^n·det(M)). *)
 
-Lemma sym4_d1_scale :
-  forall c h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 : RealNumber,
-    sym4_d1 (c*h11) (c*h12) (c*h13) (c*h14)
-            (c*h22) (c*h23) (c*h24)
-            (c*h33) (c*h34) (c*h44)
-    = c * sym4_d1 h11 h12 h13 h14 h22 h23 h24 h33 h34 h44.
-Proof. intros. unfold sym4_d1. reflexivity. Qed.
+(* sym4_d1_scale removed: had one caller; sym4_d1 is the identity projection
+   onto h11, so the scaling identity holds by [unfold sym4_d1] which is now
+   performed at the sole use site. *)
 
 Lemma sym4_d2_scale :
   forall c h11 h12 h13 h14 h22 h23 h24 h33 h34 h44 : RealNumber,
@@ -5080,7 +5076,9 @@ Proof.
   rewrite cleared_g12345_S5_45_Z_bridge in Hd1, Hd2, Hd3, Hd4 by assumption.
   rewrite cleared_g12345_S5_55_Z_bridge in Hd1, Hd2, Hd3, Hd4 by assumption.
   (* Factor KZ^4 out of each sym4_d_k via sym4_d_k_scale. *)
-  rewrite sym4_d1_scale in Hd1.
+  (* sym4_d1 (KZ*h11) ... = KZ * sym4_d1 h11 ... reduces by unfolding sym4_d1
+     (which is just the h11 projection). *)
+  unfold sym4_d1 in Hd1 at 1.
   rewrite sym4_d2_scale in Hd2.
   rewrite sym4_d3_scale in Hd3.
   rewrite sym4_d4_scale in Hd4.

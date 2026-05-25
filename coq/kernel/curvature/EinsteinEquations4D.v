@@ -39,12 +39,9 @@ Definition gravitational_constant : R := (/ (8 * PI))%R.
 (** Alias for backwards compatibility *)
 Definition newtons_constant : R := gravitational_constant.
 
-(* DEFINITIONAL HELPER *)
-Lemma computational_scale_positive : (computational_scale > 0)%R.
-Proof.
-  unfold computational_scale.
-  lra.
-Qed.
+(* [computational_scale] is defined as [1%R]; positivity is immediate by
+   [unfold; lra]. The standalone lemma had no callers and has been removed —
+   sites that need the bound can inline the unfold directly. *)
 
 (** Stress-energy tensor from μ-costs.
 

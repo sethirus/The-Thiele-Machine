@@ -90,21 +90,11 @@ Proof.
   unfold bits_erased. simpl. reflexivity.
 Qed.
 
-(** The constructed erasure's environmental entropy increase equals the
-    instruction cost. This pins the µ-ledger to the Landauer ledger.
-    cert_flip_to_physical_erasure is constructed to carry
-    env_entropy_increase = instruction_cost by definition; this lemma
-    is the unfolding of that construction. The non-circular content is
-    the construction itself in cert_flip_to_physical_erasure (above);
-    this lemma exposes it as a propositional equality for downstream use. *)
-(* DEFINITIONAL HELPER: see comment above. *)
-Lemma cert_flip_physical_erasure_env :
-  forall s i Hpre Hpost,
-    env_entropy_increase (cert_flip_to_physical_erasure s i Hpre Hpost)
-    = instruction_cost i.
-Proof.
-  intros. unfold cert_flip_to_physical_erasure. simpl. reflexivity.
-Qed.
+(* The [env_entropy_increase] field of [cert_flip_to_physical_erasure] is
+   exactly [instruction_cost i] by record construction. The previous lemma
+   [cert_flip_physical_erasure_env] only reflected this definitional
+   identity (no callers); any consumer that needs it can [simpl] / [unfold]
+   directly on the projection. *)
 
 (** ** Bridge B — VM cert-flip in a thermal bath releases ≥ k_B · T · ln 2.
 

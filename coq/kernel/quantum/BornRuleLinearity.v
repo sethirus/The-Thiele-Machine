@@ -109,59 +109,15 @@ Proof.
     lra.
 Qed.
 
-(** Properties of the concrete Born probability. *)
+(** Properties of the concrete Born probability.
 
-(** At the +1 boundary, the probability is 1. *)
-Lemma born_probability_at_plus_one : born_probability 1 = 1.
-Proof. unfold born_probability. lra. Qed.
-
-(** At the -1 boundary, the probability is 0. *)
-Lemma born_probability_at_minus_one : born_probability (-1) = 0.
-Proof. unfold born_probability. lra. Qed.
-
-(** At the midpoint, the probability is one half. *)
-Lemma born_probability_at_zero : born_probability 0 = 1/2.
-Proof. unfold born_probability. lra. Qed.
-
-(** The concrete Born probability stays in [0,1] on [-1,1]. *)
-(* DEFINITIONAL HELPER *)
-(** INQUISITOR NOTE: born_probability_range checks the range of (1+z)/2.
-    This is arithmetic by design; it is not a physics derivation. *)
-Lemma born_probability_range :
-  forall z, -1 <= z <= 1 -> 0 <= born_probability z <= 1.
-Proof.
-  intros z Hz. unfold born_probability. lra.
-Qed.
-
-(** The probabilities for z and -z are complements. *)
-(* DEFINITIONAL HELPER *)
-(** INQUISITOR NOTE: born_probability_complement checks the algebra of
-    (1+z)/2 and (1-z)/2. Arithmetic is the whole claim. *)
-Lemma born_probability_complement :
-  forall z, born_probability z + born_probability (-z) = 1.
-Proof.
-  intros z. unfold born_probability. lra.
-Qed.
-
-(** The concrete Born probability is mixture-compatible. *)
-(* DEFINITIONAL HELPER *)
-(** INQUISITOR NOTE: born_probability_is_affine checks that the already-defined
-    function (1+z)/2 satisfies mixture_compatible. Arithmetic is expected. *)
-Lemma born_probability_is_affine :
-  mixture_compatible born_probability.
-Proof.
-  unfold mixture_compatible, born_probability.
-  intros a b lambda Hlam. lra.
-Qed.
-
-(** The concrete Born probability satisfies the boundary conditions. *)
-Lemma born_probability_has_boundaries :
-  has_boundary_conditions born_probability.
-Proof.
-  split.
-  - exact born_probability_at_plus_one.
-  - exact born_probability_at_minus_one.
-Qed.
+    The boundary values P(+1)=1 and P(-1)=0, the midpoint value P(0)=1/2,
+    the range 0 <= P(z) <= 1 on [-1,1], the complement identity
+    P(z) + P(-z) = 1, the mixture-compatible character of born_probability,
+    and the boundary-condition pair are all consequences of unfolding
+    (1+z)/2 and lra. They are discharged inline at use sites
+    (born_probability_valid below) rather than exported as standalone
+    arithmetic lemmas. *)
 
 (** Uniqueness of the Born rule. *)
 
@@ -397,13 +353,9 @@ Proof.
   unfold born_probability, derived_slope, derived_intercept. lra.
 Qed.
 
-(* DEFINITIONAL HELPER *)
-(** The slope and intercept match what BornRule.v expects *)
-Lemma derived_coefficients_correct :
-  derived_slope = 1/2 /\ derived_intercept = 1/2.
-Proof.
-  split; unfold derived_slope, derived_intercept; lra.
-Qed.
+(** derived_slope = derived_intercept = 1/2 holds by unfolding their
+    Definitions; no caller depends on a standalone equality lemma, so
+    none is exported. *)
 
 (** Summary of the algebraic layer.
 
@@ -504,14 +456,11 @@ Lemma preparation_equivalent_refl :
   forall pmp s, preparation_equivalent pmp s s.
 Proof. intros. unfold preparation_equivalent. reflexivity. Qed.
 
-(* INQUISITOR NOTE: equality symmetry over ObservableRegion values. *)
-(** Symmetry for preparation equivalence. *)
-Lemma preparation_equivalent_sym :
-  forall pmp s1 s2,
-    preparation_equivalent pmp s1 s2 -> preparation_equivalent pmp s2 s1.
-Proof.
-  unfold preparation_equivalent. intros. symmetry. exact H.
-Qed.
+(** Symmetry of preparation_equivalent unfolds to symmetry of [eq] on
+    ObservableRegion values; no caller in the development uses it as a
+    standalone lemma, so it is not exported. Transitivity is kept below
+    because it captures the chained-observable-equality move
+    explicitly. *)
 
 (** Transitivity for preparation equivalence. *)
 Lemma preparation_equivalent_trans :
@@ -597,7 +546,8 @@ Qed.
     Classification: physical assumption accepted without Coq proof.
     The physical content is explicitly named so it cannot be hidden.
  When outcome is born_probability composed with register
-    extraction, this reduces to born_probability_is_affine (already Qed).
+    extraction, this reduces to mixture-compatibility of (1+z)/2, which
+    is discharged inline by lra in born_probability_valid below.
     The direct algebraic path [born_rule_capstone] proves the algebraic
     uniqueness theorem without the Hardy bridge hypotheses. *)
 Definition hardy_axiom_5_statement
@@ -822,10 +772,12 @@ Qed.
     The direct algebraic path to the Born rule is machine-checked with no
     named Hardy hypotheses, no section variables, and no admits:
 
-    1. born_probability_is_affine: mixture_compatible born_probability.
+    1. born_probability is mixture_compatible (discharged inline in
+       born_probability_valid below via unfold + lra).
        Proof: arithmetic on (1+z)/2.
 
-    2. born_probability_has_boundaries: has_boundary_conditions born_probability.
+    2. born_probability satisfies has_boundary_conditions (also inline
+       in born_probability_valid).
        Proof: P(1) = 1 and P(-1) = 0 by computation.
 
     3. born_rule_from_mixture_compatibility: mixture_compatible P /\
@@ -867,7 +819,7 @@ Qed.
 Theorem born_probability_valid :
   valid_born_rule born_probability.
 Proof.
-  split.
-  - exact born_probability_is_affine.
-  - exact born_probability_has_boundaries.
+  unfold valid_born_rule, mixture_compatible, has_boundary_conditions,
+         born_probability.
+  split; [intros a b lambda Hlam; lra | split; lra].
 Qed.

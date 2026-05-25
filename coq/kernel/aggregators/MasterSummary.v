@@ -1120,7 +1120,6 @@ Definition summary_file_theorem_names : list string :=
     "master_assumption_boundary_explicit";
     "master_verification_scope_is_explicit";
     "master_open_obligations_are_explicit";
-    "master_nonclaim_inventory_is_explicit";
     "kernel_story_coverage_ledger_is_semantically_sufficient";
     "master_mu_zero_witness_sound";
     "master_mu_zero_algebraic_bound";
@@ -1152,7 +1151,7 @@ Definition summary_file_theorem_names : list string :=
     "thiele_machine_is_complete" ].
 
 Theorem summary_file_theorem_inventory_explicit :
-  List.length summary_file_theorem_names = 52%nat.
+  List.length summary_file_theorem_names = 51%nat.
 Proof.
   reflexivity.
 Qed.
@@ -1405,15 +1404,12 @@ Definition master_nonclaim_inventory_statement : Prop :=
   master_remaining_open_obligations = [] /\
   List.length verification_nonclaims_list = 3%nat.
 
-(** DEFINITIONAL HELPER: this theorem records the exact closed inventory
-    encoded by the two definitions above. *)
-Theorem master_nonclaim_inventory_is_explicit :
-  master_nonclaim_inventory_statement.
-Proof.
-  unfold master_nonclaim_inventory_statement, master_remaining_open_obligations.
-  simpl.
-  split; reflexivity.
-Qed.
+(* [master_nonclaim_inventory_statement] reduces by [unfold; simpl; split;
+   reflexivity] — both conjuncts are direct length/equality checks on
+   transparently-defined constants ([] and a fixed three-element list). The
+   former theorem [master_nonclaim_inventory_is_explicit] carried no proof
+   content beyond [Definition] transparency, so it has been inlined at its
+   sole caller [kernel_story_coverage_ledger_is_semantically_sufficient]. *)
 
 Definition kernel_story_semantic_sufficiency_statement : Prop :=
   (exists fuel trace, mu_cost_of_trace fuel trace 0 = 0%nat) /\
@@ -1499,7 +1495,13 @@ Proof.
         { exact master_assumption_boundary_explicit. }
         split.
         { exact master_verification_scope_is_explicit. }
-        { exact master_nonclaim_inventory_is_explicit. }
+        { (* Inlined former [master_nonclaim_inventory_is_explicit]: both
+             conjuncts of [master_nonclaim_inventory_statement] reduce to
+             literal equalities on the inventory definitions. *)
+          unfold master_nonclaim_inventory_statement,
+                 master_remaining_open_obligations.
+          simpl.
+          split; reflexivity. }
 Qed.
 
 Definition master_mu_zero_witness_fuel : nat := 10%nat.

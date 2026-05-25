@@ -184,8 +184,19 @@ Theorem rtl_shadow_trace_compat_wf :
     shadow_proj (run_vm fuel trace (abs_full_snapshot (full_snapshot_of_snapshot ks))).
 Proof.
   intros fuel trace ks Hpre.
-  rewrite hardware_shadow_compat_full.
-  rewrite driven_trace_commutes by exact Hpre.
+  (* Bridge step (formerly [hardware_shadow_compat_full]): the RTL observation
+     of any KamiSnapshot agrees with [shadow_proj] applied to its full
+     abstraction, by record-projection unfolding. *)
+  assert (Hbridge :
+            forall ks',
+              rtl_classical_obs ks' =
+              shadow_proj (abs_full_snapshot (full_snapshot_of_snapshot ks')))
+    by (intros ks';
+        unfold rtl_classical_obs, shadow_proj, abs_full_snapshot,
+               full_snapshot_of_snapshot;
+        reflexivity).
+  rewrite Hbridge.
+  rewrite (driven_trace_commutes fuel trace ks Hpre).
   reflexivity.
 Qed.
 

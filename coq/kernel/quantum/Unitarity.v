@@ -50,15 +50,11 @@ Definition trace_rho (x y z : R) : R :=
   + y * pauli_tr_sigma_y / 2
   + z * pauli_tr_sigma_z / 2.
 
-(** trace_rho_one: The computation above yields 1. *)
-(* DEFINITIONAL HELPER — INQUISITOR NOTE: unfolds Pauli trace constants
-   (pauli_tr_identity=2, pauli_tr_sigma_*=0) and verifies 2/2+0+0+0=1. *)
-Lemma trace_rho_one : forall x y z, trace_rho x y z = 1.
-Proof.
-  intros x y z.
-  unfold trace_rho, pauli_tr_identity, pauli_tr_sigma_x, pauli_tr_sigma_y, pauli_tr_sigma_z.
-  lra.
-Qed.
+(** The numerical identity [trace_rho x y z = 1] follows by unfolding the
+    Pauli trace constants (pauli_tr_identity=2, all sigma traces 0) and
+    applying lra. It is discharged inline at its sole transitive use site,
+    [unitary_preserves_trace] below; [trace_preserved_by_normalization]
+    is similarly handled inline. *)
 
 (** trace_rho_squared: Purity measure Tr(ρ²)
     For Bloch vector (x,y,z): Tr(ρ²) = (1 + r²)/2 where r² = x² + y² + z².
@@ -206,36 +202,26 @@ Definition is_unitary (E : Evolution) : Prop :=
 Definition unitary_zero_cost (E : Evolution) : Prop :=
   is_unitary E -> E.(evo_mu) = 0.
 
-(** DEFINITIONAL HELPER: trace preservation from normalization constraint.
+(** Trace preservation from normalization constraint.
     In the Bloch sphere parametrization ρ = (I + x·σ_x + y·σ_y + z·σ_z)/2,
     Tr(ρ) = 1 holds for ALL density matrices by the normalization constraint
     (the Pauli matrices are traceless: Tr(σ_i) = 0).  This is NOT special to
     unitaries — it is a structural property of the parametrization itself.
-    The real non-trivial theorem is [unitary_preserves_positivity] below,
-    which actually USES the [is_unitary] hypothesis.
-*)
-(* INQUISITOR NOTE: Arithmetic helper — proves trace conservation from
-   Pauli matrix trace facts (trace_rho_one). Not definitionally trivial:
-   requires the computation pauli_tr_identity/2 + x·0/2 + y·0/2 + z·0/2 = 1. *)
-Theorem trace_preserved_by_normalization :
-  forall E : Evolution,
-    trace_preserving E.
-Proof.
-  intros E.
-  unfold trace_preserving.
-  intros x y z.
-  rewrite trace_rho_one. rewrite trace_rho_one. reflexivity.
-Qed.
-
-(** Corollary for unitaries — follows from the general fact above. *)
-(** DEFINITIONAL HELPER *)
+    The general statement [trace_preserved_by_normalization] is the
+    corollary [unitary_preserves_trace] specialized at is_unitary = trivial;
+    the general form is folded into the corollary below to avoid an
+    arithmetic-only intermediate. The real non-trivial theorem is
+    [unitary_preserves_positivity] below, which actually USES the
+    [is_unitary] hypothesis. *)
 Corollary unitary_preserves_trace :
   forall E : Evolution,
     is_unitary E ->
     trace_preserving E.
 Proof.
-  intros E _.
-  apply trace_preserved_by_normalization.
+  intros E _ x y z.
+  unfold trace_rho, pauli_tr_identity, pauli_tr_sigma_x,
+         pauli_tr_sigma_y, pauli_tr_sigma_z.
+  lra.
 Qed.
 
 (** unitary_preserves_positivity: Unitaries preserve physical constraints

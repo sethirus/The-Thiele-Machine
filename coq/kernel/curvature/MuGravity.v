@@ -533,10 +533,10 @@ Proof.
   (* G = (d_μ^3) / (τ_μ^2 * ħ), all positive *)
   apply Rdiv_lt_0_compat.
   - (* Numerator: d_μ^3 > 0 *)
-    repeat apply Rmult_lt_0_compat; apply d_mu_pos.
+    repeat apply Rmult_lt_0_compat; unfold d_mu; lra.
   - (* Denominator: τ_μ^2 * ħ > 0 *)
     apply Rmult_lt_0_compat.
-    + repeat apply Rmult_lt_0_compat; apply tau_mu_pos.
+    + repeat apply Rmult_lt_0_compat; unfold tau_mu; lra.
     + (* derived_h > 0: h = 4 * E_bit * τμ = 4 * (kB * T * ln(2)) * τμ *)
       unfold derived_h, E_bit.
       apply Rmult_lt_0_compat.
@@ -545,9 +545,9 @@ Proof.
         ** apply Rmult_lt_0_compat.
            *** apply Rmult_lt_0_compat.
                **** apply k_B_pos.
-               **** apply T_pos.
+               **** unfold T; lra.
            *** apply ln2_pos.
-      * apply tau_mu_pos.
+      * unfold tau_mu; lra.
 Qed.
 
 (**
@@ -728,9 +728,9 @@ Proof.
         ** apply Rmult_lt_0_compat.
            *** apply Rmult_lt_0_compat.
                **** apply k_B_pos.
-               **** apply T_pos.
+               **** unfold T; lra.
            *** apply ln2_pos.
-      * apply tau_mu_pos.
+      * unfold tau_mu; lra.
 Qed.
 
 (**
@@ -2314,9 +2314,9 @@ Proof.
       * apply Rmult_lt_0_compat.
         ** apply Rmult_lt_0_compat.
            *** apply k_B_pos.
-           *** apply T_pos.
+           *** unfold T; lra.
         ** apply ln2_pos.
-    + apply tau_mu_pos.
+    + unfold tau_mu; lra.
   Unshelve.
   all: unfold einstein_tensor, scalar_curvature; reflexivity.
 Qed.

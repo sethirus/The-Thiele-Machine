@@ -399,26 +399,6 @@ Proof.
   apply algebraic_max_trials_chsh.
 Qed.
 
-(** ARITHMETIC HELPER: concrete rational inequality [2 < 4]. *)
-(* SAFE: Simple rational comparison 2 < 4 — short proof is complete. *)
-Lemma classical_bound_lt_algebraic_max : classical_bound_value < 4%Q.
-Proof.
-  (* INQUISITOR NOTE: This is a SIMPLE ARITHMETIC FACT (2 < 4).
-     Short proofs for simple facts are CORRECT, not suspicious. *)
-  unfold classical_bound_value.
-  unfold Qlt. simpl. lia.
-Qed.
-
-(** ARITHMETIC HELPER: concrete rational inequality [≈2√2 < 4]. *)
-Lemma quantum_tsirelson_lt_algebraic_max : quantum_tsirelson_bound < 4%Q.
-Proof.
-  (* INQUISITOR NOTE: This is a SIMPLE ARITHMETIC FACT (2√2 < 4).
-     Short proofs for simple facts are CORRECT, not suspicious.
-     Arithmetic: 2.828... < 4 is obviously true. *)
-  unfold quantum_tsirelson_bound.
-  unfold Qlt. simpl. lia.
-Qed.
-
 (** HELPER: Base case property *)
 Theorem mu_zero_trace_exceeds_classical :
   classical_bound_value <
@@ -427,7 +407,7 @@ Theorem mu_zero_trace_exceeds_classical :
 Proof.
   rewrite algebraic_max_trace_chsh.
   rewrite Qabs_pos.
-  - exact classical_bound_lt_algebraic_max.
+  - unfold classical_bound_value, Qlt. simpl. lia.
   - unfold Qle. simpl. apply (Z.leb_le 0 4000). reflexivity.
 Qed.
 
@@ -438,7 +418,7 @@ Theorem mu_zero_trace_exceeds_quantum_tsirelson :
 Proof.
   rewrite algebraic_max_trace_chsh.
   rewrite Qabs_pos.
-  - exact quantum_tsirelson_lt_algebraic_max.
+  - unfold quantum_tsirelson_bound, Qlt. simpl. lia.
   - unfold Qle. simpl. apply (Z.leb_le 0 4000). reflexivity.
 Qed.
 

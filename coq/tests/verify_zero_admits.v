@@ -40,8 +40,8 @@ Print Assumptions observational_no_signaling.
 
 (** Gauge-symmetry checks. *)
 
-(* Theorem: Partition structure is invariant under μ-gauge shifts *)
-Print Assumptions kernel_conservation_mu_gauge.
+(* The former probe [kernel_conservation_mu_gauge] was inlined; its
+   transparency is captured at use sites. *)
 
 (* Theorem: Gauge actions compose correctly *)
 Print Assumptions nat_action_composition.

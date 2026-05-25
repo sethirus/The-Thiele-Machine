@@ -41,17 +41,33 @@ Definition meta_system (S : System) : System :=
   {| dimension := S.(dimension) + 1;
      sentences := fun P => sentences S P \/ P = contains_self_reference S |}.
 
-(** [meta_system S] adds exactly one dimension, by construction. *)
-(* ARITHMETIC: meta_system adds one dimension; lia closes the inequality. *)
+(** [meta_system S] adds exactly one dimension, by construction.
+
+    Exported lemma: consumed by [self_reference_requires_metalevel] below,
+    by [spacetime_meta_properties] and [global_truth_escapes] in
+    [Spacetime.v], and by [thiele_level_richer] in
+    [ThieleManifoldBridge.v]. The conclusion [dimension S < dimension
+    (meta_system S)] is [S.(dimension) < S.(dimension) + 1], so [lia]
+    closes it. *)
+(* DEFINITIONAL HELPER: dimension difference is +1 by construction;
+   the named lemma is the exported entry point for downstream files. *)
 Lemma meta_system_richer : forall S, dimensionally_richer (meta_system S) S.
 Proof.
   intros S; unfold dimensionally_richer, meta_system; simpl; lia.
 Qed.
 
 (** Every base sentence is a meta sentence: the meta-system's
-    [sentences] predicate always accepts the left disjunct, so the
-    inclusion holds definitionally. *)
-(* DEFINITIONAL HELPER: meta_system includes base sentences via the left disjunct. *)
+    [sentences] predicate always accepts the left disjunct.
+
+    Exported lemma: consumed by [self_reference_requires_metalevel] below,
+    by [spacetime_meta_properties] and [global_truth_escapes] in
+    [Spacetime.v], and by [thiele_level_can_reason] in
+    [ThieleManifoldBridge.v]. The [sentences (meta_system S)] predicate
+    is exactly [sentences S P \/ ...], so an arbitrary [P] in
+    [sentences S] satisfies the disjunction via [auto]. *)
+(* DEFINITIONAL HELPER: meta-system inclusion is the left disjunct of
+   the sentences predicate; the named lemma is the exported entry point
+   for downstream files. *)
 Lemma meta_system_can_reason_about : forall S, can_reason_about (meta_system S) S.
 Proof.
   intros S P HP; unfold can_reason_about, meta_system in *; simpl in *; auto.

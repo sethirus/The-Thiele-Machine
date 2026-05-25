@@ -13,7 +13,7 @@
 
       - μ is monotone along execution sequences ([mu_nonnegative]).
       - μ is additive over composed sequences ([mu_additive],
-        [mu_total_cost], [mu_increases_by_cost]).
+        [mu_total_cost]).
       - Reversible operations carry μ = 0 ([reversible_zero_mu],
         [flip_reversible]).
       - [OpErase n] is genuinely irreversible for [n > 0]
@@ -177,15 +177,14 @@ Proof.
     apply IH.
 Qed.
 
-(** Single-step μ-cost: a one-line consequence of the [execute_op]
-    definition, exposed as a named lemma for downstream rewrites. *)
-(* DEFINITIONAL HELPER: reads the μ field of execute_op's output. *)
-Lemma single_op_mu : forall op s,
-  mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
-Proof.
-  intros op s.
-  unfold execute_op. simpl. reflexivity.
-Qed.
+(** Note: a single-step μ-cost identity
+    [mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s)]
+    holds by [unfold execute_op; simpl; reflexivity] from the
+    [execute_op] definition. It used to be exposed as both
+    [single_op_mu] and [mu_increases_by_cost]; neither had proof
+    callers, so the identity is left to be discharged inline at any
+    future use site. The cumulative analogue lives in
+    [mu_total_cost] above. *)
 
 (** Theorem 3: total μ equals the sum of per-step costs along the
     sequence. The witness [costs] makes the per-step decomposition
@@ -207,14 +206,6 @@ Proof.
       rewrite Hsum.
       unfold execute_op. simpl.
       lia.
-Qed.
-
-(** Definitional rephrasing of [single_op_mu], kept under the more
-    descriptive name [mu_increases_by_cost]. *)
-Theorem mu_increases_by_cost : forall op s,
-  mu_value (execute_op op s) = mu_value s + op_mu_cost op (config s).
-Proof.
-  intros. unfold execute_op. simpl. reflexivity.
 Qed.
 
 (** ** Reversibility
@@ -459,7 +450,6 @@ Qed.
     deferred lemmas, axioms, or [Admitted]. *)
 Print Assumptions mu_nonnegative.
 Print Assumptions mu_additive.
-Print Assumptions mu_increases_by_cost.
 Print Assumptions flip_reversible.
 Print Assumptions erase_not_reversible.
 Print Assumptions reversible_zero_mu.

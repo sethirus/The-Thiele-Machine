@@ -1,4 +1,4 @@
-DIGEST e474260b4b907b18097bf662d929ebe5
+DIGEST 89f0d6fab6e2ce1c28b1b7e684fff412
 FKernel.FiniteInformation
 R1209:1212 Coq.Lists.List <> <> lib
 R1214:1227 Coq.Arith.PeanoNat <> <> lib
@@ -564,46 +564,41 @@ R15739:15741 Coq.Init.Datatypes <> nat ind
 R15748:15750 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
 R15746:15747 Kernel.FiniteInformation <> FiniteInformation.mu var
 R15751:15764 Kernel.FiniteInformation <> info_destroyed def
-prf 16326:16337 <> mu_monotonic
-R16349:16352 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R16341:16348 Kernel.FiniteInformation <> mu_after def
-R16353:16354 Kernel.FiniteInformation <> FiniteInformation.mu var
-R16373:16380 Kernel.FiniteInformation <> mu_after def
-R18491:18507 Kernel.FiniteInformation FiniteInformation <> sec
-R18539:18545 Kernel.VMState <> <> lib
-R18575:18580 Kernel.VMStep <> <> lib
-prf 19372:19387 <> vm_mu_accounting
-binder 19400:19400 <> s:70
-binder 19402:19403 <> s':71
-binder 19405:19405 <> i:72
-R19426:19433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19412:19418 Kernel.VMStep VMStep vm_step ind
-R19420:19420 Kernel.FiniteInformation <> s:70 var
-R19422:19422 Kernel.FiniteInformation <> i:72 var
-R19424:19425 Kernel.FiniteInformation <> s':71 var
-R19444:19446 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19438:19442 Kernel.VMState <> vm_mu proj
-R19434:19435 Kernel.FiniteInformation <> s':71 var
-R19456:19458 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R19450:19454 Kernel.VMState <> vm_mu proj
-R19447:19447 Kernel.FiniteInformation <> s:70 var
-R19459:19474 Kernel.VMStep VMStep instruction_cost def
-R19476:19476 Kernel.FiniteInformation <> i:72 var
-R19549:19558 Kernel.VMStep VMStep apply_cost def
-prf 19588:19602 <> vm_mu_monotonic
-binder 19615:19615 <> s:73
-binder 19617:19618 <> s':74
-binder 19620:19620 <> i:75
-R19641:19648 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19627:19633 Kernel.VMStep VMStep vm_step ind
-R19635:19635 Kernel.FiniteInformation <> s:73 var
-R19637:19637 Kernel.FiniteInformation <> i:75 var
-R19639:19640 Kernel.FiniteInformation <> s':74 var
-R19659:19662 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19653:19657 Kernel.VMState <> vm_mu proj
-R19649:19650 Kernel.FiniteInformation <> s':74 var
-R19666:19670 Kernel.VMState <> vm_mu proj
-R19663:19663 Kernel.FiniteInformation <> s:73 var
-R19715:19730 Kernel.FiniteInformation <> vm_mu_accounting thm
-R19715:19730 Kernel.FiniteInformation <> vm_mu_accounting thm
-R19715:19730 Kernel.FiniteInformation <> vm_mu_accounting thm
+R18250:18266 Kernel.FiniteInformation FiniteInformation <> sec
+R18298:18304 Kernel.VMState <> <> lib
+R18334:18339 Kernel.VMStep <> <> lib
+prf 19131:19146 <> vm_mu_accounting
+binder 19159:19159 <> s:70
+binder 19161:19162 <> s':71
+binder 19164:19164 <> i:72
+R19185:19192 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19171:19177 Kernel.VMStep VMStep vm_step ind
+R19179:19179 Kernel.FiniteInformation <> s:70 var
+R19181:19181 Kernel.FiniteInformation <> i:72 var
+R19183:19184 Kernel.FiniteInformation <> s':71 var
+R19203:19205 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19197:19201 Kernel.VMState <> vm_mu proj
+R19193:19194 Kernel.FiniteInformation <> s':71 var
+R19215:19217 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R19209:19213 Kernel.VMState <> vm_mu proj
+R19206:19206 Kernel.FiniteInformation <> s:70 var
+R19218:19233 Kernel.VMStep VMStep instruction_cost def
+R19235:19235 Kernel.FiniteInformation <> i:72 var
+R19308:19317 Kernel.VMStep VMStep apply_cost def
+prf 19347:19361 <> vm_mu_monotonic
+binder 19374:19374 <> s:73
+binder 19376:19377 <> s':74
+binder 19379:19379 <> i:75
+R19400:19407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R19386:19392 Kernel.VMStep VMStep vm_step ind
+R19394:19394 Kernel.FiniteInformation <> s:73 var
+R19396:19396 Kernel.FiniteInformation <> i:75 var
+R19398:19399 Kernel.FiniteInformation <> s':74 var
+R19418:19421 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R19412:19416 Kernel.VMState <> vm_mu proj
+R19408:19409 Kernel.FiniteInformation <> s':74 var
+R19425:19429 Kernel.VMState <> vm_mu proj
+R19422:19422 Kernel.FiniteInformation <> s:73 var
+R19474:19489 Kernel.FiniteInformation <> vm_mu_accounting thm
+R19474:19489 Kernel.FiniteInformation <> vm_mu_accounting thm
+R19474:19489 Kernel.FiniteInformation <> vm_mu_accounting thm

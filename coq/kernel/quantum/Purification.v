@@ -37,21 +37,9 @@ Definition bloch_mixed (x y z : R) : Prop := x*x + y*y + z*z <= 1.
 *)
 Definition bloch_pure (x y z : R) : Prop := x*x + y*y + z*z = 1.
 
-(** pure_is_mixed: Pure states are special cases of mixed states
-    Every pure state (r² = 1) trivially satisfies r² ≤ 1.
-
-    PROOF: Arithmetic (= implies ≤).
-
-    To falsify: Find a pure state violating the mixed state bound (impossible
-    by definition).
-*)
-(** ARITHMETIC HELPER: [r² = 1 -> r² <= 1] by lra. *)
-(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-Lemma pure_is_mixed : forall x y z : R,
-  bloch_pure x y z -> bloch_mixed x y z.
-Proof.
-  intros x y z Hpure. unfold bloch_mixed, bloch_pure in *. lra.
-Qed.
+(** The inclusion [bloch_pure -> bloch_mixed] holds by lra after unfolding
+    both definitions; no caller in the development needs it as a
+    standalone lemma, so it is not exported. *)
 
 (** purity: Squared radius in Bloch ball
     r² = x² + y² + z² measures how "pure" the state is.
@@ -64,21 +52,9 @@ Qed.
 *)
 Definition purity (x y z : R) : R := x*x + y*y + z*z.
 
-(** purity_nonneg: Purity is always non-negative
-    Since r² = sum of squares, it's always ≥ 0.
-
-    PROOF: Each term x², y², z² ≥ 0 (squares are non-negative).
-
-    To falsify: Find coordinates (x,y,z) with x² + y² + z² < 0 (impossible
-    in real arithmetic).
-*)
-(** HELPER: Non-negativity property *)
-(** HELPER: Non-negativity property *)
-(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-Lemma purity_nonneg : forall x y z : R, purity x y z >= 0.
-Proof.
-  intros. unfold purity. nra.
-Qed.
+(** Non-negativity of purity is sum-of-squares >= 0, dispatched by nra
+    after unfolding. No caller imports it, so no standalone lemma is
+    exported. *)
 
 (** purification_deficit: How much "reference system" is needed
     deficit = 1 - r² measures the GAP between current purity and maximum purity.
@@ -230,22 +206,6 @@ Proof.
   lra.
 Qed.
 
-(** maximally_mixed_needs_full_reference: Maximum deficit at origin
-    The maximally mixed state (0,0,0) has deficit = 1 - 0 = 1 (maximum).
-
-    PHYSICAL MEANING: The maximally mixed state ρ = I/2 (equal probability
-    of |0⟩ and |1⟩, no coherence) represents COMPLETE IGNORANCE. To purify it,
-    you need a full reference system - an ancilla qubit maximally entangled
-    with your system. This is the Bell state |Φ⁺⟩ = (|00⟩ + |11⟩)/√2, which
-    is pure but has maximally mixed marginals.
-
-    PROOF: Direct computation: deficit = 1 - (0² + 0² + 0²) = 1.
-
-    To falsify: Show maximally mixed state has deficit ≠ 1 (arithmetic error).
-*)
-(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-Lemma maximally_mixed_needs_full_reference :
-  purification_deficit 0 0 0 = 1.
-Proof.
-  unfold purification_deficit, purity. ring.
-Qed.
+(** The numerical fact that purification_deficit 0 0 0 = 1 is a direct
+    ring computation after unfolding. No caller in the development
+    references it, so no standalone lemma is exported. *)

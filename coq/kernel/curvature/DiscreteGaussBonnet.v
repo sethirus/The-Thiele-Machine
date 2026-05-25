@@ -70,20 +70,13 @@ Definition total_angle_defect (g : PartitionGraph) : R :=
 
 (** Triangle angle checks *)
 
-(* DEFINITIONAL HELPER *)
-(** The chosen equilateral angle is π/3 by definition. *)
-Lemma equilateral_triangle_angle :
-  (triangle_interior_angle = PI / 3)%R.
-Proof.
-  unfold triangle_interior_angle.
-  reflexivity.
-Qed.
-
 (** Three equilateral corners sum to π. *)
 Lemma three_equilateral_angles_sum_pi :
   (3 * triangle_interior_angle = PI)%R.
 Proof.
-  rewrite equilateral_triangle_angle.
+  (* [triangle_interior_angle] is defined as [PI / 3]; inline the unfold here
+     rather than routing through a separate definitional lemma. *)
+  unfold triangle_interior_angle.
   field.
 Qed.
 

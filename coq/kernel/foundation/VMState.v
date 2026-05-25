@@ -451,25 +451,15 @@ Qed.
     avoid RTL cascade), so all morphisms have morph_cert_cost = 0 by default.
     This theorem states the contract for a future extension. *)
 
-(* DEFINITIONAL HELPER — morph_assert_cost_correct unfolds graph_certify_morphism
-   and proves by reflexivity. The lemma states exactly what graph_certify_morphism
-   computes, making the contract explicit for callers. *)
-Lemma morph_assert_cost_correct :
-  forall g morph_id cost ms,
-    graph_lookup_morphism g morph_id = Some ms ->
-    (graph_certify_morphism g morph_id (S cost)).(pg_morphisms) =
-    List.map (fun '(mid, m) =>
-      if Nat.eqb mid morph_id
-      then (mid, {| morph_source := m.(morph_source);
-                    morph_target := m.(morph_target);
-                    morph_coupling := m.(morph_coupling);
-                    morph_is_identity := m.(morph_is_identity);
-                    morph_cert_cost := S cost |})
-      else (mid, m)) g.(pg_morphisms).
-Proof.
-  intros g morph_id cost ms _.
-  unfold graph_certify_morphism. reflexivity.
-Qed.
+(** Removed: morph_assert_cost_correct.
+
+    Claim was: the [pg_morphisms] field of [graph_certify_morphism g morph_id (S cost)]
+    equals the [List.map] that rewrites the matching morphism's [morph_cert_cost]
+    to [S cost].  [graph_certify_morphism] is defined as exactly that record
+    update, so the equation reduces by [unfold graph_certify_morphism; reflexivity]
+    and the [graph_lookup_morphism g morph_id = Some ms] hypothesis was unused.
+    No caller depended on the contract restatement; it remains true by
+    construction of [graph_certify_morphism]. *)
 
 (** graph_add_identity: Create an identity morphism for a module.
     Coupling is empty_coupling_data — identity is structural

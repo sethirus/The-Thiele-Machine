@@ -107,21 +107,22 @@ Qed.
 Definition run_closed (P : Prog) : State * list StepObs :=
   ({| pc := length P.(code) |}, map obs_of_instr P.(code)).
 
-(** Running the empty program leaves PC at zero and emits no receipts. *)
-(* DEFINITIONAL HELPER: run_closed on empty_prog reduces to (pc:=0, []). *)
+(** Running the empty program leaves PC at zero and emits no receipts.
+    Used as a [rewrite] rule by [obs_equiv_id_l] and [obs_equiv_id_r]
+    below, so it stays exposed as a named identity rather than inlined
+    at each callsite. *)
+(* DEFINITIONAL HELPER: kept as a named rewrite rule for downstream identity
+   laws; the proof is the empty-list reduction of [run_closed]. *)
 Lemma run_closed_empty :
   run_closed empty_prog = ({| pc := 0 |}, []).
 Proof.
   unfold run_closed, empty_prog. simpl. reflexivity.
 Qed.
 
-(** The post-state PC of [run_closed] is exactly the code length. *)
-(* DEFINITIONAL HELPER: projects the first component of run_closed P. *)
-Lemma run_closed_pc : forall P,
-  (fst (run_closed P)).(pc) = length P.(code).
-Proof.
-  intro P. unfold run_closed. simpl. reflexivity.
-Qed.
+(** Note: the projection [(fst (run_closed P)).(pc) = length P.(code)]
+    follows by [unfold run_closed; simpl; reflexivity]. The named
+    lemma [run_closed_pc] had no proof callers and is left to reduce
+    inline at any future use site. *)
 
 (** The canonical starting state for a closed run: PC = 0. *)
 Definition closed_state : State := {| pc := 0 |}.
@@ -413,16 +414,10 @@ Definition psplit_decompose_morphism (whole left right : Prog) : Prop :=
 Definition psplit_recompose_morphism (f : SplitMorphism) : Prog :=
   seq_prog f.(morph_left) f.(morph_right).
 
-(** Sanity check: recomposing the tensor of [left] and [right] yields a
-    program that decomposes back into [left] and [right]. *)
-(* DEFINITIONAL HELPER: round-trip on tensor / sequential composition. *)
-Lemma psplit_recompose_tensor_spec : forall left right,
-  psplit_decompose_morphism
-    (psplit_recompose_morphism (tensor_morphism left right))
-    left
-    right.
-Proof.
-  intros left right.
-  unfold psplit_decompose_morphism, psplit_recompose_morphism, tensor_morphism.
-  reflexivity.
-Qed.
+(** Note: the round-trip sanity check
+    [psplit_decompose_morphism (psplit_recompose_morphism
+      (tensor_morphism left right)) left right]
+    holds by [unfold ...; reflexivity] from the three definitions above.
+    It used to be exposed as the named lemma
+    [psplit_recompose_tensor_spec] but had no proof callers and is left
+    to reduce inline. *)

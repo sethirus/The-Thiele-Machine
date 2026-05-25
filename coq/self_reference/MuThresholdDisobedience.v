@@ -228,6 +228,5 @@ Proof. reflexivity. Qed.
 (** Bridge: VMState μ-ledger is monotone, aligning with ms_mu monotonicity. *)
 Definition vm_mu_bridge (s : VMState) : nat := vm_mu s.
 
-(** The VM ledger is always non-negative. *)
-Lemma vm_mu_nonneg : forall s : VMState, vm_mu_bridge s >= 0.
-Proof. intro s. unfold vm_mu_bridge. lia. Qed.
+(* vm_mu_nonneg removed: had no callers; vm_mu_bridge s := vm_mu s, and
+   vm_mu : VMState -> nat so [nat >= 0] is automatic via [lia]. *)

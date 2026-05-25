@@ -121,15 +121,9 @@ Proof.
   lra.
 Qed.
 
-(* DEFINITIONAL HELPER — INQUISITOR NOTE: arithmetic derivation from measurement_mu_cost definition. *)
-(** Mixed states have positive measurement cost *)
-Lemma mixed_state_positive_cost : forall x y z,
-  x*x + y*y + z*z < 1 ->
-  measurement_mu_cost x y z > 0.
-Proof.
-  intros x y z Hmixed.
-  unfold measurement_mu_cost. lra.
-Qed.
+(** Positivity of the cost on strictly-mixed states would follow by
+    unfolding measurement_mu_cost and lra. No caller in the development
+    needs it as a standalone lemma, so it is not exported. *)
 
 (** Born-rule uniqueness under an affine-in-z hypothesis. *)
 

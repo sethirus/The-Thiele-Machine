@@ -14,7 +14,7 @@
 
     mu_cost_of_instr: operational cost for each instruction type.
     partition_ops_mu_free: PNEW/PSPLIT/PMERGE with delta 0 have zero cost.
-    reveal_cost_positive: REVEAL always costs at least 1.
+    REVEAL always costs at least 1 by the cost table for [mu_cost_of_instr].
     mu_zero_no_reveal: μ=0 programs cannot use REVEAL within fuel steps.
 
     This file defines μ-cost independently of CHSH/quantum mechanics.
@@ -25,10 +25,10 @@
     This is just the operational accounting layer. It defines the ledger and
     leaves the stronger physics interpretation to later bridge files.
 
-    To falsify: show a program with REVEAL has μ-cost = 0 (contradicts
-    reveal_cost_positive), or show PNEW/PSPLIT/PMERGE with delta 0 have
-    nonzero cost (contradicts partition_ops_mu_free), or show this operational
-    definition is inconsistent with actual VM execution.
+    To falsify: show a program with REVEAL has μ-cost = 0 (contradicts the
+    REVEAL line in [mu_cost_of_instr]), or show PNEW/PSPLIT/PMERGE with
+    delta 0 have nonzero cost (contradicts partition_ops_mu_free), or show
+    this operational definition is inconsistent with actual VM execution.
     *)
 
 From Coq Require Import List Lia Arith PeanoNat.
@@ -139,14 +139,11 @@ Proof.
   intros. unfold mu_cost_of_instr. split; [reflexivity | split; intros; subst; reflexivity].
 Qed.
 
-(* DEFINITIONAL HELPER *)
-(** REVEAL is positive by the instruction accounting rule. *)
-Lemma reveal_cost_positive :
-  forall s mid bits cert mu,
-    mu_cost_of_instr (instr_reveal mid bits cert mu) s >= 1.
-Proof.
-  intros. unfold mu_cost_of_instr. simpl. lia.
-Qed.
+(* [mu_cost_of_instr (instr_reveal _ _ _ _) _] reduces to a closed nat that is
+   at least [1] by the [Definition] table for [mu_cost_of_instr]. The
+   standalone helper [reveal_cost_positive] had no callers and only restated
+   that table entry; consumers can [unfold mu_cost_of_instr; simpl; lia]
+   directly. *)
 
 (** ** CHSH stays outside this file
 

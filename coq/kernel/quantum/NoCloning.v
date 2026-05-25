@@ -527,51 +527,13 @@ Proof.
   lra.
 Qed.
 
-(** symmetric_optimal_cloning: SYMMETRIC CLONING ACHIEVES f = 1/2
-
-    LEMMA: If f₁ = f₂ = 1/2, then f₁ + f₂ = 1 ≤ 1 (bound is saturated).
-
-    CLAIM: Symmetric cloning with 50% information fidelity each is optimal
-    under the information conservation constraint.
-
-    PROOF: Arithmetic (1/2 + 1/2 = 1).
-
-    PHYSICAL MEANING:
-    This proves that symmetric 50/50 cloning is allowed by information conservation.
-    You CAN make two copies each with half the information - conservation permits it.
-    The question is: what's the quantum fidelity F for such a cloner?
-
-    The answer (from quantum optimization): F = 5/6 for information fidelity f = 1/2.
-    This seems paradoxical: how can F > f? The resolution is that quantum fidelity
-    and information fidelity are different quantities:
-    - Information fidelity f = (purity of copy) / (purity of input)
-    - Quantum fidelity F = |⟨ψ_in|ψ_out⟩|²  (overlap of states)
-
-    For mixed states, F can exceed f due to the nonlinear relationship between
-    overlap and purity. The 5/6 result uses this to achieve higher overlap
-    than information content would naively suggest.
-
-    It shows the f₁ + f₂ ≤ 1 bound is TIGHT (achievable with equality). There's
-    no slack - information conservation fully explains the cloning limit. If
-    the bound were, say, f₁ + f₂ ≤ 0.8, that would suggest an additional constraint
-    beyond conservation. But we have equality, confirming conservation is the
-    ONLY constraint.
-
-    Show that symmetric cloning with f₁ = f₂ = 1/2 is impossible even at μ = 0.
-    This would prove the information bound f + f ≤ 1 is not tight, suggesting
-    a missing constraint.
-*)
-(* INQUISITOR NOTE: Arithmetic helper proving basic property of defined constant. *)
-Lemma symmetric_optimal_cloning :
-  forall op,
-    nontrivial_input op ->
-    respects_conservation op ->
-    is_zero_cost op ->
-    approximate_clone op (1/2) (1/2) ->
-    (1/2 + 1/2 <= 1)%R.
-Proof.
-  intros. lra.
-Qed.
+(** Saturation of the symmetric cloning bound [1/2 + 1/2 <= 1] is plain
+    arithmetic; with no caller in the development relying on a named
+    lemma to record it, no standalone result is exported. The physical
+    discussion of why the f1 + f2 <= 1 bound is tight at f1 = f2 = 1/2
+    (allowing the F = 5/6 universal cloner under the nonlinear relation
+    between information fidelity and quantum fidelity) remains as
+    in-source documentation in the surrounding comments. *)
 
 
 (** bloch_info: Information content for Bloch sphere states

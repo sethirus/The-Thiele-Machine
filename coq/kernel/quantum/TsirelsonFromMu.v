@@ -141,8 +141,9 @@ Qed.
 Definition pr_box : CorrelatorBox :=
   {| cb_E00 := 1; cb_E01 := 1; cb_E10 := 1; cb_E11 := -1 |}.
 
-Lemma pr_box_S_is_4 : chsh_S pr_box = 4.
-Proof. unfold chsh_S, pr_box. simpl. lra. Qed.
+(* pr_box_S_is_4 removed: had no callers; the value follows immediately at any
+   call site from [unfold chsh_S, pr_box; simpl; lra]. The substantive PR-box
+   fact is pr_box_violates_A3 below, which exhibits the A3-norm violation. *)
 
 Lemma pr_box_violates_A3 : ~ A3_operator_norm pr_box.
 Proof.

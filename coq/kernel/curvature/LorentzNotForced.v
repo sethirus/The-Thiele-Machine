@@ -9,9 +9,9 @@
     and there exist NON-TRIVIAL cone symmetries (stutter) that
     preserve cones but are NOT Lorentz transformations.
 
-    - Lorentz_Not_Forced: Identity preserves cones (trivial symmetry)
-    - Cone_Symmetry_Underdetermined: Stutter (inserting no-op instructions)
-      preserves cones but is not a Lorentz boost
+    - Lorentz_Not_Forced: Identity preserves cones (trivial cone-preserver)
+    - cone_admits_nontrivial_stutter_reparam: Stutter (inserting no-op
+      instructions) preserves cones but is not a Lorentz boost
 
     With only kernel primitives (VMState, vm_step, causal_cone), I cannot derive
     a unique Lorentz group: I get some cone-preserving symmetries but not the
@@ -72,26 +72,26 @@ Definition stutter (region : list nat) (cost : nat) (t : list vm_instruction)
   : list vm_instruction :=
   instr_pnew region cost :: t.
 
-(** DEFINITIONAL HELPER: [causal_cone] skips [instr_pnew] because partition
-    creation does not affect the causal cone (it creates a new isolated module
-    with no causal predecessors). *)
-Lemma causal_cone_stutter : forall region cost t,
-  causal_cone (stutter region cost t) = causal_cone t.
-Proof.
-  intros region cost t.
-  unfold stutter.
-  simpl.
-  reflexivity.
-Qed.
+(* The fact that [causal_cone (stutter region cost t) = causal_cone t] holds
+   by [unfold stutter; simpl; reflexivity] — [instr_pnew] is matched-skipped
+   inside [causal_cone] by definition. The former lemma
+   [causal_cone_stutter] is inlined at its sole caller below. *)
 
-(* Definitional lemma: This equality is by definition, not vacuous *)
-Theorem Cone_Symmetry_Underdetermined :
+(** Witness that the kernel's cone notion admits a strictly nontrivial
+    reparametrization: the [stutter] map inserts an [instr_pnew] no-op without
+    changing the cone, so cone-preservation is not enough to single out
+    Lorentz transformations. The proof is by computation on [causal_cone],
+    which matches-skips [instr_pnew] by its [Fixpoint] table. *)
+Theorem cone_admits_nontrivial_stutter_reparam :
   exists phi,
     (forall t, causal_cone (phi t) = causal_cone t) /\
     (exists region cost t0, phi t0 = stutter region cost t0).
 Proof.
   exists (fun t => stutter [] 0 t).
   split.
-  - intro t. apply causal_cone_stutter.
+  - intro t.
+    (* Inlined former [causal_cone_stutter]: [stutter] prepends [instr_pnew],
+       which [causal_cone] skips by definition. *)
+    unfold stutter. simpl. reflexivity.
   - exists [], 0, []. reflexivity.
 Qed.

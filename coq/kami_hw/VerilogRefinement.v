@@ -17,12 +17,9 @@ From KamiHW Require Import Abstraction ThieleTypes.
 Definition verilog_sim_rel (hs : KamiSnapshot) (vs : VMState) : Prop :=
   abs_phase1 hs = vs.
 
-(* DEFINITIONAL HELPER *)
-Lemma verilog_sim_rel_abs_phase1 :
-  forall hs, verilog_sim_rel hs (abs_phase1 hs).
-Proof.
-  intros hs. unfold verilog_sim_rel. reflexivity.
-Qed.
+(* [verilog_sim_rel hs (abs_phase1 hs)] holds by [reflexivity] once
+   [verilog_sim_rel] is unfolded. It carried no proof content; callers that
+   need it can apply [eq_refl] directly. *)
 
 (** Core constructive commutation lemma reused from Abstraction.v. *)
 Theorem verilog_refines_register_write :

@@ -60,17 +60,11 @@ Proof.
   reflexivity.
 Qed.
 
-(* DEFINITIONAL HELPER: full snapshots project to the same classical fields as
-   rtl_classical_obs after unfolding the record bridges. *)
-Theorem hardware_shadow_compat_full :
-  forall ks : KamiSnapshot,
-    rtl_classical_obs ks =
-    shadow_proj (abs_full_snapshot (full_snapshot_of_snapshot ks)).
-Proof.
-  intros ks.
-  unfold rtl_classical_obs, shadow_proj, abs_full_snapshot, full_snapshot_of_snapshot.
-  reflexivity.
-Qed.
+(* The full-snapshot variant [rtl_classical_obs ks = shadow_proj
+   (abs_full_snapshot (full_snapshot_of_snapshot ks))] is definitional once
+   the record bridges are unfolded; it carried no proof content beyond
+   [hardware_shadow_compat], so it has been inlined at its sole caller in
+   [ShadowDeviceTrace.rtl_shadow_trace_compat_wf]. *)
 
 (** Simulation-relation form
 

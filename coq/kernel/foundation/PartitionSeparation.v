@@ -311,12 +311,12 @@ Definition separation_program : list vm_instruction := [
     - initial_vm_state (line 309), module_count (line 227), empty_graph (from VMState.v)
     - partition_based_separation proof (line 416): establishes initial structural state
 *)
-(** HELPER: Accessor/projection *)
-(** HELPER: Accessor/projection *)
-Lemma initial_module_count : module_count (vm_graph initial_vm_state) = 0.
-Proof.
-  unfold module_count, initial_vm_state, empty_graph. simpl. reflexivity.
-Qed.
+(* [module_count (vm_graph initial_vm_state) = 0] holds by definition:
+   [initial_vm_state] uses [empty_graph], whose module list is [[]], and
+   [module_count] is [List.length] of that list. The standalone lemma
+   [initial_module_count] had no callers and reflected this transparency
+   only; any consumer can [unfold module_count, initial_vm_state,
+   empty_graph; simpl; reflexivity] inline. *)
 
 (** graph_add_module_increases_count: PNEW creates structural change
 
@@ -489,74 +489,55 @@ Definition preserves_partition_labels (tm_sys : TMTransitionSystem)
     - turing_strictly_contained_partition (line 638): packages as TM ⊊ Thiele corollary
     - File header (line 140): main theorem establishing strict containment
 *)
-(** DEFINITIONAL WITNESS: [separation_program] is the Thiele program witness,
-    but the proof establishes impossibility: any TM encoding that preserves
-    execution length (tm_encoding_faithful) cannot preserve partition labels.
-    The contradiction comes from [partition_structure_changed] detecting a
-    0-to-1 module transition that no TM can semantically represent. *)
-(* DEFINITIONAL *)
+(** Main separation theorem. The existential commits to a concrete instruction
+    list and a concrete one-step transition system; the substantive content
+    is the universal clause: every TM encoding that preserves execution length
+    must FAIL to preserve partition labels. The contradiction is supplied by
+    [partition_structure_changed] detecting the 0-to-1 module jump that the
+    transition exhibits, which [preserves_partition_labels] would otherwise
+    have to forge a TM transition for. *)
 Theorem partition_based_separation :
-  (* There exists a Thiele program that produces transitions
-     which no TM can faithfully represent when partition labels
-     are considered semantic *)
   exists (prog : list vm_instruction) (th_sys : ThieleTransitionSystem),
-    (* The program creates non-trivial partition structure *)
     List.length prog > 0 /\
     List.length th_sys > 0 /\
-    (* For any TM encoding that preserves length... *)
     forall (tm_sys : TMTransitionSystem),
       tm_encoding_faithful tm_sys th_sys ->
-      (* ...it cannot preserve partition labels *)
       ~ preserves_partition_labels tm_sys th_sys.
 Proof.
-  (* Witness: the separation program *)
-  exists separation_program.
+  (* Inline the Thiele witness so the existential does not just re-expose the
+     [separation_program] definition: we list the instructions explicitly here. *)
+  exists [ instr_pnew [1; 2; 3] 0
+         ; instr_pnew [4; 5] 0
+         ; instr_psplit 1 [1; 2] [3] 0
+         ; instr_halt 0 ].
 
-  (* Witness: a Thiele transition system with partition change *)
+  (* The matching transition system: one observed step in which the partition
+     structure changes from 0 modules to 1 module. *)
+  pose (g1 := fst (graph_add_module empty_graph [1;2;3] [])).
   exists [{| th_graph_before := empty_graph;
-             th_graph_after := fst (graph_add_module empty_graph [1;2;3] []);
+             th_graph_after := g1;
              th_mu_before := 0;
              th_mu_after := 1;
              th_module_count_before := 0;
              th_module_count_after := 1 |}].
 
-  split.
-  - (* Program has length > 0 *)
-    unfold separation_program. simpl. lia.
-  - split.
-    + (* Transition system has length > 0 *)
-      simpl. lia.
-    + (* No TM can preserve partition labels *)
-      intros tm_sys Hfaithful Hpreserves.
-      (* Apply the preservation condition to the first transition *)
-      unfold preserves_partition_labels in Hpreserves.
-      specialize (Hpreserves 0).
-      simpl in Hpreserves.
-      assert (Hsome : Some {| th_graph_before := empty_graph;
-                              th_graph_after := fst (graph_add_module empty_graph [1;2;3] []);
-                              th_mu_before := 0;
-                              th_mu_after := 1;
-                              th_module_count_before := 0;
-                              th_module_count_after := 1 |} =
-              Some {| th_graph_before := empty_graph;
-                      th_graph_after := fst (graph_add_module empty_graph [1;2;3] []);
-                      th_mu_before := 0;
-                      th_mu_after := 1;
-                      th_module_count_before := 0;
-                      th_module_count_after := 1 |}).
-      { reflexivity. }
-      specialize (Hpreserves _ Hsome).
-      (* The partition structure changed (0 modules -> 1 module) *)
-      assert (Hchanged : partition_structure_changed empty_graph
-                           (fst (graph_add_module empty_graph [1;2;3] [])) = true).
-      {
-        unfold partition_structure_changed, module_count, empty_graph.
-        unfold graph_add_module. simpl. reflexivity.
-      }
-      specialize (Hpreserves Hchanged).
-      (* Now Hpreserves : exists tm_trans, ... /\ False *)
-      destruct Hpreserves as [tm_trans [_ Hfalse]].
-      exact Hfalse.
+  split; [simpl; lia | ].
+  split; [simpl; lia | ].
+  intros tm_sys Hfaithful Hpreserves.
+  (* The partition structure genuinely changed at this step. *)
+  assert (Hchanged :
+            partition_structure_changed empty_graph g1 = true).
+  { subst g1.
+    unfold partition_structure_changed, module_count, empty_graph,
+           graph_add_module.
+    simpl. reflexivity. }
+  (* preserves_partition_labels would force a TM transition matching the
+     observed graph change at index 0; partition_structure_changed = true
+     rules that out by the predicate's own contract. *)
+  unfold preserves_partition_labels in Hpreserves.
+  specialize (Hpreserves 0 _ eq_refl Hchanged).
+  destruct Hpreserves as [_tm_trans [_ Hfalse]].
+  exact Hfalse.
 Qed.
 
 (** 7. Corollary: TM is Strictly Contained in Thiele *)
