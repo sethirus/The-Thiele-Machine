@@ -1,4 +1,4 @@
-DIGEST b89411facb67780a109d1a5ec41df60a
+DIGEST 76846760e4871032935c048ccfaf3ac5
 FKernel.DiscreteTopology
 R1153:1163 Kernel.MuCostModel <> <> lib
 R1191:1194 Coq.Lists.List <> <> lib
@@ -190,1003 +190,973 @@ R4253:4253 Kernel.DiscreteTopology <> g:25 var
 R4258:4265 Coq.ZArith.BinInt Z of_nat def
 R4268:4268 Kernel.DiscreteTopology <> F def
 R4270:4270 Kernel.DiscreteTopology <> g:25 var
-prf 4556:4579 <> empty_graph_euler_char_0
-R4617:4619 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4585:4604 Kernel.DiscreteTopology <> euler_characteristic def
-R4606:4616 Kernel.VMState <> empty_graph def
-R4641:4660 Kernel.DiscreteTopology <> euler_characteristic def
-R4663:4663 Kernel.DiscreteTopology <> V def
-R4666:4666 Kernel.DiscreteTopology <> E def
-R4669:4669 Kernel.DiscreteTopology <> F def
-R4672:4682 Kernel.VMState <> empty_graph def
-R4701:4708 Kernel.DiscreteTopology <> vertices def
-R4711:4715 Kernel.DiscreteTopology <> edges def
-R4718:4722 Kernel.DiscreteTopology <> faces def
-prf 4846:4853 <> V_nonneg
-binder 4864:4864 <> g:26
-R4869:4872 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R4873:4873 Kernel.DiscreteTopology <> V def
-R4875:4875 Kernel.DiscreteTopology <> g:26 var
-R4908:4908 Kernel.DiscreteTopology <> V def
-prf 5015:5022 <> E_nonneg
-binder 5033:5033 <> g:27
-R5038:5041 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5042:5042 Kernel.DiscreteTopology <> E def
-R5044:5044 Kernel.DiscreteTopology <> g:27 var
-R5077:5077 Kernel.DiscreteTopology <> E def
-prf 5184:5191 <> F_nonneg
-binder 5202:5202 <> g:28
-R5207:5210 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R5211:5211 Kernel.DiscreteTopology <> F def
-R5213:5213 Kernel.DiscreteTopology <> g:28 var
-R5246:5246 Kernel.DiscreteTopology <> F def
-prf 5341:5361 <> F_equals_module_count
-binder 5372:5372 <> g:29
-R5380:5382 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5377:5377 Kernel.DiscreteTopology <> F def
-R5379:5379 Kernel.DiscreteTopology <> g:29 var
-R5383:5388 Coq.Init.Datatypes <> length def
-R5391:5400 Kernel.VMState <> pg_modules proj
-R5402:5402 Kernel.DiscreteTopology <> g:29 var
-R5431:5431 Kernel.DiscreteTopology <> F def
-R5434:5438 Kernel.DiscreteTopology <> faces def
-R5454:5463 Kernel.VMState <> pg_modules proj
-R5454:5463 Kernel.VMState <> pg_modules proj
-def 5688:5698 <> is_triangle
-R5710:5713 Coq.Init.Datatypes <> list ind
-R5715:5717 Coq.Init.Datatypes <> nat ind
-binder 5701:5706 <> region:30
-R5722:5725 Coq.Init.Datatypes <> bool ind
-R5732:5738 Coq.Arith.PeanoNat Nat eqb def
-R5741:5746 Coq.Init.Datatypes <> length def
-R5749:5764 Kernel.VMState <> normalize_region def
-R5766:5771 Kernel.DiscreteTopology <> region:30 var
-def 5790:5819 <> all_modules_are_triangles_list
-R5826:5839 Kernel.VMState <> PartitionGraph rec
-binder 5822:5822 <> g:31
-binder 5861:5863 <> mid:32
-binder 5865:5865 <> m:33
-R5898:5905 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5872:5873 Coq.Lists.List <> In def
-R5885:5894 Kernel.VMState <> pg_modules proj
-R5896:5896 Kernel.DiscreteTopology <> g:31 var
-R5875:5875 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5879:5880 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5882:5882 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R5876:5878 Kernel.DiscreteTopology <> mid:32 var
-R5881:5881 Kernel.DiscreteTopology <> m:33 var
-R5935:5937 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5906:5916 Kernel.DiscreteTopology <> is_triangle def
-R5919:5931 Kernel.VMState <> module_region proj
-R5933:5933 Kernel.DiscreteTopology <> m:33 var
-R5938:5941 Coq.Init.Datatypes <> true constr
-def 6033:6059 <> all_regions_normalized_list
-R6066:6079 Kernel.VMState <> PartitionGraph rec
-binder 6062:6062 <> g:34
-binder 6101:6103 <> mid:35
-binder 6105:6105 <> m:36
-R6138:6145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6112:6113 Coq.Lists.List <> In def
-R6125:6134 Kernel.VMState <> pg_modules proj
-R6136:6136 Kernel.DiscreteTopology <> g:34 var
-R6115:6115 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6119:6120 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6122:6122 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R6116:6118 Kernel.DiscreteTopology <> mid:35 var
-R6121:6121 Kernel.DiscreteTopology <> m:36 var
-R6161:6163 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6146:6158 Kernel.VMState <> module_region proj
-R6160:6160 Kernel.DiscreteTopology <> m:36 var
-R6164:6179 Kernel.VMState <> normalize_region def
-R6182:6194 Kernel.VMState <> module_region proj
-R6196:6196 Kernel.DiscreteTopology <> m:36 var
-def 6644:6650 <> edge_eq
-R6664:6666 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R6661:6663 Coq.Init.Datatypes <> nat ind
-R6667:6669 Coq.Init.Datatypes <> nat ind
-binder 6653:6654 <> e1:37
-binder 6656:6657 <> e2:38
-R6674:6677 Coq.Init.Datatypes <> bool ind
-R6710:6713 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
-R6685:6691 Coq.Arith.PeanoNat Nat eqb def
-R6694:6696 Coq.Init.Datatypes <> fst def
-R6698:6699 Kernel.DiscreteTopology <> e1:37 var
-R6703:6705 Coq.Init.Datatypes <> fst def
-R6707:6708 Kernel.DiscreteTopology <> e2:38 var
-R6714:6720 Coq.Arith.PeanoNat Nat eqb def
-R6723:6725 Coq.Init.Datatypes <> snd def
-R6727:6728 Kernel.DiscreteTopology <> e1:37 var
-R6732:6734 Coq.Init.Datatypes <> snd def
-R6736:6737 Kernel.DiscreteTopology <> e2:38 var
-def 6819:6826 <> list_mem
-binder 6829:6829 <> A:39
-R6846:6849 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6845:6845 Kernel.DiscreteTopology <> A:39 var
-R6851:6854 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6850:6850 Kernel.DiscreteTopology <> A:39 var
-R6855:6858 Coq.Init.Datatypes <> bool ind
-binder 6840:6841 <> eq:40
-R6866:6866 Kernel.DiscreteTopology <> A:39 var
-binder 6862:6862 <> x:41
-R6874:6877 Coq.Init.Datatypes <> list ind
-R6879:6879 Kernel.DiscreteTopology <> A:39 var
-binder 6870:6870 <> l:42
-R6884:6887 Coq.Init.Datatypes <> bool ind
-R6900:6900 Kernel.DiscreteTopology <> l:42 var
-R6911:6912 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R6917:6921 Coq.Init.Datatypes <> false constr
-R6928:6931 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R6943:6944 Kernel.DiscreteTopology <> eq:40 var
-R6946:6946 Kernel.DiscreteTopology <> x:41 var
-R6965:6972 Kernel.DiscreteTopology <> list_mem:43 def
-R6977:6977 Kernel.DiscreteTopology <> x:41 var
-R6974:6975 Kernel.DiscreteTopology <> eq:40 var
-R6955:6958 Coq.Init.Datatypes <> true constr
-def 7053:7075 <> count_modules_with_edge
-R7088:7090 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7085:7087 Coq.Init.Datatypes <> nat ind
-R7091:7093 Coq.Init.Datatypes <> nat ind
-binder 7078:7081 <> edge:45
-R7107:7110 Coq.Init.Datatypes <> list ind
-R7121:7123 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7113:7120 Kernel.VMState <> ModuleID def
-R7124:7134 Kernel.VMState <> ModuleState rec
-binder 7097:7103 <> modules:46
-R7140:7142 Coq.Init.Datatypes <> nat ind
-R7155:7161 Kernel.DiscreteTopology <> modules:46 var
-R7172:7173 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7190:7193 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R7184:7184 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7186:7187 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7189:7189 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7228:7239 Kernel.DiscreteTopology <> module_edges def
-binder 7212:7223 <> region_edges:49
-R7255:7262 Kernel.DiscreteTopology <> list_mem def
-R7277:7288 Kernel.DiscreteTopology <> region_edges:49 var
-R7272:7275 Kernel.DiscreteTopology <> edge:45 var
-R7264:7270 Kernel.DiscreteTopology <> edge_eq def
-R7350:7372 Kernel.DiscreteTopology <> count_modules_with_edge:47 def
-R7374:7377 Kernel.DiscreteTopology <> edge:45 var
-R7301:7301 Coq.Init.Datatypes <> S constr
-R7304:7326 Kernel.DiscreteTopology <> count_modules_with_edge:47 def
-R7328:7331 Kernel.DiscreteTopology <> edge:45 var
-def 7467:7482 <> is_interior_edge
-R7489:7502 Kernel.VMState <> PartitionGraph rec
-binder 7485:7485 <> g:50
-R7516:7518 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7513:7515 Coq.Init.Datatypes <> nat ind
-R7519:7521 Coq.Init.Datatypes <> nat ind
-binder 7506:7509 <> edge:51
-R7526:7529 Coq.Init.Datatypes <> bool ind
-R7536:7542 Coq.Arith.PeanoNat Nat eqb def
-R7545:7567 Kernel.DiscreteTopology <> count_modules_with_edge def
-R7569:7572 Kernel.DiscreteTopology <> edge:51 var
-R7575:7584 Kernel.VMState <> pg_modules proj
-R7586:7586 Kernel.DiscreteTopology <> g:50 var
-def 7669:7684 <> is_boundary_edge
-R7691:7704 Kernel.VMState <> PartitionGraph rec
-binder 7687:7687 <> g:52
-R7718:7720 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7715:7717 Coq.Init.Datatypes <> nat ind
-R7721:7723 Coq.Init.Datatypes <> nat ind
-binder 7708:7711 <> edge:53
-R7728:7731 Coq.Init.Datatypes <> bool ind
-R7738:7744 Coq.Arith.PeanoNat Nat eqb def
-R7747:7769 Kernel.DiscreteTopology <> count_modules_with_edge def
-R7771:7774 Kernel.DiscreteTopology <> edge:53 var
-R7777:7786 Kernel.VMState <> pg_modules proj
-R7788:7788 Kernel.DiscreteTopology <> g:52 var
-def 7858:7877 <> count_interior_edges
-R7892:7895 Coq.Init.Datatypes <> list ind
-R7901:7903 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7898:7900 Coq.Init.Datatypes <> nat ind
-R7904:7906 Coq.Init.Datatypes <> nat ind
-binder 7880:7888 <> edge_list:54
-R7915:7928 Kernel.VMState <> PartitionGraph rec
-binder 7911:7911 <> g:55
-R7933:7935 Coq.Init.Datatypes <> nat ind
-R7948:7956 Kernel.DiscreteTopology <> edge_list:54 var
-R7967:7968 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R7980:7983 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R8001:8016 Kernel.DiscreteTopology <> is_interior_edge def
-R8018:8018 Kernel.DiscreteTopology <> g:55 var
-R8076:8095 Kernel.DiscreteTopology <> count_interior_edges:56 def
-R8102:8102 Kernel.DiscreteTopology <> g:55 var
-R8033:8033 Coq.Init.Datatypes <> S constr
-R8036:8055 Kernel.DiscreteTopology <> count_interior_edges:56 def
-R8062:8062 Kernel.DiscreteTopology <> g:55 var
-def 8165:8165 <> I
-R8172:8185 Kernel.VMState <> PartitionGraph rec
-binder 8168:8168 <> g:58
-R8190:8192 Coq.Init.Datatypes <> nat ind
-R8199:8218 Kernel.DiscreteTopology <> count_interior_edges def
-R8221:8225 Kernel.DiscreteTopology <> edges def
-R8227:8227 Kernel.DiscreteTopology <> g:58 var
-R8230:8230 Kernel.DiscreteTopology <> g:58 var
-def 8296:8315 <> count_boundary_edges
-R8330:8333 Coq.Init.Datatypes <> list ind
-R8339:8341 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R8336:8338 Coq.Init.Datatypes <> nat ind
-R8342:8344 Coq.Init.Datatypes <> nat ind
-binder 8318:8326 <> edge_list:59
-R8353:8366 Kernel.VMState <> PartitionGraph rec
-binder 8349:8349 <> g:60
-R8371:8373 Coq.Init.Datatypes <> nat ind
-R8386:8394 Kernel.DiscreteTopology <> edge_list:59 var
-R8405:8406 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R8418:8421 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R8439:8454 Kernel.DiscreteTopology <> is_boundary_edge def
-R8456:8456 Kernel.DiscreteTopology <> g:60 var
-R8514:8533 Kernel.DiscreteTopology <> count_boundary_edges:61 def
-R8540:8540 Kernel.DiscreteTopology <> g:60 var
-R8471:8471 Coq.Init.Datatypes <> S constr
-R8474:8493 Kernel.DiscreteTopology <> count_boundary_edges:61 def
-R8500:8500 Kernel.DiscreteTopology <> g:60 var
-def 8603:8603 <> B
-R8610:8623 Kernel.VMState <> PartitionGraph rec
-binder 8606:8606 <> g:63
-R8628:8630 Coq.Init.Datatypes <> nat ind
-R8637:8656 Kernel.DiscreteTopology <> count_boundary_edges def
-R8659:8663 Kernel.DiscreteTopology <> edges def
-R8665:8665 Kernel.DiscreteTopology <> g:63 var
-R8668:8668 Kernel.DiscreteTopology <> g:63 var
-def 8880:8903 <> count_incident_triangles
-R8917:8919 Coq.Init.Datatypes <> nat ind
-binder 8908:8913 <> vertex:64
-R8933:8936 Coq.Init.Datatypes <> list ind
-R8947:8949 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R8939:8946 Kernel.VMState <> ModuleID def
-R8950:8960 Kernel.VMState <> ModuleState rec
-binder 8923:8929 <> modules:65
-R8966:8968 Coq.Init.Datatypes <> nat ind
-R8981:8987 Kernel.DiscreteTopology <> modules:65 var
-R8998:8999 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9016:9019 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9010:9010 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9012:9013 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9015:9015 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R9052:9075 Kernel.DiscreteTopology <> count_incident_triangles:66 def
-R9077:9082 Kernel.DiscreteTopology <> vertex:64 var
-binder 9038:9047 <> count_rest:68
-R9101:9112 Kernel.VMState <> nat_list_mem def
-R9114:9119 Kernel.DiscreteTopology <> vertex:64 var
-R9122:9134 Kernel.VMState <> module_region proj
-R9174:9183 Kernel.DiscreteTopology <> count_rest:68 var
-R9150:9150 Coq.Init.Datatypes <> S constr
-R9152:9161 Kernel.DiscreteTopology <> count_rest:68 var
-def 9204:9216 <> vertex_degree
-R9223:9236 Kernel.VMState <> PartitionGraph rec
-binder 9219:9219 <> g:69
-R9249:9251 Coq.Init.Datatypes <> nat ind
-binder 9240:9245 <> vertex:70
-R9256:9258 Coq.Init.Datatypes <> nat ind
-R9265:9288 Kernel.DiscreteTopology <> count_incident_triangles def
-R9290:9295 Kernel.DiscreteTopology <> vertex:70 var
-R9298:9307 Kernel.VMState <> pg_modules proj
-R9309:9309 Kernel.DiscreteTopology <> g:69 var
-def 9323:9333 <> sum_degrees
-R9340:9353 Kernel.VMState <> PartitionGraph rec
-binder 9336:9336 <> g:71
-R9365:9368 Coq.Init.Datatypes <> list ind
-R9370:9372 Coq.Init.Datatypes <> nat ind
-binder 9357:9361 <> verts:72
-R9377:9379 Coq.Init.Datatypes <> nat ind
-R9392:9396 Kernel.DiscreteTopology <> verts:72 var
-R9407:9408 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R9420:9423 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R9449:9451 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9432:9444 Kernel.DiscreteTopology <> vertex_degree def
-R9446:9446 Kernel.DiscreteTopology <> g:71 var
-R9452:9462 Kernel.DiscreteTopology <> sum_degrees:73 def
-R9464:9464 Kernel.DiscreteTopology <> g:71 var
-def 9610:9622 <> is_2_manifold
-R9629:9642 Kernel.VMState <> PartitionGraph rec
-binder 9625:9625 <> g:75
-binder 9664:9664 <> e:76
-R9685:9692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9671:9672 Coq.Lists.List <> In def
-R9677:9681 Kernel.DiscreteTopology <> edges def
-R9683:9683 Kernel.DiscreteTopology <> g:75 var
-R9674:9674 Kernel.DiscreteTopology <> e:76 var
-R9706:9728 Kernel.DiscreteTopology <> count_modules_with_edge def
-R9730:9730 Kernel.DiscreteTopology <> e:76 var
-R9733:9742 Kernel.VMState <> pg_modules proj
-R9744:9744 Kernel.DiscreteTopology <> g:75 var
-binder 9697:9701 <> count:77
-R9767:9770 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R9759:9761 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9754:9758 Kernel.DiscreteTopology <> count:77 var
-R9776:9778 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9771:9775 Kernel.DiscreteTopology <> count:77 var
-def 9874:9902 <> satisfies_edge_face_incidence
-R9909:9922 Kernel.VMState <> PartitionGraph rec
-binder 9905:9905 <> g:78
-R9945:9947 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9939:9941 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9942:9942 Kernel.DiscreteTopology <> F def
-R9944:9944 Kernel.DiscreteTopology <> g:78 var
-R9955:9957 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9949:9951 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R9952:9952 Kernel.DiscreteTopology <> I def
-R9954:9954 Kernel.DiscreteTopology <> g:78 var
-R9958:9958 Kernel.DiscreteTopology <> B def
-R9960:9960 Kernel.DiscreteTopology <> g:78 var
-def 10049:10078 <> satisfies_degree_face_relation
-R10085:10098 Kernel.VMState <> PartitionGraph rec
-binder 10081:10081 <> g:79
-R10139:10141 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10113:10123 Kernel.DiscreteTopology <> sum_degrees def
-R10125:10125 Kernel.DiscreteTopology <> g:79 var
-R10128:10135 Kernel.DiscreteTopology <> vertices def
-R10137:10137 Kernel.DiscreteTopology <> g:79 var
-R10144:10146 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R10147:10147 Kernel.DiscreteTopology <> F def
-R10149:10149 Kernel.DiscreteTopology <> g:79 var
-def 10236:10268 <> satisfies_boundary_euler_relation
-R10275:10288 Kernel.VMState <> PartitionGraph rec
-binder 10271:10271 <> g:80
-R10393:10433 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10377:10380 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10367:10369 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10361:10363 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R10364:10364 Kernel.DiscreteTopology <> V def
-R10366:10366 Kernel.DiscreteTopology <> g:80 var
-R10371:10373 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R10374:10374 Kernel.DiscreteTopology <> F def
-R10376:10376 Kernel.DiscreteTopology <> g:80 var
-R10382:10384 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R10385:10385 Kernel.DiscreteTopology <> E def
-R10387:10387 Kernel.DiscreteTopology <> g:80 var
-R10437:10439 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10434:10434 Kernel.DiscreteTopology <> B def
-R10436:10436 Kernel.DiscreteTopology <> g:80 var
-R10456:10458 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R10442:10445 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R10455:10455 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R10449:10451 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10446:10446 Kernel.DiscreteTopology <> V def
-R10448:10448 Kernel.DiscreteTopology <> g:80 var
-R10452:10452 Kernel.DiscreteTopology <> F def
-R10454:10454 Kernel.DiscreteTopology <> g:80 var
-R10460:10462 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R10463:10463 Kernel.DiscreteTopology <> E def
-R10465:10465 Kernel.DiscreteTopology <> g:80 var
-def 10515:10538 <> well_formed_triangulated
-R10545:10558 Kernel.VMState <> PartitionGraph rec
-binder 10541:10541 <> g:81
-R10592:10597 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10573:10589 Kernel.VMState <> well_formed_graph def
-R10591:10591 Kernel.DiscreteTopology <> g:81 var
-R10630:10635 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10598:10627 Kernel.DiscreteTopology <> all_modules_are_triangles_list def
-R10629:10629 Kernel.DiscreteTopology <> g:81 var
-R10665:10670 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10636:10662 Kernel.DiscreteTopology <> all_regions_normalized_list def
-R10664:10664 Kernel.DiscreteTopology <> g:81 var
-R10686:10691 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10671:10683 Kernel.DiscreteTopology <> is_2_manifold def
-R10685:10685 Kernel.DiscreteTopology <> g:81 var
-R10706:10711 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10694:10697 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10698:10698 Kernel.DiscreteTopology <> V def
-R10700:10700 Kernel.DiscreteTopology <> g:81 var
-R10726:10731 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10714:10717 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10718:10718 Kernel.DiscreteTopology <> E def
-R10720:10720 Kernel.DiscreteTopology <> g:81 var
-R10746:10751 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10734:10737 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10738:10738 Kernel.DiscreteTopology <> F def
-R10740:10740 Kernel.DiscreteTopology <> g:81 var
-R10783:10788 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10752:10780 Kernel.DiscreteTopology <> satisfies_edge_face_incidence def
-R10782:10782 Kernel.DiscreteTopology <> g:81 var
-R10821:10826 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10789:10818 Kernel.DiscreteTopology <> satisfies_degree_face_relation def
-R10820:10820 Kernel.DiscreteTopology <> g:81 var
-R10827:10859 Kernel.DiscreteTopology <> satisfies_boundary_euler_relation def
-R10861:10861 Kernel.DiscreteTopology <> g:81 var
-prf 11122:11141 <> deduplicate_edges_In
-binder 11152:11152 <> e:82
-binder 11154:11154 <> L:83
-R11185:11188 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11159:11160 Coq.Lists.List <> In def
-R11165:11181 Kernel.DiscreteTopology <> deduplicate_edges def
-R11183:11183 Kernel.DiscreteTopology <> L:83 var
-R11162:11162 Kernel.DiscreteTopology <> e:82 var
-R11189:11190 Coq.Lists.List <> In def
-R11194:11194 Kernel.DiscreteTopology <> L:83 var
-R11192:11192 Kernel.DiscreteTopology <> e:82 var
-R11287:11293 Coq.Lists.List <> existsb def
-R11287:11293 Coq.Lists.List <> existsb def
-prf 11456:11471 <> collect_edges_In
-binder 11482:11482 <> e:84
-binder 11484:11490 <> modules:85
-R11536:11541 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11495:11496 Coq.Lists.List <> In def
-R11501:11526 Kernel.DiscreteTopology <> collect_edges_from_modules def
-R11528:11534 Kernel.DiscreteTopology <> modules:85 var
-R11498:11498 Kernel.DiscreteTopology <> e:84 var
-R11542:11548 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R11554:11555 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 11549:11551 <> mid:86
-binder 11553:11553 <> m:87
-R11575:11578 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11556:11557 Coq.Lists.List <> In def
-R11568:11574 Kernel.DiscreteTopology <> modules:85 var
-R11559:11559 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11563:11564 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11566:11566 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11560:11562 Kernel.DiscreteTopology <> mid:86 var
-R11565:11565 Kernel.DiscreteTopology <> m:87 var
-R11579:11580 Coq.Lists.List <> In def
-R11585:11596 Kernel.DiscreteTopology <> module_edges def
-R11598:11598 Kernel.DiscreteTopology <> m:87 var
-R11582:11582 Kernel.DiscreteTopology <> e:84 var
-R11725:11733 Coq.Lists.List <> in_app_or thm
-R11725:11733 Coq.Lists.List <> in_app_or thm
-prf 12016:12050 <> edge_in_list_appears_in_some_module
-binder 12061:12061 <> g:88
-binder 12063:12063 <> e:89
-R12082:12087 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12068:12069 Coq.Lists.List <> In def
-R12074:12078 Kernel.DiscreteTopology <> edges def
-R12080:12080 Kernel.DiscreteTopology <> g:88 var
-R12071:12071 Kernel.DiscreteTopology <> e:89 var
-R12088:12094 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R12100:12101 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 12095:12097 <> mid:90
-binder 12099:12099 <> m:91
-R12128:12131 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R12102:12103 Coq.Lists.List <> In def
-R12115:12124 Kernel.VMState <> pg_modules proj
-R12126:12126 Kernel.DiscreteTopology <> g:88 var
-R12105:12105 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12109:12110 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12112:12112 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R12106:12108 Kernel.DiscreteTopology <> mid:90 var
-R12111:12111 Kernel.DiscreteTopology <> m:91 var
-R12132:12133 Coq.Lists.List <> In def
-R12138:12149 Kernel.DiscreteTopology <> module_edges def
-R12151:12151 Kernel.DiscreteTopology <> m:91 var
-R12135:12135 Kernel.DiscreteTopology <> e:89 var
-R12189:12193 Kernel.DiscreteTopology <> edges def
-R12211:12230 Kernel.DiscreteTopology <> deduplicate_edges_In thm
-R12211:12230 Kernel.DiscreteTopology <> deduplicate_edges_In thm
-R12248:12263 Kernel.DiscreteTopology <> collect_edges_In thm
-R12248:12263 Kernel.DiscreteTopology <> collect_edges_In thm
-prf 12374:12403 <> edge_appears_in_1_or_2_modules
-binder 12414:12414 <> g:92
-binder 12416:12416 <> e:93
-R12447:12452 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12421:12444 Kernel.DiscreteTopology <> well_formed_triangulated def
-R12446:12446 Kernel.DiscreteTopology <> g:92 var
-R12467:12472 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12453:12454 Coq.Lists.List <> In def
-R12459:12463 Kernel.DiscreteTopology <> edges def
-R12465:12465 Kernel.DiscreteTopology <> g:92 var
-R12456:12456 Kernel.DiscreteTopology <> e:93 var
-R12486:12508 Kernel.DiscreteTopology <> count_modules_with_edge def
-R12510:12510 Kernel.DiscreteTopology <> e:93 var
-R12513:12522 Kernel.VMState <> pg_modules proj
-R12524:12524 Kernel.DiscreteTopology <> g:92 var
-binder 12477:12481 <> count:94
-R12545:12548 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R12537:12539 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12532:12536 Kernel.DiscreteTopology <> count:94 var
-R12554:12556 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12549:12553 Kernel.DiscreteTopology <> count:94 var
-prf 12754:12780 <> interior_boundary_exclusive
-binder 12791:12791 <> g:95
-binder 12793:12793 <> e:96
-R12825:12830 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12818:12820 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12798:12813 Kernel.DiscreteTopology <> is_interior_edge def
-R12815:12815 Kernel.DiscreteTopology <> g:95 var
-R12817:12817 Kernel.DiscreteTopology <> e:96 var
-R12821:12824 Coq.Init.Datatypes <> true constr
-R12851:12853 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12831:12846 Kernel.DiscreteTopology <> is_boundary_edge def
-R12848:12848 Kernel.DiscreteTopology <> g:95 var
-R12850:12850 Kernel.DiscreteTopology <> e:96 var
-R12854:12858 Coq.Init.Datatypes <> false constr
-R12896:12911 Kernel.DiscreteTopology <> is_interior_edge def
-R12914:12929 Kernel.DiscreteTopology <> is_boundary_edge def
-R12945:12954 Coq.Arith.PeanoNat Nat eqb_eq thm
-R12945:12954 Coq.Arith.PeanoNat Nat eqb_eq thm
-R12973:12983 Coq.Arith.PeanoNat Nat eqb_neq thm
-R12973:12983 Coq.Arith.PeanoNat Nat eqb_neq thm
-prf 13005:13031 <> boundary_interior_exclusive
-binder 13042:13042 <> g:97
-binder 13044:13044 <> e:98
-R13076:13081 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13069:13071 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13049:13064 Kernel.DiscreteTopology <> is_boundary_edge def
-R13066:13066 Kernel.DiscreteTopology <> g:97 var
-R13068:13068 Kernel.DiscreteTopology <> e:98 var
-R13072:13075 Coq.Init.Datatypes <> true constr
-R13102:13104 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13082:13097 Kernel.DiscreteTopology <> is_interior_edge def
-R13099:13099 Kernel.DiscreteTopology <> g:97 var
-R13101:13101 Kernel.DiscreteTopology <> e:98 var
-R13105:13109 Coq.Init.Datatypes <> false constr
-R13149:13164 Kernel.DiscreteTopology <> is_interior_edge def
-R13167:13182 Kernel.DiscreteTopology <> is_boundary_edge def
-R13198:13207 Coq.Arith.PeanoNat Nat eqb_eq thm
-R13198:13207 Coq.Arith.PeanoNat Nat eqb_eq thm
-R13228:13238 Coq.Arith.PeanoNat Nat eqb_neq thm
-R13228:13238 Coq.Arith.PeanoNat Nat eqb_neq thm
-prf 13322:13349 <> edge_is_interior_or_boundary
-binder 13360:13360 <> g:99
-binder 13362:13362 <> e:100
-R13393:13398 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13367:13390 Kernel.DiscreteTopology <> well_formed_triangulated def
-R13392:13392 Kernel.DiscreteTopology <> g:99 var
-R13413:13418 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13399:13400 Coq.Lists.List <> In def
-R13405:13409 Kernel.DiscreteTopology <> edges def
-R13411:13411 Kernel.DiscreteTopology <> g:99 var
-R13402:13402 Kernel.DiscreteTopology <> e:100 var
-R13446:13449 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R13439:13441 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13419:13434 Kernel.DiscreteTopology <> is_interior_edge def
-R13436:13436 Kernel.DiscreteTopology <> g:99 var
-R13438:13438 Kernel.DiscreteTopology <> e:100 var
-R13442:13445 Coq.Init.Datatypes <> true constr
-R13470:13472 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13450:13465 Kernel.DiscreteTopology <> is_boundary_edge def
-R13467:13467 Kernel.DiscreteTopology <> g:99 var
-R13469:13469 Kernel.DiscreteTopology <> e:100 var
-R13473:13476 Coq.Init.Datatypes <> true constr
-R13520:13549 Kernel.DiscreteTopology <> edge_appears_in_1_or_2_modules thm
-R13520:13549 Kernel.DiscreteTopology <> edge_appears_in_1_or_2_modules thm
-R13633:13648 Kernel.DiscreteTopology <> is_boundary_edge def
-R13738:13753 Kernel.DiscreteTopology <> is_interior_edge def
-prf 13869:13905 <> total_edges_eq_interior_plus_boundary
-binder 13916:13916 <> g:101
-R13947:13952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13921:13944 Kernel.DiscreteTopology <> well_formed_triangulated def
-R13946:13946 Kernel.DiscreteTopology <> g:101 var
-R13956:13958 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13953:13953 Kernel.DiscreteTopology <> E def
-R13955:13955 Kernel.DiscreteTopology <> g:101 var
-R13963:13965 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R13960:13960 Kernel.DiscreteTopology <> I def
-R13962:13962 Kernel.DiscreteTopology <> g:101 var
-R13966:13966 Kernel.DiscreteTopology <> B def
-R13968:13968 Kernel.DiscreteTopology <> g:101 var
-R14008:14008 Kernel.DiscreteTopology <> E def
-R14011:14011 Kernel.DiscreteTopology <> I def
-R14014:14014 Kernel.DiscreteTopology <> B def
-binder 14130:14138 <> edge_list:102
-R14145:14145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14232:14240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 14153:14153 <> e:103
-R14170:14173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14156:14157 Coq.Lists.List <> In def
-R14161:14169 Kernel.DiscreteTopology <> edge_list:102 var
-R14159:14159 Kernel.DiscreteTopology <> e:103 var
-R14201:14204 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R14194:14196 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14174:14189 Kernel.DiscreteTopology <> is_interior_edge def
-R14193:14193 Kernel.DiscreteTopology <> e:103 var
-R14197:14200 Coq.Init.Datatypes <> true constr
-R14225:14227 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14205:14220 Kernel.DiscreteTopology <> is_boundary_edge def
-R14224:14224 Kernel.DiscreteTopology <> e:103 var
-R14228:14231 Coq.Init.Datatypes <> true constr
-R14241:14241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14311:14319 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 14249:14249 <> e:104
-R14279:14282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14272:14274 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14252:14267 Kernel.DiscreteTopology <> is_interior_edge def
-R14271:14271 Kernel.DiscreteTopology <> e:104 var
-R14275:14278 Coq.Init.Datatypes <> true constr
-R14303:14305 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14283:14298 Kernel.DiscreteTopology <> is_boundary_edge def
-R14302:14302 Kernel.DiscreteTopology <> e:104 var
-R14306:14310 Coq.Init.Datatypes <> false constr
-R14387:14389 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14352:14354 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R14320:14339 Kernel.DiscreteTopology <> count_interior_edges def
-R14341:14349 Kernel.DiscreteTopology <> edge_list:102 var
-R14355:14374 Kernel.DiscreteTopology <> count_boundary_edges def
-R14376:14384 Kernel.DiscreteTopology <> edge_list:102 var
-R14390:14395 Coq.Init.Datatypes <> length def
-R14397:14405 Kernel.DiscreteTopology <> edge_list:102 var
-binder 14130:14138 <> edge_list:105
-R14145:14145 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14232:14240 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 14153:14153 <> e:106
-R14170:14173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14156:14157 Coq.Lists.List <> In def
-R14161:14169 Kernel.DiscreteTopology <> edge_list:105 var
-R14159:14159 Kernel.DiscreteTopology <> e:106 var
-R14201:14204 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R14194:14196 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14174:14189 Kernel.DiscreteTopology <> is_interior_edge def
-R14193:14193 Kernel.DiscreteTopology <> e:106 var
-R14197:14200 Coq.Init.Datatypes <> true constr
-R14225:14227 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14205:14220 Kernel.DiscreteTopology <> is_boundary_edge def
-R14224:14224 Kernel.DiscreteTopology <> e:106 var
-R14228:14231 Coq.Init.Datatypes <> true constr
-R14241:14241 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14311:14319 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 14249:14249 <> e:107
-R14279:14282 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R14272:14274 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14252:14267 Kernel.DiscreteTopology <> is_interior_edge def
-R14271:14271 Kernel.DiscreteTopology <> e:107 var
-R14275:14278 Coq.Init.Datatypes <> true constr
-R14303:14305 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14283:14298 Kernel.DiscreteTopology <> is_boundary_edge def
-R14302:14302 Kernel.DiscreteTopology <> e:107 var
-R14306:14310 Coq.Init.Datatypes <> false constr
-R14387:14389 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14352:14354 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R14320:14339 Kernel.DiscreteTopology <> count_interior_edges def
-R14341:14349 Kernel.DiscreteTopology <> edge_list:105 var
-R14355:14374 Kernel.DiscreteTopology <> count_boundary_edges def
-R14376:14384 Kernel.DiscreteTopology <> edge_list:105 var
-R14390:14395 Coq.Init.Datatypes <> length def
-R14397:14405 Kernel.DiscreteTopology <> edge_list:105 var
-R14592:14595 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R14585:14587 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14565:14580 Kernel.DiscreteTopology <> is_interior_edge def
-R14588:14591 Coq.Init.Datatypes <> true constr
-R14616:14618 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14596:14611 Kernel.DiscreteTopology <> is_boundary_edge def
-R14619:14622 Coq.Init.Datatypes <> true constr
-R14592:14595 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
-R14585:14587 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14565:14580 Kernel.DiscreteTopology <> is_interior_edge def
-R14588:14591 Coq.Init.Datatypes <> true constr
-R14616:14618 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14596:14611 Kernel.DiscreteTopology <> is_boundary_edge def
-R14619:14622 Coq.Init.Datatypes <> true constr
-R14817:14819 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14797:14812 Kernel.DiscreteTopology <> is_boundary_edge def
-R14820:14824 Coq.Init.Datatypes <> false constr
-R14817:14819 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14797:14812 Kernel.DiscreteTopology <> is_boundary_edge def
-R14820:14824 Coq.Init.Datatypes <> false constr
-R14844:14870 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
-R14844:14870 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
-R14995:14997 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14965:14967 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R14938:14957 Kernel.DiscreteTopology <> count_interior_edges def
-R14968:14987 Kernel.DiscreteTopology <> count_boundary_edges def
-R14998:15003 Coq.Init.Datatypes <> length def
-R14995:14997 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R14965:14967 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R14938:14957 Kernel.DiscreteTopology <> count_interior_edges def
-R14968:14987 Kernel.DiscreteTopology <> count_boundary_edges def
-R14998:15003 Coq.Init.Datatypes <> length def
-R15176:15178 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15156:15171 Kernel.DiscreteTopology <> is_interior_edge def
-R15179:15183 Coq.Init.Datatypes <> false constr
-R15176:15178 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15156:15171 Kernel.DiscreteTopology <> is_interior_edge def
-R15179:15183 Coq.Init.Datatypes <> false constr
-R15203:15229 Kernel.DiscreteTopology <> boundary_interior_exclusive thm
-R15203:15229 Kernel.DiscreteTopology <> boundary_interior_exclusive thm
-R15378:15380 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15348:15350 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R15321:15340 Kernel.DiscreteTopology <> count_interior_edges def
-R15351:15370 Kernel.DiscreteTopology <> count_boundary_edges def
-R15381:15386 Coq.Init.Datatypes <> length def
-R15378:15380 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R15348:15350 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R15321:15340 Kernel.DiscreteTopology <> count_interior_edges def
-R15351:15370 Kernel.DiscreteTopology <> count_boundary_edges def
-R15381:15386 Coq.Init.Datatypes <> length def
-R15599:15626 Kernel.DiscreteTopology <> edge_is_interior_or_boundary thm
-R15599:15626 Kernel.DiscreteTopology <> edge_is_interior_or_boundary thm
-R15716:15742 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
-R15716:15742 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
-def 15834:15859 <> count_all_edges_in_modules
-R15872:15875 Coq.Init.Datatypes <> list ind
-R15886:15888 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R15878:15885 Kernel.VMState <> ModuleID def
-R15889:15899 Kernel.VMState <> ModuleState rec
-binder 15862:15868 <> modules:108
-R15905:15907 Coq.Init.Datatypes <> nat ind
-R15920:15926 Kernel.DiscreteTopology <> modules:108 var
-R15937:15938 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R15955:15958 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R15949:15949 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15951:15952 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15954:15954 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R15996:15998 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R15973:15978 Coq.Init.Datatypes <> length def
-R15981:15992 Kernel.DiscreteTopology <> module_edges def
-R15999:16024 Kernel.DiscreteTopology <> count_all_edges_in_modules:109 def
-prf 16110:16139 <> region_edges_internal_length_3
-binder 16150:16150 <> a:111
-binder 16152:16152 <> b:112
-binder 16154:16154 <> c:113
-R16199:16201 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16159:16164 Coq.Init.Datatypes <> length def
-R16167:16187 Kernel.DiscreteTopology <> region_edges_internal def
-R16189:16189 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R16191:16192 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R16194:16195 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R16197:16197 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
-R16190:16190 Kernel.DiscreteTopology <> a:111 var
-R16193:16193 Kernel.DiscreteTopology <> b:112 var
-R16196:16196 Kernel.DiscreteTopology <> c:113 var
-prf 16308:16327 <> triangle_has_3_edges
-binder 16338:16338 <> m:114
-R16379:16384 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16372:16374 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16343:16353 Kernel.DiscreteTopology <> is_triangle def
-R16356:16368 Kernel.VMState <> module_region proj
-R16370:16370 Kernel.DiscreteTopology <> m:114 var
-R16375:16378 Coq.Init.Datatypes <> true constr
-R16437:16442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R16400:16402 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16385:16397 Kernel.VMState <> module_region proj
-R16399:16399 Kernel.DiscreteTopology <> m:114 var
-R16403:16418 Kernel.VMState <> normalize_region def
-R16421:16433 Kernel.VMState <> module_region proj
-R16435:16435 Kernel.DiscreteTopology <> m:114 var
-R16466:16468 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16443:16448 Coq.Init.Datatypes <> length def
-R16451:16462 Kernel.DiscreteTopology <> module_edges def
-R16464:16464 Kernel.DiscreteTopology <> m:114 var
-R16511:16521 Kernel.DiscreteTopology <> is_triangle def
-R16541:16552 Kernel.DiscreteTopology <> module_edges def
-R16563:16572 Coq.Arith.PeanoNat Nat eqb_eq thm
-R16563:16572 Coq.Arith.PeanoNat Nat eqb_eq thm
-R16711:16713 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16687:16692 Coq.Init.Datatypes <> length def
-R16695:16707 Kernel.VMState <> module_region proj
-R16711:16713 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R16687:16692 Coq.Init.Datatypes <> length def
-R16695:16707 Kernel.VMState <> module_region proj
-R16804:16816 Kernel.VMState <> module_region proj
-R16804:16816 Kernel.VMState <> module_region proj
-R17189:17218 Kernel.DiscreteTopology <> region_edges_internal_length_3 thm
-R17189:17218 Kernel.DiscreteTopology <> region_edges_internal_length_3 thm
-prf 17380:17402 <> In_implies_graph_lookup
-binder 17413:17413 <> g:115
-binder 17415:17417 <> mid:116
-binder 17419:17419 <> m:117
-R17450:17455 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R17424:17425 Coq.Lists.List <> In def
-R17437:17446 Kernel.VMState <> pg_modules proj
-R17448:17448 Kernel.DiscreteTopology <> g:115 var
-R17427:17427 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R17431:17432 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R17434:17434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R17428:17430 Kernel.DiscreteTopology <> mid:116 var
-R17433:17433 Kernel.DiscreteTopology <> m:117 var
-R17456:17462 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R17465:17466 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 17463:17464 <> m':118
-R17485:17487 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R17467:17478 Kernel.VMState <> graph_lookup def
-R17480:17480 Kernel.DiscreteTopology <> g:115 var
-R17482:17484 Kernel.DiscreteTopology <> mid:116 var
-R17488:17491 Coq.Init.Datatypes <> Some constr
-R17493:17494 Kernel.DiscreteTopology <> m':118 var
-R17535:17546 Kernel.VMState <> graph_lookup def
-R17562:17571 Kernel.VMState <> pg_modules proj
-R17562:17571 Kernel.VMState <> pg_modules proj
-R17672:17678 Coq.Arith.PeanoNat Nat eqb def
-R17672:17678 Coq.Arith.PeanoNat Nat eqb def
-R17846:17857 Coq.Arith.PeanoNat Nat eqb_refl thm
-R17846:17857 Coq.Arith.PeanoNat Nat eqb_refl thm
-R17846:17857 Coq.Arith.PeanoNat Nat eqb_refl thm
-prf 18194:18221 <> edge_face_incidence_equation
-binder 18232:18232 <> g:119
-R18263:18268 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18237:18260 Kernel.DiscreteTopology <> well_formed_triangulated def
-R18262:18262 Kernel.DiscreteTopology <> g:119 var
-R18277:18279 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18271:18273 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18274:18274 Kernel.DiscreteTopology <> F def
-R18276:18276 Kernel.DiscreteTopology <> g:119 var
-R18287:18289 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R18281:18283 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18284:18284 Kernel.DiscreteTopology <> I def
-R18286:18286 Kernel.DiscreteTopology <> g:119 var
-R18290:18290 Kernel.DiscreteTopology <> B def
-R18292:18292 Kernel.DiscreteTopology <> g:119 var
-R18332:18355 Kernel.DiscreteTopology <> well_formed_triangulated def
-R18358:18387 Kernel.DiscreteTopology <> all_modules_are_triangles_list def
-R18390:18416 Kernel.DiscreteTopology <> all_regions_normalized_list def
-R18977:18979 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18936:18961 Kernel.DiscreteTopology <> count_all_edges_in_modules def
-R18964:18973 Kernel.VMState <> pg_modules proj
-R18982:18984 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18985:18985 Kernel.DiscreteTopology <> F def
-R18977:18979 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18936:18961 Kernel.DiscreteTopology <> count_all_edges_in_modules def
-R18964:18973 Kernel.VMState <> pg_modules proj
-R18982:18984 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R18985:18985 Kernel.DiscreteTopology <> F def
-R19011:19011 Kernel.DiscreteTopology <> F def
-binder 19095:19101 <> modules:120
-R19110:19110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19256:19266 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 19118:19120 <> mid:121
-binder 19122:19122 <> m:122
-R19144:19155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19125:19126 Coq.Lists.List <> In def
-R19137:19143 Kernel.DiscreteTopology <> modules:120 var
-R19128:19128 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19132:19133 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19135:19135 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19129:19131 Kernel.DiscreteTopology <> mid:121 var
-R19134:19134 Kernel.DiscreteTopology <> m:122 var
-R19192:19203 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19185:19187 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19156:19166 Kernel.DiscreteTopology <> is_triangle def
-R19169:19181 Kernel.VMState <> module_region proj
-R19183:19183 Kernel.DiscreteTopology <> m:122 var
-R19188:19191 Coq.Init.Datatypes <> true constr
-R19219:19221 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19204:19216 Kernel.VMState <> module_region proj
-R19218:19218 Kernel.DiscreteTopology <> m:122 var
-R19222:19237 Kernel.VMState <> normalize_region def
-R19240:19252 Kernel.VMState <> module_region proj
-R19254:19254 Kernel.DiscreteTopology <> m:122 var
-R19301:19303 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19267:19292 Kernel.DiscreteTopology <> count_all_edges_in_modules def
-R19294:19300 Kernel.DiscreteTopology <> modules:120 var
-R19305:19307 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R19308:19313 Coq.Init.Datatypes <> length def
-R19315:19321 Kernel.DiscreteTopology <> modules:120 var
-binder 19095:19101 <> modules:123
-R19110:19110 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19256:19266 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 19118:19120 <> mid:124
-binder 19122:19122 <> m:125
-R19144:19155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19125:19126 Coq.Lists.List <> In def
-R19137:19143 Kernel.DiscreteTopology <> modules:123 var
-R19128:19128 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19132:19133 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19135:19135 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R19129:19131 Kernel.DiscreteTopology <> mid:124 var
-R19134:19134 Kernel.DiscreteTopology <> m:125 var
-R19192:19203 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R19185:19187 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19156:19166 Kernel.DiscreteTopology <> is_triangle def
-R19169:19181 Kernel.VMState <> module_region proj
-R19183:19183 Kernel.DiscreteTopology <> m:125 var
-R19188:19191 Coq.Init.Datatypes <> true constr
-R19219:19221 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19204:19216 Kernel.VMState <> module_region proj
-R19218:19218 Kernel.DiscreteTopology <> m:125 var
-R19222:19237 Kernel.VMState <> normalize_region def
-R19240:19252 Kernel.VMState <> module_region proj
-R19254:19254 Kernel.DiscreteTopology <> m:125 var
-R19301:19303 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19267:19292 Kernel.DiscreteTopology <> count_all_edges_in_modules def
-R19294:19300 Kernel.DiscreteTopology <> modules:123 var
-R19305:19307 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R19308:19313 Coq.Init.Datatypes <> length def
-R19315:19321 Kernel.DiscreteTopology <> modules:123 var
-R19508:19510 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19479:19489 Kernel.DiscreteTopology <> is_triangle def
-R19492:19504 Kernel.VMState <> module_region proj
-R19511:19514 Coq.Init.Datatypes <> true constr
-R19508:19510 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19479:19489 Kernel.DiscreteTopology <> is_triangle def
-R19492:19504 Kernel.VMState <> module_region proj
-R19511:19514 Coq.Init.Datatypes <> true constr
-R19641:19643 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19626:19638 Kernel.VMState <> module_region proj
-R19644:19659 Kernel.VMState <> normalize_region def
-R19662:19674 Kernel.VMState <> module_region proj
-R19641:19643 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19626:19638 Kernel.VMState <> module_region proj
-R19644:19659 Kernel.VMState <> normalize_region def
-R19662:19674 Kernel.VMState <> module_region proj
-R19806:19808 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19783:19788 Coq.Init.Datatypes <> length def
-R19791:19802 Kernel.DiscreteTopology <> module_edges def
-R19806:19808 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19783:19788 Coq.Init.Datatypes <> length def
-R19791:19802 Kernel.DiscreteTopology <> module_edges def
-R19829:19848 Kernel.DiscreteTopology <> triangle_has_3_edges thm
-R19829:19848 Kernel.DiscreteTopology <> triangle_has_3_edges thm
-R19939:19941 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19908:19933 Kernel.DiscreteTopology <> count_all_edges_in_modules def
-R19943:19945 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R19946:19951 Coq.Init.Datatypes <> length def
-R19939:19941 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R19908:19933 Kernel.DiscreteTopology <> count_all_edges_in_modules def
-R19943:19945 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R19946:19951 Coq.Init.Datatypes <> length def
-prf 21956:21991 <> triangulation_combinatorial_identity
-binder 22002:22002 <> g:126
-R22033:22038 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R22007:22030 Kernel.DiscreteTopology <> well_formed_triangulated def
-R22032:22032 Kernel.DiscreteTopology <> g:126 var
-R22047:22049 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22041:22043 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R22044:22044 Kernel.DiscreteTopology <> V def
-R22046:22046 Kernel.DiscreteTopology <> g:126 var
-R22057:22059 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R22051:22053 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R22054:22054 Kernel.DiscreteTopology <> E def
-R22056:22056 Kernel.DiscreteTopology <> g:126 var
-R22061:22063 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R22064:22064 Kernel.DiscreteTopology <> F def
-R22066:22066 Kernel.DiscreteTopology <> g:126 var
-R22164:22166 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22161:22161 Kernel.DiscreteTopology <> E def
-R22171:22173 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R22168:22168 Kernel.DiscreteTopology <> I def
-R22174:22174 Kernel.DiscreteTopology <> B def
-R22164:22166 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22161:22161 Kernel.DiscreteTopology <> E def
-R22171:22173 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R22168:22168 Kernel.DiscreteTopology <> I def
-R22174:22174 Kernel.DiscreteTopology <> B def
-R22199:22235 Kernel.DiscreteTopology <> total_edges_eq_interior_plus_boundary thm
-R22199:22235 Kernel.DiscreteTopology <> total_edges_eq_interior_plus_boundary thm
-R22292:22315 Kernel.DiscreteTopology <> well_formed_triangulated def
-R22477:22505 Kernel.DiscreteTopology <> satisfies_edge_face_incidence def
-R22563:22565 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22560:22560 Kernel.DiscreteTopology <> I def
-R22574:22576 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R22568:22570 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R22571:22571 Kernel.DiscreteTopology <> F def
-R22577:22577 Kernel.DiscreteTopology <> E def
-R22563:22565 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22560:22560 Kernel.DiscreteTopology <> I def
-R22574:22576 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R22568:22570 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R22571:22571 Kernel.DiscreteTopology <> F def
-R22577:22577 Kernel.DiscreteTopology <> E def
-R22766:22768 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22760:22762 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R22763:22763 Kernel.DiscreteTopology <> F def
-R22772:22774 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R22769:22769 Kernel.DiscreteTopology <> I def
-R22775:22775 Kernel.DiscreteTopology <> E def
-R22766:22768 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R22760:22762 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R22763:22763 Kernel.DiscreteTopology <> F def
-R22772:22774 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R22769:22769 Kernel.DiscreteTopology <> I def
-R22775:22775 Kernel.DiscreteTopology <> E def
-R23018:23021 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R23012:23014 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23015:23015 Kernel.DiscreteTopology <> F def
-R23022:23022 Kernel.DiscreteTopology <> E def
-R23018:23021 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R23012:23014 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23015:23015 Kernel.DiscreteTopology <> F def
-R23022:23022 Kernel.DiscreteTopology <> E def
-R23129:23131 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23126:23126 Kernel.DiscreteTopology <> B def
-R23140:23142 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R23134:23136 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23137:23137 Kernel.DiscreteTopology <> E def
-R23144:23146 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23147:23147 Kernel.DiscreteTopology <> F def
-R23129:23131 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R23126:23126 Kernel.DiscreteTopology <> B def
-R23140:23142 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R23134:23136 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23137:23137 Kernel.DiscreteTopology <> E def
-R23144:23146 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23147:23147 Kernel.DiscreteTopology <> F def
-R23333:23336 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R23327:23329 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23330:23330 Kernel.DiscreteTopology <> E def
-R23338:23340 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23341:23341 Kernel.DiscreteTopology <> F def
-R23333:23336 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R23327:23329 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23330:23330 Kernel.DiscreteTopology <> E def
-R23338:23340 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
-R23341:23341 Kernel.DiscreteTopology <> F def
-R23545:23577 Kernel.DiscreteTopology <> satisfies_boundary_euler_relation def
+prf 4900:4920 <> F_equals_module_count
+binder 4931:4931 <> g:26
+R4939:4941 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4936:4936 Kernel.DiscreteTopology <> F def
+R4938:4938 Kernel.DiscreteTopology <> g:26 var
+R4942:4947 Coq.Init.Datatypes <> length def
+R4950:4959 Kernel.VMState <> pg_modules proj
+R4961:4961 Kernel.DiscreteTopology <> g:26 var
+R4990:4990 Kernel.DiscreteTopology <> F def
+R4993:4997 Kernel.DiscreteTopology <> faces def
+R5013:5022 Kernel.VMState <> pg_modules proj
+R5013:5022 Kernel.VMState <> pg_modules proj
+def 5247:5257 <> is_triangle
+R5269:5272 Coq.Init.Datatypes <> list ind
+R5274:5276 Coq.Init.Datatypes <> nat ind
+binder 5260:5265 <> region:27
+R5281:5284 Coq.Init.Datatypes <> bool ind
+R5291:5297 Coq.Arith.PeanoNat Nat eqb def
+R5300:5305 Coq.Init.Datatypes <> length def
+R5308:5323 Kernel.VMState <> normalize_region def
+R5325:5330 Kernel.DiscreteTopology <> region:27 var
+def 5349:5378 <> all_modules_are_triangles_list
+R5385:5398 Kernel.VMState <> PartitionGraph rec
+binder 5381:5381 <> g:28
+binder 5420:5422 <> mid:29
+binder 5424:5424 <> m:30
+R5457:5464 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5431:5432 Coq.Lists.List <> In def
+R5444:5453 Kernel.VMState <> pg_modules proj
+R5455:5455 Kernel.DiscreteTopology <> g:28 var
+R5434:5434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5438:5439 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5441:5441 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5435:5437 Kernel.DiscreteTopology <> mid:29 var
+R5440:5440 Kernel.DiscreteTopology <> m:30 var
+R5494:5496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5465:5475 Kernel.DiscreteTopology <> is_triangle def
+R5478:5490 Kernel.VMState <> module_region proj
+R5492:5492 Kernel.DiscreteTopology <> m:30 var
+R5497:5500 Coq.Init.Datatypes <> true constr
+def 5592:5618 <> all_regions_normalized_list
+R5625:5638 Kernel.VMState <> PartitionGraph rec
+binder 5621:5621 <> g:31
+binder 5660:5662 <> mid:32
+binder 5664:5664 <> m:33
+R5697:5704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5671:5672 Coq.Lists.List <> In def
+R5684:5693 Kernel.VMState <> pg_modules proj
+R5695:5695 Kernel.DiscreteTopology <> g:31 var
+R5674:5674 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5678:5679 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5681:5681 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R5675:5677 Kernel.DiscreteTopology <> mid:32 var
+R5680:5680 Kernel.DiscreteTopology <> m:33 var
+R5720:5722 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5705:5717 Kernel.VMState <> module_region proj
+R5719:5719 Kernel.DiscreteTopology <> m:33 var
+R5723:5738 Kernel.VMState <> normalize_region def
+R5741:5753 Kernel.VMState <> module_region proj
+R5755:5755 Kernel.DiscreteTopology <> m:33 var
+def 6203:6209 <> edge_eq
+R6223:6225 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6220:6222 Coq.Init.Datatypes <> nat ind
+R6226:6228 Coq.Init.Datatypes <> nat ind
+binder 6212:6213 <> e1:34
+binder 6215:6216 <> e2:35
+R6233:6236 Coq.Init.Datatypes <> bool ind
+R6269:6272 Coq.Init.Datatypes <> ::bool_scope:x_'&&'_x not
+R6244:6250 Coq.Arith.PeanoNat Nat eqb def
+R6253:6255 Coq.Init.Datatypes <> fst def
+R6257:6258 Kernel.DiscreteTopology <> e1:34 var
+R6262:6264 Coq.Init.Datatypes <> fst def
+R6266:6267 Kernel.DiscreteTopology <> e2:35 var
+R6273:6279 Coq.Arith.PeanoNat Nat eqb def
+R6282:6284 Coq.Init.Datatypes <> snd def
+R6286:6287 Kernel.DiscreteTopology <> e1:34 var
+R6291:6293 Coq.Init.Datatypes <> snd def
+R6295:6296 Kernel.DiscreteTopology <> e2:35 var
+def 6378:6385 <> list_mem
+binder 6388:6388 <> A:36
+R6405:6408 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6404:6404 Kernel.DiscreteTopology <> A:36 var
+R6410:6413 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6409:6409 Kernel.DiscreteTopology <> A:36 var
+R6414:6417 Coq.Init.Datatypes <> bool ind
+binder 6399:6400 <> eq:37
+R6425:6425 Kernel.DiscreteTopology <> A:36 var
+binder 6421:6421 <> x:38
+R6433:6436 Coq.Init.Datatypes <> list ind
+R6438:6438 Kernel.DiscreteTopology <> A:36 var
+binder 6429:6429 <> l:39
+R6443:6446 Coq.Init.Datatypes <> bool ind
+R6459:6459 Kernel.DiscreteTopology <> l:39 var
+R6470:6471 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6476:6480 Coq.Init.Datatypes <> false constr
+R6487:6490 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6502:6503 Kernel.DiscreteTopology <> eq:37 var
+R6505:6505 Kernel.DiscreteTopology <> x:38 var
+R6524:6531 Kernel.DiscreteTopology <> list_mem:40 def
+R6536:6536 Kernel.DiscreteTopology <> x:38 var
+R6533:6534 Kernel.DiscreteTopology <> eq:37 var
+R6514:6517 Coq.Init.Datatypes <> true constr
+def 6612:6634 <> count_modules_with_edge
+R6647:6649 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6644:6646 Coq.Init.Datatypes <> nat ind
+R6650:6652 Coq.Init.Datatypes <> nat ind
+binder 6637:6640 <> edge:42
+R6666:6669 Coq.Init.Datatypes <> list ind
+R6680:6682 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6672:6679 Kernel.VMState <> ModuleID def
+R6683:6693 Kernel.VMState <> ModuleState rec
+binder 6656:6662 <> modules:43
+R6699:6701 Coq.Init.Datatypes <> nat ind
+R6714:6720 Kernel.DiscreteTopology <> modules:43 var
+R6731:6732 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6749:6752 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6743:6743 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6745:6746 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6748:6748 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6787:6798 Kernel.DiscreteTopology <> module_edges def
+binder 6771:6782 <> region_edges:46
+R6814:6821 Kernel.DiscreteTopology <> list_mem def
+R6836:6847 Kernel.DiscreteTopology <> region_edges:46 var
+R6831:6834 Kernel.DiscreteTopology <> edge:42 var
+R6823:6829 Kernel.DiscreteTopology <> edge_eq def
+R6909:6931 Kernel.DiscreteTopology <> count_modules_with_edge:44 def
+R6933:6936 Kernel.DiscreteTopology <> edge:42 var
+R6860:6860 Coq.Init.Datatypes <> S constr
+R6863:6885 Kernel.DiscreteTopology <> count_modules_with_edge:44 def
+R6887:6890 Kernel.DiscreteTopology <> edge:42 var
+def 7026:7041 <> is_interior_edge
+R7048:7061 Kernel.VMState <> PartitionGraph rec
+binder 7044:7044 <> g:47
+R7075:7077 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7072:7074 Coq.Init.Datatypes <> nat ind
+R7078:7080 Coq.Init.Datatypes <> nat ind
+binder 7065:7068 <> edge:48
+R7085:7088 Coq.Init.Datatypes <> bool ind
+R7095:7101 Coq.Arith.PeanoNat Nat eqb def
+R7104:7126 Kernel.DiscreteTopology <> count_modules_with_edge def
+R7128:7131 Kernel.DiscreteTopology <> edge:48 var
+R7134:7143 Kernel.VMState <> pg_modules proj
+R7145:7145 Kernel.DiscreteTopology <> g:47 var
+def 7228:7243 <> is_boundary_edge
+R7250:7263 Kernel.VMState <> PartitionGraph rec
+binder 7246:7246 <> g:49
+R7277:7279 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7274:7276 Coq.Init.Datatypes <> nat ind
+R7280:7282 Coq.Init.Datatypes <> nat ind
+binder 7267:7270 <> edge:50
+R7287:7290 Coq.Init.Datatypes <> bool ind
+R7297:7303 Coq.Arith.PeanoNat Nat eqb def
+R7306:7328 Kernel.DiscreteTopology <> count_modules_with_edge def
+R7330:7333 Kernel.DiscreteTopology <> edge:50 var
+R7336:7345 Kernel.VMState <> pg_modules proj
+R7347:7347 Kernel.DiscreteTopology <> g:49 var
+def 7417:7436 <> count_interior_edges
+R7451:7454 Coq.Init.Datatypes <> list ind
+R7460:7462 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7457:7459 Coq.Init.Datatypes <> nat ind
+R7463:7465 Coq.Init.Datatypes <> nat ind
+binder 7439:7447 <> edge_list:51
+R7474:7487 Kernel.VMState <> PartitionGraph rec
+binder 7470:7470 <> g:52
+R7492:7494 Coq.Init.Datatypes <> nat ind
+R7507:7515 Kernel.DiscreteTopology <> edge_list:51 var
+R7526:7527 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7539:7542 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7560:7575 Kernel.DiscreteTopology <> is_interior_edge def
+R7577:7577 Kernel.DiscreteTopology <> g:52 var
+R7635:7654 Kernel.DiscreteTopology <> count_interior_edges:53 def
+R7661:7661 Kernel.DiscreteTopology <> g:52 var
+R7592:7592 Coq.Init.Datatypes <> S constr
+R7595:7614 Kernel.DiscreteTopology <> count_interior_edges:53 def
+R7621:7621 Kernel.DiscreteTopology <> g:52 var
+def 7724:7724 <> I
+R7731:7744 Kernel.VMState <> PartitionGraph rec
+binder 7727:7727 <> g:55
+R7749:7751 Coq.Init.Datatypes <> nat ind
+R7758:7777 Kernel.DiscreteTopology <> count_interior_edges def
+R7780:7784 Kernel.DiscreteTopology <> edges def
+R7786:7786 Kernel.DiscreteTopology <> g:55 var
+R7789:7789 Kernel.DiscreteTopology <> g:55 var
+def 7855:7874 <> count_boundary_edges
+R7889:7892 Coq.Init.Datatypes <> list ind
+R7898:7900 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R7895:7897 Coq.Init.Datatypes <> nat ind
+R7901:7903 Coq.Init.Datatypes <> nat ind
+binder 7877:7885 <> edge_list:56
+R7912:7925 Kernel.VMState <> PartitionGraph rec
+binder 7908:7908 <> g:57
+R7930:7932 Coq.Init.Datatypes <> nat ind
+R7945:7953 Kernel.DiscreteTopology <> edge_list:56 var
+R7964:7965 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7977:7980 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R7998:8013 Kernel.DiscreteTopology <> is_boundary_edge def
+R8015:8015 Kernel.DiscreteTopology <> g:57 var
+R8073:8092 Kernel.DiscreteTopology <> count_boundary_edges:58 def
+R8099:8099 Kernel.DiscreteTopology <> g:57 var
+R8030:8030 Coq.Init.Datatypes <> S constr
+R8033:8052 Kernel.DiscreteTopology <> count_boundary_edges:58 def
+R8059:8059 Kernel.DiscreteTopology <> g:57 var
+def 8162:8162 <> B
+R8169:8182 Kernel.VMState <> PartitionGraph rec
+binder 8165:8165 <> g:60
+R8187:8189 Coq.Init.Datatypes <> nat ind
+R8196:8215 Kernel.DiscreteTopology <> count_boundary_edges def
+R8218:8222 Kernel.DiscreteTopology <> edges def
+R8224:8224 Kernel.DiscreteTopology <> g:60 var
+R8227:8227 Kernel.DiscreteTopology <> g:60 var
+def 8439:8462 <> count_incident_triangles
+R8476:8478 Coq.Init.Datatypes <> nat ind
+binder 8467:8472 <> vertex:61
+R8492:8495 Coq.Init.Datatypes <> list ind
+R8506:8508 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8498:8505 Kernel.VMState <> ModuleID def
+R8509:8519 Kernel.VMState <> ModuleState rec
+binder 8482:8488 <> modules:62
+R8525:8527 Coq.Init.Datatypes <> nat ind
+R8540:8546 Kernel.DiscreteTopology <> modules:62 var
+R8557:8558 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8575:8578 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R8569:8569 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8571:8572 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8574:8574 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8611:8634 Kernel.DiscreteTopology <> count_incident_triangles:63 def
+R8636:8641 Kernel.DiscreteTopology <> vertex:61 var
+binder 8597:8606 <> count_rest:65
+R8660:8671 Kernel.VMState <> nat_list_mem def
+R8673:8678 Kernel.DiscreteTopology <> vertex:61 var
+R8681:8693 Kernel.VMState <> module_region proj
+R8733:8742 Kernel.DiscreteTopology <> count_rest:65 var
+R8709:8709 Coq.Init.Datatypes <> S constr
+R8711:8720 Kernel.DiscreteTopology <> count_rest:65 var
+def 8763:8775 <> vertex_degree
+R8782:8795 Kernel.VMState <> PartitionGraph rec
+binder 8778:8778 <> g:66
+R8808:8810 Coq.Init.Datatypes <> nat ind
+binder 8799:8804 <> vertex:67
+R8815:8817 Coq.Init.Datatypes <> nat ind
+R8824:8847 Kernel.DiscreteTopology <> count_incident_triangles def
+R8849:8854 Kernel.DiscreteTopology <> vertex:67 var
+R8857:8866 Kernel.VMState <> pg_modules proj
+R8868:8868 Kernel.DiscreteTopology <> g:66 var
+def 8882:8892 <> sum_degrees
+R8899:8912 Kernel.VMState <> PartitionGraph rec
+binder 8895:8895 <> g:68
+R8924:8927 Coq.Init.Datatypes <> list ind
+R8929:8931 Coq.Init.Datatypes <> nat ind
+binder 8916:8920 <> verts:69
+R8936:8938 Coq.Init.Datatypes <> nat ind
+R8951:8955 Kernel.DiscreteTopology <> verts:69 var
+R8966:8967 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8979:8982 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R9008:9010 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8991:9003 Kernel.DiscreteTopology <> vertex_degree def
+R9005:9005 Kernel.DiscreteTopology <> g:68 var
+R9011:9021 Kernel.DiscreteTopology <> sum_degrees:70 def
+R9023:9023 Kernel.DiscreteTopology <> g:68 var
+def 9169:9181 <> is_2_manifold
+R9188:9201 Kernel.VMState <> PartitionGraph rec
+binder 9184:9184 <> g:72
+binder 9223:9223 <> e:73
+R9244:9251 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9230:9231 Coq.Lists.List <> In def
+R9236:9240 Kernel.DiscreteTopology <> edges def
+R9242:9242 Kernel.DiscreteTopology <> g:72 var
+R9233:9233 Kernel.DiscreteTopology <> e:73 var
+R9265:9287 Kernel.DiscreteTopology <> count_modules_with_edge def
+R9289:9289 Kernel.DiscreteTopology <> e:73 var
+R9292:9301 Kernel.VMState <> pg_modules proj
+R9303:9303 Kernel.DiscreteTopology <> g:72 var
+binder 9256:9260 <> count:74
+R9326:9329 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R9318:9320 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9313:9317 Kernel.DiscreteTopology <> count:74 var
+R9335:9337 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9330:9334 Kernel.DiscreteTopology <> count:74 var
+def 9433:9461 <> satisfies_edge_face_incidence
+R9468:9481 Kernel.VMState <> PartitionGraph rec
+binder 9464:9464 <> g:75
+R9504:9506 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9498:9500 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9501:9501 Kernel.DiscreteTopology <> F def
+R9503:9503 Kernel.DiscreteTopology <> g:75 var
+R9514:9516 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9508:9510 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9511:9511 Kernel.DiscreteTopology <> I def
+R9513:9513 Kernel.DiscreteTopology <> g:75 var
+R9517:9517 Kernel.DiscreteTopology <> B def
+R9519:9519 Kernel.DiscreteTopology <> g:75 var
+def 9608:9637 <> satisfies_degree_face_relation
+R9644:9657 Kernel.VMState <> PartitionGraph rec
+binder 9640:9640 <> g:76
+R9698:9700 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9672:9682 Kernel.DiscreteTopology <> sum_degrees def
+R9684:9684 Kernel.DiscreteTopology <> g:76 var
+R9687:9694 Kernel.DiscreteTopology <> vertices def
+R9696:9696 Kernel.DiscreteTopology <> g:76 var
+R9703:9705 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9706:9706 Kernel.DiscreteTopology <> F def
+R9708:9708 Kernel.DiscreteTopology <> g:76 var
+def 9795:9827 <> satisfies_boundary_euler_relation
+R9834:9847 Kernel.VMState <> PartitionGraph rec
+binder 9830:9830 <> g:77
+R9952:9992 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9936:9939 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9926:9928 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9920:9922 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9923:9923 Kernel.DiscreteTopology <> V def
+R9925:9925 Kernel.DiscreteTopology <> g:77 var
+R9930:9932 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9933:9933 Kernel.DiscreteTopology <> F def
+R9935:9935 Kernel.DiscreteTopology <> g:77 var
+R9941:9943 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R9944:9944 Kernel.DiscreteTopology <> E def
+R9946:9946 Kernel.DiscreteTopology <> g:77 var
+R9996:9998 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9993:9993 Kernel.DiscreteTopology <> B def
+R9995:9995 Kernel.DiscreteTopology <> g:77 var
+R10015:10017 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R10001:10004 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10014:10014 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10008:10010 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10005:10005 Kernel.DiscreteTopology <> V def
+R10007:10007 Kernel.DiscreteTopology <> g:77 var
+R10011:10011 Kernel.DiscreteTopology <> F def
+R10013:10013 Kernel.DiscreteTopology <> g:77 var
+R10019:10021 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R10022:10022 Kernel.DiscreteTopology <> E def
+R10024:10024 Kernel.DiscreteTopology <> g:77 var
+def 10074:10097 <> well_formed_triangulated
+R10104:10117 Kernel.VMState <> PartitionGraph rec
+binder 10100:10100 <> g:78
+R10151:10156 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10132:10148 Kernel.VMState <> well_formed_graph def
+R10150:10150 Kernel.DiscreteTopology <> g:78 var
+R10189:10194 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10157:10186 Kernel.DiscreteTopology <> all_modules_are_triangles_list def
+R10188:10188 Kernel.DiscreteTopology <> g:78 var
+R10224:10229 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10195:10221 Kernel.DiscreteTopology <> all_regions_normalized_list def
+R10223:10223 Kernel.DiscreteTopology <> g:78 var
+R10245:10250 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10230:10242 Kernel.DiscreteTopology <> is_2_manifold def
+R10244:10244 Kernel.DiscreteTopology <> g:78 var
+R10265:10270 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10253:10256 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10257:10257 Kernel.DiscreteTopology <> V def
+R10259:10259 Kernel.DiscreteTopology <> g:78 var
+R10285:10290 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10273:10276 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10277:10277 Kernel.DiscreteTopology <> E def
+R10279:10279 Kernel.DiscreteTopology <> g:78 var
+R10305:10310 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10293:10296 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R10297:10297 Kernel.DiscreteTopology <> F def
+R10299:10299 Kernel.DiscreteTopology <> g:78 var
+R10342:10347 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10311:10339 Kernel.DiscreteTopology <> satisfies_edge_face_incidence def
+R10341:10341 Kernel.DiscreteTopology <> g:78 var
+R10380:10385 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10348:10377 Kernel.DiscreteTopology <> satisfies_degree_face_relation def
+R10379:10379 Kernel.DiscreteTopology <> g:78 var
+R10386:10418 Kernel.DiscreteTopology <> satisfies_boundary_euler_relation def
+R10420:10420 Kernel.DiscreteTopology <> g:78 var
+prf 10681:10700 <> deduplicate_edges_In
+binder 10711:10711 <> e:79
+binder 10713:10713 <> L:80
+R10744:10747 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10718:10719 Coq.Lists.List <> In def
+R10724:10740 Kernel.DiscreteTopology <> deduplicate_edges def
+R10742:10742 Kernel.DiscreteTopology <> L:80 var
+R10721:10721 Kernel.DiscreteTopology <> e:79 var
+R10748:10749 Coq.Lists.List <> In def
+R10753:10753 Kernel.DiscreteTopology <> L:80 var
+R10751:10751 Kernel.DiscreteTopology <> e:79 var
+R10846:10852 Coq.Lists.List <> existsb def
+R10846:10852 Coq.Lists.List <> existsb def
+prf 11015:11030 <> collect_edges_In
+binder 11041:11041 <> e:81
+binder 11043:11049 <> modules:82
+R11095:11100 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11054:11055 Coq.Lists.List <> In def
+R11060:11085 Kernel.DiscreteTopology <> collect_edges_from_modules def
+R11087:11093 Kernel.DiscreteTopology <> modules:82 var
+R11057:11057 Kernel.DiscreteTopology <> e:81 var
+R11101:11107 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11113:11114 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11108:11110 <> mid:83
+binder 11112:11112 <> m:84
+R11134:11137 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11115:11116 Coq.Lists.List <> In def
+R11127:11133 Kernel.DiscreteTopology <> modules:82 var
+R11118:11118 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11122:11123 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11125:11125 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11119:11121 Kernel.DiscreteTopology <> mid:83 var
+R11124:11124 Kernel.DiscreteTopology <> m:84 var
+R11138:11139 Coq.Lists.List <> In def
+R11144:11155 Kernel.DiscreteTopology <> module_edges def
+R11157:11157 Kernel.DiscreteTopology <> m:84 var
+R11141:11141 Kernel.DiscreteTopology <> e:81 var
+R11284:11292 Coq.Lists.List <> in_app_or thm
+R11284:11292 Coq.Lists.List <> in_app_or thm
+prf 11575:11609 <> edge_in_list_appears_in_some_module
+binder 11620:11620 <> g:85
+binder 11622:11622 <> e:86
+R11641:11646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11627:11628 Coq.Lists.List <> In def
+R11633:11637 Kernel.DiscreteTopology <> edges def
+R11639:11639 Kernel.DiscreteTopology <> g:85 var
+R11630:11630 Kernel.DiscreteTopology <> e:86 var
+R11647:11653 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11659:11660 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11654:11656 <> mid:87
+binder 11658:11658 <> m:88
+R11687:11690 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11661:11662 Coq.Lists.List <> In def
+R11674:11683 Kernel.VMState <> pg_modules proj
+R11685:11685 Kernel.DiscreteTopology <> g:85 var
+R11664:11664 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11668:11669 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11671:11671 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11665:11667 Kernel.DiscreteTopology <> mid:87 var
+R11670:11670 Kernel.DiscreteTopology <> m:88 var
+R11691:11692 Coq.Lists.List <> In def
+R11697:11708 Kernel.DiscreteTopology <> module_edges def
+R11710:11710 Kernel.DiscreteTopology <> m:88 var
+R11694:11694 Kernel.DiscreteTopology <> e:86 var
+R11748:11752 Kernel.DiscreteTopology <> edges def
+R11770:11789 Kernel.DiscreteTopology <> deduplicate_edges_In thm
+R11770:11789 Kernel.DiscreteTopology <> deduplicate_edges_In thm
+R11807:11822 Kernel.DiscreteTopology <> collect_edges_In thm
+R11807:11822 Kernel.DiscreteTopology <> collect_edges_In thm
+prf 11933:11962 <> edge_appears_in_1_or_2_modules
+binder 11973:11973 <> g:89
+binder 11975:11975 <> e:90
+R12006:12011 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11980:12003 Kernel.DiscreteTopology <> well_formed_triangulated def
+R12005:12005 Kernel.DiscreteTopology <> g:89 var
+R12026:12031 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12012:12013 Coq.Lists.List <> In def
+R12018:12022 Kernel.DiscreteTopology <> edges def
+R12024:12024 Kernel.DiscreteTopology <> g:89 var
+R12015:12015 Kernel.DiscreteTopology <> e:90 var
+R12045:12067 Kernel.DiscreteTopology <> count_modules_with_edge def
+R12069:12069 Kernel.DiscreteTopology <> e:90 var
+R12072:12081 Kernel.VMState <> pg_modules proj
+R12083:12083 Kernel.DiscreteTopology <> g:89 var
+binder 12036:12040 <> count:91
+R12104:12107 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R12096:12098 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12091:12095 Kernel.DiscreteTopology <> count:91 var
+R12113:12115 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12108:12112 Kernel.DiscreteTopology <> count:91 var
+prf 12313:12339 <> interior_boundary_exclusive
+binder 12350:12350 <> g:92
+binder 12352:12352 <> e:93
+R12384:12389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12377:12379 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12357:12372 Kernel.DiscreteTopology <> is_interior_edge def
+R12374:12374 Kernel.DiscreteTopology <> g:92 var
+R12376:12376 Kernel.DiscreteTopology <> e:93 var
+R12380:12383 Coq.Init.Datatypes <> true constr
+R12410:12412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12390:12405 Kernel.DiscreteTopology <> is_boundary_edge def
+R12407:12407 Kernel.DiscreteTopology <> g:92 var
+R12409:12409 Kernel.DiscreteTopology <> e:93 var
+R12413:12417 Coq.Init.Datatypes <> false constr
+R12455:12470 Kernel.DiscreteTopology <> is_interior_edge def
+R12473:12488 Kernel.DiscreteTopology <> is_boundary_edge def
+R12504:12513 Coq.Arith.PeanoNat Nat eqb_eq thm
+R12504:12513 Coq.Arith.PeanoNat Nat eqb_eq thm
+R12532:12542 Coq.Arith.PeanoNat Nat eqb_neq thm
+R12532:12542 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 12564:12590 <> boundary_interior_exclusive
+binder 12601:12601 <> g:94
+binder 12603:12603 <> e:95
+R12635:12640 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12628:12630 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12608:12623 Kernel.DiscreteTopology <> is_boundary_edge def
+R12625:12625 Kernel.DiscreteTopology <> g:94 var
+R12627:12627 Kernel.DiscreteTopology <> e:95 var
+R12631:12634 Coq.Init.Datatypes <> true constr
+R12661:12663 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12641:12656 Kernel.DiscreteTopology <> is_interior_edge def
+R12658:12658 Kernel.DiscreteTopology <> g:94 var
+R12660:12660 Kernel.DiscreteTopology <> e:95 var
+R12664:12668 Coq.Init.Datatypes <> false constr
+R12708:12723 Kernel.DiscreteTopology <> is_interior_edge def
+R12726:12741 Kernel.DiscreteTopology <> is_boundary_edge def
+R12757:12766 Coq.Arith.PeanoNat Nat eqb_eq thm
+R12757:12766 Coq.Arith.PeanoNat Nat eqb_eq thm
+R12787:12797 Coq.Arith.PeanoNat Nat eqb_neq thm
+R12787:12797 Coq.Arith.PeanoNat Nat eqb_neq thm
+prf 12881:12908 <> edge_is_interior_or_boundary
+binder 12919:12919 <> g:96
+binder 12921:12921 <> e:97
+R12952:12957 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12926:12949 Kernel.DiscreteTopology <> well_formed_triangulated def
+R12951:12951 Kernel.DiscreteTopology <> g:96 var
+R12972:12977 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12958:12959 Coq.Lists.List <> In def
+R12964:12968 Kernel.DiscreteTopology <> edges def
+R12970:12970 Kernel.DiscreteTopology <> g:96 var
+R12961:12961 Kernel.DiscreteTopology <> e:97 var
+R13005:13008 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R12998:13000 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12978:12993 Kernel.DiscreteTopology <> is_interior_edge def
+R12995:12995 Kernel.DiscreteTopology <> g:96 var
+R12997:12997 Kernel.DiscreteTopology <> e:97 var
+R13001:13004 Coq.Init.Datatypes <> true constr
+R13029:13031 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13009:13024 Kernel.DiscreteTopology <> is_boundary_edge def
+R13026:13026 Kernel.DiscreteTopology <> g:96 var
+R13028:13028 Kernel.DiscreteTopology <> e:97 var
+R13032:13035 Coq.Init.Datatypes <> true constr
+R13079:13108 Kernel.DiscreteTopology <> edge_appears_in_1_or_2_modules thm
+R13079:13108 Kernel.DiscreteTopology <> edge_appears_in_1_or_2_modules thm
+R13192:13207 Kernel.DiscreteTopology <> is_boundary_edge def
+R13297:13312 Kernel.DiscreteTopology <> is_interior_edge def
+prf 13428:13464 <> total_edges_eq_interior_plus_boundary
+binder 13475:13475 <> g:98
+R13506:13511 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13480:13503 Kernel.DiscreteTopology <> well_formed_triangulated def
+R13505:13505 Kernel.DiscreteTopology <> g:98 var
+R13515:13517 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13512:13512 Kernel.DiscreteTopology <> E def
+R13514:13514 Kernel.DiscreteTopology <> g:98 var
+R13522:13524 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13519:13519 Kernel.DiscreteTopology <> I def
+R13521:13521 Kernel.DiscreteTopology <> g:98 var
+R13525:13525 Kernel.DiscreteTopology <> B def
+R13527:13527 Kernel.DiscreteTopology <> g:98 var
+R13567:13567 Kernel.DiscreteTopology <> E def
+R13570:13570 Kernel.DiscreteTopology <> I def
+R13573:13573 Kernel.DiscreteTopology <> B def
+binder 13689:13697 <> edge_list:99
+R13704:13704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13791:13799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 13712:13712 <> e:100
+R13729:13732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13715:13716 Coq.Lists.List <> In def
+R13720:13728 Kernel.DiscreteTopology <> edge_list:99 var
+R13718:13718 Kernel.DiscreteTopology <> e:100 var
+R13760:13763 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13753:13755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13733:13748 Kernel.DiscreteTopology <> is_interior_edge def
+R13752:13752 Kernel.DiscreteTopology <> e:100 var
+R13756:13759 Coq.Init.Datatypes <> true constr
+R13784:13786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13764:13779 Kernel.DiscreteTopology <> is_boundary_edge def
+R13783:13783 Kernel.DiscreteTopology <> e:100 var
+R13787:13790 Coq.Init.Datatypes <> true constr
+R13800:13800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13870:13878 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 13808:13808 <> e:101
+R13838:13841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13831:13833 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13811:13826 Kernel.DiscreteTopology <> is_interior_edge def
+R13830:13830 Kernel.DiscreteTopology <> e:101 var
+R13834:13837 Coq.Init.Datatypes <> true constr
+R13862:13864 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13842:13857 Kernel.DiscreteTopology <> is_boundary_edge def
+R13861:13861 Kernel.DiscreteTopology <> e:101 var
+R13865:13869 Coq.Init.Datatypes <> false constr
+R13946:13948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13911:13913 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13879:13898 Kernel.DiscreteTopology <> count_interior_edges def
+R13900:13908 Kernel.DiscreteTopology <> edge_list:99 var
+R13914:13933 Kernel.DiscreteTopology <> count_boundary_edges def
+R13935:13943 Kernel.DiscreteTopology <> edge_list:99 var
+R13949:13954 Coq.Init.Datatypes <> length def
+R13956:13964 Kernel.DiscreteTopology <> edge_list:99 var
+binder 13689:13697 <> edge_list:102
+R13704:13704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13791:13799 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 13712:13712 <> e:103
+R13729:13732 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13715:13716 Coq.Lists.List <> In def
+R13720:13728 Kernel.DiscreteTopology <> edge_list:102 var
+R13718:13718 Kernel.DiscreteTopology <> e:103 var
+R13760:13763 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R13753:13755 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13733:13748 Kernel.DiscreteTopology <> is_interior_edge def
+R13752:13752 Kernel.DiscreteTopology <> e:103 var
+R13756:13759 Coq.Init.Datatypes <> true constr
+R13784:13786 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13764:13779 Kernel.DiscreteTopology <> is_boundary_edge def
+R13783:13783 Kernel.DiscreteTopology <> e:103 var
+R13787:13790 Coq.Init.Datatypes <> true constr
+R13800:13800 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13870:13878 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 13808:13808 <> e:104
+R13838:13841 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13831:13833 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13811:13826 Kernel.DiscreteTopology <> is_interior_edge def
+R13830:13830 Kernel.DiscreteTopology <> e:104 var
+R13834:13837 Coq.Init.Datatypes <> true constr
+R13862:13864 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13842:13857 Kernel.DiscreteTopology <> is_boundary_edge def
+R13861:13861 Kernel.DiscreteTopology <> e:104 var
+R13865:13869 Coq.Init.Datatypes <> false constr
+R13946:13948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13911:13913 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R13879:13898 Kernel.DiscreteTopology <> count_interior_edges def
+R13900:13908 Kernel.DiscreteTopology <> edge_list:102 var
+R13914:13933 Kernel.DiscreteTopology <> count_boundary_edges def
+R13935:13943 Kernel.DiscreteTopology <> edge_list:102 var
+R13949:13954 Coq.Init.Datatypes <> length def
+R13956:13964 Kernel.DiscreteTopology <> edge_list:102 var
+R14151:14154 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14144:14146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14124:14139 Kernel.DiscreteTopology <> is_interior_edge def
+R14147:14150 Coq.Init.Datatypes <> true constr
+R14175:14177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14155:14170 Kernel.DiscreteTopology <> is_boundary_edge def
+R14178:14181 Coq.Init.Datatypes <> true constr
+R14151:14154 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R14144:14146 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14124:14139 Kernel.DiscreteTopology <> is_interior_edge def
+R14147:14150 Coq.Init.Datatypes <> true constr
+R14175:14177 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14155:14170 Kernel.DiscreteTopology <> is_boundary_edge def
+R14178:14181 Coq.Init.Datatypes <> true constr
+R14376:14378 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14356:14371 Kernel.DiscreteTopology <> is_boundary_edge def
+R14379:14383 Coq.Init.Datatypes <> false constr
+R14376:14378 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14356:14371 Kernel.DiscreteTopology <> is_boundary_edge def
+R14379:14383 Coq.Init.Datatypes <> false constr
+R14403:14429 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
+R14403:14429 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
+R14554:14556 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14524:14526 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14497:14516 Kernel.DiscreteTopology <> count_interior_edges def
+R14527:14546 Kernel.DiscreteTopology <> count_boundary_edges def
+R14557:14562 Coq.Init.Datatypes <> length def
+R14554:14556 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14524:14526 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14497:14516 Kernel.DiscreteTopology <> count_interior_edges def
+R14527:14546 Kernel.DiscreteTopology <> count_boundary_edges def
+R14557:14562 Coq.Init.Datatypes <> length def
+R14735:14737 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14715:14730 Kernel.DiscreteTopology <> is_interior_edge def
+R14738:14742 Coq.Init.Datatypes <> false constr
+R14735:14737 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14715:14730 Kernel.DiscreteTopology <> is_interior_edge def
+R14738:14742 Coq.Init.Datatypes <> false constr
+R14762:14788 Kernel.DiscreteTopology <> boundary_interior_exclusive thm
+R14762:14788 Kernel.DiscreteTopology <> boundary_interior_exclusive thm
+R14937:14939 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14907:14909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14880:14899 Kernel.DiscreteTopology <> count_interior_edges def
+R14910:14929 Kernel.DiscreteTopology <> count_boundary_edges def
+R14940:14945 Coq.Init.Datatypes <> length def
+R14937:14939 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14907:14909 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R14880:14899 Kernel.DiscreteTopology <> count_interior_edges def
+R14910:14929 Kernel.DiscreteTopology <> count_boundary_edges def
+R14940:14945 Coq.Init.Datatypes <> length def
+R15158:15185 Kernel.DiscreteTopology <> edge_is_interior_or_boundary thm
+R15158:15185 Kernel.DiscreteTopology <> edge_is_interior_or_boundary thm
+R15275:15301 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
+R15275:15301 Kernel.DiscreteTopology <> interior_boundary_exclusive thm
+def 15393:15418 <> count_all_edges_in_modules
+R15431:15434 Coq.Init.Datatypes <> list ind
+R15445:15447 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R15437:15444 Kernel.VMState <> ModuleID def
+R15448:15458 Kernel.VMState <> ModuleState rec
+binder 15421:15427 <> modules:105
+R15464:15466 Coq.Init.Datatypes <> nat ind
+R15479:15485 Kernel.DiscreteTopology <> modules:105 var
+R15496:15497 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R15514:15517 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R15508:15508 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15510:15511 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15513:15513 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R15555:15557 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R15532:15537 Coq.Init.Datatypes <> length def
+R15540:15551 Kernel.DiscreteTopology <> module_edges def
+R15558:15583 Kernel.DiscreteTopology <> count_all_edges_in_modules:106 def
+prf 15669:15698 <> region_edges_internal_length_3
+binder 15709:15709 <> a:108
+binder 15711:15711 <> b:109
+binder 15713:15713 <> c:110
+R15758:15760 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15718:15723 Coq.Init.Datatypes <> length def
+R15726:15746 Kernel.DiscreteTopology <> region_edges_internal def
+R15748:15748 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15750:15751 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15753:15754 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15756:15756 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R15749:15749 Kernel.DiscreteTopology <> a:108 var
+R15752:15752 Kernel.DiscreteTopology <> b:109 var
+R15755:15755 Kernel.DiscreteTopology <> c:110 var
+prf 15867:15886 <> triangle_has_3_edges
+binder 15897:15897 <> m:111
+R15938:15943 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15931:15933 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15902:15912 Kernel.DiscreteTopology <> is_triangle def
+R15915:15927 Kernel.VMState <> module_region proj
+R15929:15929 Kernel.DiscreteTopology <> m:111 var
+R15934:15937 Coq.Init.Datatypes <> true constr
+R15996:16001 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15959:15961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R15944:15956 Kernel.VMState <> module_region proj
+R15958:15958 Kernel.DiscreteTopology <> m:111 var
+R15962:15977 Kernel.VMState <> normalize_region def
+R15980:15992 Kernel.VMState <> module_region proj
+R15994:15994 Kernel.DiscreteTopology <> m:111 var
+R16025:16027 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16002:16007 Coq.Init.Datatypes <> length def
+R16010:16021 Kernel.DiscreteTopology <> module_edges def
+R16023:16023 Kernel.DiscreteTopology <> m:111 var
+R16070:16080 Kernel.DiscreteTopology <> is_triangle def
+R16100:16111 Kernel.DiscreteTopology <> module_edges def
+R16122:16131 Coq.Arith.PeanoNat Nat eqb_eq thm
+R16122:16131 Coq.Arith.PeanoNat Nat eqb_eq thm
+R16270:16272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16246:16251 Coq.Init.Datatypes <> length def
+R16254:16266 Kernel.VMState <> module_region proj
+R16270:16272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R16246:16251 Coq.Init.Datatypes <> length def
+R16254:16266 Kernel.VMState <> module_region proj
+R16363:16375 Kernel.VMState <> module_region proj
+R16363:16375 Kernel.VMState <> module_region proj
+R16748:16777 Kernel.DiscreteTopology <> region_edges_internal_length_3 thm
+R16748:16777 Kernel.DiscreteTopology <> region_edges_internal_length_3 thm
+prf 16939:16961 <> In_implies_graph_lookup
+binder 16972:16972 <> g:112
+binder 16974:16976 <> mid:113
+binder 16978:16978 <> m:114
+R17009:17014 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16983:16984 Coq.Lists.List <> In def
+R16996:17005 Kernel.VMState <> pg_modules proj
+R17007:17007 Kernel.DiscreteTopology <> g:112 var
+R16986:16986 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16990:16991 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16993:16993 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R16987:16989 Kernel.DiscreteTopology <> mid:113 var
+R16992:16992 Kernel.DiscreteTopology <> m:114 var
+R17015:17021 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R17024:17025 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 17022:17023 <> m':115
+R17044:17046 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17026:17037 Kernel.VMState <> graph_lookup def
+R17039:17039 Kernel.DiscreteTopology <> g:112 var
+R17041:17043 Kernel.DiscreteTopology <> mid:113 var
+R17047:17050 Coq.Init.Datatypes <> Some constr
+R17052:17053 Kernel.DiscreteTopology <> m':115 var
+R17094:17105 Kernel.VMState <> graph_lookup def
+R17121:17130 Kernel.VMState <> pg_modules proj
+R17121:17130 Kernel.VMState <> pg_modules proj
+R17231:17237 Coq.Arith.PeanoNat Nat eqb def
+R17231:17237 Coq.Arith.PeanoNat Nat eqb def
+R17405:17416 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17405:17416 Coq.Arith.PeanoNat Nat eqb_refl thm
+R17405:17416 Coq.Arith.PeanoNat Nat eqb_refl thm
+prf 17753:17780 <> edge_face_incidence_equation
+binder 17791:17791 <> g:116
+R17822:17827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17796:17819 Kernel.DiscreteTopology <> well_formed_triangulated def
+R17821:17821 Kernel.DiscreteTopology <> g:116 var
+R17836:17838 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R17830:17832 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R17833:17833 Kernel.DiscreteTopology <> F def
+R17835:17835 Kernel.DiscreteTopology <> g:116 var
+R17846:17848 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R17840:17842 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R17843:17843 Kernel.DiscreteTopology <> I def
+R17845:17845 Kernel.DiscreteTopology <> g:116 var
+R17849:17849 Kernel.DiscreteTopology <> B def
+R17851:17851 Kernel.DiscreteTopology <> g:116 var
+R17891:17914 Kernel.DiscreteTopology <> well_formed_triangulated def
+R17917:17946 Kernel.DiscreteTopology <> all_modules_are_triangles_list def
+R17949:17975 Kernel.DiscreteTopology <> all_regions_normalized_list def
+R18536:18538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18495:18520 Kernel.DiscreteTopology <> count_all_edges_in_modules def
+R18523:18532 Kernel.VMState <> pg_modules proj
+R18541:18543 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18544:18544 Kernel.DiscreteTopology <> F def
+R18536:18538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18495:18520 Kernel.DiscreteTopology <> count_all_edges_in_modules def
+R18523:18532 Kernel.VMState <> pg_modules proj
+R18541:18543 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18544:18544 Kernel.DiscreteTopology <> F def
+R18570:18570 Kernel.DiscreteTopology <> F def
+binder 18654:18660 <> modules:117
+R18669:18669 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18815:18825 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 18677:18679 <> mid:118
+binder 18681:18681 <> m:119
+R18703:18714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18684:18685 Coq.Lists.List <> In def
+R18696:18702 Kernel.DiscreteTopology <> modules:117 var
+R18687:18687 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R18691:18692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R18694:18694 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R18688:18690 Kernel.DiscreteTopology <> mid:118 var
+R18693:18693 Kernel.DiscreteTopology <> m:119 var
+R18751:18762 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18744:18746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18715:18725 Kernel.DiscreteTopology <> is_triangle def
+R18728:18740 Kernel.VMState <> module_region proj
+R18742:18742 Kernel.DiscreteTopology <> m:119 var
+R18747:18750 Coq.Init.Datatypes <> true constr
+R18778:18780 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18763:18775 Kernel.VMState <> module_region proj
+R18777:18777 Kernel.DiscreteTopology <> m:119 var
+R18781:18796 Kernel.VMState <> normalize_region def
+R18799:18811 Kernel.VMState <> module_region proj
+R18813:18813 Kernel.DiscreteTopology <> m:119 var
+R18860:18862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18826:18851 Kernel.DiscreteTopology <> count_all_edges_in_modules def
+R18853:18859 Kernel.DiscreteTopology <> modules:117 var
+R18864:18866 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18867:18872 Coq.Init.Datatypes <> length def
+R18874:18880 Kernel.DiscreteTopology <> modules:117 var
+binder 18654:18660 <> modules:120
+R18669:18669 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18815:18825 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 18677:18679 <> mid:121
+binder 18681:18681 <> m:122
+R18703:18714 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18684:18685 Coq.Lists.List <> In def
+R18696:18702 Kernel.DiscreteTopology <> modules:120 var
+R18687:18687 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R18691:18692 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R18694:18694 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R18688:18690 Kernel.DiscreteTopology <> mid:121 var
+R18693:18693 Kernel.DiscreteTopology <> m:122 var
+R18751:18762 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R18744:18746 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18715:18725 Kernel.DiscreteTopology <> is_triangle def
+R18728:18740 Kernel.VMState <> module_region proj
+R18742:18742 Kernel.DiscreteTopology <> m:122 var
+R18747:18750 Coq.Init.Datatypes <> true constr
+R18778:18780 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18763:18775 Kernel.VMState <> module_region proj
+R18777:18777 Kernel.DiscreteTopology <> m:122 var
+R18781:18796 Kernel.VMState <> normalize_region def
+R18799:18811 Kernel.VMState <> module_region proj
+R18813:18813 Kernel.DiscreteTopology <> m:122 var
+R18860:18862 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18826:18851 Kernel.DiscreteTopology <> count_all_edges_in_modules def
+R18853:18859 Kernel.DiscreteTopology <> modules:120 var
+R18864:18866 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R18867:18872 Coq.Init.Datatypes <> length def
+R18874:18880 Kernel.DiscreteTopology <> modules:120 var
+R19067:19069 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19038:19048 Kernel.DiscreteTopology <> is_triangle def
+R19051:19063 Kernel.VMState <> module_region proj
+R19070:19073 Coq.Init.Datatypes <> true constr
+R19067:19069 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19038:19048 Kernel.DiscreteTopology <> is_triangle def
+R19051:19063 Kernel.VMState <> module_region proj
+R19070:19073 Coq.Init.Datatypes <> true constr
+R19200:19202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19185:19197 Kernel.VMState <> module_region proj
+R19203:19218 Kernel.VMState <> normalize_region def
+R19221:19233 Kernel.VMState <> module_region proj
+R19200:19202 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19185:19197 Kernel.VMState <> module_region proj
+R19203:19218 Kernel.VMState <> normalize_region def
+R19221:19233 Kernel.VMState <> module_region proj
+R19365:19367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19342:19347 Coq.Init.Datatypes <> length def
+R19350:19361 Kernel.DiscreteTopology <> module_edges def
+R19365:19367 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19342:19347 Coq.Init.Datatypes <> length def
+R19350:19361 Kernel.DiscreteTopology <> module_edges def
+R19388:19407 Kernel.DiscreteTopology <> triangle_has_3_edges thm
+R19388:19407 Kernel.DiscreteTopology <> triangle_has_3_edges thm
+R19498:19500 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19467:19492 Kernel.DiscreteTopology <> count_all_edges_in_modules def
+R19502:19504 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R19505:19510 Coq.Init.Datatypes <> length def
+R19498:19500 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19467:19492 Kernel.DiscreteTopology <> count_all_edges_in_modules def
+R19502:19504 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R19505:19510 Coq.Init.Datatypes <> length def
+prf 21515:21550 <> triangulation_combinatorial_identity
+binder 21561:21561 <> g:123
+R21592:21597 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21566:21589 Kernel.DiscreteTopology <> well_formed_triangulated def
+R21591:21591 Kernel.DiscreteTopology <> g:123 var
+R21606:21608 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21600:21602 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21603:21603 Kernel.DiscreteTopology <> V def
+R21605:21605 Kernel.DiscreteTopology <> g:123 var
+R21616:21618 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R21610:21612 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21613:21613 Kernel.DiscreteTopology <> E def
+R21615:21615 Kernel.DiscreteTopology <> g:123 var
+R21620:21622 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R21623:21623 Kernel.DiscreteTopology <> F def
+R21625:21625 Kernel.DiscreteTopology <> g:123 var
+R21723:21725 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21720:21720 Kernel.DiscreteTopology <> E def
+R21730:21732 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21727:21727 Kernel.DiscreteTopology <> I def
+R21733:21733 Kernel.DiscreteTopology <> B def
+R21723:21725 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R21720:21720 Kernel.DiscreteTopology <> E def
+R21730:21732 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R21727:21727 Kernel.DiscreteTopology <> I def
+R21733:21733 Kernel.DiscreteTopology <> B def
+R21758:21794 Kernel.DiscreteTopology <> total_edges_eq_interior_plus_boundary thm
+R21758:21794 Kernel.DiscreteTopology <> total_edges_eq_interior_plus_boundary thm
+R21851:21874 Kernel.DiscreteTopology <> well_formed_triangulated def
+R22036:22064 Kernel.DiscreteTopology <> satisfies_edge_face_incidence def
+R22122:22124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22119:22119 Kernel.DiscreteTopology <> I def
+R22133:22135 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R22127:22129 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22130:22130 Kernel.DiscreteTopology <> F def
+R22136:22136 Kernel.DiscreteTopology <> E def
+R22122:22124 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22119:22119 Kernel.DiscreteTopology <> I def
+R22133:22135 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R22127:22129 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22130:22130 Kernel.DiscreteTopology <> F def
+R22136:22136 Kernel.DiscreteTopology <> E def
+R22325:22327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22319:22321 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22322:22322 Kernel.DiscreteTopology <> F def
+R22331:22333 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22328:22328 Kernel.DiscreteTopology <> I def
+R22334:22334 Kernel.DiscreteTopology <> E def
+R22325:22327 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22319:22321 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22322:22322 Kernel.DiscreteTopology <> F def
+R22331:22333 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R22328:22328 Kernel.DiscreteTopology <> I def
+R22334:22334 Kernel.DiscreteTopology <> E def
+R22577:22580 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R22571:22573 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22574:22574 Kernel.DiscreteTopology <> F def
+R22581:22581 Kernel.DiscreteTopology <> E def
+R22577:22580 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R22571:22573 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22574:22574 Kernel.DiscreteTopology <> F def
+R22581:22581 Kernel.DiscreteTopology <> E def
+R22688:22690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22685:22685 Kernel.DiscreteTopology <> B def
+R22699:22701 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R22693:22695 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22696:22696 Kernel.DiscreteTopology <> E def
+R22703:22705 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22706:22706 Kernel.DiscreteTopology <> F def
+R22688:22690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R22685:22685 Kernel.DiscreteTopology <> B def
+R22699:22701 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R22693:22695 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22696:22696 Kernel.DiscreteTopology <> E def
+R22703:22705 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22706:22706 Kernel.DiscreteTopology <> F def
+R22892:22895 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R22886:22888 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22889:22889 Kernel.DiscreteTopology <> E def
+R22897:22899 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22900:22900 Kernel.DiscreteTopology <> F def
+R22892:22895 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R22886:22888 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22889:22889 Kernel.DiscreteTopology <> E def
+R22897:22899 Coq.Init.Peano <> ::nat_scope:x_'*'_x not
+R22900:22900 Kernel.DiscreteTopology <> F def
+R23104:23136 Kernel.DiscreteTopology <> satisfies_boundary_euler_relation def

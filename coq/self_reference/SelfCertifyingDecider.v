@@ -232,16 +232,11 @@ Qed.
 Definition bool_oracle (safe : nat -> bool) : SafetyOracle :=
   fun _ t => safe t.
 
-Lemma bool_oracle_sound :
-  forall (safe : nat -> bool),
-    oracle_sound (bool_oracle safe) (fun s => safe s = true).
-Proof.
-  intros safe s t Horacle _.
-  unfold bool_oracle in Horacle.
-  exact Horacle.
-Qed.
-
-(** A bool_oracle decider is safe for any boolean safety function. *)
+(** A bool_oracle decider is safe for any boolean safety function.
+    The previous [bool_oracle_sound] helper has been inlined here: the
+    oracle-soundness obligation for [bool_oracle safe] reduces (after
+    unfolding [bool_oracle]) to projecting the oracle hypothesis, which
+    we supply directly. *)
 Theorem bool_decider_safe :
   forall (ts : TransitionSystem) (safe : nat -> bool) (util n : nat)
          (s0 : DeciderState),
@@ -251,7 +246,7 @@ Proof.
   intros ts safe util n s0 H.
   apply (decider_safety_all_steps ts (bool_oracle safe) util
            (fun s => safe s = true)
-           (bool_oracle_sound safe) n s0 H).
+           (fun s t Horacle _ => Horacle) n s0 H).
 Qed.
 
 (* *)

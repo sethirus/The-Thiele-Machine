@@ -73,17 +73,11 @@ Definition decode (ch : ReceiptChannel) (tr : Trace) : list (list nat) :=
 Definition decodes_to (ch : ReceiptChannel) (tr : Trace) (xs : list (list nat)) : Prop :=
   decode ch tr = xs.
 
-(** REFLEXIVITY: Decoder always produces its own output
-
-    Trivial but important: decode(ch, tr) decodes to itself. This establishes
-    that decoding is deterministic and well-defined. *)
-(** HELPER: Reflexivity/transitivity/symmetry property *)
-(** HELPER: Reflexivity/transitivity/symmetry property *)
-Lemma decodes_to_refl :
-  forall ch tr, decodes_to ch tr (decode ch tr).
-Proof.
-  intros; unfold decodes_to; reflexivity.
-Qed.
+(** Previously: [decodes_to_refl] asserted [decodes_to ch tr (decode ch tr)].
+    Since [decodes_to ch tr xs] is defined as [decode ch tr = xs], the
+    claim reduces to [decode ch tr = decode ch tr] and discharges by
+    [reflexivity].  No caller depended on the lemma; the reflexivity
+    fact is available at any site by [unfold decodes_to; reflexivity]. *)
 
 (**
     FRAMEWORK NOTES

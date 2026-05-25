@@ -222,10 +222,13 @@ Qed.
 Definition obs_equiv (P Q : Prog) : Prop :=
   snd (run_closed P) = snd (run_closed Q).
 
-(** Reflexivity: every program is observationally equivalent to itself. *)
-(* definitional lemma: equality is reflexive. *)
-Lemma obs_equiv_refl : forall P, obs_equiv P P.
-Proof. intro P. reflexivity. Qed.
+(** Note: reflexivity of [obs_equiv] used to be exposed as a named
+    [obs_equiv_refl] lemma; it had no callers in this file or
+    downstream (the other [obs_equiv_refl] occurrences are over
+    different, locally defined [obs_equiv] relations in
+    [ThieleMachineComplete.v] and [ThieleManifoldBridge.v]). The
+    underlying [eq] is reflexive without help, so any future caller can
+    close [obs_equiv P P] with [reflexivity] in place. *)
 
 (** Symmetry. *)
 (* definitional lemma: equality is symmetric. *)

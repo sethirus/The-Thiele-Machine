@@ -86,16 +86,13 @@ Definition cm_run (M : ClassicalMachine) (s0 : VMState) : VMState :=
 Definition classical_to_thiele (prog : list vm_instruction) : list vm_instruction :=
   prog.
 
-(** D2_embedding_is_identity: The embedding is definitionally the identity.
-    Running classical_to_thiele(prog) is the same as running prog. *)
-(* DEFINITIONAL HELPER: classical_to_thiele is the identity — unfolding produces reflexivity. *)
-Lemma D2_embedding_is_identity :
-  forall (prog : list vm_instruction) (s0 : VMState),
-    acm_run thiele_cert_machine (classical_to_thiele prog) s0 =
-    acm_run thiele_cert_machine prog s0.
-Proof.
-  intros. unfold classical_to_thiele. reflexivity.
-Qed.
+(** Previously: [D2_embedding_is_identity] asserted that running
+    [classical_to_thiele prog] equals running [prog].  Since
+    [classical_to_thiele] is the identity by definition, both sides are
+    syntactically equal after unfolding.  No file referenced the lemma;
+    the identity is available by [unfold classical_to_thiele; reflexivity]
+    at any use site.  See [D2_faithfulness] below for the substantive
+    content of D2. *)
 
 (** D2_faithfulness: The embedding is faithful under shadow_proj.
     Running a classical program on the Thiele VM:
@@ -128,17 +125,14 @@ Proof.
     exact (D3_conservativity prog s0 Hclassical).
 Qed.
 
-(** D2_classical_machines_are_thiele: Any ClassicalMachine is a valid
-    Thiele program.  The embedding gives a semantic inclusion:
-    classical ⊆ Thiele. *)
-(* DEFINITIONAL HELPER: cm_run unfolds to acm_run by construction — identity by reflexivity. *)
-Theorem D2_classical_machines_are_thiele :
-  forall (M : ClassicalMachine) (s0 : VMState),
-    cm_run M s0 =
-    acm_run thiele_cert_machine (classical_to_thiele (cm_program M)) s0.
-Proof.
-  intros M s0. unfold cm_run, classical_to_thiele. reflexivity.
-Qed.
+(** Previously: [D2_classical_machines_are_thiele] asserted that
+    [cm_run M s0 = acm_run thiele_cert_machine (classical_to_thiele
+    (cm_program M)) s0].  Both sides reduce to the same [acm_run] application
+    after unfolding [cm_run] and [classical_to_thiele], so the claim had no
+    proof content.  No file referenced the lemma; the inclusion of
+    [ClassicalMachine] runs into the Thiele VM is witnessed by the
+    definition of [cm_run] itself.  See [D2_faithfulness] for the
+    substantive embedding content. *)
 
 (**
 

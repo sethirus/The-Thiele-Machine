@@ -293,26 +293,9 @@ Proof.
   - exact forget_surjective.
 Qed.
 
-(** Bridge: [forget] and [shadow_proj] agree on shared fields. *)
-
-(** [shadow_proj_and_forget_agree]: the two forgetful maps, [forget] in this
-    file and [shadow_proj] in [ShadowProjection.v], agree on
-    all shared fields (pc, mu, regs, mem).  shadow_proj additionally retains
-    vm_err and vm_certified, which TMSnapshot does not track.
-
-    This lemma is bookkeeping: it confirms that forget is the restriction of
-    shadow_proj to the four tape-equivalent fields, so the two maps are
-    mutually consistent.  A reviewer asking "are these the same map?" gets
-    a machine-checked answer here.
-
-    Proof: both sides reduce to the same record via reflexivity. *)
-(* Definitional check: unfolding both maps produces reflexivity. *)
-Lemma shadow_proj_and_forget_agree :
-  forall s : VMState,
-    forget s = {| tms_pc   := (shadow_proj s).(cs_pc);
-                  tms_mu   := (shadow_proj s).(cs_mu);
-                  tms_regs := (shadow_proj s).(cs_regs);
-                  tms_mem  := (shadow_proj s).(cs_mem) |}.
-Proof.
-  intro s. unfold forget, shadow_proj. reflexivity.
-Qed.
+(** Note: the previous bookkeeping lemma [shadow_proj_and_forget_agree]
+    (which stated that [forget] and the four shared fields of
+    [shadow_proj] yield the same [TMSnapshot] record) was deleted: both
+    sides reduce to the same record by [unfold forget, shadow_proj;
+    reflexivity], it had no proof callers, and the equality can be
+    re-established inline by any future reviewer who asks. *)

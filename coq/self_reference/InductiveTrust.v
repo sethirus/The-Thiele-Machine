@@ -85,20 +85,12 @@ Proof.
   repeat split; assumption.
 Qed.
 
-(** Converse: anything accepted by the lifted predicate came from a safe
-    predecessor state.  This shows the functor neither adds nor drops safety. *)
-Theorem safety_functor_complete :
-  forall (A       : StateSpace)
-         (phi     : nat -> nat)
-         (new_sz  : nat)
-         (t       : nat),
-    (lift_safety A phi new_sz).(ss_safe) t ->
-    exists s, s < A.(ss_size) /\ phi s = t /\ A.(ss_safe) s.
-Proof.
-  intros A phi new_sz t H.
-  unfold lift_safety in H; simpl in H.
-  exact H.
-Qed.
+(** Note: the safety-functor completeness statement (anything accepted
+    by the lift came from a safe predecessor state) was removed: the
+    `(lift_safety A phi new_sz).(ss_safe) t` hypothesis is definitionally
+    the same existential as the conclusion, so the lemma had no proof
+    content. Any future call site can inline `simpl` or `cbv` and use the
+    hypothesis directly. *)
 
 (* *)
 (** ** Step 2 — μ-Conservation of Trust

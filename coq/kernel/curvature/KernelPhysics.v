@@ -70,13 +70,12 @@ Definition ObservableSignature (s : VMState) : list (option (list nat)) * nat :=
 Definition obs_equiv (s1 s2 : VMState) : Prop :=
   forall mid : nat, Observable s1 mid = Observable s2 mid.
 
-(* DEFINITIONAL LEMMA *)
-(** obs_equiv_refl: reflexivity. Every state is equivalent to itself.
-    Proof: trivial — same state, same lookup. reflexivity kills it. *)
-Theorem obs_equiv_refl : forall s, obs_equiv s s.
-Proof.
-  intros s mid. reflexivity.
-Qed.
+(** Reflexivity of [obs_equiv] was carried here as a named theorem
+    [obs_equiv_refl] with a one-line [reflexivity] proof. Its only
+    caller (the [Equivalence event_equiv] instance in
+    SpacetimeEmergence.v) now discharges that field with the inline
+    [fun s mid => eq_refl] term. There is no other downstream
+    dependency on the name. *)
 
 (** obs_equiv_sym: symmetry. If s1 looks like s2 to every observer, s2 looks like s1. *)
 Theorem obs_equiv_sym : forall s1 s2, obs_equiv s1 s2 -> obs_equiv s2 s1.

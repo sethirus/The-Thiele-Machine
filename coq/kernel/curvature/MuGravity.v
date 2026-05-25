@@ -419,35 +419,21 @@ Proof.
   exists (ricci_curvature s m). reflexivity.
 Qed.
 
-(** Flat geometry implies zero curvature.
-
-  Gives the expected zero-defect boundary condition.
-  Compatibility checks between flatness witness and Ricci representative.
-
-  Provide Hflat with nonzero ricci_curvature. *)
-Lemma flat_implies_zero_curvature : forall s m,
-  angle_defect_curvature s m = 0%R ->
-  ricci_curvature s m = 0%R.
-Proof.
-  intros s m Hflat.
-  unfold ricci_curvature.
-  exact Hflat.
-Qed.
-
 (** A local flatness witness. *)
 Definition flat_at_module (s : VMState) (m : ModuleID) : Prop :=
   angle_defect_curvature s m = 0%R.
 
-(** DEFINITIONAL HELPER *)
-Lemma flat_at_module_zero_curvature : forall s m,
-  flat_at_module s m ->
-  ricci_curvature s m = 0%R.
-Proof.
-  intros s m Hflat.
-  unfold flat_at_module in Hflat.
-  apply flat_implies_zero_curvature.
-  exact Hflat.
-Qed.
+(** Flat geometry implies zero Ricci curvature.
+
+    In the kernel formalisation [ricci_curvature] is defined as a thin
+    re-naming of [angle_defect_curvature], so any goal of the form
+    [flat_at_module s m -> ricci_curvature s m = 0] discharges by
+    [intros Hflat; unfold flat_at_module in Hflat; unfold ricci_curvature;
+    exact Hflat] inline at the call site. The previous standalone lemma
+    [flat_at_module_zero_curvature] had no callers and its proof was
+    that exact unfold chain. When [ricci_curvature] is later promoted to
+    a proper Ricci sum (not just the angle-defect re-export), this
+    relation becomes a real theorem and should be reintroduced then. *)
 
 (** Bridge calibration predicate.
 
@@ -591,18 +577,13 @@ Qed.
 Definition einstein_tensor (s : VMState) (m : ModuleID) : R :=
   ricci_curvature s m - (1/2) * scalar_curvature s m * metric_volume s m.
 
-(* DEFINITIONAL HELPER *)
-(** Einstein tensor normal form under current scalar/volume conventions. *)
-Lemma einstein_tensor_normal_form : forall s m,
-  einstein_tensor s m = (1/2 * ricci_curvature s m)%R.
-Proof.
-  intros s m.
-  unfold einstein_tensor, scalar_curvature, metric_volume.
-  lra.
-Qed.
-
 (** Bridge lemma: once local Ricci-stress proportionality is established,
     the Einstein equation follows algebraically.
+
+    The previously-named helper [einstein_tensor_normal_form]
+    (which rewrote [einstein_tensor s m] to [1/2 * ricci_curvature s m]
+    via [lra] on the [scalar_curvature]/[metric_volume] conventions)
+    is inlined into this proof; that was its only caller.
 
     DEPENDENCY:
     curvature_stress_balance -> einstein_balance_implies_tensor_relation ->
@@ -615,7 +596,11 @@ Lemma einstein_balance_implies_tensor_relation : forall s m,
 Proof.
   intros s m Hwf Hm Hbalance.
   pose proof (curvature_laplacian_relation s m Hwf Hm) as Hconn.
-  rewrite einstein_tensor_normal_form.
+  (* Inlined normal form: under the kernel's scalar/volume conventions,
+     [einstein_tensor s m] reduces to [1/2 * ricci_curvature s m]. *)
+  assert (Hnf : einstein_tensor s m = (1/2 * ricci_curvature s m)%R).
+  { unfold einstein_tensor, scalar_curvature, metric_volume. lra. }
+  rewrite Hnf.
   rewrite Hbalance.
   lra.
 Qed.
@@ -677,15 +662,12 @@ Proof.
   reflexivity.
 Qed.
 
-(* DEFINITIONAL HELPER *)
-Lemma horizon_total_angle_defect_singleton : forall s m,
-  horizon_total_angle_defect s [m] = geometric_angle_defect s m.
-Proof.
-  intros s m.
-  unfold horizon_total_angle_defect.
-  simpl.
-  lra.
-Qed.
+(** The singleton-case lemma
+    [horizon_total_angle_defect_singleton]
+    ([horizon_total_angle_defect s [m] = geometric_angle_defect s m])
+    was inlined-and-deleted here; it had no callers, and its proof was
+    a single [simpl] + [lra] over the [fold_right] of a length-one
+    list. *)
 
 
 (** Entropy from geometric defect (Landauer-normalized).
@@ -2000,14 +1982,13 @@ Proof.
   reflexivity.
 Qed.
 
-(* DEFINITIONAL HELPER *)
-Lemma calibration_gap_after_as_before_plus_delta : forall s i m,
-  calibration_gap (vm_apply s i) m = (calibration_gap s m + calibration_gap_delta s i m)%R.
-Proof.
-  intros s i m.
-  unfold calibration_gap_delta, calibration_gap.
-  lra.
-Qed.
+(** The named rewrite
+    [calibration_gap_after_as_before_plus_delta] — which factored
+    [calibration_gap (vm_apply s i) m] as [calibration_gap s m +
+    calibration_gap_delta s i m] by unfolding [calibration_gap_delta]
+    — was inlined-and-deleted here. Its only consumer was
+    [calibration_residual_strict_descent_from_semantic_gap_window]
+    below, which now performs the same rewrite inline. *)
 
 Lemma abs_strict_descent_by_delta_window_pos : forall r delta,
   (0 < r)%R ->
@@ -2042,7 +2023,13 @@ Proof.
   unfold strict_descent_at_step.
   rewrite !calibration_residual_as_gap_abs.
   unfold calibration_gap_delta in Hdelta.
-  rewrite calibration_gap_after_as_before_plus_delta.
+  (* Inlined: calibration_gap (vm_apply s i) m
+     = calibration_gap s m + calibration_gap_delta s i m.
+     Unfolds straight through the [calibration_gap_delta] definition. *)
+  assert (Hsplit : calibration_gap (vm_apply s i) m =
+                   (calibration_gap s m + calibration_gap_delta s i m)%R).
+  { unfold calibration_gap_delta, calibration_gap. lra. }
+  rewrite Hsplit.
   apply abs_strict_descent_by_delta_window_pos; assumption.
 Qed.
 

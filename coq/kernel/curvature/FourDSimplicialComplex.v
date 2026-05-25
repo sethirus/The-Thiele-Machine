@@ -303,35 +303,11 @@ Definition build_4d_complex_from_graph (g : PartitionGraph) : SimplicialComplex4
      sc4d_4simplices := simplices
   |}.
 
-(** Small sanity checks for the Euler-count definition. *)
-
-(* DEFINITIONAL HELPER *)
-(** Empty complex has χ = 0 *)
-Lemma empty_4d_complex_euler_zero :
-  euler_characteristic_4d {| sc4d_vertices := [];
-                              sc4d_edges := [];
-                              sc4d_faces := [];
-                              sc4d_cells := [];
-                              sc4d_4simplices := [] |} = 0%Z.
-Proof.
-  unfold euler_characteristic_4d.
-  simpl.
-  reflexivity.
-Qed.
-
-(* DEFINITIONAL HELPER *)
-(** Single vertex has χ = 1 *)
-Lemma single_vertex_euler_one :
-  euler_characteristic_4d {| sc4d_vertices := [0];
-                              sc4d_edges := [];
-                              sc4d_faces := [];
-                              sc4d_cells := [];
-                              sc4d_4simplices := [] |} = 1%Z.
-Proof.
-  unfold euler_characteristic_4d.
-  simpl.
-  reflexivity.
-Qed.
+(** The two boundary-case Euler sanity lemmas (empty 4-complex => χ = 0,
+    single-vertex 4-complex => χ = 1) lived here but were never used in
+    any downstream proof. They computed by [simpl] on a fully-explicit
+    record, so they carried no mathematical content beyond unfolding
+    [euler_characteristic_4d] on a literal. Removed. *)
 
 (** Arity theorems for the extraction functions. *)
 

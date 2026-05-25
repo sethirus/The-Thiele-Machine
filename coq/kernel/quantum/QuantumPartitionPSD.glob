@@ -1,617 +1,663 @@
-DIGEST 702f2a657d345c067779d4c8f8860859
+DIGEST 93a60f521941e22d54bec1084965bc28
 FKernel.QuantumPartitionPSD
-R792:798 Kernel.VMState <> <> lib
-R800:805 Kernel.VMStep <> <> lib
-R835:849 Kernel.SimulationProof <> <> lib
-R879:893 Kernel.NPAMomentMatrix <> <> lib
-R923:937 Kernel.ConstructivePSD <> <> lib
-R967:987 Kernel.MuLedgerQuantumBridge <> <> lib
-R1017:1030 Kernel.CHSHExtraction <> <> lib
-R1060:1075 Kernel.TsirelsonGeneral <> <> lib
-R1094:1108 Coq.Reals.Reals <> <> lib
-R1126:1142 Coq.micromega.Lra <> <> lib
-R1160:1178 Coq.micromega.Psatz <> <> lib
-R1196:1213 Coq.Arith.PeanoNat <> <> lib
-R1231:1242 Coq.Init.Nat <> <> lib
-R1260:1279 Coq.NArith.BinNatDef <> <> lib
-prf 1475:1493 <> npa_quad5_test_col0
-R1524:1524 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 1506:1508 <> e00:1
-binder 1510:1512 <> e01:2
-binder 1514:1516 <> e10:3
-binder 1518:1520 <> e11:4
-R1538:1555 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R1558:1570 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R1573:1589 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R1591:1593 Kernel.QuantumPartitionPSD <> e00:1 var
-R1595:1597 Kernel.QuantumPartitionPSD <> e01:2 var
-R1599:1601 Kernel.QuantumPartitionPSD <> e10:3 var
-R1603:1605 Kernel.QuantumPartitionPSD <> e11:4 var
-binder 1533:1533 <> M:5
-binder 1634:1634 <> i:6
-R1649:1657 Coq.Init.Specif <> proj1_sig def
-R1660:1669 Coq.Vectors.Fin <> to_nat def
-R1671:1671 Kernel.QuantumPartitionPSD <> i:6 var
-R1694:1694 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R1695:1697 Kernel.QuantumPartitionPSD <> e00:1 var
-R1714:1714 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R1715:1717 Kernel.QuantumPartitionPSD <> e10:3 var
-R1622:1625 Kernel.ConstructivePSD <> Vec5 def
-binder 1618:1618 <> v:7
-R1775:1777 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1766:1770 Kernel.ConstructivePSD <> quad5 def
-R1772:1772 Kernel.QuantumPartitionPSD <> M:5 var
-R1774:1774 Kernel.QuantumPartitionPSD <> v:7 var
-R1791:1793 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R1779:1781 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R1785:1787 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1782:1784 Kernel.QuantumPartitionPSD <> e00:1 var
-R1788:1790 Kernel.QuantumPartitionPSD <> e00:1 var
-R1797:1799 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R1794:1796 Kernel.QuantumPartitionPSD <> e10:3 var
-R1800:1802 Kernel.QuantumPartitionPSD <> e10:3 var
-R1847:1851 Kernel.ConstructivePSD <> quad5 def
-R1854:1861 Kernel.ConstructivePSD <> sum_fin5 def
-R1864:1881 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R1884:1896 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R1899:1915 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-prf 2047:2065 <> npa_quad5_test_col1
-R2096:2096 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2078:2080 <> e00:8
-binder 2082:2084 <> e01:9
-binder 2086:2088 <> e10:10
-binder 2090:2092 <> e11:11
-R2110:2127 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R2130:2142 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R2145:2161 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R2163:2165 Kernel.QuantumPartitionPSD <> e00:8 var
-R2167:2169 Kernel.QuantumPartitionPSD <> e01:9 var
-R2171:2173 Kernel.QuantumPartitionPSD <> e10:10 var
-R2175:2177 Kernel.QuantumPartitionPSD <> e11:11 var
-binder 2105:2105 <> M:12
-binder 2206:2206 <> i:13
-R2221:2229 Coq.Init.Specif <> proj1_sig def
-R2232:2241 Coq.Vectors.Fin <> to_nat def
-R2243:2243 Kernel.QuantumPartitionPSD <> i:13 var
-R2266:2266 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R2267:2269 Kernel.QuantumPartitionPSD <> e01:9 var
-R2286:2286 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R2287:2289 Kernel.QuantumPartitionPSD <> e11:11 var
-R2194:2197 Kernel.ConstructivePSD <> Vec5 def
-binder 2190:2190 <> v:14
-R2347:2349 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2338:2342 Kernel.ConstructivePSD <> quad5 def
-R2344:2344 Kernel.QuantumPartitionPSD <> M:12 var
-R2346:2346 Kernel.QuantumPartitionPSD <> v:14 var
-R2363:2365 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R2351:2353 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R2357:2359 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2354:2356 Kernel.QuantumPartitionPSD <> e01:9 var
-R2360:2362 Kernel.QuantumPartitionPSD <> e01:9 var
-R2369:2371 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2366:2368 Kernel.QuantumPartitionPSD <> e11:11 var
-R2372:2374 Kernel.QuantumPartitionPSD <> e11:11 var
-R2419:2423 Kernel.ConstructivePSD <> quad5 def
-R2426:2433 Kernel.ConstructivePSD <> sum_fin5 def
-R2436:2453 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R2456:2468 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R2471:2487 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-prf 2723:2742 <> npa_quad5_test_schur
-R2775:2775 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2755:2757 <> e00:15
-binder 2759:2761 <> e01:16
-binder 2763:2765 <> e10:17
-binder 2767:2769 <> e11:18
-binder 2771:2771 <> t:19
-R2789:2806 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R2809:2821 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R2824:2840 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R2842:2844 Kernel.QuantumPartitionPSD <> e00:15 var
-R2846:2848 Kernel.QuantumPartitionPSD <> e01:16 var
-R2850:2852 Kernel.QuantumPartitionPSD <> e10:17 var
-R2854:2856 Kernel.QuantumPartitionPSD <> e11:18 var
-binder 2784:2784 <> M:20
-binder 2885:2885 <> i:21
-R2900:2908 Coq.Init.Specif <> proj1_sig def
-R2911:2920 Coq.Vectors.Fin <> to_nat def
-R2922:2922 Kernel.QuantumPartitionPSD <> i:21 var
-R2945:2946 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R2960:2960 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R2954:2956 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2950:2952 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2947:2949 Kernel.QuantumPartitionPSD <> e00:15 var
-R2953:2953 Kernel.QuantumPartitionPSD <> t:19 var
-R2957:2959 Kernel.QuantumPartitionPSD <> e01:16 var
-R2977:2978 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R2992:2992 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R2986:2988 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2982:2984 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2979:2981 Kernel.QuantumPartitionPSD <> e10:17 var
-R2985:2985 Kernel.QuantumPartitionPSD <> t:19 var
-R2989:2991 Kernel.QuantumPartitionPSD <> e11:18 var
-R3009:3009 Kernel.QuantumPartitionPSD <> t:19 var
-R2873:2876 Kernel.ConstructivePSD <> Vec5 def
-binder 2869:2869 <> v:22
-R3067:3073 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3058:3062 Kernel.ConstructivePSD <> quad5 def
-R3064:3064 Kernel.QuantumPartitionPSD <> M:20 var
-R3066:3066 Kernel.QuantumPartitionPSD <> v:22 var
-R3139:3146 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3168:3168 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3105:3111 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3101:3103 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3074:3074 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3096:3099 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3086:3088 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3076:3078 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3082:3082 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3079:3081 Kernel.QuantumPartitionPSD <> e00:15 var
-R3083:3085 Kernel.QuantumPartitionPSD <> e00:15 var
-R3092:3092 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3089:3091 Kernel.QuantumPartitionPSD <> e10:17 var
-R3093:3095 Kernel.QuantumPartitionPSD <> e10:17 var
-R3100:3100 Kernel.QuantumPartitionPSD <> t:19 var
-R3104:3104 Kernel.QuantumPartitionPSD <> t:19 var
-R3135:3137 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3113:3116 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3134:3134 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3124:3126 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3120:3120 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3117:3119 Kernel.QuantumPartitionPSD <> e00:15 var
-R3121:3123 Kernel.QuantumPartitionPSD <> e01:16 var
-R3130:3130 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3127:3129 Kernel.QuantumPartitionPSD <> e10:17 var
-R3131:3133 Kernel.QuantumPartitionPSD <> e11:18 var
-R3138:3138 Kernel.QuantumPartitionPSD <> t:19 var
-R3158:3160 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3148:3150 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3154:3154 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3151:3153 Kernel.QuantumPartitionPSD <> e01:16 var
-R3155:3157 Kernel.QuantumPartitionPSD <> e01:16 var
-R3164:3164 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3161:3163 Kernel.QuantumPartitionPSD <> e11:18 var
-R3165:3167 Kernel.QuantumPartitionPSD <> e11:18 var
-R3215:3219 Kernel.ConstructivePSD <> quad5 def
-R3222:3229 Kernel.ConstructivePSD <> sum_fin5 def
-R3232:3249 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R3252:3264 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R3267:3283 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-prf 3388:3421 <> npa_psd_implies_column_contractive
-R3452:3452 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3434:3436 <> e00:23
-binder 3438:3440 <> e01:24
-binder 3442:3444 <> e10:25
-binder 3446:3448 <> e11:26
-R3536:3543 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3459:3462 Kernel.ConstructivePSD <> PSD5 def
-R3465:3482 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R3485:3497 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R3500:3516 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R3518:3520 Kernel.QuantumPartitionPSD <> e00:23 var
-R3522:3524 Kernel.QuantumPartitionPSD <> e01:24 var
-R3526:3528 Kernel.QuantumPartitionPSD <> e10:25 var
-R3530:3532 Kernel.QuantumPartitionPSD <> e11:26 var
-R3544:3575 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
-R3577:3579 Kernel.QuantumPartitionPSD <> e00:23 var
-R3581:3583 Kernel.QuantumPartitionPSD <> e01:24 var
-R3585:3587 Kernel.QuantumPartitionPSD <> e10:25 var
-R3589:3591 Kernel.QuantumPartitionPSD <> e11:26 var
-R3641:3672 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
-R3804:3807 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R3792:3794 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3780:3782 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3786:3788 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3798:3800 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3804:3807 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R3792:3794 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3780:3782 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R3786:3788 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3798:3800 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-binder 3841:3841 <> i:27
-R3858:3866 Coq.Init.Specif <> proj1_sig def
-R3869:3878 Coq.Vectors.Fin <> to_nat def
-R3880:3880 Kernel.QuantumPartitionPSD <> i:27 var
-R3905:3905 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R3927:3927 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-binder 3841:3841 <> i:28
-R3858:3866 Coq.Init.Specif <> proj1_sig def
-R3869:3878 Coq.Vectors.Fin <> to_nat def
-R3880:3880 Kernel.QuantumPartitionPSD <> i:28 var
-R3905:3905 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R3927:3927 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R4001:4019 Kernel.QuantumPartitionPSD <> npa_quad5_test_col0 thm
-R4001:4019 Kernel.QuantumPartitionPSD <> npa_quad5_test_col0 thm
-R4001:4019 Kernel.QuantumPartitionPSD <> npa_quad5_test_col0 thm
-R4177:4180 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R4165:4167 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4153:4155 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4159:4161 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4171:4173 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4177:4180 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R4165:4167 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4153:4155 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4159:4161 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4171:4173 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-binder 4214:4214 <> i:29
-R4231:4239 Coq.Init.Specif <> proj1_sig def
-R4242:4251 Coq.Vectors.Fin <> to_nat def
-R4253:4253 Kernel.QuantumPartitionPSD <> i:29 var
-R4278:4278 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R4300:4300 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-binder 4214:4214 <> i:30
-R4231:4239 Coq.Init.Specif <> proj1_sig def
-R4242:4251 Coq.Vectors.Fin <> to_nat def
-R4253:4253 Kernel.QuantumPartitionPSD <> i:30 var
-R4278:4278 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R4300:4300 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R4374:4392 Kernel.QuantumPartitionPSD <> npa_quad5_test_col1 thm
-R4374:4392 Kernel.QuantumPartitionPSD <> npa_quad5_test_col1 thm
-R4374:4392 Kernel.QuantumPartitionPSD <> npa_quad5_test_col1 thm
-R4648:4651 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R4579:4598 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4522:4522 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4548:4552 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4578:4578 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4536:4538 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4524:4526 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4530:4532 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4542:4544 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4566:4568 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4554:4556 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4560:4562 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4572:4574 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4599:4599 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4621:4625 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4647:4647 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4609:4611 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4603:4605 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4615:4617 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4635:4637 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4629:4631 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4641:4643 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4648:4651 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R4579:4598 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4522:4522 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4548:4552 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4578:4578 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4536:4538 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4524:4526 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4530:4532 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4542:4544 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4566:4568 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4554:4556 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4560:4562 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4572:4574 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4599:4599 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4621:4625 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4647:4647 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4609:4611 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4603:4605 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4615:4617 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4635:4637 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4629:4631 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4641:4643 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4836:4836 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 4832:4832 <> t:31
-R4944:4947 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R4912:4921 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4943:4943 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4876:4884 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4872:4874 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4845:4845 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4867:4870 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4857:4859 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4847:4849 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4853:4853 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4863:4863 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4871:4871 Kernel.QuantumPartitionPSD <> t:31 var
-R4875:4875 Kernel.QuantumPartitionPSD <> t:31 var
-R4908:4910 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4886:4889 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4907:4907 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4897:4899 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4893:4893 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4903:4903 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4911:4911 Kernel.QuantumPartitionPSD <> t:31 var
-R4933:4935 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4923:4925 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4929:4929 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4939:4939 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4836:4836 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 4832:4832 <> t:32
-R4944:4947 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R4912:4921 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4943:4943 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4876:4884 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4872:4874 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4845:4845 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4867:4870 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4857:4859 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4847:4849 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4853:4853 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4863:4863 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4871:4871 Kernel.QuantumPartitionPSD <> t:32 var
-R4875:4875 Kernel.QuantumPartitionPSD <> t:32 var
-R4908:4910 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4886:4889 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4907:4907 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4897:4899 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4893:4893 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4903:4903 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4911:4911 Kernel.QuantumPartitionPSD <> t:32 var
-R4933:4935 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4923:4925 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4929:4929 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4939:4939 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-binder 5000:5000 <> i:33
-R5019:5027 Coq.Init.Specif <> proj1_sig def
-R5030:5039 Coq.Vectors.Fin <> to_nat def
-R5041:5041 Kernel.QuantumPartitionPSD <> i:33 var
-R5068:5069 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5083:5083 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5077:5079 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5073:5075 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5104:5105 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5119:5119 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5113:5115 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5109:5111 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-binder 5000:5000 <> i:34
-R5019:5027 Coq.Init.Specif <> proj1_sig def
-R5030:5039 Coq.Vectors.Fin <> to_nat def
-R5041:5041 Kernel.QuantumPartitionPSD <> i:34 var
-R5068:5069 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5083:5083 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5077:5079 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5073:5075 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5104:5105 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5119:5119 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5113:5115 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5109:5111 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5219:5238 Kernel.QuantumPartitionPSD <> npa_quad5_test_schur thm
-R5219:5238 Kernel.QuantumPartitionPSD <> npa_quad5_test_schur thm
-R5219:5238 Kernel.QuantumPartitionPSD <> npa_quad5_test_schur thm
-R5508:5508 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 5504:5504 <> t:35
-R5619:5622 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R5579:5587 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5517:5517 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5539:5548 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5529:5531 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5519:5521 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5525:5525 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5535:5535 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5575:5577 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5550:5553 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5574:5574 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5554:5555 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5573:5573 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5563:5565 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5559:5559 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5569:5569 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5578:5578 Kernel.QuantumPartitionPSD <> t:35 var
-R5615:5617 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5588:5588 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5610:5613 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5600:5602 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5590:5592 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5596:5596 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5606:5606 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5614:5614 Kernel.QuantumPartitionPSD <> t:35 var
-R5618:5618 Kernel.QuantumPartitionPSD <> t:35 var
-R5508:5508 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 5504:5504 <> t:36
-R5619:5622 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R5579:5587 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5517:5517 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5539:5548 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5529:5531 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5519:5521 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5525:5525 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5535:5535 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5575:5577 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5550:5553 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5574:5574 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5554:5555 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5573:5573 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R5563:5565 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5559:5559 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5569:5569 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5578:5578 Kernel.QuantumPartitionPSD <> t:36 var
-R5615:5617 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5588:5588 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5610:5613 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5600:5602 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5590:5592 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R5596:5596 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5606:5606 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5614:5614 Kernel.QuantumPartitionPSD <> t:36 var
-R5618:5618 Kernel.QuantumPartitionPSD <> t:36 var
-R5691:5719 Kernel.ConstructivePSD <> quadratic_nonneg_discriminant thm
-R5691:5719 Kernel.ConstructivePSD <> quadratic_nonneg_discriminant thm
-R5754:5757 Coq.Init.Logic <> conj constr
-R5764:5767 Coq.Init.Logic <> conj constr
-R5754:5757 Coq.Init.Logic <> conj constr
-R5764:5767 Coq.Init.Logic <> conj constr
-prf 5920:5949 <> npa_psd_iff_column_contractive
-R5980:5980 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 5962:5964 <> e00:37
-binder 5966:5968 <> e01:38
-binder 5970:5972 <> e10:39
-binder 5974:5976 <> e11:40
-R6064:6076 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5987:5990 Kernel.ConstructivePSD <> PSD5 def
-R5993:6010 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
-R6013:6025 Kernel.NPAMomentMatrix <> npa_to_matrix def
-R6028:6044 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R6046:6048 Kernel.QuantumPartitionPSD <> e00:37 var
-R6050:6052 Kernel.QuantumPartitionPSD <> e01:38 var
-R6054:6056 Kernel.QuantumPartitionPSD <> e10:39 var
-R6058:6060 Kernel.QuantumPartitionPSD <> e11:40 var
-R6077:6108 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
-R6110:6112 Kernel.QuantumPartitionPSD <> e00:37 var
-R6114:6116 Kernel.QuantumPartitionPSD <> e01:38 var
-R6118:6120 Kernel.QuantumPartitionPSD <> e10:39 var
-R6122:6124 Kernel.QuantumPartitionPSD <> e11:40 var
-R6179:6212 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
-R6179:6212 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
-R6254:6301 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
-R6254:6301 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
-prf 7931:7971 <> column_contractive_iff_quantum_realizable
-R8002:8002 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 7984:7986 <> e00:41
-binder 7988:7990 <> e01:42
-binder 7992:7994 <> e10:43
-binder 7996:7998 <> e11:44
-R8057:8069 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8009:8040 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
-R8042:8044 Kernel.QuantumPartitionPSD <> e00:41 var
-R8046:8048 Kernel.QuantumPartitionPSD <> e01:42 var
-R8050:8052 Kernel.QuantumPartitionPSD <> e10:43 var
-R8054:8056 Kernel.QuantumPartitionPSD <> e11:44 var
-R8070:8087 Kernel.NPAMomentMatrix <> quantum_realizable def
-R8090:8106 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R8108:8110 Kernel.QuantumPartitionPSD <> e00:41 var
-R8112:8114 Kernel.QuantumPartitionPSD <> e01:42 var
-R8116:8118 Kernel.QuantumPartitionPSD <> e10:43 var
-R8120:8122 Kernel.QuantumPartitionPSD <> e11:44 var
-R8168:8185 Kernel.NPAMomentMatrix <> quantum_realizable def
-R8249:8271 Kernel.NPAMomentMatrix <> npa_to_matrix_symmetric thm
-R8249:8271 Kernel.NPAMomentMatrix <> npa_to_matrix_symmetric thm
-R8286:8333 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
-R8286:8333 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
-R8387:8420 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
-R8387:8420 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
-prf 8576:8623 <> trace_column_contractive_iff_trace_quantum_model
-binder 8636:8639 <> fuel:45
-binder 8641:8645 <> trace:46
-binder 8647:8652 <> s_init:47
-R8701:8713 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R8659:8682 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
-R8684:8687 Kernel.QuantumPartitionPSD <> fuel:45 var
-R8689:8693 Kernel.QuantumPartitionPSD <> trace:46 var
-R8695:8700 Kernel.QuantumPartitionPSD <> s_init:47 var
-R8714:8731 Kernel.NPAMomentMatrix <> quantum_realizable def
-R8734:8756 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R8758:8761 Kernel.QuantumPartitionPSD <> fuel:45 var
-R8763:8767 Kernel.QuantumPartitionPSD <> trace:46 var
-R8769:8774 Kernel.QuantumPartitionPSD <> s_init:47 var
-R8822:8845 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
-R8848:8870 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R8887:8895 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R8887:8895 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R8931:8939 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R8931:8939 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R8975:8983 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R8975:8983 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R9019:9027 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R9019:9027 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R9057:9097 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
-R9057:9097 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
-prf 10022:10077 <> psplit_quantum_implementation_implies_column_contractive
-binder 10090:10093 <> fuel:48
-binder 10095:10099 <> trace:49
-binder 10101:10106 <> s_init:50
-R10162:10169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10113:10143 Kernel.MuLedgerQuantumBridge <> psplit_implements_quantum_state def
-R10145:10148 Kernel.QuantumPartitionPSD <> fuel:48 var
-R10150:10154 Kernel.QuantumPartitionPSD <> trace:49 var
-R10156:10161 Kernel.QuantumPartitionPSD <> s_init:50 var
-R10170:10193 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
-R10195:10198 Kernel.QuantumPartitionPSD <> fuel:48 var
-R10200:10204 Kernel.QuantumPartitionPSD <> trace:49 var
-R10206:10211 Kernel.QuantumPartitionPSD <> s_init:50 var
-R10261:10308 Kernel.QuantumPartitionPSD <> trace_column_contractive_iff_trace_quantum_model thm
-R10261:10308 Kernel.QuantumPartitionPSD <> trace_column_contractive_iff_trace_quantum_model thm
-prf 10536:10573 <> psplit_quantum_state_implies_tsirelson
-binder 10586:10589 <> fuel:51
-binder 10591:10595 <> trace:52
-binder 10597:10602 <> s_init:53
-R10658:10665 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10609:10639 Kernel.MuLedgerQuantumBridge <> psplit_implements_quantum_state def
-R10641:10644 Kernel.QuantumPartitionPSD <> fuel:51 var
-R10646:10650 Kernel.QuantumPartitionPSD <> trace:52 var
-R10652:10657 Kernel.QuantumPartitionPSD <> s_init:53 var
-R10818:10821 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10666:10666 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R10815:10817 Coq.Reals.RIneq <> ::R_scope:x_'²' not
-R10667:10670 Kernel.TsirelsonGeneral <> CHSH def
-R10679:10687 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R10689:10692 Kernel.QuantumPartitionPSD <> fuel:51 var
-R10694:10698 Kernel.QuantumPartitionPSD <> trace:52 var
-R10700:10705 Kernel.QuantumPartitionPSD <> s_init:53 var
-R10715:10723 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R10725:10728 Kernel.QuantumPartitionPSD <> fuel:51 var
-R10730:10734 Kernel.QuantumPartitionPSD <> trace:52 var
-R10736:10741 Kernel.QuantumPartitionPSD <> s_init:53 var
-R10751:10759 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R10761:10764 Kernel.QuantumPartitionPSD <> fuel:51 var
-R10766:10770 Kernel.QuantumPartitionPSD <> trace:52 var
-R10772:10777 Kernel.QuantumPartitionPSD <> s_init:53 var
-R10787:10795 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R10797:10800 Kernel.QuantumPartitionPSD <> fuel:51 var
-R10802:10806 Kernel.QuantumPartitionPSD <> trace:52 var
-R10808:10813 Kernel.QuantumPartitionPSD <> s_init:53 var
-R10873:10903 Kernel.MuLedgerQuantumBridge <> psplit_implements_quantum_state def
-R10922:10944 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
-R10962:11003 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
-R10962:11003 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
-prf 11503:11547 <> chsh_lassert_check_implies_quantum_realizable
-R11565:11571 Kernel.VMState <> VMState rec
-binder 11561:11561 <> s:54
-R11633:11640 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R11626:11628 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11579:11610 Kernel.VMStep VMStep column_contractive_check_witness def
-R11615:11624 Kernel.VMState <> vm_witness proj
-R11612:11612 Kernel.QuantumPartitionPSD <> s:54 var
-R11629:11632 Coq.Init.Datatypes <> true constr
-R11641:11658 Kernel.NPAMomentMatrix <> quantum_realizable def
-R11661:11683 Kernel.MuLedgerQuantumBridge <> state_zero_marginal_npa def
-R11685:11685 Kernel.QuantumPartitionPSD <> s:54 var
-R11721:11761 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
-R11721:11761 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
-R11772:11815 Kernel.MuLedgerQuantumBridge <> state_column_contractive_check_witness_sound thm
-R11772:11815 Kernel.MuLedgerQuantumBridge <> state_column_contractive_check_witness_sound thm
-prf 12266:12312 <> chsh_lassert_no_trap_implies_quantum_realizable
-binder 12325:12325 <> s:55
-binder 12327:12334 <> mu_delta:56
-R12351:12358 Kernel.SimulationProof <> vm_apply def
-R12360:12360 Kernel.QuantumPartitionPSD <> s:55 var
-R12363:12380 Kernel.VMStep VMStep instr_chsh_lassert constr
-R12382:12389 Kernel.QuantumPartitionPSD <> mu_delta:56 var
-binder 12345:12346 <> s':57
-R12423:12430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12409:12411 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12403:12407 Kernel.VMState <> vm_pc proj
-R12399:12400 Kernel.QuantumPartitionPSD <> s':57 var
-R12412:12412 Coq.Init.Datatypes <> S constr
-R12417:12421 Kernel.VMState <> vm_pc proj
-R12414:12414 Kernel.QuantumPartitionPSD <> s:55 var
-R12455:12462 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12442:12444 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12435:12440 Kernel.VMState <> vm_err proj
-R12431:12432 Kernel.QuantumPartitionPSD <> s':57 var
-R12448:12453 Kernel.VMState <> vm_err proj
-R12445:12445 Kernel.QuantumPartitionPSD <> s:55 var
-R12481:12488 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R12473:12475 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12466:12471 Kernel.VMState <> vm_err proj
-R12463:12463 Kernel.QuantumPartitionPSD <> s:55 var
-R12476:12480 Coq.Init.Datatypes <> false constr
-R12489:12506 Kernel.NPAMomentMatrix <> quantum_realizable def
-R12509:12531 Kernel.MuLedgerQuantumBridge <> state_zero_marginal_npa def
-R12533:12533 Kernel.QuantumPartitionPSD <> s:55 var
-R12647:12649 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12600:12631 Kernel.VMStep VMStep column_contractive_check_witness def
-R12636:12645 Kernel.VMState <> vm_witness proj
-R12650:12653 Coq.Init.Datatypes <> true constr
-R12647:12649 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R12600:12631 Kernel.VMStep VMStep column_contractive_check_witness def
-R12636:12645 Kernel.VMState <> vm_witness proj
-R12650:12653 Coq.Init.Datatypes <> true constr
-R12687:12694 Kernel.SimulationProof <> vm_apply def
-R12719:12750 Kernel.VMStep VMStep column_contractive_check_witness def
-R12755:12764 Kernel.VMState <> vm_witness proj
-R12719:12750 Kernel.VMStep VMStep column_contractive_check_witness def
-R12755:12764 Kernel.VMState <> vm_witness proj
-R12865:12909 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm
-R12865:12909 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm
+R706:712 Kernel.VMState <> <> lib
+R714:719 Kernel.VMStep <> <> lib
+R749:763 Kernel.SimulationProof <> <> lib
+R793:807 Kernel.NPAMomentMatrix <> <> lib
+R837:851 Kernel.ConstructivePSD <> <> lib
+R881:901 Kernel.MuLedgerQuantumBridge <> <> lib
+R931:944 Kernel.CHSHExtraction <> <> lib
+R974:989 Kernel.TsirelsonGeneral <> <> lib
+R1008:1022 Coq.Reals.Reals <> <> lib
+R1040:1056 Coq.micromega.Lra <> <> lib
+R1074:1092 Coq.micromega.Psatz <> <> lib
+R1110:1127 Coq.Arith.PeanoNat <> <> lib
+R1145:1156 Coq.Init.Nat <> <> lib
+R1174:1193 Coq.NArith.BinNatDef <> <> lib
+R1211:1224 Coq.Lists.List <> <> lib
+prf 1930:1947 <> run_vm_stuck_local
+binder 1960:1960 <> n:1
+binder 1962:1966 <> trace:2
+R1973:1979 Kernel.VMState <> VMState rec
+binder 1969:1969 <> s:3
+R2019:2026 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2012:2014 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1987:1995 Coq.Lists.List <> nth_error def
+R2006:2010 Kernel.VMState <> vm_pc proj
+R2003:2003 Kernel.QuantumPartitionPSD <> s:3 var
+R1997:2001 Kernel.QuantumPartitionPSD <> trace:2 var
+R2015:2018 Coq.Init.Datatypes <> None constr
+R2043:2045 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2027:2032 Kernel.SimulationProof <> run_vm def
+R2034:2034 Kernel.QuantumPartitionPSD <> n:1 var
+R2036:2040 Kernel.QuantumPartitionPSD <> trace:2 var
+R2042:2042 Kernel.QuantumPartitionPSD <> s:3 var
+R2046:2046 Kernel.QuantumPartitionPSD <> s:3 var
+prf 2175:2218 <> run_vm_column_contractive_invariant_at_stuck
+binder 2231:2234 <> fuel:4
+binder 2236:2240 <> trace:5
+R2247:2253 Kernel.VMState <> VMState rec
+binder 2243:2243 <> s:6
+R2293:2300 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2286:2288 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2261:2269 Coq.Lists.List <> nth_error def
+R2280:2284 Kernel.VMState <> vm_pc proj
+R2277:2277 Kernel.QuantumPartitionPSD <> s:6 var
+R2271:2275 Kernel.QuantumPartitionPSD <> trace:5 var
+R2289:2292 Coq.Init.Datatypes <> None constr
+R2338:2344 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2301:2324 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
+R2326:2329 Kernel.QuantumPartitionPSD <> fuel:4 var
+R2331:2335 Kernel.QuantumPartitionPSD <> trace:5 var
+R2337:2337 Kernel.QuantumPartitionPSD <> s:6 var
+R2345:2368 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
+R2370:2373 Kernel.QuantumPartitionPSD <> fuel:4 var
+R2375:2379 Kernel.QuantumPartitionPSD <> trace:5 var
+R2382:2387 Kernel.SimulationProof <> run_vm def
+R2389:2392 Kernel.QuantumPartitionPSD <> fuel:4 var
+R2394:2398 Kernel.QuantumPartitionPSD <> trace:5 var
+R2400:2400 Kernel.QuantumPartitionPSD <> s:6 var
+R2452:2469 Kernel.QuantumPartitionPSD <> run_vm_stuck_local thm
+R2452:2469 Kernel.QuantumPartitionPSD <> run_vm_stuck_local thm
+R2452:2469 Kernel.QuantumPartitionPSD <> run_vm_stuck_local thm
+prf 2679:2697 <> npa_quad5_test_col0
+R2728:2728 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2710:2712 <> e00:7
+binder 2714:2716 <> e01:8
+binder 2718:2720 <> e10:9
+binder 2722:2724 <> e11:10
+R2742:2759 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R2762:2774 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R2777:2793 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R2795:2797 Kernel.QuantumPartitionPSD <> e00:7 var
+R2799:2801 Kernel.QuantumPartitionPSD <> e01:8 var
+R2803:2805 Kernel.QuantumPartitionPSD <> e10:9 var
+R2807:2809 Kernel.QuantumPartitionPSD <> e11:10 var
+binder 2737:2737 <> M:11
+binder 2838:2838 <> i:12
+R2853:2861 Coq.Init.Specif <> proj1_sig def
+R2864:2873 Coq.Vectors.Fin <> to_nat def
+R2875:2875 Kernel.QuantumPartitionPSD <> i:12 var
+R2898:2898 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R2899:2901 Kernel.QuantumPartitionPSD <> e00:7 var
+R2918:2918 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R2919:2921 Kernel.QuantumPartitionPSD <> e10:9 var
+R2826:2829 Kernel.ConstructivePSD <> Vec5 def
+binder 2822:2822 <> v:13
+R2979:2981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2970:2974 Kernel.ConstructivePSD <> quad5 def
+R2976:2976 Kernel.QuantumPartitionPSD <> M:11 var
+R2978:2978 Kernel.QuantumPartitionPSD <> v:13 var
+R2995:2997 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2983:2985 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2989:2991 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2986:2988 Kernel.QuantumPartitionPSD <> e00:7 var
+R2992:2994 Kernel.QuantumPartitionPSD <> e00:7 var
+R3001:3003 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2998:3000 Kernel.QuantumPartitionPSD <> e10:9 var
+R3004:3006 Kernel.QuantumPartitionPSD <> e10:9 var
+R3051:3055 Kernel.ConstructivePSD <> quad5 def
+R3058:3065 Kernel.ConstructivePSD <> sum_fin5 def
+R3068:3085 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R3088:3100 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R3103:3119 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+prf 3251:3269 <> npa_quad5_test_col1
+R3300:3300 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3282:3284 <> e00:14
+binder 3286:3288 <> e01:15
+binder 3290:3292 <> e10:16
+binder 3294:3296 <> e11:17
+R3314:3331 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R3334:3346 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R3349:3365 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R3367:3369 Kernel.QuantumPartitionPSD <> e00:14 var
+R3371:3373 Kernel.QuantumPartitionPSD <> e01:15 var
+R3375:3377 Kernel.QuantumPartitionPSD <> e10:16 var
+R3379:3381 Kernel.QuantumPartitionPSD <> e11:17 var
+binder 3309:3309 <> M:18
+binder 3410:3410 <> i:19
+R3425:3433 Coq.Init.Specif <> proj1_sig def
+R3436:3445 Coq.Vectors.Fin <> to_nat def
+R3447:3447 Kernel.QuantumPartitionPSD <> i:19 var
+R3470:3470 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R3471:3473 Kernel.QuantumPartitionPSD <> e01:15 var
+R3490:3490 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R3491:3493 Kernel.QuantumPartitionPSD <> e11:17 var
+R3398:3401 Kernel.ConstructivePSD <> Vec5 def
+binder 3394:3394 <> v:20
+R3551:3553 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3542:3546 Kernel.ConstructivePSD <> quad5 def
+R3548:3548 Kernel.QuantumPartitionPSD <> M:18 var
+R3550:3550 Kernel.QuantumPartitionPSD <> v:20 var
+R3567:3569 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3555:3557 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R3561:3563 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3558:3560 Kernel.QuantumPartitionPSD <> e01:15 var
+R3564:3566 Kernel.QuantumPartitionPSD <> e01:15 var
+R3573:3575 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3570:3572 Kernel.QuantumPartitionPSD <> e11:17 var
+R3576:3578 Kernel.QuantumPartitionPSD <> e11:17 var
+R3623:3627 Kernel.ConstructivePSD <> quad5 def
+R3630:3637 Kernel.ConstructivePSD <> sum_fin5 def
+R3640:3657 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R3660:3672 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R3675:3691 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+prf 3927:3946 <> npa_quad5_test_schur
+R3979:3979 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 3959:3961 <> e00:21
+binder 3963:3965 <> e01:22
+binder 3967:3969 <> e10:23
+binder 3971:3973 <> e11:24
+binder 3975:3975 <> t:25
+R3993:4010 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R4013:4025 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R4028:4044 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R4046:4048 Kernel.QuantumPartitionPSD <> e00:21 var
+R4050:4052 Kernel.QuantumPartitionPSD <> e01:22 var
+R4054:4056 Kernel.QuantumPartitionPSD <> e10:23 var
+R4058:4060 Kernel.QuantumPartitionPSD <> e11:24 var
+binder 3988:3988 <> M:26
+binder 4089:4089 <> i:27
+R4104:4112 Coq.Init.Specif <> proj1_sig def
+R4115:4124 Coq.Vectors.Fin <> to_nat def
+R4126:4126 Kernel.QuantumPartitionPSD <> i:27 var
+R4149:4150 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R4164:4164 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R4158:4160 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4154:4156 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4151:4153 Kernel.QuantumPartitionPSD <> e00:21 var
+R4157:4157 Kernel.QuantumPartitionPSD <> t:25 var
+R4161:4163 Kernel.QuantumPartitionPSD <> e01:22 var
+R4181:4182 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R4196:4196 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R4190:4192 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4186:4188 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4183:4185 Kernel.QuantumPartitionPSD <> e10:23 var
+R4189:4189 Kernel.QuantumPartitionPSD <> t:25 var
+R4193:4195 Kernel.QuantumPartitionPSD <> e11:24 var
+R4213:4213 Kernel.QuantumPartitionPSD <> t:25 var
+R4077:4080 Kernel.ConstructivePSD <> Vec5 def
+binder 4073:4073 <> v:28
+R4271:4277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4262:4266 Kernel.ConstructivePSD <> quad5 def
+R4268:4268 Kernel.QuantumPartitionPSD <> M:26 var
+R4270:4270 Kernel.QuantumPartitionPSD <> v:28 var
+R4343:4350 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4372:4372 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4309:4315 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4305:4307 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4278:4278 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4300:4303 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4290:4292 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4280:4282 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4286:4286 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4283:4285 Kernel.QuantumPartitionPSD <> e00:21 var
+R4287:4289 Kernel.QuantumPartitionPSD <> e00:21 var
+R4296:4296 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4293:4295 Kernel.QuantumPartitionPSD <> e10:23 var
+R4297:4299 Kernel.QuantumPartitionPSD <> e10:23 var
+R4304:4304 Kernel.QuantumPartitionPSD <> t:25 var
+R4308:4308 Kernel.QuantumPartitionPSD <> t:25 var
+R4339:4341 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4317:4320 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4338:4338 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4328:4330 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4324:4324 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4321:4323 Kernel.QuantumPartitionPSD <> e00:21 var
+R4325:4327 Kernel.QuantumPartitionPSD <> e01:22 var
+R4334:4334 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4331:4333 Kernel.QuantumPartitionPSD <> e10:23 var
+R4335:4337 Kernel.QuantumPartitionPSD <> e11:24 var
+R4342:4342 Kernel.QuantumPartitionPSD <> t:25 var
+R4362:4364 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4352:4354 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4358:4358 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4355:4357 Kernel.QuantumPartitionPSD <> e01:22 var
+R4359:4361 Kernel.QuantumPartitionPSD <> e01:22 var
+R4368:4368 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4365:4367 Kernel.QuantumPartitionPSD <> e11:24 var
+R4369:4371 Kernel.QuantumPartitionPSD <> e11:24 var
+R4419:4423 Kernel.ConstructivePSD <> quad5 def
+R4426:4433 Kernel.ConstructivePSD <> sum_fin5 def
+R4436:4453 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R4456:4468 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R4471:4487 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+prf 4592:4625 <> npa_psd_implies_column_contractive
+R4656:4656 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4638:4640 <> e00:29
+binder 4642:4644 <> e01:30
+binder 4646:4648 <> e10:31
+binder 4650:4652 <> e11:32
+R4740:4747 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4663:4666 Kernel.ConstructivePSD <> PSD5 def
+R4669:4686 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R4689:4701 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R4704:4720 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R4722:4724 Kernel.QuantumPartitionPSD <> e00:29 var
+R4726:4728 Kernel.QuantumPartitionPSD <> e01:30 var
+R4730:4732 Kernel.QuantumPartitionPSD <> e10:31 var
+R4734:4736 Kernel.QuantumPartitionPSD <> e11:32 var
+R4748:4779 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
+R4781:4783 Kernel.QuantumPartitionPSD <> e00:29 var
+R4785:4787 Kernel.QuantumPartitionPSD <> e01:30 var
+R4789:4791 Kernel.QuantumPartitionPSD <> e10:31 var
+R4793:4795 Kernel.QuantumPartitionPSD <> e11:32 var
+R4845:4876 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
+R5008:5011 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4996:4998 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4984:4986 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4990:4992 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5002:5004 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5008:5011 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R4996:4998 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4984:4986 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4990:4992 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5002:5004 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+binder 5045:5045 <> i:33
+R5062:5070 Coq.Init.Specif <> proj1_sig def
+R5073:5082 Coq.Vectors.Fin <> to_nat def
+R5084:5084 Kernel.QuantumPartitionPSD <> i:33 var
+R5109:5109 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R5131:5131 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+binder 5045:5045 <> i:34
+R5062:5070 Coq.Init.Specif <> proj1_sig def
+R5073:5082 Coq.Vectors.Fin <> to_nat def
+R5084:5084 Kernel.QuantumPartitionPSD <> i:34 var
+R5109:5109 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R5131:5131 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R5205:5223 Kernel.QuantumPartitionPSD <> npa_quad5_test_col0 thm
+R5205:5223 Kernel.QuantumPartitionPSD <> npa_quad5_test_col0 thm
+R5205:5223 Kernel.QuantumPartitionPSD <> npa_quad5_test_col0 thm
+R5381:5384 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5369:5371 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5357:5359 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5363:5365 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5375:5377 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5381:5384 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5369:5371 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5357:5359 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5363:5365 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5375:5377 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+binder 5418:5418 <> i:35
+R5435:5443 Coq.Init.Specif <> proj1_sig def
+R5446:5455 Coq.Vectors.Fin <> to_nat def
+R5457:5457 Kernel.QuantumPartitionPSD <> i:35 var
+R5482:5482 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R5504:5504 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+binder 5418:5418 <> i:36
+R5435:5443 Coq.Init.Specif <> proj1_sig def
+R5446:5455 Coq.Vectors.Fin <> to_nat def
+R5457:5457 Kernel.QuantumPartitionPSD <> i:36 var
+R5482:5482 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R5504:5504 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R5578:5596 Kernel.QuantumPartitionPSD <> npa_quad5_test_col1 thm
+R5578:5596 Kernel.QuantumPartitionPSD <> npa_quad5_test_col1 thm
+R5578:5596 Kernel.QuantumPartitionPSD <> npa_quad5_test_col1 thm
+R5852:5855 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5783:5802 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5726:5726 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5752:5756 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5782:5782 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5740:5742 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5728:5730 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5734:5736 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5746:5748 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5770:5772 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5758:5760 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5764:5766 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5776:5778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5803:5803 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5825:5829 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5851:5851 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5813:5815 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5807:5809 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5819:5821 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5839:5841 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5833:5835 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5845:5847 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5852:5855 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R5783:5802 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5726:5726 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5752:5756 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5782:5782 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5740:5742 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5728:5730 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5734:5736 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5746:5748 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5770:5772 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5758:5760 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R5764:5766 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5776:5778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5803:5803 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5825:5829 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5851:5851 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5813:5815 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5807:5809 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5819:5821 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5839:5841 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5833:5835 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5845:5847 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6040:6040 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6036:6036 <> t:37
+R6148:6151 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6116:6125 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6147:6147 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6080:6088 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6076:6078 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6049:6049 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6071:6074 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6061:6063 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6051:6053 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6057:6057 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6067:6067 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6075:6075 Kernel.QuantumPartitionPSD <> t:37 var
+R6079:6079 Kernel.QuantumPartitionPSD <> t:37 var
+R6112:6114 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6090:6093 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6111:6111 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6101:6103 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6097:6097 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6107:6107 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6115:6115 Kernel.QuantumPartitionPSD <> t:37 var
+R6137:6139 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6127:6129 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6133:6133 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6143:6143 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6040:6040 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6036:6036 <> t:38
+R6148:6151 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6116:6125 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6147:6147 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6080:6088 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6076:6078 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6049:6049 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6071:6074 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6061:6063 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6051:6053 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6057:6057 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6067:6067 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6075:6075 Kernel.QuantumPartitionPSD <> t:38 var
+R6079:6079 Kernel.QuantumPartitionPSD <> t:38 var
+R6112:6114 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6090:6093 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6111:6111 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6101:6103 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6097:6097 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6107:6107 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6115:6115 Kernel.QuantumPartitionPSD <> t:38 var
+R6137:6139 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6127:6129 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6133:6133 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6143:6143 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+binder 6204:6204 <> i:39
+R6223:6231 Coq.Init.Specif <> proj1_sig def
+R6234:6243 Coq.Vectors.Fin <> to_nat def
+R6245:6245 Kernel.QuantumPartitionPSD <> i:39 var
+R6272:6273 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6287:6287 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6281:6283 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6277:6279 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6308:6309 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6323:6323 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6317:6319 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6313:6315 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+binder 6204:6204 <> i:40
+R6223:6231 Coq.Init.Specif <> proj1_sig def
+R6234:6243 Coq.Vectors.Fin <> to_nat def
+R6245:6245 Kernel.QuantumPartitionPSD <> i:40 var
+R6272:6273 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6287:6287 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6281:6283 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6277:6279 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6308:6309 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6323:6323 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6317:6319 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6313:6315 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6423:6442 Kernel.QuantumPartitionPSD <> npa_quad5_test_schur thm
+R6423:6442 Kernel.QuantumPartitionPSD <> npa_quad5_test_schur thm
+R6423:6442 Kernel.QuantumPartitionPSD <> npa_quad5_test_schur thm
+R6712:6712 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6708:6708 <> t:41
+R6823:6826 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6783:6791 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6721:6721 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6743:6752 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6733:6735 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6723:6725 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6729:6729 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6739:6739 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6779:6781 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6754:6757 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6778:6778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6758:6759 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6777:6777 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6767:6769 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6763:6763 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6773:6773 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6782:6782 Kernel.QuantumPartitionPSD <> t:41 var
+R6819:6821 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6792:6792 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6814:6817 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6804:6806 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6794:6796 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6800:6800 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6810:6810 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6818:6818 Kernel.QuantumPartitionPSD <> t:41 var
+R6822:6822 Kernel.QuantumPartitionPSD <> t:41 var
+R6712:6712 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6708:6708 <> t:42
+R6823:6826 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R6783:6791 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6721:6721 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6743:6752 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6733:6735 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6723:6725 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6729:6729 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6739:6739 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6779:6781 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6754:6757 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6778:6778 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6758:6759 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6777:6777 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R6767:6769 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6763:6763 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6773:6773 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6782:6782 Kernel.QuantumPartitionPSD <> t:42 var
+R6819:6821 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6792:6792 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6814:6817 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6804:6806 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6794:6796 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R6800:6800 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6810:6810 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6818:6818 Kernel.QuantumPartitionPSD <> t:42 var
+R6822:6822 Kernel.QuantumPartitionPSD <> t:42 var
+R6895:6923 Kernel.ConstructivePSD <> quadratic_nonneg_discriminant thm
+R6895:6923 Kernel.ConstructivePSD <> quadratic_nonneg_discriminant thm
+R6958:6961 Coq.Init.Logic <> conj constr
+R6968:6971 Coq.Init.Logic <> conj constr
+R6958:6961 Coq.Init.Logic <> conj constr
+R6968:6971 Coq.Init.Logic <> conj constr
+prf 7124:7153 <> npa_psd_iff_column_contractive
+R7184:7184 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 7166:7168 <> e00:43
+binder 7170:7172 <> e01:44
+binder 7174:7176 <> e10:45
+binder 7178:7180 <> e11:46
+R7268:7280 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7191:7194 Kernel.ConstructivePSD <> PSD5 def
+R7197:7214 Kernel.ConstructivePSD <> nat_matrix_to_fin5 def
+R7217:7229 Kernel.NPAMomentMatrix <> npa_to_matrix def
+R7232:7248 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R7250:7252 Kernel.QuantumPartitionPSD <> e00:43 var
+R7254:7256 Kernel.QuantumPartitionPSD <> e01:44 var
+R7258:7260 Kernel.QuantumPartitionPSD <> e10:45 var
+R7262:7264 Kernel.QuantumPartitionPSD <> e11:46 var
+R7281:7312 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
+R7314:7316 Kernel.QuantumPartitionPSD <> e00:43 var
+R7318:7320 Kernel.QuantumPartitionPSD <> e01:44 var
+R7322:7324 Kernel.QuantumPartitionPSD <> e10:45 var
+R7326:7328 Kernel.QuantumPartitionPSD <> e11:46 var
+R7383:7416 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+R7383:7416 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+R7458:7505 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
+R7458:7505 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
+prf 9135:9175 <> column_contractive_iff_quantum_realizable
+R9206:9206 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 9188:9190 <> e00:47
+binder 9192:9194 <> e01:48
+binder 9196:9198 <> e10:49
+binder 9200:9202 <> e11:50
+R9261:9273 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9213:9244 Kernel.MuLedgerQuantumBridge <> zero_marginal_column_contractive def
+R9246:9248 Kernel.QuantumPartitionPSD <> e00:47 var
+R9250:9252 Kernel.QuantumPartitionPSD <> e01:48 var
+R9254:9256 Kernel.QuantumPartitionPSD <> e10:49 var
+R9258:9260 Kernel.QuantumPartitionPSD <> e11:50 var
+R9274:9291 Kernel.NPAMomentMatrix <> quantum_realizable def
+R9294:9310 Kernel.NPAMomentMatrix <> zero_marginal_npa def
+R9312:9314 Kernel.QuantumPartitionPSD <> e00:47 var
+R9316:9318 Kernel.QuantumPartitionPSD <> e01:48 var
+R9320:9322 Kernel.QuantumPartitionPSD <> e10:49 var
+R9324:9326 Kernel.QuantumPartitionPSD <> e11:50 var
+R9372:9389 Kernel.NPAMomentMatrix <> quantum_realizable def
+R9453:9475 Kernel.NPAMomentMatrix <> npa_to_matrix_symmetric thm
+R9453:9475 Kernel.NPAMomentMatrix <> npa_to_matrix_symmetric thm
+R9490:9537 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
+R9490:9537 Kernel.MuLedgerQuantumBridge <> zero_marginal_npa_column_contractive_implies_psd thm
+R9591:9624 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+R9591:9624 Kernel.QuantumPartitionPSD <> npa_psd_implies_column_contractive thm
+prf 9780:9827 <> trace_column_contractive_iff_trace_quantum_model
+binder 9840:9843 <> fuel:51
+binder 9845:9849 <> trace:52
+binder 9851:9856 <> s_init:53
+R9905:9917 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9863:9886 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
+R9888:9891 Kernel.QuantumPartitionPSD <> fuel:51 var
+R9893:9897 Kernel.QuantumPartitionPSD <> trace:52 var
+R9899:9904 Kernel.QuantumPartitionPSD <> s_init:53 var
+R9918:9935 Kernel.NPAMomentMatrix <> quantum_realizable def
+R9938:9960 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R9962:9965 Kernel.QuantumPartitionPSD <> fuel:51 var
+R9967:9971 Kernel.QuantumPartitionPSD <> trace:52 var
+R9973:9978 Kernel.QuantumPartitionPSD <> s_init:53 var
+R10026:10049 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
+R10052:10074 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R10091:10099 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R10091:10099 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R10135:10143 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R10135:10143 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R10179:10187 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R10179:10187 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R10223:10231 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R10223:10231 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R10261:10301 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
+R10261:10301 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
+prf 11226:11281 <> psplit_quantum_implementation_implies_column_contractive
+binder 11294:11297 <> fuel:54
+binder 11299:11303 <> trace:55
+binder 11305:11310 <> s_init:56
+R11366:11373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11317:11347 Kernel.MuLedgerQuantumBridge <> psplit_implements_quantum_state def
+R11349:11352 Kernel.QuantumPartitionPSD <> fuel:54 var
+R11354:11358 Kernel.QuantumPartitionPSD <> trace:55 var
+R11360:11365 Kernel.QuantumPartitionPSD <> s_init:56 var
+R11374:11397 Kernel.MuLedgerQuantumBridge <> trace_column_contractive def
+R11399:11402 Kernel.QuantumPartitionPSD <> fuel:54 var
+R11404:11408 Kernel.QuantumPartitionPSD <> trace:55 var
+R11410:11415 Kernel.QuantumPartitionPSD <> s_init:56 var
+R11465:11512 Kernel.QuantumPartitionPSD <> trace_column_contractive_iff_trace_quantum_model thm
+R11465:11512 Kernel.QuantumPartitionPSD <> trace_column_contractive_iff_trace_quantum_model thm
+prf 11740:11777 <> psplit_quantum_state_implies_tsirelson
+binder 11790:11793 <> fuel:57
+binder 11795:11799 <> trace:58
+binder 11801:11806 <> s_init:59
+R11862:11869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11813:11843 Kernel.MuLedgerQuantumBridge <> psplit_implements_quantum_state def
+R11845:11848 Kernel.QuantumPartitionPSD <> fuel:57 var
+R11850:11854 Kernel.QuantumPartitionPSD <> trace:58 var
+R11856:11861 Kernel.QuantumPartitionPSD <> s_init:59 var
+R12022:12025 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R11870:11870 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R12019:12021 Coq.Reals.RIneq <> ::R_scope:x_'²' not
+R11871:11874 Kernel.TsirelsonGeneral <> CHSH def
+R11883:11891 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R11893:11896 Kernel.QuantumPartitionPSD <> fuel:57 var
+R11898:11902 Kernel.QuantumPartitionPSD <> trace:58 var
+R11904:11909 Kernel.QuantumPartitionPSD <> s_init:59 var
+R11919:11927 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R11929:11932 Kernel.QuantumPartitionPSD <> fuel:57 var
+R11934:11938 Kernel.QuantumPartitionPSD <> trace:58 var
+R11940:11945 Kernel.QuantumPartitionPSD <> s_init:59 var
+R11955:11963 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R11965:11968 Kernel.QuantumPartitionPSD <> fuel:57 var
+R11970:11974 Kernel.QuantumPartitionPSD <> trace:58 var
+R11976:11981 Kernel.QuantumPartitionPSD <> s_init:59 var
+R11991:11999 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R12001:12004 Kernel.QuantumPartitionPSD <> fuel:57 var
+R12006:12010 Kernel.QuantumPartitionPSD <> trace:58 var
+R12012:12017 Kernel.QuantumPartitionPSD <> s_init:59 var
+R12077:12107 Kernel.MuLedgerQuantumBridge <> psplit_implements_quantum_state def
+R12126:12148 Kernel.MuLedgerQuantumBridge <> trace_zero_marginal_npa def
+R12166:12207 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
+R12166:12207 Kernel.MuLedgerQuantumBridge <> quantum_realizable_implies_tsirelson_bound thm
+prf 12707:12751 <> chsh_lassert_check_implies_quantum_realizable
+R12769:12775 Kernel.VMState <> VMState rec
+binder 12765:12765 <> s:60
+R12837:12844 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12830:12832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12783:12814 Kernel.VMStep VMStep column_contractive_check_witness def
+R12819:12828 Kernel.VMState <> vm_witness proj
+R12816:12816 Kernel.QuantumPartitionPSD <> s:60 var
+R12833:12836 Coq.Init.Datatypes <> true constr
+R12845:12862 Kernel.NPAMomentMatrix <> quantum_realizable def
+R12865:12887 Kernel.MuLedgerQuantumBridge <> state_zero_marginal_npa def
+R12889:12889 Kernel.QuantumPartitionPSD <> s:60 var
+R12925:12965 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
+R12925:12965 Kernel.QuantumPartitionPSD <> column_contractive_iff_quantum_realizable thm
+R12976:13019 Kernel.MuLedgerQuantumBridge <> state_column_contractive_check_witness_sound thm
+R12976:13019 Kernel.MuLedgerQuantumBridge <> state_column_contractive_check_witness_sound thm
+prf 13470:13516 <> chsh_lassert_no_trap_implies_quantum_realizable
+binder 13529:13529 <> s:61
+binder 13531:13538 <> mu_delta:62
+R13555:13562 Kernel.SimulationProof <> vm_apply def
+R13564:13564 Kernel.QuantumPartitionPSD <> s:61 var
+R13567:13584 Kernel.VMStep VMStep instr_chsh_lassert constr
+R13586:13593 Kernel.QuantumPartitionPSD <> mu_delta:62 var
+binder 13549:13550 <> s':63
+R13627:13634 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13613:13615 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13607:13611 Kernel.VMState <> vm_pc proj
+R13603:13604 Kernel.QuantumPartitionPSD <> s':63 var
+R13616:13616 Coq.Init.Datatypes <> S constr
+R13621:13625 Kernel.VMState <> vm_pc proj
+R13618:13618 Kernel.QuantumPartitionPSD <> s:61 var
+R13659:13666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13646:13648 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13639:13644 Kernel.VMState <> vm_err proj
+R13635:13636 Kernel.QuantumPartitionPSD <> s':63 var
+R13652:13657 Kernel.VMState <> vm_err proj
+R13649:13649 Kernel.QuantumPartitionPSD <> s:61 var
+R13685:13692 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13677:13679 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13670:13675 Kernel.VMState <> vm_err proj
+R13667:13667 Kernel.QuantumPartitionPSD <> s:61 var
+R13680:13684 Coq.Init.Datatypes <> false constr
+R13693:13710 Kernel.NPAMomentMatrix <> quantum_realizable def
+R13713:13735 Kernel.MuLedgerQuantumBridge <> state_zero_marginal_npa def
+R13737:13737 Kernel.QuantumPartitionPSD <> s:61 var
+R13851:13853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13804:13835 Kernel.VMStep VMStep column_contractive_check_witness def
+R13840:13849 Kernel.VMState <> vm_witness proj
+R13854:13857 Coq.Init.Datatypes <> true constr
+R13851:13853 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13804:13835 Kernel.VMStep VMStep column_contractive_check_witness def
+R13840:13849 Kernel.VMState <> vm_witness proj
+R13854:13857 Coq.Init.Datatypes <> true constr
+R13891:13898 Kernel.SimulationProof <> vm_apply def
+R13923:13954 Kernel.VMStep VMStep column_contractive_check_witness def
+R13959:13968 Kernel.VMState <> vm_witness proj
+R13923:13954 Kernel.VMStep VMStep column_contractive_check_witness def
+R13959:13968 Kernel.VMState <> vm_witness proj
+R14069:14113 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm
+R14069:14113 Kernel.QuantumPartitionPSD <> chsh_lassert_check_implies_quantum_realizable thm

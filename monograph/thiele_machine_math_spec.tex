@@ -386,16 +386,16 @@ Let $p_{\mathrm{fuel}}, p_{\mu} : \N \to \N$ be polynomial bounds and $\mathrm{s
 \label{thm:mu-hierarchy}
 For every $k \geq 1$, the $\mu$-dimension admits a strict hierarchy:
 \begin{enumerate}
-  \item \textbf{Achievability}: there exists a trace from \texttt{init\_state} with $\mu$-cost exactly $k$ that achieves \texttt{vm\_certified = true} and \texttt{vm\_mu} $= k$.
-  \item \textbf{Lower bound}: any trace from \texttt{init\_state} achieving \texttt{vm\_mu} $\geq k$ must have spent at least $k$ units of $\mu$-cost.
+  \item \textbf{Achievability}: there exists a trace from \texttt{init\_state} with $\mu$-cost exactly $k$ that is \emph{level-$k$ certified} --- the run executes a \texttt{CERTIFY}~$\delta$ instruction with $S(\delta) \geq k$ and ends with \texttt{vm\_certified = true}.
+  \item \textbf{Lower bound}: any level-$k$ certified trace from \texttt{init\_state} must have spent at least $k$ units of $\mu$-cost.
 \end{enumerate}
-Formally (\texttt{mu\_hierarchy\_theorem}): for every $k \geq 1$, the witness trace $[\texttt{instr\_certify}(k{-}1)]$ (cost $= S(k{-}1) = k$) certifies \texttt{init\_state} at level $k$, while no trace of $\mu$-cost $< k$ can reach $\texttt{vm\_mu} \geq k$ from \texttt{init\_state} (since $\texttt{trace\_mu\_cost} = \texttt{vm\_mu}~\textit{final} - 0 \geq k$).
+Formally (\texttt{mu\_hierarchy\_theorem}): for every $k \geq 1$, the witness trace $[\texttt{instr\_certify}(k{-}1)]$ (cost $= S(k{-}1) = k$) executes a level-$k$ \texttt{CERTIFY} from \texttt{init\_state}; conversely, the trace-side predicate \texttt{level\_k\_certified} forces $\texttt{trace\_mu\_cost} \geq k$ via \texttt{level\_k\_certification\_cost\_floor}, since the \texttt{CERTIFY}'s declared cost appears in the executed-instruction ledger and the ledger sum equals the trace cost (\texttt{run\_vm\_mu\_conservation}).
 
 \textbf{Corollary} (\texttt{mu\_hierarchy\_no\_upper\_bound}): no fixed $\mu$-budget suffices for all levels. The $\mu$-dimension is unbounded and non-collapsible. Zero Admitted.
 \end{theorem}
 
 \begin{remark}[$\mu$-Hierarchy as the formal P-vs-NP analogue]
-Theorem~\ref{thm:mu-hierarchy} is the $\mu$-analogue of the classical time hierarchy theorem. It formalizes the intuition behind P~$\neq$~NP in the certified-structure setting: \emph{finding} a certificate of structural complexity $k$ requires paying $\mu \geq k$, while \emph{verifying} it (given the trace) costs 0 additional $\mu$. The hierarchy is strict, infinite, and proven from first principles with zero \texttt{Admitted} — no oracle, no diagonalization, no new axioms. The proof uses only \texttt{vm\_apply\_mu} (cost = $\mu$ increase) and \texttt{init\_state\_mu\_zero} ($\mu$ starts at 0).
+Theorem~\ref{thm:mu-hierarchy} is the $\mu$-analogue of the classical time hierarchy theorem. It formalizes the intuition behind P~$\neq$~NP in the certified-structure setting: \emph{finding} a certificate of structural complexity $k$ requires paying $\mu \geq k$, while \emph{verifying} it (given the trace) costs 0 additional $\mu$. The hierarchy is strict, infinite, and proven from first principles with zero \texttt{Admitted} --- no oracle, no diagonalization, no new axioms. The lower-bound proof is trace-side: a level-$k$ certified run executed a specific \texttt{CERTIFY}~$\delta$ with $S(\delta) \geq k$, and \texttt{executed\_instruction\_cost\_recorded} plus \texttt{ledger\_sum\_contains\_lower\_bound} place that cost in the ledger sum, which \texttt{run\_vm\_mu\_conservation} equates with the trace's $\mu$-cost.
 \end{remark}
 
 %=============================================================================

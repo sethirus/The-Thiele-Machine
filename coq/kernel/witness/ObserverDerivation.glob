@@ -1,4 +1,4 @@
-DIGEST 52466b284fae557f89279cba9ca10d85
+DIGEST 073eb80c78c9048ed59ef82bd530f2cc
 FKernel.ObserverDerivation
 R24:27 Coq.Lists.List <> <> lib
 R29:31 Coq.micromega.Lia <> <> lib
@@ -175,112 +175,95 @@ R16377:16388 Kernel.VMState <> graph_lookup def
 R16391:16398 Kernel.VMState <> vm_graph proj
 R16377:16388 Kernel.VMState <> graph_lookup def
 R16391:16398 Kernel.VMState <> vm_graph proj
-prf 18601:18631 <> observer_region_gauge_invariant
-binder 18642:18642 <> s:36
-binder 18644:18644 <> k:37
-binder 18646:18648 <> mid:38
-R18693:18697 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R18653:18659 Kernel.ObserverDerivation <> observe proj
-R18663:18686 Kernel.ObserverDerivation <> ObserverObservableRegion def
-R18688:18688 Kernel.ObserverDerivation <> s:36 var
-R18690:18692 Kernel.ObserverDerivation <> mid:38 var
-R18698:18704 Kernel.ObserverDerivation <> observe proj
-R18708:18731 Kernel.ObserverDerivation <> ObserverObservableRegion def
-R18734:18747 Kernel.KernelPhysics <> mu_gauge_shift def
-R18749:18749 Kernel.ObserverDerivation <> k:37 var
-R18751:18751 Kernel.ObserverDerivation <> s:36 var
-R18754:18756 Kernel.ObserverDerivation <> mid:38 var
-R18793:18816 Kernel.ObserverDerivation <> ObserverObservableRegion def
-R18835:18850 Kernel.KernelPhysics <> ObservableRegion def
-R18853:18866 Kernel.KernelPhysics <> mu_gauge_shift def
-prf 21309:21342 <> Observational_Locality_Iff_Physics
-binder 21355:21355 <> s:39
-binder 21357:21358 <> s':40
-binder 21360:21364 <> instr:41
-binder 21366:21368 <> mid:42
-R21405:21412 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21375:21391 Kernel.VMState <> well_formed_graph def
-R21396:21403 Kernel.VMState <> vm_graph proj
-R21393:21393 Kernel.ObserverDerivation <> s:39 var
-R21442:21449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21416:21418 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R21413:21415 Kernel.ObserverDerivation <> mid:42 var
-R21419:21428 Kernel.VMState <> pg_next_id proj
-R21433:21440 Kernel.VMState <> vm_graph proj
-R21430:21430 Kernel.ObserverDerivation <> s:39 var
-R21468:21476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21558:21558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21450:21456 Kernel.VMStep VMStep vm_step ind
-R21458:21458 Kernel.ObserverDerivation <> s:39 var
-R21460:21464 Kernel.ObserverDerivation <> instr:41 var
-R21466:21467 Kernel.ObserverDerivation <> s':40 var
-R21526:21529 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R21499:21502 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R21477:21492 Kernel.KernelPhysics <> ObservableRegion def
-R21494:21494 Kernel.ObserverDerivation <> s:39 var
-R21496:21498 Kernel.ObserverDerivation <> mid:42 var
-R21503:21518 Kernel.KernelPhysics <> ObservableRegion def
-R21520:21521 Kernel.ObserverDerivation <> s':40 var
-R21523:21525 Kernel.ObserverDerivation <> mid:42 var
-R21530:21531 Coq.Lists.List <> In def
-R21538:21550 Kernel.KernelPhysics <> instr_targets def
-R21552:21556 Kernel.ObserverDerivation <> instr:41 var
-R21533:21535 Kernel.ObserverDerivation <> mid:42 var
-R21625:21630 Coq.Lists.List <> in_dec thm
-R21648:21660 Kernel.KernelPhysics <> instr_targets def
-R21632:21641 Coq.Arith.PeanoNat Nat eq_dec thm
-R21625:21630 Coq.Lists.List <> in_dec thm
-R21648:21660 Kernel.KernelPhysics <> instr_targets def
-R21632:21641 Coq.Arith.PeanoNat Nat eq_dec thm
-R21740:21765 Kernel.KernelPhysics <> observational_no_signaling thm
-R21740:21765 Kernel.KernelPhysics <> observational_no_signaling thm
-prf 24239:24257 <> Observer_Minimality
-R24263:24263 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R24317:24324 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R24455:24455 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R24264:24274 Coq.Classes.RelationClasses <> Equivalence class
-R24277:24290 Kernel.ObserverDerivation <> observer_equiv def
-R24292:24315 Kernel.ObserverDerivation <> ObserverObservableRegion def
-binder 24332:24332 <> s:43
-binder 24334:24334 <> k:44
-binder 24336:24338 <> mid:45
-R24387:24395 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R24347:24353 Kernel.ObserverDerivation <> observe proj
-R24357:24380 Kernel.ObserverDerivation <> ObserverObservableRegion def
-R24382:24382 Kernel.ObserverDerivation <> s:43 var
-R24384:24386 Kernel.ObserverDerivation <> mid:45 var
-R24396:24402 Kernel.ObserverDerivation <> observe proj
-R24406:24429 Kernel.ObserverDerivation <> ObserverObservableRegion def
-R24432:24445 Kernel.KernelPhysics <> mu_gauge_shift def
-R24447:24447 Kernel.ObserverDerivation <> k:44 var
-R24449:24449 Kernel.ObserverDerivation <> s:43 var
-R24452:24454 Kernel.ObserverDerivation <> mid:45 var
-R24485:24510 Kernel.ObserverDerivation <> observer_equiv_equivalence inst
-R24512:24535 Kernel.ObserverDerivation <> ObserverObservableRegion def
-R24485:24510 Kernel.ObserverDerivation <> observer_equiv_equivalence inst
-R24512:24535 Kernel.ObserverDerivation <> ObserverObservableRegion def
-R24549:24579 Kernel.ObserverDerivation <> observer_region_gauge_invariant thm
-R24549:24579 Kernel.ObserverDerivation <> observer_region_gauge_invariant thm
-prf 26828:26859 <> weaker_observer_collapse_witness
-binder 26872:26872 <> A:46
-R26879:26886 Kernel.ObserverDerivation <> Observer rec
-R26888:26888 Kernel.ObserverDerivation <> A:46 var
-binder 26875:26875 <> O:47
-binder 26891:26892 <> s1:48
-binder 26894:26895 <> s2:49
-binder 26897:26899 <> mid:50
-R26928:26935 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26906:26919 Kernel.ObserverDerivation <> observer_equiv def
-R26926:26927 Kernel.ObserverDerivation <> s2:49 var
-R26923:26924 Kernel.ObserverDerivation <> s1:48 var
-R26921:26921 Kernel.ObserverDerivation <> O:47 var
-R26986:26993 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R26959:26962 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R26936:26951 Kernel.KernelPhysics <> ObservableRegion def
-R26953:26954 Kernel.ObserverDerivation <> s1:48 var
-R26956:26958 Kernel.ObserverDerivation <> mid:50 var
-R26963:26978 Kernel.KernelPhysics <> ObservableRegion def
-R26980:26981 Kernel.ObserverDerivation <> s2:49 var
-R26983:26985 Kernel.ObserverDerivation <> mid:50 var
-R26994:27029 Kernel.ObserverDerivation <> observer_collapses_partition_physics def
-R27031:27031 Kernel.ObserverDerivation <> O:47 var
+prf 21263:21296 <> Observational_Locality_Iff_Physics
+binder 21309:21309 <> s:36
+binder 21311:21312 <> s':37
+binder 21314:21318 <> instr:38
+binder 21320:21322 <> mid:39
+R21359:21366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21329:21345 Kernel.VMState <> well_formed_graph def
+R21350:21357 Kernel.VMState <> vm_graph proj
+R21347:21347 Kernel.ObserverDerivation <> s:36 var
+R21396:21403 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21370:21372 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R21367:21369 Kernel.ObserverDerivation <> mid:39 var
+R21373:21382 Kernel.VMState <> pg_next_id proj
+R21387:21394 Kernel.VMState <> vm_graph proj
+R21384:21384 Kernel.ObserverDerivation <> s:36 var
+R21422:21430 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21512:21512 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21404:21410 Kernel.VMStep VMStep vm_step ind
+R21412:21412 Kernel.ObserverDerivation <> s:36 var
+R21414:21418 Kernel.ObserverDerivation <> instr:38 var
+R21420:21421 Kernel.ObserverDerivation <> s':37 var
+R21480:21483 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R21453:21456 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R21431:21446 Kernel.KernelPhysics <> ObservableRegion def
+R21448:21448 Kernel.ObserverDerivation <> s:36 var
+R21450:21452 Kernel.ObserverDerivation <> mid:39 var
+R21457:21472 Kernel.KernelPhysics <> ObservableRegion def
+R21474:21475 Kernel.ObserverDerivation <> s':37 var
+R21477:21479 Kernel.ObserverDerivation <> mid:39 var
+R21484:21485 Coq.Lists.List <> In def
+R21492:21504 Kernel.KernelPhysics <> instr_targets def
+R21506:21510 Kernel.ObserverDerivation <> instr:38 var
+R21487:21489 Kernel.ObserverDerivation <> mid:39 var
+R21579:21584 Coq.Lists.List <> in_dec thm
+R21602:21614 Kernel.KernelPhysics <> instr_targets def
+R21586:21595 Coq.Arith.PeanoNat Nat eq_dec thm
+R21579:21584 Coq.Lists.List <> in_dec thm
+R21602:21614 Kernel.KernelPhysics <> instr_targets def
+R21586:21595 Coq.Arith.PeanoNat Nat eq_dec thm
+R21694:21719 Kernel.KernelPhysics <> observational_no_signaling thm
+R21694:21719 Kernel.KernelPhysics <> observational_no_signaling thm
+prf 24193:24211 <> Observer_Minimality
+R24217:24217 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R24271:24278 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R24409:24409 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R24218:24228 Coq.Classes.RelationClasses <> Equivalence class
+R24231:24244 Kernel.ObserverDerivation <> observer_equiv def
+R24246:24269 Kernel.ObserverDerivation <> ObserverObservableRegion def
+binder 24286:24286 <> s:40
+binder 24288:24288 <> k:41
+binder 24290:24292 <> mid:42
+R24341:24349 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R24301:24307 Kernel.ObserverDerivation <> observe proj
+R24311:24334 Kernel.ObserverDerivation <> ObserverObservableRegion def
+R24336:24336 Kernel.ObserverDerivation <> s:40 var
+R24338:24340 Kernel.ObserverDerivation <> mid:42 var
+R24350:24356 Kernel.ObserverDerivation <> observe proj
+R24360:24383 Kernel.ObserverDerivation <> ObserverObservableRegion def
+R24386:24399 Kernel.KernelPhysics <> mu_gauge_shift def
+R24401:24401 Kernel.ObserverDerivation <> k:41 var
+R24403:24403 Kernel.ObserverDerivation <> s:40 var
+R24406:24408 Kernel.ObserverDerivation <> mid:42 var
+R24439:24464 Kernel.ObserverDerivation <> observer_equiv_equivalence inst
+R24466:24489 Kernel.ObserverDerivation <> ObserverObservableRegion def
+R24439:24464 Kernel.ObserverDerivation <> observer_equiv_equivalence inst
+R24466:24489 Kernel.ObserverDerivation <> ObserverObservableRegion def
+R24524:24547 Kernel.ObserverDerivation <> ObserverObservableRegion def
+R24568:24583 Kernel.KernelPhysics <> ObservableRegion def
+R24586:24599 Kernel.KernelPhysics <> mu_gauge_shift def
+prf 26872:26903 <> weaker_observer_collapse_witness
+binder 26916:26916 <> A:43
+R26923:26930 Kernel.ObserverDerivation <> Observer rec
+R26932:26932 Kernel.ObserverDerivation <> A:43 var
+binder 26919:26919 <> O:44
+binder 26935:26936 <> s1:45
+binder 26938:26939 <> s2:46
+binder 26941:26943 <> mid:47
+R26972:26979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R26950:26963 Kernel.ObserverDerivation <> observer_equiv def
+R26970:26971 Kernel.ObserverDerivation <> s2:46 var
+R26967:26968 Kernel.ObserverDerivation <> s1:45 var
+R26965:26965 Kernel.ObserverDerivation <> O:44 var
+R27030:27037 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R27003:27006 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R26980:26995 Kernel.KernelPhysics <> ObservableRegion def
+R26997:26998 Kernel.ObserverDerivation <> s1:45 var
+R27000:27002 Kernel.ObserverDerivation <> mid:47 var
+R27007:27022 Kernel.KernelPhysics <> ObservableRegion def
+R27024:27025 Kernel.ObserverDerivation <> s2:46 var
+R27027:27029 Kernel.ObserverDerivation <> mid:47 var
+R27038:27073 Kernel.ObserverDerivation <> observer_collapses_partition_physics def
+R27075:27075 Kernel.ObserverDerivation <> O:44 var

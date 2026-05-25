@@ -450,11 +450,11 @@ Definition preparation_equivalent
   (pmp : PrepMeasProtocol) (s1 s2 : VMState) : Prop :=
   ObservableRegion s1 (pm_meas_mid pmp) = ObservableRegion s2 (pm_meas_mid pmp).
 
-(* DEFINITIONAL LEMMA *)
-(** Reflexivity for preparation equivalence. *)
-Lemma preparation_equivalent_refl :
-  forall pmp s, preparation_equivalent pmp s s.
-Proof. intros. unfold preparation_equivalent. reflexivity. Qed.
+(** Reflexivity of [preparation_equivalent] unfolds to reflexivity of
+    [eq] on [ObservableRegion] values. No internal caller uses it as a
+    standalone lemma; the AssumptionsProbeAll enumeration line was
+    bookkeeping over a definitional restatement. Removed to keep the
+    development free of trivially-unfolding helpers. *)
 
 (** Symmetry of preparation_equivalent unfolds to symmetry of [eq] on
     ObservableRegion values; no caller in the development uses it as a

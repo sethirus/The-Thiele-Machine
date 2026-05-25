@@ -49,7 +49,11 @@ Open Scope string_scope.
 
 Definition SimpleState := string -> nat.
 
-Definition empty_state : SimpleState := fun _ => 0%nat.
+(** The empty register-file state: every name reads as zero. Encoded with
+    an explicit [match] rather than [fun _ => 0] so the structure of "all
+    names map to the same value" is visible at the use site. *)
+Definition empty_state (s : string) : nat :=
+  match s with _ => O end.
 
 Definition state_set (s : SimpleState) (name : string) (v : nat) : SimpleState :=
   fun n => if String.eqb n name then v else s n.

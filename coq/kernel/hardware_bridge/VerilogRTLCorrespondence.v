@@ -114,8 +114,11 @@ Variable verilog_mstatus   : VerilogState -> nat.
     kami_refines_vm_step family of results in kami_hw/Abstraction.v:
     - 31/31 cosim tests ALL PASS (tests/test_verilog_cosim.py)
     - 11,049/11,049 fuzz tests ALL PASS (tests/test_fuzz_random_programs.py)
-    - kami_hw/Abstraction.v: kami_refines_vm_step (Qed), hw_step_preserves_invariants (Qed),
+    - kami_hw/Abstraction.v: kami_refines_vm_step (Qed),
       hw_step_preserves_bianchi (Qed)
+    - kami_hw/VerilogRefinement.v: verilog_mu_non_decreasing_on_charge (Qed)
+      — μ-monotonicity (formerly Abstraction.hw_step_preserves_invariants,
+      inlined at its single call site)
 
     Using [Variable] (a section-local binding) rather than a global Axiom
     keeps the Coq logic sound: the RTL correspondence is a *premise*, not
@@ -469,8 +472,10 @@ Qed.
     The kami_hw/Abstraction.v module supplies the constructive evidence that
     instantiates this contract for the KamiSnapshot hardware model:
       - kami_refines_vm_step      (Qed) — register write commutation
-      - hw_step_preserves_invariants (Qed) — μ-monotonicity
       - hw_step_preserves_bianchi    (Qed) — Bianchi conservation
+      (μ-monotonicity now lives inline in
+       kami_hw/VerilogRefinement.v as
+       verilog_mu_non_decreasing_on_charge.)
 
     Empirical validation of the full step contract:
       - 31/31 cosim tests pass (tests/test_verilog_cosim.py)

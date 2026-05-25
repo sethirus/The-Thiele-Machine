@@ -457,12 +457,11 @@ Fixpoint chain_receipts (rs:list Receipt) : Hash :=
 Definition chain_exec (s0:State) (tr:list (State*StepObs)) : Hash :=
   hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr)).
 
-(** Definitional equivalence between the two chain views. *)
-(* definitional lemma: equality is reflexive after unfolding chain_exec. *)
-Lemma chain_equiv :
-  forall s0 tr,
-    chain_exec s0 tr = hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr)).
-Proof. intros s0 tr. simpl. reflexivity. Qed.
+(** Note: a named equality [chain_equiv] between [chain_exec s0 tr] and
+    its [hcombine (hash_state s0) (chain_receipts (receipts_of s0 tr))]
+    form was removed: it held by [simpl; reflexivity] on the definition
+    of [chain_exec] and had no callers. Any future rewriter needing the
+    expansion can [unfold chain_exec] in place. *)
 
 (** ** Derived corollaries *)
 

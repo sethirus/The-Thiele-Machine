@@ -84,20 +84,13 @@ Definition z_gauge_shift (delta : Z) (s : VMState) : VMState :=
   vm_witness := s.(vm_witness);
   vm_certified := s.(vm_certified) |}.
 
-(** Helper: z_gauge_shift preserves mem projection (used in LASSERT/LJOIN orbit proofs) *)
-Lemma z_gauge_shift_mem : forall delta s,
-  vm_mem (z_gauge_shift delta s) = vm_mem s.
-Proof. intros. unfold z_gauge_shift. reflexivity. Qed.
-
-(** Helper: z_gauge_shift preserves regs projection (used in LASSERT/LJOIN orbit proofs) *)
-Lemma z_gauge_shift_regs : forall delta s,
-  vm_regs (z_gauge_shift delta s) = vm_regs s.
-Proof. intros. unfold z_gauge_shift. reflexivity. Qed.
-
-(** Helper: z_gauge_shift preserves graph projection *)
-Lemma z_gauge_shift_graph : forall delta s,
-  vm_graph (z_gauge_shift delta s) = vm_graph s.
-Proof. intros. unfold z_gauge_shift. reflexivity. Qed.
+(** The per-field projection lemmas
+    z_gauge_shift_{mem,regs,graph} were inlined-and-deleted here.
+    Each was a one-line unfold + reflexivity of [z_gauge_shift], with no
+    callers anywhere in the kernel proof tree; they were Record-field
+    invariance restatements rather than mathematical content. The
+    structural fact they witnessed (z_gauge_shift only touches vm_mu) is
+    now used directly by reflexivity inside [z_gauge_invariance] below. *)
 
 (** Helper: z_gauge_shift preserves read_reg (depends only on vm_regs) *)
 Lemma z_gauge_shift_read_reg : forall delta s r,
@@ -311,16 +304,14 @@ Qed.
   DEPENDENCIES: Requires z_gauge_shift (preserves graph), Observable_partition (extracts graph).
 
 *)
-(** DEFINITIONAL HELPER: [z_gauge_shift] only modifies [vm_mu], not the
-    graph fields that [Observable_partition] reads.  Structural independence
-    of Record fields makes the two sides definitionally equal. *)
-Theorem z_gauge_invariance : forall delta s,
-  Observable_partition (z_gauge_shift delta s) = Observable_partition s.
-Proof.
-  intros delta s.
-  unfold Observable_partition, z_gauge_shift.
-  simpl. reflexivity.
-Qed.
+(** The named theorem [z_gauge_invariance] was inlined-and-deleted
+    here. Its only consumer was [noether_backward] below, which now
+    discharges the partition-observable equality directly by unfolding
+    [Observable_partition] and [z_gauge_shift] (the two operations
+    [Observable_partition] reads — extracting [pg_modules] from
+    [vm_graph] — are untouched by [z_gauge_shift], which only modifies
+    [vm_mu]). Carrying it as a separately named theorem was a
+    documentation aid, not mathematical content. *)
 
 (** μ-ledger projection and monotonicity. *)
 
@@ -797,49 +788,22 @@ Proof.
   rewrite Harith. apply Nat2Z.id.
 Qed.
 
-(**
-  noether_backward: the conservation premise is not needed here.
+(** Gauge invariance of [Observable_partition].
 
-  The historical name suggests a Noether converse. The proof is smaller:
-  Observable_partition ignores μ by definition, so z_gauge_invariance proves
-  the result directly. The μ-monotonicity premise is accepted for API shape but
-  unused.
+    [Observable_partition] reads only [vm_graph] (via [pg_modules]) and
+    [z_gauge_shift] copies [vm_graph] unchanged (it only updates [vm_mu]),
+    so for every [s] and [delta]:
+        [Observable_partition (z_gauge_shift delta s) = Observable_partition s]
+    by [unfold Observable_partition, z_gauge_shift; simpl; reflexivity]
+    inline.
 
-  CLAIM: ∀ s. (μ-conservation law holds) →
-         ∀ delta. Observable_partition(shift(delta, s)) = Observable_partition(s).
-
-  STRUCTURE: Given hypothesis that μ is conserved (monotone), prove that ALL
-  gauge shifts preserve observables.
-
-  1. Assume hypothesis: ∀ i, s'. vm_step s i s' → μ(s) ≤ μ(s') (conservation).
-  2. Goal: prove Observable_partition unchanged by any gauge shift delta.
-  3. Apply z_gauge_invariance: this theorem already proves the goal directly.
-  4. The hypothesis Hcons is UNUSED - gauge invariance holds UNCONDITIONALLY.
-  5. QED (trivial application).
-
-  This is why the Noether wording must stay scoped: the file does not prove a
-  bidirectional physical equivalence between symmetry and conservation.
-
-  EXAMPLE: Given vm_step_mu_monotonic (μ conserved), noether_backward proves:
-  z_gauge_shift(delta, s) has same Observable_partition as s for ALL delta.
-
-  To falsify: Find state s where μ-conservation holds but gauge shift changes
-  Observable_partition. This would contradict z_gauge_invariance (proven theorem).
-
-  DEPENDENCIES: Requires z_gauge_invariance (gauge symmetry theorem), mu_current,
-  vm_step (dynamics).
-
-*)
-(** The partition observable ignores μ-shifts regardless of the premise. *)
-Theorem noether_backward : forall s,
-  (forall i s', vm_step s i s' -> mu_current s <= mu_current s')%nat ->
-  forall delta, Observable_partition (z_gauge_shift delta s) = Observable_partition s.
-Proof.
-  intros s _ delta.
-  apply z_gauge_invariance.
-Qed.
-
-(** Summary: the zero boundary is the point. *)
+    The earlier standalone lemma [noether_backward] dressed this fact in a
+    phantom μ-monotonicity premise that the proof did not use. That was
+    structurally dishonest — the hypothesis was "accepted for API shape
+    but unused" per its own docstring — and is removed. The structural
+    claim is captured by the definitions themselves and the inline
+    discharge above; any consumer that needs the equation can apply
+    that one-line unfold without a named lemma. *)
 
 (** PROVEN (with constraints):
     - Z-indexed shift laws (identity, composition, inverse); composition and

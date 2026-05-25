@@ -1,489 +1,405 @@
-DIGEST 9caf5f9b4485a7146bb0d9c8134fa987
+DIGEST a862d7193826a7db85a6d3921c6d57a0
 FKernel.MuCostDerivation
-R1757:1760 Coq.Lists.List <> <> lib
-R1762:1764 Coq.micromega.Lia <> <> lib
-R1766:1779 Coq.Arith.PeanoNat <> <> lib
-R1781:1784 Coq.Bool.Bool <> <> lib
-R1786:1791 Coq.Strings.String <> <> lib
-R1793:1797 Coq.Reals.Reals <> <> lib
-R1824:1826 Coq.Init.Nat <> <> lib
-R1836:1848 Coq.Lists.List ListNotations <> mod
-R1879:1885 Kernel.VMState <> <> lib
-R1887:1892 Kernel.VMStep <> <> lib
-R1894:1911 Kernel.StateSpaceCounting <> <> lib
-R1913:1926 Kernel.SemanticMuCost <> <> lib
-R2099:2113 Thermodynamic.LandauerDerived <> <> lib
-rec 2331:2346 <> StateSpaceChange
-proj 2355:2366 <> omega_before
-proj 2377:2387 <> omega_after
-proj 2398:2412 <> reduction_valid
-R2370:2372 Coq.Init.Datatypes <> nat ind
-R2391:2393 Coq.Init.Datatypes <> nat ind
-R2427:2430 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2416:2426 Kernel.MuCostDerivation <> omega_after:3 meth
-R2431:2442 Kernel.MuCostDerivation <> omega_before:2 meth
-def 2522:2542 <> information_cost_bits
-R2554:2569 Kernel.MuCostDerivation <> StateSpaceChange rec
-binder 2545:2550 <> change:5
+R1940:1943 Coq.Lists.List <> <> lib
+R1945:1947 Coq.micromega.Lia <> <> lib
+R1949:1962 Coq.Arith.PeanoNat <> <> lib
+R1964:1967 Coq.Bool.Bool <> <> lib
+R1969:1974 Coq.Strings.String <> <> lib
+R1976:1980 Coq.Reals.Reals <> <> lib
+R2007:2009 Coq.Init.Nat <> <> lib
+R2019:2031 Coq.Lists.List ListNotations <> mod
+R2062:2068 Kernel.VMState <> <> lib
+R2070:2075 Kernel.VMStep <> <> lib
+R2077:2094 Kernel.StateSpaceCounting <> <> lib
+R2096:2109 Kernel.SemanticMuCost <> <> lib
+R2282:2296 Thermodynamic.LandauerDerived <> <> lib
+rec 2514:2529 <> StateSpaceChange
+proj 2538:2549 <> omega_before
+proj 2560:2570 <> omega_after
+proj 2581:2595 <> reduction_valid
+R2553:2555 Coq.Init.Datatypes <> nat ind
 R2574:2576 Coq.Init.Datatypes <> nat ind
-R2599:2606 Kernel.SemanticMuCost <> log2_nat def
-R2609:2620 Kernel.MuCostDerivation <> omega_before proj
-R2622:2627 Kernel.MuCostDerivation <> change:5 var
-binder 2587:2594 <> n_before:6
-R2650:2657 Kernel.SemanticMuCost <> log2_nat def
-R2660:2670 Kernel.MuCostDerivation <> omega_after proj
-R2672:2677 Kernel.MuCostDerivation <> change:5 var
-binder 2639:2645 <> n_after:7
-R2693:2695 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R2685:2692 Kernel.MuCostDerivation <> n_before:6 var
-R2696:2702 Kernel.MuCostDerivation <> n_after:7 var
-prf 2769:2790 <> log2_subtraction_valid
-R2829:2831 Coq.Init.Datatypes <> nat ind
-binder 2802:2813 <> omega_before:8
-binder 2815:2825 <> omega_after:9
-R2864:2869 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2848:2851 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2837:2847 Kernel.MuCostDerivation <> omega_after:9 var
-R2852:2863 Kernel.MuCostDerivation <> omega_before:8 var
-R2890:2893 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R2870:2877 Kernel.SemanticMuCost <> log2_nat def
-R2879:2889 Kernel.MuCostDerivation <> omega_after:9 var
-R2894:2901 Kernel.SemanticMuCost <> log2_nat def
-R2903:2914 Kernel.MuCostDerivation <> omega_before:8 var
-R2972:2979 Kernel.SemanticMuCost <> log2_nat def
-R3436:3439 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3411:3418 Coq.Arith.PeanoNat Nat log2 def
-R3421:3421 Coq.Init.Datatypes <> S constr
-R3440:3447 Coq.Arith.PeanoNat Nat log2 def
-R3450:3450 Coq.Init.Datatypes <> S constr
-R3436:3439 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3411:3418 Coq.Arith.PeanoNat Nat log2 def
-R3421:3421 Coq.Init.Datatypes <> S constr
-R3440:3447 Coq.Arith.PeanoNat Nat log2 def
-R3450:3450 Coq.Init.Datatypes <> S constr
-R3483:3498 Coq.Arith.PeanoNat Nat log2_le_mono thm
-R3483:3498 Coq.Arith.PeanoNat Nat log2_le_mono thm
-R3616:3619 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
-R3579:3585 Coq.Arith.PeanoNat Nat pow def
-R3590:3597 Coq.Arith.PeanoNat Nat log2 def
-R3600:3600 Coq.Init.Datatypes <> S constr
-R3620:3620 Coq.Init.Datatypes <> S constr
-R3706:3709 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
-R3668:3674 Coq.Arith.PeanoNat Nat pow def
-R3679:3686 Coq.Arith.PeanoNat Nat log2 def
-R3689:3689 Coq.Init.Datatypes <> S constr
-R3710:3710 Coq.Init.Datatypes <> S constr
-R3616:3619 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
-R3579:3585 Coq.Arith.PeanoNat Nat pow def
-R3590:3597 Coq.Arith.PeanoNat Nat log2 def
-R3600:3600 Coq.Init.Datatypes <> S constr
-R3620:3620 Coq.Init.Datatypes <> S constr
-R3706:3709 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
-R3668:3674 Coq.Arith.PeanoNat Nat pow def
-R3679:3686 Coq.Arith.PeanoNat Nat log2 def
-R3689:3689 Coq.Init.Datatypes <> S constr
-R3710:3710 Coq.Init.Datatypes <> S constr
-R3706:3709 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
-R3668:3674 Coq.Arith.PeanoNat Nat pow def
-R3679:3686 Coq.Arith.PeanoNat Nat log2 def
-R3689:3689 Coq.Init.Datatypes <> S constr
-R3710:3710 Coq.Init.Datatypes <> S constr
-R4203:4212 Coq.Arith.PeanoNat Nat eqb_eq thm
-R4203:4212 Coq.Arith.PeanoNat Nat eqb_eq thm
-R4397:4400 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4383:4383 Coq.Init.Datatypes <> S constr
-R4401:4401 Coq.Init.Datatypes <> S constr
-R4397:4400 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
-R4383:4383 Coq.Init.Datatypes <> S constr
-R4401:4401 Coq.Init.Datatypes <> S constr
-R4520:4531 Coq.Arith.PeanoNat Nat eqb_refl thm
-R4520:4531 Coq.Arith.PeanoNat Nat eqb_refl thm
-R4520:4531 Coq.Arith.PeanoNat Nat eqb_refl thm
-R4645:4647 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4631:4631 Coq.Init.Datatypes <> S constr
-R4648:4648 Coq.Init.Datatypes <> S constr
-R4645:4647 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4631:4631 Coq.Init.Datatypes <> S constr
-R4648:4648 Coq.Init.Datatypes <> S constr
-R4682:4696 Coq.Arith.PeanoNat Nat lt_eq_cases thm
-R4682:4696 Coq.Arith.PeanoNat Nat lt_eq_cases thm
-R5000:5002 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4975:4982 Coq.Arith.PeanoNat Nat log2 def
-R4985:4985 Coq.Init.Datatypes <> S constr
-R5003:5010 Coq.Arith.PeanoNat Nat log2 def
-R5013:5013 Coq.Init.Datatypes <> S constr
-R5000:5002 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R4975:4982 Coq.Arith.PeanoNat Nat log2 def
-R4985:4985 Coq.Init.Datatypes <> S constr
-R5003:5010 Coq.Arith.PeanoNat Nat log2 def
-R5013:5013 Coq.Init.Datatypes <> S constr
-R5048:5063 Coq.Arith.PeanoNat Nat log2_lt_pow2 thm
-R5048:5063 Coq.Arith.PeanoNat Nat log2_lt_pow2 thm
-def 5204:5213 <> to_erasure
-R5225:5240 Kernel.MuCostDerivation <> StateSpaceChange rec
-binder 5216:5221 <> change:10
-R5245:5251 Thermodynamic.LandauerDerived <> Erasure rec
-R5274:5281 Kernel.SemanticMuCost <> log2_nat def
-R5284:5295 Kernel.MuCostDerivation <> omega_before proj
-R5297:5302 Kernel.MuCostDerivation <> change:10 var
-binder 5262:5269 <> n_before:11
-R5325:5332 Kernel.SemanticMuCost <> log2_nat def
-R5335:5345 Kernel.MuCostDerivation <> omega_after proj
-R5347:5352 Kernel.MuCostDerivation <> change:10 var
-binder 5314:5320 <> n_after:12
-R5360:5368 Thermodynamic.LandauerDerived <> mkErasure constr
-R5370:5377 Kernel.MuCostDerivation <> n_before:11 var
-R5379:5385 Kernel.MuCostDerivation <> n_after:12 var
-R5388:5409 Kernel.MuCostDerivation <> log2_subtraction_valid thm
-R5416:5430 Kernel.MuCostDerivation <> reduction_valid proj
-R5432:5437 Kernel.MuCostDerivation <> change:10 var
-prf 5605:5630 <> state_reduction_is_erasure
-R5651:5666 Kernel.MuCostDerivation <> StateSpaceChange rec
-binder 5642:5647 <> change:13
-R5703:5705 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5672:5682 Thermodynamic.LandauerDerived <> bits_erased def
-R5685:5694 Kernel.MuCostDerivation <> to_erasure def
-R5696:5701 Kernel.MuCostDerivation <> change:13 var
-R5706:5726 Kernel.MuCostDerivation <> information_cost_bits def
-R5728:5733 Kernel.MuCostDerivation <> change:13 var
-R5768:5777 Kernel.MuCostDerivation <> to_erasure def
-R5780:5790 Thermodynamic.LandauerDerived <> bits_erased def
-R5793:5813 Kernel.MuCostDerivation <> information_cost_bits def
-rec 6309:6321 <> LASSERTChange
-proj 6330:6338 <> omega_pre
-proj 6349:6358 <> omega_post
-proj 6369:6381 <> omega_post_le
-proj 6412:6425 <> omega_post_pos
-proj 6537:6547 <> description
-proj 6622:6637 <> description_bits
-proj 6648:6664 <> description_valid
-R6342:6344 Coq.Init.Datatypes <> nat ind
-R6362:6364 Coq.Init.Datatypes <> nat ind
-R6395:6398 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R6385:6394 Kernel.MuCostDerivation <> omega_post:16 meth
-R6399:6407 Kernel.MuCostDerivation <> omega_pre:15 meth
-R6439:6441 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R6429:6438 Kernel.MuCostDerivation <> omega_post:16 meth
-R6551:6560 Kernel.SemanticMuCost <> Constraint ind
-R6641:6643 Coq.Init.Datatypes <> nat ind
-R6684:6686 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6668:6683 Kernel.MuCostDerivation <> description_bits:20 meth
-R6687:6710 Kernel.SemanticMuCost <> semantic_complexity_bits def
-R6712:6722 Kernel.MuCostDerivation <> description:19 meth
-def 6780:6797 <> lassert_total_cost
-R6809:6821 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 6800:6805 <> change:22
-R6826:6828 Coq.Init.Datatypes <> nat ind
-R6890:6892 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R6863:6870 Kernel.SemanticMuCost <> log2_nat def
-R6873:6881 Kernel.MuCostDerivation <> omega_pre proj
-R6883:6888 Kernel.MuCostDerivation <> change:22 var
-R6893:6900 Kernel.SemanticMuCost <> log2_nat def
-R6903:6912 Kernel.MuCostDerivation <> omega_post proj
-R6914:6919 Kernel.MuCostDerivation <> change:22 var
-binder 6839:6858 <> state_reduction_cost:23
-R6947:6949 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R6927:6946 Kernel.MuCostDerivation <> state_reduction_cost:23 var
-R6950:6965 Kernel.MuCostDerivation <> description_bits proj
-R6967:6972 Kernel.MuCostDerivation <> change:22 var
-prf 7212:7234 <> lassert_cost_determined
-R7255:7267 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 7246:7251 <> change:24
-R7298:7305 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7273:7290 Kernel.MuCostDerivation <> lassert_total_cost def
-R7292:7297 Kernel.MuCostDerivation <> change:24 var
-R7306:7306 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R7365:7368 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R7334:7336 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R7307:7314 Kernel.SemanticMuCost <> log2_nat def
-R7317:7325 Kernel.MuCostDerivation <> omega_pre proj
-R7327:7332 Kernel.MuCostDerivation <> change:24 var
-R7337:7344 Kernel.SemanticMuCost <> log2_nat def
-R7347:7356 Kernel.MuCostDerivation <> omega_post proj
-R7358:7363 Kernel.MuCostDerivation <> change:24 var
-R7369:7384 Kernel.MuCostDerivation <> description_bits proj
-R7386:7391 Kernel.MuCostDerivation <> change:24 var
-R7426:7443 Kernel.MuCostDerivation <> lassert_total_cost def
-prf 7619:7637 <> lassert_cost_is_sum
-R7658:7670 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 7649:7654 <> change:25
-R7701:7707 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7676:7693 Kernel.MuCostDerivation <> lassert_total_cost def
-R7695:7700 Kernel.MuCostDerivation <> change:25 var
-R7708:7708 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R7767:7770 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R7736:7738 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R7709:7716 Kernel.SemanticMuCost <> log2_nat def
-R7719:7727 Kernel.MuCostDerivation <> omega_pre proj
-R7729:7734 Kernel.MuCostDerivation <> change:25 var
-R7739:7746 Kernel.SemanticMuCost <> log2_nat def
-R7749:7758 Kernel.MuCostDerivation <> omega_post proj
-R7760:7765 Kernel.MuCostDerivation <> change:25 var
-R7771:7786 Kernel.MuCostDerivation <> description_bits proj
-R7788:7793 Kernel.MuCostDerivation <> change:25 var
-R7828:7845 Kernel.MuCostDerivation <> lassert_total_cost def
-prf 7932:7961 <> lassert_cost_lower_bound_state
-R7982:7994 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 7973:7978 <> change:26
-R8025:8028 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8000:8017 Kernel.MuCostDerivation <> lassert_total_cost def
-R8019:8024 Kernel.MuCostDerivation <> change:26 var
-R8056:8058 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R8029:8036 Kernel.SemanticMuCost <> log2_nat def
-R8039:8047 Kernel.MuCostDerivation <> omega_pre proj
-R8049:8054 Kernel.MuCostDerivation <> change:26 var
-R8059:8066 Kernel.SemanticMuCost <> log2_nat def
-R8069:8078 Kernel.MuCostDerivation <> omega_post proj
-R8080:8085 Kernel.MuCostDerivation <> change:26 var
-R8121:8138 Kernel.MuCostDerivation <> lassert_total_cost def
-prf 8215:8250 <> lassert_cost_lower_bound_description
-R8271:8283 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 8262:8267 <> change:27
-R8314:8317 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8289:8306 Kernel.MuCostDerivation <> lassert_total_cost def
-R8308:8313 Kernel.MuCostDerivation <> change:27 var
-R8318:8333 Kernel.MuCostDerivation <> description_bits proj
-R8335:8340 Kernel.MuCostDerivation <> change:27 var
-R8375:8392 Kernel.MuCostDerivation <> lassert_total_cost def
-rec 9337:9348 <> ReversibleOp
-proj 9357:9361 <> omega
-proj 9372:9386 <> omega_unchanged
-R9365:9367 Coq.Init.Datatypes <> nat ind
-R9395:9397 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9390:9394 Kernel.MuCostDerivation <> omega:29 meth
-R9398:9402 Kernel.MuCostDerivation <> omega:29 meth
-def 9624:9643 <> reversible_info_cost
-R9651:9662 Kernel.MuCostDerivation <> ReversibleOp rec
-binder 9646:9647 <> op:31
-R9667:9669 Coq.Init.Datatypes <> nat ind
-prf 9811:9833 <> partition_ops_zero_cost
-R9850:9861 Kernel.MuCostDerivation <> ReversibleOp rec
-binder 9845:9846 <> op:32
-R9890:9892 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9867:9886 Kernel.MuCostDerivation <> reversible_info_cost def
-R9888:9889 Kernel.MuCostDerivation <> op:32 var
-R9924:9943 Kernel.MuCostDerivation <> reversible_info_cost def
-prf 10038:10062 <> partition_ops_cannot_cost
-R10079:10090 Kernel.MuCostDerivation <> ReversibleOp rec
-binder 10074:10075 <> op:33
-R10101:10103 Coq.Init.Datatypes <> nat ind
-binder 10094:10097 <> cost:34
-R10117:10174 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10113:10115 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R10109:10112 Kernel.MuCostDerivation <> cost:34 var
-R10179:10181 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R10175:10178 Kernel.MuCostDerivation <> cost:34 var
-R10182:10192 Thermodynamic.LandauerDerived <> bits_erased def
-R10197:10206 Thermodynamic.LandauerDerived <> input_bits proj
-R10197:10206 Thermodynamic.LandauerDerived <> input_bits proj
-R10197:10206 Thermodynamic.LandauerDerived <> input_bits proj
-R10256:10266 Thermodynamic.LandauerDerived <> output_bits proj
-R10256:10266 Thermodynamic.LandauerDerived <> output_bits proj
-R10316:10325 Thermodynamic.LandauerDerived <> output_leq proj
-R10316:10325 Thermodynamic.LandauerDerived <> output_leq proj
-R10211:10218 Kernel.SemanticMuCost <> log2_nat def
-R10221:10225 Kernel.MuCostDerivation <> omega proj
-R10227:10228 Kernel.MuCostDerivation <> op:33 var
-R10271:10278 Kernel.SemanticMuCost <> log2_nat def
-R10281:10285 Kernel.MuCostDerivation <> omega proj
-R10287:10288 Kernel.MuCostDerivation <> op:33 var
-R10330:10340 Coq.Arith.PeanoNat Nat le_refl thm
-R10387:10397 Thermodynamic.LandauerDerived <> bits_erased def
-R10417:10428 Coq.Arith.PeanoNat Nat sub_diag thm
-R10417:10428 Coq.Arith.PeanoNat Nat sub_diag thm
-R10417:10428 Coq.Arith.PeanoNat Nat sub_diag thm
-def 10600:10619 <> landauer_energy_bits
-R10634:10636 Coq.Init.Datatypes <> nat ind
-binder 10622:10630 <> info_bits:35
-R10641:10643 Coq.Init.Datatypes <> nat ind
-R10648:10656 Kernel.MuCostDerivation <> info_bits:35 var
-def 10727:10749 <> landauer_energy_bits_eq
-R10764:10766 Coq.Init.Datatypes <> nat ind
-binder 10752:10760 <> info_bits:36
-R10803:10805 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10773:10792 Kernel.MuCostDerivation <> landauer_energy_bits def
-R10794:10802 Kernel.MuCostDerivation <> info_bits:36 var
-R10806:10814 Kernel.MuCostDerivation <> info_bits:36 var
-R10819:10825 Coq.Init.Logic <> eq_refl constr
-prf 10923:10949 <> mu_cost_thermodynamic_bound
-R10973:10975 Coq.Init.Datatypes <> nat ind
-binder 10961:10969 <> info_bits:37
-R11073:11076 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11043:11062 Kernel.MuCostDerivation <> landauer_energy_bits def
-R11064:11072 Kernel.MuCostDerivation <> info_bits:37 var
-R11077:11085 Kernel.MuCostDerivation <> info_bits:37 var
-R11125:11147 Kernel.MuCostDerivation <> landauer_energy_bits_eq def
-R11125:11147 Kernel.MuCostDerivation <> landauer_energy_bits_eq def
-R11125:11147 Kernel.MuCostDerivation <> landauer_energy_bits_eq def
-R11169:11179 Coq.Arith.PeanoNat Nat le_refl thm
-R11169:11179 Coq.Arith.PeanoNat Nat le_refl thm
-def 11329:11352 <> derived_instruction_cost
-R11363:11376 Kernel.VMStep VMStep vm_instruction ind
-binder 11355:11359 <> instr:38
-R11381:11383 Coq.Init.Datatypes <> nat ind
-R11396:11400 Kernel.MuCostDerivation <> instr:38 var
-R11411:11420 Kernel.VMStep VMStep instr_pnew constr
-R11462:11473 Kernel.VMStep VMStep instr_psplit constr
-R11513:11524 Kernel.VMStep VMStep instr_pmerge constr
-R11564:11576 Kernel.VMStep VMStep instr_lassert constr
-R11807:11809 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R11803:11805 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R11810:11810 Coq.Init.Datatypes <> S constr
-prf 12865:12884 <> cost_function_unique
-R12904:12917 Kernel.VMStep VMStep vm_instruction ind
-binder 12896:12900 <> instr:40
-R12929:12933 Kernel.MuCostDerivation <> instr:40 var
-R12944:12956 Kernel.VMStep VMStep instr_lassert constr
-binder 13168:13179 <> omega_before:42
-binder 13181:13191 <> omega_after:43
-R13206:13208 Coq.Init.Datatypes <> nat ind
-binder 13194:13202 <> desc_bits:44
-R13218:13227 Kernel.SemanticMuCost <> Constraint ind
-binder 13212:13214 <> ast:45
-R13266:13277 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13250:13253 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R13239:13249 Kernel.MuCostDerivation <> omega_after:43 var
-R13254:13265 Kernel.MuCostDerivation <> omega_before:42 var
-R13318:13329 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13287:13289 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13278:13286 Kernel.MuCostDerivation <> desc_bits:44 var
-R13290:13313 Kernel.SemanticMuCost <> semantic_complexity_bits def
-R13315:13317 Kernel.MuCostDerivation <> ast:45 var
-R13400:13411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13335:13337 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13388:13390 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R13339:13342 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R13387:13387 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R13364:13366 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R13343:13350 Kernel.SemanticMuCost <> log2_nat def
-R13352:13363 Kernel.MuCostDerivation <> omega_before:42 var
-R13367:13374 Kernel.SemanticMuCost <> log2_nat def
-R13376:13386 Kernel.MuCostDerivation <> omega_after:43 var
-R13391:13399 Kernel.MuCostDerivation <> desc_bits:44 var
-R13442:13444 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13412:13435 Kernel.MuCostDerivation <> derived_instruction_cost def
-R13437:13441 Kernel.MuCostDerivation <> instr:40 var
-R13453:13455 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R13449:13451 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
-R13456:13456 Coq.Init.Datatypes <> S constr
-R13468:13477 Kernel.VMStep VMStep instr_pnew constr
-R13505:13508 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13501:13503 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13539:13541 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13509:13532 Kernel.MuCostDerivation <> derived_instruction_cost def
-R13534:13538 Kernel.MuCostDerivation <> instr:40 var
-R13552:13563 Kernel.VMStep VMStep instr_psplit constr
-R13595:13598 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13591:13593 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13629:13631 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13599:13622 Kernel.MuCostDerivation <> derived_instruction_cost def
-R13624:13628 Kernel.MuCostDerivation <> instr:40 var
-R13642:13653 Kernel.VMStep VMStep instr_pmerge constr
-R13683:13686 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R13679:13681 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13717:13719 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R13687:13710 Kernel.MuCostDerivation <> derived_instruction_cost def
-R13712:13716 Kernel.MuCostDerivation <> instr:40 var
-R13735:13738 Coq.Init.Logic <> True ind
-R13794:13817 Kernel.MuCostDerivation <> derived_instruction_cost def
-prf 18358:18371 <> cost_necessity
-R18394:18406 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 18385:18390 <> change:46
-R18442:18444 Coq.Init.Datatypes <> nat ind
-binder 18419:18438 <> state_reduction_cost:47
-R18476:18478 Coq.Init.Datatypes <> nat ind
-binder 18457:18472 <> description_cost:48
-R18574:18581 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18506:18515 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R18486:18505 Kernel.MuCostDerivation <> state_reduction_cost:47 var
-R18543:18545 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R18516:18523 Kernel.SemanticMuCost <> log2_nat def
-R18526:18534 Kernel.MuCostDerivation <> omega_pre proj
-R18536:18541 Kernel.MuCostDerivation <> change:46 var
-R18546:18553 Kernel.SemanticMuCost <> log2_nat def
-R18556:18565 Kernel.MuCostDerivation <> omega_post proj
-R18567:18572 Kernel.MuCostDerivation <> change:46 var
-R18625:18632 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R18598:18601 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R18582:18597 Kernel.MuCostDerivation <> description_cost:48 var
-R18602:18617 Kernel.MuCostDerivation <> description_bits proj
-R18619:18624 Kernel.MuCostDerivation <> change:46 var
-R18672:18675 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R18653:18655 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R18633:18652 Kernel.MuCostDerivation <> state_reduction_cost:47 var
-R18656:18671 Kernel.MuCostDerivation <> description_cost:48 var
-R18676:18693 Kernel.MuCostDerivation <> lassert_total_cost def
-R18695:18700 Kernel.MuCostDerivation <> change:46 var
-R18756:18773 Kernel.MuCostDerivation <> lassert_total_cost def
-prf 19153:19176 <> cost_forcing_lower_bound
-R19199:19211 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 19190:19195 <> change:49
-R19228:19230 Coq.Init.Datatypes <> nat ind
-binder 19215:19224 <> total_cost:50
-R19351:19358 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R19248:19257 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19238:19247 Kernel.MuCostDerivation <> total_cost:50 var
-R19258:19258 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R19317:19327 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R19286:19288 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R19259:19266 Kernel.SemanticMuCost <> log2_nat def
-R19269:19277 Kernel.MuCostDerivation <> omega_pre proj
-R19279:19284 Kernel.MuCostDerivation <> change:49 var
-R19289:19296 Kernel.SemanticMuCost <> log2_nat def
-R19299:19308 Kernel.MuCostDerivation <> omega_post proj
-R19310:19315 Kernel.MuCostDerivation <> change:49 var
-R19328:19343 Kernel.MuCostDerivation <> description_bits proj
-R19345:19350 Kernel.MuCostDerivation <> change:49 var
-R19369:19372 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R19359:19368 Kernel.MuCostDerivation <> total_cost:50 var
-R19373:19390 Kernel.MuCostDerivation <> lassert_total_cost def
-R19392:19397 Kernel.MuCostDerivation <> change:49 var
-R19446:19463 Kernel.MuCostDerivation <> lassert_total_cost def
-prf 20308:20322 <> cost_uniqueness
-R20345:20357 Kernel.MuCostDerivation <> LASSERTChange rec
-binder 20336:20341 <> change:51
-R20492:20500 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20704:20704 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R20390:20398 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R20365:20382 Kernel.MuCostDerivation <> lassert_total_cost def
-R20384:20389 Kernel.MuCostDerivation <> change:51 var
-R20399:20399 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R20458:20468 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R20427:20429 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R20400:20407 Kernel.SemanticMuCost <> log2_nat def
-R20410:20418 Kernel.MuCostDerivation <> omega_pre proj
-R20420:20425 Kernel.MuCostDerivation <> change:51 var
-R20430:20437 Kernel.SemanticMuCost <> log2_nat def
-R20440:20449 Kernel.MuCostDerivation <> omega_post proj
-R20451:20456 Kernel.MuCostDerivation <> change:51 var
-R20469:20484 Kernel.MuCostDerivation <> description_bits proj
-R20486:20491 Kernel.MuCostDerivation <> change:51 var
-R20522:20524 Coq.Init.Datatypes <> nat ind
-binder 20509:20518 <> total_cost:52
-R20654:20664 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R20545:20557 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R20535:20544 Kernel.MuCostDerivation <> total_cost:52 var
-R20558:20558 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R20617:20630 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
-R20586:20588 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
-R20559:20566 Kernel.SemanticMuCost <> log2_nat def
-R20569:20577 Kernel.MuCostDerivation <> omega_pre proj
-R20579:20584 Kernel.MuCostDerivation <> change:51 var
-R20589:20596 Kernel.SemanticMuCost <> log2_nat def
-R20599:20608 Kernel.MuCostDerivation <> omega_post proj
-R20610:20615 Kernel.MuCostDerivation <> change:51 var
-R20631:20646 Kernel.MuCostDerivation <> description_bits proj
-R20648:20653 Kernel.MuCostDerivation <> change:51 var
-R20675:20678 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R20665:20674 Kernel.MuCostDerivation <> total_cost:52 var
-R20679:20696 Kernel.MuCostDerivation <> lassert_total_cost def
-R20698:20703 Kernel.MuCostDerivation <> change:51 var
-R20750:20768 Kernel.MuCostDerivation <> lassert_cost_is_sum thm
-R20750:20768 Kernel.MuCostDerivation <> lassert_cost_is_sum thm
-R20808:20831 Kernel.MuCostDerivation <> cost_forcing_lower_bound thm
-R20808:20831 Kernel.MuCostDerivation <> cost_forcing_lower_bound thm
-R20938:20960 Kernel.MuCostDerivation <> lassert_cost_determined thm
-R20981:21003 Kernel.MuCostDerivation <> partition_ops_zero_cost thm
-R21024:21043 Kernel.MuCostDerivation <> cost_function_unique thm
-R21064:21077 Kernel.MuCostDerivation <> cost_necessity thm
-R21098:21112 Kernel.MuCostDerivation <> cost_uniqueness thm
+R2610:2613 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R2599:2609 Kernel.MuCostDerivation <> omega_after:3 meth
+R2614:2625 Kernel.MuCostDerivation <> omega_before:2 meth
+def 2705:2725 <> information_cost_bits
+R2737:2752 Kernel.MuCostDerivation <> StateSpaceChange rec
+binder 2728:2733 <> change:5
+R2757:2759 Coq.Init.Datatypes <> nat ind
+R2782:2789 Kernel.SemanticMuCost <> log2_nat def
+R2792:2803 Kernel.MuCostDerivation <> omega_before proj
+R2805:2810 Kernel.MuCostDerivation <> change:5 var
+binder 2770:2777 <> n_before:6
+R2833:2840 Kernel.SemanticMuCost <> log2_nat def
+R2843:2853 Kernel.MuCostDerivation <> omega_after proj
+R2855:2860 Kernel.MuCostDerivation <> change:5 var
+binder 2822:2828 <> n_after:7
+R2876:2878 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R2868:2875 Kernel.MuCostDerivation <> n_before:6 var
+R2879:2885 Kernel.MuCostDerivation <> n_after:7 var
+prf 2952:2973 <> log2_subtraction_valid
+R3012:3014 Coq.Init.Datatypes <> nat ind
+binder 2985:2996 <> omega_before:8
+binder 2998:3008 <> omega_after:9
+R3047:3052 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3031:3034 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3020:3030 Kernel.MuCostDerivation <> omega_after:9 var
+R3035:3046 Kernel.MuCostDerivation <> omega_before:8 var
+R3073:3076 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3053:3060 Kernel.SemanticMuCost <> log2_nat def
+R3062:3072 Kernel.MuCostDerivation <> omega_after:9 var
+R3077:3084 Kernel.SemanticMuCost <> log2_nat def
+R3086:3097 Kernel.MuCostDerivation <> omega_before:8 var
+R3155:3162 Kernel.SemanticMuCost <> log2_nat def
+R3619:3622 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3594:3601 Coq.Arith.PeanoNat Nat log2 def
+R3604:3604 Coq.Init.Datatypes <> S constr
+R3623:3630 Coq.Arith.PeanoNat Nat log2 def
+R3633:3633 Coq.Init.Datatypes <> S constr
+R3619:3622 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3594:3601 Coq.Arith.PeanoNat Nat log2 def
+R3604:3604 Coq.Init.Datatypes <> S constr
+R3623:3630 Coq.Arith.PeanoNat Nat log2 def
+R3633:3633 Coq.Init.Datatypes <> S constr
+R3666:3681 Coq.Arith.PeanoNat Nat log2_le_mono thm
+R3666:3681 Coq.Arith.PeanoNat Nat log2_le_mono thm
+R3799:3802 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R3762:3768 Coq.Arith.PeanoNat Nat pow def
+R3773:3780 Coq.Arith.PeanoNat Nat log2 def
+R3783:3783 Coq.Init.Datatypes <> S constr
+R3803:3803 Coq.Init.Datatypes <> S constr
+R3889:3892 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R3851:3857 Coq.Arith.PeanoNat Nat pow def
+R3862:3869 Coq.Arith.PeanoNat Nat log2 def
+R3872:3872 Coq.Init.Datatypes <> S constr
+R3893:3893 Coq.Init.Datatypes <> S constr
+R3799:3802 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R3762:3768 Coq.Arith.PeanoNat Nat pow def
+R3773:3780 Coq.Arith.PeanoNat Nat log2 def
+R3783:3783 Coq.Init.Datatypes <> S constr
+R3803:3803 Coq.Init.Datatypes <> S constr
+R3889:3892 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R3851:3857 Coq.Arith.PeanoNat Nat pow def
+R3862:3869 Coq.Arith.PeanoNat Nat log2 def
+R3872:3872 Coq.Init.Datatypes <> S constr
+R3893:3893 Coq.Init.Datatypes <> S constr
+R3889:3892 Coq.Init.Nat <> ::nat_scope:x_'=?'_x not
+R3851:3857 Coq.Arith.PeanoNat Nat pow def
+R3862:3869 Coq.Arith.PeanoNat Nat log2 def
+R3872:3872 Coq.Init.Datatypes <> S constr
+R3893:3893 Coq.Init.Datatypes <> S constr
+R4386:4395 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4386:4395 Coq.Arith.PeanoNat Nat eqb_eq thm
+R4580:4583 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4566:4566 Coq.Init.Datatypes <> S constr
+R4584:4584 Coq.Init.Datatypes <> S constr
+R4580:4583 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R4566:4566 Coq.Init.Datatypes <> S constr
+R4584:4584 Coq.Init.Datatypes <> S constr
+R4703:4714 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4703:4714 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4703:4714 Coq.Arith.PeanoNat Nat eqb_refl thm
+R4828:4830 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4814:4814 Coq.Init.Datatypes <> S constr
+R4831:4831 Coq.Init.Datatypes <> S constr
+R4828:4830 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R4814:4814 Coq.Init.Datatypes <> S constr
+R4831:4831 Coq.Init.Datatypes <> S constr
+R4865:4879 Coq.Arith.PeanoNat Nat lt_eq_cases thm
+R4865:4879 Coq.Arith.PeanoNat Nat lt_eq_cases thm
+R5183:5185 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5158:5165 Coq.Arith.PeanoNat Nat log2 def
+R5168:5168 Coq.Init.Datatypes <> S constr
+R5186:5193 Coq.Arith.PeanoNat Nat log2 def
+R5196:5196 Coq.Init.Datatypes <> S constr
+R5183:5185 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R5158:5165 Coq.Arith.PeanoNat Nat log2 def
+R5168:5168 Coq.Init.Datatypes <> S constr
+R5186:5193 Coq.Arith.PeanoNat Nat log2 def
+R5196:5196 Coq.Init.Datatypes <> S constr
+R5231:5246 Coq.Arith.PeanoNat Nat log2_lt_pow2 thm
+R5231:5246 Coq.Arith.PeanoNat Nat log2_lt_pow2 thm
+def 5387:5396 <> to_erasure
+R5408:5423 Kernel.MuCostDerivation <> StateSpaceChange rec
+binder 5399:5404 <> change:10
+R5428:5434 Thermodynamic.LandauerDerived <> Erasure rec
+R5457:5464 Kernel.SemanticMuCost <> log2_nat def
+R5467:5478 Kernel.MuCostDerivation <> omega_before proj
+R5480:5485 Kernel.MuCostDerivation <> change:10 var
+binder 5445:5452 <> n_before:11
+R5508:5515 Kernel.SemanticMuCost <> log2_nat def
+R5518:5528 Kernel.MuCostDerivation <> omega_after proj
+R5530:5535 Kernel.MuCostDerivation <> change:10 var
+binder 5497:5503 <> n_after:12
+R5543:5551 Thermodynamic.LandauerDerived <> mkErasure constr
+R5553:5560 Kernel.MuCostDerivation <> n_before:11 var
+R5562:5568 Kernel.MuCostDerivation <> n_after:12 var
+R5571:5592 Kernel.MuCostDerivation <> log2_subtraction_valid thm
+R5599:5613 Kernel.MuCostDerivation <> reduction_valid proj
+R5615:5620 Kernel.MuCostDerivation <> change:10 var
+rec 6437:6449 <> LASSERTChange
+proj 6458:6466 <> omega_pre
+proj 6477:6486 <> omega_post
+proj 6497:6509 <> omega_post_le
+proj 6540:6553 <> omega_post_pos
+proj 6665:6675 <> description
+proj 6750:6765 <> description_bits
+proj 6776:6792 <> description_valid
+R6470:6472 Coq.Init.Datatypes <> nat ind
+R6490:6492 Coq.Init.Datatypes <> nat ind
+R6523:6526 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R6513:6522 Kernel.MuCostDerivation <> omega_post:15 meth
+R6527:6535 Kernel.MuCostDerivation <> omega_pre:14 meth
+R6567:6569 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R6557:6566 Kernel.MuCostDerivation <> omega_post:15 meth
+R6679:6688 Kernel.SemanticMuCost <> Constraint ind
+R6769:6771 Coq.Init.Datatypes <> nat ind
+R6812:6814 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6796:6811 Kernel.MuCostDerivation <> description_bits:19 meth
+R6815:6838 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R6840:6850 Kernel.MuCostDerivation <> description:18 meth
+def 6908:6925 <> lassert_total_cost
+R6937:6949 Kernel.MuCostDerivation <> LASSERTChange rec
+binder 6928:6933 <> change:21
+R6954:6956 Coq.Init.Datatypes <> nat ind
+R7018:7020 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R6991:6998 Kernel.SemanticMuCost <> log2_nat def
+R7001:7009 Kernel.MuCostDerivation <> omega_pre proj
+R7011:7016 Kernel.MuCostDerivation <> change:21 var
+R7021:7028 Kernel.SemanticMuCost <> log2_nat def
+R7031:7040 Kernel.MuCostDerivation <> omega_post proj
+R7042:7047 Kernel.MuCostDerivation <> change:21 var
+binder 6967:6986 <> state_reduction_cost:22
+R7075:7077 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R7055:7074 Kernel.MuCostDerivation <> state_reduction_cost:22 var
+R7078:7093 Kernel.MuCostDerivation <> description_bits proj
+R7095:7100 Kernel.MuCostDerivation <> change:21 var
+rec 8521:8532 <> ReversibleOp
+proj 8541:8545 <> omega
+proj 8556:8570 <> omega_unchanged
+R8549:8551 Coq.Init.Datatypes <> nat ind
+R8579:8581 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8574:8578 Kernel.MuCostDerivation <> omega:24 meth
+R8582:8586 Kernel.MuCostDerivation <> omega:24 meth
+prf 9119:9143 <> partition_ops_cannot_cost
+R9160:9171 Kernel.MuCostDerivation <> ReversibleOp rec
+binder 9155:9156 <> op:26
+R9182:9184 Coq.Init.Datatypes <> nat ind
+binder 9175:9178 <> cost:27
+R9198:9255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9194:9196 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9190:9193 Kernel.MuCostDerivation <> cost:27 var
+R9260:9262 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R9256:9259 Kernel.MuCostDerivation <> cost:27 var
+R9263:9273 Thermodynamic.LandauerDerived <> bits_erased def
+R9278:9287 Thermodynamic.LandauerDerived <> input_bits proj
+R9278:9287 Thermodynamic.LandauerDerived <> input_bits proj
+R9278:9287 Thermodynamic.LandauerDerived <> input_bits proj
+R9337:9347 Thermodynamic.LandauerDerived <> output_bits proj
+R9337:9347 Thermodynamic.LandauerDerived <> output_bits proj
+R9397:9406 Thermodynamic.LandauerDerived <> output_leq proj
+R9397:9406 Thermodynamic.LandauerDerived <> output_leq proj
+R9292:9299 Kernel.SemanticMuCost <> log2_nat def
+R9302:9306 Kernel.MuCostDerivation <> omega proj
+R9308:9309 Kernel.MuCostDerivation <> op:26 var
+R9352:9359 Kernel.SemanticMuCost <> log2_nat def
+R9362:9366 Kernel.MuCostDerivation <> omega proj
+R9368:9369 Kernel.MuCostDerivation <> op:26 var
+R9411:9421 Coq.Arith.PeanoNat Nat le_refl thm
+R9468:9478 Thermodynamic.LandauerDerived <> bits_erased def
+R9498:9509 Coq.Arith.PeanoNat Nat sub_diag thm
+R9498:9509 Coq.Arith.PeanoNat Nat sub_diag thm
+R9498:9509 Coq.Arith.PeanoNat Nat sub_diag thm
+def 9681:9700 <> landauer_energy_bits
+R9715:9717 Coq.Init.Datatypes <> nat ind
+binder 9703:9711 <> info_bits:28
+R9722:9724 Coq.Init.Datatypes <> nat ind
+R9729:9737 Kernel.MuCostDerivation <> info_bits:28 var
+def 9808:9830 <> landauer_energy_bits_eq
+R9845:9847 Coq.Init.Datatypes <> nat ind
+binder 9833:9841 <> info_bits:29
+R9884:9886 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9854:9873 Kernel.MuCostDerivation <> landauer_energy_bits def
+R9875:9883 Kernel.MuCostDerivation <> info_bits:29 var
+R9887:9895 Kernel.MuCostDerivation <> info_bits:29 var
+R9900:9906 Coq.Init.Logic <> eq_refl constr
+prf 10004:10030 <> mu_cost_thermodynamic_bound
+R10054:10056 Coq.Init.Datatypes <> nat ind
+binder 10042:10050 <> info_bits:30
+R10154:10157 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10124:10143 Kernel.MuCostDerivation <> landauer_energy_bits def
+R10145:10153 Kernel.MuCostDerivation <> info_bits:30 var
+R10158:10166 Kernel.MuCostDerivation <> info_bits:30 var
+R10206:10228 Kernel.MuCostDerivation <> landauer_energy_bits_eq def
+R10206:10228 Kernel.MuCostDerivation <> landauer_energy_bits_eq def
+R10206:10228 Kernel.MuCostDerivation <> landauer_energy_bits_eq def
+R10250:10260 Coq.Arith.PeanoNat Nat le_refl thm
+R10250:10260 Coq.Arith.PeanoNat Nat le_refl thm
+def 10410:10433 <> derived_instruction_cost
+R10444:10457 Kernel.VMStep VMStep vm_instruction ind
+binder 10436:10440 <> instr:31
+R10462:10464 Coq.Init.Datatypes <> nat ind
+R10477:10481 Kernel.MuCostDerivation <> instr:31 var
+R10492:10501 Kernel.VMStep VMStep instr_pnew constr
+R10543:10554 Kernel.VMStep VMStep instr_psplit constr
+R10594:10605 Kernel.VMStep VMStep instr_pmerge constr
+R10645:10657 Kernel.VMStep VMStep instr_lassert constr
+R10888:10890 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R10884:10886 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R10891:10891 Coq.Init.Datatypes <> S constr
+prf 11946:11965 <> cost_function_unique
+R11985:11998 Kernel.VMStep VMStep vm_instruction ind
+binder 11977:11981 <> instr:33
+R12010:12014 Kernel.MuCostDerivation <> instr:33 var
+R12025:12037 Kernel.VMStep VMStep instr_lassert constr
+binder 12249:12260 <> omega_before:35
+binder 12262:12272 <> omega_after:36
+R12287:12289 Coq.Init.Datatypes <> nat ind
+binder 12275:12283 <> desc_bits:37
+R12299:12308 Kernel.SemanticMuCost <> Constraint ind
+binder 12293:12295 <> ast:38
+R12347:12358 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12331:12334 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R12320:12330 Kernel.MuCostDerivation <> omega_after:36 var
+R12335:12346 Kernel.MuCostDerivation <> omega_before:35 var
+R12399:12410 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12368:12370 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12359:12367 Kernel.MuCostDerivation <> desc_bits:37 var
+R12371:12394 Kernel.SemanticMuCost <> semantic_complexity_bits def
+R12396:12398 Kernel.MuCostDerivation <> ast:38 var
+R12481:12492 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12416:12418 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12469:12471 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R12420:12423 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R12468:12468 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R12445:12447 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R12424:12431 Kernel.SemanticMuCost <> log2_nat def
+R12433:12444 Kernel.MuCostDerivation <> omega_before:35 var
+R12448:12455 Kernel.SemanticMuCost <> log2_nat def
+R12457:12467 Kernel.MuCostDerivation <> omega_after:36 var
+R12472:12480 Kernel.MuCostDerivation <> desc_bits:37 var
+R12523:12525 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12493:12516 Kernel.MuCostDerivation <> derived_instruction_cost def
+R12518:12522 Kernel.MuCostDerivation <> instr:33 var
+R12534:12536 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R12530:12532 Coq.Init.Nat <> ::nat_scope:x_'*'_x not
+R12537:12537 Coq.Init.Datatypes <> S constr
+R12549:12558 Kernel.VMStep VMStep instr_pnew constr
+R12586:12589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12582:12584 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12620:12622 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12590:12613 Kernel.MuCostDerivation <> derived_instruction_cost def
+R12615:12619 Kernel.MuCostDerivation <> instr:33 var
+R12633:12644 Kernel.VMStep VMStep instr_psplit constr
+R12676:12679 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12672:12674 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12710:12712 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12680:12703 Kernel.MuCostDerivation <> derived_instruction_cost def
+R12705:12709 Kernel.MuCostDerivation <> instr:33 var
+R12723:12734 Kernel.VMStep VMStep instr_pmerge constr
+R12764:12767 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12760:12762 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12798:12800 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12768:12791 Kernel.MuCostDerivation <> derived_instruction_cost def
+R12793:12797 Kernel.MuCostDerivation <> instr:33 var
+R12816:12819 Coq.Init.Logic <> True ind
+R12875:12898 Kernel.MuCostDerivation <> derived_instruction_cost def
+prf 17898:17911 <> cost_necessity
+R17934:17946 Kernel.MuCostDerivation <> LASSERTChange rec
+binder 17925:17930 <> change:39
+R17982:17984 Coq.Init.Datatypes <> nat ind
+binder 17959:17978 <> state_reduction_cost:40
+R18016:18018 Coq.Init.Datatypes <> nat ind
+binder 17997:18012 <> description_cost:41
+R18114:18121 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18046:18055 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18026:18045 Kernel.MuCostDerivation <> state_reduction_cost:40 var
+R18083:18085 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R18056:18063 Kernel.SemanticMuCost <> log2_nat def
+R18066:18074 Kernel.MuCostDerivation <> omega_pre proj
+R18076:18081 Kernel.MuCostDerivation <> change:39 var
+R18086:18093 Kernel.SemanticMuCost <> log2_nat def
+R18096:18105 Kernel.MuCostDerivation <> omega_post proj
+R18107:18112 Kernel.MuCostDerivation <> change:39 var
+R18165:18172 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18138:18141 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18122:18137 Kernel.MuCostDerivation <> description_cost:41 var
+R18142:18157 Kernel.MuCostDerivation <> description_bits proj
+R18159:18164 Kernel.MuCostDerivation <> change:39 var
+R18212:18215 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18193:18195 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R18173:18192 Kernel.MuCostDerivation <> state_reduction_cost:40 var
+R18196:18211 Kernel.MuCostDerivation <> description_cost:41 var
+R18216:18233 Kernel.MuCostDerivation <> lassert_total_cost def
+R18235:18240 Kernel.MuCostDerivation <> change:39 var
+R18296:18313 Kernel.MuCostDerivation <> lassert_total_cost def
+prf 18693:18716 <> cost_forcing_lower_bound
+R18739:18751 Kernel.MuCostDerivation <> LASSERTChange rec
+binder 18730:18735 <> change:42
+R18768:18770 Coq.Init.Datatypes <> nat ind
+binder 18755:18764 <> total_cost:43
+R18891:18898 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18788:18797 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18778:18787 Kernel.MuCostDerivation <> total_cost:43 var
+R18798:18798 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R18857:18867 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R18826:18828 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R18799:18806 Kernel.SemanticMuCost <> log2_nat def
+R18809:18817 Kernel.MuCostDerivation <> omega_pre proj
+R18819:18824 Kernel.MuCostDerivation <> change:42 var
+R18829:18836 Kernel.SemanticMuCost <> log2_nat def
+R18839:18848 Kernel.MuCostDerivation <> omega_post proj
+R18850:18855 Kernel.MuCostDerivation <> change:42 var
+R18868:18883 Kernel.MuCostDerivation <> description_bits proj
+R18885:18890 Kernel.MuCostDerivation <> change:42 var
+R18909:18912 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R18899:18908 Kernel.MuCostDerivation <> total_cost:43 var
+R18913:18930 Kernel.MuCostDerivation <> lassert_total_cost def
+R18932:18937 Kernel.MuCostDerivation <> change:42 var
+R18986:19003 Kernel.MuCostDerivation <> lassert_total_cost def
+prf 19848:19862 <> cost_uniqueness
+R19885:19897 Kernel.MuCostDerivation <> LASSERTChange rec
+binder 19876:19881 <> change:44
+R20032:20040 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R20244:20244 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R19930:19938 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19905:19922 Kernel.MuCostDerivation <> lassert_total_cost def
+R19924:19929 Kernel.MuCostDerivation <> change:44 var
+R19939:19939 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R19998:20008 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R19967:19969 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R19940:19947 Kernel.SemanticMuCost <> log2_nat def
+R19950:19958 Kernel.MuCostDerivation <> omega_pre proj
+R19960:19965 Kernel.MuCostDerivation <> change:44 var
+R19970:19977 Kernel.SemanticMuCost <> log2_nat def
+R19980:19989 Kernel.MuCostDerivation <> omega_post proj
+R19991:19996 Kernel.MuCostDerivation <> change:44 var
+R20009:20024 Kernel.MuCostDerivation <> description_bits proj
+R20026:20031 Kernel.MuCostDerivation <> change:44 var
+R20062:20064 Coq.Init.Datatypes <> nat ind
+binder 20049:20058 <> total_cost:45
+R20194:20204 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20085:20097 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20075:20084 Kernel.MuCostDerivation <> total_cost:45 var
+R20098:20098 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R20157:20170 Coq.Init.Nat <> ::nat_scope:x_'+'_x not
+R20126:20128 Coq.Init.Nat <> ::nat_scope:x_'-'_x not
+R20099:20106 Kernel.SemanticMuCost <> log2_nat def
+R20109:20117 Kernel.MuCostDerivation <> omega_pre proj
+R20119:20124 Kernel.MuCostDerivation <> change:44 var
+R20129:20136 Kernel.SemanticMuCost <> log2_nat def
+R20139:20148 Kernel.MuCostDerivation <> omega_post proj
+R20150:20155 Kernel.MuCostDerivation <> change:44 var
+R20171:20186 Kernel.MuCostDerivation <> description_bits proj
+R20188:20193 Kernel.MuCostDerivation <> change:44 var
+R20215:20218 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20205:20214 Kernel.MuCostDerivation <> total_cost:45 var
+R20219:20236 Kernel.MuCostDerivation <> lassert_total_cost def
+R20238:20243 Kernel.MuCostDerivation <> change:44 var
+R20290:20307 Kernel.MuCostDerivation <> lassert_total_cost def
+R20352:20375 Kernel.MuCostDerivation <> cost_forcing_lower_bound thm
+R20352:20375 Kernel.MuCostDerivation <> cost_forcing_lower_bound thm
+R20482:20501 Kernel.MuCostDerivation <> cost_function_unique thm
+R20522:20535 Kernel.MuCostDerivation <> cost_necessity thm
+R20556:20579 Kernel.MuCostDerivation <> cost_forcing_lower_bound thm
+R20600:20614 Kernel.MuCostDerivation <> cost_uniqueness thm

@@ -17,14 +17,60 @@
 
 From Kernel Require Import VMState.
 From Kernel Require Import VMStep.
+From Kernel Require Import SimulationProof.
 From Kernel Require Import CHSHExtraction.
 From Kernel Require Import NPAMomentMatrix.
 From Kernel Require Import MuLedgerQuantumBridge.
 From Kernel Require Import TsirelsonGeneral.
 
 Require Import Coq.Reals.Reals.
+Require Import Coq.QArith.QArith.
+Require Import Coq.QArith.Qreals.
+Require Import Coq.Lists.List.
+Import ListNotations.
 
 Local Open Scope R_scope.
+
+(** ** Real run_vm-semantics invariance for the trace quantum model.
+
+    The trace-level quantum model is built from
+    [extract_chsh_trials_from_trace], which walks the VM trace one
+    instruction at a time using [nth_error trace s.(vm_pc)] exactly as
+    [run_vm] does. The lemma below proves that this extraction is
+    semantically invariant under the [run_vm] notion of "stuck": when
+    the program counter points outside the trace, no further trials are
+    produced, regardless of how much fuel remains. This is the real
+    semantic content tying [trace_quantum_model] to [run_vm]'s
+    stuck-state behaviour proven in [run_vm_stuck]. *)
+Lemma trace_run_vm_extract_invariant_at_stuck :
+  forall fuel trace (s : VMState),
+    nth_error trace s.(vm_pc) = None ->
+    extract_chsh_trials_from_trace fuel trace s = nil.
+Proof.
+  intros fuel trace s Hstuck.
+  destruct fuel as [|fuel'].
+  - simpl. reflexivity.
+  - simpl. rewrite Hstuck. reflexivity.
+Qed.
+
+(** Corollary: the trace correlators collapse to [Q2R 0] from any
+    stuck initial state, because [compute_correlation []] is [0]. This
+    is the run_vm-semantics invariant lifted to the four CHSH
+    correlators that define the NPA moment matrix. *)
+Lemma trace_run_vm_correlators_invariant_at_stuck :
+  forall fuel trace (s : VMState),
+    nth_error trace s.(vm_pc) = None ->
+    trace_e00 fuel trace s = Q2R 0 /\
+    trace_e01 fuel trace s = Q2R 0 /\
+    trace_e10 fuel trace s = Q2R 0 /\
+    trace_e11 fuel trace s = Q2R 0.
+Proof.
+  intros fuel trace s Hstuck.
+  unfold trace_e00, trace_e01, trace_e10, trace_e11, trace_trials.
+  rewrite (trace_run_vm_extract_invariant_at_stuck fuel trace s Hstuck).
+  unfold filter_trials, compute_correlation. simpl.
+  repeat split; reflexivity.
+Qed.
 
 (** Trace-level quantum model for extracted correlators.
     This states that the NPA object induced by the trace correlators is

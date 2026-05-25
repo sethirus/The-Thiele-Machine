@@ -64,33 +64,14 @@ Definition tweak_regs (s : VMState) (x : nat) : VMState :=
      vm_witness := s.(vm_witness);
      vm_certified := s.(vm_certified) |}.
 
-(** Definitional lemma: this equality is by definition, not vacuous.
-
-    tweak_regs_region_equiv: Observational invisibility of register tweaking
-    Proves region_equiv s (tweak_regs s x) for any x.
-
-    PROOF: Unfold definitions, observe that ObservableRegion doesn't touch
-    vm_regs, conclude reflexivity.
-
-    You can pack arbitrary information into internal registers
-    without affecting any observable. This is the seed of the "infinite microstates
-    per observable" problem.
-
-    To falsify: Find an observable (measurement) that distinguishes s from
-    tweak_regs s x. This would mean registers are measurable, contradicting
-    the definition of ObservableRegion.
-*)
-(* Definitional lemma: ObservableRegion ignores vm_regs, so region_equiv is
-   unchanged by tweak_regs by construction. *)
-Lemma tweak_regs_region_equiv : forall s x,
-  region_equiv s (tweak_regs s x).
-Proof.
-  intros s x mid.
-  unfold region_equiv, tweak_regs.
-  unfold ObservableRegion.
-  simpl.
-  reflexivity.
-Qed.
+(** Note: the previous helper [tweak_regs_region_equiv] (which stated
+    that [region_equiv s (tweak_regs s x)] holds for every [s], [x])
+    was inlined at its single use site in
+    [region_equiv_class_infinite] below. Conceptually the equivalence
+    reflects that [ObservableRegion] ignores [vm_regs] entirely, so
+    register tweaking is invisible to any region-level observer — this
+    is the seed of the infinite-microstates-per-observable problem
+    closed by [region_equiv_class_infinite]. *)
 
 (** tweak_regs_injective: different tweaks give different states.
     If tweak_regs s a = tweak_regs s b, then a = b.
@@ -148,7 +129,11 @@ Proof.
   intro s.
   exists (fun n => tweak_regs s n).
   split.
-  - intro n. apply tweak_regs_region_equiv.
+  - intros n mid.
+    unfold region_equiv, tweak_regs.
+    unfold ObservableRegion.
+    simpl.
+    reflexivity.
   - intros n1 n2 Heq.
     apply (tweak_regs_injective s n1 n2 Heq).
 Qed.

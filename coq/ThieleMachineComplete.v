@@ -3179,28 +3179,19 @@ Proof.
   rewrite Heq. reflexivity.
 Qed.
 
-Lemma advance_state_mem_eq :
-  forall s i g c e, (advance_state s i g c e).(vm_mem) = s.(vm_mem).
-Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
-
-Lemma advance_state_regs_eq :
-  forall s i g c e, (advance_state s i g c e).(vm_regs) = s.(vm_regs).
-Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
-
-Lemma advance_state_pc_eq :
-  forall s i g c e, (advance_state s i g c e).(vm_pc) = S s.(vm_pc).
-Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
-
-Lemma advance_state_certified_eq :
-  forall s i g c e, (advance_state s i g c e).(vm_certified) = s.(vm_certified).
-Proof. intros. unfold advance_state. simpl. reflexivity. Qed.
+(** The four [advance_state_*_eq] field-projection helpers used to live here.
+    Each had a single bundle-internal caller (the matching [vm_apply_pnew_*]
+    lemma below), so the proof of [advance_state] preservation has been
+    inlined directly into that caller — the helper added no proof content
+    beyond [unfold advance_state; simpl; reflexivity]. The canonical
+    statements still live in [coq/NecessityOfMuLedger.v]. *)
 
 Lemma vm_apply_pnew_mem_preserved :
   forall s r c, (vm_apply s (instr_pnew r c)).(vm_mem) = s.(vm_mem).
 Proof.
   intros s r c. unfold vm_apply.
   destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
-  apply advance_state_mem_eq.
+  unfold advance_state. simpl. reflexivity.
 Qed.
 
 Lemma vm_apply_pnew_regs_preserved :
@@ -3208,7 +3199,7 @@ Lemma vm_apply_pnew_regs_preserved :
 Proof.
   intros s r c. unfold vm_apply.
   destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
-  apply advance_state_regs_eq.
+  unfold advance_state. simpl. reflexivity.
 Qed.
 
 Lemma vm_apply_pnew_pc_advances :
@@ -3216,7 +3207,7 @@ Lemma vm_apply_pnew_pc_advances :
 Proof.
   intros s r c. unfold vm_apply.
   destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
-  apply advance_state_pc_eq.
+  unfold advance_state. simpl. reflexivity.
 Qed.
 
 Lemma vm_apply_pnew_certified_preserved :
@@ -3224,7 +3215,7 @@ Lemma vm_apply_pnew_certified_preserved :
 Proof.
   intros s r c. unfold vm_apply.
   destruct (graph_add_module s.(vm_graph) (List.seq 0 _) []) as [g' mid].
-  apply advance_state_certified_eq.
+  unfold advance_state. simpl. reflexivity.
 Qed.
 
 Lemma vm_apply_pnew_mu_charged :
@@ -3867,17 +3858,12 @@ Proof.
   - unfold set_cert, abs_zero, po1_init. simpl. discriminate.
 Qed.
 
-Lemma P_strict_forgets_mu : proj_forgets_mu P_strict.
-Proof. intros s m. unfold P_strict, set_mu. simpl. reflexivity. Qed.
-
-Lemma P_strict_forgets_cert : proj_forgets_cert P_strict.
-Proof. intros s b. unfold P_strict, set_cert. simpl. reflexivity. Qed.
-
-Lemma P_cost_forgets_cert : proj_forgets_cert P_cost.
-Proof. intros s b. unfold P_cost, set_cert. simpl. reflexivity. Qed.
-
-Lemma P_cert_forgets_mu : proj_forgets_mu P_cert.
-Proof. intros s m. unfold P_cert, set_mu. simpl. reflexivity. Qed.
+(** The four projection-forgetfulness witnesses [P_strict_forgets_mu],
+    [P_strict_forgets_cert], [P_cost_forgets_cert], [P_cert_forgets_mu]
+    used to live here. Each had exactly one bundle-internal caller (the
+    corresponding bullet of [mu_ledger_minimality] below); the field-erasure
+    fact is now supplied inline at that bullet. The canonical statements
+    remain in [coq/kernel/nfi/NecessityAbstract.v]. *)
 
 Record FullMuLedgerShadow := mk_full_mu_ledger {
   fml_mem       : list nat;
@@ -3921,10 +3907,14 @@ Proof.
          (conj P_full_cert_complete
          (conj _ (conj _ (conj P_cost_mu_complete
                          (conj _ (conj P_cert_cert_complete _))))))).
-  - exact (forgets_mu_not_mu_complete P_strict P_strict_forgets_mu).
-  - exact (forgets_cert_not_cert_complete P_strict P_strict_forgets_cert).
-  - exact (forgets_cert_not_cert_complete P_cost P_cost_forgets_cert).
-  - exact (forgets_mu_not_mu_complete P_cert P_cert_forgets_mu).
+  - apply (forgets_mu_not_mu_complete P_strict).
+    intros s m. unfold P_strict, set_mu. simpl. reflexivity.
+  - apply (forgets_cert_not_cert_complete P_strict).
+    intros s b. unfold P_strict, set_cert. simpl. reflexivity.
+  - apply (forgets_cert_not_cert_complete P_cost).
+    intros s b. unfold P_cost, set_cert. simpl. reflexivity.
+  - apply (forgets_mu_not_mu_complete P_cert).
+    intros s m. unfold P_cert, set_mu. simpl. reflexivity.
 Qed.
 
 Corollary P_full_is_minimal_complete_extension :
@@ -4468,14 +4458,12 @@ Proof.
   intros. split; [reflexivity | split; intros; subst; reflexivity].
 Qed.
 
-(* DEFINITIONAL HELPER *)
-(** REVEAL always has positive bit-priced cost. *)
-Lemma reveal_cost_positive :
-  forall mid bits cert mu,
-    mu_cost_of_instr (instr_reveal mid bits cert mu) >= 1.
-Proof.
-  intros. unfold mu_cost_of_instr, instruction_cost. lia.
-Qed.
+(** The standalone helper [reveal_cost_positive] used to live here. It had
+    no bundle-internal callers and only restated the definitional fact that
+    [mu_cost_of_instr (instr_reveal _ _ _ _) = 1 + bits]; users that need
+    the bound unfold [mu_cost_of_instr] directly. The canonical entry point
+    for cost-positivity reasoning lives in
+    [coq/kernel/foundation/MuCostModel.v]. *)
 
 (** Observables and equivalence *)
 Definition Observable (s : VMState) (mid : nat) : option (list nat * nat) :=
@@ -5154,8 +5142,11 @@ Qed.
 Lemma born_probability_range : forall z, -1 <= z <= 1 -> 0 <= born_probability z <= 1.
 Proof. intros z Hz. unfold born_probability. lra. Qed.
 
-Lemma born_probability_complement : forall z, born_probability z + born_probability (-z) = 1.
-Proof. intros z. unfold born_probability. lra. Qed.
+(** The [born_probability_complement] identity (P(z) + P(-z) = 1) used to
+    live here with no bundle-internal callers. Its content collapses to a
+    one-line [lra] after [unfold born_probability]; any consumer can derive
+    it on the spot. The canonical statement is registered under the
+    Born-rule linearity module in [coq/kernel/quantum/]. *)
 
 Theorem born_rule_unique :
   forall P : ProbabilityRule,
@@ -7759,8 +7750,10 @@ Definition kami_sim_rel (ks : KamiSnapshot) (vs : VMState) : Prop :=
     matching coq/kami_hw/Abstraction.v's parametric definition. *)
 Definition kami_sp_reg : nat := RegCount - 1.
 
-Lemma kami_sp_reg_lt_RegCount : kami_sp_reg < RegCount.
-Proof. unfold kami_sp_reg, RegCount. lia. Qed.
+(** The standalone bound [kami_sp_reg < RegCount] used to live here with
+    no bundle-internal callers — the value [RegCount - 1] makes the bound
+    a definitional consequence of [RegCount > 0]. The canonical statement
+    lives in [coq/kami_hw/Abstraction.v]. *)
 
 (** Default hardware advance: increment PC by 1, add cost to mu. *)
 Definition snap_advance_default (hs : KamiSnapshot) (cost : nat) : KamiSnapshot :=
@@ -11570,15 +11563,12 @@ Lemma minsky_vm_apply_add_tc :
       s.(vm_mem) s.(vm_err).
 Proof. intros. unfold vm_apply. reflexivity. Qed.
 
-(** vm_apply dispatches correctly for sub *)
-Lemma minsky_vm_apply_sub_tc :
-  forall s dst rs1 rs2 cost,
-    vm_apply s (instr_sub dst rs1 rs2 cost) =
-    advance_state_rm s (instr_sub dst rs1 rs2 cost)
-      s.(vm_graph) s.(vm_csrs)
-      (write_reg s dst (word64_sub (read_reg s rs1) (read_reg s rs2)))
-      s.(vm_mem) s.(vm_err).
-Proof. intros. unfold vm_apply. reflexivity. Qed.
+(** The [minsky_vm_apply_sub_tc] dispatch helper used to live here with a
+    single bundle-internal caller (the third bullet of
+    [thiele_isa_turing_complete_via_minsky_tc] below). Its content — that
+    [vm_apply s (instr_sub …)] reduces to the [advance_state_rm] form — is
+    a single [unfold vm_apply; reflexivity], inlined directly at the
+    caller. *)
 
 (** vm_apply dispatches correctly for jnez (register nonzero → jump to tgt) *)
 Lemma minsky_vm_apply_jnez_nz_tc :
@@ -11705,7 +11695,7 @@ Proof.
   refine (conj _ (conj _ (conj _ (conj _ _)))).
   - intros. apply minsky_vm_apply_load_imm_tc.
   - intros. apply minsky_vm_apply_add_tc.
-  - intros. apply minsky_vm_apply_sub_tc.
+  - intros. unfold vm_apply. reflexivity.
   - intros. apply minsky_vm_apply_jnez_nz_tc. assumption.
   - intros. apply minsky_vm_apply_jump_tc.
 Qed.

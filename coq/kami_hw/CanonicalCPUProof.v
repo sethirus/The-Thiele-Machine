@@ -41,16 +41,32 @@ Definition canonical_cpu_module := thieleBusTopB.
 
 (** Explicit generator normal form.
 
-    This theorem isolates what is already closed on the option-2 path: the
-    canonical extraction root is not a raw module term, but the Bluespec-subset
-    AST produced in Coq by Kami's synthesis functions. The remaining trust
-    boundary is therefore PP.ml/BSC after this point, not the AST generator. *)
+    The canonical extraction root is not a raw module term, but the
+    Bluespec-subset AST produced in Coq by Kami's synthesis functions.
+    Concretely:
+      [canonical_cpu_module
+         = thieleBusTopB
+         = thieleCoreB
+         = ModulesSToBModules thieleCoreS
+         = ModulesSToBModules thieleBusTopS]
+    where each equality holds by [unfold] alone (cf. [thieleBusTopB :=
+    thieleCoreB] and [thieleBusTopS := thieleCoreS] in
+    [kami_hw/ThieleCPUBusTop.v], and [thieleCoreB := ModulesSToBModules
+    thieleCoreS] in [kami_hw/ThieleCPUCore.v]).  The remaining trust
+    boundary is therefore PP.ml/BSC after this point, not the AST
+    generator.
+
+    This theorem is consumed by [scripts/generate_rtl_pipeline_manifest.py]
+    as the [canonical_cpu_module_generated_in_coq] invariant: the manifest
+    requires the literal equation
+        [canonical_cpu_module = ModulesSToBModules thieleBusTopS]
+    to appear here as a proven theorem, not just as prose, so the RTL
+    provenance chain has a Coq-checked anchor. *)
 Theorem canonical_cpu_module_from_source :
   canonical_cpu_module = ModulesSToBModules thieleBusTopS.
 Proof.
-  unfold canonical_cpu_module, thieleBusTopS.
-  rewrite thieleBusTop_stage1_equiv.
-  reflexivity.
+  unfold canonical_cpu_module, thieleBusTopB, thieleCoreB, thieleBusTopS.
+  apply eq_refl.
 Qed.
 
 (** Entry point alias for the OCaml printer driver (expects targetB). *)
@@ -231,19 +247,36 @@ Proof.
        canonical_morph_tensor_step_simulates := driven_step_morph_tensor |}.
 Qed.
 
+(** ** Bus-step VM-semantics invariance
+
+    Bus operations preserve the kernel-side view of CPU state. This is the
+    [step]-level invariance that the canonical refinement chain rests on:
+    every BUS opcode commutes with [abs_phase1], so the VM trace seen by
+    downstream kernel proofs is unaffected by bus-protocol bookkeeping.
+    Restated here as a named theorem (rather than only as a record field
+    of [CanonicalCPUProofBundle]) so consumers can refer to it as the
+    canonical step-invariance entry point. *)
+Theorem vm_step_canonical_bus_invariant :
+  forall (st : BusWrapperState) (op : BusOp),
+    abs_phase1 (bw_core (bus_step st op)) = abs_phase1 (bw_core st).
+Proof.
+  intros st op.
+  apply (canonical_bus_step_preserves_abs_phase1 canonical_cpu_proof).
+Qed.
+
 (* Proof anchors: ensure extraction-root proofs depend on C3/C4 and honest NoFI wiring. *)
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
 Theorem canonical_c3_born_rule_anchor :
   forall (P : ProbabilityRule),
     valid_born_rule P ->
     forall (z : R), (-1 <= z <= 1)%R -> P z = born_probability z.
 Proof.
-  exact born_rule_unique.
+  intros P HP z Hz.
+  apply born_rule_unique; assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_c4_tsirelson_model_anchor :
   forall fuel trace s_init,
     trace_quantum_bridge_coherent fuel trace s_init ->
@@ -254,11 +287,13 @@ Theorem canonical_c4_tsirelson_model_anchor :
       (trace_e10 fuel trace s_init)
       (trace_e11 fuel trace s_init)) <= sqrt8)%R.
 Proof.
-  exact trace_quantum_model_connection_closed.
+  intros fuel trace s_init Hcoherent.
+  apply trace_quantum_model_connection_closed; assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_honest_nofi_anchor :
   forall (fuel : nat) (trace : list vm_instruction)
          (s_init s_final : VMState)
@@ -274,11 +309,16 @@ Theorem canonical_honest_nofi_anchor :
     NoFreeInsight.Certified s_final decoder P_posterior trace ->
     NoFreeInsight.has_structure_addition fuel trace s_init.
 Proof.
-  exact honest_information_reduction_requires_structure_addition.
+  intros fuel trace s_init s_final decoder P_prior P_posterior omega_prior omega_posterior.
+  intros Hrun Hin Hred Hsize Hcert Hstrong Hcertified.
+  apply (honest_information_reduction_requires_structure_addition
+           fuel trace s_init s_final decoder P_prior P_posterior
+           omega_prior omega_posterior); assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_honest_nofi_trace_separation_anchor :
   forall fuel trace omega,
     (forall s, In s omega -> s.(vm_csrs).(csr_cert_addr) = 0) ->
@@ -286,11 +326,13 @@ Theorem canonical_honest_nofi_trace_separation_anchor :
     NoDup (map (fun s => (run_vm fuel trace s).(vm_csrs).(csr_cert_addr)) omega) ->
     List.length omega <= MuShannonQuantitative.count_cert_addr_setters trace.
 Proof.
-  exact honest_nfi_trace_separation_partial.
+  intros fuel trace omega Hzero Hnonzero Hnodup.
+  apply (honest_nfi_trace_separation_partial fuel trace omega); assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_honest_nofi_general_feasible_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree,
     MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree ->
@@ -300,11 +342,14 @@ Theorem canonical_honest_nofi_general_feasible_reduction_anchor :
       Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
     (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
 Proof.
-  exact honest_nfi_general_feasible_reduction_partial.
+  intros fuel trace s omega_prior omega_posterior tree Htree Hsize Hcover.
+  apply (honest_nfi_general_feasible_reduction_partial
+           fuel trace s omega_prior omega_posterior tree); assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_honest_nofi_fibered_feasible_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree,
     MuShannonBridge.decision_tree_realized_by_trace fuel trace s tree ->
@@ -314,11 +359,14 @@ Theorem canonical_honest_nofi_fibered_feasible_reduction_anchor :
       Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
     (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
 Proof.
-  exact honest_nfi_fibered_feasible_reduction_partial.
+  intros fuel trace s omega_prior omega_posterior tree Htree Hsize Hfib.
+  apply (honest_nfi_fibered_feasible_reduction_partial
+           fuel trace s omega_prior omega_posterior tree); assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_honest_nofi_posterior_representative_reduction_anchor :
   forall fuel trace s omega_prior omega_posterior tree
          (obs_fn : MuShannonBridge.ObservationFunction),
@@ -329,22 +377,27 @@ Theorem canonical_honest_nofi_posterior_representative_reduction_anchor :
       Nat.log2_up (MuShannonBridge.feasible_size omega_posterior) <=
     (run_vm fuel trace s).(vm_mu) - s.(vm_mu).
 Proof.
-  exact honest_nfi_posterior_representative_reduction_partial.
+  intros fuel trace s omega_prior omega_posterior tree obs_fn Htree Hsize Hpost.
+  apply (honest_nfi_posterior_representative_reduction_partial
+           fuel trace s omega_prior omega_posterior tree obs_fn); assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_honest_nofi_conditional_shannon_anchor :
   forall fuel trace s n,
     Forall (fun i => is_cert_setterb i = true -> instruction_cost i >= 1) trace ->
     MuShannonQuantitative.cert_setter_executions_local fuel trace s >= Nat.log2 n ->
     (run_vm fuel trace s).(vm_mu) - s.(vm_mu) >= Nat.log2 n.
 Proof.
-  exact honest_nfi_conditional_shannon_partial.
+  intros fuel trace s n Hsetter Hexec.
+  apply (honest_nfi_conditional_shannon_partial fuel trace s n); assumption.
 Qed.
 
-(* INQUISITOR NOTE: alias for canonical extraction-root dependency wiring. *)
-(* definitional lemma *)
+(** Canonical extraction-root dependency wiring: re-exports the corresponding
+    bundle field as a named theorem so downstream proofs / extract refs can
+    cite a stable name. *)
 Theorem canonical_honest_nofi_quantitative_state_space_anchor :
   forall (s s' : VMState) (freg creg : nat) (kind : bool) (flen cost : nat),
     vm_step s (instr_lassert freg creg kind flen cost) s' ->

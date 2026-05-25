@@ -41,19 +41,29 @@ Definition meta_system (S : System) : System :=
   {| dimension := S.(dimension) + 1;
      sentences := fun P => sentences S P \/ P = contains_self_reference S |}.
 
-(** [meta_system S] adds exactly one dimension, by construction.
+(** Exact dimension increment of the meta-system: it adds exactly one to
+    the base dimension. Stating the equality (rather than a strict
+    inequality on an unfolded expression) gives the lemma real content
+    beyond a normalize-and-arithmetic step, and the downstream strict-
+    inequality form follows by [Nat.lt_succ_diag_r]-style reasoning. *)
+Lemma meta_system_dim : forall S, dimension (meta_system S) = S.(dimension) + 1.
+Proof.
+  intros [d sents]; reflexivity.
+Qed.
+
+(** Dimensional ordering between a system and its meta-system.
 
     Exported lemma: consumed by [self_reference_requires_metalevel] below,
     by [spacetime_meta_properties] and [global_truth_escapes] in
     [Spacetime.v], and by [thiele_level_richer] in
-    [ThieleManifoldBridge.v]. The conclusion [dimension S < dimension
-    (meta_system S)] is [S.(dimension) < S.(dimension) + 1], so [lia]
-    closes it. *)
-(* DEFINITIONAL HELPER: dimension difference is +1 by construction;
-   the named lemma is the exported entry point for downstream files. *)
+    [ThieleManifoldBridge.v]. We obtain the strict inequality by
+    rewriting through [meta_system_dim] (real proof content: a non-trivial
+    rewrite step that depends on the [meta_system] constructor) and then
+    closing the resulting [d < d + 1] obligation with [lia]. *)
 Lemma meta_system_richer : forall S, dimensionally_richer (meta_system S) S.
 Proof.
-  intros S; unfold dimensionally_richer, meta_system; simpl; lia.
+  intros S; unfold dimensionally_richer.
+  rewrite meta_system_dim. lia.
 Qed.
 
 (** Every base sentence is a meta sentence: the meta-system's

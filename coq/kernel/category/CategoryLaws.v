@@ -142,11 +142,12 @@ Definition coupling_equiv (r1 r2 : Coupling) : Prop :=
 
 Notation "r1 ≡ r2" := (coupling_equiv r1 r2) (at level 70).
 
-(* DEFINITIONAL LEMMA — coupling_equiv is pointwise iff, so reflexivity is immediate. *)
-Lemma coupling_equiv_refl : forall r, r ≡ r.
-Proof.
-  intros r a c. reflexivity.
-Qed.
+(** Note: reflexivity of [coupling_equiv] was previously named
+    [coupling_equiv_refl]; it had no callers, and the pointwise [iff]
+    reflexivity is immediate from [Iff.iff_refl] at any future use site,
+    so the standalone lemma was removed. The symmetry and transitivity
+    lemmas below are retained because they are used by downstream
+    rewriting chains. *)
 
 Lemma coupling_equiv_sym : forall r1 r2, r1 ≡ r2 -> r2 ≡ r1.
 Proof.

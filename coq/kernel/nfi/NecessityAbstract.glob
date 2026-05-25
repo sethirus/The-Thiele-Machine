@@ -1,4 +1,4 @@
-DIGEST 954993f1a7c8bf32122fff1b0eb9c62f
+DIGEST df9004f9682035bc49bd5b0cdbff25ae
 FKernel.NecessityAbstract
 R2847:2850 Coq.Lists.List <> <> lib
 R2852:2865 Coq.Arith.PeanoNat <> <> lib
@@ -1301,358 +1301,338 @@ R28930:28937 Kernel.NecessityAbstract <> abs_zero def
 R28939:28943 Coq.Init.Datatypes <> false constr
 R28971:28978 Kernel.NecessityAbstract <> set_cert def
 R28981:28988 Kernel.NecessityAbstract <> abs_zero def
-prf 29179:29197 <> P_strict_forgets_mu
-R29201:29215 Kernel.NecessityAbstract <> proj_forgets_mu def
-R29217:29224 Kernel.NecessityAbstract <> P_strict def
-R29253:29260 Kernel.NecessityAbstract <> P_strict def
-R29263:29268 Kernel.NecessityAbstract <> set_mu def
-prf 29303:29323 <> P_strict_forgets_cert
-R29327:29343 Kernel.NecessityAbstract <> proj_forgets_cert def
-R29345:29352 Kernel.NecessityAbstract <> P_strict def
-R29381:29388 Kernel.NecessityAbstract <> P_strict def
-R29391:29398 Kernel.NecessityAbstract <> set_cert def
-prf 29433:29451 <> P_cost_forgets_cert
-R29455:29471 Kernel.NecessityAbstract <> proj_forgets_cert def
-R29473:29478 Kernel.NecessityAbstract <> P_cost def
-R29507:29512 Kernel.NecessityAbstract <> P_cost def
-R29515:29522 Kernel.NecessityAbstract <> set_cert def
-prf 29557:29573 <> P_cert_forgets_mu
-R29577:29591 Kernel.NecessityAbstract <> proj_forgets_mu def
-R29593:29598 Kernel.NecessityAbstract <> P_cert def
-R29627:29632 Kernel.NecessityAbstract <> P_cert def
-R29635:29640 Kernel.NecessityAbstract <> set_mu def
-rec 29824:29841 <> FullMuLedgerShadow
-proj 29868:29874 <> fml_mem
-proj 29896:29903 <> fml_regs
-proj 29924:29929 <> fml_pc
-proj 29947:29952 <> fml_mu
-proj 29970:29982 <> fml_certified
-R29884:29887 Coq.Init.Datatypes <> list ind
-R29889:29891 Coq.Init.Datatypes <> nat ind
-R29912:29915 Coq.Init.Datatypes <> list ind
-R29917:29919 Coq.Init.Datatypes <> nat ind
-R29940:29942 Coq.Init.Datatypes <> nat ind
-R29963:29965 Coq.Init.Datatypes <> nat ind
-R29986:29989 Coq.Init.Datatypes <> bool ind
-def 30006:30011 <> P_full
-R30018:30024 Kernel.VMState <> VMState rec
-binder 30014:30014 <> s:117
-R30029:30046 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
-R30056:30062 Kernel.NecessityAbstract <> fml_mem proj
-R30056:30062 Kernel.NecessityAbstract <> fml_mem proj
-R30056:30062 Kernel.NecessityAbstract <> fml_mem proj
-R30087:30094 Kernel.NecessityAbstract <> fml_regs proj
-R30087:30094 Kernel.NecessityAbstract <> fml_regs proj
-R30119:30124 Kernel.NecessityAbstract <> fml_pc proj
-R30119:30124 Kernel.NecessityAbstract <> fml_pc proj
-R30149:30154 Kernel.NecessityAbstract <> fml_mu proj
-R30149:30154 Kernel.NecessityAbstract <> fml_mu proj
-R30179:30191 Kernel.NecessityAbstract <> fml_certified proj
-R30179:30191 Kernel.NecessityAbstract <> fml_certified proj
-R30076:30081 Kernel.VMState <> vm_mem proj
-R30073:30073 Kernel.NecessityAbstract <> s:117 var
-R30107:30113 Kernel.VMState <> vm_regs proj
-R30104:30104 Kernel.NecessityAbstract <> s:117 var
-R30139:30143 Kernel.VMState <> vm_pc proj
-R30136:30136 Kernel.NecessityAbstract <> s:117 var
-R30169:30173 Kernel.VMState <> vm_mu proj
-R30166:30166 Kernel.NecessityAbstract <> s:117 var
-R30199:30210 Kernel.VMState <> vm_certified proj
-R30196:30196 Kernel.NecessityAbstract <> s:117 var
-prf 30224:30241 <> P_full_mu_complete
-R30245:30255 Kernel.NecessityAbstract <> mu_complete def
-R30257:30262 Kernel.NecessityAbstract <> P_full def
-R30281:30286 Kernel.NecessityAbstract <> fml_mu proj
-R30281:30286 Kernel.NecessityAbstract <> fml_mu proj
-R30305:30310 Kernel.NecessityAbstract <> P_full def
-prf 30345:30364 <> P_full_cert_complete
-R30368:30380 Kernel.NecessityAbstract <> cert_complete def
-R30382:30387 Kernel.NecessityAbstract <> P_full def
-R30406:30418 Kernel.NecessityAbstract <> fml_certified proj
-R30406:30418 Kernel.NecessityAbstract <> fml_certified proj
-R30437:30442 Kernel.NecessityAbstract <> P_full def
-prf 30613:30630 <> P_cost_mu_complete
-R30634:30644 Kernel.NecessityAbstract <> mu_complete def
-R30646:30651 Kernel.NecessityAbstract <> P_cost def
-R30668:30672 Kernel.NecessityAbstract <> cs_mu proj
-R30668:30672 Kernel.NecessityAbstract <> cs_mu proj
-R30691:30696 Kernel.NecessityAbstract <> P_cost def
-prf 30731:30750 <> P_cert_cert_complete
-R30754:30766 Kernel.NecessityAbstract <> cert_complete def
-R30768:30773 Kernel.NecessityAbstract <> P_cert def
-R30790:30802 Kernel.NecessityAbstract <> cas_certified proj
-R30790:30802 Kernel.NecessityAbstract <> cas_certified proj
-R30821:30826 Kernel.NecessityAbstract <> P_cert def
-prf 30986:31005 <> mu_ledger_minimality
-R31071:31074 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31053:31063 Kernel.NecessityAbstract <> mu_complete def
-R31065:31070 Kernel.NecessityAbstract <> P_full def
-R31095:31149 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31075:31087 Kernel.NecessityAbstract <> cert_complete def
-R31089:31094 Kernel.NecessityAbstract <> P_full def
-R31172:31175 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31150:31151 Coq.Init.Logic <> ::type_scope:'~'_x not
-R31152:31162 Kernel.NecessityAbstract <> mu_complete def
-R31164:31171 Kernel.NecessityAbstract <> P_strict def
-R31200:31276 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31176:31177 Coq.Init.Logic <> ::type_scope:'~'_x not
-R31178:31190 Kernel.NecessityAbstract <> cert_complete def
-R31192:31199 Kernel.NecessityAbstract <> P_strict def
-R31295:31298 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31277:31287 Kernel.NecessityAbstract <> mu_complete def
-R31289:31294 Kernel.NecessityAbstract <> P_cost def
-R31321:31397 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31299:31300 Coq.Init.Logic <> ::type_scope:'~'_x not
-R31301:31313 Kernel.NecessityAbstract <> cert_complete def
-R31315:31320 Kernel.NecessityAbstract <> P_cost def
-R31418:31421 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R31398:31410 Kernel.NecessityAbstract <> cert_complete def
-R31412:31417 Kernel.NecessityAbstract <> P_cert def
-R31422:31423 Coq.Init.Logic <> ::type_scope:'~'_x not
-R31424:31434 Kernel.NecessityAbstract <> mu_complete def
-R31436:31441 Kernel.NecessityAbstract <> P_cert def
-R31461:31464 Coq.Init.Logic <> conj constr
-R31495:31498 Coq.Init.Logic <> conj constr
-R31531:31534 Coq.Init.Logic <> conj constr
-R31539:31542 Coq.Init.Logic <> conj constr
-R31547:31550 Coq.Init.Logic <> conj constr
-R31597:31600 Coq.Init.Logic <> conj constr
-R31605:31608 Coq.Init.Logic <> conj constr
-R31610:31629 Kernel.NecessityAbstract <> P_cert_cert_complete thm
-R31552:31569 Kernel.NecessityAbstract <> P_cost_mu_complete thm
-R31500:31519 Kernel.NecessityAbstract <> P_full_cert_complete thm
-R31466:31483 Kernel.NecessityAbstract <> P_full_mu_complete thm
-R31461:31464 Coq.Init.Logic <> conj constr
-R31495:31498 Coq.Init.Logic <> conj constr
-R31531:31534 Coq.Init.Logic <> conj constr
-R31539:31542 Coq.Init.Logic <> conj constr
-R31547:31550 Coq.Init.Logic <> conj constr
-R31597:31600 Coq.Init.Logic <> conj constr
-R31605:31608 Coq.Init.Logic <> conj constr
-R31610:31629 Kernel.NecessityAbstract <> P_cert_cert_complete thm
-R31552:31569 Kernel.NecessityAbstract <> P_cost_mu_complete thm
-R31500:31519 Kernel.NecessityAbstract <> P_full_cert_complete thm
-R31466:31483 Kernel.NecessityAbstract <> P_full_mu_complete thm
-R31652:31677 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
-R31688:31706 Kernel.NecessityAbstract <> P_strict_forgets_mu thm
-R31679:31686 Kernel.NecessityAbstract <> P_strict def
-R31652:31677 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
-R31688:31706 Kernel.NecessityAbstract <> P_strict_forgets_mu thm
-R31679:31686 Kernel.NecessityAbstract <> P_strict def
-R31721:31750 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
-R31761:31781 Kernel.NecessityAbstract <> P_strict_forgets_cert thm
-R31752:31759 Kernel.NecessityAbstract <> P_strict def
-R31721:31750 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
-R31761:31781 Kernel.NecessityAbstract <> P_strict_forgets_cert thm
-R31752:31759 Kernel.NecessityAbstract <> P_strict def
-R31796:31825 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
-R31834:31852 Kernel.NecessityAbstract <> P_cost_forgets_cert thm
-R31827:31832 Kernel.NecessityAbstract <> P_cost def
-R31796:31825 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
-R31834:31852 Kernel.NecessityAbstract <> P_cost_forgets_cert thm
-R31827:31832 Kernel.NecessityAbstract <> P_cost def
-R31867:31892 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
-R31901:31917 Kernel.NecessityAbstract <> P_cert_forgets_mu thm
-R31894:31899 Kernel.NecessityAbstract <> P_cert def
-R31867:31892 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
-R31901:31917 Kernel.NecessityAbstract <> P_cert_forgets_mu thm
-R31894:31899 Kernel.NecessityAbstract <> P_cert def
-prf 32357:32392 <> P_full_is_minimal_complete_extension
-R32458:32461 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R32440:32450 Kernel.NecessityAbstract <> mu_complete def
-R32452:32457 Kernel.NecessityAbstract <> P_full def
-R32482:32556 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R32462:32474 Kernel.NecessityAbstract <> cert_complete def
-R32476:32481 Kernel.NecessityAbstract <> P_full def
-R32557:32557 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R32637:32722 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R32806:32806 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 32566:32566 <> C:118
-R32588:32591 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R32581:32587 Kernel.VMState <> VMState rec
-R32592:32592 Kernel.NecessityAbstract <> C:118 var
-binder 32577:32577 <> P:119
-R32618:32621 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R32601:32615 Kernel.NecessityAbstract <> proj_forgets_mu def
-R32617:32617 Kernel.NecessityAbstract <> P:119 var
-R32622:32623 Coq.Init.Logic <> ::type_scope:'~'_x not
-R32624:32634 Kernel.NecessityAbstract <> mu_complete def
-R32636:32636 Kernel.NecessityAbstract <> P:119 var
-binder 32731:32731 <> C:120
-R32753:32756 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R32746:32752 Kernel.VMState <> VMState rec
-R32757:32757 Kernel.NecessityAbstract <> C:120 var
-binder 32742:32742 <> P:121
-R32785:32788 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R32766:32782 Kernel.NecessityAbstract <> proj_forgets_cert def
-R32784:32784 Kernel.NecessityAbstract <> P:121 var
-R32789:32790 Coq.Init.Logic <> ::type_scope:'~'_x not
-R32791:32803 Kernel.NecessityAbstract <> cert_complete def
-R32805:32805 Kernel.NecessityAbstract <> P:121 var
-R32825:32828 Coq.Init.Logic <> conj constr
-R32858:32861 Coq.Init.Logic <> conj constr
-R32893:32896 Coq.Init.Logic <> conj constr
-R32944:32973 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
-R32900:32925 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
-R32863:32882 Kernel.NecessityAbstract <> P_full_cert_complete thm
-R32830:32847 Kernel.NecessityAbstract <> P_full_mu_complete thm
-R32825:32828 Coq.Init.Logic <> conj constr
-R32858:32861 Coq.Init.Logic <> conj constr
-R32893:32896 Coq.Init.Logic <> conj constr
-R32944:32973 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
-R32900:32925 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
-R32863:32882 Kernel.NecessityAbstract <> P_full_cert_complete thm
-R32830:32847 Kernel.NecessityAbstract <> P_full_mu_complete thm
-prf 34819:34851 <> graph_not_recoverable_from_P_full
-R34857:34858 Coq.Init.Logic <> ::type_scope:'~'_x not
-R34859:34866 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R34911:34919 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R34893:34896 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R34875:34892 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
-R34897:34910 Kernel.VMState <> PartitionGraph rec
-binder 34867:34871 <> Omega:122
-binder 34927:34927 <> s:123
-R34946:34948 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R34930:34934 Kernel.NecessityAbstract <> Omega:122 var
-R34937:34942 Kernel.NecessityAbstract <> P_full def
-R34944:34944 Kernel.NecessityAbstract <> s:123 var
-R34952:34959 Kernel.VMState <> vm_graph proj
-R34949:34949 Kernel.NecessityAbstract <> s:123 var
-R35006:35047 Kernel.PartitionSeparation PartitionSeparation categorical_separation thm
-R35006:35047 Kernel.PartitionSeparation PartitionSeparation categorical_separation thm
-R35108:35110 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35099:35104 Kernel.NecessityAbstract <> P_full def
-R35111:35116 Kernel.NecessityAbstract <> P_full def
-R35108:35110 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35099:35104 Kernel.NecessityAbstract <> P_full def
-R35111:35116 Kernel.NecessityAbstract <> P_full def
-R35134:35139 Kernel.NecessityAbstract <> P_full def
-R35153:35198 Kernel.PartitionSeparation PartitionSeparation computationally_equivalent def
-R35321:35323 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35311:35316 Kernel.NecessityAbstract <> P_full def
-R35328:35335 Kernel.VMState <> vm_graph proj
-R35321:35323 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35311:35316 Kernel.NecessityAbstract <> P_full def
-R35328:35335 Kernel.VMState <> vm_graph proj
-R35388:35390 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35378:35383 Kernel.NecessityAbstract <> P_full def
-R35395:35402 Kernel.VMState <> vm_graph proj
-R35388:35390 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35378:35383 Kernel.NecessityAbstract <> P_full def
-R35395:35402 Kernel.VMState <> vm_graph proj
-prf 35697:35714 <> graph_oracle_fails
-R35754:35757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R35736:35753 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
-R35758:35771 Kernel.VMState <> PartitionGraph rec
-binder 35728:35732 <> Omega:124
-R35779:35781 Coq.Init.Logic <> ::type_scope:'~'_x not
-R35823:35823 Coq.Init.Logic <> ::type_scope:'~'_x not
-binder 35789:35789 <> s:125
-R35808:35810 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R35792:35796 Kernel.NecessityAbstract <> Omega:124 var
-R35799:35804 Kernel.NecessityAbstract <> P_full def
-R35806:35806 Kernel.NecessityAbstract <> s:125 var
-R35814:35821 Kernel.VMState <> vm_graph proj
-R35811:35811 Kernel.NecessityAbstract <> s:125 var
-R35865:35897 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
-R35900:35907 Coq.Init.Logic <> ex_intro constr
-R35865:35897 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
-R35900:35907 Coq.Init.Logic <> ex_intro constr
-prf 36287:36327 <> thiele_state_three_component_independence
-R36406:36406 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36494:36573 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36407:36408 Coq.Init.Logic <> ::type_scope:'~'_x not
-R36409:36416 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36444:36453 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36437:36440 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R36425:36436 Kernel.NecessityAbstract <> StrictShadow rec
-R36441:36443 Coq.Init.Datatypes <> nat ind
-binder 36417:36421 <> Omega:126
-binder 36461:36461 <> s:127
-R36482:36484 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36464:36468 Kernel.NecessityAbstract <> Omega:126 var
-R36471:36478 Kernel.NecessityAbstract <> P_strict def
-R36480:36480 Kernel.NecessityAbstract <> s:127 var
-R36488:36492 Kernel.VMState <> vm_mu proj
-R36485:36485 Kernel.NecessityAbstract <> s:127 var
-R36574:36574 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36670:36749 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36575:36576 Coq.Init.Logic <> ::type_scope:'~'_x not
-R36577:36584 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36613:36622 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36605:36608 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R36593:36604 Kernel.NecessityAbstract <> StrictShadow rec
-R36609:36612 Coq.Init.Datatypes <> bool ind
-binder 36585:36589 <> Omega:128
-binder 36630:36630 <> s:129
-R36651:36653 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36633:36637 Kernel.NecessityAbstract <> Omega:128 var
-R36640:36647 Kernel.NecessityAbstract <> P_strict def
-R36649:36649 Kernel.NecessityAbstract <> s:129 var
-R36657:36668 Kernel.VMState <> vm_certified proj
-R36654:36654 Kernel.NecessityAbstract <> s:129 var
-R36750:36750 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36842:36921 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36751:36752 Coq.Init.Logic <> ::type_scope:'~'_x not
-R36753:36760 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36787:36796 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36779:36782 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R36769:36778 Kernel.NecessityAbstract <> CostShadow rec
-R36783:36786 Coq.Init.Datatypes <> bool ind
-binder 36761:36765 <> Omega:130
-binder 36804:36804 <> s:131
-R36823:36825 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36807:36811 Kernel.NecessityAbstract <> Omega:130 var
-R36814:36819 Kernel.NecessityAbstract <> P_cost def
-R36821:36821 Kernel.NecessityAbstract <> s:131 var
-R36829:36840 Kernel.VMState <> vm_certified proj
-R36826:36826 Kernel.NecessityAbstract <> s:131 var
-R36922:36922 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R37015:37095 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R37201:37201 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R36923:36924 Coq.Init.Logic <> ::type_scope:'~'_x not
-R36925:36932 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36967:36976 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R36960:36963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R36941:36959 Kernel.NecessityAbstract <> CertAnnotatedShadow rec
-R36964:36966 Coq.Init.Datatypes <> nat ind
-binder 36933:36937 <> Omega:132
-binder 36984:36984 <> s:133
-R37003:37005 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R36987:36991 Kernel.NecessityAbstract <> Omega:132 var
-R36994:36999 Kernel.NecessityAbstract <> P_cert def
-R37001:37001 Kernel.NecessityAbstract <> s:133 var
-R37009:37013 Kernel.VMState <> vm_mu proj
-R37006:37006 Kernel.NecessityAbstract <> s:133 var
-R37096:37097 Coq.Init.Logic <> ::type_scope:'~'_x not
-R37098:37105 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R37150:37159 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R37132:37135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R37114:37131 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
-R37136:37149 Kernel.VMState <> PartitionGraph rec
-binder 37106:37110 <> Omega:134
-binder 37167:37167 <> s:135
-R37186:37188 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R37170:37174 Kernel.NecessityAbstract <> Omega:134 var
-R37177:37182 Kernel.NecessityAbstract <> P_full def
-R37184:37184 Kernel.NecessityAbstract <> s:135 var
-R37192:37199 Kernel.VMState <> vm_graph proj
-R37189:37189 Kernel.NecessityAbstract <> s:135 var
-R37220:37223 Coq.Init.Logic <> conj constr
-R37258:37261 Coq.Init.Logic <> conj constr
-R37298:37301 Coq.Init.Logic <> conj constr
-R37338:37341 Coq.Init.Logic <> conj constr
-R37381:37413 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
-R37343:37365 Kernel.NecessityAbstract <> cert_model_mu_necessity thm
-R37303:37327 Kernel.NecessityAbstract <> cost_model_cert_necessity thm
-R37263:37287 Kernel.NecessityAbstract <> turing_ram_cert_necessity thm
-R37225:37247 Kernel.NecessityAbstract <> turing_ram_mu_necessity thm
-R37220:37223 Coq.Init.Logic <> conj constr
-R37258:37261 Coq.Init.Logic <> conj constr
-R37298:37301 Coq.Init.Logic <> conj constr
-R37338:37341 Coq.Init.Logic <> conj constr
-R37381:37413 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
-R37343:37365 Kernel.NecessityAbstract <> cert_model_mu_necessity thm
-R37303:37327 Kernel.NecessityAbstract <> cost_model_cert_necessity thm
-R37263:37287 Kernel.NecessityAbstract <> turing_ram_cert_necessity thm
-R37225:37247 Kernel.NecessityAbstract <> turing_ram_mu_necessity thm
+rec 29609:29626 <> FullMuLedgerShadow
+proj 29653:29659 <> fml_mem
+proj 29681:29688 <> fml_regs
+proj 29709:29714 <> fml_pc
+proj 29732:29737 <> fml_mu
+proj 29755:29767 <> fml_certified
+R29669:29672 Coq.Init.Datatypes <> list ind
+R29674:29676 Coq.Init.Datatypes <> nat ind
+R29697:29700 Coq.Init.Datatypes <> list ind
+R29702:29704 Coq.Init.Datatypes <> nat ind
+R29725:29727 Coq.Init.Datatypes <> nat ind
+R29748:29750 Coq.Init.Datatypes <> nat ind
+R29771:29774 Coq.Init.Datatypes <> bool ind
+def 29791:29796 <> P_full
+R29803:29809 Kernel.VMState <> VMState rec
+binder 29799:29799 <> s:117
+R29814:29831 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
+R29841:29847 Kernel.NecessityAbstract <> fml_mem proj
+R29841:29847 Kernel.NecessityAbstract <> fml_mem proj
+R29841:29847 Kernel.NecessityAbstract <> fml_mem proj
+R29872:29879 Kernel.NecessityAbstract <> fml_regs proj
+R29872:29879 Kernel.NecessityAbstract <> fml_regs proj
+R29904:29909 Kernel.NecessityAbstract <> fml_pc proj
+R29904:29909 Kernel.NecessityAbstract <> fml_pc proj
+R29934:29939 Kernel.NecessityAbstract <> fml_mu proj
+R29934:29939 Kernel.NecessityAbstract <> fml_mu proj
+R29964:29976 Kernel.NecessityAbstract <> fml_certified proj
+R29964:29976 Kernel.NecessityAbstract <> fml_certified proj
+R29861:29866 Kernel.VMState <> vm_mem proj
+R29858:29858 Kernel.NecessityAbstract <> s:117 var
+R29892:29898 Kernel.VMState <> vm_regs proj
+R29889:29889 Kernel.NecessityAbstract <> s:117 var
+R29924:29928 Kernel.VMState <> vm_pc proj
+R29921:29921 Kernel.NecessityAbstract <> s:117 var
+R29954:29958 Kernel.VMState <> vm_mu proj
+R29951:29951 Kernel.NecessityAbstract <> s:117 var
+R29984:29995 Kernel.VMState <> vm_certified proj
+R29981:29981 Kernel.NecessityAbstract <> s:117 var
+prf 30009:30026 <> P_full_mu_complete
+R30030:30040 Kernel.NecessityAbstract <> mu_complete def
+R30042:30047 Kernel.NecessityAbstract <> P_full def
+R30066:30071 Kernel.NecessityAbstract <> fml_mu proj
+R30066:30071 Kernel.NecessityAbstract <> fml_mu proj
+R30090:30095 Kernel.NecessityAbstract <> P_full def
+prf 30130:30149 <> P_full_cert_complete
+R30153:30165 Kernel.NecessityAbstract <> cert_complete def
+R30167:30172 Kernel.NecessityAbstract <> P_full def
+R30191:30203 Kernel.NecessityAbstract <> fml_certified proj
+R30191:30203 Kernel.NecessityAbstract <> fml_certified proj
+R30222:30227 Kernel.NecessityAbstract <> P_full def
+prf 30398:30415 <> P_cost_mu_complete
+R30419:30429 Kernel.NecessityAbstract <> mu_complete def
+R30431:30436 Kernel.NecessityAbstract <> P_cost def
+R30453:30457 Kernel.NecessityAbstract <> cs_mu proj
+R30453:30457 Kernel.NecessityAbstract <> cs_mu proj
+R30476:30481 Kernel.NecessityAbstract <> P_cost def
+prf 30516:30535 <> P_cert_cert_complete
+R30539:30551 Kernel.NecessityAbstract <> cert_complete def
+R30553:30558 Kernel.NecessityAbstract <> P_cert def
+R30575:30587 Kernel.NecessityAbstract <> cas_certified proj
+R30575:30587 Kernel.NecessityAbstract <> cas_certified proj
+R30606:30611 Kernel.NecessityAbstract <> P_cert def
+prf 30771:30790 <> mu_ledger_minimality
+R30856:30859 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R30838:30848 Kernel.NecessityAbstract <> mu_complete def
+R30850:30855 Kernel.NecessityAbstract <> P_full def
+R30880:30934 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R30860:30872 Kernel.NecessityAbstract <> cert_complete def
+R30874:30879 Kernel.NecessityAbstract <> P_full def
+R30957:30960 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R30935:30936 Coq.Init.Logic <> ::type_scope:'~'_x not
+R30937:30947 Kernel.NecessityAbstract <> mu_complete def
+R30949:30956 Kernel.NecessityAbstract <> P_strict def
+R30985:31061 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R30961:30962 Coq.Init.Logic <> ::type_scope:'~'_x not
+R30963:30975 Kernel.NecessityAbstract <> cert_complete def
+R30977:30984 Kernel.NecessityAbstract <> P_strict def
+R31080:31083 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R31062:31072 Kernel.NecessityAbstract <> mu_complete def
+R31074:31079 Kernel.NecessityAbstract <> P_cost def
+R31106:31182 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R31084:31085 Coq.Init.Logic <> ::type_scope:'~'_x not
+R31086:31098 Kernel.NecessityAbstract <> cert_complete def
+R31100:31105 Kernel.NecessityAbstract <> P_cost def
+R31203:31206 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R31183:31195 Kernel.NecessityAbstract <> cert_complete def
+R31197:31202 Kernel.NecessityAbstract <> P_cert def
+R31207:31208 Coq.Init.Logic <> ::type_scope:'~'_x not
+R31209:31219 Kernel.NecessityAbstract <> mu_complete def
+R31221:31226 Kernel.NecessityAbstract <> P_cert def
+R31246:31249 Coq.Init.Logic <> conj constr
+R31280:31283 Coq.Init.Logic <> conj constr
+R31316:31319 Coq.Init.Logic <> conj constr
+R31324:31327 Coq.Init.Logic <> conj constr
+R31332:31335 Coq.Init.Logic <> conj constr
+R31382:31385 Coq.Init.Logic <> conj constr
+R31390:31393 Coq.Init.Logic <> conj constr
+R31395:31414 Kernel.NecessityAbstract <> P_cert_cert_complete thm
+R31337:31354 Kernel.NecessityAbstract <> P_cost_mu_complete thm
+R31285:31304 Kernel.NecessityAbstract <> P_full_cert_complete thm
+R31251:31268 Kernel.NecessityAbstract <> P_full_mu_complete thm
+R31246:31249 Coq.Init.Logic <> conj constr
+R31280:31283 Coq.Init.Logic <> conj constr
+R31316:31319 Coq.Init.Logic <> conj constr
+R31324:31327 Coq.Init.Logic <> conj constr
+R31332:31335 Coq.Init.Logic <> conj constr
+R31382:31385 Coq.Init.Logic <> conj constr
+R31390:31393 Coq.Init.Logic <> conj constr
+R31395:31414 Kernel.NecessityAbstract <> P_cert_cert_complete thm
+R31337:31354 Kernel.NecessityAbstract <> P_cost_mu_complete thm
+R31285:31304 Kernel.NecessityAbstract <> P_full_cert_complete thm
+R31251:31268 Kernel.NecessityAbstract <> P_full_mu_complete thm
+R31437:31462 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
+R31464:31471 Kernel.NecessityAbstract <> P_strict def
+R31437:31462 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
+R31464:31471 Kernel.NecessityAbstract <> P_strict def
+R31498:31505 Kernel.NecessityAbstract <> P_strict def
+R31508:31513 Kernel.NecessityAbstract <> set_mu def
+R31547:31576 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
+R31578:31585 Kernel.NecessityAbstract <> P_strict def
+R31547:31576 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
+R31578:31585 Kernel.NecessityAbstract <> P_strict def
+R31612:31619 Kernel.NecessityAbstract <> P_strict def
+R31622:31629 Kernel.NecessityAbstract <> set_cert def
+R31663:31692 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
+R31694:31699 Kernel.NecessityAbstract <> P_cost def
+R31663:31692 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
+R31694:31699 Kernel.NecessityAbstract <> P_cost def
+R31726:31731 Kernel.NecessityAbstract <> P_cost def
+R31734:31741 Kernel.NecessityAbstract <> set_cert def
+R31775:31800 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
+R31802:31807 Kernel.NecessityAbstract <> P_cert def
+R31775:31800 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
+R31802:31807 Kernel.NecessityAbstract <> P_cert def
+R31834:31839 Kernel.NecessityAbstract <> P_cert def
+R31842:31847 Kernel.NecessityAbstract <> set_mu def
+prf 32306:32341 <> P_full_is_minimal_complete_extension
+R32407:32410 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R32389:32399 Kernel.NecessityAbstract <> mu_complete def
+R32401:32406 Kernel.NecessityAbstract <> P_full def
+R32431:32505 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R32411:32423 Kernel.NecessityAbstract <> cert_complete def
+R32425:32430 Kernel.NecessityAbstract <> P_full def
+R32506:32506 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R32586:32671 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R32755:32755 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 32515:32515 <> C:118
+R32537:32540 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32530:32536 Kernel.VMState <> VMState rec
+R32541:32541 Kernel.NecessityAbstract <> C:118 var
+binder 32526:32526 <> P:119
+R32567:32570 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32550:32564 Kernel.NecessityAbstract <> proj_forgets_mu def
+R32566:32566 Kernel.NecessityAbstract <> P:119 var
+R32571:32572 Coq.Init.Logic <> ::type_scope:'~'_x not
+R32573:32583 Kernel.NecessityAbstract <> mu_complete def
+R32585:32585 Kernel.NecessityAbstract <> P:119 var
+binder 32680:32680 <> C:120
+R32702:32705 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32695:32701 Kernel.VMState <> VMState rec
+R32706:32706 Kernel.NecessityAbstract <> C:120 var
+binder 32691:32691 <> P:121
+R32734:32737 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R32715:32731 Kernel.NecessityAbstract <> proj_forgets_cert def
+R32733:32733 Kernel.NecessityAbstract <> P:121 var
+R32738:32739 Coq.Init.Logic <> ::type_scope:'~'_x not
+R32740:32752 Kernel.NecessityAbstract <> cert_complete def
+R32754:32754 Kernel.NecessityAbstract <> P:121 var
+R32774:32777 Coq.Init.Logic <> conj constr
+R32807:32810 Coq.Init.Logic <> conj constr
+R32842:32845 Coq.Init.Logic <> conj constr
+R32893:32922 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
+R32849:32874 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
+R32812:32831 Kernel.NecessityAbstract <> P_full_cert_complete thm
+R32779:32796 Kernel.NecessityAbstract <> P_full_mu_complete thm
+R32774:32777 Coq.Init.Logic <> conj constr
+R32807:32810 Coq.Init.Logic <> conj constr
+R32842:32845 Coq.Init.Logic <> conj constr
+R32893:32922 Kernel.NecessityAbstract <> forgets_cert_not_cert_complete thm
+R32849:32874 Kernel.NecessityAbstract <> forgets_mu_not_mu_complete thm
+R32812:32831 Kernel.NecessityAbstract <> P_full_cert_complete thm
+R32779:32796 Kernel.NecessityAbstract <> P_full_mu_complete thm
+prf 34768:34800 <> graph_not_recoverable_from_P_full
+R34806:34807 Coq.Init.Logic <> ::type_scope:'~'_x not
+R34808:34815 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R34860:34868 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R34842:34845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R34824:34841 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
+R34846:34859 Kernel.VMState <> PartitionGraph rec
+binder 34816:34820 <> Omega:122
+binder 34876:34876 <> s:123
+R34895:34897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R34879:34883 Kernel.NecessityAbstract <> Omega:122 var
+R34886:34891 Kernel.NecessityAbstract <> P_full def
+R34893:34893 Kernel.NecessityAbstract <> s:123 var
+R34901:34908 Kernel.VMState <> vm_graph proj
+R34898:34898 Kernel.NecessityAbstract <> s:123 var
+R34955:34996 Kernel.PartitionSeparation PartitionSeparation categorical_separation thm
+R34955:34996 Kernel.PartitionSeparation PartitionSeparation categorical_separation thm
+R35057:35059 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35048:35053 Kernel.NecessityAbstract <> P_full def
+R35060:35065 Kernel.NecessityAbstract <> P_full def
+R35057:35059 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35048:35053 Kernel.NecessityAbstract <> P_full def
+R35060:35065 Kernel.NecessityAbstract <> P_full def
+R35083:35088 Kernel.NecessityAbstract <> P_full def
+R35102:35147 Kernel.PartitionSeparation PartitionSeparation computationally_equivalent def
+R35270:35272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35260:35265 Kernel.NecessityAbstract <> P_full def
+R35277:35284 Kernel.VMState <> vm_graph proj
+R35270:35272 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35260:35265 Kernel.NecessityAbstract <> P_full def
+R35277:35284 Kernel.VMState <> vm_graph proj
+R35337:35339 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35327:35332 Kernel.NecessityAbstract <> P_full def
+R35344:35351 Kernel.VMState <> vm_graph proj
+R35337:35339 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35327:35332 Kernel.NecessityAbstract <> P_full def
+R35344:35351 Kernel.VMState <> vm_graph proj
+prf 35646:35663 <> graph_oracle_fails
+R35703:35706 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R35685:35702 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
+R35707:35720 Kernel.VMState <> PartitionGraph rec
+binder 35677:35681 <> Omega:124
+R35728:35730 Coq.Init.Logic <> ::type_scope:'~'_x not
+R35772:35772 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 35738:35738 <> s:125
+R35757:35759 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R35741:35745 Kernel.NecessityAbstract <> Omega:124 var
+R35748:35753 Kernel.NecessityAbstract <> P_full def
+R35755:35755 Kernel.NecessityAbstract <> s:125 var
+R35763:35770 Kernel.VMState <> vm_graph proj
+R35760:35760 Kernel.NecessityAbstract <> s:125 var
+R35814:35846 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
+R35849:35856 Coq.Init.Logic <> ex_intro constr
+R35814:35846 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
+R35849:35856 Coq.Init.Logic <> ex_intro constr
+prf 36236:36276 <> thiele_state_three_component_independence
+R36355:36355 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36443:36522 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36356:36357 Coq.Init.Logic <> ::type_scope:'~'_x not
+R36358:36365 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36393:36402 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36386:36389 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R36374:36385 Kernel.NecessityAbstract <> StrictShadow rec
+R36390:36392 Coq.Init.Datatypes <> nat ind
+binder 36366:36370 <> Omega:126
+binder 36410:36410 <> s:127
+R36431:36433 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36413:36417 Kernel.NecessityAbstract <> Omega:126 var
+R36420:36427 Kernel.NecessityAbstract <> P_strict def
+R36429:36429 Kernel.NecessityAbstract <> s:127 var
+R36437:36441 Kernel.VMState <> vm_mu proj
+R36434:36434 Kernel.NecessityAbstract <> s:127 var
+R36523:36523 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36619:36698 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36524:36525 Coq.Init.Logic <> ::type_scope:'~'_x not
+R36526:36533 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36562:36571 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36554:36557 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R36542:36553 Kernel.NecessityAbstract <> StrictShadow rec
+R36558:36561 Coq.Init.Datatypes <> bool ind
+binder 36534:36538 <> Omega:128
+binder 36579:36579 <> s:129
+R36600:36602 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36582:36586 Kernel.NecessityAbstract <> Omega:128 var
+R36589:36596 Kernel.NecessityAbstract <> P_strict def
+R36598:36598 Kernel.NecessityAbstract <> s:129 var
+R36606:36617 Kernel.VMState <> vm_certified proj
+R36603:36603 Kernel.NecessityAbstract <> s:129 var
+R36699:36699 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36791:36870 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36700:36701 Coq.Init.Logic <> ::type_scope:'~'_x not
+R36702:36709 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36736:36745 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36728:36731 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R36718:36727 Kernel.NecessityAbstract <> CostShadow rec
+R36732:36735 Coq.Init.Datatypes <> bool ind
+binder 36710:36714 <> Omega:130
+binder 36753:36753 <> s:131
+R36772:36774 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36756:36760 Kernel.NecessityAbstract <> Omega:130 var
+R36763:36768 Kernel.NecessityAbstract <> P_cost def
+R36770:36770 Kernel.NecessityAbstract <> s:131 var
+R36778:36789 Kernel.VMState <> vm_certified proj
+R36775:36775 Kernel.NecessityAbstract <> s:131 var
+R36871:36871 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36964:37044 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R37150:37150 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R36872:36873 Coq.Init.Logic <> ::type_scope:'~'_x not
+R36874:36881 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36916:36925 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R36909:36912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R36890:36908 Kernel.NecessityAbstract <> CertAnnotatedShadow rec
+R36913:36915 Coq.Init.Datatypes <> nat ind
+binder 36882:36886 <> Omega:132
+binder 36933:36933 <> s:133
+R36952:36954 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R36936:36940 Kernel.NecessityAbstract <> Omega:132 var
+R36943:36948 Kernel.NecessityAbstract <> P_cert def
+R36950:36950 Kernel.NecessityAbstract <> s:133 var
+R36958:36962 Kernel.VMState <> vm_mu proj
+R36955:36955 Kernel.NecessityAbstract <> s:133 var
+R37045:37046 Coq.Init.Logic <> ::type_scope:'~'_x not
+R37047:37054 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R37099:37108 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R37081:37084 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R37063:37080 Kernel.NecessityAbstract <> FullMuLedgerShadow rec
+R37085:37098 Kernel.VMState <> PartitionGraph rec
+binder 37055:37059 <> Omega:134
+binder 37116:37116 <> s:135
+R37135:37137 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R37119:37123 Kernel.NecessityAbstract <> Omega:134 var
+R37126:37131 Kernel.NecessityAbstract <> P_full def
+R37133:37133 Kernel.NecessityAbstract <> s:135 var
+R37141:37148 Kernel.VMState <> vm_graph proj
+R37138:37138 Kernel.NecessityAbstract <> s:135 var
+R37169:37172 Coq.Init.Logic <> conj constr
+R37207:37210 Coq.Init.Logic <> conj constr
+R37247:37250 Coq.Init.Logic <> conj constr
+R37287:37290 Coq.Init.Logic <> conj constr
+R37330:37362 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
+R37292:37314 Kernel.NecessityAbstract <> cert_model_mu_necessity thm
+R37252:37276 Kernel.NecessityAbstract <> cost_model_cert_necessity thm
+R37212:37236 Kernel.NecessityAbstract <> turing_ram_cert_necessity thm
+R37174:37196 Kernel.NecessityAbstract <> turing_ram_mu_necessity thm
+R37169:37172 Coq.Init.Logic <> conj constr
+R37207:37210 Coq.Init.Logic <> conj constr
+R37247:37250 Coq.Init.Logic <> conj constr
+R37287:37290 Coq.Init.Logic <> conj constr
+R37330:37362 Kernel.NecessityAbstract <> graph_not_recoverable_from_P_full thm
+R37292:37314 Kernel.NecessityAbstract <> cert_model_mu_necessity thm
+R37252:37276 Kernel.NecessityAbstract <> cost_model_cert_necessity thm
+R37212:37236 Kernel.NecessityAbstract <> turing_ram_cert_necessity thm
+R37174:37196 Kernel.NecessityAbstract <> turing_ram_mu_necessity thm

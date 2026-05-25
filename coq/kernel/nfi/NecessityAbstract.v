@@ -667,19 +667,12 @@ Proof.
   - unfold set_cert, abs_zero. simpl. discriminate.
 Qed.
 
-(** ── Named projection forgetting facts ─────────────────────────────────── *)
-
-Lemma P_strict_forgets_mu : proj_forgets_mu P_strict.
-Proof. intros s m. unfold P_strict, set_mu. simpl. reflexivity. Qed.
-
-Lemma P_strict_forgets_cert : proj_forgets_cert P_strict.
-Proof. intros s b. unfold P_strict, set_cert. simpl. reflexivity. Qed.
-
-Lemma P_cost_forgets_cert : proj_forgets_cert P_cost.
-Proof. intros s b. unfold P_cost, set_cert. simpl. reflexivity. Qed.
-
-Lemma P_cert_forgets_mu : proj_forgets_mu P_cert.
-Proof. intros s m. unfold P_cert, set_mu. simpl. reflexivity. Qed.
+(** Previously: four named [proj_forgets_*] witnesses [P_strict_forgets_mu],
+    [P_strict_forgets_cert], [P_cost_forgets_cert], [P_cert_forgets_mu]
+    sat here.  Each was a one-line reduction of the corresponding projection
+    against [set_mu] / [set_cert], and each was used exactly once — in the
+    matching bullet of [mu_ledger_minimality] below.  The four field-erasure
+    facts are now supplied inline at those bullets. *)
 
 (** ── P_full: the minimal complete extension ─────────────────────────────── *)
 
@@ -733,10 +726,14 @@ Proof.
          (conj P_full_cert_complete
          (conj _ (conj _ (conj P_cost_mu_complete
                          (conj _ (conj P_cert_cert_complete _))))))).
-  - exact (forgets_mu_not_mu_complete P_strict P_strict_forgets_mu).
-  - exact (forgets_cert_not_cert_complete P_strict P_strict_forgets_cert).
-  - exact (forgets_cert_not_cert_complete P_cost P_cost_forgets_cert).
-  - exact (forgets_mu_not_mu_complete P_cert P_cert_forgets_mu).
+  - apply (forgets_mu_not_mu_complete P_strict).
+    intros s m. unfold P_strict, set_mu. simpl. reflexivity.
+  - apply (forgets_cert_not_cert_complete P_strict).
+    intros s b. unfold P_strict, set_cert. simpl. reflexivity.
+  - apply (forgets_cert_not_cert_complete P_cost).
+    intros s b. unfold P_cost, set_cert. simpl. reflexivity.
+  - apply (forgets_mu_not_mu_complete P_cert).
+    intros s m. unfold P_cert, set_mu. simpl. reflexivity.
 Qed.
 
 (** THE MINIMALITY COROLLARY.

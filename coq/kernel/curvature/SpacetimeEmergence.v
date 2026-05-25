@@ -29,7 +29,8 @@ Definition event_equiv : Event -> Event -> Prop := obs_equiv.
 Instance event_equiv_equivalence : Equivalence event_equiv.
 Proof.
   split.
-  - exact obs_equiv_refl.
+  - (* Reflexivity: each module lookup equals itself by [eq_refl]. *)
+    intros s mid. reflexivity.
   - exact obs_equiv_sym.
   - exact obs_equiv_trans.
 Qed.

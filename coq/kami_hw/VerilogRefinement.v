@@ -392,12 +392,16 @@ Proof.
   intros. eexists. eapply step_chsh_trial_badbits. exact H.
 Qed.
 
-(** Physics-side monotonicity obligations carried by abstraction layer. *)
+(** Physics-side monotonicity obligations carried by abstraction layer.
+    Unfolding [abs_phase1] exposes [vm_mu = snap_mu hs], so the
+    inequality reduces to [snap_mu hs + cost >= snap_mu hs] which is
+    closed by [lia]. *)
 Theorem verilog_mu_non_decreasing_on_charge :
   forall (hs : KamiSnapshot) (cost : nat),
     (abs_phase1 hs).(vm_mu) + cost >= (abs_phase1 hs).(vm_mu).
 Proof.
-  exact hw_step_preserves_invariants.
+  intros hs cost.
+  unfold abs_phase1. simpl. lia.
 Qed.
 
 (** Hardware-simulation witnesses for the checkpoint, port, and heap opcodes *)

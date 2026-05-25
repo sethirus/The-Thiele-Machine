@@ -57,13 +57,18 @@ Qed.
 
 (** ** Audit 2: CHSH Formula Is Physics-Free *)
 
-(** The CHSH formula is purely algebraic: E00 + E01 + E10 - E11 *)
-Definition chsh_formula_is_algebraic : Prop :=
-  forall e00 e01 e10 e11 : Q,
-    (e00 + e01 + e10 - e11)%Q = (e00 + e01 + e10 - e11)%Q.
-
-Theorem chsh_formula_physics_free : chsh_formula_is_algebraic.
-Proof. unfold chsh_formula_is_algebraic. intros. reflexivity. Qed.
+(** The CHSH formula [e00 + e01 + e10 - e11] is built from Q-arithmetic
+    operations alone — no μ-cost, no quantum, no Tsirelson reference. That
+    audit observation is structural: it is visible at a glance in the
+    definitions of [classical_chsh_value] and [chsh_value], whose bodies
+    contain only [+], [-], and rational literals over [Q]. The earlier
+    encoding [chsh_formula_is_algebraic := forall x y z w, x = x] dressed
+    this observation as a Coq lemma, but [forall x y z w, x = x] is
+    [eq_refl] for each instance and adds no proof content beyond the
+    Q-arithmetic refl that the definitions already give. The Prop and the
+    matching [chsh_formula_physics_free] theorem have been removed; the
+    [non_circularity_certificate] conjunction below carries the
+    audit-relevant claims that do have proof content. *)
 
 (** ** Audit 3: Where Does 2√2 Appear? *)
 
@@ -286,25 +291,30 @@ Qed.
     The value 2√2 is DERIVED as an optimum, not ENCODED as a constraint.
     *)
 
-(** Non-circularity certificate *)
+(** Non-circularity certificate.
+
+    Part B ("CHSH is defined without μ reference") was previously encoded
+    as the trivial [chsh_formula_is_algebraic := forall x y z w, x = x]
+    Prop. That conjunct has been dropped: it added no proof content
+    beyond [eq_refl], and the structural observation it recorded is
+    already visible in the Q-arithmetic definitions of [classical_chsh_value]
+    and [chsh_value]. The three remaining parts each carry real proof
+    obligations. *)
 Definition non_circularity_certificate : Prop :=
   (* Part A: μ-cost is defined without CHSH reference *)
   (rule_references_chsh rule_pnew = false /\
    rule_references_quantum rule_pnew = false /\
    rule_references_tsirelson rule_pnew = false) /\
-  (* Part B: CHSH is defined without μ reference *)
-  chsh_formula_is_algebraic /\
-  (* Part C: Classical bound 2 appears as achieved value (μ=0) *)
+  (* Part B (renamed): Classical bound 2 appears as achieved value (μ=0) *)
   classical_bound_appears_as_achievable /\
-  (* Part D: μ=0 class has LOCC-like properties *)
+  (* Part C: μ=0 class has LOCC-like properties *)
   mu_zero_locc_correspondence.
 
 Theorem non_circularity_verified : non_circularity_certificate.
 Proof.
   unfold non_circularity_certificate.
-  split; [| split; [| split]].
+  split; [| split].
   - apply mu_cost_is_physics_free.
-  - exact chsh_formula_physics_free.
   - apply classical_bound_is_derived_not_assumed.
   - apply mu_zero_is_locc_like.
 Qed.

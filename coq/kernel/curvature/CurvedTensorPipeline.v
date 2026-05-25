@@ -652,14 +652,12 @@ Qed.
 
 (** ** Stress-energy uniformity *)
 
-(** When all vertices have the same tensor, stress-energy is position-independent *)
-Theorem curved_stress_energy_uniform : forall s sc μ ν v w,
-  (forall i j, full_metric_at_vertex s v i j = full_metric_at_vertex s w i j) ->
-  curved_stress_energy s sc μ ν v = curved_stress_energy s sc μ ν w.
-Proof.
-  intros s sc μ ν v w Huniform.
-  unfold curved_stress_energy, curved_stress_energy_geometric. apply Huniform.
-Qed.
+(** The named theorem [curved_stress_energy_uniform] (vertex-independence
+    of [curved_stress_energy] under a uniform-metric hypothesis) was
+    inlined-and-deleted here. It was a single [apply Huniform] after
+    unfolding the geometric-form alias, with no downstream callers; the
+    fact it stated is now visible by inspection of the definition of
+    [curved_stress_energy] alone. *)
 
 (** The einstein_equation_uniform_coupling theorem already provides the
     main deliverable. Here we show that the coupling structure is

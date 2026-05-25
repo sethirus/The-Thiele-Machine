@@ -534,8 +534,10 @@ Definition abs_full := abs_phase1.
     RegIdxSz bits → max register index RegCount-1 is kami_sp_reg. *)
 Definition kami_sp_reg : nat := RegCount - 1.
 
-Lemma kami_sp_reg_lt_RegCount : kami_sp_reg < RegCount.
-Proof. unfold kami_sp_reg, RegCount. lia. Qed.
+(** A standalone [kami_sp_reg < RegCount] lemma was formerly proved
+    here.  Because [kami_sp_reg = RegCount - 1] and [RegCount > 0], the
+    inequality is discharged by [unfold kami_sp_reg, RegCount; lia] at
+    any call site; it had no callers in the tree and has been removed. *)
 
 (** Default hardware advance: increment PC by 1, add cost to mu.
     All other KamiSnapshot fields are preserved unchanged. *)
@@ -2364,14 +2366,12 @@ Proof.
     + apply IHxs. intros i Hi. apply Hext. right. exact Hi.
 Qed.
 
-(** DEFINITIONAL HELPER: snap_pt_to_graph_empty
-    Proves the initial hardware state maps to empty_graph by unfolding the definition. *)
-Theorem snap_pt_to_graph_empty :
-    snap_pt_to_graph 1 (fun _ => 0) = empty_graph.
-Proof.
-  unfold snap_pt_to_graph, empty_graph.
-  simpl. reflexivity.
-Qed.
+(** A standalone equality [snap_pt_to_graph 1 (fun _ => 0) = empty_graph]
+    was formerly proved here.  When [next_id = 1] and every partition
+    size is zero, [snap_pt_to_graph] reduces to [empty_graph] by [simpl]
+    alone, so any caller can discharge the equality inline with
+    [unfold snap_pt_to_graph, empty_graph; simpl; reflexivity].  The
+    lemma had no callers and has been removed. *)
 
 (** snap_pt_to_graph_wf:
     The graph reconstructed from any hardware snapshot is well-formed:
@@ -2643,16 +2643,13 @@ Qed.
    Architectural invariant theorems
    *)
 
-(** Any hardware step adds a non-negative cost to mu, preserving μ-monotonicity
-    at the abstraction boundary: mu' = mu + cost ≥ mu. *)
-(** DEFINITIONAL HELPER *)
-Theorem hw_step_preserves_invariants :
-    forall (s : KamiSnapshot) (cost : nat),
-      (abs_phase1 s).(vm_mu) + cost >= (abs_phase1 s).(vm_mu).
-Proof.
-  intros s cost.
-  unfold abs_phase1. simpl. lia.
-Qed.
+(** μ-monotonicity at the abstraction boundary
+    ([(abs_phase1 s).(vm_mu) + cost >= (abs_phase1 s).(vm_mu)]) was
+    formerly proved here as [hw_step_preserves_invariants].  The single
+    caller — [verilog_mu_non_decreasing_on_charge] in
+    [kami_hw/VerilogRefinement.v] — now discharges the obligation
+    in-place via [unfold abs_phase1; simpl; lia], so the lemma has been
+    removed. *)
 
 (** hw_step_preserves_bianchi
 

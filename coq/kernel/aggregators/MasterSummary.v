@@ -688,13 +688,17 @@ Proof.
       * exact Hbound.
 Qed.
 
+(** The earlier [chsh_formula_is_algebraic] conjunct (a vacuous [forall x
+    y z w, x = x] dressed as a Prop) has been removed: its proof was a
+    single [reflexivity] and it added no audit content beyond what the
+    Q-arithmetic definitions of [classical_chsh_value] and [chsh_value]
+    already make structurally visible. *)
 Definition exposed_non_circularity_spine : Prop :=
   non_circularity_certificate /\
   (forall r : mu_cost_rule,
      rule_references_chsh r = false /\
      rule_references_quantum r = false /\
      rule_references_tsirelson r = false) /\
-  chsh_formula_is_algebraic /\
   classical_bound_appears_as_achievable /\
   mu_zero_locc_correspondence.
 
@@ -706,10 +710,8 @@ Proof.
   - split.
     + exact mu_cost_is_physics_free.
     + split.
-      * exact chsh_formula_physics_free.
-      * split.
-        { exact classical_bound_is_derived_not_assumed. }
-        { exact mu_zero_is_locc_like. }
+      * exact classical_bound_is_derived_not_assumed.
+      * exact mu_zero_is_locc_like.
 Qed.
 
 Definition exposed_verification_surface_spine : Prop :=
@@ -1323,12 +1325,14 @@ Proof.
   reflexivity.
 Qed.
 
-(* DEFINITIONAL LEMMA: this records the explicit scope field of the summary constant. *)
-Lemma master_verification_scope_includes_full_state_equivalence :
-  verification_scope_includes_full_state_equivalence master_verification_scope = true.
-Proof.
-  reflexivity.
-Qed.
+(** Previously: a separate lemma
+    [master_verification_scope_includes_full_state_equivalence] recorded
+    that [verification_scope_includes_full_state_equivalence
+    master_verification_scope = true].  That equation is the defining
+    field of [master_verification_scope] (a record constant), so the
+    statement reduced to [true = true] by [reflexivity].  The lemma was
+    used exactly once, in [master_verification_scope_is_explicit] below;
+    the proof now finishes that bullet with [reflexivity] directly. *)
 
 Theorem master_verification_scope_is_explicit :
   master_verification_scope_statement.
@@ -1338,7 +1342,7 @@ Proof.
      verification_scope_includes_full_state_equivalence master_verification_scope = true).
   split.
   - exact master_verification_scope_observables_exact.
-  - exact master_verification_scope_includes_full_state_equivalence.
+  - reflexivity.
 Qed.
 
 (**
@@ -2253,22 +2257,13 @@ Proof.
   destruct r; repeat split; reflexivity.
 Qed.
 
-(** Theorem 9b: The CHSH formula export is algebraic in form. *)
-(* AUDIT:
-  theorem: master_non_circular_chsh_formula
-  status: unconditional
-  kind: export-only
-  depends_on: NonCircularityAudit.chsh_formula_physics_free
-  premise_kinds: algebraic
-  new_content_here: none
-  semantic_layer: formal theorem layer
-  external_interpretation: algebraic-formula certificate only
-*)
-Theorem master_non_circular_chsh_formula : chsh_formula_is_algebraic.
-Proof.
-  intros e00 e01 e10 e11.
-  reflexivity.
-Qed.
+(** The previous theorem [master_non_circular_chsh_formula] re-exported
+    the vacuous [chsh_formula_is_algebraic] Prop. With that Prop removed,
+    this re-export has no content to re-export. The audit-relevant
+    structural fact (CHSH is Q-arithmetic) is captured by the Q-typed
+    definitions of [classical_chsh_value] and [chsh_value] in
+    [NonCircularityAudit.v] rather than by a one-line reflexivity
+    theorem. *)
 
 (** Theorem 9c: The classical witness is exported as a non-circularity sub-certificate. *)
 (* AUDIT:

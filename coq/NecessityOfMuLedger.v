@@ -317,17 +317,22 @@ Definition po1_strict_trace_B : list StrictClassicalState :=
     Each condition is stated and proved as a named theorem. *)
 
 (** CONDITION (1): Identical starting point.
-    Both traces begin at po1_init.  Its strict classical shadow is concretely
-    (mem=[], regs=[], pc=0) — the empty Turing-classical state.  Any classical
-    observer sees the same starting configuration for both traces. *)
+    Both strict-shadow traces begin at the same head element, namely
+    [strict_shadow po1_init].  Stated as agreement of the step-0 entries
+    of [po1_strict_trace_A] and [po1_strict_trace_B], a fact about the
+    actual trace lists, not just a normalization of [strict_shadow] on
+    the empty VM state.  Any classical observer sees the same starting
+    configuration in both traces. *)
 Theorem po1_cond1_identical_start :
-  strict_shadow po1_init = {| scs_mem := []; scs_regs := []; scs_pc := 0 |}.
-Proof. unfold strict_shadow, po1_init. simpl. reflexivity. Qed.
+  nth_error po1_strict_trace_A 0 = Some (strict_shadow po1_init) /\
+  nth_error po1_strict_trace_B 0 = Some (strict_shadow po1_init).
+Proof. split; reflexivity. Qed.
 
-(** CONDITION (2a): At step 0, the common starting shadow is uniquely determined. *)
+(** CONDITION (2a): At step 0, the strict-classical shadows of the two
+    traces agree element-wise. *)
 Theorem po1_cond2_step0 :
-  strict_shadow po1_init = {| scs_mem := []; scs_regs := []; scs_pc := 0 |}.
-Proof. exact po1_cond1_identical_start. Qed.
+  nth_error po1_strict_trace_A 0 = nth_error po1_strict_trace_B 0.
+Proof. reflexivity. Qed.
 
 (** CONDITION (2b): At the final step (step 1), the strict shadows are equal.
     Both programs advance pc by 1 and preserve mem and regs; the only

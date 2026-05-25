@@ -229,7 +229,6 @@ PHYSICS_ANALOGY_RE = re.compile(
     r"(?i)\b(noether|gauge|symmetry|lorentz|covariant|invariant|conservation|entropy|thermo|quantum|relativity|gravity|wave|schrodinger|chsh|bell|physics)\b"
 )
 INVARIANCE_LEMMA_RE = re.compile(r"(?i)\b(step|vm_step|run_vm|trace_run|semantics).*(equiv|invariant)")
-DEFINITIONAL_LABEL_RE = re.compile(r"(?i)\bdefinitional lemma\b")
 Z_TO_NAT_RE = re.compile(r"\bZ\.to_nat\b")
 Z_TO_NAT_GUARD_RE = re.compile(r"(?i)(>=\s*0|0\s*<=|Z\.le|Z\.leb|Z\.geb|Z\.ge|Z\.lt|Z\.ltb|<\?.*0|nonneg|nonnegative|if\s*\(.+<\?\s*0\))")
 
@@ -827,13 +826,56 @@ def scan_unused_hypotheses(path: Path) -> list[Finding]:
 
 
 def scan_definitional_invariance(path: Path) -> list[Finding]:
+    """Flag invariance/equivariance lemmas whose proof consists ENTIRELY
+    of normalization plus a closing tactic — no rewrite/apply/destruct/
+    exact/subst/etc. that engages an introduced hypothesis or a named
+    lemma.
+
+    The vacuous-proof signature is a tactic sequence drawn only from:
+      - intros, intro       (binding)
+      - unfold, simpl, cbn, cbv, lazy, change, fold        (normalization)
+      - reflexivity, easy, trivial, tauto, congruence, auto (closing)
+
+    A proof that uses [rewrite Hgraph], [subst g2], [simpl in Hgraph],
+    or [apply <named_lemma>] is doing real work — even if it ends in
+    [reflexivity] — and is NOT flagged. That covers the vm_graph_invariant
+    family pattern in MuGravity.v.
+
+    Hypothesis-arg detection: [simpl in Hgraph] / [subst g2] have a
+    normalization HEAD but their argument references an introduced name.
+    Those are treated as engagement.
+
+    No comment-marker bypass is honoured. The previous
+    [DEFINITIONAL_LABEL_RE] escape via `(* definitional lemma: ... *)`
+    is removed: a marker comment cannot silence a real vacuity finding.
+
+    Special case: lemma whose statement is `: True` or `-> True` remains
+    flagged unconditionally (the conclusion is trivially provable).
+    """
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
     line_of = _line_map(text)
     clean_lines = text.splitlines()
-    raw_lines = raw.splitlines()  # Keep original with comments for label checking
     findings: list[Finding] = []
     lemma_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
+    # Match Qed./Defined./Admitted. anywhere so one-line proofs are handled.
+    proof_end_re = re.compile(r"\b(Qed|Defined|Admitted)\.")
+    closing_tactic_re = re.compile(
+        r"\b(reflexivity|easy|trivial|tauto|congruence|auto)\s*\."
+    )
+    # Tactic heads that do NOT count as engagement (binding + pure
+    # normalization + closing). Anything outside this set, at the head of
+    # a tactic invocation, marks real work.
+    nonengaging_tactic_re = re.compile(
+        r"\b(intros?|unfold|simpl|cbn|cbv|lazy|change|fold|subst|"
+        r"reflexivity|easy|trivial|tauto|congruence|auto)\b"
+    )
+    bullet_re = re.compile(
+        r"^\s*(?:[-+*]+\s*|repeat\s+|try\s+|all\s*:\s*|now\s+|"
+        r"solve\s*\[|do\s+\d+\s+|first\s*\[|\(|\[|\|)+"
+    )
+    intros_pattern_keywords = {"as", "in", "at", "eqn", "_"}
+
     for m in lemma_re.finditer(text):
         name = m.group(2)
         if not re.search(r"(?i)(invariant|equiv|equivariance|symmetry)", name):
@@ -859,24 +901,74 @@ def scan_definitional_invariance(path: Path) -> list[Finding]:
         proof_pos = text.find("Proof.", stmt_end)
         if proof_pos == -1:
             continue
-        proof_block = text[proof_pos: min(len(text), proof_pos + 400)]
-        if "reflexivity." in proof_block or "easy." in proof_block:
-            # Check for definitional label in ORIGINAL text (with comments)
-            line = line_of[m.start()]
-            label_context = "\n".join(raw_lines[max(0, line - 4): line])
-            if DEFINITIONAL_LABEL_RE.search(label_context):
+        end_match = proof_end_re.search(text, proof_pos)
+        if not end_match:
+            continue
+        proof_body = text[proof_pos + len("Proof."): end_match.start()]
+        if not closing_tactic_re.search(proof_body):
+            continue
+        # Split on `.` and `;` (top-level tactic terminators).
+        tactics = [t.strip() for t in re.split(r"[.;]", proof_body) if t.strip()]
+        # First pass: collect every identifier introduced by intros/intro.
+        # The `re.DOTALL` flag lets multi-line destructuring intros
+        # ([g1 ...] [g2 ...] m Hgraph spread across two lines) capture
+        # every name, not just the first row.
+        introduced: set[str] = set()
+        for tac in tactics:
+            head = bullet_re.sub("", tac).strip()
+            intro_m = re.match(r"^intros?\b(.*)$", head, re.DOTALL)
+            if not intro_m:
                 continue
-            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else stmt
-            findings.append(
-                Finding(
-                    rule_id="DEFINITIONAL_INVARIANCE",
-                    severity=_severity_for_path(path, "HIGH"),
-                    file=path,
-                    line=line,
-                    snippet=snippet.strip(),
-                    message="Invariance/equivariance lemma proved by reflexivity/easy (definitional).",
-                )
+            for tok in re.findall(r"[A-Za-z_][A-Za-z0-9_']*", intro_m.group(1)):
+                if tok not in intros_pattern_keywords:
+                    introduced.add(tok)
+        # Second pass: detect engagement. A tactic is engaging iff its
+        # HEAD is not in the non-engaging set, OR its arguments reference
+        # one of the introduced identifiers (catches simpl-in-H, subst x).
+        has_engagement = False
+        for tac in tactics:
+            head = bullet_re.sub("", tac).strip()
+            if not head:
+                continue
+            head_word_m = re.match(r"^([A-Za-z_][A-Za-z0-9_']*)", head)
+            if not head_word_m:
+                has_engagement = True
+                break
+            head_word = head_word_m.group(1)
+            if not nonengaging_tactic_re.match(head_word):
+                has_engagement = True
+                break
+            if head_word in ("intros", "intro"):
+                continue
+            args = head[head_word_m.end():]
+            for tok in re.findall(r"[A-Za-z_][A-Za-z0-9_']*", args):
+                if tok in introduced and tok not in intros_pattern_keywords:
+                    has_engagement = True
+                    break
+            if has_engagement:
+                break
+        if has_engagement:
+            continue
+        line = line_of[m.start()]
+        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else stmt
+        findings.append(
+            Finding(
+                rule_id="DEFINITIONAL_INVARIANCE",
+                severity=_severity_for_path(path, "HIGH"),
+                file=path,
+                line=line,
+                snippet=snippet.strip(),
+                message=(
+                    f"Invariance/equivariance lemma `{name}` proof consists "
+                    f"entirely of intros + normalization + a closing tactic, "
+                    f"with no rewrite/apply/destruct/exact/etc. and no "
+                    f"argument referencing an introduced hypothesis. Either "
+                    f"the claim is definitional (inline the unfolds at call "
+                    f"sites and delete) or restate the lemma so the proof "
+                    f"engages real content."
+                ),
             )
+        )
     return findings
 
 
@@ -904,10 +996,6 @@ def scan_physics_analogy_contract(path: Path) -> list[Finding]:
         stmt = " ".join(stmt_lines)
         if not PHYSICS_ANALOGY_RE.search(stmt):
             continue
-        # Check for definitional label in ORIGINAL text (with comments)
-        label_context = "\n".join(raw_lines[max(0, idx - 4): idx])
-        if DEFINITIONAL_LABEL_RE.search(label_context):
-            continue
         if has_invariance:
             continue
         findings.append(
@@ -917,7 +1005,7 @@ def scan_physics_analogy_contract(path: Path) -> list[Finding]:
                 file=path,
                 line=idx,
                 snippet=ln.strip(),
-                message="Physics-analogy theorem lacks invariance lemma and is not labeled definitional.",
+                message="Physics-analogy theorem lacks invariance lemma in its file.",
             )
         )
     return findings
@@ -3148,51 +3236,65 @@ def scan_circular_definitions(path: Path) -> list[Finding]:
     
     Or: Theorem proves X = Y, but proof is just `unfold X; reflexivity`
     showing X was defined AS Y.
-    
-    Exempt: Theorems marked with (* DEFINITIONAL HELPER *) or (* HELPER LEMMA *)
+
+    No comment-marker bypass is honoured. If a lemma genuinely is the
+    definitional projection of a constant, either inline-unfold at use
+    sites and delete it, restructure so the claim has non-trivial proof
+    content, or expose the alias with a Definition. Cosmetic
+    `(* DEFINITIONAL HELPER *)` markers no longer silence this rule.
+
+    Exemptions retained on principled signals:
+      - the lemma's statement has a premise (`->`) or negation (`~P`)
+        and the proof closes via lia/lra/auto/trivial/tauto/congruence/
+        eauto — the automation uses the premise implicitly;
+      - or the proof's `intros` introduces an H-prefixed name (Coq's
+        convention for hypotheses hidden inside a Definition expansion
+        such as [mixture_compatible f]) AND the closer is automation;
+      - or the lemma is referenced 2+ times elsewhere in the same file,
+        i.e. it is serving as a named rewrite rule and the inline
+        equivalent would duplicate the unfolds at every call site.
+
+    Also flags `intros ... H. unfold X. exact H.` style — the
+    "semantic P -> P after reduction" pattern — even when the lemma
+    statement is not literally `P -> P`.
     """
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
     line_of = _line_map(text)
-    clean_lines = raw.splitlines()  # Keep comments for exemption check
+    clean_lines = raw.splitlines()
     findings: list[Finding] = []
-    
+
     # Collect definitions
     def_re = re.compile(r"(?m)^[ \t]*Definition\s+([A-Za-z0-9_']+)\b")
     definitions = {m.group(1) for m in def_re.finditer(text)}
-    
+
     if not definitions:
         return findings
-    
+
     theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
     proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
-    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
-    
-    # Exemption markers
-    exemption_re = re.compile(r'\(\*\*?\s*(DEFINITIONAL|HELPER|BASIC|ARITHMETIC|ACCESSOR|PROJECTION)\b', re.IGNORECASE)
-    
+    # Match Qed./Defined./Admitted. anywhere so one-line proofs
+    # (`Proof. tac. Qed.`) are handled.
+    end_re = re.compile(r"\b(Qed|Defined|Admitted)\.")
+    automation_re = re.compile(
+        r"^\s*(lia|lra|auto|trivial|tauto|congruence|eauto|omega)\b"
+    )
+    intros_h_prefix_re = re.compile(
+        r"\bintros?\b[^.;]*\b(H[A-Za-z0-9_']*)\b"
+    )
+
     for tm in theorem_re.finditer(text):
         tname = tm.group(2)
         stmt_end = text.find(".", tm.end())
         if stmt_end == -1:
             continue
         stmt = re.sub(r"\s+", " ", text[tm.start():stmt_end + 1]).strip()
-        
-        # Check for exemption marker in preceding 3 lines.
-        # Note: in this function, [clean_lines] is actually [raw.splitlines()]
-        # (raw text with comments preserved) — see initialization above.
-        # The exemption marker is itself a Coq comment "(* DEFINITIONAL HELPER *)",
-        # so the raw-with-comments view is the right one.
-        line_num = line_of[tm.start()]
-        preceding_text = "\n".join(clean_lines[max(0, line_num-4):line_num])
-        if exemption_re.search(preceding_text):
-            continue  # Explicitly marked as helper lemma
-        
+
         # Check which definitions are mentioned in the statement
         mentioned_defs = [d for d in definitions if re.search(rf'\b{d}\b', stmt)]
         if not mentioned_defs:
             continue
-        
+
         proof_match = proof_re.search(text, stmt_end)
         if not proof_match:
             continue
@@ -3201,34 +3303,111 @@ def scan_circular_definitions(path: Path) -> list[Finding]:
             continue
         proof_block = text[proof_match.end():end_match.start()].strip()
         proof_text = re.sub(r"\s+", " ", proof_block)
-        
+
+        # Premises in the lemma's visible statement.
+        #   - `->` is the explicit arrow.
+        #   - `~P` is sugar for `P -> False`, so the lemma has a (negated)
+        #     premise.
+        stmt_has_premise = ("->" in stmt) or ("~" in stmt)
+        proof_introduces_hyp = bool(intros_h_prefix_re.search(proof_text))
+        # Same-file uses: 2+ references outside the declaration line mean
+        # the lemma is a real rewrite rule, not a standalone vacuous claim.
+        same_file_uses = len(re.findall(rf'\b{re.escape(tname)}\b', text)) - 1
+        lemma_is_used_in_file = same_file_uses >= 2
+
         # Pattern: unfold X (no other tactics except reflexivity/simpl/lia)
-        # If proof is ONLY unfold + reflexivity, it's definitional
         for defn in mentioned_defs:
             unfold_pat = re.compile(rf'\bunfold\s+{defn}\b')
             if unfold_pat.search(proof_text):
-                # Check if proof is suspiciously simple
                 tactics = [t.strip() for t in re.split(r'[.;]', proof_text) if t.strip()]
                 non_trivial_tactics = [t for t in tactics if not re.match(
                     r'^\s*(unfold|simpl|reflexivity|lia|lra|auto|trivial|intros?|split)\b', t)]
-                
+
                 if len(non_trivial_tactics) == 0 and len(tactics) <= 5:
-                    line = line_of[tm.start()]
-                    snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
-                    findings.append(
-                        Finding(
-                            rule_id="CIRCULAR_DEFINITION",
-                            severity=_severity_for_path(path, "MEDIUM"),
-                            file=path,
-                            line=line,
-                            snippet=snippet.strip(),
-                            message=f"Theorem `{tname}` unfolds `{defn}` and proves claim "
-                                    f"by simple tactics. Mark with (* DEFINITIONAL HELPER *) if legitimate, "
-                                    f"or prove non-circularly by engaging with structure.",
-                        )
+                    premises_engaged = (
+                        (stmt_has_premise or proof_introduces_hyp)
+                        and any(automation_re.match(t) for t in tactics)
                     )
-                    break
-    
+                    if premises_engaged or lemma_is_used_in_file:
+                        pass
+                    else:
+                        line = line_of[tm.start()]
+                        snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+                        findings.append(
+                            Finding(
+                                rule_id="CIRCULAR_DEFINITION",
+                                severity=_severity_for_path(path, "MEDIUM"),
+                                file=path,
+                                line=line,
+                                snippet=snippet.strip(),
+                                message=f"Theorem `{tname}` unfolds `{defn}` and proves claim "
+                                        f"by simple tactics. Inline-unfold at use sites and delete, "
+                                        f"or restructure the claim so the proof has non-trivial content.",
+                            )
+                        )
+                        break
+
+                # Semantic-tautology hardening: catch proofs that normalize
+                # a definition and then return an introduced hypothesis
+                # verbatim. Example shape:
+                #   intros ... H. unfold X. exact H.
+                # The lemma is "P -> P after reduction" — the proof
+                # discharges by exhibiting the same hypothesis it took.
+                #
+                # NORMALIZATION TACTICS (deliberately narrow):
+                #   intros, unfold, simpl, cbn, cbv, lazy, change, fold,
+                #   subst. NOT: rewrite/setoid_rewrite (those can do
+                #   real case-analysis on an if, or apply a separate
+                #   lemma).
+                introduced: set[str] = set()
+                for tac in tactics:
+                    intro_match = re.match(r"^\s*intros?\b(.*)$", tac, re.DOTALL)
+                    if not intro_match:
+                        continue
+                    for ident in re.findall(r"\b[A-Za-z_][A-Za-z0-9_']*\b", intro_match.group(1)):
+                        if ident not in {"as", "in", "at", "eqn", "_"}:
+                            introduced.add(ident)
+
+                if tactics:
+                    terminal = tactics[-1]
+                    terminal_hyp: str | None = None
+                    exact_match = re.match(
+                        r"^\s*(?:exact|apply)\s+([A-Za-z_][A-Za-z0-9_']*)\s*$",
+                        terminal,
+                    )
+                    if exact_match and exact_match.group(1) in introduced:
+                        terminal_hyp = exact_match.group(1)
+                    elif re.match(r"^\s*assumption\s*$", terminal) and introduced:
+                        terminal_hyp = "an introduced hypothesis"
+
+                    if terminal_hyp is not None and not lemma_is_used_in_file:
+                        normalization_re = re.compile(
+                            r"^\s*(intros?|unfold|simpl|cbn|cbv|lazy|change|"
+                            r"fold|subst)\b"
+                        )
+                        pre_terminal = tactics[:-1]
+                        only_normalization = all(
+                            normalization_re.match(tac) for tac in pre_terminal
+                        )
+                        if only_normalization and len(tactics) <= 8:
+                            line = line_of[tm.start()]
+                            snippet = clean_lines[line - 1] if 0 <= line - 1 < len(clean_lines) else tname
+                            findings.append(
+                                Finding(
+                                    rule_id="CIRCULAR_DEFINITION",
+                                    severity=_severity_for_path(path, "MEDIUM"),
+                                    file=path,
+                                    line=line,
+                                    snippet=snippet.strip(),
+                                    message=f"Theorem `{tname}` unfolds `{defn}`, normalizes, then "
+                                            f"returns {terminal_hyp} via `{terminal}`. This is a "
+                                            f"semantic P -> P after reduction. Inline-unfold at "
+                                            f"use sites and delete, or restate so the claim has "
+                                            f"non-trivial proof content.",
+                                )
+                            )
+                            break
+
     return findings
 
 
@@ -3371,14 +3550,16 @@ def scan_definitional_witness(path: Path) -> list[Finding]:
 
     This proves the definition exists (trivial), not that the property holds.
 
-    Exempt: Theorems marked with (* DEFINITIONAL WITNESS *) or similar
-    in the preceding 3 lines (same convention as scan_circular_definitions).
+    No marker-comment bypass is honoured. If the existential is
+    intentionally witnessed by the same definition, the lemma is the
+    unfolding equation of that definition rather than a real existence
+    claim; restructure the statement to assert a substantive property
+    or delete it.
     """
     raw = path.read_text(encoding="utf-8", errors="replace")
     text = strip_coq_comments(raw)
     line_of = _line_map(text)
     clean_lines = text.splitlines()
-    raw_lines = raw.splitlines()  # Keep comments for exemption check
     findings: list[Finding] = []
 
     # Collect definitions
@@ -3388,12 +3569,9 @@ def scan_definitional_witness(path: Path) -> list[Finding]:
     if not definitions:
         return findings
 
-    # Exemption markers (same as scan_circular_definitions)
-    exemption_re = re.compile(r'\(\*\*?\s*(DEFINITIONAL|HELPER|BASIC|ARITHMETIC|ACCESSOR|PROJECTION)\b', re.IGNORECASE)
-
     theorem_re = re.compile(r"(?m)^[ \t]*(Theorem|Lemma)\s+([A-Za-z0-9_']+)\b")
     proof_re = re.compile(r"(?m)^[ \t]*Proof\.")
-    end_re = re.compile(r"(?m)^[ \t]*(Qed|Defined|Admitted)\.")
+    end_re = re.compile(r"\b(Qed|Defined|Admitted)\.")
 
     for tm in theorem_re.finditer(text):
         tname = tm.group(2)
@@ -3405,12 +3583,6 @@ def scan_definitional_witness(path: Path) -> list[Finding]:
         # Check if this is an existential theorem
         if 'exists' not in stmt.lower():
             continue
-
-        # Check for exemption marker in preceding 3 lines (use raw for comments)
-        line_num = line_of[tm.start()]
-        preceding_text = "\n".join(raw_lines[max(0, line_num-4):line_num])
-        if exemption_re.search(preceding_text):
-            continue  # Explicitly marked as substantive witness
 
         proof_match = proof_re.search(text, stmt_end)
         if not proof_match:
@@ -5412,50 +5584,32 @@ def scan_mugravity_derivation_completeness(path: Path) -> list[Finding]:
         #         )
         #     )
 
-    # AXIOM BAN: MuGravity files must contain ZERO axioms, except FUNDAMENTAL AXIOM markers.
-    # FUNDAMENTAL AXIOM: Irreducible postulates of MuGravity theory (geometry-information bridge).
-    # Search in RAW text to preserve comment positions
+    # AXIOM BAN: MuGravity files must contain ZERO axioms. No marker-comment
+    # bypass is honoured — a `(* INQUISITOR NOTE: FUNDAMENTAL AXIOM *)` annotation
+    # does NOT silence this finding. Discharge every Axiom as a Theorem from
+    # kernel semantics; if a fact is genuinely irreducible, declare it
+    # outside MuGravity (e.g. in a named physics-bridge file) so its role
+    # as a postulate is explicit at the project level rather than hidden
+    # behind a marker comment.
     axiom_re = re.compile(r"(?m)^[ \t]*Axiom\s+([A-Za-z0-9_']+)\b")
-    for m in axiom_re.finditer(raw):  # Search in raw, not stripped text
+    for m in axiom_re.finditer(raw):
         axiom_name = m.group(1)
-        # Convert to line number based on raw text
         raw_line = raw[:m.start()].count('\n') + 1
         snippet_match = re.search(r'^[ \t]*Axiom\s+[A-Za-z0-9_\']+\b.*$', raw[m.start():], re.MULTILINE)
         snippet = snippet_match.group(0).strip() if snippet_match else m.group(0)
-        
-        # Check for FUNDAMENTAL AXIOM exemption in preceding comment block
-        # Look backwards from axiom position to find comment with FUNDAMENTAL AXIOM marker
-        preceding_text = raw[:m.start()]
-        # Find last comment block before this axiom
-        last_comment_match = None
-        for comment_match in re.finditer(r'\(\*.*?\*\)', preceding_text, re.DOTALL):
-            last_comment_match = comment_match
-        
-        is_fundamental = False
-        if last_comment_match:
-            comment_text = last_comment_match.group(0)
-            # Check if comment contains FUNDAMENTAL AXIOM or DERIVABLE FROM FUNDAMENTAL AXIOMS marker
-            if 'INQUISITOR NOTE: FUNDAMENTAL AXIOM' in comment_text or \
-               'INQUISITOR NOTE: DERIVABLE FROM FUNDAMENTAL AXIOMS' in comment_text:
-                # Verify comment is within ~50 chars of axiom (no other declarations between)
-                gap = preceding_text[last_comment_match.end():].strip()
-                if len(gap) < 50 and not re.search(r'\b(Definition|Theorem|Lemma|Axiom|Parameter)\b', gap):
-                    is_fundamental = True
-        
-        if not is_fundamental:
-            findings.append(
-                Finding(
-                    rule_id="MU_GRAVITY_AXIOM_BAN",
-                    severity="HIGH",
-                    file=path,
-                    line=raw_line,
-                    snippet=snippet.strip(),
-                    message=(
-                        f"Axiom `{axiom_name}` found in MuGravity file without FUNDAMENTAL AXIOM marker. "
-                        f"Either prove it from kernel semantics or mark with 'INQUISITOR NOTE: FUNDAMENTAL AXIOM' if irreducible."
-                    ),
-                )
+        findings.append(
+            Finding(
+                rule_id="MU_GRAVITY_AXIOM_BAN",
+                severity="HIGH",
+                file=path,
+                line=raw_line,
+                snippet=snippet.strip(),
+                message=(
+                    f"Axiom `{axiom_name}` found in MuGravity file. "
+                    f"Prove it from kernel semantics; no marker bypass is honoured."
+                ),
             )
+        )
 
     # ADMITTED BAN: MuGravity files must contain ZERO admitted proofs. Every obligation must be complete.
     # Match Theorem/Lemma that starts a proof and ends with Admitted (not Qed/Defined)
@@ -5612,28 +5766,7 @@ def scan_mugravity_no_assumption_surfaces(path: Path) -> list[Finding]:
         raw_line = raw[:m.start()].count('\n') + 1
         snippet_match = re.search(r'^[ \t]*(Axiom|Parameter|Hypothesis|Context|Variable|Variables)\b.*$', raw[m.start():], re.MULTILINE)
         snippet = snippet_match.group(0).strip() if snippet_match else m.group(0)
-        
-        # For Axiom declarations, check for FUNDAMENTAL AXIOM exemption
-        if kind == "Axiom":
-            # Look backwards in raw text for preceding comment with FUNDAMENTAL AXIOM marker
-            preceding_text = raw[:m.start()]
-            last_comment_match = None
-            for comment_match in re.finditer(r'\(\*.*?\*\)', preceding_text, re.DOTALL):
-                last_comment_match = comment_match
-            
-            is_fundamental = False
-            if last_comment_match:
-                comment_text = last_comment_match.group(0)
-                if 'INQUISITOR NOTE: FUNDAMENTAL AXIOM' in comment_text or \
-                   'INQUISITOR NOTE: DERIVABLE FROM FUNDAMENTAL AXIOMS' in comment_text:
-                    # Verify comment is close to axiom (within ~50 chars, no other declarations)
-                    gap = preceding_text[last_comment_match.end():].strip()
-                    if len(gap) < 50 and not re.search(r'\b(Definition|Theorem|Lemma|Axiom|Parameter)\b', gap):
-                        is_fundamental = True
-            
-            if is_fundamental:
-                continue  # Skip this finding - it's a fundamental axiom
-        
+
         findings.append(
             Finding(
                 rule_id="MU_GRAVITY_NO_ASSUMPTION_SURFACES",
@@ -5643,8 +5776,8 @@ def scan_mugravity_no_assumption_surfaces(path: Path) -> list[Finding]:
                 snippet=snippet.strip(),
                 message=(
                     f"MuGravity strict mode forbids `{kind}`{(' ' + name) if name else ''}. "
-                    f"Discharge via theorem-level derivation from VM operational semantics"
-                    f"{' or mark with INQUISITOR NOTE: FUNDAMENTAL AXIOM if irreducible' if kind == 'Axiom' else ''}."
+                    f"Discharge via theorem-level derivation from VM operational semantics; "
+                    f"no marker bypass is honoured."
                 ),
             )
         )

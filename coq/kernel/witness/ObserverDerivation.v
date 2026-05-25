@@ -380,16 +380,11 @@ Qed.
     - Observer_Minimality (line 237): packages gauge invariance as deliverable
     - File header (line 42): states as key property
 *)
-(* Definitional lemma: This equality is by definition, not vacuous *)
-Lemma observer_region_gauge_invariant : forall s k mid,
-  observe _ ObserverObservableRegion s mid =
-  observe _ ObserverObservableRegion (mu_gauge_shift k s) mid.
-Proof.
-  intros s k mid.
-  unfold ObserverObservableRegion. simpl.
-  unfold ObservableRegion, mu_gauge_shift. simpl.
-  reflexivity.
-Qed.
+(** Note: the previous standalone [observer_region_gauge_invariant]
+    lemma was inlined into [Observer_Minimality] below — the gauge-
+    invariance equality is the definitional projection of
+    [ObserverObservableRegion]'s [observe] field against [mu_gauge_shift],
+    so we close it on demand at the one call site. *)
 
 (** Observational_Locality_Iff_Physics: Locality from observation equals structural locality
 
@@ -503,7 +498,10 @@ Theorem Observer_Minimality :
 Proof.
   split.
   - exact (observer_equiv_equivalence ObserverObservableRegion).
-  - exact observer_region_gauge_invariant.
+  - intros s k mid.
+    unfold ObserverObservableRegion. simpl.
+    unfold ObservableRegion, mu_gauge_shift. simpl.
+    reflexivity.
 Qed.
 
 (** weaker_observer_collapse_witness: Constructive proof of physics collapse

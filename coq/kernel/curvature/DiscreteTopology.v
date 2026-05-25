@@ -124,38 +124,12 @@ Definition euler_characteristic (g : PartitionGraph) : Z :=
 (** I do not introduce χ notation here because the unicode notation caused
     parsing trouble in Coq scripts. Use euler_characteristic directly. *)
 
-(** Basic topological checks *)
-
-(* DEFINITIONAL HELPER *)
-(** The empty graph has Euler characteristic 0 by definition. *)
-Lemma empty_graph_euler_char_0 :
-  euler_characteristic empty_graph = 0%Z.
-Proof.
-  unfold euler_characteristic, V, E, F, empty_graph.
-  simpl. unfold vertices, edges, faces. simpl.
-  reflexivity.
-Qed.
-
-(* DEFINITIONAL HELPER *)
-(** V is a nat, so non-negativity is only a sanity check. *)
-Lemma V_nonneg : forall g, (0 <= V g)%nat.
-Proof.
-  intro g. unfold V. lia.
-Qed.
-
-(* DEFINITIONAL HELPER *)
-(** E is a nat, so non-negativity is only a sanity check. *)
-Lemma E_nonneg : forall g, (0 <= E g)%nat.
-Proof.
-  intro g. unfold E. lia.
-Qed.
-
-(* DEFINITIONAL HELPER *)
-(** F is a nat, so non-negativity is only a sanity check. *)
-Lemma F_nonneg : forall g, (0 <= F g)%nat.
-Proof.
-  intro g. unfold F. lia.
-Qed.
+(** Basic topological checks: the empty-graph Euler computation and the
+    four V/E/F non-negativity sanity statements were inlined-and-deleted
+    here. They were definitional unfoldings of nat-valued list lengths
+    (length L : nat is always >= 0), with no callers in the proof tree;
+    keeping them as named lemmas would be circular bookkeeping rather
+    than mathematical content. *)
 
 (** Face count is module count because faces are modules in this model. *)
 Lemma F_equals_module_count : forall g,

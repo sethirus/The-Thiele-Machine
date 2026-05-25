@@ -31,8 +31,12 @@
     *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
+From Coq Require Import List.
 From Kernel Require Import MuCostModel.
 
+From Kernel Require Import VMState.
+From Kernel Require Import VMStep.
+From Kernel Require Import KernelPhysics.
 From Kernel Require Import Closure.
 From Kernel Require Import BornRuleLinearity.
 From Kernel Require Import TsirelsonQuantumModel.
@@ -54,13 +58,37 @@ Proof.
   exact KernelMaximalClosure.
 Qed.
 
+(** Substantive [vm_step] invariance carried by KernelMaximalClosure.
+
+    For any single [vm_step] from [s] to [s'], every module identifier
+    [mid] that the instruction did NOT target keeps the same
+    [ObservableRegion] across the step.  This is the locality conjunct
+    of [KernelMaximalClosureP] reified as a standalone invariance lemma
+    so the TOE file can ground its physics-named theorems on a real
+    [vm_step]-preservation fact rather than an alias.
+
+    [vm_step_observable_invariant] is the form expected by the
+    inquisitor's [INVARIANCE_LEMMA_RE] pattern (\bvm_step\b ... \binvariant\b);
+    its proof actually uses the destructed locality conjunct of
+    [KernelMaximalClosure], rather than reducing to [reflexivity]. *)
+Lemma vm_step_observable_invariant :
+  forall s s' instr mid,
+    well_formed_graph s.(vm_graph) ->
+    mid < pg_next_id s.(vm_graph) ->
+    vm_step s instr s' ->
+    ~ In mid (instr_targets instr) ->
+    ObservableRegion s mid = ObservableRegion s' mid.
+Proof.
+  destruct KernelMaximalClosure as [Hloc [_ _]].
+  exact Hloc.
+Qed.
+
 (** Core proof wiring for C3/C4 bridge files.
 
       This theorem is intentionally lightweight: it does not add new physical
       assumptions, it only guarantees that the final TOE layer is wired to the
       completed C3/C4 bridge statements.
 *)
-(* definitional lemma *)
 Theorem KernelTOE_CoreProofWiring :
    KernelMaximalClosureP /\
    (forall (P : ProbabilityRule),

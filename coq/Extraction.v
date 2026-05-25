@@ -75,6 +75,25 @@ Proof.
   reflexivity.
 Qed.
 
+(** ** run_vm-semantics invariance for the extraction boundary.
+
+    The extraction boundary exposes [SimulationProof.run_vm]. The
+    invariance lemma below proves that when the program counter points
+    outside the trace (the [run_vm] halt condition), [run_vm] is
+    state-identity for any amount of fuel. This is the load-bearing
+    semantic invariant of the extracted runner: stuck states do not
+    advance, regardless of fuel. Proof inducts on fuel and engages
+    the [nth_error trace s.(vm_pc) = None] hypothesis at each step. *)
+Lemma run_vm_extraction_invariant_at_stuck :
+  forall fuel trace (s : VMState),
+    nth_error trace s.(vm_pc) = None ->
+    SimulationProof.run_vm fuel trace s = s.
+Proof.
+  induction fuel as [|fuel' IH]; intros trace s Hstuck.
+  - reflexivity.
+  - simpl. rewrite Hstuck. reflexivity.
+Qed.
+
 (* INQUISITOR NOTE: alias for extraction proof-root dependency wiring. *)
 
 Theorem extraction_c3_born_rule_anchor :

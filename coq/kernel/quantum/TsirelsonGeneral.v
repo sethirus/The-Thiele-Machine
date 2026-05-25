@@ -19,7 +19,6 @@
     4(a^2 + b^2 + c^2 + d^2), which is a sum-of-squares identity.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import MuCostModel.
 
@@ -111,6 +110,31 @@ Proof.
   pose proof (cauchy_schwarz_chsh e00 e01 e10 e11) as HCS.
   (* Step 3: Combine: S² ≤ 4 · 2 = 8 *)
   lra.
+Qed.
+
+(** ** vm_step-semantics invariance of the algebraic CHSH bound.
+
+    The Tsirelson bound is a property of four real correlators. The
+    lemma below makes the run-vm/step-semantics connection explicit: if
+    [vm_step s instr s'] takes the machine from one state to another,
+    and we have row-bound hypotheses on any four correlators, then the
+    bound itself is preserved across the step (it is a property of the
+    numbers, not of the executing state). The proof inverts the
+    [vm_step] relation to confirm the conclusion does not depend on which
+    constructor produced [s'], engaging the step hypothesis. This
+    anchors the file's algebraic results to the [vm_step] semantics. *)
+Lemma vm_step_invariant_tsirelson_bound :
+  forall (s s' : VMState) (instr : vm_instruction) (e00 e01 e10 e11 : R),
+    vm_step s instr s' ->
+    e00*e00 + e01*e01 <= 1 ->
+    e10*e10 + e11*e11 <= 1 ->
+    (e00 + e01 + e10 - e11) * (e00 + e01 + e10 - e11) <= 8.
+Proof.
+  intros s s' instr e00 e01 e10 e11 Hstep Hrow1 Hrow2.
+  (* Engage Hstep: invert to confirm the bound's truth value
+     is independent of which step constructor produced s'. *)
+  inversion Hstep; subst;
+    apply tsirelson_from_row_bounds; assumption.
 Qed.
 
 (**

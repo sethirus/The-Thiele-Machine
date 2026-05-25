@@ -34,7 +34,10 @@
     Trust boundary (b) is named [bsc_kami_compilation_trusted] (still True).
     The repo already has a verified Coq path from Kami modules to the
     Bluespec-subset AST ([getModuleS] -> [ModulesSToBModules] ->
-    [canonical_cpu_module_from_source]). It also now has a checked RTL pipeline
+    [canonical_cpu_module] in [kami_hw/CanonicalCPUProof.v]; the
+    equality [canonical_cpu_module = ModulesSToBModules thieleBusTopS]
+    holds by [unfold] alone — see the comment above that definition).
+    It also now has a checked RTL pipeline
     provenance manifest ([artifacts/rtl_pipeline_manifest.json]) that pins the
     canonical extraction/printer/BSV/Verilog artifacts and enforces byte
     identity between the generated synthesis RTL and the tracked RTL. It also

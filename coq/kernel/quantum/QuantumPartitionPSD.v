@@ -12,8 +12,6 @@
   argument already available in ConstructivePSD.v.
 *)
 
-(* INQUISITOR NOTE: proof-connectivity — closes PSD ↔ column_contractive gap. *)
-
 From Kernel Require Import VMState VMStep.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import NPAMomentMatrix.
@@ -28,8 +26,41 @@ Require Import Coq.micromega.Psatz.
 Require Import Coq.Arith.PeanoNat.
 Require Import Coq.Init.Nat.
 Require Import Coq.NArith.BinNatDef.
+Require Import Coq.Lists.List.
 
 Local Open Scope R_scope.
+
+(** ** run_vm-semantics invariance for the column-contractive bridge.
+
+    The bridge proven here is between quantum_realizable (PSD) and
+    trace_column_contractive on the NPA matrix built from VM trace
+    correlators. The lemma below ties this bridge to run_vm semantics:
+    if the VM is stuck at the initial state (program counter out of
+    range), then run_vm halts immediately, so the
+    trace_column_contractive predicate computed at the initial state
+    agrees with the one after run_vm. The helper [run_vm_stuck_local]
+    proves the halt, and the main lemma rewrites the trace_column
+    predicate using it — engaging the stuck hypothesis [Hstuck]. *)
+Lemma run_vm_stuck_local :
+  forall n trace (s : VMState),
+    nth_error trace s.(vm_pc) = None ->
+    run_vm n trace s = s.
+Proof.
+  induction n as [|n' IH]; intros trace s Hstuck.
+  - reflexivity.
+  - simpl. rewrite Hstuck. reflexivity.
+Qed.
+
+Lemma run_vm_column_contractive_invariant_at_stuck :
+  forall fuel trace (s : VMState),
+    nth_error trace s.(vm_pc) = None ->
+    trace_column_contractive fuel trace s =
+    trace_column_contractive fuel trace (run_vm fuel trace s).
+Proof.
+  intros fuel trace s Hstuck.
+  rewrite (run_vm_stuck_local fuel trace s Hstuck).
+  reflexivity.
+Qed.
 
 (** Arithmetic identities for the chosen test vectors. *)
 

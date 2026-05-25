@@ -351,41 +351,15 @@ Definition coreViewOfSnapshot (s : KamiSnapshot) : BusCoreView :=
      view_pt_next_id := snap_pt_next_id s;
      view_pt_size := snap_pt_sizes s |}.
 
-(* DEFINITIONAL HELPER — verifies bus address decode for pc register *)
-Lemma busRead_snapshot_pc :
-  forall s,
-    busRead (coreViewOfSnapshot s) busAddrPc = Some (snap_pc s).
-Proof.
-  intro s.
-  unfold busAddrPc.
-  unfold busRead.
-  simpl.
-  reflexivity.
-Qed.
-
-(* DEFINITIONAL HELPER — verifies bus address decode for mu register *)
-Lemma busRead_snapshot_mu :
-  forall s,
-    busRead (coreViewOfSnapshot s) busAddrMu = Some (snap_mu s).
-Proof.
-  intro s.
-  unfold busAddrMu.
-  unfold busRead.
-  simpl.
-  reflexivity.
-Qed.
-
-(* DEFINITIONAL HELPER — verifies bus address decode for partition_ops register *)
-Lemma busRead_snapshot_partition_ops :
-  forall s,
-    busRead (coreViewOfSnapshot s) busAddrPartitionOps = Some (snap_partition_ops s).
-Proof.
-  intro s.
-  unfold busAddrPartitionOps.
-  unfold busRead.
-  simpl.
-  reflexivity.
-Qed.
+(** Bus-address-decode checks for pc / mu / partition_ops registers
+    formerly lived here as three single-line [reflexivity] lemmas
+    ([busRead_snapshot_pc], [busRead_snapshot_mu],
+    [busRead_snapshot_partition_ops]).  They had no callers in the tree
+    and the equalities they witnessed hold definitionally once
+    [busRead] and the [busAddr*] constants are unfolded, so any caller
+    can discharge them inline with [unfold busRead, busAddrPc; reflexivity]
+    (resp. [busAddrMu], [busAddrPartitionOps]).  The lemmas have been
+    removed. *)
 
 Lemma busWrite_stage12_abs_phase1_preserved :
   forall st addr data,
@@ -439,12 +413,14 @@ Qed.
 Definition thieleBusTopB := thieleCoreB.
 Definition thieleBusTopS := thieleCoreS.
 
-(* Definitional lemma — stage-1 identity; will become non-trivial once bus
-   protocol methods are added *)
-Theorem thieleBusTop_stage1_equiv : thieleBusTopB = thieleCoreB.
-Proof.
-  reflexivity.
-Qed.
+(** A stage-1 identity [thieleBusTopB = thieleCoreB] was formerly
+    proved here for the canonical-extraction equality in
+    [kami_hw/CanonicalCPUProof.v].  Because [thieleBusTopB] is presently
+    defined as [thieleCoreB] the equality holds by [reflexivity] and any
+    consumer discharges it inline via
+    [unfold thieleBusTopB, thieleBusTopS; reflexivity].  Once the
+    bus-top wrapper diverges from the core a real refinement lemma will
+    replace this note. *)
 
 (** Bridge: bus_step preserves core state; therefore instruction_cost
     accounting from VMStep is unaffected by bus protocol operations. *)

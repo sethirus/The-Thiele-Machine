@@ -1069,18 +1069,14 @@ Proof.
   apply Hwf. exact Hi.
 Qed.
 
-(** rich_state_add_coupling_data does not touch rich_morph_table or
-    rich_next_morph_id, so morph_table_wf is trivially preserved. *)
-Lemma morph_table_wf_preserved_add_coupling :
-  forall rs pairs label,
-    morph_table_wf rs ->
-    morph_table_wf (fst (rich_state_add_coupling_data rs pairs label)).
-Proof.
-  intros rs pairs label Hwf.
-  unfold rich_state_add_coupling_data. simpl fst.
-  unfold morph_table_wf. simpl rich_next_morph_id. simpl rich_morph_table.
-  exact Hwf.
-Qed.
+(** A standalone [morph_table_wf_preserved_add_coupling] used to live
+    here, asserting that [rich_state_add_coupling_data] preserves
+    [morph_table_wf].  The fact is purely definitional —
+    [rich_state_add_coupling_data] does not touch [rich_morph_table] or
+    [rich_next_morph_id], so the goal reduces to the hypothesis after
+    [unfold rich_state_add_coupling_data, morph_table_wf; simpl] — and
+    the lemma had a single caller ([morph_table_wf_preserved_add_with_coupling],
+    below), which now performs that unfold inline. *)
 
 (** rich_state_add_morph_with_coupling = add_coupling then add_morph;
     both steps preserve morph_table_wf. *)
@@ -1095,7 +1091,12 @@ Proof.
   destruct (rich_state_add_coupling_data rs pairs label) as [rs1 desc_id] eqn:Ecd.
   apply (morph_table_wf_preserved_add rs1 src dst desc_id is_id rs' new_id Hadd).
   replace rs1 with (fst (rich_state_add_coupling_data rs pairs label)).
-  - apply morph_table_wf_preserved_add_coupling. exact Hwf.
+  - (* [rich_state_add_coupling_data] leaves [rich_morph_table] and
+       [rich_next_morph_id] untouched, so [morph_table_wf] on its result
+       reduces to [morph_table_wf rs] by [simpl]. *)
+    unfold rich_state_add_coupling_data. simpl fst.
+    unfold morph_table_wf. simpl rich_next_morph_id. simpl rich_morph_table.
+    exact Hwf.
   - rewrite Ecd. reflexivity.
 Qed.
 

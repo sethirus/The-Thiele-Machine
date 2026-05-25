@@ -8,14 +8,18 @@
     files that cite Landauer-Unruh style assumptions.
 
     The local content is:
-    (1) state-space reduction has a log2-size difference measure;
-    (2) LASSERT cost is represented as state reduction plus description bits;
-    (3) reversible partition operations have zero information-erasure cost;
-    (4) derived_instruction_cost agrees with the supplied delta formula when
-        the matching hypotheses are provided.
+    (1) state-space reduction has a log2-size difference measure
+        ([to_erasure], [information_cost_bits]);
+    (2) LASSERT cost is represented as state reduction plus description bits
+        ([lassert_total_cost]);
+    (3) reversible partition operations have zero information-erasure cost
+        ([partition_ops_cannot_cost]);
+    (4) [derived_instruction_cost] agrees with the supplied delta formula when
+        the matching hypotheses are provided ([cost_function_unique]);
+    (5) the LASSERT cost formula is the minimum cost satisfying both the
+        Shannon and description lower bounds ([cost_necessity],
+        [cost_forcing_lower_bound], [cost_uniqueness]).
 
-    lassert_cost_determined: LASSERT cost = 1 + log₂(Ω/Ω') + description_bits.
-    partition_ops_zero_cost: PNEW/PSPLIT/PMERGE cost = 0 (reversible).
     cost_function_unique: consistency check for the supplied delta formula.
     mu_cost_thermodynamic_bound: normalized identity for the bit-cost model.
 
@@ -114,15 +118,11 @@ Definition to_erasure (change : StateSpaceChange) : Erasure :=
   let n_after := log2_nat (omega_after change) in
   mkErasure n_before n_after (log2_subtraction_valid _ _ (reduction_valid change)).
 
-(** DEFINITIONAL HELPER: [to_erasure] constructs an Erasure record from
-    StateSpaceChange using the same log2 computation as [information_cost_bits]. *)
-Lemma state_reduction_is_erasure : forall (change : StateSpaceChange),
-  bits_erased (to_erasure change) = information_cost_bits change.
-Proof.
-  intro change.
-  unfold to_erasure, bits_erased, information_cost_bits.
-  simpl. reflexivity.
-Qed.
+(** Previously: [state_reduction_is_erasure] asserted
+    [bits_erased (to_erasure change) = information_cost_bits change].
+    Both sides reduce to the same log2 difference by definition, so the
+    statement carries no proof content beyond unfolding.  No caller refers
+    to it; the equality is available by [reflexivity] at any use site. *)
 
 
 (** LASSERT adds a constraint that partitions the state space.
@@ -157,46 +157,13 @@ Definition lassert_total_cost (change : LASSERTChange) : nat :=
   let state_reduction_cost := log2_nat (omega_pre change) - log2_nat (omega_post change) in
   state_reduction_cost + description_bits change.
 
-(** ARITHMETIC HELPER: unfolds [lassert_total_cost] to show [x >= x].  The
-    substance is that LASSERT cost is defined as the sum of two non-negative
-    components; this lemma documents the lower bound for downstream use. *)
-Theorem lassert_cost_determined : forall (change : LASSERTChange),
-  lassert_total_cost change >=
-    (log2_nat (omega_pre change) - log2_nat (omega_post change)) + description_bits change.
-Proof.
-  intro change.
-  unfold lassert_total_cost.
-  lia.
-Qed.
-
-(** DEFINITIONAL HELPER: records the definition of [lassert_total_cost] as
-    an interface lemma for downstream proofs that need the decomposition. *)
-Theorem lassert_cost_is_sum : forall (change : LASSERTChange),
-  lassert_total_cost change =
-    (log2_nat (omega_pre change) - log2_nat (omega_post change)) + description_bits change.
-Proof.
-  intro change.
-  unfold lassert_total_cost.
-  reflexivity.
-Qed.
-
-(** ARITHMETIC HELPER: a + b >= a holds by [lia]. *)  
-Theorem lassert_cost_lower_bound_state : forall (change : LASSERTChange),
-  lassert_total_cost change >= log2_nat (omega_pre change) - log2_nat (omega_post change).
-Proof.
-  intro change.
-  unfold lassert_total_cost.
-  lia.
-Qed.
-
-(** ARITHMETIC HELPER: a + b >= b holds by [lia]. *)
-Theorem lassert_cost_lower_bound_description : forall (change : LASSERTChange),
-  lassert_total_cost change >= description_bits change.
-Proof.
-  intro change.
-  unfold lassert_total_cost.
-  lia.
-Qed.
+(** Previously: four lemmas recorded that [lassert_total_cost change] is
+    [>= itself], [= (log2 gap) + description_bits change], and is bounded
+    below by each summand.  All four reduced by unfolding [lassert_total_cost]
+    and finishing with [reflexivity] or [lia]; none were referenced outside
+    this file.  [cost_uniqueness] now inlines the [reflexivity] step
+    directly.  The summand lower bounds remain available at any caller via
+    [unfold lassert_total_cost; lia]. *)
 
 (** NOTE: The uniqueness of this cost formula follows from the fact that:
     1. Any implementation MUST erase >= log₂(Ω/Ω') bits (state space reduction)
@@ -223,21 +190,13 @@ Record ReversibleOp := {
   omega_unchanged : omega = omega
 }.
 
-(** Reversible operations have zero information cost *)
-(* SAFE: By Landauer, reversible ops do not erase information; μ-cost is
-   definitionally zero and reaffirmed by partition_ops_zero_cost below. *)
-Definition reversible_info_cost (op : ReversibleOp) : nat := 0.
-
-(** Theorem: Partition operations MUST have zero cost *)
-(** HELPER: Base case property *)
-(** HELPER: Base case property *)
-Theorem partition_ops_zero_cost : forall (op : ReversibleOp),
-  reversible_info_cost op = 0.
-Proof.
-  intro op.
-  unfold reversible_info_cost.
-  reflexivity.
-Qed.
+(** Previously: a constant [reversible_info_cost := fun _ => 0] sat here,
+    together with a [partition_ops_zero_cost] lemma reducing it to [0 = 0].
+    Neither had any caller in the development; the nontrivial content of
+    "reversible operations cost zero" is carried by
+    [partition_ops_cannot_cost] below, which uses the operation's state
+    space size [omega op] and the [bits_erased] computation rather than a
+    stand-alone constant zero. *)
 
 (** No positive cost is justified for reversible operations *)
 Theorem partition_ops_cannot_cost : forall (op : ReversibleOp) (cost : nat),
@@ -396,13 +355,21 @@ Qed.
 (**
    PROVEN locally:
 
-   1. State space reduction = information erasure (state_reduction_is_erasure)
-   2. LASSERT cost determined by log₂(Ω/Ω') + description (lassert_cost_determined)
-   3. LASSERT cost formula is exact (lassert_cost_is_sum)
-   4. LASSERT cost components are necessary (lassert_cost_lower_bound_state/_description)
-   5. Partition operations must have zero cost (partition_ops_zero_cost)
-   6. Normalized bit-cost identity (mu_cost_thermodynamic_bound)
-   7. Cost formula consistency check (cost_function_unique)
+   1. State space reduction has a log2-size difference measure
+      (via [to_erasure] and [information_cost_bits]; equality holds by
+      definition, so no separate lemma is required).
+   2. LASSERT cost formula combines log₂(Ω/Ω') and description_bits
+      (via [lassert_total_cost]; component lower bounds hold by [lia]
+      after [unfold lassert_total_cost] at any caller).
+   3. Reversible partition operations have zero erasure cost
+      ([partition_ops_cannot_cost] gives the nontrivial bound: any
+      positive candidate cost strictly exceeds the [bits_erased]
+      computation on the operation's own state space).
+   4. Normalized bit-cost identity ([mu_cost_thermodynamic_bound]).
+   5. Cost formula consistency check ([cost_function_unique]).
+   6. Cost-uniqueness package: [cost_necessity], [cost_forcing_lower_bound],
+      [cost_uniqueness] — the LASSERT formula is the minimum sum satisfying
+      both the Shannon and description lower bounds.
 
    ALL PROVEN (zero Admitted):
 
@@ -503,16 +470,15 @@ Theorem cost_uniqueness :
 Proof.
   intro change.
   split.
-  - exact (lassert_cost_is_sum change).
+  - unfold lassert_total_cost. reflexivity.
   - intro total_cost. exact (cost_forcing_lower_bound change total_cost).
 Qed.
 
 
 (** Check that our theorems don't use problematic axioms *)
-Print Assumptions lassert_cost_determined.
-Print Assumptions partition_ops_zero_cost.
 Print Assumptions cost_function_unique.
 Print Assumptions cost_necessity.
+Print Assumptions cost_forcing_lower_bound.
 Print Assumptions cost_uniqueness.
 
 (** Expected: Only standard library axioms *)
