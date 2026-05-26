@@ -192,28 +192,41 @@ _EXTRACTION_SIDE_EFFECT_PATHS = [
 ]
 
 
-def _restore_extraction_side_effects_from_head() -> None:
-    """Put the four extraction-output pairs back to their committed bytes.
+def _snapshot_extraction_side_effects() -> dict[str, bytes]:
+    """Capture the on-disk bytes of every file `make Extraction.vo` may rewrite.
 
-    `make Extraction.vo ThieleMachineComplete.vo` re-fires the Coq Extraction
-    directives whose output paths land in build/. The bytes Coq emits depend
-    on the build environment (Kami .vo closure, OCaml version, etc.), so a CI
-    run can produce bytes that diverge from what was committed. Downstream
-    tests that check rtl_pipeline_manifest.json's byte pins assume build/
-    holds committed bytes; without this restore those tests fail spuriously
-    every time CI's environment diverges from the developer's.
-
-    Using `git checkout HEAD --` is a no-op locally when the dev's environment
-    matches their commit, and a precise undo on CI when it doesn't.
+    Returned dict maps path → bytes (or to None if the file does not exist yet).
+    Pure in-memory read; touches neither the git index nor the working tree.
     """
-    subprocess.run(
-        ["git", "checkout", "HEAD", "--", *_EXTRACTION_SIDE_EFFECT_PATHS],
-        cwd=str(REPO_ROOT),
-        capture_output=True,
-        text=True,
-        timeout=30,
-        check=False,
-    )
+    snap: dict[str, bytes] = {}
+    for rel in _EXTRACTION_SIDE_EFFECT_PATHS:
+        p = REPO_ROOT / rel
+        snap[rel] = p.read_bytes() if p.exists() else None  # type: ignore[assignment]
+    return snap
+
+
+def _restore_extraction_side_effects(snapshot: dict[str, bytes]) -> None:
+    """Put each file back to the bytes captured before `make` ran.
+
+    Critically, this writes directly to the filesystem and never invokes
+    `git checkout` — `git checkout HEAD -- <path>` would also reset the
+    *index* for those paths, which silently un-stages legitimate changes
+    the pre-commit hook made before pytest started (its Coq-extraction
+    refresh step stages fresh build/ artefacts; my earlier `git checkout`
+    version of this restore unstaged them and produced an internally
+    inconsistent commit). Filesystem-only writes leave the index alone,
+    so this works inside the pre-commit hook AND in CI.
+    """
+    for rel, original_bytes in snapshot.items():
+        p = REPO_ROOT / rel
+        if original_bytes is None:
+            if p.exists():
+                p.unlink()
+            continue
+        current = p.read_bytes() if p.exists() else None
+        if current == original_bytes:
+            continue
+        p.write_bytes(original_bytes)
 
 
 @pytest.mark.coq
@@ -222,6 +235,7 @@ def test_full_extraction_matches_committed(tmp_path):
     Re-run ``make -C coq Extraction.vo ThieleMachineComplete.vo`` and verify
     both direct extractions are present and byte-for-byte identical.
     """
+    pre_snapshot = _snapshot_extraction_side_effects()
     result = subprocess.run(
         ["make", "-j2", "Extraction.vo", "ThieleMachineComplete.vo"],
         cwd=str(COQ_DIR),
@@ -260,6 +274,7 @@ def test_full_extraction_matches_committed(tmp_path):
     finally:
         # Whether assertions passed or failed, the make above may have
         # rewritten build/ with environment-dependent bytes. Restore the
-        # committed bytes so downstream byte-pin tests (manifest, etc.)
-        # see the same on-disk state pytest started with.
-        _restore_extraction_side_effects_from_head()
+        # bytes that were on disk before `make` ran so downstream byte-pin
+        # tests (manifest, etc.) see exactly the state pytest started with.
+        # Filesystem-only — does not touch the git index.
+        _restore_extraction_side_effects(pre_snapshot)
