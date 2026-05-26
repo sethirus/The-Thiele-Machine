@@ -468,10 +468,15 @@ def iter_v_files(coq_root: Path) -> Iterator[Path]:
 
 
 def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
-    """Iterate all Coq .v files, excluding archive and vendor directories.
+    """Iterate all Coq .v files, excluding archive, vendor, and generated build directories.
 
     Strict policy:
-    - All files under `coq/**/*.v` are in scope (no marker heuristics).
+    - All files under `coq/**/*.v` are in scope, except files inside the
+      explicitly-marked `coq/test_fixtures/` directory (deliberate vacuity
+      fixtures whose contents are test data, not proof obligations).
+    - Files under `build/**/*.v` are auto-generated artifacts (vacuity probes,
+      OCaml extraction by-products, Coq-derived RTL inputs) — not proof
+      sources, so excluded.
     - Non-Coq-tree `.v` files are included only if they look like Coq.
     """
     for p in repo_root.rglob("*.v"):
@@ -481,12 +486,23 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
         # These files are not part of the active proof corpus and should not be audited
         # EXCLUDE VENDOR: vendor/ contains third-party libraries (Kami, BBV) whose
         # proof style is outside our control and should not be audited
+        # EXCLUDE BUILD: build/ is a generated-artifacts tree (vacuity probes,
+        # OCaml extraction inputs). Anything written there is by definition
+        # not a hand-authored proof obligation.
+        # EXCLUDE TEST_FIXTURES: coq/test_fixtures/ is reserved for deliberately
+        # vacuous Coq files used as test data by gates (e.g. the vacuity-gate
+        # smoke fixture). They are intentionally vacuous by design — auditing
+        # them for vacuity would defeat their purpose.
         relative_path = "/" + str(p.relative_to(repo_root).as_posix())
         if "/archive/" in relative_path:
             continue
         if "/vendor/" in relative_path:
             continue
-        # No heuristic filtering inside coq/: every Coq source file is audited.
+        if relative_path.startswith("/build/"):
+            continue
+        if relative_path.startswith("/coq/test_fixtures/"):
+            continue
+        # No heuristic filtering inside coq/: every other Coq source file is audited.
         if relative_path.startswith("/coq/"):
             yield p
             continue
@@ -5949,6 +5965,66 @@ def _assumption_audit(repo_root: Path, manifest_path: Path, manifest: dict) -> l
     return findings
 
 
+def _scan_kernel_convertibility_vacuity(repo_root: Path) -> list[Finding]:
+    """Consume `artifacts/vacuity_audit.json` (produced by scripts/vacuity_gate.py)
+    and emit a HIGH finding for every theorem whose conclusion is kernel-convertible
+    to either `True` or one of its hypotheses.
+
+    This is the (V) tag of the μ-axis research program's Phase-0 discipline: a
+    theorem flagged here is *definitionally* vacuous — Coq's kernel itself
+    accepted a trivial proof of the conclusion.
+
+    If the audit JSON is absent (vacuity gate not run yet), this function emits
+    no findings — the pre-commit hook runs the gate before Inquisitor, so under
+    normal operation the file is always present.
+    """
+    audit_path = repo_root / "artifacts" / "vacuity_audit.json"
+    if not audit_path.exists():
+        return []
+    try:
+        data = json.loads(audit_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [
+            Finding(
+                rule_id="KERNEL_CONVERTIBILITY_VACUITY",
+                severity="HIGH",
+                file=audit_path,
+                line=1,
+                snippet=str(exc)[:200],
+                message=(
+                    "Failed to parse artifacts/vacuity_audit.json. The vacuity "
+                    "gate must produce valid JSON; rerun scripts/vacuity_gate.py."
+                ),
+            )
+        ]
+    findings: list[Finding] = []
+    for verdict in data.get("verdicts", []):
+        status = verdict.get("status", "ok")
+        if status in ("vacuous-true", "vacuous-hyp"):
+            target_file = repo_root / verdict["file"]
+            kind_phrase = (
+                "convertible to `True` after lazy reduction"
+                if status == "vacuous-true"
+                else "convertible to one of its hypotheses after lazy reduction"
+            )
+            findings.append(
+                Finding(
+                    rule_id="KERNEL_CONVERTIBILITY_VACUITY",
+                    severity="HIGH",
+                    file=target_file,
+                    line=int(verdict.get("line", 1)),
+                    snippet=verdict.get("name", "<unknown>"),
+                    message=(
+                        f"Theorem `{verdict.get('name', '<unknown>')}` "
+                        f"is kernel-{kind_phrase}. Coq accepted the synthesised "
+                        f"vacuity probe at `{verdict.get('probe_a' if status == 'vacuous-true' else 'probe_b', {}).get('probe_path', '<probe>')}`. "
+                        f"Tag this theorem (V) — replace with a non-vacuous statement, or remove."
+                    ),
+                )
+            )
+    return findings
+
+
 def _paper_symbol_map(repo_root: Path, manifest_path: Path, manifest: dict) -> list[Finding]:
     findings: list[Finding] = []
     if shutil.which("coqtop") is None:
@@ -7360,6 +7436,7 @@ def write_report(
     lines.append("- `DISJUNCT_TRUE`: theorem statement contains `\\/ True` — vacuously provable via `right. exact I.`\n")
     lines.append("- `TRIVIAL_TRUE_PROOF`: proof body terminates with `exact I.` or `right. exact I.` — only proves `True`\n")
     lines.append("- `EXTRACT_CONSTANT`: `Extract Constant` bypasses Coq extraction with hand-written OCaml (trust boundary)\n")
+    lines.append("- `KERNEL_CONVERTIBILITY_VACUITY`: theorem conclusion is kernel-convertible (after δ/ι/ζ/β reduction) to `True` or to a hypothesis — verified by `scripts/vacuity_gate.py` running synthesised Coq proofs (HIGH)\n")
     lines.append("\n")
 
     # Always show the vacuity ranking — even on a clean PASS.  Previously this
@@ -7631,6 +7708,10 @@ def main(argv: list[str]) -> int:
         else:
             for root in coq_roots:
                 all_findings.extend(_scan_symmetry_contracts(root, manifest))
+
+    # μ-axis Phase-0 vacuity discipline: consume artifacts/vacuity_audit.json
+    # if present and surface kernel-convertibility findings as HIGH.
+    all_findings.extend(_scan_kernel_convertibility_vacuity(repo_root))
 
     if not args.include_informational:
         all_findings = [

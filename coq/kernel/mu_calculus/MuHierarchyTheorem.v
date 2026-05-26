@@ -6,6 +6,17 @@
     grows faster than g, here µ-budget k strictly separates from µ-budget (k-1)
     via the irreducible cost of certified structural knowledge.
 
+    COMPANION FILE: coq/IntrinsicLevelHierarchy.v provides the state-level
+    entry point to the same hierarchy. The trace-level [level_k_certified]
+    predicate defined here ("the executed-instruction log contains an
+    [instr_certify d] with S d >= k") is matched there by the state-level
+    [level_intrinsic_at_least k s] ("every trace reaching s with vm_certified
+    requires >= k cert-setter events"). The two predicates address complementary
+    questions: this file's lower-bound is the witness-trace cost floor; the
+    state-level theorem [level_strict_separation] gives the strict separation as
+    a property of the final state independent of which trace reaches it. Both
+    close under the global context.
+
     MAIN THEOREM (mu_hierarchy_theorem):
     For every k ≥ 1:
       (1) ACHIEVABILITY: there exists a trace of µ-cost exactly k from init_state

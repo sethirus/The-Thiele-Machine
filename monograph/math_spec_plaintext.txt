@@ -1,332 +1,261 @@
-The Thiele Machine
-A Complete Mathematical Specification
+        The Thiele Machine
+    A Complete Mathematical Specification
 Derived from the Fully Machine-Checked Coq Corpus
 
-Devon Thiele
-April 2026
 
-Abstract
+
+                  Devon Thiele
+
+                   April 2026
+                                            Abstract
+
 This is the complete mathematical specification of the Thiele Machine: a formal model of
 computation where structural information carries an explicit, conserved cost µ. Everything here
 is built from the machine-checked Coq corpus. You can reconstruct the machine from what’s in
 this document alone.
-Coq establishes that conclusions follow from axioms. It does not establish that axioms model
+    Coq establishes that conclusions follow from axioms. It does not establish that axioms model
 physical reality. That distinction matters and I keep it explicit throughout. Every result is
 tagged as one of three types: (S) structural theorems about the machine as a mathematical
 object, (C) conditional derivations where a physics conclusion follows from a stated axiom, and
 (R) consistency relations that check internal coherence but are not independent predictions.
-The core claims are structural (S): No Free Insight; µ-conservation; µ-hierarchy; µ-ledger
+    The core claims are structural (S): No Free Insight; µ-conservation; µ-hierarchy; µ-ledger
 necessity (five-way independence classification); categorical separation; strict Turing
-subsumption;
-√
-the classical CHSH bound (|S| ≤ 2); the algebraic Tsirelson bound (|S| ≤ 2 2); and the zeroaxiom biconditional column_contractive_iff_quantum_realizable. The CHSH algebraic
+                                                                                  √     subsumption;
+the classical CHSH bound (|S| ≤ 2); the algebraic Tsirelson bound (|S| ≤ 2 2); and the zero-
+axiom biconditional column_contractive_iff_quantum_realizable. The CHSH algebraic
 result is pure math. The Landauer connection is motivation. Geometry: only the discrete
 angle-defect identity for planar triangulations.
-The document also covers, with explicit epistemological tags, conditional derivations under
-named physical axioms (Born rule under linearity, no-cloning, unitarity) and reference explorations (4D simplicial-complex differential geometry, self-reference tower). These are marked
+    The document also covers, with explicit epistemological tags, conditional derivations under
+named physical axioms (Born rule under linearity, no-cloning, unitarity) and reference explo-
+rations (4D simplicial-complex differential geometry, self-reference tower). These are marked
 (C) or (R) and do not form part of the primary claim ledger. There are exactly two named
 trust boundaries: bsc_kami_compilation_trusted (Layer 2 Verilog semantics gap) and A_QM
 (physical quantum axiom).
-
 Contents
-1 Introduction
-1.1 Epistemological Framework . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 
-4
-4
+1 Introduction                                                                                       4
+  1.1 Epistemological Framework . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          4
 
-2 The State Space
-2.1 Primitives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-2.2 Regions and Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-2.3 The Partition Graph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-2.4 Machine State . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2 The State Space                                                                                    6
+  2.1 Primitives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     6
+  2.2 Regions and Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
+  2.3 The Partition Graph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
+  2.4 Machine State . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      6
 
-6
-6
-6
-6
-6
+3 Instruction Set and Cost Model                                                                     7
+  3.1 Instruction Categories . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       7
+       3.1.1 Structural Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         7
+       3.1.2 Logical Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        7
+       3.1.3 Computational Operations (Reversible ALU) . . . . . . . . . . . . . . . .               7
+       3.1.4 Standard ALU and Control Flow . . . . . . . . . . . . . . . . . . . . . . .             8
+       3.1.5 Auxiliary Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        8
+       3.1.6 Categorical Morphism Operations . . . . . . . . . . . . . . . . . . . . . .             8
+  3.2 Cost Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       9
 
-3 Instruction Set and Cost Model
-3.1 Instruction Categories . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-3.1.1 Structural Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-3.1.2 Logical Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-3.1.3 Computational Operations (Reversible ALU) . . . . . . . . . . . . . . . .
-3.1.4 Standard ALU and Control Flow . . . . . . . . . . . . . . . . . . . . . . .
-3.1.5 Auxiliary Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-3.1.6 Categorical Morphism Operations . . . . . . . . . . . . . . . . . . . . . .
-3.2 Cost Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4 Operational Semantics                                                                             10
+  4.1 Transition Function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     10
+  4.2 Traces and Execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        10
+  4.3 Selected Instruction Semantics . . . . . . . . . . . . . . . . . . . . . . . . . . . .        10
 
-7
-7
-7
-7
-7
-8
-8
-8
-9
+5 No Free Insight                                                                                   11
+  5.1 Definitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   11
+  5.2 The Theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       11
+  5.3 µ-Ledger Necessity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      11
+  5.4 Partition Refinement and No Free Insight . . . . . . . . . . . . . . . . . . . . . .          13
 
-4 Operational Semantics
-4.1 Transition Function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-4.2 Traces and Execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-4.3 Selected Instruction Semantics . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+6 The µ-Chaitin Theorem                                                                             14
 
-10
-10
-10
-10
+7 Computational Universality and Subsumption                                                        15
+  7.1 Strict Containment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      15
+  7.2 Oracle Cost Lower Bound . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         15
+  7.3 µ-budget predicates . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       15
+  7.4 Intrinsic level hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     16
+  7.5 Verifier model and the bare-setting impossibility . . . . . . . . . . . . . . . . . .         17
 
-5 No Free Insight
-5.1 Definitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-5.2 The Theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-5.3 µ-Ledger Necessity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-5.4 Partition Refinement and No Free Insight . . . . . . . . . . . . . . . . . . . . . .
+8 µ-Conservation and Receipt Integrity                                                          19
+  8.1 The Conservation Law . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+  8.2 Receipt Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
 
-11
-11
-11
-11
-13
 
-6 The µ-Chaitin Theorem
+                                                  1
+9 Gauge Symmetry and Noether’s Theorem                                                         20
+  9.1 The Z-Action (Gauge Group) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+  9.2 Gauge Invariance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
 
-14
+10 The Born Rule                                                                                   22
 
-7 Computational Universality and Subsumption
-7.1 Strict Containment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-7.2 Oracle Cost Lower Bound . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-7.3 µ-Complexity Classes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+11 Unitarity                                                                                       23
 
-15
-15
-15
-15
+12 Purification                                                                                    24
 
-8 µ-Conservation and Receipt Integrity
-17
-8.1 The Conservation Law . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
-8.2 Receipt Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+13 No-Cloning                                                                                      25
 
-1
+14 The Tsirelson Bound                                                                             26
 
-9 Gauge Symmetry and Noether’s Theorem
-18
-9.1 The Z-Action (Gauge Group) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
-9.2 Gauge Invariance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
-10 The Born Rule
+15 Witness Insight Taxonomy                                                                        27
 
-20
+16 Bell’s Theorem in Morphism Coupling Language                                                    28
 
-11 Unitarity
+17 Thiele Honesty and NPA Realizability: The Biconditional                                         29
 
-21
+18 Emergent Spacetime                                                                              31
+   18.1 The µ-Metric . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   31
+   18.2 Causal Cones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   31
+   18.3 No-Signaling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   31
+   18.4 Discrete Geometry: The Gauss-Bonnet Result . . . . . . . . . . . . . . . . . . . .         31
+        18.4.1 Cross-link in MuGravity Vocabulary . . . . . . . . . . . . . . . . . . . . .        32
+   18.5 Four-Dimensional Spacetime Geometry (Reference Only, Not a Main Claim) . . .               33
+        18.5.1 4D Simplicial Complex . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     33
+        18.5.2 Metric Tensor from µ-Costs . . . . . . . . . . . . . . . . . . . . . . . . . .      33
+        18.5.3 Discrete Differential Geometry . . . . . . . . . . . . . . . . . . . . . . . .      34
+        18.5.4 Curvature Tensors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     34
+        18.5.5 Stress-Energy Tensor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    35
+        18.5.6 Einstein’s Field Equations . . . . . . . . . . . . . . . . . . . . . . . . . . .    35
+        18.5.7 Empirical Validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    37
+        18.5.8 Affine Metric-Scaled Operator: Non-Uniform Boundary Results . . . . . .             37
 
-12 Purification
+19 Information Causality                                                                           39
 
-22
+20 Thermodynamic Bridge                                                                          40
+   20.1 Landauer’s Principle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+   20.2 A2 from Landauer (Factored Form) . . . . . . . . . . . . . . . . . . . . . . . . . . 40
 
-13 No-Cloning
+21 Self-Reference and the Thiele Manifold                                                       41
+   21.1 Self-Reference Escalation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+   21.2 The Thiele Manifold . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
 
-23
+22 Three-Layer Isomorphism                                                                    42
+   22.1 RTL Coverage: Zero Gaps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
+   22.2 Named Trust Boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
 
-14 The Tsirelson Bound
 
-24
 
-15 Witness Insight Taxonomy
 
-25
+                                                 2
+23 Categorical Structure                                                                            44
+   23.1 The Morphism Layer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      44
+        23.1.1 Objects and Morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . .        44
+        23.1.2 The Seven Categorical Opcodes . . . . . . . . . . . . . . . . . . . . . . . .        44
+        23.1.3 Category Laws . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      45
+        23.1.4 The Categorical Separation Theorem . . . . . . . . . . . . . . . . . . . . .         45
 
-16 Bell’s Theorem in Morphism Coupling Language
+24 Falsifiable Predictions                                                                          46
+   24.1 Falsify No Free Insight . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   46
+   24.2 Falsify the Classical CHSH Bound . . . . . . . . . . . . . . . . . . . . . . . . . .        46
+   24.3 Falsify the Biconditional . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   46
+   24.4 Falsify the µ-Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   46
+   24.5 What I Don’t Know . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       46
 
-26
+A Proof File Index                                                                                  48
 
-17 Thiele Honesty and NPA Realizability: The Biconditional
+B Epistemological Classification                                                                    50
 
-27
 
-18 Emergent Spacetime
-18.1 The µ-Metric . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.2 Causal Cones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.3 No-Signaling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.4 Discrete Geometry: The Gauss-Bonnet Result . . . . . . . . . . . . . . . . . . . .
-18.4.1 Cross-link in MuGravity Vocabulary . . . . . . . . . . . . . . . . . . . . .
-18.5 Four-Dimensional Spacetime Geometry (Reference Only, Not a Main Claim) . . .
-18.5.1 4D Simplicial Complex . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.5.2 Metric Tensor from µ-Costs . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.5.3 Discrete Differential Geometry . . . . . . . . . . . . . . . . . . . . . . . .
-18.5.4 Curvature Tensors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.5.5 Stress-Energy Tensor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.5.6 Einstein’s Field Equations . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.5.7 Empirical Validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-18.5.8 Affine Metric-Scaled Operator: Non-Uniform Boundary Results . . . . . .
 
-29
-29
-29
-29
-29
-30
-31
-31
-31
-32
-32
-33
-33
-35
-35
 
-19 Information Causality
-
-37
-
-20 Thermodynamic Bridge
-38
-20.1 Landauer’s Principle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
-20.2 A2 from Landauer (Factored Form) . . . . . . . . . . . . . . . . . . . . . . . . . . 38
-21 Self-Reference and the Thiele Manifold
-39
-21.1 Self-Reference Escalation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
-21.2 The Thiele Manifold . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
-22 Three-Layer Isomorphism
-40
-22.1 RTL Coverage: Zero Gaps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
-22.2 Named Trust Boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
-
-2
-
-23 Categorical Structure
-23.1 The Morphism Layer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-23.1.1 Objects and Morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-23.1.2 The Seven Categorical Opcodes . . . . . . . . . . . . . . . . . . . . . . . .
-23.1.3 Category Laws . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-23.1.4 The Categorical Separation Theorem . . . . . . . . . . . . . . . . . . . . .
-
-42
-42
-42
-42
-43
-43
-
-24 Falsifiable Predictions
-24.1 Falsify No Free Insight . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-24.2 Falsify the Classical CHSH Bound . . . . . . . . . . . . . . . . . . . . . . . . . .
-24.3 Falsify the Biconditional . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-24.4 Falsify the µ-Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-24.5 What I Don’t Know . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
-
-44
-44
-44
-44
-44
-44
-
-A Proof File Index
-
-46
-
-B Epistemological Classification
-
-48
-
-3
-
+                                                  3
 Chapter 1
 
 Introduction
+
 The Thiele Machine makes the cost of structure explicit. A Turing Machine treats all state
 transitions as cost-equivalent. The Thiele Machine assigns a specific cost µ to every operation
 that extracts or asserts structural information. That’s the design. Here is where it goes.
-The central claim, proven formally: you cannot gain structural insight about a system without
+   The central claim, proven formally: you cannot gain structural insight about a system without
 paying µ-cost. Combined with explicit physical axioms (linearity, information conservation), that
 constraint produces structural results that parallel quantum mechanics and thermodynamics.
 Each result’s status — whether it is a structural theorem (S), a conditional derivation (C), or a
 consistency relation (R) — is marked directly. Nothing is hidden.
-The document is organized as:
-1. Foundations: State space, instruction set, operational semantics.
-2. Core Theorems: No Free Insight, µ-ledger necessity, µ-Chaitin, µ-conservation.
-3. Computation: Strict Turing subsumption, oracle pricing as instantiation of universal
-NFI, µ-complexity classes, µ-cost hierarchy.
-4. Symmetry & Conservation: Gauge action, Noether’s theorem, receipts.
-5. Quantum / CHSH algebra: Tsirelson bound (algebraic), CHSH classical bound,
-biconditional column-contractive ⇐⇒ NPA-realizable, three-tier observation taxonomy.
-Pure polynomial arithmetic, zero physics axioms.
-6. Conditional physics: Born rule (under linearity), unitarity, no-cloning, purification,
-Landauer (with second-law assumed as a record field), affine EFE family. Each is conditional
-on stated axioms in its own file.
-7. Discrete Geometry: Discrete angle-defect identity for planar triangulations (not classical
-Gauss-Bonnet); 4D simplicial complex and Einstein-tensor definitions (reference exploration
-only, vacuum case is a 0 = 0 consistency check).
-8. Meta-Theory: Three-layer Coq/Python/RTL observable contract, categorical structure.
-9. Predictions: Falsifiable predictions tied to specific Coq-verifiable claims.
+   The document is organized as:
 
-1.1
+  1. Foundations: State space, instruction set, operational semantics.
 
-Epistemological Framework
+  2. Core Theorems: No Free Insight, µ-ledger necessity, µ-Chaitin, µ-conservation.
 
+  3. Computation: Strict Turing subsumption, oracle pricing as instantiation of universal
+     NFI, µ-complexity classes, µ-cost hierarchy.
+
+  4. Symmetry & Conservation: Gauge action, Noether’s theorem, receipts.
+
+  5. Quantum / CHSH algebra: Tsirelson bound (algebraic), CHSH classical bound,
+     biconditional column-contractive ⇐⇒ NPA-realizable, three-tier observation taxonomy.
+     Pure polynomial arithmetic, zero physics axioms.
+
+  6. Conditional physics: Born rule (under linearity), unitarity, no-cloning, purification,
+     Landauer (with second-law assumed as a record field), affine EFE family. Each is conditional
+     on stated axioms in its own file.
+
+  7. Discrete Geometry: Discrete angle-defect identity for planar triangulations (not classical
+     Gauss-Bonnet); 4D simplicial complex and Einstein-tensor definitions (reference exploration
+     only, vacuum case is a 0 = 0 consistency check).
+
+  8. Meta-Theory: Three-layer Coq/Python/RTL observable contract, categorical structure.
+
+  9. Predictions: Falsifiable predictions tied to specific Coq-verifiable claims.
+
+
+1.1     Epistemological Framework
 Formal verification (Coq) establishes that conclusions follow logically from axioms. It does not
 establish that axioms model physical reality. This distinction is critical for evaluating the physics
 claims in Parts V–VIII.
-Every result in this specification falls into one of three categories:
-4
+    Every result in this specification falls into one of three categories:
 
+
+                                                 4
 (S) Structural Theorems about the Thiele Machine as a mathematical object. These are
-unconditionally true given the definitions. Examples: µ-conservation, gauge invariance,
-confluence, halting undecidability, strict Turing subsumption.
+     unconditionally true given the definitions. Examples: µ-conservation, gauge invariance,
+     confluence, halting undecidability, strict Turing subsumption.
+
 (C) Conditional Theorems of the form “if axiom X holds, then physics result Y follows.” The
-logical inference is verified; whether axiom X holds in nature is an empirical question.
-Examples: Born rule uniqueness (conditional on linearity), complex necessity (conditional
-on 2D amplitudes), unitarity (conditional on information conservation).
+    logical inference is verified; whether axiom X holds in nature is an empirical question.
+    Examples: Born rule uniqueness (conditional on linearity), complex necessity (conditional
+    on 2D amplitudes), unitarity (conditional on information conservation).
+
 (R) Consistency Algebraic identities or definitional equivalences that verify internal coherence
-but do not constitute independent predictions. Examples: Planck consistency relation,
-Tsirelson cost definition.
-Each major theorem in Parts V–VIII is annotated with its category. A theorem marked (C)
+    but do not constitute independent predictions. Examples: Planck consistency relation,
+    Tsirelson cost definition.
+
+    Each major theorem in Parts V–VIII is annotated with its category. A theorem marked (C)
 or (R) is not diminished. Conditional derivations and consistency checks are valuable scientific
 tools. But the reader should not mistake them for derivations from first principles without stated
 assumptions. See Appendix B for the complete classification table.
 
-5
 
+
+
+                                                5
 Chapter 2
 
 The State Space
-2.1
 
-Primitives
-
+2.1     Primitives
 Let N = {0, 1, 2, . . . }. Let B = {0, 1}. Let Σ be a finite alphabet.
 
-2.2
 
-Regions and Modules
-
+2.2     Regions and Modules
 Definition 2.1 (Region). A Region R is a finite subset of N, canonically represented as a
 deduplicated list preserving first-occurrence order: norm(L) = nodup(L) removes duplicate
 elements while preserving the order of their first appearance. (The Python VM applies a stricter
 canonical form via sorted(set(region)); the Coq specification uses nodup Nat.eq_dec which
 does not sort.)
+
 Definition 2.2 (Module). A Module M = (RM , AM ) consists of a normalized region RM ⊂ N
 and a set of axioms AM ⊂ Σ∗ .
 
-2.3
 
-The Partition Graph
-
+2.3     The Partition Graph
 Definition 2.3 (Partition Graph). A partition graph G = (Nid , T ) where Nid ∈ N is the next
 available module ID and T : {0, . . . , Nid − 1} ⇀ M is a finite partial function from IDs to
 modules.
+
 Axiom 2.1 (Well-Formedness). G is well-formed iff dom(T ) ⊆ {0, . . . , Nid − 1}.
 
-2.4
 
-Machine State
-
+2.4     Machine State
 Definition 2.4 (VM State). The complete state is a 12-tuple:
-S = (G, C, R, Mem, PC , µ, Tµ , err, ℓ, m, w, cert)
+
+                         S = (G, C, R, Mem, PC , µ, Tµ , err, ℓ, m, w, cert)
+
 where G ∈ G is the partition graph, C ∈ N4 comprises the CSRs (certificate address, status, error
 code, heap base), R ∈ NREG_COUNT is the register file, Mem ∈ NMEM_SIZE is main memory (the kernel
 constants REG_COUNT and MEM_SIZE are parametric; the synthesized RTL fixes REG_COUNT = 16
@@ -336,151 +265,164 @@ logic-engine accumulator, m ∈ N is the machine status register (0 = Turing mod
 mode), w ∈ N8 is the WitnessCount record (vm_witness): eight natural-number counters
 wc_same_ab and wc_diff_ab for each setting pair (a, b) ∈ {00, 01, 10, 11}, and cert ∈ B is the
 certified flag (vm_certified).
-6
 
+
+                                                  6
 Chapter 3
 
 Instruction Set and Cost Model
-3.1
 
-Instruction Categories
-
+3.1     Instruction Categories
 The instruction set I is organized into six families. Every instruction i carries an explicit cost
 parameter ∆µi ∈ N.
 
-3.1.1
-
-Structural Operations
-
+3.1.1   Structural Operations
 These modify the partition graph G:
-• PNEW(R, ∆µ): Create module with region R.
-• PSPLIT(m, L, R, ∆µ): Split module m into disjoint regions.
-• PMERGE(m1 , m2 , ∆µ): Merge two modules.
-• PDISCOVER(m, E, ∆µ): Discovery accounting for module m. The abstract specification
-attaches evidence E (list of axioms) to the module; the current hardware-aligned step
-advances PC and charges ∆µ without mutating the graph.
-• MDLACC(m, ∆µ): Minimum-description-length accumulate on module m.
 
-3.1.2
+  • PNEW(R, ∆µ): Create module with region R.
 
-Logical Operations
+  • PSPLIT(m, L, R, ∆µ): Split module m into disjoint regions.
 
+  • PMERGE(m1 , m2 , ∆µ): Merge two modules.
+
+  • PDISCOVER(m, E, ∆µ): Discovery accounting for module m. The abstract specification
+    attaches evidence E (list of axioms) to the module; the current hardware-aligned step
+    advances PC and charges ∆µ without mutating the graph.
+
+  • MDLACC(m, ∆µ): Minimum-description-length accumulate on module m.
+
+3.1.2   Logical Operations
 These interact with information content:
-• LASSERT(freg, creg, kind, flen, cost): Assert a formula read from vm_mem[R[freg]] (encodedunit count flen, eight concrete bits per unit) against a witness package at vm_mem[R[creg]].
-In SAT mode the package contains one satisfying assignment and one falsifying assignment,
-stored back-to-back; ∆µ = flen × 8 + S(cost) ≥ 1.
-• LJOIN(c1reg, c2reg, ∆µ): Join certificates from two memory-resident strings addressed by
-registers.
-• REVEAL(m, n, cert, ∆µ): Reveal n bits of structure from m; cost is n + S(∆µ).
-• EMIT(m, p, ∆µ): Emit payload p from module m; cost is |p|bits + S(∆µ).
 
-3.1.3
+  • LASSERT(freg, creg, kind, flen, cost): Assert a formula read from vm_mem[R[freg]] (encoded-
+    unit count flen, eight concrete bits per unit) against a witness package at vm_mem[R[creg]].
+    In SAT mode the package contains one satisfying assignment and one falsifying assignment,
+    stored back-to-back; ∆µ = flen × 8 + S(cost) ≥ 1.
 
-Computational Operations (Reversible ALU)
+  • LJOIN(c1reg, c2reg, ∆µ): Join certificates from two memory-resident strings addressed by
+    registers.
 
+  • REVEAL(m, n, cert, ∆µ): Reveal n bits of structure from m; cost is n + S(∆µ).
+
+  • EMIT(m, p, ∆µ): Emit payload p from module m; cost is |p|bits + S(∆µ).
+
+3.1.3   Computational Operations (Reversible ALU)
 Reversible register/memory operations:
-• XFER(dst, src, ∆µ): Copy register src to dst.
-7
 
-• XOR_LOAD(dst, addr, ∆µ): Load memory word at addr.
-• XOR_ADD(dst, src, ∆µ): dst ← dst ⊕ src.
-• XOR_SWAP(a, b, ∆µ): Swap registers a and b.
-• XOR_RANK(dst, src, ∆µ): dst ← popcount(src).
+  • XFER(dst, src, ∆µ): Copy register src to dst.
 
-3.1.4
 
-Standard ALU and Control Flow
+                                                7
+  • XOR_LOAD(dst, addr, ∆µ): Load memory word at addr.
 
-• LOAD_IMM(dst, imm, ∆µ): Load 32-bit immediate into register.
-• LOAD(dst, addr, ∆µ): Load from main memory.
-• STORE(addr, src, ∆µ): Store to main memory.
-• ADD(dst, r1 , r2 , ∆µ): dst ← r1 + r2 (mod 264 ).
-• SUB(dst, r1 , r2 , ∆µ): dst ← r1 − r2 (mod 264 ).
-• JUMP(target, ∆µ): Unconditional jump.
-• JNEZ(r, target, ∆µ): Jump if R[r] ̸= 0.
-• CALL(target, ∆µ): Push return address, jump to target.
-• RET(∆µ): Pop return address, jump back.
+  • XOR_ADD(dst, src, ∆µ): dst ← dst ⊕ src.
 
-3.1.5
+  • XOR_SWAP(a, b, ∆µ): Swap registers a and b.
 
-Auxiliary Operations
+  • XOR_RANK(dst, src, ∆µ): dst ← popcount(src).
 
-• CHSH_TRIAL(x, y, a, b, ∆µ): Run a CHSH correlation trial; x, y, a, b ∈ {0, 1} required.
-• CHECKPOINT(label, ∆µ): Execution checkpoint (charges µ).
-• READ_PORT(dst, ch, val, bits, ∆µ): Read from I/O channel (cert-setter).
-• WRITE_PORT(ch, src, ∆µ): Write to I/O channel.
-• HEAP_LOAD(dst, addr, ∆µ): Load from heap-relative address.
-• HEAP_STORE(addr, src, ∆µ): Store to heap-relative address.
-• HALT(∆µ): Halt execution.
+3.1.4   Standard ALU and Control Flow
+  • LOAD_IMM(dst, imm, ∆µ): Load 32-bit immediate into register.
 
-3.1.6
+  • LOAD(dst, addr, ∆µ): Load from main memory.
 
-Categorical Morphism Operations
+  • STORE(addr, src, ∆µ): Store to main memory.
 
+  • ADD(dst, r1 , r2 , ∆µ): dst ← r1 + r2 (mod 264 ).
+
+  • SUB(dst, r1 , r2 , ∆µ): dst ← r1 − r2 (mod 264 ).
+
+  • JUMP(target, ∆µ): Unconditional jump.
+
+  • JNEZ(r, target, ∆µ): Jump if R[r] ̸= 0.
+
+  • CALL(target, ∆µ): Push return address, jump to target.
+
+  • RET(∆µ): Pop return address, jump back.
+
+3.1.5   Auxiliary Operations
+  • CHSH_TRIAL(x, y, a, b, ∆µ): Run a CHSH correlation trial; x, y, a, b ∈ {0, 1} required.
+
+  • CHECKPOINT(label, ∆µ): Execution checkpoint (charges µ).
+
+  • READ_PORT(dst, ch, val, bits, ∆µ): Read from I/O channel (cert-setter).
+
+  • WRITE_PORT(ch, src, ∆µ): Write to I/O channel.
+
+  • HEAP_LOAD(dst, addr, ∆µ): Load from heap-relative address.
+
+  • HEAP_STORE(addr, src, ∆µ): Store to heap-relative address.
+
+  • HALT(∆µ): Halt execution.
+
+3.1.6   Categorical Morphism Operations
 These 7 opcodes (0x27–0x2D) implement the categorical layer over partition modules. See
 Chapter 23 for laws and proofs.
-• MORPH(dst, src, tgt, idx, ∆µ): Create morphism src → tgt; write morphism ID to regs[dst].
-• COMPOSE(dst, f, g, ∆µ): Compose f ; g when f.tgt = g.src; errors on type mismatch.
-• MORPH_ID(dst, m, ∆µ): Create identity morphism idm (diagonal relation).
-• MORPH_DELETE(f, ∆µ): Remove morphism f ; cascades when modules are split/merged.
-• MORPH_ASSERT(f, prop, cert, ∆µ): Cert-setter. Charges S(∆µ) ≥ 1 unconditionally. Even
-failed attempts (morphism does not exist) incur cost 1. This is the strongest form of the
-NoFI law: you cannot attempt to certify a relational claim for free.
-8
 
-• MORPH_TENSOR(dst, f, g, ∆µ): Tensor product f ⊗ g (requires union modules to exist).
-• MORPH_GET(dst, f, sel, ∆µ): Read morphism metadata: selector 0 = src, 1 = tgt, 2 =
-coupling length, 3 = is_identity.
-The active implementation exposes a 46-opcode ISA: 14 arithmetic/data, 8 memory and
+  • MORPH(dst, src, tgt, idx, ∆µ): Create morphism src → tgt; write morphism ID to regs[dst].
+
+  • COMPOSE(dst, f, g, ∆µ): Compose f ; g when f.tgt = g.src; errors on type mismatch.
+
+  • MORPH_ID(dst, m, ∆µ): Create identity morphism idm (diagonal relation).
+
+  • MORPH_DELETE(f, ∆µ): Remove morphism f ; cascades when modules are split/merged.
+
+  • MORPH_ASSERT(f, prop, cert, ∆µ): Cert-setter. Charges S(∆µ) ≥ 1 unconditionally. Even
+    failed attempts (morphism does not exist) incur cost 1. This is the strongest form of the
+    NoFI law: you cannot attempt to certify a relational claim for free.
+
+                                                8
+   • MORPH_TENSOR(dst, f, g, ∆µ): Tensor product f ⊗ g (requires union modules to exist).
+
+   • MORPH_GET(dst, f, sel, ∆µ): Read morphism metadata: selector 0 = src, 1 = tgt, 2 =
+     coupling length, 3 = is_identity.
+
+    The active implementation exposes a 46-opcode ISA: 14 arithmetic/data, 8 memory and
 control flow, 7 I/O and tensor, 4 partition operations, 3 logic and certification, 3 witness and
 certification flags, 7 categorical morphism operations (14 + 8 + 7 + 4 + 3 + 3 + 7 = 46). This
 condensed mathematical specification presents the core instruction families relevant to the kernel
 semantics and cost model. Every instruction carries an explicit ∆µ parameter; the function
 instruction_cost extracts it.
 
-3.2
 
-Cost Model
-
+3.2    Cost Model
 Every instruction i carries an explicit cost parameter ∆µi ∈ N. The function instruction_cost(i)
 extracts this parameter. The cost is applied via apply_cost(s, i) = s.µ + instruction_cost(i).
 Since ∆µi : N, the µ-ledger is monotonically non-decreasing by construction.
-The mandatory positive-cost class is: CERTIFY, MORPH_ASSERT, and LJOIN (each charges
+    The mandatory positive-cost class is: CERTIFY, MORPH_ASSERT, and LJOIN (each charges
 S(∆µ) ≥ 1); EMIT (|payload|bits + S(∆µ)); REVEAL and READ_PORT (bits + S(∆µ)); and LASSERT
 (flen × 8 + S(∆µ)). These cannot be zero-cost even with ∆µ = 0. All other instructions charge
 exactly their encoded ∆µ, which is 0 in typical programs.
 
-9
 
+
+
+                                                9
 Chapter 4
 
 Operational Semantics
-4.1
 
-Transition Function
-
+4.1     Transition Function
 The transition δ : S × I → S is defined by:
-1. PC ′ = PC + 1 for non-control-flow instructions; JUMP, JNEZ, CALL, and RET set PC
-to the target address; HALT stops execution.
-2. µ′ = µ + ∆µi .
-3. err ′ = err ∨ fail(S, i).
 
-4.2
+   1. PC ′ = PC + 1 for non-control-flow instructions; JUMP, JNEZ, CALL, and RET set PC
+      to the target address; HALT stops execution.
 
-Traces and Execution
+   2. µ′ = µ + ∆µi .
 
+   3. err ′ = err ∨ fail(S, i).
+
+
+4.2     Traces and Execution
 Definition 4.1 (Trace). A trace τ = [i0 , . . . , ik ] ∈ I ∗ is a finite sequence of instructions.
-Definition 4.2 (Execution). Run([], S) = S;
 
-4.3
+Definition 4.2 (Execution). Run([], S) = S;          Run(i :: τ ′ , S) = Run(τ ′ , δ(S, i)).
 
-Run(i :: τ ′ , S) = Run(τ ′ , δ(S, i)).
 
-Selected Instruction Semantics
-
+4.3     Selected Instruction Semantics
 PNEW: Normalize region; if already present, idempotent; else add (Rnorm , ∅) to G.
-REVEAL: Update CSRs with checksum of certificate cert. Cost: bits + S(∆µ).
-LASSERT: Read formula from vm_mem[R[formula_addr_reg]] (encoded-unit count formula_len,
+    REVEAL: Update CSRs with checksum of certificate cert. Cost: bits + S(∆µ).
+    LASSERT: Read formula from vm_mem[R[formula_addr_reg]] (encoded-unit count formula_len,
 eight concrete bits per unit) and witness package from vm_mem[R[cert_addr_reg]]. cert_kind
 = true (SAT): verify using a satisfying model plus a falsifying countermodel (dual-witness).
 cert_kind = false (UNSAT): the kernel step always fails at this path—lassert_check_ok
@@ -490,33 +432,37 @@ current hardware-aligned semantics, LASSERT validates the constraint but does no
 mutate the partition graph’s axiom set — cert-channel activation happens through the subsequent
 CERTIFY or MORPH_ASSERT. Cost: formula_len × 8 + S(mu_delta).
 
-10
 
+
+
+                                                   10
 Chapter 5
 
 No Free Insight
+
 The central theorem: structural insight is never free.
 
-5.1
 
-Definitions
-
+5.1     Definitions
 Definition 5.1 (Receipt Predicate). P : O → B is a computable function on observation
 histories.
+
 Definition 5.2 (Strength Ordering). P1 ≤ P2 iff ∀o. P1 (o) = 1 =⇒ P2 (o) = 1. P1 < P2 iff
 P1 ≤ P2 and ∃o. P2 (o) = 1 ∧ P1 (o) = 0.
+
 Definition 5.3 (Certification). Trace τ certifies P iff execution succeeds (err = 0), the
 supra-certificate flag is set, and the output satisfies P .
+
 Definition 5.4 (Structure Addition). HasStructureAddition(τ ) is true iff τ contains a REVEAL,
 LASSERT, or equivalent operation.
 
-5.2
 
-The Theorem
-
+5.2     The Theorem
 Theorem 5.1 (No Free Insight (NoFreeInsight_Theorem.v)). Let Pstrong < Pweak . If a trace τ
 starting from a clean state s0 certifies Pstrong , then:
-Certified(τ, Pstrong ) =⇒ HasStructureAddition(τ )
+
+                       Certified(τ, Pstrong ) =⇒ HasStructureAddition(τ )
+
 Proof Sketch. The proof is parametric: NoFreeInsight_Theorem.v proves the theorem for any
 system satisfying the NO_FREE_INSIGHT_SYSTEM module type interface. The interface requires
 four contract obligations (not Coq Axiom declarations—they are proved separately for the
@@ -524,398 +470,554 @@ kernel instantiation): (1) µ-monotonicity, (2) a certification specification li
 to execution, (3) a no-free-insight contract stating that strict strengthening requires structure
 addition, and (4) that the system has a notion of clean start. The theorem file itself contains zero
 Axiom, zero Admitted. The contract obligations are discharged by the kernel instantiation.
+
 Corollary 5.2 (Cost of Insight). Gaining insight (strengthening the predicate) implies ∆µ > 0.
 
-5.3
 
-µ-Ledger Necessity
-
-Theorem 5.3 (µ-Ledger Necessity and Complete Independence Classification (NecessityOfMuLedger.v, kernel/NecessityAbstract.v) — (S)). Five independence results are formally proven,
+5.3     µ-Ledger Necessity
+Theorem 5.3 (µ-Ledger Necessity and Complete Independence Classification (NecessityOf-
+MuLedger.v, kernel/NecessityAbstract.v) — (S)). Five independence results are formally proven,
 zero Admitted:
-1. µ ⊥ (mem, regs, pc): no strict-classical oracle recovers µ
-11
 
-turing_ram_mu_necessity
+  1. µ ⊥ (mem, regs, pc): no strict-classical oracle recovers µ       turing_ram_mu_necessity
 
-2. certified ⊥ (mem, regs, pc): no strict-classical oracle recovers certification turing_ram_cert_necessity
-3. certified ⊥ (mem, regs, pc, µ): knowing µ does not determine certification cost_model_cert_necessity
-4. µ ⊥ (mem, regs, pc, certified): knowing certification does not determine µ cert_model_mu_necessity
-5. vm_graph ⊥ (mem, regs, pc, µ, certified): the categorical layer is independent of the full
-µ-ledger shadow
-graph_not_recoverable_from_P_full
+                                                11
+   2. certified ⊥ (mem, regs, pc): no strict-classical oracle recovers certification turing_ram_cert_necessity
+   3. certified ⊥ (mem, regs, pc, µ): knowing µ does not determine certification cost_model_cert_necessity
+   4. µ ⊥ (mem, regs, pc, certified): knowing certification does not determine µ cert_model_mu_necessity
+   5. vm_graph ⊥ (mem, regs, pc, µ, certified): the categorical layer is independent of the full
+      µ-ledger shadow                                 graph_not_recoverable_from_P_full
 Three-component independence (thiele_state_three_component_independence): µ, vm_certified,
-and vm_graph are the three provably independent non-classical state components. Each is irrecoverable from any combination of the others plus (mem, regs, pc).
-Minimality (P_full_is_minimal_complete_extension): (mem, regs, pc, µ, certified) is
+and vm_graph are the three provably independent non-classical state components. Each is ir-
+recoverable from any combination of the others plus (mem, regs, pc).
+    Minimality (P_full_is_minimal_complete_extension): (mem, regs, pc, µ, certified) is
 the minimal complete extension of classical state for µ and certification. Graph structure is a
 third independent axis.
-Universality (mu_ledger_necessity_universal): The separation holds from every VMState, not only from crafted zero-state witnesses. From any reachable state, CERTIFY 0 and PNEW
+    Universality (mu_ledger_necessity_universal): The separation holds from every VM-
+State, not only from crafted zero-state witnesses. From any reachable state, CERTIFY 0 and PNEW
 [] 0 produce identical strict classical shadows but different µ and certification.
-Trace closure (po1_trace_necessity): For any common prefix program of any length, the
+    Trace closure (po1_trace_necessity): For any common prefix program of any length, the
 two witness extensions maintain equal strict shadows but strictly different µ. No accumulation
 of classical computation closes the gap.
 Proof Sketch. Each separation uses explicit witnesses where equal projected inputs force equal
 oracle outputs, while the witness states require unequal outputs—a contradiction. Strict shadow
 equality: both CERTIFY 0 and PNEW [] 0 advance pc by 1 and preserve mem/regs. µ divergence:
 CERTIFY charges S(0) = 1; PNEW charges 0. Graph separation uses categorical_separation
-from PartitionSeparation.v: two states with identical Pfull but different pg_morphisms. Universality follows because vm_apply_certify_strict_shadow and vm_apply_pnew_strict_shadow
+from PartitionSeparation.v: two states with identical Pfull but different pg_morphisms. Uni-
+versality follows because vm_apply_certify_strict_shadow and vm_apply_pnew_strict_shadow
 hold for arbitrary source states.
+
 Theorem 5.4 (Latent µ: Cost is Intrinsic to Computation (NecessityOfMuLedger.v §7) — (S)).
 The µ-cost accumulated by any computation is a property of the instruction sequence, not of any
 tracking system. Four results, all zero Admitted:
-1. shadow_mu_is_computation_intrinsic: For any program prog and any starting state s:
-(run_instrs s prog).µ = s.µ + trace_total_cost(prog)
-The increment is determined entirely by the instruction sequence—independent of vm_graph,
-vm_regs, vm_mem, vm_certified, and the starting µ.
-2. shadow_mu_delta_universal: Two machines running the same program from any two
-starting states accumulate the same additional µ. The cost is written in the program before
-execution begins.
-3. shadow_mu_unique_accounting: Any instruction-consistent accounting system M satisfying M (s) = 0 at the starting state assigns exactly trace_total_cost to the result. Replace
-the Thiele Machine’s µ-counter with any other honest accounting and you get the same
-number.
-4. shadow_mu_inevitable: Any program containing an instruction with positive declared
-cost accumulates strictly positive µ from any starting state. There is no free computation.
-Interpretation. A Turing machine executing a program pays exactly trace_total_cost in
+
+   1. shadow_mu_is_computation_intrinsic: For any program prog and any starting state s:
+                     (run_instrs s prog).µ = s.µ + trace_total_cost(prog)
+     The increment is determined entirely by the instruction sequence—independent of vm_graph,
+     vm_regs, vm_mem, vm_certified, and the starting µ.
+   2. shadow_mu_delta_universal: Two machines running the same program from any two
+      starting states accumulate the same additional µ. The cost is written in the program before
+      execution begins.
+   3. shadow_mu_unique_accounting: Any instruction-consistent accounting system M satisfy-
+      ing M (s) = 0 at the starting state assigns exactly trace_total_cost to the result. Replace
+      the Thiele Machine’s µ-counter with any other honest accounting and you get the same
+      number.
+   4. shadow_mu_inevitable: Any program containing an instruction with positive declared
+      cost accumulates strictly positive µ from any starting state. There is no free computation.
+
+    Interpretation. A Turing machine executing a program pays exactly trace_total_cost in
 latent µ on every execution. The cost was always there—forced by the instruction sequence—but
 the Turing machine had no mechanism to record or expose it. The µ-ledger does not create this
 cost. It reveals what every computation was already paying.
-12
 
-5.4
-
-Partition Refinement and No Free Insight
-
+                                               12
+5.4     Partition Refinement and No Free Insight
 Theorem 5.5 (Partition Ops Are Free (kernel/PartitionRefinementNoFI.v) — (S)). PNEW,
 PSPLIT, and PMERGE are not cert-setters and can carry ∆µ = 0:
-• partition_structural_ops_not_cert_setters: None of the three partition operations
-touch csr_cert_addr or vm_certified.
-• partition_structural_ops_can_be_free: All three can execute with ∆µ = 0.
-• partition_structural_trace_cannot_certify: A trace containing only PNEW, PSPLIT,
-and PMERGE (all at ∆µ = 0) cannot reach a certified state from an uncertified start.
+
+   • partition_structural_ops_not_cert_setters: None of the three partition operations
+     touch csr_cert_addr or vm_certified.
+
+   • partition_structural_ops_can_be_free: All three can execute with ∆µ = 0.
+
+   • partition_structural_trace_cannot_certify: A trace containing only PNEW, PSPLIT,
+     and PMERGE (all at ∆µ = 0) cannot reach a certified state from an uncertified start.
+
 Building partition structure costs nothing by itself. Certifying structural claims about that
 partition is what costs.
+
 Theorem 5.6 (Partition Free But Certification Non-Free (kernel/PartitionRefinementNoFI.v)
-— (S)). partition_free_but_certification_nonfree: There exist traces where all partitionstructural instructions carry ∆µ = 0 (so µfinal = µinit = 0) yet the trace ends with a partition
+— (S)). partition_free_but_certification_nonfree: There exist traces where all partition-
+structural instructions carry ∆µ = 0 (so µfinal = µinit = 0) yet the trace ends with a partition
 graph that a subsequent MORPH_ASSERT or CERTIFY can certify — but only at ∆µ ≥ 1.
 Partition structure can be built at zero µ-cost; certified partition knowledge cannot be acquired
 for free. Zero Admitted.
+
 Theorem 5.7 (Partition Refinement Non-Free (kernel/PartitionRefinementNoFI.v) — (S)).
 partition_refinement_nonfree: Any trace that starts with no cert evidence and ends with a
 certified claim about a partition structure paid at least 1 in µ. This is the NoFI law specialized
 to partition refinement. Zero Admitted.
 
-13
 
+
+
+                                               13
 Chapter 6
 
 The µ-Chaitin Theorem
+
 A Chaitin-style incompleteness theorem denominated in µ-currency.
+
 Theorem 6.1 (µ-Chaitin (MuChaitinTheory_Theorem.v)). For any formal theory system T
 satisfying the µ-Chaitin interface, the number of bits k the theory can certify is bounded by:
-k ≤ |T | + c
+
+                                          k ≤ |T | + c
+
 where |T | is the description length of the theory and c is a fixed overhead constant. The proof
 chain: k ≤ payload ≤ µ-info ≤ budget ≤ |T | + c.
 
-14
 
+
+
+                                               14
 Chapter 7
 
 Computational Universality and
 Subsumption
-7.1
 
-Strict Containment
-
+7.1     Strict Containment
 Theorem 7.1 (Turing ⊊ Thiele (kernel/Subsumption.v)). Classical Turing computation is
 properly extended by sighted Thiele computation (both are Turing-complete, but Thiele carries
 additional partition and µ-accounting structure):
-∃ p. sighted(p) ∧ ¬turing(p)
+
+                                  ∃ p. sighted(p) ∧ ¬turing(p)
+
 There exist programs that are Thiele-computable (using partition structure and µ-accounting) but
 are not classical Turing programs. The extra structure is genuine new content.
 
-7.2
 
-Oracle Cost Lower Bound
-
+7.2     Oracle Cost Lower Bound
 Theorem 7.2 (Oracle pricing self-consistency (conceptual; not separately formalized)). Inside the
 No Free Insight framework, the universal lower bound on certification cost (universal_nfi_any_substrate
-in coq/kernel/nfi/UniversalCertificationCost.v) immediately implies that any sound oracle satisfying the one-step rule cs_cert_costs (cost ≥ 1 on any uncertified-to-certified transition)
+in coq/kernel/nfi/UniversalCertificationCost.v) immediately implies that any sound ora-
+cle satisfying the one-step rule cs_cert_costs (cost ≥ 1 on any uncertified-to-certified transition)
 charges ≥ n for n certifying queries. There is no separate oracle-impossibility file in the codebase;
 the oracle case is a direct instantiation of the universal theorem at a CertificationSystem
 whose state encodes oracle responses. The physical justification for charging µ > 0 on oracle
 queries comes from NoFI: gaining certified information about undecidable propositions has positive
 µ-cost.
 
-7.3
 
-µ-Complexity Classes
+7.3     µ-budget predicates
+Definition 7.1 (µ-budget predicates (kernel/MuComplexity.v)). Let pfuel , pµ : N → N be
+polynomial bounds and size : VMState → N a size function.
 
-Definition 7.1 (µP and µNP (kernel/MuComplexity.v)). Let PolyBound be a polynomial
-p : N → N.
-• A decision problem f is in µP iff there exists a polynomial p and a trace family such that
-for every input state of size n, the trace solves f with µ-cost ≤ p(n) and runs in polynomial
-time.
-• A decision problem f is in µNP iff there exists a polynomial p and a verifier trace family
-such that every YES instance of size n has a certificate verifiable with µ-cost ≤ p(n) in
-polynomial time.
+   • A decision problem f is mu_budget_decidable (with respect to pfuel and pµ ) iff a solver
+     trace exists for every input: a trace of length ≤ pfuel (size(s)) using at most pµ (size(s))
+     units of µ-cost that runs without error.
 
-15
+   • A decision problem f is mu_budget_verifiable iff every positive instance has a certificate
+     trace verifiable within the same fuel and µ-cost bounds, ending with vm_certified =
+     true.
 
-Theorem 7.3 (Classical P ⊆ µP (kernel/MuComplexity.v) — (S)). classical_in_muP: Any
-classically polynomial-time decision problem (using zero-cost instructions) is in µP with µ-cost
-= 0 for all inputs. Classical computation is a degenerate case of µ-computation with no structural
-cost. Zero Admitted.
-Remark 7.1. µP and µNP separate the time cost of computation from the structural cost
-of certification. Whether µP ̸= µNP — or whether there exist problems in µNP not in µP —
-is an open question. The factored-search witness in StructuralAdvantage.v gives a concrete
-example of a µ-cost advantage (paying µ = 18 to certify a decomposition and reduce search from
-O(N 2 ) to O(2N )), but that is not a class separation.
+
+
+                                               15
+Theorem 7.3 (Zero-µ classical solvers are µ-budget decidable (kernel/MuComplexity.v) — (S)).
+classical_mu_budget_decidable: any decision problem solved by a zero-µ classical program
+within polynomial fuel is mu_budget_decidable with µ-bound 0. Classical computation is a
+degenerate case of µ-computation. Zero Admitted.
+Remark 7.1. mu_budget_decidable and mu_budget_verifiable are predicates classifying
+decision problems by their polynomial-µ envelope, not classical complexity classes. The
+Coq file proves the basic inclusion (every decidable problem is verifiable, by re-running the
+solver and certifying). It does not prove a class separation. The factored-search witness in
+StructuralAdvantage.v gives a concrete program-level µ-cost advantage (paying µ = 18 to
+certify a decomposition and reduce search from O(N 2 ) to O(2N )), but that is not a class
+separation. Earlier versions of this section named these predicates in_muP and in_muNP; the
+names were misleading because they evoked the classical P-versus-NP question, which this file
+does not address.
 Theorem 7.4 (µ-Cost Hierarchy (kernel/MuHierarchyTheorem.v) — (S)). For every k ≥ 1,
 the µ-dimension admits a strict hierarchy:
-1. Achievability: there exists a trace from init_state with µ-cost exactly k that achieves
-vm_certified = true and vm_mu = k.
-2. Lower bound: any trace from init_state achieving vm_mu ≥ k must have spent at least
-k units of µ-cost.
+   1. Achievability: there exists a trace from init_state with µ-cost exactly k that is level-
+      k certified — the run executes a CERTIFY δ instruction with S(δ) ≥ k and ends with
+      vm_certified = true.
+   2. Lower bound: any level-k certified trace from init_state must have spent at least k
+      units of µ-cost.
 Formally (mu_hierarchy_theorem): for every k ≥ 1, the witness trace [instr_certify(k−1)]
-(cost = S(k−1) = k) certifies init_state at level k, while no trace of µ-cost < k can reach
-vm_mu ≥ k from init_state (since trace_mu_cost = vm_mu final − 0 ≥ k).
-Corollary (mu_hierarchy_no_upper_bound): no fixed µ-budget suffices for all levels. The
+(cost = S(k−1) = k) executes a level-k CERTIFY from init_state; conversely, the trace-side pred-
+icate level_k_certified forces trace_mu_cost ≥ k via level_k_certification_cost_floor,
+since the CERTIFY’s declared cost appears in the executed-instruction ledger and the ledger sum
+equals the trace cost (run_vm_mu_conservation).
+    Corollary (mu_hierarchy_no_upper_bound): no fixed µ-budget suffices for all levels. The
 µ-dimension is unbounded and non-collapsible. Zero Admitted.
-Remark 7.2 (µ-Hierarchy as the formal P-vs-NP analogue). Theorem 7.4 is the µ-analogue
-of the classical time hierarchy theorem. It formalizes the intuition behind P ̸= NP in the
-certified-structure setting: finding a certificate of structural complexity k requires paying µ ≥ k,
-while verifying it (given the trace) costs 0 additional µ. The hierarchy is strict, infinite, and
-proven from first principles with zero Admitted — no oracle, no diagonalization, no new axioms.
-The proof uses only vm_apply_mu (cost = µ increase) and init_state_mu_zero (µ starts at 0).
+Remark 7.2 (µ-Hierarchy as the formal P-vs-NP analogue). Theorem 7.4 is the µ-analogue of
+the classical time hierarchy theorem. It formalizes the intuition behind P ̸= NP in the certified-
+structure setting: finding a certificate of structural complexity k requires paying µ ≥ k, while
+verifying it (given the trace) costs 0 additional µ. The hierarchy is strict, infinite, and proven from
+first principles with zero Admitted — no oracle, no diagonalization, no new axioms. The lower-
+bound proof is trace-side: a level-k certified run executed a specific CERTIFY δ with S(δ) ≥ k,
+and executed_instruction_cost_recorded plus ledger_sum_contains_lower_bound place
+that cost in the ledger sum, which run_vm_mu_conservation equates with the trace’s µ-cost.
 
-16
 
+7.4     Intrinsic level hierarchy
+Definition 7.2 (Intrinsic level (coq/IntrinsicLevelHierarchy.v)). A final state s is intrinsi-
+cally certifiable at level ≥ k, written level_intrinsic_at_least(k, s), iff every run_vm trace
+from init_state that ends at s with vm_certified = true executes at least k cert-setter
+instructions:
+∀fuel trace. run_vm(fuel, trace, init_state) = s ⇒ s.vm_certified = true ⇒ cert_setter_executions(fu
+The level is a property of the final state, not of any particular trace reaching it.
+Theorem 7.5 (Intrinsic level forces µ (coq/IntrinsicLevelHierarchy.v::level_intrinsic_forces_mu)).
+If level_intrinsic_at_least(k, s) holds and s.vm_certified = true, then for every trace
+reaching s from init_state, s.vm_mu ≥ k. Zero Admitted.
+
+                                                  16
+Theorem 7.6 (Strict separation (coq/IntrinsicLevelHierarchy.v::level_strict_separation)). For
+every k ≥ 0, if level_intrinsic_at_least(k + 1, s) holds and s.vm_certified = true, then
+every trace reaching s executes strictly more than k cert-setter instructions. Zero Admitted.
+Remark 7.3 (Relation to Theorem 7.4). Theorem 7.6 is the state-level counterpart of the trace-
+level µ-hierarchy. The trace-level version (mu_hierarchy_theorem, level_k_certification_cost_floor)
+defines level on the trace — a trace is level-k certified iff it executes a CERTIFY δ with S(δ) ≥ k.
+The state-level version defines level on the final state — every trace reaching it requires at least k
+cert-setter executions. The two are complementary entry points to the same hierarchy: the trace-
+level theorem gives the achievability witness ([instr_certify(k−1)] from init_state); the
+state-level theorem gives the lower bound on µ for any state intrinsically requiring k cert-events.
+Both are present-tense in the kernel; both close under the global context.
+
+
+7.5    Verifier model and the bare-setting impossibility
+Definition 7.3 (Bare verifier (coq/VerifierModel.v)). The bare-setting transcript type is
+BareTranscript := list StrictClassicalState. A bare verification problem is a record
+BareVerificationProblem carrying
+   • bare_honest_claim : VMState → Prop;
+
+   • bare_explains : VMState → BareTranscript → Prop (the transcript-honestly-witnessed-
+     by-state relation);
+
+   • bare_cheap_budget, bare_recompute_cost : N.
+A bare verifier is a record BareVerifier with bv_decide : BareTranscript → bool and
+bv_cost : BareTranscript → N.
+Definition 7.4 (Soundness, completeness, cheapness (coq/VerifierModel.v)). For a problem P
+and verifier V :
+   • bare_sound(P, V ) := ∀t. V (t) = true ⇒ ∀s. bare_explains(P, s, t) ⇒ bare_honest_claim(P, s).
+
+   • bare_complete(P, V ) := ∀s t. bare_honest_claim(P, s) ⇒ bare_explains(P, s, t) ⇒
+     V (t) = true.
+
+   • bare_cheap(P, V ) := ∀t. bv_cost(V, t) ≤ bare_cheap_budget(P ).
+The soundness condition is strong: the claim must hold for every state explaining the transcript,
+not merely for some.
+Theorem 7.7 (Bare-setting impossibility (coq/VerifierImpossibility.v::bare_setting_no_sound_complete_verifie
+There is no bare verifier simultaneously bare_sound and bare_complete on the verification
+problem mu_eq_one_problem whose claim is vm_mu(s) = 1 and whose bare_explains relation
+holds for the two NecessityOfMuLedger witness states against the shared strict-shadow trace.
+Proof. po1_state_A (the cost-1 CERTIFY 0 result, µ = 1) and po1_state_B (the cost-0 PNEW
+[] 0 result, µ = 0) project to identical strict-shadow traces. Completeness applied to A’s honest
+run forces V to accept the shared transcript. Strong soundness applied to the same accepted
+transcript at the explanation by B forces vm_mu(B) = 1, contradicting vm_mu(B) = 0. Print
+Assumptions returns Closed under the global context.
+
+Theorem 7.8 (Three sufficient escapes (coq/VerifierEscape_{Substrate,Hardness,Interaction}.v)).
+Each kernel theorem below exhibits a constant-cost verifier that simultaneously satisfies sound-
+ness and completeness on the µ-sensitive claim by augmenting the transcript with non-classical
+structure:
+
+                                               17
+   • substrate_escape_succeeds — transcript is list VMState; verifier reads µ directly.
+
+   • hardness_escape_succeeds — transcript is BareTranscript × bool (commitment bit);
+     verifier accepts the commitment under a parameterised HardnessHypothesis record.
+
+   • interactive_escape_succeeds — transcript is BareTranscript × N (response); verifier
+     checks the response against the claim.
+
+Each closes under the global context with zero Admitted.
+
+Theorem 7.9 (Factorisation impossibility (coq/VerifierExhaustiveness.v::V_does_not_factor_through_classica
+Let T be any transcript type with a projection π : T → BareTranscript. For any verifier
+V : T → bool simultaneously sound and complete on the µ-sensitive claim (with the lifted-
+explains relation), V does not factor through π: there exist t1 , t2 : T with π(t1 ) = π(t2 ) and
+V (t1 ) ̸= V (t2 ).
+
+Remark 7.4 (The verifier corollary). Sound and complete verification of µ-sensitive claims
+requires the transcript to carry non-classical structural information — exactly the structure the
+projection strict_shadow drops. The three escapes above are concrete realisations; Theorem 7.9
+says no verifier on the bare classical projection alone succeeds, regardless of how rich its transcript
+is otherwise. The substrate channel is the option the structural axis makes available; hardness
+and interaction are the two routes classical cryptography and complexity already used.
+
+
+
+
+                                                  18
 Chapter 8
 
 µ-Conservation and Receipt Integrity
-8.1
 
-The Conservation Law
-
+8.1     The Conservation Law
 Theorem 8.1 (µ-Ledger Conservation (MuLedgerConservation.v)). For any trace τ = [i0 , . . . , ik ]:
-µfinal = µinit +
+                                                         k
+                                      µfinal = µinit +         cost(ij )
+                                                         X
 
-k
-X
-
-cost(ij )
-
-j=0
+                                                         j=0
 
 Every instruction increases µ by exactly its declared cost. No axioms, no admits.
+
 Corollary 8.2 (Monotonicity). µ never decreases: µ(s) ≤ µ(Run(τ, s)) for all τ .
+
 Corollary 8.3 (Irreversibility Bound). irreversible_bits(τ ) ≤ µfinal − µinit .
+
 Theorem 8.4 (µ Decomposition (MuLedgerConservation.v)). µtotal = µblind + µsighted for any
 partition of the cost into blind (reversible) and sighted (structural) components.
 
-8.2
 
-Receipt Integrity
-
+8.2     Receipt Integrity
 Definition 8.1 (Receipt). A receipt r = (step, instr, µpre , µpost , hpre , hpost ) records one transition.
+
 Theorem 8.5 (Receipt Integrity (ReceiptIntegrity.v)). A valid receipt or execution attestation
-P
 proves µfinal = µinit + costs for the attested run. Any receipt claiming ∆µ ̸= cost(instr) fails
+                       P
+
 validation.
+
 Theorem 8.6 (Non-Forgeability (ReceiptIntegrity.v)). Forged receipts (claiming incorrect ∆µ)
 fail validation. Overflow values (µ > 231 − 1) are rejected at the receipt layer.
 
-17
 
+
+
+                                                   19
 Chapter 9
 
 Gauge Symmetry and Noether’s
 Theorem
-9.1
 
-The Z-Action (Gauge Group)
-
+9.1     The Z-Action (Gauge Group)
 Definition 9.1 (Gauge Shift). For δ ∈ Z, the gauge shift σδ : S → S maps S 7→ S[µ ← µ + δ],
 preserving all other fields.
+
 Theorem 9.1 (Group Action (KernelNoether.v)). The gauge shifts form a Z-action on states:
-1. Identity: σ0 (S) = S.
-2. Composition: σa (σb (S)) = σa+b (S).
-3. Inverse: σ−n (σn (S)) = S (when µ + n ≥ 0).
 
-9.2
+   1. Identity: σ0 (S) = S.
 
-Gauge Invariance
+   2. Composition: σa (σb (S)) = σa+b (S).
 
+   3. Inverse: σ−n (σn (S)) = S (when µ + n ≥ 0).
+
+
+9.2     Gauge Invariance
 Definition 9.2 (Observable). Obs(S) extracts the partition region structure, ignoring µ.
+
 Theorem 9.2 (Gauge Invariance (KernelNoether.v)). Obs(σδ (S)) = Obs(S). Shifting µ by a
 constant does not affect observables.
-Theorem 9.3 (Noether’s Theorem (coq/kernel/curvature/KernelNoether.v)).
-1. Forward: States identical except for µ lie on the same gauge orbit. (This is direct from
-the definition: if all other fields match, the µ difference is the gauge shift.)
 
-2. Gauge Invariance: z_gauge_invariance proves that shifting µ does not change Observable_partition.
-This is definitional: z_gauge_shift only modifies the vm_mu field, and Observable_partition
-reads only vm_graph.
-3. Trace Preservation: Gauge-equivalent states produce identical observable traces (same
-labels, same µ-costs) for any finite horizon. Proven as vm_step_orbit_equiv.
+Theorem 9.3 (Noether’s Theorem (coq/kernel/curvature/KernelNoether.v)).
+
+   1. Forward: States identical except for µ lie on the same gauge orbit. (This is direct from
+      the definition: if all other fields match, the µ difference is the gauge shift.)
+
+   2. Gauge Invariance: z_gauge_invariance proves that shifting µ does not change Observable_partition.
+      This is definitional: z_gauge_shift only modifies the vm_mu field, and Observable_partition
+      reads only vm_graph.
+
+   3. Trace Preservation: Gauge-equivalent states produce identical observable traces (same
+      labels, same µ-costs) for any finite horizon. Proven as vm_step_orbit_equiv.
+
 The µ-ledger is a gauge degree of freedom. Its absolute value is unobservable; only differences
 ∆µ are physical. The “Noether” label is a deliberate analogy: the result follows from the record
 structure (separate fields for µ and graph), not from a deep symmetry principle.
+
 Theorem 9.4 (µ-Monotonicity (KernelNoether.v)). vm_step(S, i, S ′ ) =⇒ µ(S) ≤ µ(S ′ ). The
 µ-ledger never decreases under the dynamics. This is true by construction: instruction costs
 are natural numbers (≥ 0), so adding them to the ledger cannot decrease it. The proof examines
 each step constructor and confirms the arithmetic.
-18
 
+                                               20
 Remark 9.1 (Part V Scope: Conditional Results and Named Axioms). The chapters in
-this part present results conditional on named physical axioms (linearity in the Bloch parameter for the Born rule, the second law for Landauer, and the A_QM bridge for quantum
+this part present results conditional on named physical axioms (linearity in the Bloch pa-
+rameter for the Born rule, the second law for Landauer, and the A_QM bridge for quantum
 realizability). They are marked (C) or (R) throughout. The primary unconditional quantum
 results — the classical CHSH bound, the algebraic Tsirelson bound, and the biconditional
 column_contractive_iff_quantum_realizable — appear earlier (Chapters 12–13). Those
 are pure algebra, no physics axioms.
-The results in this part are not primary claims of the project. They are explorations of what
+    The results in this part are not primary claims of the project. They are explorations of what
 follows if you add specific physical axioms. They demonstrate the machine’s scope without
 making physical claims the proofs do not support.
 
-19
 
+
+
+                                               21
 Chapter 10
 
 The Born Rule
+
 Definition 10.1 (Bloch Sphere Probabilities). For a state with purity vector (x, y, z):
-P (|0⟩) =
-
-1+z
-,
-2
-
-P (|1⟩) =
-
-1−z
-2
-
+                                          1+z                      1−z
+                              P (|0⟩) =       ,        P (|1⟩) =
+                                           2                        2
 Definition 10.2 (Measurement µ-Cost).
-Cost(x, y, z) =
 
-1 − (x2 + y 2 + z 2 )
-2
-
+                                                  1 − (x2 + y 2 + z 2 )
+                               Cost(x, y, z) =
+                                                          2
 This is the linear entropy. For pure states (r2 = 1), cost = 0. For mixed states (r2 < 1), cost
 > 0.
+
 Theorem 10.1 (Uniqueness of the Born Rule (BornRule.v)). The Born rule P (|0⟩) = (1 + z)/2
 is the unique probability assignment satisfying:
-1. Non-negativity and normalization: P ≥ 0, P (|0⟩) + P (|1⟩) = 1.
-2. Eigenstate consistency: P (0, 0, 1) = 1, P (0, 0, −1) = 0.
-3. Linearity in z: P (x, y, z) = az + b for some a, b.
+
+  1. Non-negativity and normalization: P ≥ 0, P (|0⟩) + P (|1⟩) = 1.
+
+  2. Eigenstate consistency: P (0, 0, 1) = 1, P (0, 0, −1) = 0.
+
+  3. Linearity in z: P (x, y, z) = az + b for some a, b.
+
 Proof: Boundary conditions force a = 1/2, b = 1/2. No other solution exists.
-Note: The Coq theorem also lists a receipt_mu_consistent hypothesis, but it is unused
+    Note: The Coq theorem also lists a receipt_mu_consistent hypothesis, but it is unused
 in the proof. The hypothesis receipt_mu_consistent P unfolds to “measurement cost ≥ 0
 for valid Bloch vectors,” which is directly from the definition true for all states and does not
 constrain P . The linearity assumption (item 3) does all the work—it assumes the functional
 form P = az + b and solves a 2-equation system. This is less “deriving the Born rule from
 µ-accounting” and more “the Born rule is the unique linear rule consistent with eigenstates.”
 
-20
 
+
+
+                                                  22
 Chapter 11
 
 Unitarity
+
 Definition 11.1 (Evolution). An evolution E maps Bloch vectors (x, y, z) 7→ (x′ , y ′ , z ′ ) with
 associated µ-cost.
+
 Theorem 11.1 (Unitarity from Zero Cost (Unitarity.v)).
-1. µ = 0 =⇒ r′2 ≥ r2 (purity cannot decrease at zero cost). Proven as zero_cost_preserves_purity.
-2. Non-unitary evolution (r′2 < r2 for some state) requires µ > 0. Proven as nonunitary_requires_mu:
-the proof specializes the conservation hypothesis at the witness, then lra.
-3. µ = 0 ⇒ no info loss (one direction proven). The converse and the full equivalence
-µ = 0 ⇔ unitary ⇔ reversible are stated in the file but not proven as theorems: they
-appear as Definition declarations (propositional constants) rather than proven Theorems.
+
+  1. µ = 0 =⇒ r′2 ≥ r2 (purity cannot decrease at zero cost). Proven as zero_cost_preserves_purity.
+
+  2. Non-unitary evolution (r′2 < r2 for some state) requires µ > 0. Proven as nonunitary_requires_mu:
+     the proof specializes the conservation hypothesis at the witness, then lra.
+
+  3. µ = 0 ⇒ no info loss (one direction proven). The converse and the full equivalence
+     µ = 0 ⇔ unitary ⇔ reversible are stated in the file but not proven as theorems: they
+     appear as Definition declarations (propositional constants) rather than proven Theorems.
+
 Theorem 11.2 (Lindblad Requires µ (Unitarity.v)). Lindblad-type dissipation at rate γ > 0
 requires µ ≥ γ. Decoherence is paid for.
+
 Theorem 11.3 (CPTP Structure (Unitarity.v)). Positivity + trace preservation =⇒ the
 evolution is CPTP (completely positive, trace-preserving).
 
-21
 
+
+
+                                               23
 Chapter 12
 
 Purification
+
 Theorem 12.1 (Purification Principle (Purification.v)). Every mixed state (x, y, z) with r2 =
 x2 + y 2 + z 2 ≤ 1 admits eigenvalues λ1 , λ2 with:
-• λ1 + λ2 = 1,
 
-0 ≤ λi ≤ 1.
+  • λ1 + λ2 = 1,     0 ≤ λi ≤ 1.
 
-• (λ1 − λ2 )2 = r2 .
-• Construction: λ1 = (1 + r)/2, λ2 = (1 − r)/2.
+  • (λ1 − λ2 )2 = r2 .
+
+  • Construction: λ1 = (1 + r)/2, λ2 = (1 − r)/2.
+
 Pure states (r = 1) need no external reference (deficit = 0). The maximally mixed state (r = 0)
 has deficit = 1.
 
-22
 
+
+
+                                              24
 Chapter 13
 
 No-Cloning
+
 Theorem 13.1 (No-Cloning from µ-Conservation (NoCloning.v)). Let I = x2 + y 2 + z 2 be the
 information content (purity). For a cloning operation with outputs of information I1 , I2 and
 µ-cost µ:
-I1 + I2 ≤ I + µ
+                                       I1 + I2 ≤ I + µ
+
 Theorem 13.2 (Approximate Cloning (NoCloning.v)). For fidelities f1 , f2 : f1 + f2 ≤ 1 + µ/I.
 At zero cost: f1 + f2 ≤ 1.
+
 Theorem 13.3 (No Deletion (NoCloning.v)). Perfect deletion also requires µ ≥ I (dual of
 no-cloning).
 
-23
 
+
+
+                                             25
 Chapter 14
 
 The Tsirelson Bound
+
 Remark 14.1 (Epistemological Status: (S) algebraic, no physics axioms). The active-corpus
 derivation lives in coq/kernel/quantum/TsirelsonGeneral.v (tsirelson_from_row_bounds)
-and coq/kernel/category/AlgebraicCoherence.v
-(tsirelson_bound_tight); both prove
-√
-the bound algebraically without encoding 2 2 into any definition. TsirelsonGeneral.v derives S 2 ≤ 8 from pure algebra: a sum-of-squares identity proves each CHSH row contributes
-P
+and coq/kernel/category/AlgebraicCoherence.v √       (tsirelson_bound_tight); both prove
+the bound algebraically without encoding 2 2 into any definition. TsirelsonGeneral.v de-
+rives S 2 ≤ 8 from pure algebra: a sum-of-squares identity proves each CHSH row contributes
 ≤ 2(e21 + e22 ), then Cauchy–Schwarz bounds the sum by 4 e2i ≤ 8. TsirelsonFromAlgebra.v
-√
+                                                         P
+                                                                                  √
 provides
-with achievability witness (e = ±1/ 2, giving
-√ a self-contained algebraic derivation
-√
+      √ a self-contained algebraic derivation
+                                         √     with achievability witness (e = ±1/ 2, giving
 S = 2 2) and a verified rational bound ( 8 < 5657/2000). Zero admits in both files.
-Theorem 14.1 (Tsirelson Upper Bound for the Zero-Marginal NPA Model (TsirelsonQuantumModel.v, TsirelsonFromAlgebra.v) — (S)). If a trace is quantum-realizable √
-in the zero-marginal
+
+Theorem 14.1 (Tsirelson Upper Bound for the Zero-Marginal NPA Model (TsirelsonQuantum-
+Model.v, TsirelsonFromAlgebra.v) — (S)). If a trace is quantum-realizable √   in the zero-marginal
 NPA model (i.e., is Thiele-honest / column-contractive), then |SCHSH | ≤ 2 2.
-The algebraic derivation (TsirelsonFromAlgebra.v) proves S 2 ≤ 8 for all algebraically
+    The algebraic derivation (TsirelsonFromAlgebra.v) proves S 2 ≤ 8 for all algebraically
 coherent correlators satisfying the three column-contractivity conditions, using a sum-of-squares
 identity and psatz. No physics premises. Pure polynomial arithmetic.
 
-24
 
+
+
+                                               26
 Chapter 15
 
 Witness Insight Taxonomy
+
 Theorem 15.1 (CHSH Trial Is Tier 0 (kernel/WitnessInsightGeneral.v) — (S)). chsh_trial_is_tier0:
 The CHSH_TRIAL instruction never touches either certification channel:
-• chsh_trial_not_cert_addr_setter: CHSH_TRIAL does not change csr_cert_addr.
-• chsh_trial_preserves_vm_certified: CHSH_TRIAL does not change vm_certified.
+
+  • chsh_trial_not_cert_addr_setter: CHSH_TRIAL does not change csr_cert_addr.
+
+  • chsh_trial_preserves_vm_certified: CHSH_TRIAL does not change vm_certified.
+
 Recording CHSH trial outcomes is provably free of structural cost. The counters go up; the cert
 channels are untouched. Cost: 0. Zero Admitted.
+
 Theorem 15.2 (Three-Tier Observation Taxonomy (kernel/WitnessInsightGeneral.v) — (S)).
 witness_insight_complete_taxonomy: Every observation the machine can make falls into
 exactly one of three tiers:
+
 Tier 0 Raw observation (always free): Records data without activating any certification channel.
-CHSH_TRIAL is the canonical example. Cost: ∆µ = 0 is possible; no cert channel is
-touched.
+     CHSH_TRIAL is the canonical example. Cost: ∆µ = 0 is possible; no cert channel is
+     touched.
+
 Tier 1 Certified structural insight (always costs ≥ 1): Any instruction that activates csr_cert_addr
-or vm_certified is in this tier. Proven: certified_witness_insight_nonfree shows
-µ increases by at least 1.
-Tier 2 Certified non-local witness insight (always costs ≥ 1): A certified execution whose WitnessCount statistics show S > 2. nonlocal_witness_insight_nonfree: getting certified
-with non-local evidence requires µ ≥ 1.
-witness_insight_nonfree_general: For any instruction in Tier 1 or Tier 2, µ increases
+     or vm_certified is in this tier. Proven: certified_witness_insight_nonfree shows
+     µ increases by at least 1.
+
+Tier 2 Certified non-local witness insight (always costs ≥ 1): A certified execution whose Wit-
+     nessCount statistics show S > 2. nonlocal_witness_insight_nonfree: getting certified
+     with non-local evidence requires µ ≥ 1.
+
+    witness_insight_nonfree_general: For any instruction in Tier 1 or Tier 2, µ increases
 by at least 1. The only free observations are Tier 0. Zero Admitted.
 
-25
 
+
+
+                                               27
 Chapter 16
 
 Bell’s Theorem in Morphism
@@ -925,6 +1027,7 @@ Definition 16.1 (Setting-Outcome Coupling (kernel/CHSHCouplingBridge.v)). The ch
 maps a WitnessCount record to a coupling (list of (nat × nat) pairs). Each pair records a
 (setting-pair-index, outcome-type) observation. A coupling is separable (functional) when it
 maps each setting to at most one outcome type; non-separable otherwise.
+
 Theorem 16.1 (Locally Consistent Strategy Gives Separable Coupling (kernel/CHSHCouplingBridge.v)
 — (S)). locally_consistent_gives_separable_coupling: Any WitnessCount configuration
 produced by a locally deterministic strategy (a0 , a1 , b0 , b1 ) ∈ {0, 1}4 gives a separable (functional)
@@ -932,151 +1035,144 @@ coupling. Zero Admitted.
 
 Theorem 16.2 (Local Coupling Bound (kernel/CHSHCouplingBridge.v) — (S)). locally_consistent_classi
 Any locally factorizable morphism coupling satisfying WCLocallyConsistent has |S| ≤ 2. Bell’s
-theorem in the morphism coupling language: the separation between local and non-local correlations is not just a statistical fact but a structural property of the coupling predicate. Zero
+theorem in the morphism coupling language: the separation between local and non-local cor-
+relations is not just a statistical fact but a structural property of the coupling predicate. Zero
 Admitted.
+
 Theorem 16.3 (CHSH Violation Rules Out Local Couplings (kernel/CHSHCouplingBridge.v) —
-(S)). chsh_violation_rules_out_locally_factorizable_coupling: If WitnessCount statistics satisfy S > 2, no locally factorizable morphism coupling is consistent with those counts.
+(S)). chsh_violation_rules_out_locally_factorizable_coupling: If WitnessCount statis-
+tics satisfy S > 2, no locally factorizable morphism coupling is consistent with those counts.
 Contrapositively: non-local correlations cannot be produced by any local morphism coupling. The
 no-go is stated in the coupling language, not just the statistical layer. Zero Admitted.
+
 Remark 16.1. These results connect the categorical morphism layer directly to Bell nonlocality.
 A claim that two modules are entangled (via MORPH_ASSERT on a non-separable coupling)
 cannot be locally faked: the NoFI law charges at least 1 for the MORPH_ASSERT, and the
 coupling structure itself rules out any local hidden strategy that would produce S > 2 for free.
 
-26
 
+
+
+                                                28
 Chapter 17
 
 Thiele Honesty and NPA
 Realizability: The Biconditional
+
 This is a kernel-tier result: zero axioms, zero Admitted, pure polynomial arithmetic.
 Definition 17.1 (Column Contractivity (Thiele Honesty)). A correlation tuple (E00 , E01 , E10 , E11 )
 is Thiele-honest (column-contractive) if:
-2
-2
-1 − E00
-− E10
-≥ 0 (condition 1)
 
-(17.1)
-
-2
-2
-1 − E01
-− E11
-≥ 0 (condition 2)
-
-(17.2)
-
-2
-2
-2
-2
-(1 − E00
-− E10
-)(1 − E01
-− E11
-) ≥ (E00 E01 + E10 E11 )2
-
-(condition 3)
-
-(17.3)
+                               1 − E00
+                                    2     2
+                                       − E10 ≥ 0 (condition 1)                               (17.1)
+                               1 − E01
+                                    2     2
+                                       − E11 ≥ 0 (condition 2)                               (17.2)
+             (1 − E00
+                   2     2
+                      − E10 )(1 − E01
+                                   2     2
+                                      − E11 ) ≥ (E00 E01 + E10 E11 )2   (condition 3)        (17.3)
 
 These are exactly the PSD conditions on the 5 × 5 zero-marginal NPA moment matrix.
-
 Theorem 17.1 (Thiele Honesty ⇐⇒ NPA Realizability (coq/kernel/quantum/QuantumPartitionPSD.v,
 corollary column_contractive_iff_quantum_realizable) — (S)). column_contractive_iff_quantum_real
-thiele_honest(E) ⇐⇒ quantum_realizable(E)
+
+                         thiele_honest(E) ⇐⇒ quantum_realizable(E)
 
 where thiele_honest means the three column-contractivity conditions hold, and quantum_realizable
 means the 5 × 5 zero-marginal NPA moment matrix is positive semidefinite.
-Forward direction (zero_marginal_npa_column_contractive_implies_psd in coq/kernel/nfi/MuLedg
+    Forward direction (zero_marginal_npa_column_contractive_implies_psd in coq/kernel/nfi/MuLedg
 column-contractive ⇒ NPA PSD. Proved by constructing the Cholesky decomposition of the 5 × 5
 matrix from the three conditions.
-Reverse direction (npa_psd_implies_column_contractive in coq/kernel/quantum/QuantumPartition
+    Reverse direction (npa_psd_implies_column_contractive in coq/kernel/quantum/QuantumPartition
 NPA PSD ⇒ column-contractive. Proved by specializing the PSD condition at the vector
 (0, −(E00 y0 + E01 y1 ), −(E10 y0 + E11 y1 ), y0 , y1 ), obtaining a non-negative quadratic in y0 , y1 , then
 closing via quadratic_nonneg_discriminant.
-This is a zero-axiom biconditional. No physics assumptions. Pure polynomial arithmetic.
+    This is a zero-axiom biconditional. No physics assumptions. Pure polynomial arithmetic.
 The zero-marginal NPA framework is the orthogonal-observables slice of the quantum elliptope
 (ρAA = ρBB = 0), not the full elliptope.
-Key consequences:
-• PR box (E00 = E01 = E10 = 1, E11 = −1) fails condition 1 immediately (1−1−1 = −1 < 0).
-Direct arithmetic; no separate theorem needed.
+    Key consequences:
+   • PR box (E00 = E01 = E10 = 1, E11 = −1) fails condition 1 immediately (1−1−1 = −1 < 0).
+     Direct arithmetic; no separate theorem needed.
+   • state_column_contractive_implies_tsirelson (coq/kernel/nfi/MuLedgerQuantumBridge.v)
+                                                                      √
+     directly proves Thiele-honest ⇒ |S|2 ≤ 8 (equivalently |S| ≤ 2 2); its proof composes
+     state_column_contractive_implies_quantum_gram with quantum_realizable_implies_tsirelson_b
+     The Cauchy–Schwarz inner step (PSD ⇒ row bounds ⇒ |S|2 ≤ 8) is tsirelson_from_row_bounds
+                                                                                   √
+     in coq/kernel/quantum/TsirelsonGeneral.v. The contrapositive (|S| > 2 2 ⇒ not
+     Thiele-honest) follows immediately. The converse is false and is not claimed.
 
-• state_column_contractive_implies_tsirelson (coq/kernel/nfi/MuLedgerQuantumBridge.v)
-√
-directly proves Thiele-honest ⇒ |S|2 ≤ 8 (equivalently |S| ≤ 2 2); its proof composes
-state_column_contractive_implies_quantum_gram with quantum_realizable_implies_tsirelson_b
-The Cauchy–Schwarz inner step (PSD ⇒ row bounds ⇒ |S|2 ≤ 8) is tsirelson_from_row_bounds
-√
-in coq/kernel/quantum/TsirelsonGeneral.v. The contrapositive (|S| > 2 2 ⇒ not
-Thiele-honest) follows immediately. The converse is false and is not claimed.
-27
+                                                29
+  • Turing-classical correlations (1, 0, 1, 0) satisfy |S| = 2 but fail condition 1: 1−1−1 = −1 < 0.
+    A Turing machine can output this correlation; the Thiele Machine rejects it as dishonest.
+    Direct arithmetic from column_contractive_iff_quantum_realizable.
 
-• Turing-classical correlations (1, 0, 1, 0) satisfy |S| = 2 but fail condition 1: 1−1−1 = −1 < 0.
-A Turing machine can output this correlation; the Thiele Machine rejects it as dishonest.
-Direct arithmetic from column_contractive_iff_quantum_realizable.
 Zero Admitted. Zero named hypotheses.
 
-28
 
+
+
+                                                30
 Chapter 18
 
 Emergent Spacetime
-18.1
 
-The µ-Metric
-
+18.1      The µ-Metric
 Definition 18.1 (µ-Distance (MuGeometry.v)). The Coq formalization defines mu_distance
 as the absolute difference of µ-totals:
-dµ (S1 , S2 ) = |µtotal (S2 ) − µtotal (S1 )|
+
+                               dµ (S1 , S2 ) = |µtotal (S2 ) − µtotal (S1 )|
+
 This is a one-dimensional projection, not a minimum over paths.
-Theorem 18.1 (Pseudometric Properties (MuGeometry.v)). dµ satisfies non-negativity, reflexivity (d(S, S) = 0), symmetry, and triangle inequality, all inherited from absolute value on
+
+Theorem 18.1 (Pseudometric Properties (MuGeometry.v)). dµ satisfies non-negativity, re-
+flexivity (d(S, S) = 0), symmetry, and triangle inequality, all inherited from absolute value on
 Z. Note: dµ is a pseudometric, not a metric: d(S1 , S2 ) = 0 does not imply S1 = S2 (many
 distinct states share the same µ-total). The “geometry” is a 1D projection onto the µ counter.
 
-18.2
 
-Causal Cones
-τ
-
+18.2      Causal Cones
+                                                                                                  τ
 Definition 18.2 (µ-Reachability Cone (SpacetimeEmergence.v)). C + (S) = {S ′ | ∃τ. S −
-→
+                                                                                     →
 S ′ ∧ cost(τ ) ≤ Budget}.
-This is a structural analogy to causal cones: the set of reachable states given a finite µ-budget
+
+    This is a structural analogy to causal cones: the set of reachable states given a finite µ-budget
 plays a role analogous to a light cone. The analogy should not be over-read: there is no Lorentz
 invariance, no metric signature, and no boost transformations in the Coq formalization.
 
-18.3
 
-No-Signaling
-
+18.3      No-Signaling
 Theorem 18.2 (Observational Locality (SpacetimeEmergence.v)). If module MB is not in the
 target set of any instruction in a trace, then MB ’s observable region is unchanged after execution
 (exec_trace_no_signaling_outside_cone).
+
 Remark 18.1. This is a data isolation property: operations targeting module A in the
 partition graph do not affect the lookup of module B. The proof is structural (list operations
 on disjoint keys), non-trivial mainly for instr_psplit/instr_pmerge which restructure the
 graph. The label “no-signaling” is an analogy—there is no spatial metric or speed limit between
 modules.
 
-18.4
 
-Discrete Geometry: The Gauss-Bonnet Result
-
+18.4      Discrete Geometry: The Gauss-Bonnet Result
 The partition graph is a discrete geometric object. One unconditional result falls out, requiring
 no physics axioms.
-29
 
+                                                    31
 Theorem 18.3 (Discrete Angle-Defect Identity (Planar Triangulations) (coq/kernel/curvature/DiscreteGaus
 — (S)). For any well_formed_triangulated partition graph g in the equilateral angle model
 (each triangle corner contributes π/3):
-angle_defect(g) = 5π · χ(g)
+
+                                  angle_defect(g) = 5π · χ(g)
+
 where χ(g) = V − E + F is the Euler characteristic (vertices minus edges plus faces), and
 angle_defect(g) is the sum over all vertices of 2π minus the total incident angle. This is a
 fully proven combinatorics result about the discrete triangulation model. It is not the continuum
 Gauss-Bonnet theorem and it is not a derivation of angles from µ-cost. Zero Admitted.
+
 Remark 18.2 (How this differs from classical Gauss-Bonnet). The factor 5π is not a typo
 and not the classical Gauss-Bonnet constant. For a closed triangulated 2-manifold (like
 the surface of a tetrahedron), the standard derivation gives D = 2πχ: every interior edge is
@@ -1085,63 +1181,65 @@ with χ = V − E + F yields D = 2πχ. The Coq predicate well_formed_triangulat
 include 3F = 2E. It instead requires satisfies_boundary_euler_relation (B = 3χ, where
 B is the boundary edge count) together with E = I + B and 3F = 2I + B. From these the file
 derives the combinatorial identity 3V = 5E − 6F , which in turn forces D = 5πχ.
-That identity holds for planar triangulations with boundary (the canonical example: a
+    That identity holds for planar triangulations with boundary (the canonical example: a
 planar disk with V = 7, E = 15, F = 9, χ = 1, satisfying 3V = 21 = 5E − 6F and D = 5π). It
 fails for closed surfaces (the tetrahedron has V = 4, E = 6, F = 4, but 3V = 12 ̸= 6 = 5E − 6F ,
 so it is excluded from the predicate). The theorem is therefore not a discrete Gauss-Bonnet
 theorem in the classical sense — it is a different combinatorial identity for a different family
 of complexes. The two coexist: classical Gauss-Bonnet at 2πχ for closed 2-manifolds, the file’s
 identity at 5πχ for planar disks satisfying its well-formedness predicate.
-This is the full extent of the topology-curvature identity in the project.
+    This is the full extent of the topology-curvature identity in the project.
 
-18.4.1
-
-Cross-link in MuGravity Vocabulary
-
+18.4.1    Cross-link in MuGravity Vocabulary
 Theorem 18.4 (Graph-Laplacian Sum-Zero Identity (coq/kernel/frontier/F3_MuLaplacianSum.v)
 — (S)). For every VMState s:
-mu_laplacian(s, m) = 0.
 
-X
-m∈pg_modules(vm_graph s)
+                                                   mu_laplacian(s, m) = 0.
+                                  X
+
+                        m∈pg_modules(vm_graph s)
 
 Proof by edge-pair antisymmetry. nat_list_disjoint is symmetric, hence modules_adjacent_by_region
 is symmetric, hence edge_weight is symmetric; mu_gradient is antisymmetric by definition;
 the double sum cancels under the Fubini swap. No well-formedness, no calibration. Standalone
 graph-theoretic fact.
+
 Theorem 18.5 (F3 Narrow Cross-link (coq/kernel/frontier/F3_PartitionTopologyCrossLink.v)
 — (S)). For every VMState s at universal local calibration (∀m, calibration_residual(s, m) =
 0):
-X
-geometric_angle_defect(s, m) = 0.
-m∈pg_modules(vm_graph s)
+                                         geometric_angle_defect(s, m) = 0.
+                           X
+
+                  m∈pg_modules(vm_graph s)
 
 The proof composes two independent kernel facts: calibration_residual_zero_iff (geometry
 ↔ µ-ledger at every module) and total_mu_laplacian_zero (Theorem 18.4). Both ingredients
 are load-bearing — drop counter-instances F3_drop_calibration_breaks_prediction and
 F3_drop_sum_zero_breaks_prediction retained.
-Remark 18.3 (Why this is not the topology version). An earlier form of this cross-link
-P
-concluded m mu_laplacian = 5 · χ by composing the discrete angle-defect identity (Theorem 18.4) with a sum-form calibration. That composition silently identifies two distinct
-30
 
+Remark 18.3 (Why this is not the topology version). An earlier form of this cross-link
+concluded m mu_laplacian = 5 · χ by composing the discrete angle-defect identity (The-
+          P
+
+orem 18.4) with a sum-form calibration. That composition silently identifies two distinct
+
+                                               32
 angle-defect quantities: DiscreteGaussBonnet.angle_defect (degree × π/3, equilateral) and
 MuGravity.geometric_angle_defect (distance-weighted, π · dbc /(1 + dab + dac + dbc )). They are
 not equal in general: strong_bridge_counterexample (in the same file) formalises a degree-6
 vertex at uniform inter-module distance d ≥ 1 where the Gauss-Bonnet defect is 0 and the
 MuGravity defect is 2π/(1 + 3d) ̸= 0. The narrow form drops the topology invariant. Discrete
 Gauss-Bonnet remains a kernel theorem; it is simply not load-bearing for this cross-link.
-Non-vacuity is open. Symbolic search across small actually-triangulated graphs (K4 ,
+    Non-vacuity is open. Symbolic search across small actually-triangulated graphs (K4 ,
 K4 − e, octahedron, prism, K5 , B3 , K6 , K7 ) up to N = 7 returns no integer-mass calibrated
 solution; structural analysis identifies three failure modes (insufficient triangles, excess triangles,
 asymptotic-only target reachability). module_triangles was tightened in MuGravity.v to
-require pairwise-adjacent neighbors (an actual graph triangle), eliminating tree-shaped pseudowitnesses.
+require pairwise-adjacent neighbors (an actual graph triangle), eliminating tree-shaped pseudo-
+witnesses.
 
-18.5
 
-Four-Dimensional Spacetime Geometry (Reference Only,
-Not a Main Claim)
-
+18.5      Four-Dimensional Spacetime Geometry (Reference Only,
+          Not a Main Claim)
 Remark 18.4 (Scope Warning). The following subsections define discrete differential geometry
 objects (simplicial complex, metric tensor, Christoffel symbols, Riemann tensor, Einstein tensor)
 over partition graphs and prove results about the vacuum case Gµν = 0 = Tµν . This is a 0 = 0
@@ -1150,310 +1248,219 @@ of Einstein’s field equations from computation. The gravitational constant G :
 choice (a definition), not a derived quantity. No physical claim is being made. The geometry
 section’s main result is the Discrete Gauss-Bonnet theorem (Section 18.4). Everything in this
 section is marked reference-only and does not appear in the primary claim ledger.
-The previous sections treated spacetime as a 1D projection via the µ-metric. The next
+
+   The previous sections treated spacetime as a 1D projection via the µ-metric. The next
 subsections extend to full 4D geometry as a reference exploration. None of the results here are
 part of the core formal claims of the project.
 
-18.5.1
-
-4D Simplicial Complex
-
+18.5.1    4D Simplicial Complex
 Definition 18.3 (4D Simplicial Complex (FourDSimplicialComplex.v)). A 4D simplicial
 complex K is a discrete approximation to 4D spacetime consisting of:
-• Vertices V : Computational modules (ModuleID)
-• Edges E ⊆ V × V : Connections between modules
-• Simplices: 2-simplices (triangles), 3-simplices (tetrahedra), 4-simplices (4D cells)
+
+   • Vertices V : Computational modules (ModuleID)
+
+   • Edges E ⊆ V × V : Connections between modules
+
+   • Simplices: 2-simplices (triangles), 3-simplices (tetrahedra), 4-simplices (4D cells)
+
 The complex satisfies:
-• Consistency: Every face of a simplex is also in K
-• Well-formedness: Dimension 4 with locally Euclidean structure
 
-18.5.2
+   • Consistency: Every face of a simplex is also in K
 
-Metric Tensor from µ-Costs
+   • Well-formedness: Dimension 4 with locally Euclidean structure
 
+18.5.2    Metric Tensor from µ-Costs
 Definition 18.4 (Computational Metric (MetricFromMuCosts.v, RiemannTensor4D.v)). The
 metric tensor at vertex v with respect to vertices w1 , w2 is:
-ℓ(v, w1 , w2 ) if µ = ν
-0
-if µ ̸= ν
 
-(
+                                                   ℓ(v, w1 , w2 ) if µ = ν
+                                                   (
+                             gµν (v; w1 , w2 ) =                                                (18.1)
+                                                   0              if µ ̸= ν
 
-gµν (v; w1 , w2 ) =
 
-31
-
-(18.1)
-
+                                                       33
 where the edge length function is:
-ℓ(s, v1 , v2 ) = 2 · mass(v1 )
-
-if v1 = v2
-
-(18.2)
-
+                              ℓ(s, v1 , v2 ) = 2 · mass(v1 )     if v1 = v2                    (18.2)
 and mass is derived from structural complexity: mass(v) = |module_structural_mass(s, v)|.
 Remark 18.5. This metric is position-dependent for non-uniform mass distributions:
-• Uniform mass m: gµµ (v; w, w) = 2m (constant) =⇒ flat spacetime
-• Non-uniform mass: gµµ (v; w, w) varies with w =⇒ curved spacetime
+  • Uniform mass m: gµµ (v; w, w) = 2m (constant) =⇒ flat spacetime
+  • Non-uniform mass: gµµ (v; w, w) varies with w =⇒ curved spacetime
 In this model, mass distributions create position-dependent geometry: uniform mass gives flat
 spacetime, non-uniform mass gives curved spacetime.
 
-18.5.3
-
-Discrete Differential Geometry
-
+18.5.3    Discrete Differential Geometry
 Definition 18.5 (Discrete Derivative (RiemannTensor4D.v)). For a scalar field f : V → R and
 direction µ:
-X
-
-1
-∂µ f (v) =
-f (w) − f (v)
-(18.3)
-|Nµ (v)| w∈N (v)
-µ
+                                        1
+                          ∂µ f (v) =                  f (w) − f (v)                   (18.3)
+                                                X                   
+                                     |Nµ (v)| w∈N (v)
+                                                           µ
 
 where Nµ (v) is the set of neighbors of v in the µ-direction.
 Definition 18.6 (Christoffel Symbols (RiemannTensor4D.v)). The connection coefficients
 (Christoffel symbols of the second kind) are:
-
-1 X ρσ 
-Γρµν (v) =
-g (v) ∂µ gνσ (v) + ∂ν gµσ (v) − ∂σ gµν (v)
-(18.4)
-2 σ
+                               1 X ρσ                                        
+                    Γρµν (v) =     g (v) ∂µ gνσ (v) + ∂ν gµσ (v) − ∂σ gµν (v)   (18.4)
+                               2 σ
 where g ρσ is the inverse metric (diagonal in this construction).
 Lemma 18.6 (Flat Spacetime Has Zero Connection (EinsteinEquations4D.v) — (S)). For
 uniform mass distribution:
-∀w, mass(w) = m
-
-=⇒
-
-Γρµν (v) = 0
-
-(18.5)
-
+                            ∀w, mass(w) = m                =⇒    Γρµν (v) = 0                  (18.5)
 Proof. Uniform mass =⇒ position-independent metric =⇒ ∂µ gνσ = 0 =⇒ Γρµν = 0.
 
-18.5.4
-
-Curvature Tensors
-
+18.5.4    Curvature Tensors
 Definition 18.7 (Riemann Curvature Tensor (RiemannTensor4D.v)). The Riemann curvature
 tensor measures the failure of parallel transport:
-ρ
-Rσµν
-(v) = ∂µ Γρνσ (v) − ∂ν Γρµσ (v)
-
-+
-
-X ρ
-
-
-
-Γµλ (v)Γλνσ (v) − Γρνλ (v)Γλµσ (v)
-
-(18.6)
-
-λ
-
+                         ρ
+                        Rσµν (v) = ∂µ Γρνσ (v) − ∂ν Γρµσ (v)
+                                         X ρ                                     
+                                     +       Γµλ (v)Γλνσ (v) − Γρνλ (v)Γλµσ (v)                (18.6)
+                                         λ
 Definition 18.8 (Ricci Tensor (RiemannTensor4D.v)). Contraction of the Riemann tensor:
-Rµν (v) =
-
-X
-
-ρ
-Rµρν
-(v)
-
-(18.7)
-
-ρ
+                                         Rµν (v) =              (v)                            (18.7)
+                                                      X
+                                                            ρ
+                                                           Rµρν
+                                                       ρ
 
 Definition 18.9 (Ricci Scalar (RiemannTensor4D.v)). Complete contraction:
-R(v) =
+                                     R(v) =           g µν (v)Rµν (v)                          (18.8)
+                                               X
 
-X
+                                                µ,ν
 
-g µν (v)Rµν (v)
-
-(18.8)
-
-µ,ν
-
-Definition 18.10 (Einstein Tensor (RiemannTensor4D.v)). The Einstein tensor encodes spacetime curvature:
-1
-Gµν (v) = Rµν (v) − gµν (v)R(v)
-(18.9)
-2
+Definition 18.10 (Einstein Tensor (RiemannTensor4D.v)). The Einstein tensor encodes space-
+time curvature:
+                                                1
+                             Gµν (v) = Rµν (v) − gµν (v)R(v)                        (18.9)
+                                                2
 Lemma 18.7 (Flat Spacetime Has Zero Curvature (EinsteinEquations4D.v) — (S)). For
 uniform mass:
-∀w, mass(w) = m
+                ∀w, mass(w) = m          =⇒       ρ
+                                                 Rσµν (v) = 0           =⇒      Gµν (v) = 0   (18.10)
 
-=⇒
+                                                      34
+18.5.5    Stress-Energy Tensor
+Definition 18.11 (Energy Density (EinsteinEquations4D.v)). The energy density is the compu-
+tational mass:
+                                    T00 (v) = mass(v)                                (18.11)
 
-ρ
-Rσµν
-(v) = 0
-
-32
-
-=⇒
-
-Gµν (v) = 0
-
-(18.10)
-
-18.5.5
-
-Stress-Energy Tensor
-
-Definition 18.11 (Energy Density (EinsteinEquations4D.v)). The energy density is the computational mass:
-T00 (v) = mass(v)
-(18.11)
 Definition 18.12 (Momentum Density (EinsteinEquations4D.v)). Spatial derivatives of energy:
-T0i (v) = Ti0 (v) = ∂i T00 (v)
 
-(18.12)
+                                      T0i (v) = Ti0 (v) = ∂i T00 (v)                   (18.12)
 
 Definition 18.13 (Stress Components (EinsteinEquations4D.v)). Spatial stress tensor:
-mass(v)
-0
 
-(
-
-Tij (v) =
-
-if i = j
-if i ̸= j
-
-(18.13)
+                                                 mass(v)        if i = j
+                                                 (
+                                  Tij (v) =                                            (18.13)
+                                                 0              if i ̸= j
 
 Definition 18.14 (Stress-Energy Tensor (EinsteinEquations4D.v)). Combining all components:
+                                      
+                                      
+                                      
+                                      T00 (v)       if µ = ν = 0
+                                      
+                                      T (v)
+                                      
+                                                     if µ = 0, ν = i or µ = i, ν = 0
+                                            0i
+                    Tµν (s, K, v) =                                                    (18.14)
+                                      
+                                      
+                                      Tij (v)       if µ = i, ν = j
+                                        0            otherwise
+                                      
+                                      
+                                      
 
-Tµν (s, K, v) =
 
-
-
-T00 (v)
-
-
-
-
-T (v)
-0i
-
-
-Tij (v)
-
-
-
-
-
-
-0
-
-18.5.6
-
-if µ = ν = 0
-if µ = 0, ν = i or µ = i, ν = 0
-if µ = i, ν = j
-otherwise
-
-(18.14)
-
-Einstein’s Field Equations
-
+18.5.6    Einstein’s Field Equations
 Definition 18.15 (Gravitational Constant (EinsteinEquations4D.v)). In computational units
 where the fundamental scale is set by µ-costs:
-G=
-
-1
-8π
-
-(18.15)
-
+                                                            1
+                                                 G=                                    (18.15)
+                                                           8π
 This makes 8πG = 1, normalizing the coupling in Einstein’s equations.
+
 Lemma 18.8 (Curvature from µ-Gradients (EinsteinEquations4D.v) — (S)). For uniform
 mass distribution:
-∀w, mass(w) = m
-=⇒
-Gµν (v) = 0
-(18.16)
-Proof. The proof chain is:
-1. Uniform mass =⇒ position-independent metric
-2. Position-independent metric =⇒ zero discrete derivatives ∂µ gνσ = 0
-3. Zero metric derivatives =⇒ zero Christoffel symbols Γρµν = 0
-ρ
-4. Zero Christoffel =⇒ zero Riemann tensor Rσµν
-=0
+                      ∀w, mass(w) = m    =⇒     Gµν (v) = 0                 (18.16)
 
-5. Zero Riemann =⇒ zero Ricci tensor and scalar
-6. Zero Ricci =⇒ zero Einstein tensor Gµν = 0
+Proof. The proof chain is:
+
+  1. Uniform mass =⇒ position-independent metric
+
+  2. Position-independent metric =⇒ zero discrete derivatives ∂µ gνσ = 0
+
+  3. Zero metric derivatives =⇒ zero Christoffel symbols Γρµν = 0
+
+  4. Zero Christoffel =⇒ zero Riemann tensor Rσµν
+                                              ρ   =0
+
+  5. Zero Riemann =⇒ zero Ricci tensor and scalar
+
+  6. Zero Ricci =⇒ zero Einstein tensor Gµν = 0
+
 All steps are proven constructively in EinsteinEquations4D.v.
+
 Lemma 18.9 (Vacuum Implies Zero Stress-Energy (EinsteinEquations4D.v) — (S)). For
 vacuum states (zero mass everywhere):
-∀w, mass(w) = 0
 
-=⇒
+                             ∀w, mass(w) = 0               =⇒     Tµν (v) = 0          (18.17)
 
 Proof. Direct computation:
-33
 
-Tµν (v) = 0
+                                                      35
+   • T00 = mass = 0
 
-(18.17)
+   • T0i = ∂i (mass) = ∂i (0) = 0
 
-• T00 = mass = 0
-• T0i = ∂i (mass) = ∂i (0) = 0
-• Tij = δij · mass = δij · 0 = 0
+   • Tij = δij · mass = δij · 0 = 0
+
+
 
 Theorem 18.10 (Vacuum Case: Both Sides Are Zero (coq/kernel/curvature/EinsteinEquations4D.v)
 — (R)). For any VM state s, 4D simplicial complex K, spacetime indices µ, ν, and vertex v:
-∀w, mass(w) = 0
 
-=⇒
-
-Gµν (s, K, v) = 8πG Tµν (s, K, v)
-
-(18.18)
+                   ∀w, mass(w) = 0       =⇒      Gµν (s, K, v) = 8πG Tµν (s, K, v)           (18.18)
 
 Honest status: this is 0 = 0. Both sides equal zero in vacuum because all masses vanish. The
 gravitational constant G := 1/(8π) is a definition (unit choice), not a derived quantity. This is
 not a derivation of Einstein’s field equations. It is a consistency check that the discrete geometric
 objects reduce correctly when mass is everywhere zero. The non-vacuum case is not proven. This
 theorem does not appear in the primary claim ledger of the project.
+
 Proof. Step 1: Expand the right-hand side using G = 1/(8π):
-8πG Tµν = 8π ·
+                                                    1
+                                  8πG Tµν = 8π ·      · Tµν = Tµν                            (18.19)
+                                                   8π
+   Step 2: Apply Lemma 18.8 (curvature from µ-gradients):
+   Vacuum (mass = 0 everywhere) is a special case of uniform mass distribution, so:
 
-1
-· Tµν = Tµν
-8π
+                                            Gµν (v) = 0                                      (18.20)
 
-(18.19)
+    Step 3: Apply Lemma 18.9 (stress-energy conservation):
+    For vacuum:
+                                       Tµν (v) = 0                                           (18.21)
+    Conclusion: Both sides equal zero:
 
-Step 2: Apply Lemma 18.8 (curvature from µ-gradients):
-Vacuum (mass = 0 everywhere) is a special case of uniform mass distribution, so:
-Gµν (v) = 0
-Step 3: Apply Lemma 18.9 (stress-energy conservation):
-For vacuum:
-Tµν (v) = 0
+                                              0=0 ✓                                          (18.22)
 
-(18.20)
+   The complete proof is formalized in coq/kernel/curvature/EinsteinEquations4D.v with:
 
-(18.21)
+   • No project-local axioms
 
-Conclusion: Both sides equal zero:
-0=0 ✓
+   • Zero admitted lemmas
 
-(18.22)
+   • Zero classical logic imports
 
-The complete proof is formalized in coq/kernel/curvature/EinsteinEquations4D.v with:
-• No project-local axioms
-• Zero admitted lemmas
-• Zero classical logic imports
-• Verified by automated proof auditing (Inquisitor: 0 HIGH findings)
+   • Verified by automated proof auditing (Inquisitor: 0 HIGH findings)
+
+
 
 Remark 18.6 (Vacuum vs. Non-Vacuum). Theorem 18.10 requires the vacuum hypothesis
 (mass = 0 everywhere). For non-vacuum states with arbitrary mass distributions, the equation
@@ -1461,10 +1468,11 @@ Gµν = 8πGTµν only holds when the distribution satisfies discrete Bianchi id
 laws). This is analogous to classical general relativity, where Einstein’s equations are field
 equations that constrain which configurations are physically possible, not universal identities
 satisfied by all states.
-The vacuum case is sufficient to demonstrate that spacetime curvature emerges from computational dynamics. The non-vacuum case requires discrete differential geometry beyond the
+    The vacuum case is sufficient to demonstrate that spacetime curvature emerges from com-
+putational dynamics. The non-vacuum case requires discrete differential geometry beyond the
 current formalization (specifically, discrete covariant derivatives and discrete Bianchi identities).
-34
 
+                                                 36
 Remark 18.7 (Epistemological Status: (R) Consistency Relation). This is a (R) result: the
 vacuum theorem reduces to 0 = 0 (both sides vanish when all masses are zero; the gravitational
 constant is a definition). It establishes that the discrete geometric objects are internally consistent
@@ -1472,6 +1480,7 @@ in the zero-mass case. It does not establish that spacetime geometry emerges fro
 in any physically meaningful sense; that would require the A_QM named hypothesis and is an
 open empirical question. The non-vacuum case (the full Einstein field equations for arbitrary
 mass distributions) is not proved and is not a claim of this project.
+
 Remark 18.8. The discrete geometric objects (metric, curvature, Einstein tensor) are defined
 from computational primitives. In the vacuum case (all masses zero) they all reduce to zero.
 This is a consistency check, not a derivation of spacetime emergence. The claim that spacetime
@@ -1479,34 +1488,36 @@ geometry is an emergent property of computation would require more: a non-trivia
 case, a connection to physical observations, and the named A_QM bridge. None of those are
 present here.
 
-18.5.7
-
-Empirical Validation
-
+18.5.7     Empirical Validation
 The theoretical results are validated numerically:
+
 Theorem 18.11 (Numerical Verification (tests/test_*) — Empirical).
-1. Flat spacetime (uniform mass m = 1):
-• max |Γρµν | < 10−10 ✓
-ρ | < 10−10 ✓
-• max |Rσµν
 
-• max |Gµν | < 10−10 ✓
-2. Curved spacetime (non-uniform mass m ∈ [0.5, 1.5]):
-• max |Γρµν | ≈ 3.0 ✓ (curvature detected)
-ρ |>0 ✓
-• max |Rσµν
+   1. Flat spacetime (uniform mass m = 1):
 
-3. Vacuum Einstein equations (mass = 0):
-• |Gµν | < 10−10 ✓
-• |Tµν | < 10−10 ✓
-• |Gµν − 8πGTµν | < 10−10 ✓
-These tests confirm that the discrete differential geometry correctly implements the theoretical
+         • max |Γρµν | < 10−10 ✓
+         • max |Rσµν
+                 ρ | < 10−10 ✓
+
+         • max |Gµν | < 10−10 ✓
+
+   2. Curved spacetime (non-uniform mass m ∈ [0.5, 1.5]):
+
+         • max |Γρµν | ≈ 3.0 ✓ (curvature detected)
+         • max |Rσµν
+                 ρ |>0 ✓
+
+
+   3. Vacuum Einstein equations (mass = 0):
+
+         • |Gµν | < 10−10 ✓
+         • |Tµν | < 10−10 ✓
+         • |Gµν − 8πGTµν | < 10−10 ✓
+
+   These tests confirm that the discrete differential geometry correctly implements the theoretical
 predictions.
 
-18.5.8
-
-Affine Metric-Scaled Operator: Non-Uniform Boundary Results
-
+18.5.8     Affine Metric-Scaled Operator: Non-Uniform Boundary Results
 The first-neighbor discrete operator refutes the non-uniform diagonal extension of the EFE. A
 signed affine metric-scaled redesign closes the gap at vertex 1 and fully characterizes the outer
 vertices.
@@ -1514,142 +1525,169 @@ vertices.
 Theorem 18.12 (Affine Off-Diagonal Ricci Zero (kernel/AffineEFEClosure.v) — (S)). affine_off_diagonal_r
 Under the affine metric-scaled symmetric operator, with the non-uniform isotropic boundary
 4-simplex metric, off-diagonal Ricci vanishes at vertex 1: Rµν (v1 ) = 0 for µ =
-̸ ν. Zero Admitted.
+                                                                               ̸ ν. Zero Admitted.
 Zero Section Variables.
 
-35
 
+
+
+                                                  37
 Theorem 18.13 (Full Tensor EFE at Vertex 1 (kernel/AffineEFEClosure.v) — (S)). affine_full_tensor_efe:
 Under module_structural_mass s 1 = 1 (unit structural mass at vertex 1), the full tensor
 Einstein field equation holds:
-Gµν (v1 ) = 3 · Tµν (v1 )
+                                  Gµν (v1 ) = 3 · Tµν (v1 )
 for all µ, ν ∈ {0, 1, 2, 3}. Zero Admitted.
+
 Theorem 18.14 (Outer Vertex Characterization (kernel/AffineEFEClosure.v) — (S)). At the
 outer vertices v ∈ {0, 2, 3, 4} of the boundary 4-simplex, the affine operator produces:
-• affine_ricci_offdiag_outer: Off-diagonal Ricci = 3/32 (non-zero).
-• affine_ricci_diag_outer: Diagonal Ricci = −45/32.
-• affine_ricci_scalar_outer: Ricci scalar = −45/8.
-• affine_einstein_outer: Einstein tensor = 45/32 (diagonal) and 3/32 (off-diagonal).
-• affine_efe_fails_outer_offdiag: The diagonal EFE form G = 3T fails at outer
-vertices because G has non-zero off-diagonal components.
+
+   • affine_ricci_offdiag_outer: Off-diagonal Ricci = 3/32 (non-zero).
+
+   • affine_ricci_diag_outer: Diagonal Ricci = −45/32.
+
+   • affine_ricci_scalar_outer: Ricci scalar = −45/8.
+
+   • affine_einstein_outer: Einstein tensor = 45/32 (diagonal) and 3/32 (off-diagonal).
+
+   • affine_efe_fails_outer_offdiag: The diagonal EFE form G = 3T fails at outer
+     vertices because G has non-zero off-diagonal components.
+
 The affine factor 8 − 5g00 is specifically tuned to the center vertex geometry; at outer vertices it
 produces a non-trivial off-diagonal Einstein tensor. Zero Admitted.
+
 Remark 18.9 (What Remains Open). The affine operator closes vertex 1 and characterizes the
 outer vertices. The remaining open question is whether the affine factor 8 − 5g00 is the correct
 physical discretization. That requires connecting the discrete operator to a physical substrate —
 not a Coq question, an empirical one.
 
-36
 
+
+
+                                                38
 Chapter 19
 
 Information Causality
+
 Theorem 19.1 (IC–µ Equivalence (InformationCausality.v) — (R)). The file defines two record
 types (ICScenario and MuScenario) with opaque Prop fields, then proves they are equivalent
 given a hypothesis (ic_mu_equivalent) that literally states the equivalence. The proof is tauto.
 No mutual information, probability distributions, or CHSH values appear anywhere in the
 formalization.
+
 Remark 19.1. The intended statement — that Bob’s total information about Alice’s data is
 bounded by the channel’s µ-capacity — is a reasonable physical claim but is not formalized in
 the Coq file. The current file is a placeholder that assumes the conclusion as a hypothesis and
 re-derives it. A future version would need to define entropy, mutual information, and prove the
 bound from the VM semantics.
 
-37
 
+
+
+                                              39
 Chapter 20
 
 Thermodynamic Bridge
-20.1
 
-Landauer’s Principle
-
+20.1     Landauer’s Principle
 Theorem 20.1 (Landauer Derived (LandauerDerived.v)).
-1. erasure_irreversible: Erasing ≥ 1 bit implies fan-in = 2k > 1 (arithmetic: 2k > 1 for
-k ≥ 1).
-2. erasure_decreases_entropy: Erasure decreases system entropy (∆S < 0) — this is just
-output < input ⇒ output − input < 0.
-3. landauer_information_bound: For any physical erasure, environment entropy increase
-≥ bits erased.
-4. erasure_additive: Sequential erasures compose additively.
-Caveat on item 3: The PhysicalErasure record has second_law_satisfied as a field,
+   1. erasure_irreversible: Erasing ≥ 1 bit implies fan-in = 2k > 1 (arithmetic: 2k > 1 for
+      k ≥ 1).
+   2. erasure_decreases_entropy: Erasure decreases system entropy (∆S < 0) — this is just
+      output < input ⇒ output − input < 0.
+   3. landauer_information_bound: For any physical erasure, environment entropy increase
+      ≥ bits erased.
+   4. erasure_additive: Sequential erasures compose additively.
+    Caveat on item 3: The PhysicalErasure record has second_law_satisfied as a field,
 not a derived property. The theorem landauer_information_bound simply extracts this field,
 making the bound an input assumption rather than a derivation. The physical energy bound
 Q ≥ kB T ln 2 · n is explicitly not proven (the file itself notes the conversion factor is not
 formalized). Also, the mu in this file is a standalone synonym for bits_erased—it has no formal
 connection to vm_mu in VMState.v.
 
-20.2
 
-A2 from Landauer (Factored Form)
-
+20.2     A2 from Landauer (Factored Form)
 Theorem 20.2 (F1 Strong Form: A2 via Physical Landauer (coq/kernel/frontier/F1_StrongForm.v)
-— (C)). Given an abstract dissipation function ϕ : vm_instruction → N (interpreted as dissipation per step in Landauer quanta), if
-1. Landauer’s principle holds in dissipation vocabulary — every class-collapsing step on
-any bool macro-property has ϕ(i) ≥ 1, and
-2. the named bridge cost_dissipation_calibrated holds — instruction_cost(i) ≥ ϕ(i) for
-every i,
-then on every cert-flip step instruction_cost(i) ≥ 1. The Landauer premise mentions only classcollapse and dissipation; instruction_cost appears only in the calibration. Both ingredients
+— (C)). Given an abstract dissipation function ϕ : vm_instruction → N (interpreted as dissipa-
+tion per step in Landauer quanta), if
+   1. Landauer’s principle holds in dissipation vocabulary — every class-collapsing step on
+      any bool macro-property has ϕ(i) ≥ 1, and
+   2. the named bridge cost_dissipation_calibrated holds — instruction_cost(i) ≥ ϕ(i) for
+      every i,
+then on every cert-flip step instruction_cost(i) ≥ 1. The Landauer premise mentions only class-
+collapse and dissipation; instruction_cost appears only in the calibration. Both ingredients
 are independent and load-bearing: dropping either leaves the conclusion unprovable.
-The factorisation is what F1 buys. The strict reading of “derive A2 from physical reversibility,
+    The factorisation is what F1 buys. The strict reading of “derive A2 from physical reversibility,
 with no cost-language anywhere in the premise” is unattainable: A2’s conclusion is itself a cost
 statement, so any unit-conversion bridge necessarily mentions cost (the same shape Newton’s
 laws + Newtons take). The factored form isolates the cost interface to a single named calibration,
 leaving the Landauer principle in dissipation vocabulary alone.
-38
 
+                                                40
 Chapter 21
 
 Self-Reference and the Thiele
 Manifold
-21.1
 
-Self-Reference Escalation
-
+21.1      Self-Reference Escalation
 Theorem 21.1 (Gödel-Style Escalation (SelfReference.v)). Any self-referential system S requires
 a meta-system Meta with strictly more dimensions:
-self_ref(S) =⇒ ∃ Meta : dim(Meta) > dim(S)
+
+                        self_ref(S) =⇒ ∃ Meta : dim(Meta) > dim(S)
+
 The meta-system inherits self-reference, creating an infinite escalation.
 
-21.2
 
-The Thiele Manifold
-
+21.2      The Thiele Manifold
 Definition 21.1 (Thiele Manifold (ThieleManifold.v)). An infinite tower of systems {Ln }n∈N
 with:
-• dim(Ln ) = 4 + n (level n has dimension 4 + n).
-• dim(Ln+1 ) > dim(Ln ) (strict enrichment).
-• Each level reasons about the level below.
-• Self-reference at level n is answered by level n + 1.
+
+   • dim(Ln ) = 4 + n (level n has dimension 4 + n).
+
+   • dim(Ln+1 ) > dim(Ln ) (strict enrichment).
+
+   • Each level reasons about the level below.
+
+   • Self-reference at level n is answered by level n + 1.
+
 Theorem 21.2 (Projection to Spacetime (ThieleManifold.v)). The projection π4 collapses the
 tower to dimension 4 (spacetime). For n > 0:
-• π4 is lossy: dim(Ln ) > 4.
-• µ-cost of projection = dim(Ln ) − 4 = n > 0.
+
+   • π4 is lossy: dim(Ln ) > 4.
+
+   • µ-cost of projection = dim(Ln ) − 4 = n > 0.
+
 Spacetime is the “shadow” of the full manifold.
 
-39
 
+
+
+                                               41
 Chapter 22
 
 Three-Layer Isomorphism
+
 Theorem 22.1 (Observable Comparison Contract (ThreeLayerIsomorphism.v)). The active Coq
 theorem packages the observable-state contract used for cross-layer comparison: if the chosen
 Python and RTL decoders satisfy the same projection contract as the Coq layer, then the decoded
 observable states agree on that projection for a shared trace τ .
+
 decodePython (τ ) = decodeCoq (τ ) ∧ decodeRTL (τ ) = decodeCoq (τ ) =⇒ decodePython (τ ) = decodeRTL (τ )
+
 This is a contract theorem over explicit observable projections, not an unconditional claim that
 every current Python and RTL artifact is universally equal to Coq in all CI environments.
 
-22.1
 
-RTL Coverage: Zero Gaps
-
+22.1     RTL Coverage: Zero Gaps
 Theorem 22.2 (RTL Gap Registry Empty (kami_hw/RTLGapRegistry.v) — (S)). rtl_gap_count:
 The RTL gap registry is empty. There are zero unresolved coverage gaps between the Kami
 hardware specification and the Coq kernel semantics:
-rtl_gap_count = 0
+
+                                       rtl_gap_count = 0
+
 rtl_coverage_partition: The 46-opcode ISA partitions as:
+
 36 (unconditional Qed)+10 (Qed under inductive invariants coupling_wf, morph_table_wf)+0 (gaps) = 46
+
 This is a Coq theorem (rtl_coverage_partition in coq/kami_hw/RTLGapRegistry.v), not a
 comment. The partition equation is machine-checked. Zero Admitted.
 
@@ -1658,7 +1696,8 @@ is 36 + 10 + 0 = 46. The 36 unconditional proofs are: 30 from the SupportedOpcod
 group (coq/kami_hw/EmbedStep.v: embed_step_compute) plus CALL, RET, CHSH_TRIAL
 (coq/kami_hw/EmbedStep_WF.v) and TENSOR_SET, TENSOR_GET, LASSERT (coq/kami_hw/GraphRecons
 The remaining 10 (PNEW, PSPLIT, PMERGE, MORPH, MORPH_ID, MORPH_DELETE,
-MORPH_ASSERT, MORPH_GET, COMPOSE, MORPH_TENSOR) carry Qed proofs under the joint structural invariant morph_table_wf ∧ coupling_wf ∧ coupling_desc_safe.
+MORPH_ASSERT, MORPH_GET, COMPOSE, MORPH_TENSOR) carry Qed proofs un-
+der the joint structural invariant morph_table_wf ∧ coupling_wf ∧ coupling_desc_safe.
 Each component is preserved by every kami_step: morph_table_wf_kami_step_preserved,
 coupling_desc_safe_kami_step_preserved, and coupling_wf_kami_step_preserved. The
 last takes coupling_desc_safe as a side hypothesis (in addition to coupling_wf), which is why
@@ -1666,191 +1705,210 @@ the conjunction is the actual inductive invariant. So the precondition is discha
 reachable by machine execution. PNEW/PSPLIT/PMERGE additionally need pt_well_formed
 and arithmetic side conditions that are likewise inductive.
 
-40
 
-22.2
 
-Named Trust Boundaries
-
+                                                42
+22.2     Named Trust Boundaries
 The project has exactly two named trust boundaries. They are not Admitted proofs. They are
 explicit, auditable limits of the formal claim.
 
-bsc_kami_compilation_trusted (Layer 2, Verilog semantics gap). The Bluespec SystemVerilog compiler generates Verilog from the Kami hardware specification. The correctness of the
-BSC compilation step — that the generated Verilog implements exactly the Kami spec — is
-trusted, not proved in Coq. This is documented in coq/kernel/hardware_bridge/VerilogRTLCorrespond
-(Section 2b, “BSC Compilation Trust Boundary”) and the matching Definition bsc_kami_compilation_t
-The Section Variable rtl_step_correct states that the synthesised RTL implements the
-Kami step function; this is the residual hypothesis that every theorem in the section quantifies over. The boundary is empirically backed by the cosim suite (tests/test_verilog_cosim.py,
-38 tests, including test_all_46_opcodes_in_cosim which checks that every opcode appears) and the parametrized cross-layer fuzz suites (tests/test_fuzz_random_programs.py
-and tests/test_cross_layer_adversarial_fuzz.py).
-A_QM (physical quantum axiom). Whether a physical Thiele Machine can produce CHSHviolating statistics by exploiting quantum entanglement in hardware is an open empirical question. The column_contractive_iff_quantum_realizable biconditional (Theorem 17.1) requires no physical axiom — it is pure algebra. The physical quantum axiom
-A_QM (declared as a Context parameter in coq/PhysicsConditionalClosure.v) is the
-separate named hypothesis that quantum CHSH experiments produce PSD NPA matrices.
-It does not appear in the kernel-tier proof of the biconditional; it is the bridge used in
-conditional theorems such as master_tsirelson_conditional.
+bsc_kami_compilation_trusted (Layer 2, Verilog semantics gap). The Bluespec SystemVer-
+     ilog compiler generates Verilog from the Kami hardware specification. The correctness of the
+     BSC compilation step — that the generated Verilog implements exactly the Kami spec — is
+     trusted, not proved in Coq. This is documented in coq/kernel/hardware_bridge/VerilogRTLCorrespond
+     (Section 2b, “BSC Compilation Trust Boundary”) and the matching Definition bsc_kami_compilation_t
+     The Section Variable rtl_step_correct states that the synthesised RTL implements the
+     Kami step function; this is the residual hypothesis that every theorem in the section quanti-
+     fies over. The boundary is empirically backed by the cosim suite (tests/test_verilog_cosim.py,
+     38 tests, including test_all_46_opcodes_in_cosim which checks that every opcode ap-
+     pears) and the parametrized cross-layer fuzz suites (tests/test_fuzz_random_programs.py
+     and tests/test_cross_layer_adversarial_fuzz.py).
 
-41
+A_QM (physical quantum axiom). Whether a physical Thiele Machine can produce CHSH-
+     violating statistics by exploiting quantum entanglement in hardware is an open empiri-
+     cal question. The column_contractive_iff_quantum_realizable biconditional (Theo-
+     rem 17.1) requires no physical axiom — it is pure algebra. The physical quantum axiom
+     A_QM (declared as a Context parameter in coq/PhysicsConditionalClosure.v) is the
+     separate named hypothesis that quantum CHSH experiments produce PSD NPA matrices.
+     It does not appear in the kernel-tier proof of the biconditional; it is the bridge used in
+     conditional theorems such as master_tsirelson_conditional.
 
+
+
+
+                                              43
 Chapter 23
 
 Categorical Structure
-23.1
 
-The Morphism Layer
-
+23.1     The Morphism Layer
 The active implementation adds a concrete category directly to the machine state. This is not
 an abstract analogy — it is an executable layer of 7 opcodes (0x27–0x2D) with formally verified
 laws.
 
-23.1.1
-
-Objects and Morphisms
-
+23.1.1    Objects and Morphisms
 The partition graph G now carries two maps:
-• pg_modules : ModuleID ⇀ ModuleState — objects (partition modules)
-• pg_morphisms : MorphismID ⇀ MorphismState — arrows
-A MorphismState bundles: source module, target module, coupling data (list of (nat × nat)
+
+  • pg_modules : ModuleID ⇀ ModuleState — objects (partition modules)
+
+  • pg_morphisms : MorphismID ⇀ MorphismState — arrows
+
+    A MorphismState bundles: source module, target module, coupling data (list of (nat × nat)
 pairs plus a label), and an identity flag.
 
-23.1.2
+23.1.2    The Seven Categorical Opcodes
+  • MORPH(dst, src, tgt, idx, ∆µ): create morphism src → tgt, write morphism ID to regs[dst].
+    Costs ∆µ.
 
-The Seven Categorical Opcodes
+  • COMPOSE(dst, f, g, ∆µ): compose morphisms f ; g when f.target = g.source, write new ID
+    to regs[dst]. Costs ∆µ. Errors if endpoints mismatch.
 
-• MORPH(dst, src, tgt, idx, ∆µ): create morphism src → tgt, write morphism ID to regs[dst].
-Costs ∆µ.
-• COMPOSE(dst, f, g, ∆µ): compose morphisms f ; g when f.target = g.source, write new ID
-to regs[dst]. Costs ∆µ. Errors if endpoints mismatch.
-• MORPH_ID(dst, m, ∆µ): create identity morphism idm for module m (diagonal relation).
-Costs ∆µ.
+  • MORPH_ID(dst, m, ∆µ): create identity morphism idm for module m (diagonal relation).
+    Costs ∆µ.
 
-• MORPH_DELETE(f, ∆µ): remove morphism f . Cascades on module deletion via graph_cascade_delete_mor
-• MORPH_ASSERT(f, prop, cert, ∆µ): cert-setter. Costs S(∆µ) ≥ 1 unconditionally — even
-for failed attempts (morphism does not exist). This is the No Free Insight law applied to
-relational claims.
-• MORPH_TENSOR(dst, f, g, ∆µ): tensor product f ⊗ g. Requires that the union modules
-src(f ) ∪ src(g) and tgt(f ) ∪ tgt(g) already exist in the graph.
-• MORPH_GET(dst, f, sel, ∆µ): read field from morphism f : selector 0 = source, 1 = target, 2
-= coupling length, 3 = is_identity.
+  • MORPH_DELETE(f, ∆µ): remove morphism f . Cascades on module deletion via graph_cascade_delete_mor
 
-42
+  • MORPH_ASSERT(f, prop, cert, ∆µ): cert-setter. Costs S(∆µ) ≥ 1 unconditionally — even
+    for failed attempts (morphism does not exist). This is the No Free Insight law applied to
+    relational claims.
 
-23.1.3
+  • MORPH_TENSOR(dst, f, g, ∆µ): tensor product f ⊗ g. Requires that the union modules
+    src(f ) ∪ src(g) and tgt(f ) ∪ tgt(g) already exist in the graph.
 
-Category Laws
+  • MORPH_GET(dst, f, sel, ∆µ): read field from morphism f : selector 0 = source, 1 = target, 2
+    = coupling length, 3 = is_identity.
 
+
+
+
+                                              44
+23.1.3    Category Laws
 Theorem 23.1 (Relational Composition is Associative (kernel/CategoryLaws.v) — (S)). For
 any three morphisms f : A → B, g : B → C, h : C → D with composable endpoints:
-(f ; g); h = f ; (g; h)
+
+                                         (f ; g); h = f ; (g; h)
+
 in the relational sense (coupling pairs of the composite). Zero Admitted.
+
 Theorem 23.2 (Graph Composition Satisfies Laws (kernel/CategoryBridge.v) — (S)). The
 operation graph_compose_morphisms satisfies associativity and unitality. Additionally:
-categorical_extension_nofi_consistent
+
+                         categorical_extension_nofi_consistent
+
 MORPH and COMPOSE can carry ∆µ = 0 and are not in the mandatory-cost class. The NoFI
 policy enters through MORPH_ASSERT: asserting that a built morphism chain exists and activating
 the cert channel always costs S(∆µ) ≥ 1. You can build the chain for free; you cannot certify it
 for free.
+
 Theorem 23.3 (Tensor Bifunctoriality (kernel/CategoryMonoidal.v) — (S)). graph_tensor_morphisms
 is a bifunctor: it satisfies the interchange law
-(f ⊗ g); (h ⊗ k) = (f ; h) ⊗ (g; k)
+
+                                  (f ⊗ g); (h ⊗ k) = (f ; h) ⊗ (g; k)
+
 for composable, disjoint pairs.
 
-23.1.4
-
-The Categorical Separation Theorem
-
+23.1.4    The Categorical Separation Theorem
 Theorem 23.4 (Categorical Separation (kernel/PartitionSeparation.v, §10) — (S)). There
 exist states s1 , s2 such that:
+
 s1 .vm_regs = s2 .vm_regs ∧ s1 .vm_mem = s2 .vm_mem ∧ s1 .vm_mu = s2 .vm_mu ∧ s1 .vm_err = s2 .vm_err
+
 but s1 .vm_graph.pg_morphisms ̸= s2 .vm_graph.pg_morphisms.
+
 Proof. Construct s1 with pg_morphisms = [(0, ms)] for any morphism state ms, and s2 with
 pg_morphisms = []. Arrange identical vm_regs, vm_mem, vm_mu, vm_err by choosing costs and
 instruction sequences accordingly. Distinction by discriminate.
+
 Remark 23.1 (Significance). A classical machine (exposing only registers, memory, and a cost
 counter) cannot distinguish s1 from s2 . The Thiele Machine distinguishes them in one probe
 instruction: MORPH_DELETE 0 succeeds on s1 and errors on s2 . The categorical layer records how
 knowledge was derived, not just what the final values are.
-This is the machine’s claim to being a knowledge auditor: any party claiming to have verified
+    This is the machine’s claim to being a knowledge auditor: any party claiming to have verified
 a structural relation must carry a µ-receipt ≥ the minimum construction cost. The receipt is
 unforgeable by the NoFI theorem applied to MORPH_ASSERT.
 
-43
 
+
+
+                                                   45
 Chapter 24
 
 Falsifiable Predictions
+
 The honest falsifiable predictions are the structural theorems that compile or fail. The claims
 below identify specific mathematical conditions that would constitute counterexamples to the
 machine’s core theorems.
 
-24.1
 
-Falsify No Free Insight
-
+24.1     Falsify No Free Insight
 Find a Thiele Machine program trace that starts with vm_certified = false and µ = 0, ends
 with vm_certified = true, and ends with µ = 0. The Coq proof of certification_requires_positive_mu
 would fail.
 
-24.2
 
-Falsify the Classical CHSH Bound
-
+24.2     Falsify the Classical CHSH Bound
 Exhibit a locally factorizable strategy achieving |S| > 2. This contradicts chsh_stat_violation_not_local
 and also contradicts known mathematics.
 
-24.3
 
-Falsify the Biconditional
-
-Exhibit E00 , E01 , E10 , E11 satisfying the three column-contractivity conditions but with a nonPSD NPA moment matrix. The theorem column_contractive_iff_quantum_realizable says
+24.3     Falsify the Biconditional
+Exhibit E00 , E01 , E10 , E11 satisfying the three column-contractivity conditions but with a non-
+PSD NPA moment matrix. The theorem column_contractive_iff_quantum_realizable says
 no such example exists.
 
-24.4
 
-Falsify the µ-Hierarchy
-
+24.4     Falsify the µ-Hierarchy
 Find k ≥ 1 and a trace reaching vm_certified = true and vm_mu ≥ k with total trace cost
 < k. This contradicts mu_hierarchy_theorem.
 
-24.5
 
-What I Don’t Know
+24.5     What I Don’t Know
+  • Physical interpretation of µ: Whether the µ ledger corresponds to thermodynamic
+    entropy in a physical Thiele Machine is an open empirical question. The formal devel-
+    opment is consistent with Landauer’s principle. The calibration hypothesis is named
+    (mu_landauer_unruh_calibrated) and not proved in Coq.
 
-• Physical interpretation of µ: Whether the µ ledger corresponds to thermodynamic
-entropy in a physical Thiele Machine is an open empirical question. The formal development is consistent with Landauer’s principle. The calibration hypothesis is named
-(mu_landauer_unruh_calibrated) and not proved in Coq.
-• Quantum mechanics connection: The mathematical equivalence between Thiele
-honesty and zero-marginal NPA realizability is a kernel-tier theorem. Whether a physical
-Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement
-in hardware is an open empirical question outside the scope of this project.
-44
+  • Quantum mechanics connection: The mathematical equivalence between Thiele
+    honesty and zero-marginal NPA realizability is a kernel-tier theorem. Whether a physical
+    Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement
+    in hardware is an open empirical question outside the scope of this project.
 
+
+                                               46
 • Complexity implications: Whether µP ̸= µNP is an open question. The factored-search
-witness shows a concrete structural advantage but is not a class separation.
+  witness shows a concrete structural advantage but is not a class separation.
+
 • Physical constants: No physical constant derivation from first principles. The Planck
-consistency relation (Section on Planck’s Constant) is circular: it defines τµ in terms of h
-and verifies consistency. It is not a prediction of h.
+  consistency relation (Section on Planck’s Constant) is circular: it defines τµ in terms of h
+  and verifies consistency. It is not a prediction of h.
+
 • The two +1s (OP-Plus-One): the +1 in triangle_angle’s denominator (PI · d_bc /
-(1 + d_ab + d_ac + d_bc), coq/kernel/curvature/MuGravity.v) versus the A2 costfloor +1 on CERTIFY/LASSERT (coq/kernel/foundation/VMStep.v) — same axiom,
-or unrelated regularisation? No kernel-internal theorem unifies them without circularity
-(coq/kernel/frontier/F3_PlusOneStructural.v); the symbolic correction term decays
-as −π/(3(3d+1)) in the equilateral case (tools/triangle_angle_plus_one_analysis.py),
-regularisation-shaped rather than A2-quantum-shaped. Inconclusive. A positive structural
-identification (Case A, the geometric +1 is A2 in geometric form) would re-frame the
-calibrated regime’s asymptotic-only character as a structural consequence of A2; a positive
-non-identification (Case B) would license replacing S(. . . ) with (. . . ) in the denominator.
-Either is real categorical content. The kernel was not modified pending closure.
+  (1 + d_ab + d_ac + d_bc), coq/kernel/curvature/MuGravity.v) versus the A2 cost-
+  floor +1 on CERTIFY/LASSERT (coq/kernel/foundation/VMStep.v) — same axiom,
+  or unrelated regularisation? No kernel-internal theorem unifies them without circularity
+  (coq/kernel/frontier/F3_PlusOneStructural.v); the symbolic correction term decays
+  as −π/(3(3d+1)) in the equilateral case (tools/triangle_angle_plus_one_analysis.py),
+  regularisation-shaped rather than A2-quantum-shaped. Inconclusive. A positive structural
+  identification (Case A, the geometric +1 is A2 in geometric form) would re-frame the
+  calibrated regime’s asymptotic-only character as a structural consequence of A2; a positive
+  non-identification (Case B) would license replacing S(. . . ) with (. . . ) in the denominator.
+  Either is real categorical content. The kernel was not modified pending closure.
+
 • F3 narrow non-vacuity (related to OP-Plus-One): a constructible finite VMState
-satisfying ∀m, calibration_residual(s, m) = 0 on a partition graph with at least one
-actual graph triangle and well_formed_triangulated holding. The symbolic search to
-N = 7 exhausts negatively. Whether the asymptotic-only character of calibration is a
-structural consequence of OP-Plus-One’s Case A, or just a search-depth artifact, is itself
-open.
+  satisfying ∀m, calibration_residual(s, m) = 0 on a partition graph with at least one
+  actual graph triangle and well_formed_triangulated holding. The symbolic search to
+  N = 7 exhausts negatively. Whether the asymptotic-only character of calibration is a
+  structural consequence of OP-Plus-One’s Case A, or just a search-depth artifact, is itself
+  open.
 
-45
 
+
+
+                                             47
 Appendix A
 
 Proof File Index
+
 The table below maps each theorem to its Coq source file. Every path listed is a file that exists
 in the active kernel tree (coq/) and compiles to a .vo on the current build. Concepts that
 previously appeared here under speculative paths (e.g. theory/, thielemachine/coqproofs/,
@@ -1858,279 +1916,135 @@ quantum_derivation/, physics_exploration/) have been removed: they were aspirati
 citations from an earlier project layout that never made it into the active corpus, and the audit
 script (scripts/audit_thesis_citations.py) now flags such citations on every commit.
 
-46
 
-Result
+
+
+                                               48
+Result                                                                 Coq Source
 Cost ledger and No Free Insight
-No Free Insight (Thm. 5.1)
-µ-Chaitin
-µ-Conservation
-Receipt Integrity
-Noether / Gauge
-Strict Subsumption
-Universal NFI (any substrate)
-Quantitative NFI (≥ S(d) trace bound)
-µ-Hierarchy
-Partition Ops Free, Certification Non-Free
-µ-Ledger Necessity (5-way classification)
-Latent µ Intrinsic to Computation
-µ Cost Universal Across Machines
-µ Cost Unique Across Accounting Systems
-No Free Computation (inevitable µ)
-µP / µNP definitions + Classical ⊆ µP
+No Free Insight (Thm. 5.1)                                             coq/nofi/NoFreeInsight_Theorem.v
+µ-Chaitin                                                              coq/nofi/MuChaitinTheory_Theorem.v
+µ-Conservation                                                         coq/kernel/foundation/MuLedgerConserva
+Receipt Integrity                                                      coq/kernel/nfi/ReceiptIntegrity.v
+Noether / Gauge                                                        coq/kernel/curvature/KernelNoether.v
+Strict Subsumption                                                     coq/kernel/foundation/Subsumption.v
+Universal NFI (any substrate)                                          coq/kernel/nfi/UniversalCertificationC
+Quantitative NFI (≥ S(d) trace bound)                                  coq/kernel/mu_calculus/QuantitativeNoF
+µ-Hierarchy                                                            coq/kernel/mu_calculus/MuHierarchyTheo
+Partition Ops Free, Certification Non-Free                             coq/kernel/nfi/PartitionRefinementNoFI
+µ-Ledger Necessity (5-way classification)                              coq/NecessityOfMuLedger.v, coq/kernel/n
+Latent µ Intrinsic to Computation                                      coq/NecessityOfMuLedger.v: shadow_mu_is
+µ Cost Universal Across Machines                                       coq/NecessityOfMuLedger.v: shadow_mu_de
+µ Cost Unique Across Accounting Systems                                coq/NecessityOfMuLedger.v: shadow_mu_un
+No Free Computation (inevitable µ)                                     coq/NecessityOfMuLedger.v: shadow_mu_in
+µ-budget predicates + zero-µ inclusion                                 coq/kernel/mu_calculus/MuComplexity.v
 Categorical and shadow-projection layer
-Categorical Separation / Category Laws
-Shadow Strictly Lossy
-Turing Strictness (D5)
-CHSH Coupling Bridge (S ≤ 2 from local coupling, S > 2 rules it out)
-Witness Insight Three-Tier Taxonomy
+Categorical Separation / Category Laws                                 coq/kernel/category/CategoryLaws.v, coq
+Shadow Strictly Lossy                                                  coq/kernel/witness/ShadowProjection.v:
+Turing Strictness (D5)                                                 coq/kernel/foundation/TuringStrictness
+CHSH Coupling Bridge (S ≤ 2 from local coupling, S > 2 rules it out)   coq/kernel/quantum/CHSHCouplingBridge.
+Witness Insight Three-Tier Taxonomy                                    coq/kernel/witness/WitnessInsightGener
 Quantum / CHSH algebra (zero-axiom)
-Thiele honest ⇐⇒ NPA realizable (biconditional)
-Forward: column-contractive ⇒ NPA PSD
-Reverse: NPA PSD ⇒ column-contractive
-Quadratic-form discriminant lemma
-√
-Tsirelson from column contractivity (|S| ≤ 2 2)
-Tsirelson (algebraic, tight)
-Tsirelson (algebraic from coherence)
-General Algebraic Tsirelson (S 2 ≤ 8)
+Thiele honest ⇐⇒ NPA realizable (biconditional)                        coq/kernel/quantum/QuantumPartitionPSD
+Forward: column-contractive ⇒ NPA PSD                                  coq/kernel/nfi/MuLedgerQuantumBridge.v
+Reverse: NPA PSD ⇒ column-contractive                                  coq/kernel/quantum/QuantumPartitionPSD
+Quadratic-form discriminant lemma            √                         coq/kernel/quantum/ConstructivePSD.v: q
+Tsirelson from column contractivity (|S| ≤ 2 2)                        coq/kernel/nfi/MuLedgerQuantumBridge.v
+Tsirelson (algebraic, tight)                                           coq/kernel/category/AlgebraicCoherence
+Tsirelson (algebraic from coherence)                                   coq/kernel/quantum/TsirelsonFromAlgebr
+General Algebraic Tsirelson (S 2 ≤ 8)                                  coq/kernel/category/AlgebraicCoherence
 Conditional physics derivations (under named axioms; (C) tier)
-Born Rule
-Unitarity
-Purification
-No-Cloning
-Information Causality
-Landauer derivation
-Affine Off-Diagonal Ricci Zero (vertex 1)
-Full Tensor EFE at Vertex 1 (G = 3T )
-Outer Vertex Characterization (Ricci = 3/32)
-Spacetime Emergence (consistency check)
-µ-Geometry (pseudometric)
-4D Simplicial Complex
-Metric from µ-Costs
-Riemann / Christoffel / Einstein tensors
-Stress-Energy Tensor / Conservation / Vacuum EFE
-Einstein Equations (general, full diagonal-and-offdiag chain)
-A_QM bridge axiom + master Tsirelson conditional
+Born Rule                                                              coq/kernel/quantum/BornRule.v
+Unitarity                                                              coq/kernel/quantum/Unitarity.v
+Purification                                                           coq/kernel/quantum/Purification.v
+No-Cloning                                                             coq/kernel/quantum/NoCloning.v
+Information Causality                                                  coq/kernel/quantum/InformationCausalit
+Landauer derivation                                                    coq/thermodynamic/LandauerDerived.v
+Affine Off-Diagonal Ricci Zero (vertex 1)                              coq/kernel/curvature/AffineEFEClosure.
+Full Tensor EFE at Vertex 1 (G = 3T )                                  coq/kernel/curvature/AffineEFEClosure.
+Outer Vertex Characterization (Ricci = 3/32)                           coq/kernel/curvature/AffineEFEClosure.
+Spacetime Emergence (consistency check)                                coq/kernel/curvature/SpacetimeEmergenc
+µ-Geometry (pseudometric)                                              coq/kernel/mu_calculus/MuGeometry.v
+4D Simplicial Complex                                                  coq/kernel/curvature/FourDSimplicialCo
+Metric from µ-Costs                                                    coq/kernel/curvature/MetricFromMuCosts
+Riemann / Christoffel / Einstein tensors                               coq/kernel/curvature/RiemannTensor4D.v
+Stress-Energy Tensor / Conservation / Vacuum EFE                       coq/kernel/curvature/EinsteinEquations
+Einstein Equations (general, full diagonal-and-offdiag chain)          coq/kernel/curvature/EinsteinEquations
+A_QM bridge axiom + master Tsirelson conditional                       coq/PhysicsConditionalClosure.v
 Self-reference, falsifiability, isomorphism
-Self-Reference Tower
-Thiele Manifold
-Physical Constants (definitions only)
-Falsifiable Prediction record
-Three-Layer (Coq ↔ Python ↔ RTL) Isomorphism
+Self-Reference Tower                                                   coq/self_reference/SelfReference.v
+Thiele Manifold                                                        coq/thiele_manifold/ThieleManifold.v
+Physical Constants (definitions only)                                  coq/thiele_manifold/PhysicalConstants.
+Falsifiable Prediction record                                          coq/kernel/aggregators/FalsifiablePred
+Three-Layer (Coq ↔ Python ↔ RTL) Isomorphism                           coq/kernel/hardware_bridge/ThreeLayerI
 Hardware / RTL / extraction
-RTL Gap Count = 0
-47
-RTL Coverage Partition (36 + 10 + 0 = 46)
-RTL Trust Boundary (Section Variable)
-BSC Compilation Trust Boundary
-Coq-Kami refinement (proves rtl_step_correct for COQKAMI)
-
-Coq Source
-
-coq/nofi/NoFreeInsight_Theorem.v
-coq/nofi/MuChaitinTheory_Theorem.v
-coq/kernel/foundation/MuLedgerConserva
-coq/kernel/nfi/ReceiptIntegrity.v
-coq/kernel/curvature/KernelNoether.v
-coq/kernel/foundation/Subsumption.v
-coq/kernel/nfi/UniversalCertificationC
-coq/kernel/mu_calculus/QuantitativeNoF
-coq/kernel/mu_calculus/MuHierarchyTheo
-coq/kernel/nfi/PartitionRefinementNoFI
-coq/NecessityOfMuLedger.v, coq/kernel/n
-coq/NecessityOfMuLedger.v: shadow_mu_is
-coq/NecessityOfMuLedger.v: shadow_mu_de
-coq/NecessityOfMuLedger.v: shadow_mu_un
-coq/NecessityOfMuLedger.v: shadow_mu_in
-coq/kernel/mu_calculus/MuComplexity.v
-
-coq/kernel/category/CategoryLaws.v, coq
-coq/kernel/witness/ShadowProjection.v:
-coq/kernel/foundation/TuringStrictness
-coq/kernel/quantum/CHSHCouplingBridge.
-coq/kernel/witness/WitnessInsightGener
-
-coq/kernel/quantum/QuantumPartitionPSD
-coq/kernel/nfi/MuLedgerQuantumBridge.v
-coq/kernel/quantum/QuantumPartitionPSD
-coq/kernel/quantum/ConstructivePSD.v: q
-coq/kernel/nfi/MuLedgerQuantumBridge.v
-coq/kernel/category/AlgebraicCoherence
-coq/kernel/quantum/TsirelsonFromAlgebr
-coq/kernel/category/AlgebraicCoherence
-
-coq/kernel/quantum/BornRule.v
-coq/kernel/quantum/Unitarity.v
-coq/kernel/quantum/Purification.v
-coq/kernel/quantum/NoCloning.v
-coq/kernel/quantum/InformationCausalit
-coq/thermodynamic/LandauerDerived.v
-coq/kernel/curvature/AffineEFEClosure.
-coq/kernel/curvature/AffineEFEClosure.
-coq/kernel/curvature/AffineEFEClosure.
-coq/kernel/curvature/SpacetimeEmergenc
-coq/kernel/mu_calculus/MuGeometry.v
-coq/kernel/curvature/FourDSimplicialCo
-coq/kernel/curvature/MetricFromMuCosts
-coq/kernel/curvature/RiemannTensor4D.v
-coq/kernel/curvature/EinsteinEquations
-coq/kernel/curvature/EinsteinEquations
-coq/PhysicsConditionalClosure.v
-
-coq/self_reference/SelfReference.v
-coq/thiele_manifold/ThieleManifold.v
-coq/thiele_manifold/PhysicalConstants.
-coq/kernel/aggregators/FalsifiablePred
-coq/kernel/hardware_bridge/ThreeLayerI
-
-coq/kami_hw/RTLGapRegistry.v: rtl_gap_c
-coq/kami_hw/RTLGapRegistry.v: rtl_cover
-coq/kernel/hardware_bridge/VerilogRTLC
-coq/kernel/hardware_bridge/VerilogRTLC
-coq/kami_hw/VerilogSemantics.v
-
+RTL Gap Count = 0                                                      coq/kami_hw/RTLGapRegistry.v: rtl_gap_c
+RTL Coverage Partition (36 + 10 + 0 = 46)         49                   coq/kami_hw/RTLGapRegistry.v: rtl_cover
+RTL Trust Boundary (Section Variable)                                  coq/kernel/hardware_bridge/VerilogRTLC
+BSC Compilation Trust Boundary                                         coq/kernel/hardware_bridge/VerilogRTLC
+Coq-Kami refinement (proves rtl_step_correct for COQKAMI)              coq/kami_hw/VerilogSemantics.v
 Appendix B
 
 Epistemological Classification
+
 The following table classifies every major result by its epistemological status.
 
-48
 
-Result
-Status
-Unconditional structural theorems about the machine
-No Free Insight
-(S)
-µ-Chaitin
-(S)
-Strict Subsumption
-(S)
-Oracle Cost (instantiation of universal NFI)
-(S)
-µ-Conservation
-(S)
-µ-Ledger Necessity
-(S)
-µ-Ledger Minimality
-(S)
-Receipt Integrity
-(S)
-Gauge / Noether
-(S)
-Three-Layer Isomorphism / comparison contract
-(C)
-Discrete Angle-Defect Identity (planar triangulations)
-(S)
-Curvature from µ-Gradients (uniform mass ⇒ Gµν = 0) (R)
-Vacuum Implies Zero Stress-Energy
-(R)
-Einstein Equations (Vacuum)
-(R)
-Einstein Equations (General full tensor)
-(C)
-Affine Off-Diagonal Ricci Zero (vertex 1)
-(R)
-Full Tensor EFE at Vertex 1 (G = 3T )
-(R)
-Outer Vertex Characterization
-(R)
-Discrete Differential Geometry
-(R)
-Partition Ops Free / Certification Non-Free
-(S)
-CHSH Trial Is Tier 0
-(S)
-Three-Tier Observation Taxonomy
-(S)
-Locally Consistent ⇒ Separable Coupling
-(S)
-Local Coupling Bound (|S| ≤ 2)
-(S)
-S > 2 Rules Out Local Couplings
-(S)
-RTL Gap Count = 0
-(S)
-Thiele Honest ⇐⇒ NPA Realizable
-(S)
-PR Box Not Thiele-Honest
-(S)
-Tsirelson Is Thiele Boundary (forward + contrapositive) (S)
-Classical P ⊆ µP
-(S)
-Conditional derivations (valid given stated axioms)
-Born Rule Uniqueness
-(C)
-Unitarity from µ = 0
-(C)
-No-Cloning
-(C)
-Purification
-(C)
-Landauer
-(C)
-Self-Reference
-(C)
-Tsirelson Bound (algebraic)
-(C)
-Consistency relations (definitions verified, not predictions)
-Information Causality
-(R)
-µ-Geometry
-(R)
-Spacetime Locality
-(R)
-Born Rule (BornRule.v)
-(R)
 
-Key Assumption
 
-Module type contract
-Module type contract
-Partition structure
-Definitional (soundness := cost ≥ 1)
-Machine semantics only
-Machine semantics + explicit witnesses
-Named projection lattice in NecessityAbstract.
-Hash-chain model
-Definitional (record structure)
-Backend decoders satisfy the shared observable pr
-Well-formed triangulated partition graph; equilate
-Reference only; 0 = 0 in vacuum
-Reference only; 0 = 0 in vacuum
-Reference only; not a claim about physics; G = 1/
-Named off-diagonal Ricci premise in EinsteinEqu
-Reference only; specific boundary 4-simplex config
-Reference only; not a physical claim
-Reference only
-Definitions only; reference exploration
-Machine semantics only
-Machine semantics only
-Machine semantics only
-Coupling definition
-Coupling definition
-Coupling definition
-Machine semantics + hardware spec
-Pure polynomial arithmetic; zero axioms
-Direct arithmetic on condition 1
-From column contractivity; converse not claimed
-µ-complexity definitions
+                                               50
+ Result                                                        Status   Key Assumption
+ Unconditional structural theorems about the machine
+ No Free Insight                                               (S)      Module type contract
+ µ-Chaitin                                                     (S)      Module type contract
+ Strict Subsumption                                            (S)      Partition structure
+ Oracle Cost (instantiation of universal NFI)                  (S)      Definitional (soundness := cost ≥ 1)
+ µ-Conservation                                                (S)      Machine semantics only
+ µ-Ledger Necessity                                            (S)      Machine semantics + explicit witnesses
+ µ-Ledger Minimality                                           (S)      Named projection lattice in NecessityAbstract.
+ Receipt Integrity                                             (S)      Hash-chain model
+ Gauge / Noether                                               (S)      Definitional (record structure)
+ Three-Layer Isomorphism / comparison contract                 (C)      Backend decoders satisfy the shared observable pr
+ Discrete Angle-Defect Identity (planar triangulations)        (S)      Well-formed triangulated partition graph; equilate
+ Curvature from µ-Gradients (uniform mass ⇒ Gµν = 0) (R)                Reference only; 0 = 0 in vacuum
+ Vacuum Implies Zero Stress-Energy                             (R)      Reference only; 0 = 0 in vacuum
+ Einstein Equations (Vacuum)                                   (R)      Reference only; not a claim about physics; G = 1/
+ Einstein Equations (General full tensor)                      (C)      Named off-diagonal Ricci premise in EinsteinEqu
+ Affine Off-Diagonal Ricci Zero (vertex 1)                     (R)      Reference only; specific boundary 4-simplex config
+ Full Tensor EFE at Vertex 1 (G = 3T )                         (R)      Reference only; not a physical claim
+ Outer Vertex Characterization                                 (R)      Reference only
+ Discrete Differential Geometry                                (R)      Definitions only; reference exploration
+ Partition Ops Free / Certification Non-Free                   (S)      Machine semantics only
+ CHSH Trial Is Tier 0                                          (S)      Machine semantics only
+ Three-Tier Observation Taxonomy                               (S)      Machine semantics only
+ Locally Consistent ⇒ Separable Coupling                       (S)      Coupling definition
+ Local Coupling Bound (|S| ≤ 2)                                (S)      Coupling definition
+ S > 2 Rules Out Local Couplings                               (S)      Coupling definition
+ RTL Gap Count = 0                                             (S)      Machine semantics + hardware spec
+ Thiele Honest ⇐⇒ NPA Realizable                               (S)      Pure polynomial arithmetic; zero axioms
+ PR Box Not Thiele-Honest                                      (S)      Direct arithmetic on condition 1
+ Tsirelson Is Thiele Boundary (forward + contrapositive) (S)            From column contractivity; converse not claimed
+ Classical P ⊆ µP                                              (S)      µ-complexity definitions
+ Conditional derivations (valid given stated axioms)
+ Born Rule Uniqueness                                          (C)      Linearity assumption (coq/kernel/quantum/Born
+ Unitarity from µ = 0                                          (C)      Info conservation (one direction only)
+ No-Cloning                                                    (C)      Purity = information
+ Purification                                                  (C)      Bloch sphere model
+ Landauer                                                      (C)      Second law assumed as record field
+ Self-Reference                                                (C)      Dimension = complexity
+ Tsirelson Bound (algebraic)                                   (C)      Algebraic derivation (TsirelsonFromAlgebra.v,
+ Consistency relations (definitions verified, not predictions)
+ Information Causality                                         (R)      Circular: equivalence assumed as hypothesis
+ µ-Geometry                                                    (R)      Pseudometric (absolute value on Z)
+ Spacetime Locality                                            (R)      Data isolation in partition graph
+ Born Rule (BornRule.v)                                        (R)      µ-consistent hypothesis unused
 
-Linearity assumption (coq/kernel/quantum/Born
-Info conservation (one direction only)
-Purity = information
-Bloch sphere model
-Second law assumed as record field
-Dimension = complexity
-Algebraic derivation (TsirelsonFromAlgebra.v,
-Circular: equivalence assumed as hypothesis
-Pseudometric (absolute value on Z)
-Data isolation in partition graph
-µ-consistent hypothesis unused
 
 Legend: (S) = unconditional theorem about the machine; (C) = valid derivation conditional
 on stated axiom; (R) = internal consistency check.
 
-49
 
+
+
+                                                   51
 

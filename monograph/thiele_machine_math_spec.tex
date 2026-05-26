@@ -398,6 +398,82 @@ Formally (\texttt{mu\_hierarchy\_theorem}): for every $k \geq 1$, the witness tr
 Theorem~\ref{thm:mu-hierarchy} is the $\mu$-analogue of the classical time hierarchy theorem. It formalizes the intuition behind P~$\neq$~NP in the certified-structure setting: \emph{finding} a certificate of structural complexity $k$ requires paying $\mu \geq k$, while \emph{verifying} it (given the trace) costs 0 additional $\mu$. The hierarchy is strict, infinite, and proven from first principles with zero \texttt{Admitted} --- no oracle, no diagonalization, no new axioms. The lower-bound proof is trace-side: a level-$k$ certified run executed a specific \texttt{CERTIFY}~$\delta$ with $S(\delta) \geq k$, and \texttt{executed\_instruction\_cost\_recorded} plus \texttt{ledger\_sum\_contains\_lower\_bound} place that cost in the ledger sum, which \texttt{run\_vm\_mu\_conservation} equates with the trace's $\mu$-cost.
 \end{remark}
 
+\section{Intrinsic level hierarchy}
+
+\begin{definition}[Intrinsic level {\normalfont (coq/IntrinsicLevelHierarchy.v)}]
+A final state $s$ is \emph{intrinsically certifiable at level $\geq k$}, written $\texttt{level\_intrinsic\_at\_least}(k, s)$, iff every $\texttt{run\_vm}$ trace from \texttt{init\_state} that ends at $s$ with \texttt{vm\_certified = true} executes at least $k$ cert-setter instructions:
+\[
+\forall \mathit{fuel}\, \mathit{trace}.\;
+\texttt{run\_vm}(\mathit{fuel}, \mathit{trace}, \texttt{init\_state}) = s \;\Rightarrow\;
+s.\texttt{vm\_certified} = \texttt{true} \;\Rightarrow\;
+\texttt{cert\_setter\_executions}(\mathit{fuel}, \mathit{trace}, \texttt{init\_state}) \geq k.
+\]
+The level is a property of the \emph{final state}, not of any particular trace reaching it.
+\end{definition}
+
+\begin{theorem}[Intrinsic level forces $\mu$ {\normalfont (coq/IntrinsicLevelHierarchy.v::level\_intrinsic\_forces\_mu)}]
+If $\texttt{level\_intrinsic\_at\_least}(k, s)$ holds and $s.\texttt{vm\_certified} = \texttt{true}$, then for every trace reaching $s$ from \texttt{init\_state}, $s.\texttt{vm\_mu} \geq k$. Zero Admitted.
+\end{theorem}
+
+\begin{theorem}[Strict separation {\normalfont (coq/IntrinsicLevelHierarchy.v::level\_strict\_separation)}]
+\label{thm:intrinsic-strict-separation}
+For every $k \geq 0$, if $\texttt{level\_intrinsic\_at\_least}(k+1, s)$ holds and $s.\texttt{vm\_certified} = \texttt{true}$, then every trace reaching $s$ executes strictly more than $k$ cert-setter instructions. Zero Admitted.
+\end{theorem}
+
+\begin{remark}[Relation to Theorem~\ref{thm:mu-hierarchy}]
+Theorem~\ref{thm:intrinsic-strict-separation} is the state-level counterpart of the trace-level $\mu$-hierarchy. The trace-level version (\texttt{mu\_hierarchy\_theorem}, \texttt{level\_k\_certification\_cost\_floor}) defines level on the trace --- a trace is level-$k$ certified iff it executes a \texttt{CERTIFY}~$\delta$ with $S(\delta) \geq k$. The state-level version defines level on the final state --- every trace reaching it requires at least $k$ cert-setter executions. The two are complementary entry points to the same hierarchy: the trace-level theorem gives the achievability witness ($[\texttt{instr\_certify}(k{-}1)]$ from \texttt{init\_state}); the state-level theorem gives the lower bound on $\mu$ for any state intrinsically requiring $k$ cert-events. Both are present-tense in the kernel; both close under the global context.
+\end{remark}
+
+\section{Verifier model and the bare-setting impossibility}
+
+\begin{definition}[Bare verifier {\normalfont (coq/VerifierModel.v)}]
+The bare-setting transcript type is $\texttt{BareTranscript} := \texttt{list StrictClassicalState}$. A bare verification problem is a record \texttt{BareVerificationProblem} carrying
+\begin{itemize}
+    \item \texttt{bare\_honest\_claim} : $\texttt{VMState} \to \texttt{Prop}$;
+    \item \texttt{bare\_explains} : $\texttt{VMState} \to \texttt{BareTranscript} \to \texttt{Prop}$ (the transcript-honestly-witnessed-by-state relation);
+    \item \texttt{bare\_cheap\_budget}, \texttt{bare\_recompute\_cost} : $\N$.
+\end{itemize}
+A bare verifier is a record \texttt{BareVerifier} with $\texttt{bv\_decide} : \texttt{BareTranscript} \to \texttt{bool}$ and $\texttt{bv\_cost} : \texttt{BareTranscript} \to \N$.
+\end{definition}
+
+\begin{definition}[Soundness, completeness, cheapness {\normalfont (coq/VerifierModel.v)}]
+For a problem $P$ and verifier $V$:
+\begin{itemize}
+    \item \texttt{bare\_sound}$(P, V) := \forall t.\; V(t) = \texttt{true} \Rightarrow \forall s.\; \texttt{bare\_explains}(P, s, t) \Rightarrow \texttt{bare\_honest\_claim}(P, s)$.
+    \item \texttt{bare\_complete}$(P, V) := \forall s\, t.\; \texttt{bare\_honest\_claim}(P, s) \Rightarrow \texttt{bare\_explains}(P, s, t) \Rightarrow V(t) = \texttt{true}$.
+    \item \texttt{bare\_cheap}$(P, V) := \forall t.\; \texttt{bv\_cost}(V, t) \leq \texttt{bare\_cheap\_budget}(P)$.
+\end{itemize}
+The soundness condition is \emph{strong}: the claim must hold for every state explaining the transcript, not merely for some.
+\end{definition}
+
+\begin{theorem}[Bare-setting impossibility {\normalfont (coq/VerifierImpossibility.v::bare\_setting\_no\_sound\_complete\_verifier)}]
+\label{thm:bare-verifier-impossibility}
+There is no bare verifier simultaneously \texttt{bare\_sound} and \texttt{bare\_complete} on the verification problem $\texttt{mu\_eq\_one\_problem}$ whose claim is $\texttt{vm\_mu}(s) = 1$ and whose \texttt{bare\_explains} relation holds for the two $\texttt{NecessityOfMuLedger}$ witness states against the shared strict-shadow trace.
+\end{theorem}
+
+\begin{proof}
+$\texttt{po1\_state\_A}$ (the cost-1 \texttt{CERTIFY 0} result, $\mu = 1$) and $\texttt{po1\_state\_B}$ (the cost-0 \texttt{PNEW [] 0} result, $\mu = 0$) project to identical strict-shadow traces. Completeness applied to $A$'s honest run forces $V$ to accept the shared transcript. Strong soundness applied to the same accepted transcript at the explanation by $B$ forces $\texttt{vm\_mu}(B) = 1$, contradicting $\texttt{vm\_mu}(B) = 0$. \texttt{Print Assumptions} returns \texttt{Closed under the global context}.
+\end{proof}
+
+\begin{theorem}[Three sufficient escapes {\normalfont (coq/VerifierEscape\_\{Substrate,Hardness,Interaction\}.v)}]
+Each kernel theorem below exhibits a constant-cost verifier that simultaneously satisfies soundness and completeness on the $\mu$-sensitive claim by augmenting the transcript with non-classical structure:
+\begin{itemize}
+    \item \texttt{substrate\_escape\_succeeds} --- transcript is $\texttt{list VMState}$; verifier reads $\mu$ directly.
+    \item \texttt{hardness\_escape\_succeeds} --- transcript is $\texttt{BareTranscript} \times \texttt{bool}$ (commitment bit); verifier accepts the commitment under a parameterised \texttt{HardnessHypothesis} record.
+    \item \texttt{interactive\_escape\_succeeds} --- transcript is $\texttt{BareTranscript} \times \N$ (response); verifier checks the response against the claim.
+\end{itemize}
+Each closes under the global context with zero \texttt{Admitted}.
+\end{theorem}
+
+\begin{theorem}[Factorisation impossibility {\normalfont (coq/VerifierExhaustiveness.v::V\_does\_not\_factor\_through\_classical)}]
+\label{thm:verifier-factorisation}
+Let $T$ be any transcript type with a projection $\pi : T \to \texttt{BareTranscript}$. For any verifier $V : T \to \texttt{bool}$ simultaneously sound and complete on the $\mu$-sensitive claim (with the lifted-explains relation), $V$ does not factor through $\pi$: there exist $t_1, t_2 : T$ with $\pi(t_1) = \pi(t_2)$ and $V(t_1) \neq V(t_2)$.
+\end{theorem}
+
+\begin{remark}[The verifier corollary]
+Sound and complete verification of $\mu$-sensitive claims requires the transcript to carry non-classical structural information --- exactly the structure the projection $\texttt{strict\_shadow}$ drops. The three escapes above are concrete realisations; Theorem~\ref{thm:verifier-factorisation} says no verifier on the bare classical projection alone succeeds, regardless of how rich its transcript is otherwise. The substrate channel is the option the structural axis makes available; hardness and interaction are the two routes classical cryptography and complexity already used.
+\end{remark}
+
 %=============================================================================
 % PART IV: SYMMETRY AND CONSERVATION
 %=============================================================================

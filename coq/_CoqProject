@@ -23,6 +23,7 @@
 -R thiele_manifold ThieleManifold
 -R thermodynamic Thermodynamic
 -R tests Tests
+-R test_fixtures TestFixtures
 
 # File listing
 Extraction.v
@@ -30,6 +31,15 @@ ThieleMachineComplete.v
 NecessityOfMuLedger.v
 ReceiptTheorem.v
 PhysicsConditionalClosure.v
+VerifierModel.v
+VerifierImpossibility.v
+VerifierEscape_Substrate.v
+VerifierEscape_Hardness.v
+VerifierEscape_Interaction.v
+VerifierExhaustiveness.v
+MuCodingTheorem.v
+IntrinsicLevelHierarchy.v
+MuDirectSum.v
 
 kernel/foundation/VMState.v
 kernel/foundation/VMStep.v
@@ -182,6 +192,7 @@ thermodynamic/ThermodynamicBridge.v
 tests/TestNecessity.v
 tests/verify_zero_admits.v
 tests/verify_nofi_load_bearing.v
+test_fixtures/VacuitySmoke.v
 kernel/curvature/MuGravity.v
 kernel/curvature/DiscreteTopology.v
 kernel/curvature/FourDSimplicialComplex.v

@@ -1,0 +1,60 @@
+{
+  "schema": "vacuity_targets.v1",
+  "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over on every commit. Phase 1/2/3/4 of the μ-axis research program append new files as they land. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
+  "targets": [
+    {
+      "path": "coq/VerifierModel.v",
+      "logical": "VerifierModel",
+      "added": "2026-05-25",
+      "phase": "1.a"
+    },
+    {
+      "path": "coq/VerifierImpossibility.v",
+      "logical": "VerifierImpossibility",
+      "added": "2026-05-25",
+      "phase": "1.b"
+    },
+    {
+      "path": "coq/VerifierEscape_Substrate.v",
+      "logical": "VerifierEscape_Substrate",
+      "added": "2026-05-25",
+      "phase": "1.c (T)"
+    },
+    {
+      "path": "coq/VerifierEscape_Hardness.v",
+      "logical": "VerifierEscape_Hardness",
+      "added": "2026-05-25",
+      "phase": "1.c (H)"
+    },
+    {
+      "path": "coq/VerifierEscape_Interaction.v",
+      "logical": "VerifierEscape_Interaction",
+      "added": "2026-05-25",
+      "phase": "1.c (I)"
+    },
+    {
+      "path": "coq/VerifierExhaustiveness.v",
+      "logical": "VerifierExhaustiveness",
+      "added": "2026-05-25",
+      "phase": "1.d"
+    },
+    {
+      "path": "coq/MuCodingTheorem.v",
+      "logical": "MuCodingTheorem",
+      "added": "2026-05-25",
+      "phase": "2"
+    },
+    {
+      "path": "coq/IntrinsicLevelHierarchy.v",
+      "logical": "IntrinsicLevelHierarchy",
+      "added": "2026-05-25",
+      "phase": "3"
+    },
+    {
+      "path": "coq/MuDirectSum.v",
+      "logical": "MuDirectSum",
+      "added": "2026-05-25",
+      "phase": "4"
+    }
+  ]
+}

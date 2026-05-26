@@ -31,6 +31,7 @@
 #       artifacts/proof_dependency_file_graph.mmd
 #       artifacts/PROOF_FOUNDATION_AUDIT.md
 #       artifacts/final_claim_audit/*.json
+#       artifacts/vacuity_audit.json   (kernel-conversion vacuity gate)
 #    These mirror what tests/conftest.py refreshes at pytest start, so
 #    a pytest run and a commit produce the same artifact state.
 #
@@ -280,6 +281,35 @@ if [ -f scripts/generate_rtl_pipeline_manifest.py ]; then
         echo "[pre-commit] WARNING: generate_rtl_pipeline_manifest.py failed; leaving manifest as-is." >&2
     }
     _pc_stage_if_changed artifacts/rtl_pipeline_manifest.json
+fi
+
+# ---------------------------------------------------------------------------
+# (3c) Unconditional kernel-conversion vacuity gate refresh.
+#
+# scripts/vacuity_gate.py reads scripts/vacuity_targets.json and, for every
+# Theorem/Lemma/Corollary in each listed Coq file, synthesises a probe .v
+# that asks Coq's kernel whether the conclusion is convertible — after
+# δ/ι/ζ/β reduction — to either `True` or one of the theorem's hypotheses.
+# A positive probe is conclusive evidence that the theorem is (V)acuous in
+# the μ-axis research program's Phase-0 discipline. Output JSON path:
+#   artifacts/vacuity_audit.json
+# Empty manifest -> empty audit (no targets configured yet). The Inquisitor
+# (stage 5) consumes the audit and emits HIGH findings for any
+# vacuous-true/vacuous-hyp verdict, which fails the commit.
+# ---------------------------------------------------------------------------
+
+if command -v coqc >/dev/null 2>&1; then
+    if [ -f scripts/vacuity_gate.py ] && [ -f scripts/vacuity_targets.json ]; then
+        echo "[pre-commit] Running kernel-conversion vacuity gate..."
+        if ! python3 scripts/vacuity_gate.py \
+                --manifest scripts/vacuity_targets.json \
+                --output artifacts/vacuity_audit.json >/dev/null 2>&1; then
+            echo "[pre-commit] WARNING: vacuity_gate.py failed; leaving audit as-is." >&2
+            echo "             Reproduce with:" >&2
+            echo "               python3 scripts/vacuity_gate.py --manifest scripts/vacuity_targets.json" >&2
+        fi
+        _pc_stage_if_changed artifacts/vacuity_audit.json
+    fi
 fi
 
 # ---------------------------------------------------------------------------

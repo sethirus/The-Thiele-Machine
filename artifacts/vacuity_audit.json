@@ -1,0 +1,752 @@
+{
+  "schema": "vacuity_audit.v1",
+  "summary": {
+    "error": 0,
+    "ok": 37,
+    "total": 37,
+    "vacuous_hyp": 0,
+    "vacuous_true": 0
+  },
+  "verdicts": [
+    {
+      "file": "coq/VerifierModel.v",
+      "kind": "Lemma",
+      "line": 121,
+      "name": "bare_decide_eq_trans",
+      "probe_a": {
+        "coq_stderr_tail": "ding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierModel__bare_decide_eq_trans__a.v\", line 4, characters 27-28:\nError:\nIn environment\nV : BareVerifier\nt1, t2 : BareTranscript\nH : t1 = t2\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(let (bv_decide, _) := V in bv_decide) t1 =\n  (let (bv_decide, _) := V in bv_decide) t2\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierModel__bare_decide_eq_trans__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierModel__bare_decide_eq_trans__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierModel__bare_decide_eq_trans__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (V : BareVerifier) (t1 t2 : BareTranscript), t1 = t2 -> bv_decide V t1 = bv_decide V t2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierModel.v",
+      "kind": "Lemma",
+      "line": 128,
+      "name": "bare_sound_contrapositive",
+      "probe_a": {
+        "coq_stderr_tail": "-Machine/build/vacuity_probes/VerifierModel__bare_sound_contrapositive__a.v\", line 4, characters 27-28:\nError:\nIn environment\nP : BareVerificationProblem\nV : BareVerifier\nH : bare_sound P V\nt : BareTranscript\ns : VMState.VMState\nH0 : bare_explains P s t\nH1 : ~ bare_honest_claim P s\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(let (bv_decide, _) := V in bv_decide) t = false\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierModel__bare_sound_contrapositive__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "pped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierModel__bare_sound_contrapositive__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierModel__bare_sound_contrapositive__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (P : BareVerificationProblem) (V : BareVerifier), bare_sound P V -> forall t s, bare_explains P s t -> ~ bare_honest_claim P s -> bv_decide V t = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 70,
+      "name": "witness_A_satisfies_claim",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v\", line 3, characters 69-80:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_satisfies_claim__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_eq_one_claim po1_state_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 77,
+      "name": "witness_B_violates_claim",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v\", line 3, characters 70-81:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_violates_claim__b.v",
+        "succeeded": false
+      },
+      "statement": "~ mu_eq_one_claim po1_state_B",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 86,
+      "name": "witness_A_explains_shared",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_A was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_A_explains_shared__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_collision_explains po1_state_A po1_strict_trace_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Lemma",
+      "line": 94,
+      "name": "witness_B_explains_shared",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v\", line 3, characters 75-86:\nError: The reference po1_state_B was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__witness_B_explains_shared__b.v",
+        "succeeded": false
+      },
+      "statement": "mu_collision_explains po1_state_B po1_strict_trace_A",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Theorem",
+      "line": 115,
+      "name": "bare_setting_no_sound_complete_verifier",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v\", line 3, characters 80-92:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_setting_no_sound_complete_verifier__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists V : BareVerifier, bare_sound mu_eq_one_problem V /\\ bare_complete mu_eq_one_problem V",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierImpossibility.v",
+      "kind": "Corollary",
+      "line": 147,
+      "name": "bare_sound_blocks_honest_acceptance",
+      "probe_a": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v\", line 3, characters 74-86:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierImpossibility__bare_sound_blocks_honest_acceptance__b.v",
+        "succeeded": false
+      },
+      "statement": "forall V : BareVerifier, bare_sound mu_eq_one_problem V -> bv_decide V po1_strict_trace_A = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Substrate.v",
+      "kind": "Lemma",
+      "line": 80,
+      "name": "substrate_explains_functional",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_explains_functional__a.v\", line 3, characters 73-80:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_explains_functional__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_explains_functional__b.v\", line 3, characters 73-80:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_explains_functional__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s1 s2 : VMState) (t : SubstrateTranscript), substrate_explains s1 t -> substrate_explains s2 t -> s1 = s2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Substrate.v",
+      "kind": "Lemma",
+      "line": 93,
+      "name": "substrate_decide_accepts",
+      "probe_a": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_accepts__a.v\", line 3, characters 64-71:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_accepts__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_accepts__b.v\", line 3, characters 64-71:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_accepts__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s : VMState) (t : SubstrateTranscript), substrate_explains s t -> s.(vm_mu) = 1 -> substrate_decide_mu_eq_one t = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Substrate.v",
+      "kind": "Lemma",
+      "line": 107,
+      "name": "substrate_decide_implies_mu_eq_one",
+      "probe_a": {
+        "coq_stderr_tail": "arning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_implies_mu_eq_one__a.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_implies_mu_eq_one__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "arning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_implies_mu_eq_one__b.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_decide_implies_mu_eq_one__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s : VMState) (t : SubstrateTranscript), substrate_explains s t -> substrate_decide_mu_eq_one t = true -> s.(vm_mu) = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Substrate.v",
+      "kind": "Theorem",
+      "line": 131,
+      "name": "substrate_verifier_sound",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_sound__a.v\", line 3, characters 134-141:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_sound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_sound__b.v\", line 3, characters 134-141:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_sound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t : SubstrateTranscript, substrate_decide_mu_eq_one t = true -> forall s : VMState, substrate_explains s t -> s.(vm_mu) = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Substrate.v",
+      "kind": "Theorem",
+      "line": 143,
+      "name": "substrate_verifier_complete",
+      "probe_a": {
+        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_complete__a.v\", line 3, characters 67-74:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_complete__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_complete__b.v\", line 3, characters 67-74:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_complete__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s : VMState) (t : SubstrateTranscript), s.(vm_mu) = 1 -> substrate_explains s t -> substrate_decide_mu_eq_one t = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Substrate.v",
+      "kind": "Theorem",
+      "line": 155,
+      "name": "substrate_verifier_cheap",
+      "probe_a": {
+        "coq_stderr_tail": "e/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_cheap__a.v\", line 4, characters 27-28:\nError:\nIn environment\nt : SubstrateTranscript\nThe term \"I\" has type \"True\" while it is expected to have type \"1 = 1\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_cheap__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "sts\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_cheap__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_verifier_cheap__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t : SubstrateTranscript, substrate_cost_one t = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Substrate.v",
+      "kind": "Theorem",
+      "line": 162,
+      "name": "substrate_escape_succeeds",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_escape_succeeds__a.v\", line 3, characters 205-210:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_escape_succeeds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Substrate__substrate_escape_succeeds__b.v\", line 3, characters 205-210:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Substrate__substrate_escape_succeeds__b.v",
+        "succeeded": false
+      },
+      "statement": "exists (decide : SubstrateTranscript -> bool) (cost : SubstrateTranscript -> nat), (forall t, decide t = true -> forall s, substrate_explains s t -> s.(vm_mu) = 1) /\\ (forall s t, s.(vm_mu) = 1 -> substrate_explains s t -> decide t = true) /\\ (forall t, cost t = 1)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 81,
+      "name": "hardness_verifier_weak_sound",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_weak_sound__a.v\", line 3, characters 153-160:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_weak_sound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_weak_sound__b.v\", line 3, characters 153-160:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_weak_sound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (H : HardnessHypothesis) (t : HardnessTranscript), hardness_decide t = true -> exists s : VMState, s.(vm_mu) = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 93,
+      "name": "hardness_verifier_cheap",
+      "probe_a": {
+        "coq_stderr_tail": "hine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_cheap__a.v\", line 4, characters 27-28:\nError:\nIn environment\nt : HardnessTranscript\nThe term \"I\" has type \"True\" while it is expected to have type \"1 = 1\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_cheap__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_cheap__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__hardness_verifier_cheap__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t : HardnessTranscript, hardness_cost t = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Hardness.v",
+      "kind": "Theorem",
+      "line": 100,
+      "name": "hardness_escape_succeeds",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__hardness_escape_succeeds__a.v\", line 3, characters 205-212:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__hardness_escape_succeeds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Hardness__hardness_escape_succeeds__b.v\", line 3, characters 205-212:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Hardness__hardness_escape_succeeds__b.v",
+        "succeeded": false
+      },
+      "statement": "forall H : HardnessHypothesis, exists (decide : HardnessTranscript -> bool) (cost : HardnessTranscript -> nat), (forall t, decide t = true -> exists s : VMState, s.(vm_mu) = 1) /\\ (forall t, cost t = 1)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Interaction.v",
+      "kind": "Theorem",
+      "line": 69,
+      "name": "interactive_verifier_sound",
+      "probe_a": {
+        "coq_stderr_tail": "t]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_sound__a.v\", line 3, characters 130-137:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_sound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "t]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_sound__b.v\", line 3, characters 130-137:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_sound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t : InteractiveTranscript, interactive_decide t = true -> forall s : VMState, interactive_explains s t -> s.(vm_mu) = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Interaction.v",
+      "kind": "Theorem",
+      "line": 84,
+      "name": "interactive_verifier_complete",
+      "probe_a": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_complete__a.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_complete__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_complete__b.v\", line 3, characters 69-76:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_complete__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (s : VMState) (t : InteractiveTranscript), s.(vm_mu) = 1 -> interactive_explains s t -> interactive_decide t = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Interaction.v",
+      "kind": "Theorem",
+      "line": 96,
+      "name": "interactive_verifier_cheap",
+      "probe_a": {
+        "coq_stderr_tail": "test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_cheap__a.v\", line 4, characters 27-28:\nError:\nIn environment\nt : InteractiveTranscript\nThe term \"I\" has type \"True\" while it is expected to have type \"1 = 1\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_cheap__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_cheap__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_verifier_cheap__b.v",
+        "succeeded": false
+      },
+      "statement": "forall t : InteractiveTranscript, interactive_cost t = 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierEscape_Interaction.v",
+      "kind": "Theorem",
+      "line": 100,
+      "name": "interactive_escape_succeeds",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_escape_succeeds__a.v\", line 3, characters 213-218:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_escape_succeeds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierEscape_Interaction__interactive_escape_succeeds__b.v\", line 3, characters 213-218:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierEscape_Interaction__interactive_escape_succeeds__b.v",
+        "succeeded": false
+      },
+      "statement": "exists (decide : InteractiveTranscript -> bool) (cost : InteractiveTranscript -> nat), (forall t, decide t = true -> forall s, interactive_explains s t -> s.(vm_mu) = 1) /\\ (forall s t, s.(vm_mu) = 1 -> interactive_explains s t -> decide t = true) /\\ (forall t, cost t = 1)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierExhaustiveness.v",
+      "kind": "Theorem",
+      "line": 81,
+      "name": "V_does_not_factor_through_classical",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierExhaustiveness__V_does_not_factor_through_classical__a.v\", line 3, characters 94-108:\nError: The reference BareTranscript was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierExhaustiveness__V_does_not_factor_through_classical__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierExhaustiveness__V_does_not_factor_through_classical__b.v\", line 3, characters 94-108:\nError: The reference BareTranscript was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierExhaustiveness__V_does_not_factor_through_classical__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (T : Type) (proj : T -> BareTranscript) (explains_T : VMState -> T -> Prop) (t_A t_B : T) (V : T -> bool), proj t_A = proj t_B -> explains_T po1_state_A t_A -> explains_T po1_state_B t_B -> (forall t : T, V t = true -> forall s : VMState, explains_T s t -> s.(vm_mu) = 1) -> (forall (s : VMState) (t : T), s.(vm_mu) = 1 -> explains_T s t -> V t = true) -> ~ factors_classical proj V",
+      "status": "ok"
+    },
+    {
+      "file": "coq/VerifierExhaustiveness.v",
+      "kind": "Theorem",
+      "line": 135,
+      "name": "verifier_corollary_summary",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierExhaustiveness__verifier_corollary_summary__a.v\", line 3, characters 68-80:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/VerifierExhaustiveness__verifier_corollary_summary__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierExhaustiveness__verifier_corollary_summary__b.v\", line 3, characters 68-80:\nError: The reference BareVerifier was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/VerifierExhaustiveness__verifier_corollary_summary__b.v",
+        "succeeded": false
+      },
+      "statement": "(~ exists V : BareVerifier, bare_sound mu_eq_one_problem V /\\ bare_complete mu_eq_one_problem V) /\\ (forall (T : Type) (proj : T -> BareTranscript) (explains_T : VMState -> T -> Prop) (t_A t_B : T) (V : T -> bool), proj t_A = proj t_B -> explains_T po1_state_A t_A -> explains_T po1_state_B t_B -> (forall t, V t = true -> forall s, explains_T s t -> s.(vm_mu) = 1) -> (forall s t, s.(vm_mu) = 1 -> explains_T s t -> V t = true) -> ~ factors_classical proj V)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuCodingTheorem.v",
+      "kind": "Lemma",
+      "line": 91,
+      "name": "holds_mu_eq_k",
+      "probe_a": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__holds_mu_eq_k__a.v\", line 3, characters 89-94:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__holds_mu_eq_k__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "l-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__holds_mu_eq_k__b.v\", line 3, characters 89-94:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__holds_mu_eq_k__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k s, holds_at (mu_eq_k_claim k) s <-> s.(vm_mu) = k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuCodingTheorem.v",
+      "kind": "Lemma",
+      "line": 103,
+      "name": "certify_instruction_cost_payload_eq",
+      "probe_a": {
+        "coq_stderr_tail": "spaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__certify_instruction_cost_payload_eq__a.v\", line 3, characters 77-104:\nError: The reference MuChaitin.cert_payload_size was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__certify_instruction_cost_payload_eq__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "spaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__certify_instruction_cost_payload_eq__b.v\", line 3, characters 77-104:\nError: The reference MuChaitin.cert_payload_size was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__certify_instruction_cost_payload_eq__b.v",
+        "succeeded": false
+      },
+      "statement": "forall delta, MuChaitin.cert_payload_size (instr_certify delta) = delta",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuCodingTheorem.v",
+      "kind": "Lemma",
+      "line": 107,
+      "name": "vm_apply_certify_mu_from_init",
+      "probe_a": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__vm_apply_certify_mu_from_init__a.v\", line 3, characters 116-121:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__vm_apply_certify_mu_from_init__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__vm_apply_certify_mu_from_init__b.v\", line 3, characters 116-121:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__vm_apply_certify_mu_from_init__b.v",
+        "succeeded": false
+      },
+      "statement": "forall delta, (vm_apply init_state (instr_certify delta)).(vm_mu) = S delta",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuCodingTheorem.v",
+      "kind": "Theorem",
+      "line": 121,
+      "name": "mu_eq_k_upper_bound",
+      "probe_a": {
+        "coq_stderr_tail": "<timeout after 30s>",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__mu_eq_k_upper_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "<timeout after 30s>",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__mu_eq_k_upper_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> intrinsic_payload_at_most (mu_eq_k_claim k) (k - 1)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuCodingTheorem.v",
+      "kind": "Lemma",
+      "line": 165,
+      "name": "instr_certify_priced_eq",
+      "probe_a": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__instr_certify_priced_eq__a.v\", line 3, characters 81-94:\nError: The reference instr_certify was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__instr_certify_priced_eq__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__instr_certify_priced_eq__b.v\", line 3, characters 81-94:\nError: The reference instr_certify was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__instr_certify_priced_eq__b.v",
+        "succeeded": false
+      },
+      "statement": "forall delta, cert_priced_eq (instr_certify delta)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuCodingTheorem.v",
+      "kind": "Theorem",
+      "line": 171,
+      "name": "mu_eq_k_lower_bound",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__mu_eq_k_lower_bound__a.v\", line 3, characters 83-97:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__mu_eq_k_lower_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__mu_eq_k_lower_bound__b.v\", line 3, characters 83-97:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__mu_eq_k_lower_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> forall (instr : vm_instruction), cert_priced_eq instr -> certifies_claim (mu_eq_k_claim k) init_state instr -> MuChaitin.cert_payload_size instr >= k - 1",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuCodingTheorem.v",
+      "kind": "Theorem",
+      "line": 212,
+      "name": "mu_coding_theorem",
+      "probe_a": {
+        "coq_stderr_tail": "filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__mu_coding_theorem__a.v\", line 3, characters 138-148:\nError: The reference init_state was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__mu_coding_theorem__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuCodingTheorem__mu_coding_theorem__b.v\", line 3, characters 138-148:\nError: The reference init_state was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuCodingTheorem__mu_coding_theorem__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k, k >= 1 -> (exists instr, cert_priced_eq instr /\\ certifies_claim (mu_eq_k_claim k) init_state instr /\\ MuChaitin.cert_payload_size instr = k - 1) /\\ (forall instr, cert_priced_eq instr -> certifies_claim (mu_eq_k_claim k) init_state instr -> MuChaitin.cert_payload_size instr >= k - 1)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/IntrinsicLevelHierarchy.v",
+      "kind": "Theorem",
+      "line": 67,
+      "name": "level_intrinsic_forces_mu",
+      "probe_a": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_intrinsic_forces_mu__a.v\", line 3, characters 118-130:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_intrinsic_forces_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_intrinsic_forces_mu__b.v\", line 3, characters 118-130:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_intrinsic_forces_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k s_final, level_intrinsic_at_least k s_final -> s_final.(vm_certified) = true -> forall fuel trace, run_vm fuel trace init_state = s_final -> s_final.(vm_mu) >= k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/IntrinsicLevelHierarchy.v",
+      "kind": "Theorem",
+      "line": 98,
+      "name": "level_strict_separation",
+      "probe_a": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__a.v\", line 3, characters 122-134:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "lt]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__b.v\", line 3, characters 122-134:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/IntrinsicLevelHierarchy__level_strict_separation__b.v",
+        "succeeded": false
+      },
+      "statement": "forall k s_final, level_intrinsic_at_least (k + 1) s_final -> s_final.(vm_certified) = true -> forall fuel trace, run_vm fuel trace init_state = s_final -> cert_events_in fuel trace init_state > k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuDirectSum.v",
+      "kind": "Theorem",
+      "line": 66,
+      "name": "direct_sum_lower_bound",
+      "probe_a": {
+        "coq_stderr_tail": "ath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__direct_sum_lower_bound__a.v\", line 3, characters 82-89:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuDirectSum__direct_sum_lower_bound__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__direct_sum_lower_bound__b.v\", line 3, characters 82-89:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuDirectSum__direct_sum_lower_bound__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (k1 k2 : nat) (s_final : VMState), cert_disjoint_independent k1 k2 s_final -> s_final.(vm_certified) = true -> forall fuel trace, run_vm fuel trace init_state = s_final -> s_final.(vm_mu) >= k1 + k2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuDirectSum.v",
+      "kind": "Lemma",
+      "line": 106,
+      "name": "amortizing_state_is_certified",
+      "probe_a": {
+        "coq_stderr_tail": "t]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__amortizing_state_is_certified__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type \"true = true\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuDirectSum__amortizing_state_is_certified__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ed to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__amortizing_state_is_certified__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuDirectSum__amortizing_state_is_certified__b.v",
+        "succeeded": false
+      },
+      "statement": "is_certified amortizing_state",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuDirectSum.v",
+      "kind": "Lemma",
+      "line": 112,
+      "name": "amortizing_state_nonzero_mu",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__amortizing_state_nonzero_mu__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type \"1 <= 1\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuDirectSum__amortizing_state_nonzero_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "pped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__amortizing_state_nonzero_mu__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuDirectSum__amortizing_state_nonzero_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "nonzero_mu amortizing_state",
+      "status": "ok"
+    },
+    {
+      "file": "coq/MuDirectSum.v",
+      "kind": "Theorem",
+      "line": 125,
+      "name": "amortization_succeeds",
+      "probe_a": {
+        "coq_stderr_tail": "path,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__amortization_succeeds__a.v\", line 3, characters 131-136:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/MuDirectSum__amortization_succeeds__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "path,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/MuDirectSum__amortization_succeeds__b.v\", line 3, characters 131-136:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/MuDirectSum__amortization_succeeds__b.v",
+        "succeeded": false
+      },
+      "statement": "is_certified amortizing_state /\\ nonzero_mu amortizing_state /\\ amortizing_state.(vm_mu) = 1",
+      "status": "ok"
+    }
+  ]
+}

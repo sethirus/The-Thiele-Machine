@@ -52,6 +52,20 @@ Everything else in this repository is a realization of the substrate, not the su
 - The Coq → OCaml → Kami → Verilog → FPGA pipeline is a realization of the substrate in silicon. It is not part of the substrate proof. The current bitstream flow targets Kintex-7 K325T (Digilent Genesys 2). `column_contractive_check_witness` is implemented in Kami as a 23-phase FSM that time-shares one 384×384 SignUU multiplier (Coq spec for `instr_chsh_lassert` is single-step; the multi-cycle execution is a Kami-implementation detail, invisible to the spec, same pattern as `instr_lassert`). With DSP inference disabled in yosys (`-nodsp`), the design maps to ≈151K LUT6 against K325T's 203K budget and routes cleanly (router2 converges at zero overuse, max frequency 49.33 MHz against the 12 MHz target). The CI `fpga-bitstream` job has produced a real ≈11.4 MB `.bit` file end-to-end through yosys → nextpnr-xilinx → fasm2frames → xc7frames2bit, loadable on the Genesys 2 with `openFPGALoader --board genesys2 build/thiele_xc7k325t.bit`. See [fpga/run_synthesis_xc7.sh](fpga/run_synthesis_xc7.sh) and the `chsh_lassert_fsm` rule in [coq/kami_hw/ThieleCPUCore.v](coq/kami_hw/ThieleCPUCore.v).
 - The Bekenstein/Landauer bridges are motivation, explicitly labeled as such in the monograph.
 
+## The verifier corollary
+
+Step 3 says classical computation is the substrate's forgetful projection. Run that through verifier theory and the same projection produces a verification impossibility.
+
+A verifier whose transcript is `list StrictClassicalState` — the strict-shadow trace — cannot soundly decide a claim that depends on μ. The two single-step witnesses from the Core Proof project to the same classical trace; one satisfies the μ=1 claim, one does not. Soundness forces the claim to hold for every state that could explain the transcript, including the one where it fails. Completeness forces acceptance on the honest run. Both bars cannot be cleared. The bare-setting impossibility is `bare_setting_no_sound_complete_verifier`, in [coq/VerifierImpossibility.v](coq/VerifierImpossibility.v).
+
+Three structurally distinct ways to clear both bars, each with a concrete sufficient verifier in the kernel:
+
+- **Substrate** — the transcript carries the full `VMState`; the verifier reads `vm_mu` directly. `substrate_escape_succeeds`, in [coq/VerifierEscape_Substrate.v](coq/VerifierEscape_Substrate.v).
+- **Hardness** — the transcript carries an unforgeable commitment; the verifier accepts under a hardness hypothesis. `hardness_escape_succeeds`, in [coq/VerifierEscape_Hardness.v](coq/VerifierEscape_Hardness.v).
+- **Interaction** — the verifier challenges the prover for a response that pins the claim. `interactive_escape_succeeds`, in [coq/VerifierEscape_Interaction.v](coq/VerifierEscape_Interaction.v).
+
+The substrate channel is the option the structural axis makes available. The other two are what classical cryptography and complexity already use. The trichotomy is closed at the bottom by `V_does_not_factor_through_classical` in [coq/VerifierExhaustiveness.v](coq/VerifierExhaustiveness.v): any sound + complete verifier on the μ-sensitive claim, over any transcript type, cannot be a function of the transcript's classical projection. Verification must access non-classical structure. The three escapes are three concrete ways to expose it; the theorem says exposure is mandatory.
+
 ## Clarification: simulation vs. substrate
 
 A common reading is that A2 can be enforced in software on a TM, so the substrate distinction is a hardware/software boundary rather than a fundamental one. That reading conflates simulation with substrate. The distinction is one sentence:

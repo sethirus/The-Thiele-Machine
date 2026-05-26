@@ -176,6 +176,31 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 
 ---
 
+## Concept 13: Kernel-Conversion Vacuity Gate
+
+**What it is.** A static analyser sitting upstream of the Inquisitor (`scripts/vacuity_gate.py`) that mechanically checks whether each Theorem's conclusion is *definitionally* equal to `True` or to one of its own hypotheses, after δ/ι/ζ/β reduction. For every Theorem in a target `.v` file, the gate synthesises two Coq probes — `Proof. intros; lazy; exact I. Qed.` and `Proof. intros; lazy in *; assumption. Qed.` — and runs `coqc` on each. A successful probe is conclusive: Coq's own kernel accepted a trivial proof, which means the theorem is a tautology dressed up. The Inquisitor consumes the gate's audit (`artifacts/vacuity_audit.json`) and emits HIGH findings on any vacuous theorem.
+
+**Why it exists.** Inquisitor's existing vacuity rules are syntactic regex scans. The gate catches the failure mode they miss: theorems whose conclusion is `Some.Module.Predicate x y z` rather than literally `True`, but where unfolding the predicate's definition reduces to `True` or to a hypothesis. The smoke fixture `coq/test_fixtures/VacuitySmoke.v` carries five known-vacuous and four known-real theorems with inline `EXPECT_VACUOUS_TRUE` / `EXPECT_VACUOUS_HYP` / `EXPECT_CLEAR` annotations; `tests/test_vacuity_gate.py` asserts the gate matches every annotation. Sound by construction (a positive probe is genuine kernel-level acceptance), incomplete for patterns the probes cannot reduce — those slip through silently rather than producing false positives.
+
+**Variants disclosed.** Any automated proof-vacuity detector that synthesises proof obligations against the same source kernel and uses the kernel's own acceptance as the vacuity verdict is a variant of this concept.
+
+---
+
+## Concept 14: Verifier Corollary — Sound Verification Requires Structural Access
+
+**Statement.** Concept 11 (µ-Ledger Irrecoverability) says no function on the classical projection recovers µ. The verifier corollary lifts that fact into verifier theory: no verifier whose transcript is the classical projection alone is simultaneously sound and complete on any µ-sensitive claim. The two single-step witnesses from `NecessityOfMuLedger.v` (`po1_state_A` with µ = 1, `po1_state_B` with µ = 0) project to the same strict-shadow trace; soundness and completeness against the µ = 1 claim cannot both hold. Theorem `bare_setting_no_sound_complete_verifier` in `coq/VerifierImpossibility.v`.
+
+**Three structurally distinct sufficient escapes.** Each one is a closed Coq theorem with a concrete verifier:
+- **Substrate-trust** (`coq/VerifierEscape_Substrate.v`): the transcript carries the full `VMState`; the verifier reads µ directly. Constant-cost sound and complete. Theorem `substrate_escape_succeeds`.
+- **Hardness** (`coq/VerifierEscape_Hardness.v`): the transcript carries an unforgeable commitment under a parameterised `HardnessHypothesis` record (parameter, not axiom). Constant-cost weak-sound. Theorem `hardness_escape_succeeds`.
+- **Interaction** (`coq/VerifierEscape_Interaction.v`): the verifier elicits a response that pins the claim. Constant-cost sound and complete when the response set reports µ. Theorem `interactive_escape_succeeds`.
+
+**Factorisation impossibility.** The trichotomy is closed at the bottom by `V_does_not_factor_through_classical` in `coq/VerifierExhaustiveness.v`: for any transcript type `T` and any projection `π : T → BareTranscript`, no verifier `V : T → bool` that is sound and complete on the µ-sensitive claim factors through `π`. Verification must access non-classical structural information in the transcript. The substrate channel is what the structural axis newly makes available; hardness and interaction are the two routes classical cryptography and complexity already used.
+
+**Variants disclosed.** Any verifier model parameterised over transcripts where the bare-classical channel admits a witness-state-collision impossibility, and where escape mechanisms supplying non-classical structural data restore sound completeness, is a variant of this concept.
+
+---
+
 ## Prior Art Timeline
 
 | Date | Event |

@@ -1,0 +1,76 @@
+DIGEST 9b4bee318a116b87fd3d10f1c61ebbd9
+FTestFixtures.VacuitySmoke
+R704:717 Coq.Arith.PeanoNat <> <> lib
+def 799:815 <> VacuouslyTrueProp
+R827:830 Coq.Init.Logic <> True ind
+def 895:909 <> GenuineEquality
+R916:918 Coq.Init.Datatypes <> nat ind
+binder 912:912 <> n:1
+R934:936 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R931:931 Coq.Init.Datatypes <> S constr
+R933:933 TestFixtures.VacuitySmoke <> n:1 var
+R937:937 Coq.Init.Datatypes <> S constr
+R939:939 TestFixtures.VacuitySmoke <> n:1 var
+prf 1031:1048 <> smoke_literal_true
+R1052:1055 Coq.Init.Logic <> True ind
+R1071:1071 Coq.Init.Logic <> I constr
+R1071:1071 Coq.Init.Logic <> I constr
+prf 1114:1134 <> smoke_unfolds_to_true
+R1138:1154 TestFixtures.VacuitySmoke <> VacuouslyTrueProp def
+R1171:1187 TestFixtures.VacuitySmoke <> VacuouslyTrueProp def
+R1196:1196 Coq.Init.Logic <> I constr
+R1196:1196 Coq.Init.Logic <> I constr
+prf 1239:1259 <> smoke_quantified_true
+R1275:1277 Coq.Init.Datatypes <> nat ind
+binder 1271:1271 <> n:2
+R1281:1284 Coq.Init.Logic <> True ind
+R1310:1310 Coq.Init.Logic <> I constr
+R1310:1310 Coq.Init.Logic <> I constr
+prf 1352:1365 <> smoke_identity
+binder 1377:1377 <> P:3
+R1389:1392 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1388:1388 TestFixtures.VacuitySmoke <> P:3 var
+R1393:1393 TestFixtures.VacuitySmoke <> P:3 var
+prf 1463:1487 <> smoke_two_hyps_pick_first
+binder 1501:1501 <> P:4
+binder 1503:1503 <> Q:5
+R1515:1518 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1514:1514 TestFixtures.VacuitySmoke <> P:4 var
+R1520:1523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1519:1519 TestFixtures.VacuitySmoke <> Q:5 var
+R1524:1524 TestFixtures.VacuitySmoke <> P:4 var
+prf 1786:1797 <> smoke_addnSm
+R1815:1817 Coq.Init.Datatypes <> nat ind
+binder 1809:1809 <> n:6
+binder 1811:1811 <> m:7
+R1828:1830 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1824:1826 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1821:1821 Coq.Init.Datatypes <> S constr
+R1823:1823 TestFixtures.VacuitySmoke <> n:6 var
+R1827:1827 TestFixtures.VacuitySmoke <> m:7 var
+R1831:1831 Coq.Init.Datatypes <> S constr
+R1835:1837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R1834:1834 TestFixtures.VacuitySmoke <> n:6 var
+R1838:1838 TestFixtures.VacuitySmoke <> m:7 var
+prf 1903:1920 <> smoke_succ_nonzero
+R1936:1938 Coq.Init.Datatypes <> nat ind
+binder 1932:1932 <> n:8
+R1945:1948 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R1942:1942 Coq.Init.Datatypes <> S constr
+R1944:1944 TestFixtures.VacuitySmoke <> n:8 var
+prf 2018:2039 <> smoke_genuine_equality
+binder 2050:2050 <> n:9
+R2053:2067 TestFixtures.VacuitySmoke <> GenuineEquality def
+R2069:2069 TestFixtures.VacuitySmoke <> n:9 var
+R2096:2110 TestFixtures.VacuitySmoke <> GenuineEquality def
+prf 2159:2176 <> smoke_modus_ponens
+binder 2190:2190 <> P:10
+binder 2192:2192 <> Q:11
+R2203:2203 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2210:2214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2205:2208 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2204:2204 TestFixtures.VacuitySmoke <> P:10 var
+R2209:2209 TestFixtures.VacuitySmoke <> Q:11 var
+R2216:2219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2215:2215 TestFixtures.VacuitySmoke <> P:10 var
+R2220:2220 TestFixtures.VacuitySmoke <> Q:11 var

@@ -1,0 +1,155 @@
+DIGEST c7511424dc222355ea557458bbf663a8
+FVerifierEscape_Interaction
+R972:975 Coq.Lists.List <> <> lib
+R977:990 Coq.Arith.PeanoNat <> <> lib
+R1000:1012 Coq.Lists.List ListNotations <> mod
+R1043:1049 Kernel.VMState <> <> lib
+R1067:1085 NecessityOfMuLedger <> <> lib
+R1103:1115 VerifierModel <> <> lib
+R1133:1153 VerifierImpossibility <> <> lib
+def 1516:1536 <> InteractiveTranscript
+R1562:1564 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R1548:1561 VerifierModel <> BareTranscript def
+R1565:1567 Coq.Init.Datatypes <> nat ind
+def 1582:1592 <> it_response
+R1599:1619 VerifierEscape_Interaction <> InteractiveTranscript def
+binder 1595:1595 <> t:1
+R1624:1626 Coq.Init.Datatypes <> nat ind
+R1631:1633 Coq.Init.Datatypes <> snd def
+R1635:1635 VerifierEscape_Interaction <> t:1 var
+def 1933:1947 <> honest_response
+R1954:1960 Kernel.VMState <> VMState rec
+binder 1950:1950 <> s:2
+R1968:1970 Coq.Init.Datatypes <> nat ind
+binder 1964:1964 <> r:3
+R1992:1994 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1986:1990 Kernel.VMState <> vm_mu proj
+R1983:1983 VerifierEscape_Interaction <> s:2 var
+R1995:1995 VerifierEscape_Interaction <> r:3 var
+def 2131:2150 <> interactive_explains
+R2157:2163 Kernel.VMState <> VMState rec
+binder 2153:2153 <> s:4
+R2171:2191 VerifierEscape_Interaction <> InteractiveTranscript def
+binder 2167:2167 <> t:5
+R2206:2220 VerifierEscape_Interaction <> honest_response def
+R2222:2222 VerifierEscape_Interaction <> s:4 var
+R2225:2235 VerifierEscape_Interaction <> it_response def
+R2237:2237 VerifierEscape_Interaction <> t:5 var
+def 2392:2409 <> interactive_decide
+R2416:2436 VerifierEscape_Interaction <> InteractiveTranscript def
+binder 2412:2412 <> t:6
+R2441:2444 Coq.Init.Datatypes <> bool ind
+R2451:2457 Coq.Arith.PeanoNat Nat eqb def
+R2460:2470 VerifierEscape_Interaction <> it_response def
+R2472:2472 VerifierEscape_Interaction <> t:6 var
+def 2490:2505 <> interactive_cost
+R2512:2532 VerifierEscape_Interaction <> InteractiveTranscript def
+binder 2508:2508 <> t:7
+R2537:2539 Coq.Init.Datatypes <> nat ind
+prf 2788:2813 <> interactive_verifier_sound
+R2830:2850 VerifierEscape_Interaction <> InteractiveTranscript def
+binder 2826:2826 <> t:8
+R2884:2891 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2877:2879 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2857:2874 VerifierEscape_Interaction <> interactive_decide def
+R2876:2876 VerifierEscape_Interaction <> t:8 var
+R2880:2883 Coq.Init.Datatypes <> true constr
+R2903:2909 Kernel.VMState <> VMState rec
+binder 2899:2899 <> s:9
+R2942:2945 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2918:2937 VerifierEscape_Interaction <> interactive_explains def
+R2939:2939 VerifierEscape_Interaction <> s:9 var
+R2941:2941 VerifierEscape_Interaction <> t:8 var
+R2955:2957 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2949:2953 Kernel.VMState <> vm_mu proj
+R2946:2946 VerifierEscape_Interaction <> s:9 var
+R3001:3020 VerifierEscape_Interaction <> interactive_explains def
+R3023:3037 VerifierEscape_Interaction <> honest_response def
+R3057:3074 VerifierEscape_Interaction <> interactive_decide def
+R3093:3102 Coq.Arith.PeanoNat Nat eqb_eq thm
+R3093:3102 Coq.Arith.PeanoNat Nat eqb_eq thm
+prf 3261:3289 <> interactive_verifier_complete
+R3307:3313 Kernel.VMState <> VMState rec
+binder 3303:3303 <> s:10
+R3321:3341 VerifierEscape_Interaction <> InteractiveTranscript def
+binder 3317:3317 <> t:11
+R3362:3369 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3358:3360 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3352:3356 Kernel.VMState <> vm_mu proj
+R3349:3349 VerifierEscape_Interaction <> s:10 var
+R3394:3401 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3370:3389 VerifierEscape_Interaction <> interactive_explains def
+R3391:3391 VerifierEscape_Interaction <> s:10 var
+R3393:3393 VerifierEscape_Interaction <> t:11 var
+R3422:3424 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3402:3419 VerifierEscape_Interaction <> interactive_decide def
+R3421:3421 VerifierEscape_Interaction <> t:11 var
+R3425:3428 Coq.Init.Datatypes <> true constr
+R3470:3489 VerifierEscape_Interaction <> interactive_explains def
+R3492:3506 VerifierEscape_Interaction <> honest_response def
+R3526:3543 VerifierEscape_Interaction <> interactive_decide def
+prf 3605:3630 <> interactive_verifier_cheap
+R3647:3667 VerifierEscape_Interaction <> InteractiveTranscript def
+binder 3643:3643 <> t:12
+R3688:3690 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3670:3685 VerifierEscape_Interaction <> interactive_cost def
+R3687:3687 VerifierEscape_Interaction <> t:12 var
+prf 3736:3762 <> interactive_escape_succeeds
+R3768:3775 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3863:3869 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R3806:3809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3785:3805 VerifierEscape_Interaction <> InteractiveTranscript def
+R3810:3813 Coq.Init.Datatypes <> bool ind
+binder 3776:3781 <> decide:13
+R3856:3859 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3835:3855 VerifierEscape_Interaction <> InteractiveTranscript def
+R3860:3862 Coq.Init.Datatypes <> nat ind
+binder 3826:3829 <> cost:14
+R3870:3870 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3958:3966 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3878:3878 <> t:15
+R3896:3906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3889:3891 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3881:3886 VerifierEscape_Interaction <> decide:13 var
+R3888:3888 VerifierEscape_Interaction <> t:15 var
+R3892:3895 Coq.Init.Datatypes <> true constr
+binder 3914:3914 <> s:16
+R3941:3944 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3917:3936 VerifierEscape_Interaction <> interactive_explains def
+R3938:3938 VerifierEscape_Interaction <> s:16 var
+R3940:3940 VerifierEscape_Interaction <> t:15 var
+R3954:3956 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3948:3952 Kernel.VMState <> vm_mu proj
+R3945:3945 VerifierEscape_Interaction <> s:16 var
+R3967:3967 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4061:4070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4091:4091 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 3975:3975 <> s:17
+binder 3977:3977 <> t:18
+R4000:4010 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3996:3998 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3990:3994 Kernel.VMState <> vm_mu proj
+R3987:3987 VerifierEscape_Interaction <> s:17 var
+R4035:4045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4011:4030 VerifierEscape_Interaction <> interactive_explains def
+R4032:4032 VerifierEscape_Interaction <> s:17 var
+R4034:4034 VerifierEscape_Interaction <> t:18 var
+R4054:4056 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4046:4051 VerifierEscape_Interaction <> decide:13 var
+R4053:4053 VerifierEscape_Interaction <> t:18 var
+R4057:4060 Coq.Init.Datatypes <> true constr
+binder 4078:4078 <> t:19
+R4087:4089 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4081:4084 VerifierEscape_Interaction <> cost:14 var
+R4086:4086 VerifierEscape_Interaction <> t:19 var
+R4110:4127 VerifierEscape_Interaction <> interactive_decide def
+R4130:4145 VerifierEscape_Interaction <> interactive_cost def
+R4110:4127 VerifierEscape_Interaction <> interactive_decide def
+R4130:4145 VerifierEscape_Interaction <> interactive_cost def
+R4177:4202 VerifierEscape_Interaction <> interactive_verifier_sound thm
+R4177:4202 VerifierEscape_Interaction <> interactive_verifier_sound thm
+R4215:4243 VerifierEscape_Interaction <> interactive_verifier_complete thm
+R4215:4243 VerifierEscape_Interaction <> interactive_verifier_complete thm
+R4256:4281 VerifierEscape_Interaction <> interactive_verifier_cheap thm
+R4256:4281 VerifierEscape_Interaction <> interactive_verifier_cheap thm
+R4308:4334 VerifierEscape_Interaction <> interactive_escape_succeeds thm

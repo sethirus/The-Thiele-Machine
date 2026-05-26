@@ -910,6 +910,51 @@ This is initiality in the actual categorical sense, not slogan initiality. The c
 
 The scope is not smuggled in. Section~\ref{sec:unknown} says it plainly: initiality is relative to the A2-respecting category. The proof decides that. It does not decide whether this category is foundationally privileged over every other cost-tracking category. That is meta-mathematics, not a theorem.
 
+\subsection{What the projection cannot verify: the verifier corollary}
+\label{sec:verifier-corollary}
+
+The non-existence theorems above proved the projection is structurally lossy: $\mu$, \texttt{vm\_certified}, and \texttt{csr\_cert\_addr} are not functions of the bare classical observable. The natural next move is to ask what that lossiness means for verification. If a verifier sees only the projection --- a list of \texttt{StrictClassicalState} snapshots, the Turing-classical trace --- what can it soundly decide?
+
+Answer: not the claims that depend on the dropped fields.
+
+\begin{theorem}[Bare-setting verifier impossibility, \code{bare\_setting\_no\_sound\_complete\_verifier}]
+There is no verifier $V : \texttt{list StrictClassicalState} \to \texttt{bool}$ that is simultaneously sound and complete on the claim ``$\texttt{vm\_mu}\ s = 1$.''
+\end{theorem}
+
+\begin{proof}
+The two single-step witness states from the receipt theorem --- $\texttt{po1\_state\_A}$ (cost-1 \texttt{CERTIFY 0}) and $\texttt{po1\_state\_B}$ (cost-0 \texttt{PNEW [] 0}) --- project to the same strict-shadow trace. State $A$ satisfies the claim; state $B$ does not. A complete verifier must accept the honest run from $A$. On the same accepted transcript, soundness forces the claim to hold for every state that could explain the transcript --- including $B$. The first requirement gives acceptance; the second contradicts $B$'s $\mu = 0$. The Coq source is \code{coq/VerifierImpossibility.v}; \texttt{Print Assumptions} returns \texttt{Closed under the global context}. \qed
+\end{proof}
+
+\begin{plainreading}
+A verifier that sees only the classical projection of a Thiele execution cannot soundly decide claims about $\mu$. Two different Thiele executions project to identical classical traces and disagree on whether $\mu = 1$. The verifier has nothing to distinguish them by. Soundness and completeness on $\mu$-sensitive claims are mutually exclusive under the bare projection. This is the receipt theorem lifted from ``no function recovers $\mu$ from the projection'' to ``no verifier soundly decides $\mu$-sensitive claims from the projection.''
+\end{plainreading}
+
+\subsubsection*{Three escapes, each constructed.}
+
+Three structurally distinct ways to clear the impossibility live in the kernel as concrete verifiers, each one a closed Coq theorem.
+
+\begin{enumerate}
+\item \emph{Substrate-trust} (\code{coq/VerifierEscape\_Substrate.v}). The transcript carries the full \texttt{VMState} and the verifier reads $\mu$ directly. \code{substrate\_escape\_succeeds} exhibits a verifier with constant cost that is both sound and complete on $\texttt{vm\_mu}\ s = 1$. The verifier's decision function is \texttt{Nat.eqb (last t).vm\_mu 1}; the proof is one inhabitation per quantifier.
+
+\item \emph{Hardness} (\code{coq/VerifierEscape\_Hardness.v}). The transcript carries an unforgeable commitment; the verifier accepts the commitment under a hardness hypothesis. \code{hardness\_escape\_succeeds} exhibits a constant-cost weak-sound verifier conditional on a \texttt{HardnessHypothesis} record. The record is a parameter the verifier is constructed over, not an axiom; whether the hypothesis is realised in nature is a question for cryptography, not this kernel.
+
+\item \emph{Interaction} (\code{coq/VerifierEscape\_Interaction.v}). The verifier elicits a response from the prover that pins the claim. \code{interactive\_escape\_succeeds} exhibits a constant-cost sound and complete verifier when the response set is rich enough to report $\mu$. This is the simplest possible interactive model --- one round, one fixed query --- and that is all the corollary needs.
+\end{enumerate}
+
+The substrate channel is the option the structural axis makes available; hardness and interaction are the two routes classical cryptography and complexity already used. The substrate channel completes the trichotomy. The trichotomy is closed at the bottom by the structural-access theorem:
+
+\begin{theorem}[Factorisation impossibility, \code{V\_does\_not\_factor\_through\_classical}]
+For any transcript type $T$ with a projection $\pi : T \to \texttt{list StrictClassicalState}$, no verifier $V : T \to \texttt{bool}$ that is simultaneously sound and complete on $\texttt{vm\_mu}\ s = 1$ factors through $\pi$. Equivalently: there exist $t_1, t_2 : T$ with $\pi(t_1) = \pi(t_2)$ and $V(t_1) \neq V(t_2)$.
+\end{theorem}
+
+\begin{proof}
+If $V$ factored through $\pi$, then $V(t_1) = V(t_2)$ whenever $\pi(t_1) = \pi(t_2)$. The bare-setting witness-state collision lifts to $T$ as a pair with this property. Running the bare-setting argument on the factored $V$ reproduces the contradiction. The Coq source is \code{coq/VerifierExhaustiveness.v}; \texttt{Print Assumptions} returns \texttt{Closed under the global context}. \qed
+\end{proof}
+
+\begin{plainreading}
+Verification of $\mu$-sensitive claims must access non-classical structure of the transcript. The three escapes are three concrete ways to expose that structure; the factorisation theorem says exposure is mandatory. Any verifier that pretends to live entirely on the classical projection --- by reading only what the projection sees, no matter how rich the transcript otherwise --- will fail on the same witness pair that the bare-setting theorem already exhibited. The substrate, the hardness commitment, and the interactive response are not three options among many; they are three instances of the only option, which is ``the transcript carries non-classical structure and the verifier reads it.''
+\end{plainreading}
+
 %===========================================================================
 \section{What structure is}
 \label{sec:structure}

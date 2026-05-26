@@ -232,6 +232,32 @@ itself. Every substrate state has a classical projection; no
 classical state has a canonical substrate lift. The directionality
 is proved, not stipulated.
 
+Run the asymmetry through verifier theory and it produces an
+impossibility. A verifier whose transcript is only the classical
+projection -- a list of strict-shadow snapshots -- cannot be
+simultaneously sound and complete on any claim that depends on the
+dropped fields. The two single-step witnesses from the receipt
+theorem project to the same strict-shadow trace, one with mu = 1
+and one with mu = 0. Soundness forces the claim to hold for every
+state that could explain the transcript; completeness forces
+acceptance on the honest run. Both cannot hold. Three structurally
+distinct escapes lift the impossibility, each one a closed Coq
+theorem with a concrete verifier: substrate-trust (the transcript
+carries the full VMState and the verifier reads mu directly,
+coq/VerifierEscape_Substrate.v), hardness (the transcript carries
+an unforgeable commitment under a parameterised hardness
+hypothesis, coq/VerifierEscape_Hardness.v), and interaction (the
+verifier elicits a response that pins the claim,
+coq/VerifierEscape_Interaction.v). The trichotomy is closed at the
+bottom by V_does_not_factor_through_classical in
+coq/VerifierExhaustiveness.v: any sound and complete verifier on
+the mu-sensitive claim, over any transcript type, cannot be a
+function of the transcript's classical projection alone.
+Verification must access non-classical structure. The substrate
+channel is what the structural axis newly makes available;
+hardness and interaction are the two routes classical cryptography
+and complexity already used.
+
 
 7. WHAT THIS DOES NOT CLAIM
 

@@ -1,444 +1,444 @@
-DIGEST 7f7dc24475b99b0327582df225b67396
+DIGEST ad742c979140807fe929e91b48bdb688
 FKernel.MuHierarchyTheorem
-R1856:1859 Coq.Lists.List <> <> lib
-R1861:1874 Coq.Arith.PeanoNat <> <> lib
-R1876:1878 Coq.micromega.Lia <> <> lib
-R1880:1883 Coq.Bool.Bool <> <> lib
-R1893:1905 Coq.Lists.List ListNotations <> mod
-R1936:1942 Kernel.VMState <> <> lib
-R1944:1949 Kernel.VMStep <> <> lib
-R1979:1993 Kernel.SimulationProof <> <> lib
-R2023:2042 Kernel.MuLedgerConservation <> <> lib
-R2072:2083 Kernel.MuInitiality <> <> lib
-R2113:2124 Kernel.MuComplexity <> <> lib
-R2135:2147 Kernel.VMStep VMStep <> mod
-prf 2276:2306 <> vm_apply_certify_sets_certified
-R2324:2330 Kernel.VMState <> VMState rec
-binder 2320:2320 <> s:1
-R2342:2344 Coq.Init.Datatypes <> nat ind
-binder 2334:2338 <> delta:2
-R2401:2403 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2388:2399 Kernel.VMState <> vm_certified proj
-R2353:2360 Kernel.SimulationProof <> vm_apply def
-R2362:2362 Kernel.MuHierarchyTheorem <> s:1 var
-R2365:2377 Kernel.VMStep VMStep instr_certify constr
-R2379:2383 Kernel.MuHierarchyTheorem <> delta:2 var
-R2404:2407 Coq.Init.Datatypes <> true constr
-R2449:2460 Kernel.VMStep VMStep step_certify constr
-R2449:2460 Kernel.VMStep VMStep step_certify constr
-R2492:2507 Kernel.SimulationProof <> vm_step_vm_apply thm
-R2512:2524 Kernel.VMStep VMStep instr_certify constr
-R2492:2507 Kernel.SimulationProof <> vm_step_vm_apply thm
-R2512:2524 Kernel.VMStep VMStep instr_certify constr
-R2492:2507 Kernel.SimulationProof <> vm_step_vm_apply thm
-R2512:2524 Kernel.VMStep VMStep instr_certify constr
-prf 2633:2656 <> certify_instruction_cost
-binder 2669:2673 <> delta:3
-R2714:2716 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2676:2691 Kernel.VMStep VMStep instruction_cost def
-R2694:2706 Kernel.VMStep VMStep instr_certify constr
-R2708:2712 Kernel.MuHierarchyTheorem <> delta:3 var
-R2717:2717 Coq.Init.Datatypes <> S constr
-R2719:2723 Kernel.MuHierarchyTheorem <> delta:3 var
-prf 2833:2856 <> vm_apply_certify_init_mu
-binder 2869:2873 <> delta:4
-R2931:2933 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R2925:2929 Kernel.VMState <> vm_mu proj
-R2881:2888 Kernel.SimulationProof <> vm_apply def
-R2890:2899 Kernel.MuInitiality <> init_state def
-R2902:2914 Kernel.VMStep VMStep instr_certify constr
-R2916:2920 Kernel.MuHierarchyTheorem <> delta:4 var
-R2934:2934 Coq.Init.Datatypes <> S constr
-R2936:2940 Kernel.MuHierarchyTheorem <> delta:4 var
-R2975:2985 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R2975:2985 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R2975:2985 Kernel.MuLedgerConservation <> vm_apply_mu thm
-R2998:3021 Kernel.MuHierarchyTheorem <> certify_instruction_cost thm
-R2998:3021 Kernel.MuHierarchyTheorem <> certify_instruction_cost thm
-R2998:3021 Kernel.MuHierarchyTheorem <> certify_instruction_cost thm
-R3034:3051 Kernel.MuInitiality <> init_state_mu_zero thm
-R3034:3051 Kernel.MuInitiality <> init_state_mu_zero thm
-R3034:3051 Kernel.MuInitiality <> init_state_mu_zero thm
-prf 3284:3306 <> run_vm_single_from_init
-R3328:3341 Kernel.VMStep VMStep vm_instruction ind
-binder 3320:3324 <> instr:5
-R3376:3378 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3349:3354 Kernel.SimulationProof <> run_vm def
-R3358:3358 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3364:3364 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3359:3363 Kernel.MuHierarchyTheorem <> instr:5 var
-R3366:3375 Kernel.MuInitiality <> init_state def
-R3379:3386 Kernel.SimulationProof <> vm_apply def
-R3388:3397 Kernel.MuInitiality <> init_state def
-R3399:3403 Kernel.MuHierarchyTheorem <> instr:5 var
-R3462:3464 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3456:3460 Kernel.VMState <> vm_pc proj
-R3444:3453 Kernel.MuInitiality <> init_state def
-R3462:3464 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3456:3460 Kernel.VMState <> vm_pc proj
-R3444:3453 Kernel.MuInitiality <> init_state def
-R3493:3498 Kernel.SimulationProof <> run_vm def
-def 3705:3720 <> certify_to_level
-R3727:3729 Coq.Init.Datatypes <> nat ind
-binder 3723:3723 <> k:6
-R3734:3737 Coq.Init.Datatypes <> list ind
-R3739:3752 Kernel.VMStep VMStep vm_instruction ind
-R3759:3759 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3781:3781 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R3760:3772 Kernel.VMStep VMStep instr_certify constr
-R3776:3778 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R3775:3775 Kernel.MuHierarchyTheorem <> k:6 var
-prf 3830:3848 <> certify_to_level_mu
-binder 3861:3861 <> k:7
-R3870:3877 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3865:3868 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R3864:3864 Kernel.MuHierarchyTheorem <> k:7 var
-R3928:3930 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3922:3926 Kernel.VMState <> vm_mu proj
-R3879:3884 Kernel.SimulationProof <> run_vm def
-R3889:3904 Kernel.MuHierarchyTheorem <> certify_to_level def
-R3906:3906 Kernel.MuHierarchyTheorem <> k:7 var
-R3909:3918 Kernel.MuInitiality <> init_state def
-R3931:3931 Kernel.MuHierarchyTheorem <> k:7 var
-R3965:3980 Kernel.MuHierarchyTheorem <> certify_to_level def
-R3993:4015 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
-R3993:4015 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
-R3993:4015 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
-R4028:4051 Kernel.MuHierarchyTheorem <> vm_apply_certify_init_mu thm
-R4028:4051 Kernel.MuHierarchyTheorem <> vm_apply_certify_init_mu thm
-R4028:4051 Kernel.MuHierarchyTheorem <> vm_apply_certify_init_mu thm
-prf 4122:4147 <> certify_to_level_certified
-binder 4160:4160 <> k:8
-R4169:4176 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4164:4167 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4163:4163 Kernel.MuHierarchyTheorem <> k:8 var
-R4234:4236 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4221:4232 Kernel.VMState <> vm_certified proj
-R4178:4183 Kernel.SimulationProof <> run_vm def
-R4188:4203 Kernel.MuHierarchyTheorem <> certify_to_level def
-R4205:4205 Kernel.MuHierarchyTheorem <> k:8 var
-R4208:4217 Kernel.MuInitiality <> init_state def
-R4237:4240 Coq.Init.Datatypes <> true constr
-R4273:4288 Kernel.MuHierarchyTheorem <> certify_to_level def
-R4301:4323 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
-R4301:4323 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
-R4301:4323 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
-R4334:4364 Kernel.MuHierarchyTheorem <> vm_apply_certify_sets_certified thm
-R4334:4364 Kernel.MuHierarchyTheorem <> vm_apply_certify_sets_certified thm
-prf 4427:4447 <> certify_to_level_cost
-binder 4460:4460 <> k:9
-R4469:4476 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4464:4467 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4463:4463 Kernel.MuHierarchyTheorem <> k:9 var
-R4524:4526 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4477:4489 Kernel.MuComplexity <> trace_mu_cost def
-R4494:4509 Kernel.MuHierarchyTheorem <> certify_to_level def
-R4511:4511 Kernel.MuHierarchyTheorem <> k:9 var
-R4514:4523 Kernel.MuInitiality <> init_state def
-R4527:4527 Kernel.MuHierarchyTheorem <> k:9 var
-R4561:4573 Kernel.MuComplexity <> trace_mu_cost def
-R4586:4604 Kernel.MuHierarchyTheorem <> certify_to_level_mu thm
-R4586:4604 Kernel.MuHierarchyTheorem <> certify_to_level_mu thm
-R4586:4604 Kernel.MuHierarchyTheorem <> certify_to_level_mu thm
-R4629:4646 Kernel.MuInitiality <> init_state_mu_zero thm
-R4629:4646 Kernel.MuInitiality <> init_state_mu_zero thm
-R4629:4646 Kernel.MuInitiality <> init_state_mu_zero thm
-def 4891:4911 <> executed_instructions
-R4921:4923 Coq.Init.Datatypes <> nat ind
-binder 4914:4917 <> fuel:10
-R4935:4938 Coq.Init.Datatypes <> list ind
-R4940:4953 Kernel.VMStep VMStep vm_instruction ind
-binder 4927:4931 <> trace:11
-R4963:4969 Kernel.VMState <> VMState rec
-binder 4959:4959 <> s:12
-R4974:4977 Coq.Init.Datatypes <> list ind
-R4979:4992 Kernel.VMStep VMStep vm_instruction ind
-R5005:5008 Kernel.MuHierarchyTheorem <> fuel:10 var
-R5024:5025 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R5031:5031 Coq.Init.Datatypes <> S constr
-R5054:5062 Coq.Lists.List <> nth_error def
-R5073:5077 Kernel.VMState <> vm_pc proj
-R5070:5070 Kernel.MuHierarchyTheorem <> s:12 var
-R5064:5068 Kernel.MuHierarchyTheorem <> trace:11 var
-R5093:5096 Coq.Init.Datatypes <> Some constr
-R5112:5115 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R5116:5136 Kernel.MuHierarchyTheorem <> executed_instructions:13 def
-R5151:5158 Kernel.SimulationProof <> vm_apply def
-R5160:5160 Kernel.MuHierarchyTheorem <> s:12 var
-R5144:5148 Kernel.MuHierarchyTheorem <> trace:11 var
-R5177:5180 Coq.Init.Datatypes <> None constr
-R5185:5186 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-def 5340:5357 <> certifies_at_level
-R5364:5366 Coq.Init.Datatypes <> nat ind
-binder 5360:5360 <> k:15
-R5378:5391 Kernel.VMStep VMStep vm_instruction ind
-binder 5370:5374 <> instr:16
-R5412:5416 Kernel.MuHierarchyTheorem <> instr:16 var
-R5427:5439 Kernel.VMStep VMStep instr_certify constr
-R5457:5460 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R5450:5450 Coq.Init.Datatypes <> S constr
-R5461:5461 Kernel.MuHierarchyTheorem <> k:15 var
-R5472:5476 Coq.Init.Logic <> False ind
-def 5691:5707 <> level_k_certified
-R5719:5721 Coq.Init.Datatypes <> nat ind
-binder 5710:5710 <> k:18
-binder 5712:5715 <> fuel:19
-R5733:5736 Coq.Init.Datatypes <> list ind
-R5738:5751 Kernel.VMStep VMStep vm_instruction ind
-binder 5725:5729 <> trace:20
-R5818:5823 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5811:5813 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5798:5809 Kernel.VMState <> vm_certified proj
-R5767:5772 Kernel.SimulationProof <> run_vm def
-R5774:5777 Kernel.MuHierarchyTheorem <> fuel:19 var
-R5779:5783 Kernel.MuHierarchyTheorem <> trace:20 var
-R5785:5794 Kernel.MuInitiality <> init_state def
-R5814:5817 Coq.Init.Datatypes <> true constr
-R5824:5830 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R5836:5841 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 5831:5835 <> instr:21
-R5896:5903 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5842:5843 Coq.Lists.List <> In def
-R5852:5872 Kernel.MuHierarchyTheorem <> executed_instructions def
-R5874:5877 Kernel.MuHierarchyTheorem <> fuel:19 var
-R5879:5883 Kernel.MuHierarchyTheorem <> trace:20 var
-R5885:5894 Kernel.MuInitiality <> init_state def
-R5845:5849 Kernel.MuHierarchyTheorem <> instr:21 var
-R5904:5921 Kernel.MuHierarchyTheorem <> certifies_at_level def
-R5923:5923 Kernel.MuHierarchyTheorem <> k:18 var
-R5925:5929 Kernel.MuHierarchyTheorem <> instr:21 var
-prf 5939:5961 <> certifies_at_level_cost
-binder 5974:5974 <> k:22
-binder 5976:5980 <> instr:23
-R6013:6020 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5987:6004 Kernel.MuHierarchyTheorem <> certifies_at_level def
-R6006:6006 Kernel.MuHierarchyTheorem <> k:22 var
-R6008:6012 Kernel.MuHierarchyTheorem <> instr:23 var
-R6043:6046 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6021:6036 Kernel.VMStep VMStep instruction_cost def
-R6038:6042 Kernel.MuHierarchyTheorem <> instr:23 var
-R6047:6047 Kernel.MuHierarchyTheorem <> k:22 var
-prf 6148:6181 <> executed_instruction_cost_recorded
-binder 6194:6197 <> fuel:24
-binder 6199:6203 <> trace:25
-binder 6205:6205 <> s:26
-binder 6207:6211 <> instr:27
-R6263:6270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6218:6219 Coq.Lists.List <> In def
-R6228:6248 Kernel.MuHierarchyTheorem <> executed_instructions def
-R6250:6253 Kernel.MuHierarchyTheorem <> fuel:24 var
-R6255:6259 Kernel.MuHierarchyTheorem <> trace:25 var
-R6261:6261 Kernel.MuHierarchyTheorem <> s:26 var
-R6221:6225 Kernel.MuHierarchyTheorem <> instr:27 var
-R6271:6272 Coq.Lists.List <> In def
-R6300:6313 Kernel.MuLedgerConservation <> ledger_entries def
-R6315:6318 Kernel.MuHierarchyTheorem <> fuel:24 var
-R6320:6324 Kernel.MuHierarchyTheorem <> trace:25 var
-R6326:6326 Kernel.MuHierarchyTheorem <> s:26 var
-R6275:6290 Kernel.VMStep VMStep instruction_cost def
-R6292:6296 Kernel.MuHierarchyTheorem <> instr:27 var
-R6440:6448 Coq.Lists.List <> nth_error def
-R6459:6463 Kernel.VMState <> vm_pc proj
-R6440:6448 Coq.Lists.List <> nth_error def
-R6459:6463 Kernel.VMState <> vm_pc proj
-prf 6653:6683 <> ledger_sum_contains_lower_bound
-binder 6696:6702 <> entries:28
-binder 6704:6707 <> cost:29
-R6729:6736 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6714:6715 Coq.Lists.List <> In def
-R6722:6728 Kernel.MuHierarchyTheorem <> entries:28 var
-R6717:6720 Kernel.MuHierarchyTheorem <> cost:29 var
-R6755:6758 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6737:6746 Kernel.MuLedgerConservation <> ledger_sum def
-R6748:6754 Kernel.MuHierarchyTheorem <> entries:28 var
-R6759:6762 Kernel.MuHierarchyTheorem <> cost:29 var
-prf 7401:7432 <> level_k_certification_cost_floor
-binder 7445:7445 <> k:30
-binder 7447:7450 <> fuel:31
-binder 7452:7456 <> trace:32
-R7493:7500 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7463:7479 Kernel.MuHierarchyTheorem <> level_k_certified def
-R7481:7481 Kernel.MuHierarchyTheorem <> k:30 var
-R7483:7486 Kernel.MuHierarchyTheorem <> fuel:31 var
-R7488:7492 Kernel.MuHierarchyTheorem <> trace:32 var
-R7536:7539 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R7501:7513 Kernel.MuComplexity <> trace_mu_cost def
-R7515:7518 Kernel.MuHierarchyTheorem <> fuel:31 var
-R7520:7524 Kernel.MuHierarchyTheorem <> trace:32 var
-R7526:7535 Kernel.MuInitiality <> init_state def
-R7540:7540 Kernel.MuHierarchyTheorem <> k:30 var
-R7612:7634 Kernel.MuHierarchyTheorem <> certifies_at_level_cost thm
-R7612:7634 Kernel.MuHierarchyTheorem <> certifies_at_level_cost thm
-R7676:7709 Kernel.MuHierarchyTheorem <> executed_instruction_cost_recorded thm
-R7722:7731 Kernel.MuInitiality <> init_state def
-R7676:7709 Kernel.MuHierarchyTheorem <> executed_instruction_cost_recorded thm
-R7722:7731 Kernel.MuInitiality <> init_state def
-R7776:7806 Kernel.MuHierarchyTheorem <> ledger_sum_contains_lower_bound thm
-R7813:7826 Kernel.MuLedgerConservation <> ledger_entries def
-R7839:7848 Kernel.MuInitiality <> init_state def
-R7852:7867 Kernel.VMStep VMStep instruction_cost def
-R7776:7806 Kernel.MuHierarchyTheorem <> ledger_sum_contains_lower_bound thm
-R7813:7826 Kernel.MuLedgerConservation <> ledger_entries def
-R7839:7848 Kernel.MuInitiality <> init_state def
-R7852:7867 Kernel.VMStep VMStep instruction_cost def
-R7909:7921 Kernel.MuComplexity <> trace_mu_cost def
-R7934:7955 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R7934:7955 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R7934:7955 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
-R7968:7985 Kernel.MuInitiality <> init_state_mu_zero thm
-R7968:7985 Kernel.MuInitiality <> init_state_mu_zero thm
-R7968:7985 Kernel.MuInitiality <> init_state_mu_zero thm
-R8007:8017 Coq.Arith.PeanoNat Nat sub_0_r thm
-R8007:8017 Coq.Arith.PeanoNat Nat sub_0_r thm
-R8007:8017 Coq.Arith.PeanoNat Nat sub_0_r thm
-prf 8115:8140 <> certify_to_level_has_level
-binder 8153:8153 <> k:33
-R8162:8169 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8157:8160 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8156:8156 Kernel.MuHierarchyTheorem <> k:33 var
-R8170:8186 Kernel.MuHierarchyTheorem <> level_k_certified def
-R8188:8188 Kernel.MuHierarchyTheorem <> k:33 var
-R8193:8208 Kernel.MuHierarchyTheorem <> certify_to_level def
-R8210:8210 Kernel.MuHierarchyTheorem <> k:33 var
-R8255:8280 Kernel.MuHierarchyTheorem <> certify_to_level_certified thm
-R8255:8280 Kernel.MuHierarchyTheorem <> certify_to_level_certified thm
-R8305:8317 Kernel.VMStep VMStep instr_certify constr
-R8321:8323 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8305:8317 Kernel.VMStep VMStep instr_certify constr
-R8321:8323 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8353:8368 Kernel.MuHierarchyTheorem <> certify_to_level def
-R8371:8391 Kernel.MuHierarchyTheorem <> executed_instructions def
-R8439:8456 Kernel.MuHierarchyTheorem <> certifies_at_level def
-prf 8985:9004 <> mu_hierarchy_theorem
-binder 9017:9017 <> k:34
-R9026:9108 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9021:9024 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9020:9020 Kernel.MuHierarchyTheorem <> k:34 var
-R9109:9109 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9214:9307 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9413:9413 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9110:9116 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R9127:9134 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 9117:9120 <> fuel:35
-binder 9122:9126 <> trace:36
-R9174:9183 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R9170:9172 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9135:9147 Kernel.MuComplexity <> trace_mu_cost def
-R9149:9152 Kernel.MuHierarchyTheorem <> fuel:35 var
-R9154:9158 Kernel.MuHierarchyTheorem <> trace:36 var
-R9160:9169 Kernel.MuInitiality <> init_state def
-R9173:9173 Kernel.MuHierarchyTheorem <> k:34 var
-R9184:9200 Kernel.MuHierarchyTheorem <> level_k_certified def
-R9202:9202 Kernel.MuHierarchyTheorem <> k:34 var
-R9204:9207 Kernel.MuHierarchyTheorem <> fuel:35 var
-R9209:9213 Kernel.MuHierarchyTheorem <> trace:36 var
-binder 9315:9318 <> fuel:37
-binder 9320:9324 <> trace:38
-R9363:9372 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9333:9349 Kernel.MuHierarchyTheorem <> level_k_certified def
-R9351:9351 Kernel.MuHierarchyTheorem <> k:34 var
-R9353:9356 Kernel.MuHierarchyTheorem <> fuel:37 var
-R9358:9362 Kernel.MuHierarchyTheorem <> trace:38 var
-R9408:9411 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9373:9385 Kernel.MuComplexity <> trace_mu_cost def
-R9387:9390 Kernel.MuHierarchyTheorem <> fuel:37 var
-R9392:9396 Kernel.MuHierarchyTheorem <> trace:38 var
-R9398:9407 Kernel.MuInitiality <> init_state def
-R9412:9412 Kernel.MuHierarchyTheorem <> k:34 var
-R9462:9477 Kernel.MuHierarchyTheorem <> certify_to_level def
-R9462:9477 Kernel.MuHierarchyTheorem <> certify_to_level def
-R9506:9526 Kernel.MuHierarchyTheorem <> certify_to_level_cost thm
-R9506:9526 Kernel.MuHierarchyTheorem <> certify_to_level_cost thm
-R9551:9576 Kernel.MuHierarchyTheorem <> certify_to_level_has_level thm
-R9551:9576 Kernel.MuHierarchyTheorem <> certify_to_level_has_level thm
-R9629:9660 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
-R9629:9660 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
-prf 9859:9877 <> mu_hierarchy_strict
-binder 9890:9890 <> k:39
-binder 9892:9895 <> fuel:40
-binder 9897:9901 <> trace:41
-R9914:9921 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9909:9912 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R9908:9908 Kernel.MuHierarchyTheorem <> k:39 var
-R9961:9968 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9957:9959 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R9922:9934 Kernel.MuComplexity <> trace_mu_cost def
-R9936:9939 Kernel.MuHierarchyTheorem <> fuel:40 var
-R9941:9945 Kernel.MuHierarchyTheorem <> trace:41 var
-R9947:9956 Kernel.MuInitiality <> init_state def
-R9960:9960 Kernel.MuHierarchyTheorem <> k:39 var
-R9969:9970 Coq.Init.Logic <> ::type_scope:'~'_x not
-R9971:9987 Kernel.MuHierarchyTheorem <> level_k_certified def
-R9989:9989 Kernel.MuHierarchyTheorem <> k:39 var
-R9991:9994 Kernel.MuHierarchyTheorem <> fuel:40 var
-R9996:10000 Kernel.MuHierarchyTheorem <> trace:41 var
-R10063:10094 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
-R10063:10094 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
-prf 10261:10287 <> mu_hierarchy_no_upper_bound
-binder 10300:10305 <> budget:42
-R10308:10314 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10316:10321 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10315:10315 <> k:43
-R10328:10335 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10323:10326 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R10322:10322 Kernel.MuHierarchyTheorem <> k:43 var
-R10336:10338 Coq.Init.Logic <> ::type_scope:'~'_x not
-R10453:10453 Coq.Init.Logic <> ::type_scope:'~'_x not
-R10339:10345 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10356:10365 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10346:10349 <> fuel:44
-binder 10351:10355 <> trace:45
-R10411:10422 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10401:10404 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R10366:10378 Kernel.MuComplexity <> trace_mu_cost def
-R10380:10383 Kernel.MuHierarchyTheorem <> fuel:44 var
-R10385:10389 Kernel.MuHierarchyTheorem <> trace:45 var
-R10391:10400 Kernel.MuInitiality <> init_state def
-R10405:10410 Kernel.MuHierarchyTheorem <> budget:42 var
-R10423:10439 Kernel.MuHierarchyTheorem <> level_k_certified def
-R10441:10441 Kernel.MuHierarchyTheorem <> k:43 var
-R10443:10446 Kernel.MuHierarchyTheorem <> fuel:44 var
-R10448:10452 Kernel.MuHierarchyTheorem <> trace:45 var
-R10495:10497 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10495:10497 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10570:10601 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
-R10610:10612 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R10570:10601 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
-R10610:10612 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-prf 10805:10826 <> mu_dimension_unbounded
-binder 10839:10840 <> k0:46
-R10843:10849 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10851:10856 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10850:10850 <> k:47
-R10863:10871 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10976:10976 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10858:10860 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
-R10857:10857 Kernel.MuHierarchyTheorem <> k:47 var
-R10861:10862 Kernel.MuHierarchyTheorem <> k0:46 var
-R10872:10878 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R10889:10896 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-binder 10879:10882 <> fuel:48
-binder 10884:10888 <> trace:49
-R10936:10945 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10932:10934 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10897:10909 Kernel.MuComplexity <> trace_mu_cost def
-R10911:10914 Kernel.MuHierarchyTheorem <> fuel:48 var
-R10916:10920 Kernel.MuHierarchyTheorem <> trace:49 var
-R10922:10931 Kernel.MuInitiality <> init_state def
-R10935:10935 Kernel.MuHierarchyTheorem <> k:47 var
-R10946:10962 Kernel.MuHierarchyTheorem <> level_k_certified def
-R10964:10964 Kernel.MuHierarchyTheorem <> k:47 var
-R10966:10969 Kernel.MuHierarchyTheorem <> fuel:48 var
-R10971:10975 Kernel.MuHierarchyTheorem <> trace:49 var
-R11010:11012 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11010:11012 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11052:11055 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11048:11050 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11052:11055 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R11048:11050 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11079:11083 Coq.Init.Logic <> proj1 thm
-R11086:11105 Kernel.MuHierarchyTheorem <> mu_hierarchy_theorem thm
-R11110:11112 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R11079:11083 Coq.Init.Logic <> proj1 thm
-R11086:11105 Kernel.MuHierarchyTheorem <> mu_hierarchy_theorem thm
-R11110:11112 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2581:2584 Coq.Lists.List <> <> lib
+R2586:2599 Coq.Arith.PeanoNat <> <> lib
+R2601:2603 Coq.micromega.Lia <> <> lib
+R2605:2608 Coq.Bool.Bool <> <> lib
+R2618:2630 Coq.Lists.List ListNotations <> mod
+R2661:2667 Kernel.VMState <> <> lib
+R2669:2674 Kernel.VMStep <> <> lib
+R2704:2718 Kernel.SimulationProof <> <> lib
+R2748:2767 Kernel.MuLedgerConservation <> <> lib
+R2797:2808 Kernel.MuInitiality <> <> lib
+R2838:2849 Kernel.MuComplexity <> <> lib
+R2860:2872 Kernel.VMStep VMStep <> mod
+prf 3001:3031 <> vm_apply_certify_sets_certified
+R3049:3055 Kernel.VMState <> VMState rec
+binder 3045:3045 <> s:1
+R3067:3069 Coq.Init.Datatypes <> nat ind
+binder 3059:3063 <> delta:2
+R3126:3128 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3113:3124 Kernel.VMState <> vm_certified proj
+R3078:3085 Kernel.SimulationProof <> vm_apply def
+R3087:3087 Kernel.MuHierarchyTheorem <> s:1 var
+R3090:3102 Kernel.VMStep VMStep instr_certify constr
+R3104:3108 Kernel.MuHierarchyTheorem <> delta:2 var
+R3129:3132 Coq.Init.Datatypes <> true constr
+R3174:3185 Kernel.VMStep VMStep step_certify constr
+R3174:3185 Kernel.VMStep VMStep step_certify constr
+R3217:3232 Kernel.SimulationProof <> vm_step_vm_apply thm
+R3237:3249 Kernel.VMStep VMStep instr_certify constr
+R3217:3232 Kernel.SimulationProof <> vm_step_vm_apply thm
+R3237:3249 Kernel.VMStep VMStep instr_certify constr
+R3217:3232 Kernel.SimulationProof <> vm_step_vm_apply thm
+R3237:3249 Kernel.VMStep VMStep instr_certify constr
+prf 3358:3381 <> certify_instruction_cost
+binder 3394:3398 <> delta:3
+R3439:3441 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3401:3416 Kernel.VMStep VMStep instruction_cost def
+R3419:3431 Kernel.VMStep VMStep instr_certify constr
+R3433:3437 Kernel.MuHierarchyTheorem <> delta:3 var
+R3442:3442 Coq.Init.Datatypes <> S constr
+R3444:3448 Kernel.MuHierarchyTheorem <> delta:3 var
+prf 3558:3581 <> vm_apply_certify_init_mu
+binder 3594:3598 <> delta:4
+R3656:3658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3650:3654 Kernel.VMState <> vm_mu proj
+R3606:3613 Kernel.SimulationProof <> vm_apply def
+R3615:3624 Kernel.MuInitiality <> init_state def
+R3627:3639 Kernel.VMStep VMStep instr_certify constr
+R3641:3645 Kernel.MuHierarchyTheorem <> delta:4 var
+R3659:3659 Coq.Init.Datatypes <> S constr
+R3661:3665 Kernel.MuHierarchyTheorem <> delta:4 var
+R3700:3710 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3700:3710 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3700:3710 Kernel.MuLedgerConservation <> vm_apply_mu thm
+R3723:3746 Kernel.MuHierarchyTheorem <> certify_instruction_cost thm
+R3723:3746 Kernel.MuHierarchyTheorem <> certify_instruction_cost thm
+R3723:3746 Kernel.MuHierarchyTheorem <> certify_instruction_cost thm
+R3759:3776 Kernel.MuInitiality <> init_state_mu_zero thm
+R3759:3776 Kernel.MuInitiality <> init_state_mu_zero thm
+R3759:3776 Kernel.MuInitiality <> init_state_mu_zero thm
+prf 4009:4031 <> run_vm_single_from_init
+R4053:4066 Kernel.VMStep VMStep vm_instruction ind
+binder 4045:4049 <> instr:5
+R4101:4103 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4074:4079 Kernel.SimulationProof <> run_vm def
+R4083:4083 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4089:4089 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4084:4088 Kernel.MuHierarchyTheorem <> instr:5 var
+R4091:4100 Kernel.MuInitiality <> init_state def
+R4104:4111 Kernel.SimulationProof <> vm_apply def
+R4113:4122 Kernel.MuInitiality <> init_state def
+R4124:4128 Kernel.MuHierarchyTheorem <> instr:5 var
+R4187:4189 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4181:4185 Kernel.VMState <> vm_pc proj
+R4169:4178 Kernel.MuInitiality <> init_state def
+R4187:4189 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4181:4185 Kernel.VMState <> vm_pc proj
+R4169:4178 Kernel.MuInitiality <> init_state def
+R4218:4223 Kernel.SimulationProof <> run_vm def
+def 4430:4445 <> certify_to_level
+R4452:4454 Coq.Init.Datatypes <> nat ind
+binder 4448:4448 <> k:6
+R4459:4462 Coq.Init.Datatypes <> list ind
+R4464:4477 Kernel.VMStep VMStep vm_instruction ind
+R4484:4484 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4506:4506 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4485:4497 Kernel.VMStep VMStep instr_certify constr
+R4501:4503 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R4500:4500 Kernel.MuHierarchyTheorem <> k:6 var
+prf 4555:4573 <> certify_to_level_mu
+binder 4586:4586 <> k:7
+R4595:4602 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4590:4593 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4589:4589 Kernel.MuHierarchyTheorem <> k:7 var
+R4653:4655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4647:4651 Kernel.VMState <> vm_mu proj
+R4604:4609 Kernel.SimulationProof <> run_vm def
+R4614:4629 Kernel.MuHierarchyTheorem <> certify_to_level def
+R4631:4631 Kernel.MuHierarchyTheorem <> k:7 var
+R4634:4643 Kernel.MuInitiality <> init_state def
+R4656:4656 Kernel.MuHierarchyTheorem <> k:7 var
+R4690:4705 Kernel.MuHierarchyTheorem <> certify_to_level def
+R4718:4740 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
+R4718:4740 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
+R4718:4740 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
+R4753:4776 Kernel.MuHierarchyTheorem <> vm_apply_certify_init_mu thm
+R4753:4776 Kernel.MuHierarchyTheorem <> vm_apply_certify_init_mu thm
+R4753:4776 Kernel.MuHierarchyTheorem <> vm_apply_certify_init_mu thm
+prf 4847:4872 <> certify_to_level_certified
+binder 4885:4885 <> k:8
+R4894:4901 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4889:4892 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4888:4888 Kernel.MuHierarchyTheorem <> k:8 var
+R4959:4961 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4946:4957 Kernel.VMState <> vm_certified proj
+R4903:4908 Kernel.SimulationProof <> run_vm def
+R4913:4928 Kernel.MuHierarchyTheorem <> certify_to_level def
+R4930:4930 Kernel.MuHierarchyTheorem <> k:8 var
+R4933:4942 Kernel.MuInitiality <> init_state def
+R4962:4965 Coq.Init.Datatypes <> true constr
+R4998:5013 Kernel.MuHierarchyTheorem <> certify_to_level def
+R5026:5048 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
+R5026:5048 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
+R5026:5048 Kernel.MuHierarchyTheorem <> run_vm_single_from_init thm
+R5059:5089 Kernel.MuHierarchyTheorem <> vm_apply_certify_sets_certified thm
+R5059:5089 Kernel.MuHierarchyTheorem <> vm_apply_certify_sets_certified thm
+prf 5152:5172 <> certify_to_level_cost
+binder 5185:5185 <> k:9
+R5194:5201 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5189:5192 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5188:5188 Kernel.MuHierarchyTheorem <> k:9 var
+R5249:5251 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5202:5214 Kernel.MuComplexity <> trace_mu_cost def
+R5219:5234 Kernel.MuHierarchyTheorem <> certify_to_level def
+R5236:5236 Kernel.MuHierarchyTheorem <> k:9 var
+R5239:5248 Kernel.MuInitiality <> init_state def
+R5252:5252 Kernel.MuHierarchyTheorem <> k:9 var
+R5286:5298 Kernel.MuComplexity <> trace_mu_cost def
+R5311:5329 Kernel.MuHierarchyTheorem <> certify_to_level_mu thm
+R5311:5329 Kernel.MuHierarchyTheorem <> certify_to_level_mu thm
+R5311:5329 Kernel.MuHierarchyTheorem <> certify_to_level_mu thm
+R5354:5371 Kernel.MuInitiality <> init_state_mu_zero thm
+R5354:5371 Kernel.MuInitiality <> init_state_mu_zero thm
+R5354:5371 Kernel.MuInitiality <> init_state_mu_zero thm
+def 5616:5636 <> executed_instructions
+R5646:5648 Coq.Init.Datatypes <> nat ind
+binder 5639:5642 <> fuel:10
+R5660:5663 Coq.Init.Datatypes <> list ind
+R5665:5678 Kernel.VMStep VMStep vm_instruction ind
+binder 5652:5656 <> trace:11
+R5688:5694 Kernel.VMState <> VMState rec
+binder 5684:5684 <> s:12
+R5699:5702 Coq.Init.Datatypes <> list ind
+R5704:5717 Kernel.VMStep VMStep vm_instruction ind
+R5730:5733 Kernel.MuHierarchyTheorem <> fuel:10 var
+R5749:5750 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R5756:5756 Coq.Init.Datatypes <> S constr
+R5779:5787 Coq.Lists.List <> nth_error def
+R5798:5802 Kernel.VMState <> vm_pc proj
+R5795:5795 Kernel.MuHierarchyTheorem <> s:12 var
+R5789:5793 Kernel.MuHierarchyTheorem <> trace:11 var
+R5818:5821 Coq.Init.Datatypes <> Some constr
+R5837:5840 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R5841:5861 Kernel.MuHierarchyTheorem <> executed_instructions:13 def
+R5876:5883 Kernel.SimulationProof <> vm_apply def
+R5885:5885 Kernel.MuHierarchyTheorem <> s:12 var
+R5869:5873 Kernel.MuHierarchyTheorem <> trace:11 var
+R5902:5905 Coq.Init.Datatypes <> None constr
+R5910:5911 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+def 6065:6082 <> certifies_at_level
+R6089:6091 Coq.Init.Datatypes <> nat ind
+binder 6085:6085 <> k:15
+R6103:6116 Kernel.VMStep VMStep vm_instruction ind
+binder 6095:6099 <> instr:16
+R6137:6141 Kernel.MuHierarchyTheorem <> instr:16 var
+R6152:6164 Kernel.VMStep VMStep instr_certify constr
+R6182:6185 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6175:6175 Coq.Init.Datatypes <> S constr
+R6186:6186 Kernel.MuHierarchyTheorem <> k:15 var
+R6197:6201 Coq.Init.Logic <> False ind
+def 6416:6432 <> level_k_certified
+R6444:6446 Coq.Init.Datatypes <> nat ind
+binder 6435:6435 <> k:18
+binder 6437:6440 <> fuel:19
+R6458:6461 Coq.Init.Datatypes <> list ind
+R6463:6476 Kernel.VMStep VMStep vm_instruction ind
+binder 6450:6454 <> trace:20
+R6543:6548 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6536:6538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6523:6534 Kernel.VMState <> vm_certified proj
+R6492:6497 Kernel.SimulationProof <> run_vm def
+R6499:6502 Kernel.MuHierarchyTheorem <> fuel:19 var
+R6504:6508 Kernel.MuHierarchyTheorem <> trace:20 var
+R6510:6519 Kernel.MuInitiality <> init_state def
+R6539:6542 Coq.Init.Datatypes <> true constr
+R6549:6555 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6561:6566 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 6556:6560 <> instr:21
+R6621:6628 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6567:6568 Coq.Lists.List <> In def
+R6577:6597 Kernel.MuHierarchyTheorem <> executed_instructions def
+R6599:6602 Kernel.MuHierarchyTheorem <> fuel:19 var
+R6604:6608 Kernel.MuHierarchyTheorem <> trace:20 var
+R6610:6619 Kernel.MuInitiality <> init_state def
+R6570:6574 Kernel.MuHierarchyTheorem <> instr:21 var
+R6629:6646 Kernel.MuHierarchyTheorem <> certifies_at_level def
+R6648:6648 Kernel.MuHierarchyTheorem <> k:18 var
+R6650:6654 Kernel.MuHierarchyTheorem <> instr:21 var
+prf 6664:6686 <> certifies_at_level_cost
+binder 6699:6699 <> k:22
+binder 6701:6705 <> instr:23
+R6738:6745 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6712:6729 Kernel.MuHierarchyTheorem <> certifies_at_level def
+R6731:6731 Kernel.MuHierarchyTheorem <> k:22 var
+R6733:6737 Kernel.MuHierarchyTheorem <> instr:23 var
+R6768:6771 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R6746:6761 Kernel.VMStep VMStep instruction_cost def
+R6763:6767 Kernel.MuHierarchyTheorem <> instr:23 var
+R6772:6772 Kernel.MuHierarchyTheorem <> k:22 var
+prf 6873:6906 <> executed_instruction_cost_recorded
+binder 6919:6922 <> fuel:24
+binder 6924:6928 <> trace:25
+binder 6930:6930 <> s:26
+binder 6932:6936 <> instr:27
+R6988:6995 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6943:6944 Coq.Lists.List <> In def
+R6953:6973 Kernel.MuHierarchyTheorem <> executed_instructions def
+R6975:6978 Kernel.MuHierarchyTheorem <> fuel:24 var
+R6980:6984 Kernel.MuHierarchyTheorem <> trace:25 var
+R6986:6986 Kernel.MuHierarchyTheorem <> s:26 var
+R6946:6950 Kernel.MuHierarchyTheorem <> instr:27 var
+R6996:6997 Coq.Lists.List <> In def
+R7025:7038 Kernel.MuLedgerConservation <> ledger_entries def
+R7040:7043 Kernel.MuHierarchyTheorem <> fuel:24 var
+R7045:7049 Kernel.MuHierarchyTheorem <> trace:25 var
+R7051:7051 Kernel.MuHierarchyTheorem <> s:26 var
+R7000:7015 Kernel.VMStep VMStep instruction_cost def
+R7017:7021 Kernel.MuHierarchyTheorem <> instr:27 var
+R7165:7173 Coq.Lists.List <> nth_error def
+R7184:7188 Kernel.VMState <> vm_pc proj
+R7165:7173 Coq.Lists.List <> nth_error def
+R7184:7188 Kernel.VMState <> vm_pc proj
+prf 7378:7408 <> ledger_sum_contains_lower_bound
+binder 7421:7427 <> entries:28
+binder 7429:7432 <> cost:29
+R7454:7461 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7439:7440 Coq.Lists.List <> In def
+R7447:7453 Kernel.MuHierarchyTheorem <> entries:28 var
+R7442:7445 Kernel.MuHierarchyTheorem <> cost:29 var
+R7480:7483 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7462:7471 Kernel.MuLedgerConservation <> ledger_sum def
+R7473:7479 Kernel.MuHierarchyTheorem <> entries:28 var
+R7484:7487 Kernel.MuHierarchyTheorem <> cost:29 var
+prf 8126:8157 <> level_k_certification_cost_floor
+binder 8170:8170 <> k:30
+binder 8172:8175 <> fuel:31
+binder 8177:8181 <> trace:32
+R8218:8225 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8188:8204 Kernel.MuHierarchyTheorem <> level_k_certified def
+R8206:8206 Kernel.MuHierarchyTheorem <> k:30 var
+R8208:8211 Kernel.MuHierarchyTheorem <> fuel:31 var
+R8213:8217 Kernel.MuHierarchyTheorem <> trace:32 var
+R8261:8264 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8226:8238 Kernel.MuComplexity <> trace_mu_cost def
+R8240:8243 Kernel.MuHierarchyTheorem <> fuel:31 var
+R8245:8249 Kernel.MuHierarchyTheorem <> trace:32 var
+R8251:8260 Kernel.MuInitiality <> init_state def
+R8265:8265 Kernel.MuHierarchyTheorem <> k:30 var
+R8337:8359 Kernel.MuHierarchyTheorem <> certifies_at_level_cost thm
+R8337:8359 Kernel.MuHierarchyTheorem <> certifies_at_level_cost thm
+R8401:8434 Kernel.MuHierarchyTheorem <> executed_instruction_cost_recorded thm
+R8447:8456 Kernel.MuInitiality <> init_state def
+R8401:8434 Kernel.MuHierarchyTheorem <> executed_instruction_cost_recorded thm
+R8447:8456 Kernel.MuInitiality <> init_state def
+R8501:8531 Kernel.MuHierarchyTheorem <> ledger_sum_contains_lower_bound thm
+R8538:8551 Kernel.MuLedgerConservation <> ledger_entries def
+R8564:8573 Kernel.MuInitiality <> init_state def
+R8577:8592 Kernel.VMStep VMStep instruction_cost def
+R8501:8531 Kernel.MuHierarchyTheorem <> ledger_sum_contains_lower_bound thm
+R8538:8551 Kernel.MuLedgerConservation <> ledger_entries def
+R8564:8573 Kernel.MuInitiality <> init_state def
+R8577:8592 Kernel.VMStep VMStep instruction_cost def
+R8634:8646 Kernel.MuComplexity <> trace_mu_cost def
+R8659:8680 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R8659:8680 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R8659:8680 Kernel.MuLedgerConservation <> run_vm_mu_conservation thm
+R8693:8710 Kernel.MuInitiality <> init_state_mu_zero thm
+R8693:8710 Kernel.MuInitiality <> init_state_mu_zero thm
+R8693:8710 Kernel.MuInitiality <> init_state_mu_zero thm
+R8732:8742 Coq.Arith.PeanoNat Nat sub_0_r thm
+R8732:8742 Coq.Arith.PeanoNat Nat sub_0_r thm
+R8732:8742 Coq.Arith.PeanoNat Nat sub_0_r thm
+prf 8840:8865 <> certify_to_level_has_level
+binder 8878:8878 <> k:33
+R8887:8894 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8882:8885 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8881:8881 Kernel.MuHierarchyTheorem <> k:33 var
+R8895:8911 Kernel.MuHierarchyTheorem <> level_k_certified def
+R8913:8913 Kernel.MuHierarchyTheorem <> k:33 var
+R8918:8933 Kernel.MuHierarchyTheorem <> certify_to_level def
+R8935:8935 Kernel.MuHierarchyTheorem <> k:33 var
+R8980:9005 Kernel.MuHierarchyTheorem <> certify_to_level_certified thm
+R8980:9005 Kernel.MuHierarchyTheorem <> certify_to_level_certified thm
+R9030:9042 Kernel.VMStep VMStep instr_certify constr
+R9046:9048 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9030:9042 Kernel.VMStep VMStep instr_certify constr
+R9046:9048 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9078:9093 Kernel.MuHierarchyTheorem <> certify_to_level def
+R9096:9116 Kernel.MuHierarchyTheorem <> executed_instructions def
+R9164:9181 Kernel.MuHierarchyTheorem <> certifies_at_level def
+prf 9710:9729 <> mu_hierarchy_theorem
+binder 9742:9742 <> k:34
+R9751:9833 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9746:9749 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R9745:9745 Kernel.MuHierarchyTheorem <> k:34 var
+R9834:9834 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9939:10032 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10138:10138 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9835:9841 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9852:9859 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 9842:9845 <> fuel:35
+binder 9847:9851 <> trace:36
+R9899:9908 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9895:9897 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9860:9872 Kernel.MuComplexity <> trace_mu_cost def
+R9874:9877 Kernel.MuHierarchyTheorem <> fuel:35 var
+R9879:9883 Kernel.MuHierarchyTheorem <> trace:36 var
+R9885:9894 Kernel.MuInitiality <> init_state def
+R9898:9898 Kernel.MuHierarchyTheorem <> k:34 var
+R9909:9925 Kernel.MuHierarchyTheorem <> level_k_certified def
+R9927:9927 Kernel.MuHierarchyTheorem <> k:34 var
+R9929:9932 Kernel.MuHierarchyTheorem <> fuel:35 var
+R9934:9938 Kernel.MuHierarchyTheorem <> trace:36 var
+binder 10040:10043 <> fuel:37
+binder 10045:10049 <> trace:38
+R10088:10097 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10058:10074 Kernel.MuHierarchyTheorem <> level_k_certified def
+R10076:10076 Kernel.MuHierarchyTheorem <> k:34 var
+R10078:10081 Kernel.MuHierarchyTheorem <> fuel:37 var
+R10083:10087 Kernel.MuHierarchyTheorem <> trace:38 var
+R10133:10136 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10098:10110 Kernel.MuComplexity <> trace_mu_cost def
+R10112:10115 Kernel.MuHierarchyTheorem <> fuel:37 var
+R10117:10121 Kernel.MuHierarchyTheorem <> trace:38 var
+R10123:10132 Kernel.MuInitiality <> init_state def
+R10137:10137 Kernel.MuHierarchyTheorem <> k:34 var
+R10187:10202 Kernel.MuHierarchyTheorem <> certify_to_level def
+R10187:10202 Kernel.MuHierarchyTheorem <> certify_to_level def
+R10231:10251 Kernel.MuHierarchyTheorem <> certify_to_level_cost thm
+R10231:10251 Kernel.MuHierarchyTheorem <> certify_to_level_cost thm
+R10276:10301 Kernel.MuHierarchyTheorem <> certify_to_level_has_level thm
+R10276:10301 Kernel.MuHierarchyTheorem <> certify_to_level_has_level thm
+R10354:10385 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
+R10354:10385 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
+prf 10584:10602 <> mu_hierarchy_strict
+binder 10615:10615 <> k:39
+binder 10617:10620 <> fuel:40
+binder 10622:10626 <> trace:41
+R10639:10646 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10634:10637 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10633:10633 Kernel.MuHierarchyTheorem <> k:39 var
+R10686:10693 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10682:10684 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R10647:10659 Kernel.MuComplexity <> trace_mu_cost def
+R10661:10664 Kernel.MuHierarchyTheorem <> fuel:40 var
+R10666:10670 Kernel.MuHierarchyTheorem <> trace:41 var
+R10672:10681 Kernel.MuInitiality <> init_state def
+R10685:10685 Kernel.MuHierarchyTheorem <> k:39 var
+R10694:10695 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10696:10712 Kernel.MuHierarchyTheorem <> level_k_certified def
+R10714:10714 Kernel.MuHierarchyTheorem <> k:39 var
+R10716:10719 Kernel.MuHierarchyTheorem <> fuel:40 var
+R10721:10725 Kernel.MuHierarchyTheorem <> trace:41 var
+R10788:10819 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
+R10788:10819 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
+prf 10986:11012 <> mu_hierarchy_no_upper_bound
+binder 11025:11030 <> budget:42
+R11033:11039 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11041:11046 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11040:11040 <> k:43
+R11053:11060 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11048:11051 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11047:11047 Kernel.MuHierarchyTheorem <> k:43 var
+R11061:11063 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11178:11178 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11064:11070 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11081:11090 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11071:11074 <> fuel:44
+binder 11076:11080 <> trace:45
+R11136:11147 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11126:11129 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R11091:11103 Kernel.MuComplexity <> trace_mu_cost def
+R11105:11108 Kernel.MuHierarchyTheorem <> fuel:44 var
+R11110:11114 Kernel.MuHierarchyTheorem <> trace:45 var
+R11116:11125 Kernel.MuInitiality <> init_state def
+R11130:11135 Kernel.MuHierarchyTheorem <> budget:42 var
+R11148:11164 Kernel.MuHierarchyTheorem <> level_k_certified def
+R11166:11166 Kernel.MuHierarchyTheorem <> k:43 var
+R11168:11171 Kernel.MuHierarchyTheorem <> fuel:44 var
+R11173:11177 Kernel.MuHierarchyTheorem <> trace:45 var
+R11220:11222 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11220:11222 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11295:11326 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
+R11335:11337 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11295:11326 Kernel.MuHierarchyTheorem <> level_k_certification_cost_floor thm
+R11335:11337 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+prf 11530:11551 <> mu_dimension_unbounded
+binder 11564:11565 <> k0:46
+R11568:11574 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11576:11581 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11575:11575 <> k:47
+R11588:11596 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11701:11701 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11583:11585 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R11582:11582 Kernel.MuHierarchyTheorem <> k:47 var
+R11586:11587 Kernel.MuHierarchyTheorem <> k0:46 var
+R11597:11603 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11614:11621 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 11604:11607 <> fuel:48
+binder 11609:11613 <> trace:49
+R11661:11670 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11657:11659 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11622:11634 Kernel.MuComplexity <> trace_mu_cost def
+R11636:11639 Kernel.MuHierarchyTheorem <> fuel:48 var
+R11641:11645 Kernel.MuHierarchyTheorem <> trace:49 var
+R11647:11656 Kernel.MuInitiality <> init_state def
+R11660:11660 Kernel.MuHierarchyTheorem <> k:47 var
+R11671:11687 Kernel.MuHierarchyTheorem <> level_k_certified def
+R11689:11689 Kernel.MuHierarchyTheorem <> k:47 var
+R11691:11694 Kernel.MuHierarchyTheorem <> fuel:48 var
+R11696:11700 Kernel.MuHierarchyTheorem <> trace:49 var
+R11735:11737 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11735:11737 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11777:11780 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11773:11775 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11777:11780 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R11773:11775 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11804:11808 Coq.Init.Logic <> proj1 thm
+R11811:11830 Kernel.MuHierarchyTheorem <> mu_hierarchy_theorem thm
+R11835:11837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R11804:11808 Coq.Init.Logic <> proj1 thm
+R11811:11830 Kernel.MuHierarchyTheorem <> mu_hierarchy_theorem thm
+R11835:11837 Coq.Init.Peano <> ::nat_scope:x_'+'_x not

@@ -1,6 +1,6 @@
 # INQUISITOR REPORT
-Generated: 2026-05-25 06:34:36Z (UTC)
-Scanned: 254 Coq files across the repo
+Generated: 2026-05-26 01:03:22Z (UTC)
+Scanned: 263 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
@@ -93,6 +93,7 @@ Scanned: 254 Coq files across the repo
 - `DISJUNCT_TRUE`: theorem statement contains `\/ True` — vacuously provable via `right. exact I.`
 - `TRIVIAL_TRUE_PROOF`: proof body terminates with `exact I.` or `right. exact I.` — only proves `True`
 - `EXTRACT_CONSTANT`: `Extract Constant` bypasses Coq extraction with hand-written OCaml (trust boundary)
+- `KERNEL_CONVERTIBILITY_VACUITY`: theorem conclusion is kernel-convertible (after δ/ι/ζ/β reduction) to `True` or to a hypothesis — verified by `scripts/vacuity_gate.py` running synthesised Coq proofs (HIGH)
 
 ## Vacuity Ranking (file-level)
 (no files scored above zero — no trivially-true or placeholder patterns detected)

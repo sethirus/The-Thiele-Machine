@@ -1,0 +1,117 @@
+DIGEST 7e235e49ed941bdc1dfc6166896943e9
+FIntrinsicLevelHierarchy
+R1201:1204 Coq.Lists.List <> <> lib
+R1206:1219 Coq.Arith.PeanoNat <> <> lib
+R1221:1223 Coq.micromega.Lia <> <> lib
+R1233:1245 Coq.Lists.List ListNotations <> mod
+R1276:1282 Kernel.VMState <> <> lib
+R1284:1289 Kernel.VMStep <> <> lib
+R1319:1333 Kernel.SimulationProof <> <> lib
+R1363:1382 Kernel.MuLedgerConservation <> <> lib
+R1412:1423 Kernel.MuInitiality <> <> lib
+R1453:1467 Kernel.MuShannonBridge <> <> lib
+R1497:1523 Kernel.MuNoFreeInsightQuantitative <> <> lib
+def 1846:1859 <> cert_events_in
+R1869:1871 Coq.Init.Datatypes <> nat ind
+binder 1862:1865 <> fuel:1
+R1883:1886 Coq.Init.Datatypes <> list ind
+R1888:1901 Kernel.VMStep VMStep vm_instruction ind
+binder 1875:1879 <> trace:2
+R1939:1945 Kernel.VMState <> VMState rec
+binder 1930:1935 <> s_init:3
+R1950:1952 Coq.Init.Datatypes <> nat ind
+R1959:1980 Kernel.MuShannonBridge <> cert_setter_executions def
+R1982:1985 IntrinsicLevelHierarchy <> fuel:1 var
+R1987:1991 IntrinsicLevelHierarchy <> trace:2 var
+R1993:1998 IntrinsicLevelHierarchy <> s_init:3 var
+def 2232:2255 <> level_intrinsic_at_least
+R2262:2264 Coq.Init.Datatypes <> nat ind
+binder 2258:2258 <> k:4
+R2278:2284 Kernel.VMState <> VMState rec
+binder 2268:2274 <> s_final:5
+binder 2306:2309 <> fuel:6
+binder 2311:2315 <> trace:7
+R2360:2367 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2350:2352 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2322:2327 Kernel.SimulationProof <> run_vm def
+R2329:2332 IntrinsicLevelHierarchy <> fuel:6 var
+R2334:2338 IntrinsicLevelHierarchy <> trace:7 var
+R2340:2349 Kernel.MuInitiality <> init_state def
+R2353:2359 IntrinsicLevelHierarchy <> s_final:5 var
+R2397:2404 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2390:2392 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2377:2388 Kernel.VMState <> vm_certified proj
+R2368:2374 IntrinsicLevelHierarchy <> s_final:5 var
+R2393:2396 Coq.Init.Datatypes <> true constr
+R2441:2444 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2405:2418 IntrinsicLevelHierarchy <> cert_events_in def
+R2420:2423 IntrinsicLevelHierarchy <> fuel:6 var
+R2425:2429 IntrinsicLevelHierarchy <> trace:7 var
+R2431:2440 Kernel.MuInitiality <> init_state def
+R2445:2445 IntrinsicLevelHierarchy <> k:4 var
+prf 2952:2976 <> level_intrinsic_forces_mu
+binder 2989:2989 <> k:8
+binder 2991:2997 <> s_final:9
+R3038:3045 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3004:3027 IntrinsicLevelHierarchy <> level_intrinsic_at_least def
+R3029:3029 IntrinsicLevelHierarchy <> k:8 var
+R3031:3037 IntrinsicLevelHierarchy <> s_final:9 var
+R3075:3082 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3068:3070 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3055:3066 Kernel.VMState <> vm_certified proj
+R3046:3052 IntrinsicLevelHierarchy <> s_final:9 var
+R3071:3074 Coq.Init.Datatypes <> true constr
+binder 3090:3093 <> fuel:10
+binder 3095:3099 <> trace:11
+R3146:3155 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3136:3138 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3108:3113 Kernel.SimulationProof <> run_vm def
+R3115:3118 IntrinsicLevelHierarchy <> fuel:10 var
+R3120:3124 IntrinsicLevelHierarchy <> trace:11 var
+R3126:3135 Kernel.MuInitiality <> init_state def
+R3139:3145 IntrinsicLevelHierarchy <> s_final:9 var
+R3171:3174 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R3165:3169 Kernel.VMState <> vm_mu proj
+R3156:3162 IntrinsicLevelHierarchy <> s_final:9 var
+R3175:3175 IntrinsicLevelHierarchy <> k:8 var
+R3299:3312 IntrinsicLevelHierarchy <> cert_events_in def
+R3340:3372 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+R3385:3394 Kernel.MuInitiality <> init_state def
+R3340:3372 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
+R3385:3394 Kernel.MuInitiality <> init_state def
+R3448:3465 Kernel.MuInitiality <> init_state_mu_zero thm
+R3448:3465 Kernel.MuInitiality <> init_state_mu_zero thm
+R3448:3465 Kernel.MuInitiality <> init_state_mu_zero thm
+R3507:3517 Coq.Arith.PeanoNat Nat sub_0_r thm
+R3507:3517 Coq.Arith.PeanoNat Nat sub_0_r thm
+R3507:3517 Coq.Arith.PeanoNat Nat sub_0_r thm
+prf 4126:4148 <> level_strict_separation
+binder 4161:4161 <> k:12
+binder 4163:4169 <> s_final:13
+R4216:4223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4176:4199 IntrinsicLevelHierarchy <> level_intrinsic_at_least def
+R4203:4205 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4202:4202 IntrinsicLevelHierarchy <> k:12 var
+R4209:4215 IntrinsicLevelHierarchy <> s_final:13 var
+R4253:4260 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4246:4248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4233:4244 Kernel.VMState <> vm_certified proj
+R4224:4230 IntrinsicLevelHierarchy <> s_final:13 var
+R4249:4252 Coq.Init.Datatypes <> true constr
+binder 4268:4271 <> fuel:14
+binder 4273:4277 <> trace:15
+R4324:4333 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4314:4316 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4286:4291 Kernel.SimulationProof <> run_vm def
+R4293:4296 IntrinsicLevelHierarchy <> fuel:14 var
+R4298:4302 IntrinsicLevelHierarchy <> trace:15 var
+R4304:4313 Kernel.MuInitiality <> init_state def
+R4317:4323 IntrinsicLevelHierarchy <> s_final:13 var
+R4370:4372 Coq.Init.Peano <> ::nat_scope:x_'>'_x not
+R4334:4347 IntrinsicLevelHierarchy <> cert_events_in def
+R4349:4352 IntrinsicLevelHierarchy <> fuel:14 var
+R4354:4358 IntrinsicLevelHierarchy <> trace:15 var
+R4360:4369 Kernel.MuInitiality <> init_state def
+R4373:4373 IntrinsicLevelHierarchy <> k:12 var
+R4493:4506 IntrinsicLevelHierarchy <> cert_events_in def
+R4543:4565 IntrinsicLevelHierarchy <> level_strict_separation thm
