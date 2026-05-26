@@ -457,6 +457,31 @@ jobs:
             coq/Makefile.conf
           key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
 
+      - name: Refresh Coq artefact mtimes
+        # Same fix as in proof-check / extraction. actions/cache restores
+        # .vo files with their original build-time mtimes, but actions/checkout
+        # set every .v file to "now". Without this, any later `make` invocation
+        # (including the `make Extraction.vo ThieleMachineComplete.vo` that
+        # test_full_extraction_matches_committed runs inside pytest) sees
+        # .vo < .v for every file and rebuilds the proof tree from scratch.
+        # That rebuild re-fires the Extraction directives in coq/Extraction.v
+        # (writes build/kami_hw/Target.ml) and coq/ThieleMachineComplete.v
+        # (writes build/kami_hw/Target_complete.ml), clobbering the bytes the
+        # next step is about to restore from HEAD — which is exactly how the
+        # manifest test fails with "Stale hash for build/kami_hw/Target.ml".
+        #
+        # Bumping .vo mtimes past .v mtimes lets make see the cache as fresh,
+        # so the in-pytest make is a no-op and the restored extraction bytes
+        # survive to the manifest check.
+        #
+        # The cache key already pins source+vendor hashes, so this is
+        # mtime-cosmetic, not a correctness gap.
+        run: |
+          find coq -name '*.vo' -exec touch {} +
+          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
+
       - name: Build Coq proof tree
         # test_full_extraction_matches_committed runs `make Extraction.vo`
         # which depends on the whole proof tree. Build it once here (cache
