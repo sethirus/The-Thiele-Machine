@@ -316,6 +316,24 @@ I read enough of each to convince myself Thiele is not a restatement, but I cann
 
 \medskip
 
+\textbf{The whole claim, in three lines.} Each line is a thing I am willing to be wrong about by name. Wrong conclusion means wrong premise --- the law you learned in tenth grade and have not been asked to unlearn since. There is no third move.
+
+\begin{enumerate}
+\item If flipping a certification bit costs $\geq 1$ (A2).
+\item And classical machines have no state slot to enforce this constraint at the step-transition level.
+\item Then classical machines are a structurally blind, strictly lossy projection of a substrate that does.
+\end{enumerate}
+
+\noindent That is the substrate claim. A napkin holds it. The rest of this document is the same argument unfolded with kernel citations and a worked instruction set --- same content, more words.
+
+Where to look. The first line is A2, and A2 is two clauses and an integer. A step that flips cert costs at least one, the rule fits on the napkin with the conclusion, and the check is finite, public, and yours to run. The second line is the kind of fact you defeat by writing down a different Turing machine. Try it. Hand me a state type with a field the step rule reads to see whether the last move flipped cert, and you have left the classical world, which was the claim. Hand me one that stays classical and I will read you the fields it has. There aren't any. That is not philosophy, that is the signature you wrote down ten seconds ago.
+
+The next move is the simulator: decline the field, run my rule as a program on the tape, increment cert in the program. Granted. The TM produces every trace I produce, beat for beat. It produces the buggy ones too --- faithful is what TMs do. The substrate cannot run the buggy version. That gap --- same trace minus the \emph{can't} --- is line 3. Simulation is not the escape from the projection. Simulation \emph{is} the projection with the loss made operational. The reader who reaches for it has already conceded the argument.
+
+The stakes are that specific. Coq is a notebook of receipts; the arithmetic comes out the way it comes out.
+
+\medskip
+
 \textbf{Substrate vs scaffolding.} Two layers run through the rest of this document, and confusing them collapses what the theorems mean. The \emph{substrate} is the A2-respecting computational layer: a state type, a step relation, the $\mu$ ledger, and the rule that flipping certification false-to-true costs at least one. The \emph{scaffolding} is everything that makes the substrate runnable, verifiable, and synthesizable in practice: the 51 opcodes, the Python reference kernel, the extracted OCaml runtime, the Bluespec hardware, the simulator harness. The substrate-level theorems (No Free Insight, $\mu$ initiality, the structural-axis undecidability theorem in Section~\ref{sec:substrate-undecidability}) are facts about substrates: they hold for any A2-respecting computational system, no matter what instruction set realizes it. The scaffolding-level constructions (the opcode semantics, the bisimulation between Coq and Verilog, the synthesised gate count) are how this particular substrate is made concrete enough that you can boot it, audit it, and run it on silicon. The 51 opcodes are one realization of how a substrate state evolves; the substrate-level claim that follows from them is independent of the realization. Read every theorem in this document with that distinction in mind: a substrate-level result is being asserted about substrates, and the 51-opcode VM is one instance where the substrate's existence is established by construction. The distinction is load-bearing for the rest of the document; if it collapses, the substrate-level results read as parochial claims about a particular instruction set, which they are not.
 
 \begin{figure}[!htbp]

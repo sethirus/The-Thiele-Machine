@@ -23,6 +23,23 @@ I call it a Thiele machine. The name attaches me to the claim, if I'm wrong, I t
 Everything in this repository other than the proof tree of the idea above is a **realization** of it: a particular instantiation in some computational medium. The OCaml runner extracted from the Coq kernel is a realization. The Kami RTL design synthesised through Bluespec and yosys is a realization. The FPGA bitstream is a realization. They are scaffolding for the claim, not the claim itself. The thing being claimed is the abstract object; the realizations are how you make contact with it.
 
 
+## In three lines
+
+Each line is a thing I am willing to be wrong about by name. Wrong conclusion means wrong premise — the law you learned in tenth grade and have not been asked to unlearn since. There is no third move.
+
+1. If flipping a certification bit costs ≥ 1 (A2).
+2. And classical machines have no state slot to enforce this constraint at the step-transition level.
+3. Then classical machines are a structurally blind, strictly lossy projection of a substrate that does.
+
+That's the whole claim. A napkin holds it. Delete the repository and the three lines still hold. The four steps below are this argument unfolded with kernel citations — same content, more words.
+
+Where to look. The first line is A2, and A2 is two clauses and an integer. A step that flips cert costs at least one, the rule fits on the napkin with the conclusion, and the check is finite, public, and yours to run. The second line is the kind of fact you defeat by writing down a different Turing machine. Try it. Hand me a state type with a field the step rule reads to see whether the last move flipped cert, and you have left the classical world, which was the claim. Hand me one that stays classical and I will read you the fields it has. There aren't any. That is not philosophy, that is the signature you wrote down ten seconds ago.
+
+The next move is the simulator: decline the field, run my rule as a program on the tape, increment cert in the program. Granted. The TM produces every trace I produce, beat for beat. It produces the buggy ones too — faithful is what TMs do. The substrate cannot run the buggy version. That gap — same trace minus the *can't* — is line 3. Simulation is not the escape from the projection. Simulation *is* the projection with the loss made operational. The reader who reaches for it has already conceded the argument.
+
+The stakes are that specific. Coq is a notebook of receipts; the arithmetic comes out the way it comes out.
+
+
 ## The argument, formally
 
 The opener says it in plain English. Here it is as four steps for the technical reader, each backed by a Coq theorem. The classical theory of computation has two axes: time and space. This machine adds a third, certification cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. If you find this unconvincing, the most useful response identifies which step is wrong — there's no step-zero objection that lands without engaging the structure.
