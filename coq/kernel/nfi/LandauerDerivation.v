@@ -119,7 +119,7 @@ Qed.
     If vm_certified changes from false to true, the instruction must be
     instr_certify, and its cost is S(delta_mu) >= 1.
 
-    This is the core certification-cost content: you cannot flip the
+    This is the core certification-cost content: nothing flips the
     certification bit from false to true without paying at least 1 μ-unit.
     *)
 

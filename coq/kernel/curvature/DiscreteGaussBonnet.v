@@ -22,7 +22,7 @@
     To break this, produce a well_formed_triangulated graph where the total
     defect is not 5 * PI times chi. If the structural identity from
     DiscreteTopology.v and the equilateral-angle model both hold, this file
-    says you cannot. *)
+    says there isn't one. *)
 
 (* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
 From Kernel Require Import MuCostModel.

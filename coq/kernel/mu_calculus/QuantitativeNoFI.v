@@ -9,7 +9,7 @@
         total_cost ≥ K    where K = cs_cert_threshold
 
     K is the MINIMUM WITNESS needed to certify.  When K > 1, this says
-    you cannot certify something of complexity K without spending K cost.
+    certifying something of complexity K costs K, every time. No way around it.
     This is the formal content of "insight requires cost proportional to
     what is learned."
 
@@ -20,8 +20,11 @@
           "Each instruction's cost bounds how much witness it can generate"
     A4. cs_witness_nondecreasing:
           cs_witness s ≤ cs_witness (cs_step s i)
-          (Derivable from A3 when cs_cost ≥ 0, but stated separately
-           for clarity and to match the intuition)
+          (NOT derivable from A3.  A3 bounds growth from above
+           (w + cost ≥ w'); A4 bounds change from below (w ≤ w') —
+           opposite directions.  Counterexample (w,cost,w') = (1,0,0)
+           satisfies A3 with cost ≥ 0 yet violates A4.  Stated as its
+           own field; idle for the ≥K floor, which uses only A3/A5/A6.)
     A5. cs_certified_requires_witness:
           cs_cert s = true → cs_witness s ≥ cs_cert_threshold
           "Certification requires having accumulated ≥ K evidence"
@@ -68,8 +71,12 @@ From Kernel Require Import VMState VMStep SimulationProof
       - A3: cost bounds witness growth
       - A5: certification requires threshold witness
 
-    A4 (nondecreasing) follows from A3 when cs_cost ≥ 0 (which is always
-    true since cs_cost : _ → nat).  We derive it rather than axiomatize it.
+    A4 (nondecreasing) does NOT follow from A3.  A3 gives w + cost ≥ w'
+    (an upper bound on growth); A4 wants w ≤ w' (a lower bound on change) —
+    opposite directions, see (w,cost,w') = (1,0,0).  It is therefore
+    axiomatized as its own field on QuantitativeCertificationSystem_full
+    (see the analysis at that record below), and is idle in any case: the
+    ≥K floor uses only A3, A5, A6.
 *)
 
 Record QuantitativeCertificationSystem := mk_qcs {
@@ -89,7 +96,7 @@ Record QuantitativeCertificationSystem := mk_qcs {
       This is the key quantitative axiom.  In nat arithmetic (no negatives),
       this says: the increase in witness (if any) is at most the cost paid.
 
-      Physical reading: you cannot learn more than you pay for.
+      Physical reading: nothing learns more than it pays for.
       Information-theoretic reading: Δinformation ≤ Δwork.
   *)
   qcs_cost_bounds_witness :
@@ -104,8 +111,8 @@ Record QuantitativeCertificationSystem := mk_qcs {
       When qcs_threshold = 1, this says "cert requires any nonzero evidence."
       When qcs_threshold = N, this says "cert requires N units of evidence."
 
-      Physical reading: you cannot certify something of complexity N without
-      having accumulated N units of evidence.
+      Physical reading: nothing certifies something of complexity N without
+      having accumulated N units of evidence first.
   *)
   qcs_cert_threshold_witness :
     forall (s : cs_state qcs_base),
@@ -115,14 +122,17 @@ Record QuantitativeCertificationSystem := mk_qcs {
 
 (**
 
-    A4 (witness nondecreasing) follows from A3:
-    cost ≥ 0 (since cost : _ → nat) and A3 gives:
-    witness_before + cost ≥ witness_after ≥ witness_before.
-    The last inequality is NOT from A3 directly — it's what we want to prove.
+    A4 (witness nondecreasing) does NOT follow from A3.
 
-    Actually: A3 says witness_before + cost ≥ witness_after.
-    This does NOT immediately give witness_after ≥ witness_before.
-    We need an additional argument.
+    Tempting argument: cost ≥ 0 (since cost : _ → nat) and A3 gives
+    witness_before + cost ≥ witness_after, so witness_after ≥ witness_before.
+    This is WRONG — the last step does not follow.
+
+    A3 says witness_before + cost ≥ witness_after.
+    This does NOT give witness_after ≥ witness_before.
+    Counterexample: witness_before = 1, cost = 0, witness_after = 0
+    satisfies A3 (1 + 0 ≥ 0) with cost ≥ 0, yet witness_after < witness_before.
+    The two inequalities bound opposite directions.
 
     However: if we also assume cs_cert_costs (A2), which gives a LOWER BOUND
     on cost when cert transitions, we don't get nondecreasing for free.
@@ -140,7 +150,7 @@ Record QuantitativeCertificationSystem_full := mk_qcs_full {
 
       Formally: qcs_witness s ≤ qcs_witness (cs_step qcs_base s i).
 
-      Physical reading: you cannot "unlearn" something.
+      Physical reading: nothing "unlearns" something once it's learned.
       Information-theoretic reading: information is not spontaneously lost.
 
       (This can fail in systems with noise / forgetting — those would

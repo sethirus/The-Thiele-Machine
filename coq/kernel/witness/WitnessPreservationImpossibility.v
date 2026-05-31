@@ -160,9 +160,9 @@ Definition factors_classically (enc : VMState -> list bool) : Prop :=
 (** Any certification-sound encoding cannot factor through the classical
     projection — it must carry bits the classical projection drops.
 
-    That is the formal statement that you cannot recover certification
+    That is the formal statement that there's no recovering certification
     information for free: any encoding supporting certification detection
-    must store extra information beyond pc/mu/regs/mem.
+    has to store extra information beyond pc/mu/regs/mem.
 
     Proof idea: suppose enc is certification-sound and factors classically
     through f. Then enc trace_witness_A = f (project_state A) and

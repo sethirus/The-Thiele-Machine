@@ -6820,6 +6820,14 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         # connect "down" to VMState without inverting the
         # substrate-vs-scaffolding dependency direction.
         "Substrate",
+        # CommitmentPredicateAdequacy.v is the substrate-free half of the A2
+        # substitution gate: indicator-uniqueness over an abstract pricing
+        # record, importing no VM semantics on purpose (the floor follows from
+        # the cost schedule alone, with no appeal to the machine). It connects
+        # up through A2Payoff.v, which combines it with the VM-grounded
+        # CommitmentCostDecomposition.v. Forcing a direct VMState import would
+        # be a phantom import, so it is exempted like Substrate.
+        "CommitmentPredicateAdequacy",
     }
 
     for vf in v_files:
@@ -6868,6 +6876,11 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
             "Unitarity", "NoCloning", "NoCloningFromMuMonotonicity",
             "SpacetimeEmergence", "MetricFromMuCosts", "TOE",
             "Closure", "NoGo", "SimulationProof",
+            # Commitment-accounting NoFI chain — these import and use
+            # VMState/VMStep/SimulationProof and prove the VM-grounded
+            # certification-cost results; files built on them (A2Payoff,
+            # CommitmentVsErasure) are transitively connected through them.
+            "CommitmentCostDecomposition", "UniversalCertificationCost",
             # ThieleMachine (wraps kernel types)
             "ThieleMachine", "ThieleMachineConcrete", "CoreSemantics",
             "BellInequality", "BellCheck", "BellReceiptSemantics",

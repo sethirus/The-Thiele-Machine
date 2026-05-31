@@ -214,7 +214,7 @@ Definition nontrivial_input (op : CloningOperation) : Prop :=
 
     Perfect cloning of nontrivial states at zero cost is impossible.
 
-    CLAIM: You cannot simultaneously have:
+    CLAIM: No operation can simultaneously have:
     1. Nontrivial input (in_info > 0)
     2. Respects information conservation (out1 + out2 ≤ in + μ)
     3. Perfect cloning (out1 = out2 = in_info)
@@ -253,7 +253,7 @@ Definition nontrivial_input (op : CloningOperation) : Prop :=
     - Classical: Reading doesn't change the state (bit value persists)
     - Quantum: Reading collapses superposition (measurement has μ > 0)
 
-    Quantum no-cloning is equivalent to saying: you cannot READ a quantum state
+    Quantum no-cloning is equivalent to saying: nothing READs a quantum state
     without disturbing it. Reading = measurement = μ > 0.
 
     EXPERIMENTAL CONFIRMATION:
@@ -474,7 +474,7 @@ Qed.
 
     This is the operational form of no-cloning. It says:
     - You can have two imperfect copies that "add up" to one perfect copy
-    - But you cannot have two perfect copies (would need f₁ + f₂ = 2 > 1)
+    - But there are no two perfect copies (that would need f₁ + f₂ = 2 > 1)
     - The "missing" fidelity (1 - f₁ - f₂ when symmetric) is lost to entanglement
 
     OPTIMAL SYMMETRIC STRATEGY:

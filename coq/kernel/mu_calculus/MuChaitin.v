@@ -134,7 +134,7 @@ Qed.
     then there exists a cert-setting instruction whose cost was paid, and
     μ-information ≥ that cost.
 
-    CLAIM: You cannot certify without paying. Certification is not free.
+    CLAIM: Certifying without paying never happens. Certification is not free.
 
     1. Invoke supra_cert_implies_mu_lower_bound_trace_run from MuNoFreeInsightQuantitative
     2. That theorem guarantees existence of cert-setter with μ-cost paid

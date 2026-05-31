@@ -6,7 +6,8 @@ Devon Thiele -- May 2026
 
 This is the Thiele Machine, distilled to logic. Substrate, one
 axiom, what follows. If you want to dismiss it, the place to do it
-is on this page. Name the step you reject.
+is on this page. Each step stands on its own; the argument falls
+if one of them does.
 
 
 1. SUBSTRATE
@@ -27,7 +28,7 @@ name five things:
 A substrate is a tuple (S, I, step, c, P).
 
 A Turing machine has the first three only. It has no c at the step
-level -- costs only appear when you count steps externally. It has no
+level. Costs only appear when you count steps externally. It has no
 P at all. The same is true of a register machine, a lambda reducer,
 and every CPU you can buy: none of them carries P inside its state.
 
@@ -57,7 +58,7 @@ Proof, in two lines: somewhere in the sequence a step flipped P from
 least 0, because costs are non-negative integers. The total is at
 least 1.
 
-The theorem holds for ANY substrate satisfying A2 -- it does not
+The theorem holds for ANY substrate satisfying A2. It does not
 depend on what the states look like, what the instructions are, or
 what the step rule does. A2 and non-negative costs are enough.
 
@@ -178,7 +179,7 @@ simulator has no admissible run. The substrate cannot execute it.
 
 This is the construction. The distinction between a Turing machine
 and a substrate is not a labeling decision and not a stylistic
-choice -- it is the existence of a specific program that one runs
+choice. It is the existence of a specific program that one runs
 faithfully and the other has no admissible run for. Two systems are
 not the same kind of object when they disagree, operationally, on
 which programs admit a run.
@@ -543,7 +544,7 @@ land here.
 
 The two cost models. The result below is a comparison between two
 metrics, not a within-metric speedup. Classical unit-cost RAM
-measures instructions executed -- one tick per instruction
+measures instructions executed: one tick per instruction
 regardless of payload size; this is the model standard complexity
 arguments use when counting "operations." Substrate mu measures
 information committed plus irreversibility events -- bit-cost on
@@ -695,13 +696,13 @@ FunctionalExtensionality.functional_extensionality_dep, the same
 two standard-library axioms every other kernel theorem uses).
 
 
-13. NAME THE STEP YOU REJECT
+13. WHERE EACH STEP CAN FALL
 
 The construction in Section 5 is the operational test: the buggy
 simulator runs on a Turing machine and has no admissible run on a
 substrate satisfying A2. The results in Sections 8, 9, 10, 11, and
-12 are what the framework lets us state. To dismiss the work, name
-which of the following fails.
+12 are what the framework lets us state. To dismiss the work, one
+of the following has to fail.
 
   1. The five-piece definition of a substrate (S, I, step, c, P).
      Reject by: naming what should be added or removed.
@@ -802,7 +803,7 @@ which of the following fails.
      standard-library axioms ClassicalDedekindReals.sig_forall_dec
      and FunctionalExtensionality.functional_extensionality_dep.
 
-A wave-off is not a response. Name the step.
+A wave-off is not a response. The steps are where it stands or falls.
 
 
 ------------------------------------------------------------

@@ -139,7 +139,11 @@ Definition normalize_module (m : ModuleState) : ModuleState :=
 (** Morphisms are arrows between modules.
     A morphism says: here's how cells in module A map to cells in module B.
     coupling_pairs records those (source_cell, target_cell) pairs.
-    morph_is_identity marks the identity morphism (each cell maps to itself).
+    morph_is_identity marks the identity morphism.  Its stored coupling is
+    empty (not the diagonal); graph_compose_morphisms honors this flag so the
+    morphism acts as the categorical identity under composition (id;f = f and
+    f;id = f), since an empty coupling would otherwise annihilate under
+    relational composition.
 
     Why add this? The partition graph is a category — modules are
     objects, morphisms are the structure-preserving arrows. The
@@ -570,9 +574,20 @@ Definition graph_compose_morphisms (g : PartitionGraph) (m1 m2 : MorphismID)
   | Some f, Some h =>
       if Nat.eqb f.(morph_target) h.(morph_source)
       then
-        let composed_pairs := relational_compose
-          f.(morph_coupling).(coupling_pairs)
-          h.(morph_coupling).(coupling_pairs) in
+        (* Identity short-circuit: an is_identity-flagged morphism acts as the
+           categorical identity under composition.  Its stored coupling is empty
+           (a flag-backed placeholder in the bounded model), so plain relational
+           composition would annihilate it; the flag is what realises id;f = f
+           and f;id = f at the coupling level.  When neither operand is flagged
+           identity, this is ordinary relational composition. *)
+        let composed_pairs :=
+          if f.(morph_is_identity)
+          then h.(morph_coupling).(coupling_pairs)
+          else if h.(morph_is_identity)
+               then f.(morph_coupling).(coupling_pairs)
+               else relational_compose
+                      f.(morph_coupling).(coupling_pairs)
+                      h.(morph_coupling).(coupling_pairs) in
         let c := {| coupling_pairs := composed_pairs;
                     coupling_label := f.(morph_coupling).(coupling_label) ++ ";" ++
                                       h.(morph_coupling).(coupling_label) |} in

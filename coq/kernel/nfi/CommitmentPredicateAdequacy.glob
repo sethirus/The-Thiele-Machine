@@ -1,0 +1,965 @@
+DIGEST 81b86fe4fb6397d59e87b0c56955fe9a
+FKernel.CommitmentPredicateAdequacy
+R2001:2004 Coq.Lists.List <> <> lib
+R2006:2009 Coq.Bool.Bool <> <> lib
+R2011:2013 Coq.micromega.Lia <> <> lib
+R2023:2035 Coq.Lists.List ListNotations <> mod
+rec 2419:2444 <> LocalPredicatePricedSystem
+proj 2486:2494 <> lps_state
+proj 2507:2515 <> lps_instr
+proj 2528:2535 <> lps_step
+proj 2580:2587 <> lps_cost
+proj 2626:2633 <> lps_cert
+proj 2660:2669 <> lps_charge
+proj 2708:2724 <> lps_charged_costs
+proj 2831:2848 <> lps_uncharged_free
+R2550:2553 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2541:2549 Kernel.CommitmentPredicateAdequacy <> lps_state:2 meth
+R2563:2566 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2554:2562 Kernel.CommitmentPredicateAdequacy <> lps_instr:3 meth
+R2567:2575 Kernel.CommitmentPredicateAdequacy <> lps_state:2 meth
+R2602:2605 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2593:2601 Kernel.CommitmentPredicateAdequacy <> lps_state:2 meth
+R2615:2618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2606:2614 Kernel.CommitmentPredicateAdequacy <> lps_instr:3 meth
+R2619:2621 Coq.Init.Datatypes <> nat ind
+R2648:2651 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2639:2647 Kernel.CommitmentPredicateAdequacy <> lps_state:2 meth
+R2652:2655 Coq.Init.Datatypes <> bool ind
+R2682:2685 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2673:2681 Kernel.CommitmentPredicateAdequacy <> lps_state:2 meth
+R2695:2698 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2686:2694 Kernel.CommitmentPredicateAdequacy <> lps_instr:3 meth
+R2699:2702 Coq.Init.Datatypes <> bool ind
+R2744:2752 Kernel.CommitmentPredicateAdequacy <> lps_state:2 meth
+binder 2740:2740 <> s:8
+R2760:2768 Kernel.CommitmentPredicateAdequacy <> lps_instr:3 meth
+binder 2756:2756 <> i:9
+R2799:2808 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2792:2794 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2778:2787 Kernel.CommitmentPredicateAdequacy <> lps_charge:7 meth
+R2791:2791 Kernel.CommitmentPredicateAdequacy <> i:9 var
+R2789:2789 Kernel.CommitmentPredicateAdequacy <> s:8 var
+R2795:2798 Coq.Init.Datatypes <> true constr
+R2821:2824 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2809:2816 Kernel.CommitmentPredicateAdequacy <> lps_cost:5 meth
+R2820:2820 Kernel.CommitmentPredicateAdequacy <> i:9 var
+R2818:2818 Kernel.CommitmentPredicateAdequacy <> s:8 var
+R2868:2876 Kernel.CommitmentPredicateAdequacy <> lps_state:2 meth
+binder 2864:2864 <> s:11
+R2884:2892 Kernel.CommitmentPredicateAdequacy <> lps_instr:3 meth
+binder 2880:2880 <> i:12
+R2924:2933 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2916:2918 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2902:2911 Kernel.CommitmentPredicateAdequacy <> lps_charge:7 meth
+R2915:2915 Kernel.CommitmentPredicateAdequacy <> i:12 var
+R2913:2913 Kernel.CommitmentPredicateAdequacy <> s:11 var
+R2919:2923 Coq.Init.Datatypes <> false constr
+R2946:2948 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2934:2941 Kernel.CommitmentPredicateAdequacy <> lps_cost:5 meth
+R2945:2945 Kernel.CommitmentPredicateAdequacy <> i:12 var
+R2943:2943 Kernel.CommitmentPredicateAdequacy <> s:11 var
+def 2965:2971 <> lps_run
+R2980:3005 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 2974:2976 <> LPS:14
+R3034:3037 Coq.Init.Datatypes <> list ind
+R3040:3048 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R3050:3052 Kernel.CommitmentPredicateAdequacy <> LPS:14 var
+binder 3026:3030 <> trace:15
+R3078:3086 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R3088:3090 Kernel.CommitmentPredicateAdequacy <> LPS:14 var
+binder 3074:3074 <> s:16
+R3095:3103 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R3105:3107 Kernel.CommitmentPredicateAdequacy <> LPS:14 var
+R3120:3124 Kernel.CommitmentPredicateAdequacy <> trace:15 var
+R3135:3136 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3141:3141 Kernel.CommitmentPredicateAdequacy <> s:16 var
+R3148:3151 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3160:3166 Kernel.CommitmentPredicateAdequacy <> lps_run:17 def
+R3178:3185 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R3187:3189 Kernel.CommitmentPredicateAdequacy <> LPS:14 var
+R3191:3191 Kernel.CommitmentPredicateAdequacy <> s:16 var
+R3168:3170 Kernel.CommitmentPredicateAdequacy <> LPS:14 var
+def 3213:3226 <> lps_total_cost
+R3235:3260 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 3229:3231 <> LPS:19
+R3296:3299 Coq.Init.Datatypes <> list ind
+R3302:3310 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R3312:3314 Kernel.CommitmentPredicateAdequacy <> LPS:19 var
+binder 3288:3292 <> trace:20
+R3347:3355 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R3357:3359 Kernel.CommitmentPredicateAdequacy <> LPS:19 var
+binder 3343:3343 <> s:21
+R3364:3366 Coq.Init.Datatypes <> nat ind
+R3379:3383 Kernel.CommitmentPredicateAdequacy <> trace:20 var
+R3394:3395 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3407:3410 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3441:3449 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3425:3432 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R3434:3436 Kernel.CommitmentPredicateAdequacy <> LPS:19 var
+R3438:3438 Kernel.CommitmentPredicateAdequacy <> s:21 var
+R3450:3463 Kernel.CommitmentPredicateAdequacy <> lps_total_cost:22 def
+R3475:3482 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R3484:3486 Kernel.CommitmentPredicateAdequacy <> LPS:19 var
+R3488:3488 Kernel.CommitmentPredicateAdequacy <> s:21 var
+R3465:3467 Kernel.CommitmentPredicateAdequacy <> LPS:19 var
+def 3611:3627 <> covers_cert_flips
+R3636:3661 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 3630:3632 <> LPS:24
+R3688:3696 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R3698:3700 Kernel.CommitmentPredicateAdequacy <> LPS:24 var
+binder 3684:3684 <> s:25
+R3708:3716 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R3718:3720 Kernel.CommitmentPredicateAdequacy <> LPS:24 var
+binder 3704:3704 <> i:26
+R3750:3757 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3742:3744 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3728:3735 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R3737:3739 Kernel.CommitmentPredicateAdequacy <> LPS:24 var
+R3741:3741 Kernel.CommitmentPredicateAdequacy <> s:25 var
+R3745:3749 Coq.Init.Datatypes <> false constr
+R3796:3803 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3789:3791 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3758:3765 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R3767:3769 Kernel.CommitmentPredicateAdequacy <> LPS:24 var
+R3772:3779 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R3781:3783 Kernel.CommitmentPredicateAdequacy <> LPS:24 var
+R3785:3785 Kernel.CommitmentPredicateAdequacy <> s:25 var
+R3787:3787 Kernel.CommitmentPredicateAdequacy <> i:26 var
+R3792:3795 Coq.Init.Datatypes <> true constr
+R3822:3824 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3804:3813 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R3815:3817 Kernel.CommitmentPredicateAdequacy <> LPS:24 var
+R3819:3819 Kernel.CommitmentPredicateAdequacy <> s:25 var
+R3821:3821 Kernel.CommitmentPredicateAdequacy <> i:26 var
+R3825:3828 Coq.Init.Datatypes <> true constr
+def 3970:3998 <> universal_certification_floor
+R4018:4043 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 4012:4014 <> LPS:27
+R4074:4077 Coq.Init.Datatypes <> list ind
+R4080:4088 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R4090:4092 Kernel.CommitmentPredicateAdequacy <> LPS:27 var
+binder 4066:4070 <> trace:28
+R4102:4110 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R4112:4114 Kernel.CommitmentPredicateAdequacy <> LPS:27 var
+binder 4097:4098 <> s0:29
+R4145:4152 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4137:4139 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4122:4129 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R4131:4133 Kernel.CommitmentPredicateAdequacy <> LPS:27 var
+R4135:4136 Kernel.CommitmentPredicateAdequacy <> s0:29 var
+R4140:4144 Coq.Init.Datatypes <> false constr
+R4195:4202 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4188:4190 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4153:4160 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R4162:4164 Kernel.CommitmentPredicateAdequacy <> LPS:27 var
+R4167:4173 Kernel.CommitmentPredicateAdequacy <> lps_run def
+R4175:4177 Kernel.CommitmentPredicateAdequacy <> LPS:27 var
+R4179:4183 Kernel.CommitmentPredicateAdequacy <> trace:28 var
+R4185:4186 Kernel.CommitmentPredicateAdequacy <> s0:29 var
+R4191:4194 Coq.Init.Datatypes <> true constr
+R4230:4233 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R4203:4216 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
+R4218:4220 Kernel.CommitmentPredicateAdequacy <> LPS:27 var
+R4222:4226 Kernel.CommitmentPredicateAdequacy <> trace:28 var
+R4228:4229 Kernel.CommitmentPredicateAdequacy <> s0:29 var
+def 4318:4332 <> cert_flip_local
+R4341:4366 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 4335:4337 <> LPS:30
+R4385:4393 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R4395:4397 Kernel.CommitmentPredicateAdequacy <> LPS:30 var
+binder 4381:4381 <> s:31
+R4405:4413 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R4415:4417 Kernel.CommitmentPredicateAdequacy <> LPS:30 var
+binder 4401:4401 <> i:32
+R4422:4425 Coq.Init.Datatypes <> bool ind
+R4432:4435 Coq.Init.Datatypes <> andb def
+R4469:4476 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R4478:4480 Kernel.CommitmentPredicateAdequacy <> LPS:30 var
+R4483:4490 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R4492:4494 Kernel.CommitmentPredicateAdequacy <> LPS:30 var
+R4496:4496 Kernel.CommitmentPredicateAdequacy <> s:31 var
+R4498:4498 Kernel.CommitmentPredicateAdequacy <> i:32 var
+R4438:4441 Coq.Init.Datatypes <> negb def
+R4444:4451 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R4453:4455 Kernel.CommitmentPredicateAdequacy <> LPS:30 var
+R4457:4457 Kernel.CommitmentPredicateAdequacy <> s:31 var
+def 4513:4531 <> lps_cert_flip_count
+R4540:4565 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 4534:4536 <> LPS:33
+R4606:4609 Coq.Init.Datatypes <> list ind
+R4612:4620 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R4622:4624 Kernel.CommitmentPredicateAdequacy <> LPS:33 var
+binder 4598:4602 <> trace:34
+R4662:4670 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R4672:4674 Kernel.CommitmentPredicateAdequacy <> LPS:33 var
+binder 4658:4658 <> s:35
+R4679:4681 Coq.Init.Datatypes <> nat ind
+R4694:4698 Kernel.CommitmentPredicateAdequacy <> trace:34 var
+R4709:4710 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4722:4725 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4740:4740 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4781:4790 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4744:4758 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R4760:4762 Kernel.CommitmentPredicateAdequacy <> LPS:33 var
+R4764:4764 Kernel.CommitmentPredicateAdequacy <> s:35 var
+R4791:4809 Kernel.CommitmentPredicateAdequacy <> lps_cert_flip_count:36 def
+R4821:4828 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R4830:4832 Kernel.CommitmentPredicateAdequacy <> LPS:33 var
+R4834:4834 Kernel.CommitmentPredicateAdequacy <> s:35 var
+R4811:4813 Kernel.CommitmentPredicateAdequacy <> LPS:33 var
+def 4858:4875 <> local_predicate_le
+R4884:4909 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 4878:4880 <> LPS:38
+R4943:4946 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4930:4938 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R4940:4942 Kernel.CommitmentPredicateAdequacy <> LPS:38 var
+R4960:4963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4947:4955 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R4957:4959 Kernel.CommitmentPredicateAdequacy <> LPS:38 var
+R4964:4967 Coq.Init.Datatypes <> bool ind
+binder 4924:4924 <> P:39
+binder 4926:4926 <> Q:40
+binder 4989:4989 <> s:41
+binder 4991:4991 <> i:42
+R5006:5009 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4999:5001 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4994:4994 Kernel.CommitmentPredicateAdequacy <> P:39 var
+R4998:4998 Kernel.CommitmentPredicateAdequacy <> i:42 var
+R4996:4996 Kernel.CommitmentPredicateAdequacy <> s:41 var
+R5002:5005 Coq.Init.Datatypes <> true constr
+R5015:5017 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5010:5010 Kernel.CommitmentPredicateAdequacy <> Q:40 var
+R5014:5014 Kernel.CommitmentPredicateAdequacy <> i:42 var
+R5012:5012 Kernel.CommitmentPredicateAdequacy <> s:41 var
+R5018:5021 Coq.Init.Datatypes <> true constr
+def 5151:5182 <> quantitative_certification_floor
+R5202:5227 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 5196:5198 <> LPS:43
+R5258:5261 Coq.Init.Datatypes <> list ind
+R5264:5272 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R5274:5276 Kernel.CommitmentPredicateAdequacy <> LPS:43 var
+binder 5250:5254 <> trace:44
+R5286:5294 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R5296:5298 Kernel.CommitmentPredicateAdequacy <> LPS:43 var
+binder 5281:5282 <> s0:45
+R5333:5336 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5306:5319 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
+R5321:5323 Kernel.CommitmentPredicateAdequacy <> LPS:43 var
+R5325:5329 Kernel.CommitmentPredicateAdequacy <> trace:44 var
+R5331:5332 Kernel.CommitmentPredicateAdequacy <> s0:45 var
+R5337:5355 Kernel.CommitmentPredicateAdequacy <> lps_cert_flip_count def
+R5357:5359 Kernel.CommitmentPredicateAdequacy <> LPS:43 var
+R5361:5365 Kernel.CommitmentPredicateAdequacy <> trace:44 var
+R5367:5368 Kernel.CommitmentPredicateAdequacy <> s0:45 var
+def 5642:5670 <> no_overcharge_for_commitments
+R5690:5715 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 5684:5686 <> LPS:46
+R5746:5749 Coq.Init.Datatypes <> list ind
+R5752:5760 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R5762:5764 Kernel.CommitmentPredicateAdequacy <> LPS:46 var
+binder 5738:5742 <> trace:47
+R5774:5782 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R5784:5786 Kernel.CommitmentPredicateAdequacy <> LPS:46 var
+binder 5769:5770 <> s0:48
+R5821:5824 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R5794:5807 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
+R5809:5811 Kernel.CommitmentPredicateAdequacy <> LPS:46 var
+R5813:5817 Kernel.CommitmentPredicateAdequacy <> trace:47 var
+R5819:5820 Kernel.CommitmentPredicateAdequacy <> s0:48 var
+R5825:5843 Kernel.CommitmentPredicateAdequacy <> lps_cert_flip_count def
+R5845:5847 Kernel.CommitmentPredicateAdequacy <> LPS:46 var
+R5849:5853 Kernel.CommitmentPredicateAdequacy <> trace:47 var
+R5855:5856 Kernel.CommitmentPredicateAdequacy <> s0:48 var
+def 5871:5888 <> exact_unit_pricing
+R5897:5922 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 5891:5893 <> LPS:49
+R5949:5957 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R5959:5961 Kernel.CommitmentPredicateAdequacy <> LPS:49 var
+binder 5945:5945 <> s:50
+R5969:5977 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R5979:5981 Kernel.CommitmentPredicateAdequacy <> LPS:49 var
+binder 5965:5965 <> i:51
+R6005:6007 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5989:5996 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R5998:6000 Kernel.CommitmentPredicateAdequacy <> LPS:49 var
+R6002:6002 Kernel.CommitmentPredicateAdequacy <> s:50 var
+R6004:6004 Kernel.CommitmentPredicateAdequacy <> i:51 var
+R6011:6020 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R6022:6024 Kernel.CommitmentPredicateAdequacy <> LPS:49 var
+R6026:6026 Kernel.CommitmentPredicateAdequacy <> s:50 var
+R6028:6028 Kernel.CommitmentPredicateAdequacy <> i:51 var
+def 6057:6076 <> local_predicate_same
+R6085:6110 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 6079:6081 <> LPS:52
+R6144:6147 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6131:6139 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R6141:6143 Kernel.CommitmentPredicateAdequacy <> LPS:52 var
+R6161:6164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6148:6156 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R6158:6160 Kernel.CommitmentPredicateAdequacy <> LPS:52 var
+R6165:6168 Coq.Init.Datatypes <> bool ind
+binder 6125:6125 <> P:53
+binder 6127:6127 <> Q:54
+R6209:6212 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6183:6200 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R6202:6204 Kernel.CommitmentPredicateAdequacy <> LPS:52 var
+R6206:6206 Kernel.CommitmentPredicateAdequacy <> P:53 var
+R6208:6208 Kernel.CommitmentPredicateAdequacy <> Q:54 var
+R6213:6230 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R6232:6234 Kernel.CommitmentPredicateAdequacy <> LPS:52 var
+R6236:6236 Kernel.CommitmentPredicateAdequacy <> Q:54 var
+R6238:6238 Kernel.CommitmentPredicateAdequacy <> P:53 var
+def 6253:6258 <> LPSJob
+R6267:6292 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 6261:6263 <> LPS:55
+R6314:6316 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R6301:6309 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R6311:6313 Kernel.CommitmentPredicateAdequacy <> LPS:55 var
+R6317:6320 Coq.Init.Datatypes <> list ind
+R6323:6331 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R6333:6335 Kernel.CommitmentPredicateAdequacy <> LPS:55 var
+def 6357:6369 <> job_certifies
+R6378:6403 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 6372:6374 <> LPS:56
+R6424:6429 Kernel.CommitmentPredicateAdequacy <> LPSJob def
+R6431:6433 Kernel.CommitmentPredicateAdequacy <> LPS:56 var
+binder 6418:6420 <> job:57
+R6467:6469 Kernel.CommitmentPredicateAdequacy <> job:57 var
+binder 6453:6454 <> s0:58
+binder 6457:6461 <> trace:59
+R6499:6504 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6491:6493 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6476:6483 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R6485:6487 Kernel.CommitmentPredicateAdequacy <> LPS:56 var
+R6489:6490 Kernel.CommitmentPredicateAdequacy <> s0:58 var
+R6494:6498 Coq.Init.Datatypes <> false constr
+R6540:6542 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6505:6512 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R6514:6516 Kernel.CommitmentPredicateAdequacy <> LPS:56 var
+R6519:6525 Kernel.CommitmentPredicateAdequacy <> lps_run def
+R6527:6529 Kernel.CommitmentPredicateAdequacy <> LPS:56 var
+R6531:6535 Kernel.CommitmentPredicateAdequacy <> trace:59 var
+R6537:6538 Kernel.CommitmentPredicateAdequacy <> s0:58 var
+R6543:6546 Coq.Init.Datatypes <> true constr
+def 6559:6578 <> lps_batch_total_cost
+R6587:6612 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 6581:6583 <> LPS:60
+R6653:6656 Coq.Init.Datatypes <> list ind
+R6659:6664 Kernel.CommitmentPredicateAdequacy <> LPSJob def
+R6666:6668 Kernel.CommitmentPredicateAdequacy <> LPS:60 var
+binder 6646:6649 <> jobs:61
+R6674:6676 Coq.Init.Datatypes <> nat ind
+R6689:6692 Kernel.CommitmentPredicateAdequacy <> jobs:61 var
+R6703:6704 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6726:6729 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6715:6715 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6718:6719 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6725:6725 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6771:6773 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R6744:6757 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
+R6759:6761 Kernel.CommitmentPredicateAdequacy <> LPS:60 var
+R6774:6793 Kernel.CommitmentPredicateAdequacy <> lps_batch_total_cost:62 def
+R6795:6797 Kernel.CommitmentPredicateAdequacy <> LPS:60 var
+def 6821:6845 <> lps_batch_cert_flip_count
+R6854:6879 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 6848:6850 <> LPS:64
+R6925:6928 Coq.Init.Datatypes <> list ind
+R6931:6936 Kernel.CommitmentPredicateAdequacy <> LPSJob def
+R6938:6940 Kernel.CommitmentPredicateAdequacy <> LPS:64 var
+binder 6918:6921 <> jobs:65
+R6946:6948 Coq.Init.Datatypes <> nat ind
+R6961:6964 Kernel.CommitmentPredicateAdequacy <> jobs:65 var
+R6975:6976 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6998:7001 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R6987:6987 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6990:6991 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R6997:6997 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R7048:7056 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7016:7034 Kernel.CommitmentPredicateAdequacy <> lps_cert_flip_count def
+R7036:7038 Kernel.CommitmentPredicateAdequacy <> LPS:64 var
+R7057:7081 Kernel.CommitmentPredicateAdequacy <> lps_batch_cert_flip_count:66 def
+R7083:7085 Kernel.CommitmentPredicateAdequacy <> LPS:64 var
+def 7111:7135 <> batch_certification_floor
+R7155:7180 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 7149:7151 <> LPS:68
+R7209:7212 Coq.Init.Datatypes <> list ind
+R7215:7220 Kernel.CommitmentPredicateAdequacy <> LPSJob def
+R7222:7224 Kernel.CommitmentPredicateAdequacy <> LPS:68 var
+binder 7202:7205 <> jobs:69
+R7263:7270 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7232:7237 Coq.Lists.List <> Forall ind
+R7259:7262 Kernel.CommitmentPredicateAdequacy <> jobs:69 var
+R7240:7252 Kernel.CommitmentPredicateAdequacy <> job_certifies def
+R7254:7256 Kernel.CommitmentPredicateAdequacy <> LPS:68 var
+R7300:7303 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R7271:7290 Kernel.CommitmentPredicateAdequacy <> lps_batch_total_cost def
+R7292:7294 Kernel.CommitmentPredicateAdequacy <> LPS:68 var
+R7296:7299 Kernel.CommitmentPredicateAdequacy <> jobs:69 var
+R7304:7309 Coq.Init.Datatypes <> length def
+R7311:7314 Kernel.CommitmentPredicateAdequacy <> jobs:69 var
+prf 7473:7509 <> cert_flip_is_least_covering_predicate
+R7529:7554 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 7523:7525 <> LPS:70
+R7583:7591 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7562:7578 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R7580:7582 Kernel.CommitmentPredicateAdequacy <> LPS:70 var
+R7592:7609 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R7611:7613 Kernel.CommitmentPredicateAdequacy <> LPS:70 var
+R7616:7630 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R7632:7634 Kernel.CommitmentPredicateAdequacy <> LPS:70 var
+R7638:7647 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R7649:7651 Kernel.CommitmentPredicateAdequacy <> LPS:70 var
+R7724:7738 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R7760:7777 Coq.Bool.Bool <> andb_true_iff thm
+R7760:7777 Coq.Bool.Bool <> andb_true_iff thm
+R7839:7856 Coq.Bool.Bool <> negb_true_iff thm
+R7839:7856 Coq.Bool.Bool <> negb_true_iff thm
+R7971:7985 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+prf 8194:8244 <> covers_cert_flips_sufficient_for_quantitative_floor
+R8264:8289 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 8258:8260 <> LPS:71
+R8318:8325 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8297:8313 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R8315:8317 Kernel.CommitmentPredicateAdequacy <> LPS:71 var
+R8326:8357 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R8359:8361 Kernel.CommitmentPredicateAdequacy <> LPS:71 var
+R8402:8433 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R8450:8454 Coq.Init.Logic <> proj1 thm
+R8457:8493 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R8450:8454 Coq.Init.Logic <> proj1 thm
+R8457:8493 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R8609:8623 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R8609:8623 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R8710:8726 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R8710:8726 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R8778:8785 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R8778:8785 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R8841:8848 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R8841:8848 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+prf 9030:9079 <> quantitative_floor_necessary_for_covers_cert_flips
+R9099:9124 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 9093:9095 <> LPS:72
+R9168:9175 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9132:9163 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R9165:9167 Kernel.CommitmentPredicateAdequacy <> LPS:72 var
+R9176:9192 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R9194:9196 Kernel.CommitmentPredicateAdequacy <> LPS:72 var
+R9236:9252 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R9295:9304 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R9295:9304 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R9381:9381 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9383:9383 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9381:9381 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9383:9383 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R9431:9445 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R9533:9550 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R9533:9550 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+prf 9631:9684 <> quantitative_certification_floor_iff_covers_cert_flips
+R9704:9729 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 9698:9700 <> LPS:73
+R9773:9777 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R9737:9768 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R9770:9772 Kernel.CommitmentPredicateAdequacy <> LPS:73 var
+R9778:9794 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R9796:9798 Kernel.CommitmentPredicateAdequacy <> LPS:73 var
+R9839:9888 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_necessary_for_covers_cert_flips thm
+R9839:9888 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_necessary_for_covers_cert_flips thm
+R9901:9951 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_quantitative_floor thm
+R9901:9951 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_quantitative_floor thm
+prf 9968:10011 <> quantitative_floor_iff_a2_predicate_subsumed
+R10031:10056 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 10025:10027 <> LPS:74
+R10100:10108 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R10064:10095 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R10097:10099 Kernel.CommitmentPredicateAdequacy <> LPS:74 var
+R10109:10126 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R10128:10130 Kernel.CommitmentPredicateAdequacy <> LPS:74 var
+R10133:10147 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R10149:10151 Kernel.CommitmentPredicateAdequacy <> LPS:74 var
+R10155:10164 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R10166:10168 Kernel.CommitmentPredicateAdequacy <> LPS:74 var
+R10203:10256 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor_iff_covers_cert_flips thm
+R10203:10256 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor_iff_covers_cert_flips thm
+R10203:10256 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor_iff_covers_cert_flips thm
+R10267:10303 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R10267:10303 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+prf 10318:10347 <> certifying_trace_has_cert_flip
+R10367:10392 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 10361:10363 <> LPS:75
+R10413:10416 Coq.Init.Datatypes <> list ind
+R10419:10427 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R10429:10431 Kernel.CommitmentPredicateAdequacy <> LPS:75 var
+binder 10405:10409 <> trace:76
+R10450:10458 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R10460:10462 Kernel.CommitmentPredicateAdequacy <> LPS:75 var
+binder 10445:10446 <> s0:77
+R10493:10500 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10485:10487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10470:10477 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R10479:10481 Kernel.CommitmentPredicateAdequacy <> LPS:75 var
+R10483:10484 Kernel.CommitmentPredicateAdequacy <> s0:77 var
+R10488:10492 Coq.Init.Datatypes <> false constr
+R10543:10550 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10536:10538 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10501:10508 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R10510:10512 Kernel.CommitmentPredicateAdequacy <> LPS:75 var
+R10515:10521 Kernel.CommitmentPredicateAdequacy <> lps_run def
+R10523:10525 Kernel.CommitmentPredicateAdequacy <> LPS:75 var
+R10527:10531 Kernel.CommitmentPredicateAdequacy <> trace:76 var
+R10533:10534 Kernel.CommitmentPredicateAdequacy <> s0:77 var
+R10539:10542 Coq.Init.Datatypes <> true constr
+R10583:10586 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R10551:10569 Kernel.CommitmentPredicateAdequacy <> lps_cert_flip_count def
+R10571:10573 Kernel.CommitmentPredicateAdequacy <> LPS:75 var
+R10575:10579 Kernel.CommitmentPredicateAdequacy <> trace:76 var
+R10581:10582 Kernel.CommitmentPredicateAdequacy <> s0:77 var
+R10769:10776 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R10783:10790 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R10769:10776 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R10783:10790 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R10826:10840 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R10905:10912 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R10905:10912 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R10963:10977 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R10963:10977 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+prf 11009:11059 <> batch_certification_floor_iff_a2_predicate_subsumed
+R11079:11104 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 11073:11075 <> LPS:78
+R11141:11149 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R11112:11136 Kernel.CommitmentPredicateAdequacy <> batch_certification_floor def
+R11138:11140 Kernel.CommitmentPredicateAdequacy <> LPS:78 var
+R11150:11167 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R11169:11171 Kernel.CommitmentPredicateAdequacy <> LPS:78 var
+R11174:11188 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R11190:11192 Kernel.CommitmentPredicateAdequacy <> LPS:78 var
+R11196:11205 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R11207:11209 Kernel.CommitmentPredicateAdequacy <> LPS:78 var
+R11270:11306 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R11270:11306 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R11320:11336 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R11383:11392 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R11383:11392 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R11468:11468 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11477:11477 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11469:11469 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11471:11472 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11476:11476 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11473:11473 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11475:11475 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11468:11468 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11477:11477 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11469:11469 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11471:11472 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11476:11476 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11473:11473 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11475:11475 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11528:11533 Coq.Lists.List <> Forall ind
+R11555:11555 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11564:11564 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11556:11556 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11558:11559 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11563:11563 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11560:11560 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11562:11562 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11536:11548 Kernel.CommitmentPredicateAdequacy <> job_certifies def
+R11528:11533 Coq.Lists.List <> Forall ind
+R11555:11555 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11564:11564 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11556:11556 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11558:11559 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11563:11563 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11560:11560 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11562:11562 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R11536:11548 Kernel.CommitmentPredicateAdequacy <> job_certifies def
+R11602:11614 Kernel.CommitmentPredicateAdequacy <> job_certifies def
+R11711:11728 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R11711:11728 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R11825:11829 Coq.Init.Logic <> proj2 thm
+R11832:11875 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_iff_a2_predicate_subsumed thm
+R11825:11829 Coq.Init.Logic <> proj2 thm
+R11832:11875 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_iff_a2_predicate_subsumed thm
+R11915:11939 Kernel.CommitmentPredicateAdequacy <> batch_certification_floor def
+R12054:12066 Kernel.CommitmentPredicateAdequacy <> job_certifies def
+R12193:12222 Kernel.CommitmentPredicateAdequacy <> certifying_trace_has_cert_flip thm
+R12193:12222 Kernel.CommitmentPredicateAdequacy <> certifying_trace_has_cert_flip thm
+prf 12420:12465 <> no_overcharge_forces_charge_only_on_cert_flips
+R12485:12510 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 12479:12481 <> LPS:79
+R12551:12558 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12518:12546 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R12548:12550 Kernel.CommitmentPredicateAdequacy <> LPS:79 var
+R12559:12576 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R12578:12580 Kernel.CommitmentPredicateAdequacy <> LPS:79 var
+R12583:12592 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R12594:12596 Kernel.CommitmentPredicateAdequacy <> LPS:79 var
+R12600:12614 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R12616:12618 Kernel.CommitmentPredicateAdequacy <> LPS:79 var
+R12671:12685 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R12671:12685 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R12748:12764 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R12748:12764 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R12811:12811 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12813:12813 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12811:12811 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R12813:12813 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+prf 13051:13091 <> exact_commitment_pricing_characterization
+R13111:13136 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 13105:13107 <> LPS:80
+R13144:13144 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13223:13237 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13332:13332 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13181:13189 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13145:13176 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R13178:13180 Kernel.CommitmentPredicateAdequacy <> LPS:80 var
+R13190:13218 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R13220:13222 Kernel.CommitmentPredicateAdequacy <> LPS:80 var
+R13301:13309 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13238:13257 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
+R13259:13261 Kernel.CommitmentPredicateAdequacy <> LPS:80 var
+R13264:13278 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R13280:13282 Kernel.CommitmentPredicateAdequacy <> LPS:80 var
+R13286:13295 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13297:13299 Kernel.CommitmentPredicateAdequacy <> LPS:80 var
+R13310:13327 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
+R13329:13331 Kernel.CommitmentPredicateAdequacy <> LPS:80 var
+R13422:13439 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R13446:13460 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R13468:13477 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13422:13439 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R13446:13460 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R13468:13477 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13498:13541 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_iff_a2_predicate_subsumed thm
+R13498:13541 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_iff_a2_predicate_subsumed thm
+R13594:13611 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R13618:13627 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13635:13649 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R13594:13611 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R13618:13627 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13635:13649 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R13670:13715 Kernel.CommitmentPredicateAdequacy <> no_overcharge_forces_charge_only_on_cert_flips thm
+R13670:13715 Kernel.CommitmentPredicateAdequacy <> no_overcharge_forces_charge_only_on_cert_flips thm
+R13780:13797 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
+R13834:13843 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13834:13843 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R13887:13903 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R13887:13903 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R14011:14011 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14013:14013 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14011:14011 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14013:14013 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R14111:14128 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R14111:14128 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+binder 14254:14254 <> s:81
+binder 14256:14256 <> i:82
+R14291:14293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14273:14282 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R14288:14288 Kernel.CommitmentPredicateAdequacy <> s:81 var
+R14290:14290 Kernel.CommitmentPredicateAdequacy <> i:82 var
+R14294:14308 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R14314:14314 Kernel.CommitmentPredicateAdequacy <> s:81 var
+R14316:14316 Kernel.CommitmentPredicateAdequacy <> i:82 var
+binder 14254:14254 <> s:83
+binder 14256:14256 <> i:84
+R14291:14293 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14273:14282 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R14288:14288 Kernel.CommitmentPredicateAdequacy <> s:83 var
+R14290:14290 Kernel.CommitmentPredicateAdequacy <> i:84 var
+R14294:14308 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R14314:14314 Kernel.CommitmentPredicateAdequacy <> s:83 var
+R14316:14316 Kernel.CommitmentPredicateAdequacy <> i:84 var
+R14354:14363 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R14403:14417 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R14354:14363 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R14403:14417 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R14403:14417 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+binder 14714:14718 <> trace:85
+binder 14720:14721 <> s0:86
+R14759:14769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14732:14745 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
+R14751:14755 Kernel.CommitmentPredicateAdequacy <> trace:85 var
+R14757:14758 Kernel.CommitmentPredicateAdequacy <> s0:86 var
+R14770:14788 Kernel.CommitmentPredicateAdequacy <> lps_cert_flip_count def
+R14794:14798 Kernel.CommitmentPredicateAdequacy <> trace:85 var
+R14800:14801 Kernel.CommitmentPredicateAdequacy <> s0:86 var
+binder 14714:14718 <> trace:87
+binder 14720:14721 <> s0:88
+R14759:14769 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R14732:14745 Kernel.CommitmentPredicateAdequacy <> lps_total_cost def
+R14751:14755 Kernel.CommitmentPredicateAdequacy <> trace:87 var
+R14757:14758 Kernel.CommitmentPredicateAdequacy <> s0:88 var
+R14770:14788 Kernel.CommitmentPredicateAdequacy <> lps_cert_flip_count def
+R14794:14798 Kernel.CommitmentPredicateAdequacy <> trace:87 var
+R14800:14801 Kernel.CommitmentPredicateAdequacy <> s0:88 var
+R14955:14969 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R15008:15015 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R14955:14969 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R15008:15015 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R15008:15015 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R15060:15091 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R15159:15187 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+prf 15416:15464 <> substitution_test_rejects_non_a2_exact_substitute
+R15484:15509 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 15478:15480 <> LPS:89
+R15582:15589 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R15517:15518 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15519:15538 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
+R15540:15542 Kernel.CommitmentPredicateAdequacy <> LPS:89 var
+R15545:15559 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R15561:15563 Kernel.CommitmentPredicateAdequacy <> LPS:89 var
+R15567:15576 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R15578:15580 Kernel.CommitmentPredicateAdequacy <> LPS:89 var
+R15590:15592 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15673:15673 Coq.Init.Logic <> ::type_scope:'~'_x not
+R15629:15639 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R15593:15624 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R15626:15628 Kernel.CommitmentPredicateAdequacy <> LPS:89 var
+R15640:15668 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R15670:15672 Kernel.CommitmentPredicateAdequacy <> LPS:89 var
+R15753:15757 Coq.Init.Logic <> proj1 thm
+R15822:15825 Coq.Init.Logic <> conj constr
+R15760:15800 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+R15753:15757 Coq.Init.Logic <> proj1 thm
+R15822:15825 Coq.Init.Logic <> conj constr
+R15760:15800 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+prf 15951:15990 <> substitution_test_exact_substitute_is_a2
+R16010:16035 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 16004:16006 <> LPS:90
+R16079:16086 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16043:16074 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R16076:16078 Kernel.CommitmentPredicateAdequacy <> LPS:90 var
+R16120:16127 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16087:16115 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R16117:16119 Kernel.CommitmentPredicateAdequacy <> LPS:90 var
+R16128:16147 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
+R16149:16151 Kernel.CommitmentPredicateAdequacy <> LPS:90 var
+R16154:16168 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R16170:16172 Kernel.CommitmentPredicateAdequacy <> LPS:90 var
+R16176:16185 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R16187:16189 Kernel.CommitmentPredicateAdequacy <> LPS:90 var
+R16239:16243 Coq.Init.Logic <> proj1 thm
+R16308:16311 Coq.Init.Logic <> conj constr
+R16246:16286 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+R16239:16243 Coq.Init.Logic <> proj1 thm
+R16308:16311 Coq.Init.Logic <> conj constr
+R16246:16286 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+prf 16497:16534 <> covers_cert_flips_sufficient_for_floor
+R16554:16579 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 16548:16550 <> LPS:91
+R16608:16615 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R16587:16603 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R16605:16607 Kernel.CommitmentPredicateAdequacy <> LPS:91 var
+R16616:16644 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R16646:16648 Kernel.CommitmentPredicateAdequacy <> LPS:91 var
+R16689:16717 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R16872:16879 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R16886:16893 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R16872:16879 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R16886:16893 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R16990:17006 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R16990:17006 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R17069:17076 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R17069:17076 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+prf 17280:17316 <> floor_necessary_for_covers_cert_flips
+R17336:17361 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 17330:17332 <> LPS:92
+R17402:17409 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R17369:17397 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R17399:17401 Kernel.CommitmentPredicateAdequacy <> LPS:92 var
+R17410:17426 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R17428:17430 Kernel.CommitmentPredicateAdequacy <> LPS:92 var
+R17470:17486 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R17529:17538 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R17529:17538 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R17615:17615 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17617:17617 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17615:17615 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17617:17617 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R17734:17740 Coq.Init.Logic <> eq_refl constr
+R17734:17740 Coq.Init.Logic <> eq_refl constr
+R17760:17777 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R17760:17777 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+prf 17921:17977 <> local_predicate_certification_floor_iff_covers_cert_flips
+R17997:18022 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 17991:17993 <> LPS:93
+R18063:18067 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R18030:18058 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R18060:18062 Kernel.CommitmentPredicateAdequacy <> LPS:93 var
+R18068:18084 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R18086:18088 Kernel.CommitmentPredicateAdequacy <> LPS:93 var
+R18129:18165 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+R18129:18165 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+R18178:18215 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_floor thm
+R18178:18215 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_floor thm
+prf 18232:18275 <> universal_floor_forces_a2_predicate_subsumed
+R18295:18320 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 18289:18291 <> LPS:94
+R18361:18368 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R18328:18356 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R18358:18360 Kernel.CommitmentPredicateAdequacy <> LPS:94 var
+R18369:18386 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R18388:18390 Kernel.CommitmentPredicateAdequacy <> LPS:94 var
+R18393:18407 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R18409:18411 Kernel.CommitmentPredicateAdequacy <> LPS:94 var
+R18415:18424 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R18426:18428 Kernel.CommitmentPredicateAdequacy <> LPS:94 var
+R18468:18504 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R18468:18504 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R18516:18552 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+R18516:18552 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+prf 18874:18899 <> charged_branch_unreachable
+binder 18902:18902 <> P:95
+R18922:18924 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R18917:18921 Coq.Init.Datatypes <> false constr
+R18925:18928 Coq.Init.Datatypes <> true constr
+binder 18913:18913 <> H:96
+R18933:18933 Kernel.CommitmentPredicateAdequacy <> P:95 var
+prf 18971:18998 <> uncharged_branch_unreachable
+binder 19001:19001 <> P:97
+R19020:19022 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R19016:19019 Coq.Init.Datatypes <> true constr
+R19023:19027 Coq.Init.Datatypes <> false constr
+binder 19012:19012 <> H:98
+R19032:19032 Kernel.CommitmentPredicateAdequacy <> P:97 var
+def 19281:19305 <> no_erasure_commitment_lps
+R19309:19334 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+R19344:19352 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R19344:19352 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R19344:19352 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R19368:19376 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R19368:19376 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R19392:19399 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R19392:19399 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R19426:19433 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R19426:19433 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R19457:19464 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R19457:19464 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R19486:19495 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R19486:19495 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R19523:19539 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R19523:19539 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R19611:19628 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R19611:19628 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R19357:19360 Coq.Init.Datatypes <> bool ind
+R19381:19384 Coq.Init.Datatypes <> unit ind
+R19415:19418 Coq.Init.Datatypes <> true constr
+binder 19473:19473 <> b:99
+R19478:19478 Kernel.CommitmentPredicateAdequacy <> b:99 var
+R19511:19515 Coq.Init.Datatypes <> false constr
+binder 19552:19558 <> Hcharge:100
+R19570:19595 Kernel.CommitmentPredicateAdequacy <> charged_branch_unreachable thm
+R19597:19603 Kernel.CommitmentPredicateAdequacy <> Hcharge:100 var
+R19646:19652 Coq.Init.Logic <> eq_refl constr
+prf 19667:19707 <> erasure_substitute_fails_commitment_floor
+R19713:19714 Coq.Init.Logic <> ::type_scope:'~'_x not
+R19715:19743 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R19745:19769 Kernel.CommitmentPredicateAdequacy <> no_erasure_commitment_lps def
+R19809:19845 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+R19863:19887 Kernel.CommitmentPredicateAdequacy <> no_erasure_commitment_lps def
+R19896:19900 Coq.Init.Datatypes <> false constr
+R19902:19903 Coq.Init.Datatypes <> tt constr
+R19921:19927 Coq.Init.Logic <> eq_refl constr
+R19929:19935 Coq.Init.Logic <> eq_refl constr
+R19809:19845 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+R19863:19887 Kernel.CommitmentPredicateAdequacy <> no_erasure_commitment_lps def
+R19896:19900 Coq.Init.Datatypes <> false constr
+R19902:19903 Coq.Init.Datatypes <> tt constr
+R19921:19927 Coq.Init.Logic <> eq_refl constr
+R19929:19935 Coq.Init.Logic <> eq_refl constr
+def 20032:20054 <> cert_flip_predicate_lps
+R20058:20083 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+R20093:20101 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R20093:20101 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R20093:20101 Kernel.CommitmentPredicateAdequacy <> lps_state proj
+R20117:20125 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R20117:20125 Kernel.CommitmentPredicateAdequacy <> lps_instr proj
+R20141:20148 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R20141:20148 Kernel.CommitmentPredicateAdequacy <> lps_step proj
+R20175:20182 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R20175:20182 Kernel.CommitmentPredicateAdequacy <> lps_cost proj
+R20223:20230 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R20223:20230 Kernel.CommitmentPredicateAdequacy <> lps_cert proj
+R20252:20261 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R20252:20261 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R20290:20306 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R20290:20306 Kernel.CommitmentPredicateAdequacy <> lps_charged_costs proj
+R20519:20536 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R20519:20536 Kernel.CommitmentPredicateAdequacy <> lps_uncharged_free proj
+R20106:20109 Coq.Init.Datatypes <> bool ind
+R20130:20133 Coq.Init.Datatypes <> unit ind
+R20164:20167 Coq.Init.Datatypes <> true constr
+binder 20191:20191 <> s:101
+R20201:20201 Kernel.CommitmentPredicateAdequacy <> s:101 var
+binder 20239:20239 <> b:102
+R20244:20244 Kernel.CommitmentPredicateAdequacy <> b:102 var
+binder 20270:20270 <> s:103
+R20277:20280 Coq.Init.Datatypes <> negb def
+R20282:20282 Kernel.CommitmentPredicateAdequacy <> s:103 var
+binder 20315:20315 <> s:104
+binder 20319:20325 <> Hcharge:105
+R20343:20343 Kernel.CommitmentPredicateAdequacy <> s:104 var
+R20370:20373 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20363:20365 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20357:20360 Coq.Init.Datatypes <> negb def
+R20362:20362 Kernel.CommitmentPredicateAdequacy <> b:106 var
+R20366:20369 Coq.Init.Datatypes <> true constr
+R20374:20374 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20393:20397 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R20378:20378 Kernel.CommitmentPredicateAdequacy <> b:106 var
+R20414:20418 Coq.Init.Datatypes <> false constr
+R20432:20435 Coq.Init.Peano <> le_n constr
+R20448:20451 Coq.Init.Datatypes <> true constr
+binder 20460:20460 <> H:107
+R20465:20490 Kernel.CommitmentPredicateAdequacy <> charged_branch_unreachable thm
+R20492:20492 Kernel.CommitmentPredicateAdequacy <> H:107 var
+R20505:20511 Kernel.CommitmentPredicateAdequacy <> Hcharge:105 var
+binder 20545:20545 <> s:108
+binder 20549:20555 <> Hcharge:109
+R20573:20573 Kernel.CommitmentPredicateAdequacy <> s:108 var
+R20601:20604 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R20593:20595 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20587:20590 Coq.Init.Datatypes <> negb def
+R20592:20592 Kernel.CommitmentPredicateAdequacy <> b:110 var
+R20596:20600 Coq.Init.Datatypes <> false constr
+R20605:20605 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20624:20627 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R20609:20609 Kernel.CommitmentPredicateAdequacy <> b:110 var
+R20644:20648 Coq.Init.Datatypes <> false constr
+binder 20657:20657 <> H:111
+R20662:20689 Kernel.CommitmentPredicateAdequacy <> uncharged_branch_unreachable thm
+R20691:20691 Kernel.CommitmentPredicateAdequacy <> H:111 var
+R20702:20705 Coq.Init.Datatypes <> true constr
+R20719:20725 Coq.Init.Logic <> eq_refl constr
+R20738:20744 Kernel.CommitmentPredicateAdequacy <> Hcharge:109 var
+prf 20759:20791 <> a2_predicate_has_commitment_floor
+R20797:20825 Kernel.CommitmentPredicateAdequacy <> universal_certification_floor def
+R20827:20849 Kernel.CommitmentPredicateAdequacy <> cert_flip_predicate_lps def
+R20867:20904 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_floor thm
+R20867:20904 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_floor thm
+R20916:20932 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R20935:20957 Kernel.CommitmentPredicateAdequacy <> cert_flip_predicate_lps def
+prf 21056:21090 <> a2_predicate_has_quantitative_floor
+R21096:21127 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R21129:21151 Kernel.CommitmentPredicateAdequacy <> cert_flip_predicate_lps def
+R21169:21219 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_quantitative_floor thm
+R21169:21219 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_quantitative_floor thm
+R21231:21247 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips def
+R21250:21272 Kernel.CommitmentPredicateAdequacy <> cert_flip_predicate_lps def
+R21381:21431 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_quantitative_floor thm
+R21452:21501 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_necessary_for_covers_cert_flips thm
+R21522:21575 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor_iff_covers_cert_flips thm
+R21596:21639 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_iff_a2_predicate_subsumed thm
+R21660:21689 Kernel.CommitmentPredicateAdequacy <> certifying_trace_has_cert_flip thm
+R21710:21760 Kernel.CommitmentPredicateAdequacy <> batch_certification_floor_iff_a2_predicate_subsumed thm
+R21781:21826 Kernel.CommitmentPredicateAdequacy <> no_overcharge_forces_charge_only_on_cert_flips thm
+R21847:21887 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+R21908:21956 Kernel.CommitmentPredicateAdequacy <> substitution_test_rejects_non_a2_exact_substitute thm
+R21977:22016 Kernel.CommitmentPredicateAdequacy <> substitution_test_exact_substitute_is_a2 thm
+R22037:22074 Kernel.CommitmentPredicateAdequacy <> covers_cert_flips_sufficient_for_floor thm
+R22095:22131 Kernel.CommitmentPredicateAdequacy <> floor_necessary_for_covers_cert_flips thm
+R22152:22208 Kernel.CommitmentPredicateAdequacy <> local_predicate_certification_floor_iff_covers_cert_flips thm
+R22229:22265 Kernel.CommitmentPredicateAdequacy <> cert_flip_is_least_covering_predicate thm
+R22286:22329 Kernel.CommitmentPredicateAdequacy <> universal_floor_forces_a2_predicate_subsumed thm
+R22350:22390 Kernel.CommitmentPredicateAdequacy <> erasure_substitute_fails_commitment_floor thm
+R22411:22443 Kernel.CommitmentPredicateAdequacy <> a2_predicate_has_commitment_floor thm
+R22464:22498 Kernel.CommitmentPredicateAdequacy <> a2_predicate_has_quantitative_floor thm

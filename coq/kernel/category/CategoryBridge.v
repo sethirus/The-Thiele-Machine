@@ -62,11 +62,14 @@ Proof.
   - reflexivity.
 Qed.
 
-(** graph_compose_morphisms really builds the relational composition. *)
+(** graph_compose_morphisms really builds the relational composition,
+    except where the identity-flag short-circuit applies. *)
 
 (** When graph_compose_morphisms g m1 m2 = Some (g', composed_id), the new
-    morphism's coupling pairs are exactly the relational composition of m1 and
-    m2's couplings. This is the foundational correctness theorem for COMPOSE. *)
+    morphism's coupling pairs are: m2's coupling if m1 is a flagged identity
+    (id;f = f), m1's coupling if m2 is a flagged identity (f;id = f), and the
+    relational composition of m1 and m2's couplings otherwise. This is the
+    foundational correctness theorem for COMPOSE, including its identity law. *)
 Lemma graph_compose_morphisms_coupling :
   forall g m1 m2 g' composed_id,
     graph_compose_morphisms g m1 m2 = Some (g', composed_id) ->
@@ -75,9 +78,13 @@ Lemma graph_compose_morphisms_coupling :
       graph_lookup_morphism g m2 = Some ms2 /\
       graph_lookup_morphism g' composed_id = Some ms_c /\
       ms_c.(morph_coupling).(coupling_pairs) ≡
-      relational_compose
-        ms1.(morph_coupling).(coupling_pairs)
-        ms2.(morph_coupling).(coupling_pairs).
+      (if ms1.(morph_is_identity)
+       then ms2.(morph_coupling).(coupling_pairs)
+       else if ms2.(morph_is_identity)
+            then ms1.(morph_coupling).(coupling_pairs)
+            else relational_compose
+                   ms1.(morph_coupling).(coupling_pairs)
+                   ms2.(morph_coupling).(coupling_pairs)).
 Proof.
   intros g m1 m2 g' composed_id H.
   unfold graph_compose_morphisms in H.

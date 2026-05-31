@@ -102,7 +102,7 @@ Qed.
     new states require fresh verification effort.
 
     This sidesteps Löb's theorem because the trust witness is a *cost bound*,
-    not a self-referential provability claim.  You cannot fake the cost. *)
+    not a self-referential provability claim.  The cost can't be faked. *)
 
 (* ------------------------------------------------------------------ *)
 (** *** 2a. Abstract verification cost *)
@@ -255,7 +255,7 @@ Qed.
     The bypass: replace the provability modality with a *cost-grounded
     certificate*.  B does not assert its own safety.  It presents a
     finite data structure whose validity is fully discharged by A's
-    prior work and the type-checker.  You cannot fake the cost. *)
+    prior work and the type-checker.  The cost can't be faked. *)
 
 (* ------------------------------------------------------------------ *)
 (** *** 3a. Trust Certificate record

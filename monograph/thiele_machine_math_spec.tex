@@ -50,7 +50,7 @@
 \maketitle
 
 \begin{abstract}
-This is the complete mathematical specification of the Thiele Machine: a formal model of computation where structural information carries an explicit, conserved cost $\mu$. Everything here is built from the machine-checked Coq corpus. You can reconstruct the machine from what's in this document alone.
+This is the complete mathematical specification of the Thiele Machine: a formal model of computation where structural information carries an explicit, monotone cost $\mu$ that starts at zero and never decreases. Everything here is built from the machine-checked Coq corpus. You can reconstruct the machine from what's in this document alone.
 
 Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction matters and I keep it explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
@@ -68,7 +68,7 @@ The document also covers, with explicit epistemological tags, conditional deriva
 \chapter{Introduction}
 The Thiele Machine makes the cost of structure explicit. A Turing Machine treats all state transitions as cost-equivalent. The Thiele Machine assigns a specific cost $\mu$ to every operation that extracts or asserts structural information. That's the design. Here is where it goes.
 
-The central claim, proven formally: \emph{you cannot gain structural insight about a system without paying $\mu$-cost}. Combined with explicit physical axioms (linearity, information conservation), that constraint produces structural results that parallel quantum mechanics and thermodynamics. Each result's status --- whether it is a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)} --- is marked directly. Nothing is hidden.
+The central claim, proven formally: \emph{nothing gains structural insight about a system without paying $\mu$-cost}. Combined with explicit physical axioms (linearity, information conservation), that constraint produces structural results that parallel quantum mechanics and thermodynamics. Each result's status, whether a structural theorem~\textbf{(S)}, a conditional derivation~\textbf{(C)}, or a consistency relation~\textbf{(R)}, is marked directly. Nothing is hidden.
 
 The document is organized as:
 \begin{enumerate}
@@ -94,7 +94,7 @@ Every result in this specification falls into one of three categories:
 
     \item[\textbf{(C) Conditional}] Theorems of the form ``if axiom $X$ holds, then physics result $Y$ follows.'' The logical inference is verified; whether axiom $X$ holds in nature is an empirical question. \emph{Examples}: Born rule uniqueness (conditional on linearity), complex necessity (conditional on 2D amplitudes), unitarity (conditional on information conservation).
 
-    \item[\textbf{(R) Consistency}] Algebraic identities or definitional equivalences that verify internal coherence but do not constitute independent predictions. \emph{Examples}: Planck consistency relation, Tsirelson cost definition.
+    \item[\textbf{(R) Consistency}] Algebraic identities or definitional equivalences that verify internal coherence but do not constitute independent predictions. \emph{Example}: the Tsirelson cost definition.
 \end{description}
 
 Each major theorem in Parts~V--VIII is annotated with its category. A theorem marked \textbf{(C)} or \textbf{(R)} is not diminished. Conditional derivations and consistency checks are valuable scientific tools. But the reader should not mistake them for derivations from first principles without stated assumptions. See Appendix~B for the complete classification table.
@@ -194,7 +194,7 @@ These 7 opcodes (0x27--0x2D) implement the categorical layer over partition modu
     \item $\texttt{COMPOSE}(\mathit{dst}, f, g, \Delta\mu)$: Compose $f;g$ when $f.\mathrm{tgt} = g.\mathrm{src}$; errors on type mismatch.
     \item $\texttt{MORPH\_ID}(\mathit{dst}, m, \Delta\mu)$: Create identity morphism $\mathrm{id}_m$ (diagonal relation).
     \item $\texttt{MORPH\_DELETE}(f, \Delta\mu)$: Remove morphism $f$; cascades when modules are split/merged.
-    \item $\texttt{MORPH\_ASSERT}(f, \mathit{prop}, \mathit{cert}, \Delta\mu)$: \textbf{Cert-setter.} Charges $S(\Delta\mu) \geq 1$ unconditionally. Even failed attempts (morphism does not exist) incur cost $1$. This is the strongest form of the NoFI law: you cannot attempt to certify a relational claim for free.
+    \item $\texttt{MORPH\_ASSERT}(f, \mathit{prop}, \mathit{cert}, \Delta\mu)$: \textbf{Cert-setter.} Charges $S(\Delta\mu) \geq 1$ unconditionally. Even failed attempts (morphism does not exist) incur cost $1$. This is the strongest form of the NoFI law: the machine refuses to let even a doomed attempt at certifying a relational claim slip through for free.
     \item $\texttt{MORPH\_TENSOR}(\mathit{dst}, f, g, \Delta\mu)$: Tensor product $f \otimes g$ (requires union modules to exist).
     \item $\texttt{MORPH\_GET}(\mathit{dst}, f, \mathit{sel}, \Delta\mu)$: Read morphism metadata: selector $0=\mathrm{src}$, $1=\mathrm{tgt}$, $2=\mathrm{coupling\ length}$, $3=\mathrm{is\_identity}$.
 \end{itemize}
@@ -298,7 +298,7 @@ Five independence results are formally proven, zero Admitted:
 \end{theorem}
 
 \begin{proof}[Proof Sketch]
-Each separation uses explicit witnesses where equal projected inputs force equal oracle outputs, while the witness states require unequal outputs---a contradiction. Strict shadow equality: both \texttt{CERTIFY 0} and \texttt{PNEW [] 0} advance \texttt{pc} by 1 and preserve \texttt{mem}/\texttt{regs}. $\mu$ divergence: CERTIFY charges $S(0)=1$; PNEW charges 0. Graph separation uses \texttt{categorical\_separation} from \texttt{PartitionSeparation.v}: two states with identical $P_{\text{full}}$ but different \texttt{pg\_morphisms}. Universality follows because \texttt{vm\_apply\_certify\_strict\_shadow} and \texttt{vm\_apply\_pnew\_strict\_shadow} hold for arbitrary source states.
+Each separation uses explicit witnesses where equal projected inputs force equal oracle outputs, while the witness states require unequal outputs, a contradiction. Strict shadow equality: both \texttt{CERTIFY 0} and \texttt{PNEW [] 0} advance \texttt{pc} by 1 and preserve \texttt{mem}/\texttt{regs}. $\mu$ divergence: CERTIFY charges $S(0)=1$; PNEW charges 0. Graph separation uses \texttt{categorical\_separation} from \texttt{PartitionSeparation.v}: two states with identical $P_{\text{full}}$ but different \texttt{pg\_morphisms}. Universality follows because \texttt{vm\_apply\_certify\_strict\_shadow} and \texttt{vm\_apply\_pnew\_strict\_shadow} hold for arbitrary source states.
 \end{proof}
 
 \begin{theorem}[Latent $\mu$: Cost is Intrinsic to Computation {\normalfont (NecessityOfMuLedger.v §7)} --- \textbf{(S)}]
@@ -310,7 +310,7 @@ The $\mu$-cost accumulated by any computation is a property of the instruction s
 \[
 (\texttt{run\_instrs}\ s\ \texttt{prog}).\mu = s.\mu + \texttt{trace\_total\_cost}(\texttt{prog})
 \]
-The increment is determined entirely by the instruction sequence---independent of vm\_graph, vm\_regs, vm\_mem, vm\_certified, and the starting $\mu$.
+The increment is determined entirely by the instruction sequence, independent of vm\_graph, vm\_regs, vm\_mem, vm\_certified, and the starting $\mu$.
 
 \item \texttt{shadow\_mu\_delta\_universal}: Two machines running the same program from any two starting states accumulate the same additional $\mu$. The cost is written in the program before execution begins.
 
@@ -319,7 +319,7 @@ The increment is determined entirely by the instruction sequence---independent o
 \item \texttt{shadow\_mu\_inevitable}: Any program containing an instruction with positive declared cost accumulates strictly positive $\mu$ from any starting state. There is no free computation.
 \end{enumerate}
 
-\textbf{Interpretation.} A Turing machine executing a program pays exactly \texttt{trace\_total\_cost} in latent $\mu$ on every execution. The cost was always there---forced by the instruction sequence---but the Turing machine had no mechanism to record or expose it. The $\mu$-ledger does not create this cost. It reveals what every computation was already paying.
+\textbf{Interpretation.} A Turing machine executing a program pays exactly \texttt{trace\_total\_cost} in latent $\mu$ on every execution. The cost was always there, forced by the instruction sequence, but the Turing machine had no mechanism to record or expose it. The $\mu$-ledger does not create this cost. It reveals what every computation was already paying.
 \end{theorem}
 
 \section{Partition Refinement and No Free Insight}
@@ -394,8 +394,8 @@ Formally (\texttt{mu\_hierarchy\_theorem}): for every $k \geq 1$, the witness tr
 \textbf{Corollary} (\texttt{mu\_hierarchy\_no\_upper\_bound}): no fixed $\mu$-budget suffices for all levels. The $\mu$-dimension is unbounded and non-collapsible. Zero Admitted.
 \end{theorem}
 
-\begin{remark}[$\mu$-Hierarchy as the formal P-vs-NP analogue]
-Theorem~\ref{thm:mu-hierarchy} is the $\mu$-analogue of the classical time hierarchy theorem. It formalizes the intuition behind P~$\neq$~NP in the certified-structure setting: \emph{finding} a certificate of structural complexity $k$ requires paying $\mu \geq k$, while \emph{verifying} it (given the trace) costs 0 additional $\mu$. The hierarchy is strict, infinite, and proven from first principles with zero \texttt{Admitted} --- no oracle, no diagonalization, no new axioms. The lower-bound proof is trace-side: a level-$k$ certified run executed a specific \texttt{CERTIFY}~$\delta$ with $S(\delta) \geq k$, and \texttt{executed\_instruction\_cost\_recorded} plus \texttt{ledger\_sum\_contains\_lower\_bound} place that cost in the ledger sum, which \texttt{run\_vm\_mu\_conservation} equates with the trace's $\mu$-cost.
+\begin{remark}[$\mu$-Hierarchy as a P-vs-NP analogue, not a P-vs-NP result]
+Theorem~\ref{thm:mu-hierarchy} is the $\mu$-analogue of the classical time hierarchy theorem. It is not a statement about classical P versus NP, which this project does not touch. In the certified-structure setting it makes one thing precise: \emph{finding} a certificate of structural complexity $k$ costs $\mu \geq k$, while \emph{verifying} it (given the trace) costs $0$ extra $\mu$. The hierarchy is strict and unbounded, with zero \texttt{Admitted}, no oracle, and no diagonalization. The lower-bound proof is trace-side: a level-$k$ certified run executed a specific \texttt{CERTIFY}~$\delta$ with $S(\delta) \geq k$, and \texttt{executed\_instruction\_cost\_recorded} plus \texttt{ledger\_sum\_contains\_lower\_bound} place that cost in the ledger sum, which \texttt{run\_vm\_mu\_conservation} equates with the trace's $\mu$-cost.
 \end{remark}
 
 \section{Intrinsic level hierarchy}
@@ -480,7 +480,7 @@ Sound and complete verification of $\mu$-sensitive claims requires the transcrip
 
 \chapter{$\mu$-Conservation and Receipt Integrity}
 
-\section{The Conservation Law}
+\section{The $\mu$-Ledger Identity}
 
 \begin{theorem}[$\mu$-Ledger Conservation {\normalfont (MuLedgerConservation.v)}]
 For any trace $\tau = [i_0, \dots, i_k]$:
@@ -562,7 +562,7 @@ $\mathrm{vm\_step}(S, i, S') \implies \mu(S) \le \mu(S')$. The $\mu$-ledger neve
 \begin{remark}[Part V Scope: Conditional Results and Named Axioms]
 The chapters in this part present results conditional on named physical axioms (linearity in the Bloch parameter for the Born rule, the second law for Landauer, and the \texttt{A\_QM} bridge for quantum realizability). They are marked \textbf{(C)} or \textbf{(R)} throughout. The primary unconditional quantum results — the classical CHSH bound, the algebraic Tsirelson bound, and the biconditional \texttt{column\_contractive\_iff\_quantum\_realizable} — appear earlier (Chapters 12--13). Those are pure algebra, no physics axioms.
 
-The results in this part are not primary claims of the project. They are explorations of what follows \emph{if} you add specific physical axioms. They demonstrate the machine's scope without making physical claims the proofs do not support.
+The results in this part are not primary claims of the project. They are explorations of what follows \emph{if} you add specific physical axioms. They show how far the machine reaches without claiming any physics the proofs do not support.
 \end{remark}
 
 \chapter{The Born Rule}
@@ -766,7 +766,7 @@ If module $M_B$ is not in the target set of any instruction in a trace, then $M_
 \end{theorem}
 
 \begin{remark}
-This is a \textbf{data isolation} property: operations targeting module $A$ in the partition graph do not affect the lookup of module $B$. The proof is structural (list operations on disjoint keys), non-trivial mainly for \texttt{instr\_psplit}/\texttt{instr\_pmerge} which restructure the graph. The label ``no-signaling'' is an analogy---there is no spatial metric or speed limit between modules.
+This is a \textbf{data isolation} property: operations targeting module $A$ in the partition graph do not affect the lookup of module $B$. The proof is structural (list operations on disjoint keys), non-trivial mainly for \texttt{instr\_psplit}/\texttt{instr\_pmerge} which restructure the graph. The label ``no-signaling'' is an analogy. There is no spatial metric or speed limit between modules.
 \end{remark}
 
 \section{Discrete Geometry: The Gauss-Bonnet Result}
@@ -1290,7 +1290,7 @@ in the relational sense (coupling pairs of the composite). Zero Admitted.
 \label{thm:graph_compose_assoc}
 The operation $\texttt{graph\_compose\_morphisms}$ satisfies associativity and unitality. Additionally:
 \[ \texttt{categorical\_extension\_nofi\_consistent} \]
-MORPH and COMPOSE can carry $\Delta\mu = 0$ and are not in the mandatory-cost class. The NoFI policy enters through $\texttt{MORPH\_ASSERT}$: asserting that a built morphism chain exists and activating the cert channel always costs $S(\Delta\mu) \geq 1$. You can build the chain for free; you cannot certify it for free.
+MORPH and COMPOSE can carry $\Delta\mu = 0$ and are not in the mandatory-cost class. The NoFI policy enters through $\texttt{MORPH\_ASSERT}$: asserting that a built morphism chain exists and activating the cert channel always costs $S(\Delta\mu) \geq 1$. Building the chain is free; certifying it never is.
 \end{theorem}
 
 \begin{theorem}[Tensor Bifunctoriality {\normalfont (kernel/CategoryMonoidal.v)} --- \textbf{(S)}]
@@ -1349,7 +1349,7 @@ Find $k \geq 1$ and a trace reaching \texttt{vm\_certified = true} and $\texttt{
 \item \textbf{Physical interpretation of $\mu$}: Whether the $\mu$ ledger corresponds to thermodynamic entropy in a physical Thiele Machine is an open empirical question. The formal development is consistent with Landauer's principle. The calibration hypothesis is named (\texttt{mu\_landauer\_unruh\_calibrated}) and not proved in Coq.
 \item \textbf{Quantum mechanics connection}: The mathematical equivalence between Thiele honesty and zero-marginal NPA realizability is a kernel-tier theorem. Whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware is an open empirical question outside the scope of this project.
 \item \textbf{Complexity implications}: Whether $\mu$P $\neq$ $\mu$NP is an open question. The factored-search witness shows a concrete structural advantage but is not a class separation.
-\item \textbf{Physical constants}: No physical constant derivation from first principles. The Planck consistency relation (Section on Planck's Constant) is circular: it defines $\tau_\mu$ in terms of $h$ and verifies consistency. It is not a prediction of $h$.
+\item \textbf{Physical constants}: No physical constant is derived from first principles. There is no derivation of Planck's constant $h$; any relation tying an internal time-scale $\tau_\mu$ to $h$ would be circular by construction, defining $\tau_\mu$ in terms of $h$ and checking consistency rather than predicting $h$.
 \item \textbf{The two $+1$s} (OP-Plus-One): the \texttt{+1} in \texttt{triangle\_angle}'s denominator (\texttt{PI · d\_bc / (1 + d\_ab + d\_ac + d\_bc)}, \texttt{coq/kernel/curvature/MuGravity.v}) versus the A2 cost-floor \texttt{+1} on CERTIFY/LASSERT (\texttt{coq/kernel/foundation/VMStep.v}) — same axiom, or unrelated regularisation? No kernel-internal theorem unifies them without circularity (\texttt{coq/kernel/frontier/F3\_PlusOneStructural.v}); the symbolic correction term decays as $-\pi / (3(3d+1))$ in the equilateral case (\texttt{tools/triangle\_angle\_plus\_one\_analysis.py}), regularisation-shaped rather than A2-quantum-shaped. Inconclusive. A positive structural identification (Case~A, the geometric \texttt{+1} is A2 in geometric form) would re-frame the calibrated regime's asymptotic-only character as a structural consequence of A2; a positive non-identification (Case~B) would license replacing $S(\dots)$ with $(\dots)$ in the denominator. Either is real categorical content. The kernel was not modified pending closure.
 \item \textbf{F3 narrow non-vacuity} (related to OP-Plus-One): a constructible finite \texttt{VMState} satisfying $\forall m, \texttt{calibration\_residual}(s, m) = 0$ on a partition graph with at least one actual graph triangle and \texttt{well\_formed\_triangulated} holding. The symbolic search to $N = 7$ exhausts negatively. Whether the asymptotic-only character of calibration is a structural consequence of OP-Plus-One's Case~A, or just a search-depth artifact, is itself open.
 \end{itemize}

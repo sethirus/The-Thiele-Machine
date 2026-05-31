@@ -11,13 +11,13 @@ From Kernel Require Import CHSH QuantumBound.
 (** Certification Theory: Proving No Free Insight for CHSH
 
   This is the connection between the Thiele Machine's operational semantics
-  and the central impossibility theorem. The claim: you cannot certify
+  and the central impossibility theorem. The claim: no machine certifies
   supra-quantum correlations (CHSH > 2√2) without paying μ-cost for
   revelation. This file proves that claim as a Coq theorem.
 
   The core theorem: if a trace produces receipts with CHSH > 2√2 AND sets
   the certification flag, then it must contain a cert-setting instruction
-  (REVEAL, EMIT, LJOIN, or LASSERT), which costs μ>0. No exceptions.
+  (REVEAL, EMIT, LJOIN, or LASSERT), which costs μ>0. The trace has nowhere else to hide it.
 
   I use CHSH specifically because it's the simplest falsifiable witness of
   the general impossibility theorem: 4 correlations, 1 inequality,
@@ -34,7 +34,7 @@ From Kernel Require Import CHSH QuantumBound.
 
   To break this: find a trace that certifies CHSH > 2√2 without any
   REVEAL/EMIT/LJOIN/LASSERT, or find a cert-setting instruction with
-  μ-cost = 0. The proofs won't compile.
+  μ-cost = 0. Either witness would knock this file over; so far none does, and I'd genuinely like to see one tried.
   *)
 
 Module CertificationTheory.
@@ -184,8 +184,8 @@ Qed.
 
 (** Non-Forgeability (CHSH trials only from chsh_trial opcode)
     [chsh_trials_non_forgeable]: every trial returned by extract_chsh_trials
-    came from an instr_chsh_trial in the receipt stream. You cannot get a CHSH
-    trial into the evidence stream without executing the opcode. Proof by
+    came from an instr_chsh_trial in the receipt stream. No CHSH trial reaches
+    the evidence stream without the opcode actually executing. Proof by
     induction on receipts. *)
 
 Lemma chsh_trials_non_forgeable :

@@ -9,8 +9,7 @@
 
     Certified insight ops such as MORPH_ASSERT, LASSERT, LJOIN, EMIT, REVEAL,
     READ_PORT, and CERTIFY certify structural claims. instruction_cost uses
-    S(mu_delta), guaranteeing >= 1. You can build structure for free; you cannot
-    certify for free.
+    S(mu_delta), guaranteeing >= 1. Structure is free to build; certifying it never is.
 
     Theorems proven here:
     1. structural_creation_can_be_free: PNEW and MORPH have cost 0 when called

@@ -1152,24 +1152,15 @@ Proof.
     try (unfold kami_advance_err; simpl snap_rich_state; exact Hwf).
     destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Heq;
     [| unfold kami_advance_err; simpl snap_rich_state; exact Hwf].
-    destruct (rich_state_add_morph_with_coupling
-                (snap_rich_state ks)
-                (morph_entry_source e1) (morph_entry_target e2)
-                (normalize_coupling {| coupling_pairs :=
-                     relational_compose
-                       (snapshot_coupling_pairs_from_desc (snap_rich_state ks)
-                          (morph_entry_coupling_desc e1))
-                       (snapshot_coupling_pairs_from_desc (snap_rich_state ks)
-                          (morph_entry_coupling_desc e2));
-                     coupling_label :=
-                       (morph_coupling_label (snap_rich_state ks) e1 ++
-                        ";" ++
-                        morph_coupling_label (snap_rich_state ks) e2)%string |}).(coupling_pairs)
-                ((morph_coupling_label (snap_rich_state ks) e1 ++
-                  ";" ++
-                  morph_coupling_label (snap_rich_state ks) e2)%string)
-                false)
-              as [rs' nid] eqn:Eadd.
+    (* Composed coupling is now a 3-way branch on the identity flags
+       (id;f = f, f;id = f, else relational_compose); morph_table_wf is
+       preserved by add_with_coupling for ANY coupling, so capture the actual
+       arguments generically rather than pinning the relational_compose form. *)
+    match goal with
+    | |- context[rich_state_add_morph_with_coupling ?a ?b ?c ?d ?e ?f] =>
+        destruct (rich_state_add_morph_with_coupling a b c d e f)
+                 as [rs' nid] eqn:Eadd
+    end.
     unfold kami_advance_rich_morph. simpl snap_rich_state.
     exact (morph_table_wf_preserved_add_with_coupling _ _ _ _ _ _ _ _ Eadd Hwf).
   (* instr_morph_id (dst module mu_delta):
@@ -1395,18 +1386,11 @@ Proof.
     destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Heq;
     [|unfold kami_advance_err; simpl snap_rich_state;
       simpl rich_next_coupling_desc_id; exact Hsafe].
-    destruct (rich_state_add_morph_with_coupling (snap_rich_state ks)
-               (morph_entry_source e1) (morph_entry_target e2)
-               (normalize_coupling {| coupling_pairs :=
-                    relational_compose
-                      (snapshot_coupling_pairs_from_desc (snap_rich_state ks) (morph_entry_coupling_desc e1))
-                      (snapshot_coupling_pairs_from_desc (snap_rich_state ks) (morph_entry_coupling_desc e2));
-                    coupling_label :=
-                      (morph_coupling_label (snap_rich_state ks) e1 ++ ";" ++
-                       morph_coupling_label (snap_rich_state ks) e2)%string |}).(coupling_pairs)
-               ((morph_coupling_label (snap_rich_state ks) e1 ++ ";" ++
-                 morph_coupling_label (snap_rich_state ks) e2)%string)
-               false) as [rs' nid] eqn:Eawc.
+    match goal with
+    | |- context[rich_state_add_morph_with_coupling ?a ?b ?c ?d ?e ?f] =>
+        destruct (rich_state_add_morph_with_coupling a b c d e f)
+                 as [rs' nid] eqn:Eawc
+    end.
     unfold kami_advance_rich_morph. simpl snap_rich_state.
     exact (add_with_coupling_next_desc_id_pos _ _ _ _ _ _ _ _ Eawc).
   (* instr_morph_id: success uses rich_state_add_morph — preserves counter *)
@@ -1503,18 +1487,11 @@ Proof.
     try (unfold kami_advance_err; simpl snap_rich_state; exact Hcze).
     destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Heq;
     [|unfold kami_advance_err; simpl snap_rich_state; exact Hcze].
-    destruct (rich_state_add_morph_with_coupling (snap_rich_state ks)
-               (morph_entry_source e1) (morph_entry_target e2)
-               (normalize_coupling {| coupling_pairs :=
-                    relational_compose
-                      (snapshot_coupling_pairs_from_desc (snap_rich_state ks) (morph_entry_coupling_desc e1))
-                      (snapshot_coupling_pairs_from_desc (snap_rich_state ks) (morph_entry_coupling_desc e2));
-                    coupling_label :=
-                      (morph_coupling_label (snap_rich_state ks) e1 ++ ";" ++
-                       morph_coupling_label (snap_rich_state ks) e2)%string |}).(coupling_pairs)
-               ((morph_coupling_label (snap_rich_state ks) e1 ++ ";" ++
-                 morph_coupling_label (snap_rich_state ks) e2)%string)
-               false) as [rs' nid] eqn:Eawc.
+    match goal with
+    | |- context[rich_state_add_morph_with_coupling ?a ?b ?c ?d ?e ?f] =>
+        destruct (rich_state_add_morph_with_coupling a b c d e f)
+                 as [rs' nid] eqn:Eawc
+    end.
     unfold kami_advance_rich_morph. simpl snap_rich_state.
     exact (add_with_coupling_preserves_coupling_zero_empty
              _ _ _ _ _ _ _ _ Eawc Hsafe Hcze).
@@ -1742,24 +1719,11 @@ Proof.
     try (unfold kami_advance_err; simpl snap_rich_state; exact Hwcf).
     destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Heq;
     [| unfold kami_advance_err; simpl snap_rich_state; exact Hwcf].
-    destruct (rich_state_add_morph_with_coupling
-                (snap_rich_state ks)
-                (morph_entry_source e1) (morph_entry_target e2)
-                (normalize_coupling {| coupling_pairs :=
-                     relational_compose
-                       (snapshot_coupling_pairs_from_desc (snap_rich_state ks)
-                          (morph_entry_coupling_desc e1))
-                       (snapshot_coupling_pairs_from_desc (snap_rich_state ks)
-                          (morph_entry_coupling_desc e2));
-                     coupling_label :=
-                       (morph_coupling_label (snap_rich_state ks) e1 ++
-                        ";" ++
-                        morph_coupling_label (snap_rich_state ks) e2)%string |}).(coupling_pairs)
-                ((morph_coupling_label (snap_rich_state ks) e1 ++
-                  ";" ++
-                  morph_coupling_label (snap_rich_state ks) e2)%string)
-                false)
-              as [rs' nid] eqn:Eadd.
+    match goal with
+    | |- context[rich_state_add_morph_with_coupling ?a ?b ?c ?d ?e ?f] =>
+        destruct (rich_state_add_morph_with_coupling a b c d e f)
+                 as [rs' nid] eqn:Eadd
+    end.
     unfold kami_advance_rich_morph. simpl snap_rich_state.
     exact (coupling_wf_preserved_add_with_coupling _ _ _ _ _ _ _ _ Eadd Hwcf Hsafe).
   (* instr_morph_id: success adds morph with desc=0; 0 < next_desc_id by Hsafe *)
@@ -3437,8 +3401,10 @@ Proof.
       rewrite Ef, Eh.
       rewrite Hf_eq, Hh_eq.
       simpl morph_target. simpl morph_source.
-      (* Reduce coupling projections first so set can fold them into abbreviations *)
-      cbn [coupling_pairs morph_coupling].
+      (* Reduce coupling projections, and the identity-flag projection too, so the
+         3-way identity short-circuit reduces to morph_entry_is_identity e1/e2
+         (matching the hardware side); set then folds them into abbreviations. *)
+      cbn [coupling_pairs morph_coupling morph_is_identity].
       fold (morph_coupling_label rs e1).
       fold (morph_coupling_label rs e2).
       cbn [coupling_label].
@@ -3449,7 +3415,12 @@ Proof.
       set (label2 := morph_coupling_label rs e2).
       set (composed_label := (label1 ++ ";" ++ label2)%string).
       set (composed_pairs :=
-        (normalize_coupling {| coupling_pairs := relational_compose pairs1 pairs2;
+        (normalize_coupling {| coupling_pairs :=
+             (if morph_entry_is_identity e1
+              then pairs2
+              else if morph_entry_is_identity e2
+                   then pairs1
+                   else relational_compose pairs1 pairs2);
                                 coupling_label := composed_label |}).(coupling_pairs)).
       destruct (Nat.eqb (morph_entry_target e1) (morph_entry_source e2)) eqn:Hep.
       * (* Endpoint match — success on both sides *)
@@ -3461,7 +3432,12 @@ Proof.
         (* Kernel: graph_add_morphism normalizes relational_compose internally *)
         destruct (graph_add_morphism (snap_full_graph ks)
                     (morph_entry_source e1) (morph_entry_target e2)
-                    {| coupling_pairs := relational_compose pairs1 pairs2;
+                    {| coupling_pairs :=
+                         (if morph_entry_is_identity e1
+                          then pairs2
+                          else if morph_entry_is_identity e2
+                               then pairs1
+                               else relational_compose pairs1 pairs2);
                        coupling_label := composed_label |}
                     false) as [graph' morph_id] eqn:Egam.
         (* new_id = morph_id: both equal rich_next_morph_id rs *)

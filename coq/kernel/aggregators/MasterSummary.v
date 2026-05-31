@@ -17,6 +17,7 @@ From Kernel Require Import VMState VMStep MuCostModel CHSHExtraction.
 From Kernel Require Import SimulationProof InformationGainToStrengthening.
 From Kernel Require Import ClassicalBound TsirelsonUpperBound TsirelsonUniqueness.
 From Kernel Require Import QuantumEquivalence NoFreeInsight.
+From Kernel Require Import A2Payoff CommitmentPredicateAdequacy CommitmentCostDecomposition.
 From Kernel Require Import TsirelsonGeneral TsirelsonFromAlgebra.
 From Kernel Require Import MinorConstraints.
 From Kernel Require Import MuLedgerQuantumBridge.
@@ -463,6 +464,25 @@ Definition audit_master_honest_nofi_posterior_representative_reduction : HonestC
        [ "Does not automatically derive the posterior-representative witness from arbitrary feasible-set collapse.";
          "Does not yet eliminate the explicit decision-tree premise." ] |}.
 
+Definition audit_master_a2_equal_trust_substitution_payoff : HonestClaim :=
+  {| claim_name := "master_a2_equal_trust_substitution_payoff";
+     claim_sources :=
+       [ "A2Payoff.a2_equal_trust_substitution_payoff";
+         "CommitmentPredicateAdequacy.substitution_test_rejects_non_a2_exact_substitute";
+         "CommitmentCostDecomposition.dcs_substitution_test_rejects_non_a2_exact_component" ];
+     claim_scope := Structural;
+     claim_status := StatusUnconditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "equal trust: the priced local predicate is part of the trusted transition law";
+         "exact commitment pricing: the law lower-bounds certification commitments and does not overcharge beyond them";
+         "decomposed total cost separates background work from the commitment component" ];
+     claim_premise_kinds := [ PremiseSemantic; PremiseStructural; PremiseSemantic ];
+     claim_not_imply :=
+       [ "Does not claim arbitrary projection/lift asymmetry is privileged.";
+         "Does not use the trusted-vs-untrusted verification gap.";
+         "Rules out substitutes only for exact certification-commitment pricing; predicates that intentionally overcharge are classified as different cost laws." ] |}.
+
 Definition audit_master_nofi_to_discrete_einstein : HonestClaim :=
   {| claim_name := "master_nofi_to_discrete_einstein";
      claim_sources := [ "NoFIToEinstein.nfi_to_discrete_einstein" ];
@@ -555,6 +575,7 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_honest_nofi_conditional_shannon;
     audit_master_honest_nofi_quantitative_state_space;
     audit_master_honest_nofi_posterior_representative_reduction;
+    audit_master_a2_equal_trust_substitution_payoff;
     audit_master_nofi_to_discrete_einstein;
     audit_master_nofi_to_discrete_einstein_from_bekenstein_calibration;
     audit_master_verification_chain;
@@ -836,6 +857,44 @@ Definition exposed_honest_nofi_posterior_representative_reduction_content :
   exposed_honest_nofi_posterior_representative_reduction_spine :=
   honest_nfi_posterior_representative_reduction_partial.
 
+Definition exposed_a2_equal_trust_substitution_spine : Prop :=
+  commitment_vs_erasure_payoff /\
+  (forall LPS : LocalPredicatePricedSystem,
+      quantitative_certification_floor LPS <->
+      local_predicate_le LPS (cert_flip_local LPS) (lps_charge LPS)) /\
+  (forall LPS : LocalPredicatePricedSystem,
+      batch_certification_floor LPS <->
+      local_predicate_le LPS (cert_flip_local LPS) (lps_charge LPS)) /\
+  (forall LPS : LocalPredicatePricedSystem,
+      (quantitative_certification_floor LPS /\
+       no_overcharge_for_commitments LPS)
+      <->
+      (local_predicate_same LPS (cert_flip_local LPS) (lps_charge LPS) /\
+       exact_unit_pricing LPS)) /\
+  (forall LPS : LocalPredicatePricedSystem,
+      ~ local_predicate_same LPS (cert_flip_local LPS) (lps_charge LPS) ->
+      ~ (quantitative_certification_floor LPS /\
+         no_overcharge_for_commitments LPS)) /\
+  (forall DCS : DecomposedCommitmentSystem,
+      (forall trace s0,
+          dcs_total_cost DCS trace s0 =
+          (dcs_total_base DCS trace s0 + dcs_cert_flip_count DCS trace s0)%nat)
+      <->
+      dcs_local_predicate_same DCS (dcs_cert_flip_local DCS) (dcs_charge DCS)) /\
+  (forall DCS : DecomposedCommitmentSystem,
+      ~ dcs_local_predicate_same DCS (dcs_cert_flip_local DCS) (dcs_charge DCS) ->
+      ~ (forall trace s0,
+            dcs_total_cost DCS trace s0 =
+            (dcs_total_base DCS trace s0 + dcs_cert_flip_count DCS trace s0)%nat)) /\
+  (forall trace s0,
+      dcs_total_cost vm_certified_decomposed_system trace s0 =
+      (dcs_total_base vm_certified_decomposed_system trace s0
+       + dcs_cert_flip_count vm_certified_decomposed_system trace s0)%nat).
+
+Definition exposed_a2_equal_trust_substitution_content :
+  exposed_a2_equal_trust_substitution_spine :=
+  a2_equal_trust_substitution_payoff.
+
 Definition exposed_thermo_einstein_bridge_spine : Prop :=
   forall (SpacetimeState : Type)
          (EinsteinTarget : SpacetimeState -> Prop)
@@ -982,6 +1041,7 @@ Definition exposed_import_spine : list string :=
     "HonestNoFI.honest_nfi_conditional_shannon_partial -> exposed_honest_nofi_conditional_shannon_content";
     "HonestNoFI.honest_nfi_quantitative_state_space_partial -> exposed_honest_nofi_quantitative_state_space_content";
     "HonestNoFI.honest_nfi_posterior_representative_reduction_partial -> exposed_honest_nofi_posterior_representative_reduction_content";
+    "A2Payoff.a2_equal_trust_substitution_payoff -> exposed_a2_equal_trust_substitution_content";
     "ThermoEinsteinBridge.thermodynamic_locality_toward_einstein_with_clausius_model -> exposed_thermo_einstein_bridge_content";
     "ThermoEinsteinBridge.thermodynamic_locality_toward_discrete_einstein_emergence -> exposed_thermo_discrete_einstein_content";
     "NoFIToEinstein.nfi_to_discrete_einstein -> exposed_nofi_to_discrete_einstein_content";
@@ -1016,6 +1076,7 @@ Definition master_exported_theorem_names : list string :=
     "master_honest_nofi_conditional_shannon";
     "master_honest_nofi_quantitative_state_space";
     "master_honest_nofi_posterior_representative_reduction";
+    "master_a2_equal_trust_substitution_payoff";
     "master_nofi_to_discrete_einstein";
     "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
     "master_verification_chain";
@@ -1064,6 +1125,8 @@ Definition master_theorem_metadata_ledger : list TheoremMetadata :=
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
      {| metadata_name := "master_honest_nofi_posterior_representative_reduction";
        metadata_scope := Structural; metadata_status := StatusConditional; metadata_role := WrapperOnly |};
+     {| metadata_name := "master_a2_equal_trust_substitution_payoff";
+       metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := NewComposition |};
      {| metadata_name := "master_nofi_to_discrete_einstein";
        metadata_scope := ConditionalPhysical; metadata_status := StatusConditional; metadata_role := WrapperOnly |};
      {| metadata_name := "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
@@ -1141,6 +1204,7 @@ Definition summary_file_theorem_names : list string :=
     "master_honest_nofi_conditional_shannon";
     "master_honest_nofi_quantitative_state_space";
     "master_honest_nofi_posterior_representative_reduction";
+    "master_a2_equal_trust_substitution_payoff";
     "master_nofi_to_discrete_einstein";
     "master_nofi_to_discrete_einstein_from_bekenstein_calibration";
     "master_verification_chain";
@@ -1153,7 +1217,7 @@ Definition summary_file_theorem_names : list string :=
     "thiele_machine_is_complete" ].
 
 Theorem summary_file_theorem_inventory_explicit :
-  List.length summary_file_theorem_names = 51%nat.
+  List.length summary_file_theorem_names = 52%nat.
 Proof.
   reflexivity.
 Qed.
@@ -1171,8 +1235,9 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
            "master_honest_nofi_trace_separation";
            "master_honest_nofi_conditional_shannon";
            "master_honest_nofi_quantitative_state_space";
-           "master_honest_nofi_posterior_representative_reduction" ];
-       coverage_note := "Structural NoFI, cert-setter/Shannon bounds, the posterior-representative semantics lift, and the conservative state-space-counting wrapper are in scope." |};
+           "master_honest_nofi_posterior_representative_reduction";
+           "master_a2_equal_trust_substitution_payoff" ];
+       coverage_note := "Structural NoFI, cert-setter/Shannon bounds, the posterior-representative semantics lift, the conservative state-space-counting wrapper, and the equal-trust A2 substitution gate are in scope." |};
     {| coverage_area := AreaVerificationSurface;
        coverage_support := [ "master_verification_chain"; "master_verification_preserved_observables" ];
        coverage_note := "Verification scope is explicit and intentionally abstract." |};
@@ -2081,6 +2146,26 @@ Theorem master_honest_nofi_posterior_representative_reduction :
       (run_vm fuel trace s).(vm_mu) - s.(vm_mu))%nat.
 Proof.
   exact honest_nfi_posterior_representative_reduction_partial.
+Qed.
+
+(* AUDIT:
+   theorem: master_a2_equal_trust_substitution_payoff
+   status: unconditional
+   kind: new-composition
+   depends_on: A2Payoff.a2_equal_trust_substitution_payoff
+   premise_kinds: semantic; structural
+   new_content_here: exposes the equal-trust substitution gate as a master claim
+   semantic_layer: formal theorem layer
+   external_interpretation: exact certification-commitment pricing rejects
+     non-A2 substitutes; intentionally-overcharging laws are different laws
+*)
+(* This summary module re-exports kernel theorems under master_* names so the
+   monograph can cite one stable surface. Deliberate, no new content.
+   INQUISITOR NOTE: alias for a2_equal_trust_substitution_payoff. *)
+Theorem master_a2_equal_trust_substitution_payoff :
+  exposed_a2_equal_trust_substitution_spine.
+Proof.
+  exact a2_equal_trust_substitution_payoff.
 Qed.
 
 (* AUDIT:

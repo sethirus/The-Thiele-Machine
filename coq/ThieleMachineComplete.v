@@ -31,8 +31,8 @@
     The μ-ledger is the receipt. It is:
     - Unforgeable: any other cost measure satisfying the same constraints
       equals μ on all reachable states (μ-initiality, Part D of §6).
-    - Unavoidable: you cannot certify structural claims for free, and you
-      cannot even ATTEMPT certification for free — S(0)=1 is charged
+    - Unavoidable: nothing certifies structural claims for free, and nothing
+      gets to even ATTEMPT certification for free — S(0)=1 is charged
       even for failed assertions (No Free Insight, §6).
     - Necessary: this file also proves that strict classical state
       (mem, regs, pc) cannot determine μ or certification,
@@ -86,7 +86,7 @@
         the physical world, or express categorical structure. The ones
         that modify the model (LASSERT, REVEAL, EMIT, LJOIN, CERTIFY,
         MORPH_ASSERT) carry irreducible cost. MORPH_ASSERT charges
-        S(cost) ≥ 1 even for failed attempts — you cannot try to certify
+        S(cost) ≥ 1 even for failed attempts — there's no trying to certify
         structural claims for free.
 
     (4) EXECUTABLE SEMANTICS: vm_apply maps (state, instruction) → state.
@@ -117,7 +117,7 @@
         Strengthening a predicate — ruling out possibilities, gaining
         structural knowledge — requires a structure addition event.
         Arithmetic, memory ops, control flow: none of them can produce
-        certification. You cannot learn without paying. The categorical
+        certification. Nothing learns without paying. The categorical
         extension deepens this: MORPH_ASSERT is the cert-setter for
         morphism claims. Asserting a morphism property costs S(cost) ≥ 1
         unconditionally — even if the assertion fails, even if cost = 0.
@@ -263,8 +263,8 @@
     typed relations (MorphismState) between module pairs, alongside the
     module map pg_modules. The 7 MORPH opcodes implement manipulation of
     this map. MORPH_ASSERT is its cert-setter: it costs S(cost) ≥ 1,
-    unconditionally, even for failed assertions (you cannot attempt to
-    certify a relation for free any more than you can certify a property
+    unconditionally, even for failed assertions (there's no attempting to
+    certify a relation for free any more than there's certifying a property
     for free).
 
     The morphism layer gives the machine a category in the mathematical
@@ -4139,7 +4139,7 @@ Definition has_structure_addition (fuel : nat) (trace : Receipts) (s_init : VMSt
     If you start with csr_cert_addr = 0 and end with a Certified state
     (which requires csr_cert_addr ≠ 0), then somewhere in between the
     cert_addr transitioned 0 → nonzero. That is a structure addition event.
-    That event costs μ. You cannot certify for free.
+    That event costs μ. Nothing certifies for free, and the ledger is where the bill lands.
 
     HONEST NOTE: P_weak and Hstrict are carried for caller documentation —
     the caller proves they achieved a strictly stronger predicate. The proof
@@ -5339,7 +5339,7 @@ Qed.
     The decision tree is the machine's epistemic history. Every branch
     is a question asked. Every leaf is a world distinguished. The depth
     of the tree is the number of questions. The μ pays for the questions.
-    You cannot have a deeper tree than you can afford to pay for.
+    No tree grows deeper than the μ you can afford to pay for it — the depth is exactly as honest as the wallet.
 
     FALSIFICATION:
     To disprove the feasible-set reduction bound: exhibit a run where
@@ -11798,7 +11798,7 @@ Open Scope list_scope.
     PHYSICAL MEANING:
     An agent that must pay μ for every expansion of its own knowledge
     cannot fake growth. The cost is the proof of genuine expansion.
-    You cannot bootstrap trust without paying for it. That is the bypass:
+    No agent bootstraps trust without paying for it. That is the bypass:
     not a logical trick, but a physical impossibility of free expansion.
 
     FALSIFICATION:
@@ -14322,7 +14322,7 @@ Qed.
 
     PHYSICAL MEANING:
     This is the FULL No Free Insight theorem at the single-step level.
-    You cannot certify anything without paying. The two channels are
+    No path certifies anything without paying. The two channels are
     different witnesses of the same physical law: knowledge costs μ.
     ========================================================================= *)
 
@@ -14375,7 +14375,7 @@ Qed.
     "How much does it cost to certify a CHSH violation at confidence N?"
     Answer: at least N executions of CHSH_TRIAL. The threshold is the
     confidence level. The cost is the experimental work. They are equal.
-    You cannot fake N trials with fewer than N trials.
+    There's no faking N trials with fewer than N trials; the universe is not extending credit on this one.
 
     FALSIFICATION:
     To disprove the W2 theorem: exhibit a trace that reaches N valid CHSH
@@ -14691,7 +14691,7 @@ Qed.
 
     PHYSICAL MEANING:
     N bits of CHSH evidence = N actual measurements = N CHSH_TRIAL executions.
-    You cannot accumulate quantum evidence without performing quantum measurements.
+    There's no accumulating quantum evidence without performing quantum measurements.
     The machine's witness counter is the physical receipt for each measurement.
     ========================================================================= *)
 
@@ -15209,7 +15209,7 @@ Qed.
 
     5.  kernel_certified_implies_positive_mu: CERTIFICATION REQUIRES μ > 0.
         From nothing (certified=false, μ=0), reaching certified=true forces μ > 0.
-        You cannot certify for free.
+        Nothing certifies for free.
 
     6.  landauer_information_bound_tc: LANDAUER INTERFACE.
         For any physical erasure package with a second-law witness,

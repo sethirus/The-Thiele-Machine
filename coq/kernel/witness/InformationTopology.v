@@ -30,7 +30,7 @@
 
     NFI AS COST BOUND (nfi_is_cost_lower_bound): No Free Insight says
     the distance from uncertified to certified is strictly positive.
-    You cannot reach a certified state along a zero-cost path. *)
+    There's no reaching a certified state along a zero-cost path. *)
 
 From Coq Require Import List Arith.PeanoNat Lia.
 Import ListNotations.

@@ -223,7 +223,7 @@ Qed.
     trace whose cost equals [expansion_insight e] exactly.
 
     The witness requires NO self-referential reasoning about B's safety.
-    The trace IS the certificate.  You cannot fake the cost. *)
+    The trace IS the certificate.  The cost can't be faked. *)
 Theorem lob_bypass_concrete :
   forall {A B : StateSpace} (e : Expansion A B) (s0 : ExecState),
     let costs := full_certification_trace (expansion_insight e) in

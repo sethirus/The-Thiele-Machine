@@ -289,7 +289,7 @@ Definition respects_info_conservation (E : Evolution) : Prop :=
     info_loss ≤ evo_mu. Thus evo_mu ≥ info_loss > 0, so evo_mu > 0. QED.
 
     Irreversible operations (measurement, reset, decoherence) MUST have μ > 0.
-    You cannot erase information without thermodynamic cost. This connects
+    There's no erasing information without thermodynamic cost. This connects
     quantum mechanics to thermodynamics directly.
 
     To falsify: Find a non-unitary (info_loss > 0) operation with μ = 0

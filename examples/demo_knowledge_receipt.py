@@ -11,7 +11,7 @@ Here's the four-act argument:
 
   ACT 1 — The Forged Claim
     Claim a structural relationship without building it. The machine refuses.
-    NoFI enforcement: you cannot assert uncertified structure.
+    NoFI enforcement: there's no path through the machine that asserts uncertified structure.
 
   ACT 2 — The Earned Path
     Build a genuine A→B→C morphism chain. Pay the cost. Read back the evidence.

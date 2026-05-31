@@ -516,7 +516,7 @@ Definition pnew_choices (n : nat) : list vm_instruction :=
 
   PHYSICAL MEANING: This is a "prediction impossibility" result. If the adversary
   can expand the search space beyond your fuel budget, uniform betting MUST fail.
-  You cannot hedge bets across unbounded choices with finite resources.
+  There's no hedging bets across unbounded choices with finite resources.
 
   To falsify: Show fuel0, s0 where UniformStrategy survives schedule_expanding fuel0.
   This would mean the schedule doesn't achieve the claimed adversarial effect.
@@ -642,7 +642,7 @@ Qed.
 
   PHYSICAL INTERPRETATION: This is a formalization of "No Free Lunch" in search.
   If the adversary can adaptively expand the hypothesis space beyond your
-  computational budget, uniform search MUST fail. You cannot maintain constant
+  computational budget, uniform search MUST fail. There's no maintaining constant
   probability mass across unbounded choices with finite resources.
 
   COMPUTATIONAL COMPLEXITY CONNECTION: This relates to the "expanding search

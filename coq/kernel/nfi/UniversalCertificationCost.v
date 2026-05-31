@@ -50,7 +50,7 @@ Record CertificationSystem := mk_cert_system {
       the instruction executing that step has cost ≥ 1.
 
       This is the formal content of "No Free Certification":
-        - You cannot certify for free.
+        - Certification is never free.
         - Any system where A2 fails has "free forgery" — it can certify
           without spending anything, which is not honest accounting.
 

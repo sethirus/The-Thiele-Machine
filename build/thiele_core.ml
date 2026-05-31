@@ -961,8 +961,12 @@ let graph_compose_morphisms g m1 m2 =
      | Some h ->
        if Nat.eqb f.morph_target h.morph_source
        then let composed_pairs =
-              relational_compose f.morph_coupling.coupling_pairs
-                h.morph_coupling.coupling_pairs
+              if f.morph_is_identity
+              then h.morph_coupling.coupling_pairs
+              else if h.morph_is_identity
+                   then f.morph_coupling.coupling_pairs
+                   else relational_compose f.morph_coupling.coupling_pairs
+                          h.morph_coupling.coupling_pairs
             in
             let c = { coupling_pairs = composed_pairs; coupling_label =
               (append f.morph_coupling.coupling_label

@@ -20,6 +20,7 @@ From Kernel Require Import Kernel KernelTM.
 From Kernel Require Import VMState VMStep CertCheck.
 From Kernel Require Import SimulationProof MuLedgerConservation PrimeAxiom.
 From Kernel Require Import AbstractNoFI UniversalCertificationCost QuantitativeNoFI.
+From Kernel Require Import A2Payoff CommitmentPredicateAdequacy CommitmentCostDecomposition.
 From Kernel Require Import MuInitiality InsightTaxonomy.
 From Kernel Require Import TuringCompletenessISA.
 From Kernel Require Import LandauerDerivation PhysicsClosure CHSH.
@@ -221,6 +222,11 @@ Check kernel_certified_implies_positive_mu.
         Certified insight (LASSERT, CERTIFY, etc.) always costs >= 1.
         No composition of free structural operations produces
         certification.
+
+    5f. SUBSTITUTION GATE: Under equal trust, a substitute local predicate
+        yields exact non-overcharging certification-commitment pricing only
+        when it is A2.  Predicates that miss cert-flips lose the floor;
+        predicates that charge extra steps overcharge by construction.
 *)
 
 (** 5a. Abstract NoFI: single-step, both certification channels. *)
@@ -248,6 +254,12 @@ Check mu_initiality.
 (** 5e. Insight taxonomy: structural creation free, certified insight
     costs >= 1. *)
 Check no_free_certified_insight.
+
+(** 5f. Equal-trust substitution gate: exact commitment pricing rejects
+    non-A2 substitutes. *)
+Check substitution_test_rejects_non_a2_exact_substitute.
+Check dcs_substitution_test_rejects_non_a2_exact_component.
+Check a2_equal_trust_substitution_payoff.
 
 (**
     CHAPTER 6: TURING COMPLETENESS

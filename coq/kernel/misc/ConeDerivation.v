@@ -63,7 +63,7 @@ Definition cone_like (f : list vm_instruction -> list nat) : Prop :=
   This is the derivation-not-definition point in its cleanest form. Instead of
   choosing causal_cone and then listing properties, I can state the minimal
   properties first and show they force a unique solution. To falsify it, find
-  two different cone_like functions. The theorem says you cannot.
+  two different cone_like functions. The theorem says there are none.
 *)
 Theorem Cone_Structure_Unique :
   forall f,

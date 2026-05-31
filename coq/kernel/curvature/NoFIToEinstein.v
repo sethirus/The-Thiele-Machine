@@ -206,8 +206,8 @@ Qed.
     vm_certified=true must have paid at least 1 μ-unit.
 
     This IS the NoFI cost theorem in its strongest executable form:
-    "Certification requires payment." Starting from nothing, you cannot
-    certify without cost. The machine's second law.
+    "Certification requires payment." Starting from nothing, nothing
+    certifies without cost. The machine's second law.
 *)
 (* INQUISITOR NOTE: re-export — PrimeAxiom.kernel_certified_implies_positive_mu
    directly proves the NoFI cost consequence for the vm_certified execution path. *)

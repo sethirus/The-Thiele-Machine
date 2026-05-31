@@ -20,6 +20,10 @@ From Kernel Require Import MuShannonBridge MuShannonQuantitative StateSpaceCount
 From Kernel Require Import QuantumPartitionPSD.
 From Kernel Require Import QuantumPartitionPSD_1AB.
 From Kernel Require Import A2LoadBearing.
+From Kernel Require Import CommitmentVsErasure.
+From Kernel Require Import CommitmentPredicateAdequacy.
+From Kernel Require Import CommitmentCostDecomposition.
+From Kernel Require Import A2Payoff.
 From Kernel Require Import MasterSummary.
 
 (** Master-summary audit hooks. *)
@@ -221,6 +225,63 @@ Print Assumptions lassert_substrate_mu_exceeds_unit_cost.
    A2 the bound drops by 1, exhibiting a strict separation at B = 0. *)
 Print Assumptions a2_contributes_exact_plus_one_to_lassert_bound.
 
+(** ** Commitment versus erasure, equal-trust separation *)
+
+(* Theorem: trusted erasure accounting can certify at zero cost when no
+   erasure occurs, while trusted A2 accounting forbids zero-cost
+   certification. *)
+Print Assumptions commitment_cost_not_reducible_to_erasure_cost.
+
+(** ** A2 substitution gate *)
+
+(* Theorem: under predicate-only pricing, a local substitute predicate
+   yields a universal certification-cost floor iff it covers every
+   cert-flip step. *)
+Print Assumptions local_predicate_certification_floor_iff_covers_cert_flips.
+
+(* Theorem: the quantitative trace cost lower-bounds the number of
+   certification commitments iff the priced predicate contains A2. *)
+Print Assumptions quantitative_floor_iff_a2_predicate_subsumed.
+Print Assumptions quantitative_certification_floor_iff_covers_cert_flips.
+
+(* Theorem: every batch of certifying runs costs at least one unit per
+   run iff the priced predicate contains A2. *)
+Print Assumptions batch_certification_floor_iff_a2_predicate_subsumed.
+
+(* Theorem: if a pricing law gets the commitment lower bound and does
+   not overcharge beyond commitments, then it is exactly A2 with unit
+   pricing; conversely, exact unit A2 pricing has both properties. *)
+Print Assumptions exact_commitment_pricing_characterization.
+Print Assumptions substitution_test_rejects_non_a2_exact_substitute.
+Print Assumptions substitution_test_exact_substitute_is_a2.
+
+(* Theorem: the cert-flip predicate is the least adequate predicate;
+   any substitute that gets the certification floor must contain A2. *)
+Print Assumptions cert_flip_is_least_covering_predicate.
+Print Assumptions universal_floor_forces_a2_predicate_subsumed.
+
+(* Theorem: erasure accounting is not an adequate substitute when
+   certification can happen without erasure. *)
+Print Assumptions erasure_substitute_fails_commitment_floor.
+
+(* Theorem: the cert-flip predicate itself has the commitment floor. *)
+Print Assumptions a2_predicate_has_commitment_floor.
+Print Assumptions a2_predicate_has_quantitative_floor.
+
+(* Theorem: in a decomposed total-cost model, total cost equals
+   background cost plus certification commitments iff the commitment
+   component is exactly A2; the VM instruction-cost schedule has this
+   decomposition for vm_certified. *)
+Print Assumptions dcs_exact_total_cost_formula_iff.
+Print Assumptions dcs_substitution_test_rejects_non_a2_exact_component.
+Print Assumptions dcs_exact_component_substitute_is_a2.
+Print Assumptions vm_instruction_cost_exactly_background_plus_cert_commitments.
+
+(* Packaged theorem: equal-trust erasure separation, quantitative
+   substitution gate, batch/n-way gate, and exact-pricing
+   characterization, plus the decomposed-cost VM instantiation. *)
+Print Assumptions a2_equal_trust_substitution_payoff.
+
 
 (** ** Subsumption theorems *)
 
@@ -264,4 +325,3 @@ Qed.
       - No project-local axioms have been introduced.
       - The standard-library reach is explicit rather than implicit.
       - Every paper theorem is fully machine-checked. *)
-

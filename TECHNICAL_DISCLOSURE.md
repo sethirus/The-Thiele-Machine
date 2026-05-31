@@ -11,25 +11,27 @@
 
 ## Summary
 
-The classical theory of computation has two axes: time and space. The Thiele Machine adds a third — certification cost — and proves the classical models are its structural-axis projection. The argument is four steps; to dismiss it, name the step you reject.
+The classical theory of computation has two axes: time and space. The Thiele Machine adds a third — certification cost — and proves the classical models are its structural-axis projection. The argument is four steps, each stated below. A refutation of any one step refutes the disclosed claim.
 
-**1. A2 cannot be written on a classical step relation.** A2 is the rule that any step flipping certification from false to true costs at least 1. A Turing machine, a register machine, a lambda reducer carries no certification flag for A2 to constrain. The rule is unformulable on classical state, not merely unenforced. See `cs_cert_costs` in `coq/kernel/nfi/UniversalCertificationCost.v`.
+**1. A2 cannot be written on a classical step relation.** A2 is the rule that any step flipping certification from false to true costs at least 1. A Turing machine, a register machine, a lambda reducer carries no certification flag for A2 to constrain, and being Turing-equivalent supplies none: equivalence preserves the computed function, and the function never reads the flag. Completeness is a statement about what you compute, not about what the step can branch on, so the whole equivalence class lacks the field by the property that defines it. The rule is unformulable on classical state, not merely unenforced. See `cs_cert_costs` in `coq/kernel/nfi/UniversalCertificationCost.v`.
 
-**2. Therefore the substrate is forced.** Any model that formalises certification cost at the step rule must carry state classical models do not have. The structural axis (`vm_mu`, `vm_certified`) is the minimum state for A2 to be a sentence in the first place. The substrate is not an extension of classical computation; it is what is required for the classical models' silent omission to be representable at all.
+**2. Therefore the substrate carries irredundant state classical models lack.** Any model that formalises certification cost at the step rule must carry state classical models do not have. The structural axis (`vm_mu`, `vm_certified`) is the proved-minimal extension over (mem, regs, pc): neither field is a function of the rest (`P_full_is_minimal_complete_extension` in `coq/kernel/nfi/NecessityAbstract.v`). Drop either and certification semantics stop being determinate. That is the state A2 needs to be a law of the step at all: something to read the certification from, something to charge the cost to. That is why classical computation is the derivative thing and not a parallel option: it is the state left when the law is forgotten, and a classical step rule can only run a fallible checker of A2, never carry it. Bolt A2 into a step rule and you haven't extended a TM — you've rebuilt the substrate from the state that lets A2 be stated.
 
 **3. Classical computation is the projection.** `lift_config`, `thiele_simulates_turing`, and `degenerate_projection_theorem` (in `coq/kernel/foundation/`) mechanise that classical computation is exactly the image of substrate computation under the projection that forgets the structural axis. `D4_strictness` witnesses substrate states with no classical preimage. Every Turing machine, every register machine, every lambda-calculus reducer, every CPU on every desk: a Thiele Machine running with the structural axis sidelined.
 
 **4. Every concept disclosed below is downstream of these four steps.** The foundational claim does not require 47 opcodes, an FPGA, or any of the specific instruction semantics enumerated in this document. The minimum instruction set that witnesses the substrate is two opcodes: any classical compute primitive (so subsumption has something to project to) and one opcode that flips certification (so A2 has something to enforce). `instr_certify` is the load-bearing opcode for A2; everything else is engineering exploration of what the substrate can express.
 
-**The standard misread.** The trained reflex is: A2 can be enforced in software on a TM, so the substrate distinction is a hardware/software boundary, not a fundamental one. The falsifier is one sentence. A Turing machine cannot refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one. Load a Thiele simulator onto a TM with a bug — a program that certifies without incrementing μ. The TM runs it faithfully, because its step rule has no field for A2 and cannot detect the bug. Load the same buggy program onto a Thiele substrate; the step rule traps. A2 is not interpreted by the simulator and could be skipped; it is the transition law itself. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true and is not the question. "Thiele's step rule can be written down on a TM" is the question, and the answer is no.
+**The hardware/software objection.** The standard objection: A2 can be enforced in software on a TM, so the substrate distinction is a hardware/software boundary, not a fundamental one. It fails in one sentence. A Turing machine cannot refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one. Load a Thiele simulator onto a TM with a bug — a program that certifies without incrementing μ. The TM runs it faithfully, because its step rule has no field for A2 and cannot detect the bug. Load the same buggy program onto a Thiele substrate; the step rule traps. A2 is not interpreted by the simulator and could be skipped; it is the transition law itself. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true but is not the question. The question is whether Thiele's step rule can be written down on a TM, and it cannot.
 
-The concrete realisation disclosed in the remainder of this document is a Coq kernel formalisation of µ (a monotone cost ledger), No Free Insight (a conservation law proven from the kernel's step function), a 47-opcode instruction set architecture, an extracted OCaml reference runner, and synthesizable Verilog RTL extracted from Coq through the Kami framework. All theorems described here have been machine-checked in Coq with zero admitted lemmas in the active proof tree.
+**The "tagged extension" objection.** A second objection: the structural axis is merely an extra field tagged onto classical state, the way ℤ can be tagged and called richer — an extension, not a foundation. It fails to one machine-checked fact. A2 is the *exact least local predicate* for certification-commitment pricing: a substitute that misses a cert-flip fails the cost floor on a one-step trace, and a substitute that charges a non-cert-flip overcharges — the only exact, non-overcharging substitute *is* A2. This holds *with trust fixed* — trusted law against trusted law, same target property on both sides — so it is not the generic "trusted beats untrusted" gap available to any tag. The result is `a2_equal_trust_substitution_payoff` (`coq/kernel/nfi/A2Payoff.v`, closed under the global context), and the sharp forms `substitution_test_exact_substitute_is_a2` and `substitution_test_rejects_non_a2_exact_substitute` (`coq/kernel/nfi/CommitmentPredicateAdequacy.v`). A tag on ℤ is an inert coordinate over a ring that was already complete without it. A2 is the one exact pricing law over the proved-minimal (`vm_mu`, `vm_certified`) extension, and a classical step rule can't even *state* it. That's the difference between a richer extension and the thing the extension is derivative of.
+
+The concrete realisation disclosed in the remainder of this document is a Coq kernel formalisation of µ (a monotone cost ledger), No Free Insight (a cost-floor law proven from the kernel's step function), a 47-opcode instruction set architecture, an extracted OCaml reference runner, and synthesizable Verilog RTL extracted from Coq through the Kami framework. All theorems described here have been machine-checked in Coq with zero admitted lemmas in the active proof tree.
 
 ---
 
 ## Concept 1: The µ-Ledger (Structural Cost Register)
 
-**What it is.** Every Thiele Machine state carries a field `vm_mu : nat` — a natural number that starts at 0 and is monotonically non-decreasing. Every instruction carries an explicit `mu_delta` parameter encoding its cost. The machine's step function adds exactly `instruction_cost(i)` to `vm_mu` on every step, including error cases. There is no backdoor. There is no instruction that decreases `vm_mu`.
+**What it is.** Every Thiele Machine state carries a field `vm_mu : nat` — a natural number that starts at 0 and is monotonically non-decreasing. Every instruction carries an explicit `mu_delta` parameter encoding its cost. The machine's step function adds exactly `instruction_cost(i)` to `vm_mu` on every step, including error cases. No instruction anywhere decreases `vm_mu`.
 
 **The cost schedule.** Instructions fall into two classes:
 - *Ordinary compute* (ADD, LOAD, STORE, JUMP, PNEW, MORPH, etc.): cost = `mu_delta`, which may be 0.
@@ -39,7 +41,7 @@ The concrete realisation disclosed in the remainder of this document is a Coq ke
 
 **LASSERT** charges `flen × 8 + S(mu_delta)` where `flen` is the encoded formula-unit count read from the formula's own in-memory header.
 
-**Why S(δ) = δ+1 is the unique honest minimum.** δ+0 allows free certification. δ+2 overcharges. δ+1 is the unique minimum that makes certification impossible for free. This is proven, not chosen: `MuCostDerivation.v`, theorems `cost_necessity` and `cost_uniqueness`.
+**Why S(δ) = δ+1 is the unique honest minimum.** δ+0 lets certification slip through for free; δ+2 overcharges, padding the bill for no reason; δ+1 is the one value left standing, the smallest number that still costs something. The nice part is I didn't get to pick it: `MuCostDerivation.v`, theorems `cost_necessity` and `cost_uniqueness`.
 
 **Hardware.** In the synthesized RTL (`thielecpu/hardware/rtl/thiele_cpu_kami.v`), `vm_mu` is a 32-bit register incremented inline within the step rule. The cost field occupies bits [7:0] of the 32-bit instruction word.
 
@@ -47,11 +49,11 @@ The concrete realisation disclosed in the remainder of this document is a Coq ke
 
 ---
 
-## Concept 2: No Free Insight (Conservation Law)
+## Concept 2: No Free Insight (Cost-Floor Law)
 
 **Statement.** For any trace of the Thiele Machine that starts with neither certification channel active and ends with at least one active, the total `vm_mu` increase is at least 1. More strongly: if the trace starts with feasible set Ω and ends with a strictly smaller certified feasible set Ω', then:
 
-    Δµ ≥ ⌈log₂|Ω|⌉ − ⌈log₂|Ω'|⌉
+Δµ ≥ ⌈log₂|Ω|⌉ − ⌈log₂|Ω'|⌉
 
 **Proof structure.** The two concrete certification channels are:
 1. `csr_cert_addr`: set to the ASCII checksum of a property string when MORPH_ASSERT succeeds on a non-empty property.
@@ -61,13 +63,13 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **Abstract version.** The theorem holds for any abstract certification system satisfying: (a) a certification predicate, (b) a step function, (c) a cost function where every single-step uncertified→certified transition costs ≥ 1. The Thiele Machine is an instance. `coq/kernel/nfi/AbstractNoFI.v`, theorem `no_free_certification`. The substrate-agnostic version is `universal_nfi_any_substrate` in `coq/kernel/nfi/UniversalCertificationCost.v`.
 
-**Variants disclosed.** No Free Insight as a conservation law applies to any computational system, hardware or software, that (a) distinguishes certified from uncertified structural claims in its state, and (b) charges a positive cost for the certification transition. This includes formal verification co-processors, hardware security modules, trusted execution environments, and any system implementing proof-carrying code or certificate-validated computation.
+**Variants disclosed.** No Free Insight as a cost-floor law applies to any computational system, hardware or software, that (a) distinguishes certified from uncertified structural claims in its state, and (b) charges a positive cost for the certification transition. This includes formal verification co-processors, hardware security modules, trusted execution environments, and any system implementing proof-carrying code or certificate-validated computation.
 
 ---
 
 ## Concept 3: µ-Initiality (Uniqueness of the Cost Measure)
 
-**Statement.** Let M be any function on machine states satisfying: (a) M(init_state) = 0, and (b) M(vm_apply s i) = M(s) + instruction_cost(i) for all reachable states. Then M = vm_mu on all reachable states. There is no alternative instruction-consistent cost measure. `MuInitiality.v`.
+**Statement.** Let M be any function on machine states satisfying: (a) M(init_state) = 0, and (b) M(vm_apply s i) = M(s) + instruction_cost(i) for all reachable states. Then M = vm_mu on all reachable states. Try to invent a second, different cost measure that still respects the instructions and you'll keep rediscovering this one. `MuInitiality.v`.
 
 **What this means.** Given the cost assignment (S(δ) for cert-setters, |payload|+S(δ) for EMIT, etc.), µ is not just one valid accounting. It is the only valid accounting. Any system that assigns costs the same way must produce the same totals.
 
@@ -75,7 +77,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 ## Concept 4: The µ-Hierarchy Theorem
 
-**Statement.** For every k ≥ 1, a level-k certification event costs exactly k in µ. There is no shortcut that achieves level-k certification at cost < k. The hierarchy is strict: no finite trace collapses two adjacent levels. `coq/kernel/mu_calculus/MuHierarchyTheorem.v`, theorem `mu_hierarchy_theorem`.
+**Statement.** For every k ≥ 1, a level-k certification event costs exactly k in µ. There's no clever shortcut hiding in the corner that buys level-k certification for less than k; people have looked, the corner is empty. The hierarchy is strict: no finite trace collapses two adjacent levels. `coq/kernel/mu_calculus/MuHierarchyTheorem.v`, theorem `mu_hierarchy_theorem`.
 
 ---
 
@@ -109,7 +111,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **Operations.** The ISA includes dedicated opcodes for partition graph manipulation: PNEW (allocate module), PSPLIT (split module into two), PMERGE (merge two modules), PDISCOVER (query structure), MORPH (create morphism), COMPOSE (compose morphisms), MORPH_ID (identity morphism), MORPH_DELETE (remove morphism), MORPH_ASSERT (assert property on morphism, activates cert channel), MORPH_TENSOR (tensor morphisms), MORPH_GET (query morphism).
 
-**µ-Ledger Necessity.** The partition graph is provably irrecoverable from any combination of (memory, registers, program counter, µ, vm_certified). There exist reachable states with identical classical shadow but different morphism structure. This is not a design choice; it is a theorem. `NecessityOfMuLedger.v`, `PartitionSeparation.v`.
+**µ-Ledger Necessity.** The partition graph is provably irrecoverable from any combination of (memory, registers, program counter, µ, vm_certified). There exist reachable states with identical classical shadow but different morphism structure. This is not a design decision; it is a theorem, and holds independently of intent. `NecessityOfMuLedger.v`, `PartitionSeparation.v`.
 
 **Variants disclosed.** Any processor architecture, ISA extension, or hardware accelerator that maintains partition structure (module decomposition, morphism map, or typed relational structure between memory regions) as a distinct top-level field of architectural state — separate from the flat memory and register file — is a variant of this concept.
 
@@ -147,7 +149,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **Quantitative bound.** For any trace realizing strict feasible-set narrowing (Ω' ⊊ Ω) with a distinguishing observation and a certified posterior predicate, the µ cost satisfies:
 
-    ⌈log₂|Ω|⌉ − ⌈log₂|Ω'|⌉ ≤ Δµ
+⌈log₂|Ω|⌉ − ⌈log₂|Ω'|⌉ ≤ Δµ
 
 **Decision tree witness.** The trace must provide an explicit decision tree realized by the trace's actual sequence of observations. The posterior-representative reduction must tie every prior state to a posterior representative. Without both, the narrowing is not admissible as sound structural entitlement. `coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v`, record `SoundStructuralShortcut` and theorem `structural_entitlement_representation`.
 
@@ -223,7 +225,7 @@ python3 scripts/inquisitor.py  # confirms zero findings
 pytest tests/ -q         # 952 tests pass
 ```
 
-The Coq proof compilation is the ground truth. If a proof does not compile, the claim is not proven. Every theorem listed in this document compiles to `Qed`.
+The Coq proof compilation is the ground truth, which is a comforting way to live: if a proof doesn't compile, the claim simply isn't proven, and the machine is the one telling me so, not the other way around. Every theorem listed in this document compiles to `Qed`.
 
 ---
 

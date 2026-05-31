@@ -147,7 +147,7 @@ Qed.
    This is the same proof as region_equiv_class_infinite, but with a name
    that explicitly states the implication for entropy.
 
-   You cannot define S = k_B log |{microstates consistent with observations}|
+   There's no defining S = k_B log |{microstates consistent with observations}|
    without FIRST imposing finite_region_equiv_class (from Definitions.v).
 
    Without that finiteness assumption, the cardinality is ℵ₀ (countably infinite)

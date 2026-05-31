@@ -1,0 +1,235 @@
+DIGEST 40fbff094caef7d6a027873184149861
+FKernel.A2Payoff
+R1266:1284 Kernel.CommitmentVsErasure <> <> lib
+R1314:1340 Kernel.CommitmentPredicateAdequacy <> <> lib
+R1370:1396 Kernel.CommitmentCostDecomposition <> <> lib
+def 1411:1438 <> commitment_vs_erasure_payoff
+R1452:1452 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1729:1738 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2151:2151 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1453:1460 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1566:1574 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1466:1495 Kernel.CommitmentVsErasure <> TrustedErasureAccountingSystem rec
+binder 1461:1462 <> TE:1
+R1517:1520 Coq.Init.Datatypes <> list ind
+R1523:1531 Kernel.CommitmentVsErasure <> tea_instr proj
+R1533:1534 Kernel.A2Payoff <> TE:1 var
+binder 1509:1513 <> trace:2
+R1554:1562 Kernel.CommitmentVsErasure <> tea_state proj
+R1564:1565 Kernel.A2Payoff <> TE:1 var
+binder 1549:1550 <> s0:3
+R1597:1606 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1589:1591 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1575:1582 Kernel.CommitmentVsErasure <> tea_cert proj
+R1584:1585 Kernel.A2Payoff <> TE:1 var
+R1587:1588 Kernel.A2Payoff <> s0:3 var
+R1592:1596 Coq.Init.Datatypes <> false constr
+R1647:1656 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1640:1642 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1607:1614 Kernel.CommitmentVsErasure <> tea_cert proj
+R1616:1617 Kernel.A2Payoff <> TE:1 var
+R1620:1626 Kernel.CommitmentVsErasure <> tea_run def
+R1628:1629 Kernel.A2Payoff <> TE:1 var
+R1631:1635 Kernel.A2Payoff <> trace:2 var
+R1637:1638 Kernel.A2Payoff <> s0:3 var
+R1643:1646 Coq.Init.Datatypes <> true constr
+R1684:1693 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1680:1682 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1657:1670 Kernel.CommitmentVsErasure <> tea_total_cost def
+R1672:1673 Kernel.A2Payoff <> TE:1 var
+R1675:1679 Kernel.A2Payoff <> trace:2 var
+R1721:1723 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1694:1708 Kernel.CommitmentVsErasure <> tea_any_erasure def
+R1710:1711 Kernel.A2Payoff <> TE:1 var
+R1713:1717 Kernel.A2Payoff <> trace:2 var
+R1719:1720 Kernel.A2Payoff <> s0:3 var
+R1724:1728 Coq.Init.Datatypes <> false constr
+R1752:1797 Kernel.UniversalCertificationCost <> CertificationSystem rec
+binder 1747:1748 <> CS:4
+R1819:1822 Coq.Init.Datatypes <> list ind
+R1825:1859 Kernel.UniversalCertificationCost <> cs_instr proj
+R1861:1862 Kernel.A2Payoff <> CS:4 var
+binder 1811:1815 <> trace:5
+R1882:1916 Kernel.UniversalCertificationCost <> cs_state proj
+R1918:1919 Kernel.A2Payoff <> CS:4 var
+binder 1877:1878 <> s0:6
+R1977:1986 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R1969:1971 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1929:1962 Kernel.UniversalCertificationCost <> cs_cert proj
+R1964:1965 Kernel.A2Payoff <> CS:4 var
+R1967:1968 Kernel.A2Payoff <> s0:6 var
+R1972:1976 Coq.Init.Datatypes <> false constr
+R2087:2096 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2080:2082 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1987:2020 Kernel.UniversalCertificationCost <> cs_cert proj
+R2022:2023 Kernel.A2Payoff <> CS:4 var
+R2034:2066 Kernel.UniversalCertificationCost <> cs_run def
+R2068:2069 Kernel.A2Payoff <> CS:4 var
+R2071:2075 Kernel.A2Payoff <> trace:5 var
+R2077:2078 Kernel.A2Payoff <> s0:6 var
+R2083:2086 Coq.Init.Datatypes <> true constr
+R2146:2149 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R2097:2136 Kernel.UniversalCertificationCost <> cs_total_cost def
+R2138:2139 Kernel.A2Payoff <> CS:4 var
+R2141:2145 Kernel.A2Payoff <> trace:5 var
+prf 2163:2196 <> a2_equal_trust_substitution_payoff
+R2230:2235 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2202:2229 Kernel.A2Payoff <> commitment_vs_erasure_payoff def
+R2236:2236 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2392:2398 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2250:2275 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 2244:2246 <> LPS:7
+R2320:2330 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2284:2315 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R2317:2319 Kernel.A2Payoff <> LPS:7 var
+R2331:2348 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R2350:2352 Kernel.A2Payoff <> LPS:7 var
+R2355:2369 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R2371:2373 Kernel.A2Payoff <> LPS:7 var
+R2377:2386 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R2388:2390 Kernel.A2Payoff <> LPS:7 var
+R2399:2399 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2548:2554 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2413:2438 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 2407:2409 <> LPS:8
+R2476:2486 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2447:2471 Kernel.CommitmentPredicateAdequacy <> batch_certification_floor def
+R2473:2475 Kernel.A2Payoff <> LPS:8 var
+R2487:2504 Kernel.CommitmentPredicateAdequacy <> local_predicate_le def
+R2506:2508 Kernel.A2Payoff <> LPS:8 var
+R2511:2525 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R2527:2529 Kernel.A2Payoff <> LPS:8 var
+R2533:2542 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R2544:2546 Kernel.A2Payoff <> LPS:8 var
+R2555:2555 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2800:2806 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2569:2594 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 2563:2565 <> LPS:9
+R2603:2603 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2684:2702 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2799:2799 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R2640:2650 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2604:2635 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R2637:2639 Kernel.A2Payoff <> LPS:9 var
+R2651:2679 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R2681:2683 Kernel.A2Payoff <> LPS:9 var
+R2766:2776 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2703:2722 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
+R2724:2726 Kernel.A2Payoff <> LPS:9 var
+R2729:2743 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R2745:2747 Kernel.A2Payoff <> LPS:9 var
+R2751:2760 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R2762:2764 Kernel.A2Payoff <> LPS:9 var
+R2777:2794 Kernel.CommitmentPredicateAdequacy <> exact_unit_pricing def
+R2796:2798 Kernel.A2Payoff <> LPS:9 var
+R2807:2807 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3016:3022 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2821:2846 Kernel.CommitmentPredicateAdequacy <> LocalPredicatePricedSystem rec
+binder 2815:2817 <> LPS:10
+R2920:2929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2855:2856 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2857:2876 Kernel.CommitmentPredicateAdequacy <> local_predicate_same def
+R2878:2880 Kernel.A2Payoff <> LPS:10 var
+R2883:2897 Kernel.CommitmentPredicateAdequacy <> cert_flip_local def
+R2899:2901 Kernel.A2Payoff <> LPS:10 var
+R2905:2914 Kernel.CommitmentPredicateAdequacy <> lps_charge proj
+R2916:2918 Kernel.A2Payoff <> LPS:10 var
+R2930:2932 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3015:3015 Coq.Init.Logic <> ::type_scope:'~'_x not
+R2969:2981 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2933:2964 Kernel.CommitmentPredicateAdequacy <> quantitative_certification_floor def
+R2966:2968 Kernel.A2Payoff <> LPS:10 var
+R2982:3010 Kernel.CommitmentPredicateAdequacy <> no_overcharge_for_commitments def
+R3012:3014 Kernel.A2Payoff <> LPS:10 var
+R3023:3023 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3290:3296 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3037:3062 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 3031:3033 <> DCS:11
+R3071:3071 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R3201:3218 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 3079:3083 <> trace:12
+binder 3085:3086 <> s0:13
+R3126:3138 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3099:3112 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R3114:3116 Kernel.A2Payoff <> DCS:11 var
+R3118:3122 Kernel.A2Payoff <> trace:12 var
+R3124:3125 Kernel.A2Payoff <> s0:13 var
+R3166:3168 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3139:3152 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R3154:3156 Kernel.A2Payoff <> DCS:11 var
+R3158:3162 Kernel.A2Payoff <> trace:12 var
+R3164:3165 Kernel.A2Payoff <> s0:13 var
+R3169:3187 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R3189:3191 Kernel.A2Payoff <> DCS:11 var
+R3193:3197 Kernel.A2Payoff <> trace:12 var
+R3199:3200 Kernel.A2Payoff <> s0:13 var
+R3219:3242 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
+R3244:3246 Kernel.A2Payoff <> DCS:11 var
+R3249:3267 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R3269:3271 Kernel.A2Payoff <> DCS:11 var
+R3275:3284 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R3286:3288 Kernel.A2Payoff <> DCS:11 var
+R3297:3297 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3565:3572 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3781:3781 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3311:3336 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 3305:3307 <> DCS:14
+R3418:3427 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3345:3346 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3347:3370 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
+R3372:3374 Kernel.A2Payoff <> DCS:14 var
+R3377:3395 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R3397:3399 Kernel.A2Payoff <> DCS:14 var
+R3403:3412 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R3414:3416 Kernel.A2Payoff <> DCS:14 var
+R3428:3430 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3564:3564 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 3438:3442 <> trace:15
+binder 3444:3445 <> s0:16
+R3487:3501 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3460:3473 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R3475:3477 Kernel.A2Payoff <> DCS:14 var
+R3479:3483 Kernel.A2Payoff <> trace:15 var
+R3485:3486 Kernel.A2Payoff <> s0:16 var
+R3529:3531 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3502:3515 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R3517:3519 Kernel.A2Payoff <> DCS:14 var
+R3521:3525 Kernel.A2Payoff <> trace:15 var
+R3527:3528 Kernel.A2Payoff <> s0:16 var
+R3532:3550 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R3552:3554 Kernel.A2Payoff <> DCS:14 var
+R3556:3560 Kernel.A2Payoff <> trace:15 var
+R3562:3563 Kernel.A2Payoff <> s0:16 var
+binder 3580:3584 <> trace:17
+binder 3586:3587 <> s0:18
+R3650:3658 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3596:3609 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R3611:3640 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R3642:3646 Kernel.A2Payoff <> trace:17 var
+R3648:3649 Kernel.A2Payoff <> s0:18 var
+R3713:3721 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3659:3672 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R3674:3703 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R3705:3709 Kernel.A2Payoff <> trace:17 var
+R3711:3712 Kernel.A2Payoff <> s0:18 var
+R3722:3740 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R3742:3771 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R3773:3777 Kernel.A2Payoff <> trace:17 var
+R3779:3780 Kernel.A2Payoff <> s0:18 var
+R3810:3854 Kernel.CommitmentVsErasure <> commitment_cost_not_reducible_to_erasure_cost thm
+R3810:3854 Kernel.CommitmentVsErasure <> commitment_cost_not_reducible_to_erasure_cost thm
+R3891:3934 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_iff_a2_predicate_subsumed thm
+R3891:3934 Kernel.CommitmentPredicateAdequacy <> quantitative_floor_iff_a2_predicate_subsumed thm
+R3975:4025 Kernel.CommitmentPredicateAdequacy <> batch_certification_floor_iff_a2_predicate_subsumed thm
+R3975:4025 Kernel.CommitmentPredicateAdequacy <> batch_certification_floor_iff_a2_predicate_subsumed thm
+R4071:4111 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+R4071:4111 Kernel.CommitmentPredicateAdequacy <> exact_commitment_pricing_characterization thm
+R4163:4211 Kernel.CommitmentPredicateAdequacy <> substitution_test_rejects_non_a2_exact_substitute thm
+R4163:4211 Kernel.CommitmentPredicateAdequacy <> substitution_test_rejects_non_a2_exact_substitute thm
+R4269:4300 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+R4269:4300 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+R4386:4437 Kernel.CommitmentCostDecomposition <> dcs_substitution_test_rejects_non_a2_exact_component thm
+R4386:4437 Kernel.CommitmentCostDecomposition <> dcs_substitution_test_rejects_non_a2_exact_component thm
+R4467:4526 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_exactly_background_plus_cert_commitments thm
+R4467:4526 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_exactly_background_plus_cert_commitments thm
+R4553:4586 Kernel.A2Payoff <> a2_equal_trust_substitution_payoff thm

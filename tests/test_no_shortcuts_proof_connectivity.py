@@ -48,6 +48,13 @@ CONNECTIVITY_EXEMPT = {
     "HolevoGeneralD", "HolevoTwoQubit", "OperatorAlgebra",
     "TsirelsonFromIC", "TsirelsonFromMu",
     "AdditionalProbes", "BekensteinBound", "DimensionalGapTheorem",
+    # The substrate-free half of the A2 substitution gate. Every theorem is
+    # indicator-uniqueness over an abstract local-predicate pricing record and
+    # imports no VM semantics on purpose: the floor follows from the cost
+    # schedule alone. The VM teeth are in CommitmentCostDecomposition.v
+    # (imports VMState/VMStep/SimulationProof), and A2Payoff.v is the
+    # aggregator that combines the two. Carries the matching INQUISITOR NOTE.
+    "CommitmentPredicateAdequacy",
     # Substrate.v is the abstract A2-respecting substrate typeclass that the
     # 47-opcode VM instantiates via VMSubstrateInstance.v. It is
     # foundation-tier (more foundational than VMState, which is one

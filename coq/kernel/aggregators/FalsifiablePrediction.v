@@ -116,7 +116,7 @@ Definition discover_cost_bound (evidence : list VMAxiom) : nat :=
     μ never decreases during any VM step.
 
     Structural information is preserved or increased in the μ-ledger.
-    You cannot "uncompose" structure without cost. This is like thermodynamic
+    Nothing "uncomposes" structure without cost. This is like thermodynamic
     irreversibility: the μ-ledger is an arrow of time.
 
     PROOF: By exhaustive case analysis on vm_step constructors. Every

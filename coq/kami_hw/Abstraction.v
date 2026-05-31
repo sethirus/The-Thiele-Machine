@@ -1907,8 +1907,11 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
       else
         kami_advance_err hs cost
   | instr_compose dst m1_id m2_id cost =>
-      (* COMPOSE: hardware computes relational composition of coupling data.
-         Composed pairs = relational_compose(f.pairs, h.pairs).
+      (* COMPOSE: hardware computes relational composition of coupling data,
+         with the same identity-flag short-circuit as the kernel's
+         graph_compose_morphisms: composed pairs = h.pairs if f is a flagged
+         identity (id;f = f), f.pairs if h is a flagged identity (f;id = f),
+         relational_compose(f.pairs, h.pairs) otherwise.
          Label = f.label ++ ";" ++ h.label.
          Matches graph_compose_morphisms in kernel. *)
       let rs := snap_rich_state hs in
@@ -1921,7 +1924,13 @@ Definition kami_step (hs : KamiSnapshot) (i : vm_instruction) : KamiSnapshot :=
             let label1 := morph_coupling_label rs e1 in
             let label2 := morph_coupling_label rs e2 in
             let composed_label := (label1 ++ ";" ++ label2)%string in
-            let composed_pairs := (normalize_coupling {| coupling_pairs := relational_compose pairs1 pairs2;
+            let raw_pairs :=
+              if morph_entry_is_identity e1
+              then pairs2
+              else if morph_entry_is_identity e2
+                   then pairs1
+                   else relational_compose pairs1 pairs2 in
+            let composed_pairs := (normalize_coupling {| coupling_pairs := raw_pairs;
                                                          coupling_label := composed_label |}).(coupling_pairs) in
             let '(rs', new_id) :=
               rich_state_add_morph_with_coupling rs

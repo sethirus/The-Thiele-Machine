@@ -7,7 +7,7 @@ From Kernel Require Import MuLedgerConservation RevelationRequirement.
 From Kernel Require Import SimulationProof.
 From Kernel Require Import EntropyImpossibility.
 
-(** NoFreeInsight: you cannot narrow search space without paying for it.
+(** NoFreeInsight: nothing narrows the search space without paying for it.
 
     This is the central claim of the Thiele Machine. Starting from
     csr_cert_addr = 0, if a bounded execution ends with has_supra_cert, then
@@ -17,7 +17,7 @@ From Kernel Require Import EntropyImpossibility.
   and MORPH_ASSERT. The sharper current-semantics shortcut frontier is now
   explicit too: the actual bridge pattern for the csr_cert_addr channel is an
   executed nonzero MORPH_ASSERT step, and traces with no such bridge remain
-  observation-only. You cannot move from "no supra certificate" to "supra
+  observation-only. No execution moves from "no supra certificate" to "supra
   certificate" through ordinary register arithmetic or a graph-only op.
 
     Four facts grounding the claim:
@@ -97,7 +97,7 @@ Definition total_mu_cost (trace : Receipts) : nat :=
 
 (** A3: Locality (No-Signaling). Proven.
 
-    If you don't touch module M, you cannot change M's observable state.
+    Leave module M untouched and nothing can change M's observable state.
     Observable state = partition-only projection (ObservableRegion).
 
     FORMAL observational_no_signaling from KernelPhysics.v.

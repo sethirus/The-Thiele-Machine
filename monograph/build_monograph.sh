@@ -7,12 +7,12 @@ cd "$(dirname "$0")"
 echo "=== Thiele Machine Monograph Build ==="
 echo
 
-echo "[1/3] Cleaning previous monograph artifacts..."
+echo "[1/4] Cleaning previous monograph artifacts..."
 rm -f monograph.pdf monograph.aux monograph.log monograph.out monograph.toc
 echo "✓ Clean complete"
 echo
 
-echo "[2/3] Running pdflatex..."
+echo "[2/4] Running pdflatex..."
 if ! pdflatex -interaction=nonstopmode -halt-on-error monograph.tex > /tmp/monograph_build_pass1.log 2>&1; then
     echo "✗ pdflatex failed. Error log:"
     tail -50 /tmp/monograph_build_pass1.log
@@ -21,13 +21,26 @@ fi
 echo "✓ First pass complete"
 echo
 
-echo "[3/3] Finalizing pdflatex pass..."
+echo "[3/4] Finalizing pdflatex pass..."
 if ! pdflatex -interaction=nonstopmode -halt-on-error monograph.tex > /tmp/monograph_build_pass2.log 2>&1; then
     echo "✗ final pdflatex failed. Error log:"
     tail -50 /tmp/monograph_build_pass2.log
     exit 1
 fi
 echo "✓ Final pass complete"
+echo
+
+echo "[4/4] Generating plaintext (monograph.txt)..."
+if [ ! -f monograph.pdf ]; then
+    echo "✗ monograph.pdf not found; cannot generate plaintext"
+    exit 1
+fi
+if ! command -v pdftotext > /dev/null 2>&1; then
+    echo "✗ pdftotext not found (install poppler-utils); monograph.txt would go stale"
+    exit 1
+fi
+pdftotext -layout monograph.pdf monograph.txt
+echo "✓ Plaintext regenerated: monograph.txt"
 echo
 
 if [ -f monograph.pdf ]; then
