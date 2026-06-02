@@ -1,0 +1,23 @@
+{
+  "title": "The Thiele Machine: A Computational Model with Explicit Structural Cost",
+  "upload_type": "software",
+  "version": "2.0.1",
+  "license": "Apache-2.0",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Thiele, Devon"
+    }
+  ],
+  "keywords": [
+    "formal verification",
+    "Coq",
+    "proof-carrying computation",
+    "computational model",
+    "structural cost",
+    "category theory",
+    "hardware verification",
+    "No Free Insight"
+  ],
+  "description": "The Thiele Machine is a computational model in which a transition from \"unverified\" to \"verified\" cannot occur unless it pays a positive structural cost - a rule (A2) enforced in the step relation rather than in checkable software. It computes exactly the same functions as a Turing machine, adding one axis of state and one constraint on how a result may be claimed; because a classical machine has no state slot to carry that constraint at the step-transition level, it is a structurally lossy projection of a substrate that does. The repository contains the machine-checked Coq kernel (zero project-local axioms; zero admits across 267 files, 3,823 theorems probed), an OCaml runner extracted from it, a Kami/Bluespec/Verilog RTL realization, and the accompanying monograph. The software is licensed Apache-2.0; the monograph and distillation are licensed CC-BY-SA-4.0."
+}

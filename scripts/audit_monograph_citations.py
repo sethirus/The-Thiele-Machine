@@ -84,6 +84,9 @@ NON_COQ_TOKENS = {
     "nat", "Option", "R", "Classical", "Decidable", "ProofIrrelevance", "KamiHW",
     # Coq operators / arithmetic functions referenced in prose
     "sub", "eqb",
+    # Coq stdlib coercion Z->R used in the CHSH integer-check soundness proof
+    # (the monograph describes it correctly; it is not a VM opcode instr_izr).
+    "IZR",
     # Verilog / Bluespec keywords and generated module / port / wire names
     # (these come from the Kami-generated RTL, not from Coq identifiers).
     "wire", "reg", "case",

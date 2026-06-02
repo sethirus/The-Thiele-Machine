@@ -1,567 +1,567 @@
-DIGEST 34f1198b9aa98893bb356a90f01b2edd
+DIGEST 26f1c8c987dfccb96587430878036d9f
 FKernel.CommitmentCostDecomposition
-R913:916 Coq.Lists.List <> <> lib
-R918:921 Coq.Bool.Bool <> <> lib
-R923:925 Coq.micromega.Lia <> <> lib
-R935:947 Coq.Lists.List ListNotations <> mod
-R978:984 Kernel.VMState <> <> lib
-R986:991 Kernel.VMStep <> <> lib
-R993:1007 Kernel.SimulationProof <> <> lib
-R1009:1020 Kernel.AbstractNoFI <> <> lib
-rec 1031:1056 <> DecomposedCommitmentSystem
-proj 1097:1105 <> dcs_state
-proj 1118:1126 <> dcs_instr
-proj 1139:1146 <> dcs_step
-proj 1191:1198 <> dcs_cost
-proj 1237:1244 <> dcs_base
-proj 1283:1290 <> dcs_cert
-proj 1317:1326 <> dcs_charge
-proj 1365:1383 <> dcs_cost_decomposes
-R1161:1164 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1152:1160 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
-R1174:1177 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1165:1173 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
-R1178:1186 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
-R1213:1216 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1204:1212 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
-R1226:1229 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1217:1225 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
-R1230:1232 Coq.Init.Datatypes <> nat ind
-R1259:1262 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1250:1258 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
-R1272:1275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1263:1271 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
-R1276:1278 Coq.Init.Datatypes <> nat ind
-R1305:1308 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1296:1304 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
-R1309:1312 Coq.Init.Datatypes <> bool ind
-R1339:1342 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1330:1338 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
-R1352:1355 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R1343:1351 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
-R1356:1359 Coq.Init.Datatypes <> bool ind
-R1403:1411 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
-binder 1399:1399 <> s:9
-R1419:1427 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
-binder 1415:1415 <> i:10
-R1449:1457 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1437:1444 Kernel.CommitmentCostDecomposition <> dcs_cost:5 meth
-R1448:1448 Kernel.CommitmentCostDecomposition <> i:10 var
-R1446:1446 Kernel.CommitmentCostDecomposition <> s:9 var
-R1470:1473 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1505:1505 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1458:1465 Kernel.CommitmentCostDecomposition <> dcs_base:6 meth
-R1469:1469 Kernel.CommitmentCostDecomposition <> i:10 var
-R1467:1467 Kernel.CommitmentCostDecomposition <> s:9 var
-R1477:1486 Kernel.CommitmentCostDecomposition <> dcs_charge:8 meth
-R1490:1490 Kernel.CommitmentCostDecomposition <> i:10 var
-R1488:1488 Kernel.CommitmentCostDecomposition <> s:9 var
-def 1521:1527 <> dcs_run
-R1536:1561 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 1530:1532 <> DCS:12
-R1590:1593 Coq.Init.Datatypes <> list ind
-R1596:1604 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R1606:1608 Kernel.CommitmentCostDecomposition <> DCS:12 var
-binder 1582:1586 <> trace:13
-R1634:1642 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R1644:1646 Kernel.CommitmentCostDecomposition <> DCS:12 var
-binder 1630:1630 <> s:14
-R1651:1659 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R1661:1663 Kernel.CommitmentCostDecomposition <> DCS:12 var
-R1676:1680 Kernel.CommitmentCostDecomposition <> trace:13 var
-R1691:1692 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1697:1697 Kernel.CommitmentCostDecomposition <> s:14 var
-R1704:1707 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1716:1722 Kernel.CommitmentCostDecomposition <> dcs_run:15 def
-R1734:1741 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R1743:1745 Kernel.CommitmentCostDecomposition <> DCS:12 var
-R1747:1747 Kernel.CommitmentCostDecomposition <> s:14 var
-R1724:1726 Kernel.CommitmentCostDecomposition <> DCS:12 var
-def 1769:1782 <> dcs_total_cost
-R1791:1816 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 1785:1787 <> DCS:17
-R1852:1855 Coq.Init.Datatypes <> list ind
-R1858:1866 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R1868:1870 Kernel.CommitmentCostDecomposition <> DCS:17 var
-binder 1844:1848 <> trace:18
-R1903:1911 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R1913:1915 Kernel.CommitmentCostDecomposition <> DCS:17 var
-binder 1899:1899 <> s:19
-R1920:1922 Coq.Init.Datatypes <> nat ind
-R1935:1939 Kernel.CommitmentCostDecomposition <> trace:18 var
-R1950:1951 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R1963:1966 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R1997:2005 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R1981:1988 Kernel.CommitmentCostDecomposition <> dcs_cost proj
-R1990:1992 Kernel.CommitmentCostDecomposition <> DCS:17 var
-R1994:1994 Kernel.CommitmentCostDecomposition <> s:19 var
-R2006:2019 Kernel.CommitmentCostDecomposition <> dcs_total_cost:20 def
-R2031:2038 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R2040:2042 Kernel.CommitmentCostDecomposition <> DCS:17 var
-R2044:2044 Kernel.CommitmentCostDecomposition <> s:19 var
-R2021:2023 Kernel.CommitmentCostDecomposition <> DCS:17 var
-def 2066:2079 <> dcs_total_base
-R2088:2113 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 2082:2084 <> DCS:22
-R2149:2152 Coq.Init.Datatypes <> list ind
-R2155:2163 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R2165:2167 Kernel.CommitmentCostDecomposition <> DCS:22 var
-binder 2141:2145 <> trace:23
-R2200:2208 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R2210:2212 Kernel.CommitmentCostDecomposition <> DCS:22 var
-binder 2196:2196 <> s:24
-R2217:2219 Coq.Init.Datatypes <> nat ind
-R2232:2236 Kernel.CommitmentCostDecomposition <> trace:23 var
-R2247:2248 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2260:2263 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2294:2302 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2278:2285 Kernel.CommitmentCostDecomposition <> dcs_base proj
-R2287:2289 Kernel.CommitmentCostDecomposition <> DCS:22 var
-R2291:2291 Kernel.CommitmentCostDecomposition <> s:24 var
-R2303:2316 Kernel.CommitmentCostDecomposition <> dcs_total_base:25 def
-R2328:2335 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R2337:2339 Kernel.CommitmentCostDecomposition <> DCS:22 var
-R2341:2341 Kernel.CommitmentCostDecomposition <> s:24 var
-R2318:2320 Kernel.CommitmentCostDecomposition <> DCS:22 var
-def 2363:2386 <> dcs_commitment_component
-R2395:2420 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 2389:2391 <> DCS:27
-R2466:2469 Coq.Init.Datatypes <> list ind
-R2472:2480 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R2482:2484 Kernel.CommitmentCostDecomposition <> DCS:27 var
-binder 2458:2462 <> trace:28
-R2527:2535 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R2537:2539 Kernel.CommitmentCostDecomposition <> DCS:27 var
-binder 2523:2523 <> s:29
-R2544:2546 Coq.Init.Datatypes <> nat ind
-R2559:2563 Kernel.CommitmentCostDecomposition <> trace:28 var
-R2574:2575 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R2587:2590 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R2605:2605 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2641:2650 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2609:2618 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R2620:2622 Kernel.CommitmentCostDecomposition <> DCS:27 var
-R2624:2624 Kernel.CommitmentCostDecomposition <> s:29 var
-R2651:2674 Kernel.CommitmentCostDecomposition <> dcs_commitment_component:30 def
-R2686:2693 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R2695:2697 Kernel.CommitmentCostDecomposition <> DCS:27 var
-R2699:2699 Kernel.CommitmentCostDecomposition <> s:29 var
-R2676:2678 Kernel.CommitmentCostDecomposition <> DCS:27 var
-def 2723:2741 <> dcs_cert_flip_local
-R2750:2775 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 2744:2746 <> DCS:32
-R2794:2802 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R2804:2806 Kernel.CommitmentCostDecomposition <> DCS:32 var
-binder 2790:2790 <> s:33
-R2814:2822 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R2824:2826 Kernel.CommitmentCostDecomposition <> DCS:32 var
-binder 2810:2810 <> i:34
-R2831:2834 Coq.Init.Datatypes <> bool ind
-R2841:2844 Coq.Init.Datatypes <> andb def
-R2878:2885 Kernel.CommitmentCostDecomposition <> dcs_cert proj
-R2887:2889 Kernel.CommitmentCostDecomposition <> DCS:32 var
-R2892:2899 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R2901:2903 Kernel.CommitmentCostDecomposition <> DCS:32 var
-R2905:2905 Kernel.CommitmentCostDecomposition <> s:33 var
-R2907:2907 Kernel.CommitmentCostDecomposition <> i:34 var
-R2847:2850 Coq.Init.Datatypes <> negb def
-R2853:2860 Kernel.CommitmentCostDecomposition <> dcs_cert proj
-R2862:2864 Kernel.CommitmentCostDecomposition <> DCS:32 var
-R2866:2866 Kernel.CommitmentCostDecomposition <> s:33 var
-def 2922:2940 <> dcs_cert_flip_count
-R2949:2974 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 2943:2945 <> DCS:35
-R3015:3018 Coq.Init.Datatypes <> list ind
-R3021:3029 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R3031:3033 Kernel.CommitmentCostDecomposition <> DCS:35 var
-binder 3007:3011 <> trace:36
-R3071:3079 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R3081:3083 Kernel.CommitmentCostDecomposition <> DCS:35 var
-binder 3067:3067 <> s:37
-R3088:3090 Coq.Init.Datatypes <> nat ind
-R3103:3107 Kernel.CommitmentCostDecomposition <> trace:36 var
-R3118:3119 Coq.Lists.List ListNotations ::list_scope:'['_']' not
-R3131:3134 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
-R3149:3149 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3194:3203 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3153:3171 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R3173:3175 Kernel.CommitmentCostDecomposition <> DCS:35 var
-R3177:3177 Kernel.CommitmentCostDecomposition <> s:37 var
-R3204:3222 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count:38 def
-R3234:3241 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R3243:3245 Kernel.CommitmentCostDecomposition <> DCS:35 var
-R3247:3247 Kernel.CommitmentCostDecomposition <> s:37 var
-R3224:3226 Kernel.CommitmentCostDecomposition <> DCS:35 var
-def 3271:3292 <> dcs_local_predicate_le
-R3301:3326 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 3295:3297 <> DCS:40
-R3360:3363 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3347:3355 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R3357:3359 Kernel.CommitmentCostDecomposition <> DCS:40 var
-R3377:3380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3364:3372 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R3374:3376 Kernel.CommitmentCostDecomposition <> DCS:40 var
-R3381:3384 Coq.Init.Datatypes <> bool ind
-binder 3341:3341 <> P:41
-binder 3343:3343 <> Q:42
-binder 3406:3406 <> s:43
-binder 3408:3408 <> i:44
-R3423:3426 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3416:3418 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3411:3411 Kernel.CommitmentCostDecomposition <> P:41 var
-R3415:3415 Kernel.CommitmentCostDecomposition <> i:44 var
-R3413:3413 Kernel.CommitmentCostDecomposition <> s:43 var
-R3419:3422 Coq.Init.Datatypes <> true constr
-R3432:3434 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3427:3427 Kernel.CommitmentCostDecomposition <> Q:42 var
-R3431:3431 Kernel.CommitmentCostDecomposition <> i:44 var
-R3429:3429 Kernel.CommitmentCostDecomposition <> s:43 var
-R3435:3438 Coq.Init.Datatypes <> true constr
-def 3453:3476 <> dcs_local_predicate_same
-R3485:3510 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 3479:3481 <> DCS:45
-R3544:3547 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3531:3539 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R3541:3543 Kernel.CommitmentCostDecomposition <> DCS:45 var
-R3561:3564 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3548:3556 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R3558:3560 Kernel.CommitmentCostDecomposition <> DCS:45 var
-R3565:3568 Coq.Init.Datatypes <> bool ind
-binder 3525:3525 <> P:46
-binder 3527:3527 <> Q:47
-R3613:3616 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3583:3604 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_le def
-R3606:3608 Kernel.CommitmentCostDecomposition <> DCS:45 var
-R3610:3610 Kernel.CommitmentCostDecomposition <> P:46 var
-R3612:3612 Kernel.CommitmentCostDecomposition <> Q:47 var
-R3617:3638 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_le def
-R3640:3642 Kernel.CommitmentCostDecomposition <> DCS:45 var
-R3644:3644 Kernel.CommitmentCostDecomposition <> Q:47 var
-R3646:3646 Kernel.CommitmentCostDecomposition <> P:46 var
-prf 3658:3678 <> dcs_total_cost_splits
-R3698:3723 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 3692:3694 <> DCS:48
-R3744:3747 Coq.Init.Datatypes <> list ind
-R3750:3758 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R3760:3762 Kernel.CommitmentCostDecomposition <> DCS:48 var
-binder 3736:3740 <> trace:49
-R3781:3789 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R3791:3793 Kernel.CommitmentCostDecomposition <> DCS:48 var
-binder 3776:3777 <> s0:50
-R3828:3834 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3801:3814 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
-R3816:3818 Kernel.CommitmentCostDecomposition <> DCS:48 var
-R3820:3824 Kernel.CommitmentCostDecomposition <> trace:49 var
-R3826:3827 Kernel.CommitmentCostDecomposition <> s0:50 var
-R3862:3868 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3835:3848 Kernel.CommitmentCostDecomposition <> dcs_total_base def
-R3850:3852 Kernel.CommitmentCostDecomposition <> DCS:48 var
-R3854:3858 Kernel.CommitmentCostDecomposition <> trace:49 var
-R3860:3861 Kernel.CommitmentCostDecomposition <> s0:50 var
-R3869:3892 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
-R3894:3896 Kernel.CommitmentCostDecomposition <> DCS:48 var
-R3898:3902 Kernel.CommitmentCostDecomposition <> trace:49 var
-R3904:3905 Kernel.CommitmentCostDecomposition <> s0:50 var
-R4022:4040 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
-R4022:4040 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
-R4022:4040 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
-prf 4082:4121 <> dcs_commitment_component_lower_bound_iff
-R4141:4166 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 4135:4137 <> DCS:51
-R4174:4174 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R4281:4294 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-binder 4182:4186 <> trace:52
-binder 4188:4189 <> s0:53
-R4237:4248 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4200:4223 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
-R4225:4227 Kernel.CommitmentCostDecomposition <> DCS:51 var
-R4229:4233 Kernel.CommitmentCostDecomposition <> trace:52 var
-R4235:4236 Kernel.CommitmentCostDecomposition <> s0:53 var
-R4249:4267 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
-R4269:4271 Kernel.CommitmentCostDecomposition <> DCS:51 var
-R4273:4277 Kernel.CommitmentCostDecomposition <> trace:52 var
-R4279:4280 Kernel.CommitmentCostDecomposition <> s0:53 var
-R4295:4316 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_le def
-R4318:4320 Kernel.CommitmentCostDecomposition <> DCS:51 var
-R4323:4341 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R4343:4345 Kernel.CommitmentCostDecomposition <> DCS:51 var
-R4349:4358 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R4360:4362 Kernel.CommitmentCostDecomposition <> DCS:51 var
-R4437:4446 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R4437:4446 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R4522:4522 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4524:4524 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4522:4522 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4524:4524 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R4720:4738 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R4720:4738 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R4858:4865 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R4858:4865 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R4916:4923 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R4916:4923 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R4955:4964 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R4955:4964 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-prf 4996:5029 <> dcs_commitment_component_exact_iff
-R5049:5074 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 5043:5045 <> DCS:54
-R5082:5082 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R5188:5201 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-binder 5090:5094 <> trace:55
-binder 5096:5097 <> s0:56
-R5145:5155 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5108:5131 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
-R5133:5135 Kernel.CommitmentCostDecomposition <> DCS:54 var
-R5137:5141 Kernel.CommitmentCostDecomposition <> trace:55 var
-R5143:5144 Kernel.CommitmentCostDecomposition <> s0:56 var
-R5156:5174 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
-R5176:5178 Kernel.CommitmentCostDecomposition <> DCS:54 var
-R5180:5184 Kernel.CommitmentCostDecomposition <> trace:55 var
-R5186:5187 Kernel.CommitmentCostDecomposition <> s0:56 var
-R5202:5225 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
-R5227:5229 Kernel.CommitmentCostDecomposition <> DCS:54 var
-R5232:5250 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R5252:5254 Kernel.CommitmentCostDecomposition <> DCS:54 var
-R5258:5267 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R5269:5271 Kernel.CommitmentCostDecomposition <> DCS:54 var
-R5338:5377 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_lower_bound_iff thm
-R5338:5377 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_lower_bound_iff thm
-R5463:5481 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R5463:5481 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R5541:5541 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5543:5543 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5541:5541 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5543:5543 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
-R5817:5819 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5798:5807 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R5820:5838 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R5817:5819 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5798:5807 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R5820:5838 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R5869:5878 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R5921:5939 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R5869:5878 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R5921:5939 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R5921:5939 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-prf 6280:6311 <> dcs_exact_total_cost_formula_iff
-R6331:6356 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 6325:6327 <> DCS:57
-R6364:6364 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R6490:6503 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-binder 6372:6376 <> trace:58
-binder 6378:6379 <> s0:59
-R6417:6427 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6390:6403 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
-R6405:6407 Kernel.CommitmentCostDecomposition <> DCS:57 var
-R6409:6413 Kernel.CommitmentCostDecomposition <> trace:58 var
-R6415:6416 Kernel.CommitmentCostDecomposition <> s0:59 var
-R6455:6457 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R6428:6441 Kernel.CommitmentCostDecomposition <> dcs_total_base def
-R6443:6445 Kernel.CommitmentCostDecomposition <> DCS:57 var
-R6447:6451 Kernel.CommitmentCostDecomposition <> trace:58 var
-R6453:6454 Kernel.CommitmentCostDecomposition <> s0:59 var
-R6458:6476 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
-R6478:6480 Kernel.CommitmentCostDecomposition <> DCS:57 var
-R6482:6486 Kernel.CommitmentCostDecomposition <> trace:58 var
-R6488:6489 Kernel.CommitmentCostDecomposition <> s0:59 var
-R6504:6527 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
-R6529:6531 Kernel.CommitmentCostDecomposition <> DCS:57 var
-R6534:6552 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R6554:6556 Kernel.CommitmentCostDecomposition <> DCS:57 var
-R6560:6569 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R6571:6573 Kernel.CommitmentCostDecomposition <> DCS:57 var
-R6634:6667 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
-R6634:6667 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
-R6707:6727 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
-R6707:6727 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
-R6832:6852 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
-R6832:6852 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
-R6832:6852 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
-R6871:6875 Coq.Init.Logic <> proj2 thm
-R6878:6911 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
-R6871:6875 Coq.Init.Logic <> proj2 thm
-R6878:6911 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
-prf 7236:7287 <> dcs_substitution_test_rejects_non_a2_exact_component
-R7307:7332 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 7301:7303 <> DCS:60
-R7413:7420 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7340:7341 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7342:7365 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
-R7367:7369 Kernel.CommitmentCostDecomposition <> DCS:60 var
-R7372:7390 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R7392:7394 Kernel.CommitmentCostDecomposition <> DCS:60 var
-R7398:7407 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R7409:7411 Kernel.CommitmentCostDecomposition <> DCS:60 var
-R7421:7423 Coq.Init.Logic <> ::type_scope:'~'_x not
-R7553:7553 Coq.Init.Logic <> ::type_scope:'~'_x not
-binder 7431:7435 <> trace:61
-binder 7437:7438 <> s0:62
-R7478:7490 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7451:7464 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
-R7466:7468 Kernel.CommitmentCostDecomposition <> DCS:60 var
-R7470:7474 Kernel.CommitmentCostDecomposition <> trace:61 var
-R7476:7477 Kernel.CommitmentCostDecomposition <> s0:62 var
-R7518:7520 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7491:7504 Kernel.CommitmentCostDecomposition <> dcs_total_base def
-R7506:7508 Kernel.CommitmentCostDecomposition <> DCS:60 var
-R7510:7514 Kernel.CommitmentCostDecomposition <> trace:61 var
-R7516:7517 Kernel.CommitmentCostDecomposition <> s0:62 var
-R7521:7539 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
-R7541:7543 Kernel.CommitmentCostDecomposition <> DCS:60 var
-R7545:7549 Kernel.CommitmentCostDecomposition <> trace:61 var
-R7551:7552 Kernel.CommitmentCostDecomposition <> s0:62 var
-R7621:7652 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
-R7621:7652 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
-prf 7685:7720 <> dcs_exact_component_substitute_is_a2
-R7740:7765 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-binder 7734:7736 <> DCS:63
-R7773:7773 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7899:7907 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 7781:7785 <> trace:64
-binder 7787:7788 <> s0:65
-R7826:7836 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7799:7812 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
-R7814:7816 Kernel.CommitmentCostDecomposition <> DCS:63 var
-R7818:7822 Kernel.CommitmentCostDecomposition <> trace:64 var
-R7824:7825 Kernel.CommitmentCostDecomposition <> s0:65 var
-R7864:7866 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R7837:7850 Kernel.CommitmentCostDecomposition <> dcs_total_base def
-R7852:7854 Kernel.CommitmentCostDecomposition <> DCS:63 var
-R7856:7860 Kernel.CommitmentCostDecomposition <> trace:64 var
-R7862:7863 Kernel.CommitmentCostDecomposition <> s0:65 var
-R7867:7885 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
-R7887:7889 Kernel.CommitmentCostDecomposition <> DCS:63 var
-R7891:7895 Kernel.CommitmentCostDecomposition <> trace:64 var
-R7897:7898 Kernel.CommitmentCostDecomposition <> s0:65 var
-R7908:7931 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
-R7933:7935 Kernel.CommitmentCostDecomposition <> DCS:63 var
-R7938:7956 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
-R7958:7960 Kernel.CommitmentCostDecomposition <> DCS:63 var
-R7964:7973 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R7975:7977 Kernel.CommitmentCostDecomposition <> DCS:63 var
-R8017:8048 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
-R8017:8048 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
-def 8137:8148 <> vm_cert_flip
-R8155:8161 Kernel.VMState <> VMState rec
-binder 8151:8151 <> s:66
-R8169:8182 Kernel.VMStep VMStep vm_instruction ind
-binder 8165:8165 <> i:67
-R8187:8190 Coq.Init.Datatypes <> bool ind
-R8197:8200 Coq.Init.Datatypes <> andb def
-R8249:8260 Kernel.VMState <> vm_certified proj
-R8234:8241 Kernel.SimulationProof <> vm_apply def
-R8243:8243 Kernel.CommitmentCostDecomposition <> s:66 var
-R8245:8245 Kernel.CommitmentCostDecomposition <> i:67 var
-R8203:8206 Coq.Init.Datatypes <> negb def
-R8211:8222 Kernel.VMState <> vm_certified proj
-R8208:8208 Kernel.CommitmentCostDecomposition <> s:66 var
-def 8276:8304 <> vm_commitment_background_cost
-R8311:8317 Kernel.VMState <> VMState rec
-binder 8307:8307 <> s:68
-R8325:8338 Kernel.VMStep VMStep vm_instruction ind
-binder 8321:8321 <> i:69
-R8343:8345 Coq.Init.Datatypes <> nat ind
-R8355:8366 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
-R8368:8368 Kernel.CommitmentCostDecomposition <> s:68 var
-R8370:8370 Kernel.CommitmentCostDecomposition <> i:69 var
-R8405:8420 Kernel.VMStep VMStep instruction_cost def
-R8422:8422 Kernel.CommitmentCostDecomposition <> i:69 var
-R8395:8397 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8377:8392 Kernel.VMStep VMStep instruction_cost def
-R8394:8394 Kernel.CommitmentCostDecomposition <> i:69 var
-prf 8432:8477 <> vm_instruction_cost_decomposes_cert_commitment
-R8495:8501 Kernel.VMState <> VMState rec
-binder 8491:8491 <> s:70
-R8509:8522 Kernel.VMStep VMStep vm_instruction ind
-binder 8505:8505 <> i:71
-R8548:8554 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8530:8545 Kernel.VMStep VMStep instruction_cost def
-R8547:8547 Kernel.CommitmentCostDecomposition <> i:71 var
-R8588:8591 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8625:8625 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R8555:8583 Kernel.CommitmentCostDecomposition <> vm_commitment_background_cost def
-R8585:8585 Kernel.CommitmentCostDecomposition <> s:70 var
-R8587:8587 Kernel.CommitmentCostDecomposition <> i:71 var
-R8595:8606 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
-R8608:8608 Kernel.CommitmentCostDecomposition <> s:70 var
-R8610:8610 Kernel.CommitmentCostDecomposition <> i:71 var
-R8658:8686 Kernel.CommitmentCostDecomposition <> vm_commitment_background_cost def
-R8701:8712 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
-R8701:8712 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
-R8741:8752 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
-R8774:8791 Coq.Bool.Bool <> andb_true_iff thm
-R8774:8791 Coq.Bool.Bool <> andb_true_iff thm
-R8853:8870 Coq.Bool.Bool <> negb_true_iff thm
-R8853:8870 Coq.Bool.Bool <> negb_true_iff thm
-R8900:8930 Kernel.AbstractNoFI <> no_free_certification_certified thm
-R8900:8930 Kernel.AbstractNoFI <> no_free_certification_certified thm
-def 8997:9026 <> vm_certified_decomposed_system
-R9030:9055 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
-R9065:9073 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R9065:9073 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R9065:9073 Kernel.CommitmentCostDecomposition <> dcs_state proj
-R9092:9100 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R9092:9100 Kernel.CommitmentCostDecomposition <> dcs_instr proj
-R9126:9133 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R9126:9133 Kernel.CommitmentCostDecomposition <> dcs_step proj
-R9153:9160 Kernel.CommitmentCostDecomposition <> dcs_cost proj
-R9153:9160 Kernel.CommitmentCostDecomposition <> dcs_cost proj
-R9201:9208 Kernel.CommitmentCostDecomposition <> dcs_base proj
-R9201:9208 Kernel.CommitmentCostDecomposition <> dcs_base proj
-R9249:9256 Kernel.CommitmentCostDecomposition <> dcs_cert proj
-R9249:9256 Kernel.CommitmentCostDecomposition <> dcs_cert proj
-R9280:9289 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R9280:9289 Kernel.CommitmentCostDecomposition <> dcs_charge proj
-R9313:9331 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
-R9313:9331 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
-R9078:9084 Kernel.VMState <> VMState rec
-R9105:9118 Kernel.VMStep VMStep vm_instruction ind
-R9138:9145 Kernel.SimulationProof <> vm_apply def
-binder 9171:9171 <> i:72
-R9176:9191 Kernel.VMStep VMStep instruction_cost def
-R9193:9193 Kernel.CommitmentCostDecomposition <> i:72 var
-R9213:9241 Kernel.CommitmentCostDecomposition <> vm_commitment_background_cost def
-R9261:9272 Kernel.VMState <> vm_certified proj
-R9294:9305 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
-R9336:9381 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_decomposes_cert_commitment thm
-prf 9396:9434 <> vm_certified_commitment_component_exact
-binder 9447:9451 <> trace:73
-binder 9453:9454 <> s0:74
-R9525:9531 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9461:9484 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
-R9486:9515 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
-R9517:9521 Kernel.CommitmentCostDecomposition <> trace:73 var
-R9523:9524 Kernel.CommitmentCostDecomposition <> s0:74 var
-R9532:9550 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
-R9552:9581 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
-R9583:9587 Kernel.CommitmentCostDecomposition <> trace:73 var
-R9589:9590 Kernel.CommitmentCostDecomposition <> s0:74 var
-R9608:9641 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
-R9608:9641 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
-prf 9690:9749 <> vm_instruction_cost_exactly_background_plus_cert_commitments
-binder 9762:9766 <> trace:75
-binder 9768:9769 <> s0:76
-R9830:9836 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R9776:9789 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
-R9791:9820 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
-R9822:9826 Kernel.CommitmentCostDecomposition <> trace:75 var
-R9828:9829 Kernel.CommitmentCostDecomposition <> s0:76 var
-R9891:9897 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R9837:9850 Kernel.CommitmentCostDecomposition <> dcs_total_base def
-R9852:9881 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
-R9883:9887 Kernel.CommitmentCostDecomposition <> trace:75 var
-R9889:9890 Kernel.CommitmentCostDecomposition <> s0:76 var
-R9898:9916 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
-R9918:9947 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
-R9949:9953 Kernel.CommitmentCostDecomposition <> trace:75 var
-R9955:9956 Kernel.CommitmentCostDecomposition <> s0:76 var
-R9974:10005 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
-R9974:10005 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
-R10064:10084 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
-R10105:10144 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_lower_bound_iff thm
-R10165:10198 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
-R10219:10250 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
-R10271:10322 Kernel.CommitmentCostDecomposition <> dcs_substitution_test_rejects_non_a2_exact_component thm
-R10343:10378 Kernel.CommitmentCostDecomposition <> dcs_exact_component_substitute_is_a2 thm
-R10399:10444 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_decomposes_cert_commitment thm
-R10465:10503 Kernel.CommitmentCostDecomposition <> vm_certified_commitment_component_exact thm
-R10524:10583 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_exactly_background_plus_cert_commitments thm
+R1982:1985 Coq.Lists.List <> <> lib
+R1987:1990 Coq.Bool.Bool <> <> lib
+R1992:1994 Coq.micromega.Lia <> <> lib
+R2004:2016 Coq.Lists.List ListNotations <> mod
+R2047:2053 Kernel.VMState <> <> lib
+R2055:2060 Kernel.VMStep <> <> lib
+R2062:2076 Kernel.SimulationProof <> <> lib
+R2078:2089 Kernel.AbstractNoFI <> <> lib
+rec 2100:2125 <> DecomposedCommitmentSystem
+proj 2166:2174 <> dcs_state
+proj 2187:2195 <> dcs_instr
+proj 2208:2215 <> dcs_step
+proj 2260:2267 <> dcs_cost
+proj 2306:2313 <> dcs_base
+proj 2352:2359 <> dcs_cert
+proj 2386:2395 <> dcs_charge
+proj 2434:2452 <> dcs_cost_decomposes
+R2230:2233 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2221:2229 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
+R2243:2246 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2234:2242 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
+R2247:2255 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
+R2282:2285 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2273:2281 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
+R2295:2298 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2286:2294 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
+R2299:2301 Coq.Init.Datatypes <> nat ind
+R2328:2331 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2319:2327 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
+R2341:2344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2332:2340 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
+R2345:2347 Coq.Init.Datatypes <> nat ind
+R2374:2377 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2365:2373 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
+R2378:2381 Coq.Init.Datatypes <> bool ind
+R2408:2411 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2399:2407 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
+R2421:2424 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2412:2420 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
+R2425:2428 Coq.Init.Datatypes <> bool ind
+R2472:2480 Kernel.CommitmentCostDecomposition <> dcs_state:2 meth
+binder 2468:2468 <> s:9
+R2488:2496 Kernel.CommitmentCostDecomposition <> dcs_instr:3 meth
+binder 2484:2484 <> i:10
+R2518:2526 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2506:2513 Kernel.CommitmentCostDecomposition <> dcs_cost:5 meth
+R2517:2517 Kernel.CommitmentCostDecomposition <> i:10 var
+R2515:2515 Kernel.CommitmentCostDecomposition <> s:9 var
+R2539:2542 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2574:2574 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R2527:2534 Kernel.CommitmentCostDecomposition <> dcs_base:6 meth
+R2538:2538 Kernel.CommitmentCostDecomposition <> i:10 var
+R2536:2536 Kernel.CommitmentCostDecomposition <> s:9 var
+R2546:2555 Kernel.CommitmentCostDecomposition <> dcs_charge:8 meth
+R2559:2559 Kernel.CommitmentCostDecomposition <> i:10 var
+R2557:2557 Kernel.CommitmentCostDecomposition <> s:9 var
+def 2590:2596 <> dcs_run
+R2605:2630 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 2599:2601 <> DCS:12
+R2659:2662 Coq.Init.Datatypes <> list ind
+R2665:2673 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R2675:2677 Kernel.CommitmentCostDecomposition <> DCS:12 var
+binder 2651:2655 <> trace:13
+R2703:2711 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R2713:2715 Kernel.CommitmentCostDecomposition <> DCS:12 var
+binder 2699:2699 <> s:14
+R2720:2728 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R2730:2732 Kernel.CommitmentCostDecomposition <> DCS:12 var
+R2745:2749 Kernel.CommitmentCostDecomposition <> trace:13 var
+R2760:2761 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2766:2766 Kernel.CommitmentCostDecomposition <> s:14 var
+R2773:2776 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R2785:2791 Kernel.CommitmentCostDecomposition <> dcs_run:15 def
+R2803:2810 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R2812:2814 Kernel.CommitmentCostDecomposition <> DCS:12 var
+R2816:2816 Kernel.CommitmentCostDecomposition <> s:14 var
+R2793:2795 Kernel.CommitmentCostDecomposition <> DCS:12 var
+def 2838:2851 <> dcs_total_cost
+R2860:2885 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 2854:2856 <> DCS:17
+R2921:2924 Coq.Init.Datatypes <> list ind
+R2927:2935 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R2937:2939 Kernel.CommitmentCostDecomposition <> DCS:17 var
+binder 2913:2917 <> trace:18
+R2972:2980 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R2982:2984 Kernel.CommitmentCostDecomposition <> DCS:17 var
+binder 2968:2968 <> s:19
+R2989:2991 Coq.Init.Datatypes <> nat ind
+R3004:3008 Kernel.CommitmentCostDecomposition <> trace:18 var
+R3019:3020 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3032:3035 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3066:3074 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3050:3057 Kernel.CommitmentCostDecomposition <> dcs_cost proj
+R3059:3061 Kernel.CommitmentCostDecomposition <> DCS:17 var
+R3063:3063 Kernel.CommitmentCostDecomposition <> s:19 var
+R3075:3088 Kernel.CommitmentCostDecomposition <> dcs_total_cost:20 def
+R3100:3107 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R3109:3111 Kernel.CommitmentCostDecomposition <> DCS:17 var
+R3113:3113 Kernel.CommitmentCostDecomposition <> s:19 var
+R3090:3092 Kernel.CommitmentCostDecomposition <> DCS:17 var
+def 3135:3148 <> dcs_total_base
+R3157:3182 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 3151:3153 <> DCS:22
+R3218:3221 Coq.Init.Datatypes <> list ind
+R3224:3232 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R3234:3236 Kernel.CommitmentCostDecomposition <> DCS:22 var
+binder 3210:3214 <> trace:23
+R3269:3277 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R3279:3281 Kernel.CommitmentCostDecomposition <> DCS:22 var
+binder 3265:3265 <> s:24
+R3286:3288 Coq.Init.Datatypes <> nat ind
+R3301:3305 Kernel.CommitmentCostDecomposition <> trace:23 var
+R3316:3317 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3329:3332 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3363:3371 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3347:3354 Kernel.CommitmentCostDecomposition <> dcs_base proj
+R3356:3358 Kernel.CommitmentCostDecomposition <> DCS:22 var
+R3360:3360 Kernel.CommitmentCostDecomposition <> s:24 var
+R3372:3385 Kernel.CommitmentCostDecomposition <> dcs_total_base:25 def
+R3397:3404 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R3406:3408 Kernel.CommitmentCostDecomposition <> DCS:22 var
+R3410:3410 Kernel.CommitmentCostDecomposition <> s:24 var
+R3387:3389 Kernel.CommitmentCostDecomposition <> DCS:22 var
+def 3432:3455 <> dcs_commitment_component
+R3464:3489 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 3458:3460 <> DCS:27
+R3535:3538 Coq.Init.Datatypes <> list ind
+R3541:3549 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R3551:3553 Kernel.CommitmentCostDecomposition <> DCS:27 var
+binder 3527:3531 <> trace:28
+R3596:3604 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R3606:3608 Kernel.CommitmentCostDecomposition <> DCS:27 var
+binder 3592:3592 <> s:29
+R3613:3615 Coq.Init.Datatypes <> nat ind
+R3628:3632 Kernel.CommitmentCostDecomposition <> trace:28 var
+R3643:3644 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R3656:3659 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R3674:3674 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3710:3719 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3678:3687 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R3689:3691 Kernel.CommitmentCostDecomposition <> DCS:27 var
+R3693:3693 Kernel.CommitmentCostDecomposition <> s:29 var
+R3720:3743 Kernel.CommitmentCostDecomposition <> dcs_commitment_component:30 def
+R3755:3762 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R3764:3766 Kernel.CommitmentCostDecomposition <> DCS:27 var
+R3768:3768 Kernel.CommitmentCostDecomposition <> s:29 var
+R3745:3747 Kernel.CommitmentCostDecomposition <> DCS:27 var
+def 3792:3810 <> dcs_cert_flip_local
+R3819:3844 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 3813:3815 <> DCS:32
+R3863:3871 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R3873:3875 Kernel.CommitmentCostDecomposition <> DCS:32 var
+binder 3859:3859 <> s:33
+R3883:3891 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R3893:3895 Kernel.CommitmentCostDecomposition <> DCS:32 var
+binder 3879:3879 <> i:34
+R3900:3903 Coq.Init.Datatypes <> bool ind
+R3910:3913 Coq.Init.Datatypes <> andb def
+R3947:3954 Kernel.CommitmentCostDecomposition <> dcs_cert proj
+R3956:3958 Kernel.CommitmentCostDecomposition <> DCS:32 var
+R3961:3968 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R3970:3972 Kernel.CommitmentCostDecomposition <> DCS:32 var
+R3974:3974 Kernel.CommitmentCostDecomposition <> s:33 var
+R3976:3976 Kernel.CommitmentCostDecomposition <> i:34 var
+R3916:3919 Coq.Init.Datatypes <> negb def
+R3922:3929 Kernel.CommitmentCostDecomposition <> dcs_cert proj
+R3931:3933 Kernel.CommitmentCostDecomposition <> DCS:32 var
+R3935:3935 Kernel.CommitmentCostDecomposition <> s:33 var
+def 3991:4009 <> dcs_cert_flip_count
+R4018:4043 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 4012:4014 <> DCS:35
+R4084:4087 Coq.Init.Datatypes <> list ind
+R4090:4098 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R4100:4102 Kernel.CommitmentCostDecomposition <> DCS:35 var
+binder 4076:4080 <> trace:36
+R4140:4148 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R4150:4152 Kernel.CommitmentCostDecomposition <> DCS:35 var
+binder 4136:4136 <> s:37
+R4157:4159 Coq.Init.Datatypes <> nat ind
+R4172:4176 Kernel.CommitmentCostDecomposition <> trace:36 var
+R4187:4188 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4200:4203 Coq.Init.Datatypes <> ::list_scope:x_'::'_x not
+R4218:4218 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4263:4272 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4222:4240 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R4242:4244 Kernel.CommitmentCostDecomposition <> DCS:35 var
+R4246:4246 Kernel.CommitmentCostDecomposition <> s:37 var
+R4273:4291 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count:38 def
+R4303:4310 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R4312:4314 Kernel.CommitmentCostDecomposition <> DCS:35 var
+R4316:4316 Kernel.CommitmentCostDecomposition <> s:37 var
+R4293:4295 Kernel.CommitmentCostDecomposition <> DCS:35 var
+def 4340:4361 <> dcs_local_predicate_le
+R4370:4395 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 4364:4366 <> DCS:40
+R4429:4432 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4416:4424 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R4426:4428 Kernel.CommitmentCostDecomposition <> DCS:40 var
+R4446:4449 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4433:4441 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R4443:4445 Kernel.CommitmentCostDecomposition <> DCS:40 var
+R4450:4453 Coq.Init.Datatypes <> bool ind
+binder 4410:4410 <> P:41
+binder 4412:4412 <> Q:42
+binder 4475:4475 <> s:43
+binder 4477:4477 <> i:44
+R4492:4495 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4485:4487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4480:4480 Kernel.CommitmentCostDecomposition <> P:41 var
+R4484:4484 Kernel.CommitmentCostDecomposition <> i:44 var
+R4482:4482 Kernel.CommitmentCostDecomposition <> s:43 var
+R4488:4491 Coq.Init.Datatypes <> true constr
+R4501:4503 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4496:4496 Kernel.CommitmentCostDecomposition <> Q:42 var
+R4500:4500 Kernel.CommitmentCostDecomposition <> i:44 var
+R4498:4498 Kernel.CommitmentCostDecomposition <> s:43 var
+R4504:4507 Coq.Init.Datatypes <> true constr
+def 4522:4545 <> dcs_local_predicate_same
+R4554:4579 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 4548:4550 <> DCS:45
+R4613:4616 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4600:4608 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R4610:4612 Kernel.CommitmentCostDecomposition <> DCS:45 var
+R4630:4633 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4617:4625 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R4627:4629 Kernel.CommitmentCostDecomposition <> DCS:45 var
+R4634:4637 Coq.Init.Datatypes <> bool ind
+binder 4594:4594 <> P:46
+binder 4596:4596 <> Q:47
+R4682:4685 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4652:4673 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_le def
+R4675:4677 Kernel.CommitmentCostDecomposition <> DCS:45 var
+R4679:4679 Kernel.CommitmentCostDecomposition <> P:46 var
+R4681:4681 Kernel.CommitmentCostDecomposition <> Q:47 var
+R4686:4707 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_le def
+R4709:4711 Kernel.CommitmentCostDecomposition <> DCS:45 var
+R4713:4713 Kernel.CommitmentCostDecomposition <> Q:47 var
+R4715:4715 Kernel.CommitmentCostDecomposition <> P:46 var
+prf 4727:4747 <> dcs_total_cost_splits
+R4767:4792 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 4761:4763 <> DCS:48
+R4813:4816 Coq.Init.Datatypes <> list ind
+R4819:4827 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R4829:4831 Kernel.CommitmentCostDecomposition <> DCS:48 var
+binder 4805:4809 <> trace:49
+R4850:4858 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R4860:4862 Kernel.CommitmentCostDecomposition <> DCS:48 var
+binder 4845:4846 <> s0:50
+R4897:4903 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4870:4883 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R4885:4887 Kernel.CommitmentCostDecomposition <> DCS:48 var
+R4889:4893 Kernel.CommitmentCostDecomposition <> trace:49 var
+R4895:4896 Kernel.CommitmentCostDecomposition <> s0:50 var
+R4931:4937 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R4904:4917 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R4919:4921 Kernel.CommitmentCostDecomposition <> DCS:48 var
+R4923:4927 Kernel.CommitmentCostDecomposition <> trace:49 var
+R4929:4930 Kernel.CommitmentCostDecomposition <> s0:50 var
+R4938:4961 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
+R4963:4965 Kernel.CommitmentCostDecomposition <> DCS:48 var
+R4967:4971 Kernel.CommitmentCostDecomposition <> trace:49 var
+R4973:4974 Kernel.CommitmentCostDecomposition <> s0:50 var
+R5091:5109 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
+R5091:5109 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
+R5091:5109 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
+prf 5151:5190 <> dcs_commitment_component_lower_bound_iff
+R5210:5235 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 5204:5206 <> DCS:51
+R5243:5243 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R5350:5363 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 5251:5255 <> trace:52
+binder 5257:5258 <> s0:53
+R5306:5317 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R5269:5292 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
+R5294:5296 Kernel.CommitmentCostDecomposition <> DCS:51 var
+R5298:5302 Kernel.CommitmentCostDecomposition <> trace:52 var
+R5304:5305 Kernel.CommitmentCostDecomposition <> s0:53 var
+R5318:5336 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R5338:5340 Kernel.CommitmentCostDecomposition <> DCS:51 var
+R5342:5346 Kernel.CommitmentCostDecomposition <> trace:52 var
+R5348:5349 Kernel.CommitmentCostDecomposition <> s0:53 var
+R5364:5385 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_le def
+R5387:5389 Kernel.CommitmentCostDecomposition <> DCS:51 var
+R5392:5410 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R5412:5414 Kernel.CommitmentCostDecomposition <> DCS:51 var
+R5418:5427 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R5429:5431 Kernel.CommitmentCostDecomposition <> DCS:51 var
+R5506:5515 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R5506:5515 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R5591:5591 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5593:5593 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5591:5591 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5593:5593 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R5789:5807 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R5789:5807 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R5927:5934 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R5927:5934 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R5985:5992 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R5985:5992 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R6024:6033 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R6024:6033 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+prf 6065:6098 <> dcs_commitment_component_exact_iff
+R6118:6143 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 6112:6114 <> DCS:54
+R6151:6151 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R6257:6270 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 6159:6163 <> trace:55
+binder 6165:6166 <> s0:56
+R6214:6224 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6177:6200 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
+R6202:6204 Kernel.CommitmentCostDecomposition <> DCS:54 var
+R6206:6210 Kernel.CommitmentCostDecomposition <> trace:55 var
+R6212:6213 Kernel.CommitmentCostDecomposition <> s0:56 var
+R6225:6243 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R6245:6247 Kernel.CommitmentCostDecomposition <> DCS:54 var
+R6249:6253 Kernel.CommitmentCostDecomposition <> trace:55 var
+R6255:6256 Kernel.CommitmentCostDecomposition <> s0:56 var
+R6271:6294 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
+R6296:6298 Kernel.CommitmentCostDecomposition <> DCS:54 var
+R6301:6319 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R6321:6323 Kernel.CommitmentCostDecomposition <> DCS:54 var
+R6327:6336 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R6338:6340 Kernel.CommitmentCostDecomposition <> DCS:54 var
+R6407:6446 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_lower_bound_iff thm
+R6407:6446 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_lower_bound_iff thm
+R6532:6550 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R6532:6550 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R6610:6610 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6612:6612 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6610:6610 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6612:6612 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6886:6888 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6867:6876 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R6889:6907 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R6886:6888 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6867:6876 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R6889:6907 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R6938:6947 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R6990:7008 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R6938:6947 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R6990:7008 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R6990:7008 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+prf 7349:7380 <> dcs_exact_total_cost_formula_iff
+R7400:7425 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 7394:7396 <> DCS:57
+R7433:7433 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R7559:7572 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+binder 7441:7445 <> trace:58
+binder 7447:7448 <> s0:59
+R7486:7496 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7459:7472 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R7474:7476 Kernel.CommitmentCostDecomposition <> DCS:57 var
+R7478:7482 Kernel.CommitmentCostDecomposition <> trace:58 var
+R7484:7485 Kernel.CommitmentCostDecomposition <> s0:59 var
+R7524:7526 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R7497:7510 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R7512:7514 Kernel.CommitmentCostDecomposition <> DCS:57 var
+R7516:7520 Kernel.CommitmentCostDecomposition <> trace:58 var
+R7522:7523 Kernel.CommitmentCostDecomposition <> s0:59 var
+R7527:7545 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R7547:7549 Kernel.CommitmentCostDecomposition <> DCS:57 var
+R7551:7555 Kernel.CommitmentCostDecomposition <> trace:58 var
+R7557:7558 Kernel.CommitmentCostDecomposition <> s0:59 var
+R7573:7596 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
+R7598:7600 Kernel.CommitmentCostDecomposition <> DCS:57 var
+R7603:7621 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R7623:7625 Kernel.CommitmentCostDecomposition <> DCS:57 var
+R7629:7638 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R7640:7642 Kernel.CommitmentCostDecomposition <> DCS:57 var
+R7703:7736 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
+R7703:7736 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
+R7776:7796 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
+R7776:7796 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
+R7901:7921 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
+R7901:7921 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
+R7901:7921 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
+R7940:7944 Coq.Init.Logic <> proj2 thm
+R7947:7980 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
+R7940:7944 Coq.Init.Logic <> proj2 thm
+R7947:7980 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
+prf 8305:8356 <> dcs_substitution_test_rejects_non_a2_exact_component
+R8376:8401 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 8370:8372 <> DCS:60
+R8482:8489 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8409:8410 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8411:8434 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
+R8436:8438 Kernel.CommitmentCostDecomposition <> DCS:60 var
+R8441:8459 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R8461:8463 Kernel.CommitmentCostDecomposition <> DCS:60 var
+R8467:8476 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R8478:8480 Kernel.CommitmentCostDecomposition <> DCS:60 var
+R8490:8492 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8622:8622 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 8500:8504 <> trace:61
+binder 8506:8507 <> s0:62
+R8547:8559 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8520:8533 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R8535:8537 Kernel.CommitmentCostDecomposition <> DCS:60 var
+R8539:8543 Kernel.CommitmentCostDecomposition <> trace:61 var
+R8545:8546 Kernel.CommitmentCostDecomposition <> s0:62 var
+R8587:8589 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8560:8573 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R8575:8577 Kernel.CommitmentCostDecomposition <> DCS:60 var
+R8579:8583 Kernel.CommitmentCostDecomposition <> trace:61 var
+R8585:8586 Kernel.CommitmentCostDecomposition <> s0:62 var
+R8590:8608 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R8610:8612 Kernel.CommitmentCostDecomposition <> DCS:60 var
+R8614:8618 Kernel.CommitmentCostDecomposition <> trace:61 var
+R8620:8621 Kernel.CommitmentCostDecomposition <> s0:62 var
+R8690:8721 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+R8690:8721 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+prf 8754:8789 <> dcs_exact_component_substitute_is_a2
+R8809:8834 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+binder 8803:8805 <> DCS:63
+R8842:8842 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8968:8976 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 8850:8854 <> trace:64
+binder 8856:8857 <> s0:65
+R8895:8905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8868:8881 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R8883:8885 Kernel.CommitmentCostDecomposition <> DCS:63 var
+R8887:8891 Kernel.CommitmentCostDecomposition <> trace:64 var
+R8893:8894 Kernel.CommitmentCostDecomposition <> s0:65 var
+R8933:8935 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R8906:8919 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R8921:8923 Kernel.CommitmentCostDecomposition <> DCS:63 var
+R8925:8929 Kernel.CommitmentCostDecomposition <> trace:64 var
+R8931:8932 Kernel.CommitmentCostDecomposition <> s0:65 var
+R8936:8954 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R8956:8958 Kernel.CommitmentCostDecomposition <> DCS:63 var
+R8960:8964 Kernel.CommitmentCostDecomposition <> trace:64 var
+R8966:8967 Kernel.CommitmentCostDecomposition <> s0:65 var
+R8977:9000 Kernel.CommitmentCostDecomposition <> dcs_local_predicate_same def
+R9002:9004 Kernel.CommitmentCostDecomposition <> DCS:63 var
+R9007:9025 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_local def
+R9027:9029 Kernel.CommitmentCostDecomposition <> DCS:63 var
+R9033:9042 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R9044:9046 Kernel.CommitmentCostDecomposition <> DCS:63 var
+R9086:9117 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+R9086:9117 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+def 9206:9217 <> vm_cert_flip
+R9224:9230 Kernel.VMState <> VMState rec
+binder 9220:9220 <> s:66
+R9238:9251 Kernel.VMStep VMStep vm_instruction ind
+binder 9234:9234 <> i:67
+R9256:9259 Coq.Init.Datatypes <> bool ind
+R9266:9269 Coq.Init.Datatypes <> andb def
+R9318:9329 Kernel.VMState <> vm_certified proj
+R9303:9310 Kernel.SimulationProof <> vm_apply def
+R9312:9312 Kernel.CommitmentCostDecomposition <> s:66 var
+R9314:9314 Kernel.CommitmentCostDecomposition <> i:67 var
+R9272:9275 Coq.Init.Datatypes <> negb def
+R9280:9291 Kernel.VMState <> vm_certified proj
+R9277:9277 Kernel.CommitmentCostDecomposition <> s:66 var
+def 9345:9373 <> vm_commitment_background_cost
+R9380:9386 Kernel.VMState <> VMState rec
+binder 9376:9376 <> s:68
+R9394:9407 Kernel.VMStep VMStep vm_instruction ind
+binder 9390:9390 <> i:69
+R9412:9414 Coq.Init.Datatypes <> nat ind
+R9424:9435 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
+R9437:9437 Kernel.CommitmentCostDecomposition <> s:68 var
+R9439:9439 Kernel.CommitmentCostDecomposition <> i:69 var
+R9474:9489 Kernel.VMStep VMStep instruction_cost def
+R9491:9491 Kernel.CommitmentCostDecomposition <> i:69 var
+R9464:9466 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R9446:9461 Kernel.VMStep VMStep instruction_cost def
+R9463:9463 Kernel.CommitmentCostDecomposition <> i:69 var
+prf 9501:9546 <> vm_instruction_cost_decomposes_cert_commitment
+R9564:9570 Kernel.VMState <> VMState rec
+binder 9560:9560 <> s:70
+R9578:9591 Kernel.VMStep VMStep vm_instruction ind
+binder 9574:9574 <> i:71
+R9617:9623 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9599:9614 Kernel.VMStep VMStep instruction_cost def
+R9616:9616 Kernel.CommitmentCostDecomposition <> i:71 var
+R9657:9660 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9694:9694 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R9624:9652 Kernel.CommitmentCostDecomposition <> vm_commitment_background_cost def
+R9654:9654 Kernel.CommitmentCostDecomposition <> s:70 var
+R9656:9656 Kernel.CommitmentCostDecomposition <> i:71 var
+R9664:9675 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
+R9677:9677 Kernel.CommitmentCostDecomposition <> s:70 var
+R9679:9679 Kernel.CommitmentCostDecomposition <> i:71 var
+R9727:9755 Kernel.CommitmentCostDecomposition <> vm_commitment_background_cost def
+R9770:9781 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
+R9770:9781 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
+R9810:9821 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
+R9843:9860 Coq.Bool.Bool <> andb_true_iff thm
+R9843:9860 Coq.Bool.Bool <> andb_true_iff thm
+R9922:9939 Coq.Bool.Bool <> negb_true_iff thm
+R9922:9939 Coq.Bool.Bool <> negb_true_iff thm
+R9969:9999 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R9969:9999 Kernel.AbstractNoFI <> no_free_certification_certified thm
+def 10066:10095 <> vm_certified_decomposed_system
+R10099:10124 Kernel.CommitmentCostDecomposition <> DecomposedCommitmentSystem rec
+R10134:10142 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R10134:10142 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R10134:10142 Kernel.CommitmentCostDecomposition <> dcs_state proj
+R10161:10169 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R10161:10169 Kernel.CommitmentCostDecomposition <> dcs_instr proj
+R10195:10202 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R10195:10202 Kernel.CommitmentCostDecomposition <> dcs_step proj
+R10222:10229 Kernel.CommitmentCostDecomposition <> dcs_cost proj
+R10222:10229 Kernel.CommitmentCostDecomposition <> dcs_cost proj
+R10270:10277 Kernel.CommitmentCostDecomposition <> dcs_base proj
+R10270:10277 Kernel.CommitmentCostDecomposition <> dcs_base proj
+R10318:10325 Kernel.CommitmentCostDecomposition <> dcs_cert proj
+R10318:10325 Kernel.CommitmentCostDecomposition <> dcs_cert proj
+R10349:10358 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R10349:10358 Kernel.CommitmentCostDecomposition <> dcs_charge proj
+R10382:10400 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
+R10382:10400 Kernel.CommitmentCostDecomposition <> dcs_cost_decomposes proj
+R10147:10153 Kernel.VMState <> VMState rec
+R10174:10187 Kernel.VMStep VMStep vm_instruction ind
+R10207:10214 Kernel.SimulationProof <> vm_apply def
+binder 10240:10240 <> i:72
+R10245:10260 Kernel.VMStep VMStep instruction_cost def
+R10262:10262 Kernel.CommitmentCostDecomposition <> i:72 var
+R10282:10310 Kernel.CommitmentCostDecomposition <> vm_commitment_background_cost def
+R10330:10341 Kernel.VMState <> vm_certified proj
+R10363:10374 Kernel.CommitmentCostDecomposition <> vm_cert_flip def
+R10405:10450 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_decomposes_cert_commitment thm
+prf 10465:10503 <> vm_certified_commitment_component_exact
+binder 10516:10520 <> trace:73
+binder 10522:10523 <> s0:74
+R10594:10600 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10530:10553 Kernel.CommitmentCostDecomposition <> dcs_commitment_component def
+R10555:10584 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R10586:10590 Kernel.CommitmentCostDecomposition <> trace:73 var
+R10592:10593 Kernel.CommitmentCostDecomposition <> s0:74 var
+R10601:10619 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R10621:10650 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R10652:10656 Kernel.CommitmentCostDecomposition <> trace:73 var
+R10658:10659 Kernel.CommitmentCostDecomposition <> s0:74 var
+R10677:10710 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
+R10677:10710 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
+prf 10759:10818 <> vm_instruction_cost_exactly_background_plus_cert_commitments
+binder 10831:10835 <> trace:75
+binder 10837:10838 <> s0:76
+R10899:10905 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10845:10858 Kernel.CommitmentCostDecomposition <> dcs_total_cost def
+R10860:10889 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R10891:10895 Kernel.CommitmentCostDecomposition <> trace:75 var
+R10897:10898 Kernel.CommitmentCostDecomposition <> s0:76 var
+R10960:10966 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R10906:10919 Kernel.CommitmentCostDecomposition <> dcs_total_base def
+R10921:10950 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R10952:10956 Kernel.CommitmentCostDecomposition <> trace:75 var
+R10958:10959 Kernel.CommitmentCostDecomposition <> s0:76 var
+R10967:10985 Kernel.CommitmentCostDecomposition <> dcs_cert_flip_count def
+R10987:11016 Kernel.CommitmentCostDecomposition <> vm_certified_decomposed_system def
+R11018:11022 Kernel.CommitmentCostDecomposition <> trace:75 var
+R11024:11025 Kernel.CommitmentCostDecomposition <> s0:76 var
+R11043:11074 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+R11043:11074 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+R11133:11153 Kernel.CommitmentCostDecomposition <> dcs_total_cost_splits thm
+R11174:11213 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_lower_bound_iff thm
+R11234:11267 Kernel.CommitmentCostDecomposition <> dcs_commitment_component_exact_iff thm
+R11288:11319 Kernel.CommitmentCostDecomposition <> dcs_exact_total_cost_formula_iff thm
+R11340:11391 Kernel.CommitmentCostDecomposition <> dcs_substitution_test_rejects_non_a2_exact_component thm
+R11412:11447 Kernel.CommitmentCostDecomposition <> dcs_exact_component_substitute_is_a2 thm
+R11468:11513 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_decomposes_cert_commitment thm
+R11534:11572 Kernel.CommitmentCostDecomposition <> vm_certified_commitment_component_exact thm
+R11593:11652 Kernel.CommitmentCostDecomposition <> vm_instruction_cost_exactly_background_plus_cert_commitments thm

@@ -16,6 +16,22 @@
     predicate.  The final section instantiates the decomposition for the real
     VM's [vm_certified] channel: the [instruction_cost] schedule splits into
     background cost plus one A2 unit exactly on certification flips.
+
+    One honest note on that last instantiation, so nobody has to find it the
+    hard way.  For the real VM, [dcs_base] is *defined* as the residual
+    ([instruction_cost] minus the unit) and [dcs_charge] is the cert-flip
+    predicate by construction, so [dcs_cert_flip_local] and [dcs_charge] are
+    the same term.  That makes the VM split the arithmetic identity
+    x = (x - 1) + 1, and the only fact carrying it is
+    [no_free_certification_certified] -- A2 itself: a cert-flip costs at least
+    1, so there is always a unit to peel.  The instantiation does not analyze
+    the schedule (EMIT's payload bits, LASSERT's flen all land in background
+    undifferentiated); it witnesses that the real machine sits in the
+    exact-pricing class, and the reason it does is A2.  The selection content
+    -- that A2 is the *only* exact commitment predicate -- lives in the
+    abstract [dcs_*_iff] theorems above, where [dcs_base] and [dcs_charge] are
+    free.  That is where the substitution test has teeth.  The VM section is
+    the instance, not the evidence.
 *)
 
 From Coq Require Import List Bool Lia.

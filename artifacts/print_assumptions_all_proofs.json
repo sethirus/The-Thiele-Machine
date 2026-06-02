@@ -1,47 +1,46 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v2",
-  "generated": "2026-05-03T19:12:58.052723+00:00",
+  "generated": "2026-06-02T04:33:32.271884+00:00",
   "coq_version": "8.18.0",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "d9bf92125c53934a0877c94084e5e531d7638ca2f0c329ddb9b95e2ee847f5f0",
-  "files_probed": 205,
-  "addressable_theorems_probed": 3310,
-  "blocks_parsed": 3310,
+  "raw_output_sha256": "7839c1725440dfdc34b3c5eacf4a4ced21073f8a0faafb75ecf79058a128a6ae",
+  "files_probed": 267,
+  "addressable_theorems_probed": 3823,
+  "blocks_parsed": 3823,
   "alignment_ok": true,
-  "stderr_nonempty": false,
-  "stderr_excerpt": "",
+  "stderr_nonempty": true,
+  "stderr_excerpt": "Warning: /workspaces/The-Thiele-Machine/coq/kernel/aggregators was previously\nbound to kernel.aggregators; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/category was previously\nbound to kernel.category; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/curvature was previously\nbound to kernel.curvature; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/foundation was previously\nbound to kernel.foundation; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/frontier was previously\nbound to kernel.frontier; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/hardware_bridge was\npreviously bound to kernel.hardware_bridge",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 3310,
-    "closed_under_global_context": 2539,
-    "depend_on_axioms": 771,
+    "theorems_probed": 3823,
+    "closed_under_global_context": 2809,
+    "depend_on_axioms": 1014,
     "user_or_third_party_axiom_findings": 0,
-    "excluded_middle_users": 25,
-    "functional_extensionality_users": 706,
-    "real_completeness_axiom_users": 734,
+    "excluded_middle_users": 67,
+    "functional_extensionality_users": 939,
+    "real_completeness_axiom_users": 976,
     "unique_axioms_used": {
-      "ClassicalDedekindReals.sig_forall_dec": 734,
-      "FunctionalExtensionality.functional_extensionality_dep": 706,
-      "ClassicalDedekindReals.sig_not_dec": 216,
-      "Classical_Prop.classic": 25
+      "ClassicalDedekindReals.sig_forall_dec": 976,
+      "FunctionalExtensionality.functional_extensionality_dep": 939,
+      "ClassicalDedekindReals.sig_not_dec": 272,
+      "Classical_Prop.classic": 67
     }
   },
   "user_or_third_party_axiom_findings": [],
   "classical_logic_users": [
-    "Kernel.BekensteinCalibration.bekenstein_rindler_energy_per_bit",
-    "Kernel.BekensteinCalibration.landauer_identification_from_bit_calibration",
-    "Kernel.BekensteinCalibration.landauer_unruh_constant_calibration_implies_mu_energy_unit_is_landauer",
-    "Kernel.BekensteinCalibration.bekenstein_implies_landauer_calibration",
-    "Kernel.BekensteinCalibration.mu_landauer_unruh_calibrated_from_constant_calibration",
-    "Kernel.BekensteinCalibration.mu_landauer_unruh_calibrated_from_constant_and_bit_calibration",
-    "Kernel.BekensteinCalibration.natural_units_consistency",
+    "Kernel.MasterSummary.kernel_story_coverage_ledger_is_semantically_sufficient",
+    "Kernel.MasterSummary.master_nofi_to_discrete_einstein_from_bekenstein_calibration",
+    "Kernel.UnificationProbeBridges.cert_flip_releases_landauer_heat",
+    "Kernel.UnificationProbeBridges.vm_mu_bekenstein_bound",
+    "Kernel.UnificationProbePattern.landauer_probe_holds",
+    "Kernel.UnificationProbePattern.holevo_d2_probe_holds",
+    "Kernel.UnificationProbePattern.bekenstein_probe_holds",
+    "Kernel.UnificationProbePattern.meta_pattern_holds",
     "Kernel.ConstantUnification.h_relational_identity",
     "Kernel.EinsteinEquations4D.gravitational_scaling_factor_value",
     "Kernel.EinsteinEquations4D.gravitational_constants_both_positive",
-    "Kernel.MasterSummary.kernel_story_coverage_ledger_is_semantically_sufficient",
-    "Kernel.MasterSummary.master_nofi_to_discrete_einstein_from_bekenstein_calibration",
     "Kernel.MetricFromMuCosts.angle_sum_determines_curvature",
     "Kernel.MuGravity.ln2_pos",
     "Kernel.MuGravity.gravitational_constant_pos",
@@ -54,7 +53,50 @@
     "Kernel.PhysicalSubstrate.substrate_implies_discrete_einstein",
     "Kernel.PhysicalSubstrate.substrate_psplit_implies_discrete_einstein",
     "Kernel.PhysicalSubstrate.substrate_pnew_implies_discrete_einstein",
-    "Kernel.PhysicalSubstrate.landauer_metrological_boundary_closed_proof"
+    "Kernel.PhysicalSubstrate.landauer_metrological_boundary_closed_proof",
+    "Kernel.HolevoGeneralD.ln_le_x_minus_1'",
+    "Kernel.HolevoGeneralD.one_minus_inv_le_ln'",
+    "Kernel.HolevoGeneralD.lambda_ln_d_lambda_split",
+    "Kernel.HolevoGeneralD.gibbs_per_term",
+    "Kernel.HolevoGeneralD.shannon_entropy_term_sum_eq",
+    "Kernel.HolevoGeneralD.shannon_entropy_le_ln_d",
+    "Kernel.HolevoGeneralD.vn_entropy_le_ln_d",
+    "Kernel.HolevoGeneralD.vn_entropy_nonneg",
+    "Kernel.HolevoGeneralD.holevo_chi_bounded_general_d",
+    "Kernel.HolevoTwoQubit.ln_le_x_minus_1",
+    "Kernel.HolevoTwoQubit.one_minus_inv_le_ln",
+    "Kernel.HolevoTwoQubit.binary_entropy_nats_upper_open",
+    "Kernel.HolevoTwoQubit.binary_entropy_nats_at_0",
+    "Kernel.HolevoTwoQubit.binary_entropy_nats_at_1",
+    "Kernel.HolevoTwoQubit.binary_entropy_nats_upper",
+    "Kernel.HolevoTwoQubit.binary_entropy_nats_nonneg",
+    "Kernel.HolevoTwoQubit.vn_entropy_nats_upper",
+    "Kernel.HolevoTwoQubit.vn_entropy_nats_nonneg",
+    "Kernel.HolevoTwoQubit.holevo_chi_bounded_2d",
+    "Kernel.HolevoTwoQubit.holevo_chi_one_bit_2d",
+    "Kernel.AdditionalProbes.bekenstein_hawking_area_law_bits",
+    "Kernel.BekensteinBound.ln_2_pos_local",
+    "Kernel.BekensteinBound.bekenstein_bound",
+    "Kernel.BekensteinCalibration.bekenstein_rindler_energy_per_bit",
+    "Kernel.BekensteinCalibration.landauer_identification_from_bit_calibration",
+    "Kernel.BekensteinCalibration.landauer_unruh_constant_calibration_implies_mu_energy_unit_is_landauer",
+    "Kernel.BekensteinCalibration.bekenstein_implies_landauer_calibration",
+    "Kernel.BekensteinCalibration.mu_landauer_unruh_calibrated_from_constant_calibration",
+    "Kernel.BekensteinCalibration.mu_landauer_unruh_calibrated_from_constant_and_bit_calibration",
+    "Kernel.BekensteinCalibration.natural_units_consistency",
+    "Kernel.DimensionalGapTheorem.ln_pow_INR",
+    "Kernel.DimensionalGapTheorem.dimensional_gap_forces_constant",
+    "Kernel.DimensionalGapTheorem.alpha_kB_family",
+    "Kernel.SecondLawBoltzmannWall.ln_pow2_R",
+    "Kernel.SecondLawBoltzmannWall.S_mu_candidate_forces_alpha",
+    "Kernel.SecondLawBoltzmannWall.S_mu_candidate_with_correct_alpha",
+    "Thermodynamic.LandauerJoules.ln_pow_nat",
+    "Thermodynamic.LandauerJoules.shannon_entropy_binary_uniform_nats",
+    "Thermodynamic.LandauerJoules.ln_2_pos",
+    "Thermodynamic.LandauerJoules.info_entropy_decrease_value",
+    "Thermodynamic.LandauerJoules.landauer_joules",
+    "Thermodynamic.LandauerJoules.landauer_joules_one_bit",
+    "Thermodynamic.LandauerJoules.information_bound_in_joule_units"
   ],
   "unaddressable_theorems_in_functors_or_module_types": [
     {
@@ -84,8 +126,8 @@
   ],
   "by_namespace": {
     "Extraction": {
-      "theorems": 15,
-      "closed": 13,
+      "theorems": 16,
+      "closed": 14,
       "with_axioms": 2,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -93,10 +135,16 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "IntrinsicLevelHierarchy": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "KamiHW": {
-      "theorems": 407,
-      "closed": 369,
-      "with_axioms": 38,
+      "theorems": 431,
+      "closed": 392,
+      "with_axioms": 39,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -104,15 +152,27 @@
       ]
     },
     "Kernel": {
-      "theorems": 2091,
-      "closed": 1441,
-      "with_axioms": 650,
+      "theorems": 2547,
+      "closed": 1661,
+      "with_axioms": 886,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "Classical_Prop.classic",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
+    },
+    "MuCodingTheorem": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "MuDirectSum": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
     },
     "NecessityOfMuLedger": {
       "theorems": 53,
@@ -142,15 +202,27 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "ReceiptTheorem": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "SelfReference": {
-      "theorems": 97,
-      "closed": 97,
+      "theorems": 95,
+      "closed": 95,
       "with_axioms": 0,
       "axiom_set": []
     },
     "Spacetime": {
-      "theorems": 7,
-      "closed": 7,
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "TestFixtures": {
+      "theorems": 9,
+      "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -161,21 +233,26 @@
       "axiom_set": []
     },
     "Thermodynamic": {
-      "theorems": 34,
-      "closed": 34,
-      "with_axioms": 0,
-      "axiom_set": []
+      "theorems": 38,
+      "closed": 31,
+      "with_axioms": 7,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "ThieleMachine": {
-      "theorems": 40,
-      "closed": 40,
+      "theorems": 36,
+      "closed": 36,
       "with_axioms": 0,
       "axiom_set": []
     },
     "ThieleMachineComplete": {
-      "theorems": 417,
-      "closed": 338,
-      "with_axioms": 79,
+      "theorems": 405,
+      "closed": 327,
+      "with_axioms": 78,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -187,18 +264,72 @@
       "closed": 48,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "VerifierEscape_Hardness": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "VerifierEscape_Interaction": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "VerifierEscape_Substrate": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "VerifierExhaustiveness": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "VerifierImpossibility": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "VerifierModel": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
     }
   },
   "by_file": {
     "coq/Extraction.v": {
-      "theorems": 15,
-      "closed": 13,
+      "theorems": 16,
+      "closed": 14,
       "with_axioms": 2,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
+    },
+    "coq/IntrinsicLevelHierarchy.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/MuCodingTheorem.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/MuDirectSum.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
     },
     "coq/NecessityOfMuLedger.v": {
       "theorems": 53,
@@ -216,25 +347,67 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "coq/ReceiptTheorem.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/ThieleMachineComplete.v": {
-      "theorems": 417,
-      "closed": 338,
-      "with_axioms": 79,
+      "theorems": 405,
+      "closed": 327,
+      "with_axioms": 78,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "coq/VerifierEscape_Hardness.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/VerifierEscape_Interaction.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/VerifierEscape_Substrate.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/VerifierExhaustiveness.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/VerifierImpossibility.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/VerifierModel.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kami_hw/Abstraction.v": {
-      "theorems": 37,
-      "closed": 37,
+      "theorems": 34,
+      "closed": 34,
       "with_axioms": 0,
       "axiom_set": []
     },
     "coq/kami_hw/CanonicalCPUProof.v": {
-      "theorems": 11,
-      "closed": 9,
+      "theorems": 12,
+      "closed": 10,
       "with_axioms": 2,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -258,9 +431,21 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "coq/kami_hw/F4_BModulesTranslation.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kami_hw/F4_VerilogEvaluator.v": {
+      "theorems": 17,
+      "closed": 17,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kami_hw/FullAbstraction.v": {
-      "theorems": 2,
-      "closed": 2,
+      "theorems": 3,
+      "closed": 3,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -280,15 +465,15 @@
     },
     "coq/kami_hw/GraphReconstructionBridge.v": {
       "theorems": 108,
-      "closed": 105,
-      "with_axioms": 3,
+      "closed": 104,
+      "with_axioms": 4,
       "axiom_set": [
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
     "coq/kami_hw/HardwareShadowBridge.v": {
-      "theorems": 7,
-      "closed": 7,
+      "theorems": 6,
+      "closed": 6,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -341,8 +526,8 @@
       ]
     },
     "coq/kami_hw/ThieleCPUBusTop.v": {
-      "theorems": 16,
-      "closed": 16,
+      "theorems": 12,
+      "closed": 12,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -355,8 +540,8 @@
       ]
     },
     "coq/kami_hw/VerilogRefinement.v": {
-      "theorems": 60,
-      "closed": 60,
+      "theorems": 59,
+      "closed": 59,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -368,13 +553,109 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/AbstractNoFI.v": {
-      "theorems": 20,
-      "closed": 20,
+    "coq/kernel/aggregators/Closure.v": {
+      "theorems": 1,
+      "closed": 1,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/AffineEFEClosure.v": {
+    "coq/kernel/aggregators/FalsifiablePrediction.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/aggregators/MasterSummary.v": {
+      "theorems": 55,
+      "closed": 40,
+      "with_axioms": 15,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/aggregators/NonCircularityAudit.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/aggregators/PDISCOVERIntegration.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/aggregators/TOE.v": {
+      "theorems": 3,
+      "closed": 2,
+      "with_axioms": 1,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/aggregators/UnificationProbeBridges.v": {
+      "theorems": 5,
+      "closed": 3,
+      "with_axioms": 2,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/aggregators/UnificationProbePattern.v": {
+      "theorems": 6,
+      "closed": 1,
+      "with_axioms": 5,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/category/AlgebraicCoherence.v": {
+      "theorems": 19,
+      "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/category/CategoryBridge.v": {
+      "theorems": 26,
+      "closed": 26,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/category/CategoryLaws.v": {
+      "theorems": 24,
+      "closed": 24,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/category/CategoryMonoidal.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/category/ConstantUnification.v": {
+      "theorems": 3,
+      "closed": 0,
+      "with_axioms": 3,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/AffineEFEClosure.v": {
       "theorems": 14,
       "closed": 0,
       "with_axioms": 14,
@@ -383,195 +664,27 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/AlgebraicCoherence.v": {
-      "theorems": 19,
-      "closed": 19,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/BekensteinCalibration.v": {
-      "theorems": 15,
+    "coq/kernel/curvature/CurvedTensorPipeline.v": {
+      "theorems": 48,
       "closed": 2,
-      "with_axioms": 13,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "Classical_Prop.classic",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/BlindnessRepresentation.v": {
-      "theorems": 14,
-      "closed": 14,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/BornRule.v": {
-      "theorems": 11,
-      "closed": 0,
-      "with_axioms": 11,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/BornRuleLinearity.v": {
-      "theorems": 27,
-      "closed": 7,
-      "with_axioms": 20,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/BoxCHSH.v": {
-      "theorems": 8,
-      "closed": 8,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/CHSH.v": {
-      "theorems": 5,
-      "closed": 5,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/CHSHCouplingBridge.v": {
-      "theorems": 14,
-      "closed": 14,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/CHSHExtraction.v": {
-      "theorems": 14,
-      "closed": 14,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/CHSHStatisticalBridge.v": {
-      "theorems": 16,
-      "closed": 16,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/CategoryBridge.v": {
-      "theorems": 26,
-      "closed": 26,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/CategoryLaws.v": {
-      "theorems": 25,
-      "closed": 25,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/CategoryMonoidal.v": {
-      "theorems": 9,
-      "closed": 9,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/Certification.v": {
-      "theorems": 14,
-      "closed": 14,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ClassicalBound.v": {
-      "theorems": 2,
-      "closed": 2,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ClassicalConservativity.v": {
-      "theorems": 9,
-      "closed": 9,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ClausiusFromEntropyArea.v": {
-      "theorems": 7,
-      "closed": 0,
-      "with_axioms": 7,
+      "with_axioms": 46,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/Closure.v": {
-      "theorems": 1,
+    "coq/kernel/curvature/DiscreteGaussBonnet.v": {
+      "theorems": 10,
       "closed": 1,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ConeAlgebra.v": {
-      "theorems": 14,
-      "closed": 14,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ConeDerivation.v": {
-      "theorems": 2,
-      "closed": 2,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ConstantUnification.v": {
-      "theorems": 6,
-      "closed": 0,
-      "with_axioms": 6,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "Classical_Prop.classic",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/ConstructivePSD.v": {
-      "theorems": 23,
-      "closed": 0,
-      "with_axioms": 23,
+      "with_axioms": 9,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/CurvedTensorPipeline.v": {
-      "theorems": 50,
-      "closed": 2,
-      "with_axioms": 48,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/DagRestriction.v": {
-      "theorems": 26,
-      "closed": 26,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/DerivedTime.v": {
-      "theorems": 3,
-      "closed": 3,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/DiscreteGaussBonnet.v": {
-      "theorems": 11,
-      "closed": 1,
-      "with_axioms": 10,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/DiscreteRaychaudhuri.v": {
+    "coq/kernel/curvature/DiscreteRaychaudhuri.v": {
       "theorems": 5,
       "closed": 0,
       "with_axioms": 5,
@@ -581,22 +694,22 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/DiscreteSimplicialGeometry.v": {
-      "theorems": 22,
+    "coq/kernel/curvature/DiscreteSimplicialGeometry.v": {
+      "theorems": 21,
       "closed": 4,
-      "with_axioms": 18,
+      "with_axioms": 17,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/DiscreteTopology.v": {
-      "theorems": 18,
-      "closed": 18,
+    "coq/kernel/curvature/DiscreteTopology.v": {
+      "theorems": 14,
+      "closed": 14,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/EinsteinEmergence.v": {
+    "coq/kernel/curvature/EinsteinEmergence.v": {
       "theorems": 7,
       "closed": 0,
       "with_axioms": 7,
@@ -606,10 +719,10 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/EinsteinEquations4D.v": {
-      "theorems": 115,
+    "coq/kernel/curvature/EinsteinEquations4D.v": {
+      "theorems": 114,
       "closed": 10,
-      "with_axioms": 105,
+      "with_axioms": 104,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
@@ -617,7 +730,7 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/EinsteinEquationsFull.v": {
+    "coq/kernel/curvature/EinsteinEquationsFull.v": {
       "theorems": 8,
       "closed": 0,
       "with_axioms": 8,
@@ -626,79 +739,13 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/EntanglementEntropy.v": {
-      "theorems": 6,
-      "closed": 6,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/EntropyImpossibility.v": {
-      "theorems": 4,
-      "closed": 4,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/FalsifiablePrediction.v": {
-      "theorems": 2,
-      "closed": 2,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/FiniteInformation.v": {
-      "theorems": 17,
-      "closed": 17,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/FourDSimplicialComplex.v": {
-      "theorems": 11,
-      "closed": 11,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/HardwareBisimulation.v": {
-      "theorems": 12,
-      "closed": 12,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/HonestNoFI.v": {
+    "coq/kernel/curvature/FourDSimplicialComplex.v": {
       "theorems": 9,
       "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/HonestNoFI_TheoremsWithoutAssumptions.v": {
-      "theorems": 12,
-      "closed": 12,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/InformationCausality.v": {
-      "theorems": 13,
-      "closed": 13,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/InformationGainToStrengthening.v": {
-      "theorems": 4,
-      "closed": 4,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/InformationTopology.v": {
-      "theorems": 11,
-      "closed": 11,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/InsightTaxonomy.v": {
-      "theorems": 19,
-      "closed": 19,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/JacobsonBridgeComponents.v": {
+    "coq/kernel/curvature/JacobsonBridgeComponents.v": {
       "theorems": 1,
       "closed": 0,
       "with_axioms": 1,
@@ -706,61 +753,31 @@
         "ClassicalDedekindReals.sig_forall_dec"
       ]
     },
-    "coq/kernel/KernelBenchmarks.v": {
-      "theorems": 5,
-      "closed": 5,
+    "coq/kernel/curvature/KernelNoether.v": {
+      "theorems": 11,
+      "closed": 11,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/KernelNoether.v": {
+    "coq/kernel/curvature/KernelPhysics.v": {
+      "theorems": 22,
+      "closed": 22,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/curvature/LocalMorphismSemantics.v": {
       "theorems": 16,
       "closed": 16,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/KernelPhysics.v": {
-      "theorems": 24,
-      "closed": 24,
+    "coq/kernel/curvature/LorentzNotForced.v": {
+      "theorems": 2,
+      "closed": 2,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/KernelTM.v": {
-      "theorems": 1,
-      "closed": 1,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/LandauerDerivation.v": {
-      "theorems": 10,
-      "closed": 10,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/LocalInfoLoss.v": {
-      "theorems": 16,
-      "closed": 16,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/LocalMorphismSemantics.v": {
-      "theorems": 16,
-      "closed": 16,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/Locality.v": {
-      "theorems": 18,
-      "closed": 18,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/LorentzNotForced.v": {
-      "theorems": 3,
-      "closed": 3,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/LorentzianTensorPipeline.v": {
+    "coq/kernel/curvature/LorentzianTensorPipeline.v": {
       "theorems": 4,
       "closed": 0,
       "with_axioms": 4,
@@ -769,18 +786,7 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/MasterSummary.v": {
-      "theorems": 57,
-      "closed": 42,
-      "with_axioms": 15,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "Classical_Prop.classic",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/MatrixAlgebra4.v": {
+    "coq/kernel/curvature/MatrixAlgebra4.v": {
       "theorems": 7,
       "closed": 0,
       "with_axioms": 7,
@@ -789,7 +795,7 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/MetricForcing.v": {
+    "coq/kernel/curvature/MetricForcing.v": {
       "theorems": 13,
       "closed": 0,
       "with_axioms": 13,
@@ -798,7 +804,7 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/MetricFromMuCosts.v": {
+    "coq/kernel/curvature/MetricFromMuCosts.v": {
       "theorems": 25,
       "closed": 0,
       "with_axioms": 25,
@@ -809,7 +815,774 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/MinorConstraints.v": {
+    "coq/kernel/curvature/MuGravity.v": {
+      "theorems": 106,
+      "closed": 37,
+      "with_axioms": 69,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/NoFIToEinstein.v": {
+      "theorems": 6,
+      "closed": 1,
+      "with_axioms": 5,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/PNEWTopologyChange.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/curvature/PhysicalSubstrate.v": {
+      "theorems": 4,
+      "closed": 0,
+      "with_axioms": 4,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/PhysicsClosure.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/curvature/RaychaudhuriFluxBridge.v": {
+      "theorems": 4,
+      "closed": 0,
+      "with_axioms": 4,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/RiemannTensor4D.v": {
+      "theorems": 2,
+      "closed": 0,
+      "with_axioms": 2,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/SpacetimeEmergence.v": {
+      "theorems": 27,
+      "closed": 27,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/curvature/StressEnergyDynamics.v": {
+      "theorems": 5,
+      "closed": 2,
+      "with_axioms": 3,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/SymmetricDerivative4D.v": {
+      "theorems": 49,
+      "closed": 10,
+      "with_axioms": 39,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/curvature/TopologyCurvatureBridge.v": {
+      "theorems": 5,
+      "closed": 0,
+      "with_axioms": 5,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/foundation/ClassicalBound.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/ClassicalConservativity.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/DagRestriction.v": {
+      "theorems": 31,
+      "closed": 31,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/KernelTM.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/Locality.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/MuCostModel.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/MuLedgerConservation.v": {
+      "theorems": 24,
+      "closed": 24,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/NatSubstrateInstance.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/PartitionSeparation.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/Persistence.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/ProperSubsumption.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/SimulationProof.v": {
+      "theorems": 35,
+      "closed": 35,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/StateSpaceCounting.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/Substrate.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/Subsumption.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TuringClassicalEmbedding.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TuringCompletenessISA.v": {
+      "theorems": 41,
+      "closed": 41,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/TuringStrictness.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMEncoding.v": {
+      "theorems": 19,
+      "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMInstructionEncoding.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMState.v": {
+      "theorems": 92,
+      "closed": 92,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMStep.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/foundation/VMSubstrateInstance.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F1_AbstractedBridge.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F1_LogicalErasure.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F1_StrongForm.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F1_TraceLevelA2.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F2_MinorFromWitnessLocality.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F2_MinorIndependence.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F2_PerMinorFromCostCoherent.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F3_CrossLink.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/F3_MuLaplacianSum.v": {
+      "theorems": 26,
+      "closed": 4,
+      "with_axioms": 22,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/frontier/F3_PartitionTopologyCrossLink.v": {
+      "theorems": 6,
+      "closed": 0,
+      "with_axioms": 6,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/frontier/F3_PlusOneStructural.v": {
+      "theorems": 3,
+      "closed": 2,
+      "with_axioms": 1,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/frontier/F3_TripleCrossLink.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/hardware_bridge/HardwareBisimulation.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/hardware_bridge/OCamlExtractionBridge.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/hardware_bridge/PythonBisimulation.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/hardware_bridge/ThreeLayerIsomorphism.v": {
+      "theorems": 19,
+      "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/hardware_bridge/VerilogRTLCorrespondence.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/misc/ConeAlgebra.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/misc/ConeDerivation.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/misc/SemanticMuCost.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/KernelBenchmarks.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuChaitin.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuComplexity.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuCostDerivation.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuGeometry.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuHierarchyTheorem.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuInformation.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuInitiality.v": {
+      "theorems": 18,
+      "closed": 18,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuNoFreeInsightQuantitative.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuShannonBridge.v": {
+      "theorems": 42,
+      "closed": 42,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/MuShannonQuantitative.v": {
+      "theorems": 23,
+      "closed": 23,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/mu_calculus/QuantitativeNoFI.v": {
+      "theorems": 22,
+      "closed": 22,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/A2LoadBearing.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/A2Payoff.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/AbstractNoFI.v": {
+      "theorems": 20,
+      "closed": 20,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/Certification.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/CommitmentCostDecomposition.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/CommitmentPredicateAdequacy.v": {
+      "theorems": 20,
+      "closed": 20,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/CommitmentVsErasure.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/HonestCostTracking.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/HonestMeasurement.v": {
+      "theorems": 6,
+      "closed": 0,
+      "with_axioms": 6,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/nfi/HonestNoFI.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/InformationGainToStrengthening.v": {
+      "theorems": 4,
+      "closed": 4,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/InsightTaxonomy.v": {
+      "theorems": 19,
+      "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/LandauerDerivation.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/MeasurementExtraction.v": {
+      "theorems": 23,
+      "closed": 23,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/MuLedgerQuantumBridge.v": {
+      "theorems": 53,
+      "closed": 4,
+      "with_axioms": 49,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/nfi/NecessityAbstract.v": {
+      "theorems": 45,
+      "closed": 45,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/NoFreeInsight.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/NonAdaptiveLowerBound.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/PartitionRefinementNoFI.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/PrimeAxiom.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/ReceiptIntegrity.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/RevelationRequirement.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/SimpleMorphShortcut.v": {
+      "theorems": 15,
+      "closed": 15,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/StructuralAdvantage.v": {
+      "theorems": 49,
+      "closed": 49,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/StructuralAdvantageCertifiedShortcut.v": {
+      "theorems": 19,
+      "closed": 19,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/StructuralAdvantageObservedShortcut.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/StructuralAdvantageObservedShortcutResult.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/StructuralUndecidability.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/ThermodynamicStructuralAdvantage.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/ThieleInitiality.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/UniversalCertificationCost.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/UniversalShortcutLifting.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/VerificationCostSeparation.v": {
+      "theorems": 15,
+      "closed": 15,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/BornRule.v": {
+      "theorems": 10,
+      "closed": 0,
+      "with_axioms": 10,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/BornRuleLinearity.v": {
+      "theorems": 17,
+      "closed": 5,
+      "with_axioms": 12,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/BoxCHSH.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/CHSH.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/CHSHCouplingBridge.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/CHSHExtraction.v": {
+      "theorems": 14,
+      "closed": 14,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/CHSHStatisticalBridge.v": {
+      "theorems": 16,
+      "closed": 16,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/ConstructivePSD.v": {
+      "theorems": 23,
+      "closed": 0,
+      "with_axioms": 23,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/EntanglementEntropy.v": {
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/GenRealizability.v": {
+      "theorems": 21,
+      "closed": 3,
+      "with_axioms": 18,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/HolevoDimensional.v": {
+      "theorems": 2,
+      "closed": 2,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/HolevoGeneralD.v": {
+      "theorems": 15,
+      "closed": 0,
+      "with_axioms": 15,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/HolevoTwoQubit.v": {
+      "theorems": 16,
+      "closed": 0,
+      "with_axioms": 16,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/HonestMeasurementImpliesNPA.v": {
+      "theorems": 1,
+      "closed": 0,
+      "with_axioms": 1,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/InformationCausality.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/MinorConstraints.v": {
       "theorems": 13,
       "closed": 0,
       "with_axioms": 13,
@@ -819,100 +1592,7 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/MuChaitin.v": {
-      "theorems": 3,
-      "closed": 3,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuComplexity.v": {
-      "theorems": 10,
-      "closed": 10,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuCostDerivation.v": {
-      "theorems": 13,
-      "closed": 13,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuCostModel.v": {
-      "theorems": 7,
-      "closed": 7,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuGeometry.v": {
-      "theorems": 5,
-      "closed": 5,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuGravity.v": {
-      "theorems": 110,
-      "closed": 35,
-      "with_axioms": 75,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "Classical_Prop.classic",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/MuHierarchyTheorem.v": {
-      "theorems": 12,
-      "closed": 12,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuInformation.v": {
-      "theorems": 5,
-      "closed": 5,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuInitiality.v": {
-      "theorems": 18,
-      "closed": 18,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuLedgerConservation.v": {
-      "theorems": 24,
-      "closed": 24,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuLedgerQuantumBridge.v": {
-      "theorems": 50,
-      "closed": 4,
-      "with_axioms": 46,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/MuNoFreeInsightQuantitative.v": {
-      "theorems": 7,
-      "closed": 7,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuShannonBridge.v": {
-      "theorems": 42,
-      "closed": 42,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/MuShannonQuantitative.v": {
-      "theorems": 23,
-      "closed": 23,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/NPAMomentMatrix.v": {
+    "coq/kernel/quantum/NPAMomentMatrix.v": {
       "theorems": 9,
       "closed": 0,
       "with_axioms": 9,
@@ -922,13 +1602,16 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/NecessityAbstract.v": {
-      "theorems": 49,
-      "closed": 49,
-      "with_axioms": 0,
-      "axiom_set": []
+    "coq/kernel/quantum/NoCloning.v": {
+      "theorems": 6,
+      "closed": 0,
+      "with_axioms": 6,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
-    "coq/kernel/NoCloning.v": {
+    "coq/kernel/quantum/OperatorAlgebra.v": {
       "theorems": 8,
       "closed": 0,
       "with_axioms": 8,
@@ -937,317 +1620,72 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/NoFIToEinstein.v": {
-      "theorems": 6,
-      "closed": 1,
-      "with_axioms": 5,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "Classical_Prop.classic",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/NoFreeInsight.v": {
-      "theorems": 8,
-      "closed": 8,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/NonCircularityAudit.v": {
-      "theorems": 15,
-      "closed": 15,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/OCamlExtractionBridge.v": {
-      "theorems": 10,
-      "closed": 10,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ObserverDerivation.v": {
-      "theorems": 7,
-      "closed": 7,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/PDISCOVERIntegration.v": {
-      "theorems": 6,
-      "closed": 6,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/PNEWTopologyChange.v": {
-      "theorems": 7,
-      "closed": 7,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/PartitionRefinementNoFI.v": {
-      "theorems": 13,
-      "closed": 13,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/PartitionSeparation.v": {
-      "theorems": 9,
-      "closed": 9,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/Persistence.v": {
-      "theorems": 3,
-      "closed": 3,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/PhysicalSubstrate.v": {
-      "theorems": 4,
-      "closed": 0,
-      "with_axioms": 4,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "Classical_Prop.classic",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/PhysicsClosure.v": {
-      "theorems": 1,
-      "closed": 1,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/PrimeAxiom.v": {
-      "theorems": 6,
-      "closed": 6,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ProbabilityImpossibility.v": {
-      "theorems": 3,
-      "closed": 3,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ProperSubsumption.v": {
-      "theorems": 6,
-      "closed": 6,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/Purification.v": {
-      "theorems": 7,
-      "closed": 0,
-      "with_axioms": 7,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/PythonBisimulation.v": {
-      "theorems": 16,
-      "closed": 16,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/QuantitativeNoFI.v": {
-      "theorems": 22,
-      "closed": 22,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/QuantumBound.v": {
-      "theorems": 7,
-      "closed": 7,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/QuantumEquivalence.v": {
-      "theorems": 10,
-      "closed": 10,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/QuantumPartitionPSD.v": {
-      "theorems": 9,
-      "closed": 0,
-      "with_axioms": 9,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/RaychaudhuriFluxBridge.v": {
-      "theorems": 4,
-      "closed": 0,
-      "with_axioms": 4,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/ReceiptCore.v": {
-      "theorems": 1,
-      "closed": 1,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ReceiptIntegrity.v": {
-      "theorems": 17,
-      "closed": 17,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/RevelationRequirement.v": {
-      "theorems": 12,
+    "coq/kernel/quantum/PRBoxIsDishonest.v": {
+      "theorems": 14,
       "closed": 12,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/RiemannTensor4D.v": {
-      "theorems": 2,
-      "closed": 0,
       "with_axioms": 2,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/SemanticMuCost.v": {
-      "theorems": 2,
-      "closed": 2,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/SemidefiniteProgramming.v": {
-      "theorems": 5,
-      "closed": 0,
-      "with_axioms": 5,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/ShadowProjection.v": {
-      "theorems": 8,
-      "closed": 8,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/SimulationProof.v": {
-      "theorems": 38,
-      "closed": 38,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/SpacetimeEmergence.v": {
-      "theorems": 27,
-      "closed": 27,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/StateSpaceCounting.v": {
-      "theorems": 10,
-      "closed": 10,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/StressEnergyDynamics.v": {
-      "theorems": 5,
-      "closed": 2,
-      "with_axioms": 3,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/StructuralAdvantage.v": {
-      "theorems": 49,
-      "closed": 49,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/StructuralAdvantageCertifiedShortcut.v": {
-      "theorems": 18,
-      "closed": 18,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/StructuralAdvantageObservedShortcut.v": {
-      "theorems": 12,
-      "closed": 12,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/StructuralAdvantageObservedShortcutResult.v": {
-      "theorems": 7,
-      "closed": 7,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/Subsumption.v": {
+    "coq/kernel/quantum/ProbabilityImpossibility.v": {
       "theorems": 3,
       "closed": 3,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/SymmetricDerivative4D.v": {
-      "theorems": 49,
-      "closed": 10,
-      "with_axioms": 39,
+    "coq/kernel/quantum/Purification.v": {
+      "theorems": 4,
+      "closed": 0,
+      "with_axioms": 4,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/TOE.v": {
-      "theorems": 2,
+    "coq/kernel/quantum/QuantumBound.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/QuantumEquivalence.v": {
+      "theorems": 7,
+      "closed": 7,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/quantum/QuantumPartitionPSD.v": {
+      "theorems": 13,
       "closed": 1,
-      "with_axioms": 1,
+      "with_axioms": 12,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/ThermoEinsteinBridge.v": {
-      "theorems": 9,
+    "coq/kernel/quantum/QuantumPartitionPSD_1AB.v": {
+      "theorems": 140,
+      "closed": 3,
+      "with_axioms": 137,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/SemidefiniteProgramming.v": {
+      "theorems": 4,
       "closed": 0,
-      "with_axioms": 9,
+      "with_axioms": 4,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/ThieleTraceProjection.v": {
-      "theorems": 8,
-      "closed": 8,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ThreeLayerIsomorphism.v": {
-      "theorems": 19,
-      "closed": 19,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/TopologyCurvatureBridge.v": {
-      "theorems": 5,
-      "closed": 0,
-      "with_axioms": 5,
-      "axiom_set": [
-        "ClassicalDedekindReals.sig_forall_dec",
-        "ClassicalDedekindReals.sig_not_dec",
-        "FunctionalExtensionality.functional_extensionality_dep"
-      ]
-    },
-    "coq/kernel/TsirelsonFromAlgebra.v": {
+    "coq/kernel/quantum/TsirelsonFromAlgebra.v": {
       "theorems": 11,
       "closed": 0,
       "with_axioms": 11,
@@ -1257,108 +1695,215 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/TsirelsonGeneral.v": {
-      "theorems": 15,
+    "coq/kernel/quantum/TsirelsonFromIC.v": {
+      "theorems": 3,
       "closed": 0,
-      "with_axioms": 15,
+      "with_axioms": 3,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/TsirelsonQuantumModel.v": {
-      "theorems": 10,
+    "coq/kernel/quantum/TsirelsonFromMu.v": {
+      "theorems": 2,
       "closed": 0,
-      "with_axioms": 10,
+      "with_axioms": 2,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
         "ClassicalDedekindReals.sig_not_dec",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/TsirelsonUniqueness.v": {
+    "coq/kernel/quantum/TsirelsonGeneral.v": {
+      "theorems": 16,
+      "closed": 0,
+      "with_axioms": 16,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/TsirelsonQuantumModel.v": {
+      "theorems": 12,
+      "closed": 1,
+      "with_axioms": 11,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/TsirelsonUniqueness.v": {
       "theorems": 1,
       "closed": 1,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/TsirelsonUpperBound.v": {
-      "theorems": 19,
-      "closed": 19,
+    "coq/kernel/quantum/TsirelsonUpperBound.v": {
+      "theorems": 17,
+      "closed": 17,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/TuringClassicalEmbedding.v": {
+    "coq/kernel/quantum/Unitarity.v": {
+      "theorems": 8,
+      "closed": 0,
+      "with_axioms": 8,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/quantum/ValidCorrelation.v": {
+      "theorems": 1,
+      "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/thermodynamic/AdditionalProbes.v": {
+      "theorems": 6,
+      "closed": 0,
+      "with_axioms": 6,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/thermodynamic/BekensteinBound.v": {
+      "theorems": 3,
+      "closed": 0,
+      "with_axioms": 3,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/thermodynamic/BekensteinCalibration.v": {
+      "theorems": 15,
+      "closed": 2,
+      "with_axioms": 13,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/thermodynamic/ClausiusFromEntropyArea.v": {
+      "theorems": 7,
+      "closed": 0,
+      "with_axioms": 7,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/thermodynamic/DimensionalGapTheorem.v": {
+      "theorems": 4,
+      "closed": 1,
+      "with_axioms": 3,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/thermodynamic/EntropyImpossibility.v": {
+      "theorems": 3,
+      "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/thermodynamic/FiniteInformation.v": {
       "theorems": 16,
       "closed": 16,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/TuringCompletenessISA.v": {
-      "theorems": 41,
-      "closed": 41,
+    "coq/kernel/thermodynamic/LocalInfoLoss.v": {
+      "theorems": 16,
+      "closed": 16,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/TuringStrictness.v": {
+    "coq/kernel/thermodynamic/SecondLawBoltzmannWall.v": {
       "theorems": 4,
-      "closed": 4,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/Unitarity.v": {
-      "theorems": 10,
-      "closed": 0,
-      "with_axioms": 10,
+      "closed": 1,
+      "with_axioms": 3,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
-    "coq/kernel/UniversalCertificationCost.v": {
+    "coq/kernel/thermodynamic/ThermoEinsteinBridge.v": {
       "theorems": 9,
-      "closed": 9,
+      "closed": 0,
+      "with_axioms": 9,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
+    "coq/kernel/witness/BlindnessRepresentation.v": {
+      "theorems": 13,
+      "closed": 13,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/VMEncoding.v": {
-      "theorems": 19,
-      "closed": 19,
+    "coq/kernel/witness/DerivedTime.v": {
+      "theorems": 3,
+      "closed": 3,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/VMState.v": {
-      "theorems": 93,
-      "closed": 93,
+    "coq/kernel/witness/InformationTopology.v": {
+      "theorems": 12,
+      "closed": 12,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/VMStep.v": {
-      "theorems": 8,
-      "closed": 8,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/ValidCorrelation.v": {
-      "theorems": 1,
-      "closed": 1,
-      "with_axioms": 0,
-      "axiom_set": []
-    },
-    "coq/kernel/VerilogRTLCorrespondence.v": {
+    "coq/kernel/witness/ObserverDerivation.v": {
       "theorems": 6,
       "closed": 6,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/WitnessInsightGeneral.v": {
+    "coq/kernel/witness/ProjectionNonExistence.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/witness/ShadowProjection.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/witness/ThieleTraceProjection.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/witness/WitnessInsightGeneral.v": {
       "theorems": 9,
       "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
-    "coq/kernel/WitnessPreservationImpossibility.v": {
+    "coq/kernel/witness/WitnessPreservationImpossibility.v": {
       "theorems": 8,
       "closed": 8,
       "with_axioms": 0,
@@ -1413,14 +1958,14 @@
       "axiom_set": []
     },
     "coq/self_reference/InductiveTrust.v": {
-      "theorems": 12,
-      "closed": 12,
+      "theorems": 11,
+      "closed": 11,
       "with_axioms": 0,
       "axiom_set": []
     },
     "coq/self_reference/MuThresholdDisobedience.v": {
-      "theorems": 10,
-      "closed": 10,
+      "theorems": 9,
+      "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1443,14 +1988,14 @@
       "axiom_set": []
     },
     "coq/self_reference/SelfCertifyingDecider.v": {
-      "theorems": 13,
-      "closed": 13,
+      "theorems": 12,
+      "closed": 12,
       "with_axioms": 0,
       "axiom_set": []
     },
     "coq/self_reference/SelfReference.v": {
-      "theorems": 4,
-      "closed": 4,
+      "theorems": 5,
+      "closed": 5,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1461,8 +2006,14 @@
       "axiom_set": []
     },
     "coq/spacetime/Spacetime.v": {
-      "theorems": 7,
-      "closed": 7,
+      "theorems": 6,
+      "closed": 6,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/test_fixtures/VacuitySmoke.v": {
+      "theorems": 9,
+      "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1491,14 +2042,25 @@
       "axiom_set": []
     },
     "coq/thermodynamic/LandauerDerived.v": {
-      "theorems": 18,
-      "closed": 18,
+      "theorems": 17,
+      "closed": 17,
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/thermodynamic/LandauerJoules.v": {
+      "theorems": 7,
+      "closed": 0,
+      "with_axioms": 7,
+      "axiom_set": [
+        "ClassicalDedekindReals.sig_forall_dec",
+        "ClassicalDedekindReals.sig_not_dec",
+        "Classical_Prop.classic",
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
+    },
     "coq/thermodynamic/ThermodynamicBridge.v": {
-      "theorems": 16,
-      "closed": 16,
+      "theorems": 14,
+      "closed": 14,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1521,14 +2083,14 @@
       "axiom_set": []
     },
     "coq/thielemachine/ThieleMachine.v": {
-      "theorems": 15,
-      "closed": 15,
+      "theorems": 14,
+      "closed": 14,
       "with_axioms": 0,
       "axiom_set": []
     },
     "coq/thielemachine/ThieleProc.v": {
-      "theorems": 25,
-      "closed": 25,
+      "theorems": 22,
+      "closed": 22,
       "with_axioms": 0,
       "axiom_set": []
     }

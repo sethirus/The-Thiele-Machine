@@ -30,18 +30,28 @@ BUILD.mkdir(parents=True, exist_ok=True)
 sys.path.insert(0, str(ROOT / "scripts"))
 from coq_proof_scope import NON_PROOF_BEARING_FILES  # noqa: E402
 
-NS_MAP = [
-    ("kernel", "Kernel"),
-    ("nofi", "NoFI"),
-    ("kami_hw", "KamiHW"),
-    ("spacetime", "Spacetime"),
-    ("thielemachine", "ThieleMachine"),
-    ("physics", "Physics"),
-    ("self_reference", "SelfReference"),
-    ("thiele_manifold", "ThieleManifold"),
-    ("thermodynamic", "Thermodynamic"),
-    ("tests", "Tests"),
-]
+def _load_coqproject_logical_map():
+    """Physical-dir -> logical-root, read straight from coq/_CoqProject's
+    -R/-Q lines, longest physical path first so the most specific mapping wins.
+
+    This mirrors how the corpus is ACTUALLY compiled. kernel is mapped
+    per-subdirectory (-R kernel/aggregators Kernel, -R kernel/category Kernel,
+    ...), which FLATTENS every kernel subdir into Kernel: the file
+    kernel/aggregators/Closure.v is library Kernel.Closure, not
+    Kernel.aggregators.Closure. A hand-kept namespace table drifted from that
+    and emitted unresolvable nested requires once _CoqProject moved to
+    per-subdir mappings, so we read the mappings rather than restate them."""
+    coqroot = ROOT / "coq"
+    out = []
+    for line in (coqroot / "_CoqProject").read_text().splitlines():
+        m = re.match(r"^-[RQ]\s+(\S+)\s+(\S+)\s*$", line.strip())
+        if m:
+            out.append(((coqroot / m.group(1)).resolve(), m.group(2)))
+    out.sort(key=lambda kv: len(kv[0].parts), reverse=True)
+    return out
+
+
+_COQPROJECT_LOGICAL_MAP = _load_coqproject_logical_map()
 
 PROOF_KINDS = ("Theorem", "Lemma", "Corollary", "Fact", "Proposition",
                "Remark", "Property")
@@ -50,7 +60,8 @@ DECL_RE = re.compile(
     r"^\s*(?:#\[[^\]]*\]\s*)?(?:Local\s+|Global\s+|Polymorphic\s+|Monomorphic\s+|Private\s+)?"
     r"(?:Program\s+)?"
     r"(Theorem|Lemma|Corollary|Fact|Proposition|Remark|Property)\s+"
-    r"([A-Za-z_][A-Za-z0-9_']*)\b"
+    r"([A-Za-z_][A-Za-z0-9_']*)"  # no trailing \b: it backtracks off a final
+    # apostrophe (primes aren't \b word chars), truncating names like foo' to foo
 )
 # Matches:
 #   Module M.
@@ -88,15 +99,18 @@ def strip_comments(text):
 
 
 def qualified_module_name(rel_in_coq):
-    parts = rel_in_coq.parts
-    base = parts[-1][:-2]
-    if len(parts) == 1:
-        return base
-    head = parts[0]
-    for d, ns in NS_MAP:
-        if head == d:
-            mid = list(parts[1:-1])
-            return ".".join([ns] + mid + [base])
+    """Logical library name of coq/<rel_in_coq>, matching _CoqProject exactly.
+    Files under no -R/-Q mapping are root-level files compiled with the bare
+    module name (their on-disk .vo carries no logical prefix)."""
+    base = rel_in_coq.parts[-1][:-2]
+    abs_dir = (ROOT / "coq" / rel_in_coq).resolve().parent
+    for phys, log in _COQPROJECT_LOGICAL_MAP:
+        try:
+            rel = abs_dir.relative_to(phys)
+        except ValueError:
+            continue
+        mid = [p for p in rel.parts if p != "."]
+        return ".".join([log] + mid + [base])
     return base
 
 

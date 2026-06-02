@@ -48,17 +48,17 @@ The opener says it in plain English. Here it is as four steps for the technical 
 
 A2 is the rule: every step that flips a certification predicate from false to true forces the executed instruction's cost ≥ 1. The certification predicate and the cost function are not in the bare Turing-machine signature (state, alphabet, transition table), nor in register machines or lambda calculi. Being Turing-equivalent doesn't add them: equivalence preserves which functions you compute, not what the step can read, so the whole class lacks the field by the property that makes it the class. If you extend a classical signature with cert and cost fields and a step rule that respects A2, you have moved to a different substrate: the `CertificationSystem` record at [coq/kernel/nfi/UniversalCertificationCost.v:30-65](coq/kernel/nfi/UniversalCertificationCost.v#L30-L65), over which `universal_nfi_any_substrate` concludes a trace-level cost floor of ≥ 1. [`cert_not_function_of_forget`](coq/kernel/witness/ProjectionNonExistence.v) sharpens the boundary: the certification flag is not a derived function of the bare classical projection, so A2's cert-predicate cannot be recovered from classical fields by any clever predicate. The claim is not that A2 is unwritable in the absolute sense. It is that A2 is a constraint on state fields the bare classical signatures lack, so any model carrying A2 is no longer the bare classical model.
 
-**2. Therefore the substrate is forced.**
+**2. Price certification in the step rule, and the extra state is forced.**
 
 Any model that formalizes certification cost at the step rule must carry state that classical models do not. There is no "TM plus A2": there is no A2 on a TM, by `cert_not_function_of_forget`. The structural axis (`vm_mu`, `vm_certified`) is the minimum state for A2 to be a sentence in the first place. [`mu_not_function_of_bare_observable`](coq/kernel/witness/ProjectionNonExistence.v) proves the cost-ledger separation has no analog in the bare classical signature.
 
 **3. Classical computation is the projection, and the projection is not invertible.**
 
-[`lift_config`](coq/kernel/foundation/ProperSubsumption.v#L153) sends every Turing-machine configuration to a Thiele configuration. [`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v#L172) runs every Turing-machine trace inside the substrate, same tape, same state. [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v) closes the loop in one direction: classical computation is the image of substrate computation under the projection that forgets the structural axis. [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v) closes the other direction: every classical state has multiple Thiele preimages, so any lift back is non-canonical and requires external choice of cost schedule, graph state, and certification flag. [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v) witnesses substrate states with no classical preimage. Same computable functions on both sides; classical machines aren't a parallel option, they are what the substrate looks like under the projection that hides the structural axis.
+[`lift_config`](coq/kernel/foundation/ProperSubsumption.v#L153) sends every Turing-machine configuration to a Thiele configuration. [`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v#L172) runs every Turing-machine trace inside the substrate, same tape, same state. [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v) closes the loop in one direction: classical computation is the image of substrate computation under the projection that forgets the structural axis. [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v) closes the other direction: every classical state has multiple Thiele preimages, so any lift back is non-canonical and requires external choice of cost schedule, graph state, and certification flag. [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v) witnesses substrate states with no classical preimage. Same computable functions on both sides; classical machines are the canonical projection — the forgetting is the choice-free direction, the lift back is not — the smaller structure, the substrate with the structural axis dropped.
 
 **4. Which step is doing the work.**
 
-Step 1 is a sentence about what a classical step relation can carry, witnessed by `cert_not_function_of_forget`. Step 2 follows, witnessed by `mu_not_function_of_bare_observable`. Step 3 is mechanized in Coq with the theorem names above; the projection/lift asymmetry is witnessed by `fiber_has_two_preimages`. But that asymmetry alone is not where the priority lives, and I want to be precise about this, because it's the spot the whole claim gets attacked. Any field-drop has a unique forgetful map and a non-canonical lift — tagged-ℤ has exactly that asymmetry too, and it buys you a richer extension, not a derivative base. What makes classical computation derivative is three machine-checked facts the asymmetry can't reach: (μ, cert) is the proved-minimal extension over (mem, regs, pc): cert isn't a function of the rest, μ isn't a function of the rest ([`P_full_is_minimal_complete_extension`](coq/kernel/nfi/NecessityAbstract.v#L748)), the state a step rule needs to read the cert from and charge the μ to; A2 is the *exact least* local pricing law for the cert-flip — miss a cert-flip and you fail the floor on a one-step trace, charge a non-cert-flip and you overcharge, so the only exact non-overcharging substitute *is* A2, proved holding trust fixed ([`substitution_test_rejects_non_a2_exact_substitute`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L388), [`substitution_test_exact_substitute_is_a2`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L402), packaged in [`a2_equal_trust_substitution_payoff`](coq/kernel/nfi/A2Payoff.v#L47)); and a classical step rule can only run a fallible checker of A2, never carry it as the law. That's the priority: classical is what's left when you forget the law, not a parallel option that happens to drop a coordinate. It's tempting to pattern-match the whole thing to a metaphor and move on, and I get the reflex, but that's a reading rather than a rebuttal: the proofs stand or fall on whether the cited theorems hold, not on what they sound like.
+Step 1 is a sentence about what a classical step relation can carry, witnessed by `cert_not_function_of_forget`. Step 2 follows, witnessed by `mu_not_function_of_bare_observable`. Step 3 is mechanized in Coq with the theorem names above; the projection/lift asymmetry is witnessed by `fiber_has_two_preimages`. But that asymmetry alone is not where the weight sits, and I want to be precise about this, because it's the spot the whole claim gets attacked. Any field-drop has a unique forgetful map and a non-canonical lift — tagged-ℤ has exactly that asymmetry too, and it buys a richer extension, nothing more. Three machine-checked facts the asymmetry can't reach are what make the gap bite: (μ, cert) is the proved-minimal extension over (mem, regs, pc): cert isn't a function of the rest, μ isn't a function of the rest ([`P_full_is_minimal_complete_extension`](coq/kernel/nfi/NecessityAbstract.v#L748)), the state a step rule needs to read the cert from and charge the μ to; A2 is the *exact least* local pricing law for the cert-flip — miss a cert-flip and you fail the floor on a one-step trace, charge a non-cert-flip and you overcharge, so the only exact non-overcharging substitute *is* A2, proved holding trust fixed ([`substitution_test_rejects_non_a2_exact_substitute`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L388), [`substitution_test_exact_substitute_is_a2`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L402), packaged in [`a2_equal_trust_substitution_payoff`](coq/kernel/nfi/A2Payoff.v#L47)); and a classical step rule can only run a fallible checker of A2, never carry it as the law. So here's what it comes to: classical is the smaller structure, the state left when you forget the law, and the field it's missing is the one you'd most want a machine to enforce in the step. It's tempting to pattern-match the whole thing to a metaphor and move on, and I get the reflex, but check the cited theorems rather than the vibe: they stand or fall on whether they hold, not on what they sound like.
 
 The four steps are the entire foundational claim. They do not need 51 opcodes, do not need an FPGA, do not need CHSH. The minimum instruction set that witnesses the substrate is two opcodes: any classical compute primitive (so subsumption has something to project to) plus one opcode that flips certification (so A2 has something to enforce). `instr_certify` is the load-bearing opcode for A2; the rest of the ISA is exploration of what the substrate can express, not what it requires.
 
@@ -87,8 +87,7 @@ The substrate channel is the option the structural axis makes available. The oth
 
 A common reading is that A2 can be enforced in software on a TM, so the substrate distinction is a hardware/software boundary rather than a fundamental one. That reading conflates simulation with substrate. The distinction is one sentence:
 
-**A Turing machine cannot **refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one.**
-**
+**A Turing machine cannot refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one.**
 Load a Thiele simulator onto a TM with a bug: a program that certifies without incrementing μ. The TM runs it faithfully. Its step rule has no field for A2, so it cannot detect the bug; it computes whatever you wrote, A2-respecting or not. Load the same buggy program onto a Thiele substrate. The step rule traps. A2 is not interpreted by the simulator and could be skipped: it is the transition law itself. The TM is structurally incapable of refusal because its step rule has nothing to refuse on. The substrate is structurally incapable of execution because its step rule has A2 built in.
 
 That is the difference between simulating a substrate and being a substrate. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true and is not the question. "Thiele's step rule can be written down on a TM" is the question, and the answer is no.
@@ -166,7 +165,7 @@ Closed under the global context
 
 The broader audit receipt
 [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-records 3,310 addressable theorems probed and no user/project-local axiom
+records 3,823 addressable theorems probed and no user/project-local axiom
 findings in the committed assumption scan.
 
 ## Why It Is Not Just A Toy Counter
@@ -356,7 +355,7 @@ Two independent receipts track proof assumptions.
 
 The master theorem ledger is
 [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). The current committed
-assumption receipt reports 3,310 addressable theorems probed and no
+assumption receipt reports 3,823 addressable theorems probed and no
 user/project-local axiom findings.
 
 Run the hygiene pass directly:
@@ -416,10 +415,13 @@ pipeline.
 
 ```bibtex
 @misc{thielemachine2026,
-  title={The Thiele Machine: A Computational Model with Explicit Structural Cost},
-  author={Thiele, Devon},
-  year={2026},
-  howpublished={\url{https://github.com/sethirus/The-Thiele-Machine}}
+  title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
+  author       = {Thiele, Devon},
+  year         = {2026},
+  version      = {2.0.1},
+  doi          = {10.5281/zenodo.17316437},
+  publisher    = {Zenodo},
+  howpublished = {\url{https://doi.org/10.5281/zenodo.17316437}}
 }
 ```
 
