@@ -213,6 +213,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 | January–April 2026 | Hardware proofs completed (Abstraction.v). Thiele-honesty ↔ NPA biconditional proven. µ-hierarchy proven. |
 | May 2026 | v2.0.0 published to GitHub and Zenodo. Disclosure and monograph published. |
 | June 2026 | v2.0.1 update: zero admits confirmed across 267 files; 3,823 theorems probed, zero project-local axioms. |
+| June 2026 | v2.0.2 update: corrected the four-body conjugate-cell sign in the Q_{1+AB} moment matrix — the (A₀B₁, A₁B₀) cell carries −γ5, not +γ5 (forced by ⟨B₀B₁⟩ = 0). The level-1+AB CHSH certification now reaches the Tsirelson bound 2√2 instead of capping at the classical 2; the prior definition silently identified the two four-body cells, collapsing the certified cone to the local polytope. Regression guards added (a CHSH = 2.4 correlator the check now certifies and previously could not). Full corpus recompiles with zero project-local axioms. |
 
 ---
 

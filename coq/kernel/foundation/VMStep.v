@@ -774,8 +774,8 @@ Definition q1ab_g5_check_z_kernel
       let Cneg := (D01 * N10 - D10 * N01)%Z in
       let n01n10sq := (N01 * N01 * (N10 * N10))%Z in
       let n00n11sq := (N00 * N00 * (N11 * N11))%Z in
-      let Xint := (Apos * Apos * n01n10sq + Cpos * Cpos * n00n11sq)%Z in
-      let Yint := (Aneg * Aneg * n01n10sq + Cneg * Cneg * n00n11sq)%Z in
+      let Xint := (Apos * Apos * n01n10sq + Cneg * Cneg * n00n11sq)%Z in
+      let Yint := (Aneg * Aneg * n01n10sq + Cpos * Cpos * n00n11sq)%Z in
       let Den2 := (n00n11sq * n01n10sq)%Z in
       (Dg5 * (Dg5 - Ng5) * Xint + Dg5 * (Dg5 + Ng5) * Yint
        <=? 2 * (Dg5 * Dg5 - Ng5 * Ng5) * Den2)%Z).
@@ -880,7 +880,7 @@ Definition cH14_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 D
 Definition cH23_per_entry (D00 N00 D01 N01 D10 N10 D11 N11 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
   let detM := cleared_det_M_num D00 N00 D01 N01 D10 N10 D11 N11 in
   let B_n := cleared_B_num D00 N00 D01 N01 D10 N10 D11 N11 in
-  (N01 * N10 * Dg3 * Dg4 * detM * Ng5
+  (- (N01 * N10 * Dg3 * Dg4 * detM * Ng5)
    - Dg3 * Dg4 * Dg5 * detM * D01 * D10
    + N00 * N01*N01 * N10*N10 * N11 * Dg5 * B_n * Ng3 * Ng4)%Z.
 
@@ -1250,10 +1250,12 @@ Definition cleared_g12345_H36_Z
 Definition cleared_g12345_H45_Z
   (D00 N00 D01 N01 D10 N10 D11 N11
    Ng1 Dg1 Ng2 Dg2 Ng3 Dg3 Ng4 Dg4 Ng5 Dg5 : Z) : Z :=
-  (* H_45 = g5 - e01·e10 = (Ng5·N01·N10 - D01·D10·Dg5)/(N01·N10·Dg5)
+  (* H_45 = -g5 - e01·e10 = (-Ng5·N01·N10 - D01·D10·Dg5)/(N01·N10·Dg5)
+     (the conjugate four-body cell ⟨A₁A₂B₂B₁⟩ = -⟨A₁A₂B₁B₂⟩; sign forced by
+      {B₁,B₂}=0 under the matrix's ⟨B₁B₂⟩=0 assumption)
      COMMON / (N01·N10·Dg5) = N00²·N01·N10·N11²·Dg1²·Dg2²·Dg3²·Dg4²·Dg5 *)
   ((N00*N00*N01*N10*N11*N11*Dg1*Dg1*Dg2*Dg2*Dg3*Dg3*Dg4*Dg4*Dg5)
-   * (Ng5*N01*N10 - D01*D10*Dg5))%Z.
+   * (- Ng5*N01*N10 - D01*D10*Dg5))%Z.
 
 Definition cleared_g12345_H46_Z
   (D00 N00 D01 N01 D10 N10 D11 N11

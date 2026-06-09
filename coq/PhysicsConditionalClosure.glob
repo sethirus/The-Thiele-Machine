@@ -1,5 +1,5 @@
 DIGEST 5513afe464229a5150ad7ec2b503629e
-FPhysicsConditionalClosure
+FTop.PhysicsConditionalClosure
 R2379:2382 Coq.Lists.List <> <> lib
 R2384:2397 Coq.Arith.PeanoNat <> <> lib
 R2399:2401 Coq.micromega.Lia <> <> lib
@@ -34,13 +34,13 @@ binder 4483:4483 <> s:2
 R4534:4536 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R4528:4532 Kernel.VMState <> vm_mu proj
 R4502:4516 Kernel.MuInitiality <> exec_trace_from def
-R4518:4518 PhysicsConditionalClosure <> s:2 var
-R4520:4524 PhysicsConditionalClosure <> trace:1 var
+R4518:4518 Top.PhysicsConditionalClosure <> s:2 var
+R4520:4524 Top.PhysicsConditionalClosure <> trace:1 var
 R4547:4549 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
 R4541:4545 Kernel.VMState <> vm_mu proj
-R4538:4538 PhysicsConditionalClosure <> s:2 var
+R4538:4538 Top.PhysicsConditionalClosure <> s:2 var
 R4550:4565 Kernel.MuInitiality <> trace_total_cost def
-R4567:4571 PhysicsConditionalClosure <> trace:1 var
+R4567:4571 Top.PhysicsConditionalClosure <> trace:1 var
 R4611:4635 Kernel.MuInitiality <> mu_accumulates_trace_cost thm
 R4611:4635 Kernel.MuInitiality <> mu_accumulates_trace_cost thm
 def 5000:5020 <> U5_tsirelson_from_psd
@@ -61,17 +61,17 @@ binder 6760:6762 <> E01:5
 binder 6764:6766 <> E10:6
 binder 6768:6770 <> E11:7
 R6838:6845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6790:6821 PhysicsConditionalClosure <> PhysicsBridge.honest_quantum_chsh_correlations var
-R6823:6825 PhysicsConditionalClosure <> E00:4 var
-R6827:6829 PhysicsConditionalClosure <> E01:5 var
-R6831:6833 PhysicsConditionalClosure <> E10:6 var
-R6835:6837 PhysicsConditionalClosure <> E11:7 var
+R6790:6821 Top.PhysicsConditionalClosure <> PhysicsBridge.honest_quantum_chsh_correlations var
+R6823:6825 Top.PhysicsConditionalClosure <> E00:4 var
+R6827:6829 Top.PhysicsConditionalClosure <> E01:5 var
+R6831:6833 Top.PhysicsConditionalClosure <> E10:6 var
+R6835:6837 Top.PhysicsConditionalClosure <> E11:7 var
 R6846:6863 Kernel.NPAMomentMatrix <> quantum_realizable def
 R6866:6882 Kernel.NPAMomentMatrix <> zero_marginal_npa def
-R6884:6886 PhysicsConditionalClosure <> E00:4 var
-R6888:6890 PhysicsConditionalClosure <> E01:5 var
-R6892:6894 PhysicsConditionalClosure <> E10:6 var
-R6896:6898 PhysicsConditionalClosure <> E11:7 var
+R6884:6886 Top.PhysicsConditionalClosure <> E00:4 var
+R6888:6890 Top.PhysicsConditionalClosure <> E01:5 var
+R6892:6894 Top.PhysicsConditionalClosure <> E10:6 var
+R6896:6898 Top.PhysicsConditionalClosure <> E11:7 var
 binder 6740:6743 <> A_QM:8
 prf 7453:7480 <> master_tsirelson_conditional
 R7511:7520 Kernel.MuLedgerQuantumBridge <> RealNumber abbrev
@@ -80,23 +80,23 @@ binder 7497:7499 <> E01:10
 binder 7501:7503 <> E10:11
 binder 7505:7507 <> E11:12
 R7575:7582 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7527:7558 PhysicsConditionalClosure <> PhysicsBridge.honest_quantum_chsh_correlations var
-R7560:7562 PhysicsConditionalClosure <> E00:9 var
-R7564:7566 PhysicsConditionalClosure <> E01:10 var
-R7568:7570 PhysicsConditionalClosure <> E10:11 var
-R7572:7574 PhysicsConditionalClosure <> E11:12 var
+R7527:7558 Top.PhysicsConditionalClosure <> PhysicsBridge.honest_quantum_chsh_correlations var
+R7560:7562 Top.PhysicsConditionalClosure <> E00:9 var
+R7564:7566 Top.PhysicsConditionalClosure <> E01:10 var
+R7568:7570 Top.PhysicsConditionalClosure <> E10:11 var
+R7572:7574 Top.PhysicsConditionalClosure <> E11:12 var
 R7610:7613 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
 R7583:7586 Coq.Reals.Rbasic_fun <> Rabs def
 R7589:7592 Kernel.TsirelsonGeneral <> CHSH def
-R7594:7596 PhysicsConditionalClosure <> E00:9 var
-R7598:7600 PhysicsConditionalClosure <> E01:10 var
-R7602:7604 PhysicsConditionalClosure <> E10:11 var
-R7606:7608 PhysicsConditionalClosure <> E11:12 var
+R7594:7596 Top.PhysicsConditionalClosure <> E00:9 var
+R7598:7600 Top.PhysicsConditionalClosure <> E01:10 var
+R7602:7604 Top.PhysicsConditionalClosure <> E10:11 var
+R7606:7608 Top.PhysicsConditionalClosure <> E11:12 var
 R7614:7618 Kernel.TsirelsonGeneral <> sqrt8 def
-R7670:7690 PhysicsConditionalClosure <> U5_tsirelson_from_psd def
-R7670:7690 PhysicsConditionalClosure <> U5_tsirelson_from_psd def
-R7701:7704 PhysicsConditionalClosure <> PhysicsBridge.A_QM var
-R7701:7704 PhysicsConditionalClosure <> PhysicsBridge.A_QM var
+R7670:7690 Top.PhysicsConditionalClosure <> U5_tsirelson_from_psd def
+R7670:7690 Top.PhysicsConditionalClosure <> U5_tsirelson_from_psd def
+R7701:7704 Top.PhysicsConditionalClosure <> PhysicsBridge.A_QM var
+R7701:7704 Top.PhysicsConditionalClosure <> PhysicsBridge.A_QM var
 prf 7820:7850 <> master_supra_quantum_impossible
 R7881:7890 Kernel.MuLedgerQuantumBridge <> RealNumber abbrev
 binder 7863:7865 <> E00:13
@@ -104,21 +104,21 @@ binder 7867:7869 <> E01:14
 binder 7871:7873 <> E10:15
 binder 7875:7877 <> E11:16
 R7945:7952 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7897:7928 PhysicsConditionalClosure <> PhysicsBridge.honest_quantum_chsh_correlations var
-R7930:7932 PhysicsConditionalClosure <> E00:13 var
-R7934:7936 PhysicsConditionalClosure <> E01:14 var
-R7938:7940 PhysicsConditionalClosure <> E10:15 var
-R7942:7944 PhysicsConditionalClosure <> E11:16 var
+R7897:7928 Top.PhysicsConditionalClosure <> PhysicsBridge.honest_quantum_chsh_correlations var
+R7930:7932 Top.PhysicsConditionalClosure <> E00:13 var
+R7934:7936 Top.PhysicsConditionalClosure <> E01:14 var
+R7938:7940 Top.PhysicsConditionalClosure <> E10:15 var
+R7942:7944 Top.PhysicsConditionalClosure <> E11:16 var
 R7953:7955 Coq.Init.Logic <> ::type_scope:'~'_x not
 R7991:7991 Coq.Init.Logic <> ::type_scope:'~'_x not
 R7983:7985 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
 R7956:7959 Coq.Reals.Rbasic_fun <> Rabs def
 R7962:7965 Kernel.TsirelsonGeneral <> CHSH def
-R7967:7969 PhysicsConditionalClosure <> E00:13 var
-R7971:7973 PhysicsConditionalClosure <> E01:14 var
-R7975:7977 PhysicsConditionalClosure <> E10:15 var
-R7979:7981 PhysicsConditionalClosure <> E11:16 var
+R7967:7969 Top.PhysicsConditionalClosure <> E00:13 var
+R7971:7973 Top.PhysicsConditionalClosure <> E01:14 var
+R7975:7977 Top.PhysicsConditionalClosure <> E10:15 var
+R7979:7981 Top.PhysicsConditionalClosure <> E11:16 var
 R7986:7990 Kernel.TsirelsonGeneral <> sqrt8 def
-R8057:8084 PhysicsConditionalClosure <> master_tsirelson_conditional thm
-R8057:8084 PhysicsConditionalClosure <> master_tsirelson_conditional thm
-R8136:8148 PhysicsConditionalClosure PhysicsBridge <> sec
+R8057:8084 Top.PhysicsConditionalClosure <> master_tsirelson_conditional thm
+R8057:8084 Top.PhysicsConditionalClosure <> master_tsirelson_conditional thm
+R8136:8148 Top.PhysicsConditionalClosure PhysicsBridge <> sec

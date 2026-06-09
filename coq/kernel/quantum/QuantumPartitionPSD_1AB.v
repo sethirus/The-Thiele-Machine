@@ -212,7 +212,7 @@ Definition q1ab_moment_matrix
     | 6%nat, 4%nat => 0
     | 6%nat, 5%nat => 0
     | 6%nat, 6%nat => 1
-    | 6%nat, 7%nat => g5
+    | 6%nat, 7%nat => (- g5)
     | 6%nat, 8%nat => 0
     (* Row 7: A_2 B_1 *)
     | 7%nat, 0%nat => e10
@@ -221,7 +221,7 @@ Definition q1ab_moment_matrix
     | 7%nat, 3%nat => 0
     | 7%nat, 4%nat => g4
     | 7%nat, 5%nat => 0
-    | 7%nat, 6%nat => g5
+    | 7%nat, 6%nat => (- g5)
     | 7%nat, 7%nat => 1
     | 7%nat, 8%nat => 0
     (* Row 8: A_2 B_2 *)
@@ -353,7 +353,7 @@ Definition q1ab_residual
     vB1*vB1 + 2*vB1*(g3*v12 + g4*v22)
     + vB2*vB2 + 2*vB2*(g3*v11 + g4*v21)
     + v11*v11 + v12*v12 + v21*v21 + v22*v22
-    + 2*g5*(v11*v22 + v12*v21)
+    + 2*g5*(v11*v22 - v12*v21)
     - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
         * (e00*v11 + e01*v12 + e10*v21 + e11*v22)
     - (e00*vB1 + e01*vB2 + g1*v21 + g2*v22)
@@ -1210,7 +1210,7 @@ Lemma q1ab_residual_g5_only_decomp :
        - (e10*vB1 + e11*vB2) * (e10*vB1 + e11*vB2))
     +
     (v11*v11 + v12*v12 + v21*v21 + v22*v22
-       + 2*g5*(v11*v22 + v12*v21)
+       + 2*g5*(v11*v22 - v12*v21)
        - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
          * (e00*v11 + e01*v12 + e10*v21 + e11*v22)).
 Proof.
@@ -1270,8 +1270,8 @@ Qed.
 Definition q1ab_g5_caller_witness
   (e00 e01 e10 e11 g5 : RealNumber) : Prop :=
   -1 < g5 < 1 /\
-  (1 - g5) * ((e00 + e11)*(e00 + e11) + (e01 + e10)*(e01 + e10))
-  + (1 + g5) * ((e00 - e11)*(e00 - e11) + (e01 - e10)*(e01 - e10))
+  (1 - g5) * ((e00 + e11)*(e00 + e11) + (e01 - e10)*(e01 - e10))
+  + (1 + g5) * ((e00 - e11)*(e00 - e11) + (e01 + e10)*(e01 + e10))
   <= 2 * (1 - g5*g5).
 
 (** Sanity check. At γ_5 = 0 the witness collapses to the unit ball
@@ -1294,7 +1294,7 @@ Lemma q1ab_bottom_block_g5_nonneg :
   forall e00 e01 e10 e11 g5 v11 v12 v21 v22 : RealNumber,
     q1ab_g5_caller_witness e00 e01 e10 e11 g5 ->
     v11*v11 + v12*v12 + v21*v21 + v22*v22
-      + 2*g5*(v11*v22 + v12*v21)
+      + 2*g5*(v11*v22 - v12*v21)
       - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
         * (e00*v11 + e01*v12 + e10*v21 + e11*v22) >= 0.
 Proof.
@@ -1302,12 +1302,12 @@ Proof.
   destruct Hg5 as [Hg5m Hg5p].
   set (p1 := v11 + v22).
   set (p2 := v11 - v22).
-  set (q1 := v12 + v21).
-  set (q2 := v12 - v21).
+  set (q1 := v12 - v21).
+  set (q2 := v12 + v21).
   set (alpha := e00 + e11).
   set (beta_ := e00 - e11).
-  set (gamma_ := e01 + e10).
-  set (delta := e01 - e10).
+  set (gamma_ := e01 - e10).
+  set (delta := e01 + e10).
   set (A := 2 * (1 + g5)).
   set (B := 2 * (1 - g5)).
   assert (HA : 0 < A) by (unfold A; lra).
@@ -1316,7 +1316,7 @@ Proof.
   (* Polynomial identity: 4 × target = A·(p1²+q1²) + B·(p2²+q2²) − L². *)
   assert (Hrot :
     4 * (v11*v11 + v12*v12 + v21*v21 + v22*v22
-         + 2*g5*(v11*v22 + v12*v21)
+         + 2*g5*(v11*v22 - v12*v21)
          - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
            * (e00*v11 + e01*v12 + e10*v21 + e11*v22))
     = A * (p1*p1 + q1*q1) + B * (p2*p2 + q2*q2)
@@ -1397,7 +1397,7 @@ Lemma q1ab_g5_witness_strict_extension_exists :
     q1ab_g5_caller_witness e00 e01 e10 e11 g5 /\
     e00*e00 + e01*e01 + e10*e10 + e11*e11 > 1.
 Proof.
-  exists (3/5), (3/5), (3/5), (3/5), (1/2).
+  exists (9/10), 0, 0, (9/10), (7/10).
   split.
   - unfold q1ab_g5_caller_witness. split; [lra|nra].
   - nra.
@@ -1466,8 +1466,8 @@ Definition q1ab_g5_caller_witness_z_abs
       let Cneg := (D01 * N10 - D10 * N01)%Z in
       let n01n10sq := (N01 * N01 * (N10 * N10))%Z in
       let n00n11sq := (N00 * N00 * (N11 * N11))%Z in
-      let Xint := (Apos * Apos * n01n10sq + Cpos * Cpos * n00n11sq)%Z in
-      let Yint := (Aneg * Aneg * n01n10sq + Cneg * Cneg * n00n11sq)%Z in
+      let Xint := (Apos * Apos * n01n10sq + Cneg * Cneg * n00n11sq)%Z in
+      let Yint := (Aneg * Aneg * n01n10sq + Cpos * Cpos * n00n11sq)%Z in
       let Den2 := (n00n11sq * n01n10sq)%Z in
       (Dg5 * (Dg5 - Ng5) * Xint + Dg5 * (Dg5 + Ng5) * Yint
        <=? 2 * (Dg5 * Dg5 - Ng5 * Ng5) * Den2)%Z).
@@ -1537,8 +1537,8 @@ Proof.
     set (rCneg := (rD01 * rN10 - rD10 * rN01)%R).
     set (rN0011sq := (rN00 * rN00 * (rN11 * rN11))%R).
     set (rN0110sq := (rN01 * rN01 * (rN10 * rN10))%R).
-    set (rXintR := (rApos * rApos * rN0110sq + rCpos * rCpos * rN0011sq)%R).
-    set (rYintR := (rAneg * rAneg * rN0110sq + rCneg * rCneg * rN0011sq)%R).
+    set (rXintR := (rApos * rApos * rN0110sq + rCneg * rCneg * rN0011sq)%R).
+    set (rYintR := (rAneg * rAneg * rN0110sq + rCpos * rCpos * rN0011sq)%R).
     set (rDen2 := (rN0011sq * rN0110sq)%R).
     assert (HrN0011sqpos : (0 < rN0011sq)%R)
       by (unfold rN0011sq; repeat apply Rmult_lt_0_compat; nra).
@@ -1678,7 +1678,7 @@ Lemma q1ab_residual_g345_decomp :
      + 2 * (g3*v12 + g4*v22) * vB1
      + 2 * (g3*v11 + g4*v21) * vB2)
     + (v11*v11 + v12*v12 + v21*v21 + v22*v22
-       + 2*g5*(v11*v22 + v12*v21)
+       + 2*g5*(v11*v22 - v12*v21)
        - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
          * (e00*v11 + e01*v12 + e10*v21 + e11*v22)).
 Proof.
@@ -1738,7 +1738,7 @@ Definition q1ab_g345_caller_witness
   forall v11 v12 v21 v22 : RealNumber,
     det_M
     * (v11*v11 + v12*v12 + v21*v21 + v22*v22
-       + 2*g5*(v11*v22 + v12*v21)
+       + 2*g5*(v11*v22 - v12*v21)
        - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
          * (e00*v11 + e01*v12 + e10*v21 + e11*v22))
     >=
@@ -1765,7 +1765,7 @@ Proof.
            (g3*v12 + g4*v22)
            (g3*v11 + g4*v21)
            (v11*v11 + v12*v12 + v21*v21 + v22*v22
-            + 2*g5*(v11*v22 + v12*v21)
+            + 2*g5*(v11*v22 - v12*v21)
             - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
               * (e00*v11 + e01*v12 + e10*v21 + e11*v22))
            vB1 vB2).
@@ -2015,7 +2015,7 @@ Definition q345_H14 (e00 e01 e10 e11 g3 g4 g5 : RealNumber) : RealNumber :=
 Definition q345_H22 (e00 e01 e10 e11 g3 g4 g5 : RealNumber) : RealNumber :=
   q345_det_M e00 e01 e10 e11 * (1 - e01*e01) - q345_C_M e00 e01 e10 e11 * (g3*g3).
 Definition q345_H23 (e00 e01 e10 e11 g3 g4 g5 : RealNumber) : RealNumber :=
-  q345_det_M e00 e01 e10 e11 * (g5 - e01*e10) + q345_B e00 e01 e10 e11 * (g3*g4).
+  q345_det_M e00 e01 e10 e11 * (- g5 - e01*e10) + q345_B e00 e01 e10 e11 * (g3*g4).
 Definition q345_H24 (e00 e01 e10 e11 g3 g4 g5 : RealNumber) : RealNumber :=
   - (q345_det_M e00 e01 e10 e11) * (e01*e11) - q345_C_M e00 e01 e10 e11 * (g3*g4).
 Definition q345_H33 (e00 e01 e10 e11 g3 g4 g5 : RealNumber) : RealNumber :=
@@ -2043,7 +2043,7 @@ Lemma q345_sym4_qf_equals_diff :
     =
     q345_det_M e00 e01 e10 e11
       * (v11*v11 + v12*v12 + v21*v21 + v22*v22
-         + 2*g5*(v11*v22 + v12*v21)
+         + 2*g5*(v11*v22 - v12*v21)
          - (e00*v11 + e01*v12 + e10*v21 + e11*v22)
            * (e00*v11 + e01*v12 + e10*v21 + e11*v22))
     -
@@ -3499,7 +3499,7 @@ Definition q12345_H36 (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber) : RealNumber
 Definition q12345_H44 (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber) : RealNumber :=
   1 - e01*e01 - g2*g2.
 Definition q12345_H45 (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber) : RealNumber :=
-  g5 - e01*e10.
+  - g5 - e01*e10.
 Definition q12345_H46 (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber) : RealNumber :=
   -e01*e11.
 Definition q12345_H55 (e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber) : RealNumber :=
@@ -5314,3 +5314,54 @@ Proof.
              HDg1b HDg2b HDg3b HDg4b HDg5b).
     exact Hschur.
 Qed.
+
+(** ========================================================================
+    Section 17. Regression guard: the four-body conjugate-cell sign.
+
+    The two four-body cells of the Q_{1+AB} matrix are
+      (A_1B_1, A_2B_2) = <A_1 A_2 B_1 B_2> = g5
+      (A_1B_2, A_2B_1) = <A_1 A_2 B_2 B_1> = -g5
+    They are NEGATIVES, because under the matrix's own <B_1 B_2> = 0 (B_1 ⊥ B_2,
+    so {B_1,B_2}=0) one has <A_1A_2 B_2B_1> = -<A_1A_2 B_1B_2>. That minus sign
+    is the operator anticommutator that powers a CHSH violation.
+
+    Had both cells carried the SAME value (forcing B_1 B_2 = B_2 B_1, i.e.
+    commuting measurements), the certifiable region would collapse to the
+    classical polytope |S| <= 2 and the two facts below would be UNPROVABLE:
+    no super-classical correlator is PSD-completable when the cells coincide.
+    A [Print Assumptions] audit cannot see this — a true theorem about a
+    mislabeled matrix still passes. These computational guards can. *)
+
+(** The cells are conjugate (negatives), not equal. Reverting to +g5 breaks this. *)
+Example q1ab_four_body_cells_are_conjugate :
+  forall e00 e01 e10 e11 g1 g2 g3 g4 g5 : RealNumber,
+    q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5 j6 j7
+    = - q1ab_moment_matrix e00 e01 e10 e11 g1 g2 g3 g4 g5 j5 j8.
+Proof. intros; cbn; ring. Qed.
+
+(** Semantic guard: a concrete correlator with CHSH = 12/5 = 2.4 > 2 is
+    PSD-realizable in the 9x9 NPA Q_{1+AB} matrix. Unprovable on the pre-fix
+    matrix, where the symmetric Tsirelson point caps min-eigenvalue at 1 - √2. *)
+Example q1ab_certifies_a_superclassical_chsh_point :
+  (3/5 + 3/5 + 3/5 - (-3/5) > 2) /\
+  PSD9 (q1ab_moment_matrix (3/5) (3/5) (3/5) (-3/5) 0 0 0 0 (-1/2)).
+Proof.
+  split; [lra|].
+  apply q1ab_g5_caller_check_implies_psd9.
+  - unfold zero_marginal_column_contractive. repeat split; nra.
+  - unfold q1ab_g5_caller_witness. split; [lra|nra].
+Qed.
+
+(** Opcode-layer guard: the integer kernel decider that
+    [instr_chsh_lassert_1ab_g5] actually runs accepts buckets whose CHSH is
+    2.4 > 2 (correlators 3/5,3/5,3/5,-3/5 via same/diff = 4/1,4/1,4/1,1/4;
+    γ_5 = -1/2 via the bucket pair (1,3)). On the pre-fix decider this
+    evaluated to [false]. Pure computation. *)
+Example q1ab_g5_kernel_check_accepts_superclassical :
+  q1ab_g5_full_integer_check_kernel
+    {| wc_same_00 := 4; wc_diff_00 := 1;
+       wc_same_01 := 4; wc_diff_01 := 1;
+       wc_same_10 := 4; wc_diff_10 := 1;
+       wc_same_11 := 1; wc_diff_11 := 4 |}
+    1 3 = true.
+Proof. vm_compute. reflexivity. Qed.

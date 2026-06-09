@@ -2790,11 +2790,11 @@ module VMStep =
        let n00n11sq = Z.mul (Z.mul n00 n00) (Z.mul n11 n11) in
        let xint =
          Z.add (Z.mul (Z.mul apos apos) n01n10sq)
-           (Z.mul (Z.mul cpos cpos) n00n11sq)
+           (Z.mul (Z.mul cneg cneg) n00n11sq)
        in
        let yint =
          Z.add (Z.mul (Z.mul aneg aneg) n01n10sq)
-           (Z.mul (Z.mul cneg cneg) n00n11sq)
+           (Z.mul (Z.mul cpos cpos) n00n11sq)
        in
        let den2 = Z.mul n00n11sq n01n10sq in
        Z.leb
@@ -2966,7 +2966,9 @@ module VMStep =
     let detM = cleared_det_M_num d00 n00 d01 n01 d10 n10 d11 n11 in
     let b_n = cleared_B_num d00 n00 d01 n01 d10 n10 d11 n11 in
     Z.add
-      (Z.sub (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n10) dg3) dg4) detM) ng5)
+      (Z.sub
+        (Z.opp
+          (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul n01 n10) dg3) dg4) detM) ng5))
         (Z.mul (Z.mul (Z.mul (Z.mul (Z.mul dg3 dg4) dg5) detM) d01) d10))
       (Z.mul
         (Z.mul
@@ -3695,7 +3697,7 @@ module VMStep =
                         (Z.mul
                           (Z.mul (Z.mul (Z.mul (Z.mul n00 n00) n01) n10) n11)
                           n11) dg1) dg1) dg2) dg2) dg3) dg3) dg4) dg4) dg5)
-      (Z.sub (Z.mul (Z.mul ng5 n01) n10) (Z.mul (Z.mul d01 d10) dg5))
+      (Z.sub (Z.mul (Z.mul (Z.opp ng5) n01) n10) (Z.mul (Z.mul d01 d10) dg5))
 
   (** val cleared_g12345_H46_Z :
       int -> int -> int -> int -> int -> int -> int -> int -> int -> int ->

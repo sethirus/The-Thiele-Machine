@@ -1,12 +1,12 @@
 DIGEST 3dbdf6342409230618400f64e201623d
-FVerifierModel
+FTop.VerifierModel
 R1359:1362 Coq.Lists.List <> <> lib
 R1372:1384 Coq.Lists.List ListNotations <> mod
 R1415:1421 Kernel.VMState <> <> lib
-R1439:1457 NecessityOfMuLedger <> <> lib
+R1439:1457 Top.NecessityOfMuLedger <> <> lib
 def 1803:1816 <> BareTranscript
 R1828:1831 Coq.Init.Datatypes <> list ind
-R1833:1852 NecessityOfMuLedger <> StrictClassicalState rec
+R1833:1852 Top.NecessityOfMuLedger <> StrictClassicalState rec
 rec 2612:2634 <> BareVerificationProblem
 proj 2650:2666 <> bare_honest_claim
 proj 2692:2704 <> bare_explains
@@ -17,115 +17,115 @@ R2673:2679 Kernel.VMState <> VMState rec
 R2722:2725 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R2715:2721 Kernel.VMState <> VMState rec
 R2740:2743 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2726:2739 VerifierModel <> BareTranscript def
+R2726:2739 Top.VerifierModel <> BareTranscript def
 R2775:2777 Coq.Init.Datatypes <> nat ind
 R2805:2807 Coq.Init.Datatypes <> nat ind
 rec 3080:3091 <> BareVerifier
 proj 3106:3114 <> bv_decide
 proj 3144:3150 <> bv_cost
 R3132:3135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3118:3131 VerifierModel <> BareTranscript def
+R3118:3131 Top.VerifierModel <> BareTranscript def
 R3136:3139 Coq.Init.Datatypes <> bool ind
 R3170:3173 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3156:3169 VerifierModel <> BareTranscript def
+R3156:3169 Top.VerifierModel <> BareTranscript def
 R3174:3176 Coq.Init.Datatypes <> nat ind
 def 3896:3905 <> bare_cheap
-R3912:3934 VerifierModel <> BareVerificationProblem rec
+R3912:3934 Top.VerifierModel <> BareVerificationProblem rec
 binder 3908:3908 <> P:9
-R3942:3953 VerifierModel <> BareVerifier rec
+R3942:3953 Top.VerifierModel <> BareVerifier rec
 binder 3938:3938 <> V:10
 binder 3975:3975 <> t:11
 R3989:3992 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
-R3978:3984 VerifierModel <> bv_cost proj
-R3986:3986 VerifierModel <> V:10 var
-R3988:3988 VerifierModel <> t:11 var
-R3993:4009 VerifierModel <> bare_cheap_budget proj
-R4011:4011 VerifierModel <> P:9 var
+R3978:3984 Top.VerifierModel <> bv_cost proj
+R3986:3986 Top.VerifierModel <> V:10 var
+R3988:3988 Top.VerifierModel <> t:11 var
+R3993:4009 Top.VerifierModel <> bare_cheap_budget proj
+R4011:4011 Top.VerifierModel <> P:9 var
 def 4026:4035 <> bare_sound
-R4042:4064 VerifierModel <> BareVerificationProblem rec
+R4042:4064 Top.VerifierModel <> BareVerificationProblem rec
 binder 4038:4038 <> P:12
-R4072:4083 VerifierModel <> BareVerifier rec
+R4072:4083 Top.VerifierModel <> BareVerifier rec
 binder 4068:4068 <> V:13
 binder 4105:4105 <> t:14
 R4128:4135 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R4121:4123 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4108:4116 VerifierModel <> bv_decide proj
-R4118:4118 VerifierModel <> V:13 var
-R4120:4120 VerifierModel <> t:14 var
+R4108:4116 Top.VerifierModel <> bv_decide proj
+R4118:4118 Top.VerifierModel <> V:13 var
+R4120:4120 Top.VerifierModel <> t:14 var
 R4124:4127 Coq.Init.Datatypes <> true constr
 binder 4143:4143 <> s:15
 R4165:4168 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4146:4158 VerifierModel <> bare_explains proj
-R4160:4160 VerifierModel <> P:12 var
-R4162:4162 VerifierModel <> s:15 var
-R4164:4164 VerifierModel <> t:14 var
-R4169:4185 VerifierModel <> bare_honest_claim proj
-R4187:4187 VerifierModel <> P:12 var
-R4189:4189 VerifierModel <> s:15 var
+R4146:4158 Top.VerifierModel <> bare_explains proj
+R4160:4160 Top.VerifierModel <> P:12 var
+R4162:4162 Top.VerifierModel <> s:15 var
+R4164:4164 Top.VerifierModel <> t:14 var
+R4169:4185 Top.VerifierModel <> bare_honest_claim proj
+R4187:4187 Top.VerifierModel <> P:12 var
+R4189:4189 Top.VerifierModel <> s:15 var
 def 4204:4216 <> bare_complete
-R4223:4245 VerifierModel <> BareVerificationProblem rec
+R4223:4245 Top.VerifierModel <> BareVerificationProblem rec
 binder 4219:4219 <> P:16
-R4253:4264 VerifierModel <> BareVerifier rec
+R4253:4264 Top.VerifierModel <> BareVerifier rec
 binder 4249:4249 <> V:17
 binder 4286:4286 <> s:18
 binder 4288:4288 <> t:19
 R4316:4323 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4295:4311 VerifierModel <> bare_honest_claim proj
-R4313:4313 VerifierModel <> P:16 var
-R4315:4315 VerifierModel <> s:18 var
+R4295:4311 Top.VerifierModel <> bare_honest_claim proj
+R4313:4313 Top.VerifierModel <> P:16 var
+R4315:4315 Top.VerifierModel <> s:18 var
 R4343:4350 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4324:4336 VerifierModel <> bare_explains proj
-R4338:4338 VerifierModel <> P:16 var
-R4340:4340 VerifierModel <> s:18 var
-R4342:4342 VerifierModel <> t:19 var
+R4324:4336 Top.VerifierModel <> bare_explains proj
+R4338:4338 Top.VerifierModel <> P:16 var
+R4340:4340 Top.VerifierModel <> s:18 var
+R4342:4342 Top.VerifierModel <> t:19 var
 R4364:4366 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4351:4359 VerifierModel <> bv_decide proj
-R4361:4361 VerifierModel <> V:17 var
-R4363:4363 VerifierModel <> t:19 var
+R4351:4359 Top.VerifierModel <> bv_decide proj
+R4361:4361 Top.VerifierModel <> V:17 var
+R4363:4363 Top.VerifierModel <> t:19 var
 R4367:4370 Coq.Init.Datatypes <> true constr
 prf 4922:4941 <> bare_decide_eq_trans
-R4959:4970 VerifierModel <> BareVerifier rec
+R4959:4970 Top.VerifierModel <> BareVerifier rec
 binder 4955:4955 <> V:20
-R4982:4995 VerifierModel <> BareTranscript def
+R4982:4995 Top.VerifierModel <> BareTranscript def
 binder 4974:4975 <> t1:21
 binder 4977:4978 <> t2:22
 R5010:5013 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R5005:5007 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5003:5004 VerifierModel <> t1:21 var
-R5008:5009 VerifierModel <> t2:22 var
+R5003:5004 Top.VerifierModel <> t1:21 var
+R5008:5009 Top.VerifierModel <> t2:22 var
 R5028:5030 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5014:5022 VerifierModel <> bv_decide proj
-R5024:5024 VerifierModel <> V:20 var
-R5026:5027 VerifierModel <> t1:21 var
-R5031:5039 VerifierModel <> bv_decide proj
-R5041:5041 VerifierModel <> V:20 var
-R5043:5044 VerifierModel <> t2:22 var
+R5014:5022 Top.VerifierModel <> bv_decide proj
+R5024:5024 Top.VerifierModel <> V:20 var
+R5026:5027 Top.VerifierModel <> t1:21 var
+R5031:5039 Top.VerifierModel <> bv_decide proj
+R5041:5041 Top.VerifierModel <> V:20 var
+R5043:5044 Top.VerifierModel <> t2:22 var
 prf 5241:5265 <> bare_sound_contrapositive
-R5283:5305 VerifierModel <> BareVerificationProblem rec
+R5283:5305 Top.VerifierModel <> BareVerificationProblem rec
 binder 5279:5279 <> P:23
-R5313:5324 VerifierModel <> BareVerifier rec
+R5313:5324 Top.VerifierModel <> BareVerifier rec
 binder 5309:5309 <> V:24
 R5346:5353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5332:5341 VerifierModel <> bare_sound def
-R5343:5343 VerifierModel <> P:23 var
-R5345:5345 VerifierModel <> V:24 var
+R5332:5341 Top.VerifierModel <> bare_sound def
+R5343:5343 Top.VerifierModel <> P:23 var
+R5345:5345 Top.VerifierModel <> V:24 var
 binder 5361:5361 <> t:25
 binder 5363:5363 <> s:26
 R5391:5400 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5372:5384 VerifierModel <> bare_explains proj
-R5386:5386 VerifierModel <> P:23 var
-R5388:5388 VerifierModel <> s:26 var
-R5390:5390 VerifierModel <> t:25 var
+R5372:5384 Top.VerifierModel <> bare_explains proj
+R5386:5386 Top.VerifierModel <> P:23 var
+R5388:5388 Top.VerifierModel <> s:26 var
+R5390:5390 Top.VerifierModel <> t:25 var
 R5424:5433 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R5401:5402 Coq.Init.Logic <> ::type_scope:'~'_x not
-R5403:5419 VerifierModel <> bare_honest_claim proj
-R5421:5421 VerifierModel <> P:23 var
-R5423:5423 VerifierModel <> s:26 var
+R5403:5419 Top.VerifierModel <> bare_honest_claim proj
+R5421:5421 Top.VerifierModel <> P:23 var
+R5423:5423 Top.VerifierModel <> s:26 var
 R5447:5449 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5434:5442 VerifierModel <> bv_decide proj
-R5444:5444 VerifierModel <> V:24 var
-R5446:5446 VerifierModel <> t:25 var
+R5434:5442 Top.VerifierModel <> bv_decide proj
+R5444:5444 Top.VerifierModel <> V:24 var
+R5446:5446 Top.VerifierModel <> t:25 var
 R5450:5454 Coq.Init.Datatypes <> false constr
-R5514:5522 VerifierModel <> bv_decide proj
-R5514:5522 VerifierModel <> bv_decide proj
-R5630:5654 VerifierModel <> bare_sound_contrapositive thm
+R5514:5522 Top.VerifierModel <> bv_decide proj
+R5514:5522 Top.VerifierModel <> bv_decide proj
+R5630:5654 Top.VerifierModel <> bare_sound_contrapositive thm

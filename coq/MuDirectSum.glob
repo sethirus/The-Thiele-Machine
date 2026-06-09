@@ -1,5 +1,5 @@
 DIGEST dbaf427fe66599ef73721bb9ac190cbc
-FMuDirectSum
+FTop.MuDirectSum
 R1521:1524 Coq.Lists.List <> <> lib
 R1526:1539 Coq.Arith.PeanoNat <> <> lib
 R1541:1543 Coq.micromega.Lia <> <> lib
@@ -21,32 +21,32 @@ binder 2100:2104 <> trace:4
 R2149:2156 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R2139:2141 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R2111:2116 Kernel.SimulationProof <> run_vm def
-R2118:2121 MuDirectSum <> fuel:3 var
-R2123:2127 MuDirectSum <> trace:4 var
+R2118:2121 Top.MuDirectSum <> fuel:3 var
+R2123:2127 Top.MuDirectSum <> trace:4 var
 R2129:2138 Kernel.MuInitiality <> init_state def
-R2142:2148 MuDirectSum <> s_final:2 var
+R2142:2148 Top.MuDirectSum <> s_final:2 var
 R2186:2193 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R2179:2181 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R2166:2177 Kernel.VMState <> vm_certified proj
-R2157:2163 MuDirectSum <> s_final:2 var
+R2157:2163 Top.MuDirectSum <> s_final:2 var
 R2182:2185 Coq.Init.Datatypes <> true constr
 R2238:2241 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
 R2194:2215 Kernel.MuShannonBridge <> cert_setter_executions def
-R2217:2220 MuDirectSum <> fuel:3 var
-R2222:2226 MuDirectSum <> trace:4 var
+R2217:2220 Top.MuDirectSum <> fuel:3 var
+R2222:2226 Top.MuDirectSum <> trace:4 var
 R2228:2237 Kernel.MuInitiality <> init_state def
-R2242:2242 MuDirectSum <> k:1 var
+R2242:2242 Top.MuDirectSum <> k:1 var
 def 2429:2453 <> cert_disjoint_independent
 R2468:2470 Coq.Init.Datatypes <> nat ind
 binder 2460:2461 <> k1:5
 binder 2463:2464 <> k2:6
 R2484:2490 Kernel.VMState <> VMState rec
 binder 2474:2480 <> s_final:7
-R2505:2527 MuDirectSum <> cert_events_required_by def
+R2505:2527 Top.MuDirectSum <> cert_events_required_by def
 R2532:2534 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R2530:2531 MuDirectSum <> k1:5 var
-R2535:2536 MuDirectSum <> k2:6 var
-R2539:2545 MuDirectSum <> s_final:7 var
+R2530:2531 Top.MuDirectSum <> k1:5 var
+R2535:2536 Top.MuDirectSum <> k2:6 var
+R2539:2545 Top.MuDirectSum <> s_final:7 var
 prf 2945:2966 <> direct_sum_lower_bound
 R2988:2990 Coq.Init.Datatypes <> nat ind
 binder 2980:2981 <> k1:8
@@ -54,30 +54,30 @@ binder 2983:2984 <> k2:9
 R3004:3010 Kernel.VMState <> VMState rec
 binder 2994:3000 <> s_final:10
 R3057:3064 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3018:3042 MuDirectSum <> cert_disjoint_independent def
-R3044:3045 MuDirectSum <> k1:8 var
-R3047:3048 MuDirectSum <> k2:9 var
-R3050:3056 MuDirectSum <> s_final:10 var
+R3018:3042 Top.MuDirectSum <> cert_disjoint_independent def
+R3044:3045 Top.MuDirectSum <> k1:8 var
+R3047:3048 Top.MuDirectSum <> k2:9 var
+R3050:3056 Top.MuDirectSum <> s_final:10 var
 R3094:3101 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R3087:3089 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R3074:3085 Kernel.VMState <> vm_certified proj
-R3065:3071 MuDirectSum <> s_final:10 var
+R3065:3071 Top.MuDirectSum <> s_final:10 var
 R3090:3093 Coq.Init.Datatypes <> true constr
 binder 3109:3112 <> fuel:11
 binder 3114:3118 <> trace:12
 R3165:3174 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R3155:3157 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R3127:3132 Kernel.SimulationProof <> run_vm def
-R3134:3137 MuDirectSum <> fuel:11 var
-R3139:3143 MuDirectSum <> trace:12 var
+R3134:3137 Top.MuDirectSum <> fuel:11 var
+R3139:3143 Top.MuDirectSum <> trace:12 var
 R3145:3154 Kernel.MuInitiality <> init_state def
-R3158:3164 MuDirectSum <> s_final:10 var
+R3158:3164 Top.MuDirectSum <> s_final:10 var
 R3190:3193 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
 R3184:3188 Kernel.VMState <> vm_mu proj
-R3175:3181 MuDirectSum <> s_final:10 var
+R3175:3181 Top.MuDirectSum <> s_final:10 var
 R3196:3198 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
-R3194:3195 MuDirectSum <> k1:8 var
-R3199:3200 MuDirectSum <> k2:9 var
+R3194:3195 Top.MuDirectSum <> k1:8 var
+R3199:3200 Top.MuDirectSum <> k2:9 var
 R3333:3365 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
 R3378:3387 Kernel.MuInitiality <> init_state def
 R3333:3365 Kernel.MuShannonBridge <> info_priced_cert_executions_bound thm
@@ -93,31 +93,31 @@ R4124:4130 Kernel.VMState <> VMState rec
 binder 4120:4120 <> s:13
 R4159:4161 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R4146:4157 Kernel.VMState <> vm_certified proj
-R4143:4143 MuDirectSum <> s:13 var
+R4143:4143 Top.MuDirectSum <> s:13 var
 R4162:4165 Coq.Init.Datatypes <> true constr
 def 4179:4188 <> nonzero_mu
 R4195:4201 Kernel.VMState <> VMState rec
 binder 4191:4191 <> s:14
 R4223:4226 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
 R4217:4221 Kernel.VMState <> vm_mu proj
-R4214:4214 MuDirectSum <> s:14 var
+R4214:4214 Top.MuDirectSum <> s:14 var
 def 4275:4290 <> amortizing_state
 R4294:4300 Kernel.VMState <> VMState rec
 R4307:4314 Kernel.SimulationProof <> vm_apply def
 R4316:4325 Kernel.MuInitiality <> init_state def
 R4328:4340 Kernel.VMStep VMStep instr_certify constr
 prf 4353:4381 <> amortizing_state_is_certified
-R4385:4396 MuDirectSum <> is_certified def
-R4398:4413 MuDirectSum <> amortizing_state def
-R4432:4443 MuDirectSum <> is_certified def
-R4446:4461 MuDirectSum <> amortizing_state def
+R4385:4396 Top.MuDirectSum <> is_certified def
+R4398:4413 Top.MuDirectSum <> amortizing_state def
+R4432:4443 Top.MuDirectSum <> is_certified def
+R4446:4461 Top.MuDirectSum <> amortizing_state def
 R4472:4502 Kernel.MuHierarchyTheorem <> vm_apply_certify_sets_certified thm
 R4472:4502 Kernel.MuHierarchyTheorem <> vm_apply_certify_sets_certified thm
 prf 4517:4543 <> amortizing_state_nonzero_mu
-R4547:4556 MuDirectSum <> nonzero_mu def
-R4558:4573 MuDirectSum <> amortizing_state def
-R4592:4601 MuDirectSum <> nonzero_mu def
-R4604:4619 MuDirectSum <> amortizing_state def
+R4547:4556 Top.MuDirectSum <> nonzero_mu def
+R4558:4573 Top.MuDirectSum <> amortizing_state def
+R4592:4601 Top.MuDirectSum <> nonzero_mu def
+R4604:4619 Top.MuDirectSum <> amortizing_state def
 R4632:4642 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R4632:4642 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R4632:4642 Kernel.MuLedgerConservation <> vm_apply_mu thm
@@ -127,19 +127,19 @@ R4682:4699 Kernel.MuInitiality <> init_state_mu_zero thm
 R4682:4699 Kernel.MuInitiality <> init_state_mu_zero thm
 prf 4999:5019 <> amortization_succeeds
 R5054:5059 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5025:5036 MuDirectSum <> is_certified def
-R5038:5053 MuDirectSum <> amortizing_state def
+R5025:5036 Top.MuDirectSum <> is_certified def
+R5038:5053 Top.MuDirectSum <> amortizing_state def
 R5087:5092 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5060:5069 MuDirectSum <> nonzero_mu def
-R5071:5086 MuDirectSum <> amortizing_state def
+R5060:5069 Top.MuDirectSum <> nonzero_mu def
+R5071:5086 Top.MuDirectSum <> amortizing_state def
 R5117:5119 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R5111:5115 Kernel.VMState <> vm_mu proj
-R5093:5108 MuDirectSum <> amortizing_state def
-R5159:5187 MuDirectSum <> amortizing_state_is_certified thm
-R5159:5187 MuDirectSum <> amortizing_state_is_certified thm
-R5200:5226 MuDirectSum <> amortizing_state_nonzero_mu thm
-R5200:5226 MuDirectSum <> amortizing_state_nonzero_mu thm
-R5240:5255 MuDirectSum <> amortizing_state def
+R5093:5108 Top.MuDirectSum <> amortizing_state def
+R5159:5187 Top.MuDirectSum <> amortizing_state_is_certified thm
+R5159:5187 Top.MuDirectSum <> amortizing_state_is_certified thm
+R5200:5226 Top.MuDirectSum <> amortizing_state_nonzero_mu thm
+R5200:5226 Top.MuDirectSum <> amortizing_state_nonzero_mu thm
+R5240:5255 Top.MuDirectSum <> amortizing_state def
 R5266:5276 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R5266:5276 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R5266:5276 Kernel.MuLedgerConservation <> vm_apply_mu thm
@@ -147,5 +147,5 @@ R5290:5305 Kernel.VMStep VMStep instruction_cost def
 R5316:5333 Kernel.MuInitiality <> init_state_mu_zero thm
 R5316:5333 Kernel.MuInitiality <> init_state_mu_zero thm
 R5316:5333 Kernel.MuInitiality <> init_state_mu_zero thm
-R5384:5405 MuDirectSum <> direct_sum_lower_bound thm
-R5426:5446 MuDirectSum <> amortization_succeeds thm
+R5384:5405 Top.MuDirectSum <> direct_sum_lower_bound thm
+R5426:5446 Top.MuDirectSum <> amortization_succeeds thm

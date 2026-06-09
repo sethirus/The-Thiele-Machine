@@ -1,5 +1,5 @@
 DIGEST 9151a24311a23161a44fa86f7b1eb97b
-FMuCodingTheorem
+FTop.MuCodingTheorem
 R1012:1015 Coq.Lists.List <> <> lib
 R1017:1030 Coq.Arith.PeanoNat <> <> lib
 R1032:1034 Coq.micromega.Lia <> <> lib
@@ -17,17 +17,17 @@ R1807:1810 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R1800:1806 Kernel.VMState <> VMState rec
 R1811:1814 Coq.Init.Datatypes <> bool ind
 def 1831:1838 <> holds_at
-R1845:1860 MuCodingTheorem <> CertifiableClaim rec
+R1845:1860 Top.MuCodingTheorem <> CertifiableClaim rec
 binder 1841:1841 <> P:3
 R1868:1874 Kernel.VMState <> VMState rec
 binder 1864:1864 <> s:4
 R1901:1903 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R1889:1896 MuCodingTheorem <> ccl_pred proj
-R1898:1898 MuCodingTheorem <> P:3 var
-R1900:1900 MuCodingTheorem <> s:4 var
+R1889:1896 Top.MuCodingTheorem <> ccl_pred proj
+R1898:1898 Top.MuCodingTheorem <> P:3 var
+R1900:1900 Top.MuCodingTheorem <> s:4 var
 R1904:1907 Coq.Init.Datatypes <> true constr
 def 2035:2049 <> certifies_claim
-R2060:2075 MuCodingTheorem <> CertifiableClaim rec
+R2060:2075 Top.MuCodingTheorem <> CertifiableClaim rec
 binder 2056:2056 <> P:5
 R2088:2094 Kernel.VMState <> VMState rec
 binder 2079:2084 <> s_init:6
@@ -36,15 +36,15 @@ binder 2098:2102 <> instr:7
 R2162:2167 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
 R2155:2157 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R2134:2148 Kernel.VMStep VMStep is_cert_setterb def
-R2150:2154 MuCodingTheorem <> instr:7 var
+R2150:2154 Top.MuCodingTheorem <> instr:7 var
 R2158:2161 Coq.Init.Datatypes <> true constr
-R2168:2175 MuCodingTheorem <> holds_at def
-R2177:2177 MuCodingTheorem <> P:5 var
+R2168:2175 Top.MuCodingTheorem <> holds_at def
+R2177:2177 Top.MuCodingTheorem <> P:5 var
 R2180:2187 Kernel.SimulationProof <> vm_apply def
-R2189:2194 MuCodingTheorem <> s_init:6 var
-R2196:2200 MuCodingTheorem <> instr:7 var
+R2189:2194 Top.MuCodingTheorem <> s_init:6 var
+R2196:2200 Top.MuCodingTheorem <> instr:7 var
 def 2755:2780 <> intrinsic_payload_at_least
-R2791:2806 MuCodingTheorem <> CertifiableClaim rec
+R2791:2806 Top.MuCodingTheorem <> CertifiableClaim rec
 binder 2787:2787 <> P:8
 R2814:2816 Coq.Init.Datatypes <> nat ind
 binder 2810:2810 <> k:9
@@ -53,16 +53,16 @@ binder 2839:2844 <> s_init:10
 R2866:2879 Kernel.VMStep VMStep vm_instruction ind
 binder 2858:2862 <> instr:11
 R2917:2924 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2887:2901 MuCodingTheorem <> certifies_claim def
-R2903:2903 MuCodingTheorem <> P:8 var
-R2905:2910 MuCodingTheorem <> s_init:10 var
-R2912:2916 MuCodingTheorem <> instr:11 var
+R2887:2901 Top.MuCodingTheorem <> certifies_claim def
+R2903:2903 Top.MuCodingTheorem <> P:8 var
+R2905:2910 Top.MuCodingTheorem <> s_init:10 var
+R2912:2916 Top.MuCodingTheorem <> instr:11 var
 R2958:2961 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
 R2925:2951 Kernel.MuChaitin MuChaitin cert_payload_size def
-R2953:2957 MuCodingTheorem <> instr:11 var
-R2962:2962 MuCodingTheorem <> k:9 var
+R2953:2957 Top.MuCodingTheorem <> instr:11 var
+R2962:2962 Top.MuCodingTheorem <> k:9 var
 def 2977:3001 <> intrinsic_payload_at_most
-R3012:3027 MuCodingTheorem <> CertifiableClaim rec
+R3012:3027 Top.MuCodingTheorem <> CertifiableClaim rec
 binder 3008:3008 <> P:12
 R3035:3037 Coq.Init.Datatypes <> nat ind
 binder 3031:3031 <> k:13
@@ -73,26 +73,26 @@ binder 3060:3065 <> s_init:14
 R3087:3100 Kernel.VMStep VMStep vm_instruction ind
 binder 3079:3083 <> instr:15
 R3138:3145 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3108:3122 MuCodingTheorem <> certifies_claim def
-R3124:3124 MuCodingTheorem <> P:12 var
-R3126:3131 MuCodingTheorem <> s_init:14 var
-R3133:3137 MuCodingTheorem <> instr:15 var
+R3108:3122 Top.MuCodingTheorem <> certifies_claim def
+R3124:3124 Top.MuCodingTheorem <> P:12 var
+R3126:3131 Top.MuCodingTheorem <> s_init:14 var
+R3133:3137 Top.MuCodingTheorem <> instr:15 var
 R3179:3182 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
 R3146:3172 Kernel.MuChaitin MuChaitin cert_payload_size def
-R3174:3178 MuCodingTheorem <> instr:15 var
-R3183:3183 MuCodingTheorem <> k:13 var
+R3174:3178 Top.MuCodingTheorem <> instr:15 var
+R3183:3183 Top.MuCodingTheorem <> k:13 var
 def 3198:3220 <> intrinsic_payload_tight
-R3231:3246 MuCodingTheorem <> CertifiableClaim rec
+R3231:3246 Top.MuCodingTheorem <> CertifiableClaim rec
 binder 3227:3227 <> P:16
 R3254:3256 Coq.Init.Datatypes <> nat ind
 binder 3250:3250 <> k:17
 R3301:3306 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3271:3296 MuCodingTheorem <> intrinsic_payload_at_least def
-R3298:3298 MuCodingTheorem <> P:16 var
-R3300:3300 MuCodingTheorem <> k:17 var
-R3307:3331 MuCodingTheorem <> intrinsic_payload_at_most def
-R3333:3333 MuCodingTheorem <> P:16 var
-R3335:3335 MuCodingTheorem <> k:17 var
+R3271:3296 Top.MuCodingTheorem <> intrinsic_payload_at_least def
+R3298:3298 Top.MuCodingTheorem <> P:16 var
+R3300:3300 Top.MuCodingTheorem <> k:17 var
+R3307:3331 Top.MuCodingTheorem <> intrinsic_payload_at_most def
+R3333:3333 Top.MuCodingTheorem <> P:16 var
+R3335:3335 Top.MuCodingTheorem <> k:17 var
 def 3477:3488 <> mu_eq_k_pred
 R3495:3497 Coq.Init.Datatypes <> nat ind
 binder 3491:3491 <> k:18
@@ -101,31 +101,31 @@ binder 3501:3501 <> s:19
 R3516:3519 Coq.Init.Datatypes <> bool ind
 R3526:3532 Coq.Arith.PeanoNat Nat eqb def
 R3537:3541 Kernel.VMState <> vm_mu proj
-R3534:3534 MuCodingTheorem <> s:19 var
-R3544:3544 MuCodingTheorem <> k:18 var
+R3534:3534 Top.MuCodingTheorem <> s:19 var
+R3544:3544 Top.MuCodingTheorem <> k:18 var
 def 3559:3571 <> mu_eq_k_claim
 R3578:3580 Coq.Init.Datatypes <> nat ind
 binder 3574:3574 <> k:20
-R3585:3600 MuCodingTheorem <> CertifiableClaim rec
-R3607:3612 MuCodingTheorem <> mk_ccl constr
-R3615:3626 MuCodingTheorem <> mu_eq_k_pred def
-R3628:3628 MuCodingTheorem <> k:20 var
+R3585:3600 Top.MuCodingTheorem <> CertifiableClaim rec
+R3607:3612 Top.MuCodingTheorem <> mk_ccl constr
+R3615:3626 Top.MuCodingTheorem <> mu_eq_k_pred def
+R3628:3628 Top.MuCodingTheorem <> k:20 var
 prf 3639:3651 <> holds_mu_eq_k
 binder 3664:3664 <> k:21
 binder 3666:3666 <> s:22
 R3697:3701 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
-R3669:3676 MuCodingTheorem <> holds_at def
-R3679:3691 MuCodingTheorem <> mu_eq_k_claim def
-R3693:3693 MuCodingTheorem <> k:21 var
-R3696:3696 MuCodingTheorem <> s:22 var
+R3669:3676 Top.MuCodingTheorem <> holds_at def
+R3679:3691 Top.MuCodingTheorem <> mu_eq_k_claim def
+R3693:3693 Top.MuCodingTheorem <> k:21 var
+R3696:3696 Top.MuCodingTheorem <> s:22 var
 R3711:3713 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R3705:3709 Kernel.VMState <> vm_mu proj
-R3702:3702 MuCodingTheorem <> s:22 var
-R3714:3714 MuCodingTheorem <> k:21 var
-R3741:3748 MuCodingTheorem <> holds_at def
-R3751:3763 MuCodingTheorem <> mu_eq_k_claim def
-R3766:3773 MuCodingTheorem <> ccl_pred proj
-R3776:3787 MuCodingTheorem <> mu_eq_k_pred def
+R3702:3702 Top.MuCodingTheorem <> s:22 var
+R3714:3714 Top.MuCodingTheorem <> k:21 var
+R3741:3748 Top.MuCodingTheorem <> holds_at def
+R3751:3763 Top.MuCodingTheorem <> mu_eq_k_claim def
+R3766:3773 Top.MuCodingTheorem <> ccl_pred proj
+R3776:3787 Top.MuCodingTheorem <> mu_eq_k_pred def
 R3809:3818 Coq.Arith.PeanoNat Nat eqb_eq thm
 R3809:3818 Coq.Arith.PeanoNat Nat eqb_eq thm
 R3840:3849 Coq.Arith.PeanoNat Nat eqb_eq thm
@@ -135,8 +135,8 @@ binder 4040:4044 <> delta:23
 R4096:4098 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R4047:4073 Kernel.MuChaitin MuChaitin cert_payload_size def
 R4076:4088 Kernel.VMStep VMStep instr_certify constr
-R4090:4094 MuCodingTheorem <> delta:23 var
-R4099:4103 MuCodingTheorem <> delta:23 var
+R4090:4094 Top.MuCodingTheorem <> delta:23 var
+R4099:4103 Top.MuCodingTheorem <> delta:23 var
 prf 4146:4174 <> vm_apply_certify_mu_from_init
 binder 4187:4191 <> delta:24
 R4249:4251 Coq.Init.Logic <> ::type_scope:x_'='_x not
@@ -144,9 +144,9 @@ R4243:4247 Kernel.VMState <> vm_mu proj
 R4199:4206 Kernel.SimulationProof <> vm_apply def
 R4208:4217 Kernel.MuInitiality <> init_state def
 R4220:4232 Kernel.VMStep VMStep instr_certify constr
-R4234:4238 MuCodingTheorem <> delta:24 var
+R4234:4238 Top.MuCodingTheorem <> delta:24 var
 R4252:4252 Coq.Init.Datatypes <> S constr
-R4254:4258 MuCodingTheorem <> delta:24 var
+R4254:4258 Top.MuCodingTheorem <> delta:24 var
 R4294:4304 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R4294:4304 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R4294:4304 Kernel.MuLedgerConservation <> vm_apply_mu thm
@@ -158,68 +158,68 @@ prf 4538:4556 <> mu_eq_k_upper_bound
 binder 4569:4569 <> k:25
 R4578:4585 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R4573:4576 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R4572:4572 MuCodingTheorem <> k:25 var
-R4586:4610 MuCodingTheorem <> intrinsic_payload_at_most def
-R4613:4625 MuCodingTheorem <> mu_eq_k_claim def
-R4627:4627 MuCodingTheorem <> k:25 var
+R4572:4572 Top.MuCodingTheorem <> k:25 var
+R4586:4610 Top.MuCodingTheorem <> intrinsic_payload_at_most def
+R4613:4625 Top.MuCodingTheorem <> mu_eq_k_claim def
+R4627:4627 Top.MuCodingTheorem <> k:25 var
 R4632:4634 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R4631:4631 MuCodingTheorem <> k:25 var
+R4631:4631 Top.MuCodingTheorem <> k:25 var
 R4670:4679 Kernel.MuInitiality <> init_state def
 R4683:4695 Kernel.VMStep VMStep instr_certify constr
 R4699:4701 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
 R4670:4679 Kernel.MuInitiality <> init_state def
 R4683:4695 Kernel.VMStep VMStep instr_certify constr
 R4699:4701 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R4758:4770 MuCodingTheorem <> holds_mu_eq_k thm
-R4758:4770 MuCodingTheorem <> holds_mu_eq_k thm
-R4787:4815 MuCodingTheorem <> vm_apply_certify_mu_from_init thm
-R4787:4815 MuCodingTheorem <> vm_apply_certify_mu_from_init thm
-R4787:4815 MuCodingTheorem <> vm_apply_certify_mu_from_init thm
-R4835:4869 MuCodingTheorem <> certify_instruction_cost_payload_eq thm
-R4835:4869 MuCodingTheorem <> certify_instruction_cost_payload_eq thm
-R4835:4869 MuCodingTheorem <> certify_instruction_cost_payload_eq thm
+R4758:4770 Top.MuCodingTheorem <> holds_mu_eq_k thm
+R4758:4770 Top.MuCodingTheorem <> holds_mu_eq_k thm
+R4787:4815 Top.MuCodingTheorem <> vm_apply_certify_mu_from_init thm
+R4787:4815 Top.MuCodingTheorem <> vm_apply_certify_mu_from_init thm
+R4787:4815 Top.MuCodingTheorem <> vm_apply_certify_mu_from_init thm
+R4835:4869 Top.MuCodingTheorem <> certify_instruction_cost_payload_eq thm
+R4835:4869 Top.MuCodingTheorem <> certify_instruction_cost_payload_eq thm
+R4835:4869 Top.MuCodingTheorem <> certify_instruction_cost_payload_eq thm
 def 6164:6177 <> cert_priced_eq
 R6188:6201 Kernel.VMStep VMStep vm_instruction ind
 binder 6180:6184 <> instr:26
 R6244:6249 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R6237:6239 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R6216:6230 Kernel.VMStep VMStep is_cert_setterb def
-R6232:6236 MuCodingTheorem <> instr:26 var
+R6232:6236 Top.MuCodingTheorem <> instr:26 var
 R6240:6243 Coq.Init.Datatypes <> true constr
 R6272:6274 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R6250:6265 Kernel.VMStep VMStep instruction_cost def
-R6267:6271 MuCodingTheorem <> instr:26 var
+R6267:6271 Top.MuCodingTheorem <> instr:26 var
 R6275:6275 Coq.Init.Datatypes <> S constr
 R6278:6304 Kernel.MuChaitin MuChaitin cert_payload_size def
-R6306:6310 MuCodingTheorem <> instr:26 var
+R6306:6310 Top.MuCodingTheorem <> instr:26 var
 prf 6524:6546 <> instr_certify_priced_eq
 binder 6559:6563 <> delta:27
-R6566:6579 MuCodingTheorem <> cert_priced_eq def
+R6566:6579 Top.MuCodingTheorem <> cert_priced_eq def
 R6582:6594 Kernel.VMStep VMStep instr_certify constr
-R6596:6600 MuCodingTheorem <> delta:27 var
+R6596:6600 Top.MuCodingTheorem <> delta:27 var
 prf 6663:6681 <> mu_eq_k_lower_bound
 binder 6694:6694 <> k:28
 R6703:6710 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R6698:6701 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R6697:6697 MuCodingTheorem <> k:28 var
+R6697:6697 Top.MuCodingTheorem <> k:28 var
 R6727:6740 Kernel.VMStep VMStep vm_instruction ind
 binder 6719:6723 <> instr:29
 R6770:6779 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6750:6763 MuCodingTheorem <> cert_priced_eq def
-R6765:6769 MuCodingTheorem <> instr:29 var
+R6750:6763 Top.MuCodingTheorem <> cert_priced_eq def
+R6765:6769 Top.MuCodingTheorem <> instr:29 var
 R6830:6839 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6780:6794 MuCodingTheorem <> certifies_claim def
-R6797:6809 MuCodingTheorem <> mu_eq_k_claim def
-R6811:6811 MuCodingTheorem <> k:28 var
+R6780:6794 Top.MuCodingTheorem <> certifies_claim def
+R6797:6809 Top.MuCodingTheorem <> mu_eq_k_claim def
+R6811:6811 Top.MuCodingTheorem <> k:28 var
 R6814:6823 Kernel.MuInitiality <> init_state def
-R6825:6829 MuCodingTheorem <> instr:29 var
+R6825:6829 Top.MuCodingTheorem <> instr:29 var
 R6873:6876 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
 R6840:6866 Kernel.MuChaitin MuChaitin cert_payload_size def
-R6868:6872 MuCodingTheorem <> instr:29 var
+R6868:6872 Top.MuCodingTheorem <> instr:29 var
 R6878:6880 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R6877:6877 MuCodingTheorem <> k:28 var
-R6945:6957 MuCodingTheorem <> holds_mu_eq_k thm
-R6945:6957 MuCodingTheorem <> holds_mu_eq_k thm
+R6877:6877 Top.MuCodingTheorem <> k:28 var
+R6945:6957 Top.MuCodingTheorem <> holds_mu_eq_k thm
+R6945:6957 Top.MuCodingTheorem <> holds_mu_eq_k thm
 R6980:6990 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R6980:6990 Kernel.MuLedgerConservation <> vm_apply_mu thm
 R6980:6990 Kernel.MuLedgerConservation <> vm_apply_mu thm
@@ -227,7 +227,7 @@ R7013:7030 Kernel.MuInitiality <> init_state_mu_zero thm
 R7013:7030 Kernel.MuInitiality <> init_state_mu_zero thm
 R7013:7030 Kernel.MuInitiality <> init_state_mu_zero thm
 def 7502:7534 <> intrinsic_payload_at_least_priced
-R7545:7560 MuCodingTheorem <> CertifiableClaim rec
+R7545:7560 Top.MuCodingTheorem <> CertifiableClaim rec
 binder 7541:7541 <> P:30
 R7568:7570 Coq.Init.Datatypes <> nat ind
 binder 7564:7564 <> k:31
@@ -236,26 +236,26 @@ binder 7593:7598 <> s_init:32
 R7620:7633 Kernel.VMStep VMStep vm_instruction ind
 binder 7612:7616 <> instr:33
 R7661:7668 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7641:7654 MuCodingTheorem <> cert_priced_eq def
-R7656:7660 MuCodingTheorem <> instr:33 var
+R7641:7654 Top.MuCodingTheorem <> cert_priced_eq def
+R7656:7660 Top.MuCodingTheorem <> instr:33 var
 R7688:7695 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R7675:7677 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7669:7674 MuCodingTheorem <> s_init:32 var
+R7669:7674 Top.MuCodingTheorem <> s_init:32 var
 R7678:7687 Kernel.MuInitiality <> init_state def
 R7726:7733 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7696:7710 MuCodingTheorem <> certifies_claim def
-R7712:7712 MuCodingTheorem <> P:30 var
-R7714:7719 MuCodingTheorem <> s_init:32 var
-R7721:7725 MuCodingTheorem <> instr:33 var
+R7696:7710 Top.MuCodingTheorem <> certifies_claim def
+R7712:7712 Top.MuCodingTheorem <> P:30 var
+R7714:7719 Top.MuCodingTheorem <> s_init:32 var
+R7721:7725 Top.MuCodingTheorem <> instr:33 var
 R7767:7770 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
 R7734:7760 Kernel.MuChaitin MuChaitin cert_payload_size def
-R7762:7766 MuCodingTheorem <> instr:33 var
-R7771:7771 MuCodingTheorem <> k:31 var
+R7762:7766 Top.MuCodingTheorem <> instr:33 var
+R7771:7771 Top.MuCodingTheorem <> k:31 var
 prf 8165:8181 <> mu_coding_theorem
 binder 8194:8194 <> k:34
 R8203:8341 Coq.Init.Logic <> ::type_scope:x_'->'_x not
 R8198:8201 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8197:8197 MuCodingTheorem <> k:34 var
+R8197:8197 Top.MuCodingTheorem <> k:34 var
 R8342:8342 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
 R8497:8652 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
 R8808:8808 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
@@ -263,45 +263,45 @@ R8343:8349 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 R8355:8363 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
 binder 8350:8354 <> instr:35
 R8384:8394 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8364:8377 MuCodingTheorem <> cert_priced_eq def
-R8379:8383 MuCodingTheorem <> instr:35 var
+R8364:8377 Top.MuCodingTheorem <> cert_priced_eq def
+R8379:8383 Top.MuCodingTheorem <> instr:35 var
 R8445:8455 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R8395:8409 MuCodingTheorem <> certifies_claim def
-R8412:8424 MuCodingTheorem <> mu_eq_k_claim def
-R8426:8426 MuCodingTheorem <> k:34 var
+R8395:8409 Top.MuCodingTheorem <> certifies_claim def
+R8412:8424 Top.MuCodingTheorem <> mu_eq_k_claim def
+R8426:8426 Top.MuCodingTheorem <> k:34 var
 R8429:8438 Kernel.MuInitiality <> init_state def
-R8440:8444 MuCodingTheorem <> instr:35 var
+R8440:8444 Top.MuCodingTheorem <> instr:35 var
 R8489:8491 Coq.Init.Logic <> ::type_scope:x_'='_x not
 R8456:8482 Kernel.MuChaitin MuChaitin cert_payload_size def
-R8484:8488 MuCodingTheorem <> instr:35 var
+R8484:8488 Top.MuCodingTheorem <> instr:35 var
 R8493:8495 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8492:8492 MuCodingTheorem <> k:34 var
+R8492:8492 Top.MuCodingTheorem <> k:34 var
 binder 8660:8664 <> instr:36
 R8694:8704 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8674:8687 MuCodingTheorem <> cert_priced_eq def
-R8689:8693 MuCodingTheorem <> instr:36 var
+R8674:8687 Top.MuCodingTheorem <> cert_priced_eq def
+R8689:8693 Top.MuCodingTheorem <> instr:36 var
 R8755:8765 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R8705:8719 MuCodingTheorem <> certifies_claim def
-R8722:8734 MuCodingTheorem <> mu_eq_k_claim def
-R8736:8736 MuCodingTheorem <> k:34 var
+R8705:8719 Top.MuCodingTheorem <> certifies_claim def
+R8722:8734 Top.MuCodingTheorem <> mu_eq_k_claim def
+R8736:8736 Top.MuCodingTheorem <> k:34 var
 R8739:8748 Kernel.MuInitiality <> init_state def
-R8750:8754 MuCodingTheorem <> instr:36 var
+R8750:8754 Top.MuCodingTheorem <> instr:36 var
 R8799:8802 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
 R8766:8792 Kernel.MuChaitin MuChaitin cert_payload_size def
-R8794:8798 MuCodingTheorem <> instr:36 var
+R8794:8798 Top.MuCodingTheorem <> instr:36 var
 R8804:8806 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8803:8803 MuCodingTheorem <> k:34 var
+R8803:8803 Top.MuCodingTheorem <> k:34 var
 R8854:8866 Kernel.VMStep VMStep instr_certify constr
 R8870:8872 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
 R8854:8866 Kernel.VMStep VMStep instr_certify constr
 R8870:8872 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
-R8907:8929 MuCodingTheorem <> instr_certify_priced_eq thm
-R8907:8929 MuCodingTheorem <> instr_certify_priced_eq thm
-R8980:8992 MuCodingTheorem <> holds_mu_eq_k thm
-R8980:8992 MuCodingTheorem <> holds_mu_eq_k thm
-R9003:9031 MuCodingTheorem <> vm_apply_certify_mu_from_init thm
-R9003:9031 MuCodingTheorem <> vm_apply_certify_mu_from_init thm
-R9003:9031 MuCodingTheorem <> vm_apply_certify_mu_from_init thm
-R9101:9119 MuCodingTheorem <> mu_eq_k_lower_bound thm
-R9101:9119 MuCodingTheorem <> mu_eq_k_lower_bound thm
-R9172:9188 MuCodingTheorem <> mu_coding_theorem thm
+R8907:8929 Top.MuCodingTheorem <> instr_certify_priced_eq thm
+R8907:8929 Top.MuCodingTheorem <> instr_certify_priced_eq thm
+R8980:8992 Top.MuCodingTheorem <> holds_mu_eq_k thm
+R8980:8992 Top.MuCodingTheorem <> holds_mu_eq_k thm
+R9003:9031 Top.MuCodingTheorem <> vm_apply_certify_mu_from_init thm
+R9003:9031 Top.MuCodingTheorem <> vm_apply_certify_mu_from_init thm
+R9003:9031 Top.MuCodingTheorem <> vm_apply_certify_mu_from_init thm
+R9101:9119 Top.MuCodingTheorem <> mu_eq_k_lower_bound thm
+R9101:9119 Top.MuCodingTheorem <> mu_eq_k_lower_bound thm
+R9172:9188 Top.MuCodingTheorem <> mu_coding_theorem thm

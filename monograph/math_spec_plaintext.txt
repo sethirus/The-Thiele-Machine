@@ -6,13 +6,13 @@ Derived from the Fully Machine-Checked Coq Corpus
 
                   Devon Thiele
 
-                   April 2026
+                   June 2026
                                             Abstract
 
 This is the complete mathematical specification of the Thiele Machine: a formal model of
-computation where structural information carries an explicit, conserved cost µ. Everything here
-is built from the machine-checked Coq corpus. You can reconstruct the machine from what’s in
-this document alone.
+computation where structural information carries an explicit, monotone cost µ that starts at
+zero and never decreases. Everything here is built from the machine-checked Coq corpus. You
+can reconstruct the machine from what’s in this document alone.
     Coq establishes that conclusions follow from axioms. It does not establish that axioms model
 physical reality. That distinction matters and I keep it explicit throughout. Every result is
 tagged as one of three types: (S) structural theorems about the machine as a mathematical
@@ -73,7 +73,7 @@ trust boundaries: bsc_kami_compilation_trusted (Layer 2 Verilog semantics gap) a
   7.5 Verifier model and the bare-setting impossibility . . . . . . . . . . . . . . . . . .         17
 
 8 µ-Conservation and Receipt Integrity                                                          19
-  8.1 The Conservation Law . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+  8.1 The µ-Ledger Identity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
   8.2 Receipt Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
 
 
@@ -161,11 +161,11 @@ Introduction
 The Thiele Machine makes the cost of structure explicit. A Turing Machine treats all state
 transitions as cost-equivalent. The Thiele Machine assigns a specific cost µ to every operation
 that extracts or asserts structural information. That’s the design. Here is where it goes.
-   The central claim, proven formally: you cannot gain structural insight about a system without
+   The central claim, proven formally: nothing gains structural insight about a system without
 paying µ-cost. Combined with explicit physical axioms (linearity, information conservation), that
 constraint produces structural results that parallel quantum mechanics and thermodynamics.
-Each result’s status — whether it is a structural theorem (S), a conditional derivation (C), or a
-consistency relation (R) — is marked directly. Nothing is hidden.
+Each result’s status, whether a structural theorem (S), a conditional derivation (C), or a
+consistency relation (R), is marked directly. Nothing is hidden.
    The document is organized as:
 
   1. Foundations: State space, instruction set, operational semantics.
@@ -212,8 +212,7 @@ claims in Parts V–VIII.
     on 2D amplitudes), unitarity (conditional on information conservation).
 
 (R) Consistency Algebraic identities or definitional equivalences that verify internal coherence
-    but do not constitute independent predictions. Examples: Planck consistency relation,
-    Tsirelson cost definition.
+    but do not constitute independent predictions. Example: the Tsirelson cost definition.
 
     Each major theorem in Parts V–VIII is annotated with its category. A theorem marked (C)
 or (R) is not diminished. Conditional derivations and consistency checks are valuable scientific
@@ -358,7 +357,6 @@ Reversible register/memory operations:
 3.1.6   Categorical Morphism Operations
 These 7 opcodes (0x27–0x2D) implement the categorical layer over partition modules. See
 Chapter 23 for laws and proofs.
-
   • MORPH(dst, src, tgt, idx, ∆µ): Create morphism src → tgt; write morphism ID to regs[dst].
 
   • COMPOSE(dst, f, g, ∆µ): Compose f ; g when f.tgt = g.src; errors on type mismatch.
@@ -369,7 +367,8 @@ Chapter 23 for laws and proofs.
 
   • MORPH_ASSERT(f, prop, cert, ∆µ): Cert-setter. Charges S(∆µ) ≥ 1 unconditionally. Even
     failed attempts (morphism does not exist) incur cost 1. This is the strongest form of the
-    NoFI law: you cannot attempt to certify a relational claim for free.
+    NoFI law: the machine refuses to let even a doomed attempt at certifying a relational
+    claim slip through for free.
 
                                                 8
    • MORPH_TENSOR(dst, f, g, ∆µ): Tensor product f ⊗ g (requires union modules to exist).
@@ -500,7 +499,7 @@ State, not only from crafted zero-state witnesses. From any reachable state, CER
 two witness extensions maintain equal strict shadows but strictly different µ. No accumulation
 of classical computation closes the gap.
 Proof Sketch. Each separation uses explicit witnesses where equal projected inputs force equal
-oracle outputs, while the witness states require unequal outputs—a contradiction. Strict shadow
+oracle outputs, while the witness states require unequal outputs, a contradiction. Strict shadow
 equality: both CERTIFY 0 and PNEW [] 0 advance pc by 1 and preserve mem/regs. µ divergence:
 CERTIFY charges S(0) = 1; PNEW charges 0. Graph separation uses categorical_separation
 from PartitionSeparation.v: two states with identical Pfull but different pg_morphisms. Uni-
@@ -513,7 +512,7 @@ tracking system. Four results, all zero Admitted:
 
    1. shadow_mu_is_computation_intrinsic: For any program prog and any starting state s:
                      (run_instrs s prog).µ = s.µ + trace_total_cost(prog)
-     The increment is determined entirely by the instruction sequence—independent of vm_graph,
+     The increment is determined entirely by the instruction sequence, independent of vm_graph,
      vm_regs, vm_mem, vm_certified, and the starting µ.
    2. shadow_mu_delta_universal: Two machines running the same program from any two
       starting states accumulate the same additional µ. The cost is written in the program before
@@ -526,7 +525,7 @@ tracking system. Four results, all zero Admitted:
       cost accumulates strictly positive µ from any starting state. There is no free computation.
 
     Interpretation. A Turing machine executing a program pays exactly trace_total_cost in
-latent µ on every execution. The cost was always there—forced by the instruction sequence—but
+latent µ on every execution. The cost was always there, forced by the instruction sequence, but
 the Turing machine had no mechanism to record or expose it. The µ-ledger does not create this
 cost. It reveals what every computation was already paying.
 
@@ -627,6 +626,7 @@ polynomial bounds and size : VMState → N a size function.
 classical_mu_budget_decidable: any decision problem solved by a zero-µ classical program
 within polynomial fuel is mu_budget_decidable with µ-bound 0. Classical computation is a
 degenerate case of µ-computation. Zero Admitted.
+
 Remark 7.1. mu_budget_decidable and mu_budget_verifiable are predicates classifying
 decision problems by their polynomial-µ envelope, not classical complexity classes. The
 Coq file proves the basic inclusion (every decidable problem is verifiable, by re-running the
@@ -636,13 +636,17 @@ certify a decomposition and reduce search from O(N 2 ) to O(2N )), but that is n
 separation. Earlier versions of this section named these predicates in_muP and in_muNP; the
 names were misleading because they evoked the classical P-versus-NP question, which this file
 does not address.
+
 Theorem 7.4 (µ-Cost Hierarchy (kernel/MuHierarchyTheorem.v) — (S)). For every k ≥ 1,
 the µ-dimension admits a strict hierarchy:
+
    1. Achievability: there exists a trace from init_state with µ-cost exactly k that is level-
       k certified — the run executes a CERTIFY δ instruction with S(δ) ≥ k and ends with
       vm_certified = true.
+
    2. Lower bound: any level-k certified trace from init_state must have spent at least k
       units of µ-cost.
+
 Formally (mu_hierarchy_theorem): for every k ≥ 1, the witness trace [instr_certify(k−1)]
 (cost = S(k−1) = k) executes a level-k CERTIFY from init_state; conversely, the trace-side pred-
 icate level_k_certified forces trace_mu_cost ≥ k via level_k_certification_cost_floor,
@@ -650,14 +654,16 @@ since the CERTIFY’s declared cost appears in the executed-instruction ledger a
 equals the trace cost (run_vm_mu_conservation).
     Corollary (mu_hierarchy_no_upper_bound): no fixed µ-budget suffices for all levels. The
 µ-dimension is unbounded and non-collapsible. Zero Admitted.
-Remark 7.2 (µ-Hierarchy as the formal P-vs-NP analogue). Theorem 7.4 is the µ-analogue of
-the classical time hierarchy theorem. It formalizes the intuition behind P ̸= NP in the certified-
-structure setting: finding a certificate of structural complexity k requires paying µ ≥ k, while
-verifying it (given the trace) costs 0 additional µ. The hierarchy is strict, infinite, and proven from
-first principles with zero Admitted — no oracle, no diagonalization, no new axioms. The lower-
-bound proof is trace-side: a level-k certified run executed a specific CERTIFY δ with S(δ) ≥ k,
-and executed_instruction_cost_recorded plus ledger_sum_contains_lower_bound place
-that cost in the ledger sum, which run_vm_mu_conservation equates with the trace’s µ-cost.
+
+Remark 7.2 (µ-Hierarchy as a P-vs-NP analogue, not a P-vs-NP result). Theorem 7.4 is the
+µ-analogue of the classical time hierarchy theorem. It is not a statement about classical P
+versus NP, which this project does not touch. In the certified-structure setting it makes one
+thing precise: finding a certificate of structural complexity k costs µ ≥ k, while verifying it
+(given the trace) costs 0 extra µ. The hierarchy is strict and unbounded, with zero Admitted,
+no oracle, and no diagonalization. The lower-bound proof is trace-side: a level-k certified run
+executed a specific CERTIFY δ with S(δ) ≥ k, and executed_instruction_cost_recorded plus
+ledger_sum_contains_lower_bound place that cost in the ledger sum, which run_vm_mu_conservation
+equates with the trace’s µ-cost.
 
 
 7.4     Intrinsic level hierarchy
@@ -665,16 +671,21 @@ Definition 7.2 (Intrinsic level (coq/IntrinsicLevelHierarchy.v)). A final state 
 cally certifiable at level ≥ k, written level_intrinsic_at_least(k, s), iff every run_vm trace
 from init_state that ends at s with vm_certified = true executes at least k cert-setter
 instructions:
+
 ∀fuel trace. run_vm(fuel, trace, init_state) = s ⇒ s.vm_certified = true ⇒ cert_setter_executions(fu
+
 The level is a property of the final state, not of any particular trace reaching it.
-Theorem 7.5 (Intrinsic level forces µ (coq/IntrinsicLevelHierarchy.v::level_intrinsic_forces_mu)).
+
+
+                                                16
+Theorem 7.5 (Intrinsic level forces µ (coq/IntrinsicLevelHierarchy.v::level_intrinsic_forces_mu)).
 If level_intrinsic_at_least(k, s) holds and s.vm_certified = true, then for every trace
 reaching s from init_state, s.vm_mu ≥ k. Zero Admitted.
 
-                                                  16
-Theorem 7.6 (Strict separation (coq/IntrinsicLevelHierarchy.v::level_strict_separation)). For
+Theorem 7.6 (Strict separation (coq/IntrinsicLevelHierarchy.v::level_strict_separation)). For
 every k ≥ 0, if level_intrinsic_at_least(k + 1, s) holds and s.vm_certified = true, then
 every trace reaching s executes strictly more than k cert-setter instructions. Zero Admitted.
+
 Remark 7.3 (Relation to Theorem 7.4). Theorem 7.6 is the state-level counterpart of the trace-
 level µ-hierarchy. The trace-level version (mu_hierarchy_theorem, level_k_certification_cost_floor)
 defines level on the trace — a trace is level-k certified iff it executes a CERTIFY δ with S(δ) ≥ k.
@@ -689,41 +700,48 @@ Both are present-tense in the kernel; both close under the global context.
 Definition 7.3 (Bare verifier (coq/VerifierModel.v)). The bare-setting transcript type is
 BareTranscript := list StrictClassicalState. A bare verification problem is a record
 BareVerificationProblem carrying
+
    • bare_honest_claim : VMState → Prop;
 
    • bare_explains : VMState → BareTranscript → Prop (the transcript-honestly-witnessed-
      by-state relation);
 
    • bare_cheap_budget, bare_recompute_cost : N.
+
 A bare verifier is a record BareVerifier with bv_decide : BareTranscript → bool and
 bv_cost : BareTranscript → N.
+
 Definition 7.4 (Soundness, completeness, cheapness (coq/VerifierModel.v)). For a problem P
 and verifier V :
+
    • bare_sound(P, V ) := ∀t. V (t) = true ⇒ ∀s. bare_explains(P, s, t) ⇒ bare_honest_claim(P, s).
 
    • bare_complete(P, V ) := ∀s t. bare_honest_claim(P, s) ⇒ bare_explains(P, s, t) ⇒
      V (t) = true.
 
    • bare_cheap(P, V ) := ∀t. bv_cost(V, t) ≤ bare_cheap_budget(P ).
+
 The soundness condition is strong: the claim must hold for every state explaining the transcript,
 not merely for some.
+
 Theorem 7.7 (Bare-setting impossibility (coq/VerifierImpossibility.v::bare_setting_no_sound_complete_verifie
 There is no bare verifier simultaneously bare_sound and bare_complete on the verification
 problem mu_eq_one_problem whose claim is vm_mu(s) = 1 and whose bare_explains relation
 holds for the two NecessityOfMuLedger witness states against the shared strict-shadow trace.
+
 Proof. po1_state_A (the cost-1 CERTIFY 0 result, µ = 1) and po1_state_B (the cost-0 PNEW
 [] 0 result, µ = 0) project to identical strict-shadow traces. Completeness applied to A’s honest
 run forces V to accept the shared transcript. Strong soundness applied to the same accepted
 transcript at the explanation by B forces vm_mu(B) = 1, contradicting vm_mu(B) = 0. Print
 Assumptions returns Closed under the global context.
 
-Theorem 7.8 (Three sufficient escapes (coq/VerifierEscape_{Substrate,Hardness,Interaction}.v)).
+                                               17
+Theorem 7.8 (Three sufficient escapes (coq/VerifierEscape_{Substrate,Hardness,Interaction}.v)).
 Each kernel theorem below exhibits a constant-cost verifier that simultaneously satisfies sound-
 ness and completeness on the µ-sensitive claim by augmenting the transcript with non-classical
 structure:
 
-                                               17
-   • substrate_escape_succeeds — transcript is list VMState; verifier reads µ directly.
+   • substrate_escape_succeeds — transcript is list VMState; verifier reads µ directly.
 
    • hardness_escape_succeeds — transcript is BareTranscript × bool (commitment bit);
      verifier accepts the commitment under a parameterised HardnessHypothesis record.
@@ -754,7 +772,7 @@ and interaction are the two routes classical cryptography and complexity already
 
 µ-Conservation and Receipt Integrity
 
-8.1     The Conservation Law
+8.1     The µ-Ledger Identity
 Theorem 8.1 (µ-Ledger Conservation (MuLedgerConservation.v)). For any trace τ = [i0 , . . . , ik ]:
                                                          k
                                       µfinal = µinit +         cost(ij )
@@ -842,8 +860,8 @@ results — the classical CHSH bound, the algebraic Tsirelson bound, and the bic
 column_contractive_iff_quantum_realizable — appear earlier (Chapters 12–13). Those
 are pure algebra, no physics axioms.
     The results in this part are not primary claims of the project. They are explorations of what
-follows if you add specific physical axioms. They demonstrate the machine’s scope without
-making physical claims the proofs do not support.
+follows if you add specific physical axioms. They show how far the machine reaches without
+claiming any physics the proofs do not support.
 
 
 
@@ -1153,7 +1171,7 @@ target set of any instruction in a trace, then MB ’s observable region is unch
 Remark 18.1. This is a data isolation property: operations targeting module A in the
 partition graph do not affect the lookup of module B. The proof is structural (list operations
 on disjoint keys), non-trivial mainly for instr_psplit/instr_pmerge which restructure the
-graph. The label “no-signaling” is an analogy—there is no spatial metric or speed limit between
+graph. The label “no-signaling” is an analogy. There is no spatial metric or speed limit between
 modules.
 
 
@@ -1797,8 +1815,7 @@ operation graph_compose_morphisms satisfies associativity and unitality. Additio
 
 MORPH and COMPOSE can carry ∆µ = 0 and are not in the mandatory-cost class. The NoFI
 policy enters through MORPH_ASSERT: asserting that a built morphism chain exists and activating
-the cert channel always costs S(∆µ) ≥ 1. You can build the chain for free; you cannot certify it
-for free.
+the cert channel always costs S(∆µ) ≥ 1. Building the chain is free; certifying it never is.
 
 Theorem 23.3 (Tensor Bifunctoriality (kernel/CategoryMonoidal.v) — (S)). graph_tensor_morphisms
 is a bifunctor: it satisfies the interchange law
@@ -1878,9 +1895,10 @@ Find k ≥ 1 and a trace reaching vm_certified = true and vm_mu ≥ k with total
 • Complexity implications: Whether µP ̸= µNP is an open question. The factored-search
   witness shows a concrete structural advantage but is not a class separation.
 
-• Physical constants: No physical constant derivation from first principles. The Planck
-  consistency relation (Section on Planck’s Constant) is circular: it defines τµ in terms of h
-  and verifies consistency. It is not a prediction of h.
+• Physical constants: No physical constant is derived from first principles. There is no
+  derivation of Planck’s constant h; any relation tying an internal time-scale τµ to h would
+  be circular by construction, defining τµ in terms of h and checking consistency rather than
+  predicting h.
 
 • The two +1s (OP-Plus-One): the +1 in triangle_angle’s denominator (PI · d_bc /
   (1 + d_ab + d_ac + d_bc), coq/kernel/curvature/MuGravity.v) versus the A2 cost-
