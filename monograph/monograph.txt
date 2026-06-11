@@ -6945,17 +6945,17 @@ MEDIUM, 1 LOW (the documented F4 evaluator finding). If that changes, it is a bu
 
 Falsify the axiom audit.
 If running Print Assumptions (Section 2: the Coq command that lists everything
-a theorem depends on) on any named theorem in the kernel tier shows a project-
-local Axiom or Parameter in the dependency tree, the audit has degraded. The
-current closure across all kernel theorems shows 2,539 named theorems that compile
-under the global Coq context with no project-local axioms. A separate companion set
-of 25 theorems depends on the excluded middle, which is the classical-logic axiom
-P ∨ ¬ P (“either P is true or P is false, with no third option”); those uses come from
-the Coq standard library (specifically, the real-number theory needed for the CHSH
-algebra), not from project code. The two sets are disjoint: the 2,539 are closed under
-the global context with no project-local axioms appearing, and the 25 sit in the broader
-depends_on_axioms bucket. Any project-local axiom or parameter appearing in
-either set’s dependency trees is a bug.
+a theorem depends on) on any named theorem in the kernel tier shows a project-local
+Axiom or Parameter in the dependency tree, the audit has degraded. The current
+closure across all kernel theorems shows 2,539 named theorems that compile under
+the global Coq context with no project-local axioms. A separate companion set of 25
+theorems depends on the excluded middle, which is the classical-logic axiom P ∨ ¬ P
+(“either P is true or P is false, with no third option”); those uses come from the Coq
+standard library (specifically, the real-number theory needed for the CHSH algebra),
+not from project code. The two sets are disjoint: the 2,539 are closed under the global
+context with no project-local axioms appearing, and the 25 sit in the separate bucket of
+theorems that depend on an axiom. Any project-local axiom or parameter appearing
+in either set’s dependency trees is a bug.
 
 Falsify the hardware bisimulation.
 Run the Verilog cosimulation suite (tests/test_verilog_cosim.py, including t
@@ -7451,18 +7451,17 @@ cost floor: universal_nfi_any_substrate holds on any substrate that carries a
 certification predicate and charges A2 on the cert-flip as a law of its step rule, and P_
 full_is_minimal_complete_extension pins (µ, cert) as the proved-minimal
 extension over (mem, regs, pc), the state a step rule needs to read the cert and charge
-the µ. The CHSH-NPA and undecidability pillars are strong, but they are companion
-facts; the foundational weight rides on universality, scoped-minimality, and the law-
-versus-checker fact. That is the priority claim, and it rides on universality, minimality,
-and the law-versus-checker fact. Not on a physics-free Bell bridge, not on a Rice-
-family diagonal. The CHSH-NPA equivalence and the substrate-axis undecidability
-are strong companion facts: an algebraic bridge with no physics premises on one
-side, and a limitative result internal to the substrate’s own typeclass machinery on the
-other. The 51 opcodes, the OCaml runtime, the Bluespec hardware, the parity tests,
-the simulator harness are scaffolding for one realization of the substrate; the universal
-cost floor and the lattice-scoped irredundancy of (µ, cert) over (mem, regs, pc) are
-facts about substrates, and the two theorems above are strong instances of how those
-facts cash out.
+the µ. The CHSH-NPA and undecidability pillars are strong, but they are compan-
+ion facts. The foundational weight is the priority claim, and it rides on universality,
+scoped-minimality, and the law-versus-checker fact. Not on a physics-free Bell bridge,
+not on a Rice-family diagonal. The CHSH-NPA equivalence and the substrate-axis un-
+decidability are strong companion facts: an algebraic bridge with no physics premises
+on one side, and a limitative result internal to the substrate’s own typeclass machinery
+on the other. The 51 opcodes, the OCaml runtime, the Bluespec hardware, the parity
+tests, the simulator harness are scaffolding for one realization of the substrate; the
+universal cost floor and the lattice-scoped irredundancy of (µ, cert) over (mem, regs,
+pc) are facts about substrates, and the two theorems above are strong instances of how
+those facts cash out.
 
 Each of these results carries an explicit falsification condition, and they are gathered in
 one place (Section 21): a zero-µ trace from uncertified to certified, a column-contractive
@@ -7482,18 +7481,18 @@ you hand it one. I used it to catch the gaps my own eye slid past, and to pull a
 machine and a real chip out of the same source. That is worth a lot. It is not proof. The
 proof, if it’s here, is the argument, and the argument is in English on the pages above:
 A2 is the only rule that prices certification exactly, a classical step has no field to carry
+it, so classical computation is the lossy shadow of the thing that does. Don’t take the
 
 
                                             148
-The Thiele Machine                                              Devon Thiele • June 2026
+The Thiele Machine                                           Devon Thiele • June 2026
 
 
-it, so classical computation is the lossy shadow of the thing that does. Don’t take the
 checkmark’s word for that. Don’t take mine. Follow the argument, step by step, and
 if one of the steps gives, that’s the one I want to hear about.
 
 
 
 
-                                         149
+                                       149
 

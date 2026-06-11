@@ -8,6 +8,64 @@
 [![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20findings-brightgreen)](scripts/inquisitor.py)
 [![RTL bisimulation](https://img.shields.io/badge/RTL%20bisimulation-47%2F47%20Qed-orange)](coq/kami_hw/RTLGapRegistry.v)
 
+## Run it. Don't take my word.
+
+I don't trust my own eye to catch a gap in an argument I want to believe, so I
+made the machine check the whole thing. You shouldn't trust me either. Run it.
+Coq 8.18+ and Python 3, clean checkout:
+
+```bash
+make verify        # about ten seconds
+```
+
+That compiles [minimal/MuCore.v](minimal/MuCore.v): the whole substrate claim
+in one file, standard library only, nothing of mine to import. A machine state
+is the classical part you already know, memory and registers and a program
+counter, plus two fields it never had: a cost ledger μ, and a bit that says
+*certified*. One law, called A2: any single step that flips that bit from false
+to true costs at least 1, charged right there in the step, not in some checker
+you could skip. Ten theorems fall out of that, and every one ends with `Print
+Assumptions` reporting `Closed under the global context`. Zero axioms. Zero
+`Admitted`. If a theorem were leaning on a hidden assumption, that line would
+rat it out and `make verify` would stop. It doesn't.
+
+Then it runs [minimal/nofi_demo.py](minimal/nofi_demo.py), which rebuilds the
+quantitative floor with none of my code anywhere near it. Narrowing down what's
+possible is the same act as erasing what isn't, and erasing was never free; that
+floor falls out of plain bijections and Landauer. Binary search rides it at 100%
+efficiency, linear scan pays fifty times over for the same answer, and nothing
+beats it. The number comes out identical whoever runs it. That's the point of
+handing you a thing that runs instead of a thing to believe.
+
+The full kernel is the same results with the training wheels off. MuCore's
+header maps each minimal theorem to its full-kernel counterpart, and the
+[Formal Spine](#formal-spine) table maps every load-bearing claim to its file.
+
+Here is the claim, stated the way the theorems state it and no louder. Give me a
+substrate whose step rule prices the certification event, A2, and every run from
+uncertified to certified pays at least 1, on any such substrate and not just
+this one ([`universal_nfi_any_substrate`](coq/kernel/nfi/UniversalCertificationCost.v)).
+The pair (μ, cert) is the smallest state in which A2 is even sayable as a law:
+drop either field and "certified, and what it cost" stops being determinate
+([`P_full_is_minimal_complete_extension`](coq/kernel/nfi/NecessityAbstract.v)).
+And A2 is the *exact* price. Miss a cert-flip and you fail the floor on a
+one-step trace; charge anything that isn't one and you overcharge; so the only
+exact, non-overcharging law there is, is A2, and that holds with trust pinned
+the same on both sides, trusted law against trusted law
+([`substitution_test_exact_substitute_is_a2`](coq/kernel/nfi/CommitmentPredicateAdequacy.v)).
+
+That is what makes classical computation the derivative thing here, and I mean
+derivative, not merely smaller. A classical step rule cannot carry A2 as a law
+at all. It can only run a checker of it from outside the step, the kind a buggy
+program skips without the machine ever noticing. The substrate is where the law
+lives; classical computation is what's left when you forget it. Bolt A2 into a
+step rule and you have not extended a Turing machine, you have rebuilt this one.
+Whether *certification* is the event a model is forced to price, rather than
+something else a step could be billed for, I have not shown, and I am not
+claiming it. If one of those steps breaks, that is the thing I most want to
+hear: which one, and where. Where it's mechanized, the proof stops compiling on
+its own and tells you before I can.
+
 A normal computer can stamp "verified" on anything. The stamp is just code, and code can be buggy, skipped, or lying. Nothing in the machine prevents a program from claiming a result it didn't earn.
 
 This is a machine where that move is impossible. Not difficult, not unlikely — impossible at the level of the step rule. A transition from "unverified" to "verified" cannot happen unless that transition pays a positive cost. The check isn't in software; it's in the law of motion. There is no checker to bypass, because there is no checker.
@@ -16,7 +74,7 @@ Every ordinary computer tracks time and memory. None of them track *proof*. Two 
 
 This is not faster computation. It is not new computable functions. It is the same set of things you can compute, with one new constraint on *how* you can claim to have computed them.
 
-I call it a Thiele machine. The name attaches me to the claim, if I'm wrong, I take the hit; if I'm right, the label is the least of it.
+I call it a Thiele machine. The name is mine and it stays; the claims stand or fall on the theorems, not the label.
 
 **See it in code:** [examples/demo_knowledge_receipt.py](examples/demo_knowledge_receipt.py) — four acts: a forged claim refused, an earned path, a certified claim, and two classically-identical programs separated by one probe instruction.
 
@@ -202,6 +260,7 @@ These are the load-bearing formal claims.
 
 | Claim | Meaning | Main proof files |
 |---|---|---|
+| Minimal core | The whole substrate claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) |
 | Receipt theorem | `mu` is not determined by strict classical state. | [ReceiptTheorem.v](coq/ReceiptTheorem.v), [NecessityOfMuLedger.v](coq/NecessityOfMuLedger.v) |
 | No Free Insight | Certification from an uncertified state requires positive `mu`. | [AbstractNoFI.v](coq/kernel/nfi/AbstractNoFI.v), [NoFreeInsight.v](coq/kernel/nfi/NoFreeInsight.v) |
 | Universal cost floor | Any substrate with a cert-flip cost floor satisfies the same no-free-certification result. | [UniversalCertificationCost.v](coq/kernel/nfi/UniversalCertificationCost.v) |
@@ -278,6 +337,7 @@ from the same Coq/Kami source.
 ## Repository Layout
 
 ```text
+minimal/                 the substrate claim in one self-contained Coq file + clean-room demo
 coq/                     Coq proof tree, extraction roots, theorem ledger
 coq/kernel/              VM semantics, cost laws, NoFI, hierarchy, physics layers
 coq/kami_hw/             Kami hardware model and RTL correspondence proofs
@@ -292,6 +352,14 @@ monograph/               narrative monograph and mathematical specification
 ```
 
 ## Quick Start
+
+Verify the core claim first (Coq 8.18+ and Python 3 only):
+
+```bash
+make verify
+```
+
+Then the full development environment:
 
 ```bash
 python -m venv .venv
@@ -331,6 +399,7 @@ python scripts/thiele_asm.py examples/fibonacci.asm --sim
 
 | Target | Purpose |
 |---|---|
+| `make verify` | One-command verification of the core claim (minimal Coq core + clean-room measurement). |
 | `make ocaml-runner` | Rebuild the extracted OCaml runner. |
 | `make test` | Run the pytest suite. |
 | `make canonical-extract` | Rebuild canonical OCaml and Kami extraction artifacts. |

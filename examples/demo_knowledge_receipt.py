@@ -63,14 +63,14 @@ def section(title: str) -> None:
 
 def show(label: str, state: vm.VMState, extra: str = "") -> None:
     regs_nonzero = {i: v for i, v in enumerate(state.regs) if v != 0}
-    modules = state.graph.modules if state.graph else []
+    modules = state.graph.pg_modules if state.graph else []
     print(f"\n  [{label}]")
     print(f"    mu          = {state.mu}")
     print(f"    err         = {state.err}")
     print(f"    supra_cert  = {state.supra_cert}  (has_supra_cert: csr_cert_addr != 0)")
     print(f"    cert_addr   = {state.csrs.get('cert_addr', 0)}")
     print(f"    vm_certified= {state.certified}  (set only by CERTIFY opcode, not MORPH_ASSERT)")
-    print(f"    modules     = {len(modules)} ({', '.join(f'mod{m.id}:{m.region}' for m in modules)})")
+    print(f"    modules     = {len(modules)} ({', '.join(f'mod{mid}:{ms.module_region}' for mid, ms in modules)})")
     if regs_nonzero:
         print(f"    regs        = {regs_nonzero}")
     if extra:
@@ -123,11 +123,11 @@ print(textwrap.dedent("""
   PNEW {1} 1          # Module A  (mu += 1)
   PNEW {2} 1          # Module B  (mu += 1)
   PNEW {3} 1          # Module C  (mu += 1)
-  MORPH 10 1 2 0 2    # f: A→B, morph_id=0 → r10  (mu += 2)
-  MORPH 11 2 3 0 2    # g: B→C, morph_id=1 → r11  (mu += 2)
-  COMPOSE 12 0 1 1    # g∘f: A→C, morph_id=2 → r12  (mu += 1)
-  MORPH_GET 0 2 0 0   # r0 = source module of g∘f  (should be A = mod 1)
-  MORPH_GET 1 2 1 0   # r1 = target module of g∘f  (should be C = mod 3)
+  MORPH 10 1 2 0 2    # f: A→B, morph_id=1 → r10  (mu += 2)
+  MORPH 11 2 3 0 2    # g: B→C, morph_id=2 → r11  (mu += 2)
+  COMPOSE 12 1 2 1    # g∘f: A→C, morph_id=3 → r12  (mu += 1)
+  MORPH_GET 0 3 0 0   # r0 = source module of g∘f  (should be A = mod 1)
+  MORPH_GET 1 3 1 0   # r1 = target module of g∘f  (should be C = mod 3)
   HALT
 """))
 
@@ -137,9 +137,9 @@ earned = vm.run_vm([
     "PNEW {3} 1",
     "MORPH 10 1 2 0 2",
     "MORPH 11 2 3 0 2",
-    "COMPOSE 12 0 1 1",
-    "MORPH_GET 0 2 0 0",
-    "MORPH_GET 1 2 1 0",
+    "COMPOSE 12 1 2 1",
+    "MORPH_GET 0 3 0 0",
+    "MORPH_GET 1 3 1 0",
     "HALT 0",
 ])
 show("earned path", earned,
@@ -171,7 +171,7 @@ print(textwrap.dedent("""
   a provably nonzero price.
 
   (Same program as Act 2, plus:)
-  MORPH_ASSERT 2 "A-to-C-two-hop" "cert" 4   # assert on morph_id=2, cost=4 → charges S(4)=5
+  MORPH_ASSERT 3 "A-to-C-two-hop" "cert" 4   # assert on morph_id=3, cost=4 → charges S(4)=5
 """))
 
 certified = vm.run_vm([
@@ -180,10 +180,10 @@ certified = vm.run_vm([
     "PNEW {3} 1",
     "MORPH 10 1 2 0 2",
     "MORPH 11 2 3 0 2",
-    "COMPOSE 12 0 1 1",
-    "MORPH_ASSERT 2 A-to-C-two-hop cert 4",
-    "MORPH_GET 0 2 0 0",
-    "MORPH_GET 1 2 1 0",
+    "COMPOSE 12 1 2 1",
+    "MORPH_ASSERT 3 A-to-C-two-hop cert 4",
+    "MORPH_GET 0 3 0 0",
+    "MORPH_GET 1 3 1 0",
     "HALT 0",
 ])
 show("certified claim", certified,
@@ -204,7 +204,7 @@ verdict(
 nifi_probe = vm.run_vm([
     "PNEW {1} 1",
     "MORPH_ID 5 1 0",
-    "MORPH_ASSERT 0 property cert 0",   # cost=0 → charges S(0) = 1
+    "MORPH_ASSERT 1 property cert 0",   # cost=0 → charges S(0) = 1
     "HALT 0",
 ])
 assert not nifi_probe.err
@@ -235,9 +235,9 @@ print(textwrap.dedent("""
   To a classical machine, these are IDENTICAL: same registers, same mu.
   To the Thiele Machine, they are PROVABLY DISTINCT.
 
-  PROBE: Try MORPH_DELETE on morphism 0 at the end of each program.
-    — Program A: succeeds (morph 0 exists)
-    — Program B: errors (morph 0 never existed)
+  PROBE: Try MORPH_DELETE on morphism 1 at the end of each program.
+    — Program A: succeeds (morph 1 exists)
+    — Program B: errors (morph 1 never existed)
 
   One probe instruction. Undeniable distinction.
 """))
@@ -249,9 +249,9 @@ prog_a_base = [
     "PNEW {3} 1",
     "MORPH 10 1 2 0 2",
     "MORPH 11 2 3 0 2",
-    "COMPOSE 12 0 1 1",
-    "MORPH_GET 0 2 0 0",   # r0 = source of composed = 1
-    "MORPH_GET 1 2 1 0",   # r1 = target of composed = 3
+    "COMPOSE 12 1 2 1",
+    "MORPH_GET 0 3 0 0",   # r0 = source of composed = 1
+    "MORPH_GET 1 3 1 0",   # r1 = target of composed = 3
 ]
 
 # Program B: no morphisms, same r0/r1/mu by construction
@@ -279,23 +279,23 @@ print(f"\n  Classical fingerprint A: r0={classical_a[0]}, r1={classical_a[1]}, m
 print(f"  Classical fingerprint B: r0={classical_b[0]}, r1={classical_b[1]}, mu={classical_b[2]}, err={classical_b[3]}")
 print(f"  Classically identical:   {classical_a == classical_b}")
 
-# Now add the categorical probe: MORPH_DELETE 0 0
-# (delete morphism with id=0; costs 0)
-state_a_probed = vm.run_vm(prog_a_base + ["MORPH_DELETE 0 0", "HALT 0"])
-state_b_probed = vm.run_vm(prog_b_base + ["MORPH_DELETE 0 0", "HALT 0"])
+# Now add the categorical probe: MORPH_DELETE 1 0
+# (delete morphism with id=1; costs 0)
+state_a_probed = vm.run_vm(prog_a_base + ["MORPH_DELETE 1 0", "HALT 0"])
+state_b_probed = vm.run_vm(prog_b_base + ["MORPH_DELETE 1 0", "HALT 0"])
 
 show("Program A + MORPH_DELETE probe", state_a_probed,
-     "morph_id=0 existed → DELETE succeeded")
+     "morph_id=1 existed → DELETE succeeded")
 show("Program B + MORPH_DELETE probe", state_b_probed,
-     "morph_id=0 never existed → DELETE errored")
+     "morph_id=1 never existed → DELETE errored")
 
-assert not state_a_probed.err, "Program A: MORPH_DELETE should succeed (morph 0 was built)"
-assert state_b_probed.err,     "Program B: MORPH_DELETE should error (morph 0 was never built)"
+assert not state_a_probed.err, "Program A: MORPH_DELETE should succeed (morph 1 was built)"
+assert state_b_probed.err,     "Program B: MORPH_DELETE should error (morph 1 was never built)"
 
 verdict(
     "SEPARATED.\n\n"
     "  Same r0, r1, mu, err before the probe.\n"
-    "  One probe instruction (MORPH_DELETE 0 0) gives different results:\n"
+    "  One probe instruction (MORPH_DELETE 1 0) gives different results:\n"
     "    — Program A: MORPH_DELETE succeeds. The morphism chain was real.\n"
     "    — Program B: MORPH_DELETE errors.   The claimed values were hollow.\n\n"
     "  This is coq/kernel/PartitionSeparation.v §10, made executable:\n"

@@ -726,3 +726,7 @@ release: proof extract synth sim
 
 source-of-truth: release
 	@echo "✅ source-of-truth complete: Coq -> Kami -> Bluespec -> Verilog -> synth -> sim"
+
+.PHONY: verify
+verify: ## Don't take my word: compile the axiom-free Coq core and run the clean-room measurement
+	bash scripts/verify_core.sh

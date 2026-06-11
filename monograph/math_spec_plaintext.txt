@@ -33,122 +33,122 @@ trust boundaries: bsc_kami_compilation_trusted (Layer 2 Verilog semantics gap) a
 (physical quantum axiom).
 Contents
 
-1 Introduction                                                                                       4
-  1.1 Epistemological Framework . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .          4
+1 Introduction                                                                                     2
+  1.1 Epistemological Framework . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        2
 
-2 The State Space                                                                                    6
-  2.1 Primitives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     6
-  2.2 Regions and Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
-  2.3 The Partition Graph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        6
-  2.4 Machine State . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      6
+2 The State Space                                                                                   4
+  2.1 Primitives . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    4
+  2.2 Regions and Modules . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       4
+  2.3 The Partition Graph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       4
+  2.4 Machine State . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     4
 
-3 Instruction Set and Cost Model                                                                     7
-  3.1 Instruction Categories . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       7
-       3.1.1 Structural Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         7
-       3.1.2 Logical Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        7
-       3.1.3 Computational Operations (Reversible ALU) . . . . . . . . . . . . . . . .               7
-       3.1.4 Standard ALU and Control Flow . . . . . . . . . . . . . . . . . . . . . . .             8
-       3.1.5 Auxiliary Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        8
-       3.1.6 Categorical Morphism Operations . . . . . . . . . . . . . . . . . . . . . .             8
-  3.2 Cost Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       9
+3 Instruction Set and Cost Model                                                                    5
+  3.1 Instruction Categories . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      5
+       3.1.1 Structural Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        5
+       3.1.2 Logical Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       5
+       3.1.3 Computational Operations (Reversible ALU) . . . . . . . . . . . . . . . .              5
+       3.1.4 Standard ALU and Control Flow . . . . . . . . . . . . . . . . . . . . . . .            6
+       3.1.5 Auxiliary Operations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       6
+       3.1.6 Categorical Morphism Operations . . . . . . . . . . . . . . . . . . . . . .            6
+  3.2 Cost Model . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      7
 
-4 Operational Semantics                                                                             10
-  4.1 Transition Function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     10
-  4.2 Traces and Execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        10
-  4.3 Selected Instruction Semantics . . . . . . . . . . . . . . . . . . . . . . . . . . . .        10
+4 Operational Semantics                                                                            8
+  4.1 Transition Function . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    8
+  4.2 Traces and Execution . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       8
+  4.3 Selected Instruction Semantics . . . . . . . . . . . . . . . . . . . . . . . . . . . .       8
 
-5 No Free Insight                                                                                   11
-  5.1 Definitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   11
-  5.2 The Theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       11
-  5.3 µ-Ledger Necessity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      11
-  5.4 Partition Refinement and No Free Insight . . . . . . . . . . . . . . . . . . . . . .          13
+5 No Free Insight                                                                                 9
+  5.1 Definitions . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+  5.2 The Theorem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+  5.3 µ-Ledger Necessity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 9
+  5.4 Partition Refinement and No Free Insight . . . . . . . . . . . . . . . . . . . . . . 11
 
-6 The µ-Chaitin Theorem                                                                             14
+6 The µ-Chaitin Theorem                                                                            12
 
-7 Computational Universality and Subsumption                                                        15
-  7.1 Strict Containment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      15
-  7.2 Oracle Cost Lower Bound . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .         15
-  7.3 µ-budget predicates . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       15
-  7.4 Intrinsic level hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     16
-  7.5 Verifier model and the bare-setting impossibility . . . . . . . . . . . . . . . . . .         17
+7 Computational Universality and Subsumption                                                       13
+  7.1 Strict Containment . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     13
+  7.2 Oracle Cost Lower Bound . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .        13
+  7.3 µ-budget predicates . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      13
+  7.4 Intrinsic level hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    14
+  7.5 Verifier model and the bare-setting impossibility . . . . . . . . . . . . . . . . . .        15
 
-8 µ-Conservation and Receipt Integrity                                                          19
-  8.1 The µ-Ledger Identity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
-  8.2 Receipt Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 19
+8 µ-Conservation and Receipt Integrity                                                          17
+  8.1 The µ-Ledger Identity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+  8.2 Receipt Integrity . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
 
 
-                                                  1
-9 Gauge Symmetry and Noether’s Theorem                                                         20
-  9.1 The Z-Action (Gauge Group) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
-  9.2 Gauge Invariance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 20
+                                                 1
+9 Gauge Symmetry and Noether’s Theorem                                                         18
+  9.1 The Z-Action (Gauge Group) . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+  9.2 Gauge Invariance . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
 
-10 The Born Rule                                                                                   22
+10 The Born Rule                                                                                   20
 
-11 Unitarity                                                                                       23
+11 Unitarity                                                                                       21
 
-12 Purification                                                                                    24
+12 Purification                                                                                    22
 
-13 No-Cloning                                                                                      25
+13 No-Cloning                                                                                      23
 
-14 The Tsirelson Bound                                                                             26
+14 The Tsirelson Bound                                                                             24
 
-15 Witness Insight Taxonomy                                                                        27
+15 Witness Insight Taxonomy                                                                        25
 
-16 Bell’s Theorem in Morphism Coupling Language                                                    28
+16 Bell’s Theorem in Morphism Coupling Language                                                    26
 
-17 Thiele Honesty and NPA Realizability: The Biconditional                                         29
+17 Thiele Honesty and NPA Realizability: The Biconditional                                         27
 
-18 Emergent Spacetime                                                                              31
-   18.1 The µ-Metric . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   31
-   18.2 Causal Cones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   31
-   18.3 No-Signaling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   31
-   18.4 Discrete Geometry: The Gauss-Bonnet Result . . . . . . . . . . . . . . . . . . . .         31
-        18.4.1 Cross-link in MuGravity Vocabulary . . . . . . . . . . . . . . . . . . . . .        32
-   18.5 Four-Dimensional Spacetime Geometry (Reference Only, Not a Main Claim) . . .               33
-        18.5.1 4D Simplicial Complex . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     33
-        18.5.2 Metric Tensor from µ-Costs . . . . . . . . . . . . . . . . . . . . . . . . . .      33
-        18.5.3 Discrete Differential Geometry . . . . . . . . . . . . . . . . . . . . . . . .      34
-        18.5.4 Curvature Tensors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     34
-        18.5.5 Stress-Energy Tensor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    35
-        18.5.6 Einstein’s Field Equations . . . . . . . . . . . . . . . . . . . . . . . . . . .    35
-        18.5.7 Empirical Validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    37
-        18.5.8 Affine Metric-Scaled Operator: Non-Uniform Boundary Results . . . . . .             37
+18 Emergent Spacetime                                                                              29
+   18.1 The µ-Metric . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   29
+   18.2 Causal Cones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   29
+   18.3 No-Signaling . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   29
+   18.4 Discrete Geometry: The Gauss-Bonnet Result . . . . . . . . . . . . . . . . . . . .         29
+        18.4.1 Cross-link in MuGravity Vocabulary . . . . . . . . . . . . . . . . . . . . .        30
+   18.5 Four-Dimensional Spacetime Geometry (Reference Only, Not a Main Claim) . . .               31
+        18.5.1 4D Simplicial Complex . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     31
+        18.5.2 Metric Tensor from µ-Costs . . . . . . . . . . . . . . . . . . . . . . . . . .      31
+        18.5.3 Discrete Differential Geometry . . . . . . . . . . . . . . . . . . . . . . . .      32
+        18.5.4 Curvature Tensors . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     32
+        18.5.5 Stress-Energy Tensor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    33
+        18.5.6 Einstein’s Field Equations . . . . . . . . . . . . . . . . . . . . . . . . . . .    33
+        18.5.7 Empirical Validation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    35
+        18.5.8 Affine Metric-Scaled Operator: Non-Uniform Boundary Results . . . . . .             35
 
-19 Information Causality                                                                           39
+19 Information Causality                                                                           37
 
-20 Thermodynamic Bridge                                                                          40
-   20.1 Landauer’s Principle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
-   20.2 A2 from Landauer (Factored Form) . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+20 Thermodynamic Bridge                                                                          38
+   20.1 Landauer’s Principle . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 38
+   20.2 A2 from Landauer (Factored Form) . . . . . . . . . . . . . . . . . . . . . . . . . . 38
 
-21 Self-Reference and the Thiele Manifold                                                       41
-   21.1 Self-Reference Escalation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
-   21.2 The Thiele Manifold . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
+21 Self-Reference and the Thiele Manifold                                                       39
+   21.1 Self-Reference Escalation . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
+   21.2 The Thiele Manifold . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 39
 
-22 Three-Layer Isomorphism                                                                    42
-   22.1 RTL Coverage: Zero Gaps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 42
-   22.2 Named Trust Boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 43
+22 Three-Layer Isomorphism                                                                    40
+   22.1 RTL Coverage: Zero Gaps . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 40
+   22.2 Named Trust Boundaries . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 41
 
 
 
 
                                                  2
-23 Categorical Structure                                                                            44
-   23.1 The Morphism Layer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      44
-        23.1.1 Objects and Morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . .        44
-        23.1.2 The Seven Categorical Opcodes . . . . . . . . . . . . . . . . . . . . . . . .        44
-        23.1.3 Category Laws . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      45
-        23.1.4 The Categorical Separation Theorem . . . . . . . . . . . . . . . . . . . . .         45
+23 Categorical Structure                                                                            42
+   23.1 The Morphism Layer . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      42
+        23.1.1 Objects and Morphisms . . . . . . . . . . . . . . . . . . . . . . . . . . . .        42
+        23.1.2 The Seven Categorical Opcodes . . . . . . . . . . . . . . . . . . . . . . . .        42
+        23.1.3 Category Laws . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .      43
+        23.1.4 The Categorical Separation Theorem . . . . . . . . . . . . . . . . . . . . .         43
 
-24 Falsifiable Predictions                                                                          46
-   24.1 Falsify No Free Insight . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   46
-   24.2 Falsify the Classical CHSH Bound . . . . . . . . . . . . . . . . . . . . . . . . . .        46
-   24.3 Falsify the Biconditional . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   46
-   24.4 Falsify the µ-Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   46
-   24.5 What I Don’t Know . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       46
+24 Falsifiable Predictions                                                                          44
+   24.1 Falsify No Free Insight . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   44
+   24.2 Falsify the Classical CHSH Bound . . . . . . . . . . . . . . . . . . . . . . . . . .        44
+   24.3 Falsify the Biconditional . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   44
+   24.4 Falsify the µ-Hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   44
+   24.5 What I Don’t Know . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       44
 
-A Proof File Index                                                                                  48
+A Proof File Index                                                                                  46
 
-B Epistemological Classification                                                                    50
+B Epistemological Classification                                                                    48
 
 
 
@@ -376,15 +376,18 @@ Chapter 23 for laws and proofs.
    • MORPH_GET(dst, f, sel, ∆µ): Read morphism metadata: selector 0 = src, 1 = tgt, 2 =
      coupling length, 3 = is_identity.
 
-    The active implementation exposes a 46-opcode ISA: 14 arithmetic/data, 8 memory and
-control flow, 7 I/O and tensor, 4 partition operations, 3 logic and certification, 3 witness and
-certification flags, 7 categorical morphism operations (14 + 8 + 7 + 4 + 3 + 3 + 7 = 46). This
-condensed mathematical specification presents the core instruction families relevant to the kernel
-semantics and cost model. Every instruction carries an explicit ∆µ parameter; the function
-instruction_cost extracts it.
+    The active implementation exposes a 51-opcode ISA: 14 arithmetic/data, 8 memory and
+control flow, 7 I/O and tensor, 4 partition operations, 3 logic and certification, 8 witness and
+certification (CHSH_TRIAL, CERTIFY, REVEAL, CHSH_LASSERT, and the four Q1+AB check variants),
+7 categorical morphism operations (14 + 8 + 7 + 4 + 3 + 8 + 7 = 51). 47 of the 51 are synth-realized;
+the four Q1+AB variants live in the Kami HW abstraction with kernel-equivalence proven but
+are excluded from the synthesized Verilog by silicon budget. This condensed mathematical
+specification presents the core instruction families relevant to the kernel semantics and cost
+model. Every instruction carries an explicit ∆µ parameter; the function instruction_cost
+extracts it.
 
 
-3.2    Cost Model
+3.2     Cost Model
 Every instruction i carries an explicit cost parameter ∆µi ∈ N. The function instruction_cost(i)
 extracts this parameter. The cost is applied via apply_cost(s, i) = s.µ + instruction_cost(i).
 Since ∆µi : N, the µ-ledger is monotonically non-decreasing by construction.
@@ -396,7 +399,7 @@ exactly their encoded ∆µ, which is 0 in typical programs.
 
 
 
-                                                9
+                                                 9
 Chapter 4
 
 Operational Semantics
@@ -1702,26 +1705,26 @@ hardware specification and the Coq kernel semantics:
 
                                        rtl_gap_count = 0
 
-rtl_coverage_partition: The 46-opcode ISA partitions as:
+rtl_coverage_partition: The 47 synth-realized opcodes (of the 51-opcode ISA) partition as:
 
-36 (unconditional Qed)+10 (Qed under inductive invariants coupling_wf, morph_table_wf)+0 (gaps) = 46
+37 (unconditional Qed)+10 (Qed under inductive invariants coupling_wf, morph_table_wf)+0 (gaps) = 47
 
 This is a Coq theorem (rtl_coverage_partition in coq/kami_hw/RTLGapRegistry.v), not a
 comment. The partition equation is machine-checked. Zero Admitted.
 
 Remark 22.1. The official partition (rtl_coverage_partition in coq/kami_hw/RTLGapRegistry.v)
-is 36 + 10 + 0 = 46. The 36 unconditional proofs are: 30 from the SupportedOpcode
-group (coq/kami_hw/EmbedStep.v: embed_step_compute) plus CALL, RET, CHSH_TRIAL
-(coq/kami_hw/EmbedStep_WF.v) and TENSOR_SET, TENSOR_GET, LASSERT (coq/kami_hw/GraphRecons
-The remaining 10 (PNEW, PSPLIT, PMERGE, MORPH, MORPH_ID, MORPH_DELETE,
-MORPH_ASSERT, MORPH_GET, COMPOSE, MORPH_TENSOR) carry Qed proofs un-
-der the joint structural invariant morph_table_wf ∧ coupling_wf ∧ coupling_desc_safe.
-Each component is preserved by every kami_step: morph_table_wf_kami_step_preserved,
-coupling_desc_safe_kami_step_preserved, and coupling_wf_kami_step_preserved. The
-last takes coupling_desc_safe as a side hypothesis (in addition to coupling_wf), which is why
-the conjunction is the actual inductive invariant. So the precondition is discharged for any state
-reachable by machine execution. PNEW/PSPLIT/PMERGE additionally need pt_well_formed
-and arithmetic side conditions that are likewise inductive.
+is 37 + 10 + 0 = 47. The 37 unconditional proofs are: 31 from the SupportedOpcode group,
+including CHSH_LASSERT (coq/kami_hw/EmbedStep.v: embed_step_compute) plus CALL, RET,
+CHSH_TRIAL (coq/kami_hw/EmbedStep_WF.v) and TENSOR_SET, TENSOR_GET, LASSERT
+(coq/kami_hw/GraphReconstructionBridge.v). The remaining 10 (PNEW, PSPLIT, PMERGE,
+MORPH, MORPH_ID, MORPH_DELETE, MORPH_ASSERT, MORPH_GET, COMPOSE,
+MORPH_TENSOR) carry Qed proofs under the joint structural invariant morph_table_wf
+∧ coupling_wf ∧ coupling_desc_safe. Each component is preserved by every kami_step:
+morph_table_wf_kami_step_preserved, coupling_desc_safe_kami_step_preserved, and coupling_wf_ka
+The last takes coupling_desc_safe as a side hypothesis (in addition to coupling_wf), which
+is why the conjunction is the actual inductive invariant. So the precondition is discharged
+for any state reachable by machine execution. PNEW/PSPLIT/PMERGE additionally need
+pt_well_formed and arithmetic side conditions that are likewise inductive.
 
 
 
@@ -1738,7 +1741,7 @@ bsc_kami_compilation_trusted (Layer 2, Verilog semantics gap). The Bluespec Syst
      The Section Variable rtl_step_correct states that the synthesised RTL implements the
      Kami step function; this is the residual hypothesis that every theorem in the section quanti-
      fies over. The boundary is empirically backed by the cosim suite (tests/test_verilog_cosim.py,
-     38 tests, including test_all_46_opcodes_in_cosim which checks that every opcode ap-
+     38 tests, including test_all_47_opcodes_in_cosim which checks that every opcode ap-
      pears) and the parametrized cross-layer fuzz suites (tests/test_fuzz_random_programs.py
      and tests/test_cross_layer_adversarial_fuzz.py).
 
@@ -1997,7 +2000,7 @@ Falsifiable Prediction record                                          coq/kerne
 Three-Layer (Coq ↔ Python ↔ RTL) Isomorphism                           coq/kernel/hardware_bridge/ThreeLayerI
 Hardware / RTL / extraction
 RTL Gap Count = 0                                                      coq/kami_hw/RTLGapRegistry.v: rtl_gap_c
-RTL Coverage Partition (36 + 10 + 0 = 46)         49                   coq/kami_hw/RTLGapRegistry.v: rtl_cover
+RTL Coverage Partition (37 + 10 + 0 = 47)         49                   coq/kami_hw/RTLGapRegistry.v: rtl_cover
 RTL Trust Boundary (Section Variable)                                  coq/kernel/hardware_bridge/VerilogRTLC
 BSC Compilation Trust Boundary                                         coq/kernel/hardware_bridge/VerilogRTLC
 Coq-Kami refinement (proves rtl_step_correct for COQKAMI)              coq/kami_hw/VerilogSemantics.v

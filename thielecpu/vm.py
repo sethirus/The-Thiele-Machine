@@ -1216,8 +1216,14 @@ def run_text_program(instructions: List[str], fuel: int = 1000) -> VMState:
                     if "does not match in-memory header" in str(_ve):
                         raise
             instr = _parse_instruction_dict(toks)
-            if instr is not None:
-                program.append(instr)
+            if instr is None:
+                # A line that parses to nothing must not silently vanish: a
+                # machine whose claim is "no unearned receipts" cannot report
+                # a clean mu=0 run for a program it never executed.
+                raise ValueError(
+                    f"unrecognized or malformed instruction line: {line!r}"
+                )
+            program.append(instr)
     return vm_run(state, program, max_steps=fuel)
 
 

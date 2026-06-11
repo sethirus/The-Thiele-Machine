@@ -118,6 +118,27 @@ NON_COQ_TOKENS = {
     "TRIVIAL_EQUALITY", "CIRCULAR_INTROS_ASSUMPTION", "AXIOM_DOCUMENTED",
     # numeric literals / English wrapped in texttt
     "0", "1", "0xF00", "n", "k", "i", "j", "s",
+    # Coq standard-library identifiers referenced in prose. Real Coq names,
+    # just not declared under coq/ so the tree index can't see them: list
+    # fold, the binary positives the Gödel encoding routes through, and the
+    # three real-number / classical-logic lemmas Print Assumptions surfaces
+    # for the CHSH algebra.
+    "fold_left", "positive",
+    "sig_forall_dec", "sig_not_dec", "functional_extensionality_dep",
+    # The machines themselves, typeset in code font as proper names.
+    "Thiele", "Turing",
+    # Kami HW objects: a morphism struct flag and an RTL rule name. Real, but
+    # carried in the graph-morphism / Kami representation, not as a top-level
+    # Coq declaration the indexer walks.
+    "is_identity", "chsh_lassert_fsm",
+    # Substrate-typeclass field names and the prose-proof pseudocode of the
+    # halting-shaped-wall section: illustrative names in the informal
+    # Kleene-diagonal argument, not Coq declarations.
+    "Program", "AdmitsShortcut", "recursion_theorem", "prog_equiv",
+    "yes_program", "no_program", "decide", "flip", "f",
+    # Descriptive grouping name for the 8 wc_* CHSH counters (not itself a
+    # Coq type), and shorthand for the CHSH_LASSERT_1AB_G12345 opcode variant.
+    "WitnessCount", "_g12345",
 }
 
 
@@ -409,6 +430,10 @@ def classify(token: str) -> str:
     # local quantifier variables copied verbatim from inductive constructor
     # signatures into the monograph prose; they are not standalone declarations.
     if token.endswith("'") and re.fullmatch(r"[a-z_][A-Za-z0-9_]*'+", token):
+        return "skip"
+    # Register names r0..r15 (the VM's 16 registers) — prose references to
+    # hardware registers, not Coq identifiers.
+    if re.fullmatch(r"r\d+", token):
         return "skip"
     # Python pytest test function references (e.g. test_all_46_opcodes_in_cosim)
     if token.startswith("test_"):
