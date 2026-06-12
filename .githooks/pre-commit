@@ -304,31 +304,66 @@ if [ -f scripts/generate_rtl_pipeline_manifest.py ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# (3c) Unconditional kernel-conversion vacuity gate refresh.
+# (3c) Incremental kernel-conversion vacuity gate refresh.
 #
-# scripts/vacuity_gate.py reads scripts/vacuity_targets.json and, for every
-# Theorem/Lemma/Corollary in each listed Coq file, synthesises a probe .v
-# that asks Coq's kernel whether the conclusion is convertible — after
-# δ/ι/ζ/β reduction — to either `True` or one of the theorem's hypotheses.
-# A positive probe is conclusive evidence that the theorem is (V)acuous in
-# the μ-axis research program's Phase-0 discipline. Output JSON path:
-#   artifacts/vacuity_audit.json
-# Empty manifest -> empty audit (no targets configured yet). The Inquisitor
-# (stage 5) consumes the audit and emits HIGH findings for any
-# vacuous-true/vacuous-hyp verdict, which fails the commit.
+# scripts/vacuity_gate.py probes every Theorem/Lemma/Corollary in a target
+# Coq file: it asks Coq's kernel whether the conclusion is convertible —
+# after δ/ι/ζ/β reduction — to either `True` or one of the theorem's
+# hypotheses. A positive probe is conclusive evidence the theorem is vacuous.
+# Output JSON path: artifacts/vacuity_audit.json. The Inquisitor (stage 5)
+# consumes the audit and emits HIGH findings for any vacuous-true/vacuous-hyp
+# verdict, which fails the commit.
+#
+# INCREMENTAL: the manifest covers ~50 files / ~540 theorems and a full
+# sweep takes ~30 minutes — far too slow for a commit hook. A theorem's
+# probes only change when its own file changes, so the hook re-probes just
+# the STAGED .v files that appear in the manifest, merging the fresh
+# verdicts into the committed audit (--merge keeps every other file's
+# entries). Staging the manifest or the gate script itself triggers a full
+# sweep, since either can invalidate every entry. The full sweep also runs
+# on demand (`make vacuity-audit`) and nightly in CI (ci-full.yml), which
+# is what catches the cross-file case — a theorem going vacuous because a
+# DEFINITION it uses changed in some other file.
 # ---------------------------------------------------------------------------
 
 if command -v coqc >/dev/null 2>&1; then
     if [ -f scripts/vacuity_gate.py ] && [ -f scripts/vacuity_targets.json ]; then
-        echo "[pre-commit] Running kernel-conversion vacuity gate..."
-        if ! python3 scripts/vacuity_gate.py \
-                --manifest scripts/vacuity_targets.json \
-                --output artifacts/vacuity_audit.json >/dev/null 2>&1; then
-            echo "[pre-commit] WARNING: vacuity_gate.py failed; leaving audit as-is." >&2
-            echo "             Reproduce with:" >&2
-            echo "               python3 scripts/vacuity_gate.py --manifest scripts/vacuity_targets.json" >&2
+        if git diff --cached --name-only --diff-filter=ACMR \
+                | grep -qx -e 'scripts/vacuity_targets.json' -e 'scripts/vacuity_gate.py'; then
+            echo "[pre-commit] Vacuity manifest/gate staged — running FULL vacuity sweep (this takes a while)..."
+            if ! python3 scripts/vacuity_gate.py \
+                    --manifest scripts/vacuity_targets.json \
+                    --output artifacts/vacuity_audit.json >/dev/null 2>&1; then
+                echo "[pre-commit] WARNING: vacuity_gate.py failed; leaving audit as-is." >&2
+                echo "             Reproduce with:" >&2
+                echo "               python3 scripts/vacuity_gate.py --manifest scripts/vacuity_targets.json" >&2
+            fi
+            _pc_stage_if_changed artifacts/vacuity_audit.json
+        else
+            _pc_vacuity_args=$(git diff --cached --name-only --diff-filter=ACMR -- '*.v' \
+                | python3 -c '
+import json, sys
+staged = {line.strip() for line in sys.stdin if line.strip()}
+manifest = json.load(open("scripts/vacuity_targets.json"))
+args = []
+for t in manifest.get("targets", []):
+    if t["path"] in staged:
+        args += ["--target", t["path"], "--logical", t["logical"]]
+print(" ".join(args))
+')
+            if [ -n "$_pc_vacuity_args" ]; then
+                echo "[pre-commit] Running kernel-conversion vacuity gate on staged manifest files..."
+                # shellcheck disable=SC2086 — the args are a flat flag list by construction
+                if ! python3 scripts/vacuity_gate.py $_pc_vacuity_args \
+                        --merge \
+                        --output artifacts/vacuity_audit.json >/dev/null 2>&1; then
+                    echo "[pre-commit] WARNING: vacuity_gate.py failed; leaving audit as-is." >&2
+                    echo "             Reproduce with:" >&2
+                    echo "               python3 scripts/vacuity_gate.py --manifest scripts/vacuity_targets.json" >&2
+                fi
+                _pc_stage_if_changed artifacts/vacuity_audit.json
+            fi
         fi
-        _pc_stage_if_changed artifacts/vacuity_audit.json
     fi
 fi
 

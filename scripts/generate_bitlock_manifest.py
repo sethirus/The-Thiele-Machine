@@ -13,6 +13,7 @@ import argparse
 import hashlib
 import json
 import random
+import sys
 from pathlib import Path
 from typing import Any, Dict, List, cast
 
@@ -22,11 +23,11 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
     Ed25519PublicKey,
 )
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(REPO_ROOT))
+
 from build import thiele_vm as text_vm
 from thielecpu.hardware.cosim import run_verilog
-
-
-REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def sha256_bytes(data: bytes) -> str:

@@ -461,11 +461,11 @@ coq-core:
 	@echo "✓ Coq proofs built"
 
 coq-kernel:
-	@$(MAKE) -C coq kernel/Kernel.vo kernel/KernelTM.vo kernel/KernelThiele.vo
+	@$(MAKE) -C coq kernel/foundation/Kernel.vo kernel/foundation/KernelTM.vo kernel/foundation/KernelThiele.vo
 	@echo "✓ Coq kernel proofs built"
 
 coq-subsumption:
-	@$(MAKE) -C coq kernel/Subsumption.vo
+	@$(MAKE) -C coq kernel/foundation/Subsumption.vo
 	@echo "✓ Subsumption proof (TURING ⊊ THIELE) verified"
 
 isomorphism-bitlock:
@@ -494,6 +494,11 @@ synthesis-repro-gate:
 
 final-claim-audit:
 	@bash scripts/repo_audit_trail.sh
+
+vacuity-audit: ## Kernel-conversion vacuity gate over the manifest in scripts/vacuity_targets.json
+	@python3 scripts/vacuity_gate.py \
+		--manifest scripts/vacuity_targets.json \
+		--output artifacts/vacuity_audit.json
 
 final-claim-all: parity-extracted-only proof-gate-repro synthesis-repro-gate final-claim-audit
 	@echo "✓ Final claim bundle generated under artifacts/"
@@ -567,9 +572,9 @@ proof-undeniable:
 	@$(MAKE) isa-proof-freshness-check
 	@$(MAKE) check-sensitive-files-strict
 	@python3 scripts/inquisitor.py
-	@cd coq && coqchk -R kernel Kernel Kernel.Kernel Kernel.KernelTM Kernel.KernelThiele
-	@cd coq && coqchk -R kernel Kernel Kernel.PythonBisimulation Kernel.HardwareBisimulation Kernel.ThreeLayerIsomorphism
-	@cd coq && coqchk -R kernel Kernel Kernel.VMState Kernel.VMStep Kernel.MuShannonBridge Kernel.HonestNoFI_TheoremsWithoutAssumptions
+	@cd coq && coqchk $$(grep '^-R' _CoqProject | tr '\n' ' ') Kernel.Kernel Kernel.KernelTM Kernel.KernelThiele
+	@cd coq && coqchk $$(grep '^-R' _CoqProject | tr '\n' ' ') Kernel.PythonBisimulation Kernel.HardwareBisimulation Kernel.ThreeLayerIsomorphism
+	@cd coq && coqchk $$(grep '^-R' _CoqProject | tr '\n' ' ') Kernel.VMState Kernel.VMStep Kernel.MuShannonBridge Kernel.HonestNoFI_TheoremsWithoutAssumptions
 	@$(MAKE) isomorphism-bitlock
 	@echo "✓ Formal proof gate PASSED (inquisitor + coqchk)"
 

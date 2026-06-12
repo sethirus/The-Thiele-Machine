@@ -11,6 +11,7 @@
 -R kernel/mu_calculus Kernel
 -R kernel/nfi Kernel
 -R kernel/quantum Kernel
+-R kernel/reductions Kernel
 -R kernel/thermodynamic Kernel
 -R kernel/witness Kernel
 -R nofi NoFI
@@ -301,4 +302,12 @@ kernel/witness/WitnessInsightGeneral.v
 kernel/foundation/DagRestriction.v
 kernel/witness/InformationTopology.v
 kami_hw/RTLGapRegistry.v
+
+# Reductions: real-world systems instantiated against the kernel's abstract records
+kernel/reductions/PoSFinality.v
+kernel/reductions/GasMetering.v
+kernel/reductions/TEEAttestation.v
+kernel/reductions/TransparencyLog.v
+kernel/reductions/ProofCarryingVerifier.v
+
 tests/CloseoutVerification.v

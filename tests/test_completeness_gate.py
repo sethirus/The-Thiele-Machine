@@ -301,6 +301,7 @@ class TestOCamlLayer:
             "thiele_core.ml extracted_vm_runner.ml -o extracted_vm_runner"
         )
 
+    @pytest.mark.strict_extracted
     def test_runner_binary_executable(self):
         """Runner binary must be executable and run a simple program."""
         if not self.RUNNER_BIN.exists():
@@ -379,6 +380,7 @@ class TestPythonVMLayer:
             "thielecpu.vm missing vm_run or VM class"
         )
 
+    @pytest.mark.strict_extracted
     def test_vm_run_halt_returns_state(self):
         """Running a single HALT through the Python VM must return valid state."""
         from thielecpu.vm import VMState, vm_run
@@ -386,6 +388,7 @@ class TestPythonVMLayer:
         result = vm_run(s, [{"op": "halt", "cost": 1}])
         assert result.vm_mu == 1, f"Expected mu=1 after HALT cost=1, got {result.vm_mu}"
 
+    @pytest.mark.strict_extracted
     def test_vm_run_all_46_opcodes_accepted(self):
         """Every opcode must be accepted by vm_run without KeyError/ValueError."""
         from thielecpu.vm import VMState, vm_run

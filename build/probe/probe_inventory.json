@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 267,
-  "total_addressable": 3822,
+  "files_probed": 272,
+  "total_addressable": 3872,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -18583,6 +18583,301 @@
           "local_name": "bell_math_deterministic",
           "kind": "Theorem",
           "full_name": "Kernel.ValidCorrelation.bell_math_deterministic"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/GasMetering.v",
+      "qualified_module": "Kernel.GasMetering",
+      "addressable_count": 15,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "gas_schedule_exactness",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.gas_schedule_exactness"
+        },
+        {
+          "local_name": "undercharged_opcode_admits_free_commitment",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.undercharged_opcode_admits_free_commitment"
+        },
+        {
+          "local_name": "undercharged_opcode_breaks_certification_floor",
+          "kind": "Corollary",
+          "full_name": "Kernel.GasMetering.undercharged_opcode_breaks_certification_floor"
+        },
+        {
+          "local_name": "overcharge_breaks_exactness",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.overcharge_breaks_exactness"
+        },
+        {
+          "local_name": "toy_charged_costs",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_charged_costs"
+        },
+        {
+          "local_name": "toy_uncharged_free",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_uncharged_free"
+        },
+        {
+          "local_name": "toy_charge_is_cert_flip",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_charge_is_cert_flip"
+        },
+        {
+          "local_name": "toy_exact_unit_pricing",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_exact_unit_pricing"
+        },
+        {
+          "local_name": "toy_gas_schedule_is_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.toy_gas_schedule_is_exact"
+        },
+        {
+          "local_name": "thiele_commit_charged_costs",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_commit_charged_costs"
+        },
+        {
+          "local_name": "thiele_commit_uncharged_free",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_commit_uncharged_free"
+        },
+        {
+          "local_name": "thiele_charge_is_cert_flip",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_charge_is_cert_flip"
+        },
+        {
+          "local_name": "thiele_exact_unit_pricing",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_exact_unit_pricing"
+        },
+        {
+          "local_name": "thiele_vm_commit_pricing_is_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.thiele_vm_commit_pricing_is_exact"
+        },
+        {
+          "local_name": "thiele_unit_price_lower_bounds_mu",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.thiele_unit_price_lower_bounds_mu"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/PoSFinality.v",
+      "qualified_module": "Kernel.PoSFinality",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "vote_preserves_finalized",
+          "kind": "Lemma",
+          "full_name": "Kernel.PoSFinality.vote_preserves_finalized"
+        },
+        {
+          "local_name": "nothing_at_stake_free_finalization",
+          "kind": "Theorem",
+          "full_name": "Kernel.PoSFinality.nothing_at_stake_free_finalization"
+        },
+        {
+          "local_name": "nothing_at_stake_is_free_forgery",
+          "kind": "Theorem",
+          "full_name": "Kernel.PoSFinality.nothing_at_stake_is_free_forgery"
+        },
+        {
+          "local_name": "slashing_cert_costs",
+          "kind": "Lemma",
+          "full_name": "Kernel.PoSFinality.slashing_cert_costs"
+        },
+        {
+          "local_name": "slashing_finality_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.PoSFinality.slashing_finality_floor"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/ProofCarryingVerifier.v",
+      "qualified_module": "Kernel.ProofCarryingVerifier",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "pcc_rounds_attach",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_rounds_attach"
+        },
+        {
+          "local_name": "pcc_attach_rounds",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_attach_rounds"
+        },
+        {
+          "local_name": "pcc_strip_attach",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_strip_attach"
+        },
+        {
+          "local_name": "pcc_explains_lift",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_explains_lift"
+        },
+        {
+          "local_name": "certificate_pins_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.certificate_pins_mu"
+        },
+        {
+          "local_name": "bare_transcript_does_not_pin_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.bare_transcript_does_not_pin_mu"
+        },
+        {
+          "local_name": "proof_rounds_escape",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProofCarryingVerifier.proof_rounds_escape"
+        },
+        {
+          "local_name": "bare_pcc_impossible",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProofCarryingVerifier.bare_pcc_impossible"
+        },
+        {
+          "local_name": "level_k_verification_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProofCarryingVerifier.level_k_verification_floor"
+        },
+        {
+          "local_name": "level_k_verification_floor_tight",
+          "kind": "Corollary",
+          "full_name": "Kernel.ProofCarryingVerifier.level_k_verification_floor_tight"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/TEEAttestation.v",
+      "qualified_module": "Kernel.TEEAttestation",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "reports_project_equal",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.reports_project_equal"
+        },
+        {
+          "local_name": "report_A_explains_A",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.report_A_explains_A"
+        },
+        {
+          "local_name": "report_B_explains_B",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.report_B_explains_B"
+        },
+        {
+          "local_name": "attestation_cannot_factor_through_bare_transcript",
+          "kind": "Theorem",
+          "full_name": "Kernel.TEEAttestation.attestation_cannot_factor_through_bare_transcript"
+        },
+        {
+          "local_name": "replay_is_a_two_preimage_witness",
+          "kind": "Theorem",
+          "full_name": "Kernel.TEEAttestation.replay_is_a_two_preimage_witness"
+        },
+        {
+          "local_name": "measured_snapshot_explains",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.measured_snapshot_explains"
+        },
+        {
+          "local_name": "snapshot_state_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.snapshot_state_mu"
+        },
+        {
+          "local_name": "attest_decide_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.attest_decide_sound"
+        },
+        {
+          "local_name": "attest_decide_complete",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.attest_decide_complete"
+        },
+        {
+          "local_name": "measurement_enriched_attestation_succeeds",
+          "kind": "Theorem",
+          "full_name": "Kernel.TEEAttestation.measurement_enriched_attestation_succeeds"
+        },
+        {
+          "local_name": "working_attestation_verifier_reads_the_register",
+          "kind": "Corollary",
+          "full_name": "Kernel.TEEAttestation.working_attestation_verifier_reads_the_register"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/TransparencyLog.v",
+      "qualified_module": "Kernel.TransparencyLog",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "inclusion_is_commitment",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.inclusion_is_commitment"
+        },
+        {
+          "local_name": "lbt_roundtrip",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.lbt_roundtrip"
+        },
+        {
+          "local_name": "hardness_roundtrip",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.hardness_roundtrip"
+        },
+        {
+          "local_name": "log_audit_is_hardness_decide",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.log_audit_is_hardness_decide"
+        },
+        {
+          "local_name": "log_audit_weak_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.log_audit_weak_sound"
+        },
+        {
+          "local_name": "transparency_log_escape",
+          "kind": "Theorem",
+          "full_name": "Kernel.TransparencyLog.transparency_log_escape"
+        },
+        {
+          "local_name": "log_free_verifier_impossible",
+          "kind": "Theorem",
+          "full_name": "Kernel.TransparencyLog.log_free_verifier_impossible"
+        },
+        {
+          "local_name": "split_view_witness",
+          "kind": "Theorem",
+          "full_name": "Kernel.TransparencyLog.split_view_witness"
+        },
+        {
+          "local_name": "split_view_same_verdict",
+          "kind": "Corollary",
+          "full_name": "Kernel.TransparencyLog.split_view_same_verdict"
         }
       ],
       "unaddressable": []

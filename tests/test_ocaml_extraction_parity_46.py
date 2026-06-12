@@ -38,13 +38,10 @@ from __future__ import annotations
 
 import pytest
 
-# Skip entire module if OCaml runner unavailable
 from build import thiele_vm as vm_mod
 
-pytestmark = pytest.mark.skipif(
-    not vm_mod._runner_available(),
-    reason="OCaml extracted runner (build/extracted_vm_runner) unavailable",
-)
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
 
 
 def run(program: list[str]) -> vm_mod.VMState:

@@ -541,7 +541,9 @@ jobs:
             build/extracted_vm_runner.ml
 
       - name: Run pytest (FULL suite — no marker filter, no skips)
-        run: python -m pytest tests/ -q --tb=short
+        # --strict-backends turns backend-missing skips into hard failures,
+        # so a silently broken toolchain install cannot shrink this job.
+        run: python -m pytest tests/ -q --tb=short --strict-backends
 
   trs-receipts:
     name: TRS receipt tests
@@ -593,7 +595,7 @@ jobs:
             tests/test_trs10_fixture_corpus.py \
             tests/test_trs10_node_verifier.py \
             tests/test_trs10_matrix_cases.py \
-            -q --tb=short
+            -q --tb=short --strict-backends
 
   # Phase 4: Dependency audit (independent)
   dependencies:
@@ -653,10 +655,10 @@ jobs:
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Fail if any check failed
-        if: |
-          needs.proof-check.result == 'failure' ||
-          needs.extraction.result == 'failure' ||
-          needs.python-tests.result == 'failure' ||
-          needs.trs-receipts.result == 'failure' ||
-          needs.dependencies.result == 'failure'
+        # Every needed job must come back 'success'. Checking for explicit
+        # 'failure' on a hand-kept list has two holes: a job missing from
+        # the list (build-coq and proof-repro-gate were missing here), and
+        # the 'skipped' result a job gets when its `needs` failed upstream
+        # — neither matched '== failure', so this step stayed green.
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
         run: exit 1

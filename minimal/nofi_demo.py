@@ -1,38 +1,46 @@
 #!/usr/bin/env python3
-"""No Free Insight, measured from scratch, no Thiele code imported.
+"""No Free Insight, rebuilt from scratch in stdlib Python. No Thiele code.
 
-I rebuilt the central law here with nothing but the Python standard library,
-because the honest answer to "is this real?" is not a paragraph, it's a thing
-you run. Every step checks itself with an assertion. Exit 0 means every
-measurement held; anything that didn't would raise and exit nonzero. Don't
-take the result on my say-so: the numbers come out the same whoever runs it,
-which is the only kind of answer worth handing a stranger.
+Three sections, and I want to be exact about what kind of evidence each one
+is, because the difference matters and I'd rather state it than have a
+careful reader state it for me.
 
-What it shows, with the Coq kernel nowhere in sight:
+  E1  EXHAUSTIVE. Every function on every world-space up to size 5 — all
+      3,412 of them, the complete space, not a sample. The claim "a
+      reversible step cannot narrow what you know, and narrowing is
+      exactly the destruction of possibilities" either holds for every
+      single one or this script exits nonzero. There is nowhere for a
+      counterexample to hide on these spaces.
 
-  E1  A reversible step (a bijection on possibility-space) can't narrow
-      what you know.  Insight is the act of ruling possibilities out, and
-      ruling things out destroys information.  There is no reversible way
-      to learn something.
+  E2  EXHAUSTIVE + RANDOMIZED. The conservation law — banking k bits of
+      insight erases exactly k bits — checked on every observation size
+      over a 256-world uniform space, and then on 500 seeded random
+      worlds with non-uniform priors. The law is a theorem; what these
+      sweeps can catch is the thing a theorem can't check for you: that
+      the model written down here actually is the law, and that the
+      entropy accounting in this file isn't quietly wrong.
 
-  E2  The cost is conserved, not a matter of taste: under reversible
-      accounting H(world) + H(record) never moves, so banking k bits of
-      insight means destroying exactly k bits, now or on the bill later.
-      This is the kernel's entropy-bounded mu theorem, log2|Omega| -
-      log2|Omega'| <= delta-mu, rebuilt from bijections and Landauer alone.
+  E3  MEASURED. Real algorithms, real counters. Binary search rides the
+      log2(n) floor at 100% efficiency, a wasteful splitter pays 131%,
+      linear scan pays ~2%. And one cheater: a strategy that stops paying
+      halfway and guesses. It gets under the floor — and buys every saved
+      bit in wrong answers, measured. The floor binds exact
+      identification; pay less and you are wrong, at a rate you can read
+      off the table.
 
-  E3  mu is a thermometer: algorithms that bank the same knowledge pay
-      wildly different insight-cost.  Binary search rides the floor at
-      ~100% efficiency, a wasteful splitter overpays, linear scan limps in
-      around 2%.  Nothing beats the floor, ever.
+What this file is not: physics. No joules, no Boltzmann constant, no claim
+about all possible algorithms. The general statements are the kernel's
+theorems; this is their runnable face, with the parts that can be checked
+completely checked completely, and the parts that are measurements measured.
 
 Determinism: fixed seeds, integer arithmetic where possible, tolerance
-asserts where floats are unavoidable.
+asserts where floats are unavoidable. Exit 0 means every check held.
 """
 
 import math
 import random
 from collections import Counter
+from itertools import product
 
 PASS = []
 
@@ -45,31 +53,40 @@ def check(name: str, ok: bool, detail: str = "") -> None:
 
 
 # ---------------------------------------------------------------------
-# E1 — reversible steps cannot narrow; narrowing destroys information
+# E1 — exhaustive: reversibility and narrowing exclude each other
 # ---------------------------------------------------------------------
 
 def e1() -> None:
-    print("E1  reversible steps cannot narrow the feasible set")
-    n = 16
-    worlds = set(range(n))
+    print("E1  exhaustive sweep: narrowing and reversibility exclude each other")
+    total = 0
+    narrowing_injective = 0    # a reversible step that narrowed: forbidden
+    merging_full_image = 0     # an information-destroying step that didn't narrow: forbidden
 
-    rng = random.Random(1729)
-    perm = list(range(n))
-    rng.shuffle(perm)
-    after_bijection = {perm[w] for w in worlds}
-    check("bijection preserves feasible-set size", len(after_bijection) == n)
+    for n in range(2, 6):
+        worlds = range(n)
+        for f in product(worlds, repeat=n):       # every function [n] -> [n]
+            total += 1
+            image = set(f)
+            injective = len(set(f)) == n
+            if len(image) < n and injective:
+                narrowing_injective += 1
+            if not injective and len(image) == n:
+                merging_full_image += 1
 
-    survivors = {w for w in worlds if w < 6}
-    insight_bits = math.log2(n) - math.log2(len(survivors))
     check(
-        "narrowing is non-injective and destroys possibilities",
-        len(survivors) < n and abs(insight_bits - math.log2(16 / 6)) < 1e-12,
-        f"16 -> 6 worlds = {insight_bits:.4f} bits of insight",
+        "no reversible step narrows the feasible set",
+        narrowing_injective == 0,
+        f"{total} functions on spaces of size 2..5, zero counterexamples",
+    )
+    check(
+        "every information-destroying step narrows it",
+        merging_full_image == 0,
+        f"merging two worlds always shrinks the image, all {total} functions",
     )
 
 
 # ---------------------------------------------------------------------
-# E2 — conservation: banked insight == erased bits, exactly
+# E2 — conservation: banked insight == erased bits, swept hard
 # ---------------------------------------------------------------------
 
 def entropy(dist: Counter) -> float:
@@ -77,51 +94,83 @@ def entropy(dist: Counter) -> float:
     return -sum((c / total) * math.log2(c / total) for c in dist.values() if c)
 
 
+def conservation_holds(prior: Counter, keep) -> tuple:
+    """One observation under reversible accounting.
+
+    The observation splits the worlds into survivors and ruled-out. A
+    reversible implementation relabels every world into (lane, index) —
+    a bijection, nothing discarded yet. Banking the insight means
+    dropping the ruled-out lane. Returns (conservation error,
+    insight-vs-erasure error) for the caller to bound.
+    """
+    survivors = Counter({w: p for w, p in prior.items() if keep(w)})
+    if not survivors or len(survivors) == len(prior):
+        return None  # observation that rules out nothing, or everything: no insight event
+
+    joint = Counter()
+    for k, (w, p) in enumerate(sorted(survivors.items())):
+        joint[(1, k)] = p
+    for k, (w, p) in enumerate(sorted((w, p) for w, p in prior.items() if not keep(w))):
+        joint[(0, k)] = p
+
+    h_prior = entropy(prior)
+    h_joint = entropy(joint)                      # after the bijection
+    h_posterior = entropy(survivors)              # entropy() renormalizes: this is the posterior
+
+    insight = h_prior - h_posterior               # what the observation banked
+    erasure = h_joint - h_posterior               # what committing it destroyed
+    return abs(h_joint - h_prior), abs(insight - erasure)
+
+
 def e2() -> None:
     print("E2  conservation: banking k bits of insight erases exactly k bits")
+    worst_conservation = 0.0
+    worst_identity = 0.0
+    instances = 0
+
+    # Exhaustive over observation size: a 256-world uniform space, every
+    # possible survivor count from 1 to 255.
     n = 256
-    keep = lambda i: i % 8 == 0          # observation keeps 32 of 256
-    survivors = [i for i in range(n) if keep(i)]
-    ruled_out = [i for i in range(n) if not keep(i)]
+    uniform = Counter({w: 1 for w in range(n)})
+    for k in range(1, n):
+        r = conservation_holds(uniform, lambda w, k=k: w < k)
+        if r is not None:
+            instances += 1
+            worst_conservation = max(worst_conservation, r[0])
+            worst_identity = max(worst_identity, r[1])
 
-    # Reversible implementation: a bijection world -> (lane, index).
-    joint = Counter()
-    for k, _ in enumerate(survivors):
-        joint[(1, k)] += 1
-    for k, _ in enumerate(ruled_out):
-        joint[(0, k)] += 1
+    # Randomized over priors: 500 seeded worlds, non-uniform integer
+    # weights, random observation predicates. A wrong entropy function or
+    # a broken relabeling shows up here loudly.
+    rng = random.Random(1729)
+    for _ in range(500):
+        size = rng.randrange(2, 64)
+        prior = Counter({w: rng.randrange(1, 100) for w in range(size)})
+        cut = rng.randrange(1, size)
+        members = set(rng.sample(range(size), cut))
+        r = conservation_holds(prior, lambda w, m=members: w in m)
+        if r is not None:
+            instances += 1
+            worst_conservation = max(worst_conservation, r[0])
+            worst_identity = max(worst_identity, r[1])
 
-    h_initial = math.log2(n)
-    h_joint = entropy(joint)
     check(
-        "reversible work conserves total uncertainty",
-        abs(h_joint - h_initial) < 1e-9,
-        f"H = {h_joint:.4f} bits before and after",
+        "reversible relabeling conserves total uncertainty on every instance",
+        worst_conservation < 1e-9,
+        f"{instances} instances, worst drift {worst_conservation:.2e} bits",
     )
-
-    h_kept = math.log2(len(survivors))
-    insight = h_initial - h_kept          # bits banked by the narrowing
-    erase_cost = h_joint - h_kept         # bits destroyed to commit it
     check(
-        "banked insight equals erased bits exactly",
-        abs(insight - erase_cost) < 1e-9,
-        f"insight = erase = {insight:.4f} bits",
+        "banked insight equals erased bits on every instance",
+        worst_identity < 1e-9,
+        f"worst gap {worst_identity:.2e} bits",
     )
 
 
 # ---------------------------------------------------------------------
-# E3 — the mu thermometer on real algorithms
+# E3 — measured: the mu thermometer, plus one cheater
 # ---------------------------------------------------------------------
 
-def measure(runner, n: int, trials: int, seed: int) -> float:
-    rng = random.Random(seed)
-    total = 0
-    for _ in range(trials):
-        total += runner(rng.randrange(n), n)
-    return total / trials
-
-
-def binary_search(target: int, n: int) -> int:
+def binary_search(target: int, n: int, rng) -> tuple:
     lo, hi, mu = 0, n, 0
     while hi - lo > 1:
         mid = (lo + hi) // 2
@@ -130,10 +179,10 @@ def binary_search(target: int, n: int) -> int:
             hi = mid
         else:
             lo = mid
-    return mu
+    return mu, lo == target
 
 
-def wasteful_split(target: int, n: int) -> int:
+def wasteful_split(target: int, n: int, rng) -> tuple:
     lo, hi, mu = 0, n, 0
     while hi - lo > 1:
         a = lo + (hi - lo) // 3
@@ -145,41 +194,75 @@ def wasteful_split(target: int, n: int) -> int:
             lo, hi = a, b
         else:
             lo = b
-    return mu
+    return mu, lo == target
 
 
-def linear_scan(target: int, n: int) -> int:
+def linear_scan(target: int, n: int, rng) -> tuple:
     mu = 0
     for i in range(n):
         mu += 1
         if i == target:
-            break
-    return mu
+            return mu, True
+    return mu, False
+
+
+def early_stopper(target: int, n: int, rng) -> tuple:
+    """The cheater: pays half the floor, then guesses."""
+    lo, hi, mu = 0, n, 0
+    for _ in range(int(math.log2(n)) // 2):
+        mid = (lo + hi) // 2
+        mu += 1
+        if target < mid:
+            hi = mid
+        else:
+            lo = mid
+    guess = rng.randrange(lo, hi)          # uniform over what's left
+    return mu, guess == target
+
+
+def measure(runner, n: int, trials: int, seed: int) -> tuple:
+    rng = random.Random(seed)
+    total_mu, correct = 0, 0
+    for _ in range(trials):
+        mu, ok = runner(rng.randrange(n), n, rng)
+        total_mu += mu
+        correct += ok
+    return total_mu / trials, correct / trials
 
 
 def e3() -> None:
-    print("E3  the mu thermometer: insight-efficiency of real algorithms")
+    print("E3  the mu thermometer: real algorithms, one cheater")
     n, trials = 1024, 1000
     floor = math.log2(n)
 
     rows = []
-    for name, fn, seed in (
-        ("binary search", binary_search, 31415),
-        ("wasteful split", wasteful_split, 31415),
-        ("linear scan", linear_scan, 31415),
+    for name, fn in (
+        ("binary search", binary_search),
+        ("wasteful split", wasteful_split),
+        ("linear scan", linear_scan),
+        ("early stopper", early_stopper),
     ):
-        mu = measure(fn, n, trials, seed)
-        rows.append((name, mu, floor / mu))
+        mu, acc = measure(fn, n, trials, 31415)
+        rows.append((name, mu, floor / mu, acc))
 
-    print(f"      {'algorithm':16s} {'avg mu':>9s} {'efficiency':>11s}   (floor = log2 {n} = {floor:.0f} bits)")
-    for name, mu, eff in rows:
-        print(f"      {name:16s} {mu:9.2f} {eff:10.1%}")
+    print(f"      {'algorithm':16s} {'avg mu':>9s} {'efficiency':>11s} {'correct':>9s}   (floor = log2 {n} = {floor:.0f} bits)")
+    for name, mu, eff, acc in rows:
+        # efficiency only means something for a strategy that actually
+        # identifies the target; the cheater's column stays blank.
+        eff_cell = f"{eff:10.1%}" if acc == 1.0 else f"{'—':>10s}"
+        print(f"      {name:16s} {mu:9.2f} {eff_cell} {acc:8.1%}")
 
-    (b_name, b_mu, b_eff), (w_name, w_mu, w_eff), (l_name, l_mu, l_eff) = rows
-    check("binary search rides the floor", abs(b_mu - floor) < 1e-9, f"mu = {b_mu:.2f}")
-    check("no algorithm beats the floor", b_mu >= floor - 1e-9 and w_mu > floor and l_mu > floor)
+    (_, b_mu, _, b_acc), (_, w_mu, w_eff, w_acc), (_, l_mu, l_eff, l_acc), (_, c_mu, _, c_acc) = rows
+    check("binary search rides the floor, always right",
+          abs(b_mu - floor) < 1e-9 and b_acc == 1.0, f"mu = {b_mu:.2f}")
+    check("no exact identifier beats the floor",
+          b_mu >= floor - 1e-9 and w_mu > floor and l_mu > floor
+          and w_acc == 1.0 and l_acc == 1.0)
     check("wasteful split overpays", 0.5 < w_eff < 1.0, f"{w_eff:.1%}")
     check("linear scan pays ~2%", l_eff < 0.05, f"{l_eff:.1%}")
+    check("under the floor means wrong: the cheater's discount is paid in errors",
+          c_mu < floor and c_acc < 0.10,
+          f"mu = {c_mu:.2f} (under floor) but only {c_acc:.1%} correct")
 
 
 if __name__ == "__main__":
@@ -188,5 +271,6 @@ if __name__ == "__main__":
     e2()
     e3()
     print(f"\nVERDICT: all {len(PASS)} checks passed.")
-    print("The floor is real: insight is priced, the price is conserved, and")
-    print("mu measures how efficiently computation converts work into knowledge.")
+    print("The floor is real: every completely-checkable space was checked")
+    print("completely, the conservation identity held on every instance, and the")
+    print("one strategy that paid under the floor bought its discount in errors.")

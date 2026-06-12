@@ -393,6 +393,18 @@ def main() -> int:
         default=30,
         help="Per-probe coqc timeout in seconds.",
     )
+    p.add_argument(
+        "--merge",
+        action="store_true",
+        help=(
+            "Merge into an existing --output audit instead of replacing it: "
+            "verdicts for the files probed in THIS run replace their old "
+            "entries; every other file's verdicts are kept; the summary is "
+            "recomputed over the union. Lets an incremental caller (the "
+            "pre-commit hook) re-probe only changed files without shrinking "
+            "the committed audit."
+        ),
+    )
     args = p.parse_args()
 
     if shutil.which("coqc") is None:
@@ -445,15 +457,42 @@ def main() -> int:
         )
         all_verdicts.extend(verdicts)
 
+    verdict_dicts = [v.to_dict() for v in all_verdicts]
+
+    if args.merge and args.output.exists():
+        probed_files = set()
+        for target_str, _logical in pairs:
+            target_path = Path(target_str)
+            if not target_path.is_absolute():
+                target_path = (REPO_ROOT / target_str).resolve()
+            try:
+                probed_files.add(str(target_path.relative_to(REPO_ROOT)))
+            except ValueError:
+                probed_files.add(str(target_path))
+        try:
+            prior = json.loads(args.output.read_text(encoding="utf-8"))
+            kept = [
+                v for v in prior.get("verdicts", [])
+                if v.get("file") not in probed_files
+            ]
+        except (json.JSONDecodeError, OSError) as exc:
+            print(
+                f"vacuity_gate: --merge could not read prior audit ({exc}); "
+                "writing this run's verdicts only.",
+                file=sys.stderr,
+            )
+            kept = []
+        verdict_dicts = kept + verdict_dicts
+
     report = {
         "schema": "vacuity_audit.v1",
-        "verdicts": [v.to_dict() for v in all_verdicts],
+        "verdicts": verdict_dicts,
         "summary": {
-            "total": len(all_verdicts),
-            "ok": sum(1 for v in all_verdicts if v.status == "ok"),
-            "vacuous_true": sum(1 for v in all_verdicts if v.status == "vacuous-true"),
-            "vacuous_hyp": sum(1 for v in all_verdicts if v.status == "vacuous-hyp"),
-            "error": sum(1 for v in all_verdicts if v.status == "error"),
+            "total": len(verdict_dicts),
+            "ok": sum(1 for v in verdict_dicts if v["status"] == "ok"),
+            "vacuous_true": sum(1 for v in verdict_dicts if v["status"] == "vacuous-true"),
+            "vacuous_hyp": sum(1 for v in verdict_dicts if v["status"] == "vacuous-hyp"),
+            "error": sum(1 for v in verdict_dicts if v["status"] == "error"),
         },
     }
     args.output.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")

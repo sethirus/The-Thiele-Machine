@@ -16,6 +16,9 @@ import pytest
 
 from thielecpu.vm import VMState, vm_run
 
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
+
 _REPO_ROOT = Path(__file__).resolve().parent.parent
 EXTRACTED_VM_RUNNER = _REPO_ROOT / "build" / "extracted_vm_runner"
 

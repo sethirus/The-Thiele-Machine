@@ -1,6 +1,6 @@
 {
   "schema": "vacuity_targets.v1",
-  "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over on every commit. Phase 1/2/3/4 of the μ-axis research program append new files as they land. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
+  "description": "Production manifest of Coq files the kernel-conversion vacuity gate runs over on every commit. Phase 1/2/3/4 of the \u03bc-axis research program append new files as they land. Each target compiles to a Coq module; the gate runs probe (a) and (b) against every Theorem/Lemma/Corollary in the file.",
   "targets": [
     {
       "path": "coq/VerifierModel.v",
@@ -55,6 +55,234 @@
       "logical": "MuDirectSum",
       "added": "2026-05-25",
       "phase": "4"
+    },
+    {
+      "path": "coq/ReceiptTheorem.v",
+      "logical": "ReceiptTheorem",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/NecessityOfMuLedger.v",
+      "logical": "NecessityOfMuLedger",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/PhysicsConditionalClosure.v",
+      "logical": "PhysicsConditionalClosure",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/AbstractNoFI.v",
+      "logical": "Kernel.AbstractNoFI",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/NoFreeInsight.v",
+      "logical": "Kernel.NoFreeInsight",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/UniversalCertificationCost.v",
+      "logical": "Kernel.UniversalCertificationCost",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/mu_calculus/MuInitiality.v",
+      "logical": "Kernel.MuInitiality",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/HonestCostTracking.v",
+      "logical": "Kernel.HonestCostTracking",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/VerificationCostSeparation.v",
+      "logical": "Kernel.VerificationCostSeparation",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/mu_calculus/MuHierarchyTheorem.v",
+      "logical": "Kernel.MuHierarchyTheorem",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/NonAdaptiveLowerBound.v",
+      "logical": "Kernel.NonAdaptiveLowerBound",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/ThermodynamicStructuralAdvantage.v",
+      "logical": "Kernel.ThermodynamicStructuralAdvantage",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/category/AlgebraicCoherence.v",
+      "logical": "Kernel.AlgebraicCoherence",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/quantum/QuantumPartitionPSD.v",
+      "logical": "Kernel.QuantumPartitionPSD",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/curvature/PhysicsClosure.v",
+      "logical": "Kernel.PhysicsClosure",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/curvature/EinsteinEmergence.v",
+      "logical": "Kernel.EinsteinEmergence",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/curvature/EinsteinEquationsFull.v",
+      "logical": "Kernel.EinsteinEquationsFull",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kami_hw/RTLGapRegistry.v",
+      "logical": "KamiHW.RTLGapRegistry",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/MuLedgerQuantumBridge.v",
+      "logical": "Kernel.MuLedgerQuantumBridge",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/NecessityAbstract.v",
+      "logical": "Kernel.NecessityAbstract",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/CommitmentPredicateAdequacy.v",
+      "logical": "Kernel.CommitmentPredicateAdequacy",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/quantum/BornRuleLinearity.v",
+      "logical": "Kernel.BornRuleLinearity",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/foundation/ClassicalBound.v",
+      "logical": "Kernel.ClassicalBound",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/hardware_bridge/HardwareBisimulation.v",
+      "logical": "Kernel.HardwareBisimulation",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/HonestNoFI.v",
+      "logical": "Kernel.HonestNoFI",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/nfi/HonestNoFI_TheoremsWithoutAssumptions.v",
+      "logical": "Kernel.HonestNoFI_TheoremsWithoutAssumptions",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/quantum/MinorConstraints.v",
+      "logical": "Kernel.MinorConstraints",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/quantum/NPAMomentMatrix.v",
+      "logical": "Kernel.NPAMomentMatrix",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/curvature/NoFIToEinstein.v",
+      "logical": "Kernel.NoFIToEinstein",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/aggregators/NonCircularityAudit.v",
+      "logical": "Kernel.NonCircularityAudit",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/quantum/QuantumEquivalence.v",
+      "logical": "Kernel.QuantumEquivalence",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/quantum/TsirelsonQuantumModel.v",
+      "logical": "Kernel.TsirelsonQuantumModel",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/quantum/TsirelsonUniqueness.v",
+      "logical": "Kernel.TsirelsonUniqueness",
+      "added": "2026-06-11",
+      "phase": "README-cited + claim-ledger sources"
+    },
+    {
+      "path": "coq/kernel/reductions/PoSFinality.v",
+      "logical": "Kernel.PoSFinality",
+      "added": "2026-06-11",
+      "phase": "reductions tier"
+    },
+    {
+      "path": "coq/kernel/reductions/GasMetering.v",
+      "logical": "Kernel.GasMetering",
+      "added": "2026-06-11",
+      "phase": "reductions tier"
+    },
+    {
+      "path": "coq/kernel/reductions/TEEAttestation.v",
+      "logical": "Kernel.TEEAttestation",
+      "added": "2026-06-11",
+      "phase": "reductions tier"
+    },
+    {
+      "path": "coq/kernel/reductions/TransparencyLog.v",
+      "logical": "Kernel.TransparencyLog",
+      "added": "2026-06-11",
+      "phase": "reductions tier"
+    },
+    {
+      "path": "coq/kernel/reductions/ProofCarryingVerifier.v",
+      "logical": "Kernel.ProofCarryingVerifier",
+      "added": "2026-06-11",
+      "phase": "reductions tier"
     }
   ]
 }

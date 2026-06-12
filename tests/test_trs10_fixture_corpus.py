@@ -24,11 +24,12 @@ def _load_receipt(path: Path) -> dict:
     ("relative_dir", "receipt_name"),
     [
         ("fileset/valid", "receipt.json"),
-        ("execution/valid", "receipt.json"),
+        # Execution receipts replay the program through the extracted VM.
+        pytest.param("execution/valid", "receipt.json", marks=pytest.mark.strict_extracted),
         ("stress/large", "fileset-receipt.json"),
-        ("stress/large", "execution-receipt.json"),
+        pytest.param("stress/large", "execution-receipt.json", marks=pytest.mark.strict_extracted),
         ("compat/v1/golden", "fileset-receipt.json"),
-        ("compat/v1/golden", "execution-receipt.json"),
+        pytest.param("compat/v1/golden", "execution-receipt.json", marks=pytest.mark.strict_extracted),
     ],
 )
 def test_fixture_corpus_valid_receipts_verify(relative_dir: str, receipt_name: str) -> None:
@@ -53,12 +54,14 @@ def test_fixture_corpus_valid_receipts_verify(relative_dir: str, receipt_name: s
         ("execution/invalid/signature", InvalidSignature, None),
         ("execution/invalid/digest", ValueError, "global_digest"),
         ("execution/invalid/schema", ValueError, "missing field"),
-        ("execution/invalid/source_tamper", ValueError, "source_sha256"),
-        ("execution/invalid/fuel", ValueError, "fuel"),
-        ("execution/invalid/pre_state", ValueError, "pre_state_digest"),
-        ("execution/invalid/replay", ValueError, "post_state_digest"),
-        ("execution/invalid/mu", ValueError, "mu_delta"),
-        ("execution/invalid/nondeterminism", ValueError, "Unsupported execution state model"),
+        # These tampering modes are only detected at VM replay, which needs
+        # the extracted runner; the ones above fail before replay.
+        pytest.param("execution/invalid/source_tamper", ValueError, "source_sha256", marks=pytest.mark.strict_extracted),
+        pytest.param("execution/invalid/fuel", ValueError, "fuel", marks=pytest.mark.strict_extracted),
+        pytest.param("execution/invalid/pre_state", ValueError, "pre_state_digest", marks=pytest.mark.strict_extracted),
+        pytest.param("execution/invalid/replay", ValueError, "post_state_digest", marks=pytest.mark.strict_extracted),
+        pytest.param("execution/invalid/mu", ValueError, "mu_delta", marks=pytest.mark.strict_extracted),
+        pytest.param("execution/invalid/nondeterminism", ValueError, "Unsupported execution state model", marks=pytest.mark.strict_extracted),
     ],
 )
 def test_fixture_corpus_invalid_receipts_fail(

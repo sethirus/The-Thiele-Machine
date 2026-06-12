@@ -235,12 +235,14 @@ def normalize_term(s: str) -> str:
 
 
 def extract_citations_with_prose(tex_path: Path):
-    """Yield (token, line_no, prose_window) for each \\texttt{...} citation."""
+    """Yield (token, line_no, prose_window) for each \\texttt{...} or
+    \\code{...} citation (the monograph's identifier macro expands to
+    \\texttt, so both spellings are the same citation)."""
     text = tex_path.read_text(errors="replace")
     if tex_path.suffix == ".md":
         cite_re = re.compile(r"`([A-Za-z_][A-Za-z0-9_']*)`")
     else:
-        cite_re = re.compile(r"\\texttt\{([^{}]*)\}")
+        cite_re = re.compile(r"\\(?:texttt|code)\{([^{}]*)\}")
     for m in cite_re.finditer(text):
         raw = m.group(1)
         token = raw.replace("\\_", "_").replace("\\%", "%").replace("\\&", "&").strip()
@@ -287,7 +289,7 @@ def clean_latex_for_prose(s: str) -> str:
 IFF_PHRASES = [
     "iff", "if and only if", "biconditional", "equivalent", "exactly when",
     "are equivalent", "is equivalent", "two directions", "both directions",
-    "biconditionally",
+    "biconditionally", "bi-implication", "biimplication", "in both directions",
 ]
 
 UNCONDITIONAL_PHRASES = [

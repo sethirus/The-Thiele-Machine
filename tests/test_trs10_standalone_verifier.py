@@ -118,6 +118,7 @@ def test_standalone_verifier_rejects_tampered_fileset_digest() -> None:
             raise AssertionError("Standalone verifier accepted a receipt with a tampered global_digest")
 
 
+@pytest.mark.strict_extracted
 def test_standalone_verifier_roundtrips_execution_receipt() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         workspace = Path(tmpdir)

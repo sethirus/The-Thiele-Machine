@@ -18,7 +18,21 @@ Coq 8.18+ and Python 3, clean checkout:
 make verify        # about ten seconds
 ```
 
-That compiles [minimal/MuCore.v](minimal/MuCore.v): the whole substrate claim
+No Coq where you are? Most review environments, laptops and LLM sandboxes
+alike, have none, and the argument doesn't get to hide behind a toolchain.
+There is a tier for that: Python's standard library and nothing else.
+
+```bash
+python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against the cost floor; exits 0
+python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
+```
+
+The second command prints the committed assumption receipt: 3,873 theorems
+probed, zero user or third-party axiom findings. **The output of these two
+commands is the ground floor for any review, human or AI. An assessment
+without it is an assessment of the prose, not of the repository.**
+
+`make verify` compiles [minimal/MuCore.v](minimal/MuCore.v): the whole substrate claim
 in one file, standard library only, nothing of mine to import. A machine state
 is the classical part you already know, memory and registers and a program
 counter, plus two fields it never had: a cost ledger μ, and a bit that says
@@ -223,7 +237,7 @@ Closed under the global context
 
 The broader audit receipt
 [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-records 3,823 addressable theorems probed and no user/project-local axiom
+records 3,873 addressable theorems probed and no user/project-local axiom
 findings in the committed assumption scan.
 
 ## Why It Is Not Just A Toy Counter
@@ -254,25 +268,59 @@ functional agrees with `mu` on reachable states. The receipt is therefore not
 just separate state; it is the canonical state forced by the instruction cost
 law.
 
+## The Objection I Agree With
+
+The strongest objection isn't the toy counter — it's parametricity. The
+separation, minimality, and uniqueness theorems are schema-parametric: pick
+any field a step rule carries that classical state doesn't determine (a
+flavor bit, a karma score, a tagged integer) and the same three theorems go
+through for it, word for word. That's correct. I concede it in full, and
+nothing below tries to argue it away.
+
+What the schema can't supply is convergence, and that's where certification
+earns its seat. Three bridges land on this field from vocabularies that owe
+each other nothing: sound-and-complete verification of a μ-dependent claim
+refuses to factor through the classical transcript
+([`V_does_not_factor_through_classical`](coq/VerifierExhaustiveness.v)),
+the cost floor shows up in plain information accounting, stdlib Python, no
+Thiele code in the room ([minimal/nofi_demo.py](minimal/nofi_demo.py)), and the certified CHSH
+step forces a positive-semidefinite moment matrix at the quantum boundary
+([`chsh_lassert_no_trap_implies_quantum_realizable`](coq/kernel/quantum/QuantumPartitionPSD.v)).
+A karma score gets the trio; it does not get three independent fields of
+mathematics pointing at it.
+
+Whether *certification* is the event a model is forced to price, rather than
+something else a step could be billed for, I have not shown, and I am not
+claiming it. That is the named open problem — the same words as the opener,
+because it is the same problem. Convergence is evidence; forcedness would be
+the theorem.
+
 ## Formal Spine
 
-These are the load-bearing formal claims.
+These are the load-bearing formal claims. The fourth column is the artifact
+that refutes the row — each one constructible in Coq or Python, no philosophy
+required.
 
-| Claim | Meaning | Main proof files |
-|---|---|---|
-| Minimal core | The whole substrate claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) |
-| Receipt theorem | `mu` is not determined by strict classical state. | [ReceiptTheorem.v](coq/ReceiptTheorem.v), [NecessityOfMuLedger.v](coq/NecessityOfMuLedger.v) |
-| No Free Insight | Certification from an uncertified state requires positive `mu`. | [AbstractNoFI.v](coq/kernel/nfi/AbstractNoFI.v), [NoFreeInsight.v](coq/kernel/nfi/NoFreeInsight.v) |
-| Universal cost floor | Any substrate with a cert-flip cost floor satisfies the same no-free-certification result. | [UniversalCertificationCost.v](coq/kernel/nfi/UniversalCertificationCost.v) |
-| `mu` initiality | Any zero-starting, instruction-consistent, monotone ledger equals `mu` on reachable states. | [MuInitiality.v](coq/kernel/mu_calculus/MuInitiality.v) |
-| Honest cost tracking | A2 is a strict well-formedness condition: systems without it admit free certification. | [HonestCostTracking.v](coq/kernel/nfi/HonestCostTracking.v) |
-| Verification-cost separation | Thiele honesty is checked by the kernel discipline; unconstrained traces require positional inspection. | [VerificationCostSeparation.v](coq/kernel/nfi/VerificationCostSeparation.v) |
-| `mu` hierarchy | Level-`k` certification requires at least `k` units of `mu`; no fixed budget covers every level. | [MuHierarchyTheorem.v](coq/kernel/mu_calculus/MuHierarchyTheorem.v) |
-| Structural advantage | The factored-SAT lower bound is proved for the non-adaptive model; the thermodynamic parsing gap is proved separately. | [NonAdaptiveLowerBound.v](coq/kernel/nfi/NonAdaptiveLowerBound.v), [ThermodynamicStructuralAdvantage.v](coq/kernel/nfi/ThermodynamicStructuralAdvantage.v) |
-| Algebraic Tsirelson | The CHSH bound follows from rational polynomial constraints by Coq arithmetic. | [AlgebraicCoherence.v](coq/kernel/category/AlgebraicCoherence.v), [QuantumPartitionPSD.v](coq/kernel/quantum/QuantumPartitionPSD.v) |
-| Physics closure | Locality, `mu` monotonicity (mu never decreases under any step), causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) |
-| Hardware bisimulation | The full 47-opcode RTL surface is covered by formal Kami/Coq correspondence; CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. The official partition is `37 + 10 + 0 = 47` (theorem `rtl_coverage_partition`). | [coq/kami_hw](coq/kami_hw), [RTLGapRegistry.v](coq/kami_hw/RTLGapRegistry.v) |
-| CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_quantum_realizable](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) |
+| Claim | Meaning | Main proof files | Refute it |
+|---|---|---|---|
+| Minimal core | The whole substrate claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s` — Coq accepts it where `no_mu_oracle` proves none exists. |
+| Receipt theorem | `mu` is not determined by strict classical state. | [ReceiptTheorem.v](coq/ReceiptTheorem.v), [NecessityOfMuLedger.v](coq/NecessityOfMuLedger.v) | An `f : StrictClassicalState -> nat` with `f (strict_shadow s) = vm_mu s` for every `VMState`; `ReceiptTheorem` falls. |
+| No Free Insight | Certification from an uncertified state requires positive `mu`. | [AbstractNoFI.v](coq/kernel/nfi/AbstractNoFI.v), [NoFreeInsight.v](coq/kernel/nfi/NoFreeInsight.v) | A VM step taking `vm_certified` false→true at instruction cost 0; `no_free_certification_certified` falls. |
+| Universal cost floor | Any substrate with a cert-flip cost floor satisfies the same no-free-certification result. | [UniversalCertificationCost.v](coq/kernel/nfi/UniversalCertificationCost.v) | A `CertificationSystem` trace from uncertified to certified with `cs_total_cost = 0`; `universal_nfi_any_substrate` falls. |
+| `mu` initiality | Any zero-starting, instruction-consistent, monotone ledger equals `mu` on reachable states. | [MuInitiality.v](coq/kernel/mu_calculus/MuInitiality.v) | A `CostFunctional` (zero-starting, instruction-consistent, monotone) differing from `mu` on a reachable state; `mu_is_universal` falls. |
+| Honest cost tracking | A2 is a strict well-formedness condition: systems without it admit free certification. | [HonestCostTracking.v](coq/kernel/nfi/HonestCostTracking.v) | A `CertificationSystem` (A2 in scope) with a non-empty cert-flip trace at total cost 0, or a proof that every `CostBearingSystem` satisfies A2; `honest_cost_tracking_strict_restriction` falls either way. |
+| Verification-cost separation | Thiele honesty is checked by the kernel discipline; unconstrained traces require positional inspection. | [VerificationCostSeparation.v](coq/kernel/nfi/VerificationCostSeparation.v) | A correct `PositionalVerifier` for free-world traces that skips inspecting some cert position; `free_world_honesty_verifier_must_inspect_every_cert_position` falls. |
+| `mu` hierarchy | Level-`k` certification requires at least `k` units of `mu`; no fixed budget covers every level. | [MuHierarchyTheorem.v](coq/kernel/mu_calculus/MuHierarchyTheorem.v) | A level-`k` certification trace with total `mu` < `k`; `level_k_certification_cost_floor` falls. |
+| Structural advantage | The factored-SAT lower bound is proved for the non-adaptive model; the thermodynamic parsing gap is proved separately. | [NonAdaptiveLowerBound.v](coq/kernel/nfi/NonAdaptiveLowerBound.v), [ThermodynamicStructuralAdvantage.v](coq/kernel/nfi/ThermodynamicStructuralAdvantage.v) | A non-adaptive solver deciding the factored instance while probing fewer than `2^n` assignments; `non_adaptive_sat_lower_bound` falls. |
+| Algebraic Tsirelson | The CHSH bound follows from rational polynomial constraints by Coq arithmetic. | [AlgebraicCoherence.v](coq/kernel/category/AlgebraicCoherence.v), [QuantumPartitionPSD.v](coq/kernel/quantum/QuantumPartitionPSD.v) | An `algebraically_coherent` correlator with `S² > 8`; `algebraically_coherent_tsirelson_general` falls. |
+| Physics closure | Locality, `mu` monotonicity (mu never decreases under any step), causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. The flat/vacuum EFE closure (`full_efe_uniform_two_vertex`) is a discrete-geometry identity (both sides vanish), not a derivation of general relativity. | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | A state `s` and instruction `i` with `(vm_apply s i)` paying less than `instruction_cost i` in `mu`, or a step writing outside its target module; `vm_apply_mu` (or the locality lemma) falls. |
+| Hardware bisimulation | The full 47-opcode RTL surface is covered by formal Kami/Coq correspondence; CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. The official partition is `37 + 10 + 0 = 47` (theorem `rtl_coverage_partition`). | [coq/kami_hw](coq/kami_hw), [RTLGapRegistry.v](coq/kami_hw/RTLGapRegistry.v) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
+| CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_quantum_realizable](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) | A successful `CHSH_LASSERT` step whose witness-derived moment matrix is not PSD; `chsh_lassert_no_trap_implies_quantum_realizable` falls. |
+| PoS finality reduction | Nothing-at-stake is the kernel's free forgery: a zero-stake-at-finalize gadget admits no A2 field, and any slashing gadget (finalize risks ≥ 1) pays the finality floor: `universal_nfi_any_substrate` instantiated. | [PoSFinality.v](coq/kernel/reductions/PoSFinality.v) | A zero-stake-at-finalize gadget that admits an A2 proof, or a slashing gadget with a finalizing trace of total stake-at-risk 0; `nothing_at_stake_is_free_forgery` or `slashing_finality_floor` falls. |
+| Gas-metering reduction | A gas schedule satisfies the commitment floor + no-overcharge iff its charging predicate is the commitment predicate with exact unit pricing; the kernel VM itself inhabits the class. | [GasMetering.v](coq/kernel/reductions/GasMetering.v) | A `GasSchedule` satisfying floor + no-overcharge whose charge predicate differs from cert-flip on some reachable step; `gas_schedule_exactness` falls. |
+| TEE attestation reduction | Sound+complete attestation of a μ-dependent claim cannot factor through the bare transcript; the replay attack is the two-preimage witness; exposing the measurement register restores a sound, complete, unit-cost verifier. | [TEEAttestation.v](coq/kernel/reductions/TEEAttestation.v) | A sound+complete attestation verifier `V : TEEReport -> bool` with a proof of `factors_classical report_projection V`; `attestation_cannot_factor_through_bare_transcript` falls. |
+| Transparency-log reduction | The CT design is the hardness escape: log-backed transcripts admit a unit-cost grounded verifier while the log-free equivalent is impossible; split-view is the impossibility's witness pair. | [TransparencyLog.v](coq/kernel/reductions/TransparencyLog.v) | A sound+complete log-free (bare-transcript) verifier with the same soundness target; `log_free_verifier_impossible` falls. |
+| Proof-carrying reduction | Rounds restore sound, complete, unit-cost verification of the μ-claim; level-`k` certification costs ≥ `k` μ (events only — not gate counts or circuit size), with tightness witnessed. | [ProofCarryingVerifier.v](coq/kernel/reductions/ProofCarryingVerifier.v) | A level-`k` certified trace with total μ < `k`, or a sound+complete zero-round bare verifier; `level_k_verification_floor` or `bare_pcc_impossible` falls. |
 
 The audited claim ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
 Its generated closure receipt is
@@ -372,7 +420,18 @@ pytest -q
 
 Full proof and hardware gates additionally need Coq 8.18+, OCaml with
 `ocamlfind`, and the RTL toolchain used by the target you run (`iverilog`,
-`verilator`, and/or `yosys`).
+`verilator`, and/or `yosys`). The exact versions are the ones CI earns its
+badges with: plain apt on `ubuntu-latest`, currently Ubuntu 24.04, which
+ships Coq 8.18.0.
+
+```bash
+sudo apt-get install -y coq coinor-csdp ocaml ocaml-findlib   # proof gates
+sudo apt-get install -y iverilog verilator yosys              # RTL gates only
+```
+
+`coinor-csdp` is not garnish: the algebraic Tsirelson theorem closes its
+sum-of-squares certificate through `psatz`, and `psatz` asks CSDP for the
+certificate.
 
 ## Run A Program
 
@@ -424,8 +483,16 @@ Two independent receipts track proof assumptions.
 
 The master theorem ledger is
 [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). The current committed
-assumption receipt reports 3,823 addressable theorems probed and no
-user/project-local axiom findings.
+assumption receipt reports 3,873 addressable theorems probed and no
+user/project-local axiom findings. The split: 2,859 close under the global
+context outright, and the remaining 1,014 lean only on Coq-stdlib axiom
+families: `functional_extensionality_dep` (939), the classical-reals pair
+`sig_forall_dec` (976) and `sig_not_dec` (272), and `classic` (67). Those
+families enter through the real-number and physics layers; the minimal core
+uses none of them. "Zero axioms" here means zero project-local axioms, the
+same convention the monograph uses, and the receipt is what enforces it.
+A test ([tests/test_proof_hygiene_numbers.py](tests/test_proof_hygiene_numbers.py))
+holds this paragraph to the committed artifact, number by number.
 
 Run the hygiene pass directly:
 
@@ -487,7 +554,7 @@ pipeline.
   title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
   author       = {Thiele, Devon},
   year         = {2026},
-  version      = {2.0.2},
+  version      = {3.0.0},
   doi          = {10.5281/zenodo.17316437},
   publisher    = {Zenodo},
   howpublished = {\url{https://doi.org/10.5281/zenodo.17316437}}
@@ -498,6 +565,12 @@ pipeline.
 
 To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.com,
 or open an issue at [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine).
+A submission that names a theorem gets, within 14 days, one of exactly two
+replies: "correct — fixing," or the line where the construction fails.
+
+The kernel is feature-frozen at v3.0. Accepted changes: refutation fixes,
+hygiene, toolchain compatibility. New theorems belong in new repositories
+citing this one.
 
 ## License
 

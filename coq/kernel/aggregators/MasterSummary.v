@@ -560,6 +560,91 @@ Definition audit_master_verification_preserved_observables : HonestClaim :=
        [ "Does not export a theorem about every hardware observable.";
          "Pins down exactly the observables preserved here: PC and μ-accumulator." ] |}.
 
+(** The reductions tier: five real-world systems instantiated against the
+    kernel's abstract records (kernel/reductions/). Each row registers the
+    file's headline result with its honest scope and non-implications. *)
+
+Definition audit_master_pos_finality_reduction : HonestClaim :=
+  {| claim_name := "master_pos_finality_reduction";
+     claim_sources :=
+       [ "PoSFinality.nothing_at_stake_is_free_forgery";
+         "PoSFinality.slashing_finality_floor" ];
+     claim_scope := Structural;
+     claim_status := StatusUnconditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "an inhabited abstract validator-view type";
+         "slashing condition stake_at_risk PoSFinalize >= 1 (positive direction only)" ];
+     claim_premise_kinds := [ PremiseStructural; PremiseStructural ];
+     claim_not_imply :=
+       [ "Does not model economic rationality, network timing, or validator collusion.";
+         "Does not price any event other than the finalization flip." ] |}.
+
+Definition audit_master_gas_metering_reduction : HonestClaim :=
+  {| claim_name := "master_gas_metering_reduction";
+     claim_sources :=
+       [ "GasMetering.gas_schedule_exactness";
+         "GasMetering.undercharged_opcode_admits_free_commitment";
+         "GasMetering.thiele_vm_commit_pricing_is_exact" ];
+     claim_scope := Structural;
+     claim_status := StatusUnconditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "the trusted local-predicate pricing laws (charged steps cost >= 1, uncharged steps are free)" ];
+     claim_premise_kinds := [ PremiseStructural ];
+     claim_not_imply :=
+       [ "Does not bound gate counts or model gas refunds.";
+         "gas_schedule_exactness itself is the kernel characterization re-read in fee-market vocabulary; the failure modes and concrete instances are the new content." ] |}.
+
+Definition audit_master_tee_attestation_reduction : HonestClaim :=
+  {| claim_name := "master_tee_attestation_reduction";
+     claim_sources :=
+       [ "TEEAttestation.attestation_cannot_factor_through_bare_transcript";
+         "TEEAttestation.replay_is_a_two_preimage_witness";
+         "TEEAttestation.measurement_enriched_attestation_succeeds" ];
+     claim_scope := Structural;
+     claim_status := StatusUnconditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "attestation soundness and completeness stated over the kernel's mu = 1 verification problem" ];
+     claim_premise_kinds := [ PremiseStructural ];
+     claim_not_imply :=
+       [ "Does not model side channels, key management, or the vendor signing PKI.";
+         "The ineliminable trust it names is structural, not an implementation audit." ] |}.
+
+Definition audit_master_transparency_log_reduction : HonestClaim :=
+  {| claim_name := "master_transparency_log_reduction";
+     claim_sources :=
+       [ "TransparencyLog.transparency_log_escape";
+         "TransparencyLog.log_free_verifier_impossible";
+         "TransparencyLog.split_view_witness" ];
+     claim_scope := Structural;
+     claim_status := StatusConditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "a HardnessHypothesis (the log's unforgeability is named, not proven)" ];
+     claim_premise_kinds := [ PremiseStructural ];
+     claim_not_imply :=
+       [ "Does not model gossip protocols, log governance, or Merkle internals.";
+         "log_free_verifier_impossible is the kernel's bare-setting impossibility re-exported in CT vocabulary." ] |}.
+
+Definition audit_master_proof_carrying_reduction : HonestClaim :=
+  {| claim_name := "master_proof_carrying_reduction";
+     claim_sources :=
+       [ "ProofCarryingVerifier.proof_rounds_escape";
+         "ProofCarryingVerifier.bare_pcc_impossible";
+         "ProofCarryingVerifier.level_k_verification_floor" ];
+     claim_scope := Structural;
+     claim_status := StatusUnconditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "the kernel's single-round interaction model";
+         "level_k_certified trace semantics for the floor" ];
+     claim_premise_kinds := [ PremiseStructural; PremiseSemantic ];
+     claim_not_imply :=
+       [ "The floor bounds certification events only - not gate counts, SNARK verifier circuit size, prover time, or proof length.";
+         "Does not model zero-knowledge hiding or soundness amplification." ] |}.
+
 Definition master_claim_ledger : list HonestClaim :=
   [ audit_master_mu_zero_algebraic_bound;
     audit_master_classical_bound;
@@ -579,7 +664,12 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_nofi_to_discrete_einstein;
     audit_master_nofi_to_discrete_einstein_from_bekenstein_calibration;
     audit_master_verification_chain;
-    audit_master_verification_preserved_observables ].
+    audit_master_verification_preserved_observables;
+    audit_master_pos_finality_reduction;
+    audit_master_gas_metering_reduction;
+    audit_master_tee_attestation_reduction;
+    audit_master_transparency_log_reduction;
+    audit_master_proof_carrying_reduction ].
 
 (**
     PART 0a: MECHANISM FILE MAP

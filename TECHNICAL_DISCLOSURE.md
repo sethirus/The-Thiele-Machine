@@ -214,6 +214,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 | May 2026 | v2.0.0 published to GitHub and Zenodo. Disclosure and monograph published. |
 | June 2026 | v2.0.1 update: zero admits confirmed across 267 files; 3,823 theorems probed, zero project-local axioms. |
 | June 2026 | v2.0.2 update: corrected the four-body conjugate-cell sign in the Q_{1+AB} moment matrix — the (A₀B₁, A₁B₀) cell carries −γ5, not +γ5 (forced by ⟨B₀B₁⟩ = 0). The level-1+AB CHSH certification now reaches the Tsirelson bound 2√2 instead of capping at the classical 2; the prior definition silently identified the two four-body cells, collapsing the certified cone to the local polytope. Regression guards added (a CHSH = 2.4 correlator the check now certifies and previously could not). Full corpus recompiles with zero project-local axioms. |
+| June 2026 | v3.0.0: the reductions tier lands — five real-world systems (PoS finality, gas metering, TEE attestation, certificate transparency, proof-carrying verification) instantiated against the kernel's abstract records, every main theorem closed under the global context. Receipt regenerated: 272 files, 3,873 theorems probed, zero project-local axioms. Kernel feature-frozen. |
 
 ---
 
@@ -222,9 +223,9 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 All claims in this disclosure are verifiable by running:
 
 ```bash
-make -C coq -j4          # builds all 323 Coq files
+make -C coq -j4          # builds all 272 Coq files listed in coq/_CoqProject
 python3 scripts/inquisitor.py  # confirms zero findings
-pytest tests/ -q         # 952 tests pass
+pytest tests/ -q         # full suite, zero failures
 ```
 
 The Coq proof compilation is the ground truth, which is a comforting way to live: if a proof doesn't compile, the claim simply isn't proven, and the machine is the one telling me so, not the other way around. Every theorem listed in this document compiles to `Qed`.

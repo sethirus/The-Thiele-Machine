@@ -11,12 +11,10 @@ to address them. The vm.py serializer handles this automatically.
 
 import pytest
 
-from thielecpu.vm import VMState, vm_run, _runner_available
-
-SKIP_OCAML = not _runner_available()
+from thielecpu.vm import VMState, vm_run
 
 
-@pytest.mark.skipif(SKIP_OCAML, reason="OCaml runner not compiled")
+@pytest.mark.strict_extracted
 class TestLassertOcamlRunner:
     """Test LASSERT witness passing through the OCaml runner via vm_run().
 

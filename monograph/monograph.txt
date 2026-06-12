@@ -87,27 +87,27 @@ the thing stays put when you lean on it.
       object in the category of A2-respecting substrates over the vm_instruction
       signature (thiele_is_initial_a2_substrate, zero axioms). That same
       universal property makes Z the initial ring, which is exactly why being initial
-      settles nothing on its own: Z is initial too, and nobody thinks Z is the shadow of
-      a deeper thing. So initiality is not where the weight sits, and I am not going to
-      pretend it is. The weight sits lower down, in what the dropped field does. Hold
-      the trust fixed and A2 is the only rule that prices certification exactly. Miss a cert-
-      flip and the floor fails on a one-step trace. Charge a step that certifies nothing and
-      you have overpaid. The one rule left fires on exactly the cert-flips, and that is A2
-      (a2_equal_trust_substitution_payoff). The state it runs on, (µ, cert),
-      is the proved-minimal extension over (mem, regs, pc): cert is not a function of the
-      rest, µ is not a function of the rest (P_full_is_minimal_complete_extens
-      ion). So a step rule has a cert to read and a µ to charge, or it has no way to say
-      A2 at all. A law that lives in the step is not a checker you run next to the program
-      and hope. A transition table reads a state and a symbol and nothing else, so it has
-      no slot for the field at all. That is what makes classical computation the derivative
-      thing, and it is the argument that says so, not me. Whether the A2 category is
-      the chosen one among every cost-tracking category you could write down is a
-      question I am not asking, and nothing here answers it.
+      settles nothing on its own: Z is initial too, and nobody thinks Z is the shadow
+      of a deeper thing. So initiality is not where the weight sits, and I am not going
+      to pretend it is. The weight sits lower down, in what the dropped field does.
+      Hold the trust fixed and A2 is the only rule that prices certification exactly. Miss a
+      cert-flip and the floor fails on a one-step trace. Charge a step that certifies nothing
+      and you have overpaid. The one rule left fires exactly when the cert flips, and
+      that is A2 (a2_equal_trust_substitution_payoff). The state it runs on,
+      (µ, cert), is the proved-minimal extension over (mem, regs, pc): cert is not a
+      function of the rest, µ is not a function of the rest (P_full_is_minimal_compl
+      ete_extension). So a step rule has a cert to read and a µ to charge, or it has no
+      way to say A2 at all. A law that lives in the step is not a checker you run next to
+      the program and hope. A transition table reads a state and a symbol and nothing
+      else, so it has no slot for the field at all. That is what makes classical computation
+      the derivative thing, and it is the argument that says so, not me. Whether the A2
+      category is the chosen one among every cost-tracking category you could write
+      down is a question I am not asking, and nothing here answers it.
           Each load-bearing result has a standard parent in the literature: the irrecover-
       ability theorems against signature-expressibility, the categorical initiality against
       the universal property of the term algebra, the substrate-axis undecidability
       against Kleene’s 1938 diagonal pattern, the µ-uniqueness against natural-number
-      recursion. Section 23 enumerates each placement, so if you find yourself pattern-
+      recursion. Section 24 enumerates each placement, so if you find yourself pattern-
       matching to “this is just X” you can see which X I already checked against and
       what the substrate-specific delta is. The argument is four steps, and each one
       stands on its own. A step holds or it doesn’t. If one gives, it gives somewhere
@@ -179,7 +179,8 @@ the thing stays put when you lean on it.
      multiplications or some other step-event — and I haven’t closed that one. So this
      step pins the price of the flip, not the choice to bill the flip. The TM case is the one
      I proved (thiele_simulates_turing, degenerate_projection_theore
-     m). The climb-back-up has nowhere to stand.
+     m; the latter pins the projection as a quotient, identifying two states exactly when
+     they agree on every field it keeps). The climb-back-up has nowhere to stand.
           4. What holds each step up. Step 1 is a sentence about what a classical step
      relation can carry, witnessed by cert_not_function_of_forget. Step 2
      follows from step 1, witnessed by mu_not_function_of_bare_observable.
@@ -223,21 +224,21 @@ the thing stays put when you lean on it.
      you can’t pull either one out of the rest (P_full_is_minimal_complete_ext
      ension, via cost_model_cert_necessity and cert_model_mu_necessi
      ty). Drop either and certification stops being determinate. Two fields, and you
-     need both. Forty-nine of the fifty-one scaffolding opcodes are exploration of what
 
 
                                                 5
 The Thiele Machine                                                     Devon Thiele • June 2026
 
 
+      need both. Forty-nine of the fifty-one scaffolding opcodes are exploration of what
       the substrate can express. Two are required.
            The rest of the document is downstream of the four steps. The CHSH↔NPA
-      equivalence (Section 15) bakes the quantum-realisability condition into the step
+      equivalence (Section 16) bakes the quantum-realisability condition into the step
       rule that the CHSH_LASSERT opcode realises. A chain of Coq theorems (column
       _contractive_check_witness_sound, column_contractive_iff_qua
       ntum_realizable, chsh_lassert_no_trap_implies_quantum_realiz
       able) proves the integer-arithmetic check is equivalent to the Q1 PSD conditions
-      on the NPA moment matrix. Section 15 lifts that to Q1+AB via a four-slice Schur
+      on the NPA moment matrix. Section 16 lifts that to Q1+AB via a four-slice Schur
       cascade. Two levels of NPA. Not the whole tower. Don’t read it as the whole
       tower. The proof tree contains no physics premises. The three-layer realisation
       (Section 14) is a Coq kernel with zero Admitted in the active proof tree, an OCaml
@@ -249,8 +250,8 @@ the thing stays put when you lean on it.
       4 the parity tests tolerate. None of the 51 opcodes is foundationally required. The
       51 is engineering. The substrate is the thing.
            Vocabulary for the rest of the document is built in Section 2. Experts can skip
-      it. Falsification conditions for every claim are in Section 21. Open pieces are in
-      Section 23, not hidden.
+      it. Falsification conditions for every claim are in Section 22. Open pieces are in
+      Section 24, not hidden.
 
 
 
@@ -269,7 +270,7 @@ Contents
   2.2 Math notation I will use without explaining it twice . . . . . . . . . . .           19
   2.3 Coq, in just enough detail . . . . . . . . . . . . . . . . . . . . . . . . . .       20
   2.4 Category theory: the part I needed beyond Section 11 . . . . . . . . . .             21
-  2.5 Bell-test vocabulary you will meet in Section 15 . . . . . . . . . . . . . .         21
+  2.5 Bell-test vocabulary you will meet in Section 16 . . . . . . . . . . . . . .         21
   2.6 Hardware and synthesis vocabulary . . . . . . . . . . . . . . . . . . . .            22
   2.7 Other terms I use without rebuilding . . . . . . . . . . . . . . . . . . . .         24
   2.8 The axioms (A1 through A6) . . . . . . . . . . . . . . . . . . . . . . . . .         25
@@ -340,56 +341,64 @@ Contents
    14.2 Layer 2: The OCaml extracted runner . . . . . . . . . . . . . . . . . . .          93
    14.3 Layer 3: The Kami RTL hardware . . . . . . . . . . . . . . . . . . . . . .         93
 
-15 Binary Game Statistics: where the µ-Ledger Meets the NPA Boundary                       98
-   15.1 The Bell test setup, from scratch . . . . . . . . . . . . . . . . . . . . . . .    99
-   15.2 The CHSH inequality: where it comes from . . . . . . . . . . . . . . . .          101
-                                      √
-   15.3 The quantum bound: why 2 2? . . . . . . . . . . . . . . . . . . . . . .           101
-   15.4 What the cost algebra proves . . . . . . . . . . . . . . . . . . . . . . . .      102
-   15.5 The bit-commitment requirement . . . . . . . . . . . . . . . . . . . . . .        105
-   15.6 Algebraic characterization of the µ-ledger honesty condition . . . . . .          105
-        15.6.1 The matrix, written out . . . . . . . . . . . . . . . . . . . . . . .      106
-        15.6.2 Where the three conditions come from . . . . . . . . . . . . . . .         106
-   15.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade . . . . . .        113
-        15.7.1 The 9 × 9 moment matrix and its five γ parameters . . . . . . .            114
-        15.7.2 Why four slices . . . . . . . . . . . . . . . . . . . . . . . . . . . .    114
-        15.7.3 The compositional Schur cascade (Slice D) . . . . . . . . . . . .          115
-        15.7.4 What this delivers and what it does not . . . . . . . . . . . . . .        116
+15 Five more instantiations, none of them mine                                            98
+   15.1 Proof-of-stake finality . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 98
+   15.2 Gas metering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 99
+   15.3 Trusted-execution attestation . . . . . . . . . . . . . . . . . . . . . . . . 99
+   15.4 Certificate transparency . . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+   15.5 Proof-carrying verification . . . . . . . . . . . . . . . . . . . . . . . . . . 100
+   15.6 The same table, five ways . . . . . . . . . . . . . . . . . . . . . . . . . . 101
 
-16 Irreversibility accounting and the µ-hierarchy                                         117
+16 Binary Game Statistics: where the µ-Ledger Meets the NPA Boundary                      101
+   16.1 The Bell test setup, from scratch . . . . . . . . . . . . . . . . . . . . . . .   103
+   16.2 The CHSH inequality: where it comes from . . . . . . . . . . . . . . . .          104
+                                     √
+   16.3 The quantum bound: why 2 2? . . . . . . . . . . . . . . . . . . . . . .           105
+   16.4 What the cost algebra proves . . . . . . . . . . . . . . . . . . . . . . . .      105
+   16.5 The bit-commitment requirement . . . . . . . . . . . . . . . . . . . . . .        108
+   16.6 Algebraic characterization of the µ-ledger honesty condition . . . . . .          109
+        16.6.1 The matrix, written out . . . . . . . . . . . . . . . . . . . . . . .      109
 
 
                                              8
 The Thiele Machine                                                    Devon Thiele • June 2026
 
 
-   16.1 The Landauer association is motivation only . . . . . . . . . . . . . . . 117
-   16.2 The µ-hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 118
+        16.6.2 Where the three conditions come from . . . . . . . . . . . . . . .          110
+   16.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade . . . . . .         116
+        16.7.1 The 9 × 9 moment matrix and its five γ parameters . . . . . . .             117
+        16.7.2 Why four slices . . . . . . . . . . . . . . . . . . . . . . . . . . . .     117
+        16.7.3 The compositional Schur cascade (Slice D) . . . . . . . . . . . .           118
+        16.7.4 What this delivers and what it does not . . . . . . . . . . . . . .         119
 
-17 Discrete Geometry over Partition Graphs                                            119
-   17.1 Discrete triangulation of the partition graph . . . . . . . . . . . . . . . . 119
-   17.2 The boundary-triangulated angle-defect identity . . . . . . . . . . . . . 120
+17 Irreversibility accounting and the µ-hierarchy                                       120
+   17.1 The Landauer association is motivation only . . . . . . . . . . . . . . . 120
+   17.2 The µ-hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 122
 
-18 The substrate and its halting-shaped wall                                               123
-   18.1 The Substrate typeclass . . . . . . . . . . . . . . . . . . . . . . . . . . . .    123
-   18.2 The shortcut-admittance predicate . . . . . . . . . . . . . . . . . . . . .        125
-   18.3 The substrate-level limitative theorem . . . . . . . . . . . . . . . . . . .       126
-   18.4 The proof, in prose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    128
-   18.5 The two-axis picture this completes . . . . . . . . . . . . . . . . . . . . .      129
-   18.6 What this closes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   129
+18 Discrete Geometry over Partition Graphs                                            123
+   18.1 Discrete triangulation of the partition graph . . . . . . . . . . . . . . . . 123
+   18.2 The boundary-triangulated angle-defect identity . . . . . . . . . . . . . 124
 
-19 What Coq is, and why I used it                                                        131
-   19.1 The Inquisitor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 131
+19 The substrate and its halting-shaped wall                                               126
+   19.1 The Substrate typeclass . . . . . . . . . . . . . . . . . . . . . . . . . . . .    127
+   19.2 The shortcut-admittance predicate . . . . . . . . . . . . . . . . . . . . .        128
+   19.3 The substrate-level limitative theorem . . . . . . . . . . . . . . . . . . .       129
+   19.4 The proof, in prose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    132
+   19.5 The two-axis picture this completes . . . . . . . . . . . . . . . . . . . . .      133
+   19.6 What this closes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   133
 
-20 Zero Admitted: what it actually means                                                   132
+20 What Coq is, and why I used it                                                        134
+   20.1 The Inquisitor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 135
 
-21 How to break this                                                                       134
+21 Zero Admitted: what it actually means                                                   136
 
-22 The full claim ledger                                                                   136
+22 How to break this                                                                       137
 
-23 Scope of the claim: what is established, what is not                                    140
+23 The full claim ledger                                                                   141
 
-24 Conclusion                                                                              145
+24 Scope of the claim: what is established, what is not                                    145
+
+25 Conclusion                                                                              150
 
 
 
@@ -585,7 +594,7 @@ comparison is wrong, tell me.
      temperature times the natural log of 2) into the environment around the chip.
      My reading: this is the physical-units side of Bennett’s argument; in Thiele the
      structural side (the substrate tracks each positive-cost transition via µ) is proved,
-     and the conversion to joules is a named hypothesis (see Section 16). I treat
+     and the conversion to joules is a named hypothesis (see Section 17). I treat
      Landauer’s claim as motivation, not as something the proofs rest on. Motivation
      pays no bills in Coq.
    • No Free Lunch (Wolpert and Macready, 1997). What I read: averaged over
@@ -653,7 +662,7 @@ comparison is wrong, tell me.
      external numerical solver. My reading: Thiele bakes one of those bounds into
      the machine’s step rule itself. The Z-arithmetic check that CHSH_LASSERT
      performs is proved equivalent to the Q1 NPA condition by a chain of Coq theo-
-     rems (Section 15), and lifted to Q1+AB via a four-slice Schur cascade. Two levels
+     rems (Section 16), and lifted to Q1+AB via a four-slice Schur cascade. Two levels
      of NPA. Not the whole tower. Don’t read it as the whole tower. It is opera-
      tional enforcement at the step level, not a bound stated externally and verified
      out-of-band.
@@ -745,7 +754,7 @@ flipping certification false-to-true costs at least one. The scaffolding is ever
 makes the substrate runnable, verifiable, and synthesizable in practice: the 51 opcodes,
 the Python reference kernel, the extracted OCaml runtime, the Bluespec hardware,
 the simulator harness. The substrate-level theorems (No Free Insight, µ initiality, the
-structural-axis undecidability theorem in Section 18) are facts about substrates: they
+structural-axis undecidability theorem in Section 19) are facts about substrates: they
 hold for any A2-respecting computational system, no matter what instruction set
 realizes it. The scaffolding-level constructions (the opcode semantics, the bisimulation
 between Coq and Verilog, the synthesised gate count) are how this particular substrate
@@ -799,16 +808,16 @@ tural content of “new.” A2 lives in the step rule as the transition law, and
 
 
 trust held fixed it is the only rule that prices certification exactly. Miss a cert-flip and
-the floor fails on a one-step trace. Charge a non-cert-flip and you overpay. So the only
-exact, non-overcharging substitute already is A2 (a2_equal_trust_substituti
-on_payoff). The state it runs on, (µ, cert), is the proved-minimal extension over
-(mem, regs, pc): cert is not a function of the rest, µ is not a function of the rest (P_ful
-l_is_minimal_complete_extension). A classical step rule has no field to carry
-A2 as a law. It can only run a fallible checker of it, the kind a buggy simulator skips
-without noticing. That is what makes classical computation the derivative thing here,
-and it is proved, not stipulated. There is a projection-and-lift asymmetry too, but it is
-generic. Drop a field from any model and the same shadow falls. It is not what does
-the work.
+the floor fails on a one-step trace. Charge a non-cert-flip and you overpay. So the
+only exact, non-overcharging substitute already is A2, and that cuts in both directions
+(a2_equal_trust_substitution_payoff). The state it runs on, (µ, cert), is
+the proved-minimal extension over (mem, regs, pc): cert is not a function of the rest,
+µ is not a function of the rest (P_full_is_minimal_complete_extension). A
+classical step rule has no field to carry A2 as a law. It can only run a fallible checker
+of it, the kind a buggy simulator skips without noticing. That is what makes classical
+computation the derivative thing here, and it is proved, not stipulated. There is a
+projection-and-lift asymmetry too, but it is generic. Drop a field from any model and
+the same shadow falls. It is not what does the work.
 
 The renderer experience is the entry point. I started by trying to build a 3D engine
 where category-theoretic objects were the runtime objects. Modules. Morphisms.
@@ -824,12 +833,13 @@ ates_turing lifts every Turing-machine trace into the substrate via lift_config
 (same file, line 153): take any TM config, set µ = 0, you have a Thiele config running
 the same tape. degenerate_projection_theorem closes the loop in the other
 direction: the shadow projection from Thiele to classical is the classical-equivalence
-quotient map, classical traces respect the quotient, and the projection is strictly lossy.
-So one direction is canonical (Thiele → classical: there is exactly one forgetful map
-onto the classical fields), and the other direction is not (classical → Thiele: every
-classical state has multiple Thiele preimages, witnessed by fiber_has_two_prei
-mages). Any lift back requires picking a value for the dropped fields. That pick is
-external data. Not extracted from the classical state. Appended to it.
+quotient map (two states land on the same image exactly when they are classically
+equivalent), classical traces respect the quotient, and the projection is strictly lossy. So
+one direction is canonical (Thiele → classical: there is exactly one forgetful map onto
+the classical fields), and the other direction is not (classical → Thiele: every classical
+state has multiple Thiele preimages, witnessed by fiber_has_two_preimages).
+Any lift back requires picking a value for the dropped fields. That pick is external data.
+Not extracted from the classical state. Appended to it.
 
 The asymmetry is sharpened by the three irrecoverability theorems: vm_certified,
 csr_cert_addr, and µ relative to the bare three-field classical observable are prov-
@@ -838,18 +848,19 @@ projection; no Turing machine has a canonical Thiele lift. That directionality i
 to any lossy-projection pair, so on its own it buys a richer extension, not priority. What
 is not generic, and what makes the classical fragment derivative rather than a parallel
 world: the structural axis is not derivable from the classical projection by any clever
-predicate, A2 is the exact-least certification-pricing law (a2_equal_trust_subst
-itution_payoff), and (µ, cert) is the irredundant lattice extension over (mem,
-regs, pc) (P_full_is_minimal_complete_extension). That is what those two
-fields buy, and what the classical signature has no room to state. Each step has its own
+predicate, A2 is the exact-least certification-pricing law (pricing exactly without over-
+charge is equivalent to being A2: a2_equal_trust_substitution_payoff), and
+(µ, cert) is the irredundant lattice extension over (mem, regs, pc) (P_full_is_mi
 
 
                                             18
 The Thiele Machine                                                  Devon Thiele • June 2026
 
 
-named theorem under it, so you can check the argument one theorem at a time instead
-of taking my word for it.
+nimal_complete_extension). That is what those two fields buy, and what the
+classical signature has no room to state. Each step has its own named theorem under
+it, so you can check the argument one theorem at a time instead of taking my word for
+it.
 
 What this project is not. It is not a claim that I solved P vs NP. It is not a theory of
 everything. It is not a claim that computation is physics or that physics is computation.
@@ -891,14 +902,14 @@ The program counter (PC) is one specific register that tracks where in the progr
 VM is. After every instruction the PC moves forward by one unless the instruction
 explicitly says jump to a different address.
 
-A stack pointer is a register that points to the top of a region of memory the program
-uses for nested function calls. CALL pushes a return address there; RET pops it. In the
 
 
                                             19
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
+A stack pointer is a register that points to the top of a region of memory the program
+uses for nested function calls. CALL pushes a return address there; RET pops it. In the
 51-opcode VM, r15 is the stack pointer by convention. The convention is mine. The
 substrate is not consulted.
 
@@ -943,8 +954,6 @@ An ISA (instruction set architecture) is the list of all instructions the CPU re
 plus their formats and costs. Each instruction is identified by an opcode (a numeric tag
 the hardware decodes to choose which behaviour to run). The kernel has 51 opcodes.
 The substrate has none. The substrate has a step rule.
-
-
 
 
                                            20
@@ -995,7 +1004,7 @@ apply f . The same symbol appears in category theory for arrow composition.
 
 ⊕ in this document is bitwise XOR. ⊗ has two distinct meanings I cannot consolidate
 without breaking source quotes. In Section 10 it is the MORPH_TENSOR operator
-(concatenation of two coupling lists into one); in Section 15 it is the tensor product on
+(concatenation of two coupling lists into one); in Section 16 it is the tensor product on
 quantum-mechanical operators. I flag the second use again where it appears.
 
 I write A T for the transpose of a matrix A (rows and columns swapped). In is the n × n
@@ -1010,7 +1019,7 @@ identity matrix, which has 1 on the diagonal and 0 everywhere else.
 2.3 Coq, in just enough detail
 Coq is a proof assistant. It is a programming language. The type system is so ex-
 pressive that you can write proofs as programs and have the compiler check whether
-they are valid. Section 19 has the longer build, including why I trust it. Here is the
+they are valid. Section 20 has the longer build, including why I trust it. Here is the
 vocabulary that runs through the rest of the document.
 
 A Theorem in Coq is a named statement followed by a proof. Lemma is the same
@@ -1034,12 +1043,12 @@ accepts the proof, the theorem is proved.
 
 Admitted is the keyword for “I am claiming this without proof.” This is what I am
 not doing anywhere in the active proof tree. Every Admitted in the kernel would be a
-bug. Section 20 explains what zero Admitted means. And what it does not.
+bug. Section 21 explains what zero Admitted means. And what it does not.
 
 A Hypothesis (a Coq keyword inside a Section) is a named premise: a statement
 we accept as given without proof. Hypotheses surface as ∀-quantified premises in
 the conclusion. I use Hypothesis only at named bridge points (the physical-units
-calibration in Section 16 is the load-bearing example). An Axiom is the global version:
+calibration in Section 17 is the load-bearing example). An Axiom is the global version:
 a top-level claim accepted without proof. The kernel tier has zero project-local Axiom
 declarations. The policy is bookkeeping discipline, not faith.
 
@@ -1097,8 +1106,8 @@ Yoneda’s lemma is named once in the Section 1 origin story and never appears a
 You can ignore it. I dropped it during the work because I did not need it for any
 theorem. I left the name in. That is when I first knew the work was assembling.
 
-2.5 Bell-test vocabulary you will meet in Section 15
-Section 15 builds the CHSH game from scratch. A few foundational terms thread
+2.5 Bell-test vocabulary you will meet in Section 16
+Section 16 builds the CHSH game from scratch. A few foundational terms thread
 through that section that I will not rebuild each time.
 
 A correlation between two outcomes is the average value of their product. If Alice’s
@@ -1115,7 +1124,7 @@ Bob’s setting is 0.
 
 The marginal of a joint distribution on ( a, b) is the distribution on a alone, with b
 averaged out. Zero-marginal means Alice’s marginal gives ⟨ a⟩ = 0 and Bob’s gives
-⟨b⟩ = 0. Each outcome is +1 or −1 equally often, on average. The Section 15 derivation
+⟨b⟩ = 0. Each outcome is +1 or −1 equally often, on average. The Section 16 derivation
 works in this symmetric slice.
 
 A local hidden variable model is a classical-physics-style theory where Alice’s and
@@ -1133,7 +1142,7 @@ discuss (classical, quantum, and the PR-box below) are no-signaling.
 Quantum-realizable, in this document, means “compatible with some quantum-
 mechanical state-and-measurement description.” The NPA framework (Navascués-
 Pironio-Acín) gives a precise test for this in terms of positive-semidefiniteness of a
-moment matrix. The test is decidable. Section 15 builds the test.
+moment matrix. The test is decidable. Section 16 builds the test.
 
 The PR-box (Popescu-Rohrlich box) is a hypothetical correlation that wins the CHSH
 game with probability 1, achieving |S| = 4. It is no-signaling, but stronger than any-
@@ -1142,16 +1151,16 @@ terexample to the false claim “any no-signaling correlation is quantum-realiza
 
 The Cauchy-Schwarz inequality is the basic inner-product inequality |⟨ x, y⟩| ≤ ∥ x ∥ ·
 ∥y∥. It reads: the inner product of two vectors is bounded by the product of their
-lengths. It is one of the workhorse algebraic moves in the Section 15 derivation.
+lengths. It is one of the workhorse algebraic moves in the Section 16 derivation.
                                       √
 The Tsirelson bound is the value 2 2 ≈ 2.828, the largest CHSH score |S| that any
 quantum-mechanical strategy can achieve. The classical bound is 2. The PR-box bound
 is 4. Tsirelson sits strictly between classical and PR-box. Nature picked one of these
 three.
 
-The elliptope, named twice in Section 22 and Section 23, is the convex set of valid
+The elliptope, named twice in Section 23 and Section 24, is the convex set of valid
 correlation matrices that arise from quantum states. The zero-marginal NPA slice of
-the elliptope is the part the proof in Section 15 covers.
+the elliptope is the part the proof in Section 16 covers.
 
 2.6 Hardware and synthesis vocabulary
 Section 14 builds the scaffolding stack (Coq kernel, OCaml runner, Kami RTL) carefully.
@@ -1232,7 +1241,7 @@ agree on the kept fields. Math has a name for everything; here it has the right 
 
 A kernel of a map (math sense) is the set of things the map sends to a designated
 identity value. “Kernel” has three different meanings in this document: the math
-sense just defined, the Coq proof core (the kernel-tier theorems in Section 22), and the
+sense just defined, the Coq proof core (the kernel-tier theorems in Section 23), and the
 operating-system kernel (implied at most by analogy; never used directly). Context
 picks.
 
@@ -1253,7 +1262,7 @@ Polynomial-space is the analogous concept for memory used. The class P is decisi
 problems solvable in polynomial time. The class NP is decision problems where, given
 a candidate solution, a polynomial-time algorithm can check whether the solution is
 correct. The famous P-vs-NP question asks whether finding is fundamentally harder
-than checking. Nobody has proved either direction. Section 23 discusses why my m
+than checking. Nobody has proved either direction. Section 24 discusses why my m
 u_budget_decidable / mu_budget_verifiable predicates are not a P-vs-NP
 result. I am not the person who will prove it.
 
@@ -1272,7 +1281,7 @@ is singular (zero determinant
 it by “expansion along a row”: pick a row, for each entry take the determinant of the
 submatrix you get by deleting that entry’s row and column (with alternating signs),
 multiply by the entry, and sum. The recursion bottoms out at the 2 × 2 case above.
-Section 15 walks the explicit calculations for the 3 × 3 cases I need.
+Section 16 walks the explicit calculations for the 3 × 3 cases I need.
 
 Schur complement: a way of turning ! a question about a block matrix into a question
                               A B
@@ -1280,13 +1289,13 @@ about a smaller matrix. If            is a block matrix where A is invertible, t
                               C D
 complement of A is D − CA−1 B. A standard linear-algebra result says the block matrix
 is positive-semidefinite if and only if both A and the Schur complement are positive-
-semidefinite. The Section 15 build uses this for the 4 × 4 block of the NPA moment
+semidefinite. The Section 16 build uses this for the 4 × 4 block of the NPA moment
 matrix.
 
 A principal submatrix is the square subblock you get by picking a subset of indices
 and keeping only the rows and columns at those indices. A standard result is that
 a matrix is positive-semidefinite if and only if every principal submatrix is positive-
-semidefinite. Every one. Section 15 relies on this.
+semidefinite. Every one. Section 16 relies on this.
 
 2.8 The axioms (A1 through A6)
 The Thiele Machine has a small numbered list of substrate-level axioms. They appear
@@ -2016,7 +2025,7 @@ Proof. The witnesses cert_addr_witness_zero and cert_addr_witness_one
 images. A ϕ satisfying the equation would force 0 = 1. Contradiction.
 
    Plain reading. The Thiele csr_cert_addr channel is not a function of the four
-   fields kept by forget. The structural-axis diagonal in Section 18 below builds an
+   fields kept by forget. The structural-axis diagonal in Section 19 below builds an
    undecidable predicate over csr_cert_addr reachability; that predicate cannot
 
 
@@ -2047,7 +2056,7 @@ the bare projection structurally cannot carry.”
       necessity, not by drafting choice. The Coq corollary is no_classical_mu_sep
       aration_predicate.
    3. The structural-axis diagonal has no analog in the bare projection. The undecidable
-      predicate constructed in Section 18 branches on csr_cert_addr reachability.
+      predicate constructed in Section 19 branches on csr_cert_addr reachability.
       By cert-addr irrecoverability, no function on the bare TMSnapshot can recover
       csr_cert_addr. Lift the diagonal predicate down to programs interpreted on
       the bare projection alone and it references a field the projection erased. The lift
@@ -2124,15 +2133,16 @@ gets exactly one morphism out of it. The abstract uses the Z-as-initial-ring ana
 
 
 a handrail. That analogy is also the warning label: Z has this property too, so generic
-initiality buys no priority. Priority rides instead on substitution-adequacy (a2_equal
-_trust_substitution_payoff) and the lattice-scoped minimality of (µ, cert) (P
-_full_is_minimal_complete_extension), which a Z with a coordinate bolted
-on does not have. The Coq theorem is the term-algebra statement. The proof is short:
-about 30 lines, all list induction. The hard part lives in the definitions it rests on:
-CertCostMachine, CertCostMorphism, thiele_morphism_exists, and thi
-ele_morphism_unique_on_traces.
+initiality buys no priority. Priority rides instead on substitution-adequacy (passing
+the substitution test is equivalent to being A2: a2_equal_trust_substitution
+_payoff) and the lattice-scoped minimality of (µ, cert) (P_full_is_minimal_c
+omplete_extension), which a Z with a coordinate bolted on does not have. The
+Coq theorem is the term-algebra statement. The proof is short: about 30 lines, all
+list induction. The hard part lives in the definitions it rests on: CertCostMachine,
+CertCostMorphism, thiele_morphism_exists, and thiele_morphism_uni
+que_on_traces.
 
-The scope is not smuggled in. Section 23 says it plainly: initiality is relative to the A2-
+The scope is not smuggled in. Section 24 says it plainly: initiality is relative to the A2-
 respecting category. The proof decides initiality relative to the A2-respecting category.
 The proofs also decide the priority claim: classical computation is derivative, on
 substitution-adequacy and lattice-scoped minimality plus the law-versus-checker fact.
@@ -2167,12 +2177,12 @@ assumes no axioms.
    identical classical traces and disagree on whether µ = 1. The verifier has nothing
    to distinguish them by. Soundness and completeness on µ-sensitive claims are
    mutually exclusive under the bare projection. This is the receipt theorem lifted
-   from “no function recovers µ from the projection” to “no verifier soundly decides
 
                                             44
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+    from “no function recovers µ from the projection” to “no verifier soundly decides
     µ-sensitive claims from the projection.”
 
 Three escapes, each constructed.
@@ -2215,13 +2225,13 @@ assumes no axioms.
 
    Plain reading. Verification of µ-sensitive claims must access non-classical structure
    of the transcript. The three escapes are three concrete ways to expose that structure;
-   the factorisation theorem says exposure is mandatory. Any verifier that pretends
 
 
                                            45
 The Thiele Machine                                                   Devon Thiele • June 2026
 
 
+    the factorisation theorem says exposure is mandatory. Any verifier that pretends
     to live entirely on the classical projection — by reading only what the projection
     sees, no matter how rich the transcript otherwise — will fail on the same witness
     pair that the bare-setting theorem already exhibited. The substrate, the hardness
@@ -2266,13 +2276,13 @@ about a memory region. Predicates are how claims become checkable.
 
 A logical formula over Boolean variables is built from true/false variables connected
 by AND (∧), OR (∨), and NOT (¬). Example: ( x1 ∨ x2 ) ∧ (¬ x1 ∨ x3 ). The formula
-is true when either x1 or x2 is true, and either x1 is false or x3 is true. A satisfying
 
 
                                              46
 The Thiele Machine                                                     Devon Thiele • June 2026
 
 
+is true when either x1 or x2 is true, and either x1 is false or x3 is true. A satisfying
 assignment is a true/false choice for every variable that makes the formula true. An
 unsatisfying assignment makes it false.
 
@@ -2318,12 +2328,12 @@ The answer is always: a cost-positive step, one with µ ≥ 1. That is No Free I
 The center of the project is not just “certification has a price.” That is true. It is the first
 cost law, not the whole picture.
 
-The deeper object is structural entitlement. A computation has it when the state contains
 
                                               47
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+The deeper object is structural entitlement. A computation has it when the state contains
 not just data, but a structural fact later steps are allowed to use as already established.
 I call that fact admissible. Admissible means the trace earned the right: a cost-positive
 step paid for it, and the proof object establishing it is on hand. Admissible is not just
@@ -2367,13 +2377,13 @@ something.
 
 Feasible set. A feasible set Ω is a concrete, finite list of substrate states. The Coq type
 is literally list VMState. Read it plainly: Ω contains the states still possible after
-everything checked and certified so far. Before structural knowledge is certified, the
 
 
                                             48
 The Thiele Machine                                                    Devon Thiele • June 2026
 
 
+everything checked and certified so far. Before structural knowledge is certified, the
 list may be large. After a constraint is certified, the list shrinks to states consistent with
 that constraint. It is not “possible worlds.” It is actual substrate states in a list.
 
@@ -2416,13 +2426,13 @@ MORPH_ASSERT asserted such a property against an existing morphism.
 Supra-certification (has_supra_cert).     In the 51-opcode realisation, supra-
 certification is reached when csr_cert_addr ̸= 0. The name distinguishes it from
 vm_certified, the top-level flag set by CERTIFY. Supra-certification tracks the
-MORPH_ASSERT channel: has a morphism property been asserted and its checksum
 
 
                                              49
 The Thiele Machine                                                     Devon Thiele • June 2026
 
 
+MORPH_ASSERT channel: has a morphism property been asserted and its checksum
 registered? A trace can set vm_certified = true without has_supra_cert by
 using CERTIFY and not MORPH_ASSERT; CERTIFY never touches csr_cert_addr.
 Both are positive-cost certification channels. They record different things. Two chan-
@@ -2466,7 +2476,6 @@ projection-image must agree on equal images, so it agrees on s1 and s2 .
    morphism graph. They are still different states. So the projection is provably
    many-to-one. A function defined only on the projection output can’t tell them
    apart. The projection already collapsed them.
-
 
 
                                               50
@@ -2999,7 +3008,7 @@ is the honest place to stop, not a hole to be patched later.
 Once structural entitlement is internalized with explicit witnesses, three things hold.
 Free certified strengthening is impossible. Classical shadows lose entitlement-relevant
 distinctions. Feasible-set narrowing has a formal path into predicate strengthening,
-with a ledger lower bound. The substrate-level result in Section 18 closes one more
+with a ledger lower bound. The substrate-level result in Section 19 closes one more
 question: whether a uniform internally representable translation procedure exists
 from informal structural arguments into SoundStructuralShortcut witnesses. It
 does not. The structural axis has its own undecidable predicate.
@@ -3013,7 +3022,7 @@ Three tiers, three prices. The kernel proves the split.
 Tier 0: Raw observation (always free). A raw observation records data without
 committing to any structural interpretation. It records. That is all it does. The clearest
 realisation example is a CHSH trial, an experimental record from the two-player game
-built from scratch in Section 15. You run a trial, you record the outcome in a counter,
+built from scratch in Section 16. You run a trial, you record the outcome in a counter,
 and nothing structural changes. The counter goes up. The certification channels stay
 cold. Nothing flips. Cost: 0.
 
@@ -3068,7 +3077,7 @@ commitment to nothing.
 
 Tier 2: Certified binary-game witness insight (always costs ≥ 1). The sharpest case: a
 realisation that is certified AND whose CHSH statistics show S exceeds 2, the classical
-bound (Section 15 builds the game and the bound). Getting certified is already a
+bound (Section 16 builds the game and the bound). Getting certified is already a
 Tier 1 event (cost at least 1). Getting the statistics to show a violation means the data
 is incompatible with any local hidden variable model (Section 2), proven. Together:
 certified game-violation evidence costs at least 1 to acquire. Over any trace of any
@@ -3153,7 +3162,7 @@ When CERTIFY fires, it commits the realisation to a certified state: vm_certifie
 flips from false to true. That commitment cannot be undone: µ never goes down, and
 the certificate cannot be taken back. Committing to a structural fact has the same shape
 as erasing the “uncertified” possibility from the trace’s history: once the commitment
-is recorded, the prior uncertainty is gone. Landauer’s argument (covered in Section 16)
+is recorded, the prior uncertainty is gone. Landauer’s argument (covered in Section 17)
 is the physics-side motivation for charging at least 1, though the Coq proof does not
 depend on it. The minimum honest cost of an irreversible certification step, as a
 function only of the programmer-supplied δ, is δ + 1: the δ the programmer declares
@@ -3656,7 +3665,7 @@ strate state in 12 fields:
       S = E00 + E01 + E10 − E11 . If no trials have been run for a setting (Nxy = 0),
       the correlator for that setting defaults to 0 by convention. Classically |S| ≤ 2;
                                                    √
-      the NPA algebraic model allows |S| ≤ 2 2 (see Section 15). The concrete Coq
+      the NPA algebraic model allows |S| ≤ 2 2 (see Section 16). The concrete Coq
       definition is chsh_stat_from_wc.
    • s.vm_certified ∈ {false, true}: the top-level certification flag. Only CERTIFY
      sets it. Nothing else can.
@@ -3882,7 +3891,7 @@ grammers use to swap two values without a temporary register (it works by writin
 one register with the XOR of both, then the other, then the first again), but the kernel
 does not actually run that sequence. It writes both registers at once. In the table it
 carries δ = 0 by convention because a reversible operation, in the Bennett/Landauer
-sense (Section 16), does not destroy any information. If a program supplies a nonzero
+sense (Section 17), does not destroy any information. If a program supplies a nonzero
 δ, the ledger still charges it. The convention is not a loophole.
 
 
@@ -4038,7 +4047,7 @@ ble). The four CHSH_LASSERT_1AB variants below extend this base check from the
 
 
 5 × 5 level-1 matrix to the 9 × 9 level-1+AB matrix; the full treatment of the family is
-in the “CHSH check family” note after the opcode tally and in Section 15.
+in the “CHSH check family” note after the opcode tally and in Section 16.
 
 CHSH_LASSERT_1AB(δ): Q1+AB -aware witness check at γ = 0.
 Extends CHSH_LASSERT with the level-1+AB NPA condition.                  Reads the 8
@@ -4203,7 +4212,7 @@ witness counters passes; that fact lifts to real-valued column-contractivity by 
 mn_contractive_check_witness_sound; column-contractivity is biconditional
 with NPA-PSD by column_contractive_iff_quantum_realizable. Three
 theorems. No physics input. The opcode is the place in the kernel where the algebra
-of Section 15 becomes something the VM actually refuses to do, not just declines to
+of Section 16 becomes something the VM actually refuses to do, not just declines to
 recommend.
 
 The four Q1+AB extensions CHSH_LASSERT_1AB (tag 0x2F, γ = 0), CHSH_LASSERT_
@@ -4214,7 +4223,7 @@ check on vm_witness plus the supplied γ-bucket pairs, advances on pass or traps
 fail, charges S(mu_delta) ≥ 1. The four bridge theorems (one per slice, named chsh
 _lassert_1ab_*_no_trap_implies_quantum_realizable_q1ab) deliver qu
 antum_realizable_q1ab = symmetric9 ∧ PSD9 on the witness-derived rationals.
-The mathematical detail of the four-slice Schur cascade is in §15’s Q1+AB subsection
+The mathematical detail of the four-slice Schur cascade is in §16’s Q1+AB subsection
 below.
 
 Every opcode exists for a reason. None are redundant. If you removed CERTIFY,
@@ -4465,25 +4474,29 @@ translation together with a proof it commutes with steps. Its certifications the
 port: an uncertified-to-certified trace costs at least 1 in the source system, and the
 embedded execution lands in a Thiele-certified state. The translation is a hypothesis
 the record supplies, not something the theorem conjures for an arbitrary A2 system;
-the only embedding the kernel builds outright is the Turing one (thiele_simulates
-_turing), and the cost floor for an A2 system with no embedding at all is the separate,
-unconditional content of universal_nfi_any_substrate. The witness theorem
-shows what the Thiele projection drops within the model. The substrate-independent
-theorem shows that any honest substrate inherits the µ-price on certification. Together
-they say: the cost floor is forced wherever A2 is accepted. Thiele is the canonical place
-where the dropped information sits as primitive state.
+the only embedding the kernel builds outright is the Turing one (thiele_simulate
+s_turing), and the cost floor for an A2 system with no embedding at all is the sep-
+arate, unconditional content of universal_nfi_any_substrate. Unconditional
+here means the axiom closure is empty, nothing named or assumed; the theorem’s
+own two premises are just the trace endpoints, given a run that starts uncertified and
+ends certified. The witness theorem shows what the Thiele projection drops within the
+model. The substrate-independent theorem shows that any honest substrate inherits
 
 
                                            90
-The Thiele Machine                                                      Devon Thiele • June 2026
+The Thiele Machine                                                  Devon Thiele • June 2026
 
+
+the µ-price on certification. Together they say: the cost floor is forced wherever A2 is
+accepted. Thiele is the canonical place where the dropped information sits as primitive
+state.
 
 What would falsify this section.            The whole section rides on one sep-
 arating function existing nowhere.          A function on the six shadow fields
 (vm_regs, vm_mem, vm_mu, vm_pc, vm_err, vm_certified) that returns different
 values on s1 and s2 above would make shadow_strictly_lossy false, and the
 Coq proof would stop compiling. The witness pair is small enough to check by hand.
-That is the seam this section breaks at, and the place to go looking for it is Section 21.
+That is the seam this section breaks at, and the place to go looking for it is Section 22.
 
 
 Theorem 12.2 (Shadow Separation). There exist two states with the same classical shadow
@@ -4520,13 +4533,15 @@ error, certified) can separate all Thiele states. The classical shadow is strict
 Corollary 12.4 (Thiele strictly extends classical). Every program in the classical fragment,
 meaning every program restricted to is_classical_opcode, leaves pg_next_id un-
 changed. There exist Thiele programs that change pg_next_id via PNEW. Therefore Thiele
+
+                                            91
+The Thiele Machine                                                       Devon Thiele • June 2026
+
+
 strictly extends the classical fragment: it can represent and probe states that no program in that
 fragment can reach. A universal Turing machine can simulate the full Thiele state by encoding
 it on tape, but a faithful simulation has to preserve the µ-ledger cost. Drop the accounting and
 it is no longer simulating the substrate honestly.
-
-                                               91
-The Thiele Machine                                                Devon Thiele • June 2026
 
 
 The classical fragment embeds inside the Thiele substrate faithfully. Every classical
@@ -4553,9 +4568,9 @@ Act 2: Build the chain.
 
 Run this sequence:
 
-                             PNEW( A), PNEW( B), PNEW(C )
-                            MORPH( f , A, B), MORPH( g, B, C )
-                                   COMPOSE(h, f , g)
+                               PNEW( A), PNEW( B), PNEW(C )
+                              MORPH( f , A, B), MORPH( g, B, C )
+                                       COMPOSE(h, f , g)
 
 Then MORPH_GET(r0 , h, source) and MORPH_GET(r1 , h, target). The resulting state has
 r0 = A, r1 = C, and morphism h : A → C exists in the morphism map. With δ = 0
@@ -4566,19 +4581,19 @@ Act 3: Assert.
 
 Run MORPH_ASSERT(h, “composed”, “”, 0). Morphism h exists and the property
 string “composed” has a non-NUL byte. The assertion succeeds. csr_cert_addr
+
+
+
+                                               92
+The Thiele Machine                                              Devon Thiele • June 2026
+
+
 goes to the ASCII checksum of “composed” (nonzero). Cert-address channel activated.
 µ goes up by S(0) = 1.
 
 (Why does the property string need a non-NUL byte? Because csr_cert_addr
 stores the ASCII checksum of the property string, a plain byte-sum. The empty string
 sums to 0, and so would an all-NUL string, leaving the channel at 0. Not activated.
-
-
-
-                                           92
-The Thiele Machine                                              Devon Thiele • June 2026
-
-
 Any string with a non-NUL byte gives a nonzero checksum and works. “composed”
 is just an example label.)
 
@@ -4618,18 +4633,17 @@ Three scaffolding layers wrap the substrate: a Coq kernel, an OCaml runner extra
 from it, and a Kami RTL design tied back to it. None of them IS the substrate. They
 are how the substrate gets to live on a chip, on a laptop, and inside a proof checker.
 The kernel-to-RTL boundary is closed by formal bisimulation proofs (Section 2: same
-input, same output, field by field). The kernel-to-OCaml boundary is closed by audited
-parity tests (Section 2: run both on a battery of inputs, verify they agree). Proof on
-the hardware side. Tested correspondence on the runner side. Both boundaries are
-named in the source, out in the open, so you can walk to either one and see what
-it actually rests on. I would rather hand you the exact seam where proof stops and
-
 
 
                                           93
 The Thiele Machine                                                             Devon Thiele • June 2026
 
 
+input, same output, field by field). The kernel-to-OCaml boundary is closed by audited
+parity tests (Section 2: run both on a battery of inputs, verify they agree). Proof on
+the hardware side. Tested correspondence on the runner side. Both boundaries are
+named in the source, out in the open, so you can walk to either one and see what
+it actually rests on. I would rather hand you the exact seam where proof stops and
 tested correspondence starts than dress the whole stack up as one seamless theorem it
 is not.
 
@@ -4682,16 +4696,16 @@ Coq is where the substrate gets pinned down. The kernel defines:
      one for each opcode, each carrying the right argument types.
    • The vm_apply function: takes a state and an instruction, returns a state. It is
      total (Section 2): every input pair produces a defined output, including the error
-     case.
-   • All the theorems: No Free Insight, µ-monotonicity, µ-initiality, categorical sepa-
-     ration, Turing strictness, and the rest.
-
-The Coq kernel operates mostly over natural numbers, but VMState is not an un-
 
                                                   94
 The Thiele Machine                                               Devon Thiele • June 2026
 
 
+      case.
+   • All the theorems: No Free Insight, µ-monotonicity, µ-initiality, categorical sepa-
+     ration, Turing strictness, and the rest.
+
+The Coq kernel operates mostly over natural numbers, but VMState is not an un-
 bounded mathematical fantasy. REG_COUNT = 16. MEM_SIZE = 128. Both are
 matched against the synthesised RTL. The accessors wrap indices through those sizes
 (modular arithmetic, Section 2). Both constants are parametric in the proofs (Section 2:
@@ -4731,16 +4745,16 @@ language: you describe what the hardware should compute, including the registers
 the rules, and the conditions under which state transitions fire. The Bluespec compiler
 generates standard Verilog RTL. Verilog RTL is the low-level gate-and-register descrip-
 tion synthesis tools compile into actual logic gates on an FPGA (a reconfigurable chip
+
+                                          95
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 you can program after manufacturing) or an ASIC (a custom chip manufactured for
 a specific design, not reprogrammable). A Kami module puts the finite hardware
 realisation on a chip, and the Kami extractor runs it through the pipeline above.
 
 The hardware has:
-
-
-                                          95
-The Thiele Machine                                                 Devon Thiele • June 2026
-
 
    • 16 registers, each 32 bits wide (RegCount = 16; kernel proofs parametric)
    • 128-bit instruction encoding (InstrSz = 128)
@@ -4777,18 +4791,19 @@ erately disable DSP inference (-nodsp) so the multiplier tree maps to LUTs. yosy
 DSP48E1 inference fans the same arithmetic out to more DSP slices than the K325T
 has, and routing through DSPs makes the openXC7 placer too slow to fit in CI. To
 keep that LUT cost finite, the witness check itself is implemented in Kami as a 23-
+
+
+
+                                            96
+The Thiele Machine                                               Devon Thiele • June 2026
+
+
 phase FSM that time-shares one 384 × 384 signed-unsigned multiplier across the 22
 wide integer multiplications it needs. The Coq spec for instr_chsh_lassert is
 still single-step (single-cycle retirement at the VM/spec level); the multi-cycle execu-
 tion is a Kami-implementation detail invisible to the spec, exactly the same pattern
 as the existing instr_lassert FSM (see the chsh_lassert_fsm rule). The de-
 sign fits the K325T’s 203,800 LUT6 budget with comfortable margin. Concretely, the
-
-
-                                            96
-The Thiele Machine                                              Devon Thiele • June 2026
-
-
 CI fpga-bitstream job produces a real .bit file end-to-end on every relevant
 push (yosys synthesis → openXC7’s nextpnr-xilinx place-and-route → prjxray’s
 fasm2frames packaging → xc7frames2bit): roughly 11,444,000 bytes, post-route
@@ -4826,23 +4841,22 @@ Formal bisimulation proofs exist for all 47 synth-realised opcodes. Zero Admitte
 All Qed. The four Q1+AB check opcodes have no synthesized-Verilog counterpart, as
 noted above, so the question of Verilog bisimulation does not arise for them; they live
 in the OCaml-runner / Python-harness layer plus the Kami HW abstraction (with
-kernel-equivalence proven) plus the substrate-level Coq theorems of §15. Here is the
-precise breakdown for the 47:
-
-   • 31 opcodes are truly unconditional. These are the SupportedOpcode group:
-     True in Coq, no conditions whatsoever. They cover all standard compute,
-     load/store, jump, I/O, and certification operations that don’t involve morphism
-     tables or formula checking, plus CHSH_LASSERT (whose snapshot-level check
-
+kernel-equivalence proven) plus the substrate-level Coq theorems of §16. Here is the
 
 
                                           97
 The Thiele Machine                                             Devon Thiele • June 2026
 
 
-      reads the same witness counters and runs the same column_contractive_c
-      heck_witness function as vm_apply via abs_phase1). Verified (embed_st
-      ep_compute).
+precise breakdown for the 47:
+
+   • 31 opcodes are truly unconditional. These are the SupportedOpcode group:
+     True in Coq, no conditions whatsoever. They cover all standard compute,
+     load/store, jump, I/O, and certification operations that don’t involve morphism
+     tables or formula checking, plus CHSH_LASSERT (whose snapshot-level check
+     reads the same witness counters and runs the same column_contractive_c
+     heck_witness function as vm_apply via abs_phase1). Verified (embed_st
+     ep_compute).
    • 6 opcodes require valid instruction arguments. The hardware and Coq model
      AGREE on the error path for invalid arguments, so no semantic disagreement
      exists, but the success-path proof requires the argument to be in range:
@@ -4876,23 +4890,23 @@ precise breakdown for the 47:
      likewise inductive.
 
 The official classification (the theorem rtl_coverage_partition) records the par-
-tition 37 + 10 + 0 = 47 for the synth-realised subset: all Qed, zero structural gaps
-within that subset. The four Q1+AB check opcodes sit in the Kami HW abstraction
-(with kernel-equivalence proven) but outside the synthesized-Verilog surface. The
-slack of 4 between the 51-opcode VM ISA and the 47-opcode synth partition is a
-silicon-budget choice, not a semantics gap.
-
 
 
                                          98
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
+tition 37 + 10 + 0 = 47 for the synth-realised subset: all Qed, zero structural gaps
+within that subset. The four Q1+AB check opcodes sit in the Kami HW abstraction
+(with kernel-equivalence proven) but outside the synthesized-Verilog surface. The
+slack of 4 between the 51-opcode VM ISA and the 47-opcode synth partition is a
+silicon-budget choice, not a semantics gap.
+
 The 47/47 RTL-bisimulation coverage (all Qed) is the correct relationship between the
 synth-realised subset and its physical instantiation: the Coq kernel defines what is
 correct, the hardware implements 47 of the 51 opcodes, and all 47 of those have formal
 bisimulation proofs. The four Q1+AB check opcodes live in the Kami HW abstraction
-with kernel-equivalence proven (sound at the substrate level, see §15), and run in the
+with kernel-equivalence proven (sound at the substrate level, see §16), and run in the
 OCaml runner and Python harness, but the silicon budget excludes them from the
 synthesized Verilog. This is honest proof accounting.
 
@@ -4908,35 +4922,35 @@ level. Look at the cases for CERTIFY and MORPH_ASSERT in vm_apply: the cost is
 added before the flag flips; the step that mutates the certification channel and the step
 that charges µ are the same step. That is what A2 means in the kernel.
 
-A Turing machine simulating the substrate has A2 only as a property of its simula-
-tor program. A Turing machine can run a buggy simulator that skips the cost; the
-substrate cannot. A buggy simulator does not satisfy A2 because A2 is not a law
-of its step rule – it is at best a program-level property the simulator is supposed to
-keep and can drop on any step. The substrate cannot drop it for the same reason it
-cannot forget to breathe: charging µ on the cert-flip is the step, not a checker bolted
-on afterward. The proof covers the step relation in the kernel and, under the BSC
-compiler trust boundary, the Kami RTL generated through the hardware pipeline. It is
-structural, and it is sharper than any metaphysics about substrate-level enforcement
-being “deeper” than program-level enforcement. A2 lives in the substrate as a law of
-the step rule, where flipping certification and charging µ are one and the same step.
-Hold the trust fixed and A2 is the only rule that prices certification exactly, so the
-only exact, non-overcharging substitute already is A2 (a2_equal_trust_substi
-tution_payoff). And (µ, cert) is the proved-minimal extension over (mem, regs,
-pc): cert is not a function of the rest, µ is not a function of the rest (P_full_is_min
-imal_complete_extension). A classical step rule can carry A2 only as a fallible
-program-level property, the kind a buggy simulator can skip. That is what makes
-classical computation derivative here. Bolt A2 into the step rule and you have not
-extended classical computation, you have rebuilt the substrate. What the hardware
-bridge separately checks is smaller: that the kernel definition matches the synthesised
-RTL, with documented trust boundaries at the OCaml extraction and the BSC compiler.
-The priority claim is not waiting on that. The substitution and minimality theorems
-above settle it.
-
+A Turing machine simulating the substrate has A2 only as a property of its simulator
+program. A Turing machine can run a buggy simulator that skips the cost; the sub-
+strate cannot. A buggy simulator does not satisfy A2 because A2 is not a law of its step
+rule – it is at best a program-level property the simulator is supposed to keep and can
+drop on any step. The substrate cannot drop it for the same reason it cannot forget to
+breathe: charging µ on the cert-flip is the step, not a checker bolted on afterward. The
+proof covers the step relation in the kernel and, under the BSC compiler trust bound-
+ary, the Kami RTL generated through the hardware pipeline. It is structural, and it
+is sharper than any metaphysics about substrate-level enforcement being “deeper”
+than program-level enforcement. A2 lives in the substrate as a law of the step rule,
+where flipping certification and charging µ are one and the same step. Hold the trust
+fixed and A2 is the only rule that prices certification exactly, so the only exact, non-
+overcharging substitute already is A2 — and that cuts in both directions (a2_equal
+_trust_substitution_payoff). And (µ, cert) is the proved-minimal extension
+over (mem, regs, pc): cert is not a function of the rest, µ is not a function of the rest
+(P_full_is_minimal_complete_extension). A classical step rule can carry A2
+only as a fallible program-level property, the kind a buggy simulator can skip. That
+is what makes classical computation derivative here. Bolt A2 into the step rule and
 
 
                                            99
 The Thiele Machine                                                  Devon Thiele • June 2026
 
+
+you have not extended classical computation, you have rebuilt the substrate. What
+the hardware bridge separately checks is smaller: that the kernel definition matches
+the synthesised RTL, with documented trust boundaries at the OCaml extraction and
+the BSC compiler. The priority claim is not waiting on that. The substitution and
+minimality theorems above settle it.
 
 Substrate-level property enforcement is not unique to Thiele as a category of design.
 Trusted Platform Modules enforce key isolation in hardware; CHERI enforces capa-
@@ -4945,16 +4959,174 @@ the substrate’s primitive operation rather than relying on program-level disci
 to maintain it. The shared structural feature with TPMs and CHERI — enforcement
 living in the substrate’s step rather than the data — is the generic shape; it is the design
 category, not the priority. What is Thiele’s own is the specific law being enforced: A2,
-the exact-least predicate that prices certification (a2_equal_trust_substitution
-_payoff), carried on the irredundant (µ, cert) extension (P_full_is_minimal_co
-mplete_extension), with µ as the unforgeable receipt. The shared shape is generic;
-the priced law is not. If a TPM is the right analog for one piece (a hardware-rooted
-invariant a program cannot forge) and CHERI is the right analog for another (an
-ISA-level discipline programs cannot escape), the analogy is structural, not detailed;
-I’m not claiming the underlying mechanisms match, only the substrate-level shape of
-what is being enforced.
+the exact-least predicate that prices certification, charging exactly when the cert flips (a
+2_equal_trust_substitution_payoff), carried on the irredundant (µ, cert) ex-
+tension (P_full_is_minimal_complete_extension), with µ as the unforgeable
+receipt. The shared shape is generic; the priced law is not. If a TPM is the right analog
+for one piece (a hardware-rooted invariant a program cannot forge) and CHERI is the
+right analog for another (an ISA-level discipline programs cannot escape), the analogy
+is structural, not detailed; I’m not claiming the underlying mechanisms match, only
+the substrate-level shape of what is being enforced.
 
-15 Binary Game Statistics: where the µ-Ledger Meets the NPA Boundary
+15 Five more instantiations, none of them mine
+The abstract records were built with the state type and the instruction type left open,
+on the theory that someone would eventually plug in a system I had never thought
+about. It turns out the plugging-in had already happened, years ago, in five different
+industries, under five different names, usually right after somebody lost money. None
+of the five communities below would describe themselves as instantiating an axiom
+about certification cost. They would describe themselves as patching an exploit. Same
+event. So I ran each system through the kernel’s records, and what follows is what
+came out: the instantiation, the theorem, the consequence, and the thing that would
+break it. Every result here is machine-checked and closed under the global context;
+the names are handles you can look up.
+
+15.1 Proof-of-stake finality
+A proof-of-stake blockchain finalizes blocks by vote: validators stake collateral, vote
+on checkpoints, and a finality gadget marks some block irreversible. The founding
+embarrassment of the field is nothing at stake: if casting a finalizing vote costs a val-
+idator nothing, then voting to finalize two conflicting histories also costs nothing, and
+the gadget’s “irreversible” means nothing. The fix every live protocol converged on is
+slashing — finalize dishonestly and your stake is destroyed.
+
+Run that through the records. A gadget whose finalize step carries zero stake-at-
+
+
+                                            100
+The Thiele Machine                                                  Devon Thiele • June 2026
+
+
+risk is a cost-bearing system without the A2 field, and it realizes the kernel’s free-
+forgery witness exactly: nothing_at_stake_is_free_forgery shows no A2
+field can be constructed for it, by free_forgery_violates_A2. A gadget whose
+finalize step risks at least one unit is an A2-respecting certification system (the slashing
+inequality is not an analogy for the axiom; it discharges the axiom’s proof obligation),
+and then slashing_finality_floor, which is universal_nfi_any_substr
+ate instantiated, prices every run from unfinalized to finalized at one unit of stake
+minimum. Slashing is A2 wearing a hoodie. The field derived it empirically, by getting
+robbed.
+
+Falsifier: a protocol whose known nothing-at-stake status contradicts the classification
+— a zero-stake-at-finalize gadget that admits an A2 proof, or a slashing gadget with a
+free finalizing trace.
+
+15.2 Gas metering
+Execution-fee networks bill every step: each opcode costs gas, and the fee schedule is
+the protocol’s promise about who pays for what. Treat “the state root is committed”
+as the certification event and a gas schedule becomes a local pricing law — it picks
+the steps it charges, and it is trusted to charge there and nowhere else. The kernel’s
+pricing-uniqueness theorem then lands directly: gas_schedule_exactness says a
+schedule collects at least one and at most one unit per commitment exactly when its
+charging predicate is the commitment predicate with unit pricing. There is one exact
+schedule, and it charges on commitment.
+
+The two failure modes are theorems too. Undercharge — one committing opcode
+the schedule misses — and undercharged_opcode_admits_free_commitment
+hands you a one-step certifying trace at zero gas. The theorem prices the limiting case,
+where the charge is missing entirely; Ethereum’s 2016 DoS season was the graded
+version of the same failure shape, opcodes priced far below their real cost letting
+attackers buy state growth almost free, and the emergency repricing that followed is
+what restoring the charging predicate looks like in production. Overcharge and ove
+rcharge_breaks_exactness kills the ceiling instead. And the class is not empty
+talk: the kernel machine itself sits in it. thiele_vm_commit_pricing_is_exac
+t prices that machine’s own certification channel exactly, and thiele_unit_pric
+e_lower_bounds_mu checks that µ pays the commitment floor with room to spare,
+which is also why µ itself is not the exact commitment pricer: it prices computation
+too.
+
+Falsifier: a schedule satisfying floor and no-overcharge whose charging predicate
+differs from the commitment predicate on some reachable step.
+
+15.3 Trusted-execution attestation
+A trusted execution environment (an enclave on someone else’s computer) proves
+to you, remotely, that a specific measured binary produced a result. The proof is an
+
+
+                                            101
+The Thiele Machine                                               Devon Thiele • June 2026
+
+
+attestation report, and the load-bearing part of the report is a measurement register: a
+value the hardware accumulates as the run commits, the PCR or MRENCLAVE of the
+spec sheets. The kernel says the register is not engineering prudence. attestation_
+cannot_factor_through_bare_transcript (the verifier-factorisation theorem
+instantiated at reports) proves a sound and complete verifier of a µ-dependent claim
+cannot be a function of the bare classical transcript, no matter how cleverly it reads
+the logs. The replay attack is the proof’s witness made flesh: replay_is_a_two_
+preimage_witness exhibits two reports with identical logs and different registers,
+each honestly produced by a real run: one that paid, one that did not. And the escape
+works: expose the register and measurement_enriched_attestation_succee
+ds builds the sound, complete, unit-cost verifier the bare transcript could not carry.
+
+Falsifier: a sound and complete attestation scheme for a µ-dependent claim that reads
+only the bare transcript.
+
+15.4 Certificate transparency
+Browsers trust certificate authorities; certificate authorities occasionally sign things
+they should not. Certificate transparency’s answer is a public, append-only log: a
+claim of the form “this certificate is logged” becomes checkable against a structure
+that is computationally hard to forge. In kernel coordinates the log is a hardness
+witness, and the design is the hardness escape: transparency_log_escape shows
+log-backed transcripts admit a unit-cost decision procedure whose acceptances are
+grounded, while log_free_verifier_impossible (the bare-setting impossibility,
+re-exported in this vocabulary) shows the log-free equivalent with the same sound-
+ness target does not exist at any cost. The attack the CT community worries about
+most, the split view (show one population one log and another population another),
+is not an unfortunate operational detail; split_view_witness exhibits it as the
+impossibility theorem’s own witness pair: two bare-indistinguishable views, different
+truth underneath.
+
+Falsifier: a sound and complete log-free verifier with the same soundness target.
+
+15.5 Proof-carrying verification
+Proof-carrying code ships a certificate next to the binary so the consumer checks the
+proof instead of re-deriving the property; interactive and zero-knowledge protocols
+do the same trade with rounds. Both are the interaction escape: proof_rounds_esc
+ape builds the sound, complete, unit-cost checker over proof-carrying transcripts (the
+checker reads the carried certificate, not the run), while bare_pcc_impossible con-
+firms that stripping the rounds lands back in the impossible bare setting. Underneath
+sits the floor: level_k_verification_floor, the µ-hierarchy instantiated, prices
+k certification events at no less than k units, and level_k_verification_floor_
+tight shows the bound is met. Read the fence carefully, because it is load-bearing:
+the floor bounds certification events. It says nothing about gate counts, circuit sizes,
+prover time, or proof length. A succinct verifier compresses everything except the
+
+
+                                          102
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
+number of commitments it makes. That is the precise sense in which verification stays
+expensive after everything else gets cheap.
+
+Falsifier: a level-k certified trace with total µ below k, or a sound and complete zero-
+round bare verifier.
+
+15.6 The same table, five ways
+
+ System              Escape used         Kernel result          What is forced        What refutes it
+ PoS finality        none — the cost     universal_nfi_any_s    slashing: finalize    a zero-stake gadget ad-
+                     records directly    ubstrate               risks ≥ 1             mitting A2
+ Gas metering        none — a pricing    exact_commitment_pr    charge ≡ commit,      a conforming non-
+                     biconditional       icing_characterizat    unit price            commitment schedule
+                                         ion
+ TEE attesta-        substrate (enrich   V_does_not_factor_t    the measurement       sound+complete bare-
+ tion                the state)          hrough_classical       register              transcript attestation
+ Transparency        hardness            hardness_escape_suc    the log itself        sound+complete log-
+ logs                                    ceeds                                        free verifier
+ Proof-              interaction         interactive_escape_    the rounds, and k     a level-k trace under k µ
+ carrying    /                           succeeds, level_k_ce   units for k commit-
+ ZK                                      rtification_cost_fl    ments
+                                         oor
+
+Five industries, three escapes, two cost records, one axiom. Each community paid for
+its row in incidents before anyone wrote it as a theorem, which is either reassuring or
+expensive depending on when you bought in. What none of the five rows supplies
+(worth saying out loud, since this section would be the natural place to oversell it)
+is forcedness: that certification is the event a model must price remains the named
+open problem from the opening pages. The rows are convergence evidence, in five
+vocabularies that owe each other nothing.
+
+16 Binary Game Statistics: where the µ-Ledger Meets the NPA Boundary
 The substrate has a CHSH step. The VM realises it with two opcodes. CHSH_TRIAL
 records outcomes of a 2-player binary game into hardware witness counters.
 CHSH_LASSERT refuses to advance normally unless those counters satisfy a Z-
@@ -4970,6 +5142,11 @@ It prices the certified narrowing as such, and the trap fires the same whether t
 it throws out is a PR box or a falsifying assignment I handed it. Insight costs, and the
 price never asks whether you found the wall or built it.
 
+
+                                              103
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
 And the claim is about that step, not the chip. Some of these cert-opcodes never reach
 the synthesised FPGA. That’s a silicon budget, not a hole in the argument: the trap is
 the cost-on-certification law, and the law lives in the transition, not the gate count.
@@ -4982,12 +5159,6 @@ correlations are achievable under polynomial constraints.
 
 I did not set out to find what I found. The chain is concrete. The Z-arithmetic check
 the kernel runs on the witness counters (decidable, integer-only) is sound with re-
-
-
-                                            100
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
 spect to the real-valued column-contractive predicate by column_contractive_c
 heck_witness_sound (188 lines, closing with nra after IZR distribution and field
 simplification,). That real-valued predicate is biconditional with PSD of the zero-
@@ -5016,13 +5187,18 @@ icate; the column-contractive predicate is biconditional with PSD of the zero-ma
 NPA moment matrix. The biconditional is an agreement between two independently-
 defined objects (the cost algebra’s honesty condition and NPA’s quantum-realizability
 condition), proven in pure polynomial arithmetic with no project-local axioms. The
-load-bearing result is §15’s “Algebraic characterization of the µ-ledger honesty con-
+load-bearing result is §16’s “Algebraic characterization of the µ-ledger honesty con-
 dition” subsection. The earlier subsections (Bell test setup, classical bound, quantum
 bound) are the walk there. If you have time for one subsection, that is the one. The
 CHSH game is built from scratch in the next subsection so the result makes sense to
+
+                                           104
+The Thiele Machine                                                                           Devon Thiele • June 2026
+
+
 readers who have not seen Bell tests before; readers who have can skip ahead.
 
-15.1 The Bell test setup, from scratch
+16.1 The Bell test setup, from scratch
 Imagine two players, Alice and Bob, in separate rooms. They cannot communicate
 once the game starts. A referee sends Alice one of two questions (x ∈ {0, 1}). The
 referee sends Bob one of two questions (y ∈ {0, 1}). Alice answers a ∈ {0, 1}. Bob
@@ -5031,26 +5207,20 @@ the Coq.)
 
 The game rule: they want a ⊕ b = x ∧ y. The symbol ⊕ is XOR (exclusive OR):
 a ⊕ b = 1 when a ̸= b, and 0 when a = b. The symbol ∧ is AND: x ∧ y = 1 only
-
-
-                                           101
-The Thiele Machine                                                                            Devon Thiele • June 2026
-
-
 when both x = 1 and y = 1, otherwise 0. In plain language: their answers should
 be different if and only if both questions were 1. For all other question combinations
 (both 0, or one each), they should match.
 
                                          x             Referee                se
-                                                                                tti
-                                     g                                              n
-                                  in                                                    gy
-                             sett
+                                                                                 tti
+                                     g                                               ng
+                                ttin
+                             se                                                         y
 
 
 
 
-                     Alice                                                                   Bob
+                     Alice                                                                  Bob
                                                        shared λ
                  separated room                                                    separated room
 
@@ -5081,7 +5251,12 @@ swers, a0 and a1 , and Bob has two predetermined answers, b0 and b1 . Winning al
 question combinations would require:
 
 
-                a0 ⊕ b0 = 0,                 a0 ⊕ b1 = 0,    a1 ⊕ b0 = 0,          a1 ⊕ b1 = 1.
+                a0 ⊕ b0 = 0,                 a0 ⊕ b1 = 0,    a1 ⊕ b0 = 0,         a1 ⊕ b1 = 1.
+
+
+                                                          105
+The Thiele Machine                                                           Devon Thiele • June 2026
+
 
 Now XOR the four left sides. Every variable appears twice, so the total is 0. XOR
 the four right sides and the total is 1. That is impossible. So every deterministic local
@@ -5093,16 +5268,10 @@ gies, and averaging strategies that each win 75% at most gives you 75% at most. 
 is not a vague claim. It is a direct consequence of linearity of expectation.
 
 So: maximum classical win rate = 3/4 = 75%. Proven by exhaustion (zero Admitted):
-
-
-                                                          102
-The Thiele Machine                                                           Devon Thiele • June 2026
-
-
 an executable trace using only PNEW, PSPLIT, and CHSH_TRIAL with µ = 0 achieves
 exactly this, and local_box_CHSH_bound proves no µ = 0 program can exceed it.
 
-15.2 The CHSH inequality: where it comes from
+16.2 The CHSH inequality: where it comes from
 Now here is what took me a while to understand: why is there a specific algebraic
 combination S that detects whether correlations can be explained classically?
 
@@ -5134,6 +5303,14 @@ average satisfies |S| ≤ 2.
 
 That is the argument. The combination with the minus sign is chosen exactly because
 the factoring trick works: one of the B-terms goes to zero and the other to ±2, forcing
+
+
+
+
+                                               106
+The Thiele Machine                                               Devon Thiele • June 2026
+
+
 the whole thing below 2. The inequality |S| ≤ 2 is not a coincidence. It is a pure
 algebraic consequence of the outputs being ±1 and being determined locally.
 
@@ -5141,18 +5318,12 @@ This is proven in Coq (zero Admitted, local_box_CHSH_bound). The formal state-
 ment: for any factorizable box B, |S( B)| ≤ 2. classical_bound_achieved gives
 the matching constructive witness: an executable trace at µ = 0 reaching |S| = 2.
 Combined, the two say the classical bound is tight: max{|S| : µ = 0} = 2 exactly.
-                                   √
-15.3 The quantum bound: why 2 2?
-                                           √
+                                    √
+16.3 The quantum bound: why 2 2?
+                                            √
 Quantum mechanics allows |S| to reach 2 2 ≈ 2.828. That number is the Tsirelson
-                                                                             √
+                                                                                  √
 bound, after Boris Tsirelson, who first wrote down the inequality |S| ≤ 2 2 for
-
-
-                                               103
-The Thiele Machine                                                     Devon Thiele • June 2026
-
-
 quantum correlations. The physicists’ derivation of why that specific number bounds
 quantum strategies involves Hilbert-space operators, anticommutators, the Pauli ma-
 trices, and the Bloch sphere. I will not reproduce that derivation here: it is a physics
@@ -5163,7 +5334,7 @@ is the algebra. The Coq theorem about quantum realizability takes “the correla
 is quantum-realizable in the zero-marginal NPA framework” as a premise (Section 2
                                           √
 builds the term) and concludes |S| ≤ 2 2. The premise is the physics input; the con-
-clusion is pure algebra. Section 15’s last subsection then builds the same bound from
+clusion is pure algebra. Section 16’s last subsection then builds the same bound from
 polynomial inequalities on the NPA moment matrix without any quantum-physics
 premise at all. That is the path I follow, and that is the part I am claiming.
                                                                       √
@@ -5184,13 +5355,18 @@ valued quantum-model bridge uses 8 directly. Those are two different proof sur-
 faces, and I keep them apart on purpose: the rational one so a machine can check it in
 exact arithmetic, the real one so the quantum bridge has something to bite on.
 
-15.4 What the cost algebra proves
-Theorem 15.1 (Classical CHSH Bound). For any locally factorizable correlation (Alice’s
+16.4 What the cost algebra proves
+Theorem 16.1 (Classical CHSH Bound). For any locally factorizable correlation (Alice’s
 answer depends only on x and shared randomness λ; Bob’s answer depends only on y and λ),
 |S| ≤ 2. And |S| = 2 is achievable at µ = 0, so the bound is tight.
 
-Proof. |S| ≤ 2: the XOR-factoring argument from Section 15’s “Why 75% is the
+Proof. |S| ≤ 2: the XOR-factoring argument from Section 16’s “Why 75% is the
 classical ceiling.” Fix any local deterministic strategy and any λ. Alice produces
+
+                                          107
+The Thiele Machine                                                     Devon Thiele • June 2026
+
+
 A x (λ) ∈ {−1, +1}; Bob produces By (λ) ∈ {−1, +1}. The quantity
 
   A0 (λ) B0 (λ) + A0 (λ) B1 (λ) + A1 (λ) B0 (λ) − A1 (λ) B1 (λ)
@@ -5200,12 +5376,6 @@ satisfies | · | ≤ | B0 + B1 | + | B0 − B1 | = 2 (because for B0 , B1 ∈ {�
 and | B0 − B1 | is 2 and the other is 0, and | A0 |, | A1 | ≤ 1). Average over λ to get |S| ≤ 2.
 Mixtures of deterministic strategies are convex combinations, so the same bound holds
 by linearity of expectation.
-
-
-
-                                             104
-The Thiele Machine                                                   Devon Thiele • June 2026
-
 
 Tightness: the strategy A x ≡ 1, By ≡ 1 gives ⟨ A0 B0 ⟩ = ⟨ A0 B1 ⟩ = ⟨ A1 B0 ⟩ = ⟨ A1 B1 ⟩ =
 1, so S = 1 + 1 + 1 − 1 = 2. This is achievable at µ = 0 by a program with all δ = 0
@@ -5218,7 +5388,7 @@ is classical_bound_achieved.
    you get |S| ≤ 2. To make it 2, just have both players always answer 1.
 
 
-Theorem 15.2 (Non-locality of CHSH violation). WitnessCount configurations with S >
+Theorem 16.2 (Non-locality of CHSH violation). WitnessCount configurations with S >
 2 cannot be produced by any local hidden variable model (the term is built in Section 2:
 a classical-physics-style theory where outcomes come from shared randomness λ plus local
 settings).
@@ -5234,7 +5404,7 @@ their setting and the shared λ. The theorem above says all such correlations sa
    every LHV. The Bell-test contradiction is in this form.
 
 
-Theorem 15.3 (Tsirelson upper bound for the zero-marginal NPA model). If a trace
+Theorem 16.3 (Tsirelson upper bound for the zero-marginal NPA model). If a trace
 is quantum-realizable in the zero-marginal NPA model, then its CHSH value satisfies |S| ≤
 √       √
    8 = 2 2.
@@ -5244,7 +5414,13 @@ correlators Exy arise as Tr(ρ A x By ) for some quantum state ρ and self-adjoi
 valued observables A x , By with ρ Ax Ax = ρ By By = I and vanishing marginals. That
 is the quantum-mechanical way of writing measurements with ±1 outcomes, and
 the argument below leans only on the algebraic equivalent that follows, not on the
-physics notation. Equivalently (by Section 15’s biconditional), the correlators satisfy
+
+
+                                             108
+The Thiele Machine                                                     Devon Thiele • June 2026
+
+
+physics notation. Equivalently (by Section 16’s biconditional), the correlators satisfy
 the three column-contractivity conditions. From column-contractivity, S2 ≤ 8: this is
 the row-bounds factorization (Cauchy-Schwarz applied to each row of the correlator
 matrix viewed as inner products of unit vectors). Specifically, the row norms of E
@@ -5255,20 +5431,14 @@ Cauchy-Schwarz argument in tsirelson_from_row_bounds. Combined with
 row-norms ≤ 1: |S|2 ≤ 8, so |S| ≤ 2 2.
 
    Plain reading. Quantum-realizable means column-contractive (by the bicondi-
+   tional). Column-contractive bounds the row norms of the correlator matrix by
+   1. Cauchy-Schwarz on the CHSH expression viewed as an inner product gives
+            √
+   |S| ≤ 2 2. No quantum-mechanical detail enters past the biconditional; the
+   bound is then pure algebra.
 
 
-                                            105
-The Thiele Machine                                                     Devon Thiele • June 2026
-
-
-    tional). Column-contractive bounds the row norms of the correlator matrix by
-    1. Cauchy-Schwarz on the CHSH expression viewed as an inner product gives
-             √
-    |S| ≤ 2 2. No quantum-mechanical detail enters past the biconditional; the
-    bound is then pure algebra.
-
-
-Theorem 15.4 (General algebraic Tsirelson bound). For every algebraically coherent cor-
+Theorem 16.4 (General algebraic Tsirelson bound). For every algebraically coherent cor-
 relator (one satisfying | Exy | ≤ 1 along with four constraints derived from 3 × 3 submatrices
 of the NPA moment matrix; the submatrix determinants, called minors, must be non-negative,
 which is part of the requirement that the full matrix be positive-semidefinite, see Section 2 for
@@ -5287,7 +5457,7 @@ assumed.
 
 Proof. The four minor-positivity conditions on 3 × 3 submatrices of the NPA mo-
 ment matrix are: each principal 3 × 3 minor’s determinant is non-negative. Working
-through the determinant formulas with the moment-matrix structure of Section 15, the
+through the determinant formulas with the moment-matrix structure of Section 16, the
 four constraints become four polynomial inequalities of the form 1 − Exy 2 − E2
                                                                               x ′ y′ ≥ 0
 for the appropriate index pairs (these reduce to the column-contractivity conditions 1
@@ -5300,7 +5470,13 @@ minus a non-negative combination of the constraint polynomials is itself a sum o
 squares. Coq’s psatz tactic finds and verifies such a decomposition; the explicit
 witness parameters t, s are coefficients in the SOS combination, computed once and
 stored in the Coq file.
-                                                                     √
+
+
+                                              109
+The Thiele Machine                                                  Devon Thiele • June 2026
+
+
+                                                               √
 The rational approximation corollary uses 5657/2000 in place of 8 to keep the com-
 parison in Q: (5657/2000)2 = 32,001,649/4,000,000 > 8 = 32,000,000/4,000,000, so
               √
@@ -5311,15 +5487,8 @@ bound checkable without floating-point evaluation.
    positivity conditions). Goal: show S2 ≤ 8 subject to those constraints. Positivstel-
    lensatz says: if a polynomial is non-negative on the feasible set, you can write it as
    a non-negative combination of the constraint polynomials plus a sum of squares.
-
-
-
-                                              106
-The Thiele Machine                                                  Devon Thiele • June 2026
-
-
-    psatz finds the combination. The Coq file stores the witness coefficients. The
-    Tsirelson bound is the consequence; no physics input goes into the proof.
+   psatz finds the combination. The Coq file stores the witness coefficients. The
+   Tsirelson bound is the consequence; no physics input goes into the proof.
 
 There is also a coupling-language version of Bell’s theorem, proved. A WitnessCount-
 consistent locally deterministic strategy (the strategy is described by four bits: Alice’s
@@ -5339,7 +5508,7 @@ trials) are free. Claiming you know what they mean is not. The witness counters 
 indexed by Alice’s setting x and Bob’s setting y throughout, matching Section 9 and
 the Coq. This is the witness insight taxonomy (Section 6).
 
-15.5 The bit-commitment requirement
+16.5 The bit-commitment requirement
 Obtaining attested cross-correlations above the classical bound requires a disclosure
 instruction. Here is why that is a structural fact baked into the machine, not a policy I
 picked because it sounded strict.
@@ -5353,22 +5522,22 @@ Proved. The structural fact: the only instruction that can set csr_cert_addr
 nonzero is MORPH_ASSERT (when the morphism exists and the property string
 carries a non-NUL byte). Any trace that ends with supra_cert must include a valid
 MORPH_ASSERT step. The raw data (CHSH_TRIAL counts) is free. The certified
+
+
+                                            110
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 claim about what the data means is not.
 
-15.6 Algebraic characterization of the µ-ledger honesty condition
-If you only read one subsection of Section 15, this is the one. The rest of the section is
+16.6 Algebraic characterization of the µ-ledger honesty condition
+If you only read one subsection of Section 16, this is the one. The rest of the section is
 the derivation. This is the result.
 
 Here is the result of stress-testing the cost algebra against the NPA boundary. The
 column-contractivity conditions arise from the natural polynomial conditions that
 make the NPA moment matrix well-formed; they were not imported from physics,
 and the biconditional with NPA-PSD is proved in pure polynomial arithmetic. The
-
-
-                                            107
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
 following biconditional holds.
 
 Positive semidefinite (PSD). A matrix M is positive semidefinite if for every vector v you
@@ -5390,7 +5559,7 @@ specific 5 × 5 matrix (the “moment matrix”) as the condition for quantum re
 You build that 5 × 5 matrix from the four CHSH correlators, and if it is PSD, the
 correlators are consistent with some quantum state.
 
-15.6.1 The matrix, written out
+16.6.1 The matrix, written out
 Here is the actual 5×5 NPA moment matrix for the zero-marginal CHSH scenario. The
 five operators are: I (identity), A0 (Alice’s measurement for setting 0), A1 (Alice’s
 measurement for setting 1), B0 (Bob’s for setting 0), B1 (Bob’s for setting 1). The (i, j)
@@ -5411,21 +5580,19 @@ entry is the expected value of Oi · O j . Zero-marginal means we set ⟨ A0 ⟩
                                 0 E01 E11 0   1
 
 Rows and columns are indexed 0 through 4, in the order { I, A0 , A1 , B0 , B1 }. The
+
+
+
+                                           111
+The Thiele Machine                                                                                          Devon Thiele • June 2026
+
+
 diagonal is all 1s because each operator Oi satisfies Oi2 = I when the outcomes are
 ±1-valued: squaring a ±1-valued operator gives the identity, so the diagonal entries
 are all ⟨ I ⟩ = 1. The off-diagonal entries Exy are the CHSH correlators with Alice’s
 setting x and Bob’s setting y (Section 2). Everything else is zero because the marginals
 vanish (Section 2: a marginal is the average of one variable with the others integrated
 out; zero-marginal means ⟨ A x ⟩ = ⟨ By ⟩ = 0).
-
-15.6.2 Where the three conditions come from
-The three column-contractivity conditions come directly from PSD of this matrix. Here
-is the derivation.
-
-
-                                           108
-The Thiele Machine                                                                                          Devon Thiele • June 2026
-
 
                   1      0     0      0      0          1      0     0      0      0         1       0     0     0        0
 
@@ -5451,6 +5618,10 @@ copy highlighting one principal submatrix whose PSD condition gives one column-
 contractivity condition. Two come from 3×3 principal-submatrix determinants; the
 third comes from the Schur complement of the 4×4 block. All three follow from PSD
 of the parent matrix.
+
+16.6.2 Where the three conditions come from
+The three column-contractivity conditions come directly from PSD of this matrix. Here
+is the derivation.
 
                   2 − E2 ≥ 0
 Condition 1: 1 − E00   10
@@ -5478,13 +5649,19 @@ condition 1.
                   2 − E2 ≥ 0
 Condition 2: 1 − E01   11
 
-Take the 3×3 submatrix from rows and columns {1, 2, 4} (the A0 , A1 , B1 block):
-                                                                 
-                                                        1   0 E01
-                                                      0    1 E11 
-                                                                 
 
-                                                       E01 E11 1
+
+                                                                   112
+The Thiele Machine                                                          Devon Thiele • June 2026
+
+
+Take the 3×3 submatrix from rows and columns {1, 2, 4} (the A0 , A1 , B1 block):
+                                               
+                                      1   0 E01
+                                    0    1 E11 
+                                               
+
+                                     E01 E11 1
 
                                      2 − E2 ≥ 0. That is condition 2.
 Same calculation: determinant = 1 − E01   11
@@ -5493,11 +5670,6 @@ Same calculation: determinant = 1 − E01   11
 Condition 3: (1 − E00   10       01   11       00 01 10 11
 
 This comes from the 4 × 4 submatrix at rows and columns {1, 2, 3, 4}. That submatrix
-
-                                                                   109
-The Thiele Machine                                                          Devon Thiele • June 2026
-
-
 has a block structure (an arrangement where the entries are themselves 2 × 2 matrices):
                                                             !
                                              I2        E
@@ -5506,7 +5678,7 @@ has a block structure (an arrangement where the entries are themselves 2 × 2 ma
 where I2 is the 2 × 2 identity matrix (Section 2) and E is the 2 × 2 correlator matrix
                                                                 !
                                              E00 E01
-                                    E=                              .
+                                   E=                               .
                                              E10 E11
 
 E T is the transpose of E from Section 2. A standard linear-algebra fact (the Schur
@@ -5544,6 +5716,12 @@ conditions 1 and 2 again) and the determinant must be non-negative, AC − B2 �
 That last inequality is condition 3.
 
 That is the complete derivation. Three conditions. Two from 3×3 submatrices. One
+
+
+                                                 113
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
 from the Schur complement of the 4×4 block. All of it falls out of the single requirement
 that M is positive semidefinite.
 
@@ -5555,11 +5733,6 @@ is the argument. Take any PSD matrix M and feed it the specific 5-dimensional ve
 v = (0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1 ), where y0 and y1 are free real
 numbers. The PSD condition v T Mv ≥ 0, after the matrix algebra, gives a quadratic
 expression in y0 and y1 : Ay20 − 2By0 y1 + Cy21 ≥ 0 for all real y0 and y1 . A quadratic
-
-                                                 110
-The Thiele Machine                                                       Devon Thiele • June 2026
-
-
 of the form ay2 + 2by + c is non-negative for every real y if and only if a ≥ 0 and
 ac ≥ b2 (the non-negative-discriminant rule from intermediate algebra: the parabola
 does not dip below the axis exactly when its discriminant is non-positive, which after
@@ -5572,45 +5745,45 @@ iom.” The biconditional is pure polynomial arithmetic with no project-local ax
 (Print Assumptions on column_contractive_iff_quantum_realizable
 reports only Coq’s standard classical-reals and functional-extensionality stdlib axioms
 — sig_not_dec, sig_forall_dec, functional_extensionality_dep — the
-same stdlib families Section 15.7 discloses for the Q1+AB theorems; “zero axioms” in
-this section means zero project-local, in the sense of Section 21):
+same stdlib families Section 16.7 discloses for the Q1+AB theorems; “zero axioms” in
+this section means zero project-local, in the sense of Section 22):
 
 
-Theorem 15.5 (Thiele honesty ⇐⇒ NPA-PSD).
+Theorem 16.5 (Thiele honesty ⇐⇒ NPA-PSD).
 
-                                 honest(E) ⇐⇒ psd-npa(E)
+                                honest(E) ⇐⇒ psd-npa(E)
 
 where honest means the three column-contractivity conditions hold, and psd-npa means the
 5 × 5 zero-marginal NPA matrix is positive semidefinite.
 
-Proof. The full math is in the two derivations of Section 15 preceding this theorem.
+Proof. The full math is in the two derivations of Section 16 preceding this theorem.
 Recapitulated for the proof block:
 
 Forward direction (column-contractive ⇒ PSD). Assume the three column-contractivity
-conditions hold. The Section 15 derivation showed: condition 1 is exactly the principal-
+conditions hold. The Section 16 derivation showed: condition 1 is exactly the principal-
 submatrix determinant on rows/columns {1, 2, 3}; condition 2 is exactly the principal-
 submatrix determinant on rows/columns {1, 2, 4}; condition 3 is exactly the Schur-
 complement determinant of the 4 × 4 block. Combined with the {0} principal sub-
 matrix (just the entry 1 ≥ 0) and the diagonal entries (all 1 ≥ 0), every principal sub-
 matrix has non-negative determinant and non-negative diagonal, so by the principal-
 submatrix PSD criterion (Section 2), the full 5 × 5 matrix is PSD. The Coq witness is z
+
+
+                                             114
+The Thiele Machine                                                      Devon Thiele • June 2026
+
+
 ero_marginal_npa_column_contractive_implies_psd.
 
 Reverse direction (PSD ⇒ column-contractive). Assume the moment matrix M is PSD.
 Specialize v T Mv ≥ 0 at the vector
-                                                                                      
-              v(y0 , y1 ) := 0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1
+                                                                                     
+             v(y0 , y1 ) := 0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1
 
 for free y0 , y1 ∈ R. Computing v T Mv using the explicit moment-matrix entries and
 collecting terms gives the quadratic form
 
-                       Ay20 − 2By0 y1 + Cy21 ≥ 0       for all y0 , y1 ∈ R,
-
-
-
-                                               111
-The Thiele Machine                                                    Devon Thiele • June 2026
-
+                      Ay20 − 2By0 y1 + Cy21 ≥ 0       for all y0 , y1 ∈ R,
 
 where A = 1 − E002 − E2 , B = E E + E E , C = 1 − E2 − E2 . By the quadratic-
                        10       00 01      10 11               01    11
@@ -5634,12 +5807,12 @@ The left side is three polynomial inequalities (column contractivity of the zero
 marginal NPA matrix):
 
                                   2     2
-                             1 − E00 − E10 ≥0      (condition 1)
+                             1 − E00 − E10 ≥0       (condition 1)
 
                                   2     2
-                             1 − E01 − E11 ≥0      (condition 2)
+                             1 − E01 − E11 ≥0       (condition 2)
 
-                                  AC ≥ B2     (condition 3)
+                                  AC ≥ B2      (condition 3)
                 2 − E2 , B = E E + E E , C = 1 − E2 − E2 . These are the three
 where A = 1 − E00      10     00 01     10 11          01  11
 conditions of zero_marginal_column_contractive (defined): column 0 norm
@@ -5649,6 +5822,12 @@ of quantum realizability.
 
 The forward direction (zero_marginal_npa_column_contractive_implies_
 psd) was proved first. The reverse direction: given a PSD NPA matrix, specialize it at
+
+
+                                              115
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
 the vector (0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1 ). The PSD condition gives a
 quadratic-in-y0 /y1 that is everywhere non-negative. Then quadratic_nonneg_di
 scriminant (∀t, a + 2bt + ct2 ≥ 0 ⇒ b2 ≤ ac) closes the determinant condition. The
@@ -5660,17 +5839,11 @@ What this means for the hierarchy of correlations:
 
    • Classical local hidden variables: |S| ≤ 2.
    • Thiele-honest = zero-marginal NPA realizable (biconditional, both directions, no
-
-
-                                             112
-The Thiele Machine                                                        Devon Thiele • June 2026
-
-
-                                                                              √
-      project-local axioms). Every Thiele-honest correlation satisfies |S| ≤ 2 2, but
-                                          √
-      NOT every correlation with |S| ≤ 2 2 is Thiele-honest: (1, 0, 1, 0) has |S| = 2
-      but fails condition 1.
+                                                                             √
+     project-local axioms). Every Thiele-honest correlation satisfies |S| ≤ 2 2, but
+                                         √
+     NOT every correlation with |S| ≤ 2 2 is Thiele-honest: (1, 0, 1, 0) has |S| = 2
+     but fails condition 1.
    • No-signaling: no constraint beyond | Eab | ≤ 1.
                                                                     2 − E2 =
    • PR box (E00 = E01 = E10 = 1, E11 = −1): condition 1 gives 1 − E00   10
@@ -5703,7 +5876,12 @@ to LASSERT_TRAP_PC and latches vm_err (on failure). Two theorems close the chain
 to NPA-PSD; both are stated and proved below.
 
 
-Theorem 15.6 (Integer-check soundness, column_contractive_check_witne
+
+                                             116
+The Thiele Machine                                                        Devon Thiele • June 2026
+
+
+Theorem 16.6 (Integer-check soundness, column_contractive_check_witne
 ss_sound). Let w be the WitnessCount record with eight non-negative-integer fields
 wc_samexy , wc_diffxy for ( x, y) ∈ {0, 1}2 . Define the integer-only check as the con-
 junction of three Z-arithmetic inequalities on these counts (the boolean function column_co
@@ -5716,12 +5894,7 @@ true, then defining
 
 (with the convention Exy = 0 when Nxy = 0) yields a real-valued correlator E =
 ( E00 , E01 , E10 , E11 ) ∈ [−1, 1]4 that satisfies the three column-contractivity conditions of Sec-
-
-                                                113
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
-tion 15.
+tion 16.
 
 Proof. The integer-only check is written in Z as three inequalities that, after multi-
 plying through by Nxy2 to clear all denominators, are polynomial inequalities in the
@@ -5734,7 +5907,7 @@ non-negative integer counts. For each condition:
      wc_diff00 ) N10 − (wc_same10 − wc_diff10 ) N00 ≥ 0 after substituting Exy
      and clearing denominators.
    • Condition 2 is the analogous inequality with the E01 , E11 correlators.
-   • Condition 3 (AC ≥ B2 in the notation of Section 15) becomes a polynomial
+   • Condition 3 (AC ≥ B2 in the notation of Section 16) becomes a polynomial
                                                                        4 denominator.
      inequality of degree 4 in the integer counts, after clearing the Nxy
 
@@ -5759,7 +5932,11 @@ acting on a sum-of-squares-shaped goal.
    division at the boundary.
 
 
-Theorem 15.7 (CHSH_LASSERT ⇒ NPA-PSD, c h s h _ l a s s e r t _ n o _ t
+                                                117
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
+Theorem 16.7 (CHSH_LASSERT ⇒ NPA-PSD, c h s h _ l a s s e r t _ n o _ t
 rap_implies_quantum_realizable). Let s be a state and let s′ =
 vm_apply s (instr_chsh_lassert δ). If s′ .vm_err = false and s′ .vm_pc =
 s.vm_pc + 1 (i.e., the CHSH_LASSERT step advanced normally rather than trapping), then
@@ -5769,12 +5946,6 @@ s.vm_witness is positive semidefinite.
 Proof. By the apply rule for instr_chsh_lassert: the step branches on column_
 contractive_check_witness run on s.vm_witness. If the check returns false,
 the step traps to LASSERT_TRAP_PC and sets vm_err = true. If the check returns
-
-
-                                           114
-The Thiele Machine                                                    Devon Thiele • June 2026
-
-
 true, the step advances PC by 1 and leaves vm_err = false. By hypothesis, s′
 exhibits the second behavior, so the integer check returned true on s.vm_witness.
 
@@ -5783,7 +5954,7 @@ derived from s.vm_witness satisfy the three real-valued column-contractivity con
 tions.
 
 Compose with the forward direction of column_contractive_iff_quantum_re
-alizable (the biconditional proved in Section 15): column-contractivity implies the
+alizable (the biconditional proved in Section 16): column-contractivity implies the
 NPA moment matrix M is positive semidefinite.
 
    Plain reading. Three theorems compose: the kernel step rule says no-trap means
@@ -5803,12 +5974,18 @@ a non-PSD NPA matrix. No such example exists; the theorem proves it impossible. 
 exhibit a quantum experiment producing a non-PSD NPA matrix. That would break
 quantum mechanics, not this theorem.
 
-15.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade
-Section 15 above derives the level-1 bridge: CHSH_LASSERT ⇒ PSD of the 5 × 5
+16.7 Lifting the bridge to level 1+AB: the four-slice Schur cascade
+Section 16 above derives the level-1 bridge: CHSH_LASSERT ⇒ PSD of the 5 × 5
 zero-marginal NPA matrix. The level-1 cone contains the Tsirelson set Q (every
 quantum-realisable correlator is PSD at level 1), but it strictly contains Q: the level-
 1 cone is bigger than Q for CHSH, so a level-1 certificate does not on its own pin
 the correlator down to physically quantum. The next NPA level that does coincide
+
+
+                                             118
+The Thiele Machine                                                   Devon Thiele • June 2026
+
+
 with Q for CHSH is level 1+AB: the 9 × 9 moment matrix indexed by the basis
 { I, A0 , A1 , B0 , B1 , A0 B0 , A0 B1 , A1 B0 , A1 B1 }. That Q1+ AB = Q in the CHSH scenario
 is Ishizaka 2025’s result, not mine, and I cite it instead of re-deriving it because re-
@@ -5820,20 +5997,15 @@ Q1+AB moment matrix is PSD at the witness-derived rationals and the bucket-deriv
 
 And the two levels are not two separate tricks. The 5 × 5 and the 9 × 9 checks are
 one dimension-polymorphic PSD predicate evaluated at two sizes — top index 4 for
-
-                                             115
-The Thiele Machine                                                   Devon Thiele • June 2026
-
-
 the 5 × 5, top index 8 for the 9 × 9, the same fold either way. The level-1 CHSH
-biconditional from Section 15 is the dimension-5 instance of it, recovered as a corollary
+biconditional from Section 16 is the dimension-5 instance of it, recovered as a corollary
 that imports the original 5 × 5 result as a black box and adds no axioms over it (colum
 n_contractive_iff_general_realizable). So the lift in this subsection is not
 a 9-shaped coincidence dressed up as a method: it is the same realizability projection
 run one dimension up, and the dimension-5 corollary reproducing the bridge you
 already have is exactly the check that it is one predicate and not two.
 
-15.7.1 The 9 × 9 moment matrix and its five γ parameters
+16.7.1 The 9 × 9 moment matrix and its five γ parameters
 The level-1+AB moment matrix is parametric in nine reals: the four CHSH correlators
 ( E00 , E01 , E10 , E11 ) and five additional moments
 
@@ -5855,12 +6027,17 @@ on a quantum state with zero marginals, each γk is the corresponding expectatio
 9 × 9 matrix entries are polynomials of degree ≤ 2 in ( Eij , γk ), given explicitly by the
 products of basis operators (e.g. entry ( I, A0 B0 ) = E00 , entry ( A0 , A1 B0 ) = γ1 , entry
 ( A0 B0 , A0 B0 ) = 1, etc.). PSD of this matrix is the level-1+AB NPA condition.
-15.7.2 Why four slices
+16.7.2 Why four slices
 The substrate certifies four nested γ-slices, each via its own cert-opcode and its own
 integer-arithmetic check:
 
+
+                                             119
+The Thiele Machine                                                      Devon Thiele • June 2026
+
+
    • Slice A (γ = 0, tag 0x2F): all five γk pinned to zero. The bool decider checks Q1
-     column-contractivity (the three conditions of §15) plus the SOS sum-of-squares
+     column-contractivity (the three conditions of §16) plus the SOS sum-of-squares
                 2 + E2 + E2 + E2 ≤ 1. Closed by an explicit 4-D Cauchy-Schwarz
      condition E00     01    10      11
      SOS identity.
@@ -5869,13 +6046,6 @@ integer-arithmetic check:
      Schwarz identity that handles the 2γ5 (v11 v22 − v12 v21 ) cross term arising in the
      residual (the relative minus is the conjugate-cell sign above: γ5 on the v11 v22
      pairing, −γ5 on the v12 v21 pairing).
-
-
-
-                                             116
-The Thiele Machine                                                                Devon Thiele • June 2026
-
-
    • Slice C (γ3 , γ4 , γ5 free, tag 0x31): the two A-B-B moments and the four-body
      moment are admitted; γ1 = γ2 = 0. The check is a 4 × 4 Sylvester PD test on
      a difference matrix Hγ345 = det M · M M − M N , derived via an augmented 2 × 2
@@ -5889,50 +6059,15 @@ Each slice strictly extends the previous: Slice B’s admitted set strictly cont
 A’s; Slice C’s contains Slice B’s; Slice D’s contains all of them. Slice D is the full Q1+AB
 cone.
 
-15.7.3 The compositional Schur cascade (Slice D)
+16.7.3 The compositional Schur cascade (Slice D)
 The mathematical core of Slice D is the chain
 
   PSD9( M) ⇐ sym6 PD-interior on the 21 entries of M6×6
              ⇐ sym5 PD-interior on the 5 × 5 Schur complement of row 1
-                      ⇐ sym4 PD-interior on the 4 × 4 Schur complement of row 2
+                        ⇐ sym4 PD-interior on the 4 × 4 Schur complement of row 2
 
-
-
-                                    PSD9 ( M)      the goal
-
-                                                21 H bridges
-                                                (lift cleared integers → reals)
-
-
-                            sym6 PD-interior 21 entries of M6×6
-
-                                                15 S6 bridges
-
-
-                      sym5 PD-interior 5×5 Schur complement of row 1
-
-                                                10 S5 bridges
-
-
-                      sym4 PD-interior 4×4 Schur complement of row 2
-
-                                                4 sym4 leading-minor bridges
-
-
-                          Slice C lemma sym4 PD-interior, base case
-
-
-Figure 8: The Schur cascade lifts the base-case sym4 PD-interior fact from Slice C all the
-way up to PSD9 ( M ). Each arrow is one Schur-complement reduction, a polynomial
-identity in the correlators and moments. The counts beside each arrow are how many
-such identities the integer check grinds through at that step, one per matrix entry.
 
 where M6×6 is what the 9 × 9 collapses to once the Q1+AB subsumption identities pin
-
-                                             117
-The Thiele Machine                                                      Devon Thiele • June 2026
-
-
 its dependent entries: the projection onto the basis {v B1 , v B2 , v11 , v12 , v21 , v22 }, after
 which the 9 × 9 lands in the PSD cone whenever the 6 × 6 residual does. From there it
 is Schur complements all the way down, and it is the same move you already watched
@@ -5945,6 +6080,43 @@ each one a Schur step you can carry out by hand, stacked from the 4 × 4 back up
 PSD9.
 
 Every reduction is a single polynomial identity in the correlators Eij and the moments
+
+
+                                               120
+The Thiele Machine                                                                 Devon Thiele • June 2026
+
+
+
+                                   PSD9 ( M)      the goal
+
+                                                 21 H bridges
+                                                 (lift cleared integers → reals)
+
+
+                           sym6 PD-interior 21 entries of M6×6
+
+                                                 15 S6 bridges
+
+
+                      sym5 PD-interior 5×5 Schur complement of row 1
+
+                                                 10 S5 bridges
+
+
+                      sym4 PD-interior 4×4 Schur complement of row 2
+
+                                                 4 sym4 leading-minor bridges
+
+
+                         Slice C lemma sym4 PD-interior, base case
+
+
+Figure 8: The Schur cascade lifts the base-case sym4 PD-interior fact from Slice C all the
+way up to PSD9 ( M ). Each arrow is one Schur-complement reduction, a polynomial
+identity in the correlators and moments. The counts beside each arrow are how many
+such identities the integer check grinds through at that step, one per matrix entry.
+
+
 γk . To keep the opcode’s check decidable and integer-only, each identity is multiplied
                                                                                       2
 through by the common denominator KZ = N00 N01 N10 N11 · Dg1 Dg2 Dg3 Dg4 Dg5
@@ -5958,7 +6130,7 @@ reductions holding is M in the PSD cone. The check leans on nothing past the two
 background facts level 1 already leaned on: the decidability of the reals and functional
 extensionality.
 
-15.7.4 What this delivers and what it does not
+16.7.4 What this delivers and what it does not
 Delivers. For each of the four cert-opcodes, a non-trapping step (with no error-flip)
 implies the 9 × 9 NPA Q1+AB moment matrix is symmetric and positive-semidefinite at
 the witness-counter-derived rationals ( Eij = (wc_sameij − wc_diffij )/(wc_sameij +
@@ -5966,6 +6138,12 @@ wc_diffij )) and the bucket-derived γ values (γk = (samegk − diff gk )/(same
 diff gk )). This is the operational form of “the substrate certifies Q1+AB -realisability
 of CHSH correlators”. Combined with the cited Ishizaka 2025 equivalence Q1+AB = Q
 in CHSH, each successful step admits a quantum realisation.
+
+
+
+                                            121
+The Thiele Machine                                             Devon Thiele • June 2026
+
 
 Does not deliver. The kernel does not formalise the NPA hierarchy in Coq, does not
 formalise Q (the physical Tsirelson set), does not construct a Hilbert space from the
@@ -5978,13 +6156,6 @@ axioms.
 Why A2 is load-bearing. Each of the four cert-opcodes is a cert-setter; A2 forces
 its instruction cost to be at least 1. Without A2 the substrate could accept non-PSD
 correlators at zero cost, because the cert-flip would not need to be paid for. With A2
-
-
-
-                                               118
-The Thiele Machine                                             Devon Thiele • June 2026
-
-
 every successful Q1+AB certification commits S(mu_delta) ≥ 1 units of µ to the ledger.
 This is the same A2 application that powers the cost-ledger separation, the n-way
 bound, and the LASSERT polynomial exceedance.
@@ -5997,9 +6168,9 @@ OR show that the soundness chain depends on a project-local axiom beyond the two
 standard-library axioms cited above. The Coq Print Assumptions report is the
 audit surface: every theorem either lists no new axiom or it does not pass closeout.
 
-16 Irreversibility accounting and the µ-hierarchy
+17 Irreversibility accounting and the µ-hierarchy
 
-16.1 The Landauer association is motivation only
+17.1 The Landauer association is motivation only
 Same shape as Landauer’s 1961 argument: erasing one bit must release at least kT ln 2
 of heat into the environment (k Boltzmann, T absolute temperature, ln 2 the natural
 log of 2). The Coq proofs below do not depend on Landauer being right about the
@@ -6008,7 +6179,7 @@ instruction is tagged irreversible. The count of such firings is bounded by tota
 Shape borrowed, content paid for separately.
 
 
-Theorem 16.1 (µ-Landauer step bound). Let irreversible_bits(i ) be the indi-
+Theorem 17.1 (µ-Landauer step bound). Let irreversible_bits(i ) be the indi-
 cator function that returns 1 if instruction_cost(i ) > 0 and 0 otherwise. Let
 total_irreversible_bits(trace) := ∑i∈trace irreversible_bits(i ). Then for
 every trace,
@@ -6020,6 +6191,11 @@ The Coq witness is total_irreversible_bits_le_cost.
 Proof. Per-instruction inequality: for every i,       irreversible_bits(i )         ≤
 instruction_cost(i ). Two cases.
 
+
+                                         122
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
 Case instruction_cost(i ) = 0. Then irreversible_bits(i ) = 0 by definition,
 and 0 ≤ 0 holds.
 
@@ -6027,20 +6203,13 @@ Case instruction_cost(i ) > 0. Then irreversible_bits(i ) = 1, and the cost
 schedule (Section 7) gives instruction_cost(i ) ≥ S(δ) ≥ 1 for cert-setters or
 instruction_cost(i ) ≥ δ ≥ 1 otherwise. So 1 ≤ instruction_cost(i ).
 
-
-
-
-                                         119
-The Thiele Machine                                                     Devon Thiele • June 2026
-
-
 Summing the per-instruction inequality over the trace:
 
 
     ∑ irreversible_bits(i) ≤ ∑ instruction_cost(i)
-  i ∈trace                                 i ∈trace
+  i ∈trace                              i ∈trace
 
-                                                         = trace_total_cost(trace).
+                                                     = trace_total_cost(trace).
 
 The right equality is by definition of trace_total_cost (or via the Latent-µ theo-
 rem applied to the trace from µ0 = 0).
@@ -6051,19 +6220,46 @@ rem applied to the trace from µ0 = 0).
    charged. No physics in the proof. A 0/1 indicator bounded by what it indicates.
    No microscopic erasure model. No physical entropy. No Boltzmann constant. The
    conversion of µ counts to joules is the calibration hypothesis (mu_landauer_un
-   ruh_calibrated, Section 23). No kernel theorem uses it.
+   ruh_calibrated, Section 24). No kernel theorem uses it.
 
-16.2 The µ-hierarchy
+
+The number, fenced. Nothing upstream depends on this paragraph; refuting it refutes
+a bridge, not the kernel. With the fence up, here is the number the bridge predicts.
+The kernel side is exact already: irreversible_bits tags an instruction 1 when
+it charges positive cost and 0 otherwise, total_irreversible_bits_le_cost
+bounds the tally by total µ, and the clean-room demonstration (nofi_demo) checks
+the matching conservation identity on every instance it can enumerate: banked insight
+equals erased bits, digit for digit, on all of them. The calibration hypothesis (mu_la
+ndauer_unruh_calibrated) then prices the physical side: certifying a result that
+banks k bits dissipates at least k · k B T ln 2 of heat. At room temperature that is about
+2.9 × 10−21 joules per banked bit — absurdly small, and, since Bérut and colleagues
+verified the single-bit Landauer limit in a colloidal-particle trap in 2012 (Nature 483,
+187–189), absurdly measurable. What that experiment did not measure, and what a
+Thiele-specific experiment would, is the floor attached to the certification event itself:
+erase a bit without banking a claim and you pay Landauer like everyone else; bank
+the claim and the prediction is that the commitment carries the same irreducible
+price, paid at the moment the flag flips and not a femtojoule sooner. That is the open
+problem’s empirical face. If the measurement comes in under the floor, the calibration
+hypothesis dies, this paragraph dies with it, and every kernel theorem stands exactly
+where it stood.
+
+
+
+                                            123
+The Thiele Machine                                                     Devon Thiele • June 2026
+
+
+17.2 The µ-hierarchy
 The proof:
 
 The µ-cost hierarchy theorem has the shape of the classical time-hierarchy theorem;
 the content is narrower. Every cost level k ≥ 1 is reachable by some certified trace.
 No cost level k is reachable for less than k units of µ. Cost-level reachability plus
 conservation. Not problem-class separation. The class-separation question is open
-and is listed in Section 23.
+and is listed in Section 24.
 
 
-Theorem 16.2 (µ-Hierarchy (mu_hierarchy_theorem)). For every k ≥ 1:
+Theorem 17.2 (µ-Hierarchy (mu_hierarchy_theorem)). For every k ≥ 1:
 
    1. There exists a trace reaching vm_certified = true with µ-cost exactly k.
    2. Any trace with vm_mu ≥ k has trace_mu_cost ≥ k.
@@ -6083,11 +6279,6 @@ use progk := [instr_load_imm 0 0 (k − 1), instr_certify 0]: the LOAD_IMM with
 δ = k − 1 costs k − 1 (ordinary compute pays δ directly), the CERTIFY 0 costs 1, total
 k. After running, vm_certified = true.
 
-
-                                               120
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
 Part (2): cost lower bound. By Latent µ applied to any trace from µinitial = 0: µfinal =
 trace_total_cost(trace). So vm_mu ≥ k implies trace_total_cost(trace) ≥ k
 directly.
@@ -6100,11 +6291,17 @@ Each k ≥ 1 is therefore realizable, and each k-realizing trace pays at least k
    0, so µ ≥ k means cost ≥ k. No shortcuts.
 
 
-Corollary 16.3 (mu_hierarchy_no_upper_bound). No fixed µ-budget suffices for all
+Corollary 17.3 (mu_hierarchy_no_upper_bound). No fixed µ-budget suffices for all
 certification levels.
 
 Proof. Suppose for contradiction that some fixed budget B ≥ 0 suffices for all certifica-
 tion levels, meaning every certified trace satisfies vm_mu ≤ B. Apply the µ-Hierarchy
+
+
+                                               124
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 theorem at k = B + 1: there exists a certified trace with vm_mu = B + 1 > B, contra-
 dicting the budget bound.
 
@@ -6126,19 +6323,13 @@ To falsify: find k ≥ 1 and a trace reaching vm_certified = true and vm_mu ≥ 
 with total trace cost < k. The theorem says this cannot happen. If it does, the cost
 accounting is wrong.
 
-17 Discrete Geometry over Partition Graphs
+18 Discrete Geometry over Partition Graphs
 The partition graph is also a discrete geometric object. Here is one result that falls out,
 no physics required.
 
-17.1 Discrete triangulation of the partition graph
+18.1 Discrete triangulation of the partition graph
 Each module in the partition graph carries structural data, and several files at the
 bridge between the kernel proofs and the physics-inspired analogies use µ-derived
-
-
-                                           121
-The Thiele Machine                                                    Devon Thiele • June 2026
-
-
 quantities as geometry-like weights. The discrete Gauss-Bonnet file is more specific. It
 reads the partition graph as a triangulated combinatorial object (a graph cut up into
 triangular pieces). It uses an equilateral angle model: every triangle corner contributes
@@ -6155,6 +6346,12 @@ discrete model, curvature at a vertex is the defect left after subtracting the a
 the incident triangles (the triangles meeting at that vertex) from 2π (a full turn).
 
 I went looking for the right invariant and found the Euler characteristic χ, a number
+
+
+                                           125
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
 that captures the overall shape of a triangulated surface, independent of how you
 draw the triangles. For any triangulation with V vertices, E edges, and F triangular
 faces: χ = V − E + F. As I read it, no matter how you triangulate the same surface,
@@ -6164,7 +6361,7 @@ curvature of a closed surface equals 2πχ: the local geometric information (cur
 integrates to a global topological fact (shape). The discrete analogue is stated below.
 The continuum result is exposition.
 
-17.2 The boundary-triangulated angle-defect identity
+18.2 The boundary-triangulated angle-defect identity
 A heads-up before the theorem: this is not the closed-surface Gauss-Bonnet identity.
 The standard closed-surface result is total curvature equals 2πχ. The theorem here
 uses a different predicate (planar triangulations with a boundary) and a different
@@ -6176,23 +6373,16 @@ the predicate’s invariants right out front, so you can see the whole scope fir
 constant stops looking like a typo.
 
 
-Theorem 17.1 (Boundary-triangulated angle-defect identity (discrete_gauss_bon
+Theorem 18.1 (Boundary-triangulated angle-defect identity (discrete_gauss_bon
 net)). Let g be a partition graph satisfying well_formed_triangulated (a definition,
 not a theorem; the structural identities it bundles are packaged into the named theorem trian
 gulation_combinatorial_identity): a planar triangulation whose interior edges I
 and boundary edges B obey E = I + B and 3F = 2I + B, with a boundary-Euler-relation field
 (satisfies_boundary_euler_relation) forcing the additional constraint B = 3χ,
 where χ = V − E + F is the Euler characteristic. In the equilateral angle model (every triangle
-
-
-
-                                             122
-The Thiele Machine                                                   Devon Thiele • June 2026
-
-
 corner contributes π/3), the total angle defect satisfies
 
-                                angle_defect( g) = 5π · χ( g).
+                               angle_defect( g) = 5π · χ( g).
 
 The constant is 5π, not 2π, because well_formed_triangulated is a planar-region
 predicate with a triangular boundary. The one-parameter identity behind every case is
@@ -6205,11 +6395,18 @@ because B ̸= 3χ. So 5π is not a free-floating oddity. It is the B = 3χ point
 the boundary you admit picks the point. The canonical instance the predicate accepts is a
 triangulated planar disk (χ = 1, B = 3).
 
+
+
+
+                                             126
+The Thiele Machine                                               Devon Thiele • June 2026
+
+
 Proof. The total angle defect is
 
-           angle_defect( g) = ∑ 2π − deg(v) · π3            = 2πV − π3 ∑ deg(v),
-                                                        
-                                   v                                   v
+           angle_defect( g) = ∑ 2π − deg(v) · π3        = 2πV − π3 ∑ deg(v),
+                                                   
+                                   v                               v
 
 where deg(v) counts triangles meeting at vertex v (triangle-incidence, not edge-
 incidence). The triangle-incidence sum is
@@ -6225,11 +6422,11 @@ From well_formed_triangulated: the structural invariants E = I + B and
 3F = 2I + B combine to give 3V = 5E − 6F (the triangulation-combinatorial iden-
 tity). Solving for V: V = (5E − 6F )/3. Substituting:
 
-                                                                                 5π (2E−3F )
+                                                                             5π (2E−3F )
  angle_defect( g) = 2π · 5E−3 6F − πF = 10πE−12πF
                                               3
                                                   −3πF
-                                                       = 10πE−3 15πF =                3      .
+                                                       = 10πE−3 15πF =            3      .
 
 The Euler characteristic in this triangulation satisfies χ( g) = (2E − 3F )/3 (from the
 same identity, by elimination). Therefore angle_defect( g) = 5π · χ( g).
@@ -6241,12 +6438,6 @@ same identity, by elimination). Therefore angle_defect( g) = 5π · χ( g).
    solve the system the predicate hands you.
 
 In my own words first, because I expect this to trip people up. I did not author any of
-
-
-                                              123
-The Thiele Machine                                               Devon Thiele • June 2026
-
-
 the math in this section. I do not write code or proofs by hand. I directed LLMs and
 refused everything that did not compile. When I went looking for what discrete Gauss-
 Bonnet should look like, the version I kept finding was the closed-surface one, with
@@ -6262,6 +6453,12 @@ covers. If it’s wrong, it’s wrong at a step in that derivation, and you can 
 finger on the step; where it’s mechanised, the check would choke there too.
 
 Now the same thing in the formal voice. well_formed_triangulated is a planar-
+
+
+                                            127
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 triangulation predicate defined, with its combinatorial invariants packaged into the
 theorem triangulation_combinatorial_identity at line 651 of the same
 file. Its structural invariants are E = I + B and 3F = 2I + B, where I count the
@@ -6292,13 +6489,7 @@ cost. It is a combinatorics result: any well-formed triangulated partition graph
 planar-triangulation sense above) satisfies the angle-defect formula. That is the full
 extent of the geometry section.
 
-
-                                          124
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
-
-18 The substrate and its halting-shaped wall
+19 The substrate and its halting-shaped wall
 The Thiele Machine is not the 51 opcodes. The 51 opcodes are scaffolding. They
 make the substrate concrete enough to verify in Coq, run as OCaml, and synthesize to
 silicon, but they are not the substrate itself. The substrate is the step relation together
@@ -6312,6 +6503,11 @@ The Turing machine has the same shape. Tape, head, and transition table are scaf
 folding for one realization. Register machines, lambda calculus, counter machines,
 RAMs, and partial recursive functions all instantiate the same step-relation primitive
 with different scaffolding, and the equivalence between them is the content of the
+
+                                           128
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
 Church-Turing thesis. They are all the Turing machine in the sense that matters. They
 share the same notion of a step.
 
@@ -6336,17 +6532,10 @@ nothing in them knows about arbitrary substrates carrying their own recursion th
 rems and representability predicates. Both theorems are sibling instances of Kleene’s
 diagonal; neither is a corollary of the other.
 
-18.1 The Substrate typeclass
+19.1 The Substrate typeclass
 A Coq typeclass is a checklist of operations and properties a type has to supply to
 count as the thing. This one captures exactly what an A2-respecting computational
 substrate is, divorced from any particular instruction set, and it exposes:
-
-
-
-
-                                           125
-The Thiele Machine                                                Devon Thiele • June 2026
-
 
    • A type state of substrate states.
    • A type Program of substrate programs.
@@ -6361,7 +6550,13 @@ substrate is, divorced from any particular instruction set, and it exposes:
      tificationSystem record, not by this typeclass). The two coincide on the
      51-opcode VM where all instruction costs are non-negative and the cert transi-
      tion costs ≥ 1. See Section 2.8 for the A2 statement and the related axioms A3
-     through A6.
+
+
+                                           129
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
+      through A6.
    • An internal Gödel coding: a way to pack any program into a state and un-
      pack it again, so the substrate can hold its own programs as ordinary data.
      Formally, encode : Program → state and decode_safe : state
@@ -6389,11 +6584,6 @@ scope move at the substrate level: the substrate’s limitative theorem is about
 substrate itself can express, not about every Coq function that exists in the meta-theory.
 
 The recursion theorem is not derivable from mu_is_initial_monotone (the cost-
-
-                                           126
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
 functional uniqueness result). Initiality of the cost functional is the statement that any
 monotone cost measure satisfying the axioms equals µ on reachable states; that is a
 uniqueness theorem, collapsing a type to a single inhabitant. The recursion theorem
@@ -6402,12 +6592,17 @@ are different categorical statements. The recursion theorem is supplied by the t
 field above and discharged unconditionally for the minimal nat-coded substrate by
 exhibiting a self-aware program that is its own diagonal flip’s fixed point.
 
-18.2 The shortcut-admittance predicate
+19.2 The shortcut-admittance predicate
 The substrate becomes interesting for the limitative result when it is equipped with
 a non-trivial shortcut-admittance predicate: a Prop-valued predicate AdmitsShortcut
 on programs, witnessed by at least one program that admits and at least one that
 does not, and depending only on extensional behavior (programs with the same run
 behavior on every state admit shortcuts iff each other).
+
+
+                                           130
+The Thiele Machine                                                  Devon Thiele • June 2026
+
 
 The typeclass extension WithShortcutPredicate packages this:                         an
 AdmitsShortcut field, two canonical witnesses yes_program and no_program
@@ -6439,12 +6634,6 @@ Section parameters; the substrate-level result does not depend on them, because
 nat_substrate discharges the limitative theorem unconditionally at the substrate
 level.
 
-
-
-                                           127
-The Thiele Machine                                                  Devon Thiele • June 2026
-
-
 The VM-side AdmitsShortcut is the extensional predicate “this VM program’s
 bounded run from init_state coincides with the bounded run of simple_mor
 ph_trace.” yes_program is simple_morph_trace itself; no_program is the
@@ -6454,12 +6643,16 @@ not). The extensionality field is the standard “equal run on every state impli
 predicates agree.” The instantiation that assembles these into the WithShortcutPre
 dicate interface lives in the kernel.
 
-18.3 The substrate-level limitative theorem
-Theorem 18.1 (Structural-axis undecidability, substrate-level). For every Substrate-
+19.3 The substrate-level limitative theorem
+Theorem 19.1 (Structural-axis undecidability, substrate-level). For every Substrate-
 instance equipped with a WithShortcutPredicate extension, there is no Coq-definable function
 decide : Program → bool whose corresponding diagonal flip transformer is inter-
 nally representable in the substrate and that for all programs p satisfies: decide p = true
 iff AdmitsShortcut p.
+
+                                            131
+The Thiele Machine                                                      Devon Thiele • June 2026
+
 
 Proof. Assume for contradiction such a decide exists. Define the diagonal flip trans-
 former                       
@@ -6491,17 +6684,11 @@ cut_undecidable returns Closed under the global context.
    disagree with itself in both cases. The work is in the typeclass: once the substrate
    has its own recursion theorem, two canonical inhabitants on opposite sides of the
    predicate, and extensionality, the diagonal lands itself. The structural axis has its
+   own halting wall, on its own axis, internal to its own machinery. Not transported.
+   Not assumed. Built.
 
 
-                                            128
-The Thiele Machine                                                      Devon Thiele • June 2026
-
-
-    own halting wall, on its own axis, internal to its own machinery. Not transported.
-    Not assumed. Built.
-
-
-Theorem 18.2 (Structural-axis undecidability for the nat-coded substrate). For every
+Theorem 19.2 (Structural-axis undecidability for the nat-coded substrate). For every
 Coq function d : nat → bool, the substrate nat_substrate d cannot internally
 decide its own structural-shortcut membership predicate. In particular, d itself is not a correct
 decider for the predicate of the substrate it parameterizes; the corollary nat_self_undeci
@@ -6509,16 +6696,23 @@ dable reads off this self-referential conclusion directly.
 
 Proof. The substrate nat_substrate discharges every typeclass field construc-
 tively: Program := nat; yes_program := 0; no_program := 1; run is a Coq
-Fixpoint; prog_equiv is pointwise equality of run; Representable f is the pre-
-cise predicate “f is the diagonal flip transformer for the substrate’s own decide func-
-tion”; recursion_theorem is discharged by exhibiting code 2 as the fixed point of
-any such transformer (its run is defined to mirror whatever the transformer outputs);
-AdmitsShortcut is extensional by construction; yes_program_admits and no_p
-rogram_no_shortcut hold by definitional unfolding of run at 0 and 1. Apply the
-substrate-level theorem above. The corollary nat_self_undecidable specializes
-the conclusion to d itself: d cannot be a correct decider for nat_admits d. Print
-Assumptions on both nat_structural_shortcut_undecidable and nat_se
-lf_undecidable returns Closed under the global context.
+Fixpoint; prog_equiv is pointwise equality of run; Representable f is the
+precise predicate “f is the diagonal flip transformer for the substrate’s own decide
+function”; recursion_theorem is discharged by exhibiting code 2 as the fixed point
+of any such transformer (its run is defined to mirror whatever the transformer out-
+
+
+                                              132
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
+puts); AdmitsShortcut is extensional by construction; yes_program_admits and
+no_program_no_shortcut hold by definitional unfolding of run at 0 and 1. Apply
+the substrate-level theorem above. The corollary nat_self_undecidable special-
+izes the conclusion to d itself: d cannot be a correct decider for nat_admits d —
+cannot answer true exactly when the predicate holds. Print Assumptions on
+both nat_structural_shortcut_undecidable and nat_self_undecidable
+returns Closed under the global context.
 
    Plain reading. The substrate-level theorem with every typeclass field hand-
    discharged. No Hypothesis, no Axiom, no Section parameter: a concrete sub-
@@ -6527,7 +6721,7 @@ lf_undecidable returns Closed under the global context.
    strates; here it exists, and it bites.
 
 
-Theorem 18.3 (Structural-axis undecidability for the 51-opcode VM). For the 51-opcode
+Theorem 19.3 (Structural-axis undecidability for the 51-opcode VM). For the 51-opcode
 VM, there is no Coq function decide : list vm_instruction → bool whose
 diagonal flip transformer is internally representable in the VM language and that for all
 programs p satisfies: decide p = true iff vm_admits_shortcut_extensional
@@ -6541,13 +6735,6 @@ orem restricted to representable transformers are the VM-instance-specific Secti
 parameters; closing the surrounding Coq Section discharges them as explicit forall
 premises on every consumer, the same Section-parameter discipline I use for the
 physical constants h̄ > 0, c > 0, k B > 0. The VM-side AdmitsShortcut is the ex-
-
-
-
-                                              129
-The Thiele Machine                                                  Devon Thiele • June 2026
-
-
 tensional predicate “this VM program’s bounded run from init_state coincides
 with the bounded run of simple_morph_trace”; yes_program is simple_mor
 ph_trace; no_program is the empty trace, which produces init_state and so
@@ -6564,7 +6751,12 @@ at VM scope.
    physical constants. The kernel proves the limitative theorem once at the substrate;
    the VM inherits.
 
-18.4 The proof, in prose
+
+                                          133
+The Thiele Machine                                                  Devon Thiele • June 2026
+
+
+19.4 The proof, in prose
 The proof is the standard Kleene-1938 diagonal, transported to the substrate.
 
 Assume for contradiction that decide :             Program → bool satisfies the bi-
@@ -6594,12 +6786,6 @@ Both cases close. No total decision procedure for AdmitsShortcut exists.
 
 The proof is short, because the work is in the typeclass, not in the diagonal. The body
 runs about 38 lines, of which roughly 16 are actual tactic steps; the rest is the case-split
-
-
-                                            130
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
 structure and the inline narration. Once the substrate has a recursion theorem, two
 canonical inhabitants, and an extensional predicate, the diagonal is mechanical. The
 substrate-level work was assembling the right typeclass; the limitative result is what
@@ -6617,6 +6803,11 @@ sible at total cost zero, and an analog of the diagonal still goes through as a 
 undecidability result over some other extensional predicate; what is lost is the specifi-
 cally certification-axis content of the result. A2 is the axiom that makes “the structural
 axis has its own halting-shaped wall” the right phrasing, rather than “extensional
+
+                                            134
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 predicates over substrates are undecidable”: a generic statement that holds of any
 substrate with a recursion theorem and a non-trivial extensional predicate and that
 says nothing about the certification axis specifically. The wall lands on the certification
@@ -6624,7 +6815,7 @@ axis because A2 is what picks out that axis as the substrate-distinguishing stru
 the recursion theorem closes the diagonal inside that structure. A2 is upstream of the
 result, not inside the proof, and the result is sharper for it.
 
-18.5 The two-axis picture this completes
+19.5 The two-axis picture this completes
  Time axis                             Structural axis
  steps                                 µ
  HALT (Turing 1936)                    AdmitsShortcut (above)
@@ -6637,19 +6828,13 @@ limitative wall; what makes the structural side specifically the certification a
 than a generic extensional predicate, is A2 — which the cert-flavoured VM instance
 carries and the minimal nat_substrate does not.
 
-18.6 What this closes
+19.6 What this closes
 What the substrate-level theorem closes. Whether a uniform translation procedure
 exists from informal structural arguments into SoundStructuralShortcut wit-
 nesses reduces to whether the substrate can internally decide membership in its own
 structural-shortcut class. The theorem above answers that in the negative: no inter-
 nally representable decision procedure for the membership predicate exists, so no
 uniform internally representable translation procedure exists either. The structural
-
-
-                                           131
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
 axis has its own undecidable predicate, on the same diagonal shape Turing used in
 1936.
 
@@ -6668,12 +6853,17 @@ routine for any sufficiently expressive substrate, left unproven here as bookkee
 not as a live doubt. Per the A2 note earlier in this section, A2 is what turns the generic
 wall into the certification-axis one.
 
+                                           135
+The Thiele Machine                                               Devon Thiele • June 2026
+
+
 What the VM corollary closes. The 51-opcode VM corollary vm_structural_sho
-rtcut_undecidable is the substrate-level theorem instantiated at vm_substrate.
-It carries the VM-side Section parameters as explicit forall premises in the
-Bekenstein-bound style. The substrate-level content does not depend on the VM-
-side parameters; it is closed at the nat_substrate level. The VM corollary is
-the substrate-level result presented at the VM scope, with the VM-side internal-
+rtcut_undecidable is the substrate-level theorem instantiated at vm_substrate:
+no representable decider answers true exactly when a VM program admits the exten-
+sional shortcut. It carries the VM-side Section parameters as explicit forall premises
+in the Bekenstein-bound style. The substrate-level content does not depend on the
+VM-side parameters; it is closed at the nat_substrate level. The VM corollary
+is the substrate-level result presented at the VM scope, with the VM-side internal-
 representability work named in its premises.
 
 How to falsify. Three routes.
@@ -6691,15 +6881,7 @@ How to falsify. Three routes.
       about 38 lines, roughly 16 of them actual tactic steps; finding such a substrate
       means finding an error in those tactic steps.
 
-
-
-
-                                           132
-The Thiele Machine                                               Devon Thiele • June 2026
-
-
-
-19 What Coq is, and why I used it
+20 What Coq is, and why I used it
 Coq is a proof assistant. It’s a programming language where the type system is
 expressive enough that you can write a proof as a program and have the compiler
 check that the program matches the statement you typed.
@@ -6718,6 +6900,12 @@ So the compiler accepting a proof is not the same as the thing being true. It me
 proof matches this statement, and whether that’s the right statement is on me, not the
 machine.
 
+
+
+                                          136
+The Thiele Machine                                               Devon Thiele • June 2026
+
+
 So I didn’t use Coq to make anything true. I used it because I don’t trust my own
 eye to catch a gap in an argument I want to believe. I spent months convinced by my
 own reasoning, pushed the proof through, and watched a key step come apart in my
@@ -6726,7 +6914,7 @@ same source the running machine and the chip get extracted from. Gap-catcher and
 extractor. Not the proof. The proof is the argument, and an argument has to close in a
 way a person can follow, or it hasn’t closed at all.
 
-19.1 The Inquisitor
+20.1 The Inquisitor
 Beyond Coq’s type checker, the project has a custom proof auditor called the Inquisitor
 (scripts/inquisitor.py). It runs on every commit and emits 86 distinct rule
 codes (see the Rules section of the generated INQUISITOR_REPORT.md). The main
@@ -6742,13 +6930,7 @@ categories:
      epistemically empty, proving True by trivial, for instance.
    • No physics stubs. No physics quantity defined as a constant placeholder. No
      physics claim without a corresponding invariance condition. No theorem stated
-
-
-                                          133
-The Thiele Machine                                               Devon Thiele • June 2026
-
-
-      about a physics concept if that concept is not genuinely formalized.
+     about a physics concept if that concept is not genuinely formalized.
    • No trivial true proofs. If a theorem’s entire proof is trivial or tauto and the
      conclusion reduces to True, the theorem is rejected.
    • Scope enforcement. The proof tree is split into tiers. Tier 1 is the kernel files:
@@ -6765,7 +6947,15 @@ ately defined in terms of small constant predicates and enumerated boolean funct
 which is what triggers the “constant function” heuristic. The LOW is documented and
 audited. It does not correspond to a missing proof step.
 
-20 Zero Admitted: what it actually means
+
+
+
+                                          137
+The Thiele Machine                                              Devon Thiele • June 2026
+
+
+
+21 Zero Admitted: what it actually means
 “Zero Admitted” is literal. Nowhere in the proof tree did I write “trust me” and walk
 on. Every step the checker could see, it saw, end to end, with no “and the rest is
 obvious.” That is a hygiene fact about the gap-catcher, not a verdict on the argument:
@@ -6790,33 +6980,34 @@ This is what it does NOT mean:
      Now the honest limitation. The sources I read on Coq’s foundation say it is
      believed to be logically consistent (meaning you cannot derive a contradiction
      from it), but this has not been proven within Coq itself. The way I understand
+     it (and I do not fully trust my own reading), that is not a weakness specific
+     to Coq. The label I dug up is Gödel’s incompleteness theorem from 1931: any
+     consistent formal system powerful enough to do arithmetic cannot prove its own
+     consistency from within itself. A system that could prove its own consistency
+     would already be inconsistent — and an inconsistent system proves everything,
+     its own consistency included. So Coq’s foundation is trusted, not proved-from-
+     within. “Trusted” has substance here. The same foundation has verified the
+     CompCert C compiler and the Four Color Theorem (Gonthier 2005, the first
+     published machine-checked proof of a major open problem in mathematics),
+     among other artifacts. Large-scale inconsistencies would have surfaced through
+     those uses if they were there. I am relaying what I read. I have not personally
+     audited CompCert or Gonthier’s proof. “Zero Admitted” means every theorem
+     follows from those axioms. It does not mean those axioms are themselves in-
+     system guaranteed. It means they are the same axioms a substantial body of
+     verified software has relied on without breaking.
+   • It does not mean the hardware implements exactly the Coq semantics in every
+     case. All 47 synth-realised opcodes have Qed bisimulation proofs: 37 uncon-
 
-                                          134
+
+                                         138
 The Thiele Machine                                               Devon Thiele • June 2026
 
 
-      it (and I do not fully trust my own reading), that is not a weakness specific
-      to Coq. The label I dug up is Gödel’s incompleteness theorem from 1931: any
-      consistent formal system powerful enough to do arithmetic cannot prove its own
-      consistency from within itself. A system that could prove its own consistency
-      would already be inconsistent — and an inconsistent system proves everything,
-      its own consistency included. So Coq’s foundation is trusted, not proved-from-
-      within. “Trusted” has substance here. The same foundation has verified the
-      CompCert C compiler and the Four Color Theorem (Gonthier 2005, the first
-      published machine-checked proof of a major open problem in mathematics),
-      among other artifacts. Large-scale inconsistencies would have surfaced through
-      those uses if they were there. I am relaying what I read. I have not personally
-      audited CompCert or Gonthier’s proof. “Zero Admitted” means every theorem
-      follows from those axioms. It does not mean those axioms are themselves in-
-      system guaranteed. It means they are the same axioms a substantial body of
-      verified software has relied on without breaking.
-   • It does not mean the hardware implements exactly the Coq semantics in every
-     case. All 47 synth-realised opcodes have Qed bisimulation proofs: 37 uncon-
-     ditional, 10 under structural invariants coupling_wf and morph_table_wf
-     that hold inductively from hardware reset. Zero structural gaps within the
-     synth-realised subset, documented in the kernel. The four Q1+AB cert-opcodes
-     live in the Kami HW abstraction (with kernel-equivalence proven) but outside
-     the synthesized-Verilog surface, by silicon budget, not by semantics gap.
+      ditional, 10 under structural invariants coupling_wf and morph_table_wf
+      that hold inductively from hardware reset. Zero structural gaps within the
+      synth-realised subset, documented in the kernel. The four Q1+AB cert-opcodes
+      live in the Kami HW abstraction (with kernel-equivalence proven) but outside
+      the synthesized-Verilog surface, by silicon budget, not by semantics gap.
    • It does not mean the OCaml runner binary is proven inside Coq to be bitwise
      identical to the Coq semantics. The kernel proves Coq-side observable facts. The
      parity suite checks the extracted binary empirically. One is a theorem. The other
@@ -6838,14 +7029,7 @@ OCaml binary is checked against the Coq semantics by tests, not by a Coq theorem
 These are explicitly labelled and auditable. They are not Admitted proofs. They are
 documented limits of the formal claim.
 
-
-
-                                          135
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
-
-21 How to break this
+22 How to break this
 Every claim in this document has a falsification condition. Here are the main ones.
 Find a counterexample and the proof tree falls.
 
@@ -6861,6 +7045,12 @@ mu breaks at the step that prices the cert-flip. Add the counterexample as a the
 and the check refuses to compile on top of that.
 
 Falsify µ-monotonicity.
+
+
+                                          139
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 Find a state s and instruction i such that (vm_apply s i ).µ < s.µ. The Coq proof of
 vm_apply_mu falls.
 
@@ -6887,18 +7077,12 @@ bership predicates. The feasible-subset theorem falls with it.
 
 Falsify universal certification cost.
 Build a CertificationSystem satisfying the one-step rule cs_cert_costs, then
-
-
-                                           136
-The Thiele Machine                                               Devon Thiele • June 2026
-
-
 give a trace from uncertified to certified with total cost 0. universal_nfi_any_sub
 strate falls. If you instead drop the one-step rule, you have found a free-certification
 system, not a counterexample.
 
 Falsify substrate-level structural-axis undecidability.
-Three routes (Section 18 expands).
+Three routes (Section 19 expands).
 
    • Exhibit a Coq function decide : Program → bool whose diagonal flip
      transformer is internally representable in some Substrate plus WithShortcut-
@@ -6909,6 +7093,13 @@ Three routes (Section 18 expands).
      bool that correctly decides nat_admits d. The corollary nat_self_undec
      idable says no such d exists; build one and you have contradicted it head-on,
      which is exactly the kind of break I want to hear about.
+
+
+
+                                           140
+The Thiele Machine                                               Devon Thiele • June 2026
+
+
    • Exhibit a substrate that has both an internal recursion-theorem witness for a
      representable transformer and a non-trivial extensional predicate, but for which
      the diagonal construction does not produce a contradiction. The proof body is
@@ -6932,41 +7123,84 @@ classical point (1, 0, 1, 0) are not counterexamples — both fail column contra
 direct arithmetic, which is what the theorem requires, not what would break it.
 
 The Inquisitor standard.
-Run pythonscripts/inquisitor.py on the repository. If it finds any HIGH
-or MEDIUM finding, or any new LOW beyond the single documented F4-evaluator
-vacuity-score warning, the proof hygiene has degraded. Current status: 0 HIGH, 0
-MEDIUM, 1 LOW (the documented F4 evaluator finding). If that changes, it is a bug.
-
-
-
-                                          137
-The Thiele Machine                                                      Devon Thiele • June 2026
-
+Run pythonscripts/inquisitor.py on the repository. If it finds any HIGH,
+MEDIUM, or LOW finding at all, the proof hygiene has degraded. Current status: 0
+HIGH, 0 MEDIUM, 0 LOW. If that changes, it is a bug.
 
 Falsify the axiom audit.
 If running Print Assumptions (Section 2: the Coq command that lists everything
-a theorem depends on) on any named theorem in the kernel tier shows a project-local
-Axiom or Parameter in the dependency tree, the audit has degraded. The current
-closure across all kernel theorems shows 2,539 named theorems that compile under
-the global Coq context with no project-local axioms. A separate companion set of 25
-theorems depends on the excluded middle, which is the classical-logic axiom P ∨ ¬ P
-(“either P is true or P is false, with no third option”); those uses come from the Coq
-standard library (specifically, the real-number theory needed for the CHSH algebra),
-not from project code. The two sets are disjoint: the 2,539 are closed under the global
-context with no project-local axioms appearing, and the 25 sit in the separate bucket of
-theorems that depend on an axiom. Any project-local axiom or parameter appearing
-in either set’s dependency trees is a bug.
+a theorem depends on) on any named theorem in the kernel tier shows a project-
+local Axiom or Parameter in the dependency tree, the audit has degraded. The
+current probe across the kernel tier covers 2,597 named theorems: 1,711 close under
+the global Coq context outright, and 886 lean only on Coq standard-library axiom
+families (functional extensionality and the classical-reals construction). Of those, 60
+depend on the excluded middle, which is the classical-logic axiom P ∨ ¬ P (“either P
+is true or P is false, with no third option”); those uses come from the Coq standard
+library (specifically, the real-number theory needed for the CHSH algebra), not from
+project code. Zero project-local axioms appear in any of the 2,597 dependency trees.
+Any project-local axiom or parameter appearing in any of them is a bug.
 
 Falsify the hardware bisimulation.
 Run the Verilog cosimulation suite (tests/test_verilog_cosim.py, including t
 est_all_47_opcodes_in_cosim). If any of the 47 synth-realised opcodes shows
 the synthesised RTL diverging from the Kami step function on any input, the Section
 Variable rtl_step_correct is violated empirically and the 47-opcode bisimulation
+
+                                          141
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
 falls. A divergence inside bsc_kami_compilation_trusted (the BSC compiler /
 pretty-printer pipeline) points at the toolchain instead — a documented trust bound-
 ary, not a counterexample to the bisimulation theorems.
 
-22 The full claim ledger
+Falsify the convergence answer to parametricity.
+The separation/minimality/uniqueness trio is schema-parametric: any field a step
+rule carries that classical state does not determine supports all three theorems, word
+for word, and I concede that in full. What singles out certification is convergence:
+the verifier factorisation result (V_does_not_factor_through_classical), the
+clean-room floor demonstration (nofi_demo), and the NPA moment-matrix certifi-
+cate (chsh_lassert_no_trap_implies_quantum_realizable) land on the
+same field from vocabularies that owe each other nothing. Exhibit another field with
+three convergent bridges of the same standing — or break one of these — and certifi-
+cation’s distinguished seat falls back to an aesthetic choice. Whether certification is
+the event a model is forced to price remains the named open problem either way.
+
+Falsify the proof-of-stake reduction.
+Exhibit a protocol whose known nothing-at-stake status contradicts the formal clas-
+sification of Section 15: a zero-stake-at-finalize gadget that admits an A2 proof, or a
+slashing gadget (finalize risks ≥ 1) with a finalizing trace of total stake-at-risk 0. Coq
+accepts the construction if it exists; nothing_at_stake_is_free_forgery or sl
+ashing_finality_floor falls.
+
+Falsify the gas-metering reduction.
+Construct a schedule satisfying both the commitment floor and no-overcharge whose
+charging predicate differs from the commitment predicate on some reachable step. ga
+s_schedule_exactness falls, and the kernel’s exact_commitment_pricing_c
+haracterization with it.
+
+Falsify the attestation reduction.
+Build a sound and complete attestation verifier for the µ-dependent claim that reads
+only the bare classical transcript — a function of the report’s log field alone. atte
+station_cannot_factor_through_bare_transcript falls, and behind it the
+verifier-factorisation theorem.
+
+Falsify the transparency-log reduction.
+Build a sound and complete log-free verifier with the same soundness target. log_fr
+ee_verifier_impossible falls, and the bare-setting impossibility with it.
+
+Falsify the proof-carrying reduction.
+Construct a level-k certified proof script with total µ below k, or a sound and complete
+zero-round bare verifier. level_k_verification_floor or bare_pcc_imposs
+ible falls, and the µ-hierarchy or the bare-setting impossibility behind them.
+
+
+                                           142
+The Thiele Machine                                                         Devon Thiele • June 2026
+
+
+
+23 The full claim ledger
 These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
 
    1. no_free_certification: csr_cert_addr going 0 → nonzero in one step requires cost ≥ 1.
@@ -6985,11 +7219,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
   10. forget_kernel_is_eq_on_classical: the classical snapshot quotient forgets exactly the
       non-classical fields.
   11. blindness_non_injective: distinct Thiele states can have the same classical snapshot.
-
-                                               138
-The Thiele Machine                                                         Devon Thiele • June 2026
-
-
   12. certification_is_lost: certification can be in the kernel of the classical forgetful map.
   13. shadow_strictly_lossy: the classical shadow forgets morphism structure.
   14. mu_ledger_necessity: no strict-classical oracle on (mem, regs, pc) recovers the pair
@@ -7011,6 +7240,13 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       distinguishing observation yields a strictly stronger predicate.
   23. strengthening_requires_structure_addition: certified predicate strengthening requires a
       structure-addition event.
+
+
+
+                                                143
+The Thiele Machine                                                       Devon Thiele • June 2026
+
+
   24. b4_information_reduction_derives_strict_predicates: feasible-set reduction can generate the
       strict-predicate premise used by NoFI.
   25. info_priced_cert_executions_bound: executed cert-setting events are bounded by ∆µ.
@@ -7032,12 +7268,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       expressive power.
   32. nat_recursion_theorem / nat_structural_shortcut_undecidable / nat_self_undecidable: the
       minimal nat-coded substrate discharges every Substrate typeclass field
-
-
-                                                139
-The Thiele Machine                                                        Devon Thiele • June 2026
-
-
       unconditionally (no Hypothesis, no Axiom). The recursion theorem is proved by
       exhibiting a self-aware fixed-point program (code 2). The substrate-level limitative
       theorem fires unconditionally, and the corollary nat_self_undecidable reads off:
@@ -7060,6 +7290,13 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
   37. shadow_proj / shadow_separation_theorem: formal surjection, strictly lossy.
   38. D2_faithfulness: classical programs embedded faithfully in Thiele.
   39. D3_conservativity: classical programs leave structural layer untouched.
+
+
+
+                                               144
+The Thiele Machine                                                        Devon Thiele • June 2026
+
+
   40. D4_strictness: there exist Thiele steps that escape the classical fragment.
   41. D5_thiele_strictly_extends_classical: Thiele strictly exceeds classical semantics.
   42. degenerate_projection_theorem: shadow projection is the classical equivalence quotient.
@@ -7079,13 +7316,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       every locally factorizable morphism coupling.
   52. graph_certify_morphism_lookup: morphism certification cost utility, including lookup
       correctness.
-
-
-
-                                               140
-The Thiele Machine                                                        Devon Thiele • June 2026
-
-
   53. exists_covering_tree: for any feasible-set reduction, a covering complete binary tree
       exists constructively.
   54. info_priced_reduction_no_tree_hypothesis: entropy bound without requiring the tree as an
@@ -7095,7 +7325,7 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
   56. mu_budget_decidable / mu_budget_verifiable / classical_mu_budget_decidable: predicates
       classifying decision problems by their polynomial-µ envelope, plus the inclusion that
       every zero-µ classical solver is mu_budget_decidable. Not a class separation. See
-      Section 23 for what these predicates do and do not say.
+      Section 24 for what these predicates do and do not say.
   57. column_contractive_iff_quantum_realizable: Thiele honesty ⇐⇒ zero-marginal NPA
       realizability. A biconditional with no project-local axioms (its Print Assumptions
       reports only Coq’s standard classical-reals and functional-extensionality stdlib axioms).
@@ -7111,10 +7341,17 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
   58. state_column_contractive_implies_tsirelson: Thiele-honest ⇒ |S|2 ≤ 8, i.e., |S| ≤ 2 2. The
       proof factors through quantum realizability: state_column_contractive_implie
       s_quantum_gram composes with quantum_realizable_implies_tsirelson_b
+
+
+
+                                                145
+The Thiele Machine                                                      Devon Thiele • June 2026
+
+
       ound. The row-bounds lemma tsirelson_from_row_bounds is the algebraic
-                                                                                 √
+                                                                        √
       Cauchy–Schwarz step inside this chain. The contrapositive (|S| > 2 2 ⇒ not
-                                                                      √
+                                                               √
       Thiele-honest) follows immediately. The converse (|S| ≤ 2 2 ⇒ Thiele-honest) is false
       and is not claimed.
   59. Concrete falsifications by direct arithmetic. The PR box (E00 = E01 = E10 = 1, E11 = −1)
@@ -7136,13 +7373,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       theorems coupling_wf_kami_step_preserved and morph_table_wf_kami_s
       tep_preserved show these invariants hold inductively at hardware reset and
       through every kami_step operation, so the precondition is discharged in practice for
-
-
-
-                                                141
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
       any state reachable by machine execution.
   63. RTL trust boundary: the Section Variable rtl_step_correct states that the
       synthesised RTL implements the Kami step function. It is backed empirically by the
@@ -7150,6 +7380,27 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       suite. The kernel proves rtl_step_correct for the COQKAMI model and names bs
       c_kami_compilation_trusted as the residual trust boundary covering the BSC
       compiler / pretty-printer pipeline.
+  64. nothing_at_stake_is_free_forgery: a finality gadget whose finalize step carries zero
+      stake-at-risk admits no A2 field — nothing-at-stake is the kernel’s free forgery, stated in
+      proof-of-stake vocabulary (Section 15).
+  65. slashing_finality_floor: under any slashing schedule (finalize risks ≥ 1), every run from
+      unfinalized to finalized carries total stake-at-risk ≥ 1; universal_nfi_any_substr
+      ate instantiated at the slashing gadget.
+  66. gas_schedule_exactness: a gas schedule satisfies the commitment floor and no-overcharge
+      exactly when its charging predicate is the commitment predicate with unit pricing; the
+      kernel machine itself inhabits the class (thiele_vm_commit_pricing_is_exact).
+  67. attestation_cannot_factor_through_bare_transcript: a sound and complete attestation
+      verifier of the µ-dependent claim cannot factor through the report’s bare transcript; the
+      replay attack is the witness pair (replay_is_a_two_preimage_witness).
+  68. level_k_verification_floor: k certification events cost at least k µ in any covered proof
+      system, with tightness witnessed; bounds certification events only — not gate counts,
+      circuit size, prover time, or proof length.
+
+
+
+
+                                              146
+The Thiele Machine                                                Devon Thiele • June 2026
 
 
 Bridge-tier claims (checked in Coq, but resting on named hypotheses or documented
@@ -7172,7 +7423,7 @@ trust boundaries):
    • Cost formula forcing: cost_necessity + cost_uniqueness, conditional
      on Landauer-Unruh calibration for physical interpretation.
 
-23 Scope of the claim: what is established, what is not
+24 Scope of the claim: what is established, what is not
 This section names the boundary of what the subsumption argument establishes and
 what it does not. The directional structural result is the spine: every Thiele substrate
 has a canonical projection onto a classical-equivalent substrate; no classical substrate
@@ -7186,20 +7437,20 @@ positive claim is clear.
 Physical interpretation of µ as thermodynamic entropy. The subsumption claim
 establishes that µ is the unique cost coordinate up to the local conditions in mu_i
 s_initial_monotone (Section 7) and that classical substrates project onto Thiele
-
-
-                                           142
-The Thiele Machine                                                  Devon Thiele • June 2026
-
-
 substrates in the cost-tracking-blind direction. It does not establish that the µ-ledger
 corresponds to physical thermodynamic entropy in joules. The Landauer connection
-in Section 16 is a named hypothesis (landauer_unruh_calibration); the formal
-development is consistent with it but does not depend on it. Closing this gap would
-require a physical experiment, not a proof.
+in Section 17 is a named hypothesis (mu_landauer_unruh_calibrated); the for-
+mal development is consistent with it but does not depend on it. Closing this gap
+would require a physical experiment, not a proof.
 
 Class separation. The subsumption claim establishes a cost-tracking separation at
 the substrate level: classical substrates do not carry A2 in their step rule, and the
+
+
+                                          147
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 cost-ledger separation between Thiele states with identical bare-classical observables
 has no analog on the classical signature (no_classical_mu_separation_predi
 cate in Section 3.7). It does not establish a complexity-class separation (P vs NP or
@@ -7214,13 +7465,14 @@ Privileged choice of extensional predicate for the substrate-axis diagonal. The 
 sumption claim establishes that the structural-axis diagonal lives on csr_cert_addr
 reachability and that the diagonal’s content cannot be re-expressed on the bare classical
 projection (cert_addr_not_function_of_forget in Section 3.7). It establishes
-the substrate-level diagonal for an entire family of non-trivial extensional predicates
-(structural_shortcut_undecidable). The VM-instance corollary picks one
-specific predicate in the family: simple_morph_trace-coincidence. Whether that is
-the privileged choice, versus a predicate built directly from has_supra_cert reach-
-ability, versus receipt-list equality at a specific fuel bound, is open. The substrate-level
-result is the family statement; the VM corollary is one tile. Closing this gap would
-require an argument that one tile is canonical.
+the substrate-level diagonal for an entire family of non-trivial extensional predicates —
+no representable decider answers true exactly when the predicate holds (structural
+_shortcut_undecidable). The VM-instance corollary picks one specific predicate
+in the family: simple_morph_trace-coincidence. Whether that is the privileged
+choice, versus a predicate built directly from has_supra_cert reachability, versus
+receipt-list equality at a specific fuel bound, is open. The substrate-level result is the
+family statement; the VM corollary is one tile. Closing this gap would require an
+argument that one tile is canonical.
 
 Unconditional Shannon-style bound on every deterministic single trace. The sub-
 sumption claim establishes the entropy-bounded µ-ledger theorem for sound struc-
@@ -7236,12 +7488,6 @@ which the kernel does not currently do.
 Full-elliptope quantum mechanics connection. The subsumption claim establishes
 the algebraic equivalence between Thiele honesty and zero-marginal NPA realizability
 (column_contractive_iff_quantum_realizable, no project-local axioms).
-
-
-                                            143
-The Thiele Machine                                                   Devon Thiele • June 2026
-
-
 The zero-marginal framework is the orthogonal-observables slice (ρ AA = ρ BB = 0):
 a proper subset of the full quantum elliptope. The claim does not establish that
 the full elliptope corresponds to a structural-shortcut class in the kernel, nor that a
@@ -7250,11 +7496,16 @@ entanglement in hardware. Closing the algebraic gap would require extending the
 column-contractivity characterisation; closing the empirical gap would require an
 experiment.
 
+
+                                           148
+The Thiele Machine                                                   Devon Thiele • June 2026
+
+
 The boundary above is the perimeter of the positive claim. Inside the perimeter: the
 directional subsumption (Section 3), the three irrecoverability theorems (Section 3.7),
 the cost-ledger observability separation (Section 12), the entropy-bounded µ-ledger
-theorem (Section 5), the substrate-axis undecidability (Section 18), the CHSH-NPA
-equivalence on the orthogonal slice (Section 15), and the categorical universal property
+theorem (Section 5), the substrate-axis undecidability (Section 19), the CHSH-NPA
+equivalence on the orthogonal slice (Section 16), and the categorical universal property
 of Thiele as the initial A2-respecting substrate (thiele_is_initial_a2_substra
 te, Print Assumptions: Closed under the global context). Outside the perimeter: the
 items above, each with the formal reason the existing argument does not extend to
@@ -7285,47 +7536,48 @@ natures to care about. That category-selection question is the reader’s call, 
 the argument here doesn’t reach. Derivativeness is not; the argument reaches it.
 
 Where priority lives, and where it does not. Here is what does the work. Hold the
-trust fixed and A2 is the exact least local predicate that prices certification. Miss a
+trust fixed and A2 is the exact least local predicate that prices certification. Miss a cert-
+flip and the floor fails on a one-step trace. Charge a non-cert-flip and you overpay. So
+the only exact, non-overcharging substitute already is A2. That is an equivalence, and
+it is proved in both directions. There is even a concrete trusted rival in the running,
+erasure accounting, and it provably loses (a2_equal_trust_substitution_pa
+yoff, sharp forms substitution_test_exact_substitute_is_a2 and sub
+stitution_test_rejects_non_a2_exact_substitute). The structural axis
+(µ, cert) is the proved-minimal extension over (mem, regs, pc): cert is not a function
 
 
-                                             144
-The Thiele Machine                                                Devon Thiele • June 2026
+                                             149
+The Thiele Machine                                                  Devon Thiele • June 2026
 
 
-cert-flip and the floor fails on a one-step trace. Charge a non-cert-flip and you overpay.
-So the only exact, non-overcharging substitute already is A2. There is even a concrete
-trusted rival in the running, erasure accounting, and it provably loses (a2_equal_
-trust_substitution_payoff, sharp forms substitution_test_exact_su
-bstitute_is_a2 and substitution_test_rejects_non_a2_exact_subst
-itute). The structural axis (µ, cert) is the proved-minimal extension over (mem,
-regs, pc): cert is not a function of the rest, µ is not a function of the rest (P_full_i
-s_minimal_complete_extension). Drop either field and certification semantics
-stop being determinate. And a classical step rule cannot carry A2 as a law. It can only
-run a fallible checker of it, after the fact, from outside the step. That is what makes
-classical computation derivative and not merely projected: it is the state left over when
-you forget the law, and you cannot put the law back without rebuilding the substrate.
-None of that rides on initiality or on the projection/lift asymmetry, and here is the
-one-line reason to keep your eye on both. Initiality is the freest-object property. Z is
-the initial ring, and a Z with an inert tag bolted on is initial among tagged structures
-by the identical proof. The projection/lift asymmetry is generic to any field-drop, the
-tagged Z included. Neither prices anything, so neither buys priority. And there is
-a third generic I have to put on the table in the same breath, because it is the one
-a careful reader actually catches, and I would rather say it than have it said to me.
-The substitution contest ranks rules that charge a fixed event. Erasure accounting
-loses to A2 at pricing certification — but erasure would lose to almost any honest
-charger of almost any event, so what the contest settles is which charger, not which
-event. That certification is the event being priced is written into the setup; it is not
-a prize the contest awarded. Whether pricing that event, rather than head-reversals
-or anything else a step could be billed for, is itself forced — that I have not shown,
-and I am not going to claim it. The directional claim is true: classical is the canonical
-lossy projection, and Thiele strictly extends it. But it stands on the substitution and
-minimality results above, not on the asymmetry. Bolt A2 into a classical step rule and
-you have not extended classical computation. You have built the Thiele Machine. Read
-“initial” as freest. Never as deeper. The word that survives the proofs is “derivative,”
-scoped to a substrate that already prices certification, and it survives on substitution-
-adequacy and minimality plus the law-versus-checker fact — not on the projection
-asymmetry, and not on any claim that certification is the one event computation was
-secretly about all along. That last claim I have not shown, and it is not answered here.
+of the rest, µ is not a function of the rest (P_full_is_minimal_complete_exte
+nsion). Drop either field and certification semantics stop being determinate. And a
+classical step rule cannot carry A2 as a law. It can only run a fallible checker of it, after
+the fact, from outside the step. That is what makes classical computation derivative and
+not merely projected: it is the state left over when you forget the law, and you cannot
+put the law back without rebuilding the substrate. None of that rides on initiality or
+on the projection/lift asymmetry, and here is the one-line reason to keep your eye
+on both. Initiality is the freest-object property. Z is the initial ring, and a Z with
+an inert tag bolted on is initial among tagged structures by the identical proof. The
+projection/lift asymmetry is generic to any field-drop, the tagged Z included. Neither
+prices anything, so neither buys priority. And there is a third generic I have to put
+on the table in the same breath, because it is the one a careful reader actually catches,
+and I would rather say it than have it said to me. The substitution contest ranks rules
+that charge a fixed event. Erasure accounting loses to A2 at pricing certification — but
+erasure would lose to almost any honest charger of almost any event, so what the
+contest settles is which charger, not which event. That certification is the event being
+priced is written into the setup; it is not a prize the contest awarded. Whether pricing
+that event, rather than head-reversals or anything else a step could be billed for, is
+itself forced — that I have not shown, and I am not going to claim it. The directional
+claim is true: classical is the canonical lossy projection, and Thiele strictly extends it.
+But it stands on the substitution and minimality results above, not on the asymmetry.
+Bolt A2 into a classical step rule and you have not extended classical computation.
+You have built the Thiele Machine. Read “initial” as freest. Never as deeper. The
+word that survives the proofs is “derivative,” scoped to a substrate that already prices
+certification, and it survives on substitution-adequacy and minimality plus the law-
+versus-checker fact — not on the projection asymmetry, and not on any claim that
+certification is the one event computation was secretly about all along. That last claim
+I have not shown, and it is not answered here.
 
 The structural facts vs. the Thiele-specific content. Several load-bearing theorems
 in this document are instances of standard structural facts applied to the Thiele con-
@@ -7335,18 +7587,18 @@ specific delta is:
 
    • Irrecoverability theorems (cert_not_function_of_forget, mu_not
      _function_of_bare_observable, cert_addr_not_function_of
+     _forget). Standard parent: the expressibility limitation of a smaller
+     signature: no derived predicate on the bare classical projection captures
+     the dropped fields. Thiele-specific content: the choice of dropped fields
+     (vm_certified, vm_mu, csr_cert_addr) and the explicit reachable-state wit-
+     nesses (trace_witness_A, forget_witness_uncert, the bare-observable
+     and cert-addr witness pairs defined). The witnesses are not abstract; they are
 
 
-                                           145
-The Thiele Machine                                               Devon Thiele • June 2026
+                                            150
+The Thiele Machine                                                  Devon Thiele • June 2026
 
 
-      _forget). Standard parent: the expressibility limitation of a smaller
-      signature: no derived predicate on the bare classical projection captures
-      the dropped fields. Thiele-specific content: the choice of dropped fields
-      (vm_certified, vm_mu, csr_cert_addr) and the explicit reachable-state wit-
-      nesses (trace_witness_A, forget_witness_uncert, the bare-observable
-      and cert-addr witness pairs defined). The witnesses are not abstract; they are
       concrete computational states with named identifiers and verified forget equal-
       ities. The corollaries (no_classical_a2_cert_predicate etc.) are state-
       ments about what can be expressed on the bare classical signature, not just about
@@ -7360,7 +7612,8 @@ specific delta is:
      _structural_shortcut_undecidable). Standard parent: Kleene’s 1938
      diagonal pattern, abstracted from Turing-machine programs to any substrate
      exposing an internal recursion theorem and an internal representability pred-
-     icate. Thiele-specific content: the typeclass parameterization (Substrate
+     icate; the decider it rules out is one answering true exactly when the predi-
+     cate holds. Thiele-specific content: the typeclass parameterization (Substrate
      and WithShortcutPredicate typeclasses) that lifts the pattern above the
      Turing-machine setting, the choice of extensional predicate (AdmitsShortcut,
      branching on csr_cert_addr reachability), and the closed instantiation at
@@ -7376,27 +7629,27 @@ specific delta is:
      flen × 8 + S(δ) for LASSERT, etc.) and the reachability invariant that pins the
      unique function down on reachable states.
 
-Each of these is a true Coq theorem about the Thiele construction. Two of them
-carry the priority claim, and neither is generic. The first is minimality: P_full_i
-s_minimal_complete_extension proves that (µ, cert) is the proved-minimal
-extension over (mem, regs, pc): cert is not a function of (mem, regs, pc, µ), and µ is
-not a function of (mem, regs, pc, cert). That is the state A2 needs, a cert to read and
-a µ to charge, and dropping either field destroys completeness. The four standard
-structural facts above (irrecoverability, initiality, undecidability, µ-uniqueness) are
+Each of these is a true Coq theorem about the Thiele construction. Two of them carry
+the priority claim, and neither is generic. The first is minimality: P_full_is_mini
+mal_complete_extension proves that (µ, cert) is the proved-minimal extension
+over (mem, regs, pc): cert is not a function of (mem, regs, pc, µ), and µ is not a function
+of (mem, regs, pc, cert). That is the state A2 needs, a cert to read and a µ to charge, and
+dropping either field destroys completeness. The four standard structural facts above
+(irrecoverability, initiality, undecidability, µ-uniqueness) are generic in the sense that a
+tagged-Z-shaped field-drop has each one too; on their own they buy a richer extension,
+not priority. The second is sharper still. Holding trust fixed, A2 is the exact least local
+predicate that prices certification: a substitute that misses a cert-flip fails the floor
+on a one-step trace, one that charges a non-cert-flip overcharges, and the only exact
+non-overcharging substitute already is A2, an equivalence proved in both directions
 
 
-                                          146
+                                            151
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
-generic in the sense that a tagged-Z-shaped field-drop has each one too; on their
-own they buy a richer extension, not priority. The second is sharper still. Holding
-trust fixed, A2 is the exact least local predicate that prices certification: a substitute
-that misses a cert-flip fails the floor on a one-step trace, one that charges a non-cert-
-flip overcharges, and the only exact non-overcharging substitute already is A2 (a2
-_equal_trust_substitution_payoff, with sharp forms substitution_te
-st_exact_substitute_is_a2 and substitution_test_rejects_non_a2
-_exact_substitute). That is the design content of the Thiele construction: A2
+(a2_equal_trust_substitution_payoff, with sharp forms substitution_
+test_exact_substitute_is_a2 and substitution_test_rejects_non_a
+2_exact_substitute). That is the design content of the Thiele construction: A2
 lives in the step rule as a law, where flipping certification and charging µ are one
 and the same step, and a classical step rule can at most run a fallible checker of A2
 from outside. Initiality, irrecoverability, and undecidability are generic; minimality,
@@ -7411,7 +7664,7 @@ chain of cleared-integer Schur cascades. The latter is the closest the document 
 to non-routine algebraic content, and its mathematical bridge to quantum mechanics
 lives in the externally-cited NPA framework rather than inside the kernel.
 
-24 Conclusion
+25 Conclusion
 Two pillars close this document, one at the instance level and one at the substrate
 level.
 
@@ -7431,40 +7684,42 @@ shortcut-admittance predicate. A halting-shaped wall on the structural axis, bui
 the same diagonal Kleene used in 1938, run inside the substrate’s own machinery
 instead of borrowed from the time axis. I made it concrete on a substrate built out
 of three numbers and a fixpoint, every field discharged by hand, no Hypothesis and
-no Axiom, and the wall holds (nat_structural_shortcut_undecidable and
-
-
-                                           147
-The Thiele Machine                                                   Devon Thiele • June 2026
-
-
+no Axiom, and the wall holds — no representable decider answers true exactly when
+a program admits the shortcut (nat_structural_shortcut_undecidable and
 its corollary nat_self_undecidable; Print Assumptions comes back Closed
 under the global context, nothing assumed at all). That is the unconditional
 floor, the generic family Rice’s theorem also lives in. The certification-axis-specific
 form, where the predicate is tied to the supra-cert channel, is the VM corollary, con-
+
+
+                                          152
+The Thiele Machine                                                   Devon Thiele • June 2026
+
+
 ditional on its internal recursion theorem — a routine condition, not a live doubt
-(Section 18 sets out why).
+(Section 19 sets out why).
 
 CHSH-NPA at the instance level. The substrate-level structural-axis undecidability
 at the substrate level. What makes this document foundational is the universal A2
-cost floor: universal_nfi_any_substrate holds on any substrate that carries a
-certification predicate and charges A2 on the cert-flip as a law of its step rule, and P_
-full_is_minimal_complete_extension pins (µ, cert) as the proved-minimal
-extension over (mem, regs, pc), the state a step rule needs to read the cert and charge
-the µ. The CHSH-NPA and undecidability pillars are strong, but they are compan-
-ion facts. The foundational weight is the priority claim, and it rides on universality,
-scoped-minimality, and the law-versus-checker fact. Not on a physics-free Bell bridge,
-not on a Rice-family diagonal. The CHSH-NPA equivalence and the substrate-axis un-
-decidability are strong companion facts: an algebraic bridge with no physics premises
-on one side, and a limitative result internal to the substrate’s own typeclass machinery
-on the other. The 51 opcodes, the OCaml runtime, the Bluespec hardware, the parity
-tests, the simulator harness are scaffolding for one realization of the substrate; the
-universal cost floor and the lattice-scoped irredundancy of (µ, cert) over (mem, regs,
-pc) are facts about substrates, and the two theorems above are strong instances of how
-those facts cash out.
+cost floor: universal_nfi_any_substrate holds on any substrate that carries
+a certification predicate and charges A2 on the cert-flip as a law of its step rule (its
+only premises the two trace endpoints, given a run that starts uncertified and ends
+certified), and P_full_is_minimal_complete_extension pins (µ, cert) as the
+proved-minimal extension over (mem, regs, pc), the state a step rule needs to read the
+cert and charge the µ. The CHSH-NPA and undecidability pillars are strong, but they
+are companion facts. The foundational weight is the priority claim, and it rides on
+universality, scoped-minimality, and the law-versus-checker fact. Not on a physics-
+free Bell bridge, not on a Rice-family diagonal. The CHSH-NPA equivalence and the
+substrate-axis undecidability are strong companion facts: an algebraic bridge with no
+physics premises on one side, and a limitative result internal to the substrate’s own
+typeclass machinery on the other. The 51 opcodes, the OCaml runtime, the Bluespec
+hardware, the parity tests, the simulator harness are scaffolding for one realization of
+the substrate; the universal cost floor and the lattice-scoped irredundancy of (µ, cert)
+over (mem, regs, pc) are facts about substrates, and the two theorems above are strong
+instances of how those facts cash out.
 
 Each of these results carries an explicit falsification condition, and they are gathered in
-one place (Section 21): a zero-µ trace from uncertified to certified, a column-contractive
+one place (Section 22): a zero-µ trace from uncertified to certified, a column-contractive
 correlator with a non-PSD NPA matrix, a cost-rule-respecting CertificationSys
 tem that certifies at total cost zero, a nat function that decides nat_admits for its
 own substrate. Any one of them collapses the matching theorem. You can hunt for
@@ -7482,17 +7737,11 @@ machine and a real chip out of the same source. That is worth a lot. It is not p
 proof, if it’s here, is the argument, and the argument is in English on the pages above:
 A2 is the only rule that prices certification exactly, a classical step has no field to carry
 it, so classical computation is the lossy shadow of the thing that does. Don’t take the
-
-
-                                            148
-The Thiele Machine                                           Devon Thiele • June 2026
-
-
 checkmark’s word for that. Don’t take mine. Follow the argument, step by step, and
 if one of the steps gives, that’s the one I want to hear about.
 
 
 
 
-                                       149
+                                            153
 

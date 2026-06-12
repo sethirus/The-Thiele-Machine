@@ -31,7 +31,13 @@ def test_nofi_demo_self_checks():
         timeout=120,
     )
     assert proc.returncode == 0, proc.stdout + proc.stderr
-    assert "all 8 checks passed" in proc.stdout
+    assert "all 9 checks passed" in proc.stdout
+    # The three claims the demo's sections make, visible in its own output:
+    # the exhaustive sweep found nothing, the conservation identity held
+    # everywhere, and the under-floor strategy paid in errors.
+    assert "zero counterexamples" in proc.stdout
+    assert "on every instance" in proc.stdout
+    assert "discount is paid in errors" in proc.stdout
 
 
 @pytest.mark.coq

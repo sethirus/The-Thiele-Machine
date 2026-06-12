@@ -40,6 +40,7 @@ pytestmark = [pytest.mark.measurement]
 
 
 class TestRevealMeasurementProtocol:
+    @pytest.mark.strict_extracted
     def test_python_reveal_matches_quantitative_prediction(self):
         bits = 4
         cost = 5
@@ -53,6 +54,7 @@ class TestRevealMeasurementProtocol:
 
         assert state.vm_mu == _predicted_reveal_delta(bits, cost)
 
+    @pytest.mark.strict_extracted
     def test_python_sequential_reveal_costs_add_exactly(self):
         first_bits = 1
         first_cost = 0

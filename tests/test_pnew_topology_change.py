@@ -10,7 +10,12 @@ REF: coq/kernel/curvature/PNEWTopologyChange.v
      GRAVITY_PROOF_PLAN.md Phase 3
 """
 
+import pytest
+
 from build.thiele_vm import run_vm, VMState
+
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
 
 
 def compute_euler_characteristic(state: VMState) -> int:

@@ -217,6 +217,11 @@ Require Kernel.TsirelsonUniqueness.
 Require Kernel.TsirelsonUpperBound.
 Require Kernel.Unitarity.
 Require Kernel.ValidCorrelation.
+Require Kernel.GasMetering.
+Require Kernel.PoSFinality.
+Require Kernel.ProofCarryingVerifier.
+Require Kernel.TEEAttestation.
+Require Kernel.TransparencyLog.
 Require Kernel.AdditionalProbes.
 Require Kernel.BekensteinBound.
 Require Kernel.BekensteinCalibration.
@@ -3807,6 +3812,61 @@ Print Assumptions Kernel.Unitarity.zero_cost_implies_unitary.
 Print Assumptions Kernel.Unitarity.reversible_zero_cost_is_unitary.
 (* === Kernel.ValidCorrelation : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.ValidCorrelation.bell_math_deterministic.
+(* === Kernel.GasMetering : 15 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.GasMetering.gas_schedule_exactness.
+Print Assumptions Kernel.GasMetering.undercharged_opcode_admits_free_commitment.
+Print Assumptions Kernel.GasMetering.undercharged_opcode_breaks_certification_floor.
+Print Assumptions Kernel.GasMetering.overcharge_breaks_exactness.
+Print Assumptions Kernel.GasMetering.toy_charged_costs.
+Print Assumptions Kernel.GasMetering.toy_uncharged_free.
+Print Assumptions Kernel.GasMetering.toy_charge_is_cert_flip.
+Print Assumptions Kernel.GasMetering.toy_exact_unit_pricing.
+Print Assumptions Kernel.GasMetering.toy_gas_schedule_is_exact.
+Print Assumptions Kernel.GasMetering.thiele_commit_charged_costs.
+Print Assumptions Kernel.GasMetering.thiele_commit_uncharged_free.
+Print Assumptions Kernel.GasMetering.thiele_charge_is_cert_flip.
+Print Assumptions Kernel.GasMetering.thiele_exact_unit_pricing.
+Print Assumptions Kernel.GasMetering.thiele_vm_commit_pricing_is_exact.
+Print Assumptions Kernel.GasMetering.thiele_unit_price_lower_bounds_mu.
+(* === Kernel.PoSFinality : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PoSFinality.vote_preserves_finalized.
+Print Assumptions Kernel.PoSFinality.nothing_at_stake_free_finalization.
+Print Assumptions Kernel.PoSFinality.nothing_at_stake_is_free_forgery.
+Print Assumptions Kernel.PoSFinality.slashing_cert_costs.
+Print Assumptions Kernel.PoSFinality.slashing_finality_floor.
+(* === Kernel.ProofCarryingVerifier : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ProofCarryingVerifier.pcc_rounds_attach.
+Print Assumptions Kernel.ProofCarryingVerifier.pcc_attach_rounds.
+Print Assumptions Kernel.ProofCarryingVerifier.pcc_strip_attach.
+Print Assumptions Kernel.ProofCarryingVerifier.pcc_explains_lift.
+Print Assumptions Kernel.ProofCarryingVerifier.certificate_pins_mu.
+Print Assumptions Kernel.ProofCarryingVerifier.bare_transcript_does_not_pin_mu.
+Print Assumptions Kernel.ProofCarryingVerifier.proof_rounds_escape.
+Print Assumptions Kernel.ProofCarryingVerifier.bare_pcc_impossible.
+Print Assumptions Kernel.ProofCarryingVerifier.level_k_verification_floor.
+Print Assumptions Kernel.ProofCarryingVerifier.level_k_verification_floor_tight.
+(* === Kernel.TEEAttestation : 11 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TEEAttestation.reports_project_equal.
+Print Assumptions Kernel.TEEAttestation.report_A_explains_A.
+Print Assumptions Kernel.TEEAttestation.report_B_explains_B.
+Print Assumptions Kernel.TEEAttestation.attestation_cannot_factor_through_bare_transcript.
+Print Assumptions Kernel.TEEAttestation.replay_is_a_two_preimage_witness.
+Print Assumptions Kernel.TEEAttestation.measured_snapshot_explains.
+Print Assumptions Kernel.TEEAttestation.snapshot_state_mu.
+Print Assumptions Kernel.TEEAttestation.attest_decide_sound.
+Print Assumptions Kernel.TEEAttestation.attest_decide_complete.
+Print Assumptions Kernel.TEEAttestation.measurement_enriched_attestation_succeeds.
+Print Assumptions Kernel.TEEAttestation.working_attestation_verifier_reads_the_register.
+(* === Kernel.TransparencyLog : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TransparencyLog.inclusion_is_commitment.
+Print Assumptions Kernel.TransparencyLog.lbt_roundtrip.
+Print Assumptions Kernel.TransparencyLog.hardness_roundtrip.
+Print Assumptions Kernel.TransparencyLog.log_audit_is_hardness_decide.
+Print Assumptions Kernel.TransparencyLog.log_audit_weak_sound.
+Print Assumptions Kernel.TransparencyLog.transparency_log_escape.
+Print Assumptions Kernel.TransparencyLog.log_free_verifier_impossible.
+Print Assumptions Kernel.TransparencyLog.split_view_witness.
+Print Assumptions Kernel.TransparencyLog.split_view_same_verdict.
 (* === Kernel.AdditionalProbes : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.AdditionalProbes.margolus_levitin_bound.
 Print Assumptions Kernel.AdditionalProbes.margolus_levitin_time_lower.

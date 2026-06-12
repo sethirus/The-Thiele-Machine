@@ -7,8 +7,8 @@
     "coq/kernel/mu_calculus/MuInitiality.v",
     "coq/kernel/nfi/NoFreeInsight.v"
   ],
-  "file_node_count": 256,
-  "file_edge_count": 2602,
+  "file_node_count": 261,
+  "file_edge_count": 2645,
   "disconnected_file_count": 3,
   "disconnected_files": [
     "coq/kami_hw/RTLGapRegistry.v",
@@ -542,7 +542,7 @@
         "coq/kernel/mu_calculus/MuInitiality.v",
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
-      "out_edges": 67
+      "out_edges": 74
     },
     {
       "file": "coq/kernel/aggregators/NonCircularityAudit.v",
@@ -2681,6 +2681,71 @@
         "coq/kernel/nfi/NoFreeInsight.v"
       ],
       "out_edges": 3
+    },
+    {
+      "file": "coq/kernel/reductions/GasMetering.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 6
+    },
+    {
+      "file": "coq/kernel/reductions/PoSFinality.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 3
+    },
+    {
+      "file": "coq/kernel/reductions/ProofCarryingVerifier.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 12
+    },
+    {
+      "file": "coq/kernel/reductions/TEEAttestation.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 8
+    },
+    {
+      "file": "coq/kernel/reductions/TransparencyLog.v",
+      "connected_to_foundation": true,
+      "reached_foundation_files": [
+        "coq/kernel/foundation/MuCostModel.v",
+        "coq/kernel/foundation/MuLedgerConservation.v",
+        "coq/kernel/foundation/VMState.v",
+        "coq/kernel/foundation/VMStep.v",
+        "coq/kernel/mu_calculus/MuInitiality.v",
+        "coq/kernel/nfi/NoFreeInsight.v"
+      ],
+      "out_edges": 7
     },
     {
       "file": "coq/kernel/thermodynamic/AdditionalProbes.v",
