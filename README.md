@@ -8,6 +8,21 @@
 [![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20findings-brightgreen)](scripts/inquisitor.py)
 [![RTL bisimulation](https://img.shields.io/badge/RTL%20bisimulation-47%2F47%20Qed-orange)](coq/kami_hw/RTLGapRegistry.v)
 
+Every computer ever built tracks two things about a computation: how long it
+runs and how much space it uses. None of them track whether a result was
+actually earned. The Thiele machine adds that third axis. It prices
+certification, the move that turns a claim from unverified to verified, into
+the law that governs each step, so nothing gets stamped verified without
+paying for it. The price lives in the step rule itself, not in a checker
+bolted on top that a program could skip or fake. The machine computes nothing
+a classical computer can't: the same functions, the same limits. It just loses
+the ability to lie about what it computed.
+
+The machine is an abstract object, and I call it a **substrate**: a step rule
+with that one law built in. Every classical computer, the Turing machine and
+the one on your desk alike, is that same substrate run with the new axis held
+flat.
+
 ## Run it. Don't take my word.
 
 I don't trust my own eye to catch a gap in an argument I want to believe, so I
@@ -84,8 +99,6 @@ A normal computer can stamp "verified" on anything. The stamp is just code, and 
 
 This is a machine where that move is impossible. Not difficult, not unlikely. Impossible at the level of the step rule. A transition from "unverified" to "verified" cannot happen unless that transition pays a positive cost. The check isn't in software; it's in the law of motion. There is no checker to bypass, because there is no checker.
 
-Every ordinary computer tracks time and memory. None of them track *proof*. Two programs that both end with `verified = true` are indistinguishable to the machine running them, even if one did the work and the other forged it. This machine adds one axis of state and one rule, and that asymmetry disappears.
-
 This is not faster computation. It is not new computable functions. It is the same set of things you can compute, with one new constraint on *how* you can claim to have computed them.
 
 I call it a Thiele machine. The name is mine and it stays; the claims stand or fall on the theorems, not the label.
@@ -101,7 +114,7 @@ Each line is a thing I am willing to be wrong about by name. Wrong conclusion me
 
 1. If flipping a certification bit costs ≥ 1 (A2).
 2. And classical machines have no state slot to enforce this constraint at the step-transition level.
-3. Then classical machines are a structurally blind, strictly lossy projection of a substrate that does.
+3. Then classical machines are a structurally blind, strictly lossy projection of a substrate that does, a shadow of it.
 
 That's the whole claim. A napkin holds it. Delete the repository and the three lines still hold. The four steps below are this argument unfolded with kernel citations. Same content, more words.
 
