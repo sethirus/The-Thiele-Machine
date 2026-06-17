@@ -19,13 +19,13 @@ The classical theory of computation has two axes: time and space. The Thiele Mac
 
 **3. Classical computation is the projection.** `lift_config`, `thiele_simulates_turing`, and `degenerate_projection_theorem` (in `coq/kernel/foundation/`) mechanise that classical computation is exactly the image of substrate computation under the projection that forgets the structural axis. `D4_strictness` witnesses substrate states with no classical preimage. Every Turing machine, every register machine, every lambda-calculus reducer, every CPU on every desk: a Thiele Machine running with the structural axis sidelined.
 
-**4. Every concept disclosed below is downstream of these four steps.** The foundational claim does not require 47 opcodes, an FPGA, or any of the specific instruction semantics enumerated in this document. The minimum instruction set that witnesses the substrate is two opcodes: any classical compute primitive (so subsumption has something to project to) and one opcode that flips certification (so A2 has something to enforce). `instr_certify` is the load-bearing opcode for A2; everything else is engineering exploration of what the substrate can express.
+**4. Every concept disclosed below is downstream of these four steps.** The foundational claim does not require 51 opcodes, an FPGA, or any of the specific instruction semantics enumerated in this document. The minimum instruction set that witnesses the substrate is two opcodes: any classical compute primitive (so subsumption has something to project to) and one opcode that flips certification (so A2 has something to enforce). `instr_certify` is the load-bearing opcode for A2; everything else is engineering exploration of what the substrate can express.
 
 **The hardware/software objection.** The standard objection: A2 can be enforced in software on a TM, so the substrate distinction is a hardware/software boundary, not a fundamental one. It fails in one sentence. A Turing machine cannot refuse to execute a buggy A2-simulator. A Thiele substrate cannot execute one. Load a Thiele simulator onto a TM with a bug — a program that certifies without incrementing μ. The TM runs it faithfully, because its step rule has no field for A2 and cannot detect the bug. Load the same buggy program onto a Thiele substrate; the step rule traps. A2 is not interpreted by the simulator and could be skipped; it is the transition law itself. Subsumption is a step-rule claim, not a software-layer claim. "Thiele is simulable on a TM" is true but is not the question. The question is whether Thiele's step rule can be written down on a TM, and it cannot.
 
 **The "tagged extension" objection.** A second objection: the structural axis is merely an extra field tagged onto classical state, the way ℤ can be tagged and called richer — an extension, not a foundation. It fails to one machine-checked fact. A2 is the *exact least local predicate* for certification-commitment pricing: a substitute that misses a cert-flip fails the cost floor on a one-step trace, and a substitute that charges a non-cert-flip overcharges — the only exact, non-overcharging substitute *is* A2. This holds *with trust fixed* — trusted law against trusted law, same target property on both sides — so it is not the generic "trusted beats untrusted" gap available to any tag. The result is `a2_equal_trust_substitution_payoff` (`coq/kernel/nfi/A2Payoff.v`, closed under the global context), and the sharp forms `substitution_test_exact_substitute_is_a2` and `substitution_test_rejects_non_a2_exact_substitute` (`coq/kernel/nfi/CommitmentPredicateAdequacy.v`). A tag on ℤ is an inert coordinate over a ring that was already complete without it. A2 is the one exact pricing law over the proved-minimal (`vm_mu`, `vm_certified`) extension, and a classical step rule can't even *state* it. It is an extension, yes — but not a tag. The added field does real work in the step, where a tag on ℤ does none, and a classical step rule can't even state the law that field carries. That is the difference that matters: a working coordinate, not an inert one.
 
-The concrete realisation disclosed in the remainder of this document is a Coq kernel formalisation of µ (a monotone cost ledger), No Free Insight (a cost-floor law proven from the kernel's step function), a 47-opcode instruction set architecture, an extracted OCaml reference runner, and synthesizable Verilog RTL extracted from Coq through the Kami framework. All theorems described here have been machine-checked in Coq with zero admitted lemmas in the active proof tree.
+The concrete realisation disclosed in the remainder of this document is a Coq kernel formalisation of µ (a monotone cost ledger), No Free Insight (a cost-floor law proven from the kernel's step function), a 51-opcode instruction set architecture, an extracted OCaml reference runner, and synthesizable Verilog RTL extracted from Coq through the Kami framework. All theorems described here have been machine-checked in Coq with zero admitted lemmas in the active proof tree.
 
 ---
 
@@ -59,7 +59,7 @@ The concrete realisation disclosed in the remainder of this document is a Coq ke
 1. `csr_cert_addr`: set to the ASCII checksum of a property string when MORPH_ASSERT succeeds on a non-empty property.
 2. `vm_certified`: set to true by the CERTIFY opcode.
 
-Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No other instruction touches either channel. This is verified by case analysis over all 46 opcodes. Therefore any trace that activates either channel paid at least 1. `AbstractNoFI.v`, `NoFreeInsight.v`.
+Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No other instruction touches either channel. This is verified by case analysis over all 51 opcodes. Therefore any trace that activates either channel paid at least 1. `AbstractNoFI.v`, `NoFreeInsight.v`.
 
 **Abstract version.** The theorem holds for any abstract certification system satisfying: (a) a certification predicate, (b) a step function, (c) a cost function where every single-step uncertified→certified transition costs ≥ 1. The Thiele Machine is an instance. `coq/kernel/nfi/AbstractNoFI.v`, theorem `no_free_certification`. The substrate-agnostic version is `universal_nfi_any_substrate` in `coq/kernel/nfi/UniversalCertificationCost.v`.
 
@@ -137,7 +137,7 @@ Both CERTIFY and MORPH_ASSERT are in the mandatory-floor class (cost ≥ 1). No 
 
 **What it is.** The Thiele Machine is specified once in Coq and instantiated in three forms: (1) the Coq kernel itself (`coq/kernel/foundation/VMState.v`, `VMStep.v`), (2) an OCaml runner extracted from Coq via Coq's standard extraction mechanism (`build/thiele_core.ml`), and (3) synthesizable Verilog RTL extracted from Coq through the Kami hardware description framework (`thielecpu/hardware/rtl/thiele_cpu_kami.v`).
 
-**What is proven.** `coq/kami_hw/Abstraction.v` establishes that the hardware step relation refines the kernel step relation: `kami_refines_vm_step`. This is proven for all 46 opcodes; the official partition (`rtl_coverage_partition` in `coq/kami_hw/RTLGapRegistry.v`) is 36 unconditional + 10 under the joint structural invariant `morph_table_wf ∧ coupling_wf ∧ coupling_desc_safe` + 0 gaps = 46. Each component of the joint invariant is preserved by every `kami_step` (`morph_table_wf_kami_step_preserved`, `coupling_desc_safe_kami_step_preserved`, `coupling_wf_kami_step_preserved`); the latter takes `coupling_desc_safe` as a side hypothesis, which is why the conjunction is the actual inductive invariant. Zero structural gaps: `coq/kami_hw/RTLGapRegistry.v`, theorem `rtl_gap_count`.
+**What is proven.** `coq/kami_hw/Abstraction.v` establishes that the hardware step relation refines the kernel step relation: `kami_refines_vm_step`. This is proven for all 47 synth-realised opcodes; the official partition (`rtl_coverage_partition` in `coq/kami_hw/RTLGapRegistry.v`) is 37 unconditional + 10 under the joint structural invariant `morph_table_wf ∧ coupling_wf ∧ coupling_desc_safe` + 0 gaps = 47. Each component of the joint invariant is preserved by every `kami_step` (`morph_table_wf_kami_step_preserved`, `coupling_desc_safe_kami_step_preserved`, `coupling_wf_kami_step_preserved`); the latter takes `coupling_desc_safe` as a side hypothesis, which is why the conjunction is the actual inductive invariant. Zero structural gaps: `coq/kami_hw/RTLGapRegistry.v`, theorem `rtl_gap_count`.
 
 **Variants disclosed.** Any pipeline that: (a) derives multiple independent executable artifacts (software interpreter, RTL, bytecode VM) from a single formal specification, (b) maintains cross-layer correctness via machine-checked refinement proofs, and (c) uses automated test gates to verify observable equivalence on shared projections — is a variant of this concept.
 
@@ -203,6 +203,24 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 
 ---
 
+## Concept 15: The Second Axis of Undecidability
+
+**Statement.** Computation has a second axis of undecidability — carried on the structural channel — that the classical (Turing) configuration provably cannot express. Three results, each a closed Coq theorem (zero project-local axioms, `Closed under the global context`):
+
+- **The axis carries its own undecidable predicate.** No internally representable decision procedure decides "this program admits a sound structural shortcut." Substrate-level: `structural_shortcut_undecidable` (`coq/kernel/nfi/StructuralUndecidability.v`), a Kleene-1938 diagonalization over the abstract `Substrate` typeclass. Unconditional for a concrete nat-coded substrate: `nat_structural_shortcut_undecidable` (`coq/kernel/foundation/NatSubstrateInstance.v`). For the actual 51-opcode VM the Gödel encoding is **discharged concretely** (program code stored via `program_to_nat` in `vm_logic_acc`, round-trip `nat_to_program_program_to_nat`); the VM theorem `vm_structural_shortcut_undecidable_encoded` (`coq/kernel/nfi/VMSubstrateEncoded.v`) is then conditional on exactly one premise — the VM's internal recursion theorem (a universal interpreter as a `list vm_instruction` plus s-m-n).
+
+- **The predicate is not a function of the classical configuration (Rung A, the keystone).** `structural_shortcut_not_function_of_classical` / `structural_axis_invisible_to_classical` (`coq/kernel/nfi/StructuralAxisOrthogonality.v`): no function of the Turing configuration `forget s : TMSnapshot` agrees with the structural-shortcut reading on every state. The witnesses are two states **reachable** from `init_state` — `run_cert_set` (fires the cert channel, `csr_cert_addr = 650`) and `run_cert_unset` (a cost-matched no-cert run, `csr_cert_addr = 0`) — with byte-identical `forget` image. This is the dividing line from Rice's theorem: the predicate is not present in the classical input, so no classical decider can be correct about it for an information-theoretic reason, on top of the computational one.
+
+- **It survives any classical oracle (Rung B).** `structural_axis_survives_any_classical_oracle` / `structural_axis_survives_halting_oracle` (`coq/kernel/nfi/StructuralAxisRelativization.v`): no decider reading the classical configuration plus any classical oracle — a halting oracle included — is correct. The obstruction is information-theoretic, so it relativizes for free: a classical oracle's answer is itself a function of `forget s`.
+
+- **The two axes are mutually independent, and that is not a Turing-degree gap (Rung C).** `axes_mutually_independent` (each axis not a function of the other's projection, reachable witnesses both ways) together with `structural_membership_decidable` (the structural-shortcut set is decidable from the full state — Turing degree 0, below halting, hence *comparable*, not incomparable). The independence is therefore information-theoretic, not degree-theoretic; the decidability theorem is an explicit guard against the degree-theoretic over-reading.
+
+**What it does not claim.** µ is used only as a monotone ledger; this does not establish µ measures entropy or Kolmogorov information. The mutual independence is not a Turing-degree separation. The VM undecidability is conditional on the VM recursion theorem; the unconditional discharge is the nat substrate.
+
+**Variants disclosed.** Any computational model carrying state at the step-transition level that a classical projection drops, equipped with a predicate detected through that state, where (i) the predicate is undecidable by the model's own deciders and (ii) the predicate is provably not a function of the classical projection — so that no classical decider, oracle-equipped or not, can be correct about it — is a variant of this concept.
+
+---
+
 ## Prior Art Timeline
 
 | Date | Event |
@@ -214,7 +232,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 | May 2026 | v2.0.0 published to GitHub and Zenodo. Disclosure and monograph published. |
 | June 2026 | v2.0.1 update: zero admits confirmed across 267 files; 3,823 theorems probed, zero project-local axioms. |
 | June 2026 | v2.0.2 update: corrected the four-body conjugate-cell sign in the Q_{1+AB} moment matrix — the (A₀B₁, A₁B₀) cell carries −γ5, not +γ5 (forced by ⟨B₀B₁⟩ = 0). The level-1+AB CHSH certification now reaches the Tsirelson bound 2√2 instead of capping at the classical 2; the prior definition silently identified the two four-body cells, collapsing the certified cone to the local polytope. Regression guards added (a CHSH = 2.4 correlator the check now certifies and previously could not). Full corpus recompiles with zero project-local axioms. |
-| June 2026 | v3.0.0: the reductions tier lands — five real-world systems (PoS finality, gas metering, TEE attestation, certificate transparency, proof-carrying verification) instantiated against the kernel's abstract records, every main theorem closed under the global context. Receipt regenerated: 272 files, 3,873 theorems probed, zero project-local axioms. Kernel feature-frozen. |
+| June 2026 | v3.0.0: the reductions tier lands — five real-world systems (PoS finality, gas metering, TEE attestation, certificate transparency, proof-carrying verification) instantiated against the kernel's abstract records, every main theorem closed under the global context. Receipt regenerated: 273 files, 3,905 theorems probed, zero project-local axioms. Kernel feature-frozen. |
 
 ---
 
@@ -223,7 +241,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 All claims in this disclosure are verifiable by running:
 
 ```bash
-make -C coq -j4          # builds all 272 Coq files listed in coq/_CoqProject
+make -C coq -j4          # builds all 273 Coq files listed in coq/_CoqProject
 python3 scripts/inquisitor.py  # confirms zero findings
 pytest tests/ -q         # full suite, zero failures
 ```

@@ -31,6 +31,10 @@ except Exception:  # pragma: no cover
 ROOT = Path(__file__).resolve().parents[1]
 OUT_DIR = ROOT / "artifacts" / "proof_gate"
 
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+from _signing_key import resolve_signing_key_path
+
 
 def utc_now() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -118,8 +122,13 @@ def main() -> int:
     )
     parser.add_argument(
         "--signing-key-file",
-        default="artifacts/keys/bitlock_ed25519_private.pem",
-        help="Ed25519 private key path (created if missing)",
+        default=None,
+        help=(
+            "Ed25519 private key path for an authenticated signature. "
+            "Defaults to $THIELE_BITLOCK_SIGNING_KEY, else the non-secret "
+            "committed reproducibility fixture (integrity-only; warns). "
+            "Created if the chosen path is missing."
+        ),
     )
     parser.add_argument(
         "--bitlock-timeout",
@@ -224,7 +233,7 @@ def main() -> int:
     summary: Dict[str, Any] = dict(summary_unsigned)
     summary["aggregate_digest"] = hashlib.sha256(unsigned_bytes).hexdigest()
 
-    key = load_or_create_key(ROOT / args.signing_key_file)
+    key = load_or_create_key(resolve_signing_key_path(args.signing_key_file))
     if key is not None:
         sig = key.sign(unsigned_bytes)
         pub_hex = key.public_key().public_bytes(

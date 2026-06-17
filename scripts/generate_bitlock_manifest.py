@@ -25,9 +25,11 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import (
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from build import thiele_vm as text_vm
 from thielecpu.hardware.cosim import run_verilog
+from _signing_key import resolve_signing_key_path
 
 
 def sha256_bytes(data: bytes) -> str:
@@ -258,8 +260,13 @@ def main() -> int:
     parser.add_argument("--seed-stride", type=int, default=7919, help="Deterministic seed stride")
     parser.add_argument(
         "--signing-key-file",
-        default="artifacts/keys/bitlock_ed25519_private.pem",
-        help="Ed25519 private key path (created if missing)",
+        default=None,
+        help=(
+            "Ed25519 private key path for an authenticated signature. "
+            "Defaults to $THIELE_BITLOCK_SIGNING_KEY, else the non-secret "
+            "committed reproducibility fixture (integrity-only; warns). "
+            "Created if the chosen path is missing."
+        ),
     )
     args = parser.parse_args()
 
@@ -315,7 +322,7 @@ def main() -> int:
     unsigned_bytes = canonical_json_bytes(manifest_unsigned)
     aggregate_digest = sha256_bytes(unsigned_bytes)
 
-    signing_key = load_or_create_signing_key(Path(args.signing_key_file))
+    signing_key = load_or_create_signing_key(resolve_signing_key_path(args.signing_key_file))
     signature = signing_key.sign(unsigned_bytes)
     pub = signing_key.public_key()
 

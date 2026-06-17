@@ -257,6 +257,13 @@ certificates/
 kernel_secret.key
 kernel_public.key
 
+# Any real Ed25519 signing key dropped into artifacts/keys/ stays local.
+# The ONLY exception is the documented non-secret reproducibility fixture
+# (artifacts/keys/README.md), which is intentionally tracked.
+artifacts/keys/*.pem
+!artifacts/keys/bitlock_ed25519_private.pem
+!artifacts/keys/bitlock_ed25519_private.pub.pem
+
 # =============================================================================
 # Local-only docs (live in .claude/, not for GitHub)
 # =============================================================================

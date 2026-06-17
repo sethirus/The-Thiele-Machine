@@ -192,7 +192,7 @@ Qed.
     the maximum achievable closure within Coq's scope.
 
     scripts/parity_extracted_only.sh verifies the extracted OCaml runner
-    against the Coq spec on all 46 opcode arms, all 12 ExtractionObservable
+    against the Coq spec on all 47 opcode arms, all 12 ExtractionObservable
     fields, and 59 named test cases from the corpus.
 
     Cannot be formally proved in Coq without a formalization of OCaml.
@@ -210,7 +210,7 @@ Section ExtractionBisimulationHypothesis.
 
     TRUST BASIS:
     (a) Letouzey (2004): Coq extraction is type-preserving.
-    (b) CI parity suite: 59 tests × 46 opcode arms, all 12 fields verified.
+    (b) CI parity suite: 59 tests × 47 opcode arms, all 12 fields verified.
     (c) Coq extraction is deterministic and mechanical. *)
 Lemma ocaml_runner_agrees :
   forall (s : VMState) (i : vm_instruction),

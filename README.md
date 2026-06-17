@@ -27,7 +27,7 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 3,873 theorems
+The second command prints the committed assumption receipt: 3,937 theorems
 probed, zero user or third-party axiom findings. **The output of these two
 commands is the ground floor for any review, human or AI. An assessment
 without it is an assessment of the prose, not of the repository.**
@@ -82,7 +82,7 @@ its own and tells you before I can.
 
 A normal computer can stamp "verified" on anything. The stamp is just code, and code can be buggy, skipped, or lying. Nothing in the machine prevents a program from claiming a result it didn't earn.
 
-This is a machine where that move is impossible. Not difficult, not unlikely — impossible at the level of the step rule. A transition from "unverified" to "verified" cannot happen unless that transition pays a positive cost. The check isn't in software; it's in the law of motion. There is no checker to bypass, because there is no checker.
+This is a machine where that move is impossible. Not difficult, not unlikely. Impossible at the level of the step rule. A transition from "unverified" to "verified" cannot happen unless that transition pays a positive cost. The check isn't in software; it's in the law of motion. There is no checker to bypass, because there is no checker.
 
 Every ordinary computer tracks time and memory. None of them track *proof*. Two programs that both end with `verified = true` are indistinguishable to the machine running them, even if one did the work and the other forged it. This machine adds one axis of state and one rule, and that asymmetry disappears.
 
@@ -90,31 +90,31 @@ This is not faster computation. It is not new computable functions. It is the sa
 
 I call it a Thiele machine. The name is mine and it stays; the claims stand or fall on the theorems, not the label.
 
-**See it in code:** [examples/demo_knowledge_receipt.py](examples/demo_knowledge_receipt.py) — four acts: a forged claim refused, an earned path, a certified claim, and two classically-identical programs separated by one probe instruction.
+**See it in code:** [examples/demo_knowledge_receipt.py](examples/demo_knowledge_receipt.py), in four acts: a forged claim refused, an earned path, a certified claim, and two classically-identical programs separated by one probe instruction.
 
 Everything in this repository other than the proof tree of the idea above is a **realization** of it: a particular instantiation in some computational medium. The OCaml runner extracted from the Coq kernel is a realization. The Kami RTL design synthesised through Bluespec and yosys is a realization. The FPGA bitstream is a realization. They are scaffolding for the claim, not the claim itself. The thing being claimed is the abstract object; the realizations are how you make contact with it.
 
 
 ## In three lines
 
-Each line is a thing I am willing to be wrong about by name. Wrong conclusion means wrong premise — the law you learned in tenth grade and have not been asked to unlearn since. There is no third move.
+Each line is a thing I am willing to be wrong about by name. Wrong conclusion means wrong premise, the law you learned in tenth grade and have not been asked to unlearn since. There is no third move.
 
 1. If flipping a certification bit costs ≥ 1 (A2).
 2. And classical machines have no state slot to enforce this constraint at the step-transition level.
 3. Then classical machines are a structurally blind, strictly lossy projection of a substrate that does.
 
-That's the whole claim. A napkin holds it. Delete the repository and the three lines still hold. The four steps below are this argument unfolded with kernel citations — same content, more words.
+That's the whole claim. A napkin holds it. Delete the repository and the three lines still hold. The four steps below are this argument unfolded with kernel citations. Same content, more words.
 
 Where to look. The first line is A2, and A2 is two clauses and an integer. A step that flips cert costs at least one, the rule fits on the napkin with the conclusion, and the check is finite, public, and yours to run. The second line is the kind of fact you defeat by writing down a different Turing machine, and I'd genuinely love for someone to. Here's how it goes when I try. A state type with a field the step rule reads to see whether the last move flipped cert has already left the classical world, which was the claim. A state type that stays classical has the fields it has, and I can list them; none of them is that field. There aren't any. That is not philosophy, that is just the signature, sitting there.
 
-The next move is the simulator: decline the field, run my rule as a program on the tape, increment cert in the program. Granted. The TM produces every trace I produce, beat for beat. It produces the buggy ones too — faithful is what TMs do. The substrate cannot run the buggy version. That gap — same trace minus the *can't* — is line 3. Simulation is not the escape from the projection. Simulation *is* the projection with the loss made operational.
+The next move is the simulator: decline the field, run my rule as a program on the tape, increment cert in the program. Granted. The TM produces every trace I produce, beat for beat. It produces the buggy ones too. Faithful is what TMs do. The substrate cannot run the buggy version. That gap, same trace minus the *can't*, is line 3. Simulation is not the escape from the projection. Simulation *is* the projection with the loss made operational.
 
 The stakes are that specific. Coq is a notebook of receipts; the arithmetic comes out the way it comes out.
 
 
 ## The argument, formally
 
-The opener says it in plain English. Here it is as four steps for the technical reader, each backed by a Coq theorem. The classical theory of computation has two axes: time and space. This machine adds a third, certification cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. If a step doesn't land for you, that's the interesting place to push — and the honest news is that there's no step-zero objection that does any work without engaging the structure, which is the whole reason I bothered to lay the steps out one at a time.
+The opener says it in plain English. Here it is as four steps for the technical reader, each backed by a Coq theorem. The classical theory of computation has two axes: time and space. This machine adds a third, certification cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. If a step doesn't land for you, that's the interesting place to push, and the honest news is that there's no step-zero objection that does any work without engaging the structure, which is the whole reason I bothered to lay the steps out one at a time.
 
 **1. A2 constrains state fields the bare classical signatures don't have.**
 
@@ -126,11 +126,11 @@ Any model that formalizes certification cost at the step rule must carry state t
 
 **3. Classical computation is the projection, and the projection is not invertible.**
 
-[`lift_config`](coq/kernel/foundation/ProperSubsumption.v#L153) sends every Turing-machine configuration to a Thiele configuration. [`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v#L172) runs every Turing-machine trace inside the substrate, same tape, same state. [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v) closes the loop in one direction: classical computation is the image of substrate computation under the projection that forgets the structural axis. [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v) closes the other direction: every classical state has multiple Thiele preimages, so any lift back is non-canonical and requires external choice of cost schedule, graph state, and certification flag. [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v) witnesses substrate states with no classical preimage. Same computable functions on both sides; classical machines are the canonical projection — the forgetting is the choice-free direction, the lift back is not — the smaller structure, the substrate with the structural axis dropped.
+[`lift_config`](coq/kernel/foundation/ProperSubsumption.v#L153) sends every Turing-machine configuration to a Thiele configuration. [`thiele_simulates_turing`](coq/kernel/foundation/ProperSubsumption.v#L172) runs every Turing-machine trace inside the substrate, same tape, same state. [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v) closes the loop in one direction: classical computation is the image of substrate computation under the projection that forgets the structural axis. [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v) closes the other direction: every classical state has multiple Thiele preimages, so any lift back is non-canonical and requires external choice of cost schedule, graph state, and certification flag. [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v) witnesses substrate states with no classical preimage. Same computable functions on both sides; classical machines are the canonical projection: the forgetting is the choice-free direction, the lift back is not, the smaller structure, the substrate with the structural axis dropped.
 
 **4. Which step is doing the work.**
 
-Step 1 is a sentence about what a classical step relation can carry, witnessed by `cert_not_function_of_forget`. Step 2 follows, witnessed by `mu_not_function_of_bare_observable`. Step 3 is mechanized in Coq with the theorem names above; the projection/lift asymmetry is witnessed by `fiber_has_two_preimages`. But that asymmetry alone is not where the weight sits, and I want to be precise about this, because it's the spot the whole claim gets attacked. Any field-drop has a unique forgetful map and a non-canonical lift — tagged-ℤ has exactly that asymmetry too, and it buys a richer extension, nothing more. Three machine-checked facts the asymmetry can't reach are what make the gap bite: (μ, cert) is the proved-minimal extension over (mem, regs, pc): cert isn't a function of the rest, μ isn't a function of the rest ([`P_full_is_minimal_complete_extension`](coq/kernel/nfi/NecessityAbstract.v#L748)), the state a step rule needs to read the cert from and charge the μ to; A2 is the *exact least* local pricing law for the cert-flip — miss a cert-flip and you fail the floor on a one-step trace, charge a non-cert-flip and you overcharge, so the only exact non-overcharging substitute *is* A2, proved holding trust fixed ([`substitution_test_rejects_non_a2_exact_substitute`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L388), [`substitution_test_exact_substitute_is_a2`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L402), packaged in [`a2_equal_trust_substitution_payoff`](coq/kernel/nfi/A2Payoff.v#L47)); and a classical step rule can only run a fallible checker of A2, never carry it as the law. So here's what it comes to: classical is the smaller structure, the state left when you forget the law, and the field it's missing is the one you'd most want a machine to enforce in the step. It's tempting to pattern-match the whole thing to a metaphor and move on, and I get the reflex, but check the cited theorems rather than the vibe: they stand or fall on whether they hold, not on what they sound like.
+Step 1 is a sentence about what a classical step relation can carry, witnessed by `cert_not_function_of_forget`. Step 2 follows, witnessed by `mu_not_function_of_bare_observable`. Step 3 is mechanized in Coq with the theorem names above; the projection/lift asymmetry is witnessed by `fiber_has_two_preimages`. But that asymmetry alone is not where the weight sits, and it is the exact spot the claim gets misread, so here is the precise version. Any field-drop has a unique forgetful map and a non-canonical lift; tagged-ℤ has exactly that asymmetry too, and it buys a richer extension, nothing more. Three machine-checked facts the asymmetry can't reach are what make the gap bite: (μ, cert) is the proved-minimal extension over (mem, regs, pc): cert isn't a function of the rest, μ isn't a function of the rest ([`P_full_is_minimal_complete_extension`](coq/kernel/nfi/NecessityAbstract.v#L748)), the state a step rule needs to read the cert from and charge the μ to; A2 is the *exact least* local pricing law for the cert-flip: miss a cert-flip and you fail the floor on a one-step trace, charge a non-cert-flip and you overcharge, so the only exact non-overcharging substitute *is* A2, proved holding trust fixed ([`substitution_test_rejects_non_a2_exact_substitute`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L388), [`substitution_test_exact_substitute_is_a2`](coq/kernel/nfi/CommitmentPredicateAdequacy.v#L402), packaged in [`a2_equal_trust_substitution_payoff`](coq/kernel/nfi/A2Payoff.v#L47)); and a classical step rule can only run a fallible checker of A2, never carry it as the law. So here's what it comes to: classical is the smaller structure, the state left when you forget the law, and the field it's missing is the one you'd most want a machine to enforce in the step. It's tempting to pattern-match the whole thing to a metaphor and move on, and I get the reflex, but check the cited theorems rather than the vibe: they stand or fall on whether they hold, not on what they sound like.
 
 The four steps are the entire foundational claim. They do not need 51 opcodes, do not need an FPGA, do not need CHSH. The minimum instruction set that witnesses the substrate is two opcodes: any classical compute primitive (so subsumption has something to project to) plus one opcode that flips certification (so A2 has something to enforce). `instr_certify` is the load-bearing opcode for A2; the rest of the ISA is exploration of what the substrate can express, not what it requires.
 
@@ -145,15 +145,15 @@ Everything else in this repository is a realization of the substrate, not the su
 
 Step 3 says classical computation is the substrate's forgetful projection. Run that through verifier theory and the same projection produces a verification impossibility.
 
-A verifier whose transcript is `list StrictClassicalState` — the strict-shadow trace — cannot soundly decide a claim that depends on μ. The two single-step witnesses from the Core Proof project to the same classical trace; one satisfies the μ=1 claim, one does not. Soundness forces the claim to hold for every state that could explain the transcript, including the one where it fails. Completeness forces acceptance on the honest run. Both bars cannot be cleared. The bare-setting impossibility is `bare_setting_no_sound_complete_verifier`, in [coq/VerifierImpossibility.v](coq/VerifierImpossibility.v).
+A verifier whose transcript is `list StrictClassicalState`, the strict-shadow trace, cannot soundly decide a claim that depends on μ. The two single-step witnesses from the Core Proof project to the same classical trace; one satisfies the μ=1 claim, one does not. Soundness forces the claim to hold for every state that could explain the transcript, including the one where it fails. Completeness forces acceptance on the honest run. Both bars cannot be cleared. The bare-setting impossibility is `bare_setting_no_sound_complete_verifier`, in [coq/VerifierImpossibility.v](coq/VerifierImpossibility.v).
 
 Three structurally distinct ways to clear both bars, each with a concrete sufficient verifier in the kernel:
 
-- **Substrate** — the transcript carries the full `VMState`; the verifier reads `vm_mu` directly. `substrate_escape_succeeds`, in [coq/VerifierEscape_Substrate.v](coq/VerifierEscape_Substrate.v).
-- **Hardness** — the transcript carries an unforgeable commitment; the verifier accepts under a hardness hypothesis. `hardness_escape_succeeds`, in [coq/VerifierEscape_Hardness.v](coq/VerifierEscape_Hardness.v).
-- **Interaction** — the verifier challenges the prover for a response that pins the claim. `interactive_escape_succeeds`, in [coq/VerifierEscape_Interaction.v](coq/VerifierEscape_Interaction.v).
+- **Substrate**: the transcript carries the full `VMState`; the verifier reads `vm_mu` directly. `substrate_escape_succeeds`, in [coq/VerifierEscape_Substrate.v](coq/VerifierEscape_Substrate.v).
+- **Hardness**: the transcript carries an unforgeable commitment; the verifier accepts under a hardness hypothesis. `hardness_escape_succeeds`, in [coq/VerifierEscape_Hardness.v](coq/VerifierEscape_Hardness.v).
+- **Interaction**: the verifier challenges the prover for a response that pins the claim. `interactive_escape_succeeds`, in [coq/VerifierEscape_Interaction.v](coq/VerifierEscape_Interaction.v).
 
-The substrate channel is the option the structural axis makes available. The other two are what classical cryptography and complexity already use. The trichotomy is closed at the bottom by `V_does_not_factor_through_classical` in [coq/VerifierExhaustiveness.v](coq/VerifierExhaustiveness.v): any sound + complete verifier on the μ-sensitive claim, over any transcript type, cannot be a function of the transcript's classical projection. Verification must access non-classical structure. The three escapes are three concrete ways to expose it; the theorem is blunt about it — there's no fourth way, exposure is the price of admission.
+The substrate channel is the option the structural axis makes available. The other two are what classical cryptography and complexity already use. The trichotomy is closed at the bottom by `V_does_not_factor_through_classical` in [coq/VerifierExhaustiveness.v](coq/VerifierExhaustiveness.v): any sound + complete verifier on the μ-sensitive claim, over any transcript type, cannot be a function of the transcript's classical projection. Verification must access non-classical structure. The three escapes are three concrete ways to expose it; the theorem is blunt about it: there's no fourth way, exposure is the price of admission.
 
 ## Clarification: simulation vs. substrate
 
@@ -237,7 +237,7 @@ Closed under the global context
 
 The broader audit receipt
 [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-records 3,873 addressable theorems probed and no user/project-local axiom
+records 3,937 addressable theorems probed and no user/project-local axiom
 findings in the committed assumption scan.
 
 ## Why It Is Not Just A Toy Counter
@@ -270,7 +270,7 @@ law.
 
 ## The Objection I Agree With
 
-The strongest objection isn't the toy counter — it's parametricity. The
+The strongest objection isn't the toy counter. It's parametricity. The
 separation, minimality, and uniqueness theorems are schema-parametric: pick
 any field a step rule carries that classical state doesn't determine (a
 flavor bit, a karma score, a tagged integer) and the same three theorems go
@@ -291,19 +291,19 @@ mathematics pointing at it.
 
 Whether *certification* is the event a model is forced to price, rather than
 something else a step could be billed for, I have not shown, and I am not
-claiming it. That is the named open problem — the same words as the opener,
+claiming it. That is the named open problem, the same words as the opener,
 because it is the same problem. Convergence is evidence; forcedness would be
 the theorem.
 
 ## Formal Spine
 
 These are the load-bearing formal claims. The fourth column is the artifact
-that refutes the row — each one constructible in Coq or Python, no philosophy
+that refutes the row, each one constructible in Coq or Python, no philosophy
 required.
 
 | Claim | Meaning | Main proof files | Refute it |
 |---|---|---|---|
-| Minimal core | The whole substrate claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s` — Coq accepts it where `no_mu_oracle` proves none exists. |
+| Minimal core | The whole substrate claim in one self-contained file: A2, the cost floor, receipt separation, and the classical machine as the zero-cost fragment. Zero axioms, compiles in seconds. Run `make verify`. | [minimal/MuCore.v](minimal/MuCore.v) | An `f : shadow -> nat` with `f (strict_shadow s) = st_mu s` for all `s`; Coq accepts it where `no_mu_oracle` proves none exists. |
 | Receipt theorem | `mu` is not determined by strict classical state. | [ReceiptTheorem.v](coq/ReceiptTheorem.v), [NecessityOfMuLedger.v](coq/NecessityOfMuLedger.v) | An `f : StrictClassicalState -> nat` with `f (strict_shadow s) = vm_mu s` for every `VMState`; `ReceiptTheorem` falls. |
 | No Free Insight | Certification from an uncertified state requires positive `mu`. | [AbstractNoFI.v](coq/kernel/nfi/AbstractNoFI.v), [NoFreeInsight.v](coq/kernel/nfi/NoFreeInsight.v) | A VM step taking `vm_certified` false→true at instruction cost 0; `no_free_certification_certified` falls. |
 | Universal cost floor | Any substrate with a cert-flip cost floor satisfies the same no-free-certification result. | [UniversalCertificationCost.v](coq/kernel/nfi/UniversalCertificationCost.v) | A `CertificationSystem` trace from uncertified to certified with `cs_total_cost = 0`; `universal_nfi_any_substrate` falls. |
@@ -320,7 +320,7 @@ required.
 | Gas-metering reduction | A gas schedule satisfies the commitment floor + no-overcharge iff its charging predicate is the commitment predicate with exact unit pricing; the kernel VM itself inhabits the class. | [GasMetering.v](coq/kernel/reductions/GasMetering.v) | A `GasSchedule` satisfying floor + no-overcharge whose charge predicate differs from cert-flip on some reachable step; `gas_schedule_exactness` falls. |
 | TEE attestation reduction | Sound+complete attestation of a μ-dependent claim cannot factor through the bare transcript; the replay attack is the two-preimage witness; exposing the measurement register restores a sound, complete, unit-cost verifier. | [TEEAttestation.v](coq/kernel/reductions/TEEAttestation.v) | A sound+complete attestation verifier `V : TEEReport -> bool` with a proof of `factors_classical report_projection V`; `attestation_cannot_factor_through_bare_transcript` falls. |
 | Transparency-log reduction | The CT design is the hardness escape: log-backed transcripts admit a unit-cost grounded verifier while the log-free equivalent is impossible; split-view is the impossibility's witness pair. | [TransparencyLog.v](coq/kernel/reductions/TransparencyLog.v) | A sound+complete log-free (bare-transcript) verifier with the same soundness target; `log_free_verifier_impossible` falls. |
-| Proof-carrying reduction | Rounds restore sound, complete, unit-cost verification of the μ-claim; level-`k` certification costs ≥ `k` μ (events only — not gate counts or circuit size), with tightness witnessed. | [ProofCarryingVerifier.v](coq/kernel/reductions/ProofCarryingVerifier.v) | A level-`k` certified trace with total μ < `k`, or a sound+complete zero-round bare verifier; `level_k_verification_floor` or `bare_pcc_impossible` falls. |
+| Proof-carrying reduction | Rounds restore sound, complete, unit-cost verification of the μ-claim; level-`k` certification costs ≥ `k` μ (events only, not gate counts or circuit size), with tightness witnessed. | [ProofCarryingVerifier.v](coq/kernel/reductions/ProofCarryingVerifier.v) | A level-`k` certified trace with total μ < `k`, or a sound+complete zero-round bare verifier; `level_k_verification_floor` or `bare_pcc_impossible` falls. |
 
 The audited claim ledger is [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v).
 Its generated closure receipt is
@@ -356,7 +356,7 @@ show the structural axis stays idle under classical programs. The four-part
 [`degenerate_projection_theorem`](coq/kernel/foundation/TuringClassicalEmbedding.v)
 closes the loop in one direction: classical computation is the image of Thiele
 computation under the structural-axis projection. The other direction is closed
-by [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v) —
+by [`fiber_has_two_preimages`](coq/kernel/witness/BlindnessRepresentation.v):
 every classical state has multiple Thiele preimages, so any lift back is
 non-canonical and requires external choice. Strict extension is witnessed by
 [`D4_strictness`](coq/kernel/foundation/TuringStrictness.v).
@@ -483,8 +483,8 @@ Two independent receipts track proof assumptions.
 
 The master theorem ledger is
 [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). The current committed
-assumption receipt reports 3,873 addressable theorems probed and no
-user/project-local axiom findings. The split: 2,859 close under the global
+assumption receipt reports 3,937 addressable theorems probed and no
+user/project-local axiom findings. The split: 2,923 close under the global
 context outright, and the remaining 1,014 lean only on Coq-stdlib axiom
 families: `functional_extensionality_dep` (939), the classical-reals pair
 `sig_forall_dec` (976) and `sig_not_dec` (272), and `classic` (67). Those
@@ -538,9 +538,9 @@ Single-step semantics live in
 
 ## IP And Prior Art
 
-This repository is Apache 2.0 licensed, including the license's patent grant for
-contributor-owned claims. [PATENT_PLEDGE.md](PATENT_PLEDGE.md) adds an explicit
-non-assertion commitment for the concepts in this repository.
+The software in this repository is Apache 2.0 licensed, including the license's
+patent grant for contributor-owned claims. [PATENT_PLEDGE.md](PATENT_PLEDGE.md)
+adds an explicit non-assertion commitment for the concepts in this repository.
 
 [TECHNICAL_DISCLOSURE.md](TECHNICAL_DISCLOSURE.md) records the public prior-art
 surface for the core concepts: the `mu` ledger, No Free Insight, certification
@@ -566,7 +566,7 @@ pipeline.
 To confirm, refute, build on, or point out what's wrong: thethielemachine@gmail.com,
 or open an issue at [github.com/sethirus/The-Thiele-Machine](https://github.com/sethirus/The-Thiele-Machine).
 A submission that names a theorem gets, within 14 days, one of exactly two
-replies: "correct — fixing," or the line where the construction fails.
+replies: "correct, fixing it," or the line where the construction fails.
 
 The kernel is feature-frozen at v3.0. Accepted changes: refutation fixes,
 hygiene, toolchain compatibility. New theorems belong in new repositories
@@ -574,4 +574,6 @@ citing this one.
 
 ## License
 
-Apache 2.0. See [LICENSE](LICENSE).
+The software is licensed Apache-2.0; see [LICENSE](LICENSE). The monograph and
+distillation are licensed CC-BY-SA-4.0. That split is intentional: the code
+carries a patent grant, the writing carries share-alike.

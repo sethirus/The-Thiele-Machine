@@ -13,7 +13,7 @@ Local Open Scope nat_scope.
 
 (** VMStep: How the machine actually runs.
 
-    This file defines the 46-opcode ISA and the vm_step relation that governs
+    This file defines the 51-opcode ISA and the vm_step relation that governs
     every state transition. Every instruction has an explicit μ-cost. Every step
     either succeeds or latches the error flag. No undefined behavior.
 
@@ -23,7 +23,7 @@ Local Open Scope nat_scope.
     the whole thing breaks. That's not a figure of speech. The proofs in
     MuLedgerConservation.v and KernelPhysics.v would literally fail to compile.
 
-    Three properties hold for all 46 opcodes:
+    Three properties hold for all 51 opcodes:
     - Deterministic: same (state, instruction) pair → same output state.
       Proven: SimulationProof.vm_step_deterministic.
     - μ-Monotonic: vm_mu never decreases.
@@ -86,7 +86,7 @@ Proof.
     lia.
 Qed.
 
-(** vm_instruction: The 46-opcode ISA. Every instruction carries an explicit
+(** vm_instruction: The 51-opcode ISA. Every instruction carries an explicit
     μ-cost (mu_delta). The step relation applies (vm_mu + instruction_cost instr),
     making μ-monotonicity structural. You can't step without paying.
 

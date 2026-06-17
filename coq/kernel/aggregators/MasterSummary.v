@@ -645,6 +645,64 @@ Definition audit_master_proof_carrying_reduction : HonestClaim :=
        [ "The floor bounds certification events only - not gate counts, SNARK verifier circuit size, prover time, or proof length.";
          "Does not model zero-knowledge hiding or soundness amplification." ] |}.
 
+(* The second axis splits into two claims so the unconditional substrate-level
+   spine is never conflated with the 51-opcode VM instance, whose undecidability
+   is stated as an implication antecedented on the VM's internal recursion
+   theorem. Claim 1 (this one) is the axiom-free spine; claim 2 below is the
+   explicitly conditional VM instance. *)
+Definition audit_master_second_axis_of_undecidability : HonestClaim :=
+  {| claim_name := "master_second_axis_of_undecidability";
+     claim_sources :=
+       [ "StructuralAxisOrthogonality.second_axis_of_undecidability";
+         "StructuralAxisOrthogonality.structural_axis_invisible_to_classical";
+         "ProjectionNonExistence.mu_not_function_of_bare_observable";
+         "StructuralAxisRelativization.structural_axis_survives_halting_oracle";
+         "StructuralAxisRelativization.axes_mutually_independent";
+         "StructuralAxisRelativization.structural_membership_decidable";
+         "StructuralAxisRelativization.orthogonality_ladder_B_and_C";
+         "NatSubstrateInstance.nat_structural_shortcut_undecidable" ];
+     claim_scope := Structural;
+     claim_status := StatusUnconditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "mu is not a function of the bare Turing observable (pc, regs, mem)";
+         "the structural-shortcut reading is csr_cert_addr nonzero, detected on states reachable from init_state";
+         "the keystone collision is two reachable runs with equal forget image and different csr_cert_addr (650 vs 0)";
+         "Rung B: a classical oracle's answer is itself a function of forget s, so any decode reading forget s plus an oracle on forget s is still a function of forget s";
+         "Rung C reverse witness: init_state and run_cert_unset are reachable with equal csr_cert_addr (0) but different pc (0 vs 3)";
+         "the axiom-free substrate-level limitative theorem is nat_structural_shortcut_undecidable (Print Assumptions: closed under the global context); it carries no premises" ];
+     claim_premise_kinds := [ PremiseStructural; PremiseSemantic; PremiseStructural; PremiseSemantic; PremiseStructural; PremiseStructural ];
+     claim_not_imply :=
+       [ "Does not establish that mu measures thermodynamic entropy or Kolmogorov information; mu is used only as a monotone ledger.";
+         "The two axes are independent INFORMATION-THEORETICALLY (each not a function of the other's projection), NOT in Turing degree. structural_membership_decidable proves the structural-shortcut set is decidable-from-full-state (degree 0, below halting); Turing-degree incomparability is therefore inapplicable, not merely open.";
+         "Rung B (survives any classical oracle, halting included) IS proven; it holds because the obstruction is information-theoretic, so it relativizes for free (unlike a Baker-Gill-Solovay computational separation).";
+         "The unconditional content is the substrate-level limitative theorem (nat_structural_shortcut_undecidable) together with parts (a) and (c); the concrete 51-opcode VM instance is split out as the separate, explicitly CONDITIONAL claim master_second_axis_vm_instance, antecedented on the VM's internal Kleene recursion theorem.";
+         "Falsifier: a decode : TMSnapshot -> bool agreeing with admits_structural_shortcut_bool on all reachable states would refute the keystone; Coq accepts it if it exists." ] |}.
+
+(* Claim 2: the concrete 51-opcode VM instance. Its Goedel encoding is
+   discharged; the one surviving antecedent is the VM's internal Kleene
+   recursion theorem, whose unbounded-execution foundation is VMUnboundedExec.v.
+   Marked StatusConditional precisely because that antecedent is not yet
+   discharged at the 51-opcode level (the axiom-free discharge lives at the
+   nat-coded substrate, claim 1 above). *)
+Definition audit_master_second_axis_vm_instance : HonestClaim :=
+  {| claim_name := "master_second_axis_vm_instance";
+     claim_sources :=
+       [ "StructuralUndecidability.vm_structural_shortcut_undecidable";
+         "VMSubstrateEncoded.vm_structural_shortcut_undecidable_encoded";
+         "VMInstructionEncoding.nat_to_program_program_to_nat";
+         "VMUnboundedExec.vm_halts_at" ];
+     claim_scope := Structural;
+     claim_status := StatusConditional;
+     claim_role := NewComposition;
+     claim_premises :=
+       [ "the VM Goedel encoding round-trip is DISCHARGED: vm_structural_shortcut_undecidable_encoded supplies a concrete program-to-nat-in-vm_logic_acc encoding via nat_to_program_program_to_nat";
+         "the single remaining antecedent is the VM's internal Kleene recursion theorem (a universal interpreter as a list vm_instruction with its s-m-n parametrization, in the unbounded-fuel model); its execution layer is VMUnboundedExec.v (unbounded relational halting, closed under the global context)" ];
+     claim_premise_kinds := [ PremiseStructural; PremiseSemantic ];
+     claim_not_imply :=
+       [ "The 51-opcode VM-instance undecidability is stated as an implication antecedented on the VM recursion theorem; it is NOT an axiom-free closed statement that quantifies away a fixed decider. The axiom-free closed form is the substrate-level claim master_second_axis_of_undecidability (via nat_structural_shortcut_undecidable).";
+         "VMUnboundedExec.v supplies the unbounded-execution layer the recursion theorem needs but does not by itself construct the universal interpreter; the recursion theorem remains the stated open antecedent of the 51-opcode instance." ] |}.
+
 Definition master_claim_ledger : list HonestClaim :=
   [ audit_master_mu_zero_algebraic_bound;
     audit_master_classical_bound;
@@ -669,7 +727,8 @@ Definition master_claim_ledger : list HonestClaim :=
     audit_master_gas_metering_reduction;
     audit_master_tee_attestation_reduction;
     audit_master_transparency_log_reduction;
-    audit_master_proof_carrying_reduction ].
+    audit_master_proof_carrying_reduction;
+    audit_master_second_axis_of_undecidability ].
 
 (**
     PART 0a: MECHANISM FILE MAP
@@ -2670,6 +2729,7 @@ Qed.
     | master_nofi_to_discrete_einstein_from_bekenstein_calibration | conditional | Bekenstein/Landauer-Unruh constants calibration path | an empirical calibration theorem with no explicit physical premises |
     | master_verification_chain                         | transfer theorem     | abstract hw/python bisimulation                 | full register/memory/partition-state equivalence or arbitrary semantic preservation |
     | master_verification_preserved_observables         | conditional          | projection from verification transfer theorem   | equality of all hardware observables |
+    | master_second_axis_of_undecidability              | unconditional        | μ-not-a-function-of-classical + reachable cert_addr keystone + survives-any-classical-oracle (Rung B) + mutual independence (Rung C) | that μ measures entropy/Kolmogorov information, or a Turing-degree separation — the structural set is decidable-from-full-state, so the independence is information-theoretic not degree-theoretic |
 
     The machine-visible source for the same table is [master_claim_ledger].
     The complete top-level theorem inventory for this file is [summary_file_theorem_names].

@@ -111,7 +111,7 @@ _FOUNDATION_SEMANTICS_MODULES: frozenset[str] = frozenset(
         "PythonBisimulation",
         "HardwareBisimulation",
         # Substrate.v is the abstract A2-respecting substrate that the
-        # 47-opcode VM instantiates. It is foundation-tier (more
+        # 51-opcode VM instantiates. It is foundation-tier (more
         # foundational than VMState, which is one realization of it),
         # so it is its own foundation module — it cannot connect "down"
         # to VMState without inverting the substrate-vs-scaffolding
@@ -6815,7 +6815,7 @@ def _scan_foundation_utilization(repo_root: Path, v_files: list[Path]) -> list[F
         # Registry/documentation modules — connect indirectly through KamiHW
         "RTLGapRegistry", "CloseoutVerification",
         # Substrate.v is the abstract A2-respecting substrate that the
-        # 47-opcode VM (VMState etc.) is one instance of. It is a
+        # 51-opcode VM (VMState etc.) is one instance of. It is a
         # foundation file that the kernel implements; it cannot
         # connect "down" to VMState without inverting the
         # substrate-vs-scaffolding dependency direction.

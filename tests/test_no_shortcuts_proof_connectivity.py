@@ -56,7 +56,7 @@ CONNECTIVITY_EXEMPT = {
     # aggregator that combines the two. Carries the matching INQUISITOR NOTE.
     "CommitmentPredicateAdequacy",
     # Substrate.v is the abstract A2-respecting substrate typeclass that the
-    # 47-opcode VM instantiates via VMSubstrateInstance.v. It is
+    # 51-opcode VM instantiates via VMSubstrateInstance.v. It is
     # foundation-tier (more foundational than VMState, which is one
     # realization of it), so it cannot connect "down" to VMState without
     # inverting the substrate-vs-scaffolding dependency direction. The

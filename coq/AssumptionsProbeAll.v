@@ -113,6 +113,7 @@ Require Kernel.VMInstructionEncoding.
 Require Kernel.VMState.
 Require Kernel.VMStep.
 Require Kernel.VMSubstrateInstance.
+Require Kernel.VMUnboundedExec.
 Require Kernel.F1_AbstractedBridge.
 Require Kernel.F1_LogicalErasure.
 Require Kernel.F1_StrongForm.
@@ -162,6 +163,7 @@ Require Kernel.InsightTaxonomy.
 Require Kernel.LandauerDerivation.
 Require Kernel.MeasurementExtraction.
 Require Kernel.MuLedgerQuantumBridge.
+Require Kernel.MuRunIncompleteness.
 Require Kernel.NecessityAbstract.
 Require Kernel.NoFreeInsight.
 Require Kernel.NonAdaptiveLowerBound.
@@ -175,11 +177,14 @@ Require Kernel.StructuralAdvantage.
 Require Kernel.StructuralAdvantageCertifiedShortcut.
 Require Kernel.StructuralAdvantageObservedShortcut.
 Require Kernel.StructuralAdvantageObservedShortcutResult.
+Require Kernel.StructuralAxisOrthogonality.
+Require Kernel.StructuralAxisRelativization.
 Require Kernel.StructuralUndecidability.
 Require Kernel.ThermodynamicStructuralAdvantage.
 Require Kernel.ThieleInitiality.
 Require Kernel.UniversalCertificationCost.
 Require Kernel.UniversalShortcutLifting.
+Require Kernel.VMSubstrateEncoded.
 Require Kernel.VerificationCostSeparation.
 Require Kernel.BornRule.
 Require Kernel.BornRuleLinearity.
@@ -2418,6 +2423,15 @@ Print Assumptions Kernel.VMStep.VMStep.io_env_mu_cost_env_agnostic.
 Print Assumptions Kernel.VMStep.VMStep.io_read_cost_positive.
 (* === Kernel.VMSubstrateInstance : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VMSubstrateInstance.vm_mu_monotone.
+(* === Kernel.VMUnboundedExec : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.VMUnboundedExec.halted_iff_nth_error_none.
+Print Assumptions Kernel.VMUnboundedExec.run_vm_halt_witness.
+Print Assumptions Kernel.VMUnboundedExec.vm_halts_at_deterministic.
+Print Assumptions Kernel.VMUnboundedExec.vm_halts_at_saturates.
+Print Assumptions Kernel.VMUnboundedExec.vm_halts_at_nil.
+Print Assumptions Kernel.VMUnboundedExec.vm_equiv_refl.
+Print Assumptions Kernel.VMUnboundedExec.vm_equiv_sym.
+Print Assumptions Kernel.VMUnboundedExec.vm_equiv_trans.
 (* === Kernel.F1_AbstractedBridge : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.F1_AbstractedBridge.F1_factored_through_abstract_cost.
 Print Assumptions Kernel.F1_AbstractedBridge.A2_via_abstract_landauer_universal_bridge.
@@ -3018,6 +3032,39 @@ Print Assumptions Kernel.MuLedgerQuantumBridge.bridge_ready_completed_run_implie
 Print Assumptions Kernel.MuLedgerQuantumBridge.quantum_realizable_implies_tsirelson_bound.
 Print Assumptions Kernel.MuLedgerQuantumBridge.quantum_realizable_implies_tsirelson_bound_abs.
 Print Assumptions Kernel.MuLedgerQuantumBridge.state_column_contractive_implies_tsirelson.
+(* === Kernel.MuRunIncompleteness : 32 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.MuRunIncompleteness.run_certify_reachable.
+Print Assumptions Kernel.MuRunIncompleteness.run_pnew3_reachable.
+Print Assumptions Kernel.MuRunIncompleteness.run_certify_step.
+Print Assumptions Kernel.MuRunIncompleteness.run_pnew3_step.
+Print Assumptions Kernel.MuRunIncompleteness.cert_mem.
+Print Assumptions Kernel.MuRunIncompleteness.cert_regs.
+Print Assumptions Kernel.MuRunIncompleteness.cert_pc.
+Print Assumptions Kernel.MuRunIncompleteness.cert_mu.
+Print Assumptions Kernel.MuRunIncompleteness.cert_certified_differs.
+Print Assumptions Kernel.MuRunIncompleteness.mu_cert_not_complete_over_runs.
+Print Assumptions Kernel.MuRunIncompleteness.certified_does_not_factor_through_mu.
+Print Assumptions Kernel.MuRunIncompleteness.mdlacc_mem.
+Print Assumptions Kernel.MuRunIncompleteness.mdlacc_regs.
+Print Assumptions Kernel.MuRunIncompleteness.mdlacc_pc.
+Print Assumptions Kernel.MuRunIncompleteness.mdlacc_mu.
+Print Assumptions Kernel.MuRunIncompleteness.mdlacc_certified.
+Print Assumptions Kernel.MuRunIncompleteness.mdlacc_graph.
+Print Assumptions Kernel.MuRunIncompleteness.pnew_module_count_succ.
+Print Assumptions Kernel.MuRunIncompleteness.run_pnew0_reachable.
+Print Assumptions Kernel.MuRunIncompleteness.run_mdlacc_reachable.
+Print Assumptions Kernel.MuRunIncompleteness.run_pnew0_step.
+Print Assumptions Kernel.MuRunIncompleteness.run_mdlacc_step.
+Print Assumptions Kernel.MuRunIncompleteness.init_modules_zero.
+Print Assumptions Kernel.MuRunIncompleteness.graph_pair_mem.
+Print Assumptions Kernel.MuRunIncompleteness.graph_pair_regs.
+Print Assumptions Kernel.MuRunIncompleteness.graph_pair_pc.
+Print Assumptions Kernel.MuRunIncompleteness.graph_pair_mu.
+Print Assumptions Kernel.MuRunIncompleteness.graph_pair_certified.
+Print Assumptions Kernel.MuRunIncompleteness.graph_pair_differs.
+Print Assumptions Kernel.MuRunIncompleteness.mu_graph_not_complete_over_runs.
+Print Assumptions Kernel.MuRunIncompleteness.graph_does_not_factor_through_mu.
+Print Assumptions Kernel.MuRunIncompleteness.mu_not_complete_invariant_over_runs.
 (* === Kernel.NecessityAbstract : 45 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NecessityAbstract.generic_mu_necessity.
 Print Assumptions Kernel.NecessityAbstract.generic_cert_necessity.
@@ -3240,6 +3287,30 @@ Print Assumptions Kernel.StructuralAdvantageObservedShortcutResult.sighted_n1_no
 Print Assumptions Kernel.StructuralAdvantageObservedShortcutResult.sighted_n1_final_never_fully_certified.
 Print Assumptions Kernel.StructuralAdvantageObservedShortcutResult.sighted_n1_trace_never_fully_certified.
 Print Assumptions Kernel.StructuralAdvantageObservedShortcutResult.sighted_n1_bridge_hypothesis_false.
+(* === Kernel.StructuralAxisOrthogonality : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.StructuralAxisOrthogonality.run_cert_set_reachable.
+Print Assumptions Kernel.StructuralAxisOrthogonality.run_cert_unset_reachable.
+Print Assumptions Kernel.StructuralAxisOrthogonality.forget_collision.
+Print Assumptions Kernel.StructuralAxisOrthogonality.run_cert_set_admits.
+Print Assumptions Kernel.StructuralAxisOrthogonality.run_cert_unset_refuses.
+Print Assumptions Kernel.StructuralAxisOrthogonality.structural_shortcut_not_function_of_classical.
+Print Assumptions Kernel.StructuralAxisOrthogonality.structural_axis_invisible_to_classical.
+Print Assumptions Kernel.StructuralAxisOrthogonality.extensional_shortcut_detected_through_cert_addr.
+Print Assumptions Kernel.StructuralAxisOrthogonality.yes_program_detected_through_cert_addr.
+Print Assumptions Kernel.StructuralAxisOrthogonality.second_axis_of_undecidability.
+(* === Kernel.StructuralAxisRelativization : 12 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.StructuralAxisRelativization.structural_axis_survives_any_classical_oracle.
+Print Assumptions Kernel.StructuralAxisRelativization.structural_axis_survives_halting_oracle.
+Print Assumptions Kernel.StructuralAxisRelativization.structural_axis_survives_two_oracles.
+Print Assumptions Kernel.StructuralAxisRelativization.struct_only_init.
+Print Assumptions Kernel.StructuralAxisRelativization.struct_only_run_cert_unset.
+Print Assumptions Kernel.StructuralAxisRelativization.pc_init.
+Print Assumptions Kernel.StructuralAxisRelativization.pc_run_cert_unset.
+Print Assumptions Kernel.StructuralAxisRelativization.classical_pc_not_function_of_structural.
+Print Assumptions Kernel.StructuralAxisRelativization.axes_mutually_independent.
+Print Assumptions Kernel.StructuralAxisRelativization.structural_membership_decidable.
+Print Assumptions Kernel.StructuralAxisRelativization.structural_membership_total.
+Print Assumptions Kernel.StructuralAxisRelativization.orthogonality_ladder_B_and_C.
 (* === Kernel.StructuralUndecidability : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.StructuralUndecidability.structural_shortcut_undecidable.
 Print Assumptions Kernel.StructuralUndecidability.admits_shortcut_not_decidable.
@@ -3282,6 +3353,9 @@ Print Assumptions Kernel.UniversalCertificationCost.ccm_universal_nfi.
 Print Assumptions Kernel.UniversalShortcutLifting.run_vm_nil_id.
 Print Assumptions Kernel.UniversalShortcutLifting.any_supra_cert_run_yields_shortcut.
 Print Assumptions Kernel.UniversalShortcutLifting.any_supra_cert_run_lands_in_representation.
+(* === Kernel.VMSubstrateEncoded : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.VMSubstrateEncoded.vm_encode_decode_concrete.
+Print Assumptions Kernel.VMSubstrateEncoded.vm_structural_shortcut_undecidable_encoded.
 (* === Kernel.VerificationCostSeparation : 15 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.VerificationCostSeparation.thiele_encoded_trace_is_honest.
 Print Assumptions Kernel.VerificationCostSeparation.thiele_honesty_O_1_witness.
@@ -4260,7 +4334,7 @@ Print Assumptions TestFixtures.VacuitySmoke.smoke_genuine_equality.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_modus_ponens.
 (* === Tests.CloseoutVerification : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Tests.CloseoutVerification.closeout_zero_gaps.
-Print Assumptions Tests.CloseoutVerification.closeout_46_opcodes.
+Print Assumptions Tests.CloseoutVerification.closeout_47_opcodes.
 Print Assumptions Tests.CloseoutVerification.closeout_extraction_identity.
 (* === Tests.TestNecessity : 10 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Tests.TestNecessity.w_decreasing_empty_FAILS.

@@ -1,0 +1,273 @@
+DIGEST a4dd508a0405924e7b4111230534cb78
+FKernel.StructuralAxisOrthogonality
+R2510:2513 Coq.Lists.List <> <> lib
+R2515:2528 Coq.Arith.PeanoNat <> <> lib
+R2530:2533 Coq.Bool.Bool <> <> lib
+R2535:2540 Coq.Strings.String <> <> lib
+R2550:2562 Coq.Lists.List ListNotations <> mod
+R2618:2624 Kernel.VMState <> <> lib
+R2626:2631 Kernel.VMStep <> <> lib
+R2633:2647 Kernel.SimulationProof <> <> lib
+R2677:2688 Kernel.MuInitiality <> <> lib
+R2718:2736 Kernel.SimpleMorphShortcut <> <> lib
+R2766:2788 Kernel.BlindnessRepresentation <> <> lib
+R2818:2839 Kernel.ProjectionNonExistence <> <> lib
+R2869:2892 Kernel.StructuralUndecidability <> <> lib
+R2922:2940 Kernel.VMSubstrateInstance <> <> lib
+def 4249:4260 <> run_cert_set
+R4264:4270 Kernel.VMState <> VMState rec
+R4277:4291 Kernel.MuInitiality <> exec_trace_from def
+R4293:4302 Kernel.MuInitiality <> init_state def
+R4304:4321 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+def 4336:4349 <> run_cert_unset
+R4353:4359 Kernel.VMState <> VMState rec
+R4366:4380 Kernel.MuInitiality <> exec_trace_from def
+R4382:4391 Kernel.MuInitiality <> init_state def
+R4397:4397 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4414:4415 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4436:4437 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4454:4454 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R4398:4407 Kernel.VMStep VMStep instr_pnew constr
+R4409:4409 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4411:4411 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4416:4429 Kernel.VMStep VMStep instr_morph_id constr
+R4438:4449 Kernel.VMStep VMStep instr_mdlacc constr
+prf 4464:4485 <> run_cert_set_reachable
+R4489:4497 Kernel.MuInitiality <> reachable ind
+R4499:4510 Kernel.StructuralAxisOrthogonality <> run_cert_set def
+R4527:4538 Kernel.StructuralAxisOrthogonality <> run_cert_set def
+R4547:4566 Kernel.MuInitiality <> reachable_from_trace thm
+R4547:4566 Kernel.MuInitiality <> reachable_from_trace thm
+prf 4581:4604 <> run_cert_unset_reachable
+R4608:4616 Kernel.MuInitiality <> reachable ind
+R4618:4631 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+R4648:4661 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+R4670:4689 Kernel.MuInitiality <> reachable_from_trace thm
+R4670:4689 Kernel.MuInitiality <> reachable_from_trace thm
+prf 4880:4895 <> forget_collision
+R4920:4922 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4901:4906 Kernel.BlindnessRepresentation <> forget def
+R4908:4919 Kernel.StructuralAxisOrthogonality <> run_cert_set def
+R4923:4928 Kernel.BlindnessRepresentation <> forget def
+R4930:4943 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+def 5718:5748 <> admits_structural_shortcut_bool
+R5755:5761 Kernel.VMState <> VMState rec
+binder 5751:5751 <> s:1
+R5766:5769 Coq.Init.Datatypes <> bool ind
+R5776:5779 Coq.Init.Datatypes <> negb def
+R5782:5788 Coq.Arith.PeanoNat Nat eqb def
+R5803:5815 Kernel.VMState <> csr_cert_addr proj
+R5791:5797 Kernel.VMState <> vm_csrs proj
+R5799:5799 Kernel.StructuralAxisOrthogonality <> s:1 var
+prf 5829:5847 <> run_cert_set_admits
+R5897:5899 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5853:5883 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R5885:5896 Kernel.StructuralAxisOrthogonality <> run_cert_set def
+R5900:5903 Coq.Init.Datatypes <> true constr
+prf 5950:5971 <> run_cert_unset_refuses
+R6023:6025 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5977:6007 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R6009:6022 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+R6026:6030 Coq.Init.Datatypes <> false constr
+prf 6848:6892 <> structural_shortcut_not_function_of_classical
+R6898:6899 Coq.Init.Logic <> ::type_scope:'~'_x not
+R6900:6906 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6934:6941 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6926:6929 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6916:6925 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R6930:6933 Coq.Init.Datatypes <> bool ind
+binder 6907:6912 <> decode:2
+R6953:6959 Kernel.VMState <> VMState rec
+binder 6949:6949 <> s:3
+R6979:6981 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6962:6967 Kernel.StructuralAxisOrthogonality <> decode:2 var
+R6970:6975 Kernel.BlindnessRepresentation <> forget def
+R6977:6977 Kernel.StructuralAxisOrthogonality <> s:3 var
+R6982:7012 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R7014:7014 Kernel.StructuralAxisOrthogonality <> s:3 var
+R7067:7078 Kernel.StructuralAxisOrthogonality <> run_cert_set def
+R7067:7078 Kernel.StructuralAxisOrthogonality <> run_cert_set def
+R7107:7120 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+R7107:7120 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+R7140:7158 Kernel.StructuralAxisOrthogonality <> run_cert_set_admits thm
+R7140:7158 Kernel.StructuralAxisOrthogonality <> run_cert_set_admits thm
+R7140:7158 Kernel.StructuralAxisOrthogonality <> run_cert_set_admits thm
+R7177:7198 Kernel.StructuralAxisOrthogonality <> run_cert_unset_refuses thm
+R7177:7198 Kernel.StructuralAxisOrthogonality <> run_cert_unset_refuses thm
+R7177:7198 Kernel.StructuralAxisOrthogonality <> run_cert_unset_refuses thm
+R7217:7232 Kernel.StructuralAxisOrthogonality <> forget_collision thm
+R7217:7232 Kernel.StructuralAxisOrthogonality <> forget_collision thm
+R7217:7232 Kernel.StructuralAxisOrthogonality <> forget_collision thm
+prf 7636:7673 <> structural_axis_invisible_to_classical
+R7705:7708 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7695:7704 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R7709:7712 Coq.Init.Datatypes <> bool ind
+binder 7686:7691 <> decode:4
+R7719:7721 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7785:7785 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 7729:7729 <> s:5
+R7749:7751 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7732:7737 Kernel.StructuralAxisOrthogonality <> decode:4 var
+R7740:7745 Kernel.BlindnessRepresentation <> forget def
+R7747:7747 Kernel.StructuralAxisOrthogonality <> s:5 var
+R7752:7782 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R7784:7784 Kernel.StructuralAxisOrthogonality <> s:5 var
+R7825:7869 Kernel.StructuralAxisOrthogonality <> structural_shortcut_not_function_of_classical thm
+R7825:7869 Kernel.StructuralAxisOrthogonality <> structural_shortcut_not_function_of_classical thm
+def 9337:9346 <> admits_opt
+R9353:9358 Coq.Init.Datatypes <> option ind
+R9360:9366 Kernel.VMState <> VMState rec
+binder 9349:9349 <> o:6
+R9371:9374 Coq.Init.Datatypes <> bool ind
+R9387:9387 Kernel.StructuralAxisOrthogonality <> o:6 var
+R9398:9401 Coq.Init.Datatypes <> Some constr
+R9408:9438 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R9446:9449 Coq.Init.Datatypes <> None constr
+R9454:9458 Coq.Init.Datatypes <> false constr
+prf 9474:9520 <> extensional_shortcut_detected_through_cert_addr
+binder 9533:9533 <> p:8
+R9572:9579 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9540:9569 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
+R9571:9571 Kernel.StructuralAxisOrthogonality <> p:8 var
+R9645:9647 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9580:9610 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R9613:9618 Kernel.SimulationProof <> run_vm def
+R9620:9630 Kernel.VMSubstrateInstance <> vm_run_fuel def
+R9632:9632 Kernel.StructuralAxisOrthogonality <> p:8 var
+R9634:9643 Kernel.MuInitiality <> init_state def
+R9648:9651 Coq.Init.Datatypes <> true constr
+R9685:9715 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R9718:9723 Kernel.SimulationProof <> run_vm def
+R9725:9735 Kernel.VMSubstrateInstance <> vm_run_fuel def
+R9739:9748 Kernel.MuInitiality <> init_state def
+R9762:9771 Kernel.StructuralAxisOrthogonality <> admits_opt def
+R9774:9779 Kernel.VMSubstrateInstance <> vm_run def
+R9783:9792 Kernel.MuInitiality <> init_state def
+R9685:9715 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R9718:9723 Kernel.SimulationProof <> run_vm def
+R9725:9735 Kernel.VMSubstrateInstance <> vm_run_fuel def
+R9739:9748 Kernel.MuInitiality <> init_state def
+R9762:9771 Kernel.StructuralAxisOrthogonality <> admits_opt def
+R9774:9779 Kernel.VMSubstrateInstance <> vm_run def
+R9783:9792 Kernel.MuInitiality <> init_state def
+R9806:9835 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
+prf 10040:10077 <> yes_program_detected_through_cert_addr
+R10169:10171 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10083:10113 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R10120:10125 Kernel.SimulationProof <> run_vm def
+R10127:10137 Kernel.VMSubstrateInstance <> vm_run_fuel def
+R10139:10156 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R10158:10167 Kernel.MuInitiality <> init_state def
+R10172:10175 Coq.Init.Datatypes <> true constr
+R10193:10239 Kernel.StructuralAxisOrthogonality <> extensional_shortcut_detected_through_cert_addr thm
+R10193:10239 Kernel.StructuralAxisOrthogonality <> extensional_shortcut_detected_through_cert_addr thm
+R10250:10271 Kernel.StructuralUndecidability <> vm_admits_shortcut_yes thm
+R10250:10271 Kernel.StructuralUndecidability <> vm_admits_shortcut_yes thm
+prf 12195:12223 <> second_axis_of_undecidability
+R12284:12284 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12387:12548 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12285:12286 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12287:12293 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12323:12331 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12316:12319 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12300:12315 Kernel.ProjectionNonExistence <> BareTMObservable rec
+R12320:12322 Coq.Init.Datatypes <> nat ind
+binder 12294:12296 <> phi:9
+R12343:12349 Kernel.VMState <> VMState rec
+binder 12339:12339 <> s:10
+R12375:12377 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12352:12354 Kernel.StructuralAxisOrthogonality <> phi:9 var
+R12357:12371 Kernel.ProjectionNonExistence <> bare_observable def
+R12373:12373 Kernel.StructuralAxisOrthogonality <> s:10 var
+R12381:12385 Kernel.VMState <> vm_mu proj
+R12378:12378 Kernel.StructuralAxisOrthogonality <> s:10 var
+R12549:12549 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13133:13225 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13334:13334 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12583:12586 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12564:12567 Coq.Init.Datatypes <> list ind
+R12569:12582 Kernel.VMStep VMStep vm_instruction ind
+R12587:12593 Kernel.VMState <> VMState rec
+binder 12558:12560 <> enc:11
+R12620:12623 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12613:12619 Kernel.VMState <> VMState rec
+R12624:12627 Coq.Init.Datatypes <> list ind
+R12629:12642 Kernel.VMStep VMStep vm_instruction ind
+binder 12607:12609 <> dec:12
+R12652:12652 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12678:12688 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 12660:12660 <> p:13
+R12674:12676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12663:12665 Kernel.StructuralAxisOrthogonality <> dec:12 var
+R12668:12670 Kernel.StructuralAxisOrthogonality <> enc:11 var
+R12672:12672 Kernel.StructuralAxisOrthogonality <> p:13 var
+R12677:12677 Kernel.StructuralAxisOrthogonality <> p:13 var
+R12703:12703 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12746:12750 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12723:12726 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12704:12707 Coq.Init.Datatypes <> list ind
+R12709:12722 Kernel.VMStep VMStep vm_instruction ind
+R12727:12730 Coq.Init.Datatypes <> list ind
+R12732:12745 Kernel.VMStep VMStep vm_instruction ind
+binder 12697:12699 <> rep:14
+R12766:12766 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12852:12864 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+binder 12774:12774 <> f:15
+R12782:12804 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12777:12779 Kernel.StructuralAxisOrthogonality <> rep:14 var
+R12781:12781 Kernel.StructuralAxisOrthogonality <> f:15 var
+R12805:12811 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12813:12814 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 12812:12812 <> q:16
+binder 12822:12822 <> s:17
+R12835:12837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R12825:12830 Kernel.VMSubstrateInstance <> vm_run def
+R12832:12832 Kernel.StructuralAxisOrthogonality <> q:16 var
+R12834:12834 Kernel.StructuralAxisOrthogonality <> s:17 var
+R12838:12843 Kernel.VMSubstrateInstance <> vm_run def
+R12846:12846 Kernel.StructuralAxisOrthogonality <> f:15 var
+R12848:12848 Kernel.StructuralAxisOrthogonality <> q:16 var
+R12851:12851 Kernel.StructuralAxisOrthogonality <> s:17 var
+R12865:12866 Coq.Init.Logic <> ::type_scope:'~'_x not
+R12867:12874 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12911:12925 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R12903:12906 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R12884:12887 Coq.Init.Datatypes <> list ind
+R12889:12902 Kernel.VMStep VMStep vm_instruction ind
+R12907:12910 Coq.Init.Datatypes <> bool ind
+binder 12875:12880 <> decide:18
+R13055:13070 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12926:12928 Kernel.StructuralAxisOrthogonality <> rep:14 var
+binder 12935:12935 <> p:19
+R12943:12948 Kernel.StructuralAxisOrthogonality <> decide:18 var
+R12950:12950 Kernel.StructuralAxisOrthogonality <> p:19 var
+R13036:13053 Kernel.SimpleMorphShortcut <> simple_morph_trace def
+R12985:12987 Coq.Init.Datatypes <> nil constr
+R12989:13002 Kernel.VMStep VMStep vm_instruction ind
+binder 13078:13078 <> p:20
+R13096:13100 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R13089:13091 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13081:13086 Kernel.StructuralAxisOrthogonality <> decide:18 var
+R13088:13088 Kernel.StructuralAxisOrthogonality <> p:20 var
+R13092:13095 Coq.Init.Datatypes <> true constr
+R13101:13130 Kernel.StructuralUndecidability <> vm_admits_shortcut_extensional def
+R13132:13132 Kernel.StructuralAxisOrthogonality <> p:20 var
+R13252:13255 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13242:13251 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R13256:13259 Coq.Init.Datatypes <> bool ind
+binder 13233:13238 <> decode:21
+R13267:13269 Coq.Init.Logic <> ::type_scope:'~'_x not
+R13333:13333 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 13277:13277 <> s:22
+R13297:13299 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13280:13285 Kernel.StructuralAxisOrthogonality <> decode:21 var
+R13288:13293 Kernel.BlindnessRepresentation <> forget def
+R13295:13295 Kernel.StructuralAxisOrthogonality <> s:22 var
+R13300:13330 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R13332:13332 Kernel.StructuralAxisOrthogonality <> s:22 var
+R13374:13407 Kernel.ProjectionNonExistence <> mu_not_function_of_bare_observable thm
+R13374:13407 Kernel.ProjectionNonExistence <> mu_not_function_of_bare_observable thm
+R13420:13453 Kernel.StructuralUndecidability <> vm_structural_shortcut_undecidable thm
+R13420:13453 Kernel.StructuralUndecidability <> vm_structural_shortcut_undecidable thm
+R13466:13503 Kernel.StructuralAxisOrthogonality <> structural_axis_invisible_to_classical thm
+R13466:13503 Kernel.StructuralAxisOrthogonality <> structural_axis_invisible_to_classical thm

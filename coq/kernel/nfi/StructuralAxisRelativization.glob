@@ -1,0 +1,316 @@
+DIGEST 0f63c3fae9b58e5a75c57af3ae3f8885
+FKernel.StructuralAxisRelativization
+R2706:2709 Coq.Lists.List <> <> lib
+R2711:2724 Coq.Arith.PeanoNat <> <> lib
+R2726:2729 Coq.Bool.Bool <> <> lib
+R2739:2751 Coq.Lists.List ListNotations <> mod
+R2782:2788 Kernel.VMState <> <> lib
+R2790:2795 Kernel.VMStep <> <> lib
+R2797:2811 Kernel.SimulationProof <> <> lib
+R2841:2852 Kernel.MuInitiality <> <> lib
+R2882:2904 Kernel.BlindnessRepresentation <> <> lib
+R2934:2960 Kernel.StructuralAxisOrthogonality <> <> lib
+prf 3867:3911 <> structural_axis_survives_any_classical_oracle
+binder 3925:3925 <> A:1
+R3955:3958 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3945:3954 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R3959:3959 Kernel.StructuralAxisRelativization <> A:1 var
+binder 3936:3941 <> oracle:2
+R3982:3985 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3972:3981 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R3987:3990 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3986:3986 Kernel.StructuralAxisRelativization <> A:1 var
+R3991:3994 Coq.Init.Datatypes <> bool ind
+binder 3963:3968 <> decode:3
+R4002:4004 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4107:4107 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4016:4022 Kernel.VMState <> VMState rec
+binder 4012:4012 <> s:4
+R4071:4073 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4034:4039 Kernel.StructuralAxisRelativization <> decode:3 var
+R4053:4058 Kernel.StructuralAxisRelativization <> oracle:2 var
+R4061:4066 Kernel.BlindnessRepresentation <> forget def
+R4068:4068 Kernel.StructuralAxisRelativization <> s:4 var
+R4042:4047 Kernel.BlindnessRepresentation <> forget def
+R4049:4049 Kernel.StructuralAxisRelativization <> s:4 var
+R4074:4104 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R4106:4106 Kernel.StructuralAxisRelativization <> s:4 var
+R4156:4200 Kernel.StructuralAxisOrthogonality <> structural_shortcut_not_function_of_classical thm
+R4156:4200 Kernel.StructuralAxisOrthogonality <> structural_shortcut_not_function_of_classical thm
+binder 4217:4219 <> cfg:5
+R4231:4233 Kernel.StructuralAxisRelativization <> cfg:5 var
+R4243:4245 Kernel.StructuralAxisRelativization <> cfg:5 var
+binder 4217:4219 <> cfg:6
+R4231:4233 Kernel.StructuralAxisRelativization <> cfg:6 var
+R4243:4245 Kernel.StructuralAxisRelativization <> cfg:6 var
+prf 4649:4687 <> structural_axis_survives_halting_oracle
+R4719:4722 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4709:4718 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R4723:4726 Coq.Init.Datatypes <> bool ind
+binder 4701:4705 <> halts:7
+R4749:4752 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4739:4748 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R4757:4760 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4753:4756 Coq.Init.Datatypes <> bool ind
+R4761:4764 Coq.Init.Datatypes <> bool ind
+binder 4730:4735 <> decode:8
+R4772:4774 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4876:4876 Coq.Init.Logic <> ::type_scope:'~'_x not
+R4786:4792 Kernel.VMState <> VMState rec
+binder 4782:4782 <> s:9
+R4840:4842 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4804:4809 Kernel.StructuralAxisRelativization <> decode:8 var
+R4823:4827 Kernel.StructuralAxisRelativization <> halts:7 var
+R4830:4835 Kernel.BlindnessRepresentation <> forget def
+R4837:4837 Kernel.StructuralAxisRelativization <> s:9 var
+R4812:4817 Kernel.BlindnessRepresentation <> forget def
+R4819:4819 Kernel.StructuralAxisRelativization <> s:9 var
+R4843:4873 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R4875:4875 Kernel.StructuralAxisRelativization <> s:9 var
+R4918:4962 Kernel.StructuralAxisRelativization <> structural_axis_survives_any_classical_oracle thm
+R4964:4967 Coq.Init.Datatypes <> bool ind
+R4918:4962 Kernel.StructuralAxisRelativization <> structural_axis_survives_any_classical_oracle thm
+R4964:4967 Coq.Init.Datatypes <> bool ind
+prf 5195:5230 <> structural_axis_survives_two_oracles
+binder 5244:5244 <> A:10
+binder 5246:5246 <> B:11
+R5272:5275 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5262:5271 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R5276:5276 Kernel.StructuralAxisRelativization <> A:10 var
+binder 5257:5258 <> o1:12
+R5295:5298 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5285:5294 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R5299:5299 Kernel.StructuralAxisRelativization <> B:11 var
+binder 5280:5281 <> o2:13
+R5331:5334 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5321:5330 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R5336:5339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5335:5335 Kernel.StructuralAxisRelativization <> A:10 var
+R5341:5344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5340:5340 Kernel.StructuralAxisRelativization <> B:11 var
+R5345:5348 Coq.Init.Datatypes <> bool ind
+binder 5312:5317 <> decode:14
+R5356:5358 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5482:5482 Coq.Init.Logic <> ::type_scope:'~'_x not
+R5370:5376 Kernel.VMState <> VMState rec
+binder 5366:5366 <> s:15
+R5437:5448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5388:5393 Kernel.StructuralAxisRelativization <> decode:14 var
+R5423:5424 Kernel.StructuralAxisRelativization <> o2:13 var
+R5427:5432 Kernel.BlindnessRepresentation <> forget def
+R5434:5434 Kernel.StructuralAxisRelativization <> s:15 var
+R5407:5408 Kernel.StructuralAxisRelativization <> o1:12 var
+R5411:5416 Kernel.BlindnessRepresentation <> forget def
+R5418:5418 Kernel.StructuralAxisRelativization <> s:15 var
+R5396:5401 Kernel.BlindnessRepresentation <> forget def
+R5403:5403 Kernel.StructuralAxisRelativization <> s:15 var
+R5449:5479 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R5481:5481 Kernel.StructuralAxisRelativization <> s:15 var
+R5532:5576 Kernel.StructuralAxisOrthogonality <> structural_shortcut_not_function_of_classical thm
+R5532:5576 Kernel.StructuralAxisOrthogonality <> structural_shortcut_not_function_of_classical thm
+binder 5593:5595 <> cfg:16
+R5607:5609 Kernel.StructuralAxisRelativization <> cfg:16 var
+R5615:5617 Kernel.StructuralAxisRelativization <> cfg:16 var
+R5624:5626 Kernel.StructuralAxisRelativization <> cfg:16 var
+binder 5593:5595 <> cfg:17
+R5607:5609 Kernel.StructuralAxisRelativization <> cfg:17 var
+R5615:5617 Kernel.StructuralAxisRelativization <> cfg:17 var
+R5624:5626 Kernel.StructuralAxisRelativization <> cfg:17 var
+def 6613:6623 <> struct_only
+R6630:6636 Kernel.VMState <> VMState rec
+binder 6626:6626 <> s:18
+R6641:6643 Coq.Init.Datatypes <> nat ind
+R6661:6673 Kernel.VMState <> csr_cert_addr proj
+R6649:6655 Kernel.VMState <> vm_csrs proj
+R6657:6657 Kernel.StructuralAxisRelativization <> s:18 var
+prf 6684:6699 <> struct_only_init
+R6725:6727 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6703:6713 Kernel.StructuralAxisRelativization <> struct_only def
+R6715:6724 Kernel.MuInitiality <> init_state def
+prf 6775:6800 <> struct_only_run_cert_unset
+R6830:6832 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6804:6814 Kernel.StructuralAxisRelativization <> struct_only def
+R6816:6829 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+prf 6880:6886 <> pc_init
+R6908:6910 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6902:6906 Kernel.VMState <> vm_pc proj
+R6890:6899 Kernel.MuInitiality <> init_state def
+prf 6946:6962 <> pc_run_cert_unset
+R6988:6990 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6982:6986 Kernel.VMState <> vm_pc proj
+R6966:6979 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+prf 7040:7078 <> classical_pc_not_function_of_structural
+R7084:7085 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7086:7092 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7109:7110 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7102:7105 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7099:7101 Coq.Init.Datatypes <> nat ind
+R7106:7108 Coq.Init.Datatypes <> nat ind
+binder 7093:7095 <> phi:19
+R7122:7128 Kernel.VMState <> VMState rec
+binder 7118:7118 <> s:20
+R7150:7152 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7131:7133 Kernel.StructuralAxisRelativization <> phi:19 var
+R7136:7146 Kernel.StructuralAxisRelativization <> struct_only def
+R7148:7148 Kernel.StructuralAxisRelativization <> s:20 var
+R7156:7160 Kernel.VMState <> vm_pc proj
+R7153:7153 Kernel.StructuralAxisRelativization <> s:20 var
+R7211:7220 Kernel.MuInitiality <> init_state def
+R7211:7220 Kernel.MuInitiality <> init_state def
+R7249:7262 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+R7249:7262 Kernel.StructuralAxisOrthogonality <> run_cert_unset def
+R7282:7297 Kernel.StructuralAxisRelativization <> struct_only_init thm
+R7300:7306 Kernel.StructuralAxisRelativization <> pc_init thm
+R7282:7297 Kernel.StructuralAxisRelativization <> struct_only_init thm
+R7282:7297 Kernel.StructuralAxisRelativization <> struct_only_init thm
+R7300:7306 Kernel.StructuralAxisRelativization <> pc_init thm
+R7300:7306 Kernel.StructuralAxisRelativization <> pc_init thm
+R7325:7350 Kernel.StructuralAxisRelativization <> struct_only_run_cert_unset thm
+R7353:7369 Kernel.StructuralAxisRelativization <> pc_run_cert_unset thm
+R7325:7350 Kernel.StructuralAxisRelativization <> struct_only_run_cert_unset thm
+R7325:7350 Kernel.StructuralAxisRelativization <> struct_only_run_cert_unset thm
+R7353:7369 Kernel.StructuralAxisRelativization <> pc_run_cert_unset thm
+R7353:7369 Kernel.StructuralAxisRelativization <> pc_run_cert_unset thm
+prf 8307:8331 <> axes_mutually_independent
+R8413:8413 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8522:8609 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8688:8688 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8440:8443 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8430:8439 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R8444:8447 Coq.Init.Datatypes <> bool ind
+binder 8421:8426 <> decode:21
+R8455:8457 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8521:8521 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 8465:8465 <> s:22
+R8485:8487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8468:8473 Kernel.StructuralAxisRelativization <> decode:21 var
+R8476:8481 Kernel.BlindnessRepresentation <> forget def
+R8483:8483 Kernel.StructuralAxisRelativization <> s:22 var
+R8488:8518 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R8520:8520 Kernel.StructuralAxisRelativization <> s:22 var
+R8610:8611 Coq.Init.Logic <> ::type_scope:'~'_x not
+R8612:8618 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8635:8636 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8628:8631 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R8625:8627 Coq.Init.Datatypes <> nat ind
+R8632:8634 Coq.Init.Datatypes <> nat ind
+binder 8619:8621 <> phi:23
+R8648:8654 Kernel.VMState <> VMState rec
+binder 8644:8644 <> s:24
+R8676:8678 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8657:8659 Kernel.StructuralAxisRelativization <> phi:23 var
+R8662:8672 Kernel.StructuralAxisRelativization <> struct_only def
+R8674:8674 Kernel.StructuralAxisRelativization <> s:24 var
+R8682:8686 Kernel.VMState <> vm_pc proj
+R8679:8679 Kernel.StructuralAxisRelativization <> s:24 var
+R8717:8754 Kernel.StructuralAxisOrthogonality <> structural_axis_invisible_to_classical thm
+R8717:8754 Kernel.StructuralAxisOrthogonality <> structural_axis_invisible_to_classical thm
+R8767:8805 Kernel.StructuralAxisRelativization <> classical_pc_not_function_of_structural thm
+R8767:8805 Kernel.StructuralAxisRelativization <> classical_pc_not_function_of_structural thm
+prf 9871:9901 <> structural_membership_decidable
+R9918:9924 Kernel.VMState <> VMState rec
+binder 9914:9914 <> s:25
+R9931:9931 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9972:9980 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R10023:10023 Coq.Init.Specif <> ::type_scope:'{'_x_'}'_'+'_'{'_x_'}' not
+R9965:9967 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9932:9962 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R9964:9964 Kernel.StructuralAxisRelativization <> s:25 var
+R9968:9971 Coq.Init.Datatypes <> true constr
+R9981:9982 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10016:10018 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R9983:10013 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R10015:10015 Kernel.StructuralAxisRelativization <> s:25 var
+R10019:10022 Coq.Init.Datatypes <> true constr
+R10054:10084 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R10054:10084 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+prf 10358:10384 <> structural_membership_total
+R10401:10407 Kernel.VMState <> VMState rec
+binder 10397:10397 <> s:26
+R10454:10461 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R10447:10449 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10414:10444 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R10446:10446 Kernel.StructuralAxisRelativization <> s:26 var
+R10450:10453 Coq.Init.Datatypes <> true constr
+R10495:10497 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10462:10492 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R10494:10494 Kernel.StructuralAxisRelativization <> s:26 var
+R10498:10502 Coq.Init.Datatypes <> false constr
+R10533:10563 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R10533:10563 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+prf 11173:11200 <> orthogonality_ladder_B_and_C
+R11270:11270 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11462:11552 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11279:11279 <> A:27
+R11309:11312 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11299:11308 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R11313:11313 Kernel.StructuralAxisRelativization <> A:27 var
+binder 11290:11295 <> oracle:28
+R11336:11339 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11326:11335 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R11341:11344 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11340:11340 Kernel.StructuralAxisRelativization <> A:27 var
+R11345:11348 Coq.Init.Datatypes <> bool ind
+binder 11317:11322 <> decode:29
+R11357:11359 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11461:11461 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 11367:11367 <> s:30
+R11407:11427 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11370:11375 Kernel.StructuralAxisRelativization <> decode:29 var
+R11389:11394 Kernel.StructuralAxisRelativization <> oracle:28 var
+R11397:11402 Kernel.BlindnessRepresentation <> forget def
+R11404:11404 Kernel.StructuralAxisRelativization <> s:30 var
+R11378:11383 Kernel.BlindnessRepresentation <> forget def
+R11385:11385 Kernel.StructuralAxisRelativization <> s:30 var
+R11428:11458 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R11460:11460 Kernel.StructuralAxisRelativization <> s:30 var
+R11553:11553 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11745:11916 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R12032:12032 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11554:11554 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11664:11675 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11744:11744 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11581:11584 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11571:11580 Kernel.BlindnessRepresentation <> TMSnapshot rec
+R11585:11588 Coq.Init.Datatypes <> bool ind
+binder 11562:11567 <> decode:31
+R11597:11599 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11663:11663 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 11607:11607 <> s:32
+R11627:11629 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11610:11615 Kernel.StructuralAxisRelativization <> decode:31 var
+R11618:11623 Kernel.BlindnessRepresentation <> forget def
+R11625:11625 Kernel.StructuralAxisRelativization <> s:32 var
+R11630:11660 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R11662:11662 Kernel.StructuralAxisRelativization <> s:32 var
+R11676:11677 Coq.Init.Logic <> ::type_scope:'~'_x not
+R11678:11684 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11701:11702 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R11694:11697 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11691:11693 Coq.Init.Datatypes <> nat ind
+R11698:11700 Coq.Init.Datatypes <> nat ind
+binder 11685:11687 <> phi:33
+binder 11710:11710 <> s:34
+R11732:11734 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11713:11715 Kernel.StructuralAxisRelativization <> phi:33 var
+R11718:11728 Kernel.StructuralAxisRelativization <> struct_only def
+R11730:11730 Kernel.StructuralAxisRelativization <> s:34 var
+R11738:11742 Kernel.VMState <> vm_pc proj
+R11735:11735 Kernel.StructuralAxisRelativization <> s:34 var
+R11928:11934 Kernel.VMState <> VMState rec
+binder 11924:11924 <> s:35
+R11982:11990 Coq.Init.Logic <> ::type_scope:x_'\/'_x not
+R11975:11977 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11942:11972 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R11974:11974 Kernel.StructuralAxisRelativization <> s:35 var
+R11978:11981 Coq.Init.Datatypes <> true constr
+R12024:12026 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11991:12021 Kernel.StructuralAxisOrthogonality <> admits_structural_shortcut_bool def
+R12023:12023 Kernel.StructuralAxisRelativization <> s:35 var
+R12027:12031 Coq.Init.Datatypes <> false constr
+R12072:12116 Kernel.StructuralAxisRelativization <> structural_axis_survives_any_classical_oracle thm
+R12072:12116 Kernel.StructuralAxisRelativization <> structural_axis_survives_any_classical_oracle thm
+R12129:12153 Kernel.StructuralAxisRelativization <> axes_mutually_independent thm
+R12129:12153 Kernel.StructuralAxisRelativization <> axes_mutually_independent thm
+R12166:12192 Kernel.StructuralAxisRelativization <> structural_membership_total thm
+R12166:12192 Kernel.StructuralAxisRelativization <> structural_membership_total thm

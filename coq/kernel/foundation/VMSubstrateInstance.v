@@ -1,7 +1,7 @@
 (** VMSubstrateInstance.v — VMState as a Substrate instance.
 
     This file constructs a [Substrate] typeclass instance for the
-    47-opcode Thiele VM. Once supplied, the substrate-level
+    51-opcode Thiele VM. Once supplied, the substrate-level
     [structural_shortcut_undecidable] theorem from
     [StructuralUndecidability.v] fires for the concrete VM as a
     corollary.
@@ -14,16 +14,16 @@
       mu              = vm_mu (the kernel's mu-ledger projection)
       step            = single-instruction step relation
       mu_monotone     = derived from vm_apply_mu (existing kernel result)
-      encode/decode   = section parameters (the well-known Goedel
+      encode/decode   = section parameters (the standard Goedel
                         encoding for vm_instruction lists; its full
-                        formal construction is the next-paper
-                        engineering)
+                        formal construction is not discharged in this
+                        file)
       recursion_theorem = section parameter (the Kleene second
-                          recursion theorem applied to the 47-opcode
-                          VM; its full formal discharge requires
-                          building a universal interpreter as a
-                          [list vm_instruction] and proving its s-m-n
-                          parametrization, ~1500-3000 LOC)
+                          recursion theorem applied to the 51-opcode
+                          VM; discharging it means building a universal
+                          interpreter as a [list vm_instruction] and
+                          proving its s-m-n parametrization, which this
+                          file does not do)
 
     The Section discipline used here is identical to the discipline
     used in BekensteinBound.v for physical-constant positivity and
@@ -38,8 +38,10 @@
         [structural_shortcut_undecidable] applied to vm_substrate
 
     What this file does not deliver: the unconditional formal proofs
-    of the section parameters. Those are the next-paper engineering
-    effort and are explicitly flagged as such in the monograph.
+    of the section parameters. Those remain open; they are named
+    explicitly here and in the monograph rather than hidden. The
+    unconditional substrate-level limitative theorem is already
+    discharged for the nat-coded substrate in NatSubstrateInstance.v.
 *)
 
 From Coq Require Import List Arith.PeanoNat Bool.
@@ -53,7 +55,7 @@ From Kernel Require Import VMState VMStep SimulationProof
 
     The Substrate typeclass requires [run : Program -> state -> option state]
     where [Some r] means the program converges to [r] and [None] models
-    divergence. The 47-opcode VM has bounded execution — every [run_vm]
+    divergence. The 51-opcode VM has bounded execution — every [run_vm]
     call terminates because it consumes fuel. We wrap it by choosing a
     fixed fuel budget large enough to cover the programs we care about
     in this file (the diagonal construction's "yes" and "no"
@@ -97,7 +99,7 @@ Qed.
    They are the well-known Kleene recursion theorem (Kleene 1938)
    and the standard Goedel encoding for [list vm_instruction]; both
    are classical results whose formal discharge for this specific
-   VM is the next-paper engineering. They are not global axioms; the
+   VM is left open here. They are not global axioms; the
    Section discharge gives every theorem that uses [vm_substrate] its
    full set of preconditions explicitly. *)
 Section VMSubstrateConstruction.
@@ -118,9 +120,9 @@ Section VMSubstrateConstruction.
       transformer [f : list vm_instruction -> list vm_instruction] is
       VM-representable iff there is a single fixed VM program that
       mimics [f]'s effect on the run-behavior of its argument. The
-      concrete realization for the 47-opcode VM is the next-paper
-      engineering effort; here we leave [vm_representable] as a Section
-      parameter so the VM-corollary remains parameterized over it.
+      concrete realization for the 51-opcode VM is not built here; we
+      leave [vm_representable] as a Section parameter so the
+      VM-corollary remains parameterized over it.
       The minimal nat-coded substrate (NatSubstrateInstance.v) discharges
       the analogous predicate unconditionally for its own language. *)
   (* INQUISITOR NOTE: SECTION PARAMETER — [vm_representable] and the
@@ -136,7 +138,7 @@ Section VMSubstrateConstruction.
      [vm_substrate] its full set of preconditions explicitly. *)
   Variable vm_representable : (list vm_instruction -> list vm_instruction) -> Prop.
 
-  (** Kleene's second recursion theorem for the 47-opcode VM, restricted
+  (** Kleene's second recursion theorem for the 51-opcode VM, restricted
       to representable transformers. *)
   Hypothesis vm_recursion_theorem :
     forall (f : list vm_instruction -> list vm_instruction),
@@ -172,7 +174,7 @@ End VMSubstrateConstruction.
         Substrate
 
     i.e., supplying the four section parameters yields a Substrate
-    instance whose underlying state/Program/run/mu match the 47-opcode
+    instance whose underlying state/Program/run/mu match the 51-opcode
     VM. The substrate-level [structural_shortcut_undecidable] theorem
     fires for this instance the moment a caller provides the four
     parameters.
@@ -183,13 +185,14 @@ End VMSubstrateConstruction.
       2. vm_decode_safe — its (total) decoder.
       3. vm_encode_decode — round-trip property on encoded states.
       4. vm_recursion_theorem — Kleene's second recursion theorem
-                               applied to the 47-opcode VM.
+                               applied to the 51-opcode VM.
 
     Items 1-3 are well-known constructive encodings. Item 4 is the
-    Kleene recursion theorem, whose formal discharge for this specific
-    VM is the next-paper engineering effort flagged in the monograph
-    (universal interpreter as a [list vm_instruction], plus its
-    s-m-n parametrization proof; ~1500-3000 LOC).
+    Kleene recursion theorem; discharging it for this specific VM
+    means building a universal interpreter as a [list vm_instruction]
+    plus its s-m-n parametrization proof. That discharge is open here;
+    the unconditional substrate-level result is the nat instance in
+    NatSubstrateInstance.v.
 
     What this file delivers TODAY: the explicit pipe from
     "the parameters" to "a Substrate instance for VMState" — the

@@ -25,7 +25,10 @@ Syntax:
     .DATA 10 42                 # data memory initialization: mem[10] = 42
     FUEL 1000                   # max execution steps (trace format only)
 
-ISA Reference (46 opcodes total: 39 original encodings + 7 categorical morph opcodes):
+ISA Reference (46 assembler-targetable opcodes: 39 original encodings + 7 categorical
+morph opcodes). The full Thiele ISA is 51 opcodes; the 5 CHSH check opcodes not listed
+here (CHSH_LASSERT and the four Q_{1+AB} variants) are exercised through the witness /
+cosim path, not via assembler mnemonics:
     Opcode   | Encoding  | Syntax
     ---------+-----------+-------
     PNEW     | 0x00      | PNEW {region} cost       — or — PNEW a b cost

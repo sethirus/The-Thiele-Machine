@@ -7,7 +7,7 @@
 
     The theorem and its proof live entirely at the substrate level
     (Substrate typeclass). They are facts about A2-respecting substrates,
-    not about the 47-opcode Thiele VM. The 47-opcode VM is one substrate
+    not about the 51-opcode Thiele VM. The 51-opcode VM is one substrate
     instance — when its Substrate-typeclass instance is supplied, the
     diagonalization fires for it as a corollary, but the limitative
     content is substrate-level.
@@ -31,7 +31,7 @@
     Substrate-vs-scaffolding. The theorem's content is purely substrate-
     level: it talks about programs, the AdmitsShortcut predicate, and the
     recursion theorem. Nothing in the statement or proof references the
-    47-opcode instruction set. The opcodes are how the substrate is made
+    51-opcode instruction set. The opcodes are how the substrate is made
     concrete enough to verify and synthesize, but the limitative result
     is one level above. Section 1 of the monograph names this distinction
     explicitly; the present file is its formal embodiment.
@@ -43,7 +43,7 @@ From Kernel Require Import Substrate.
 (** Concrete-witness imports. The abstract diagonalization in this
     file is substrate-level. The connection definition at the bottom
     of the file shows how AdmitsShortcut instantiates for the
-    47-opcode VM, by pointing at the concrete SoundStructuralShortcut
+    51-opcode VM, by pointing at the concrete SoundStructuralShortcut
     witness class and at the explicit VMSubstrateInstance. *)
 From Kernel Require Import VMState VMStep
                            HonestNoFI_TheoremsWithoutAssumptions
@@ -71,7 +71,7 @@ Class WithShortcutPredicate `{Sub : Substrate} : Type := {
   (** [AdmitsShortcut p] holds iff the program [p] admits a sound
       structural shortcut on the substrate's distinguished initial state.
       Concrete substrates instantiate this with their concrete witness
-      class — for the 47-opcode VM, with inhabitedness of
+      class — for the 51-opcode VM, with inhabitedness of
       [SoundStructuralShortcut fuel p s_init] for some choice of fuel
       and s_init. *)
   AdmitsShortcut : Program -> Prop;
@@ -101,7 +101,7 @@ Class WithShortcutPredicate `{Sub : Substrate} : Type := {
    over a Substrate plus WithShortcutPredicate typeclass instance. The
    Context bindings are SECTION PARAMETERS, not section-local axioms;
    closing the section discharges them as EXPLICIT FORALL premises on
-   the contained theorems. The 47-opcode VM instance and its
+   the contained theorems. The 51-opcode VM instance and its
    shortcut-predicate witness are supplied in the deferred VMState
    instantiation file (see the monograph's substrate-undecidability
    section for status). *)
@@ -191,7 +191,7 @@ Section StructuralAxisUndecidability.
         - Any reference to fuel, traces, or concrete VM state
         - Any reference to Turing-machine halting
 
-      Hence the result is substrate-level, not opcode-level. The 47-opcode
+      Hence the result is substrate-level, not opcode-level. The 51-opcode
       VM is one realization where these conditions hold (subject to
       discharging the recursion-theorem field, which is the s-m-n
       construction for the VM, and supplying yes_program / no_program
@@ -265,7 +265,7 @@ End DecidabilityCorollary.
     state, a decision tree, an observation function, a representative
     reduction, etc.) that make sense at the VM level. It is the
     constructive class of "shortcuts that gave their receipts" — every
-    concrete realization of a structural shortcut in the 47-opcode VM
+    concrete realization of a structural shortcut in the 51-opcode VM
     is an inhabitant.
 
     The substrate-level predicate [vm_admits_shortcut_extensional]
@@ -312,7 +312,7 @@ Qed.
     with the [vm_substrate] instance from [VMSubstrateInstance.v].
     The composition is conditional on the four section parameters
     that [vm_substrate] takes (the Goedel encoding plus the Kleene
-    recursion theorem applied to the 47-opcode VM); supplying them
+    recursion theorem applied to the 51-opcode VM); supplying them
     discharges the VMState corollary in full.
 
     The shape of the VM-specific predicate used here is extensional:
@@ -429,7 +429,7 @@ Section VMShortcutPredicate.
   (** ** The VM-specific structural-axis impossibility theorem.
 
       Specialized form of [structural_shortcut_undecidable] for the
-      47-opcode VM: there is no Coq function [decide : list
+      51-opcode VM: there is no Coq function [decide : list
       vm_instruction -> bool] whose corresponding diagonal flip
       transformer is internally representable in the VM language and
       that decides whether an arbitrary VM program admits the

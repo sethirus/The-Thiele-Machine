@@ -421,7 +421,7 @@ Qed.
     The sharpest result: gaining certification (vm_certified going from
     false to true) requires at least 1 unit of μ-cost. This is not
     assumed as a record field; it is derived from the vm_apply semantics
-    by exhaustive case analysis on all 46 instruction arms.
+    by exhaustive case analysis on all 51 instruction arms.
 
     Combined with μ-conservation (MuLedgerConservation):
     - Certification = structural insight about the computation

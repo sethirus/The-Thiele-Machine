@@ -1,7 +1,7 @@
 (** Substrate.v — the abstract computational substrate of the Thiele
     Machine, expressed as a Coq typeclass.
 
-    The Thiele Machine is not the 47-opcode VM. The 47-opcode VM is one
+    The Thiele Machine is not the 51-opcode VM. The 51-opcode VM is one
     realization, the way a tape-and-head Turing machine is one realization
     of "the abstract notion of computation by a step relation." This file
     extracts the substrate: a typeclass capturing exactly the structure
@@ -16,7 +16,7 @@
     CertificationSystem record: a step that flips the cert flag from
     false to true must cost ≥ 1. This Substrate typeclass carries a
     related but weaker general-purpose monotonicity field, mu_monotone,
-    stating that no step decreases mu. The two coincide on the 47-opcode
+    stating that no step decreases mu. The two coincide on the 51-opcode
     VM (where every instruction adds non-negative cost and the cert
     transition adds at least 1) but the Substrate typeclass itself does
     not include a cert predicate, so it cannot state A2 directly.
@@ -30,7 +30,7 @@
                                   program, in the extensional sense
 
     What does NOT live here:
-      The 47-opcode VM. That is one Substrate instance, defined elsewhere.
+      The 51-opcode VM. That is one Substrate instance, defined elsewhere.
 
     Design note. The recursion-theorem field bundles together universality
     + s-m-n, which are two well-known sufficient conditions for it (Kleene
@@ -43,7 +43,7 @@
 
     Substrate-vs-scaffolding. Anything proved over [`{Substrate}] is a
     fact about the substrate, not about any particular instruction set.
-    The 47 opcodes are the experimental apparatus that makes the substrate
+    The 51 opcodes are the experimental apparatus that makes the substrate
     runnable, verifiable, and synthesizable; they are not the substrate.
 *)
 
@@ -55,12 +55,12 @@ Class Substrate : Type := {
 
   (** *** States, programs, and execution *)
 
-  (** [state] is the type of substrate states. For the 47-opcode VM
+  (** [state] is the type of substrate states. For the 51-opcode VM
       instance this is [VMState]; for other Substrate instances it
       could be something else entirely. *)
   state : Type;
 
-  (** [Program] is the type of substrate programs. For the 47-opcode VM
+  (** [Program] is the type of substrate programs. For the 51-opcode VM
       this is [list vm_instruction]; for other instances it could be a
       lambda term, a Turing-machine description, etc. *)
   Program : Type;
@@ -90,7 +90,7 @@ Class Substrate : Type := {
       kernel A2 implies a particular form of monotonicity at the cert
       transition; the substrate-level [mu_monotone] is the more general
       "cost ledger never decreases" property. The two coincide on concrete
-      A2-respecting instances such as the 47-opcode VM. *)
+      A2-respecting instances such as the 51-opcode VM. *)
   mu_monotone : forall (p : Program) (s s' : state),
     step p s s' -> mu s <= mu s';
 
@@ -126,7 +126,7 @@ Class Substrate : Type := {
       not about every conceivable mathematical decider).
 
       Concrete substrates instantiate [Representable] with a precise
-      meaning. The 47-opcode VM, for example, would define it as
+      meaning. The 51-opcode VM, for example, would define it as
       "computable by a [list vm_instruction] under [run_vm]." The minimal
       nat-coded substrate (NatSubstrateInstance.v) defines it as
       "computable by some nat code under [eval]." *)
@@ -159,7 +159,7 @@ Class Substrate : Type := {
    discharges the Context binding as an EXPLICIT FORALL premise on the
    contained lemmas. The typeclass binding is a section parameter, not a
    section-local axiom. The instance is supplied at use sites (concrete
-   substrates such as the 47-opcode VM provide one when instantiating). *)
+   substrates such as the 51-opcode VM provide one when instantiating). *)
 Section ProgEquivFacts.
   Context `{Sub : Substrate}.
 

@@ -2,8 +2,8 @@
   "schema": "vacuity_audit.v1",
   "summary": {
     "error": 0,
-    "ok": 539,
-    "total": 539,
+    "ok": 603,
+    "total": 603,
     "vacuous_hyp": 0,
     "vacuous_true": 0
   },
@@ -5111,7 +5111,7 @@
     {
       "file": "coq/kami_hw/RTLGapRegistry.v",
       "kind": "Theorem",
-      "line": 87,
+      "line": 91,
       "name": "rtl_gap_count",
       "probe_a": {
         "coq_stderr_tail": "stem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_gap_count__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type \"0 = 0\".",
@@ -5131,7 +5131,7 @@
     {
       "file": "coq/kami_hw/RTLGapRegistry.v",
       "kind": "Theorem",
-      "line": 98,
+      "line": 102,
       "name": "rtl_coverage_partition",
       "probe_a": {
         "coq_stderr_tail": "t]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_coverage_partition__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type \"47 = 47\".",
@@ -7106,6 +7106,1286 @@
         "succeeded": false
       },
       "statement": "(~ exists (Omega : StrictShadow -> nat), forall s, Omega (P_strict s) = s.(vm_mu)) /\\ (~ exists (Omega : StrictShadow -> bool), forall s, Omega (P_strict s) = s.(vm_certified)) /\\ (~ exists (Omega : CostShadow -> bool), forall s, Omega (P_cost s) = s.(vm_certified)) /\\ (~ exists (Omega : CertAnnotatedShadow -> nat), forall s, Omega (P_cert s) = s.(vm_mu)) /\\ (~ exists (Omega : FullMuLedgerShadow -> PartitionGraph), forall s, Omega (P_full s) = s.(vm_graph))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 53,
+      "name": "run_certify_reachable",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_reachable__a.v\", line 3, characters 49-58:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_reachable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_reachable__b.v\", line 3, characters 49-58:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_reachable__b.v",
+        "succeeded": false
+      },
+      "statement": "reachable run_certify",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 56,
+      "name": "run_pnew3_reachable",
+      "probe_a": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_reachable__a.v\", line 3, characters 47-56:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_reachable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_reachable__b.v\", line 3, characters 47-56:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_reachable__b.v",
+        "succeeded": false
+      },
+      "statement": "reachable run_pnew3",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 60,
+      "name": "run_certify_step",
+      "probe_a": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_step__a.v\", line 3, characters 58-66:\nError: The reference vm_apply was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_step__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "tem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_step__b.v\", line 3, characters 58-66:\nError: The reference vm_apply was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_certify_step__b.v",
+        "succeeded": false
+      },
+      "statement": "run_certify = vm_apply init_state (instr_certify 2)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 63,
+      "name": "run_pnew3_step",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_step__a.v\", line 3, characters 86-88:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_step__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_step__b.v\", line 3, characters 86-88:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew3_step__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew3 = vm_apply init_state (instr_pnew [] 3)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 66,
+      "name": "cert_mem",
+      "probe_a": {
+        "coq_stderr_tail": "th,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mem__a.v\", line 3, characters 49-55:\nError: The reference vm_mem was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mem__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "th,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mem__b.v\", line 3, characters 49-55:\nError: The reference vm_mem was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mem__b.v",
+        "succeeded": false
+      },
+      "statement": "run_certify.(vm_mem) = run_pnew3.(vm_mem)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 72,
+      "name": "cert_regs",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_regs__a.v\", line 3, characters 50-57:\nError: The reference vm_regs was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_regs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_regs__b.v\", line 3, characters 50-57:\nError: The reference vm_regs was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_regs__b.v",
+        "succeeded": false
+      },
+      "statement": "run_certify.(vm_regs) = run_pnew3.(vm_regs)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 78,
+      "name": "cert_pc",
+      "probe_a": {
+        "coq_stderr_tail": "path,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_pc__a.v\", line 3, characters 48-53:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_pc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "path,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_pc__b.v\", line 3, characters 48-53:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_pc__b.v",
+        "succeeded": false
+      },
+      "statement": "run_certify.(vm_pc) = run_pnew3.(vm_pc)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 84,
+      "name": "cert_mu",
+      "probe_a": {
+        "coq_stderr_tail": "path,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mu__a.v\", line 3, characters 48-53:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "path,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mu__b.v\", line 3, characters 48-53:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "run_certify.(vm_mu) = run_pnew3.(vm_mu)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 91,
+      "name": "cert_certified_differs",
+      "probe_a": {
+        "coq_stderr_tail": "t]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_certified_differs__a.v\", line 3, characters 63-75:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_certified_differs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "t]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__cert_certified_differs__b.v\", line 3, characters 63-75:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__cert_certified_differs__b.v",
+        "succeeded": false
+      },
+      "statement": "run_certify.(vm_certified) <> run_pnew3.(vm_certified)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Theorem",
+      "line": 101,
+      "name": "mu_cert_not_complete_over_runs",
+      "probe_a": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mu_cert_not_complete_over_runs__a.v\", line 3, characters 73-80:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mu_cert_not_complete_over_runs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "Warning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mu_cert_not_complete_over_runs__b.v\", line 3, characters 73-80:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mu_cert_not_complete_over_runs__b.v",
+        "succeeded": false
+      },
+      "statement": "exists s1 s2 : VMState, reachable s1 /\\ reachable s2 /\\ s1.(vm_mem) = s2.(vm_mem) /\\ s1.(vm_regs) = s2.(vm_regs) /\\ s1.(vm_pc) = s2.(vm_pc) /\\ s1.(vm_mu) = s2.(vm_mu) /\\ s1.(vm_certified) <> s2.(vm_certified)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Theorem",
+      "line": 122,
+      "name": "certified_does_not_factor_through_mu",
+      "probe_a": {
+        "coq_stderr_tail": "workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__certified_does_not_factor_through_mu__a.v\", line 3, characters 100-109:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__certified_does_not_factor_through_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__certified_does_not_factor_through_mu__b.v\", line 3, characters 100-109:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__certified_does_not_factor_through_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists g : nat -> bool, forall s, reachable s -> s.(vm_certified) = g (s.(vm_mu))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 142,
+      "name": "mdlacc_mem",
+      "probe_a": {
+        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mem__a.v\", line 3, characters 85-91:\nError: The reference vm_mem was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mem__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mem__b.v\", line 3, characters 85-91:\nError: The reference vm_mem was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mem__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s m c, (vm_apply s (instr_mdlacc m c)).(vm_mem) = s.(vm_mem)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 146,
+      "name": "mdlacc_regs",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_regs__a.v\", line 3, characters 86-93:\nError: The reference vm_regs was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_regs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_regs__b.v\", line 3, characters 86-93:\nError: The reference vm_regs was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_regs__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s m c, (vm_apply s (instr_mdlacc m c)).(vm_regs) = s.(vm_regs)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 150,
+      "name": "mdlacc_pc",
+      "probe_a": {
+        "coq_stderr_tail": "th,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_pc__a.v\", line 3, characters 84-89:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_pc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "th,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_pc__b.v\", line 3, characters 84-89:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_pc__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s m c, (vm_apply s (instr_mdlacc m c)).(vm_pc) = S s.(vm_pc)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 154,
+      "name": "mdlacc_mu",
+      "probe_a": {
+        "coq_stderr_tail": "th,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mu__a.v\", line 3, characters 84-89:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "th,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mu__b.v\", line 3, characters 84-89:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s m c, (vm_apply s (instr_mdlacc m c)).(vm_mu) = s.(vm_mu) + c",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 158,
+      "name": "mdlacc_certified",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_certified__a.v\", line 3, characters 91-103:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_certified__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_certified__b.v\", line 3, characters 91-103:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_certified__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s m c, (vm_apply s (instr_mdlacc m c)).(vm_certified) = s.(vm_certified)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 162,
+      "name": "mdlacc_graph",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_graph__a.v\", line 3, characters 87-95:\nError: The reference vm_graph was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_graph__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_graph__b.v\", line 3, characters 87-95:\nError: The reference vm_graph was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mdlacc_graph__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s m c, (vm_apply s (instr_mdlacc m c)).(vm_graph) = s.(vm_graph)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 167,
+      "name": "pnew_module_count_succ",
+      "probe_a": {
+        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__pnew_module_count_succ__a.v\", line 3, characters 72-82:\nError: The reference pg_modules was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__pnew_module_count_succ__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__pnew_module_count_succ__b.v\", line 3, characters 72-82:\nError: The reference pg_modules was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__pnew_module_count_succ__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s r c, length (pg_modules ((vm_apply s (instr_pnew r c)).(vm_graph))) = S (length (pg_modules s.(vm_graph)))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 182,
+      "name": "run_pnew0_reachable",
+      "probe_a": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_reachable__a.v\", line 3, characters 47-56:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_reachable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_reachable__b.v\", line 3, characters 47-56:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_reachable__b.v",
+        "succeeded": false
+      },
+      "statement": "reachable run_pnew0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 185,
+      "name": "run_mdlacc_reachable",
+      "probe_a": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_reachable__a.v\", line 3, characters 48-57:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_reachable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "efault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_reachable__b.v\", line 3, characters 48-57:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_reachable__b.v",
+        "succeeded": false
+      },
+      "statement": "reachable run_mdlacc",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 188,
+      "name": "run_pnew0_step",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_step__a.v\", line 3, characters 86-88:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_step__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_step__b.v\", line 3, characters 86-88:\nError: Syntax error: ',' or ')' expected after [term level 200] (in [term]).",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_pnew0_step__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew0 = vm_apply init_state (instr_pnew [] 0)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 191,
+      "name": "run_mdlacc_step",
+      "probe_a": {
+        "coq_stderr_tail": "stem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_step__a.v\", line 3, characters 56-64:\nError: The reference vm_apply was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_step__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "stem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_step__b.v\", line 3, characters 56-64:\nError: The reference vm_apply was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__run_mdlacc_step__b.v",
+        "succeeded": false
+      },
+      "statement": "run_mdlacc = vm_apply init_state (instr_mdlacc 0 0)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 195,
+      "name": "init_modules_zero",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__init_modules_zero__a.v\", line 3, characters 53-63:\nError: The reference pg_modules was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__init_modules_zero__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__init_modules_zero__b.v\", line 3, characters 53-63:\nError: The reference pg_modules was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__init_modules_zero__b.v",
+        "succeeded": false
+      },
+      "statement": "length (pg_modules init_state.(vm_graph)) = 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 198,
+      "name": "graph_pair_mem",
+      "probe_a": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mem__a.v\", line 3, characters 53-59:\nError: The reference vm_mem was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mem__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mem__b.v\", line 3, characters 53-59:\nError: The reference vm_mem was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mem__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew0.(vm_mem) = run_mdlacc.(vm_mem)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 204,
+      "name": "graph_pair_regs",
+      "probe_a": {
+        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_regs__a.v\", line 3, characters 54-61:\nError: The reference vm_regs was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_regs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_regs__b.v\", line 3, characters 54-61:\nError: The reference vm_regs was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_regs__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew0.(vm_regs) = run_mdlacc.(vm_regs)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 210,
+      "name": "graph_pair_pc",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_pc__a.v\", line 3, characters 52-57:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_pc__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_pc__b.v\", line 3, characters 52-57:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_pc__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew0.(vm_pc) = run_mdlacc.(vm_pc)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 216,
+      "name": "graph_pair_mu",
+      "probe_a": {
+        "coq_stderr_tail": "ilesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mu__a.v\", line 3, characters 52-57:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ilesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mu__b.v\", line 3, characters 52-57:\nError: The reference vm_mu was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew0.(vm_mu) = run_mdlacc.(vm_mu)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 223,
+      "name": "graph_pair_certified",
+      "probe_a": {
+        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_certified__a.v\", line 3, characters 59-71:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_certified__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ult]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_certified__b.v\", line 3, characters 59-71:\nError: The reference vm_certified was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_certified__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew0.(vm_certified) = run_mdlacc.(vm_certified)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Lemma",
+      "line": 230,
+      "name": "graph_pair_differs",
+      "probe_a": {
+        "coq_stderr_tail": "m,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_differs__a.v\", line 3, characters 57-65:\nError: The reference vm_graph was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_differs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "m,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_differs__b.v\", line 3, characters 57-65:\nError: The reference vm_graph was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_pair_differs__b.v",
+        "succeeded": false
+      },
+      "statement": "run_pnew0.(vm_graph) <> run_mdlacc.(vm_graph)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Theorem",
+      "line": 246,
+      "name": "mu_graph_not_complete_over_runs",
+      "probe_a": {
+        "coq_stderr_tail": "arning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mu_graph_not_complete_over_runs__a.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mu_graph_not_complete_over_runs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "arning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mu_graph_not_complete_over_runs__b.v\", line 3, characters 74-81:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mu_graph_not_complete_over_runs__b.v",
+        "succeeded": false
+      },
+      "statement": "exists s1 s2 : VMState, reachable s1 /\\ reachable s2 /\\ s1.(vm_mem) = s2.(vm_mem) /\\ s1.(vm_regs) = s2.(vm_regs) /\\ s1.(vm_pc) = s2.(vm_pc) /\\ s1.(vm_mu) = s2.(vm_mu) /\\ s1.(vm_certified) = s2.(vm_certified) /\\ s1.(vm_graph) <> s2.(vm_graph)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Theorem",
+      "line": 268,
+      "name": "graph_does_not_factor_through_mu",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_does_not_factor_through_mu__a.v\", line 3, characters 80-94:\nError: The reference PartitionGraph was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_does_not_factor_through_mu__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__graph_does_not_factor_through_mu__b.v\", line 3, characters 80-94:\nError: The reference PartitionGraph was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__graph_does_not_factor_through_mu__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists g : nat -> PartitionGraph, forall s, reachable s -> s.(vm_graph) = g (s.(vm_mu))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "kind": "Theorem",
+      "line": 289,
+      "name": "mu_not_complete_invariant_over_runs",
+      "probe_a": {
+        "coq_stderr_tail": "ng: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mu_not_complete_invariant_over_runs__a.v\", line 3, characters 79-86:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mu_not_complete_invariant_over_runs__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ng: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__MuRunIncompleteness__mu_not_complete_invariant_over_runs__b.v\", line 3, characters 79-86:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__MuRunIncompleteness__mu_not_complete_invariant_over_runs__b.v",
+        "succeeded": false
+      },
+      "statement": "(exists s1 s2 : VMState, reachable s1 /\\ reachable s2 /\\ s1.(vm_mem) = s2.(vm_mem) /\\ s1.(vm_regs) = s2.(vm_regs) /\\ s1.(vm_pc) = s2.(vm_pc) /\\ s1.(vm_mu) = s2.(vm_mu) /\\ s1.(vm_certified) <> s2.(vm_certified)) /\\ (exists s1 s2 : VMState, reachable s1 /\\ reachable s2 /\\ s1.(vm_mem) = s2.(vm_mem) /\\ s1.(vm_regs) = s2.(vm_regs) /\\ s1.(vm_pc) = s2.(vm_pc) /\\ s1.(vm_mu) = s2.(vm_mu) /\\ s1.(vm_certified) = s2.(vm_certified) /\\ s1.(vm_graph) <> s2.(vm_graph)) /\\ (~ exists g : nat -> bool, forall s, reachable s -> s.(vm_certified) = g (s.(vm_mu))) /\\ (~ exists g : nat -> PartitionGraph, forall s, reachable s -> s.(vm_graph) = g (s.(vm_mu)))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Lemma",
+      "line": 80,
+      "name": "run_cert_set_reachable",
+      "probe_a": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_reachable__a.v\", line 3, characters 50-59:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_reachable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_reachable__b.v\", line 3, characters 50-59:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_reachable__b.v",
+        "succeeded": false
+      },
+      "statement": "reachable run_cert_set",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Lemma",
+      "line": 83,
+      "name": "run_cert_unset_reachable",
+      "probe_a": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_reachable__a.v\", line 3, characters 52-61:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_reachable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_reachable__b.v\", line 3, characters 52-61:\nError: The reference reachable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_reachable__b.v",
+        "succeeded": false
+      },
+      "statement": "reachable run_cert_unset",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Lemma",
+      "line": 89,
+      "name": "forget_collision",
+      "probe_a": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__forget_collision__a.v\", line 3, characters 44-50:\nError: The reference forget was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__forget_collision__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__forget_collision__b.v\", line 3, characters 44-50:\nError: The reference forget was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__forget_collision__b.v",
+        "succeeded": false
+      },
+      "statement": "forget run_cert_set = forget run_cert_unset",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Lemma",
+      "line": 104,
+      "name": "run_cert_set_admits",
+      "probe_a": {
+        "coq_stderr_tail": "orkspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_admits__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type \"true = true\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_admits__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_admits__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_set_admits__b.v",
+        "succeeded": false
+      },
+      "statement": "admits_structural_shortcut_bool run_cert_set = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Lemma",
+      "line": 108,
+      "name": "run_cert_unset_refuses",
+      "probe_a": {
+        "coq_stderr_tail": "ces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_refuses__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type\n \"false = false\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_refuses__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "riding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_refuses__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__run_cert_unset_refuses__b.v",
+        "succeeded": false
+      },
+      "statement": "admits_structural_shortcut_bool run_cert_unset = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Theorem",
+      "line": 121,
+      "name": "structural_shortcut_not_function_of_classical",
+      "probe_a": {
+        "coq_stderr_tail": "iele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_shortcut_not_function_of_classical__a.v\", line 3, characters 91-101:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_shortcut_not_function_of_classical__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "iele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_shortcut_not_function_of_classical__b.v\", line 3, characters 91-101:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_shortcut_not_function_of_classical__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists decode : TMSnapshot -> bool, forall s : VMState, decode (forget s) = admits_structural_shortcut_bool s",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Corollary",
+      "line": 140,
+      "name": "structural_axis_invisible_to_classical",
+      "probe_a": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_axis_invisible_to_classical__a.v\", line 3, characters 82-92:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_axis_invisible_to_classical__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_axis_invisible_to_classical__b.v\", line 3, characters 82-92:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__structural_axis_invisible_to_classical__b.v",
+        "succeeded": false
+      },
+      "statement": "forall decode : TMSnapshot -> bool, ~ (forall s, decode (forget s) = admits_structural_shortcut_bool s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Lemma",
+      "line": 172,
+      "name": "extensional_shortcut_detected_through_cert_addr",
+      "probe_a": {
+        "coq_stderr_tail": "fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__extensional_shortcut_detected_through_cert_addr__a.v\", line 3, characters 85-115:\nError: The reference vm_admits_shortcut_extensional was not found\nin the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__extensional_shortcut_detected_through_cert_addr__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__extensional_shortcut_detected_through_cert_addr__b.v\", line 3, characters 85-115:\nError: The reference vm_admits_shortcut_extensional was not found\nin the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__extensional_shortcut_detected_through_cert_addr__b.v",
+        "succeeded": false
+      },
+      "statement": "forall p, vm_admits_shortcut_extensional p -> admits_structural_shortcut_bool (run_vm vm_run_fuel p init_state) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Lemma",
+      "line": 187,
+      "name": "yes_program_detected_through_cert_addr",
+      "probe_a": {
+        "coq_stderr_tail": "aces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__yes_program_detected_through_cert_addr__a.v\", line 3, characters 99-105:\nError: The reference run_vm was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__yes_program_detected_through_cert_addr__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "aces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__yes_program_detected_through_cert_addr__b.v\", line 3, characters 99-105:\nError: The reference run_vm was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__yes_program_detected_through_cert_addr__b.v",
+        "succeeded": false
+      },
+      "statement": "admits_structural_shortcut_bool (run_vm vm_run_fuel simple_morph_trace init_state) = true",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "kind": "Theorem",
+      "line": 225,
+      "name": "second_axis_of_undecidability",
+      "probe_a": {
+        "coq_stderr_tail": "aces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__second_axis_of_undecidability__a.v\", line 3, characters 73-89:\nError: The reference BareTMObservable was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__second_axis_of_undecidability__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "aces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisOrthogonality__second_axis_of_undecidability__b.v\", line 3, characters 73-89:\nError: The reference BareTMObservable was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisOrthogonality__second_axis_of_undecidability__b.v",
+        "succeeded": false
+      },
+      "statement": "(~ exists phi : BareTMObservable -> nat, forall s : VMState, phi (bare_observable s) = s.(vm_mu)) /\\ (forall (enc : list vm_instruction -> VMState) (dec : VMState -> list vm_instruction), (forall p, dec (enc p) = p) -> forall (rep : (list vm_instruction -> list vm_instruction) -> Prop), (forall f, rep f -> exists q, forall s, vm_run q s = vm_run (f q) s) -> ~ exists (decide : list vm_instruction -> bool), rep (fun p => if decide p then (@nil vm_instruction) else simple_morph_trace) /\\ forall p, decide p = true <-> vm_admits_shortcut_extensional p) /\\ (forall decode : TMSnapshot -> bool, ~ (forall s, decode (forget s) = admits_structural_shortcut_bool s))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Theorem",
+      "line": 123,
+      "name": "structural_shortcut_undecidable",
+      "probe_a": {
+        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__structural_shortcut_undecidable__a.v\", line 3, characters 78-85:\nError: The reference Program was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__structural_shortcut_undecidable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__structural_shortcut_undecidable__b.v\", line 3, characters 78-85:\nError: The reference Program was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__structural_shortcut_undecidable__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists (decide : Program -> bool), Representable (fun p => if decide p then no_program else yes_program) /\\ forall p, decide p = true <-> AdmitsShortcut p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Corollary",
+      "line": 237,
+      "name": "admits_shortcut_not_decidable",
+      "probe_a": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__admits_shortcut_not_decidable__a.v\", line 3, characters 126-139:\nError: The reference Representable was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__admits_shortcut_not_decidable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__admits_shortcut_not_decidable__b.v\", line 3, characters 126-139:\nError: The reference Representable was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__admits_shortcut_not_decidable__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (Hdec : forall p, {AdmitsShortcut p} + {~ AdmitsShortcut p}), Representable (fun p => if (if Hdec p then true else false) then no_program else yes_program) -> False",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Lemma",
+      "line": 302,
+      "name": "vm_instantiation_target_witnessed",
+      "probe_a": {
+        "coq_stderr_tail": "/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_instantiation_target_witnessed__a.v\", line 3, characters 85-103:\nError: The reference simple_morph_trace was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_instantiation_target_witnessed__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_instantiation_target_witnessed__b.v\", line 3, characters 85-103:\nError: The reference simple_morph_trace was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_instantiation_target_witnessed__b.v",
+        "succeeded": false
+      },
+      "statement": "vm_instantiation_target simple_morph_trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Lemma",
+      "line": 333,
+      "name": "vm_admits_shortcut_yes",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_yes__a.v\", line 3, characters 81-99:\nError: The reference simple_morph_trace was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_yes__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_yes__b.v\", line 3, characters 81-99:\nError: The reference simple_morph_trace was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_yes__b.v",
+        "succeeded": false
+      },
+      "statement": "vm_admits_shortcut_extensional simple_morph_trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Lemma",
+      "line": 337,
+      "name": "vm_admits_shortcut_no",
+      "probe_a": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_no__a.v\", line 3, characters 88-102:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_no__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ing: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_no__b.v\", line 3, characters 88-102:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_no__b.v",
+        "succeeded": false
+      },
+      "statement": "~ vm_admits_shortcut_extensional (@nil vm_instruction)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Lemma",
+      "line": 352,
+      "name": "vm_admits_shortcut_extensional_resp",
+      "probe_a": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_extensional_resp__a.v\", line 3, characters 88-94:\nError: The reference vm_run was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_extensional_resp__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_extensional_resp__b.v\", line 3, characters 88-94:\nError: The reference vm_run was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_admits_shortcut_extensional_resp__b.v",
+        "succeeded": false
+      },
+      "statement": "forall p1 p2, (forall s, vm_run p1 s = vm_run p2 s) -> vm_admits_shortcut_extensional p1 <-> vm_admits_shortcut_extensional p2",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Lemma",
+      "line": 369,
+      "name": "concrete_shortcut_implies_extensional",
+      "probe_a": {
+        "coq_stderr_tail": "-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__concrete_shortcut_implies_extensional__a.v\", line 3, characters 89-107:\nError: The reference simple_morph_trace was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__concrete_shortcut_implies_extensional__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__concrete_shortcut_implies_extensional__b.v\", line 3, characters 89-107:\nError: The reference simple_morph_trace was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__concrete_shortcut_implies_extensional__b.v",
+        "succeeded": false
+      },
+      "statement": "vm_instantiation_target simple_morph_trace -> vm_admits_shortcut_extensional simple_morph_trace",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralUndecidability.v",
+      "kind": "Theorem",
+      "line": 447,
+      "name": "vm_structural_shortcut_undecidable",
+      "probe_a": {
+        "coq_stderr_tail": "ces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_structural_shortcut_undecidable__a.v\", line 3, characters 86-100:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_structural_shortcut_undecidable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralUndecidability__vm_structural_shortcut_undecidable__b.v\", line 3, characters 86-100:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralUndecidability__vm_structural_shortcut_undecidable__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists (decide : list vm_instruction -> bool), vm_representable_arg (fun p => if decide p then (@nil vm_instruction) else simple_morph_trace) /\\ forall p, decide p = true <-> vm_admits_shortcut_extensional p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Theorem",
+      "line": 61,
+      "name": "structural_axis_survives_any_classical_oracle",
+      "probe_a": {
+        "coq_stderr_tail": "le-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_any_classical_oracle__a.v\", line 3, characters 101-111:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_any_classical_oracle__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "le-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_any_classical_oracle__b.v\", line 3, characters 101-111:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_any_classical_oracle__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (A : Type) (oracle : TMSnapshot -> A) (decode : TMSnapshot -> A -> bool), ~ (forall s : VMState, decode (forget s) (oracle (forget s)) = admits_structural_shortcut_bool s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Corollary",
+      "line": 77,
+      "name": "structural_axis_survives_halting_oracle",
+      "probe_a": {
+        "coq_stderr_tail": "The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_halting_oracle__a.v\", line 3, characters 83-93:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_halting_oracle__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_halting_oracle__b.v\", line 3, characters 83-93:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_halting_oracle__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (halts : TMSnapshot -> bool) (decode : TMSnapshot -> bool -> bool), ~ (forall s : VMState, decode (forget s) (halts (forget s)) = admits_structural_shortcut_bool s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Corollary",
+      "line": 89,
+      "name": "structural_axis_survives_two_oracles",
+      "probe_a": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_two_oracles__a.v\", line 3, characters 90-100:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_two_oracles__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_two_oracles__b.v\", line 3, characters 90-100:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_axis_survives_two_oracles__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (A B : Type) (o1 : TMSnapshot -> A) (o2 : TMSnapshot -> B) (decode : TMSnapshot -> A -> B -> bool), ~ (forall s : VMState, decode (forget s) (o1 (forget s)) (o2 (forget s)) = admits_structural_shortcut_bool s)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Lemma",
+      "line": 115,
+      "name": "struct_only_init",
+      "probe_a": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_init__a.v\", line 3, characters 56-66:\nError: The reference init_state was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_init__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_init__b.v\", line 3, characters 56-66:\nError: The reference init_state was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_init__b.v",
+        "succeeded": false
+      },
+      "statement": "struct_only init_state = 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Lemma",
+      "line": 118,
+      "name": "struct_only_run_cert_unset",
+      "probe_a": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_run_cert_unset__a.v\", line 3, characters 66-80:\nError: The reference run_cert_unset was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_run_cert_unset__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "rkspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_run_cert_unset__b.v\", line 3, characters 66-80:\nError: The reference run_cert_unset was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__struct_only_run_cert_unset__b.v",
+        "succeeded": false
+      },
+      "statement": "struct_only run_cert_unset = 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Lemma",
+      "line": 121,
+      "name": "pc_init",
+      "probe_a": {
+        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_init__a.v\", line 3, characters 47-52:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_init__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_init__b.v\", line 3, characters 47-52:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_init__b.v",
+        "succeeded": false
+      },
+      "statement": "init_state.(vm_pc) = 0",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Lemma",
+      "line": 124,
+      "name": "pc_run_cert_unset",
+      "probe_a": {
+        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_run_cert_unset__a.v\", line 3, characters 61-66:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_run_cert_unset__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "ault]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_run_cert_unset__b.v\", line 3, characters 61-66:\nError: The reference vm_pc was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__pc_run_cert_unset__b.v",
+        "succeeded": false
+      },
+      "statement": "run_cert_unset.(vm_pc) = 3",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Theorem",
+      "line": 127,
+      "name": "classical_pc_not_function_of_structural",
+      "probe_a": {
+        "coq_stderr_tail": "/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__classical_pc_not_function_of_structural__a.v\", line 3, characters 105-112:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__classical_pc_not_function_of_structural__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__classical_pc_not_function_of_structural__b.v\", line 3, characters 105-112:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__classical_pc_not_function_of_structural__b.v",
+        "succeeded": false
+      },
+      "statement": "~ exists phi : nat -> nat, forall s : VMState, phi (struct_only s) = s.(vm_pc)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Theorem",
+      "line": 148,
+      "name": "axes_mutually_independent",
+      "probe_a": {
+        "coq_stderr_tail": ": /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__axes_mutually_independent__a.v\", line 3, characters 70-80:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__axes_mutually_independent__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ": /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__axes_mutually_independent__b.v\", line 3, characters 70-80:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__axes_mutually_independent__b.v",
+        "succeeded": false
+      },
+      "statement": "(forall decode : TMSnapshot -> bool, ~ (forall s, decode (forget s) = admits_structural_shortcut_bool s)) /\\ (~ exists phi : nat -> nat, forall s : VMState, phi (struct_only s) = s.(vm_pc))",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Theorem",
+      "line": 173,
+      "name": "structural_membership_decidable",
+      "probe_a": {
+        "coq_stderr_tail": "workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_decidable__a.v\", line 3, characters 70-77:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_decidable__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_decidable__b.v\", line 3, characters 70-77:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_decidable__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s : VMState, {admits_structural_shortcut_bool s = true} + {~ admits_structural_shortcut_bool s = true}",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Lemma",
+      "line": 186,
+      "name": "structural_membership_total",
+      "probe_a": {
+        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_total__a.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_total__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "g: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_total__b.v\", line 3, characters 66-73:\nError: The reference VMState was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__structural_membership_total__b.v",
+        "succeeded": false
+      },
+      "statement": "forall s : VMState, admits_structural_shortcut_bool s = true \\/ admits_structural_shortcut_bool s = false",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "kind": "Theorem",
+      "line": 200,
+      "name": "orthogonality_ladder_B_and_C",
+      "probe_a": {
+        "coq_stderr_tail": "workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__orthogonality_ladder_B_and_C__a.v\", line 3, characters 85-95:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__orthogonality_ladder_B_and_C__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__StructuralAxisRelativization__orthogonality_ladder_B_and_C__b.v\", line 3, characters 85-95:\nError: The reference TMSnapshot was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__StructuralAxisRelativization__orthogonality_ladder_B_and_C__b.v",
+        "succeeded": false
+      },
+      "statement": "(forall (A : Type) (oracle : TMSnapshot -> A) (decode : TMSnapshot -> A -> bool), ~ (forall s, decode (forget s) (oracle (forget s)) = admits_structural_shortcut_bool s)) /\\ ((forall decode : TMSnapshot -> bool, ~ (forall s, decode (forget s) = admits_structural_shortcut_bool s)) /\\ (~ exists phi : nat -> nat, forall s, phi (struct_only s) = s.(vm_pc))) /\\ (forall s : VMState, admits_structural_shortcut_bool s = true \\/ admits_structural_shortcut_bool s = false)",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
+      "kind": "Lemma",
+      "line": 60,
+      "name": "vm_encode_decode_concrete",
+      "probe_a": {
+        "coq_stderr_tail": "end\n                           | None => None\n                           end\n                       | None => None\n                       end\n                   | None => None\n                   end\n               | None => None\n               end\n           | _ => None\n           end) count rest\n    | None => None\n    end\n  with\n  | Some (p, _) => p\n  | None => nil\n  end = p\".",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_encode_decode_concrete__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_encode_decode_concrete__b.v\", line 4, characters 26-36:\nError: No such assumption.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_encode_decode_concrete__b.v",
+        "succeeded": false
+      },
+      "statement": "forall p, vm_decode_concrete (vm_encode_concrete p) = p",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
+      "kind": "Theorem",
+      "line": 71,
+      "name": "vm_structural_shortcut_undecidable_encoded",
+      "probe_a": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__a.v\", line 3, characters 90-104:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": "s/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__b.v\", line 3, characters 90-104:\nError: The reference vm_instruction was not found in the current environment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_structural_shortcut_undecidable_encoded__b.v",
+        "succeeded": false
+      },
+      "statement": "forall (rep : (list vm_instruction -> list vm_instruction) -> Prop) (Hrec : forall f, rep f -> exists q, forall s, vm_run q s = vm_run (f q) s), ~ exists (decide : list vm_instruction -> bool), rep (fun p => if decide p then (@nil vm_instruction) else simple_morph_trace) /\\ forall p, decide p = true <-> vm_admits_shortcut_extensional p",
       "status": "ok"
     },
     {

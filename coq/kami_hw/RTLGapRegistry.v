@@ -7,12 +7,14 @@
 
     ** Current state
 
-    All 46 opcodes have [Qed] proofs. Zero [Admitted]. Zero structural
-    gaps. The master theorem [driven_step_wf] in
-    [GraphReconstructionBridge.v] covers all 46 opcodes under
-    [WFDrivenPrecondition].
+    All 47 synth-realised opcodes have [Qed] proofs. Zero [Admitted].
+    Zero structural gaps. The master theorem [driven_step_wf] in
+    [GraphReconstructionBridge.v] covers 46 of them (every opcode except
+    CHSH_LASSERT) under [WFDrivenPrecondition]; CHSH_LASSERT, the 47th,
+    commutes unconditionally via [abs_phase1] (see [rtl_coverage_partition]
+    below).
 
-    All 46 opcode proofs hold for every state reachable by machine
+    All 47 opcode proofs hold for every state reachable by machine
     execution from a valid initial state. The [extended_hw_invariant]
     (with [coupling_wf]) is an inductive invariant: proved to hold at
     initialisation and preserved by every [kami_step] operation, so
@@ -20,13 +22,15 @@
 
     ** Coverage breakdown
 
-      - 36 opcodes: unconditional [Qed].
+      - 37 opcodes: unconditional [Qed].
           - 30 via [SupportedOpcode] + [embed_step_compute] in
             [EmbedStep.v].
           - CALL, RET, CHSH_TRIAL via [EmbedStep_WF.v].
           - TENSOR_SET via [driven_step_tensor_set_full] (both paths).
           - TENSOR_GET via [driven_step_tensor_get_full] (both paths).
           - LASSERT via [driven_step_lassert].
+          - CHSH_LASSERT via [abs_phase1] (kami_step inspects the witness
+            buckets through the same check function as vm_apply).
       - 10 opcodes: [Qed] under structural invariants that are
         inductive and always hold.
           - PNEW: [sz > 0] and [tensors = 0].
@@ -47,8 +51,8 @@
         [coupling_desc_bounded /\ coupling_pairs_in_range /\
          coupling_pairs_fully_populated]. Preserved through COMPOSE
         and MORPH_TENSOR success paths;
-        [coupling_wf_kami_step_preserved] proves the invariant for all
-        46 ops. *)
+        [coupling_wf_kami_step_preserved] proves the invariant for
+        every [kami_step] operation. *)
 
 From Coq Require Import List String.
 Import ListNotations.
