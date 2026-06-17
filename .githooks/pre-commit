@@ -381,8 +381,24 @@ fi
 # is byte-identical and no re-staging is needed.
 # ---------------------------------------------------------------------------
 
-echo "[pre-commit] Running FULL test suite (no marker filter)..."
-if ! python3 -m pytest tests/ -q --tb=short >/dev/null 2>&1; then
+# Parallelise across cores when pytest-xdist is installed. This is a pure
+# speedup: NO marker filter, NO deselection — every test pytest collects
+# still runs and must still pass. Measured locally (970 tests, 4 cores):
+# 107s serial → 62s with `-n auto`. Falls back to serial when xdist is
+# absent, so the gate never hard-depends on an optional plugin.
+#
+# Why pass `-n auto` here instead of leaning on tests/conftest.py: conftest
+# tries to inject it from pytest_configure, but that hook fires after xdist
+# has already read numprocesses, so the injection is silently a no-op (the
+# run stays serial). Passing it on the command line is the reliable path.
+_pc_pytest_jobs=""
+if python3 -c "import xdist" >/dev/null 2>&1; then
+    _pc_pytest_jobs="-n auto"
+fi
+
+echo "[pre-commit] Running FULL test suite (no marker filter)${_pc_pytest_jobs:+, ${_pc_pytest_jobs}}..."
+# shellcheck disable=SC2086 — _pc_pytest_jobs is a deliberate flat flag list
+if ! python3 -m pytest tests/ -q --tb=short $_pc_pytest_jobs >/dev/null 2>&1; then
     echo "" >&2
     echo "[pre-commit] FAIL: test suite did not pass." >&2
     echo "             Reproduce with:" >&2
