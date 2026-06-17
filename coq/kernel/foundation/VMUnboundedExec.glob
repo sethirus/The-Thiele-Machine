@@ -1,0 +1,241 @@
+DIGEST f18af798d6f509d17d8e466361681396
+FKernel.VMUnboundedExec
+R1428:1431 Coq.Lists.List <> <> lib
+R1433:1446 Coq.Arith.PeanoNat <> <> lib
+R1448:1450 Coq.micromega.Lia <> <> lib
+R1460:1472 Coq.Lists.List ListNotations <> mod
+R1503:1509 Kernel.VMState <> <> lib
+R1511:1516 Kernel.VMStep <> <> lib
+R1518:1532 Kernel.SimulationProof <> <> lib
+R1562:1575 Kernel.DagRestriction <> <> lib
+def 1772:1777 <> halted
+R1784:1787 Coq.Init.Datatypes <> list ind
+R1789:1802 Kernel.VMStep VMStep vm_instruction ind
+binder 1780:1780 <> p:1
+R1810:1816 Kernel.VMState <> VMState rec
+binder 1806:1806 <> s:2
+R1839:1842 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1831:1836 Coq.Init.Datatypes <> length def
+R1838:1838 Kernel.VMUnboundedExec <> p:1 var
+R1843:1847 Kernel.VMState <> vm_pc proj
+R1849:1849 Kernel.VMUnboundedExec <> s:2 var
+prf 1859:1883 <> halted_iff_nth_error_none
+binder 1896:1896 <> p:3
+binder 1898:1898 <> s:4
+R1911:1915 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1901:1906 Kernel.VMUnboundedExec <> halted def
+R1908:1908 Kernel.VMUnboundedExec <> p:3 var
+R1910:1910 Kernel.VMUnboundedExec <> s:4 var
+R1937:1939 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1916:1924 Coq.Lists.List <> nth_error def
+R1929:1933 Kernel.VMState <> vm_pc proj
+R1935:1935 Kernel.VMUnboundedExec <> s:4 var
+R1926:1926 Kernel.VMUnboundedExec <> p:3 var
+R1940:1943 Coq.Init.Datatypes <> None constr
+R1974:1979 Kernel.VMUnboundedExec <> halted def
+R2008:2021 Coq.Lists.List <> nth_error_None thm
+R2008:2021 Coq.Lists.List <> nth_error_None thm
+R2052:2065 Coq.Lists.List <> nth_error_None thm
+R2052:2065 Coq.Lists.List <> nth_error_None thm
+def 2255:2265 <> vm_halts_at
+R2272:2275 Coq.Init.Datatypes <> list ind
+R2277:2290 Kernel.VMStep VMStep vm_instruction ind
+binder 2268:2268 <> p:5
+R2300:2306 Kernel.VMState <> VMState rec
+binder 2294:2294 <> s:6
+binder 2296:2296 <> r:7
+R2321:2327 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R2329:2330 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 2328:2328 <> n:8
+R2347:2350 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2343:2345 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2331:2336 Kernel.SimulationProof <> run_vm def
+R2338:2338 Kernel.VMUnboundedExec <> n:8 var
+R2340:2340 Kernel.VMUnboundedExec <> p:5 var
+R2342:2342 Kernel.VMUnboundedExec <> s:6 var
+R2346:2346 Kernel.VMUnboundedExec <> r:7 var
+R2351:2356 Kernel.VMUnboundedExec <> halted def
+R2358:2358 Kernel.VMUnboundedExec <> p:5 var
+R2360:2360 Kernel.VMUnboundedExec <> r:7 var
+prf 2449:2467 <> run_vm_halt_witness
+binder 2480:2480 <> n:9
+binder 2482:2482 <> p:10
+binder 2484:2484 <> s:11
+R2510:2513 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2487:2492 Kernel.VMUnboundedExec <> halted def
+R2494:2494 Kernel.VMUnboundedExec <> p:10 var
+R2497:2502 Kernel.SimulationProof <> run_vm def
+R2504:2504 Kernel.VMUnboundedExec <> n:9 var
+R2506:2506 Kernel.VMUnboundedExec <> p:10 var
+R2508:2508 Kernel.VMUnboundedExec <> s:11 var
+R2514:2524 Kernel.VMUnboundedExec <> vm_halts_at def
+R2526:2526 Kernel.VMUnboundedExec <> p:10 var
+R2528:2528 Kernel.VMUnboundedExec <> s:11 var
+R2531:2536 Kernel.SimulationProof <> run_vm def
+R2538:2538 Kernel.VMUnboundedExec <> n:9 var
+R2540:2540 Kernel.VMUnboundedExec <> p:10 var
+R2542:2542 Kernel.VMUnboundedExec <> s:11 var
+prf 2821:2845 <> vm_halts_at_deterministic
+binder 2858:2858 <> p:12
+binder 2860:2860 <> s:13
+binder 2862:2863 <> r1:14
+binder 2865:2866 <> r2:15
+R2887:2890 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2869:2879 Kernel.VMUnboundedExec <> vm_halts_at def
+R2881:2881 Kernel.VMUnboundedExec <> p:12 var
+R2883:2883 Kernel.VMUnboundedExec <> s:13 var
+R2885:2886 Kernel.VMUnboundedExec <> r1:14 var
+R2909:2912 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2891:2901 Kernel.VMUnboundedExec <> vm_halts_at def
+R2903:2903 Kernel.VMUnboundedExec <> p:12 var
+R2905:2905 Kernel.VMUnboundedExec <> s:13 var
+R2907:2908 Kernel.VMUnboundedExec <> r2:15 var
+R2915:2917 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2913:2914 Kernel.VMUnboundedExec <> r1:14 var
+R2918:2919 Kernel.VMUnboundedExec <> r2:15 var
+R2991:3005 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R2991:3005 Coq.Arith.PeanoNat Nat le_ge_cases thm
+R3055:3058 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3047:3052 Coq.Init.Datatypes <> length def
+R3076:3080 Kernel.VMState <> vm_pc proj
+R3060:3065 Kernel.SimulationProof <> run_vm def
+R3055:3058 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3047:3052 Coq.Init.Datatypes <> length def
+R3076:3080 Kernel.VMState <> vm_pc proj
+R3060:3065 Kernel.SimulationProof <> run_vm def
+R3142:3145 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3153:3153 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3148:3150 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3142:3145 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3153:3153 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3148:3150 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3184:3203 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3211:3213 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3184:3203 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3211:3213 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3184:3203 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3211:3213 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3294:3297 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3286:3291 Coq.Init.Datatypes <> length def
+R3315:3319 Kernel.VMState <> vm_pc proj
+R3299:3304 Kernel.SimulationProof <> run_vm def
+R3294:3297 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3286:3291 Coq.Init.Datatypes <> length def
+R3315:3319 Kernel.VMState <> vm_pc proj
+R3299:3304 Kernel.SimulationProof <> run_vm def
+R3381:3384 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3392:3392 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3387:3389 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3381:3384 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3392:3392 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3387:3389 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3423:3442 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3450:3452 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3423:3442 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3450:3452 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+R3423:3442 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3450:3452 Coq.Init.Peano <> ::nat_scope:x_'-'_x not
+prf 3614:3634 <> vm_halts_at_saturates
+binder 3647:3647 <> p:16
+binder 3649:3649 <> s:17
+binder 3651:3651 <> r:18
+binder 3653:3653 <> n:19
+binder 3655:3655 <> k:20
+R3678:3681 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3674:3676 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3662:3667 Kernel.SimulationProof <> run_vm def
+R3669:3669 Kernel.VMUnboundedExec <> n:19 var
+R3671:3671 Kernel.VMUnboundedExec <> p:16 var
+R3673:3673 Kernel.VMUnboundedExec <> s:17 var
+R3677:3677 Kernel.VMUnboundedExec <> r:18 var
+R3692:3699 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3682:3687 Kernel.VMUnboundedExec <> halted def
+R3689:3689 Kernel.VMUnboundedExec <> p:16 var
+R3691:3691 Kernel.VMUnboundedExec <> r:18 var
+R3718:3720 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3700:3705 Kernel.SimulationProof <> run_vm def
+R3709:3711 Coq.Init.Peano <> ::nat_scope:x_'+'_x not
+R3708:3708 Kernel.VMUnboundedExec <> n:19 var
+R3712:3712 Kernel.VMUnboundedExec <> k:20 var
+R3715:3715 Kernel.VMUnboundedExec <> p:16 var
+R3717:3717 Kernel.VMUnboundedExec <> s:17 var
+R3721:3721 Kernel.VMUnboundedExec <> r:18 var
+R3780:3783 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3772:3777 Coq.Init.Datatypes <> length def
+R3800:3804 Kernel.VMState <> vm_pc proj
+R3785:3790 Kernel.SimulationProof <> run_vm def
+R3780:3783 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R3772:3777 Coq.Init.Datatypes <> length def
+R3800:3804 Kernel.VMState <> vm_pc proj
+R3785:3790 Kernel.SimulationProof <> run_vm def
+R3846:3865 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3846:3865 Kernel.DagRestriction <> run_vm_halted_stable thm
+R3846:3865 Kernel.DagRestriction <> run_vm_halted_stable thm
+prf 4046:4060 <> vm_halts_at_nil
+binder 4071:4071 <> s:21
+R4074:4084 Kernel.VMUnboundedExec <> vm_halts_at def
+R4088:4090 Coq.Init.Datatypes <> nil constr
+R4092:4105 Kernel.VMStep VMStep vm_instruction ind
+R4108:4108 Kernel.VMUnboundedExec <> s:21 var
+R4110:4110 Kernel.VMUnboundedExec <> s:21 var
+R4176:4181 Kernel.VMUnboundedExec <> halted def
+R4197:4206 Coq.Arith.PeanoNat Nat le_0_l thm
+R4197:4206 Coq.Arith.PeanoNat Nat le_0_l thm
+def 4524:4531 <> vm_equiv
+R4540:4543 Coq.Init.Datatypes <> list ind
+R4545:4558 Kernel.VMStep VMStep vm_instruction ind
+binder 4534:4534 <> p:22
+binder 4536:4536 <> q:23
+binder 4580:4580 <> s:24
+binder 4582:4582 <> r:25
+R4602:4606 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4585:4595 Kernel.VMUnboundedExec <> vm_halts_at def
+R4597:4597 Kernel.VMUnboundedExec <> p:22 var
+R4599:4599 Kernel.VMUnboundedExec <> s:24 var
+R4601:4601 Kernel.VMUnboundedExec <> r:25 var
+R4607:4617 Kernel.VMUnboundedExec <> vm_halts_at def
+R4619:4619 Kernel.VMUnboundedExec <> q:23 var
+R4621:4621 Kernel.VMUnboundedExec <> s:24 var
+R4623:4623 Kernel.VMUnboundedExec <> r:25 var
+prf 4633:4645 <> vm_equiv_refl
+binder 4656:4656 <> p:26
+R4659:4666 Kernel.VMUnboundedExec <> vm_equiv def
+R4668:4668 Kernel.VMUnboundedExec <> p:26 var
+R4670:4670 Kernel.VMUnboundedExec <> p:26 var
+prf 4731:4742 <> vm_equiv_sym
+binder 4753:4753 <> p:27
+binder 4755:4755 <> q:28
+R4770:4773 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4758:4765 Kernel.VMUnboundedExec <> vm_equiv def
+R4767:4767 Kernel.VMUnboundedExec <> p:27 var
+R4769:4769 Kernel.VMUnboundedExec <> q:28 var
+R4774:4781 Kernel.VMUnboundedExec <> vm_equiv def
+R4783:4783 Kernel.VMUnboundedExec <> q:28 var
+R4785:4785 Kernel.VMUnboundedExec <> p:27 var
+R4842:4846 Coq.Init.Logic <> proj2 thm
+R4842:4846 Coq.Init.Logic <> proj2 thm
+R4878:4882 Coq.Init.Logic <> proj1 thm
+R4878:4882 Coq.Init.Logic <> proj1 thm
+prf 4915:4928 <> vm_equiv_trans
+binder 4941:4941 <> p:29
+binder 4943:4943 <> q:30
+binder 4945:4945 <> t:31
+R4960:4963 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4948:4955 Kernel.VMUnboundedExec <> vm_equiv def
+R4957:4957 Kernel.VMUnboundedExec <> p:29 var
+R4959:4959 Kernel.VMUnboundedExec <> q:30 var
+R4976:4979 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4964:4971 Kernel.VMUnboundedExec <> vm_equiv def
+R4973:4973 Kernel.VMUnboundedExec <> q:30 var
+R4975:4975 Kernel.VMUnboundedExec <> t:31 var
+R4980:4987 Kernel.VMUnboundedExec <> vm_equiv def
+R4989:4989 Kernel.VMUnboundedExec <> p:29 var
+R4991:4991 Kernel.VMUnboundedExec <> t:31 var
+R5056:5060 Coq.Init.Logic <> proj1 thm
+R5056:5060 Coq.Init.Logic <> proj1 thm
+R5081:5085 Coq.Init.Logic <> proj1 thm
+R5081:5085 Coq.Init.Logic <> proj1 thm
+R5119:5123 Coq.Init.Logic <> proj2 thm
+R5119:5123 Coq.Init.Logic <> proj2 thm
+R5144:5148 Coq.Init.Logic <> proj2 thm
+R5144:5148 Coq.Init.Logic <> proj2 thm

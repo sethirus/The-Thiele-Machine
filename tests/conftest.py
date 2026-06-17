@@ -137,6 +137,30 @@ def _get_timeout(item) -> int:
         return 60
 
 
+def _extracted_runner_available() -> bool:
+    """True when build/extracted_vm_runner can actually execute here.
+
+    The committed runner is OCaml bytecode behind a #!/usr/bin/ocamlrun
+    shebang, so existence alone is not availability: a bare environment
+    has the file but cannot run it. Delegate to the authoritative probe
+    in thielecpu.vm, falling back to an inline equivalent.
+    """
+    try:
+        from thielecpu.vm import _runner_available
+        return _runner_available()
+    except Exception:
+        runner = REPO_ROOT / "build" / "extracted_vm_runner"
+        if not runner.is_file() or not os.access(str(runner), os.X_OK):
+            return False
+        try:
+            first = runner.read_bytes().splitlines()[0]
+            if first.startswith(b"#!/usr/bin/ocamlrun"):
+                return Path("/usr/bin/ocamlrun").exists()
+        except Exception:
+            pass
+        return True
+
+
 def pytest_runtest_setup(item):
     # Shared strict backend policy for no-shortcuts TDD runs.
     strict_mode = item.config.getoption("--strict-backends") or (
@@ -144,11 +168,12 @@ def pytest_runtest_setup(item):
     )
     need_extracted = item.get_closest_marker("strict_extracted") is not None
     need_rtl = item.get_closest_marker("strict_rtl") is not None
+    need_coq = item.get_closest_marker("coq") is not None
+    need_node = item.get_closest_marker("strict_node") is not None
 
     if need_extracted:
-        runner = REPO_ROOT / "build" / "extracted_vm_runner"
-        if not runner.exists():
-            msg = f"strict_extracted requires {runner}"
+        if not _extracted_runner_available():
+            msg = f"strict_extracted requires a runnable {REPO_ROOT / 'build' / 'extracted_vm_runner'}"
             if strict_mode:
                 pytest.fail(msg)
             pytest.skip(msg)
@@ -158,6 +183,20 @@ def pytest_runtest_setup(item):
         has_verilator = shutil.which("verilator") is not None
         if not (has_iverilog or has_verilator):
             msg = "strict_rtl requires iverilog or verilator"
+            if strict_mode:
+                pytest.fail(msg)
+            pytest.skip(msg)
+
+    if need_coq:
+        if shutil.which("coqc") is None:
+            msg = "coq marker requires coqc on PATH"
+            if strict_mode:
+                pytest.fail(msg)
+            pytest.skip(msg)
+
+    if need_node:
+        if shutil.which("node") is None:
+            msg = "strict_node requires the node binary"
             if strict_mode:
                 pytest.fail(msg)
             pytest.skip(msg)

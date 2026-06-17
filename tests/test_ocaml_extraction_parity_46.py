@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Exhaustive OCaml extraction parity test — all 46 opcodes.
+"""Exhaustive OCaml extraction parity test — all 47 synth-realised opcodes.
 
 WHAT THIS TESTS:
-  For each of the 46 vm_instruction constructors in coq/kernel/foundation/VMStep.v:
+  For each of the 47 synth-realised vm_instruction constructors (the 51-opcode
+  ISA in coq/kernel/foundation/VMStep.v minus the 4 Q_{1+AB} CHSH_LASSERT variants):
   1. The OCaml extracted runner (build/extracted_vm_runner) handles the
      instruction without crashing.
   2. The μ-cost invariant holds: mu >= initial_mu + instruction_cost.
@@ -20,7 +21,7 @@ TRUST BOUNDARY CONNECTION:
     - μ-cost theorem (eo_mu_is_apply_cost) is validated for each opcode.
     - No opcode causes an undefined/missing-arm failure.
 
-All 46 opcodes:
+All 47 synth-realised opcodes:
   Partition:  PNEW PSPLIT PMERGE LASSERT LJOIN MDLACC PDISCOVER
   Data:       XFER LOAD_IMM LOAD STORE
   Arithmetic: ADD SUB AND OR SHL SHR MUL LUI
@@ -38,13 +39,10 @@ from __future__ import annotations
 
 import pytest
 
-# Skip entire module if OCaml runner unavailable
 from build import thiele_vm as vm_mod
 
-pytestmark = pytest.mark.skipif(
-    not vm_mod._runner_available(),
-    reason="OCaml extracted runner (build/extracted_vm_runner) unavailable",
-)
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
 
 
 def run(program: list[str]) -> vm_mod.VMState:
@@ -446,7 +444,7 @@ class TestMorphismOpcodesParity:
 # ============================================================================
 
 class TestMuMonotonicityInvariant:
-    """Verify that mu is nondecreasing across all 46 opcodes.
+    """Verify that mu is nondecreasing across all 47 synth-realised opcodes.
 
     This validates eo_mu_trace_nondecreasing from OCamlExtractionBridge.v
     for each opcode individually.
@@ -479,9 +477,9 @@ class TestMuMonotonicityInvariant:
 # ============================================================================
 
 class TestCoverageCompleteness:
-    """Verify that this test file covers all 46 canonical opcode names."""
+    """Verify that this test file covers all 47 synth-realised canonical opcode names."""
 
-    CANONICAL_46 = frozenset({
+    CANONICAL_47 = frozenset({
         "pnew", "psplit", "pmerge", "lassert", "ljoin", "mdlacc", "pdiscover",
         "xfer", "load_imm", "load", "store",
         "add", "sub", "and", "or", "shl", "shr", "mul", "lui",
@@ -497,12 +495,12 @@ class TestCoverageCompleteness:
         "chsh_lassert",
     })
 
-    def test_canonical_46_count(self) -> None:
-        assert len(self.CANONICAL_46) == 47, (
-            f"CANONICAL_46 has {len(self.CANONICAL_46)} entries, expected 47"
+    def test_canonical_47_count(self) -> None:
+        assert len(self.CANONICAL_47) == 47, (
+            f"CANONICAL_47 has {len(self.CANONICAL_47)} entries, expected 47"
         )
 
-    def test_ocaml_runner_recognizes_all_46(self) -> None:
+    def test_ocaml_runner_recognizes_all_47(self) -> None:
         """The OCaml runner must not return 'unrecognized instruction' for any canonical opcode."""
         import re
         from pathlib import Path
@@ -512,7 +510,7 @@ class TestCoverageCompleteness:
         text = runner_ml.read_text()
         recognized = set(re.findall(r'"\s*([A-Z][A-Z_0-9]+)\s*"', text))
         recognized_lower = {s.lower() for s in recognized}
-        missing = self.CANONICAL_46 - recognized_lower
+        missing = self.CANONICAL_47 - recognized_lower
         assert not missing, (
             f"OCaml runner does not handle opcodes: {sorted(missing)}\n"
             f"These arms are missing from build/extracted_vm_runner.ml"

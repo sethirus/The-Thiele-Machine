@@ -44,26 +44,21 @@ Additional programs under `examples/programs/` include broader ISA coverage and 
 
 ## Running a Single Program
 
+All single-program invocations go through the assembler driver `scripts/thiele_asm.py`.
+
 ```bash
-# Assemble to hex
-thiele-asm examples/fibonacci.asm -o fibonacci.hex
+# Assemble and run via the OCaml extracted runner (prints the final state)
+python scripts/thiele_asm.py examples/fibonacci.asm --run
 
-# Run interactively in the debugger
-thiele-debug fibonacci.hex
-# > run
-# HALTED  pc=22  mu=22  mem[0..7]=[0,1,1,2,3,5,8,13]
+# Assemble and run via the Verilator RTL cosimulation
+python scripts/thiele_asm.py examples/fibonacci.asm --sim
 
-# Or run non-interactively
-python -c "
-from thielecpu.assembler import Assembler
-from thielecpu.debugger import ThieleVM
-asm = Assembler()
-prog = asm.assemble_file('examples/fibonacci.asm')
-vm = ThieleVM(prog)
-result = vm.run()
-print(result)
-"
+# Assemble to a trace/hex/binary file instead of running (format auto-detected
+# from the output extension, or set it with --format)
+python scripts/thiele_asm.py examples/fibonacci.asm -o build/fibonacci.trace
 ```
+
+To batch-run every example through the same path, use `python examples/run_all.py`.
 
 ---
 

@@ -65,6 +65,9 @@ from __future__ import annotations
 import pytest
 from build import thiele_vm as vm
 
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
+
 
 # ---------------------------------------------------------------------------
 # 1. Deep composition chain: A → B → C → D → E → F

@@ -11,6 +11,7 @@
 -R kernel/mu_calculus Kernel
 -R kernel/nfi Kernel
 -R kernel/quantum Kernel
+-R kernel/reductions Kernel
 -R kernel/thermodynamic Kernel
 -R kernel/witness Kernel
 -R nofi NoFI
@@ -183,6 +184,10 @@ kernel/quantum/TsirelsonFromAlgebra.v
 kernel/quantum/MinorConstraints.v
 kernel/quantum/GenRealizability.v
 kernel/mu_calculus/MuInitiality.v
+kernel/nfi/MuRunIncompleteness.v
+kernel/nfi/StructuralAxisOrthogonality.v
+kernel/nfi/StructuralAxisRelativization.v
+kernel/nfi/VMSubstrateEncoded.v
 kernel/quantum/NPAMomentMatrix.v
 kernel/foundation/ProperSubsumption.v
 kernel/quantum/SemidefiniteProgramming.v
@@ -299,6 +304,15 @@ kernel/nfi/StructuralAdvantage.v
 kernel/aggregators/ThieleGenesis.v
 kernel/witness/WitnessInsightGeneral.v
 kernel/foundation/DagRestriction.v
+kernel/foundation/VMUnboundedExec.v
 kernel/witness/InformationTopology.v
 kami_hw/RTLGapRegistry.v
+
+# Reductions: real-world systems instantiated against the kernel's abstract records
+kernel/reductions/PoSFinality.v
+kernel/reductions/GasMetering.v
+kernel/reductions/TEEAttestation.v
+kernel/reductions/TransparencyLog.v
+kernel/reductions/ProofCarryingVerifier.v
+
 tests/CloseoutVerification.v

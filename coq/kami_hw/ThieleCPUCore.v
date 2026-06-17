@@ -1,4 +1,4 @@
-(** ThieleCPUCore.v — Complete Thiele CPU in Kami (46-instruction ISA).
+(** ThieleCPUCore.v — Complete Thiele CPU in Kami (47-opcode synth-realised ISA).
 
     Implements the full ISA from VMStep.v:
       - Every instruction uses the μ cost table from VMStep.v

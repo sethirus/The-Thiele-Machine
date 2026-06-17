@@ -5730,6 +5730,14 @@ Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Axioms:
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
@@ -7080,6 +7088,62 @@ Closed under the global context
 Closed under the global context
 Closed under the global context
 Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Axioms:
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
@@ -7654,81 +7718,6 @@ FunctionalExtensionality.functional_extensionality_dep
     (forall x : A, f x = g x) -> f = g
 Closed under the global context
 Closed under the global context
-Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
-Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
-Axioms:
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-Axioms:
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Axioms:
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Axioms:
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Axioms:
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Axioms:
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
-ClassicalDedekindReals.sig_forall_dec
-  : forall P : nat -> Prop,
-    (forall n : nat, {P n} + {~ P n}) ->
-    {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
 Axioms:
 ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
 ClassicalDedekindReals.sig_forall_dec
@@ -7750,17 +7739,11 @@ FunctionalExtensionality.functional_extensionality_dep
     (forall x : A, f x = g x) -> f = g
 Classical_Prop.classic : forall P : Prop, P \/ ~ P
 Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
     (forall n : nat, {P n} + {~ P n}) ->
     {n : nat | ~ P n} + {forall n : nat, P n}
-FunctionalExtensionality.functional_extensionality_dep
-  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
-    (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
 Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
     (forall n : nat, {P n} + {~ P n}) ->
@@ -7768,9 +7751,7 @@ ClassicalDedekindReals.sig_forall_dec
 FunctionalExtensionality.functional_extensionality_dep
   : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
     (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
 Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
     (forall n : nat, {P n} + {~ P n}) ->
@@ -7778,9 +7759,7 @@ ClassicalDedekindReals.sig_forall_dec
 FunctionalExtensionality.functional_extensionality_dep
   : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
     (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
 Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
     (forall n : nat, {P n} + {~ P n}) ->
@@ -7788,9 +7767,7 @@ ClassicalDedekindReals.sig_forall_dec
 FunctionalExtensionality.functional_extensionality_dep
   : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
     (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
 Axioms:
-ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
     (forall n : nat, {P n} + {~ P n}) ->
@@ -7798,7 +7775,14 @@ ClassicalDedekindReals.sig_forall_dec
 FunctionalExtensionality.functional_extensionality_dep
   : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
     (forall x : A, f x = g x) -> f = g
-Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
 Axioms:
 ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
 ClassicalDedekindReals.sig_forall_dec
@@ -7860,6 +7844,86 @@ FunctionalExtensionality.functional_extensionality_dep
     (forall x : A, f x = g x) -> f = g
 Classical_Prop.classic : forall P : Prop, P \/ ~ P
 Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
+ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}
+ClassicalDedekindReals.sig_forall_dec
+  : forall P : nat -> Prop,
+    (forall n : nat, {P n} + {~ P n}) ->
+    {n : nat | ~ P n} + {forall n : nat, P n}
+FunctionalExtensionality.functional_extensionality_dep
+  : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
+    (forall x : A, f x = g x) -> f = g
+Classical_Prop.classic : forall P : Prop, P \/ ~ P
+Axioms:
 ClassicalDedekindReals.sig_forall_dec
   : forall P : nat -> Prop,
     (forall n : nat, {P n} + {~ P n}) ->
@@ -9972,6 +10036,56 @@ ClassicalDedekindReals.sig_forall_dec
 FunctionalExtensionality.functional_extensionality_dep
   : forall (A : Type) (B : A -> Type) (f g : forall x : A, B x),
     (forall x : A, f x = g x) -> f = g
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
+Closed under the global context
 Closed under the global context
 Axioms:
 ClassicalDedekindReals.sig_not_dec : forall P : Prop, {~ ~ P} + {~ P}

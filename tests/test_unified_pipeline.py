@@ -121,6 +121,7 @@ def _run_trace(trace_lines, timeout=10):
         os.unlink(trace_path)
 
 
+@pytest.mark.strict_extracted
 def test_runner_halt():
     """HALT instruction should produce mu = cost."""
     state = _run_trace(["HALT 5"])
@@ -128,12 +129,14 @@ def test_runner_halt():
     assert state["pc"] == 1
 
 
+@pytest.mark.strict_extracted
 def test_runner_pnew_mu_conservation():
     """PNEW charges exactly its cost."""
     state = _run_trace(["PNEW {0} 3", "HALT 1"])
     assert state["mu"] == 4, f"Expected mu=4 (3+1), got {state['mu']}"
 
 
+@pytest.mark.strict_extracted
 def test_runner_load_imm_and_add():
     """LOAD_IMM + ADD computes correctly."""
     state = _run_trace([
@@ -146,6 +149,7 @@ def test_runner_load_imm_and_add():
     assert state["regs"][2] == 30
 
 
+@pytest.mark.strict_extracted
 def test_runner_multi_pnew():
     """Multiple PNEW instructions accumulate mu."""
     state = _run_trace([

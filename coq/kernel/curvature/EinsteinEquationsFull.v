@@ -19,6 +19,11 @@
     physically important case of flat discrete spacetime (uniform metric).
     The unconditional full tensor EFE (item 9) follows immediately.
 
+    SCOPE: item 9 is the flat/vacuum case — both sides vanish (G = 0 * T) on a
+    uniform-metric two-vertex complex. It is a discrete-geometry identity, not
+    a derivation of general relativity; non-flat content lives in the named
+    bridges.
+
     Curved non-vacuum case: the diagonal EFE is proven
     (CurvedTensorPipeline.v:einstein_equation_from_mass) and the off-diagonal
     EFE is 0 = 0 (T_{mu nu} = 0 for mu != nu, proven here). The remaining open
@@ -266,6 +271,11 @@ Qed.
 (** Unconditional full tensor EFE for uniform (flat) metric on two_vertex_sc.
 
     G_{mu nu}(v) = 0 * T_{mu nu}(v)   for all mu, nu < 4.
+
+    This is the flat/vacuum case: both sides vanish (G = 0 * T) on a
+    uniform-metric two-vertex complex. A discrete-geometry identity — not a
+    derivation of general relativity; non-flat content lives in the named
+    bridges.
 
     This is the first fully unconditional full-tensor EFE theorem in this
     codebase.  The off_diagonal_ricci_zero premise is discharged by

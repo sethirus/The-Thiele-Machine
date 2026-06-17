@@ -6,6 +6,9 @@ import json
 import sys
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
 from thielecpu.receipt import (
     build_receipt_payload,
     load_private_key_from_hex_file,

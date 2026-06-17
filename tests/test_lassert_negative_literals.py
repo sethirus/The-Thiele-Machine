@@ -26,10 +26,10 @@ require negative literals.
 """
 import pytest
 
-from thielecpu.vm import VMState, vm_run, _runner_available
+from thielecpu.vm import VMState, vm_run
 
-SKIP_OCAML = not _runner_available()
-pytestmark = pytest.mark.skipif(SKIP_OCAML, reason="OCaml runner not available")
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
 
 
 def _run(formula: str, cert: str, countermodel: str) -> VMState:

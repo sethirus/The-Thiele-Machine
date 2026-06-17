@@ -40,14 +40,13 @@ import sys
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT))
 
-from thielecpu.vm import VMState, vm_run, _runner_available
+from thielecpu.vm import VMState, vm_run
 
 sys.path.insert(0, str(REPO_ROOT / "tests"))
 from test_complexity_frontier import _k_sighted_program, _k_blind_program
 
-pytestmark = pytest.mark.skipif(
-    not _runner_available(), reason="OCaml runner not available"
-)
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
 
 
 def _run(program: list, max_steps: int = 5_000_000) -> VMState:

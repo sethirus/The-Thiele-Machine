@@ -43,8 +43,24 @@ COQ_PROJECT = COQ_DIR / "_CoqProject"
 # Extraction.v is the sole active top-level file.
 REQUIRED_KERNEL_PHYSICS_FILES: list[str] = []
 
-# Production kernel files where bare (non-Section) Axiom/Parameter are forbidden
-KERNEL_PROD_FILES = list((COQ_DIR / "kernel").glob("*.v"))
+# Production kernel files where bare (non-Section) Axiom/Parameter are forbidden.
+# Derived from the canonical in-scope set (coq/_CoqProject minus probes) filtered
+# to kernel/, so it spans every kernel subdirectory recursively. The previous
+# non-recursive ``glob("*.v")`` matched zero files (kernel/ has no top-level .v),
+# silently turning this gate into a no-op.
+import sys as _sys
+_sys.path.insert(0, str(REPO_ROOT / "scripts"))
+from coq_proof_scope import coqproject_v_files as _coqproject_v_files  # type: ignore
+
+KERNEL_PROD_FILES = sorted(
+    REPO_ROOT / rel
+    for rel in _coqproject_v_files()
+    if rel.startswith("coq/kernel/")
+)
+assert KERNEL_PROD_FILES, (
+    "KERNEL_PROD_FILES is empty — the kernel scan would be a no-op. "
+    "Check coq/_CoqProject and scripts/coq_proof_scope.py."
+)
 
 # ── helpers ──────────────────────────────────────────────────────────────────
 

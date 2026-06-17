@@ -204,8 +204,10 @@ Qed.
 
 (** symmetric_tsirelson_bound: The symmetric case stays below 5657/2000.
 
-    This is the strongest upper-bound proof in the file. It does not prove the
-    full general Tsirelson theorem. It proves the symmetric pattern:
+    Superseded: the general bound is closed by
+    [algebraically_coherent_tsirelson_general] below; this section's weaker
+    symmetric bound is retained as the stdlib-only stepping stone (its proof
+    needs no CSDP). It proves the symmetric pattern:
     E00 = E01 = E10 = e and E11 = -e, under the two listed minor constraints.
     The minor constraints with symmetric correlators force:
     - 0 ≤ 1 - t² - 2e² + 2te²   (from first minor)
@@ -246,14 +248,12 @@ Qed.
 
 (** tsirelson_from_algebraic_coherence: General bound |S| ≤ 4 from coherence.
 
-    This is the "weak" general bound. It proves |S| ≤ 4 for ANY algebraically
-    coherent correlators, not just symmetric ones. The proof just extracts
-    the correlation bounds (|E_xy| ≤ 1) and applies triangle inequality.
-
-    WHY NOT 2√2 HERE:
-    Getting the tight bound (2√2) requires a general convex-optimization or
-    SDP-duality argument. This file does not encode that argument. It only
-    proves the symmetric rational cap and the weak general cap.
+    Superseded: the tight general bound S² ≤ 8 is closed by
+    [algebraically_coherent_tsirelson_general] below, via a Positivstellensatz
+    certificate; this section's weaker |S| ≤ 4 cap is retained as the
+    stdlib-only stepping stone. It holds for ANY algebraically coherent
+    correlators, not just symmetric ones: the proof extracts the correlation
+    bounds (|E_xy| ≤ 1) and applies the triangle inequality.
 
     That algebraic coherence doesn't make things worse - the constraints don't
     somehow allow |S| > 4. The no-signaling bound still applies.
@@ -318,8 +318,10 @@ Qed.
     hypothesis that the four squared correlations sum to at most 2, then the
     same algebra gives S² <= 8.
 
-    The missing part is important: this file does not prove that every
-    [algebraically_coherent] correlator has sum of squares <= 2. *)
+    Superseded: [algebraically_coherent_tsirelson_general] below closes
+    S² ≤ 8 directly from coherence, with no sum-of-squares ≤ 2 hypothesis
+    to supply; the conditional algebra here is retained as the stdlib-only
+    stepping stone. *)
 
 (** First: Cauchy-Schwarz gives S² ≤ 4 * sum of squares
 
@@ -699,8 +701,10 @@ Qed.
 
 (** tsirelson_bound_tight: Historical name for the rational witness theorem.
     There exists an algebraically coherent configuration with S ≥ 2.8284.
-    That is exactly what the statement proves. It does not prove a matching
-    upper bound, and it does not represent the irrational optimizer exactly.
+    That is exactly what the statement proves: a lower-bound witness. The
+    matching upper bound is [algebraically_coherent_tsirelson_general] just
+    below, and the witness does not represent the irrational optimizer
+    exactly.
 
     THE WITNESS:
     tsirelson_achieving is that configuration. It satisfies algebraic coherence
@@ -714,8 +718,9 @@ Qed.
     This configuration: 2.8284
     Gap: 0.8284 ≈ 41% advantage
 
-    This file does not prove a μ-cost theorem and does not prove the global
-    2√2 ceiling.
+    Superseded as the file's last word on the ceiling: the global S² ≤ 8
+    bound is closed by [algebraically_coherent_tsirelson_general] below.
+    A μ-cost theorem is not in this file either way.
 
     Refute [tsirelson_achieving_coherent] or the exact value calculation for
     [tsirelson_achieving]. That is the machine-checked payload.

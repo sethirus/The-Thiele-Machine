@@ -1,0 +1,224 @@
+DIGEST 1a9297a377ec0eca24cd63152699aaea
+FKernel.TransparencyLog
+R1309:1312 Coq.Lists.List <> <> lib
+R1314:1327 Coq.Arith.PeanoNat <> <> lib
+R1329:1331 Coq.micromega.Lia <> <> lib
+R1333:1336 Coq.Bool.Bool <> <> lib
+R1346:1358 Coq.Lists.List ListNotations <> mod
+R1377:1389 VerifierModel <> <> lib
+R1407:1427 VerifierImpossibility <> <> lib
+R1445:1467 VerifierEscape_Hardness <> <> lib
+R1794:1800 Kernel.VMState <> <> lib
+R1818:1836 NecessityOfMuLedger <> <> lib
+rec 3604:3622 <> LogBackedTranscript
+proj 3645:3656 <> lbt_observed
+proj 3725:3737 <> lbt_inclusion
+R3661:3674 VerifierModel <> BareTranscript def
+R3741:3744 Coq.Init.Datatypes <> bool ind
+def 3826:3840 <> lbt_to_hardness
+R3847:3865 Kernel.TransparencyLog <> LogBackedTranscript rec
+binder 3843:3843 <> t:4
+R3870:3887 VerifierEscape_Hardness <> HardnessTranscript def
+R3894:3894 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3909:3910 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3926:3926 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R3895:3906 Kernel.TransparencyLog <> lbt_observed proj
+R3908:3908 Kernel.TransparencyLog <> t:4 var
+R3911:3923 Kernel.TransparencyLog <> lbt_inclusion proj
+R3925:3925 Kernel.TransparencyLog <> t:4 var
+def 3941:3955 <> hardness_to_lbt
+R3962:3979 VerifierEscape_Hardness <> HardnessTranscript def
+binder 3958:3958 <> t:5
+R3984:4002 Kernel.TransparencyLog <> LogBackedTranscript rec
+R4009:4014 Kernel.TransparencyLog <> mk_lbt constr
+R4017:4019 Coq.Init.Datatypes <> fst def
+R4021:4021 Kernel.TransparencyLog <> t:5 var
+R4025:4027 Coq.Init.Datatypes <> snd def
+R4029:4029 Kernel.TransparencyLog <> t:5 var
+prf 4149:4171 <> inclusion_is_commitment
+R4188:4206 Kernel.TransparencyLog <> LogBackedTranscript rec
+binder 4184:4184 <> t:6
+R4246:4248 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4213:4225 VerifierEscape_Hardness <> ht_commitment def
+R4228:4242 Kernel.TransparencyLog <> lbt_to_hardness def
+R4244:4244 Kernel.TransparencyLog <> t:6 var
+R4249:4261 Kernel.TransparencyLog <> lbt_inclusion proj
+R4263:4263 Kernel.TransparencyLog <> t:6 var
+prf 4543:4555 <> lbt_roundtrip
+R4572:4590 Kernel.TransparencyLog <> LogBackedTranscript rec
+binder 4568:4568 <> t:7
+R4632:4634 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4597:4611 Kernel.TransparencyLog <> hardness_to_lbt def
+R4614:4628 Kernel.TransparencyLog <> lbt_to_hardness def
+R4630:4630 Kernel.TransparencyLog <> t:7 var
+R4635:4635 Kernel.TransparencyLog <> t:7 var
+prf 4688:4705 <> hardness_roundtrip
+R4722:4739 VerifierEscape_Hardness <> HardnessTranscript def
+binder 4718:4718 <> t:8
+R4781:4783 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4746:4760 Kernel.TransparencyLog <> lbt_to_hardness def
+R4763:4777 Kernel.TransparencyLog <> hardness_to_lbt def
+R4779:4779 Kernel.TransparencyLog <> t:8 var
+R4784:4784 Kernel.TransparencyLog <> t:8 var
+def 5202:5217 <> log_audit_decide
+R5224:5242 Kernel.TransparencyLog <> LogBackedTranscript rec
+binder 5220:5220 <> t:9
+R5247:5250 Coq.Init.Datatypes <> bool ind
+R5257:5269 Kernel.TransparencyLog <> lbt_inclusion proj
+R5271:5271 Kernel.TransparencyLog <> t:9 var
+def 5286:5299 <> log_audit_cost
+R5306:5324 Kernel.TransparencyLog <> LogBackedTranscript rec
+binder 5302:5302 <> t:10
+R5329:5331 Coq.Init.Datatypes <> nat ind
+prf 5539:5566 <> log_audit_is_hardness_decide
+R5583:5601 Kernel.TransparencyLog <> LogBackedTranscript rec
+binder 5579:5579 <> t:11
+R5626:5628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5608:5623 Kernel.TransparencyLog <> log_audit_decide def
+R5625:5625 Kernel.TransparencyLog <> t:11 var
+R5629:5643 VerifierEscape_Hardness <> hardness_decide def
+R5646:5660 Kernel.TransparencyLog <> lbt_to_hardness def
+R5662:5662 Kernel.TransparencyLog <> t:11 var
+prf 6085:6104 <> log_audit_weak_sound
+R6122:6139 VerifierEscape_Hardness <> HardnessHypothesis rec
+binder 6118:6118 <> H:12
+R6147:6165 Kernel.TransparencyLog <> LogBackedTranscript rec
+binder 6143:6143 <> t:13
+R6198:6205 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6191:6193 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6173:6188 Kernel.TransparencyLog <> log_audit_decide def
+R6190:6190 Kernel.TransparencyLog <> t:13 var
+R6194:6197 Coq.Init.Datatypes <> true constr
+R6206:6212 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6224:6225 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6217:6223 Kernel.VMState <> VMState rec
+binder 6213:6213 <> s:14
+R6235:6237 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6229:6233 Kernel.VMState <> vm_mu proj
+R6226:6226 Kernel.TransparencyLog <> s:14 var
+R6276:6303 VerifierEscape_Hardness <> hardness_verifier_weak_sound thm
+R6308:6322 Kernel.TransparencyLog <> lbt_to_hardness def
+R6276:6303 VerifierEscape_Hardness <> hardness_verifier_weak_sound thm
+R6308:6322 Kernel.TransparencyLog <> lbt_to_hardness def
+R6343:6370 Kernel.TransparencyLog <> log_audit_is_hardness_decide thm
+R6343:6370 Kernel.TransparencyLog <> log_audit_is_hardness_decide thm
+R6343:6370 Kernel.TransparencyLog <> log_audit_is_hardness_decide thm
+prf 7267:7289 <> transparency_log_escape
+R7306:7323 VerifierEscape_Hardness <> HardnessHypothesis rec
+binder 7302:7302 <> H:15
+R7328:7335 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7419:7425 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7364:7367 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7345:7363 Kernel.TransparencyLog <> LogBackedTranscript rec
+R7368:7371 Coq.Init.Datatypes <> bool ind
+binder 7336:7341 <> decide:16
+R7412:7415 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7393:7411 Kernel.TransparencyLog <> LogBackedTranscript rec
+R7416:7418 Coq.Init.Datatypes <> nat ind
+binder 7384:7387 <> cost:17
+R7426:7426 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7489:7498 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7519:7519 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 7434:7434 <> t:18
+R7452:7455 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7445:7447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7437:7442 Kernel.TransparencyLog <> decide:16 var
+R7444:7444 Kernel.TransparencyLog <> t:18 var
+R7448:7451 Coq.Init.Datatypes <> true constr
+R7456:7462 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7474:7475 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R7467:7473 Kernel.VMState <> VMState rec
+binder 7463:7463 <> s:19
+R7485:7487 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7479:7483 Kernel.VMState <> vm_mu proj
+R7476:7476 Kernel.TransparencyLog <> s:19 var
+binder 7506:7506 <> t:20
+R7515:7517 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7509:7512 Kernel.TransparencyLog <> cost:17 var
+R7514:7514 Kernel.TransparencyLog <> t:20 var
+R7549:7564 Kernel.TransparencyLog <> log_audit_decide def
+R7567:7580 Kernel.TransparencyLog <> log_audit_cost def
+R7549:7564 Kernel.TransparencyLog <> log_audit_decide def
+R7567:7580 Kernel.TransparencyLog <> log_audit_cost def
+R7618:7637 Kernel.TransparencyLog <> log_audit_weak_sound thm
+R7618:7637 Kernel.TransparencyLog <> log_audit_weak_sound thm
+def 8125:8141 <> log_free_verifier
+R8153:8164 VerifierModel <> BareVerifier rec
+prf 8986:9013 <> log_free_verifier_impossible
+R9019:9020 Coq.Init.Logic <> ::type_scope:'~'_x not
+R9021:9027 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9049:9056 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R9032:9048 Kernel.TransparencyLog <> log_free_verifier def
+binder 9028:9028 <> V:21
+R9087:9096 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R9057:9066 VerifierModel <> bare_sound def
+R9068:9084 VerifierImpossibility <> mu_eq_one_problem def
+R9086:9086 Kernel.TransparencyLog <> V:21 var
+R9097:9109 VerifierModel <> bare_complete def
+R9111:9127 VerifierImpossibility <> mu_eq_one_problem def
+R9129:9129 Kernel.TransparencyLog <> V:21 var
+R9147:9185 VerifierImpossibility <> bare_setting_no_sound_complete_verifier thm
+R9147:9185 VerifierImpossibility <> bare_setting_no_sound_complete_verifier thm
+prf 10208:10225 <> split_view_witness
+R10231:10238 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10278:10284 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R10247:10253 Kernel.VMState <> VMState rec
+binder 10239:10240 <> sA:22
+R10247:10253 Kernel.VMState <> VMState rec
+binder 10242:10243 <> sB:23
+R10264:10277 VerifierModel <> BareTranscript def
+binder 10257:10260 <> view:24
+R10320:10327 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10301:10303 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10285:10297 NecessityOfMuLedger <> strict_shadow def
+R10299:10300 Kernel.TransparencyLog <> sA:22 var
+R10304:10316 NecessityOfMuLedger <> strict_shadow def
+R10318:10319 Kernel.TransparencyLog <> sB:23 var
+R10357:10364 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10328:10348 VerifierImpossibility <> mu_collision_explains def
+R10350:10351 Kernel.TransparencyLog <> sA:22 var
+R10353:10356 Kernel.TransparencyLog <> view:24 var
+R10394:10401 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10365:10385 VerifierImpossibility <> mu_collision_explains def
+R10387:10388 Kernel.TransparencyLog <> sB:23 var
+R10390:10393 Kernel.TransparencyLog <> view:24 var
+R10420:10427 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10402:10416 VerifierImpossibility <> mu_eq_one_claim def
+R10418:10419 Kernel.TransparencyLog <> sA:22 var
+R10428:10429 Coq.Init.Logic <> ::type_scope:'~'_x not
+R10430:10444 VerifierImpossibility <> mu_eq_one_claim def
+R10446:10447 Kernel.TransparencyLog <> sB:23 var
+R10466:10476 NecessityOfMuLedger <> po1_state_A def
+R10479:10489 NecessityOfMuLedger <> po1_state_B def
+R10492:10509 NecessityOfMuLedger <> po1_strict_trace_A def
+R10466:10476 NecessityOfMuLedger <> po1_state_A def
+R10479:10489 NecessityOfMuLedger <> po1_state_B def
+R10492:10509 NecessityOfMuLedger <> po1_strict_trace_A def
+R10528:10555 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R10528:10555 NecessityOfMuLedger <> po1_cond2_final_shadow_equal thm
+R10576:10600 VerifierImpossibility <> witness_A_explains_shared thm
+R10576:10600 VerifierImpossibility <> witness_A_explains_shared thm
+R10621:10645 VerifierImpossibility <> witness_B_explains_shared thm
+R10621:10645 VerifierImpossibility <> witness_B_explains_shared thm
+R10666:10690 VerifierImpossibility <> witness_A_satisfies_claim thm
+R10666:10690 VerifierImpossibility <> witness_A_satisfies_claim thm
+R10703:10726 VerifierImpossibility <> witness_B_violates_claim thm
+R10703:10726 VerifierImpossibility <> witness_B_violates_claim thm
+prf 11115:11137 <> split_view_same_verdict
+R11154:11170 Kernel.TransparencyLog <> log_free_verifier def
+binder 11150:11150 <> V:25
+R11207:11209 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11177:11185 VerifierModel <> bv_decide proj
+R11187:11187 Kernel.TransparencyLog <> V:25 var
+R11189:11206 NecessityOfMuLedger <> po1_strict_trace_A def
+R11210:11218 VerifierModel <> bv_decide proj
+R11220:11220 Kernel.TransparencyLog <> V:25 var
+R11222:11239 NecessityOfMuLedger <> po1_strict_trace_B def
+R11268:11287 VerifierModel <> bare_decide_eq_trans thm
+R11268:11287 VerifierModel <> bare_decide_eq_trans thm
+R11298:11326 NecessityOfMuLedger <> po1_cond2_shadow_traces_equal thm
+R11298:11326 NecessityOfMuLedger <> po1_cond2_shadow_traces_equal thm
+R11353:11375 Kernel.TransparencyLog <> transparency_log_escape thm
+R11396:11423 Kernel.TransparencyLog <> log_free_verifier_impossible thm
+R11444:11461 Kernel.TransparencyLog <> split_view_witness thm
+R11482:11504 Kernel.TransparencyLog <> split_view_same_verdict thm

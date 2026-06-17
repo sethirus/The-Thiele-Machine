@@ -45,7 +45,7 @@
 From Coq Require Import Arith.PeanoNat Lia.
 From Kernel Require Import Substrate.
 (* Foundation-chain anchor: the nat substrate is one realization of the
-   abstract A2-respecting Substrate typeclass; the 47-opcode VM is
+   abstract A2-respecting Substrate typeclass; the 51-opcode VM is
    another. Importing VMState here ties this file to the kernel's
    semantic foundation modules (VMState → VMStep → MuCostModel →
    NoFreeInsight → ...) so the substrate-level result presented over

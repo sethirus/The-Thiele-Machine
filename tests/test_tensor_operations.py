@@ -21,6 +21,9 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from build.thiele_vm import _run_python
 
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
+
 
 def _run(lines: list[str], fuel: int = 100):
     """Run a trace program and return final state."""

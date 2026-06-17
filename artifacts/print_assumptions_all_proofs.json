@@ -1,21 +1,21 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v2",
-  "generated": "2026-06-02T04:33:32.271884+00:00",
+  "generated": "2026-06-16T23:51:48.470521+00:00",
   "coq_version": "8.18.0",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "7839c1725440dfdc34b3c5eacf4a4ced21073f8a0faafb75ecf79058a128a6ae",
-  "files_probed": 267,
-  "addressable_theorems_probed": 3823,
-  "blocks_parsed": 3823,
+  "raw_output_sha256": "02d34d870852f2bc9f780d93545fe6b94215a297910cb93feae2915ff29fda8e",
+  "files_probed": 277,
+  "addressable_theorems_probed": 3937,
+  "blocks_parsed": 3937,
   "alignment_ok": true,
   "stderr_nonempty": true,
   "stderr_excerpt": "Warning: /workspaces/The-Thiele-Machine/coq/kernel/aggregators was previously\nbound to kernel.aggregators; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/category was previously\nbound to kernel.category; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/curvature was previously\nbound to kernel.curvature; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/foundation was previously\nbound to kernel.foundation; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/frontier was previously\nbound to kernel.frontier; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/hardware_bridge was\npreviously bound to kernel.hardware_bridge",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 3823,
-    "closed_under_global_context": 2809,
+    "theorems_probed": 3937,
+    "closed_under_global_context": 2923,
     "depend_on_axioms": 1014,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 67,
@@ -152,8 +152,8 @@
       ]
     },
     "Kernel": {
-      "theorems": 2547,
-      "closed": 1661,
+      "theorems": 2661,
+      "closed": 1775,
       "with_axioms": 886,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -1051,6 +1051,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/foundation/VMUnboundedExec.v": {
+      "theorems": 8,
+      "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/frontier/F1_AbstractedBridge.v": {
       "theorems": 2,
       "closed": 2,
@@ -1357,6 +1363,12 @@
         "FunctionalExtensionality.functional_extensionality_dep"
       ]
     },
+    "coq/kernel/nfi/MuRunIncompleteness.v": {
+      "theorems": 32,
+      "closed": 32,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/nfi/NecessityAbstract.v": {
       "theorems": 45,
       "closed": 45,
@@ -1429,6 +1441,18 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/nfi/StructuralAxisOrthogonality.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/StructuralAxisRelativization.v": {
+      "theorems": 12,
+      "closed": 12,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/nfi/StructuralUndecidability.v": {
       "theorems": 8,
       "closed": 8,
@@ -1456,6 +1480,12 @@
     "coq/kernel/nfi/UniversalShortcutLifting.v": {
       "theorems": 3,
       "closed": 3,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/nfi/VMSubstrateEncoded.v": {
+      "theorems": 2,
+      "closed": 2,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1759,6 +1789,36 @@
     "coq/kernel/quantum/ValidCorrelation.v": {
       "theorems": 1,
       "closed": 1,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/GasMetering.v": {
+      "theorems": 15,
+      "closed": 15,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/PoSFinality.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/ProofCarryingVerifier.v": {
+      "theorems": 10,
+      "closed": 10,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/TEEAttestation.v": {
+      "theorems": 11,
+      "closed": 11,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/reductions/TransparencyLog.v": {
+      "theorems": 9,
+      "closed": 9,
       "with_axioms": 0,
       "axiom_set": []
     },

@@ -142,9 +142,15 @@ jobs:
           vvp build/thiele_cpu_tb.out +VCD=build/thiele_cpu_tb.vcd > build/simulation.log 2>&1
 
       - name: Verify simulation
+        # The testbench emits "status": 2 for a clean halt, 3 for an error
+        # halt, 0 if the run never halted (rtl_harness/testbench/
+        # thiele_cpu_kami_tb.v line ~318). Grepping for the bare key
+        # accepted all three — an error halt rolled up green. Require the
+        # clean-halt code.
         run: |
-          if ! grep -q '"status"' build/simulation.log; then
-            echo "❌ Simulation failed - no status output"
+          if ! grep -q '"status": 2' build/simulation.log; then
+            echo "❌ Simulation did not reach a clean halt (status 2); got:"
+            grep '"status"' build/simulation.log || echo "(no status line at all)"
             exit 1
           fi
           if [ ! -s build/thiele_cpu_tb.vcd ]; then
@@ -299,14 +305,114 @@ jobs:
           retention-days: 90
           if-no-files-found: warn
 
+  # Nightly FULL kernel-conversion vacuity sweep. The pre-commit hook only
+  # re-probes the staged files (a full sweep is ~30 minutes — too slow for a
+  # commit), which leaves one case open: a theorem going vacuous because a
+  # DEFINITION it uses changed in some *other* file. This job closes that
+  # case by re-probing the whole manifest against a fresh proof tree every
+  # night.
+  vacuity-audit:
+    name: Kernel-conversion vacuity audit (full sweep)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Coq + OCaml
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            coq coinor-csdp ocaml ocaml-findlib
+
+      - name: Capture toolchain version
+        id: toolchain
+        run: |
+          coq_version=$(coqc --version | head -n1 | tr -s ' ' '_' | tr -d '(),')
+          echo "coq=${coq_version}" >> "$GITHUB_OUTPUT"
+
+      - name: Cache vendor builds (bbv + kami)
+        id: cache-vendor
+        uses: actions/cache@v4
+        with:
+          path: |
+            vendor/bbv
+            vendor/kami
+          key: vendor-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-${{ hashFiles('.gitmodules', 'scripts/fix_kami_coq18.sh', 'vendor/bbv/**/*.v', 'vendor/kami/**/*.v') }}
+
+      - name: Build vendored deps (bbv + kami)
+        if: steps.cache-vendor.outputs.cache-hit != 'true'
+        run: |
+          cd vendor/bbv && make -j4
+          cd ../..
+          bash scripts/fix_kami_coq18.sh
+          cd vendor/kami && make -j4
+
+      - name: Compute vendor build digest
+        id: vendor-digest
+        run: |
+          digest=$(find vendor -type f \( -name '*.vo' -o -name '*.vok' \) -print0 \
+            | sort -z \
+            | xargs -0 sha256sum 2>/dev/null \
+            | sha256sum \
+            | cut -c1-16)
+          echo "digest=${digest}" >> "$GITHUB_OUTPUT"
+
+      - name: Purge stale tracked Coq .vo files
+        run: make coq-clean
+
+      - name: Cache Coq build
+        id: cache-coq
+        uses: actions/cache@v4
+        with:
+          path: |
+            coq/**/*.vo
+            coq/**/*.vok
+            coq/**/*.vos
+            coq/**/*.glob
+            coq/Makefile
+            coq/Makefile.conf
+          key: coq-${{ runner.os }}-${{ steps.toolchain.outputs.coq }}-vendor-${{ steps.vendor-digest.outputs.digest }}-${{ hashFiles('coq/**/*.v', 'coq/_CoqProject') }}
+
+      - name: Refresh Coq artefact mtimes
+        run: |
+          find coq -name '*.vo' -exec touch {} +
+          find coq -name '*.vok' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.vos' -exec touch {} + 2>/dev/null || true
+          find coq -name '*.glob' -exec touch {} + 2>/dev/null || true
+
+      - name: Build Coq proof tree
+        if: steps.cache-coq.outputs.cache-hit != 'true'
+        run: |
+          cd coq
+          coq_makefile -f _CoqProject -o Makefile 2>&1 | { grep -v "Warning:" || true; }
+          make -j4
+
+      - name: Run full vacuity sweep
+        run: make vacuity-audit
+
+      - name: Fail on any vacuous or errored verdict
+        # The gate itself always exits 0 by design (the consumer decides);
+        # this job is the consumer. An 'error' verdict means a theorem was
+        # not actually probed, which is silent shrinkage — fail on it too.
+        run: |
+          python3 - <<'EOF'
+          import json, sys
+          s = json.load(open("artifacts/vacuity_audit.json"))["summary"]
+          print(s)
+          if s["vacuous_true"] or s["vacuous_hyp"] or s["error"]:
+              sys.exit(1)
+          EOF
+
   # Final summary — waits for every parallel branch to finish so the rollup
   # table reflects their actual outcomes. With fast-verify, hardware-synthesis,
-  # and fpga-bitstream all running in parallel, the critical path is now
-  # max(fast-verify, hardware-synthesis, fpga-bitstream) instead of their sum.
+  # fpga-bitstream, and vacuity-audit all running in parallel, the critical
+  # path is the max of the branches instead of their sum.
   verify-full:
     name: Full Verification Summary
     runs-on: ubuntu-latest
-    needs: [fast-verify, hardware-synthesis, fpga-bitstream]
+    needs: [fast-verify, hardware-synthesis, fpga-bitstream, vacuity-audit]
     if: always()
     steps:
       - name: Generate summary
@@ -319,20 +425,15 @@ jobs:
           | Fast verify (proof + extraction + tests) | ${{ needs.fast-verify.result }} |
           | Hardware Synthesis | ${{ needs.hardware-synthesis.result }} |
           | FPGA Bitstream (K325T) | ${{ needs.fpga-bitstream.result }} |
+          | Vacuity audit (full sweep) | ${{ needs.vacuity-audit.result }} |
 
-          Critical path: max(fast-verify, hardware-synthesis, fpga-bitstream)
-          rather than fast-verify → hardware-synthesis → fpga-bitstream.
+          Critical path: max of the parallel branches rather than their sum.
           EOF
           cat /tmp/summary.md >> "$GITHUB_STEP_SUMMARY"
 
       - name: Fail if any required job failed
-        # All three branches are required. Previously this only checked
-        # hardware-synthesis, which let fpga-bitstream failures roll up
-        # as a green "Full Verification Summary" — paired with the
-        # FPGA job's old `continue-on-error: true` this masked bitstream
-        # bugs entirely. Now every gate must pass.
-        if: |
-          needs.fast-verify.result == 'failure' ||
-          needs.hardware-synthesis.result == 'failure' ||
-          needs.fpga-bitstream.result == 'failure'
+        # Every needed job must come back 'success'. A hand-kept '== failure'
+        # list misses jobs omitted from it and misses the 'skipped' result a
+        # job gets when something upstream of it failed.
+        if: contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') || contains(needs.*.result, 'skipped')
         run: exit 1

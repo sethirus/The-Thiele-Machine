@@ -2,7 +2,7 @@
 
     Closeout-plan B.3. The substrate-level structural-undecidability theorem
     is proved at the [nat]-program substrate (see NatSubstrateInstance.v).
-    To carry the impossibility back to the 47-opcode VM as a corollary, we
+    To carry the impossibility back to the 51-opcode VM as a corollary, we
     need a concrete, total injection [list vm_instruction → nat] with a
     proven left inverse. This file provides exactly that, by composing
     the existing [list bool] encoders from VMEncoding.v with a standard
@@ -28,9 +28,9 @@ Local Open Scope list_scope.
 
 From Kernel Require Import VMState VMStep VMEncoding.
 
-(** ** Per-instruction binary encoding (47 constructors)
+(** ** Per-instruction binary encoding (51 constructors)
 
-    Each constructor gets a unique [nat] tag (0..46) followed by the
+    Each constructor gets a unique [nat] tag (0..50) followed by the
     encoded arguments, in declaration order. Decoding reads the tag,
     dispatches to the corresponding case, and decodes the arguments. *)
 
@@ -496,7 +496,7 @@ Definition decode_vm_instruction (bs : list bool)
     The proof is mechanical: each constructor case unfolds the encoder,
     pushes the [++] association so the leading bytes are exposed, applies
     the appropriate primitive [decode_X_correct] lemma, and reduces. The
-    [decode_chain] tactic discharges all 47 cases uniformly. *)
+    [decode_chain] tactic discharges all 51 cases uniformly. *)
 
 Ltac decode_chain :=
   rewrite <- ?app_assoc;

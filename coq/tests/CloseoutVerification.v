@@ -40,12 +40,13 @@ Proof. reflexivity. Qed.
 
 (** Checkpoint 2: opcode-coverage partition.
 
-    The Thiele VM has 46 opcodes. Coverage splits into 36 unconditional
-    proofs, 10 conditional (under structural preconditions), and 0
-    gaps. The arithmetic check below is trivial; its purpose is to make
-    any mismatch between the partition and reality break the build. *)
-Theorem closeout_46_opcodes :
-  36 + 10 + 0 = 46.
+    The synth-realised RTL surface covers 47 opcodes. Coverage splits into
+    37 unconditional proofs, 10 conditional (under structural
+    preconditions), and 0 gaps. The arithmetic check below is trivial; its
+    purpose is to make any mismatch between the partition and reality break
+    the build. *)
+Theorem closeout_47_opcodes :
+  37 + 10 + 0 = 47.
 Proof. reflexivity. Qed.
 
 (** Checkpoint 3: extraction identity.

@@ -62,6 +62,7 @@ def test_basename_collision_receipt_creation_fails() -> None:
     assert "Duplicate file basename" in (result.stdout + result.stderr)
 
 
+@pytest.mark.strict_node
 def test_canonicalization_equivalence_pair_matches_across_verifiers() -> None:
     fixture_dir = FIXTURE_ROOT / "execution" / "canonicalization" / "equivalent"
     program_a = fixture_dir / "program_a.asm"
@@ -79,6 +80,7 @@ def test_canonicalization_equivalence_pair_matches_across_verifiers() -> None:
     assert python_b.canonical_sha256 == node_b["canonicalSha256"]
 
 
+@pytest.mark.strict_node
 def test_canonicalization_distinct_pair_stays_distinct_across_verifiers() -> None:
     fixture_dir = FIXTURE_ROOT / "execution" / "canonicalization" / "distinct"
     program_a = fixture_dir / "program_a.asm"

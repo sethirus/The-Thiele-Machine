@@ -11,6 +11,9 @@ This complements test_all_opcodes_comprehensive.py which tests via RTL.
 import pytest
 from thielecpu.vm import VMState, vm_run, vm_apply
 
+# Every test below drives the extracted OCaml runner (no Python fallback).
+pytestmark = pytest.mark.strict_extracted
+
 
 def run_py(instructions, fuel=500):
     """Run a list of instruction dicts through the Python VM and return final state."""
@@ -602,14 +605,14 @@ class TestIntegration:
         assert s.vm_regs[3] == 99, "main should continue after sub1 returns"
         assert s.vm_regs[15] == 0, "SP should be 0 after balanced calls"
 
-    def test_all_46_opcodes_counted(self):
-        """Verify build/thiele_core.ml (Coq extraction) contains all 46 opcodes."""
+    def test_all_51_opcodes_counted(self):
+        """Verify build/thiele_core.ml (Coq extraction) contains all 51 opcodes."""
         import re
         from pathlib import Path
         ml_path = Path(__file__).resolve().parents[1] / "build" / "thiele_core.ml"
         assert ml_path.exists(), f"build/thiele_core.ml not found at {ml_path}"
         content = ml_path.read_text(encoding="utf-8")
-        # All 46 constructors appear as Instr_X (legacy) or Coq_instr_X (module-prefixed)
+        # All 51 constructors appear as Instr_X (legacy) or Coq_instr_X (module-prefixed)
         constructors = set(re.findall(r"Instr_(\w+)", content))
         constructors |= set(re.findall(r"Coq_instr_(\w+)", content))
         ops = {c.lower() for c in constructors}
@@ -626,6 +629,9 @@ class TestIntegration:
             "tensor_set", "tensor_get",
             "morph", "compose", "morph_id", "morph_delete",
             "morph_assert", "morph_tensor", "morph_get",
+            # 5 CHSH-check opcodes (chsh_lassert + four Q_{1+AB} variants)
+            "chsh_lassert", "chsh_lassert_1ab", "chsh_lassert_1ab_g5",
+            "chsh_lassert_1ab_g345", "chsh_lassert_1ab_g12345",
         }
         assert expected <= ops, f"Missing from OCaml extraction: {expected - ops}"
-        assert len(expected) == 46
+        assert len(expected) == 51

@@ -1,0 +1,326 @@
+DIGEST deebf40370e170ce1271c1519d3169f3
+FKernel.TEEAttestation
+R1468:1471 Coq.Lists.List <> <> lib
+R1473:1486 Coq.Arith.PeanoNat <> <> lib
+R1488:1490 Coq.micromega.Lia <> <> lib
+R1492:1495 Coq.Bool.Bool <> <> lib
+R1505:1517 Coq.Lists.List ListNotations <> mod
+R1536:1548 VerifierModel <> <> lib
+R1566:1587 VerifierExhaustiveness <> <> lib
+R1605:1628 VerifierEscape_Substrate <> <> lib
+R1915:1921 Kernel.VMState <> <> lib
+R1939:1957 NecessityOfMuLedger <> <> lib
+R1975:1995 VerifierImpossibility <> <> lib
+rec 2587:2595 <> TEEReport
+proj 2618:2625 <> rep_bare
+proj 2692:2706 <> rep_measurement
+R2636:2649 VerifierModel <> BareTranscript def
+R2710:2712 Coq.Init.Datatypes <> nat ind
+def 2964:2980 <> report_projection
+R2987:2995 Kernel.TEEAttestation <> TEEReport rec
+binder 2983:2983 <> r:4
+R3000:3013 VerifierModel <> BareTranscript def
+R3020:3027 Kernel.TEEAttestation <> rep_bare proj
+R3029:3029 Kernel.TEEAttestation <> r:4 var
+def 3604:3618 <> report_explains
+R3625:3631 Kernel.VMState <> VMState rec
+binder 3621:3621 <> s:5
+R3639:3647 Kernel.TEEAttestation <> TEEReport rec
+binder 3635:3635 <> r:6
+R3708:3713 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3662:3674 VerifierModel <> bare_explains proj
+R3676:3692 VerifierImpossibility <> mu_eq_one_problem def
+R3694:3694 Kernel.TEEAttestation <> s:5 var
+R3697:3704 Kernel.TEEAttestation <> rep_bare proj
+R3706:3706 Kernel.TEEAttestation <> r:6 var
+R3731:3733 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3714:3728 Kernel.TEEAttestation <> rep_measurement proj
+R3730:3730 Kernel.TEEAttestation <> r:6 var
+R3737:3741 Kernel.VMState <> vm_mu proj
+R3734:3734 Kernel.TEEAttestation <> s:5 var
+def 3940:3956 <> attestation_sound
+R3972:3975 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3963:3971 Kernel.TEEAttestation <> TEEReport rec
+R3976:3979 Coq.Init.Datatypes <> bool ind
+binder 3959:3959 <> V:7
+binder 4001:4001 <> r:8
+R4014:4021 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4007:4009 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4004:4004 Kernel.TEEAttestation <> V:7 var
+R4006:4006 Kernel.TEEAttestation <> r:8 var
+R4010:4013 Coq.Init.Datatypes <> true constr
+binder 4029:4029 <> s:9
+R4051:4054 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4032:4046 Kernel.TEEAttestation <> report_explains def
+R4048:4048 Kernel.TEEAttestation <> s:9 var
+R4050:4050 Kernel.TEEAttestation <> r:8 var
+R4064:4066 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4058:4062 Kernel.VMState <> vm_mu proj
+R4055:4055 Kernel.TEEAttestation <> s:9 var
+def 4181:4200 <> attestation_complete
+R4216:4219 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4207:4215 Kernel.TEEAttestation <> TEEReport rec
+R4220:4223 Coq.Init.Datatypes <> bool ind
+binder 4203:4203 <> V:10
+binder 4245:4245 <> s:11
+binder 4247:4247 <> r:12
+R4263:4266 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4259:4261 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4253:4257 Kernel.VMState <> vm_mu proj
+R4250:4250 Kernel.TEEAttestation <> s:11 var
+R4286:4289 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4267:4281 Kernel.TEEAttestation <> report_explains def
+R4283:4283 Kernel.TEEAttestation <> s:11 var
+R4285:4285 Kernel.TEEAttestation <> r:12 var
+R4293:4295 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4290:4290 Kernel.TEEAttestation <> V:10 var
+R4292:4292 Kernel.TEEAttestation <> r:12 var
+R4296:4299 Coq.Init.Datatypes <> true constr
+def 4880:4887 <> report_A
+R4891:4899 Kernel.TEEAttestation <> TEEReport rec
+R4909:4916 Kernel.TEEAttestation <> rep_bare proj
+R4909:4916 Kernel.TEEAttestation <> rep_bare proj
+R4909:4916 Kernel.TEEAttestation <> rep_bare proj
+R4941:4955 Kernel.TEEAttestation <> rep_measurement proj
+R4941:4955 Kernel.TEEAttestation <> rep_measurement proj
+R4921:4938 NecessityOfMuLedger <> po1_strict_trace_A def
+def 4978:4985 <> report_B
+R4989:4997 Kernel.TEEAttestation <> TEEReport rec
+R5007:5014 Kernel.TEEAttestation <> rep_bare proj
+R5007:5014 Kernel.TEEAttestation <> rep_bare proj
+R5007:5014 Kernel.TEEAttestation <> rep_bare proj
+R5039:5053 Kernel.TEEAttestation <> rep_measurement proj
+R5039:5053 Kernel.TEEAttestation <> rep_measurement proj
+R5019:5036 NecessityOfMuLedger <> po1_strict_trace_B def
+prf 5358:5378 <> reports_project_equal
+R5410:5412 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5384:5400 Kernel.TEEAttestation <> report_projection def
+R5402:5409 Kernel.TEEAttestation <> report_A def
+R5413:5429 Kernel.TEEAttestation <> report_projection def
+R5431:5438 Kernel.TEEAttestation <> report_B def
+R5456:5484 NecessityOfMuLedger <> po1_cond2_shadow_traces_equal thm
+R5456:5484 NecessityOfMuLedger <> po1_cond2_shadow_traces_equal thm
+prf 5716:5734 <> report_A_explains_A
+R5738:5752 Kernel.TEEAttestation <> report_explains def
+R5754:5764 NecessityOfMuLedger <> po1_state_A def
+R5766:5773 Kernel.TEEAttestation <> report_A def
+R5802:5826 VerifierImpossibility <> witness_A_explains_shared thm
+R5802:5826 VerifierImpossibility <> witness_A_explains_shared thm
+R5849:5873 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R5849:5873 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+prf 6102:6120 <> report_B_explains_B
+R6124:6138 Kernel.TEEAttestation <> report_explains def
+R6140:6150 NecessityOfMuLedger <> po1_state_B def
+R6152:6159 Kernel.TEEAttestation <> report_B def
+R6211:6239 NecessityOfMuLedger <> po1_cond2_shadow_traces_equal thm
+R6211:6239 NecessityOfMuLedger <> po1_cond2_shadow_traces_equal thm
+R6288:6312 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R6288:6312 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+prf 7293:7341 <> attestation_cannot_factor_through_bare_transcript
+R7367:7370 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7358:7366 Kernel.TEEAttestation <> TEEReport rec
+R7371:7374 Coq.Init.Datatypes <> bool ind
+binder 7354:7354 <> V:13
+R7400:7407 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7381:7397 Kernel.TEEAttestation <> attestation_sound def
+R7399:7399 Kernel.TEEAttestation <> V:13 var
+R7430:7437 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7408:7427 Kernel.TEEAttestation <> attestation_complete def
+R7429:7429 Kernel.TEEAttestation <> V:13 var
+R7438:7439 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7440:7456 VerifierExhaustiveness <> factors_classical def
+R7476:7476 Kernel.TEEAttestation <> V:13 var
+R7458:7474 Kernel.TEEAttestation <> report_projection def
+R7524:7558 VerifierExhaustiveness <> V_does_not_factor_through_classical thm
+R7571:7579 Kernel.TEEAttestation <> TEEReport rec
+R7581:7597 Kernel.TEEAttestation <> report_projection def
+R7599:7613 Kernel.TEEAttestation <> report_explains def
+R7626:7633 Kernel.TEEAttestation <> report_A def
+R7635:7642 Kernel.TEEAttestation <> report_B def
+R7524:7558 VerifierExhaustiveness <> V_does_not_factor_through_classical thm
+R7571:7579 Kernel.TEEAttestation <> TEEReport rec
+R7581:7597 Kernel.TEEAttestation <> report_projection def
+R7599:7613 Kernel.TEEAttestation <> report_explains def
+R7626:7633 Kernel.TEEAttestation <> report_A def
+R7635:7642 Kernel.TEEAttestation <> report_B def
+R7658:7678 Kernel.TEEAttestation <> reports_project_equal thm
+R7658:7678 Kernel.TEEAttestation <> reports_project_equal thm
+R7691:7709 Kernel.TEEAttestation <> report_A_explains_A thm
+R7691:7709 Kernel.TEEAttestation <> report_A_explains_A thm
+R7722:7740 Kernel.TEEAttestation <> report_B_explains_B thm
+R7722:7740 Kernel.TEEAttestation <> report_B_explains_B thm
+prf 8745:8776 <> replay_is_a_two_preimage_witness
+R8782:8788 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8808:8813 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R8799:8807 Kernel.TEEAttestation <> TEEReport rec
+binder 8789:8791 <> r_A:14
+R8799:8807 Kernel.TEEAttestation <> TEEReport rec
+binder 8793:8795 <> r_B:15
+R8859:8866 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8835:8837 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8814:8830 Kernel.TEEAttestation <> report_projection def
+R8832:8834 Kernel.TEEAttestation <> r_A:14 var
+R8838:8854 Kernel.TEEAttestation <> report_projection def
+R8856:8858 Kernel.TEEAttestation <> r_B:15 var
+R8909:8916 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8886:8889 Coq.Init.Logic <> ::type_scope:x_'<>'_x not
+R8867:8881 Kernel.TEEAttestation <> rep_measurement proj
+R8883:8885 Kernel.TEEAttestation <> r_A:14 var
+R8890:8904 Kernel.TEEAttestation <> rep_measurement proj
+R8906:8908 Kernel.TEEAttestation <> r_B:15 var
+R8948:8955 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R8917:8931 Kernel.TEEAttestation <> report_explains def
+R8933:8943 NecessityOfMuLedger <> po1_state_A def
+R8945:8947 Kernel.TEEAttestation <> r_A:14 var
+R8956:8970 Kernel.TEEAttestation <> report_explains def
+R8972:8982 NecessityOfMuLedger <> po1_state_B def
+R8984:8986 Kernel.TEEAttestation <> r_B:15 var
+R9005:9012 Kernel.TEEAttestation <> report_A def
+R9015:9022 Kernel.TEEAttestation <> report_B def
+R9005:9012 Kernel.TEEAttestation <> report_A def
+R9015:9022 Kernel.TEEAttestation <> report_B def
+R9066:9086 Kernel.TEEAttestation <> reports_project_equal thm
+R9066:9086 Kernel.TEEAttestation <> reports_project_equal thm
+R9124:9142 Kernel.TEEAttestation <> report_A_explains_A thm
+R9124:9142 Kernel.TEEAttestation <> report_A_explains_A thm
+R9155:9173 Kernel.TEEAttestation <> report_B_explains_B thm
+R9155:9173 Kernel.TEEAttestation <> report_B_explains_B thm
+def 10321:10334 <> snapshot_state
+R10341:10349 Kernel.TEEAttestation <> TEEReport rec
+binder 10337:10337 <> r:16
+R10354:10360 Kernel.VMState <> VMState rec
+R10370:10376 Coq.Arith.PeanoNat Nat eqb def
+R10379:10393 Kernel.TEEAttestation <> rep_measurement proj
+R10395:10395 Kernel.TEEAttestation <> r:16 var
+R10422:10432 NecessityOfMuLedger <> po1_state_B def
+R10405:10415 NecessityOfMuLedger <> po1_state_A def
+def 10513:10529 <> measured_snapshot
+R10536:10544 Kernel.TEEAttestation <> TEEReport rec
+binder 10532:10532 <> r:17
+R10549:10567 VerifierEscape_Substrate <> SubstrateTranscript def
+R10574:10574 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10591:10591 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R10575:10588 Kernel.TEEAttestation <> snapshot_state def
+R10590:10590 Kernel.TEEAttestation <> r:17 var
+def 10751:10763 <> attest_decide
+R10770:10778 Kernel.TEEAttestation <> TEEReport rec
+binder 10766:10766 <> r:18
+R10783:10786 Coq.Init.Datatypes <> bool ind
+R10793:10818 VerifierEscape_Substrate <> substrate_decide_mu_eq_one def
+R10821:10837 Kernel.TEEAttestation <> measured_snapshot def
+R10839:10839 Kernel.TEEAttestation <> r:18 var
+def 10855:10865 <> attest_cost
+R10872:10880 Kernel.TEEAttestation <> TEEReport rec
+binder 10868:10868 <> r:19
+R10885:10887 Coq.Init.Datatypes <> nat ind
+R10894:10911 VerifierEscape_Substrate <> substrate_cost_one def
+R10914:10930 Kernel.TEEAttestation <> measured_snapshot def
+R10932:10932 Kernel.TEEAttestation <> r:19 var
+prf 11046:11071 <> measured_snapshot_explains
+R11088:11096 Kernel.TEEAttestation <> TEEReport rec
+binder 11084:11084 <> r:20
+R11103:11120 VerifierEscape_Substrate <> substrate_explains def
+R11123:11136 Kernel.TEEAttestation <> snapshot_state def
+R11138:11138 Kernel.TEEAttestation <> r:20 var
+R11142:11158 Kernel.TEEAttestation <> measured_snapshot def
+R11160:11160 Kernel.TEEAttestation <> r:20 var
+R11191:11207 Kernel.TEEAttestation <> measured_snapshot def
+R11210:11227 VerifierEscape_Substrate <> substrate_explains def
+R11230:11249 VerifierEscape_Substrate <> substrate_last_total def
+prf 11536:11552 <> snapshot_state_mu
+R11570:11576 Kernel.VMState <> VMState rec
+binder 11566:11566 <> s:21
+R11584:11592 Kernel.TEEAttestation <> TEEReport rec
+binder 11580:11580 <> r:22
+R11619:11626 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R11600:11614 Kernel.TEEAttestation <> report_explains def
+R11616:11616 Kernel.TEEAttestation <> s:21 var
+R11618:11618 Kernel.TEEAttestation <> r:22 var
+R11653:11655 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11647:11651 Kernel.VMState <> vm_mu proj
+R11628:11641 Kernel.TEEAttestation <> snapshot_state def
+R11643:11643 Kernel.TEEAttestation <> r:22 var
+R11659:11663 Kernel.VMState <> vm_mu proj
+R11656:11656 Kernel.TEEAttestation <> s:21 var
+R11759:11772 Kernel.TEEAttestation <> snapshot_state def
+R11794:11818 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R11794:11818 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R11794:11818 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R11838:11862 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R11838:11862 NecessityOfMuLedger <> po1_cond4_trace_A_mu_paid thm
+R11885:11898 Kernel.TEEAttestation <> snapshot_state def
+R11920:11944 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R11920:11944 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R11920:11944 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R11964:11988 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+R11964:11988 NecessityOfMuLedger <> po1_cond5_trace_B_mu_zero thm
+prf 12106:12124 <> attest_decide_sound
+R12128:12144 Kernel.TEEAttestation <> attestation_sound def
+R12146:12158 Kernel.TEEAttestation <> attest_decide def
+R12206:12222 Kernel.TEEAttestation <> snapshot_state_mu thm
+R12206:12222 Kernel.TEEAttestation <> snapshot_state_mu thm
+R12206:12222 Kernel.TEEAttestation <> snapshot_state_mu thm
+R12244:12267 VerifierEscape_Substrate <> substrate_verifier_sound thm
+R12244:12267 VerifierEscape_Substrate <> substrate_verifier_sound thm
+R12296:12321 Kernel.TEEAttestation <> measured_snapshot_explains thm
+R12296:12321 Kernel.TEEAttestation <> measured_snapshot_explains thm
+prf 12445:12466 <> attest_decide_complete
+R12470:12489 Kernel.TEEAttestation <> attestation_complete def
+R12491:12503 Kernel.TEEAttestation <> attest_decide def
+R12545:12557 Kernel.TEEAttestation <> attest_decide def
+R12569:12595 VerifierEscape_Substrate <> substrate_verifier_complete thm
+R12598:12611 Kernel.TEEAttestation <> snapshot_state def
+R12569:12595 VerifierEscape_Substrate <> substrate_verifier_complete thm
+R12598:12611 Kernel.TEEAttestation <> snapshot_state def
+R12631:12647 Kernel.TEEAttestation <> snapshot_state_mu thm
+R12631:12647 Kernel.TEEAttestation <> snapshot_state_mu thm
+R12631:12647 Kernel.TEEAttestation <> snapshot_state_mu thm
+R12681:12706 Kernel.TEEAttestation <> measured_snapshot_explains thm
+R12681:12706 Kernel.TEEAttestation <> measured_snapshot_explains thm
+prf 13278:13318 <> measurement_enriched_attestation_succeeds
+R13324:13331 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13384:13390 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R13350:13353 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13341:13349 Kernel.TEEAttestation <> TEEReport rec
+R13354:13357 Coq.Init.Datatypes <> bool ind
+binder 13332:13337 <> decide:23
+R13377:13380 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R13368:13376 Kernel.TEEAttestation <> TEEReport rec
+R13381:13383 Coq.Init.Datatypes <> nat ind
+binder 13361:13364 <> cost:24
+R13415:13422 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13391:13407 Kernel.TEEAttestation <> attestation_sound def
+R13409:13414 Kernel.TEEAttestation <> decide:23 var
+R13450:13458 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13479:13479 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R13423:13442 Kernel.TEEAttestation <> attestation_complete def
+R13444:13449 Kernel.TEEAttestation <> decide:23 var
+binder 13466:13466 <> r:25
+R13475:13477 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R13469:13472 Kernel.TEEAttestation <> cost:24 var
+R13474:13474 Kernel.TEEAttestation <> r:25 var
+R13498:13510 Kernel.TEEAttestation <> attest_decide def
+R13513:13523 Kernel.TEEAttestation <> attest_cost def
+R13498:13510 Kernel.TEEAttestation <> attest_decide def
+R13513:13523 Kernel.TEEAttestation <> attest_cost def
+R13556:13574 Kernel.TEEAttestation <> attest_decide_sound thm
+R13556:13574 Kernel.TEEAttestation <> attest_decide_sound thm
+R13587:13608 Kernel.TEEAttestation <> attest_decide_complete thm
+R13587:13608 Kernel.TEEAttestation <> attest_decide_complete thm
+R13630:13653 VerifierEscape_Substrate <> substrate_verifier_cheap thm
+R13630:13653 VerifierEscape_Substrate <> substrate_verifier_cheap thm
+prf 14101:14147 <> working_attestation_verifier_reads_the_register
+R14153:14154 Coq.Init.Logic <> ::type_scope:'~'_x not
+R14155:14171 VerifierExhaustiveness <> factors_classical def
+R14191:14203 Kernel.TEEAttestation <> attest_decide def
+R14173:14189 Kernel.TEEAttestation <> report_projection def
+R14221:14269 Kernel.TEEAttestation <> attestation_cannot_factor_through_bare_transcript thm
+R14221:14269 Kernel.TEEAttestation <> attestation_cannot_factor_through_bare_transcript thm
+R14282:14300 Kernel.TEEAttestation <> attest_decide_sound thm
+R14282:14300 Kernel.TEEAttestation <> attest_decide_sound thm
+R14313:14334 Kernel.TEEAttestation <> attest_decide_complete thm
+R14313:14334 Kernel.TEEAttestation <> attest_decide_complete thm
+R14465:14513 Kernel.TEEAttestation <> attestation_cannot_factor_through_bare_transcript thm
+R14534:14565 Kernel.TEEAttestation <> replay_is_a_two_preimage_witness thm
+R14586:14626 Kernel.TEEAttestation <> measurement_enriched_attestation_succeeds thm
+R14647:14693 Kernel.TEEAttestation <> working_attestation_verifier_reads_the_register thm

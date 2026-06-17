@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 267,
-  "total_addressable": 3822,
+  "files_probed": 277,
+  "total_addressable": 3936,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -11194,6 +11194,55 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/foundation/VMUnboundedExec.v",
+      "qualified_module": "Kernel.VMUnboundedExec",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "halted_iff_nth_error_none",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.halted_iff_nth_error_none"
+        },
+        {
+          "local_name": "run_vm_halt_witness",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.run_vm_halt_witness"
+        },
+        {
+          "local_name": "vm_halts_at_deterministic",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.vm_halts_at_deterministic"
+        },
+        {
+          "local_name": "vm_halts_at_saturates",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.vm_halts_at_saturates"
+        },
+        {
+          "local_name": "vm_halts_at_nil",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.vm_halts_at_nil"
+        },
+        {
+          "local_name": "vm_equiv_refl",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.vm_equiv_refl"
+        },
+        {
+          "local_name": "vm_equiv_sym",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.vm_equiv_sym"
+        },
+        {
+          "local_name": "vm_equiv_trans",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMUnboundedExec.vm_equiv_trans"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/frontier/F1_AbstractedBridge.v",
       "qualified_module": "Kernel.F1_AbstractedBridge",
       "addressable_count": 2,
@@ -14394,6 +14443,175 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/MuRunIncompleteness.v",
+      "qualified_module": "Kernel.MuRunIncompleteness",
+      "addressable_count": 32,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "run_certify_reachable",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_certify_reachable"
+        },
+        {
+          "local_name": "run_pnew3_reachable",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_pnew3_reachable"
+        },
+        {
+          "local_name": "run_certify_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_certify_step"
+        },
+        {
+          "local_name": "run_pnew3_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_pnew3_step"
+        },
+        {
+          "local_name": "cert_mem",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.cert_mem"
+        },
+        {
+          "local_name": "cert_regs",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.cert_regs"
+        },
+        {
+          "local_name": "cert_pc",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.cert_pc"
+        },
+        {
+          "local_name": "cert_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.cert_mu"
+        },
+        {
+          "local_name": "cert_certified_differs",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.cert_certified_differs"
+        },
+        {
+          "local_name": "mu_cert_not_complete_over_runs",
+          "kind": "Theorem",
+          "full_name": "Kernel.MuRunIncompleteness.mu_cert_not_complete_over_runs"
+        },
+        {
+          "local_name": "certified_does_not_factor_through_mu",
+          "kind": "Theorem",
+          "full_name": "Kernel.MuRunIncompleteness.certified_does_not_factor_through_mu"
+        },
+        {
+          "local_name": "mdlacc_mem",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.mdlacc_mem"
+        },
+        {
+          "local_name": "mdlacc_regs",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.mdlacc_regs"
+        },
+        {
+          "local_name": "mdlacc_pc",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.mdlacc_pc"
+        },
+        {
+          "local_name": "mdlacc_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.mdlacc_mu"
+        },
+        {
+          "local_name": "mdlacc_certified",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.mdlacc_certified"
+        },
+        {
+          "local_name": "mdlacc_graph",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.mdlacc_graph"
+        },
+        {
+          "local_name": "pnew_module_count_succ",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.pnew_module_count_succ"
+        },
+        {
+          "local_name": "run_pnew0_reachable",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_pnew0_reachable"
+        },
+        {
+          "local_name": "run_mdlacc_reachable",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_mdlacc_reachable"
+        },
+        {
+          "local_name": "run_pnew0_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_pnew0_step"
+        },
+        {
+          "local_name": "run_mdlacc_step",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.run_mdlacc_step"
+        },
+        {
+          "local_name": "init_modules_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.init_modules_zero"
+        },
+        {
+          "local_name": "graph_pair_mem",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.graph_pair_mem"
+        },
+        {
+          "local_name": "graph_pair_regs",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.graph_pair_regs"
+        },
+        {
+          "local_name": "graph_pair_pc",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.graph_pair_pc"
+        },
+        {
+          "local_name": "graph_pair_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.graph_pair_mu"
+        },
+        {
+          "local_name": "graph_pair_certified",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.graph_pair_certified"
+        },
+        {
+          "local_name": "graph_pair_differs",
+          "kind": "Lemma",
+          "full_name": "Kernel.MuRunIncompleteness.graph_pair_differs"
+        },
+        {
+          "local_name": "mu_graph_not_complete_over_runs",
+          "kind": "Theorem",
+          "full_name": "Kernel.MuRunIncompleteness.mu_graph_not_complete_over_runs"
+        },
+        {
+          "local_name": "graph_does_not_factor_through_mu",
+          "kind": "Theorem",
+          "full_name": "Kernel.MuRunIncompleteness.graph_does_not_factor_through_mu"
+        },
+        {
+          "local_name": "mu_not_complete_invariant_over_runs",
+          "kind": "Theorem",
+          "full_name": "Kernel.MuRunIncompleteness.mu_not_complete_invariant_over_runs"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/NecessityAbstract.v",
       "qualified_module": "Kernel.NecessityAbstract",
       "addressable_count": 45,
@@ -15560,6 +15778,134 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/nfi/StructuralAxisOrthogonality.v",
+      "qualified_module": "Kernel.StructuralAxisOrthogonality",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "run_cert_set_reachable",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisOrthogonality.run_cert_set_reachable"
+        },
+        {
+          "local_name": "run_cert_unset_reachable",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisOrthogonality.run_cert_unset_reachable"
+        },
+        {
+          "local_name": "forget_collision",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisOrthogonality.forget_collision"
+        },
+        {
+          "local_name": "run_cert_set_admits",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisOrthogonality.run_cert_set_admits"
+        },
+        {
+          "local_name": "run_cert_unset_refuses",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisOrthogonality.run_cert_unset_refuses"
+        },
+        {
+          "local_name": "structural_shortcut_not_function_of_classical",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAxisOrthogonality.structural_shortcut_not_function_of_classical"
+        },
+        {
+          "local_name": "structural_axis_invisible_to_classical",
+          "kind": "Corollary",
+          "full_name": "Kernel.StructuralAxisOrthogonality.structural_axis_invisible_to_classical"
+        },
+        {
+          "local_name": "extensional_shortcut_detected_through_cert_addr",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisOrthogonality.extensional_shortcut_detected_through_cert_addr"
+        },
+        {
+          "local_name": "yes_program_detected_through_cert_addr",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisOrthogonality.yes_program_detected_through_cert_addr"
+        },
+        {
+          "local_name": "second_axis_of_undecidability",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAxisOrthogonality.second_axis_of_undecidability"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/StructuralAxisRelativization.v",
+      "qualified_module": "Kernel.StructuralAxisRelativization",
+      "addressable_count": 12,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "structural_axis_survives_any_classical_oracle",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAxisRelativization.structural_axis_survives_any_classical_oracle"
+        },
+        {
+          "local_name": "structural_axis_survives_halting_oracle",
+          "kind": "Corollary",
+          "full_name": "Kernel.StructuralAxisRelativization.structural_axis_survives_halting_oracle"
+        },
+        {
+          "local_name": "structural_axis_survives_two_oracles",
+          "kind": "Corollary",
+          "full_name": "Kernel.StructuralAxisRelativization.structural_axis_survives_two_oracles"
+        },
+        {
+          "local_name": "struct_only_init",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisRelativization.struct_only_init"
+        },
+        {
+          "local_name": "struct_only_run_cert_unset",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisRelativization.struct_only_run_cert_unset"
+        },
+        {
+          "local_name": "pc_init",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisRelativization.pc_init"
+        },
+        {
+          "local_name": "pc_run_cert_unset",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisRelativization.pc_run_cert_unset"
+        },
+        {
+          "local_name": "classical_pc_not_function_of_structural",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAxisRelativization.classical_pc_not_function_of_structural"
+        },
+        {
+          "local_name": "axes_mutually_independent",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAxisRelativization.axes_mutually_independent"
+        },
+        {
+          "local_name": "structural_membership_decidable",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAxisRelativization.structural_membership_decidable"
+        },
+        {
+          "local_name": "structural_membership_total",
+          "kind": "Lemma",
+          "full_name": "Kernel.StructuralAxisRelativization.structural_membership_total"
+        },
+        {
+          "local_name": "orthogonality_ladder_B_and_C",
+          "kind": "Theorem",
+          "full_name": "Kernel.StructuralAxisRelativization.orthogonality_ladder_B_and_C"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/nfi/StructuralUndecidability.v",
       "qualified_module": "Kernel.StructuralUndecidability",
       "addressable_count": 8,
@@ -15785,6 +16131,25 @@
           "local_name": "any_supra_cert_run_lands_in_representation",
           "kind": "Theorem",
           "full_name": "Kernel.UniversalShortcutLifting.any_supra_cert_run_lands_in_representation"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/nfi/VMSubstrateEncoded.v",
+      "qualified_module": "Kernel.VMSubstrateEncoded",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "vm_encode_decode_concrete",
+          "kind": "Lemma",
+          "full_name": "Kernel.VMSubstrateEncoded.vm_encode_decode_concrete"
+        },
+        {
+          "local_name": "vm_structural_shortcut_undecidable_encoded",
+          "kind": "Theorem",
+          "full_name": "Kernel.VMSubstrateEncoded.vm_structural_shortcut_undecidable_encoded"
         }
       ],
       "unaddressable": []
@@ -18583,6 +18948,301 @@
           "local_name": "bell_math_deterministic",
           "kind": "Theorem",
           "full_name": "Kernel.ValidCorrelation.bell_math_deterministic"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/GasMetering.v",
+      "qualified_module": "Kernel.GasMetering",
+      "addressable_count": 15,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "gas_schedule_exactness",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.gas_schedule_exactness"
+        },
+        {
+          "local_name": "undercharged_opcode_admits_free_commitment",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.undercharged_opcode_admits_free_commitment"
+        },
+        {
+          "local_name": "undercharged_opcode_breaks_certification_floor",
+          "kind": "Corollary",
+          "full_name": "Kernel.GasMetering.undercharged_opcode_breaks_certification_floor"
+        },
+        {
+          "local_name": "overcharge_breaks_exactness",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.overcharge_breaks_exactness"
+        },
+        {
+          "local_name": "toy_charged_costs",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_charged_costs"
+        },
+        {
+          "local_name": "toy_uncharged_free",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_uncharged_free"
+        },
+        {
+          "local_name": "toy_charge_is_cert_flip",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_charge_is_cert_flip"
+        },
+        {
+          "local_name": "toy_exact_unit_pricing",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.toy_exact_unit_pricing"
+        },
+        {
+          "local_name": "toy_gas_schedule_is_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.toy_gas_schedule_is_exact"
+        },
+        {
+          "local_name": "thiele_commit_charged_costs",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_commit_charged_costs"
+        },
+        {
+          "local_name": "thiele_commit_uncharged_free",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_commit_uncharged_free"
+        },
+        {
+          "local_name": "thiele_charge_is_cert_flip",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_charge_is_cert_flip"
+        },
+        {
+          "local_name": "thiele_exact_unit_pricing",
+          "kind": "Lemma",
+          "full_name": "Kernel.GasMetering.thiele_exact_unit_pricing"
+        },
+        {
+          "local_name": "thiele_vm_commit_pricing_is_exact",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.thiele_vm_commit_pricing_is_exact"
+        },
+        {
+          "local_name": "thiele_unit_price_lower_bounds_mu",
+          "kind": "Theorem",
+          "full_name": "Kernel.GasMetering.thiele_unit_price_lower_bounds_mu"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/PoSFinality.v",
+      "qualified_module": "Kernel.PoSFinality",
+      "addressable_count": 5,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "vote_preserves_finalized",
+          "kind": "Lemma",
+          "full_name": "Kernel.PoSFinality.vote_preserves_finalized"
+        },
+        {
+          "local_name": "nothing_at_stake_free_finalization",
+          "kind": "Theorem",
+          "full_name": "Kernel.PoSFinality.nothing_at_stake_free_finalization"
+        },
+        {
+          "local_name": "nothing_at_stake_is_free_forgery",
+          "kind": "Theorem",
+          "full_name": "Kernel.PoSFinality.nothing_at_stake_is_free_forgery"
+        },
+        {
+          "local_name": "slashing_cert_costs",
+          "kind": "Lemma",
+          "full_name": "Kernel.PoSFinality.slashing_cert_costs"
+        },
+        {
+          "local_name": "slashing_finality_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.PoSFinality.slashing_finality_floor"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/ProofCarryingVerifier.v",
+      "qualified_module": "Kernel.ProofCarryingVerifier",
+      "addressable_count": 10,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "pcc_rounds_attach",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_rounds_attach"
+        },
+        {
+          "local_name": "pcc_attach_rounds",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_attach_rounds"
+        },
+        {
+          "local_name": "pcc_strip_attach",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_strip_attach"
+        },
+        {
+          "local_name": "pcc_explains_lift",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.pcc_explains_lift"
+        },
+        {
+          "local_name": "certificate_pins_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.certificate_pins_mu"
+        },
+        {
+          "local_name": "bare_transcript_does_not_pin_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.ProofCarryingVerifier.bare_transcript_does_not_pin_mu"
+        },
+        {
+          "local_name": "proof_rounds_escape",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProofCarryingVerifier.proof_rounds_escape"
+        },
+        {
+          "local_name": "bare_pcc_impossible",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProofCarryingVerifier.bare_pcc_impossible"
+        },
+        {
+          "local_name": "level_k_verification_floor",
+          "kind": "Theorem",
+          "full_name": "Kernel.ProofCarryingVerifier.level_k_verification_floor"
+        },
+        {
+          "local_name": "level_k_verification_floor_tight",
+          "kind": "Corollary",
+          "full_name": "Kernel.ProofCarryingVerifier.level_k_verification_floor_tight"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/TEEAttestation.v",
+      "qualified_module": "Kernel.TEEAttestation",
+      "addressable_count": 11,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "reports_project_equal",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.reports_project_equal"
+        },
+        {
+          "local_name": "report_A_explains_A",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.report_A_explains_A"
+        },
+        {
+          "local_name": "report_B_explains_B",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.report_B_explains_B"
+        },
+        {
+          "local_name": "attestation_cannot_factor_through_bare_transcript",
+          "kind": "Theorem",
+          "full_name": "Kernel.TEEAttestation.attestation_cannot_factor_through_bare_transcript"
+        },
+        {
+          "local_name": "replay_is_a_two_preimage_witness",
+          "kind": "Theorem",
+          "full_name": "Kernel.TEEAttestation.replay_is_a_two_preimage_witness"
+        },
+        {
+          "local_name": "measured_snapshot_explains",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.measured_snapshot_explains"
+        },
+        {
+          "local_name": "snapshot_state_mu",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.snapshot_state_mu"
+        },
+        {
+          "local_name": "attest_decide_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.attest_decide_sound"
+        },
+        {
+          "local_name": "attest_decide_complete",
+          "kind": "Lemma",
+          "full_name": "Kernel.TEEAttestation.attest_decide_complete"
+        },
+        {
+          "local_name": "measurement_enriched_attestation_succeeds",
+          "kind": "Theorem",
+          "full_name": "Kernel.TEEAttestation.measurement_enriched_attestation_succeeds"
+        },
+        {
+          "local_name": "working_attestation_verifier_reads_the_register",
+          "kind": "Corollary",
+          "full_name": "Kernel.TEEAttestation.working_attestation_verifier_reads_the_register"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/reductions/TransparencyLog.v",
+      "qualified_module": "Kernel.TransparencyLog",
+      "addressable_count": 9,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "inclusion_is_commitment",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.inclusion_is_commitment"
+        },
+        {
+          "local_name": "lbt_roundtrip",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.lbt_roundtrip"
+        },
+        {
+          "local_name": "hardness_roundtrip",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.hardness_roundtrip"
+        },
+        {
+          "local_name": "log_audit_is_hardness_decide",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.log_audit_is_hardness_decide"
+        },
+        {
+          "local_name": "log_audit_weak_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.TransparencyLog.log_audit_weak_sound"
+        },
+        {
+          "local_name": "transparency_log_escape",
+          "kind": "Theorem",
+          "full_name": "Kernel.TransparencyLog.transparency_log_escape"
+        },
+        {
+          "local_name": "log_free_verifier_impossible",
+          "kind": "Theorem",
+          "full_name": "Kernel.TransparencyLog.log_free_verifier_impossible"
+        },
+        {
+          "local_name": "split_view_witness",
+          "kind": "Theorem",
+          "full_name": "Kernel.TransparencyLog.split_view_witness"
+        },
+        {
+          "local_name": "split_view_same_verdict",
+          "kind": "Corollary",
+          "full_name": "Kernel.TransparencyLog.split_view_same_verdict"
         }
       ],
       "unaddressable": []
