@@ -13,18 +13,8 @@
       "kind": "Lemma",
       "line": 121,
       "name": "bare_decide_eq_trans",
-      "probe_a": {
-        "coq_stderr_tail": "ding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierModel__bare_decide_eq_trans__a.v\", line 4, characters 27-28:\nError:\nIn environment\nV : BareVerifier\nt1, t2 : BareTranscript\nH : t1 = t2\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(let (bv_decide, _) := V in bv_decide) t1 =\n  (let (bv_decide, _) := V in bv_decide) t2\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierModel__bare_decide_eq_trans__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "remapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierModel__bare_decide_eq_trans__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierModel__bare_decide_eq_trans__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (V : BareVerifier) (t1 t2 : BareTranscript), t1 = t2 -> bv_decide V t1 = bv_decide V t2",
       "status": "ok"
     },
@@ -33,18 +23,8 @@
       "kind": "Lemma",
       "line": 128,
       "name": "bare_sound_contrapositive",
-      "probe_a": {
-        "coq_stderr_tail": "-Machine/build/vacuity_probes/VerifierModel__bare_sound_contrapositive__a.v\", line 4, characters 27-28:\nError:\nIn environment\nP : BareVerificationProblem\nV : BareVerifier\nH : bare_sound P V\nt : BareTranscript\ns : VMState.VMState\nH0 : bare_explains P s t\nH1 : ~ bare_honest_claim P s\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(let (bv_decide, _) := V in bv_decide) t = false\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/VerifierModel__bare_sound_contrapositive__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "pped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/VerifierModel__bare_sound_contrapositive__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/VerifierModel__bare_sound_contrapositive__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (P : BareVerificationProblem) (V : BareVerifier), bare_sound P V -> forall t s, bare_explains P s t -> ~ bare_honest_claim P s -> bv_decide V t = false",
       "status": "ok"
     },
@@ -2433,18 +2413,8 @@
       "kind": "Theorem",
       "line": 108,
       "name": "universal_nfi_any_substrate",
-      "probe_a": {
-        "coq_stderr_tail": "| 0 => m\n            | S p => S (add p m)\n            end)\n           ((let\n               (cs_state, cs_instr, cs_step, cs_cost, cs_cert, _) as c\n                return\n                  ((let (cs_state, cs_instr, cs_step, cs_cost, cs_cert, _) :=\n                      c in\n                    cs_instr) -> nat) := CS in\n             cs_cost) i) (cs_total_cost CS rest)\n     end) CS trace\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__UniversalCertificationCost__universal_nfi_any_substrate__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ng-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__UniversalCertificationCost__universal_nfi_any_substrate__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__UniversalCertificationCost__universal_nfi_any_substrate__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (CS : CertificationSystem) (trace : list (cs_instr CS)) (s0 : cs_state CS), cs_cert CS s0 = false -> cs_cert CS (cs_run CS trace s0) = true -> cs_total_cost CS trace >= 1",
       "status": "ok"
     },
@@ -2973,18 +2943,8 @@
       "kind": "Lemma",
       "line": 104,
       "name": "dishonest_free_certification",
-      "probe_a": {
-        "coq_stderr_tail": "e/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HonestCostTracking__dishonest_free_certification__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type\n \"false = false /\\ true = true /\\ 0 = 0\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HonestCostTracking__dishonest_free_certification__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HonestCostTracking__dishonest_free_certification__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HonestCostTracking__dishonest_free_certification__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "cb_cert dishonest_forge_system false = false /\\ cb_cert dishonest_forge_system (cb_run dishonest_forge_system dishonest_forge_trace false) = true /\\ cb_total_cost dishonest_forge_system dishonest_forge_trace = 0",
       "status": "ok"
     },
@@ -3693,18 +3653,8 @@
       "kind": "Lemma",
       "line": 85,
       "name": "phi_singleton_sat_self",
-      "probe_a": {
-        "coq_stderr_tail": "characters 27-28:\nError:\nIn environment\na : nat\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(fix eqb (n m : nat) {struct n} : bool :=\n     match n with\n     | 0 => match m with\n            | 0 => true\n            | S _ => false\n            end\n     | S n' => match m with\n               | 0 => false\n               | S m' => eqb n' m'\n               end\n     end) a a = true\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NonAdaptiveLowerBound__phi_singleton_sat_self__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NonAdaptiveLowerBound__phi_singleton_sat_self__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NonAdaptiveLowerBound__phi_singleton_sat_self__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall a, phi_singleton a a = true",
       "status": "ok"
     },
@@ -3713,18 +3663,8 @@
       "kind": "Lemma",
       "line": 90,
       "name": "phi_singleton_others_false",
-      "probe_a": {
-        "coq_stderr_tail": "28:\nError:\nIn environment\na, v : nat\nH : v <> a\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(fix eqb (n m : nat) {struct n} : bool :=\n     match n with\n     | 0 => match m with\n            | 0 => true\n            | S _ => false\n            end\n     | S n' => match m with\n               | 0 => false\n               | S m' => eqb n' m'\n               end\n     end) v a = false\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NonAdaptiveLowerBound__phi_singleton_others_false__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "erriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NonAdaptiveLowerBound__phi_singleton_others_false__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NonAdaptiveLowerBound__phi_singleton_others_false__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall a v, v <> a -> phi_singleton a v = false",
       "status": "ok"
     },
@@ -3913,18 +3853,8 @@
       "kind": "Lemma",
       "line": 130,
       "name": "struct_property_baseline",
-      "probe_a": {
-        "coq_stderr_tail": "llb (l : list nat) : bool :=\n     match l with\n     | nil => true\n     | (a :: l0)%list =>\n         if match a with\n            | 0 => true\n            | S _ => false\n            end\n         then forallb l0\n         else false\n     end)\n    ((fix repeat (x n : nat) {struct n} : list nat :=\n        match n with\n        | 0 => nil\n        | S k => (x :: repeat x k)%list\n        end) 0 n) = true\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__struct_property_baseline__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__struct_property_baseline__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__struct_property_baseline__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall n, struct_property (baseline_formula n) = true",
       "status": "ok"
     },
@@ -3933,18 +3863,8 @@
       "kind": "Lemma",
       "line": 140,
       "name": "struct_property_adversary_false",
-      "probe_a": {
-        "coq_stderr_tail": "match pos with\n            | 0 =>\n                (1\n                 :: (fix repeat (x n0 : nat) {struct n0} : list nat :=\n                       match n0 with\n                       | 0 => nil\n                       | S k => x :: repeat x k\n                       end) 0 n')%list\n            | S pos' => (0 :: adversary_formula pos' n')%list\n            end\n        end) pos n) = false\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__struct_property_adversary_false__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__struct_property_adversary_false__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__struct_property_adversary_false__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall n pos, pos < n -> struct_property (adversary_formula pos n) = false",
       "status": "ok"
     },
@@ -3953,18 +3873,8 @@
       "kind": "Lemma",
       "line": 175,
       "name": "baseline_formula_length",
-      "probe_a": {
-        "coq_stderr_tail": "line 4, characters 27-28:\nError:\nIn environment\nn : nat\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(fix length (l : list nat) : nat :=\n     match l with\n     | nil => 0\n     | (_ :: l')%list => S (length l')\n     end)\n    ((fix repeat (x n : nat) {struct n} : list nat :=\n        match n with\n        | 0 => nil\n        | S k => (x :: repeat x k)%list\n        end) 0 n) = n\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__baseline_formula_length__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__baseline_formula_length__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__baseline_formula_length__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall n, length (baseline_formula n) = n",
       "status": "ok"
     },
@@ -3973,18 +3883,8 @@
       "kind": "Lemma",
       "line": 181,
       "name": "adversary_formula_length",
-      "probe_a": {
-        "coq_stderr_tail": "match pos with\n            | 0 =>\n                (1\n                 :: (fix repeat (x n0 : nat) {struct n0} : list nat :=\n                       match n0 with\n                       | 0 => nil\n                       | S k => x :: repeat x k\n                       end) 0 n')%list\n            | S pos' => (0 :: adversary_formula pos' n')%list\n            end\n        end) pos n) = n\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__adversary_formula_length__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__adversary_formula_length__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__ThermodynamicStructuralAdvantage__adversary_formula_length__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall n pos, pos < n -> length (adversary_formula pos n) = n",
       "status": "ok"
     },
@@ -4434,7 +4334,7 @@
       "line": 668,
       "name": "tsirelson_achieving_coherent",
       "probe_a": {
-        "coq_stderr_tail": "end\n                         end\n                       for\n                       add) y (BinNums.xO (mul p y))\n                  | BinNums.xO p => BinNums.xO (mul p y)\n                  | BinNums.xH => y\n                  end) x' BinNums.xH)\n        end\n      with\n      | BinNums.Z0 => Eq\n      | BinNums.Zpos _ => Lt\n      | BinNums.Zneg _ => Gt\n      end = Gt -> False))\".",
+        "coq_stderr_tail": "<timeout after 30s>",
         "probe_name": "a",
         "probe_path": "build/vacuity_probes/Kernel__AlgebraicCoherence__tsirelson_achieving_coherent__a.v",
         "succeeded": false
@@ -5113,18 +5013,8 @@
       "kind": "Theorem",
       "line": 91,
       "name": "rtl_gap_count",
-      "probe_a": {
-        "coq_stderr_tail": "stem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_gap_count__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type \"0 = 0\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_gap_count__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "emapped to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_gap_count__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_gap_count__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "List.length rtl_gap_registry = 0",
       "status": "ok"
     },
@@ -5133,18 +5023,8 @@
       "kind": "Theorem",
       "line": 102,
       "name": "rtl_coverage_partition",
-      "probe_a": {
-        "coq_stderr_tail": "t]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_coverage_partition__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type \"47 = 47\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_coverage_partition__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "o Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_coverage_partition__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/KamiHW__RTLGapRegistry__rtl_coverage_partition__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "37 + 10 + 0 = 47",
       "status": "ok"
     },
@@ -8353,18 +8233,8 @@
       "kind": "Lemma",
       "line": 60,
       "name": "vm_encode_decode_concrete",
-      "probe_a": {
-        "coq_stderr_tail": "end\n                           | None => None\n                           end\n                       | None => None\n                       end\n                   | None => None\n                   end\n               | None => None\n               end\n           | _ => None\n           end) count rest\n    | None => None\n    end\n  with\n  | Some (p, _) => p\n  | None => nil\n  end = p\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_encode_decode_concrete__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_encode_decode_concrete__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__VMSubstrateEncoded__vm_encode_decode_concrete__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall p, vm_decode_concrete (vm_encode_concrete p) = p",
       "status": "ok"
     },
@@ -8393,18 +8263,8 @@
       "kind": "Theorem",
       "line": 182,
       "name": "cert_flip_is_least_covering_predicate",
-      "probe_a": {
-        "coq_stderr_tail": "lps_step) s i) = true ->\n   (let\n      (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) as l\n       return\n         ((let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n             l in\n           lps_state) ->\n          (let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n             l in\n           lps_instr) -> bool) := LPS in\n    lps_charge) s i = true)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__cert_flip_is_least_covering_predicate__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__cert_flip_is_least_covering_predicate__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__cert_flip_is_least_covering_predicate__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), covers_cert_flips LPS <-> local_predicate_le LPS (cert_flip_local LPS) (lps_charge LPS)",
       "status": "ok"
     },
@@ -8413,18 +8273,8 @@
       "kind": "Theorem",
       "line": 203,
       "name": "covers_cert_flips_sufficient_for_quantitative_floor",
-      "probe_a": {
-        "coq_stderr_tail": "(let\n                         (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                          _, _) := l in\n                       lps_instr) ->\n                      let\n                        (lps_state, lps_instr, _, lps_cost, _, lps_charge, _,\n                         _) := l in\n                      lps_state) := LPS in\n                lps_step) s i))\n     end) LPS trace s0\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__covers_cert_flips_sufficient_for_quantitative_floor__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__covers_cert_flips_sufficient_for_quantitative_floor__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__covers_cert_flips_sufficient_for_quantitative_floor__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), covers_cert_flips LPS -> quantitative_certification_floor LPS",
       "status": "ok"
     },
@@ -8433,18 +8283,8 @@
       "kind": "Theorem",
       "line": 226,
       "name": "quantitative_floor_necessary_for_covers_cert_flips",
-      "probe_a": {
-        "coq_stderr_tail": "LPS in\n      lps_step) s i) = true ->\n  (let\n     (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) as l\n      return\n        ((let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n            l in\n          lps_state) ->\n         (let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n            l in\n          lps_instr) -> bool) := LPS in\n   lps_charge) s i = true\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_floor_necessary_for_covers_cert_flips__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "system,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_floor_necessary_for_covers_cert_flips__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_floor_necessary_for_covers_cert_flips__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), quantitative_certification_floor LPS -> covers_cert_flips LPS",
       "status": "ok"
     },
@@ -8453,18 +8293,8 @@
       "kind": "Theorem",
       "line": 247,
       "name": "quantitative_certification_floor_iff_covers_cert_flips",
-      "probe_a": {
-        "coq_stderr_tail": "(lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                           _, _) := l in\n                        lps_instr) ->\n                       let\n                         (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                          _, _) := l in\n                       lps_state) := LPS in\n                 lps_step) s i))\n      end) LPS trace s0)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_certification_floor_iff_covers_cert_flips__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "em,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_certification_floor_iff_covers_cert_flips__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_certification_floor_iff_covers_cert_flips__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), quantitative_certification_floor LPS <-> covers_cert_flips LPS",
       "status": "ok"
     },
@@ -8473,18 +8303,8 @@
       "kind": "Theorem",
       "line": 256,
       "name": "quantitative_floor_iff_a2_predicate_subsumed",
-      "probe_a": {
-        "coq_stderr_tail": "(lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                           _, _) := l in\n                        lps_instr) ->\n                       let\n                         (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                          _, _) := l in\n                       lps_state) := LPS in\n                 lps_step) s i))\n      end) LPS trace s0)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_floor_iff_a2_predicate_subsumed__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_floor_iff_a2_predicate_subsumed__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__quantitative_floor_iff_a2_predicate_subsumed__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), quantitative_certification_floor LPS <-> local_predicate_le LPS (cert_flip_local LPS) (lps_charge LPS)",
       "status": "ok"
     },
@@ -8493,18 +8313,8 @@
       "kind": "Lemma",
       "line": 266,
       "name": "certifying_trace_has_cert_flip",
-      "probe_a": {
-        "coq_stderr_tail": "(let\n                         (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                          _, _) := l in\n                       lps_instr) ->\n                      let\n                        (lps_state, lps_instr, _, lps_cost, _, lps_charge, _,\n                         _) := l in\n                      lps_state) := LPS in\n                lps_step) s i))\n     end) LPS trace s0\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__certifying_trace_has_cert_flip__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__certifying_trace_has_cert_flip__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__certifying_trace_has_cert_flip__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem) (trace : list (lps_instr LPS)) (s0 : lps_state LPS), lps_cert LPS s0 = false -> lps_cert LPS (lps_run LPS trace s0) = true -> lps_cert_flip_count LPS trace s0 >= 1",
       "status": "ok"
     },
@@ -8513,18 +8323,8 @@
       "kind": "Theorem",
       "line": 285,
       "name": "batch_certification_floor_iff_a2_predicate_subsumed",
-      "probe_a": {
-        "coq_stderr_tail": "lps_instr) ->\n                                 let\n                                   (lps_state, lps_instr, _, lps_cost, _,\n                                    lps_charge, _, _) := l0 in\n                                 lps_state) := LPS0 in\n                           lps_step) s i))\n                end) LPS trace s0) (lps_batch_total_cost LPS rest)\n      end) LPS jobs)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__batch_certification_floor_iff_a2_predicate_subsumed__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__batch_certification_floor_iff_a2_predicate_subsumed__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__batch_certification_floor_iff_a2_predicate_subsumed__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), batch_certification_floor LPS <-> local_predicate_le LPS (cert_flip_local LPS) (lps_charge LPS)",
       "status": "ok"
     },
@@ -8533,18 +8333,8 @@
       "kind": "Theorem",
       "line": 325,
       "name": "no_overcharge_forces_charge_only_on_cert_flips",
-      "probe_a": {
-        "coq_stderr_tail": "ps_charge, _, _) :=\n                 l in\n               lps_state) ->\n              (let\n                 (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n                 l in\n               lps_instr) ->\n              let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n                l in\n              lps_state) := LPS in\n        lps_step) s i)\n   else false) = true\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__no_overcharge_forces_charge_only_on_cert_flips__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__no_overcharge_forces_charge_only_on_cert_flips__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__no_overcharge_forces_charge_only_on_cert_flips__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), no_overcharge_for_commitments LPS -> local_predicate_le LPS (lps_charge LPS) (cert_flip_local LPS)",
       "status": "ok"
     },
@@ -8553,18 +8343,8 @@
       "kind": "Theorem",
       "line": 342,
       "name": "exact_commitment_pricing_characterization",
-      "probe_a": {
-        "coq_stderr_tail": "(lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                            _, _) := l in\n                         lps_instr) ->\n                        let\n                          (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                           _, _) := l in\n                        lps_state) := LPS in\n                  lps_step) s i))\n       end) LPS trace s0))\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__exact_commitment_pricing_characterization__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "path,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__exact_commitment_pricing_characterization__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__exact_commitment_pricing_characterization__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), (quantitative_certification_floor LPS /\\ no_overcharge_for_commitments LPS) <-> (local_predicate_same LPS (cert_flip_local LPS) (lps_charge LPS) /\\ exact_unit_pricing LPS)",
       "status": "ok"
     },
@@ -8573,18 +8353,8 @@
       "kind": "Theorem",
       "line": 401,
       "name": "substitution_test_rejects_non_a2_exact_substitute",
-      "probe_a": {
-        "coq_stderr_tail": "(lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                           _, _) := l in\n                        lps_instr) ->\n                       let\n                         (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                          _, _) := l in\n                       lps_state) := LPS in\n                 lps_step) s i))\n      end) LPS trace s0) -> False\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__substitution_test_rejects_non_a2_exact_substitute__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "esystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__substitution_test_rejects_non_a2_exact_substitute__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__substitution_test_rejects_non_a2_exact_substitute__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), ~ local_predicate_same LPS (cert_flip_local LPS) (lps_charge LPS) -> ~ (quantitative_certification_floor LPS /\\ no_overcharge_for_commitments LPS)",
       "status": "ok"
     },
@@ -8593,18 +8363,8 @@
       "kind": "Theorem",
       "line": 415,
       "name": "substitution_test_exact_substitute_is_a2",
-      "probe_a": {
-        "coq_stderr_tail": "l in\n                lps_state) ->\n               (let\n                  (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n                  l in\n                lps_instr) ->\n               let\n                 (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n                 l in\n               lps_state) := LPS in\n         lps_step) s i)\n    else false) = true)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__substitution_test_exact_substitute_is_a2__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "dpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__substitution_test_exact_substitute_is_a2__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__substitution_test_exact_substitute_is_a2__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), quantitative_certification_floor LPS -> no_overcharge_for_commitments LPS -> local_predicate_same LPS (cert_flip_local LPS) (lps_charge LPS)",
       "status": "ok"
     },
@@ -8613,18 +8373,8 @@
       "kind": "Theorem",
       "line": 429,
       "name": "covers_cert_flips_sufficient_for_floor",
-      "probe_a": {
-        "coq_stderr_tail": "(let\n                         (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                          _, _) := l in\n                       lps_instr) ->\n                      let\n                        (lps_state, lps_instr, _, lps_cost, _, lps_charge, _,\n                         _) := l in\n                      lps_state) := LPS in\n                lps_step) s i))\n     end) LPS trace s0\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__covers_cert_flips_sufficient_for_floor__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "oadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__covers_cert_flips_sufficient_for_floor__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__covers_cert_flips_sufficient_for_floor__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), covers_cert_flips LPS -> universal_certification_floor LPS",
       "status": "ok"
     },
@@ -8633,18 +8383,8 @@
       "kind": "Theorem",
       "line": 449,
       "name": "floor_necessary_for_covers_cert_flips",
-      "probe_a": {
-        "coq_stderr_tail": "LPS in\n      lps_step) s i) = true ->\n  (let\n     (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) as l\n      return\n        ((let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n            l in\n          lps_state) ->\n         (let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n            l in\n          lps_instr) -> bool) := LPS in\n   lps_charge) s i = true\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__floor_necessary_for_covers_cert_flips__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__floor_necessary_for_covers_cert_flips__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__floor_necessary_for_covers_cert_flips__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), universal_certification_floor LPS -> covers_cert_flips LPS",
       "status": "ok"
     },
@@ -8653,18 +8393,8 @@
       "kind": "Theorem",
       "line": 471,
       "name": "local_predicate_certification_floor_iff_covers_cert_flips",
-      "probe_a": {
-        "coq_stderr_tail": "(lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                           _, _) := l in\n                        lps_instr) ->\n                       let\n                         (lps_state, lps_instr, _, lps_cost, _, lps_charge,\n                          _, _) := l in\n                       lps_state) := LPS in\n                 lps_step) s i))\n      end) LPS trace s0)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__local_predicate_certification_floor_iff_covers_cert_flips__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__local_predicate_certification_floor_iff_covers_cert_flips__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__local_predicate_certification_floor_iff_covers_cert_flips__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), universal_certification_floor LPS <-> covers_cert_flips LPS",
       "status": "ok"
     },
@@ -8673,18 +8403,8 @@
       "kind": "Theorem",
       "line": 480,
       "name": "universal_floor_forces_a2_predicate_subsumed",
-      "probe_a": {
-        "coq_stderr_tail": "s_step) s i)\n   else false) = true ->\n  (let\n     (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) as l\n      return\n        ((let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n            l in\n          lps_state) ->\n         (let (lps_state, lps_instr, _, lps_cost, _, lps_charge, _, _) :=\n            l in\n          lps_instr) -> bool) := LPS in\n   lps_charge) s i = true\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__universal_floor_forces_a2_predicate_subsumed__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "h,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__universal_floor_forces_a2_predicate_subsumed__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__CommitmentPredicateAdequacy__universal_floor_forces_a2_predicate_subsumed__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall (LPS : LocalPredicatePricedSystem), universal_certification_floor LPS -> local_predicate_le LPS (cert_flip_local LPS) (lps_charge LPS)",
       "status": "ok"
     },
@@ -9173,18 +8893,8 @@
       "kind": "Theorem",
       "line": 117,
       "name": "hw_initial_correspondence",
-      "probe_a": {
-        "coq_stderr_tail": ":\nError:\nIn environment\nhw : HardwareState\npy : PythonState\nH : hw_pc hw = 0\nH0 : hw_mu_accumulator hw = 0\nH1 : py_pc py = 0\nH2 : py_mu py = 0\nThe term \"I\" has type \"True\" while it is expected to have type\n \"(let (hw_pc, _, _, _) := hw in hw_pc) =\n  (let (py_pc, _, _, _) := py in py_pc) /\\\n  (let (_, hw_mu_accumulator, _, _) := hw in hw_mu_accumulator) =\n  (let (_, py_mu, _, _) := py in py_mu)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_initial_correspondence__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__hw_initial_correspondence__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_initial_correspondence__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall hw py, hw.(hw_pc) = 0 -> hw.(hw_mu_accumulator) = 0 -> py.(py_pc) = 0 -> py.(py_mu) = 0 -> hw_bisimulation_invariant hw py",
       "status": "ok"
     },
@@ -9193,18 +8903,8 @@
       "kind": "Theorem",
       "line": 131,
       "name": "hw_step_preserves_pc",
-      "probe_a": {
-        "coq_stderr_tail": "File \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__hw_step_preserves_pc__a.v\", line 4, characters 27-28:\nError:\nIn environment\nhw : HardwareState\npy : PythonState\ncost : nat\nH : hw_bisimulation_invariant hw py\nThe term \"I\" has type \"True\" while it is expected to have type\n \"S (let (hw_pc, _, _, _) := hw in hw_pc) =\n  S (let (py_pc, _, _, _) := py in py_pc)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_step_preserves_pc__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "sts\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__hw_step_preserves_pc__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_step_preserves_pc__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall hw py cost, hw_bisimulation_invariant hw py -> (hardware_step hw cost).(hw_pc) = (python_step py cost).(py_pc)",
       "status": "ok"
     },
@@ -9213,18 +8913,8 @@
       "kind": "Theorem",
       "line": 143,
       "name": "hw_step_preserves_mu",
-      "probe_a": {
-        "coq_stderr_tail": "The term \"I\" has type \"True\" while it is expected to have type\n \"(fix add (n m : nat) {struct n} : nat :=\n     match n with\n     | 0 => m\n     | S p => S (add p m)\n     end) (let (_, hw_mu_accumulator, _, _) := hw in hw_mu_accumulator) cost =\n  (fix add (n m : nat) {struct n} : nat :=\n     match n with\n     | 0 => m\n     | S p => S (add p m)\n     end) (let (_, py_mu, _, _) := py in py_mu) cost\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_step_preserves_mu__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "sts\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__hw_step_preserves_mu__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_step_preserves_mu__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall hw py cost, hw_bisimulation_invariant hw py -> (hardware_step hw cost).(hw_mu_accumulator) = (python_step py cost).(py_mu)",
       "status": "ok"
     },
@@ -9233,18 +8923,8 @@
       "kind": "Theorem",
       "line": 155,
       "name": "hw_bisimulation_step",
-      "probe_a": {
-        "coq_stderr_tail": ":= hw in hw_pc) =\n  S (let (py_pc, _, _, _) := py in py_pc) /\\\n  (fix add (n m : nat) {struct n} : nat :=\n     match n with\n     | 0 => m\n     | S p => S (add p m)\n     end) (let (_, hw_mu_accumulator, _, _) := hw in hw_mu_accumulator) cost =\n  (fix add (n m : nat) {struct n} : nat :=\n     match n with\n     | 0 => m\n     | S p => S (add p m)\n     end) (let (_, py_mu, _, _) := py in py_mu) cost\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_bisimulation_step__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "sts\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__hw_bisimulation_step__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_bisimulation_step__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall hw py cost, hw_bisimulation_invariant hw py -> hw_bisimulation_invariant (hardware_step hw cost) (python_step py cost)",
       "status": "ok"
     },
@@ -9253,18 +8933,8 @@
       "kind": "Theorem",
       "line": 184,
       "name": "hw_bisimulation_multi_step",
-      "probe_a": {
-        "coq_stderr_tail": "match n with\n                     | 0 => m\n                     | S p => S (add p m)\n                     end) (let (_, py_mu, _, _) := py in py_mu) cost;\n                py_err := let (_, _, py_err, _) := py in py_err;\n                py_graph_modules :=\n                  let (_, _, _, py_graph_modules) := py in py_graph_modules\n              |} costs'\n        end) py costs in\n   py_mu)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_bisimulation_multi_step__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "verriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__hw_bisimulation_multi_step__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_bisimulation_multi_step__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall hw py costs, hw_bisimulation_invariant hw py -> hw_bisimulation_invariant (hardware_multi_step hw costs) (python_multi_step py costs)",
       "status": "ok"
     },
@@ -9273,18 +8943,8 @@
       "kind": "Corollary",
       "line": 201,
       "name": "hw_mu_cost_consistency",
-      "probe_a": {
-        "coq_stderr_tail": "match n with\n                     | 0 => m\n                     | S p => S (add p m)\n                     end) (let (_, py_mu, _, _) := py in py_mu) cost;\n                py_err := let (_, _, py_err, _) := py in py_err;\n                py_graph_modules :=\n                  let (_, _, _, py_graph_modules) := py in py_graph_modules\n              |} costs'\n        end) py costs in\n   py_mu)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_mu_cost_consistency__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "s\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__hw_mu_cost_consistency__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__hw_mu_cost_consistency__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall hw py costs, hw_bisimulation_invariant hw py -> (hardware_multi_step hw costs).(hw_mu_accumulator) = (python_multi_step py costs).(py_mu)",
       "status": "ok"
     },
@@ -9293,18 +8953,8 @@
       "kind": "Theorem",
       "line": 228,
       "name": "complete_verification_chain",
-      "probe_a": {
-        "coq_stderr_tail": "match n with\n                     | 0 => m\n                     | S p => S (add p m)\n                     end) (let (_, py_mu, _, _) := py in py_mu) cost;\n                py_err := let (_, _, py_err, _) := py in py_err;\n                py_graph_modules :=\n                  let (_, _, _, py_graph_modules) := py in py_graph_modules\n              |} costs'\n        end) py_init costs in\n   py_mu)\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__complete_verification_chain__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "erriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__HardwareBisimulation__complete_verification_chain__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__HardwareBisimulation__complete_verification_chain__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall hw_init py_init, hw_bisimulation_invariant hw_init py_init -> forall costs : list nat, hw_bisimulation_invariant (hardware_multi_step hw_init costs) (python_multi_step py_init costs) /\\ (hardware_multi_step hw_init costs).(hw_mu_accumulator) = (python_multi_step py_init costs).(py_mu)",
       "status": "ok"
     },
@@ -10393,18 +10043,8 @@
       "kind": "Theorem",
       "line": 49,
       "name": "mu_cost_is_physics_free",
-      "probe_a": {
-        "coq_stderr_tail": "nd to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NonCircularityAudit__mu_cost_is_physics_free__a.v\", line 4, characters 27-28:\nError:\nIn environment\nr : mu_cost_rule\nThe term \"I\" has type \"True\" while it is expected to have type\n \"false = false /\\ false = false /\\ false = false\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NonCircularityAudit__mu_cost_is_physics_free__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "s\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NonCircularityAudit__mu_cost_is_physics_free__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NonCircularityAudit__mu_cost_is_physics_free__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall r : mu_cost_rule, rule_references_chsh r = false /\\ rule_references_quantum r = false /\\ rule_references_tsirelson r = false",
       "status": "ok"
     },
@@ -10413,18 +10053,8 @@
       "kind": "Theorem",
       "line": 84,
       "name": "classical_bound_is_derived_not_assumed",
-      "probe_a": {
-        "coq_stderr_tail": "/Kernel__NonCircularityAudit__classical_bound_is_derived_not_assumed__a.v\", line 4, characters 27-28:\nError:\nThe term \"I\" has type \"True\" while it is expected to have type\n \"{|\n    QArith_base.Qnum := BinNums.Zpos (BinNums.xO BinNums.xH);\n    QArith_base.Qden := BinNums.xH\n  |} =\n  {|\n    QArith_base.Qnum := BinNums.Zpos (BinNums.xO BinNums.xH);\n    QArith_base.Qden := BinNums.xH\n  |} /\\ 0 = 0\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NonCircularityAudit__classical_bound_is_derived_not_assumed__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "ogical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NonCircularityAudit__classical_bound_is_derived_not_assumed__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NonCircularityAudit__classical_bound_is_derived_not_assumed__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "classical_bound_appears_as_achievable",
       "status": "ok"
     },
@@ -10433,18 +10063,8 @@
       "kind": "Theorem",
       "line": 114,
       "name": "mu_zero_closure",
-      "probe_a": {
-        "coq_stderr_tail": "VMStep.VMStep.instr_certify cost |\n    VMStep.VMStep.instr_morph_assert _ _ _ cost |\n    VMStep.VMStep.instr_chsh_lassert cost |\n    VMStep.VMStep.instr_chsh_lassert_1ab cost |\n    VMStep.VMStep.instr_chsh_lassert_1ab_g5 cost _ _ |\n    VMStep.VMStep.instr_chsh_lassert_1ab_g345 cost _ _ _ _ _ _ |\n    VMStep.VMStep.instr_chsh_lassert_1ab_g12345 cost _ _ _ _ _ _ _ _ _ _ =>\n      S cost\n  end = 0\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__NonCircularityAudit__mu_zero_closure__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__NonCircularityAudit__mu_zero_closure__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__NonCircularityAudit__mu_zero_closure__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "forall trace1 trace2, trace_all_mu_zero trace1 -> trace_all_mu_zero trace2 -> trace_all_mu_zero (trace1 ++ trace2)",
       "status": "ok"
     },
@@ -11473,18 +11093,8 @@
       "kind": "Lemma",
       "line": 111,
       "name": "reports_project_equal",
-      "probe_a": {
-        "coq_stderr_tail": "NecessityOfMuLedger.scs_regs := nil;\n        NecessityOfMuLedger.scs_pc := 1\n      |} :: nil)%list =\n  ({|\n     NecessityOfMuLedger.scs_mem := nil;\n     NecessityOfMuLedger.scs_regs := nil;\n     NecessityOfMuLedger.scs_pc := 0\n   |}\n   :: {|\n        NecessityOfMuLedger.scs_mem := nil;\n        NecessityOfMuLedger.scs_regs := nil;\n        NecessityOfMuLedger.scs_pc := 1\n      |} :: nil)%list\".",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__TEEAttestation__reports_project_equal__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": "to Tests\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__TEEAttestation__reports_project_equal__b.v\", line 4, characters 26-36:\nError: No such assumption.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__TEEAttestation__reports_project_equal__b.v",
-        "succeeded": false
-      },
+      "probe_a": null,
+      "probe_b": null,
       "statement": "report_projection report_A = report_projection report_B",
       "status": "ok"
     },

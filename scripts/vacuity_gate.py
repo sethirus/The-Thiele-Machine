@@ -29,10 +29,13 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
+import re
 import shutil
 import subprocess
 import sys
 import tempfile
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
 
@@ -297,6 +300,53 @@ def run_probe(probe_path: Path, coq_flags: list[str], timeout: int = 30) -> Prob
 # ---------------------------------------------------------------------------
 
 
+def _new_verdict(target_path: Path, decl: TheoremDecl) -> TheoremVerdict:
+    return TheoremVerdict(
+        name=decl.name,
+        file=str(target_path.relative_to(REPO_ROOT)),
+        line=decl.line,
+        kind=decl.kind,
+        statement=decl.statement,
+    )
+
+
+def _probe_theorem_serial(
+    verdict: TheoremVerdict,
+    decl: TheoremDecl,
+    *,
+    logical_module: str,
+    probe_dir: Path,
+    coq_flags: list[str],
+    timeout: int,
+) -> None:
+    """Fill *verdict* by spawning one coqc per probe — the reference path.
+
+    Probe (a) first; probe (b) only if (a) didn't already flag. This is the
+    original, deliberately-simple implementation; the batched path below must
+    produce identical verdicts (pinned by tests/test_vacuity_gate.py).
+    """
+    a_path = synthesise_probe(
+        probe_kind="a",
+        source_logical_name=logical_module,
+        theorem=decl,
+        probe_dir=probe_dir,
+    )
+    verdict.probe_a = run_probe(a_path, coq_flags, timeout=timeout)
+    if verdict.probe_a.succeeded:
+        verdict.status = "vacuous-true"
+    else:
+        # Probe (b) — only worth running if (a) didn't already flag
+        b_path = synthesise_probe(
+            probe_kind="b",
+            source_logical_name=logical_module,
+            theorem=decl,
+            probe_dir=probe_dir,
+        )
+        verdict.probe_b = run_probe(b_path, coq_flags, timeout=timeout)
+        if verdict.probe_b.succeeded:
+            verdict.status = "vacuous-hyp"
+
+
 def gate_one_target(
     *,
     target_path: Path,
@@ -305,39 +355,167 @@ def gate_one_target(
     coq_flags: list[str],
     timeout: int,
 ) -> list[TheoremVerdict]:
-    """Run both probes against every theorem in *target_path*."""
+    """Serial reference path: one coqc per probe (see module docstring).
+
+    Kept as the correctness oracle for the batched path and as the explicit
+    ``--engine serial`` escape hatch. For real corpora prefer
+    ``gate_one_target_batched`` — it loads each target's .vo closure once
+    instead of once per probe.
+    """
     text = target_path.read_text(encoding="utf-8", errors="replace")
     decls = parse_theorems(text)
     verdicts: list[TheoremVerdict] = []
     for decl in decls:
-        verdict = TheoremVerdict(
-            name=decl.name,
-            file=str(target_path.relative_to(REPO_ROOT)),
-            line=decl.line,
-            kind=decl.kind,
-            statement=decl.statement,
-        )
-        # Probe (a)
-        a_path = synthesise_probe(
-            probe_kind="a",
-            source_logical_name=logical_module,
-            theorem=decl,
+        verdict = _new_verdict(target_path, decl)
+        _probe_theorem_serial(
+            verdict,
+            decl,
+            logical_module=logical_module,
             probe_dir=probe_dir,
+            coq_flags=coq_flags,
+            timeout=timeout,
         )
-        verdict.probe_a = run_probe(a_path, coq_flags, timeout=timeout)
-        if verdict.probe_a.succeeded:
-            verdict.status = "vacuous-true"
-        else:
-            # Probe (b) — only worth running if (a) didn't already flag
-            b_path = synthesise_probe(
-                probe_kind="b",
-                source_logical_name=logical_module,
-                theorem=decl,
-                probe_dir=probe_dir,
+        verdicts.append(verdict)
+    return verdicts
+
+
+# ---------------------------------------------------------------------------
+# Batched per-target probing — the fast path.
+#
+# The serial path above spawns one coqc per probe, and EVERY probe re-loads
+# the target module's entire .vo closure. That deserialisation (seconds of
+# kernel work) dwarfs the millisecond convertibility check it then performs;
+# for a target with N theorems it is up to 2N cold loads of the SAME closure.
+#
+# The batched path loads the closure ONCE. It synthesises a single .v that
+# `Require Import`s the target a single time, then emits two convertibility
+# probes per theorem, each wrapped in `tryif (...) then idtac "...VACUOUS"
+# else idtac "...OK"` so that NEITHER outcome aborts the batch. The probes
+# use non-closing tests (`change`) so every block ends with the goal still
+# open and a plain `Abort` returns to a known state. Verdicts are read back
+# from the idtac markers on coqc's stdout.
+#
+# Faithfulness to the serial probes (pinned by the equivalence test in
+# tests/test_vacuity_gate.py):
+#   probe a  serial `intros; lazy; exact I`  →  batch `intros; lazy; change True`
+#   probe b  serial `intros; lazy in *; assumption`
+#                                            →  batch `intros; lazy in *;
+#                                                match goal with H : ?T |- _ => change T end`
+# `change`, `exact I` and `assumption` all defer to the same kernel
+# convertibility test; `change` merely leaves the goal open instead of closing
+# it, which is what lets every probe end from a known proof state.
+#
+# Safety net: if a theorem's markers are missing from stdout — e.g. a
+# statement that fails to elaborate aborts the batch at that sentence — that
+# theorem falls back to `_probe_theorem_serial`. Correctness never depends on
+# the batch surviving to the end.
+# ---------------------------------------------------------------------------
+
+_BATCH_PROBE_A = "intros; lazy; change True"
+_BATCH_PROBE_B = "intros; lazy in *; match goal with H : ?T |- _ => change T end"
+_MARKER_RE = re.compile(r"VPROBE\s+(\d+)\s+([ab])\s+(VACUOUS|OK)")
+
+
+def _require_line(source_logical_name: str) -> str:
+    if "." in source_logical_name:
+        prefix, suffix = source_logical_name.rsplit(".", 1)
+        return f"From {prefix} Require Import {suffix}."
+    return f"Require Import {source_logical_name}."
+
+
+def synthesise_batched_probe(
+    *,
+    source_logical_name: str,
+    decls: list[TheoremDecl],
+    probe_dir: Path,
+) -> Path:
+    """Write ONE probe .v covering every theorem in a target; return its path."""
+    parts = [
+        "(* Auto-generated by scripts/vacuity_gate.py (batched) — DO NOT EDIT. *)",
+        _require_line(source_logical_name),
+    ]
+    for i, decl in enumerate(decls):
+        for probe, tac in (("a", _BATCH_PROBE_A), ("b", _BATCH_PROBE_B)):
+            parts.append(f"Goal {decl.statement}.")
+            parts.append(
+                f'  tryif ({tac}) then idtac "VPROBE {i} {probe} VACUOUS"'
+                f' else idtac "VPROBE {i} {probe} OK".'
             )
-            verdict.probe_b = run_probe(b_path, coq_flags, timeout=timeout)
-            if verdict.probe_b.succeeded:
-                verdict.status = "vacuous-hyp"
+            parts.append("Abort.")
+    probe_path = probe_dir / f"{source_logical_name.replace('.', '__')}__BATCH.v"
+    probe_path.write_text("\n".join(parts) + "\n", encoding="utf-8")
+    return probe_path
+
+
+def run_batched_target(
+    probe_path: Path, coq_flags: list[str], timeout: int
+) -> dict[int, dict[str, bool]]:
+    """Run the batched probe; return {theorem_index: {"a": bool, "b": bool}}.
+
+    True means that probe's convertibility test SUCCEEDED (theorem vacuous
+    under that probe). Indices/probes absent from the result (batch aborted
+    early, or timed out) are left for the caller's per-theorem fallback.
+    """
+    cmd = ["coqc", *coq_flags, str(probe_path)]
+    try:
+        proc = subprocess.run(
+            cmd, cwd=str(REPO_ROOT), capture_output=True, text=True, timeout=timeout
+        )
+    except subprocess.TimeoutExpired:
+        return {}
+    out: dict[int, dict[str, bool]] = {}
+    for m in _MARKER_RE.finditer((proc.stdout or "") + "\n" + (proc.stderr or "")):
+        out.setdefault(int(m.group(1)), {})[m.group(2)] = m.group(3) == "VACUOUS"
+    return out
+
+
+def gate_one_target_batched(
+    *,
+    target_path: Path,
+    logical_module: str,
+    probe_dir: Path,
+    coq_flags: list[str],
+    timeout: int,
+) -> list[TheoremVerdict]:
+    """Fast path: one coqc per target (see comment above).
+
+    Verdicts are identical to ``gate_one_target``; any theorem the batch fails
+    to report falls back to the serial per-probe path.
+    """
+    text = target_path.read_text(encoding="utf-8", errors="replace")
+    decls = parse_theorems(text)
+    if not decls:
+        return []
+
+    batch_path = synthesise_batched_probe(
+        source_logical_name=logical_module, decls=decls, probe_dir=probe_dir
+    )
+    # The batch does one closure load then 2N millisecond checks, so it needs
+    # roughly one probe's worth of time, not 2N. Be generous but bounded.
+    batch_timeout = max(180, timeout * 3)
+    seen = run_batched_target(batch_path, coq_flags, batch_timeout)
+    batch_rel = str(batch_path.relative_to(REPO_ROOT))
+
+    verdicts: list[TheoremVerdict] = []
+    for i, decl in enumerate(decls):
+        verdict = _new_verdict(target_path, decl)
+        marks = seen.get(i)
+        if marks is None or "a" not in marks or "b" not in marks:
+            # Batch didn't reach/report this theorem → exact serial fallback.
+            _probe_theorem_serial(
+                verdict,
+                decl,
+                logical_module=logical_module,
+                probe_dir=probe_dir,
+                coq_flags=coq_flags,
+                timeout=timeout,
+            )
+        elif marks["a"]:
+            verdict.status = "vacuous-true"
+            verdict.probe_a = ProbeRun(probe_name="a", succeeded=True, probe_path=batch_rel)
+        elif marks["b"]:
+            verdict.status = "vacuous-hyp"
+            verdict.probe_b = ProbeRun(probe_name="b", succeeded=True, probe_path=batch_rel)
         verdicts.append(verdict)
     return verdicts
 
@@ -394,6 +572,27 @@ def main() -> int:
         help="Per-probe coqc timeout in seconds.",
     )
     p.add_argument(
+        "--engine",
+        choices=("batched", "serial"),
+        default="batched",
+        help=(
+            "batched (default): one coqc per target — loads each .vo closure "
+            "once. serial: one coqc per probe — the reference oracle, much "
+            "slower, kept for equivalence testing and debugging."
+        ),
+    )
+    p.add_argument(
+        "--jobs",
+        type=int,
+        default=0,
+        metavar="N",
+        help=(
+            "Number of targets to probe concurrently. 0 (default) = "
+            "min(4, CPU count - 1). Each worker holds one coqc's closure in "
+            "memory, so lower this under memory pressure."
+        ),
+    )
+    p.add_argument(
         "--merge",
         action="store_true",
         help=(
@@ -440,7 +639,8 @@ def main() -> int:
 
     coq_flags = _coq_flags_from_project(args.coqproject)
 
-    all_verdicts: list[TheoremVerdict] = []
+    # Resolve + validate every target up front (fail fast before spawning coqc).
+    resolved: list[tuple[Path, str]] = []
     for target_str, logical in pairs:
         target_path = Path(target_str)
         if not target_path.is_absolute():
@@ -448,14 +648,33 @@ def main() -> int:
         if not target_path.is_file():
             print(f"vacuity_gate: target not found: {target_path}", file=sys.stderr)
             return 2
-        verdicts = gate_one_target(
+        resolved.append((target_path, logical))
+
+    gate_fn = gate_one_target_batched if args.engine == "batched" else gate_one_target
+
+    def _probe(item: tuple[Path, str]) -> list[TheoremVerdict]:
+        target_path, logical = item
+        return gate_fn(
             target_path=target_path,
             logical_module=logical,
             probe_dir=args.probe_dir,
             coq_flags=coq_flags,
             timeout=args.timeout,
         )
-        all_verdicts.extend(verdicts)
+
+    jobs = args.jobs if args.jobs > 0 else min(4, max(1, (os.cpu_count() or 2) - 1))
+
+    all_verdicts: list[TheoremVerdict] = []
+    if jobs <= 1 or len(resolved) <= 1:
+        for item in resolved:
+            all_verdicts.extend(_probe(item))
+    else:
+        # The heavy work is in coqc subprocesses, so threads (which release the
+        # GIL across subprocess.run) parallelise fine and avoid pickling state.
+        # pool.map preserves input order → the audit is deterministic.
+        with ThreadPoolExecutor(max_workers=jobs) as pool:
+            for verdicts in pool.map(_probe, resolved):
+                all_verdicts.extend(verdicts)
 
     verdict_dicts = [v.to_dict() for v in all_verdicts]
 

@@ -163,3 +163,46 @@ def test_gate_matches_smoke_expectations(tmp_path: Path) -> None:
         msg = "\n".join(["Gate verdicts diverged from fixture expectations:"] + mismatches)
         msg += "\n\nFull report:\n" + json.dumps(report["verdicts"], indent=2)
         pytest.fail(msg)
+
+
+def _run_gate(report_path: Path, *extra: str) -> dict:
+    """Run the gate over the smoke fixture; assert clean exit; return the report."""
+    cmd = [
+        sys.executable,
+        str(GATE_SCRIPT),
+        "--target",
+        str(SMOKE_FIXTURE.relative_to(REPO_ROOT)),
+        "--logical",
+        "TestFixtures.VacuitySmoke",
+        "--output",
+        str(report_path),
+        *extra,
+    ]
+    proc = subprocess.run(cmd, cwd=str(REPO_ROOT), capture_output=True, text=True)
+    assert proc.returncode == 0, (
+        f"vacuity_gate exited non-zero: rc={proc.returncode}\n"
+        f"stdout={proc.stdout}\nstderr={proc.stderr}"
+    )
+    return json.loads(report_path.read_text(encoding="utf-8"))
+
+
+@pytest.mark.slow
+def test_batched_engine_matches_serial_engine(tmp_path: Path) -> None:
+    """The fast ``--engine batched`` path must produce verdicts identical to the
+    serial reference oracle. This is the load-bearing guarantee: a gate that is
+    ~20x faster is only acceptable if it is not, in any case, weaker. Run both
+    engines over the smoke fixture (which carries vacuous-true, vacuous-hyp, and
+    genuine cases) and assert the name→status maps are equal.
+    """
+    serial = _run_gate(tmp_path / "serial.json", "--engine", "serial")
+    batched = _run_gate(tmp_path / "batched.json", "--engine", "batched")
+
+    serial_map = {v["name"]: v["status"] for v in serial["verdicts"]}
+    batched_map = {v["name"]: v["status"] for v in batched["verdicts"]}
+
+    diffs = [
+        f"  {name}: serial={serial_map.get(name)!r} batched={batched_map.get(name)!r}"
+        for name in sorted(set(serial_map) | set(batched_map))
+        if serial_map.get(name) != batched_map.get(name)
+    ]
+    assert not diffs, "Batched engine diverged from the serial reference oracle:\n" + "\n".join(diffs)
