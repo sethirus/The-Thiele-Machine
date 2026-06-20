@@ -1,6 +1,12 @@
 (**
     KERNEL CLOSURE: Closure Properties of VM Semantics
 
+    A NOTE ON THE NAME: "TOE" here is a legacy module identifier, NOT a claim
+    of a "theory of everything." The project disclaims that reading outright
+    (monograph: "It is not a theory of everything"). What this file actually
+    packages is a kernel closure record over already-proven VM properties; read
+    every "TOE" below as "this closure aggregator," nothing larger.
+
     This theorem summarizes what the Thiele Machine kernel PROVES from its
     operational semantics. KernelMaximalClosureP packages three properties:
     instruction locality, mu-monotonicity, and trace causality.

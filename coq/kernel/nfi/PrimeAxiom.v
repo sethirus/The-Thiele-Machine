@@ -1,5 +1,12 @@
 (** PrimeAxiom: State-based No Free Insight on the Kernel VM
 
+    A NOTE ON THE NAME: this file declares ZERO Coq `Axiom`s — grep it and you
+    find only `Lemma`/`Theorem`/`Qed`. "Axiom" in the filename is meant in the
+    older sense of a *foundational law* (the "prime axiom" of the system),
+    namely No Free Insight. That law is PROVEN here, not assumed. In a repo that
+    advertises zero project-local axioms, the filename is a historical label,
+    not a counterexample to the claim.
+
     No Free Insight is the central economic law of the Thiele Machine:
     certification cannot be obtained without paying mu-cost. This file
     proves that law directly on the kernel VM by case-splitting over all

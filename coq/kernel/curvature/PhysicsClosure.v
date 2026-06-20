@@ -96,19 +96,19 @@ Import ListNotations.
   - mu_conservation_kernel (KernelPhysics.v): conservation theorem
   - exec_trace_no_signaling_outside_cone (SpacetimeEmergence.v): causality theorem
   - VMState, VMStep (computational primitives)
-  - TOE.v (Theory of Everything): packages closure as fundamental principle
+  - TOE.v: the kernel closure aggregator ("TOE" is a legacy module name, not a
+    theory-of-everything claim)
   - FalsifiablePrediction.v: physical laws enable falsifiable predictions
   - PhysicsClosure packaging: demonstrates emergence of physics from computation
 
-  HISTORICAL CONTEXT: Traditional physics starts with laws (Newton, Maxwell,
-  Einstein) and builds computation on top (Turing, quantum computing). This
-  theorem inverts the foundation: start with computation (vm_step), derive laws
-  (PhysicsClosure). This is the "computational universe" hypothesis made rigorous.
-
-  PHILOSOPHICAL SIGNIFICANCE: If physical laws are THEOREMS about computation,
-  then physics is a branch of computer science, not the other way around. The
-  "unreasonable effectiveness of mathematics in physics" (Wigner 1960) becomes
-  the "unreasonable effectiveness of computation in deriving physics."
+  SCOPE (what this is NOT): the three conjuncts are named "locality,"
+  "conservation," and "causality" because the VM properties have the same shape
+  as their physical namesakes. That shape-match is a structural analogy used to
+  organize the result; it is NOT a claim that computation is physics or that
+  physics is computation. The project disclaims the stronger reading explicitly
+  (monograph: "It is not a claim that computation is physics or that physics is
+  computation"). What is proven here is exactly the conjunction below: three
+  operational invariants of vm_step, nothing more.
 *)
 Theorem Physics_Closure :
   (* Part 1: Locality - single step doesn't affect non-targets *)

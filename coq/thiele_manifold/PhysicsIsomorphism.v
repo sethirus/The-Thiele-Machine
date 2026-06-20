@@ -306,7 +306,17 @@ Defined.
 Definition embedded_case_studies : list EmbeddingCaseStudy :=
   lattice_gas_case :: dissipative_case :: wave_case :: nil.
 
-(** ** Embedding goals and conjectures *)
+(** ** Embedding goals and conjectures
+
+    [embeddable DP] is NOT vacuous despite the [True] payload. The witness
+    [E : ThieleEmbedding DP] is a faithfulness contract, not a bare map:
+    constructing it discharges [emb_roundtrip] (decode is a left inverse of
+    encode) and [emb_step_sim] (one physics step is realised by running
+    [emb_trace] for exactly one VM step). So [embeddable DP] asserts precisely
+    "a faithful VM embedding of DP exists"; the [True] only says we ask for
+    nothing beyond that contract. The three definitions below are open
+    conjectures (stated, not proven here); concrete witnesses for the case
+    studies live in the archived embedding modules. *)
 Definition embeddable (DP : DiscretePhysics) : Prop :=
   exists (E : ThieleEmbedding DP), True.
 

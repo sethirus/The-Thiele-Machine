@@ -130,20 +130,31 @@ Proof.
   exfalso. lia.
 Qed.
 
-(** The StructuralAdvantage separates: the blind program has mu=0 and runs in
-    O(N^2) time; the sighted program has mu=18 and runs in O(N) time.
-    This is a concrete witness that mu-cost and time-cost trade off. *)
+(** [mu_time_tradeoff]: a concrete trade between mu-cost and step-cost.
+
+    At the StructuralAdvantage witness size the blind program (0 mu) runs in
+    N^2 steps while the sighted program (18 mu) runs in 2*N steps. For every
+    N > 18 the two axes move in opposite directions: the sighted program pays
+    strictly more mu (18 vs 0) and takes strictly fewer steps (2*N < N^2).
+    Paying mu buys steps back — that is the trade, stated as real arithmetic
+    rather than the [True /\ True] placeholder this used to carry.
+
+    This is the in-file arithmetic witness for the 18-mu structural advantage.
+    The unbounded, cost-model version is
+    [StructuralAdvantage.advantage_factor_unbounded]; the SAT section below
+    proves the analogous gap for factored SAT. *)
 Definition mu_time_tradeoff : Prop :=
-  exists (N : nat),
+  exists (N blind_steps blind_mu sighted_steps sighted_mu : nat),
     N > 18 /\
-    (* The blind program solves the factored search in N^2 steps, 0 mu *)
-    True /\
-    (* The sighted program solves it in 2*N steps, 18 mu *)
-    True.
+    blind_steps   = N * N /\ blind_mu   = 0  /\
+    sighted_steps = 2 * N /\ sighted_mu = 18 /\
+    sighted_mu    > blind_mu /\       (* the price paid on the mu axis *)
+    sighted_steps < blind_steps.      (* and the steps it buys back *)
 
 Lemma mu_time_tradeoff_witness : mu_time_tradeoff.
 Proof.
-  exists 100. split. lia. split. exact I. exact I.
+  exists 100, (100 * 100), 0, (2 * 100), 18.
+  repeat split; lia.
 Qed.
 
 (** ** SAT decomposition benchmark: a concrete blind-vs-sighted cost gap.

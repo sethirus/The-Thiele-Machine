@@ -1,113 +1,113 @@
-DIGEST 59a69c561d23ef9e8a455652726fd52e
+DIGEST 375235cbd5874fe854955e6ec372401e
 FKernel.TOE
-R1480:1483 Coq.Lists.List <> <> lib
-R1513:1523 Kernel.MuCostModel <> <> lib
-R1554:1560 Kernel.VMState <> <> lib
-R1590:1595 Kernel.VMStep <> <> lib
-R1625:1637 Kernel.KernelPhysics <> <> lib
-R1667:1673 Kernel.Closure <> <> lib
-R1703:1719 Kernel.BornRuleLinearity <> <> lib
-R1749:1769 Kernel.TsirelsonQuantumModel <> <> lib
-R1799:1814 Kernel.TsirelsonGeneral <> <> lib
-R1844:1864 Kernel.MuLedgerQuantumBridge <> <> lib
-R1891:1895 Coq.Reals.Reals <> <> lib
-prf 2258:2279 <> KernelTOE_FinalOutcome
-R2285:2305 Kernel.Closure <> KernelMaximalClosureP def
-R2323:2342 Kernel.Closure <> KernelMaximalClosure thm
-R2323:2342 Kernel.Closure <> KernelMaximalClosure thm
-prf 3103:3130 <> vm_step_observable_invariant
-binder 3143:3143 <> s:1
-binder 3145:3146 <> s':2
-binder 3148:3152 <> instr:3
-binder 3154:3156 <> mid:4
-R3193:3200 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3163:3179 Kernel.VMState <> well_formed_graph def
-R3184:3191 Kernel.VMState <> vm_graph proj
-R3181:3181 Kernel.TOE <> s:1 var
-R3230:3237 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3204:3206 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
-R3201:3203 Kernel.TOE <> mid:4 var
-R3207:3216 Kernel.VMState <> pg_next_id proj
-R3221:3228 Kernel.VMState <> vm_graph proj
-R3218:3218 Kernel.TOE <> s:1 var
-R3256:3263 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3238:3244 Kernel.VMStep VMStep vm_step ind
-R3246:3246 Kernel.TOE <> s:1 var
-R3248:3252 Kernel.TOE <> instr:3 var
-R3254:3255 Kernel.TOE <> s':2 var
-R3294:3301 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3264:3265 Coq.Init.Logic <> ::type_scope:'~'_x not
-R3266:3267 Coq.Lists.List <> In def
-R3274:3286 Kernel.KernelPhysics <> instr_targets def
-R3288:3292 Kernel.TOE <> instr:3 var
-R3269:3271 Kernel.TOE <> mid:4 var
-R3324:3326 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3302:3317 Kernel.KernelPhysics <> ObservableRegion def
-R3319:3319 Kernel.TOE <> s:1 var
-R3321:3323 Kernel.TOE <> mid:4 var
-R3327:3342 Kernel.KernelPhysics <> ObservableRegion def
-R3344:3345 Kernel.TOE <> s':2 var
-R3347:3349 Kernel.TOE <> mid:4 var
-R3370:3389 Kernel.Closure <> KernelMaximalClosure thm
-prf 3684:3708 <> KernelTOE_CoreProofWiring
-R3736:3742 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3715:3735 Kernel.Closure <> KernelMaximalClosureP def
-R3743:3743 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3870:3878 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R4207:4207 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3756:3770 Kernel.BornRuleLinearity <> ProbabilityRule def
-binder 3752:3752 <> P:5
-R3800:3809 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3783:3797 Kernel.BornRuleLinearity <> valid_born_rule def
-R3799:3799 Kernel.TOE <> P:5 var
-R3822:3822 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 3818:3818 <> z:6
-R3842:3845 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3829:3832 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R3834:3837 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R3833:3833 Kernel.TOE <> z:6 var
-R3833:3833 Kernel.TOE <> z:6 var
-R3849:3851 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3846:3846 Kernel.TOE <> P:5 var
-R3848:3848 Kernel.TOE <> z:6 var
-R3852:3867 Kernel.BornRuleLinearity <> born_probability def
-R3869:3869 Kernel.TOE <> z:6 var
-binder 3886:3889 <> fuel:7
-binder 3891:3895 <> trace:8
-binder 3897:3902 <> s_init:9
-R3961:3973 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R3914:3942 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
-R3944:3947 Kernel.TOE <> fuel:7 var
-R3949:3953 Kernel.TOE <> trace:8 var
-R3955:3960 Kernel.TOE <> s_init:9 var
-R4011:4020 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R3974:3992 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
-R3994:3997 Kernel.TOE <> fuel:7 var
-R3999:4003 Kernel.TOE <> trace:8 var
-R4005:4010 Kernel.TOE <> s_init:9 var
-R4195:4198 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R4022:4025 Coq.Reals.Rbasic_fun <> Rabs def
-R4028:4031 Kernel.TsirelsonGeneral <> CHSH def
-R4046:4054 Kernel.MuLedgerQuantumBridge <> trace_e00 def
-R4056:4059 Kernel.TOE <> fuel:7 var
-R4061:4065 Kernel.TOE <> trace:8 var
-R4067:4072 Kernel.TOE <> s_init:9 var
-R4088:4096 Kernel.MuLedgerQuantumBridge <> trace_e01 def
-R4098:4101 Kernel.TOE <> fuel:7 var
-R4103:4107 Kernel.TOE <> trace:8 var
-R4109:4114 Kernel.TOE <> s_init:9 var
-R4130:4138 Kernel.MuLedgerQuantumBridge <> trace_e10 def
-R4140:4143 Kernel.TOE <> fuel:7 var
-R4145:4149 Kernel.TOE <> trace:8 var
-R4151:4156 Kernel.TOE <> s_init:9 var
-R4166:4174 Kernel.MuLedgerQuantumBridge <> trace_e11 def
-R4176:4179 Kernel.TOE <> fuel:7 var
-R4181:4185 Kernel.TOE <> trace:8 var
-R4187:4192 Kernel.TOE <> s_init:9 var
-R4199:4203 Kernel.TsirelsonGeneral <> sqrt8 def
-R4238:4259 Kernel.TOE <> KernelTOE_FinalOutcome thm
-R4238:4259 Kernel.TOE <> KernelTOE_FinalOutcome thm
-R4320:4335 Kernel.BornRuleLinearity <> born_rule_unique thm
-R4320:4335 Kernel.BornRuleLinearity <> born_rule_unique thm
-R4408:4444 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
-R4408:4444 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
+R1861:1864 Coq.Lists.List <> <> lib
+R1894:1904 Kernel.MuCostModel <> <> lib
+R1935:1941 Kernel.VMState <> <> lib
+R1971:1976 Kernel.VMStep <> <> lib
+R2006:2018 Kernel.KernelPhysics <> <> lib
+R2048:2054 Kernel.Closure <> <> lib
+R2084:2100 Kernel.BornRuleLinearity <> <> lib
+R2130:2150 Kernel.TsirelsonQuantumModel <> <> lib
+R2180:2195 Kernel.TsirelsonGeneral <> <> lib
+R2225:2245 Kernel.MuLedgerQuantumBridge <> <> lib
+R2272:2276 Coq.Reals.Reals <> <> lib
+prf 2639:2660 <> KernelTOE_FinalOutcome
+R2666:2686 Kernel.Closure <> KernelMaximalClosureP def
+R2704:2723 Kernel.Closure <> KernelMaximalClosure thm
+R2704:2723 Kernel.Closure <> KernelMaximalClosure thm
+prf 3484:3511 <> vm_step_observable_invariant
+binder 3524:3524 <> s:1
+binder 3526:3527 <> s':2
+binder 3529:3533 <> instr:3
+binder 3535:3537 <> mid:4
+R3574:3581 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3544:3560 Kernel.VMState <> well_formed_graph def
+R3565:3572 Kernel.VMState <> vm_graph proj
+R3562:3562 Kernel.TOE <> s:1 var
+R3611:3618 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3585:3587 Coq.Init.Peano <> ::nat_scope:x_'<'_x not
+R3582:3584 Kernel.TOE <> mid:4 var
+R3588:3597 Kernel.VMState <> pg_next_id proj
+R3602:3609 Kernel.VMState <> vm_graph proj
+R3599:3599 Kernel.TOE <> s:1 var
+R3637:3644 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3619:3625 Kernel.VMStep VMStep vm_step ind
+R3627:3627 Kernel.TOE <> s:1 var
+R3629:3633 Kernel.TOE <> instr:3 var
+R3635:3636 Kernel.TOE <> s':2 var
+R3675:3682 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3645:3646 Coq.Init.Logic <> ::type_scope:'~'_x not
+R3647:3648 Coq.Lists.List <> In def
+R3655:3667 Kernel.KernelPhysics <> instr_targets def
+R3669:3673 Kernel.TOE <> instr:3 var
+R3650:3652 Kernel.TOE <> mid:4 var
+R3705:3707 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3683:3698 Kernel.KernelPhysics <> ObservableRegion def
+R3700:3700 Kernel.TOE <> s:1 var
+R3702:3704 Kernel.TOE <> mid:4 var
+R3708:3723 Kernel.KernelPhysics <> ObservableRegion def
+R3725:3726 Kernel.TOE <> s':2 var
+R3728:3730 Kernel.TOE <> mid:4 var
+R3751:3770 Kernel.Closure <> KernelMaximalClosure thm
+prf 4065:4089 <> KernelTOE_CoreProofWiring
+R4117:4123 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4096:4116 Kernel.Closure <> KernelMaximalClosureP def
+R4124:4124 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4251:4259 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4588:4588 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4137:4151 Kernel.BornRuleLinearity <> ProbabilityRule def
+binder 4133:4133 <> P:5
+R4181:4190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4164:4178 Kernel.BornRuleLinearity <> valid_born_rule def
+R4180:4180 Kernel.TOE <> P:5 var
+R4203:4203 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4199:4199 <> z:6
+R4223:4226 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4210:4213 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R4215:4218 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R4214:4214 Kernel.TOE <> z:6 var
+R4214:4214 Kernel.TOE <> z:6 var
+R4230:4232 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4227:4227 Kernel.TOE <> P:5 var
+R4229:4229 Kernel.TOE <> z:6 var
+R4233:4248 Kernel.BornRuleLinearity <> born_probability def
+R4250:4250 Kernel.TOE <> z:6 var
+binder 4267:4270 <> fuel:7
+binder 4272:4276 <> trace:8
+binder 4278:4283 <> s_init:9
+R4342:4354 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4295:4323 Kernel.TsirelsonQuantumModel <> trace_quantum_bridge_coherent def
+R4325:4328 Kernel.TOE <> fuel:7 var
+R4330:4334 Kernel.TOE <> trace:8 var
+R4336:4341 Kernel.TOE <> s_init:9 var
+R4392:4401 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4355:4373 Kernel.TsirelsonQuantumModel <> trace_quantum_model def
+R4375:4378 Kernel.TOE <> fuel:7 var
+R4380:4384 Kernel.TOE <> trace:8 var
+R4386:4391 Kernel.TOE <> s_init:9 var
+R4576:4579 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R4403:4406 Coq.Reals.Rbasic_fun <> Rabs def
+R4409:4412 Kernel.TsirelsonGeneral <> CHSH def
+R4427:4435 Kernel.MuLedgerQuantumBridge <> trace_e00 def
+R4437:4440 Kernel.TOE <> fuel:7 var
+R4442:4446 Kernel.TOE <> trace:8 var
+R4448:4453 Kernel.TOE <> s_init:9 var
+R4469:4477 Kernel.MuLedgerQuantumBridge <> trace_e01 def
+R4479:4482 Kernel.TOE <> fuel:7 var
+R4484:4488 Kernel.TOE <> trace:8 var
+R4490:4495 Kernel.TOE <> s_init:9 var
+R4511:4519 Kernel.MuLedgerQuantumBridge <> trace_e10 def
+R4521:4524 Kernel.TOE <> fuel:7 var
+R4526:4530 Kernel.TOE <> trace:8 var
+R4532:4537 Kernel.TOE <> s_init:9 var
+R4547:4555 Kernel.MuLedgerQuantumBridge <> trace_e11 def
+R4557:4560 Kernel.TOE <> fuel:7 var
+R4562:4566 Kernel.TOE <> trace:8 var
+R4568:4573 Kernel.TOE <> s_init:9 var
+R4580:4584 Kernel.TsirelsonGeneral <> sqrt8 def
+R4619:4640 Kernel.TOE <> KernelTOE_FinalOutcome thm
+R4619:4640 Kernel.TOE <> KernelTOE_FinalOutcome thm
+R4701:4716 Kernel.BornRuleLinearity <> born_rule_unique thm
+R4701:4716 Kernel.BornRuleLinearity <> born_rule_unique thm
+R4789:4825 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm
+R4789:4825 Kernel.TsirelsonQuantumModel <> trace_quantum_model_connection_closed thm

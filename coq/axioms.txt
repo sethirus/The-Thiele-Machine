@@ -1,11 +1,32 @@
-thielemachine/coqproofs/CoreSemantics.v:195:Axiom hash_collision_resistance : forall (s1 s2 : State),
-thielemachine/coqproofs/CoreSemantics.v:199:Axiom hash_length : forall (s : State),
-thielemachine/coqproofs/EfficientDiscovery.v:97:Axiom discovery_produces_valid_partition_spec :
-thielemachine/coqproofs/EfficientDiscovery.v:105:Axiom discovery_valid_zero_spec :
-thielemachine/coqproofs/EfficientDiscovery.v:135:Axiom discovery_cost_bounded :
-thielemachine/coqproofs/EfficientDiscovery.v:163:Axiom discovery_profitable :
-thielemachine/coqproofs/Subsumption.v:14:Axiom strict_advantage_statement : Prop.
-thielemachine/coqproofs/Subsumption.v:21:Axiom thiele_simulates_tm_via_simulation : forall (tm : TM), Prop.
-thielemachine/coqproofs/Subsumption.v:23:Axiom turing_subsumption : Prop.
-thielemachine/coqproofs/Subsumption.v:28:Axiom strict_separation : Prop.
-thielemachine/coqproofs/Subsumption.v:31:Axiom main_subsumption : Prop.
+The Thiele Machine — project axiom ledger
+=========================================
+
+State: zero project-local Coq `Axiom` declarations in the live proof tree.
+
+This file used to be a raw `grep -n Axiom` dump of the old
+`thielemachine/coqproofs/` layout. That directory no longer exists: the proofs
+were reorganized into `coq/` (see `coq/_CoqProject`), and in the course of that
+work every project-local `Axiom` was either discharged into a proven theorem or
+removed. The stale dump is gone; what follows is the current truth.
+
+Current state, by grep over the live tree:
+
+    $ grep -rnE '^[[:space:]]*Axiom[[:space:]]' coq --include='*.v'
+    coq/ThieleMachineComplete.v:12273:    Axiom A2 is exactly the right minimal condition — it cannot be weakened.
+
+That single hit is prose inside a (** ... *) comment, not a Coq `Axiom`
+command. There are zero project-local `Axiom` declarations in the live tree.
+
+"Zero axioms" here means zero project-local axioms — the same convention the
+monograph and README use. Proofs in the real-number and physics layers still
+lean on Coq standard-library axiom families (`functional_extensionality_dep`,
+`sig_forall_dec`, `sig_not_dec`, `classic`); the minimal core uses none of
+them. The authoritative, machine-checked ledger of every assumption behind
+every theorem is the committed receipt:
+
+    artifacts/print_assumptions_all_proofs.json
+
+Reproduce it with `make verify` (minimal core — every theorem closes "under the
+global context") and the full `Print Assumptions` sweep (`coq/AssumptionsProbeAll.v`,
+surfaced by the proof-hygiene tooling). This text file is a human-readable
+pointer; the JSON receipt is the source of truth.

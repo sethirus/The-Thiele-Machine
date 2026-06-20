@@ -4689,26 +4689,6 @@
       "status": "ok"
     },
     {
-      "file": "coq/kernel/curvature/PhysicsClosure.v",
-      "kind": "Theorem",
-      "line": 113,
-      "name": "Physics_Closure",
-      "probe_a": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
-        "probe_name": "a",
-        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v",
-        "succeeded": false
-      },
-      "probe_b": {
-        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
-        "probe_name": "b",
-        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v",
-        "succeeded": false
-      },
-      "statement": "(forall s s' instr mid, well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> vm_step s instr s' -> ~ In mid (instr_targets instr) -> ObservableRegion s mid = ObservableRegion s' mid) /\\ (forall s s' instr, vm_step s instr s' -> s'.(vm_mu) >= s.(vm_mu)) /\\ (forall s trace s' mid, exec_trace s trace s' -> well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> ~ In mid (causal_cone trace) -> ObservableRegion s mid = ObservableRegion s' mid)",
-      "status": "ok"
-    },
-    {
       "file": "coq/kernel/curvature/EinsteinEmergence.v",
       "kind": "Lemma",
       "line": 47,
@@ -11676,6 +11656,26 @@
         "succeeded": false
       },
       "statement": "forall k, k >= 1 -> exists fuel proof_script, certifies_k_claims k fuel proof_script /\\ trace_mu_cost fuel proof_script init_state = k",
+      "status": "ok"
+    },
+    {
+      "file": "coq/kernel/curvature/PhysicsClosure.v",
+      "kind": "Theorem",
+      "line": 113,
+      "name": "Physics_Closure",
+      "probe_a": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
+        "probe_name": "a",
+        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__a.v",
+        "succeeded": false
+      },
+      "probe_b": {
+        "coq_stderr_tail": ",default]\nWarning: /workspaces/The-Thiele-Machine/coq/test_fixtures was previously\nbound to test_fixtures; it is remapped to TestFixtures\n[overriding-logical-loadpath,filesystem,default]\nFile \"/workspaces/The-Thiele-Machine/build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v\", line 3, characters 67-84:\nError: The reference well_formed_graph was not found in the current\nenvironment.",
+        "probe_name": "b",
+        "probe_path": "build/vacuity_probes/Kernel__PhysicsClosure__Physics_Closure__b.v",
+        "succeeded": false
+      },
+      "statement": "(forall s s' instr mid, well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> vm_step s instr s' -> ~ In mid (instr_targets instr) -> ObservableRegion s mid = ObservableRegion s' mid) /\\ (forall s s' instr, vm_step s instr s' -> s'.(vm_mu) >= s.(vm_mu)) /\\ (forall s trace s' mid, exec_trace s trace s' -> well_formed_graph s.(vm_graph) -> mid < pg_next_id s.(vm_graph) -> ~ In mid (causal_cone trace) -> ObservableRegion s mid = ObservableRegion s' mid)",
       "status": "ok"
     }
   ]

@@ -446,6 +446,36 @@ sudo apt-get install -y iverilog verilator yosys              # RTL gates only
 sum-of-squares certificate through `psatz`, and `psatz` asks CSDP for the
 certificate.
 
+### Full proof build (the `coq-gate`)
+
+`make verify` and `pytest` do not touch the Kami hardware-bridge proofs. The
+full Coq corpus (`make coq-gate`) compiles `coq/kami_hw/*`, which depends on the
+vendored **Kami** and **bbv** Coq libraries. A clean checkout does not build
+those automatically — do it once, in order, or the build hits a Kami/`bbv` wall:
+
+```bash
+# 1. fetch the vendored Coq libraries
+git submodule update --init vendor/bbv vendor/kami
+
+# 2. build AND install bbv. Kami finds bbv through Coq's user-contrib, not a
+#    local -Q path, so the install step is required, not optional.
+make -C vendor/bbv
+make -C vendor/bbv install
+
+# 3. patch Kami for Coq 8.18 (left-recursive notation levels in Multiplier32/64)
+bash scripts/fix_kami_coq18.sh
+
+# 4. build Kami
+make -C vendor/kami
+
+# 5. now the full proof tree compiles (zero Admitted, all proofs Qed)
+make coq-gate
+```
+
+CI runs exactly this sequence in
+[.github/workflows/ci-full.yml](.github/workflows/ci-full.yml); the `coq/Makefile`
+the gate invokes is committed, so steps 1–4 are the only one-time setup.
+
 ## Run A Program
 
 Assemble and run through the extracted OCaml backend:
