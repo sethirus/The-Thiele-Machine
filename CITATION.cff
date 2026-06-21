@@ -25,10 +25,11 @@ abstract: >-
   "unverified" to "verified" cannot occur unless it pays a positive structural
   cost --- a rule (A2) enforced in the step relation rather than in checkable
   software. It computes exactly the same functions as a Turing machine, adding
-  one axis of state and one constraint on how a result may be claimed; because a
-  classical machine has no state slot to carry that constraint at the
-  step-transition level, it is a structurally lossy projection of a substrate
-  that does. The repository contains the machine-checked Coq kernel (zero
+  one axis of state and one constraint on how a result may be claimed; because no
+  classical step rule reads that certificate or cost at the step level --- A2 is
+  only ever a checker a later program drops, never the law of the move --- it is
+  a structurally lossy projection of a substrate that does. The repository
+  contains the machine-checked Coq kernel (zero
   project-local axioms; zero admits across 276 files, 3,929 theorems probed), an
   OCaml runner extracted from it, a Kami/Bluespec/Verilog RTL realization, and
   the accompanying monograph. The software is licensed Apache-2.0; the monograph

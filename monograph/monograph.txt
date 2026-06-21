@@ -282,9 +282,9 @@ Contents
   2.7 Other terms I use without rebuilding . . . . . . . . . . . . . . . . . . . .         27
   2.8 The axioms (A1 through A6) . . . . . . . . . . . . . . . . . . . . . . . . .         29
 
-3 The structural axis: the projection classical models drop                                31
+3 The structural axis: the projection classical models drop                                32
   3.1 Substrate-independence: the abstract setup . . . . . . . . . . . . . . . .           33
-  3.2 The structural axis is canonical, not orthogonal . . . . . . . . . . . . . .         34
+  3.2 The structural axis is canonical, not orthogonal . . . . . . . . . . . . . .         35
   3.3 The canonical contrast: the Turing machine . . . . . . . . . . . . . . . .           38
   3.4 The blind spot . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     39
   3.5 Classical complexity ignores structural cost . . . . . . . . . . . . . . . .         40
@@ -789,8 +789,9 @@ name. Wrong conclusion means wrong premise: the law you learned in tenth grade
 and have not been asked to unlearn since. There is no third move.
 
    1. If flipping a certification bit costs ≥ 1 (A2).
-   2. And classical machines have no state slot to enforce this constraint at the step-
-      transition level.
+   2. And the classical step rules—Turing, register, λ—read no certificate or cost, so
+      on them A2 can only be a checker a later program drops, never a law of the step;
+      the rule that makes it law is the substrate, not a bigger Turing machine.
    3. Then classical machines are a structurally blind, strictly lossy projection of a
       substrate that does.
 
@@ -801,12 +802,12 @@ more words.
 Where to look. The first line is A2, and A2 is two clauses and an integer. A step that
 flips cert costs at least one, the rule fits on the napkin with the conclusion, and the
 check is finite, public, and yours to run. The second line is the kind of fact you check
-by writing down a different Turing machine, which is what I did. Add a state field the
 
                                              17
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+by writing down a different Turing machine, which is what I did. Add a state field the
 step rule reads to see whether the last move flipped cert, and you’ve left the classical
 world, which was the claim. Keep it classical and there is no field that does the job.
 There aren’t any that do. That is not philosophy, that is the signature the field itself
@@ -850,7 +851,6 @@ which is exactly what they are not.
 What “new model of computation” means here. The phrase is ambiguous, and I
 have watched it get read three different ways, so here is what I mean by it. When I say
 new model of computation, I mean a new substrate, not a new computability class:
-the Thiele Machine computes the same functions a Turing machine computes, and
 
                                             18
 The Thiele Machine                                                             Devon Thiele • June 2026
@@ -882,6 +882,7 @@ that makes this particular substrate runnable, verifiable, and synthesizable. Co
 ing the two is the most common misread of the document.
 
 
+the Thiele Machine computes the same functions a Turing machine computes, and
 what is new is where the certification law lives. Classical programs embed faithfully
 (D2_faithfulness). The classical compute surface is conservative under the em-
 bedding (D3_conservativity). What is new is the substrate. Here is the structural
@@ -905,12 +906,13 @@ classical CPU saw none of that. It shuffled bytes that happened to encode the st
 state. Z3 saw formulas that happened to refer to the same shapes. The structural facts
 the engine was computing with were in the architecture, not in the data. That is the
 concrete shape I had to formalise. The substrate this document describes is what came
-out: compositional structure as state, not as an approximation written on top of state.
 
 
                                                    19
 The Thiele Machine                                                Devon Thiele • June 2026
 
+
+out: compositional structure as state, not as an approximation written on top of state.
 
 The formal version of that shape is a directional structural theorem. thiele_simul
 ates_turing lifts every Turing-machine trace into the substrate via lift_config:
@@ -954,12 +956,14 @@ those fields had words for, before the rest of the document starts using them.
 
 Everything below is what I understood after I went and read about it. If I have
 anything wrong, tell me. I am not claiming to teach you these subjects. I am putting
-down what I had to take from each of them to get this work to compile. If you already
-know one of these subsections, skip it.
+
 
                                            20
 The Thiele Machine                                               Devon Thiele • June 2026
 
+
+down what I had to take from each of them to get this work to compile. If you already
+know one of these subsections, skip it.
 
 2.1 Bits, bytes, and what a CPU sees
 A bit is one digit that is either zero or one, the smallest fact a machine can hold.
@@ -1003,9 +1007,6 @@ The substrate has no ports.
 Modular arithmetic means counting wraps around at a maximum. If the maximum
 is 16, then 17 wraps to 1 and 19 wraps to 3. “Modulo 16” or “mod 16” means “wrap
 at 16.” The 51-opcode VM wraps register indices modulo 16 and memory indices
-modulo 128. If you write r17, the kernel treats that as r1.
-
-Bitwise operations work on the bits of a value rather than treating the value as a
 
 
 
@@ -1013,6 +1014,9 @@ Bitwise operations work on the bits of a value rather than treating the value as
 The Thiele Machine                                                    Devon Thiele • June 2026
 
 
+modulo 128. If you write r17, the kernel treats that as r1.
+
+Bitwise operations work on the bits of a value rather than treating the value as a
 number. Bitwise AND of two bits is 1 only when both bits are 1. Bitwise OR is 1 when
 either is 1. Bitwise XOR (exclusive or, sometimes written ⊕) is 1 exactly when the two
 bits differ. The bitwise version of these does the operation in parallel for every bit
@@ -1058,14 +1062,14 @@ way along the number line including fractions and irrationals like π and 2.
 ⊆ means “is a subset of” (every element of the left side is also in the right). ⊊ means
 strict subset: a subset but not the whole thing.
 
-∪ is set union, the set containing everything in either side. \ is set difference: A \ B is
-everything in A that is not in B.
-
 
 
                                              22
 The Thiele Machine                                                       Devon Thiele • June 2026
 
+
+∪ is set union, the set containing everything in either side. \ is set difference: A \ B is
+everything in A that is not in B.
 
 × between two sets is the Cartesian product: A × B is the set of all ( a, b) pairs with
 a ∈ A and b ∈ B. Functions from a set A to a set B are written A → B.
@@ -1112,14 +1116,15 @@ finite list of named constructors, the only ways to build a value of that type. 
 natural numbers, for example, are an inductive type with two constructors: zero, and
 “successor of another natural number.” Two constructors, infinitely many naturals.
 
-A tactic is a step inside a Coq proof. The tactics that appear in this document include:
-induction (prove the base case, then prove that if the statement holds at step n it holds
-at step n + 1), destruct (split a hypothesis into its cases), exact (provide the literal proof
+
 
                                                 23
 The Thiele Machine                                                     Devon Thiele • June 2026
 
 
+A tactic is a step inside a Coq proof. The tactics that appear in this document include:
+induction (prove the base case, then prove that if the statement holds at step n it holds
+at step n + 1), destruct (split a hypothesis into its cases), exact (provide the literal proof
 term), reflexivity (prove x = x), simpl (simplify the goal by computing), lra (linear
 real arithmetic; closes goals that are linear inequalities over the reals), nra (nonlinear
 real arithmetic; handles polynomial inequalities), and psatz (uses Positivstellensatz
@@ -1163,15 +1168,15 @@ categories C and D , a functor F from C to D sends each object of C to an object
 D . It sends each arrow f : A → B in C to an arrow F ( f ) : F ( A) → F ( B) in D . It
 respects composition (F ( g ◦ f ) = F ( g) ◦ F ( f )) and identity (F (id A ) = idF( A) ). Think
 of a functor as a translation rule between two categorical worlds that keeps the laws
-intact.
-
-An initial object in a category is one from which there is exactly one arrow to every
 
 
                                               24
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
+intact.
+
+An initial object in a category is one from which there is exactly one arrow to every
 other object. The word “exactly” is doing the load here: not zero arrows, not a fistful,
 one. In the category of A2-respecting substrates, the Thiele Machine is that initial ob-
 ject, with exactly one structure-preserving morphism into every other such substrate,
@@ -1215,14 +1220,13 @@ agree. 0 means there is no average correlation. A correlator is one specific cor
 in a labelled setting: for example, E00 is the correlation when Alice’s setting is 0 and
 Bob’s setting is 0.
 
-The marginal of a joint distribution on ( a, b) is the distribution on a alone, with b
-averaged out. Zero-marginal means Alice’s marginal gives ⟨ a⟩ = 0 and Bob’s gives
-
 
                                            25
-The Thiele Machine                                                Devon Thiele • June 2026
+The Thiele Machine                                               Devon Thiele • June 2026
 
 
+The marginal of a joint distribution on ( a, b) is the distribution on a alone, with b
+averaged out. Zero-marginal means Alice’s marginal gives ⟨ a⟩ = 0 and Bob’s gives
 ⟨b⟩ = 0. Each outcome is +1 or −1 equally often, on average. The Section 16 derivation
 works in this symmetric slice.
 
@@ -1267,14 +1271,14 @@ Here is the synthesis-tooling vocabulary that Section 14’s third subsection us
 expanding each tool.
 
 A hardware description language (HDL) is a programming language for describing
-circuits. Bluespec SystemVerilog and Verilog are two HDLs. Bluespec is higher-level:
-you describe rules and the compiler figures out the gate-level details. Verilog is lower-
 
 
-                                           26
+                                          26
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+circuits. Bluespec SystemVerilog and Verilog are two HDLs. Bluespec is higher-level:
+you describe rules and the compiler figures out the gate-level details. Verilog is lower-
 level: you describe gates and wires more directly. Verilog RTL specifically means
 “register-transfer level” Verilog, which describes how data moves between registers
 each clock cycle. It is what synthesis tools consume. They do not eat Bluespec.
@@ -1318,15 +1322,14 @@ Provenance, in software, means the recorded chain of where an object came from. 
 morphism’s provenance is the specific sequence of MORPH and COMPOSE instruc-
 tions that built it. You can replay the chain.
 
-Simulation, in computer science, means one system imitating another’s input-output
-behaviour. A Turing machine simulates a Thiele Machine when it produces the same
-
 
 
                                             27
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+Simulation, in computer science, means one system imitating another’s input-output
+behaviour. A Turing machine simulates a Thiele Machine when it produces the same
 outputs on the same inputs, by writing the whole Thiele state out across its tape and
 grinding through it. That is real, and it matters, and it is exactly the thing people reach
 for when they want to wave the whole question away: if a tape can stand in for the
@@ -1370,14 +1373,14 @@ An injection is a function where no two inputs map to the same output. A surject
 a function whose image covers every possible output. Their negations are noninjective
 and nonsurjective.
 
-Decidable, in computer science, means there is an algorithm that always halts with a
-yes-or-no answer. The integer-only Z-arithmetic check in CHSH_LASSERT is decid-
 
 
                                             28
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
+Decidable, in computer science, means there is an algorithm that always halts with a
+yes-or-no answer. The integer-only Z-arithmetic check in CHSH_LASSERT is decid-
 able; the algorithm computes the result in finitely many steps and returns a Boolean.
 
 Polynomial complexity: an algorithm is polynomial-time if there is some power k such
@@ -1424,14 +1427,14 @@ two.
 
 The kernel keeps two parallel axiom-numbering systems because two parallel sub-
 strate abstractions are formalised. The AbstractCertMachine record carries A1
-(the cert indicator exists, by record existence) and A3 (only cert-setters flip it, the
-acm_preserve field). A2 (cert starts unset) and A4 (cert-setters cost ≥ 1) live
 
 
                                            29
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+(the cert indicator exists, by record existence) and A3 (only cert-setters flip it, the
+acm_preserve field). A2 (cert starts unset) and A4 (cert-setters cost ≥ 1) live
 alongside the record, not in it: A2 is the acm_cert M s0 = false hypothesis to
 abstract_nfi, A4 is the standalone lemma cert_addr_setter_cost_pos. The
 consolidated CertificationSystem record folds the cost-on-certification semantic
@@ -1471,15 +1474,16 @@ can grow in that step. The cost is the speed-limit on evidence accumulation. (In
 the AbstractCertMachine numbering, A3 is the field acm_preserve: non-cert-setter
 instructions preserve the cert indicator. The two A3s are distinct properties on distinct
 record types; the monograph’s A3 is the quantitative one above.)
-A4 (witness nondecreasing).
-Coq field qcsf_witness_nondecreasing on the record QuantitativeCer
-tificationSystem_full. Statement: for every s and i, qcs_witness s ≤
+
 
 
                                             30
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
+A4 (witness nondecreasing).
+Coq field qcsf_witness_nondecreasing on the record QuantitativeCer
+tificationSystem_full. Statement: for every s and i, qcs_witness s ≤
 qcs_witness (cs_step s i). A3 and A4 point in opposite directions: A3 caps
 how fast the witness can grow (w′ ≤ w + cost), A4 stops it from shrinking (w ≤ w′ ).
 Neither implies the other. (w, cost, w′ ) = (1, 0, 0) satisfies A3 with non-negative cost
@@ -1517,17 +1521,20 @@ That is the vocabulary. From here on, the document uses these words without rebu
 ing them. Section 9 is where the formal machine state begins; experts should jump
 there. Everyone else stays for the walk.
 
+
+
+
+                                           31
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
+
 3 The structural axis: the projection classical models drop
 Why this section exists. This section exists because a renderer I was building in
 January 2025 walked me into a wall, and the wall turned out not to be made of what I
 thought.
 
 The renderer was a categorical engine. I had built it so the things running at runtime
-
-                                           31
-The Thiele Machine                                                   Devon Thiele • June 2026
-
-
 were the category-theory objects themselves: modules were objects, transformations
 between them were morphisms, composing two transformations was literally com-
 position, and running two independent parts side by side was the monoidal product
@@ -1565,6 +1572,13 @@ Coq proof standing next to each one. The Coq is not what makes any of it true. I
 there because my own eye slides straight over the gaps in an argument I am hoping
 is right, and I wanted a reader that would not let me. This section is the long-form
 answer to a question a stuck renderer put to me and would not drop until I quit trying
+
+
+
+                                           32
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
 to out-clever it and went looking for what was actually missing.
 
 Here is the claim this section rests on, stated hard. A2, the rule that flipping certifica-
@@ -1572,12 +1586,6 @@ tion from false to true costs at least one, is a law of the step rule itself, wr
 step’s own definition (in the kernel it is the field cs_cert_costs on the Certific
 ationSystem record), not a habit the program is trusted to keep. And the state A2
 needs before it can even be said out loud, the cost ledger µ next to the cert flag, is the
-
-
-                                             32
-The Thiele Machine                                                    Devon Thiele • June 2026
-
-
 proved-minimal extension over the ordinary fields of memory, registers, and program
 counter: you need a cert to read and a µ to charge, and P_full_is_minimal_com
 plete_extension shows you cannot pull either one out and still have certification
@@ -1615,6 +1623,12 @@ wriggle out of as I knew how to make it, and the way you make a theorem hard to
 wriggle out of is to make it ask for almost nothing. It takes any abstract computational
 system at all, and by any I mean it genuinely does not care what the system is made
 of or whether it looks anything like the machine in this document. It asks for five
+
+
+                                              33
+The Thiele Machine                                                   Devon Thiele • June 2026
+
+
 pieces and refuses to ask for a sixth. A set of states, and a state can be whatever it is for
 you: bits on a tape, words in a register file, cells in memory, it makes no difference to
 the theorem. A set of instructions, the moves the thing can make. A step rule, which
@@ -1622,11 +1636,6 @@ takes a state and an instruction and hands back the next state. A cost function,
 pins a non-negative integer to each instruction. And a certification predicate, a plain
 yes-or-no on states that says whether a given state counts as certified. That is the entire
 list. The reason I keep leaning on how short it is: any objection that begins “sure, but
-
-                                              33
-The Thiele Machine                                                  Devon Thiele • June 2026
-
-
 that only holds for your particular machine” has nothing to attach to once the result
 has agreed to run on something this bare.
 
@@ -1664,19 +1673,13 @@ past: the abstract system has to have a certification predicate. A plain Turing 
 does not. The theorem applies to “Turing machine equipped with a certification predi-
 cate,” not to every Turing machine trace. Saying “every classical computation pays µ”
 is wrong. Saying “every classical computation that ends in a certified structural claim
-pays at least 1 into µ” is right. The conditional is doing real work.
-
-3.2 The structural axis is canonical, not orthogonal
-The natural follow-up question: if a classical substrate has no built-in slot for structural
-facts, can I bolt one on and reach the same theorems? Yes. The interesting answer is
-what it costs and what it forces.
-
-Three theorems pin this down. None of them rule out adding state to a Turing machine.
 
 
-                                            34
+                                             34
 The Thiele Machine                                                        Devon Thiele • June 2026
 
+
+pays at least 1 into µ” is right. The conditional is doing real work.
 
 
             (mem, regs, pc)      (mem, regs, pc)        (mem, regs, pc)
@@ -1702,7 +1705,12 @@ projection down via shadow_proj (degenerate_projection_theorem). The
 classical state has multiple Thiele preimages and no canonical lift back (fiber_has_
 two_preimages). One direction is a function; the other is not.
 
+3.2 The structural axis is canonical, not orthogonal
+The natural follow-up question: if a classical substrate has no built-in slot for structural
+facts, can I bolt one on and reach the same theorems? Yes. The interesting answer is
+what it costs and what it forces.
 
+Three theorems pin this down. None of them rule out adding state to a Turing machine.
 They say something different: the structural axis is what any substrate looks like once
 it accepts honest certification cost, and µ is the unique cost it accepts. The Thiele
 Machine names this structure. It does not invent it.
@@ -1722,6 +1730,12 @@ Machine names this structure. It does not invent it.
    3. shadow_strictly_lossy and categorical_separation: two within-
       Thiele witness theorems serving as illustration of what the load-bearing piece
       looks like inside the model. There exist Thiele states agreeing on the six-field pro-
+
+
+                                               35
+The Thiele Machine                                                  Devon Thiele • June 2026
+
+
       jection (memory, registers, PC, µ, error flag, top-level certified flag) but differing
       in their morphism graphs. The projection drops information. It’s worth saying
       plainly, because it’s the first thing a careful reader catches: any model that drops
@@ -1729,12 +1743,6 @@ Machine names this structure. It does not invent it.
       The shadow lemma is what items 1 and 2 look like instantiated: the universal
       cost floor (universal_nfi_any_substrate) and the uniqueness of µ (mu_i
       s_initial_monotone) are what carry it, and the law-versus-checker distinc-
-
-
-                                               35
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
       tion is what it witnesses. Taken by itself the projection witness is generic, since
       an analogous field-drop reproduces the shape on any substrate, so it leans on
       items 1 and 2, not the other way around.
@@ -1773,6 +1781,12 @@ have to supply a proof of A2. In Coq, “supplying a proof” means handing over
 whose type is the statement you are proving; Section 2 covers this. Build the record
 without that proof and the type checker rejects you. Cold. Unmoved. Correct.
 
+
+
+                                            36
+The Thiele Machine                                                   Devon Thiele • June 2026
+
+
 So CertificationSystem, by the shape of the type, names substrates whose prim-
 itive step enforces cost-on-certification. A Turing machine step rule over state and
 tape symbol is not one of them. You can package “Turing machine plus a simulator
@@ -1780,12 +1794,6 @@ program that maintains an A2-respecting tape encoding” into a CertificationSy
 stem value by exhibiting a step rule for the package and proving A2 of it. But then
 the package is the simulator, not the Turing substrate. The Turing machine is indif-
 ferent. Run a buggy simulator that skips the cost increment and the Turing machine
-
-
-                                            36
-The Thiele Machine                                                   Devon Thiele • June 2026
-
-
 keeps running. There is no level at which the Turing machine knows the simulation
 is dishonest. There is no level at which the Turing machine knows anything about
 simulations.
@@ -1823,6 +1831,12 @@ it. In the 51-opcode realisation this is not a hope, it is a checked fact: vm_ap
 serves_certified_non_certify proves that every instruction except CERTIFY
 leaves vm_certified exactly as it found it, so the false-to-true flip can only happen
 when the certifying transition actually fires. The cert is not a value some program left
+
+
+                                             37
+The Thiele Machine                                                     Devon Thiele • June 2026
+
+
 lying in a cell. It is a constraint the step rule enforces on the whole machine. That is
 the difference between a bit on the tape and a law in the relation, and it is the whole
 difference.
@@ -1830,12 +1844,6 @@ difference.
 The actual separation is between substrates whose step rule enforces A2 and sub-
 strates where A2 can only be encoded into the running program’s behaviour. The
 Thiele substrate sits in the first class: its step rule enforces A2 as a law. The bare
-
-
-                                             37
-The Thiele Machine                                                     Devon Thiele • June 2026
-
-
 Turing substrate sits in the second, where A2 can only be encoded into the running
 program’s behaviour and skipped by a buggy simulator. That is the separation, and it
 is not a claim about a new class of computable functions. The 51-opcode realisation
@@ -1873,19 +1881,18 @@ intuitive notion of “algorithm.” The machine, as I understand it, is this:
    • A finite set of states, Q = {q0 , q1 , . . . , qn }. The machine is in exactly one state at
      a time. q0 starts the run. Some states halt it.
    • A transition table. Given the current state and the symbol under the head, it
-     says: write this, move left or right, enter that state.
+
+                                              38
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
+      says: write this, move left or right, enter that state.
 
 That is the entire machine. Nothing else.
 
 Here is what I read as the remarkable thing about this simple machine: it can compute
 anything that can be computed by following a definite procedure. The sources I dug up claim
 every algorithm that has ever been written, in every programming language that has
-
-
-                                              38
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
 ever existed, can be translated into a Turing machine. The label I found for this is the
 Church-Turing thesis. The original claim (Church 1936, Turing 1936), as I read it, is
 specifically about effective calculability: anything that can be computed by following a
@@ -1924,6 +1931,13 @@ It cannot ask: “Are these two parts of the input independent of each other?”
 check.
 
 The tape view is LOCAL. One cell at a time. There is no primitive way to see global
+
+
+
+                                             39
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 structure. A Turing machine can COMPUTE global structure, but computing it and
 seeing it are different things. To know a list is sorted, it runs a sortedness check that
 touches the cells encoding the list. It pays in time and space for every structural fact it
@@ -1931,12 +1945,6 @@ learns.
 
 The same story holds for any model whose observable state projects to
 (mem, regs, pc). The transition function sees the projection. A known decomposi-
-
-
-                                            39
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
 tion, checked invariant, or asserted morphism has to be re-derived, trusted as an
 untyped convention, or carried in data with no substrate-level audit. There is no state
 slot where the entitlement lives.
@@ -1975,18 +1983,17 @@ tape), a lambda-calculus reducer, or anything else that is classical at heart. T
 count steps. Not one of them ever stops to ask whether the step was even entitled to
 use the structural fact it just used.
 
+
+                                            40
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
 Consider the satisfiability problem (SAT): given a logical formula ϕ over n boolean
 variables, is there an assignment that makes it true? A blind brute-force search checks
 all 2n assignments. (Here 2n means 2 raised to the power n: 2 times itself n times.
 For 20 variables it is about a million, for 30 it is a billion, for 60 the universe starts
 looking at its watch.) Real SAT solvers do better on many instances. The worst-case
 cliff remains: for general SAT, no known classical algorithm removes the exponential
-
-
-                                           40
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
 wall unless P = NP.
 
 Now suppose ϕ decomposes cleanly: ϕ = ϕ1 ∧ ϕ2 , where ϕ1 and ϕ2 share no variables.
@@ -2027,17 +2034,16 @@ vm_err, vm_certified); and (b) the structural layer is preserved: sn .vm_graph =
 s0 .vm_graph, sn .vm_csrs.csr_cert_addr = s0 .vm_csrs.csr_cert_addr, and
 sn .vm_certified = s0 .vm_certified.
 
+
+                                           41
+The Thiele Machine                                                Devon Thiele • June 2026
+
+
 Proof. Part (a) unfolds shadow_proj: by definition it extracts exactly those six fields,
 and reflexivity closes it. Part (b) is D3 conservativity (next theorem) iterated over the
 program.
 
    Plain reading. Classical programs leave the structural axis alone. The shadow you
-
-
-                                           41
-The Thiele Machine                                             Devon Thiele • June 2026
-
-
    see equals the full state’s projected fields. The graph and cert channels stay at
    whatever they were at the start.
 
@@ -2079,16 +2085,16 @@ Then for every fuel n ∈ N, transition table δ, and TM configuration c:
 
 Proof. Induction on the fuel n.
 
+
+                                           42
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 Base (n = 0). Both thiele_run 0 and tm_run 0 return their inputs unchanged. Re-
 flexivity.
 
 Step (n + 1). Unfold one step on both sides. Let c′ = tm_step δ c when defined. On
 a lifted configuration, thiele_step’s TM portion is exactly tm_step δ c: structural
-
-                                         42
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
 fields are not consulted, and lifted µ stays at 0 because TM steps are classical. Apply
 the induction hypothesis to the next n steps from lift_config(c′ ).
 
@@ -2129,17 +2135,16 @@ Proof. The theorem is four lemmas stitched into one conjunction.
 
    • Part (1) is thiele_simulates_turing (preceding theorem).
    • Part (2) is definitional. shadow_proj extracts its six projected fields. Equal
-     projections mean those six fields agree. The Coq witness is shadow_proj_ker
-     nel_is_eq_on_classical_shadow.
-   • Part (3) follows from D2 and D3. Run a classical program: the output shadow
-     depends only on the input shadow. Equal shadows in, equal shadows out. The
-
 
                                             43
 The Thiele Machine                                               Devon Thiele • June 2026
 
 
-      Coq witness is D2_classical_shadow_preserved.
+      projections mean those six fields agree. The Coq witness is shadow_proj_ker
+      nel_is_eq_on_classical_shadow.
+   • Part (3) follows from D2 and D3. Run a classical program: the output shadow
+     depends only on the input shadow. Equal shadows in, equal shadows out. The
+     Coq witness is D2_classical_shadow_preserved.
    • Part (4) is shadow_strictly_lossy. The Categorical Separation construction
      gives the witness: s1 has one identity morphism in pg_morphisms; s2 has none.
      The six projected fields agree. The morphism lists do not.
@@ -2179,16 +2184,16 @@ function ϕ : TMSnapshot → bool such that, for every Thiele state s,
 
                          ϕ(forget s) = s.vm_certified.
 
-Proof. The witnesses are trace_witness_A (certified, defined) and forget_witn
-ess_uncert (not certified, defined). Direct computation shows the two states have
-equal forget images. Suppose ϕ existed: then ϕ(forget trace_witness_A) =
-true and ϕ(forget forget_witness_uncert) = false. But the inputs are
 
 
                                           44
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
+Proof. The witnesses are trace_witness_A (certified, defined) and forget_witn
+ess_uncert (not certified, defined). Direct computation shows the two states have
+equal forget images. Suppose ϕ existed: then ϕ(forget trace_witness_A) =
+true and ϕ(forget forget_witness_uncert) = false. But the inputs are
 equal, forcing the outputs to be equal too. Contradiction.
 
    Plain reading. The Thiele vm_certified flag is not a function of the four fields
@@ -2229,16 +2234,17 @@ images. A ϕ satisfying the equation would force 0 = 1. Contradiction.
    be re-expressed as a predicate over those four fields because the field it references
    is not visible in the classical signature.
 
+
+
+
+                                           45
+The Thiele Machine                                                     Devon Thiele • June 2026
+
+
 The three subsumption-witness corollaries.
 The irrecoverability theorems above ground three statements the subsumption argu-
 ment relies on. These are the corollaries the monograph cites as “the Thiele content
 the bare projection structurally cannot carry.”
-
-
-
-                                             45
-The Thiele Machine                                                     Devon Thiele • June 2026
-
 
    1. A2 cannot be stated as a constraint on the bare projection alone. A2 (cs_cert_costs,
       a typed field on CertificationSystem) says that a cert-predicate flip from
@@ -2277,17 +2283,19 @@ in a cost schedule, a graph state, a cert flag, or some other Thiele-only datum 
 classical signature does not provide.
 
 This is the directionality of the subsumption, and it is generic to any lossy-projection
+
+
+
+                                              46
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
 pair. The projection Thiele → Turing is canonical: it is the unique forgetful
 map onto the Turing data, and it is a structure-preserving quotient (parts 2 and 3
 of the degenerate projection theorem). The lift Turing → Thiele is not canoni-
 cal: every lift_config-style definition fixes a choice of µ = 0, empty graph, and
 vm_certified = false, and those choices are appended, not extracted. Every
 Thiele state has a Turing projection; no Turing snapshot has a canonical Thiele lift.
-
-                                              46
-The Thiele Machine                                                    Devon Thiele • June 2026
-
-
 Directionality on its own buys a richer extension, not priority: a tagged field-drop has
 the same shape; priority is carried by substitution-adequacy and the lattice-scoped
 minimality below.
@@ -2326,12 +2334,6 @@ algebraic theory: build the free model over its own signature, and every other m
 gets exactly one morphism out of it. The abstract uses the Z-as-initial-ring analogy as
 a handrail. That analogy is also the warning label: Z has this property too, so generic
 initiality buys no priority. Priority rides instead on substitution-adequacy (passing
-the substitution test is equivalent to being A2: a2_equal_trust_substitution
-_payoff) and the lattice-scoped minimality of (µ, cert) (P_full_is_minimal_c
-omplete_extension), which a Z with a coordinate bolted on does not have. The
-Coq theorem is the term-algebra statement. The proof is short: about 30 lines, all
-list induction. The hard part lives in the definitions it rests on: CertCostMachine,
-CertCostMorphism, thiele_morphism_exists, and thiele_morphism_uni
 
 
 
@@ -2339,6 +2341,12 @@ CertCostMorphism, thiele_morphism_exists, and thiele_morphism_uni
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+the substitution test is equivalent to being A2: a2_equal_trust_substitution
+_payoff) and the lattice-scoped minimality of (µ, cert) (P_full_is_minimal_c
+omplete_extension), which a Z with a coordinate bolted on does not have. The
+Coq theorem is the term-algebra statement. The proof is short: about 30 lines, all
+list induction. The hard part lives in the definitions it rests on: CertCostMachine,
+CertCostMorphism, thiele_morphism_exists, and thiele_morphism_uni
 que_on_traces.
 
 The scope is not smuggled in. Section 24 says it plainly: initiality is relative to the A2-
@@ -2379,17 +2387,15 @@ assumes no axioms.
    from “no function recovers µ from the projection” to “no verifier soundly decides
    µ-sensitive claims from the projection.”
 
+                                            48
+The Thiele Machine                                                 Devon Thiele • June 2026
+
+
 Three escapes, each constructed.
 Three structurally distinct ways to clear the impossibility live in the kernel as concrete
 verifiers, each one a closed Coq theorem.
 
    1. Substrate-trust. The transcript carries the full VMState and the verifier reads
-
-
-                                            48
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
       µ directly. substrate_escape_succeeds exhibits a verifier with constant
       cost that is both sound and complete on vm_mu s = 1. The verifier’s decision
       function is Nat.eqb (last t).vm_mu 1; the proof is one inhabitation per
@@ -2428,17 +2434,16 @@ assumes no axioms.
    the factorisation theorem says exposure is mandatory. Any verifier that pretends
    to live entirely on the classical projection (by reading only what the projection
    sees, no matter how rich the transcript otherwise) will fail on the same witness
-   pair that the bare-setting theorem already exhibited. The substrate, the hardness
-   commitment, and the interactive response are not three options among many; they
-   are three instances of the only option, which is “the transcript carries non-classical
-   structure and the verifier reads it.”
-
 
 
                                            49
 The Thiele Machine                                                    Devon Thiele • June 2026
 
 
+    pair that the bare-setting theorem already exhibited. The substrate, the hardness
+    commitment, and the interactive response are not three options among many; they
+    are three instances of the only option, which is “the transcript carries non-classical
+    structure and the verifier reads it.”
 
 4 What structure is
 Everyone uses the word “structure,” and the word does the work while meaning
@@ -2479,16 +2484,15 @@ machine itself is answerable for. Nowhere in the machine is there a place that s
 this partition is real and somebody paid to build it; the table just sits there, asserted,
 and the step rule has no opinion about whether it was earned or invented. The Thiele
 substrate keeps that place. It carries the partition as part of its state, it charges µ the
-moment you build one, and the step rule will not move on while the bill is still open.
-That gap, between a structure you merely wrote down and a structure the machine is
-on the hook for, is the whole reason this section exists, and a good part of the reason
-the rest of the document does.
-
-
 
                                              50
 The Thiele Machine                                                 Devon Thiele • June 2026
 
+
+moment you build one, and the step rule will not move on while the bill is still open.
+That gap, between a structure you merely wrote down and a structure the machine is
+on the hook for, is the whole reason this section exists, and a good part of the reason
+the rest of the document does.
 
 4.2 Axioms carried by modules
 A partition by itself is just a set of labels, and labels are cheap because labels promise
@@ -2530,16 +2534,17 @@ tion, LASSERT reads a formula from memory, checks it against two witnesses (one
 satisfying assignment, one falsifying assignment showing the formula is not a tau-
 tology), and either accepts or traps. The hardware checker is the Logic Engine. It is
 a finite-state controller in the chip: a dedicated circuit that walks the formula word
-by word and verifies the witnesses without calling an external constraint solver. If
-validation succeeds, the checked constraint package can feed the later certification
-path. If validation fails, LASSERT traps (Section 2: routes execution to a fixed error
-address) and sets an error flag. The µ cost is charged either way.
 
 
 
                                             51
 The Thiele Machine                                                  Devon Thiele • June 2026
 
+
+by word and verifies the witnesses without calling an external constraint solver. If
+validation succeeds, the checked constraint package can feed the later certification
+path. If validation fails, LASSERT traps (Section 2: routes execution to a fixed error
+address) and sets an error flag. The µ cost is charged either way.
 
 And the receipt is not off in some logbook; it is in the trace itself, at the step where the
 check ran, reading µ ≥ 1. Anyone can walk the trace and put a finger on the exact
@@ -2581,16 +2586,15 @@ Several kinds of object can be admissible in this sense: a partition (Section 4)
 composition (a split of a problem into independent parts), a morphism (Section 11), a
 constraint (Section 4), a witness (a value that proves the existence of something), or a
 narrowed feasible set (defined below). The gap between admissible fact and raw data
+
+                                            52
+The Thiele Machine                                                  Devon Thiele • June 2026
+
+
 matters. A raw bit pattern can be copied. A certified decomposition can justify solving
 two smaller problems instead of one large one. At the raw-data level, a morphism
 ID can be forged in a register: write 42 into the register and call it “the ID of some
 morphism.” An asserted morphism in the graph has provenance (Section 2). In the
-
-
-                                            52
-The Thiele Machine                                                    Devon Thiele • June 2026
-
-
 51-opcode realisation, the trace contains the MORPH and COMPOSE steps that built
 the morphism, and MORPH_ASSERT then committed it. A formula sitting in memory
 is text. A checked formula with a satisfying assignment and a falsifying assignment
@@ -2631,16 +2635,16 @@ states that violate that constraint are no longer live and they come off. Learni
 this substrate, is the list getting shorter, and it is concrete enough that you can stand
 over it and watch the states drop.
 
+
+
+                                             53
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
 Prior and posterior. Two snapshots of that list, before and after one observation or
 certification event. The prior Ω is the list as it stood going in; the posterior Ω′ is the list
 coming out. The posterior can only ever be a subset of the prior, Ω′ ⊆ Ω, and the one-
 directionality of that is not a bookkeeping convenience. You can rule a state out and
-
-
-                                              53
-The Thiele Machine                                                 Devon Thiele • June 2026
-
-
 you can never rule one back in, because ruling-in would mean un-learning something
 the trace already paid to establish, and nothing in the substrate runs that way. When
 the posterior comes out strictly smaller, |Ω′ | < |Ω|, the event genuinely cut the field:
@@ -2679,17 +2683,17 @@ stores that property’s nonzero ASCII checksum in csr_cert_addr. Not “structu
 knowledge was acquired” in fog. This field flipped from zero, at this step, because
 MORPH_ASSERT asserted such a property against an existing morphism.
 
-Supra-certification (has_supra_cert).     In the 51-opcode realisation, supra-
+Supra-certification (has_supra_cert).              In the 51-opcode realisation, supra-
+
+
+                                              54
+The Thiele Machine                                                     Devon Thiele • June 2026
+
+
 certification is reached when csr_cert_addr ̸= 0. The name distinguishes it from
 vm_certified, the top-level flag set by CERTIFY. Supra-certification tracks the
 MORPH_ASSERT channel: has a morphism property been asserted and its checksum
 registered? A trace can set vm_certified = true without has_supra_cert by
-
-
-                                            54
-The Thiele Machine                                                     Devon Thiele • June 2026
-
-
 using CERTIFY and not MORPH_ASSERT; CERTIFY never touches csr_cert_addr.
 Both are positive-cost certification channels. They record different things. Two chan-
 nels, two costs, one substrate.
@@ -2730,16 +2734,16 @@ projection-image must agree on equal images, so it agrees on s1 and s2 .
    Plain reading. Same witness as Categorical Separation, read backward. Two Thiele
    substrate states have identical projections under any projection that drops the
    morphism graph. They are still different states. So the projection is provably
-   many-to-one. A function defined only on the projection output can’t tell them
-   apart. The projection already collapsed them.
-
-If your state model only records registers, memory, PC, an error bit, and maybe µ, you
 
 
                                               55
 The Thiele Machine                                                Devon Thiele • June 2026
 
 
+    many-to-one. A function defined only on the projection output can’t tell them
+    apart. The projection already collapsed them.
+
+If your state model only records registers, memory, PC, an error bit, and maybe µ, you
 have already thrown away part of what matters. You have collapsed states that differ
 on the inside into a single raw state that looks the same from the outside. That is not a
 philosophical complaint. It is a theorem about a projection map.
@@ -2782,16 +2786,15 @@ branches still disagree on vm_certified, but they now match µ as well. Cost-
 equivalent steps do the padding without moving the projected fields.
 
 (4) µ ⊥ (mem, regs, pc, certified). Same visible tuple. Same certification flag.
-Different ledger. That is the dual of (3), witnessed by positive-cost steps with identical
-projected effects.
-
-The universal quantifier “from every reachable starting state” is not decoration. Each
-
 
                                            56
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+Different ledger. That is the dual of (3), witnessed by positive-cost steps with identical
+projected effects.
+
+The universal quantifier “from every reachable starting state” is not decoration. Each
 construction is parametric: from any reachable state, the no-op and cost-positive
 padding steps are still available. No prefix, however long, prevents the witness pair.
 
@@ -2832,16 +2835,16 @@ has been all along.
 
 Theorem 5.3 (Latent µ: the cost is intrinsic to computation). Run any trace. The µ it
 accumulates is just the sum of the step costs. Partition graph, registers, memory, program
+
+
+
+                                           57
+The Thiele Machine                                                    Devon Thiele • June 2026
+
+
 counter, certified flag, even starting µ: none of them changes that sum. Formally:
 
                      µfinal = µinitial + ∑i∈prog instruction_cost(i ).
-
-
-
-
-                                            57
-The Thiele Machine                                                   Devon Thiele • June 2026
-
 
 The right side uses the summation symbol from Section 2.                  It reads: add up
 instruction_cost(i) for every program element i in prog. The result does not depend
@@ -2868,7 +2871,7 @@ Apply the induction hypothesis to rest starting from s1 :
 Substitute s1 .µ:
 
   µfinal = s0 .µ + instruction_cost(i ) + ∑ j∈rest instruction_cost( j)
-                                           = µinitial + ∑i∈prog instruction_cost(i ).
+                                            = µinitial + ∑i∈prog instruction_cost(i ).
 
 The right-hand expression depends only on prog and µinitial . No other starting-state
 field gets a vote. If any step has positive cost, then ∆µ is strictly positive: all terms are
@@ -2884,15 +2887,14 @@ non-negative, and that term is ≥ 1.
 The theorem is not saying µ is outside the Thiele substrate. The µ ledger is one of
 the substrate’s load-bearing parts. The point is different: the number it records is
 forced by the step sequence. Any honest accounting gives the same number. Classical
-execution pays the same latent bill without storing the receipt. The ledger does not
-create the cost. It reveals it.
-
-
 
 
                                              58
 The Thiele Machine                                                               Devon Thiele • June 2026
 
+
+execution pays the same latent bill without storing the receipt. The ledger does not
+create the cost. It reveals it.
 
                      Prior Ω                     observation f obs              Posterior Ω′
                                                      sw sw from all of Ω′
@@ -2942,15 +2944,15 @@ space got smaller; then, as a reward, you got to assert something stronger. Two 
 cause and effect, the second one earned by the first. That ordering is the illusion. There
 is no second event. The instant Ω shrinks to Ω′ the stronger predicate already exists,
 because the predicate is nothing but membership in the set, and the set is smaller.
-Nobody pulled the predicate out of a hat to make the theorem go through; it was
-sitting there the whole time, defined by the boundary that just got redrawn. The
-distinguishing observation is what lets you write the boundary down honestly, but
 
 
                                                       59
 The Thiele Machine                                                        Devon Thiele • June 2026
 
 
+Nobody pulled the predicate out of a hat to make the theorem go through; it was
+sitting there the whole time, defined by the boundary that just got redrawn. The
+distinguishing observation is what lets you write the boundary down honestly, but
 it does not author a new claim on top of the narrowing. The narrowing is the claim.
 One fact wearing two costumes: shrink the feasible set and tighten the predicate are
 the same move read off opposite sides of the same equation.
@@ -2992,15 +2994,16 @@ least 1.
 
 Proof. This is the same theorem as the Universal No Free Certification result in Sec-
 tion 8, restated here at the structural-entitlement layer. The proof is the trace-induction
-argument given there. Empty trace cannot flip the cert predicate. A non-empty trace
-either flips it at the first step, where single-step A2 gives ≥ 1, or flips it later, where the
-induction hypothesis gives ≥ 1 on the rest. Either case yields total cost ≥ 1.
 
 
 
                                                 60
 The Thiele Machine                                                         Devon Thiele • June 2026
 
+
+argument given there. Empty trace cannot flip the cert predicate. A non-empty trace
+either flips it at the first step, where single-step A2 gives ≥ 1, or flips it later, where the
+induction hypothesis gives ≥ 1 on the rest. Either case yields total cost ≥ 1.
 
    Plain reading. This is the same theorem as the one in the NoFI section, carried
    up here on purpose. Down there it was proved as a fact about cost. Up here the
@@ -3041,15 +3044,16 @@ Section 2. |Ω′ | is the posterior size. log2↑ means: take the base-2 logar
 counts yes-or-no questions. A 1000-state set needs 10 binary questions because 210 = 1024,
 the first power of two that can cover 1000 items. Both sides of this bound are integer question-
 counts, not real-valued entropies. The eye wants to read log2↑ |Ω| − log2↑ |Ω′ | as the textbook
-bit-gain log2 (|Ω|/|Ω′ |), and that is the one reading to set aside: the two ceilings round in
-opposite directions, so the difference lands above that real-valued number about as often as
-below it. What it counts instead is the binary distinctions the narrowing forces the tree to
-make, and that integer (not its real-valued cousin) is what the proof bounds by the tree’s depth,
+
 
                                                  61
 The Thiele Machine                                                     Devon Thiele • June 2026
 
 
+bit-gain log2 (|Ω|/|Ω′ |), and that is the one reading to set aside: the two ceilings round in
+opposite directions, so the difference lands above that real-valued number about as often as
+below it. What it counts instead is the binary distinctions the narrowing forces the tree to
+make, and that integer (not its real-valued cousin) is what the proof bounds by the tree’s depth,
 and the depth by ∆µ. ∆µ is final µ minus initial µ across the trace.
 
 Proof. Three conclusions, chained.
@@ -3070,11 +3074,11 @@ from the trace’s fibered reduction by fibered_reduction_implies_tree_cove
 r) caps every group at ℓ states. So |Ω| ≤ ℓ · |Ω′ |. Take log2↑ of both sides and use that
 it is subadditive on products, log2↑ ( ab) ≤ log2↑ a + log2↑ b:
 
- log2↑ |Ω| ≤ log2↑ ℓ + log2↑ |Ω′ |,     equivalently       log2↑ |Ω| − log2↑ |Ω′ | ≤ log2↑ ℓ.
+ log2↑ |Ω| ≤ log2↑ ℓ + log2↑ |Ω′ |,      equivalently        log2↑ |Ω| − log2↑ |Ω′ | ≤ log2↑ ℓ.
 
 A binary tree holds at most 2d leaves at depth d, so log2↑ ℓ ≤ d, and the two combine to
 
-                           log2↑ |Ω| − log2↑ |Ω′ | ≤ log2↑ ℓ ≤ d.
+                            log2↑ |Ω| − log2↑ |Ω′ | ≤ log2↑ ℓ ≤ d.
 
 Each internal node of T is paid for by one certified observation in the trace. The
 realized-by-the-trace condition says the Boolean observation actually occurs; the
@@ -3092,16 +3096,16 @@ whole trace. Chain the inequalities:
    strengthening theorem, applied to the strict-narrowing and distinguishing-
    observation hypotheses. Conclusion 2 is just the structure-addition theorem, ap-
    plied to the trace’s start-uncertified, end-certified condition. Conclusion 3 is the
-   entropy bound. A binary tree that compresses |Ω| states into |Ω′ | leaf-classes has
-   depth at least ⌈log2 (|Ω|/|Ω′ |)⌉, bounded by log2↑ |Ω| − log2↑ |Ω′ | on the underes-
-   timate side. Each tree node is a certified observation. Each certified observation
-   pays at least 1 in µ. The tree depth is bounded by ∆µ. Compression for less than
 
 
-                                              62
+                                               62
 The Thiele Machine                                                                           Devon Thiele • June 2026
 
 
+    entropy bound. A binary tree that compresses |Ω| states into |Ω′ | leaf-classes has
+    depth at least ⌈log2 (|Ω|/|Ω′ |)⌉, bounded by log2↑ |Ω| − log2↑ |Ω′ | on the underes-
+    timate side. Each tree node is a certified observation. Each certified observation
+    pays at least 1 in µ. The tree depth is bounded by ∆µ. Compression for less than
     you paid never shows up, because the ledger does not extend that kind of credit.
     The bound is not a price anyone gets to negotiate down; the universe already
     settled it.
@@ -3147,15 +3151,14 @@ cision tree T with a tree-realized-by-the-trace proof, a posterior-representativ
 tion with a representatives proof, and an initial-uncertified proof on the starting state.
 These fields and obligations are exactly the hypotheses of the Structural-Entitlement-
 Representation theorem. Project the seven data fields and eight proof obligations
-from the record into the theorem’s hypotheses. Apply the theorem. The three con-
-clusions (strictly stronger predicate, structure-addition event, log2↑ -narrowing ≤ ∆µ)
-follow.
-
-
 
                                                           63
 The Thiele Machine                                                Devon Thiele • June 2026
 
+
+from the record into the theorem’s hypotheses. Apply the theorem. The three con-
+clusions (strictly stronger predicate, structure-addition event, log2↑ -narrowing ≤ ∆µ)
+follow.
 
    Plain reading. The record is exactly what the representation theorem needs as
    input. Unpack the record. Plug the fields into the theorem. Read off the three
@@ -3197,15 +3200,16 @@ structural shortcut is honest.
 
 There are two nearby claims here and it matters to keep them separate, because con-
 flating them is exactly how a real theorem turns into a stage trick. The EMIT-only
-N = 1 witness closes the observation layer. It proves posterior admissibility as
-CertifiedObs (a Coq type for “a certified observation has been recorded,” meaning
-the VM has observed and recorded a result but has not yet activated a cert channel).
-It does not close the stronger bridge. The trace does not end in has_supra_cert. In
+
 
                                            64
 The Thiele Machine                                                 Devon Thiele • June 2026
 
 
+N = 1 witness closes the observation layer. It proves posterior admissibility as
+CertifiedObs (a Coq type for “a certified observation has been recorded,” meaning
+the VM has observed and recorded a result but has not yet activated a cert channel).
+It does not close the stronger bridge. The trace does not end in has_supra_cert. In
 the semantic CSR-transition sense, it does not realize structure addition. A minimally
 extended witness does close the full theorem honestly. Keep the factorized search ex-
 actly as it is, then append PNEW, MORPH_ID, and MORPH_ASSERT. That suffix fires the
@@ -3244,15 +3248,14 @@ every part has a place, and every place is filled.
       two-leaf branching tree, one branch per factor.
    6. Tree realized by the trace. The trace’s actual EMIT-then-search-then-
       MORPH_ASSERT sequence matches a root-to-leaf path of the tree.
-   7. Posterior-representative reduction. sighted_n1_supra_repr_obs_
-      fn.    Defined as if Nat.eqb s.(vm_mu) s.(vm_mu) then [] else
-      [instr_halt 0]; the tautology Nat.eqb mu mu = true always picks the
-
 
                                             65
-The Thiele Machine                                                  Devon Thiele • June 2026
+The Thiele Machine                                                Devon Thiele • June 2026
 
 
+   7. Posterior-representative reduction.       sighted_n1_supra_repr_obs_
+      fn.    Defined as if Nat.eqb s.(vm_mu) s.(vm_mu) then [] else
+      [instr_halt 0]; the tautology Nat.eqb mu mu = true always picks the
       empty-list branch, so this is the empty-observation representative dressed up as
       a conditional.
    8. Certified posterior predicate. Built from omega_predicatereceipt_lis
@@ -3293,14 +3296,14 @@ is the honest place to stop, not a hole to be patched later.
 
 Once entitlement is internalized with explicit witnesses instead of waved at, the pic-
 ture firms up into three facts that lean on each other. You cannot strengthen a certified
+
+                                           66
+The Thiele Machine                                                  Devon Thiele • June 2026
+
+
 claim for free: the receipt costs µ or it does not exist. Strip a trace down to its classical
 shadow and the distinctions that entitlement turns on stop being visible at all, so
 the shadow can no longer tell you what was earned and what was merely assumed.
-
-                                             66
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
 And narrowing the feasible set is no longer a vibe; it has a formal path into predicate
 strengthening with a ledger lower bound underneath it, so the act of knowing more
 shows up as a number that went up. Then the substrate-level result in Section 19
@@ -3341,15 +3344,15 @@ explains the term). vm_certified (the top-level flag). Any concrete instruction 
 turns either channel from off to on costs at least 1. The kernel proves it: certificat
 ion_requires_positive_mu.
 
+
+
+                                             67
+The Thiele Machine                                              Devon Thiele • June 2026
+
+
 Precision first. LASSERT reads a constraint package and charges for it. LASSERT
 does not flip either cert channel. Two opcodes do the flipping: CERTIFY
 (sets vm_certified = true) and MORPH_ASSERT (sets csr_cert_addr nonzero
-
-
-                                           67
-The Thiele Machine                                                Devon Thiele • June 2026
-
-
 when the assertion succeeds). LASSERT is the validation that precedes them.
 The kernel groups a broader cost-positive class: LASSERT, EMIT, REVEAL, LJOIN,
 READ_PORT, CERTIFY, MORPH_ASSERT. Each costs at least 1 at the step level.
@@ -3391,13 +3394,14 @@ so it already costs at least one. But look at what is being certified. S > 2 mea
 recorded outcomes cannot have come from any local hidden variable model (Section 2):
 no shared-randomness-then-local-choice story, which is the whole classical account
 of how two separated outcomes manage to correlate, can produce them. So this tier
+
+                                          68
+The Thiele Machine                                                  Devon Thiele • June 2026
+
+
 certifies a fact that rules out an entire worldview, and the price does not flinch for the
 size of the thing it is pricing. Certified evidence of a game violation costs at least one
 to come by, on a trace of any length you care to run.
-
-                                           68
-The Thiele Machine                                                  Devon Thiele • June 2026
-
 
 6.2 Why insight cannot be free
 The proof:
@@ -3439,8 +3443,6 @@ must also carry a non-triviality witness: one satisfying assignment and one fals
 assignment. That proves the asserted constraint excludes at least one state and there-
 fore genuinely narrows the feasible set. The receipt proves spend. The witness proves
 the spend bought an actual narrowing.
-
-
 
 
                                             69

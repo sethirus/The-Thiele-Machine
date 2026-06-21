@@ -58,6 +58,8 @@ Assumptions` reporting `Closed under the global context`. Zero axioms. Zero
 `Admitted`. If a theorem were leaning on a hidden assumption, that line would
 rat it out and `make verify` would stop. It doesn't.
 
+It compiles [minimal/Napkin.v](minimal/Napkin.v) too: the three-line napkin argument written out as seven theorems, each closing the same way, zero axioms. The napkin doesn't just hold; it compiles.
+
 Then it runs [minimal/nofi_demo.py](minimal/nofi_demo.py), which rebuilds the
 quantitative floor with none of my code anywhere near it. Narrowing down what's
 possible is the same act as erasing what isn't, and erasing was never free; that
@@ -113,8 +115,8 @@ Everything in this repository other than the proof tree of the idea above is a *
 Each line is a thing I am willing to be wrong about by name. Wrong conclusion means wrong premise, the law you learned in tenth grade and have not been asked to unlearn since. There is no third move.
 
 1. If flipping a certification bit costs ≥ 1 (A2).
-2. And classical machines have no state slot to enforce this constraint at the step-transition level.
-3. Then classical machines are a structurally blind, strictly lossy projection of a substrate that does, a shadow of it.
+2. And the classical step rules — Turing, register, λ — read no certificate or cost, so on them A2 can only be a checker a later program drops, never a law of the step; the rule that makes it law is the substrate, not a bigger Turing machine.
+3. Then classical machines are a structurally blind, strictly lossy projection of a substrate that does — a shadow of it.
 
 That's the whole claim. A napkin holds it. Delete the repository and the three lines still hold. The four steps below are this argument unfolded with kernel citations. Same content, more words.
 
