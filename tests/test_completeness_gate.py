@@ -726,6 +726,7 @@ class TestPipelineArtifacts:
                 continue
             relative = str(py.relative_to(ROOT))
             if ("archive" in str(py) or ".venv" in str(py)
+                    or ".claude" in str(py)
                     or "__pycache__" in str(py) or relative.startswith("tests/")
                     or relative.startswith("artifacts/")):
                 continue

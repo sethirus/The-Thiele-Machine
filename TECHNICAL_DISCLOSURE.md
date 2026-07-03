@@ -11,7 +11,7 @@
 
 ## Summary
 
-The classical theory of computation has two axes: time and space. The Thiele Machine adds a third, certification cost, and proves the classical models are its structural-axis projection. The scope, up front so you meet it before the argument does: *given* a substrate that prices the certification event and holds trust fixed, classical computation is its canonical lossy projection, and A2 is the only rule that prices that event exactly. That part is machine-checked and sharp, and it carries a priority claim, not just a direction: a classical step rule can only run a fallible checker of A2 from outside the step, never carry A2 as a law of the step, so the classical fragment is derivative of the substrate, not a parallel option. Whether *certification* is the event a real model is forced to price, rather than head-reversals or multiplications or some other step-event, is a separate question, and it is open: that certification is the axis on the meter is written into the setup here, not won, and I am not claiming otherwise. The argument is four steps, each stated below. Break any one and the whole disclosed claim goes with it, and that break is the thing I most want to hear about, so tell me which step and where.
+The classical theory of computation has two axes: time and space. The Thiele Machine adds a third, structural cost, and proves the classical models are its structural-axis projection. The sharpest instance of the new axis, and the one the four steps below stand on, is certification, the move that turns a claim from unverified to verified. The scope, up front so you meet it before the argument does: *given* a substrate that prices the certification event and holds trust fixed, classical computation is its canonical lossy projection, and A2 is the only rule that prices that event exactly. That part is machine-checked and sharp, and it carries a priority claim, not just a direction: a classical step rule can only run a fallible checker of A2 from outside the step, never carry A2 as a law of the step, so the classical fragment is derivative of the substrate, not a parallel option. Whether *certification* is the event a real model is forced to price, rather than head-reversals or multiplications or some other step-event, is a separate question, and it is open: that certification is the event on the meter is written into the setup here, not won, and I am not claiming otherwise. The argument is four steps, each stated below. Break any one and the whole disclosed claim goes with it, and that break is the thing I most want to hear about, so tell me which step and where.
 
 **1. A2 cannot be written on a classical step relation.** A2 is the rule that any step flipping certification from false to true costs at least 1. A Turing machine, a register machine, a lambda reducer carries no certification flag for A2 to constrain, and being Turing-equivalent supplies none: equivalence preserves the computed function, and the function never reads the flag. Completeness is a statement about what you compute, not about what the step can branch on, so the whole equivalence class lacks the field by the property that defines it. The rule is unformulable on classical state, not merely unenforced. See `cs_cert_costs` in `coq/kernel/nfi/UniversalCertificationCost.v`.
 
@@ -41,7 +41,7 @@ The concrete realisation disclosed in the remainder of this document is a Coq ke
 
 **LASSERT** charges `flen × 8 + S(mu_delta)` where `flen` is the encoded formula-unit count read from the formula's own in-memory header.
 
-**Why S(δ) = δ+1 is the unique honest minimum.** δ+0 lets certification slip through for free; δ+2 overcharges, padding the bill for no reason; δ+1 is the one value left standing, the smallest number that still costs something. The nice part is I didn't get to pick it: `MuCostDerivation.v`, theorems `cost_necessity` and `cost_uniqueness`.
+**Why S(δ) = δ+1 is the unique honest minimum.** δ+0 lets certification slip through for free; δ+2 overcharges, padding the bill for no reason; δ+1 is the one value left standing, the smallest number that still costs something. The nice part is I didn't get to pick it: the substitution test proves, trust held fixed, that the only exact non-overcharging pricer of the flip is A2 itself (`a2_equal_trust_substitution_payoff` in `coq/kernel/nfi/A2Payoff.v`; sharp forms `substitution_test_exact_substitute_is_a2` and `substitution_test_rejects_non_a2_exact_substitute` in `coq/kernel/nfi/CommitmentPredicateAdequacy.v`). The LASSERT formula-cost minimality is the separate pair `cost_necessity` and `cost_uniqueness` in `MuCostDerivation.v`.
 
 **Hardware.** In the synthesized RTL (`thielecpu/hardware/rtl/thiele_cpu_kami.v`), `vm_mu` is a 32-bit register incremented inline within the step rule. The cost field occupies bits [7:0] of the 32-bit instruction word.
 
@@ -172,7 +172,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 
 **What it is.** An automated CI tool (`scripts/inquisitor.py`) that scans every Coq file in the active proof tree for: Admitted lemmas, `admit` tactics, vacuous theorems (conclusion is `True` or `0=0`), undocumented global axioms, physics stubs (quantity defined as placeholder constant), circular import chains, and TODO/FIXME markers in proof comments. The tool enforces zero-tolerance on all categories and fails CI on any finding.
 
-**Current status.** 0 HIGH, 0 MEDIUM, 0 LOW findings across 205 active Coq files.
+**Current status.** 0 HIGH, 0 MEDIUM, 0 LOW findings across the 280 Coq files the scan covers.
 
 **Variants disclosed.** Any automated proof hygiene system that enforces zero-admit discipline and detects vacuous, tautological, or circular proofs via static analysis of proof assistant source files is a variant of this concept.
 
@@ -233,6 +233,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 | June 2026 | v2.0.1 update: zero admits confirmed across 267 files; 3,823 theorems probed, zero project-local axioms. |
 | June 2026 | v2.0.2 update: corrected the four-body conjugate-cell sign in the Q_{1+AB} moment matrix — the (A₀B₁, A₁B₀) cell carries −γ5, not +γ5 (forced by ⟨B₀B₁⟩ = 0). The level-1+AB CHSH certification now reaches the Tsirelson bound 2√2 instead of capping at the classical 2; the prior definition silently identified the two four-body cells, collapsing the certified cone to the local polytope. Regression guards added (a CHSH = 2.4 correlator the check now certifies and previously could not). Full corpus recompiles with zero project-local axioms. |
 | June 2026 | v3.0.0: the reductions tier lands — five real-world systems (PoS finality, gas metering, TEE attestation, certificate transparency, proof-carrying verification) instantiated against the kernel's abstract records, every main theorem closed under the global context. Receipt regenerated: 273 files, 3,905 theorems probed, zero project-local axioms. Kernel feature-frozen. |
+| July 2026 | v3.0.1: documentation-recalibration release, no kernel semantic change. The front doors reframe the third axis as structural cost with certification as its sharpest instance; the monograph is corrected wall to wall against the kernel (witness constructions, cost-class rosters, receipt names, falsification conditions); receipt current at 277 files, 3,937 theorems probed, zero project-local axioms. |
 
 ---
 
@@ -241,7 +242,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 All claims in this disclosure are verifiable by running:
 
 ```bash
-make -C coq -j4          # builds all 273 Coq files listed in coq/_CoqProject
+make -C coq -j4          # builds all 277 Coq files listed in coq/_CoqProject
 python3 scripts/inquisitor.py  # confirms zero findings
 pytest tests/ -q         # full suite, zero failures
 ```

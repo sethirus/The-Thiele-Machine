@@ -493,7 +493,13 @@ def iter_all_coq_files(repo_root: Path) -> Iterator[Path]:
         # vacuous Coq files used as test data by gates (e.g. the vacuity-gate
         # smoke fixture). They are intentionally vacuous by design — auditing
         # them for vacuity would defeat their purpose.
+        # EXCLUDE .claude: Claude Code's tooling directory. Its worktrees/ holds
+        # ephemeral full-repo scratch copies created by agents/workflows; they are
+        # never source of truth and must not be audited (would multiply findings
+        # across every stale worktree copy).
         relative_path = "/" + str(p.relative_to(repo_root).as_posix())
+        if relative_path.startswith("/.claude/"):
+            continue
         if "/archive/" in relative_path:
             continue
         if "/vendor/" in relative_path:

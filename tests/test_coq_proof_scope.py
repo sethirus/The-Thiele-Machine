@@ -84,7 +84,7 @@ def test_proof_scope_no_hardcoded_probe_paths():
     for path in REPO_ROOT.rglob("*.py"):
         # Skip vendored / virtualenv / build trees.
         parts = set(path.parts)
-        if parts & {".venv", "venv", "node_modules", "_build", ".git", "vendor"}:
+        if parts & {".venv", "venv", "node_modules", "_build", ".git", "vendor", ".claude"}:
             continue
         if path in allowed:
             continue

@@ -10,13 +10,16 @@
 
 Every computer ever built tracks two things about a computation: how long it
 runs and how much space it uses. None of them track whether a result was
-actually earned. The Thiele machine adds that third axis. It prices
-certification, the move that turns a claim from unverified to verified, into
-the law that governs each step, so nothing gets stamped verified without
-paying for it. The price lives in the step rule itself, not in a checker
-bolted on top that a program could skip or fake. The machine computes nothing
-a classical computer can't: the same functions, the same limits. It just loses
-the ability to lie about what it computed.
+actually earned. The Thiele Machine adds that third axis: it carries structure
+as first-class, paid-for state, so nothing a computation leans on counts as
+established unless the trace paid for the right to it. The sharpest instance is
+certification, the move that turns a claim from unverified to verified, priced
+into the law that governs each step, so nothing gets stamped verified without
+paying for it. The price lives in the step rule itself, not in a checker bolted
+on top that a program could skip or fake. The same axis prices any structure a
+computation tries to claim. The machine computes nothing a classical computer
+can't: the same functions, the same limits. It just loses the ability to lie
+about what it computed.
 
 The machine is an abstract object, and I call it a **substrate**: a step rule
 with that one law built in. Every classical computer, the Turing machine and
@@ -118,9 +121,9 @@ Each line is a thing I am willing to be wrong about by name. Wrong conclusion me
 2. And the classical step rules — Turing, register, λ — read no certificate or cost, so on them A2 can only be a checker a later program drops, never a law of the step; the rule that makes it law is the substrate, not a bigger Turing machine.
 3. Then classical machines are a structurally blind, strictly lossy projection of a substrate that does — a shadow of it.
 
-That's the whole claim. A napkin holds it. Delete the repository and the three lines still hold. The four steps below are this argument unfolded with kernel citations. Same content, more words.
+That's the priority claim, the sharpest cut through the axis. A napkin holds it. Delete the repository and the three lines still hold. The four steps below are this argument unfolded with kernel citations. Same content, more words.
 
-Where to look. The first line is A2, and A2 is two clauses and an integer. A step that flips cert costs at least one, the rule fits on the napkin with the conclusion, and the check is finite, public, and yours to run. The second line is the kind of fact you defeat by writing down a different Turing machine, and I'd genuinely love for someone to. Here's how it goes when I try. A state type with a field the step rule reads to see whether the last move flipped cert has already left the classical world, which was the claim. A state type that stays classical has the fields it has, and I can list them; none of them is that field. There aren't any. That is not philosophy, that is just the signature, sitting there.
+Where to look. The first line is A2, and A2 is two clauses and an integer. A step that flips cert costs at least one, the rule fits on the napkin with the conclusion, and the check is finite, public, and yours to run. The second line is the kind of fact you defeat by writing down a different Turing machine, and I'd genuinely love for someone to. Here's how it goes when I try. A state type with a field the step rule reads to see whether the last move flipped cert has already left the classical world, which was the claim. A state type that stays classical has the fields it has, and I can list them; none of them is that field. There aren't any. That is just the signature, sitting there.
 
 The next move is the simulator: decline the field, run my rule as a program on the tape, increment cert in the program. Granted. The TM produces every trace I produce, beat for beat. It produces the buggy ones too. Faithful is what TMs do. The substrate cannot run the buggy version. That gap, same trace minus the *can't*, is line 3. Simulation is not the escape from the projection. Simulation *is* the projection with the loss made operational.
 
@@ -129,7 +132,7 @@ The stakes are that specific. Coq is a notebook of receipts; the arithmetic come
 
 ## The argument, formally
 
-The opener says it in plain English. Here it is as four steps for the technical reader, each backed by a Coq theorem. The classical theory of computation has two axes: time and space. This machine adds a third, certification cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. If a step doesn't land for you, that's the interesting place to push, and the honest news is that there's no step-zero objection that does any work without engaging the structure, which is the whole reason I bothered to lay the steps out one at a time.
+The opener says it in plain English. Here it is as four steps for the technical reader, each backed by a Coq theorem. The classical theory of computation has two axes: time and space. This machine adds a third, structural cost (μ), tracked at the step relation rather than at the program layer, and proves the classical models are its forgetful projection. If a step doesn't land for you, that's the interesting place to push, and the honest news is that there's no step-zero objection that does any work without engaging the structure, which is the whole reason I bothered to lay the steps out one at a time.
 
 **1. A2 constrains state fields the bare classical signatures don't have.**
 
@@ -599,7 +602,7 @@ pipeline.
   title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
   author       = {Thiele, Devon},
   year         = {2026},
-  version      = {3.0.0},
+  version      = {3.0.1},
   doi          = {10.5281/zenodo.17316437},
   publisher    = {Zenodo},
   howpublished = {\url{https://doi.org/10.5281/zenodo.17316437}}

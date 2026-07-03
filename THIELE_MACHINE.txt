@@ -4,7 +4,11 @@ A distillation: substrate, one axiom, what follows
 Devon Thiele -- June 2026
 
 
-This is the Thiele Machine, distilled to logic. Substrate, one
+This is the Thiele Machine, distilled to logic. It adds one axis to
+computation: structure carried as paid-for state, so a result counts
+as earned only if the trace paid for it. Certification, the move from
+unverified to verified, is the sharpest instance of that, and the one
+this page is built on; it is not the whole of the axis. Substrate, one
 axiom, what follows. If you want to dismiss it, the place to do it
 is on this page. Each step stands on its own; the argument falls
 if one of them does.
@@ -258,10 +262,14 @@ outside counter, which is exactly what makes cost external rather than
 the object's own (the split of Section 4). Neither field is
 removable, so (P, mu) is the smallest cert-and-cost state there is.
 A2 is the law that lives on it: a cert-flip costs at least 1. And A2
-is the exact least price for committing a cert -- swap any checker in
-for the law and it misprices a single step, the exact move the buggy
-simulator of Section 5 makes and the exact move the substrate has no
-instruction for. Classical computation is what is left when you forget
+is the exact least price for committing a cert, exact from both
+sides: skip the flip's charge and you underprice on the one-step
+trace that flips, the exact move the buggy simulator of Section 5
+makes and the exact move the substrate has no instruction for;
+charge a step that flips nothing and you overprice, billing a
+certification that never happened. Swap any checker in for the law
+and it misprices one of those two single steps.
+Classical computation is what is left when you forget
 this minimal cert-and-cost state -- the state on which A2 is a law the
 step obeys rather than a checker run from outside. That is what
 derivative means here, and the forgetful map is just how you watch it

@@ -5,8 +5,8 @@ authors:
   - family-names: Thiele
     given-names: Devon
 type: software
-version: 3.0.0
-date-released: 2026-06-15
+version: 3.0.1
+date-released: 2026-07-02
 license: Apache-2.0
 repository-code: "https://github.com/sethirus/The-Thiele-Machine"
 url: "https://github.com/sethirus/The-Thiele-Machine"
@@ -21,16 +21,21 @@ keywords:
   - hardware verification
   - No Free Insight
 abstract: >-
-  The Thiele Machine is a computational model in which a transition from
-  "unverified" to "verified" cannot occur unless it pays a positive structural
-  cost --- a rule (A2) enforced in the step relation rather than in checkable
-  software. It computes exactly the same functions as a Turing machine, adding
-  one axis of state and one constraint on how a result may be claimed; because no
-  classical step rule reads that certificate or cost at the step level --- A2 is
-  only ever a checker a later program drops, never the law of the move --- it is
-  a structurally lossy projection of a substrate that does. The repository
-  contains the machine-checked Coq kernel (zero
-  project-local axioms; zero admits across 276 files, 3,929 theorems probed), an
-  OCaml runner extracted from it, a Kami/Bluespec/Verilog RTL realization, and
-  the accompanying monograph. The software is licensed Apache-2.0; the monograph
-  and distillation are licensed CC-BY-SA-4.0.
+  Classical computation tracks two things about a run: how long it takes and how
+  much space it uses. It never tracks whether the result was earned. The Thiele
+  Machine adds that third axis, where structure is first-class, paid-for state,
+  so a computation cannot treat a fact as established unless the trace paid for
+  the right to it. It computes exactly the same functions as a Turing machine.
+  What is new is the axis and one law on it. The sharpest instance is
+  certification: the step that turns a result from unverified to verified is
+  priced, by a single rule called A2, inside the step relation itself, not in a
+  checker a later program could skip or fake. No classical step rule has a field
+  to read that cost or that certificate, so on a Turing, register, or lambda
+  machine A2 can only be a checker run beside the program, never the law of its
+  moves. That is what makes classical computation the structurally lossy
+  projection of a substrate that carries the law. The repository contains the
+  machine-checked Coq kernel (zero project-local axioms, zero admits, 3,937
+  theorems probed across 277 files), an OCaml runner extracted from it, a
+  Kami/Bluespec/Verilog RTL realization, and the accompanying monograph. The
+  software is licensed Apache-2.0; the monograph and distillation are licensed
+  CC-BY-SA-4.0.
