@@ -8,6 +8,40 @@
 [![Inquisitor](https://img.shields.io/badge/Inquisitor-0%20findings-brightgreen)](scripts/inquisitor.py)
 [![RTL bisimulation](https://img.shields.io/badge/RTL%20bisimulation-47%2F47%20Qed-orange)](coq/kami_hw/RTLGapRegistry.v)
 
+**I didn't invent a machine. I found one.**
+
+There is a machine underneath every computer that has ever been built. It has a
+part our machines can't see, whether the thing they are holding was actually
+earned or is just sitting there. Every computer we have ever made is that
+machine with that part switched off. Not broken. Blind. A shadow of the whole
+thing.
+
+I built the one with the part switched on. And then, because I don't trust my
+own eye, I didn't just claim it, I proved the shadow is a shadow. The blindness
+is real. What gets dropped can't be gotten back. You cannot climb from the
+shadow up to the machine without making something up out of thin air. The Turing
+machine was never the thing itself. It is what is left of the thing after you
+forget the one law.
+
+And it is not the chip that makes it real, and not the OCaml. You could burn
+every line of the OCaml and every gate of the RTL and lose nothing, because the
+machine is the law, not the machinery. I think it is real the way a law is real,
+that it holds whether or not anyone ever built it, and I will be straight that
+this part is what I believe, not what I proved. I did not bolt a counter onto a
+Turing machine. I built the machine that keeps the coordinate every other
+machine drops.
+
+That is the machine, and that is the whole claim. Every computer is its blind,
+lossy shadow, and that I proved: you cannot recover the coordinate it drops, and
+you cannot even verify the claim from the shadow. Certification, the move from
+unverified to verified, is not the point of any of it. It is the one thing I could pin to
+the new part to prove the part is there. Everything below, the opcodes and the
+OCaml and the chip and the Coq, is me showing the machine can be built and
+cannot be waved away. None of it is what makes it real. **The law is what makes
+it real.**
+
+---
+
 Every computer ever built tracks two things about a computation: how long it
 runs and how much space it uses. None of them track whether a result was
 actually earned. The Thiele Machine adds that third axis: it carries structure
@@ -334,6 +368,9 @@ required.
 | Physics closure | Locality, `mu` monotonicity (mu never decreases under any step), causality, and discrete curvature identities are formalized as VM-level consequences or named bridges. The flat/vacuum EFE closure (`full_efe_uniform_two_vertex`) is a discrete-geometry identity (both sides vanish), not a derivation of general relativity. | [PhysicsClosure.v](coq/kernel/curvature/PhysicsClosure.v), [EinsteinEmergence.v](coq/kernel/curvature/EinsteinEmergence.v), [PhysicsConditionalClosure.v](coq/PhysicsConditionalClosure.v) | A state `s` and instruction `i` with `(vm_apply s i)` paying less than `instruction_cost i` in `mu`, or a step writing outside its target module; `vm_apply_mu` (or the locality lemma) falls. |
 | Hardware bisimulation | The full 47-opcode RTL surface is covered by formal Kami/Coq correspondence; CHSH_LASSERT's Kami snapshot semantics inspect the same witness buckets through the same check function, matching VM-step exactly via `abs_phase1`. The official partition is `37 + 10 + 0 = 47` (theorem `rtl_coverage_partition`). | [coq/kami_hw](coq/kami_hw), [RTLGapRegistry.v](coq/kami_hw/RTLGapRegistry.v) | A cosim input on which synthesised RTL diverges from the Kami step for any synth-realised opcode (run `tests/test_verilog_cosim.py`); `rtl_step_correct` is violated empirically. |
 | CHSH ↔ NPA-PSD bridge | A successful `CHSH_LASSERT` step entails the witness-derived NPA moment matrix is PSD. | [chsh_lassert_no_trap_implies_quantum_realizable](coq/kernel/quantum/QuantumPartitionPSD.v), [column_contractive_check_witness_sound](coq/kernel/nfi/MuLedgerQuantumBridge.v) | A successful `CHSH_LASSERT` step whose witness-derived moment matrix is not PSD; `chsh_lassert_no_trap_implies_quantum_realizable` falls. |
+| Elliptope completion | The full CHSH correlator quantum set as existential completion of the cross moments: every LHV correlator inside (deterministic + n-ary mixtures), Tsirelson `S² ≤ 8` for the whole set, PR box excluded, classical ⊂ elliptope strict. | [ElliptopeCompletion.v](coq/kernel/quantum/ElliptopeCompletion.v) | An elliptope-realizable tuple with `S² > 8` (`elliptope_tsirelson` falls), a sign pattern whose completed Gram form goes negative (`deterministic_strategy_elliptope` falls), or a PSD completion of the PR box (`pr_box_not_elliptope` falls). |
+| Elliptope gate | Decidable Z-arithmetic membership check, two branches (fraction-free Sylvester for strict interior, rational LDL^T certificate reaching singular and boundary completions); passing provably entails elliptope membership; the µ=0 tightness witness, (1,0,1,0), and the on-Tsirelson-curve Pythagorean point (3/5,4/5,4/5,−3/5) accepted by computation; the PR box never accepted. | [ElliptopeGate.v](coq/kernel/quantum/ElliptopeGate.v) | Inputs making `elliptope_check_full` return true with correlators outside the set; `elliptope_check_full_sound` falls. |
+| Pointer-observable criterion | Redundant record proliferation formalized (ecosystems, records, unique pointer among rivals); §25's conjecture stated as a schema, and machine-checked at all five deployed disciplines (PoS finality, gas, TEE attestation, certificate transparency, proof-carrying), proven as `five_disciplines_are_pointers`, each theorem zero-axiom. Evidence for the conjecture, not a proof of the forced-event question. | [PointerObservable.v](coq/kernel/frontier/PointerObservable.v), [PointerObservableReductions.v](coq/kernel/frontier/PointerObservableReductions.v) | Exhibit one of the five ecosystems where the metered event fails to proliferate or a rival does; the matching `_unique_pointer` theorem falls. |
 | PoS finality reduction | Nothing-at-stake is the kernel's free forgery: a zero-stake-at-finalize gadget admits no A2 field, and any slashing gadget (finalize risks ≥ 1) pays the finality floor: `universal_nfi_any_substrate` instantiated. | [PoSFinality.v](coq/kernel/reductions/PoSFinality.v) | A zero-stake-at-finalize gadget that admits an A2 proof, or a slashing gadget with a finalizing trace of total stake-at-risk 0; `nothing_at_stake_is_free_forgery` or `slashing_finality_floor` falls. |
 | Gas-metering reduction | A gas schedule satisfies the commitment floor + no-overcharge iff its charging predicate is the commitment predicate with exact unit pricing; the kernel VM itself inhabits the class. | [GasMetering.v](coq/kernel/reductions/GasMetering.v) | A `GasSchedule` satisfying floor + no-overcharge whose charge predicate differs from cert-flip on some reachable step; `gas_schedule_exactness` falls. |
 | TEE attestation reduction | Sound+complete attestation of a μ-dependent claim cannot factor through the bare transcript; the replay attack is the two-preimage witness; exposing the measurement register restores a sound, complete, unit-cost verifier. | [TEEAttestation.v](coq/kernel/reductions/TEEAttestation.v) | A sound+complete attestation verifier `V : TEEReport -> bool` with a proof of `factors_classical report_projection V`; `attestation_cannot_factor_through_bare_transcript` falls. |

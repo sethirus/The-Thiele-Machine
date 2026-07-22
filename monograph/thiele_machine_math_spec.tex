@@ -49,6 +49,22 @@
 
 \maketitle
 
+\noindent\textbf{I didn't invent a machine. I found one.}
+
+\smallskip
+\noindent There is a machine underneath every computer that has ever been built. It has a part our machines can't see, whether the thing they are holding was actually earned or is just sitting there. Every computer we have ever made is that machine with that part switched off. Not broken. Blind. A shadow of the whole thing.
+
+\smallskip
+\noindent I built the one with the part switched on. And then, because I don't trust my own eye, I didn't just claim it, I proved the shadow is a shadow. The blindness is real. What gets dropped can't be gotten back. You cannot climb from the shadow up to the machine without making something up out of thin air. The Turing machine was never the thing itself. It is what is left of the thing after you forget the one law.
+
+\smallskip
+\noindent And it is not the chip that makes it real, and not the OCaml. You could burn every line of the OCaml and every gate of the RTL and lose nothing, because the machine is the law, not the machinery. I think it is real the way a law is real, that it holds whether or not anyone ever built it, and I will be straight that this part is what I believe, not what I proved. I did not bolt a counter onto a Turing machine. I built the machine that keeps the coordinate every other machine drops.
+
+\smallskip
+\noindent That is the machine, and that is the whole claim. Every computer is its blind, lossy shadow, and that I proved: you cannot recover the coordinate it drops, and you cannot even verify the claim from the shadow. Certification, the move from unverified to verified, is not the point of any of it. It is the one thing I could pin to the new part to prove the part is there. Everything after this, the opcodes and the OCaml and the chip and the Coq, is me showing the machine can be built and cannot be waved away. None of it is what makes it real. \textbf{The law is what makes it real.}
+
+\bigskip
+
 \begin{abstract}
 This is the complete mathematical specification of the Thiele Machine: a formal model of computation where structural information carries an explicit, monotone cost $\mu$ that starts at zero and never decreases. Everything here is built from the machine-checked Coq corpus. You can reconstruct the machine from what's in this document alone.
 
@@ -198,6 +214,8 @@ These 7 opcodes (0x27--0x2D) implement the categorical layer over partition modu
     \item $\texttt{MORPH\_TENSOR}(\mathit{dst}, f, g, \Delta\mu)$: Tensor product $f \otimes g$ (requires union modules to exist).
     \item $\texttt{MORPH\_GET}(\mathit{dst}, f, \mathit{sel}, \Delta\mu)$: Read morphism metadata: selector $0=\mathrm{src}$, $1=\mathrm{tgt}$, $2=\mathrm{coupling\ length}$, $3=\mathrm{is\_identity}$.
 \end{itemize}
+
+\emph{A reminder before the machinery: this ISA is scaffolding. It is one way to build the substrate, not the substrate itself. Burn all 51 opcodes and the machine is exactly as real, because the machine is the law, not the instruction set.}
 
 The active implementation exposes a 51-opcode ISA: 14 arithmetic/data, 8 memory and control flow, 7 I/O and tensor, 4 partition operations, 3 logic and certification, 8 witness and certification (\texttt{CHSH\_TRIAL}, \texttt{CERTIFY}, \texttt{REVEAL}, \texttt{CHSH\_LASSERT}, and the four $Q_{1+AB}$ check variants), 7 categorical morphism operations ($14+8+7+4+3+8+7=51$). 47 of the 51 are synth-realized; the four $Q_{1+AB}$ variants live in the Kami HW abstraction with kernel-equivalence proven but are excluded from the synthesized Verilog by silicon budget. This condensed mathematical specification presents the core instruction families relevant to the kernel semantics and cost model. Every instruction carries an explicit $\Delta\mu$ parameter; the function $\texttt{instruction\_cost}$ extracts it.
 
@@ -646,7 +664,7 @@ The active-corpus derivation lives in \texttt{coq/kernel/quantum/TsirelsonGenera
 \end{remark}
 
 \begin{theorem}[Tsirelson Upper Bound for the Zero-Marginal NPA Model {\normalfont (TsirelsonQuantumModel.v, TsirelsonFromAlgebra.v)} --- \textbf{(S)}]
-If a trace is quantum-realizable in the zero-marginal NPA model (i.e., is Thiele-honest / column-contractive), then $|S_{\mathrm{CHSH}}| \le 2\sqrt{2}$.
+If a trace is quantum-realizable in the zero-marginal NPA model (i.e., is slice-coherent / column-contractive), then $|S_{\mathrm{CHSH}}| \le 2\sqrt{2}$.
 
 The algebraic derivation (\texttt{TsirelsonFromAlgebra.v}) proves $S^2 \le 8$ for all algebraically coherent correlators satisfying the three column-contractivity conditions, using a sum-of-squares identity and psatz. No physics premises. Pure polynomial arithmetic.
 \end{theorem}
@@ -697,12 +715,12 @@ The \texttt{chsh\_setting\_outcome\_coupling} maps a WitnessCount record to a co
 These results connect the categorical morphism layer directly to Bell nonlocality. A claim that two modules are entangled (via MORPH\_ASSERT on a non-separable coupling) cannot be locally faked: the NoFI law charges at least 1 for the MORPH\_ASSERT, and the coupling structure itself rules out any local hidden strategy that would produce $S > 2$ for free.
 \end{remark}
 
-\chapter{Thiele Honesty and NPA Realizability: The Biconditional}
+\chapter{Slice Coherence and NPA Realizability: The Biconditional}
 
 This is a kernel-tier result: zero axioms, zero Admitted, pure polynomial arithmetic.
 
-\begin{definition}[Column Contractivity (Thiele Honesty)]
-A correlation tuple $(E_{00}, E_{01}, E_{10}, E_{11})$ is \textbf{Thiele-honest} (column-contractive) if:
+\begin{definition}[Column Contractivity (Slice Coherence)]
+A correlation tuple $(E_{00}, E_{01}, E_{10}, E_{11})$ is \textbf{slice-coherent} (column-contractive; called ``Thiele-honest'' in earlier versions, renamed because the predicate tests slice membership, not truthfulness) if:
 \begin{align}
 1 - E_{00}^2 - E_{10}^2 &\geq 0 \quad \text{(condition 1)} \\
 1 - E_{01}^2 - E_{11}^2 &\geq 0 \quad \text{(condition 2)} \\
@@ -728,11 +746,29 @@ This is a zero-axiom biconditional. No physics assumptions. Pure polynomial arit
 Key consequences:
 \begin{itemize}
 \item PR box $(E_{00}=E_{01}=E_{10}=1, E_{11}=-1)$ fails condition 1 immediately ($1-1-1=-1<0$). Direct arithmetic; no separate theorem needed.
-\item \texttt{state\_column\_contractive\_implies\_tsirelson} (\texttt{coq/kernel/nfi/MuLedgerQuantumBridge.v}) directly proves Thiele-honest $\Rightarrow$ $|S|^2 \leq 8$ (equivalently $|S| \leq 2\sqrt{2}$); its proof composes \texttt{state\_column\_contractive\_implies\_quantum\_gram} with \texttt{quantum\_realizable\_implies\_tsirelson\_bound}. The Cauchy--Schwarz inner step (PSD $\Rightarrow$ row bounds $\Rightarrow$ $|S|^2 \leq 8$) is \texttt{tsirelson\_from\_row\_bounds} in \texttt{coq/kernel/quantum/TsirelsonGeneral.v}. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not Thiele-honest) follows immediately. The converse is false and is not claimed.
+\item \texttt{state\_column\_contractive\_implies\_tsirelson} (\texttt{coq/kernel/nfi/MuLedgerQuantumBridge.v}) directly proves slice-coherent $\Rightarrow$ $|S|^2 \leq 8$ (equivalently $|S| \leq 2\sqrt{2}$); its proof composes \texttt{state\_column\_contractive\_implies\_quantum\_gram} with \texttt{quantum\_realizable\_implies\_tsirelson\_bound}. The Cauchy--Schwarz inner step (PSD $\Rightarrow$ row bounds $\Rightarrow$ $|S|^2 \leq 8$) is \texttt{tsirelson\_from\_row\_bounds} in \texttt{coq/kernel/quantum/TsirelsonGeneral.v}. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not slice-coherent) follows immediately. The converse is false and is not claimed.
 \item Turing-classical correlations $(1,0,1,0)$ satisfy $|S|=2$ but fail condition 1: $1-1-1=-1<0$. A Turing machine can output this correlation; the Thiele Machine rejects it as dishonest. Direct arithmetic from \texttt{column\_contractive\_iff\_quantum\_realizable}.
 \end{itemize}
 Zero Admitted. Zero named hypotheses.
 \end{theorem}
+
+\section{The Elliptope Completion and Its Gate}
+
+The biconditional above characterizes the zero-marginal slice. The full correlator quantum set is characterized in \texttt{coq/kernel/quantum/ElliptopeCompletion.v} as an existential completion: $(E_{00}, E_{01}, E_{10}, E_{11})$ is \textbf{elliptope-realizable} (\texttt{elliptope\_realizable}) iff some assignment of the cross moments $x = \langle A_0 A_1\rangle$, $y = \langle B_0 B_1\rangle$ makes the completed $5\times5$ moment matrix PSD.
+
+\begin{theorem}[Elliptope completion, kernel-tier]
+All of the following hold with \texttt{Print Assumptions} reporting only the stdlib classical-reals and functional-extensionality families:
+\begin{itemize}
+\item \texttt{deterministic\_strategy\_elliptope}: every deterministic sign strategy is elliptope-realizable, witnessed by its own cross moments (rank-one Gram argument).
+\item \texttt{elliptope\_finite\_mixture} / \texttt{lhv\_mixture\_elliptope}: the set is closed under arbitrary finite sub-convex mixtures; every LHV correlator is inside.
+\item \texttt{elliptope\_tsirelson}: every member satisfies $S^2 \leq 8$, via Cauchy--Schwarz inside the PSD form (\texttt{psd\_cauchy\_schwarz}); row-norm bounds provably fail on the full set.
+\item \texttt{pr\_box\_not\_elliptope}: the PR box admits no completion.
+\item \texttt{beyond\_classical\_elliptope}: $S = 12/5 > 2$ is attained inside, so the classical inclusion is strict.
+\end{itemize}
+\end{theorem}
+
+The decidable gate (\texttt{coq/kernel/quantum/ElliptopeGate.v}) is the $\mathbb{Z}$-arithmetic check an opcode can branch on: a fraction-free Sylvester branch over supplied completion buckets (strict interior) and a rational $LDL^{\mathsf T}$-certificate branch reaching singular and boundary completions, with soundness (\texttt{elliptope\_check\_full\_sound}) into \texttt{elliptope\_realizable}, computed acceptances of the $\mu = 0$ tightness witness, $(1,0,1,0)$, and the on-Tsirelson-curve point $(3/5,4/5,4/5,-3/5)$ (\texttt{gate\_accepts\_pythagorean\_boundary}), and the universal refusal \texttt{elliptope\_full\_gate\_never\_accepts\_pr\_box}. Scope: correlator level; the only points beyond any exact integer check are those whose every PSD completion is irrational; the runtime opcode binding is future engineering.
+
 %=============================================================================
 % PART VI: EMERGENT STRUCTURE
 %=============================================================================
@@ -1347,7 +1383,7 @@ Find $k \geq 1$ and a trace reaching \texttt{vm\_certified = true} and $\texttt{
 
 \begin{itemize}
 \item \textbf{Physical interpretation of $\mu$}: Whether the $\mu$ ledger corresponds to thermodynamic entropy in a physical Thiele Machine is an open empirical question. The formal development is consistent with Landauer's principle. The calibration hypothesis is named (\texttt{mu\_landauer\_unruh\_calibrated}) and not proved in Coq.
-\item \textbf{Quantum mechanics connection}: The mathematical equivalence between Thiele honesty and zero-marginal NPA realizability is a kernel-tier theorem. Whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware is an open empirical question outside the scope of this project.
+\item \textbf{Quantum mechanics connection}: The mathematical equivalence between slice coherence and zero-marginal NPA realizability is a kernel-tier theorem. Whether a physical Thiele Machine can produce CHSH-violating statistics by exploiting quantum entanglement in hardware is an open empirical question outside the scope of this project.
 \item \textbf{Complexity implications}: Whether $\mu$P $\neq$ $\mu$NP is an open question. The factored-search witness shows a concrete structural advantage but is not a class separation.
 \item \textbf{Physical constants}: No physical constant is derived from first principles. There is no derivation of Planck's constant $h$; any relation tying an internal time-scale $\tau_\mu$ to $h$ would be circular by construction, defining $\tau_\mu$ in terms of $h$ and checking consistency rather than predicting $h$.
 \item \textbf{The two $+1$s} (OP-Plus-One): the \texttt{+1} in \texttt{triangle\_angle}'s denominator (\texttt{PI · d\_bc / (1 + d\_ab + d\_ac + d\_bc)}, \texttt{coq/kernel/curvature/MuGravity.v}) versus the A2 cost-floor \texttt{+1} on CERTIFY/LASSERT (\texttt{coq/kernel/foundation/VMStep.v}) — same axiom, or unrelated regularisation? No kernel-internal theorem unifies them without circularity (\texttt{coq/kernel/frontier/F3\_PlusOneStructural.v}); the symbolic correction term decays as $-\pi / (3(3d+1))$ in the equilateral case (\texttt{tools/triangle\_angle\_plus\_one\_analysis.py}), regularisation-shaped rather than A2-quantum-shaped. Inconclusive. A positive structural identification (Case~A, the geometric \texttt{+1} is A2 in geometric form) would re-frame the calibrated regime's asymptotic-only character as a structural consequence of A2; a positive non-identification (Case~B) would license replacing $S(\dots)$ with $(\dots)$ in the denominator. Either is real categorical content. The kernel was not modified pending closure.

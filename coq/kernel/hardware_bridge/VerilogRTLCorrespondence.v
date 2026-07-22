@@ -34,12 +34,12 @@
       - Yosys elaboration: [thiele_cpu_kami_synth.v] passes
         [prep -top mkModule1].
       - FPGA synthesis: the design synthesises to a real Xilinx
-        Kintex-7 bitstream ([build/thiele_xc7k325t.bit], target
-        xc7k325tffg900-2 on the Digilent Genesys 2 board) via Yosys
-        synth_xilinx + nextpnr-xilinx (openXC7) + prjxray xc7frames2bit,
-        with place-and-route succeeding (router2 converges at zero
-        overuse, max clock 49.33 MHz against the 12 MHz target,
-        ~11.4 MB .bit file uploaded as a CI artifact).
+        Artix-7 bitstream ([build/thiele_xc7a35t.bit], target
+        xc7a35t on the Digilent Arty A7 board, ~2.1 MB) via Yosys
+        synth_xilinx + nextpnr-xilinx (openXC7) + prjxray xc7frames2bit.
+        The committed bitstream is this Artix-7 one; a Genesys 2
+        Kintex-7 (xc7k325t) constraint file (fpga/thiele_genesys2.xdc)
+        is also provided, but no Genesys 2 bitstream is committed.
 
     The correspondence is therefore stated as a [Section Variable]
     rather than a global [Axiom]:
@@ -480,7 +480,8 @@ Qed.
     Empirical validation of the full step contract:
       - 31/31 cosim tests pass (tests/test_verilog_cosim.py)
       - 11,049/11,049 fuzz tests pass (tests/test_fuzz_random_programs.py)
-      - Kintex-7 FPGA bitstream (xc7k325tffg900-2, Digilent Genesys 2)
-        synthesises and place-and-routes with 0 errors *)
+      - Artix-7 FPGA bitstream (xc7a35t, Digilent Arty A7) synthesises
+        and place-and-routes with 0 errors; committed as
+        build/thiele_xc7a35t.bit *)
 
 End RTLCorrespondenceSection.
