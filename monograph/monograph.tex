@@ -90,7 +90,7 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[L]{\small\itshape The Thiele Machine}
-\fancyhead[R]{\small\itshape Devon Thiele \textbullet\ June~2026}
+\fancyhead[R]{\small\itshape Devon Thiele \textbullet\ July~2026}
 \fancyfoot[C]{\small\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0pt}
@@ -222,7 +222,7 @@
 and No Free Insight}\\[3.5em]
 \rule{0.5\linewidth}{0.4pt}\\[1.8em]
 {\large Devon Thiele}\\[0.6em]
-{\normalsize\itshape June 2026}
+{\normalsize\itshape July 2026}
 \end{center}
 \vspace*{\fill}
 \end{titlepage}
@@ -3489,7 +3489,7 @@ Run the Inquisitor on the repository. If it finds any HIGH, MEDIUM, or LOW findi
 
 \medskip
 \noindent\textbf{Falsify the axiom audit.}\\
-If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that lists everything a theorem depends on) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current probe across the kernel tier covers 3,937 named theorems: 2,923 close under the global Coq context outright, and 1,014 lean only on Coq standard-library axiom families (functional extensionality and the classical-reals construction). Of those, 67 depend on the excluded middle, which is the classical-logic axiom $P \lor \neg P$ (``either $P$ is true or $P$ is false, with no third option''); those uses come from the Coq standard library's real-analysis lemmas, entering through the physics-bridge families (the Holevo, Bekenstein, Landauer, and gravity bridges), not from project code; the CHSH algebra itself leans only on the classical-reals construction and functional extensionality. Zero project-local axioms appear in any of the 3,937 dependency trees. Any project-local axiom or parameter appearing in any of them is a bug.
+If running \texttt{Print Assumptions} (Section~\ref{sec:vocab}: the Coq command that lists everything a theorem depends on) on any named theorem in the kernel tier shows a project-local \texttt{Axiom} or \texttt{Parameter} in the dependency tree, the audit has degraded. The current probe across the kernel tier covers 3,980 named theorems: 2,934 close under the global Coq context outright, and 1,046 lean only on Coq standard-library axiom families (functional extensionality and the classical-reals construction). Of those, 67 depend on the excluded middle, which is the classical-logic axiom $P \lor \neg P$ (``either $P$ is true or $P$ is false, with no third option''); those uses come from the Coq standard library's real-analysis lemmas, entering through the physics-bridge families (the Holevo, Bekenstein, Landauer, and gravity bridges), not from project code; the CHSH algebra itself leans only on the classical-reals construction and functional extensionality. Zero project-local axioms appear in any of the 3,980 dependency trees. Any project-local axiom or parameter appearing in any of them is a bug.
 
 \medskip
 \noindent\textbf{Falsify the hardware bisimulation.}\\

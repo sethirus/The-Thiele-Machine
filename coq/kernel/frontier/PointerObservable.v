@@ -32,9 +32,10 @@
   3. NON-VACUITY. A toy replicated-ledger ecosystem: state carries a
      certification bit and a work counter; each of the observers stores a
      copy of the certification bit and nothing else. The certification
-     event proliferates ([toy_cert_proliferates]); the work-counter event
-     does not ([toy_work_not_proliferating]); certification is the unique
-     pointer among the two ([toy_cert_unique_pointer]). This witnesses
+     event proliferates (discharged inline in [toy_cert_unique_pointer]);
+     the work-counter event does not ([toy_work_not_proliferating]);
+     certification is the unique pointer among the two
+     ([toy_cert_unique_pointer]). This witnesses
      that the definitions are satisfiable and discriminating -- it is a
      sanity instance, not evidence for the conjecture, and the file says
      so in its own name for it.
@@ -128,14 +129,6 @@ Definition toy : Ecosystem := {|
 Definition cert_event (s : ToyState) : Prop := toy_cert s = true.
 Definition work_event (s : ToyState) : Prop := (1 <= toy_work s)%nat.
 
-(** The certification event proliferates: every observer's fragment is a
-    faithful copy of the flag. *)
-Theorem toy_cert_proliferates :
-  redundantly_proliferating toy cert_event.
-Proof.
-  intros i Hi s. unfold cert_event. simpl. reflexivity.
-Qed.
-
 (** The work event does not proliferate: no fragment can distinguish an
     uncertified state with work done from one without. *)
 Theorem toy_work_not_proliferating :
@@ -151,13 +144,16 @@ Proof.
 Qed.
 
 (** Certification is the unique pointer among the two meterable events of
-    the toy. Sanity instance only: the definitions are satisfiable and
-    discriminating; nothing here is evidence about deployed systems. *)
+    the toy: the certification event proliferates (every observer's
+    fragment is a faithful copy of the flag, discharged inline below),
+    the work event does not. Sanity instance only: the definitions are
+    satisfiable and discriminating; nothing here is evidence about
+    deployed systems. *)
 Theorem toy_cert_unique_pointer :
   unique_pointer_among toy cert_event [work_event].
 Proof.
   split.
-  - exact toy_cert_proliferates.
+  - intros i Hi s. unfold cert_event. simpl. reflexivity.
   - constructor; [exact toy_work_not_proliferating | constructor].
 Qed.
 

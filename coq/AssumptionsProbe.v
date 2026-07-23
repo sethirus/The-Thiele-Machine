@@ -35,7 +35,8 @@ Print Assumptions master_tsirelson_conditional.
    ============================================================ *)
 Print Assumptions master_non_circularity.
 Print Assumptions master_non_circular_mu_cost_primitives.
-Print Assumptions master_non_circular_chsh_formula.
+(* master_non_circular_chsh_formula removed with its vacuous
+   [chsh_formula_is_algebraic] re-export; see MasterSummary.v audit note. *)
 Print Assumptions master_non_circular_classical_witness.
 Print Assumptions master_non_circular_mu_zero_locc.
 

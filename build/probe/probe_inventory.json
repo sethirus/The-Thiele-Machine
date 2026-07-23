@@ -1,7 +1,7 @@
 {
   "schema": "thiele-print-assumptions-inventory-v2",
-  "files_probed": 277,
-  "total_addressable": 3936,
+  "files_probed": 281,
+  "total_addressable": 3979,
   "total_unaddressable": 4,
   "extras_addressable_via_instantiation": [
     {
@@ -11806,6 +11806,74 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/frontier/PointerObservable.v",
+      "qualified_module": "Kernel.PointerObservable",
+      "addressable_count": 2,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "ReplicatedLedgerToy.toy_work_not_proliferating",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.ReplicatedLedgerToy.toy_work_not_proliferating"
+        },
+        {
+          "local_name": "ReplicatedLedgerToy.toy_cert_unique_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservable.ReplicatedLedgerToy.toy_cert_unique_pointer"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/frontier/PointerObservableReductions.v",
+      "qualified_module": "Kernel.PointerObservableReductions",
+      "addressable_count": 8,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "mirror_rival_not_proliferating",
+          "kind": "Lemma",
+          "full_name": "Kernel.PointerObservableReductions.mirror_rival_not_proliferating"
+        },
+        {
+          "local_name": "mirror_unique_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableReductions.mirror_unique_pointer"
+        },
+        {
+          "local_name": "PoS_unique_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableReductions.PoS_unique_pointer"
+        },
+        {
+          "local_name": "Gas_unique_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableReductions.Gas_unique_pointer"
+        },
+        {
+          "local_name": "TEE_unique_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableReductions.TEE_unique_pointer"
+        },
+        {
+          "local_name": "CT_unique_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableReductions.CT_unique_pointer"
+        },
+        {
+          "local_name": "PCC_unique_pointer",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableReductions.PCC_unique_pointer"
+        },
+        {
+          "local_name": "five_disciplines_are_pointers",
+          "kind": "Theorem",
+          "full_name": "Kernel.PointerObservableReductions.five_disciplines_are_pointers"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/hardware_bridge/HardwareBisimulation.v",
       "qualified_module": "Kernel.HardwareBisimulation",
       "addressable_count": 12,
@@ -16846,6 +16914,189 @@
       "unaddressable": []
     },
     {
+      "file": "coq/kernel/quantum/ElliptopeCompletion.v",
+      "qualified_module": "Kernel.ElliptopeCompletion",
+      "addressable_count": 19,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "completed_quad_expand",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.completed_quad_expand"
+        },
+        {
+          "local_name": "completed_matrix_symmetric",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.completed_matrix_symmetric"
+        },
+        {
+          "local_name": "zero_marginal_implies_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.zero_marginal_implies_elliptope"
+        },
+        {
+          "local_name": "psd_cauchy_schwarz",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.psd_cauchy_schwarz"
+        },
+        {
+          "local_name": "elliptope_tsirelson",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.elliptope_tsirelson"
+        },
+        {
+          "local_name": "pr_box_not_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.pr_box_not_elliptope"
+        },
+        {
+          "local_name": "deterministic_strategy_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.deterministic_strategy_elliptope"
+        },
+        {
+          "local_name": "classical_tightness_witness_elliptope",
+          "kind": "Corollary",
+          "full_name": "Kernel.ElliptopeCompletion.classical_tightness_witness_elliptope"
+        },
+        {
+          "local_name": "turing_point_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.turing_point_elliptope"
+        },
+        {
+          "local_name": "convex_ge0",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.convex_ge0"
+        },
+        {
+          "local_name": "elliptope_convex",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.elliptope_convex"
+        },
+        {
+          "local_name": "beyond_classical_elliptope",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.beyond_classical_elliptope"
+        },
+        {
+          "local_name": "sumf_nonneg",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.sumf_nonneg"
+        },
+        {
+          "local_name": "sumf_ext",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.sumf_ext"
+        },
+        {
+          "local_name": "sumf_scale",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.sumf_scale"
+        },
+        {
+          "local_name": "sumf_zero_all",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.sumf_zero_all"
+        },
+        {
+          "local_name": "elliptope_zero",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeCompletion.elliptope_zero"
+        },
+        {
+          "local_name": "elliptope_finite_mixture",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeCompletion.elliptope_finite_mixture"
+        },
+        {
+          "local_name": "lhv_mixture_elliptope",
+          "kind": "Corollary",
+          "full_name": "Kernel.ElliptopeCompletion.lhv_mixture_elliptope"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
+      "file": "coq/kernel/quantum/ElliptopeGate.v",
+      "qualified_module": "Kernel.ElliptopeGate",
+      "addressable_count": 14,
+      "unaddressable_count": 0,
+      "addressable": [
+        {
+          "local_name": "bden_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.bden_pos"
+        },
+        {
+          "local_name": "bden_IZR_pos",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.bden_IZR_pos"
+        },
+        {
+          "local_name": "bden_IZR_neq0",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.bden_IZR_neq0"
+        },
+        {
+          "local_name": "bval_state_bucket_correlation",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.bval_state_bucket_correlation"
+        },
+        {
+          "local_name": "elliptope_pd_check_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.elliptope_pd_check_sound"
+        },
+        {
+          "local_name": "state_bucket_correlation_1_0",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.state_bucket_correlation_1_0"
+        },
+        {
+          "local_name": "state_bucket_correlation_0_1",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.state_bucket_correlation_0_1"
+        },
+        {
+          "local_name": "mul2_neq0",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.mul2_neq0"
+        },
+        {
+          "local_name": "mul3_neq0",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.mul3_neq0"
+        },
+        {
+          "local_name": "div_eq_intro",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.div_eq_intro"
+        },
+        {
+          "local_name": "one_eq_div",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.one_eq_div"
+        },
+        {
+          "local_name": "elliptope_ldl_check_sound",
+          "kind": "Lemma",
+          "full_name": "Kernel.ElliptopeGate.elliptope_ldl_check_sound"
+        },
+        {
+          "local_name": "elliptope_check_full_sound",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeGate.elliptope_check_full_sound"
+        },
+        {
+          "local_name": "elliptope_full_gate_never_accepts_pr_box",
+          "kind": "Theorem",
+          "full_name": "Kernel.ElliptopeGate.elliptope_full_gate_never_accepts_pr_box"
+        }
+      ],
+      "unaddressable": []
+    },
+    {
       "file": "coq/kernel/quantum/EntanglementEntropy.v",
       "qualified_module": "Kernel.EntanglementEntropy",
       "addressable_count": 6,
@@ -21406,9 +21657,9 @@
           "full_name": "Tests.CloseoutVerification.closeout_zero_gaps"
         },
         {
-          "local_name": "closeout_46_opcodes",
+          "local_name": "closeout_47_opcodes",
           "kind": "Theorem",
-          "full_name": "Tests.CloseoutVerification.closeout_46_opcodes"
+          "full_name": "Tests.CloseoutVerification.closeout_47_opcodes"
         },
         {
           "local_name": "closeout_extraction_identity",

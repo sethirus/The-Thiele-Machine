@@ -2,7 +2,7 @@
 
 **Author:** Devon Thiele  
 **First public disclosure:** August 15, 2025 (repository creation; development began January 2025)  
-**Current date:** June 2026  
+**Current date:** July 2026  
 **Repository:** https://github.com/sethirus/The-Thiele-Machine  
 **License:** Apache 2.0 (software), CC-BY-SA-4.0 (monograph/documentation)  
 **Purpose of this document:** Defensive publication. Every concept described here is publicly disclosed prior art under 35 U.S.C. § 102 (US) and Article 54 EPC (Europe) as of the dates above. This document is submitted for indexing to IP.com and similar prior art databases.
@@ -172,7 +172,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 
 **What it is.** An automated CI tool (`scripts/inquisitor.py`) that scans every Coq file in the active proof tree for: Admitted lemmas, `admit` tactics, vacuous theorems (conclusion is `True` or `0=0`), undocumented global axioms, physics stubs (quantity defined as placeholder constant), circular import chains, and TODO/FIXME markers in proof comments. The tool enforces zero-tolerance on all categories and fails CI on any finding.
 
-**Current status.** 0 HIGH, 0 MEDIUM, 0 LOW findings across the 280 Coq files the scan covers.
+**Current status.** 0 HIGH, 0 MEDIUM, 0 LOW findings across the 284 Coq files the scan covers.
 
 **Variants disclosed.** Any automated proof hygiene system that enforces zero-admit discipline and detects vacuous, tautological, or circular proofs via static analysis of proof assistant source files is a variant of this concept.
 
@@ -235,6 +235,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 | June 2026 | v2.0.2 update: corrected the four-body conjugate-cell sign in the Q_{1+AB} moment matrix — the (A₀B₁, A₁B₀) cell carries −γ5, not +γ5 (forced by ⟨B₀B₁⟩ = 0). The level-1+AB CHSH certification now reaches the Tsirelson bound 2√2 instead of capping at the classical 2; the prior definition silently identified the two four-body cells, collapsing the certified cone to the local polytope. Regression guards added (a CHSH = 2.4 correlator the check now certifies and previously could not). Full corpus recompiles with zero project-local axioms. |
 | June 2026 | v3.0.0: the reductions tier lands — five real-world systems (PoS finality, gas metering, TEE attestation, certificate transparency, proof-carrying verification) instantiated against the kernel's abstract records, every main theorem closed under the global context. Receipt regenerated: 273 files, 3,905 theorems probed, zero project-local axioms. Kernel feature-frozen. |
 | July 2026 | v3.0.1: documentation-recalibration release, no kernel semantic change. The front doors reframe the third axis as structural cost with certification as its sharpest instance; the monograph is corrected wall to wall against the kernel (witness constructions, cost-class rosters, receipt names, falsification conditions); receipt current at 277 files, 3,937 theorems probed, zero project-local axioms. |
+| July 2026 | v3.1.0: elliptope gate + pointer-observable criterion. New formal content: the full-elliptope existential-completion characterization of CHSH correlator realizability, with the Tsirelson bound via Cauchy–Schwarz inside the PSD form and PR-box exclusion (`coq/kernel/quantum/ElliptopeCompletion.v`); a decidable two-branch ℤ-arithmetic elliptope-membership gate (fraction-free Sylvester interior branch, rational LDLᵀ certificate reaching singular/boundary completions) whose acceptance provably entails membership (`coq/kernel/quantum/ElliptopeGate.v`); the pointer-observable criterion, with all five deployed metering disciplines (PoS finality, gas, TEE attestation, certificate transparency, proof-carrying verification) machine-checked as unique pointers — `five_disciplines_are_pointers` closed under the global context (`coq/kernel/frontier/PointerObservable.v`, `PointerObservableReductions.v`). Honesty pass across all front doors: the "Thiele-honest" gate framing renamed slice-coherent, believed-vs-proved separation made explicit, physics overclaim cut. Integrity fixes: RTL pipeline manifest regenerated against the committed tree; bitstream board reference corrected to the board actually built (Artix-7 Arty xc7a35t); two definitionally-trivial positive-witness lemmas inlined at their use sites per Inquisitor discipline. Receipt regenerated: 281 files, 3,980 theorems probed, zero project-local axioms. |
 
 ---
 
@@ -243,7 +244,7 @@ The three non-classical fields (µ, vm_certified, vm_graph) are each irrecoverab
 All claims in this disclosure are verifiable by running:
 
 ```bash
-make -C coq -j4          # builds all 277 Coq files listed in coq/_CoqProject
+make -C coq -j4          # builds all 281 Coq files listed in coq/_CoqProject
 python3 scripts/inquisitor.py  # confirms zero findings
 pytest tests/ -q         # full suite, zero failures
 ```
@@ -256,4 +257,4 @@ The Coq proof compilation is the ground truth, which is a comforting way to live
 
 This disclosure covers the concepts as implemented. It does not claim to cover all conceivable implementations of structural cost accounting in computation — only the specific inventive concepts described above, as first publicly disclosed in this repository. The goal of this document is defensive: to ensure that the public record contains a clear, searchable, dated description of these concepts so that no third party can obtain a patent on them.
 
-*Devon Thiele, June 2026*
+*Devon Thiele, July 2026*

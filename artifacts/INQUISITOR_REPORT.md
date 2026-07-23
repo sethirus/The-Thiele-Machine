@@ -1,10 +1,10 @@
 # INQUISITOR REPORT
-Generated: 2026-05-17 17:48:35Z (UTC)
-Scanned: 252 Coq files across the repo
+Generated: 2026-07-23 01:56:17Z (UTC)
+Scanned: 284 Coq files across the repo
 ## Summary
 - HIGH: 0
 - MEDIUM: 0
-- LOW: 1
+- LOW: 0
 
 ## Rules
 - `ADMITTED`: `Admitted.` (incomplete proof - FORBIDDEN)
@@ -93,19 +93,10 @@ Scanned: 252 Coq files across the repo
 - `DISJUNCT_TRUE`: theorem statement contains `\/ True` — vacuously provable via `right. exact I.`
 - `TRIVIAL_TRUE_PROOF`: proof body terminates with `exact I.` or `right. exact I.` — only proves `True`
 - `EXTRACT_CONSTANT`: `Extract Constant` bypasses Coq extraction with hand-written OCaml (trust boundary)
+- `KERNEL_CONVERTIBILITY_VACUITY`: theorem conclusion is kernel-convertible (after δ/ι/ζ/β reduction) to `True` or to a hypothesis — verified by `scripts/vacuity_gate.py` running synthesised Coq proofs (HIGH)
 
 ## Vacuity Ranking (file-level)
-Files scored by trivially-true / placeholder / definitional-proof heuristics.
-Score >= 100 → MEDIUM finding (fails gate). Score >= 50 → LOW warning.
-
-| score | tags | file |
-|---:|---|---|
-| 65 | const-fun | `coq/kami_hw/F4_VerilogEvaluator.v` |
+(no files scored above zero — no trivially-true or placeholder patterns detected)
 
 ## Findings
-### LOW
-
-#### `coq/kami_hw/F4_VerilogEvaluator.v`
-- L1: **VACUITY_SCORE** — Vacuity score 65 ≥ LOW threshold 50. Tags: const-fun. Review for trivially-true/placeholder/definitional proofs that don't advance the core goal.
-  - `(file-level vacuity scan)`
-
+(none)

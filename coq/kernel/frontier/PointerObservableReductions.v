@@ -91,12 +91,6 @@ Definition mirror_eco : Ecosystem := {|
 Definition mirror_metered (s : St) : Prop := flag s = true.
 Definition mirror_rival (s : St) : Prop := (1 <= counter s)%nat.
 
-Lemma mirror_metered_proliferates :
-  redundantly_proliferating mirror_eco mirror_metered.
-Proof.
-  intros i Hi s. unfold mirror_metered. simpl. reflexivity.
-Qed.
-
 (** The rival fails to proliferate provided some state has the flag down
     while the counter is up: no fragment (all mirror the flag) can then
     reconstruct the rival. Every discipline supplies such a witness. *)
@@ -118,7 +112,8 @@ Theorem mirror_unique_pointer :
   unique_pointer_among mirror_eco mirror_metered [mirror_rival].
 Proof.
   intro Hwit. split.
-  - exact mirror_metered_proliferates.
+  - (* the metered event proliferates: every fragment mirrors the flag *)
+    intros i Hi s. unfold mirror_metered. simpl. reflexivity.
   - constructor;
       [ exact (mirror_rival_not_proliferating Hwit) | constructor ].
 Qed.

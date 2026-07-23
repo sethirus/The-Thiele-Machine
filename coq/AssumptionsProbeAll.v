@@ -126,6 +126,8 @@ Require Kernel.F3_MuLaplacianSum.
 Require Kernel.F3_PartitionTopologyCrossLink.
 Require Kernel.F3_PlusOneStructural.
 Require Kernel.F3_TripleCrossLink.
+Require Kernel.PointerObservable.
+Require Kernel.PointerObservableReductions.
 Require Kernel.HardwareBisimulation.
 Require Kernel.OCamlExtractionBridge.
 Require Kernel.PythonBisimulation.
@@ -194,6 +196,8 @@ Require Kernel.CHSHCouplingBridge.
 Require Kernel.CHSHExtraction.
 Require Kernel.CHSHStatisticalBridge.
 Require Kernel.ConstructivePSD.
+Require Kernel.ElliptopeCompletion.
+Require Kernel.ElliptopeGate.
 Require Kernel.EntanglementEntropy.
 Require Kernel.GenRealizability.
 Require Kernel.HolevoDimensional.
@@ -2535,6 +2539,18 @@ Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_at_k_pos_with
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_fails_without_tsirelson.
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_adversarial_drop_tsirelson.
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_worked_example_pin.
+(* === Kernel.PointerObservable : 2 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_work_not_proliferating.
+Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_cert_unique_pointer.
+(* === Kernel.PointerObservableReductions : 8 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PointerObservableReductions.mirror_rival_not_proliferating.
+Print Assumptions Kernel.PointerObservableReductions.mirror_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.PoS_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.Gas_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.TEE_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.CT_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.PCC_unique_pointer.
+Print Assumptions Kernel.PointerObservableReductions.five_disciplines_are_pointers.
 (* === Kernel.HardwareBisimulation : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.HardwareBisimulation.hw_initial_correspondence.
 Print Assumptions Kernel.HardwareBisimulation.hw_step_preserves_pc.
@@ -3487,6 +3503,41 @@ Print Assumptions Kernel.ConstructivePSD.PSD5_off_diagonal_bound.
 Print Assumptions Kernel.ConstructivePSD.PSD_perfect_corr_implies_equal_rows.
 Print Assumptions Kernel.ConstructivePSD.psd_3x3_determinant_nonneg.
 Print Assumptions Kernel.ConstructivePSD.PSD5_convex.
+(* === Kernel.ElliptopeCompletion : 19 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ElliptopeCompletion.completed_quad_expand.
+Print Assumptions Kernel.ElliptopeCompletion.completed_matrix_symmetric.
+Print Assumptions Kernel.ElliptopeCompletion.zero_marginal_implies_elliptope.
+Print Assumptions Kernel.ElliptopeCompletion.psd_cauchy_schwarz.
+Print Assumptions Kernel.ElliptopeCompletion.elliptope_tsirelson.
+Print Assumptions Kernel.ElliptopeCompletion.pr_box_not_elliptope.
+Print Assumptions Kernel.ElliptopeCompletion.deterministic_strategy_elliptope.
+Print Assumptions Kernel.ElliptopeCompletion.classical_tightness_witness_elliptope.
+Print Assumptions Kernel.ElliptopeCompletion.turing_point_elliptope.
+Print Assumptions Kernel.ElliptopeCompletion.convex_ge0.
+Print Assumptions Kernel.ElliptopeCompletion.elliptope_convex.
+Print Assumptions Kernel.ElliptopeCompletion.beyond_classical_elliptope.
+Print Assumptions Kernel.ElliptopeCompletion.sumf_nonneg.
+Print Assumptions Kernel.ElliptopeCompletion.sumf_ext.
+Print Assumptions Kernel.ElliptopeCompletion.sumf_scale.
+Print Assumptions Kernel.ElliptopeCompletion.sumf_zero_all.
+Print Assumptions Kernel.ElliptopeCompletion.elliptope_zero.
+Print Assumptions Kernel.ElliptopeCompletion.elliptope_finite_mixture.
+Print Assumptions Kernel.ElliptopeCompletion.lhv_mixture_elliptope.
+(* === Kernel.ElliptopeGate : 14 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ElliptopeGate.bden_pos.
+Print Assumptions Kernel.ElliptopeGate.bden_IZR_pos.
+Print Assumptions Kernel.ElliptopeGate.bden_IZR_neq0.
+Print Assumptions Kernel.ElliptopeGate.bval_state_bucket_correlation.
+Print Assumptions Kernel.ElliptopeGate.elliptope_pd_check_sound.
+Print Assumptions Kernel.ElliptopeGate.state_bucket_correlation_1_0.
+Print Assumptions Kernel.ElliptopeGate.state_bucket_correlation_0_1.
+Print Assumptions Kernel.ElliptopeGate.mul2_neq0.
+Print Assumptions Kernel.ElliptopeGate.mul3_neq0.
+Print Assumptions Kernel.ElliptopeGate.div_eq_intro.
+Print Assumptions Kernel.ElliptopeGate.one_eq_div.
+Print Assumptions Kernel.ElliptopeGate.elliptope_ldl_check_sound.
+Print Assumptions Kernel.ElliptopeGate.elliptope_check_full_sound.
+Print Assumptions Kernel.ElliptopeGate.elliptope_full_gate_never_accepts_pr_box.
 (* === Kernel.EntanglementEntropy : 6 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.EntanglementEntropy.length_nodup_le.
 Print Assumptions Kernel.EntanglementEntropy.partial_trace_right_support_length_le.

@@ -33,7 +33,7 @@ WHY THIS MATTERS:
     The Thiele Machine makes the cost of verification UNFORGEABLE. If your
     mu < minimum_verification_cost, your claimed knowledge is mathematically
     hollow. Not probably hollow. Provably hollow, by the NoFI theorem in
-    coq/kernel/NoFreeInsight.v, zero Admitted, machine-checked.
+    coq/kernel/nfi/NoFreeInsight.v, zero Admitted, machine-checked.
 
     The categorical layer (morphisms) is the evidence trail. It cannot be
     constructed without paying mu. It cannot survive a structure deletion
@@ -222,7 +222,7 @@ print(textwrap.dedent("""
   (same registers, same mu) but be distinguishable by the Thiele Machine?
 
   YES. This is the categorical separation theorem proven in
-  coq/kernel/PartitionSeparation.v, Section 10 — formally, zero Admitted.
+  coq/kernel/foundation/PartitionSeparation.v, Section 10 — formally, zero Admitted.
 
   Program A (WITH morphism chain):
     Build A→B→C chain as before, then read source/target into r0/r1.
@@ -298,7 +298,7 @@ verdict(
     "  One probe instruction (MORPH_DELETE 1 0) gives different results:\n"
     "    — Program A: MORPH_DELETE succeeds. The morphism chain was real.\n"
     "    — Program B: MORPH_DELETE errors.   The claimed values were hollow.\n\n"
-    "  This is coq/kernel/PartitionSeparation.v §10, made executable:\n"
+    "  This is coq/kernel/foundation/PartitionSeparation.v §10, made executable:\n"
     "  computationally_equivalent but categorically_distinct."
 )
 
@@ -327,11 +327,11 @@ print(textwrap.dedent(f"""
 
   WHAT ONLY THE THIELE MACHINE CAN DO:
     1. Refuse to accept structural claims without paying their cost.
-       Theorem: NoFreeInsight in coq/kernel/NoFreeInsight.v (zero Admitted).
+       Theorem: NoFreeInsight in coq/kernel/nfi/NoFreeInsight.v (zero Admitted).
        Executable: Act 1 and Act 3 NoFI probe above.
 
     2. Charge a provably unavoidable minimum for certifying any claim (S(cost) ≥ 1).
-       Theorem: no_free_certification in coq/kernel/AbstractNoFI.v §8.
+       Theorem: no_free_certification in coq/kernel/nfi/AbstractNoFI.v §8.
        Proof chain: cert_addr changed (0→nonzero) → cert_addr_setterb = true [structural,
          proven by case analysis over all 32 opcodes via thiele_non_cert_addr_setter_preserves]
          → instruction_cost >= 1 [cert_addr_setter_cost_pos] → delta_mu >= 1 [vm_apply_mu].
@@ -340,13 +340,13 @@ print(textwrap.dedent(f"""
        Universality: abstract_nfi / universal_nfi hold for ANY machine satisfying A3.
 
     3. Distinguish programs classically identical to ANY classical computer.
-       Theorem: categorical_separation in coq/kernel/PartitionSeparation.v §10.
+       Theorem: categorical_separation in coq/kernel/foundation/PartitionSeparation.v §10.
        Corollary: classical_observer_cannot_separate in §11 — formally, no function
        depending only on (regs, mem, mu, pc, err, certified) can separate the programs.
        Executable: Act 4 — one MORPH_DELETE probe separates them in one step.
 
     4. Produce a mu receipt that is mathematically unforgeable.
-       Theorem: kernel_certified_implies_positive_mu in coq/kernel/PrimeAxiom.v.
+       Theorem: kernel_certified_implies_positive_mu in coq/kernel/nfi/PrimeAxiom.v.
        If your mu < minimum_verification_cost, you didn't do the work.
        Proven from first principles. Zero Admitted.
 

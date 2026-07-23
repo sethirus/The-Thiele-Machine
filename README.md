@@ -79,7 +79,7 @@ python3 minimal/nofi_demo.py   # exhaustive sweeps + measured algorithms against
 python3 -c "import json; d=json.load(open('artifacts/print_assumptions_all_proofs.json')); print(d['summary'])"
 ```
 
-The second command prints the committed assumption receipt: 3,937 theorems
+The second command prints the committed assumption receipt: 3,980 theorems
 probed, zero user or third-party axiom findings. **The output of these two
 commands is the ground floor for any review, human or AI. An assessment
 without it is an assessment of the prose, not of the repository.**
@@ -289,7 +289,7 @@ Closed under the global context
 
 The broader audit receipt
 [artifacts/print_assumptions_all_proofs.json](artifacts/print_assumptions_all_proofs.json)
-records 3,937 addressable theorems probed and no user/project-local axiom
+records 3,980 addressable theorems probed and no user/project-local axiom
 findings in the committed assumption scan.
 
 ## Why It Is Not Just A Toy Counter
@@ -568,11 +568,11 @@ Two independent receipts track proof assumptions.
 
 The master theorem ledger is
 [coq/kernel/aggregators/MasterSummary.v](coq/kernel/aggregators/MasterSummary.v). The current committed
-assumption receipt reports 3,937 addressable theorems probed and no
-user/project-local axiom findings. The split: 2,923 close under the global
-context outright, and the remaining 1,014 lean only on Coq-stdlib axiom
-families: `functional_extensionality_dep` (939), the classical-reals pair
-`sig_forall_dec` (976) and `sig_not_dec` (272), and `classic` (67). Those
+assumption receipt reports 3,980 addressable theorems probed and no
+user/project-local axiom findings. The split: 2,934 close under the global
+context outright, and the remaining 1,046 lean only on Coq-stdlib axiom
+families: `functional_extensionality_dep` (968), the classical-reals pair
+`sig_forall_dec` (1,008) and `sig_not_dec` (276), and `classic` (67). Those
 families enter through the real-number and physics layers; the minimal core
 uses none of them. "Zero axioms" here means zero project-local axioms, the
 same convention the monograph uses, and the receipt is what enforces it.
@@ -639,7 +639,7 @@ pipeline.
   title        = {The Thiele Machine: A Computational Model with Explicit Structural Cost},
   author       = {Thiele, Devon},
   year         = {2026},
-  version      = {3.0.1},
+  version      = {3.1.0},
   doi          = {10.5281/zenodo.17316437},
   publisher    = {Zenodo},
   howpublished = {\url{https://doi.org/10.5281/zenodo.17316437}}

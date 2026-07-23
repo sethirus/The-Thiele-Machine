@@ -791,7 +791,7 @@ def main():
 
   I didn't trust the informal argument. So I proved it in Coq.
   This binary is what came out the other end:
-    coq/ThieleMachineComplete.v   ← 46 Qed proofs, 0 Admitted
+    coq/ThieleMachineComplete.v   ← 388 Qed proofs, 0 Admitted
          ↓ Extraction.v
     build/thiele_core.ml          ← extracted OCaml
          ↓ extracted_vm_runner.ml
