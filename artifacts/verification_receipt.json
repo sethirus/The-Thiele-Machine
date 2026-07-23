@@ -1,31 +1,35 @@
 {
   "schema": "thiele-verification-receipt-v1",
-  "generated": "2026-04-14T14:51:24.466489+00:00",
+  "generated": "2026-07-23T02:53:16.820690+00:00",
+  "generator": "scripts/generate_verification_receipt.py",
   "verdict": "ALL CLAIMS VERIFIED",
   "repository": "/workspaces/The-Thiele-Machine",
   "phases": {
     "coq_build": {
       "status": "PASS",
-      "note": "skipped (cached .vo)"
+      "note": "281/281 .vo present, 0 Admitted (excl. patches/archive)"
     },
     "inquisitor": {
       "status": "PASS",
-      "note": "skipped (--quick)"
+      "note": "fresh run: HIGH=0 MEDIUM=0 LOW=0 (rc=0, 106s)"
     },
     "structural_advantage": {
-      "N": 4,
-      "blind_iters": 16,
+      "grid": "8x8",
+      "target": [
+        6,
+        5
+      ],
+      "blind_iters": 54,
       "blind_mu": 0,
-      "sighted_iters": 8,
-      "sighted_mu": 2,
-      "savings": 8,
-      "mu_cost": 2,
+      "sighted_iters": 13,
+      "sighted_mu": 170,
+      "savings_iters": 41,
       "status": "PASS"
     },
     "test_suite": {
       "status": "PASS",
-      "summary": "922 passed, 9 deselected in 32.42s",
-      "elapsed_s": 33.3
+      "summary": "970 passed in 140.67s (0:02:20)",
+      "elapsed_s": 142.4
     }
   },
   "claims_verified": [
@@ -33,7 +37,9 @@
     "Conservation: mu = sum(instruction_cost) exactly (vm_apply_mu, MuLedgerConservation.v)",
     "Initiality: mu is unique satisfying cost measure (mu_is_initial_monotone, MuInitiality.v)",
     "Separation: classical observer cannot distinguish Thiele-distinct states (ShadowProjection.v)",
-    "Structural Advantage: blind=N^2, sighted=2N+2mu, gap unbounded (StructuralAdvantage.v)",
+    "Structural Advantage: blind search pays iterations, sighted search pays mu; gap unbounded (StructuralAdvantage.v + test_structural_advantage.py)",
+    "Elliptope gate: a passing check entails elliptope membership; the PR box is never accepted (elliptope_check_full_sound, ElliptopeGate.v)",
+    "Pointer observables: all five deployed metering disciplines are unique pointers, closed under the global context (five_disciplines_are_pointers, PointerObservableReductions.v)",
     "Hardware Parity: all 46 opcodes agree across Coq/Python/OCaml (test suite)"
   ]
 }

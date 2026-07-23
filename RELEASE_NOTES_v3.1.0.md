@@ -106,6 +106,34 @@ Release-finalization corrections applied on top of the v3.1.0 feature commit:
    BibTeX; release date 2026-07-23; July 2026 dates across the disclosure, distillation,
    monograph, and math spec; v3.1.0 changelog row added to `TECHNICAL_DISCLOSURE.md`;
    stale counts and example-file path references corrected repo-wide.
+5. **Honesty-pass completion in the math spec** — the biconditional theorem environment,
+   Proof-File-Index row, and classification rows renamed from "Thiele honest" to
+   *slice-coherent*, matching the corpus-wide rename; the README Formal-Spine row
+   likewise; the Turing-point bullet now states plainly that the slice gate rejects it
+   while the full-elliptope gate accepts it.
+6. **Math spec coverage of the new material** — elliptope-completion/gate rows and a
+   frontier block added to the Proof File Index; elliptope and pointer rows added to the
+   epistemological classification; a new "The Pointer-Observable Criterion" section
+   documents the schema, the five discipline instantiations, and the evidence-not-proof
+   scope fence.
+7. **Monograph bitstream bookkeeping** — explicit distinction added: the Genesys 2
+   K325T bitstream is a CI artifact built on every relevant push and never committed;
+   the bitstream committed in the repository is the Artix-7 Arty build
+   (`build/thiele_xc7a35t.bit`).
+8. **README feature-freeze wording reconciled** — the freeze is stated as what it is:
+   machine semantics frozen (no new opcodes, no step-relation or cost-law changes),
+   with machine-untouched characterization tiers over the frozen semantics accepted.
+9. **MasterSummary roster hygiene** — the name of the removed
+   `master_non_circular_chsh_formula` re-export dropped from the exported-names roster,
+   metadata ledger, file inventory (52 → 51, count theorem updated), and coverage
+   ledger; full tree recompiles, `verify_zero_admits` re-run clean.
+10. **Verification receipt now generated, not hand-written** —
+    `scripts/generate_verification_receipt.py` derives every field of
+    `artifacts/verification_receipt.json` from live checks (Coq build state, a fresh
+    Inquisitor run, the blind/sighted structural-advantage programs executed on the VM,
+    the full pytest suite) and mechanically re-validates each claim anchor against the
+    probe inventory before listing it; the claims list now includes the elliptope-gate
+    and pointer-observable anchors.
 
 ## How to publish this version on Zenodo
 

@@ -729,13 +729,13 @@ A correlation tuple $(E_{00}, E_{01}, E_{10}, E_{11})$ is \textbf{slice-coherent
 These are exactly the PSD conditions on the $5 \times 5$ zero-marginal NPA moment matrix.
 \end{definition}
 
-\begin{theorem}[Thiele Honesty $\iff$ NPA Realizability {\normalfont (\texttt{coq/kernel/quantum/QuantumPartitionPSD.v}, corollary \texttt{column\_contractive\_iff\_quantum\_realizable})} --- \textbf{(S)}]
+\begin{theorem}[Slice Coherence $\iff$ NPA Realizability {\normalfont (\texttt{coq/kernel/quantum/QuantumPartitionPSD.v}, corollary \texttt{column\_contractive\_iff\_quantum\_realizable})} --- \textbf{(S)}]
 \label{thm:thiele_honest_iff_qr}
 \texttt{column\_contractive\_iff\_quantum\_realizable}:
 \[
-\text{thiele\_honest}(\mathbf{E}) \iff \text{quantum\_realizable}(\mathbf{E})
+\text{slice\_coherent}(\mathbf{E}) \iff \text{quantum\_realizable}(\mathbf{E})
 \]
-where \emph{thiele\_honest} means the three column-contractivity conditions hold, and \emph{quantum\_realizable} means the $5\times5$ zero-marginal NPA moment matrix is positive semidefinite.
+where \emph{slice\_coherent} means the three column-contractivity conditions hold, and \emph{quantum\_realizable} means the $5\times5$ zero-marginal NPA moment matrix is positive semidefinite.
 
 \textbf{Forward direction} (\texttt{zero\_marginal\_npa\_column\_contractive\_implies\_psd} in \texttt{coq/kernel/nfi/MuLedgerQuantumBridge.v}): column-contractive $\Rightarrow$ NPA PSD. Proved by constructing the Cholesky decomposition of the $5\times5$ matrix from the three conditions.
 
@@ -747,7 +747,7 @@ Key consequences:
 \begin{itemize}
 \item PR box $(E_{00}=E_{01}=E_{10}=1, E_{11}=-1)$ fails condition 1 immediately ($1-1-1=-1<0$). Direct arithmetic; no separate theorem needed.
 \item \texttt{state\_column\_contractive\_implies\_tsirelson} (\texttt{coq/kernel/nfi/MuLedgerQuantumBridge.v}) directly proves slice-coherent $\Rightarrow$ $|S|^2 \leq 8$ (equivalently $|S| \leq 2\sqrt{2}$); its proof composes \texttt{state\_column\_contractive\_implies\_quantum\_gram} with \texttt{quantum\_realizable\_implies\_tsirelson\_bound}. The Cauchy--Schwarz inner step (PSD $\Rightarrow$ row bounds $\Rightarrow$ $|S|^2 \leq 8$) is \texttt{tsirelson\_from\_row\_bounds} in \texttt{coq/kernel/quantum/TsirelsonGeneral.v}. The contrapositive ($|S| > 2\sqrt{2}$ $\Rightarrow$ not slice-coherent) follows immediately. The converse is false and is not claimed.
-\item Turing-classical correlations $(1,0,1,0)$ satisfy $|S|=2$ but fail condition 1: $1-1-1=-1<0$. A Turing machine can output this correlation; the Thiele Machine rejects it as dishonest. Direct arithmetic from \texttt{column\_contractive\_iff\_quantum\_realizable}.
+\item Turing-classical correlations $(1,0,1,0)$ satisfy $|S|=2$ but fail condition 1: $1-1-1=-1<0$. A Turing machine can output this correlation; the slice gate rejects it as slice-incoherent (the full-elliptope gate of the next section accepts it --- the point is inside the elliptope, outside the zero-marginal slice). Direct arithmetic from \texttt{column\_contractive\_iff\_quantum\_realizable}.
 \end{itemize}
 Zero Admitted. Zero named hypotheses.
 \end{theorem}
@@ -768,6 +768,14 @@ All of the following hold with \texttt{Print Assumptions} reporting only the std
 \end{theorem}
 
 The decidable gate (\texttt{coq/kernel/quantum/ElliptopeGate.v}) is the $\mathbb{Z}$-arithmetic check an opcode can branch on: a fraction-free Sylvester branch over supplied completion buckets (strict interior) and a rational $LDL^{\mathsf T}$-certificate branch reaching singular and boundary completions, with soundness (\texttt{elliptope\_check\_full\_sound}) into \texttt{elliptope\_realizable}, computed acceptances of the $\mu = 0$ tightness witness, $(1,0,1,0)$, and the on-Tsirelson-curve point $(3/5,4/5,4/5,-3/5)$ (\texttt{gate\_accepts\_pythagorean\_boundary}), and the universal refusal \texttt{elliptope\_full\_gate\_never\_accepts\_pr\_box}. Scope: correlator level; the only points beyond any exact integer check are those whose every PSD completion is irrational; the runtime opcode binding is future engineering.
+
+\section{The Pointer-Observable Criterion}
+
+\texttt{coq/kernel/frontier/PointerObservable.v} formalizes the schema behind the metering conjecture. An \textbf{ecosystem} (\texttt{Ecosystem}) is a state type carrying $n$ observers, each holding a fragment map over states; an event $E$ \textbf{redundantly proliferates} (\texttt{redundantly\_proliferating}) iff every observer's fragment records $E$; and $E$ is the \textbf{unique pointer among} a designated list of rival events (\texttt{unique\_pointer\_among}) iff $E$ proliferates and no listed rival does. Uniqueness is relative to the named rivals on purpose --- absolute uniqueness is false for free. A toy replicated-ledger instance shows the definitions are satisfiable and discriminating: the certification event is the unique pointer among the toy's two meterable events (\texttt{toy\_cert\_unique\_pointer}), a sanity instance only.
+
+\texttt{PointerObservableReductions.v} instantiates the schema at the five deployed metering disciplines of the reductions tier --- proof-of-stake finality, gas metering, TEE attestation, certificate transparency, and proof-carrying verification. Each discipline's metered event is proved the unique pointer among its named rivals (\texttt{PoS\_unique\_pointer}, \texttt{Gas\_unique\_pointer}, \texttt{TEE\_unique\_pointer}, \texttt{CT\_unique\_pointer}, \texttt{PCC\_unique\_pointer}), and the conjunction is exported as \texttt{five\_disciplines\_are\_pointers}, which closes under the global Coq context --- no axioms at all, stdlib or otherwise.
+
+Scope, stated plainly: these theorems verify that the five formalized ecosystems have the claimed pointer structure. They are evidence for the pointer-observable conjecture --- that deployed metering disciplines meter exactly the event whose record proliferates --- not a proof of it. The forced-event question stays open, and the file header says so.
 
 %=============================================================================
 % PART VI: EMERGENT STRUCTURE
@@ -1433,7 +1441,7 @@ Witness Insight Three-Tier Taxonomy & \texttt{coq/kernel/witness/WitnessInsightG
 \hline
 \multicolumn{2}{l}{\emph{Quantum / CHSH algebra (zero-axiom)}} \\
 \hline
-Thiele honest $\iff$ NPA realizable (biconditional) & \texttt{coq/kernel/quantum/QuantumPartitionPSD.v}: \texttt{column\_contractive\_iff\_quantum\_realizable} \\
+Slice-coherent $\iff$ NPA realizable (biconditional) & \texttt{coq/kernel/quantum/QuantumPartitionPSD.v}: \texttt{column\_contractive\_iff\_quantum\_realizable} \\
 Forward: column-contractive $\Rightarrow$ NPA PSD & \texttt{coq/kernel/nfi/MuLedgerQuantumBridge.v}: \texttt{zero\_marginal\_npa\_column\_contractive\_implies\_psd} \\
 Reverse: NPA PSD $\Rightarrow$ column-contractive & \texttt{coq/kernel/quantum/QuantumPartitionPSD.v}: \texttt{npa\_psd\_implies\_column\_contractive} \\
 Quadratic-form discriminant lemma & \texttt{coq/kernel/quantum/ConstructivePSD.v}: \texttt{quadratic\_nonneg\_discriminant} \\
@@ -1441,6 +1449,15 @@ Tsirelson from column contractivity ($|S| \le 2\sqrt{2}$) & \texttt{coq/kernel/n
 Tsirelson (algebraic, tight) & \texttt{coq/kernel/category/AlgebraicCoherence.v}: \texttt{tsirelson\_bound\_tight} \\
 Tsirelson (algebraic from coherence) & \texttt{coq/kernel/quantum/TsirelsonFromAlgebra.v} \\
 General Algebraic Tsirelson ($S^2 \le 8$) & \texttt{coq/kernel/category/AlgebraicCoherence.v}: \texttt{algebraically\_coherent\_tsirelson\_general} \\
+Elliptope realizability (existential completion) & \texttt{coq/kernel/quantum/ElliptopeCompletion.v}: \texttt{elliptope\_realizable} (definition); \texttt{deterministic\_strategy\_elliptope}, \texttt{lhv\_mixture\_elliptope} (every LHV correlator inside) \\
+Tsirelson for the full elliptope ($S^2 \le 8$) & \texttt{coq/kernel/quantum/ElliptopeCompletion.v}: \texttt{elliptope\_tsirelson} (inner step \texttt{psd\_cauchy\_schwarz}) \\
+PR box excluded; classical $\subset$ elliptope strict & \texttt{coq/kernel/quantum/ElliptopeCompletion.v}: \texttt{pr\_box\_not\_elliptope}, \texttt{beyond\_classical\_elliptope} \\
+Decidable elliptope gate (soundness) & \texttt{coq/kernel/quantum/ElliptopeGate.v}: \texttt{elliptope\_check\_full\_sound}; boundary acceptance \texttt{gate\_accepts\_pythagorean\_boundary}; universal refusal \texttt{elliptope\_full\_gate\_never\_accepts\_pr\_box} \\
+\hline
+\multicolumn{2}{l}{\emph{Frontier: pointer-observable criterion}} \\
+\hline
+Proliferation / unique-pointer schema & \texttt{coq/kernel/frontier/PointerObservable.v}: \texttt{redundantly\_proliferating}, \texttt{unique\_pointer\_among} (definitions); \texttt{toy\_cert\_unique\_pointer} (sanity instance) \\
+Five deployed disciplines are unique pointers & \texttt{coq/kernel/frontier/PointerObservableReductions.v}: \texttt{PoS\_unique\_pointer}, \texttt{Gas\_unique\_pointer}, \texttt{TEE\_unique\_pointer}, \texttt{CT\_unique\_pointer}, \texttt{PCC\_unique\_pointer}; conjunction \texttt{five\_disciplines\_are\_pointers} (closed under the global context) \\
 \hline
 \multicolumn{2}{l}{\emph{Conditional physics derivations (under named axioms; (C) tier)}} \\
 \hline
@@ -1521,8 +1538,11 @@ Locally Consistent $\Rightarrow$ Separable Coupling & \textbf{(S)} & Coupling de
 Local Coupling Bound ($|S| \le 2$) & \textbf{(S)} & Coupling definition \\
 $S > 2$ Rules Out Local Couplings & \textbf{(S)} & Coupling definition \\
 RTL Gap Count $= 0$ & \textbf{(S)} & Machine semantics + hardware spec \\
-Thiele Honest $\iff$ NPA Realizable & \textbf{(S)} & Pure polynomial arithmetic; zero axioms \\
-PR Box Not Thiele-Honest & \textbf{(S)} & Direct arithmetic on condition 1 \\
+Slice-Coherent $\iff$ NPA Realizable & \textbf{(S)} & Pure polynomial arithmetic; zero axioms \\
+PR Box Not Slice-Coherent & \textbf{(S)} & Direct arithmetic on condition 1 \\
+Elliptope Realizability (full correlator set) & \textbf{(S)} & Existential completion; stdlib reals only \\
+Decidable Elliptope Gate Sound & \textbf{(S)} & Fraction-free $\mathbb{Z}$ arithmetic, two branches \\
+Five Disciplines Are Unique Pointers & \textbf{(S)} & Closed under the global context; no axioms \\
 Tsirelson Is Thiele Boundary (forward + contrapositive) & \textbf{(S)} & From column contractivity; converse not claimed \\
 Classical $P \subseteq \mu P$ & \textbf{(S)} & $\mu$-complexity definitions \\
 \hline

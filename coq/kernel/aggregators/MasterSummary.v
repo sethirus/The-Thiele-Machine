@@ -1231,7 +1231,6 @@ Definition master_exported_theorem_names : list string :=
     "master_verification_chain";
     "master_verification_preserved_observables";
     "master_non_circular_mu_cost_primitives";
-    "master_non_circular_chsh_formula";
     "master_non_circular_classical_witness";
     "master_non_circular_mu_zero_locc" ].
 
@@ -1286,8 +1285,6 @@ Definition master_theorem_metadata_ledger : list TheoremMetadata :=
        metadata_scope := VerificationTransfer; metadata_status := StatusConditional; metadata_role := NewComposition |};
     {| metadata_name := "master_non_circular_mu_cost_primitives";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
-    {| metadata_name := "master_non_circular_chsh_formula";
-       metadata_scope := Algebraic; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_non_circular_classical_witness";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_non_circular_mu_zero_locc";
@@ -1359,14 +1356,13 @@ Definition summary_file_theorem_names : list string :=
     "master_verification_chain";
     "master_verification_preserved_observables";
     "master_non_circular_mu_cost_primitives";
-    "master_non_circular_chsh_formula";
     "master_non_circular_classical_witness";
     "master_non_circular_mu_zero_locc";
     "thiele_machine_core_summary_verified";
     "thiele_machine_is_complete" ].
 
 Theorem summary_file_theorem_inventory_explicit :
-  List.length summary_file_theorem_names = 52%nat.
+  List.length summary_file_theorem_names = 51%nat.
 Proof.
   reflexivity.
 Qed.
@@ -1391,7 +1387,7 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
        coverage_support := [ "master_verification_chain"; "master_verification_preserved_observables" ];
        coverage_note := "Verification scope is explicit and intentionally abstract." |};
     {| coverage_area := AreaNonCircularity;
-       coverage_support := [ "master_non_circularity"; "master_non_circular_mu_cost_primitives"; "master_non_circular_chsh_formula"; "master_non_circular_classical_witness"; "master_non_circular_mu_zero_locc" ];
+       coverage_support := [ "master_non_circularity"; "master_non_circular_mu_cost_primitives"; "master_non_circular_classical_witness"; "master_non_circular_mu_zero_locc" ];
        coverage_note := "Kernel-level non-circularity is decomposed into explicit sub-certificates." |};
     {| coverage_area := AreaAssumptionSurface;
        coverage_support := [ "master_summary_assumptions"; "master_summary_no_hidden_project_assumptions_verified" ];
