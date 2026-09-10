@@ -761,13 +761,13 @@ source-of-truth: release
 	@echo "✅ source-of-truth complete: Coq -> Kami -> Bluespec -> Verilog -> synth -> sim"
 
 .PHONY: verify
-verify: ## Don't take my word: compile the axiom-free Coq core and run the clean-room measurement
+verify: install-hooks ## Don't take my word: compile the axiom-free Coq core and run the clean-room measurement
 	bash scripts/verify_core.sh
 
 .PHONY: verify-claims
-verify-claims: ## Build the claim-boundary and executed hardware-trace regressions
+verify-claims: install-hooks ## Build the claim-boundary and executed hardware-trace regressions
 	$(MAKE) -C coq tests/ClaimBoundaryRegression.vo tests/WFDrivenRunRegression.vo
 
 .PHONY: verify-research
-verify-research: ## Check observation policies and descent from VM traces
+verify-research: install-hooks ## Check observation policies and descent from VM traces
 	$(MAKE) -C coq kernel/frontier/ObservationPolicy.vo kernel/frontier/TraceStateDescent.vo
