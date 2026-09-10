@@ -1,54 +1,42 @@
 THE THIELE MACHINE
-A distillation: substrate, one axiom, what follows
+A distillation: state, accounting, and what the proofs establish
 
-Devon Thiele -- July 2026
+Devon Thiele -- September 2026, v3.2.1
 
 
 I didn't invent a machine. I found one.
 
-There is a machine underneath every computer that has ever been
-built. It has a part our machines can't see, whether the thing they
-are holding was actually earned or is just sitting there. Every
-computer we have ever made is that machine with that part switched
-off. Not broken. Blind. A shadow of the whole thing.
+That is my conviction. The Thiele Machine is how I put it on the
+table: definitions, executable rules, proofs, and a machine somebody
+else can run. The conviction is mine; the proof contracts are public.
 
-I built the one with the part switched on. And then, because I don't
-trust my own eye, I didn't just claim it, I proved the shadow is a
-shadow. The blindness is real. What gets dropped can't be gotten
-back. You cannot climb from the shadow up to the machine without
-making something up out of thin air. The Turing machine was never
-the thing itself. It is what is left of the thing after you forget
-the one law.
+A computation gives you an answer. I want to know what it established,
+which distinctions it preserved, and what it cost to establish them.
+Certification is one point I could pin down. The argument reaches
+beyond that point, but the proofs apply to the events, observations,
+and machines their statements actually describe.
 
-And it is not the chip that makes it real, and not the OCaml. You
-could burn every line of the OCaml and every gate of the RTL and lose
-nothing, because the machine is the law, not the machinery. I think
-it is real the way a law is real, that it holds whether or not anyone
-ever built it, and I will be straight that this part is what I
-believe, not what I proved. I did not bolt a counter onto a Turing
-machine. I built the machine that keeps the coordinate every other
-machine drops.
+The machine carries structural state and a cost ledger. Its rules
+charge particular events. Its observation theorems show when a view
+of that state loses information relevant to a query. If two states
+look the same through that view but require different answers, no
+function of the view alone can answer correctly on both.
 
-That is the machine, and that is the whole claim. Every computer is
-its blind, lossy shadow, and that I proved: you cannot recover the
-coordinate it drops, and you cannot even verify the claim from the
-shadow. Certification, the move from unverified to verified, is not
-the point of any of it.
-It is the one thing I could pin to the new part to prove the part is
-there. Everything below, the opcodes and the OCaml and the chip and
-the Coq, is me showing the machine can be built and cannot be waved
-away. None of it is what makes it real. The law is what makes it
-real.
+That is a statement about a specified view. It does not prove that
+every computer loses this information. Ordinary memory can encode
+the full state, and a conventional transition rule can maintain the
+same accounting discipline. The comparison must name the state,
+permitted transitions, observation, and trusted implementation.
 
+There is a second distinction throughout this account. Charging for
+a certification event does not establish that an arbitrary assertion
+is true. Generic CERTIFY sets a flag and charges; it checks no
+proposition. Other checks have their own soundness contracts. Calling
+the flag "certified" does not supply one.
 
-This is the Thiele Machine, distilled to logic. It adds one axis to
-computation: structure carried as paid-for state, so a result counts
-as earned only if the trace paid for it. Certification, the move from
-unverified to verified, is the sharpest instance of that, and the one
-this page is built on; it is not the whole of the axis. Substrate, one
-axiom, what follows. If you want to dismiss it, the place to do it
-is on this page. Each step stands on its own; the argument falls
-if one of them does.
+I built this to be examined. What follows separates the construction,
+its proved consequences, and the interpretation I am asking people
+to consider.
 
 
 1. SUBSTRATE
@@ -63,9 +51,10 @@ name six things:
        produces the next state, written step(s, i).
   c    a cost function. Every instruction has a non-negative integer
        cost, written c(i).
-  P    a certification bit. Each state carries one; P(s) is its value,
-       0 for "not certified" or 1 for "certified." It is a coordinate
-       the state holds, not something read off the rest of the state.
+  P    a designated boolean predicate on states: P(s) is 0 or 1.
+       The VM has a certification field as one instance. In another
+       system P may be computed from other state, such as parity of
+       a counter. A dedicated storage field is not required.
   mu   a cost ledger. Each state carries this too: a non-negative
        integer. It starts at 0, and every step adds the cost of the
        instruction it ran: mu(step(s, i)) = mu(s) + c(i). So mu is the
@@ -77,11 +66,16 @@ A substrate is the tuple (S, I, step, c, P), with every state carrying
 the ledger mu that the step rule maintains by conservation. Five
 pieces of structure, and one bookkeeping field that just adds them up.
 
-A Turing machine has the first three only. It has no c at the step
-level: cost shows up only when you count steps from outside. It has no
-P, and no mu. A register machine, a lambda reducer, and every CPU you
-can buy are the same: none carries certification or a running cost
-ledger inside its state.
+These choices make the accounting explicit. A bare transition-system
+definition need not designate P, c, or mu. A particular conventional
+machine can nevertheless encode the state and maintain the chosen
+invariant. Turing equivalence addresses computable functions; it does
+not decide which accounting policy a model should specify.
+
+The regression proof counter_certification_system uses a natural-number
+state, its parity as P, and unit step cost. receipt_encoding_roundtrip
+shows that ordinary list memory can retain a ledger and a certification
+value without loss. Both are in coq/tests/ClaimBoundaryRegression.v.
 
 
 2. THE AXIOM
@@ -97,7 +91,7 @@ step that flips certification on raises the ledger mu by at least 1.
 A2 constrains c on that one kind of step; conservation then carries
 the charge into the ledger, the way it carries every step's c.
 
-A substrate that satisfies A2 is honest about certification cost. A
+A substrate that satisfies A2 meets this certification-cost policy. A
 substrate where some instruction can flip P from 0 to 1 at cost 0
 permits free certification.
 
@@ -122,271 +116,132 @@ on what the states look like, what the instructions are, or what the
 step rule does. A2, conservation, and non-negative costs are enough.
 
 
-4. WHY CLASSICAL COMPUTATION CANNOT OWN A2
+4. REPRESENTATION AND ENFORCEMENT
 
-A Turing machine is a tuple (Q, Sigma, delta) where delta has
-signature
+A2 is a property of a step rule together with a designated predicate
+and cost function. Changing P or c can change whether A2 holds even
+when the underlying transitions stay the same. Naming those choices
+is necessary to state the property precisely.
 
-  (state, symbol) -> (state, symbol, direction).
+It does not follow that a conventional machine cannot enforce it.
+Encode the state, including P and mu, in ordinary memory. Choose
+transitions that implement the same certified-state updates and cost
+schedule. Those transitions can preserve A2. Establishing that a
+concrete implementation obeys them is an implementation proof or a
+trust assumption, just as it is for a realization of this VM.
 
-P is not in this tuple. c is not in this tuple. A2 is not in this
-tuple. The Turing machine, as an object, has no certification, no
-cost, no A2.
+A different transition rule that violates the policy is a different
+implementation. Its existence does not show that the first rule fails
+to enforce the policy. Nor does making P and mu separate fields by
+itself prevent an implementation from updating them incorrectly.
 
-A substrate owns c and P as part of its own structure (Section 1). So
-A2 -- a sentence about c and P -- is a property the substrate's own
-step rule can have: a property of the object itself. The substrates
-this section is about are the ones whose step rule has it -- the
-A2-respecting ones, Section 3's "any substrate satisfying A2."
+The observation question is separate. Define a projection that keeps
+memory, registers, and program counter while dropping the designated
+certification field and ledger. If two reachable states have the same
+projection and different certification values, certification cannot be
+recovered from that projection on every reachable state. That theorem
+concerns the chosen projection, not every possible memory encoding.
 
-You can still talk about A2 in connection with a Turing machine,
-but only by adding things from outside. Define P externally as a
-function from configurations to {0, 1}; define c externally as a
-function on transitions. Then "A2 holds for the triple (delta, P,
-c)" is a well-formed sentence about the triple, true or false
-depending on the choices.
-
-That sentence is not a property of delta. It is a property of the
-triple. Delta does not read P during a step; the metatheorist does,
-externally. The Turing machine's identity is unchanged whether the
-externally-supplied P and c happen to satisfy A2 or not.
-
-Here is the split. For a substrate, A2 is a property of the object
-itself: c and P are its own structure, so "the step rule respects A2"
-is a fact true or false of the substrate. For a Turing machine, A2 is
-never a property of the object -- the TM owns no c and no P -- only of
-an external (delta, P, c) triple someone bolts on. A substrate can
-carry A2 as its own; a Turing machine can only have A2 spoken about it
-from outside. It is a split of structure, not of expressibility: you
-can write A2 down about anything, but only a thing that owns c and P
-can have it as a property of itself.
-
-One case is sharp enough to name. Take a Turing machine (Q, Sigma,
-Gamma, delta). Encode P and mu into Gamma -- the tape alphabet --
-so the tape now holds, beside the usual symbols, encodings of
-(P, mu). Define delta so any transition that flips the encoded P
-from 0 to 1 also writes mu+1 instead of mu. The signature of delta
-is unchanged; only the alphabet is richer. Read uncritically, this
-looks like a TM that enforces A2.
-
-It is not. Nothing about being a Turing machine requires delta to
-write mu+1 on a flip. A different delta that flips the P-bit and
-leaves mu alone is just as much a Turing machine -- the definition of
-"Turing machine" has no A2 requirement to violate. The mu+1 discipline
-is something this particular delta happens to do, recoverable only by
-an outside reader decoding the tape, not an obligation the object is
-built to meet. Encode all you like: the tape holds data, and no data
-on a tape binds the machine writing it.
-
-Put it in terms of what each object is made of. A substrate owns c
-and P as fields of its own; the Turing-machine tuple (Q, Sigma, Gamma,
-delta) carries neither. So for a substrate, "the step rule respects
-A2" is a fact about the object itself, true of the A2-respecting ones;
-for a Turing machine there is no c and no P for it to be a fact about,
-only an external (delta, P, c) triple someone supplies. To dress an
-A2-respecting extended TM up as a substrate you would add, by hand,
-which part of the tape is cost and which is P, and the A2 fact would
-then be about that bolted-on structure, never about the bare machine.
-
-It comes down to where A2 is enforced. On a substrate, A2 is the
-step rule's signature. On an extended TM running an A2-respecting
-program, A2 is the program. The first is enforced by type-checking.
-The second is enforced by audit of the running program. Run a
-program that forgets to write mu+1 when it flips P -- the extended
-TM keeps running. The substrate does not. That is the next section.
-
-Sharper still: certification is not even a function of what a Turing
-machine can see. Call the classical projection of a substrate state
-the part a Turing machine would have -- its program counter,
-registers, and tape -- everything except the two substrate-only
-fields, the certification value P (call it cert) and the ledger mu.
-Now take two substrate states with the same classical projection,
-same program counter, same registers, same tape, one that flipped its
-cert and one that never did. They project to the same classical
-snapshot, yet one is certified and one is not. So no rule that reads
-only the classical projection can recover cert: it would have to
-return two different answers on the same input. A2 written over the
-classical projection alone is therefore not A2. It pins down some
-other predicate the classical fields happen to determine, and that
-predicate is not certification.
+The more general observation theorem says exactly what is needed:
+a query is recoverable only if it is constant on each class of states
+with the same observation. With explicit representatives of those
+classes, the condition also constructs a decoder. A richer observation
+may satisfy this condition where a poorer one fails.
 
 
 5. THE BUGGY SIMULATOR
 
-Consider a specific program: it writes 1 to a cert cell on the tape
-without incrementing the cost ledger. Call it a buggy A2-simulator.
-The program claims to enforce A2 but skips the cost on the step
-that flips the cert cell from 0 to 1.
+Suppose a purported implementation changes its designated P from 0
+to 1 while adding zero to its designated ledger. If it is supposed to
+obey A2 and ledger conservation, that transition is incorrect.
 
-Run the buggy simulator on a Turing machine. The transition
-function reads the current state and the symbol under the head; it
-writes a new symbol, moves the head, changes state. There is no
-field in this for "the program just flipped cert without paying the
-cost." The Turing machine has no notion of cert. No notion of
-cost-on-cert. No way to detect the dishonesty. The buggy simulator
-runs to completion. The Turing machine cannot refuse to execute it.
+An A2-respecting abstract machine has no such transition among its
+permitted steps. This is a consequence of its specification. To claim
+that hardware enforces the same exclusion, one must establish that
+hardware execution follows the specification under the stated
+representation and implementation assumptions.
 
-Run the same buggy simulator on a substrate satisfying A2. Here is
-what A2 actually buys. A2 constrains the cost function c: any
-instruction that can flip P from 0 to 1 has cost at least 1. So a
-substrate satisfying A2 has no instruction in its set I that flips
-certification on for free -- A2 rules that instruction out of
-existence. The buggy simulator is, by definition, a program that
-flips cert at cost 0. It needs an instruction the substrate does not
-have. Call a run admissible when every one of its steps applies a
-real instruction from I. The buggy program has no admissible run on
-the substrate: not because some step "fails," but because the step it
-needs is not an instruction the substrate offers. There is nothing to
-run.
+A conventional machine can implement those permitted steps too. It
+can also simulate descriptions of machines that violate A2 without
+violating its own accounting: the simulated flag is then data, not
+necessarily the host's designated predicate P. Confusing these two
+levels creates a false impossibility claim.
 
-  A Turing machine cannot refuse to execute a buggy A2-simulator.
-  A substrate cannot execute one.
-
-This is the construction. The gap between a Turing machine
-and a substrate is not a labeling decision and not a stylistic
-choice. It is the existence of a specific program that one runs
-faithfully and the other has no admissible run for. Two systems are
-not the same kind of object when they disagree, operationally, on
-which programs admit a run.
-
-Here is the move everyone reaches for first: you can simulate
-certification on a Turing machine by maintaining a cert bit on the
-tape. It misses this. The simulator can be honest (charge the cost
-on the flipping step) or buggy (skip it); the Turing machine cannot
-tell which is which, because its transition function has no notion
-of cert-on-cost. The substrate runs only the honest simulator. That
-is where they part.
+The practical question is which updates an implementation permits,
+and what evidence connects those updates to the claimed policy. The
+presence of a field or a type signature alone does not settle it.
 
 
-6. SUBSUMPTION
+6. LIFTING, PROJECTION, AND VERIFICATION
 
-Every classical computation can be lifted into a substrate. Take a
-Turing machine configuration; add a P field, set it to 0; add a cost
-ledger called mu, set it to 0. You have a substrate state. Run the
-Turing machine's transition rule inside the substrate. The
-substrate's classical instructions do not touch P; they do not
-increment mu. The Turing-machine trace runs unchanged.
+A classical transition system can be lifted into an accounting model:
+retain its state and transitions, let P remain false, and charge zero.
+A2 then holds vacuously. This embeds the original computation without
+adding computable functions. The VM supplies more operations as a
+particular realization of the broader construction.
 
-The lifting is faithful: every classical computation runs unchanged
-inside the substrate. Same set of computable functions. The substrate
-does not add computational power; it adds structure.
+Projection can lose information. The VM's chosen strict projection
+forgets the ledger, certification, and graph. Its separation proofs
+supply colliding witnesses with different answers to particular
+queries. This proves failure of a decoder on the whole stated domain;
+it does not imply that every observed state has multiple preimages.
 
-The lifting is also strictly lossy. Substrate states that differ in
-P, in mu, or in any further substrate-only structure they carry (some
-substrates carry more, a partition graph and morphism data; this
-argument needs only P and mu) all project back to the same classical
-state. The view from outside -- forget P, forget mu, forget the rest
--- collapses many substrate states into one classical state.
+Separate P and mu fields are convenient, but not a universal minimal
+representation theorem. A different encoding can pack them into one
+value; in some systems one may be a function of other state. The
+query and admissible state space determine what must be retained.
 
-So: classical computation is exactly the image of substrate
-computation under the projection that forgets cert and the ledger mu
-(the two substrate-only fields, Section 4). Every CPU on every desk
-is a substrate state running in the P = 0, mu = 0 fragment, with no
-further structure switched on.
+A2 gives a lower bound, not a unique schedule. Charges greater than
+one are allowed, and steps without certification flips may also cost
+something. Exact unit pricing follows only after adding the separate
+requirement of no overcharge relative to certification-flip count.
+Several designated unit event floors can share one charge; independent
+coordinates alone do not require separate charges to add.
 
-But being that image is not what makes classical derivative, and this
-is the one place the claim is easy to get wrong. Being the image of a
-forgetful map is cheap. Take tagged-Z, the integers with one extra
-bit stapled to each number: forget the bit and you get Z, and nobody
-calls Z the derivative of tagged-Z. The reason is sharper, and it is
-this: (P, mu) is the minimal extension of the classical state that
-makes certification AND its cost determinate -- minimal in that you
-cannot drop either field and still read, off the state alone, whether
-you are certified and what certifying has cost. Drop P and there is no
-certification in the state at all. Drop mu and the cost so far is not
-in the state -- you could recover it only by re-running with an
-outside counter, which is exactly what makes cost external rather than
-the object's own (the split of Section 4). Neither field is
-removable, so (P, mu) is the smallest cert-and-cost state there is.
-A2 is the law that lives on it: a cert-flip costs at least 1. And A2
-is the exact least price for committing a cert, exact from both
-sides: skip the flip's charge and you underprice on the one-step
-trace that flips, the exact move the buggy simulator of Section 5
-makes and the exact move the substrate has no instruction for;
-charge a step that flips nothing and you overprice, billing a
-certification that never happened. Swap any checker in for the law
-and it misprices one of those two single steps.
-Classical computation is what is left when you forget
-this minimal cert-and-cost state -- the state on which A2 is a law the
-step obeys rather than a checker run from outside. That is what
-derivative means here, and the forgetful map is just how you watch it
-happen.
+The verifier impossibility has a similarly precise scope. Suppose a
+transcript identifies two executions, one satisfying a mu-sensitive
+claim and the other not. Completeness requires acceptance on the first;
+strong soundness forbids acceptance when the second is still possible.
+No verifier of that transcript alone can meet both requirements.
 
-The projection-asymmetry is that watching, not the reason. The
-projection from substrate to classical is canonical: one map,
-forget P and mu and the rest. The lift back is not.
-Every classical state has at least two substrate preimages -- build
-one that flipped a cert and paid for it, build one that never did,
-and both forget back to the same classical state. So any lift must
-choose, at every classical state, which preimage is canonical, and
-that choice is data the classical fields do not hold. Every
-substrate state has a classical projection; no classical state has a
-forced substrate lift. True, and worth seeing. But the same shape
-sits under tagged-Z, so it is a consequence of the directionality,
-not its ground.
-
-Run that through verifier theory and it produces an impossibility.
-Fix what sound and complete mean. A verifier reads a transcript and
-accepts or rejects a claim about the run. Call it complete if it
-accepts every honest run that has the claimed property, and sound, in
-the strong sense, if it accepts only when the claim holds for every
-substrate state consistent with the transcript it saw -- anything
-weaker lets it bless a state it could not rule out. Now let the
-transcript be only the classical projection, with a claim that turns
-on a dropped field. Section 9 builds two single-step traces that agree
-on the classical projection and differ in mu, one with mu = 1 and one
-with mu = 0; they project to the same transcript. Completeness forces
-acceptance on the honest run (mu = 1). Strong soundness forces
-rejection, since the other state (mu = 0) fits the same transcript and
-fails the claim. Accept and reject at once: no such verifier exists.
-Three escapes lift it, each a concrete verifier: substrate-trust
-(the transcript carries the full substrate state and the verifier
-reads mu directly), hardness (the transcript carries an unforgeable
-commitment under a hardness hypothesis), and interaction (the
-verifier elicits a response that pins the claim). Under all three
-sits the floor: any sound and complete verifier on the mu-sensitive
-claim, over any transcript type, cannot be a function of the
-classical projection alone. Verification has to reach the
-non-classical structure. Substrate-trust is what the structural
-axis newly makes available; hardness and interaction are the two
-routes classical cryptography and complexity already used.
+The repository constructs three ways to provide sufficient additional
+evidence under their respective premises: access to the full state,
+a commitment under a hardness hypothesis, and an interactive response
+contract. The hardness construction has its stated weaker soundness
+guarantee. The constructions do not establish that these three labels
+exhaust all protocols, or that ordinary computing cannot retain the
+needed information. The collision premise must hold for the particular
+transcript under discussion.
 
 
-7. WHAT THIS DOES NOT CLAIM
+7. WHAT THIS DOES AND DOES NOT CLAIM
 
-It does not claim the substrate computes more functions than a Turing
-machine. It does not. The computability class is unchanged.
+The construction makes a chosen accounting discipline explicit. The
+No Free Insight theorem lifts its local positive-charge law to a run.
+The observation results identify exactly when an interface loses the
+information needed to answer a query. These are mathematical results
+about the specified models.
 
-It does not claim CPUs are secretly tracking certification cost. They
-are not. They run in the dormant fragment.
+They do not establish a new class of computable functions, an inability
+of conventional machines to enforce invariants, or a universal physical
+price for every structural change. The concrete ISA permits some
+structural changes at zero ledger cost.
 
-It does not claim P vs NP, quantum supremacy, or a theory of physics.
-The substrate distinction is logical: about whether P and c are in
-the step rule's signature.
+The physical interpretation needs its own argument. In particular,
+full_vm_f1_premises_incompatible proves that the full ISA's zero-cost
+jumps contradict the stated pair of universal collapse-price and
+cost-calibration premises. A program counter collapsing to one does
+not by itself establish physical erasure: retaining the old state in
+a larger history can make each fixed-instruction step injective.
 
-It claims this: A2 is a constraint on step relations, a property of
-the step rule only when the step rule owns c and P; the step
-relations that own c and P and respect A2 form a category strictly
-larger than the category of classical step relations; and classical
-computation is derivative of the substrate,
-not parallel to it, because (P, mu) is the minimal state that makes
-certification and its cost determinate -- the state on which A2 is a
-law rather than a checker run from outside -- and A2 is the exact
-least price for a cert, so any substitute checker misprices a single
-step. The projection that forgets cert and the ledger mu is how that
-shows up: classical computation is the substrate with that minimal
-cert-and-cost state forgotten.
+The hardware model's trace bridge follows actual fetched instructions,
+program counter, fuel, and state under WFDrivenRun. Generated RTL keeps
+the compiler/backend trust boundary named in the pipeline manifest.
+Synthesis, simulation, and FPGA bitstream generation supply additional
+evidence; they do not turn that boundary into a Coq proof.
 
-And it claims four downstream results: a Kleene-1938 diagonal
-native to the substrate's own axis (Section 8), a cost-ledger
-observability separation that turns on A2 and nothing else
-(Section 9), a quantitative cost lower bound: on a certain honest
-kind of shortcut (Section 10 defines it and calls it sound), the
-substrate trace's ledger mu rises by at least the drop in ceiling-log
-of the feasible-set size -- the number of yes/no questions the
-narrowing answers -- (Section 10), and a per-step polynomial
-exceedance over classical unit-cost RAM time for LASSERT-based
-certification (Section 11).
+The following sections state further results with their own premises.
+A2 alone does not supply all of those premises.
 
 
 8. STRUCTURAL UNDECIDABILITY
@@ -396,14 +251,15 @@ those carrying a recursion theorem and a non-trivial behavioral
 predicate on programs admit the result below. The recursion theorem
 is Kleene's: any way of transforming programs that the substrate can
 itself carry out has a fixed point -- a program whose behavior equals
-its own image under the transformation. Every substrate worth the
-name carries it.
+its own image under the transformation. This is an additional
+hypothesis; A2 alone does not provide a recursion theorem.
 
-Fix such a predicate. The one this section is built for is "does this
-program admit a sound structural shortcut" -- the honest-shortcut
-notion Section 10 defines and names -- but the argument works for any
-predicate that depends only on how a program behaves and is not
-constant. Concretely it needs two things: the predicate respects
+Fix such a predicate. The formal interface calls it AdmitsShortcut.
+Its interpretation must be supplied by the instance; the name alone
+does not identify it with Section 10's quantitative witness package.
+The argument works for any predicate satisfying the stated behavioral
+invariance and nontriviality conditions. Concretely it needs two
+things: the predicate respects
 extensional equivalence (programs with the same run-behavior get the
 same value), and the substrate fixes two canonical programs, one the
 predicate accepts and one it rejects.
@@ -418,130 +274,62 @@ program the predicate rejects; if no, output the one it accepts. For
 the recursion theorem to apply, f must itself be one of the
 substrate's own programs -- and it is, on one mild assumption worth
 naming: that the substrate's programs are closed under "run a program,
-then branch to one of two fixed programs," ordinary if-then-else over
-a decision, which any substrate that can run D at all can do. Granting
+then branch to one of two fixed programs." This closure is a separate
+premise, not a consequence of merely being able to run D. Granting
 that, f is representable, the recursion theorem's side-condition, and
 the theorem hands back a fixed-point program q whose run-behavior
-equals that of
-f(q). Case-split on D(q). If D says q admits a shortcut, then by
+equals that of f(q). Case-split on D(q). If D says q admits a shortcut, then by
 construction f(q) is the program that does not, and q behaves like
 f(q), so by extensionality q does not -- D was wrong. If D says q does
 not, the same step makes q one that does. Either answer is wrong, so
 no such D exists.
 
-Classical halting asks whether execution terminates in finite time
-along the temporal axis. The shortcut question asks whether a program's
-run-behavior matches a canonical inhabitant along the certification
-axis. Same diagonal architecture (Kleene 1938), different axis,
-different predicate. One is not a renaming of the other.
+This is the Kleene/Rice diagonal pattern expressed through an abstract
+program interface. The theorem is conditional on that interface's
+recursion, representability, closure, extensionality, and nontriviality
+premises. The VM instance retains its recursion-theorem premise; the
+repository also supplies an unconditional diagonal instance on its
+separate natural-number substrate.
 
-The natural worry: doesn't this reduce to classical halting? It
-does not. The proof never encodes a Turing machine. It uses the
-substrate's own recursion theorem -- a field the substrate exposes
-internally -- not a constructed simulator. The diagonal closes
-inside structure every such substrate already carries, parametric
-over the substrate.
+The proof's not invoking a Turing-machine simulator does not establish
+non-reducibility to halting or Turing-degree incomparability. Such
+claims would require their own definitions and proofs. Nor should the
+undecidable predicate on arbitrary programs be confused with reading a
+designated boolean from a fully supplied concrete state.
 
-One honest caveat. The result fires on minimal substrates where mu
-is just zero, A2 holds vacuously, and the diagonal uses the
-recursion theorem and extensionality rather than any cost argument.
-A2 is upstream of the result, not inside the proof: it picks out
-the category whose axis is being diagonalized along, not the lemma
-that closes the diagonal. On substrates with substantive mu the
-same theorem applies. The result's content is the diagonal, not
-the cost.
-
-The structural-axis nature of the diagonal is the same move as
-Section 4, one axis over. The shortcut predicate reads cert, and cert
-is no more a function of the classical projection than it was in
-Section 4: two substrate states with the same classical projection
-can still differ on cert, so no classical-side rule recovers it. Run
-this same diagonal on the classical projection alone and it references
-a field the projection has already erased; the lift is ill-defined. The
-substrate-axis diagonal is not the halting problem in disguise. It
-is a different limitative result, structurally distinct because the
-predicate it diagonalizes against reads a field only the substrate
-has.
+The diagonal can hold on a model with mu always zero and A2 vacuous.
+Its contradiction uses the recursion theorem and extensionality, not
+a positive-cost argument. That is the content of this result.
 
 
 9. COST LEDGER OBSERVABILITY
 
-A separation, running the other way from Section 8's diagonal.
-Where that result keeps A2 upstream, as the axiom that picks the
-category, this one puts A2 to work inside the proof: two substrate
-computations a classical observer cannot tell apart, carrying
-different costs, and A2 is the step that forces the gap.
+The VM supplies two reachable computations with the same specified
+classical observation and different ledgers. Consequently no function
+of that observation recovers the ledger on every reachable VM state.
 
-Statement. There exist two substrate computations whose classical
-observable outcomes are identical -- same memory contents, same
-register file, same program counter -- but whose cost-ledger
-outcomes differ. As a corollary, no function from the classical
-observable to the cost ledger can be correct on every reachable
-substrate state.
+Start at init_state with mu = 0 and certification false. One trace
+runs CERTIFY with delta = 0: its charge is 1 and it sets the flag.
+The other runs PNEW on an empty region with delta = 0: its charge is
+0 and it changes the graph. Both advance the program counter by one
+and leave memory and registers unchanged. The projection retaining
+only those three components therefore agrees, while the ledgers differ.
 
-Why the gap is A2, not the field layout. The result is not "mu sits
-in a separate field, so the classical projection does not contain it"
--- that would be a tautology about where you keep the field. The point
-is that A2 is what forces two traces with the same classical
-projection onto different mu. One trace flips certification once; A2
-floors that step at 1, so its ledger ends at least 1. The other never
-flips certification and its one step is free, so its ledger ends at 0.
-Same classical projection, ledgers 1 and 0, and the one reason they
-must differ is A2. Take A2 away, let a cert-flip cost 0, and the first
-trace's ledger drops to 0 as well: the two match, and the separation
-is gone. So the gap is not bookkeeping about which field holds mu; it
-is A2 pricing the single step that tells the traces apart. (What is
-NOT claimed: that mu is a function of how many cert-flips happened. It
-is not -- mu also carries every other cost a trace charges, which is
-exactly what Section 11 uses. The claim is only that on these two
-traces A2 forces the ledgers apart.)
+The argument needs this instruction set, initial state, cost schedule,
+and observation. A2 supplies a positive floor for the certification
+flip, but it alone does not supply a free PNEW instruction or matching
+observations. It is not a separation theorem for every A2 system.
 
-Construction. Start from a clean state: mu = 0, certification = 0,
-the classical projection whatever you like. Run two one-step traces.
-  Trace A runs CERTIFY -- the instruction that flips certification on.
-    By A2 it costs at least 1.
-  Trace B runs PNEW -- a cost-0 instruction that only switches on a
-    fresh, empty piece of the substrate's own structure (a "partition
-    module," the partition/morphism kind Section 6 set aside) and
-    touches nothing a Turing machine can see.
-CERTIFY changes only the cert field; PNEW changes only substrate-only
-structure. Neither touches memory or registers, and both advance the
-program counter by one, as any single step does. So the two traces
-end with the same classical projection -- same memory, same
-registers, same program counter.
+Allowing zero-cost certification in a modified schedule can remove
+this particular witness's cost gap. Merely dropping A2 as a hypothesis
+does not change the existing VM schedule or make every ledger
+separation disappear. A richer observation that retains mu distinguishes
+the two executions directly.
 
-But their ledgers do not match. Trace A's is at least 1, by A2 on its
-cert-flip; Trace B's is 0, because PNEW costs nothing. Same classical
-projection, ledgers 1 and 0 -- so no function from the classical
-projection to the ledger can be right on both: it would have to return
-1 and 0 on the same input.
-
-The counterfactual, explicitly. The proof's bound on Trace A's
-cost is exactly the cert-flip cost-floor (A2 applied to the
-specific CERTIFY step). Replace A2 with the unconstrained
-cost-bearing rule -- allow cert-flipping steps to cost zero --
-and Trace A's cost ledger collapses to 0, matching Trace B's, and
-the separation between classical shadow and cost ledger
-disappears. The counterfactual is concrete: in the unconstrained
-cost-bearing world, one can construct a trace that flips
-certification at total cost zero, and the cost ledger no longer
-separates certifying from non-certifying behavior.
-
-Statable without A2. Strip the framework off and the result is a
-plain statement about state: here is a fact about a computation that
-no amount of staring at its observable outcome will ever hand you.
-You do not need the substrate to find that interesting. Hyperproperties,
-side channels, information flow are all built on exactly this gap
-between what a system does and what you get to see it do. The
-substrate just gives me a clean place to prove it. The claim does
-not need the framework to be stated, only to be proved.
-
-None of this is a drafting choice. The separation is forced: A2
-ties the cost ledger to which cert-flips a trace made, the classical
-projection throws those away, and so the gap between them is
-structural. I did not arrange it by putting mu in its own field. It
-is there because A2 makes the ledger carry something the projection
-cannot see.
+This is an information-loss result: the specified view cannot answer
+a query on which its colliding states disagree. It does not say that
+the ledger is unrepresentable in ordinary memory, or that paying the
+charge proves an arbitrary proposition.
 
 
 10. QUANTITATIVE COST LOWER BOUND
@@ -630,166 +418,86 @@ inequalities breaks at the last step. A2 is what closes the chain
 between tree depth and mu-ledger change.
 
 
-11. POLYNOMIAL COST EXCEEDANCE PER STEP
+11. COMPARING TWO COST MODELS
 
-One more, and a different kind of comparison. Section 10's bound
-lived inside a single metric, cert-flip events on both sides.
-This one is across two metrics: a per-step gap between substrate mu
-and classical unit-cost RAM time for LASSERT-based certification.
+The VM's payload-sensitive schedule charges flen * 8 + S(delta)
+for LASSERT. The formula-length contract relates flen * 8 to the
+formula's encoded bit length B, giving a B + 1 floor for the stated
+successful-certification case. Meanwhile, an abstract
+instruction counter records one executed instruction. This compares
+two chosen metrics. It is not a speedup, a runtime lower bound for all
+implementations, or a consequence of A2 alone.
 
-Problem class. "LASSERT-based certification of a B-bit formula" is
-any computation that certifies a logical claim of bit-length B via
-the substrate's LASSERT instruction. SAT-witness certification,
-predicate certification, structural-property certification all
-land here.
+The B + 1 floor requires the formula-length and additive pricing
+contracts of the result being used. A2 says that a false-to-true
+certification transition costs at least one. If another requirement
+says the same step costs at least B, the two requirements together
+imply cost >= max(B, 1), not cost >= B + 1. For B >= 1, charging B
+satisfies both individual floors. Additivity needs a further premise
+or a chosen schedule.
 
-The two cost models. The result below is a comparison between two
-metrics, not a within-metric speedup. Classical unit-cost RAM
-measures instructions executed: one tick per instruction
-regardless of payload size; this is the model standard complexity
-arguments use when counting "operations." Substrate mu measures
-information committed plus irreversibility events -- bit-cost on
-payloads plus A2's cert-flip floor. The two metrics count
-different things. The gap below is the dimensional gap between
-them; it is not a claim that the substrate runs faster or slower
-in any common unit.
+The VM's schedule and the payload-pricing contracts should therefore
+be named explicitly. They do not measure physical information erased
+merely because mu increases. Nor does counting one abstract LASSERT
+prove that a conventional RAM can check an arbitrary B-bit assertion
+in one physical or primitive machine step.
 
-Classical complexity (unit-cost RAM). Under the standard unit-cost
-RAM model -- one unit of time per instruction, regardless of
-payload size -- a single LASSERT instruction is one unit of time.
-
-Substrate cost. The LASSERT cost rule is additive: certifying a
-B-bit formula charges one unit per bit -- B in all -- and, on top of
-that, the cost of flipping certification on, which LASSERT does. The
-two are added, not maxed: the bits are the payload, the flip is a
-separate event with its own charge. LASSERT flips certification, so
-by A2 that flip costs at least 1. By conservation the ledger sums the
-step's charges, so a single LASSERT certifying a B-bit formula raises
-mu by at least B + 1 -- B for the bits, at least 1 for the flip.
-
-Theorem (between two cost models). For any single-LASSERT trace
-certifying a B-bit formula:
-  Substrate mu-increase >= B + 1.
-  Classical unit-cost RAM time = 1.
-  Between-metric gap: substrate mu >= B + 1 where RAM time = 1.
-For B polynomial in input size n, the gap grows polynomially in n.
-For B = 2^32 bits, substrate mu is at least 2^32 + 1 where RAM time
-stays 1.
-The substantive claim is that complexity arguments which
-implicitly use unit-cost RAM miss the B-bit commit and the +1
-cert-flip; substrate mu records them. Switch the classical
-machine to bit-cost RAM or Turing-machine time and classical also
-pays O(B) -- the substrate then matches classical rather than
-exceeding, because the metrics have been aligned. The gap is sharp
-specifically against unit-cost RAM, which is the model standard
-complexity arguments use.
-
-Why A2 supplies the +1. The bit charge B is the cost rule's payload
-term -- bookkeeping, not A2. The +1 is the flip: LASSERT flips
-certification on, and A2 is what forces a cert-flip to cost at least
-1. Strip A2 out and nothing makes the flip cost anything -- the rule
-could charge B for the bits and 0 for the flip, and the floor drops
-from B + 1 to B. At B = 0, an empty formula, that is a clean
-separation: without A2 the floor is 0, with A2 it is 1. So the bits
-are the cost rule's, the +1 is A2's, and the two add.
-
-The exceedance is real, and honest about its own scope: a gap
-between two rulers, sharp against unit-cost RAM, gone the moment you
-switch classical to a ruler that also charges for bits.
+To compare execution efficiency, fix a shared task, representation,
+primitive instruction set, and cost metric. The between-metric
+comparison by itself establishes no such efficiency separation.
 
 
-12. WHERE EACH STEP CAN FALL
+12. HOW TO CHECK THE CLAIMS
 
-The construction in Section 5 is the operational test: the buggy
-simulator runs on a Turing machine and has no admissible run on a
-substrate satisfying A2. The results in Sections 8 through 11 are
-what the framework lets me state. If the work is wrong, one of
-these steps is where it gives.
+Read the definitions before the theorem names. A checked implication
+can be correct while its prose describes a larger class of systems
+than its premises allow.
 
-  1. The five-piece definition of a substrate (S, I, step, c, P).
-     Reject by: naming what should be added or removed.
+The principal checks are:
 
-  2. The axiom A2.
-     Reject by: explaining why a substrate should permit free
-     certification.
+  1. For the accounting theorem, inspect A2, nonnegative costs, and
+     ledger conservation. Then check the trace argument in Section 3.
+     Whether a particular event should carry that price is a modeling
+     question separate from the implication.
 
-  3. The signature claim -- A2 is a property of a step rule only
-     when P and c are in the step rule's signature.
-     Reject by: making A2 a property of a Turing machine's
-     transition function (signature (state, symbol) -> (state,
-     symbol, direction)) without extending the signature to include
-     P. External annotations do not count -- those make A2 a
-     property of (delta, P, c), not of delta. Encoding P and mu
-     into the tape alphabet Gamma does not count either -- delta
-     still does not consult typed P and c arguments; cost is
-     recovered post hoc by reading mu off the tape (see Section 4).
-     I claim you cannot.
+  2. For observation and verifier results, identify the observation,
+     query, state domain, and colliding witnesses. Check the claims on
+     precisely that domain. An encoding that retains more information
+     is a legitimate comparison, not something to exclude by wording.
 
-  4. The subsumption claim -- every classical computation lifts into
-     a substrate, and the projection back to classical is
-     many-to-one.
-     Reject by: producing a classical computation that no substrate
-     can host, or a substrate state that projects to no classical
-     state.
+  3. For implementation claims, check permitted transitions and the
+     abstraction relation. Include WFDrivenRun preconditions and the
+     named compiler/backend boundary when discussing generated RTL.
 
-  5. The structural-undecidability result -- no internally
-     representable decider correctly decides, on arbitrary programs
-     of the substrate, whether a program admits a sound shortcut.
-     Reject by: showing the proof reduces to classical halting under
-     inspection, or that the diagonal closes only because of an
-     implicit classical-computation assumption.
+  4. For the diagonal, inspect the recursion and representability
+     premises. Distinguish a predicate on arbitrary programs from a
+     boolean query on a supplied state. Do not infer non-reducibility
+     from the absence of a reduction in this proof.
 
-  6. The cost-ledger observability result -- there exist substrate
-     traces with identical classical observable outcomes and
-     different cost-ledger outcomes, with the cost gap forced by
-     A2 applied to the cert-flipping step.
-     Reject by: exhibiting an A2-respecting substrate in which both
-     traces have the same cost ledger (which requires either A2 to
-     be violated or the construction to be wrong), OR exhibiting a
-     function from the classical observable to the cost ledger that
-     is correct on every reachable substrate state.
+  5. For Section 10's quantitative bound, inspect the explicit tree,
+     posterior-representative injection, and depth-many-cert-flips
+     receipt. Those hypotheses are part of the result; the bound is
+     not asserted for every deterministic decision trace.
 
-  7. The quantitative cost lower bound -- for any sound structural
-     shortcut narrowing a prior feasible set Omega to a nonempty
-     posterior Omega' (a subset of Omega), the substrate trace that
-     realizes the shortcut satisfies log_2^up|Omega| -
-     log_2^up|Omega'| <= Delta mu. Both sides count the same thing on
-     the same trace -- yes/no tests answered, cert-flips paid for;
-     the ledger is floored by how far the trace narrows, in bits.
-     Reject by: exhibiting a sound structural shortcut (one
-     handing over all the receipts listed in Section 10: strict
-     narrowing, distinguishing observation, certified posterior
-     predicate, realized-by-the-trace tree, posterior-representative
-     reduction) whose trace satisfies Delta mu < log_2^up|Omega| -
-     log_2^up|Omega'|. OR showing the realized-by-the-trace
-     condition does not pin tree internal nodes to cert-flips. OR
-     showing A2 does not force a cert-flip to cost >= 1.
-     Note. The bound requires an explicit realized-by-the-trace
-     tree as part of the witness; it is not a Shannon bound on
-     every deterministic single trace. Pointing out that a single
-     trace reaching one leaf pays one cert-flip is not a rejection.
-     The substrate refuses the unconditional single-trace claim,
-     because one trace gives it no tree to chain through.
+  6. For a payload-cost claim, identify the actual schedule and the
+     premise requiring additive charges. Keep that metric separate
+     from runtime and physical dissipation.
 
-  8. The polynomial per-step gap between two cost models --
-     single-LASSERT certification of a B-bit formula has substrate
-     mu-increase at least B + 1, while classical unit-cost RAM time
-     is 1 for any single-instruction trace. Between-metric gap:
-     substrate mu is at least B + 1 where RAM time is 1.
-     Reject by: exhibiting an A2-respecting substrate whose LASSERT
-     instruction certifies a B-bit formula at substrate cost less
-     than B + 1, OR showing that the substrate's mu-ledger
-     conservation law (mu-increase = the step's charged cost) is incorrect,
-     OR showing that the LASSERT cost rule's bit-scaling is not
-     forced by the substrate's design. Pointing out that the gap
-     is between two cost models (unit-cost RAM vs substrate mu) is
-     not a rejection -- it is the claim (see Section 11). Switching
-     classical to bit-cost RAM or Turing-machine time aligns the
-     metrics; the substrate then matches classical, which is the
-     standard caveat, not a refutation.
+The v3.2.1 documentation correction changes these descriptions, not
+the kernel theorems. The assumption receipt still covers 4,026
+statements: 2,979 closed under the global context, 1,047 depending on
+standard-library axioms, and none on project-local or third-party
+axioms. A theorem's explicit hypotheses still matter even when it is
+closed under the global context.
 
-Pick the step you think gives, and show me where. That is the
-offer, and it is the only honest one I know how to make.
+Start with README.md and the proof contracts it links. Run make verify,
+make verify-claims, and make verify-research in the documented build
+environment. These checks provide reproducible evidence about their
+defined scope; they do not certify every interpretation in an essay.
+
+I want the argument to survive being read closely. If a definition
+misses the phenomenon I intended, or a sentence exceeds its theorem,
+that is a correction to make, even when the proof compiles.
 
 
 ------------------------------------------------------------

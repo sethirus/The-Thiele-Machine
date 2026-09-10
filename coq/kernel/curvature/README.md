@@ -11,6 +11,13 @@ physical general relativity. The named bridge premise
 is what hooks numerical units to a physical reading; see README §"What is and
 isn't forced".
 
+The angle-defect identity uses `2π` minus the incident angle sum at every
+vertex, including boundary vertices. With the required incidence equations,
+its total is `2πχ + πB`; the additional hypothesis `B = 3χ` gives `5πχ`.
+That restriction is not a general property of triangulated disks. The result
+is not the usual combined interior-curvature and boundary-turning formula,
+which uses `π` at boundary vertices under the appropriate surface conditions.
+
 ## Files
 
 ### Foundational simplicial / matrix infrastructure
@@ -20,7 +27,7 @@ isn't forced".
 | `MatrixAlgebra4.v` | 4×4 matrix algebra primitives |
 | `FourDSimplicialComplex.v` | 4-simplex / clique-style cell bookkeeping |
 | `DiscreteSimplicialGeometry.v` | `combinatorially_orthogonal` predicate; closes off-diagonal Ricci section variable |
-| `DiscreteTopology.v` | F = 2I + B, B = 3χ identities; well-formed-triangulated invariants |
+| `DiscreteTopology.v` | Triangle/edge definitions; required incidence 3F = 2I + B and additional restriction B = 3χ |
 | `PhysicalSubstrate.v` | Typeclass for (k_B, ℏ, c) with `mu_landauer_unruh_calibrated` bridge premise |
 | `KernelPhysics.v` | Causal-cone semantics; structural physics primitives |
 
@@ -42,7 +49,7 @@ isn't forced".
 | `EinsteinEquationsFull.v` | Full-tensor EFE = diagonal EFE + off-diagonal Ricci = 0 |
 | `AffineEFEClosure.v` | Closes off-diagonal Ricci gap via affine metric-scaled symmetric operator |
 | `CurvedTensorPipeline.v` | Curved (non-vacuum) diagonal EFE pipeline |
-| `EinsteinEmergence.v` | **`einstein_emerges`** — discrete Gauss-Bonnet identity ΔK = 5π·Δχ |
+| `EinsteinEmergence.v` | **`einstein_emerges`** — restricted angle-defect identity ΔK = 5π·Δχ under the stated triangulation predicates |
 | `NoFIToEinstein.v` | NFI → EFE bridge under Bekenstein calibration |
 
 ### Lorentzian signature
@@ -64,7 +71,7 @@ isn't forced".
 | `TopologyCurvatureBridge.v` | Bridge between Euler-characteristic change and curvature |
 | `SpacetimeEmergence.v` | Causal cone, locality, μ-conservation as emergent kernel facts |
 | `JacobsonBridgeComponents.v` | Named bridge premises for the Jacobson construction |
-| `DiscreteGaussBonnet.v` | Discrete Gauss-Bonnet identity ΔK = 5π·Δχ |
+| `DiscreteGaussBonnet.v` | Restricted angle-defect identity ΔK = 5π·Δχ under the stated triangulation predicates |
 | `KernelNoether.v` | Z-indexed shifts of the μ-ledger (analogy file; **flagged for removal**) |
 | `PhysicsClosure.v` | **`Physics_Closure`** — locality + μ-conservation + causality from `vm_step` alone |
 

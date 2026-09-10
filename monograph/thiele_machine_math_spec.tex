@@ -18,7 +18,7 @@
 
 \title{\textbf{The Thiele Machine}\\ \large A Complete Mathematical Specification\\[6pt] \normalsize Derived from the Fully Machine-Checked Coq Corpus}
 \author{Devon Thiele}
-\date{July 2026}
+\date{September 2026 -- v3.2.1}
 
 % Environments
 \theoremstyle{definition}
@@ -62,7 +62,7 @@ This is the complete mathematical specification of the Thiele Machine: a formal 
 
 Coq establishes that conclusions follow from axioms. It does \emph{not} establish that axioms model physical reality. That distinction matters and I keep it explicit throughout. Every result is tagged as one of three types: \textbf{(S)}~structural theorems about the machine as a mathematical object, \textbf{(C)}~conditional derivations where a physics conclusion follows from a stated axiom, and \textbf{(R)}~consistency relations that check internal coherence but are not independent predictions.
 
-The core claims are structural (S): No Free Insight; $\mu$-conservation; $\mu$-hierarchy; $\mu$-ledger necessity (five-way independence classification); categorical separation; strict Turing subsumption; the classical CHSH bound ($|S| \leq 2$); the algebraic Tsirelson bound ($|S| \leq 2\sqrt{2}$); and the biconditional with no project-local axioms \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable}. The CHSH algebraic result is pure math. The Landauer connection is motivation. Geometry: only the discrete angle-defect identity for planar triangulations.
+The core claims are structural (S): No Free Insight; $\mu$-conservation; $\mu$-hierarchy; $\mu$-ledger necessity (five-way independence classification); categorical separation; strict Turing subsumption; the classical CHSH bound ($|S| \leq 2$); the algebraic Tsirelson bound ($|S| \leq 2\sqrt{2}$); and the biconditional with no project-local axioms \texttt{column\_\allowbreak{}contractive\_\allowbreak{}iff\_\allowbreak{}quantum\_\allowbreak{}realizable}. The CHSH algebraic result is pure math. The Landauer connection is motivation. Geometry: the discrete angle-defect identity under its incidence assumptions and the additional restriction $B=3\chi$.
 
 The document also covers, with explicit epistemological tags, conditional derivations under named physical axioms (Born rule under linearity, no-cloning, unitarity) and reference explorations (4D simplicial-complex differential geometry, self-reference tower). These are marked (C) or (R) and do not form part of the primary claim ledger. Two named trust boundaries discussed here are: \texttt{bsc\_\allowbreak{}kami\_\allowbreak{}compilation\_\allowbreak{}trusted} (Layer 2 Verilog semantics gap) and \texttt{A\_\allowbreak{}QM} (physical quantum axiom).
 \end{abstract}
@@ -86,7 +86,7 @@ The document is organized as:
     \item \textbf{Symmetry \& Conservation}: Gauge action, Noether's theorem, receipts.
     \item \textbf{Quantum / CHSH algebra}: Tsirelson bound (algebraic), CHSH classical bound, biconditional column-contractive $\iff$ NPA-realizable, three-tier observation taxonomy. Pure polynomial arithmetic, zero physics axioms.
     \item \textbf{Conditional physics}: Born rule (under linearity), unitarity, no-cloning, purification, Landauer (with second-law assumed as a record field), affine EFE family. Each is conditional on stated axioms in its own file.
-    \item \textbf{Discrete Geometry}: Discrete angle-defect identity for planar triangulations (not classical Gauss-Bonnet); 4D simplicial complex and Einstein-tensor definitions (reference exploration only, vacuum case is a $0=0$ consistency check).
+    \item \textbf{Discrete Geometry}: Restricted angle-defect identity with $B=3\chi$ (not classical Gauss-Bonnet); 4D simplicial complex and Einstein-tensor definitions (reference exploration only, vacuum case is a $0=0$ consistency check).
     \item \textbf{Meta-Theory}: Three-layer Coq/Python/RTL observable contract, categorical structure.
     \item \textbf{Predictions}: Falsifiable predictions tied to specific Coq-verifiable claims.
 \end{enumerate}
@@ -1162,25 +1162,27 @@ If module $M_B$ is not in the target set of any instruction in a trace, then $M_
 This is a \textbf{data isolation} property: operations targeting module $A$ in the partition graph do not affect the lookup of module $B$. The proof is structural (list operations on disjoint keys), non-trivial mainly for \texttt{instr\_\allowbreak{}psplit}/\texttt{instr\_\allowbreak{}pmerge} which restructure the graph. The label ``no-signaling'' is an analogy. There is no spatial metric or speed limit between modules.
 \end{remark}
 
-\section{Discrete Geometry: The Gauss-Bonnet Result}
+\section{Discrete Geometry: A Restricted Angle-Defect Identity}
 \label{sec:gauss_bonnet}
 
-The partition graph is a discrete geometric object. One unconditional result falls out, requiring no physics axioms.
+The result is a conditional combinatorial identity with an assigned equilateral angle model. No physical interpretation is needed, but its graph, incidence, and boundary-count hypotheses are essential.
 
-\begin{theorem}[Discrete Angle-Defect Identity (Planar Triangulations) {\normalfont (\texttt{coq/\allowbreak{}kernel/\allowbreak{}curvature/\allowbreak{}DiscreteGaussBonnet.v})}, \textbf{(S)}]
-For any \texttt{well\_\allowbreak{}formed\_\allowbreak{}triangulated} partition graph $g$ in the equilateral angle model (each triangle corner contributes $\pi/3$):
+The formal statement is in \texttt{coq/\allowbreak{}kernel/\allowbreak{}curvature/\allowbreak{}DiscreteGaussBonnet.v}.
+
+\begin{theorem}[Restricted Angle-Defect Identity, \textbf{(S)}]
+For a partition graph $g$ satisfying \texttt{well\_\allowbreak{}formed\_\allowbreak{}triangulated}, assign $\pi/3$ to every triangle corner. The predicate includes $3F=2I+B$, $\sum_v\deg(v)=3F$, and $B=3\chi$, where $\chi=V-E+F$; the edge definitions give $E=I+B$. With $\deg(v)$ counting incident triangles, define
 \[
-\mathrm{angle\_\allowbreak{}defect}(g) = 5\pi \cdot \chi(g)
+D(g)=\sum_v(2\pi-\deg(v)\pi/3).
 \]
-where $\chi(g) = V - E + F$ is the Euler characteristic (vertices minus edges plus faces), and $\mathrm{angle\_\allowbreak{}defect}(g)$ is the sum over all vertices of $2\pi$ minus the total incident angle. This is a fully proven combinatorics result about the discrete triangulation model. It is not the continuum Gauss-Bonnet theorem and it is not a derivation of angles from $\mu$-cost. Zero Admitted.
+Then $D(g)=5\pi\chi(g)$. The definition uses $2\pi$ at every vertex, including boundary vertices.
 \end{theorem}
 
-\begin{remark}[How this differs from classical Gauss-Bonnet]
-\textbf{The factor $5\pi$ is not a typo and not the classical Gauss-Bonnet constant.} For a closed triangulated 2-manifold (like the surface of a tetrahedron), the standard derivation gives $D = 2\pi\chi$: every interior edge is shared by exactly two faces, so $3F = 2E$, and substituting that into $D = 2\pi V - \pi F$ together with $\chi = V - E + F$ yields $D = 2\pi\chi$. The Coq predicate \texttt{well\_\allowbreak{}formed\_\allowbreak{}triangulated} does \emph{not} include $3F = 2E$. It instead requires \texttt{satisfies\_\allowbreak{}boundary\_\allowbreak{}euler\_\allowbreak{}relation} ($B = 3\chi$, where $B$ is the boundary edge count) together with $E = I + B$ and $3F = 2I + B$. From these the file derives the combinatorial identity $3V = 5E - 6F$, which in turn forces $D = 5\pi\chi$.
+\begin{remark}[Hypotheses and relation to Gauss--Bonnet]
+The incidence equations yield $D=2\pi V-\pi F=2\pi\chi+\pi B$. The extra hypothesis $B=3\chi$ supplies the coefficient $5\pi$. It is not a general property of planar triangulations with boundary: a quadrilateral disk divided into two triangles has $B=4$ and $\chi=1$ and is excluded. The predicate also does not itself provide a planar embedding or a proof that the graph is a topological disk.
 
-That identity holds for \textbf{planar triangulations with boundary} (the canonical example: a planar disk with $V=7$, $E=15$, $F=9$, $\chi=1$, satisfying $3V = 21 = 5E - 6F$ and $D = 5\pi$). It \textbf{fails} for closed surfaces (the tetrahedron has $V=4$, $E=6$, $F=4$, but $3V = 12 \neq 6 = 5E - 6F$, so it is excluded from the predicate). The theorem is therefore not a discrete Gauss-Bonnet theorem in the classical sense, it is a different combinatorial identity for a different family of complexes. The two coexist: classical Gauss-Bonnet at $2\pi\chi$ for closed 2-manifolds, the file's identity at $5\pi\chi$ for planar disks satisfying its well-formedness predicate.
+For a triangulated surface with boundary cycles, the usual combined interior-curvature and boundary-turning sum uses $2\pi$ at interior vertices and $\pi$ at boundary vertices. Since boundary vertices and edges then have equal counts, this correction subtracts $\pi B$ and gives $2\pi\chi$. Establishing the appropriate surface conditions and boundary-vertex definition is required for that statement. It is not the theorem formalized by the current file.
 
-This is the full extent of the topology-curvature identity in the project.
+Thus the existing proof establishes a valid identity for its defined quantity under its stated restrictions. It neither derives those restrictions from computation nor establishes a physical curvature law or an angle scale from $\mu$-cost.
 \end{remark}
 
 \subsection{Cross-link in MuGravity Vocabulary}

@@ -6,8 +6,8 @@ The Thiele Machine
 
 
 
-                  Devon Thiele
-                     July 2026
+                   Devon Thiele
+               September 2026 – v3.2.1
             Before the book: the short version, and how to check it
 
 I didn’t invent a machine. I found one.
@@ -52,7 +52,7 @@ could be done in public, with something firmer than my confidence to argue over.
          The physical interpretation and the choice of universally necessary priced
      events remain open. The full-ISA F1 physical premise pair is incompatible with
      zero-cost jumps, as F1_physical_premises_incompatible proves. The
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
       observation results do not forbid information-preserving encodings, and the trace-
@@ -62,7 +62,7 @@ could be done in public, with something firmer than my confidence to argue over.
 
 
                                               2
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
 
@@ -114,7 +114,7 @@ Contents
 
 
                                               3
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
    8.2 The specific versions . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       66
@@ -146,7 +146,7 @@ Contents
    14.2 Layer 2: The OCaml extracted runner . . . . . . . . . . . . . . . . . . .            92
    14.3 Layer 3: The Kami RTL hardware . . . . . . . . . . . . . . . . . . . . . .           92
 
-15 Five more instantiations, none of them mine                                               96
+15 Five more instantiations, none of them mine                                               97
    15.1 Proof-of-stake finality . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    97
    15.2 Gas metering . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .     97
    15.3 Trusted-execution attestation . . . . . . . . . . . . . . . . . . . . . . . .        98
@@ -166,7 +166,7 @@ Contents
 
 
                                               4
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
         16.6.2 Where the three conditions come from . . . . . . . . . . . . . . .          109
@@ -181,39 +181,39 @@ Contents
    17.1 The Landauer association is motivation only . . . . . . . . . . . . . . . 124
    17.2 The µ-hierarchy . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 125
 
-18 Discrete Geometry over Partition Graphs                                            127
+18 Discrete Geometry over Partition Graphs                                             127
    18.1 Discrete triangulation of the partition graph . . . . . . . . . . . . . . . . 127
-   18.2 The boundary-triangulated angle-defect identity . . . . . . . . . . . . . 128
+   18.2 The restricted angle-defect identity . . . . . . . . . . . . . . . . . . . . . 128
 
-19 The substrate and its halting-shaped wall                                               130
-   19.1 The Substrate typeclass . . . . . . . . . . . . . . . . . . . . . . . . . . . .    131
-   19.2 The shortcut-admittance predicate . . . . . . . . . . . . . . . . . . . . .        132
-   19.3 The substrate-level limitative theorem . . . . . . . . . . . . . . . . . . .       133
-   19.4 The proof, in prose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    136
-   19.5 The two-axis picture this completes . . . . . . . . . . . . . . . . . . . . .      137
-   19.6 What this closes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   137
-   19.7 The wall the classical configuration cannot see . . . . . . . . . . . . . .        138
+19 The substrate and its halting-shaped wall                                               129
+   19.1 The Substrate typeclass . . . . . . . . . . . . . . . . . . . . . . . . . . . .    130
+   19.2 The shortcut-admittance predicate . . . . . . . . . . . . . . . . . . . . .        131
+   19.3 The substrate-level limitative theorem . . . . . . . . . . . . . . . . . . .       132
+   19.4 The proof, in prose . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .    134
+   19.5 The two-axis picture this completes . . . . . . . . . . . . . . . . . . . . .      135
+   19.6 What this closes . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .   136
+   19.7 The wall the classical configuration cannot see . . . . . . . . . . . . . .        137
 
-20 What Coq is, and why I used it                                                        140
-   20.1 The Inquisitor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 141
+20 What Coq is, and why I used it                                                        139
+   20.1 The Inquisitor . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 140
 
-21 Zero Admitted: what it actually means                                                   142
+21 Zero Admitted: what it actually means                                                   141
 
-22 How to break this                                                                       144
+22 How to break this                                                                       142
 
-23 The full claim ledger                                                                   148
+23 The full claim ledger                                                                   146
 
-24 Scope of the claim: what is established, what is not                                    153
+24 Scope of the claim: what is established, what is not                                    152
 
-25 The pointer-observable conjecture                                                       155
+25 The pointer-observable conjecture                                                       154
 
-26 Conclusion                                                                              157
+26 Conclusion                                                                              156
 
 
 
 
                                               5
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 
@@ -264,7 +264,7 @@ The method underneath was crude and it held. I wrote a long structured spec in
 
 
                                             6
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 JSON (a plain-text format for describing data) as a context document, fed it to Copilot,
@@ -314,7 +314,7 @@ Machine. It was a placeholder, the name you give a folder so you can save it. It
 
 
                                            7
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 and it later turned out to carry more than I meant by it, but that is its own story and I
@@ -364,7 +364,7 @@ and stamp it. So I read every statement. The proofs you can’t fake. The statem
 
 
                                             8
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 you can fake by accident, which is the more dangerous failure mode. I refused both
@@ -414,7 +414,7 @@ Section 9, where the formal machine state starts. But if you catch something in 
 
 
                                             9
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 basics that is wrong, I want to know, and I mean that as a real ask and not a polite one.
@@ -463,7 +463,7 @@ comparison is wrong, tell me.
 
 
                                             10
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
       say more.
@@ -510,7 +510,7 @@ comparison is wrong, tell me.
 
 
                                            11
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
       solution can be cheap while finding one looks expensive; whether finding is
@@ -558,7 +558,7 @@ I read enough of each to convince myself Thiele is not a restatement, but I cann
 
 
                                            12
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 that with the confidence of someone who has actually read the field. The only things
@@ -607,7 +607,7 @@ kept conflating them myself until the proofs forced the line; confuse them and t
 
 
                                            13
-The Thiele Machine                                                              Devon Thiele • July 2026
+The Thiele Machine                                                        Devon Thiele • September 2026
 
 
 theorems quietly stop meaning what they say. The substrate is the A2-respecting
@@ -663,7 +663,7 @@ representation, and its visibility to an observer are separate properties.
 
 
                                                    14
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 The renderer experience is the entry point. I started by trying to build a 3D engine
@@ -713,7 +713,7 @@ for Information Interchange) simply agrees to call 65 the letter A, 48 the digit
 
 
                                            15
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 space. Nothing in the byte knows which it is. The meaning is a convention laid on top
@@ -765,7 +765,7 @@ not see bits.
 
 
                                           16
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
 A shift moves the bits of a value left or right. Left shift by 3 (sometimes written x ≪ 3)
@@ -820,7 +820,7 @@ means the absolute value of x (its distance from zero).
 
 
                                              17
-The Thiele Machine                                                       Devon Thiele • July 2026
+The Thiele Machine                                                 Devon Thiele • September 2026
 
 
 
@@ -874,7 +874,7 @@ real arithmetic; handles polynomial inequalities), and psatz (uses Positivstelle
 
 
                                                 18
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 certificates; it shows a polynomial is non-negative by writing it as a sum of squares). I
@@ -926,7 +926,7 @@ under certification-preserving state maps. The latter maps may fail to exist; wh
 
 
                                               19
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 supplied, their uniqueness on reachable states is a separate theorem.
@@ -978,7 +978,7 @@ because λ is random. Bell’s theorem says no local hidden variable model can p
 
 
                                             20
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 certain correlations that quantum mechanics can.
@@ -1030,7 +1030,7 @@ nextpnr-xilinx is the place-and-route tool for the Xilinx FPGAs this design targ
 
 
                                            21
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 The last stretch is producing a bitstream, the binary file the FPGA reads to configure
@@ -1081,7 +1081,7 @@ for when they want to wave the whole question away: if a tape can stand in for t
 
 
                                             22
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 state, what was the difference? The difference is that the tape carries a picture of the
@@ -1132,7 +1132,7 @@ Polynomial complexity: an algorithm is polynomial-time if there is some power k 
 that the algorithm’s running time on inputs of size n is at most a constant times nk .
 
                                            23
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 Polynomial-space is the analogous concept for memory used. The class P is decision
@@ -1186,7 +1186,7 @@ content into a single field kept by the name A2 (the load-bearing piece). The Qu
 
 
                                            24
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 titativeCertificationSystem extension adds A3–A6, which lift the cost-floor
@@ -1234,7 +1234,7 @@ of A3. It is also idle: the ≥ K floor telescopes through A3, A5, and A6 alone 
 
 
                                             25
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 touches A4. The field is kept so downstream consumers that want witness monotonic-
@@ -1282,7 +1282,7 @@ position, and running two independent parts side by side was the monoidal produc
 (Section 2 builds all of these). I was not simulating category theory on top of ordinary
 
                                           26
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 data. The structure was the thing the engine ran on. And it worked, which is the part
@@ -1332,7 +1332,7 @@ observable changes have positive cost or that arbitrary predicates are independe
 
 
                                            27
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 geometric dimensions.
@@ -1383,7 +1383,7 @@ a floor for every system satisfying A2. mu_is_initial_monotone proves ledger
 
 
                                              28
-The Thiele Machine                                                      Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 
@@ -1394,8 +1394,8 @@ a floor for every system satisfying A2. mu_is_initial_monotone proves ledger
 
 
 
-                                                                           no recovery of
-                                                                            original state
+                                                                          no recovery of
+                                                                           original state
                                         shadow_proj
 
 
@@ -1442,7 +1442,7 @@ intuitive notion of “algorithm.” The machine, as I understand it, is this:
 
 
                                                  29
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
    • An infinite tape. Think of it as an infinitely long strip of paper, divided into cells.
@@ -1491,7 +1491,7 @@ does not establish semantic truth.
 
 
                                               30
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 3.5 Structural cost and other resource measures
@@ -1542,7 +1542,7 @@ code and are excluded by the premise, but not all for the same reason. PNEW,
 
 
                                            31
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                         Devon Thiele • September 2026
 
 
 PSPLIT, PMERGE, TENSOR_SET, MORPH, COMPOSE, MORPH_ID, MORPH_DELETE, and
@@ -1593,7 +1593,7 @@ the induction hypothesis to the next n steps from lift_config(c′ ).
 
 
                                           32
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 Theorem 3.4 (Degenerate projection theorem (four-part)). The following four proposi-
@@ -1642,7 +1642,7 @@ The conjunction of the four pieces is the theorem.
 
 
                                             33
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
     together, classical computation is exactly the image of Thiele computation under
@@ -1693,7 +1693,7 @@ observables. A ϕ satisfying the equation would force 0 = 1. Contradiction.
 
 
                                           34
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
    Plain reading. The Thiele µ counter is not a function of the three-field classical ob-
@@ -1743,7 +1743,7 @@ the bare projection structurally cannot carry.”
 
 
                                               35
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
    3. The structural-axis diagonal has no analog in the bare projection. The undecidable
@@ -1794,7 +1794,7 @@ tion additionally takes a representative trace for each reachable state. Under t
 
 
                                             36
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 explicit selector, reachable_simulation_exists_iff characterizes certification-
@@ -1846,7 +1846,7 @@ The Coq check assumes no axioms.
 
 
                                            37
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 Three escapes, each constructed.
@@ -1895,7 +1895,7 @@ assumes no axioms.
 
 
                                            38
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
     pair that the bare-setting theorem already exhibited. The substrate, the hardness
@@ -1944,7 +1944,7 @@ rule has no opinion about whether it was earned or invented. The Thiele substrat
 keeps that place. It carries the partition as part of its state, posts every build to the
 
                                              39
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 ledger at its declared cost, and will not stamp the structure certified while the bill for
@@ -1996,7 +1996,7 @@ by word and verifies the witnesses without calling an external constraint solver
 
 
                                             40
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 validation succeeds, the checked constraint package can feed the later certification
@@ -2046,7 +2046,7 @@ matters. A raw bit pattern can be copied. A certified decomposition can justify 
 two smaller problems instead of one large one. At the raw-data level, a morphism
 
                                             41
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 ID can be forged in a register: write 42 into the register and call it “the ID of some
@@ -2096,7 +2096,7 @@ certification event. The prior Ω is the list as it stood going in; the posteri
 
 
                                               42
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 coming out. The posterior can only ever be a subset of the prior, Ω′ ⊆ Ω. You can
@@ -2145,7 +2145,7 @@ MORPH_ASSERT channel: has a morphism property been asserted and its checksum
 
 
                                             43
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 registered? A trace can set vm_certified = true without has_supra_cert by
@@ -2195,7 +2195,7 @@ projection-image must agree on equal images, so it agrees on s1 and s2 .
 
 
                                               44
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
     apart. The projection already collapsed them.
@@ -2246,7 +2246,7 @@ pens to differ here too; (3) is where that gets tied down.)
 
 
                                              45
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 against PNEW [ ] 3. Both charge µ = 3, both leave the visible tuple identical, and they
@@ -2297,7 +2297,7 @@ counter, certified flag, even starting µ: none of them changes that sum. Formal
 
 
                                             46
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
 The right side uses the summation symbol from Section 2.                  It reads: add up
@@ -2348,7 +2348,7 @@ Theorem 5.4 (Feasible narrowing becomes predicate strengthening). Suppose a post
 
 
                                              47
-The Thiele Machine                                                                Devon Thiele • July 2026
+The Thiele Machine                                                          Devon Thiele • September 2026
 
 
                      Prior Ω                     observation f obs              Posterior Ω′
@@ -2405,7 +2405,7 @@ distinguishing observation is what lets you write the boundary down honestly, bu
 
 
                                                       48
-The Thiele Machine                                                        Devon Thiele • July 2026
+The Thiele Machine                                                  Devon Thiele • September 2026
 
 
 it does not author a new claim on top of the narrowing. The narrowing is the claim.
@@ -2456,7 +2456,7 @@ induction hypothesis gives ≥ 1 on the rest. Either case yields total cost ≥ 
 
 
                                                 49
-The Thiele Machine                                                          Devon Thiele • July 2026
+The Thiele Machine                                                   Devon Thiele • September 2026
 
 
    Plain reading. This is the same theorem as the one in the NoFI section, carried
@@ -2504,7 +2504,7 @@ below it. What it counts instead is the binary distinctions the narrowing forces
 make, and that integer (not its real-valued cousin) is what the proof bounds by the tree’s depth,
 
                                                  50
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 and the depth by ∆µ. ∆µ is final µ minus initial µ across the trace.
@@ -2556,7 +2556,7 @@ whole trace. Chain the inequalities:
 
 
                                               51
-The Thiele Machine                                                                               Devon Thiele • July 2026
+The Thiele Machine                                                                 Devon Thiele • September 2026
 
 
     you paid never shows up, because the ledger does not extend that kind of credit.
@@ -2568,7 +2568,7 @@ whole trace. Chain the inequalities:
 
                                 pass                               fail
 
-              observation f obs,2                                   observation f obs,3               depth d
+              observation f obs,2                                   observation f obs,3           depth d
                     charged ≥ 1 µ                                         charged ≥ 1 µ
 
              pass                   fail                          pass                    fail
@@ -2611,7 +2611,7 @@ follow.
 
 
                                                           52
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
    Plain reading. The record is exactly what the representation theorem needs as
@@ -2660,7 +2660,7 @@ the VM has observed and recorded a result but has not yet activated a cert chann
 It does not close the stronger bridge. The trace does not end in has_supra_cert. In
 
                                            53
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 the semantic CSR-transition sense, it does not realize structure addition. A minimally
@@ -2707,7 +2707,7 @@ has a place, and every place is filled.
 
 
                                             54
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
       fn.    Defined as if Nat.eqb s.(vm_mu) s.(vm_mu) then [] else
@@ -2755,7 +2755,7 @@ ture firms up into three facts that lean on each other. You cannot strengthen a 
 claim for free: the receipt costs µ or it does not exist. Strip a trace down to its classical
 
                                              55
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 shadow and the distinctions that entitlement turns on stop being visible at all, so
@@ -2804,7 +2804,7 @@ does not flip either cert channel. Two opcodes do the flipping: CERTIFY
 
 
                                            56
-The Thiele Machine                                              Devon Thiele • July 2026
+The Thiele Machine                                         Devon Thiele • September 2026
 
 
 (sets vm_certified = true) and MORPH_ASSERT (sets csr_cert_addr nonzero
@@ -2853,7 +2853,7 @@ no shared-randomness-then-local-choice story, which is the whole classical accou
 of how two separated outcomes manage to correlate, can produce them. So this tier
 
                                           57
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 certifies a fact that rules out an entire worldview, and the price does not flinch for the
@@ -2903,7 +2903,7 @@ More observables also do not automatically buy an additive bill. joint_floor_
 
 
                                              58
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
 is_least proves that the least natural-number charge satisfying a finite family of
@@ -2955,7 +2955,7 @@ characters costs 80 + 1 = 81. Emitting more costs more. The price tracks the bit
 
 
                                              59
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 time, and there’s no rate to negotiate.
@@ -3007,7 +3007,7 @@ matching the information content you are asking the trace to validate.
 
 
                                            60
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 The proof that µ is always exactly µbefore + instruction_cost for each step:
@@ -3058,7 +3058,7 @@ Literally equal, value by value, on every reachable state.
 
 
                                            61
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 Theorem 7.2 (µ-Initiality). Let M be any function from VM states to natural numbers
@@ -3109,7 +3109,7 @@ result underneath it is the priority. No competing count can agree on the schedu
 
 
                                             62
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 start at zero, and land on a different total, and there’s nowhere left for that freedom to
@@ -3161,7 +3161,7 @@ cution to a fixed error address): the program counter jumps to LASSERT_TRAP_PC,
 
 
                                            63
-The Thiele Machine                                                            Devon Thiele • July 2026
+The Thiele Machine                                                      Devon Thiele • September 2026
 
 
 which is 0xF00 in hexadecimal, decimal 3840. The error flag is set. The check does
@@ -3210,7 +3210,7 @@ split on cert(s1 ).
 
 
                                                    64
-The Thiele Machine                                                       Devon Thiele • July 2026
+The Thiele Machine                                                 Devon Thiele • September 2026
 
 
       tion hypothesis at (rest, s1 ) to get ∑ j∈rest cost( j) ≥ 1. The total trace cost is
@@ -3261,7 +3261,7 @@ ends certified for a stronger predicate via the supra-cert channel (csr_cert_add
 
 
                                                 65
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 nonzero). The Strengthening-requires-structure-addition theorem (Section 5) gives the
@@ -3312,7 +3312,7 @@ total µ cost is ≥ 1.
 
 
                                           66
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 Proof. Instantiate the universal theorem above with C = the 51-opcode VM; cert(s) :=
@@ -3362,7 +3362,7 @@ which door a program walks through to call itself certified.
 
 
                                            67
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 8.3 What this means in practice
@@ -3410,7 +3410,7 @@ strate state in 12 fields:
 
 
                                           68
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
    • s.vm_mu_tensor: a 4×4 array of cost values (16 entries), indexed by direction
@@ -3458,7 +3458,7 @@ strate state in 12 fields:
 
 
                                            69
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
       sets it. Nothing else can.
@@ -3509,7 +3509,7 @@ bolted on after. The VM reads it, the VM charges it.
 
 
                                             70
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 One reminder before the machinery. This is scaffolding. These 51 opcodes are one way to build
@@ -3558,7 +3558,7 @@ step, when the structure has to pay for being believed.
 PDISCOVER(m, evidence, δ): query partition structure.
 
                                               71
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 The evidence payload is carried by the instruction, but the hardware-aligned relation
@@ -3607,7 +3607,7 @@ the pricing anymore by declaring a tiny flen for a large in-memory formula: if t
 
 
                                            72
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 header and the instruction disagree, the VM traps. And no faking semantic narrowing
@@ -3657,7 +3657,7 @@ They just compute.
 
 
                                            73
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 
@@ -3708,18 +3708,18 @@ concrete.
 
 
                                           74
-The Thiele Machine                                              Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
 
-  Opcode                  What it does                               Note
-  LOAD(rd , r a , δ)      Load vm_mem[r a ] into rd                  Kernel register-
-                                                                     indirect load
-  STORE(r a , rs , δ)     Store register rs into vm_mem[r a ]        Kernel register-
-                                                                     indirect store
-  JUMP(addr, δ)          Set PC to addr unconditionally              none
-  JNEZ(r, addr, δ)       Jump to addr if r ̸= 0                      none
-  CALL(addr, δ)          Push return address via stack pointer       Qed coverage
+  Opcode                  What it does                                    Note
+  LOAD(rd , r a , δ)      Load vm_mem[r a ] into rd                       Kernel register-
+                                                                          indirect load
+  STORE(r a , rs , δ)     Store register rs into vm_mem[r a ]             Kernel register-
+                                                                          indirect store
+  JUMP(addr, δ)          Set PC to addr unconditionally                   none
+  JNEZ(r, addr, δ)       Jump to addr if r ̸= 0                           none
+  CALL(addr, δ)          Push return address via stack pointer            Qed coverage
                          r15, jump to addr
   RET(δ)                 Pop return address via stack pointer r15, Qed coverage
                          jump there
@@ -3751,7 +3751,7 @@ distinct.
 
 
                                            75
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 
@@ -3803,7 +3803,7 @@ points at a real cell of a 4×4 grid or runs off it. So the per-module weights a
 
 
                                             76
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 some soft annotation that the flattened vector and the silicon happen to mostly agree
@@ -3852,7 +3852,7 @@ direction the disclosure landed in; the S(δ) part of the charge goes to the led
 Revealing 0 bits still costs at least 1. Revealing 32 bits costs at least 33. Disclosing more
 
                                              77
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 costs more, and there’s no plan where you reveal the whole module for the price of
@@ -3902,7 +3902,7 @@ S5 Schur entries, then four sym4-determinant minors of the cleared 4×4). On pas
 
 
                                           78
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 the bridge gives PSD9 at ( E, γ1 , γ2 , γ3 , γ4 , γ5 ) for the bucket-derived rationals: the
@@ -3952,7 +3952,7 @@ number of coupling pairs via MORPH_GET (selector 2), if you want to know.
 
 
                                             79
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                         Devon Thiele • September 2026
 
 
 Two states can agree on the selected classical projection and ledger while differing in
@@ -4000,7 +4000,7 @@ The number 51 comes from what the kernel needs to do:
 
 
                                           80
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
    • Witness and certification (general plus the full CHSH check family): 8 ops
@@ -4049,7 +4049,7 @@ you could not activate vm_certified. If you removed MORPH, you could not build
 
 
                                           81
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 morphism relationships. If you removed CHSH_TRIAL, you could not track 2-player
@@ -4099,7 +4099,7 @@ Two laws must hold:
 
 
                                            82
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
 And composition must be associative: (h ◦ g) ◦ f = h ◦ ( g ◦ f ).
@@ -4148,7 +4148,7 @@ right before it turns out to be false.
 
 
                                              83
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 11.2 Why modules as objects
@@ -4198,7 +4198,7 @@ morphism 42 actually exist in the graph, put there by a MORPH or COMPOSE instruc
 
 
                                             84
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 that genuinely ran? MORPH_ASSERT looks the morphism up by ID and fails (setting
@@ -4247,7 +4247,7 @@ Two witness states, side by side. What the six-field shadow sees. What the graph
 
 
                                              85
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 state actually holds.
@@ -4297,7 +4297,7 @@ Connecting to the universal NoFI. Combine this within-model witness with uni
 versal_nfi_any_substrate and thiele_represents_simulating_cert_
 
                                            86
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 system (both) and you get the substrate-level statement. Take a certification sys-
@@ -4347,7 +4347,7 @@ is deterministic on the shadow) and the morphism graphs still differ.
 
 
                                             87
-The Thiele Machine                                                       Devon Thiele • July 2026
+The Thiele Machine                                                 Devon Thiele • September 2026
 
 
     difference between s1 and s2 is not an artifact of the initial state. It persists through
@@ -4398,7 +4398,7 @@ label, and the certificate string is not validated.
 
 
                                                88
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
 Act 2: Build the chain.
@@ -4449,7 +4449,7 @@ apart. That two states can share the entire shadow while differing in the graph 
 
 
                                           89
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 Categorical Separation Theorem (Section 12); Program B is the forged half of exactly
@@ -4497,7 +4497,7 @@ matched against the synthesised RTL. The accessors wrap indices through those si
 (modular arithmetic, Section 2). Both constants are parametric in the proofs (Section 2:
 
                                           90
-The Thiele Machine                                                             Devon Thiele • July 2026
+The Thiele Machine                                                        Devon Thiele • September 2026
 
 
 
@@ -4511,7 +4511,7 @@ matched against the synthesised RTL. The accessors wrap indices through those si
       extraction · ocaml_bisimulation_closure                  Kami spec · kami_refines_vm_step
 
 
-                 OCaml runner                                              Kami RTL
+                 OCaml runner                                               Kami RTL
 
                                                                                    BSC compile
                            parity tests
@@ -4547,7 +4547,7 @@ silicon path, named bsc_kami_compilation_trusted.
 
 
                                                   91
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 same proofs, any value), so nothing in the formal chain depends on the specific num-
@@ -4597,7 +4597,7 @@ actual logic, either on an FPGA, a chip you can reconfigure after it leaves the 
 
 
                                             92
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                         Devon Thiele • September 2026
 
 
 an ASIC, a chip burned for one design and never reprogrammable. So a Kami module
@@ -4628,47 +4628,49 @@ synthesis pipeline I use: yosys does the gate-level synthesis, nextpnr-xilinx do
 place-and-route, and prjxray’s xc7frames2bit produces the bitstream the chip reads
 to configure itself.
 
-The CI workflow runs both halves on every relevant push. One job produces a
-JSON netlist plus a simulation VCD waveform from iverilog (all three terms in Sec-
-tion 2); the other job produces a real .bit file loadable on the FPGA. Running yosys
-(synth_xilinx -family xc7 -abc9 -nodsp) against the committed RTL gives
-a resource breakdown: roughly 151,000 LUTs, several thousand flip-flops, about a
-thousand carry chains, two block RAMs (the FPGA-primitive vocabulary is in Sec-
-tion 2; the exact post-synthesis numbers are 151,154 LUTs, 8,463 flip-flops, 1,113
-carry-chains, 64 distributed RAMs, 2 block RAMs of 36 Kbit each, 0 DSP slices).
-The largest arithmetic resource cost is instr_chsh_lassert’s column-contractive
-integer-arithmetic witness check: I deliberately disable DSP inference (-nodsp) so the
-multiplier tree maps to LUTs. yosys’s DSP48E1 inference fans the same arithmetic out
-to more DSP slices than the K325T has, and routing through DSPs makes the openXC7
-placer too slow to fit in CI. To keep that LUT cost finite, the witness check itself is im-
+ CI (Full), triggered by its nightly schedule or manual dispatch, runs the hardware
+ synthesis/simulation and FPGA generation jobs. The ordinary CI workflow runs
+ separately on pushes and pull requests. One job produces a JSON netlist plus a
+ simulation VCD waveform from iverilog (all three terms in Section 2); the other job
+produces a real .bit file loadable on the FPGA. Running yosys (synth_xilinx
+-family xc7 -abc9 -nodsp) against the committed RTL gives a resource break-
+ down: roughly 151,000 LUTs, several thousand flip-flops, about a thousand carry
+ chains, two block RAMs (the FPGA-primitive vocabulary is in Section 2; the exact
+post-synthesis numbers are 151,154 LUTs, 8,463 flip-flops, 1,113 carry-chains, 64 dis-
+ tributed RAMs, 2 block RAMs of 36 Kbit each, 0 DSP slices). The largest arithmetic
+ resource cost is instr_chsh_lassert’s column-contractive integer-arithmetic wit-
+ ness check: I deliberately disable DSP inference (-nodsp) so the multiplier tree maps
+ to LUTs. yosys’s DSP48E1 inference fans the same arithmetic out to more DSP slices
 
 
 
-                                            93
-The Thiele Machine                                               Devon Thiele • July 2026
+                                          93
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
-plemented in Kami as a 23-phase FSM that time-shares one 384 × 384 signed-unsigned
-multiplier across the 22 wide integer multiplications it needs. The Coq spec for instr
-_chsh_lassert is still single-step (single-cycle retirement at the VM/spec level); the
-multi-cycle execution is a Kami-implementation detail invisible to the spec, exactly
-the same pattern as the existing instr_lassert FSM (see the chsh_lassert_fsm
-rule). The design fits the K325T’s 203,800 LUT6 budget with comfortable margin. Con-
-cretely, the CI fpga-bitstream job produces a real .bit file end-to-end on every
-relevant push (yosys synthesis → openXC7’s nextpnr-xilinx place-and-route →
-prjxray’s fasm2frames packaging → xc7frames2bit): roughly 11,444,000 bytes,
-post-route maximum clock frequency 49.33 MHz against the 12 MHz target, zero route
-congestion (router2 converges with overused=0 overuse=0 archfail=0). The
-bitstream is loadable on the Digilent Genesys 2 with openFPGALoader--boardgen
-esys2thiele_xc7k325t.bit, and each CI run uploads it as an artifact alongside
-the FASM and the JSON netlist, so the file is available without needing to re-run the
-hour-long synth flow locally. One bookkeeping distinction, so the repository and this
-paragraph cannot be read as contradicting each other: the Genesys 2 K325T bitstream
-lives in CI , built on every relevant push, uploaded as a run artifact, never committed.
-The bitstream committed in the repository itself is a smaller Artix-7 build (build/t
-hiele_xc7a35t.bit, xc7a35t on the Digilent Arty A7, about 2.1 MB) produced by
-the same yosys → nextpnr-xilinx → prjxray flow; the Genesys 2 constraint file ships
-in fpga/, but no Genesys 2 bitstream is committed.
+than the K325T has, and routing through DSPs makes the openXC7 placer too slow to
+fit in CI. To keep that LUT cost finite, the witness check itself is implemented in Kami
+as a 23-phase FSM that time-shares one 384 × 384 signed-unsigned multiplier across
+the 22 wide integer multiplications it needs. The Coq spec for instr_chsh_lasse
+rt is still single-step (single-cycle retirement at the VM/spec level); the multi-cycle
+execution is a Kami-implementation detail invisible to the spec, exactly the same pat-
+tern as the existing instr_lassert FSM (see the chsh_lassert_fsm rule). The
+design fits the K325T’s 203,800 LUT6 budget with comfortable margin. Concretely, the
+CI fpga-bitstream job produces a real .bit file end-to-end in CI (Full) (yosys syn-
+thesis → openXC7’s nextpnr-xilinx place-and-route → prjxray’s fasm2frames
+packaging → xc7frames2bit): roughly 11,444,000 bytes, post-route maximum clock
+frequency 49.33 MHz against the 12 MHz target, zero route congestion (router2 con-
+verges with overused=0 overuse=0 archfail=0). The bitstream is loadable on
+the Digilent Genesys 2 with openFPGALoader--boardgenesys2thiele_xc7k3
+25t.bit, and each successful FPGA job uploads it as an artifact alongside the FASM
+and the JSON netlist, so the file is available without needing to re-run the hour-long
+synth flow locally. One bookkeeping distinction, so the repository and this paragraph
+cannot be read as contradicting each other: the Genesys 2 K325T bitstream lives in CI
+(Full), built on scheduled or manually dispatched runs and uploaded as a run artifact,
+never committed. The bitstream committed in the repository itself is a smaller Artix-
+7 build (build/thiele_xc7a35t.bit, xc7a35t on the Digilent Arty A7, about
+2.1 MB) produced by the same yosys → nextpnr-xilinx → prjxray flow; the Genesys 2
+constraint file ships in fpga/, but no Genesys 2 bitstream is committed.
 
 The kernel proofs are parametric in REG_COUNT and MEM_SIZE, so the same proofs
 apply at any size constants the design picks. This part was a proof of existence on
@@ -4690,13 +4692,14 @@ bisimulation proof.
 
 A bisimulation proof says: given the same starting state and the same instruction,
 the hardware and the Coq model produce the same output state. Not “similar” or
-“equivalent in some abstract sense.” Literally: the hardware’s answer equals the Coq
-model’s answer, field by field. It is a step-by-step correspondence, verified in Coq.
 
 
                                           94
-The Thiele Machine                                              Devon Thiele • July 2026
+The Thiele Machine                                         Devon Thiele • September 2026
 
+
+“equivalent in some abstract sense.” Literally: the hardware’s answer equals the Coq
+model’s answer, field by field. It is a step-by-step correspondence, verified in Coq.
 
 Formal bisimulation proofs exist for all 47 synth-realised opcodes. Zero Admitted.
 All Qed. The four Q1+AB check opcodes have no synthesized-Verilog counterpart, as
@@ -4737,15 +4740,15 @@ precise breakdown for the 47:
      The preconditions are coupling_wf (= coupling_desc_bounded ∧
      coupling_pairs_in_range ∧ coupling_pairs_fully_populated)
      and morph_table_wf. Both invariants are proved to hold at hardware reset
-     and to be preserved by every kami_step operation: coupling_wf_kami
-     _step_preserved and morph_table_wf_kami_step_preserved. So
-     the precondition is discharged in practice for any state reachable by machine
 
 
                                           95
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
+      and to be preserved by every kami_step operation: coupling_wf_kami
+      _step_preserved and morph_table_wf_kami_step_preserved. So
+      the precondition is discharged in practice for any state reachable by machine
       execution; no unreachable-state caveat applies. PNEW/PSPLIT/PMERGE
       additionally need pt_well_formed and arithmetic side conditions that are
       likewise inductive.
@@ -4787,15 +4790,17 @@ pricing is a stronger condition relative to certification-flip count; A2 itself 
 larger charges. Neither result authenticates an external receipt without an evidence
 interface.
 
-15 Five more instantiations, none of them mine
-The abstract records leave state and instruction types open. The following five exam-
-ples instantiate them with deliberately minimal models inspired by independently
+
 
 
                                            96
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
+
+15 Five more instantiations, none of them mine
+The abstract records leave state and instruction types open. The following five exam-
+ples instantiate them with deliberately minimal models inspired by independently
 developed disciplines. Coq checks the models and their consequences; correspon-
 dence with deployed protocols remains a modeling claim requiring separate evidence.
 
@@ -4837,15 +4842,15 @@ schedule misses) and undercharged_opcode_admits_free_commitment hands
 you a one-step certifying trace at zero gas. The theorem prices the limiting case, where
 the charge is missing entirely; Ethereum’s 2016 DoS season was the graded version of
 the same failure shape, opcodes priced far below their real cost letting attackers buy
-state growth almost free, and the emergency repricing that followed is what restoring
-the charging predicate looks like in production. Overcharge and overcharge_b
-reaks_exactness kills the ceiling instead. And the class is not empty talk: the
 
 
                                             97
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
+state growth almost free, and the emergency repricing that followed is what restoring
+the charging predicate looks like in production. Overcharge and overcharge_b
+reaks_exactness kills the ceiling instead. And the class is not empty talk: the
 kernel machine itself sits in it. thiele_vm_commit_pricing_is_exact prices
 that machine’s own certification channel exactly, and thiele_unit_price_lower
 _bounds_mu checks that µ pays the commitment floor with room to spare, which is
@@ -4887,14 +4892,13 @@ is not an unfortunate operational detail; split_view_witness exhibits it as the
 impossibility theorem’s own witness pair: two bare-indistinguishable views, different
 truth underneath.
 
-Falsifier: a sound and complete log-free verifier with the same soundness target.
-
-
 
 
                                           98
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
+
+Falsifier: a sound and complete log-free verifier with the same soundness target.
 
 15.5 Proof-carrying verification
 Proof-carrying code ships a certificate next to the binary so the consumer checks the
@@ -4915,20 +4919,20 @@ Falsifier: a level-k certified trace with total µ below k, or a sound and compl
 round bare verifier.
 
 15.6 The same table, five ways
-  System       Escape used     Kernel result      What is forced      What refutes it
-  PoS finality none,     the   universal_nfi_     slashing: final-    a zero-stake gad-
-               cost records    any_substrate      ize risks ≥ 1       get admitting A2
+  System       Escape used     Kernel result      What is forced     What refutes it
+  PoS finality none,     the   universal_nfi_     slashing: final-   a zero-stake gad-
+               cost records    any_substrate      ize risks ≥ 1      get admitting A2
                directly
-  Gas meter- none, a pric-     exact_commitme     charge ≡ com-       a      conforming
-  ing          ing bicondi-    nt_pricing_cha     mit, unit price     non-commitment
-               tional          racterization                          schedule
-  TEE attesta- substrate       V_does_not_fac     the   measure-      sound+complete
-  tion         (enrich the     tor_through_cl     ment register       bare-transcript
-               state)          assical                                attestation
-  Transparency hardness        hardness_escap     the log itself      sound+complete
-  logs                         e_succeeds                             log-free verifier
-  Proof-       interaction     interactive_es     the rounds, and     a level-k trace un-
-  carrying /                   cape_succeeds,     k units for k       der k µ
+  Gas meter- none, a pric-     exact_commitme     charge ≡ com-      a      conforming
+  ing          ing bicondi-    nt_pricing_cha     mit, unit price    non-commitment
+               tional          racterization                         schedule
+  TEE attesta- substrate       V_does_not_fac     the   measure-     sound+complete
+  tion         (enrich the     tor_through_cl     ment register      bare-transcript
+               state)          assical                               attestation
+  Transparency hardness        hardness_escap     the log itself     sound+complete
+  logs                         e_succeeds                            log-free verifier
+  Proof-       interaction     interactive_es     the rounds, and    a level-k trace un-
+  carrying /                   cape_succeeds,     k units for k      der k µ
   ZK                           level_k_certif     commitments
                                ication_cost_f
                                loor
@@ -4942,10 +4946,8 @@ open problem from the opening pages. The rows are convergence evidence, in five
 vocabularies that owe each other nothing.
 
 
-
-
                                           99
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 
@@ -4996,7 +4998,7 @@ pass, substrate-side: the CHSH_TRIAL opcode, its witness-counter cost schedule, 
 
 
                                           100
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 integer Z-arithmetic predicate column_contractive_check that CHSH_LASSERT
@@ -5046,7 +5048,7 @@ Now XOR the four left sides. Every variable appears twice, so the total is 0. XO
 
 
                                            101
-The Thiele Machine                                                                            Devon Thiele • July 2026
+The Thiele Machine                                                                 Devon Thiele • September 2026
 
 
 
@@ -5108,7 +5110,7 @@ on the same number, which is the only kind of ceiling I trust.
 
 
                                                        102
-The Thiele Machine                                                           Devon Thiele • July 2026
+The Thiele Machine                                                  Devon Thiele • September 2026
 
 
 16.2 The CHSH inequality: where it comes from
@@ -5159,7 +5161,7 @@ exactly, no slack to argue about, and a µ = 0 trace reaches it.
 
 
                                                103
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
                              √
@@ -5216,7 +5218,7 @@ answer depends only on x and shared randomness λ; Bob’s answer depends only o
 
 
                                            104
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                                Devon Thiele • September 2026
 
 
 Proof. |S| ≤ 2: the XOR-factoring argument from Section 16’s “Why 75% is the
@@ -5269,7 +5271,7 @@ valued observables A x , By with A2x = By2 = I and vanishing marginals. That is 
 
 
                                              105
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 quantum-mechanical way of writing measurements with ±1 outcomes, and the argu-
@@ -5325,7 +5327,7 @@ squares. Coq’s psatz tactic finds and verifies such a decomposition; the expli
 
 
                                              106
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 witness parameters t, s are coefficients in the SOS combination, computed once and
@@ -5375,7 +5377,7 @@ taxonomy of Section 6, viewed from the place where physics hands you a free supp
 of trials and then charges you for the sentence you write about them.
 
                                             107
-The Thiele Machine                                                   Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 16.5 The bit-commitment requirement
@@ -5425,7 +5427,7 @@ can multiply with it, the quantity v T Mv is at least 0. (Here v T is the transp
 
 
                                             108
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 from Section 2: turning a column of numbers on its side; v T Mv is the matrix product
@@ -5483,7 +5485,7 @@ is the derivation.
 
 
                                            109
-The Thiele Machine                                                                                             Devon Thiele • July 2026
+The Thiele Machine                                                                                Devon Thiele • September 2026
 
 
                   1      0     0      0      0          1      0     0      0      0         1       0     0     0        0
@@ -5555,7 +5557,7 @@ Condition 3: (1 − E00   10       01   11       00 01 10 11
 
 
                                                                    110
-The Thiele Machine                                                          Devon Thiele • July 2026
+The Thiele Machine                                                      Devon Thiele • September 2026
 
 
 This comes from the 4 × 4 submatrix at rows and columns {1, 2, 3, 4}. That submatrix
@@ -5579,22 +5581,22 @@ on its diagonal, while EE T would put the squared norms of the rows. The right o
 for this argument is E T E.
 
 Computing E T E entry by entry:
-                           !             !                                                !
+                           !             !                                                 !
                  E00 E10       E00 E01                  2 + E2
                                                        E00           E00 E01 + E10 E11
         T                                                     10
       E E=                                   =                            2 + E2
-                                                                                              .
+                                                                                               .
                  E01 E11       E10 E11             E00 E01 + E10 E11     E01    11
 
 The Schur complement is therefore
-                                                                        !                 !
+                                                                          !                 !
                               2 − E2
-                        1 − E00             −( E00 E01 + E10 E11 )              A −B
+                        1 − E00             −( E00 E01 + E10 E11 )                A −B
              T                      10
        I2 − E E =                                    2 − E2
-                                                                            =
-                     −( E00 E01 + E10 E11 )    1 − E01     11                   −B C
+                                                                              =
+                     −( E00 E01 + E10 E11 )    1 − E01     11                     −B C
 
 where A = 1 − E00  2 − E2 (the left side of condition 1), B = E E + E E , and
                           10                                       00 01   10 11
@@ -5617,7 +5619,7 @@ v = (0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1 ), where y0 and 
 numbers. The PSD condition v T Mv ≥ 0, after the matrix algebra, gives a quadratic
 
                                                  111
-The Thiele Machine                                                        Devon Thiele • July 2026
+The Thiele Machine                                                  Devon Thiele • September 2026
 
 
 expression in y0 and y1 : Ay20 − 2By0 y1 + Cy21 ≥ 0 for all real y0 and y1 . If a quadratic
@@ -5668,7 +5670,7 @@ Specialize v T Mv ≥ 0 at the vector
 
 
                                                112
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
 for free y0 , y1 ∈ R. Computing v T Mv using the explicit moment-matrix entries and
@@ -5723,7 +5725,7 @@ the vector (0, −( E00 y0 + E01 y1 ), −( E10 y0 + E11 y1 ), y0 , y1 ). The PS
 
 
                                              113
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 quadratic-in-y0 /y1 that is everywhere non-negative. Then quadratic_nonneg_di
@@ -5776,7 +5778,7 @@ completion passes. What a successful CHSH_LASSERT certifies is that the counters
 
 
                                             114
-The Thiele Machine                                                         Devon Thiele • July 2026
+The Thiele Machine                                                   Devon Thiele • September 2026
 
 
 cohere with the zero-marginal slice, no more and no less, and the Tsirelson corollary
@@ -5831,7 +5833,7 @@ non-negative integer counts. For each condition:
 
 
                                                 115
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
    • Condition 3 (AC ≥ B2 in the notation of Section 16) becomes a polynomial
@@ -5883,7 +5885,7 @@ NPA moment matrix M is positive semidefinite.
    Plain reading. Three theorems compose: the kernel step rule says no-trap means
 
                                            116
-The Thiele Machine                                                     Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
     the integer check passed; the soundness lemma says the integer check pass-
@@ -5932,7 +5934,7 @@ is PSD at the witness-derived rationals and the bucket-derived γ values. The op
 
 
                                              117
-The Thiele Machine                                                       Devon Thiele • July 2026
+The Thiele Machine                                                 Devon Thiele • September 2026
 
 
 steps; the matrix is in the cone. That is the whole bridge.
@@ -5984,7 +5986,7 @@ integer-arithmetic check:
 
 
                                                118
-The Thiele Machine                                                       Devon Thiele • July 2026
+The Thiele Machine                                                 Devon Thiele • September 2026
 
 
       argument; the other four γ are zero. The check adds a weighted 4-D Cauchy-
@@ -6033,7 +6035,7 @@ each one a Schur step you can carry out by hand, stacked from the 4 × 4 back up
 
 
                                                119
-The Thiele Machine                                                                 Devon Thiele • July 2026
+The Thiele Machine                                                       Devon Thiele • September 2026
 
 
 
@@ -6093,7 +6095,7 @@ wc_diffij )) and the bucket-derived γ values (γk = (samegk − diff gk )/(same
 
 
                                             120
-The Thiele Machine                                                          Devon Thiele • July 2026
+The Thiele Machine                                                   Devon Thiele • September 2026
 
 
 diff gk )). This is the operational form of “the substrate certifies Q1+AB -realisability
@@ -6144,7 +6146,7 @@ with one fixed completion, the zero one; the set asks whether any completion wor
 
 
                                                 121
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                          Devon Thiele • September 2026
 
 
 Five theorems pin the characterization down, all mechanised, all with Print
@@ -6194,7 +6196,7 @@ The correlator geometry has three distinct sets: the classical polytope and the 
 
 
                                           122
-The Thiele Machine                                                 Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
 marginal slice intersect without containment, and both sit inside the elliptope, which
@@ -6245,7 +6247,7 @@ whose completed Gram matrix has a negative quadratic form kills deterministic_
 
 
                                            123
-The Thiele Machine                                                Devon Thiele • July 2026
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 strategy_elliptope; an elliptope-realizable tuple with S2 > 8 kills elliptope
@@ -6299,7 +6301,7 @@ rem applied to the trace from µ0 = 0).
 
 
                                            124
-The Thiele Machine                                                        Devon Thiele • July 2026
+The Thiele Machine                                                  Devon Thiele • September 2026
 
 
     charged. No physics in the proof. A 0/1 indicator bounded by what it indicates.
@@ -6349,7 +6351,7 @@ CERTIFY whose charge S(δ) is at least k. For every k ≥ 1:
 
 
                                                 125
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                              Devon Thiele • September 2026
 
 
    2. Any level-k certified trace has trace_total_cost ≥ k.
@@ -6400,7 +6402,7 @@ the resemblance starts and where it stops. The time-hierarchy theorem says that 
 
 
                                              126
-The Thiele Machine                                                  Devon Thiele • July 2026
+The Thiele Machine                                             Devon Thiele • September 2026
 
 
 any time bound T (n) there are problems you can solve in time T (n) log T (n) that you
@@ -6418,8 +6420,9 @@ with total trace cost < k. The theorem says this cannot happen. If it does, the 
 accounting is wrong.
 
 18 Discrete Geometry over Partition Graphs
-The partition graph is also a discrete geometric object. Here is one result that falls out,
-no physics required.
+The partition graph can be studied as a combinatorial object with an assigned angle
+model. The result below is conditional on explicit incidence and boundary-count
+hypotheses; it requires no physical interpretation.
 
 18.1 Discrete triangulation of the partition graph
 A partition graph is not only a bookkeeping structure. You can also read it as a shape,
@@ -6436,155 +6439,87 @@ A discrete triangulation defines a curvature-like angle defect. As I understand 
 researched this for the project, so check me on the geometry): on a flat surface, if you
 draw a triangle, the interior angles sum to 180◦ . On a curved surface, the angles can
 sum to more or less than 180◦ . Curvature is the amount by which triangles deviate
-from flat. In the equilateral discrete model, curvature at a vertex is the defect left after
-subtracting the angles of the incident triangles (the triangles meeting at that vertex)
-from 2π (a full turn).
+from flat. For an interior vertex of a triangulated surface, the usual discrete curvature is
+2π minus the incident angle sum. At a boundary vertex, the corresponding boundary
+turning contribution uses π instead. The quantity used in the Coq result below uses
+2π at every vertex; on a surface with boundary it therefore includes an extra boundary
+contribution.
 
 I went looking for the right invariant and found the Euler characteristic χ, a number
 that captures the overall shape of a triangulated surface, independent of how you
 draw the triangles. For any triangulation with V vertices, E edges, and F triangular
 faces: χ = V − E + F. As I read it, no matter how you triangulate the same surface,
-you get the same number. For a sphere, χ = 2. For a torus (donut shape), χ = 0. The
-continuum Gauss-Bonnet theorem (which I am citing, not certifying) says the total
-curvature of a closed surface equals 2πχ: the local geometric information (curvature)
 
 
                                             127
-The Thiele Machine                                                    Devon Thiele • July 2026
+The Thiele Machine                                               Devon Thiele • September 2026
 
 
+you get the same number. For a sphere, χ = 2. For a torus (donut shape), χ = 0. The
+continuum Gauss-Bonnet theorem (which I am citing, not certifying) says the total
+curvature of a closed surface equals 2πχ: the local geometric information (curvature)
 integrates to a global topological fact (shape). The discrete analogue is stated below.
 The continuum result is exposition.
 
-18.2 The boundary-triangulated angle-defect identity
-A heads-up before the theorem: this is not the closed-surface Gauss-Bonnet identity.
-The standard closed-surface result is total curvature equals 2πχ. The theorem here
-uses a different predicate (planar triangulations with a boundary) and a different
-constant (5π instead of 2π). If you walk in carrying the closed-surface invariants, 5π
-is going to look broken, and I get why; it is the right number for the class of graphs
-this predicate describes, and I want you to be able to see that for yourself. The full
-derivation is in the paragraphs after the theorem; the theorem statement itself carries
-the predicate’s invariants right out front, so you can see the whole scope first and the
-constant stops looking like a typo.
+18.2 The restricted angle-defect identity
+The definition well_formed_triangulated bundles properties of a partition
+graph, including triangle and incidence conditions and the additional equation B = 3χ.
+That equation is a hypothesis, not a general theorem about triangulated disks. For
+example, a disk made by dividing a quadrilateral into two triangles has V = 4, E = 5,
+F = 2, B = 4, and χ = 1, so it fails this extra condition. The predicate does not
+separately construct a planar embedding or establish every topological property of a
+disk.
 
 
-Theorem 18.1 (Boundary-triangulated angle-defect identity (discrete_gauss_bon
-net)). Let g be a partition graph satisfying well_formed_triangulated (a definition,
-not a theorem; the structural identities it bundles are packaged into the named theorem trian
-gulation_combinatorial_identity): a planar triangulation whose interior edges I
-and boundary edges B obey E = I + B and 3F = 2I + B, with a boundary-Euler-relation field
-(satisfies_boundary_euler_relation) forcing the additional constraint B = 3χ,
-where χ = V − E + F is the Euler characteristic. In the equilateral angle model (every triangle
-corner contributes π/3), the total angle defect satisfies
+Theorem 18.1 (Restricted angle-defect identity (discrete_gauss_bonnet)). Let g
+be a partition graph satisfying well_formed_triangulated. In addition to its graph
+and triangle conditions, this predicate requires 3F = 2I + B, the triangle-incidence degree sum
+∑v deg(v) = 3F, and B = 3χ, with χ = V − E + F. The edge definitions give E = I + B.
+Assign angle π/3 to every triangle corner and define
 
-                               angle_defect( g) = 5π · χ( g).
-
-The constant is 5π, not 2π, because well_formed_triangulated is a planar-region
-predicate with a triangular boundary. The one-parameter identity behind every case is
-angle_defect = 2πχ + πB, which is the proof’s intermediate 2πV − πF re-expressed
-through χ = V − E + F and B = 2E − 3F, and a proven kernel lemma in its own right
-(total_angle_defect = 2πV − πF). Read the family off the boundary: a closed sur-
-face (B = 0) gives the textbook 2πχ; this predicate’s triangular boundary (B = 3χ) gives
-(2π + 3π )χ = 5πχ; a hexagonal-boundary disk (χ = 1, B = 6) would give 8π, and the
-predicate refuses it precisely because B ̸= 3χ. So 5π is not a free-floating oddity. It is the
-B = 3χ point of a line, and the boundary you admit picks the point. The canonical instance
-the predicate accepts is a triangulated planar disk (χ = 1, B = 3).
-
-Proof. The total angle defect is
-
-           angle_defect( g) = ∑ 2π − deg(v) · π3           = 2πV − π3 ∑ deg(v),
+                              D ( g) = ∑ 2π − deg(v)π/3 ,
                                                        
-                                   v                                    v
+                                        v
 
-where deg(v) counts triangles meeting at vertex v (triangle-incidence, not edge-
+including the same 2π term at boundary vertices. Then D ( g) = 5πχ( g).
 
+Proof. The required triangle-incidence sum gives D = 2πV − πF. From E = I + B
+and 3F = 2I + B, we get B = 2E − 3F. Consequently,
 
+            D − 2πχ = (2πV − πF ) − 2π (V − E + F ) = π (2E − 3F ) = πB.
+
+The additional hypothesis B = 3χ now gives D = 2πχ + πB = 5πχ.
+
+   Plain reading. The coefficient follows from both the definition of D and the
+   boundary-count restriction. Coq checks their consequence; it does not establish
+   that the restriction is forced by computation, topology in general, or nature. Re-
+   moving B = 3χ from the assumptions leaves the more general algebraic expres-
+   sion D = 2πχ + πB under the incidence equations, rather than a universal 5πχ
+   law.
+
+For a triangulated surface whose boundary is a union of simple cycles, the number
+of boundary vertices equals B. Replacing 2π by π at those boundary vertices sub-
+tracts πB, giving the usual combined interior-curvature and boundary-turning total
+2πχ. This explains the relation to discrete Gauss–Bonnet. It requires identifying the
 
 
                                              128
-The Thiele Machine                                               Devon Thiele • July 2026
+The Thiele Machine                                            Devon Thiele • September 2026
 
 
-incidence). The triangle-incidence sum is
+boundary vertices and the appropriate surface hypotheses. The existing Coq theo-
+rem proves the defined D identity under its own predicate; it does not formalize that
+boundary-corrected theorem.
 
-                                  ∑ deg(v) = 3F,
-                                   v
+For a simple equilateral triangle, the distinction is visible without any machinery.
+Summing 2π − π/3 at its three vertices gives 5π. Summing the boundary terms π −
+π/3 gives 2π. The first sum is the quantity defined here; the second is the boundary
+turning total. Both calculations can be right while answering different questions.
 
-because each triangle has three corners, each contributing once to the corner-count of
-its vertex. So
-                           angle_defect( g) = 2πV − πF.
-
-From well_formed_triangulated: the structural invariants E = I + B and 3F =
-2I + B, together with the boundary-Euler relation B = 3χ the predicate also carries,
-combine to give 3V = 5E − 6F (the triangulation-combinatorial identity). Solving for
-V: V = (5E − 6F )/3. Substituting:
-
-                                                                             5π (2E−3F )
- angle_defect( g) = 2π · 5E−3 6F − πF = 10πE−12πF
-                                              3
-                                                  −3πF
-                                                       = 10πE−3 15πF =            3      .
-
-The Euler characteristic in this triangulation satisfies χ( g) = (2E − 3F )/3 (from the
-same identity, by elimination). Therefore angle_defect( g) = 5π · χ( g).
-
-   Plain reading. Total angle defect is 2πV − πF once you use the triangle-corner
-   count ∑ deg = 3F. The well_formed_triangulated invariants give V in
-   terms of E and F. Substitute and simplify. The 5π falls out as the coefficient of
-   χ. Not chosen, not picked, not aimed at; just what the algebra returns when you
-   solve the system the predicate hands you.
-
-In my own words first, because I expect this to trip people up. I did not author any of
-the math in this section. I do not write code or proofs by hand. I directed LLMs and
-refused everything that did not compile. When I went looking for what discrete Gauss-
-Bonnet should look like, the version I kept finding was the closed-surface one, with
-constant 2π. The graphs the predicate I ended up with accepts are not closed surfaces.
-They have a boundary, like a flat sheet of paper cut into triangles. The constant that
-fell out of the proof for that case was 5π, not 2π. I did not pick 5π. I do not pick
-numbers. The algebra picked it. The checker didn’t object, which is corroboration,
-not the reason. So the warning to a reader who has the closed-surface version cached:
-the predicate named well_formed_triangulated is not the closed-surface case.
-If you assume it is, you will assume identities the predicate does not assume, and you
-will conclude the number is wrong. The number is right for the case the argument
-covers. If it’s wrong, it’s wrong at a step in that derivation, and you can put your
-finger on the step; where it’s mechanised, the check would choke there too.
-
-Now the same thing in the formal voice. well_formed_triangulated is a planar-
-triangulation predicate; its combinatorial invariants are packaged into the theorem tr
-iangulation_combinatorial_identity. Its structural invariants are E = I + B
-and 3F = 2I + B, where I count the edges in two flavours: I for interior edges (edges
-shared by two triangles) and B for boundary edges (edges with a triangle on one side
-
-
-                                         129
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
-only). These invariants, joined to the boundary-Euler relation B = 3χ, give χ( g) =
-(2E − 3F )/3 and 3V = 5E − 6F. In a closed surface like a sphere the corresponding
-identity is 2E = 3F, but this predicate is for planar regions with a boundary, not closed
-surfaces.
-
-In this discrete model the symbol deg(v) stands for the number of triangles meeting
-at vertex v (triangle-incidence), not the number of edges meeting at v (edge-incidence,
-which is the usual graph-theory definition). The triangle-incidence sum is ∑v deg(v) =
-3F because each triangle contributes once per corner and a triangle has three corners.
-Substituting that into the total angle defect ∑v (2π − deg(v) · π/3) = 2πV − πF yields
-5πχ exactly. (A reader who plugs in the edge-incidence identity ∑v deg(v) = 2E will
-get a different answer, because that is a different quantity than the one this proof
-tracks.) The factor differs from 2π because the predicate differs from a closed sur-
-face, not because the algebra is wrong. A tetrahedron (a four-faced closed solid:
-V =4, E=6, F =4) violates 3V = 5E − 6F and is correctly excluded from the predicate.
-A planar disk with V =7, E=15, F =9 gives χ = 1 and B = 3 (a single triangular outer
-boundary), and the arithmetic of every invariant the predicate requires checks out for
-those values. The predicate’s invariants accept this disk under the same checks the
-kernel applies to its packaged witnesses.
-
-This is a fully proven theorem about the discrete triangulation model used here. It is
-not the continuum Gauss-Bonnet theorem and it is not a derivation of angles from µ
-cost. It is a combinatorics result: any well-formed triangulated partition graph (in the
-planar-triangulation sense above) satisfies the angle-defect formula. That is the full
-extent of the geometry section.
+I did not write these proofs by hand. I directed LLMs and used the checker to test the
+formal statements. That method still leaves me responsible for checking the definitions
+and the interpretation. The 5π identity is a conditional combinatorial result, not
+evidence for a new physical constant or a derivation of angles from µ cost.
 
 19 The substrate and its halting-shaped wall
 The Thiele Machine is not the 51 opcodes. The 51 opcodes are scaffolding. They
@@ -6601,15 +6536,10 @@ folding for one realization. Register machines, lambda calculus, counter machine
 RAMs, and partial recursive functions all instantiate the same step-relation primitive
 with different scaffolding; the equivalences between them are theorems, and that this
 class captures effective computation at all is the Church-Turing thesis. They are all the
-Turing machine in the sense that matters. They share the same notion of a step.
+Turing machine in the sense that matters. Their primitive steps and cost models can
+differ even when their computable functions agree.
 
 The result that follows is a fact about the substrate, not about the 51 opcodes. The
-
-
-                                           130
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
 opcodes are one realization. Other substrates that supply the same typeclass fields
 inherit the same theorem the moment they are presented.
 
@@ -6621,14 +6551,21 @@ extensional predicates of substrate programs in any model that exposes an intern
 recursion theorem and an internal representability predicate. It is the same trick, two
 floors apart, which is the whole point. The formal content is the diagonal construc-
 tion; what the substrate-level framing adds is the parameterization (any substrate
+
+
+                                           129
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 satisfying the typeclass interface, not just the standard Turing model) and the choice
 of extensional predicate (AdmitsShortcut, branching on csr_cert_addr reacha-
 bility). The result is therefore a substrate-level instance of the pattern Rice used; the
 result does not fall out as a corollary of Rice’s theorem in its original setting, because
-Rice’s premises are about partial recursive functions in the Turing-machine model, and
-nothing in them knows about arbitrary substrates carrying their own recursion theo-
-rems and representability predicates. Both theorems are sibling instances of Kleene’s
-diagonal; neither is a corollary of the other.
+Rice’s premises are about partial recursive functions in the Turing-machine model,
+and nothing in them knows about arbitrary substrates carrying their own recursion
+theorems and representability predicates. The formalized result should be read with
+its own interface premises. Its proof structure does not establish a non-reducibility or
+Turing-degree separation from classical halting.
 
 19.1 The Substrate typeclass
 A Coq typeclass is a checklist of operations and properties a type has to supply to
@@ -6651,22 +6588,22 @@ substrate is, divorced from any particular instruction set, and it exposes:
      through A6.
    • An internal Gödel coding: a way to pack any program into a state and un-
      pack it again, so the substrate can hold its own programs as ordinary data.
-
-
-                                           131
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
-      Formally, encode : Program → state and decode_safe : state
-      → Program with the round-trip property decode_safe (encode p) = p,
-      which just says that encoding and then decoding hands the program back un-
-      changed.
+     Formally, encode : Program → state and decode_safe : state
+     → Program with the round-trip property decode_safe (encode p) = p,
+     which just says that encoding and then decoding hands the program back un-
+     changed.
    • An internal-representability predicate Representable : (Program →
      Program) → Prop, scoping which Coq function transformers the substrate
      can express as programs of its own kind. Concrete substrates instantiate this with
      a precise meaning; the minimal nat-coded substrate defines Representable
      f as “f is the diagonal flip transformer for the substrate’s own decide function,”
      which is exactly the shape the diagonalization needs.
+
+
+                                           130
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
    • A recursion-theorem field, internal form: for every internally representable trans-
      former f : Program → Program, there is a program p extensionally equiv-
      alent to f p, where extensionally equivalent means the two give the same result
@@ -6697,15 +6634,9 @@ on programs, witnessed by at least one program that admits and at least one that
 does not, and depending only on extensional behavior (programs with the same run
 behavior on every state admit shortcuts iff each other).
 
-The typeclass extension WithShortcutPredicate packages this:                      an
+The typeclass extension WithShortcutPredicate packages this:                         an
 AdmitsShortcut field, two canonical witnesses yes_program and no_program
 with their respective inhabitedness or non-inhabitedness lemmas, and the extensional-
-
-
-                                           132
-The Thiele Machine                                                  Devon Thiele • July 2026
-
-
 ity field. These are the conditions the diagonalization needs. A substrate that supplies
 them earns the limitative theorem.
 
@@ -6718,6 +6649,11 @@ point); run is a Coq Fixpoint; Representable f is the predicate “f is the diag
 flip transformer for the substrate’s own decide function”; recursion_theorem is
 discharged by exhibiting code 2 as the fixed point of any such transformer. PrintAss
 umptionsnat_recursion_theorem is Closed under the global context.
+
+                                           131
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 The substrate-level limitative theorem fires unconditionally for this substrate.
 
 The 51-opcode VM substrate vm_substrate is parameterized over the VM-specific
@@ -6751,15 +6687,10 @@ nally representable in the substrate and that for all programs p satisfies: deci
 iff AdmitsShortcut p.
 
 Proof. Assume for contradiction such a decide exists. Define the diagonal flip trans-
-
-                                            133
-The Thiele Machine                                                      Devon Thiele • July 2026
-
-
-former                            
-                                  no_program         if decide p = true
-                     flip( p) =
-                                  yes_program if decide p = false
+former                       
+                             no_program     if decide p = true
+                flip( p) =
+                             yes_program if decide p = false
 
 By hypothesis, flip is internally representable in the substrate. Apply the sub-
 strate’s typeclass field recursion_theorem to flip: there exists p such that
@@ -6769,6 +6700,11 @@ agrees on every initial state.”
 Case-split on decide p. Case A (decide p = true): by the bi-implication,
 AdmitsShortcut p; by definition of flip, flip p = no_program; by the fixed-point
 witness, prog_equiv p no_program; by extensionality of AdmitsShortcut (typeclass
+
+                                            132
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
 field), AdmitsShortcut p iff AdmitsShortcut no_program. The latter is false
 (typeclass field no_program_refuses). Contradiction.
 
@@ -6802,12 +6738,6 @@ precise predicate “f is the diagonal flip transformer for the substrate’s ow
 function”; recursion_theorem is discharged by exhibiting code 2 as the fixed point
 of any such transformer (its run is defined to mirror whatever the transformer out-
 puts); AdmitsShortcut is extensional by construction; yes_program_admits and
-
-
-                                              134
-The Thiele Machine                                                Devon Thiele • July 2026
-
-
 no_program_refuses hold by definitional unfolding of run at 0 and 1. Apply the
 substrate-level theorem above. The corollary nat_self_undecidable specializes
 the conclusion to d itself: d cannot be a correct decider for nat_admits d, cannot
@@ -6820,6 +6750,9 @@ Closed under the global context.
    strate built out of three natural numbers and a fixpoint, where the limitative result
    fires unconditionally. The diagonal is not a thing that might exist for some sub-
    strates; here it exists, and it bites.
+
+                                              133
+The Thiele Machine                                           Devon Thiele • September 2026
 
 
 Theorem 19.3 (Structural-axis undecidability for the 51-opcode VM). For the 51-opcode
@@ -6853,24 +6786,24 @@ VM scope.
    physical constants. The kernel proves the limitative theorem once at the substrate;
    the VM inherits.
 
-
-                                          135
-The Thiele Machine                                                  Devon Thiele • July 2026
-
-
 19.4 The proof, in prose
 The proof is the standard Kleene-1938 diagonal, transported to the substrate.
 
-Assume for contradiction that decide :             Program → bool satisfies the bi-
+Assume for contradiction that decide :           Program → bool satisfies the bi-
 implication. Define the flipping transformer
                               
-                              no_program         if decide p = true
+                              no_program       if decide p = true
                  flip( p) =
                               yes_program if decide p = false
 
 This is a total Coq function from Program to Program. Apply the substrate’s
 recursion-theorem field to flip: there exists a program p with prog_equiv p
 (flip p).
+
+
+                                          134
+The Thiele Machine                                             Devon Thiele • September 2026
+
 
 Case-split on decide p.
 
@@ -6905,11 +6838,6 @@ goes through as a Rice-style undecidability result over some other extensional p
 icate; what is lost is the specifically certification-axis content of the result. A2 is the
 axiom that makes “the structural axis has its own halting-shaped wall” the right phras-
 ing, rather than “extensional predicates over substrates are undecidable”: a generic
-
-                                            136
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
 statement that holds of any substrate with a recursion theorem and a non-trivial
 extensional predicate and that says nothing about the certification axis specifically.
 The wall lands on the certification axis because A2 is what picks out that axis as the
@@ -6918,10 +6846,15 @@ that structure. A2 is upstream of the result, not inside the proof, and the resu
 sharper for it.
 
 19.5 The two-axis picture this completes
- Time axis                             Structural axis
- steps                                 µ
- HALT (Turing 1936)                    AdmitsShortcut (above)
- no decision procedure for halting     no decision procedure for shortcut admittance
+ Time axis                              Structural axis
+ steps                                  µ
+ HALT (Turing 1936)                     AdmitsShortcut (above)
+ no decision procedure for halting      no decision procedure for shortcut admittance
+
+
+                                            135
+The Thiele Machine                                            Devon Thiele • September 2026
+
 
 The substrate’s own halting-shaped wall, on its own axis, proved by its own diagonal,
 internal to the substrate’s typeclass machinery. Not transported from the time axis by
@@ -6955,10 +6888,6 @@ routine for any sufficiently expressive substrate, left unproven here as bookkee
 not as a live doubt. Per the A2 note earlier in this section, A2 is what turns the generic
 wall into the certification-axis one.
 
-                                           137
-The Thiele Machine                                                  Devon Thiele • July 2026
-
-
 What the VM corollary closes. The 51-opcode VM corollary vm_structural_sho
 rtcut_undecidable is the substrate-level theorem instantiated at vm_substrate:
 no representable decider answers true exactly when a VM program admits the exten-
@@ -6969,6 +6898,12 @@ VM corollary is the substrate-level result presented at the VM scope, with the V
 internal-representability work named in its premises.
 
 How to falsify. Three routes.
+
+
+
+                                           136
+The Thiele Machine                                             Devon Thiele • September 2026
+
 
    1. A Coq function decide : Program → bool whose diagonal flip trans-
       former is internally representable in some Substrate plus WithShortcutPredi-
@@ -7001,12 +6936,6 @@ A classical decider has, as its entire input, the Turing configuration forget s 
 TMSnapshot, the same four-field projection from the structural-axis section. If the
 thing it is asked to decide is not a function of forget s, then no classical decider can
 be right about it, and not for want of horsepower: what it is deciding is not in what it
-
-
-                                            138
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
 is given. That is the whole shape of this wall, and it is why it sits beside Rice’s rather
 than under it. Two independent obstructions, on two independent axes.
 
@@ -7019,6 +6948,12 @@ bool such that, for every Thiele state s,
 
 where admits_structural_shortcut_bool s is the reading “s’s certification channel
 has fired” (csr_cert_addr ̸= 0).
+
+
+
+                                            137
+The Thiele Machine                                          Devon Thiele • September 2026
+
 
 Proof. Two states reachable from init_state by executing a trace: run_cert_set
 runs the minimal MORPH_ASSERT closure and fires the channel (csr_cert_addr =
@@ -7052,12 +6987,6 @@ one survives for free, because you cannot recover by any oracle what is not in t
 input.
 
 The two axes are independent, but not in the way the word “degree” would suggest.
-
-
-                                           139
-The Thiele Machine                                               Devon Thiele • July 2026
-
-
 It is tempting to reach for Turing-degree incomparability here, and I did reach for
 it, and it is the wrong instrument. The structural-shortcut set is decidable from the
 full state (it is a total boolean function of VMState, structural_membership_d
@@ -7070,6 +6999,11 @@ exactly what axes_mutually_independent states: the structural reading is not
 a function of the classical configuration, and a classical quantity (vm_pc) is not a
 function of the structural channel, with reachable witnesses both ways. I kept the
 decidability theorem around on purpose, as a guard: it forecloses the over-reading
+
+                                          138
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 rather than inviting it.
 
 The concrete VM encoding. The kernel has program_to_nat / nat_to_program
@@ -7101,12 +7035,6 @@ You cannot talk it into a maybe.
 Here is the idea. In a normal programming language, a type says something about
 what kind of value a variable holds. In Python, x: int means x is an integer. In
 Coq, types are propositions. The type n > 0 means “the proof that n is positive.” A
-
-
-                                          140
-The Thiele Machine                                               Devon Thiele • July 2026
-
-
 function from n > 0 to n + 1 > 0 is a proof that if n is positive, n + 1 is too.
 
 The compiler checks whether the types line up. If your proof has a hole and you write
@@ -7120,6 +7048,12 @@ machine.
 
 So I didn’t use Coq to make anything true. I used it because I don’t trust my own
 eye to catch a gap in an argument I want to believe. I spent months convinced by my
+
+
+                                          139
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 own reasoning, pushed the proof through, and watched a key step come apart in my
 hands. The machine caught where I’d fooled myself. That is what it’s for, and it’s the
 same source the running machine and the chip get extracted from. Gap-catcher and
@@ -7149,13 +7083,6 @@ codes. The main categories:
      or research-side files. Theorem connectivity: every file in the active proof tree
      must reach the cost or semantics foundation through its import chain. If a file is
      disconnected, it does not get to claim the kernel’s pedigree.
-
-
-
-                                          141
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
    • Comment hygiene. No TODO/FIXME/WIP markers in active proof comments.
 
 Current Inquisitor status (285 Coq files scanned): zero HIGH findings, zero MEDIUM,
@@ -7168,6 +7095,12 @@ set is auditable by grep. The F4 reference Verilog evaluator (a small implementa
 of the reference 4-element field F4 ) is defined in terms of small constant predicates
 and enumerated boolean functions, which is exactly what trips the “constant function”
 vacuity heuristic; it is documented and audited, and corresponds to no missing proof
+
+
+                                           140
+The Thiele Machine                                         Devon Thiele • September 2026
+
+
 step.
 
 21 Zero Admitted: what it actually means
@@ -7199,22 +7132,24 @@ This is what it does NOT mean:
      pleteness theorem from 1931: any consistent formal system powerful enough
      to do arithmetic cannot prove its own consistency from within itself. A system
      that could prove its own consistency would already be inconsistent. And an
+     inconsistent system proves everything, its own consistency included. So Coq’s
+     foundation is trusted, not proved-from-within. “Trusted” has substance here.
+     The same foundation has verified the CompCert C compiler and the Four Color
+     Theorem (Gonthier 2005, the first fully machine-checked proof of a major mathe-
+     matical theorem, one first settled on paper-plus-computer in 1976), among other
+     artifacts. Large-scale inconsistencies would have surfaced through those uses
+     if they were there. I am relaying what I read. I have not personally audited
+     CompCert or Gonthier’s proof. “Zero Admitted” means every theorem follows
+     from those axioms. It does not mean those axioms are themselves in-system
+     guaranteed. It means they are the same axioms a substantial body of verified
+     software has relied on without breaking.
 
-                                           142
-The Thiele Machine                                                  Devon Thiele • July 2026
 
 
-      inconsistent system proves everything, its own consistency included. So Coq’s
-      foundation is trusted, not proved-from-within. “Trusted” has substance here.
-      The same foundation has verified the CompCert C compiler and the Four Color
-      Theorem (Gonthier 2005, the first fully machine-checked proof of a major mathe-
-      matical theorem, one first settled on paper-plus-computer in 1976), among other
-      artifacts. Large-scale inconsistencies would have surfaced through those uses
-      if they were there. I am relaying what I read. I have not personally audited
-      CompCert or Gonthier’s proof. “Zero Admitted” means every theorem follows
-      from those axioms. It does not mean those axioms are themselves in-system
-      guaranteed. It means they are the same axioms a substantial body of verified
-      software has relied on without breaking.
+                                         141
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
    • It does not mean the hardware implements exactly the Coq semantics in every
      case. All 47 synth-realised opcodes have Qed bisimulation proofs: 37 uncon-
      ditional, 10 under structural invariants coupling_wf and morph_table_wf
@@ -7245,14 +7180,6 @@ named hypothesis that prices µ in physical units; every physical-interpretation
 is conditional on it, and Section 17 treats it. These are explicitly labelled and auditable.
 They are not Admitted proofs. They are documented limits of the formal claim.
 
-
-
-
-                                            143
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
-
 22 How to break this
 Every claim in this document comes with the exact shape of the thing that would kill
 it. I went to the trouble on purpose. A claim you can’t break is a claim that wasn’t
@@ -7266,6 +7193,10 @@ the message I want in my inbox.
 
 Falsify No Free Insight.
 Find a VM trace that:
+
+                                            142
+The Thiele Machine                                           Devon Thiele • September 2026
+
 
    • starts with vm_certified = false and vm_mu = 0
    • ends with vm_certified = true
@@ -7296,11 +7227,6 @@ counterexample.
 
 Falsify structural entitlement.
 Prove that for every pair of Thiele VM states with the same classical shadow and
-
-                                           144
-The Thiele Machine                                               Devon Thiele • July 2026
-
-
 different morphism structure, no probe preserves the distinction; equivalently, refute
 the concrete witness pair the theorem exhibits. shadow_strictly_lossy falls. Or
 produce a strict feasible-set subset with a distinguishing observation that does not
@@ -7314,6 +7240,12 @@ system, not a counterexample.
 
 Falsify substrate-level structural-axis undecidability.
 Three routes (Section 19 expands).
+
+
+
+                                           143
+The Thiele Machine                                            Devon Thiele • September 2026
+
 
    • Exhibit a Coq function decide : Program → bool whose diagonal flip
      transformer is internally representable in some Substrate plus WithShortcut-
@@ -7346,11 +7278,6 @@ e_column_contractive_implies_tsirelson falls. The PR box and the Turing-
 classical point (1, 0, 1, 0) are not counterexamples: both fail column contractivity by
 direct arithmetic, which is what the theorem requires, not what would break it.
 
-
-                                          145
-The Thiele Machine                                                  Devon Thiele • July 2026
-
-
 Falsify the elliptope completion.
 Three targets, one per load-bearing theorem of Section 16.8. Exhibit signs a0 , a1 , b0 , b1
 with squares 1 and a vector on which the completed Gram form goes negative; dete
@@ -7364,6 +7291,12 @@ which is what the theorems require.
 
 Falsify the elliptope gate.
 elliptope_check_full_sound claims soundness with the check’s passing as its
+
+
+                                            144
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 only hypothesis: any passing combination of witness counters, completion buckets,
 or LDL certificate entails elliptope membership of the witness-derived correlators.
 Exhibit inputs where elliptope_check_full returns true while the correlators
@@ -7373,9 +7306,13 @@ not a target: the only points any exact integer check must reject are those whos
 PSD completion is irrational, and a rejection is never a counterexample to soundness.
 
 The Inquisitor standard.
-Run the Inquisitor on the repository. If it finds any HIGH, MEDIUM, or LOW finding
-at all, the proof hygiene has degraded. Current status: 0 HIGH, 0 MEDIUM, 0 LOW.
-If that changes, it is a bug.
+Run the Inquisitor on the repository and inspect its report. The current report has 0
+HIGH, 0 MEDIUM, and 0 LOW unsuppressed findings. The command fails on HIGH
+or MEDIUM findings; LOW findings are reported without independently causing
+failure. In-source suppression markers and their justifications are recorded separately.
+This is a syntactic and heuristic audit, not a complete check of theorem applicabil-
+ity or surrounding prose. A new finding requires review rather than an automatic
+conclusion that a theorem is false.
 
 Falsify the axiom audit.
 If running Print Assumptions (Section 2: the Coq command that lists every-
@@ -7394,12 +7331,6 @@ project-local axiom or parameter appearing in any of them is a bug.
 
 Falsify the hardware bisimulation.
 Run the Verilog cosimulation suite (its gate test test_all_47_opcodes_in_c
-
-
-                                            146
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
 osim included). If any of the 47 synth-realised opcodes shows the synthesised
 RTL diverging from the Kami step function on any input, the Section Variable
 rtl_step_correct is violated empirically and the 47-opcode bisimulation falls. A
@@ -7409,6 +7340,12 @@ counterexample to the bisimulation theorems.
 
 Falsify the convergence answer to parametricity.
 The separation/minimality/uniqueness trio is schema-parametric: any field a step
+
+
+                                          145
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 rule carries that classical state does not determine supports all three theorems, word
 for word, and I concede that in full. What singles out certification is convergence:
 the verifier factorisation result (V_does_not_factor_through_classical), the
@@ -7444,11 +7381,6 @@ Falsify the transparency-log reduction.
 Build a sound and complete log-free verifier with the same soundness target. log_fr
 ee_verifier_impossible falls, and the bare-setting impossibility with it.
 
-
-                                           147
-The Thiele Machine                                                         Devon Thiele • July 2026
-
-
 Falsify the proof-carrying reduction.
 Construct a level-k certified proof script with total µ below k, or a sound and complete
 zero-round bare verifier. level_k_verification_floor or bare_pcc_imposs
@@ -7456,6 +7388,12 @@ ible falls, and the µ-hierarchy or the bare-setting impossibility behind them.
 
 23 The full claim ledger
 These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
+
+
+
+                                           146
+The Thiele Machine                                                   Devon Thiele • September 2026
+
 
    1. no_free_certification: csr_cert_addr going 0 → nonzero in one step requires cost ≥ 1.
    2. no_free_certification_mu: same, with µ increment ≥ 1.
@@ -7490,12 +7428,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
   20. vm_apply_mu: exact ledger identity (vm_apply s i ).µ = s.µ + instruction_cost(i ).
       The cost is not just δ, it is δ for ordinary instructions, S(δ) for cert-setters,
       |payload|bits + S(δ) for EMIT, etc.
-
-
-                                                148
-The Thiele Machine                                                        Devon Thiele • July 2026
-
-
   21. kernel_certified_implies_positive_mu: from zero, reaching certified implies µ > 0.
   22. feasible_strict_subset_implies_strict_predicates: feasible-set narrowing plus a
       distinguishing observation yields a strictly stronger predicate.
@@ -7504,6 +7436,12 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
   24. b4_information_reduction_derives_strict_predicates: feasible-set reduction can generate the
       strict-predicate premise used by NoFI.
   25. info_priced_cert_executions_bound: executed cert-setting events are bounded by ∆µ.
+
+
+                                                147
+The Thiele Machine                                                  Devon Thiele • September 2026
+
+
   26. observation_partition_reduction_implies_posterior_representative_reduction: observation
       classes package into the posterior-representative witness for structural entitlement.
   27. info_priced_arbitrary_feasible_reduction_bound: with a decision-tree/representative
@@ -7540,12 +7478,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       opcode constructors handled, no Hypothesis. Composes the existing binary encoders
       with a list bool ↔ nat bijection through positive.
   35. categorical_separation: classical-identical states distinguishable by morphism probe.
-
-
-                                               149
-The Thiele Machine                                                        Devon Thiele • July 2026
-
-
   36. classical_observer_cannot_separate: no classical function separates morphism-distinct
       states.
   37. shadow_proj / shadow_separation_theorem: formal surjection, strictly lossy.
@@ -7553,6 +7485,13 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
   39. D3_conservativity: classical programs leave structural layer untouched.
   40. D4_strictness: there exist Thiele steps that escape the classical fragment.
   41. D5_thiele_strictly_extends_classical: Thiele strictly exceeds classical semantics.
+
+
+
+                                               148
+The Thiele Machine                                                   Devon Thiele • September 2026
+
+
   42. degenerate_projection_theorem: shadow projection is the classical equivalence quotient.
   43. no_classical_certification_decider: no classical machine can decide morphism-certification.
   44. chsh_stat_violation_not_local: CHSH-violating statistics are non-local.
@@ -7588,13 +7527,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       column-contractive NPA PSD. Reverse (npa_psd_implies_column_contracti
       ve): NPA PSD       column-contractive, proved by vector specialization plus the quadra
       tic_nonneg_discriminant lemma. Zero-marginal NPA realizability is the
-
-
-
-                                               150
-The Thiele Machine                                                         Devon Thiele • July 2026
-
-
       orthogonal-observables slice of the quantum elliptope (ρ AA = ρ BB = 0), not the full
       elliptope. Classical correlations like (1, 0, 1, 0) have |S| ≤ 2 but fail column contractivity;
       the gate is a slice-membership test, not a truth test, and it rejects all sixteen
@@ -7605,9 +7537,15 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       proof factors through quantum realizability: state_column_contractive_implie
       s_quantum_gram composes with quantum_realizable_implies_tsirelson_b
       ound. The row-bounds lemma tsirelson_from_row_bounds is the algebraic
-                                                                                 √
+
+
+                                                149
+The Thiele Machine                                                Devon Thiele • September 2026
+
+
+                                                                        √
       Cauchy–Schwarz step inside this chain. The contrapositive (|S| > 2 2 ⇒ not
-                                                                       √
+                                                                √
       slice-coherent) follows immediately. The converse (|S| ≤ 2 2 ⇒ slice-coherent) is false
       and is not claimed.
   59. Concrete falsifications by direct arithmetic. The PR box (E00 = E01 = E10 = 1, E11 = −1)
@@ -7645,13 +7583,6 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       coupling_wf (= coupling_desc_bounded ∧ coupling_pairs_in_range ∧
       coupling_pairs_fully_populated) and morph_table_wf. The preservation
       theorems coupling_wf_kami_step_preserved and morph_table_wf_kami_s
-
-
-
-                                                151
-The Thiele Machine                                                        Devon Thiele • July 2026
-
-
       tep_preserved show these invariants hold inductively at hardware reset and
       through every kami_step operation, so the precondition is discharged in practice for
       any state reachable by machine execution.
@@ -7661,6 +7592,13 @@ These are the kernel-tier claims (no named hypotheses; each one checked in Coq):
       suite. The kernel proves rtl_step_correct for the COQKAMI model and names bs
       c_kami_compilation_trusted as the residual trust boundary covering the BSC
       compiler / pretty-printer pipeline.
+
+
+
+                                              150
+The Thiele Machine                                                 Devon Thiele • September 2026
+
+
   65. nothing_at_stake_is_free_forgery: a finality gadget whose finalize step carries zero
       stake-at-risk admits no A2 field. Nothing-at-stake is the kernel’s free forgery, stated in
       proof-of-stake vocabulary (Section 15).
@@ -7696,18 +7634,19 @@ trust boundaries):
    • OCaml extraction: ocaml_bisimulation_closure proves NoFI, µ-
      monotonicity, and totality for the Coq-side extracted observable. The external
      OCaml binary equivalence is a parity-test trust boundary, not a kernel theorem.
-
-
-
-                                               152
-The Thiele Machine                                                Devon Thiele • July 2026
-
-
    • Structural advantage: the kernel proves exact µ costs and the arithmetic time-tax
      facts for the factored-search witness; executable tests check the measured VM
      behavior.
    • Cost formula forcing: cost_necessity + cost_uniqueness, conditional
      on Landauer-Unruh calibration for physical interpretation.
+
+
+
+
+                                               151
+The Thiele Machine                                           Devon Thiele • September 2026
+
+
 
 24 Scope of the claim: what is established, what is not
 This is where I draw the line around what I have proved. The named projections lose
@@ -7746,12 +7685,6 @@ no representable decider answers true exactly when the predicate holds (structur
 _shortcut_undecidable). The VM-instance corollary picks one specific predicate
 in the family: simple_morph_trace-coincidence. Whether that is the privileged
 choice, versus a predicate built directly from has_supra_cert reachability, versus
-
-
-                                          153
-The Thiele Machine                                                 Devon Thiele • July 2026
-
-
 receipt-list equality at a specific fuel bound, is open. The substrate-level result is the
 family statement; the VM corollary is one tile. Closing this gap would require an
 argument that one tile is canonical.
@@ -7759,6 +7692,12 @@ argument that one tile is canonical.
 Unconditional Shannon-style bound on every deterministic single trace. The sub-
 sumption claim establishes the entropy-bounded µ-ledger theorem for sound struc-
 tural shortcuts: any trace equipped with a realized-by-the-trace decision tree pays at
+
+
+                                           152
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 least log2↑ |Ω| − log2↑ |Ω′ | in µ for narrowing Ω to Ω′ (Section 5). It does not establish
 the same bound for an arbitrary deterministic single trace without the tree as witness.
 The naive single-trace claim is false in general, and I say so explicitly above. The
@@ -7797,15 +7736,17 @@ ing that its chosen category or event is physically necessary.
 The broader research question. Certification is a worked witness. A family of obser-
 vations may reveal other useful structural laws, but the event definitions, evidence
 interfaces, and cost semantics need justification in each case. The existing separation
-
-
-                                           154
-The Thiele Machine                                                Devon Thiele • July 2026
-
-
 and oracle results concern information retained by specified maps; they do not estab-
 lish infinitely many independent dimensions, zero mutual information, or costs for
 changing coordinates.
+
+
+
+
+                                           153
+The Thiele Machine                                          Devon Thiele • September 2026
+
+
 
 25 The pointer-observable conjecture
 Why put an event on the meter? The substitution contest fixes the event and compares
@@ -7847,17 +7788,15 @@ Exhibit a deployed, independently evolved metering discipline that prices a non-
 certification event with the same conviction these five price certification, an event
 whose records do not proliferate, and the criterion is dead. Or show the criterion fails
 to discriminate: that multiplication counts or head-reversals proliferate redundantly
-
-
-
-                                          155
-The Thiele Machine                                                  Devon Thiele • July 2026
-
-
 in some substrate ecosystem by the same standard I just applied, so the criterion picks
 out more than one event and decides nothing. Or formalize the criterion and show
 certification fails it. Any of the three would teach me more than another instantiation
 would.
+
+
+                                          154
+The Thiele Machine                                            Devon Thiele • September 2026
+
 
 PointerObservable.v defines the objects: an Ecosystem of independent ob-
 servers each holding a boolean fragment of the state; records, one observer’s frag-
@@ -7900,13 +7839,16 @@ only the colliding bare observation. It does not select a unique physical mechan
 for supplying the missing evidence.
 
 The conjecture asks which events deserve a cost law. The accounting theorems tell me
-
-                                           156
-The Thiele Machine                                                  Devon Thiele • July 2026
-
-
 what follows once that law is specified. I want both parts of the argument on the table,
 with neither borrowing a proof from the other.
+
+
+
+
+                                           155
+The Thiele Machine                                            Devon Thiele • September 2026
+
+
 
 26 Conclusion
 Two pillars close this document, one at the instance level and one at the substrate
@@ -7949,14 +7891,14 @@ one place (Section 22): a zero-µ trace from uncertified to certified, a column-
 correlator with a non-PSD NPA matrix, a cost-rule-respecting CertificationSys
 tem that certifies at total cost zero, a nat function that decides nat_admits for its
 own substrate. Any one of them collapses the matching theorem. You can hunt for
-
-
-                                           157
-The Thiele Machine                                                Devon Thiele • July 2026
-
-
 any of them with a pencil, and the mechanised ones would stop the checker dead on
 top of that. I hunted. I came up empty.
+
+
+
+                                           156
+The Thiele Machine                                          Devon Thiele • September 2026
+
 
 I do not want this to sound like I am declaring I am right. I want to push myself, and
 after investigating everything, maybe the field too.
@@ -7971,5 +7913,5 @@ I intend to keep going.
 
 
 
-                                          158
+                                          157
 
