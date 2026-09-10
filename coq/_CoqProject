@@ -288,6 +288,7 @@ kernel/frontier/F3_MuLaplacianSum.v
 kernel/frontier/F3_PlusOneStructural.v
 kernel/frontier/PointerObservable.v
 kernel/frontier/PointerObservableReductions.v
+kernel/frontier/PointerObservableCounterexamples.v
 kernel/nfi/HonestCostTracking.v
 kernel/nfi/A2LoadBearing.v
 kernel/nfi/CommitmentVsErasure.v
@@ -320,3 +321,11 @@ kernel/reductions/TransparencyLog.v
 kernel/reductions/ProofCarryingVerifier.v
 
 tests/CloseoutVerification.v
+
+# Review regressions: representation, physical premises, and usable hardware traces
+tests/ClaimBoundaryRegression.v
+tests/WFDrivenRunRegression.v
+
+# Research obligations: observation policies and descent from traces
+kernel/frontier/ObservationPolicy.v
+kernel/frontier/TraceStateDescent.v

@@ -7,7 +7,7 @@ constraints."""
 from itertools import product, combinations
 from fractions import Fraction
 import sys
-sys.path.insert(0, "/workspaces/The-Thiele-Machine/tools")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from calibrated_witness_search import (
     total_S, S_m, density_solution_exists, neighbors_of, triangles_at,
     make_graph_complete, make_graph_cycle, make_graph_octahedron, make_graph_prism,

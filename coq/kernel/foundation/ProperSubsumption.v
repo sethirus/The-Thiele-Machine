@@ -17,9 +17,20 @@
     
     *)
 
-(* INQUISITOR NOTE: proof-connectivity — bridged to Thiele machine foundations. *)
-From Kernel Require Import VMState VMStep.
-From Kernel Require Import MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity waiver — this file is not bridged to
+   the VM kernel, and imports none of it.
+
+   What it is: a self-contained Turing-machine development (TM_Config,
+   tm_step, tm_run) together with a LOCAL record
+   [Thiele_Config := { th_tm_config : TM_Config; th_mu : nat }] that pairs a
+   Turing configuration with a counter. No definition, statement, or proof
+   here mentions VMState, vm_apply, vm_mu, MuCostModel or instruction_cost.
+
+   The audit is waived rather than satisfied: satisfying it from inside would
+   mean importing the kernel without using it, which asserts a bridge that
+   isn't there. See the scope note on [thiele_simulates_turing] below for what
+   this file does and does not show. Counted in the WAIVERS census in
+   INQUISITOR_REPORT.md. *)
 
 From Coq Require Import List Arith.PeanoNat Lia Bool Psatz.
 Import ListNotations.
@@ -168,7 +179,24 @@ Proof.
     + reflexivity.
 Qed.
 
-(** The key theorem: Thiele simulates Turing exactly (same tape, same state) *)
+(** SCOPE NOTE — what "Thiele" means in this theorem's name.
+
+    [Thiele_Config] here is the LOCAL record defined in this file,
+    [{ th_tm_config : TM_Config; th_mu : nat }], a Turing configuration
+    paired with a nat counter. It is NOT [VMState], and [thiele_step] is NOT
+    [vm_step] or [vm_apply]. Nothing in this file touches the VM kernel.
+
+    So the content below is: carrying an extra field alongside a Turing
+    configuration does not disturb the Turing configuration's evolution.
+    Structurally it is the projection law [fst . (f x g) = f . fst], proved by
+    induction on fuel. That is worth recording; it is the sanity check that the
+    ledger is inert with respect to tape/state dynamics. It is not the claim
+    that the Thiele substrate runs every Turing trace.
+
+    For the substrate-level statement, see the classical-embedding results
+    that are stated over VMState (e.g. [TuringClassicalEmbedding.v] and the
+    embedding lemma in [minimal/MuCore.v]). Do not cite this theorem as
+    evidence that the VM simulates Turing machines. *)
 Theorem thiele_simulates_turing :
   forall fuel delta c,
     (thiele_run fuel delta (lift_config c)).(th_tm_config) = tm_run fuel delta c.

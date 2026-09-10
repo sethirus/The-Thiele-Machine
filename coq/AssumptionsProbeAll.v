@@ -126,8 +126,11 @@ Require Kernel.F3_MuLaplacianSum.
 Require Kernel.F3_PartitionTopologyCrossLink.
 Require Kernel.F3_PlusOneStructural.
 Require Kernel.F3_TripleCrossLink.
+Require Kernel.ObservationPolicy.
 Require Kernel.PointerObservable.
+Require Kernel.PointerObservableCounterexamples.
 Require Kernel.PointerObservableReductions.
+Require Kernel.TraceStateDescent.
 Require Kernel.HardwareBisimulation.
 Require Kernel.OCamlExtractionBridge.
 Require Kernel.PythonBisimulation.
@@ -271,8 +274,10 @@ Require SelfReference.SelfReference.
 Require SelfReference.TilingChain.
 Require Spacetime.Spacetime.
 Require TestFixtures.VacuitySmoke.
+Require Tests.ClaimBoundaryRegression.
 Require Tests.CloseoutVerification.
 Require Tests.TestNecessity.
+Require Tests.WFDrivenRunRegression.
 Require Tests.verify_nofi_load_bearing.
 Require Tests.verify_zero_admits.
 Require Thermodynamic.LandauerDerived.
@@ -304,7 +309,7 @@ Print Assumptions Extraction.extraction_compose_anchor.
 Print Assumptions Extraction.extraction_morph_tensor_anchor.
 (* === IntrinsicLevelHierarchy : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions IntrinsicLevelHierarchy.level_intrinsic_forces_mu.
-Print Assumptions IntrinsicLevelHierarchy.level_strict_separation.
+Print Assumptions IntrinsicLevelHierarchy.level_k_plus_1_forces_more_than_k_cert_events.
 (* === MuCodingTheorem : 7 addressable theorems (unaddressable: 0) === *)
 Print Assumptions MuCodingTheorem.holds_mu_eq_k.
 Print Assumptions MuCodingTheorem.certify_instruction_cost_payload_eq.
@@ -496,7 +501,7 @@ Print Assumptions ThieleMachineComplete.P_full_cert_complete.
 Print Assumptions ThieleMachineComplete.P_cost_mu_complete.
 Print Assumptions ThieleMachineComplete.P_cert_cert_complete.
 Print Assumptions ThieleMachineComplete.mu_ledger_minimality.
-Print Assumptions ThieleMachineComplete.P_full_is_minimal_complete_extension.
+Print Assumptions ThieleMachineComplete.P_full_complete_neither_mu_nor_cert_droppable.
 Print Assumptions ThieleMachineComplete.non_cert_setter_preserves_cert.
 Print Assumptions ThieleMachineComplete.supra_cert_implies_structure_addition.
 Print Assumptions ThieleMachineComplete.trace_run_run_vm.
@@ -1273,9 +1278,9 @@ Print Assumptions Kernel.Closure.KernelMaximalClosure.
 Print Assumptions Kernel.FalsifiablePrediction.mu_monotonic_step.
 Print Assumptions Kernel.FalsifiablePrediction.mu_cost_additive.
 (* === Kernel.MasterSummary : 55 addressable theorems (unaddressable: 0) === *)
-Print Assumptions Kernel.MasterSummary.master_summary_project_local_axioms_count_zero.
-Print Assumptions Kernel.MasterSummary.master_summary_project_local_admits_count_zero.
-Print Assumptions Kernel.MasterSummary.master_summary_no_hidden_project_assumptions_verified.
+Print Assumptions Kernel.MasterSummary.master_summary_declares_project_local_axioms_count_zero.
+Print Assumptions Kernel.MasterSummary.master_summary_declares_project_local_admits_count_zero.
+Print Assumptions Kernel.MasterSummary.master_summary_declares_no_hidden_project_assumptions.
 Print Assumptions Kernel.MasterSummary.exact_mechanism_file_map_explicit.
 Print Assumptions Kernel.MasterSummary.end_to_end_example_route_explicit.
 Print Assumptions Kernel.MasterSummary.exposed_zero_marginal_psd_contractivity.
@@ -1327,7 +1332,7 @@ Print Assumptions Kernel.MasterSummary.master_non_circular_classical_witness.
 Print Assumptions Kernel.MasterSummary.master_non_circular_mu_zero_locc.
 Print Assumptions Kernel.MasterSummary.stronger_repository_results_elsewhere_explicit.
 Print Assumptions Kernel.MasterSummary.thiele_machine_core_summary_verified.
-Print Assumptions Kernel.MasterSummary.thiele_machine_is_complete.
+Print Assumptions Kernel.MasterSummary.thiele_machine_core_summary_verified_export.
 (* === Kernel.NonCircularityAudit : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.NonCircularityAudit.mu_cost_is_physics_free.
 Print Assumptions Kernel.NonCircularityAudit.classical_bound_is_derived_not_assumed.
@@ -2230,7 +2235,7 @@ Print Assumptions Kernel.Substrate.mu_monotone_chain.
 (* === Kernel.Subsumption : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.Subsumption.witness_is_sighted.
 Print Assumptions Kernel.Subsumption.witness_not_turing.
-Print Assumptions Kernel.Subsumption.main_subsumption.
+Print Assumptions Kernel.Subsumption.sighted_program_not_turing_witness.
 (* === Kernel.TuringClassicalEmbedding : 14 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.TuringClassicalEmbedding.D2_faithfulness.
 Print Assumptions Kernel.TuringClassicalEmbedding.unpack_shadow_proj.
@@ -2444,9 +2449,11 @@ Print Assumptions Kernel.F1_LogicalErasure.cert_flip_collapses_cert_classes.
 Print Assumptions Kernel.F1_LogicalErasure.thiele_cost_law_satisfies_landauer_for_cert.
 Print Assumptions Kernel.F1_LogicalErasure.A2_from_physical_reversibility_real.
 Print Assumptions Kernel.F1_LogicalErasure.A2_consistency_check.
-(* === Kernel.F1_StrongForm : 2 addressable theorems (unaddressable: 0) === *)
+(* === Kernel.F1_StrongForm : 4 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.F1_StrongForm.F1_strong_form_universal.
 Print Assumptions Kernel.F1_StrongForm.A2_via_physical_landauer.
+Print Assumptions Kernel.F1_StrongForm.f1_zero_cost_jump_collapses.
+Print Assumptions Kernel.F1_StrongForm.F1_physical_premises_incompatible.
 (* === Kernel.F1_TraceLevelA2 : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.F1_TraceLevelA2.F1_trace_level_A2.
 Print Assumptions Kernel.F1_TraceLevelA2.F1_singleton_trace_A2.
@@ -2539,9 +2546,33 @@ Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_at_k_pos_with
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_drop_lassert_fails_without_tsirelson.
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_adversarial_drop_tsirelson.
 Print Assumptions Kernel.F3_TripleCrossLink.F3_triple_worked_example_pin.
+(* === Kernel.ObservationPolicy : 13 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.ObservationPolicy.decoding_requires_fiber_constancy.
+Print Assumptions Kernel.ObservationPolicy.selected_representatives_give_decoder.
+Print Assumptions Kernel.ObservationPolicy.joint_floor_is_least.
+Print Assumptions Kernel.ObservationPolicy.least_joint_floor_respects_all_events.
+Print Assumptions Kernel.ObservationPolicy.independent_coordinates_joint_change_costs_one.
+Print Assumptions Kernel.ObservationPolicy.calibrated_model_exists_iff_positive_cost.
+Print Assumptions Kernel.ObservationPolicy.bit_erasure_classification.
+Print Assumptions Kernel.ObservationPolicy.bit_model_has_satisfiable_calibration.
+Print Assumptions Kernel.ObservationPolicy.retained_history_recovers_previous_state.
+Print Assumptions Kernel.ObservationPolicy.retained_history_step_injective.
+Print Assumptions Kernel.ObservationPolicy.history_simulates_observed_step.
+Print Assumptions Kernel.ObservationPolicy.visible_reset_does_not_force_global_erasure.
+Print Assumptions Kernel.ObservationPolicy.zero_cost_vm_jump_has_injective_history_lift.
 (* === Kernel.PointerObservable : 2 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_work_not_proliferating.
 Print Assumptions Kernel.PointerObservable.ReplicatedLedgerToy.toy_cert_unique_pointer.
+(* === Kernel.PointerObservableCounterexamples : 9 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.PointerObservableCounterexamples.blind_observer_blocks_proliferation.
+Print Assumptions Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_verifier_records.
+Print Assumptions Kernel.PointerObservableCounterexamples.DeniableAuthentication.deniable_authentication_refutes_strong_criterion.
+Print Assumptions Kernel.PointerObservableCounterexamples.SymmetricMAC.mac_refutes_strong_criterion.
+Print Assumptions Kernel.PointerObservableCounterexamples.ObjectCapability.capability_refutes_strong_criterion.
+Print Assumptions Kernel.PointerObservableCounterexamples.PublicLog.public_log_confirms.
+Print Assumptions Kernel.PointerObservableCounterexamples.PublicLog.public_log_effort_not_proliferating.
+Print Assumptions Kernel.PointerObservableCounterexamples.DigitalSignature.signature_confirms_proliferation.
+Print Assumptions Kernel.PointerObservableCounterexamples.adversarial_search_verdicts.
 (* === Kernel.PointerObservableReductions : 8 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.PointerObservableReductions.mirror_rival_not_proliferating.
 Print Assumptions Kernel.PointerObservableReductions.mirror_unique_pointer.
@@ -2551,6 +2582,17 @@ Print Assumptions Kernel.PointerObservableReductions.TEE_unique_pointer.
 Print Assumptions Kernel.PointerObservableReductions.CT_unique_pointer.
 Print Assumptions Kernel.PointerObservableReductions.PCC_unique_pointer.
 Print Assumptions Kernel.PointerObservableReductions.five_disciplines_are_pointers.
+(* === Kernel.TraceStateDescent : 10 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.TraceStateDescent.trace_descent_unique_value_iff.
+Print Assumptions Kernel.TraceStateDescent.vm_trace_eval_extend.
+Print Assumptions Kernel.TraceStateDescent.target_trace_eval_extend.
+Print Assumptions Kernel.TraceStateDescent.reachable_simulation_evaluates_trace.
+Print Assumptions Kernel.TraceStateDescent.reachable_simulation_requires_compatibility.
+Print Assumptions Kernel.TraceStateDescent.reachable_simulation_exists_iff.
+Print Assumptions Kernel.TraceStateDescent.reachable_simulation_unique.
+Print Assumptions Kernel.TraceStateDescent.certification_quotient_satisfies_descent.
+Print Assumptions Kernel.TraceStateDescent.history_target_evaluates_to_input.
+Print Assumptions Kernel.TraceStateDescent.certification_agreement_does_not_imply_descent.
 (* === Kernel.HardwareBisimulation : 12 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.HardwareBisimulation.hw_initial_correspondence.
 Print Assumptions Kernel.HardwareBisimulation.hw_step_preserves_pc.
@@ -3123,7 +3165,7 @@ Print Assumptions Kernel.NecessityAbstract.P_full_cert_complete.
 Print Assumptions Kernel.NecessityAbstract.P_cost_mu_complete.
 Print Assumptions Kernel.NecessityAbstract.P_cert_cert_complete.
 Print Assumptions Kernel.NecessityAbstract.mu_ledger_minimality.
-Print Assumptions Kernel.NecessityAbstract.P_full_is_minimal_complete_extension.
+Print Assumptions Kernel.NecessityAbstract.P_full_complete_neither_mu_nor_cert_droppable.
 Print Assumptions Kernel.NecessityAbstract.graph_not_recoverable_from_P_full.
 Print Assumptions Kernel.NecessityAbstract.graph_oracle_fails.
 Print Assumptions Kernel.NecessityAbstract.thiele_state_three_component_independence.
@@ -3353,7 +3395,7 @@ Print Assumptions Kernel.ThermodynamicStructuralAdvantage.irreversible_structura
 Print Assumptions Kernel.ThieleInitiality.thiele_canonical_fold_basepoint.
 Print Assumptions Kernel.ThieleInitiality.thiele_canonical_fold_step.
 Print Assumptions Kernel.ThieleInitiality.thiele_canonical_fold_unique.
-Print Assumptions Kernel.ThieleInitiality.thiele_is_initial_a2_substrate.
+Print Assumptions Kernel.ThieleInitiality.thiele_trace_fold_initial.
 Print Assumptions Kernel.ThieleInitiality.thiele_morphism_unique_on_reachable.
 (* === Kernel.UniversalCertificationCost : 9 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Kernel.UniversalCertificationCost.universal_nfi_any_substrate.
@@ -4383,6 +4425,12 @@ Print Assumptions TestFixtures.VacuitySmoke.smoke_addnSm.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_succ_nonzero.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_genuine_equality.
 Print Assumptions TestFixtures.VacuitySmoke.smoke_modus_ponens.
+(* === Tests.ClaimBoundaryRegression : 5 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Tests.ClaimBoundaryRegression.receipt_encoding_roundtrip.
+Print Assumptions Tests.ClaimBoundaryRegression.no_vm_state_morphism_to_never_certifies.
+Print Assumptions Tests.ClaimBoundaryRegression.zero_cost_jump_collapses_pc_class.
+Print Assumptions Tests.ClaimBoundaryRegression.full_vm_f1_premises_incompatible.
+Print Assumptions Tests.ClaimBoundaryRegression.zero_cost_partition_changes_structure.
 (* === Tests.CloseoutVerification : 3 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Tests.CloseoutVerification.closeout_zero_gaps.
 Print Assumptions Tests.CloseoutVerification.closeout_47_opcodes.
@@ -4398,6 +4446,14 @@ Print Assumptions Tests.TestNecessity.w_free_read_disjoint_commutes.
 Print Assumptions Tests.TestNecessity.w_free_read_laws.
 Print Assumptions Tests.TestNecessity.w_free_read_NOT_uniform.
 Print Assumptions Tests.TestNecessity.test_summary.
+(* === Tests.WFDrivenRunRegression : 7 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Tests.WFDrivenRunRegression.old_universal_precondition_impossible.
+Print Assumptions Tests.WFDrivenRunRegression.valid_program_meets_run_contract.
+Print Assumptions Tests.WFDrivenRunRegression.valid_program_full_state_commutes.
+Print Assumptions Tests.WFDrivenRunRegression.valid_program_actually_certifies.
+Print Assumptions Tests.WFDrivenRunRegression.visited_invalid_pnew_rejected.
+Print Assumptions Tests.WFDrivenRunRegression.unvisited_invalid_pnew_allowed.
+Print Assumptions Tests.WFDrivenRunRegression.invalid_pnew_beyond_fuel_allowed.
 (* === Tests.verify_nofi_load_bearing : 1 addressable theorems (unaddressable: 0) === *)
 Print Assumptions Tests.verify_nofi_load_bearing.nofi_strengthening_bridge_guard.
 (* === Tests.verify_zero_admits : 1 addressable theorems (unaddressable: 0) === *)
@@ -4506,7 +4562,7 @@ Print Assumptions ThieleMachine.ThieleMachine.check_step_complete.
 Print Assumptions ThieleMachine.ThieleMachine.state_eqb_refl.
 Print Assumptions ThieleMachine.ThieleMachine.replay_of_exec.
 Print Assumptions ThieleMachine.ThieleMachine.mu_pays_bits_exec.
-Print Assumptions ThieleMachine.ThieleMachine.ThieleMachine_universal.
+Print Assumptions ThieleMachine.ThieleMachine.abstract_exec_receipts_replay_and_are_paid.
 Print Assumptions ThieleMachine.ThieleMachine.replay_sound.
 Print Assumptions ThieleMachine.ThieleMachine.mu_pays_for_certs.
 (* === ThieleMachine.ThieleProc : 22 addressable theorems (unaddressable: 0) === *)

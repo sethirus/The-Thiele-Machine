@@ -83,19 +83,19 @@ def test_generated_artifacts_match_committed(tmp_path: Path) -> None:
         if committed.read_text(encoding="utf-8") != fresh.read_text(encoding="utf-8"):
             mismatches.append(name)
 
-    if mismatches:
-        # Auto-update the committed artifacts so subsequent runs pass,
-        # and flag what changed so the caller knows to commit the diff.
-        import shutil
-        for name in mismatches:
-            shutil.copy2(tmp_path / name, ARTIFACT_DIR / name)
-        import warnings
-        warnings.warn(
-            "MasterSummary artifacts were stale and have been auto-regenerated:\n"
-            + "\n".join(f"  {name}" for name in mismatches)
-            + "\nCommit the updated files in artifacts/final_claim_audit/.",
-            stacklevel=2,
-        )
+    assert not mismatches, (
+        "Committed MasterSummary artifacts are stale or have been modified by "
+        "hand:\n"
+        + "\n".join(f"  {name}" for name in mismatches)
+        + "\n\nThis gate must be able to fail. An earlier version copied the "
+        "fresh files over the committed ones and warned instead of asserting, "
+        "so a corrupt committed artifact was silently repaired by the test "
+        "meant to detect it.\n\n"
+        "Regenerate with:\n"
+        "    python scripts/generate_master_summary_artifacts.py "
+        "--out-dir artifacts/final_claim_audit\n"
+        "then commit the refreshed files."
+    )
 
 
 def test_obligation_inventory_matches_master_summary() -> None:

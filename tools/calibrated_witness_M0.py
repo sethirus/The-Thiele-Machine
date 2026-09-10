@@ -13,7 +13,7 @@ If any degree sequence works, try to construct a graph and verify."""
 from itertools import product, combinations
 import sys
 
-sys.path.insert(0, "/workspaces/The-Thiele-Machine/tools")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from calibrated_witness_search import total_S, density_solution_exists, neighbors_of, triangles_at
 from fractions import Fraction
 

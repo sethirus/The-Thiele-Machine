@@ -66,6 +66,16 @@
       - The two non-VM facts (Boltzmann's formula and the second law)
         are named, isolated, and visible to [Print Assumptions]. *)
 
+(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+   mathematics and does not engage VM semantics. No definition or theorem here
+   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost. Any
+   Kernel module it imports is a peer result in the same mathematical
+   development, not the VM step relation.
+
+   It reached the foundation chain only transitively, through modules that
+   imported the kernel without using it; with those phantom imports gone the
+   honest statement is that this file is standalone. Counted in the WAIVERS
+   census in INQUISITOR_REPORT.md. *)
 From Coq Require Import Reals Lra Lia Arith.
 From Thermodynamic Require Import LandauerDerived.
 

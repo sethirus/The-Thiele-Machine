@@ -3,14 +3,37 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
+
+import pytest
 
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = ROOT / "scripts" / "audit_rtl_text_transforms.py"
 MANIFEST = ROOT / "artifacts" / "rtl_text_transform_audit.json"
+
+# Strict in CI so a forgotten refresh fails the build; auto-regenerating
+# locally so routine source edits don't bounce the suite. Same split as
+# tests/test_rtl_pipeline_manifest.py.
+IN_CI = bool(os.environ.get("CI") or os.environ.get("GITHUB_ACTIONS"))
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _refresh_manifest_locally() -> None:
+    """Regenerate the manifest in place when running locally; no-op in CI."""
+    if IN_CI or not SCRIPT.exists():
+        return
+    subprocess.run(
+        [sys.executable, str(SCRIPT), "--out", str(MANIFEST)],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        timeout=60,
+        check=False,
+    )
 
 
 def _load_manifest() -> dict:
@@ -22,13 +45,15 @@ def test_transform_audit_script_exists() -> None:
 
 
 def test_transform_audit_manifest_is_fresh(tmp_path: Path) -> None:
-    """Regenerate the audit manifest; if it differs from the committed copy,
-    auto-update the committed copy in place and warn rather than failing.
+    """Regenerate the audit manifest into a temp dir and assert the committed
+    copy matches it byte for byte.
 
-    Mirrors tests/test_master_summary_artifacts.py::test_generated_artifacts_match_committed
-    so that running the test suite refreshes derived audit artifacts the way
-    the pre-commit hook would, instead of failing on manifest drift the
-    developer didn't write.
+    This gate must be able to fail. An earlier version copied the fresh file
+    over the committed one and emitted a warning instead of asserting, which
+    meant a corrupt or hand-edited committed manifest was silently repaired
+    by the very test that was supposed to detect it. Locally the fixture
+    below regenerates in place first, so routine source edits don't bounce
+    the suite; in CI nothing is regenerated and drift is a hard failure.
     """
     out = tmp_path / "rtl_text_transform_audit.json"
     subprocess.run(
@@ -37,17 +62,15 @@ def test_transform_audit_manifest_is_fresh(tmp_path: Path) -> None:
         check=True,
     )
     fresh_text = out.read_text(encoding="utf-8")
-    if fresh_text != MANIFEST.read_text(encoding="utf-8"):
-        import shutil
-        import warnings
-
-        shutil.copy2(out, MANIFEST)
-        warnings.warn(
-            f"RTL text-transform audit manifest was stale and has been "
-            f"auto-regenerated at {MANIFEST.relative_to(ROOT)}. Commit "
-            f"the refreshed file alongside your other changes.",
-            stacklevel=2,
-        )
+    assert MANIFEST.exists(), f"Missing committed manifest: {MANIFEST}"
+    assert fresh_text == MANIFEST.read_text(encoding="utf-8"), (
+        "Committed RTL text-transform audit manifest is stale or has been "
+        "modified by hand (a tracked source changed without regenerating it, "
+        "or the committed JSON does not match generator output).\n\n"
+        "Regenerate with:\n"
+        f"    python scripts/audit_rtl_text_transforms.py --out {MANIFEST.relative_to(ROOT)}\n"
+        "then commit the refreshed file."
+    )
 
 
 def test_transform_audit_core_invariants_hold() -> None:

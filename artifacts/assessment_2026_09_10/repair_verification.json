@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-10",
+  "scope": "Repair pass against the working tree; pre-existing user changes retained.",
+  "coq_version": "The Coq Proof Assistant, version 8.18.0\ncompiled with OCaml 4.14.1",
+  "source_build": {
+    "exit_code": 0,
+    "fresh_project_coqc_invocations": 284,
+    "vendor_compiled_libraries_reused": true,
+    "log": "repair_full_build.log"
+  },
+  "assumption_receipt": {
+    "theorems_probed": 4003,
+    "closed_under_global_context": 2956,
+    "depend_on_axioms": 1047,
+    "user_or_third_party_axiom_findings": 0,
+    "excluded_middle_users": 67,
+    "functional_extensionality_users": 969,
+    "real_completeness_axiom_users": 1008,
+    "unique_axioms_used": {
+      "ClassicalDedekindReals.sig_forall_dec": 1008,
+      "FunctionalExtensionality.functional_extensionality_dep": 969,
+      "ClassicalDedekindReals.sig_not_dec": 276,
+      "Classical_Prop.classic": 67
+    }
+  },
+  "assumption_resume_record": "repair_probe_resume.json",
+  "tests": {
+    "scope_and_artifacts": 16,
+    "hardware_and_example": 6,
+    "compile_gate_and_pin": 12,
+    "receipt_numbers": 1,
+    "minimal_coq_assumption_reports": 17,
+    "minimal_python_checks": 9
+  },
+  "inquisitor": "OK; zero findings",
+  "documents": {
+    "directory": "/tmp/thiele-repaired-docs-5813xzq8",
+    "results": [
+      {
+        "document": "monograph",
+        "passes": 3,
+        "warnings": []
+      },
+      {
+        "document": "thiele_machine_math_spec",
+        "passes": 3,
+        "warnings": []
+      }
+    ]
+  },
+  "source_sha256": {
+    "Makefile": "85405ba54b54b0155b8d9338783511c82e9bbb38b4a9390a6c8b726d7b9ea6d5",
+    "monograph/monograph.pdf": "83e0d4db7d248c7e8baca024a93acc21f08a0abab9086b04e1492e9c7f0efa2d",
+    "monograph/thiele_machine_math_spec.pdf": "54a2c294c40b419651d6bae919ada347dfe19f1145c90dc2a36892548b66c0de",
+    "README.md": "acc775b4e263911307815e8e07c4cc1fdedebb8f446bb9782aeadb978758bb3a",
+    "TECHNICAL_DISCLOSURE.md": "38549647ffe45cc81c20b17937617af26bf83fac888ae6905e0112a764b01231",
+    "monograph/monograph.tex": "fcc03e81a2d3f6f441680b201cd67885e10aa699ede0d0c680382abc0c1339fd",
+    "monograph/thiele_machine_math_spec.tex": "06841145fe70121b2b9e9561d59091b675edb92b140ece8fdbc1d3d58544ff9f",
+    "monograph/CLAIM_SCOPE.md": "e85891dc59e7e5485d6b03e3c2c14004b2ebf154da182f27ffa9fd5b15eb9934",
+    "monograph/VOICE.md": "f8aa8cd764a2e2ba1de3d885ac07f352f424ffcf25b59a2bdb2bb85e8d695ab4",
+    "coq/kernel/nfi/ThieleInitiality.v": "e393c1e19718fd037c388919e294c4b6382fac0ddae2ad8127028bc9fdfe9cf2",
+    "coq/kernel/frontier/F1_StrongForm.v": "250b336da9ef84796a46c8bf7358f521e46e1e50183921d2100a5b9c5bed9500",
+    "coq/kami_hw/GraphReconstructionBridge.v": "51294bf2d80b32556ef5e414c905af94ac0e025d7535efab4f93398a2725de04",
+    "coq/kami_hw/VerilogSemantics.v": "a37c98e047b8d892041229db7492b5fe8b8362d7a8d3c149d70885cc442c6882",
+    "coq/kami_hw/ShadowDeviceTrace.v": "8915775e9230e913b545f021df9ab7250d178c12799ff9b36ffe5bcae016e372",
+    "coq/kami_hw/ThieleCanonicality.v": "d9df9233011c0fd3f1f1b025596824bbaf4adeb8d6371c290988fa4bda77069e",
+    "coq/tests/ClaimBoundaryRegression.v": "f4752b7ce0ce9d83edb98c234aade07062e3d0df41f293dfea044179517f0f19",
+    "coq/tests/WFDrivenRunRegression.v": "d0f8cf1f6dd090a3dc4efa99f35f9fb7b72047494aa5812d87c348c8eb407be4",
+    "coq/_CoqProject": "156fbc73418ee10f21bfe9907931e054444074f540b64a2bc0fbb5093d25d4a7",
+    "scripts/generate_master_summary_artifacts.py": "3d4142108a256b35820258d460b6de0ecb15e5e2daec70e075f4b8c255add1ab",
+    "artifacts/print_assumptions_all_proofs.json": "ca6a5c479746c457d150a83838082157af9e0f9259441b657ee6e6268c9c343c"
+  },
+  "limits": [
+    "No full runtime test-suite run, synthesis, deployment, or physical experiment in this pass.",
+    "The active Coq source build and full assumption receipt are new; the earlier selected review record is historical.",
+    "F1 physical applicability, unrestricted VM-state initiality, and universal foundational claims are not established."
+  ]
+}

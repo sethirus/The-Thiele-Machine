@@ -151,6 +151,28 @@ def test_extraction_exports_core_vm_semantics() -> None:
     assert "Extraction \"../build/thiele_core.ml\"" in txt
 
 
+# A file may declare itself substrate-free in the source rather than in the
+# list above. The marker is the same one the Inquisitor honours for
+# PROOF_CONNECTIVITY_GAP, so the exemption lives next to the code it describes
+# and cannot drift out of sync with a list kept here.
+#
+# The alternative is what these files used to do: import VMState/VMStep and
+# never use them, which satisfies a reachability check while telling the
+# reader nothing. A waiver states the truth and gets counted in the WAIVERS
+# census in INQUISITOR_REPORT.md.
+_CONNECTIVITY_WAIVER_RE = re.compile(
+    r"INQUISITOR NOTE.*proof[- ]?connect", re.IGNORECASE
+)
+
+
+def _carries_connectivity_waiver(path: Path) -> bool:
+    try:
+        return bool(_CONNECTIVITY_WAIVER_RE.search(
+            path.read_text(encoding="utf-8", errors="replace")))
+    except OSError:
+        return False
+
+
 def test_critical_proof_files_connect_to_thiele_semantics() -> None:
     files = _all_coq_files()
     assert files, "No critical Coq proof files found"
@@ -162,6 +184,8 @@ def test_critical_proof_files_connect_to_thiele_semantics() -> None:
     disconnected: list[str] = []
     for p in files:
         if p.stem in CONNECTIVITY_EXEMPT:
+            continue
+        if _carries_connectivity_waiver(p):
             continue
         if not _reaches_any_anchor(p, graph, anchors):
             disconnected.append(str(p.relative_to(REPO_ROOT)))

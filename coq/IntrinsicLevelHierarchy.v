@@ -95,7 +95,13 @@ Qed.
     ledger sum. The hierarchy is a property of claims, not of any one
     trace that happens to certify them.
 *)
-Theorem level_strict_separation :
+(** A counting floor on cert events. If a final state is intrinsically at
+    level k+1 and is certified, then any run reaching it executed more than k
+    cert events.
+
+    This is a lower bound on events in a trace. It is not a complexity-class
+    separation, and nothing here separates two classes. *)
+Theorem level_k_plus_1_forces_more_than_k_cert_events :
   forall k s_final,
     level_intrinsic_at_least (k + 1) s_final ->
     s_final.(vm_certified) = true ->
@@ -108,4 +114,4 @@ Proof.
   unfold cert_events_in in *. lia.
 Qed.
 
-Print Assumptions level_strict_separation.
+Print Assumptions level_k_plus_1_forces_more_than_k_cert_events.

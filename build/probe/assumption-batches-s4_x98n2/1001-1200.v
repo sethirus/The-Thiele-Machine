@@ -1,0 +1,494 @@
+(** Comprehensive Print Assumptions probe — every addressable proof-bearing
+    declaration across every .v file in the repository (excluding vendor/kami,
+    coq/archive/). Generated; do not edit. Functor and Module-Type interiors
+    are skipped here and recorded separately in the inventory. *)
+
+Require Extraction.
+Require IntrinsicLevelHierarchy.
+Require MuCodingTheorem.
+Require MuDirectSum.
+Require NecessityOfMuLedger.
+Require PhysicsConditionalClosure.
+Require ReceiptTheorem.
+Require ThieleMachineComplete.
+Require VerifierEscape_Hardness.
+Require VerifierEscape_Interaction.
+Require VerifierEscape_Substrate.
+Require VerifierExhaustiveness.
+Require VerifierImpossibility.
+Require VerifierModel.
+Require KamiHW.Abstraction.
+Require KamiHW.CanonicalCPUProof.
+Require KamiHW.Compatibility.
+Require KamiHW.EmbedStep.
+Require KamiHW.EmbedStep_WF.
+Require KamiHW.F4_BModulesTranslation.
+Require KamiHW.F4_VerilogEvaluator.
+Require KamiHW.FullAbstraction.
+Require KamiHW.FullEmbedStep.
+Require KamiHW.FullStep.
+Require KamiHW.GraphReconstructionBridge.
+Require KamiHW.HardwareShadowBridge.
+Require KamiHW.KamiExtraction.
+Require KamiHW.LogicEngineEquivalence.
+Require KamiHW.RTLCorrectnessInstantiation.
+Require KamiHW.RTLGapRegistry.
+Require KamiHW.RichStateCommutation.
+Require KamiHW.ShadowDevice.
+Require KamiHW.ShadowDeviceTrace.
+Require KamiHW.ShadowEmbedStep.
+Require KamiHW.ThieleCPUBusTop.
+Require KamiHW.ThieleCPUCore.
+Require KamiHW.ThieleCanonicality.
+Require KamiHW.ThieleTypes.
+Require KamiHW.VerilogRefinement.
+Require KamiHW.VerilogSemantics.
+Require Kernel.Closure.
+Require Kernel.FalsifiablePrediction.
+Require Kernel.MasterSummary.
+Require Kernel.NonCircularityAudit.
+Require Kernel.PDISCOVERIntegration.
+Require Kernel.TOE.
+Require Kernel.ThieleGenesis.
+Require Kernel.UnificationProbeBridges.
+Require Kernel.UnificationProbePattern.
+Require Kernel.AlgebraicCoherence.
+Require Kernel.CategoryBridge.
+Require Kernel.CategoryLaws.
+Require Kernel.CategoryMonoidal.
+Require Kernel.ConstantUnification.
+Require Kernel.AffineEFEClosure.
+Require Kernel.CurvedTensorPipeline.
+Require Kernel.DiscreteGaussBonnet.
+Require Kernel.DiscreteRaychaudhuri.
+Require Kernel.DiscreteSimplicialGeometry.
+Require Kernel.DiscreteTopology.
+Require Kernel.EinsteinEmergence.
+Require Kernel.EinsteinEquations4D.
+Require Kernel.EinsteinEquationsFull.
+Require Kernel.FourDSimplicialComplex.
+Require Kernel.JacobsonBridgeComponents.
+Require Kernel.KernelNoether.
+Require Kernel.KernelPhysics.
+Require Kernel.LocalMorphismSemantics.
+Require Kernel.LorentzNotForced.
+Require Kernel.LorentzianTensorPipeline.
+Require Kernel.MatrixAlgebra4.
+Require Kernel.MetricForcing.
+Require Kernel.MetricFromMuCosts.
+Require Kernel.MuGravity.
+Require Kernel.NoFIToEinstein.
+Require Kernel.PNEWTopologyChange.
+Require Kernel.PhysicalSubstrate.
+Require Kernel.PhysicsClosure.
+Require Kernel.RaychaudhuriFluxBridge.
+Require Kernel.RiemannTensor4D.
+Require Kernel.SpacetimeEmergence.
+Require Kernel.StressEnergyDynamics.
+Require Kernel.SymmetricDerivative4D.
+Require Kernel.TopologyCurvatureBridge.
+Require Kernel.ClassicalBound.
+Require Kernel.ClassicalConservativity.
+Require Kernel.DagRestriction.
+Require Kernel.Definitions.
+Require Kernel.Kernel.
+Require Kernel.KernelTM.
+Require Kernel.KernelThiele.
+Require Kernel.Locality.
+Require Kernel.MuCostModel.
+Require Kernel.MuLedgerConservation.
+Require Kernel.NatSubstrateInstance.
+Require Kernel.PartitionSeparation.
+Require Kernel.Persistence.
+Require Kernel.ProperSubsumption.
+Require Kernel.SimulationProof.
+Require Kernel.StateSpaceCounting.
+Require Kernel.Substrate.
+Require Kernel.Subsumption.
+Require Kernel.TuringClassicalEmbedding.
+Require Kernel.TuringCompletenessISA.
+Require Kernel.TuringStrictness.
+Require Kernel.VMEncoding.
+Require Kernel.VMInstructionEncoding.
+Require Kernel.VMState.
+Require Kernel.VMStep.
+Require Kernel.VMSubstrateInstance.
+Require Kernel.VMUnboundedExec.
+Require Kernel.F1_AbstractedBridge.
+Require Kernel.F1_LogicalErasure.
+Require Kernel.F1_StrongForm.
+Require Kernel.F1_TraceLevelA2.
+Require Kernel.F2_MinorFromWitnessLocality.
+Require Kernel.F2_MinorIndependence.
+Require Kernel.F2_PerMinorFromCostCoherent.
+Require Kernel.F3_CrossLink.
+Require Kernel.F3_MuLaplacianSum.
+Require Kernel.F3_PartitionTopologyCrossLink.
+Require Kernel.F3_PlusOneStructural.
+Require Kernel.F3_TripleCrossLink.
+Require Kernel.ObservationPolicy.
+Require Kernel.PointerObservable.
+Require Kernel.PointerObservableCounterexamples.
+Require Kernel.PointerObservableReductions.
+Require Kernel.TraceStateDescent.
+Require Kernel.HardwareBisimulation.
+Require Kernel.OCamlExtractionBridge.
+Require Kernel.PythonBisimulation.
+Require Kernel.ThreeLayerIsomorphism.
+Require Kernel.VerilogRTLCorrespondence.
+Require Kernel.ConeAlgebra.
+Require Kernel.ConeDerivation.
+Require Kernel.SemanticMuCost.
+Require Kernel.KernelBenchmarks.
+Require Kernel.MuChaitin.
+Require Kernel.MuComplexity.
+Require Kernel.MuCostDerivation.
+Require Kernel.MuGeometry.
+Require Kernel.MuHierarchyTheorem.
+Require Kernel.MuInformation.
+Require Kernel.MuInitiality.
+Require Kernel.MuNoFreeInsightQuantitative.
+Require Kernel.MuShannonBridge.
+Require Kernel.MuShannonQuantitative.
+Require Kernel.QuantitativeNoFI.
+Require Kernel.A2LoadBearing.
+Require Kernel.A2Payoff.
+Require Kernel.AbstractNoFI.
+Require Kernel.CertCheck.
+Require Kernel.Certification.
+Require Kernel.CommitmentCostDecomposition.
+Require Kernel.CommitmentPredicateAdequacy.
+Require Kernel.CommitmentVsErasure.
+Require Kernel.HonestCostTracking.
+Require Kernel.HonestMeasurement.
+Require Kernel.HonestNoFI.
+Require Kernel.HonestNoFI_TheoremsWithoutAssumptions.
+Require Kernel.InformationGainToStrengthening.
+Require Kernel.InsightTaxonomy.
+Require Kernel.LandauerDerivation.
+Require Kernel.MeasurementExtraction.
+Require Kernel.MuLedgerQuantumBridge.
+Require Kernel.MuRunIncompleteness.
+Require Kernel.NecessityAbstract.
+Require Kernel.NoFreeInsight.
+Require Kernel.NonAdaptiveLowerBound.
+Require Kernel.PartitionRefinementNoFI.
+Require Kernel.PrimeAxiom.
+Require Kernel.ReceiptCore.
+Require Kernel.ReceiptIntegrity.
+Require Kernel.RevelationRequirement.
+Require Kernel.SimpleMorphShortcut.
+Require Kernel.StructuralAdvantage.
+Require Kernel.StructuralAdvantageCertifiedShortcut.
+Require Kernel.StructuralAdvantageObservedShortcut.
+Require Kernel.StructuralAdvantageObservedShortcutResult.
+Require Kernel.StructuralAxisOrthogonality.
+Require Kernel.StructuralAxisRelativization.
+Require Kernel.StructuralUndecidability.
+Require Kernel.ThermodynamicStructuralAdvantage.
+Require Kernel.ThieleInitiality.
+Require Kernel.UniversalCertificationCost.
+Require Kernel.UniversalShortcutLifting.
+Require Kernel.VMSubstrateEncoded.
+Require Kernel.VerificationCostSeparation.
+Require Kernel.BornRule.
+Require Kernel.BornRuleLinearity.
+Require Kernel.BoxCHSH.
+Require Kernel.CHSH.
+Require Kernel.CHSHCouplingBridge.
+Require Kernel.CHSHExtraction.
+Require Kernel.CHSHStatisticalBridge.
+Require Kernel.ConstructivePSD.
+Require Kernel.ElliptopeCompletion.
+Require Kernel.ElliptopeGate.
+Require Kernel.EntanglementEntropy.
+Require Kernel.GenRealizability.
+Require Kernel.HolevoDimensional.
+Require Kernel.HolevoGeneralD.
+Require Kernel.HolevoTwoQubit.
+Require Kernel.HonestMeasurementImpliesNPA.
+Require Kernel.InformationCausality.
+Require Kernel.MinorConstraints.
+Require Kernel.NPAMomentMatrix.
+Require Kernel.NoCloning.
+Require Kernel.OperatorAlgebra.
+Require Kernel.PRBoxIsDishonest.
+Require Kernel.ProbabilityImpossibility.
+Require Kernel.Purification.
+Require Kernel.QuantumBound.
+Require Kernel.QuantumEquivalence.
+Require Kernel.QuantumPartitionPSD.
+Require Kernel.QuantumPartitionPSD_1AB.
+Require Kernel.SemidefiniteProgramming.
+Require Kernel.TsirelsonFromAlgebra.
+Require Kernel.TsirelsonFromIC.
+Require Kernel.TsirelsonFromMu.
+Require Kernel.TsirelsonGeneral.
+Require Kernel.TsirelsonQuantumModel.
+Require Kernel.TsirelsonUniqueness.
+Require Kernel.TsirelsonUpperBound.
+Require Kernel.Unitarity.
+Require Kernel.ValidCorrelation.
+Require Kernel.GasMetering.
+Require Kernel.PoSFinality.
+Require Kernel.ProofCarryingVerifier.
+Require Kernel.TEEAttestation.
+Require Kernel.TransparencyLog.
+Require Kernel.AdditionalProbes.
+Require Kernel.BekensteinBound.
+Require Kernel.BekensteinCalibration.
+Require Kernel.ClausiusFromEntropyArea.
+Require Kernel.DimensionalGapTheorem.
+Require Kernel.EntropyImpossibility.
+Require Kernel.FiniteInformation.
+Require Kernel.LocalInfoLoss.
+Require Kernel.SecondLawBoltzmannWall.
+Require Kernel.ThermoEinsteinBridge.
+Require Kernel.BlindnessRepresentation.
+Require Kernel.DerivedTime.
+Require Kernel.InformationTopology.
+Require Kernel.ObserverDerivation.
+Require Kernel.ProjectionNonExistence.
+Require Kernel.ShadowProjection.
+Require Kernel.ThieleTraceProjection.
+Require Kernel.WitnessInsightGeneral.
+Require Kernel.WitnessPreservationImpossibility.
+Require NoFI.Instance_Kernel.
+Require NoFI.MuChaitinTheory_Interface.
+Require NoFI.MuChaitinTheory_Theorem.
+Require NoFI.NoFreeInsight_Interface.
+Require NoFI.NoFreeInsight_Theorem.
+Require Physics.DiscreteModel.
+Require Physics.DissipativeModel.
+Require Physics.PreregSplit.
+Require Physics.TriangularLattice.
+Require Physics.WaveModel.
+Require SelfReference.AdversarialChallenge.
+Require SelfReference.InductiveTrust.
+Require SelfReference.MuThresholdDisobedience.
+Require SelfReference.NeuralSymbolicBridge.
+Require SelfReference.NonInterference.
+Require SelfReference.RefinementInvariant.
+Require SelfReference.SelfCertifyingDecider.
+Require SelfReference.SelfReference.
+Require SelfReference.TilingChain.
+Require Spacetime.Spacetime.
+Require TestFixtures.VacuitySmoke.
+Require Tests.ClaimBoundaryRegression.
+Require Tests.CloseoutVerification.
+Require Tests.TestNecessity.
+Require Tests.WFDrivenRunRegression.
+Require Tests.verify_nofi_load_bearing.
+Require Tests.verify_zero_admits.
+Require Thermodynamic.LandauerDerived.
+Require Thermodynamic.LandauerJoules.
+Require Thermodynamic.ThermodynamicBridge.
+Require ThieleManifold.PhysicalConstants.
+Require ThieleManifold.PhysicsIsomorphism.
+Require ThieleManifold.ThieleManifold.
+Require ThieleManifold.ThieleManifoldBridge.
+Require ThieleMachine.ThieleMachine.
+Require ThieleMachine.ThieleProc.
+
+(* === Extraction : 16 addressable theorems (unaddressable: 0) === *)
+Print Assumptions Kernel.MasterSummary.master_non_circular_mu_zero_locc.
+Print Assumptions Kernel.MasterSummary.stronger_repository_results_elsewhere_explicit.
+Print Assumptions Kernel.MasterSummary.thiele_machine_core_summary_verified.
+Print Assumptions Kernel.MasterSummary.thiele_machine_core_summary_verified_export.
+Print Assumptions Kernel.NonCircularityAudit.mu_cost_is_physics_free.
+Print Assumptions Kernel.NonCircularityAudit.classical_bound_is_derived_not_assumed.
+Print Assumptions Kernel.NonCircularityAudit.mu_zero_closure.
+Print Assumptions Kernel.NonCircularityAudit.mu_zero_identity.
+Print Assumptions Kernel.NonCircularityAudit.pnew_is_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.psplit_is_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.pmerge_is_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.reveal_not_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.lassert_not_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.ljoin_not_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.chsh_trial_is_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.xfer_is_mu_zero.
+Print Assumptions Kernel.NonCircularityAudit.mu_zero_is_locc_like.
+Print Assumptions Kernel.NonCircularityAudit.non_circularity_verified.
+Print Assumptions Kernel.PDISCOVERIntegration.PDISCOVERIntegration.pdiscern_deterministic.
+Print Assumptions Kernel.PDISCOVERIntegration.PDISCOVERIntegration.structured_implies_low_variation.
+Print Assumptions Kernel.PDISCOVERIntegration.PDISCOVERIntegration.chaotic_implies_high_variation.
+Print Assumptions Kernel.PDISCOVERIntegration.PDISCOVERIntegration.classification_complete.
+Print Assumptions Kernel.PDISCOVERIntegration.PDISCOVERIntegration.vm_classification_exists.
+Print Assumptions Kernel.PDISCOVERIntegration.PDISCOVERIntegration.backward_compatible.
+Print Assumptions Kernel.TOE.KernelTOE_FinalOutcome.
+Print Assumptions Kernel.TOE.vm_step_observable_invariant.
+Print Assumptions Kernel.TOE.KernelTOE_CoreProofWiring.
+Print Assumptions Kernel.UnificationProbeBridges.cert_flip_physical_erasure_bits.
+Print Assumptions Kernel.UnificationProbeBridges.cert_flip_releases_landauer_heat.
+Print Assumptions Kernel.UnificationProbeBridges.vm_trace_classical_holevo.
+Print Assumptions Kernel.UnificationProbeBridges.vm_trace_n_qubits_classical_holevo.
+Print Assumptions Kernel.UnificationProbeBridges.vm_mu_bekenstein_bound.
+Print Assumptions Kernel.UnificationProbePattern.landauer_probe_holds.
+Print Assumptions Kernel.UnificationProbePattern.holevo_classical_probe_holds.
+Print Assumptions Kernel.UnificationProbePattern.holevo_d2_probe_holds.
+Print Assumptions Kernel.UnificationProbePattern.bekenstein_probe_holds.
+Print Assumptions Kernel.UnificationProbePattern.tsirelson_probe_holds.
+Print Assumptions Kernel.UnificationProbePattern.meta_pattern_holds.
+Print Assumptions Kernel.AlgebraicCoherence.Qabs_bound.
+Print Assumptions Kernel.AlgebraicCoherence.chsh_bound_4.
+Print Assumptions Kernel.AlgebraicCoherence.symmetric_tsirelson_bound.
+Print Assumptions Kernel.AlgebraicCoherence.tsirelson_from_algebraic_coherence.
+Print Assumptions Kernel.AlgebraicCoherence.algebraic_max_not_coherent.
+Print Assumptions Kernel.AlgebraicCoherence.sum_6_squares_nonneg.
+Print Assumptions Kernel.AlgebraicCoherence.cauchy_schwarz_chsh.
+Print Assumptions Kernel.AlgebraicCoherence.correlation_squares_bound.
+Print Assumptions Kernel.AlgebraicCoherence.chsh_weak_bound.
+Print Assumptions Kernel.AlgebraicCoherence.chsh_squared_bound_from_correlations.
+Print Assumptions Kernel.AlgebraicCoherence.symmetric_minor_implies_sum_bound.
+Print Assumptions Kernel.AlgebraicCoherence.symmetric_case_implies_tsirelson.
+Print Assumptions Kernel.AlgebraicCoherence.chsh_general_bound.
+Print Assumptions Kernel.AlgebraicCoherence.tsirelson_config_S.
+Print Assumptions Kernel.AlgebraicCoherence.tsirelson_achieving_coherent.
+Print Assumptions Kernel.AlgebraicCoherence.tsirelson_achieving_value.
+Print Assumptions Kernel.AlgebraicCoherence.tsirelson_bound_tight.
+Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_general.
+Print Assumptions Kernel.AlgebraicCoherence.algebraically_coherent_tsirelson_abs.
+Print Assumptions Kernel.CategoryBridge.graph_add_morphism_new_id_lookup.
+Print Assumptions Kernel.CategoryBridge.graph_add_morphism_old_id_lookup.
+Print Assumptions Kernel.CategoryBridge.graph_compose_morphisms_coupling.
+Print Assumptions Kernel.CategoryBridge.graph_compose_preserves_morphism_lookup.
+Print Assumptions Kernel.CategoryBridge.morph_compose_assoc_coupling.
+Print Assumptions Kernel.CategoryBridge.morph_graph_compose_assoc.
+Print Assumptions Kernel.CategoryBridge.graph_add_identity_coupling.
+Print Assumptions Kernel.CategoryBridge.morph_id_left_coupling.
+Print Assumptions Kernel.CategoryBridge.morph_id_right_coupling.
+Print Assumptions Kernel.CategoryBridge.morph_assert_is_cert_setter.
+Print Assumptions Kernel.CategoryBridge.instr_morph_not_cert_setter.
+Print Assumptions Kernel.CategoryBridge.instr_compose_not_cert_setter.
+Print Assumptions Kernel.CategoryBridge.instr_morph_id_not_cert_setter.
+Print Assumptions Kernel.CategoryBridge.instr_morph_delete_not_cert_setter.
+Print Assumptions Kernel.CategoryBridge.instr_morph_tensor_not_cert_setter.
+Print Assumptions Kernel.CategoryBridge.instr_morph_get_not_cert_setter.
+Print Assumptions Kernel.CategoryBridge.morph_cost_morph.
+Print Assumptions Kernel.CategoryBridge.morph_cost_compose.
+Print Assumptions Kernel.CategoryBridge.morph_cost_morph_id.
+Print Assumptions Kernel.CategoryBridge.morph_cost_morph_delete.
+Print Assumptions Kernel.CategoryBridge.morph_cost_morph_assert.
+Print Assumptions Kernel.CategoryBridge.morph_cost_morph_tensor.
+Print Assumptions Kernel.CategoryBridge.morph_cost_morph_get.
+Print Assumptions Kernel.CategoryBridge.morph_assert_cost_positive.
+Print Assumptions Kernel.CategoryBridge.morph_compose_cost_zero.
+Print Assumptions Kernel.CategoryBridge.categorical_extension_nofi_consistent.
+Print Assumptions Kernel.CategoryLaws.filter_In_iff.
+Print Assumptions Kernel.CategoryLaws.flat_map_In.
+Print Assumptions Kernel.CategoryLaws.map_In.
+Print Assumptions Kernel.CategoryLaws.relational_compose_spec.
+Print Assumptions Kernel.CategoryLaws.coupling_equiv_sym.
+Print Assumptions Kernel.CategoryLaws.coupling_equiv_trans.
+Print Assumptions Kernel.CategoryLaws.relational_compose_assoc.
+Print Assumptions Kernel.CategoryLaws.relational_compose_diagonal_left.
+Print Assumptions Kernel.CategoryLaws.relational_compose_diagonal_right.
+Print Assumptions Kernel.CategoryLaws.relational_compose_compat_l.
+Print Assumptions Kernel.CategoryLaws.relational_compose_compat_r.
+Print Assumptions Kernel.CategoryLaws.relational_compose_compat.
+Print Assumptions Kernel.CategoryLaws.relational_compose_empty_l.
+Print Assumptions Kernel.CategoryLaws.relational_compose_empty_r.
+Print Assumptions Kernel.CategoryLaws.coupling_union_spec.
+Print Assumptions Kernel.CategoryLaws.kernel_relational_compose_same.
+Print Assumptions Kernel.CategoryLaws.morph_compose_cost_is_delta.
+Print Assumptions Kernel.CategoryLaws.coupling_data_compose_assoc.
+Print Assumptions Kernel.CategoryLaws.separable_not_non_separable.
+Print Assumptions Kernel.CategoryLaws.empty_coupling_separable.
+Print Assumptions Kernel.CategoryLaws.diagonal_coupling_separable.
+Print Assumptions Kernel.CategoryLaws.coupling_non_separable_witness.
+Print Assumptions Kernel.CategoryLaws.xor_coupling_separable.
+Print Assumptions Kernel.CategoryLaws.entangled_coupling_non_separable.
+Print Assumptions Kernel.CategoryMonoidal.relational_compose_union_left.
+Print Assumptions Kernel.CategoryMonoidal.relational_compose_union_right.
+Print Assumptions Kernel.CategoryMonoidal.tensor_bifunctor.
+Print Assumptions Kernel.CategoryMonoidal.instr_morph_tensor_non_cert.
+Print Assumptions Kernel.CategoryMonoidal.morph_tensor_cost_eq.
+Print Assumptions Kernel.CategoryMonoidal.coupling_tensor_unit_left.
+Print Assumptions Kernel.CategoryMonoidal.coupling_tensor_unit_right.
+Print Assumptions Kernel.CategoryMonoidal.coupling_tensor_assoc.
+Print Assumptions Kernel.CategoryMonoidal.monoidal_coherence.
+Print Assumptions Kernel.ConstantUnification.k_B_pos.
+Print Assumptions Kernel.ConstantUnification.h_relational_identity.
+Print Assumptions Kernel.ConstantUnification.c_structural.
+Print Assumptions Kernel.AffineEFEClosure.affine_off_diagonal_ricci_zero.
+Print Assumptions Kernel.AffineEFEClosure.affine_full_tensor_efe.
+Print Assumptions Kernel.AffineEFEClosure.affine_factor_outer.
+Print Assumptions Kernel.AffineEFEClosure.affine_christoffel_outer.
+Print Assumptions Kernel.AffineEFEClosure.affine_outer_dd_gamma_eq.
+Print Assumptions Kernel.AffineEFEClosure.affine_outer_dd_gamma_eq_v234.
+Print Assumptions Kernel.AffineEFEClosure.affine_dd_christoffel_outer_val.
+Print Assumptions Kernel.AffineEFEClosure.sum_4_congr.
+Print Assumptions Kernel.AffineEFEClosure.affine_riemann_outer.
+Print Assumptions Kernel.AffineEFEClosure.affine_ricci_offdiag_outer.
+Print Assumptions Kernel.AffineEFEClosure.affine_ricci_diag_outer.
+Print Assumptions Kernel.AffineEFEClosure.affine_ricci_scalar_outer.
+Print Assumptions Kernel.AffineEFEClosure.affine_einstein_outer.
+Print Assumptions Kernel.AffineEFEClosure.affine_efe_fails_outer_offdiag.
+Print Assumptions Kernel.CurvedTensorPipeline.isotropic_mass_metric_bridge.
+Print Assumptions Kernel.CurvedTensorPipeline.isotropic_mass_metric_diag.
+Print Assumptions Kernel.CurvedTensorPipeline.metric_invertible_diagonal_inverse_correct.
+Print Assumptions Kernel.CurvedTensorPipeline.isotropic_mass_metric_invertible.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_christoffel_uniform_two_vertex.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_christoffel_at_w_zero.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_riemann_antisymmetric.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_riemann_uniform_zero_two_vertex.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_einstein_uniform_zero_two_vertex.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_stress_energy_vacuum.
+Print Assumptions Kernel.CurvedTensorPipeline.diag_tensor_entry.
+Print Assumptions Kernel.CurvedTensorPipeline.no_curvature_without_matter_curved.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_dd_metric_at_v.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_christoffel_at_v.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_einstein_diagonal_isotropic_uniform.
+Print Assumptions Kernel.CurvedTensorPipeline.einstein_equation_uniform_coupling.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_einstein_vacuum_both_zero.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_einstein_at_w_zero.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_bianchi_flat.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_christoffel_explicit_at_v.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_christoffel_nonzero.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_einstein_symmetric.
+Print Assumptions Kernel.CurvedTensorPipeline.full_metric_symmetric.
+Print Assumptions Kernel.CurvedTensorPipeline.einstein_coupling_equals_ratio.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_bianchi_two_vertex.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_gauss_bonnet_2v_unfold.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_ricci_scalar_at_w_zero.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_total_curvature_2v_equals_Rv.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_gauss_bonnet_coupling.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_christoffel_compat_flat.
+Print Assumptions Kernel.CurvedTensorPipeline.inverse_metric_isotropic.
+Print Assumptions Kernel.CurvedTensorPipeline.curved_christoffel_isotropic_2v.
+Print Assumptions Kernel.CurvedTensorPipeline.ricci_isotropy_isotropic_2v.
+Print Assumptions Kernel.CurvedTensorPipeline.einstein_equation_from_mass.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_from_mass_two_vertex_endpoint_diag.
+Print Assumptions Kernel.CurvedTensorPipeline.mass_stress_energy_diag_nonzero_on_positive_mass.
+Print Assumptions Kernel.CurvedTensorPipeline.nonvacuum_mass_stress_energy_witness.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_explicit_coupling_two_vertex.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_field_equation_two_vertex.
+Print Assumptions Kernel.CurvedTensorPipeline.local_ricci_tensor_three_vertex_at_v.
+Print Assumptions Kernel.CurvedTensorPipeline.local_ricci_scalar_three_vertex_at_v.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_three_vertex_at_v.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_field_equation_three_vertex_at_u.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_field_equation_three_vertex_at_v.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_field_equation_three_vertex_at_w.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_field_equation_three_vertex.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_field_equation_successor_chain_4d.
+Print Assumptions Kernel.CurvedTensorPipeline.local_einstein_field_equation_nat_chain_4d.
+Print Assumptions Kernel.DiscreteGaussBonnet.three_equilateral_angles_sum_pi.
+Print Assumptions Kernel.DiscreteGaussBonnet.sum_of_vertex_degrees_equals_3F.
+Print Assumptions Kernel.DiscreteGaussBonnet.sum_angle_defects_expand.
+Print Assumptions Kernel.DiscreteGaussBonnet.sum_angle_defects_equals_2piV_minus_piF.
+Print Assumptions Kernel.DiscreteGaussBonnet.nat_algebra_for_triangulation.
+Print Assumptions Kernel.DiscreteGaussBonnet.euler_in_terms_of_E_and_F.
+Print Assumptions Kernel.DiscreteGaussBonnet.discrete_gauss_bonnet.
+Print Assumptions Kernel.DiscreteGaussBonnet.disk_total_curvature.
+Print Assumptions Kernel.DiscreteGaussBonnet.sphere_total_curvature.
+Print Assumptions Kernel.DiscreteGaussBonnet.torus_total_curvature.
+Print Assumptions Kernel.DiscreteRaychaudhuri.discrete_null_expansion_rate_calibrated_bound.
+Print Assumptions Kernel.DiscreteRaychaudhuri.isotropic_einstein_ricci_relation.
+Print Assumptions Kernel.DiscreteRaychaudhuri.positive_mass_implies_lorentzian_ricci_positive.
+Print Assumptions Kernel.DiscreteRaychaudhuri.positive_mass_implies_focusing.
+Print Assumptions Kernel.DiscreteRaychaudhuri.focusing_implies_clausius_witnesses.
+Print Assumptions Kernel.DiscreteSimplicialGeometry.two_vertex_sc_combinatorially_orthogonal.
+Print Assumptions Kernel.DiscreteSimplicialGeometry.boundary_4simplex_vertex_count.
+Print Assumptions Kernel.DiscreteSimplicialGeometry.boundary_4simplex_edge_count.
+Print Assumptions Kernel.DiscreteSimplicialGeometry.boundary_4simplex_face_count.
+Quit.

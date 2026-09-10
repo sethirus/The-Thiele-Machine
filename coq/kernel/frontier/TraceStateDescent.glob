@@ -1,0 +1,591 @@
+DIGEST 4dd550063d32f852efcafbf019c04758
+FKernel.TraceStateDescent
+R239:242 Coq.Lists.List <> <> lib
+R252:264 Coq.Lists.List ListNotations <> mod
+R294:300 Kernel.VMState <> <> lib
+R302:307 Kernel.VMStep <> <> lib
+R309:323 Kernel.SimulationProof <> <> lib
+R325:336 Kernel.MuInitiality <> <> lib
+R340:365 Kernel.UniversalCertificationCost <> <> lib
+R367:382 Kernel.ThieleInitiality <> <> lib
+R384:393 Kernel.PrimeAxiom <> <> lib
+R395:406 Kernel.AbstractNoFI <> <> lib
+R408:424 Kernel.ObservationPolicy <> <> lib
+def 439:451 <> vm_trace_eval
+R458:461 Coq.Init.Datatypes <> list ind
+R463:476 Kernel.VMStep VMStep vm_instruction ind
+binder 454:454 <> t:1
+R482:490 Coq.Lists.List <> fold_left def
+R503:512 Kernel.MuInitiality <> init_state def
+R501:501 Kernel.TraceStateDescent <> t:1 var
+R492:499 Kernel.SimulationProof <> vm_apply def
+def 526:542 <> target_trace_eval
+R549:563 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 545:545 <> M:2
+R574:582 Kernel.UniversalCertificationCost <> ccm_state proj
+R584:584 Kernel.TraceStateDescent <> M:2 var
+binder 567:570 <> base:3
+R596:599 Coq.Init.Datatypes <> list ind
+R601:614 Kernel.VMStep VMStep vm_instruction ind
+binder 592:592 <> t:4
+R620:628 Coq.Lists.List <> fold_left def
+R645:648 Kernel.TraceStateDescent <> base:3 var
+R643:643 Kernel.TraceStateDescent <> t:4 var
+R631:638 Kernel.UniversalCertificationCost <> ccm_step proj
+R640:640 Kernel.TraceStateDescent <> M:2 var
+def 663:684 <> trace_fiber_compatible
+R691:705 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 687:687 <> M:5
+R716:724 Kernel.UniversalCertificationCost <> ccm_state proj
+R726:726 Kernel.TraceStateDescent <> M:5 var
+binder 709:712 <> base:6
+binder 741:741 <> t:7
+binder 743:743 <> u:8
+R779:786 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R761:763 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R746:758 Kernel.TraceStateDescent <> vm_trace_eval def
+R760:760 Kernel.TraceStateDescent <> t:7 var
+R764:776 Kernel.TraceStateDescent <> vm_trace_eval def
+R778:778 Kernel.TraceStateDescent <> u:8 var
+R813:815 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R787:803 Kernel.TraceStateDescent <> target_trace_eval def
+R805:805 Kernel.TraceStateDescent <> M:5 var
+R807:810 Kernel.TraceStateDescent <> base:6 var
+R812:812 Kernel.TraceStateDescent <> t:7 var
+R816:832 Kernel.TraceStateDescent <> target_trace_eval def
+R834:834 Kernel.TraceStateDescent <> M:5 var
+R836:839 Kernel.TraceStateDescent <> base:6 var
+R841:841 Kernel.TraceStateDescent <> u:8 var
+def 855:875 <> trace_cert_compatible
+R882:896 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 878:878 <> M:9
+R907:915 Kernel.UniversalCertificationCost <> ccm_state proj
+R917:917 Kernel.TraceStateDescent <> M:9 var
+binder 900:903 <> base:10
+binder 932:932 <> t:11
+R965:971 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R935:946 Kernel.VMState <> vm_certified proj
+R949:961 Kernel.TraceStateDescent <> vm_trace_eval def
+R963:963 Kernel.TraceStateDescent <> t:11 var
+R972:979 Kernel.UniversalCertificationCost <> ccm_cert proj
+R981:981 Kernel.TraceStateDescent <> M:9 var
+R984:1000 Kernel.TraceStateDescent <> target_trace_eval def
+R1002:1002 Kernel.TraceStateDescent <> M:9 var
+R1004:1007 Kernel.TraceStateDescent <> base:10 var
+R1009:1009 Kernel.TraceStateDescent <> t:11 var
+def 1024:1038 <> descended_value
+R1045:1059 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 1041:1041 <> M:12
+R1070:1078 Kernel.UniversalCertificationCost <> ccm_state proj
+R1080:1080 Kernel.TraceStateDescent <> M:12 var
+binder 1063:1066 <> base:13
+R1092:1098 Kernel.VMState <> VMState rec
+binder 1088:1088 <> s:14
+R1110:1118 Kernel.UniversalCertificationCost <> ccm_state proj
+R1120:1120 Kernel.TraceStateDescent <> M:12 var
+binder 1102:1106 <> value:15
+R1128:1134 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R1136:1137 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+binder 1135:1135 <> t:16
+R1157:1160 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1153:1155 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1138:1150 Kernel.TraceStateDescent <> vm_trace_eval def
+R1152:1152 Kernel.TraceStateDescent <> t:16 var
+R1156:1156 Kernel.TraceStateDescent <> s:14 var
+R1187:1189 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1161:1177 Kernel.TraceStateDescent <> target_trace_eval def
+R1179:1179 Kernel.TraceStateDescent <> M:12 var
+R1181:1184 Kernel.TraceStateDescent <> base:13 var
+R1186:1186 Kernel.TraceStateDescent <> t:16 var
+R1190:1194 Kernel.TraceStateDescent <> value:15 var
+prf 1206:1235 <> trace_descent_unique_value_iff
+binder 1248:1248 <> M:17
+binder 1250:1253 <> base:18
+R1285:1293 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R1256:1277 Kernel.TraceStateDescent <> trace_fiber_compatible def
+R1279:1279 Kernel.TraceStateDescent <> M:17 var
+R1281:1284 Kernel.TraceStateDescent <> base:18 var
+binder 1301:1301 <> t:19
+R1304:1311 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+R1317:1318 Coq.Init.Logic <> ::type_scope:'exists'_'!'_x_'..'_x_','_x not
+binder 1312:1316 <> value:20
+R1319:1333 Kernel.TraceStateDescent <> descended_value def
+R1335:1335 Kernel.TraceStateDescent <> M:17 var
+R1337:1340 Kernel.TraceStateDescent <> base:18 var
+R1343:1355 Kernel.TraceStateDescent <> vm_trace_eval def
+R1357:1357 Kernel.TraceStateDescent <> t:19 var
+R1360:1364 Kernel.TraceStateDescent <> value:20 var
+R1422:1438 Kernel.TraceStateDescent <> target_trace_eval def
+R1422:1438 Kernel.TraceStateDescent <> target_trace_eval def
+R1639:1641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1642:1658 Kernel.TraceStateDescent <> target_trace_eval def
+R1639:1641 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1642:1658 Kernel.TraceStateDescent <> target_trace_eval def
+R1732:1734 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1735:1751 Kernel.TraceStateDescent <> target_trace_eval def
+R1732:1734 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1735:1751 Kernel.TraceStateDescent <> target_trace_eval def
+prf 1888:1907 <> vm_trace_eval_extend
+binder 1918:1918 <> t:21
+binder 1920:1920 <> i:22
+R1949:1951 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1925:1937 Kernel.TraceStateDescent <> vm_trace_eval def
+R1941:1944 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R1940:1940 Kernel.TraceStateDescent <> t:21 var
+R1945:1945 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1947:1947 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1946:1946 Kernel.TraceStateDescent <> i:22 var
+R1952:1959 Kernel.SimulationProof <> vm_apply def
+R1962:1974 Kernel.TraceStateDescent <> vm_trace_eval def
+R1976:1976 Kernel.TraceStateDescent <> t:21 var
+R1979:1979 Kernel.TraceStateDescent <> i:22 var
+R2004:2016 Kernel.TraceStateDescent <> vm_trace_eval def
+R2027:2039 Coq.Lists.List <> fold_left_app thm
+R2027:2039 Coq.Lists.List <> fold_left_app thm
+R2027:2039 Coq.Lists.List <> fold_left_app thm
+prf 2066:2089 <> target_trace_eval_extend
+binder 2100:2100 <> M:23
+binder 2102:2105 <> base:24
+binder 2107:2107 <> t:25
+binder 2109:2109 <> i:26
+R2149:2151 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2114:2130 Kernel.TraceStateDescent <> target_trace_eval def
+R2132:2132 Kernel.TraceStateDescent <> M:23 var
+R2134:2137 Kernel.TraceStateDescent <> base:24 var
+R2141:2144 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R2140:2140 Kernel.TraceStateDescent <> t:25 var
+R2145:2145 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2147:2147 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R2146:2146 Kernel.TraceStateDescent <> i:26 var
+R2152:2159 Kernel.UniversalCertificationCost <> ccm_step proj
+R2161:2161 Kernel.TraceStateDescent <> M:23 var
+R2164:2180 Kernel.TraceStateDescent <> target_trace_eval def
+R2182:2182 Kernel.TraceStateDescent <> M:23 var
+R2184:2187 Kernel.TraceStateDescent <> base:24 var
+R2189:2189 Kernel.TraceStateDescent <> t:25 var
+R2192:2192 Kernel.TraceStateDescent <> i:26 var
+R2217:2233 Kernel.TraceStateDescent <> target_trace_eval def
+R2244:2256 Coq.Lists.List <> fold_left_app thm
+R2244:2256 Coq.Lists.List <> fold_left_app thm
+R2244:2256 Coq.Lists.List <> fold_left_app thm
+rec 2285:2307 <> ReachableCertSimulation
+proj 2359:2371 <> reachable_map
+proj 2401:2418 <> reachable_map_base
+proj 2457:2474 <> reachable_map_step
+proj 2597:2614 <> reachable_map_cert
+R2314:2328 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 2310:2310 <> M:27
+R2339:2347 Kernel.UniversalCertificationCost <> ccm_state proj
+R2349:2349 Kernel.TraceStateDescent <> M:27 var
+binder 2332:2335 <> base:28
+R2382:2385 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2375:2381 Kernel.VMState <> VMState rec
+R2386:2394 Kernel.UniversalCertificationCost <> ccm_state proj
+R2396:2396 Kernel.TraceStateDescent <> M:27 var
+R2446:2448 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2422:2434 Kernel.TraceStateDescent <> reachable_map:30 meth
+R2436:2445 Kernel.MuInitiality <> init_state def
+R2449:2452 Kernel.TraceStateDescent <> base:28 var
+binder 2485:2485 <> t:32
+binder 2487:2487 <> i:33
+R2538:2546 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2494:2506 Kernel.TraceStateDescent <> reachable_map:30 meth
+R2509:2516 Kernel.SimulationProof <> vm_apply def
+R2519:2531 Kernel.TraceStateDescent <> vm_trace_eval def
+R2533:2533 Kernel.TraceStateDescent <> t:32 var
+R2536:2536 Kernel.TraceStateDescent <> i:33 var
+R2547:2554 Kernel.UniversalCertificationCost <> ccm_step proj
+R2556:2556 Kernel.TraceStateDescent <> M:27 var
+R2559:2571 Kernel.TraceStateDescent <> reachable_map:30 meth
+R2574:2586 Kernel.TraceStateDescent <> vm_trace_eval def
+R2588:2588 Kernel.TraceStateDescent <> t:32 var
+R2592:2592 Kernel.TraceStateDescent <> i:33 var
+binder 2625:2625 <> t:35
+R2662:2664 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2632:2643 Kernel.VMState <> vm_certified proj
+R2646:2658 Kernel.TraceStateDescent <> vm_trace_eval def
+R2660:2660 Kernel.TraceStateDescent <> t:35 var
+R2665:2672 Kernel.UniversalCertificationCost <> ccm_cert proj
+R2674:2674 Kernel.TraceStateDescent <> M:27 var
+R2677:2689 Kernel.TraceStateDescent <> reachable_map:30 meth
+R2692:2704 Kernel.TraceStateDescent <> vm_trace_eval def
+R2706:2706 Kernel.TraceStateDescent <> t:35 var
+prf 2722:2757 <> reachable_simulation_evaluates_trace
+binder 2770:2770 <> M:37
+binder 2772:2775 <> base:38
+R2791:2813 Kernel.TraceStateDescent <> ReachableCertSimulation rec
+R2815:2815 Kernel.TraceStateDescent <> M:37 var
+R2817:2820 Kernel.TraceStateDescent <> base:38 var
+binder 2778:2787 <> simulation:39
+binder 2823:2823 <> t:40
+R2879:2881 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R2830:2842 Kernel.TraceStateDescent <> reachable_map proj
+R2844:2844 Kernel.TraceStateDescent <> M:37 var
+R2846:2849 Kernel.TraceStateDescent <> base:38 var
+R2851:2860 Kernel.TraceStateDescent <> simulation:39 var
+R2863:2875 Kernel.TraceStateDescent <> vm_trace_eval def
+R2877:2877 Kernel.TraceStateDescent <> t:40 var
+R2882:2898 Kernel.TraceStateDescent <> target_trace_eval def
+R2900:2900 Kernel.TraceStateDescent <> M:37 var
+R2902:2905 Kernel.TraceStateDescent <> base:38 var
+R2907:2907 Kernel.TraceStateDescent <> t:40 var
+R2965:2971 Coq.Lists.List <> rev_ind thm
+R2965:2971 Coq.Lists.List <> rev_ind thm
+R2985:3002 Kernel.TraceStateDescent <> reachable_map_base proj
+R2985:3002 Kernel.TraceStateDescent <> reachable_map_base proj
+R3036:3055 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R3058:3081 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+R3036:3055 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R3036:3055 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R3058:3081 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+R3058:3081 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+R3096:3113 Kernel.TraceStateDescent <> reachable_map_step proj
+R3096:3113 Kernel.TraceStateDescent <> reachable_map_step proj
+R3096:3113 Kernel.TraceStateDescent <> reachable_map_step proj
+prf 3148:3190 <> reachable_simulation_requires_compatibility
+binder 3203:3203 <> M:41
+binder 3205:3208 <> base:42
+R3241:3248 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3211:3233 Kernel.TraceStateDescent <> ReachableCertSimulation rec
+R3235:3235 Kernel.TraceStateDescent <> M:41 var
+R3237:3240 Kernel.TraceStateDescent <> base:42 var
+R3278:3281 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R3249:3270 Kernel.TraceStateDescent <> trace_fiber_compatible def
+R3272:3272 Kernel.TraceStateDescent <> M:41 var
+R3274:3277 Kernel.TraceStateDescent <> base:42 var
+R3282:3302 Kernel.TraceStateDescent <> trace_cert_compatible def
+R3304:3304 Kernel.TraceStateDescent <> M:41 var
+R3306:3309 Kernel.TraceStateDescent <> base:42 var
+R3384:3419 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3384:3419 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3384:3419 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3459:3494 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3459:3494 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3459:3494 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3559:3594 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3559:3594 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3559:3594 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R3628:3645 Kernel.TraceStateDescent <> reachable_map_cert proj
+R3628:3645 Kernel.TraceStateDescent <> reachable_map_cert proj
+def 3668:3693 <> build_reachable_simulation
+R3720:3723 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R3713:3719 Kernel.VMState <> VMState rec
+R3724:3727 Coq.Init.Datatypes <> list ind
+R3729:3742 Kernel.VMStep VMStep vm_instruction ind
+binder 3696:3709 <> representative:43
+binder 3784:3784 <> t:44
+R3843:3845 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3795:3807 Kernel.TraceStateDescent <> vm_trace_eval def
+R3810:3823 Kernel.TraceStateDescent <> representative:43 var
+R3826:3838 Kernel.TraceStateDescent <> vm_trace_eval def
+R3840:3840 Kernel.TraceStateDescent <> t:44 var
+R3846:3858 Kernel.TraceStateDescent <> vm_trace_eval def
+R3860:3860 Kernel.TraceStateDescent <> t:44 var
+binder 3752:3773 <> representative_correct:45
+R3868:3882 Kernel.UniversalCertificationCost <> CertCostMachine rec
+binder 3864:3864 <> M:46
+R3893:3901 Kernel.UniversalCertificationCost <> ccm_state proj
+R3903:3903 Kernel.TraceStateDescent <> M:46 var
+binder 3886:3889 <> base:47
+R3922:3943 Kernel.TraceStateDescent <> trace_fiber_compatible def
+R3945:3945 Kernel.TraceStateDescent <> M:46 var
+R3947:3950 Kernel.TraceStateDescent <> base:47 var
+binder 3913:3918 <> Hfiber:48
+R3968:3988 Kernel.TraceStateDescent <> trace_cert_compatible def
+R3990:3990 Kernel.TraceStateDescent <> M:46 var
+R3992:3995 Kernel.TraceStateDescent <> base:47 var
+binder 3960:3964 <> Hcert:49
+R4000:4022 Kernel.TraceStateDescent <> ReachableCertSimulation rec
+R4024:4024 Kernel.TraceStateDescent <> M:46 var
+R4026:4029 Kernel.TraceStateDescent <> base:47 var
+R4055:4067 Kernel.TraceStateDescent <> reachable_map proj
+R4055:4067 Kernel.TraceStateDescent <> reachable_map proj
+R4055:4067 Kernel.TraceStateDescent <> reachable_map proj
+binder 4076:4076 <> s:50
+R4081:4097 Kernel.TraceStateDescent <> target_trace_eval def
+R4122:4122 Kernel.TraceStateDescent <> s:50 var
+R4055:4067 Kernel.TraceStateDescent <> reachable_map proj
+R4055:4067 Kernel.TraceStateDescent <> reachable_map proj
+R4055:4067 Kernel.TraceStateDescent <> reachable_map proj
+binder 4076:4076 <> s:51
+R4081:4097 Kernel.TraceStateDescent <> target_trace_eval def
+R4122:4122 Kernel.TraceStateDescent <> s:51 var
+R4203:4213 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4143:4159 Kernel.TraceStateDescent <> target_trace_eval def
+R4185:4197 Kernel.TraceStateDescent <> vm_trace_eval def
+R4199:4200 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4214:4230 Kernel.TraceStateDescent <> target_trace_eval def
+R4239:4240 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4203:4213 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4143:4159 Kernel.TraceStateDescent <> target_trace_eval def
+R4185:4197 Kernel.TraceStateDescent <> vm_trace_eval def
+R4199:4200 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4214:4230 Kernel.TraceStateDescent <> target_trace_eval def
+R4239:4240 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R4317:4336 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R4317:4336 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R4317:4336 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R4391:4394 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4395:4395 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4397:4397 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4391:4394 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4395:4395 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4397:4397 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4391:4394 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R4395:4395 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4397:4397 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R4417:4440 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+R4417:4440 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+R4417:4440 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+prf 4610:4640 <> reachable_simulation_exists_iff
+R4667:4670 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4660:4666 Kernel.VMState <> VMState rec
+R4671:4674 Coq.Init.Datatypes <> list ind
+R4676:4689 Kernel.VMStep VMStep vm_instruction ind
+binder 4643:4656 <> representative:52
+binder 4731:4731 <> t:53
+R4790:4792 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4742:4754 Kernel.TraceStateDescent <> vm_trace_eval def
+R4757:4770 Kernel.TraceStateDescent <> representative:52 var
+R4773:4785 Kernel.TraceStateDescent <> vm_trace_eval def
+R4787:4787 Kernel.TraceStateDescent <> t:53 var
+R4793:4805 Kernel.TraceStateDescent <> vm_trace_eval def
+R4807:4807 Kernel.TraceStateDescent <> t:53 var
+binder 4699:4720 <> representative_correct:54
+binder 4819:4819 <> M:55
+binder 4821:4824 <> base:56
+R4873:4881 Coq.Init.Logic <> ::type_scope:x_'<->'_x not
+R4831:4839 Coq.Init.Logic <> inhabited ind
+R4842:4864 Kernel.TraceStateDescent <> ReachableCertSimulation rec
+R4866:4866 Kernel.TraceStateDescent <> M:55 var
+R4868:4871 Kernel.TraceStateDescent <> base:56 var
+R4911:4914 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R4882:4903 Kernel.TraceStateDescent <> trace_fiber_compatible def
+R4905:4905 Kernel.TraceStateDescent <> M:55 var
+R4907:4910 Kernel.TraceStateDescent <> base:56 var
+R4915:4935 Kernel.TraceStateDescent <> trace_cert_compatible def
+R4937:4937 Kernel.TraceStateDescent <> M:55 var
+R4939:4942 Kernel.TraceStateDescent <> base:56 var
+R5014:5056 Kernel.TraceStateDescent <> reachable_simulation_requires_compatibility thm
+R5014:5056 Kernel.TraceStateDescent <> reachable_simulation_requires_compatibility thm
+R5127:5152 Kernel.TraceStateDescent <> build_reachable_simulation def
+R5127:5152 Kernel.TraceStateDescent <> build_reachable_simulation def
+prf 5230:5256 <> reachable_simulation_unique
+binder 5267:5267 <> M:57
+binder 5269:5272 <> base:58
+R5292:5314 Kernel.TraceStateDescent <> ReachableCertSimulation rec
+R5316:5316 Kernel.TraceStateDescent <> M:57 var
+R5318:5321 Kernel.TraceStateDescent <> base:58 var
+binder 5279:5282 <> left:59
+binder 5284:5288 <> right:60
+binder 5324:5324 <> t:61
+R5372:5376 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5329:5341 Kernel.TraceStateDescent <> reachable_map proj
+R5343:5343 Kernel.TraceStateDescent <> M:57 var
+R5345:5348 Kernel.TraceStateDescent <> base:58 var
+R5350:5353 Kernel.TraceStateDescent <> left:59 var
+R5356:5368 Kernel.TraceStateDescent <> vm_trace_eval def
+R5370:5370 Kernel.TraceStateDescent <> t:61 var
+R5377:5389 Kernel.TraceStateDescent <> reachable_map proj
+R5391:5391 Kernel.TraceStateDescent <> M:57 var
+R5393:5396 Kernel.TraceStateDescent <> base:58 var
+R5398:5402 Kernel.TraceStateDescent <> right:60 var
+R5405:5417 Kernel.TraceStateDescent <> vm_trace_eval def
+R5419:5419 Kernel.TraceStateDescent <> t:61 var
+R5447:5482 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R5447:5482 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R5447:5482 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R5447:5482 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+R5447:5482 Kernel.TraceStateDescent <> reachable_simulation_evaluates_trace thm
+def 5673:5694 <> certification_quotient
+R5698:5712 Kernel.UniversalCertificationCost <> CertCostMachine rec
+R5734:5742 Kernel.UniversalCertificationCost <> ccm_state proj
+R5734:5742 Kernel.UniversalCertificationCost <> ccm_state proj
+R5734:5742 Kernel.UniversalCertificationCost <> ccm_state proj
+R5765:5772 Kernel.UniversalCertificationCost <> ccm_step proj
+R5765:5772 Kernel.UniversalCertificationCost <> ccm_step proj
+R5881:5888 Kernel.UniversalCertificationCost <> ccm_cost proj
+R5881:5888 Kernel.UniversalCertificationCost <> ccm_cost proj
+R5923:5930 Kernel.UniversalCertificationCost <> ccm_cert proj
+R5923:5930 Kernel.UniversalCertificationCost <> ccm_cert proj
+R5747:5750 Coq.Init.Datatypes <> bool ind
+binder 5781:5789 <> certified:62
+binder 5791:5791 <> i:63
+R5816:5816 Kernel.TraceStateDescent <> i:63 var
+R5823:5835 Kernel.VMStep VMStep instr_certify constr
+R5842:5845 Coq.Init.Datatypes <> true constr
+R5854:5862 Kernel.TraceStateDescent <> certified:62 var
+R5893:5908 Kernel.VMStep VMStep instruction_cost def
+binder 5939:5947 <> certified:65
+R5952:5960 Kernel.TraceStateDescent <> certified:65 var
+R5734:5742 Kernel.UniversalCertificationCost <> ccm_state proj
+R5734:5742 Kernel.UniversalCertificationCost <> ccm_state proj
+R5734:5742 Kernel.UniversalCertificationCost <> ccm_state proj
+R5765:5772 Kernel.UniversalCertificationCost <> ccm_step proj
+R5765:5772 Kernel.UniversalCertificationCost <> ccm_step proj
+R5881:5888 Kernel.UniversalCertificationCost <> ccm_cost proj
+R5881:5888 Kernel.UniversalCertificationCost <> ccm_cost proj
+R5923:5930 Kernel.UniversalCertificationCost <> ccm_cert proj
+R5923:5930 Kernel.UniversalCertificationCost <> ccm_cert proj
+R5747:5750 Coq.Init.Datatypes <> bool ind
+binder 5781:5789 <> certified:66
+binder 5791:5791 <> i:67
+R5816:5816 Kernel.TraceStateDescent <> i:67 var
+R5823:5835 Kernel.VMStep VMStep instr_certify constr
+R5842:5845 Coq.Init.Datatypes <> true constr
+R5854:5862 Kernel.TraceStateDescent <> certified:66 var
+R5893:5908 Kernel.VMStep VMStep instruction_cost def
+binder 5939:5947 <> certified:69
+R5952:5960 Kernel.TraceStateDescent <> certified:69 var
+def 6081:6113 <> certification_quotient_simulation
+R6117:6139 Kernel.TraceStateDescent <> ReachableCertSimulation rec
+R6141:6162 Kernel.TraceStateDescent <> certification_quotient def
+R6164:6168 Coq.Init.Datatypes <> false constr
+R6189:6217 Kernel.TraceStateDescent <> Build_ReachableCertSimulation constr
+R6219:6240 Kernel.TraceStateDescent <> certification_quotient def
+R6242:6246 Coq.Init.Datatypes <> false constr
+R6248:6259 Kernel.VMState <> vm_certified proj
+R6189:6217 Kernel.TraceStateDescent <> Build_ReachableCertSimulation constr
+R6219:6240 Kernel.TraceStateDescent <> certification_quotient def
+R6242:6246 Coq.Init.Datatypes <> false constr
+R6248:6259 Kernel.VMState <> vm_certified proj
+R6310:6327 Kernel.PrimeAxiom <> vm_apply_certified thm
+R6310:6327 Kernel.PrimeAxiom <> vm_apply_certified thm
+R6310:6327 Kernel.PrimeAxiom <> vm_apply_certified thm
+prf 6399:6438 <> certification_quotient_satisfies_descent
+R6495:6500 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6444:6465 Kernel.TraceStateDescent <> trace_fiber_compatible def
+R6467:6488 Kernel.TraceStateDescent <> certification_quotient def
+R6490:6494 Coq.Init.Datatypes <> false constr
+R6551:6556 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6501:6521 Kernel.TraceStateDescent <> trace_cert_compatible def
+R6523:6544 Kernel.TraceStateDescent <> certification_quotient def
+R6546:6550 Coq.Init.Datatypes <> false constr
+R6614:6619 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R6606:6608 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6557:6573 Kernel.TraceStateDescent <> target_trace_eval def
+R6575:6596 Kernel.TraceStateDescent <> certification_quotient def
+R6598:6602 Coq.Init.Datatypes <> false constr
+R6604:6605 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R6609:6613 Coq.Init.Datatypes <> false constr
+R6684:6686 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R6620:6636 Kernel.TraceStateDescent <> target_trace_eval def
+R6638:6659 Kernel.TraceStateDescent <> certification_quotient def
+R6661:6665 Coq.Init.Datatypes <> false constr
+R6667:6667 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6683:6683 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R6668:6680 Kernel.VMStep VMStep instr_certify constr
+R6687:6690 Coq.Init.Datatypes <> true constr
+R6712:6754 Kernel.TraceStateDescent <> reachable_simulation_requires_compatibility thm
+R6760:6792 Kernel.TraceStateDescent <> certification_quotient_simulation def
+R6712:6754 Kernel.TraceStateDescent <> reachable_simulation_requires_compatibility thm
+R6760:6792 Kernel.TraceStateDescent <> certification_quotient_simulation def
+def 7085:7105 <> trace_history_machine
+R7109:7123 Kernel.UniversalCertificationCost <> CertCostMachine rec
+R7145:7153 Kernel.UniversalCertificationCost <> ccm_state proj
+R7145:7153 Kernel.UniversalCertificationCost <> ccm_state proj
+R7145:7153 Kernel.UniversalCertificationCost <> ccm_state proj
+R7191:7198 Kernel.UniversalCertificationCost <> ccm_step proj
+R7191:7198 Kernel.UniversalCertificationCost <> ccm_step proj
+R7236:7243 Kernel.UniversalCertificationCost <> ccm_cost proj
+R7236:7243 Kernel.UniversalCertificationCost <> ccm_cost proj
+R7278:7285 Kernel.UniversalCertificationCost <> ccm_cert proj
+R7278:7285 Kernel.UniversalCertificationCost <> ccm_cert proj
+R7158:7161 Coq.Init.Datatypes <> list ind
+R7163:7176 Kernel.VMStep VMStep vm_instruction ind
+binder 7207:7207 <> t:70
+binder 7209:7209 <> i:71
+R7215:7218 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7214:7214 Kernel.TraceStateDescent <> t:70 var
+R7219:7219 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7221:7221 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7220:7220 Kernel.TraceStateDescent <> i:71 var
+R7248:7263 Kernel.VMStep VMStep instruction_cost def
+binder 7294:7294 <> t:72
+R7299:7310 Kernel.VMState <> vm_certified proj
+R7313:7325 Kernel.TraceStateDescent <> vm_trace_eval def
+R7327:7327 Kernel.TraceStateDescent <> t:72 var
+R7145:7153 Kernel.UniversalCertificationCost <> ccm_state proj
+R7145:7153 Kernel.UniversalCertificationCost <> ccm_state proj
+R7145:7153 Kernel.UniversalCertificationCost <> ccm_state proj
+R7191:7198 Kernel.UniversalCertificationCost <> ccm_step proj
+R7191:7198 Kernel.UniversalCertificationCost <> ccm_step proj
+R7236:7243 Kernel.UniversalCertificationCost <> ccm_cost proj
+R7236:7243 Kernel.UniversalCertificationCost <> ccm_cost proj
+R7278:7285 Kernel.UniversalCertificationCost <> ccm_cert proj
+R7278:7285 Kernel.UniversalCertificationCost <> ccm_cert proj
+R7158:7161 Coq.Init.Datatypes <> list ind
+R7163:7176 Kernel.VMStep VMStep vm_instruction ind
+binder 7207:7207 <> t:73
+binder 7209:7209 <> i:74
+R7215:7218 Coq.Init.Datatypes <> ::list_scope:x_'++'_x not
+R7214:7214 Kernel.TraceStateDescent <> t:73 var
+R7219:7219 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7221:7221 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R7220:7220 Kernel.TraceStateDescent <> i:74 var
+R7248:7263 Kernel.VMStep VMStep instruction_cost def
+binder 7294:7294 <> t:75
+R7299:7310 Kernel.VMState <> vm_certified proj
+R7313:7325 Kernel.TraceStateDescent <> vm_trace_eval def
+R7327:7327 Kernel.TraceStateDescent <> t:75 var
+R7371:7390 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R7371:7390 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R7371:7390 Kernel.TraceStateDescent <> vm_trace_eval_extend thm
+R7412:7442 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R7445:7457 Kernel.TraceStateDescent <> vm_trace_eval def
+R7412:7442 Kernel.AbstractNoFI <> no_free_certification_certified thm
+R7445:7457 Kernel.TraceStateDescent <> vm_trace_eval def
+prf 7497:7529 <> history_target_evaluates_to_input
+binder 7540:7540 <> t:76
+R7589:7591 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7545:7561 Kernel.TraceStateDescent <> target_trace_eval def
+R7563:7583 Kernel.TraceStateDescent <> trace_history_machine def
+R7585:7586 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7588:7588 Kernel.TraceStateDescent <> t:76 var
+R7592:7592 Kernel.TraceStateDescent <> t:76 var
+R7631:7637 Coq.Lists.List <> rev_ind thm
+R7631:7637 Coq.Lists.List <> rev_ind thm
+R7666:7689 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+R7666:7689 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+R7666:7689 Kernel.TraceStateDescent <> target_trace_eval_extend thm
+prf 7724:7769 <> certification_agreement_does_not_imply_descent
+R7821:7826 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R7775:7795 Kernel.TraceStateDescent <> trace_cert_compatible def
+R7797:7817 Kernel.TraceStateDescent <> trace_history_machine def
+R7819:7820 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7827:7828 Coq.Init.Logic <> ::type_scope:'~'_x not
+R7829:7850 Kernel.TraceStateDescent <> trace_fiber_compatible def
+R7852:7872 Kernel.TraceStateDescent <> trace_history_machine def
+R7874:7875 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R7915:7947 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+R7915:7947 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+R7915:7947 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+R8008:8010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7992:8004 Kernel.TraceStateDescent <> vm_trace_eval def
+R8006:8007 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8011:8023 Kernel.TraceStateDescent <> vm_trace_eval def
+R8025:8025 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8040:8040 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8026:8035 Kernel.VMStep VMStep instr_jump constr
+R8008:8010 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7992:8004 Kernel.TraceStateDescent <> vm_trace_eval def
+R8006:8007 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8011:8023 Kernel.TraceStateDescent <> vm_trace_eval def
+R8025:8025 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8040:8040 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8026:8035 Kernel.VMStep VMStep instr_jump constr
+R8077:8078 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8080:8080 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8095:8095 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8081:8090 Kernel.VMStep VMStep instr_jump constr
+R8077:8078 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R8080:8080 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8095:8095 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R8081:8090 Kernel.VMStep VMStep instr_jump constr
+R8114:8146 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+R8114:8146 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+R8114:8146 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+R8114:8146 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+R8114:8146 Kernel.TraceStateDescent <> history_target_evaluates_to_input thm
+def 8186:8229 <> zero_cost_vm_jump_has_injective_history_lift
+R8236:8297 Kernel.ObservationPolicy <> zero_cost_vm_jump_has_injective_history_lift thm

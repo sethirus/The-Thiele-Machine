@@ -3932,11 +3932,26 @@ Fixpoint kami_run_driven
       end
   end.
 
-(** Multi-step trace commutation under WFDrivenPrecondition.
-    The precondition must hold at every step. *)
+(** Preconditions follow the same fuel, instruction fetch, and state update
+    as [kami_run_driven]. Unvisited states and instructions impose no obligation.
+    In particular, an invalid instruction after the fuel limit is irrelevant. *)
+Fixpoint WFDrivenRun
+    (fuel : nat) (trace : list vm_instruction) (ks : KamiSnapshot) : Prop :=
+  match fuel with
+  | 0 => True
+  | S fuel' =>
+      match nth_error trace (snap_pc ks) with
+      | Some instr =>
+          WFDrivenPrecondition ks instr /\
+          WFDrivenRun fuel' trace (kami_step ks instr)
+      | None => True
+      end
+  end.
+
+(** Multi-step trace commutation under the preconditions of the executed run. *)
 Theorem driven_trace_commutes :
   forall fuel trace ks,
-    (forall ks' i, WFDrivenPrecondition ks' i) ->
+    WFDrivenRun fuel trace ks ->
     abs_full_snapshot (full_snapshot_of_snapshot
       (kami_run_driven fuel trace ks)) =
     run_vm fuel trace
@@ -3945,9 +3960,10 @@ Proof.
   induction fuel as [|fuel IH]; intros trace ks Hpre; simpl.
   - reflexivity.
   - destruct (nth_error trace (snap_pc ks)) as [instr|] eqn:Hnth.
-    + rewrite IH.
-      * rewrite driven_step_wf; [reflexivity | apply Hpre].
-      * exact Hpre.
+    + cbn [WFDrivenRun] in Hpre. rewrite Hnth in Hpre.
+      destruct Hpre as [Hstep Hrest].
+      rewrite (IH trace (kami_step ks instr) Hrest).
+      rewrite driven_step_wf; [reflexivity | exact Hstep].
     + reflexivity.
 Qed.
 
@@ -3996,7 +4012,7 @@ Qed.
 
     Multi-step:
       - [driven_step_wf]: Qed under WFDrivenPrecondition for exact cases above.
-      - [driven_trace_commutes]: Qed under universal WFDrivenPrecondition.
+      - [driven_trace_commutes]: Qed under WFDrivenRun for the executed steps.
 
     Admitted count: 0.
     All 46 opcode bridges are fully proven (Qed).

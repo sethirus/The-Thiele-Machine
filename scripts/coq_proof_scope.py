@@ -58,6 +58,8 @@ COQ_PROJECT = COQ_DIR / "_CoqProject"
 # rationale must justify why the file is not a proof obligation.
 # ---------------------------------------------------------------------------
 
+FULL_ASSUMPTION_PROBE = "coq/AssumptionsProbeAll.v"
+
 NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
     # Print Assumptions probe over Kernel.MasterSummary. Header explicitly
     # marks it as a probe, not a proof obligation; excluded from _CoqProject.
@@ -66,7 +68,7 @@ NON_PROOF_BEARING_FILES: FrozenSet[str] = frozenset({
     # Auto-generated comprehensive Print Assumptions probe across every
     # addressable proof-bearing declaration; produced by
     # build/probe/build_full_probe.py. Not a proof obligation.
-    "coq/AssumptionsProbeAll.v",
+    FULL_ASSUMPTION_PROBE,
 })
 
 

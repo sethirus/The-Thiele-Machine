@@ -1,4 +1,4 @@
-DIGEST ff9d71c7df04055cfc174c907537ad0e
+DIGEST 0fad2e0b64615d177bb71ec4e653bf98
 FKamiHW.ShadowDeviceTrace
 R610:613 Coq.Lists.List <> <> lib
 R615:628 Coq.Arith.PeanoNat <> <> lib
@@ -239,64 +239,62 @@ prf 7449:7474 <> rtl_shadow_trace_compat_wf
 binder 7487:7490 <> fuel:27
 binder 7492:7496 <> trace:28
 binder 7498:7499 <> ks:29
-R7506:7506 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R7547:7555 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 7514:7516 <> ks':30
-binder 7518:7518 <> i:31
-R7521:7540 KamiHW.GraphReconstructionBridge <> WFDrivenPrecondition def
-R7542:7544 KamiHW.ShadowDeviceTrace <> ks':30 var
-R7546:7546 KamiHW.ShadowDeviceTrace <> i:31 var
-R7605:7611 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7556:7572 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R7575:7589 KamiHW.GraphReconstructionBridge <> kami_run_driven def
-R7591:7594 KamiHW.ShadowDeviceTrace <> fuel:27 var
-R7596:7600 KamiHW.ShadowDeviceTrace <> trace:28 var
-R7602:7603 KamiHW.ShadowDeviceTrace <> ks:29 var
-R7612:7622 Kernel.ShadowProjection <> shadow_proj def
-R7625:7630 Kernel.SimulationProof <> run_vm def
-R7632:7635 KamiHW.ShadowDeviceTrace <> fuel:27 var
-R7637:7641 KamiHW.ShadowDeviceTrace <> trace:28 var
-R7644:7660 KamiHW.FullAbstraction <> abs_full_snapshot def
-R7663:7687 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R7689:7690 KamiHW.ShadowDeviceTrace <> ks:29 var
-binder 7974:7976 <> ks':32
-R8014:8030 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7993:8009 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R8011:8013 KamiHW.ShadowDeviceTrace <> ks':32 var
-R8031:8041 Kernel.ShadowProjection <> shadow_proj def
-R8044:8060 KamiHW.FullAbstraction <> abs_full_snapshot def
-R8063:8087 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R8089:8091 KamiHW.ShadowDeviceTrace <> ks':32 var
-R8131:8147 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R8150:8160 Kernel.ShadowProjection <> shadow_proj def
-R8163:8179 KamiHW.FullAbstraction <> abs_full_snapshot def
-R8197:8221 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-binder 7974:7976 <> ks':33
-R8014:8030 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7993:8009 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
-R8011:8013 KamiHW.ShadowDeviceTrace <> ks':33 var
-R8031:8041 Kernel.ShadowProjection <> shadow_proj def
-R8044:8060 KamiHW.FullAbstraction <> abs_full_snapshot def
-R8063:8087 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R8089:8091 KamiHW.ShadowDeviceTrace <> ks':33 var
-R8276:8296 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
-R8276:8296 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
-R8276:8296 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
-prf 8674:8697 <> shadow_trace_mu_monotone
-R8719:8722 Coq.Init.Datatypes <> list ind
-R8724:8737 Kernel.VMStep VMStep vm_instruction ind
-binder 8711:8715 <> trace:34
-R8745:8751 Kernel.VMState <> VMState rec
-binder 8741:8741 <> s:35
-R8795:8798 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
-R8789:8793 Kernel.VMState <> vm_mu proj
-R8760:8768 Coq.Lists.List <> fold_left def
-R8785:8785 KamiHW.ShadowDeviceTrace <> s:35 var
-R8779:8783 KamiHW.ShadowDeviceTrace <> trace:34 var
-R8770:8777 Kernel.SimulationProof <> vm_apply def
-R8802:8806 Kernel.VMState <> vm_mu proj
-R8799:8799 KamiHW.ShadowDeviceTrace <> s:35 var
-R8926:8937 Coq.Arith.PeanoNat Nat le_trans thm
-R8926:8937 Coq.Arith.PeanoNat Nat le_trans thm
-R8952:8976 KamiHW.ShadowDeviceTrace <> vm_apply_mu_nondecreasing thm
-R8952:8976 KamiHW.ShadowDeviceTrace <> vm_apply_mu_nondecreasing thm
+R7531:7538 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7506:7516 KamiHW.GraphReconstructionBridge <> WFDrivenRun def
+R7518:7521 KamiHW.ShadowDeviceTrace <> fuel:27 var
+R7523:7527 KamiHW.ShadowDeviceTrace <> trace:28 var
+R7529:7530 KamiHW.ShadowDeviceTrace <> ks:29 var
+R7588:7594 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7539:7555 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R7558:7572 KamiHW.GraphReconstructionBridge <> kami_run_driven def
+R7574:7577 KamiHW.ShadowDeviceTrace <> fuel:27 var
+R7579:7583 KamiHW.ShadowDeviceTrace <> trace:28 var
+R7585:7586 KamiHW.ShadowDeviceTrace <> ks:29 var
+R7595:7605 Kernel.ShadowProjection <> shadow_proj def
+R7608:7613 Kernel.SimulationProof <> run_vm def
+R7615:7618 KamiHW.ShadowDeviceTrace <> fuel:27 var
+R7620:7624 KamiHW.ShadowDeviceTrace <> trace:28 var
+R7627:7643 KamiHW.FullAbstraction <> abs_full_snapshot def
+R7646:7670 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R7672:7673 KamiHW.ShadowDeviceTrace <> ks:29 var
+binder 7957:7959 <> ks':30
+R7997:8013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7976:7992 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R7994:7996 KamiHW.ShadowDeviceTrace <> ks':30 var
+R8014:8024 Kernel.ShadowProjection <> shadow_proj def
+R8027:8043 KamiHW.FullAbstraction <> abs_full_snapshot def
+R8046:8070 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R8072:8074 KamiHW.ShadowDeviceTrace <> ks':30 var
+R8114:8130 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R8133:8143 Kernel.ShadowProjection <> shadow_proj def
+R8146:8162 KamiHW.FullAbstraction <> abs_full_snapshot def
+R8180:8204 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+binder 7957:7959 <> ks':31
+R7997:8013 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7976:7992 KamiHW.HardwareShadowBridge <> rtl_classical_obs def
+R7994:7996 KamiHW.ShadowDeviceTrace <> ks':31 var
+R8014:8024 Kernel.ShadowProjection <> shadow_proj def
+R8027:8043 KamiHW.FullAbstraction <> abs_full_snapshot def
+R8046:8070 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R8072:8074 KamiHW.ShadowDeviceTrace <> ks':31 var
+R8259:8279 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+R8259:8279 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+R8259:8279 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+prf 8657:8680 <> shadow_trace_mu_monotone
+R8702:8705 Coq.Init.Datatypes <> list ind
+R8707:8720 Kernel.VMStep VMStep vm_instruction ind
+binder 8694:8698 <> trace:32
+R8728:8734 Kernel.VMState <> VMState rec
+binder 8724:8724 <> s:33
+R8778:8781 Coq.Init.Peano <> ::nat_scope:x_'>='_x not
+R8772:8776 Kernel.VMState <> vm_mu proj
+R8743:8751 Coq.Lists.List <> fold_left def
+R8768:8768 KamiHW.ShadowDeviceTrace <> s:33 var
+R8762:8766 KamiHW.ShadowDeviceTrace <> trace:32 var
+R8753:8760 Kernel.SimulationProof <> vm_apply def
+R8785:8789 Kernel.VMState <> vm_mu proj
+R8782:8782 KamiHW.ShadowDeviceTrace <> s:33 var
+R8909:8920 Coq.Arith.PeanoNat Nat le_trans thm
+R8909:8920 Coq.Arith.PeanoNat Nat le_trans thm
+R8935:8959 KamiHW.ShadowDeviceTrace <> vm_apply_mu_nondecreasing thm
+R8935:8959 KamiHW.ShadowDeviceTrace <> vm_apply_mu_nondecreasing thm

@@ -21,8 +21,16 @@
     Scope: this is a scaffold for the dimensional-gap argument, not a full
     geometric reconstruction of a manifold. *)
 
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
-From Kernel Require Import VMState VMStep.
+(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+   mathematics and does not engage VM semantics. No definition or theorem here
+   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost, and it
+   imports no kernel module for that purpose.
+
+   The audit is waived rather than satisfied: satisfying it from inside would
+   mean importing the kernel without using it, which asserts a bridge that is
+   not here. Where these results feed the mu-ledger, they do so through the
+   theorems downstream that consume them. Counted in the WAIVERS census in
+   INQUISITOR_REPORT.md. *)
 
 From Coq Require Import Arith.Arith Lia.
 From SelfReference Require Import SelfReference.

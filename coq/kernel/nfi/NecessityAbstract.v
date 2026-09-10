@@ -736,16 +736,35 @@ Proof.
     intros s m. unfold P_cert, set_mu. simpl. reflexivity.
 Qed.
 
-(** THE MINIMALITY COROLLARY.
+(** THE IRREDUNDANCY COROLLARY.
 
-    P_full is the minimal classical extension that is both mu-complete and
-    cert-complete.  Dropping either field loses the corresponding completeness
-    for ANY projection, not just the named ones.
+    SCOPE — READ THE NAME LITERALLY. The name says irredundancy, and that is
+    deliberate: it is not a minimality claim. "Minimal" asserts leastness in an
+    ORDER, and no order relation is defined anywhere in this file — there is no
+    `refines`, no `coarser_than`, no `factors_through`. Without an ordering
+    there is no lattice for anything to be least in, so a minimality claim
+    would have no referent here, and would suggest something much stronger than
+    what follows (that P_full is the least element of the poset of complete
+    projections).
 
-    Formally: the μ-ledger (vm_mu, vm_certified) is necessary and sufficient
-    as the independent extension of (mem, regs, pc) that makes certification
-    semantics determinate. *)
-Corollary P_full_is_minimal_complete_extension :
+    WHAT IS PROVED, and it is worth having:
+
+      (a) P_full is both mu-complete and cert-complete; and
+      (b) ANY projection forgetting vm_mu fails mu-completeness; and
+      (c) ANY projection forgetting vm_certified fails cert-completeness.
+
+    (b) and (c) genuinely quantify over all carrier types [C] and all
+    projections [P : VMState -> C]; they are not restricted to the four
+    hand-picked projections used in [mu_ledger_minimality] above. So the
+    content is: NEITHER COMPONENT IS DROPPABLE. Both fields are load-bearing;
+    neither is recoverable from the rest.
+
+    What it does NOT establish: that P_full is the unique or least such
+    extension in any order, that no coarser complete projection exists, or
+    that some other pair of fields could not do the same job. Establishing
+    any of those requires first defining the ordering and then proving
+    leastness in it. That work has not been done. *)
+Corollary P_full_complete_neither_mu_nor_cert_droppable :
   (** P_full achieves both completions *)
   mu_complete P_full /\ cert_complete P_full /\
   (** Dropping vm_mu from any projection destroys mu-completeness *)

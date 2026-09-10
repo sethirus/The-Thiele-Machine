@@ -110,6 +110,27 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
     exact Hrun.
   Qed.
 
+  (** HONEST SCOPE NOTE — what this instantiation actually uses.
+
+      The [strictly_stronger strength weak] hypothesis ([Hstrict] below) is
+      required by [NoFreeInsight_Interface] for signature matching, but it is
+      NOT used anywhere in this proof. Read the proof body: it destructs
+      [Hcert] and applies [supra_cert_implies_structure_addition_in_run].
+      [Hstrict] is introduced and discarded.
+
+      So the content proved here is strictly weaker in framing than the
+      "P_strong < P_weak" presentation suggests, and strictly stronger as a
+      statement: it holds for ANY [strength] and [weak], related or not. The
+      honest reading is
+
+          clean start + run to s1 + s1 certified
+            => a structure-addition event occurred in the trace
+
+      i.e. "a cert-setting event occurred", with no comparison between
+      predicate strengths doing any work. The strengthening framing is
+      interface decoration, not a load-bearing premise. Do not cite this
+      theorem as evidence that *strengthening* specifically requires
+      structure; cite it as evidence that *certification* does. *)
   Theorem no_free_insight_contract :
     forall tr s0 s1 strength weak,
       clean_start s0 ->
@@ -119,6 +140,7 @@ Module KernelNoFI <: NO_FREE_INSIGHT_SYSTEM.
       structure_event tr s0.
   Proof.
     unfold clean_start, run, certifies, structure_event.
+    (* Hstrict: unused; see the HONEST SCOPE NOTE above. *)
     intros tr s0 s1 strength weak Hclean Hrun Hstrict Hcert.
     destruct Hcert as [_ [_ Hhas]].
     eapply RevelationProof.supra_cert_implies_structure_addition_in_run; eauto.

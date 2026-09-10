@@ -1,620 +1,617 @@
-DIGEST 1d92e13c88a9eb1135510bc2ba0d7eda
+DIGEST a277c29ef08c4bff5a4d082db87a47b6
 FKernel.BornRule
-R1615:1621 Kernel.VMState <> <> lib
-R1623:1628 Kernel.VMStep <> <> lib
-R1658:1668 Kernel.MuCostModel <> <> lib
-R1687:1701 Coq.Reals.Reals <> <> lib
-R1719:1735 Coq.micromega.Lra <> <> lib
-R1753:1771 Coq.micromega.Psatz <> <> lib
-def 2156:2164 <> prob_zero
-R2175:2175 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2167:2167 <> x:1
-binder 2169:2169 <> y:2
-binder 2171:2171 <> z:3
-R2180:2180 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2185:2185 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2191:2194 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2187:2189 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2190:2190 Kernel.BornRule <> z:3 var
-def 2209:2216 <> prob_one
-R2227:2227 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 2219:2219 <> x:4
-binder 2221:2221 <> y:5
-binder 2223:2223 <> z:6
-R2232:2232 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R2237:2237 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2243:2246 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R2239:2241 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R2242:2242 Kernel.BornRule <> z:6 var
-prf 2340:2351 <> probs_nonneg
-binder 2362:2362 <> x:7
-binder 2364:2364 <> y:8
-binder 2366:2366 <> z:9
-R2391:2396 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R2386:2389 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2380:2382 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2374:2376 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2372:2372 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2371:2371 Kernel.BornRule <> x:7 var
-R2373:2373 Kernel.BornRule <> x:7 var
-R2378:2378 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2377:2377 Kernel.BornRule <> y:8 var
-R2379:2379 Kernel.BornRule <> y:8 var
-R2384:2384 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2383:2383 Kernel.BornRule <> z:9 var
-R2385:2385 Kernel.BornRule <> z:9 var
-R2417:2420 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R2398:2401 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2402:2410 Kernel.BornRule <> prob_zero def
-R2412:2412 Kernel.BornRule <> x:7 var
-R2414:2414 Kernel.BornRule <> y:8 var
-R2416:2416 Kernel.BornRule <> z:9 var
-R2422:2425 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2426:2433 Kernel.BornRule <> prob_one def
-R2435:2435 Kernel.BornRule <> x:7 var
-R2437:2437 Kernel.BornRule <> y:8 var
-R2439:2439 Kernel.BornRule <> z:9 var
-R2481:2489 Kernel.BornRule <> prob_zero def
-R2492:2499 Kernel.BornRule <> prob_one def
-R2591:2594 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2589:2589 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2591:2594 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2589:2589 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2632:2635 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2626:2628 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2620:2622 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2618:2618 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2624:2624 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2630:2630 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2632:2635 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R2626:2628 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2620:2622 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2618:2618 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2624:2624 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2630:2630 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2682:2685 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R2676:2678 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2674:2674 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2680:2680 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2682:2685 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R2676:2678 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R2674:2674 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2680:2680 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2725:2728 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R2730:2733 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R2725:2728 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R2730:2733 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
-R2786:2795 Coq.Reals.RIneq <> Rle_lt_dec thm
-R2786:2795 Coq.Reals.RIneq <> Rle_lt_dec thm
-R2894:2896 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R2890:2892 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2894:2896 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R2890:2892 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R2949:2958 Coq.Reals.RIneq <> Rle_lt_dec thm
-R2949:2958 Coq.Reals.RIneq <> Rle_lt_dec thm
-R3053:3055 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3049:3051 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R3053:3055 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
-R3049:3051 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-prf 3276:3291 <> probs_sum_to_one
-binder 3302:3302 <> x:10
-binder 3304:3304 <> y:11
-binder 3306:3306 <> z:12
-R3343:3345 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R3326:3328 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R3311:3319 Kernel.BornRule <> prob_zero def
-R3321:3321 Kernel.BornRule <> x:10 var
-R3323:3323 Kernel.BornRule <> y:11 var
-R3325:3325 Kernel.BornRule <> z:12 var
-R3329:3336 Kernel.BornRule <> prob_one def
-R3338:3338 Kernel.BornRule <> x:10 var
-R3340:3340 Kernel.BornRule <> y:11 var
-R3342:3342 Kernel.BornRule <> z:12 var
-R3373:3381 Kernel.BornRule <> prob_zero def
-R3384:3391 Kernel.BornRule <> prob_one def
-def 4097:4115 <> measurement_mu_cost
-R4126:4126 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 4118:4118 <> x:13
-binder 4120:4120 <> y:14
-binder 4122:4122 <> z:15
-R4131:4131 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4280:4280 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4300:4303 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R4294:4296 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4288:4290 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4282:4284 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
-R4286:4286 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4285:4285 Kernel.BornRule <> x:13 var
-R4287:4287 Kernel.BornRule <> x:13 var
-R4292:4292 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4291:4291 Kernel.BornRule <> y:14 var
-R4293:4293 Kernel.BornRule <> y:14 var
-R4298:4298 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4297:4297 Kernel.BornRule <> z:15 var
-R4299:4299 Kernel.BornRule <> z:15 var
-prf 4379:4398 <> pure_state_zero_cost
-binder 4409:4409 <> x:16
-binder 4411:4411 <> y:17
-binder 4413:4413 <> z:18
-R4437:4442 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4433:4435 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4427:4429 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4421:4423 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4419:4419 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4418:4418 Kernel.BornRule <> x:16 var
-R4420:4420 Kernel.BornRule <> x:16 var
-R4425:4425 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4424:4424 Kernel.BornRule <> y:17 var
-R4426:4426 Kernel.BornRule <> y:17 var
-R4431:4431 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4430:4430 Kernel.BornRule <> z:18 var
-R4432:4432 Kernel.BornRule <> z:18 var
-R4468:4470 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R4443:4461 Kernel.BornRule <> measurement_mu_cost def
-R4463:4463 Kernel.BornRule <> x:16 var
-R4465:4465 Kernel.BornRule <> y:17 var
-R4467:4467 Kernel.BornRule <> z:18 var
-R4512:4530 Kernel.BornRule <> measurement_mu_cost def
-R4553:4555 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4547:4549 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4545:4545 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4551:4551 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4557:4557 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4553:4555 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4547:4549 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R4545:4545 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4551:4551 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R4557:4557 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-def 4904:4911 <> ProbRule
-R4917:4920 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4916:4916 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4922:4925 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4921:4921 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4927:4930 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4926:4926 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4932:4935 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R4931:4931 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R4936:4936 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-def 5061:5075 <> valid_prob_rule
-R5082:5089 Kernel.BornRule <> ProbRule def
-binder 5078:5078 <> P:19
-R5125:5125 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5178:5184 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 5133:5133 <> x:20
-binder 5135:5135 <> y:21
-binder 5137:5137 <> z:22
-R5160:5163 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5155:5158 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R5149:5151 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5143:5145 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5141:5141 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5140:5140 Kernel.BornRule <> x:20 var
-R5142:5142 Kernel.BornRule <> x:20 var
-R5147:5147 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5146:5146 Kernel.BornRule <> y:21 var
-R5148:5148 Kernel.BornRule <> y:21 var
-R5153:5153 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5152:5152 Kernel.BornRule <> z:22 var
-R5154:5154 Kernel.BornRule <> z:22 var
-R5165:5168 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R5169:5169 Kernel.BornRule <> P:19 var
-R5171:5171 Kernel.BornRule <> x:20 var
-R5173:5173 Kernel.BornRule <> y:21 var
-R5175:5175 Kernel.BornRule <> z:22 var
-R5185:5185 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5238:5263 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 5193:5193 <> x:23
-binder 5195:5195 <> y:24
-binder 5197:5197 <> z:25
-R5220:5223 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R5215:5218 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R5209:5211 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5203:5205 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5201:5201 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5200:5200 Kernel.BornRule <> x:23 var
-R5202:5202 Kernel.BornRule <> x:23 var
-R5207:5207 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5206:5206 Kernel.BornRule <> y:24 var
-R5208:5208 Kernel.BornRule <> y:24 var
-R5213:5213 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R5212:5212 Kernel.BornRule <> z:25 var
-R5214:5214 Kernel.BornRule <> z:25 var
-R5225:5228 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R5229:5229 Kernel.BornRule <> P:19 var
-R5231:5231 Kernel.BornRule <> x:23 var
-R5233:5233 Kernel.BornRule <> y:24 var
-R5235:5235 Kernel.BornRule <> z:25 var
-R5264:5264 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5304:5382 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 5272:5272 <> x:26
-binder 5274:5274 <> y:27
-binder 5276:5276 <> z:28
-R5300:5302 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5288:5290 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R5279:5279 Kernel.BornRule <> P:19 var
-R5281:5281 Kernel.BornRule <> x:26 var
-R5283:5283 Kernel.BornRule <> y:27 var
-R5285:5285 Kernel.BornRule <> z:28 var
-R5291:5291 Kernel.BornRule <> P:19 var
-R5293:5293 Kernel.BornRule <> x:26 var
-R5295:5295 Kernel.BornRule <> y:27 var
-R5297:5297 Kernel.BornRule <> z:28 var
-R5383:5383 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5397:5423 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5440:5440 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R5393:5395 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5384:5384 Kernel.BornRule <> P:19 var
-R5436:5438 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R5424:5424 Kernel.BornRule <> P:19 var
-def 5517:5525 <> born_rule
-R5529:5536 Kernel.BornRule <> ProbRule def
-binder 5547:5547 <> x:29
-binder 5549:5549 <> y:30
-binder 5551:5551 <> z:31
-binder 5553:5559 <> outcome:32
-R5572:5578 Coq.Reals.RIneq <> Rle_dec thm
-R5580:5586 Kernel.BornRule <> outcome:32 var
-R5590:5590 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5620:5627 Kernel.BornRule <> prob_one def
-R5629:5629 Kernel.BornRule <> x:29 var
-R5631:5631 Kernel.BornRule <> y:30 var
-R5633:5633 Kernel.BornRule <> z:31 var
-R5599:5607 Kernel.BornRule <> prob_zero def
-R5609:5609 Kernel.BornRule <> x:29 var
-R5611:5611 Kernel.BornRule <> y:30 var
-R5613:5613 Kernel.BornRule <> z:31 var
-prf 5715:5729 <> born_rule_valid
-R5736:5750 Kernel.BornRule <> valid_prob_rule def
-R5752:5760 Kernel.BornRule <> born_rule def
-R5779:5793 Kernel.BornRule <> valid_prob_rule def
-R5796:5804 Kernel.BornRule <> born_rule def
-R5862:5868 Coq.Reals.RIneq <> Rle_dec thm
-R5874:5874 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5862:5868 Coq.Reals.RIneq <> Rle_dec thm
-R5874:5874 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5904:5915 Kernel.BornRule <> probs_nonneg thm
-R5904:5915 Kernel.BornRule <> probs_nonneg thm
-R5989:5995 Coq.Reals.RIneq <> Rle_dec thm
-R6001:6001 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R5989:5995 Coq.Reals.RIneq <> Rle_dec thm
-R6001:6001 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6031:6042 Kernel.BornRule <> probs_nonneg thm
-R6031:6042 Kernel.BornRule <> probs_nonneg thm
-R6109:6115 Coq.Reals.RIneq <> Rle_dec thm
-R6121:6121 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6137:6143 Coq.Reals.RIneq <> Rle_dec thm
-R6149:6149 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6174:6189 Kernel.BornRule <> probs_sum_to_one thm
-R6109:6115 Coq.Reals.RIneq <> Rle_dec thm
-R6121:6121 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6137:6143 Coq.Reals.RIneq <> Rle_dec thm
-R6149:6149 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6137:6143 Coq.Reals.RIneq <> Rle_dec thm
-R6149:6149 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6174:6189 Kernel.BornRule <> probs_sum_to_one thm
-R6206:6212 Coq.Reals.RIneq <> Rle_dec thm
-R6218:6218 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6206:6212 Coq.Reals.RIneq <> Rle_dec thm
-R6218:6218 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6243:6251 Kernel.BornRule <> prob_zero def
-R6273:6279 Coq.Reals.RIneq <> Rle_dec thm
-R6285:6285 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6273:6279 Coq.Reals.RIneq <> Rle_dec thm
-R6285:6285 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R6310:6318 Kernel.BornRule <> prob_zero def
-def 6474:6487 <> is_linear_in_z
-R6494:6501 Kernel.BornRule <> ProbRule def
-binder 6490:6490 <> P:33
-R6516:6522 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6530:6535 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
-R6529:6529 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 6523:6523 <> a:34
-R6529:6529 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 6525:6525 <> b:35
-binder 6543:6543 <> x:36
-binder 6545:6545 <> y:37
-binder 6547:6547 <> z:38
-R6570:6573 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6565:6568 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R6559:6561 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6553:6555 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6551:6551 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6550:6550 Kernel.BornRule <> x:36 var
-R6552:6552 Kernel.BornRule <> x:36 var
-R6557:6557 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6556:6556 Kernel.BornRule <> y:37 var
-R6558:6558 Kernel.BornRule <> y:37 var
-R6563:6563 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6562:6562 Kernel.BornRule <> z:38 var
-R6564:6564 Kernel.BornRule <> z:38 var
-R6583:6585 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6574:6574 Kernel.BornRule <> P:33 var
-R6576:6576 Kernel.BornRule <> x:36 var
-R6578:6578 Kernel.BornRule <> y:37 var
-R6580:6580 Kernel.BornRule <> z:38 var
-R6591:6593 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6587:6589 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6586:6586 Kernel.BornRule <> a:34 var
-R6590:6590 Kernel.BornRule <> z:38 var
-R6594:6594 Kernel.BornRule <> b:35 var
-prf 6686:6704 <> linear_implies_born
-R6721:6728 Kernel.BornRule <> ProbRule def
-binder 6717:6717 <> P:39
-R6752:6759 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6735:6749 Kernel.BornRule <> valid_prob_rule def
-R6751:6751 Kernel.BornRule <> P:39 var
-R6776:6783 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6760:6773 Kernel.BornRule <> is_linear_in_z def
-R6775:6775 Kernel.BornRule <> P:39 var
-binder 6791:6791 <> x:40
-binder 6793:6793 <> y:41
-binder 6795:6795 <> z:42
-R6825:6834 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R6820:6823 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R6814:6816 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6808:6810 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R6806:6806 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6805:6805 Kernel.BornRule <> x:40 var
-R6807:6807 Kernel.BornRule <> x:40 var
-R6812:6812 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6811:6811 Kernel.BornRule <> y:41 var
-R6813:6813 Kernel.BornRule <> y:41 var
-R6818:6818 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R6817:6817 Kernel.BornRule <> z:42 var
-R6819:6819 Kernel.BornRule <> z:42 var
-R6844:6846 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R6835:6835 Kernel.BornRule <> P:39 var
-R6837:6837 Kernel.BornRule <> x:40 var
-R6839:6839 Kernel.BornRule <> y:41 var
-R6841:6841 Kernel.BornRule <> z:42 var
-R6847:6855 Kernel.BornRule <> prob_zero def
-R6857:6857 Kernel.BornRule <> x:40 var
-R6859:6859 Kernel.BornRule <> y:41 var
-R6861:6861 Kernel.BornRule <> z:42 var
-R7062:7064 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7058:7060 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7062:7064 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7058:7060 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7133:7136 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7127:7129 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7121:7123 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7119:7119 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7125:7125 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7131:7131 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7133:7136 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7127:7129 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7121:7123 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7119:7119 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7125:7125 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7131:7131 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7289:7291 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7285:7287 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7283:7283 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R7289:7291 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7285:7287 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7283:7283 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
-R7369:7372 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7357:7359 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7351:7353 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7349:7349 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7355:7355 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7360:7360 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7363:7365 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7368:7368 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7369:7372 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R7357:7359 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7351:7353 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R7349:7349 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7355:7355 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7360:7360 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7363:7365 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7368:7368 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R7495:7497 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7499:7499 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7495:7497 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7499:7499 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7526:7528 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7530:7530 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7526:7528 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R7530:7530 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
-R7670:7678 Kernel.BornRule <> prob_zero def
-def 7815:7835 <> post_measurement_zero
-R7846:7846 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 7838:7838 <> x:43
-binder 7840:7840 <> y:44
-binder 7842:7842 <> z:45
-R7856:7858 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7852:7854 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7851:7851 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7855:7855 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7859:7859 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7864:7864 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7866:7867 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7869:7870 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R7872:7872 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-def 7952:7971 <> post_measurement_one
-R7982:7982 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-binder 7974:7974 <> x:46
-binder 7976:7976 <> y:47
-binder 7978:7978 <> z:48
-R7992:7994 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7988:7990 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
-R7987:7987 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7991:7991 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R7995:7995 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
-R8000:8000 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8002:8003 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8005:8006 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8009:8009 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-prf 8072:8100 <> measurement_creates_pure_zero
-binder 8111:8111 <> x:49
-binder 8113:8113 <> y:50
-binder 8115:8115 <> z:51
-R8141:8161 Kernel.BornRule <> post_measurement_zero def
-R8163:8163 Kernel.BornRule <> x:49 var
-R8165:8165 Kernel.BornRule <> y:50 var
-R8167:8167 Kernel.BornRule <> z:51 var
-R8125:8125 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8128:8129 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8132:8133 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8136:8136 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8195:8197 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8187:8189 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8179:8181 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8176:8176 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8184:8184 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8192:8192 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-prf 8310:8337 <> measurement_creates_pure_one
-binder 8348:8348 <> x:52
-binder 8350:8350 <> y:53
-binder 8352:8352 <> z:54
-R8378:8397 Kernel.BornRule <> post_measurement_one def
-R8399:8399 Kernel.BornRule <> x:52 var
-R8401:8401 Kernel.BornRule <> y:53 var
-R8403:8403 Kernel.BornRule <> z:54 var
-R8362:8362 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8365:8366 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8369:8370 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8373:8373 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R8431:8433 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R8423:8425 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8415:8417 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8412:8412 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8420:8420 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8428:8428 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-def 8914:8941 <> measurement_cost_nonnegative
-R8948:8955 Kernel.BornRule <> ProbRule def
-binder 8944:8944 <> P:55
-binder 8977:8977 <> x:56
-binder 8979:8979 <> y:57
-binder 8981:8981 <> z:58
-R9008:9015 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R9003:9006 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R8997:8999 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8991:8993 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R8989:8989 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8988:8988 Kernel.BornRule <> x:56 var
-R8990:8990 Kernel.BornRule <> x:56 var
-R8995:8995 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R8994:8994 Kernel.BornRule <> y:57 var
-R8996:8996 Kernel.BornRule <> y:57 var
-R9001:9001 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9000:9000 Kernel.BornRule <> z:58 var
-R9002:9002 Kernel.BornRule <> z:58 var
-R9041:9044 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9016:9034 Kernel.BornRule <> measurement_mu_cost def
-R9036:9036 Kernel.BornRule <> x:56 var
-R9038:9038 Kernel.BornRule <> y:57 var
-R9040:9040 Kernel.BornRule <> z:58 var
-prf 9195:9232 <> born_rule_measurement_cost_nonnegative
-R9238:9265 Kernel.BornRule <> measurement_cost_nonnegative def
-R9267:9275 Kernel.BornRule <> born_rule def
-R9294:9321 Kernel.BornRule <> measurement_cost_nonnegative def
-R9324:9342 Kernel.BornRule <> measurement_mu_cost def
-R9402:9405 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9396:9398 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R9390:9392 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R9388:9388 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9394:9394 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9400:9400 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9402:9405 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
-R9396:9398 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R9390:9392 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R9388:9388 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9394:9394 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R9400:9400 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-prf 9964:10013 <> valid_linear_rule_is_born_with_cost_side_condition
-R10030:10037 Kernel.BornRule <> ProbRule def
-binder 10026:10026 <> P:59
-R10061:10068 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10044:10058 Kernel.BornRule <> valid_prob_rule def
-R10060:10060 Kernel.BornRule <> P:59 var
-R10085:10092 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10069:10082 Kernel.BornRule <> is_linear_in_z def
-R10084:10084 Kernel.BornRule <> P:59 var
-R10123:10130 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10093:10120 Kernel.BornRule <> measurement_cost_nonnegative def
-R10122:10122 Kernel.BornRule <> P:59 var
-binder 10138:10138 <> x:60
-binder 10140:10140 <> y:61
-binder 10142:10142 <> z:62
-R10171:10180 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R10166:10169 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
-R10160:10162 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10154:10156 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10152:10152 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10151:10151 Kernel.BornRule <> x:60 var
-R10153:10153 Kernel.BornRule <> x:60 var
-R10158:10158 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10157:10157 Kernel.BornRule <> y:61 var
-R10159:10159 Kernel.BornRule <> y:61 var
-R10164:10164 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10163:10163 Kernel.BornRule <> z:62 var
-R10165:10165 Kernel.BornRule <> z:62 var
-R10208:10217 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10190:10192 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10181:10181 Kernel.BornRule <> P:59 var
-R10183:10183 Kernel.BornRule <> x:60 var
-R10185:10185 Kernel.BornRule <> y:61 var
-R10187:10187 Kernel.BornRule <> z:62 var
-R10193:10201 Kernel.BornRule <> prob_zero def
-R10203:10203 Kernel.BornRule <> x:60 var
-R10205:10205 Kernel.BornRule <> y:61 var
-R10207:10207 Kernel.BornRule <> z:62 var
-R10227:10229 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10218:10218 Kernel.BornRule <> P:59 var
-R10220:10220 Kernel.BornRule <> x:60 var
-R10222:10222 Kernel.BornRule <> y:61 var
-R10224:10224 Kernel.BornRule <> z:62 var
-R10230:10237 Kernel.BornRule <> prob_one def
-R10239:10239 Kernel.BornRule <> x:60 var
-R10241:10241 Kernel.BornRule <> y:61 var
-R10243:10243 Kernel.BornRule <> z:62 var
-R10350:10368 Kernel.BornRule <> linear_implies_born thm
-R10350:10368 Kernel.BornRule <> linear_implies_born thm
-R10545:10563 Kernel.BornRule <> linear_implies_born thm
-R10545:10563 Kernel.BornRule <> linear_implies_born thm
-R10643:10658 Kernel.BornRule <> probs_sum_to_one thm
-R10643:10658 Kernel.BornRule <> probs_sum_to_one thm
-prf 10780:10806 <> born_rule_measurement_cases
-R10812:10812 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R10912:10919 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-R11018:11018 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
-binder 10820:10820 <> x:63
-binder 10822:10822 <> y:64
-binder 10824:10824 <> z:65
-R10852:10872 Kernel.BornRule <> post_measurement_zero def
-R10874:10874 Kernel.BornRule <> x:63 var
-R10876:10876 Kernel.BornRule <> y:64 var
-R10878:10878 Kernel.BornRule <> z:65 var
-R10836:10836 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10839:10840 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10843:10844 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10847:10847 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10908:10910 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R10900:10902 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10892:10894 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10889:10889 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10897:10897 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R10905:10905 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-binder 10927:10927 <> x:66
-binder 10929:10929 <> y:67
-binder 10931:10931 <> z:68
-R10959:10978 Kernel.BornRule <> post_measurement_one def
-R10980:10980 Kernel.BornRule <> x:66 var
-R10982:10982 Kernel.BornRule <> y:67 var
-R10984:10984 Kernel.BornRule <> z:68 var
-R10943:10943 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10946:10947 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10950:10951 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R10954:10954 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
-R11014:11016 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R11006:11008 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10998:11000 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
-R10995:10995 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11003:11003 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11011:11011 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
-R11044:11072 Kernel.BornRule <> measurement_creates_pure_zero thm
-R11082:11109 Kernel.BornRule <> measurement_creates_pure_one thm
-R11044:11072 Kernel.BornRule <> measurement_creates_pure_zero thm
-R11082:11109 Kernel.BornRule <> measurement_creates_pure_one thm
+R2118:2132 Coq.Reals.Reals <> <> lib
+R2150:2166 Coq.micromega.Lra <> <> lib
+R2184:2202 Coq.micromega.Psatz <> <> lib
+def 2587:2595 <> prob_zero
+R2606:2606 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2598:2598 <> x:1
+binder 2600:2600 <> y:2
+binder 2602:2602 <> z:3
+R2611:2611 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2616:2616 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2622:2625 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2618:2620 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2621:2621 Kernel.BornRule <> z:3 var
+def 2640:2647 <> prob_one
+R2658:2658 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 2650:2650 <> x:4
+binder 2652:2652 <> y:5
+binder 2654:2654 <> z:6
+R2663:2663 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R2668:2668 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2674:2677 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R2670:2672 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R2673:2673 Kernel.BornRule <> z:6 var
+prf 2771:2782 <> probs_nonneg
+binder 2793:2793 <> x:7
+binder 2795:2795 <> y:8
+binder 2797:2797 <> z:9
+R2822:2827 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R2817:2820 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2811:2813 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2805:2807 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R2803:2803 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2802:2802 Kernel.BornRule <> x:7 var
+R2804:2804 Kernel.BornRule <> x:7 var
+R2809:2809 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2808:2808 Kernel.BornRule <> y:8 var
+R2810:2810 Kernel.BornRule <> y:8 var
+R2815:2815 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R2814:2814 Kernel.BornRule <> z:9 var
+R2816:2816 Kernel.BornRule <> z:9 var
+R2848:2851 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R2829:2832 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2833:2841 Kernel.BornRule <> prob_zero def
+R2843:2843 Kernel.BornRule <> x:7 var
+R2845:2845 Kernel.BornRule <> y:8 var
+R2847:2847 Kernel.BornRule <> z:9 var
+R2853:2856 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R2857:2864 Kernel.BornRule <> prob_one def
+R2866:2866 Kernel.BornRule <> x:7 var
+R2868:2868 Kernel.BornRule <> y:8 var
+R2870:2870 Kernel.BornRule <> z:9 var
+R2912:2920 Kernel.BornRule <> prob_zero def
+R2923:2930 Kernel.BornRule <> prob_one def
+R3022:3025 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3020:3020 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3022:3025 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3020:3020 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3063:3066 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3057:3059 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3051:3053 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3049:3049 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3055:3055 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3061:3061 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3063:3066 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R3057:3059 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3051:3053 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3049:3049 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3055:3055 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3061:3061 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3113:3116 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3107:3109 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3105:3105 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3111:3111 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3113:3116 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R3107:3109 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3105:3105 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3111:3111 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3156:3159 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3161:3164 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3156:3159 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3161:3164 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x_'<='_x not
+R3217:3226 Coq.Reals.RIneq <> Rle_lt_dec thm
+R3217:3226 Coq.Reals.RIneq <> Rle_lt_dec thm
+R3325:3327 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3321:3323 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3325:3327 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3321:3323 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3380:3389 Coq.Reals.RIneq <> Rle_lt_dec thm
+R3380:3389 Coq.Reals.RIneq <> Rle_lt_dec thm
+R3484:3486 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3480:3482 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R3484:3486 Coq.Reals.Rdefinitions <> ::R_scope:x_'>'_x not
+R3480:3482 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+prf 3707:3722 <> probs_sum_to_one
+binder 3733:3733 <> x:10
+binder 3735:3735 <> y:11
+binder 3737:3737 <> z:12
+R3774:3776 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R3757:3759 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R3742:3750 Kernel.BornRule <> prob_zero def
+R3752:3752 Kernel.BornRule <> x:10 var
+R3754:3754 Kernel.BornRule <> y:11 var
+R3756:3756 Kernel.BornRule <> z:12 var
+R3760:3767 Kernel.BornRule <> prob_one def
+R3769:3769 Kernel.BornRule <> x:10 var
+R3771:3771 Kernel.BornRule <> y:11 var
+R3773:3773 Kernel.BornRule <> z:12 var
+R3804:3812 Kernel.BornRule <> prob_zero def
+R3815:3822 Kernel.BornRule <> prob_one def
+def 4528:4546 <> measurement_mu_cost
+R4557:4557 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 4549:4549 <> x:13
+binder 4551:4551 <> y:14
+binder 4553:4553 <> z:15
+R4562:4562 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R4711:4711 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4731:4734 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R4725:4727 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4719:4721 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4713:4715 Coq.Reals.Rdefinitions <> ::R_scope:x_'-'_x not
+R4717:4717 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4716:4716 Kernel.BornRule <> x:13 var
+R4718:4718 Kernel.BornRule <> x:13 var
+R4723:4723 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4722:4722 Kernel.BornRule <> y:14 var
+R4724:4724 Kernel.BornRule <> y:14 var
+R4729:4729 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4728:4728 Kernel.BornRule <> z:15 var
+R4730:4730 Kernel.BornRule <> z:15 var
+prf 4810:4829 <> pure_state_zero_cost
+binder 4840:4840 <> x:16
+binder 4842:4842 <> y:17
+binder 4844:4844 <> z:18
+R4868:4873 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R4864:4866 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4858:4860 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4852:4854 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4850:4850 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4849:4849 Kernel.BornRule <> x:16 var
+R4851:4851 Kernel.BornRule <> x:16 var
+R4856:4856 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4855:4855 Kernel.BornRule <> y:17 var
+R4857:4857 Kernel.BornRule <> y:17 var
+R4862:4862 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4861:4861 Kernel.BornRule <> z:18 var
+R4863:4863 Kernel.BornRule <> z:18 var
+R4899:4901 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R4874:4892 Kernel.BornRule <> measurement_mu_cost def
+R4894:4894 Kernel.BornRule <> x:16 var
+R4896:4896 Kernel.BornRule <> y:17 var
+R4898:4898 Kernel.BornRule <> z:18 var
+R4943:4961 Kernel.BornRule <> measurement_mu_cost def
+R4984:4986 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4978:4980 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4976:4976 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4982:4982 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4988:4988 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4984:4986 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4978:4980 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R4976:4976 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4982:4982 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R4988:4988 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+def 5335:5342 <> ProbRule
+R5348:5351 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5347:5347 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5353:5356 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5352:5352 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5358:5361 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5357:5357 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5363:5366 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5362:5362 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R5367:5367 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+def 5492:5506 <> valid_prob_rule
+R5513:5520 Kernel.BornRule <> ProbRule def
+binder 5509:5509 <> P:19
+R5556:5556 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5609:5615 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5564:5564 <> x:20
+binder 5566:5566 <> y:21
+binder 5568:5568 <> z:22
+R5591:5594 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5586:5589 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5580:5582 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5574:5576 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5572:5572 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5571:5571 Kernel.BornRule <> x:20 var
+R5573:5573 Kernel.BornRule <> x:20 var
+R5578:5578 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5577:5577 Kernel.BornRule <> y:21 var
+R5579:5579 Kernel.BornRule <> y:21 var
+R5584:5584 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5583:5583 Kernel.BornRule <> z:22 var
+R5585:5585 Kernel.BornRule <> z:22 var
+R5596:5599 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5600:5600 Kernel.BornRule <> P:19 var
+R5602:5602 Kernel.BornRule <> x:20 var
+R5604:5604 Kernel.BornRule <> y:21 var
+R5606:5606 Kernel.BornRule <> z:22 var
+R5616:5616 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5669:5694 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5624:5624 <> x:23
+binder 5626:5626 <> y:24
+binder 5628:5628 <> z:25
+R5651:5654 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R5646:5649 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5640:5642 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5634:5636 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5632:5632 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5631:5631 Kernel.BornRule <> x:23 var
+R5633:5633 Kernel.BornRule <> x:23 var
+R5638:5638 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5637:5637 Kernel.BornRule <> y:24 var
+R5639:5639 Kernel.BornRule <> y:24 var
+R5644:5644 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R5643:5643 Kernel.BornRule <> z:25 var
+R5645:5645 Kernel.BornRule <> z:25 var
+R5656:5659 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R5660:5660 Kernel.BornRule <> P:19 var
+R5662:5662 Kernel.BornRule <> x:23 var
+R5664:5664 Kernel.BornRule <> y:24 var
+R5666:5666 Kernel.BornRule <> z:25 var
+R5695:5695 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5735:5813 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 5703:5703 <> x:26
+binder 5705:5705 <> y:27
+binder 5707:5707 <> z:28
+R5731:5733 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5719:5721 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R5710:5710 Kernel.BornRule <> P:19 var
+R5712:5712 Kernel.BornRule <> x:26 var
+R5714:5714 Kernel.BornRule <> y:27 var
+R5716:5716 Kernel.BornRule <> z:28 var
+R5722:5722 Kernel.BornRule <> P:19 var
+R5724:5724 Kernel.BornRule <> x:26 var
+R5726:5726 Kernel.BornRule <> y:27 var
+R5728:5728 Kernel.BornRule <> z:28 var
+R5814:5814 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5828:5854 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5871:5871 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R5824:5826 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5815:5815 Kernel.BornRule <> P:19 var
+R5867:5869 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R5855:5855 Kernel.BornRule <> P:19 var
+def 5948:5956 <> born_rule
+R5960:5967 Kernel.BornRule <> ProbRule def
+binder 5978:5978 <> x:29
+binder 5980:5980 <> y:30
+binder 5982:5982 <> z:31
+binder 5984:5990 <> outcome:32
+R6003:6009 Coq.Reals.RIneq <> Rle_dec thm
+R6011:6017 Kernel.BornRule <> outcome:32 var
+R6021:6021 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6051:6058 Kernel.BornRule <> prob_one def
+R6060:6060 Kernel.BornRule <> x:29 var
+R6062:6062 Kernel.BornRule <> y:30 var
+R6064:6064 Kernel.BornRule <> z:31 var
+R6030:6038 Kernel.BornRule <> prob_zero def
+R6040:6040 Kernel.BornRule <> x:29 var
+R6042:6042 Kernel.BornRule <> y:30 var
+R6044:6044 Kernel.BornRule <> z:31 var
+prf 6146:6160 <> born_rule_valid
+R6167:6181 Kernel.BornRule <> valid_prob_rule def
+R6183:6191 Kernel.BornRule <> born_rule def
+R6210:6224 Kernel.BornRule <> valid_prob_rule def
+R6227:6235 Kernel.BornRule <> born_rule def
+R6293:6299 Coq.Reals.RIneq <> Rle_dec thm
+R6305:6305 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6293:6299 Coq.Reals.RIneq <> Rle_dec thm
+R6305:6305 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6335:6346 Kernel.BornRule <> probs_nonneg thm
+R6335:6346 Kernel.BornRule <> probs_nonneg thm
+R6420:6426 Coq.Reals.RIneq <> Rle_dec thm
+R6432:6432 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6420:6426 Coq.Reals.RIneq <> Rle_dec thm
+R6432:6432 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6462:6473 Kernel.BornRule <> probs_nonneg thm
+R6462:6473 Kernel.BornRule <> probs_nonneg thm
+R6540:6546 Coq.Reals.RIneq <> Rle_dec thm
+R6552:6552 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6568:6574 Coq.Reals.RIneq <> Rle_dec thm
+R6580:6580 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6605:6620 Kernel.BornRule <> probs_sum_to_one thm
+R6540:6546 Coq.Reals.RIneq <> Rle_dec thm
+R6552:6552 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6568:6574 Coq.Reals.RIneq <> Rle_dec thm
+R6580:6580 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6568:6574 Coq.Reals.RIneq <> Rle_dec thm
+R6580:6580 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6605:6620 Kernel.BornRule <> probs_sum_to_one thm
+R6637:6643 Coq.Reals.RIneq <> Rle_dec thm
+R6649:6649 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6637:6643 Coq.Reals.RIneq <> Rle_dec thm
+R6649:6649 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6674:6682 Kernel.BornRule <> prob_zero def
+R6704:6710 Coq.Reals.RIneq <> Rle_dec thm
+R6716:6716 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6704:6710 Coq.Reals.RIneq <> Rle_dec thm
+R6716:6716 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R6741:6749 Kernel.BornRule <> prob_zero def
+def 6905:6918 <> is_linear_in_z
+R6925:6932 Kernel.BornRule <> ProbRule def
+binder 6921:6921 <> P:33
+R6947:6953 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6961:6966 Coq.Init.Logic <> ::type_scope:'exists'_x_'..'_x_','_x not
+R6960:6960 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6954:6954 <> a:34
+R6960:6960 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 6956:6956 <> b:35
+binder 6974:6974 <> x:36
+binder 6976:6976 <> y:37
+binder 6978:6978 <> z:38
+R7001:7004 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R6996:6999 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R6990:6992 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6984:6986 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R6982:6982 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6981:6981 Kernel.BornRule <> x:36 var
+R6983:6983 Kernel.BornRule <> x:36 var
+R6988:6988 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6987:6987 Kernel.BornRule <> y:37 var
+R6989:6989 Kernel.BornRule <> y:37 var
+R6994:6994 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R6993:6993 Kernel.BornRule <> z:38 var
+R6995:6995 Kernel.BornRule <> z:38 var
+R7014:7016 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7005:7005 Kernel.BornRule <> P:33 var
+R7007:7007 Kernel.BornRule <> x:36 var
+R7009:7009 Kernel.BornRule <> y:37 var
+R7011:7011 Kernel.BornRule <> z:38 var
+R7022:7024 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7018:7020 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7017:7017 Kernel.BornRule <> a:34 var
+R7021:7021 Kernel.BornRule <> z:38 var
+R7025:7025 Kernel.BornRule <> b:35 var
+prf 7117:7135 <> linear_implies_born
+R7152:7159 Kernel.BornRule <> ProbRule def
+binder 7148:7148 <> P:39
+R7183:7190 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7166:7180 Kernel.BornRule <> valid_prob_rule def
+R7182:7182 Kernel.BornRule <> P:39 var
+R7207:7214 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7191:7204 Kernel.BornRule <> is_linear_in_z def
+R7206:7206 Kernel.BornRule <> P:39 var
+binder 7222:7222 <> x:40
+binder 7224:7224 <> y:41
+binder 7226:7226 <> z:42
+R7256:7265 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R7251:7254 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7245:7247 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7239:7241 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7237:7237 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7236:7236 Kernel.BornRule <> x:40 var
+R7238:7238 Kernel.BornRule <> x:40 var
+R7243:7243 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7242:7242 Kernel.BornRule <> y:41 var
+R7244:7244 Kernel.BornRule <> y:41 var
+R7249:7249 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7248:7248 Kernel.BornRule <> z:42 var
+R7250:7250 Kernel.BornRule <> z:42 var
+R7275:7277 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7266:7266 Kernel.BornRule <> P:39 var
+R7268:7268 Kernel.BornRule <> x:40 var
+R7270:7270 Kernel.BornRule <> y:41 var
+R7272:7272 Kernel.BornRule <> z:42 var
+R7278:7286 Kernel.BornRule <> prob_zero def
+R7288:7288 Kernel.BornRule <> x:40 var
+R7290:7290 Kernel.BornRule <> y:41 var
+R7292:7292 Kernel.BornRule <> z:42 var
+R7493:7495 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7489:7491 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7493:7495 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7489:7491 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7564:7567 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7558:7560 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7552:7554 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7550:7550 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7556:7556 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7562:7562 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7564:7567 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7558:7560 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7552:7554 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7550:7550 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7556:7556 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7562:7562 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7720:7722 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7716:7718 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7714:7714 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R7720:7722 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7716:7718 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7714:7714 Coq.Reals.Rdefinitions <> ::R_scope:'-'_x not
+R7800:7803 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7788:7790 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7782:7784 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7780:7780 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7786:7786 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7791:7791 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7794:7796 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7799:7799 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7800:7803 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R7788:7790 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7782:7784 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R7780:7780 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7786:7786 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7791:7791 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7794:7796 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7799:7799 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R7926:7928 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7930:7930 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7926:7928 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7930:7930 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7957:7959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7961:7961 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R7957:7959 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R7961:7961 Coq.Reals.Rdefinitions <> ::R_scope:x_'/'_x not
+R8101:8109 Kernel.BornRule <> prob_zero def
+def 8246:8266 <> post_measurement_zero
+R8277:8277 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8269:8269 <> x:43
+binder 8271:8271 <> y:44
+binder 8273:8273 <> z:45
+R8287:8289 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8283:8285 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8282:8282 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8286:8286 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8290:8290 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8295:8295 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8297:8298 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8300:8301 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8303:8303 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+def 8383:8402 <> post_measurement_one
+R8413:8413 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+binder 8405:8405 <> x:46
+binder 8407:8407 <> y:47
+binder 8409:8409 <> z:48
+R8423:8425 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8419:8421 Coq.Init.Datatypes <> ::type_scope:x_'*'_x not
+R8418:8418 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8422:8422 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8426:8426 Coq.Reals.Rdefinitions RbaseSymbolsImpl R defax
+R8431:8431 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8433:8434 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8436:8437 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8440:8440 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+prf 8503:8531 <> measurement_creates_pure_zero
+binder 8542:8542 <> x:49
+binder 8544:8544 <> y:50
+binder 8546:8546 <> z:51
+R8572:8592 Kernel.BornRule <> post_measurement_zero def
+R8594:8594 Kernel.BornRule <> x:49 var
+R8596:8596 Kernel.BornRule <> y:50 var
+R8598:8598 Kernel.BornRule <> z:51 var
+R8556:8556 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8559:8560 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8563:8564 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8567:8567 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8626:8628 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8618:8620 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8610:8612 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8607:8607 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8615:8615 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8623:8623 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+prf 8741:8768 <> measurement_creates_pure_one
+binder 8779:8779 <> x:52
+binder 8781:8781 <> y:53
+binder 8783:8783 <> z:54
+R8809:8828 Kernel.BornRule <> post_measurement_one def
+R8830:8830 Kernel.BornRule <> x:52 var
+R8832:8832 Kernel.BornRule <> y:53 var
+R8834:8834 Kernel.BornRule <> z:54 var
+R8793:8793 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8796:8797 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8800:8801 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8804:8804 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R8862:8864 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R8854:8856 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8846:8848 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R8843:8843 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8851:8851 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R8859:8859 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+def 9345:9372 <> measurement_cost_nonnegative
+R9379:9386 Kernel.BornRule <> ProbRule def
+binder 9375:9375 <> P:55
+binder 9408:9408 <> x:56
+binder 9410:9410 <> y:57
+binder 9412:9412 <> z:58
+R9439:9446 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R9434:9437 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R9428:9430 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9422:9424 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9420:9420 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9419:9419 Kernel.BornRule <> x:56 var
+R9421:9421 Kernel.BornRule <> x:56 var
+R9426:9426 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9425:9425 Kernel.BornRule <> y:57 var
+R9427:9427 Kernel.BornRule <> y:57 var
+R9432:9432 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9431:9431 Kernel.BornRule <> z:58 var
+R9433:9433 Kernel.BornRule <> z:58 var
+R9472:9475 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9447:9465 Kernel.BornRule <> measurement_mu_cost def
+R9467:9467 Kernel.BornRule <> x:56 var
+R9469:9469 Kernel.BornRule <> y:57 var
+R9471:9471 Kernel.BornRule <> z:58 var
+prf 9626:9663 <> born_rule_measurement_cost_nonnegative
+R9669:9696 Kernel.BornRule <> measurement_cost_nonnegative def
+R9698:9706 Kernel.BornRule <> born_rule def
+R9725:9752 Kernel.BornRule <> measurement_cost_nonnegative def
+R9755:9773 Kernel.BornRule <> measurement_mu_cost def
+R9833:9836 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9827:9829 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9821:9823 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9819:9819 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9825:9825 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9831:9831 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9833:9836 Coq.Reals.Rdefinitions <> ::R_scope:x_'>='_x not
+R9827:9829 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9821:9823 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R9819:9819 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9825:9825 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R9831:9831 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+prf 10395:10444 <> valid_linear_rule_is_born_with_cost_side_condition
+R10461:10468 Kernel.BornRule <> ProbRule def
+binder 10457:10457 <> P:59
+R10492:10499 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10475:10489 Kernel.BornRule <> valid_prob_rule def
+R10491:10491 Kernel.BornRule <> P:59 var
+R10516:10523 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10500:10513 Kernel.BornRule <> is_linear_in_z def
+R10515:10515 Kernel.BornRule <> P:59 var
+R10554:10561 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10524:10551 Kernel.BornRule <> measurement_cost_nonnegative def
+R10553:10553 Kernel.BornRule <> P:59 var
+binder 10569:10569 <> x:60
+binder 10571:10571 <> y:61
+binder 10573:10573 <> z:62
+R10602:10611 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R10597:10600 Coq.Reals.Rdefinitions <> ::R_scope:x_'<='_x not
+R10591:10593 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10585:10587 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R10583:10583 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10582:10582 Kernel.BornRule <> x:60 var
+R10584:10584 Kernel.BornRule <> x:60 var
+R10589:10589 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10588:10588 Kernel.BornRule <> y:61 var
+R10590:10590 Kernel.BornRule <> y:61 var
+R10595:10595 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R10594:10594 Kernel.BornRule <> z:62 var
+R10596:10596 Kernel.BornRule <> z:62 var
+R10639:10648 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R10621:10623 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10612:10612 Kernel.BornRule <> P:59 var
+R10614:10614 Kernel.BornRule <> x:60 var
+R10616:10616 Kernel.BornRule <> y:61 var
+R10618:10618 Kernel.BornRule <> z:62 var
+R10624:10632 Kernel.BornRule <> prob_zero def
+R10634:10634 Kernel.BornRule <> x:60 var
+R10636:10636 Kernel.BornRule <> y:61 var
+R10638:10638 Kernel.BornRule <> z:62 var
+R10658:10660 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R10649:10649 Kernel.BornRule <> P:59 var
+R10651:10651 Kernel.BornRule <> x:60 var
+R10653:10653 Kernel.BornRule <> y:61 var
+R10655:10655 Kernel.BornRule <> z:62 var
+R10661:10668 Kernel.BornRule <> prob_one def
+R10670:10670 Kernel.BornRule <> x:60 var
+R10672:10672 Kernel.BornRule <> y:61 var
+R10674:10674 Kernel.BornRule <> z:62 var
+R10781:10799 Kernel.BornRule <> linear_implies_born thm
+R10781:10799 Kernel.BornRule <> linear_implies_born thm
+R10976:10994 Kernel.BornRule <> linear_implies_born thm
+R10976:10994 Kernel.BornRule <> linear_implies_born thm
+R11074:11089 Kernel.BornRule <> probs_sum_to_one thm
+R11074:11089 Kernel.BornRule <> probs_sum_to_one thm
+prf 11211:11237 <> born_rule_measurement_cases
+R11243:11243 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11343:11350 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R11449:11449 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+binder 11251:11251 <> x:63
+binder 11253:11253 <> y:64
+binder 11255:11255 <> z:65
+R11283:11303 Kernel.BornRule <> post_measurement_zero def
+R11305:11305 Kernel.BornRule <> x:63 var
+R11307:11307 Kernel.BornRule <> y:64 var
+R11309:11309 Kernel.BornRule <> z:65 var
+R11267:11267 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11270:11271 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11274:11275 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11278:11278 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11339:11341 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11331:11333 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11323:11325 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11320:11320 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11328:11328 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11336:11336 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+binder 11358:11358 <> x:66
+binder 11360:11360 <> y:67
+binder 11362:11362 <> z:68
+R11390:11409 Kernel.BornRule <> post_measurement_one def
+R11411:11411 Kernel.BornRule <> x:66 var
+R11413:11413 Kernel.BornRule <> y:67 var
+R11415:11415 Kernel.BornRule <> z:68 var
+R11374:11374 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11377:11378 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11381:11382 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11385:11385 Coq.Init.Datatypes <> ::core_scope:'('_x_','_x_','_'..'_','_x_')' not
+R11445:11447 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R11437:11439 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11429:11431 Coq.Reals.Rdefinitions <> ::R_scope:x_'+'_x not
+R11426:11426 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11434:11434 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11442:11442 Coq.Reals.Rdefinitions <> ::R_scope:x_'*'_x not
+R11475:11503 Kernel.BornRule <> measurement_creates_pure_zero thm
+R11513:11540 Kernel.BornRule <> measurement_creates_pure_one thm
+R11475:11503 Kernel.BornRule <> measurement_creates_pure_zero thm
+R11513:11540 Kernel.BornRule <> measurement_creates_pure_one thm

@@ -8,7 +8,7 @@ from fractions import Fraction
 from itertools import product
 import random
 import sys
-sys.path.insert(0, "/workspaces/The-Thiele-Machine/tools")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from calibrated_witness_search import (
     total_S, S_m, density_solution_exists, make_graph_octahedron,
     neighbors_of, triangles_at,

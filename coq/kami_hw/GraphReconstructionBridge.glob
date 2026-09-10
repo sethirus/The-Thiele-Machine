@@ -1,4 +1,4 @@
-DIGEST ee8d4540f40b0ccf844fd2bd7cd9e8ee
+DIGEST af10fd3da66172e97463f1b84e79fd45
 FKamiHW.GraphReconstructionBridge
 R543:556 Coq.Lists.List <> <> lib
 R574:591 Coq.Arith.PeanoNat <> <> lib
@@ -9524,56 +9524,83 @@ R181857:181858 KamiHW.GraphReconstructionBridge <> ks:606 var
 R181840:181844 KamiHW.GraphReconstructionBridge <> trace:605 var
 R181875:181878 Coq.Init.Datatypes <> None constr
 R181883:181884 KamiHW.GraphReconstructionBridge <> ks:606 var
-prf 182022:182042 <> driven_trace_commutes
-binder 182055:182058 <> fuel:609
-binder 182060:182064 <> trace:610
-binder 182066:182067 <> ks:611
-R182074:182074 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R182115:182123 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-binder 182082:182084 <> ks':612
-binder 182086:182086 <> i:613
-R182089:182108 KamiHW.GraphReconstructionBridge <> WFDrivenPrecondition def
-R182110:182112 KamiHW.GraphReconstructionBridge <> ks':612 var
-R182114:182114 KamiHW.GraphReconstructionBridge <> i:613 var
-R182207:182213 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R182124:182140 KamiHW.FullAbstraction <> abs_full_snapshot def
-R182143:182167 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R182176:182190 KamiHW.GraphReconstructionBridge <> kami_run_driven def
-R182192:182195 KamiHW.GraphReconstructionBridge <> fuel:609 var
-R182197:182201 KamiHW.GraphReconstructionBridge <> trace:610 var
-R182203:182204 KamiHW.GraphReconstructionBridge <> ks:611 var
-R182214:182219 Kernel.SimulationProof <> run_vm def
-R182221:182224 KamiHW.GraphReconstructionBridge <> fuel:609 var
-R182226:182230 KamiHW.GraphReconstructionBridge <> trace:610 var
-R182239:182255 KamiHW.FullAbstraction <> abs_full_snapshot def
-R182258:182282 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R182284:182285 KamiHW.GraphReconstructionBridge <> ks:611 var
-R182389:182397 Coq.Lists.List <> nth_error def
-R182406:182412 KamiHW.Abstraction <> snap_pc proj
-R182389:182397 Coq.Lists.List <> nth_error def
-R182406:182412 KamiHW.Abstraction <> snap_pc proj
-R182475:182488 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
-R182475:182488 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
-R182475:182488 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
-R182475:182488 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
-prf 186721:186766 <> kami_step_full_agrees_with_kami_step_supported
-binder 186779:186780 <> ks:614
-binder 186782:186782 <> i:615
-R186806:186813 Coq.Init.Logic <> ::type_scope:x_'->'_x not
-R186789:186803 KamiHW.EmbedStep <> SupportedOpcode def
-R186805:186805 KamiHW.GraphReconstructionBridge <> i:615 var
-R186856:186862 Coq.Init.Logic <> ::type_scope:x_'='_x not
-R186814:186838 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R186841:186849 KamiHW.Abstraction <> kami_step def
-R186851:186852 KamiHW.GraphReconstructionBridge <> ks:614 var
-R186854:186854 KamiHW.GraphReconstructionBridge <> i:615 var
-R186863:186876 KamiHW.FullStep <> kami_step_full def
-R186879:186903 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
-R186905:186906 KamiHW.GraphReconstructionBridge <> ks:614 var
-R186909:186909 KamiHW.GraphReconstructionBridge <> i:615 var
-R186948:186961 KamiHW.FullStep <> kami_step_full def
-R186978:186998 KamiHW.GraphReconstructionBridge <> driven_step_supported thm
-R186978:186998 KamiHW.GraphReconstructionBridge <> driven_step_supported thm
-R187045:187066 KamiHW.FullAbstraction <> full_snapshot_repr_abs thm
-R187045:187066 KamiHW.FullAbstraction <> full_snapshot_repr_abs thm
-R187045:187066 KamiHW.FullAbstraction <> full_snapshot_repr_abs thm
+def 182152:182162 <> WFDrivenRun
+R182176:182178 Coq.Init.Datatypes <> nat ind
+binder 182169:182172 <> fuel:609
+R182190:182193 Coq.Init.Datatypes <> list ind
+R182195:182208 Kernel.VMStep VMStep vm_instruction ind
+binder 182182:182186 <> trace:610
+R182217:182228 KamiHW.Abstraction <> KamiSnapshot rec
+binder 182212:182213 <> ks:611
+R182249:182252 KamiHW.GraphReconstructionBridge <> fuel:609 var
+R182268:182271 Coq.Init.Logic <> True ind
+R182277:182277 Coq.Init.Datatypes <> S constr
+R182300:182308 Coq.Lists.List <> nth_error def
+R182317:182323 KamiHW.Abstraction <> snap_pc proj
+R182325:182326 KamiHW.GraphReconstructionBridge <> ks:611 var
+R182310:182314 KamiHW.GraphReconstructionBridge <> trace:610 var
+R182342:182345 Coq.Init.Datatypes <> Some constr
+R182395:182408 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R182366:182385 KamiHW.GraphReconstructionBridge <> WFDrivenPrecondition def
+R182387:182388 KamiHW.GraphReconstructionBridge <> ks:611 var
+R182409:182419 KamiHW.GraphReconstructionBridge <> WFDrivenRun:612 def
+R182434:182442 KamiHW.Abstraction <> kami_step def
+R182444:182445 KamiHW.GraphReconstructionBridge <> ks:611 var
+R182427:182431 KamiHW.GraphReconstructionBridge <> trace:610 var
+R182462:182465 Coq.Init.Datatypes <> None constr
+R182470:182473 Coq.Init.Logic <> True ind
+prf 182582:182602 <> driven_trace_commutes
+binder 182615:182618 <> fuel:614
+binder 182620:182624 <> trace:615
+binder 182626:182627 <> ks:616
+R182659:182666 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R182634:182644 KamiHW.GraphReconstructionBridge <> WFDrivenRun def
+R182646:182649 KamiHW.GraphReconstructionBridge <> fuel:614 var
+R182651:182655 KamiHW.GraphReconstructionBridge <> trace:615 var
+R182657:182658 KamiHW.GraphReconstructionBridge <> ks:616 var
+R182750:182756 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R182667:182683 KamiHW.FullAbstraction <> abs_full_snapshot def
+R182686:182710 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R182719:182733 KamiHW.GraphReconstructionBridge <> kami_run_driven def
+R182735:182738 KamiHW.GraphReconstructionBridge <> fuel:614 var
+R182740:182744 KamiHW.GraphReconstructionBridge <> trace:615 var
+R182746:182747 KamiHW.GraphReconstructionBridge <> ks:616 var
+R182757:182762 Kernel.SimulationProof <> run_vm def
+R182764:182767 KamiHW.GraphReconstructionBridge <> fuel:614 var
+R182769:182773 KamiHW.GraphReconstructionBridge <> trace:615 var
+R182782:182798 KamiHW.FullAbstraction <> abs_full_snapshot def
+R182801:182825 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R182827:182828 KamiHW.GraphReconstructionBridge <> ks:616 var
+R182932:182940 Coq.Lists.List <> nth_error def
+R182949:182955 KamiHW.Abstraction <> snap_pc proj
+R182932:182940 Coq.Lists.List <> nth_error def
+R182949:182955 KamiHW.Abstraction <> snap_pc proj
+R182995:183005 KamiHW.GraphReconstructionBridge <> WFDrivenRun def
+R183102:183110 KamiHW.Abstraction <> kami_step def
+R183102:183110 KamiHW.Abstraction <> kami_step def
+R183102:183110 KamiHW.Abstraction <> kami_step def
+R183144:183157 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
+R183144:183157 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
+R183144:183157 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
+R183144:183157 KamiHW.GraphReconstructionBridge <> driven_step_wf thm
+prf 187375:187420 <> kami_step_full_agrees_with_kami_step_supported
+binder 187433:187434 <> ks:617
+binder 187436:187436 <> i:618
+R187460:187467 Coq.Init.Logic <> ::type_scope:x_'->'_x not
+R187443:187457 KamiHW.EmbedStep <> SupportedOpcode def
+R187459:187459 KamiHW.GraphReconstructionBridge <> i:618 var
+R187510:187516 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R187468:187492 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R187495:187503 KamiHW.Abstraction <> kami_step def
+R187505:187506 KamiHW.GraphReconstructionBridge <> ks:617 var
+R187508:187508 KamiHW.GraphReconstructionBridge <> i:618 var
+R187517:187530 KamiHW.FullStep <> kami_step_full def
+R187533:187557 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R187559:187560 KamiHW.GraphReconstructionBridge <> ks:617 var
+R187563:187563 KamiHW.GraphReconstructionBridge <> i:618 var
+R187602:187615 KamiHW.FullStep <> kami_step_full def
+R187632:187652 KamiHW.GraphReconstructionBridge <> driven_step_supported thm
+R187632:187652 KamiHW.GraphReconstructionBridge <> driven_step_supported thm
+R187699:187720 KamiHW.FullAbstraction <> full_snapshot_repr_abs thm
+R187699:187720 KamiHW.FullAbstraction <> full_snapshot_repr_abs thm
+R187699:187720 KamiHW.FullAbstraction <> full_snapshot_repr_abs thm

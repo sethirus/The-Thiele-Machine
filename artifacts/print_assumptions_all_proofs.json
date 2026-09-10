@@ -1,29 +1,29 @@
 {
   "schema": "thiele-print-assumptions-full-probe-v2",
-  "generated": "2026-07-23T02:15:52.443538+00:00",
+  "generated": "2026-09-10T17:36:58.158800+00:00",
   "coq_version": "8.18.0",
   "probe_file": "coq/AssumptionsProbeAll.v",
   "raw_output_file": "artifacts/print_assumptions_all_proofs.txt",
-  "raw_output_sha256": "f7380655a624ce13eb2c870f943924b08f1d74be18fe3b54fa3b7bd126a831c6",
-  "files_probed": 281,
-  "addressable_theorems_probed": 3980,
-  "blocks_parsed": 3980,
+  "raw_output_sha256": "92c9f2651bf81b00bd165674ac9301577c5ee2a282fa340d1781443fc79e44c2",
+  "files_probed": 286,
+  "addressable_theorems_probed": 4026,
+  "blocks_parsed": 4026,
   "alignment_ok": true,
   "stderr_nonempty": true,
-  "stderr_excerpt": "Warning: /workspaces/The-Thiele-Machine/coq/kernel/aggregators was previously\nbound to kernel.aggregators; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/category was previously\nbound to kernel.category; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/curvature was previously\nbound to kernel.curvature; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/foundation was previously\nbound to kernel.foundation; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/frontier was previously\nbound to kernel.frontier; it is remapped to Kernel\n[overriding-logical-loadpath,filesystem,default]\nWarning: /workspaces/The-Thiele-Machine/coq/kernel/hardware_bridge was\npreviously bound to kernel.hardware_bridge",
+  "stderr_excerpt": "\nCoq < Coq < Coq < Coq < Coq < Coq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq < \nCoq",
   "unexpected_lines_in_output": 0,
   "first_unexpected_lines": [],
   "summary": {
-    "theorems_probed": 3980,
-    "closed_under_global_context": 2934,
-    "depend_on_axioms": 1046,
+    "theorems_probed": 4026,
+    "closed_under_global_context": 2979,
+    "depend_on_axioms": 1047,
     "user_or_third_party_axiom_findings": 0,
     "excluded_middle_users": 67,
-    "functional_extensionality_users": 968,
+    "functional_extensionality_users": 969,
     "real_completeness_axiom_users": 1008,
     "unique_axioms_used": {
       "ClassicalDedekindReals.sig_forall_dec": 1008,
-      "FunctionalExtensionality.functional_extensionality_dep": 968,
+      "FunctionalExtensionality.functional_extensionality_dep": 969,
       "ClassicalDedekindReals.sig_not_dec": 276,
       "Classical_Prop.classic": 67
     }
@@ -152,8 +152,8 @@
       ]
     },
     "Kernel": {
-      "theorems": 2704,
-      "closed": 1786,
+      "theorems": 2738,
+      "closed": 1820,
       "with_axioms": 918,
       "axiom_set": [
         "ClassicalDedekindReals.sig_forall_dec",
@@ -227,10 +227,12 @@
       "axiom_set": []
     },
     "Tests": {
-      "theorems": 15,
-      "closed": 15,
-      "with_axioms": 0,
-      "axiom_set": []
+      "theorems": 27,
+      "closed": 26,
+      "with_axioms": 1,
+      "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "Thermodynamic": {
       "theorems": 38,
@@ -1070,8 +1072,8 @@
       "axiom_set": []
     },
     "coq/kernel/frontier/F1_StrongForm.v": {
-      "theorems": 2,
-      "closed": 2,
+      "theorems": 4,
+      "closed": 4,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -1140,15 +1142,33 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/frontier/ObservationPolicy.v": {
+      "theorems": 13,
+      "closed": 13,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/frontier/PointerObservable.v": {
       "theorems": 2,
       "closed": 2,
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/kernel/frontier/PointerObservableCounterexamples.v": {
+      "theorems": 9,
+      "closed": 9,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/kernel/frontier/PointerObservableReductions.v": {
       "theorems": 8,
       "closed": 8,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
+    "coq/kernel/frontier/TraceStateDescent.v": {
+      "theorems": 10,
+      "closed": 10,
       "with_axioms": 0,
       "axiom_set": []
     },
@@ -2109,6 +2129,12 @@
       "with_axioms": 0,
       "axiom_set": []
     },
+    "coq/tests/ClaimBoundaryRegression.v": {
+      "theorems": 5,
+      "closed": 5,
+      "with_axioms": 0,
+      "axiom_set": []
+    },
     "coq/tests/CloseoutVerification.v": {
       "theorems": 3,
       "closed": 3,
@@ -2120,6 +2146,14 @@
       "closed": 10,
       "with_axioms": 0,
       "axiom_set": []
+    },
+    "coq/tests/WFDrivenRunRegression.v": {
+      "theorems": 7,
+      "closed": 6,
+      "with_axioms": 1,
+      "axiom_set": [
+        "FunctionalExtensionality.functional_extensionality_dep"
+      ]
     },
     "coq/tests/verify_nofi_load_bearing.v": {
       "theorems": 1,

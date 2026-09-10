@@ -6,7 +6,7 @@ from fractions import Fraction
 from itertools import product
 import sys
 
-sys.path.insert(0, "/workspaces/The-Thiele-Machine/tools")
+sys.path.insert(0, str(__import__("pathlib").Path(__file__).resolve().parent))
 from calibrated_witness_search import (
     make_graph_complete, total_S, S_m, density_solution_exists,
     triangles_at, neighbors_of,

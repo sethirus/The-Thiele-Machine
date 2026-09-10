@@ -12,9 +12,9 @@
       - μ-accounting at the step level: [mu_lower_bound] proves the per-step
         observation always covers the certificate's bit cost.
       - A hash chain [hash_chain] for tamper-evident receipt sequences.
-      - The universal end-to-end statement [ThieleMachine_universal]: every
-        valid execution produces a verifiable receipt list and pays its
-        bits in μ.
+      - The end-to-end statement for this layer,
+        [abstract_exec_receipts_replay_and_are_paid]: every valid execution
+        produces a verifiable receipt list and pays its bits in μ.
 
     The scope is exactly that foundation layer. Later files specialise
     [Prog], [State], and [step] to richer Thiele CPU semantics; this file
@@ -95,7 +95,18 @@ Record State := {
     programs. The constructors of [well_formed_instr] enumerate the kinds
     the checker recognises; [wf_other] makes the predicate total, so any
     extra instruction kinds added later are tolerated rather than rejected
-    by the foundation. *)
+    by the foundation.
+
+    CAVEAT — this predicate currently has NO CONTENT. Because [wf_other i]
+    applies to every [i] with no side condition, [well_formed_instr i] is
+    provable for all [i], hence [well_formed P] holds for every program [P].
+    A hypothesis satisfied by everything constrains nothing, so any theorem
+    "for every well-formed program" here is really "for every program".
+    That is why [abstract_exec_receipts_replay_and_are_paid] can discard it.
+    The predicate is kept as an extension point: a concrete instantiation
+    that drops [wf_other] and enumerates real kinds gives it teeth without
+    changing downstream signatures. Until then, do not read [well_formed] as
+    a restriction. *)
 Inductive well_formed_instr : Instr -> Prop :=
 | wf_LASSERT i : is_LASSERT i = true -> well_formed_instr i
 | wf_MDLACC  i : is_MDLACC  i = true -> well_formed_instr i
@@ -378,9 +389,9 @@ Definition sum_bits (rs: list Receipt) : Z :=
 
 (** ** Universal theorems
 
-    The two universal lemmas below — replay correctness and μ-accounting —
-    combine into [ThieleMachine_universal]: the headline statement of this
-    file. Together they say that any valid execution of any well-formed
+    The two lemmas below — replay correctness and μ-accounting — combine into
+    [abstract_exec_receipts_replay_and_are_paid], the headline statement of
+    this file. Together they say that any valid execution of any well-formed
     program is auditable end-to-end and that auditing it never reveals a
     cost shortfall. *)
 
@@ -421,11 +432,30 @@ Proof.
     apply Z.add_le_mono; [ exact (mu_lower_bound P s0 s1 obs Hstep) | exact IH ].
 Qed.
 
-(** Universal theorem: for every well-formed program and every valid
-    execution, the receipt list checks and the bit cost is paid. The
-    well-formedness hypothesis is currently unused at this abstract
-    layer; concrete instantiations rely on it for kind-specific guards. *)
-Theorem ThieleMachine_universal :
+(** SCOPE. This is an abstract-layer statement, and three limits on it are
+    visible in the statement below. A "universal" reading would overstate it
+    on each count.
+
+    1. [State] in this file is [Record State := { pc : nat }]. The theorem is
+       about that abstract one-field state, not about [VMState].
+    2. The [well_formed P] hypothesis is DISCARDED by the proof (see the [_]
+       in [intros P s0 tr _ HEX]). It could be deleted without changing what
+       is proved.
+    3. [well_formed_instr] is universally true anyway: its [wf_other]
+       constructor accepts every instruction, so [well_formed P] holds for
+       every program. Even if the hypothesis were used, it would constrain
+       nothing.
+
+    What IS proved, and it is a reasonable statement: at the abstract
+    small-step layer, any valid execution's receipt list replays successfully
+    and the certificate bit-costs are covered by the mu spent. That is
+    auditability plus a cost floor for this abstract layer, and later files
+    specialise it. It is not a universality theorem about the Thiele machine.
+
+    (The [well_formed] hypothesis is retained so concrete instantiations that
+    DO give [well_formed_instr] content can be plugged in without changing the
+    signature; see the note on [well_formed_instr] above.) *)
+Theorem abstract_exec_receipts_replay_and_are_paid :
   forall P s0 tr,
     well_formed P ->
     Exec P s0 tr ->

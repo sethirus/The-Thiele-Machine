@@ -45,7 +45,12 @@ import sys
 import textwrap
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+# Insert the REPO ROOT, not this script's own directory. `build` is a
+# top-level package at the repo root, so inserting examples/ made this import
+# resolve only when the project happened to be pip-installed (editable), and
+# fail with ModuleNotFoundError on a clean checkout -- which is precisely the
+# state a first-time reviewer following the README is in.
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from build import thiele_vm as vm
 
 

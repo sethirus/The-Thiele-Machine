@@ -1,0 +1,127 @@
+DIGEST 883dd2e702c617aa706b7727d63aa7e6
+FTests.WFDrivenRunRegression
+R181:184 Coq.Lists.List <> <> lib
+R186:188 Coq.micromega.Lia <> <> lib
+R190:203 Coq.Arith.PeanoNat <> <> lib
+R213:225 Coq.Lists.List ListNotations <> mod
+R255:261 Kernel.VMState <> <> lib
+R263:268 Kernel.VMStep <> <> lib
+R270:284 Kernel.SimulationProof <> <> lib
+R314:324 KamiHW.Abstraction <> <> lib
+R326:340 KamiHW.FullAbstraction <> <> lib
+R342:366 KamiHW.GraphReconstructionBridge <> <> lib
+R370:385 KamiHW.VerilogSemantics <> <> lib
+R387:403 KamiHW.ShadowDeviceTrace <> <> lib
+R405:422 KamiHW.ThieleCanonicality <> <> lib
+def 437:451 <> review_snapshot
+R455:466 KamiHW.Abstraction <> KamiSnapshot rec
+R488:502 KamiHW.Abstraction <> snap_rich_state proj
+R488:502 KamiHW.Abstraction <> snap_rich_state proj
+R488:502 KamiHW.Abstraction <> snap_rich_state proj
+R546:560 KamiHW.Abstraction <> snap_pt_next_id proj
+R546:560 KamiHW.Abstraction <> snap_pt_next_id proj
+R507:531 KamiHW.Abstraction <> empty_rich_snapshot_state def
+R598:602 Coq.Init.Datatypes <> false constr
+R488:502 KamiHW.Abstraction <> snap_rich_state proj
+R488:502 KamiHW.Abstraction <> snap_rich_state proj
+R488:502 KamiHW.Abstraction <> snap_rich_state proj
+R546:560 KamiHW.Abstraction <> snap_pt_next_id proj
+R546:560 KamiHW.Abstraction <> snap_pt_next_id proj
+R507:531 KamiHW.Abstraction <> empty_rich_snapshot_state def
+R598:602 Coq.Init.Datatypes <> false constr
+R598:602 Coq.Init.Datatypes <> false constr
+R598:602 Coq.Init.Datatypes <> false constr
+R598:602 Coq.Init.Datatypes <> false constr
+R598:602 Coq.Init.Datatypes <> false constr
+R598:602 Coq.Init.Datatypes <> false constr
+R598:602 Coq.Init.Datatypes <> false constr
+R598:602 Coq.Init.Datatypes <> false constr
+prf 759:795 <> old_universal_precondition_impossible
+R801:803 Coq.Init.Logic <> ::type_scope:'~'_x not
+R842:842 Coq.Init.Logic <> ::type_scope:'~'_x not
+binder 811:812 <> ks:1
+binder 814:814 <> i:2
+R817:836 KamiHW.GraphReconstructionBridge <> WFDrivenPrecondition def
+R838:839 Tests.WFDrivenRunRegression <> ks:1 var
+R841:841 Tests.WFDrivenRunRegression <> i:2 var
+R877:891 Tests.WFDrivenRunRegression <> review_snapshot def
+R894:903 Kernel.VMStep VMStep instr_pnew constr
+R905:906 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R877:891 Tests.WFDrivenRunRegression <> review_snapshot def
+R894:903 Kernel.VMStep VMStep instr_pnew constr
+R905:906 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R948:951 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R948:951 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+def 997:1009 <> valid_program
+R1014:1014 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1031:1032 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1048:1048 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R1015:1024 Kernel.VMStep VMStep instr_pnew constr
+R1026:1026 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1028:1028 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1033:1045 Kernel.VMStep VMStep instr_certify constr
+prf 1132:1163 <> valid_program_meets_run_contract
+R1169:1179 KamiHW.GraphReconstructionBridge <> WFDrivenRun def
+R1183:1195 Tests.WFDrivenRunRegression <> valid_program def
+R1197:1211 Tests.WFDrivenRunRegression <> review_snapshot def
+prf 1282:1314 <> valid_program_full_state_commutes
+R1419:1423 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1320:1336 KamiHW.FullAbstraction <> abs_full_snapshot def
+R1339:1363 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R1370:1384 KamiHW.GraphReconstructionBridge <> kami_run_driven def
+R1388:1400 Tests.WFDrivenRunRegression <> valid_program def
+R1402:1416 Tests.WFDrivenRunRegression <> review_snapshot def
+R1424:1429 Kernel.SimulationProof <> run_vm def
+R1433:1445 Tests.WFDrivenRunRegression <> valid_program def
+R1452:1468 KamiHW.FullAbstraction <> abs_full_snapshot def
+R1471:1495 KamiHW.FullAbstraction <> full_snapshot_of_snapshot def
+R1497:1511 Tests.WFDrivenRunRegression <> review_snapshot def
+R1529:1549 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+R1552:1583 Tests.WFDrivenRunRegression <> valid_program_meets_run_contract thm
+R1529:1549 KamiHW.GraphReconstructionBridge <> driven_trace_commutes thm
+R1552:1583 Tests.WFDrivenRunRegression <> valid_program_meets_run_contract thm
+prf 1600:1631 <> valid_program_actually_certifies
+R1708:1713 Coq.Init.Logic <> ::type_scope:x_'/\'_x not
+R1701:1703 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1637:1650 KamiHW.Abstraction <> snap_certified proj
+R1653:1667 KamiHW.GraphReconstructionBridge <> kami_run_driven def
+R1671:1683 Tests.WFDrivenRunRegression <> valid_program def
+R1685:1699 Tests.WFDrivenRunRegression <> review_snapshot def
+R1704:1707 Coq.Init.Datatypes <> true constr
+R1771:1773 Coq.Init.Logic <> ::type_scope:x_'='_x not
+R1714:1720 KamiHW.Abstraction <> snap_mu proj
+R1723:1737 KamiHW.GraphReconstructionBridge <> kami_run_driven def
+R1741:1753 Tests.WFDrivenRunRegression <> valid_program def
+R1755:1769 Tests.WFDrivenRunRegression <> review_snapshot def
+prf 1830:1858 <> visited_invalid_pnew_rejected
+R1864:1865 Coq.Init.Logic <> ::type_scope:'~'_x not
+R1866:1876 KamiHW.GraphReconstructionBridge <> WFDrivenRun def
+R1880:1880 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1896:1896 Coq.Lists.List ListNotations ::list_scope:'['_x_']' not
+R1881:1890 Kernel.VMStep VMStep instr_pnew constr
+R1892:1893 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R1898:1912 Tests.WFDrivenRunRegression <> review_snapshot def
+R1954:1957 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+R1954:1957 Coq.Init.Peano <> ::nat_scope:x_'<='_x not
+prf 2000:2029 <> unvisited_invalid_pnew_allowed
+R2035:2045 KamiHW.GraphReconstructionBridge <> WFDrivenRun def
+R2049:2049 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2064:2065 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2081:2082 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2098:2098 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2050:2059 Kernel.VMStep VMStep instr_jump constr
+R2066:2075 Kernel.VMStep VMStep instr_pnew constr
+R2077:2078 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2083:2095 Kernel.VMStep VMStep instr_certify constr
+R2100:2114 Tests.WFDrivenRunRegression <> review_snapshot def
+prf 2164:2195 <> invalid_pnew_beyond_fuel_allowed
+R2201:2211 KamiHW.GraphReconstructionBridge <> WFDrivenRun def
+R2215:2215 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2231:2232 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2248:2248 Coq.Lists.List ListNotations ::list_scope:'['_x_';'_x_';'_'..'_';'_x_']' not
+R2216:2228 Kernel.VMStep VMStep instr_certify constr
+R2233:2242 Kernel.VMStep VMStep instr_pnew constr
+R2244:2245 Coq.Lists.List ListNotations ::list_scope:'['_']' not
+R2250:2264 Tests.WFDrivenRunRegression <> review_snapshot def
+R2324:2356 Tests.WFDrivenRunRegression <> valid_program_full_state_commutes thm
+R2377:2413 Tests.WFDrivenRunRegression <> old_universal_precondition_impossible thm

@@ -1,0 +1,494 @@
+(** Comprehensive Print Assumptions probe — every addressable proof-bearing
+    declaration across every .v file in the repository (excluding vendor/kami,
+    coq/archive/). Generated; do not edit. Functor and Module-Type interiors
+    are skipped here and recorded separately in the inventory. *)
+
+Require Extraction.
+Require IntrinsicLevelHierarchy.
+Require MuCodingTheorem.
+Require MuDirectSum.
+Require NecessityOfMuLedger.
+Require PhysicsConditionalClosure.
+Require ReceiptTheorem.
+Require ThieleMachineComplete.
+Require VerifierEscape_Hardness.
+Require VerifierEscape_Interaction.
+Require VerifierEscape_Substrate.
+Require VerifierExhaustiveness.
+Require VerifierImpossibility.
+Require VerifierModel.
+Require KamiHW.Abstraction.
+Require KamiHW.CanonicalCPUProof.
+Require KamiHW.Compatibility.
+Require KamiHW.EmbedStep.
+Require KamiHW.EmbedStep_WF.
+Require KamiHW.F4_BModulesTranslation.
+Require KamiHW.F4_VerilogEvaluator.
+Require KamiHW.FullAbstraction.
+Require KamiHW.FullEmbedStep.
+Require KamiHW.FullStep.
+Require KamiHW.GraphReconstructionBridge.
+Require KamiHW.HardwareShadowBridge.
+Require KamiHW.KamiExtraction.
+Require KamiHW.LogicEngineEquivalence.
+Require KamiHW.RTLCorrectnessInstantiation.
+Require KamiHW.RTLGapRegistry.
+Require KamiHW.RichStateCommutation.
+Require KamiHW.ShadowDevice.
+Require KamiHW.ShadowDeviceTrace.
+Require KamiHW.ShadowEmbedStep.
+Require KamiHW.ThieleCPUBusTop.
+Require KamiHW.ThieleCPUCore.
+Require KamiHW.ThieleCanonicality.
+Require KamiHW.ThieleTypes.
+Require KamiHW.VerilogRefinement.
+Require KamiHW.VerilogSemantics.
+Require Kernel.Closure.
+Require Kernel.FalsifiablePrediction.
+Require Kernel.MasterSummary.
+Require Kernel.NonCircularityAudit.
+Require Kernel.PDISCOVERIntegration.
+Require Kernel.TOE.
+Require Kernel.ThieleGenesis.
+Require Kernel.UnificationProbeBridges.
+Require Kernel.UnificationProbePattern.
+Require Kernel.AlgebraicCoherence.
+Require Kernel.CategoryBridge.
+Require Kernel.CategoryLaws.
+Require Kernel.CategoryMonoidal.
+Require Kernel.ConstantUnification.
+Require Kernel.AffineEFEClosure.
+Require Kernel.CurvedTensorPipeline.
+Require Kernel.DiscreteGaussBonnet.
+Require Kernel.DiscreteRaychaudhuri.
+Require Kernel.DiscreteSimplicialGeometry.
+Require Kernel.DiscreteTopology.
+Require Kernel.EinsteinEmergence.
+Require Kernel.EinsteinEquations4D.
+Require Kernel.EinsteinEquationsFull.
+Require Kernel.FourDSimplicialComplex.
+Require Kernel.JacobsonBridgeComponents.
+Require Kernel.KernelNoether.
+Require Kernel.KernelPhysics.
+Require Kernel.LocalMorphismSemantics.
+Require Kernel.LorentzNotForced.
+Require Kernel.LorentzianTensorPipeline.
+Require Kernel.MatrixAlgebra4.
+Require Kernel.MetricForcing.
+Require Kernel.MetricFromMuCosts.
+Require Kernel.MuGravity.
+Require Kernel.NoFIToEinstein.
+Require Kernel.PNEWTopologyChange.
+Require Kernel.PhysicalSubstrate.
+Require Kernel.PhysicsClosure.
+Require Kernel.RaychaudhuriFluxBridge.
+Require Kernel.RiemannTensor4D.
+Require Kernel.SpacetimeEmergence.
+Require Kernel.StressEnergyDynamics.
+Require Kernel.SymmetricDerivative4D.
+Require Kernel.TopologyCurvatureBridge.
+Require Kernel.ClassicalBound.
+Require Kernel.ClassicalConservativity.
+Require Kernel.DagRestriction.
+Require Kernel.Definitions.
+Require Kernel.Kernel.
+Require Kernel.KernelTM.
+Require Kernel.KernelThiele.
+Require Kernel.Locality.
+Require Kernel.MuCostModel.
+Require Kernel.MuLedgerConservation.
+Require Kernel.NatSubstrateInstance.
+Require Kernel.PartitionSeparation.
+Require Kernel.Persistence.
+Require Kernel.ProperSubsumption.
+Require Kernel.SimulationProof.
+Require Kernel.StateSpaceCounting.
+Require Kernel.Substrate.
+Require Kernel.Subsumption.
+Require Kernel.TuringClassicalEmbedding.
+Require Kernel.TuringCompletenessISA.
+Require Kernel.TuringStrictness.
+Require Kernel.VMEncoding.
+Require Kernel.VMInstructionEncoding.
+Require Kernel.VMState.
+Require Kernel.VMStep.
+Require Kernel.VMSubstrateInstance.
+Require Kernel.VMUnboundedExec.
+Require Kernel.F1_AbstractedBridge.
+Require Kernel.F1_LogicalErasure.
+Require Kernel.F1_StrongForm.
+Require Kernel.F1_TraceLevelA2.
+Require Kernel.F2_MinorFromWitnessLocality.
+Require Kernel.F2_MinorIndependence.
+Require Kernel.F2_PerMinorFromCostCoherent.
+Require Kernel.F3_CrossLink.
+Require Kernel.F3_MuLaplacianSum.
+Require Kernel.F3_PartitionTopologyCrossLink.
+Require Kernel.F3_PlusOneStructural.
+Require Kernel.F3_TripleCrossLink.
+Require Kernel.ObservationPolicy.
+Require Kernel.PointerObservable.
+Require Kernel.PointerObservableCounterexamples.
+Require Kernel.PointerObservableReductions.
+Require Kernel.TraceStateDescent.
+Require Kernel.HardwareBisimulation.
+Require Kernel.OCamlExtractionBridge.
+Require Kernel.PythonBisimulation.
+Require Kernel.ThreeLayerIsomorphism.
+Require Kernel.VerilogRTLCorrespondence.
+Require Kernel.ConeAlgebra.
+Require Kernel.ConeDerivation.
+Require Kernel.SemanticMuCost.
+Require Kernel.KernelBenchmarks.
+Require Kernel.MuChaitin.
+Require Kernel.MuComplexity.
+Require Kernel.MuCostDerivation.
+Require Kernel.MuGeometry.
+Require Kernel.MuHierarchyTheorem.
+Require Kernel.MuInformation.
+Require Kernel.MuInitiality.
+Require Kernel.MuNoFreeInsightQuantitative.
+Require Kernel.MuShannonBridge.
+Require Kernel.MuShannonQuantitative.
+Require Kernel.QuantitativeNoFI.
+Require Kernel.A2LoadBearing.
+Require Kernel.A2Payoff.
+Require Kernel.AbstractNoFI.
+Require Kernel.CertCheck.
+Require Kernel.Certification.
+Require Kernel.CommitmentCostDecomposition.
+Require Kernel.CommitmentPredicateAdequacy.
+Require Kernel.CommitmentVsErasure.
+Require Kernel.HonestCostTracking.
+Require Kernel.HonestMeasurement.
+Require Kernel.HonestNoFI.
+Require Kernel.HonestNoFI_TheoremsWithoutAssumptions.
+Require Kernel.InformationGainToStrengthening.
+Require Kernel.InsightTaxonomy.
+Require Kernel.LandauerDerivation.
+Require Kernel.MeasurementExtraction.
+Require Kernel.MuLedgerQuantumBridge.
+Require Kernel.MuRunIncompleteness.
+Require Kernel.NecessityAbstract.
+Require Kernel.NoFreeInsight.
+Require Kernel.NonAdaptiveLowerBound.
+Require Kernel.PartitionRefinementNoFI.
+Require Kernel.PrimeAxiom.
+Require Kernel.ReceiptCore.
+Require Kernel.ReceiptIntegrity.
+Require Kernel.RevelationRequirement.
+Require Kernel.SimpleMorphShortcut.
+Require Kernel.StructuralAdvantage.
+Require Kernel.StructuralAdvantageCertifiedShortcut.
+Require Kernel.StructuralAdvantageObservedShortcut.
+Require Kernel.StructuralAdvantageObservedShortcutResult.
+Require Kernel.StructuralAxisOrthogonality.
+Require Kernel.StructuralAxisRelativization.
+Require Kernel.StructuralUndecidability.
+Require Kernel.ThermodynamicStructuralAdvantage.
+Require Kernel.ThieleInitiality.
+Require Kernel.UniversalCertificationCost.
+Require Kernel.UniversalShortcutLifting.
+Require Kernel.VMSubstrateEncoded.
+Require Kernel.VerificationCostSeparation.
+Require Kernel.BornRule.
+Require Kernel.BornRuleLinearity.
+Require Kernel.BoxCHSH.
+Require Kernel.CHSH.
+Require Kernel.CHSHCouplingBridge.
+Require Kernel.CHSHExtraction.
+Require Kernel.CHSHStatisticalBridge.
+Require Kernel.ConstructivePSD.
+Require Kernel.ElliptopeCompletion.
+Require Kernel.ElliptopeGate.
+Require Kernel.EntanglementEntropy.
+Require Kernel.GenRealizability.
+Require Kernel.HolevoDimensional.
+Require Kernel.HolevoGeneralD.
+Require Kernel.HolevoTwoQubit.
+Require Kernel.HonestMeasurementImpliesNPA.
+Require Kernel.InformationCausality.
+Require Kernel.MinorConstraints.
+Require Kernel.NPAMomentMatrix.
+Require Kernel.NoCloning.
+Require Kernel.OperatorAlgebra.
+Require Kernel.PRBoxIsDishonest.
+Require Kernel.ProbabilityImpossibility.
+Require Kernel.Purification.
+Require Kernel.QuantumBound.
+Require Kernel.QuantumEquivalence.
+Require Kernel.QuantumPartitionPSD.
+Require Kernel.QuantumPartitionPSD_1AB.
+Require Kernel.SemidefiniteProgramming.
+Require Kernel.TsirelsonFromAlgebra.
+Require Kernel.TsirelsonFromIC.
+Require Kernel.TsirelsonFromMu.
+Require Kernel.TsirelsonGeneral.
+Require Kernel.TsirelsonQuantumModel.
+Require Kernel.TsirelsonUniqueness.
+Require Kernel.TsirelsonUpperBound.
+Require Kernel.Unitarity.
+Require Kernel.ValidCorrelation.
+Require Kernel.GasMetering.
+Require Kernel.PoSFinality.
+Require Kernel.ProofCarryingVerifier.
+Require Kernel.TEEAttestation.
+Require Kernel.TransparencyLog.
+Require Kernel.AdditionalProbes.
+Require Kernel.BekensteinBound.
+Require Kernel.BekensteinCalibration.
+Require Kernel.ClausiusFromEntropyArea.
+Require Kernel.DimensionalGapTheorem.
+Require Kernel.EntropyImpossibility.
+Require Kernel.FiniteInformation.
+Require Kernel.LocalInfoLoss.
+Require Kernel.SecondLawBoltzmannWall.
+Require Kernel.ThermoEinsteinBridge.
+Require Kernel.BlindnessRepresentation.
+Require Kernel.DerivedTime.
+Require Kernel.InformationTopology.
+Require Kernel.ObserverDerivation.
+Require Kernel.ProjectionNonExistence.
+Require Kernel.ShadowProjection.
+Require Kernel.ThieleTraceProjection.
+Require Kernel.WitnessInsightGeneral.
+Require Kernel.WitnessPreservationImpossibility.
+Require NoFI.Instance_Kernel.
+Require NoFI.MuChaitinTheory_Interface.
+Require NoFI.MuChaitinTheory_Theorem.
+Require NoFI.NoFreeInsight_Interface.
+Require NoFI.NoFreeInsight_Theorem.
+Require Physics.DiscreteModel.
+Require Physics.DissipativeModel.
+Require Physics.PreregSplit.
+Require Physics.TriangularLattice.
+Require Physics.WaveModel.
+Require SelfReference.AdversarialChallenge.
+Require SelfReference.InductiveTrust.
+Require SelfReference.MuThresholdDisobedience.
+Require SelfReference.NeuralSymbolicBridge.
+Require SelfReference.NonInterference.
+Require SelfReference.RefinementInvariant.
+Require SelfReference.SelfCertifyingDecider.
+Require SelfReference.SelfReference.
+Require SelfReference.TilingChain.
+Require Spacetime.Spacetime.
+Require TestFixtures.VacuitySmoke.
+Require Tests.ClaimBoundaryRegression.
+Require Tests.CloseoutVerification.
+Require Tests.TestNecessity.
+Require Tests.WFDrivenRunRegression.
+Require Tests.verify_nofi_load_bearing.
+Require Tests.verify_zero_admits.
+Require Thermodynamic.LandauerDerived.
+Require Thermodynamic.LandauerJoules.
+Require Thermodynamic.ThermodynamicBridge.
+Require ThieleManifold.PhysicalConstants.
+Require ThieleManifold.PhysicsIsomorphism.
+Require ThieleManifold.ThieleManifold.
+Require ThieleManifold.ThieleManifoldBridge.
+Require ThieleMachine.ThieleMachine.
+Require ThieleMachine.ThieleProc.
+
+(* === Extraction : 16 addressable theorems (unaddressable: 0) === *)
+Print Assumptions KamiHW.EmbedStep_WF.SupportedOpcode_implies_WFSupported.
+Print Assumptions KamiHW.EmbedStep_WF.embed_step_wf_supported.
+Print Assumptions KamiHW.EmbedStep_WF.lassert_check_ok_hw_compat.
+Print Assumptions KamiHW.EmbedStep_WF.embed_step_lassert.
+Print Assumptions KamiHW.EmbedStep_WF.embed_step_pnew.
+Print Assumptions KamiHW.EmbedStep_WF.embed_step_psplit.
+Print Assumptions KamiHW.EmbedStep_WF.embed_step_pmerge.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_var.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readreg.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_eq.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_ite.
+Print Assumptions KamiHW.F4_BModulesTranslation.bexpr_to_vexpr_readfield.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_writereg.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_assert.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_return.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_let.
+Print Assumptions KamiHW.F4_BModulesTranslation.baction_to_vstmt_ifelse.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_behavioural.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodule_to_vmodule_primitive.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodules_to_verilog_length.
+Print Assumptions KamiHW.F4_BModulesTranslation.bmodules_to_verilog_singleton.
+Print Assumptions KamiHW.F4_VerilogEvaluator.state_set_get_eq.
+Print Assumptions KamiHW.F4_VerilogEvaluator.state_set_get_neq.
+Print Assumptions KamiHW.F4_VerilogEvaluator.bexpr_eval_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_readreg_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_readreg_concrete_test.
+Print Assumptions KamiHW.F4_VerilogEvaluator.writereg_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.assert_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.return_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.let_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_baction_seq_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_baction_seq_concrete.
+Print Assumptions KamiHW.F4_VerilogEvaluator.baction_translation_simple_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.simple_bactions_seq_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.ifelse_with_simple_branches_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_correspondence.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_then.
+Print Assumptions KamiHW.F4_VerilogEvaluator.test_ifelse_concrete_else.
+Print Assumptions KamiHW.FullAbstraction.abs_full_snapshot_repr.
+Print Assumptions KamiHW.FullAbstraction.full_snapshot_repr_abs.
+Print Assumptions KamiHW.FullAbstraction.abs_full_snapshot_of_snapshot.
+Print Assumptions KamiHW.FullEmbedStep.full_abs_as_with_graph.
+Print Assumptions KamiHW.FullEmbedStep.kami_step_preserves_full_graph.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_graph.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_csrs.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_regs.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_mem.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_pc.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_mu.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_mu_tensor.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_err.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_logic_acc.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_mstatus.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_witness.
+Print Assumptions KamiHW.FullEmbedStep.with_graph_certified.
+Print Assumptions KamiHW.FullEmbedStep.read_reg_with_graph.
+Print Assumptions KamiHW.FullEmbedStep.read_mem_with_graph.
+Print Assumptions KamiHW.FullEmbedStep.write_reg_with_graph.
+Print Assumptions KamiHW.FullEmbedStep.write_mem_with_graph.
+Print Assumptions KamiHW.FullEmbedStep.apply_cost_with_graph.
+Print Assumptions KamiHW.FullEmbedStep.mu_tensor_add_with_graph.
+Print Assumptions KamiHW.FullEmbedStep.vm_apply_with_graph_commute.
+Print Assumptions KamiHW.FullEmbedStep.full_embed_step_compute.
+Print Assumptions KamiHW.FullEmbedStep.full_embed_step.
+Print Assumptions KamiHW.FullEmbedStep.full_embed_step_trace.
+Print Assumptions KamiHW.FullEmbedStep.full_embed_step_of_projected.
+Print Assumptions KamiHW.FullEmbedStep.full_embed_step_general.
+Print Assumptions KamiHW.FullEmbedStep.kami_step_call_preserves_full_graph.
+Print Assumptions KamiHW.FullEmbedStep.kami_step_ret_preserves_full_graph.
+Print Assumptions KamiHW.FullEmbedStep.kami_step_chsh_trial_preserves_full_graph.
+Print Assumptions KamiHW.FullEmbedStep.vm_apply_call_with_graph_commute.
+Print Assumptions KamiHW.FullEmbedStep.vm_apply_ret_with_graph_commute.
+Print Assumptions KamiHW.FullEmbedStep.vm_apply_chsh_trial_with_graph_commute.
+Print Assumptions KamiHW.FullEmbedStep.kami_step_lassert_preserves_full_graph.
+Print Assumptions KamiHW.FullEmbedStep.vm_apply_lassert_with_graph_commute.
+Print Assumptions KamiHW.FullStep.kami_step_full_refines.
+Print Assumptions KamiHW.FullStep.kami_run_full_refines.
+Print Assumptions KamiHW.FullStep.initial_full_kami_correspondence.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_supported.
+Print Assumptions KamiHW.GraphReconstructionBridge.map_const_zero_repeat.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pnew.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pnew_minimal.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pnew.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pnew_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_call.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_ret.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_chsh_trial.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_lassert.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_lassert.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_lassert_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_tensor_set.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_tensor_get.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_tensor_get.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_lookup_modules_map_tensor.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_module_tensor.
+Print Assumptions KamiHW.GraphReconstructionBridge.tensor_flat_index_bound.
+Print Assumptions KamiHW.GraphReconstructionBridge.module_tensor_entry_snap.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_tensor_get_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.map_eqb_update_to_list_update.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_pt_to_graph_NoDup_fst.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_pt_to_graph_region_normalized.
+Print Assumptions KamiHW.GraphReconstructionBridge.modules_tensor_update.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_tensor_set.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_tensor_set_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.write_coupling_pairs_aux_below.
+Print Assumptions KamiHW.GraphReconstructionBridge.filtermap_compose.
+Print Assumptions KamiHW.GraphReconstructionBridge.write_coupling_pairs_round_trip.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_data_round_trip.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_label_round_trip.
+Print Assumptions KamiHW.GraphReconstructionBridge.hw_repr_invariant_supported_step.
+Print Assumptions KamiHW.GraphReconstructionBridge.hw_repr_invariant_pnew.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_data_preserves_morphisms.
+Print Assumptions KamiHW.GraphReconstructionBridge.filtermap_all_some_length.
+Print Assumptions KamiHW.GraphReconstructionBridge.write_coupling_pairs_aux_write_some.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_data_preserves_morphisms_gen.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_add_with_coupling_commutation_gen.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_count_length.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_preserved_add.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_preserved_delete.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_preserved_add_with_coupling.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_wf_kami_step_preserved.
+Print Assumptions KamiHW.GraphReconstructionBridge.add_morph_preserves_next_coupling_desc_id.
+Print Assumptions KamiHW.GraphReconstructionBridge.add_morph_preserves_coupling_desc_table.
+Print Assumptions KamiHW.GraphReconstructionBridge.delete_morph_preserves_next_coupling_desc_id.
+Print Assumptions KamiHW.GraphReconstructionBridge.delete_morph_preserves_coupling_desc_table.
+Print Assumptions KamiHW.GraphReconstructionBridge.add_coupling_next_desc_id_pos.
+Print Assumptions KamiHW.GraphReconstructionBridge.add_coupling_preserves_coupling_zero_empty.
+Print Assumptions KamiHW.GraphReconstructionBridge.add_with_coupling_preserves_coupling_zero_empty.
+Print Assumptions KamiHW.GraphReconstructionBridge.add_with_coupling_next_desc_id_pos.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_desc_safe_kami_step_preserved.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_zero_empty_kami_step_preserved.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_wf_preserved_add.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_wf_preserved_add_coupling.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_wf_preserved_add_with_coupling.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_wf_preserved_delete.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_wf_kami_step_preserved.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_table_none_implies_graph_none.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_lookup_agrees.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_advance_err.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_advance_cert_addr.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_advance_reg.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_advance_default.
+Print Assumptions KamiHW.GraphReconstructionBridge.full_state_kami_reg_write.
+Print Assumptions KamiHW.GraphReconstructionBridge.coupling_empty_under_invariants.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_add_with_coupling_commutation.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_lookup_morphism_corresponds.
+Print Assumptions KamiHW.GraphReconstructionBridge.filter_fst_eq.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_delete_morphism_of_lookup_some.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_module_lookup_none.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_pt_sizes_nonzero_graph_lookup.
+Print Assumptions KamiHW.GraphReconstructionBridge.filtermap_ext_in.
+Print Assumptions KamiHW.GraphReconstructionBridge.partition_graph_eq.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_pt_to_graph_ext.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_modules_eq.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_modules_eq.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_remove_preserves_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_add_module_preserves_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_preserves_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_preserves_morph_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_assert.
+Print Assumptions KamiHW.GraphReconstructionBridge.morph_entry_fields_agree.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_get.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_delete_none_of_lookup_none.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_delete.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_remove_modules_map_commute.
+Print Assumptions KamiHW.GraphReconstructionBridge.tensor_wrap_mod_fresh.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_module_size_tensor_overlay.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_psplit_overlay_commute.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_psplit.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_psplit.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_psplit_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.graph_hw_pmerge_overlay_commute.
+Print Assumptions KamiHW.GraphReconstructionBridge.snap_full_graph_pmerge.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pmerge.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_pmerge_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_id.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_id_full.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_compose_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_compose.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_tensor_fields.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_morph_tensor.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_step_wf.
+Print Assumptions KamiHW.GraphReconstructionBridge.driven_trace_commutes.
+Print Assumptions KamiHW.GraphReconstructionBridge.kami_step_full_agrees_with_kami_step_supported.
+Print Assumptions KamiHW.HardwareShadowBridge.hardware_shadow_compat.
+Print Assumptions KamiHW.HardwareShadowBridge.hardware_shadow_sim_rel.
+Print Assumptions KamiHW.HardwareShadowBridge.rtl_classical_obs_injective_shadow.
+Print Assumptions KamiHW.HardwareShadowBridge.hardware_sees_only_classical_shadow.
+Print Assumptions KamiHW.HardwareShadowBridge.hardware_shadow_mu_preserved.
+Print Assumptions KamiHW.HardwareShadowBridge.hardware_shadow_cert_preserved.
+Print Assumptions KamiHW.LogicEngineEquivalence.lassert_kami_step_pc_mu.
+Print Assumptions KamiHW.LogicEngineEquivalence.ljoin_kami_step_pc_mu.
+Print Assumptions KamiHW.LogicEngineEquivalence.lassert_vm_step_mu.
+Print Assumptions KamiHW.LogicEngineEquivalence.lassert_vm_step_pc.
+Print Assumptions KamiHW.LogicEngineEquivalence.ljoin_vm_step_pc_mu.
+Print Assumptions KamiHW.LogicEngineEquivalence.lassert_pc_commutation.
+Print Assumptions KamiHW.LogicEngineEquivalence.lassert_mu_gap.
+Print Assumptions KamiHW.LogicEngineEquivalence.ljoin_pc_mu_commutation.
+Quit.

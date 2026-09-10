@@ -99,6 +99,23 @@ Proof. reflexivity. Qed.
     [column_contractive_check_witness] (the same function called
     by [vm_apply] via [abs_phase1]), so [abs_phase1] commutes
     unconditionally with no precondition. *)
+(** DO NOT CITE THIS AS COVERAGE EVIDENCE.
+
+    This is an identity of Peano arithmetic. It mentions no opcode, no Kami
+    module, and no bisimulation relation, and it would still close with [Qed]
+    if every RTL proof in this repository were deleted. It records the
+    partition arithmetic for readers, nothing more.
+
+    The theorem that actually establishes opcode coverage is
+    [GraphReconstructionBridge.driven_step_wf]:
+
+        forall ks i, WFDrivenPrecondition ks i ->
+          abs_full_snapshot (full_snapshot_of_snapshot (kami_step ks i))
+          = vm_apply (abs_full_snapshot (full_snapshot_of_snapshot ks)) i
+
+    i.e. the abstracted hardware step agrees with [vm_apply] on every
+    instruction, discharged by genuine per-opcode lemmas. The README badge
+    points there. *)
 Theorem rtl_coverage_partition :
   37 + 10 + 0 = 47.
 Proof. reflexivity. Qed.

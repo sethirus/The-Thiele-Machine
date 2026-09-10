@@ -175,6 +175,31 @@ Record open_obligation_entry := {
   obligation_current_boundary : string
 }.
 
+(** ** READ THIS BEFORE CITING ANYTHING IN THIS SECTION.
+
+    [master_summary_assumptions] below is a HAND-TYPED RECORD LITERAL. It is a
+    written-down claim about the corpus, not a measurement of it. Nothing in
+    Coq checks these numbers against the corpus, and nothing can: Coq cannot
+    read the filesystem, so a record literal in a .v file can only ever restate
+    what its author typed.
+
+    Consequently the lemmas immediately below it, which prove that the
+    hand-typed [0] equals [0], are TRUE BUT EMPTY. They would still compile,
+    unchanged, if fifty axioms were added to the corpus tomorrow. They are
+    named `..._declares_...` for that reason: they record a declaration, they
+    do not verify one.
+
+    WHERE THE ACTUAL EVIDENCE LIVES. The claim "0 project-local axioms" is
+    backed by `artifacts/print_assumptions_all_proofs.json`, which is derived
+    by running `Print Assumptions` over every addressable declaration in the
+    corpus and parsing real `coqc` output. Regenerate it with:
+
+        make assumption-receipt
+
+    and CI byte-diffs the regenerated receipt against the committed one. THAT
+    is the check. This record is a human-readable summary of its conclusion,
+    kept in sync by `tests/test_proof_hygiene_numbers.py`. Cite the receipt;
+    do not cite the reflexivity lemmas as evidence of anything. *)
 Definition master_summary_assumptions : assumption_surface :=
   {| project_local_axioms_count := 0%nat;
      project_local_admits_count := 0%nat;
@@ -193,27 +218,36 @@ Definition master_summary_no_hidden_project_assumptions : Prop :=
   project_local_axioms_count master_summary_assumptions = 0%nat /\
   project_local_admits_count master_summary_assumptions = 0%nat.
 
-Lemma master_summary_project_local_axioms_count_zero :
+(** Reads back the [project_local_axioms_count] field of the hand-typed record
+    above. Proof is [reflexivity] because the field IS [0] by construction.
+    This confirms the declaration is internally consistent; it does NOT
+    measure the corpus. See the note above [master_summary_assumptions]. *)
+Lemma master_summary_declares_project_local_axioms_count_zero :
   project_local_axioms_count master_summary_assumptions = 0%nat.
 Proof.
   reflexivity.
 Qed.
 
-Lemma master_summary_project_local_admits_count_zero :
+(** Same status as the lemma above: reads back a hand-typed field. *)
+Lemma master_summary_declares_project_local_admits_count_zero :
   project_local_admits_count master_summary_assumptions = 0%nat.
 Proof.
   reflexivity.
 Qed.
 
-Theorem master_summary_no_hidden_project_assumptions_verified :
+(** Conjunction of the two field read-backs above. Nothing here verifies
+    anything about the corpus; the corpus-level check is
+    `make assumption-receipt` plus the CI byte-diff of
+    `artifacts/print_assumptions_all_proofs.json`. *)
+Theorem master_summary_declares_no_hidden_project_assumptions :
   master_summary_no_hidden_project_assumptions.
 Proof.
   change
     (project_local_axioms_count master_summary_assumptions = 0%nat /\
      project_local_admits_count master_summary_assumptions = 0%nat).
   split.
-  - exact master_summary_project_local_axioms_count_zero.
-  - exact master_summary_project_local_admits_count_zero.
+  - exact master_summary_declares_project_local_axioms_count_zero.
+  - exact master_summary_declares_project_local_admits_count_zero.
 Qed.
 
 Definition chsh_trace_semantic_boundary : semantic_boundary_entry :=
@@ -1206,7 +1240,7 @@ Definition exposed_import_spine : list string :=
   accounted for separately in the full-file theorem inventory below. *)
 
 Definition master_exported_theorem_names : list string :=
-  [ "master_summary_no_hidden_project_assumptions_verified";
+  [ "master_summary_declares_no_hidden_project_assumptions";
     "master_mu_zero_witness_sound";
     "master_mu_zero_algebraic_bound";
     "master_classical_bound";
@@ -1235,7 +1269,7 @@ Definition master_exported_theorem_names : list string :=
     "master_non_circular_mu_zero_locc" ].
 
 Definition master_theorem_metadata_ledger : list TheoremMetadata :=
-  [ {| metadata_name := "master_summary_no_hidden_project_assumptions_verified";
+  [ {| metadata_name := "master_summary_declares_no_hidden_project_assumptions";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
     {| metadata_name := "master_mu_zero_witness_sound";
        metadata_scope := Structural; metadata_status := StatusUnconditional; metadata_role := WrapperOnly |};
@@ -1309,7 +1343,7 @@ Proof.
 Qed.
 
 Definition summary_file_theorem_names : list string :=
-  [ "master_summary_no_hidden_project_assumptions_verified";
+  [ "master_summary_declares_no_hidden_project_assumptions";
     "exposed_zero_marginal_psd_contractivity";
     "exposed_trace_bridge_content";
     "exposed_non_circularity_content";
@@ -1359,7 +1393,7 @@ Definition summary_file_theorem_names : list string :=
     "master_non_circular_classical_witness";
     "master_non_circular_mu_zero_locc";
     "thiele_machine_core_summary_verified";
-    "thiele_machine_is_complete" ].
+    "thiele_machine_core_summary_verified_export" ].
 
 Theorem summary_file_theorem_inventory_explicit :
   List.length summary_file_theorem_names = 51%nat.
@@ -1390,7 +1424,7 @@ Definition kernel_story_coverage_ledger : list kernel_story_coverage_entry :=
        coverage_support := [ "master_non_circularity"; "master_non_circular_mu_cost_primitives"; "master_non_circular_classical_witness"; "master_non_circular_mu_zero_locc" ];
        coverage_note := "Kernel-level non-circularity is decomposed into explicit sub-certificates." |};
     {| coverage_area := AreaAssumptionSurface;
-       coverage_support := [ "master_summary_assumptions"; "master_summary_no_hidden_project_assumptions_verified" ];
+       coverage_support := [ "master_summary_assumptions"; "master_summary_declares_no_hidden_project_assumptions" ];
        coverage_note := "Assumption recording is explicit, but exact dependency extraction is bounded separately." |};
     {| coverage_area := AreaSemanticBoundary;
        coverage_support := [ "chsh_trace_semantic_boundary"; "verification_semantic_boundary"; "trace_quantum_model_semantic_boundary"; "thermo_einstein_semantic_boundary" ];
@@ -1437,17 +1471,17 @@ Qed.
 
 Definition master_inquisitor_assumption_artifact : external_artifact_reference :=
   {| artifact_path := "coq/INQUISITOR_ASSUMPTIONS.json";
-     artifact_sha256 := "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7";
+     artifact_sha256 := "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a";
      artifact_role := "machine-generated Inquisitor assumption-surface artifact" |}.
 
 Definition master_assumption_manifest_boundary : list manifest_boundary_entry :=
   [ {| manifest_item := "project-local axioms count";
        manifest_level := LocallyCheckedAgainstDeclaration;
-       manifest_source := "master_summary_no_hidden_project_assumptions_verified";
+       manifest_source := "master_summary_declares_no_hidden_project_assumptions";
        manifest_limit := "Proves the declared count is 0 inside this file; does not independently extract repository dependencies." |};
     {| manifest_item := "project-local admits count";
        manifest_level := LocallyCheckedAgainstDeclaration;
-       manifest_source := "master_summary_no_hidden_project_assumptions_verified";
+       manifest_source := "master_summary_declares_no_hidden_project_assumptions";
        manifest_limit := "Proves the declared count is 0 inside this file; does not independently extract repository dependencies." |};
     {| manifest_item := "standard dependency names";
        manifest_level := ExternallyAuditedArtifact;
@@ -1461,7 +1495,7 @@ Definition master_assumption_manifest_boundary : list manifest_boundary_entry :=
 Definition master_assumption_artifact_pinned : Prop :=
   artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json" /\
   artifact_sha256 master_inquisitor_assumption_artifact =
-    "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7".
+    "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a".
 
 Lemma master_assumption_artifact_path_pinned :
   artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json".
@@ -1471,7 +1505,7 @@ Qed.
 
 Lemma master_assumption_artifact_sha256_pinned :
   artifact_sha256 master_inquisitor_assumption_artifact =
-    "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7".
+    "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a".
 Proof.
   reflexivity.
 Qed.
@@ -1482,7 +1516,7 @@ Proof.
   change
     (artifact_path master_inquisitor_assumption_artifact = "coq/INQUISITOR_ASSUMPTIONS.json" /\
      artifact_sha256 master_inquisitor_assumption_artifact =
-       "6a427ab76ac0ec549f00f348ea41a01350bde841b01b6057171f834ed2c57fa7").
+       "192c3a8b5bb33ae9ddb15c8d1a278105ea2f17309559e0f6dc47061c309c945a").
   split.
   - exact master_assumption_artifact_path_pinned.
   - exact master_assumption_artifact_sha256_pinned.
@@ -1498,7 +1532,7 @@ Theorem master_assumption_boundary_explicit :
 Proof.
   unfold master_assumption_boundary_statement.
   split.
-  - exact master_summary_no_hidden_project_assumptions_verified.
+  - exact master_summary_declares_no_hidden_project_assumptions.
   - split.
     + reflexivity.
     + exact master_assumption_artifact_is_pinned.
@@ -2679,7 +2713,7 @@ Qed.
 Definition thiele_machine_complete : Prop := thiele_machine_core_summary_holds.
 
 (* AUDIT:
-  theorem: thiele_machine_is_complete
+  theorem: thiele_machine_core_summary_verified_export
   status: definitional
   kind: export-only
   depends_on: thiele_machine_core_summary_verified
@@ -2689,8 +2723,8 @@ Definition thiele_machine_complete : Prop := thiele_machine_core_summary_holds.
   external_interpretation: prefer the audit-facing name thiele_machine_core_summary_verified
 *)
 (** Theorem 10b: export alias for the core summary bundle, under the
-    short name [thiele_machine_is_complete]. *)
-Theorem thiele_machine_is_complete : thiele_machine_complete.
+    short name [thiele_machine_core_summary_verified_export]. *)
+Theorem thiele_machine_core_summary_verified_export : thiele_machine_complete.
 Proof.
   change thiele_machine_core_summary_holds.
   unfold thiele_machine_core_summary_holds.

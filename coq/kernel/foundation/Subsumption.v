@@ -16,8 +16,17 @@ Import ListNotations.
 
 From Kernel Require Import Kernel KernelTM KernelThiele.
 
-(* INQUISITOR NOTE: proof-connectivity -- bridged to Thiele machine foundations. *)
-From Kernel Require Import MuCostModel.
+(* INQUISITOR NOTE: proof-connectivity waiver. This file stands on its own
+   mathematics and does not engage VM semantics. No definition or theorem here
+   mentions VMState, vm_step, vm_mu, MuCostModel or instruction_cost. Any
+   Kernel module it imports is a peer result in the same mathematical
+   development, not the VM step relation.
+
+   The audit is waived rather than satisfied: satisfying it from inside would
+   mean importing the kernel without using it, which asserts a bridge that is
+   not here. Where these results feed the mu-ledger, they do so through the
+   theorems downstream that consume them. Counted in the WAIVERS census in
+   INQUISITOR_REPORT.md. *)
 
 Module K := Kernel.
 Module KTM := KernelTM.
@@ -48,8 +57,13 @@ Proof.
   simpl in H2. discriminate.
 Qed.
 
-(* Main theorem: The Thiele instruction set properly extends the Turing instruction set *)
-Theorem main_subsumption :
+(* An existence witness: the sighted class is not contained in the Turing
+   class, witnessed by [sighted_witness_program].
+
+   Subsumption in the other direction, that every Turing program embeds in
+   the substrate, is a separate claim and lives in
+   TuringClassicalEmbedding.v. This theorem does not establish it. *)
+Theorem sighted_program_not_turing_witness :
   (* Strict containment - sighted programs are not Turing programs *)
   exists (p : K.program),
     program_is_sighted p /\ ~ K.program_is_turing p.

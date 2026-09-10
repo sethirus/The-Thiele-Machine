@@ -200,6 +200,20 @@ def pytest_runtest_setup(item):
             if strict_mode:
                 pytest.fail(msg)
             pytest.skip(msg)
+        # The Node verifier shells out to the OCaml extracted runner, so node
+        # alone is not enough: on a checkout without `make ocaml-runner` these
+        # tests died with hard errors instead of skipping, which read as
+        # "the project is broken" rather than "a backend is missing".
+        if not _extracted_runner_available():
+            msg = (
+                "strict_node requires a runnable "
+                f"{REPO_ROOT / 'build' / 'extracted_vm_runner'} "
+                "(the Node verifier shells out to it); build it with "
+                "`make ocaml-runner`"
+            )
+            if strict_mode:
+                pytest.fail(msg)
+            pytest.skip(msg)
 
     timeout = _get_timeout(item)
     # SIGALRM is available on Unix and is reliable for per-test timeouts
@@ -226,15 +240,29 @@ except Exception:
     pass
 
 
+# In CI the freshness gates must be able to fail: a stale committed artifact is
+# a real defect and the build should say so. Locally we regenerate first so a
+# routine source edit doesn't bounce the suite; `git diff` still shows what
+# changed, so the developer can stage it. Mirrors the same split in
+# tests/test_rtl_pipeline_manifest.py.
+IN_CI = bool(os.environ.get("CI") or os.environ.get("GITHUB_ACTIONS"))
+
+
 @pytest.fixture(scope="session", autouse=True)
 def refresh_proof_dependency_artifacts():
     """Regenerate proof dependency DAG and MasterSummary artifacts once per
-    test session so freshness checks never fail due to stale backing files.
+    test session **when running locally**, so freshness checks don't fail on
+    derived files the developer didn't hand-edit.
 
-    Runs silently; failures are non-fatal (artifacts stay as-is and the
-    individual freshness tests will auto-update via copy if needed).
+    In CI this is a no-op: the freshness tests then compare the committed
+    artifacts against a fresh regeneration and hard-fail on drift. Without
+    that split the gates could not detect a corrupt or stale committed
+    artifact, because this fixture would have overwritten it first.
     """
     import subprocess
+
+    if IN_CI:
+        return
 
     scripts = REPO_ROOT / "scripts"
     artifact_dir = REPO_ROOT / "artifacts"

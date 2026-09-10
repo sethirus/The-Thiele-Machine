@@ -141,7 +141,10 @@ def test_required_physics_files_compiled():
     )
 
 
-@pytest.mark.coq
+# Deliberately NOT @pytest.mark.coq: this is a pure text scan over .v sources
+# and needs no Coq toolchain. Marking it coq skipped it on exactly the machines
+# whose reviewers most need it -- someone auditing the "zero Admitted" claim
+# from a clean checkout without Coq installed.
 def test_zero_admits_in_coq_sources():
     """No .v file in coq/ (excluding patches/) may contain Admitted."""
     offenders: list[str] = []
@@ -160,7 +163,8 @@ def test_zero_admits_in_coq_sources():
     )
 
 
-@pytest.mark.coq
+# Deliberately NOT @pytest.mark.coq: pure text scan, no toolchain required.
+# See the note on test_zero_admits_in_coq_sources above.
 def test_no_bare_axioms_in_kernel_outside_sections():
     """
     Non-Section Axiom/Parameter declarations are forbidden in kernel/ files.

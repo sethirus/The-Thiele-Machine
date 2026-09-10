@@ -3917,7 +3917,13 @@ Proof.
     intros s m. unfold P_cert, set_mu. simpl. reflexivity.
 Qed.
 
-Corollary P_full_is_minimal_complete_extension :
+(** Irredundancy, not minimality: "minimal" would assert leastness in an
+    order, and no order relation over projections is defined in this
+    development. What is proved is that neither vm_mu nor vm_certified can be
+    dropped — (b) and (c) below quantify over every carrier type and every
+    projection. See the extended note on the twin corollary in
+    coq/kernel/nfi/NecessityAbstract.v. *)
+Corollary P_full_complete_neither_mu_nor_cert_droppable :
   mu_complete P_full /\ cert_complete P_full /\
   (forall {C : Type} (P : VMState -> C),
      proj_forgets_mu P -> ~ mu_complete P) /\
@@ -11080,7 +11086,7 @@ Print Assumptions vm_mu_not_classically_determined.
 Print Assumptions vm_certified_not_classically_determined.
 Print Assumptions mu_ledger_mutual_independence.
 Print Assumptions mu_ledger_minimality.
-Print Assumptions P_full_is_minimal_complete_extension.
+Print Assumptions P_full_complete_neither_mu_nor_cert_droppable.
 
 (* No Free Insight *)
 Print Assumptions non_cert_setter_preserves_cert.
