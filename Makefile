@@ -260,15 +260,7 @@ assumption-receipt:
 
 # Fail if the committed receipt differs from a fresh re-derivation.
 assumption-receipt-check: assumption-receipt
-	@echo "[assumption-receipt-check] Diffing regenerated receipt against committed..."
-	@if ! git diff --quiet -- artifacts/print_assumptions_all_proofs.json \
-	                          artifacts/print_assumptions_all_proofs.csv \
-	                          artifacts/print_assumptions_all_proofs.txt; then \
-	  echo "FAIL: committed assumption receipt is stale. Diff:"; \
-	  git diff --stat -- artifacts/print_assumptions_all_proofs.*; \
-	  exit 1; \
-	fi
-	@echo "[assumption-receipt-check] OK: committed receipt matches re-derivation."
+	@python3 scripts/check_assumption_receipt.py
 
 # Install the Thiele Machine git hooks (one-time per checkout).
 # After this, commits that touch tracked manifest sources will auto-regenerate
